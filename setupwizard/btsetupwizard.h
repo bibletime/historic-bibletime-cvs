@@ -28,6 +28,7 @@ class QWidgetStack;
 class QButton;
 
 class CSwordBackend;
+class InstallPage_1;
 
 /** The main window of the application. Provides the possibilities to install/remove and download modules.
   * @author The BibleTime team
@@ -38,20 +39,19 @@ public:
 	BTSetupWizard(QWidget *parent=0, const char *name=0);
 	~BTSetupWizard();
 
+	QWidgetStack* m_widgetStack;
+	QWidget* m_mainPage;
+	QWidget* m_removePage;
+
 private: // Private methods
   void addMainPage(void);
   /** No descriptions */
   void addRemovePage();
   /** No descriptions */
   void populateRemoveModuleListView();
-  /** No descriptions */
-  void addInstall_1Page();
 
-	QWidgetStack* m_widgetStack;
 
 	QCheckBox* m_startBibleTimeBox;
-
-	QLabel* m_installSourceLabel;
 
 	QListView* m_removeModuleListView;
 	QLabel* m_populateListNotification;
@@ -60,16 +60,15 @@ private: // Private methods
 
 	CSwordBackend* m_backend;
 
-	QWidget* m_mainPage;
-	QWidget* m_install_1Page;
-	QWidget* m_removePage;
+
+	InstallPage_1* m_InstallPage_1;
 
 private slots: // Private slots
   void slot_exitRequested();
   /** No descriptions */
   void slot_backtoMainPage();
   /** No descriptions */
-  void slot_gotoInstall_1Page();
+//  void slot_gotoInstall_1Page();
   /** No descriptions */
   void slot_gotoRemovePage();
   /** No descriptions */

@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "btsetupwizard.h"
+#include "install.h"
 #include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
 #include "frontend/ctoolclass.h"
@@ -58,9 +59,12 @@ BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(p
 	m_widgetStack = new QWidgetStack(main);
   mainLayout->addWidget(m_widgetStack);
   setCentralWidget(main);
-  
+
+
+	m_InstallPage_1 = new InstallPage_1(this); //before the addpage calls, or connect() won't work!
+
 	addMainPage();
-	addInstall_1Page();
+  m_InstallPage_1->addPage();
 	addRemovePage();
 
 	slot_backtoMainPage();  
@@ -138,57 +142,13 @@ void BTSetupWizard::addMainPage(void){
  	m_startBibleTimeBox->setChecked( args->isSet("start-bibletime") );
   layout->addWidget(m_startBibleTimeBox, 5, 2);
 
-	connect(installButton, SIGNAL(clicked()), this, SLOT(slot_gotoInstall_1Page()));
+	connect(installButton, SIGNAL(clicked()), m_InstallPage_1, SLOT( activate() ));
 	connect(removeButton, SIGNAL(clicked()), this, SLOT(slot_gotoRemovePage()));
 	connect(exitButton, SIGNAL(clicked()), this, SLOT(slot_exitRequested()));
 }
 
 /** No descriptions */
-void BTSetupWizard::addInstall_1Page(){
-  m_install_1Page = new QWidget(0);
-	m_widgetStack->addWidget(m_install_1Page);
 
-	m_mainPage->setMinimumSize(500,400);
-
-	QGridLayout* layout = new QGridLayout(m_install_1Page, 8, 2);
-	layout->setMargin(5);
-	layout->setSpacing(10);
-	layout->setRowStretch(6,5);
-
-	QLabel* installLabel = CToolClass::explanationLabel(m_install_1Page,
-		"Install/update modules - Step 1",
-		"asdf aösdljkfha sdfjha sdkfjhasd lkfjhasd lfkjhasldk fj") ;
-	layout->addMultiCellWidget(installLabel, 0,0,0,1);
-
-	QLabel* sourceHeadingLabel = new QLabel("<b>Select source location</b>",m_install_1Page);
-	layout->addMultiCellWidget(sourceHeadingLabel, 1,1,0,1);
-
-	QComboBox* sourceCombo = new QComboBox(m_install_1Page);
-	layout->addWidget(sourceCombo, 2, 0);
-
-	QPushButton* maintainSourcesButton = new QPushButton(m_install_1Page);
-	maintainSourcesButton->setText("Maintain");
-	layout->addWidget(maintainSourcesButton, 2, 1, Qt::AlignLeft);
-
-	m_installSourceLabel = new QLabel("ftp://crosswire.org/pub/sword",m_install_1Page);
-	layout->addMultiCellWidget(m_installSourceLabel, 3,3,0,1);
-
-	QLabel* targetHeadingLabel = new QLabel("<b>Select target location</b>",m_install_1Page);
-	layout->addMultiCellWidget(targetHeadingLabel, 4,4,0,1);
-
-	QComboBox* targetCombo = new QComboBox(m_install_1Page);
-	layout->addWidget(targetCombo, 5, 0);
-
-  QPushButton* backButton = new QPushButton(m_install_1Page);
-	backButton->setText( "Back");
-	layout->addWidget(backButton, 7, 0, Qt::AlignLeft);
-
-  QPushButton* continueButton = new QPushButton(m_install_1Page);
-	continueButton->setText( "Connect to source");
-	layout->addWidget(continueButton, 7, 1, Qt::AlignRight);
-
-	connect(backButton, SIGNAL(clicked()), this, SLOT(slot_backtoMainPage()));
-}
 
 /** No descriptions */
 void BTSetupWizard::addRemovePage(){
@@ -334,11 +294,11 @@ void BTSetupWizard::slot_backtoMainPage(){
   m_mainPage->show();
 }
 
-/** No descriptions */
-void BTSetupWizard::slot_gotoInstall_1Page(){
-  m_widgetStack->raiseWidget(m_install_1Page);
-  m_install_1Page->show();
-}
+///** No descriptions */
+//void BTSetupWizard::slot_gotoInstall_1Page(){
+//  m_widgetStack->raiseWidget(m_install_1Page);
+//  m_install_1Page->show();
+//}
 /** No descriptions */
 void BTSetupWizard::slot_gotoRemovePage(){
   m_widgetStack->raiseWidget(m_removePage);
