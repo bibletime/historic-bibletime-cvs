@@ -216,9 +216,6 @@ void BibleTime::refreshDisplayWindows() {
 
 /** Called before quit. */
 bool BibleTime::queryExit(){
-//	qWarning("BibleTime::queryExit()");
-//	return true;
-
   if (!m_initialized)
   	return false;
 	saveSettings();
@@ -227,9 +224,6 @@ bool BibleTime::queryExit(){
 
 /** Called before a window is closed */
 bool BibleTime::queryClose(){
-//	qWarning("BibleTime::queryClose()");
-//	return true;
-
 	bool ret = true;
 	for ( unsigned int index = 0; index < m_mdi->windowList().count(); ++index) {
 		if (CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index))) {
@@ -242,8 +236,11 @@ bool BibleTime::queryClose(){
 /** No descriptions */
 void BibleTime::show(){
 	KMainWindow::show();	
-	//if we show BibleTime for the first time we are ready for processing
-	//but not before this point.
+	/*
+  * If we show BibleTime for the first time we are ready for processing
+	* but not before this point.
+  * This is a workaround for a bug which occured in KDE 2, not sure if it's fixed in KDE 3.x.
+  */
 	m_initialized = true;
 }
 

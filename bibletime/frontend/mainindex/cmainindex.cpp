@@ -271,7 +271,6 @@ bool CMainIndex::acceptDrag( QDropEvent* event ) const {
 
 /** No descriptions */
 void CMainIndex::initTree(){
-//  qWarning("CMainIndex::initTree()");
   addGroup(CItemBase::BookmarkFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::BibleModuleFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::BookModuleFolder, QString::fromLatin1("*"));
@@ -279,7 +278,6 @@ void CMainIndex::initTree(){
   addGroup(CItemBase::DevotionalModuleFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::GlossaryModuleFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::LexiconModuleFolder, QString::fromLatin1("*"));
-//  qWarning("CMainIndex::initTree() finshed");
 }
 
 /** No descriptions */
@@ -290,7 +288,7 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* onItem){
     * folder or one of its subfolders
     * we remove the current items because the new ones will be inserted soon.
     */
-    if (dynamic_cast<CBookmarkFolder*>(onItem) || dynamic_cast<CBookmarkFolder::SubFolder*>(onItem)) { //re drop onto the bookmark folder or one subfolder
+    if (dynamic_cast<CBookmarkFolder*>(onItem) || dynamic_cast<Bookmarks::SubFolder*>(onItem)) { //we drop onto the bookmark folder or one subfolder
       QPtrList<QListViewItem> items = selectedItems();
       items.setAutoDelete(true);
       items.clear(); //delete the current items
@@ -433,21 +431,15 @@ void CMainIndex::printBookmarks(){
 /** Deletes the selected entries. */
 void CMainIndex::deleteEntries(){
   QPtrList<QListViewItem> items = selectedItems();
-//  QPtrList<QListViewItem> deleteItems;
 
-//we have to go backwards because otherwise deleting folders would delete their childs => crash  
-  
+// We have to go backwards because otherwise deleting folders would delete their childs => crash
   for (items.last(); items.current(); items.prev()) {
     if (CItemBase* i = dynamic_cast<CItemBase*>(items.current())) {
       if (i->enableAction(CItemBase::DeleteEntries)) {
-//        deleteItems.append(i);
         delete i;
       }
     }
   }
-
-//  deleteItems.setAutoDelete(true);
-//  deleteItems.clear();
 }
 
 /** Opens the searchdialog for the selected modules. */

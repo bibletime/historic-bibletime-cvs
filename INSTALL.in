@@ -7,8 +7,8 @@ it's possible.
 
 BibleTime @VERSION@ requires:
 	-QT 3.0.x or later
-	-KDE 3.x (at least the libraries (kdelibs) and the base package (kdebase))
-	-SWORD 1.5.3
+	-KDE >= 3.0 (at least the libraries (kdelibs) and the base package (kdebase))
+	-SWORD >= 1.5.5
 
 If you don't have the sources already please browse to www.bibletime.info to see
 a list of required packages with their download URLs.	
@@ -37,9 +37,9 @@ make install				# install BibleTime
 ---------------------------
 useful make options
 ---------------------------
-make clean				#removes binaries from the directory
-					#where BibleTime was compiled, but not the source
-make uninstall				#removes BibleTime from your system
+make clean				# Removes binaries from the directory
+					        # where BibleTime was compiled, but not the source
+make uninstall		# Removes BibleTime from your system
 
 
 

@@ -74,21 +74,24 @@ QString CToolClass::textToHTML(const QString& text){
 
 /** Creates the file filename and put text into the file.
  */
-bool CToolClass::savePlainFile( const QString& filename, const QString& text){
+bool CToolClass::savePlainFile( const QString& filename, const QString& text, const bool& forceOverwrite){
 	QFile saveFile(filename);
 	bool ret;
 		
 	if (saveFile.exists()) {
-		if (KMessageBox::warningYesNo(0,
-				QString::fromLatin1("<qt><B>%1</B><BR>%2</qt>")
-					.arg( i18n("The file already exists.") )
-					.arg( i18n("Do you want to overwrite it?")))
-				== KMessageBox::No
-			)
+		if (!forceOverwrite && KMessageBox::warningYesNo(0,
+				  QString::fromLatin1("<qt><B>%1</B><BR>%2</qt>")
+					  .arg( i18n("The file already exists.") )
+					  .arg( i18n("Do you want to overwrite it?")
+          )
+        ) == KMessageBox::No
+		) {
 			return false;
-		else
+    }
+		else { //either the user chose yes or forceOverwrite is set
 			saveFile.remove();
-	}
+    }
+	};
 	
 	if ( saveFile.open(IO_ReadWrite) ) {
 		QTextStream textstream( &saveFile );

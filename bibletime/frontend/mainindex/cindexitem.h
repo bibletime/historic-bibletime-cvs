@@ -40,7 +40,7 @@ public:
     Unknown = 0,
     BookmarkFolder,
     Bookmark,
-    OldBookmarkFolder, /* Bookmarks in the old 1.x <= 1.2 format*/
+    OldBookmarkFolder, /* Bookmarks in the old format from BibleTime 1.1.x and 1.2.x */
     BibleModuleFolder,
     CommentaryModuleFolder,
     LexiconModuleFolder,
@@ -257,14 +257,6 @@ public:
   virtual void initTree();
   virtual void init();
   virtual void addGroup(const Type type, const QString& fromLanguage, const QString& toLanguage);
-      
-  /**
-  * Returns the language this glossary folder maps from.
-  */
-//  virtual const QString& language() const {
-//    return fromLanguage();
-//  };
-
   /**
   * Returns the language this glossary folder maps from.
   */
@@ -281,17 +273,62 @@ private:
 
 class CBookmarkFolder : public CTreeFolder {
 public:
+	CBookmarkFolder(CMainIndex* mainIndex, const Type type = BookmarkFolder);
+	CBookmarkFolder(CFolderBase* parentItem, const Type type = BookmarkFolder);
+	virtual ~CBookmarkFolder();
+  virtual const bool enableAction(const MenuAction action);
+  virtual void exportBookmarks();
+  virtual void importBookmarks();
+  virtual bool acceptDrop(const QMimeSource * src) const;
+  virtual void dropped(QDropEvent *e);
+
+  /**
+  * Loads bookmarks from XML content
+  */
+  const bool loadBookmarksFromXML( const QString& xml );
+  /**
+  * Loads bookmarks from a file.
+  */
+  const bool loadBookmarks( const QString& );
+  /**
+  * Saves the bookmarks in a file.
+  */
+  const bool saveBookmarks( const QString& filename, const bool& forceOverwrite = true );
+
+protected: // Protected methods
+  virtual void initTree();
+};
+
+
+namespace Bookmarks {
+  class OldBookmarksFolder : public CBookmarkFolder {
+  public:
+  	OldBookmarksFolder(CTreeFolder* item);
+  	virtual ~OldBookmarksFolder();
+    virtual void initTree();
+    /**
+    * Returns the XML code which represents the content of this folder.
+    */
+    virtual QDomElement saveToXML( QDomDocument& document );
+    /**
+    * Loads the content of this folder from the XML code passed as argument to this function.
+    */
+    virtual void loadFromXML( QDomElement& element );
+  };
+
   class OldBookmarkImport {
   public:
     /**
     * This function converts the old config based bookmarks into a valid 1.3 XML file, so importing is easy
     */
-    const QString oldBookmarksXML( const QString& configFileName = QString::null );
+    static const QString oldBookmarksXML( const QString& configFileName = QString::null );
   private:
-  
+  // made provate because we offer one static functions which doesn't need constructor and destructor
+    OldBookmarkImport();
+    ~OldBookmarkImport();    
   };
-  
-  class SubFolder : public CFolderBase {
+      
+  class SubFolder : public CBookmarkFolder {
   public:
     SubFolder(CFolderBase* parentItem, const QString& caption);
     SubFolder(CFolderBase* parentItem, QDomElement& xml);
@@ -322,55 +359,6 @@ public:
   private:
     QDomElement m_startupXML;
   };
-
-	CBookmarkFolder(CMainIndex* mainIndex, const Type type = BookmarkFolder);
-	CBookmarkFolder(CFolderBase* parentItem, const Type type = BookmarkFolder);
-	virtual ~CBookmarkFolder();
-  virtual const bool enableAction(const MenuAction action);
-  virtual void exportBookmarks();
-  virtual void importBookmarks();
-//  const bool importOldBookmarks( const QString& fileName = QString::null );
-  virtual bool acceptDrop(const QMimeSource * src) const;
-  virtual void dropped(QDropEvent *e);
-
-  /**
-  * Loads bookmarks from XML content
-  */
-  const bool loadBookmarksFromXML( const QString& xml );
-  /**
-  * Loads bookmarks from a file.
-  */
-  const bool loadBookmarks( const QString& );
-  /**
-  * Saves the bookmarks in a file.
-  */
-  const bool saveBookmarks( const QString& );
-
-protected: // Protected methods
-  virtual void initTree();
-
-//private:
-//  CFolderBase* findParent( const int ID );
-//  const int parentId(CItemBase *item);
-//  const bool readOldBookmarkGroups(KConfig* configFile );  
 };
-
-class COldBookmarkFolder : public CBookmarkFolder {
-public:
-	COldBookmarkFolder(CTreeFolder* item);
-	virtual ~COldBookmarkFolder();
-  virtual void initTree();
-  /**
-  * Returns the XML code which represents the content of this folder.
-  */
-  virtual QDomElement saveToXML( QDomDocument& document );
-  /**
-  * Loads the content of this folder from the XML code passed as argument to this function.
-  */
-  virtual void loadFromXML( QDomElement& element );
-
-
-};
-
-
+  
 #endif

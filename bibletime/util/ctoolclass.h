@@ -67,7 +67,7 @@ public:
   * @return True if saving was sucessful, otherwise false
   * @author Joachim Ansorg
   */
-  static bool savePlainFile( const QString& filename, const QString& text);
+  static bool savePlainFile( const QString& filename, const QString& text, const bool& forceOverwrite = false);
   /**
  	* Returns the icon used for the module given as aparameter.
  	*/

@@ -147,7 +147,7 @@ void CSearchResultView::executed(QListViewItem* item){
 }
 
 /** Reimplementation to show the popup menu. */
-void CSearchResultView::showPopup(KListView*, QListViewItem* i, const QPoint& point){
+void CSearchResultView::showPopup(KListView*, QListViewItem*, const QPoint& point){
   m_popup->exec(point);
 }
 
@@ -353,9 +353,8 @@ CSwordModuleInfo* const CModuleResultView::activeModule(){
 }
 
 /** No descriptions */
-void CModuleResultView::showPopup(KListView*, QListViewItem* i, const QPoint& point){
+void CModuleResultView::showPopup(KListView*, QListViewItem*, const QPoint& point){
   //make sure that all entries have the correct status
-
   m_popup->exec(point);
 }
 
@@ -528,7 +527,7 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
   }
   else if (searchFlags & CSwordModuleSearch::multipleWords) { //multiple words
     QStringList words = QStringList::split(" ", searchedText);
-    for ( int wi = 0; wi < words.count(); ++wi ) { //search for every word in the list
+    for ( int wi = 0; (unsigned int)wi < words.count(); ++wi ) { //search for every word in the list
       QString word = words[ wi ];
       length = word.length();
       index = 0; //for every word start at the beginning
@@ -572,7 +571,6 @@ void CSearchResultPage::initConnections(){
 
 /** Shows a dialog with the search analysis of the current search. */
 void CSearchResultPage::showAnalysis(){
-//  qWarning("void CSearchResultPage::showAnalysis(): %i modules", m_modules.count());
   CSearchAnalysisDialog dlg(m_modules, this);
   dlg.exec();
 }
@@ -593,19 +591,8 @@ const QString CSearchOptionsPage::searchText() {
   // we emulate OR by RegExp
   if (m_multipleWordsORRadio->isChecked()) {
     QString regexp(m_searchTextCombo->currentText());
-
-//    regexp = regexp.stripWhiteSpace();
     regexp = regexp.simplifyWhiteSpace();
-    regexp.replace( QRegExp("\\s"), "|" ); //replace white sace with OR marker
-
-//    int idx = -1;
-//    QChar orsymbol('|');
-//    while ((idx = regexp.find(' ', idx+1)) != -1) {
-//      // use insert as replace() API is pretty strange
-//      regexp.insert(idx, orsymbol);
-//      idx++;
-//    }
-
+    regexp.replace( QRegExp("\\s+"), "|" ); //replace one or more white spaces with regexp's OR marker
     return regexp;
   }
   return m_searchTextCombo->currentText();
@@ -613,7 +600,6 @@ const QString CSearchOptionsPage::searchText() {
 
 /** Sets the search text used in the page. */
 void CSearchOptionsPage::setSearchText(const QString& text) {
-////  m_searchTextCombo->setEditText(text);
 	bool found = false;
   int i = 0;
 	for (i = 0; !found && i < m_searchTextCombo->count(); ++i) {
@@ -724,14 +710,23 @@ void CSearchOptionsPage::initView(){
 
 /** Sets the modules used by the search. */
 void CSearchOptionsPage::setModules( ListCSwordModuleInfo modules ) {
-  m_modules = modules;
   QString t = i18n("Searching in: ");
-  CSwordModuleInfo* lastModule = modules.last();
-  for (modules.first(); modules.current(); modules.next()) {
-    t += modules.current()->name();
-    if (modules.current() != lastModule)
-      t += QString::fromLatin1(", ");
-  }
+
+  m_modules.clear(); //remove old modules
+  // We make sure that a module is only one time in the list, e.g. if two display windows of the same module are opened
+  CSwordModuleInfo* current = modules.first();
+  while (current) {
+    if ( !m_modules.contains(current) ) {
+      m_modules.append( current );                     
+                         
+      t += current->name();
+      if (current != modules.getLast()) {
+        t += QString::fromLatin1(", ");
+      }
+    }
+    current = modules.next(); //next modules
+  };
+
   m_modulesLabel->setText(t);
 }
 
@@ -750,7 +745,6 @@ const ListCSwordModuleInfo CSearchOptionsPage::modules(){
 
 /** Prepares the stuff which is required for a search, e.g. setting back the percentage bars. */
 void CSearchOptionsPage::prepareSearch(){
-//  qWarning("CSearchOptionsPage::prepareSearch");
 	m_overallProgressBar->setProgress(0);
 	m_currentProgressBar->setProgress(0);
 }

@@ -62,7 +62,7 @@ void CHTMLDialog::setText(const QString& text){
 }
 
 /** Initializes this widget. */
-void CHTMLDialog::init(const bool enableHistory){
+void CHTMLDialog::init(const bool /*enableHistory*/){
   QVBox* page = makeVBoxMainWidget();
 	m_htmlPart = new KHTMLPart(page);
 //  m_htmlPart->view()->setHScrollBarMode(QScrollView::AlwaysOff);
@@ -73,7 +73,7 @@ void CHTMLDialog::init(const bool enableHistory){
 }
 
 /** No descriptions */
-void CHTMLDialog::openURL( const KURL& url, const KParts::URLArgs& args){
+void CHTMLDialog::openURL( const KURL& url, const KParts::URLArgs& /*args*/){
   m_htmlPart->closeURL();
   m_htmlPart->openURL(url);
 }

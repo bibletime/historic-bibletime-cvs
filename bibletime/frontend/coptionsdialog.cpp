@@ -259,7 +259,7 @@ to be displayed correctly.")
 
 
   layout->addLayout(hLayout);
-#warning TODO: remember the last selected font and jump there.
+//#warning TODO: remember the last selected font and jump there.
 
  	m_settings.fonts.fontChooser = new KFontChooser(page, "fonts", false, QStringList(), true, 5);
  	m_settings.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog."));

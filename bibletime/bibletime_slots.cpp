@@ -296,9 +296,9 @@ void BibleTime::slotSearchModules() {
 	QWidgetList windows = m_mdi->windowList();
 	for ( int i = 0; i < static_cast<int>(windows.count()); ++i ) {
     if (CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.at(i))) {
-      ListCSwordModuleInfo useModules = w->modules();
-      for (CSwordModuleInfo* m = useModules.first(); m; m = useModules.next()) {
-        modules.append(m);
+      ListCSwordModuleInfo windowModules = w->modules();
+      for (CSwordModuleInfo* module = windowModules.first(); module; module = windowModules.next()) {
+        modules.append(module);
       };
     };
   };
