@@ -111,7 +111,7 @@ msgstr ""
 
 #: index.docbook:69
 #, no-c-format
-msgid "Sword modules are provided with either iso-8859-1 (Latin-1) or iso-10646 (Unicode) encoding. You can tell how a module is encoded by &RMB; on the main index and selecting <guimenuitem>about this module</guimenuitem>."
+msgid "Sword modules are provided with either iso-8859-1 (Latin-1) or iso-10646 (Unicode) encoding. You can tell how a module is encoded by clicking with the right mouse button on the main index and selecting <guimenuitem>about this module</guimenuitem>."
 msgstr ""
 
 #: index.docbook:72

@@ -46,7 +46,7 @@ msgstr ""
 
 #: index.docbook:26
 #, no-c-format
-msgid "To select a document, &LMB; on the desired document group (Bibles, Commentaries, or Lexicons) to display the contents of a document group, &RMB; on the icon for the desired group. To open a document, &LMB; on it's icon."
+msgid "To select a document, click with the left mouse button on the desired document group (Bibles, Commentaries, or Lexicons) to display the contents of a document group, click with the right mouse button on the icon for the desired group. To open a document, click on it's icon."
 msgstr ""
 
 #: index.docbook:30
@@ -61,12 +61,12 @@ msgstr ""
 
 #: index.docbook:39
 #, no-c-format
-msgid "A document can be opened from an already opened document. Simply &LMB; on the verse number (pointer changes to hand) and drag it to the module list. Drop it on the name of the module you want to open, and it will open that module to the verse you dragged over. If you drag a verse number to an already open module, it will automatically jump that module to the verse dragged over. This works for Bibles and Commentaries only."
+msgid "A document can be opened from an already opened document. Simply lick with the left mouse button on the verse number (pointer changes to hand) and drag it to the module list. Drop it on the name of the module you want to open, and it will open that module to the verse you dragged over. If you drag a verse number to an already open module, it will automatically jump that module to the verse dragged over. This works for Bibles and Commentaries only."
 msgstr ""
 
 #: index.docbook:46
 #, no-c-format
-msgid "There are two other functions accessible through &RMB; on the document name. \"About This Module\" opens a window with information about copyright and other pertinent things about the selected document. \"Unlock This Module\" opens a small dialog for encrypted documents. This allows those with the key to enter it to decrypt the document and make it human-readable. Crosswire Bible Society must encrypt modules unless either the copyright holder provides permission for distribution as a sword module, or the text has passed into the public domain (copyright has expired). <ulink url=\"http://www.crosswire.org/sword/modules/aboutlocked.jsp\"> See information on locked modules on the Crosswire Bible Society web site.</ulink>"
+msgid "There are two other functions accessible through clicking with the right mouse button on the document name. \"About This Module\" opens a window with information about copyright and other pertinent things about the selected document. \"Unlock This Module\" opens a small dialog for encrypted documents. This allows those with the key to enter it to decrypt the document and make it human-readable. Crosswire Bible Society must encrypt modules unless either the copyright holder provides permission for distribution as a sword module, or the text has passed into the public domain (copyright has expired). <ulink url=\"http://www.crosswire.org/sword/modules/aboutlocked.jsp\"> See information on locked modules on the Crosswire Bible Society web site.</ulink>"
 msgstr ""
 
 #: index.docbook:59
@@ -76,7 +76,7 @@ msgstr ""
 
 #: index.docbook:59
 #, no-c-format
-msgid "You can search in a module by &RMB; on the module name in the module list and selecting \"Search in module(s)\". By shift &RMB; on other module names you can select more than one. Then follow the same procedure to open the search dialog. You will be searching in all of these documents. A complete description of the operation of the search features can be found."
+msgid "You can search in a module by clicking with the right mouse button on the module name in the module list and selecting \"Search in module(s)\". By pressing shift and clicking on other module names you can select more than one. Then follow the same procedure to open the search dialog. You will be searching in all of these documents. A complete description of the operation of the search features can be found."
 msgstr ""
 
 #: index.docbook:66 index.docbook:90
@@ -91,7 +91,7 @@ msgstr ""
 
 #: index.docbook:78
 #, no-c-format
-msgid "&RMB; on an empty part of the module tree window and select <guimenuitem>\"Create new group\"</guimenuitem> to create a new bookmark folder. You can use normal drag 'n' drop functions to drag verse numbers from search dialog results to the bookmark folder, and to rearrange bookmarks between folders. There is an import/export function for bookmarks also. From the <guimenu>right-mouse-button menu</guimenu>, select \"Export bookmarks\". This will bring up a dialog box for you to save the bookmark collection. They can be shared with other &bibletime; users, archived, etc. They can be imported in the same way. You can also &RMB; to change folder names and bookmark descriptions, and delete folders and bookmarks."
+msgid "Click with the right mouse button on an empty part of the module tree window and select <guimenuitem>\"Create new group\"</guimenuitem> to create a new bookmark folder. You can use normal drag 'n' drop functions to drag verse numbers from search dialog results to the bookmark folder, and to rearrange bookmarks between folders. There is an import/export function for bookmarks also. From the <guimenu>right-mouse-button menu</guimenu>, select \"Export bookmarks\". This will bring up a dialog box for you to save the bookmark collection. They can be shared with other &bibletime; users, archived, etc. They can be imported in the same way. You can also click with the right mouse button to change folder names and bookmark descriptions, and delete folders and bookmarks."
 msgstr ""
 
 #: index.docbook:103
@@ -161,7 +161,7 @@ msgstr ""
 
 #: index.docbook:134
 #, no-c-format
-msgid "The tool bar of commentary display windows has another button, with the picture of a pencil. <inlinemediaobject> <imageobject> <imagedata fileref=\"hdbk-op-pencil.png\"/> </imageobject> <textobject> <phrase>Enter your notes</phrase> </textobject> </inlinemediaobject> For the \"Personal\" commentary module, &LMB; the <guibutton>button with the picture of a pencil</guibutton> to enter your own notes, or to edit notes you've already entered. When you're done, &LMB; on the <guibutton>\"Save\" (disk) button</guibutton> to save your notes. To delete notes for a selected verse, &LMB; the <guibutton>delete verse button</guibutton> <inlinemediaobject> <imageobject> <imagedata fileref=\"hdbk-op-delete-verse.png\"/> </imageobject> <textobject> <phrase>Delete Verse Symbol</phrase> </textobject> </inlinemediaobject>."
+msgid "The tool bar of commentary display windows has another button, with the picture of a pencil. <inlinemediaobject> <imageobject> <imagedata fileref=\"hdbk-op-pencil.png\"/> </imageobject> <textobject> <phrase>Enter your notes</phrase> </textobject> </inlinemediaobject> For the \"Personal\" commentary module, click with mouse on the <guibutton>button with the picture of a pencil</guibutton> to enter your own notes, or to edit notes you've already entered. When you're done, click on the <guibutton>\"Save\" (disk) button</guibutton> to save your notes. To delete notes for a selected verse, click the <guibutton>delete verse button</guibutton> <inlinemediaobject> <imageobject> <imagedata fileref=\"hdbk-op-delete-verse.png\"/> </imageobject> <textobject> <phrase>Delete Verse Symbol</phrase> </textobject> </inlinemediaobject>."
 msgstr ""
 
 #: index.docbook:165
@@ -196,7 +196,7 @@ msgstr ""
 
 #: index.docbook:186
 #, no-c-format
-msgid "You can search in a document by &RMB; on the document name in the <guimenu>Main Index</guimenu> and selecting <guimenuitem>Search in module(s)</guimenuitem>. By shift- or ctrl-&RMB; on other module names you can select more than one. Then follow the same procedure to open the search dialog. You will be searching in all of these Documents."
+msgid "You can search in a document by clicking with the right mouse button on the document name in the <guimenu>Main Index</guimenu> and selecting <guimenuitem>Search in module(s)</guimenuitem>. By holding shift- or ctrl- and clicking on other module names you can select more than one. Then follow the same procedure to open the search dialog. You will be searching in all of these Documents."
 msgstr ""
 
 #: index.docbook:197
@@ -211,7 +211,7 @@ msgstr ""
 
 #: index.docbook:202
 #, no-c-format
-msgid "To access the search feature, &RMB; in the Main Index now in the drop down select the magnifying glass. You can also customize &bibletime; to put the search icon <inlinemediaobject> <imageobject> <imagedata fileref=\"find.png\" format=\"PNG\"/> </imageobject> </inlinemediaobject> in the toolbar if you would prefer."
+msgid "To access the search feature, click with the right mouse button in the Main Index now in the drop down select the magnifying glass. You can also customize &bibletime; to put the search icon <inlinemediaobject> <imageobject> <imagedata fileref=\"find.png\" format=\"PNG\"/> </imageobject> </inlinemediaobject> in the toolbar if you would prefer."
 msgstr ""
 
 #: index.docbook:214
@@ -236,7 +236,7 @@ msgstr ""
 
 #: index.docbook:228
 #, no-c-format
-msgid "At the top of the options tab you will find <guibutton>Choose Modules</guibutton> , with the already selected modules directly below. If you would like to search additional modules, &LMB; <guibutton>Choose Modules</guibutton> and you will be offered a menu of all of the modules that can be searched. Select modules with a &LMB; in the checkbox, then &LMB; the <guibutton>Use Selected Modules</guibutton> button."
+msgid "At the top of the options tab you will find <guibutton>Choose Modules</guibutton> , with the already selected modules directly below. If you would like to search additional modules, click on <guibutton>Choose Modules</guibutton> and you will be offered a menu of all of the modules that can be searched. Select modules with a click in the checkbox, then click the <guibutton>Use Selected Modules</guibutton> button."
 msgstr ""
 
 #: index.docbook:234
@@ -266,7 +266,7 @@ msgstr ""
 
 #: index.docbook:264
 #, no-c-format
-msgid "&LMB; on the Case Sensitive check box to toggle case sensitivity on or off. If the box is marked a search will only find verse in which the found text also matches the case of the text in the input field. If the box is unmarked the search will match if the texts match but are different in case. To locate &quot;LORD&quot; but not &quot;Lord&quot; or &quot;lord&quot; mark the check box. To let &quot;LORD&quot; and &quot;Lord&quot; match &quot;lord&quot; leave the check box unmarked."
+msgid "Click on the Case Sensitive check box to toggle case sensitivity on or off. If the box is marked a search will only find verse in which the found text also matches the case of the text in the input field. If the box is unmarked the search will match if the texts match but are different in case. To locate &quot;LORD&quot; but not &quot;Lord&quot; or &quot;lord&quot; mark the check box. To let &quot;LORD&quot; and &quot;Lord&quot; match &quot;lord&quot; leave the check box unmarked."
 msgstr ""
 
 #: index.docbook:278
@@ -296,7 +296,7 @@ msgstr ""
 
 #: index.docbook:307
 #, no-c-format
-msgid "Define the Scope of your search by &LMB; on the <guibutton>Choose Scope</guibutton> button. You will be presented a list of predefined scopes."
+msgid "Define the Scope of your search by clicking on the <guibutton>Choose Scope</guibutton> button. You will be presented a list of predefined scopes."
 msgstr ""
 
 #: index.docbook:310
@@ -331,7 +331,7 @@ msgstr ""
 
 #: index.docbook:332
 #, no-c-format
-msgid "Setup Custom Ranges - You can enter upper and lower boundaries for the search by &LMB; <guibutton>Setup Custom Ranges</guibutton> button."
+msgid "Setup Custom Ranges - You can enter upper and lower boundaries for the search by clicking on the <guibutton>Setup Custom Ranges</guibutton> button."
 msgstr ""
 
 #: index.docbook:335
@@ -346,7 +346,7 @@ msgstr ""
 
 #: index.docbook:346
 #, no-c-format
-msgid "&LMB; the <guibutton>Add New Range</guibutton> enter the name for your range in the Name text entry box, and enter the range in the text entry box labled Edit the search range. Your range is now added to the list of custom ranges. If you are satisfied you can return to the Search Options tab by &LMB; on <guibutton>OK</guibutton>."
+msgid "Click on the <guibutton>Add New Range</guibutton> enter the name for your range in the Name text entry box, and enter the range in the text entry box labled Edit the search range. Your range is now added to the list of custom ranges. If you are satisfied you can return to the Search Options tab by clicking on <guibutton>OK</guibutton>."
 msgstr ""
 
 #: index.docbook:353
@@ -376,7 +376,7 @@ msgstr ""
 
 #: index.docbook:381
 #, no-c-format
-msgid "&LMB;<guibutton>Search Button</guibutton> to start the search."
+msgid "Click on the <guibutton>Search Button</guibutton> to start the search."
 msgstr ""
 
 #: index.docbook:383
@@ -401,7 +401,7 @@ msgstr ""
 
 #: index.docbook:401
 #, no-c-format
-msgid "Search Result - This tells you first, by module, how many instances of the search string were found. In the Module Column, &LMB; on a document will open the list of references (&RMB; allows you to copy, save, or print the list of items found). Clicking on a reference (the found items list) opens that verse up in the window below. Drag the reference and drop it on a document in the main index to open the module to that verse in a new display window, or look at the verse in the bottom pane of the search results tab."
+msgid "Search Result - This tells you first, by module, how many instances of the search string were found. In the Module Column, clicking on a document will open the list of references (clicking with the right mouse button allows you to copy, save, or print the list of items found). Clicking on a reference (the found items list) opens that verse up in the window below. Drag the reference and drop it on a document in the main index to open the module to that verse in a new display window, or look at the verse in the bottom pane of the search results tab."
 msgstr ""
 
 #: index.docbook:410
@@ -436,7 +436,7 @@ msgstr ""
 
 #: index.docbook:431
 #, no-c-format
-msgid "&LMB;<guibutton>Search Analsis</guibutton> to open the search analsis display."
+msgid "Click on <guibutton>Search Analsis</guibutton> to open the search analsis display."
 msgstr ""
 
 #: index.docbook:432
@@ -706,7 +706,7 @@ msgstr ""
 
 #: index.docbook:691
 #, no-c-format
-msgid "By &RMB; on the index key number, verse number or text the Bible Window, Lexicon Window,or Commentary Window drop down box is displayed (depending on which kind of window is current), providing options to select all, look up text in lexicon, and the export options copy, add to printing queue, and save."
+msgid "By clicking with the right mouse button on the index key number, verse number or text the Bible Window, Lexicon Window,or Commentary Window drop down box is displayed (depending on which kind of window is current), providing options to select all, look up text in lexicon, and the export options copy, add to printing queue, and save."
 msgstr ""
 
 #: index.docbook:698
@@ -716,7 +716,7 @@ msgstr ""
 
 #: index.docbook:699
 #, no-c-format
-msgid "A &LMB; here will select all of the text in the chapter displayed in the current window."
+msgid "A mouse click here will select all of the text in the chapter displayed in the current window."
 msgstr ""
 
 #: index.docbook:705
@@ -726,7 +726,7 @@ msgstr ""
 
 #: index.docbook:706
 #, no-c-format
-msgid "A &LMB; here will bring up a submenu with a list of all of the available lexicons. A &LMB; on a lexicon will open that lexicon to the cross reference of the selected text in the current window."
+msgid "A mouse click here will bring up a submenu with a list of all of the available lexicons. A click on a lexicon will open that lexicon to the cross reference of the selected text in the current window."
 msgstr ""
 
 #: index.docbook:713
@@ -736,7 +736,7 @@ msgstr ""
 
 #: index.docbook:714
 #, no-c-format
-msgid "A &LMB; here will bring up a sub menu offering to copy to the copy buffer using the current location of the cursor as the starting point."
+msgid "A mouse click here will bring up a sub menu offering to copy to the copy buffer using the current location of the cursor as the starting point."
 msgstr ""
 
 #: index.docbook:717
@@ -776,7 +776,7 @@ msgstr ""
 
 #: index.docbook:750
 #, no-c-format
-msgid "A &LMB; here will bring up a submenu with the printing options:"
+msgid "A mouse click here will bring up a submenu with the printing options:"
 msgstr ""
 
 #: index.docbook:752
@@ -806,7 +806,7 @@ msgstr ""
 
 #: index.docbook:778
 #, no-c-format
-msgid "A &LMB; here will bring up a submenu with save options:"
+msgid "A mouse click here will bring up a submenu with save options:"
 msgstr ""
 
 #: index.docbook:780

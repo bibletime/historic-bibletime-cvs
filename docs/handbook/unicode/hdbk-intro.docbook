@@ -51,7 +51,7 @@ notes to different parts of the Bible.
 <term>Lexicons</term>
 <listitem>
 <para>
-Lexicons available include: Robinson's Morphological Analsys Codes, 
+Lexicons available include: Robinson's Morphological Analsys Codes,
 Brown-Driver-Briggs Hebrew Lexicon, International Standard bible Encyclopedia
 </para>
 </listitem>
@@ -76,7 +76,7 @@ Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Top
 </para>
 <para>Additional documents are being added to the &sword; repository frequently, so visit often.</para>
 
-<sect1 id="hdbk-intro-changes"><title>Changes</title>
+<section id="hdbk-intro-changes"><title>Changes</title>
 <para>
 Please read the file Changelog of the sourcecode package if you are
 interested in more detailed changes. </para>
@@ -85,9 +85,46 @@ interested in more detailed changes. </para>
 in the sourcecode at
 <ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bibletime/bibletime/ChangeLog">
 CVS log for <filename>bibletime/bibletime/ChangeLog</filename></ulink></para>
-</sect1>
 
-<sect1 id="hdbk-intro-ToDo"><title>ToDo</title>
+<section><title>Changes for &bibletime; Release 1.3</title>
+<para>Bibletime version 1.3 provides a number of bugfixes and
+stability improvements.  You will also find a number of changes to
+the appearance of bibletime.  This is a partial list, for a more complete list, 
+see the changlog.</para>
+
+<section><title>Main window</title>
+<para>Main index was reorganized, sorting the modules by 
+language, then by type of module.</para>
+
+<para>Bookmarks are now stored in an XML file, but the
+old format can still be imported.  After upgrading an existing
+installation the old bookmarks are placed in the
+"Old bookmarks" subfolder</para>
+
+<para>Drag&amp;Drop works now for more than one item.</para>
+
+<para>Search default Bible and search open modules options added
+in the search menu.</para>
+</section>
+<section><title>Searchdialog</title>
+<para>Major redesign of the user interface, reducing the number 
+of tabs to two (search and result).  Features have been
+moved to the approperate tab.</para>
+</section>
+<section><title>Display windows</title>
+<para>Separated now in Read only and write only windows. Write
+windows can be opened by Right Mouse Button menu in the main index on the
+Personal Commentary module (or any other RawFiles module).</para>
+</section>
+<section><title>Options dialog</title>
+<para>A custom font can now be specified for each language.
+The default text is predefined, and will work for most modules.</para>
+</section>
+</section>
+</section>
+
+
+<section id="hdbk-intro-ToDo"><title>ToDo</title>
 <para>
 Very much!
 </para>
@@ -104,9 +141,9 @@ prayer warriors.  If you can help with any of these tasks or think up another, p
 Without your help, &bibletime; will develop very very slow and it will take
 a very long time until you get a full-featured Bible study tool.
 </para>
-</sect1>
+</section>
 
-<sect1 id="hdbk-intro-motivation"><title>Motivation</title>
+<section id="hdbk-intro-motivation"><title>Motivation</title>
 <para>
 Our desire is to serve God, and to do our part to help others grow in their
 relationship with Him. We have found a gaping hole, in that there has been a
@@ -127,5 +164,5 @@ variation or shifting shadow.</para>
 God bless you as you use this program, and may He be glorified by the work of
 our hands!
 </para>
-</sect1>
+</section>
 </chapter>
