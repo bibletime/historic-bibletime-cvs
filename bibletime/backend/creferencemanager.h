@@ -26,7 +26,12 @@
   */
 
 class CReferenceManager {
-public: 
+public:
+	enum Type {
+		morphCode,
+		strongsNumbers,
+		reference
+	};
   /**
 	* Decodes the given hyperlink to module and key.
 	*/
@@ -50,8 +55,14 @@ public:
 	* @author Martin Gruner
 	*/
 	static void decodeReference(QString &dragreference, QString &module, QString &reference);
-  /** Returns true if the parameter is a hyperlink. */
+  /**
+  * Returns true if the parameter is a hyperlink.
+  */
   static const bool isHyperlink( const QString& hyperlink );
+  /**
+  * Returns the name of the module prefered for the set module type.
+  */
+  static const QString preferedModule(CReferenceManager::Type type);
 };
 
 #endif

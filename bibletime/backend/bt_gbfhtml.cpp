@@ -87,19 +87,32 @@ char BT_GBFHTML::ProcessText(char *text, int maxlen, const SWKey *key)
 							continue;
 							
 						case 'T':               // Tense - Morphological tag
-							strcpy(to," <small><em>(<a href=\"sword://morph/");
-							to += strlen(to);
-							for (i = 2; i < strlen(token); i++)
+						{
+							switch(token[2])
+							{
+								case 'G':               // Greek
+									strcpy(to," <small><em>(<a href=\"sword://morph_greek/");
+									to += strlen(to);						
+									haveStrong = true;
+								case 'H':               // Hebrew
+									if (!haveStrong) {
+										strcpy(to," <small><em>(<a href=\"sword://morph_hebrew/");
+										to += strlen(to);	
+									}
+							}
+							haveStrong = false;
+							for (i = 3; i < strlen(token); i++)
 								*to++ = token[i];
 							strcpy(to,"\">");
               to += strlen(to);
 
-              for (i = 2; i < strlen(token); i++)
+              for (i = 3; i < strlen(token); i++)
               	if(isdigit(token[i]))
               		*to++ = token[i];
 							strcpy(to,"</A>)</em></small> ");
 							to += strlen(to);
 							continue;
+						}
 					}
 					break;
 				case 'R':

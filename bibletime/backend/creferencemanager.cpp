@@ -17,13 +17,23 @@
 
 #include "creferencemanager.h"
 
-//Qt includes
-
+//KDE includes
+#include <kglobal.h>
+#include <kconfig.h>
+#include <kinstance.h>
 
 
 /** Returns a hyperlink used to be imbedded in the display windows. At the moment the format is sword://module/key */
-const QString CReferenceManager::encodeHyperlink( const QString& module, const QString& key){	
-	
+const QString CReferenceManager::encodeHyperlink( const QString& module, const QString& key){
+//	switch (type) {
+//		case morphCode:
+//			return QString::fromLatin1("sword://morph_/%2").arg(key);			
+//			break;
+//		case strongsNumber:
+//			break;		
+//		default:
+//			break;		
+//	}
 	return QString::fromLatin1("sword://%1/%2").arg(module/*.replace("/", "\\/")*/).arg(key/*.replace("/", "\\/")*/);
 }
 
@@ -31,8 +41,9 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString& module, QString& key){
 	//remove the sword:// at the beginning (e.g. sword://WEB/Genesis 1:1/)
 	QString ref = hyperlink;
+	QString dummy;
 	if (ref.left(8) == "sword://") { //remove sword:// and trailing /
-		ref = ref.mid(8, ref.length()-8);
+		ref = ref.mid(8);
   }
   //remove trailing slash (now it's for example "WEB/Genesis 1:1/")
   if (ref.right(1) == "/") {
@@ -44,7 +55,17 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
   if (pos == -1) //not found
   	return false;
 
-  module = ref.left(pos);
+	dummy = ref.left(pos);
+	if (dummy.left(8) == "strongs_") {
+		module = preferedModule(CReferenceManager::strongsNumbers);
+	}
+	else if (dummy.left(6) == "morph_") {
+		module = preferedModule(CReferenceManager::morphCode);	
+	}
+	else
+		module = dummy;//no special type
+
+//  module = ref.left(pos);
   qWarning("decodeHyperlink: %s", module.latin1());
 
   key = ref.mid(pos+1);
@@ -72,4 +93,18 @@ void CReferenceManager::decodeReference(QString &dragreference, QString &module,
 /** Returns true if the parameter is a hyperlink. */
 const bool CReferenceManager::isHyperlink( const QString& hyperlink ){
 	return ( (hyperlink.left(8) == "sword://") && hyperlink.mid(8).contains("/"));
+}
+
+/** Returns the name of the module prefered for the set module type. */
+const QString CReferenceManager::preferedModule(CReferenceManager::Type type){
+	KConfig* config = KGlobal::instance()->config();
+	KConfigGroupSaver gs(config, "Prefered modules");
+	switch (type) {
+		case strongsNumbers:
+			return config->readEntry("strongs numbers");
+		case morphCode:
+			return config->readEntry("morph codes");		
+		default:
+			return QString::null;
+	}
 }
