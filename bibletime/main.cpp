@@ -44,6 +44,8 @@
 #include <qfont.h>
 
 
+//#define STATIC_BUILD
+
 bool showDebugMessages = false;
 
 void myMessageOutput( QtMsgType type, const char *msg ) {	
@@ -118,9 +120,17 @@ int main(int argc, char* argv[]) {
 	
 #ifdef STATIC_BUILD
  	KApplication app(false); //disable styles
+	qWarning("path == %s", argv[0]);
+	qWarning("$PWD == %s", getenv("PWD"));	
+	//get the path
+	KGlobal::dirs()->addPrefix(".");
+	KGlobal::dirs()->addPrefix(getenv("PWD"));	
+//	KGlobal::dirs()->addPrefix("config/");		
 #else
  	KApplication app;
 #endif
+	
+ 	
  	KGlobal::dirs()->addResourceType("BT_pic", KStandardDirs::kde_default("data") + kapp->name() + "/pics/");
 
 

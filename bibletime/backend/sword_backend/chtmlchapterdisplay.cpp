@@ -65,13 +65,12 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 			.arg( (verse == currentVerse) ? QString::fromLatin1("COLOR=\"%1\"").arg(m_highlightedVerseColor) : QString() )
 			.arg( FontName )
 			.arg( FontSize )
+//			.arg( QString::fromUtf8((const char*)*swordModule) )
 			.arg( QString::fromLocal8Bit((const char*)*swordModule) )
 		);
 		
 		if (m_useLineBreak)
 			m_htmlText.append("<BR>\n");
-//		else
-//			m_htmlText.append("\n");
 	}
 	m_htmlText.append(m_htmlBody);	
 		
