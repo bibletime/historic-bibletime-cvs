@@ -184,6 +184,13 @@ namespace CResMgr {
         extern QString tooltip;
         extern QString whatsthis;
       };
+      namespace swordSetupDialog {
+        extern QString tooltip;
+        extern QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+        extern const char* actionName;
+      }
     };
 
     namespace help { //Main menu->Help

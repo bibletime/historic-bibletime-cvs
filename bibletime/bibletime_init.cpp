@@ -172,13 +172,10 @@ void BibleTime::initActions() {
   #endif
 
   action = new KAction(i18n("Configure &Sword"),
-//    CResMgr::mainMenu::settings::optionsDialog::,
-		"settings",
-//    CResMgr::mainMenu::settings::,
-		0,
+    CResMgr::mainMenu::settings::swordSetupDialog::icon,
+    CResMgr::mainMenu::settings::swordSetupDialog::accel,
 		this, SLOT( slotSwordSetupDialog() ), actionCollection(),
-		"sword_setup"
-//    CResMgr::mainMenu::window::cascade::actionName
+    CResMgr::mainMenu::settings::swordSetupDialog::actionName
   );
 
   action = KStdAction::configureToolbars(this, SLOT( slotSettingsToolbar() ), actionCollection());

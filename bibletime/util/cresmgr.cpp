@@ -188,6 +188,14 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
       };
+      namespace swordSetupDialog {
+        QString tooltip;
+        QString whatsthis;
+        const QString icon        = "bt_swordconfig";
+        const KShortcut accel     = Qt::CTRL + Qt::Key_S;
+        const char* actionName    = "sword_setup";
+      }
+
     };
 
     namespace help { //Main menu->Help
@@ -981,6 +989,12 @@ namespace CResMgr {
             tooltip     = makeToolTip(i18n("Configure BibleTime"));
             whatsthis   = makeWhatsThis(tooltip, i18n("Open the dialog to set most of BibleTime's preferences."));
           };
+          {
+            using namespace swordSetupDialog;
+            tooltip     = makeToolTip(i18n("Configure Sword"));
+            whatsthis   = makeWhatsThis(tooltip, i18n("Open the dialog to configure Sword and install/update/remove Sword modules."));
+          };
+
         };
 
         {
