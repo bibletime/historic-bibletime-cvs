@@ -1,8 +1,0 @@
-<chapter id="inst_bin">
-<title>BibleTime Binärpakete
-</title>
-<para>BibleTime wird als statisch kompiliertes Binär- und RPM-Paket
-verfügbar sein.  Anweisungen zum Installieren von BibleTime unter
-Benutzung von RPM und Binärpaketen werden später hinzugefügt
-werden.</para>
-</chapter>

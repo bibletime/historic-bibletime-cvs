@@ -1,6 +1,0 @@
-<chapter id="inst_bin"> <title>Bibletime - distribuzioni binarie
-</title> <para> Bibletime sarà disponibile come binari compilati
-staticamente e RPM. Sarà inoltre presente un pacchetto Debian nella
-release 2.3. Delle istruzioni su come installare BibleTime partendo da
-RPM e da binari compilati staticamente saranno aggiunte in futuro.
-</para> </chapter>
