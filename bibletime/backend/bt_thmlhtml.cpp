@@ -117,7 +117,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
 			userData["inscriptRef"] = "true";
-#warning make color customizable
 			pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/", swordref_color);
 			for (i = 9; i < strlen(token)-1; i++)				
 				if(token[i] != '\"') 			
