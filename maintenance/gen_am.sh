@@ -214,7 +214,7 @@ merge:
 	done
 
 clean:
-	rm *.gmo
+	rm -f *.gmo
 
 EOF
 
@@ -235,7 +235,7 @@ for DOC_PO_PART in handbook howto; do
 		echo '	done;'
 
 		echo 'clean:'
-		echo '	rm *.gmo'
+		echo '	rm -f *.gmo'
 		echo
 
 	) > ../../bibletime-i18n/po/$DOC_PO_PART/Makefile.am
