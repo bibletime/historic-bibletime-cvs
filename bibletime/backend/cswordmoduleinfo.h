@@ -206,7 +206,7 @@ public:
   /**
   * Returns the category of this module. See CSwordModuleInfo::Category for possible values.
   */
-  const CSwordModuleInfo::Category category();
+  const CSwordModuleInfo::Category category() const;
 
 protected:
   friend class CSwordBackend;
@@ -229,9 +229,10 @@ protected:
 private:
 	sword::SWModule* m_module;
 	sword::ListKey m_searchResult;
-	struct {
+	mutable struct {
 		QString name;
 		bool isUnicode;
+		CSwordModuleInfo::Category category;
 	} m_dataCache;
 
   CSwordBackend* m_backend;

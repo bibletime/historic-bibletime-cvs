@@ -28,21 +28,40 @@
 static QValueList<CLanguageMgr::Language> m_langList;
 static CLanguageMgr::Language m_defaultLanguage;
 
-CLanguageMgr::Language::Language() {
+CLanguageMgr::Language::Language() : m_altAbbrevs(0) {
   m_abbrev = QString::null;
-  m_altAbbrevs = QStringList();
   m_englishName = QString::null;
   m_translatedName = QString::null;
 };
 
-CLanguageMgr::Language::Language( const QString& abbrev, const QString& name, const QString& translatedName, const QStringList altAbbrevs ) {
+CLanguageMgr::Language::Language(const Language& l)  {
+	m_abbrev = l.m_abbrev;
+	m_englishName = l.m_englishName;
+	m_translatedName = l.m_translatedName;
+	
+	if (l.m_altAbbrevs) { //copy alternative abbrevs in a new list
+		m_altAbbrevs = new QStringList(*l.m_altAbbrevs);
+		//*m_altAbbrevs = *l.m_altAbbrevs;
+	}
+	else {
+		m_altAbbrevs = 0;
+	}
+}
+
+CLanguageMgr::Language::Language( const QString& abbrev, const QString& name, const QString& translatedName, const QStringList altAbbrevs ) : m_altAbbrevs(0) {
   m_abbrev = abbrev;
-  m_altAbbrevs = altAbbrevs;
+  // m_altAbbrevs = altAbbrevs;
   m_englishName = name;
   m_translatedName = translatedName;
+	
+	if (altAbbrevs.count() > 0) {
+		m_altAbbrevs = new QStringList();
+		*m_altAbbrevs = altAbbrevs;
+	}
 };
 
 CLanguageMgr::Language::~Language() {
+	delete m_altAbbrevs;
 };
 
 /** Returns true if this language object is valid, i.e. has an abbrev and name. */
@@ -51,8 +70,8 @@ const bool CLanguageMgr::Language::isValid() const {
 }
 
 const QString& CLanguageMgr::Language::abbrev() const {
-  if (m_abbrev.isEmpty() && m_altAbbrevs.count()) { //no standard abbrev but alternative ones
-    return m_altAbbrevs.first();
+  if (m_altAbbrevs && m_abbrev.isEmpty() && m_altAbbrevs->count()) { //no standard abbrev but alternative ones
+    return m_altAbbrevs->first();
   };
   return m_abbrev;
 };
@@ -61,14 +80,11 @@ const QString& CLanguageMgr::Language::translatedName() const {
   return m_translatedName;
 };
 
-const QStringList& CLanguageMgr::Language::alternativeAbbrevs() const {
-  return m_altAbbrevs;
-};
-
+/*
 const QPixmap CLanguageMgr::Language::flag() {
   return QPixmap();
 };
-
+*/
 
 /****************************************************/
 /******************** CLanguageMgr ******************/
@@ -115,17 +131,19 @@ const CLanguageMgr::LangMap CLanguageMgr::availableLanguages() {
 };
 
 const CLanguageMgr::Language& CLanguageMgr::languageForAbbrev( const QString& abbrev ) const {
-  if (m_langMap.contains(abbrev)) {
-    return m_langMap[abbrev];
+  LangMap::const_iterator it = m_langMap.find(abbrev);
+	if (it != m_langMap.constEnd()) {
+    return it.data();
   };
 
   //try to search in the alternative abbrevs
-	LangMap::const_iterator end = m_langMap.constEnd();
-  for ( LangMap::const_iterator it = m_langMap.begin(); it != end; ++it ) {
-    if (it.data().alternativeAbbrevs().contains(abbrev)) {
+	const LangMap::const_iterator end = m_langMap.constEnd();
+  for ( it = m_langMap.begin(); it != end; ++it ) {
+		if (it.data().alternativeAbbrevs() && it.data().alternativeAbbrevs()->contains(abbrev)) {
       return it.data();
     };
-  }  
+  }
+	
   return m_defaultLanguage; //invalid language
 };
 
@@ -204,7 +222,7 @@ xx-???, including the AleWiesler module.
 
   m_langList.append( Language("ca"  , "Catalan"     , i18n("Catalan")) );
 //  m_langList.append( Language("ce"  , "Chechen"     , i18n("Chechen")) );
-  m_langList.append( Language("ceb"  , "Cebuano"     , i18n("Cebuano")) );
+  m_langList.append( Language("ceb" , "Cebuano"     , i18n("Cebuano")) );
   m_langList.append( Language("ch"  , "Chamorro"    , i18n("Chamorro")) );
 //  m_langList.append( Language("co"  , "Corsican"    , i18n("Corsican")) );
   m_langList.append( Language("cop" , "Coptic"         , i18n("Coptic")) );
@@ -238,15 +256,15 @@ xx-???, including the AleWiesler module.
 //  m_langList.append( Language("gl"  , "Gallegan"    , i18n("Gallegan")) );
 //  m_langList.append( Language("gn"  , "Guarani"     , i18n("Guarani")) );
 //  m_langList.append( Language("gn"  , "Gujarati"    , i18n("Gujarati")) );
-  m_langList.append( Language("got"  , "Gothic"    , i18n("Gothic")) );
-  m_langList.append( Language("gv"  , "Manx"        , i18n("Manx")) );
+  m_langList.append( Language("got"  , "Gothic"      , i18n("Gothic")) );
+  m_langList.append( Language("gv"   , "Manx"        , i18n("Manx")) );
   m_langList.append( Language("grc"  , "Greek, Ancient (to 1453)" , i18n("Greek, Ancient (to 1453)")) );
 
   m_langList.append( Language("he"  , "Hebrew"      , i18n("Hebrew")) );
-  m_langList.append( Language("haw"    , "Hawaiian"    , i18n("Hawaiian")) );
+  m_langList.append( Language("haw" , "Hawaiian"    , i18n("Hawaiian")) );
 //  m_langList.append( Language("hi"  , "Hindi"       , i18n("Hindi")) );
 //  m_langList.append( Language("ho"  , "Hiri Motu"   , i18n("Hiri Motu")) );
-//  m_langList.append( Language("hr"  , "Croatian"    , i18n("Croatian")) );
+  m_langList.append( Language("hr"  , "Croatian"    , i18n("Croatian")) );
   m_langList.append( Language("hu"  , "Hungarian"   , i18n("Hungarian")) );
   m_langList.append( Language("hy"  , "Armenian"    , i18n("Armenian")) );
 //  m_langList.append( Language("hz"  , "Herero"      , i18n("Herero")) );

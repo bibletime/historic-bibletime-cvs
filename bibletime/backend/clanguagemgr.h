@@ -37,8 +37,10 @@ public:
     * Possible values for abbrev are de, en, fr, it etc.
     */
     Language();
+		Language(const Language&); //copy constructor
     Language(const QString& abbrev, const QString& englishName, const QString& translatedName, const QStringList altAbbrevs = QStringList());
     ~Language();
+		
     const QString& abbrev() const;
     const QString& translatedName() const;
 
@@ -47,9 +49,13 @@ public:
 			return m_englishName;
 		}
 
-    const QStringList& alternativeAbbrevs() const;
-    const QPixmap flag();
-    /**
+    inline const QStringList* const alternativeAbbrevs() const {
+			return m_altAbbrevs;
+		};
+   	
+		// const QPixmap flag();
+    
+		/**
     * Returns true if this language object is valid, i.e. has an abbrev and name.
     */
     const bool isValid() const;
@@ -58,7 +64,7 @@ public:
     QString m_abbrev;
     QString m_englishName;
     QString m_translatedName;
-    QStringList m_altAbbrevs;
+    QStringList* m_altAbbrevs;
   };
 
   typedef QMap<QString, Language> LangMap;

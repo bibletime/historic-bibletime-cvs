@@ -32,7 +32,7 @@ class CInfoDisplay;
 class CPointers {
 protected:
 	friend class BibleTime; //BibleTime may initialize this object
- 	friend class BibleTimeApp; //BibleTime may initialize this object	
+ 	friend class BibleTimeApp; //BibleTimeApp may initialize this object	
 	friend int main(int argc, char* argv[]);
 	
 	static void setBackend(CSwordBackend* const);

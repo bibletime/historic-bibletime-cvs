@@ -50,6 +50,7 @@ CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module, CSwordBackend* cons
   m_backend = usedBackend;
 	m_dataCache.name = module ? QString::fromLatin1(module->Name()) : QString();
 	m_dataCache.isUnicode = module ? module->isUnicode() : false;
+	m_dataCache.isUnicode = UnknownCategory;
 
 	if (backend()) {
 		if (hasVersion() && (minimumSwordVersion() > sword::SWVersion::currentVersion)) {
@@ -347,21 +348,24 @@ const CLanguageMgr::Language& CSwordModuleInfo::language() {
 }
 
 /** Returns true if this module may be written by the write display windows. */
-const bool CSwordModuleInfo::isWritable(){
+const bool CSwordModuleInfo::isWritable() {
   return false;
 }
 
 /** Returns the category of this module. See CSwordModuleInfo::Category for possible values. */
-const CSwordModuleInfo::Category CSwordModuleInfo::category(){
-  const QString cat = QString::fromLatin1(m_module->getConfigEntry("Category"));
-  if (cat == QString::fromLatin1("Cults / Unorthodox / Questionable Material")) {
-    return Cult;
-  }
-  else if (cat == QString::fromLatin1("Daily Devotional") || m_module->getConfig().has("Feature", "DailyDevotion")) {
-    return DailyDevotional;
-  }
-  else if (cat == QString::fromLatin1("Glossaries") || m_module->getConfig().has("Feature", "Glossary")) { //alow both
-    return Glossary;
-  };
-  return CSwordModuleInfo::UnknownCategory;  
+const CSwordModuleInfo::Category CSwordModuleInfo::category() const {
+  if (m_dataCache.category == CSwordModuleInfo::UnknownCategory) {
+		const QString cat = QString::fromLatin1(m_module->getConfigEntry("Category"));
+		if (cat == QString::fromLatin1("Cults / Unorthodox / Questionable Material")) {
+			m_dataCache.category = Cult;
+		}
+		else if (cat == QString::fromLatin1("Daily Devotional") || m_module->getConfig().has("Feature", "DailyDevotion")) {
+			m_dataCache.category = DailyDevotional;
+		}
+		else if (cat == QString::fromLatin1("Glossaries") || m_module->getConfig().has("Feature", "Glossary")) { //alow both
+			m_dataCache.category = Glossary;
+		};
+	}
+
+	return m_dataCache.category;
 }

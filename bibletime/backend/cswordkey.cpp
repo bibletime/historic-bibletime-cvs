@@ -37,7 +37,7 @@
 #include <qregexp.h>
 #include <qstring.h>
 
-CSwordKey::CSwordKey(CSwordModuleInfo* module) : m_module(module) {
+CSwordKey::CSwordKey(CSwordModuleInfo* const module) : m_module(module) {
 }
 
 CSwordKey::CSwordKey(const CSwordKey& k) {
@@ -45,8 +45,10 @@ CSwordKey::CSwordKey(const CSwordKey& k) {
 }
 
 CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
-	if (newModule)
+	if (newModule) {
 		m_module = newModule;
+	}
+	
 	return m_module;
 }
 
@@ -61,6 +63,7 @@ const QString CSwordKey::rawText() {
   if (key().isNull()) {
     return QString::null;
   }
+	
   return QString::fromUtf8(m_module->module()->getRawEntry());
 }
 

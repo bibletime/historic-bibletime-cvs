@@ -300,10 +300,9 @@ CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOption
 
 
 const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
-//	Q_ASSERT(module);		
 	QString linkText;
 	
-	if (module && module->type() == CSwordModuleInfo::Bible) {
+	if (module && (module->type() == CSwordModuleInfo::Bible)) {
 		CSwordVerseKey vk(module);
 		vk = item.key();
 		

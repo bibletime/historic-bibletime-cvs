@@ -64,7 +64,7 @@ public:
 	* and it will setup the m_module members.
 	*
 	*/
-	CSwordVerseKey( CSwordModuleInfo* module );
+	CSwordVerseKey( CSwordModuleInfo* const module );
   /**
   * Copy constructor.
   */
@@ -72,7 +72,7 @@ public:
   /**
   * VerseKey based constructor.
   */
-  CSwordVerseKey( const sword::VerseKey* k, CSwordModuleInfo* module );
+  CSwordVerseKey( const sword::VerseKey* const k, CSwordModuleInfo* const module );
   /**
   * Clones this object.
   */

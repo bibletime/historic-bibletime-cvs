@@ -26,7 +26,7 @@
 //Sword includes
 #include <swmodule.h>
 
-CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) : CSwordKey(module) {
+CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* const module ) : CSwordKey(module) {
   if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module) ) {
     key( bible->lowerBound().key() );
   }
@@ -36,7 +36,7 @@ CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : CSwordKey(k), VerseK
 
 }
 
-CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : CSwordKey(module), VerseKey(*k) {
+CSwordVerseKey::CSwordVerseKey( const VerseKey* const k, CSwordModuleInfo* const module ) : CSwordKey(module), VerseKey(*k) {
 }
 
 /** Clones this object. */
@@ -46,22 +46,21 @@ CSwordKey* CSwordVerseKey::copy() const {
 
 /** Sets the module for this key */
 CSwordModuleInfo* const CSwordVerseKey::module( CSwordModuleInfo* const newModule ){
-	if (newModule && ( (newModule->type() == CSwordModuleInfo::Bible) || (newModule->type() == CSwordModuleInfo::Commentary) )) {
-	//	const QString& oldKey	= key();
+	if (newModule && ((newModule->type() == CSwordModuleInfo::Bible)  || (newModule->type() == CSwordModuleInfo::Commentary) ) ) {
 		m_module = newModule;
-	//	key(oldKey);
 
 		//check if the module contains the key we present
 		CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(newModule);
    	if (_compare(bible->lowerBound()) < 0) {
-			qWarning("setting key to lower bound %s", bible->lowerBound().key().latin1());
+			// qWarning("setting key to lower bound %s", bible->lowerBound().key().latin1());
       key( bible->lowerBound() );
     }
     if (_compare(bible->upperBound()) > 0) {
-			qWarning("setting key to upper bound %s", bible->upperBound().key().latin1());
+			// qWarning("setting key to upper bound %s", bible->upperBound().key().latin1());
       key( bible->upperBound() );
     }
 	}
+	
 	return dynamic_cast<CSwordBibleModuleInfo*>(m_module);
 }
 
@@ -111,12 +110,14 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 /** Sets the key we use to the parameter. */
 const QString CSwordVerseKey::key(){	
 	return QString::fromLocal8Bit(getText()); //don't use fromUtf8 here!
+	
 //	return QString::fromLocal8Bit((const char*)*this); //don't use fromUtf8 here!
 }
 
 void CSwordVerseKey::key( const QString& newKey ) {
 	if (newKey.isEmpty()) {
-    if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
+    CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module());
+		if ( bible ) {
       VerseKey::operator = ((const char*)bible->lowerBound().key().local8Bit());
     }
   }
@@ -126,10 +127,10 @@ void CSwordVerseKey::key( const QString& newKey ) {
 }
 
 void CSwordVerseKey::key( const char* newKey ){
-  if (newKey && strlen(newKey)>0) {
+  if (newKey && (strlen(newKey)>0) ) {
 		VerseKey::operator = (newKey);
 	}
-  else if (!strlen(newKey)) {
+  else if (newKey && !strlen(newKey)) {
     if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
       VerseKey::operator = ((const char*)bible->lowerBound().key().local8Bit());
     }
