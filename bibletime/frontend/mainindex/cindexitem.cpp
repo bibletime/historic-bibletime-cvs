@@ -50,6 +50,8 @@
 
 #define CURRENT_SYNTAX_VERSION 1
 
+using std::string;
+
 CItemBase::CItemBase(CMainIndex* mainIndex, const Type type) : KListViewItem(mainIndex), m_type(type) {
   m_type = type;
 }
