@@ -38,6 +38,17 @@ class CTransliterationButton : public KToolBarButton  {
 public: 
 	CTransliterationButton(QWidget *parent=0, const char *name=0);
 	~CTransliterationButton();
+  /**
+  * Setup the menu entries.
+  */
+  void populateMenu();
+  /**
+  * Resets the buttons with the list of used modules.
+  */
+  void reset( ListCSwordModuleInfo& modules );
+
+private:
+  KPopupMenu* m_popup;
 };
 
 /** This class manages the display options of the selected modules.

@@ -19,6 +19,8 @@
 #include "cbuttons.h"
 #include "resource.h"
 
+#include "frontend/cpointers.h"
+
 //Qt includes
 #include <qstring.h>
 #include <qtooltip.h>
@@ -28,12 +30,37 @@
 #include <klocale.h>
 
 
-CTransliterationButton::CTransliterationButton(QWidget *parent, const char *name ) : KToolBarButton(parent,name) {
+CTransliterationButton::CTransliterationButton(QWidget *parent, const char *name ) : KToolBarButton(DSB_ICON, 0,parent,name) {
+ 	setToggle(true);
+
+  m_popup = new KPopupMenu(this);	
+	setDelayedPopup(m_popup);
+//	setPopupDelay(0);
+
+//	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionToggled(int)));
+	populateMenu();
 }
 
 CTransliterationButton::~CTransliterationButton(){
+
 }
 
+/** Resets the buttons with the list of used modules. */
+void CTransliterationButton::reset( ListCSwordModuleInfo& modules ){
+
+}
+
+/** Setup the menu entries. */
+void CTransliterationButton::populateMenu(){
+  m_popup->clear();
+  m_popup->insertTitle(i18n("Transliteration"));
+
+  OptionsList options = CPointers::backend()->transliterator()->getOptionValues();
+  OptionsList::iterator it;
+  for (it = options.begin(); it != options.end(); ++it) {
+    m_popup->insertItem(QString::fromLatin1((*it).c_str()));
+  }
+}
 
 /************************************************
  *********** CDisplaySettingsButton**************
@@ -149,3 +176,4 @@ const bool CDisplaySettingsButton::itemStatus( const int index ){
 void CDisplaySettingsButton::setChanged(){
 	emit sigChanged();	
 }
+
