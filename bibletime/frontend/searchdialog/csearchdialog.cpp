@@ -667,9 +667,9 @@ void CRangeChooserDialog::editRange(QListViewItem* item){
   
   if (range) {
     m_nameEdit->setText(range->caption());
-    qWarning("setting new range %s", (const char*)range->range().utf8());
+//    qWarning("setting new range %s", (const char*)range->range().utf8());
     m_rangeEdit->setText(range->range());
-    qWarning("after setting new range is %s", (const char*)m_rangeEdit->text().utf8());
+//    qWarning("after setting new range is %s", (const char*)m_rangeEdit->text().utf8());
   }
 }
 

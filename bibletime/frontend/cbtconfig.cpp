@@ -17,6 +17,7 @@
 
 //BibleTime includes
 #include "cbtconfig.h"
+#include "util/cpointers.h"
 
 //Qt includes
 #include <qapplication.h>
@@ -246,15 +247,17 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
       
       for (it = map.begin(); it != map.end(); ++it) {
         sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
-        QString data = QString::null;
+        QString data;
         for (int i = 0; i < list.Count(); ++i) {
-          data += QString::fromLocal8Bit("%1;").arg( list.GetElement(i)->getRangeText() );
-          qWarning("added %s to list", (const char*)data.utf8());
+          data += QString::fromLocal8Bit(list.GetElement(i)->getRangeText()) + "; ";
      	  }
         map[it.key()] = data; //set the new data
       };      
+
       return map;
-    };        
+    };
+    default:
+      return CBTConfig::StringMap();
 	}
 	return CBTConfig::StringMap();
 }
@@ -264,7 +267,7 @@ const QString CBTConfig::getKey( const CLanguageMgr::Language& language ){
 	return language.name();
 }
 
-const QFont CBTConfig::getDefault( const CLanguageMgr::Language& language ){
+const QFont CBTConfig::getDefault( const CLanguageMgr::Language& /*language*/ ){
   //language specific lookup of the font name
   return KApplication::font();
 }
@@ -314,7 +317,24 @@ const CBTConfig::StringMap CBTConfig::get( const CBTConfig::stringMaps ID ){
 	KConfigGroupSaver groupSaver(config, getKey(ID));
   CBTConfig::StringMap map = config->entryMap(getKey(ID));
   if (config->hasGroup(getKey(ID))) {
-    return map;
+    switch (ID) {
+      case searchScopes: { //make sure wwe return the scopes in the chosen language. saved keys are in english
+        CBTConfig::StringMap::Iterator it;
+        sword::VerseKey vk;
+
+        for (it = map.begin(); it != map.end(); ++it) {
+          sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
+          QString data;
+          for (int i = 0; i < list.Count(); ++i) {
+            data += QString::fromLocal8Bit(list.GetElement(i)->getRangeText()) + "; ";
+       	  }
+          map[it.key()] = data; //set the new data
+        };
+        return map;
+      }
+      default:
+        return getDefault(ID);
+    }
   }
   return getDefault(ID);
 }
@@ -328,7 +348,7 @@ const CBTConfig::FontSettingsPair	CBTConfig::get( const CLanguageMgr::Language& 
 
   config->setGroup("fonts");
  
-  settings.second = !settings.first ? KApplication::font() : config->readFontEntry(getKey(language));
+  settings.second = settings.first ? config->readFontEntry(getKey(language)) : KApplication::font();
 
   return settings;
 }
@@ -377,28 +397,35 @@ void CBTConfig::set( const CBTConfig::stringMaps ID, const CBTConfig::StringMap 
   config->sync();  
   config->setGroup(getKey(ID));
   
-  /**
-  * We want to make sure that the search scopes are saved with english key names so loading them
-  * will always work with each locale set.
-  */
-  CBTConfig::StringMap::ConstIterator it;
-  QString data = QString::null;
-  sword::VerseKey vk;
-  vk.setLocale("en");
-  for (it = value.begin(); it != value.end(); ++it) {
-    sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
-    data = QString::null;
-    for (int i = 0; i < list.Count(); ++i) {
-//   	  if (sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(list.GetElement(i))) {
-//        element->setLocale("en");
-//        element->LowerBound().setLocale("en");
-//        element->UpperBound().setLocale("en");
-//   			data += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
-//      }
-//   		else
-   			data += QString::fromLocal8Bit("%1;").arg( list.GetElement(i)->getRangeText() );
- 	  }
-    config->writeEntry(it.key(), data);    
+  switch (ID) {
+    case searchScopes: {
+      /**
+      * We want to make sure that the search scopes are saved with english key names so loading them
+      * will always work with each locale set.
+      */
+      CBTConfig::StringMap::ConstIterator it;
+      QString data = QString::null;
+
+      sword::VerseKey vk;
+      for (it = value.begin(); it != value.end(); ++it) {
+        sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
+        data = QString::null;
+        for (int i = 0; i < list.Count(); ++i) {
+          if ( sword::VerseKey* range = dynamic_cast<sword::VerseKey*>(list.GetElement(i)) ) {
+            range->setLocale("en");
+            data += QString::fromLocal8Bit( range->getRangeText() ) + ";";
+          }
+        }
+        config->writeEntry(it.key(), data);
+      }
+      break;
+    }
+    default: {
+      for (CBTConfig::StringMap::ConstIterator it = value.begin(); it != value.end(); ++it) {
+        config->writeEntry(it.key(), it.data());
+      }
+      break;
+    }
   };
 }
 

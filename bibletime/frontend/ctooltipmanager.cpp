@@ -178,9 +178,10 @@ const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QStr
 	  return QString::fromLocal8Bit(keys.GetElement(0)->getRangeText()) + defaultEnding;
   }
   else { //non-versekeys are not localized  
-  	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+    util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
 
-		return key->key() + defaultEnding;
+    key->key( keyName );
+    return key->key() + defaultEnding;
   };
   return QString::null;
 }

@@ -165,11 +165,10 @@ void BibleTime::readSettings(){
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
 CDisplayWindow* BibleTime::createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& key) {
-//  qWarning("BibleTime::createDisplayWindow: key is %s", key.latin1());
   kapp->setOverrideCursor( waitCursor );
 
- 	CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);  
-  if (displayWindow) {
+  CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);
+  if ( displayWindow ) {
   	displayWindow->init(key);
 		displayWindow->show();
 	}
@@ -188,14 +187,13 @@ CDisplayWindow* BibleTime::createReadDisplayWindow(CSwordModuleInfo* module, con
 }
 
 CDisplayWindow* BibleTime::createWriteDisplayWindow(CSwordModuleInfo* module, const QString& key, const CDisplayWindow::WriteWindowType& type) {
-//  qWarning("BibleTime::createWriteDisplayWindow: key is %s", key.latin1());
-
   kapp->setOverrideCursor( waitCursor );
 
 	ListCSwordModuleInfo modules;
 	modules.append(module);
+
   CDisplayWindow* displayWindow = CDisplayWindow::createWriteInstance(modules, m_mdi, type);
-  if (displayWindow) {
+  if ( displayWindow ) {
   	displayWindow->init(key);
 		displayWindow->show();
 	}
@@ -208,16 +206,17 @@ CDisplayWindow* BibleTime::createWriteDisplayWindow(CSwordModuleInfo* module, co
 void BibleTime::refreshDisplayWindows() {
 	unsigned int index;				
 	for ( index = 0; index < m_mdi->windowList().count(); index++) {
-		CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index));
-		if (window)
+		if (CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index))) {
    		window->refresh();
+    }
 	}
 }
 
 /** Called before quit. */
 bool BibleTime::queryExit(){
-  if (!m_initialized)
+  if (!m_initialized) {
   	return false;
+  }
 	saveSettings();
 	return true;
 }
@@ -282,7 +281,7 @@ void BibleTime::processCommandline(){
   else {
     QString bibleKey = args->getOption("open-default-bible");    
     CSwordModuleInfo* bible = CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible));
-    if (args->isSet("open-default-bible") && bibleKey == "<random>") {
+    if (args->isSet("open-default-bible") && (bibleKey == "<random>")) {
       CSwordVerseKey vk(0);
       const int maxIndex = 32400;
 
