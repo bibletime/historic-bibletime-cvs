@@ -161,7 +161,7 @@ void CSearchDialogResultModuleView::printSearchResult(){
 		progress.setProgress(index);
 		KApplication::kApplication()->processEvents(10); //do not lock the GUI!				
 		if ( progress.wasCancelled() )
-			return;
+			break;
 		SWKey* key = searchResult.GetElement(index);
 		if (!key)
 			break;

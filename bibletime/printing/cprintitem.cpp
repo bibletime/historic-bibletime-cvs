@@ -77,7 +77,7 @@ CKey* CPrintItem::getStartKey() const{
 
 /** Sets the startkey. */
 void CPrintItem::setStartKey(CKey* newKey) {
-	qDebug("CPrintItem::setStartKey( CKey* newKey )");	
+//	qDebug("CPrintItem::setStartKey( CKey* newKey )");	
 	if (m_startKey)
 		delete m_startKey;
 	m_startKey = newKey;
@@ -86,7 +86,7 @@ void CPrintItem::setStartKey(CKey* newKey) {
 
 /** Sets the end key. */
 void CPrintItem::setStopKey( CKey* newKey ){
-	qDebug("CPrintItem::setStopKey( CKey* newKey )");
+//	qDebug("CPrintItem::setStopKey( CKey* newKey )");
 	if (m_stopKey)
 		delete m_stopKey;	
 	m_stopKey = newKey;
@@ -119,7 +119,7 @@ void CPrintItem::setDescription( const QString& newDescription ){
 
 /** Returns the moduletext used by this item. */
 const QString& CPrintItem::getModuleText() {
-	qDebug("const QString CPrintItem::getModuleText()");
+//	qDebug("const QString CPrintItem::getModuleText()");
 	/**
 	* If a special text is set use the text.
 	* If the moduleText variable is empty use the CModuleInfo
@@ -173,7 +173,7 @@ void CPrintItem::setHeader( const QString& newText){
 
 /** Sets the style for this item. */
 void CPrintItem::setStyle( CStyle* newStyle ) {
-	qDebug("CPrintItem::setStyle( CStyle* newStyle )");
+//	qDebug("CPrintItem::setStyle( CStyle* newStyle )");
 	m_style = newStyle;
 }
 
@@ -203,7 +203,7 @@ void CPrintItem::clearData(){
 
 /** Updates the item. */
 void CPrintItem::updateListViewItem(){
-	qDebug("CPrintItem::updateListViewItem()");
+//	qDebug("CPrintItem::updateListViewItem()");
 	CSwordModuleInfo* module = dynamic_cast<CSwordModuleInfo*>(getModule());	
 	if (module)
 		m_listViewItem->setText(0, module->module()->Name() );
@@ -242,7 +242,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	*	1. Get the settings (font, colors, alignment etc.) and generate the correct richtext for this (correct alignment)
 	*	2. Apply the settings to the printer's painter object
 	*/
-	qDebug("CPrintItem::draw(QPainter* p, CPrinter* printer)");
+//	qDebug("CPrintItem::draw(QPainter* p, CPrinter* printer)");
 	QFont font;
 	QColor fgColor;
 	QColor bgColor;

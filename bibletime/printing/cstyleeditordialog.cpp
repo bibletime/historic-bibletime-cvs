@@ -127,13 +127,13 @@ void CStyleEditorDialog::initView(){
   hboxLayout->addWidget(box);
 
   hboxLayout = new QHBoxLayout();
-	QPushButton* button = new QPushButton(mainWidget);
-	button->setText(i18n("Choose font"));
-	connect(button, SIGNAL(clicked()), SLOT(showFontChooser()));	
-  m_font.fontDisplay = new QLabel(button, "", mainWidget);	
+	m_font.fontButton = new QPushButton(mainWidget);
+	m_font.fontButton->setText(i18n("Choose font"));
+	connect(m_font.fontButton, SIGNAL(clicked()), SLOT(showFontChooser()));	
+  m_font.fontDisplay = new QLabel(m_font.fontButton, "", mainWidget);	
   m_font.fontDisplay->setText(i18n("Font preview"));
   hboxLayout->addWidget(m_font.fontDisplay);
-  hboxLayout->addWidget(button);
+  hboxLayout->addWidget(m_font.fontButton);
 
 //  m_font.identation = new QSpinBox(mainWidget);
 //  label = new QLabel(m_font.identation, "identation", mainWidget);
@@ -256,8 +256,8 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	//setup frame part
 	CStyleFormatFrame* frame = format->getFrame();
 	m_frame.useFrame->setChecked( format->hasFrame() );
-//	m_frame.useFrame->setEnabled(m_formatEnabled);		
-//	m_frame.groupbox->setEnabled(m_formatEnabled);		
+	m_frame.useFrame->setEnabled(m_formatEnabled);		
+	m_frame.groupbox->setEnabled(m_formatEnabled);		
 	useFrameClicked();
 	m_frame.colorChooser->setColor( frame->getColor() );
 	m_frame.lineThicknessChooser->setValue( frame->getThickness() );	
@@ -265,11 +265,13 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 
 /** Setups the font widgets using the parameter. */
 void CStyleEditorDialog::setupFontWidgets( QFont& font ){
-	QFont dummy(/*m_font.*/font);
+	QFont dummy(font);
 	dummy.setPointSize(12);
 	m_font.fontDisplay->setFont( dummy );
 	m_font.fontDisplay->setText( QString::fromLatin1("%1 - %2").arg(m_font.font.family()).arg(m_font.font.pointSize()) );
 	m_font.fontDisplay->setEnabled(m_formatEnabled);
+	
+	m_font.fontButton->setEnabled(m_formatEnabled);	
 }
 
 /** Called when the type was changed in the combobox. */
@@ -337,5 +339,6 @@ void CStyleEditorDialog::enableBoxClicked() {
 		styleType = CStyle::ModuleText;
 	
 	m_style->setFormatTypeEnabled(styleType, m_setEnabledBox->isChecked());	
+	applySettingsToFormat(m_style->getFormatForType(styleType));
 	setupWithFormat( m_currentFormat );
 }

@@ -66,7 +66,7 @@ protected: // Protected methods
 	};
 	struct fontWidgets {
 		QFont font;
-//		QSpinBox*	identation;
+		QPushButton* fontButton;
 		QLabel*	fontDisplay;
 	};
 	
