@@ -30,6 +30,7 @@
 
 //Qt includes
 #include <qfont.h>
+#include <qregexp.h>
 
 //Sword includes
 #include <versekey.h>
@@ -55,16 +56,12 @@ void CHTMLEntryDisplay::updateSettings(void){
 	m_swordRefColorName 				= CBTConfig::get(CBTConfig::swordRefColor).name();
 
   m_standardFontName = CBTConfig::get(CBTConfig::standard).family();
-  m_standardFontSize = CToolClass::makeLogicFontSize(CBTConfig::get(CBTConfig::standard).pointSize() );
+  m_standardFontSize = /*CToolClass::makeLogicFontSize*/(CBTConfig::get(CBTConfig::standard).pointSize() );
 
 	m_unicodeFontName  = CBTConfig::get(CBTConfig::unicode).family();
-  m_unicodeFontSize  = CToolClass::makeLogicFontSize( CBTConfig::get(CBTConfig::unicode).pointSize() );
+  m_unicodeFontSize  = /*CToolClass::makeLogicFontSize*/( CBTConfig::get(CBTConfig::unicode).pointSize() );
 
-	m_htmlHeader = QString::fromLatin1("<html><head>\
-<style type=\"text/css\">\
-a:link {color: %1; text-decoration:none;}\n\
-a:hover {color: %2; text-decoration:none;}\
-</style></head>").arg(m_swordRefColorName).arg(m_swordRefColorName);
+	m_htmlHeader = header();
 
 }
 
@@ -97,17 +94,18 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	if (m_includeHeader) {
 		m_htmlText = m_htmlHeader;
 
-    m_htmlText += QString::fromLatin1("<body><P STYLE=\"margin-bottom:3mm; color:%1; border:thin medium black;\">%2: <B><A HREF=\"%3\">%4</A></B></P>")
-			.arg(m_highlightedVerseColorName)
+    m_htmlText += QString::fromLatin1("<body>%1: <span id=\"highlighted\"><A HREF=\"%2\">%3</A></span>")
       .arg(module->config(CSwordModuleInfo::Description))
  			.arg(CReferenceManager::encodeHyperlink(module->name(),key->key(), refType))
       .arg(key->key());
 
-		m_htmlText += QString::fromLatin1("<font color=\"%1\" face=\"%2\" size=\"%3\">%5</font></body></html>")
-      .arg(m_standardFontColorName)
-      .arg( module->isUnicode() ? m_unicodeFontName : m_standardFontName)
-			.arg( module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
+		m_htmlText += QString::fromLatin1("<span %1>%1</span>")
+      .arg(module->isUnicode() ? "id=\"unicodetext\"" : "")
+//      .arg( module->isUnicode() ? m_unicodeFontName : m_standardFontName)
+//			.arg( module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
       .arg( key->renderedText() );
+
+    m_htmlText += "</body></html>";
 	}
 	else {
 		m_htmlText = key->renderedText();
@@ -187,4 +185,116 @@ char CHTMLEntryDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList) {
 	//clean up
 //	delete key;	
 	return 1;
+}
+
+/** Returns the header which should be used for each page. */
+const QString& CHTMLEntryDisplay::header(){
+  m_htmlHeader = QString::fromLatin1("<HTML><HEAD>\n");
+
+  m_htmlHeader += QString::fromLatin1("\n<style type=\"text/css\">\n\n");
+
+  for (int t = MinType; t < MaxType; ++t) {
+    m_htmlHeader += "\t" + formatString(static_cast<CHTMLEntryDisplay::StyleType>(t)) + "\n\n";
+  }
+  m_htmlHeader += QString::fromLatin1("</style>\n\n");
+
+// #unicodetext { font-family: !unicodefamily!; }\n\
+// #highlighted { color: !highlightedcolor!; }\n\
+// #reference { color: !refcolor!; font-decoration: none; }\n\
+// #jesuswords {color: !jesuswordscolor!; text-weight:bolder;}\n\
+// #otquote {font-size: smaller;}\n\
+// #poetry  {font-weight: light; text-align: justify;}\n\
+// #sectionhead  {font-size: larger; font-weight: bold; color: !textcolor!;}\n\
+// #booktitle  {font-weight: x-bold; font-size: x-large; color: !textcolor!; margin-top:1mm;margin-bottom:1mm;}\n\
+// #strongnumber  {font-decoration: none; font-size: smaller; font-weight:lighter; font-style:italic; color: !strongscolor!;}\n\
+// #morphcode  {font-size: smaller; color: !morphcolor!; font-decoration:none;}\n\
+// #footnote  {font-size: smaller; color: !footnotecolor!; font-style:italic;}\n\
+// #footnotepre {font-weight: bolder;}\n\
+
+  m_htmlHeader += QString::fromLatin1("</HEAD>");
+  return m_htmlHeader;
+}
+
+/** Returns the string which is used for the given styleType, */
+const QString CHTMLEntryDisplay::formatString( const CHTMLEntryDisplay::StyleType type){
+  const QString bgColor = CBTConfig::get(CBTConfig::backgroundColor).name();
+  const QString textColor = CBTConfig::get(CBTConfig::textColor).name();
+  const QString highlightColor = CBTConfig::get(CBTConfig::highlightedVerseColor).name();
+  const QString swordRefColor = CBTConfig::get(CBTConfig::swordRefColor).name();
+  const QString footnotesColor = CBTConfig::get(CBTConfig::footnotesColor).name();
+  const QString morphsColor = CBTConfig::get(CBTConfig::morphsColor).name();
+  const QString strongsColor = CBTConfig::get(CBTConfig::strongsColor).name();
+  const QString jesusWordsColor = CBTConfig::get(CBTConfig::jesuswordsColor).name();
+//  const QString lemmaColor = CBTConfig::get(CBTConfig::strongsColor).name();
+
+  QString text;
+  switch(type) {
+    case Body:
+      text =  QString::fromLatin1("body {background-color: %1; color: %2; font-size: %3pt; font-family: %4;}")
+                .arg(bgColor)
+                .arg(textColor)
+                .arg(m_standardFontSize)
+                .arg(m_standardFontName);
+      break;
+    case Link:
+      text = QString::fromLatin1("a:link {text-decoration:none; color: %1}").arg(swordRefColor);
+      break;
+    case LinkHover:
+      text = QString::fromLatin1("a:hover {text-decoration:none; font-weight:bolder;}");
+      break;
+    case HighlightedText:
+      text = QString::fromLatin1("#highlighted {color: %1;}")
+                .arg(highlightColor);
+      break;
+    case UnicodeText:
+      text = QString::fromLatin1("#unicodetext { font-family: %1; font-size:%2pt; }")
+                .arg(m_unicodeFontName)
+                .arg(m_unicodeFontSize);
+      break;
+    case Reference:
+      text = QString::fromLatin1("#reference { color: %1; font-decoration: none; }")
+              .arg(swordRefColor);
+      break;
+    case MorphCode:
+      text = QString::fromLatin1("#morphcode {font-size: smaller; color: %1; font-decoration:none;}")
+              .arg(morphsColor);
+      break;
+    case StrongNumber:
+      text = QString::fromLatin1("#strongnumber {font-size: smaller; color: %1; font-decoration:none;}")
+              .arg(strongsColor);
+      break;
+    case Lemma:
+//      text = QString::fromLatin1("#lemma {font-size: smaller; color: %1; font-decoration:none;}")
+//              .arg(lemmaColor);
+      break;
+    case Footnote:
+      text = QString::fromLatin1("#footnote  {font-size: smaller; color: %1; font-style:italic;}")
+              .arg(footnotesColor);
+      break;
+    case FootnotePre:
+      text = QString::fromLatin1("#footnotepre {font-size: smaller; color: %1; font-weight: bolder;}")
+              .arg(footnotesColor);
+      break;
+    case Poetry:
+      text = QString::fromLatin1("#poetry {font-weight: lighter; alignment: justify;}");
+      break;
+    case Quotation:
+      text = QString::fromLatin1("#quotation {font-style: italic;}");
+      break;
+    case JesusWords:
+      text = QString::fromLatin1("#jesuswords {font-style: italic; color: %1;}")
+              .arg(jesusWordsColor);
+      break;
+
+    case BookTitle:
+      text = QString::fromLatin1("#booktitle {font-weight: x-bold; font-size: x-large; color: %1; margin-top:1mm; margin-bottom:1mm;}")
+              .arg(textColor);
+      break;
+    case SectionTitle:
+      text = QString::fromLatin1("#sectiontitle {font-size: larger; font-weight: bold; color: %1;}")
+              .arg(textColor);
+      break;
+    break;
+  };
+  return text;
 }

@@ -40,10 +40,6 @@ public:
   virtual char Display( QPtrList<CSwordModuleInfo>* moduleList);
 
 protected: // Protected methods
-  /**
-  * Returns the header which should be used for each page.
-  */
-  const QString& header();
 };
 
 #endif

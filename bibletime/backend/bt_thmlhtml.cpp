@@ -171,7 +171,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 //headings should be processed by the ThMLHeadings filter		
 		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
 			userData["SecHead"] = "true";
-			pushString(buf, "<div id=\"sectionhead\">"/*, text_color*/);
+			pushString(buf, "<div id=\"sectiontitle\">"/*, text_color*/);
 		}
 		else if (!strncmp(token, "div class=\"title\"", 19)) {
       userData["Title"] = "true";

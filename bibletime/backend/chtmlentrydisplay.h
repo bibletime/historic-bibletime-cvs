@@ -70,16 +70,44 @@ public:
   void setDisplayOptions( const CSwordBackend::DisplayOptionsBool options);
 
 protected:
-	bool m_includeHeader;
+  enum StyleType {
+    Body = 0,
+    Link,
+    LinkHover,
+    HighlightedText,
+    UnicodeText,
+
+    Reference,
+
+    MorphCode,
+    StrongNumber,
+    Lemma,
+    Footnote,
+    FootnotePre,
+
+    Poetry,
+    Quotation,
+    JesusWords,
+
+    BookTitle,
+    SectionTitle,
+
+    MinType = Body,
+    MaxType = SectionTitle
+  };
+  /**
+  * Returns the header which should be used for each page.
+  */
+  const QString& header();
+	
+  bool m_includeHeader;
 
 	QString m_htmlText;
 	QString m_htmlHeader;
-//	QString m_htmlBody;
 
 	QString m_highlightedVerseColorName;
 	QString m_standardFontColorName;
 	QString m_swordRefColorName;
-
 
   QString m_standardFontName;
 	QString m_unicodeFontName;
@@ -87,6 +115,10 @@ protected:
   int 		m_unicodeFontSize;
 
 	void updateSettings(void);
+  /**
+  * Returns the string which is used for the given styleType,
+  */
+  virtual const QString formatString( const CHTMLEntryDisplay::StyleType type);
 
 	CSwordBackend::DisplayOptionsBool m_displayOptionsBool;
 };

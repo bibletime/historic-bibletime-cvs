@@ -38,7 +38,7 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("Fb", "</b>");
 	
 //	addTokenSubstitute("FR", QString::fromLatin1("<font color=\"%1\">").arg(jesuswords_color).latin1());		
-	addTokenSubstitute("FR", QString::fromLatin1("<span id=\"jesuswords\">").latin1());		
+	addTokenSubstitute("FR", QString::fromLatin1("<span id=\"jesuswords\">").latin1());
 
 	addTokenSubstitute("Fr", "</font>");
 	addTokenSubstitute("FU", "<u>"); // underline begin
@@ -46,7 +46,7 @@ BT_GBFHTML::BT_GBFHTML(){
 
 //	addTokenSubstitute("FO", "<cite>"); //  Old Testament quote begin
 //	addTokenSubstitute("Fo", "</cite>");
-	addTokenSubstitute("FO", "<span id=\"otquote\">"); //  Old Testament quote begin
+	addTokenSubstitute("FO", "<span id=\"quotation\">"); //  Old Testament quote begin
 	addTokenSubstitute("Fo", "</span>");
 	
 
@@ -63,7 +63,7 @@ BT_GBFHTML::BT_GBFHTML(){
 //	addTokenSubstitute("Ts", "</font></h2>");
 //	addTokenSubstitute("TS", QString::fromLatin1(" <H2><font color=\"%1\">").arg(text_color).local8Bit());	
 	addTokenSubstitute("Ts", "</div>");
-	addTokenSubstitute("TS", QString::fromLatin1("<div id=\"sectionhead\">").local8Bit());	
+	addTokenSubstitute("TS", QString::fromLatin1("<div id=\"sectiontitle\">").local8Bit());	
 			
 //	addTokenSubstitute("PP", "<cite>"); //  poetry  begin
 //	addTokenSubstitute("Pp", "</cite>");

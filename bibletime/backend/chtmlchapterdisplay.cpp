@@ -25,7 +25,6 @@
 
 //Qt includes
 #include <qfont.h>
-#include <qregexp.h>
 
 //Sword includes
 #include <versekey.h>
@@ -73,13 +72,14 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		else
 			m_htmlText += QString::fromLatin1("<span>\n");
 
-  	m_htmlText.append(QString::fromLatin1(" <font face=\"%1\" size=\"%2\">\n")
-	  	.arg(module->isUnicode() ? m_unicodeFontName : m_standardFontName)
-		  .arg(module->isUnicode() ? m_unicodeFontSize : m_standardFontSize) );
+//  	m_htmlText.append(QString::fromLatin1(" <font face=\"%1\" size=\"%2\">\n")
+//	  	.arg(module->isUnicode() ? m_unicodeFontName : m_standardFontName)
+//		  .arg(module->isUnicode() ? m_unicodeFontSize : m_standardFontSize) );
+    m_htmlText += QString::fromLatin1("<span %1>").arg( module->isUnicode() ? "id=\"unicodetext\"" : ""  );
 
 		m_htmlText += key.renderedText();
 
-		m_htmlText += " </font>\n";
+		m_htmlText += " </span>\n";
 
 //		if (verse == currentVerse)
 		  m_htmlText += QString::fromLatin1("</span>\n");
@@ -192,36 +192,3 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 	return 1;		
 }
 
-/** Returns the header which should be used for each page. */
-const QString& CHTMLChapterDisplay::header(){
-  m_htmlHeader = QString::fromLatin1("<HTML><HEAD>");
-
-  m_htmlHeader += QString::fromLatin1("\n\
-<style type=\"text/css\">\n\
- a:link {text-decoration:none;}\n\
- body {background-color: !backgroundcolor!; color: !textcolor!;}\n\
- #highlighted { color: !highlightedcolor!; }\n\
- #reference { color: !refcolor!; font-decoration: none; }\n\
- #jesuswords {color: !jesuswordscolor!; text-weight:bolder;}\n\
- #otquote {font-size: smaller;}\n\
- #poetry  {font-weight: light; text-align: justify;}\n\
- #sectionhead  {font-size: larger; font-weight: bold; color: !textcolor!;}\n\
- #booktitle  {font-weight: x-bold; font-size: x-large; color: !textcolor!; margi-top:1mm;margin-bottom:1mm;}\n\
- #strongnumber  {font-decoration: none; font-size: smaller; font-weight:lighter; font-style:italic; color: !strongscolor!;}\n\
- #morphcode  {font-size: smaller; color: !morphcolor!; font-decoration:none;}\n\
- #footnote  {font-size: smaller; color: !footnotecolor!;font-style:italic;}\n\
- #footnotepre {font-weight: bolder;}\n\
-</style>\n\n");
-
-  m_htmlHeader.replace(QRegExp("!backgroundcolor!"), CBTConfig::get(CBTConfig::backgroundColor).name());
-  m_htmlHeader.replace(QRegExp("!highlightedcolor!"), CBTConfig::get(CBTConfig::highlightedVerseColor).name());
-  m_htmlHeader.replace(QRegExp("!textcolor!"), CBTConfig::get(CBTConfig::textColor).name());
-  m_htmlHeader.replace(QRegExp("!refcolor!"), CBTConfig::get(CBTConfig::swordRefColor).name());
-  m_htmlHeader.replace(QRegExp("!jesuswordscolor!"), CBTConfig::get(CBTConfig::jesuswordsColor).name());
-  m_htmlHeader.replace(QRegExp("!morphcolor!"), CBTConfig::get(CBTConfig::morphsColor).name());
-  m_htmlHeader.replace(QRegExp("!strongscolor!"), CBTConfig::get(CBTConfig::strongsColor).name());
-  m_htmlHeader.replace(QRegExp("!footnotecolor!"), CBTConfig::get(CBTConfig::footnotesColor).name());
-
-  m_htmlHeader += QString::fromLatin1("</HEAD>");
-  return m_htmlHeader;
-}
