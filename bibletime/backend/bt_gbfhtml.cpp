@@ -100,72 +100,85 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const sword::SWModule * module){
 	GBFHTML::processText(buf, key, module);
 
-	//we have to go through the text and put all text which belongs to strongs into span tags
-	//the text might look like 
-	//	Am Anfang<WH07225> schuf<WH01254><WTH8804> Gott<WH0430> Himmel<WH08064> und Erde<WH0776>.
-	
-	int pos = -1;
-	int lastPos = -1;
-	int posRev = 0;
-	QString t = QString::fromUtf8(buf.c_str());
-	QRegExp startRE("<W(T?)([GH]\\d+)>");
-	QRegExp endRE("(^)|>");
-	
-	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
-	if (m && (m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
-		do {
-			pos = startRE.search(t, pos+1);
-			posRev = endRE.searchRev(t,pos);
-			if (pos == posRev+2) { //two morph/strongs which belong together
-				posRev = endRE.searchRev(t,posRev-1);
-			}
-			
-			if ((pos >= 0) && (posRev>= 0) && (posRev < pos) && (posRev > lastPos)) {//we found a valid text span
-				bool isMorph = !startRE.cap(1).isEmpty();
-				const QString value = startRE.cap(2);
-	// 			qWarning("found %s", value.latin1());
-				
-				posRev = !posRev ? 0 : posRev+1;
-				
-				QString part = t.mid(posRev, pos-posRev);
-				int end = t.find(">", pos+1);
-				
-				if (end > pos) {
-					if (!part.isEmpty()) {					
-						QString rep = 
-							isMorph 
-							? QString("<span morph=\"%1\">%2</span>").arg(value).arg(part)
-							: QString("<span lemma=\"%1\">%2</span>").arg(value).arg(part);
-						
-						t.replace(posRev, end-posRev+1, rep);
-						pos = posRev + rep.length() - (end-pos) - part.length()+1;
-					}
-					else {//found text is empty, this morph/lemma belongs to the one before (i.e. two following belonging to the same text)
-						//remove the GBF tag
-						t.remove(posRev, end-posRev+1);
-						pos -= end-posRev+1;
-						
-						int attrPos = t.findRev(QRegExp("morph=|lemma="),posRev);
-						if ((attrPos > 0) && (attrPos < posRev)) {
-							//insert the new attribute here
-							QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
-							t.insert(attrPos, attr);
-							pos+=attr.length();
-						}
-						
-					}
-				}			
-			}
-			
-			lastPos = pos;
-		}
-		while (pos >= 0);
-	 	
-// 		qWarning("replaced: %s", t.latin1());
-	}	
+ 	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
+	if (m && !(m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
+		return 1;
+	}
 
-	buf = (const char*)t.utf8();
-  return 1;
+	//Am Anfang<WH07225> schuf<WH01254><WTH8804> Gott<WH0430> Himmel<WH08064> und Erde<WH0776>.
+	QString result;
+	
+	QString t = QString::fromUtf8(buf.c_str());
+	QRegExp tag("(<W[T]?[HG]\\d+>)+");
+	
+	QStringList list;
+	int lastMatchEnd = 0;
+	int pos = tag.search(t,0);
+	
+	while (pos != -1) {
+		list.append(t.mid(lastMatchEnd, pos+tag.matchedLength()-lastMatchEnd));
+	
+		lastMatchEnd = pos+tag.matchedLength();
+		pos = tag.search(t,pos+tag.matchedLength());
+	}
+	
+	if (!t.right(t.length() - lastMatchEnd).isEmpty()) {
+		list.append(t.right(t.length() - lastMatchEnd));
+	}
+
+	tag = QRegExp("<W(T?)([HG]\\d+)>");
+
+	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
+		QString e = *it;
+		
+		const bool textPresent = (e.stripWhiteSpace().remove(QRegExp("[.,;:]")).left(1) != "<");
+		if (!textPresent) {
+			continue;
+		}
+		
+		int pos = tag.search(e, 0);
+		bool insertedTag = false;
+		while (pos != -1) {
+			const bool isMorph = !tag.cap(1).isEmpty();
+			const QString value = tag.cap(2);
+			
+			if (value.isEmpty()) {
+				break;
+			}
+			
+			//insert the span
+			if (!insertedTag) {
+				e.replace(pos, tag.matchedLength(), "</span>");
+ 				pos += 7;
+				
+				QString rep = QString("<span lemma=\"%1\">").arg(value);
+				e.prepend( rep );
+				pos += rep.length();
+			}
+			else { //add the attribute to the existing tag
+				e.remove(pos, tag.matchedLength());
+				
+				const int attrPos = e.find(QRegExp("morph=|lemma="),0);
+				if (attrPos >= 0) {
+					QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
+					e.insert(attrPos, attr);
+					
+					pos += attr.length();
+				}
+			}
+				
+			insertedTag = true;
+			pos = tag.search(e, pos);
+		}
+		
+		result += e;
+	}
+	
+	if (list.count()) {
+		buf = (const char*)result.utf8();
+	}
+  
+	return 1;
 }
 
 bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {
@@ -226,4 +239,3 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 	}
 	return true;
 }
-

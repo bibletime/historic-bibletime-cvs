@@ -60,81 +60,87 @@ BT_ThMLHTML::BT_ThMLHTML() {
 char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const sword::SWModule* module) {
 	ThMLHTML::processText(buf, key, module);
 	
-	//process the sync tags and create the right morph/lemma span tags around the right text parts
-	int pos = -1;
-	int lastPos = -1;
-	int posRev = 0;
-	QString t = QString::fromUtf8(buf.c_str());
-	QRegExp startRE("<sync[^>]+(type|value)=\"([^\"]+)\"[^>]+(type|value)=\"([^\"]+)\"([^<]*)>");
-	QRegExp endRE("(^)|>");
-	
-	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
-	if (m && (m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
-		do {
-			pos = startRE.search(t, pos+1);
-			posRev = endRE.searchRev(t,pos);
-			if (pos == posRev+2) { //two morph/strongs which belong together
- 				posRev = endRE.searchRev(t,posRev-1);
-			}
-			
-// 			qWarning("pos=%i, posRev=%i, lastpos=%i", pos, posRev, lastPos);
-			
-			if ((pos >= 0) && (posRev>= 0) && (posRev < pos) && (posRev > lastPos)) {//we found a valid text span
-				const bool isMorph = 
-					((startRE.cap(1) == "type") ? startRE.cap(2) : startRE.cap(4)) == "morph";
-				const bool isStrongs = 
-					((startRE.cap(1) == "type") ? startRE.cap(2) : startRE.cap(4)) == "Strongs";				
-				const QString value = 
-					(startRE.cap(1) == "value") ? startRE.cap(2) : startRE.cap(4);
+ 	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
+	if (m && !(m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
+		return 1;
+	}
 
-// 	 			qWarning("found %s", value.latin1());
-				
-				posRev = !posRev ? 0 : posRev+1;
-				
-				QString part = t.mid(posRev, pos-posRev);
-				int end = t.find(">", pos+1);
-				
-				if (end > pos) {
-					if (!part.isEmpty()) {
-						QString rep;
-						if (isStrongs) {
-							rep = QString::fromLatin1("<span lemma=\"%1\">%2</span>").arg(value).arg(part);
-						}
-						else if (isMorph) {
-							rep = QString::fromLatin1("<span morph=\"%1\">%2</span>").arg(value).arg(part);
-						}
-						
-						t.replace(posRev, end-posRev+1, rep);
-						pos = posRev + part.length() + (end-pos) - rep.length()+1;
-						
-// 						qWarning("after: pos=%i", pos);
-					}
-					else {//found text is empty, this morph/lemma belongs to the one before (i.e. two following belonging to the same text)
-						//TODO: remove the ThML tag
-						
-						int attrPos = t.findRev(QRegExp("morph=|lemma="),posRev);
-						if ((attrPos > 0) && (attrPos < posRev)) { //insert the new attribute here
-							QString attr = 
-								QString::fromLatin1("%1=\"%2\" ")
-									.arg(isMorph ? "morph" : "lemma")
-									.arg(value);
-									
-							t.insert(attrPos, attr);
-							
-							pos += attr.length();
-						}	
-					}
-				}
-			}
-			
-			lastPos = pos;
-		}
-		while (pos >= 0);
-	 	
-// 		qWarning("replaced: %s", t.latin1());
+	QString result;
+	
+	QString t = QString::fromUtf8(buf.c_str());
+	QRegExp tag("(<sync[^>]+(type|value)=\"([^\"]+)\"[^>]+(type|value)=\"([^\"]+)\"([^<]*)>)+");
+	
+	QStringList list;
+	int lastMatchEnd = 0;
+	int pos = tag.search(t,0);
+	
+	while (pos != -1) {
+		list.append(t.mid(lastMatchEnd, pos+tag.matchedLength()-lastMatchEnd));
+	
+		lastMatchEnd = pos+tag.matchedLength();
+		pos = tag.search(t,pos+tag.matchedLength());
 	}
 	
-	buf = (const char*)t.utf8();
+	if (!t.right(t.length() - lastMatchEnd).isEmpty()) {
+		list.append(t.right(t.length() - lastMatchEnd));
+	}
+
+	tag = QRegExp("<sync[^>]+(type|value)=\"([^\"]+)\"[^>]+(type|value)=\"([^\"]+)\"([^<]*)>");
+
+	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
+		QString e = *it;
+		
+		const bool textPresent = (e.stripWhiteSpace().remove(QRegExp("[.,;:]")).left(1) != "<");
+		if (!textPresent) {
+			continue;
+		}
+		
+		int pos = tag.search(e, 0);
+		bool insertedTag = false;
+		while (pos != -1) {
+			const bool isMorph = 
+				((tag.cap(1) == "type") ? tag.cap(2) : tag.cap(4)) == "morph";
+			const bool isStrongs = 
+				((tag.cap(1) == "type") ? tag.cap(2) : tag.cap(4)) == "Strongs";				
+			const QString value = 
+				(tag.cap(1) == "value") ? tag.cap(2) : tag.cap(4);
+			
+			if (value.isEmpty()) {
+				break;
+			}
+			
+			//insert the span
+			if (!insertedTag) {
+				e.replace(pos, tag.matchedLength(), "</span>");
+ 				pos += 7;
+				
+				QString rep = QString("<span lemma=\"%1\">").arg(value);
+				e.prepend( rep );
+				pos += rep.length();
+			}
+			else { //add the attribute to the existing tag
+				e.remove(pos, tag.matchedLength());
+				
+				const int attrPos = e.find(QRegExp("morph=|lemma="),0);
+				if (attrPos >= 0) {
+					QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
+					e.insert(attrPos, attr);
+					
+					pos += attr.length();
+				}
+			}
+				
+			insertedTag = true;
+			pos = tag.search(e, pos);
+		}
+		
+		result += e;
+	}
+	
+	if (list.count()) {
+		buf = (const char*)result.utf8();
+	}
+  
 	return 1;
 }
 
