@@ -5375,7 +5375,7 @@ QTextFormat QTextFormat::makeTextFormat( const QStyleSheetItem *style, const QMa
 }
 
 QTextCustomItem::QTextCustomItem( QTextDocument *p )
-      :  xpos(0), ypos(-1), width(-1), height(0), parent( p )
+      :  xpos(0), ypos(-1), width(-1), height(0), parent( p ), parag(0)
 {
 }
 
@@ -6029,7 +6029,7 @@ void QTextFlow::adjustFlow( int &yp, int , int h, QTextParag *, bool pages )
     if ( yp + h > height )
     {
 	height = yp + h;
-	qDebug("QTextFlow::adjustFlow now height=%d",height);
+	//qDebug("QTextFlow::adjustFlow now height=%d",height);
     }
 }
 
