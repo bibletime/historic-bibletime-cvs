@@ -34,6 +34,7 @@ QString CBTConfig::getKey( CBTConfig::strings ID){
 		case standardLexicon: 			return "standardLexicon";
 		case standardHebrewLexicon: return "standardHebrewLexicon";
 		case standardGreekLexicon: 	return "standardGreekLexicon";
+		case standardMorph: return "standardMorph";
 
 	}
 }
@@ -46,6 +47,7 @@ QString CBTConfig::getDefault( CBTConfig::strings ID){
 		case standardLexicon: 			return "ISBE";
 		case standardHebrewLexicon: return "StrongsHebrew";
 		case standardGreekLexicon: 	return "StrongsGreek";
+		case standardMorph: return "StandardMorph";
 	}
 }
 
