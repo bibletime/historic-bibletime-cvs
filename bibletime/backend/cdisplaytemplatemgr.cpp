@@ -41,10 +41,6 @@ CDisplayTemplateMgr::~CDisplayTemplateMgr() {
     \fn CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content )
  */
 const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& content, Settings& settings ) {
-// 	if (!m_templateMap.contains(name)) {
-// 		
-// 	}
-
 	const QString templateName = 	m_templateMap.contains(name) ? name : defaultTemplate();
 
 	QString langCSS;
@@ -107,8 +103,6 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	t.replace("#LANG_ABBREV#", settings.langAbbrev);
  	t.replace("#DISPLAYTYPE#", displayTypeString);
 	t.replace("#CONTENT#", newContent);
-	
-//	std::cout << t.latin1() << std::endl;
 	
 	return t;
 }

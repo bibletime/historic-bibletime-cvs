@@ -57,44 +57,53 @@ void CInfoDisplay::setInfo(const InfoType type, const QString& data) {
 
 
 void CInfoDisplay::setInfo(const ListInfoData& list) {
-//	qWarning("setInfo");
 	QString text;
 	
 	ListInfoData::const_iterator end = list.end();
 	for (ListInfoData::const_iterator it = list.begin(); it != end; ++it) {
 	  switch ( (*it).first ) {
 			case Lemma:
+				qWarning("lemma");
 				text += decodeLemma( (*it).second );
 				continue;
 			case Morph:
+				qWarning("morph");
 				text += decodeMorph( (*it).second );
 				continue;
 			case CrossReference:
+				qWarning("cross ref");
 				text += decodeCrossReference( (*it).second );
 				continue;
 			case Footnote:
+				qWarning("note");
 				text += decodeFootnote( (*it).second );
 				continue;
 			case WordTranslation:
+				qWarning("word");
 				text += getWordTranslation( (*it).second );
 				continue;
 			case WordGloss:
+				qWarning("word gloss");
 				//text += getWordTranslation( (*it).second );
 				continue;
 			default:
+				qWarning("default");
 				continue;
 		};
 	}
-
-	//text = QString::fromLatin1("<div class\"infodisplay\">%1</div>").arg(text);
+	
+// 	qWarning("rendering text %s", text.latin1());
 	CDisplayTemplateMgr mgr;
 	CDisplayTemplateMgr::Settings settings;
 	settings.pageCSS_ID = "infodisplay";
-	text = mgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
+	QString content = mgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
+	
+//  	qWarning("html: %s", content.latin1());
 	
 	m_htmlPart->begin();
-	m_htmlPart->write(text);
+	m_htmlPart->write( content );
 	m_htmlPart->end();
+// 	m_htmlPart->view()->layout();
 }
 
 
@@ -109,7 +118,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	VerseKey vk;
 	ListKey refs = vk.ParseVerseList((const char*)data.utf8(), "Gen 1:1", true);
 	for (int i = 0; i < refs.Count(); ++i) {
-	//TODO: check and render key ranges
+		//TODO: check and render key ranges
 	
 		SWKey* key = refs.getElement(i);
 		Q_ASSERT(key);
@@ -146,10 +155,7 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 //	Q_ASSERT(!keyname.isEmpty());
 //	Q_ASSERT(!swordFootnote.isEmpty());
 
-//	qWarning("data: %s, %s, %s", modulename.latin1(), keyname.latin1(), swordFootnote.latin1());
-	
 	CSwordModuleInfo* module = CPointers::backend()->findModuleByName(modulename);
-// 	Q_ASSERT(module);
 	if (!module) {
 		return QString::null;
 	}
@@ -171,8 +177,6 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 }
 
 const QString CInfoDisplay::decodeLemma( const QString& data ) {
-//	qWarning("decode lemma: %s", data.latin1());
-	
 	QStringList lemmas = QStringList::split("|", data);
 	QString ret;
 	
@@ -278,7 +282,5 @@ CInfoDisplay::CrossRefRendering::CrossRefRendering( CSwordBackend::DisplayOption
 }
  
 const QString CInfoDisplay::CrossRefRendering::finishText( const QString& text, KeyTree& ) {
-
-//	qWarning(text.latin1());
 	return text;
 }

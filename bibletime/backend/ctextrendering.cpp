@@ -215,20 +215,18 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
 				.arg(m->module()->Lang());
 		
 		const QString key_renderedText = key->renderedText();
-		int pvHeading = 0;
-		do { //add sectiontitle before we add the versenumber
-			preverseHeading = QString::fromUtf8(
-m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeading++).latin1()].c_str());
+		AttributeValue::const_iterator it =  m->module()->getEntryAttributes()["Heading"]["Preverse"].begin();
+		AttributeValue::const_iterator end = m->module()->getEntryAttributes()["Heading"]["Preverse"].end();
+		for (; it != end; ++it) {
+			preverseHeading = QString::fromUtf8(it->second.c_str());
+ 			
 			if (!preverseHeading.isEmpty()) {
-				entry += QString::fromLatin1("<div %1 class=\"sectiontitle\">%1</div>")
-					.arg(langAttr)
-					.arg(preverseHeading);
-			}
-			else {
-				break;
-			}
-		} while (true);
-
+ 				entry += QString::fromLatin1("<div %1 class=\"sectiontitle\">%1</div>")
+ 					.arg(langAttr)
+ 					.arg(preverseHeading);
+ 			}		
+		}
+		
 		entry += QString::fromLatin1("<%1 %2 %3 dir=\"%4\">") //linebreaks = div, without = span
     	.arg(m_displayOptions.lineBreaks ? QString::fromLatin1("div") : QString::fromLatin1("span"))
 			.arg((modules.count() == 1) //insert only the class if we're not in a td

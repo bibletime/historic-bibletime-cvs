@@ -262,7 +262,7 @@ const QString CModuleItem::toolTip(){
 		text = QString::fromLatin1("<b>%1</b> ").arg( module()->name() )
       + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<small><b>%1</b></small><br>").arg(i18n("Take care, this module contains cult / questionable material!")) : QString::null);
 		
-		text += QString::fromLatin1("<small>") + module()->config(CSwordModuleInfo::Description) + QString::fromLatin1("</small><hr>");
+		text += QString::fromLatin1("<small>(") + module()->config(CSwordModuleInfo::Description) + QString::fromLatin1(")</small><hr>");
 		
 		text += i18n("Language")+ QString::fromLatin1(": %1<br>").arg(module()->language()->translatedName());
 		
