@@ -59,8 +59,8 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.NextVerse()) {
 		verse = key.Verse();
 		if (m_displayOptionsBool.verseNumbers)
-#warning make color configurable
-			m_htmlText.append( QString::fromLatin1("<a name=\"%1\" href=\"%2\"><b>%3</b></a> ")
+			m_htmlText.append( QString::fromLatin1("<font color=\"%1\"><a name=\"%2\" href=\"%3\"><b>%4</b></a></font> ")
+				.arg(m_swordRefColorName)
 				.arg(verse)
 				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key(), CReferenceManager::typeFromModule(module->getType()) ))
 				.arg(verse)
@@ -134,7 +134,8 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		currentVerse = key.Verse();
 		m = (d = moduleList->first()) ? d->module() : 0;
 		
-		rowText = QString("<tr><td bgcolor=\"#f1f1f1\"><b><a name=\"%1\" href=\"%2\">%3</a></b></td>\n")
+		rowText = QString("<tr><td bgcolor=\"#f1f1f1\"><b><font color=\"%1\"><a name=\"%2\" href=\"%3\">%4</a></b></td>\n")
+			.arg(m_swordRefColorName)
 			.arg(currentVerse)
 			.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey, CReferenceManager::typeFromModule(d->getType()) ))
 			.arg(currentVerse);

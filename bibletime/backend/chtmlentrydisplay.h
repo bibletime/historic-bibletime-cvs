@@ -78,6 +78,8 @@ protected:
 
 	QString m_highlightedVerseColorName;
 	QString m_standardFontColorName;
+	QString m_swordRefColorName;
+
 
   QString m_standardFontName;
 	QString m_unicodeFontName;

@@ -41,6 +41,7 @@ CHTMLEntryDisplay::CHTMLEntryDisplay(){
 void CHTMLEntryDisplay::updateSettings(void){
   m_highlightedVerseColorName = CBTConfig::get(CBTConfig::highlightedVerseColor).name();
 	m_standardFontColorName 		= CBTConfig::get(CBTConfig::textColor).name();
+	m_swordRefColorName 				= CBTConfig::get(CBTConfig::swordRefColor).name();
 
   m_standardFontName = CBTConfig::get(CBTConfig::standard).family();
   m_standardFontSize = CToolClass::makeLogicFontSize(CBTConfig::get(CBTConfig::standard).pointSize() );
