@@ -159,5 +159,8 @@ void CLexiconPresenter::refresh( const int events){
 
 /** Printes the displayed entry of the used module. */
 void CLexiconPresenter::printEntry(){
+	CSwordLDKey* key = new CSwordLDKey(m_moduleList.first());
+	key->setKey(m_key->getKey());
 	
+	printKey(key, key, m_moduleList.first());
 }

@@ -60,13 +60,12 @@ void CSwordPresenter::refresh( const int events ){
 
 /** Prints the key given as parameter. */
 void CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module) {
-#warning ToDO: implementation
 	CPrintItem* printItem = new CPrintItem();	
 	printItem->setModule(module);	
 	printItem->setStartKey(start);
 	printItem->setStopKey(stop);
 	
-	m_important->printer->addItemToQueue( printItem );
+	m_important->printer->addItemToQueue(printItem);
 }
 
 /** Refreshes the supported features. */

@@ -164,13 +164,14 @@
 
 #define BIBLE_ICON_SMALL	LOAD_SMALL_ICON("bt_bible")
 #define BIBLE_LOCKED_ICON_SMALL	LOAD_SMALL_ICON("bt_bible_locked")
-
+#define BIBLE_ADD_ICON_SMALL	LOAD_SMALL_ICON("bt_bible_add")
 #define COMMENTARY_ICON_SMALL	LOAD_SMALL_ICON("bt_commentary")
 #define COMMENTARY_LOCKED_ICON_SMALL	LOAD_SMALL_ICON("bt_commentary_locked")
-
+#define COMMENTARY_ADD_ICON_SMALL	LOAD_SMALL_ICON("bt_commentary_add")
 #define LEXICON_ICON_SMALL	LOAD_SMALL_ICON("bt_lexicon")
 #define LEXICON_LOCKED_ICON_SMALL	LOAD_SMALL_ICON("bt_lexicon_locked")
-
+#define PARALLEL_ICON_SMALL	LOAD_SMALL_ICON("bt_parallel")
+#define SYNC_ICON_SMALL	LOAD_SMALL_ICON("bt_parallel")
 #define ITEMS_DELETE_ICON_SMALL	LOAD_SMALL_ICON("bt_trashcan_empty")
 
 #define BOOKMARK_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark")
@@ -202,11 +203,12 @@
 #define OD_ICON_COLORS	LOAD_OD_ICON("color_settings")
 
 //define HelpDialog aliases for defines
-#define HELPDIALOG_MODULE_LOCKED	"bibletime/locked_module.html"
-#define HELPDIALOG_FIRST_START	"bibletime/first_start.html"
-#define HELPDIALOG_NO_SWORD_MODULES	"bibletime/no_sword_modules.html"
-#define HELPDIALOG_NO_SWORD_MODULES_DIR	"bibletime/no_sword_modules_dir.html"
-#define HELPDIALOG_NO_SWORD_MODULE_CONFIG_DIR	"bibletime/no_sword_modules_config_dir.html"
-#define HELPDIALOG_NO_SWORD_CONFIG	"bibletime/no_sword_config.html"
-#define HELPDIALOG_INITBACKEND_FAILED	"bibletime/initbackend_failed.html"
+#define HELPDIALOG_MODULE_LOCKED	"bibletime/help_module_encrypted.html"
+#define HELPDIALOG_FIRST_START	"bibletime/help_first_startup.html"
+#define HELPDIALOG_NO_SWORD_MODULES	"bibletime/help_no_modules.html"
+#define HELPDIALOG_NO_SWORD_MODULES_DIR	"bibletime/help_no_sword_modules_dir.html"
+#define HELPDIALOG_NO_SWORD_MODULE_CONFIG_DIR	"bibletime/help_no_mods_d.html"
+#define HELPDIALOG_NO_SWORD_CONFIG	"bibletime/help_no_sword_config.html"
+#define HELPDIALOG_INITBACKEND_FAILED	"bibletime/help_initbackend_failed.html"
+#define HELPDIALOG_FIRSTTIME_SEARCH	"bibletime/help_first_time_search.html"
 

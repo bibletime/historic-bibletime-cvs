@@ -81,19 +81,16 @@ CModuleChooserButton::~CModuleChooserButton(){
 QPixmap CModuleChooserButton::getIcon(){
 	qDebug("CModuleChooserButton::getIcon()");	
 	if (!m_hasModule) {
-		return SmallIcon("unknwon", 16);
+		switch (m_moduleType) {
+			case CSwordModuleInfo::Bible:
+				return BIBLE_ADD_ICON_SMALL;
+			case CSwordModuleInfo::Commentary:
+				return COMMENTARY_ADD_ICON_SMALL;
+			case CSwordModuleInfo::Lexicon:
+				return LEXICON_ICON_SMALL;
+		}
 	}
-
-	switch (m_moduleType) {
-		case CSwordModuleInfo::Bible:
-			return BIBLE_ICON_SMALL;
-		case CSwordModuleInfo::Commentary:
-			return COMMENTARY_ICON_SMALL;
-		case CSwordModuleInfo::Lexicon:
-			return LEXICON_ICON_SMALL;
-		default:		
-			return SmallIcon("plus", 16);
-	}
+	return PARALLEL_ICON_SMALL;
 }
 
 CSwordModuleInfo* CModuleChooserButton::getModule() {		

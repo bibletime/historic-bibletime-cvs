@@ -226,8 +226,7 @@ void CCommentaryPresenter::refresh( const int events){
 
 /** Printes the verse the user has chosen. */
 void CCommentaryPresenter::printHighlightedVerse(){
-	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
-	key->setKey(QString::fromLocal8Bit((const char*)*m_key));
-	
+	CSwordVerseKey* key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
+	key->setKey(m_key->getKey());	
 	printKey(key, key, m_moduleList.first());
 }

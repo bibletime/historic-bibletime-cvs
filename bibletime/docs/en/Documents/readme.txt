@@ -48,7 +48,7 @@ The reason for this is that kdb2html discardes the contents of HTML and
 subdirectories every time it is run.  However the generated HTML always look for
 pictures in en/HTML/common.
 
-Every time you run kde2html you will need to copy the /common folder to
+Every time you run kdb2html you will need to copy the /common folder to
 /html/common for pictures to display correctly.
 
 Picture naming convention is as follows:

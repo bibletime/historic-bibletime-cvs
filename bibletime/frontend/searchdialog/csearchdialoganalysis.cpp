@@ -73,7 +73,7 @@ CSearchDialogAnalysis::CSearchDialogAnalysis(QObject *parent, const char *name )
 	m_canvasItemList.setAutoDelete(true);
 	
 	connect(this, SIGNAL(resized()), SLOT(slotResized()));	
-	resize(300,300);
+//	resize(300,300);
 }
 
 CSearchDialogAnalysis::~CSearchDialogAnalysis(){
@@ -229,12 +229,15 @@ void CSearchDialogAnalysis::slotResized(){
 	                                    /(double)m_maxCount);
 	QDictIterator<CSearchDialogAnalysisItem> it( m_canvasItemList );
 	while ( it.current() ) {
+		it.current()->hide();		
 		it.current()->setSize(BAR_WIDTH + (m_moduleList.count()-1)*BAR_DELTAX, height()-UPPER_BORDER-LOWER_BORDER);
 		it.current()->setY(UPPER_BORDER);
+		it.current()->show();
   	++it;
 	}
 	update();
 }
+
 /** This function returns a color for each module */
 QColor CSearchDialogAnalysis::getColor(int index){
   switch (index){
@@ -277,7 +280,7 @@ void CSearchDialogAnalysisItem::setCountForModule( const unsigned int moduleInde
 }
 
 /** Reimplementation. Draws the content of this item. */
-void CSearchDialogAnalysisItem::draw (QPainter& painter) {
+void CSearchDialogAnalysisItem::draw(QPainter& painter) {
 	QFont f = painter.font();
 	f.setPointSize(ITEM_TEXT_SIZE);
 	painter.setFont(f);
