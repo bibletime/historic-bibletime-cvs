@@ -294,7 +294,7 @@ const bool CSwordModuleInfo::has( const CSwordBackend::FilterTypes option ){
  		return true;
 
   //workaround for the new KJV2003 module
- 	if ((option == CSwordBackend::footnotes) && (m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("OSIS%1").arg(name).latin1())))
+ 	if (/*(option == CSwordBackend::footnotes) && */(m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("OSIS%1").arg(name).latin1())))
  		return true;
  	
  	return false;

@@ -60,6 +60,7 @@ const string BT_BASICFILTER::parseSimpleRef(const string& ref) {
 
 /** Parses the verse reference ref and returns it. */
 const string BT_BASICFILTER::parseRef(const string ref, sword::SWModule* module, const bool insertFullRef) {
+  qWarning("parsing %s", ref.c_str());
   /**
   * This function should be able to parse references like "John 1:3; 3:1-10; Matthew 1:1-3:3"
   * without problems.
