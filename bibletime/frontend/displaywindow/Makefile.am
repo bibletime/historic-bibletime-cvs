@@ -1,8 +1,8 @@
 INCLUDES = $(all_includes)
 
-libdisplay_a_METASOURCES = AUTO
+libdisplaywindow_a_METASOURCES = AUTO
 
-noinst_LIBRARIES = libdisplay.a
+noinst_LIBRARIES = libdisplaywindow.a
 
 libdisplaywindow_a_SOURCES = \
 cbiblereadwindow.cpp \
@@ -28,5 +28,5 @@ cmodulechooserbutton.h \
 creadwindow.h \
 cwritewindow.h
 
-EXTRA_DIST = $(libdisplay_a_SOURCES) $(all_headers)
+EXTRA_DIST = $(libdisplaywindow_a_SOURCES) $(all_headers)
 
