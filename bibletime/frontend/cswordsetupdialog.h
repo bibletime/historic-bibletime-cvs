@@ -68,7 +68,7 @@ public:
 
   enum Parts {
 		Sword,
-		Install,		
+		Install,
 		Remove
   };
 
@@ -79,7 +79,10 @@ private:
   void initSwordConfig();
   void initInstall();
 	void initRemove();
-  
+
+  /** Setup the path list box */
+  void setupSwordPathListBox();
+
   void populateInstallCombos();
 
   QFrame* m_swordConfigPage;
@@ -88,7 +91,7 @@ private:
   QButton* m_swordAddPathButton;
   QButton* m_swordRemovePathButton;
   QStringList m_swordPathList;
-  
+
   QFrame* m_removePage;
 
   QFrame* m_installPage;
@@ -106,7 +109,6 @@ private:
 
 	KListView* m_removeModuleListView;
 	QLabel* m_populateListNotification;
-//	QPushButton* m_removeBackButton;
 	QPushButton* m_removeRemoveButton;
 
   void populateRemoveModuleListView();
@@ -118,12 +120,13 @@ private:
 
   QWidget* m_installModuleListPage;
   QWidget* m_installSourcePage;
-  
+
  	KListView* m_installModuleListView;
   KProgressDialog* m_progressDialog;
   QString m_installingModule;
   bool m_refreshedRemoteSources;
-    
+	unsigned int m_installedModuleCount;
+
 private slots:
   void slot_sourceSelected(const QString &sourceName);
   void slot_targetSelected(const QString &targetName);
@@ -135,22 +138,13 @@ private slots:
   void slot_showInstallSourcePage();
 
   void installCompleted( const int, const int );
-
-  /** No descriptions */
   void slot_swordRemoveClicked();
-  /** No descriptions */
   void slot_swordAddClicked();
-  /** No descriptions */
   void slot_swordEditClicked();
+  void slot_swordPathSelected();
 
 signals: // Signals
   void signalSwordSetupChanged();
-protected: // Protected methods
-  /** Setup the path list box */
-  void setupSwordPathListBox();
-protected slots: // Protected slots
-  /** No descriptions */
-  void slot_swordPathSelected();
 };
 
 #endif //CSWORDSETUPDIALOG_H

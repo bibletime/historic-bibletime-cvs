@@ -255,12 +255,23 @@ BTInstallMgr::~BTInstallMgr(){
 }
 
 void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
+	qWarning("total: %d; now: %d", dltotal, dlnow);
   int totalPercent = (int)((float)(dlnow + m_completedBytes+1) / (float)(m_totalBytes) * 100);
-  const int filePercent  = (int)((float)(dlnow + 1) / (float)(dltotal) * 100);
-  int totalBytes;
-  int fileBytes;
-  
-  
+	if (totalPercent > 100) {
+		totalPercent = 100;
+	}
+	else if (totalPercent < 0) {
+		totalPercent = 0;
+	}
+
+  int filePercent  = (int)((float)(dlnow + 1) / (float)(dltotal) * 100);
+	if (filePercent > 100) {
+		filePercent = 100;
+	}
+	else if (filePercent < 0) {
+		filePercent = 0;
+	}
+
   emit completed(totalPercent, filePercent);
   KApplication::kApplication()->processEvents();
 }

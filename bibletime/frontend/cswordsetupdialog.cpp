@@ -644,9 +644,8 @@ void CSwordSetupDialog::slot_installModules(){
 			catList += ", ";
      catList += *it;
   }
-	QString message("You selected the following modules: %1.\n\n"
-		"Do you really want to install them on your system?");
-	message = message.arg(catList);
+	const QString& message = QString::fromLatin1("You selected the following modules: %1.\n\nDo you really want to install them on your system?").arg(catList);
+
 	if (catList.isEmpty()){
 		KMessageBox::error(0, "No modules selected.", "Error") ;
 	}
@@ -669,16 +668,19 @@ void CSwordSetupDialog::slot_installModules(){
     if (!dir.exists("mods.d")) {
       dir.mkdir("mods.d");
     }
-        
+
     qWarning("installing into target %s", target.latin1());
     sword::SWMgr lMgr( target.latin1() );
 
     //module are removed in this section of code
-  	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
-      m_progressDialog = new KProgressDialog(0,0,i18n("Module Installastion ..."), QString::null, true);
-      m_installingModule = *it;
-      m_progressDialog->progressBar()->setTotalSteps(100);
-      connect(&iMgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
+		m_installedModuleCount = 0;
+    m_progressDialog = new KProgressDialog(0,0,i18n("Module installation ..."), QString::null, true);
+    m_progressDialog->progressBar()->setTotalSteps(100 * moduleList.count());
+    connect(&iMgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
+
+		for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it, ++m_installedModuleCount ) {
+
+			m_installingModule = *it;
 
       //check whether it's an update. If yes, remove exuisting module first
       if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) { //module found?
@@ -687,7 +689,7 @@ void CSwordSetupDialog::slot_installModules(){
         if (dataPath.left(2) == "./") {
           dataPath = dataPath.mid(2);
         }
-        
+
         if (prefixPath.contains(dataPath)) {
           prefixPath = prefixPath.replace(dataPath, "");
         }
@@ -697,18 +699,18 @@ void CSwordSetupDialog::slot_installModules(){
         sword::SWMgr mgr(prefixPath.latin1());
         iMgr.removeModule(&mgr, m->name().latin1());
       }
-      
+
       if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
         iMgr.installModule(&lMgr, 0, (*it).latin1(), &is);
       }
       else { //local source
-        qWarning("install from local source");
+        //qWarning("install from local source");
         iMgr.installModule(&lMgr, is.directory.c_str(), (*it).latin1());
       }
-
-      delete m_progressDialog;
-      m_progressDialog = 0;
     }
+		delete m_progressDialog;
+		m_progressDialog = 0;
+
     //reload our backend because modules may have changed
     backend()->reloadModules();
     populateInstallModuleListView( m_sourceCombo->currentText() ); //rebuild the tree
@@ -718,9 +720,9 @@ void CSwordSetupDialog::slot_installModules(){
 
 /** No descriptions */
 void CSwordSetupDialog::installCompleted( const int total, const int file ){
-  if (m_progressDialog) {
-    m_progressDialog->progressBar()->setProgress(total);
-    m_progressDialog->setLabel( QString("[%1] %2% completed").arg(m_installingModule).arg(total) );
+	if (m_progressDialog) {
+    m_progressDialog->progressBar()->setProgress(total+100*m_installedModuleCount);
+    m_progressDialog->setLabel( i18n("[%1]: %2% complete").arg(m_installingModule).arg(total) );
   }
 }
 
