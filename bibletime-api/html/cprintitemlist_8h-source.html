@@ -27,31 +27,35 @@
 00019 <font class="preprocessor"></font><font class="preprocessor">#define CPRINTITEMLIST_H</font>
 00020 <font class="preprocessor"></font>
 00021 <font class="preprocessor">#include &lt;qwidget.h&gt;</font>
-00022 <font class="preprocessor">#include &lt;klistview.h&gt;</font>
-00023 
-00024 <font class="preprocessor">#include "cprintitem.h"</font>
-00025 
-<a name="l00031"></a><a class="code" href="class_c_print_item_list.html">00031</a> <font class="keyword">class </font><a class="code" href="class_c_print_item_list.html">CPrintItemList</a> : <font class="keyword">public</font> KListView  {
-00032    Q_OBJECT
-00033 <font class="keyword">public</font>: 
-00034     <a class="code" href="class_c_print_item_list.html">CPrintItemList</a>(PrintItemList* items, QWidget *parent=0, <font class="keyword">const</font> <font class="keywordtype">char</font> *name=0);
-00035     ~<a class="code" href="class_c_print_item_list.html">CPrintItemList</a>();
-00039   <font class="keyword">virtual</font> <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#a2">setItems</a>( PrintItemList* itemList);
-00043   <font class="keyword">virtual</font> <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#a3">insertItems</a>( PrintItemList* itemList );
-00047   <font class="keyword">virtual</font> <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#a4">initView</a>();
-00051   <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#a5">applyStyleToSelected</a>( CStyle* );
-00052 
-00053 <font class="keyword">public</font> slots: <font class="comment">// Public slots</font>
-00057 <font class="comment"></font>  <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#g0">moveDown</a>();
-00061   <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#g1">moveUp</a>();
-00065   <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#g2">deleteSelectedItems</a>();
-00069   <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#g3">newPage</a>();
-00070 
-00071 <font class="keyword">private</font>:
-00072     PrintItemList* m_items;     
-00073 };
-00074 <font class="preprocessor">#endif</font>
-</pre></div><hr><address><small>Generated on Sun Mar 10 21:36:54 2002 for BibleTime by
+00022 <font class="preprocessor">#include &lt;qlist.h&gt;</font>
+00023 <font class="preprocessor">#include &lt;klistview.h&gt;</font>
+00024 
+00025 <font class="preprocessor">#include "cprintitem.h"</font>
+00026 
+00027 <font class="keyword">typedef</font> QList&lt;CPrintItem&gt; printItemList;
+00028 
+00029 
+<a name="l00033"></a><a class="code" href="class_c_print_item_list.html">00033</a> <font class="keyword">class </font><a class="code" href="class_c_print_item_list.html">CPrintItemList</a> : <font class="keyword">public</font> KListView  {
+00034    Q_OBJECT
+00035 <font class="keyword">public</font>: 
+00036     <a class="code" href="class_c_print_item_list.html">CPrintItemList</a>(PrintItemList* items, QWidget *parent=0, <font class="keyword">const</font> <font class="keywordtype">char</font> *name=0);
+00037     ~<a class="code" href="class_c_print_item_list.html">CPrintItemList</a>();
+00041   <font class="keyword">virtual</font> <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#a2">setItems</a>( PrintItemList* itemList);
+00045   <font class="keyword">virtual</font> <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#a3">insertItems</a>( PrintItemList* itemList );
+00049   <font class="keyword">virtual</font> <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#a4">initView</a>();
+00053   <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#a5">applyStyleToSelected</a>( CStyle* );
+00054 
+00055 <font class="keyword">public</font> slots: <font class="comment">// Public slots</font>
+00059 <font class="comment"></font>  <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#g0">moveDown</a>();
+00063   <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#g1">moveUp</a>();
+00067   <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#g2">deleteSelectedItems</a>();
+00071   <font class="keywordtype">void</font> <a class="code" href="class_c_print_item_list.html#g3">newPage</a>();
+00072 
+00073 <font class="keyword">private</font>:
+00074     PrintItemList* m_items;     
+00075 };
+00076 <font class="preprocessor">#endif</font>
+</pre></div><hr><address><small>Generated on Sun Mar 10 15:56:52 2002 for BibleTime by
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.gif" alt="doxygen" align="middle" border=0 
 width=110 height=53></a>1.2.14 written by <a href="mailto:dimitri@stack.nl">Dimitri van Heesch</a>,

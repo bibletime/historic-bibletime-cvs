@@ -32,9 +32,19 @@
 <b>useScope</b> =  0x000000020
 <br>
  }</td></tr>
-<tr><td nowrap align=right valign=top>enum &nbsp;</td><td valign=bottom><b>percentType</b> { <b>currentModule</b> =  0x000000001, 
-<b>allModules</b> =  0x000000002
+<tr><td nowrap align=right valign=top>enum &nbsp;</td><td valign=bottom><b>percentType</b> { <b>currentModule</b>, 
+<b>allModules</b>
  }</td></tr>
+<tr><td nowrap align=right valign=top>enum &nbsp;</td><td valign=bottom><a class="el" href="class_c_sword_module_search.html#s20">SearchScope</a> { <b>NoScope</b>, 
+<b>LastSearch</b>, 
+<b>Bounds</b>
+ }</td></tr>
+<tr><td>&nbsp;</td><td><font size=-1><em>This is used to show the selection in the searchscope dialog.</em></font><br><br></td></tr>
+<tr><td nowrap align=right valign=top>enum &nbsp;</td><td valign=bottom><a class="el" href="class_c_sword_module_search.html#s21">SearchType</a> { <b>MultiWord</b>, 
+<b>ExactPhrase</b>, 
+<b>RegEx</b>
+ }</td></tr>
+<tr><td>&nbsp;</td><td><font size=-1><em>This is used to so show the selection of the searchdialog.</em></font><br><br></td></tr>
 <tr><td colspan=2><br><h2>Public Methods</h2></td></tr>
 <tr><td nowrap align=right valign=top><a name="a0" doxytag="CSwordModuleSearch::CSwordModuleSearch"></a>
 &nbsp;</td><td valign=bottom><b>CSwordModuleSearch</b> ()</td></tr>
@@ -118,7 +128,7 @@ The <a class="el" href="class_bible_time.html">BibleTime</a> team </dl><dl compa
 Version: </b><dd>
 </dl><dl compact><dt><b>
 Id: </b><dd>
- cswordmodulesearch.h,v 1.10 2002/02/26 22:05:24 joachim Exp </dl> 
+ cswordmodulesearch.h,v 1.11 2002/03/09 21:03:16 mgruner Exp </dl> 
 <p>
 
 <p>
@@ -217,7 +227,7 @@ Options include the flags and search types of the Sword searc interface.     </t
 </table>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="cswordmodulesearch_8h-source.html">cswordmodulesearch.h</a></ul>
-<hr><address><small>Generated on Sun Mar 10 21:36:56 2002 for BibleTime by
+<hr><address><small>Generated on Sun Mar 10 15:56:54 2002 for BibleTime by
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.gif" alt="doxygen" align="middle" border=0 
 width=110 height=53></a>1.2.14 written by <a href="mailto:dimitri@stack.nl">Dimitri van Heesch</a>,

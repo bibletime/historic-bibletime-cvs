@@ -62,52 +62,56 @@
 00061     useScope            = 0x000000020
 00062     };
 00063     <font class="keyword">enum</font> percentType {
-00064     currentModule   = 0x000000001,
-00065         allModules      = 0x000000002
+00064     currentModule,
+00065         allModules
 00066     };
-00067 
-00068     <a class="code" href="class_c_sword_module_search.html">CSwordModuleSearch</a>();
-00072     <font class="keyword">virtual</font> <a class="code" href="class_c_sword_module_search.html#a1">~CSwordModuleSearch</a>();
-00076   <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a2">setSearchedText</a>( <font class="keyword">const</font> QString );
-00080   <font class="keyword">const</font> <font class="keywordtype">bool</font> <a class="code" href="class_c_sword_module_search.html#a3">startSearch</a>();
-00084   <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a4">setModules</a>( ListCSwordModuleInfo&amp; );
-00088   <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a5">setSearchScope</a>( ListKey <a class="code" href="class_c_sword_module_search.html#a13">scope</a> );
-00092 <font class="comment">//  void useLastSearchResult( const bool );</font>
-00096 <font class="comment"></font>  <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a6">resetSearchScope</a>();
-00100   <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a7">interruptSearch</a>();
-00104   <font class="keyword">const</font> <font class="keywordtype">bool</font> <a class="code" href="class_c_sword_module_search.html#a8">foundItems</a>();
-00109     <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a9">startSearchThread</a>(<font class="keywordtype">void</font>);
-00114   <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a10">setSearchOptions</a>( <font class="keywordtype">int</font> options );
-00118   <font class="keyword">const</font> <font class="keywordtype">int</font> <a class="code" href="class_c_sword_module_search.html#a11">getPercent</a>( percentType type );
-00119     <font class="keywordtype">void</font> percentUpdate(<font class="keywordtype">char</font> percent, <font class="keywordtype">void</font> *p);
-00123   ListKey&amp; <a class="code" href="class_c_sword_module_search.html#a13">scope</a>();
-00124     <font class="keywordtype">void</font> connectPercentUpdate( QObject *receiver, <font class="keyword">const</font> <font class="keywordtype">char</font> *member );
-00125     <font class="keywordtype">void</font> connectFinished( QObject *receiver, <font class="keyword">const</font> <font class="keywordtype">char</font> *member );
-00126   <font class="keywordtype">void</font> searchFinished();
-00127         
-00128 <font class="keyword">protected</font>:
-00129     QString m_searchedText;
-00130     ListKey m_searchScope;
-00131     ListCSwordModuleInfo m_moduleList;
-00132 
-00133     <font class="keywordtype">int</font> m_searchOptions;
-00134 
-00135     <font class="keywordtype">bool</font> m_foundItems;
-00136     <font class="keywordtype">bool</font> m_isSearching;
-00137     <font class="keywordtype">bool</font> m_terminateSearch;
-00138 
-00139     <font class="keywordtype">int</font> cms_currentProgress;
-00140     <font class="keywordtype">int</font> cms_overallProgress;
-00141     <font class="keywordtype">int</font> cms_module_count;
-00142     <font class="keywordtype">int</font> cms_module_current;
-00143 
-00144 <font class="keyword">private</font>:
-00145     QSignal m_updateSig;
-00146     QSignal m_finishedSig;
-00147 };
+<a name="l00070"></a><a class="code" href="class_c_sword_module_search.html#s20">00070</a>   <font class="keyword">enum</font> <a class="code" href="class_c_sword_module_search.html#s20">SearchScope</a>      { NoScope, LastSearch, Bounds   };
+00071 
+<a name="l00075"></a><a class="code" href="class_c_sword_module_search.html#s21">00075</a>   <font class="keyword">enum</font> <a class="code" href="class_c_sword_module_search.html#s21">SearchType</a>       { MultiWord, ExactPhrase, RegEx };
+00076 
+00077 
+00078     <a class="code" href="class_c_sword_module_search.html">CSwordModuleSearch</a>();
+00082     <font class="keyword">virtual</font> <a class="code" href="class_c_sword_module_search.html#a1">~CSwordModuleSearch</a>();
+00086   <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a2">setSearchedText</a>( <font class="keyword">const</font> QString );
+00090   <font class="keyword">const</font> <font class="keywordtype">bool</font> <a class="code" href="class_c_sword_module_search.html#a3">startSearch</a>();
+00094   <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a4">setModules</a>( ListCSwordModuleInfo&amp; );
+00098   <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a5">setSearchScope</a>( ListKey <a class="code" href="class_c_sword_module_search.html#a13">scope</a> );
+00102 <font class="comment">//  void useLastSearchResult( const bool );</font>
+00106 <font class="comment"></font>  <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a6">resetSearchScope</a>();
+00110   <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a7">interruptSearch</a>();
+00114   <font class="keyword">const</font> <font class="keywordtype">bool</font> <a class="code" href="class_c_sword_module_search.html#a8">foundItems</a>();
+00119     <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a9">startSearchThread</a>(<font class="keywordtype">void</font>);
+00124   <font class="keywordtype">void</font> <a class="code" href="class_c_sword_module_search.html#a10">setSearchOptions</a>( <font class="keywordtype">int</font> options );
+00128   <font class="keyword">const</font> <font class="keywordtype">int</font> <a class="code" href="class_c_sword_module_search.html#a11">getPercent</a>( percentType type );
+00129     <font class="keywordtype">void</font> percentUpdate(<font class="keywordtype">char</font> percent, <font class="keywordtype">void</font> *p);
+00133   ListKey&amp; <a class="code" href="class_c_sword_module_search.html#a13">scope</a>();
+00134     <font class="keywordtype">void</font> connectPercentUpdate( QObject *receiver, <font class="keyword">const</font> <font class="keywordtype">char</font> *member );
+00135     <font class="keywordtype">void</font> connectFinished( QObject *receiver, <font class="keyword">const</font> <font class="keywordtype">char</font> *member );
+00136   <font class="keywordtype">void</font> searchFinished();
+00137         
+00138 <font class="keyword">protected</font>:
+00139     QString m_searchedText;
+00140     ListKey m_searchScope;
+00141     ListCSwordModuleInfo m_moduleList;
+00142 
+00143     <font class="keywordtype">int</font> m_searchOptions;
+00144 
+00145     <font class="keywordtype">bool</font> m_foundItems;
+00146     <font class="keywordtype">bool</font> m_isSearching;
+00147     <font class="keywordtype">bool</font> m_terminateSearch;
 00148 
-00149 <font class="preprocessor">#endif</font>
-</pre></div><hr><address><small>Generated on Sun Mar 10 21:36:54 2002 for BibleTime by
+00149     <font class="keywordtype">int</font> cms_currentProgress;
+00150     <font class="keywordtype">int</font> cms_overallProgress;
+00151     <font class="keywordtype">int</font> cms_module_count;
+00152     <font class="keywordtype">int</font> cms_module_current;
+00153 
+00154 <font class="keyword">private</font>:
+00155     QSignal m_updateSig;
+00156     QSignal m_finishedSig;
+00157 };
+00158 
+00159 <font class="preprocessor">#endif</font>
+</pre></div><hr><address><small>Generated on Sun Mar 10 15:56:52 2002 for BibleTime by
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.gif" alt="doxygen" align="middle" border=0 
 width=110 height=53></a>1.2.14 written by <a href="mailto:dimitri@stack.nl">Dimitri van Heesch</a>,

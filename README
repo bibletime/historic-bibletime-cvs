@@ -1,0 +1,48 @@
+In this file:
+-------------
+	* General introduction
+	* Requirements
+	* Documentation
+	* The Sword CD
+
+General introduction:
+--------------------
+	This is BibleTime 1.1beta1 for KDE 2.2.x.
+If you find bugs please report them to info@bibletime.de or use our
+online bugreport form on www.bibletime.de.
+
+Please do also send suggestions, criticism and moral support to info@bibletime.de .
+If you have too much money send it to one of the authors ;-)
+
+Read the file INSTALL how to install and compile this version of BibleTime.
+The AUTHORS file contains a list of authors working on BibleTime.
+There's also a SPEC file to create RPMs, it's called bibletime.spec.
+
+This README file contains some very useful instructions and tips how to use BibleTime.
+Please read also the new handbook, it contains many instructions about the usage and
+installation of BibleTime.
+
+And sorry for all the spelling errors (grammatical and syntax).
+
+Requirements
+------------
+	o QT 2.2x or later
+	o KDE 2.x
+	o SWORD 1.5.3
+
+Documentation:
+--------------
+	We do have a great and really useful handbook now!
+Fred did a great job with it and worked long on it. We hope that you like it. You can read the handbook in the 
+help browser of KDE2. It's in the Applications section.
+
+The Sword CD:
+-------------
+The team of BibleTime distribute the SWORD CD in Europe.
+If you live in Europe and want to get one or more CDs please have a look at www.bibletime.de.
+If you don't live in Europe please have a look at www.crosswire.org.
+			
+
+Thank you!
+Joachim <jansorg@gmx.de>
+
