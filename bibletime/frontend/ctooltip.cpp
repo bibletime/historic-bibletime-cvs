@@ -47,6 +47,7 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
 }
 
 CToolTip::~CToolTip(){
+  qWarning("destructopr of CToolTip");
 }
 
 /** Returns the widget this tooltip applies to. This tooltip widget is destroyed when he parent is deleted. */
