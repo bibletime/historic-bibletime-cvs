@@ -141,16 +141,25 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       if (tag.isEndTag()) {
        	if (myUserData->inscriptRef) { // like  "<scripRef passage="John 3:16">See John 3:16</scripRef>"
   				myUserData->inscriptRef = false;
-  				buf += thmlRefEnd().c_str();
+//  				buf += thmlRefEnd().c_str();
+  				myUserData->suspendTextPassThru = false;
   			}
   			else { // like "<scripRef>John 3:16</scripRef>"
-   			  buf += parseSimpleRef( myUserData->lastTextNode, myModule ? myModule->Lang() : "en" ).c_str();
+//   			  buf += parseSimpleRef( myUserData->lastTextNode, myModule ? myModule->Lang() : "en" ).c_str();
+          buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">-</span>", 	
+						myUserData->lastTextNode.c_str()
+					);
+
   				myUserData->suspendTextPassThru = false;
   			}
       }		
       else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
         myUserData->inscriptRef = true;
-        buf += parseThMLRef(tag.getAttribute("passage"), tag.getAttribute("version")).c_str();
+      //  buf += parseThMLRef(tag.getAttribute("passage"), tag.getAttribute("version")).c_str();
+         buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">-</span>", 	
+						tag.getAttribute("passage")
+				);
+ 				myUserData->suspendTextPassThru = true;
       }
       else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 	  		myUserData->inscriptRef = false;

@@ -32,7 +32,7 @@
 /**
 * This filter converts GBF Text into HTML
 */
-class BT_GBFHTML : public sword::GBFHTML, protected CFilterTool {
+class BT_GBFHTML : public sword::GBFHTML/*, protected CFilterTool */{
 protected:
   class BT_UserData : public sword::GBFHTML::MyUserData {
   public:

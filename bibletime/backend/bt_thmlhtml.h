@@ -30,7 +30,7 @@ using sword::SWBuf;
 /**
 * This filter converts ThML text to HTML text
 */
-class BT_ThMLHTML : public sword::ThMLHTML, protected CFilterTool {
+class BT_ThMLHTML : public sword::ThMLHTML/*, protected CFilterTool */{
 protected:
   class BT_UserData : public sword::ThMLHTML::MyUserData {
   public:

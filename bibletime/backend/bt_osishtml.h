@@ -27,7 +27,7 @@
 /**
 * This filter converts ThML text to HTML text
 */
-class BT_OSISHTML : public sword::OSISHTMLHREF, protected CFilterTool {
+class BT_OSISHTML : public sword::OSISHTMLHREF/*, protected CFilterTool*/ {
 protected:
   class BT_UserData : public sword::OSISHTMLHREF::MyUserData {
   public:
