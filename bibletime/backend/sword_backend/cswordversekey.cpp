@@ -28,7 +28,6 @@
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
 	m_module = dynamic_cast<CSwordBibleModuleInfo*>(module);
-//	Persist(0);
 }
 
 /** No descriptions */
@@ -66,7 +65,7 @@ const QString CSwordVerseKey::getStrippedText() const{
 }
 
 /** Returns the current book as Text, no as integer. */
-void CSwordVerseKey::setBook( const QString newBook ) {
+void CSwordVerseKey::setBook( const QString& newBook ) {
 	for (int testament = 0; testament < 2; ++testament) {
 		for (int book = 0; book < BMAX[testament]; ++book) {
 			if ( !strcmp(newBook.local8Bit(),books[testament][book].name ) ) {
@@ -120,8 +119,7 @@ const bool CSwordVerseKey::PreviousChapter(){
 /**  */
 const bool CSwordVerseKey::NextBook(){
 	if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
-		return false;	
-	
+		return false;		
 	Book(Book()+1);			
 	return true;
 }
@@ -142,14 +140,27 @@ const QString CSwordVerseKey::getBook() const {
 }
 
 /** Sets the key we use to the parameter. */
-const bool CSwordVerseKey::setKey( QString key ){	
+const bool CSwordVerseKey::setKey( const QString& key ){	
 	error = 0;	
 	VerseKey::operator = ((const char*)key.local8Bit());		
 	//clear data
 	return !(bool)error;
 }
 
+/** Sets the key we use to the parameter. */
+const bool CSwordVerseKey::setKey( const char* key ){	
+	error = 0;	
+	VerseKey::operator = (key);		
+	//clear data
+	return !(bool)error;
+}
+
 /** Sets the key using a versekey object of Sword. */
-void CSwordVerseKey::setKey( VerseKey& key ){
+void CSwordVerseKey::setKey( const VerseKey& key ){
 	setKey(QString::fromLocal8Bit((const char*)key));
+}
+
+/** Returns the key as a QString. */
+const QString CSwordVerseKey::getKey() const {
+	return QString::fromLocal8Bit((const char*)*this);
 }

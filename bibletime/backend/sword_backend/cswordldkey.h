@@ -93,10 +93,6 @@ public:
   */
   const QString getKey();
   /**
-  * Reimplementation of the cast operator to const char*
-  */
-  virtual operator const char*();
-  /**
   * Returns the stripped down text of this entry.
   */
   const QString getStrippedText() const;
@@ -107,7 +103,6 @@ public:
 
 private:
   CSwordModuleInfo*	m_module;
-  QString m_entryName;
 };
 
 

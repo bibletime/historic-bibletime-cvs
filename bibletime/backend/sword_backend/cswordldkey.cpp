@@ -30,15 +30,12 @@
 CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
 	qDebug("constructor of CSwordLDKey");
 	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
-	m_entryName = QString::null;
-//	Persist(0);
 }
 
 /** No descriptions */
 CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey(k), CKey() {
 	qDebug("copy constructor of CSwordLDKey");
 	m_module = k.m_module;
-	m_entryName = k.m_entryName;
 }
 
 CSwordLDKey::~CSwordLDKey(){
@@ -76,11 +73,10 @@ const QString CSwordLDKey::getStrippedText() const{
 /** Sets the key of this instance */
 const bool CSwordLDKey::setKey( const QString key ){
 	SWKey::operator = ((const char*)key.local8Bit());		
-	m_module->module()->SetKey(this);
-	(const char*)*(m_module->module()); //snap to entry
-	SWKey::operator = (m_module->module()->KeyText());
+//	m_module->module()->SetKey(this);
+//	(const char*)*(m_module->module()); //snap to entry
+//	SWKey::operator = (m_module->module()->KeyText());
 	
-	m_entryName = QString::fromLocal8Bit(m_module->module()->KeyText());
 	return !(bool)error;
 }
 
@@ -88,25 +84,24 @@ const bool CSwordLDKey::setKey( const QString key ){
 void CSwordLDKey::NextEntry(){
 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )++;
-	m_entryName = QString::fromLocal8Bit(m_module->module()->KeyText());
+	setKey(m_module->module()->KeyText());
+	SWKey::operator = (m_module->module()->KeyText());	
 }
 
 /** Uses the parameter to returns the next entry afer this key. */
 void CSwordLDKey::PreviousEntry(){
 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )--;
-	m_entryName = QString::fromLocal8Bit(m_module->module()->KeyText());
+	SWKey::operator = (m_module->module()->KeyText());	
 }
 
 /** Returns the current key as a QString */
 const QString CSwordLDKey::getKey() {
 	qDebug("CSwordLDKey::getKey");
-	if (m_entryName.isEmpty())
-		m_entryName = QString::fromLocal8Bit(m_module->module()->KeyText());
-	return m_entryName;
-}
-
-/** Reimplementation of the cast operator to const char* */
-CSwordLDKey::operator const char*(){
-	return getKey().local8Bit();
+	
+	m_module->module()->SetKey(this);
+	(const char*)*(m_module->module()); //snap to entry
+	SWKey::operator = (m_module->module()->KeyText());
+	
+	return QString::fromLocal8Bit(m_module->module()->KeyText());
 }

@@ -79,20 +79,19 @@ CKey* CPrintItem::getStartKey() const{
 
 /** Sets the startkey. */
 void CPrintItem::setStartKey(CKey* newKey) {
-	if (m_startKey)
+	if (m_startKey && newKey)
 		delete m_startKey;
 	m_startKey = newKey;
 
-	if ( dynamic_cast<SWKey*>(m_startKey) ) {
-		SWKey* swStartKey = dynamic_cast<SWKey*>(m_startKey);
-		if (dynamic_cast<SWKey*>(m_stopKey)) {
-			if (m_startKey == m_stopKey) {
-				m_headerText = QString::fromLocal8Bit( (const char*)*swStartKey );
-			}
-			else {	//start and stop key do exist and are different
-				SWKey* swStopKey = dynamic_cast<SWKey*>(m_stopKey);
-				m_headerText = QString("%1 - %2").arg(QString::fromLocal8Bit((const char*)*swStartKey)).arg(QString::fromLocal8Bit((const char*)*swStopKey));
-			}
+	SWKey* startKey = dynamic_cast<SWKey*>(m_startKey);	
+	SWKey* stopKey = dynamic_cast<SWKey*>(m_stopKey);	
+	if ( m_startKey ) {
+		if (m_startKey == m_stopKey || !m_stopKey)
+			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );		
+		else if (stopKey) { //start and stop key do exist and are different
+			m_headerText = QString("%1 - %2")
+				.arg(QString::fromLocal8Bit((const char*)*startKey))
+				.arg(QString::fromLocal8Bit((const char*)*stopKey));
 		}
 	}
 	else
@@ -101,24 +100,23 @@ void CPrintItem::setStartKey(CKey* newKey) {
 
 /** Sets the end key. */
 void CPrintItem::setStopKey( CKey* newKey ){
-	if (m_stopKey)
+	if (m_stopKey && newKey)
 		delete m_stopKey;	
 	m_stopKey = newKey;
 	
-	if ( dynamic_cast<SWKey*>(m_startKey) ) {
-		SWKey* swStartKey = dynamic_cast<SWKey*>(m_startKey);
-		if (dynamic_cast<SWKey*>(m_stopKey)) {
-			if (m_startKey == m_stopKey) {
-				m_headerText = QString::fromLocal8Bit( (const char*)*swStartKey );
-			}
-			else {	//start and stop key do exist and are different
-				SWKey* swStopKey = dynamic_cast<SWKey*>(m_stopKey);
-				m_headerText = QString("%1 - %2").arg(QString::fromLocal8Bit((const char*)*swStartKey)).arg(QString::fromLocal8Bit((const char*)*swStopKey));
-			}
+	SWKey* startKey = dynamic_cast<SWKey*>(m_startKey);	
+	SWKey* stopKey = dynamic_cast<SWKey*>(m_stopKey);	
+	if ( m_startKey ) {
+		if (m_startKey == m_stopKey || !m_stopKey)
+			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );		
+		else if (stopKey) { //start and stop key do exist and are different
+			m_headerText = QString("%1 - %2")
+				.arg(QString::fromLocal8Bit((const char*)*startKey))
+				.arg(QString::fromLocal8Bit((const char*)*stopKey));
 		}
 	}
 	else
-		m_headerText = QString::null;	
+		m_headerText = QString::null;			
 }
 
 /** Returns the last covered key. */
@@ -253,7 +251,7 @@ void CPrintItem::updateListViewItem(){
 
 /**  */
 QListViewItem* CPrintItem::getListViewItem() const {
-		return m_listViewItem;
+	return m_listViewItem;
 }
 
 /** Deletes the list view item. */

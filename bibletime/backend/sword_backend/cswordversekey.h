@@ -78,7 +78,13 @@ public:
   *
   * This will also set the position of the module to the new key.
   */
-  const bool setKey( QString key );
+  const bool setKey( const QString& key );
+  /**
+  * Sets the key we use to the parameter.
+  *
+  * This will also set the position of the module to the new key.
+  */
+  const bool setKey( const char* key );
   /**
   * Gets the key with the next verse in comparision with the current verse and stores
   * the key in the parameter key.
@@ -133,7 +139,7 @@ public:
   * Use "Book(char)" to set the number using a number.
   * @param newBook The QString object which contains the new book for this key.
   */
-  void setBook(const QString newBook);
+  void setBook(const QString& newBook);
   /**
   * Sets the module for this key
   */
@@ -141,7 +147,7 @@ public:
   /**
    Sets the key using a versekey object of Sword.
   */
-  void setKey( VerseKey& key );
+  void setKey( const VerseKey& key );
   /**
   * Returns the key as a QString.
   */
@@ -165,11 +171,5 @@ private:
   	*/
   CSwordModuleInfo*	m_module;
 };
-
-
-/** Returns the key as a QString. */
-inline const QString CSwordVerseKey::getKey() const {
-	return QString::fromLocal8Bit((const char*)*this);
-}
 
 #endif
