@@ -192,14 +192,14 @@ void CBookTreeChooser::setModules(ListCSwordModuleInfo modules, const bool refre
 /** No descriptions */
 void CBookTreeChooser::adjustFont(){
   //Make sure the entries are displayed correctly.
-	if ( m_modules.first()->isUnicode() ){
-		m_treeView->setFont( CBTConfig::get(CBTConfig::unicode) );
+//	if ( m_modules.first()->isUnicode() ){
+		m_treeView->setFont( CBTConfig::get(m_modules.first()->language()) );
 //		qWarning("Unicode Book detected");
-	}
-	else{
-		m_treeView->setFont( CBTConfig::get(CBTConfig::standard) );
+//	}
+//	else{
+//		m_treeView->setFont( CBTConfig::get(CBTConfig::standard) );
 //		qWarning("Standard Book detected");
-	}
+//	}
 }
 
 

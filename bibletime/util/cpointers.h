@@ -21,6 +21,7 @@
 
 class CSwordBackend;
 class CPrinter;
+class CLanguageMgr;
 
 /** Holds the pointers to important classes like modules, backend etc.
   * @author The BibleTime team
@@ -34,6 +35,9 @@ protected:
 	static void deleteBackend();
 	static void deletePrinter();
 
+//  CPointers();
+//  ~CPointers();
+  
 public: // Public methods
   /**
   * Returns a pointer to the printer object.
@@ -43,6 +47,7 @@ public: // Public methods
   * Returns a pointer to the backend ...
   */
   static CSwordBackend* const backend();
+  static CLanguageMgr* const languageMgr();  
 };
 
 #endif

@@ -152,7 +152,7 @@ void CModuleChooserButton::populateMenu(){
   };
 
 	for (modules.first(); modules.current(); modules.next()) {
- 		QString lang = QString::fromLatin1(modules.current()->module()->Lang());
+ 		QString lang = modules.current()->language().translatedName();
  		if (lang.isEmpty())
  			lang = QString::fromLatin1("xx"); //unknown language -- not use English as default!!
  	 	if (languages.find( lang ) == languages.end() ){ //not yet added
@@ -166,7 +166,7 @@ void CModuleChooserButton::populateMenu(){
 
 	//Check the appropriate entry
 	for (modules.first(); modules.current(); modules.next()) {
- 		QString lang = QString::fromLatin1(modules.current()->module()->Lang());
+ 		QString lang = modules.current()->language().translatedName();
  		if (lang.isEmpty())
  			lang = QString::fromLatin1("xx"); //unknown language
  		QString name = QString(modules.current()->name()) + QString(" ")+

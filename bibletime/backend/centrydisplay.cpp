@@ -58,9 +58,9 @@ const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QStri
     .arg(css)
     .arg(headerText);
 
-  const QString text = QString::fromLatin1("<DIV %1 %2>%3</DIV>")
+  const QString text = QString::fromLatin1("<DIV %1>%2</DIV>")
     .arg(module->textDirection() == CSwordModuleInfo::RightToLeft ? QString::fromLatin1("dir=\"rtl\"") : QString::null)
-    .arg(module->isUnicode() ? QString::fromLatin1("class=\"unicodetext\"") : QString::null)
+//    .arg(module->isUnicode() ? QString::fromLatin1("class=\"unicodetext\"") : QString::null)
     .arg(key->renderedText());
 
   const QString pageEnd = QString::fromLatin1("</BODY></HTML>");
@@ -69,22 +69,25 @@ const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QStri
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
 const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName){
-	Q_ASSERT(modules.first());
+//	Q_ASSERT(modules.first());
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   key->key(keyName);
   QString renderedText = QString::null;
 
   renderedText = QString::fromLatin1("<TR valign=\"top\">");
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    const QString tdStyle = QString::fromLatin1("style=\"%1 %2\"")
+    const QFont moduleFont = CBTConfig::get( m->language() );
+    const QString tdStyle = QString::fromLatin1("style=\"%1 %2 font-family:%3; font-size:%4pt;\"")
       .arg(((modules.at()+1) < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
-      .arg(((modules.at()>0) && ((modules.at()+1) <= modules.count() )) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
+      .arg(((modules.at()>0) && ((modules.at()+1) <= modules.count() )) ? QString::fromLatin1("padding-left:2mm;") : QString::null)
+      .arg(moduleFont.family())
+      .arg(moduleFont.pointSize());
 
     key->module(m);
     key->key(keyName);
     renderedText += QString::fromLatin1("<TD %1 valign=\"top\"><SPAN %2>%3</SPAN></TD>")
-                      .arg(tdStyle.latin1())
-                      .arg(m->isUnicode() ? "class=\"unicodetext\"" : "")
+                      .arg(tdStyle)
+//                      .arg(m->isUnicode() ? "class=\"unicodetext\"" : "")
                       .arg(key->renderedText());
   }
   renderedText += QString::fromLatin1("</TR>");
@@ -120,15 +123,16 @@ const QColor CEntryDisplay::color( const CEntryDisplay::ColorType type ) {
 }
 
 /** Returns the font of the given type. */
-const QFont CEntryDisplay::font( const CEntryDisplay::FontType type ) {
-  switch (type) {
-    case UnicodeFont:
-      return CBTConfig::get(CBTConfig::unicode);
-    case StandardFont:
-      return CBTConfig::get(CBTConfig::standard);
-    default:
-      return QApplication::font();
-  }
+const QFont CEntryDisplay::font( const CLanguageMgr::Language& lang ) {
+//  switch (type) {
+//    case UnicodeFont:
+//      return CBTConfig::get(CBTConfig::unicode);
+//    case StandardFont:
+//      return CBTConfig::get(CBTConfig::standard);
+//    default:
+//      return QApplication::font();
+//  }
+  return CBTConfig::get(lang);
 }
 
 /** Adds the right headers and footers to the page and returns them together. */
@@ -165,7 +169,6 @@ const QString CEntryDisplay::finishText( const QString text, QPtrList <CSwordMod
 
 const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
   const QString bgColor = color(BackgroundColor).name();
-//  const QString bgColor2 = color(BackgroundColor2).name();
 
   const QString textColor = color(TextColor).name();
   const QString highlightColor = color(HighlightedTextColor).name();
@@ -182,11 +185,14 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
   QString text;
   switch(type) {
     case Body:
-      text =  QString::fromLatin1("body {%1; color: %2; font-size: %3pt; font-family: %4;}")
+//      text =  QString::fromLatin1("body {%1; color: %2; font-size: %3pt; font-family: %4;}")
+//                .arg(QString::fromLatin1("background-color: %1").arg(bgColor))
+//                .arg(textColor)
+//                .arg(font(StandardFont).pointSize())
+//                .arg(font(StandardFont).family());
+      text =  QString::fromLatin1("body {%1; color: %2;}")
                 .arg(QString::fromLatin1("background-color: %1").arg(bgColor))
-                .arg(textColor)
-                .arg(font(StandardFont).pointSize())
-                .arg(font(StandardFont).family());
+                .arg(textColor);
       break;
     case Link:
       text = QString::fromLatin1("a:link {text-decoration:none;}");
@@ -208,9 +214,9 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
               .arg(highlightColor);
       break;
     case UnicodeText:
-      text = QString::fromLatin1(".unicodetext { font-family: %1; font-size:%2pt; }")
-                .arg(font(UnicodeFont).family())
-                .arg(font(UnicodeFont).pointSize());
+//      text = QString::fromLatin1(".unicodetext { font-family: %1; font-size:%2pt; }")
+//                .arg(font(UnicodeFont).family())
+//                .arg(font(UnicodeFont).pointSize());
       break;
     case Reference:
       text = QString::fromLatin1(".reference { color: %1; font-decoration: none; font-weight:bold; }")
@@ -320,9 +326,11 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
       .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
 
     const QString entry =
-      QString::fromLatin1("<SPAN %1><SPAN class=\"%2\" dir=\"%3\"><SPAN>%4</SPAN>%5%6</SPAN></SPAN>")
+      QString::fromLatin1("<SPAN %1 STYLE=\"font-family:%2; font-size:%3pt;\"><SPAN dir=\"%4\"><SPAN>%5</SPAN>%6%7</SPAN></SPAN>")
         .arg((key.key() == chosenKey) ? QString::fromLatin1("class=\"highlighted\"") : QString::null)
-        .arg(m->isUnicode() ? QString::fromLatin1("unicodetext") : QString::fromLatin1("standardtext"))
+        .arg(CBTConfig::get(m->language()).family())
+        .arg(CBTConfig::get(m->language()).pointSize())        
+//        .arg(m->isUnicode() ? QString::fromLatin1("unicodetext") : QString::fromLatin1("standardtext"))
         .arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
         .arg(m_displayOptions.verseNumbers ? QString::fromLatin1("<SUP>%1</SUP>").arg(htmlReference(m, key.key(), QString::number(key.Verse()), key.key())) : htmlReference(m, QString::null, QString::null, key.key()) )
         .arg(key.renderedText())

@@ -224,12 +224,18 @@ void COptionsDialog::initFonts(){
  	QWhatsThis::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::whatsthis);	
  	layout->addWidget(m_settings.fonts.usage);
 	 	
- 	m_settings.fonts.fontMap.insert(i18n("Standard"), CBTConfig::get(CBTConfig::standard));
- 	m_settings.fonts.fontMap.insert(i18n("Unicode"),  CBTConfig::get(CBTConfig::unicode));
+// 	m_settings.fonts.fontMap.insert(i18n("Standard"), CBTConfig::get(CBTConfig::standard));
+// 	m_settings.fonts.fontMap.insert(i18n("Unicode"),  CBTConfig::get(CBTConfig::unicode));
+
+  CLanguageMgr::LangMap langMap = languageMgr()->availableLanguages();
+  CLanguageMgr::LangMap::Iterator it;
+  for ( it = langMap.begin(); it != langMap.end(); ++it ) {
+    m_settings.fonts.fontMap.insert(it.data().translatedName(), CBTConfig::get(it.data()));
+  }
 
  	for( QMap<QString, QFont>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it )
  		m_settings.fonts.usage->insertItem(it.key());
-		
+    		
  	m_settings.fonts.fontChooser = new KFontChooser(page, "fonts", false, QStringList(), true, 5);
  	m_settings.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog"));
  	layout->addWidget(m_settings.fonts.fontChooser);
@@ -860,13 +866,15 @@ void COptionsDialog::saveColors(){
 
 /** No descriptions */
 void COptionsDialog::saveFonts(){
-	for(QMap<QString, QFont>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ){
- 		if (it.key() == i18n("Standard")) {
- 			CBTConfig::set(CBTConfig::standard, it.data());
- 		}
- 		else if (it.key() == i18n("Unicode")) {
- 			CBTConfig::set(CBTConfig::unicode, it.data());
- 		}
+	for(QMap<QString, QFont>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
+    CLanguageMgr::Language lang = languageMgr()->languageForTranslatedName(it.key());
+    CBTConfig::set(lang, it.data());    
+// 		if (it.key() == i18n("Standard")) {
+// 			CBTConfig::set(CBTConfig::standard, it.data());
+// 		}
+// 		else if (it.key() == i18n("Unicode")) {
+// 			CBTConfig::set(CBTConfig::unicode, it.data());
+// 		}
  	}
 }
 

@@ -15,8 +15,7 @@ cmdiarea.cpp \
 kstartuplogo.cpp \
 ctooltipmanager.cpp \
 ctooltip.cpp \
-cresmgr.cpp \
-clanguagemgr.cpp
+cresmgr.cpp 
 
 all_headers=cmdiarea.h \
 kstartuplogo.h \
@@ -29,8 +28,7 @@ cprofilewindow.h \
 cexportmanager.h \
 ctooltipmanager.h \
 ctooltip.h \
-cresmgr.h \
-clanguagemgr.h
+cresmgr.h 
 
 EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)
 

@@ -25,6 +25,7 @@
 #include <qmap.h>
 
 #include "backend/cswordbackend.h"
+#include "backend/clanguagemgr.h"
 
 //Forward declarations
 class KAccel;
@@ -48,10 +49,10 @@ public:
 		standardHebrewMorphLexicon,
 		standardGreekMorphLexicon
 	};
-	enum fonts {
-		standard,
-		unicode
-	};
+//	enum fonts {
+//		standard,
+//		unicode
+//	};
 	enum colors {
 		textColor,
 		backgroundColor,
@@ -118,34 +119,34 @@ public:
   };
 
   static const QString 		get( const CBTConfig::strings );
-  static const QFont 			get( const CBTConfig::fonts );
+
   static const bool 			get( const CBTConfig::bools );
   static const int   			get( const CBTConfig::ints );
   static const QColor 		get( const CBTConfig::colors );
   static const QValueList<int>	get( const CBTConfig::intLists );
   static const QStringList	get( const CBTConfig::stringLists );
   static const CBTConfig::StringMap	get( const CBTConfig::stringMaps );
-//  static const QFont 		get( CSwordModuleInfo* const );  
+  static const QFont 		get( const CLanguageMgr::Language& );  
 	
 	static const QString 				 getDefault( const CBTConfig::strings );
-	static const QFont	 				 getDefault( const CBTConfig::fonts );
+
 	static const bool		 				 getDefault( const CBTConfig::bools );
 	static const int		 				 getDefault( const CBTConfig::ints );
 	static const QColor	 				 getDefault( const CBTConfig::colors );
 	static const QValueList<int> getDefault( const CBTConfig::intLists );
 	static const QStringList		 getDefault( const CBTConfig::stringLists );
 	static const CBTConfig::StringMap  		 getDefault( const CBTConfig::stringMaps );
-//  static const QFont 		getDefault( CSwordModuleInfo* const );
+  static const QFont 		       getDefault( const CLanguageMgr::Language& );
     
 	static void set( const CBTConfig::strings, 	const QString value );
-	static void set( const CBTConfig::fonts, 		const QFont value );
+
 	static void set( const CBTConfig::bools, 		const bool value );
 	static void set( const CBTConfig::ints, 		const int value );
 	static void set( const CBTConfig::colors, 	const QColor value );
 	static void set( const CBTConfig::intLists,	const QValueList<int> value );
   static void set( const CBTConfig::stringLists, const QStringList value);
   static void set( const CBTConfig::stringMaps, const CBTConfig::StringMap value);
-//  static void	set( CSwordModuleInfo* const module, const QFont& font );    
+  static void	set( const CLanguageMgr::Language& language, const QFont& font );    
 
   static const CSwordBackend::FilterOptions getFilterOptionDefaults();
   static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();
@@ -154,14 +155,14 @@ public:
 
 private:
 	static const QString getKey( const CBTConfig::strings );
-	static const QString getKey( const CBTConfig::fonts );
+
 	static const QString getKey( const CBTConfig::bools );
 	static const QString getKey( const CBTConfig::ints );
 	static const QString getKey( const CBTConfig::colors );
 	static const QString getKey( const CBTConfig::intLists );
 	static const QString getKey( const CBTConfig::stringLists );
 	static const QString getKey( const CBTConfig::stringMaps );
-//	static const QString getKey( CSwordModuleInfo* const );    
+	static const QString getKey( const CLanguageMgr::Language& );    
 };
 
 

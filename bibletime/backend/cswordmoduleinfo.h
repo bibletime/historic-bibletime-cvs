@@ -20,6 +20,7 @@
 
 //BibleTime includes
 #include "cswordbackend.h"
+#include "clanguagemgr.h"
 #include "util/cpointers.h"
 
 //Qt includes
@@ -191,8 +192,10 @@ public:
   * Deletes the current entry and removes it from the module.
   */
   const bool deleteEntry( CSwordKey* const key );
-  /** Returns the language of the module. */
-  const QString language() const;
+  /**
+  * Returns the language of the module.
+  */
+  const CLanguageMgr::Language language();
 
 private:
 	sword::SWModule*	m_module;

@@ -68,23 +68,23 @@ const QString CBTConfig::getDefault( const CBTConfig::strings ID){
 	return QString::null;
 }
 
-const QString CBTConfig::getKey( const CBTConfig::fonts ID){
-	switch ( ID ){
-		case standard: 	return "standard";
-		case unicode: 	return "unicode";
-	}
-	return QString::null;	
-}
+//Del von KDevelop:const QString CBTConfig::getKey( const CBTConfig::fonts ID){
+//Del von KDevelop:	switch ( ID ){
+//Del von KDevelop:		case standard: 	return "standard";
+//Del von KDevelop:		case unicode: 	return "unicode";
+//Del von KDevelop:	}
+//Del von KDevelop:	return QString::null;	
+//Del von KDevelop:}
 
-const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
-	switch ( ID ){
-		case standard:
-      return QApplication::font();
-		case unicode: //find an Unicode font
-			return QApplication::font();		
-	}
-	return QApplication::font();	
-}
+//Del von KDevelop:const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
+//Del von KDevelop:	switch ( ID ){
+//Del von KDevelop:		case standard:
+//Del von KDevelop:      return QApplication::font();
+//Del von KDevelop:		case unicode: //find an Unicode font
+//Del von KDevelop:			return QApplication::font();		
+//Del von KDevelop:	}
+//Del von KDevelop:	return QApplication::font();	
+//Del von KDevelop:}
 
 const QString CBTConfig::getKey( const CBTConfig::bools ID){
 	switch ( ID ){
@@ -276,18 +276,29 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
 	return CBTConfig::StringMap();
 }
 
+
+const QString CBTConfig::getKey( const CLanguageMgr::Language& language ){
+	return language.name();
+}
+
+const QFont CBTConfig::getDefault( const CLanguageMgr::Language& language ){
+  //language specific lookup of the font name
+  return QFont();
+}
+
+
 const QString CBTConfig::get( const CBTConfig::strings ID){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "strings");
 	return config->readEntry(getKey(ID),getDefault(ID));
 }
 
-const QFont CBTConfig::get(const CBTConfig::fonts ID){
-	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, "fonts");
-	QFont defaultFont = getDefault(ID);
-	return config->readFontEntry(getKey(ID), &defaultFont);
-}
+//Del von KDevelop://const QFont CBTConfig::get(const CBTConfig::fonts ID){
+//Del von KDevelop://	KConfig* config = KGlobal::config();
+//Del von KDevelop://	KConfigGroupSaver groupSaver(config, "fonts");
+//Del von KDevelop://	QFont defaultFont = getDefault(ID);
+//Del von KDevelop://	return config->readFontEntry(getKey(ID), &defaultFont);
+//Del von KDevelop://}
 
 const bool CBTConfig::get( const CBTConfig::bools ID){
 	//special behaviour for the KTipDialog class
@@ -331,6 +342,12 @@ const CBTConfig::StringMap CBTConfig::get( const CBTConfig::stringMaps ID ){
   return getDefault(ID);
 }
 
+const QFont	CBTConfig::get( const CLanguageMgr::Language& language ){
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver groupSaver(config, "fonts");
+	return config->readFontEntry(getKey(language));
+}
+
 
 void CBTConfig::set( const CBTConfig::strings ID, const QString value ){
 	KConfig* config = KGlobal::config();
@@ -338,11 +355,11 @@ void CBTConfig::set( const CBTConfig::strings ID, const QString value ){
 	config->writeEntry(getKey(ID), value);
 }
 
-void CBTConfig::set( const CBTConfig::fonts ID, const QFont value ){
-	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, "fonts");
-	config->writeEntry(getKey(ID), value);
-}
+//Del von KDevelop:void CBTConfig::set( const CBTConfig::fonts ID, const QFont value ){
+//Del von KDevelop:	KConfig* config = KGlobal::config();
+//Del von KDevelop:	KConfigGroupSaver groupSaver(config, "fonts");
+//Del von KDevelop:	config->writeEntry(getKey(ID), value);
+//Del von KDevelop:}
 
 void CBTConfig::set(const  CBTConfig::bools ID,const  bool value ){
 	KConfig* config = KGlobal::config();
@@ -404,6 +421,14 @@ void CBTConfig::set( const CBTConfig::stringMaps ID, const CBTConfig::StringMap 
     config->writeEntry(it.key(), data);    
   };
 }
+
+
+void CBTConfig::set( const CLanguageMgr::Language& language, const QFont& value ){
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver groupSaver(config, "fonts");
+	config->writeEntry(getKey(language), value);
+}
+
 
 const CSwordBackend::DisplayOptions CBTConfig::getDisplayOptionDefaults(){
   CSwordBackend::DisplayOptions options;

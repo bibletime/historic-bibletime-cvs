@@ -16,16 +16,34 @@
  ***************************************************************************/
 
 #include "cpointers.h"
+
 #include "backend/cswordbackend.h"
+#include "backend/clanguagemgr.h"
+
 #include "printing/cprinter.h"
 
 //the static pointers
 static CSwordBackend* m_backend = 0;
 static CPrinter* m_printer = 0;
+static CLanguageMgr* m_langMgr = 0;
+
+//CPointers::CPointers() {
+//  m_langMgr = 0;
+//};
+//
+//CPointers::~CPointers() {
+//};
 
 /** Returns a pointer to the backend ... */
 CSwordBackend* const CPointers::backend() {
 	return m_backend;
+}
+
+/** Returns a pointer to the backend ... */
+CLanguageMgr* const CPointers::languageMgr() {
+  if (!m_langMgr)
+    m_langMgr = new CLanguageMgr();
+	return m_langMgr;
 }
 
 /** Returns a pointer to the printer object. */

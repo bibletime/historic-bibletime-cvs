@@ -20,7 +20,8 @@ creferencemanager.cpp \
 bt_thmlhtml.cpp \
 bt_gbfhtml.cpp \
 bt_basicfilter.cpp \
-centrydisplay.cpp
+centrydisplay.cpp \
+clanguagemgr.cpp
 
 all_headers = cswordbiblemoduleinfo.h \
 cswordcommentarymoduleinfo.h \
@@ -37,7 +38,8 @@ cswordtreekey.h \
 bt_thmlhtml.h \
 bt_gbfhtml.h \
 bt_basicfilter.h \
-centrydisplay.h
+centrydisplay.h \
+clanguagemgr.h
 
 EXTRA_DIST = $(libbackend_a_SOURCES) $(all_headers)
 

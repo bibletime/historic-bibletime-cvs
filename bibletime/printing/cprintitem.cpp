@@ -182,7 +182,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QPen pen;
 	QBrush brush;
 
-	const bool isUnicode 	= (m_module && m_module->isUnicode());
+//	const bool isUnicode 	= (m_module && m_module->isUnicode());
 	const int leftMargin 	= printer->pageMargins().left;
 	const int upperMargin = printer->pageMargins().top;	
 	const QRect pageSize =  printer->contentSize();
@@ -308,8 +308,8 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		else if (type == CStyle::ModuleText) {		
 			p->save();
 			
-			if (isUnicode)
-				font = CBTConfig::get( CBTConfig::unicode );
+//			if (isUnicode)
+				font = CBTConfig::get( m_module->language() );
 
 			if (alignment == CStyle::Format::Center)		
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);

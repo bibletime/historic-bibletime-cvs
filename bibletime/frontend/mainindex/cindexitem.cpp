@@ -22,6 +22,7 @@
 #include "backend/creferencemanager.h"
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordversekey.h"
+#include "backend/clanguagemgr.h"
 
 #include "frontend/cexportmanager.h"
 #include "frontend/ctooltipmanager.h"
@@ -197,7 +198,7 @@ const QString CModuleItem::toolTip(){
     QString text;
 		text = i18n("Module") + QString::fromLatin1(": <B>%1</B><HR>").arg( module()->name() );
 		text += module()->config(CSwordModuleInfo::Description) + QString::fromLatin1("<HR>");
-		text += i18n("Language")+ QString::fromLatin1(": %1<BR>").arg(module()->module()->Lang());
+		text += i18n("Language")+ QString::fromLatin1(": %1<BR>").arg(module()->language().translatedName());
 		if (module()->isEncrypted())
 			text += i18n("Unlock key") + QString::fromLatin1(": %1<BR>")
 				.arg(!module()->config(CSwordModuleInfo::CipherKey).isEmpty() ? module()->config(CSwordModuleInfo::CipherKey) : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
@@ -239,7 +240,7 @@ const QString CModuleItem::aboutInfo(){
 		.arg(i18n("Location"))
 		.arg(module()->config(CSwordModuleInfo::AbsoluteDataPath))
 		.arg(i18n("Language"))
-		.arg(module()->module()->Lang());
+		.arg(module()->language().translatedName());
 
 	if (module()->module()->isWritable())
 		text += QString::fromLatin1("<b>%1:</b> %2<br>")
@@ -594,7 +595,9 @@ void CTreeFolder::init(){
     };
   }
   else {
-    setText(0, !language().isEmpty() ? language() : i18n("unknown language"));
+    CLanguageMgr::Language lang = languageMgr()->languageForAbbrev( language() );
+    
+    setText(0, !language().isEmpty() ? ( lang.isValid() ? lang.translatedName() : language()) : i18n("unknown language"));
   }
   initTree();
   update();

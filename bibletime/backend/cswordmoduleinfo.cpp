@@ -21,6 +21,7 @@
 #include "centrydisplay.h"
 #include "cswordmodulesearch.h"
 #include "cswordkey.h"
+#include "clanguagemgr.h"
 #include "util/scoped_resource.h"
 
 #include <sys/types.h>
@@ -298,8 +299,8 @@ const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
 }
 
 /** Returns the language of the module. */
-const QString CSwordModuleInfo::language() const{
+const CLanguageMgr::Language CSwordModuleInfo::language() {
   if (module())
-    return QString::fromLatin1( module()->Lang() );
-  return QString::null;
+    return languageMgr()->languageForAbbrev( module()->Lang() );
+  return CLanguageMgr::Language();
 }

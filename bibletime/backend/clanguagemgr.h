@@ -18,10 +18,9 @@
 #ifndef CLANGUAGEMGR_H
 #define CLANGUAGEMGR_H
 
-#include "util/cpointers.h"
-
 //Qt includes
 #include <qstring.h>
+#include <qstringlist.h>
 #include <qvaluelist.h>
 #include <qpixmap.h>
 #include <qmap.h>
@@ -30,7 +29,7 @@
   *@author The BibleTime team
   */
 
-class CLanguageMgr : public CPointers  {
+class CLanguageMgr  {
 public:
   class Language {
   public:
@@ -39,11 +38,12 @@ public:
     * Possible values for abbrev are de, en, fr, it etc.
     */
     Language();
-    Language(const QString& abbrev, const QString& englishName, const QString& translatedName);
+    Language(const QString& abbrev, const QString& englishName, const QString& translatedName, const QStringList altAbbrevs = QStringList());
     ~Language();
-    const QString& abbrev();
-    const QString& translatedName();
-    const QString& name();
+    const QString& abbrev() const;
+    const QString& translatedName() const;
+    const QString& name() const;
+    const QStringList& alternativeAbbrevs() const;
     const QPixmap flag();
     /**
     * Returns true if this language object is valid, i.e. has an abbrev and name.
@@ -53,6 +53,7 @@ public:
     QString m_abbrev;
     QString m_englishName;
     QString m_translatedName;
+    QStringList m_altAbbrevs;
   };
 
   typedef QMap<QString, Language> LangMap;
@@ -66,14 +67,16 @@ public:
   /**
   * Returns the languages which are available. The languages cover all available modules, but nothing more.
   */
-  const LangMap availableLanguages();
-  const Language languageForAbbrev( const QString& abbrev );
-  const Language languageForName( const QString& language );  
-  const Language languageForTranslatedName( const QString& language );
+  const CLanguageMgr::LangMap availableLanguages();
+  const CLanguageMgr::Language languageForAbbrev( const QString& abbrev );
+  const CLanguageMgr::Language languageForName( const QString& language );  
+  const CLanguageMgr::Language languageForTranslatedName( const QString& language );
+  /** No descriptions */
+  void debug();
     
 private:
   void init();
-  
+  const QStringList makeStringList(const QString& abbrevs);
   QMap<QString, Language> m_langMap;  
 };
 

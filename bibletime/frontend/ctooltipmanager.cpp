@@ -158,13 +158,13 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 		}
 
 
-    if (module->isUnicode()) {
+//    if (module->isUnicode()) {
       text = QString::fromLatin1("<DIV %1 STYLE=\"font-family:%2; font-size:%3pt;\">")
               .arg(module->textDirection() == CSwordModuleInfo::RightToLeft ? "dir=\"rtl\"" : 0)
-              .arg(CBTConfig::get(CBTConfig::unicode).family())
-              .arg(CBTConfig::get(CBTConfig::unicode).pointSize())
+              .arg(CBTConfig::get(module->language()).family())
+              .arg(CBTConfig::get(module->language()).pointSize())
              + text + QString::fromLatin1("</DIV>");
-    }
+//    }
 	}
  	return text;
 }

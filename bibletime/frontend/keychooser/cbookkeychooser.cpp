@@ -136,14 +136,14 @@ void CBookKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refres
 /** No descriptions */
 void CBookKeyChooser::adjustFont(){
  	//Make sure the entries are displayed correctly.
-	if ( m_modules.first()->isUnicode() ){
+//	if ( m_modules.first()->isUnicode() ){
 		for ( CKeyChooserWidget* idx = m_chooserWidgets.first(); idx; idx = m_chooserWidgets.next() )
-			idx->comboBox()->setFont( CBTConfig::get(CBTConfig::unicode) );
-	}
-	else{
-		for ( CKeyChooserWidget* idx = m_chooserWidgets.first(); idx; idx = m_chooserWidgets.next() )
-			idx->comboBox()->setFont( CBTConfig::get(CBTConfig::standard) );
-	}
+			idx->comboBox()->setFont( CBTConfig::get( m_modules.first()->language() ) );
+//	}
+//	else{
+//		for ( CKeyChooserWidget* idx = m_chooserWidgets.first(); idx; idx = m_chooserWidgets.next() )
+//			idx->comboBox()->setFont( CBTConfig::get(m_modules.first()->language()) );
+//	}
 }
 
 /** Refreshes the content. */

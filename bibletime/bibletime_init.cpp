@@ -28,7 +28,7 @@
 #include "frontend/cmdiarea.h"
 #include "frontend/kstartuplogo.h"
 #include "frontend/cresmgr.h"
-#include "frontend/clanguagemgr.h"
+#include "backend/clanguagemgr.h"
 
 #include "printing/cprinter.h"
 
@@ -36,6 +36,7 @@
 #include "config.h"
 #include "frontend/cbtconfig.h"
 
+#include "util/cpointers.h"
 
 #include <stdlib.h>
 
@@ -80,8 +81,8 @@ void BibleTime::initView(){
 	
 	m_selectDialog = 0;
 
-  CLanguageMgr mgr;
-  
+
+  CPointers::languageMgr()->availableLanguages();
 }
 
 

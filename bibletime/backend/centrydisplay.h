@@ -43,6 +43,7 @@ class CEntryDisplay : public sword::SWDisplay, public CPointers  {
 public: // Public methods
   enum StyleType {
     Body = 0,
+    Font,
     Link,
     LinkHover,
     Background,
@@ -69,10 +70,10 @@ public: // Public methods
     MaxType = SectionTitle
   };
 
-  enum FontType {
-    UnicodeFont,
-    StandardFont
-  };
+//  enum FontType {
+//    UnicodeFont,
+//    StandardFont
+//  };
 
   enum ColorType {
     ReferenceColor,
@@ -105,7 +106,7 @@ public: // Public methods
   /**
   * Returns the font of the given type.
   */
-  const QFont font( const CEntryDisplay::FontType type );
+  const QFont font( const CLanguageMgr::Language& lang );
   /**
   * Returns the color of the given type.
   */
