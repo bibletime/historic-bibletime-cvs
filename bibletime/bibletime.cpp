@@ -95,7 +95,7 @@ void BibleTime::saveSettings(){
 		m_mdi->saveSettings();
   }
 
-  accel()->writeSettings();
+  accel()->writeSettings(CBTConfig::getConfig());
 
  	CBTConfig::set(CBTConfig::toolbar, m_viewToolbar_action->isChecked());
  	CBTConfig::set(CBTConfig::mainIndex, m_viewMainIndex_action->isChecked());
@@ -127,7 +127,7 @@ void BibleTime::saveSettings(){
 
 /** Reads the settings from the configfile and sets the right properties. */
 void BibleTime::readSettings(){
-	accel()->readSettings(KGlobal::config());
+	accel()->readSettings(CBTConfig::getConfig());
 
  	m_viewToolbar_action->setChecked( CBTConfig::get(CBTConfig::toolbar) );
  	slotToggleToolbar();
@@ -289,6 +289,6 @@ void BibleTime::processCommandline(){
 void BibleTime::polish(){
   m_initialized = true;
   KMainWindow::polish();
-  applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
+  applyMainWindowSettings(CBTConfig::getConfig(), QString::fromLatin1("MainWindow"));
 }
 

@@ -90,7 +90,7 @@ extern "C" {
     }
     if (bibletime_ptr) {
       bibletime_ptr->saveSettings();
-			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
+			fprintf(stderr, "*** Saving seemed to be successful. If restoring does not work on next startup \
 please use the option --ignore-session\n");
 		}
 		::exit(-1); //exit BibleTime
@@ -160,8 +160,6 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
 	// artwork
 	aboutData.addAuthor("James Ots", I18N_NOOP("Crystal icons, crystal startlogo, webpage"), "me@jamesots.com", "www.jamesots.com");
-  // documentation
-	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
 
   //inactiv
 //	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), 				"mlybarge@insight.rr.com","");
@@ -182,8 +180,12 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   aboutData.addCredit("Nikolay Igotti", I18N_NOOP("Search dialog enhancements"), "olonho@hotmail.com", "");
   // Language codes iso639-1, iso639-2 and SIL language codes
   aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
+  // handbook documentation
+	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
   // comitted search in default bible, opened modules, other smaller things
   aboutData.addCredit("Gary Sims", I18N_NOOP("Search dialog enhancements"), "gary@garysims.co.uk", "");
+  //The first lead developer
+  aboutData.addCredit("Torsten Uhlmann",   I18N_NOOP("The first lead developer"), "", "");
 
 //special message so the translator get his credits in the about box, don't remove this!
   QString dummy = I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name
@@ -203,16 +205,12 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   }
 
   //since we don't support session management at the moment we disable this. Only leads to troubles.
-/*
-  if (kapp->isRestored()){
-		for(int n = 1; KMainWindow::canBeRestored(n); n++) {
-			(new BibleTime)->restore(n);
-    }
 
-    RESTORE( BibleTime )
+  if (kapp->isRestored()) {
+ 		qWarning("Restoring BibleTime");
+ 		RESTORE( BibleTime );
   }
 	else {
-*/
 		const bool showIt = CBTConfig::get(CBTConfig::logo);
 
 		if(showIt) {
@@ -232,34 +230,33 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
       }
     }
 
-		util::scoped_ptr<BibleTime> bibletime( new BibleTime() );
-		bibletime_ptr = bibletime.get();
+		bibletime_ptr = new BibleTime();
 
 		// a new BibleTime version was installed (maybe a completely new installation)
 		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
       KStartupLogo::hideSplash();
 
       CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
-			bibletime->slotSettingsOptions();
+			bibletime_ptr->slotSettingsOptions();
 		}
 
 		//The tip of the day
 		if (CBTConfig::get(CBTConfig::tips)) {
       KStartupLogo::hideSplash();
-			bibletime->slotHelpTipOfDay();
+			bibletime_ptr->slotHelpTipOfDay();
     }
 
     // restore the workspace and process command line options
-    app.setMainWidget(bibletime);
-    bibletime->show();
-    bibletime->processCommandline(); //must be done after the bibletime window is visible
+    app.setMainWidget(bibletime_ptr);
+    bibletime_ptr->show();
+    bibletime_ptr->processCommandline(); //must be done after the bibletime window is visible
 
     if (showIt) {
 			KStartupLogo::hideSplash();
 			KStartupLogo::deleteSplash();
 		}
-
-    return app.exec();
-//	}
+	}
+	
+	return app.exec();
 }
 

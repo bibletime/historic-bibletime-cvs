@@ -28,6 +28,7 @@
 
 //Forward declarations
 class KAccel;
+class KConfig;
 
 /**
  * This class is the interface to the config object of BibleTime
@@ -144,6 +145,11 @@ public:
 
   static const QString getModuleEncryptionKey( const QString& name );
   static void setModuleEncryptionKey( const QString& name, const QString& key );
+	
+	/** 
+	* @return A config object which is used currently, may be the global config or the session config
+	*/
+	static KConfig* const getConfig();
   
 private:
 	static const QString getKey( const CBTConfig::strings );
