@@ -48,13 +48,12 @@ BT_ThMLHTML::BT_ThMLHTML() {
 bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
     sword::XMLTag tag(token);
-    
-    if ( !strcasecmp(tag.getName(), "foreign") ) { // a text part in another language, we have to set the right font
+
+    if ( tag.getName() && !strcasecmp(tag.getName(), "foreign") ) { // a text part in another language, we have to set the right font
       if (tag.getAttribute("lang")) {
         const char* abbrev = tag.getAttribute("lang");
 
-        CLanguageMgr* langMgr = CPointers::languageMgr();
-        CLanguageMgr::Language language = langMgr->languageForAbbrev( QString::fromLatin1(abbrev) );
+        CLanguageMgr::Language language = CPointers::languageMgr()->languageForAbbrev( QString::fromLatin1(abbrev) );
 
         if (language.isValid()) {
           CBTConfig::FontSettingsPair fontSetting = CBTConfig::get(language);
@@ -75,7 +74,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
         }
       }
     }
-    else if (!strcasecmp(tag.getName(), "sync")) { //lemmas, morph codes or strongs
+    else if (tag.getName() && !strcasecmp(tag.getName(), "sync")) { //lemmas, morph codes or strongs
       if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "lemma")) { // Lemma
         const char* value = tag.getAttribute("value");
         if ( strlen(value) ) {
@@ -86,7 +85,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
       }
       else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "morph")) { // Morph
         const char* value = tag.getAttribute("value");
-        if ( strlen(value) ) {
+        if ( value ) {
           buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
             value,
             value
@@ -95,13 +94,13 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
   		}
 		  else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "Strongs")) { // Strongs
         const char* value = tag.getAttribute("value");
-        if ( value[0] == 'H' ) { //hewbrew strong number
+        if ( value && value[0] == 'H' ) { //hewbrew strong number
           buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
      				value+1, //skip the H
             value+1 //skip the H
           );
         }
-        else if ( value[0] == 'G' ) { //hewbrew strong number
+        else if ( value && value[0] == 'G' ) { //hewbrew strong number
           buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
       			value+1, //skip the G
             value+1 //skip the G
@@ -109,7 +108,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
         };
       };
 		}
-		else if (!strcasecmp(tag.getName(), "scripRef")) { // a more complicated scripRef
+		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a more complicated scripRef
       if (tag.isEndTag()) {
        	if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">See John 3:16</scripRef>"
   				userData["inscriptRef"] = "false";
@@ -130,7 +129,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 		  	userData["suspendTextPassThru"] = "true";
       }
 		}
-		else if (!strcasecmp(tag.getName(), "div")) {                                      
+		else if (tag.getName() && !strcasecmp(tag.getName(), "div")) {                                      
       if (tag.isEndTag()) {
         buf += "</div>";
       }
@@ -141,8 +140,8 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 		  	buf += "<div class=\"booktitle\">";
       }
     }
-		else if (!strcasecmp(tag.getName(), "img") && tag.getAttribute("src")) {
-      char* value = tag.getAttribute("src");
+		else if (tag.getName() && !strcasecmp(tag.getName(), "img") && tag.getAttribute("src")) {
+      const char* value = tag.getAttribute("src");
       if (value[0] == '/') {
         value++; //strip the first /
       }
