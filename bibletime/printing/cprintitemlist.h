@@ -34,45 +34,47 @@ public:
 	CPrintItemList(printItemList* items, QWidget *parent=0, const char *name=0);
 	~CPrintItemList();
   /**
-  	* Sets the tree to contain the items of the list. Other items will be removed.
-  	*/
+ 	* Sets the tree to contain the items of the list. Other items will be removed.
+ 	*/
   virtual void setItems( printItemList* itemList);
   /**
-  	* Inserts the items of the list into the tree.
-  	*/
+ 	* Inserts the items of the list into the tree.
+ 	*/
   virtual void insertItems( printItemList* itemList );
   /**
-  	* Initializes the view.
-  	*/
+ 	* Initializes the view.
+ 	*/
   virtual void initView();
   /**
-  	* Applies the style to the selected items.
-  	*/
+ 	* Applies the style to the selected items.
+ 	*/
   void applyStyleToSelected( CStyle* );
 
 public slots: // Public slots
   /**
-  	* Moves the selected entry one entry down.
-  	*/
+ 	* Moves the selected entry one entry down.
+ 	*/
   void moveDown();
   /**
-  	* Moves the item one item up.
-  	*/
+ 	* Moves the item one item up.
+ 	*/
   void moveUp();
   /**
-  	* Deletes the current item.
-  	*/
-  void deleteCurrentItem();
+ 	* Deletes the current item.
+ 	*/
+  void deleteSelectedItems();
   /**
-  	* Inserts a page divider
-  	*/
+ 	* Inserts a page divider
+ 	*/
   void newPage();
 
 protected:
-	printItemList*	m_items;		
   /**
-  	* Reimplementation.
-  	*/
+ 	* Reimplementation.
+ 	*/
   virtual void clear();
+
+private:
+	printItemList* m_items;		
 };
 #endif

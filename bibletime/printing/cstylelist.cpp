@@ -35,7 +35,7 @@ CStyleList::CStyleList(styleItemList* items, QWidget *parent, const char *name )
 }
 
 CStyleList::~CStyleList(){
-	clear();
+//	clear(); //is this really necessary?
 }
 
 /** Initilizes the view. */
@@ -83,7 +83,6 @@ void CStyleList::editCurrentStyle(){
 	//go through style items and find the right one
 	CStyle*	currentStyle = 0;
 	for (m_items->first(); m_items->current();m_items->next()) {
-		ASSERT(m_items->current());
 		if (m_items->current()->getListViewItem() == item) {
 			currentStyle = m_items->current();
 			break;

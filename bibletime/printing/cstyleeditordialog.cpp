@@ -265,7 +265,7 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 
 /** Setups the font widgets using the parameter. */
 void CStyleEditorDialog::setupFontWidgets( QFont& font ){
-	QFont dummy(m_font.font);
+	QFont dummy(/*m_font.*/font);
 	dummy.setPointSize(12);
 	m_font.fontDisplay->setFont( dummy );
 	m_font.fontDisplay->setText( QString("%1 - %2").arg(m_font.font.family()).arg(m_font.font.pointSize()) );

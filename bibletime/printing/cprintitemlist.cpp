@@ -15,17 +15,19 @@
  *                                                                         *
  ***************************************************************************/
 
+//Own includes
 #include "cprintitemlist.h"
-#include <../backend/cmoduleinfo.h>
-#include <../backend/ckey.h>
-//#include <../ressource.h>
+//#include <../backend/cmoduleinfo.h>
+//#include <../backend/ckey.h>
 
-#include <klocale.h>
+//Qt includes
 #include <qstring.h>
+
+//KDE includes
+#include <klocale.h>
 
 CPrintItemList::CPrintItemList( printItemList* items,  QWidget *parent, const char *name ) : KListView(parent,name) {
 	qDebug("Constructor of CPrinItemList");
-	ASSERT(items);
 	m_items = items;
 	initView();
 	
@@ -50,10 +52,9 @@ void CPrintItemList::initView(){
 /** Inserts the items of the list into the tree. */
 void CPrintItemList::insertItems( printItemList* itemList ) {
 	for(itemList->last(); itemList->current(); itemList->prev() ) {
-		ASSERT( itemList->current() );
 		if (itemList != m_items)
 			m_items->append(itemList->current());
-		ASSERT(itemList->current()->getListViewItem(this));	//insert the QListViewItem into the list
+		itemList->current()->getListViewItem(this);	//insert the QListViewItem into the list
 	}
 }
 
@@ -68,24 +69,25 @@ void CPrintItemList::newPage(){
 }
 
 /** Deletes the current item. */
-void CPrintItemList::deleteCurrentItem(){
-	if (!currentItem())
+void CPrintItemList::deleteSelectedItems(){
+	QList<QListViewItem> items = selectedItems();
+	if (!items.count())
 		return;
 	
-	QListViewItem* item = currentItem();
-	//search item in list
-	for (m_items->first(); m_items->current(); m_items->next() ) {
-		if (m_items->current()->getListViewItem() == item) {
-			CPrintItem*	dummyItem = m_items->current();			
-			dummyItem->deleteListViewItem();
-			m_items->remove(dummyItem);
-			if (!m_items->autoDelete()) {
-				delete dummyItem;			
-				dummyItem = 0;
+	for (items.first(); items.current(); items.next()) {
+		for (m_items->first(); m_items->current(); m_items->next() ) {
+			if (m_items->current()->getListViewItem() == items.current()) {
+				CPrintItem*	dummyItem = m_items->current();			
+				dummyItem->deleteListViewItem();
+				m_items->remove(dummyItem);
+				if (!m_items->autoDelete()) {
+					delete dummyItem;			
+					dummyItem = 0;
+					break;
+				}
 			}
-			return;
-		}
-	}
+		}	
+	}		
 }
 
 /** Moves the item one item up. */
@@ -122,7 +124,7 @@ void CPrintItemList::applyStyleToSelected( CStyle* style){
 
 /** Reimplementation. */
 void CPrintItemList::clear(){
-	//deletes all listVieItems
+	//deletes all listViewItems
 	for (m_items->first(); m_items->current(); m_items->next()) {
 		if (m_items->current())
 			m_items->current()->deleteListViewItem();

@@ -21,9 +21,6 @@
 #include "cstyle.h"
 #include "cstyleformat.h"
 #include "cstyleformatframe.h"
-//#include "../frontend/thirdparty/qt3stuff/qt3stuff.h"
-//#include "../frontend/thirdparty/qt3stuff/qrichtext_p.h"
-//#include "../frontend/thirdparty/qt3stuff/qsimplerichtext.h"
 #include <../backend/cmoduleinfo.h>
 #include <../backend/sword_backend/cswordmoduleinfo.h>
 #include <../backend/ckey.h>
@@ -52,7 +49,8 @@ CPrintItem::CPrintItem() {
 	m_listViewItem = 0;
 	m_module = 0;
 	m_style = 0;
-	m_startKey = m_stopKey = 0;
+	m_startKey = 0;
+	m_stopKey = 0;
 	
 	clearData();
 }
@@ -79,7 +77,7 @@ CKey* CPrintItem::getStartKey() const{
 
 /** Sets the startkey. */
 void CPrintItem::setStartKey(CKey* newKey) {
-	if (m_startKey && newKey)
+	if (m_startKey /*&& newKey*/)
 		delete m_startKey;
 	m_startKey = newKey;
 
@@ -100,7 +98,7 @@ void CPrintItem::setStartKey(CKey* newKey) {
 
 /** Sets the end key. */
 void CPrintItem::setStopKey( CKey* newKey ){
-	if (m_stopKey && newKey)
+	if (m_stopKey /*&& newKey*/)
 		delete m_stopKey;	
 	m_stopKey = newKey;
 	
@@ -216,10 +214,7 @@ QListViewItem* CPrintItem::getListViewItem( CPrintItemList* list ) {
 
 /** sets the variables back. */
 void CPrintItem::clearData(){
-	if (m_listViewItem) {
-		delete m_listViewItem;
-		m_listViewItem = 0;			
-	}	
+	deleteListViewItem();
 	setHeader(QString::null);
 	setDescription(QString::null);
 	setModuleText(QString::null);	
@@ -354,16 +349,13 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			else if (alignement == CStyleFormat::Right)		
 				text = QString("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
 			text = QString("%1").arg(text);
-    	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin());
-    	richText.setWidth( p, printer->getPageSize().width()-BORDER_SPACE );
+    	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()-frame->getThickness()+printer->upperMargin());
+    	richText.setWidth( p, printer->getPageSize().width()-2*frame->getThickness()-BORDER_SPACE );
     	QRect view( printer->getPageSize() );
     	int translated = 0;
     	do {				
     		if ((int)(richText.height() + printer->getVerticalPos()) < (int)(printer->getPageSize().height()+printer->upperMargin()) )
-    			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), richText.height());    		
-//    		else if ( (printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin()+translated) > richText.height() ) {
-//    			br = QRect(printer->leftMargin(), printer->upperMargin(), printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin()+translated- richText.height() );
-//    		}
+    			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), richText.height()+frame->getThickness());    		
     		else { //fill to bottom of the page
     			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin());
     			br.moveBy(0, translated);
@@ -376,13 +368,13 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 					framePen.setWidth( frame->getThickness() );
 					framePen.setColor( frame->getColor() );
 					p->setPen( framePen );
-						
-					p->drawRect( br );
+											
+					p->drawRect(br);
 				}						   			
     		p->setClipping(false);
     		
-        richText.draw(p,printer->leftMargin()+(int)((float)BORDER_SPACE/2),printer->getVerticalPos(),view,cg);
-				const int movePixs = ((int)richText.height() > (int)(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height();
+        richText.draw(p,printer->leftMargin()+frame->getThickness()+(int)((float)BORDER_SPACE/2),printer->getVerticalPos(),view,cg);
+				const int movePixs = ((int)richText.height() > (int)(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height()+frame->getThickness();
    			printer->setVerticalPos(printer->getVerticalPos()+movePixs);		
 		    view.moveBy( 0,movePixs);		
         p->translate( 0,-movePixs);

@@ -33,10 +33,8 @@
 #include <qmessagebox.h>
 #include <qpaintdevice.h>
 #include <qpaintdevicemetrics.h>
-//#include <qprinter.h>
 #include <qcombobox.h>
 #include <qhbuttongroup.h>
-//#include <qbuttongroup.h>
 #include <qfile.h>
 #include <qframe.h>
 #include <qwidget.h>
@@ -73,6 +71,7 @@ CPrinterDialog::CPrinterDialog(CPrinter* printer, QWidget *parent, const char *n
 
 CPrinterDialog::~CPrinterDialog(){
 	saveSettings();
+	applySettingsToPrinter(false);
 }
 
 /** Initializes the widgets. */
@@ -516,7 +515,7 @@ void CPrinterDialog::initListPage(){
 	m_entryWidgets.deleteButton->setOffIconSet( SmallIcon("edittrash"));	
 	QToolTip::add(m_entryWidgets.deleteButton, TT_PD_ENTRIES_PI_DELETE);
 	QWhatsThis::add(m_entryWidgets.deleteButton, WT_PD_ENTRIES_PI_DELETE);		
-	connect( m_entryWidgets.deleteButton, SIGNAL(clicked()),m_entryWidgets.printItemList, SLOT(deleteCurrentItem()));
+	connect( m_entryWidgets.deleteButton, SIGNAL(clicked()),m_entryWidgets.printItemList, SLOT(deleteSelectedItems()));
 	
   m_entryWidgets.newPageButton = new QToolButton(page);
  	m_entryWidgets.newPageButton->setOnIconSet( SmallIcon("filenew"));
@@ -571,14 +570,8 @@ void CPrinterDialog::slotUser2(){
 /** Calls the CPrinter methods to set settings. */
 const bool CPrinterDialog::applySettingsToPrinter( const bool preview ){
 	m_printer->setPreview( preview );	
-	if (preview)
-		m_printer->setPreviewApplication(m_general.previewProgram->text());
-//	else
-//		m_printer->setPreviewApplication("");
-
-//	m_printer->setFullPage(true);
-//	m_printer->setCreator( i18n("BibleTime version %1").arg(VERSION) );
-		
+	m_printer->setPreviewApplication(m_general.previewProgram->text());
+	
 	//apply general settings
 	if (!m_general.printerList->currentItem() )
 		m_printer->setPrinterName(m_general.printerList->currentItem()->text(0));
@@ -595,9 +588,8 @@ const bool CPrinterDialog::applySettingsToPrinter( const bool preview ){
 		if (m_general.fileInput->text().isEmpty()) {
 			return false;
 		}
-		else {
+		else
 			m_printer->setOutputFileName( m_general.fileInput->text() );
-		}
   }
   else // do not print into file
 		m_printer->setOutputToFile(false);
@@ -613,9 +605,7 @@ const bool CPrinterDialog::applySettingsToPrinter( const bool preview ){
 
 /** Applies the given styles to the print item list. */
 void CPrinterDialog::slotListApplyStyle(const QString& styleName ){
-	styleItemList* styleList = m_printer->getStyleList();
-	ASSERT(styleList);
-	
+	styleItemList* styleList = m_printer->getStyleList();	
 	for(styleList->first(); styleList->current(); styleList->next()) {
 		if (styleList->current()->getStyleName() == styleName)
 		 	m_entryWidgets.printItemList->applyStyleToSelected( styleList->current() );

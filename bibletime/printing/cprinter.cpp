@@ -52,7 +52,8 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 	m_styleList = new styleItemList;
 	m_styleList->setAutoDelete(true);		
 			
-	readSettings();
+	readSettings();	
+	setupStyles();
 	setupStandardStyle();		
 }
 
@@ -348,7 +349,11 @@ void CPrinter::setupStyles(){
 	
 	for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )	{
 		dummyStyle = new CStyle();
-		dummyStyle->setStyleName(*it);
+		if (*it == "Standard")
+			dummyStyle->setStyleName(i18n("Standard"));		
+		else
+			dummyStyle->setStyleName(*it);
+		
 
 		CStyleFormat* format[3];
 		format[0] = dummyStyle->getFormatForType( CStyle::Header );
@@ -465,10 +470,11 @@ void CPrinter::readSettings(){
 	
 	m_printIntoFile = config->readBoolEntry("Print to file", false);
 	m_filename = config->readEntry("Filename", QString::null);
+	
 	setNumCopies(1);
+	
 	setPageSize( (QPrinter::PageSize)config->readNumEntry("Paper size", 5) );	//default is A4
 	setPreviewApplication( config->readEntry("preview application", "kghostview") );
-	setupStyles();
 }
 
 /**  */
