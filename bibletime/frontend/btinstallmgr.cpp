@@ -186,11 +186,11 @@ void BTInstallMgr::Tool::RemoteConfig::addSource( sword::InstallSource* is ) {
 
 void BTInstallMgr::Tool::RemoteConfig::initConfig() {
   //Do only continue if the config does not yet exist...
-  if (QFile::exists(configFilename())) {
-    return;
-  }
+//   if (QFile::exists(configFilename())) {
+//     return;
+//   }
 
-  QFile::remove(configFilename());
+//   QFile::remove(configFilename()); //unecessary
 
 //remote sources will be setup by the manage sources dialog
 
