@@ -3,6 +3,7 @@ SUBDIRS = \
 22x22 \
 32x32 \
 48x48 \
+64x64 \
 .
 
 BIBLETIME_PICS = \
