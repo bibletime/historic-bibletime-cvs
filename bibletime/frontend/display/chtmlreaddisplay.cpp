@@ -66,8 +66,9 @@ CHTMLReadDisplay::~CHTMLReadDisplay(){
 const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDisplay::TextPart part) {
   switch (part) {
     case Document: {
-      if (format == HTMLText)
+      if (format == HTMLText) {
         return document().toHTML();
+			}
       else {
         return htmlDocument().body().innerText().string().latin1();
       }
@@ -170,7 +171,11 @@ void CHTMLReadDisplay::selectAll() {
 /** No descriptions */
 void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
 	m_currentAnchorCache = anchor;
-	QTimer::singleShot(0, this, SLOT(slotGoToAnchor()));
+	
+	//This is an ugly hack to work around a KDE problem in KDE including 3.3.1 (no later versions testes so far)
+ 	QTimer::singleShot(0, this, SLOT(slotGoToAnchor()));
+	
+// 	slotGoToAnchor();
 }
 
 void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args){

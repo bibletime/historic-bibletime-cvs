@@ -18,7 +18,7 @@
 //BibleTime includes
 #include "cbiblekeychooser.h"
 #include "ckeychooserwidget.h"
-#include "cfx_btn.h"
+#include "cscrollbutton.h"
 
 #include "backend/cswordversekey.h"
 #include "backend/cswordbiblemoduleinfo.h"
@@ -289,12 +289,12 @@ void CBibleKeyChooser::refreshContent() {
 }
 
 /** Sets te module and refreshes the combos */
-void CBibleKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refresh){
+void CBibleKeyChooser::setModules(const ListCSwordModuleInfo& modules, const bool refresh){
   m_modules.clear();
 
 //   for (modules.first(); modules.current(); modules.next()) {
-	ListCSwordModuleInfo::iterator end_it = modules.end();
-	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+	ListCSwordModuleInfo::const_iterator end_it = modules.end();
+	for (ListCSwordModuleInfo::const_iterator it(modules.begin()); it != end_it; ++it) {
     if ((*it)->type() == CSwordModuleInfo::Bible || (*it)->type() == CSwordModuleInfo::Commentary) {
       if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(*it)) {
         m_modules.append(bible);

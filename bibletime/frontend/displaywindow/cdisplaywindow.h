@@ -214,7 +214,7 @@ protected:
   /**
   * Sets the modules.
   */
-  void setModules( ListCSwordModuleInfo modules );
+  void setModules( const ListCSwordModuleInfo& modules );
   /**
   * Initializes the signal / slot connections of this display window.
   */

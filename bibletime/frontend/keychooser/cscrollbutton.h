@@ -1,5 +1,5 @@
 /***************************************************************************
-                          cfx_btn.h  -  description
+                          cscrollbutton.h  -  description
                              -------------------
     begin                : Tue Sep 19 2000
     copyright            : (C) 2000 by The BibleTime team
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef CFX_BTN_H
-#define CFX_BTN_H
+#ifndef CSRCOLLBUTTON_H
+#define CSRCOLLBUTTON_H
 
 #include <qwidget.h>
 #include <qtoolbutton.h>
@@ -26,13 +26,13 @@ class QMouseEvent;
 /** This Class implements the direct chooser button used in the KeyChooser Widget
   * @author The BibleTime team
   */
-class cfx_btn : public QToolButton  {
+class CScrollButton : public QToolButton  {
    Q_OBJECT
 public:
 	/**
 	* The constructor
 	*/
-	cfx_btn(QWidget *parent=0, const char *name=0);
+	CScrollButton(QWidget *parent=0, const char *name=0);
   const bool isLocked() const;
 	
 signals:

@@ -43,6 +43,7 @@ CPrinter::CPrinter(QObject */*parent*/, CSwordBackend::DisplayOptions displayOpt
 
 CPrinter::~CPrinter() {
  	delete m_htmlPart;
+	m_htmlPart = 0;
 }
 
 void CPrinter::printKeyTree( KeyTree& tree ) {

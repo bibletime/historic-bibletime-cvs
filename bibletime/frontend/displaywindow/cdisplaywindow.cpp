@@ -265,12 +265,12 @@ void CDisplayWindow::setModuleChooserBar( CModuleChooserBar* bar ){
 }
 
 /** Sets the modules. */
-void CDisplayWindow::setModules( ListCSwordModuleInfo newModules ){
+void CDisplayWindow::setModules( const ListCSwordModuleInfo& newModules ){
   m_modules.clear();
 	
 //   for (newModules.first(); newModules.current(); newModules.next()) {
-	ListCSwordModuleInfo::iterator end_it = newModules.end();
-	for (ListCSwordModuleInfo::iterator it(newModules.begin()); it != end_it; ++it) {
+	ListCSwordModuleInfo::const_iterator end_it = newModules.end();
+	for (ListCSwordModuleInfo::const_iterator it(newModules.begin()); it != end_it; ++it) {
     m_modules.append((*it)->name());
   }
 }

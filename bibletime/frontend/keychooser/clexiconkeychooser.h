@@ -68,7 +68,7 @@ public slots:
   /**
   * Sets the module and refreshes the combo boxes of this keychooser.
   */
-  virtual void setModules( ListCSwordModuleInfo modules, const bool refresh = true );
+  virtual void setModules( const ListCSwordModuleInfo& modules, const bool refresh = true );
 
 protected:	
 	class CLexiconPresenter;	

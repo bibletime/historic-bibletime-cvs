@@ -8,13 +8,13 @@ libkeychooser_a_SOURCES = \
 cbiblekeychooser.cpp \
 clexiconkeychooser.cpp \
 ckeychooser.cpp \
-cfx_btn.cpp \
+cscrollbutton.cpp \
 ckeychooserwidget.cpp \
 cbookkeychooser.cpp \
 cbooktreechooser.cpp
 
 all_headers = ckeychooserwidget.h \
-cfx_btn.h \
+cscrollbutton.h \
 ckeychooser.h \
 clexiconkeychooser.h \
 cbiblekeychooser.h \
@@ -22,4 +22,3 @@ cbookkeychooser.h \
 cbooktreechooser.h
 
 EXTRA_DIST = $(libkeychooser_a_SOURCES) $(all_headers)
-

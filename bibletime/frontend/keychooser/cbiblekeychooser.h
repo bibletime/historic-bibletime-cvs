@@ -66,7 +66,7 @@ public slots:
   /**
   * Sets te module and refreshes the combos
   */
-  virtual void setModules(ListCSwordModuleInfo modules, const bool refresh = true);
+  virtual void setModules(const ListCSwordModuleInfo& modules, const bool refresh = true);
   /**
  	* Reimplementation.
  	*/

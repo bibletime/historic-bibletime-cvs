@@ -16,8 +16,10 @@
  ***************************************************************************/
 //BibleTime includes
 #include "ckeychooserwidget.h"
-#include "cfx_btn.h"
-#include "../cbtconfig.h"
+#include "cscrollbutton.h"
+
+//BibleTime frontend includes
+#include "frontend/cbtconfig.h"
 
 //Qt includes
 #include <qlineedit.h>
@@ -246,7 +248,7 @@ void CKeyChooserWidget::init(){
 	btn_up->setFixedSize(WIDTH, ARROW_HEIGHT);
 	btn_up->setFocusPolicy(QWidget::NoFocus);	
 	
-	btn_fx = new cfx_btn( this, "btn_fx" );
+	btn_fx = new CScrollButton( this, "btn_fx" );
 	btn_fx->setFixedSize(WIDTH, MOVER_HEIGHT);
 	btn_fx->setFocusPolicy(QWidget::NoFocus);	
 	

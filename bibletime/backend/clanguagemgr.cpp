@@ -255,6 +255,7 @@ xx-???, including the AleWiesler module.
   m_langList.append( new Language("grc"  , "Greek, Ancient (to 1453)" , i18n("Greek, Ancient (to 1453)")) );
 
   m_langList.append( new Language("he"  , "Hebrew"      , i18n("Hebrew")) );
+  m_langList.append( new Language("hau" , "Hausa"    		, i18n("Hausa")) );
   m_langList.append( new Language("haw" , "Hawaiian"    , i18n("Hawaiian")) );
 //  m_langList.append( new Language("hi"  , "Hindi"       , i18n("Hindi")) );
 //  m_langList.append( new Language("ho"  , "Hiri Motu"   , i18n("Hiri Motu")) );
@@ -298,11 +299,11 @@ xx-???, including the AleWiesler module.
 //  m_langList.append( new Language("mg"  , "Malagasy"    , i18n("Malagasy")) );
 //  m_langList.append( new Language("mh"  , "Marshall"    , i18n("Marshall")) );
   m_langList.append( new Language("mi"  , "Maori"       , i18n("Maori")) );
-
   m_langList.append( new Language("mk"  , "Macedonian"  , i18n("Macedonian")) );
 //  m_langList.append( new Language("ml"  , "Malayalam"   , i18n("Malayalam")) );
 //  m_langList.append( new Language("mn"  , "Mongolian"   , i18n("Mongolian")) );
 //  m_langList.append( new Language("mo"  , "Moldavian"   , i18n("Moldavian")) );
+  m_langList.append( new Language("mos"  , "More"   , i18n("More")) );
 //  m_langList.append( new Language("mr"  , "Marathi"     , i18n("Marathi")) );
   m_langList.append( new Language("ms"  , "Malay"       , i18n("Malay")) );
   m_langList.append( new Language("mt"  , "Maltese"     , i18n("Maltese")) );

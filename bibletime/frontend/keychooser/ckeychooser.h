@@ -79,7 +79,7 @@ public slots:
   /**
   * Sets the module of this keychooser and refreshes the comboboxes
   */
-  virtual void setModules( ListCSwordModuleInfo modules, const bool refresh = true ) = 0;
+  virtual void setModules( const ListCSwordModuleInfo& modules, const bool refresh = true ) = 0;
   /**
   * Freshes the content of the different key chooser parts.
   */

@@ -17,7 +17,7 @@
 
 #include "clexiconkeychooser.h"
 #include "ckeychooserwidget.h"
-#include "cfx_btn.h"
+#include "cscrollbutton.h"
 
 #include "backend/cswordlexiconmoduleinfo.h"
 #include "frontend/cbtconfig.h"
@@ -147,11 +147,11 @@ void CLexiconKeyChooser::adjustFont(){
 }
 
 /** Sets the module and refreshes the combo boxes */
-void CLexiconKeyChooser::setModules( ListCSwordModuleInfo modules, const bool refresh ) {
+void CLexiconKeyChooser::setModules( const ListCSwordModuleInfo& modules, const bool refresh ) {
   m_modules.clear();
 //   for (modules.first(); modules.current(); modules.next()) {
-	ListCSwordModuleInfo::iterator end_it = modules.end();
-	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+	ListCSwordModuleInfo::const_iterator end_it = modules.end();
+	for (ListCSwordModuleInfo::const_iterator it(modules.begin()); it != end_it; ++it) {
     if (CSwordLexiconModuleInfo* lexicon = dynamic_cast<CSwordLexiconModuleInfo*>(*it)) {
       m_modules.append(lexicon);
     }

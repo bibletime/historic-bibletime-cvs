@@ -24,7 +24,7 @@
 #include <qcombobox.h>
 #include <qstringlist.h>
 
-class cfx_btn;
+class CScrollButton;
 class CLexiconKeyChooser;
 //class CMinMaxLayout;
 
@@ -71,7 +71,7 @@ signals:
 /**
 	* This class implements the KeyCooser Widget, which
 	* consists of a @ref QComboBox, two normal ref @QToolButton
-	* and a enhanced @ref cfx_btn
+	* and a enhanced @ref CScrollButton
 	*
   * @author The BibleTime team
   */
@@ -194,7 +194,7 @@ protected:
 	/**
 	*
 	*/
-	cfx_btn* btn_fx;
+	CScrollButton* btn_fx;
 	
 protected slots: // Protected slots
   /**

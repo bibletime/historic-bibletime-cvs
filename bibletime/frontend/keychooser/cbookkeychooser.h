@@ -54,7 +54,7 @@ public:
   /**
   * Sets another module to this keychooser
   */
-  virtual void setModules(ListCSwordModuleInfo modules, const bool refresh = false);
+  virtual void setModules(const ListCSwordModuleInfo& modules, const bool refresh = false);
   /**
   * Returns the key of this kechooser.
   */
