@@ -36,6 +36,7 @@
 #include <qcolor.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
+#include <qstringlist.h>
 
 //KDE includes
 #include <kapp.h>
@@ -53,220 +54,210 @@
 #include <localemgr.h>
 
 COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *parent, const char *name, KAccel* accel )
-	: KDialogBase(IconList, i18n("Optionsdialog"), Ok | Cancel, Ok, parent, name, true, true,
-	QString::null, QString::null, QString::null) {
+	: KDialogBase(TreeList, i18n("Optionsdialog"), Ok | Cancel, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
-	config = KGlobal::config();	
+	m_config = KGlobal::config();	
 	m_important = importantClasses;
-	m_changedSettings = 0;
+	m_changedSettings = 0;	
+	m_general.keys.accel = accel;
 	
-	initGeneralPage();		
-	initKeyPage(accel);
-	initFontPage();
-	initFontManagerPage();
-	initColorsPage();	
+	setTreeListAutoResize(true);	
+	setShowIconsInTreeList(true);	
+	setInitialSize(QSize(400,400));
+  resize(sizeHint());
+		
+	initGeneral();		
+	initDisplayWindow();
 }
 
 COptionsDialog::~COptionsDialog(){
+
 }
 
-/** Initialize the view */
-void COptionsDialog::initKeyPage(KAccel* accel){
-	key_accel = accel;
-	keyaccel_page = addHBoxPage(i18n("Accelerators"), i18n("Configure BibleTime's key bindings"), OD_ICON_KEY_BINDINGS);
-
- 	dict = key_accel->keyDict();
-
- 	KKeyChooser* keyChooser = new KKeyChooser( &dict, keyaccel_page, false );	
- 	QToolTip::add(keyChooser, TT_OD_KEYS_CHOOSER); 	
- 	QWhatsThis::add(keyChooser, WT_OD_KEYS_CHOOSER);
-}
-
-void COptionsDialog::initFontPage(){
- 	font_page = addVBoxPage(i18n("Fonts"), i18n("Choose fonts for BibleTime"), OD_ICON_FONTS); 	
-	KConfigGroupSaver groupSaver(config, "Fonts");
+void COptionsDialog::initGeneral() {
+	QStringList items;	
+	items << i18n("General") << i18n("Startup");
+	setFolderIcon(i18n("General"), SmallIcon("folder"));
 		
-	QLabel* l = new QLabel(font_page);
-	l->setText(i18n("Choose the area of application and set the font for it"));
+	QFrame* page = addPage(items, i18n("Startup options"), OD_ICON_GENERAL);
+	QVBoxLayout* layout = new QVBoxLayout(page);
 	
-	m_fontUsageChooser = new QComboBox(font_page);		
- 	QToolTip::add(m_fontUsageChooser, TT_OD_FONTS_TYPE_CHOOSER);	 	
- 	QWhatsThis::add(m_fontUsageChooser, WT_OD_FONTS_TYPE_CHOOSER);	
-	m_fontMap.insert(i18n("Display window"), config->readFontEntry( i18n("Display window") ));
-	QMap<QString, QFont>::Iterator it;
-	for( it = m_fontMap.begin(); it != m_fontMap.end(); ++it )
-		m_fontUsageChooser->insertItem(it.key());
+	{//daily tips
+		m_general.startup.showTips = new QCheckBox(page);
+		m_general.startup.showTips->setText(i18n("Show tip of the day"));
+		QToolTip::add(m_general.startup.showTips, TT_OD_GENERAL_DAILY_TIP);	
+		QWhatsThis::add(m_general.startup.showTips, WT_OD_GENERAL_DAILY_TIP);
 		
-	fonts = new KFontChooser(font_page, "fonts", false, QStringList(), true, 6);
-	fonts->setSampleText(i18n("The quick brown fox jumped over the lazy dog"));
-  connect(fonts, SIGNAL(fontSelected(const QFont&)), SLOT(newFontSelected(const QFont&)));
- 	QWhatsThis::add(fonts, WT_OD_FONTS_CHOOSER);
- 	
-	fonts->setFont( m_fontMap[m_fontUsageChooser->currentText()] );
-}
-
-void COptionsDialog::initFontManagerPage(){
-	foreign_font_page = this->addVBoxPage(i18n("Module fonts"), i18n("Configure the fonts used for modules"), OD_ICON_FONTMANAGER);	
-	
-	fontModuleList = new KListBox(foreign_font_page);
- 	QWhatsThis::add(fontModuleList, WT_OD_FFM_FONTS_LIST );		
-	foreignFonts = new KFontChooser(foreign_font_page, "foreignFonts", false, QStringList(), true, 6);
- 	
-  connect(foreignFonts, SIGNAL(fontSelected(const QFont &)), SLOT(newForeignFontSelected(const QFont &)));	
-  connect(fontModuleList, SIGNAL(selectionChanged(QListBoxItem*)), SLOT(foreignFontModuleChanged(QListBoxItem*)));		
-
-	foreign_font_page->setEnabled( true );
-	
-	ListCSwordModuleInfo* mainlist = m_important->swordBackend->getModuleList();
-
-	//Build a list of modules with foreign fonts
-	for (mainlist->first(); mainlist->current(); mainlist->next())
-		if (mainlist->current()->hasFont())
-		  fontModuleList->insertItem( mainlist->current()->getDescription() );
-	if (fontModuleList->count() > 0)
-		fontModuleList->setCurrentItem(0);
-
-	
-}
-
-/** Initialize page to set colors for use in Bibletime */
-void COptionsDialog::initColorsPage(){
-	colors_page = addHBoxPage(i18n("Colors"), i18n("Configure BibleTime's colors"), OD_ICON_COLORS);	
-	colorGroup	=	new QButtonGroup (2,Qt::Horizontal,"", colors_page, "colorGroup");
-	colorGroup->setLineWidth(0);
-	
-	KConfigGroupSaver groupSaver(config, "Colors");
-	
-	QLabel* label = 0;
-	label = new QLabel(i18n("Background"), colorGroup);
-	QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
-	QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
-	backgroundButton = new KColorButton(config->readColorEntry("Background", &Qt::white), colorGroup);
-	
-//colors for text and links are not yet supported!
-
-//	label = new QLabel(i18n("Normal Text"), colorGroup);
-//	QToolTip::add(label, TT_OD_COLORS_NORMAL_TEXT );	
-//	QWhatsThis::add(label, WT_OD_COLORS_NORMAL_TEXT );
-//	normalTextButton = new KColorButton(config->readColorEntry("Normal Text", &Qt::black), colorGroup);
-//	
-//	label = new QLabel(i18n("Verse number / URL"), colorGroup);
-//	QToolTip::add(label, TT_OD_COLORS_VERSENUMBER );	
-//	QWhatsThis::add(label, WT_OD_COLORS_VERSENUMBER );
-//	URLLinkButton = new KColorButton(config->readColorEntry("Versenumber/URL", &Qt::darkBlue), colorGroup);
-
-	label = new QLabel(i18n("Highlighted Verse"), colorGroup);
-	QToolTip::add(label, TT_OD_COLORS_CURRENT_VERSE );	
-	QWhatsThis::add(label, WT_OD_COLORS_CURRENT_VERSE );
-	highlightedVerseButton = new KColorButton(config->readColorEntry("Highlighted Verse", &Qt::red ), colorGroup);
-}
-
-/** Initialize General page */
-void COptionsDialog::initGeneralPage(){
-	general_page = addPage(i18n("General"), i18n("Configure BibleTime's general options"), OD_ICON_GENERAL);
-  QVBoxLayout*	main_layout = new QVBoxLayout(general_page);
-			
-	tipCheckBox = new QCheckBox(general_page);
-	tipCheckBox->setText(i18n("Show tip of the day"));
-	QToolTip::add(tipCheckBox, TT_OD_GENERAL_DAILY_TIP);	
-	QWhatsThis::add(tipCheckBox, WT_OD_GENERAL_DAILY_TIP);
-
-	{
-		KConfigGroupSaver groupSaver(config, "Daily tip");
-		tipCheckBox->setChecked( config->readBoolEntry("TipsOnStart", true) );
+		KConfigGroupSaver groupSaver(m_config, "Daily tip");
+		m_general.startup.showTips->setChecked( m_config->readBoolEntry("TipsOnStart", true) );
 	}
+	layout->addWidget(m_general.startup.showTips);	
 
-	QHBoxLayout* localeLayout = new QHBoxLayout();
-	{
-		KConfigGroupSaver groupSaver(config, "SWORD");
-				
-		localeComboBox = new QComboBox(general_page);
-		QToolTip::add(localeComboBox, TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);				
-		QWhatsThis::add(localeComboBox, WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);		
-
-		QLabel* l = new QLabel(localeComboBox, i18n("Language for booknames"), general_page);
+	{ //startup logo
+		m_general.startup.showLogo = new QCheckBox(page);
+		m_general.startup.showLogo->setText(i18n("Show startuplogo"));
+		QWhatsThis::add(m_general.startup.showLogo, WT_OD_GENERAL_SHOW_STARTUPLOGO);
+		QToolTip::add(m_general.startup.showLogo, TT_OD_GENERAL_SHOW_STARTUPLOGO);		
 		
-		localeLayout->addWidget(l);
-		localeLayout->addWidget(localeComboBox);
+		KConfigGroupSaver groupSaver(m_config, "General");
+		m_general.startup.showLogo->setChecked(m_config->readBoolEntry("Logo", true));			
+	}		
+	layout->addWidget(m_general.startup.showLogo);	
+	
+	layout->addStretch(4);
+		
+	items.clear();	
+	items << i18n("General") << i18n("Accelerators");	
+	page = addHBoxPage(items, i18n("Configure BibleTime's key bindings"), OD_ICON_KEY_BINDINGS);
+
+ 	m_general.keys.dict = m_general.keys.accel->keyDict();
+
+ 	m_general.keys.keyChooser = new KKeyChooser( &m_general.keys.dict, page, false );	
+ 	QToolTip::add(m_general.keys.keyChooser, TT_OD_KEYS_CHOOSER);
+ 	QWhatsThis::add(m_general.keys.keyChooser, WT_OD_KEYS_CHOOSER);
+}
+
+void COptionsDialog::saveGeneral() {
+	KConfigGroupSaver groupSaver(m_config, "General");
+	m_config->writeEntry( "Logo", m_general.startup.showLogo->isChecked() );
+	
+	m_config->setGroup("Daily tip");
+	m_config->writeEntry( "TipsOnStart", m_general.startup.showLogo->isChecked() );				
+	
+	m_config->setGroup("Keys");	
+	m_general.keys.accel->setKeyDict( m_general.keys.dict );	
+	m_general.keys.accel->writeSettings( m_config );
+}
+
+
+void COptionsDialog::initDisplayWindow() {
+	QStringList items;	
+	items << i18n("Display windows") << i18n("General");
+	setFolderIcon(i18n("Display windows"), SmallIcon("folder"));
+	
+	QFrame* page = addPage(items, i18n("General settings for display windows"));
+	QVBoxLayout* layout = new QVBoxLayout(page);
+	
+	QHBoxLayout* localeLayout = new QHBoxLayout();
+	{//bookname language
+		
+		KConfigGroupSaver groupSaver(m_config, "SWORD");
+				
+		m_displayWindows.general.localeCombo = new QComboBox(page);
+		QToolTip::add(m_displayWindows.general.localeCombo, TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);				
+		QWhatsThis::add(m_displayWindows.general.localeCombo, WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);		
+
+		QLabel* label = new QLabel(m_displayWindows.general.localeCombo, i18n("Language for booknames"), page);
+		
+		localeLayout->addWidget(label);
+		localeLayout->addWidget(m_displayWindows.general.localeCombo);
 							
-		localeComboBox->insertItem( i18n("English") );
+		m_displayWindows.general.localeCombo->insertItem( i18n("English") );
 		list <string> locales = LocaleMgr::systemLocaleMgr.getAvailableLocales();
 		for (list <string>::iterator it = locales.begin(); it != locales.end(); it++) {
-			localeComboBox->insertItem( i18n(LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription()) );
+			m_displayWindows.general.localeCombo->insertItem( i18n(LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription()) );
 		}
 
 		int current_item = -1;
-		for(int test_item = 0; test_item < localeComboBox->count(); test_item++) {
-			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale((const char*)config->readEntry("Language", QString::fromLatin1(getenv("LANG"))).local8Bit());
-			if (locale && localeComboBox->text(test_item).contains(i18n(locale->getDescription())) )
+		for(int test_item = 0; test_item < m_displayWindows.general.localeCombo->count(); test_item++) {
+			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale((const char*)m_config->readEntry("Language", QString::fromLatin1(getenv("LANG"))).local8Bit());
+			if (locale && m_displayWindows.general.localeCombo->text(test_item).contains(i18n(locale->getDescription())) )
 				current_item = test_item;
 		}
 		if (current_item!=-1)
-			localeComboBox->setCurrentItem(current_item);
+			m_displayWindows.general.localeCombo->setCurrentItem(current_item);
 	}
+	layout->addLayout(localeLayout);
 	
 	{
-		KConfigGroupSaver groupSaver(config, "General");  	
-		logoCheckBox = new QCheckBox(general_page);
-		logoCheckBox->setText(i18n("Show startuplogo"));
-		logoCheckBox->setChecked(config->readBoolEntry("Logo", true));	
-		QWhatsThis::add(logoCheckBox, WT_OD_GENERAL_SHOW_STARTUPLOGO);
-		QToolTip::add(logoCheckBox, TT_OD_GENERAL_SHOW_STARTUPLOGO);		
+		m_displayWindows.general.useDownArrow = new QCheckBox(page);
+  	m_displayWindows.general.useDownArrow->setText(i18n("Use down arrow to scroll to next verse."));
+		QWhatsThis::add(m_displayWindows.general.useDownArrow, WT_OD_GENERAL_SCROLL_PREVIOUS);
+		QToolTip::add(m_displayWindows.general.useDownArrow, TT_OD_GENERAL_SCROLL_PREVIOUS);
+		
+		KConfigGroupSaver groupSaver(m_config, "General");		
+		m_displayWindows.general.useDownArrow->setChecked(m_config->readBoolEntry("Scroll",true));		
+	}
+	layout->addWidget(m_displayWindows.general.useDownArrow);
+	layout->addStretch(4);	
+
+	items.clear();		
+	items << i18n("Display windows") << i18n("Colors");	
+	QHBox* hbox_page = addHBoxPage(items, i18n("Colors used in display windows"), OD_ICON_COLORS);	
+  QButtonGroup* group =	new QButtonGroup(2,Qt::Horizontal,"", hbox_page, "colorGroup");
+	group->setLineWidth(0);
+	{
+		KConfigGroupSaver groupSaver(m_config, "Colors");			
+		QLabel* label = new QLabel(i18n("Background"), group);		
+		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
+		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
+		m_displayWindows.colors.background = new KColorButton(m_config->readColorEntry("Background", &Qt::white), group);		
+		
+		label = new QLabel(i18n("Highlighted Verse"), group);
+		QToolTip::add(label, TT_OD_COLORS_CURRENT_VERSE );	
+		QWhatsThis::add(label, WT_OD_COLORS_CURRENT_VERSE );
+		m_displayWindows.colors.highlightedVerse = new KColorButton(m_config->readColorEntry("Highlighted Verse", &Qt::red ), group);
+	}	
+	
+	items.clear();
+	items << i18n("Display windows") << i18n("Fonts");		
+ 	QVBox* vbox_page = addVBoxPage(items, i18n("Choose fonts for BibleTime"), OD_ICON_FONTS); 	
+ 	{// font settings
+		KConfigGroupSaver groupSaver(m_config, "Fonts");
+		
+		QLabel* label = new QLabel(i18n("Choose the area of application and set the font for it"), vbox_page);	
+		
+		m_displayWindows.fonts.usage = new QComboBox(vbox_page);		
+	 	QToolTip::add(m_displayWindows.fonts.usage, TT_OD_FONTS_TYPE_CHOOSER);	 	
+	 	QWhatsThis::add(m_displayWindows.fonts.usage, WT_OD_FONTS_TYPE_CHOOSER);	
+	 	
+		m_displayWindows.fonts.fontMap.insert(i18n("Display window"), m_config->readFontEntry( i18n("Display window") ));
+		for( QMap<QString, QFont>::Iterator it = m_displayWindows.fonts.fontMap.begin(); it != m_displayWindows.fonts.fontMap.end(); ++it )
+			m_displayWindows.fonts.usage->insertItem(it.key());
+		
+		m_displayWindows.fonts.fontChooser = new KFontChooser(vbox_page, "fonts", false, QStringList(), true, 6);
+		m_displayWindows.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumped over the lazy dog"));
+	  connect(m_displayWindows.fonts.fontChooser, SIGNAL(fontSelected(const QFont&)), SLOT(newDisplayWindowFontSelected(const QFont&)));
+	 	QWhatsThis::add(m_displayWindows.fonts.fontChooser, WT_OD_FONTS_CHOOSER);
+		 	
+		m_displayWindows.fonts.fontChooser->setFont( m_displayWindows.fonts.fontMap[m_displayWindows.fonts.usage->currentText()] );
 	}
 	
-	{
-		KConfigGroupSaver groupSaver(config, "General");
-		scrollCheckBox = new QCheckBox(general_page);
-  		scrollCheckBox->setText(i18n("Use down arrow to scroll to next verse."));
-		scrollCheckBox->setChecked(config->readBoolEntry("Scroll",true));
-		QWhatsThis::add(scrollCheckBox, WT_OD_GENERAL_SCROLL_PREVIOUS);
-		QToolTip::add(scrollCheckBox, TT_OD_GENERAL_SCROLL_PREVIOUS);
-	} 
+		
 	
-	main_layout->addWidget(tipCheckBox);
-	main_layout->addWidget(logoCheckBox);
-	main_layout->addWidget(scrollCheckBox);
-	main_layout->addLayout(localeLayout);
-	main_layout->addStretch(4);
+	items.clear();
+	items << i18n("Display windows") << i18n("Module fonts");		
+	vbox_page = addVBoxPage(items, i18n("Configure the fonts used for modules"), OD_ICON_FONTMANAGER);	
+	
+	m_displayWindows.module_fonts.modules = new KListBox(vbox_page);
+ 	QWhatsThis::add(m_displayWindows.module_fonts.modules, WT_OD_FFM_FONTS_LIST );		
+	
+	m_displayWindows.module_fonts.fonts = new KFontChooser(vbox_page, "foreignFonts", false, QStringList(), true, 6);
+ 	
+  connect(m_displayWindows.module_fonts.modules, SIGNAL(selectionChanged(QListBoxItem*)), SLOT(foreignFontModuleChanged(QListBoxItem*)));		
+  connect(m_displayWindows.module_fonts.fonts, SIGNAL(fontSelected(const QFont &)), SLOT(newForeignFontSelected(const QFont &)));	
+
+	vbox_page->setEnabled( true );
+	
+	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
+
+	//Build a list of modules with foreign fonts
+	for (modules->first(); modules->current(); modules->next())
+		if (modules->current()->hasFont())
+		  m_displayWindows.module_fonts.modules->insertItem( modules->current()->getDescription() );
+	if (m_displayWindows.module_fonts.modules->count() > 0)
+		m_displayWindows.module_fonts.modules->setCurrentItem(0);
+
+	
+	
+	items.clear();
+	items << i18n("Display windows") << i18n("View profiles");		
 }
 
-/**  */
-void COptionsDialog::newFontSelected(const QFont &newFont){
-	m_fontMap.replace(m_fontUsageChooser->currentText(), newFont);		
-}
-
-
-/** Called if the OK button was clicked */
-void COptionsDialog::slotOk(){
-	saveGeneralOptions();
-	saveFontOptions();
-	saveKeyOptions();
-	saveColorsOptions();
-	
-	KDialogBase::slotOk();
-}
-
-/**  */
-void COptionsDialog::saveGeneralOptions(){
-	{
-		KConfigGroupSaver groupSaver(config, "Daily tip");
-		config->writeEntry("TipsOnStart", tipCheckBox->isChecked());
-	}
-	
-	{
-		KConfigGroupSaver groupSaver(config, "General");
-		config->writeEntry("Logo", logoCheckBox->isChecked());
-	}
-	
-	{
-		KConfigGroupSaver groupSaver(config, "General");
-		config->writeEntry("Scroll", scrollCheckBox->isChecked(), true);
-	} 
-
-	//Now save localisation settings
-	{
-		KConfigGroupSaver groupSaver(config, "SWORD");		
-		const QString currentText = localeComboBox->currentText();
+void COptionsDialog::saveDisplayWindow() {
+	{ //Save localisation settings
+		KConfigGroupSaver groupSaver(m_config, "SWORD");		
+		const QString currentText = m_displayWindows.general.localeCombo->currentText();
 		list <string> locales = LocaleMgr::systemLocaleMgr.getAvailableLocales();
 		QString localeName = QString::null;
 		for (list <string>::iterator it = locales.begin(); it != locales.end(); it++) {
@@ -276,7 +267,7 @@ void COptionsDialog::saveGeneralOptions(){
 			}
 		}
 
-		const QString oldValue = config->readEntry("Language", QString::fromLatin1(getenv("LANG")));	//default nonexisting language
+		const QString oldValue = m_config->readEntry("Language", QString::fromLatin1(getenv("LANG")));	//default nonexisting language
 		if (oldValue == QString::null || oldValue != localeName) {	//changed
 			if (m_changedSettings)
 				m_changedSettings |= CSwordPresenter::language;
@@ -285,108 +276,106 @@ void COptionsDialog::saveGeneralOptions(){
 		}				
 		
 		if (!localeName.isEmpty())
-			config->writeEntry("Language", localeName);
+			m_config->writeEntry("Language", localeName);
 		else
-			config->writeEntry("Language", currentText);
+			m_config->writeEntry("Language", currentText);
+	}
+	
+	{//save settings for the scroll button
+		KConfigGroupSaver groupSaver(m_config, "General");
+		m_config->writeEntry("Scroll", m_displayWindows.general.useDownArrow->isChecked(), true);
+	}
+	
+	{
+		KConfigGroupSaver groupSaver(m_config, "Fonts");
+		if (m_config->readFontEntry(i18n("Display window")).family() != m_displayWindows.fonts.fontMap[i18n("Display window")].family()
+		 || m_config->readFontEntry("Display window").pointSize() != m_displayWindows.fonts.fontMap[i18n("Display window")].pointSize() )
+		{				
+			if (m_changedSettings)
+				m_changedSettings |= CSwordPresenter::font;
+			else
+				m_changedSettings = CSwordPresenter::font;
+		}
+		for(QMap<QString, QFont>::Iterator it = m_displayWindows.fonts.fontMap.begin(); it != m_displayWindows.fonts.fontMap.end(); ++it )
+			m_config->writeEntry(it.key(), it.data());
+	}
+	
+	{ //save color options
+		KConfigGroupSaver groupSaver(m_config, "Colors");
+		if ( m_config->readColorEntry("Background") != m_displayWindows.colors.background->color() ) {
+			if (m_changedSettings)
+				m_changedSettings |= CSwordPresenter::backgroundColor;
+			else
+				m_changedSettings = CSwordPresenter::backgroundColor;
+		}	
+		m_config->writeEntry("Background", m_displayWindows.colors.background->color().name());	
+	
+		if ( m_config->readColorEntry("Highlighted Verse") != m_displayWindows.colors.highlightedVerse->color() ) {
+			if (m_changedSettings)
+				m_changedSettings |= CSwordPresenter::highlightedVerseColor;
+			else
+				m_changedSettings = CSwordPresenter::highlightedVerseColor;
+		}		
+		m_config->writeEntry("Highlighted Verse", m_displayWindows.colors.highlightedVerse->color().name());		
 	}
 }
 
-/** Used by optionsdialog to save font settings for presenters and printing */
-void COptionsDialog::saveFontOptions(){
-	KConfigGroupSaver groupSaver(config, "Fonts");
-	if (config->readFontEntry(i18n("Display window")).family() != m_fontMap[i18n("Display window")].family() || config->readFontEntry("Display window").pointSize() != m_fontMap[i18n("Display window")].pointSize() ) {
-		if (m_changedSettings)
-			m_changedSettings |= CSwordPresenter::font;
-		else
-			m_changedSettings = CSwordPresenter::font;
-	}
-	
-	QMap<QString, QFont>::Iterator it;
-	for( it = m_fontMap.begin(); it != m_fontMap.end(); ++it )
-		config->writeEntry(it.key(), it.data());
+/**  */
+void COptionsDialog::newDisplayWindowFontSelected(const QFont &newFont){
+	m_displayWindows.fonts.fontMap.replace(m_displayWindows.fonts.usage->currentText(), newFont);		
 }
 
-/**  */
-void COptionsDialog::saveKeyOptions(){
-	KConfigGroupSaver groupSaver(config, "Keys");	
-	key_accel->setKeyDict( dict );	
-	key_accel->writeSettings(config);
+//
+///** Called if the OK button was clicked */
+void COptionsDialog::slotOk(){
+	saveGeneral();
+	saveDisplayWindow();
+	
+	KDialogBase::slotOk();
 }
 
-/**  */
-void COptionsDialog::saveColorsOptions() {
-	KConfigGroupSaver groupSaver(config, "Colors");
-	if ( config->readColorEntry("Background") != backgroundButton->color() ) {
-		if (m_changedSettings)
-			m_changedSettings |= CSwordPresenter::backgroundColor;
-		else
-			m_changedSettings = CSwordPresenter::backgroundColor;
-	}	
-	config->writeEntry("Background", backgroundButton->color().name());	
-	
-//the colors for text and URLs are not supported by Qt3::QTextView at the moment!
-
-//	if ( config->readColorEntry("Normal Text") != normalTextButton->color() ) {
-//		if (m_changedSettings)
-//			m_changedSettings |= CSwordPresenter::textColor;
-//		else
-//			m_changedSettings = CSwordPresenter::textColor;
-//	}		
-//	config->writeEntry("Normal Text", normalTextButton->color().name());	
-	
-//	if ( config->readColorEntry("Versenumber/URL") != URLLinkButton->color() ) {
-//		if (m_changedSettings)
-//			m_changedSettings |= CSwordPresenter::verseNumberColor;
-//		else
-//			m_changedSettings = CSwordPresenter::verseNumberColor;
-//	}	
-//	config->writeEntry("Versenumber/URL", URLLinkButton->color().name());
-	
-	if ( config->readColorEntry("Highlighted Verse") != highlightedVerseButton->color() ) {
-		if (m_changedSettings)
-			m_changedSettings |= CSwordPresenter::highlightedVerseColor;
-		else
-			m_changedSettings = CSwordPresenter::highlightedVerseColor;
-	}		
-	config->writeEntry("Highlighted Verse", highlightedVerseButton->color().name());
-}
-
-/**  */
-/*commenting this out until I can figure out why it doesn't work so hot...ck
+/*commenting this out until I can figure out why it doesn't work so hot...*/
 void COptionsDialog::slotApply(){
-	saveGeneralOptions();
-	saveFontOptions();
-	saveKeyOptions();
-	saveColorsOptions();
+	saveGeneral();
+	saveDisplayWindow();
 	
 	KDialogBase::slotApply();
-}*/
+}
+
 
 /** Is called when a new font was selected in the  foreign font manager dialog. */
-void COptionsDialog::newForeignFontSelected( const QFont& font){
-	QString selectedModule = fontModuleList->currentText();
-	
-	ListCSwordModuleInfo* mainlist = m_important->swordBackend->getModuleList();
+void COptionsDialog::newForeignFontSelected( const QFont& font ){
+//	const QString selectedModule = m_displayWindows.module_fonts.modules->currentText();
+	CSwordModuleInfo* module = m_important->swordBackend->findModuleByDescription( m_displayWindows.module_fonts.modules->currentText() );	
+	if (module)
+		module->setFont(font);
 
-	//Build a list of modules with foreign fonts
-	for (mainlist->first(); mainlist->current(); mainlist->next())
-		if (mainlist->current()->getDescription() == selectedModule)
-      mainlist->current()->setFont(font);
+//	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
+//
+//	//Build a list of modules with foreign fonts
+//	for (modules->first(); modules->current(); mainlist->next())
+//		if (modules->current()->getDescription() == selectedModule)
+//      modules->current()->setFont(font);
 }
 
 /** Is called when the user select a new module in te foreign font management dialog. */
-void COptionsDialog::foreignFontModuleChanged( QListBoxItem* item) {
-	QString selectedModule = item->text();	//selected modules
-	
-	ListCSwordModuleInfo* mainlist = m_important->swordBackend->getModuleList();
-	//Build a list of modules with foreign fonts
-	for (mainlist->first(); mainlist->current(); mainlist->next()) {
-		if (mainlist->current()->getDescription() == selectedModule)
-      foreignFonts->setFont(mainlist->current()->getFont());
-	}
+void COptionsDialog::foreignFontModuleChanged( QListBoxItem* item ) {
+	const QString selectedModule = item->text();	//selected modules
+
+	CSwordModuleInfo* module = m_important->swordBackend->findModuleByDescription( selectedModule );	
+	if (module)
+		m_displayWindows.module_fonts.fonts->setFont(module->getFont());
+		
+//	ListCSwordModuleInfo* mainlist = m_important->swordBackend->getModuleList();
+//	//Build a list of modules with foreign fonts
+//	for (mainlist->first(); mainlist->current(); mainlist->next()) {
+//		if (mainlist->current()->getDescription() == selectedModule)
+//      foreignFonts->setFont(mainlist->current()->getFont());
+//	}
 }
 
+
 /** Returns an integer with ORed feature enum entries of the changed settings. */
-int COptionsDialog::getChangedSettings() {
+const int COptionsDialog::getChangedSettings() const {
 	return m_changedSettings;
 }

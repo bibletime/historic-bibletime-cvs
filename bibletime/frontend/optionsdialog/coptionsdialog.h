@@ -41,6 +41,7 @@ class QHBox;
 class QCheckBox;
 class QRadioButton;
 class KListBox;
+class KKeyChooser;
 class CBackEnd;
 
 /**
@@ -54,87 +55,96 @@ public:
 	COptionsDialog(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0, KAccel* key_accel=0);
 	~COptionsDialog();
   /**
-  	* Returns an integer with ORed feature enum
-  	* entries of the changed settings.
-  	*/
-  int getChangedSettings();
+  * Returns an integer with ORed feature enum
+  * entries of the changed settings.
+  */
+  const int getChangedSettings() const;
 
-protected: // Protected methods
-  void initGeneralPage();
-  void initKeyPage(KAccel* key_accel);
-  void initFontPage();
-  void initFontManagerPage();
-  void initColorsPage();
-  void saveGeneralOptions();
-  void saveFontOptions();
-  void saveKeyOptions();
-  void saveColorsOptions();
+private:
+  void initGeneral();
+  void saveGeneral();
+
+  void initDisplayWindow();
+  void saveDisplayWindow();
+
+
+  KConfig* m_config;
+  CImportantClasses* m_important;
+  int m_changedSettings;
+
+	struct GeneralSettings {
+		struct StartupSettings {
+			QCheckBox* showTips;
+			QCheckBox* showLogo;
+		};
+		StartupSettings startup;
+		
+		struct KeySettings {
+			KKeyChooser* keyChooser;
+			KKeyEntryMap dict;			
+			KAccel* accel;
+		};	
+		KeySettings keys;
+	};	
+	struct DisplayWindowSettings {
+		struct GeneralSettings {
+			QCheckBox* useDownArrow;
+			QComboBox* localeCombo;
+		};
+		GeneralSettings general;
+		
+		struct ColorSettings {
+			KColorButton* background;
+			KColorButton* highlightedVerse;			
+		};
+		ColorSettings colors;
+		
+		struct FontSettings {		
+			KFontChooser* fontChooser;
+			QComboBox* usage;
+			QMap<QString,QFont> fontMap;			
+		};
+		FontSettings fonts;
+		
+		struct ModuleFontSettings {
+			KListBox* modules;
+			KFontChooser* fonts;
+		};
+		ModuleFontSettings module_fonts;
+		
+		struct ViewProfileSettings {
+		};
+		ViewProfileSettings profiles;
+	};
+
+	GeneralSettings m_general;
+	DisplayWindowSettings m_displayWindows;
 
 protected slots: // Protected slots
-  void newFontSelected(const QFont &);
+  /**
+  * Called when a new font in the fonts page was selected.
+  */
+  void newDisplayWindowFontSelected(const QFont &);
   /**
  	* Is called when a new font was selected in the
 	* foreign font manager dialog.
 	*/
   void newForeignFontSelected( const QFont& );
-	/**
-	* Called if the OK button was clicked
-	*/
-  void slotOk();
-  /**
- 	* Called if the Apply button was clicked
- 	* commented out for the time being.  ck
-  void slotApply();
-*/
   /**
  	* Is called when the user select a new module in te foreign font management dialog.
  	*/
   void foreignFontModuleChanged( QListBoxItem* );
-
-private:
-	QHBox* keyaccel_page;
-	QWidget* general_page;	
-	QHBox* font_page;
-	QHBox* foreign_font_page;
-	QHBox* colors_page;
-
-  KConfig* config;
-  CImportantClasses* m_important;
-	int m_changedSettings;
-  CBackEnd* backend;
-  	
-	//items of general configuration page
-	QCheckBox*	tipCheckBox;	
-	QCheckBox*	logoCheckBox;
-	QCheckBox*  scrollCheckBox;
-	QFont currentFonts[1];
-	QComboBox*	localeComboBox;
-
-	// Font dialog definitions
-	QComboBox* m_fontUsageChooser;	
-	KFontChooser* fonts;
-	QMap<QString,QFont> m_fontMap;
 	
-	//Key binding definitions
-#if KDE_VERSION >= 193
-	KKeyEntryMap dict;
-#else
-	QDict<KKeyEntry> dict;
-#endif
+	/**
+	* Called if the OK button was clicked
+	*/
+  void slotOk();
 
-	KAccel* key_accel;
-	
-	//Foreign font dialog definitions
-	KListBox* fontModuleList;
-	KFontChooser* foreignFonts;
-	
-	//Color dialog definitions
-	QButtonGroup* colorGroup;
-	KColorButton* backgroundButton;
-	KColorButton* normalTextButton;
-	KColorButton* URLLinkButton;
-	KColorButton* highlightedVerseButton;	
-	QString* hexString;
+  /**
+ 	* Called if the Apply button was clicked
+ 	* commented out for the time being.  ck
+ 	*/
+	void slotApply();
 };
 
 #endif
