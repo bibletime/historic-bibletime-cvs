@@ -45,6 +45,7 @@ class QRadioButton;
 class KListBox;
 class KKeyChooser;
 class KTabCtl;
+class KHTMLPart;
 
 /**
 	* The optionsdialog of BibleTime
@@ -113,7 +114,7 @@ private:
 
 		struct DisplayStyleSettings {
 			QListBox* styleChooser;
-			//CHTMLReadDisplay* stylePreview;
+			KHTMLPart* stylePreview;
 		} displayStyle;
 
     struct FontSettings {
@@ -167,6 +168,10 @@ protected slots: // Protected slots
   * This slot is called when the "Use own font for language" bo was clicked.
   */
   void useOwnFontClicked(bool);
+  /**
+  * Update the style preview widget
+  */
+  void updateStylePreview();
 
 protected: // Protected methods
   /**

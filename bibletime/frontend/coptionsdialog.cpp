@@ -21,6 +21,7 @@
 #include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cdisplaytemplatemgr.h"
+#include "backend/cdisplayrendering.h"
 
 #include "frontend/displaywindow/cbiblereadwindow.h"
 #include "frontend/displaywindow/ccommentaryreadwindow.h"
@@ -51,13 +52,14 @@
 #include <qinputdialog.h>
 #include <qdir.h>
 
-
 //KDE includes
 #include <kapp.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <kstandarddirs.h>
 #include <kkeydialog.h>
+#include <khtml_part.h>
+#include <khtmlview.h>
 #include <kiconloader.h>
 #include <ktabctl.h>
 #include <kapp.h>
@@ -295,12 +297,22 @@ void COptionsDialog::initDisplayStyle(){
 	);
 
 	m_settings.displayStyle.styleChooser = new QListBox(page);
+	connect(
+		m_settings.displayStyle.styleChooser, SIGNAL(selectionChanged()), 
+		this, SLOT(updateStylePreview())
+	);
+	
+	m_settings.displayStyle.stylePreview = new KHTMLPart(page);
 
-	QLabel* label = new QLabel(m_settings.displayStyle.styleChooser, i18n("Available display templates"), page);
-	gridLayout->addMultiCellWidget(label,1,1,0,-1);
-	gridLayout->addMultiCellWidget(m_settings.displayStyle.styleChooser,2,2,0,-1);
+	QLabel* label = new QLabel(m_settings.displayStyle.styleChooser, i18n("Available display styles:"), page);
+	gridLayout->addMultiCellWidget(label, 1, 1, 0, 1);
+	gridLayout->addMultiCellWidget(m_settings.displayStyle.styleChooser, 2, 2, 0, 1);
 
-	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager(); 
+	label = new QLabel(m_settings.displayStyle.stylePreview->view(), i18n("Style preview:"), page);
+	gridLayout->addMultiCellWidget(label, 1, 1, 2, 4);
+	gridLayout->addMultiCellWidget(m_settings.displayStyle.stylePreview->view(), 2, 2, 2, 4);
+
+	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
 	m_settings.displayStyle.styleChooser->insertStringList( tMgr->availableTemplates() );
 	QListBoxItem*  i = m_settings.displayStyle.styleChooser->findItem( CBTConfig::get(CBTConfig::displayStyle), Qt::CaseSensitive );
 	
@@ -955,4 +967,33 @@ void COptionsDialog::useOwnFontClicked( bool isOn){
   else {    //don't show
     m_settings.fonts.usage->changeItem(m_settings.fonts.usage->currentText(), m_settings.fonts.usage->currentItem() );
   }
+}
+
+void COptionsDialog::updateStylePreview() {
+	//update the style preview widget
+ 	using namespace Rendering;
+	
+	const QString styleName = m_settings.displayStyle.styleChooser->currentText();
+	
+	CSwordModuleInfo* module = backend()->findModuleByDescription( CBTConfig::get(CBTConfig::standardBible) );
+	
+ 	CTextRendering::KeyTreeItem::Settings settings;	
+	
+	CTextRendering::KeyTree tree;
+	tree.append( new CTextRendering::KeyTreeItem("Gen 1:1", "Gen 1:3", module, settings) );
+	settings.highlight = true;
+	tree.append( new CTextRendering::KeyTreeItem("Joh 3:16", module, settings) );
+	settings.highlight = false;
+	tree.append( new CTextRendering::KeyTreeItem("Joh 16:4", module, settings) );
+	
+	CDisplayRendering render;
+	m_settings.displayStyle.stylePreview->begin();
+	
+	const QString oldStyleName = CBTConfig::get(CBTConfig::displayStyle);
+	CBTConfig::set(CBTConfig::displayStyle, styleName);
+	
+	m_settings.displayStyle.stylePreview->write( render.renderKeyTree(tree) );
+	m_settings.displayStyle.stylePreview->end();
+
+	CBTConfig::set(CBTConfig::displayStyle, oldStyleName);
 }

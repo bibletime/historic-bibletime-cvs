@@ -31,18 +31,10 @@
 
 CDisplayTemplateMgr::CDisplayTemplateMgr() {
 	init();
-}
 
-CDisplayTemplateMgr::~CDisplayTemplateMgr() {
-}
-
-
-/*!
-    \fn CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content )
- */
-const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& content, Settings& settings ) {
-	const QString templateName = m_templateMap.contains(name) ? name : defaultTemplate();
-
+	/* We replace the language CSS code at the beginning
+	* It's not necessary to do it for every text rendering.
+	*/
 	QString langCSS;
   CLanguageMgr::LangMap langMap = CPointers::languageMgr()->availableLanguages();
 	
@@ -57,7 +49,24 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 				.arg(f.italic() ? "italic" : "normal");
 		}
 	}
-	
+		
+	QMapIterator<QString, QString> it;
+	QMapIterator<QString, QString> end = m_templateMap.end();
+	for (it = m_templateMap.begin(); it != end; ++it) {	
+		(*it).replace("#LANG_CSS#", langCSS);
+	}
+}
+
+CDisplayTemplateMgr::~CDisplayTemplateMgr() {
+}
+
+
+/*!
+    \fn CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content )
+ */
+const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& content, Settings& settings ) {
+	const QString templateName = m_templateMap.contains(name) ? name : defaultTemplate();
+
 	QString displayTypeString;
 	if (!settings.pageCSS_ID.isEmpty()) {
 		displayTypeString = settings.pageCSS_ID;
@@ -97,14 +106,11 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 			.arg(content);
 	}
 	
-	QString t = m_templateMap[ templateName ];
-	t.replace("#TITLE#", settings.title);
-	t.replace("#LANG_CSS#", langCSS);
-	t.replace("#LANG_ABBREV#", settings.langAbbrev);
- 	t.replace("#DISPLAYTYPE#", displayTypeString);
-	t.replace("#CONTENT#", newContent);
-	
-	return t;
+	return QString(m_templateMap[ templateName ]) //don't change the map's content directly
+	 .replace("#TITLE#", settings.title)
+	 .replace("#LANG_ABBREV#", settings.langAbbrev)
+ 	 .replace("#DISPLAYTYPE#", displayTypeString)
+	 .replace("#CONTENT#", newContent);
 }
 
 //Include the HTML templates which were put into a cpp file by a Perl script
