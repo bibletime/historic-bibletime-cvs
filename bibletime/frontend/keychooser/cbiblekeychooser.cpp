@@ -259,14 +259,18 @@ void CBibleKeyChooser::bookFocusOut(int index){
 	m_key->setBook( w_book->ComboBox->currentText() );
 	const int chapterCount = m_info->getChapterCount( m_info->getBookNumber(m_key->getBook()));
 	qWarning("%i", chapterCount);
+	qDebug("chaptzers before: %i", m_key->Chapter()-1);	
 	if (m_key->Chapter() > chapterCount) //chapter is not available in the new book
 		m_key->Chapter( 1 );
+	qDebug("%i", m_key->Chapter()-1);
 	w_chapter->reset( chapterCount, m_key->Chapter()-1, false);
 			
 	const int verseCount = m_info->getVerseCount(m_info->getBookNumber(m_key->getBook()),m_key->Chapter());
 	qWarning("%i", verseCount);	
+	qDebug("verse before: %i", m_key->Verse()-1);		
 	if (m_key->Verse() > verseCount) //verse is not available in the new book and chapter
 		m_key->Verse( 1 );
+	qDebug("%i", m_key->Verse()-1);	
 	w_verse->reset(verseCount,m_key->Verse()-1,false);
 
 	m_key->AutoNormalize(oldNormalize);

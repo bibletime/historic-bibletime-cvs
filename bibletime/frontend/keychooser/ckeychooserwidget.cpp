@@ -152,11 +152,9 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	isResetting = true;
 	
 	oldKey = QString::null;
-//	ComboBox->setUpdatesEnabled(false);
 	ComboBox->clear();
 	ComboBox->insertStringList(*list);
 	ComboBox->setCurrentItem(index);	
-//	ComboBox->setUpdatesEnabled(true);
 			
 	if (list && !list->count()) {
 		btn_up->setEnabled(false);
