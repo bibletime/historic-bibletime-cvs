@@ -154,7 +154,7 @@ void BibleTime::initActions() {
     m_viewMainIndex_action->plugAccel( accel() );
   #endif
 
-  m_viewInfoDisplay_action = new KToggleAction(i18n("&Show info display"),
+  m_viewInfoDisplay_action = new KToggleAction(i18n("Show &info display"),
     CResMgr::mainMenu::view::showInfoDisplay::icon,
     CResMgr::mainMenu::view::showInfoDisplay::accel,
 		this, SLOT(slotToggleInfoDisplay()), actionCollection(),
@@ -243,7 +243,7 @@ void BibleTime::initActions() {
   #endif
 
 
-  m_windowCloseAll_action = new KAction(i18n("&Close all"),
+  m_windowCloseAll_action = new KAction(i18n("Cl&ose all"),
     CResMgr::mainMenu::window::closeAll::icon,
     CResMgr::mainMenu::window::closeAll::accel,
     m_mdi, SLOT(deleteAll()), actionCollection(),
@@ -268,7 +268,7 @@ void BibleTime::initActions() {
   #endif
 
 
-  m_windowSaveToNewProfile_action = new KAction(i18n("&Save as new session"),
+  m_windowSaveToNewProfile_action = new KAction(i18n("Sa&ve as new session"),
     CResMgr::mainMenu::window::saveToNewProfile::icon,
     CResMgr::mainMenu::window::saveToNewProfile::accel,
     this, SLOT(saveToNewProfile()), actionCollection(),
@@ -293,7 +293,7 @@ void BibleTime::initActions() {
   #endif
 
 
-	m_windowEditProfiles_action = new KAction(i18n("&Configure sessions"),
+	m_windowEditProfiles_action = new KAction(i18n("Co&nfigure sessions"),
     CResMgr::mainMenu::window::setupProfiles::icon,
     CResMgr::mainMenu::window::setupProfiles::accel,
     this, SLOT(editProfiles()), actionCollection(),

@@ -47,11 +47,8 @@ CMDIArea::CMDIArea(QWidget *parent, const char *name )
 	initView();
 	initConnections();
 	readSettings();
-//  setAcceptDrops(true);
 }
 
-// CMDIArea::~CMDIArea(){
-// }
 
 /** Initializes the view of the MDI area */
 void CMDIArea::initView(){
@@ -204,16 +201,41 @@ void CMDIArea::myTile(){
     return;
   }
 
-	//if ((windowList().count() == 1) && windowList().at(0)) {
 	if ((usableWindowList().count() == 1) && usableWindowList().at(0)) {
 		m_appCaption = usableWindowList().at(0)->caption();
 		usableWindowList().at(0)->parentWidget()->showMaximized();
 	}
 	else {
     QWidget* active = activeWindow();
-	  QWorkspace::tile();
+ 	  QWorkspace::tile();
+//  		tileHorizontal();
     active->setFocus();
   }
+}
+
+void CMDIArea::tileHorizontal()
+{
+	// primitive horizontal tiling
+	QWidgetList windows = windowList();
+	if ( !windows.count() ) {
+		return;
+	}
+
+	int heightForEach = height() / windows.count();
+	int y = 0;
+	for ( int i = 0; i < int(windows.count()); ++i ) {
+			QWidget *window = windows.at(i);
+			if ( window->testWState( WState_Maximized ) ) {
+					// prevent flicker
+					window->hide();
+					window->showNormal();
+			}
+			int preferredHeight = window->minimumHeight() + window->parentWidget()->baseSize().height();
+			int actHeight = QMAX(heightForEach, preferredHeight);
+
+			window->parentWidget()->setGeometry( 0, y, width(), actHeight );
+			y += actHeight;
+	}
 }
 
 /**  */
@@ -280,4 +302,21 @@ bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
 	}*/
 	
 	return ret; // standard event processing
+}
+
+
+/*!
+    \fn CMDIArea::triggerWindowUpdate()
+ */
+void CMDIArea::triggerWindowUpdate() {
+	switch ( m_guiOption ) { //set new value and decide what to do
+ 		case autoTile:
+			myTile();
+ 			break;
+ 		case autoCascade:
+			myCascade();
+ 			break;
+ 		default:
+ 			break;
+ 	}
 }

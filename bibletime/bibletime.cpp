@@ -109,7 +109,7 @@ void BibleTime::saveSettings(){
  		CBTConfig::set(CBTConfig::autoTile, true);
  		CBTConfig::set(CBTConfig::autoCascade, false);
  	}
- 	else if ( m_windowAutoTile_action->isChecked() ) {
+ 	else if ( m_windowAutoCascade_action->isChecked() ) {
 		CBTConfig::set(CBTConfig::autoTile, false);
  		CBTConfig::set(CBTConfig::autoCascade, true);	
  	}
@@ -151,9 +151,9 @@ void BibleTime::readSettings(){
  		m_mdi->setGUIOption( CMDIArea::autoCascade );
  	}
  	else {
- 		m_mdi->setGUIOption( CMDIArea::Nothing );		
+ 		m_mdi->setGUIOption( CMDIArea::Nothing );
  		m_windowAutoTile_action->setChecked(false);
- 		m_windowAutoCascade_action->setChecked(false);		
+ 		m_windowAutoCascade_action->setChecked(false);
  	}
 }
 

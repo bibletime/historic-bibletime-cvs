@@ -161,9 +161,11 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	m_windowSaveToNewProfile_action->plug(m_windowMenu);	
 	m_windowLoadProfile_action->plug(m_windowMenu);
 	m_windowEditProfiles_action->plug(m_windowMenu);	
-	m_windowMenu->insertSeparator();	
-	m_windowFullscreen_action->plug(m_windowMenu);				
-	m_windowMenu->insertSeparator();	
+	m_windowMenu->insertSeparator();
+	
+	m_windowFullscreen_action->plug(m_windowMenu);
+	m_windowMenu->insertSeparator();
+	
 	m_windowCascade_action->plug(m_windowMenu);
 	m_windowTile_action->plug(m_windowMenu);
 	m_windowAutoCascade_action->plug(m_windowMenu);
@@ -172,33 +174,30 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	
 	if ( m_mdi->windowList().isEmpty() ) {
 		m_windowCascade_action->setEnabled(false);
-		m_windowTile_action->setEnabled(false);		
-		m_windowCloseAll_action->setEnabled(false);		
+		m_windowTile_action->setEnabled(false);
+		m_windowCloseAll_action->setEnabled(false);
 	}
 	else if (m_mdi->windowList().count() == 1) {
 		m_windowTile_action->setEnabled( false );
 		m_windowCascade_action->setEnabled( false );
 		m_windowCloseAll_action->setEnabled( true );
 		m_windowMenu->insertSeparator();
-	} else {
-		m_windowTile_action->setEnabled( !m_windowAutoTile_action->isChecked() && !m_windowAutoCascade_action->isChecked() );
-		m_windowCascade_action->setEnabled( !m_windowAutoCascade_action->isChecked() && !!m_windowAutoTile_action->isChecked());
+	} 
+	else {
+		m_windowTile_action->setEnabled( 
+			!m_windowAutoTile_action->isChecked() && m_windowAutoCascade_action->isChecked() 
+		);
+		m_windowCascade_action->setEnabled( 
+			!m_windowAutoCascade_action->isChecked() && m_windowAutoTile_action->isChecked()
+		);
 		m_windowCloseAll_action->setEnabled( true );
-		m_windowMenu->insertSeparator();		
+		m_windowMenu->insertSeparator();
 	}
 	
 	QWidgetList windows = m_mdi->windowList();
 	int i, id;
 	for ( i = 0; i < int(windows.count()); ++i ) {
-    QString caption;
-/*		CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(windows.at(i));
-    if (window) {
-//       caption = QString::fromLatin1("%1 (%2)").arg(window->caption()).arg(window->key()->key());
-			caption = window->caption();
-		}
-    else {*/
-      caption = windows.at(i)->caption();
-// 		}
+    QString caption = windows.at(i)->caption();
 		
 		id = m_windowMenu->insertItem(QString::fromLatin1("&%1 ").arg(i+1) + caption,
 			this, SLOT(slotWindowMenuActivated( int )) );
@@ -423,6 +422,8 @@ void BibleTime::toggleFullscreen(){
 	else if (isVisible()){
     showNormal();
   }
+	
+	m_mdi->triggerWindowUpdate();
 }
 
 void BibleTime::editProfiles(){

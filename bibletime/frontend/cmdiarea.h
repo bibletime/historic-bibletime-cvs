@@ -48,8 +48,7 @@ public:
 		autoCascade,
 		Nothing
 	};	
-	CMDIArea(QWidget *parent=0, const char *name = 0 );
-// 	~CMDIArea();
+	CMDIArea(QWidget *parent, const char *name = 0 );
   /**
   */
   void readSettings();
@@ -66,7 +65,11 @@ public:
 	* This function returns the right caption (using the MDI child).
 	*/
   inline const QString currentApplicationCaption() const;
-    void emitWindowCaptionChanged();
+  void emitWindowCaptionChanged();
+  /**
+	* Forces an update of the currently chosen window arrangement.
+	*/
+	void triggerWindowUpdate();
 
 public slots:
   /**
@@ -85,7 +88,11 @@ public slots:
  	* Also necessary for autoTile feature
  	*/
   void myTile();
-  /**
+	/** Horizontal tile function
+	* This function was taken from Qt's MDI example.
+	*/
+	void tileHorizontal();
+	/**
   * Emits the signal to create a new display window in the MDI area.
   */
   inline void emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName );

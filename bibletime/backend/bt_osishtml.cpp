@@ -1,5 +1,5 @@
 /***************************************************************************
-                     thmlhtml.cpp  -  ThML to HTML filter
+                     bt_osishtml.cpp  -  OSIS to HTML filter
                              -------------------
     begin                : 1999-10-27
     copyright            : 2001 by CrossWire Bible Society
@@ -43,8 +43,7 @@ using sword::XMLTag;
 
 using namespace Filters;
 
-BT_OSISHTML::BT_OSISHTML() : sword::OSISHTMLHREF() { //TODO: FIX INHERITANCE
-	
+BT_OSISHTML::BT_OSISHTML() : sword::OSISHTMLHREF() {
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes
 
 	replaceTokenSubstitute("inscription", "<span class=\"inscription\">");
@@ -55,7 +54,6 @@ BT_OSISHTML::BT_OSISHTML() : sword::OSISHTMLHREF() { //TODO: FIX INHERITANCE
 	
 	replaceTokenSubstitute("divineName", "<span class=\"name\"><span class=\"divine\">");
 	replaceTokenSubstitute("/divineName", "</span></span>");
-	
 }
 
 bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {
