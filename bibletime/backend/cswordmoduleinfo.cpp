@@ -331,10 +331,10 @@ const CSwordModuleInfo::Category CSwordModuleInfo::category(){
   if (cat == QString::fromLatin1("Cults / Unorthodox / Questionable Material")) {
     return Cult;
   }
-  else if (cat == QString::fromLatin1("Daily Devotional")) {
+  else if (cat == QString::fromLatin1("Daily Devotional") || m_module->getConfig().has("Feature", "DailyDevotion")) {
     return DailyDevotional;
   }
-  else if (cat == QString::fromLatin1("Glossaries")) {
+  else if (cat == QString::fromLatin1("Glossaries") || m_module->getConfig().has("Feature", "Glossary")) { //alow both
     return Glossary;
   };
   return CSwordModuleInfo::UnknownCategory;  

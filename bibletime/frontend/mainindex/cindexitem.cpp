@@ -1218,9 +1218,21 @@ void CGlossaryFolder::init(){
     setText(0,i18n("Glossaries"));
   }
   else {
-    CLanguageMgr::Language fromLang = languageMgr()->languageForAbbrev( m_fromLanguage );
+    CLanguageMgr::Language fromLang = languageMgr()->languageForAbbrev( m_fromLanguage );    
     CLanguageMgr::Language toLang = languageMgr()->languageForAbbrev( m_toLanguage );
-    setText(0, fromLang.translatedName() + " - " + toLang.translatedName() );
+
+    QString fromLangString  = fromLang.translatedName();
+    QString toLangString    = toLang.translatedName();
+        
+    if (fromLangString.isEmpty()) { //use abbrev!
+      fromLangString = m_fromLanguage;
+    };
+    if (toLangString.isEmpty()) { //use abbrev!
+      toLangString = m_toLanguage;
+    };
+    
+        
+    setText(0, fromLangString + " - " + toLangString );
   }
   initTree();
   update();
