@@ -78,7 +78,8 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 	connect(w_chapter,SIGNAL(changed(int))    ,SLOT(chapterChanged(int)));
 	connect(w_chapter,SIGNAL(next_requested()),SLOT(chapterNextRequested()));
 	connect(w_chapter,SIGNAL(prev_requested()),SLOT(chapterPrevRequested()));
-  connect(w_chapter,SIGNAL(focusOut(int))   ,SLOT(chapterFocusOut(int)));		
+	connect(w_chapter,SIGNAL(focusOut(int))   ,SLOT(chapterFocusOut(int)));
+	
 	
 	/*Verse Connections*/
 	connect(w_verse,SIGNAL(changed(int))      ,SLOT(verseChanged(int)));

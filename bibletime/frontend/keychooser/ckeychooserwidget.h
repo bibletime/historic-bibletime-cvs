@@ -20,6 +20,7 @@
 
 #include <qwidget.h>
 #include <qcombobox.h>
+#include <kconfig.h>
 
 class cfx_btn;
 class CLexiconKeyChooser;
@@ -198,6 +199,7 @@ private:
 	friend class CLexiconKeyChooser;
 	QStringList	m_list;
 	bool m_useNextPrevSignals;
+	KConfig* config;
 	
 
 private slots: // Private slots

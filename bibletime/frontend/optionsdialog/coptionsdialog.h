@@ -106,6 +106,7 @@ private:
 	//items of general configuration page
 	QCheckBox*	tipCheckBox;	
 	QCheckBox*	logoCheckBox;
+	QCheckBox*  scrollCheckBox;
 	QFont currentFonts[1];
 	QComboBox*	localeComboBox;
 

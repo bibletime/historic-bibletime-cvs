@@ -213,10 +213,20 @@ void COptionsDialog::initGeneralPage(){
 		QWhatsThis::add(logoCheckBox, WT_OD_GENERAL_SHOW_STARTUPLOGO);
 		QToolTip::add(logoCheckBox, TT_OD_GENERAL_SHOW_STARTUPLOGO);		
 	}
-
+	
+	{
+		KConfigGroupSaver groupSaver(config, "General");
+		scrollCheckBox = new QCheckBox(general_page);
+  		scrollCheckBox->setText(i18n("Use down arrow to scroll to previous verse."));
+		scrollCheckBox->setChecked(config->readBoolEntry("Scroll",true));
+		QWhatsThis::add(scrollCheckBox, WT_OD_GENERAL_SCROLL_PREVIOUS);
+		QToolTip::add(scrollCheckBox, TT_OD_GENERAL_SCROLL_PREVIOUS);
+	 }
+	
 	main_layout->addWidget(tipCheckBox);
 	main_layout->addWidget(logoCheckBox);
-	main_layout->addLayout(localeLayout);	
+	main_layout->addWidget(scrollCheckBox);
+	main_layout->addLayout(localeLayout);
 	main_layout->addStretch(4);
 }
 
@@ -247,6 +257,11 @@ void COptionsDialog::saveGeneralOptions(){
 		KConfigGroupSaver groupSaver(config, "General");
 		config->writeEntry("Logo", logoCheckBox->isChecked());
 	}
+	
+	{
+		KConfigGroupSaver groupSaver(config, "General");
+		config->writeEntry("Scroll", scrollCheckBox->isChecked(), true);
+ 	}
 
 	//Now save localisation settings
 	{
