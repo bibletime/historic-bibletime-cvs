@@ -348,10 +348,10 @@ namespace CResMgr {
 
   namespace displaywindows {
     namespace transliteration {
-      const QString icon = "bt_displayconfig";
+      const QString icon = "bt_displaytranslit";
     };
     namespace displaySettings {
-      const QString icon = "bt_displaytranslit";
+      const QString icon = "bt_displayconfig";
     };
 
     namespace general {
