@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-04-23 16:09+0200\n"
+"POT-Creation-Date: 2001-04-23 19:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -386,7 +386,7 @@ msgid "Entries"
 msgstr ""
 
 #: bibletime/printing/cprinterdialog.cpp:470
-msgid "Management of BibleTimes printing queue"
+msgid "Management of BibleTime's printing queue"
 msgstr ""
 
 #: bibletime/printing/cprinterdialog.cpp:480
@@ -1313,7 +1313,7 @@ msgid "Set the fontsize"
 msgstr ""
 
 #: bibletime/dummy.h:91
-msgid "Synchronize with Bibles"
+msgid "Synchronize with Bible windows"
 msgstr ""
 
 #: bibletime/dummy.h:94
@@ -1321,7 +1321,7 @@ msgid "Save as HTML"
 msgstr ""
 
 #: bibletime/dummy.h:96
-msgid "Copy to clipboard"
+msgid "Copy into clipboard"
 msgstr ""
 
 #: bibletime/dummy.h:100
@@ -1369,19 +1369,19 @@ msgid "Add a new scope"
 msgstr ""
 
 #: bibletime/dummy.h:114
-msgid "Delete this scope"
+msgid "Delete this search scope"
 msgstr ""
 
-#: bibletime/dummy.h:115
-msgid "Edit and define your scopes"
+#: bibletime/dummy.h:115 bibletime/dummy.h:296
+msgid "Edit and define your search scopes"
 msgstr ""
 
 #: bibletime/dummy.h:116
-msgid "Choose a scope from the list"
+msgid "Choose a search scope from the list"
 msgstr ""
 
 #: bibletime/dummy.h:117
-msgid "Enter your own scope"
+msgid "Enter your own search scope"
 msgstr ""
 
 #: bibletime/dummy.h:118
@@ -1493,7 +1493,7 @@ msgid "Delete items"
 msgstr ""
 
 #: bibletime/dummy.h:163
-msgid "Insert page break"
+msgid "Insert a page break"
 msgstr ""
 
 #: bibletime/dummy.h:165
@@ -1521,15 +1521,15 @@ msgid "List of styles"
 msgstr ""
 
 #: bibletime/dummy.h:171
-msgid "Delete the chosen style"
+msgid "Delete the chosen printing style"
 msgstr ""
 
 #: bibletime/dummy.h:172
-msgid "Edit the chosen style"
+msgid "Edit the chosen printing style"
 msgstr ""
 
 #: bibletime/dummy.h:173
-msgid "Create a new style"
+msgid "Create a new printing style"
 msgstr ""
 
 #: bibletime/dummy.h:201
@@ -1886,10 +1886,6 @@ msgstr ""
 
 #: bibletime/dummy.h:295
 msgid "Use this button to delete the chosen search scope."
-msgstr ""
-
-#: bibletime/dummy.h:296
-msgid "Edit and define your search scopes"
 msgstr ""
 
 #: bibletime/dummy.h:297

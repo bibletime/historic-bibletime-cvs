@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BibleTime 0.3\n"
-"POT-Creation-Date: 2001-04-23 16:09+0200\n"
+"POT-Creation-Date: 2001-04-23 19:22+0200\n"
 "PO-Revision-Date: 2001-04-19 02:55GMT\n"
 "Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -394,7 +394,8 @@ msgid "Entries"
 msgstr "Einträge"
 
 #: bibletime/printing/cprinterdialog.cpp:470
-msgid "Management of BibleTimes printing queue"
+#, fuzzy
+msgid "Management of BibleTime's printing queue"
 msgstr "Verwaltung von BibleTimes Druckschlange"
 
 #: bibletime/printing/cprinterdialog.cpp:480
@@ -1371,7 +1372,8 @@ msgid "Set the fontsize"
 msgstr "Schriftgröße setzen"
 
 #: bibletime/dummy.h:91
-msgid "Synchronize with Bibles"
+#, fuzzy
+msgid "Synchronize with Bible windows"
 msgstr "Mit Bibeln synchronisieren"
 
 #: bibletime/dummy.h:94
@@ -1379,7 +1381,8 @@ msgid "Save as HTML"
 msgstr "Als HTML speichern"
 
 #: bibletime/dummy.h:96
-msgid "Copy to clipboard"
+#, fuzzy
+msgid "Copy into clipboard"
 msgstr "In Zwischenablage kopieren"
 
 #: bibletime/dummy.h:100
@@ -1427,19 +1430,23 @@ msgid "Add a new scope"
 msgstr "Füge einen neuen Bereich hinzu"
 
 #: bibletime/dummy.h:114
-msgid "Delete this scope"
+#, fuzzy
+msgid "Delete this search scope"
 msgstr "Diesen Bereich löschen"
 
-#: bibletime/dummy.h:115
-msgid "Edit and define your scopes"
+#: bibletime/dummy.h:115 bibletime/dummy.h:296
+#, fuzzy
+msgid "Edit and define your search scopes"
 msgstr "Bearbeite und definiere deine Suchbereiche"
 
 #: bibletime/dummy.h:116
-msgid "Choose a scope from the list"
+#, fuzzy
+msgid "Choose a search scope from the list"
 msgstr "Wählen Sie einen Suchbereich aus der Liste"
 
 #: bibletime/dummy.h:117
-msgid "Enter your own scope"
+#, fuzzy
+msgid "Enter your own search scope"
 msgstr "Geben Sie ihre eigenen Bereich ein"
 
 #: bibletime/dummy.h:118
@@ -1551,7 +1558,8 @@ msgid "Delete items"
 msgstr "Stile löschen"
 
 #: bibletime/dummy.h:163
-msgid "Insert page break"
+#, fuzzy
+msgid "Insert a page break"
 msgstr "Seitenumbruch einfügen"
 
 #: bibletime/dummy.h:165
@@ -1579,15 +1587,18 @@ msgid "List of styles"
 msgstr "Liste der Stile"
 
 #: bibletime/dummy.h:171
-msgid "Delete the chosen style"
+#, fuzzy
+msgid "Delete the chosen printing style"
 msgstr "Den gewählten Stil löschen"
 
 #: bibletime/dummy.h:172
-msgid "Edit the chosen style"
+#, fuzzy
+msgid "Edit the chosen printing style"
 msgstr "Den gewählten Stil bearbeiten"
 
 #: bibletime/dummy.h:173
-msgid "Create a new style"
+#, fuzzy
+msgid "Create a new printing style"
 msgstr "Erzeuge einen neuen Stil"
 
 #: bibletime/dummy.h:201
@@ -2043,11 +2054,6 @@ msgstr ""
 msgid "Use this button to delete the chosen search scope."
 msgstr "Benutzen Sie diesn Knopf um den gewählten Suchbereich zu löschen."
 
-#: bibletime/dummy.h:296
-#, fuzzy
-msgid "Edit and define your search scopes"
-msgstr "Bearbeite und definiere deine Suchbereiche"
-
 #: bibletime/dummy.h:297
 #, fuzzy
 msgid "Choose a search scope from the combo box"
@@ -2282,6 +2288,9 @@ msgid ""
 "Create a new printing style.<BR>The new style will be added to the list."
 msgstr ""
 "Erzeuge einen neuen Stil.<BR>Der neue Druckstil wird zur Liste hinzugefügt."
+
+#~ msgid "Edit and define your scopes"
+#~ msgstr "Bearbeite und definiere deine Suchbereiche"
 
 #~ msgid "Choose colors"
 #~ msgstr "Wähle Farben"
