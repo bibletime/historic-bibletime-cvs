@@ -85,7 +85,7 @@ const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, cons
 
     key->module(m);
     key->key(keyName);
-    renderedText += QString::fromLatin1("<TD %1 valign=\"top\"><SPAN %2>%3</SPAN></TD>")
+    renderedText += QString::fromLatin1("<TD %1 valign=\"top\"><SPAN>%2</SPAN></TD>")
                       .arg(tdStyle)
 //                      .arg(m->isUnicode() ? "class=\"unicodetext\"" : "")
                       .arg(key->renderedText());
