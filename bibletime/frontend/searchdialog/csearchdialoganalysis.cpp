@@ -53,7 +53,7 @@
 #define UPPER_BORDER 10
 
 #define ITEM_TEXT_SIZE 8
-#define LABEL_TEXT_SIZE 8
+#define LABEL_TEXT_SIZE 6
 
 //used for the shift between the bars
 #define BAR_DELTAX 4
@@ -62,9 +62,9 @@
 //used for the text below the bars
 #define BAR_LOWER_BORDER 100
 
-#define LEGEND_INNER_BORDER 10
-#define LEGEND_DELTAY 5
-#define LEGEND_WIDTH 70
+#define LEGEND_INNER_BORDER 5
+#define LEGEND_DELTAY 4
+#define LEGEND_WIDTH 85
 
 CSearchDialogAnalysis::CSearchDialogAnalysis(QObject *parent, const char *name )
 	: QCanvas(parent,name) {
@@ -95,26 +95,19 @@ void CSearchDialogAnalysis::analyse(){
 	*			-Find out how many times we found the book
 	*			-Set the count to the items which belongs to the book
 	*/
+	m_lastPosList.clear();	
 	KApplication::setOverrideCursor(Qt::waitCursor);
 
 	const int numberOfModules = m_moduleList.count();
 	if (!numberOfModules)
 		return;
 		
-	int moduleIndex = 0;
-	
+	int moduleIndex = 0;	
 	QString currentBook = QString::null;
-	QString oldBook     = QString::null;
-	
+	QString oldBook     = QString::null;	
 	CSwordModuleInfo* currentModule = 0;
-	ListKey currentSearchResult;	
-  long int itemsIndex = 0;
-  int itemsCount = 0;
   int xPos = 0;
-
 	CSearchDialogAnalysisItem* analysisItem = 0;	
-	QString dummyString = QString::null;
-		
 	m_maxCount = 0;
 	
 	xPos = LEFT_BORDER;
@@ -122,7 +115,7 @@ void CSearchDialogAnalysis::analyse(){
 	m_legend->setX(xPos);
 	m_legend->setY(UPPER_BORDER);
 	m_legend->setSize(LEGEND_WIDTH,
-	                LEGEND_INNER_BORDER*2 + ITEM_TEXT_SIZE*numberOfModules + LEGEND_DELTAY*(numberOfModules-1));
+	           LEGEND_INNER_BORDER*2 + ITEM_TEXT_SIZE*numberOfModules + LEGEND_DELTAY*(numberOfModules-1));
   m_legend->show();
   xPos += m_legend->width() + SPACE_BETWEEN_PARTS;
 	
@@ -130,70 +123,34 @@ void CSearchDialogAnalysis::analyse(){
 	//now create a CanvasItem for each book of the Bible
 	CSwordVerseKey testKey(m_moduleList.first());	
 	testKey.setKey("Genesis 1:1");
-	currentBook = testKey.getBook();
+	currentBook = testKey.getBook();	
+	int count = 0;
 	do {
   	analysisItem = new CSearchDialogAnalysisItem(this, numberOfModules, currentBook, &m_scaleFactor, &m_moduleList);
-		m_canvasItemList.insert( currentBook, analysisItem);
-		
+		m_canvasItemList.insert(currentBook, analysisItem);		
+		for (moduleIndex=0,currentModule = m_moduleList.first(); currentModule; currentModule = m_moduleList.next(),++moduleIndex) {
+			KApplication::kApplication()->processEvents(10);						
+			if (!m_lastPosList.contains(currentModule))
+				m_lastPosList.insert(currentModule,0);
+			analysisItem->setCountForModule(moduleIndex, (count = getCount(currentBook,currentModule)));
+			m_maxCount = (count > m_maxCount) ? count : m_maxCount;
+		}				
 		analysisItem->setX(xPos);
 		analysisItem->setY(UPPER_BORDER);
-		analysisItem->show();//the sizing stuff will be done in slotResized()
-
 		xPos += (int)analysisItem->width() + SPACE_BETWEEN_PARTS;		
 		
 		testKey.NextBook();		
 		oldBook = currentBook;
 		currentBook = testKey.getBook();
+		
+		analysisItem->show(); //the sizing stuff will be done in slotResized()		
 	} while (currentBook != oldBook);
- 	
- 	currentBook = oldBook = QString::null;	
-	//now do the real analysis
-	for (moduleIndex=0,currentModule = m_moduleList.first();currentModule;currentModule=m_moduleList.next(),++moduleIndex) {		
-		currentSearchResult = currentModule->getSearchResult();
-		if (!currentSearchResult.Count())
-			continue;
-		
-		//now go through all different books and get the search result
-		oldBook = currentBook = QString::null;
-		itemsIndex = 0;
-		itemsCount = 0;		
-		CSwordVerseKey currentKey(currentModule);						
-		
-		while (itemsIndex < currentSearchResult.Count()) {
-			KApplication::kApplication()->processEvents(10);
-			currentKey.setKey(QString::fromLocal8Bit((const char*)*currentSearchResult.GetElement(itemsIndex)));
-			oldBook = currentBook;
-			currentBook = currentKey.getBook();
-			
-			if (currentBook != oldBook && !oldBook.isEmpty()) {	//we have found a new book
-				analysisItem = m_canvasItemList.find(oldBook);
-				if (analysisItem) {
-					analysisItem->setCountForModule(moduleIndex, itemsCount);
-					m_maxCount = (itemsCount > m_maxCount) ? itemsCount+2 : m_maxCount;
-					itemsCount = 0;
-				}
-			}
-			else
-				itemsCount++;
-			itemsIndex++;			
-		} //while
-		
-		//set count for last book
-		if (!oldBook.isEmpty()) {
-			analysisItem = m_canvasItemList.find(oldBook);
-			if (analysisItem) {
-				analysisItem->setCountForModule(moduleIndex, itemsCount);		
-				m_maxCount = (itemsCount > m_maxCount) ? itemsCount+2 : m_maxCount;				
-			} //if
-		}	// if		
-	} // for
-	m_scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(numberOfModules-1)*BAR_DELTAY)
-	                    /(double)m_maxCount);		
-	resize(xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );
-	update();
-	
-	slotResized();
+
 	KApplication::restoreOverrideCursor();	
+	m_scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(numberOfModules-1)*BAR_DELTAY)
+	                    /(double)m_maxCount);	
+	resize(xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );
+	slotResized();
 }
 
 /** Sets te module list used for the analysis. */
@@ -206,13 +163,14 @@ void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
 
 /** Sets back the items and deletes things to cleanup */
 void CSearchDialogAnalysis::reset(){
-	emit sigReset();
-	
 	m_scaleFactor = 0.0;
 	m_canvasItemList.clear();
+	m_lastPosList.clear();	
+	
 	delete m_legend;
 	m_legend = 0;	
 	
+	emit sigReset();	
 	update();
 }
 
@@ -246,12 +204,46 @@ QColor CSearchDialogAnalysis::getColor(int index){
     case  8: return Qt::darkBlue;
     case  9: return Qt::darkCyan;
     case 10: return Qt::darkMagenta;
-//    case 11: return Qt::darkYellow;
     case 11: return Qt::black;
     default: return Qt::red;
   }
 }
 
+
+/** Returns the count of the book in the module */
+const unsigned int CSearchDialogAnalysis::getCount( const QString book, CSwordModuleInfo* module ){
+	ListKey result = module->getSearchResult();
+	if (!result.Count())
+		return 0;			
+	const int length = book.length();	
+	int i = 0;
+//	if (!m_lastPosList.contains(module)) {
+//		i = 0;
+//		for(i=0; i < result.Count(); ++i) {
+//			KApplication::kApplication()->processEvents(10);			
+//			if ( QString::fromLocal8Bit((const char*)*result.GetElement(i) ).left(length) == book)
+//				break;
+//		}
+//	}
+//	else
+		i = m_lastPosList[module];	
+//	if ( i == result.Count() )
+//		return 0;
+	
+	unsigned int count = 0;
+	while (i < result.Count()) {
+		KApplication::kApplication()->processEvents(10);
+		if (QString::fromLocal8Bit((const char*)*result.GetElement(i) ).left(length) != book)
+			break;
+		++i;
+		++count;
+	}		
+	if (m_lastPosList.contains(module))
+		m_lastPosList.replace(module,i);	
+	else
+		m_lastPosList.insert(module,i);	
+	return count;
+}
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
@@ -272,7 +264,7 @@ CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int 
 
 /** Sets the resultcount of this item for the given module */
 void CSearchDialogAnalysisItem::setCountForModule( const int moduleIndex, const int count) {
-	qWarning(QString::number(count).local8Bit());
+//	qWarning(QString::number(count).local8Bit());
 	m_resultCountArray[moduleIndex] = count;
 }
 
@@ -303,7 +295,7 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
     		QPoint p1(x()+(m_moduleCount-drawn-1)*BAR_DELTAX,
     		          height()+y()-BAR_LOWER_BORDER-(m_moduleCount-drawn)*BAR_DELTAY);
     		QPoint p2(p1.x() + BAR_WIDTH,
-    		          p1.y() - (!m_resultCountArray[index] ? 0 : ((m_resultCountArray[index]+2)*(*m_scaleFactor))) );
+    		          p1.y() - (!m_resultCountArray[index] ? -1 : ((m_resultCountArray[index])*(*m_scaleFactor))) );
     		QRect r(p1, p2);
     		painter.fillRect(r, QBrush(CSearchDialogAnalysis::getColor(index)) );
     		painter.drawRect(r);
@@ -378,45 +370,35 @@ void CSearchDialogAnalysisView::resizeEvent( QResizeEvent* e){
 }
 
 CSearchDialogAnalysisView::ToolTip::ToolTip(QWidget* parent) : QToolTip(parent) {
-	qWarning("CSearchDialogAnalysisView::ToolTip::ToolTip(QWidget* parent) : QToolTip(parent)");
 }
 
 void CSearchDialogAnalysisView::ToolTip::maybeTip(const QPoint& p) {
-	qWarning("CSearchDialogAnalysisView::ToolTip::maybeTip(const QPoint& p)");	
 	CSearchDialogAnalysisView* view = dynamic_cast<CSearchDialogAnalysisView*>(parentWidget());
 	if (!view)
 		return;
 	QPoint point(p);
 	point = view->viewport()->mapFrom(view, point);
 	CSearchDialogAnalysisItem* i = view->itemAt( view->viewportToContents(point) );
-	ASSERT(i);
 	if (!i)
 		return;
 				
 	//get type of item and display correct text
 	QString text = i->getToolTip();
-	ASSERT(text.isEmpty());
 	if (text.isEmpty())
 		return;
 	
 	QPoint p1 = view->viewport()->mapTo(view, view->contentsToViewport(i->rect().topLeft()));
-	p1.setY(0);
-	
+	p1.setY(0);	
 	QPoint p2 = view->viewport()->mapTo(view, view->contentsToViewport(i->rect().bottomRight()));
-	p2.setY(view->height());
-	
+	p2.setY(view->height());	
 	QRect r = QRect( p1, p2 );	
 	if (r.contains(p))
-		tip(r, text);		
-	else
-		qWarning("p not in the rectangle r!!");		
-
+		tip(r, text);
 }
 
 
 /** Returns the item at position p. If there no item at that point return 0. */
 CSearchDialogAnalysisItem* CSearchDialogAnalysisView::itemAt( const QPoint& p ){
-	qWarning("CSearchDialogAnalysisView::itemAt( const QPoint& p )");
 	QCanvasItemList l = canvas()->collisions(p);
 	if (!l.count())
 		return 0;
@@ -425,8 +407,6 @@ CSearchDialogAnalysisItem* CSearchDialogAnalysisView::itemAt( const QPoint& p ){
 
 /** No descriptions */
 void CSearchDialogAnalysisView::reset(){
-//	m_toolTip->remove();	
-//	m_toolTip->clear();		
 }
 
 //------------------------------------------------------------------
@@ -468,4 +448,3 @@ void CSearchDialogAnalysisLegendItem::draw (QPainter& painter) {
  	}
   painter.restore();
 }
-

@@ -125,6 +125,7 @@ public:
     QTextCustomItem *customItem() const;
     void setFormat( QTextFormat *f );
     void setCustomItem( QTextCustomItem *i );
+    void loseCustomItem();
     QTextStringChar *clone() const;
 	    struct CustomData
     {
@@ -374,10 +375,9 @@ private:
 class Q_EXPORT QTextCustomItem
 {
 public:
-    QTextCustomItem( QTextDocument *p )
-	:  xpos(0), ypos(-1), width(-1), height(0), parent( p )
-    {}
-    virtual ~QTextCustomItem() {}
+    QTextCustomItem( QTextDocument *p );
+    virtual ~QTextCustomItem();
+
     virtual void draw(QPainter* p, int x, int y, int cx, int cy, int cw, int ch, const QColorGroup& cg ) = 0;
 
     virtual void adjustToPainter( QPainter* ) { width = 0; }
@@ -780,13 +780,14 @@ public:
     void draw( QPainter *p, const QRegion &reg, const QColorGroup &cg, const QBrush *paper = 0 );
     void drawParag( QPainter *p, QTextParag *parag, int cx, int cy, int cw, int ch,
 		    QPixmap *&doubleBuffer, const QColorGroup &cg,
-		    bool drawCursor, QTextCursor *cursor );
+		    bool drawCursor, QTextCursor *cursor, bool resetChanged = TRUE );
     QTextParag *draw( QPainter *p, int cx, int cy, int cw, int ch, const QColorGroup &cg,
-		      bool onlyChanged = FALSE, bool drawCursor = FALSE, QTextCursor *cursor = 0 );
+		      bool onlyChanged = FALSE, bool drawCursor = FALSE, QTextCursor *cursor = 0, bool resetChanged = TRUE );
     void setDefaultFont( const QFont &f );
 
     void registerCustomItem( QTextCustomItem *i, QTextParag *p );
     void unregisterCustomItem( QTextCustomItem *i, QTextParag *p );
+    QList<QTextCustomItem> allCustomItems() const { return customItems; }
 
     void setFlow( QTextFlow *f );
     QTextFlow *flow() const { return flow_; }
@@ -2521,6 +2522,7 @@ inline QTextStringChar::~QTextStringChar()
 	format()->removeRef();
     switch ( type ) {
 	case Custom:
+            qDebug("Deleting QTextStringChar's custom item %p", d.custom);
 	    delete d.custom; break;
 	case Mark:
 	    delete d.mark; break;

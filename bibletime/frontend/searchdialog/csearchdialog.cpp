@@ -55,12 +55,13 @@ CSearchDialog::CSearchDialog(CImportantClasses* importantClasses, ListCSwordModu
 	initView();	
 	readSettings();
 	
-	ASSERT(modules);
-	if (modules) {
-		moduleList = new ListCSwordModuleInfo();
-		*moduleList = *modules;
-		m_moduleChooser->setChosenModules(modules);	
-	}
+//	ASSERT(modules);
+//	if (modules) {
+//		moduleList = new ListCSwordModuleInfo();
+//		*moduleList = *modules;
+//		m_moduleChooser->setChosenModules(modules);	
+//	}
+	setModuleList( modules );
 	qWarning("CSearchDialog constructor finished");
 }
 
@@ -113,7 +114,11 @@ void CSearchDialog::setModuleList(ListCSwordModuleInfo *list) {
 		
 	if (moduleList != list)
 		*moduleList = *list; //copy the items of "list"
-//	m_moduleChooser->setChosenModules(moduleList);
+	
+	m_moduleChooser->blockSignals(true);
+	m_moduleChooser->setChosenModules(moduleList);
+	m_moduleChooser->blockSignals(false);	
+	
 	searchText_page->setEnabled(moduleList->count() );	
 	searchResult->clearResult();
 	searchAnalysis->reset();

@@ -69,11 +69,18 @@ protected slots: // Protected slots
   void slotResized();
 
 private:
+  /**
+  * Returns the count of the book in the module
+  */
+  const unsigned int getCount( const QString book, CSwordModuleInfo* module );
+	
 	ListCSwordModuleInfo m_moduleList;
  	QDict<CSearchDialogAnalysisItem> m_canvasItemList;
+ 	QMap<CSwordModuleInfo*,int> m_lastPosList; 	
   int m_maxCount;
   double m_scaleFactor;
   CSearchDialogAnalysisLegendItem* m_legend; 	
+
 signals:
 	void sigReset();
 };

@@ -1,6 +1,4 @@
 /****************************************************************************
-** $Id$
-**
 ** Implementation of the internal Qt classes dealing with rich text
 **
 ** Created : 990101
@@ -1111,14 +1109,18 @@ void QTextCursor::splitAndInsertEmptyParag( bool ind, bool updateIds )
             {
 		QTextCustomItem * item = string->at( idx + i )->customItem();
 		s->at( i )->setCustomItem( item );
+		string->at( idx + i )->loseCustomItem();
+#if 0
                 s->addCustomItem();
-		string->at( idx + i )->setCustomItem( 0 );
                 string->removeCustomItem();
                 doc->unregisterCustomItem( item, string );
                 doc->registerCustomItem( item, s );
+#endif
             }
 	}
+qDebug("Calling truncate");
 	string->truncate( idx );
+qDebug("truncate called");
 	if ( ind ) {
 	    int oi, ni;
 	    s->indent( &oi, &ni );
@@ -2296,10 +2298,11 @@ void QTextDocument::draw( QPainter *p, const QRegion &reg, const QColorGroup &cg
 
 void QTextDocument::drawParag( QPainter *p, QTextParag *parag, int cx, int cy, int cw, int ch,
 			       QPixmap *&doubleBuffer, const QColorGroup &cg,
-			       bool drawCursor, QTextCursor *cursor )
+			       bool drawCursor, QTextCursor *cursor, bool resetChanged )
 {
     QPainter *painter = 0;
-    parag->setChanged( FALSE );
+    if ( resetChanged )
+        parag->setChanged( FALSE );
     QRect ir( parag->rect() );
     bool useDoubleBuffer = !parag->document()->parent();
     if ( !useDoubleBuffer && parag->document()->nextDoubleBuffered )
@@ -2367,7 +2370,7 @@ void QTextDocument::drawParag( QPainter *p, QTextParag *parag, int cx, int cy, i
 }
 
 QTextParag *QTextDocument::draw( QPainter *p, int cx, int cy, int cw, int ch, const QColorGroup &cg,
-				 bool onlyChanged, bool drawCursor, QTextCursor *cursor )
+				 bool onlyChanged, bool drawCursor, QTextCursor *cursor, bool resetChanged )
 {
     if ( withoutDoubleBuffer || par && par->withoutDoubleBuffer ) {
 	withoutDoubleBuffer = TRUE;
@@ -2425,7 +2428,7 @@ QTextParag *QTextDocument::draw( QPainter *p, int cx, int cy, int cw, int ch, co
 	    continue;
 	}
 
-	drawParag( p, parag, cx, cy, cw, ch, doubleBuffer, cg, drawCursor, cursor );
+	drawParag( p, parag, cx, cy, cw, ch, doubleBuffer, cg, drawCursor, cursor, resetChanged );
 	parag = parag->next();
     }
 
@@ -2854,6 +2857,12 @@ void QTextStringChar::setCustomItem( QTextCustomItem *i )
     d.custom->custom = i;
 }
 
+void QTextStringChar::loseCustomItem()
+{
+    if ( isCustom() )
+        d.custom->custom = 0;
+}
+
 int QTextString::width(int idx) const
 {
      int w = 0;
@@ -3080,10 +3089,16 @@ void QTextParag::join( QTextParag *s )
 	--start;
     }
     append( s->str->toString(), TRUE );
-    if ( !doc || doc->useFormatCollection() ) {
-	for ( int i = 0; i < s->length(); ++i ) {
+    for ( int i = 0; i < s->length(); ++i ) {
+	if ( !doc || doc->useFormatCollection() ) {
 	    s->str->at( i ).format()->addRef();
 	    str->setFormat( i + start, s->str->at( i ).format(), TRUE );
+	}
+	if ( s->str->at( i ).isCustom() )
+	{
+	    QTextCustomItem * item = s->str->at( i ).customItem();
+	    str->at( i + start ).setCustomItem( item );
+	    s->str->at( i ).loseCustomItem();
 	}
     }
     if ( !extraData() && s->extraData() ) {
@@ -5215,6 +5230,17 @@ QTextFormat QTextFormat::makeTextFormat( const QStyleSheetItem *style, const QMa
     return format;
 }
 
+QTextCustomItem::QTextCustomItem( QTextDocument *p )
+      :  xpos(0), ypos(-1), width(-1), height(0), parent( p )
+{
+    qDebug("QTextCustomItem::QTextCustomItem %p", this );
+}
+
+QTextCustomItem::~QTextCustomItem()
+{
+    qDebug("QTextCustomItem::~QTextCustomItem %p", this );
+}
+
 struct QPixmapInt
 {
     QPixmapInt() : ref( 0 ) {}
@@ -5228,6 +5254,7 @@ QTextImage::QTextImage( QTextDocument *p, const QMap<QString, QString> &attr, co
 			QMimeSourceFactory &factory )
     : QTextCustomItem( p )
 {
+    qDebug( "QTextImage::QTextImage %p", this );
 #if defined(PARSER_DEBUG)
     qDebug( debug_indent + "new QTextImage (pappi: %p)", p );
 #endif
@@ -5322,6 +5349,7 @@ QTextImage::QTextImage( QTextDocument *p, const QMap<QString, QString> &attr, co
 
 QTextImage::~QTextImage()
 {
+    qDebug( "QTextImage::~QTextImage %p", this );
     if ( pixmap_map && pixmap_map->contains( imgId ) ) {
 	QPixmapInt& pmi = pixmap_map->operator[](imgId);
 	pmi.ref--;

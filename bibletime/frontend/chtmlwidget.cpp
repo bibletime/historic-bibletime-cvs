@@ -605,7 +605,8 @@ void CHTMLWidget::emitLinkClicked( const QString& s){
 		emit referenceClicked(s.mid(8,s.length()-9)); //the URL has a trailing slash at the end
 	}
 	else {
-		emit referenceClicked(s);
+		QTextEdit::emitLinkClicked(s);
+		//emit referenceClicked(s);
 	}
 }
 
