@@ -143,7 +143,9 @@ void CDisplayWindow::setCaption( const QString&  ){
 	m_mdi->emitWindowCaptionChanged();
 }
 
-void CDisplayWindow::insertKeyboardActions( KAccel* const /*accel*/ ) {
+// void CDisplayWindow::insertKeyboardActions( KAccel* const /*accel*/ ) {
+// }
+void CDisplayWindow::insertKeyboardActions( KActionCollection* const ){
 }
 
 /** Is called when this window gets the focus or looses the focus. */

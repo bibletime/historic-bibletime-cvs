@@ -34,8 +34,8 @@ public:
   /**
   * Reimplementation.
   */
-  static void insertKeyboardActions( KAccel* const a );
-
+//   static void insertKeyboardActions( KAccel* const a );
+	static void insertKeyboardActions( KActionCollection* const a );
 
   CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
   /**

@@ -96,17 +96,17 @@ private:
 		} swords; // not: sword instead of sword -> namespace error
 
 		struct KeySettings {
-			struct MainWindowType {
+/*			struct MainWindowType {
 				KKeyChooser* keyChooser;
 				KActionCollection* accelCollection;
-			};
+			};*/
+			KKeyChooser* keyChooser;
 			struct WindowType {
-				KKeyChooser* keyChooser;
-				KAccel* accel;
+				KActionCollection* actionCollection;
 			};
-			MainWindowType application;
+			WindowType application;
 			WindowType general;
-			MainWindowType bible;
+			WindowType bible;
 			WindowType commentary;
 			WindowType lexicon;
 			WindowType book;

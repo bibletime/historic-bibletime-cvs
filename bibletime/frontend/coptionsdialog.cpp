@@ -78,7 +78,7 @@ using std::list;
 COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KActionCollection* actionCollection )
 	: KDialogBase(IconList, i18n("Preferences"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
-	m_settings.keys.application.accelCollection = actionCollection;
+	m_settings.keys.application.actionCollection = actionCollection;
 	setIconListAllVisible(true);
 
 	initStartup();
@@ -339,100 +339,132 @@ void COptionsDialog::initFonts(){
 void COptionsDialog::initAccelerators(){
   QVBox* page = addVBoxPage(i18n("HotKeys"),QString::null, DesktopIcon(CResMgr::settings::keys::icon,32));
 
-  KTabCtl* tabCtl = new KTabCtl(page);
-
-// ----- new tab: All display windows ------ //
-  QFrame* currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);
-  tabCtl->addTab(currentTab, i18n("Application-wide"));
+//   KTabCtl* tabCtl = new KTabCtl(page);
+// 
+// // ----- new tab: All display windows ------ //
+//   QFrame* currentTab = new QVBox(tabCtl);
+// 	currentTab->setMargin(3);
+//   tabCtl->addTab(currentTab, i18n("Application-wide"));
 
 	CBTConfig::setupAccelSettings(
 		CBTConfig::application,
-		m_settings.keys.application.accelCollection
+		m_settings.keys.application.actionCollection
 	);
 
- 	m_settings.keys.application.keyChooser = new KKeyChooser(
-		m_settings.keys.application.accelCollection,
-		currentTab,
+ 	m_settings.keys.keyChooser = new KKeyChooser(
+		m_settings.keys.application.actionCollection,
+		page,
 		false
 	);
 
 // ----- new tab: All display windows ------ //
-	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);
-	tabCtl->addTab(currentTab, i18n("All read windows"));
+// 	currentTab = new QVBox(tabCtl);
+// 	currentTab->setMargin(3);
+// 	tabCtl->addTab(currentTab, i18n("All read windows"));
+// 
+// 	m_settings.keys.general.accel = new KAccel(this); //delete in destructor
+// 	CBTConfig::setupAccel( CBTConfig::readWindow, m_settings.keys.general.accel  );
+// 	CReadWindow::insertKeyboardActions( m_settings.keys.general.accel );
+// 	m_settings.keys.general.accel->readSettings();
+// 
+//  	m_settings.keys.general.keyChooser = new KKeyChooser( m_settings.keys.general.accel, currentTab );
+// //	QToolTip::add(m_settings.keys.general.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
+// 
+ // ----- Bible windows ------ //
+ 	m_settings.keys.bible.actionCollection = new KActionCollection(this, "bibleActions", 0);
+ 	CBibleReadWindow::insertKeyboardActions( m_settings.keys.bible.actionCollection);
+ 	CBTConfig::setupAccelSettings(
+ 		CBTConfig::bibleWindow,
+ 		m_settings.keys.bible.actionCollection
+ 	);
+ 	m_settings.keys.keyChooser->insert(
+ 		m_settings.keys.bible.actionCollection,
+ 		i18n("Bible windows")
+ 	);
 
-	m_settings.keys.general.accel = new KAccel(this); //delete in destructor
-	CBTConfig::setupAccel( CBTConfig::readWindow, m_settings.keys.general.accel  );
-	CReadWindow::insertKeyboardActions( m_settings.keys.general.accel );
-	m_settings.keys.general.accel->readSettings();
+ // ----- Commentary windows ------ //
+ 	m_settings.keys.commentary.actionCollection= new KActionCollection(this, "commentaryActions", 0);
+ 	CCommentaryReadWindow::insertKeyboardActions( m_settings.keys.commentary.actionCollection);
+ 	CBTConfig::setupAccelSettings(
+ 		CBTConfig::commentaryWindow,
+ 		m_settings.keys.commentary.actionCollection
+ 	);
+ 	m_settings.keys.keyChooser->insert(
+ 		m_settings.keys.commentary.actionCollection,
+ 		i18n("Commentary windows")
+ 	);
+ 
+ // ----- Lexicon windows ------ //
+ 	m_settings.keys.lexicon.actionCollection = new KActionCollection(this, "lexiconActions", 0);
+ 	CLexiconReadWindow::insertKeyboardActions(  m_settings.keys.lexicon.actionCollection );
+ 	CBTConfig::setupAccelSettings(
+ 		CBTConfig::lexiconWindow,
+ 		m_settings.keys.lexicon.actionCollection
+ 	);
+ 	m_settings.keys.keyChooser->insert(
+ 		m_settings.keys.lexicon.actionCollection,
+ 		i18n("Lexicon windows")
+ 	);
 
- 	m_settings.keys.general.keyChooser = new KKeyChooser( m_settings.keys.general.accel, currentTab );
-//	QToolTip::add(m_settings.keys.general.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
+ // ----- Book windows ------ //
+ 	m_settings.keys.book.actionCollection= new KActionCollection(this, "bookActions", 0);
+ 	CBookReadWindow::insertKeyboardActions( m_settings.keys.book.actionCollection);
+ 	CBTConfig::setupAccelSettings(
+ 		CBTConfig::bookWindow,
+ 		m_settings.keys.book.actionCollection
+ 	);
+ 	m_settings.keys.keyChooser->insert(
+ 		m_settings.keys.book.actionCollection,
+ 		i18n("Book windows")
+ 	);
 
-// ----- new tab: Bible windows ------ //
-	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);
-	tabCtl->addTab(currentTab, i18n("Bible windows"));
-
-	m_settings.keys.bible.accelCollection = new KActionCollection(this, "bibleActions", 0);
-	CBibleReadWindow::insertKeyboardActions( m_settings.keys.bible.accelCollection );
-	CBTConfig::setupAccelSettings(
-		CBTConfig::bibleWindow,
-		m_settings.keys.bible.accelCollection
-	);
-	m_settings.keys.application.keyChooser->insert(
-		m_settings.keys.bible.accelCollection,
-		i18n("Bible windows")
-	);
-
-// 	CBibleReadWindow::insertKeyboardActions( m_settings.keys.bible.accel );
-// 	m_settings.keys.bible.accel->readSettings();
-
-//  	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab/*, false*/ );
-//	QToolTip::add(m_settings.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
-
-// ----- new tab: Commentary windows ------ //
-	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);
-	tabCtl->addTab(currentTab, i18n("Commentary windows"));
-
-	m_settings.keys.commentary.accel = new KAccel(this); //delete in destructor
-	CBTConfig::setupAccel( CBTConfig::commentaryWindow, m_settings.keys.commentary.accel  );
-	CCommentaryReadWindow::insertKeyboardActions( m_settings.keys.commentary.accel );
-//	m_settings.keys.commentary.accel->setConfigGroup("Lexicon shortcuts");
-	m_settings.keys.commentary.accel->readSettings();
-
- 	m_settings.keys.commentary.keyChooser = new KKeyChooser( m_settings.keys.commentary.accel, currentTab, false );
-// 	QToolTip::add(m_settings.keys.commentary.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
-
-// ----- new tab: Lexicon windows ------ //
-	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);
-	tabCtl->addTab(currentTab, i18n("Lexicon windows"));
-
-	m_settings.keys.lexicon.accel = new KAccel(this); //delete in destructor
-	CBTConfig::setupAccel( CBTConfig::lexiconWindow, m_settings.keys.lexicon.accel  );
-	CLexiconReadWindow::insertKeyboardActions( m_settings.keys.lexicon.accel );
-//	m_settings.keys.lexicon.accel->setConfigGroup("Lexicon shortcuts");
-	m_settings.keys.lexicon.accel->readSettings();
-
- 	m_settings.keys.lexicon.keyChooser = new KKeyChooser( m_settings.keys.lexicon.accel, currentTab, false );
-// 	QToolTip::add(m_settings.keys.lexicon.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
-
-
-// ----- new tab: Book windows ------ //
-	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);
-	tabCtl->addTab(currentTab, i18n("Book windows"));
-
-	m_settings.keys.book.accel = new KAccel(this); //delete in destructor
-	CBTConfig::setupAccel( CBTConfig::bookWindow, m_settings.keys.book.accel  );
-	CBookReadWindow::insertKeyboardActions( m_settings.keys.book.accel );
-//	m_settings.keys.book.accel->setConfigGroup("Book shortcuts");
-	m_settings.keys.book.accel->readSettings();
-
-	m_settings.keys.book.keyChooser = new KKeyChooser( m_settings.keys.book.accel, currentTab, false );
+// // 	CBibleReadWindow::insertKeyboardActions( m_settings.keys.bible.accel );
+// // 	m_settings.keys.bible.accel->readSettings();
+// 
+// //  	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab/*, false*/ );
+// //	QToolTip::add(m_settings.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
+// 
+// // ----- new tab: Commentary windows ------ //
+// 	currentTab = new QVBox(tabCtl);
+// 	currentTab->setMargin(3);
+// 	tabCtl->addTab(currentTab, i18n("Commentary windows"));
+// 
+// 	m_settings.keys.commentary.accel = new KAccel(this); //delete in destructor
+// 	CBTConfig::setupAccel( CBTConfig::commentaryWindow, m_settings.keys.commentary.accel  );
+// 	CCommentaryReadWindow::insertKeyboardActions( m_settings.keys.commentary.accel );
+// //	m_settings.keys.commentary.accel->setConfigGroup("Lexicon shortcuts");
+// 	m_settings.keys.commentary.accel->readSettings();
+// 
+//  	m_settings.keys.commentary.keyChooser = new KKeyChooser( m_settings.keys.commentary.accel, currentTab, false );
+// // 	QToolTip::add(m_settings.keys.commentary.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
+// 
+// // ----- new tab: Lexicon windows ------ //
+// 	currentTab = new QVBox(tabCtl);
+// 	currentTab->setMargin(3);
+// 	tabCtl->addTab(currentTab, i18n("Lexicon windows"));
+// 
+// 	m_settings.keys.lexicon.accel = new KAccel(this); //delete in destructor
+// 	CBTConfig::setupAccel( CBTConfig::lexiconWindow, m_settings.keys.lexicon.accel  );
+// 	CLexiconReadWindow::insertKeyboardActions( m_settings.keys.lexicon.accel );
+// //	m_settings.keys.lexicon.accel->setConfigGroup("Lexicon shortcuts");
+// 	m_settings.keys.lexicon.accel->readSettings();
+// 
+//  	m_settings.keys.lexicon.keyChooser = new KKeyChooser( m_settings.keys.lexicon.accel, currentTab, false );
+// // 	QToolTip::add(m_settings.keys.lexicon.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
+// 
+// 
+// // ----- new tab: Book windows ------ //
+// 	currentTab = new QVBox(tabCtl);
+// 	currentTab->setMargin(3);
+// 	tabCtl->addTab(currentTab, i18n("Book windows"));
+// 
+// 	m_settings.keys.book.accel = new KAccel(this); //delete in destructor
+// 	CBTConfig::setupAccel( CBTConfig::bookWindow, m_settings.keys.book.accel  );
+// 	CBookReadWindow::insertKeyboardActions( m_settings.keys.book.accel );
+// //	m_settings.keys.book.accel->setConfigGroup("Book shortcuts");
+// 	m_settings.keys.book.accel->readSettings();
+// 
+// 	m_settings.keys.book.keyChooser = new KKeyChooser( m_settings.keys.book.accel, currentTab, false );
 // 	QToolTip::add(m_settings.keys.book.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 }
 
@@ -689,18 +721,27 @@ void COptionsDialog::initSword(){
 }
 
 void COptionsDialog::saveAccelerators(){
-//#warning check
-// 	m_settings.keys.application.accel->writeSettings();
-// 	m_settings.keys.application.keyChooser->save();
- 	m_settings.keys.application.keyChooser->commitChanges();
-// 	m_settings.keys.application.accelCollection->kaccel()->writeSettings();
-	CBTConfig::saveAccelSettings(
+ 	m_settings.keys.keyChooser->commitChanges();
+
+	CBTConfig::saveAccelSettings( //application
 		CBTConfig::application,
-		m_settings.keys.application.accelCollection
+		m_settings.keys.application.actionCollection
 	);
-	CBTConfig::saveAccelSettings(
-		CBTConfig::application,
-		m_settings.keys.application.accelCollection
+	CBTConfig::saveAccelSettings( //bible
+		CBTConfig::bibleWindow,
+		m_settings.keys.bible.actionCollection
+	);
+	CBTConfig::saveAccelSettings( //commentary
+		CBTConfig::commentaryWindow,
+		m_settings.keys.commentary.actionCollection
+	);
+	CBTConfig::saveAccelSettings( //lexicon
+		CBTConfig::lexiconWindow,
+		m_settings.keys.lexicon.actionCollection
+	);
+	CBTConfig::saveAccelSettings( //book
+		CBTConfig::bookWindow,
+		m_settings.keys.book.actionCollection
 	);
 
 // 	m_settings.keys.general.accel->writeSettings();
@@ -709,28 +750,28 @@ void COptionsDialog::saveAccelerators(){
 // 	m_settings.keys.bible.keyChooser->save();
 //  	m_settings.keys.bible.keyChooser->commitChanges();
 // 	m_settings.keys.bible.accel->writeSettings();
-	CBTConfig::saveAccelSettings(
+/*	CBTConfig::saveAccelSettings(
 		CBTConfig::bibleWindow,
-		m_settings.keys.bible.accelCollection
-	);
-// 	m_settings.keys.bible.accelCollection->
+		m_settings.keys.bible.actionCollection
+	);*/
+// 	m_settings.keys.bible.actionCollection->
 
 //		
 // 	m_settings.keys.commentary.accel->writeSettings();
 // 	m_settings.keys.commentary.keyChooser->save();
- 	m_settings.keys.commentary.keyChooser->commitChanges();
-	m_settings.keys.commentary.accel->writeSettings(); 	
+//  	m_settings.keys.commentary.keyChooser->commitChanges();
+// 	m_settings.keys.commentary.accel->writeSettings(); 	
 
 		
 // 	m_settings.keys.lexicon.accel->writeSettings();
 // 	m_settings.keys.lexicon.keyChooser->save();
- 	m_settings.keys.lexicon.keyChooser->commitChanges();
-	m_settings.keys.lexicon.accel->writeSettings(); 	
+//  	m_settings.keys.lexicon.keyChooser->commitChanges();
+// 	m_settings.keys.lexicon.accel->writeSettings(); 	
 
 // 	m_settings.keys.book.accel->writeSettings(); 	 	
 // 	m_settings.keys.book.keyChooser->save();
- 	m_settings.keys.book.keyChooser->commitChanges();
-	m_settings.keys.book.accel->writeSettings();
+/* 	m_settings.keys.book.keyChooser->commitChanges();
+	m_settings.keys.book.accel->writeSettings();*/
 }
 
 /** No descriptions */

@@ -62,8 +62,8 @@ void CBookReadWindow::initKeyboardActions() {
   CReadWindow::initKeyboardActions();
 };
 
-void CBookReadWindow::insertKeyboardActions( KAccel* ){
-};
+void CBookReadWindow::insertKeyboardActions( KActionCollection* const a ) {
+}
 
 /** No descriptions */
 void CBookReadWindow::initConnections(){
@@ -174,11 +174,13 @@ void CBookReadWindow::modulesChanged(){
 // 	m_actions.printMenu->plug(popup());
 //}
 //
+
 ///** Saves the displayed page as plain text. */
 //void CBookReadWindow::saveAsPlain(){
 //
 //}
 //
+
 ///** Saves the current text as as HTML page. */
 //void CBookReadWindow::saveAsHTML(){
 //

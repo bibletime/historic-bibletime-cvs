@@ -33,7 +33,8 @@ class CBookTreeChooser;
 class CBookReadWindow : public CLexiconReadWindow  {
   Q_OBJECT
 public:
-	static void insertKeyboardActions( KAccel* a );
+// 	static void insertKeyboardActions( KAccel* a );
+	static void insertKeyboardActions( KActionCollection* const a );
 
 	CBookReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
 	virtual ~CBookReadWindow();

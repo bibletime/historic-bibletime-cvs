@@ -113,18 +113,20 @@ void CBibleReadWindow::insertKeyboardActions( KActionCollection* const a ){
 	new KAction(i18n("Select all"), KShortcut(0), a, "selectAll");
 
 	//copy menu items
-	new KAction(i18n("Reference only"), KShortcut(0), a, "copyReferenceOnly");
-	new KAction(i18n("Text of reference"), KShortcut(0), a, "copyTextOfReference");
-  new KAction(i18n("Reference with text"), KShortcut(0), a, "copyReferenceWithText");
-  new KAction(i18n("Chapter"), KShortcut(0), a, "copyChapter");
-  new KAction(i18n("Selected text"), KShortcut(0), a, "copySelectedText");
+// 	new KAction(i18n("Copy reference only"), KShortcut(0), a, "copyReferenceOnly");
+// 	new KAction(i18n("Text of reference"), KShortcut(0), a, "copyTextOfReference");
+//   new KAction(i18n("Reference with text"), KShortcut(0), a, "copyReferenceWithText");
+  new KAction(i18n("Copy chapter"), KShortcut(0), a, "copyChapter");
+  new KAction(i18n("Copy selected text"), KShortcut(0), a, "copySelectedText");
 
 	//save menu
- 	new KAction(i18n("Reference with text"), KShortcut(0), a, "saveReferenceWithText");
-	new KAction(i18n("Chapter as plain text"), KShortcut(0), a, "saveChapterAsPlainText");
- 	new KAction(i18n("Chapter as HTML"), KShortcut(0), a, "saveChapterAsPlainHTML");
- 	new KAction(i18n("Reference with text"), KShortcut(0), a, "saveReferenceWithText");
-  new KAction(i18n("Chapter"), KShortcut(0), a, "saveChapter");
+//  	new KAction(i18n("Reference with text"), KShortcut(0), a, "saveReferenceWithText");
+	new KAction(i18n("Save chapter as plain text"), KShortcut(0), a, "saveChapterAsPlainText");
+ 	new KAction(i18n("Save chapter as HTML"), KShortcut(0), a, "saveChapterAsPlainHTML");
+//  	new KAction(i18n("Reference with text"), KShortcut(0), a, "saveReferenceWithText");
+
+	//print
+  new KAction(i18n("Print chapter"), KShortcut(0), a, "printChapter");
 }
 
 void CBibleReadWindow::initKeyboardActions() {

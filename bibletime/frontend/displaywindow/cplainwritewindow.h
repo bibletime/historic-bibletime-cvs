@@ -35,7 +35,7 @@ class CPlainWriteWindow : public CWriteWindow  {
    Q_OBJECT
 public:
 	CPlainWriteWindow( ListCSwordModuleInfo modules, CMDIArea* parent, const char *name = 0 );
-	~CPlainWriteWindow();
+	virtual ~CPlainWriteWindow();
 
   /**
   * Store the settings of this window in the given CProfileWindow object.
@@ -69,7 +69,8 @@ protected: // Protected methods
   /**
   * Insert the keyboard accelerators of this window into the given KAccel object.
   */
-  static void insertKeyboardActions( KAccel* const accel );
+//   static void insertKeyboardActions( KAccel* const accel );
+	static void insertKeyboardActions( KActionCollection* const a );
 //  virtual void setupPopupMenu();
 
 private:

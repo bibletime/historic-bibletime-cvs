@@ -37,7 +37,8 @@ class KPopupMenu;
 class CReadWindow : public CDisplayWindow  {
    Q_OBJECT
 public: 
-	static void insertKeyboardActions( KAccel* const a );
+// 	static void insertKeyboardActions( KAccel* const a );
+	static void insertKeyboardActions( KActionCollection* const a );
  	
   CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
 	virtual ~CReadWindow();

@@ -152,21 +152,28 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings) {
 	//  parentWidget()->setUpdatesEnabled(true);
 }
 
-void CReadWindow::insertKeyboardActions( KAccel* const a ) {
-	a->remove("Copy");
-	a->insert("Copy", i18n("Copy selected text"),"", KStdAccel::copy(), 0, "");
-	a->insert("Zoom in", i18n("Zoom in"),"", KStdAccel::zoomIn(), 0, "");
-	a->insert("Zoom out", i18n("Zoom out"),"", KStdAccel::zoomOut(), 0, "");
+// void CReadWindow::insertKeyboardActions( KAccel* const a ) {
+// 	a->remove("Copy");
+// 	a->insert("Copy", i18n("Copy selected text"),"", KStdAccel::copy(), 0, "");
+// 	a->insert("Zoom in", i18n("Zoom in"),"", KStdAccel::zoomIn(), 0, "");
+// 	a->insert("Zoom out", i18n("Zoom out"),"", KStdAccel::zoomOut(), 0, "");
+// }
+
+void CReadWindow::insertKeyboardActions( KActionCollection* const a ){
+/*	new KAction(
+		i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
+		a, "nextBook"
+	);*/
 }
 
 void CReadWindow::initKeyboardActions() {
-	CBTConfig::setupAccel( CBTConfig::readWindow, accel() );
+/*	CBTConfig::setupAccel( CBTConfig::readWindow, accel() );
 	CReadWindow::insertKeyboardActions( accel() );
 
 	accel()->readSettings();
 	accel()->setSlot("Copy", displayWidget()->connectionsProxy(), SLOT(copySelection()));
 	accel()->setSlot("Zoom in", displayWidget()->connectionsProxy(), SLOT(zoomIn()));
-	accel()->setSlot("Zoom out", displayWidget()->connectionsProxy(), SLOT(zoomOut()));
+	accel()->setSlot("Zoom out", displayWidget()->connectionsProxy(), SLOT(zoomOut()));*/
 }
 
 /** No descriptions */

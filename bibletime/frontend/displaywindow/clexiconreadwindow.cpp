@@ -57,21 +57,53 @@ CLexiconReadWindow::~CLexiconReadWindow(){
 // 	CReadWindow::storeProfileSettings(profileWindow);
 // };
 
-/** Reimplementation. */
-void CLexiconReadWindow::insertKeyboardActions( KAccel* a ){
-  a->insert("Next entry",     i18n("Next entry"),     "", CResMgr::displaywindows::lexiconWindow::nextEntry::accel, 0, "", true, true);
-	a->insert("Previous entry", i18n("Previous entry"), "", CResMgr::displaywindows::lexiconWindow::previousEntry::accel, 0, "", true, true);	
+void CLexiconReadWindow::insertKeyboardActions( KActionCollection* const a ){
+	new KAction(
+		i18n("Next entry"), CResMgr::displaywindows::lexiconWindow::nextEntry::accel,
+		a, "nextEntry"
+	);
+	new KAction(
+		i18n("Previous entry"), CResMgr::displaywindows::lexiconWindow::previousEntry::accel,
+		a, "previousEntry"
+	);
+
+// 	new KAction(i18n("Copy reference only"), KShortcut(0), a, "copyReferenceOnly");
+  new KAction(i18n("Copy entry with text"), KShortcut(0), a, "copyEntryWithText");
+	new KAction(i18n("Copy selected text"), KShortcut(0), a, "copySelectedText");
+	new KAction(i18n("Save entry as plain text"), KShortcut(0), a, "saveEntryAsPlainText");
+ 	new KAction(i18n("Save entry as HTML"), KShortcut(0), a, "saveEntryAsHTML");
+//  	new KAction(i18n("Print reference only"), KShortcut(0), a, "printReferenceOnly");
+  new KAction(i18n("Print entry with text"), KShortcut(0), a, "printEntryWithText");
 }
 
 void CLexiconReadWindow::initKeyboardActions() {
-  CBTConfig::setupAccel(CBTConfig::lexiconWindow, accel());
-  insertKeyboardActions(accel());
-  accel()->readSettings();
+	new KAction(
+		i18n("Next entry"), CResMgr::displaywindows::lexiconWindow::nextEntry::accel,
+		this, SLOT( nextEntry() ),
+		actionCollection(), "nextEntry"
+	);
+	new KAction(
+		i18n("Previous entry"), CResMgr::displaywindows::lexiconWindow::previousEntry::accel,
+		this, SLOT( previousEntry() ),
+		actionCollection(), "previousEntry"
+	);
 
-  accel()->setSlot("Next entry", this, SLOT(nextEntry()));
-  accel()->setSlot("Previous entry",  this, SLOT(previousEntry()));
+  m_actions.copy.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection(), "copyReferenceOnly");
+  
+  m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection(), "copyEntryWithText");
+	
+	m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection(), "copySelectedText");
 
-  CReadWindow::initKeyboardActions();
+	m_actions.save.entryAsPlain = new KAction(i18n("Entry as plain text"), KShortcut(0), this, SLOT(saveAsPlain()),actionCollection(), "saveEntryAsPlain");
+
+ 	m_actions.save.entryAsHTML = new KAction(i18n("Entry as HTML"), KShortcut(0), this, SLOT(saveAsHTML()),actionCollection(), "saveEntryAsHTML");
+
+ 	m_actions.print.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection(), "printReferenceOnly");
+
+  m_actions.print.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAll()), actionCollection(), "printEntryWithText");
+
+	// init with the user defined settings
+	CBTConfig::setupAccelSettings(CBTConfig::bibleWindow, actionCollection());
 };
 
 /** No descriptions */

@@ -49,7 +49,8 @@ public:
   /**
   * Reimplementation.
   */
-  static void insertKeyboardActions( KAccel* a );
+//   static void insertKeyboardActions( KAccel* a );
+	static void insertKeyboardActions( KActionCollection* const a );
 
 protected:
 	virtual void initKeyboardActions();

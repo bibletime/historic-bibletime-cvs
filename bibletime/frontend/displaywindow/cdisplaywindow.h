@@ -66,7 +66,8 @@ public:
   /**
   * Insert the keyboard accelerators of this window into the given KAccel object.
   */
-  static void insertKeyboardActions( KAccel* const accel );
+//   static void insertKeyboardActions( KAccel* const accel );
+	static void insertKeyboardActions( KActionCollection* const a );
 
  	CMDIArea* const mdi() const;
   /**

@@ -38,6 +38,21 @@
 CCommentaryReadWindow::CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name) : CLexiconReadWindow(modules, parent,name) {
 }
 
+void CCommentaryReadWindow::insertKeyboardActions( KActionCollection* const a ){
+// 	new KAction(
+// 		i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
+// 		a, "nextBook"
+// 	);
+
+//   a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::bibleWindow::nextBook::accel, 0, "");
+// 	a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::bibleWindow::previousBook::accel, 0, "");
+// 	a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::bibleWindow::nextChapter::accel, 0, "");
+// 	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");
+// 	a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::bibleWindow::nextVerse::accel, 0, "");
+// 	a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::bibleWindow::previousVerse::accel, 0, "");
+
+}
+
 void CCommentaryReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
   CLexiconReadWindow::applyProfileSettings(profileWindow);
   if (profileWindow->windowSettings())
@@ -80,29 +95,29 @@ CSwordVerseKey* CCommentaryReadWindow::verseKey(){
 
 
 /** Reimplementation. */
-void CCommentaryReadWindow::insertKeyboardActions( KAccel* const a ){
-  a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::bibleWindow::nextBook::accel, 0, "");
-	a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::bibleWindow::previousBook::accel, 0, "");
-	a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::bibleWindow::nextChapter::accel, 0, "");
-	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");
-	a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::bibleWindow::nextVerse::accel, 0, "");
-	a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::bibleWindow::previousVerse::accel, 0, "");
-}
+// void CCommentaryReadWindow::insertKeyboardActions( KAccel* const a ){
+//   a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::bibleWindow::nextBook::accel, 0, "");
+// 	a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::bibleWindow::previousBook::accel, 0, "");
+// 	a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::bibleWindow::nextChapter::accel, 0, "");
+// 	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");
+// 	a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::bibleWindow::nextVerse::accel, 0, "");
+// 	a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::bibleWindow::previousVerse::accel, 0, "");
+// }
 
 void CCommentaryReadWindow::initKeyboardActions() {
-  CBTConfig::setupAccel( CBTConfig::commentaryWindow, accel() );
-  insertKeyboardActions( accel() );
-
-  accel()->readSettings();
-
-	accel()->setSlot("Next book", this, SLOT(nextBook()));
-  accel()->setSlot("Previous book", this, SLOT(previousBook()));
-  accel()->setSlot("Next chapter", this, SLOT(nextChapter()));
-  accel()->setSlot("Previous chapter", this, SLOT(previousChapter()));
-  accel()->setSlot("Next verse", this, SLOT(nextVerse()));
-  accel()->setSlot("Previous verse", this, SLOT(previousVerse()));
-
-  CReadWindow::initKeyboardActions();
+//   CBTConfig::setupAccel( CBTConfig::commentaryWindow, accel() );
+// //   insertKeyboardActions( accel() );
+// 
+//   accel()->readSettings();
+// 
+// 	accel()->setSlot("Next book", this, SLOT(nextBook()));
+//   accel()->setSlot("Previous book", this, SLOT(previousBook()));
+//   accel()->setSlot("Next chapter", this, SLOT(nextChapter()));
+//   accel()->setSlot("Previous chapter", this, SLOT(previousChapter()));
+//   accel()->setSlot("Next verse", this, SLOT(nextVerse()));
+//   accel()->setSlot("Previous verse", this, SLOT(previousVerse()));
+// 
+//   CReadWindow::initKeyboardActions();
 }
 
 /** Moves to the next book. */

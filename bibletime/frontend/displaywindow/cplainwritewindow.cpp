@@ -164,12 +164,12 @@ const bool CPlainWriteWindow::syncAllowed() const {
 }
 
 void CPlainWriteWindow::initKeyboardActions() {
-  CWriteWindow::initKeyboardActions();
+/*  CWriteWindow::initKeyboardActions();
 
 	CBTConfig::setupAccel( CBTConfig::writeWindow, accel() );
   insertKeyboardActions( accel() );
 
-  accel()->readSettings();
+  accel()->readSettings();*/
 	//accel()->setSlot("Copy", displayWidget()->connectionsProxy(), SLOT(copySelection()));
 
 /*
@@ -182,15 +182,21 @@ void CPlainWriteWindow::initKeyboardActions() {
 */
 }
 
-void CPlainWriteWindow::insertKeyboardActions( KAccel* const a ) {
-  a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::bibleWindow::nextBook::accel,        0, "");
-	a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::bibleWindow::previousBook::accel,    0, "");
-	a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::bibleWindow::nextChapter::accel,     0, "");
-	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");
-	a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::bibleWindow::nextVerse::accel,       0, "");
-	a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::bibleWindow::previousVerse::accel,   0, "");
-
-	a->insert("Save text",   i18n("Save text"),   "", CResMgr::displaywindows::writeWindow::saveText::accel,   0, "");
+// void CPlainWriteWindow::insertKeyboardActions( KAccel* const a ) {
+//   a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::bibleWindow::nextBook::accel,        0, "");
+// 	a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::bibleWindow::previousBook::accel,    0, "");
+// 	a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::bibleWindow::nextChapter::accel,     0, "");
+// 	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");
+// 	a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::bibleWindow::nextVerse::accel,       0, "");
+// 	a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::bibleWindow::previousVerse::accel,   0, "");
+// 
+// 	a->insert("Save text",   i18n("Save text"),   "", CResMgr::displaywindows::writeWindow::saveText::accel,   0, "");
+// }
+void CPlainWriteWindow::insertKeyboardActions( KActionCollection* const a ){
+/* 	new KAction(
+		i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
+		a, "nextBook"
+	);*/
 }
 
 //void CPlainWriteWindow::setupPopupMenu() {

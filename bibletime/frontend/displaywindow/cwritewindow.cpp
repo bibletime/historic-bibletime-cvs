@@ -34,10 +34,15 @@ CWriteWindow::~CWriteWindow(){
 }
 
 
-void CWriteWindow::insertKeyboardActions( KAccel* const /*a*/ ) {
-
-};
-
+// void CWriteWindow::insertKeyboardActions( KAccel* const /*a*/ ) {
+// 
+// };
+void CWriteWindow::insertKeyboardActions( KActionCollection* const a ){
+/*	new KAction(
+		i18n("Next book"), CResMgr::displaywindows::bibleWindow::nextBook::accel,
+		a, "nextBook"
+	);*/
+}
 const bool CWriteWindow::init( const QString& keyName ) {
   qWarning("CWriteWindow::init( const QString& keyName )");
   CDisplayWindow::init(keyName);
