@@ -22,7 +22,7 @@
 #include "../../backend/cswordmoduleinfo.h"
 #include "../../backend/cswordbiblemoduleinfo.h"
 #include "../../backend/cswordlexiconmoduleinfo.h"
-#include "../../ressource.h"
+#include "../../resource.h"
 #include "../ctoolclass.h"
 #include "../cbtconfig.h"
 

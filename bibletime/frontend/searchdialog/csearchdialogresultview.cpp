@@ -19,7 +19,7 @@
 #include "csearchdialogresultview.h"
 #include "csearchdialog.h"
 #include "../../structdef.h"
-#include "../../ressource.h"
+#include "../../resource.h"
 #include "../../whatsthisdef.h"
 #include "../../tooltipdef.h"
 #include "../../backend/cswordbiblemoduleinfo.h"

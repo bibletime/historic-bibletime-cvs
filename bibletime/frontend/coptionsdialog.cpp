@@ -23,7 +23,7 @@
 #include "presenters/ccommentarypresenter.h"
 #include "presenters/clexiconpresenter.h"
 #include "presenters/cbookpresenter.h"
-#include "../ressource.h"
+#include "../resource.h"
 #include "../whatsthisdef.h"
 #include "../backend/cswordbackend.h"
 #include "../backend/cswordmoduleinfo.h"

@@ -22,7 +22,7 @@
 #include "presenters/clexiconpresenter.h"
 #include "presenters/ccommentarypresenter.h"
 #include "keychooser/ckeychooser.h"
-#include "../ressource.h"
+#include "../resource.h"
 #include "../whatsthisdef.h"
 #include "../structdef.h"
 #include "../../config.h"

@@ -23,7 +23,7 @@
 #include "csearchdialogscope.h"
 #include "../chtmldialog.h"
 #include "../../structdef.h"
-#include "../../ressource.h"
+#include "../../resource.h"
 #include "../../backend/cswordmodulesearch.h"
 #include "../../backend/cswordversekey.h"
 #include "../../backend/cswordmoduleinfo.h"

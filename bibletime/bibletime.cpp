@@ -18,7 +18,7 @@
 //local includes
 #include "config.h"
 #include "bibletime.h"
-#include "ressource.h"
+#include "resource.h"
 
 //frontend includes
 #include "frontend/chtmldialog.h"

@@ -17,7 +17,7 @@
 
 //own includes
 #include "bibletime.h"
-#include "ressource.h"
+#include "resource.h"
 #include "frontend/ctoolclass.h"
 //#include "frontend/ctipwindow.h"
 #include "frontend/cmdiarea.h"

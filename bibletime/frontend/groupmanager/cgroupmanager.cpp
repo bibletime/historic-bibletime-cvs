@@ -38,7 +38,7 @@
 
 #include "../../structdef.h"
 #include "../../whatsthisdef.h"
-#include "../../ressource.h"
+#include "../../resource.h"
 
 //QT includes
 #include <qheader.h>

@@ -25,7 +25,7 @@
 #include "presenters/cswordpresenter.h"
 #include "thirdparty/qt3stuff/qt3stuff.h"
 #include "thirdparty/qt3stuff/qrichtext_p.h"
-#include "../ressource.h"
+#include "../resource.h"
 #include "../tooltipdef.h"
 #include "../whatsthisdef.h"
 #include "cbtconfig.h"

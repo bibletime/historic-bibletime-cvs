@@ -27,7 +27,7 @@ $(LIBSOCKET)
 SUBDIRS = backend printing frontend xml pics util
 
 all_headers = bibletime.h \
-ressource.h \
+resource.h \
 structdef.h \
 whatsthisdef.h \
 tooltipdef.h \

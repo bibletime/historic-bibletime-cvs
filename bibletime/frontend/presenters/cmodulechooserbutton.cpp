@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include "cmodulechooserbutton.h"
-#include "../../ressource.h"
+#include "../../resource.h"
 #include "../../backend/cswordbackend.h"
 
 //Qt includes

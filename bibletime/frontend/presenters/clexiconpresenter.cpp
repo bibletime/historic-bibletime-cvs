@@ -22,7 +22,7 @@
 #include "../chtmlwidget.h"
 #include "../cexportmanager.h"
 #include "../keychooser/ckeychooser.h"
-#include "../../ressource.h"
+#include "../../resource.h"
 #include "../../backend/cswordldkey.h"
 #include "../../backend/chtmlentrydisplay.h"
 #include "../../backend/cswordbackend.h"

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          ressource.h  -  description
+                          resource.h  -  description
                              -------------------
     begin                : Wed Jan 19 2000
     copyright            : (C) 2000 by The BibleTime Team

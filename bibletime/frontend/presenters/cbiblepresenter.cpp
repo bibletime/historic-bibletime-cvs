@@ -23,7 +23,7 @@
 #include "../cexportmanager.h"
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
-#include "../../ressource.h"
+#include "../../resource.h"
 #include "../../backend/cswordbiblemoduleinfo.h"
 #include "../../backend/cswordversekey.h"
 #include "../../backend/chtmlchapterdisplay.h"

@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include "cdisplaysettingsbutton.h"
-#include "../../ressource.h"
+#include "../../resource.h"
 
 #include <qstring.h>
 #include <qtooltip.h>

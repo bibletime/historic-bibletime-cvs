@@ -21,7 +21,7 @@
 #include "cprintitemlist.h"
 #include "cprintitem.h"
 #include "../tooltipdef.h"
-#include "../ressource.h"
+#include "../resource.h"
 #include "../whatsthisdef.h"
 
 //QT includes

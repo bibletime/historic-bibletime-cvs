@@ -25,7 +25,7 @@
 #include <signal.h>
 
 //own includes
-#include "ressource.h"
+#include "resource.h"
 #include "bibletime.h"
 #include "config.h"
 

@@ -29,7 +29,7 @@
 #include "../../backend/cswordbackend.h"
 
 #include "cdisplaysettingsbutton.h"
-#include "../../ressource.h"
+#include "../../resource.h"
 #include "../../tooltipdef.h"
 #include "../../whatsthisdef.h"
 
