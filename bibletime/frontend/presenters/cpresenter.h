@@ -33,7 +33,7 @@ public:
 	/**
 	* Default xonstructor
 	*/
-	CPresenter(QWidget *parent, const char *name=0, WFlags f= WDestructiveClose);
+	CPresenter(QWidget *parent, const char *name=0, WFlags f=WDestructiveClose);
 
 protected:
 	KConfig* m_config;

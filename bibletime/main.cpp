@@ -121,17 +121,25 @@ int main(int argc, char* argv[]) {
 #ifdef STATIC_BUILD
  	KApplication app(false); //disable styles
 	qWarning("path == %s", argv[0]);
-	qWarning("$PWD == %s", getenv("PWD"));	
+	qWarning("$PWD == %s", getenv("PWD"));
+	qWarning("$BT_PATH == %s", getenv("BT_PATH"));
 	//get the path
 	KGlobal::dirs()->addPrefix(".");
-	KGlobal::dirs()->addPrefix(getenv("PWD"));	
-//	KGlobal::dirs()->addPrefix("config/");		
+	KGlobal::dirs()->addPrefix(getenv("PWD"));
+	KGlobal::dirs()->addPrefix(getenv("BT_PATH"));
+	
+	QStringList list = KGlobal::dirs()->allTypes();
+	for (int i = 0; i < list.count(); ++i) {
+		KGlobal::dirs()->addResourceType(list.at(i), QString("%1/share/%2/").arg(getenv("BT_PATH")).arg(list.at(i)) );	
+	)
+//	KGlobal::dirs()->addResourceType("icon", QString("%1/share/icons/").arg(getenv("BT_PATH")));
+//	KGlobal::dirs()->addResourceType("html", QString("%1/share/doc/HTML/").arg(getenv("BT_PATH")));
 #else
  	KApplication app;
 #endif
 	
  	
- 	KGlobal::dirs()->addResourceType("BT_pic", KStandardDirs::kde_default("data") + kapp->name() + "/pics/");
+ 	KGlobal::dirs()->addResourceType("BT_pic", /*KStandardDirs::kde_default("data") + kapp->name() +*/ "share/apps/bibletime/pics/");
 
 
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
@@ -158,7 +166,7 @@ int main(int argc, char* argv[]) {
 	  }
 		
 		//first startup of BibleTime?		
-	  BibleTime* bibletime = new BibleTime();							
+	  BibleTime* bibletime = new BibleTime();
 		{
 			KConfigGroupSaver groupSaver(config, "General");
 			if (config->readBoolEntry(QString::fromLatin1("firstStartup %1").arg(VERSION), true)) {
