@@ -92,7 +92,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		
 		
 		if (m_filterOptions.headings) {
-			AttributeValue::const_iterator it =  m->module()->getEntryAttributes()["Heading"]["Preverse"].begin();		
+			AttributeValue::const_iterator it =  m->module()->getEntryAttributes()["Heading"]["Preverse"].begin();
 			const AttributeValue::const_iterator end = m->module()->getEntryAttributes()["Heading"]["Preverse"].end();
 			
 			for (; it != end; ++it) {
@@ -151,7 +151,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 	}
  	
 	if (modules.count() > 1) {
-		renderedText += QString::fromLatin1("</tr>\n");
+		renderedText.append( QString::fromLatin1("</tr>\n") );
 	}
 	
   return renderedText;	

@@ -26,6 +26,7 @@ CrossRefRendering::CrossRefRendering( CSwordBackend::DisplayOptions displayOptio
 }
  
 const QString CrossRefRendering::finishText( const QString& text, KeyTree& ) {
+// 	qWarning(text.latin1());
 	return text;
 }
 

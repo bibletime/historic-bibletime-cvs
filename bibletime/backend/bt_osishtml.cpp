@@ -79,14 +79,15 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
     }
 
 		// <w> tag
-		if (!strcmp(tag.getName(), "w")) {
+		if (!strcmp(tag.getName(), "w")) {		
+// 	 		qWarning("processing: %s", token);
 			if ((!tag.isEmpty()) && (!tag.isEndTag())) { //start tag
 				const char *attrib;
 				const char *val;
 				
-				XMLTag outTag;
+				XMLTag outTag("span");
 				SWBuf attrValue;
-				outTag = "<span>";
+// 				outTag = "<span>";
 				
 				if ((attrib = tag.getAttribute("xlit"))) {
 					val = strchr(attrib, ':');
@@ -161,9 +162,10 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				}	
 				
 				buf.append( outTag.toString() );
+// 				qWarning( "appended: ", outTag.toString() );
 			}
 			else if (tag.isEndTag()){ // end or empty <w> tag
-				buf += "</span>";
+				buf.append("</span>");
 			}
 		}
 		// <note> tag
