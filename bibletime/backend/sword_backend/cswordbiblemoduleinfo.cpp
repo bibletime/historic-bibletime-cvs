@@ -53,14 +53,18 @@ QStringList* CSwordBibleModuleInfo::getBooks() {
 		m_bookList = 0;
 	}
 	
-	const QString modulePath = backend()->getModulePath(QString::fromLocal8Bit(module()->Name()));
-	if (m_hasOT == -1)
-		m_hasOT = QFile::exists(QString::fromLatin1("%1/ot.vss").arg(modulePath)) || QFile::exists(QString::fromLatin1("%1/ot.bzs").arg(modulePath));
-	if (m_hasNT == -1)
-		m_hasNT = QFile::exists(QString::fromLatin1("%1/nt.vss").arg(modulePath)) || QFile::exists(QString::fromLatin1("%1/nt.bzs").arg(modulePath));
-
-		
 	if (!m_bookList) {
+		const QString modulePath = backend()->getModulePath(QString::fromLocal8Bit(module()->Name()));
+		if (modulePath.isEmpty()) {
+			m_hasNT = m_hasOT = true;			
+		}
+		else {
+			if (m_hasOT == -1)
+				m_hasOT = QFile::exists(QString::fromLatin1("%1/ot.vss").arg(modulePath)) || QFile::exists(QString::fromLatin1("%1/ot.bzs").arg(modulePath));
+			if (m_hasNT == -1)
+				m_hasNT = QFile::exists(QString::fromLatin1("%1/nt.vss").arg(modulePath)) || QFile::exists(QString::fromLatin1("%1/nt.bzs").arg(modulePath));
+		}
+	
 		m_bookList = new QStringList();	
 		VerseKey key;
 		int max = -1;
