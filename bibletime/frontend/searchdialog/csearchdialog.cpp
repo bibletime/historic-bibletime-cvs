@@ -262,16 +262,15 @@ void CSearchDialog::show(){
 
 /** No descriptions */
 void CSearchDialog::searchFinished(){
+	qWarning("CSearchDialog::searchFinished()");
  	enableButton(User1,true);
  	enableButton(User2,false);
  	searchText->updateCurrentProgress(100);		
  	searchText->updateOverallProgress(100);					
  	searchAnalysis->reset();
 		
- 	//test: call scope function
-// 	ListKey scope = searcher->scope();
-		
  	if ( searcher->foundItems() ){
+ 		qWarning("FOUND ITEMS!");
  		searchResult->setModuleList(getModuleList());			
  		searchAnalysis->setModuleList(getModuleList());
  		searchAnalysisView->setContentsPos(0,0);
@@ -282,27 +281,28 @@ void CSearchDialog::searchFinished(){
  		searchAnalysis->analyse();			
  	}
  	else {
+ 		qWarning("not FOUND ITEMS!");
  		searchResult->clearResult();
- 		searchAnalysis->reset();
+// 		searchAnalysis->reset();
  	}
 }
 
 /** No descriptions */
 void CSearchDialog::percentUpdate(){
- 	int newPercentage = searcher->getPercent(CSwordModuleSearch::allModules); 	
- 	if (newPercentage == 100) {
- 		searchFinished();
- 		return;
+ 	const int newOverallPercentage = searcher->getPercent(CSwordModuleSearch::allModules); 	
+ 	const int newCurrentPercentage = searcher->getPercent(CSwordModuleSearch::currentModule);
+ 	 	
+// 	if (newOverallPercentage == 100 || newCurrentPercentage == 100) {
+// 		searchFinished();
+// 		return;
+// 	}
+// 		
+ 	if (old_overallProgress != newOverallPercentage) {
+ 		searchText->updateOverallProgress(newOverallPercentage);
+ 		old_overallProgress = newOverallPercentage;
  	}
- 		
- 	if (old_overallProgress != newPercentage) {
- 		searchText->updateOverallProgress(newPercentage);
- 		old_overallProgress = newPercentage;
- 	}
- 	
- 	newPercentage = searcher->getPercent(CSwordModuleSearch::currentModule);
- 	if (old_currentProgress != newPercentage) {
- 		searchText->updateCurrentProgress(newPercentage);
- 		old_currentProgress = newPercentage;
+ 	if (old_currentProgress != newCurrentPercentage) {
+ 		searchText->updateCurrentProgress(newCurrentPercentage);
+ 		old_currentProgress = newCurrentPercentage;
  	} 	
 }

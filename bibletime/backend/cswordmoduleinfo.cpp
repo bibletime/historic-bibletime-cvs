@@ -196,7 +196,7 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
   else
   	m_searchResult = /*searchModulesMgr.*/m_backend->Modules[name().latin1()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, 0, 0, percentUpdate);
 
-	return m_searchResult.Count();
+	return m_searchResult.Count()>0;
 }
 
 /** Returns the last search result for this module. */

@@ -89,7 +89,7 @@ public:
   /**
  	*	Calls with true if you want to use the last searchresult as search scope.
  	*/
-  void useLastSearchResult( bool useIt );
+  void useLastSearchResult( const bool );
   /**
  	* Sets the seaech scope back.
  	*/
@@ -102,10 +102,6 @@ public:
  	* @return "true" if in the last search the searcher found items, if no items were found return "false"
  	*/
   const bool foundItems();
-  /**
- 	* Returns true if the search is still in progress, otherwise return false.
- 	*/
-//  const bool isSearching();
   /**
  	* This functions starts the search: First it creates a new thread for the search and it calles the the
  	* function to start the search.
@@ -124,14 +120,15 @@ public:
   /**
   * Returns a copy of the used search scope.
   */
-  ListKey scope();
+  ListKey& scope();
 	void connectPercentUpdate( QObject *receiver, const char *member );
 	void connectFinished( QObject *receiver, const char *member );
+  void searchFinished();
 		
 protected:
 	QString m_searchedText;
 	ListKey m_searchScope;
-	ListCSwordModuleInfo*	m_moduleList;
+	ListCSwordModuleInfo m_moduleList;
 
 	int m_searchOptions;
 
@@ -147,6 +144,9 @@ protected:
 
 private:
 	pthread_mutex_t percentage_mutex;
+	pthread_mutex_t signal_mutex;
+//	pthread_cond_t	finish_cond;	
+	
 	QSignal m_updateSig;
 	QSignal m_finishedSig;
 };
