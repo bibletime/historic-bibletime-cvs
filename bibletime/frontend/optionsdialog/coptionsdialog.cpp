@@ -330,7 +330,7 @@ void COptionsDialog::initDisplayWindow() {
 		label = new QLabel(i18n("Footnotes"), group);		
 //		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 //		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
-		m_displayWindows.colors.footnotes = new KColorButton(m_config->readColorEntry("footnotes", &Qt::blue), group);		
+		m_displayWindows.colors.footnotes = new KColorButton(m_config->readColorEntry("footnote", &Qt::black), group);		
 
 		label = new QLabel(i18n("Strong's numbers"), group);		
 //		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
@@ -497,7 +497,7 @@ void COptionsDialog::saveDisplayWindow() {
 
 		m_config->writeEntry("Highlighted Verse", m_displayWindows.colors.highlightedVerse->color().name());		
 #warning missing change notice in enum value of CSWordPresenter? Maybe only CSwordPresenter::colorchaged for all color changes?
-		m_config->writeEntry("footnotes", m_displayWindows.colors.footnotes->color().name());		
+		m_config->writeEntry("footnote", m_displayWindows.colors.footnotes->color().name());		
 		m_config->writeEntry("strongs", m_displayWindows.colors.strongs->color().name());		
 		m_config->writeEntry("morph", m_displayWindows.colors.morph->color().name());		
 		m_config->writeEntry("jesuswords", m_displayWindows.colors.jesuswords->color().name());		
@@ -605,17 +605,17 @@ QColor COptionsDialog::getBTColor( BTColor which){
 
 	switch (which){
 		case COptionsDialog::background:
-			return config->readColorEntry( "Background" );
+			return config->readColorEntry( "Background", &Qt::white );
 		case COptionsDialog::highlighted_verse:
-			return config->readColorEntry( "Highlighted Verse" );
+			return config->readColorEntry( "Highlighted Verse", &Qt::red );
 		case COptionsDialog::footnote:
-			return config->readColorEntry( "footnote" );
+			return config->readColorEntry( "footnote", &Qt::black );
 		case COptionsDialog::strongs:
-			return config->readColorEntry( "strongs" );
+			return config->readColorEntry( "strongs", &Qt::blue );
 		case COptionsDialog::morph:
-			return config->readColorEntry( "morph" );
+			return config->readColorEntry( "morph", &Qt::blue);
 		case COptionsDialog::jesuswords:
-			return config->readColorEntry( "jesuswords" );
+			return config->readColorEntry( "jesuswords", &Qt::red );
 		default:
 			return QColor( Qt::black );
 	}

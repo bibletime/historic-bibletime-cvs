@@ -22,19 +22,16 @@
 #ifndef GBFHTML_H
 #define GBFHTML_H
 
-#include <swbasicfilter.h>
-
-#include <defs.h>
+#include "bt_basicfilter.h"
 
 /**
 * This filter converts GBF Text into HTML
 */
-class BT_GBFHTML : public SWBasicFilter
-{
+class BT_GBFHTML : public BT_BASICFILTER{
+
 public:
   BT_GBFHTML ();
   virtual bool handleToken(char **buf, const char *token, DualStringMap &userData);
-//  virtual char ProcessText (char *text, int maxlen, const SWKey * key);
 };
 
 #endif

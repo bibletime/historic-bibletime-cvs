@@ -20,9 +20,6 @@
 #include "bt_gbfhtml.h"
 
 #include <qstring.h>
-#include "../frontend/optionsdialog/coptionsdialog.h"
-
-
 
 BT_GBFHTML::BT_GBFHTML(){
   setTokenStart("<");
@@ -30,34 +27,34 @@ BT_GBFHTML::BT_GBFHTML(){
 
 	setTokenCaseSensitive(true);
 
-	addTokenSubstitute("Rf", ")</SMALL></FONT>");// end of footnote
-	addTokenSubstitute("FI", "<I>"); // italics begin
-	addTokenSubstitute("Fi", "</I>");
-	addTokenSubstitute("FB", "<B>"); // bold begin
-	addTokenSubstitute("Fb", "</B>");
+	addTokenSubstitute("Rf", ")</small></font>");// end of footnote
+	addTokenSubstitute("FI", "<i>"); // italics begin
+	addTokenSubstitute("Fi", "</i>");
+	addTokenSubstitute("FB", "<b>"); // bold begin
+	addTokenSubstitute("Fb", "</b>");
 //#warning make configurable
 //	addTokenSubstitute("FR", "<FONT COLOR=\"#FF0000\">"); // words of Jesus begin
-	addTokenSubstitute("Fr", "</FONT>");
-	addTokenSubstitute("FU", "<U>"); // underline begin
-	addTokenSubstitute("Fu", "</U>");
-	addTokenSubstitute("FO", "<CITE>"); //  Old Testament quote begin
-	addTokenSubstitute("Fo", "</CITE>");
-	addTokenSubstitute("FS", "<SUP>"); // Superscript begin// Subscript begin
-	addTokenSubstitute("Fs", "</SUP>");
-	addTokenSubstitute("FV", "<SUB>"); // Subscript begin
-	addTokenSubstitute("Fv", "</SUB>");
-	addTokenSubstitute("TT", "<BIG>"); // Book title begin
-	addTokenSubstitute("Tt", "</BIG>");
-	addTokenSubstitute("PP", "<CITE>"); //  poetry  begin
-	addTokenSubstitute("Pp", "</CITE>");
-	addTokenSubstitute("Fn", "</FONT>"); //  font  end
-	addTokenSubstitute("CL", "<BR>"); //  new line
-	addTokenSubstitute("CM", "<!P><BR>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
+	addTokenSubstitute("Fr", "</font>");
+	addTokenSubstitute("FU", "<u>"); // underline begin
+	addTokenSubstitute("Fu", "</u>");
+	addTokenSubstitute("FO", "<cite>"); //  Old Testament quote begin
+	addTokenSubstitute("Fo", "</cite>");
+	addTokenSubstitute("FS", "<sup>"); // Superscript begin// Subscript begin
+	addTokenSubstitute("Fs", "</sup>");
+	addTokenSubstitute("FV", "<sub>"); // Subscript begin
+	addTokenSubstitute("Fv", "</sub>");
+	addTokenSubstitute("TT", "<big>"); // Book title begin
+	addTokenSubstitute("Tt", "</big>");
+	addTokenSubstitute("PP", "<cite>"); //  poetry  begin
+	addTokenSubstitute("Pp", "</cite>");
+	addTokenSubstitute("Fn", "</font>"); //  font  end
+	addTokenSubstitute("CL", "<br>"); //  new line
+	addTokenSubstitute("CM", "<!p><br>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
 	addTokenSubstitute("CG", ""); //  ???
 	addTokenSubstitute("CT", ""); // ???
-	addTokenSubstitute("JR", "<DIV ALIGN=\"RIGHT\">"); // right align begin
-	addTokenSubstitute("JC", "<DIV ALIGN=\"CENTER\">"); // center align begin
-	addTokenSubstitute("JL", "</DIV>"); // align end
+	addTokenSubstitute("JR", "<div align=\"right\">"); // right align begin
+	addTokenSubstitute("JC", "<civ align=\"center\">"); // center align begin
+	addTokenSubstitute("JL", "</div>"); // align end
 }
 
 bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
@@ -65,36 +62,27 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 	if (!substituteToken(buf, token)) {  //more than a simple replace
 
 		if (!strncmp(token, "WG", 2)){ // strong's numbers greek
-			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://strongs_greek/")
-				.arg(COptionsDialog::getBTColor(COptionsDialog::strongs).name()).utf8() );
-//			pushString(buf, " <small><em><a href=\"sword://strongs_greek/");
+		pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://strongs_greek/").arg(strongs_color).utf8());
 			for (i = 2; i < strlen(token); i++)
-				//if(token[i] != '\"')
 					*(*buf)++ = token[i];
 			pushString(buf, "\">&lt;");
 			for (i = 2; i < strlen(token); i++)
-				//if(token[i] != '\"')
 					*(*buf)++ = token[i];
-			pushString(buf, "&gt;</A></em></small></font> ");
+			pushString(buf, "&gt;</a></em></small></font> ");
 		}
 
 		if (!strncmp(token, "WH", 2)){ // strong's numbers hebrew
-			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://strongs_hebrew/")
-				.arg(COptionsDialog::getBTColor(COptionsDialog::strongs).name()).utf8() );
-//			pushString(buf, " <small><em><a href=\"sword://strongs_hebrew/");
+			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://strongs_hebrew/").arg(strongs_color).utf8());
 			for (i = 2; i < strlen(token); i++)
-				//if(token[i] != '\"')
 					*(*buf)++ = token[i];
 			pushString(buf, "\">&lt;");
 			for (i = 2; i < strlen(token); i++)
-				//if(token[i] != '\"')
 					*(*buf)++ = token[i];
 			pushString(buf, "&gt;</A></em></small></font> ");
 		}
 
 		else if (!strncmp(token, "WTG", 3)) { // strong's numbers tense greek
-			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://morph_greek/")
-				.arg(COptionsDialog::getBTColor(COptionsDialog::morph).name()).utf8() );
+			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://morph_greek/").arg(morph_color).utf8());
 			for (i = 2; i < strlen(token); i++)				
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
@@ -106,8 +94,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 		}
 
 		else if (!strncmp(token, "WTH", 3)) { // strong's numbers tense hebrew
-			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://morph_hebrew/")
-				.arg(COptionsDialog::getBTColor(COptionsDialog::morph).name()).utf8() );
+			pushString(buf, QString(" <font color=\"%1\"><small><em><a href=\"sword://morph_hebrew/").arg(morph_color).utf8());
 			for (i = 2; i < strlen(token); i++)				
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
@@ -132,31 +119,29 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 //		}
 
 		else if (!strncmp(token, "RB", 2)) {
-			pushString(buf, "<I>");
+			pushString(buf, "<i>");
 			userData["hasFootnotePreTag"] = "true";
 		}
 
 		else if (!strncmp(token, "RF", 2)) {
 			if(userData["hasFootnotePreTag"] == "true") {
 				userData["hasFootnotePreTag"] = "false";
-				pushString(buf, "</I> ");
+				pushString(buf, "</i> ");
 			}
-			pushString(buf, QString("<FONT COLOR=\"%1\"><SMALL> (")
-				.arg(COptionsDialog::getBTColor(COptionsDialog::footnote).name()).utf8() );
+			pushString(buf, QString("<font color=\"%1\"><small> (").arg(footnote_color).utf8());
+		  qWarning( QString("Jesus: %1").arg(footnote_color).latin1() );
 		}
 
 		else if (!strncmp(token, "FN", 2)) {
-			pushString(buf, "<FONT FACE=\"");
+			pushString(buf, "<font face=\"");
 			for (i = 2; i < strlen(token); i++)				
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
 			pushString(buf,"\">");
 		}
 
-		else if (!strncmp(token, "FR", 2)) {
-			pushString(buf, QString("<FONT COLOR=\"%1\">")
-				.arg(COptionsDialog::getBTColor(COptionsDialog::jesuswords).name()).utf8() );
-		}
+		else if (!strncmp(token, "FR", 2))
+			pushString(buf, QString("<font color=\"%1\">").arg(jesuswords_color).utf8());
 
 		else if (!strncmp(token, "CA", 2)) {	// ASCII value
 			*(*buf)++ = (char)atoi(&token[2]);
