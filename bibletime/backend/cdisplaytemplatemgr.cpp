@@ -110,7 +110,7 @@ span.currentverse, span.currententry {\
 	vertical-align:top;\
 	font-size:50%;\
 	color:gray;\
-
+\
 }\
 .morphcode {\
 	vertical-align:top;\
