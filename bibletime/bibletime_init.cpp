@@ -21,12 +21,13 @@
 
 #include "backend/cswordbackend.h"
 
+#include "frontend/mainindex/cmainindex.h"
 #include "frontend/chtmldialog.h"
 #include "frontend/cprofilemgr.h"
 #include "frontend/cprofile.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/kstartuplogo.h"
-#include "frontend/mainindex/cmainindex.h"
+#include "frontend/chelpmgr.h"
 
 #include "printing/cprinter.h"
 
@@ -100,8 +101,8 @@ void BibleTime::initActions() {
 	m_filePrint_action->plugAccel( m_keyAccel );	
 	
 	action = KStdAction::quit(this, SLOT( slotFileQuit() ), actionCollection());
-	action->setToolTip( TT_FILE_QUIT );	
-	action->setWhatsThis( WT_FILE_QUIT );
+	action->setToolTip( CHelpMgr::mainMenu::file::quit::tooltip );	
+	action->setWhatsThis( CHelpMgr::mainMenu::file::quit::whatsthis );
 	action->plugAccel( m_keyAccel );
 												
 //	action =  new KAction(i18n("Reset main index"), ICON_MAININDEX_RESET, IDK_GM_RESET,

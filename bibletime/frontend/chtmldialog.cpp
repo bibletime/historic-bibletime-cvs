@@ -64,7 +64,7 @@ void CHTMLDialog::setText(const QString& text){
 void CHTMLDialog::init(const bool enableHistory){
   QVBox* page = makeVBoxMainWidget();
 	m_htmlPart = new KHTMLPart(page);
-  m_htmlPart->view()->setHScrollBarMode(QScrollView::AlwaysOff);
+//  m_htmlPart->view()->setHScrollBarMode(QScrollView::AlwaysOff);
   connect(m_htmlPart->browserExtension(), SIGNAL(openURLRequest(const KURL&, const KParts::URLArgs&)),
     SLOT(openURL( const KURL&, const KParts::URLArgs&)));
 

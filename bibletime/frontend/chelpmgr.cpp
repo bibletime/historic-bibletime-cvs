@@ -17,17 +17,3 @@
 
 //BibleTime includes
 #include "chelpmgr.h"
-
-//Qt includes
-
-
-//KDE includes
-#include <klocale.h>
-
-//const QString tooltip( /* const CHelpMgr::GuiPart*/ ) {
-//
-//};
-//
-//const QString whatsthis( /*const CHelpMgr::GuiPart*/ ) {
-//
-//};
