@@ -66,10 +66,10 @@ public:
 	
 	CPrinter( QObject* parent );
 	virtual ~CPrinter();
-  const unsigned int& rightMargin() const;
-  const unsigned int& leftMargin()  const;
-  const unsigned int& upperMargin() const;
-  const unsigned int& lowerMargin() const;
+//  const unsigned int& rightMargin() const;
+//  const unsigned int& leftMargin()  const;
+//  const unsigned int& upperMargin() const;
+//  const unsigned int& lowerMargin() const;
   /**
   * Sets the vertical position of the printer's painter.
   */
@@ -85,7 +85,7 @@ public:
   /**
  	* Returns the margins of the pages.
  	*/
-  CPrinter::CPageMargin pageMargins();
+  const CPrinter::CPageMargin& pageMargins() const;
   /**
  	* Sets all the margins at one time.
  	*/
@@ -101,15 +101,15 @@ public:
   /**
  	* Sets the printing queue to queue.
  	*/
-  void setPrintQueue(PrintItemList& queue);
+  void setPrintQueue(ListCPrintItem& queue);
   /**
  	* Returns the print queue object.
  	*/
-  PrintItemList& printQueue();
+  ListCPrintItem& printQueue();
   /**
  	* Appends items to the printing queue.
  	*/
-  void appendItems( PrintItemList& items );
+  void appendItems( ListCPrintItem& items );
   /**
   * Appends the item o the queue.
   */
@@ -170,7 +170,7 @@ protected:
 private:
 	CPageMargin	m_pageMargin;
 	CPagePosition	m_pagePosition;
-	PrintItemList m_queue;
+	ListCPrintItem m_queue;
 	StyleItemList	m_styleList;
 	CStyle* m_standardStyle;
 	KConfig* m_config;

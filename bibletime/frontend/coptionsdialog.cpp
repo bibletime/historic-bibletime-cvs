@@ -162,6 +162,7 @@ const bool COptionsDialog::showPart(  COptionsDialog::Parts ID ){
 		default:
 			break;
 	}
+	return ret;
 }
 
 /** Initializes the startup section of the OD. */
@@ -206,7 +207,7 @@ void COptionsDialog::initFonts(){
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
 	
 
- 	layout->addWidget( CToolClass::explanationLabel(page, i18n("Choose fonts"), i18n("The fonts you can choose here are used in the display windows. Use drop-down box below to choose the area of application. Then select a font for it.<BR>Don't forget to choose the right charset, for example \"iso10646-1\" for unicode fonts!")) );
+ 	layout->addWidget( CToolClass::explanationLabel(page, i18n("Choose fonts"), i18n("The fonts you can choose here are used in the display windows. Use the drop-down box below to choose the area of application. Then select a font for it. Make sure the charset \"iso10646-1\" is available for the selected Unicode font.!")) );
   layout->addSpacing(5);
  					
  	m_settings.fonts.usage = new QComboBox(page);		
@@ -736,6 +737,7 @@ void COptionsDialog::saveFonts(){
  		if (it.key() == i18n("Standard"))
  			CBTConfig::set(CBTConfig::standard, it.data());
  		else if (it.key() == i18n("Unicode"))
+ 			it.data().setCharSet(QFont::Unicode);
  			CBTConfig::set(CBTConfig::unicode, it.data());
  	}
 }

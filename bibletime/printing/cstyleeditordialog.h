@@ -75,11 +75,11 @@ protected slots:
   /**
   * Sets up the states of the child widgets using the styl format given as parameter.
   */
-  void applySettingsToFormat( CStyleFormat* );  	
+  void applySettingsToFormat( CStyle::Format* );  	
   /**
   * Sets the properties of the cuzrrent format which are changed in the editor.
   */
-  void setupWithFormat( CStyleFormat* format);
+  void setupWithFormat( CStyle::Format* format);
   /**
   * Is called when the enablePart box was clicked.
   */
@@ -118,7 +118,7 @@ private:
   QLineEdit*	m_styleNameEdit;
   KComboBox*	m_styleTypeChooser;
 	CStyle*	m_style;
-	CStyleFormat* m_currentFormat;
+	CStyle::Format* m_currentFormat;
 	QCheckBox*	m_setEnabledBox;
 
 

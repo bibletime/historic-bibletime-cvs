@@ -1,5 +1,5 @@
 /***************************************************************************
-                          cprintitemlist.h  -  description
+                          cListCPrintItem.h  -  description
                              -------------------
     begin                : Sun Aug 20 2000
     copyright            : (C) 2000 by The BibleTime team
@@ -24,25 +24,22 @@
 
 #include "cprintitem.h"
 
-typedef QList<CPrintItem> printItemList;
-
-
 /**A KListView derived class which handles CPrintItem classes
   *@author The BibleTime team
   */
 class CPrintItemList : public KListView  {
    Q_OBJECT
-public: 
-	CPrintItemList(PrintItemList* items, QWidget *parent=0, const char *name=0);
+public:
+	CPrintItemList(ListCPrintItem* items, QWidget *parent=0, const char *name=0);
 	~CPrintItemList();
   /**
  	* Sets the tree to contain the items of the list. Other items will be removed.
  	*/
-  virtual void setItems( PrintItemList* itemList);
+  virtual void setItems( ListCPrintItem* itemList);
   /**
  	* Inserts the items of the list into the tree.
  	*/
-  virtual void insertItems( PrintItemList* itemList );
+  virtual void insertItems( ListCPrintItem* itemList );
   /**
  	* Initializes the view.
  	*/
@@ -71,6 +68,6 @@ public slots: // Public slots
   void newPage();
 
 private:
-	PrintItemList* m_items;		
+	ListCPrintItem* m_items;		
 };
 #endif

@@ -223,7 +223,7 @@ void CStyleEditorDialog::useFrameClicked(){
 }
 
 /** Sets up the states of the child widgets using the styl format given as parameter. */
-void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
+void CStyleEditorDialog::setupWithFormat( CStyle::Format* format){
 	qDebug("CStyleEditorDialog::setupWithFormat( CStyleFormat* format)");
 	if (!format)
 		return;	
@@ -243,13 +243,13 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
   m_styleNameEdit->setText( m_style->styleName());	
 	//setup alignement
 	switch(format->alignement()) {
-		case CStyleFormat::Left:
+		case CStyle::Format::Left:
 			m_alignRadios.leftRB->setChecked(true);
 			break;
-		case CStyleFormat::Center:
+		case CStyle::Format::Center:
 			m_alignRadios.centerRB->setChecked(true);
 			break;
-		case CStyleFormat::Right:
+		case CStyle::Format::Right:
 			m_alignRadios.rightRB->setChecked(true);
 			break;
 		default:
@@ -260,10 +260,10 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	m_setEnabledBox->setChecked(m_formatEnabled);
 	
 	//setup colors
-	m_colors.backgroundChooser->setColor( format->color( CStyleFormat::Background ) );
+	m_colors.backgroundChooser->setColor( format->color( CStyle::Format::Background ) );
 	m_colors.backgroundChooser->setEnabled(m_formatEnabled);		
 	
-	m_colors.foregroundChooser->setColor( format->color( CStyleFormat::Foreground ) );
+	m_colors.foregroundChooser->setColor( format->color( CStyle::Format::Foreground ) );
 	m_colors.foregroundChooser->setEnabled(m_formatEnabled);
 		
 	//setup fonts
@@ -271,7 +271,7 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	setupFontWidgets( m_font.font );
 	
 	//setup frame part
-	CStyleFormat::Frame* frame = format->frame();
+	CStyle::Format::Frame* frame = format->frame();
 	m_frame.useFrame->setChecked(frame);
 	m_frame.useFrame->setEnabled(m_formatEnabled);		
 	m_frame.groupbox->setEnabled(m_formatEnabled);		
@@ -316,32 +316,32 @@ void CStyleEditorDialog::styleTypeChanged( const QString& name ){
 }
 
 /** Sets the properties of the cuzrrent format which are changed in the editor. */
-void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
+void CStyleEditorDialog::applySettingsToFormat( CStyle::Format* format ){
 	if (!format)
 		return;
 	m_style->setStyleName(m_styleNameEdit->text());
 	
 	//apply alignement settings
 	if (m_alignRadios.buttongroup->selected() == m_alignRadios.leftRB ) {
-		format->setAlignement( CStyleFormat::Left);
+		format->setAlignement( CStyle::Format::Left);
 	}
 	else if (m_alignRadios.buttongroup->selected() == m_alignRadios.centerRB) {
-		format->setAlignement( CStyleFormat::Center );
+		format->setAlignement( CStyle::Format::Center );
 	}
 	else if (m_alignRadios.buttongroup->selected() == m_alignRadios.rightRB ) {
-		format->setAlignement( CStyleFormat::Right );
+		format->setAlignement( CStyle::Format::Right );
 	}
 	
 	//apply color settings
-	format->setColor( CStyleFormat::Background, m_colors.backgroundChooser->color() );
-	format->setColor( CStyleFormat::Foreground, m_colors.foregroundChooser->color() );
+	format->setColor( CStyle::Format::Background, m_colors.backgroundChooser->color() );
+	format->setColor( CStyle::Format::Foreground, m_colors.foregroundChooser->color() );
 	
 	//apply font settings
 	format->setFont( m_font.font );
 	
 	//apply frame settings
 	format->setFrameEnabled( m_frame.useFrame->isChecked() );	
-	if (CStyleFormat::Frame* frame = format->frame()){
+	if (CStyle::Format::Frame* frame = format->frame()){
 		frame->setColor( m_frame.colorChooser->color() );	
 		frame->setThickness( m_frame.lineThicknessChooser->value() );
 		

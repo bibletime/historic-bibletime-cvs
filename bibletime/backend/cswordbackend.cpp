@@ -177,25 +177,9 @@ void CSwordBackend::setOption( const CSwordBackend::FilterOptions type, const bo
 			break;
 	};
 	setGlobalOption(optionName(type).latin1(), value.c_str());
-	
-	//debug option values
-//	OptionsList options = getGlobalOptionValues("Footnotes");
-//	for (OptionsList::iterator it = options.begin(); it != options.end(); it++) {
-//		qWarning("%s", (*it).c_str());
-
-//        OptionsList globalOptions = getGlobalOptions();
-//        for (OptionsList::iterator it = globalOptions.begin(); it != globalOptions.end(); it++) {
-//                cout << *it << endl;
-//
-//                OptionsList values = getGlobalOptionValues((*it).c_str());
-//                for (OptionsList::iterator it2 = values.begin(); it2 != values.end(); it2++) {
-//                        cout << "\t"<< *it2 << endl;
-//                }
-//        }
 }
 
 void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptionsBool options){
-//  qWarning("CSwordBackend::setFilterOptions");
   setOption( footnotes, 					options.footnotes );
   setOption( strongNumbers, 			options.strongNumbers );
   setOption( headings, 						options.headings );
@@ -208,7 +192,6 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptionsBool opt
 }
 
 void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptionsBool options){
-  qWarning("CSwordBackend::setDisplayOptions");
   if (m_displays.entry)
 		m_displays.entry->setDisplayOptions(options);	
   if (m_displays.chapter)

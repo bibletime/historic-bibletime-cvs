@@ -29,13 +29,12 @@
 
 class CSwordKey;
 class CSwordModuleInfo;
-
 class CStyle;
-class CPrintItemList;
 class CPrinter;
-
 class CPrintItem;
-typedef QList<CPrintItem> PrintItemList;
+class CPrintItemList;
+
+typedef QList<CPrintItem> ListCPrintItem;
 
 /**
 	* The class which implements the printable items.

@@ -170,10 +170,10 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QFont font;
 	QColor fgColor;
 	QColor bgColor;
-	CStyleFormat* format = 0;
-	CStyleFormat::Frame* frame = 0;
+	CStyle::Format* format = 0;
+	CStyle::Format::Frame* frame = 0;
 	int frameThickness = 0;
-	CStyleFormat::Alignement alignement;	
+	CStyle::Format::Alignement alignement;	
 	CStyle::styleType type = CStyle::Unknown;
 	QString text;
 	
@@ -182,9 +182,9 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QBrush brush;
 
 	const bool isUnicode 	= (m_module && m_module->isUnicode());
-	const int leftMargin 	= printer->leftMargin();
+	const int leftMargin 	= printer->pageMargins().left;
 //	const int rightMargin = printer->rightMargin();
-	const int upperMargin = printer->upperMargin();
+	const int upperMargin = printer->pageMargins().top;
 //	const int lowerMargin = printer->lowerMargin();				
 	
 	const QRect pageSize =  printer->contentSize();
@@ -207,8 +207,8 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			continue;
 				
 		format 	= m_style->formatForType( type );
-		fgColor = format->color( CStyleFormat::Foreground );
-		bgColor = format->color( CStyleFormat::Background );
+		fgColor = format->color( CStyle::Format::Foreground );
+		bgColor = format->color( CStyle::Format::Background );
 		pen.setColor(fgColor);
 		font = format->font();
 		if (isUnicode) { //enable unicode
@@ -230,11 +230,11 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		cg.setColor(QColorGroup::Text, fgColor);
 				
 		arguments = Qt::WordBreak;		
-		if (alignement == CStyleFormat::Left)
+		if (alignement == CStyle::Format::Left)
 			arguments |= Qt::AlignLeft;
-		else if (alignement == CStyleFormat::Center)
+		else if (alignement == CStyle::Format::Center)
 			arguments |= Qt::AlignHCenter;
-		else if (alignement == CStyleFormat::Right)
+		else if (alignement == CStyle::Format::Right)
 			arguments |= Qt::AlignRight;
 				
 		if ((type == CStyle::Header || type == CStyle::Description) && !text.isEmpty()) {
@@ -304,9 +304,9 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			if (isUnicode)
 				font = CBTConfig::get( CBTConfig::unicode );
 
-			if (alignement == CStyleFormat::Center)		
+			if (alignement == CStyle::Format::Center)		
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);
-			else if (alignement == CStyleFormat::Right)		
+			else if (alignement == CStyle::Format::Right)		
 				text = QString::fromLatin1("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
     	QSimpleRichText richText(
     		text,

@@ -66,21 +66,21 @@ CPrinter::~CPrinter(){
 	delete m_config;
 }
 
-const unsigned int& CPrinter::rightMargin() const {
-	return m_pageMargin.right;
-}
-
-const unsigned int& CPrinter::leftMargin() const {
-	return m_pageMargin.left;
-}
-
-const unsigned int& CPrinter::upperMargin() const {
-	return m_pageMargin.top;
-}
-
-const unsigned int& CPrinter::lowerMargin() const {
-	return m_pageMargin.bottom;
-}
+//const unsigned int& CPrinter::rightMargin() const {
+//	return m_pageMargin.right;
+//}
+//
+//const unsigned int& CPrinter::leftMargin() const {
+//	return m_pageMargin.left;
+//}
+//
+//const unsigned int& CPrinter::upperMargin() const {
+//	return m_pageMargin.top;
+//}
+//
+//const unsigned int& CPrinter::lowerMargin() const {
+//	return m_pageMargin.bottom;
+//}
 
 /** Appends a new page where the next things will be painted. */
 const bool CPrinter::newPage(){
@@ -103,17 +103,14 @@ void CPrinter::setAllMargins( const CPageMargin margins ) {
 }
 
 /** Returns the margins of the pages. */
-CPrinter::CPageMargin CPrinter::pageMargins(){
+const CPrinter::CPageMargin& CPrinter::pageMargins() const {
 	return m_pageMargin;
 }
 
 /** Setups the printer using CPrinterDialog. */
 void CPrinter::setup( QWidget* parent ){
-	CPrintItemListPage* printItemPage = new CPrintItemListPage(this);
-	KPrinter::addDialogPage(printItemPage);
-
-	CStyleListPage* stylePage = new CStyleListPage(this);
-	KPrinter::addDialogPage(stylePage);
+	KPrinter::addDialogPage( new CPrintItemListPage(this) );
+	KPrinter::addDialogPage( new CStyleListPage(this) );
 
 	if ( KPrinter::setup(parent) ) {
 		saveSettings();
@@ -155,7 +152,7 @@ void CPrinter::print(){
 }
 
 /** Appends items to the printing queue. */
-void CPrinter::appendItems( PrintItemList& items ){
+void CPrinter::appendItems( ListCPrintItem& items ){
 	for(items.first(); items.current(); items.next()) {
 		items.current()->setStyle(m_standardStyle);
 		m_queue.append(items.current());
@@ -174,15 +171,13 @@ void CPrinter::clearQueue(){
 }
 
 /** Returns the print queue object. */
-PrintItemList& CPrinter::printQueue() {
+ListCPrintItem& CPrinter::printQueue() {
 	return m_queue;
 }
 
 /** Sets the printing queue to queue. */
-void CPrinter::setPrintQueue( PrintItemList& queue ){
-//	if (m_queue != queue) { //delete old queue
-		clearQueue();
-//	}
+void CPrinter::setPrintQueue( ListCPrintItem& queue ){
+	clearQueue();
 	m_queue = queue; //copy items
 }
 
@@ -222,7 +217,7 @@ void CPrinter::setupStyles(){
 			dummyStyle->setStyleName(*it);
 		
 
-		CStyleFormat* format[3] = {
+		CStyle::Format* format[3] = {
 			dummyStyle->formatForType( CStyle::Header ),
 		 	dummyStyle->formatForType( CStyle::Description ),
 		 	dummyStyle->formatForType( CStyle::ModuleText )
@@ -230,16 +225,16 @@ void CPrinter::setupStyles(){
 			
 		for (int index = 0; index < 3; index++) {
 			m_config->setGroup(QString("%1__%2").arg(*it).arg(names[index]));
-			format[index]->setColor( CStyleFormat::Foreground, m_config->readColorEntry("FGColor", &Qt::black) );
-			format[index]->setColor( CStyleFormat::Background, m_config->readColorEntry("BGColor", &Qt::white) );
+			format[index]->setColor( CStyle::Format::Foreground, m_config->readColorEntry("FGColor", &Qt::black) );
+			format[index]->setColor( CStyle::Format::Background, m_config->readColorEntry("BGColor", &Qt::white) );
  			format[index]->setFont( m_config->readFontEntry("Font") );
-			format[index]->setAlignement( (CStyleFormat::Alignement)m_config->readNumEntry("Alignement",CStyleFormat::Left));
+			format[index]->setAlignement( (CStyle::Format::Alignement)m_config->readNumEntry("Alignement",CStyle::Format::Left));
 			dummyStyle->setFormatTypeEnabled( formatTypes[index], m_config->readBoolEntry("isEnabled", true) );
 			const bool hasFrame = m_config->readBoolEntry("has frame", false );
 
 			format[index]->setFrameEnabled( hasFrame );						
-			if ( CStyleFormat::Frame* frame = format[index]->frame() ) {
-				m_config->setGroup(QString("%1__%2__FRAME").arg(*it).arg(names[index]));
+			if ( CStyle::Format::Frame* frame = format[index]->frame() ) {
+				m_config->setGroup(QString::fromLatin1("%1__%2__FRAME").arg(*it).arg(names[index]));
 				frame->setColor( m_config->readColorEntry("Color", &Qt::black) );
 				frame->setThickness( m_config->readNumEntry("Thickness", 1) );
 				frame->setLineStyle( (Qt::PenStyle)(m_config->readNumEntry("Line style", (int)Qt::SolidLine)) );
@@ -286,19 +281,19 @@ void CPrinter::saveStyles(){
 		for (short int index = 0; index < 3; index++) {
 			m_config->setGroup(QString("%1__%2").arg(current->styleName()).arg(names[index]));
 
-			CStyleFormat* format[3];
+			CStyle::Format* format[3];
 			format[0] = current->formatForType( CStyle::Header );
 			format[1] = current->formatForType( CStyle::Description );
 			format[2] = current->formatForType( CStyle::ModuleText );
 												
-			m_config->writeEntry( "FGColor", format[index]->color( CStyleFormat::Foreground ) );
-			m_config->writeEntry( "BGColor", format[index]->color( CStyleFormat::Background ) );
+			m_config->writeEntry( "FGColor", format[index]->color( CStyle::Format::Foreground ) );
+			m_config->writeEntry( "BGColor", format[index]->color( CStyle::Format::Background ) );
 			m_config->writeEntry( "Font", 	 format[index]->font() );
 			m_config->writeEntry( "isEnabled", 	current->hasFormatTypeEnabled( (index == 0) ? CStyle::Header : ( (index == 1) ? CStyle::Description : CStyle::ModuleText)) );
 			m_config->writeEntry( "Alignement", (int)(format[index]->alignement()) );
 			
 			//save frame settings
-			CStyleFormat::Frame* frame = format[index]->frame();			
+			CStyle::Format::Frame* frame = format[index]->frame();			
 			m_config->writeEntry( "has frame", frame );
 			if (frame) {	//save only if we have a frame
 				m_config->setGroup(QString::fromLatin1("%1__%2__FRAME").arg(m_styleList.current()->styleName()).arg(names[index]) );			

@@ -24,8 +24,7 @@
 //KDE includes
 #include <klocale.h>
 
-CPrintItemList::CPrintItemList( PrintItemList* items,  QWidget *parent, const char *name ) : KListView(parent,name) {
-	qDebug("Constructor of CPrinItemList");
+CPrintItemList::CPrintItemList( ListCPrintItem* items,  QWidget *parent, const char *name ) : KListView(parent,name) {
 	m_items = items;
 	initView();
 	
@@ -51,7 +50,7 @@ void CPrintItemList::initView(){
 }
 
 /** Inserts the items of the list into the tree. */
-void CPrintItemList::insertItems( PrintItemList* itemList ) {
+void CPrintItemList::insertItems( ListCPrintItem* itemList ) {
 //	qDebug("CPrintItemList::insertItems( printItemList* itemList )");
 	const bool sameList = (itemList == m_items);
 	for(itemList->last(); itemList->current(); itemList->prev() ) {
@@ -62,7 +61,7 @@ void CPrintItemList::insertItems( PrintItemList* itemList ) {
 }
 
 /** Sets the tree to contain the items of the list. Other items will be removed. */
-void CPrintItemList::setItems( PrintItemList* itemList ){
+void CPrintItemList::setItems( ListCPrintItem* itemList ){
 	for (m_items->first(); m_items->current(); m_items->next()) {
 		if (m_items->current())
 			m_items->current()->deleteListViewItem();

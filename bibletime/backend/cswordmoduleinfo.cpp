@@ -21,9 +21,7 @@
 #include "chtmlentrydisplay.h"
 #include "cswordmodulesearch.h"
 #include "cswordkey.h"
-
-#include "../util/scoped_resource.h"
-
+#include "util/scoped_resource.h"
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -176,13 +174,11 @@ const SWVersion CSwordModuleInfo::minimumSwordVersion(){
 /** Returns the name of the module. */
 const QString CSwordModuleInfo::name() const {
 	return m_dataCache.name;
-//	return QString::fromLatin1( module()->Name() );
 }
 
 /** Returns true if this module is Unicode encoded. False if the charset is iso8859-1. */
 const bool CSwordModuleInfo::isUnicode(){
 	return m_dataCache.isUnicode;
-//	return (module()->isUnicode());
 }
 
 const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entry) {

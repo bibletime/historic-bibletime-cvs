@@ -20,7 +20,7 @@
 
 //BibleTime includes
 #include "cswordbackend.h"
-#include "../frontend/cpointers.h"
+#include "frontend/cpointers.h"
 
 
 //Qt includes
