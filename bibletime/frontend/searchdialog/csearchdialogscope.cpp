@@ -60,7 +60,7 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
   noScope->setChecked(true);
 
   RangeChooser = new QComboBox(this);
-  RangeLabel = new QLabel(RangeChooser,  i18n("Choose cutsom range"),this);
+  RangeLabel = new QLabel(RangeChooser,  i18n("Choose custom range"),this);
 	QToolTip::add(RangeChooser, TT_SD_SCOPE_CHOOSER);
   QWhatsThis::add(RangeChooser, WT_SD_SCOPE_CHOOSER);
 

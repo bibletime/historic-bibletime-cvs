@@ -185,7 +185,7 @@ protected slots: // Protected slots
   */
   void slotReturnPressed( const QString& );
 	/**
-  * Is called when the current item of the combo boy was changed.
+  * Is called when the current item of the combo box was changed.
   */
   void slotComboChanged(int);
 

@@ -33,40 +33,40 @@
 #define WT_GM_DELETE_ITEMS WT(TT_GM_DELETE_ITEMS, i18n("Remove the selected items from the main index.<BR>If you remove a folder the subitems of it will be removed, too."))
 #define WT_GM_RESET	WT(TT_GM_RESET, i18n("Reset the main index<BR>All bookmarks and folders will be deleted and the default folders will be restored."))
 
-#define WT_VIEW_GROUPMANAGER WT(TT_VIEW_GROUPMANAGER, i18n("This will show or hide the main index depending on current state."))
-#define WT_VIEW_TOOLBAR WT(TT_VIEW_TOOLBAR, i18n("This will show or hide the main toolbar depending on current state."))
-#define WT_VIEW_FOOTNOTES WT(TT_VIEW_FOOTNOTES, i18n("This will show or hide the footnotes in the modules."))
-#define WT_VIEW_STRONGS WT(TT_VIEW_STRONGS, i18n("This will show or hide Strong's numbers in the modules."))
+#define WT_VIEW_GROUPMANAGER WT(TT_VIEW_GROUPMANAGER, i18n("Show or hide the main index depending on current state."))
+#define WT_VIEW_TOOLBAR WT(TT_VIEW_TOOLBAR, i18n("Show or hide the main toolbar depending on current state."))
+#define WT_VIEW_FOOTNOTES WT(TT_VIEW_FOOTNOTES, i18n("Show or hide the footnotes in the modules deoending on current state."))
+#define WT_VIEW_STRONGS WT(TT_VIEW_STRONGS, i18n("Show or hide Strong's numbers in the modules depending on current state."))
 
-#define WT_WINDOW_TILE WT(TT_WINDOW_TILE, i18n("This will arrange the opened display windows in a tile pattern."))
-#define WT_WINDOW_AUTO_TILE WT( TT_WINDOW_AUTO_TILE, i18n("If this is enabled the opened display windows will automatically be tiled."))
-#define WT_WINDOW_CASCADE WT( TT_WINDOW_CASCADE, i18n("This will arrange the opened display windows in a cascade pattern."))
-#define WT_WINDOW_AUTO_CASCADE WT( TT_WINDOW_AUTO_CASCADE, i18n("If this is enabled opened display windows will automatically cascaded."))
-#define WT_WINDOW_CLOSE_ALL WT( TT_WINDOW_CLOSE_ALL, i18n("This will close all display windows."))
+#define WT_WINDOW_TILE WT(TT_WINDOW_TILE, i18n("Arrange the opened display windows in a tile pattern."))
+#define WT_WINDOW_AUTO_TILE WT( TT_WINDOW_AUTO_TILE, i18n("The open display windows will automatically arranged in a tile pattern if it's necessary."))
+#define WT_WINDOW_CASCADE WT( TT_WINDOW_CASCADE, i18n("Arrange the open display windows in a cascade pattern."))
+#define WT_WINDOW_AUTO_CASCADE WT( TT_WINDOW_AUTO_CASCADE, i18n("The open display windows will automatically arranged in a cascade pattern if it's necessary."))
+#define WT_WINDOW_CLOSE_ALL WT( TT_WINDOW_CLOSE_ALL, i18n("Close all open display windows."))
 
-#define WT_SETTINGS_EDIT_TOOLBAR WT(TT_SETTINGS_EDIT_TOOLBAR, i18n("This will open a dialog where you can edit the toolbar of BibleTime."))
-#define WT_SETTINGS_OPTIONS WT(TT_SETTINGS_OPTIONS, i18n("This will open BibleTime's optionsdialog where you can set most of the preferences."))
+#define WT_SETTINGS_EDIT_TOOLBAR WT(TT_SETTINGS_EDIT_TOOLBAR, i18n("Open a dialog where you can edit the toolbar of BibleTime."))
+#define WT_SETTINGS_OPTIONS WT(TT_SETTINGS_OPTIONS, i18n("Open BibleTime's optionsdialog where you can set most of the preferences."))
 
-#define WT_HELP_CONTENT WT(TT_HELP_CONTENT, i18n("This will open KDE's helpbrowser with BibleTime's handbook."))
-#define WT_HELP_WHATSTHIS WT(TT_HELP_WHATSTHIS, i18n("This will switch into the <B>\"What's this?\"</B> mode."))
-#define WT_HELP_BUGREPORT WT(TT_HELP_BUGREPORT, i18n("This will send a bugreport to the developers of BibleTime!"))
-#define WT_HELP_ABOUT WT(TT_HELP_ABOUT, i18n("This will show about information about BibleTime."))
-#define WT_HELP_ABOUT_KDE WT(TT_HELP_ABOUT_KDE, i18n("This will show the general about dialog of KDE 2."))
+#define WT_HELP_CONTENT WT(TT_HELP_CONTENT, i18n("Open KDE's helpbrowser with BibleTime's handbook."))
+#define WT_HELP_WHATSTHIS WT(TT_HELP_WHATSTHIS, i18n("Switch into the <B>\"What's this?\"</B> mode.<BR>All important elements of BibleTime's GUI offer a \"What's this?\" help."))
+#define WT_HELP_BUGREPORT WT(TT_HELP_BUGREPORT, i18n("Send a bugreport to the developers of BibleTime!"))
+#define WT_HELP_ABOUT WT(TT_HELP_ABOUT, i18n("Show detailed information about BibleTime."))
+#define WT_HELP_ABOUT_KDE WT(TT_HELP_ABOUT_KDE, i18n("Show the general about dialog of KDE 2."))
 
 
 //QWhatsThis defines for the groupmanager
 #define WT_GM_WIDGET WT(TT_GM_WIDGET, i18n("This is the main index of BibleTime.<BR>Use it to manage the installed modules, to work with bookmarks, to open display windows etc.."))
 #define WT_GM_NEW_GROUP WT(TT_GM_NEW_GROUP, i18n("Create a new folder in the main index.<BR>If you pressed the right mouse button on a folder the new folder will be a sub-item of it.<BR>Otherwise you will create a toplevel folder."))
-#define WT_GM_CHANGE_GROUP WT(TT_GM_CHANGE_GROUP, i18n("This will change the properties of the selected folder."))
-#define WT_GM_CHANGE_BOOKMARK WT(TT_GM_CHANGE_BOOKMARK, i18n("This will change the properties of the selected bookmark."))
-#define WT_GM_IMPORT_BOOKMARKS WT(TT_GM_IMPORT_BOOKMARKS, i18n("This will import bookmark from a file."))
-#define WT_GM_EXPORT_BOOKMARKS WT(TT_GM_EXPORT_BOOKMARKS, i18n("This will export bookmarks to a file so you or other<BR>users can import them later."))
+#define WT_GM_CHANGE_GROUP WT(TT_GM_CHANGE_GROUP, i18n("Change the properties of the selected folder."))
+#define WT_GM_CHANGE_BOOKMARK WT(TT_GM_CHANGE_BOOKMARK, i18n("Change the properties of the selected bookmark."))
+#define WT_GM_IMPORT_BOOKMARKS WT(TT_GM_IMPORT_BOOKMARKS, i18n("Import bookmark from a file."))
+#define WT_GM_EXPORT_BOOKMARKS WT(TT_GM_EXPORT_BOOKMARKS, i18n("Export bookmarks to a file so you or other<BR>users can import them later."))
 #define WT_GM_PRINT_BOOKMARK WT(TT_GM_PRINT_BOOKMARK, i18n("Use this to add this bookmark to BibleTime's printing queue. The key, the description and the text of the key will be used for printing."))
-#define WT_GM_UNLOCK_MODULE WT(TT_GM_UNLOCK_MODULE, i18n("This will open a small dialog where you can unlock the selected module."))
+#define WT_GM_UNLOCK_MODULE WT(TT_GM_UNLOCK_MODULE, i18n("Open a small dialog where you can unlock the selected module."))
 #define WT_GM_ABOUT_MODULE WT(TT_GM_ABOUT_MODULE, i18n("Open a dialog to show information about the selected module."))
 
 //QWhatsThis defines for the presenters
-#define WT_MDI_AREA_WIDGET WT(TT_MDI_AREA_WIDGET, i18n("This part of BibleTime contains the display windows."))
+#define WT_MDI_AREA_WIDGET WT(TT_MDI_AREA_WIDGET, i18n("This area contains is the working place of Bibletime.<BR>All display windows are opened in this place."))
 
 #define WT_PRESENTER_BIBLE_WIDGET WT(TT_PRESENTER_BIBLE_WIDGET, i18n("This is the Bible display window"))
 #define WT_PRESENTER_COMMENTARY_WIDGET WT(TT_PRESENTER_COMMENTARY_WIDGET, i18n("This is the commentary display window."))
@@ -82,11 +82,11 @@
 #define WT_PRESENTER_CHAPTER_COMBO WT(TT_PRESENTER_CHAPTER_COMBO, i18n("This list contains the chapters available in the current book."))
 #define WT_PRESENTER_VERSE_COMBO WT(TT_PRESENTER_VERSE_COMBO, i18n("This list contains the verses available in the current chapter."))
 #define WT_PRESENTER_ENTRY_COMBO WT(TT_PRESENTER_ENTRY_COMBO, i18n("This list contains the entries of the current module."))
-#define WT_PRESENTER_SCROLL_BUTTON WT(TT_PRESENTER_SCROLL_BUTTON, i18n("This button is useful to scroll though the entries of the list. Press the button and move the mouse to increase or decrease the item."))
+#define WT_PRESENTER_SCROLL_BUTTON WT(TT_PRESENTER_SCROLL_BUTTON, i18n("This button is useful to scroll through the entries of the list. Press the button and move the mouse to increase or decrease the item."))
 #define WT_PRESENTER_EDIT WT(TT_PRESENTER_EDIT, i18n("Toggle between read-write and read-only mode of writebale modules."))
-#define WT_PRESENTER_EDIT_SAVE WT(TT_PRESENTER_EDIT_SAVE, i18n("This will save the personal comment to disk."))
-#define WT_PRESENTER_EDIT_DELETE WT(TT_PRESENTER_EDIT_DELETE, i18n("Clear the text and delete the entry from disk."))
-#define WT_PRESENTER_EDIT_SET_BOLD WT(TT_PRESENTER_EDIT_SET_BOLD, i18n("Switch between bold and non-italic formatting of the selected text."))
+#define WT_PRESENTER_EDIT_SAVE WT(TT_PRESENTER_EDIT_SAVE, i18n("Save the personal comment."))
+#define WT_PRESENTER_EDIT_DELETE WT(TT_PRESENTER_EDIT_DELETE, i18n("Clear the text and delete the entry from the module."))
+#define WT_PRESENTER_EDIT_SET_BOLD WT(TT_PRESENTER_EDIT_SET_BOLD, i18n("Switch between bold and non-bold formatting of the selected text."))
 #define WT_PRESENTER_EDIT_SET_ITALIC WT(TT_PRESENTER_EDIT_SET_ITALIC, i18n("Switch between italic and non-italic formatting of the selected text."))
 #define WT_PRESENTER_EDIT_SET_UNDERLINED WT(TT_PRESENTER_EDIT_SET_UNDERLINED, i18n("Switch between underlined and non-undelined formatting of the selected text."))
 #define WT_PRESENTER_EDIT_SET_FONT WT(TT_PRESENTER_EDIT_SET_FONT, i18n("Choose a new font for the selected text."))
@@ -101,13 +101,13 @@
 #define WT_HTML_COPY WT(TT_HTML_COPY, i18n("Copy the displayed text into the clipboard."))
 
 //searchdialog related #defines, SD means searchdialog
-#define WT_SD_MODULECHOOSER WT(TT_SD_MODULECHOOSER, i18n("Choose the modules which will be used for the search.<BR>Use the two button on the right side to add or delete them to/from the list of used modules."))
+#define WT_SD_MODULECHOOSER WT(TT_SD_MODULECHOOSER, i18n("Choose the modules which will be used for the search.<BR>Use the two button on the right side to add or delete the modules to/from the list of used ones."))
 #define WT_SD_MC_ADD_MODULE WT(TT_SD_MC_ADD_MODULE, i18n("Add the selected module to the list on the left."))
 #define WT_SD_MC_REMOVE_MODULE WT(TT_SD_MC_REMOVE_MODULE, i18n("Remove the selected module from the list on the left side."))
 #define WT_SD_MC_MODULELIST WT(TT_SD_MC_MODULELIST, i18n("The list of modules used for the search."))
 
 #define WT_SD_SEARCH_TEXT_EDIT WT(TT_SD_SEARCH_TEXT_EDIT, i18n("The text entered in this edit box will be searched in all modules."))
-#define WT_SD_SEARCH_MULTIPLE_WORDS WT(TT_SD_SEARCH_MULTIPLE_WORDS, i18n("Select this to search for multiple words.<BR>Each word in the edit line is seaeched as a single word."))
+#define WT_SD_SEARCH_MULTIPLE_WORDS WT(TT_SD_SEARCH_MULTIPLE_WORDS, i18n("Select this to search for multiple words.<BR>Each word in the edit line is searched as a single word."))
 #define WT_SD_SEARCH_EXACT_MATCH WT(TT_SD_SEARCH_EXACT_MATCH, i18n("Select this to search for exactly the same text you entered in the edit line."))
 #define WT_SD_SEARCH_REGEXP WT(TT_SD_SEARCH_REGEXP, i18n("Select this to search using standard GNU regular expressions.<BR>Read the handbook for a explanation how to use them."))
 #define WT_SD_SEARCH_CASE_SENSITIVE WT(TT_SD_SEARCH_CASE_SENSITIVE, i18n("Activate this to use case sensitive search."))
@@ -145,7 +145,7 @@
 
 //defines for the printing dialog; PI == Print Item; PD=Printer Dialog
 #define WT_PD_PRINT WT(TT_PD_PRINT, i18n("Start the printing process.<BR>The items of the list will be printed using the assigned styles."))
-#define WT_PD_PREVIEW WT(TT_PD_PREVIEW, i18n("This will print into a temporary file and open a postscript viewer to preview the printing result."))
+#define WT_PD_PREVIEW WT(TT_PD_PREVIEW, i18n("Print into a temporary file and open a postscript viewer to preview the printing result."))
 #define WT_PD_CANCEL WT(TT_PD_CANCEL, i18n("Closes this dialog without doing anything with the items or the printer."))
 #define WT_PD_HELP WT(TT_PD_HELP, i18n("Open the online help of BibleTime."))
 
@@ -159,7 +159,7 @@
 #define WT_PD_GENERAL_PAPER_TYPE WT(TT_PD_GENERAL_PAPER_TYPE, i18n("The type of the paper which is used for printing."))
 #define WT_PD_GENERAL_PAPER_SIZE WT(TT_PD_GENERAL_PAPER_SIZE, i18n("The size of the used paper."))
 
-#define WT_PD_ENTRIES_STYLE_COMBO WT(TT_PD_ENTRIES_STYLE_COMBO, i18n("This combo boy contains the available printing styles."))
+#define WT_PD_ENTRIES_STYLE_COMBO WT(TT_PD_ENTRIES_STYLE_COMBO, i18n("This combo box contains the available printing styles."))
 #define WT_PD_ENTRIES_PI_LIST WT(TT_PD_ENTRIES_PI_LIST, i18n("This is the list which contains the available print items."))
 #define WT_PD_ENTRIES_PI_MOVE_UP WT(TT_PD_ENTRIES_PI_MOVE_UP, i18n("Move the selected item one item above."))
 #define WT_PD_ENTRIES_PI_MOVE_DOWN WT(TT_PD_ENTRIES_PI_MOVE_DOWN, i18n("Move the selected item one item below."))

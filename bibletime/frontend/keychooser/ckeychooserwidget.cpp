@@ -223,7 +223,7 @@ void CKeyChooserWidget::slotReturnPressed( const QString& text){
 		emit changed(index);
 }
 
-/** Is called when the current item of the combo boy was changed. */
+/** Is called when the current item of the combo box was changed. */
 void CKeyChooserWidget::slotComboChanged(int index){
 	const QString key = ComboBox->text( index );
 	if (oldKey != key)

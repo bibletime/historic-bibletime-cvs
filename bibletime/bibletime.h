@@ -73,8 +73,16 @@ class QProgressDialog;
  	*	@page frontend The structure of the frontend
  	*	
  	*
- 	*	The frontend contains the classes used for the GUI, for examples the presenters,
- 	*	the groupmanager, the searchdialog, the mainwindow etc.
+ 	*	The frontend contains the classes which interact with the user. For example the main index,
+ 	* the display widnows, the searchdialog or the other parts.
+ 	* The main index is implemented in the class CGroupManager, the items of the main index are implemented in the class CGroupManagerItem.
+ 	* Each CGroupManagerItem has a type() function which returns the type of the object (Module, Bookmark or Group).<BR>
+ 	* The display windows are all derived from the base class CPresenter. The display windows which handle Sword modules are all derived from the CSwordPresenter class.
+ 	* The display windows which provide functionality are CBiblePresenter for Bibles, CCommentaryPresenter for commentaries and CLexiconPresenter for lexicon and dictionaries.
+ 	* CSwordPresenter provides the essential base functions which are reimplemented in the derived classes (for example CSwordPresenter::lookup).<BR>
+ 	* Another important part of the frontend are the keychoosers. They provide an interface to choose a key of a module. The interface for different module types is different.
+ 	* The base class is CKeyChooser which is the factory for the derived classes. Use the function CKeyChooser::createInstance to get the correct
+ 	* keychooser implementation for the desired module.<BR>
  	*/
 
 /** @mainpage BibleTime 1.0 - sourcecode documentation
