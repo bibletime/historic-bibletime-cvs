@@ -318,6 +318,10 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 						infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
 					}
 					
+					attr = currentNode.attributes().getNamedItem("expansion");
+					if (!attr.isNull()) {
+						infoList.append( qMakePair(CInfoDisplay::Abbreviation, attr.nodeValue().string()) );
+					}
 /*					attr = currentNode.attributes().getNamedItem("pos");
 					if (!attr.isNull()) {
 						//infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );

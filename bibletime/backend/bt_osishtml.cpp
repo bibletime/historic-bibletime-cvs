@@ -201,6 +201,12 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
   				myUserData->suspendTextPassThru = true;
           myUserData->noteType = BT_UserData::StrongsMarkup;
         }
+				else if (type == "alternative") {
+// 					qWarning("found alternative");
+// 						buf.append(" <span class=\"alternative\">");
+	          myUserData->noteType = BT_UserData::Alternative;
+						myUserData->suspendTextPassThru = true;
+				}
         else {	
 					buf.append(" <span class=\"footnote\" note=\"");
 					buf.append(myModule->Name());
@@ -220,6 +226,14 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           buf.append("</span> ");
 					myUserData->suspendTextPassThru = false;
         }
+				else if (myUserData->noteType == BT_UserData::Alternative) {
+// 				qWarning("found end of alternative");
+					buf.append(" <span class=\"alternative\" alternative=\"");
+					buf.append(myUserData->lastTextNode);
+					buf.append("\" ");
+					buf.appendFormatted("title=\"%s\"", (const char*)i18n("Alternative text").utf8());
+					buf.append(" />");
+				}
 
         myUserData->noteType = BT_UserData::Unknown;
 				myUserData->suspendTextPassThru = false;
@@ -396,6 +410,19 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				myUserData->quote.who = "";
 			}
 		}
+		// abbr tag
+		else if (!strcmp(tag.getName(), "abbr")) {
+			if (!tag.isEndTag() && !tag.isEmpty()) {
+				const SWBuf expansion = tag.getAttribute("expansion");
+				
+				buf.append("<span class=\"abbreviation\" expansion=\">");
+				buf.append(expansion);
+				buf.append("\">");
+			}
+			else if (tag.isEndTag()) {
+				buf.append("</span>");
+			}
+		}   
  		// <milestone> tag
 		else if (!strcmp(tag.getName(), "milestone")) {
 			const SWBuf type = tag.getAttribute("type");

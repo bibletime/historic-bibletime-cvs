@@ -27,6 +27,9 @@
 
 #include "util/scoped_resource.h"
 
+//Sword includes
+#include <listkey.h>
+
 //Qt includes
 #include <qlayout.h>
 #include <qlabel.h>
@@ -37,6 +40,7 @@
 
 
 using namespace Rendering;
+using namespace sword;
 
 CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
     : QWidget(parent, name)
@@ -93,6 +97,9 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 			case WordGloss:
 				//text.append( getWordTranslation( (*it).second ) );
 				continue;
+			case Abbreviation:
+				text.append( decodeAbbreviation( (*it).second ) );
+				continue;
 			default:
 				continue;
 		};
@@ -107,6 +114,20 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 }
 
 
+const QString CInfoDisplay::decodeAbbreviation( const QString& data ) {
+// 	QStringList strongs = QStringList::split("|", data);
+	QString ret;
+	QString text = data;
+				
+	ret.append( 
+		QString::fromLatin1("<div class=\"abbreviation\"><h3>%1: %2</h3><p>%3</p></div>")
+			.arg(i18n("Abbreviation"))
+			.arg("text")
+// 			.arg(*it)
+			.arg(text));
+			
+	return ret;
+}
 const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	if (data.isEmpty()) {
 		return QString::fromLatin1("<div class=\"crossrefinfo\"><h3>%1</h3></div>")
@@ -128,7 +149,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	CTextRendering::KeyTree tree;
 		
 	VerseKey vk;
-	ListKey refs = vk.ParseVerseList((const char*)data.utf8(), "Gen 1:1", true);
+	sword::ListKey refs = vk.ParseVerseList((const char*)data.utf8(), "Gen 1:1", true);
 	
 	for (int i = 0; i < refs.Count(); ++i) {
 		SWKey* key = refs.getElement(i);

@@ -44,6 +44,7 @@ protected:
 
     enum NoteTpe {
       Unknown,
+			Alternative,
       CrossReference,
       Footnote,
       StrongsMarkup

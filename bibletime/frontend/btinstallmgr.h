@@ -87,6 +87,8 @@ protected:
 	/* Reimplementations of method in StatusReporter */
   virtual void statusUpdate(double dltotal, double dlnow);
 	virtual void preStatus(long totalBytes, long completedBytes, const char *message);
+	
+	virtual FTPTransport *createFTPTransport(const char *host, StatusReporter *statusReporter);
 
   long m_totalBytes;
   long m_completedBytes;

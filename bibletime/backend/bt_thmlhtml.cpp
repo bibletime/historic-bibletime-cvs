@@ -50,8 +50,8 @@ BT_ThMLHTML::BT_ThMLHTML() {
   
 	addTokenSubstitute("/foreign", "</span>");
 	
-	deleteTokenSubstitute("note");
-	deleteTokenSubstitute("/note");
+	removeTokenSubstitute("note");
+	removeTokenSubstitute("/note");
 
 /*  if (tokenSubMap.find("note") != tokenSubMap.end()) { //remove note tag
 	  tokenSubMap.erase( tokenSubMap.find("note") );
@@ -235,7 +235,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				buf.append(myUserData->key->getShortText());
 				buf.append('/');
 				buf.append( QString::number(myUserData->swordFootnote++).latin1() );
-				buf.append("\">[*]</span> ");
+				buf.append("\">*</span> ");
 				
 				userData->suspendTextPassThru = true;
 			}

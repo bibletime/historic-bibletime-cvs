@@ -15,17 +15,22 @@
  *                                                                         *
  ***************************************************************************/
 
+ //BibleTime includes
 #include "btinstallmgr.h"
+#include "kio_ftptransport.h"
 #include "util/cpointers.h"
 
+//Qt includes
 #include <qfile.h>
 #include <qfileinfo.h>
 
+//KDE includes
 #include <kapplication.h>
 #include <kglobal.h>
 #include <kstandarddirs.h>
 #include <kprocess.h>
 
+//Sword includes
 #include <filemgr.h>
 #include <swconfig.h>
 #include <swbuf.h>
@@ -267,11 +272,12 @@ BTInstallMgr::~BTInstallMgr() {
 }
 
 void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
-	qWarning("total: %f; now: %f", dltotal, dlnow);
+// 	qWarning("total: %f of %f; now: %f of %f", dltotal, m_totalBytes, dlnow, m_totalBytes);
 	if (dlnow > dltotal)
 		dlnow = dltotal;
 		
-  int totalPercent = (int)((float)(dlnow + m_completedBytes+1) / (float)(m_totalBytes) * 100);
+//   int totalPercent = (int)((float)(dlnow + m_completedBytes+1) / (float)(m_totalBytes) * 100);
+	int totalPercent = (int)((float)(dlnow + m_completedBytes+1) / (float)(m_totalBytes) * 100);
 
 	if (totalPercent > 100) {
 		totalPercent = 100;
@@ -288,18 +294,26 @@ void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
 		filePercent = 0;
 	}
 
-  emit completed(totalPercent, filePercent);
-  KApplication::kApplication()->processEvents();
+//   emit completed(dlnow, 0.0);
+	emit completed(totalPercent, filePercent);
+//   KApplication::kApplication()->processEvents();
 }
 
 void BTInstallMgr::preStatus(long totalBytes, long completedBytes, const char* message) {
-  emit downloadStarted( "unkown filename" );
+	qWarning("pre Status: %i / %i", (int)totalBytes, (int)completedBytes);
+	emit downloadStarted( "unknown filename" );
 
-	qWarning("sword: %s", message);
+// 	qWarning("sword: %s", message);
 	m_completedBytes = completedBytes;
   m_totalBytes = (totalBytes > 0) ? totalBytes : 1; //avoid division by zero
 	
   KApplication::kApplication()->processEvents();
 }
 
+FTPTransport *BTInstallMgr::createFTPTransport(const char *host, StatusReporter *statusReporter) {
+	return new KIO_FTPTransport(host, statusReporter);
 }
+
+
+}
+

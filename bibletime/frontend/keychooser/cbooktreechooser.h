@@ -42,7 +42,7 @@ class CSwordKey;
 class CSwordBookModuleInfo;
 class CSwordTreeKey;
 
-class TreeKeyIdx;
+namespace sword { class TreeKeyIdx; }
 
 /** The keychooser implementeation for books.
   * @author The BibleTime team

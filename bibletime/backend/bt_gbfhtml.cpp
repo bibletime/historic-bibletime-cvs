@@ -40,11 +40,7 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 	setEscapeStringCaseSensitive(true);
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
   
-	deleteTokenSubstitute("Rf");
-	
-//   if (tokenSubMap.find("Rf") != tokenSubMap.end()) { //remove note tag
-// 	  tokenSubMap.erase( tokenSubMap.find("Rf") );
-//   }
+	removeTokenSubstitute("Rf");
 
 	addTokenSubstitute("FI", "<span class=\"italic\">"); // italics begin
 	addTokenSubstitute("Fi", "</span>");
@@ -252,7 +248,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 			buf.append(myUserData->key->getShortText());
 			buf.append('/');
 			buf.append( QString::number(myUserData->swordFootnote++).latin1() );
-			buf.append("\">[*]</span> ");
+			buf.append("\">*</span> ");
 			
 			userData->suspendTextPassThru = true;
 		}
