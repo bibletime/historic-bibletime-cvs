@@ -586,15 +586,13 @@ void CTreeFolder::init(){
 }
 
 void CTreeFolder::initTree(){
-  qWarning("CTreeMgr::initTree");
+//  qWarning("CTreeMgr::initTree");
   if (type() == Unknown)
     return;
 
   CSwordModuleInfo::ModuleType moduleType = CSwordModuleInfo::Unknown;
-  if (type() == BibleModuleFolder) {
-    qWarning("insert Bibles!");
+  if (type() == BibleModuleFolder)
     moduleType = CSwordModuleInfo::Bible;
-  }
   else if (type() == CommentaryModuleFolder)
     moduleType = CSwordModuleInfo::Commentary;
   else if (type() == LexiconModuleFolder || type() == GlossaryModuleFolder || type() == DevotionalModuleFolder)
@@ -1114,3 +1112,4 @@ const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
   }
   qWarning("finished loading bookmarks");
 }
+

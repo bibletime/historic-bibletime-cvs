@@ -138,11 +138,6 @@ public: // Public methods
   *  The displayoptions and filter options are used, too.
   */
   virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
-  /**
-  * Returns a preview for the given module and key.
-  * This is useful for the seatchdialog and perhaps the tooltips.
-  */
-//  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key,  const QString& headerText = QString::null,  CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults());
 
 protected:
   /**
@@ -163,22 +158,18 @@ public: // Public methods
   *  The displayoptions and filter options are used, too.
   */
   virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
-  /**
-  * Returns a preview for the given module and key.
-  * This is useful for the seatchdialog and perhaps the tooltips.
-  */
-//  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key,  const QString& headerText = QString::null,  CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults());
 
 protected:
   /**
   * Renders one entry using the given modules and the key.
   * This makes chapter rendering more easy.
   */
-  virtual const QString entryText( QPtrList<CSwordModuleInfo> modules, const QString& key, const int level = 0);
+  virtual const QString entryText( QPtrList<CSwordModuleInfo> modules, const QString& key, const int level = 0, const bool activekey = false);
   void printTree(CSwordTreeKey treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos = 0);
   virtual const QString finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName);
 
 private:
   QString m_text;
+  QString m_chosenKey;
 };
 #endif

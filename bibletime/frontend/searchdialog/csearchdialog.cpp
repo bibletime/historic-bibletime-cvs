@@ -24,12 +24,15 @@
 #include "backend/cswordkey.h"
 #include "backend/cswordversekey.h"
 
+#include "frontend/ctoolclass.h"
+
 //Qt includes
 #include <qhbox.h>
 #include <qptrlist.h>
 #include <qpainter.h>
 #include <qwhatsthis.h>
 #include <qlayout.h>
+#include <qmap.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -181,43 +184,141 @@ void CSearchDialog::reset(){
 /****************************/
 /****************************/
 
-CModuleChooser::ModuleCheckBoxItem::ModuleCheckBoxItem(CTreeFolder* item, CSwordModuleInfo* module) : CModuleItem(item, module) {
-
+CModuleChooser::ModuleCheckBoxItem::ModuleCheckBoxItem(QListViewItem* item, CSwordModuleInfo* module) : QCheckListItem(item, QString::null, QCheckListItem::CheckBox) {
+  m_module = module;
+  setText(0,m_module->name());
 };
 
 CModuleChooser::ModuleCheckBoxItem::~ModuleCheckBoxItem() {
 
 };
 
+/** Returns the used module. */
+CSwordModuleInfo* const CModuleChooser::ModuleCheckBoxItem::module() const{
+  return m_module;
+}
+
+
 /****************************/
 /****************************/
 /****************************/
 
-CModuleChooser::CModuleChooser(QWidget* parent) : CMainIndex(parent) {
-
+CModuleChooser::CModuleChooser(QWidget* parent) : KListView(parent) {
+  initView();
+  initTree();
 };
 
 CModuleChooser::~CModuleChooser() {
 
 };
 
-/** Reimplementation to add our special checkbox items to the list. */
-void CModuleChooser::addGroup(const CItemBase::Type type, const QString language){
-  if (type == CItemBase::Module) {
-//    CItemBase* i = new ModuleCheckBoxItem(this, );
-  }
-  else if (type == CItemBase::BookmarkFolder) {
+/** Initializes this widget and the childs of it.
+ */
+void CModuleChooser::initView(){
+  addColumn("Module Name");
+  setRootIsDecorated(true);
+//  header()->hide();
+//  setFullWidth(true);
+}
 
-  }
-  else
-    CMainIndex::addGroup(type, language);
+/** Initializes the tree of this widget. */
+void CModuleChooser::initTree(){
+  ListCSwordModuleInfo mods = backend()->moduleList();
+  /**
+  * The next steps:
+  * 1. Sort by type
+  * 2. Sort the modules of this type by their language
+  * 3. Create the subfolders for this
+  */
+
+  QMap<CSwordModuleInfo::ModuleType, QString> typenameMap;
+  typenameMap.insert(CSwordModuleInfo::Bible, i18n("Bibles"));
+  typenameMap.insert(CSwordModuleInfo::Commentary, i18n("Commentaries"));
+  typenameMap.insert(CSwordModuleInfo::Lexicon, i18n("Lexicons"));
+  typenameMap.insert(CSwordModuleInfo::GenericBook, i18n("Books"));
+
+  int type = CSwordModuleInfo::Bible;
+  while (static_cast<CSwordModuleInfo::ModuleType>(type) < CSwordModuleInfo::Unknown) {
+    ListCSwordModuleInfo modsForType;
+    for (mods.first(); mods.current(); mods.next()) {
+      if (mods.current()->type() == type) {
+        modsForType.append(mods.current());
+      };
+    };
+
+    //get the available languages of the selected modules
+    QStringList langs;
+    for (modsForType.first(); modsForType.current(); modsForType.next()) {
+      if ( !langs.contains(QString::fromLatin1( modsForType.current()->module()->Lang() ))) {
+        langs.append(QString::fromLatin1( modsForType.current()->module()->Lang() ));
+      }
+    };
+    langs.sort();
+
+    //go though the list of languages and create subfolders for each language and the modules of the language
+    QListViewItem* typeFolder = 0;
+//    if (type != CSwordModuleInfo::Lexicon) {
+//      if ()
+//    }
+//    else
+      typeFolder = new QListViewItem(this, typenameMap[ static_cast<CSwordModuleInfo::ModuleType>(type) ]);
+
+    for ( QStringList::Iterator it = langs.begin(); it != langs.end(); ++it ) {
+      QListViewItem* langFolder = new QListViewItem(typeFolder,(*it));
+      langFolder->setPixmap(0,GROUP_ICON_SMALL);
+      const QString currentLang = (*it);
+
+      //create the module items of this lang folder
+      for (modsForType.first(); modsForType.current(); modsForType.next()) {
+        if (QString::fromLatin1( modsForType.current()->module()->Lang() ) == currentLang) {
+          ModuleCheckBoxItem* i = new ModuleCheckBoxItem(langFolder, modsForType.current());
+          i->setPixmap(0, CToolClass::getIconForModule(modsForType.current()));
+        };
+      };
+//      langFolder->setOpen(true);
+    };
+    typeFolder->setPixmap(0,GROUP_ICON_SMALL);
+//    typeFolder->setOpen(false);
+
+
+    ++type; //the next module type
+  };
+}
+
+/** Returns a list of selected modules. */
+ListCSwordModuleInfo CModuleChooser::modules(){
+  ListCSwordModuleInfo mods;
+  QListViewItemIterator it( this );
+  for ( ; it.current(); ++it ) {
+    if ( ModuleCheckBoxItem* i = dynamic_cast<ModuleCheckBoxItem*>(it.current()) ) {
+      //add the module if the box is checked
+      if (i->isOn()) {
+        mods.append(i->module());
+      };
+    };
+  };
+
+  return mods;
+}
+
+/** Sets the list of modules and updates the state of the checkbox items. */
+void CModuleChooser::setModules( ListCSwordModuleInfo modules ){
+  qWarning("CModuleChooser::setModules( ListCSwordModuleInfo modules )");
+  QListViewItemIterator it( this );
+  for ( ; it.current(); ++it ) {
+    if ( ModuleCheckBoxItem* i = dynamic_cast<ModuleCheckBoxItem*>(it.current()) ) {
+      i->setOn(modules.contains(i->module()));
+    }
+  };
 }
 
 /****************************/
 
-CModuleChooserDialog::CModuleChooserDialog( QWidget* parentDialog, ListCSwordModuleInfo modules ) : KDialogBase(Plain, i18n("Choose modules ..."), Close, Close, parentDialog, "CModuleChooser", false, true) {
+CModuleChooserDialog::CModuleChooserDialog( QWidget* parentDialog, ListCSwordModuleInfo modules ) : KDialogBase(Plain, i18n("Choose modules ..."), Ok, Ok, parentDialog, "CModuleChooser", false, true) {
   initView();
   initConnections();
+
+  m_moduleChooser->setModules(modules);
 };
 
 CModuleChooserDialog::~CModuleChooserDialog() {
@@ -226,18 +327,25 @@ CModuleChooserDialog::~CModuleChooserDialog() {
 
 /** Initializes the view of this dialog */
 void CModuleChooserDialog::initView(){
+  setButtonOKText(i18n("Use chosen modules"));
+
   QFrame* page = plainPage();
   QHBoxLayout* layout = new QHBoxLayout(page);
-
   m_moduleChooser = new CModuleChooser(page);
-  m_moduleChooser->initTree();
-
+  m_moduleChooser->setMinimumSize(320,400);
   layout->addWidget(m_moduleChooser);
 }
 
 /** Initializes the connections of this dialog. */
 void CModuleChooserDialog::initConnections(){
 
+}
+
+/** Reimplementation to handle the modules. */
+void CModuleChooserDialog::slotOk(){
+  emit modulesChanged( m_moduleChooser->modules() );
+
+  KDialogBase::slotOk();
 }
 
 /****************************/

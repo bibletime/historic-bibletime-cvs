@@ -412,11 +412,11 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 	};
 	
 	if (moved <= 1) { //display entries together
-//		while(key->previousSibling()); //first entry of it's parent		
     key->parent();
     key->firstChild(); //go to the first sibling on the same level
 
 		m_text = QString::null;
+    m_chosenKey = keyName;
     printTree(*key, modules);	
 	}
 	else { //do not display entries together
@@ -428,7 +428,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
-const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const int level){
+const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const int level, const bool activeKey){
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
   util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
 
@@ -437,11 +437,11 @@ const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const
   return QString::fromLatin1("<TR><TD STYLE=\"padding-left: %1px;\"><SUP>%2</SUP> %3</TD></TR>")
     .arg(level*30)
     .arg(htmlReference(book, keyName, key->getLocalName(), !key->key().isEmpty() ? key->key() : "/" ))
-    .arg(key->renderedText());
+    .arg(activeKey ? QString::fromLatin1("<SPAN CLASS=\"highlighted\">%1</SPAN>").arg(key->renderedText()) : key->renderedText());
 }
 
 void CBookDisplay::printTree(CSwordTreeKey treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos){
-  m_text += entryText(modules, treeKey.getFullName(), levelPos);
+  m_text += entryText(modules, treeKey.getFullName(), levelPos, (m_chosenKey == treeKey.getFullName()));
 
   if (treeKey.hasChildren()) { //print tree for the child items
     treeKey.firstChild();

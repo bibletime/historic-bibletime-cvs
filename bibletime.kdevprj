@@ -22,7 +22,7 @@ cflags=
 cppflags=
 cxxflags=\s-O2 -Wall
 ldadd=-lpthread -lkfile -lkdeui -lkdecore -lqt -lXext -lX11
-ldflags=\s     \s
+ldflags=\s      \s
 libtool_dir=
 path_to_bin_program=bibletime
 

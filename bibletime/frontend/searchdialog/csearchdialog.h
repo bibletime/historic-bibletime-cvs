@@ -25,7 +25,7 @@
 #include "backend/cswordbackend.h"
 #include "backend/cswordmodulesearch.h"
 
-#include "frontend/mainindex/cmainindex.h"
+#include "frontend/cpointers.h"
 
 //Sword includes
 
@@ -121,21 +121,41 @@ protected slots: // Protected slots
   void interruptSearch();
 };
 
-class CModuleChooser : public CMainIndex {
+class CModuleChooser : public KListView, public CPointers {
   Q_OBJECT
 public:
-  class ModuleCheckBoxItem : virtual public CModuleItem {
+  class ModuleCheckBoxItem : virtual public QCheckListItem {
   public:
-    ModuleCheckBoxItem(CTreeFolder* item, CSwordModuleInfo* module);
+    ModuleCheckBoxItem(QListViewItem* item, CSwordModuleInfo* module);
     ~ModuleCheckBoxItem();
+    /**
+    * Returns the used module.
+    */
+    CSwordModuleInfo* const module() const;
+  private:
+    CSwordModuleInfo* m_module;
   };
 
   CModuleChooser(QWidget* parent);
   ~CModuleChooser();
   /**
-  * Reimplementation to add our special checkbox items to the list.
+  * Sets the list of modules and updates the state of the checkbox items.
   */
-  virtual void addGroup(const CItemBase::Type type, const QString language);
+  void setModules( ListCSwordModuleInfo modules );
+  /**
+  * Returns a list of selected modules.
+  */
+  ListCSwordModuleInfo modules();
+
+protected: // Protected methods
+  /**
+  * Initializes this widget and the childs of it.
+  */
+  void initView();
+  /**
+  * Initializes the tree of this widget.
+  */
+  void initTree();
 };
 
 class CModuleChooserDialog : public KDialogBase  {
@@ -156,6 +176,12 @@ protected: // Protected methods
   * Initializes the connections of this dialog.
   */
   void initConnections();
+
+protected slots: // Protected slots
+  /**
+  * Reimplementation to handle the modules.
+  */
+  virtual void slotOk();
 
 private:
   CModuleChooser* m_moduleChooser;

@@ -41,7 +41,7 @@ CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *
  //we use a layout because the key chooser should be resized to full size
  	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 
-	m_widget = new CKeyChooserWidget(/*m_modules.first()->entries()*/0, false, this);
+	m_widget = new CKeyChooserWidget(0, false, this);
 	m_widget->comboBox()->setMaximumWidth(300);	
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,TT_PRESENTER_NEXT_ENTRY, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_ENTRY);
 	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,WT_PRESENTER_NEXT_ENTRY, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_ENTRY);
@@ -97,16 +97,16 @@ void CLexiconKeyChooser::refreshContent(){
     for (m_modules.first(); m_modules.current(); m_modules.next()) {
       lexiconMap.insert(m_modules.current()->entries()->count(), m_modules.current(), false);
     }
-    for ( LexiconMap::Iterator lex_it = lexiconMap.begin(); lex_it != lexiconMap.end(); ++lex_it ) {
-      qWarning("%s has %i entries", lex_it.data()->name().latin1(), lex_it.key());
-    }
+//    for ( LexiconMap::Iterator lex_it = lexiconMap.begin(); lex_it != lexiconMap.end(); ++lex_it ) {
+//      qWarning("%s has %i entries", lex_it.data()->name().latin1(), lex_it.key());
+//    }
 
     CSwordLexiconModuleInfo* referenceModule = lexiconMap.begin().data();
     QStringList entries = QStringList(*(referenceModule->entries()));
 
-    qWarning("step 1");
+//    qWarning("step 1");
     if (lexiconMap.count() == 1) {
-      qWarning("ONLY one module!");
+//      qWarning("ONLY one module!");
       m_widget->reset(entries, 0, true);	
       return;
     };
@@ -140,6 +140,13 @@ void CLexiconKeyChooser::setModules( ListCSwordModuleInfo modules, const bool re
       m_modules.append(lexicon);
     }
   }
+//
+//  if (m_modules.first()) {
+//    const bool unicode = m_modules.first()->isUnicode() && m_widget;
+//    if (unicode)
+//      m_widget->comboBox()->setFont( CBTConfig::get(unicode ? CBTConfig::unicode : CBTConfig::standard));
+//  };
+
   if (refresh)
     refreshContent();
 }
