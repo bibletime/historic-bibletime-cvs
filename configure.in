@@ -169,6 +169,5 @@ bibletime/pics/lowcolor/22x22/Makefile \
 bibletime/pics/lowcolor/32x32/Makefile \
 bibletime/printing/Makefile \
 bibletime/xml/Makefile \
-po/Makefile \
 NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop \
 )
