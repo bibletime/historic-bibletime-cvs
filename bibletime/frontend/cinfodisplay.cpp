@@ -104,18 +104,29 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 
 
 const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
+	if (data.isEmpty()) {
+		return QString::fromLatin1("<div class=\"crossrefinfo\"><h3>%1</h3></div>")
+			.arg(i18n("Cross references"));
+	}
+
 	CSwordBackend::DisplayOptions dispOpts;
 	dispOpts.lineBreaks = true;
 	dispOpts.verseNumbers = true;
-		
-	CrossRefRendering renderer(dispOpts);
+	
+	CSwordBackend::FilterOptions filterOpts;
+	filterOpts.headings = false;
+	filterOpts.strongNumbers = false;
+	filterOpts.morphTags = false;
+	filterOpts.lemmas = false;
+	filterOpts.footnotes = false;
+			
+	CrossRefRendering renderer(dispOpts, filterOpts);
 	CTextRendering::KeyTree tree;
 		
 	VerseKey vk;
 	ListKey refs = vk.ParseVerseList((const char*)data.utf8(), "Gen 1:1", true);
 	for (int i = 0; i < refs.Count(); ++i) {
 		//TODO: check and render key ranges
-	
 		SWKey* key = refs.getElement(i);
 		Q_ASSERT(key);
 		
@@ -146,10 +157,6 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	const QString modulename = list[0];
 	const QString keyname = list[1];
 	const QString swordFootnote = list[2];
-	
-//	Q_ASSERT(!modulename.isEmpty());
-//	Q_ASSERT(!keyname.isEmpty());
-//	Q_ASSERT(!swordFootnote.isEmpty());
 
 	CSwordModuleInfo* module = CPointers::backend()->findModuleByName(modulename);
 	if (!module) {

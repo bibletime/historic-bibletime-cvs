@@ -83,9 +83,11 @@ ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 	ListCSwordModuleInfo modules;
 
 	for (KeyTreeItem* c = first(); c; c = next()) {
+		Q_ASSERT(c);
+		
 		ListCSwordModuleInfo childMods = c->modules();
 		
-		ListCSwordModuleInfo::const_iterator c_end = childMods.end();
+		const ListCSwordModuleInfo::const_iterator c_end = childMods.end();
 		for (ListCSwordModuleInfo::const_iterator c_it = childMods.constBegin(); c_it != c_end; ++c_it) {
 			if (!modules.contains(*c_it)) {
 				modules.append(*c_it);
@@ -93,17 +95,7 @@ ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 		}
 	}
 	 
-/*	for (KeyTree::const_iterator it = begin(); it != end(); ++it) {
-		ListCSwordModuleInfo childMods = (*it)->modules();
-		
-		ListCSwordModuleInfo::const_iterator c_end = childMods.end();
-		for (ListCSwordModuleInfo::const_iterator c_it = childMods.constBegin(); c_it != c_end; ++c_it) {
-			if (!modules.contains(*c_it)) {
-				modules.append(*c_it);
-			}
-		}
-	}*/
-	
+	qWarning("return fromc collectModules, count=%i", modules.count());
 	return modules;
 }
 
@@ -307,7 +299,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 }
 
 void CHTMLExportRendering::initRendering() {
-//  CPointers::backend()->setDisplayOptions( m_displayOptions );
+  CPointers::backend()->setDisplayOptions( m_displayOptions );
   CPointers::backend()->setFilterOptions( m_filterOptions );
 }
 

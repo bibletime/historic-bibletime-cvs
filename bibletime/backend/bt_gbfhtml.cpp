@@ -220,7 +220,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 			}
 			buf += "<span class=\"footnote\"> (";*/
 			
-			buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">.</span> ", 
+			buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">n</span> ", 
 				myModule->Name(),
 				myUserData->key->getShortText(),
 				QString::number(myUserData->swordFootnote++).latin1()

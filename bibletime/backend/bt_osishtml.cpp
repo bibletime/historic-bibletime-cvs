@@ -194,16 +194,15 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 							if ((val_it->first == "osisID") && (val_it->second == id)) {
 								foundNote = true;
 								refList = list_it->second["refList"];
-// 								qWarning("found %s", refList.c_str());
 							}							
 						}
 					}
 
-          buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">-", 	
+					buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">(",
 						refList.c_str()
 					);
           myUserData->noteType = BT_UserData::CrossReference;
-					myUserData->suspendTextPassThru = true;
+//					myUserData->suspendTextPassThru = true;
         }
         else if (type == "explanation") {
 //   				myUserData->suspendTextPassThru = true;
@@ -214,10 +213,11 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           myUserData->noteType = BT_UserData::StrongsMarkup;
         }
         else {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
-					buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">-</span> ", 
-					myModule->Name(),
-					myUserData->key->getShortText(),
-					tag.getAttribute("swordFootnote"));
+					buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">n</span> ", 
+						myModule->Name(),
+						myUserData->key->getShortText(),
+						tag.getAttribute("swordFootnote")
+					);
           myUserData->noteType = BT_UserData::Footnote;
 					
 					myUserData->suspendTextPassThru = true;
@@ -225,14 +225,10 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			}
 			if (tag.isEndTag()) {
         if (myUserData->noteType == BT_UserData::CrossReference) {
-          buf += "</span> ";
+          buf += ")</span> ";
 					myUserData->suspendTextPassThru = false;
         }
-/*        else if (myUserData->noteType == BT_UserData::Footnote) { //handle explanation value
-          //buf += ")</span> ";
-        }*/
         else if (myUserData->noteType == BT_UserData::Footnote) {
-          //buf += ")</span> ";
         }
 
         myUserData->noteType = BT_UserData::Unknown;

@@ -47,7 +47,6 @@
 #include <swkey.h>
 #include <listkey.h>
 
-
 CExportManager::CExportManager(const QString& caption, const bool showProgress, const QString& progressLabel, const CSwordBackend::FilterOptions filterOptions, const CSwordBackend::DisplayOptions displayOptions) {
   m_caption = !caption.isEmpty() ? caption : QString::fromLatin1("BibleTime");
   m_progressLabel = progressLabel;
@@ -269,8 +268,10 @@ const bool CExportManager::copyKeyList(QPtrList<CSwordKey>& list, const Format f
 // 			text += QString::fromLatin1("%1:%2\t%3\n").arg( k->key() ).arg(lineBreak(format)).arg( (format == HTML) ? k->renderedText() : k->strippedText() );
  			text += QString::fromLatin1("%1\t%3\n").arg( k->key() ).arg( (format == HTML) ? k->renderedText() : k->strippedText() );
 
- 		else
+ 		else {
  			text += k->key() + lineBreak(format);
+		}
+		
     incProgress();
   };
 
@@ -287,9 +288,10 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 	CPrinter::KeyTree tree;
 	
 	QString startKey, stopKey;
+  setProgressRange(list->Count());
 
 	(*list) = sword::TOP;
-	while (!list->Error()) {
+	while (!list->Error() && !progressWasCancelled()) {
 		sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(list);
 		if (vk) {
 			startKey = QString::fromUtf8((const char*)(vk->LowerBound()) );
@@ -302,19 +304,29 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 	  }
 		
 		(*list)++;
+		incProgress();
 	}
 
+  if (!progressWasCancelled()) {
+		printer()->printKeyTree(tree);
+ 		closeProgressDialog();
+ 		return true;
+ 	}
 	
-	printer()->printKeyTree(tree);
-	return true;
+	return false;
 };
 
 const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description ){
 	CPrinter::Item::Settings settings;
 	
 	CPrinter::KeyTree tree;
-	tree.append( new CPrinter::Item(startKey, stopKey, module, settings) );
-	
+ 	if (startKey != stopKey) {
+		tree.append( new CPrinter::Item(startKey, stopKey, module, settings) );
+ 	}
+ 	else {
+ 		tree.append( new CPrinter::Item(startKey, module, settings) );
+ 	}
+
 	printer()->printKeyTree(tree);
 	return true;
 }
@@ -331,7 +343,7 @@ const bool CExportManager::printKey( CSwordKey* key, const QString& description 
 
 /** Prints a key using the hyperlink created by CReferenceManager. */
 const bool CExportManager::printByHyperlink( const QString& hyperlink ){
-/* 	QString moduleName;
+ 	QString moduleName;
   QString keyName;
   CReferenceManager::Type type;
 
@@ -339,26 +351,39 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink ){
   if (moduleName.isEmpty()) {
   	moduleName = CReferenceManager::preferredModule(type);
 	}
-
- 	if (CSwordModuleInfo* module = backend()->findModuleByName(moduleName)) {
-    QString startKey = keyName;
-    QString stopKey = keyName;
-
+	
+	CPrinter::KeyTree tree;
+	CPrinter::KeyTreeItem::Settings settings;
+	
+	CSwordModuleInfo* module = backend()->findModuleByName(moduleName);	
+	Q_ASSERT(module);
+	
+ 	if (module) {
     //check if we have a range of entries or a single one
-    if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
-     sword:: ListKey verses =sword:: VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
+    if ((module->type() == CSwordModuleInfo::Bible) || (module->type() == CSwordModuleInfo::Commentary)) {
+			sword::ListKey verses = sword::VerseKey().ParseVerseList((const char*)keyName.utf8(), "Genesis 1:1", true);
+			
     	for (int i = 0; i < verses.Count(); ++i) {
-    		sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
-    		if (element)
-        	CExportManager::printKey(module,QString::fromUtf8((const char*)element->LowerBound()), QString::fromUtf8((const char*)element->UpperBound()) );
-    		else
-					CExportManager::printKey(module,(const char*)*verses.GetElement(i),(const char*)*verses.GetElement(i));
+				sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
+    		if (element) {
+					const QString startKey = QString::fromUtf8(element->LowerBound().getText());
+					const QString stopKey =  QString::fromUtf8(element->UpperBound().getText());
+					
+					tree.append( new CPrinter::Item(startKey, stopKey, module, settings) );
+				}
+    		else if (verses.GetElement(i)){
+					const QString key =  QString::fromUtf8(verses.GetElement(i)->getText());
+					
+					tree.append( new CPrinter::Item(key, module, settings) );
+				}
     	}
 		}
   	else {
-			CExportManager::printKey(module,keyName,keyName);
+			tree.append( new CPrinter::Item(keyName, module, settings) );
     }
-	}*/
+	}
+		
+	printer()->printKeyTree(tree);	
   return true;
 }
 
@@ -366,14 +391,23 @@ const bool CExportManager::printKeyList(const QStringList& list,CSwordModuleInfo
 	CPrinter::Item::Settings settings;	
 	CPrinter::KeyTree tree;
 		
-	QStringList::const_iterator end = list.constEnd();
+  setProgressRange(list.count());
+
+	const QStringList::const_iterator end = list.constEnd();
 	
-	for (QStringList::const_iterator it = list.constBegin(); it != end; ++it) {
+	for (QStringList::const_iterator it = list.constBegin(); (it != end) && !progressWasCancelled(); ++it) {
 		tree.append( new CPrinter::Item(*it, module, settings) );
+    
+		incProgress();
 	}
 	
-	printer()->printKeyTree(tree);	
-	return true;
+  if (!progressWasCancelled()) {
+		printer()->printKeyTree(tree);	
+ 		closeProgressDialog();
+ 		return true;
+ 	}
+
+	return false;
 }
 
 /** Returns the string for the filedialogs to show the correct files. */
@@ -396,7 +430,7 @@ const QString CExportManager::getSaveFileName(const Format format){
 /** Returns a string containing the linebreak for the current format. */
 const QString CExportManager::lineBreak(const Format format){
   if (static_cast<bool>(m_displayOptions.lineBreaks))
-    return (format == HTML) ? QString::fromLatin1("<BR>\n") : QString::fromLatin1("\n");
+    return (format == HTML) ? QString::fromLatin1("<br/>\n") : QString::fromLatin1("\n");
   else
     return QString::null;
 }
@@ -408,7 +442,7 @@ void CExportManager::setProgressRange( const int items ){
     dlg->setProgress(0);
   	dlg->setMinimumDuration(0);
     dlg->show();
-    dlg->repaint();
+//     dlg->repaint();
   	KApplication::kApplication()->processEvents(); //do not lock the GUI!    
   }
 }
@@ -428,10 +462,10 @@ QProgressDialog* const CExportManager::progressDialog(){
 /** Increments the progress by one item. */
 void CExportManager::incProgress(){
   if (QProgressDialog* dlg = progressDialog()) {
-    KApplication::kApplication()->processEvents(); //do not lock the GUI!
+//     KApplication::kApplication()->processEvents(10); //do not lock the GUI!
     dlg->setProgress( dlg->progress() + 1 );
-    dlg->repaint();
-    KApplication::kApplication()->processEvents(); //do not lock the GUI!
+    //dlg->repaint();
+//     KApplication::kApplication()->processEvents(10); //do not lock the GUI!
   }
 }
 
@@ -446,7 +480,7 @@ const bool CExportManager::progressWasCancelled(){
 /** Closes the progress dialog immediatly. */
 void CExportManager::closeProgressDialog(){
   if (QProgressDialog* dlg = progressDialog()) {
-    dlg->repaint();
+//     dlg->repaint();
     dlg->close();
     dlg->reset();
   }

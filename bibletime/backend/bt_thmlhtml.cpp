@@ -196,7 +196,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				//SWBuf footnoteNumber = tag.getAttribute("swordFootnote");
 				//buf += "<span class=\"footnote\">(";
 				
-				buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">.</span> ", 
+				buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">n</span> ", 
 					myModule->Name(),
 					myUserData->key->getShortText(),
 					QString::number(myUserData->swordFootnote++).latin1()
@@ -214,12 +214,13 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       if (tag.isEndTag()) {
        	if (myUserData->inscriptRef) { // like  "<scripRef passage="John 3:16">See John 3:16</scripRef>"
   				myUserData->inscriptRef = false;
-//  				buf += thmlRefEnd().c_str();
+					buf.append("</span>");
   				myUserData->suspendTextPassThru = false;
   			}
   			else { // like "<scripRef>John 3:16</scripRef>"
 //   			  buf += parseSimpleRef( myUserData->lastTextNode, myModule ? myModule->Lang() : "en" ).c_str();
-          buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">-</span>", 	
+          buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">%s</span>", 	
+						myUserData->lastTextNode.c_str(),
 						myUserData->lastTextNode.c_str()
 					);
 
@@ -229,15 +230,15 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
         myUserData->inscriptRef = true;
       //  buf += parseThMLRef(tag.getAttribute("passage"), tag.getAttribute("version")).c_str();
-         buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">-</span>", 	
+         buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">", 	
 						tag.getAttribute("passage")
 				);
- 				myUserData->suspendTextPassThru = true;
+ 				//myUserData->suspendTextPassThru = true;
       }
       else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 	  		myUserData->inscriptRef = false;
   			// let's stop text from going to output
-		  	userData->suspendTextPassThru = true;
+		  	//userData->suspendTextPassThru = true;
       }
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "div")) {                                      
