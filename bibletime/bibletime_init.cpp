@@ -165,23 +165,23 @@ void BibleTime::initActions() {
 	m_windowCloseAll_action->setWhatsThis( WT_WINDOW_CLOSE_ALL );
 	m_windowCloseAll_action->plugAccel( m_keyAccel );	
 	
-	m_windowSaveProfile_action = new KActionMenu(i18n("Save profile"), actionCollection(),"windowSaveProfile_action");
+	m_windowSaveProfile_action = new KActionMenu(i18n("&Save profile"), ICON_WINDOW_SAVE_PROFILE, actionCollection(),"windowSaveProfile_action");
 	m_windowSaveProfile_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
 	m_windowSaveProfile_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
 	m_windowSaveProfile_action->plugAccel( m_keyAccel );	
 
-	m_windowLoadProfile_action = new KActionMenu(i18n("Load profile"), actionCollection(),"windowLoadProfile_action");
+	m_windowLoadProfile_action = new KActionMenu(i18n("&Load profile"), ICON_WINDOW_SAVE_PROFILE, actionCollection(),"windowLoadProfile_action");
 	m_windowLoadProfile_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
 	m_windowLoadProfile_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
 	m_windowLoadProfile_action->plugAccel( m_keyAccel );
 
-	m_windowEditProfiles_action = new KAction(i18n("Configure profiles"), ICON_WINDOW_EDIT_PROFILES,
+	m_windowEditProfiles_action = new KAction(i18n("&Configure profiles"), ICON_WINDOW_EDIT_PROFILES,
 																IDK_WINDOW_EDIT_PROFILES, this, SLOT(editProfiles()), actionCollection(),"windowEditProfiles_action");
 	m_windowEditProfiles_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
 	m_windowEditProfiles_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
 	m_windowEditProfiles_action->plugAccel( m_keyAccel );	
 
-	m_windowFullscreen_action = new KToggleAction(i18n("Fullscreen mode"), ICON_WINDOW_FULLSCREEN,
+	m_windowFullscreen_action = new KToggleAction(i18n("&Fullscreen mode"), ICON_WINDOW_FULLSCREEN,
 																IDK_WINDOW_FULLSCREEN, this, SLOT(toggleFullscreen()), actionCollection(),"windowFullscreen_action");
 	m_windowFullscreen_action->setToolTip( TT_WINDOW_FULLSCREEN );	
 	m_windowFullscreen_action->setWhatsThis( WT_WINDOW_FULLSCREEN );
@@ -224,7 +224,8 @@ void BibleTime::initActions() {
 	
 	action = KStdAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());	
 	action->setToolTip(TT_HELP_BUGREPORT);
-	action->setWhatsThis(WT_HELP_BUGREPORT);	
+	action->setWhatsThis(WT_HELP_BUGREPORT);
+	action->setIcon(ICON_BUG_REPORT);
 	
 	action = new KAction(i18n("&Daily tip"), ICON_HELP_DAILY_TIP, IDK_HELP_DAILY_TIP, this,
 		SLOT(slotHelpTipOfDay()), actionCollection(), "helpDailyTip_action");

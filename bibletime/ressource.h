@@ -204,6 +204,7 @@
 
 #define ICON_HELP_DAILY_TIP "idea"
 #define ICON_HELP_CONTENTS "contents"
+#define ICON_BUG_REPORT "configure"
 
 #define ICON_SYNC	"bt_sync"
 
