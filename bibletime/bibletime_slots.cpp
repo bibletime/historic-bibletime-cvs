@@ -70,12 +70,6 @@
 //Sword includes
 #include <versekey.h>
 
-/** Closes the current apploication window */
-void BibleTime::slotFileQuit(){
-	saveSettings();		
-	KApplication::kApplication()->quit();
-}
-
 /** Opens the optionsdialog of BibleTime. */
 void BibleTime::slotSettingsOptions(){
 	COptionsDialog *dlg = new COptionsDialog(this, "COptionsDialog", m_keyAccel);
@@ -107,11 +101,7 @@ void BibleTime::slotSettingsChanged(){
 void BibleTime::slotHelpTipOfDay(){
 	KTipDialog::setShowOnStart( CBTConfig::get(CBTConfig::tips) );
 	KTipDialog::showTip(this, "bibletime/tips", true);	
-//	CTipWindow* tipDlg = new CTipWindow();
-//	tipDlg->exec();
-//	delete tipDlg;	
 }
-
 
 /** Is called just before the window menu is ahown. */
 void BibleTime::slotWindowMenuAboutToShow(){

@@ -248,7 +248,11 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
     bibletime->processCommandline();
  
     const int ret = app.exec();
-    delete bibletime;
+
+    /* Don't delete the bibletime object, it's done through the scoped_ptr object!
+    */
+    //delete bibletime;
+
     CPointers::deleteBackend();
     //we can set this safely now because we close now (hopyfully without crash)
     CBTConfig::set(CBTConfig::crashedLastTime, false);

@@ -47,6 +47,7 @@
 
 //KDE includes
 #include <kaboutdata.h>
+#include <kapplication.h>
 #include <kconfigbase.h>
 #include <ktoolbar.h>
 #include <kiconloader.h>
@@ -109,7 +110,7 @@ void BibleTime::initActions() {
 //	if ( KAction* oldAction = actionCollection()->action( KStdAction::stdName( KStdAction::Quit ) ) ) {	 //delete quit action if KDE created it
 //		actionCollection()->remove( oldAction );
 //  }
-  action = KStdAction::quit(this, SLOT( slotFileQuit() ), actionCollection());
+  action = KStdAction::quit(kapp, SLOT( quit() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::file::quit::tooltip );
 	action->setWhatsThis( CResMgr::mainMenu::file::quit::whatsthis );
 	action->plugAccel( m_keyAccel );

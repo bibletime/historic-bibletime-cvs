@@ -93,7 +93,7 @@ BibleTime::BibleTime()
 }
 
 BibleTime::~BibleTime() {
-  saveSettings();
+//  saveSettings();
 }
 
 /** Saves the properties of BibleTime to the application wide configfile  */
@@ -224,7 +224,7 @@ bool BibleTime::queryExit(){
 
 /** Called before a window is closed */
 bool BibleTime::queryClose(){
-	bool ret = true;
+  bool ret = true;
 	for ( unsigned int index = 0; index < m_mdi->windowList().count(); ++index) {
 		if (CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index))) {
    		ret = ret && window->queryClose();

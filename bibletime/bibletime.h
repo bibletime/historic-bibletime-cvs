@@ -217,10 +217,6 @@ protected: // Protected methods
 
 protected slots:
 	/**
- 	* Quit BibleTime
- 	*/
-	void slotFileQuit();
-	/**
  	* Creates a new presenter in the MDI area according to the type of the module.
  	*/
 	CDisplayWindow* createReadDisplayWindow(ListCSwordModuleInfo, const QString&);

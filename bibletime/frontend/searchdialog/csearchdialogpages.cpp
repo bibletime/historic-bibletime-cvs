@@ -797,6 +797,7 @@ void CSearchOptionsPage::readSettings(){
 
 	list = CBTConfig::get(CBTConfig::searchTexts);
 	m_searchTextCombo->setHistoryItems( list );
+//  m_searchTextCombo->insertItems( list );
 }
 
 void CSearchOptionsPage::aboutToShow(){
