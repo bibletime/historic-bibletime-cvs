@@ -237,16 +237,16 @@ private:
 	*/	
   bool readGroups(KConfig* configFile, CGroupManagerItem* group);
 
- 	KConfig* config;
-  KPopupMenu* popupMenu;
+ 	KConfig* m_config;
+  KPopupMenu* m_popupMenu;
 	bool m_menu;
   QPoint m_pressedPos;
-  QRect	oldDragRect;
+  QRect	m_oldDragRect;
   CImportantClasses* m_important;
   CGroupManagerItem* m_parentItemDrop;
   CGroupManagerItem* m_afterItemDrop;
   QString m_dragType;	
-	CSearchDialog* searchDialog;
+	CSearchDialog* m_searchDialog;
 	ToolTip* m_toolTip;	
 	CGroupManagerItem*	m_pressedItem;
   QList<CGroupManagerItem>*	m_itemList;	

@@ -160,36 +160,40 @@ Text in die Zwischenablage kopieren und in die Eingabezeile einfügen.
 </para></tip>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_input_case"><title>Using the Search Text Case Sensitive Button</title>
-<para>Click on the <guibutton>Case Sensitive</guibutton> check
-box to toggle case sensitivity on or off. If the box is marked a
-search will only find verse in which the found text matches also
-the case of the text in the input field. If the box is unmarked
-the search will match if the texts match but are different in
-case. To locate &quot;LORD&quot; but not &quot;Lord&quot; or
-&quot;lord&quot; mark the check box. To let &quot;LORD&quot; and
-&quot;Lord&quot; match &quot;lord&quot; leave the check box
-unmarked.</para>
+<section ID="hdbk_op_search_dialog_text_input_case"><title>Benutzung des Knopfes für GROß/klein Unterscheidung</title>
+<para>Klicken Sie auf die Auswahlbox <guibutton>GROß/klein</guibutton>
+um die Unterscheidung zwischen GROß und klein an oder abzuschalten.
+Wenn die Box ausgewählt ist, werden nur die Verse gefunden, in denen der gefundene Text den Text der Eingabezeile enthält.
+Wenn die Box nicht ausgewählt wurde, wird die Suche etwas finden wenn der Text ohne Beachtung von Groß- oder Kleinschreibung stimmt.
+Um &quot;HERR&quot; aber nicht um &quot;Herr&quot; oder
+&quot;herr&quot; zu finden wählen Sie die Box aus.
+Um &quot;HERR&quot;, &quot;Herr&quot; und &quot;herr&quot; zu finden lassen Sie die Box unausgewählt.
+</para>
 </section>
 
 
-<section ID="hdbk_op_search_dialog_text_input_multi"><title>Using the Search Text Mult Word Button</title>
-<para>If <guibutton>Mult Word</guibutton> is marked the search will locate all lines (or
-verses) that have all the words, (or partials), listed in the
-Input Field. The position and order of the words, (or partials),
-in the line is not a factor. If all the words, (or partials), are
-in a line, in any order, even separated by other words, the line
-will be included in the list of found line. A search for
-&quot;prove cause&quot; will find Gen. 21:25, &quot;And Abraham
-re<emphasis>prove</emphasis>d Abimelech be
-<emphasis>cause</emphasis> of a well of
-water...&quot; This is because a word that is part of another
-word is considered found if a word containing it is found.</para>
+<section ID="hdbk_op_search_dialog_text_input_multi"><title>Benutzung der"Mehrere Wörter" Auswahlbox</title>
+<para>Wenn der <guibutton>Mehrere Wörter</guibutton> Knopf ausgewählt ist wird die Suche alle Zeilen (oder Verse)
+finden, die alle Wörter (oder Teile), die in der Eingabezeile stehen, enthalten.
+Die Position und Reihenfolge der Wörter in der Zeile ist nicht von Bedeutung.
+Wenn alle (egal in welcher Reihenfolge) Wörter im Text vorkommen wird der Text in der Liste der gefundenen Einträge aufgelistet werden.
+Die Wörter dürfen sogar durch andere getrennt werden.
+Eine Suche nach &quot;Brunnen&quot; und &quot;Knecht;&quot; wird 1. Mose 21,25 finden,
+&quot;
+Und Abraham setzte Abimelech zur Rede um
+des Wasser<emphasis>brunnen</emphasis>s willen, den Abimelechs <emphasis>Knecht</emphasis>e hatten mit Gewalt genommen.&quot;
+&quot;
+Dies ist deshalb so, da ein Wort, welches Teil eines anderen ist, als gefunden gilt wenn es in einem anderen Wort anthalten ist.
+</para>
 </section>
 
 
-<section ID="hdbk_op_search_dialog_text_input_phrase"><title>Using the Phrase Button</title>
-<para>If <guibutton>Phrase</guibutton> is marked the search will locate all lines (or
+<section ID="hdbk_op_search_dialog_text_input_phrase"><title>Benutzung der &quot;Genaue Suche&quot;Auswahlbox</title>
+<para>Wenn <guibutton>Genaue Suche</guibutton> ausgewählt wurde wird die Suche alle Zeilen (oder Verse)
+finden, die genau den in der Eingabezeile eingegebenen Text unter Einbezug der Leerzeichen enthalten.
+Der gesuchte Satz muss nicht an einer Wortgrenze starten. Eine Suche nach &quot;ein Bischofsamt begehrt&quot;
+
+If <guibutton>Phrase</guibutton> is marked the search will locate all lines (or
 verses) that contain what was entered in the input field, exactly
 as entered, including any spaces. The phrase found does not have
 to start or end at a word boundary. A search for &quot;now how

@@ -73,8 +73,6 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 		return;
 	
 	CGroupManager* m = dynamic_cast<CGroupManager*>(parentWidget());
-	ASSERT(m);
-	
 	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(m->itemAt(p));
 	ASSERT(i);
 	if (!i)
@@ -102,11 +100,11 @@ CGroupManager::CGroupManager(CImportantClasses* importantClasses, QWidget *paren
 	m_useRMBMenu = useRMBMenu;
 	m_showHelpDialogs = showHelpDialogs;
 	
-	config = new KConfig("bt-groupmanager", false, false );
+	m_config = new KConfig("bt-groupmanager", false, false );
 
 	m_important = importantClasses;
   m_menu = false;
-	searchDialog = 0;
+	m_searchDialog = 0;
 	m_pressedItem = 0;
 		
 	m_swordList = swordList;
@@ -117,16 +115,16 @@ CGroupManager::CGroupManager(CImportantClasses* importantClasses, QWidget *paren
 
 CGroupManager::~CGroupManager(){	
 	saveSettings();
-	config->sync();
-	delete config;
+	m_config->sync();
+	delete m_config;
 }
 
 /** Initializes the tree of this CGroupmanager */
 void CGroupManager::setupSwordTree() {
-	readGroups( config, 0);
-	readSwordModules( config, 0);	
+	readGroups( m_config, 0);
+	readSwordModules( m_config, 0);	
 	if (m_useBookmarks)
-		readSwordBookmarks( config, 0 );	
+		readSwordBookmarks( m_config, 0 );	
 	
 	setupStandardSwordTree();
 }
@@ -135,7 +133,7 @@ void CGroupManager::setupSwordTree() {
 void CGroupManager::setupStandardSwordTree() {
 	if (!m_swordList)
 		return;
-	const bool initialized = config->readBoolEntry("initialized", false);
+	const bool initialized = m_config->readBoolEntry("initialized", false);
 	
 	CSwordModuleInfo* moduleInfo = 0;
 		
@@ -223,39 +221,39 @@ void CGroupManager::setupStandardSwordTree() {
 void CGroupManager::initConnections(){
 	connect(this, SIGNAL(returnPressed(QListViewItem*)), SLOT(slotReturnPressed(QListViewItem*)));
 	if (m_useRMBMenu)
-		connect(popupMenu, SIGNAL(aboutToShow()),
+		connect(m_popupMenu, SIGNAL(aboutToShow()),
 			this, SLOT(slotPopupAboutToShow()));
 }
 
 /**  */
 void CGroupManager::saveSettings(){	
-	KConfigGroupSaver groupSaver(config, "Groupmanager");
+	KConfigGroupSaver groupSaver(m_config, "Groupmanager");
 	
 	if (!m_saveSettings) {
 		return;
 	}
 			
 	//save column width	
-	config->writeEntry("initialized", true);
-	config->writeEntry("First column", columnWidth(0));
+	m_config->writeEntry("initialized", true);
+	m_config->writeEntry("First column", columnWidth(0));
 	
 	//save the bookmarks and the groups
 	
-	saveGroups(config,0);
-	saveSwordModules(config,0);
-	saveSwordBookmarks(config, 0);
+	saveGroups(m_config,0);
+	saveSwordModules(m_config,0);
+	saveSwordBookmarks(m_config, 0);
 
-	config->sync();
+	m_config->sync();
 }
 
 /**  */
 void CGroupManager::readSettings(){
-	KConfigGroupSaver groupSaver(config, "Groupmanager");
-	if (config->readBoolEntry("initialized"))
+	KConfigGroupSaver groupSaver(m_config, "Groupmanager");
+	if (m_config->readBoolEntry("initialized"))
 		setupSwordTree();
 	else
 		setupStandardSwordTree();
-	setColumnWidth(0, config->readNumEntry("First column", visibleWidth()) );
+	setColumnWidth(0, m_config->readNumEntry("First column", visibleWidth()) );
 }
 
 /** Initializes this widget */
@@ -279,42 +277,42 @@ void CGroupManager::initView(){
  	header()->hide();
 	
 	if (!m_useRMBMenu) {
-		popupMenu = 0;
+		m_popupMenu = 0;
 	}
 	else {		
-		popupMenu = new KPopupMenu(this);
-		popupMenu->insertTitle(i18n("Main index"));
-		popupMenu->insertItem(GROUP_NEW_ICON_SMALL, i18n("Create a new folder"),
+		m_popupMenu = new KPopupMenu(this);
+		m_popupMenu->insertTitle(i18n("Main index"));
+		m_popupMenu->insertItem(GROUP_NEW_ICON_SMALL, i18n("Create a new folder"),
 			this, SLOT(slotCreateNewGroup()),0,ID_GM_GROUP_CREATE);
-		popupMenu->setWhatsThis(ID_GM_GROUP_CREATE, WT_GM_NEW_GROUP);	
-		popupMenu->insertItem(GROUP_CHANGE_ICON_SMALL, i18n("Change this folder"),
+		m_popupMenu->setWhatsThis(ID_GM_GROUP_CREATE, WT_GM_NEW_GROUP);	
+		m_popupMenu->insertItem(GROUP_CHANGE_ICON_SMALL, i18n("Change this folder"),
 			this, SLOT(slotChangeGroup()),0,ID_GM_GROUP_CHANGE);
-		popupMenu->setWhatsThis(ID_GM_GROUP_CHANGE, WT_GM_CHANGE_GROUP);		
-		popupMenu->insertSeparator();	
-		popupMenu->insertItem(BOOKMARK_CHANGE_ICON_SMALL,i18n("Change this bookmark"),
+		m_popupMenu->setWhatsThis(ID_GM_GROUP_CHANGE, WT_GM_CHANGE_GROUP);		
+		m_popupMenu->insertSeparator();	
+		m_popupMenu->insertItem(BOOKMARK_CHANGE_ICON_SMALL,i18n("Change this bookmark"),
 			this,SLOT(slotChangeBookmark()),0,ID_GM_BOOKMARK_CHANGE);
-		popupMenu->setWhatsThis(ID_GM_BOOKMARK_CHANGE, WT_GM_CHANGE_BOOKMARK);
-		popupMenu->insertItem(BOOKMARK_IMPORT_ICON_SMALL,i18n("Import bookmarks"),
+		m_popupMenu->setWhatsThis(ID_GM_BOOKMARK_CHANGE, WT_GM_CHANGE_BOOKMARK);
+		m_popupMenu->insertItem(BOOKMARK_IMPORT_ICON_SMALL,i18n("Import bookmarks"),
 			this,SLOT(slotImportBookmarks()),0,ID_GM_BOOKMARKS_IMPORT);	
-		popupMenu->setWhatsThis(ID_GM_BOOKMARKS_IMPORT, WT_GM_IMPORT_BOOKMARKS);
-		popupMenu->insertItem(BOOKMARK_EXPORT_ICON_SMALL,i18n("Export bookmarks"),
+		m_popupMenu->setWhatsThis(ID_GM_BOOKMARKS_IMPORT, WT_GM_IMPORT_BOOKMARKS);
+		m_popupMenu->insertItem(BOOKMARK_EXPORT_ICON_SMALL,i18n("Export bookmarks"),
 			this,SLOT(slotExportBookmarks()),0,ID_GM_BOOKMARKS_EXPORT);		
-		popupMenu->setWhatsThis(ID_GM_BOOKMARKS_EXPORT, WT_GM_EXPORT_BOOKMARKS);	
-		popupMenu->insertItem(BOOKMARK_PRINT_ICON_SMALL,i18n("Print bookmark"),
+		m_popupMenu->setWhatsThis(ID_GM_BOOKMARKS_EXPORT, WT_GM_EXPORT_BOOKMARKS);	
+		m_popupMenu->insertItem(BOOKMARK_PRINT_ICON_SMALL,i18n("Print bookmark"),
 			this,SLOT(slotPrintBookmark()),0,ID_GM_BOOKMARK_PRINT);
-		popupMenu->setWhatsThis(ID_GM_BOOKMARK_PRINT, WT_GM_PRINT_BOOKMARK);
-		popupMenu->insertItem(ITEMS_DELETE_ICON_SMALL, i18n("Remove selected item(s)"),
+		m_popupMenu->setWhatsThis(ID_GM_BOOKMARK_PRINT, WT_GM_PRINT_BOOKMARK);
+		m_popupMenu->insertItem(ITEMS_DELETE_ICON_SMALL, i18n("Remove selected item(s)"),
 			this, SLOT(slotDeleteSelectedItems()),0,ID_GM_ITEMS_DELETE);
-		popupMenu->insertSeparator();
-		popupMenu->insertItem(MODULE_SEARCH_ICON_SMALL,i18n("Search in selected module(s)"),
+		m_popupMenu->insertSeparator();
+		m_popupMenu->insertItem(MODULE_SEARCH_ICON_SMALL,i18n("Search in selected module(s)"),
 			this, SLOT(slotSearchSelectedModules()),0,ID_GM_MODULES_SEARCH);
-		popupMenu->insertSeparator();
-		popupMenu->insertItem(MODULE_UNLOCK_ICON_SMALL,i18n("Unlock this module"),
+		m_popupMenu->insertSeparator();
+		m_popupMenu->insertItem(MODULE_UNLOCK_ICON_SMALL,i18n("Unlock this module"),
 			this, SLOT(slotUnlockModule()),0,ID_GM_MODULE_UNLOCK);	
-		popupMenu->setWhatsThis(ID_GM_MODULE_UNLOCK, WT_GM_UNLOCK_MODULE);	
-		popupMenu->insertItem(MODULE_ABOUT_ICON_SMALL, i18n("About this module"),
+		m_popupMenu->setWhatsThis(ID_GM_MODULE_UNLOCK, WT_GM_UNLOCK_MODULE);	
+		m_popupMenu->insertItem(MODULE_ABOUT_ICON_SMALL, i18n("About this module"),
 			this, SLOT(slotShowAbout()),0,ID_GM_MODULE_ABOUT);
-		popupMenu->setWhatsThis(ID_GM_MODULE_ABOUT, WT_GM_ABOUT_MODULE);
+		m_popupMenu->setWhatsThis(ID_GM_MODULE_ABOUT, WT_GM_ABOUT_MODULE);
 	}
 }
 	
@@ -340,12 +338,12 @@ void CGroupManager::slotSearchSelectedModules() {
 		}
 	}	
 	saveSettings();
-	config->sync();
-	if (!searchDialog)
-		searchDialog = new CSearchDialog(m_important,&searchList,0,0);
-	connect(searchDialog, SIGNAL(finished()),
+	m_config->sync();
+	if (!m_searchDialog)
+		m_searchDialog = new CSearchDialog(m_important,&searchList,0,0);
+	connect(m_searchDialog, SIGNAL(finished()),
 		this, SLOT(slotDeleteSearchdialog()));
-	searchDialog->show();
+	m_searchDialog->show();
 }	
 
 void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item) {	
@@ -354,11 +352,11 @@ void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item
 	ListCSwordModuleInfo searchList;
 	searchList.append(item->moduleInfo());
 	
-	if (!searchDialog)
-		searchDialog = new CSearchDialog(m_important, 0,0);
-	searchDialog->setModuleList(&searchList);
-  searchDialog->setSearchText(text);
-	searchDialog->show();
+	if (!m_searchDialog)
+		m_searchDialog = new CSearchDialog(m_important, 0,0);
+	m_searchDialog->setModuleList(&searchList);
+  m_searchDialog->setSearchText(text);
+	m_searchDialog->show();
 }	
 
 /**  */
@@ -432,47 +430,47 @@ void CGroupManager::slotPopupAboutToShow(){
 		if (m_pressedItem->type() == CGroupManagerItem::Module) {
 			bool moduleIsEncrypted = m_pressedItem->moduleInfo()->isEncrypted();
 			
-			popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, true);			
+			m_popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, true);			
 			
-			popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, false);
-			popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, false);
+			m_popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, false);
+			m_popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, false);
 			
-			popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, false);
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, false);			
-			popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);			
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, false);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, false);			
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);			
 
-			popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, true);
+			m_popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, true);
 						
-			popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, true);	
-			popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, moduleIsEncrypted);			
-			popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, true);
+			m_popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, true);	
+			m_popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, moduleIsEncrypted);			
+			m_popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, true);
 		}
 		else if (m_pressedItem->type() == CGroupManagerItem::Bookmark) {
-			popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, true);
+			m_popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, true);
 						
-			popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, false);			
-			popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, false);
+			m_popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, false);			
+			m_popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, false);
 						
-			popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, true);
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, false);
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, false);			
-			popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, true);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, true);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, false);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, false);			
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, true);
 			
-			popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, true);						
+			m_popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, true);						
 			
-			popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, false);
-			popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, false);			
-			popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, false);
+			m_popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, false);
+			m_popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, false);			
+			m_popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, false);
 
 		}
 		else if (m_pressedItem->type() == CGroupManagerItem::Group) {
-			popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, false);
+			m_popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, false);
 						
-			popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, true);
-			popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, true);
+			m_popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, true);
+			m_popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, true);
 												
-			popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);							
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);							
 			
 			//enable importa and export only if a bookmark exists in this group
 			bool foundBookmark = false;
@@ -483,24 +481,24 @@ void CGroupManager::slotPopupAboutToShow(){
 					foundBookmark = true;
 				myChild = myChild->nextSibling();
 	    }
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, foundBookmark);
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, foundBookmark);
-			popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, foundBookmark);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, foundBookmark);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);
 				
-			popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, true);
+			m_popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, true);
 
-			popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, false);
-			popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, false);
-			popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, false);
+			m_popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, false);
+			m_popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, false);
+			m_popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, false);
 		}		
 	}
 	else { //top level
-			popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, false);
+			m_popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, false);
 						
-			popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, true);
-			popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, false);
+			m_popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, true);
+			m_popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, false);
 			
-			popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);				
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);				
 			
 			bool foundBookmark = false;	
 	    QListViewItemIterator it( this );
@@ -509,15 +507,15 @@ void CGroupManager::slotPopupAboutToShow(){
 				if (i && i->type() == CGroupManagerItem::Bookmark)
 					foundBookmark = true;
 			}			
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, foundBookmark);
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, foundBookmark);
-			popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, foundBookmark);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, foundBookmark);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);
 						
-			popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, false);
+			m_popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, false);
 						
-			popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, false);
-			popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, false);			
-			popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, false);			
+			m_popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, false);
+			m_popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, false);			
+			m_popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, false);			
 	}
 }
 
@@ -642,9 +640,9 @@ void CGroupManager::contentsDragMoveEvent( QDragMoveEvent* e){
 		m_parentItemDrop = 0;
 	
 	QRect tmpRect = drawDropVisualizer(0, m_parentItemDrop, m_afterItemDrop, m_dragType );
-	if (tmpRect != oldDragRect ) {
+	if (tmpRect != m_oldDragRect ) {
 		cleanDropVisualizer();
-		oldDragRect = tmpRect;
+		m_oldDragRect = tmpRect;
 		if (tmpRect.isValid())
 			viewport()->repaint(tmpRect);
 	}
@@ -655,7 +653,7 @@ void CGroupManager::contentsDragLeaveEvent( QDragLeaveEvent* e){
 	KListView::contentsDragLeaveEvent(e);	
 	cleanDropVisualizer();
 	
-	oldDragRect = QRect();
+	m_oldDragRect = QRect();
 	m_dragType = "";
 }
 
@@ -807,7 +805,7 @@ void CGroupManager::contentsMousePressEvent( QMouseEvent* e ) {
 	}
 	else if (e->button() == RightButton & m_useRMBMenu) {	
 		m_menu = true;
-		popupMenu->exec( viewport()->mapToGlobal( contentsToViewport(m_pressedPos) ));
+		m_popupMenu->exec( viewport()->mapToGlobal( contentsToViewport(m_pressedPos) ));
 		m_menu = false;			
 	}
 }
@@ -834,7 +832,7 @@ void CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e){
 
 void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 	KListView::contentsMouseReleaseEvent(e); 	
-  if ( !(m_pressedItem=(CGroupManagerItem*)itemAt(contentsToViewport(e->pos()))) )
+  if ( !(m_pressedItem = dynamic_cast<CGroupManagerItem*>(itemAt(contentsToViewport(e->pos())))) )
     return;	
 	if ((e->state() & ControlButton) || (e->state() & ShiftButton))
 		return;
@@ -842,9 +840,9 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 	if (m_pressedItem && (e->button() == LeftButton)) {
 		if (m_pressedItem->type() == CGroupManagerItem::Module && m_pressedItem->moduleInfo()) {
 	  	//check if module is encrypted and show dialog if it wasn't opened before	  	
-			if (selectedItems().count() > 1) {
+			QList<QListViewItem> items = selectedItems();			
+			if (items.count() > 1) {
 				ListCSwordModuleInfo modules;
-				QList<QListViewItem> items = selectedItems();
 				for (items.first(); items.current(); items.next()) {
 					CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(items.current());
 					if (i && i->type() == CGroupManagerItem::Module && i->moduleInfo())
@@ -856,11 +854,11 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 				emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
 					  	
 	  	if (m_pressedItem->moduleInfo()->isEncrypted()) {
-  			KConfigGroupSaver groupSaver(config, "Groupmanager");
-	  		if (m_showHelpDialogs && !config->readBoolEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), false))
+  			KConfigGroupSaver groupSaver(m_config, "Groupmanager");
+	  		if (m_showHelpDialogs && !m_config->readBoolEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), false))
 	  			HTML_DIALOG(HELPDIALOG_MODULE_LOCKED);
 	  		if (m_showHelpDialogs)
-	  			config->writeEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
+	  			m_config->writeEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
 	  	}
 		}
 		else if  (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Bookmark) {
@@ -868,7 +866,6 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 				emit createSwordPresenter( m_pressedItem->moduleInfo(), m_pressedItem->getKeyText() );
 		}
 	}
-// 	m_menu = false;	
 }
 
 /** Reimplementation */
@@ -880,23 +877,20 @@ void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
 	CGroupManagerItem* dragItem=(CGroupManagerItem *)itemAt( contentsToViewport(e->pos()) );
 
 	//mouse is pressed, an item is selected and the popup menu isn't opened
-	if ( (e->state()&LeftButton) && (e->stateAfter()&LeftButton) && dragItem && !m_menu)
-   	{
+	if ( (e->state()&LeftButton) && (e->stateAfter()&LeftButton) && dragItem && !m_menu) {
 		//Is it time to start a drag?
-      	if (abs(e->pos().x() - m_pressedPos.x()) > KGlobalSettings::dndEventDelay() ||
-          abs(e->pos().y() - m_pressedPos.y()) > KGlobalSettings::dndEventDelay() )
-      	{
-			// Collect all selected items
-        	ASSERT(m_itemList);
-        	m_itemList = new QList<CGroupManagerItem>;
-        	QListViewItemIterator it( this );
-        	for( ; it.current(); it++ )
-           	if ( it.current()->isSelected() )
-					m_itemList->append( (CGroupManagerItem*)it.current() );
-  				  			
-        	QTextDrag *d = 0;
-        	if (!dragItem)
-        		return;
+   	if (abs(e->pos().x() - m_pressedPos.x()) > KGlobalSettings::dndEventDelay() ||
+				abs(e->pos().y() - m_pressedPos.y()) > KGlobalSettings::dndEventDelay() )	{
+		// Collect all selected items
+     	ASSERT(m_itemList);
+     	m_itemList = new QList<CGroupManagerItem>;
+     	QListViewItemIterator it( this );
+     	for( ; it.current(); it++ )
+       	if ( it.current()->isSelected() )
+					m_itemList->append( (CGroupManagerItem*)it.current() );  				  			
+     	QTextDrag *d = 0;
+    	if (!dragItem)
+     		return;
 			switch (dragItem->type()){
 				case (CGroupManagerItem::Bookmark):
 	         if (dragItem->moduleInfo()) {
@@ -1036,7 +1030,7 @@ void CGroupManager::slotUnlockModule(){
 	}
 }
 
-/** Reads in bookmarks from config and creates them as subitems of group. If group is 0 we create them a toplevel items. */
+/** Reads in bookmarks from m_config and creates them as subitems of group. If group is 0 we create them a toplevel items. */
 bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
 	//read and create group entries
 	CGroupManagerItem* 	parentItem = 0;	
@@ -1100,7 +1094,7 @@ bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* g
 	return true;
 }
 
-/** Save items of group to config. If grou is 0 we save all items. The  path to the group-item itself is saved, too. */
+/** Save items of group to m_config. If grou is 0 we save all items. The  path to the group-item itself is saved, too. */
 bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
 	int parentID = 0;
 	CGroupManagerItem* myItem = 0;
@@ -1422,13 +1416,13 @@ bool CGroupManager::isChild(QListViewItem* parent, QListViewItem* child){
 void CGroupManager::viewportPaintEvent (QPaintEvent* e) {
   KListView::viewportPaintEvent(e);
 
-  if (oldDragRect.isValid())
+  if (m_oldDragRect.isValid())
   {
     static bool invalidated=false;
     if (!invalidated)
     {
       invalidated=true;
-      viewport()->repaint(oldDragRect);
+      viewport()->repaint(m_oldDragRect);
     }
     QPainter painter(viewport());
     drawDropVisualizer(&painter, m_parentItemDrop, m_afterItemDrop, "");
@@ -1541,9 +1535,9 @@ QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem */*paren
 
 /** Reimplementation. */
 void CGroupManager::cleanDropVisualizer(){
-  if ( oldDragRect.isValid() ) {
-    QRect rect = oldDragRect;
-    oldDragRect = QRect();
+  if ( m_oldDragRect.isValid() ) {
+    QRect rect = m_oldDragRect;
+    m_oldDragRect = QRect();
     viewport()->repaint(rect,true);
   }
 }
@@ -1580,8 +1574,9 @@ void CGroupManager::slotPrintBookmark(){
 
 /** Deletes the searchdialog. */
 void CGroupManager::slotDeleteSearchdialog(){
-	if (searchDialog)
-		searchDialog->delayedDestruct();	//delete the search dialog
+	if (m_searchDialog)
+		m_searchDialog->delayedDestruct();	//delete the search dialog
+	m_searchDialog = 0;
 }
 
 /** Reimplementation. */
