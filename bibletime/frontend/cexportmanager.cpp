@@ -2,8 +2,8 @@
                           cexportmanager.cpp  -  description
                              -------------------
     begin                : Mon Feb 25 2002
-    copyright            : (C) 2002 by The BibleTime team
-    email                : info@bibletime.de
+    copyright            : (C) 2002-2004 by The BibleTime team
+    email                : info@bibletime.info
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,6 +22,7 @@
 #include "backend/creferencemanager.h"
 #include "backend/cswordversekey.h"
 #include "backend/centrydisplay.h"
+#include "backend/cdisplaytemplatemgr.h"
 
 #include "printing/cprintitem.h"
 #include "printing/cprinter.h"
@@ -79,17 +80,13 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
     		stopKey.key(vk->UpperBound());
 
         QString entryText;
-        if (format == HTML) {
-          text = QString::fromLatin1("<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"><style type=\"text/css\">%1</style></head><body>")
-                   .arg(htmlCSS(module));
-        };
 
-        //add the heading
+				//add the heading
         if (startKey < stopKey) { //we have a boundary
           QString bound = QString::fromLatin1("%1 - %2").arg(startKey.key()).arg(stopKey.key());
           text +=
             (format == HTML)
-            ? QString::fromLatin1("<h3>%1</h3><br/>").arg(bound)
+            ? QString::fromLatin1("<h3>%1</h3>").arg(bound)
             : QString::fromLatin1("%1\n\n").arg(bound);
 
          	while ( (startKey < stopKey) || (startKey == stopKey) ) {
@@ -108,17 +105,12 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
   	}
 
     if (!hasBounds) { //no verse key, so we can't have a boundary!
-      text =
-        (format == HTML)
-        ? QString::fromLatin1("<html><head><title>%1</title><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head><body><h3>%2 (%3)</h3><br/>%4") //HTML escaped text
-            .arg(key->key())
-            .arg(key->key())
-            .arg(module->name())
-            .arg(key->renderedText(CSwordKey::HTMLEscaped))
-        : QString::fromLatin1("%1 (%2)\n\n%3") //plain text
+    	if (format != HTML) {
+					text = QString::fromLatin1("%1 (%2)\n\n%3") //plain text
             .arg(key->key())
             .arg(module->name())
             .arg(key->strippedText());
+			}
       //we should only add the reference if the key has no bounds
       text +=
         lineBreak(format) +
@@ -128,10 +120,11 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
     }
 
     if (format == HTML) {
-      text += QString::fromLatin1("</body></html>");
+			CDisplayTemplateMgr tMgr;
+			text = tMgr.fillTemplate( CBTConfig::get(CBTConfig::displayStyle), QString::null, text );
     };
   }
-  else { //don't add the text of the key, we
+  else { //don't add the text of the key
     text = key ? key->key() : QString::null;
   	return true;
   }
@@ -424,23 +417,6 @@ const QString CExportManager::lineBreak(const Format format){
     return (format == HTML) ? QString::fromLatin1("<BR>\n") : QString::fromLatin1("\n");
   else
     return QString::null;
-}
-
-/** Returns the CSS string used in HTML pages. */
-const QString CExportManager::htmlCSS(CSwordModuleInfo* module){
-  CEntryDisplay* display = module ? module->getDisplay() : 0;
-  if (!display) {
-    return QString::null;
-  }
-
-  QString css = QString::null;
-  for (int i = CEntryDisplay::MinType; i <= CEntryDisplay::MaxType; ++i) {
-    CEntryDisplay::StyleType type = static_cast<CEntryDisplay::StyleType>(i);
-    if (type != CEntryDisplay::Body && type != CEntryDisplay::Background) {
-      css += display->cssString( type );
-    }
-  }
-  return css;
 }
 
 /** No descriptions */

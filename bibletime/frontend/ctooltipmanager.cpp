@@ -203,7 +203,7 @@ const QString CTooltipManager::tooltipCSS(CSwordModuleInfo* module){
   for (int i = CEntryDisplay::MinType; i <= CEntryDisplay::MaxType; ++i) {
     CEntryDisplay::StyleType type = static_cast<CEntryDisplay::StyleType>(i);
     if (type != CEntryDisplay::Body && type != CEntryDisplay::Background) {
-      css += display->cssString( type );
+      //css += display->cssString( type );
     }
   }
   return css;

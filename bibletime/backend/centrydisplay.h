@@ -103,12 +103,6 @@ public: // Public methods
   * Returns the font of the given type.
   */
   const QFont font( const CLanguageMgr::Language& lang );
-  /**
-  * Returns the color of the given type.
-  */
-  const QColor color( const CEntryDisplay::ColorType type );
-  const QString cssString( const CEntryDisplay::StyleType type );
-
 
 protected:
   /**
@@ -116,10 +110,6 @@ protected:
   * This makes chapter rendering more easy.
   */
   virtual const QString entryText( QPtrList<CSwordModuleInfo> modules, const QString& key);
-  /**
-  * Adds the right headers and footers to the page and returns them together.
-  */
-  virtual const QString finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName);
   /**
   * Returns the right reference text which can be incluced in the HTML
   */
@@ -164,7 +154,6 @@ protected:
   * Creates the text by processing all tree items.
   */
   void printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos = 0);
-  virtual const QString finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName);
 
 private:
   QString m_text;

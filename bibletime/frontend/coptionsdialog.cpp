@@ -78,9 +78,9 @@ COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel 
 	m_settings.keys.application.accel = accel;
 	setIconListAllVisible(true);
 
-	initStartup();		
+	initStartup();
 	initFonts();
-	initColors();	
+	initDisplayStyle();
 	initProfiles();
 	initSword();
 	initAccelerators();
@@ -103,7 +103,7 @@ void COptionsDialog::newDisplayWindowFontAreaSelected(const QString& usage){
 /** Called if the OK button was clicked */
 void COptionsDialog::slotOk(){
 	saveAccelerators();
-	saveColors();
+	saveDisplayStyle();
 	saveFonts();
 	saveSword();
 	saveStartup();
@@ -117,12 +117,12 @@ void COptionsDialog::slotOk(){
 /*called if the apply button was clicked*/
 void COptionsDialog::slotApply(){
 	saveAccelerators();
-	saveColors();
+	saveDisplayStyle();
 	saveFonts();
 	saveSword();
 	saveStartup();
 	saveProfiles();
-	
+
 	KDialogBase::slotApply();
 
   emit signalSettingsChanged( );
@@ -280,126 +280,32 @@ to be displayed correctly.")
 }
 
 /** Init color section. */
-void COptionsDialog::initColors(){
-	QFrame* page = addPage(i18n("Colors"), QString::null, DesktopIcon(CResMgr::settings::colors::icon,32));
-//	QVBoxLayout* layout = new QVBoxLayout(page);
+void COptionsDialog::initDisplayStyle(){
+	QFrame* page = addPage(i18n("Display style"), QString::null, DesktopIcon(CResMgr::settings::colors::icon,32));
 	QGridLayout* gridLayout = new QGridLayout(page,8,5,5,5);
   gridLayout->setResizeMode(QLayout::Minimum);
 
-	m_settings.colors.styles = new QListBox(page);
-	
-	QLabel* label = new QLabel(m_settings.colors.styles, i18n("Available styles"), page);
+	gridLayout->addMultiCellWidget(
+		CToolClass::explanationLabel(page,
+			i18n("Display styles"),
+			i18n("Display styles define how the text of modules is displayed. Please choose the style you want to use on your system.")
+		),
+		0,0,0,-1
+	);
+
+	m_settings.displayStyle.styleChooser = new QListBox(page);
+
+	QLabel* label = new QLabel(m_settings.displayStyle.styleChooser, i18n("Available styles"), page);
 	gridLayout->addWidget(label,1,0);
-	gridLayout->addWidget(m_settings.colors.styles,1,1);
-	
+	gridLayout->addWidget(m_settings.displayStyle.styleChooser,1,1);
+
 	CDisplayTemplateMgr tMgr;
-	m_settings.colors.styles->insertStringList( tMgr.availableTemplates() );
-	
-/*  gridLayout->addMultiCellWidget(
-  	CToolClass::explanationLabel(page,
-  		i18n("Choose colors"),
-  		i18n("Choose custom colors to alter the apperance of the display windows. \
-Some options like \"Words of Jesus\" only apply to texts which offer special features.")
-  	),
-  	0,0,0,-1
-  );
+	m_settings.displayStyle.styleChooser->insertStringList( tMgr.availableTemplates() );
 
-	m_settings.colors.text = new KColorButton(CBTConfig::get(CBTConfig::textColor), page);
-  QToolTip::add(m_settings.colors.text, CResMgr::settings::colors::text::tooltip);
-  QWhatsThis::add(m_settings.colors.text, CResMgr::settings::colors::text::whatsthis);
-
-	QLabel* label = new QLabel(m_settings.colors.text, i18n("Text"), page);
-	gridLayout->addWidget(label,1,0);
-	gridLayout->addWidget(m_settings.colors.text,1,1);
-  QToolTip::add(label, CResMgr::settings::colors::text::tooltip);
-  QWhatsThis::add(label, CResMgr::settings::colors::text::whatsthis);
-
-
-	m_settings.colors.highlightedVerse = new KColorButton(CBTConfig::get(CBTConfig::highlightedVerseColor), page);
-  QToolTip::add(m_settings.colors.highlightedVerse, CResMgr::settings::colors::highlightedVerse::tooltip);
-  QWhatsThis::add(m_settings.colors.highlightedVerse, CResMgr::settings::colors::highlightedVerse::whatsthis);
-
-	label = new QLabel(m_settings.colors.highlightedVerse, i18n("Highlighted verse"), page);
-  QToolTip::add(label, CResMgr::settings::colors::highlightedVerse::tooltip);
-  QWhatsThis::add(label, CResMgr::settings::colors::highlightedVerse::whatsthis);
-
-  gridLayout->addWidget(label,1,3);
-	gridLayout->addWidget(m_settings.colors.highlightedVerse,1,4);
-
-
-	m_settings.colors.background = new KColorButton(CBTConfig::get(CBTConfig::backgroundColor), page);
-  QToolTip::add(m_settings.colors.background, CResMgr::settings::colors::background::tooltip);
-  QWhatsThis::add(m_settings.colors.background, CResMgr::settings::colors::background::whatsthis);
-
-  label = new QLabel(m_settings.colors.background, i18n("Background"), page);
-  QToolTip::add(label, CResMgr::settings::colors::background::tooltip);
-  QWhatsThis::add(label, CResMgr::settings::colors::background::whatsthis);
-
-  gridLayout->addWidget(label,2,0);
-	gridLayout->addWidget(m_settings.colors.background,2,1);
-
-
-  m_settings.colors.swordrefs = new KColorButton(CBTConfig::get(CBTConfig::swordRefColor), page);
-  QToolTip::add(m_settings.colors.swordrefs, CResMgr::settings::colors::links::tooltip);
-  QWhatsThis::add(m_settings.colors.swordrefs, CResMgr::settings::colors::links::whatsthis);
-
-	label = new QLabel(m_settings.colors.swordrefs,i18n("Hyperlinks"), page);
-  QToolTip::add(label, CResMgr::settings::colors::links::tooltip);
-  QWhatsThis::add(label, CResMgr::settings::colors::links::whatsthis);
-
-  gridLayout->addWidget(label,4,0);
-	gridLayout->addWidget(m_settings.colors.swordrefs,4,1);
-
-	m_settings.colors.footnotes = new KColorButton(CBTConfig::get(CBTConfig::footnotesColor), page);
-  QToolTip::add(m_settings.colors.footnotes, CResMgr::settings::colors::footnotes::tooltip);
-  QWhatsThis::add(m_settings.colors.footnotes, CResMgr::settings::colors::footnotes::whatsthis);
-
-  label = new QLabel(m_settings.colors.footnotes,i18n("Footnotes"), page);
-  QToolTip::add(label, CResMgr::settings::colors::footnotes::tooltip);
-  QWhatsThis::add(label, CResMgr::settings::colors::footnotes::whatsthis);
-
-	gridLayout->addWidget(label,6,0);
-	gridLayout->addWidget(m_settings.colors.footnotes,6,1);
-
-	m_settings.colors.jesuswords = new KColorButton(CBTConfig::get(CBTConfig::jesuswordsColor), page);
-  QToolTip::add(m_settings.colors.jesuswords, CResMgr::settings::colors::jesusWords::tooltip);
-  QWhatsThis::add(m_settings.colors.jesuswords, CResMgr::settings::colors::jesusWords::whatsthis);
-
-  label = new QLabel(m_settings.colors.jesuswords, i18n("Words of Jesus"), page);
-  QToolTip::add(label, CResMgr::settings::colors::jesusWords::tooltip);
-  QWhatsThis::add(label, CResMgr::settings::colors::jesusWords::whatsthis);
-
-	gridLayout->addWidget(label,6,3);
-	gridLayout->addWidget(m_settings.colors.jesuswords,6,4);
-
-
-	m_settings.colors.strongs = new KColorButton(CBTConfig::get(CBTConfig::strongsColor), page);
-  QToolTip::add(m_settings.colors.strongs, CResMgr::settings::colors::strongNumbers::tooltip);
-  QWhatsThis::add(m_settings.colors.strongs, CResMgr::settings::colors::strongNumbers::whatsthis);
-
-  label = new QLabel(m_settings.colors.strongs, i18n("Strong's numbers"), page);
-	QToolTip::add(label, CResMgr::settings::colors::strongNumbers::tooltip);
-  QWhatsThis::add(label, CResMgr::settings::colors::strongNumbers::whatsthis);
-
-  gridLayout->addWidget(label,7,0);
-	gridLayout->addWidget(m_settings.colors.strongs,7,1);
-
-
-	m_settings.colors.morph = new KColorButton(CBTConfig::get(CBTConfig::morphsColor), page);
-  QToolTip::add(m_settings.colors.morph, CResMgr::settings::colors::morphTags::tooltip);
-  QWhatsThis::add(m_settings.colors.morph, CResMgr::settings::colors::morphTags::whatsthis);
-
-	label = new QLabel(m_settings.colors.morph, i18n("Morphologic tags"), page);
-  QToolTip::add(label, CResMgr::settings::colors::morphTags::tooltip);
-  QWhatsThis::add(label, CResMgr::settings::colors::morphTags::whatsthis);
-
-  gridLayout->addWidget(label,7,3);
-	gridLayout->addWidget(m_settings.colors.morph,7,4);
-
-	gridLayout->setRowStretch(9, 5);
-	gridLayout->addColSpacing(3, 5);
-	gridLayout->addRowSpacing(3, 10);
-	gridLayout->addRowSpacing(5, 10);*/
+	QListBoxItem*  i = m_settings.displayStyle.styleChooser->findItem( CBTConfig::get(CBTConfig::displayStyle), Qt::CaseSensitive );
+	if ( i ) {
+		m_settings.displayStyle.styleChooser->setCurrentItem( i );
+	}
 }
 
 /** Init profiles section. */
@@ -909,16 +815,8 @@ void COptionsDialog::saveAccelerators(){
 }
 
 /** No descriptions */
-void COptionsDialog::saveColors(){
-	
-/* 	CBTConfig::set(CBTConfig::textColor, m_settings.colors.text->color().name());	
- 	CBTConfig::set(CBTConfig::backgroundColor, m_settings.colors.background->color().name());	
- 	CBTConfig::set(CBTConfig::highlightedVerseColor, m_settings.colors.highlightedVerse->color().name());		
- 	CBTConfig::set(CBTConfig::swordRefColor, m_settings.colors.swordrefs->color().name());		
- 	CBTConfig::set(CBTConfig::footnotesColor, m_settings.colors.footnotes->color().name());		
- 	CBTConfig::set(CBTConfig::strongsColor, m_settings.colors.strongs->color().name());		
- 	CBTConfig::set(CBTConfig::morphsColor, m_settings.colors.morph->color().name());		
- 	CBTConfig::set(CBTConfig::jesuswordsColor, m_settings.colors.jesuswords->color().name());		*/
+void COptionsDialog::saveDisplayStyle(){
+	CBTConfig::set(CBTConfig::displayStyle, m_settings.displayStyle.styleChooser->currentText());
 }
 
 /** No descriptions */

@@ -91,7 +91,6 @@ private:
   * Returns the CSS string used in HTML pages.
   */
   void setProgressRange( const int item );
-  const QString htmlCSS(CSwordModuleInfo* module);
   /**
   * Increments the progress by one item.
   */

@@ -37,50 +37,37 @@ CEntryDisplay::~CEntryDisplay(){
 }
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
+const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions )
+{
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
-  const QString entry = entryText(modules, keyName);
-  return finishText( entry, modules, keyName );
+	CDisplayTemplateMgr tMgr;
+	return tMgr.fillTemplate( CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, keyName) );
 }
 
 /** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
-const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QString& keyName, const QString& headerText, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions){
+const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QString& keyName, const QString& headerText, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
+{
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
   key->key(keyName);
 
-  QString css = QString::null;
-  for (int t = MinType; t <= MaxType; ++t) {
-    css += "\t" + cssString( static_cast<CEntryDisplay::StyleType>(t) );
-  }
-
-  const QString pageStart = QString::fromLatin1("<html><head><style type=\"text/css\">%1</style></head><body>%2<hr/>")
-    .arg(css)
-    .arg(headerText);
-
-  const QString text = QString::fromLatin1("<div %1>%2</div>")
-    .arg(module->textDirection() == CSwordModuleInfo::RightToLeft ? QString::fromLatin1("dir=\"rtl\"") : QString::null)
-//    .arg(module->isUnicode() ? QString::fromLatin1("class=\"unicodetext\"") : QString::null)
-    .arg(key->renderedText());
-
-  const QString pageEnd = QString::fromLatin1("</body></html>");
-  return pageStart + text + pageEnd;
+	CDisplayTemplateMgr tMgr;
+	return tMgr.fillTemplate( CBTConfig::get(CBTConfig::displayStyle), QString::null, key->renderedText() );
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
 const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName){
-//	Q_ASSERT(modules.first());
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   key->key(keyName);
   QString renderedText = QString::null;
 
   QFont moduleFont;
   QString tdStyle;
-  
+
   renderedText = QString::fromLatin1("<tr valign=\"top\">");
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     moduleFont = CBTConfig::get( m->language() ).second;
@@ -101,163 +88,9 @@ const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, cons
   return renderedText;
 }
 
-/** Returns the color of the given type. */
-const QColor CEntryDisplay::color( const CEntryDisplay::ColorType type ) {
-  switch (type) {
-    case ReferenceColor:
-      return CBTConfig::get(CBTConfig::swordRefColor);
-    case TextColor:
-      return CBTConfig::get(CBTConfig::textColor);
-    case HighlightedTextColor:
-      return CBTConfig::get(CBTConfig::highlightedVerseColor);
-    case BackgroundColor:
-      return CBTConfig::get(CBTConfig::backgroundColor);
-    case FootnoteColor:
-      return CBTConfig::get(CBTConfig::footnotesColor);
-    case StrongsNumberColor:
-      return CBTConfig::get(CBTConfig::strongsColor);
-    case MorphCodeColor:
-      return CBTConfig::get(CBTConfig::morphsColor);
-    case JesusWordColor:
-      return CBTConfig::get(CBTConfig::jesuswordsColor);
-    default:
-      return Qt::white;
-  }
-}
-
 /** Returns the font of the given type. */
 const QFont CEntryDisplay::font( const CLanguageMgr::Language& lang ) {
   return CBTConfig::get(lang).second;
-}
-
-/** Adds the right headers and footers to the page and returns them together. */
-const QString CEntryDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName){
-  CSwordModuleInfo* module = modules.first();
-  Q_ASSERT(module); //shouldn't happen
-  util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
-  key->key(keyName);
-
-  QString css = "table.maintable {width:100%;} td.tableheading {border-bottom:1px solid black;}";
-  for (int t = MinType; t <= MaxType; ++t) {
-    css += "\t" + cssString( static_cast<CEntryDisplay::StyleType>(t) ) + "\n\n";
-  }
-
-  const int columnWidth = (int)((float)100 / (float)modules.count());
-
-  QString pageStart = QString::fromLatin1("<html><head><style type=\"text/css\">%1</style></head><body><table cellspacing=\"0\" class=\"maintable\"><tr>")
-    .arg(css);
-
-  for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    key->module(m);
-    const QString newKeyName = key->key();
-    pageStart += QString::fromLatin1("<td class=\"tableheading\" width=\"%1%\"><center><b>%2</b> %3</center></td>")
-      .arg(columnWidth)
-      .arg(m->name())
-      .arg(!newKeyName.isEmpty() ? QString::fromLatin1("(%1)").arg(htmlReference(m, newKeyName, newKeyName, newKeyName)) : QString::null);
-  }
-  pageStart += QString::fromLatin1("</tr>");
-
-  const QString pageEnd = QString::fromLatin1("</table></body></html>");
-
-  return pageStart + text + pageEnd;
-}
-
-const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
-  const QString bgColor = color(BackgroundColor).name();
-
-  const QString textColor = color(TextColor).name();
-  const QString highlightColor = color(HighlightedTextColor).name();
-  const QString swordRefColor = color(ReferenceColor).name();
-  const QString footnotesColor = color(FootnoteColor).name();
-
-  const QString strongsColor = color(StrongsNumberColor).name();
-  const QString morphsColor = color(MorphCodeColor).name();
-//  const QString lemmaColor = color(LemmaColor).name();
-
-  const QString jesusWordsColor = color(JesusWordColor).name();
-
-
-  QString text;
-  switch(type) {
-    case Body:
-      text =  QString::fromLatin1("body {background-color:%1; color:%2;}")
-								.arg(bgColor)
-                .arg(textColor);
-      break;
-    case Link:
-      text = QString::fromLatin1("a:link {text-decoration:none;}");
-      break;
-    case LinkHover:
-      text = QString::fromLatin1("a:hover {text-decoration:none;}");
-      break;
-    case Background:
-      text = QString::fromLatin1(".background1 {background-color:%1;}")
-							.arg(bgColor);
-      break;
-    case HighlightedText:
-      text = QString::fromLatin1(".highlighted {color: %1;}")
-              .arg(highlightColor);
-      break;
-    
-		case Reference:
-      text = QString::fromLatin1(".reference {color:%1; font-weight:light; font-size:small;}")
-              .arg(swordRefColor);
-      break;
-		case Verse:
-      text = QString::fromLatin1("div.verse { padding: 5px; }");
-      text += QString::fromLatin1("td.verse { padding: 5px; vertical-align:top; }");
-			text += QString::fromLatin1("span.verse { }");
-      break;
-		case CurrentVerse:
-      text = QString::fromLatin1("div.currentverse { padding: 5px; background-color:#E7EAF4; border:1px solid #56575B;}");
-			text += QString::fromLatin1("td.currentverse { vertical-align:top; padding:5px; background-color:#E7EAF4; border:1px solid #56575B;}");
-			text += QString::fromLatin1("span.currentverse { background-color:#E7EAF4; }");
-      break;
-		case VerseNum: 
-      text = QString::fromLatin1(".versenum { font-size:0.7em; vertical-align:top; padding-right:5px;} .versenum > a { font-size:0.7em; vertical-align:top; padding-right:5px;}");
-      break;
-			
-			
-    case MorphCode:
-      text = QString::fromLatin1(".morphcode {font-size: smaller; color: %1; font-decoration:none;}")
-              .arg(morphsColor);
-      break;
-    case StrongNumber:
-      text = QString::fromLatin1(".strongnumber {font-size: smaller; color: %1; font-decoration:none;}")
-              .arg(strongsColor);
-      break;
-    case Lemma:
-      break;
-    case Footnote:
-      text = QString::fromLatin1(".footnote  {font-size:smaller; color:%1; font-style:italic;}")
-              .arg(footnotesColor);
-      break;
-    case FootnotePre:
-      text = QString::fromLatin1(".footnotepre {font-size:smaller; color:%1; font-weight:bolder;}")
-              .arg(footnotesColor);
-      break;
-    case Poetry:
-      text = QString::fromLatin1(".poetry {font-weight:lighter; alignment:justify;}");
-      break;
-    case Quotation:
-      text = QString::fromLatin1(".quotation {font-style:italic;}");
-      break;
-    case JesusWords:
-      text = QString::fromLatin1(".jesuswords {font-style:italic; color:%1;}")
-              .arg(jesusWordsColor);
-      break;
-    case BookTitle:
-      text = QString::fromLatin1(".booktitle {font-weight:x-bold; font-size:x-large; color:%1; margin-top:1mm; margin-bottom:1mm;}")
-              .arg(textColor);
-      break;
-    case SectionTitle:
-      text = QString::fromLatin1(".sectiontitle {font-size:larger; font-weight:bold; color:%1;}")
-              .arg(textColor);
-      break;
-    default:      
-      break;
-  };
-  return QString::fromLatin1("%1\n").arg(text);
 }
 
 void CEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptions options) {
@@ -288,28 +121,31 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
   CSwordVerseKey key(0);
   key = keyName;
 
-  const int currentTestament = key.Testament();	
+  const int currentTestament = key.Testament();
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
-	
+
   CSwordModuleInfo* module = modules.first();
   bool ok = true;
-  
+
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse) && !key.Error() ) {
     text += entryText(modules, key.key(), keyName);
 	}
-  
-	if (modules.count() > 1) {
-		text = QString::fromLatin1("<table>%1</table>").arg(text);
-	}
-	
-	CDisplayTemplateMgr tMgr;
-	if (!tMgr.availableTemplates().contains("Default")) {
-		return QString::null;	
-	}
-	text = tMgr.fillTemplate("Default", "title", text);
 
-	return text;	
+	if (modules.count() > 1) {
+//		text = QString::fromLatin1("<table>%1</table>").arg(text);
+		QString header;
+
+		for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
+			header += QString::fromLatin1("<th width=\"%1%\">%2</th>")
+					.arg(100 / modules.count())
+					.arg(m->name());
+		}
+		text = "<table><tr>" + header + "</tr>" + text +"</table>";
+	}
+
+	CDisplayTemplateMgr tMgr;
+	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text);
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
@@ -353,15 +189,15 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 
    const QString fontStyle = QString::fromLatin1("font-family:%1; font-size:%2pt;").arg(font.family()).arg(font.pointSize());
 
-		
+
 		entry += QString::fromLatin1("<%1 %2 style=\"%3\" dir=\"%4\">") //linebreaks = div, without = span
     	.arg(m_displayOptions.lineBreaks ? QString::fromLatin1("div") : QString::fromLatin1("span"))
 			.arg((modules.count() == 1) ? ((keyText == chosenKey) ? QString::fromLatin1("class=\"currentverse\"") : QString::fromLatin1("class=\"verse\"")) : "") //insert only the class if we're not in a td
 			.arg(fontStyle)
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
-		
+
 		if (m_displayOptions.verseNumbers) { //if we shuld show the verse numbers
-			entry += QString::fromLatin1("<span class=\"versenum\">%1</span>").arg( htmlReference(m, keyText, QString::number(key.Verse()), keyText) ); 
+			entry += QString::fromLatin1("<span class=\"versenum\">%1</span>").arg( htmlReference(m, keyText, QString::number(key.Verse()), keyText) );
 		}
 		else {
 			entry += htmlReference(0, QString::null, QString::null, keyText);  //insert only an anchor
@@ -395,6 +231,8 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
+	CDisplayTemplateMgr tMgr;
+
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
 
   // the number of levels which should be display together, 1 means display no entries together
@@ -408,7 +246,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   // standard of DisplayLevel, display nothing together
   // if the current key is the root entry don't display anything together!
   if ((displayLevel <= 1) || (key->key().isEmpty() || (key->key() == "/") )) {
-		QString ret = finishText(entryText(modules, key) , modules, keyName );
+		QString ret = tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key));
   	key->key(keyName); //restore before we return so make sure it doesn't break anything
     return ret;
   };
@@ -430,7 +268,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 
   if (possibleLevels < displayLevel) { //too few levels available!
     //display current level, we could also decide to display the available levels together
-    return finishText( entryText(modules, key), modules, keyName );
+		return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key));
   };
   if ((displayLevel > 2) && (displayLevel == possibleLevels)) { //fix not to diplay the whole module
     --displayLevel;
@@ -440,7 +278,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   // at the moment we're at the lowest level, so we only have to go up!
   for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
     if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
-      return finishText( entryText(modules, key), modules, keyName );
+			return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key));
     };
   };
 
@@ -455,31 +293,28 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   printTree(key, modules, hasToplevelText); //if the top level entry has text ident the other text
 
 	key->key(keyName); //restore key
-  return finishText(m_text, modules, keyName);
+	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, m_text);
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
 const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, CSwordTreeKey* const key, const int level, const bool activeKey){
   /**
-  * we have to be careful that we don't change the value of the key! We pass pointers for optimizations reasons,
+  * We have to be careful that we don't change the value of the key! We pass pointers for optimizations reasons,
   * since entryText is called many times!
   * creating copies of the key object takes too long
   */
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
-	Q_ASSERT( book );
-
   const QFont font = CBTConfig::get(book->language()).second;
   const QString& keyName = key->getFullName();
 
-  return QString::fromLatin1("<tr><td style=\"padding-left:%1px;\"><sup>%2</sup> %3</td></tr>")
-    .arg( level*30 )
-    .arg( htmlReference(book, keyName, key->getLocalName(), !keyName.isEmpty() ? keyName : "/" ) )
-    .arg( QString::fromLatin1("<span %1 style=\"font-family:%2; font-size:%3pt;\">%4</span>")
-            .arg(activeKey ? "class=\"highlighted\"" : QString::null)
-            .arg(font.family())
-            .arg(font.pointSize())
-            .arg(key->renderedText())
-    );
+  return QString::fromLatin1("<%1 class=\"%2\"><span class\"entryname\">%3</span> <span style=\"font-family:%4; font-size:%5pt;\">%6</span></%7>")
+    .arg( m_displayOptions.lineBreaks  ? "div" : "span")
+		.arg( activeKey ? "currententry" : "entry")
+    .arg( htmlReference(book, keyName, key->getLocalName(), (!keyName.isEmpty() ? keyName : "/") ))
+		.arg( font.family() )
+		.arg( font.pointSize() )
+		.arg( key->renderedText() )
+    .arg( m_displayOptions.lineBreaks  ? "div" : "span" );
 }
 
 void CBookDisplay::printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos){
@@ -504,7 +339,7 @@ void CBookDisplay::printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModule
   }
 }
 
-const QString CBookDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName) {
+/*const QString CBookDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName) {
  	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
   util::scoped_ptr<CSwordTreeKey> key(
 		dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) )
@@ -536,3 +371,4 @@ const QString CBookDisplay::finishText( const QString text, QPtrList <CSwordModu
 
   return pageStart + text + pageEnd;
 }
+*/

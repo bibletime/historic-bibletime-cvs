@@ -58,8 +58,8 @@ public:
 
   enum Parts {
 		Startup,
-		Font,		
-		Color,		
+		Font,
+		Color,
 		ViewProfiles,
 		Sword,
 		accelerators
@@ -75,7 +75,7 @@ private:
 	 		QCheckBox* showLogo;
 	 		QCheckBox* restoreWorkspace;
 	 	} startup;
-		
+
 		struct SwordSettings {
 			QCheckBox* lexiconCache;
 			QComboBox* standardBible;
@@ -101,7 +101,7 @@ private:
 			QCheckBox* textualVariants;
       QCheckBox* scriptureReferences;
 		} swords; // not: sword -> namespace error
-		
+
 		struct KeySettings {
 			struct WindowType {
 				KKeyChooser* keyChooser;
@@ -114,31 +114,23 @@ private:
 			WindowType lexicon;
 			WindowType book;
 		} keys;
-		
-		struct ColorSettings {
-			KColorButton* text;
-			KColorButton* background;
-			KColorButton* highlightedVerse;
-			KColorButton* swordrefs;
-			KColorButton* footnotes;
-			KColorButton* strongs;
-			KColorButton* morph;
-			KColorButton* jesuswords;
-			
-			QListBox* styles;			
-		} colors;
-		
-    struct FontSettings {		
+
+		struct DisplayStyleSettings {
+			QListBox* styleChooser;
+			//CHTMLReadDisplay* stylePreview;
+		} displayStyle;
+
+    struct FontSettings {
 			KFontChooser* fontChooser;
 			QComboBox* usage;
       QCheckBox* useOwnFontBox;
       //the pair os to check whether the standard font (bool == false) or whether an own font should be used (true)
       QMap<QString,CBTConfig::FontSettingsPair> fontMap;
 		} fonts;
-		
+
 		struct ProfileSettings {
 			QListBox* profiles;
-			QPushButton* createProfile;			
+			QPushButton* createProfile;
 			QPushButton* deleteProfile;
 			QPushButton* renameProfile;
 			CProfileMgr mgr;
@@ -200,13 +192,13 @@ protected: // Protected methods
   /**
   * Init color section.
   */
-  void initColors();
+  void initDisplayStyle();
   /**
   * Initializes the startup section of the OD.
   */
   void initStartup();
   void saveAccelerators();
-	void saveColors();
+	void saveDisplayStyle();
 	void saveFonts();
  	void saveProfiles();
  	void saveStartup();

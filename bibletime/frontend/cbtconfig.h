@@ -19,7 +19,6 @@
 #define CBTCONFIG_H
 
 #include <qstring.h>
-#include <qcolor.h>
 #include <qfont.h>
 #include <qvaluelist.h>
 #include <qmap.h>
@@ -40,6 +39,7 @@ public:
 	enum strings {
 		bibletimeVersion,
 		language,
+		displayStyle,
 		standardBible,
 		standardCommentary,
 		standardLexicon,
@@ -48,21 +48,6 @@ public:
 		standardGreekStrongsLexicon,
 		standardHebrewMorphLexicon,
 		standardGreekMorphLexicon
-	};
-//	enum fonts {
-//		standard,
-//		unicode
-//	};
-	enum colors {
-		textColor,
-		backgroundColor,
-		background2Color,
-		highlightedVerseColor,
-		footnotesColor,
-		strongsColor,
-		morphsColor,
-		jesuswordsColor,
-		swordRefColor  //SWORD hyperlink
 	};
 	enum bools {
 		firstSearchDialog,
@@ -123,26 +108,23 @@ public:
   static const QString 		get( const CBTConfig::strings );
   static const bool 			get( const CBTConfig::bools );
   static const int   			get( const CBTConfig::ints );
-  static const QColor 		get( const CBTConfig::colors );
   static const QValueList<int>	get( const CBTConfig::intLists );
   static const QStringList	get( const CBTConfig::stringLists );
   static const CBTConfig::StringMap	get( const CBTConfig::stringMaps );
 
   static const FontSettingsPair	get( const CLanguageMgr::Language& );
-	
-	static const QString 				 getDefault( const CBTConfig::strings );
-	static const bool		 				 getDefault( const CBTConfig::bools );
-	static const int		 				 getDefault( const CBTConfig::ints );
-	static const QColor	 				 getDefault( const CBTConfig::colors );
+
+	static const QString	getDefault( const CBTConfig::strings );
+	static const bool		getDefault( const CBTConfig::bools );
+	static const int	getDefault( const CBTConfig::ints );
 	static const QValueList<int> getDefault( const CBTConfig::intLists );
-	static const QStringList		 getDefault( const CBTConfig::stringLists );
-	static const CBTConfig::StringMap  		 getDefault( const CBTConfig::stringMaps );
-  static const QFont 		       getDefault( const CLanguageMgr::Language& );
-    
+	static const QStringList getDefault( const CBTConfig::stringLists );
+	static const CBTConfig::StringMap getDefault( const CBTConfig::stringMaps );
+  static const QFont getDefault( const CLanguageMgr::Language& );
+
 	static void set( const CBTConfig::strings, 	const QString value );
 	static void set( const CBTConfig::bools, 		const bool value );
 	static void set( const CBTConfig::ints, 		const int value );
-	static void set( const CBTConfig::colors, 	const QColor value );
 	static void set( const CBTConfig::intLists,	const QValueList<int> value );
   static void set( const CBTConfig::stringLists, const QStringList value);
   static void set( const CBTConfig::stringMaps, const CBTConfig::StringMap value);
@@ -159,7 +141,6 @@ private:
 	static const QString getKey( const CBTConfig::strings );
 	static const QString getKey( const CBTConfig::bools );
 	static const QString getKey( const CBTConfig::ints );
-	static const QString getKey( const CBTConfig::colors );
 	static const QString getKey( const CBTConfig::intLists );
 	static const QString getKey( const CBTConfig::stringLists );
 	static const QString getKey( const CBTConfig::stringMaps );

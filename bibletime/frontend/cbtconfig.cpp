@@ -42,32 +42,33 @@
 const QString CBTConfig::getKey( const CBTConfig::strings ID){
 	switch ( ID ){
 		case bibletimeVersion:			        return "bibletimeVersion";
-		case language: 							        return "language";
+		case language: 							        	return "language";
+		case displayStyle: 							      return "displayStyle";
 		case standardBible: 				        return "standardBible";
-		case standardCommentary: 		        return "standardCommentary";
-		case standardLexicon: 			        return "standardLexicon";
-		case standardDailyDevotional:	      return "standardDailyDevotional";    
+		case standardCommentary: 		return "standardCommentary";
+		case standardLexicon: 			      return "standardLexicon";
+		case standardDailyDevotional:	      			return "standardDailyDevotional";
 		case standardHebrewStrongsLexicon: 	return "standardHebrewLexicon";
-		case standardGreekStrongsLexicon: 	return "standardGreekLexicon";
-		case standardHebrewMorphLexicon:	  return "standardHebrewMorphLexicon";
-		case standardGreekMorphLexicon:		  return "standardGreekMorphLexicon";
+		case standardGreekStrongsLexicon: 		return "standardGreekLexicon";
+		case standardHebrewMorphLexicon:	  	return "standardHebrewMorphLexicon";
+		case standardGreekMorphLexicon:		  	return "standardGreekMorphLexicon";
 	}
 	return QString::null;
 }
 
 const QString CBTConfig::getDefault( const CBTConfig::strings ID){
 	switch ( ID ){
-		case bibletimeVersion:			return ( "NOT YET INSTALLED" );
-		// main() will realize this and set the value to VERSION
+		case bibletimeVersion:		return "NOT YET INSTALLED"; // main() will realize this and set the value to VERSION
 		case language: 							return (KGlobal::locale()->language()).local8Bit();
-		case standardBible: 				return "KJV";  // no effect
+		case displayStyle: 					return "Default";
+		case standardBible: 			return "KJV";  // no effect
 		case standardCommentary: 		return "MHC";
-		case standardLexicon: 			return "ISBE";
+		case standardLexicon: 						return "ISBE";
 		case standardDailyDevotional: 			return ""; //no default
 		case standardHebrewStrongsLexicon:  return "StrongsHebrew";
-		case standardGreekStrongsLexicon: 	return "StrongsGreek";
-		case standardHebrewMorphLexicon:	  return "StrongsHebrew"; //warning this is wrong
-		case standardGreekMorphLexicon:		  return "StrongsGreek";  //but imo has no effect
+		case standardGreekStrongsLexicon: 		return "StrongsGreek";
+		case standardHebrewMorphLexicon:	  	return "StrongsHebrew"; //warning this is wrong
+		case standardGreekMorphLexicon:		  	return "StrongsGreek";  //but imo has no effect
 	}
 	return QString::null;
 }
@@ -136,7 +137,7 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 		case logo: 								return true;
 		case restoreWorkspace: 		return true;
 		case crashedLastTime: 		return false;
-		case crashedTwoTimes: 		return false;    
+		case crashedTwoTimes: 		return false;
 	}
 	return false;
 }
@@ -156,36 +157,6 @@ const int CBTConfig::getDefault( const CBTConfig::ints ID){
     case scriptureReferences:	return true;
   }
   return 0;
-}
-
-const QString CBTConfig::getKey( const CBTConfig::colors ID){
-	switch ( ID ){
-		case textColor: 							return "textColor";
-		case backgroundColor: 				return "backgroundColor";
-		case background2Color: 				return "background2Color";
-		case highlightedVerseColor: 	return "highlightedVerseClolor";
-		case footnotesColor: 					return "footnotesColor";
-		case strongsColor: 						return "strongsColor";
-		case morphsColor: 						return "morphsColor";
-		case jesuswordsColor: 				return "jesuswordsColor";
-		case swordRefColor: 					return "swordRefColor";
-	}
-	return QString::null;
-}
-
-const QColor CBTConfig::getDefault( const CBTConfig::colors ID){
-	switch ( ID ){
-		case textColor: 							return QColor(Qt::black);
-		case backgroundColor: 				return QColor(QString::fromLatin1("#fffaee"));
-		case background2Color: 				return QColor(QString::fromLatin1("#f1f1f1"));
-		case highlightedVerseColor:		return QColor(Qt::red);
-		case footnotesColor: 					return QColor(QString::fromLatin1("#515151"));
-		case strongsColor: 						return QColor(Qt::darkBlue);
-		case morphsColor: 						return QColor(Qt::darkBlue);
-		case jesuswordsColor: 				return QColor(QString::fromLatin1("#ad0000"));
-		case swordRefColor: 					return QColor(Qt::blue);
-	}
-	return Qt::blue;
 }
 
 const QString CBTConfig::getKey( const CBTConfig::intLists ID){
@@ -273,7 +244,7 @@ const QString CBTConfig::getKey( const CLanguageMgr::Language& language ){
 	return language.name();
 }
 
-const QFont CBTConfig::getDefault( const CLanguageMgr::Language& /*language*/ ){
+const QFont CBTConfig::getDefault( const CLanguageMgr::Language& ){
   //language specific lookup of the font name
   return KApplication::font();
 }
@@ -296,14 +267,6 @@ const int CBTConfig::get( const CBTConfig::ints ID){
 	KConfig* config = KGlobal::config();	
 	KConfigGroupSaver groupSaver(config, "ints");		
 	return config->readBoolEntry(getKey(ID), getDefault(ID));
-}
-
-
-const QColor CBTConfig::get( const CBTConfig::colors ID){
-	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, "colors");
-	QColor defaultColor = getDefault(ID);
-	return config->readColorEntry(getKey(ID),&defaultColor);
 }
 
 const QValueList<int> CBTConfig::get( const CBTConfig::intLists ID ){
@@ -354,7 +317,7 @@ const CBTConfig::FontSettingsPair	CBTConfig::get( const CLanguageMgr::Language& 
   settings.first = config->readBoolEntry(getKey(language));
 
   config->setGroup("fonts");
- 
+
   settings.second = settings.first ? config->readFontEntry(getKey(language)) : KApplication::font();
 
   return settings;
@@ -376,12 +339,6 @@ void CBTConfig::set(const  CBTConfig::bools ID,const  bool value ){
 void CBTConfig::set(const CBTConfig::ints ID, const int value ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "ints");
-	config->writeEntry(getKey(ID), value);
-}
-
-void CBTConfig::set( const CBTConfig::colors ID, const QColor value ){
-	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, "colors");
 	config->writeEntry(getKey(ID), value);
 }
 
