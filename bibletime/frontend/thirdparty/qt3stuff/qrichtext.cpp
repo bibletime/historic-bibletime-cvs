@@ -1234,6 +1234,7 @@ QTextDocument::QTextDocument( QTextDocument *p, QTextFormatCollection *c )
 
 void QTextDocument::init()
 {
+	charsetMap = new QMap<QString, QFont::CharSet>;
 	m_charsetMap = charsetMap;
 	
 #if defined(PARSER_DEBUG)
@@ -1306,6 +1307,10 @@ QTextDocument::~QTextDocument()
     delete backBrush;
     if ( tArray )
 	delete [] tArray;
+	if (charsetMap) {
+		delete charsetMap;
+		charsetMap = m_charsetMap = 0;
+	}
 }
 
 void QTextDocument::clear( bool createEmptyParag )
@@ -5085,6 +5090,10 @@ void QTextFormatCollection::updateFontAttributes( const QFont &f, const QFont &o
 	    fm->fn.setWeight( f.weight() );
 	    fm->fn.setItalic( f.italic() );
 	    fm->fn.setUnderline( f.underline() );
+	
+	    if (m_charsetMap && m_charsetMap->contains(f.family()))
+	    	fm->fn.setCharSet((*m_charsetMap)[f.family()]);
+	    	
 	    fm->update();
 	}
     }
@@ -5097,6 +5106,9 @@ void QTextFormatCollection::updateFontAttributes( const QFont &f, const QFont &o
 	fm->fn.setWeight( f.weight() );
 	fm->fn.setItalic( f.italic() );
 	fm->fn.setUnderline( f.underline() );
+	if (m_charsetMap && m_charsetMap->contains(f.family()))
+		fm->fn.setCharSet((*m_charsetMap)[f.family()]);
+	
 	fm->update();
     }
 }
@@ -5121,6 +5133,9 @@ void QTextFormat::copyFormat( const QTextFormat & nf, int flags )
 	missp = nf.missp;
     if ( flags & QTextFormat::VAlign )
 	ha = nf.ha;
+ 	
+ 	fn.setCharSet(nf.fn.charSet());
+	
     update();
 }
 
@@ -5331,8 +5346,7 @@ QTextFormat QTextFormat::makeTextFormat( const QStyleSheetItem *style, const QMa
 		if ( a.contains(',') )
 		    a = a.left( a.find(',') );
 		format.fn.setFamily( a );
-		qWarning(format.fn.family().latin1());
-		if (m_charsetMap->contains(format.fn.family())) {
+		if (m_charsetMap && m_charsetMap->contains(format.fn.family())) {
 			qWarning("contained in list");
 			format.fn.setCharSet((*m_charsetMap)[format.fn.family()]);
 		}

@@ -29,7 +29,6 @@
 #include <qguardedptr.h>
 
 class CHTMLDialog;
-//class CTextDocument;
 class CBiblePresenter;
 class KConfig;
 class KPopupMenu;

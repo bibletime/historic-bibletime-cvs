@@ -65,18 +65,18 @@
 #include <swmodule.h>
 
 CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts,QWidget *parent, const char *name )
-	: QTextEdit(parent, name)/*, m_document(new CTextDocument(importantClasses, new CTextFormatCollection()))*/ {	
+	: QTextEdit(parent, name) {	
 	m_important = importantClasses;
 
-	QMap<QString, QFont::CharSet>* map = new QMap<QString, QFont::CharSet>;
-	document()->charsetMap = map;
-	
+//	QMap<QString, QFont::CharSet>* map = new QMap<QString, QFont::CharSet>;
+	ASSERT(document()->charsetMap);
+
 	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
 	for (modules->first(); modules->current(); modules->next()) {
 		if (modules->current()->hasFont()) {
 			QFont font = modules->current()->getFont();
-			if (!map->contains(font.family()))
-				map->insert(font.family(), QFont::AnyCharSet);
+			if (!document()->charsetMap->contains(font.family()))
+				document()->charsetMap->insert(font.family(), QFont::AnyCharSet);
 		}
 	}
 
