@@ -28,6 +28,7 @@
 
 //KDE includes
 #include <kcmdlineargs.h>
+#include <kcrash.h>
 #include <kglobal.h>
 #include <kapp.h>
 #include <kstddirs.h>
@@ -44,6 +45,7 @@
 #include <qfont.h>
 
 bool showDebugMessages = false;
+BibleTime* bibletime = 0;
 
 void myMessageOutput( QtMsgType type, const char *msg ) {	
 //we use this messagehandler to switch debugging off in final releases
@@ -61,10 +63,20 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	}
 }
 
+//saves data before the app closes after a crash
+void emergencySave(int)  {
+	qWarning("[emergencySave()] BibleTime crashed - trying to save data!");
+	if (bibletime)	
+		bibletime->saveSettings();
+}
+
 int main(int argc, char* argv[]) {
 	//create about data for this application
-	static KCmdLineOptions options[] = {
-		{ "debug", I18N_NOOP("Enable debug messages."), 0 }
+	static KCmdLineOptions options[] =
+	{
+		{"debug", I18N_NOOP("Enable debug messages"),0},
+		{"crash", I18N_NOOP("Crash BibleTime for testing. Will be removed before the new release."),0},
+		{0,0,0}
 	};	
 	qInstallMsgHandler( myMessageOutput );
 	
@@ -75,14 +87,16 @@ int main(int argc, char* argv[]) {
 		I18N_NOOP("Bible study tool for KDE 2"),
 		KAboutData::License_GPL_V2,
 		I18N_NOOP("(c)1999-2001, The BibleTime Team"),
-		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE 2.\n\nWe are looking for new developers, translators and handbook authors.\nIf you'd like to join use send an eMail to info@bibletime.de."),
+		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE 2.\n\nWe are looking for translators and handbook authors.\nIf you'd like to join use send an eMail to info@bibletime.de."),
 		"http://www.bibletime.de/",
 		"info@bibletime.de"
 	);
 	
 	//coders
 	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator, frontend, backend"), "jansorg@gmx.de","");
-	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Frontend, backend, misc things"), "mg.pub@gmx.net", "");
+	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend, misc things"), "mg.pub@gmx.net", "");
+	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
+	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
 	
 	//documentation
 	aboutData.addAuthor("Fred Saalbach", 	I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
@@ -101,7 +115,7 @@ int main(int argc, char* argv[]) {
 	aboutData.addAuthor("Silvio Bacchetta",		I18N_NOOP("Translation into Italian"), "sorgilazzaro@tiscalinet.it", "");					
 //	aboutData.addAuthor("Walter Rodrigo de Sá Cruz",			I18N_NOOP("Translation into Portoguese"), "keytech@ig.com.br", "");	
 	aboutData.addAuthor("Zdeno Podobny", 		I18N_NOOP("Translation into Slovak"), "zdpo@post.sk", "");
-													
+														
 	//credits
 	aboutData.addCredit("Bob Harman", 	I18N_NOOP("Bible study HowTo"), "N_Cov_Church@compuserve.com", "");		
 	aboutData.addCredit("Darwin Gregory", I18N_NOOP("Optionsdialog"), "darwin@ichristian.com", "");		
@@ -111,10 +125,11 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Torsten Uhlmann", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
 	aboutData.addCredit("Troy A. Griffits", I18N_NOOP("Leader of the SWORD project.\nLots of help with the SWORD API!"), "scribe@crosswire.org", "");	
  	
+	KCrash::setEmergencySaveFunction( emergencySave ); 	
+	 	
  	KCmdLineArgs::init(argc, argv, &aboutData); 	
  	KCmdLineArgs::addCmdLineOptions ( options );
-
-	
+ 		
 #ifdef STATIC_BUILD
  	KApplication app(false); //disable styles
 	qWarning("path == %s", argv[0]);
@@ -133,15 +148,13 @@ int main(int argc, char* argv[]) {
  	KApplication app;
 #endif
 	
- 	
- 	KGlobal::dirs()->addResourceType("BT_pic", /*KStandardDirs::kde_default("data") + kapp->name() +*/ "share/apps/bibletime/pics/");
+ 	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics/");
 
 
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 	// A binary option (on / off)
 	if (args->isSet("debug"))
 		showDebugMessages = true;
-
  		
  	if (app.isRestored()) {
 		RESTORE(BibleTime)
@@ -161,7 +174,7 @@ int main(int argc, char* argv[]) {
 	  }
 		
 		//first startup of BibleTime?		
-	  BibleTime* bibletime = new BibleTime();
+	  bibletime = new BibleTime();
 		{
 			KConfigGroupSaver groupSaver(config, "General");
 			if (config->readBoolEntry(QString::fromLatin1("firstStartup %1").arg(VERSION), true)) {
@@ -185,7 +198,15 @@ int main(int argc, char* argv[]) {
 			if (config->readBoolEntry("TipsOnStart", true))
 				bibletime->slotHelpTipOfDay();
 			bibletime->show();					
-		}		
+		}
+		
+		if (args->isSet("crash")) {
+			qWarning("### try to crash BibleTime!");
+			QWidget* b;
+			delete b;
+		}
+			
+		
   	return app.exec();
 	}
 }

@@ -47,24 +47,23 @@ class QSplitter;
 
 /**
  	*	@page backend The structure of the backend
- 	*	First we have a backend structure, which could be extended
- 	* by every type of backend in the future. Have a look at the class CBackend.
  	*
  	*	The backend implementation for Sword is called CSwordBackend, the classes we use
  	* to work with keys are called CSwordVerseKey and CSwordLDKey, both are derived from
- 	* the class CKey.
- 	* The CKey derived classes used for Sword do also inherit the classes VerseKey (by CSwordVerseKey)
- 	*	and SWKey (by CSwordLDKey).
+ 	* the class CSwordKey.
+ 	* The CSwordKey derived classes used for Sword do also inherit the classes VerseKey (CSwordVerseKey)
+ 	*	and SWKey (CSwordLDKey).
  	*	
- 	*	The classes used to handle all module based stuff are derived from CModleInfo.
- 	*	The module classes are: CSwordModuleInfo, CSwordBibleModuleInfo, CSwordCommentaryModuleInfo and
- 	*	CSwordLexiconModuleInfo.
+ 	*	The classes used to handle all module based stuff are derived from CModuleInfo.
+ 	*	The module classes are: CSwordModuleInfo (for Sword modules), CSwordBibleModuleInfo (for bibles), CSwordCommentaryModuleInfo (for commentaries) and
+ 	*	CSwordLexiconModuleInfo (for lexicons).
  	*	Have a look at the class documentation of the mentioned classes to learn how the
  	*	structure of them looks like and which class inherits which other class.
  	*
- 	*	The first class which should be created is the backend (for Sword the class is called CSwordBackend).
- 	*	Then create all the different module classes for the correct Sword modules.
- 	*	Later you can work with them for example by using  the CSwordVerseKey class.
+ 	*	The first objects which should be created in the application is the backend (for Sword the class is called CSwordBackend).
+ 	*	Then create all the different module classes for the correct Sword modules. Have a look at
+ 	* BibleTime::initBackens() to see how it's done in BibleTime.@br
+ 	*	Later you can work with them for example by using the CSwordKey and CSwordModuleInfo derived class.
  	*/
 
 /**
@@ -72,7 +71,7 @@ class QSplitter;
  	*	
  	*
  	*	The frontend contains the classes which interact with the user. For example the main index,
- 	* the display widnows, the searchdialog or the other parts.
+ 	* the display windows, the searchdialog or the other parts.
  	* The main index is implemented in the class CGroupManager, the items of the main index are implemented in the class CGroupManagerItem.
  	* Each CGroupManagerItem has a type() function which returns the type of the object (Module, Bookmark or Group).<BR>
  	* The display windows are all derived from the base class CPresenter. The display windows which handle Sword modules are all derived from the CSwordPresenter class.
@@ -116,6 +115,18 @@ public:
   * No descriptions
   */
   virtual void show();
+  /**
+  * The function to save the settings after a crash. It's called by the crashandler of KCrash.
+  */
+//  static void emergencySave( int );
+  /**
+  * Reads the settings from the configfile and sets the right properties.
+  */
+  void readSettings();
+  /**
+  * Saves the settings of this class
+  */
+  void saveSettings();
 
 public slots:
   /**
@@ -158,14 +169,6 @@ protected: // Protected methods
   * Initializes the backend
   */
   void initBackends();
-  /**
-  * Reads the settings from the configfile and sets the right properties.
-  */
-  void readSettings();
-  /**
-  * Saves the settings of this class
-  */
-  void saveSettings();
   /**
 	* Initializes the action objects of the GUI
 	*/

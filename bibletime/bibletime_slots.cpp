@@ -340,7 +340,7 @@ void BibleTime::slotAbortPrinting(){
 
 /** Opens the online help. If STATIC_BUILD is defined it opens an own dialog, otherwise the standard KDE helpsystem will be opened. */
 void BibleTime::openOnlineHelp() {
-#ifndef STATIC_BUILD
+#ifdef STATIC_BUILD
 	CHTMLDialog dlg("bibletime/index.html");
 	dlg.exec();
 #else

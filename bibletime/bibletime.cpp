@@ -88,6 +88,9 @@ void BibleTime::saveSettings(){
 		KConfigGroupSaver groupSaver(m_config,"General");
 		m_config->writeEntry("showFootnotes", m_viewFootnotes_action->isChecked());
 		m_config->writeEntry("showStrongs", m_viewStrongs_action->isChecked());
+		m_config->writeEntry("showMorphTags", m_viewMorphTags_action->isChecked());
+		m_config->writeEntry("showHeadings", m_viewHeadings_action->isChecked());
+						
 		m_config->writeEntry("show toolbar", m_viewToolbar_action->isChecked());
 		m_config->writeEntry("show main index", m_viewGroupManager_action->isChecked());		
 		if (m_viewGroupManager_action->isChecked())	//only save changes when the groupmanager is visible
@@ -132,6 +135,12 @@ void BibleTime::readSettings(){
 		m_viewStrongs_action->setChecked( m_config->readBoolEntry("showStrongs", true));
 		slotToggleStrongs();
 
+		m_viewStrongs_action->setChecked( m_config->readBoolEntry("showStrongs", true));
+		slotToggleStrongs();
+
+		m_viewMorphTags_action->setChecked( m_config->readBoolEntry("showMorphTags", true));
+		slotToggleMorphTags();
+				
 		m_viewToolbar_action->setChecked( m_config->readBoolEntry("show toolbar", true) );
 		slotToggleToolbar();
 		
@@ -280,3 +289,13 @@ void BibleTime::readProperties(KConfig* myConfig){
 
 }
 
+///** crash emergency save function */
+//void BibleTime::emergencySave( int ){
+//	qWarning("!!! BibleTime crashed - trying to save data NOW !!!");
+//
+//	saveSettings();
+//	m_groupmanager->saveSettings();
+//	m_mdi->saveSettings();
+//
+//	m_config->sync();//save to disk
+//}

@@ -31,7 +31,7 @@ configure_args=--with-qt-dir=/usr/lib/qt2 --with-kdedir=/opt/kde2.1
 debug_args=--debug
 dir_where_make_will_be_called=./
 email=info@bibletime.de
-execute_args=--debug
+execute_args=--debug --crash
 kdevprj_version=1.3
 lfv_open_groups=
 make_options=\s-j2
