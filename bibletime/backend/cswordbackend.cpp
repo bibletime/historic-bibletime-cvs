@@ -101,6 +101,7 @@ const CSwordBackend::ErrorCode CSwordBackend::initModules() {
 
 	for (it = Modules.begin(); it != Modules.end(); it++) {
 		curMod = (*it).second;
+//		qWarning("CurMod: %s",curMod->Type());
 		if (!strcmp(curMod->Type(), "Biblical Texts")) {
 			newModule = new CSwordBibleModuleInfo(curMod);
 			CHECK_HTML_CHAPTER_DISLPAY	//a macro to check the chapter display			
@@ -113,7 +114,8 @@ const CSwordBackend::ErrorCode CSwordBackend::initModules() {
 			newModule = new CSwordLexiconModuleInfo(curMod);
 			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
 			newModule->module()->Disp(m_entryDisplay);
-		} else if (!strcmp(curMod->Type(), "Generic Books")) {
+//		} else if (!strcmp(curMod->Type(), "Generic Books")) {
+		} else if (!strcmp(curMod->Type(), "Generic Book")) { // patched for now?
 			newModule = new CSwordBookModuleInfo(curMod);
 			CHECK_HTML_BOOK_DISLPAY	//a macro to check the book display			
 			newModule->module()->Disp(m_bookDisplay);
