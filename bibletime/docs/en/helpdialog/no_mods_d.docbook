@@ -1,0 +1,53 @@
+<chapter id="no_mods_d">
+<title>Initialization of Module directory failed!</title>
+
+<para>There's no mods.d directory!</para>
+
+<para>This page describes what the mods.d directory is and how to solve this problem! </para>
+<qandaset>
+<qandaentry>
+<question>
+<para>
+What is the mods.d directory?
+</para>
+</question>
+<answer>
+<para>
+The mods.d directory is the directory which should contain the config files of
+the modules!  You must have this directory, otherwise you can't use BibleTime
+and SWORD! Please read the installation instructions on our homepage!
+</para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para>
+How do I solve this problem?
+</para>
+</question>
+<answer>
+<para>
+The solution is to create a directory mods.d:
+Please go into your SWORD directory and type "mkdir mods.d" to create the directory.
+Now copy the config files of your modules into this package and remove (if they
+exist) the file mods.conf which isn't required any more.
+The mods.d directory replaced this file.
+ </para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para>
+Can I start BibleTime without this directory?
+</para>
+</question>
+<answer>
+<para>
+Yes, it's possible. But it's not very useful.
+There are no modules in the groupmanager. It's possible to test BibleTime this
+way, but it's not possible to work with it without modules.
+</para>
+</answer>
+</qandaentry>
+</qandaset>
+</chapter>

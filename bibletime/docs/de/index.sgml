@@ -1,0 +1,251 @@
+<!doctype linuxdoc system>
+<article>
+<titlepag>
+<title>Das Handbuch von BibleTime 1.0
+<subtitle>Ein Benutzerhandbuch zum Bibelstudiumprogramm BibleTime für Linux/Unix Systeme.
+<author>Von <htmlurl url="mailto:jeff@jhoyt.faithweb.com" name="Jeffrey Hoyt (jeff@jhoyt.faithweb.com)">
+<inst>Das BibleTime Team<date>Version 2.0, 7. Juli 2000
+
+<abstract>Dieses Handbuch beschreibt BibleTime Version 0.3. Es ist Teil des BibleTime Paketes und
+ist lizensiert unter der GNUL General Public License.
+describes BibleTime Version 0.3. It is part of (siehe <ref id="Copyright" name="Copyright">).
+</abstract>
+
+<toc>
+<sect>Einleitung
+<p>
+BibleTime ist ein mächtiges Bibelstudiumprogramm welches für die KDE Umgebung auf dem Linux Betriebssystem
+geschrieben ist.
+Es basiert auf der <htmlurl url="http://www.crosswire.org" name="Sword"> Bibliothek, welches Backend-Funktionen wie 
+das anschauen von Bibeltexten, Suchen, Bokkmarks anlegen usw. unterstützt. Sword ist das Flagschiff Produkt der
+<htmlurl url="http://www.crosswire.org" name="Crosswire Bibelgesellschaft.">
+
+Es gibt drei Typen von Modulen die angezeigt werden können:
+
+<itemize>
+<item>Bibeln - der ganze Text mit optionalen Strongnummern und Fußnoten
+<item>Kommentare - Mit einem "Persönlichem" Kommentar um eigene Notizen zu schreiben
+<item>Lexika - für Word Definitionen und Themengebiete
+</itemize>
+
+<sect1> Änderungen
+<p>
+
+<sect1> To Do
+<p>
+<sect1> Motivation
+<p>
+Unser Ziel ist es Gott zu dienen, und unseren Teil zu tun anderen zu helfen in ihrer Beziehung mit IHM zu wachsen.
+Wir haben eine klaffende Lücke gefunden, dies war das gänzliche Feheln von benutzerfreundlicher Bibelstudien Software 
+für Linux-basierte Systeme.
+Wir haben BibleTime entwickelt um diese Lücke zu stopfen.
+Wir haben uns angestrengt es ein mächtiges, qualitatives aber dennoch einfach und intuitiv zu bediendendes
+Programm werden zu lassen.
+Es ist unser Verlangen dass Gott gepriesen wird, sowie ER die Quelle aller guten Dinge ist.
+
+<quote>
+Jede gute Gabe und jedes vollkommene Geschenk kommt von oben herab, von  dem Vater der Lichter,
+bei welchem keine Veränderung ist, noch ein Schatten  infolge von Wechsel.<p>
+Jakobus 1,17 - Schlachter Übersetzung
+</quote>
+
+Gott segne Dich durch die Benutzung dieses Programmes, und werde ER verherrlicht durch die Arbeit unserer Hände!
+
+<sect>Installation
+<p>
+<htmlurl url="http://www.bibletime.de/" name="www.bibletime.de"> hat alle Antworten!
+Bitte schau dort nach.  :-)
+
+<sect>Programm Bedienung
+<p>
+BibleTime wird größtenteils durch den Modulbaum sowie durch das MDI (Modular Document Interface), oder "Hauptfenster"
+bedient.
+Die Menü- und Werkzeugleisten sind hauptsächlich zum setzen von Optionen vorhanden.
+
+
+<sect1>Der "Modulbaum"
+<p>
+Dies ist der Teil auf der linken Seite von BibleTimes Hauptfenster.
+Es enthält die installierten Module sowie alle Lesezeichen die Sie erstellen.
+
+<sect2>Markieren eines Modules zum Anschauen
+<p>
+Um dies zu tun klicken Sie einfach auf die gewünschte Kategorie (Bibeln, Kommentare oder Lexika)
+um die Module dieser Gruppe anzuzeigen. Dann klicken Sie auf das gewünschte Module. Um ein weiteres Fenster für diese Module zu öffnen,
+klicken sie die rechte Maustaste und wählen Sie "Neuer Presenter".
+
+Ein andere Weg besteht in der Benutzung eines schon geöffneten Presenters.
+Klicken sie einfach auf die Versnummer (der Mauszeicger wechselt in eine Hand) und ziehen Sie die Versnummer auf den Modulbaum.
+Lassen Sie die Vernummer auf dem Modul fallen das Sie öffnen möchten, und das gewünschte Module wird an der Stelle geöffnet die sie 
+mit der Maus gewzogen haben.
+Wenn Sie eine Versnummer auf einen bereits geöffneten Presenter bewegen und dort "fallen lassen", wird automatisch der 
+Vers angezeigt den Sie bewegt haben.
+Dies funktioniert natürlich nut mir Bibeln und Lexika.
+
+Es gibt zwei weitere selten benutzte Funktionen die durch das rechts-kklicken auf einen Modulnamen zugänglich sind.
+"Zeige Information" öffnet ein Fenster mit Informationen über Copyright und anderen wichtigen Dingen über das markierte Modul.
+"Setze Schlüssel" öffnet einen Dialog für verschlüsselte (mit Copyright belegte) Module.
+Dies macht Besitzern von Schlüsseln möglich den Schlüssel einzugeben und es menschen-lesbar zu machen.
+
+<sect2> Benutzung des Suchdialoges
+<p>
+Sie können ein Modul durchsuchen indem Sie mit der rechten Maustaste auf den Modulenamen klicken und "Suche in Modul(em)"
+auswählen.
+Durch Klicken mit gedrückter Shift Taste auf andere Module können Sie mehr als ein Modul markieren.
+You can search in a module by  right-clicking on the module name in the module list and selecting "Search in module(s)".
+Benutzen Sie die selbe Methode wie bei einem Modul um Sie zu durchsuchen. Alle Module werden durchsucht werden.
+
+<sect2> Zugriff auf Lesezeichen Funktionen
+<p>
+Klicken Sie mit der rechten Maustaste auf einen freien Bereich des Gruppenmanager und wählen Sie "Erzeuge neue Gruppe"
+um eine neue Gruppe für Lesezeichen anzulegen.
+Sie können normale Drag&amp;Drop Funktionen benutzen um Versnummern darauf zu ziehen um Lesezeichen als Untereinträge der
+Gruppe zu erzeugen, aber auch um Lesezeichen in Gruppen anders anzuordnen.
+Es gibt auch eine Import sowie Export Funktion für Lesezeichen. Wählen Sie "Exportiere Lesezeichen"
+aus dem rechten-Maustasten-Menü. Dies öffnet einen Dialog in dem Sie die Lesezeichen-Sammlung als Datei speuchern können.
+Somit können sie mit anderen Benutzern von BibleTime ausgetauscht oder aber auch archiviert werden.
+They can be shared with other BibleTime users, archived, etc.  They can be imported in the same way.
+Sie können auch auf einen Ordner klick um den Ordnernamen zu ändern. Dasselbe gilt für Bookmark-Beschreibungen (wird noch eingebaut).
+Sie können auch Gruppen und Lesezeichen löschen.
+
+<sect1>MDI Bereich
+<p>
+Dies ist der Bereich wo die geöffneten Module angezeigt werden.
+Module werden in "Presentern" angezeigt, die spezifisch für die drei Modularten sind.
+
+<sect2>Kontrollieren geöffneter Module
+<p>
+
+Presenter (die Fenster mit dem Modulinhalt) können mit den normale KDE Fenster-/Titelzeilen verwaltet werden (minimieren, schließen usw.).
+Presenters (the windows that contain the modules) can be controlled and manipulated with normal KDE window/titlebar functions.
+Als Erweiterung zu diesen können Sie die geöffneten Presenter kacheln uns stapeln.
+Benutzen Sie die jeweiligen Werkzeugleistenknöpfe  oder die Menü Funktionen unter "Fenster" in der Menüleiste.
+Presenter können auch automatisch gestapelt oder gekachelt werden
+
+<sect2>Navigation in geöffneten Module
+<p>
+Die Benutzung der Comboboxen und der Knöpfe in den Werkzeugleisten der Presenter ist der Weg in Modulen zu navigieren.
+Sie können Buch, Kapitel und Vers direkt ändern indem Sie die Comboboxen benutzen und vor- und zurück- in Kapiteln und Versen
+um jeweils einen Eintrag springen indem Sie die Knöpfe der Werkzeugleiste benutzen.
+
+<sect2>Automatisches Scrollen
+<p>
+Eines von BibleTime's erweiterten Funktionen ist die Möglichkeit mehr als einen Presenter zur gleichen Zeit zu kontrollieren.
+in Bibel- und Kommentarmodulen ist der am meisten rechts liegende Knopf in der Werkzeugleiste der Knopf zum automatischem Scrollen.
+For Bible and Commentary modules, the rightmost toolbar button is the Autoscroll button.
+Wenn Sie ihn in geöffneten Presentern aktivieren wird das Modul gleichzeitig mit anderen Modulen Scrollen, die automatisches Scrollen
+aktiviert haben.
+
+<sect2>Editieren Sie ihren eigenen Kommentar
+<p>
+Die Werkzeugleiste von Kommentarpresentern hat einen zusätzlichen Knopf mit dem Bild eines Bleistiftes.
+Bei dem "Persönlichen Kommentarmodul" klicken Sie diesen Knopf um ihren eigenen Kommentar eingeben oder editieren zu können.
+Wenn Sie fertig sind klicken sie auf "Speichern" (der Knopf mit der Diskette) um ihren Kommentar zu speichern.
+Um Notizen zu einem Vers zu löschen drücken Sie auf den Knopf mit dem Mülleimer.
+Sie können auch den Endpunkt ihrer Notizen verändern wenn Sie zum Beispiel eine Reihe von Versen mit dem selben Kommentar
+kommentieren wollen.
+Klicken Sie erneut auf den "Editiere" Knopf um in den normalen "Anschau" Moduus zu gelangen.
+
+<sect1>Durchsuchen von Modulen
+<p>
+<sect2>Zugriff auf Suchfunktionen
+<p>
+Sie können in einem Modul suchen indem Sie mit der rechten Maustaste auf ein Modul klicken und "Suche in Modul(en)" wählen.
+Durch gleichzeitiges drücken der SHIFT- oder STRG- Taste können Sie mehr als ein Modul selektieren.
+Benutzen Sie diselben Funktionen wie oben um den Suchdialog zu öffnen. Alle gewählten Module werden durchsucht.
+
+<sect2>Benutzung des Suchdialoes
+<p>
+Text -  In diesem Feld geben Sie bitte den gesuchten Text ein und setzen sie die gewünschten Eigenschaften.
+
+"Regulärer Ausdruck" benutzt den standard RegExp Syntax um die Suche zu verfeinern.
+
+Suchbereich - Hier können Sie Suchbereiche definieren
+Sie können keine Grenzen setzen, in den versen des letzten Suchergebnisses suchen oder Sie können ihre
+eigenen Grenzen definieren in denen in den Modulen gesucht werden soll.
+Sie können für jedes augelistete Module können Sie untere und obere Grenzen eingeben und löschen.
+Vergessen Sie nicht "Bereich hinzufügen" zu drücken bevor Sie suchen.
+
+Suchergebnis - Die ersten Einträge liefern ihnen die Anzahl der gefundenen Einträge. Wenn Sie auf die Einträge klicken
+wird die Liste der Verse geöffnet.
+Wenn Sie auf einen Vers klicken wird er im Fenster darunter angezeigt. Ziehen Sie einen Vers ud lassen Sie ihn auf einem Modul
+"fallen" um das Modul in einem neuen Presenter anzuzeigen.
+
+Suchanalyse - Dies zeigt ihnen eine grafische Analyse der Anzahl der Suchergebnisse pro Buch an. Es können mehr als ein Modul
+angezeigt werden. und Sie können die Grafik als Bild auf Festplatte abspeichern.
+
+<sect>Haupt-Werkzeugleiste und Menüleiste
+<p>
+<sect1>Werkzeugleiste
+<p>
+Die Werkzeugleiste des Hauptfensters in konfigurierbar. Greifen Sie mit dem EIntrag "Konfiguriere Werkzeugleisten" im "Einstellungen"
+Menü darauf zu. Jeder Knopf in der Werkzeugleiste hat Schnellhilfen um Informationen über ihre Funktionen zu bekommen.
+Knöpfe ohne Icon können leer erscheinen.
+
+<sect1> Menüleiste
+<p>
+<sect2> Datei
+<p>
+<itemize>
+<item>Neues Fenster - Öffnet eine neue Instanz von BibleTime
+<item>Schließen - Schließt den Presenter der den Fokus hat
+<item>Quit - Beendet BibleTime
+</itemize>
+
+<sect2>Fenster
+<p>
+<itemize>
+<item>Stapeln - Stapelt geöffnete Presenter
+<item>Kacheln - Kachelt geöffnete Presenter
+<item>Automatisch Stapeln - stapele automatisch neu geöffnete Presenter
+<item>Automatisch kacheln - dasselbe, nur automatische Kacheln
+<item>Alle schließen - schließt alle geöffneten Presenter
+<item>Liste der geöffneten Presenter - Muss man das erklären?
+</itemize>
+
+<sect2>Settings
+<p>
+<itemize>
+<item>Zeige Werkzeugleiste - Zeige oder evrstecke die Hauptwekzegleiste, normalerweise wird sie angezeigt
+<item>Konfiguriere Werkzeugleisten - Zeige den Konfigurationsdialog für die Werkzeugleisten
+<item>Einstellungen - Zeige den Einstellungendialog
+<item>Zeige Strongnummern - Zeige Strong Nummern im Text an (nur bestimmte Module haben Strong Nummern)
+<item>Zeige Fußnoten - Zeige Fußnoten im Text an nur bestimmte Module haben Fußnoten)
+<item>Zeige den Gruppenmanager - Zeige oder verstecke das Modullisten Fenster.
+Normalerweise ist es nicht versteckt, außer wenn Sie maximalen Platz zur Anzeige von Modulen haben möchten.
+BTW, das sklieren des Gruppenmanager Fenster hat den gleichen Effekt, nur schwächer.
+</itemize>
+
+<sect2>Hilfe
+<p>
+<itemize>
+<item>Inhalt - Öffne KDEs Hilfebrowser und zeige BibleTimes Handbuch an.
+<item>What's This - Mcht es ihnen möglich auf verschiedene Teile BibleTime's zu klicken um eine Kontexthilfe zu bekommen
+<item>Fehlerberict - Shickt einen Fehlerbericht an die Entwickler von BibleTime um die Entwicklung zu unterstützen
+<item>Über Bibletime - Öffnet ein Fenster mit allgemeinen Infomationen über BibleTime
+<item>Über KDE - Öffnet ein Fenster mit allgemeinen KDE Informationen
+</itemize>
+
+<sect>Copyright <label id="Copyright">
+<p>
+<tscreen><verb>
+
+BibleTime Copyright &copy; 1999 The team of BibleTime , info@bibletime.de
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+</verb></tscreen>
+
+</article>

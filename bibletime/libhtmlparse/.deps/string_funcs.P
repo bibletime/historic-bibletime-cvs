@@ -1,0 +1,19 @@
+string_funcs.o: string_funcs.c /usr/include/string.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/gnu/stubs.h \
+ /usr/lib/gcc-lib/i486-suse-linux/2.95.2/include/stddef.h \
+ /usr/include/bits/string.h /usr/include/bits/string2.h \
+ /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/bits/types.h /usr/include/stdlib.h
+string_funcs.c :
+/usr/include/string.h :
+/usr/include/features.h :
+/usr/include/sys/cdefs.h :
+/usr/include/gnu/stubs.h :
+/usr/lib/gcc-lib/i486-suse-linux/2.95.2/include/stddef.h :
+/usr/include/bits/string.h :
+/usr/include/bits/string2.h :
+/usr/include/endian.h :
+/usr/include/bits/endian.h :
+/usr/include/bits/types.h :
+/usr/include/stdlib.h :

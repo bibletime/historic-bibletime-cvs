@@ -1,0 +1,132 @@
+/***************************************************************************
+                          cstyleeditordialog.h  -  description
+                             -------------------
+    begin                : Sun Aug 20 2000
+    copyright            : (C) 2000 by The BibleTime team
+    email                : info@bibletime.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#ifndef CSTYLEEDITORDIALOG_H
+#define CSTYLEEDITORDIALOG_H
+
+#include <qwidget.h>
+#include <kdialogbase.h>
+
+#include "cstyle.h"
+#include "cstyleformat.h"
+#include "cstyleformatframe.h"
+
+/**The editor for the printing styles.
+  *@author The BibleTime team
+  */
+class KLineEdit;
+class KComboBox;
+class QRadioButton;
+class QSpinBox;
+class KFontDialog;
+class KColorButton;
+class QVButtonGroup;
+class QHButtonGroup;
+class QCheckBox;
+class QComboBox;
+class QGroupBox;
+
+class CStyleEditorDialog : public KDialogBase  {
+   Q_OBJECT
+public: 
+	CStyleEditorDialog(CStyle* style, QWidget *parent=0, const char *name=0);
+	~CStyleEditorDialog();
+
+protected: // Protected methods
+	struct alignementRadios {
+		QRadioButton*	leftRB;
+		QRadioButton*	centerRB;
+		QRadioButton*	rightRB;
+		QRadioButton*	justificationRB;
+		QVButtonGroup*	buttongroup;
+	};
+	struct colorButtons {
+		KColorButton*	foregroundChooser;
+		KColorButton*	backgroundChooser;
+	};
+	struct frameWidgets {
+		QCheckBox*	useFrame;
+		KColorButton*	colorChooser;
+		QSpinBox* lineThicknessChooser;
+		QGroupBox*	groupbox;
+//		CLineStyleChooser*	lineStyleChooser;
+	};
+	struct fontWidgets {
+		QFont font;
+		QSpinBox*	identation;
+		QLabel*	fontDisplay;
+	};
+	
+  /**
+  	* Saves settings to config file.
+  	*/
+  virtual void saveSettings();
+  /**
+  	* Reads settings from config file
+  	*/
+  virtual void readSettings();
+  /**
+  	* Initializes te view.
+  	*/
+  virtual void initView();
+
+  KLineEdit*	m_styleNameEdit;
+  KComboBox*	m_styleTypeChooser;
+	CStyle*	m_style;
+	CStyleFormat* m_currentFormat;
+	QCheckBox*	m_setEnabledBox;
+	alignementRadios m_alignRadios;
+	colorButtons m_colors;
+	frameWidgets m_frame;
+	fontWidgets m_font;
+
+	bool m_formatEnabled;
+	
+protected slots:
+  /**
+  	* Opens the font chooser dialog.
+  	*/
+  virtual void showFontChooser();
+  /**
+  	*
+  	*/
+  virtual void useFrameClicked();
+  /**
+  	* Setups the font widgets using the parameter.
+  	*/
+  virtual void setupFontWidgets( QFont& font );
+  /**
+  	* Sets up the states of the child widgets using the styl format given as parameter.
+  	*/
+  virtual void applySettingsToFormat( CStyleFormat* );  	
+  /**
+  	* Sets the properties of the cuzrrent format which are changed in the editor.
+  	*/
+  virtual void setupWithFormat( CStyleFormat* format);
+
+protected slots: // Protected slots
+  /**
+  	* Is called when the enablePart box was clicked.
+  	*/
+  void enableBoxClicked();
+  /**
+  	* Called when the type was changed in the combobox.
+  	*/
+  void styleTypeChanged( const QString& );
+};
+
+#endif

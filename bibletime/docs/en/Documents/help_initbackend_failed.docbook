@@ -1,0 +1,11 @@
+<chapter id="help_initbackend_failed">
+<title>Initialization of Backend Failed! </title>
+<para>The initialization of BibleTime's backend failed!</para>
+
+<para>If you get this message, you have uncovered a bug we need to know about.</para>
+
+
+<para>Please send a bug-report with some information and show us how to reproduce the problem.</para>
+<para> Email us at <ulink url="mailto:info@bibletime.de">info@bibletime.de!</ulink></para>
+<para>Thank you very much for your help!</para>
+</chapter>

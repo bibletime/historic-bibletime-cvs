@@ -1,0 +1,61 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="5">
+<MenuBar>
+ <Menu name="file" noMerge="1"><text>&amp;File</text>
+  <Action name="fileClearQueue_action"/>
+  <Action name="file_print"/>
+  <Separator/>
+  <Action name="file_quit"/>
+  <Separator/>
+ </Menu>
+ <Menu name="groupmanager"><text>&amp;Groupmanager</text>
+  <Action name="GMsearch_action"/>
+  <Separator/>
+  <Action name="GMreset_action"/>
+  <Action name="GMdelete_action"/>
+ </Menu>
+ <Menu name="view" noMerge="1"><Text>&amp;View</Text>
+  <Action name="viewStrongs_action"/>
+  <Action name="viewFootnotes_action"/>
+  <Action name="viewGroupManager_action"/>
+ </Menu>
+ <Menu name="settings" noMerge="1"><Text>&amp;Settings</Text>
+	<Action name="options_show_menubar"/>
+	<Action name="options_show_toolbar"/>
+  <Separator/>
+  <Action name="options_configure_toolbars"/>
+  <Action name="options_configure"/>
+ </Menu>
+ <Menu name="window"><Text>&amp;Window</Text>
+  <Action name="windowTile_action"/>
+  <Action name="windowCascade_action"/>
+  <Action name="windowAutoTile_action"/>
+  <Action name="windowAutoCascade_action"/>
+  <Separator/>
+  <Action name="windowCloseAll_action"/>
+ </Menu>	
+ <Menu name="help" noMerge="1"><Text>&amp;Help</Text>
+  <Action name="help_contents"/>
+  <Action name="help_whats_this"/>
+  <Action name="help_report_bug"/>
+	<Separator/>
+  <Action name="helpDailyTip_action"/>
+	<Separator/>
+  <Action name="help_about_app"/>
+  <Action name="help_about_kde"/>
+ </Menu>	
+</MenuBar>
+<ToolBar name="mainToolBar" fullWidth="true" noMerge="1" newLine="1">
+ <Action name="file_quit"/>		
+ <Action name="file_print"/>		
+ <Action name="file_clearQueue"/>		
+ <Separator/>
+ <Action name="viewStrongs_action"/>
+ <Action name="viewFootnotes_action"/>
+ <Action name="options_show_toolbar"/>	
+ <Action name="viewGroupmanager_action"/>		
+ <Separator/>
+ <Action name="GMsearch_action"/>		
+ <Separator/>
+ <Action name="help_whats_this"/>
+</ToolBar>
+</kpartgui>
