@@ -55,26 +55,21 @@ public:
   */
   virtual char Display(CSwordModuleInfo* module);
   /**
+  * Generates code to display the given modules side by side.
+  */
+  virtual char Display( QList<CSwordModuleInfo>* moduleList);
+  /**
   * This function returns the last looked up HTML text.
   */
   const QString getHTML() const;  	
   /**
-  * Sets the standard font fot this display object.
-  */
-  void setStandardFont( const QString& family, const short int logicalSize );
-  /**
   * Call this with false as argument to switch off the headers (module anme and current position)
   */
   void setIncludeHeader( const bool includeHeader );
-  /**
-  * Generates code to display the given modules side by side.
-  */
-  virtual char Display( QList<CSwordModuleInfo>* moduleList);
 
   void setAllDisplayOptions( const CSwordBackend::displayOptionsBool options);
 
 protected:
-	bool 		m_useLineBreaks;
 	bool 		m_includeHeader;
 
 	QString m_htmlText;

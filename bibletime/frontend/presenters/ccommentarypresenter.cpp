@@ -25,6 +25,9 @@
 #include "../../backend/cswordversekey.h"
 #include "../../backend/chtmlchapterdisplay.h"
 #include "../../backend/creferencemanager.h"
+#include "../optionsdialog/coptionsdialog.h"
+#include "../../backend/cswordbackend.h"
+
 
 //Qt includes
 #include <qclipboard.h>
@@ -155,6 +158,10 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
 	if (!vKey)
 		return;
 //	vKey->Persist(1);
+
+	m_important->swordBackend->setAllModuleOptions( COptionsDialog::getAllModuleOptionDefaults() );
+	m_important->swordBackend->setAllDisplayOptions( COptionsDialog::getAllDisplayOptionDefaults() );
+
   m_moduleList.first()->module()->SetKey(*vKey);
 
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?

@@ -29,13 +29,6 @@
 //Sword includes
 #include <versekey.h>
 
-void CHTMLChapterDisplay::updateSettings(void){
-	m_useLineBreak    = COptionsDialog::getBTBool(COptionsDialog::lineBreaks);	
-	m_useVerseNumbers = COptionsDialog::getBTBool(COptionsDialog::verseNumbers);	
-	CHTMLEntryDisplay::updateSettings();
-}
-
-
 /** Renders the text and puts the result into the member variable m_htmlText */
 char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	if (!module) {
@@ -66,7 +59,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.NextVerse()) {
 		verse = key.Verse();
-		if (m_useVerseNumbers)
+		if (m_displayOptionsBool.verseNumbers)
 #warning make color configurable
 			m_htmlText.append( QString::fromLatin1("<a name=\"%1\" href=\"%2\"><b>%3</b></a>")
 				.arg(verse)
@@ -79,7 +72,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		if (verse == currentVerse)
 		  m_htmlText.append( QString("</font>") );
 
-		if (m_useLineBreak)
+		if (m_displayOptionsBool.lineBreaks)
 			m_htmlText.append("<br>\n");
 	}
 	m_htmlText.append("</font>");

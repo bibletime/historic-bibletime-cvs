@@ -22,6 +22,9 @@
 #include "../../ressource.h"
 #include "../../backend/cswordldkey.h"
 #include "../../backend/chtmlentrydisplay.h"
+#include "../optionsdialog/coptionsdialog.h"
+#include "../../backend/cswordbackend.h"
+
 
 //Qt includes
 #include <qclipboard.h>
@@ -109,6 +112,10 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 	CSwordLDKey* ldKey = dynamic_cast<CSwordLDKey*>(key);
 	if (!ldKey)
 		return;
+
+	m_important->swordBackend->setAllModuleOptions( COptionsDialog::getAllModuleOptionDefaults() );
+	m_important->swordBackend->setAllDisplayOptions( COptionsDialog::getAllDisplayOptionDefaults() );
+
 	m_moduleList.first()->module()->SetKey(*ldKey);
 	
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?

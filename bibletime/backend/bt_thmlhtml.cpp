@@ -24,11 +24,12 @@ BT_ThMLHTML::BT_ThMLHTML() {
 
 	setTokenCaseSensitive(true);
 
-	addTokenSubstitute("note place=\"foot\"", " <small>(");
-	addTokenSubstitute("/note",								")</small> ");
-	addTokenSubstitute("foreign lang=\"el\"", "<font face=\"SIL Galatia\">");
-	addTokenSubstitute("foreign lang=\"he\"", "<font face=\"SIL Ezra\">");
-	addTokenSubstitute("/foreign",						"</font>");
+	addTokenSubstitute("note", " <small>(");
+	addTokenSubstitute("/note", ")</small> ");
+
+//	addTokenSubstitute("foreign lang=\"el\"", "<font face=\"SIL Galatia\">");
+//	addTokenSubstitute("foreign lang=\"he\"", "<font face=\"SIL Ezra\">");
+//	addTokenSubstitute("/foreign",						"</font>");
 
 }
 
@@ -36,7 +37,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 	unsigned long i;
 	if (!substituteToken(buf, token)) {
 	// manually process if it wasn't a simple substitution
-		if (!strncmp(token, "sync type=\"Strongs\" value=\"", 27) && (token[27] == 'H')) {
+		if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
 			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"sword://strongs_hebrew/");
 			for (i = 5; i < strlen(token)-1; i++)
 				if(token[i] != '\"')
@@ -48,7 +49,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			pushString(buf, "&gt;</a></em></small></font> ");
 		}
 #warning not handled: token[27] == 'A')
-		if (!strncmp(token, "sync type=\"Strongs\" value=\"", 27) && (token[27] == 'G')) {
+		if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
 			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"sword://strongs_greek/");
 			for (i = 5; i < strlen(token)-1; i++)
 				if(token[i] != '\"')
@@ -110,13 +111,26 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			userData["SecHead"] = "true";
 			pushString(buf, "<br /><b><i>");
 		}
+		else if (!strncmp(token, "div class=\"title\"", 19)) {
+		        userData["SecHead"] = "true";
+			pushString(buf, "<br /><b><i>");
+		}
+
 		else if (!strncmp(token, "/div", 4)) {
 			if (userData["SecHead"] == "true") {
 				pushString(buf, "</i></b><br />");
 				userData["SecHead"] = "false";
 			}
 		}
-
+		else if(!strncmp(token, "note", 4)) {
+			pushString(buf, "<small>(");
+		}
+		else { // let token pass thru
+			*(*buf)++ = '<';
+			for (i = 0; i < strlen(token); i++)
+				*(*buf)++ = token[i];
+				*(*buf)++ = '>';
+		}
 #warning what is that?
 /*	else if (!strncmp(token, "sync type=\"Strongs\" value=\"T", 28)) {
 			pushString(buf, "<a href=\"");
@@ -129,14 +143,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				if(token[i] != '\"') 			
 					*(*buf)++ = token[i];		
 			pushString(buf, "</a>");
-		}
-
-		else {
-			*(*buf)++ = '<';
-			for (i = 0; i < strlen(token); i++)
-				*(*buf)++ = token[i];
-				*(*buf)++ = '>';
-			//return false;  // we still didn't handle token
 		}*/
 	}
 	return true;

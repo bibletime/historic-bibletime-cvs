@@ -24,9 +24,12 @@
 #include "../../backend/cswordbiblemoduleinfo.h"
 #include "../../backend/cswordversekey.h"
 #include "../../backend/chtmlchapterdisplay.h"
+#include "../../backend/cswordbackend.h"
 #include "../../backend/creferencemanager.h"
 #include "../cprofile.h"
 #include "../cprofilewindow.h"
+#include "../optionsdialog/coptionsdialog.h"
+
 
 //Qt includes
 #include <qclipboard.h>
@@ -110,6 +113,9 @@ void CBiblePresenter::lookup(CSwordKey* key){
 	if (!vKey)
 		return;
   m_moduleList.first()->module()->SetKey(*vKey);
+
+	m_important->swordBackend->setAllModuleOptions( COptionsDialog::getAllModuleOptionDefaults() );
+	m_important->swordBackend->setAllDisplayOptions( COptionsDialog::getAllDisplayOptionDefaults() );
 		
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
 		if (m_moduleList.count()>1)
