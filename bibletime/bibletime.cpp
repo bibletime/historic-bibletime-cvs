@@ -53,14 +53,14 @@ BibleTime::BibleTime() : KMainWindow() {
 	m_initialized = false;
 	m_moduleList  = 0;
 	m_progress = 0;
-	
-	m_config = KGlobal::config();	
+
+	m_config = KGlobal::config();
 	connect(kapp, SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
-		
+
 	m_important = new CImportantClasses();
 	initBackends();
-	initPrinter();	
-	initView();	
+	initPrinter();
+	initView();
 	initActions();
 	setHelpMenuEnabled(false);
 	createGUI("bibletimeui.rc");
@@ -68,7 +68,7 @@ BibleTime::BibleTime() : KMainWindow() {
 	initKeyAccels();
 	initConnections();
 	readSettings();
-	
+
 	setPlainCaption("BibleTime " VERSION);
 }
 

@@ -114,9 +114,9 @@ CGroupManager::CGroupManager(CImportantClasses* importantClasses, QWidget *paren
   m_menu = false;
 	m_searchDialog = 0;
 	m_pressedItem = 0;
-		
+
 	m_swordList = swordList;
-	initView();	
+	initView();
 	initConnections();
 	readSettings();
 }
@@ -129,22 +129,24 @@ CGroupManager::~CGroupManager(){
 
 /** Initializes the tree of this CGroupmanager */
 void CGroupManager::setupSwordTree() {
-	readGroups( m_config, 0);
-	readSwordModules( m_config, 0);	
+	readGroups(m_config, 0);
+	readSwordModules(m_config, 0);	
 	if (m_useBookmarks)
-		readSwordBookmarks( m_config, 0 );	
-	
+		readSwordBookmarks(m_config, 0);	
+
 	setupStandardSwordTree();
 }
 
 /** Initializes the tree of this CGroupmanager */
 void CGroupManager::setupStandardSwordTree() {
-	if (!m_swordList)
+	if (!m_swordList || (m_swordList && !m_swordList->count())) {
+		qWarning("CGroupManager::setupStandardSwordTree: m_swordList is empty or qual to NULL. return now.");
 		return;
+	}
 	const bool initialized = m_config->readBoolEntry("initialized", false);
-	
+
 	CSwordModuleInfo* moduleInfo = 0;
-		
+
 	CGroupManagerItem* item = 0;
 	QListViewItemIterator it( this );
 	
@@ -154,7 +156,7 @@ void CGroupManager::setupStandardSwordTree() {
 		item = 0; \
 		for ( ; it.current(); ++it ) { \
 			if ( it.current() ) { \
-				item = (CGroupManagerItem*)it.current(); \
+				item = dynamic_cast<CGroupManagerItem*>(it.current()); \
 				if (item && (item->text(0) == name) ) { \
 					groupItem = item; \
 					break; \
@@ -177,7 +179,7 @@ void CGroupManager::setupStandardSwordTree() {
 		
 	#undef CGROUPMANAGER_GROUP
 	
-	for(moduleInfo = m_swordList->first(); moduleInfo !=0; moduleInfo = m_swordList->next()) {
+	for(moduleInfo = m_swordList->first(); moduleInfo; moduleInfo = m_swordList->next()) {
 		bool alreadyCreated = false;
   	QListViewItemIterator it( this );
 		for ( ; it.current(); ++it ) {
@@ -190,7 +192,7 @@ void CGroupManager::setupStandardSwordTree() {
 		}
 		if ( moduleInfo && !alreadyCreated) {
 			if (moduleInfo->getType() == CSwordModuleInfo::Commentary ) {	//a Commentary
-				(void) new CGroupManagerItem(commentaryGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module, m_important);
+				(void)new CGroupManagerItem(commentaryGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module, m_important);
 			}
 			else if (moduleInfo->getType() == CSwordModuleInfo::Bible ) {	//a Bible
 				(void)new CGroupManagerItem(bibleGroup, "",QString::null, moduleInfo, 0,CGroupManagerItem::Module, m_important);
@@ -748,11 +750,10 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     CToolClass::decodeReference(str,mod,ref);
 
     CSwordModuleInfo* info = 0;
-    for (info=m_swordList->first();(info!=0);info=m_swordList->next())
+    for (info = m_swordList->first(); info; info = m_swordList->next())
       if (info->module()->Name() == mod)
       	break;
-    if ( (info) && (info->module()->Name() == mod) ){
-
+    if ( info && (info->module()->Name() == mod) ){
 			if (!target){ //Reference was dragged on no item
 				if (info)
 					createNewBookmark( 0, info, ref); //CREATE A NEW BOOKMARK
@@ -1040,52 +1041,45 @@ void CGroupManager::slotUnlockModule(){
 
 /** Reads in bookmarks from m_config and creates them as subitems of group. If group is 0 we create them a toplevel items. */
 bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
+	qDebug("CGroupManager::read Sword bookmarks");
+	ASSERT(m_swordList);
+
 	//read and create group entries
 	CGroupManagerItem* 	parentItem = 0;	
 	QStringList				groupList 	= configFile->readListEntry("Groups");
-	QValueList<int>		parentList 	= configFile->readIntListEntry("Group parents");
-	
-	QValueList<int>::Iterator it_parents = parentList.begin();	
 
 	//read in all bookmarks
 	QStringList	bookmarkList 							= configFile->readListEntry("Bookmarks");
 	QStringList	bookmarkModulesList 			= configFile->readListEntry("Bookmark modules");
 	QStringList	bookmarkDescriptionsList 	= configFile->readListEntry("Bookmark descriptions");
-	parentList 														= configFile->readIntListEntry("Bookmark parents");
-	
+	QValueList<int>	parentList						= configFile->readIntListEntry("Bookmark parents");
+
 	QStringList::Iterator it_bookmarks 	= bookmarkList.begin();
 	QStringList::Iterator it_modules 		= bookmarkModulesList.begin();
 	QStringList::Iterator it_descriptions	= bookmarkDescriptionsList.begin();
-	it_parents 													= parentList.begin();
-	
-	CSwordModuleInfo* moduleInfo 	= 0;
-	CSwordModuleInfo* myModuleInfo = 0;
+	QValueList<int>::Iterator it_parents = parentList.begin();
+
+	CSwordModuleInfo* moduleInfo = 0;
 	CGroupManagerItem *myItem = 0;	
 	CGroupManagerItem *oldItem = 0;
 
 	while ( it_bookmarks != bookmarkList.end() && it_parents != parentList.end()
-			 		&& it_modules != bookmarkModulesList.end() ) {		
-		//search for module
-		for(moduleInfo = m_swordList->first(); moduleInfo !=0; moduleInfo = m_swordList->next()) {
-			if ( moduleInfo->module()->Name() == (*it_modules) ) {
-				myModuleInfo = moduleInfo;
-				break;
-			}
-		}
+			 		&& it_modules != bookmarkModulesList.end() ) {
+		moduleInfo = m_important->swordBackend->findModuleByName((*it_modules));
 		if ( (*it_parents) == -1) {
 			if (group)
-				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), myModuleInfo, 0, CGroupManagerItem::Bookmark, m_important);
+				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), moduleInfo, 0, CGroupManagerItem::Bookmark, m_important);
 			else
-				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), myModuleInfo, 0, CGroupManagerItem::Bookmark, m_important);
+				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), moduleInfo, 0, CGroupManagerItem::Bookmark, m_important);
 		}
 		else {
 			parentItem = findParent( (*it_parents), group ? group : 0 );
 			if (parentItem)
-				myItem = new CGroupManagerItem(parentItem, (*it_bookmarks), (*it_modules), myModuleInfo,0, CGroupManagerItem::Bookmark, m_important);
+				myItem = new CGroupManagerItem(parentItem, (*it_bookmarks), (*it_modules), moduleInfo,0, CGroupManagerItem::Bookmark, m_important);
 			else if (group)
-				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), myModuleInfo,0, CGroupManagerItem::Bookmark, m_important);
+				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), moduleInfo,0, CGroupManagerItem::Bookmark, m_important);
 			else
-				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), myModuleInfo,0, CGroupManagerItem::Bookmark, m_important);
+				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), moduleInfo,0, CGroupManagerItem::Bookmark, m_important);
 		}
 		if (myItem && it_descriptions != bookmarkDescriptionsList.end())
 			myItem->setDescription( *it_descriptions );
@@ -1093,12 +1087,12 @@ bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* g
 			myItem->moveToJustAfter(oldItem);
 		}
 		oldItem = myItem;
-		
+
 		++it_parents;
 		++it_modules;
 		++it_descriptions;
 		++it_bookmarks;
-	}	
+	}
 	return true;
 }
 

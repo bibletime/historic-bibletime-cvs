@@ -53,16 +53,17 @@
 
 /**Initializes the view of this widget*/
 void BibleTime::initView(){
+	qDebug("BibleTime::initView");
 	m_splitter = new QSplitter(this, "mainsplitter");
 	
 	m_groupmanager = new CGroupManager(m_important, m_splitter, "groupmanager", m_moduleList );
-	m_groupmanager->setFocusPolicy( ClickFocus );
-		
-	m_mdi = new CMDIArea(m_important, m_splitter, "mdiarea" );
-	m_mdi->setFocusPolicy( ClickFocus );
+	m_groupmanager->setFocusPolicy(ClickFocus);
 
-	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());	
-	
+	m_mdi = new CMDIArea(m_important, m_splitter, "mdiarea" );
+	m_mdi->setFocusPolicy(ClickFocus);
+
+	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
+
 	setCentralWidget(m_splitter);	
 }
 
@@ -259,12 +260,11 @@ void BibleTime::initKeyAccels(){
 
 /** Initializes the backend */
 void BibleTime::initBackends(){
-	m_moduleList = 0;	
 	m_important->swordBackend = new CSwordBackend();	
-	qWarning("call Load now!");
 	m_important->swordBackend->Load();
 	CSwordBackend::errorCode errorCode = m_important->swordBackend->initModules();
-	
+
+	m_moduleList = 0;		
 	if ( errorCode == CSwordBackend::noError ) {	//no error
 		m_moduleList = m_important->swordBackend->getModuleList();
 	} else {
@@ -295,6 +295,7 @@ void BibleTime::initBackends(){
 	KConfigGroupSaver dummy(m_config, "SWORD");
 	const QString language = m_config->readEntry("Language", QString::fromLatin1(getenv("LANG")));
 	m_important->swordBackend->setBooknameLanguage(language);
+	ASSERT(m_moduleList);
 }
 
 /** Initializes the CPrinter object. */

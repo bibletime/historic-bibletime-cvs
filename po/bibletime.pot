@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-06-16 11:44+0200\n"
+"POT-Creation-Date: 2001-06-16 19:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,7 +72,7 @@ msgstr ""
 msgid "&Close all"
 msgstr ""
 
-#: bibletime/bibletime_init.cpp:169
+#: bibletime/bibletime_init.cpp:170
 msgid "&Daily tip"
 msgstr ""
 
@@ -180,21 +180,21 @@ msgid ""
 msgstr ""
 
 #: bibletime/bibletime.cpp:175 bibletime/bibletime.cpp:190
-#: bibletime/bibletime_slots.cpp:98 bibletime/bibletime_slots.cpp:107
+#: bibletime/bibletime_slots.cpp:100 bibletime/bibletime_slots.cpp:109
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:95
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:297
 msgid "Display window"
 msgstr ""
 
-#: bibletime/bibletime_slots.cpp:288
+#: bibletime/bibletime_slots.cpp:290
 msgid "Printing..."
 msgstr ""
 
-#: bibletime/bibletime_slots.cpp:288
+#: bibletime/bibletime_slots.cpp:290
 msgid "Abort printing"
 msgstr ""
 
-#: bibletime/bibletime_slots.cpp:313
+#: bibletime/bibletime_slots.cpp:315
 #, c-format, ycp-format
 msgid "Printing %1"
 msgstr ""

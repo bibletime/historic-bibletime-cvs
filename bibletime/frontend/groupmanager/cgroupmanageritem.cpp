@@ -84,13 +84,13 @@ void CGroupManagerItem::init( const QString& caption, const QString& modulename,
 	m_important = importantClasses;
 	m_bookmarkKey = 0;
 	m_createdOwnKey = false;
-	m_moduleInfo = 0;	
+	m_moduleInfo = 0;
 	m_caption = QString::null;
 	m_description = QString::null;
 	
 	setType(Type);	
 	if (bookmarkKey)
-		setBookmarkKey( bookmarkKey );		
+		setBookmarkKey( bookmarkKey );
 	setModuleInfo( module_info );
 	m_caption = caption;
 	m_moduleName = modulename;
@@ -160,7 +160,7 @@ void CGroupManagerItem::update(){
 				title = QString::fromLocal8Bit((const char*)*swKey);
 		}
 		else if (!m_caption.isEmpty()){	//bookmark key is 0, we use now the m_caption member to create a valid key
-			if (m_moduleInfo &&  m_moduleInfo->getType() == CSwordModuleInfo::Bible || m_moduleInfo->getType() == CSwordModuleInfo::Commentary ) {	//a Bible or a commentary module
+			if (m_moduleInfo && ( (m_moduleInfo->getType() == CSwordModuleInfo::Bible) || (m_moduleInfo->getType() == CSwordModuleInfo::Commentary)) ) {	//a Bible or a commentary module
 				CSwordVerseKey* key = new CSwordVerseKey(m_moduleInfo);
 				m_createdOwnKey = true;
 				key->key(m_caption);
@@ -173,7 +173,10 @@ void CGroupManagerItem::update(){
 				key->key(m_caption);
 				setBookmarkKey(key);
 				update();	// this won't lead to a infinite loop because we have now a valid key
-			}			
+			}
+			else { //no key and now module but a valid caption
+				title = m_caption;
+			}
 		}		
 		if (!title.isEmpty()) {
 			if (m_moduleInfo && m_moduleInfo->module())
@@ -202,6 +205,7 @@ void CGroupManagerItem::setType( CGroupManagerItem::itemType type){
 /** Sets the module of ths item. */
 void CGroupManagerItem::setModuleInfo( CModuleInfo* moduleInfo ){
 	m_moduleInfo = dynamic_cast<CSwordModuleInfo*>(moduleInfo);
+	ASSERT(m_moduleInfo);
 }
 
 /** Returns a QString version of the key. */

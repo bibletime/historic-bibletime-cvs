@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-06-16 11:44+0200\n"
+"POT-Creation-Date: 2001-06-16 19:43+0200\n"
 "PO-Revision-Date: 2001-05-08 23:33CEST\n"
 "Last-Translator: Silvio Bacchetta <silvio.bacchetta@milug.org>\n"
 "Language-Team: italian <it@li.org>\n"
@@ -72,7 +72,7 @@ msgstr "Affiancamento a&utomatico"
 msgid "&Close all"
 msgstr "&Chiudi tutto"
 
-#: bibletime/bibletime_init.cpp:169
+#: bibletime/bibletime_init.cpp:170
 msgid "&Daily tip"
 msgstr "Suggerimento del giorno (&d)"
 
@@ -188,21 +188,21 @@ msgstr ""
 "Di notevole aiuto con le API di SWORD!"
 
 #: bibletime/bibletime.cpp:175 bibletime/bibletime.cpp:190
-#: bibletime/bibletime_slots.cpp:98 bibletime/bibletime_slots.cpp:107
+#: bibletime/bibletime_slots.cpp:100 bibletime/bibletime_slots.cpp:109
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:95
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:297
 msgid "Display window"
 msgstr "Mostra finestra"
 
-#: bibletime/bibletime_slots.cpp:288
+#: bibletime/bibletime_slots.cpp:290
 msgid "Printing..."
 msgstr "In stampa..."
 
-#: bibletime/bibletime_slots.cpp:288
+#: bibletime/bibletime_slots.cpp:290
 msgid "Abort printing"
 msgstr "Annulla stampa"
 
-#: bibletime/bibletime_slots.cpp:313
+#: bibletime/bibletime_slots.cpp:315
 #, c-format, ycp-format
 msgid "Printing %1"
 msgstr "Stampo %1"

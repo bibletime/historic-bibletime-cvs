@@ -301,7 +301,8 @@ void CSwordBackend::Load() {
 
 /** This function searches for a module with the specified description */
 CSwordModuleInfo* CSwordBackend::findModuleByDescription(const QString& description){
-  if (m_moduleList)
+  qDebug("CSwordBackend::findModuleByDescription(const QString&)");
+  if (m_moduleList && m_moduleList->count())
     for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
       if ( m_moduleList->current()->getDescription() == description )
         return m_moduleList->current();
@@ -310,8 +311,9 @@ CSwordModuleInfo* CSwordBackend::findModuleByDescription(const QString& descript
 
 /** This function searches for a module with the specified name */
 CSwordModuleInfo* CSwordBackend::findModuleByName(const QString& name){
-  if (m_moduleList)
-    for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
+  qDebug("CSwordBackend::findModuleByName(const QString&)");
+  if (m_moduleList && m_moduleList->count())
+    for ( m_moduleList->first(); m_moduleList->current(); m_moduleList->next() )
       if ( QString::fromLocal8Bit(m_moduleList->current()->module()->Name()) == name )
         return m_moduleList->current();
   return 0;

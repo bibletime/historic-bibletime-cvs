@@ -38,7 +38,7 @@
 #include <rtfhtml.h>
 
 //static class wide objects
-static SWMgr searchModulesMgr;
+//static CSwordBackend searchModulesMgr;
 	
 CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module ){
 	m_backend = backend;
@@ -152,6 +152,7 @@ const QString CSwordModuleInfo::getPath() const {
 
 /** Returns true if something was found, otherwise return false. */
 const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
+	static SWMgr searchModulesMgr;
 	int searchType = 0;
  	int searchFlags = REG_ICASE;
 	
@@ -198,7 +199,7 @@ void CSwordModuleInfo::clearSearchResult(){
 
 /** This interupts the search if this module is being searched. */
 void CSwordModuleInfo::interruptSearch(){
-	searchModulesMgr.Modules[module()->Name()]->terminateSearch = true;
+//	searchModulesMgr.Modules[module()->Name()]->terminateSearch = true;
 	module()->terminateSearch = true;
 }
 

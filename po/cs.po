@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bibletime-1.0\n"
-"POT-Creation-Date: 2001-06-16 11:44+0200\n"
+"POT-Creation-Date: 2001-06-16 19:43+0200\n"
 "PO-Revision-Date: 2001-06-11 11:02GMT+1\n"
 "Last-Translator: Michal Rovnaník <Michal.Rovnanik@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -72,7 +72,7 @@ msgstr "A&utomaticky dláždit"
 msgid "&Close all"
 msgstr "&Zavřít vše"
 
-#: bibletime/bibletime_init.cpp:169
+#: bibletime/bibletime_init.cpp:170
 msgid "&Daily tip"
 msgstr "&Tip dne"
 
@@ -187,21 +187,21 @@ msgstr ""
 "Pomoc s API SWORDu!"
 
 #: bibletime/bibletime.cpp:175 bibletime/bibletime.cpp:190
-#: bibletime/bibletime_slots.cpp:98 bibletime/bibletime_slots.cpp:107
+#: bibletime/bibletime_slots.cpp:100 bibletime/bibletime_slots.cpp:109
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:95
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:297
 msgid "Display window"
 msgstr "Okno prohlížeče"
 
-#: bibletime/bibletime_slots.cpp:288
+#: bibletime/bibletime_slots.cpp:290
 msgid "Printing..."
 msgstr "Tisk..."
 
-#: bibletime/bibletime_slots.cpp:288
+#: bibletime/bibletime_slots.cpp:290
 msgid "Abort printing"
 msgstr "Ukončit tisk"
 
-#: bibletime/bibletime_slots.cpp:313
+#: bibletime/bibletime_slots.cpp:315
 #, c-format, ycp-format
 msgid "Printing %1"
 msgstr "Tisk %1"

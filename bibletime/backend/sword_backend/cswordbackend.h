@@ -44,7 +44,7 @@ typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
   *	@author The BibleTime team
   * @version $Id$
   */
-class CSwordBackend : public CBackend, /*virtual*/public SWMgr  {
+class CSwordBackend : public SWMgr, public CBackend {
 public:
   /**
  	* These are the options which could be supported by modules and by this backend.
