@@ -1,7 +1,7 @@
-<book lang="EN" ID="h2_idx">
+<book lang="CS" ID="h2_idx">
 
 <bookinfo>
-<title>The Biblestudy HowTo</title>
+<title>Jak studovat Bibli</title>
 
 <copyright>
 <year>2001</year>
@@ -12,20 +12,53 @@ Bob Harman
 
 <legalnotice>
 <para>
-This the copyright of this text is held by the author Bob Harman.  The text was adapted for
-publication with Bibletime by Fred Saalbach. </para>
+Autorská práva (copyright) k tomuto textu vlastní autor Bob Harman.
+Text byl pøizpùsoben k publikaci spolu s aplikací BibleTime Fredem Saalbachem.
+</para>
 
-<para> Non exclusive serial rights for this distribution of
+<para>
+Pro tuto distribuci tohoto dokumentu spolu s aplikací BibleTime byla poskytnuta
+neexklusivní práva.
+Redistribuce jako souèást aplikace BibleTime bez úprav a omezená reprodukce podle
+ustanovení o "slu¹ném u¾ití" Amerického zákona o autorských právech jsou také dovoleny.
+</para>
+
+<para>
+Pokud máte otázky ohlednì opu¾ívání tohoto textu, kontaktujte autora na adrese
+Bob Harman c/o New Covenant Church 1079 Big Bethel Rd. Hampton
+VA 23666 USA <email>N_Cov_Church@compuserve.com</email>
+</para>
+
+<para>
+Biblické citace jsou z pøekladu Nové Bible Kralické, pokud není uvedeno jinak.
+</para>
+
+<para>
+Pùvodní anglické znìní:
+</para>
+
+<para>
+This the copyright of this text is held by the author Bob Harman.  The text was adapted for
+publication with Bibletime by Fred Saalbach.
+</para>
+
+<para>
+Non exclusive serial rights for this distribution of
 this document with the Bibletime Software have been made. Redistribution as part
 of the Bibletime software without modification and limited reproduction
 as provided by the "fair use" provisions of the US copyright code are
-also permitted.</para>
+also permitted.
+</para>
 
-<para> For questions regarding the use of this
+<para>
+For questions regarding the use of this
 material contact Bob Harman c/o New Covenant Church 1079 Big Bethel Rd. Hampton
-VA 23666 USA <email>N_Cov_Church@compuserve.com</email></para>
+VA 23666 USA <email>N_Cov_Church@compuserve.com</email>
+</para>
 
-<para>Scripture quotes are from the New American Standard Bible unless otherwise indicated</para>
+<para>
+Scripture quotes are from the New American Standard Bible unless otherwise indicated
+</para>
 </legalnotice>
 
 <authorgroup>
@@ -36,26 +69,30 @@ VA 23666 USA <email>N_Cov_Church@compuserve.com</email></para>
 
 </authorgroup>
 
-<date>15/April/2001</date>
+<date>15. dubna 2001</date>
 <releaseinfo>1.0</releaseinfo>
 
 <abstract>
-<title>Abstract</title>
+<title>Abstrakt</title>
 <para>
-<application>Biblestudy HowTo</application> is a guide for studying the Bible.
+<application>Jak studovat Bibli</application> je pøíruèka pro studium Bible.
 </para>
-<para>It is the hope of the Bibletime team that this HowTo will provoke the
-readers to study the scriptures to see what they say.  This
-particular study guide has been chosen as it takes care not to
-advocate any particular denominational doctrine.  We expect you to read
-and study the scriptures to understand what they say.  If you start
-with the attitude that you want to have the Lord sow his word in your
-heart He will not disappoint you.</para></abstract>
+<para>
+Ná¹ tým tvùrcù BibleTime doufá, ¾e tento návod vyprovokuje vás ètenáøe ke studiu Písma,
+abyste zjistili, co øíká.
+Tato pøíruèka byla zvolena proto, ¾e neobhajuje ¾ádné konkrétní denominaèní uèení.
+Oèekáváme, ¾e vy sami budete èíst a studovat Písma, abyste pochopili jejich poselství.
+Pokud zaènete s postojem, ¾e chcete, aby Pán zasel své slovo do va¹eho srdce, nezklame vás.
+</para>
+</abstract>
 
 <keywordset>
 <keyword>Bible</keyword>
 <keyword>Study</keyword>
 <keyword>HowTo</keyword>
+<keyword>Jak</keyword>
+<keyword>studovat</keyword>
+<keyword>Bibli</keyword>
 </keywordset>
 
 </bookinfo>
