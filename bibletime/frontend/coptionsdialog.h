@@ -58,34 +58,26 @@ public:
 
   enum Parts {
 		Startup,
+		Font,		
+		Color,		
+		ViewProfiles,
 		Sword,
-		GeneralKeys,
-		General,
-		Color,
-		Font,
-		DisplayKeys,
-		ViewProfiles
+		accelerators
   };
 
   /** Opens the page which contaisn the given part ID. */
   const bool showPart( COptionsDialog::Parts ID );
 
 private:
-  void initGeneral();
-  void saveGeneral();
-
-  void initDisplayWindow();
-  void saveDisplayWindow();
-
   CImportantClasses* m_important;
 
-	struct GeneralSettings {
-		KTabCtl* tabCtl;
-		struct StartupSettings {
-			QCheckBox* showTips;
-			QCheckBox* showLogo;
-			QCheckBox* restoreWorkspace;
-		} startup;
+  struct settings {
+	 	struct StartupSettings {
+	 		QCheckBox* showTips;
+	 		QCheckBox* showLogo;
+	 		QCheckBox* restoreWorkspace;
+	 	} startup;
+		
 		struct SwordSettings {
 			QCheckBox* lexiconCache;
 			QComboBox* standardBible;
@@ -95,17 +87,6 @@ private:
 			QComboBox* standardGreekStrong;
 			QComboBox* standardHebrewMorph;
 			QComboBox* standardGreekMorph;
-		} sword;
-		struct KeySettings {
-			KKeyChooser* keyChooser;
-			KKeyEntryMap dict;			
-			KAccel* accel;
-		} keys;
-	} m_general;	
-
-	struct DisplayWindowSettings {
-		KTabCtl* tabCtl;	
-		struct GeneralSettings {
 			QComboBox* localeCombo;
 			QCheckBox* useDownArrow;
 			QCheckBox* lineBreaks;
@@ -117,8 +98,22 @@ private:
 			QCheckBox* lemmas;
 			QCheckBox* hebrewPoints;
 			QCheckBox* hebrewCantillation;
-			QCheckBox* greekAccents;
-		} general;
+			QCheckBox* greekAccents;			
+		} sword;
+		
+		struct KeySettings {
+			struct WindowType {
+				KKeyChooser* keyChooser;
+				KKeyEntryMap dict;			
+				KAccel* accel;		
+			};
+			WindowType application;
+			WindowType general;
+			WindowType bible;
+			WindowType commentary;
+			WindowType lexicon;
+						
+		} keys;
 		
 		struct ColorSettings {
 			KColorButton* text;
@@ -137,26 +132,14 @@ private:
 			QMap<QString,QFont> fontMap;			
 		} fonts;
 		
-		struct ViewProfileSettings {
+		struct ProfileSettings {
 			QListBox* profiles;
 			QPushButton* createProfile;			
 			QPushButton* deleteProfile;
 			QPushButton* renameProfile;
 			CProfileMgr mgr;
 		} profiles;
-		
-		struct KeySettings {
-			struct WindowType{
-				KKeyChooser* keyChooser;
-				KKeyEntryMap dict;			
-				KAccel* accel;		
-			};
-			WindowType general;
-			WindowType bible;
-			WindowType commentary;
-			WindowType lexicon;
-		} keys;		
-	} m_displayWindows;
+  } m_settings;
 
 protected slots: // Protected slots
   /**
@@ -184,7 +167,48 @@ protected slots: // Protected slots
   * Renames the currently selected profile.
   */
   void renameProfile();
+  /**
+  * Delete the selected profile.
+  */
   void deleteProfile();
+
+protected: // Protected methods
+  /**
+  * Init Sword section.
+  */
+  void initSword();
+  /**
+  * Init accel key section.
+  */
+  void initAccelerators();
+  /**
+  * Init fonts section.
+  */
+  void initFonts();
+  /**
+  * Init profiles section.
+  */
+  void initProfiles();
+  /**
+  * Init color section.
+  */
+  void initColors();
+  /**
+  * Initializes the startup section of the OD.
+  */
+  void initStartup();
+  /** No descriptions */
+  void saveAccelerators();
+	/** No descriptions */
+	void saveColors();
+	/** No descriptions */
+	void saveFonts();
+ 	/** No descriptions */
+ 	void saveProfiles();
+ 	/** No descriptions */
+ 	void saveStartup();
+ 	/** No descriptions */
+ 	void saveSword();
 
 signals: // Signals
   void signalSettingsChanged();

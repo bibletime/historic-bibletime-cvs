@@ -126,14 +126,13 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 				case CSwordModuleInfo::Commentary: //pass
 				default:
 				/*
-				* Parsing a key is a little bit difficult,
+				* Parsing a key is a bit tricky,
 				* because we have to care about the language of the module
 				* For example: Pr 6:6 would result in Ecclesiastes 6:6 in a german environment.
 				* We have to care about this.
 				*/
 				{
-//					const QString newLanguage = QString::fromLatin1(htmlWidget->modules().first()->module()->Lang());
-					ref = CReferenceManager::parseVerseReference(ref, m->module()->Lang(), m_important->swordBackend->getCurrentBooknameLanguage() );
+					ref = CReferenceManager::parseVerseReference(ref, htmlWidget->modules().first()->module()->Lang()/*m->module()->Lang()*/, m_important->swordBackend->getCurrentBooknameLanguage() );
 
 					CSwordVerseKey key(m);
 					key.key(ref);
