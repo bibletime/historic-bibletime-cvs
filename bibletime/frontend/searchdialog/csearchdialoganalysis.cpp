@@ -25,7 +25,6 @@
 #include "../../backend/cswordbackend.h"
 #include "csearchdialog.h"
 #include "../ctoolclass.h"
-#include "../../structdef.h"
 #include "../../whatsthisdef.h"
 
 //QT includes

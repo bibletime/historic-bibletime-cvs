@@ -18,7 +18,6 @@
 #define CGROUPMANAGERITEM_H
 
 //BibleTime includes
-#include "../../structdef.h"
 #include "../cpointers.h"
 
 //Qt includes

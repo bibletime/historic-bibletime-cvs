@@ -19,7 +19,6 @@
 #define CHTMLWIDGET_H
 
 //BibleTime includes
-#include "../structdef.h"
 #include "cpointers.h"
 #include "../backend/cswordbackend.h"
 #define private public

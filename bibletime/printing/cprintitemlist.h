@@ -19,15 +19,17 @@
 #define CPRINTITEMLIST_H
 
 #include <qwidget.h>
+#include <qlist.h>
 #include <klistview.h>
 
 #include "cprintitem.h"
 
+typedef QList<CPrintItem> printItemList;
+
+
 /**A KListView derived class which handles CPrintItem classes
   *@author The BibleTime team
   */
-
-
 class CPrintItemList : public KListView  {
    Q_OBJECT
 public: 

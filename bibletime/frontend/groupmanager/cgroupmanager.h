@@ -29,7 +29,6 @@
 #undef private
 
 #include "../../backend/cswordmoduleinfo.h"
-#include "../../structdef.h"
 #include "cgroupmanageritem.h"
 #include "../cpointers.h"
 

@@ -24,7 +24,6 @@
 #include "keychooser/ckeychooser.h"
 #include "../resource.h"
 #include "../whatsthisdef.h"
-#include "../structdef.h"
 #include "../../config.h"
 
 //KDE includes

@@ -18,7 +18,6 @@
 //own includes
 #include "csearchdialogresultview.h"
 #include "csearchdialog.h"
-#include "../../structdef.h"
 #include "../../resource.h"
 #include "../../whatsthisdef.h"
 #include "../../tooltipdef.h"

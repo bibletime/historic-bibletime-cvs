@@ -28,7 +28,6 @@ SUBDIRS = backend printing frontend xml pics util
 
 all_headers = bibletime.h \
 resource.h \
-structdef.h \
 whatsthisdef.h \
 tooltipdef.h \
 bt-printing

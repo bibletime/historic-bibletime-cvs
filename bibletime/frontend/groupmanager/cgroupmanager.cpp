@@ -36,7 +36,6 @@
 #include "../cbtconfig.h"
 #include "../cexportmanager.h"
 
-#include "../../structdef.h"
 #include "../../whatsthisdef.h"
 #include "../../resource.h"
 

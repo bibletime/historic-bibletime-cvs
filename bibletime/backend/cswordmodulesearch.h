@@ -61,9 +61,19 @@ public:
   	useScope	 		= 0x000000020
 	};
 	enum percentType {
-  	currentModule	= 0x000000001,
-		allModules		= 0x000000002
+  	currentModule,
+		allModules
 	};
+  /**
+  * This is used to show the selection in the searchscope dialog
+  */
+  enum SearchScope 		{ NoScope, LastSearch, Bounds	};
+
+  /** This is used to so show the selection of the searchdialog
+  *
+  */
+  enum SearchType 		{ MultiWord, ExactPhrase, RegEx	};
+
 
 	CSwordModuleSearch();
 	/**

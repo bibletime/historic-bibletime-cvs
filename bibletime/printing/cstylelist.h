@@ -25,17 +25,20 @@
 
 //Qt includes
 #include <qwidget.h>
+#include <qlist.h>
 
 //KDE includes
 #include <klistview.h>
 #include <kpopupmenu.h>
 
-/** A KListView derived class which handles CStyle items.
-  * @author The BibleTime team
-  */
 class KAction;
 class QComboBox;
 
+typedef QList<CStyle> styleList;
+
+  /** A KListView derived class which handles CStyle items.
+  * @author The BibleTime team
+  */
 class CStyleList : public KListView, public CPointers   {
    Q_OBJECT
 public:

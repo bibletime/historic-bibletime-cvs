@@ -19,7 +19,6 @@
 //BibleTime includes
 #include "csearchdialogtext.h"
 #include "csearchdialogscope.h"
-#include "../../structdef.h"
 #include "../../whatsthisdef.h"
 #include "../../tooltipdef.h"
 #include "../../backend/cswordmodulesearch.h"

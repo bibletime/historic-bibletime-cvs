@@ -21,8 +21,6 @@
 #include <kapp.h>
 #include <ktmainwindow.h>
 
-//local includes
-#include "structdef.h"
 //Frontend includes
 #include "frontend/cprofilemgr.h"
 
