@@ -202,12 +202,12 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 			)
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
 
-		if (m_displayOptions.verseNumbers) { //if we shuld show the verse numbers
-			entry += QString::fromLatin1("<span class=\"versenum\">%1</span>").arg( htmlReference(m, keyText, QString::number(key.Verse()), keyText) );
-		}
-		else {
-			entry += htmlReference(0, QString::null, QString::null, keyText);  //insert only an anchor
-		}
+		entry += QString::fromLatin1("<span dir=\"%1\" class=\"versenum\">%2</span>")
+			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
+			.arg( m_displayOptions.verseNumbers 
+				? htmlReference(m, keyText, QString::number(key.Verse()), keyText) 
+				: htmlReference(0, QString::null, QString::null, keyText)
+			);
 		
 		//entry += QString::fromLatin1("<span>%1</span>").arg(key.renderedText());
 		entry += key.renderedText();
@@ -350,37 +350,3 @@ void CBookDisplay::printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModule
     treeKey->key(fullKeyName); //return to the value we had at the beginning of this block!
   }
 }
-
-/*const QString CBookDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName) {
- 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
-  util::scoped_ptr<CSwordTreeKey> key(
-		dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) )
-	);
-  key->key(keyName);
-
-  QString css = "table.maintable {width:100%;} td.tableheading {border-bottom: thin solid black;}";
-  for (int t = MinType; t <= MaxType; ++t) {
-    css += "\t" + cssString( static_cast<CEntryDisplay::StyleType>(t) ) + "\n\n";
-  }
-
-  const int columnWidth = (int)((float)100 / (float)modules.count());
-
-  QString pageStart = QString::fromLatin1("<html><head><style type=\"text/css\">%1</style></head><body><table cellspacing=\"0\" class=\"maintable\"><tr>")
-    .arg(css);
-
-  for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    key->module(m);
-    const QString newKeyName = !key->key().isEmpty() ? key->key() : "/";
-
-    pageStart += QString::fromLatin1("<td class=\"tableheading\" width=\"%1%\"><center><b>%2</b> %3</center></td>")
-      .arg(columnWidth)
-      .arg(m->name())
-      .arg(!newKeyName.isEmpty() ? QString::fromLatin1("(%1)").arg(htmlReference(m, newKeyName, newKeyName, QString::null)) : QString::null);
-  }
-	pageStart += QString::fromLatin1("</tr>");
-
-  const QString pageEnd = QString::fromLatin1("</table></body></html>");
-
-  return pageStart + text + pageEnd;
-}
-*/
