@@ -47,7 +47,6 @@ class QWidget;
 class QLabel;
 class QComboBox;
 class QWidgetStack;
-class QListView;
 class QButton;
 //class QHBox;
 //class QCheckBox;
@@ -55,6 +54,7 @@ class QButton;
 //class KListBox;
 //class KKeyChooser;
 class KProgressDialog;
+class KListView;
 
 /**
 	* The Sword configuration dialog of BibleTime
@@ -94,7 +94,7 @@ private:
 
 	QMap<QString, QString> m_targetMap;
 
-	QListView* m_removeModuleListView;
+	KListView* m_removeModuleListView;
 	QLabel* m_populateListNotification;
 	QPushButton* m_removeBackButton;
 	QPushButton* m_removeRemoveButton;
@@ -109,7 +109,7 @@ private:
   QWidget* m_installModuleListPage;
   QWidget* m_installSourcePage;
   
- 	QListView* m_installModuleListView;
+ 	KListView* m_installModuleListView;
   KProgressDialog* m_progressDialog;
   QString m_installingModule;
   bool m_refreshedRemoteSources;

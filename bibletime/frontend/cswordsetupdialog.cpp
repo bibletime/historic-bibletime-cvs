@@ -39,7 +39,8 @@
 //#include <qdict.h>
 //#include <qcheckbox.h>
 #include <qpushbutton.h>
-#include <qlistview.h>
+
+#include <klistview.h>
 
 //#include <qbuttongroup.h>
 //#include <qhbuttongroup.h>
@@ -89,7 +90,7 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* 
 	setIconListAllVisible(true);
   m_refreshedRemoteSources = false;
 
-	QFrame* page = addPage(i18n("Sword Path"), QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
+	/*QFrame* page =*/ addPage(i18n("Sword Path"), QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
 //	QVBoxLayout* layout = new QVBoxLayout(page,5);
 
 	initInstall();
@@ -121,7 +122,7 @@ void CSwordSetupDialog::initInstall(){
 
 	QLabel* installLabel = CToolClass::explanationLabel(m_installSourcePage,
 		i18n("Install/update modules - Step 1"),
-		i18n("Please choose a source and a destination")
+		i18n("Please choose a source and a destination. After that step click on the connect button.")
   );
 	layout->addMultiCellWidget(installLabel, 0,0,0,1);
 
@@ -172,7 +173,6 @@ void CSwordSetupDialog::initInstall(){
 }
 
 void CSwordSetupDialog::initRemove(){
-
 	QFrame* page = m_removePage = addPage(i18n("Remove Modules"), QString::null, DesktopIcon("editdelete",32));
 
 	page->setMinimumSize(500,400);
@@ -185,9 +185,9 @@ void CSwordSetupDialog::initRemove(){
 	layout->setRowStretch(2,1);
 
 	QLabel* mainLabel= CToolClass::explanationLabel(page,
-		"Remove installed module(s)",
-		"This dialog lets you remove installed Sword modules from your system. Bla "
-		"blas dlkf asldhfkajgha sdlkfjaösldkfj asdlghaösldkfja sdflkajs dlfhasölg" );
+		i18n("Remove installed module(s)"),
+		i18n("This dialog lets you remove installed Sword modules from your system. Choose the modules and then click on the remove button.")
+  );
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
 	QLabel* headingLabel = new QLabel("<b>Select modules to be uninstalled</b>", page);
@@ -196,17 +196,19 @@ void CSwordSetupDialog::initRemove(){
 	m_populateListNotification = new QLabel("", page);
 	layout->addWidget(m_populateListNotification, 3, 2, Qt::AlignCenter);
 
-	m_removeModuleListView = new QListView(page, "remove modules view");
+	m_removeModuleListView = new KListView(page, "remove modules view");
 	layout->addMultiCellWidget( m_removeModuleListView, 2,2,0,3);
 	m_removeModuleListView->addColumn("Name");
   m_removeModuleListView->addColumn("Location");
+ 	m_removeModuleListView->setAllColumnsShowFocus(true);
+ 	m_removeModuleListView->setFullWidth(true);
 
   m_removeRemoveButton = new QPushButton(page);
-	m_removeRemoveButton->setText( "Remove selected module(s)");
+	m_removeRemoveButton->setText( i18n("Remove selected module(s)") );
 	layout->addWidget(m_removeRemoveButton, 3, 3, Qt::AlignRight);
 
   m_removeBackButton = new QPushButton(page);
-	m_removeBackButton->setText( "Back");
+	m_removeBackButton->setText( i18n("Back") );
   m_removeBackButton->setEnabled(false);
 	layout->addWidget(m_removeBackButton, 3, 0, Qt::AlignRight);
 
@@ -309,9 +311,9 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 		"Do you really want to remove them from your system?");
 	message = message.arg(catList);
 	if (catList.isEmpty()){
-		KMessageBox::error(0, "No modules selected.", "Error") ;
+		KMessageBox::error(0, i18n("No modules selected."), i18n("Error")) ;
 	}
-	else if ((KMessageBox::warningYesNo(0, message, "Warning") == KMessageBox::Yes)){  //Yes was pressed.
+	else if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)){  //Yes was pressed.
     //module are removed in this section of code
     sword::InstallMgr installMgr;
     
@@ -324,7 +326,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
         }
         if (prefixPath.contains(dataPath)) {
           prefixPath = prefixPath.replace( dataPath, "");
-          qWarning("removing module in prefix %s with data path %s", prefixPath.latin1(), dataPath.latin1());
+//          qWarning("removing module in prefix %s with data path %s", prefixPath.latin1(), dataPath.latin1());
         }
         else {
           prefixPath = QString::fromLatin1(backend()->prefixPath);
@@ -332,7 +334,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 
         sword::SWMgr mgr(prefixPath.latin1());
         installMgr.removeModule(&mgr, m->name().latin1());
-       	qWarning("Removed module: [%s]" , m->name().latin1());
+//       	qWarning("Removed module: [%s]" , m->name().latin1());
       }
     }
 
@@ -356,10 +358,10 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 
 	m_removeModuleListView->clear();
 
-	QListViewItem* categoryBible = new QListViewItem(m_removeModuleListView, "Bibles");
-	QListViewItem* categoryCommentary = new QListViewItem(m_removeModuleListView, "Commentaries");
-	QListViewItem* categoryLexicon = new QListViewItem(m_removeModuleListView, "Lexicons");
-	QListViewItem* categoryBook = new QListViewItem(m_removeModuleListView, "Books");
+	KListViewItem* categoryBible = new KListViewItem(m_removeModuleListView, i18n("Bibles"));
+	KListViewItem* categoryCommentary = new KListViewItem(m_removeModuleListView, i18n("Commentaries"));
+	KListViewItem* categoryLexicon = new KListViewItem(m_removeModuleListView, i18n("Lexicons"));
+	KListViewItem* categoryBook = new KListViewItem(m_removeModuleListView, i18n("Books"));
 
   categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
   categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
@@ -374,7 +376,6 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 	QPtrList<CSwordModuleInfo> list = m_backend->moduleList();
 	int modcount = list.count();
 	int mod = 0;
-	QString location, name;
 	QListViewItem* newItem = 0;
 	QListViewItem* parent = 0;
 	sword::SWConfig moduleConfig("");
@@ -384,9 +385,6 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 			m_populateListNotification->setText(QString("Scanning your system: %1%").arg((mod*100)/modcount));
 			KApplication::kApplication()->processEvents();
 		}
-
-		location = list.current()->config( CSwordModuleInfo::AbsoluteDataPath ) ;
-		name = list.current()->name() ;
 
 		switch (list.current()->type()) {
 			case CSwordModuleInfo::Bible:
@@ -402,14 +400,15 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
         break;
 		}
 
-		m_backend->moduleConfig( name, moduleConfig);
-		QFileInfo file(moduleConfig.filename.c_str());
-		if (file.isWritable()) //only writable modules can be removed
-			newItem = new QCheckListItem(parent, name, QCheckListItem::CheckBox);
-		else
-			newItem = new QListViewItem(parent, name);
+//		m_backend->moduleConfig(name, moduleConfig);
+//		QFileInfo file(moduleConfig.filename.c_str());
+//		if (file.isWritable()) //only writable modules can be removed
+		newItem = new QCheckListItem(parent,list.current()->name(),QCheckListItem::CheckBox);
+//		else
+//			newItem = new QListViewItem(parent, name);
+
     newItem->setPixmap(0, CToolClass::getIconForModule(list.current()));
-		newItem->setText(1, location);
+		newItem->setText(1,list.current()->config(CSwordModuleInfo::AbsoluteDataPath)); 
   }
     
 	m_populateListNotification->setText("");
@@ -433,16 +432,16 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   KApplication::kApplication()->processEvents();
 	m_installModuleListView->clear();
 
-	QListViewItem* categoryBible = new QListViewItem(m_installModuleListView, "Bibles");
+	QListViewItem* categoryBible = new KListViewItem(m_installModuleListView, i18n("Bibles"));
   categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
   
-	QListViewItem* categoryCommentary = new QListViewItem(m_installModuleListView, "Commentaries");
+	QListViewItem* categoryCommentary = new KListViewItem(m_installModuleListView, i18n("Commentaries"));
   categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
-	QListViewItem* categoryLexicon = new QListViewItem(m_installModuleListView, "Lexicons");
+	QListViewItem* categoryLexicon = new KListViewItem(m_installModuleListView, i18n("Lexicons"));
   categoryLexicon->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
-  QListViewItem* categoryBook = new QListViewItem(m_installModuleListView, "Books");
+  QListViewItem* categoryBook = new KListViewItem(m_installModuleListView, i18n("Books"));
   categoryBook->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
   categoryBible->setOpen(true);
@@ -544,12 +543,14 @@ void CSwordSetupDialog::slot_connectToSource(){
 	m_installModuleListPage->setMinimumSize(500,400);
 
   //insert a list box which contains all available remote modules
-	m_installModuleListView = new QListView(m_installModuleListPage, "install modules view");
+	m_installModuleListView = new KListView(m_installModuleListPage, "install modules view");
 	layout->addMultiCellWidget( m_installModuleListView, 1,6,0,1);
 	m_installModuleListView->addColumn("Name");
   m_installModuleListView->addColumn("Installed version");
   m_installModuleListView->addColumn("Remote version");
   m_installModuleListView->addColumn("Status");
+ 	m_installModuleListView->setAllColumnsShowFocus(true);
+ 	m_installModuleListView->setFullWidth(true);
 
   connect( m_installBackButton, SIGNAL(clicked()), this, SLOT(slot_showInstallSourcePage()));
   m_installBackButton->setEnabled(true);
