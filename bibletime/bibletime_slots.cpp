@@ -97,11 +97,12 @@ void BibleTime::slotSettingsChanged(){
  		}
   }
 
- 	for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
- 		CDisplayWindow* displayWindow = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index));
- 		if (displayWindow)
- 			displayWindow->refresh();
- 	}
+// 	for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
+// 		CDisplayWindow* displayWindow = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index));
+// 		if (displayWindow)
+// 			displayWindow->refresh();
+// 	}
+  refreshDisplayWindows();
 
  	//refresh the load profile and save profile menus
 	m_profileMgr.refresh();
@@ -177,8 +178,8 @@ void BibleTime::slotWindowMenuAboutToShow(){
 		m_windowCloseAll_action->setEnabled( true );
 		m_windowMenu->insertSeparator();
 	} else {
-		m_windowTile_action->setEnabled( !m_windowAutoTile_action->isChecked() );
-		m_windowCascade_action->setEnabled( !m_windowAutoCascade_action->isChecked() );
+		m_windowTile_action->setEnabled( !m_windowAutoTile_action->isChecked() && !m_windowAutoCascade_action->isChecked() );
+		m_windowCascade_action->setEnabled( !m_windowAutoCascade_action->isChecked() && !!m_windowAutoTile_action->isChecked());
 		m_windowCloseAll_action->setEnabled( true );
 		m_windowMenu->insertSeparator();		
 	}
@@ -186,8 +187,13 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	QWidgetList windows = m_mdi->windowList();
 	int i, id;
 	for ( i = 0; i < int(windows.count()); ++i ) {
-		id = m_windowMenu->insertItem(QString::fromLatin1("&%1 ").arg(i+1)+windows.at(i)->caption(),
-			this, SLOT( slotWindowMenuActivated( int ) ) );
+    QString caption;
+    if (CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.at(i)))
+      caption = QString::fromLatin1("%1 (%2)").arg(w->caption()).arg(w->key()->key());
+    else
+      caption = windows.at(i)->caption();
+		id = m_windowMenu->insertItem(QString::fromLatin1("&%1 ").arg(i+1) + caption /*+ windows.at()*/,
+			this, SLOT(slotWindowMenuActivated( int )) );
 		m_windowMenu->setItemParameter( id, i );
 	  m_windowMenu->setItemChecked( id, m_mdi->activeWindow() == windows.at(i) );
 	}
@@ -199,8 +205,9 @@ void BibleTime::slotAutoTile(){
 		m_windowAutoCascade_action->setChecked(false);
 		m_mdi->setGUIOption( CMDIArea::autoTile );
 	}
-	else if (!m_windowAutoCascade_action->isChecked())
-		m_mdi->setGUIOption( CMDIArea::Nothing );
+	else if (!m_windowAutoCascade_action->isChecked()) { //tile and cascade are enabled/disbled in  slotWindowMenuAboutToShow
+    m_mdi->setGUIOption( CMDIArea::Nothing );    
+  }
 }
 
 /** This slot is connected with the windowAutoCascade_action object */
@@ -209,8 +216,9 @@ void BibleTime::slotAutoCascade(){
 		m_windowAutoTile_action->setChecked(false);
 		m_mdi->setGUIOption( CMDIArea::autoCascade );
 	}
-	else if (!m_windowAutoTile_action->isChecked())
-		m_mdi->setGUIOption( CMDIArea::Nothing );
+	else if (!m_windowAutoTile_action->isChecked()) { //tile and cascade are enabled/disbled in  slotWindowMenuAboutToShow
+		m_mdi->setGUIOption( CMDIArea::Nothing );    
+  }
 }
 
 void BibleTime::slotWindowMenuActivated( int id ) {

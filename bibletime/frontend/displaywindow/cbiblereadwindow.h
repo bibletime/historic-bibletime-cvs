@@ -101,6 +101,8 @@ public slots:
   void previousChapter();
   void nextVerse();
   void previousVerse();
+  /** No descriptions */
+  virtual void refresh();
      
 protected slots: // Protected slots 
   void keyChanged(CSwordKey* key);

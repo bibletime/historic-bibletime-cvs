@@ -1111,5 +1111,5 @@ const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
       break;
   }
 //  qWarning("finished loading bookmarks");
+  return true;
 }
-

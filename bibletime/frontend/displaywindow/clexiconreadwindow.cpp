@@ -80,7 +80,15 @@ void CLexiconReadWindow::initConnections(){
 
 void CLexiconReadWindow::initView(){
 //	qWarning("CLexiconReadWindow::initView()");
- 	setMainToolBar( new KToolBar(this) );
+	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), this) );
+ 	addDockWindow( moduleChooserBar() );
+//  moduleChooserBar()->enableMoving(false);
+//  moduleChooserBar()->setBarPos(KToolBar::Left);
+	setDisplayWidget( CDisplay::createReadInstance(this) );
+ 	setCentralWidget( displayWidget()->view() );
+
+
+  setMainToolBar( new KToolBar(this) );
 	addDockWindow(mainToolBar());
 
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
@@ -89,14 +97,6 @@ void CLexiconReadWindow::initView(){
 // 	mainToolBar()->setFullSize(true);
 //  mainToolBar()->setVerticallyStretchable(true);
 //  mainToolBar()->setStretchableWidget(keyChooser());  
-
-	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), this) );
- 	addDockWindow( moduleChooserBar() );
-//  moduleChooserBar()->enableMoving(false);
-//  moduleChooserBar()->setBarPos(KToolBar::Left);
-	setDisplayWidget( CDisplay::createReadInstance(this) );
- 	setCentralWidget( displayWidget()->view() );
-
 
 	setIcon(CToolClass::getIconForModule(modules().first()));
 }

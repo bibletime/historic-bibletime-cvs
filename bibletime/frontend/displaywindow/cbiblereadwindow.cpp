@@ -285,3 +285,10 @@ void CBibleReadWindow::saveChapter(){
   CExportManager mgr(i18n("Saving chapter ..."), true, i18n("Saving"), filterOptions(),displayOptions());
   mgr.saveKey(&vk, CExportManager::HTML, true);
 }
+
+void CBibleReadWindow::refresh(){
+  //refresh the book lists
+  keyChooser()->refreshContent();
+  verseKey()->setLocale( backend()->booknameLanguage().latin1() );
+  lookup(key());
+}

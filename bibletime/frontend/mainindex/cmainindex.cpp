@@ -432,8 +432,10 @@ void CMainIndex::searchInModules(){
     }
   }
 
-  if (modules.isEmpty()) {
-    modules = m_defaultModules;
+  if (modules.isEmpty()) { //get a list of useful default modules for the search
+    CSwordModuleInfo* m = CPointers::backend()->findModuleByDescription( CBTConfig::get(CBTConfig::standardBible ));
+    if (m)
+      modules.append(m);
   }
 
   openSearchDialog(modules, QString::null);
@@ -553,21 +555,23 @@ void CMainIndex::moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>&
 //  qWarning("moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)");
 }
 
-void CMainIndex::initDefaultModules() {
-  // do nothing is restore workspace selected
-  if (CBTConfig::get(CBTConfig::restoreWorkspace)) return;
-
-  // make default Bible active
-  QString defaultBible(CBTConfig::get(CBTConfig::standardBible));
-  if (!defaultBible.isEmpty()) {
-    CSwordModuleInfo* m = 
-      CPointers::backend()->findModuleByDescription(defaultBible);
-    if (m) {
-      m_defaultModules.append(m);
-      emit modulesChosen(m_defaultModules, QString::null);
-    } else {
-      qWarning("default Bible \"%s\" is no longer available, review your settings",
-	       defaultBible.latin1());
-    }
-  }
-}
+//void CMainIndex::initDefaultModules() {
+//  // do nothing if restore workspace selected
+//  if (CBTConfig::get(CBTConfig::restoreWorkspace)) return;
+//
+//  // open the default Bible on startup if the workspace wasn't restored
+//  // We don't store the defauklt modules for later because they may change later
+//  ListCSwordModuleInfo modules;
+//  QString defaultBible(CBTConfig::get(CBTConfig::standardBible));
+//  if (!defaultBible.isEmpty()) {
+//    CSwordModuleInfo* m =
+//      CPointers::backend()->findModuleByDescription(defaultBible);
+//    if (m) {
+//      modules.append(m);
+//      emit modulesChosen(modules, QString::null);
+//    } else {
+//      qWarning("default Bible \"%s\" is no longer available, review your settings",
+//        defaultBible.latin1());
+//    }
+//  }
+//}

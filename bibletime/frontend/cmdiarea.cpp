@@ -213,5 +213,5 @@ const QString CMDIArea::currentApplicationCaption() const {
 
 /** Emits the signal to create a new display window in the MDI area. */
 void CMDIArea::emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName ) {
-  	emit createDisplayWindow(modules, keyName);
+  emit createDisplayWindow(modules, keyName);
 }

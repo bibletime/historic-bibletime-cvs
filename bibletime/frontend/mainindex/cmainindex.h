@@ -65,7 +65,7 @@ public:
   /**
    * init default modules 
    */
-  void initDefaultModules();
+//  void initDefaultModules();
 
 protected: // Protected methods
   /**
@@ -162,7 +162,6 @@ private: // Private methods
   bool m_itemsMovable;
   QListViewItem* m_autoOpenFolder;
   QTimer m_autoOpenTimer;
-  ListCSwordModuleInfo m_defaultModules;
 
   /**
   * Initializes the view.

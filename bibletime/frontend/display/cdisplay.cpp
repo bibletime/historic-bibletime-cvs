@@ -113,7 +113,7 @@ CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow ) {
 
 
 CDisplay::CDisplay(CDisplayWindow* parent) : m_parentWindow(parent), m_connections( new CDisplayConnections( this ) ) {
-  qWarning("constructor of CDisplay");
+//  qWarning("constructor of CDisplay");
 }
 
 CDisplay::~CDisplay(){
@@ -125,6 +125,7 @@ const bool CDisplay::copy( const CDisplay::TextType format, const CDisplay::Text
 
   QClipboard* cb = KApplication::clipboard();
   cb->setText(content);
+  return true;
 }
 
 const bool CDisplay::save( const CDisplay::TextType format, const CDisplay::TextPart part ) {
@@ -145,7 +146,7 @@ const bool CDisplay::save( const CDisplay::TextType format, const CDisplay::Text
   if (!filename.isEmpty()) {
     CToolClass::savePlainFile(filename, content);
   }
-
+  return true;
 }
 
 /** Emits the signal which used when a reference was clicked. */
@@ -153,7 +154,7 @@ void CDisplay::emitReferenceClicked( const QString& reference ){
   QString module;
   QString key;
   CReferenceManager::Type type;
-  const bool ok = CReferenceManager::decodeHyperlink(reference, module, key, type);
+  /*const bool ok = */ CReferenceManager::decodeHyperlink(reference, module, key, type);
   if (module.isEmpty()) {
     module = CReferenceManager::preferredModule( type );
   }
@@ -165,7 +166,7 @@ void CDisplay::emitReferenceDropped( const QString& reference ){
   QString module;
   QString key;
   CReferenceManager::Type type;
-  const bool ok = CReferenceManager::decodeHyperlink(reference, module, key, type);
+  /*const bool ok = */ CReferenceManager::decodeHyperlink(reference, module, key, type);
 //  if (module.isEmpty()) {
 //    module = CReferenceManager::preferredModule( type );
 //  }

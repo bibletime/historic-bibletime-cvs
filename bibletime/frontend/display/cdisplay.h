@@ -112,8 +112,8 @@ protected:
 	virtual ~CDisplay();
 
 private:
-	CDisplayConnections* m_connections;
  	CDisplayWindow* m_parentWindow;
+	CDisplayConnections* m_connections;  
 };
 
 class CDisplayConnections : public QObject {

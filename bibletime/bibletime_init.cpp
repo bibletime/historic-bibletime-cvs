@@ -76,7 +76,7 @@ void BibleTime::initView(){
 
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
 	
-	m_selectDialog = NULL;
+	m_selectDialog = 0;
 }
 
 
@@ -400,8 +400,4 @@ void BibleTime::applyProfileSettings( CProfile* p ){
 void BibleTime::storeProfileSettings( CProfile* p ){
 	p->setFullscreen(m_windowFullscreen_action->isChecked());
 	p->setGeometry(geometry());
-}
-
-void BibleTime::initDefaultModules(){
-  m_mainIndex->initDefaultModules();
 }

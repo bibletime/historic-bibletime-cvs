@@ -57,7 +57,7 @@ void CBookReadWindow::insertKeyboardActions( KAccel* a ){
 
 /** No descriptions */
 void CBookReadWindow::initConnections(){
-	qWarning("CBookReadWindow::initView()");
+//	qWarning("CBookReadWindow::initView()");
 	CLexiconReadWindow::initConnections();
  	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));
@@ -70,9 +70,14 @@ void CBookReadWindow::initConnections(){
 /** Init the view */
 void CBookReadWindow::initView(){
 	qWarning("CBookReadWindow::initView()");	
- 	setMainToolBar( new KToolBar(this) );
-	addDockWindow(mainToolBar());
+	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), this) );
+	moduleChooserBar()->setButtonLimit(1);
+  addDockWindow( moduleChooserBar() );
 
+
+  setMainToolBar( new KToolBar(this) );
+	addDockWindow(mainToolBar());
+  
   QSplitter* splitter = new QSplitter(this);
 
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
@@ -83,9 +88,6 @@ void CBookReadWindow::initView(){
 //	m_treeAction->setWhatsThis( WT_PRESENTER_SYNC );
 	m_treeAction->plug(mainToolBar());
 
-	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), this) );
-	moduleChooserBar()->setButtonLimit(1);
-  addDockWindow( moduleChooserBar() );
 
 	m_treeChooser = new CBookTreeChooser(modules(), key(), splitter);
   setDisplayWidget( CDisplay::createReadInstance(this, splitter) ); 	 	

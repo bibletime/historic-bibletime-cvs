@@ -24,6 +24,7 @@
 #include "frontend/chtmldialog.h"
 #include "frontend/ctoolclass.h"
 #include "frontend/cmdiarea.h"
+#include "frontend/mainindex/cmainindex.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/displaywindow/creadwindow.h"
 #include "frontend/keychooser/ckeychooser.h"
@@ -81,7 +82,7 @@ BibleTime::BibleTime() : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/
 	setPlainCaption("BibleTime " VERSION);
 	setAutoSaveSettings(QString::fromLatin1("MainWindow"), false);
 
-	initDefaultModules();
+  //m_mainIndex->initDefaultModules() is now called in processCommandline!
 }
 
 BibleTime::~BibleTime() {
@@ -156,12 +157,13 @@ CDisplayWindow* BibleTime::createDisplayWindow(ListCSwordModuleInfo modules, con
 //  qWarning("BibleTime::createDisplayWindow: key is %s", key.latin1());
   kapp->setOverrideCursor( waitCursor );
 
- 	CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);	
+ 	CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);  
   if (displayWindow) {
   	displayWindow->init(key);
 		displayWindow->show();
 	}
-	kapp->restoreOverrideCursor();	
+
+  kapp->restoreOverrideCursor();  
 	return displayWindow;
 }
 
@@ -175,7 +177,7 @@ CDisplayWindow* BibleTime::createDisplayWindow(CSwordModuleInfo* module, const Q
 }
 
 /** Refreshes all presenters.*/
-void BibleTime::refreshPresenters() {
+void BibleTime::refreshDisplayWindows() {
 	unsigned int index;				
 	for ( index = 0; index < m_mdi->windowList().count(); index++) {
 		CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index));
@@ -248,12 +250,10 @@ void BibleTime::processCommandline(){
 
   if (CBTConfig::get(CBTConfig::restoreWorkspace) && !args->isSet("ignore-startprofile"))
     restoreWorkspace();
-  QString bibleKey = args->getOption("open-default-bible");
-  if (!bibleKey.isNull() && args->isSet("open-default-bible")) {
+  else {
+    QString bibleKey = args->getOption("open-default-bible");    
     CSwordModuleInfo* bible = CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible));
-    Q_ASSERT(bible);
-    if (bibleKey == "<random>") {
-//      qWarning("Open #random# key in default bible!");
+    if (args->isSet("open-default-bible") && bibleKey == "<random>") {
       CSwordVerseKey vk(0);
       const int maxIndex = 32400;
 
@@ -263,9 +263,7 @@ void BibleTime::processCommandline(){
       vk.Index(newIndex);
       bibleKey = vk.key();
     }
-//    else {
-//      qWarning("Open given key!");
-//    }
     createDisplayWindow(bible, bibleKey);
+    m_mdi->tile();//we are sure only one window is open, which should be displayed fullscreen in the working area
   }
 }

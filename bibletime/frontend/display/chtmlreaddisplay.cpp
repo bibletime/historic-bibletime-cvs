@@ -163,7 +163,7 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
     QString module;
     QString key;
     CReferenceManager::Type type;
-    const bool ok = CReferenceManager::decodeHyperlink(url, module, key, type);
+    /*const bool ok = */ CReferenceManager::decodeHyperlink(url, module, key, type);
     if (module.isEmpty())
       module = CReferenceManager::preferredModule( type );
 
