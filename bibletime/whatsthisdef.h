@@ -59,7 +59,7 @@
 #define WT_HELP_BUGREPORT WT(TT_HELP_BUGREPORT, i18n("Send a bugreport to the developers of BibleTime!"))
 #define WT_HELP_DAILY_TIP WT(TT_HELP_DAILY_TIP, i18n("Show a daily tip.<BR>The tips contain important Bible quotations and helpful usage tips for BibleTime."))
 #define WT_HELP_ABOUT WT(TT_HELP_ABOUT, i18n("Show detailed information about BibleTime."))
-#define WT_HELP_ABOUT_KDE WT(TT_HELP_ABOUT_KDE, i18n("Show the \"about\" dialog of KDE 2."))
+#define WT_HELP_ABOUT_KDE WT(TT_HELP_ABOUT_KDE, i18n("Show the \"about\" dialog of KDE."))
 
 
 //QWhatsThis defines for the groupmanager

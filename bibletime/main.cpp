@@ -116,10 +116,10 @@ int main(int argc, char* argv[]) {
 		PACKAGE,
 		"BibleTime",
 		VERSION,
-		I18N_NOOP("Bible study tool for KDE 2"),
+		I18N_NOOP("Bible study tool for KDE"),
 		KAboutData::License_GPL_V2,
 		I18N_NOOP("(c)1999-2002, The BibleTime Team"),
-		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE 2.\n\nWe are looking for translators and handbook authors.\nIf you'd like to join use send an eMail to info@bibletime.de."),
+		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE.\n\nWe are looking for developers and translators.\nIf you'd like to join use send an eMail to info@bibletime.de."),
 		"http://www.bibletime.de/",
 		"info@bibletime.de"
 	);
