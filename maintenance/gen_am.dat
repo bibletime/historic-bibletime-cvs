@@ -8,22 +8,23 @@
 # This script contains some basic variables for the
 # bibletime-i18n-?? Makefile system generation
 
+export VERSION=1.3
 
-# This variable identifies which language's directories
+# These variables identify which language's directories
 # are to be included in the Makefile structure.
 #
 # If you want to exclude a language, just delete it
-# from the following variable.
+# from the following variables.
 
-export VERSION=1.3
+
+#export FOREIGN_PO_LANGUAGES="cs da de es fi fr hu it nl no pl sk"
+export FOREIGN_PO_LANGUAGES="de"
 
 #export FOREIGN_DOC_LANGUAGES="cs da de es fi fr hu it nl no pl sk"
-export FOREIGN_DOC_LANGUAGES="bg de es ro sk"
-
-
-
+export FOREIGN_DOC_LANGUAGES="de"
 
 # This variable identifies which parts of the documentation
-# are in use.
+# are in use. You should not need to change this unless you 
+# know what you are doing. ;)
 
 export DOC_PARTS="handbook helpdialog howto"

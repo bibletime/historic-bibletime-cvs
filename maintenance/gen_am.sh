@@ -146,73 +146,75 @@ done
 #####################################################
 cd ../maintenance;
 
+###########################
+# create Makefile.am in bibletime-i18n/po directories
+###########################
+
+echo generating ../../bibletime-i18n-$I1/po/Makefile.am
+( # output to Makefile.am
+	echo -e $HEADER
+
+	echo -n "POFILES = "
+	
+	for I1 in $FOREIGN_PO_LANGUAGES; do
+		echo -n "$I1.po "
+	done
+	
+	echo
+	####
+	#This reads in the template of the Makefile.am for the po dir
+	####
+	cat bibletime-i18n-skel/po/Makefile.am.2
+
+) > ../../bibletime-i18n/po/Makefile.am
+
+
 for I1 in $FOREIGN_DOC_LANGUAGES; do
-
 	###########################
-	# create Makefile.am's in bibletime-i18n-??/po directories
+	# create Makefile.am in bibletime-i18n/docs directory
 	###########################
-
-	echo generating ../../bibletime-i18n-$I1/po/Makefile.am
+	
+	echo generating ../../bibletime-i18n/docs/Makefile.am
 	( # output to Makefile.am
 		echo -e $HEADER
 
-		echo "POFILES = $I1.po"
+		echo "SUBDIRS = $I1"
 		echo
-		####
-		#This reads in the template of the Makefile.am for the po dirs
-		####
-		cat bibletime-i18n-skel/po/Makefile.am.2
-
-	) > ../../bibletime-i18n-$I1/po/Makefile.am
-
-	echo generating ../../bibletime-i18n-$I1/configure.in.in
-	( # output to Makefile.am
-		echo -e $HEADER
-		#This reads in the template
-		cat bibletime-i18n-skel/configure.in.in.1
-		echo "AM_INIT_AUTOMAKE(bibletime-i18n-"$I1","$VERSION")"
-		echo
-		cat bibletime-i18n-skel/configure.in.in.2
-	) > ../../bibletime-i18n-$I1/configure.in.in
-
-	cp -v bibletime-i18n-skel/cvsignore ../../bibletime-i18n-$I1/.cvsignore
-	cp -v bibletime-i18n-skel/Makefile.am.2 ../../bibletime-i18n-$I1/Makefile.am
-	cp -v ../Makefile.cvs ../../bibletime-i18n-$I1/Makefile.cvs
-	cp -v ../bibletime.m4 ../../bibletime-i18n-$I1/bibletime.m4
+	) > ../../bibletime-i18n/docs/Makefile.am
 
 	###########################
-	# create Makefile.am's in bibletime-i18n-??/docs directories
+	# create Makefile.am's in bibletime-i18n/??/docs directories
 	###########################
 
-	echo generating ../../bibletime-i18n-$I1/docs/Makefile.am
+	echo generating ../../bibletime-i18n/docs/$I1/Makefile.am
 	( # output to Makefile.am
 		echo -e $HEADER
 
 		echo -n "SUBDIRS = "
 
 		for PART in $DOC_PARTS; do
-			if test -d ../../bibletime-i18n-$I1/docs/$PART; then
+			if test -d ../../bibletime-i18n/$I1/docs/$PART; then
 				echo -n "$PART "
 			fi
 		done
 		echo
 		echo
-	) > ../../bibletime-i18n-$I1/docs/Makefile.am
+	) > ../../bibletime-i18n/docs/$I1/Makefile.am
 
 
 	###########################
-	# create Makefile.am's in bibletime-i18n-??/$PART directories
+	# create Makefile.am's in bibletime-i18n/??/$PART directories
 	###########################
 	for PART in $DOC_PARTS; do
 
-		if test -d ../../bibletime-i18n-$I1/docs/$PART; then
+		if test -d ../../bibletime-i18n/docs/$I1/$PART; then
 
 			###################################
 			#create $PART/Makefile.am
 			###################################
 
-			export I2=../../bibletime-i18n-$I1/docs/$PART
-			export ENGDIR=../../../bibletime/docs
+			export I2=../../bibletime-i18n/docs/$I1/$PART
+			export ENGDIR=../../../../bibletime/docs
 			echo generating $I2/Makefile.am
 			( # output to Makefile.am
 				echo -e $HEADER
@@ -262,12 +264,11 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 				echo
 			) > $I2/Makefile.am
 			#####################################
-			#create bibletime-i18n-??/docs/$PART/html/Makefile.am
+			#create bibletime-i18n/docs/??/$PART/html/Makefile.am
 			#####################################
-			#export I2=$I1/$PART/html
 			for SECTION in html unicode; do
 
-				I2=../bibletime-i18n-$I1/docs/$PART/$SECTION
+				I2=../bibletime-i18n/docs/$I1/$PART/$SECTION
 				I2_EN=$PART/$SECTION
 
 				if test -d $I2; then
@@ -342,6 +343,6 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 			done
 		fi  # PART exists?
 	done ### PART
-done ### language
+done ### FOREIGN_DOC_LANGUAGE
 
 
