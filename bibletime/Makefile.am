@@ -17,8 +17,8 @@ bibletime_LDADD   = \
 ./frontend/thirdparty/qt3stuff/libqt3stuff.a \
 ./frontend/thirdparty/libthirdparty.a \
 ./backend/libbackend.a \
--lpthread \
 -lXext \
+$(LIBPTHREAD) \
 $(LIB_QT) \
 $(LIB_KDECORE) \
 $(LIB_KDEUI) \

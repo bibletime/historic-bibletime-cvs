@@ -132,7 +132,7 @@ const QString& CPrintItem::getModuleText() {
 //	CSwordKey* key = dynamic_cast<CSwordKey*>(m_startKey);
 //	CSwordModuleInfo* sw = dynamic_cast<CSwordModuleInfo*>(m_module);
 	
-	m_moduleText = vk ? QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString::null;
+	m_moduleText = vk ? QString::fromLatin1("<FONT SIZE=\"-2\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString::null;
 	m_moduleText += m_startKey ? m_startKey->renderedText() : QString::null;
 	if (m_module && m_stopKey && m_stopKey != m_startKey) { //range of entries
 		if (m_module->getType() == CSwordModuleInfo::Bible  || m_module->getType() == CSwordModuleInfo::Commentary ) {
@@ -145,11 +145,11 @@ const QString& CPrintItem::getModuleText() {
 			dummyKey.key( vk_start->key() );
 			while (dummyKey < *vk_stop) {
 				dummyKey.NextVerse();
-				m_moduleText += QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.renderedText();
+				m_moduleText += QString::fromLatin1("<FONT SIZE=\"-2\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.renderedText();
 			}
 		}
-		else if (m_module->getType() == CSwordModuleInfo::Lexicon )
-			qWarning("implement for range of lexicon entries");
+//		else if (m_module->getType() == CSwordModuleInfo::Lexicon )
+//			qWarning("implement for range of lexicon entries");
 	}		
 	m_moduleText.replace(QRegExp("$\n+"), "");
 	m_moduleText.replace(QRegExp("$<BR>+"), "");	
@@ -245,10 +245,11 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	CStyleFormat* format = 0;
 	CStyleFormatFrame* frame = 0;
 	int frameThickness = 0;
-	CStyleFormat::alignement alignement;
 	int identation = 0;
+	CStyleFormat::alignement alignement;	
 	CStyle::styleType type = CStyle::Unknown;
 	QString text;
+	
 	QColorGroup cg;
 	QPen pen;
 	QBrush brush;
@@ -258,11 +259,14 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		type = (CStyle::styleType)i;
 		
 		format = m_style->getFormatForType( type );
-		ASSERT(format);
 		fgColor = format->getFGColor();
 		bgColor = format->getBGColor();	
 		pen.setColor(fgColor);
 		font = format->getFont();
+		if (getModule() && getModule()->encoding() == QFont::Unicode) { //enable unicode
+			font.setCharSet(QFont::Unicode);
+		}
+		
 		frame = format->hasFrame() ? format->getFrame() : 0;
 		frameThickness = frame ? frame->getThickness() : 0;		
 		alignement = format->getAlignement();
