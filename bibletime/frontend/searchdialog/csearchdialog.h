@@ -25,6 +25,7 @@
 #include "../../backend/cswordmoduleinfo.h"
 
 //QT includes
+#include <qbutton.h>
 
 //KDE includes
 #include <kdialogbase.h>
@@ -117,10 +118,14 @@ private:
 	int old_overallProgress;
 	int old_currentProgress;
 
+	QPushButton* m_searchAnalysisSaveButton;
+
 private slots: // Private slots
   void chosenModulesChanged();
 	virtual void slotUser1();
 	virtual void slotUser2();
+	void slotSaveSearchAnalysis();
+
 public slots: // Public slots
   /** Reimplementation to show the "First time opened" dialog. */
   virtual void show();

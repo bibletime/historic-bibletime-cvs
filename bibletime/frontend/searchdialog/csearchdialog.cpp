@@ -25,7 +25,9 @@
 #include "../../structdef.h"
 #include "../../ressource.h"
 #include "../../backend/cswordmodulesearch.h"
+#include "../../backend/cswordversekey.h"
 #include "../../backend/cswordmoduleinfo.h"
+#include "../ctoolclass.h"
 
 //KDE includes
 #include <kapp.h>
@@ -97,7 +99,14 @@ void CSearchDialog::initView() {
 	searchAnalysis_page = addVBoxPage(i18n("Search Analysis"), i18n("Graphical analysis of your search result"));	
 	searchAnalysis = new CSearchDialogAnalysis(searchAnalysis_page);
 	searchAnalysisView =	new CSearchDialogAnalysisView(searchAnalysis, searchAnalysis_page);
-	searchAnalysis_page->setEnabled(false);	
+	searchAnalysis_page->setEnabled(false);
+
+	m_searchAnalysisSaveButton = new QPushButton("Save Analysis to Disk", searchAnalysis_page);
+//  m_searchAnalysisSaveButton->setGeometry(searchAnalysis_page.geometry().bottomLeft().x(), searchAnalysis_page.geometry().bottomLeft().y(), 40,40);
+	m_searchAnalysisSaveButton->show();
+
+	connect(m_searchAnalysisSaveButton, SIGNAL(clicked()), this, SLOT(slotSaveSearchAnalysis()));
+	
 }
 
 ListCSwordModuleInfo* CSearchDialog::getModuleList() {
@@ -121,6 +130,40 @@ void CSearchDialog::setModuleList(ListCSwordModuleInfo *list) {
 	searchText_page->setEnabled(moduleList->count());	
 	searchResult->clearResult();
 	searchAnalysis->reset();
+}
+
+void CSearchDialog::slotSaveSearchAnalysis(){
+	int moduleIndex = 0;
+	int count = 0;	
+	QString countStr = "";
+	QString searchAnalysisHTML = "";
+	CSwordVerseKey key(0/*m_moduleList.first()*/);	
+	key.key("Genesis 1:1");
+
+	QDict<CSearchDialogAnalysisItem> searchAnalysisItems = *searchAnalysis->getSearchAnalysisItemList();
+	CSearchDialogAnalysisItem analysisItem = *searchAnalysisItems[key.book()];
+
+ 	const QString file = CToolClass::getSaveFileName (QString::null, i18n("* | Text files\n *.* | All files (*.*)"), 0, i18n("Save key ..."));	
+	if (!file.isNull()) {
+    QString text = "<html>\n<head>\n<title>BibleTime Search Analysis</title>\n</head>\n<body>\n<h1>Search Text: " + searchText->getText() + "</h1>\n";
+		for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(),++moduleIndex) {
+			text += "<h2>Sword Module: " + moduleList->current()->name() + " " + moduleList->current()->getDescription() + "</h2>\n";
+			searchAnalysisHTML = "<table>\n";
+			bool ok = true;
+			while (ok) {
+				analysisItem = *searchAnalysisItems[key.book()];
+				count = analysisItem.getCountForModule(moduleIndex);
+				countStr.setNum(count);
+				searchAnalysisHTML += "<tr><td>" + key.book() + "</td><td align='right'>" + countStr + "</td></tr>\n";
+				ok = key.NextBook();
+			}
+			searchAnalysisHTML += "</table>\n";
+			text += "<dir>" + searchAnalysisHTML + "</dir>\n";
+			key.key("Genesis 1:1"); // reset this for the next iteration if needed.
+		}
+		text += "</body></html>";
+		CToolClass::savePlainFile(file, text);
+	}
 }
 
 void CSearchDialog::slotUser1() {
