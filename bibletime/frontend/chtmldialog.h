@@ -22,8 +22,13 @@
 #include <qwidget.h>
 #include <qdialog.h>
 
+//KDE includes
+#include <khtml_part.h>
+#include <kurl.h>
+#include <kparts/part.h>
+#include <kparts/browserextension.h>
+
 //forward declarations
-class QTextBrowser;
 class KComboBox;
 
 /** This is a general dialog to show long error messages or report and solutions
@@ -43,7 +48,7 @@ public:
   virtual void setText(const QString&);
 
 protected:
-	QTextBrowser* m_textBrowser;
+	KHTMLPart* m_htmlPart;
   /**
   * Initializes this widget.
   */
@@ -58,6 +63,7 @@ protected slots: // Protected slots
   * Is called when an item of the history combo was chosen.
   */
   void historyItemSelected( const QString & );
+  void openURL( const KURL&, const KParts::URLArgs&);
 
 private:
 	KComboBox* m_historyCombo;

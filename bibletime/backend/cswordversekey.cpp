@@ -41,7 +41,7 @@ CSwordKey* CSwordVerseKey::copy() const {
 }
 
 /** Sets the module for this key */
-CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
+CSwordModuleInfo* const CSwordVerseKey::module( CSwordModuleInfo* const newModule ){
 	if (newModule && (newModule->type() == CSwordModuleInfo::Bible || newModule->type() == CSwordModuleInfo::Commentary) ) {
 		const QString& oldKey	= key();
 		m_module = newModule;

@@ -86,7 +86,7 @@ public:
   /**
   * Sets the module of this key.
   */
-  virtual CSwordModuleInfo* module( CSwordModuleInfo* module = 0 );
+  virtual CSwordModuleInfo* const module( CSwordModuleInfo* const module = 0 );
   /**
   * Returns the current key as a QString
   */

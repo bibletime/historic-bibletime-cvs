@@ -64,8 +64,9 @@ public:
 		hebrewCantillation,
 		greekAccents,
 		textualVariants,
+    scriptureReferences,
 		filterOptionsMIN = footnotes,
-		filterOptionsMAX = textualVariants
+		filterOptionsMAX = scriptureReferences
 	};
 
   struct FilterOptionsBool {
@@ -78,6 +79,7 @@ public:
 		bool hebrewCantillation;
 		bool greekAccents;
 		bool textualVariants;
+    bool scriptureReferences;
 	};
 	struct DisplayOptionsBool {
 		bool lineBreaks;

@@ -113,7 +113,7 @@ public:
   /**
   * Sets the module for this key
   */
-  virtual CSwordModuleInfo* module( CSwordModuleInfo* newModule = 0 );
+  virtual CSwordModuleInfo* const module( CSwordModuleInfo* const newModule = 0 );
 };
 
 #endif

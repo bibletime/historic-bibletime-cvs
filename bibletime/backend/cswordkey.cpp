@@ -39,7 +39,7 @@ CSwordKey::CSwordKey(const CSwordKey& k) {
 	m_module = k.m_module;
 }
 
-CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {
+CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
 	if (newModule)
 		m_module = newModule;
 	return m_module;
@@ -71,19 +71,11 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo* const module ){
 	switch( module->type() ){
 		case CSwordModuleInfo::Bible:
 		case CSwordModuleInfo::Commentary:
-		{
-			CSwordVerseKey* key = new CSwordVerseKey( (VerseKey *) ( (SWKey *)(*module->module()) ), module );
-			return key;
-		}
+			return new CSwordVerseKey( (VerseKey *) ( (SWKey *)(*module->module()) ), module );
 		case CSwordModuleInfo::Lexicon:
-		{
-			CSwordLDKey* key = new CSwordLDKey( (SWKey *)(*module->module()), module);
-			return key;
-		}
-		case CSwordModuleInfo::GenericBook: {
-			CSwordTreeKey* key =  new CSwordTreeKey( (TreeKeyIdx*)((SWKey *)(*module->module())), module );
-			return key;
-		}
+			return new CSwordLDKey( (SWKey *)(*module->module()), module);
+		case CSwordModuleInfo::GenericBook:
+			return new CSwordTreeKey( (TreeKeyIdx*)((SWKey *)(*module->module())), module );
 		default:
 			return 0;
 	}

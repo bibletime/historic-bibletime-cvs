@@ -272,12 +272,15 @@ void CDisplayWindow::lookup(){
 
 void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName ) {
 //  qWarning("CDisplayWindow::lookup( const QString&, const QString& )");
-  Q_ASSERT(isReady());
+//  Q_ASSERT(isReady());
   if (!isReady())
   	return;
 
 
 	CSwordModuleInfo* m = backend()->findModuleByName(moduleName);
+  if (!m)
+    return;
+
 	if (m && modules().containsRef(m) && !keyName.isEmpty()) {
 		key()->key(keyName);
 		keyChooser()->setKey(key()); //the key chooser does send an update signal

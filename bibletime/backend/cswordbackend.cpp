@@ -171,7 +171,7 @@ void CSwordBackend::setOption( const CSwordBackend::FilterOptions type, const bo
 	switch (type) {
 		case textualVariants:
 			value = enable ? "Secondary Reading" : "Primary Reading";
-			//if on, user alternaticve (secondary) reading
+			//if on, user alternative (secondary) reading
 			break;
 		default:		
 			value = enable ? "On": "Off";
@@ -301,7 +301,9 @@ const QString CSwordBackend::optionName( const CSwordBackend::FilterOptions opti
 		case CSwordBackend::greekAccents:
 			return QString::fromLatin1("Greek Accents");
 		case CSwordBackend::textualVariants:
-			return QString::fromLatin1("Textual Variants");			
+			return QString::fromLatin1("Textual Variants");	
+		case CSwordBackend::scriptureReferences:
+			return QString::fromLatin1("Scripture References");
 	}
 	return QString::null;	
 }
@@ -326,7 +328,10 @@ const QString CSwordBackend::translatedOptionName(const CSwordBackend::FilterOpt
 		case CSwordBackend::greekAccents:
 			return i18n("Greek Accents");
 		case CSwordBackend::textualVariants:
-			return i18n("Textual Variants");			
+			return i18n("Textual Variants");
+		case CSwordBackend::scriptureReferences:
+			return i18n("Scripture Cross-references");	
+
 	}
 	return QString::null;
 }
@@ -351,7 +356,9 @@ const QString CSwordBackend::configOptionName( const CSwordBackend::FilterOption
 		case CSwordBackend::greekAccents:
 			return QString::fromLatin1("GreekAccents");
 		case CSwordBackend::textualVariants:
-			return QString::fromLatin1("TextualVariants");
+			return QString::fromLatin1("Variants");
+		case CSwordBackend::scriptureReferences:
+			return QString::fromLatin1("Scripref");
 	}
 	return QString::null;	
 }

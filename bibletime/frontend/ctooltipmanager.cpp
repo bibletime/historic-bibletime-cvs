@@ -42,11 +42,52 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
   if (moduleName.isEmpty()) {
     moduleName = CReferenceManager::preferredModule( type );
   }
-  if (moduleName.isEmpty())
-  	return QString::null;
+  if (moduleName.isEmpty()) {
+    QString typeName = QString::null;
+    switch (type) {
+      case CReferenceManager::Bible:
+        typeName = i18n("Bible");
+        break;
+      case CReferenceManager::Commentary:
+        typeName = i18n("Commentary");
+        break;
+      case CReferenceManager::Lexicon:
+        typeName = i18n("Lexicon");
+        break;
+      case CReferenceManager::GenericBook:
+        typeName = i18n("Generic Book");
+        break;
+  		case CReferenceManager::MorphHebrew:
+        typeName = i18n("Hebrew Morphological lexicon");
+        break;
+  		case CReferenceManager::MorphGreek:
+        typeName = i18n("Greek Morphological lexicon");
+        break;
+  		case CReferenceManager::StrongsHebrew:
+        typeName = i18n("Hebrew Strong's Lexicon");
+        break;
+  		case CReferenceManager::StrongsGreek:
+        typeName = i18n("Greek Strong's Lexicon");
+        break;
+  		default:
+        break;
+    }
 
-  CSwordModuleInfo* m = backend()->findModuleByName(moduleName);	
-	return QString::fromLatin1("<B>%1</B><HR>%2").arg(keyText(m ? m->type() : CSwordModuleInfo::Unknown, keyName)).arg(moduleText(moduleName, keyName));
+  	return QString::fromLatin1("<FONT COLOR=\"red\"><CENTER><B>%1</B></CENTER></FONT><HR>%2<BR>%3</FONT>")
+      .arg(i18n("Configuration problem!"))
+      .arg(i18n("Please make sure the default module for the type <FONT COLOR=\"blue\"><I>%1</I></FONT> is set properly in the optionsdialog!")
+          .arg(typeName)
+      );
+  };
+
+  if (CSwordModuleInfo* m = backend()->findModuleByName(moduleName))
+  	return QString::fromLatin1("<B>%1</B><HR>%2").arg(keyText(m ? m->type() : CSwordModuleInfo::Unknown, keyName)).arg(moduleText(moduleName, keyName));
+  else
+    return QString::fromLatin1("<FONT COLOR=\"red\"><CENTER><B>%1</B></CENTER>%2</FONT><HR>")
+            .arg(i18n("Configuration problem!"))
+            .arg(i18n("The module <FONT COLOR=\"blue\"><I>%1</I></FONT> was not found on your system! Install the module to make this tooltip working!")
+              .arg(moduleName)
+           );
 }
 
 /** Returns the tooltip text for the given hyperlink. */
@@ -63,16 +104,15 @@ const QString CTooltipManager::textForReference( const QString& moduleName, cons
 /** Returns the text for the given moduleName and key name. */
 const QString CTooltipManager::moduleText( const QString& moduleName, const QString& keyName){
   QString text = QString::null;
-	CSwordModuleInfo* module = backend()->findModuleByName(moduleName);
-	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
-	key->key( keyName );
+  if (CSwordModuleInfo* module = backend()->findModuleByName(moduleName)) {
+  	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+  	key->key( keyName );
 
-  if (module) {
     backend()->setFilterOptions( CBTConfig::getFilterOptionDefaults() );
    	text = key->renderedText();
 
 		if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
-    	qWarning("BIBLE or Commentary!!");
+//    	qWarning("BIBLE or Commentary!!");
       text = QString::null;
       ListKey verses = VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
 			
@@ -98,6 +138,11 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
         }
     	}
 		}
+
+    if (module->textDirection() == CSwordModuleInfo::RightToLeft) {
+      text = QString::fromLatin1("<font face=\"%1\">").arg(CBTConfig::get(CBTConfig::unicode).family()) + text + QString::fromLatin1("</font>");
+//      qWarning(text.latin1());
+    }
 	}
  	return text;
 }

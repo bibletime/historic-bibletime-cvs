@@ -31,17 +31,12 @@ CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptionsBool
 	m_moduleSettings = moduleSettings;
 	m_modules = useModules;
 
-//	setPixmap( BIBLE_ICON_MC );
-
  	m_popup = new KPopupMenu(this);	
 	setPopup(m_popup);
 	setPopupDelay(0);
 
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionToggled(int)));
-
 	populateMenu();
-//	if (!populateMenu())
-//		setEnabled(false);
 }
 
 void CDisplaySettingsButton::reset(const ListCSwordModuleInfo& useModules){
@@ -90,8 +85,11 @@ int CDisplaySettingsButton::populateMenu(){
 		isOptionAvailable(CSwordBackend::hebrewCantillation ));
 	ret += addMenuEntry(i18n("Show Greek accents"), &m_moduleSettings->greekAccents,
 		isOptionAvailable(CSwordBackend::greekAccents ));
-	ret += addMenuEntry(i18n("Use alternative textual variant"), &m_moduleSettings->textualVariants,
-		isOptionAvailable(CSwordBackend::greekAccents ));
+	
+  ret += addMenuEntry(i18n("Use alternative textual variant"), &m_moduleSettings->textualVariants,
+		isOptionAvailable(CSwordBackend::textualVariants ));
+  ret += addMenuEntry(i18n("Shows scripture cross-references"), &m_moduleSettings->scriptureReferences,
+		isOptionAvailable(CSwordBackend::scriptureReferences ));
 
 	return ret;
 }

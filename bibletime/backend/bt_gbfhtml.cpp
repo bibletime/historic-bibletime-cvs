@@ -109,7 +109,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-2] = token[i];
 			num[i-2]=0;
 
-			pushString(buf," <span id=\"strongnumber\"><a href=\"strongs://Greek/%s\">&lt;%s&gt;</a></span> ",
+			pushString(buf," <a href=\"strongs://Greek/%s\"><span id=\"strongnumber\">&lt;%s&gt;</span></a> ",
 				num, num);
 		}
 
@@ -119,7 +119,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-2] = token[i];
 			num[i-2]=0;
 
-			pushString(buf," <span id=\"strongnumber\"><a href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a></span> ",
+			pushString(buf," <a href=\"strongs://Hebrew/%s\"><span id=\"strongnumber\">&lt;%s&gt;</span> </a>",
 				num, num);
 		}
 
@@ -129,7 +129,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-3] = token[i];
 			num[i-3]=0;
 
-			pushString(buf," <span id=\"morphcode\"><a href=\"morph://Greek/%s\">(%s)</a></span> ",
+			pushString(buf," <a href=\"morph://Greek/%s\"><span id=\"morphcode\">(%s)</span></a> ",
 				num, num);
 		}
 
@@ -140,7 +140,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-3] = token[i];
 			num[i-3]=0;
 
-			pushString(buf," <span id=\"morphcode\"><a href=\"morph://Hebrew/%s\">(%s)</a></span> ",
+			pushString(buf," <a href=\"morph://Hebrew/%s\"><span id=\"morphcode\">(%s)</span></a> ",
 				num, num);
 		}
 

@@ -47,7 +47,7 @@ public:
 	virtual CSwordKey* copy() const = 0;	
 	
 	//implemented functions
-	virtual CSwordModuleInfo* module(CSwordModuleInfo* newModule = 0);
+	virtual CSwordModuleInfo* const module(CSwordModuleInfo* const newModule = 0);
 	virtual const QString renderedText();
 	virtual const QString strippedText();
   /**

@@ -47,10 +47,10 @@ void CHTMLEntryDisplay::updateSettings(void){
 
 
   m_standardFontName = CBTConfig::get(CBTConfig::standard).family();
-  m_standardFontSize = /*CToolClass::makeLogicFontSize*/(CBTConfig::get(CBTConfig::standard).pointSize() );
+  m_standardFontSize = CBTConfig::get(CBTConfig::standard).pointSize();
 
 	m_unicodeFontName  = CBTConfig::get(CBTConfig::unicode).family();
-  m_unicodeFontSize  = /*CToolClass::makeLogicFontSize*/( CBTConfig::get(CBTConfig::unicode).pointSize() );
+  m_unicodeFontSize  = CBTConfig::get(CBTConfig::unicode).pointSize();
 
 	m_htmlHeader = header();
 
@@ -174,29 +174,11 @@ char CHTMLEntryDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList) {
 
 /** Returns the header which should be used for each page. */
 const QString& CHTMLEntryDisplay::header(){
-  m_htmlHeader = QString::fromLatin1("<HTML><HEAD>\n");
-
-  m_htmlHeader += QString::fromLatin1("\n<style type=\"text/css\">\n\n");
-
+  m_htmlHeader = QString::fromLatin1("<HTML><HEAD>\n\n<style type=\"text/css\">\n\n");
   for (int t = MinType; t <= MaxType; ++t) {
     m_htmlHeader += "\t" + formatString(static_cast<CHTMLEntryDisplay::StyleType>(t)) + "\n\n";
   }
-  m_htmlHeader += QString::fromLatin1("</style>\n\n");
-
-// #unicodetext { font-family: !unicodefamily!; }\n\
-// #highlighted { color: !highlightedcolor!; }\n\
-// #reference { color: !refcolor!; font-decoration: none; }\n\
-// #jesuswords {color: !jesuswordscolor!; text-weight:bolder;}\n\
-// #otquote {font-size: smaller;}\n\
-// #poetry  {font-weight: light; text-align: justify;}\n\
-// #sectionhead  {font-size: larger; font-weight: bold; color: !textcolor!;}\n\
-// #booktitle  {font-weight: x-bold; font-size: x-large; color: !textcolor!; margin-top:1mm;margin-bottom:1mm;}\n\
-// #strongnumber  {font-decoration: none; font-size: smaller; font-weight:lighter; font-style:italic; color: !strongscolor!;}\n\
-// #morphcode  {font-size: smaller; color: !morphcolor!; font-decoration:none;}\n\
-// #footnote  {font-size: smaller; color: !footnotecolor!; font-style:italic;}\n\
-// #footnotepre {font-weight: bolder;}\n\
-
-  m_htmlHeader += QString::fromLatin1("</HEAD>");
+  m_htmlHeader += QString::fromLatin1("</style>\n\n</HEAD>");
   return m_htmlHeader;
 }
 
@@ -207,10 +189,13 @@ const QString CHTMLEntryDisplay::formatString( const CHTMLEntryDisplay::StyleTyp
   const QString highlightColor = CBTConfig::get(CBTConfig::highlightedVerseColor).name();
   const QString swordRefColor = CBTConfig::get(CBTConfig::swordRefColor).name();
   const QString footnotesColor = CBTConfig::get(CBTConfig::footnotesColor).name();
-  const QString morphsColor = CBTConfig::get(CBTConfig::morphsColor).name();
+
   const QString strongsColor = CBTConfig::get(CBTConfig::strongsColor).name();
-  const QString jesusWordsColor = CBTConfig::get(CBTConfig::jesuswordsColor).name();
+  const QString morphsColor = CBTConfig::get(CBTConfig::morphsColor).name();
 //  const QString lemmaColor = CBTConfig::get(CBTConfig::strongsColor).name();
+
+  const QString jesusWordsColor = CBTConfig::get(CBTConfig::jesuswordsColor).name();
+
 
   QString text;
   switch(type) {
@@ -222,7 +207,7 @@ const QString CHTMLEntryDisplay::formatString( const CHTMLEntryDisplay::StyleTyp
                 .arg(m_standardFontName);
       break;
     case Link:
-      text = QString::fromLatin1("a:link {text-decoration:none; color: %1}").arg(swordRefColor);
+      text = QString::fromLatin1("a:link {text-decoration:none; color:%1;}").arg(swordRefColor);
       break;
     case LinkHover:
       text = QString::fromLatin1("a:hover {text-decoration:none;}");
@@ -270,7 +255,6 @@ const QString CHTMLEntryDisplay::formatString( const CHTMLEntryDisplay::StyleTyp
       text = QString::fromLatin1("#jesuswords {font-style: italic; color: %1;}")
               .arg(jesusWordsColor);
       break;
-
     case BookTitle:
       text = QString::fromLatin1("#booktitle {font-weight: x-bold; font-size: x-large; color: %1; margin-top:1mm; margin-bottom:1mm;}")
               .arg(textColor);
