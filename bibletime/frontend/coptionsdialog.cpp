@@ -679,7 +679,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 					m_settings.swords.standardGreekMorph->insertItem(modDescript);
           inserted = true;
  				}
- 				if (modules.current()->has(CSwordModuleInfo::DailyDevotional)) {
+ 				if (modules.current()->category() == CSwordModuleInfo::DailyDevotional) {
 					m_settings.swords.standardDailyDevotional->insertItem(modDescript);
           inserted = true;
  				}

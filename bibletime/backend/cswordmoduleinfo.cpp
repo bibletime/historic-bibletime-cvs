@@ -226,6 +226,20 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 			const QString level = QString::fromLatin1(m_module->getConfigEntry("DisplayLevel"));
 			return !level.isEmpty() ? level : QString::fromLatin1("1");
 		}
+    case GlossaryFrom: {
+      if (!category() == Glossary) {
+        return QString::null;
+      };
+      const QString lang = QString::fromLatin1(m_module->getConfigEntry("GlossaryFrom"));
+			return !lang.isEmpty() ? lang : QString::null;
+    }
+    case GlossaryTo: {
+      if (!category() == Glossary) {
+        return QString::null;
+      };
+      const QString lang = QString::fromLatin1(m_module->getConfigEntry("GlossaryTo"));
+			return !lang.isEmpty() ? lang : QString::null;
+    }
 		default:
 			return QString::null;
 	}
@@ -244,10 +258,10 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 			return m_module->getConfig().has("Feature", "GreekParse");		
 		case HebrewParse:
 			return m_module->getConfig().has("Feature", "HebrewParse");		
-		case DailyDevotional:
-			return m_module->getConfig().has("Feature", "DailyDevotion");		
-		case Glossary:
-			return m_module->getConfig().has("Feature", "Glossary");
+//		case DailyDevotional:
+//			return m_module->getConfig().has("Feature", "DailyDevotion");
+//		case Glossary:
+//			return m_module->getConfig().has("Feature", "Glossary");
 	}
 	return false;
 }
@@ -300,9 +314,14 @@ const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
 
 /** Returns the language of the module. */
 const CLanguageMgr::Language CSwordModuleInfo::language() {
-  if (module())
+  if (module()) {
+    if (category() == Glossary) {
+      //special handling for glossaries, we use the "from language" as language for the module
+      return languageMgr()->languageForAbbrev( config(GlossaryFrom) );
+    }
     return languageMgr()->languageForAbbrev( module()->Lang() );
-  return CLanguageMgr::Language();
+  }
+  return CLanguageMgr::Language(); //default language
 }
 
 /** Returns true if this module may be written by the write display windows. */
@@ -313,10 +332,14 @@ const bool CSwordModuleInfo::isWritable(){
 /** Returns the category of this module. See CSwordModuleInfo::Category for possible values. */
 const CSwordModuleInfo::Category CSwordModuleInfo::category(){
   const QString cat = QString::fromLatin1(m_module->getConfigEntry("Category"));
-  qWarning(cat.latin1());
-
   if (cat == QString::fromLatin1("Cults / Unorthodox / Questionable Material")) {
     return Cult;
+  }
+  else if (cat == QString::fromLatin1("Daily Devotional")) {
+    return DailyDevotional;
+  }
+  else if (cat == QString::fromLatin1("Glossaries")) {
+    return Glossary;
   };
   return CSwordModuleInfo::UnknownCategory;  
 }

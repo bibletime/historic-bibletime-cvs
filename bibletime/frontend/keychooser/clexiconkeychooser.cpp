@@ -86,7 +86,7 @@ void CLexiconKeyChooser::activated(int index){
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
   if (m_modules.count() == 1) {
-    qWarning("return entries of the single module");
+//    qWarning("return entries of the single module");
     m_widget->reset(m_modules.first()->entries(), 0, true);	
   }
   else {
@@ -101,9 +101,9 @@ void CLexiconKeyChooser::refreshContent(){
       entryCountMap.insert(m_modules.current()->entries()->count(), m_modules.current(), false);
     }
 
-    for ( EntryCountMap::Iterator count_it = entryCountMap.begin(); count_it != entryCountMap.end(); ++count_it) {
-      qWarning("module %s has count %i", count_it.key(), (*count_it));
-    };
+//    for ( EntryCountMap::Iterator count_it = entryCountMap.begin(); count_it != entryCountMap.end(); ++count_it) {
+//      qWarning("module %s has count %i", count_it.key(), (*count_it));
+//    };
 
     typedef QMap<CSwordLexiconModuleInfo*, QStringList*> LexiconMap;
     LexiconMap entryMap;

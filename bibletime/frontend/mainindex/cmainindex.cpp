@@ -102,10 +102,15 @@ CMainIndex::~CMainIndex(){
 void CMainIndex::addGroup(const CItemBase::Type type, const QString language){
 //  qWarning("addGroup");
   CTreeFolder *i = 0;
-  if (type == CItemBase::BookmarkFolder)
+  if (type == CItemBase::BookmarkFolder) {
     i = new CBookmarkFolder(this);
-  else
+  }
+  else if (type == CItemBase::GlossaryModuleFolder) {
+    i = new CGlossaryFolder(this, type, language, QString::null); //we have no second language
+  }
+  else {
     i = new CTreeFolder(this, type, language);
+  }
   i->init();
 
   if (i->childCount() == 0 && type != CItemBase::BookmarkFolder)

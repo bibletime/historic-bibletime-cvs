@@ -242,10 +242,41 @@ public:
   virtual void update();
   virtual void init();
 
-  const QString language() const;
+ virtual const QString& language() const;
 
 private:
   QString m_language;
+};
+
+class CGlossaryFolder : public CTreeFolder {
+public:
+	CGlossaryFolder(CMainIndex* mainIndex, const Type type, const QString& fromLanguage, const QString& toLanguage );
+	CGlossaryFolder(CFolderBase* parentFolder, const Type type, const QString& fromLanguage, const QString& toLanguage );
+	~CGlossaryFolder();
+  
+  virtual void initTree();
+  virtual void init();
+  virtual void addGroup(const Type type, const QString& fromLanguage, const QString& toLanguage);
+      
+  /**
+  * Returns the language this glossary folder maps from.
+  */
+//  virtual const QString& language() const {
+//    return fromLanguage();
+//  };
+
+  /**
+  * Returns the language this glossary folder maps from.
+  */
+  const QString& fromLanguage() const;
+  /**
+  * Returns the language this glossary folder maps from.
+  */
+  const QString& toLanguage() const;
+
+private:
+  QString m_fromLanguage;
+  QString m_toLanguage;  
 };
 
 class CBookmarkFolder : public CTreeFolder {

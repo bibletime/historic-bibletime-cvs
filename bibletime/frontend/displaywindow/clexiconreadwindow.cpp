@@ -57,8 +57,10 @@ void CLexiconReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
 
 /** Reimplementation. */
 void CLexiconReadWindow::insertKeyboardActions( KAccel* a ){
-	a->insert("Next entry",     i18n("Next entry"),     "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);
-	a->insert("Previous entry", i18n("Previous entry"), "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);	
+  CReadWindow::insertKeyboardActions(a);
+  
+  a->insert("Next entry",     i18n("Next entry"),     "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);
+	a->insert("Previous entry", i18n("Previous entry"), "", IDK_PRESENTER_PREVIOUS_ENTRY, 0, "", true, true);	
 }
 
 void CLexiconReadWindow::initKeyboardActions() {

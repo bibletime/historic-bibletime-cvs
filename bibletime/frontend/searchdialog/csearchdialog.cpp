@@ -350,7 +350,7 @@ void CModuleChooser::initTree(){
     if (static_cast<CSwordModuleInfo::ModuleType>(type) == CSwordModuleInfo::Lexicon) {
       if (!addedLexs) {
         for (mods.first(); mods.current(); mods.next()) {
-          if (mods.current()->type() == CSwordModuleInfo::Lexicon && !mods.current()->has(CSwordModuleInfo::DailyDevotional) && !mods.current()->has(CSwordModuleInfo::Glossary)) {
+          if (mods.current()->type() == CSwordModuleInfo::Lexicon && (mods.current()->category() != CSwordModuleInfo::DailyDevotional) && (mods.current()->category() != CSwordModuleInfo::Glossary)) {
             modsForType.append(mods.current());
           };
         };
@@ -359,7 +359,7 @@ void CModuleChooser::initTree(){
       }
       else if (!addedDevotionals) {
         for (mods.first(); mods.current(); mods.next()) {
-          if (mods.current()->has(CSwordModuleInfo::DailyDevotional) ) {
+          if (mods.current()->category() == CSwordModuleInfo::DailyDevotional) {
             modsForType.append(mods.current());
           };
         };
@@ -368,7 +368,7 @@ void CModuleChooser::initTree(){
       }
       else if (!addedGlossaries) {
         for (mods.first(); mods.current(); mods.next()) {
-          if (mods.current()->has(CSwordModuleInfo::Glossary) ) {
+          if (mods.current()->category() == CSwordModuleInfo::Glossary) {
             modsForType.append(mods.current());
           };
         };

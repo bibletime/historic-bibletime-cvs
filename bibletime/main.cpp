@@ -146,7 +146,10 @@ int main(int argc, char* argv[]) {
 	// active developers (sorted by name)                                                                                     	
 	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "joachim@ansorgs.de", 		"");
 	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend"), 	"mg.pub@gmx.net", 				"");
-  aboutData.addAuthor("Nikolay Igotti",    I18N_NOOP("Frontend"),         "olonho@hotmail.com",     "");
+  //and / or search for multiple words, other fixes and improvements
+  aboutData.addAuthor("Nikolay Igotti", I18N_NOOP("Frontend"),            "olonho@hotmail.com",     "");
+  //comitted search in default bible, opened modules, other smaller things
+  aboutData.addAuthor("Gary Sims",      I18N_NOOP("Frontend"),            "gary@garysims.co.uk",    "");
 //	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), 				"mlybarge@insight.rr.com","");
 //	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
 //	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");

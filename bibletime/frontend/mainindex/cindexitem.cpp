@@ -211,7 +211,7 @@ const QString CModuleItem::toolTip(){
 		text = QString::fromLatin1("<DIV STYLE=\"border-bottom:thin solid black;\">")
       + i18n("Module")
       + QString::fromLatin1(": <B>%1</B></DIV>").arg( module()->name() )
-      + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<BR><B>%1</B>").arg(i18n("Take care, this module contains cult / questionable material!")) : QString::null);
+      + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<B>%1</B><BR>").arg(i18n("Take care, this module contains cult / questionable material!")) : QString::null);
 		text += QString::fromLatin1("<DIV STYLE=\"border-bottom:thin solid black;\">") + module()->config(CSwordModuleInfo::Description) + QString::fromLatin1("</DIV>");
 		text += i18n("Language")+ QString::fromLatin1(": %1<BR>").arg(module()->language().translatedName());
 		if (module()->isEncrypted())
@@ -648,18 +648,18 @@ void CTreeFolder::initTree(){
   else if (type() == BookModuleFolder)
     moduleType = CSwordModuleInfo::GenericBook;
 
-  //get all modules by the given type
+  //get all modules by using the given type
   ListCSwordModuleInfo allModules = backend()->moduleList();
   ListCSwordModuleInfo usedModules;
   for (CSwordModuleInfo* m = allModules.first(); m; m = allModules.next()) {
     if (m->type() == moduleType) { //found a module, check if the type is correct (devotional etc.)
-      if (type() == GlossaryModuleFolder && !m->has(CSwordModuleInfo::Glossary)) { //not a gglossary
+      if (type() == GlossaryModuleFolder && !m->category() == CSwordModuleInfo::Glossary) { //not a gglossary
         continue;
       }
-      if (type() == DevotionalModuleFolder && !m->has(CSwordModuleInfo::DailyDevotional)) {//not a devotional
+      if (type() == DevotionalModuleFolder && (m->category() != CSwordModuleInfo::DailyDevotional)) {//not a devotional
         continue;
       }
-      if (type() == LexiconModuleFolder && (m->has(CSwordModuleInfo::DailyDevotional) || m->has(CSwordModuleInfo::Glossary))) {
+      if (type() == LexiconModuleFolder && ( (m->category() == CSwordModuleInfo::DailyDevotional) || (m->category() == CSwordModuleInfo::Glossary) )) {
         //while looking for lexicons glossaries and devotionals shouldn't be used
         continue;
       }
@@ -694,7 +694,7 @@ void CTreeFolder::initTree(){
   sortChildItems(0,true);
 }
 
-const QString CTreeFolder::language() const {
+const QString& CTreeFolder::language() const {
   return m_language;
 };
 
@@ -1161,3 +1161,107 @@ const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
   return true;
 }
 
+/* NEW CLASS */
+
+CGlossaryFolder::CGlossaryFolder(CMainIndex* mainIndex, const Type type, const QString& fromLanguage, const QString& toLanguage)
+  : CTreeFolder(mainIndex, type, fromLanguage)
+{
+  m_fromLanguage = fromLanguage;
+  m_toLanguage = toLanguage;  
+}
+
+CGlossaryFolder::CGlossaryFolder(CFolderBase* item, const Type type, const QString& fromLanguage, const QString& toLanguage)
+  : CTreeFolder(item, type, fromLanguage)
+{
+  m_fromLanguage = fromLanguage;
+  m_toLanguage = toLanguage;
+}
+
+CGlossaryFolder::~CGlossaryFolder(){
+}
+
+void CGlossaryFolder::initTree(){
+  qWarning("CGlossaryFolder::initTree()");
+  if (type() == Unknown)
+    return;
+
+  //get all modules by using the lexicon type
+  ListCSwordModuleInfo allModules = backend()->moduleList();
+  ListCSwordModuleInfo usedModules;
+  for (CSwordModuleInfo* m = allModules.first(); m; m = allModules.next()) {
+    if (m->type() == CSwordModuleInfo::Lexicon) { //found a module, check if the type is correct (devotional etc.)
+      qWarning("found lexicon");
+      if ((type() == GlossaryModuleFolder) && (m->category() != CSwordModuleInfo::Glossary)) { //not a glossary
+        qWarning("found lexicon: not a glossary");
+        continue;
+      }
+      qWarning("FOUND a glossary!");
+      //found a glossary
+      if (language() == QString::fromLatin1("*")
+          || (language() != QString::fromLatin1("*")
+               && m->config(CSwordModuleInfo::GlossaryFrom) == fromLanguage()
+               && m->config(CSwordModuleInfo::GlossaryTo) == toLanguage()
+             )
+        )
+      { //right type and language!
+        qWarning("append module %s", m->module()->Name());
+        usedModules.append(m);
+      }
+    }
+  }
+
+  //we have now all modules we want to have
+  if (language() == QString::fromLatin1("*")) { //create subfolders for each language
+    typedef std::pair<QString, QString> LanguagePair;
+    typedef QValueList<LanguagePair> LanguagePairList;
+    
+    LanguagePairList usedLangs;
+    for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
+      LanguagePair langPair( m->config(CSwordModuleInfo::GlossaryFrom), m->config(CSwordModuleInfo::GlossaryTo) );
+      if (!usedLangs.contains(langPair)) {
+        usedLangs.append(langPair);
+      }
+    }
+    LanguagePairList::iterator it;
+    for (it = usedLangs.begin(); it != usedLangs.end(); ++it) {
+      addGroup(type(), (*it).first, (*it).second);
+    }
+  }
+  else if (usedModules.count() > 0){ //create subitems with the given type and languages
+    for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
+      addModule(m);
+    }
+  }
+
+  sortChildItems(0,true);  
+}
+
+void CGlossaryFolder::init(){
+  if (language() == "*") {
+    setText(0,i18n("Glossaries"));
+  }
+  else {
+    CLanguageMgr::Language fromLang = languageMgr()->languageForAbbrev( m_fromLanguage );
+    CLanguageMgr::Language toLang = languageMgr()->languageForAbbrev( m_toLanguage );
+    setText(0, fromLang.translatedName() + " - " + toLang.translatedName() );
+  }
+  initTree();
+  update();
+}
+
+/** Returns the language this glossary folder maps from. */
+const QString& CGlossaryFolder::fromLanguage() const{
+  return m_fromLanguage;
+}
+
+/** Returns the language this glossary folder maps to. */
+const QString& CGlossaryFolder::toLanguage() const{
+  return m_toLanguage;
+}
+
+void CGlossaryFolder::addGroup(const Type type, const QString& fromLanguage, const QString& toLanguage) {
+  CTreeFolder* i = new CGlossaryFolder(this, type, fromLanguage, toLanguage);
+  i->init();
+  if (!i->childCount())
+    delete i;
+}

@@ -148,7 +148,6 @@ void CReadWindow::insertKeyboardActions( KAccel* const a ){
   a->insert("Copy", i18n("Copy selected text"),"", KStdAccel::copy(), 0, "");
 }
 
-
 void CReadWindow::initKeyboardActions() {
   CBTConfig::setupAccel( CBTConfig::readWindow, accel() );	
   insertKeyboardActions( accel() );

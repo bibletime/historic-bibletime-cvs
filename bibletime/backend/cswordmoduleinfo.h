@@ -74,26 +74,30 @@ public:
 		AbsoluteDataPath, /* The absolute data path stored in the config object */
 		CipherKey, /* The cipher key which was used to unlock the module. Not necessarily set.*/
 		DataPath, /* The relative path. See AbsoluteDataPath*/
-		Description, /* The module decsription stored in the config file */
+		Description, /* The module description stored in the config file */
 		ModuleVersion, /* The module's version.*/
 		MinimumSwordVersion, /* The required Sword Version of this module. Otherwise some things may not work (compression etc.).*/
-	  TextDir,	
-    DisplayLevel /* Mostly used for books. Gives the level which should contain the connected entries.*/
+	  TextDir, /* The text direction */	
+    DisplayLevel, /* Mostly used for books. Gives the level which should contain the connected entries.*/
+    GlossaryFrom, /* lamguage from which the Glosaary tramslates */
+    GlossaryTo /* lamguages to which the glossary maps to */
 	};
 	enum Feature {
 		StrongsNumbers, /*Use for Bibles which have embedded strong numbers*/
-		GreekDef, /*Hebrew StringsNumbers definitions in a lexicon*/
-		HebrewDef,
+		GreekDef,
+		HebrewDef, 
 		GreekParse,
 		HebrewParse,
-		DailyDevotional,
-		Glossary,
+//		DailyDevotional,
+//		Glossary,
     featureMin = StrongsNumbers,
-    featureMax = Glossary
+    featureMax = HebrewParse
 	};
   enum Category {
     UnknownCategory = 0, /* The category wasn't set or has an unknwon value */
-    Cult /* The module is a cult / sect / questionable module */
+    Cult, /* The module is a cult / sect / questionable module */
+    DailyDevotional,
+    Glossary
   };
 	
 	/**
@@ -196,9 +200,13 @@ public:
   * Returns the language of the module.
   */
   const CLanguageMgr::Language language();
-  /** Returns true if this module may be written by the write display windows. */
+  /**
+  * Returns true if this module may be written by the write display windows.
+  */
   virtual const bool isWritable();
-  /** Returns the category of this module. See CSwordModuleInfo::Category for possible values. */
+  /**
+  * Returns the category of this module. See CSwordModuleInfo::Category for possible values.
+  */
   const CSwordModuleInfo::Category category();
 
 protected:
