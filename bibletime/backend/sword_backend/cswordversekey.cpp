@@ -53,35 +53,6 @@ CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 	return m_module;
 }
 
-/** Returns the rendered text of this verse */
-const QString CSwordVerseKey::renderedText() {
-	if (!m_module)
-		return QString::null;
-	m_module->module()->SetKey(this);
-	
-	switch (m_module->encoding()) {
-		case QFont::Unicode:
-//			qDebug("encoding is UNICODE");
-			return QString::fromUtf8( (const char*)*m_module->module() );	
-		default:
-//			qDebug("encoding is LOCAL8BIT");		
-			return QString::fromLocal8Bit( (const char*)*m_module->module() );		
-	}
-}
-
-/** Returns the stripped down text of this verse, */
-const QString CSwordVerseKey::strippedText() {
-	if (!m_module)
-		return QString::null;
-	m_module->module()->SetKey(this);
-	switch (m_module->encoding() == QFont::Unicode) {
-		case QFont::Unicode:
-			return QString::fromUtf8( (const char*)*m_module->module() );	
-		default:
-			return QString::fromLocal8Bit( (const char*)*m_module->module() );		
-	}
-}
-
 /** Returns the current book as Text, no as integer. */
 const QString CSwordVerseKey::book( const QString& newBook ) {
 	qDebug("const QString CSwordVerseKey::book( const QString& newBook )");

@@ -17,6 +17,7 @@
 
 #include "cswordpresenter.h"
 #include "../chtmlwidget.h"
+#include "../../backend/sword_backend/cswordkey.h"
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
 
@@ -57,7 +58,7 @@ void CSwordPresenter::refresh( const int /*events*/ ){
 }
 
 /** Prints the key given as parameter. */
-void CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module) {
+void CSwordPresenter::printKey(CSwordKey* start, CSwordKey* stop, CSwordModuleInfo* module) {
 	qDebug("CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module) ");
 	CPrintItem* printItem = new CPrintItem();
 	printItem->setModule(module);
@@ -69,8 +70,7 @@ void CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module
 
 /** Refreshes the supported features. */
 void CSwordPresenter::refreshFeatures(){
-	m_features = 0;
-	
+	m_features = 0;	
 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		if (m_moduleList.current()->supportsFeature( CSwordBackend::strongNumbers )){
 			if (m_features != 0)

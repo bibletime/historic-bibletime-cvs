@@ -128,14 +128,6 @@ public:
   */
   virtual CSwordModuleInfo* module( CSwordModuleInfo* newModule = 0 );
   /**
-  * Returns the stripped down text of this verse,
-  */
-  virtual const QString strippedText();
-  /**
-  * Returns the rendered text of this verse
-  */
-  virtual const QString renderedText();
-  /**
   * Clones this object.
   */
   virtual CSwordVerseKey* clone() const;

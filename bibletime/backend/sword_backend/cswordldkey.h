@@ -87,14 +87,6 @@ public:
   * Returns the current key as a QString
   */
   virtual const QString key( const QString& newKey = QString::null);
-  /**
-  * Returns the stripped down text of this entry.
-  */
-  virtual const QString strippedText();
-  /**
-  * Returns the rendered text of this entry.
-  */
-  virtual const QString renderedText();
 };
 
 

@@ -47,9 +47,9 @@ public:
  	*/
   CStyle* getStyle() const;
   /**
-  	* Sets the style for this item.
+	* Sets the style for this item.
  	*/
- void setStyle( CStyle* );
+	void setStyle( CStyle* );
   /**
  	*
  	*/
@@ -121,7 +121,9 @@ public:
 
 private: // Protected attributes
   void clearData();
-  /** Updates and returns the header text. */
+  /**
+  * Updates and returns the header text.
+  */
   const QString& getHeaderText();
   CStyle* m_style;
   QString m_description;

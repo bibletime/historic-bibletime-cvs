@@ -54,31 +54,6 @@ CSwordModuleInfo* CSwordLDKey::module(CSwordModuleInfo* newModule){
 	return m_module;
 }
 
-/** Returns the rendered text of this entry. */
-const QString CSwordLDKey::renderedText() {
-	m_module->module()->SetKey(this);
-	switch (m_module->encoding() == QFont::Unicode) {
-		case QFont::Unicode:
-			return QString::fromUtf8( (const char*)*m_module->module() );	
-		default:
-			return QString::fromLocal8Bit( (const char*)*m_module->module() );		
-	}
-
-}
-
-/** Returns the stripped down text of this entry. */
-const QString CSwordLDKey::strippedText() {
-	m_module->module()->SetKey(this);
-	switch (m_module->encoding() == QFont::Unicode) {
-		case QFont::Unicode:
-			return QString::fromUtf8( (const char*)*m_module->module() );	
-		default:
-			return QString::fromLocal8Bit( (const char*)*m_module->module() );		
-	}
-
-}
-
-
 /** Sets the key of this instance */
 const QString CSwordLDKey::key( const QString& newKey ){
 	if (!newKey.isNull()) {

@@ -536,7 +536,7 @@ void CPrinterDialog::initListPage(){
 
 /** Is called when the papertype was changed. */
 void CPrinterDialog::paperTypeChanged(const int id){
-  char buf[30];
+//  char buf[30];
 
   CPrinter::CPageSize size = paperSize( (QPrinter::PageSize)id );
   QString msg = i18n("Size: %1mm x %2mm").arg(size.width).arg(size.height);

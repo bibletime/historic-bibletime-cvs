@@ -23,6 +23,7 @@
 #include "cstyleformatframe.h"
 #include "../backend/sword_backend/cswordmoduleinfo.h"
 #include "../backend/cmoduleinfo.h"
+//#include "../backend/sword_backend/cswordkey.h"
 #include "../backend/sword_backend/cswordversekey.h"
 #include "../backend/sword_backend/cswordldkey.h"
 #include "../backend/ckey.h"
@@ -77,7 +78,6 @@ CKey* CPrintItem::getStartKey() const{
 
 /** Sets the startkey. */
 void CPrintItem::setStartKey(CKey* newKey) {
-//	qDebug("CPrintItem::setStartKey( CKey* newKey )");	
 	if (m_startKey)
 		delete m_startKey;
 	m_startKey = newKey;
@@ -86,7 +86,6 @@ void CPrintItem::setStartKey(CKey* newKey) {
 
 /** Sets the end key. */
 void CPrintItem::setStopKey( CKey* newKey ){
-//	qDebug("CPrintItem::setStopKey( CKey* newKey )");
 	if (m_stopKey)
 		delete m_stopKey;	
 	m_stopKey = newKey;
@@ -127,13 +126,15 @@ const QString& CPrintItem::getModuleText() {
 	*/
 	if (!m_moduleText.isEmpty())
 		return m_moduleText;
-
+	if (!m_startKey)
+		return QString::null;
+	
 	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
-	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);
-//	QString text = QString::null;
+///	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);
+
 	CSwordModuleInfo* sw = dynamic_cast<CSwordModuleInfo*>(m_module);
 	m_moduleText = vk ? QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString::null;
-	m_moduleText += (vk ? vk->renderedText() : (lk ? lk->renderedText() : QString::null));
+	m_moduleText += vk->renderedText();
 	if (sw && m_stopKey && m_stopKey != m_startKey) { //reange of entries
 		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
 			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(m_startKey);
@@ -209,12 +210,12 @@ void CPrintItem::updateListViewItem(){
 		m_listViewItem->setText(0, module->module()->Name() );
 
 	SWKey* key = 0;	
-	if ( (key = dynamic_cast<SWKey*>(getStartKey())) )
+	if ( (key = dynamic_cast<SWKey*>(m_startKey)) )
 		m_listViewItem->setText(1,(const char*)*key);
 	
-	if ( (key = dynamic_cast<SWKey*>(getStopKey())) )
+	if ( (key = dynamic_cast<SWKey*>(m_stopKey)) )
 		m_listViewItem->setText(2,(const char*)*key);
-	else if ( (key = dynamic_cast<SWKey*>(getStartKey())) )
+	else if ( (key = dynamic_cast<SWKey*>(m_startKey)) )
 		m_listViewItem->setText(2,(const char*)*key);
 
 	if (getStyle())
@@ -371,15 +372,19 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 
 /** Updates and returns the header text. */
 const QString& CPrintItem::getHeaderText() {
-	SWKey* startKey = dynamic_cast<SWKey*>(m_startKey);	
-	SWKey* stopKey = dynamic_cast<SWKey*>(m_stopKey);	
-	if ( startKey ) {
-		if ((startKey == stopKey) || !stopKey)
-			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );
-		else if (startKey && stopKey) //start and stop key do exist and are different
-			m_headerText = QString::fromLatin1("%1 - %2")
-				.arg(QString::fromLocal8Bit((const char*)*startKey))
-				.arg(QString::fromLocal8Bit((const char*)*stopKey));
+	if ( m_startKey ) {
+		CSwordVerseKey* k = dynamic_cast<CSwordVerseKey*>(m_startKey);
+		if (!k)
+			return QString::null;
+		if ((m_startKey == m_stopKey) || !m_stopKey)
+			m_headerText = k->key();
+		else if (m_startKey && m_stopKey) {//start and stop key do exist and are different
+			CSwordVerseKey* start = dynamic_cast<CSwordVerseKey*>(m_startKey);
+			CSwordVerseKey* stop = dynamic_cast<CSwordVerseKey*>(m_stopKey);			
+			if (!start || !stop)
+				return QString::null;
+			m_headerText = QString::fromLatin1("%1 - %2").arg(start->key()).arg(stop->key());
+		}
 	}
 	else
 		m_headerText = QString::null;			

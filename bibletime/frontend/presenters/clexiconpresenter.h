@@ -22,6 +22,7 @@
 #include "cswordpresenter.h"
 
 class CSwordLDKey;
+class CKey;
 
 /**
  	* Presenter used for lexicons

@@ -34,6 +34,7 @@ class KToolBar;
 class CKeyChooser;
 class CHTMLWidget;
 class CModuleChooserBar;
+class CSwordKey;
 class CKey;
 
 /** Base class for all Sword based presneters
@@ -100,7 +101,7 @@ protected: // Protected methods
   /**
   * Prints the key given as parameter.
   */
-  void printKey(CKey*, CKey*, CSwordModuleInfo*);
+  void printKey(CSwordKey*, CSwordKey*, CSwordModuleInfo*);
   /**
   * Refreshes the supported features.
   */

@@ -111,7 +111,7 @@ QString CGroupManagerItem::description() const{
 
 /** Returns the parent of this item. Reimplementation. */
 CGroupManagerItem* CGroupManagerItem::parent(){
-	CGroupManagerItem* myParent = (CGroupManagerItem*)QListViewItem::parent();	
+	CGroupManagerItem* myParent = dynamic_cast<CGroupManagerItem*>(QListViewItem::parent());	
 	if (myParent)
 		return myParent;
 	else
@@ -120,7 +120,7 @@ CGroupManagerItem* CGroupManagerItem::parent(){
 
 /** Returns the listview of this item */
 CGroupManager* CGroupManagerItem::listView(){
-	CGroupManager* myListView = (CGroupManager*)QListViewItem::listView();
+	CGroupManager* myListView = dynamic_cast<CGroupManager*>(QListViewItem::listView());
 	if (myListView)
 		return myListView;
 	else
@@ -206,11 +206,8 @@ void CGroupManagerItem::setModuleInfo( CModuleInfo* moduleInfo ){
 
 /** Returns a QString version of the key. */
 QString CGroupManagerItem::getKeyText(){
-	QString ret = QString::null;	
-	SWKey* key = dynamic_cast<SWKey*>(m_bookmarkKey);
-	if (key)
-		ret = QString::fromLocal8Bit((const char*)*key);
-	return ret;
+	CSwordKey* key = dynamic_cast<CSwordKey*>(m_bookmarkKey);
+	return key ? key->key() : QString::null;
 }
 
 /** Returns the tooltip for this ite, QString::null is returned if this item has no tooltip. */
@@ -226,13 +223,10 @@ const QString CGroupManagerItem::getToolTip(){
 				text.append(QString::fromLatin1("<FONT color=\"#800000\">(") + description().stripWhiteSpace() + QString::fromLatin1(")</FONT><BR>"));
 			text.append(QString::fromLatin1("<HR>"));			
 				
-			CKey* key = getBookmarkKey();			
+			CSwordKey* key = dynamic_cast<CSwordKey*>(getBookmarkKey());
 			if (!key)
 				return QString::null;				
-			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
-			CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
-					
-			QString bookmarkText = 	vk ? vk->renderedText() : (lk ? lk->renderedText() : QString());
+			QString bookmarkText = 	key ? key->renderedText() : QString();
 			if (bookmarkText.length() > 150 && (moduleInfo()->getType() != CSwordModuleInfo::Bible))
 				bookmarkText = bookmarkText.left(150) + "...";
 						
