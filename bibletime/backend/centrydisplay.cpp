@@ -75,6 +75,11 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
 			  ok = (key.next(CSwordVerseKey::UseVerse) && !key.Error()) )  //error 1 means not sucessful
 	{
 		settings.highlight = (key.key() == keyName);
+		settings.keyRenderingFace = 
+			displayOptions.verseNumbers 
+			? CTextRendering::KeyTreeItem::Settings::SimpleKey
+			: CTextRendering::KeyTreeItem::Settings::NoKey;
+			
 		tree.append( new CTextRendering::KeyTreeItem( key.key(), modules, settings ) );
 	}
 

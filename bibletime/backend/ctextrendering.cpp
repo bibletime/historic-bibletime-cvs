@@ -180,7 +180,6 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
 	ListCSwordModuleInfo modules = i.modules();	
-// 	Q_ASSERT(modules.count() > 0);
 	util::scoped_ptr<CSwordKey> scoped_key( !k ? CSwordKey::createInstance(modules.first()) : 0 );
 	
 	CSwordKey* key = k ? k : scoped_key;
@@ -230,7 +229,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
  			}		
 		}
 		
-		entry += QString::fromLatin1("<%1 %2 dir=\"%4\">") //linebreaks = div, without = span
+		entry += QString::fromLatin1("<%1 %2 %3 dir=\"%4\">") //linebreaks = div, without = span
     	.arg(m_displayOptions.lineBreaks ? QString::fromLatin1("div") : QString::fromLatin1("span"))
 			.arg((modules.count() == 1) //insert only the class if we're not in a td
 				? (i.settings().highlight 
@@ -238,18 +237,15 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 					: QString::fromLatin1("class=\"entry\"")) 
 				: QString::null
 			)
-// 			.arg(langAttr)
+ 			.arg(langAttr)
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
 			
-
-		entry += QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>") //keys should normally be left-to-right, but this doesn't apply in all cases
-			.arg(m_displayOptions.verseNumbers
-				? entryLink(i, m)
-				: QString::null
-			);
+ 		//keys should normally be left-to-right, but this doesn't apply in all cases
+		entry += QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>").arg(entryLink(i, m));
 		
 		if (m_settings.addText) {
-			entry.append( QString::fromLatin1("<span %1>%2</span>").arg(langAttr).arg(key_renderedText) );
+			//entry.append( QString::fromLatin1("<span %1>%2</span>").arg(langAttr).arg(key_renderedText) );
+			entry.append( key_renderedText );
 		}
 		
 		if (i.hasChildItems()) {
@@ -269,7 +265,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 			renderedText.append( entry );
 		}
   	else {
-	    renderedText += QString::fromLatin1("<td class=\"%1\" %2 dir=\"%3\">%4</td>")
+	    renderedText += QString::fromLatin1("<td class=\"%1\" %2 dir=\"%3\">%4</td>\n")
  				.arg( i.settings().highlight ? QString::fromLatin1("currententry") : QString::fromLatin1("entry"))
 				.arg( langAttr )
 				.arg( isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr") )
@@ -359,19 +355,11 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 	}	
 	
   if (linkText.isEmpty()) {
-    return QString::fromLatin1("<a id=\"%1\" name=\"%2\"></a>")
-			.arg( keyToHTMLAnchor(item.key()) )
+    return QString::fromLatin1("<a name=\"%1\" />")
 			.arg( keyToHTMLAnchor(item.key()) );
   }
   else {
-//     return QString::fromLatin1("<a id=\"%1\" name=\"%2\" href=\"%3\">%4</a>")
-//       .arg( keyToHTMLAnchor(item.key()) )
-//       .arg( keyToHTMLAnchor(item.key()) )
-// 			.arg( QString("#") + keyToHTMLAnchor(item.key()) )
-//       .arg(linkText);
-
-    return QString::fromLatin1("<a id=\"%1\" name=\"%2\" href=\"%3\">%4</a>")
-      .arg( keyToHTMLAnchor(item.key()) )
+    return QString::fromLatin1("<a name=\"%1\" href=\"%2\">%3</a>\n")
       .arg( keyToHTMLAnchor(item.key()) )
       .arg(
 				CReferenceManager::encodeHyperlink(
@@ -380,7 +368,7 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 					CReferenceManager::typeFromModule(module->type())
 				)
 			)
-      .arg(linkText);
+			.arg(linkText);
   }
 	
 	return QString::null;
@@ -451,7 +439,7 @@ CPlainTextExportRendering::~CPlainTextExportRendering() {
 
 const QString CPlainTextExportRendering::renderEntry( const KeyTreeItem& i ) {
 	if (!m_settings.addText) {
-		return QString("%1\n").arg(i.key());
+		return QString::fromLatin1("%1\n").arg(i.key());
 	}
 		
 	ListCSwordModuleInfo modules = i.modules();	

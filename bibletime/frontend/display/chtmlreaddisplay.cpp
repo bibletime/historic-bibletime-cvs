@@ -406,7 +406,9 @@ void CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e ){
  */
 void CHTMLReadDisplay::slotGoToAnchor() {
  	if (!m_currentAnchorCache.isEmpty()) {
-		gotoAnchor( m_currentAnchorCache );
+		if (!gotoAnchor( m_currentAnchorCache ) ) {
+			qWarning("anchor %s not present!", m_currentAnchorCache.latin1());
+		}
  	}
 	m_currentAnchorCache = QString::null;
 }
