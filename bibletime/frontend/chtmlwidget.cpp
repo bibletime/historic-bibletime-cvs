@@ -140,7 +140,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 					break;
 				}
 			}
-			if (m->encoding() == QFont::Unicode) {
+			if (m->isUnicode()) {
 				setFont( CBTConfig::get( CBTConfig::unicode) );
 			}
 		}

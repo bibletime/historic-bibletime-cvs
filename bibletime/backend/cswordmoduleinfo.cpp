@@ -239,18 +239,6 @@ CSwordBackend* CSwordModuleInfo::backend() const {
 	return m_backend;
 }
 
-/** Returns the encoding of the used modules  */
-const QFont::CharSet CSwordModuleInfo::encoding(){
-	const QString charset = QString::fromLatin1((*m_backend->getConfig())[name().latin1()]["Encoding"].c_str());
-	
-	if (charset.isEmpty())
-		return QFont::charSetForLocale();		//unknown charset					
-	if (charset == QString::fromLatin1("UTF-8")) {
-		return QFont::Unicode;
-	}
-	return QFont::charSetForLocale();		//unknown charset	
-}
-
 /** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
 const float CSwordModuleInfo::requiredSwordVersion(){
 	const string version = (*m_backend->getConfig())[name().latin1()]["MinimumVersion"];
@@ -273,4 +261,9 @@ const float CSwordModuleInfo::requiredSwordVersion(){
 /** Returns the name of the module. */
 const QString CSwordModuleInfo::name() const {
 	return QString::fromLatin1( module()->Name() );
+}
+/** Returns true if this module is Unicode encoded. False if the charset is iso8859-1. */
+
+const bool CSwordModuleInfo::isUnicode(){
+	return (module()->isUnicode());
 }

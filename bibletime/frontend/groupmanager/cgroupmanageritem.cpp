@@ -230,7 +230,7 @@ const QString CGroupManagerItem::getToolTip(){
 				bookmarkText = bookmarkText.left(150) + "<BR>[...]";
 
 			//Module is Unicode-based
-			if (moduleInfo() && moduleInfo()->encoding() == QFont::Unicode ) {
+			if (moduleInfo() && moduleInfo()->isUnicode() ) {
   			QFont f = CBTConfig::get(CBTConfig::unicode);
 				text.append( QString::fromLatin1("<FONT FACE=\"%1\">%3</FONT>").arg(f.family())/*.arg(CToolClass::makeLogicFontSize(f.pointSize()))*/.arg(bookmarkText) );
 			}

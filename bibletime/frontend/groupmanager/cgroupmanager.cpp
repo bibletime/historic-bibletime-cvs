@@ -91,7 +91,7 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 		CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(i->moduleInfo());
 
 		//Module is Unicode-based. Only set font if a bookmark should be displayed
-		if (i->getBookmarkKey() && m && m->encoding() == QFont::Unicode )
+		if (i->getBookmarkKey() && m && m->isUnicode() )
 			setFont(CBTConfig::get( CBTConfig::unicode ));
 
 		tip(r, text);
@@ -586,7 +586,7 @@ void CGroupManager::slotShowAbout(){
 		unlockKey = module->getCipherKey();	
 		
 	QString encoding = i18n("Unicode") ;
-	if (module->encoding() != QFont::Unicode)
+	if (!module->isUnicode())
 		encoding = i18n("iso8859-1");		
 				
 	text = QString::fromLatin1("<HTML><HEAD></HEAD><BODY>\

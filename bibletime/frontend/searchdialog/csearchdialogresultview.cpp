@@ -476,19 +476,20 @@ void CSearchDialogResultView::itemChanged(QListBoxItem* item){
 void CSearchDialogResultView::rightButtonPressed( QListBoxItem* item, const QPoint& p){
 	m_currentItem = item;	
 	if (m_currentItem) {
-		QString text = QString::null;
-		if ( m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary ) {
-			CSwordVerseKey key(m_module);
-			key.key(item->text());
-			text = key.renderedText();
-		}
-		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
-			CSwordLDKey key(m_module);
-			key.key(item->text());
-			text = key.renderedText();
-		}
-		if (!text.isEmpty())		
-			emit keySelected( text  );		
+//		QString text = QString::null;
+//		if ( m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary ) {
+//			CSwordVerseKey key(m_module);
+//			key.key(item->text());
+//			text = key.renderedText();
+//		}
+//		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
+//			CSwordLDKey key(m_module);
+//			key.key(item->text());
+//			text = key.renderedText();
+//		}
+//		if (!text.isEmpty())		
+//			emit keySelected( text  );		
+		mousePressed(item);
 		m_popup->popup(p);
 	}
 }
@@ -500,16 +501,22 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 		return;
 	
 	QString text = QString::null;
-	if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
-		CSwordVerseKey key(m_module);
-		key.key(item->text());
-		text = key.renderedText();
+	CSwordKey* key = CSwordKey::createInstance(m_module);
+	if (key) {
+		key->key(item->text());
+		text = key->renderedText();
+		delete key;		
 	}
-	else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
-		CSwordLDKey key(m_module);				
-		key.key(item->text());
-		text = key.renderedText();
-	}
+//	if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
+//		CSwordVerseKey key(m_module);
+//		key.key(item->text());
+//		text = key.renderedText();
+//	}
+//	else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
+//		CSwordLDKey key(m_module);				
+//		key.key(item->text());
+//		text = key.renderedText();
+//	}
 	if (!text.isEmpty())
 		emit keySelected(text);
 }

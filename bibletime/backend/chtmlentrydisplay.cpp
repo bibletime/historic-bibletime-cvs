@@ -83,8 +83,8 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 
 		m_htmlText.append(QString::fromLatin1("<body><font color=\"%1\" face=\"%2\" size=\"%3\">")
 			.arg(m_standardFontColorName)
-      .arg((module->encoding() == QFont::Unicode ) ? m_unicodeFontName : m_standardFontName)
-			.arg((module->encoding() == QFont::Unicode ) ? m_unicodeFontSize : m_standardFontSize));
+      .arg( module->isUnicode() ? m_unicodeFontName : m_standardFontName)
+			.arg( module->isUnicode() ? m_unicodeFontSize : m_standardFontSize));
 
 		m_htmlText.append(QString::fromLatin1("<font color=\"%1\"><a href=\"%2\">%3: <b>%4</b></a></font><hr>%5")
 			.arg(m_highlightedVerseColorName)
@@ -169,8 +169,8 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 					.arg(width).arg(d->name()));
 			m_htmlText.append(QString("(<font color=\"%1\" face=\"%2\" size=\"%3\">%4</font>)</b></td>")
 					.arg(m_highlightedVerseColorName)
-          .arg((d && d->encoding() == QFont::Unicode ) ? m_unicodeFontName : m_standardFontName)
-		  		.arg((d && d->encoding() == QFont::Unicode ) ? m_unicodeFontSize : m_standardFontSize)
+          .arg((d && d->isUnicode() ) ? m_unicodeFontName : m_standardFontName)
+		  		.arg((d && d->isUnicode() ) ? m_unicodeFontSize : m_standardFontSize)
       		.arg(key->key())
 			);
 		}
@@ -187,8 +187,8 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 		m_htmlText +=
 			QString::fromLatin1("<td width=\"%1%\"><FONT face =\"%2\" size=\"%3\">%4</font></td>")
 				.arg(width)
-				.arg((d && d->encoding() == QFont::Unicode ) ? m_unicodeFontName : m_standardFontName)
-				.arg((d && d->encoding() == QFont::Unicode ) ? m_unicodeFontSize : m_standardFontSize)
+				.arg((d && d->isUnicode() ) ? m_unicodeFontName : m_standardFontName)
+				.arg((d && d->isUnicode() ) ? m_unicodeFontSize : m_standardFontSize)
 				.arg(key->renderedText());
 		m = (d = moduleList->next()) ? d->module() : 0;		
 	}

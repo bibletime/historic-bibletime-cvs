@@ -42,7 +42,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	const int currentVerse = key.Verse();	
 	int verse = 0;
 	
-	if (module->encoding() == QFont::Unicode) {
+	if (module->isUnicode()) {
 		m_htmlHeader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>";
 	}
 	m_htmlText = m_htmlHeader + QString("<body>");//dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
@@ -51,8 +51,8 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	updateSettings();
 
 	m_htmlText.append(QString("<font face=\"%1\" size=\"%2\" color=\"%3\">")
-		.arg((module->encoding() == QFont::Unicode)? m_unicodeFontName : m_standardFontName)
-		.arg((module->encoding() == QFont::Unicode)? m_unicodeFontSize : m_standardFontSize)
+		.arg( module->isUnicode() ? m_unicodeFontName : m_standardFontName)
+		.arg( module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
 		.arg(m_standardFontColorName)
 	);
 
@@ -145,7 +145,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 			current.key(currentKey);
 			rowText += QString("<td width=\"%1%\" bgcolor=\"%2\">")
 				.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
-			if (d->encoding() == QFont::Unicode)
+			if (d->isUnicode())
 				rowText += QString("<font face=\"%1\" size=\"%2\">")
 					.arg(m_unicodeFontName).arg(m_unicodeFontSize);
 			if (currentVerse == chosenVerse)
@@ -156,7 +156,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 
 			if (currentVerse == chosenVerse)
 				rowText += QString::fromLatin1("</font>");
-			if (d->encoding()==QFont::Unicode)
+			if (d->isUnicode())
 				rowText += QString::fromLatin1("</font");
 
 			m = (d = moduleList->next()) ? d->module() : 0;

@@ -165,10 +165,8 @@ public:
   * Returns the name of the module.
   */
   const QString name() const;
-  /**
-  * Returns the encoding of the used modules. If it does use no locale it returns QFont::charSetForLocale()
-  */
-  const QFont::CharSet encoding();
+  /** Returns true if this module is Unicode encoded. False if the charset is iso8859-1. */
+  const bool isUnicode();
 	
 private:
 	SWModule*	m_module;

@@ -53,7 +53,7 @@ public slots:
 	/**
 	* Updates the preview using the parameter as new key.
 	*/
-	void updatePreview(QString);
+	void updatePreview(const QString);
 
 private:
 	ListCSwordModuleInfo* moduleList;

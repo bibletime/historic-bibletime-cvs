@@ -64,7 +64,7 @@ CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QW
 	html_widget->setMinimumHeight(80);
 
 	connect(resultModuleTree, SIGNAL(moduleSelected(CSwordModuleInfo*)), resultTree, SLOT(setModule(CSwordModuleInfo*)));
-	connect(resultTree, SIGNAL(keySelected(QString)), this, SLOT(updatePreview(QString)));
+	connect(resultTree, SIGNAL(keySelected(const QString)), this, SLOT(updatePreview(const QString)));
 
 	QVBoxLayout* layout_1 = new QVBoxLayout();
 	QVBoxLayout* layout_2 = new QVBoxLayout();	
@@ -92,7 +92,8 @@ void CSearchDialogResult::setModuleList(ListCSwordModuleInfo*	modules) {
 
 
 /** preview items data in the HTML previewer */
-void CSearchDialogResult::updatePreview(QString text) {
+void CSearchDialogResult::updatePreview(const QString newText) {
+	QString text = newText;
 	//find text page
 	QString searchedText;
 	CSearchDialogText* textPart = 0;
@@ -165,7 +166,7 @@ void CSearchDialogResult::updatePreview(QString text) {
 		}
 	}
 	//module is Unicode-based
-	if (resultModuleTree->getCurrentModule()->encoding() == QFont::Unicode ) {
+	if (resultModuleTree->getCurrentModule()->isUnicode() ) {
 		QFont f = CBTConfig::get( CBTConfig::unicode);
 		text = QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(f.pointSize()).arg(text);
 	}

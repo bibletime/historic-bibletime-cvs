@@ -263,7 +263,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		bgColor = format->getBGColor();	
 		pen.setColor(fgColor);
 		font = format->getFont();
-		if (getModule() && getModule()->encoding() == QFont::Unicode) { //enable unicode
+		if (getModule() && getModule()->isUnicode()) { //enable unicode
 			font.setCharSet(QFont::Unicode);
 		}
 		
@@ -325,7 +325,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			p->save();
 			CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(m_module);
 
-			if (m && m->encoding() == QFont::Unicode )
+			if (m && m->isUnicode() )
 				font = CBTConfig::get( CBTConfig::unicode );
 
 			if (alignement == CStyleFormat::Center)		

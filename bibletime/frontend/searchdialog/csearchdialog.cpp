@@ -149,16 +149,16 @@ void CSearchDialog::slotSaveSearchAnalysis(){
  	const QString file = CToolClass::getSaveFileName (QString::null, i18n("*.html"), 0, i18n("Save Search Analysis"));	
 	if (!file.isNull()) {
     QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n<h2>" + i18n("Search Text : ") + searchText->getText() + "</h2>\n";
-		text += "<h2>" + i18n("Search Type : ") + searchText->getSearchTypeString() + "</h2>\n";
+		text += "<h2>" + i18n("Search Type: ") + searchText->getSearchTypeString() + "</h2>\n";
 		text += "<h2>" + i18n("Search Scope: ") + searchText->scopeChooser->getScopeTypeString() + "</h2>\n";
 
-	  tableTitle = "<tr><th align='left'>" + i18n("Book") + "</th>";
-		tableTotals = "<tr><td align='left'>" + i18n("Total Hits") + "</td>";
+	  tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";
+		tableTotals = "<tr><td align=\"left\">" + i18n("Total Hits") + "</td>";
 		for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(),++moduleIndex) {
-				tableTitle += "<th align='left'>" + moduleList->current()->name() + "</th>";
+				tableTitle += "<th align=\"left\">" + moduleList->current()->name() + "</th>";
 				ListKey& m_searchResult = moduleList->current()->getSearchResult();
 				countStr.setNum(m_searchResult.Count());
-	      tableTotals += QString("<td align='right'>") + countStr + "</td>";
+	      tableTotals += QString("<td align=\"right\">") + countStr + "</td>";
 
 		}
 		tableTitle += "</tr>\n";
@@ -169,17 +169,17 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 		while (ok) {
 			searchAnalysisHTML += "<tr><td>" + key.book() + "</td>";
 			analysisItem = *searchAnalysisItems[key.book()];
-			for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(),++moduleIndex) {
+			for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(), ++moduleIndex) {
 				count = analysisItem.getCountForModule(moduleIndex);
 				countStr.setNum(count);
-				searchAnalysisHTML += "<td align='right'>" + countStr + "</td>";
+				searchAnalysisHTML += "<td align=\"right\">" + countStr + "</td>";
 			}
 			searchAnalysisHTML += "</tr>\n";
 			ok = key.NextBook();
 		}
-		text += QString("<dir><table>\n") + tableTitle + tableTotals + searchAnalysisHTML + QString("</table>\n</dir>\n");
-		text += "<center>Created By <a href=\"http://bibletime.de\">Bibletime</a>";
-		text += QString("</body></html>");
+		text += QString::fromLatin1("<table>\n") + tableTitle + tableTotals + searchAnalysisHTML + QString::fromLatin1("</table>\n");
+		text += "<center>" + i18n("Created by ") + QString::fromLatin1("<a href=\"http://www.bibletime.de/\">BibleTime</a>");
+		text += QString::fromLatin1("</body></html>");
 		CToolClass::savePlainFile(file, text);
 	}
 }
