@@ -61,11 +61,11 @@ bool CDragDropMgr::BTDrag::decode(const QMimeSource* e, QString& str) {
   return false;  
 };
 
-bool CDragDropMgr::BTDrag::decode(const QMimeSource* e, QString& str, QCString& subtype) {
+bool CDragDropMgr::BTDrag::decode(const QMimeSource* e, QString& str, QCString& /*subtype*/) {
   return decode(e, str);
 };
 
-QByteArray CDragDropMgr::BTDrag::encodedData( const char* type ) const {
+QByteArray CDragDropMgr::BTDrag::encodedData( const char* /*type*/ ) const {
   return QTextDrag::encodedData("text/plain"); //hack because QTextDrag only accepts text/plainand not our BibleTime/DND type
 };
 

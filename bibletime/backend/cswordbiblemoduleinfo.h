@@ -97,13 +97,14 @@ public:
   CSwordVerseKey upperBound() const;
 
 private:
-	QStringList*	m_bookList;	//This booklist is cached
+  CSwordVerseKey m_lowerBound;
+  CSwordVerseKey m_upperBound;
+
+  QStringList*	m_bookList;	//This booklist is cached
 	QString m_cachedLocale;
 	short int m_hasOT;
 	short int m_hasNT;
 
-  CSwordVerseKey m_lowerBound;
-  CSwordVerseKey m_upperBound;
 };
 
 inline const CSwordModuleInfo::ModuleType CSwordBibleModuleInfo::type() const {

@@ -255,8 +255,9 @@ void BibleTime::readProperties(KConfig* /*myConfig*/){
 
 /** Restores the workspace if the flag for this is set in the config. */
 void BibleTime::restoreWorkspace(){	
-	if (CProfile* p = m_profileMgr.startupProfile())
+	if (CProfile* p = m_profileMgr.startupProfile()) {
 		loadProfile(p);
+  }
 }
 
 /** Sets the caption of the mainwindow */

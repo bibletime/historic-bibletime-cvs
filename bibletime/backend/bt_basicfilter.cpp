@@ -150,8 +150,8 @@ char BT_BASICFILTER::ProcessRWPRefs(sword::SWBuf& buf){
   sword::SWModule* module = const_cast<sword::SWModule*>(m_module);
   
   std::string target(buf.c_str());
-  int idx_start = target.find_first_of("#",0); //find ref start
-  int idx_end;
+  unsigned int idx_start = target.find_first_of("#",0); //find ref start
+  unsigned int idx_end;
   
   while (idx_start != std::string::npos) {
     idx_end = target.find_first_of("|", idx_start); //find end marker

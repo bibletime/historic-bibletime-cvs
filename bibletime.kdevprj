@@ -950,7 +950,7 @@ sub_dirs=
 type=static_library
 
 [bibletime/frontend/keychooser/Makefile.am]
-files=bibletime/frontend/keychooser/ckeychooserwidget.cpp,bibletime/frontend/keychooser/ckeychooserwidget.h,bibletime/frontend/keychooser/cfx_btn.cpp,bibletime/frontend/keychooser/cfx_btn.h,bibletime/frontend/keychooser/ckeychooser.cpp,bibletime/frontend/keychooser/ckeychooser.h,bibletime/frontend/keychooser/clexiconkeychooser.cpp,bibletime/frontend/keychooser/clexiconkeychooser.h,bibletime/frontend/keychooser/cbiblekeychooser.cpp,bibletime/frontend/keychooser/cbiblekeychooser.h,bibletime/frontend/keychooser/cbookkeychooser.cpp,bibletime/frontend/keychooser/cbookkeychooser.h,bibletime/frontend/keychooser/cbooktreechooser.cpp,bibletime/frontend/keychooser/cbooktreechooser.h,bibletime/frontend/keychooser/crefselectdialog.cpp,bibletime/frontend/keychooser/crefselectdialog.h
+files=bibletime/frontend/keychooser/ckeychooserwidget.cpp,bibletime/frontend/keychooser/ckeychooserwidget.h,bibletime/frontend/keychooser/cfx_btn.cpp,bibletime/frontend/keychooser/cfx_btn.h,bibletime/frontend/keychooser/ckeychooser.cpp,bibletime/frontend/keychooser/ckeychooser.h,bibletime/frontend/keychooser/clexiconkeychooser.cpp,bibletime/frontend/keychooser/clexiconkeychooser.h,bibletime/frontend/keychooser/cbiblekeychooser.cpp,bibletime/frontend/keychooser/cbiblekeychooser.h,bibletime/frontend/keychooser/cbookkeychooser.cpp,bibletime/frontend/keychooser/cbookkeychooser.h,bibletime/frontend/keychooser/cbooktreechooser.cpp,bibletime/frontend/keychooser/cbooktreechooser.h
 sub_dirs=
 type=static_library
 
@@ -1039,18 +1039,6 @@ install_location=
 type=SOURCE
 
 [bibletime/frontend/keychooser/clexiconkeychooser.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[bibletime/frontend/keychooser/crefselectdialog.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[bibletime/frontend/keychooser/crefselectdialog.h]
 dist=true
 install=false
 install_location=

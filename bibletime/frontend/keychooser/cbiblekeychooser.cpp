@@ -337,5 +337,5 @@ void CBibleKeyChooser::updateKey(CSwordKey* /*key*/){
 
 /** No descriptions */
 void CBibleKeyChooser::adjustFont(){
-#warning implement a suitable solution. must be based on locales, not on module->isUnicode. Maybe just do nothing? =)
+//#warning implement a suitable solution. must be based on locales, not on module->isUnicode. Maybe just do nothing? =)
 }

@@ -28,10 +28,14 @@
 static sword::VerseKey staticKey;
 
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( sword::SWModule* module )
-	: CSwordModuleInfo(module), m_lowerBound(0), m_upperBound(0) {
-	m_bookList = 0;
-	m_cachedLocale = "unknown";
-	m_hasOT = m_hasNT = -1;
+	: CSwordModuleInfo(module),
+    m_lowerBound(0),
+    m_upperBound(0),
+	  m_bookList(0),
+	  m_cachedLocale("unknown"),
+	  m_hasOT(-1),
+    m_hasNT(-1)
+{
 
 
 }

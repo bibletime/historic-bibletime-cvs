@@ -125,11 +125,10 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings){
 	if (settings->maximized()) {
 		showMaximized();
 	}
-	else {	
+	else {
 		const QRect rect = settings->geometry();
 		resize(rect.width(), rect.height());
 		parentWidget()->move(rect.x(), rect.y());
-		//setGeometry( settings->geometry() );
 	}
 //	displayWidget()->view()->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
 //	m_htmlWidget->view()->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );

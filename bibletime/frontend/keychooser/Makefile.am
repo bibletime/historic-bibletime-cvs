@@ -11,8 +11,7 @@ ckeychooser.cpp \
 cfx_btn.cpp \
 ckeychooserwidget.cpp \
 cbookkeychooser.cpp \
-cbooktreechooser.cpp \
-crefselectdialog.cpp
+cbooktreechooser.cpp
 
 all_headers = ckeychooserwidget.h \
 cfx_btn.h \
@@ -20,8 +19,7 @@ ckeychooser.h \
 clexiconkeychooser.h \
 cbiblekeychooser.h \
 cbookkeychooser.h \
-cbooktreechooser.h \
-crefselectdialog.h
+cbooktreechooser.h
 
 EXTRA_DIST = $(libkeychooser_a_SOURCES) $(all_headers)
 

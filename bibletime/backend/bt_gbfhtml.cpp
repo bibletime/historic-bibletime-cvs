@@ -103,7 +103,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 
 bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
 	if (!substituteToken(buf, token)) {  //more than a simple replace
-  	const int tokenLength = strlen(token);
+  	const unsigned int tokenLength = strlen(token);
 		unsigned long i;
     sword::SWBuf value;
 

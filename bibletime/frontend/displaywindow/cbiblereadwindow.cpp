@@ -61,9 +61,9 @@ void CBibleReadWindow::applyProfileSettings( CProfileWindow* const settings ) {
 			displaySettingsButton()->setItemStatus(i,true);
 		}
 		else {
-			displaySettingsButton()->setItemStatus(i,false);			
+			displaySettingsButton()->setItemStatus(i,false);
   	}
-	}		
+	}
 	displaySettingsButton()->setChanged();
 };
 

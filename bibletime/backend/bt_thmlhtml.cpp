@@ -44,8 +44,8 @@ BT_ThMLHTML::BT_ThMLHTML() {
 }
 
 bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
-	unsigned long i = 0;
-	const int tokenLength = strlen(token);
+//	unsigned long i = 0;
+//	const int tokenLength = strlen(token);
 	
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
     if ( !strncmp(token, "foreign ", 8) ) { // a text part in another language, we have to set the right font

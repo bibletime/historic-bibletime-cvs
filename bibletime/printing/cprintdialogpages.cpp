@@ -259,7 +259,7 @@ void CPrintItemListPage::setOptions (const QMap<QString,QString>& /*opts*/) {
 
 }
 
-bool CPrintItemListPage::isValid(QString& errorMessage) {
+bool CPrintItemListPage::isValid(QString& /*errorMessage*/) {
 	return true;
 }
 
