@@ -224,30 +224,6 @@ private:
   ListCSwordModuleInfo m_modules;
   QPushButton* m_analyseButton;
 
-//  KPopupMenu* m_popup;
-//  struct {
-//    KActionMenu* copyMenu;
-//  	struct {
-////			KAction* referenceOnly;
-////   		KAction* referenceTextOnly;
-////     	KAction* referenceAndText;
-////      KAction* chapter;
-////      KAction* selectedText;
-//   	} copy;
-//
-//    KActionMenu* saveMenu;
-//    struct {
-//      KAction* entries;
-//      KAction* entriesWithText;
-//    } save;
-//
-//    KActionMenu* printMenu;
-//    struct {
-////			KAction* reference;
-////			KAction* chapter;
-//		} print;
-//  } m_actions;
-
 protected slots: // Protected slots
   /**
   * Update the preview of the selected key.

@@ -156,24 +156,84 @@ void CSearchResultView::printItems(){
   for (QListViewItem* k = items.first(); k; k = items.next()) {
     list.append( QStringPair(k->text(0), QString::null) );
   };
-  mgr.printKeyList( module(), list);
+  mgr.printKeyList( list, module() );
 }
 
 /** No descriptions */
 void CSearchResultView::saveItems(){
+  CExportManager mgr(i18n("Save search result ..."), true, i18n("Saving search result"));
+
+  CSwordModuleInfo* m = module();
+  CSwordKey* k = 0;
+  QPtrList<QListViewItem> items = selectedItems();
+  QPtrList<CSwordKey> keys;  
+  for (QListViewItem* i = items.first(); i; i = items.next()) {
+    k = CSwordKey::createInstance( m );
+    k->key(i->text(0));
+    keys.append( k );
+  };
+  mgr.saveKeyList( keys, CExportManager::Text, false);
+
+  keys.setAutoDelete(true);
+  keys.clear(); //delete all the keys we created
 }
 
 /** No descriptions */
 void CSearchResultView::saveItemsWithText(){
+  CExportManager mgr(i18n("Save search result ..."), true, i18n("Saving search result"));
+
+  CSwordModuleInfo* m = module();
+  CSwordKey* k = 0;
+  QPtrList<QListViewItem> items = selectedItems();
+  QPtrList<CSwordKey> keys;
+  for (QListViewItem* i = items.first(); i; i = items.next()) {
+    k = CSwordKey::createInstance( m );
+    k->key(i->text(0));
+    keys.append( k );
+  };
+  mgr.saveKeyList( keys, CExportManager::Text, true);
+
+  keys.setAutoDelete(true);
+  keys.clear(); //delete all the keys we created
 }
 
 /** No descriptions */
 void CSearchResultView::copyItems(){
+  CExportManager mgr(i18n("Copy search result ..."), true, i18n("Copying search result"));
+
+  CSwordModuleInfo* m = module();
+  CSwordKey* k = 0;
+  QPtrList<QListViewItem> items = selectedItems();
+  QPtrList<CSwordKey> keys;
+  for (QListViewItem* i = items.first(); i; i = items.next()) {
+    k = CSwordKey::createInstance( m );
+    k->key(i->text(0));
+    keys.append( k );
+  };
+  mgr.copyKeyList( keys, CExportManager::Text, false);
+
+  keys.setAutoDelete(true);
+  keys.clear(); //delete all the keys we created
 
 }
 
 /** No descriptions */
 void CSearchResultView::copyItemsWithText(){
+  CExportManager mgr(i18n("Copy search result ..."), true, i18n("Copying search result"));
+
+  CSwordModuleInfo* m = module();
+  CSwordKey* k = 0;
+  QPtrList<QListViewItem> items = selectedItems();
+  QPtrList<CSwordKey> keys;
+  for (QListViewItem* i = items.first(); i; i = items.next()) {
+    k = CSwordKey::createInstance( m );
+    k->key(i->text(0));
+    keys.append( k );
+  };
+  mgr.copyKeyList( keys, CExportManager::Text, true);
+
+  keys.setAutoDelete(true);
+  keys.clear(); //delete all the keys we created  
 }
 
 /** Returns the module which is currently used. */

@@ -134,7 +134,31 @@ const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* m
  		return true;
  	}
 	return false;
-};  
+};
+
+const bool CExportManager::saveKeyList(QPtrList<CSwordKey> list, const Format format, const bool addText ) {
+  if (!list.count())
+    return false;
+  const QString filename = getSaveFileName(format);
+  if (filename.isEmpty())
+    return false;
+  QString text;  
+  setProgressRange(list.count());
+  for (CSwordKey* k = list.first(); k && !progressWasCancelled(); k = list.next()) {
+ 		if (addText)
+ 			text += QString::fromLatin1("%1:%2\t%3\n").arg( k->key() ).arg(lineBreak(format)).arg( (format == HTML) ? k->renderedText() : k->strippedText() );
+ 		else
+ 			text += k->key() + lineBreak(format);
+    incProgress();
+  };
+
+  if (!progressWasCancelled()) {
+ 		CToolClass::savePlainFile(filename, text);
+ 		closeProgressDialog();
+ 		return true;
+ 	}
+  return false;
+};
 
 const bool CExportManager::copyKey(CSwordKey* key, const Format format, const bool addText) {
   if (!key)
@@ -180,21 +204,21 @@ const bool CExportManager::copyKeyList(sword::ListKey* list, CSwordModuleInfo* m
   if (!list)
     return false;
 
-  setProgressRange(list->Count()+1);
+  setProgressRange(list->Count());
  	util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
 
  	QString text;
  	*list = sword::TOP;
  	while (!list->Error() && !progressWasCancelled()) {
- 		key->key((const char*)(*list));
  		if (!key)
  			break;
-    incProgress();
+
+    key->key((const char*)(*list));
  		if (addText)
  			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText() : key->strippedText() );
  		else
  			text += key->key() + lineBreak(format);
-
+    incProgress();
  		(*list)++;
  	}
 
@@ -204,6 +228,29 @@ const bool CExportManager::copyKeyList(sword::ListKey* list, CSwordModuleInfo* m
    	return true;
  	}
 	return false;
+};
+
+
+const bool CExportManager::copyKeyList(QPtrList<CSwordKey> list, const Format format, const bool addText ) {
+  if (!list.count())
+    return false;
+
+  QString text;
+  setProgressRange(list.count());
+  for (CSwordKey* k = list.first(); k && !progressWasCancelled(); k = list.next()) {
+ 		if (addText)
+ 			text += QString::fromLatin1("%1:%2\t%3\n").arg( k->key() ).arg(lineBreak(format)).arg( (format == HTML) ? k->renderedText() : k->strippedText() );
+ 		else
+ 			text += k->key() + lineBreak(format);
+    incProgress();
+  };
+
+  if (!progressWasCancelled()) {
+    KApplication::clipboard()->setText(text);
+ 		closeProgressDialog();
+ 		return true;
+ 	}
+  return false;
 };
 
 const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* module) {
@@ -240,7 +287,7 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 	return true;
 };
 
-const bool CExportManager::printKeyList( CSwordModuleInfo* module, const PrintItemList& list ){
+const bool CExportManager::printKeyList( const PrintItemList& list, CSwordModuleInfo* module ){
   if (!list.count() || !module)
     return false;
   setProgressRange(list.count()+1);
