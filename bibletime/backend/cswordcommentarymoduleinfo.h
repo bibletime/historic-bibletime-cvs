@@ -31,7 +31,7 @@
   */
 class CSwordCommentaryModuleInfo : public CSwordBibleModuleInfo  {
 public:
-	CSwordCommentaryModuleInfo( CSwordBackend* backend, SWModule* module );
+	CSwordCommentaryModuleInfo( SWModule* module );
 	~CSwordCommentaryModuleInfo();
   virtual const CSwordModuleInfo::ModuleType type() const;
   virtual CSwordModuleInfo* clone();

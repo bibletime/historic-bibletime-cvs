@@ -354,9 +354,9 @@ CSearchDialogResultView::~CSearchDialogResultView() {
 /** Initializes the tree of this ResultView */
 void CSearchDialogResultView::setupTree() {
 	ListKey& moduleSearchResult = m_module->searchResult();
-	clear();
 	const int count = moduleSearchResult.Count();
-	
+		
+	clear();	
 	setUpdatesEnabled(false);
 	for (int index = 0; index < count; index++) {
 		insertItem( QString::fromLocal8Bit((const char*)*moduleSearchResult.GetElement(index)), -1);

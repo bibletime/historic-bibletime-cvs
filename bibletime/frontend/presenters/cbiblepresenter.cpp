@@ -401,7 +401,8 @@ void CBiblePresenter::previousVerse(){
 /** Stores some Bible window dpecific setttings in the profile. */
 void CBiblePresenter::storeSettings( CProfileWindow* settings ){
 	CSwordPresenter::storeSettings(settings);
-	/** store the state of the displaysetttings button in the profile
+	/**
+	* store the state of the displaysetttings button in the profile
 	* we use a binary digit to store the state. The most right digit is 1 if the
 	* first button is set, 0 if it isn't. The second digit is for the second entry in the menu.
 	* etc

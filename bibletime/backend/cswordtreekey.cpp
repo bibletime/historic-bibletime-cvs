@@ -21,30 +21,26 @@
 CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(k), CSwordKey(k) {
 }
 
-CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k), CSwordKey() {
-	m_module = module;
-//	Persist(0);
+CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k), CSwordKey(module) {
+//	m_module = module;
 }
 
 CSwordKey* CSwordTreeKey::copy() const {
 	qWarning("CSwordTreeKey* CSwordTreeKey::copy() const");
-	CSwordTreeKey* k = new CSwordTreeKey(*this);
-	ASSERT(k);
-	qWarning(k->key().latin1());
-	return k;
+//	CSwordTreeKey* k = new CSwordTreeKey(*this);
+//	ASSERT(k);
+//	qWarning(k->key().latin1());
+	return new CSwordTreeKey(*this);
 }
 
 CSwordTreeKey::~CSwordTreeKey() {
-	qWarning("destructor of CSwordTreeKey of object %p", this);
+	qWarning("CSwordTreeKey::~CSwordTreeKey()");
 }
 
 /** Sets the key of this instance */
 const QString CSwordTreeKey::key( const QString& newKey ){
 	if (!newKey.isNull()) {
 		TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!
-//		m_module->module()->SetKey(this);
-	//snap here to entry?
-//		TreeKeyIdx::operator = (m_module->module()->KeyText());
 	}
  	return QString::fromLocal8Bit( getFullName() );//don't use fromUtf8
 }

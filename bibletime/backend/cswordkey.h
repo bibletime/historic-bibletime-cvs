@@ -34,7 +34,7 @@ class CSwordModuleInfo;
 class CSwordKey {
 
 protected:
-	CSwordKey(); //protected constructor, because CSwordKey shouldn't be used (it's an abstract base class).
+	CSwordKey(CSwordModuleInfo* module = 0); //protected constructor, because CSwordKey shouldn't be used (it's an abstract base class).
 	CSwordKey(const CSwordKey&); //copy constructo
 
 public:

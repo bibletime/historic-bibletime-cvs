@@ -30,8 +30,8 @@
   */
 class CSwordBookModuleInfo : public CSwordModuleInfo  {
 public: 
-	CSwordBookModuleInfo( CSwordBackend* backend, SWModule* module );
-	CSwordBookModuleInfo( const CSwordModuleInfo& m );	
+	CSwordBookModuleInfo( SWModule* module );
+	CSwordBookModuleInfo( const CSwordBookModuleInfo& m );	
 	~CSwordBookModuleInfo();
   /**
   * Returns the type of the module.

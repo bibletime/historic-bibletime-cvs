@@ -1019,7 +1019,7 @@ void CGroupManager::slotUnlockModule(){
 	bool ok;
 	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the key to unlock the module!"), m_pressedItem->moduleInfo()->cipherKey(), &ok, 0 );
 	if (ok) {
-		CSwordModuleInfo::unlockErrorCode ret = m_pressedItem->moduleInfo()->unlock( unlockKey );
+		CSwordModuleInfo::UnlockErrorCode ret = m_pressedItem->moduleInfo()->unlock( unlockKey );
 		if ( ret != CSwordModuleInfo::noError) {
 			//an error occured
 			switch (ret) {

@@ -32,14 +32,14 @@
 #include <treekeyidx.h>
 
 
-CSwordKey::CSwordKey() : m_module(0) {
+CSwordKey::CSwordKey(CSwordModuleInfo* module) : m_module(module) {
 }
 
 CSwordKey::CSwordKey(const CSwordKey& k) {
 	qWarning("copy constructor of CSwordKey");
 	m_module = k.m_module;
-	ASSERT(m_module);
-	qWarning(m_module->name().latin1());
+//	ASSERT(m_module);
+//	qWarning(m_module->name().latin1());
 }
 
 CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {

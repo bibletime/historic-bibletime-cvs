@@ -40,9 +40,10 @@
 //static class wide objects
 //static CSwordBackend searchModulesMgr;
 	
-CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module )
-	: m_module(module) {
-	
+CSwordModuleInfo::CSwordModuleInfo( SWModule* module ) : m_clonedModule(false) {
+	m_module = module;
+//	if (module)
+//		m_module = module->clone();
 	m_searchResult.ClearList();
 	
 //	if (backend) {
@@ -53,18 +54,29 @@ CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module )
 }
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {
-	m_module = m.m_module;
+	m_module = m.m_module/*->clone()*/; //clone Sword module, don't forget to delete it later
+//	m_clonedModule = true;
 	m_searchResult = m.m_searchResult;
+}
+
+
+/** No descriptions */
+CSwordModuleInfo* CSwordModuleInfo::clone(){
+	return new CSwordModuleInfo(*this);
 }
 
 CSwordModuleInfo::~CSwordModuleInfo(){
 	m_searchResult.ClearList();
+	if (m_clonedModule) {
+		qWarning("delete cloned module");
+		delete m_module;
+	}
 	m_module = 0; //the real Sword module is deleted by the backend
 }
 
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/
-const CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString& unlockKey ){
-	CSwordModuleInfo::unlockErrorCode	ret = CSwordModuleInfo::noError;
+const CSwordModuleInfo::UnlockErrorCode CSwordModuleInfo::unlock( const QString& unlockKey ){
+	CSwordModuleInfo::UnlockErrorCode	ret = CSwordModuleInfo::noError;
 	SWConfig moduleConfig("");
 	if ( backend()->moduleConfig(name(), moduleConfig) ) {
 		moduleConfig[name().latin1()]["CipherKey"] = unlockKey.local8Bit();	
@@ -231,29 +243,14 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 	return false;
 }
 
-/** Returns the backend. */
-//CSwordBackend* CSwordModuleInfo::backend() const {
-//	return backend();
-//}
-
 /** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
 const float CSwordModuleInfo::requiredSwordVersion(){
 	const string version = (*backend()->getConfig())[name().latin1()]["MinimumVersion"];
 	if (!version.length())	//no special version required
 		return -1;
 	const float swordVersion = QString::fromLatin1( version.c_str() ).toFloat();	
-//	qDebug("%f", swordVersion);
 	return swordVersion;
 }
-
-///** Returns the text direction used in this module. */
-//const CSwordModuleInfo::TextDirection CSwordModuleInfo::getTextDirection(){
-//	const string dir = (*backend()->getConfig())[name().latin1()]["Direction"];
-//	if (dir == "RTL")
-//		return CSwordModuleInfo::RTL;
-//	else
-//		return CSwordModuleInfo::LTR;
-//}
 
 /** Returns the name of the module. */
 const QString CSwordModuleInfo::name() const {
@@ -263,9 +260,4 @@ const QString CSwordModuleInfo::name() const {
 
 const bool CSwordModuleInfo::isUnicode(){
 	return (module()->isUnicode());
-}
-
-/** No descriptions */
-CSwordModuleInfo* CSwordModuleInfo::clone(){
-	return new CSwordModuleInfo(*this);
 }

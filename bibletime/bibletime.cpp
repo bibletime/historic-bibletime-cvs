@@ -180,7 +180,7 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 		connect(presenter, SIGNAL(closePresenter(CSwordPresenter*)),
 			m_mdi, SLOT(closePresenter(CSwordPresenter*)));							
 		if (presenter->isA("CBiblePresenter")) {
-			connect(presenter->getKeyChooser(), SIGNAL(keyChanged(CSwordKey*)),
+			connect(presenter->keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 				m_mdi, SLOT(syncCommentaries(CSwordKey*)));		
 		}
 	}
@@ -223,7 +223,7 @@ bool BibleTime::queryExit(){
 
 /** Called before a window is closed */
 bool BibleTime::queryClose(){
-	qWarning("BibleTime::queryClose()");
+//	qWarning("BibleTime::queryClose()");
 	bool ret = true;
 	for ( int index = 0; index < m_mdi->windowList().count(); ++index) {
 		CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index));

@@ -22,9 +22,8 @@
 #include <treekeyidx.h>
 #include <treekey.h>
 
-CSwordBookModuleInfo::CSwordBookModuleInfo( CSwordBackend* backend, SWModule* module )
-	: CSwordModuleInfo(backend, module),
-	m_depth(-1)
+CSwordBookModuleInfo::CSwordBookModuleInfo( SWModule* module )
+	: CSwordModuleInfo(module),m_depth(-1)
 {
 	//checking if it works as expected
 //	qWarning("CSwordBookModuleInfo: checking if it's valid");
@@ -39,8 +38,8 @@ CSwordBookModuleInfo::CSwordBookModuleInfo( CSwordBackend* backend, SWModule* mo
 //	qWarning("depth: %i", depth());
 }
 
-CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordModuleInfo& m ) : CSwordModuleInfo(m){
-
+CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordBookModuleInfo& m ) : CSwordModuleInfo(m){
+	m_depth = m.m_depth;
 }	
 
 CSwordBookModuleInfo::~CSwordBookModuleInfo(){

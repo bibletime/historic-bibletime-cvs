@@ -39,7 +39,7 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
   else
     m_hasModule = true;
 	
-	setPixmap( getIcon() );
+	setPixmap( icon() );
 	setPopupDelay(0);
 	
 	//create popup
@@ -76,7 +76,7 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
 }	
 
 /** Returns the icon used for the current status. */
-QPixmap CModuleChooserButton::getIcon(){
+QPixmap CModuleChooserButton::icon(){
 	switch (m_moduleType) {
 		case CSwordModuleInfo::Bible:
 			if (m_hasModule)
@@ -98,7 +98,7 @@ QPixmap CModuleChooserButton::getIcon(){
 	}
 }
 
-CSwordModuleInfo* CModuleChooserButton::getModule() {		
+CSwordModuleInfo* CModuleChooserButton::module() {		
 	for (unsigned int i = 0; i < m_popup->count(); i++) {
 		if ( m_popup->isItemChecked(m_popup->idAt(i)) )
 			return backend()->findModuleByName( m_popup->text(m_popup->idAt(i)) );
@@ -127,13 +127,13 @@ void CModuleChooserButton::moduleChosen( int ID ){
 	  if (!m_hasModule)
 	    emit sigAddButton();
 		m_hasModule = true;  	
-		m_module = getModule();
-		setPixmap(getIcon());
+		m_module = module();
+		setPixmap(icon());
 		repaint();  	  	
   	emit sigChanged();
   	
   	QToolTip::remove(this);
-  	if (getModule())
-  		QToolTip::add(this, getModule()->name());
+  	if (module())
+  		QToolTip::add(this, module()->name());
 	}
 }

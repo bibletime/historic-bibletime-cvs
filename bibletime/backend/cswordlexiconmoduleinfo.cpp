@@ -30,7 +30,7 @@
 #include <kstddirs.h>
 
 
-CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( CSwordBackend* backend, SWModule* module) : CSwordModuleInfo(backend, module) {
+CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( SWModule* module) : CSwordModuleInfo(module) {
 	m_entryList = 0;
 }
 

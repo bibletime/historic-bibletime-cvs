@@ -88,7 +88,7 @@ public slots: // Public slots
   /**
   * Returns the used keychooser object of this presenter.
   */
-  CKeyChooser* getKeyChooser() const;
+  CKeyChooser* keyChooser() const;
   /**
   * Sets the caption of this display window
   */

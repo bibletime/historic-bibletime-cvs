@@ -123,7 +123,7 @@ const bool CSwordModuleSearch::startSearch() {
 
 
 void CSwordModuleSearch::startSearchThread(void){
-	pthread_t thread;
+//	pthread_t thread;
 	
 //	pthread_attr_t attr;
 //	pthread_attr_init(&attr);

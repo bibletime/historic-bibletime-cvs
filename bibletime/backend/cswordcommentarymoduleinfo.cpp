@@ -17,8 +17,8 @@
 
 #include "cswordcommentarymoduleinfo.h"
 
-CSwordCommentaryModuleInfo::CSwordCommentaryModuleInfo( CSwordBackend* backend, SWModule* module)
-	:CSwordBibleModuleInfo(backend, module) {
+CSwordCommentaryModuleInfo::CSwordCommentaryModuleInfo( SWModule* module)
+	:CSwordBibleModuleInfo(module) {
 	
 }
 

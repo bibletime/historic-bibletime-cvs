@@ -119,7 +119,7 @@ ListCSwordModuleInfo& CSwordPresenter::getModuleList() {
 }
 
 /** Returns the used keychooser object of this presenter. */
-CKeyChooser* CSwordPresenter::getKeyChooser() const {
+CKeyChooser* CSwordPresenter::keyChooser() const {
 	return m_keyChooser;
 }
 
@@ -176,7 +176,7 @@ void CSwordPresenter::storeSettings( CProfileWindow* settings ){
 	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
 	settings->setType(m_moduleList.first()->type());
 	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
-	CSwordKey* key = getKeyChooser()->getKey();
+	CSwordKey* key = keyChooser()->getKey();
 	if (key)
 		settings->setKey( key->key() );
 		
@@ -201,7 +201,7 @@ void CSwordPresenter::closeEvent(QCloseEvent* e) {
 /** Inserts the action used by this display window in the given KAccel object. */
 void CSwordPresenter::insertKeyboardActions( KAccel* a ){
 	a->setConfigGroup("General window");	
-	ASSERT(a);
+//	ASSERT(a);
 }
 
 void CSwordPresenter::initAccels(){

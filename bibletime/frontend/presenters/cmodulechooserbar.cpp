@@ -82,7 +82,7 @@ ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
 	list.clear();
 	
 	for (m_buttonList.first(); m_buttonList.current(); m_buttonList.next()) {	
-	  CSwordModuleInfo* m = m_buttonList.current()->getModule();
+	  CSwordModuleInfo* m = m_buttonList.current()->module();
 	  if (m)
   		list.append( m );
 	}

@@ -33,7 +33,7 @@ class CModuleChooserButton : public QToolButton, public CPointers  {
    Q_OBJECT
 public: 
 	CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent = 0, const char *name = 0 );
-  CSwordModuleInfo* getModule();
+  CSwordModuleInfo* module();
   /**
   * Returns the id used for this button.
   */
@@ -41,7 +41,7 @@ public:
   /**
   * Returns the icon used for the current status.
   */
-  QPixmap getIcon();		
+  QPixmap icon();		
 	
 private:
 	bool m_hasModule;

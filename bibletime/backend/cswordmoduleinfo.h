@@ -50,13 +50,14 @@ public:
  	* This enum is used to give
  	* back an error code after unlocking the module
  	*/
-  enum unlockErrorCode {
+  enum UnlockErrorCode {
 		noError,	/* No error occured, everything worked ok. The key was written to the config*/
 		wrongUnlockKey, /* The wrong key was used. Module is not unlocked */				
 		notLocked, /* The module was not locked so it can't be unlocked */
 		noPermission /* The key was not written to config because we have no permissions*/
 	};	
-	CSwordModuleInfo( CSwordBackend* backend, SWModule* module );
+	
+	CSwordModuleInfo( SWModule* module );
 	CSwordModuleInfo( const CSwordModuleInfo& m );	
 	virtual ~CSwordModuleInfo();	
   /**
@@ -71,7 +72,7 @@ public:
  	* Sets the unlock key of the modules and writes the key into the cofig file.
 	* @return True if the unlock process was succesful, if the key was wrong, or if the config file was write protected return false.
 	*/
-  const CSwordModuleInfo::unlockErrorCode unlock( const QString& unlockKey );
+  const CSwordModuleInfo::UnlockErrorCode unlock( const QString& unlockKey );
   /**
  	* Returns the display object for this module. Normally every module should have a Display object.
  	* Please don't use module()->Display() because this function does return the Sword display and does
@@ -176,6 +177,7 @@ public:
 private:
 	SWModule*	m_module;
 	ListKey m_searchResult;
+	bool m_clonedModule;
 };
 
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;

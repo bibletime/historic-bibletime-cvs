@@ -26,8 +26,8 @@
 //Sword includes
 #include <swmodule.h>
 
-CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
-	m_module = module;
+CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) : CSwordKey(module) {
+//	m_module = module;
 }
 
 /** No descriptions */
@@ -36,8 +36,8 @@ CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKe
 }
 
 /** No descriptions */
-CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(*k),CSwordKey() {
-	m_module = module;	
+CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(*k),CSwordKey(module) {
+//	m_module = module;	
 }
 
 CSwordVerseKey::~CSwordVerseKey(){

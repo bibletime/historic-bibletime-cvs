@@ -104,7 +104,8 @@ void CSearchDialog::initView() {
 
 	m_searchAnalysisSaveButton = new QPushButton("Save Analysis to Disk", searchAnalysis_page);
 
-	connect(m_searchAnalysisSaveButton, SIGNAL(clicked()), this, SLOT(slotSaveSearchAnalysis()));	
+	connect(m_searchAnalysisSaveButton, SIGNAL(clicked()),
+		this, SLOT(slotSaveSearchAnalysis()));	
 }
 
 ListCSwordModuleInfo* CSearchDialog::getModuleList() {
@@ -262,7 +263,7 @@ void CSearchDialog::show(){
 
 /** No descriptions */
 void CSearchDialog::searchFinished(){
-	qWarning("CSearchDialog::searchFinished()");
+//	qWarning("CSearchDialog::searchFinished()");
  	searchText->updateCurrentProgress(100);
  	searchText->updateOverallProgress(100);
  	searchAnalysis->reset(); 	

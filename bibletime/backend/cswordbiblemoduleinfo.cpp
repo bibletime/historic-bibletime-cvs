@@ -26,7 +26,8 @@
 
 static VerseKey staticKey;
 
-CSwordBibleModuleInfo::CSwordBibleModuleInfo( CSwordBackend* backend, SWModule* module ) : CSwordModuleInfo(backend, module) {
+CSwordBibleModuleInfo::CSwordBibleModuleInfo( SWModule* module )
+	: CSwordModuleInfo(module) {
 	m_bookList = 0;
 	m_cachedLocale = "unknown";
 	m_hasOT = -1;
@@ -43,8 +44,7 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) :
 }
 
 CSwordBibleModuleInfo::~CSwordBibleModuleInfo(){
-	if (m_bookList)
-		delete m_bookList;
+	delete m_bookList;
 }
 
 /** Returns the books available in this module */

@@ -99,19 +99,19 @@ const CSwordBackend::errorCode CSwordBackend::initModules() {
 	for (it = Modules.begin(); it != Modules.end(); it++) {
 		curMod = (*it).second;
 		if (!strcmp(curMod->Type(), "Biblical Texts")) {
-			newModule = new CSwordBibleModuleInfo(this, curMod);
+			newModule = new CSwordBibleModuleInfo(curMod);
 			CHECK_HTML_CHAPTER_DISLPAY	//a macro to check the chapter display			
 			newModule->module()->Disp(m_chapterDisplay);
 		} else if (!strcmp(curMod->Type(), "Commentaries")) {
-			newModule = new CSwordCommentaryModuleInfo(this, curMod);
+			newModule = new CSwordCommentaryModuleInfo(curMod);
 			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display
 			newModule->module()->Disp(m_entryDisplay);
 		} else if (!strcmp(curMod->Type(), "Lexicons / Dictionaries")) {
-			newModule = new CSwordLexiconModuleInfo(this, curMod);
+			newModule = new CSwordLexiconModuleInfo(curMod);
 			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
 			newModule->module()->Disp(m_entryDisplay);
 		} else if (!strcmp(curMod->Type(), "Generic Book")) {
-			newModule = new CSwordBookModuleInfo(this, curMod);
+			newModule = new CSwordBookModuleInfo(curMod);
 			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
 			newModule->module()->Disp(m_entryDisplay);
 		}

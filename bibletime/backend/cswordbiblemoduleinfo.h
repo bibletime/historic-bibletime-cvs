@@ -44,7 +44,7 @@ public:
 	/**
 	* The constructor of this class
 	*/
-	CSwordBibleModuleInfo( CSwordBackend* backend, SWModule* module  );
+	CSwordBibleModuleInfo( SWModule* module  );
 	CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m );
 	/**
 	* The destructor of this class
