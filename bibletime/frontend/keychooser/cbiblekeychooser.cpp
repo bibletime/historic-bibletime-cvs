@@ -91,6 +91,10 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 }
 
 CKey *CBibleKeyChooser::getKey(){
+	m_key->setBook(w_book->ComboBox->currentText());
+	m_key->Chapter(w_chapter->ComboBox->currentText().toInt());
+	m_key->Verse(w_verse->ComboBox->currentText().toInt());		
+	
 	return m_key;
 }
 
@@ -232,42 +236,54 @@ void CBibleKeyChooser::setModule(CModuleInfo* module){
 }
 /** called when the book combo lost the focus with reason == tab @param the new book */
 void CBibleKeyChooser::bookFocusOut(int index){
- 	int chapter = m_key->Chapter();
-	int verse = m_key->Verse();
+	qWarning("book focus out");
+// 	int chapter = 1;//m_key->Chapter();
+//	int verse = 1;//m_key->Verse();
 	
-	const int newchapters = m_info->getChapterCount(index+1);
-	if (newchapters < chapter)
-	  chapter = 1;
-
-	const int newverses = m_info->getVerseCount(index+1,chapter);
-	if (newverses < verse)
-	  verse = 1;
+//	const int newchapters = m_info->getChapterCount(index+1);
+//	if (newchapters < chapter)
+//	  chapter = 1;
+//
+//	const int newverses = m_info->getVerseCount(index+1,chapter);
+//	if (newverses < verse)
+//	  verse = 1;
 	
-	w_chapter->reset(newchapters, chapter-1,false);
-	w_chapter->adjustSize();	
-	w_verse->reset(newverses, verse-1, false);
-	w_verse->adjustSize();		
+//	w_chapter->reset(newchapters, 0,false);
+//	w_chapter->adjustSize();	
+//	w_verse->reset(newverses, 0, false);
+//	w_verse->adjustSize();		
+	m_key->Verse( 1 );
+	m_key->Chapter( 1 );	
+	m_key->setBook( w_book->ComboBox->currentText() );
+//	setKey( m_key );		
 }
 
 /** called when the chapter combo lost the focus with reason == tab @param the new chapter */
 void CBibleKeyChooser::chapterFocusOut(int index){
-  int book = m_info->getBookNumber( w_book->ComboBox->currentText() );
-
-	int verse = w_verse->ComboBox->currentText().toInt();
-	const int newverses = m_info->getVerseCount(book,index+1);
-	if (newverses < verse)
-	  verse = 1;
-	
-	w_verse->reset(newverses,verse-1,false);
-	w_verse->adjustSize();
+	qWarning("chapter focus out");
+//  int book = m_info->getBookNumber( w_book->ComboBox->currentText() );
+//
+//	int verse = w_verse->ComboBox->currentText().toInt();
+//	const int newverses = m_info->getVerseCount(book,index+1);
+//	if (newverses < verse)
+//	  verse = 1;
+//	
+//	w_verse->reset(newverses,verse-1,false);
+//	w_verse->adjustSize();
+	m_key->Verse( 1 );
+	m_key->Chapter( w_chapter->ComboBox->currentText().toInt() );	
+//	m_key->setBook( w_book->ComboBox->currentText() );
+//	setKey( m_key );		
 }
 /** called when the verse combo lost the focus with reason == tab @param the new verse */
 void CBibleKeyChooser::verseFocusOut(int index){
+	qWarning("verse focus out");
   const QString book = w_book->ComboBox->currentText();
  	const int chapter = w_chapter->ComboBox->currentText().toInt();
 
-	m_key->setBook( book );	
-	m_key->Chapter( chapter );	
-	m_key->Verse( index + 1);
-	setKey( m_key );	
+//	m_key->setBook( book );	
+//	m_key->Chapter( chapter );	
+//	m_key->Verse( index + 1);
+	m_key->Verse( w_chapter->ComboBox->currentText().toInt() );
+	setKey( m_key );
 }

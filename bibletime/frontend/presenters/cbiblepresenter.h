@@ -73,14 +73,34 @@ private slots: // Private slots
   ** No descriptions
   */
   void popupAboutToShow();
+
+//copy slots
   /**
-  * Printes the verse the user has chosen.
+  * Copies the highlighted text into clipboard.
   */
-  void printHighlightedVerse();
+  void copyVerse();
+	/**
+  * Copies the highlighted text into clipboard.
+  */
+  void copyVerseText();
+	/**
+  * Copies the highlighted text into clipboard.
+  */
+  void copyVerseAndText();
+
+//print slots
+  void printVerseAndText();
   /**
-  * Printes the verse the user has chosen.
+  * Copies the highlighted text into clipboard.
   */
-  void copyHighlightedVerse();
+  void printChapter();
+
+//save slots
+	/**
+  * Copies the highlighted text into clipboard.
+  */
+  void saveVerseAndText();
+
 
 private:
 	CSwordVerseKey* m_key;

@@ -11,8 +11,7 @@ qrichtext.cpp \
 qstylesheet.cpp \
 qtextview.cpp \
 qtextedit.cpp \
-qcomplextext.cpp \
-qsimplerichtext.cpp
+qcomplextext.cpp
 
 EXTRA_DIST = \
 qrichtext.cpp qrichtext_p.h \
@@ -20,6 +19,5 @@ qstylesheet.cpp qstylesheet.h \
 qtextview.cpp  qtextview.h \
 qtextedit.h qtextedit.cpp \
 qcomplextext.cpp qcomplextext_p.h \
-qsimplerichtext.h qsimplerichtext.cpp \
 qt3stuff.h \
 qcleanuphandler.h

@@ -97,7 +97,8 @@ const bool CSwordModuleSearch::startSearch() {
 
 	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
 		cms_module_current++;
-		m_moduleList->current()->clearSearchResult();
+// do not clear search result because it may be used by last search result as scope
+//		m_moduleList->current()->clearSearchResult();
 		if ( m_moduleList->current()->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) )
       foundItems = true;
 	}
@@ -110,7 +111,6 @@ const bool CSwordModuleSearch::startSearch() {
 	m_foundItems = foundItems;
 
 	m_isSearching = false;
-
 	return true;
 }
 

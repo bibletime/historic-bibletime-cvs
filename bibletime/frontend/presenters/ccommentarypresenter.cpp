@@ -17,6 +17,7 @@
 
 #include "ccommentarypresenter.h"
 #include "cmodulechooserbar.h"
+#include "../ctoolclass.h"
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
 #include "../../ressource.h"
@@ -24,10 +25,14 @@
 #include "../../backend/sword_backend/cswordversekey.h"
 #include "../../backend/sword_backend/chtmlchapterdisplay.h"
 
+//Qt includes
+#include <qclipboard.h>
+
 //KDE includes
 #include <ktoolbar.h>
 #include <kaction.h>
 #include <klocale.h>
+#include <kfiledialog.h>
 
 CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, importantClasses, parent,name) {
@@ -70,14 +75,27 @@ void CCommentaryPresenter::initView(){
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
 	m_popup->insertTitle(i18n("Commentary window"));
-	m_popup->insertItem(i18n("Save entry as HTML..."), m_htmlWidget, SLOT(slotSaveAsHTML()), 0,ID_PRESENTER_SAVE_AS_HTML);
-	m_popup->insertItem(i18n("Save entry as plain text..."), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_AS_TEXT);
-	m_popup->insertItem(i18n("Add entry to print queue"), this, SLOT(printHighlightedVerse()),0, ID_PRESENTER_PRINT_VERSE);
-	m_popup->insertItem(i18n("Copy entry into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);
-	m_popup->insertSeparator();
+	
+	m_copyPopup = new KPopupMenu(m_popup);
+	m_copyPopup->insertItem(i18n("Entry"), this, SLOT(copyEntry()),0,ID_PRESENTER_COPY_ONLY_KEY);
+	m_copyPopup->insertItem(i18n("Text of entry"), this, SLOT(copyEntryText()),0,ID_PRESENTER_COPY_KEY_TEXT);	
+	m_copyPopup->insertItem(i18n("Entry with text"), this, SLOT(copyEntryAndText()),0,ID_PRESENTER_COPY_KEY);
+
+	m_printPopup = new KPopupMenu(m_popup);
+	m_printPopup->insertItem(i18n("Entry with text"), this, SLOT(printEntryAndText()),0,ID_PRESENTER_PRINT_KEY);
+
+	m_savePopup = new KPopupMenu(m_popup);	
+	m_savePopup->insertItem(i18n("Entry as plain text"), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_CHAPTER);
+	m_savePopup->insertItem(i18n("Entry as HTML"), m_htmlWidget, SLOT(slotSaveAsHTML()),0,ID_PRESENTER_SAVE_CHAPTER_HTML);	
+
 	m_popup->insertItem(i18n("Select all"), m_htmlWidget, SLOT(slotSelectAll()),0, ID_PRESENTER_SELECT_ALL);
-	m_popup->insertItem(i18n("Copy selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);	
-  m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP);
+	m_popup->insertItem(i18n("Copy selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);
+  m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP);	
+	m_popup->insertSeparator();	
+	m_popup->insertItem(i18n("Copy..."), 	m_copyPopup, ID_PRESENTER_COPY_POPUP);	
+	m_popup->insertItem(i18n("Add to printing queue..."), m_printPopup, ID_PRESENTER_PRINT_POPUP);	
+	m_popup->insertItem(i18n("Save..."), 	m_savePopup,ID_PRESENTER_SAVE_POPUP);		
+
 
 	m_htmlWidget->installPopup(m_popup);		
 	m_htmlWidget->installAnchorMenu( m_popup );
@@ -153,8 +171,8 @@ void CCommentaryPresenter::lookup(CKey* key){
 void CCommentaryPresenter::popupAboutToShow(){
 //	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());	
 //	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
-	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());
-	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
+//	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());
+//	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
 //	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
 }
 
@@ -260,4 +278,57 @@ void CCommentaryPresenter::insertReference(const QString& reference){
 	CSwordVerseKey vk(m_moduleList.first());
 	vk.setKey(reference);
 	m_htmlWidget->insert(vk.getStrippedText());
+}
+
+/** Copies the highlighted text into clipboard. */
+void CCommentaryPresenter::copyEntry(){
+	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
+	key.setKey(m_key->getKey());
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	if (currentAnchor.left(8) == "sword://")
+		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
+	key.setKey(currentAnchor);
+		
+	QClipboard *cb = KApplication::clipboard();
+	cb->setText(key.getKey());
+}
+
+/** Copies the highlighted text into clipboard. */
+void CCommentaryPresenter::copyEntryText(){
+	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
+	key.setKey(m_key->getKey());
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	if (currentAnchor.left(8) == "sword://")
+		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
+	key.setKey(currentAnchor);
+	
+	QClipboard *cb = KApplication::clipboard();
+	cb->setText(key.getStrippedText());
+}
+
+/** Copies the highlighted text into clipboard. */
+void CCommentaryPresenter::copyEntryAndText(){
+	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
+	key.setKey(m_key->getKey());
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	if (currentAnchor.left(8) == "sword://")
+		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
+	key.setKey(currentAnchor);
+	
+	const QString text = QString("%1\n%2").arg(key.getKey()).arg(key.getStrippedText());
+	QClipboard *cb = KApplication::clipboard();
+	cb->setText(text);
+}
+
+//print functions
+/** Copies the highlighted text into clipboard. */
+void CCommentaryPresenter::printEntryAndText(){
+	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
+	key->setKey(m_key->getKey());
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	if (currentAnchor.left(8) == "sword://")
+		currentAnchor = currentAnchor.mid(8, currentAnchor.length()- (currentAnchor.right(1) == "/" ? 9 : 8));
+	key->setKey(currentAnchor);
+		
+	printKey(key, key, m_moduleList.first());
 }

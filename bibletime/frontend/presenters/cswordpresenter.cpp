@@ -32,7 +32,7 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClas
 	m_keyChooser = 0;
 	m_mainToolBar = 0;
 	m_moduleChooserBar = 0;
-	m_popup = 0;
+	m_popup = m_savePopup = m_copyPopup = m_printPopup = 0;
 	m_features = 0;
 
 	m_lexiconPopup = new QPopupMenu(this);

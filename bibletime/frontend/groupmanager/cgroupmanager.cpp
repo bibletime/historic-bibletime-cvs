@@ -374,7 +374,7 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 
 //	bool isOk = false;
 	CGroupManagerItem* myItem = 0;	
-	QString description = QInputDialog::getText(i18n("BibleTime - Bookmark description"), i18n("Please enter here the description:"), QString::null,0);
+	QString description = QInputDialog::getText(i18n("Bookmark description - BibleTime"), i18n("Please enter here the description:"), QString::null,0);
 	//= KLineEditDlg::getText(i18n("Please enter the description of the new bookmark"), QString::null, &isOk, 0);
 	setFocus();
 	
@@ -410,7 +410,7 @@ void CGroupManager::slotChangeBookmark(){
 		return;
 		
 	bool isOk;
-	QString description = QInputDialog::getText(i18n("BibleTime - Change bookmark description"),i18n("Please change the description of the item!"), m_pressedItem->description(), &isOk, 0);	
+	QString description = QInputDialog::getText(i18n("Change bookmark description - BibleTime"),i18n("Please change the description of the item!"), m_pressedItem->description(), &isOk, 0);	
 	if (isOk)
 		m_pressedItem->setDescription( description );
 }
@@ -421,7 +421,7 @@ void CGroupManager::slotChangeGroup(){
 		return;		
 	
 	bool isOk;
-	QString description = QInputDialog::getText(i18n("BibleTime - Change folder"),i18n("Please change the name of the group!"), m_pressedItem->text(0), &isOk, 0);	
+	QString description = QInputDialog::getText(i18n("Change folder - BibleTime"),i18n("Please change the name of the group!"), m_pressedItem->text(0), &isOk, 0);	
 	if (isOk)
 		m_pressedItem->setText( 0, description );
 }
@@ -479,8 +479,18 @@ void CGroupManager::slotPopupAboutToShow(){
 			popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, true);
 												
 			popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);							
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, true);
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, true);
+			
+			//enable importa and export only if a bookmark exists in this group
+			bool foundBookmark = false;
+	    QListViewItem * myChild = m_pressedItem->firstChild();
+	    while( myChild && !foundBookmark) {
+	    	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(myChild);
+				if (i && i->type() == CGroupManagerItem::Bookmark)
+					foundBookmark = true;
+				myChild = myChild->nextSibling();
+	    }
+			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, foundBookmark);
+			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, foundBookmark);
 			popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);
 				
 			popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, true);
@@ -490,16 +500,25 @@ void CGroupManager::slotPopupAboutToShow(){
 			popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, false);
 		}		
 	}
-	else {
+	else { //top level
 			popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, false);
 						
 			popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, true);
 			popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, false);
 			
 			popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);				
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, true);
-			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, true);
 			
+			bool foundBookmark = false;	
+	    QListViewItemIterator it( this );
+	    for ( ; it.current() && !foundBookmark; ++it ) {
+	    	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(it.current());
+				if (i && i->type() == CGroupManagerItem::Bookmark)
+					foundBookmark = true;
+			}			
+			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, foundBookmark);
+			popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, foundBookmark);
+			popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);
+						
 			popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, false);
 						
 			popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, false);
@@ -685,7 +704,7 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
   if (QTextDrag::decode(e,str,submime=BOOKMARK)){
     //a bookmark was dragged
     qDebug("bookmark decoded");
-    if ( e->source() != this->viewport() ){
+    if ( e->source() != viewport() ){
       return;
     }
     if ( !(m_itemList) ){
@@ -743,7 +762,7 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
       	break;
     if ( (info) && (info->module()->Name() == mod) ){
 
-			if (!target){ //Reference was dragged on no bookmark
+			if (!target){ //Reference was dragged on no item
 				if (info)
 					createNewBookmark( 0, info, ref); //CREATE A NEW BOOKMARK
 			}
@@ -754,6 +773,10 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
 							createNewBookmark(target,info, ref);
 						break;
 					case (CGroupManagerItem::Bookmark):
+						if (target->parent())
+							createNewBookmark(target->parent(),info, ref);
+						else
+							createNewBookmark(0,info, ref);						
 						break;
 					case (CGroupManagerItem::Module):
 						if (target->moduleInfo()){
@@ -927,7 +950,7 @@ void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
 /** Creates a new group */
 void CGroupManager::slotCreateNewGroup(){
 	bool isOk;
-	QString groupname = QInputDialog::getText(i18n("BibleTime - Enter name of folder"),i18n("Please enter the name of the folder!"),"", &isOk, 0);
+	QString groupname = QInputDialog::getText(i18n("Enter name of folder - BibleTime"),i18n("Please enter the name of the folder!"),"", &isOk, 0);
 	
 	if (isOk) {
 		if (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) {

@@ -107,7 +107,12 @@ protected: // Protected methods
   void refreshFeatures();
 
 	KToolBar* m_mainToolBar;
+	
 	KPopupMenu* m_popup;
+	KPopupMenu* m_savePopup;
+	KPopupMenu* m_copyPopup;	
+	KPopupMenu* m_printPopup;	
+		
 	QPopupMenu* m_lexiconPopup;
 	CKeyChooser* m_keyChooser;
 	CHTMLWidget* m_htmlWidget;	

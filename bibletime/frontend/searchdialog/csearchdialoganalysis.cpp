@@ -285,8 +285,8 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
 		f = p.font();
 		f.setPointSize(ITEM_TEXT_SIZE);
 		p.setFont(f);		
-		p.rotate(90);
-		p.drawText(QPoint(5,0), m_bookName);
+		p.rotate(270);
+		p.drawText(QPoint(BAR_LOWER_BORDER-5,0), m_bookName);
 	}
 	painter.drawPixmap(QPoint(x(),height()+y()-BAR_LOWER_BORDER), *m_bufferPixmap);
 }

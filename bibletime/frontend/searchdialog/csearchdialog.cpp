@@ -147,8 +147,9 @@ void CSearchDialog::startSearch(void) {
 	CSwordModuleSearch::scopeType scopeType = searchText->scopeChooser->getScopeType();
 	
 	if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
+		qWarning("CSearchDialog: use last result!");
 		searchFlags |= CSwordModuleSearch::useLastResult;
-		searcher->setSearchScope( searchText->scopeChooser->getScope() );		
+//		searcher->setSearchScope( searchText->scopeChooser->getScope() );		
 	}
 	else if ( scopeType == CSwordModuleSearch::Scope_Bounds ) {
 		searchFlags |= CSwordModuleSearch::useScope;	

@@ -17,6 +17,7 @@
 
 #include "cbiblepresenter.h"
 #include "cmodulechooserbar.h"
+#include "../ctoolclass.h"
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
 #include "../../ressource.h"
@@ -30,7 +31,7 @@
 #include <kapp.h>
 #include <ktoolbar.h>
 #include <klocale.h>
-
+#include <kfiledialog.h>
 
 CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, importantClasses, parent,name) {
@@ -63,15 +64,29 @@ void CBiblePresenter::initView(){
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
 	m_popup->insertTitle(i18n("Bible window"));
-	m_popup->insertItem(i18n("Save chapter as HTML..."), m_htmlWidget, SLOT(slotSaveAsHTML()), 0,ID_PRESENTER_SAVE_AS_HTML);	
-	m_popup->insertItem(i18n("Save chapter as plain text..."), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_AS_TEXT);
-	m_popup->insertItem(i18n("Copy chapter into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);		
-	m_popup->insertItem(i18n("Copy verse into clipboard"), this, SLOT(copyHighlightedVerse()),0, ID_PRESENTER_COPY_VERSE);	
-	m_popup->insertItem(i18n("Add verse to print queue"), this, SLOT(printHighlightedVerse()),0, ID_PRESENTER_PRINT_VERSE);
-	m_popup->insertSeparator();
+	
+	m_copyPopup = new KPopupMenu(m_popup);
+	m_copyPopup->insertItem(i18n("Verse"), this, SLOT(copyVerse()),0,ID_PRESENTER_COPY_ONLY_KEY);
+	m_copyPopup->insertItem(i18n("Text of verse"), this, SLOT(copyVerseText()),0,ID_PRESENTER_COPY_KEY_TEXT);	
+	m_copyPopup->insertItem(i18n("Verse with text"), this, SLOT(copyVerseAndText()),0,ID_PRESENTER_COPY_KEY);
+	m_copyPopup->insertItem(i18n("Chapter"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_CHAPTER);
+
+	m_printPopup = new KPopupMenu(m_popup);
+	m_printPopup->insertItem(i18n("Verse with text"), this, SLOT(printVerseAndText()),0,ID_PRESENTER_PRINT_KEY);
+	m_printPopup->insertItem(i18n("Chapter"), this, SLOT(printChapter()),0,ID_PRESENTER_PRINT_CHAPTER);
+
+	m_savePopup = new KPopupMenu(m_popup);	
+	m_savePopup->insertItem(i18n("Verse with text"), this, SLOT(saveVerseAndText()),0,ID_PRESENTER_SAVE_KEY);
+	m_savePopup->insertItem(i18n("Chapter as plain text"), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_CHAPTER);
+	m_savePopup->insertItem(i18n("Chapter as HTML"), m_htmlWidget, SLOT(slotSaveAsHTML()),0,ID_PRESENTER_SAVE_CHAPTER_HTML);	
+
 	m_popup->insertItem(i18n("Select all"), m_htmlWidget, SLOT(slotSelectAll()),0, ID_PRESENTER_SELECT_ALL);
 	m_popup->insertItem(i18n("Copy selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);
-  m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP);
+  m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP);	
+	m_popup->insertSeparator();	
+	m_popup->insertItem(i18n("Copy..."), 	m_copyPopup, ID_PRESENTER_COPY_POPUP);	
+	m_popup->insertItem(i18n("Add to printing queue..."), m_printPopup, ID_PRESENTER_PRINT_POPUP);	
+	m_popup->insertItem(i18n("Save..."), 	m_savePopup,ID_PRESENTER_SAVE_POPUP);		
 
 	m_htmlWidget->installPopup(m_popup);			
 	m_htmlWidget->installAnchorMenu( m_popup );
@@ -136,8 +151,17 @@ void CBiblePresenter::initConnections(){
 void CBiblePresenter::popupAboutToShow(){
 	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());
 	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
-	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());
-	m_popup->setItemEnabled(ID_PRESENTER_COPY_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
+
+	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_ONLY_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());	
+	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_KEY_TEXT,!m_htmlWidget->getCurrentAnchor().isEmpty());	
+	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());			
+
+	m_printPopup->setItemEnabled(ID_PRESENTER_PRINT_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());			
+
+	m_savePopup->setItemEnabled(ID_PRESENTER_SAVE_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());
+		
+//	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());
+//	m_popup->setItemEnabled(ID_PRESENTER_COPY_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
 }
 
 /** Reimplementation from CSwordPresenter. */
@@ -189,20 +213,40 @@ void CBiblePresenter::refresh( const int events ){
 		m_htmlWidget->refresh();		
 }
 
-/** Printes the verse the user has chosen. */
-void CBiblePresenter::printHighlightedVerse(){
-	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
-	key->setKey(m_key->getKey());
-	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()- (currentAnchor.right(1) == "/" ? 9 : 8));
-	key->setKey(currentAnchor);
-	
-	printKey(key, key, m_moduleList.first());
+
+/** Reimplementation. */
+const QString CBiblePresenter::caption() const{
+	return m_key->getKey();
 }
 
-/** Printes the verse the user has chosen. */
-void CBiblePresenter::copyHighlightedVerse(){
+/** Copies the highlighted text into clipboard. */
+void CBiblePresenter::copyVerse(){
+	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
+	key.setKey(m_key->getKey());
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	if (currentAnchor.left(8) == "sword://")
+		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
+	key.setKey(currentAnchor);
+		
+	QClipboard *cb = KApplication::clipboard();
+	cb->setText(key.getKey());
+}
+
+/** Copies the highlighted text into clipboard. */
+void CBiblePresenter::copyVerseText(){
+	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
+	key.setKey(m_key->getKey());
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	if (currentAnchor.left(8) == "sword://")
+		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
+	key.setKey(currentAnchor);
+	
+	QClipboard *cb = KApplication::clipboard();
+	cb->setText(key.getStrippedText());
+}
+
+/** Copies the highlighted text into clipboard. */
+void CBiblePresenter::copyVerseAndText(){
 	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
 	key.setKey(m_key->getKey());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
@@ -214,7 +258,38 @@ void CBiblePresenter::copyHighlightedVerse(){
 	QClipboard *cb = KApplication::clipboard();
 	cb->setText(text);
 }
-/** Reimplementation. */
-const QString CBiblePresenter::caption() const{
-	return m_key->getKey();
+
+//print functions
+/** Copies the highlighted text into clipboard. */
+void CBiblePresenter::printVerseAndText(){
+	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
+	key->setKey(m_key->getKey());
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	if (currentAnchor.left(8) == "sword://")
+		currentAnchor = currentAnchor.mid(8, currentAnchor.length()- (currentAnchor.right(1) == "/" ? 9 : 8));
+	key->setKey(currentAnchor);
+		
+	printKey(key, key, m_moduleList.first());
+}
+
+/** Copies the highlighted text into clipboard. */
+void CBiblePresenter::printChapter(){
+}
+
+//save functions
+
+/** Copies the highlighted text into clipboard. */
+void CBiblePresenter::saveVerseAndText(){
+	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
+	key.setKey(m_key->getKey());
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	if (currentAnchor.left(8) == "sword://")
+		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
+	key.setKey(currentAnchor);
+	
+	const QString text = QString("%1\n%2").arg(key.getKey()).arg(key.getStrippedText());
+	
+	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save verse with texrt as ..."));
+	if (!file.isNull())
+		CToolClass::savePlainFile( file, text);
 }

@@ -53,11 +53,12 @@ const CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString 
 	if ( m_backend->getModuleConfig(m_module->Name(), moduleConfig) ) {
 		moduleConfig[m_module->Name()]["CipherKey"] = unlockKey.local8Bit();	
 		m_backend->setCipherKey(m_module->Name(), unlockKey.local8Bit());	
+		(*m_backend->getConfig()) += moduleConfig;
+		(*m_backend->getConfig())[m_module->Name()]["CipherKey"] = moduleConfig[m_module->Name()]["CipherKey"];
 		moduleConfig.Save();
-		*(m_backend->getConfig())+=moduleConfig;
 	}	
 	else
-		CSwordModuleInfo::wrongUnlockKey;
+		ret = CSwordModuleInfo::wrongUnlockKey;
 	return ret;
 }
 
@@ -238,9 +239,15 @@ const QFont CSwordModuleInfo::getFont(){
 
 /** Used to set the module specific font */
 void CSwordModuleInfo::setFont(const QFont &font){
-	(*m_backend->getConfig())[m_module->Name()]["Font"] = font.family().local8Bit();
-	(*m_backend->getConfig())[m_module->Name()]["Font size"] = QString::number(font.pointSize()).local8Bit();
-	m_backend->getConfig()->Save();
+	SWConfig moduleConfig("");
+	if (m_backend->getModuleConfig(module()->Name(), moduleConfig)) {
+		moduleConfig[m_module->Name()]["Font"] = font.family().local8Bit();
+		moduleConfig[m_module->Name()]["Font size"] = QString::number(font.pointSize()).local8Bit();
+		moduleConfig.Save();
+		(*m_backend->getConfig())[m_module->Name()]["Font"] = moduleConfig[m_module->Name()]["Font"];		
+		(*m_backend->getConfig())[m_module->Name()]["Font size"] = moduleConfig[m_module->Name()]["Font size"];
+		(*m_backend->getConfig()) += moduleConfig;
+	}
 }
 
 /** Used to find out if the module has a specific font */

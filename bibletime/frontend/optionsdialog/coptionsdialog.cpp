@@ -132,7 +132,8 @@ void COptionsDialog::initFontManagerPage(){
 /** Initialize page to set colors for use in Bibletime */
 void COptionsDialog::initColorsPage(){
 	colors_page = addHBoxPage(i18n("Colors"), i18n("Configure BibleTime's colors"), OD_ICON_COLORS);	
-	colorGroup	=	new QButtonGroup (2,Qt::Horizontal,i18n("Choose colors"), colors_page, "colorGroup");
+	colorGroup	=	new QButtonGroup (2,Qt::Horizontal,"", colors_page, "colorGroup");
+	colorGroup->setLineWidth(0);
 	
 	KConfigGroupSaver groupSaver(config, "Colors");
 	
@@ -183,7 +184,7 @@ void COptionsDialog::initGeneralPage(){
 		QToolTip::add(localeComboBox, TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);				
 		QWhatsThis::add(localeComboBox, WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);		
 
-		QLabel* l = new QLabel(localeComboBox, i18n("Language for booknames: "), general_page);
+		QLabel* l = new QLabel(localeComboBox, i18n("Language for booknames"), general_page);
 		
 		localeLayout->addWidget(l);
 		localeLayout->addWidget(localeComboBox);

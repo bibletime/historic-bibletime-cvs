@@ -44,16 +44,49 @@ CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
 
 /** Reimplementation. */
 bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){		
-	if ((o == lineEdit()) && (e->type() == QEvent::FocusOut)) {
+//	if (e->type() == QEvent::FocusIn) {
+//		if (o == lineEdit())
+//			return false;
+//		else if (o == listBox())
+//			return false;
+//	}
+	if (e->type() == QEvent::FocusOut) {
+		qWarning("focus out event");
 		QFocusEvent* f = (QFocusEvent*)e;
-		if (f->reason() != QFocusEvent::Tab)
+		if (o == lineEdit() && f->reason() == QFocusEvent::Tab) {
+			qWarning("focusses out by TAB");
+	    int index = listBox()->index( listBox()->findItem(currentText()) );
+	    if (index==-1)
+				index++;// return 0 if not found
+	  	setCurrentItem( index );	
+	    emit focusOut( index );  	
+	  }
+	  else if (o == lineEdit() && f->reason() == QFocusEvent::Popup) {
+	  	qWarning("focussed out of line edit caused by popup");
+//			emit activated(currentText());
 			return false;
-			
-    int index = listBox()->index( listBox()->findItem(currentText()) );
-    if (index==-1)
-    	index++;// return 0 if not found
-    emit focusOut( index );  	
-  	setCurrentItem( index );
+		}
+	  else if (o == lineEdit() && f->reason() == QFocusEvent::ActiveWindow) {
+	  	qWarning("focussed out of line edit caused by active window");
+			emit activated(currentText());
+			return true;
+		}
+	  else if (o == lineEdit() && f->reason() == QFocusEvent::Mouse) {
+	  	qWarning("focussed out of line edit caused by mouse");
+			emit activated(currentText());
+			return true;
+		}		
+	  else if (o == listBox()) {
+	  	qWarning("foucess out of liost");
+//			emit activated(currentText());
+			return false;
+		}
+	  else if (o == this) {
+	  	qWarning("foucess out of THIS");
+			emit activated(currentText());
+			return true;
+		}
+		
 	}
   QComboBox::eventFilter(o,e);	
 }
@@ -97,11 +130,15 @@ void CKeyChooserWidget::changeCombo(int i){
 
 void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
 	oldKey = QString::null;			
-	if (m_list.count() != (unsigned int)count) {	//equal->same count, not necessary to regenerate
-		m_list.clear();
-		for (int i=1; i <= count; i++)
-			m_list.append( QString::number(i) );
+	if (m_list.count() == (unsigned int)count) {	//equal->same count, not necessary to regenerate
+		ComboBox->setCurrentItem(index);
+		if (do_emit)
+			emit changed(ComboBox->currentItem());		
+		return;
 	}
+	m_list.clear();
+	for (int i=1; i <= count; i++)
+		m_list.append( QString::number(i) );
 	reset(&m_list,index,do_emit);
 }
 

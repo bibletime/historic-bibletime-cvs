@@ -170,6 +170,10 @@ void CSearchDialogResult::updatePreview(QString text) {
 			}			
 		}
 	}
+	if (resultModuleTree->getCurrentModule()->hasFont()) {
+		QFont f = resultModuleTree->getCurrentModule()->getFont();
+		text = QString("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(f.pointSize()).arg(text);
+	}
 	html_widget->setText( "<HTML><HEAD></HEAD><BODY>" +
 		QString(i18n("<FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3"))
 		.arg( resultTree->currentText() )
