@@ -599,7 +599,6 @@ void CMainIndex::saveBookmarks(){
       if (!path.isEmpty()) {
         //save the bookmarks to the right file
         if (CBookmarkFolder* f = dynamic_cast<CBookmarkFolder*>(i)) {
-          qWarning("f->saveBookmarks");
           f->saveBookmarks( path + "bookmarks.xml" );
         }
       }

@@ -474,8 +474,6 @@ const bool CSwordBackend::useICU() const{
 
 /** Reload all Sword modules. */
 void CSwordBackend::reloadModules(){
-  qWarning("CSwordBackend::reloadModules()");
   shutdownModules();
   initModules();
-  qWarning("finished CSwordBackend::reloadModules()");
 }

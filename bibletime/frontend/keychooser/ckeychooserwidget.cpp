@@ -52,13 +52,6 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 //	qWarning("CKCComboBox::eventFilter( QObject *o, QEvent *e )");
 	if (e->type() == QEvent::FocusOut) {
 		QFocusEvent* f = static_cast<QFocusEvent*>(e);
-//		qWarning("FocusOut: %d", f->reason());
-//		qWarning("Mouse: %d",(f->reason()==QFocusEvent::Mouse)?1:0);
-//    qWarning("lineedit: %d",(o == lineEdit())?1:0);
-//    qWarning("listbox: %d",(o == listBox())?1:0);
-//    qWarning("this: %d",(o == this)?1:0);
-
-		
 		if (o == lineEdit() && f->reason() == QFocusEvent::Tab) {
 	    int index = listBox()->index( listBox()->findItem(currentText()) );
 	    if (index == -1)
