@@ -84,23 +84,25 @@ void COptionsDialog::initKeyPage(KAccel* accel){
 
 void COptionsDialog::initFontPage(){
  	font_page = addVBoxPage(i18n("Fonts"), i18n("Choose fonts for BibleTime"), OD_ICON_FONTS); 	
+	KConfigGroupSaver groupSaver(config, "Fonts");
+		
 	QLabel* l = new QLabel(font_page);
 	l->setText(i18n("Choose the area of application and set the font for it"));
 	
 	m_fontUsageChooser = new QComboBox(font_page);		
  	QToolTip::add(m_fontUsageChooser, TT_OD_FONTS_TYPE_CHOOSER);	 	
  	QWhatsThis::add(m_fontUsageChooser, WT_OD_FONTS_TYPE_CHOOSER);	
-	KConfigGroupSaver groupSaver(config, "Fonts");
-	m_fontMap.insert("Display window", config->readFontEntry("Display window"));
-
+	m_fontMap.insert(i18n("Display window"), config->readFontEntry( i18n("Display window") ));
 	QMap<QString, QFont>::Iterator it;
 	for( it = m_fontMap.begin(); it != m_fontMap.end(); ++it )
 		m_fontUsageChooser->insertItem(it.key());
 		
 	fonts = new KFontChooser(font_page, "fonts", false, QStringList(), true, 6);
 	fonts->setSampleText(i18n("The quick brown fox jumped over the lazy dog"));
-  connect(fonts, SIGNAL(fontSelected(const QFont &)), SLOT(newFontSelected(const QFont &)));
+  connect(fonts, SIGNAL(fontSelected(const QFont&)), SLOT(newFontSelected(const QFont&)));
  	QWhatsThis::add(fonts, WT_OD_FONTS_CHOOSER);
+ 	
+	fonts->setFont( m_fontMap[m_fontUsageChooser->currentText()] );
 }
 
 void COptionsDialog::initFontManagerPage(){
@@ -219,8 +221,7 @@ void COptionsDialog::initGeneralPage(){
 
 /**  */
 void COptionsDialog::newFontSelected(const QFont &newFont){
-	const QString currentType = m_fontUsageChooser->currentText();
-	m_fontMap.replace(currentType, newFont);		
+	m_fontMap.replace(m_fontUsageChooser->currentText(), newFont);		
 }
 
 
@@ -277,14 +278,13 @@ void COptionsDialog::saveGeneralOptions(){
 /** Used by optionsdialog to save font settings for presenters and printing */
 void COptionsDialog::saveFontOptions(){
 	KConfigGroupSaver groupSaver(config, "Fonts");
-//	if (config->readFontEntry("Presenter").family() != currentFonts[0].family() || config->readFontEntry("Presenter").pointSize() != currentFonts[0].pointSize() )
-//	{
-//		if (m_changedSettings)
-//			m_changedSettings |= CSwordPresenter::font;
-//		else
-//			m_changedSettings = CSwordPresenter::font;
-//	}
-//	config->writeEntry("Presenter", currentFonts[0]);
+	if (config->readFontEntry(i18n("Display window")).family() != m_fontMap[i18n("Display window")].family() || config->readFontEntry("Display window").pointSize() != m_fontMap[i18n("Display window")].pointSize() ) {
+		if (m_changedSettings)
+			m_changedSettings |= CSwordPresenter::font;
+		else
+			m_changedSettings = CSwordPresenter::font;
+	}
+	
 	QMap<QString, QFont>::Iterator it;
 	for( it = m_fontMap.begin(); it != m_fontMap.end(); ++it )
 		config->writeEntry(it.key(), it.data());
@@ -360,7 +360,7 @@ void COptionsDialog::newForeignFontSelected( const QFont& font){
 
 /** Is called when the user select a new module in te foreign font management dialog. */
 void COptionsDialog::foreignFontModuleChanged( QListBoxItem* item) {
-	qDebug("COptionsDialog::foreignFontModuleChaged()");
+//	qDebug("COptionsDialog::foreignFontModuleChaged()");
 	QString selectedModule = item->text();	//selected modules
 	
 	ListCSwordModuleInfo* mainlist = m_important->swordBackend->getModuleList();
@@ -373,7 +373,7 @@ void COptionsDialog::foreignFontModuleChanged( QListBoxItem* item) {
 
 /** Returns an integer with ORed feature enum entries of the changed settings. */
 int COptionsDialog::getChangedSettings() {
-	qDebug("COptionsDialog::getChangedSettings() ");
-	qDebug((const char*)QString::number(m_changedSettings).local8Bit());
+//	qDebug("COptionsDialog::getChangedSettings() ");
+//	qDebug((const char*)QString::number(m_changedSettings).local8Bit());
 	return m_changedSettings;
 }
