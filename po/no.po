@@ -1,8 +1,12 @@
 msgid ""
 msgstr ""
+"<<<<<<< no.po"
+"PO-Revision-Date: 2001-06-17 16:40CET\n"
+"======="
 "POT-Creation-Date: 2001-06-17 09:52+0200\n"
-"PO-Revision-Date: 2001-06-16 19:22CET\n"
+"PO-Revision-Date: 2001-06-17 16:40CET\n"
 "Last-Translator: Espen Knut Trydal <etrydal@postkassa.no>\n"
+">>>>>>> 1.21"
 "Language-Team: Norsk Bokmål <->\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,7 +18,7 @@ msgstr "&Hovedindeks"
 
 #: bibletime/rc-dummy.cpp:5
 msgid "&Window"
-msgstr ""
+msgstr "&Vindu"
 
 #: bibletime/bibletime_init.cpp:73
 msgid "Clear printing queue"
@@ -664,7 +668,7 @@ msgstr "Vis oppstartslogo"
 
 #: bibletime/frontend/cinputdialog.cpp:72
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: bibletime/frontend/searchdialog/csearchdialogresult.cpp:52
 msgid "Modules:"
@@ -972,22 +976,20 @@ msgid "Strong's numbers: %1<BR>"
 msgstr "Strongs nummer: %1<BR>"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:253
-#, fuzzy
 msgid "Unlock key:"
-msgstr "Nøkkel"
+msgstr "Nøkkel:"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:253
 msgid "not set"
 msgstr "ikke satt"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:255
-#, fuzzy
 msgid "Version:"
-msgstr "Versjon"
+msgstr "Versjon:"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:257
 msgid "Font:"
-msgstr ""
+msgstr "Skrifttype:"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:172
 msgid "Bibles"
@@ -1160,8 +1162,7 @@ msgid "BibleTime - Reset main index"
 msgstr "BibleTime - Tilbakestill hovedindeks"
 
 #: bibletime/frontend/ctoolclass.cpp:80
-msgid ""
-"<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
+msgid "<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
 msgstr "<qt><B>Filen eksisterer allerede!</B><BR>Vil du overskrive den?</qt>"
 
 #: bibletime/frontend/ctoolclass.cpp:80
@@ -1658,8 +1659,7 @@ msgstr "Vis eller skjul fotnotene avhengig av nåværende tilstand."
 
 # Look at comment :209
 #: bibletime/dummy.h:213 bibletime/whatsthisdef.h:39
-msgid ""
-"Show or hide Strong's numbers in the modules depending on current state."
+msgid "Show or hide Strong's numbers in the modules depending on current state."
 msgstr "Vis eller skjul Strongs nummer avhengig av nåværende tilstand."
 
 #: bibletime/dummy.h:215 bibletime/whatsthisdef.h:41
@@ -1691,10 +1691,8 @@ msgid "Open a dialog where you can edit the toolbar of BibleTime."
 msgstr "�ne en dialog der du kan redigere verktøylinjen til BibleTime."
 
 #: bibletime/dummy.h:222 bibletime/whatsthisdef.h:48
-msgid ""
-"Open BibleTime's optionsdialog where you can set most of the preferences."
-msgstr ""
-"�ne BibleTImes alternativdialog der du kan sette de fleste innstillingene."
+msgid "Open BibleTime's optionsdialog where you can set most of the preferences."
+msgstr "�ne BibleTImes alternativdialog der du kan sette de fleste innstillingene."
 
 #: bibletime/dummy.h:224 bibletime/whatsthisdef.h:50
 msgid "Open KDE's helpbrowser with BibleTime's handbook."
@@ -1760,8 +1758,7 @@ msgid "Import bookmark from a file."
 msgstr "Importer bokmerke fra en fil."
 
 #: bibletime/dummy.h:238 bibletime/whatsthisdef.h:64
-msgid ""
-"Export bookmarks to a file so you or other<BR>users can import them later."
+msgid "Export bookmarks to a file so you or other<BR>users can import them later."
 msgstr ""
 "Eksporter bokmerker til en fil så du eller andre<BR>brukere kan importere "
 "dem senere."
@@ -1856,22 +1853,18 @@ msgstr ""
 "Vis den forrige boken i denne modulen. Det gjeldende kapittelet og verset "
 "vil bli satt til \"1\"."
 
-# "the book" should be "the books"
 #: bibletime/dummy.h:258 bibletime/whatsthisdef.h:84
-#, fuzzy
 msgid "This list contains the books which are available in this module."
 msgstr "Denne listen inneholder bøkene som er tilgjengelige i denne modulen."
 
 #: bibletime/dummy.h:259 bibletime/whatsthisdef.h:85
-msgid ""
-"This list contains the chapters which are available in the current book."
+msgid "This list contains the chapters which are available in the current book."
 msgstr ""
 "Denne listen inneholder kapittelene som er tilgjengelige i den gjeldende "
 "boken."
 
 #: bibletime/dummy.h:260 bibletime/whatsthisdef.h:86
-msgid ""
-"This list contains the verses which are available in the current chapter."
+msgid "This list contains the verses which are available in the current chapter."
 msgstr ""
 "Denne listen inneholder versene som er tilgjengelige i det gjeldende "
 "kapittelet."
@@ -1888,11 +1881,9 @@ msgstr ""
 "Denne knappen blar igjennom oppføringene i listen. Trykk på knappen og flytt "
 "musen for å øke eller minske elementet."
 
-# writebale --> writeable
 #: bibletime/dummy.h:263 bibletime/whatsthisdef.h:89
-#, fuzzy
 msgid "Toggle between read-write and read-only mode of writeable modules."
-msgstr "Slå av eller på skrive-modus for skrivbare moduler."
+msgstr "Velg lese-skrive modus eller bare lese modus for skrivbare moduler."
 
 #: bibletime/dummy.h:264 bibletime/whatsthisdef.h:90
 msgid "Save the personal comment."
@@ -1909,12 +1900,10 @@ msgstr "Velg mellom fet eller ikke-fet formatering av den valgte teksten."
 
 #: bibletime/dummy.h:267 bibletime/whatsthisdef.h:93
 msgid "Switch between italic and non-italic formatting of the selected text."
-msgstr ""
-"Velg mellom kursiv eller ikke-kursiv formatering av den valgte teksten."
+msgstr "Velg mellom kursiv eller ikke-kursiv formatering av den valgte teksten."
 
 #: bibletime/dummy.h:268 bibletime/whatsthisdef.h:94
-msgid ""
-"Switch between underlined and non-undelined formatting of the selected text."
+msgid "Switch between underlined and non-undelined formatting of the selected text."
 msgstr ""
 "Velg mellom understreket eller ikke-understreket formatering av den valgte "
 "teksten."
@@ -1932,10 +1921,8 @@ msgid "Choose a new fontsize for the selected text."
 msgstr "Velg en ny skriftstørrelse for den valgte teksten."
 
 #: bibletime/dummy.h:273 bibletime/whatsthisdef.h:99
-msgid ""
-"Synchronize the displayed verse of this module with the active Bible window."
-msgstr ""
-"Synkroniser det viste verset for denne modulen med det aktive Bibel-vinduet."
+msgid "Synchronize the displayed verse of this module with the active Bible window."
+msgstr "Synkroniser det viste verset for denne modulen med det aktive Bibel-vinduet."
 
 #: bibletime/dummy.h:276 bibletime/whatsthisdef.h:102
 msgid "Save the displayed chapter as a HTML file."
@@ -1971,8 +1958,7 @@ msgstr "Liste av moduler som skal brukes i søket."
 
 #: bibletime/dummy.h:286 bibletime/whatsthisdef.h:112
 msgid "The text entered in this edit box will be searched in all modules."
-msgstr ""
-"Teksten som er skrevet inn i denne boksen vil bli søkt etter i alle moduler."
+msgstr "Teksten som er skrevet inn i denne boksen vil bli søkt etter i alle moduler."
 
 # In the previous comment you used "edit box".
 # Here it is "edit line". Shouldn't the same be used?
@@ -1986,8 +1972,7 @@ msgstr ""
 
 # edit line or box?
 #: bibletime/dummy.h:288 bibletime/whatsthisdef.h:114
-msgid ""
-"Select this to search for exactly the same text you entered in the edit line."
+msgid "Select this to search for exactly the same text you entered in the edit line."
 msgstr ""
 "Velg denne for å søke etter den eksakt samme teksten som du skrev inn i "
 "søkeboksen."
@@ -2005,9 +1990,8 @@ msgid "Activate this to use case sensitive search."
 msgstr "Aktiver dette for å søke med forskjell på STORE og små bokstaver."
 
 #: bibletime/dummy.h:292 bibletime/whatsthisdef.h:118
-#, fuzzy
 msgid "Select this if you want to search through all parts of the module(s)."
-msgstr "Velg dette hvis du søke gjennom alles delene av modulen(e)."
+msgstr "Velg dette hvis du søke gjennom alle delene av modulen(e)."
 
 #: bibletime/dummy.h:293 bibletime/whatsthisdef.h:119
 msgid ""
@@ -2022,8 +2006,7 @@ msgid "Create a new search scope."
 msgstr "Lag et nytt søkeområde."
 
 #: bibletime/dummy.h:295 bibletime/whatsthisdef.h:121
-msgid ""
-"Use an own scope for the search.<BR>A standard set of search scopes exists."
+msgid "Use an own scope for the search.<BR>A standard set of search scopes exists."
 msgstr ""
 "Bruk et eget søkeområde for søket.<BR>Et standard sett av søkeområder "
 "eksisterer."
@@ -2087,14 +2070,12 @@ msgid "Activate this box to see a daily tip on startup."
 msgstr "Aktiver denne boksen for å se dagens tips ved oppstart."
 
 #: bibletime/dummy.h:311 bibletime/whatsthisdef.h:137
-msgid ""
-"Contains the languages which can be used for the international booknames."
+msgid "Contains the languages which can be used for the international booknames."
 msgstr "Inneholder språkene som kan bli brukt som internasjonale boknavn."
 
 #: bibletime/dummy.h:312 bibletime/whatsthisdef.h:138
 msgid "Activate this to see a startup logo on each startup of BibleTime."
-msgstr ""
-"Aktiver dette for å se en oppstartslogo ved hver oppstart av BibleTime."
+msgstr "Aktiver dette for å se en oppstartslogo ved hver oppstart av BibleTime."
 
 #: bibletime/dummy.h:315 bibletime/whatsthisdef.h:141
 msgid "Select a action and change the key binding for the action."
@@ -2137,8 +2118,7 @@ msgstr ""
 "forhåndsvise utskrifts resultatet."
 
 #: bibletime/dummy.h:327 bibletime/whatsthisdef.h:153
-msgid ""
-"Closes this dialog without doing anything with the items or the printer."
+msgid "Closes this dialog without doing anything with the items or the printer."
 msgstr ""
 "Lukker denne dialogen uten å gjøre noenting med verken elementene eller "
 "skriveren."
@@ -2209,12 +2189,10 @@ msgstr "Slett det valgte elementet."
 
 #: bibletime/dummy.h:345 bibletime/whatsthisdef.h:171
 msgid "Inserts a page break into the list.<BR>The printer will start new page."
-msgstr ""
-"Sett inn et sideskift i listen.<BR>Skriveren vil begynne på en ny side."
+msgstr "Sett inn et sideskift i listen.<BR>Skriveren vil begynne på en ny side."
 
 #: bibletime/dummy.h:347 bibletime/whatsthisdef.h:173
-msgid ""
-"This group contains the page borders of the page measured in millimeters."
+msgid "This group contains the page borders of the page measured in millimeters."
 msgstr "Denne gruppen inneholder rammene på siden målt i millimeter."
 
 #: bibletime/dummy.h:348 bibletime/whatsthisdef.h:174
@@ -2250,12 +2228,6 @@ msgid "Change the properties of the selected printing style."
 msgstr "Endre på egenskapene til den valgte utskriftsstilen."
 
 #: bibletime/dummy.h:355 bibletime/whatsthisdef.h:181
-msgid ""
-"Create a new printing style.<BR>The new style will be added to the list."
+msgid "Create a new printing style.<BR>The new style will be added to the list."
 msgstr "Lag en ny utskriftsstil.<BR>Den nye stilen vil bli lagt til i listen."
 
-#~ msgid "Translation into Brazilian Portoguese"
-#~ msgstr "Oversettelse til brasiliansk portugisisk"
-
-#~ msgid "<FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3"
-#~ msgstr "<FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3"
