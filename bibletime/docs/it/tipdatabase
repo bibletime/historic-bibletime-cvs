@@ -1,0 +1,168 @@
+<tip>
+<html>
+Questo &egrave; <B>BibleTime 1.0</B>!<BR>Questa versione di BibleTime dovrebbe aver raggiunto lo stato in cui pu&ograve;
+essere chiamata stabile, utile e user friendly!<BR>
+<CENTER><IMG src="hicolor/48x48/apps/bibletime.png"></CENTER>
+</html>
+
+<tip>
+<html>
+La Bibbia &egrave; stata scritta affinch&eacute; noi credessimo in Ges&ugrave;. (Giovanni 20:31)
+</html>
+
+<tip>
+<html>
+BibleTime 1.0 include un manuale davvero utile scritto da Fred Saalbach.
+Per leggerlo scegli l'elemento "Contentuti" nel menu "Help" di BibleTime.
+</html>
+
+<tip>
+<html>
+Nessuno &egrave; autorizzato da Dio ad aggiungere o togliere qualcosa dal Verbo. (Apocalisse 22:18)
+</html>
+
+<tip>
+<html>
+La Bibbia &egrave; come a uno specchio. (Giacomo 1:23)
+</html>
+
+<tip>
+<html>
+BibleTime ora comprende un <B>Bible Study HowTo</B>! &Egrave; stato scritto da Bob Harman ed &egrave; di grande aiuto nello studio.
+</html>
+
+<tip>
+<html>
+La Bibbia ha il potere di "confortare l'afflitto" e di "affliggere l'agiato". (Apocalisse 10:10)
+</html>
+
+<tip>
+<html>
+Puoi salvare, stampare e copiare l'intero risultato di una ricerca premendo il tasto destro del mouse sull'icona del modulo usato nella finestra di ricerca.
+</html>
+
+<tip>
+<html>
+La Bibbia &egrave; la nostra sola arma spirituale. (Efesi 6:17)
+</html>
+
+<tip>
+<html>
+Per avere il numero di versetti in una Bibbia effettua una ricerca per uno spazio.
+L'analisi della ricerca ti mostra il numero dei versetti di ciascun libro.
+</html>
+
+<tip>
+<html>
+La Bibbia &egrave; verit&agrave;. (Giovanni 17:17)
+</html>
+
+<tip>
+<html>
+Se desideri creare un set di segnalibri su uno specifico argomento, con i commenti contenenti ci&ograve; che il Signore ti ha detto, &egrave; meglio
+creare i segnalibri dal tuo commentario personale.
+</html>
+
+<tip>
+<html>
+Le scritture ci danno la saggezza che conduce alla salvezza. (2 Timoteo 3:15)
+</html>
+
+<tip>
+<html>
+&Egrave; possibile inserire il testo dei segnalibri e riferimenti a versetti o voci nei lessici nell'editor del commentario personale trascinandovele dentro.
+</html>
+
+<tip>
+<html>
+Studiando la Bibbia non avrai motivo di vergognarti di fronte a Dio. (2 Timoteo 2:15)
+</html>
+
+<tip>
+<html>
+Per cercare il significato di una parola nell'originale greco o ebraico, in una Bibbia che supporti i numeri di Strong, attivali e clicca col tasto destro su uno di essi, quindi scegli "StrongsGreek" (Nuovo Testamento), "StrongsHebrew" o "Thayer" (Vecchio Testamento) nel menu "Cerca il testo selezionato".
+Se la tua traduzione preferita non supporta i numeri di Strong, fai riferimento a un'altra per i numeri della parola corrispondente.
+</html>
+
+<tip>
+<html>
+Se vuoi usare un commentario come riferimento per argomenti, ricerca in esso i termini relativi all'argomento.
+</html>
+
+<tip>
+<html>
+Al principio era il Verbo, e il Verbo era presso Dio, e il Verbo era Dio. (Giovanni 1:1)
+</html>
+
+<tip>
+<html>
+Saremo giudicato nell'ultimo giorno tramite le parole annunciate da Ges&ugrave;. (Giovanni 12:48)
+</html>
+
+<tip>
+<html>
+Se vuoi trovare tutto l'insieme di versetti o di voci relativi a un argomento, usa l'espressione regolare "x | y | z" per la ricerca, che &egrave; equivalente a "x OR y OR z", p.es. "pregare | venerare | supplicare".
+</html>
+
+<tip>
+<html>
+Se stai cercando un versetto che conosci solo approssimativamente, o in una diversa traduzione, cerca contemporaneamente i termini pi&ugrave; probabili in pi&ugrave; traduzioni della Bibbia.
+</html>
+
+<tip>
+<html>
+La tua parola &egrave; una lampada al mio piede e una luce sul mio sentiero. (Salmi 119:105)
+</html>
+
+<tip>
+<html>
+Se vuoi cercare un parola in un modulo straniero (p.es. greco o ebraico), apri una finestra di visualizzazione e scegli un capitolo o una voce che contengano questa parola.
+Ora faccii doppio click sopra e trascina la parola seleionata sul modulo straniero nell'indice principale.
+La finestra di ricerca si aprir&agrave; con la parola nella riga di inserimento.
+</html>
+
+<tip>
+<html>
+La Parola di Dio non ritorner&agrave; a Lui senza aver compiuto ci&ograve; per cui &egrave; stata inviata. (Isaia 55:11)
+</html>
+
+<tip>
+<html>
+I moduli stranieri (p.es. greco o ebraico) richiedono spesso un font speciale per essere letti.
+Per conoscere il nome del font leggi il file modulename.conf. Molti dei font sono disponibili su www.crosswire.org o sul CD di Sword.
+</html>
+
+<tip>
+<html>
+Se desideri avere un tuo logo personale all'avvio, esegui il comando "locate startuplogo.jpg" per conoscere la lo posizione del precedente.
+Copia il nuovo sopra il vecchio e riavvia BibleTime.
+</html>
+
+
+<tip>
+<html>
+Sapevi che il primo libro mai stampato in un torchio &egrave; stata la Bibbia? (da Johann Gutenberg, nel 1492)
+</html>
+
+
+<tip>
+<html>
+Dio ci ha gi&agrave; donato tutte le cose che appartengono alla vita e alla divinit&agrave;. (2 Pietro 1:3)
+</html>
+
+<tip>
+<html>
+Tutti gli elementi importanti dell'interfaccia di BibleTime hanno un tooltip e un help "Cos'&egrave; questo?".<BR>
+Per leggere l'aiuto "Cos'&egrave; questo?" premi i tasti SHIFT+F1 e clicca sull'elemento.
+</html>
+
+
+<tip>
+<html>
+La parola di Dio &egrave; vivente ed efficace, pi&ugrave; affilata di qualunque spada a due tagli. (Ebrei 4:12)
+</html>
+
+<tip>
+<html>
+Stai usando un programma che &egrave; stato scritto per la gloria di Dio.<BR>Possa Egli benedirti mentre studi la Sua Parola!
+</html>
