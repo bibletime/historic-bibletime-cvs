@@ -41,6 +41,7 @@
 #include <qxembed.h>
 
 //KDE includes
+#include <kaction.h>
 #include <kaboutkde.h>
 #include <kaboutdialog.h>
 #include <kbugreport.h>

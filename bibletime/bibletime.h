@@ -20,13 +20,9 @@
 //KDE includes
 #include <kapp.h>
 #include <ktmainwindow.h>
-#include <kaction.h>
-
-//QT includes
 
 //own includes
 #include "structdef.h"
-
 #include <pthread.h>
 
 //forward class declarations
@@ -42,6 +38,7 @@ class KConfig;
 class KToggleAction;
 class KAccel;
 class KPopupMenu;
+class KAction;
 
 //QT classes
 class QPopupMenu;

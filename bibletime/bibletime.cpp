@@ -41,6 +41,7 @@
 #include <qsplitter.h>
 
 //KDE includes
+#include <kaction.h>
 #include <klocale.h>
 #include <kconfig.h>
 #include <kaccel.h>
