@@ -198,7 +198,7 @@ public:
   /**
   * Returns the language of the module.
   */
-  const CLanguageMgr::Language language();
+  const CLanguageMgr::Language& language();
   /**
   * Returns true if this module may be written by the write display windows.
   */

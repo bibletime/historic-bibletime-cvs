@@ -171,6 +171,8 @@ public:
   const QString& description();
   virtual const QString toolTip();
 
+	//virtual int compare( QListViewItem * i, int col, bool ascending ) const;
+	
   virtual void update();
   virtual void init();
   virtual const bool isMovable();
@@ -207,7 +209,7 @@ private: // Private methods
   * Returns the english key.
   * Only used internal of this class implementation.
   */
-  const QString& englishKey();
+  const QString& englishKey() const;
 protected: // Protected methods
   /**
   * Reimplementation. Returns false everytime

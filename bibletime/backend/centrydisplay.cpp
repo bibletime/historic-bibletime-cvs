@@ -73,7 +73,6 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 	return render.renderKeyTree( tree );
 }
 
-
 /* ----------------------- new class: CBookDisplay ------------------- */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */

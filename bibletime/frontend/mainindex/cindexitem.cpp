@@ -515,7 +515,7 @@ void CBookmarkItem::loadFromXML( QDomElement& element ) {
 }
 
 /** Returns the english key. */
-const QString& CBookmarkItem::englishKey(){
+const QString& CBookmarkItem::englishKey() const {
   return m_key;
 }
 
@@ -523,6 +523,23 @@ const QString& CBookmarkItem::englishKey(){
 bool CBookmarkItem::acceptDrop(const QMimeSource* /*src*/){
   return false;
 }
+
+/*int CBookmarkItem::compare( QListViewItem * i, int col, bool ascending ) const {
+	qWarning("CBookmarkItem::compare( QListViewItem * i, int col, bool ascending ) const");
+	CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>(i);
+	CBookmarkFolder* folder = dynamic_cast<CBookmarkFolder*>(i);	
+	
+	if (bookmark) {
+		qWarning("comparing %s with %s", englishKey().latin1(), bookmark->englishKey().latin1());
+	}
+	else if (folder) {
+		return -1; //bookmarks should appear after foldera
+		//qWarning("comparing %s with folder %s", key().latin1(), folder->text(0).latin1());			
+	}
+	
+	return CItemBase::compare(i,col,ascending);
+}
+*/
 
 /****************************************/
 /*****  class: CItemFolder  *************/
@@ -1035,21 +1052,21 @@ bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
 }
 
 void CBookmarkFolder::dropped(QDropEvent *e) {
-  qWarning("CBookmarkFolder::dropped?");
+//  qWarning("CBookmarkFolder::dropped?");
   if (acceptDrop(e)) {
-    qWarning("CBookmarkFolder: item drop accepted");
+  //  qWarning("CBookmarkFolder: item drop accepted");
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
 
-    qWarning("decoded items: %i", dndItems.count() );
+//    qWarning("decoded items: %i", dndItems.count() );
     CDragDropMgr::ItemList::Iterator it;
     CItemBase* previousItem = 0;
     for( it = dndItems.begin(); it != dndItems.end(); ++it) {
       CSwordModuleInfo* module = backend()->findModuleByName( (*it).bookmarkModule() );
       CBookmarkItem* i = new CBookmarkItem(this, module, (*it).bookmarkKey(), (*it).bookmarkDescription());
-      qWarning("created new item");
+  //    qWarning("created new item");
       if (previousItem) {
         i->moveAfter( previousItem );
-        qWarning("moved new item");
+  //      qWarning("moved new item");
       }
       i->init();
       previousItem = i;

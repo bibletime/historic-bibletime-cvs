@@ -53,6 +53,7 @@ public:
     * Returns true if this language object is valid, i.e. has an abbrev and name.
     */
     const bool isValid() const;
+		
   private:
     QString m_abbrev;
     QString m_englishName;
@@ -73,16 +74,18 @@ public:
   */
 //  const QStringList availableAbbrevs();
   const CLanguageMgr::LangMap availableLanguages();
-  const CLanguageMgr::Language& languageForAbbrev( const QString& abbrev );
-  const CLanguageMgr::Language& languageForName( const QString& language );  
-  const CLanguageMgr::Language& languageForTranslatedName( const QString& language );
+  const CLanguageMgr::Language& languageForAbbrev( const QString& abbrev ) const;
+  const CLanguageMgr::Language& languageForName( const QString& language ) const;
+  const CLanguageMgr::Language& languageForTranslatedName( const QString& language ) const;
+	
+	const CLanguageMgr::Language& defaultLanguage() const;
 
   void debug();
 
 private:
   void init();
   const QStringList makeStringList(const QString& abbrevs);
-  LangMap m_langMap;
+  mutable LangMap m_langMap;
 };
 
 #endif

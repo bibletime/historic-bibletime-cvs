@@ -335,7 +335,7 @@ const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
 }
 
 /** Returns the language of the module. */
-const CLanguageMgr::Language CSwordModuleInfo::language() {
+const CLanguageMgr::Language& CSwordModuleInfo::language() {
   if (module()) {
     if (category() == Glossary) {
       //special handling for glossaries, we use the "from language" as language for the module
@@ -343,7 +343,7 @@ const CLanguageMgr::Language CSwordModuleInfo::language() {
     }
     return languageMgr()->languageForAbbrev( module()->Lang() );
   }
-  return CLanguageMgr::Language(); //default language
+  return languageMgr()->defaultLanguage(); //default language
 }
 
 /** Returns true if this module may be written by the write display windows. */

@@ -114,13 +114,13 @@ const CLanguageMgr::LangMap CLanguageMgr::availableLanguages() {
   return map;
 };
 
-const CLanguageMgr::Language& CLanguageMgr::languageForAbbrev( const QString& abbrev ) {
+const CLanguageMgr::Language& CLanguageMgr::languageForAbbrev( const QString& abbrev ) const {
   if (m_langMap.contains(abbrev)) {
     return m_langMap[abbrev];
   };
 
   //try to search in the alternative abbrevs
-  LangMap::Iterator it;
+  LangMap::const_iterator it;
   for ( it = m_langMap.begin(); it != m_langMap.end(); ++it ) {
     if (it.data().alternativeAbbrevs().contains(abbrev)) {
       return it.data();
@@ -129,8 +129,8 @@ const CLanguageMgr::Language& CLanguageMgr::languageForAbbrev( const QString& ab
   return m_defaultLanguage; //invalid language
 };
 
-const CLanguageMgr::Language& CLanguageMgr::languageForName( const QString& name ) {
-  LangMap::Iterator it;
+const CLanguageMgr::Language& CLanguageMgr::languageForName( const QString& name ) const {
+  LangMap::const_iterator it;
   for ( it = m_langMap.begin(); it != m_langMap.end(); ++it ) {
     if (it.data().name() == name) {
       return it.data();
@@ -139,15 +139,20 @@ const CLanguageMgr::Language& CLanguageMgr::languageForName( const QString& name
   return m_defaultLanguage;//invalid language
 };
 
-const CLanguageMgr::Language& CLanguageMgr::languageForTranslatedName( const QString& name ) {
-  LangMap::Iterator it;
+const CLanguageMgr::Language& CLanguageMgr::languageForTranslatedName( const QString& name ) const {
+  LangMap::const_iterator it;
   for ( it = m_langMap.begin(); it != m_langMap.end(); ++it ) {
     if (it.data().translatedName() == name) {
       return it.data();
     };
   };
-  return m_defaultLanguage;//invalid language
+  return m_defaultLanguage; //invalid language
 };
+
+const CLanguageMgr::Language& CLanguageMgr::defaultLanguage() const {
+	return m_defaultLanguage;
+};
+
 
 void CLanguageMgr::init() {
   //if we've already inserted all items we do not proceed
@@ -200,7 +205,7 @@ xx-???, including the AleWiesler module.
   m_langList.append( Language("ca"  , "Catalan"     , i18n("Catalan")) );
 //  m_langList.append( Language("ce"  , "Chechen"     , i18n("Chechen")) );
   m_langList.append( Language("ceb"  , "Cebuano"     , i18n("Cebuano")) );
-//  m_langList.append( Language("ch"  , "Chamorro"    , i18n("Chamorro")) );
+  m_langList.append( Language("ch"  , "Chamorro"    , i18n("Chamorro")) );
 //  m_langList.append( Language("co"  , "Corsican"    , i18n("Corsican")) );
   m_langList.append( Language("cop" , "Coptic"         , i18n("Coptic")) );
   m_langList.append( Language("cs"  , "Czech"       , i18n("Czech")) );

@@ -94,17 +94,15 @@ CTextRendering::~CTextRendering() {
 const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 	initRendering();	
 	
-	QString ret;
+	QString t;
 	for (KeyTree::const_iterator it = tree.begin(); it != tree.end(); ++it) {
-		ret += renderEntry( *it );	
+		t += renderEntry( *it );	
 	}
 	
-	return finishText(ret, tree);
+	return finishText(t, tree);
 }
 
 const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo modules ) {
-//	qWarning("renderKeyRange: %s - %s", start.latin1(), stop.latin1());
-	
 	CSwordModuleInfo* module = modules.first();
 	util::scoped_ptr<CSwordKey> lowerBound( CSwordKey::createInstance(module) );
 	lowerBound->key(start);
@@ -166,7 +164,8 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
 	ListCSwordModuleInfo modules = i.modules();	
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
-  QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr>") : QString::null;
+  
+	QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr>") : QString::null;
 
 //	qWarning("renderEntry  %s", i.key().latin1());
 	// Only insert the table stuff if we are displaying parallel.
@@ -176,7 +175,12 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
   QString entry;
   QString keyText;
   bool isRTL;
-
+	
+	//taken out of the loop for optimization
+	QString preverseHeading;
+	CLanguageMgr::Language lang;
+	QString langAttr;
+	
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key->module(m);
     key->key( i.key() );
@@ -184,17 +188,19 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
     isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
 		entry = QString::null;
 
-		key->renderedText();
+		lang =  m->language();
+		langAttr = lang.isValid()
+			? QString::fromLatin1("lang=\"%1\"").arg(lang.abbrev()) 
+			: QString::null;
+		
+		const QString key_renderedText = key->renderedText();
 		int pvHeading = 0;
 		do { //add sectiontitle before we add the versenumber
-			QString preverseHeading = QString::fromUtf8(
+			preverseHeading = QString::fromUtf8(
 m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeading++).latin1()].c_str());
 			if (!preverseHeading.isEmpty()) {
 				entry += QString::fromLatin1("<div %1 class=\"sectiontitle\">%1</div>")
-					.arg(m->language().isValid() 
-						? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
-						: QString::null
-					)
+					.arg(langAttr)
 					.arg(preverseHeading);
 			}
 			else {
@@ -204,24 +210,24 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 
 		entry += QString::fromLatin1("<%1 %2 %3 dir=\"%4\">") //linebreaks = div, without = span
     	.arg(m_displayOptions.lineBreaks ? QString::fromLatin1("div") : QString::fromLatin1("span"))
-			.arg((modules.count() == 1) 
-				? (i.settings().highlight ? QString::fromLatin1("class=\"currententry\"") : QString::fromLatin1("class=\"entry\"")) 
-				: "") //insert only the class if we're not in a td
-			.arg(m->language().isValid() 
-				? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
+			.arg((modules.count() == 1) //insert only the class if we're not in a td
+				? (i.settings().highlight 
+					? QString::fromLatin1("class=\"currententry\"") 
+					: QString::fromLatin1("class=\"entry\"")) 
 				: QString::null
 			)
+			.arg(langAttr)
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
 
 		entry += QString::fromLatin1("<span dir=\"%1\" class=\"entryname\">%2</span>")
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-			.arg( m_displayOptions.verseNumbers 
+			.arg(m_displayOptions.verseNumbers 
 				? entryLink(i, m)
 				: QString::null
 			);
 		
 		if (m_settings.addText) {
-			entry += key->renderedText();
+			entry += key_renderedText; //key->renderedText();
 		}
 		
 		if (i.childList()) {
@@ -231,7 +237,7 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 			}
 		}
 		
-		entry +=  (m_displayOptions.lineBreaks 
+		entry += (m_displayOptions.lineBreaks 
 			? QString::fromLatin1("</div>") 
 			: QString::fromLatin1("</span>"));
 		
@@ -241,17 +247,16 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
   	else {
 	    renderedText += QString::fromLatin1("<td class=\"%1\" %2 dir=\"%3\">%4</td>")
  				.arg(i.settings().highlight ? QString::fromLatin1("currententry") : QString::fromLatin1("entry"))
-				.arg(m->language().isValid() 
-					? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
-					: QString::null
-				)
+				.arg(langAttr)
 				.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
 				.arg(entry);
 		}
 	}
- 	if (modules.count() > 1) {
+ 	
+	if (modules.count() > 1) {
 		renderedText += QString::fromLatin1("</tr>");
 	}
+	
   return renderedText;	
 }
 
@@ -263,16 +268,15 @@ void CHTMLExportRendering::initRendering() {
 const QString CHTMLExportRendering::finishText( const QString& text, KeyTree& tree ) {
 	ListCSwordModuleInfo modules = tree.collectModules();
 	
-	const QString langAbbrev = 
-		((modules.count() == 1) && modules.first()->language().isValid())
-		?	modules.first()->language().abbrev() 
-		: "unknown";
+	CLanguageMgr::Language lang = modules.first()->language();
 	
 	CDisplayTemplateMgr tMgr;
 	CDisplayTemplateMgr::Settings settings;
 	settings.modules = modules;
-	settings.langAbbrev = langAbbrev;
-	
+	settings.langAbbrev = ((modules.count() == 1) && lang.isValid())
+		?	lang.abbrev() 
+		: "unknown";
+
 	return tMgr.fillTemplate(i18n("Export"), text, settings);
 }
 
@@ -281,11 +285,9 @@ const QString CHTMLExportRendering::finishText( const QString& text, KeyTree& tr
     \fn CHTMLExportRendering::entryLink( KeyTreeItem& item )
  */
 const QString CHTMLExportRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
-	Q_ASSERT(module);		
+//	Q_ASSERT(module);		
 	return item.key();
 }
-
-
 
 CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
 	: CHTMLExportRendering(CHTMLExportRendering::Settings(true), displayOptions, filterOptions) 
@@ -295,7 +297,7 @@ CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOption
 
 
 const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
-	Q_ASSERT(module);		
+//	Q_ASSERT(module);		
 	QString linkText;
 	
 	if (module && module->type() == CSwordModuleInfo::Bible) {
@@ -330,16 +332,17 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	ListCSwordModuleInfo modules = tree.collectModules();
 	
 	
+	//marking words is very slow, we have to find a better solution	
+
+/*
 	//mark all words by spans
-	
 	
 	QString text = oldText; 
 	
 	QRegExp re("(\\b)(?=\\w)"); //word begin marker
 	int pos = text.find(re, 0);
-	
-	while (pos != -1) { //word begin found
-		
+
+	while (pos != -1) { //word begin found		
 		//qWarning("found word at %i in %i", pos, text.length());
 		int endPos = pos + 1;
 		if (!CToolClass::inHTMLTag(pos+1, text)) { //the re has a positive look ahead which matches one char before the word start
@@ -356,20 +359,19 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 		}		
 		pos = text.find(re, endPos);		
 	}
+*/
 	
-	const QString langAbbrev = 
-		((modules.count() == 1) && modules.first()->language().isValid())
-		?	modules.first()->language().abbrev() 
-		: QString::null;
+	CLanguageMgr::Language lang = modules.first()->language();
 	
 	CDisplayTemplateMgr tMgr;
 	CDisplayTemplateMgr::Settings settings;
 	settings.modules = modules;
-	settings.langAbbrev = langAbbrev;
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
+	settings.langAbbrev = ((modules.count() == 1) && lang.isValid())
+		?	lang.abbrev() 
+		: QString::null;
+
+	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), oldText, settings);
 }
-
-
 
 
 
