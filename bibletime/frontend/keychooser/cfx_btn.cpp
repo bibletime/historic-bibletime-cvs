@@ -63,9 +63,9 @@ void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
 		//change the border values or the exponents to make it slower / faster
 		if      (abs(vchange) < 10)
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3));
-		else if (abs(vchange) < 20)
-      vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.6));
 		else if (abs(vchange) < 30)
+      vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.6));
+		else if (abs(vchange) < 50)
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 1.2));
 		else
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 2.0));

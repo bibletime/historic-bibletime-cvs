@@ -1,53 +1,50 @@
-<chapter ID="hdbk_op"><title>Program Operation</title>
+<chapter ID="hdbk_op"><title>Programmbedienung</title>
 <para>
-Bibletime is mainly operated from the Module Tree (this tree is called the
-"Main Index"). The second important place to work with Bibletime is the MDI
-area (MDI = Multiple Document Interface). </para>
+BibleTime wird hauptsächlich mit dem Modulbaum bedient (diser wird "Hauptgruppe" genannt).
+Der zweite wichtige Platz zum arbeiten in BibleTime ist der MDI Bereich (MDI = Multiple Document Interface).
+</para>
 
-<section ID="hdbk_op_module_tree"><title>Main Index</title>
+<section ID="hdbk_op_module_tree"><title>Hauptgruppe</title>
 <para>
-This is the pane on the left side of the Bibletime window.
-It contains the tree of installed documents (Sword Modules), as well as any bookmarks you enter.
+Dies ist der Bereich auf der linken Seite des BibleTime Fensters.
+Er enthält den Baum der installierten Dikumente (Sword Module) und alle von Ihnen eingegebenen Lesezeichen.
 </para>
 <screenshot>
-<screeninfo>Module Tree</screeninfo>
+<screeninfo>Modulbaum</screeninfo>
 <graphic fileref="common/hdbk_op_module_tree_1.png" format="png"></graphic>
 </screenshot>
 </section>
 
-<section ID="hdbk_op_module_tree_select"><title>Selecting a document to
-view</title>
-<para>To select a document, simply click on the desired document group (Bibles, Commentaries, or
-Lexicons) to display the contents of a document group, click on the icon for
-the desired group.  To open a document, click on it's icon.  To open
-another instance of the same document, right-click on the mouse and choose, "New
-Presenter".
+<section ID="hdbk_op_module_tree_select"><title>Ein Modul zum Anschauen auswählen</title>
+<para>Um ein Dokument auszuwählen klicken Sie einfach auf die verlangte Dokumentengruppe (Bibeln, Kommentare oder Lexika)
+um den Inhalt der Dokumentengruppe anzuzeigen. Um ein Dokument zu öffnen klicken Sie auf dessen Symbol.
+Um das Dokument noch einmal zu öffnen klicken Sie erneut auf das Symbol.
 </para>
 <screenshot>
-<screeninfo>Document Selection</screeninfo>
+<screeninfo>Auswahl eines Dokumentes</screeninfo>
 <graphic fileref="common/hdbk_op_module_select_1.png" format="png"></graphic>
 </screenshot>
-<tip><para>Drag & Drop Works Here</para></tip>
+<tip><para>Hier funktioniert Drag&Drop</para></tip>
 <para>
-A document can be opened from an already opened document.
-Simply click on the verse number (pointer changes to hand) and drag it to the
-module list. Drop it on the name of the module you want to open, and it will
-open that module to the verse you dragged over. If you drag a verse number to an
-already open module, it will automatically jump that module to the verse dragged
-over. This works for Bibles and Commentaries only. </para>
+Ein Dokument kann von einem bereits geöffneten Dokument geöffnet werden.
+Klicken Sie einfach auf eine Versnummer (Mauscursor ändert sich zu einer Hand) und ziehen Sie sie
+zu der Modulliste. Lassen Sie sie hier auf dem Namen des von Ihnen gewünschten Modules fallen und
+dieses Modul wird an der Stelle der Versnummer geöffnet.
+Wenn Sie eine Versnummer auf ein bereits geöffnetes Modul ziehen wird dieses automatisch die gewünschte Stelle
+anzeigen. Dies funktioniert nur für Bibeln und Kommentare.
+</para>
 <para>
-There are two other functions accessible through right-clicking on
-the document name. "Show info" opens a window with information about copyright and
-other pertinent things about the selected document. "Set unlock key" opens a small
-dialog for encrypted documents. This allows those with the key to
-enter it to decrypt the document and make it human-readable.  Crosswire Bible
-Society must encrypt modules unless either the copyright holder provides permission for
-distribution as a sword module, or the text has passed into the public domane
-(copyright has expired).  <ulink url="http://www.crosswire.org">See information
-on locked modules on the crosswire web site.</ulink></para>
+Es gibt zwei weitere Funktionen, die durch rechts-klick auf den Modulnamen verfügbar sind.
+"Zeige Information" öffnet ein Fenster mit Informationen über Copyright und anderen sachdienlichen Dingen über
+das gewählte Dokument.
+"Entschlüssele Modul" öffnet einen kleinen Dialog für verschlüsselte Module. Dies erlaubt denjenigen, die den Schlüssel haben,
+diesen einzugeben und das Dokument so für Menschen lesbar zu machen.
+Die Crosswire Bibelgesellschaft muss Module verschlüsseln, es sei denn der Besitzer des Copyrights
+gibt die Erlaubnis zur Verbreitung als ein Swordmodul, oder wenn der Text in öffentlichen Besitz übergegangen ist (das Copyright ist abgelaufen).
+<ulink url="http://www.crosswire.org">Für Informationen über verschlüsselte Module sehen Sie bitte auf der Crosswire Webseite nach.</ulink>
+</para>
 
-<section ID="hdbk_op_module_tree_search"><title>Accessing the search
-dialog</title> <para>
+<section ID="hdbk_op_module_tree_search"><title>Auf den Suchdialog zugreifen</title> <para>
 You can search in a module by  right-clicking on the module name in the module
 list and selecting "Search in module(s)". By shift-clicking on other module
 names you can select more than one.  Then follow the same procedure to open the

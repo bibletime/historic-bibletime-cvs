@@ -1,12 +1,12 @@
 <chapter ID="inst_user"><title>Installation</title>
 <para>
-<ulink url="http://www.bibletime.de/">www.bibletime.de</ulink> has all the
-answers. Please look there.  :-)
+<ulink url="http://www.bibletime.de/">www.bibletime.de</ulink> hat alle Antworten.
+Bitte schauen Sie dort nach... :)
 </para>
 <para>
-Don't forget to read the FAQ and the installation instructions on
-www.bibletime.de. If you downloaded the sourcecode please do also read the file
-README and INSTALL included in the sourcecode package.
+Vergessen Sie nicht das FAQ und die Installationsanweisungen auf www.bibletime.de
+zu lesen. Falls Sie den Quellcode heruntergeladen haben lesen Sie bitte auch die im Quellcode
+enthaltenen Dateien README und INSTALL.
 </para>
 </chapter>
 
