@@ -98,12 +98,12 @@ const bool CReferenceManager::isHyperlink( const QString& hyperlink ){
 /** Returns the name of the module prefered for the set module type. */
 const QString CReferenceManager::preferedModule(CReferenceManager::Type type){
 	KConfig* config = KGlobal::instance()->config();
-	KConfigGroupSaver gs(config, "Prefered modules");
+	KConfigGroupSaver gs(config, "SWORD");
 	switch (type) {
 		case strongsNumbers:
-			return config->readEntry("strongs numbers");
+			return config->readEntry("strongs module");
 		case morphCode:
-			return config->readEntry("morph codes");		
+			return config->readEntry("morph code module");		
 		default:
 			return QString::null;
 	}

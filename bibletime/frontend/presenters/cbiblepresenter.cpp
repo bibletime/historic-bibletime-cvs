@@ -51,7 +51,6 @@ CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClas
 }
 
 CBiblePresenter::~CBiblePresenter(){
-//	qDebug("destructor of CBiblePresenter");
 	delete m_key;
 }
 

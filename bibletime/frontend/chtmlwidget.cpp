@@ -142,12 +142,11 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 	: QTextEdit(parent, name),m_important( importantClasses ) {	
 	
 //	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
-//	QFont font;
+////	QFont font;
 //	for (modules->first(); modules->current(); modules->next()) {
-//		if (modules->current()->hasFont()) {
-//			font = modules->current()->getFont();
+//		if (modules->current()->encoding() == QFont::Unicode) {
 //			if (!document()->charsetMap->contains(font.family())) {
-//				document()->charsetMap->insert(font.family(), QFont::AnyCharSet);
+////				document()->charsetMap->insert(font.family(), QFont::AnyCharSet);
 ////				document()->charsetMap->insert(font.family(), QFont::Unicode);
 ////				qWarning("inserted %s", font.family().latin1());
 //			}
@@ -162,7 +161,16 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 	mousePressed = inDoubleClick = false;		
 	setTextFormat( Qt::RichText );
 	setReadOnly(true);
+
+	{
+		KConfigGroupSaver gs(m_config, "Fonts");	
+		const QFont unicodeFont = m_config->readFontEntry(i18n("Display window Unicode")); 		
+ 		if (!document()->charsetMap->contains(unicodeFont.family())) {
+ 			document()->charsetMap->insert(unicodeFont.family(), QFont::Unicode);
+ 		}
+	}
 	
+		
 	initView();	
 	initConnections();
 	if (useColorsAndFonts) {
@@ -198,16 +206,16 @@ void CHTMLWidget::initColors(){
 
 /** Initializes the fonts of the HTML-widget */
 void CHTMLWidget::initFonts(){
-	KConfigGroupSaver groupSaver(m_config, "Fonts");		
-	if (document()->charsetMap->contains(font().family())) { //remove old standard font
-		document()->charsetMap->remove(font().family());
-	}
-	
-	QFont f = m_config->readFontEntry(i18n("Display window"));	
-	document()->setDefaultFont( f );
-	setFont(f);
-	
-	document()->charsetMap->replace(f.family(), f.charSet());
+//	KConfigGroupSaver groupSaver(m_config, "Fonts");		
+//	if (document()->charsetMap->contains(font().family())) { //remove old standard font
+//		document()->charsetMap->remove(font().family());
+//	}
+//	
+//	QFont f = m_config->readFontEntry(i18n("Display window"));	
+//	document()->setDefaultFont( f );
+//	setFont(f);
+//	
+//	document()->charsetMap->replace(f.family(), f.charSet());
 }
 
 /**  */

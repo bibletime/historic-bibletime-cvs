@@ -63,14 +63,14 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	}
 }
 
-//extern C {
+extern "C" {
 	//saves data before the app closes after a crash
 	void emergencySave(int)  {
 		fprintf(stderr, "[emergencySave] BibleTime crashed - trying to save data!");
 		if (bibletime)
 			bibletime->saveSettings();
 	}
-//}
+}
 
 int main(int argc, char* argv[]) {
 	qInstallMsgHandler( myMessageOutput );
@@ -97,10 +97,10 @@ int main(int argc, char* argv[]) {
 	
 	//coders
 	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator, frontend, backend"), "jansorg@gmx.de","");
-	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend, misc things"), "mg.pub@gmx.net", "");
-	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
-	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
-	aboutData.addAuthor("Tim Brodie", 	I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
+	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
+//	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
+//	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
+//	aboutData.addAuthor("Tim Brodie", 	I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
 
 	//documentation
 	aboutData.addAuthor("Fred Saalbach", 	I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
@@ -111,9 +111,9 @@ int main(int argc, char* argv[]) {
 	aboutData.addAuthor("Mario Bertrand", 	  I18N_NOOP("Translation into French"), "mbert@tbrq.org", "");			
 	aboutData.addAuthor("Benedykt P. Barszcz",I18N_NOOP("Translation into Polish"), "kb2qzv@box43.gnet.pl", "");		
 	aboutData.addAuthor("Birger Langkjer", 		I18N_NOOP("Translation into Danish"), "birger.langkjer@image.dk", "");				
-	aboutData.addAuthor("Zdeno Podobny", 		I18N_NOOP("Translation into Slovak"), "zdpo@post.sk", "");	
+	aboutData.addAuthor("Zdeno Podobny", 			I18N_NOOP("Translation into Slovak"), "zdpo@post.sk", "");	
 	aboutData.addAuthor("Michal Rovnaník",		I18N_NOOP("Translation into Czech"), "Michal.Rovnanik@seznam.cz", "");			
-	aboutData.addAuthor("Eduardo Sanchez", 			I18N_NOOP("Translation into Spanish"), "csanche2@calvin.edu", "");			
+	aboutData.addAuthor("Eduardo Sanchez", 		I18N_NOOP("Translation into Spanish"), "csanche2@calvin.edu", "");			
 	aboutData.addAuthor("Beda Szukics",				I18N_NOOP("Translation into Italian"), "bszukics@bluewin.ch", "");								
 	aboutData.addAuthor("Balint Sandor", 			I18N_NOOP("Translation into Hungarian"), "balintsa@freemail.hu", "");				
 	aboutData.addAuthor("Espen Trydal", 			I18N_NOOP("Translation into Norwegian"), "etrydal@postkassa.no", "");		
@@ -123,12 +123,12 @@ int main(int argc, char* argv[]) {
 															
 	//credits
 	aboutData.addCredit("Bob Harman", 	I18N_NOOP("Bible study HowTo"), "N_Cov_Church@compuserve.com", "");		
-	aboutData.addCredit("Darwin Gregory", I18N_NOOP("Optionsdialog"), "darwin@ichristian.com", "");		
-	aboutData.addCredit("Jeffrey Hoyt", 	I18N_NOOP("handbook"), "jeffhoyt@earthlink.net", "http://jhoyt.faithweb.com");	
-	aboutData.addCredit("Juho Vahakangas", I18N_NOOP("Martin Luther startup logo"), "juhov@freenet.fi", "");
-	aboutData.addCredit("Thomas Hagedorn", I18N_NOOP("Sponsor of www.bibletime.de"), "tom@delix.de", "");		
-	aboutData.addCredit("Torsten Uhlmann", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
-	aboutData.addCredit("Troy A. Griffits", I18N_NOOP("Leader of the SWORD project.\nLots of help with the SWORD API!"), "scribe@crosswire.org", "");	
+//	aboutData.addCredit("Darwin Gregory", I18N_NOOP("Optionsdialog"), "darwin@ichristian.com", "");		
+//	aboutData.addCredit("Jeffrey Hoyt", 	I18N_NOOP("handbook"), "jeffhoyt@earthlink.net", "http://jhoyt.faithweb.com");	
+//	aboutData.addCredit("Juho Vahakangas", I18N_NOOP("Martin Luther startup logo"), "juhov@freenet.fi", "");
+//	aboutData.addCredit("Thomas Hagedorn", I18N_NOOP("Sponsor of www.bibletime.de"), "tom@delix.de", "");		
+//	aboutData.addCredit("Torsten Uhlmann", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
+//	aboutData.addCredit("Troy A. Griffits", I18N_NOOP("Leader of the SWORD project.\nLots of help with the SWORD API!"), "scribe@crosswire.org", "");	
  		 	
  	KCmdLineArgs::init(argc, argv, &aboutData); 	
  	KCmdLineArgs::addCmdLineOptions ( options );
