@@ -21,7 +21,10 @@
 #include "backend/cswordmoduleinfo.h"
 #include "frontend/cpointers.h"
 
+#include <qdict.h>
+
 #include <ktoolbarbutton.h>
+#include <kpopupmenu.h>
 
 class KPopupMenu;
 
@@ -50,6 +53,8 @@ private:
 	CSwordModuleInfo* m_module;
 	int m_id;
 	KPopupMenu* m_popup;
+
+	QPtrList<KPopupMenu> m_submenus;
 
 private slots:
 	void moduleChosen(int ID );
