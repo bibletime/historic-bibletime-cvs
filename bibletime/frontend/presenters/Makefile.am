@@ -10,7 +10,8 @@ clexiconpresenter.cpp \
 ccommentarypresenter.cpp \
 cswordpresenter.cpp \
 cmodulechooserbar.cpp \
-cmodulechooserbutton.cpp
+cmodulechooserbutton.cpp \
+cdisplaysettingsbutton.cpp
 
 EXTRA_DIST = $(libpresenters_a_SOURCES) \
 ccommentarypresenter.h \
@@ -18,4 +19,5 @@ clexiconpresenter.h \
 cbiblepresenter.h \
 cmodulechooserbar.h \
 cmodulechooserbutton.h \
-cswordpresenter.h
+cswordpresenter.h \
+cdisplaysettingsbutton.h

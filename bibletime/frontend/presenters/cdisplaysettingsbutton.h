@@ -1,7 +1,7 @@
 /***************************************************************************
-                          cmodulechooserbutton.h  -  description
+                          cdisplaysettingsbutton.h  -  description
                              -------------------
-    begin                : Sat Mar 17 2001
+    begin                : Thu Nov 8 2001
     copyright            : (C) 2001 by The BibleTime team
     email                : info@bibletime.de
  ***************************************************************************/
@@ -15,48 +15,39 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef CMODULECHOOSERBUTTON_H
-#define CMODULECHOOSERBUTTON_H
+#ifndef CDISPLAYSETTINGSBUTTON_H
+#define CDISPLAYSETTINGSBUTTON_H
 
-#include "../../backend/cswordmoduleinfo.h"
-#include "../../structdef.h"
+#include "../../backend/cswordbackend.h"
 
 #include <qtoolbutton.h>
-
-class KPopupMenu;
+#include <qdict.h>
 
 /**
   *@author The BibleTime team
   */
 
-class CModuleChooserButton : public QToolButton  {
+class CSwordModuleInfo;
+class KPopupMenu;
+
+class CDisplaySettingsButton : public QToolButton  {
    Q_OBJECT
 public: 
-	CModuleChooserButton(CImportantClasses* importantClasses, CSwordModuleInfo* useModule,CSwordModuleInfo::type type, const int id, QWidget *parent = 0, const char *name = 0 );
-  CSwordModuleInfo* getModule();
-  /**
-  * Returns the id used for this button.
-  */
-  int getId() const;
-  /**
-  * Returns the icon used for the current status.
-  */
-  QPixmap getIcon();		
-	
-private:
-	bool m_hasModule;
-	CSwordModuleInfo::type m_moduleType;
-	CSwordModuleInfo* m_module;
-	int m_id;
-	CImportantClasses* m_important;
+	CDisplaySettingsButton(CSwordBackend::displayOptionsBool &displaySettings, CSwordBackend::moduleOptionsBool &settings, ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
+	~CDisplaySettingsButton();
+
+protected slots:
+	void optionToggled(int ID);
+
+protected:
+	CSwordBackend::moduleOptionsBool  *m_moduleSettings;
+	CSwordBackend::displayOptionsBool *m_displaySettings;
+	CSwordBackend::moduleOptionsBool m_available;
+
+	QDict<bool> m_dict;
+
 	KPopupMenu* m_popup;
 
-private slots:
-	void moduleChosen(int ID );
-
-signals:
-	void sigRemoveButton(const int ID);
-	void sigAddButton();
-  void sigChanged();
 };
+
 #endif
