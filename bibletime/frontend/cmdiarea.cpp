@@ -53,7 +53,8 @@ CMDIArea::~CMDIArea(){
 
 /** Initializes the view of the MDI area */
 void CMDIArea::initView(){
-	QWhatsThis::add(this, WT_MDI_AREA_WIDGET );	
+	QWhatsThis::add(this, WT_MDI_AREA_WIDGET );
+	setPaletteBackgroundColor( ((QWidget *) parent())->paletteBackgroundColor());	
 }
 
 /** Initilizes the connectiosn to SIGNALS */

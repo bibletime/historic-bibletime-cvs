@@ -77,6 +77,7 @@ COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel 
 	initProfiles();
 	initSword();
 	initAccelerators();
+//	qWarning("ICON THEME: %s",KGlobal::instance()->iconLoader()->theme()->name().latin1());
 }
 
 /**  */
@@ -370,7 +371,7 @@ void COptionsDialog::initAccelerators(){
 
 	m_settings.keys.bible.accel = new KAccel(this); //delete in destructor
 	CBiblePresenter::insertKeyboardActions( m_settings.keys.bible.accel );
-	m_settings.keys.bible.accel->readSettings();		
+	m_settings.keys.bible.accel->readSettings( (KConfigBase*) KGlobal::config());		
 
  	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab, false );	
 	QToolTip::add(m_settings.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
@@ -697,23 +698,22 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 
 void COptionsDialog::saveAccelerators(){
 #warning check
-//	m_settings.keys.application.accel->setKeyDict( m_settings.keys.application.dict );	
- 	m_settings.keys.application.accel->writeSettings();
-// 	
-// 	m_settings.keys.general.accel->setKeyDict( m_settings.keys.general.dict );			
+// 	m_settings.keys.application.accel->writeSettings();
+ 	m_settings.keys.application.keyChooser->save();
+
 // 	m_settings.keys.general.accel->writeSettings();
 //		
-// 	m_settings.keys.bible.accel->setKeyDict( m_settings.keys.bible.dict );					
- 	m_settings.keys.bible.accel->writeSettings();		
+// 	m_settings.keys.bible.accel->writeSettings();		
+ 	m_settings.keys.bible.keyChooser->save();
 //		
-// 	m_settings.keys.commentary.accel->setKeyDict( m_settings.keys.commentary.dict );					
- 	m_settings.keys.commentary.accel->writeSettings();
+// 	m_settings.keys.commentary.accel->writeSettings();
+ 	m_settings.keys.commentary.keyChooser->save();
 //		
-// 	m_settings.keys.lexicon.accel->setKeyDict( m_settings.keys.lexicon.dict );					
- 	m_settings.keys.lexicon.accel->writeSettings();
+// 	m_settings.keys.lexicon.accel->writeSettings();
+ 	m_settings.keys.lexicon.keyChooser->save();
 //
-// 	m_settings.keys.book.accel->setKeyDict( m_settings.keys.book.dict );					
- 	m_settings.keys.book.accel->writeSettings(); 	 	
+// 	m_settings.keys.book.accel->writeSettings(); 	 	
+ 	m_settings.keys.book.keyChooser->save();
 }
 
 /** No descriptions */

@@ -280,9 +280,9 @@ void CHTMLWidget::slotSaveAsHTML(){
 
 /** Saves the HTML page */
 void CHTMLWidget::slotSaveAsText(){
-	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save text as plain text ..."));
-
 #warning check
+//	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save text as plain text ..."));
+
 //	if (!file.isNull()) {
 //		QString html = document()->plainText();
 //		CToolClass::savePlainFile( file, html);
@@ -366,8 +366,9 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
 	}
 
 	else{ //Some Button was pressed
-		if ((e->state() == Qt::LeftButton) &&
-  		 ( (e->pos() - m_pressedPos).manhattanLength() > KApplication::startDragDistance() ) ){
+		if ( e->state() == Qt::LeftButton ){
+// that does not work. The drag could only take place when the cursor is no longer on the anchor
+//  		 ( (e->pos() - m_pressedPos).manhattanLength() > KApplication::startDragDistance() )
 
 //	  	if (m_anchor.isEmpty() && !selectedText().isEmpty()){ //Text Drag
 //				qWarning("TEXT DRAG");

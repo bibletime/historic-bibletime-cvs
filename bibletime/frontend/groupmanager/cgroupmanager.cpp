@@ -1385,7 +1385,9 @@ void CGroupManager::viewportPaintEvent(QPaintEvent* e) {
     if (!invalidated)
     {
       invalidated=true;
-      viewport()->repaint(m_oldDragRect);
+#warning deleting this made the drop visualization work again. No idea why. ;)
+#warning please somebody with more in-depth knowledge check this.
+//      viewport()->repaint(m_oldDragRect);
     }
     QPainter painter(viewport());
     drawDropVisualizer(&painter, m_parentItemDrop, m_afterItemDrop, "");
@@ -1488,9 +1490,8 @@ const QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem */
   		insertmarker.setLeft( treeStepSize()*(after->parent()->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin()- contentsX());
   	else
   		insertmarker.setLeft( treeStepSize()*(after->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin() - contentsX());
-#warning check
-  	style().drawPrimitive( QStyle::PE_FocusRect, p, insertmarker, colorGroup(), QStyle::Style_HasFocus
-    /*, after->isSelected() ? &colorGroup().highlight() : &colorGroup().base(), after->isSelected() && !useParent */);
+  	style().drawPrimitive( QStyle::PE_FocusRect, p, insertmarker, colorGroup(), QStyle::Style_HasFocus);
+//  after->isSelected() ? &colorGroup().highlight() : &colorGroup().base(), after->isSelected() && !useParent
   }
   else if (!insertmarker.isValid()) {
   	cleanDropVisualizer();

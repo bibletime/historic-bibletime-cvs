@@ -103,7 +103,6 @@ private:
 		struct KeySettings {
 			struct WindowType {
 				KKeyChooser* keyChooser;
-//				KKeyEntryMap dict;			
 				KAccel* accel;		
 			};
 			WindowType application;
