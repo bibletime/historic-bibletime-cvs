@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-05-24 00:52+0200\n"
+"POT-Creation-Date: 2001-05-25 12:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -264,9 +264,9 @@ msgstr ""
 msgid "Frame color:"
 msgstr ""
 
-#: bibletime/printing/cprinter.cpp:336 bibletime/printing/cprinter.cpp:367
-#: bibletime/printing/cprinter.cpp:545 bibletime/printing/cprinter.cpp:553
-#: bibletime/printing/cprinterdialog.cpp:618
+#: bibletime/printing/cprinter.cpp:310 bibletime/printing/cprinter.cpp:341
+#: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
+#: bibletime/printing/cprinterdialog.cpp:616
 #: bibletime/printing/cstyleeditordialog.cpp:182
 #: bibletime/printing/cstylelist.cpp:130
 msgid "Standard"
@@ -418,12 +418,12 @@ msgstr ""
 msgid "Entries which should be printed:"
 msgstr ""
 
-#: bibletime/printing/cprinterdialog.cpp:542
+#: bibletime/printing/cprinterdialog.cpp:540
 #, c-format, ycp-format
 msgid "Size: %1mm x %2mm"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:250
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:244
 #: bibletime/printing/cprintitemlist.cpp:48
 msgid "Module"
 msgstr ""
@@ -582,21 +582,21 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:223
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:220
 msgid "Bookmark to"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:252
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:246
 #, ycp-format
 msgid "Foonotes: %1<BR>"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:253
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:247
 #, ycp-format
 msgid "Strong's numbers: %1<BR>"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:255
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:249
 msgid "not set"
 msgstr ""
 

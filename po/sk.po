@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BibleTime 1\n"
-"POT-Creation-Date: 2001-05-24 00:52+0200\n"
+"POT-Creation-Date: 2001-05-25 12:48+0200\n"
 "PO-Revision-Date: 2001-05-24 12:39GMT\n"
 "Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -271,9 +271,9 @@ msgstr "Hrúbka čiary (v bodoch):"
 msgid "Frame color:"
 msgstr "Farba rámca:"
 
-#: bibletime/printing/cprinter.cpp:336 bibletime/printing/cprinter.cpp:367
-#: bibletime/printing/cprinter.cpp:545 bibletime/printing/cprinter.cpp:553
-#: bibletime/printing/cprinterdialog.cpp:618
+#: bibletime/printing/cprinter.cpp:310 bibletime/printing/cprinter.cpp:341
+#: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
+#: bibletime/printing/cprinterdialog.cpp:616
 #: bibletime/printing/cstyleeditordialog.cpp:182
 #: bibletime/printing/cstylelist.cpp:130
 msgid "Standard"
@@ -425,12 +425,12 @@ msgstr "Výber štýlu"
 msgid "Entries which should be printed:"
 msgstr "Záznamy, ktoré by mali byť vytlačené:"
 
-#: bibletime/printing/cprinterdialog.cpp:542
+#: bibletime/printing/cprinterdialog.cpp:540
 #, c-format, ycp-format
 msgid "Size: %1mm x %2mm"
 msgstr "Veľkosť: %1mm x %2mm"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:250
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:244
 #: bibletime/printing/cprintitemlist.cpp:48
 msgid "Module"
 msgstr "Modul"
@@ -599,21 +599,21 @@ msgstr "Zarovnaj"
 msgid "unknown"
 msgstr "neznámy"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:223
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:220
 msgid "Bookmark to"
 msgstr "Záložka k"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:252
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:246
 #, ycp-format
 msgid "Foonotes: %1<BR>"
 msgstr "Poznámka: %1<BR>"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:253
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:247
 #, ycp-format
 msgid "Strong's numbers: %1<BR>"
 msgstr "Strongové čislo: %1<BR>"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:255
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:249
 msgid "not set"
 msgstr "nenastavené"
 
@@ -1131,7 +1131,8 @@ msgid "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
 msgstr "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
 
 #: bibletime/frontend/ctoolclass.cpp:78
-msgid "<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
+msgid ""
+"<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
 msgstr "<qt><B>Súbor už existuje!</B><BR>Chcete ho prepísať?</qt>"
 
 #: bibletime/frontend/ctoolclass.cpp:78
@@ -1613,11 +1614,13 @@ msgstr ""
 
 #: bibletime/dummy.h:209
 msgid "Show or hide the main index depending on current state."
-msgstr "Zobrazí alebo skryje hlavný index v závislosti od aktuálneho stavu."
+msgstr ""
+"Zobrazí alebo skryje hlavný index v závislosti od aktuálneho stavu."
 
 #: bibletime/dummy.h:210
 msgid "Show or hide the main toolbar depending on current state."
-msgstr "Zobrazí alebo skryje panel nástrojov v závislosti od aktuálneho stavu."
+msgstr ""
+"Zobrazí alebo skryje panel nástrojov v závislosti od aktuálneho stavu."
 
 #: bibletime/dummy.h:211
 msgid "Show or hide the footnotes in the modules deoending on current state."
@@ -1626,7 +1629,8 @@ msgstr ""
 "aktuálneho stavu."
 
 #: bibletime/dummy.h:212
-msgid "Show or hide Strong's numbers in the modules depending on current state."
+msgid ""
+"Show or hide Strong's numbers in the modules depending on current state."
 msgstr ""
 "Zobrazí alebo skryje Strongové čísla v module v závislosti od "
 "aktuálneho stavu."
@@ -1664,7 +1668,8 @@ msgid "Open a dialog where you can edit the toolbar of BibleTime."
 msgstr "Otvorí dialóg, kde môžete uptaviť panel nástrojov BibleTime"
 
 #: bibletime/dummy.h:221
-msgid "Open BibleTime's optionsdialog where you can set most of the preferences."
+msgid ""
+"Open BibleTime's optionsdialog where you can set most of the preferences."
 msgstr ""
 "Otvorí dialóg s nastaveniami, kde si môžete zmeniť väčšinu "
 "nastavení."
@@ -1732,7 +1737,8 @@ msgid "Import bookmark from a file."
 msgstr "Importuj záložky zo súboru."
 
 #: bibletime/dummy.h:237
-msgid "Export bookmarks to a file so you or other<BR>users can import them later."
+msgid ""
+"Export bookmarks to a file so you or other<BR>users can import them later."
 msgstr ""
 "Exportuje záložky do súboru, aby ste vy alebo iný<BR>užívateľ ich "
 "mohli neskôr importovať."
@@ -1826,13 +1832,15 @@ msgid "This list contains the books which are available in this module."
 msgstr "Zoznam obsahuje knihy, ktoré sú dostupné v tomto module."
 
 #: bibletime/dummy.h:258
-msgid "This list contains the chapters which are available in the current book."
+msgid ""
+"This list contains the chapters which are available in the current book."
 msgstr ""
 "Zoznam obsahuje kapitoly, ktoré sú dostupné v tomto module v aktuálnej "
 "knihe."
 
 #: bibletime/dummy.h:259
-msgid "This list contains the verses which are available in the current chapter."
+msgid ""
+"This list contains the verses which are available in the current chapter."
 msgstr ""
 "Zoznam obsahuje verše, ktoré sú dostupné v tomto module v aktuálnej "
 "kapitole."
@@ -1870,7 +1878,8 @@ msgid "Switch between italic and non-italic formatting of the selected text."
 msgstr "Prepne medzi kurzívou a formátovaním nie kurzívou vybraného textu"
 
 #: bibletime/dummy.h:267
-msgid "Switch between underlined and non-undelined formatting of the selected text."
+msgid ""
+"Switch between underlined and non-undelined formatting of the selected text."
 msgstr ""
 "Prepne medzi podčiarknutým a nie podčiarknutým formátovaním vybraného "
 "textu"
@@ -1888,8 +1897,10 @@ msgid "Choose a new fontsize for the selected text."
 msgstr "Vyberie  veľkosť typu písma pre zvolený text."
 
 #: bibletime/dummy.h:272
-msgid "Synchronize the displayed verse of this module with the active Bible window."
-msgstr "Synchronizuje zobrazený text tohoto modulu s oknom s aktuálnou Bibliou"
+msgid ""
+"Synchronize the displayed verse of this module with the active Bible window."
+msgstr ""
+"Synchronizuje zobrazený text tohoto modulu s oknom s aktuálnou Bibliou"
 
 #: bibletime/dummy.h:275
 msgid "Save the displayed chapter as a HTML file."
@@ -1936,7 +1947,8 @@ msgstr ""
 "slovo v editovacom riadku je hľadané ako samostatné slovo."
 
 #: bibletime/dummy.h:287
-msgid "Select this to search for exactly the same text you entered in the edit line."
+msgid ""
+"Select this to search for exactly the same text you entered in the edit line."
 msgstr ""
 "Vyberte si túto možnosť, ak chcete aby vložený text bol vyhľadný tak, "
 "ako ste ho vložili."
@@ -1952,7 +1964,8 @@ msgstr ""
 
 #: bibletime/dummy.h:289
 msgid "Activate this to use case sensitive search."
-msgstr "Aktivujte túto možnosť, ak chce aby sa brah ohľad na veľkosť písmen."
+msgstr ""
+"Aktivujte túto možnosť, ak chce aby sa brah ohľad na veľkosť písmen."
 
 #: bibletime/dummy.h:291
 msgid "Select this if you want to search through all parts of the module(s)."
@@ -1973,7 +1986,8 @@ msgid "Create a new search scope."
 msgstr "Vytvorí nový rozsah hľadania."
 
 #: bibletime/dummy.h:294
-msgid "Use an own scope for the search.<BR>A standard set of search scopes exists."
+msgid ""
+"Use an own scope for the search.<BR>A standard set of search scopes exists."
 msgstr ""
 "Použije vlastné rozsahy hľadania.<BR>Štandardné rozsahy hľadania sú "
 "tiež k dispozícii."
@@ -2037,14 +2051,16 @@ msgid "Activate this box to see a daily tip on startup."
 msgstr "Aktivujte túto možnosť, ak chcete vidieť tipy dňa pri spustení."
 
 #: bibletime/dummy.h:310
-msgid "Contains the languages which can be used for the international booknames."
+msgid ""
+"Contains the languages which can be used for the international booknames."
 msgstr ""
 "Obsahuje jazyky, ktoré môžu byť použité pri medzinárodných názvoch "
 "kníh."
 
 #: bibletime/dummy.h:311
 msgid "Activate this to see a startup logo on each startup of BibleTime."
-msgstr "Aktivujete túto možnosť, ak si chcete vidieť pri sputení logo BibleTime."
+msgstr ""
+"Aktivujete túto možnosť, ak si chcete vidieť pri sputení logo BibleTime."
 
 #: bibletime/dummy.h:313
 msgid "Select a action and change the key binding for the action."
@@ -2066,7 +2082,8 @@ msgstr "Toto je farba pozadia, ktorá je použitá pre zobrazovaní okien."
 
 #: bibletime/dummy.h:320
 msgid "This is the color of the highlighted verse used in display windows."
-msgstr "Toto je farba označeného verša, ktorá je použitá pri zobrazení okien."
+msgstr ""
+"Toto je farba označeného verša, ktorá je použitá pri zobrazení okien."
 
 #: bibletime/dummy.h:323
 msgid ""
@@ -2085,7 +2102,8 @@ msgstr ""
 "k vytvoreniu náhľadu pre tlač."
 
 #: bibletime/dummy.h:325
-msgid "Closes this dialog without doing anything with the items or the printer."
+msgid ""
+"Closes this dialog without doing anything with the items or the printer."
 msgstr ""
 "Ukončí tento dialóg bez akéhokoľvek zásahu do položiek alebo "
 "tlačiarne."
@@ -2161,7 +2179,8 @@ msgstr ""
 "strane."
 
 #: bibletime/dummy.h:345
-msgid "This group contains the page borders of the page measured in millimeters."
+msgid ""
+"This group contains the page borders of the page measured in millimeters."
 msgstr "Táto skupina obsahuej ohraničenie strany v milimetroch"
 
 #: bibletime/dummy.h:346
@@ -2197,6 +2216,7 @@ msgid "Change the properties of the selected printing style."
 msgstr "Zmení nastavenie pre vybraný štýl pre tlač."
 
 #: bibletime/dummy.h:353
-msgid "Create a new printing style.<BR>The new style will be added to the list."
-msgstr "Vytvorí nový štýl pre tlač.<BR>Nový štýl bude pridaný do zoznamu."
-
+msgid ""
+"Create a new printing style.<BR>The new style will be added to the list."
+msgstr ""
+"Vytvorí nový štýl pre tlač.<BR>Nový štýl bude pridaný do zoznamu."
