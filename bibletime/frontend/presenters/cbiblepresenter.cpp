@@ -202,9 +202,6 @@ void CBiblePresenter::popupAboutToShow() {
 	m_printPopup->setItemEnabled(ID_PRESENTER_PRINT_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());			
 
 	m_savePopup->setItemEnabled(ID_PRESENTER_SAVE_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());
-		
-//	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());
-//	m_popup->setItemEnabled(ID_PRESENTER_COPY_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
 }
 
 /** Reimplementation from CSwordPresenter. */
@@ -289,12 +286,9 @@ void CBiblePresenter::printVerseAndText(){
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	
-//	CSwordVerseKey* vKey = new CSwordVerseKey(m);//deleted by the print item
-//	vKey->key(key);
 	CSwordVerseKey vKey(m);	
 	vKey.key(key);
 
-//	printKey(vKey.key(), vKey.key(), m);
 	CExportManager::printKey(m, vKey.key());
 }
 
@@ -306,10 +300,8 @@ void CBiblePresenter::printChapter(){
 	CSwordVerseKey stopKey(*m_key);	
 
 	CSwordBibleModuleInfo* b = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
-	qWarning("Versecoubnt: %i", b->verseCount( b->bookNumber(startKey.book()), startKey.Chapter() ));
 	if (b)
 		stopKey.Verse( b->verseCount( b->bookNumber(startKey.book()), startKey.Chapter() ) );
-	qWarning("verse: %i", stopKey.Verse());	
 	CExportManager::printKey(m_moduleList.first(), startKey.key(), stopKey.key());
 }
 
@@ -319,17 +311,14 @@ void CBiblePresenter::printChapter(){
 void CBiblePresenter::saveVerseAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
-	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	CReferenceManager::Type type;	
-	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = backend()->findModuleByName(module);		
-	CSwordVerseKey vKey(m);
+	CReferenceManager::Type type;		
+	const QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);
+	CSwordVerseKey vKey( backend()->findModuleByName(module) );
 	vKey.key(key);
 	
-	const QString text = QString::fromLatin1("%1\n%2").arg(vKey.key()).arg(vKey.strippedText());	
-	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save verse with text as ..."));
-	if (!file.isNull())
-		CToolClass::savePlainFile(file, text);
+	CExportManager::saveKey(&vKey, true);
 }
 
 /** Inserts the actions used by this window class into the given KAccel object. */

@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "cstyleformat.h"
-#include "cstyleformatframe.h"
 
 #include <qapplication.h>
 #include <qcolor.h>
@@ -30,12 +29,12 @@ CStyleFormat::~CStyleFormat(){
 }
 
 /** Returns the font of this style. */
-const QFont& CStyleFormat::getFont() const {
+const QFont& CStyleFormat::font() const {
 	return m_font;
 }
 
 /** sets the font of this format. */
-void CStyleFormat::setFont( QFont newFont) {
+void CStyleFormat::setFont( QFont newFont ) {
 	m_font = newFont;
 }
 
@@ -63,17 +62,19 @@ void CStyleFormat::setColor( const Color type, const QColor& newColor ) {
 }
 
 /** Returns the frame if we have one. Otherwise we return 0. */
-CStyleFormatFrame* const CStyleFormat::frame() {
-	if (m_hasFrame && !m_frame)
-			return (m_frame = new CStyleFormatFrame());	
+CStyleFormat::Frame* const CStyleFormat::frame() {
+	if (m_hasFrame)
+		return !m_frame ? (m_frame = new CStyleFormat::Frame) : m_frame;
 	return 0;
 }
 
 /** Sets the frame of this style. */
-void CStyleFormat::setFrame( const bool haveFrame, CStyleFormatFrame* frame ) {
-	m_hasFrame = haveFrame;
-	delete m_frame;
-	m_frame = frame;
+void CStyleFormat::setFrameEnabled( const bool hasFrame ) {
+	m_hasFrame = hasFrame;
+	if (!m_hasFrame) {
+		delete m_frame;
+		m_frame = 0;
+	};
 }
 
 /** Returns the alignement of this style format. */
@@ -97,3 +98,39 @@ void CStyleFormat::clearData(){
 	m_alignement = CStyleFormat::Left;
 }
 
+
+CStyleFormat::Frame::Frame() {
+	m_thickness = 1;
+	m_color = Qt::black;
+	m_lineStyle = Qt::DashLine;
+}
+
+/** Returns the thickness of this frame. */
+const unsigned short int& CStyleFormat::Frame::thickness() const {
+	return m_thickness;
+}
+
+/** Sets te thickness of this frame. */
+void CStyleFormat::Frame::setThickness( const unsigned short int newThickness ) {
+	m_thickness = newThickness;
+}
+
+/** Returns the style how to paint the lines of this frame. */
+const Qt::PenStyle& CStyleFormat::Frame::lineStyle() const {
+	return m_lineStyle;
+}
+
+/** Sets the style how to paint the lines. */
+void CStyleFormat::Frame::setLineStyle( const Qt::PenStyle newLineStyle ){
+	m_lineStyle = newLineStyle;
+}
+
+/** Returns the color of this frame. */
+const QColor& CStyleFormat::Frame::color() const {
+	return m_color;
+}
+
+/** Sets the color of this frame. */
+void CStyleFormat::Frame::setColor( const QColor& newColor ) {
+	m_color = newColor;
+}

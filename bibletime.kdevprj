@@ -33,7 +33,7 @@ dir_where_make_will_be_called=./
 email=info@bibletime.de
 execute_args=--debug --ignore-startprofile
 kdevprj_version=1.3
-lfv_open_groups=
+lfv_open_groups=Headers
 make_options=\s-j1
 makefiles=bibletime/backend/sword_backend/Makefile.am,bibletime/backend/Makefile.am,bibletime/Makefile.am,bibletime/frontend/Makefile.am,bibletime/frontend/presenters/Makefile.am,bibletime/frontend/groupmanager/Makefile.am,bibletime/frontend/optionsdialog/Makefile.am,bibletime/frontend/searchdialog/Makefile.am,AUTHORS.in,TODO.in,bibletime.lsm.in,bibletime.spec.in,README.in,INSTALL.in,bibletime/docs/en/helpdialog/Makefile.am,bibletime/docs/de/helpdialog/Makefile.am,bibletime/pics/lowcolor/16*16/Makefile.am,bibletime/pics/lowcolor/Makefile.am,bibletime/pics/highcolor/16*16/Makefile.am,bibletime/pics/highcolor/Makefile.am,bibletime/pics/highcolor/22*22/Makefile.am,bibletime/pics/highcolor/32*32/Makefile.am,bibletime/pics/lowcolor/32*32/Makefile.am,bibletime/pics/lowcolor/22*22/Makefile.am,bibletime/pics/highcolor/48*48/Makefile.am,doc/Makefile.am,bibletime/printing/Makefile.am,bibletime/docs/sk/Makefile.am,bibletime/libhtmlparse/Makefile.am,bibletime/frontend/keychooser/Makefile.am,bibletime/xml/Makefile.am,README,INSTALL,bibletime.lsm,AUTHORS,TODO,bibletime.spec,admin/Makefile.am,bibletime/docs/Makefile.am,bibletime/docs/en/Makefile.am,po/Makefile.am,bibletime/docs/de/Makefile.am,bibletime/pics/Makefile.am,Makefile.am,bibletime/docs/development/Makefile.am,bibletime/frontend/thirdparty/Makefile.am,bibletime/docs/en/handbook/Makefile.am,bibletime/docs/en/handbook/common/Makefile.am,bibletime/frontend/thirdparty/qt3stuff/Makefile.am,bibletime/util/Makefile.am
 modifyMakefiles=false
@@ -1922,7 +1922,7 @@ sub_dirs=16*16,32*32,22*22,
 type=normal
 
 [bibletime/printing/Makefile.am]
-files=bibletime/printing/cprinter.cpp,bibletime/printing/cprinter.h,bibletime/printing/cstyleeditordialog.cpp,bibletime/printing/cstyleeditordialog.h,bibletime/printing/cstyle.cpp,bibletime/printing/cstyle.h,bibletime/printing/cprintitem.cpp,bibletime/printing/cprintitem.h,bibletime/printing/cprintitemlist.cpp,bibletime/printing/cprintitemlist.h,bibletime/printing/cstylelist.cpp,bibletime/printing/cstylelist.h,bibletime/printing/cstyleformat.cpp,bibletime/printing/cstyleformat.h,bibletime/printing/cstyleformatframe.cpp,bibletime/printing/cstyleformatframe.h,bibletime/printing/cprintdialogpages.cpp,bibletime/printing/cprintdialogpages.h
+files=bibletime/printing/cprinter.cpp,bibletime/printing/cprinter.h,bibletime/printing/cstyleeditordialog.cpp,bibletime/printing/cstyleeditordialog.h,bibletime/printing/cstyle.cpp,bibletime/printing/cstyle.h,bibletime/printing/cprintitem.cpp,bibletime/printing/cprintitem.h,bibletime/printing/cprintitemlist.cpp,bibletime/printing/cprintitemlist.h,bibletime/printing/cstylelist.cpp,bibletime/printing/cstylelist.h,bibletime/printing/cstyleformat.cpp,bibletime/printing/cstyleformat.h,bibletime/printing/cprintdialogpages.cpp,bibletime/printing/cprintdialogpages.h
 sub_dirs=
 type=static_library
 
@@ -2005,18 +2005,6 @@ install_location=
 type=SOURCE
 
 [bibletime/printing/cstyleformat.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[bibletime/printing/cstyleformatframe.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[bibletime/printing/cstyleformatframe.h]
 dist=true
 install=false
 install_location=

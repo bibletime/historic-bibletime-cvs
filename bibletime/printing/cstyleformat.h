@@ -23,16 +23,47 @@
 #include <qcolor.h>
 #include <qguardedptr.h>
 
-class CStyleFormatFrame;
-
 /**	
 	* A class which contains methods to support a format for the CStyle class.
   *	@author The BibleTime team
   * @version $Id$
   */
-
 class CStyleFormat {
-public: 
+public:
+  class Frame  {
+  public:
+  	Frame();
+    /**
+    * Sets the color of this frame.
+    */
+    void setColor( const QColor& );
+    /**
+    * Returns the color of this frame.
+    */
+    const QColor& color() const;
+    /**
+    * Sets the style how to paint the lines.
+    */
+    void setLineStyle( const Qt::PenStyle );
+  	/**
+    * Returns the style how to paint the lines of this frame.
+    */
+    const Qt::PenStyle& lineStyle() const;
+    /**
+    * Sets te thickness of this frame.
+    */
+    void setThickness( const unsigned short int );
+    /**
+    * Returns the thickness of this frame.
+    */
+    const unsigned short int& thickness() const;
+
+  protected:
+  	QColor m_color;
+  	Qt::PenStyle m_lineStyle;
+  	unsigned short int m_thickness;	
+  };
+
 	enum Alignement { Left, Center, Right, Justification};
 	enum Color { Background, Foreground };
 	
@@ -54,7 +85,7 @@ public:
   /**
   * Returns the font of this style.
   */
-  const QFont& getFont() const;
+  const QFont& font() const;
   /**
  	* Sets the alignement flags of this style format.
  	*/
@@ -66,11 +97,11 @@ public:
   /**
  	* Sets the frame of this style.
  	*/
-  void setFrame( const bool hasFrame, CStyleFormatFrame* frame = 0);
+  void setFrameEnabled( const bool hasFrame );
   /**
  	* Returns the frame if we have one. Otherwise we return 0.
  	*/
-  CStyleFormatFrame* const frame();
+  Frame* const frame();
 
 private:
   void clearData();
@@ -79,7 +110,7 @@ private:
 	QColor m_FGColor;
 	QColor m_BGColor;
 	bool m_hasFrame;
-	CStyleFormatFrame* m_frame;
+	Frame* m_frame;
 	CStyleFormat::Alignement m_alignement;
 };
 

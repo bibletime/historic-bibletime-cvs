@@ -267,11 +267,11 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	m_colors.foregroundChooser->setEnabled(m_formatEnabled);
 		
 	//setup fonts
-	m_font.font = format->getFont();
+	m_font.font = format->font();
 	setupFontWidgets( m_font.font );
 	
 	//setup frame part
-	CStyleFormatFrame* frame = format->frame();
+	CStyleFormat::Frame* frame = format->frame();
 	m_frame.useFrame->setChecked(frame);
 	m_frame.useFrame->setEnabled(m_formatEnabled);		
 	m_frame.groupbox->setEnabled(m_formatEnabled);		
@@ -331,9 +331,6 @@ void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
 	else if (m_alignRadios.buttongroup->selected() == m_alignRadios.rightRB ) {
 		format->setAlignement( CStyleFormat::Right );
 	}
-//	else if (m_alignRadios.buttongroup->selected() == m_alignRadios.justificationRB ) {
-//		format->setAlignement( CStyleFormat::Justification );
-//	}
 	
 	//apply color settings
 	format->setColor( CStyleFormat::Background, m_colors.backgroundChooser->color() );
@@ -343,16 +340,14 @@ void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
 	format->setFont( m_font.font );
 	
 	//apply frame settings
-	CStyleFormatFrame* frame = format->frame();
-	if (frame) {
+	format->setFrameEnabled( m_frame.useFrame->isChecked() );	
+	if (CStyleFormat::Frame* frame = format->frame()){
 		frame->setColor( m_frame.colorChooser->color() );	
 		frame->setThickness( m_frame.lineThicknessChooser->value() );
+		
 		//the position in the list equal to the position in Qt::PenStyle+1
 		frame->setLineStyle((Qt::PenStyle)(m_frame.lineStyleChooser->currentItem()+1));
-//		qDebug("%i",m_frame.lineStyleChooser->currentItem()+1);
 	}
-	
-	format->setFrame( m_frame.useFrame->isChecked(), frame );
 }
 
 /** Is called when the enablePart box was clicked. */

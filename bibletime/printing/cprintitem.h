@@ -18,6 +18,10 @@
 #ifndef CPRINTITEM_H
 #define CPRINTITEM_H
 
+//BibleTime includes
+#include "frontend/cbtconfig.h"
+
+//Qt includes
 #include <qobject.h>
 #include <qguardedptr.h>
 #include <qlist.h>
@@ -48,8 +52,7 @@ public:
 			CPrintItem* m_printItem;
   };
 	
-
-	CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null);
+	CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null, const CSwordBackend::DisplayOptionsBool displayOptions = CBTConfig::getDisplayOptionDefaults(),const CSwordBackend::FilterOptionsBool filterOptions = CBTConfig::getFilterOptionDefaults() );
   /**
 	* Sets the style for this item.
  	*/
@@ -93,6 +96,9 @@ private: // Protected attributes
 	bool m_stopEmpty;
   CSwordModuleInfo* m_module;
   QListViewItem* m_listViewItem;
+
+  CSwordBackend::DisplayOptionsBool m_displayOptions;
+  CSwordBackend::FilterOptionsBool m_filterOptions;
 };
 
 #endif

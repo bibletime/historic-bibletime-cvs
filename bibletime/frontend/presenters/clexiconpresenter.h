@@ -30,13 +30,7 @@ class CSwordLDKey;
 class CLexiconPresenter : public CSwordPresenter  {
    Q_OBJECT
 public: 
-	/**
-	* constructor
-	*/
 	CLexiconPresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
-	/**
-	* destructor
-	*/
 	virtual ~CLexiconPresenter();
   /**
   * Inserts the used keyboard actions into the given KAccel object.

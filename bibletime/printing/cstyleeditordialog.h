@@ -23,7 +23,6 @@
 
 #include "cstyle.h"
 #include "cstyleformat.h"
-#include "cstyleformatframe.h"
 
 /**The editor for the printing styles.
   *@author The BibleTime team

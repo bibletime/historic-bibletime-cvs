@@ -18,7 +18,6 @@
 #include "cprinter.h"
 #include "cprintitem.h"
 #include "cstyleformat.h"
-#include "cstyleformatframe.h"
 #include "cprintdialogpages.h"
 
 #include "backend/cswordbackend.h"
@@ -234,21 +233,18 @@ void CPrinter::setupStyles(){
 			format[index]->setColor( CStyleFormat::Foreground, m_config->readColorEntry("FGColor", &Qt::black) );
 			format[index]->setColor( CStyleFormat::Background, m_config->readColorEntry("BGColor", &Qt::white) );
  			format[index]->setFont( m_config->readFontEntry("Font") );
-//			format[index]->setIdentation( m_config->readNumEntry("Identation",0) );
 			format[index]->setAlignement( (CStyleFormat::Alignement)m_config->readNumEntry("Alignement",CStyleFormat::Left));
 			dummyStyle->setFormatTypeEnabled( formatTypes[index], m_config->readBoolEntry("isEnabled", true) );
-			const bool hasFrame = m_config->readBoolEntry( "has frame", false );
-			
-			CStyleFormatFrame* frame = format[index]->frame();
-			if (frame) {
+			const bool hasFrame = m_config->readBoolEntry("has frame", false );
+
+			format[index]->setFrameEnabled( hasFrame );						
+			if ( CStyleFormat::Frame* frame = format[index]->frame() ) {
 				m_config->setGroup(QString("%1__%2__FRAME").arg(*it).arg(names[index]));
 				frame->setColor( m_config->readColorEntry("Color", &Qt::black) );
 				frame->setThickness( m_config->readNumEntry("Thickness", 1) );
 				frame->setLineStyle( (Qt::PenStyle)(m_config->readNumEntry("Line style", (int)Qt::SolidLine)) );
 			}
-			format[index]->setFrame( hasFrame, frame);
 		}		
-		//set settings for Header
 		m_styleList.append(dummyStyle);
 	}
 }
@@ -273,7 +269,6 @@ void CPrinter::saveStyles(){
 	{
 		KConfigGroupSaver gs( m_config, "Styles");	
 		QStringList strList;
-//		ASSERT(m_styleList);
 		for (m_styleList.first(); m_styleList.current(); m_styleList.next()) {
 			strList.append(m_styleList.current()->styleName());
 		}	
@@ -298,15 +293,15 @@ void CPrinter::saveStyles(){
 												
 			m_config->writeEntry( "FGColor", format[index]->color( CStyleFormat::Foreground ) );
 			m_config->writeEntry( "BGColor", format[index]->color( CStyleFormat::Background ) );
-			m_config->writeEntry( "Font", format[index]->getFont() );
-			m_config->writeEntry( "isEnabled", current->hasFormatTypeEnabled( (index == 0) ? CStyle::Header : ( (index == 1) ? CStyle::Description : CStyle::ModuleText)) );
+			m_config->writeEntry( "Font", 	 format[index]->font() );
+			m_config->writeEntry( "isEnabled", 	current->hasFormatTypeEnabled( (index == 0) ? CStyle::Header : ( (index == 1) ? CStyle::Description : CStyle::ModuleText)) );
 			m_config->writeEntry( "Alignement", (int)(format[index]->alignement()) );
 			
 			//save frame settings
-			m_config->writeEntry( "has frame", format[index]->frame() );
-			m_config->setGroup(QString("%1__%2__FRAME").arg(m_styleList.current()->styleName()).arg(names[index]) );
-			CStyleFormatFrame* frame = format[index]->frame();
+			CStyleFormat::Frame* frame = format[index]->frame();			
+			m_config->writeEntry( "has frame", frame );
 			if (frame) {	//save only if we have a frame
+				m_config->setGroup(QString::fromLatin1("%1__%2__FRAME").arg(m_styleList.current()->styleName()).arg(names[index]) );			
 				m_config->writeEntry("Color", frame->color());
 				m_config->writeEntry("Thickness", frame->thickness());
 				m_config->writeEntry("Line style", (int)(frame->lineStyle()));

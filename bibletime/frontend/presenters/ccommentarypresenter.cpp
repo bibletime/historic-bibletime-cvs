@@ -74,9 +74,6 @@ void CCommentaryPresenter::initView(){
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
 	addToolBar(m_mainToolBar);			
 
-//	m_displaySettingsButton = new CDisplaySettingsButton( &m_displayOptions, &m_moduleOptions, m_moduleList, m_mainToolBar);
-//	m_mainToolBar->insertWidget(1,m_displaySettingsButton->sizeHint().width(),m_displaySettingsButton);
-	
 	m_moduleChooserBar = new CModuleChooserBar(m_moduleList, CSwordModuleInfo::Commentary, this );
 	addToolBar(m_moduleChooserBar);
 	
@@ -119,11 +116,9 @@ void CCommentaryPresenter::initView(){
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup, ID_PRESENTER_PRINT_POPUP);	
 	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup,ID_PRESENTER_SAVE_POPUP);		
 
-//SSERT(m_htmlWidget);
 	m_htmlWidget->installPopup(m_popup);		
 	m_htmlWidget->installAnchorMenu( m_popup );
 	m_htmlWidget->setModules(m_moduleList);	
-//	qWarning("before set icon");
 	setCentralWidget(m_htmlWidget);	
 	setIcon( COMMENTARY_ICON_SMALL );
 }

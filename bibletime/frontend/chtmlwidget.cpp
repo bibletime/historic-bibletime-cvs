@@ -115,7 +115,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 			if (m->type() == CSwordModuleInfo::Bible || m->type() == CSwordModuleInfo::Commentary) {
 				CSwordModuleInfo* module = htmlWidget->modules().first();
 				if (module) {
-					ref = CReferenceManager::parseVerseReference(ref/*, module->module()->Lang(), backend()->booknameLanguage()*/ );
+					ref = CReferenceManager::parseVerseReference(ref);
 				}
 			}
 			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance( m ) );

@@ -20,7 +20,6 @@
 #include "cprintitemlist.h"
 #include "cstyle.h"
 #include "cstyleformat.h"
-#include "cstyleformatframe.h"
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordversekey.h"
 #include "backend/cswordldkey.h"
@@ -60,9 +59,10 @@ CStyle* const CPrintItem::ListViewItem::style() const {
 };
 
 
-CPrintItem::CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description) :
+CPrintItem::CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description,const CSwordBackend::DisplayOptionsBool displayOptions, const CSwordBackend::FilterOptionsBool filterOptions) :
   m_style(0), m_headerText(QString::null), m_description(description),  m_moduleText(QString::null),
-  m_startKey(startKey),  m_module(module), m_listViewItem(0)
+  m_startKey(startKey),  m_module(module), m_listViewItem(0),
+  m_displayOptions(displayOptions), m_filterOptions(filterOptions)
 {	
 	m_startEmpty = startKey.isEmpty();	
 	m_stopKey = (!m_startEmpty && (startKey != stopKey) ) ? stopKey : QString::null;
@@ -85,27 +85,31 @@ const QString& CPrintItem::moduleText() {
 	if (m_startEmpty || !m_module)
 		return QString::null;
 
+	CPointers::backend()->setDisplayOptions(m_displayOptions);
+	CPointers::backend()->setFilterOptions(m_filterOptions);	
+	
 	if (m_stopEmpty) {//only start key
 		util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(m_module));
 		key->key(m_startKey);
 		m_moduleText = key->renderedText();			
 	}
-	else if (m_module->type() == CSwordModuleInfo::Bible  || m_module->type() == CSwordModuleInfo::Commentary ) {
-		util::scoped_ptr<CSwordVerseKey> startKey(  dynamic_cast<CSwordVerseKey*>(CSwordKey::createInstance(m_module)) );
-		util::scoped_ptr<CSwordVerseKey> stopKey( dynamic_cast<CSwordVerseKey*>(CSwordKey::createInstance(m_module)) );
+	else if (m_module->type() == CSwordModuleInfo::Bible || m_module->type() == CSwordModuleInfo::Commentary ) {
+		util::scoped_ptr<CSwordVerseKey> startKey(dynamic_cast<CSwordVerseKey*>(CSwordKey::createInstance(m_module)));
+		util::scoped_ptr<CSwordVerseKey> stopKey(dynamic_cast<CSwordVerseKey*>(CSwordKey::createInstance(m_module)));
 		
 		startKey->key(m_startKey);
 		stopKey->key(m_stopKey);
 	
-		const QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");					
-		while (*startKey < *stopKey) {
-			m_moduleText += format.arg(startKey->Verse()) + startKey->renderedText();
-			startKey->next(CSwordVerseKey::UseVerse);			
+		const QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");
+		while (*startKey < *stopKey || *startKey == *stopKey) {
+			m_moduleText += (m_displayOptions.verseNumbers ? format.arg(startKey->Verse()) : QString::null)
++ startKey->renderedText() + (m_displayOptions.lineBreaks ? "<BR>\n" : QString::null);
+			startKey->next(CSwordVerseKey::UseVerse);
 		}
 	}		
-
-	m_moduleText.replace(QRegExp("$\n+"), "");
-	m_moduleText.replace(QRegExp("$<BR>+"), "");	
+	
+	m_moduleText.replace(QRegExp("$\n\n+"), "");
+	m_moduleText.replace(QRegExp("$<BR><BR>+"), "");	
 	return m_moduleText;
 }
 
@@ -167,7 +171,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QColor fgColor;
 	QColor bgColor;
 	CStyleFormat* format = 0;
-	CStyleFormatFrame* frame = 0;
+	CStyleFormat::Frame* frame = 0;
 	int frameThickness = 0;
 	CStyleFormat::Alignement alignement;	
 	CStyle::styleType type = CStyle::Unknown;
@@ -206,15 +210,14 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		fgColor = format->color( CStyleFormat::Foreground );
 		bgColor = format->color( CStyleFormat::Background );
 		pen.setColor(fgColor);
-		font = format->getFont();
+		font = format->font();
 		if (isUnicode) { //enable unicode
 			font.setCharSet( QFont::Unicode );
 		}
 		
-		frame = /*format->hasFrame() ?*/ format->frame() /*: 0*/;
+		frame = format->frame();
 		frameThickness = frame ? frame->thickness() : 0;		
 		alignement = format->alignement();
-//		identation = format->getIdentation();
 		if (type == CStyle::Header)
 			text = headerText();
 		else if (type == CStyle::Description)
@@ -311,32 +314,35 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
     		QString::null,
     		QStyleSheet::defaultSheet(),
     		QMimeSourceFactory::defaultFactory(),
-				pageHeight-verticalPos-2*frameThickness + upperMargin
+				pageHeight + upperMargin - verticalPos - 2*frameThickness - 2*BORDER_SPACE
 			);
 
     	richText.setWidth( p, pageWidth-2*frameThickness-2*BORDER_SPACE );
-    	view = QRect( //add BORDER_SPACE
-    		leftMargin+frameThickness, //why not use leftMargin here?
-    		upperMargin+frameThickness,  //same for rightMargin??
-	    	pageWidth-2*frameThickness,
-	    	pageHeight-2*frameThickness
+    	view = QRect( //the content area of the whole page
+    		leftMargin+frameThickness+BORDER_SPACE,
+    		upperMargin+frameThickness+BORDER_SPACE,
+	    	pageWidth-2*frameThickness-2*BORDER_SPACE,
+	    	pageHeight-2*frameThickness-2*BORDER_SPACE
     	);
+    	
     	int translated = 0;
     	do {
-    		if ((int)(richText.height()-translated + verticalPos) < (int)(pageHeight+upperMargin) )
-    			br = QRect(
-    						leftMargin,
-    						verticalPos,
-    						pageWidth,
-    						richText.height()+frameThickness
-    					);
-    		else { //fill to bottom of the page
-    			br = QRect (
-						leftMargin,
-						verticalPos,
-						pageWidth,
-						pageHeight-verticalPos+upperMargin
-					);
+    		if ((int)(verticalPos + richText.height() - translated) < (int)(pageHeight) + upperMargin ) {
+    			//text fits on current page
+					br = QRect (
+	    			leftMargin+frameThickness,
+	    			verticalPos+frameThickness,
+		    		pageWidth-2*frameThickness,
+		    		richText.height() + frameThickness + BORDER_SPACE
+	    		);
+				}
+    		else { //doesn't fit on current page, fill to bottom of the page    		
+		    	br = QRect(
+		    		leftMargin+frameThickness,
+		    		verticalPos+frameThickness,
+			    	pageWidth - 2*frameThickness,
+			    	pageHeight + upperMargin - verticalPos - 2*frameThickness
+		    	);
     			br.moveBy(0, translated);
     		}
     		p->setClipRect(
@@ -345,25 +351,24 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
     			pageWidth,
     			pageHeight
     		);
-   			p->fillRect(br,QBrush(bgColor));
+   			p->fillRect(br,QBrush(bgColor)); //fill rect with background color
 				if (frame) {
-					br.moveBy( (int)((float)-frameThickness/2), (int)((float)-frameThickness/2) );	
-				
+					br.moveBy( (int)(-(float)frameThickness/2), (int)(-(float)frameThickness/2) );	
+
 					framePen = pen;
 					framePen.setWidth( frameThickness );
 					framePen.setColor( frame->color() );
-					framePen.setStyle( frame->lineStyle() );									
+					framePen.setStyle( frame->lineStyle() );
 					p->setPen( framePen );
 
 					p->drawRect(br);
 				}						   			
     		p->setClipping(false);
-        richText.draw(p, leftMargin+frameThickness+BORDER_SPACE, verticalPos+frameThickness, view, cg);
+        richText.draw(p, leftMargin+frameThickness+BORDER_SPACE, verticalPos+frameThickness+BORDER_SPACE, view, cg);
 				movePixs =
-						(((int)richText.height()-translated)
-					> (int)(pageHeight-verticalPos+ upperMargin ))
-					? (pageHeight-verticalPos + upperMargin )
-					: richText.height()-translated + 2*frameThickness;
+						(((int)richText.height()-translated) > (int)(pageHeight - verticalPos + upperMargin ))
+					? (pageHeight+ upperMargin - verticalPos ) //move one page
+					: richText.height() - translated + 2*frameThickness + 2*BORDER_SPACE;
 
    			printer->setVerticalPos(verticalPos+movePixs);					
 

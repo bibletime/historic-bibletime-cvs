@@ -38,12 +38,15 @@
 
 /** Saves the key to disk. */
 const bool CExportManager::saveKey( CSwordKey* key, const bool withText ) {
-//	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
-//  if (!file.isEmpty()) {
-//		util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
-//		key->key();
-//  }
-	return true;
+	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));
+  if (key && !file.isEmpty()) {
+		QString text = QString::fromLatin1("%1").arg(key->key());
+		if (withText)
+			text += QString::fromLatin1("\n\t%1").arg(key->strippedText());
+		CToolClass::savePlainFile(file, text);		
+		return true;
+  }
+	return false;
 }
 
 /** Saves the key to disk. */
@@ -75,7 +78,7 @@ const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module,
 
 			(*list)++;
 		}	
-		if (! progress.wasCancelled()) {
+		if (!progress.wasCancelled()) {
 			progress.setProgress(index);	
 			CToolClass::savePlainFile(file, text);
 			ret = true;
