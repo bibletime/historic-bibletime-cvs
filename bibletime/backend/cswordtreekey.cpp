@@ -23,17 +23,36 @@
 //	if (m_module)
 //		SWKey::operator = (m_module->module()->KeyText());
 //}
+CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(k), CSwordKey() {
+	m_module = k.m_module;
+}
 
-CSwordTreeKey::CSwordTreeKey( TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k), CSwordKey() {
+CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k), CSwordKey() {
 	m_module = module;
 }
 
 CSwordTreeKey* CSwordTreeKey::clone() const{
-#warning
+	return new CSwordTreeKey(*this);
 
 }
-
 
 CSwordTreeKey::~CSwordTreeKey() {
-
 }
+
+/** Sets the key of this instance */
+const QString CSwordTreeKey::key( const QString& newKey ){
+	if (!newKey.isNull()) {
+		SWKey::operator = ((const char*)newKey.utf8());		
+		m_module->module()->SetKey(this);
+		(const char*)*(m_module->module()); //snap to entry
+		SWKey::operator = (m_module->module()->KeyText());
+	}
+ 	return QString::fromLocal8Bit(m_module->module()->KeyText());//don't use fromUtf8
+}
+
+void CSwordVerseKey::key( const char* newKey ){
+	if (newKey) {
+		VerseKey::operator = (newKey);
+	}
+}
+
