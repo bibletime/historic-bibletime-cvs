@@ -907,7 +907,7 @@ void COptionsDialog::saveFonts(){
 	for(QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
     CLanguageMgr::Language lang = languageMgr()->languageForTranslatedName(it.key());
     if (!lang.isValid()) { //we probably use a language, for which we have only the abbrev
-      lang = languageMgr()->languageForAbbrev( it.key() );
+      lang = CLanguageMgr::Language(it.key(), it.key(), it.key());
     }
     CBTConfig::set(lang, it.data());
  	}

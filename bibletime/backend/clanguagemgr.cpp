@@ -105,7 +105,10 @@ const CLanguageMgr::LangMap CLanguageMgr::availableLanguages() {
     lang = languageForAbbrev(abbrev);
     if (lang.isValid()) {
       map.insert( abbrev, lang );
-    };
+    }
+    else {
+      map.insert( abbrev, Language(abbrev, abbrev, abbrev) );
+    }
   };
 
   return map;
