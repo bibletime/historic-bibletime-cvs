@@ -91,17 +91,18 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	
   for ( CLanguageMgr::LangMapIterator it( langMap ); it.current(); ++it ) {
   	const CLanguageMgr::Language* lang = it.current();
+		
 		if (lang->isValid() && CBTConfig::get(lang).first) {
 			const QFont f = CBTConfig::get(lang).second;
 			langCSS.append( 
-				QString::fromLatin1("\n#content[lang=%1] {font-family:%2; font-size:%3pt; font-weight:%3; font-style: %4;}\n")
+				QString::fromLatin1("\n#content[lang=%1] {font-family:%2; font-size:%3pt; font-weight:%4; font-style: %5;}\n")
 				.arg(lang->abbrev())
 				.arg(f.family()).arg(f.pointSize())
 				.arg(f.bold() ? "bold" : "normal")
 				.arg(f.italic() ? "italic" : "normal")
 			);
 			langCSS.append( 
-				QString::fromLatin1("\ntd[lang=%1] {font-family:%2; font-size:%3pt; font-weight:%3; font-style: %4;}\n")
+				QString::fromLatin1("\ntd[lang=%1] {font-family:%2; font-size:%3pt; font-weight:%4; font-style: %5;}\n")
 				.arg(lang->abbrev())
 				.arg(f.family()).arg(f.pointSize())
 				.arg(f.bold() ? "bold" : "normal")
@@ -110,6 +111,20 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 		}
 	}
 		
+	//at first append the font standard settings for all languages without configured font
+	CLanguageMgr::LangMapIterator it( langMap );
+	const CLanguageMgr::Language* lang = it.current();
+	if (lang && lang->isValid()) {
+		const QFont standardFont = CBTConfig::getDefault(lang); //we just need a dummy lang param
+		langCSS.prepend( 
+			QString::fromLatin1("\n#content {font-family:%1; font-size:%2pt; font-weight:%3; font-style: %4;}\n")
+// 			.arg(lang->abbrev())
+			.arg(standardFont.family()).arg(standardFont.pointSize())
+			.arg(standardFont.bold() ? "bold" : "normal")
+			.arg(standardFont.italic() ? "italic" : "normal")
+		);
+	}
+	
 	return QString(m_templateMap[ templateName ]) //don't change the map's content directly, use  a copy
 	 .replace("#TITLE#", settings.title)
 	 .replace("#LANG_ABBREV#", settings.langAbbrev)

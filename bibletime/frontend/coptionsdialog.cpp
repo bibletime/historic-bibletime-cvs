@@ -1017,15 +1017,22 @@ void COptionsDialog::saveSword(){
 }
 
 /** This slot is called when the "Use own font for language" bo was clicked. */
-void COptionsDialog::useOwnFontClicked( bool isOn){
+void COptionsDialog::useOwnFontClicked( bool isOn ){
   m_settings.fonts.fontChooser->setEnabled(isOn);
   m_settings.fonts.fontMap[ m_settings.fonts.usage->currentText() ].first = isOn;
 
   if (isOn) { //show font icon
-    m_settings.fonts.usage->changeItem(SmallIcon("fonts"), m_settings.fonts.usage->currentText(), m_settings.fonts.usage->currentItem() );
+    m_settings.fonts.usage->changeItem(
+			SmallIcon("fonts"),
+			m_settings.fonts.usage->currentText(),
+			m_settings.fonts.usage->currentItem() 
+		);
   }
   else {    //don't show
-    m_settings.fonts.usage->changeItem(m_settings.fonts.usage->currentText(), m_settings.fonts.usage->currentItem() );
+    m_settings.fonts.usage->changeItem(
+			m_settings.fonts.usage->currentText(), 
+			m_settings.fonts.usage->currentItem() 
+		);
   }
 }
 

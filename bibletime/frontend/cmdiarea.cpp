@@ -110,6 +110,11 @@ void CMDIArea::childEvent( QChildEvent * e ){
 	}	
 
   if (!m_deleting && isUpdatesEnabled() && (e->inserted() || e->removed()) ) {
+		if (e->inserted() && e->child()) {
+// 			e->child()->installEventFilter(this); //make sure we catch the events of th new window
+			qWarning("installed event filter on %s", e->child()->className());
+		}
+		
 		switch (m_guiOption) {
 	 		case autoTile:
 				QTimer::singleShot(0, this, SLOT(myTile()));
@@ -120,7 +125,6 @@ void CMDIArea::childEvent( QChildEvent * e ){
 	 		default:
 	 			break;
 		}
-
 	}
 
   m_childEvent = false;
@@ -168,7 +172,8 @@ void CMDIArea::deleteAll(){
 
   QWidgetList windows( windowList() ); //copy pointers
   windows.setAutoDelete( false );
-  const int count = windows.count();
+  
+	const int count = windows.count();
   for (int i = count-1; i >= 0; --i) {
     QWidget* w = windows.at(i);
     windows.remove(i);
@@ -199,13 +204,14 @@ void CMDIArea::myTile(){
     return;
   }
 
-	if ((windowList().count() == 1) && windowList().at(0)) {
-		m_appCaption = windowList().at(0)->caption();
-		windowList().at(0)->parentWidget()->showMaximized();
+	//if ((windowList().count() == 1) && windowList().at(0)) {
+	if ((usableWindowList().count() == 1) && usableWindowList().at(0)) {
+		m_appCaption = usableWindowList().at(0)->caption();
+		usableWindowList().at(0)->parentWidget()->showMaximized();
 	}
 	else {
     QWidget* active = activeWindow();
-	  tile();
+	  QWorkspace::tile();
     active->setFocus();
   }
 }
@@ -216,12 +222,14 @@ void CMDIArea::myCascade(){
 		return;
   }
     
-	if ((windowList().count() == 1) && windowList().at(0)) {
-    m_appCaption = windowList().at(0)->caption();
-		windowList().at(0)->parentWidget()->showMaximized();
+	if ((usableWindowList().count() == 1) && usableWindowList().at(0)) {
+    m_appCaption = usableWindowList().at(0)->caption();
+		usableWindowList().at(0)->parentWidget()->showMaximized();
 	}
  	else {
-    QWorkspace::cascade();
+    QWidget* active = activeWindow();
+	  QWorkspace::cascade();
+    active->setFocus();
   }
 }
 
@@ -236,4 +244,40 @@ void CMDIArea::emitWindowCaptionChanged() {
 	}
 	
 	emit sigSetToplevelCaption(currentApplicationCaption());
+}
+
+
+/*!
+    \fn CMDIArea::usableWindowsCount()
+ */
+QPtrList<QWidget> CMDIArea::usableWindowList()  {
+	QPtrList<QWidget> ret;
+	
+	QWidgetList windows = windowList();
+  for ( QWidget* w = windows.first(); w; w = windows.next() ) {
+ 		if (w->isMinimized() || w->isHidden()) { //not usable for us
+			continue;
+		}
+		
+		ret.append( w );
+	}	
+
+	return ret;
+}
+
+bool CMDIArea::eventFilter( QObject *o, QEvent *e ) {
+// 	QWidget* w = dynamic_cast<QWidget*>( o );
+	bool ret = QWorkspace::eventFilter(o,e);
+	
+/*		if ( w && (e->type() == QEvent::WindowStateChange) ) {
+		qWarning("eventFilter");
+
+		if ((w->windowState() & Qt::WindowMinimized) || w->isHidden()) { //window was minimized, trigger a tile/cascade update if necessary
+			//resizeEvent(0); //initiate the code to call myTile / myCascade if it's enabled
+			qWarning("minimize catched");
+// 			return true;
+		}
+	}*/
+	
+	return ret; // standard event processing
 }

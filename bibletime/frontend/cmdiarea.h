@@ -107,7 +107,9 @@ protected: // Protected methods
   * Initializes the view of the MDI area
   */
   void initView();
-		
+  QPtrList<QWidget> usableWindowList();
+	bool eventFilter( QObject *o, QEvent *e );
+			
 signals: // Signals
   /**
   * Emits a signal to set the acption of the toplevel widget.
@@ -118,7 +120,7 @@ signals: // Signals
   */
   void sigLastPresenterClosed();
   void createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& keyName);
-
+	
 private:
 	MDIOption m_guiOption;
 	bool m_childEvent;

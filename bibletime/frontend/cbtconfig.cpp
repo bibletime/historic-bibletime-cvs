@@ -38,6 +38,7 @@
 #include <klocale.h>
 #include <kaccel.h>
 
+#include <khtml_settings.h>
 
 /* 	No constructor and destructor, because this class only contains static methods.
 		It won't be instantiated. */
@@ -268,7 +269,18 @@ const QString CBTConfig::getKey( const CLanguageMgr::Language* const language ){
 
 const QFont CBTConfig::getDefault( const CLanguageMgr::Language* const){
   //language specific lookup of the font name
-  return KApplication::font();
+	//return KApplication::font();
+	
+	//TODO: We need a better way to get the KDE konqueror KHTML settings
+	KConfig conf("konquerorrc"); 
+	KHTMLSettings settings;
+	settings.init(&conf);
+	
+	const QString fontName = settings.stdFontName();
+	const int fontSize = settings.mediumFontSize();
+	
+// 	qWarning("%s %i" , fontName.latin1(), fontSize);
+	return QFont(fontName, fontSize);
 }
 
 

@@ -172,9 +172,10 @@ void CHTMLReadDisplay::selectAll() {
 void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
 	m_currentAnchorCache = anchor;
 	
-	//This is an ugly hack to work around a KDE problem in KDE including 3.3.1 (no later versions testes so far)
+	//This is an ugly hack to work around a KDE problem in KDE including 3.3.1 (no later versions tested so far)
  	QTimer::singleShot(0, this, SLOT(slotGoToAnchor()));
 	
+// instead of:
 // 	slotGoToAnchor();
 }
 
@@ -195,7 +196,7 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
     // between mouseClick and mouseRelease (I guess)
     m_urlWorkaroundData.doWorkaround = true;
     m_urlWorkaroundData.url = url;
-    m_urlWorkaroundData.state =  state;
+    m_urlWorkaroundData.state = state;
 		m_urlWorkaroundData.button = button;
 		m_urlWorkaroundData.target = _target;
 		m_urlWorkaroundData.args = args;
@@ -205,6 +206,9 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
   else if (!url.isEmpty() && (url.left(1) == "#")) { //anchor
     moveToAnchor(url.mid(1));
   }
+	else if (url.left(7) == "http://"){ //open the bowser configured by kdeb
+		KApplication::kApplication()->invokeBrowser( url, "0" ); //ToDo: Not yet tested
+	}
 }
 
 /** Reimplementation. */
