@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-06-10 20:57+0200\n"
+"POT-Creation-Date: 2001-06-16 11:44+0200\n"
 "PO-Revision-Date: 2001-05-08 23:33CEST\n"
 "Last-Translator: Silvio Bacchetta <silvio.bacchetta@milug.org>\n"
 "Language-Team: italian <it@li.org>\n"
@@ -134,10 +134,6 @@ msgstr "Traduzione in danese"
 msgid "Translation into Norwegian"
 msgstr "Traduzione in norvegese"
 
-#: bibletime/main.cpp:99
-msgid "Translation into Brazilian Portoguese"
-msgstr "Traduzione in portoghese brasiliano"
-
 #: bibletime/main.cpp:100
 msgid "Translation into Dutch"
 msgstr "Traduzione in olandese"
@@ -150,7 +146,7 @@ msgstr "Traduzione in francese"
 msgid "Translation into Czech"
 msgstr "Traduzione in ceco"
 
-#: bibletime/main.cpp:103 bibletime/main.cpp:105
+#: bibletime/main.cpp:103
 msgid "Translation into Portoguese"
 msgstr "Traduzione in portoghese"
 
@@ -217,7 +213,7 @@ msgstr "Nome:"
 
 #: bibletime/printing/cprinter.cpp:310 bibletime/printing/cprinter.cpp:341
 #: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
-#: bibletime/printing/cprinterdialog.cpp:616
+#: bibletime/printing/cprinterdialog.cpp:617
 #: bibletime/printing/cstyleeditordialog.cpp:182
 #: bibletime/printing/cstylelist.cpp:130
 msgid "Standard"
@@ -319,147 +315,147 @@ msgstr "Spessore della linea (in punti):"
 msgid "Frame color:"
 msgstr "Colore della cornice:"
 
-#: bibletime/printing/cprinterdialog.cpp:64
+#: bibletime/printing/cprinterdialog.cpp:65
 msgid "Printdialog"
 msgstr "Finestra di stampa"
 
-#: bibletime/dummy.h:123 bibletime/printing/cprinterdialog.cpp:65
+#: bibletime/dummy.h:123 bibletime/printing/cprinterdialog.cpp:66
 #: bibletime/tooltipdef.h:123
 msgid "Preview"
 msgstr "Anteprima"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:166
-#: bibletime/printing/cprinterdialog.cpp:89
+#: bibletime/printing/cprinterdialog.cpp:90
 msgid "General"
 msgstr "Generale"
 
-#: bibletime/printing/cprinterdialog.cpp:89
+#: bibletime/printing/cprinterdialog.cpp:90
 msgid "The general options for printing"
 msgstr "Opzioni generali di stampa"
 
-#: bibletime/printing/cprinterdialog.cpp:92
+#: bibletime/printing/cprinterdialog.cpp:93
 msgid "Available printers:"
 msgstr "Stampanti disponibili:"
 
-#: bibletime/printing/cprinterdialog.cpp:97
+#: bibletime/printing/cprinterdialog.cpp:98
 msgid "Printer"
 msgstr "Stampante"
 
-#: bibletime/printing/cprinterdialog.cpp:98
+#: bibletime/printing/cprinterdialog.cpp:99
 msgid "Host"
 msgstr "Host"
 
-#: bibletime/printing/cprinterdialog.cpp:99
+#: bibletime/printing/cprinterdialog.cpp:100
 msgid "Comment"
 msgstr "Commento"
 
-#: bibletime/printing/cprinterdialog.cpp:106
+#: bibletime/printing/cprinterdialog.cpp:107
 msgid "Print to file:"
 msgstr "Stampa su file:"
 
 #: bibletime/frontend/searchdialog/csearchdialog.cpp:51
-#: bibletime/printing/cprinterdialog.cpp:120
+#: bibletime/printing/cprinterdialog.cpp:121
 msgid "Search"
 msgstr "Cerca"
 
-#: bibletime/printing/cprinterdialog.cpp:141
+#: bibletime/printing/cprinterdialog.cpp:142
 msgid "&Number of copies"
 msgstr "&Numero di copie"
 
-#: bibletime/dummy.h:153 bibletime/printing/cprinterdialog.cpp:149
+#: bibletime/dummy.h:153 bibletime/printing/cprinterdialog.cpp:150
 #: bibletime/tooltipdef.h:153
 msgid "Orientation"
 msgstr "Disposizione"
 
-#: bibletime/printing/cprinterdialog.cpp:153
+#: bibletime/printing/cprinterdialog.cpp:154
 msgid "Por&trait"
 msgstr "Ver&ticale"
 
-#: bibletime/printing/cprinterdialog.cpp:157
+#: bibletime/printing/cprinterdialog.cpp:158
 msgid "L&andscape"
 msgstr "Orizzont&ale"
 
-#: bibletime/printing/cprinterdialog.cpp:173
+#: bibletime/printing/cprinterdialog.cpp:174
 msgid "Paper t&ype"
 msgstr "Tipo di car&ta"
 
-#: bibletime/printing/cprinterdialog.cpp:177
+#: bibletime/printing/cprinterdialog.cpp:178
 msgid "Size: 8888mm x 8888mm"
 msgstr "Dimensioni: 8888mm x 8888mm"
 
-#: bibletime/printing/cprinterdialog.cpp:196
+#: bibletime/printing/cprinterdialog.cpp:197
 msgid "Preview application:"
 msgstr "Applicazione per l'anteprima:"
 
-#: bibletime/printing/cprinterdialog.cpp:292
+#: bibletime/printing/cprinterdialog.cpp:293
 msgid "*.ps | Postscript files"
 msgstr "*.ps | file Postscript"
 
-#: bibletime/printing/cprinterdialog.cpp:335
+#: bibletime/printing/cprinterdialog.cpp:336
 msgid "A4"
 msgstr "A4"
 
-#: bibletime/printing/cprinterdialog.cpp:336
+#: bibletime/printing/cprinterdialog.cpp:337
 msgid "A5"
 msgstr "A5"
 
-#: bibletime/printing/cprinterdialog.cpp:337
+#: bibletime/printing/cprinterdialog.cpp:338
 msgid "Letter"
 msgstr "Lettera"
 
-#: bibletime/printing/cprinterdialog.cpp:338
+#: bibletime/printing/cprinterdialog.cpp:339
 msgid "Legal"
 msgstr "Legale"
 
-#: bibletime/printing/cprinterdialog.cpp:339
+#: bibletime/printing/cprinterdialog.cpp:340
 msgid "Executive"
 msgstr "Executive"
 
-#: bibletime/printing/cprinterdialog.cpp:370
+#: bibletime/printing/cprinterdialog.cpp:371
 msgid "Layout specific settings"
 msgstr "Opzioni specifiche di impaginazione"
 
-#: bibletime/printing/cprinterdialog.cpp:373
+#: bibletime/printing/cprinterdialog.cpp:374
 msgid "Margins (in millimeter)"
 msgstr "Margini (in millimetri)"
 
-#: bibletime/printing/cprinterdialog.cpp:381
+#: bibletime/printing/cprinterdialog.cpp:382
 msgid "&Top"
 msgstr "Superiore (&T)"
 
-#: bibletime/printing/cprinterdialog.cpp:382
+#: bibletime/printing/cprinterdialog.cpp:383
 msgid "&Bottom"
 msgstr "Inferiore (&B)"
 
-#: bibletime/printing/cprinterdialog.cpp:383
+#: bibletime/printing/cprinterdialog.cpp:384
 msgid "&Left"
 msgstr "Sinistro (&L)"
 
-#: bibletime/printing/cprinterdialog.cpp:384
+#: bibletime/printing/cprinterdialog.cpp:385
 msgid "&Right"
 msgstr "Destro (&R)"
 
-#: bibletime/printing/cprinterdialog.cpp:433
+#: bibletime/printing/cprinterdialog.cpp:434
 msgid "List of style items:"
 msgstr "Lista degli stili:"
 
-#: bibletime/printing/cprinterdialog.cpp:471
+#: bibletime/printing/cprinterdialog.cpp:472
 msgid "Entries"
 msgstr "Voci"
 
-#: bibletime/printing/cprinterdialog.cpp:471
+#: bibletime/printing/cprinterdialog.cpp:472
 msgid "Management of BibleTime's printing queue"
 msgstr "Gestione della coda di stampa di BibleTime"
 
-#: bibletime/printing/cprinterdialog.cpp:481
+#: bibletime/printing/cprinterdialog.cpp:482
 msgid "Choose a style"
 msgstr "Scegli uno stile"
 
-#: bibletime/printing/cprinterdialog.cpp:493
+#: bibletime/printing/cprinterdialog.cpp:494
 msgid "Entries which should be printed:"
 msgstr "Voci da stampare:"
 
-#: bibletime/printing/cprinterdialog.cpp:540
+#: bibletime/printing/cprinterdialog.cpp:541
 #, c-format, ycp-format
 msgid "Size: %1mm x %2mm"
 msgstr "Dimensioni: %1mm x %2mm"
@@ -493,7 +489,7 @@ msgstr "Testo della voce"
 msgid "Entry with text"
 msgstr "Voce con testo"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:75
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:76
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:85
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:70
 msgid "Selected text"
@@ -509,20 +505,20 @@ msgstr "Voce come testo semplice"
 msgid "Entry as HTML"
 msgstr "Voce come HTML"
 
-#: bibletime/dummy.h:95 bibletime/frontend/presenters/cbiblepresenter.cpp:86
+#: bibletime/dummy.h:95 bibletime/frontend/presenters/cbiblepresenter.cpp:87
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:94
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:79
 #: bibletime/tooltipdef.h:95
 msgid "Select all"
 msgstr "Seleziona tutto"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:87
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:88
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:95
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:80
 msgid "Lookup selected text in lexicon"
 msgstr "Cerca il testo selezionato nel lessico"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:89
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:90
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:82
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
@@ -530,7 +526,7 @@ msgstr "Cerca il testo selezionato nel lessico"
 msgid "Copy..."
 msgstr "Copia..."
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:90
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:91
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:98
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:83
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:135
@@ -538,7 +534,7 @@ msgstr "Copia..."
 msgid "Add to printing queue..."
 msgstr "Aggiungi alla coda di stampa..."
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:91
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:92
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:99
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:84
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:136
@@ -546,39 +542,39 @@ msgstr "Aggiungi alla coda di stampa..."
 msgid "Save..."
 msgstr "Salva..."
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:67
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:68
 msgid "Bible window"
 msgstr "Finestra della Bibbia"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:70
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:71
 msgid "Verse"
 msgstr "Versetto"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:71
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:72
 msgid "Text of verse"
 msgstr "Testo del versetto"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:72
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:78
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:82
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:73
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:79
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:83
 msgid "Verse with text"
 msgstr "Versetto con testo"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:73
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:79
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:74
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:80
 msgid "Chapter"
 msgstr "Capitolo"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:83
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:84
 msgid "Chapter as plain text"
 msgstr "Capitolo come testo semplice"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:84
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:85
 msgid "Chapter as HTML"
 msgstr "Capitolo come HTML"
 
 #: bibletime/frontend/chtmlwidget.cpp:225
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:300
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:303
 msgid ""
 "*.txt | Text file (*.txt)\n"
 "*.* | All files (*.*)"
@@ -586,7 +582,7 @@ msgstr ""
 ".txt | file di testo (*.txt)\n"
 "*.* | Tutti i  file (*.*)"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:300
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:303
 #, fuzzy
 msgid "Save verse with text as ..."
 msgstr "Salva versetto con testo come..."
@@ -898,15 +894,15 @@ msgstr "Nome dell'intervallo"
 msgid "Please enter a name for the new range"
 msgstr "Per favore, inserisci un nome per il nuovo intervallo"
 
-#: bibletime/frontend/ctipwindow.cpp:68
+#: bibletime/frontend/ctipwindow.cpp:69
 msgid "Useful tips for BibleTime"
 msgstr "Consigli utili per BibleTime"
 
-#: bibletime/frontend/ctipwindow.cpp:100
+#: bibletime/frontend/ctipwindow.cpp:102
 msgid "Run on startup"
 msgstr "Esegui all'avvio"
 
-#: bibletime/frontend/ctipwindow.cpp:120
+#: bibletime/frontend/ctipwindow.cpp:122
 msgid ""
 "<DIV align=\"center\"><B>Missing tips!</B></DIV><BR><BR>Your installation is "
 "missing the daily tips.\t\tPlease make sure all files of BibleTime are\t"
@@ -1168,12 +1164,12 @@ msgstr ""
 msgid "BibleTime - Reset main index"
 msgstr "BibleTime - Azzera l'indice principale"
 
-#: bibletime/frontend/ctoolclass.cpp:78
+#: bibletime/frontend/ctoolclass.cpp:80
 msgid ""
 "<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
 msgstr "<qt><B>Il file esiste già!</B><BR>Vuoi sovrascriverlo?</qt>"
 
-#: bibletime/frontend/ctoolclass.cpp:78
+#: bibletime/frontend/ctoolclass.cpp:80
 msgid "BibleTime - Save file as ..."
 msgstr "BibleTime - Salva file come..."
 
@@ -2263,6 +2259,9 @@ msgid ""
 "Create a new printing style.<BR>The new style will be added to the list."
 msgstr ""
 "Crea un nuovo stile di stampa.<BR>Il nuovo stile sarà aggiunto alla lista."
+
+#~ msgid "Translation into Brazilian Portoguese"
+#~ msgstr "Traduzione in portoghese brasiliano"
 
 #~ msgid "<FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3"
 #~ msgstr "<FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3"

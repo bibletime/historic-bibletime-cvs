@@ -159,21 +159,17 @@ int CToolClass::makeLogicFontSize( const int s ) {
 /** No descriptions */
 const QString CToolClass::getSaveFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
 #ifdef STATIC_BUILD
-	const QString file = QFileDialog::getSaveFileName(startDir, filter,parent,"CToolClass::getSaveFileName",caption);
-	return file;
+	return QFileDialog::getSaveFileName(startDir, filter,parent,"CToolClass::getSaveFileName",caption);
 #else
-	const QString file = KFileDialog::getSaveFileName(startDir, filter, parent, caption);
-	return file;
+	return KFileDialog::getSaveFileName(startDir, filter, parent, caption);
 #endif
 }
 
 /** No descriptions */
 const QString CToolClass::getOpenFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
 #ifdef STATIC_BUILD
-	const QString file = QFileDialog::getOpenFileName(startDir, filter, parent,"CToolClass::getOpenileName",caption);
-	return file;	
+	return QFileDialog::getOpenFileName(startDir, filter, parent,"CToolClass::getOpenileName",caption);
 #else
-	const QString file = KFileDialog::getOpenFileName(startDir, filter, parent, caption);
-	return file;	
+	return KFileDialog::getOpenFileName(startDir, filter, parent, caption);
 #endif
 }

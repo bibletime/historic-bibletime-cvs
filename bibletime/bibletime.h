@@ -130,6 +130,12 @@ public slots:
   * The last window was closed!
   */
   void lastWindowClosed();
+  /**
+  * Opens the online help.
+	* If STATIC_BUILD is defined it opens an own dialog,
+	* otherwise the standard KDE helpsystem will be opened.
+	*/
+  void openOnlineHelp();
 
 protected: // Protected methods
   /**

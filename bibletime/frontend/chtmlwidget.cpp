@@ -583,7 +583,7 @@ void CHTMLWidget::slotAlignJustify(){
 
 /** No descriptions */
 void CHTMLWidget::slotSelectAll(){
-	selectAll(false);
+	selectAll(false);//workaround
 	selectAll(true);
 }
 
@@ -593,13 +593,18 @@ bool CHTMLWidget::linksEnabled() const {
 }
 
 /** Reimplementation from QTextView. */
-void CHTMLWidget::emitLinkClicked( const QString& s){
-	if (s.left(8) == "sword://")
-		emit referenceClicked(s.mid(8,s.length()-9)); //the URL has a trailing slash at the end
+void CHTMLWidget::emitLinkClicked( const QString& link){
+	if (link.left(7) == QString::fromLatin1("mailto:")) {
+		qDebug("open mailer for %s", link.mid(7).latin1());
+		KApplication::kApplication()->invokeMailer(link.mid(7), QString::null);
+	}
+	else if (link.left(8) == "sword://") {
+		emit referenceClicked(link.mid(8,link.length()-9)); //the URL has a trailing slash at the end
+	}
 	else {
-		QString url = s;
-		if (s.left(1) == "/")
-			url = s.right(s.length()-1);
+		QString url = link;
+		if (link.left(1) == "/")
+			url = link.right(link.length()-1);
 		emit linkClicked(url);
 	}
 }

@@ -25,6 +25,7 @@
 #include "backend/sword_backend/chtmlentrydisplay.h"
 #include "backend/sword_backend/chtmlchapterdisplay.h"
 #include "printing/cprinter.h"
+#include "frontend/chtmldialog.h"
 #include "frontend/presenters/cswordpresenter.h"
 #include "frontend/groupmanager/cgroupmanager.h"
 #include "frontend/optionsdialog/coptionsdialog.h"
@@ -54,6 +55,7 @@
 #include <kedittoolbar.h>
 #include <kpopupmenu.h>
 #include <kconfig.h>
+#include <khelpmenu.h>
 
 //Sword includes
 #include <versekey.h>
@@ -320,4 +322,15 @@ void BibleTime::slotAbortPrinting(){
 	m_important->printer->abort();
 	if (m_progress)
 		slotPrintingFinished();
+}
+
+/** Opens the online help. If STATIC_BUILD is defined it opens an own dialog, otherwise the standard KDE helpsystem will be opened. */
+void BibleTime::openOnlineHelp() {
+#ifndef STATIC_BUILD
+	CHTMLDialog dlg("bibletime/index.html");
+	dlg.exec();
+#else
+	if (m_helpMenu)
+		m_helpMenu->appHelpActivated();
+#endif
 }

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BibleTime 1\n"
-"POT-Creation-Date: 2001-06-10 20:57+0200\n"
+"POT-Creation-Date: 2001-06-16 11:44+0200\n"
 "PO-Revision-Date: 2001-05-24 12:39GMT\n"
 "Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -133,10 +133,6 @@ msgstr "Preklad do dánštiny"
 msgid "Translation into Norwegian"
 msgstr "Preklad do francúštiny"
 
-#: bibletime/main.cpp:99
-msgid "Translation into Brazilian Portoguese"
-msgstr "Preklad do brazílčiny a portugalštiny"
-
 #: bibletime/main.cpp:100
 msgid "Translation into Dutch"
 msgstr "Preklad do holandštiny"
@@ -149,7 +145,7 @@ msgstr "Preklad do francúštiny"
 msgid "Translation into Czech"
 msgstr "Preklad do češtiny"
 
-#: bibletime/main.cpp:103 bibletime/main.cpp:105
+#: bibletime/main.cpp:103
 msgid "Translation into Portoguese"
 msgstr "Preklad do portugalštiny"
 
@@ -216,7 +212,7 @@ msgstr "Meno:"
 
 #: bibletime/printing/cprinter.cpp:310 bibletime/printing/cprinter.cpp:341
 #: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
-#: bibletime/printing/cprinterdialog.cpp:616
+#: bibletime/printing/cprinterdialog.cpp:617
 #: bibletime/printing/cstyleeditordialog.cpp:182
 #: bibletime/printing/cstylelist.cpp:130
 msgid "Standard"
@@ -318,147 +314,147 @@ msgstr "Hrúbka čiary (v bodoch):"
 msgid "Frame color:"
 msgstr "Farba rámca:"
 
-#: bibletime/printing/cprinterdialog.cpp:64
+#: bibletime/printing/cprinterdialog.cpp:65
 msgid "Printdialog"
 msgstr "Tlačový dialóg"
 
-#: bibletime/dummy.h:123 bibletime/printing/cprinterdialog.cpp:65
+#: bibletime/dummy.h:123 bibletime/printing/cprinterdialog.cpp:66
 #: bibletime/tooltipdef.h:123
 msgid "Preview"
 msgstr "Náhľad"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:166
-#: bibletime/printing/cprinterdialog.cpp:89
+#: bibletime/printing/cprinterdialog.cpp:90
 msgid "General"
 msgstr "Všeobecné"
 
-#: bibletime/printing/cprinterdialog.cpp:89
+#: bibletime/printing/cprinterdialog.cpp:90
 msgid "The general options for printing"
 msgstr "Všeobecné možnosti pre tlač"
 
-#: bibletime/printing/cprinterdialog.cpp:92
+#: bibletime/printing/cprinterdialog.cpp:93
 msgid "Available printers:"
 msgstr "Dostupné tlačiarne:"
 
-#: bibletime/printing/cprinterdialog.cpp:97
+#: bibletime/printing/cprinterdialog.cpp:98
 msgid "Printer"
 msgstr "Tlačiareň"
 
-#: bibletime/printing/cprinterdialog.cpp:98
+#: bibletime/printing/cprinterdialog.cpp:99
 msgid "Host"
 msgstr "Hostiteľ"
 
-#: bibletime/printing/cprinterdialog.cpp:99
+#: bibletime/printing/cprinterdialog.cpp:100
 msgid "Comment"
 msgstr "Komentár"
 
-#: bibletime/printing/cprinterdialog.cpp:106
+#: bibletime/printing/cprinterdialog.cpp:107
 msgid "Print to file:"
 msgstr "Tlač do súboru:"
 
 #: bibletime/frontend/searchdialog/csearchdialog.cpp:51
-#: bibletime/printing/cprinterdialog.cpp:120
+#: bibletime/printing/cprinterdialog.cpp:121
 msgid "Search"
 msgstr "Hľadaj"
 
-#: bibletime/printing/cprinterdialog.cpp:141
+#: bibletime/printing/cprinterdialog.cpp:142
 msgid "&Number of copies"
 msgstr "&Počet kópii"
 
-#: bibletime/dummy.h:153 bibletime/printing/cprinterdialog.cpp:149
+#: bibletime/dummy.h:153 bibletime/printing/cprinterdialog.cpp:150
 #: bibletime/tooltipdef.h:153
 msgid "Orientation"
 msgstr "Orientácia"
 
-#: bibletime/printing/cprinterdialog.cpp:153
+#: bibletime/printing/cprinterdialog.cpp:154
 msgid "Por&trait"
 msgstr "Na &výšku"
 
-#: bibletime/printing/cprinterdialog.cpp:157
+#: bibletime/printing/cprinterdialog.cpp:158
 msgid "L&andscape"
 msgstr "N&a šírku"
 
-#: bibletime/printing/cprinterdialog.cpp:173
+#: bibletime/printing/cprinterdialog.cpp:174
 msgid "Paper t&ype"
 msgstr "T&yp papiera"
 
-#: bibletime/printing/cprinterdialog.cpp:177
+#: bibletime/printing/cprinterdialog.cpp:178
 msgid "Size: 8888mm x 8888mm"
 msgstr "Veľkosť: 8888mm x 8888mm"
 
-#: bibletime/printing/cprinterdialog.cpp:196
+#: bibletime/printing/cprinterdialog.cpp:197
 msgid "Preview application:"
 msgstr "Aplikácia pre náhľad:"
 
-#: bibletime/printing/cprinterdialog.cpp:292
+#: bibletime/printing/cprinterdialog.cpp:293
 msgid "*.ps | Postscript files"
 msgstr "*.ps | Postscript súbory"
 
-#: bibletime/printing/cprinterdialog.cpp:335
+#: bibletime/printing/cprinterdialog.cpp:336
 msgid "A4"
 msgstr "A4"
 
-#: bibletime/printing/cprinterdialog.cpp:336
+#: bibletime/printing/cprinterdialog.cpp:337
 msgid "A5"
 msgstr "A5"
 
-#: bibletime/printing/cprinterdialog.cpp:337
+#: bibletime/printing/cprinterdialog.cpp:338
 msgid "Letter"
 msgstr "Letter"
 
-#: bibletime/printing/cprinterdialog.cpp:338
+#: bibletime/printing/cprinterdialog.cpp:339
 msgid "Legal"
 msgstr "Legal"
 
-#: bibletime/printing/cprinterdialog.cpp:339
+#: bibletime/printing/cprinterdialog.cpp:340
 msgid "Executive"
 msgstr "Executive"
 
-#: bibletime/printing/cprinterdialog.cpp:370
+#: bibletime/printing/cprinterdialog.cpp:371
 msgid "Layout specific settings"
 msgstr "Nastavenie pre konkrétne rozloženie"
 
-#: bibletime/printing/cprinterdialog.cpp:373
+#: bibletime/printing/cprinterdialog.cpp:374
 msgid "Margins (in millimeter)"
 msgstr "Ohraničenie (v milimetroch)"
 
-#: bibletime/printing/cprinterdialog.cpp:381
+#: bibletime/printing/cprinterdialog.cpp:382
 msgid "&Top"
 msgstr "&Hore"
 
-#: bibletime/printing/cprinterdialog.cpp:382
+#: bibletime/printing/cprinterdialog.cpp:383
 msgid "&Bottom"
 msgstr "&Dole"
 
-#: bibletime/printing/cprinterdialog.cpp:383
+#: bibletime/printing/cprinterdialog.cpp:384
 msgid "&Left"
 msgstr "&Vľavo"
 
-#: bibletime/printing/cprinterdialog.cpp:384
+#: bibletime/printing/cprinterdialog.cpp:385
 msgid "&Right"
 msgstr "Vp&ravo"
 
-#: bibletime/printing/cprinterdialog.cpp:433
+#: bibletime/printing/cprinterdialog.cpp:434
 msgid "List of style items:"
 msgstr "Zoznam položiek štýlu:"
 
-#: bibletime/printing/cprinterdialog.cpp:471
+#: bibletime/printing/cprinterdialog.cpp:472
 msgid "Entries"
 msgstr "Záznamy"
 
-#: bibletime/printing/cprinterdialog.cpp:471
+#: bibletime/printing/cprinterdialog.cpp:472
 msgid "Management of BibleTime's printing queue"
 msgstr "Riadenie tlačovej fronty v BibleTime"
 
-#: bibletime/printing/cprinterdialog.cpp:481
+#: bibletime/printing/cprinterdialog.cpp:482
 msgid "Choose a style"
 msgstr "Výber štýlu"
 
-#: bibletime/printing/cprinterdialog.cpp:493
+#: bibletime/printing/cprinterdialog.cpp:494
 msgid "Entries which should be printed:"
 msgstr "Záznamy, ktoré by mali byť vytlačené:"
 
-#: bibletime/printing/cprinterdialog.cpp:540
+#: bibletime/printing/cprinterdialog.cpp:541
 #, c-format, ycp-format
 msgid "Size: %1mm x %2mm"
 msgstr "Veľkosť: %1mm x %2mm"
@@ -492,7 +488,7 @@ msgstr "Text záznamu"
 msgid "Entry with text"
 msgstr "Záznam s textom"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:75
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:76
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:85
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:70
 msgid "Selected text"
@@ -508,20 +504,20 @@ msgstr "Záznam ako obyčejný text"
 msgid "Entry as HTML"
 msgstr "Záznam ako HTML"
 
-#: bibletime/dummy.h:95 bibletime/frontend/presenters/cbiblepresenter.cpp:86
+#: bibletime/dummy.h:95 bibletime/frontend/presenters/cbiblepresenter.cpp:87
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:94
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:79
 #: bibletime/tooltipdef.h:95
 msgid "Select all"
 msgstr "Zvoľ všetko"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:87
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:88
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:95
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:80
 msgid "Lookup selected text in lexicon"
 msgstr "Hľadaj vyznačený text v lexikóne"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:89
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:90
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:82
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
@@ -529,7 +525,7 @@ msgstr "Hľadaj vyznačený text v lexikóne"
 msgid "Copy..."
 msgstr "Kopíruj..."
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:90
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:91
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:98
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:83
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:135
@@ -537,7 +533,7 @@ msgstr "Kopíruj..."
 msgid "Add to printing queue..."
 msgstr "Pridaj do tlačovej fronty..."
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:91
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:92
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:99
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:84
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:136
@@ -545,39 +541,39 @@ msgstr "Pridaj do tlačovej fronty..."
 msgid "Save..."
 msgstr "Ulož..."
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:67
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:68
 msgid "Bible window"
 msgstr "Okno Biblie"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:70
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:71
 msgid "Verse"
 msgstr "verš"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:71
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:72
 msgid "Text of verse"
 msgstr "text verša"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:72
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:78
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:82
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:73
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:79
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:83
 msgid "Verse with text"
 msgstr "verš s textom"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:73
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:79
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:74
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:80
 msgid "Chapter"
 msgstr "kapitolu"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:83
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:84
 msgid "Chapter as plain text"
 msgstr "kapitolu ako obyčajný text"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:84
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:85
 msgid "Chapter as HTML"
 msgstr "kapitolu ako HTML"
 
 #: bibletime/frontend/chtmlwidget.cpp:225
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:300
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:303
 msgid ""
 "*.txt | Text file (*.txt)\n"
 "*.* | All files (*.*)"
@@ -585,7 +581,7 @@ msgstr ""
 "*.txt | Textový súbor (*.txt)\n"
 "*.* | Všetky súbory (*.*)"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:300
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:303
 msgid "Save verse with text as ..."
 msgstr "Ulož verš s textom ako ..."
 
@@ -896,15 +892,15 @@ msgstr "Meno rozsahu"
 msgid "Please enter a name for the new range"
 msgstr "Vložte meno nového rozsahu"
 
-#: bibletime/frontend/ctipwindow.cpp:68
+#: bibletime/frontend/ctipwindow.cpp:69
 msgid "Useful tips for BibleTime"
 msgstr "Užitočné tipy pre BibleTime"
 
-#: bibletime/frontend/ctipwindow.cpp:100
+#: bibletime/frontend/ctipwindow.cpp:102
 msgid "Run on startup"
 msgstr "Spusti pri štarte"
 
-#: bibletime/frontend/ctipwindow.cpp:120
+#: bibletime/frontend/ctipwindow.cpp:122
 msgid ""
 "<DIV align=\"center\"><B>Missing tips!</B></DIV><BR><BR>Your installation is "
 "missing the daily tips.\t\tPlease make sure all files of BibleTime are\t"
@@ -1166,12 +1162,12 @@ msgstr ""
 msgid "BibleTime - Reset main index"
 msgstr "BibleTime - Znovu nastav hlavný index"
 
-#: bibletime/frontend/ctoolclass.cpp:78
+#: bibletime/frontend/ctoolclass.cpp:80
 msgid ""
 "<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
 msgstr "<qt><B>Súbor už existuje!</B><BR>Chcete ho prepísať?</qt>"
 
-#: bibletime/frontend/ctoolclass.cpp:78
+#: bibletime/frontend/ctoolclass.cpp:80
 msgid "BibleTime - Save file as ..."
 msgstr "BibleTime - Ulož súbor ako..."
 
@@ -2231,3 +2227,6 @@ msgstr "Zmení nastavenie pre vybraný štýl pre tlač."
 msgid ""
 "Create a new printing style.<BR>The new style will be added to the list."
 msgstr "Vytvorí nový štýl pre tlač.<BR>Nový štýl bude pridaný do zoznamu."
+
+#~ msgid "Translation into Brazilian Portoguese"
+#~ msgstr "Preklad do brazílčiny a portugalštiny"

@@ -151,8 +151,9 @@ void BibleTime::initActions() {
 	m_windowCloseAll_action->setWhatsThis( WT_WINDOW_CLOSE_ALL );
 	
 
-	if ( !(m_helpContents_action = actionCollection()->action("help_contents")) )	
-		m_helpContents_action = KStdAction::helpContents(m_helpMenu, SLOT(appHelpActivated()), actionCollection() );
+	if ( (m_helpContents_action = actionCollection()->action("help_contents")) )	
+		delete m_helpContents_action;
+	m_helpContents_action = KStdAction::helpContents(this, SLOT(openOnlineHelp()), actionCollection() );
 	m_helpContents_action->setToolTip(TT_HELP_CONTENT);
 	m_helpContents_action->setWhatsThis(WT_HELP_CONTENT);	
 	
@@ -186,10 +187,11 @@ void BibleTime::initActions() {
 /** Initializes the menubar of BibleTime. */
 void BibleTime::initMenubar(){
 	//get the window and edit menus using the actions and their properties
-	if ( m_windowTile_action->container(0) && m_windowTile_action->container(0)->inherits("QPopupMenu") )
-		m_windowMenu = (QPopupMenu*)m_windowTile_action->container(0);
-	else
-		m_windowMenu = 0;
+	m_windowMenu = dynamic_cast<QPopupMenu*>(m_windowTile_action->container(0));	
+//	if ( m_windowTile_action->container(0) && m_windowTile_action->container(0)->inherits("QPopupMenu") )
+//		m_windowMenu = dynamic_cast<QPopupMenu*>(m_windowTile_action->container(0));
+//	else
+//		m_windowMenu = 0;
 }
 
 /** Initializes the SIGNAL / SLOT connections */

@@ -279,3 +279,4 @@ void BibleTime::saveProperties(KConfig* myConfig){
 void BibleTime::readProperties(KConfig* myConfig){
 
 }
+
