@@ -381,6 +381,8 @@ const QString CSwordBackend::configOptionName( const CSwordBackend::FilterTypes 
 			return QString::fromLatin1("Variants");
 		case CSwordBackend::scriptureReferences: //scriprefs don't work yet
 			return QString::fromLatin1("Scripref");
+    default:
+      return QString::null;
 	}
 	return QString::null;	
 }
@@ -401,7 +403,7 @@ SWFilter* const CSwordBackend::transliterator() {
   if (!useICU())
     return 0;
   SWFilter* filter = optionFilters["UTF8Transliterator"];
-  Q_ASSERT(filter);
+//  Q_ASSERT(filter);
   if (filter)
     return filter;
   return 0;

@@ -42,6 +42,7 @@
 #include <qsplitter.h>
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
+#include <qwhatsthis.h>
 #include <qheader.h>
 
 //KDE includes
@@ -366,6 +367,7 @@ void CSearchResultPage::showAnalysis(){
 
 CSearchOptionsPage::CSearchOptionsPage(QWidget *parent, const char *name ) : QWidget(parent,name) {
   initView();
+  
   readSettings();
 }
 
@@ -397,7 +399,22 @@ const QString CSearchOptionsPage::searchText() {
 
 /** Sets the search text used in the page. */
 void CSearchOptionsPage::setSearchText(const QString& text) {
-  m_searchTextCombo->setCurrentText(text);
+////  m_searchTextCombo->setEditText(text);
+	bool found = false;
+  int i = 0;
+	for (i = 0; !found && i < m_searchTextCombo->count(); ++i) {
+		if (m_searchTextCombo->text(i) == text)
+			found = true;
+	}
+
+	if (!found) {
+    i = 0;
+		m_searchTextCombo->insertItem(text,0);
+	}
+
+  m_searchTextCombo->reset();
+  m_searchTextCombo->setCurrentItem(i);
+	m_searchTextCombo->setFocus();	
 }
 
 /** Initializes this page. */
@@ -420,13 +437,17 @@ void CSearchOptionsPage::initView(){
 
 
   m_searchTextCombo = new KHistoryCombo(this);
-  m_searchTextCombo->setInsertionPolicy( QComboBox::AtTop );
+  m_searchTextCombo->setInsertionPolicy( QComboBox::AtBottom );
   m_searchTextCombo->setMaxCount(25);
   m_searchTextCombo->setDuplicatesEnabled(false);
-  m_searchTextCombo->setFocusPolicy(QWidget::StrongFocus);
+  m_searchTextCombo->setFocusPolicy(QWidget::WheelFocus);
   connect( m_searchTextCombo, SIGNAL(activated( const QString& )),	m_searchTextCombo, SLOT( addToHistory( const QString& )));
   connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),m_searchTextCombo,  SLOT(addToHistory(const QString&)) );
-	  
+
+	QToolTip::add(m_searchTextCombo, TT_SD_SEARCH_TEXT_EDIT);
+	QWhatsThis::add(m_searchTextCombo, WT_SD_SEARCH_TEXT_EDIT);
+  
+    
   QLabel* label = new QLabel(m_searchTextCombo, i18n("Searched text:"), this);
   label->setAutoResize(true);
 
@@ -547,6 +568,7 @@ const int CSearchOptionsPage::searchFlags() {
 void CSearchOptionsPage::reset(){
   m_multipleWordsRadio->setChecked(true);
   m_rangeChooserCombo->setCurrentItem(0); //no scope
+  m_searchTextCombo->clear();
 }
 
 /** Reads the settings for the searchdialog from disk. */

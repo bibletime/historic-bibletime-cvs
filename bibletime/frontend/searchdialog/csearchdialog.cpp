@@ -670,23 +670,23 @@ CSearchAnalysisDialog::~CSearchAnalysisDialog() {
 
 /** Initializes this dialog. */
 void CSearchAnalysisDialog::initView(){
-  QVBoxLayout* layout = new QVBoxLayout(plainPage());
+  QVBoxLayout* layout = new QVBoxLayout(plainPage(),0);
 
-  QToolButton* button = new QToolButton(plainPage(), "toolbutton");
-  Q_ASSERT(button);
+  QToolButton* button = new QToolButton(plainPage(), "button");
   button->setIconSet(SmallIconSet("filesave"));
   button->setTextLabel(i18n("Save search analysis")+"...");
   button->setUsesTextLabel(true);
   button->setFixedSize(button->sizeHint());
-  connect(button, SIGNAL(clicked()), m_analysis, SLOT(saveAsHTML()));
-  layout->addWidget(button,0);
+//  connect(button, SIGNAL(clicked()), m_analysis, SLOT(saveAsHTML()));
+  layout->addWidget(button);
+  layout->addSpacing(10);
   
   m_analysis = new CSearchAnalysis(plainPage());
   m_analysisView = new CSearchAnalysisView(m_analysis, plainPage());
   m_analysisView->show();
   layout->addWidget(m_analysisView);
-  
-  resize(600,480);
+
+  showMaximized();
 }
 
 /** Initializes the widgets SIGNAL and SLOT connections,. */
@@ -952,18 +952,19 @@ int CSearchAnalysisItem::width(){
 /** Returns the tooltip for this item. */
 const QString CSearchAnalysisItem::getToolTip(){
 	QString ret = QString::fromLatin1("<CENTER><B>%1</B></CENTER><HR>").arg(m_bookName);
-	ret.append("<TABLE CELLPADDING=\"3\" WIDTH=\"100%\" ALIGN=\"center\">");
+	ret += "<TABLE CELLSPACING=\"0\" CELLPADDING=\"3\" WIDTH=\"100%\" HEIGHT=\"100%\" ALIGN=\"center\">";
 	for (int i = 0; i < m_moduleCount; ++i) {
 		CSwordModuleInfo* info = m_moduleList->at(i);
 		const QColor c = CSearchAnalysis::getColor(i);
 		ret.append(
-			QString::fromLatin1("<TR BGCOLOR=\"white\"><TD><B><FONT COLOR=\"#%1\">%2</FONT></B></TD><TD>%3</TD></TR>")
+			QString::fromLatin1("<TR BGCOLOR=\"white\"><TD><B><FONT COLOR=\"#%1\">%2</FONT></B></TD><TD>%3 (%4%)</TD></TR>")
 				.arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue()))
 				.arg(info ? info->name() : QString::null)
 				.arg(m_resultCountArray[i])
+        .arg(info ? ((double)m_resultCountArray[i] / (double)info->searchResult().Count())*(double)100 : 0.0, 0, 'g', 2)
 		);
 	}
-	ret.append("</TABLE>");			
+	ret += "</TABLE>";
 	return ret;
 }
 

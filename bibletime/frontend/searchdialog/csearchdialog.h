@@ -318,8 +318,8 @@ private:
   int m_maxCount;
   double m_scaleFactor;
   CSearchAnalysisLegendItem* m_legend;
+
 public slots: // Public slots
-  /** No descriptions */
   void saveAsHTML();
 };
 

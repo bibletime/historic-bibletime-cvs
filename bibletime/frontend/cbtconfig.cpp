@@ -218,8 +218,11 @@ const QString CBTConfig::getKey( const CBTConfig::stringLists ID){
 
 const QStringList CBTConfig::getDefault( const CBTConfig::stringLists ID){
 	switch ( ID ){
-		case searchTexts:
-			return QStringList();
+		case searchTexts: {
+      QStringList list;
+      list.append(QString::null);
+			return list;
+    }
 		case searchCompletionTexts:
 			return QStringList();
 	}
@@ -309,7 +312,7 @@ const QValueList<int> CBTConfig::get( const CBTConfig::intLists ID ){
 
 const QStringList	CBTConfig::get( const CBTConfig::stringLists ID ){
 	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, "lists");
+	KConfigGroupSaver groupSaver(config, "stringlists");
 	return config->readListEntry(getKey(ID));
 }
 
@@ -362,7 +365,7 @@ void CBTConfig::set( const CBTConfig::intLists ID, const QValueList<int> value )
 
 void CBTConfig::set( const CBTConfig::stringLists ID, const QStringList value ){
 	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, "lists");
+	KConfigGroupSaver groupSaver(config, "stringlists");
 	config->writeEntry(getKey(ID), value);
 }
 
