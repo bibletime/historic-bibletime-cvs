@@ -247,10 +247,10 @@ void CSwordSetupDialog::initRemove(){
 	m_removeRemoveButton->setText( i18n("Remove selected module(s)") );
 	layout->addWidget(m_removeRemoveButton, 3, 3, Qt::AlignRight);
 
-  m_removeBackButton = new QPushButton(page);
-	m_removeBackButton->setText( i18n("Back") );
-  m_removeBackButton->setEnabled(false);
-	layout->addWidget(m_removeBackButton, 3, 0, Qt::AlignRight);
+//  m_removeBackButton = new QPushButton(page);
+//	m_removeBackButton->setText( i18n("Back") );
+//  m_removeBackButton->setEnabled(false);
+//	layout->addWidget(m_removeBackButton, 3, 0, Qt::AlignRight);
 
 //	connect(m_removeBackButton,   SIGNAL( clicked() ), m_main, SLOT( slot_backtoMainPage() ));
 	connect(m_removeRemoveButton, SIGNAL( clicked() ), this, SLOT( slot_doRemoveModules() ));
@@ -391,7 +391,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 
 /** No descriptions */
 void CSwordSetupDialog::populateRemoveModuleListView(){
-	m_removeBackButton->setEnabled(false);
+//	m_removeBackButton->setEnabled(false);
 	m_removeRemoveButton->setEnabled(false);
 
 	CSwordBackend* m_backend = new CSwordBackend();
@@ -454,7 +454,7 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
   }
     
 	m_populateListNotification->setText("");
-	m_removeBackButton->setEnabled(true);
+//	m_removeBackButton->setEnabled(true);
 	m_removeRemoveButton->setEnabled(true);
 
   //clean up groups

@@ -105,7 +105,7 @@ private:
 
 	KListView* m_removeModuleListView;
 	QLabel* m_populateListNotification;
-	QPushButton* m_removeBackButton;
+//	QPushButton* m_removeBackButton;
 	QPushButton* m_removeRemoveButton;
 
   void populateRemoveModuleListView();
