@@ -697,27 +697,30 @@ void CSearchOptionsPage::initView(){
   QToolTip::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::tooltip);
   QWhatsThis::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::whatsthis);
 	m_regexpRadioID = group->id( m_regexpRadio );
-
-  grid->addWidget(group, 4,0);
+	
+//   grid->addWidget(group, 4,0);
+  grid->addMultiCellWidget(group, 4,5,0,0);
 	
 	connect( group, SIGNAL( clicked(int) ), this, SLOT( editRegExp(int) ) );
 
   group = new QButtonGroup(1,Vertical,i18n("Search options"), this);
-  m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive search"), group);
+  m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive"), group);
   QToolTip::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::tooltip);
   QWhatsThis::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::whatsthis);
 
+//   grid->addWidget(group, 4,2);
   grid->addWidget(group, 4,2);
 
-	QGroupBox* box2 = new QGroupBox(2, Qt::Horizontal , i18n("Search scope"), this);
-  grid->addMultiCellWidget(box2, 6,7,0,2);
+	QGroupBox* box2 = new QGroupBox(2, Qt::Vertical , i18n("Search scope"), this);
+//   grid->addMultiCellWidget(box2, 6,7,0,2);
+  grid->addWidget(box2, 5,2);
 
   m_rangeChooserCombo = new KComboBox(box2);
   QToolTip::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
   QWhatsThis::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::whatsthis);
 
   refreshRanges();  
-  m_chooseRangeButton = new QPushButton(i18n("Setup custom ranges"), box2);
+  m_chooseRangeButton = new QPushButton(i18n("Setup ranges"), box2);
   connect(m_chooseRangeButton, SIGNAL(clicked()),
     this, SLOT(setupRanges()));
   
