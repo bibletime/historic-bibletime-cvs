@@ -284,7 +284,7 @@ foot.tool </emphasis>findet <emphasis>foot</emphasis>s<emphasis>tool </emphasis>
 <section ID="asterisk"><title>Das Sternchen *</title>
 
 <para>Das Sternchen findet null oder mehr Zeichen des vorhergehenden
-Sets,Zeichens oder besonderen Zeichens.
+Sets, Zeichens oder besonderen Zeichens.
 Die Benutzung einer Punkt Sternchen Kombination &quot;.*&quot; nach einem häufig gefundenem Muster
 kann die Suche sehr lange dauern lassen und das Programm eingefroren wirken lassen.
 <emphasis>be*n</emphasis> findet<emphasis> beeen, been, ben</emphasis>,
@@ -355,33 +355,32 @@ um die Formatierungszeichen zu umgehen.
 
 
 <section ID="dollar"><title>Das Dollarzeichen als Zeilenende Anker xxx$</title>
-<para>If the Dollar Sign is the last character in a pattern it
-anchors the pattern to the end of a line. Any match must be at
-the end of a line. Because of unfiltered
-formatting characters in some texts, this feature does not always
-work, but may if a few periods are placed before the dollar sign
-to account for the formatting characters.
-<emphasis>Amen\.$</emphasis> matches lines that end with
-&quot;<emphasis>Amen.</emphasis>&quot; (May
-need to use Amen\....$, Amen\..........$, or even
-Amen\....................$)</para>
+<para>Wenn das Dollarzeichen das letzte des Musters ist, verankert es das Muster an das Ende der Zeile.
+Jeder Treffer muss am Ende der Zeile stattfinden.
+Wegen ungefilterten Formatierungszeichen in einigen texten funktioniert diese Funktion nicht immer.
+Sie könnte es jedoch, wenn einige Punkte vor das Dollarzeichen gesetzt werden,
+um die Formatierungszeichen zu umgehen.
+<emphasis>Amen\.$</emphasis> findet Zeilen, die mit
+&quot;<emphasis>Amen.</emphasis>&quot; enden (Vielleicht
+müsen Sie &quot;Amen\....&quot;, &quot;Amen\..........$&quot;, oder sogar
+&quot;Amen\....................$&quot; benutzen)</para>
 </section>
 
 
-<section ID="bar"><title>The Vertical Bar |</title>
-<para>The Vertical Bar between patterns means OR.
-<emphasis>John|Peter</emphasis> matches <emphasis>John</emphasis> or <emphasis>Peter.
-John .*Peter|Peter .*John</emphasis> matches <emphasis>John</emphasis>
-... <emphasis>Peter</emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>.
-(.* slows a search)
-<emphasis>pain|suffering|sorrow</emphasis> matches <emphasis>pain</emphasis>,
-or <emphasis>suffering</emphasis>, or <emphasis>sorrow</emphasis>.</para>
+<section ID="bar"><title>Der senkrechte Strich |</title>
+<para>Der senkrechte Strich zwischen verschiedenen Mustern hat die Bedeutung des logischen ODER.
+<emphasis>John|Peter</emphasis> findet <emphasis>John</emphasis> oder <emphasis>Peter</emphasis>.
+&quot;<emphasis>John .*Peter|Peter .*John</emphasis>&quot; findet <emphasis>John</emphasis>
+... <emphasis>Peter</emphasis> oder <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>.
+(.* verlangsamt die Suche)
+<emphasis>pain|suffering|sorrow</emphasis> findet <emphasis>pain</emphasis>,
+oder <emphasis>suffering</emphasis>, oder <emphasis>sorrow</emphasis>.</para>
 </section>
 
 
-<section ID="parenth"><title>The Parentheses ( ) </title>
-<para><emphasis>The use of Parentheses ( ) is
-not supported!</emphasis></para>
+<section ID="parenth"><title>Die runden Klammern ( )</title>
+<para><emphasis>Die Benutzung der runden Klammern () wird nicht
+unterstützt.</emphasis></para>
 </section>
 
 

@@ -613,7 +613,7 @@ install=false
 install_location=
 type=DATA
 [bibletime/frontend/Makefile.am]
-files=bibletime/frontend/cmdiarea.cpp,bibletime/frontend/cmdiarea.h,bibletime/frontend/actions.cpp,bibletime/frontend/actions.h,bibletime/frontend/ceditwidget.cpp,bibletime/frontend/ceditwidget.h,bibletime/frontend/chtmldialog.cpp,bibletime/frontend/chtmldialog.h,bibletime/frontend/chtmlwidget.cpp,bibletime/frontend/chtmlwidget.h,bibletime/frontend/ctipwindow.cpp,bibletime/frontend/ctipwindow.h,bibletime/frontend/kstartuplogo.h,bibletime/frontend/kstartuplogo.cpp,bibletime/frontend/ctoolclass.h,bibletime/frontend/ctoolclass.cpp,bibletime/frontend/cminmaxlayout.cpp,bibletime/frontend/cminmaxlayout.h
+files=bibletime/frontend/cmdiarea.cpp,bibletime/frontend/cmdiarea.h,bibletime/frontend/actions.cpp,bibletime/frontend/actions.h,bibletime/frontend/ceditwidget.cpp,bibletime/frontend/ceditwidget.h,bibletime/frontend/chtmldialog.cpp,bibletime/frontend/chtmldialog.h,bibletime/frontend/chtmlwidget.cpp,bibletime/frontend/chtmlwidget.h,bibletime/frontend/ctipwindow.cpp,bibletime/frontend/ctipwindow.h,bibletime/frontend/kstartuplogo.h,bibletime/frontend/kstartuplogo.cpp,bibletime/frontend/ctoolclass.h,bibletime/frontend/ctoolclass.cpp,bibletime/frontend/cminmaxlayout.cpp,bibletime/frontend/cminmaxlayout.h,bibletime/frontend/cinputdialog.cpp,bibletime/frontend/cinputdialog.h
 sub_dirs=groupmanager,presenters,optionsdialog,searchdialog,keychooser,thirdparty
 type=static_library
 [bibletime/frontend/actions.cpp]
@@ -652,6 +652,16 @@ install=false
 install_location=
 type=SOURCE
 [bibletime/frontend/chtmlwidget.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+[bibletime/frontend/cinputdialog.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+[bibletime/frontend/cinputdialog.h]
 dist=true
 install=false
 install_location=

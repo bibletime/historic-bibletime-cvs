@@ -450,13 +450,13 @@ void CSearchDialogResultView::printItem() {
 		CPrintItem*	printItem = new CPrintItem();
 		if ( dynamic_cast<CSwordBibleModuleInfo*>(m_module) ) {	//a bible or a commentary
 			CSwordVerseKey* verseKey = new CSwordVerseKey(m_module); 	//the key is deleted by the CPrintItem
-			verseKey->setKey(currentText());
+			verseKey->setKey( list.current()->text() );
 			printItem->setStartKey(verseKey);
 			printItem->setStopKey(verseKey);
 		}
 		else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module)) {	//a lexicon
 			CSwordLDKey* ldKey = new CSwordLDKey(m_module);	//the key is deleted by the CPrintItem
-			ldKey->setKey(currentText());
+			ldKey->setKey( list.current()->text() );
 			printItem->setStartKey(ldKey);
 			printItem->setStopKey(ldKey);	
 		}	
@@ -560,17 +560,6 @@ void CSearchDialogResultView::slotSaveCurrent(){
 
 /** This slot copies the current active item into the clipboard. */
 void CSearchDialogResultView::slotSaveCurrentWithKeytext(){
-// 	QString keyText = QString::null;
-//	if (dynamic_cast<CSwordBibleModuleInfo*>(m_module)) {
-//		CSwordVerseKey key(m_module);
-//		key.setKey(m_currentItem->text());
-//		keyText = key.getStrippedText();
-//	}
-//	else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module) ) {
-//		CSwordLDKey key(m_module);						
-//		key.setKey(m_currentItem->text());
-//		keyText = key.getStrippedText();
-//	}	 	
 	QList<QListBoxItem> list = selectedItems();
 	QString text;
 	QString keyText, keyName;

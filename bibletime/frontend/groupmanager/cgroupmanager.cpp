@@ -33,6 +33,7 @@
 #include "../../printing/cprinter.h"
 
 #include "../chtmldialog.h"
+#include "../cinputdialog.h"
 #include "../ctoolclass.h"
 #include "../searchdialog/csearchdialog.h"
 
@@ -60,7 +61,6 @@
 #include <kglobalsettings.h>
 #include <kdestyle.h>
 #include <kpassdlg.h>
-//#include <klineeditdlg.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 
@@ -366,7 +366,7 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 
 //	bool isOk = false;
 	CGroupManagerItem* myItem = 0;	
-	QString description = QInputDialog::getText(i18n("Bookmark description - BibleTime"), i18n("Please enter here the description:"), QString::null,0);
+	QString description = CInputDialog::getText(i18n("Bookmark description - BibleTime"), i18n("Please enter here the description:"), QString::null,0);
 	//= KLineEditDlg::getText(i18n("Please enter the description of the new bookmark"), QString::null, &isOk, 0);
 	setFocus();
 	
@@ -402,7 +402,8 @@ void CGroupManager::slotChangeBookmark(){
 		return;
 		
 	bool isOk;
-	QString description = QInputDialog::getText(i18n("Change bookmark description - BibleTime"),i18n("Please change the description of the item!"), m_pressedItem->description(), &isOk, 0);	
+//	QString description = QInputDialog::getText(i18n("Change bookmark description - BibleTime"),i18n("Please change the description of the item!"), m_pressedItem->description(), &isOk, 0);	
+	QString description = CInputDialog::getText(i18n("Change bookmark description - BibleTime"),i18n("Please change the description of the item!"), m_pressedItem->description(), &isOk, 0);	
 	if (isOk)
 		m_pressedItem->setDescription( description );
 }
