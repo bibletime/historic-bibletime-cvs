@@ -339,9 +339,6 @@ void BibleTime::openOnlineHelp_Handbook() {
 		kapp->invokeHTMLHelp("bibletime/handbook/index.html");
 }
 
-void BibleTime::openOnlineHelp_Install() {
-	kapp->invokeHTMLHelp("bibletime/install/index.html");
-}
 void BibleTime::openOnlineHelp_Howto() {
 	kapp->invokeHTMLHelp("bibletime/howto/index.html");
 }
@@ -383,27 +380,27 @@ void BibleTime::saveProfile(CProfile* profile){
 	profileWindows.clear();
 }
 
-void BibleTime::loadProfile(int ID){
-//	m_mdi->setUpdatesEnabled(false);
-	m_mdi->deleteAll();
-	
-
+void BibleTime::loadProfile(int ID){	
 	KPopupMenu* popup = m_windowLoadProfile_action->popupMenu();
-	if (	CProfile* p = m_profileMgr.profile( popup->text(ID) ) ) {
+  if ( CProfile* p = m_profileMgr.profile( popup->text(ID) ) ) {
+    m_mdi->deleteAll();
+
     loadProfile(p);
   }
 }
 
 void BibleTime::loadProfile(CProfile* p){
 	if (!p)
-		return;		
-	QPtrList<CProfileWindow> windows = p->load();
+		return;
+    
+  QPtrList<CProfileWindow> windows = p->load();
 
 	//load mainwindow setttings
 	applyProfileSettings(p);
 
 	m_mdi->setUpdatesEnabled(false);//don't auto tile or auto cascade, this would mess up everything!!
-	for (CProfileWindow* w = windows.first(); w; w = windows.next()) {
+
+  for (CProfileWindow* w = windows.first(); w; w = windows.next()) {
 		const QString key = w->key();		
 		QStringList usedModules = w->modules();
 		ListCSwordModuleInfo modules;
@@ -428,7 +425,7 @@ void BibleTime::loadProfile(CProfile* p){
       displayWindow->applyProfileSettings(w);
     };
 	}		
-	m_mdi->setUpdatesEnabled(true);	
+	m_mdi->setUpdatesEnabled(true);
 }
 
 void BibleTime::toggleFullscreen(){

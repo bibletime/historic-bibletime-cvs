@@ -244,10 +244,6 @@ void CDisplayWindow::setModules( const ListCSwordModuleInfo& newModules ){
 const bool CDisplayWindow::init( const QString& keyName ){
   initView();
   setMinimumSize( 350,300 );
-//  setAcceptDrops( true );
-//  if (parentWidget()) {
-//    parentWidget()->setAcceptDrops( true );
-//  }
   
   setCaption(windowCaption());
   show();

@@ -84,11 +84,10 @@ void CReadWindow::lookup( CSwordKey* newKey ){
 
 /** Reimplementation to use the popup menu. */
 const bool CReadWindow::init( const QString& keyName ){
-//  qWarning("CReadWindow::init( const QString& keyName )");
   CDisplayWindow::init(keyName);
-
   keyChooser()->setKey(key());
 	setReady(true);
+
   return true;
 }
 
@@ -144,6 +143,7 @@ void CReadWindow::applyProfileSettings(CProfileWindow * const settings){
 }
 
 void CReadWindow::insertKeyboardActions( KAccel* const a ){
+  a->remove("Copy");
   a->insert("Copy", i18n("Copy selected text"),"", KStdAccel::copy(), 0, "");
 }
 

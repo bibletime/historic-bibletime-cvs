@@ -153,10 +153,6 @@ public slots:
 	*/
 	void openOnlineHelp_Handbook();
 	/**
-	* Opens the installation instructions.
-	*/
-	void openOnlineHelp_Install();
-	/**
 	* Opens the bible study howto.
 	*/
 	void openOnlineHelp_Howto();
