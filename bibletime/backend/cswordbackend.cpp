@@ -113,7 +113,7 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		if ( m_moduleList.current()->isEncrypted() ){
 			QString unlockKey = CBTConfig::getModuleEncryptionKey(m_moduleList.current()->name()).latin1();
-			if (!unlockKey.isEmpty()){
+			if (!unlockKey.isNull()){
   			setCipherKey( m_moduleList.current()->name().latin1(), unlockKey.latin1() );
 			}
 		}

@@ -78,9 +78,9 @@ CSwordModuleInfo::~CSwordModuleInfo(){
 
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/
 const bool CSwordModuleInfo::unlock( const QString& unlockKey ){
-  if (unlockKey.isEmpty()) {
+  if (!isEncrypted()) {
     return false;
-  };
+  }
 
   CBTConfig::setModuleEncryptionKey( name(), unlockKey );
   backend()->setCipherKey(m_module->Name(), unlockKey.latin1());
@@ -106,7 +106,7 @@ const bool CSwordModuleInfo::isLocked() {
 const bool CSwordModuleInfo::isEncrypted()/* const*/ {
 	/**
 	* If we have the CipherKey entry the module
-	* is encrypted but not necessary locked
+	* is encrypted but not necessarily locked
 	*/
 	//This code is still right, though we do no longer write to the module config files any more
 	sword::ConfigEntMap config	= backend()->getConfig()->Sections.find( name().latin1() )->second;
@@ -216,7 +216,7 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 			return about;
 		}		
 		case CipherKey:
-      if (CBTConfig::getModuleEncryptionKey(name()).isEmpty()) { //fall back!
+      if (CBTConfig::getModuleEncryptionKey(name()).isNull()) { //fall back!
   			return QString::fromLatin1( m_module->getConfigEntry("CipherKey") );
       }
       else {

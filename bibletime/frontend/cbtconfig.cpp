@@ -17,7 +17,9 @@
 
 //BibleTime includes
 #include "cbtconfig.h"
+#include "backend/cswordmoduleinfo.h"
 #include "util/cpointers.h"
+
 
 //Qt includes
 #include <qapplication.h>
@@ -509,9 +511,15 @@ const QString CBTConfig::getModuleEncryptionKey( const QString& module ) {
 }
   
 void CBTConfig::setModuleEncryptionKey( const QString& module, const QString& key ) {
-  if (key.isEmpty()) { //if no key is set do nothing
-    return;
-  };
+//  if (CSwordModuleInfo* const mod = CPointers::backend()->findModuleByName(module) ) {
+//    // if an empty key is set for an unencrypted module do nothing
+//    if (key.isEmpty() && !mod->isEncrypted()) {
+//      return;
+//    }
+//  }
+//  else if (key.isEmpty()) {
+//    return;
+//  };
   
   KConfig* config = KGlobal::config();
   KConfigGroupSaver groupSaver(config, "Module keys");
