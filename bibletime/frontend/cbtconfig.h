@@ -66,15 +66,12 @@ public:
 		autoTileHorizontal,
 		autoCascade,
 
-		lexiconCache,
-
 		lineBreaks,
 		verseNumbers,
 		scroll,
 
 		tips,
 		logo,
-		restoreWorkspace,
     crashedLastTime,
     crashedTwoTimes
 	};

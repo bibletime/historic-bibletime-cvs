@@ -131,11 +131,9 @@ void BibleTime::saveSettings(){
  		CBTConfig::set(CBTConfig::autoCascade, false);	
  	}
 
-	if ( CBTConfig::get(CBTConfig::restoreWorkspace) ) {
-		if (CProfile* p = m_profileMgr.startupProfile()) {
-			saveProfile(p);
-    }
-	}
+	if (CProfile* p = m_profileMgr.startupProfile()) {
+		saveProfile(p);
+   }
 }
 
 /** Reads the settings from the configfile and sets the right properties. */
@@ -273,11 +271,11 @@ void BibleTime::setPlainCaption( const QString& ){
 void BibleTime::processCommandline(){
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-  if (CBTConfig::get(CBTConfig::crashedLastTime) || CBTConfig::get(CBTConfig::restoreWorkspace)) {
-    if (!CBTConfig::get(CBTConfig::crashedTwoTimes) && !args->isSet("ignore-session")) { //restore workspace if it crashed only once
-      restoreWorkspace();
-    }
-  }
+//   if (CBTConfig::get(CBTConfig::crashedLastTime)) {
+	if (!CBTConfig::get(CBTConfig::crashedTwoTimes) && !args->isSet("ignore-session")) { //restore workspace if it crashed only once
+		restoreWorkspace();
+	}
+//   }
 
   //open every time a module if the command line option was set.
   if ( args->isSet("open-default-bible") && !CBTConfig::get(CBTConfig::crashedLastTime) && !CBTConfig::get(CBTConfig::crashedTwoTimes)) { //restore workspace if it crashed ony once

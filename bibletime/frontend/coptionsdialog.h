@@ -60,10 +60,9 @@ public:
   enum Parts {
 		Startup,
 		Font,
-		Color,
-// 		ViewProfiles,
-		Sword,
-		accelerators
+		DisplayTemplates,
+		Desk,
+		Hotkeys
   };
 
   /** Opens the page which contaisn the given part ID. */
@@ -74,11 +73,9 @@ private:
 	 	struct StartupSettings {
 	 		QCheckBox* showTips;
 	 		QCheckBox* showLogo;
-	 		QCheckBox* restoreWorkspace;
 	 	} startup;
 
 		struct SwordSettings {
-			QCheckBox* lexiconCache;
 			QComboBox* standardBible;
 			QComboBox* standardCommentary;
 			QComboBox* standardLexicon;

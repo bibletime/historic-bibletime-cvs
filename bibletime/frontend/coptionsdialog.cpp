@@ -161,16 +161,6 @@ void COptionsDialog::initStartup(){
 	}		
 	layout->addWidget(m_settings.startup.showLogo);
 
-  { //workspace
-		m_settings.startup.restoreWorkspace = new QCheckBox(page);
-		m_settings.startup.restoreWorkspace->setText(i18n("Restore windows from the last BibleTime session"));
-		QToolTip::add(m_settings.startup.restoreWorkspace, CResMgr::settings::startup::restoreWorkingArea::tooltip);		
-		QWhatsThis::add(m_settings.startup.restoreWorkspace, CResMgr::settings::startup::restoreWorkingArea::whatsthis);
-
-		m_settings.startup.restoreWorkspace->setChecked(CBTConfig::get(CBTConfig::restoreWorkspace));
-	}
-	layout->addWidget(m_settings.startup.restoreWorkspace);			
-	
 	layout->addStretch(4);
 }
 
@@ -389,23 +379,6 @@ void COptionsDialog::initSword(){
 
   QGridLayout* gridLayout = new QGridLayout(currentTab,7,2,5,5);
 	gridLayout->setResizeMode(QLayout::Minimum);
-
-  gridLayout->addMultiCellWidget(
-  	CToolClass::explanationLabel(currentTab, i18n("Use key cache for lexicons"),
-			i18n("BibleTime can create a key cache for lexicons. \
-This increases the speed of opening large lexicon modules significantly. \
-Note: These files consume some disk space (usually not much), and reside in \
-$KDEHOME/share/apps/bibletime/cache.")),
-		0,0,0,-1
-  );
-
-	m_settings.swords.lexiconCache = new QCheckBox(currentTab);
-	m_settings.swords.lexiconCache->setText(i18n("Use key cache for lexicons"));
-	QToolTip::add(m_settings.swords.lexiconCache, CResMgr::settings::sword::general::cacheKeys::tooltip);
-	QWhatsThis::add(m_settings.swords.lexiconCache, CResMgr::settings::sword::general::cacheKeys::whatsthis);
-
-	m_settings.swords.lexiconCache->setChecked( CBTConfig::get(CBTConfig::lexiconCache) );
- 	gridLayout->addMultiCellWidget(m_settings.swords.lexiconCache,1,1,0,-1);
 
   gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(currentTab, i18n("Scrolling behaviour"),
@@ -797,23 +770,10 @@ void COptionsDialog::saveFonts(){
 void COptionsDialog::saveStartup(){
 	CBTConfig::set( CBTConfig::logo, m_settings.startup.showLogo->isChecked() );	
  	CBTConfig::set( CBTConfig::tips, m_settings.startup.showTips->isChecked() );				
- 	CBTConfig::set( CBTConfig::restoreWorkspace, m_settings.startup.restoreWorkspace->isChecked() );	
 }
 
 /** No descriptions */
 void COptionsDialog::saveSword(){
-  bool old_lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
-  bool new_lexiconCache = m_settings.swords.lexiconCache->isChecked();
-
-  CBTConfig::set( CBTConfig::lexiconCache, new_lexiconCache );
-
-  if (old_lexiconCache && !new_lexiconCache){  //delete cache files
-  	QString dirname = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
-  	QDir dir = QDir(dirname);
-   	QStringList files = QStringList( dir.entryList() );
-   	for (QStringList::Iterator it = files.begin(); it != files.end(); ++it)
-   		dir.remove((*it),false);
-  }
 
 	for (int i = 0; i < (int)CBTConfig::lastModuleType; ++i) {
 		QString moduleDescription = QString::null;

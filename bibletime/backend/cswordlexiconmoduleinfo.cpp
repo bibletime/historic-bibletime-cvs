@@ -17,7 +17,7 @@
 
 //BibleTime includes
 #include "cswordlexiconmoduleinfo.h"
-#include "frontend/cbtconfig.h"
+//#include "frontend/cbtconfig.h"
 
 //Qt includes
 #include <qfile.h>
@@ -60,28 +60,25 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 
   if (!m_entryList) {
 		m_entryList = new QStringList();
-    const bool lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
 		bool read = false;
 
-		if (lexiconCache) {
-			QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
-  		QFile f1(
-  			QString(dir)
-					.append("/")
-					.append(name())
-  		);
+		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
+		QFile f1(
+			QString(dir)
+				.append("/")
+				.append(name())
+		);
 
-      if ( f1.open( IO_ReadOnly ) ){
-        QDataStream s( &f1 );
-  			QString mod_ver, prog_ver;
-        s >> mod_ver;
-        s >> prog_ver;
-  			if ((mod_ver == config(ModuleVersion)) && (prog_ver == CACHE_FORMAT)) {
-  				s >> *m_entryList;
-  				read = true;
-  			}
-  			f1.close();
-      }
+		if ( f1.open( IO_ReadOnly ) ){
+			QDataStream s( &f1 );
+			QString mod_ver, prog_ver;
+			s >> mod_ver;
+			s >> prog_ver;
+			if ((mod_ver == config(ModuleVersion)) && (prog_ver == CACHE_FORMAT)) {
+				s >> *m_entryList;
+				read = true;
+			}
+			f1.close();
 		}
 
     if (!read || !m_entryList->count()){
@@ -112,7 +109,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 				m_entryList->sort(); //make sure the module is sorted by utf-8
       }
 
-			if (lexiconCache && m_entryList->count()){
+			if (m_entryList->count()){
   			//create cache
 		 		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
         //QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );

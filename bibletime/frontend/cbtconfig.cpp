@@ -112,15 +112,12 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 		case autoTileHorizontal:	return "autoTileHorizontal";
 		case autoCascade:					return "autoCascade";
 
-		case lexiconCache: 				return "lexicon_chache";
-
 		case lineBreaks: 					return "lineBreaks";
 		case verseNumbers: 				return "verseNumbers";
 		case scroll:			 				return "scroll";
 
 		case tips: 								return "RunOnStart";
 		case logo: 								return "logo";
-		case restoreWorkspace: 		return "restoreWorkspace";
 		case crashedLastTime: 		return "crashedLastTime";
 		case crashedTwoTimes: 		return "crashedTwoTimes";
 	}
@@ -157,15 +154,12 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 		case autoTileHorizontal:	return false;
 		case autoCascade:					return false;
 
-		case lexiconCache: 				return true;
-
 		case lineBreaks: 					return false;
 		case verseNumbers: 				return true;
 		case scroll:			 				return true;
 
 		case tips: 								return true;
 		case logo: 								return true;
-		case restoreWorkspace: 		return true;
 		case crashedLastTime: 		return false;
 		case crashedTwoTimes: 		return false;
 	}
