@@ -376,7 +376,7 @@ CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, 
     m_key = key;
   };
 
-  m_startupXML = QDomElement();
+  m_startupXML = QDomElement(); //empty XML code
 }
 
 CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, QDomElement& xml )
@@ -400,7 +400,7 @@ void CBookmarkItem::update(){
 }
 
 void CBookmarkItem::init(){
-  if (!m_startupXML.isNull()) {
+  if (!m_startupXML.isNull()) { //we have some XML code to parse
     loadFromXML(m_startupXML);
   }
 
@@ -424,7 +424,7 @@ const QString CBookmarkItem::toolTip(){
 /** Returns the used module. */
 CSwordModuleInfo* const CBookmarkItem::module() {
   CSwordModuleInfo* m = backend()->findModuleByName(m_moduleName);
-  Q_ASSERT(m);
+//  Q_ASSERT(m);
   return m;
 }
 
@@ -500,12 +500,9 @@ void CBookmarkItem::loadFromXML( QDomElement& element ) {
     return;
 
   //find the right module
-  if (element.hasAttribute("modulename") /* && element.hasAttribute("moduledescription")*/ ) {
-    if (backend()->findModuleByName(element.attribute("modulename")))
-      m_moduleName = element.attribute("modulename");
-    else {
-      qWarning("Can't find module with name %s and description %s", element.attribute("modulename").latin1(), element.attribute("moduledescription").latin1() );
-    }
+  if (element.hasAttribute("modulename")) {
+		//we use the name in all cases, even if the module isn't installed anymore
+		m_moduleName = element.attribute("modulename");
   }
 
   if (element.hasAttribute("key")) {
