@@ -187,7 +187,7 @@
 #define ICON_WINDOW_CASCADE_AUTO "bt_cascade_auto"
 #define ICON_WINDOW_CLOSE_ALL "fileclose"
 
-#define ICON_HELP_DAILY_TIP "daily_tip"
+#define ICON_HELP_DAILY_TIP "bt_daily_tip"
 
 #define ICON_SYNC	"bt_sync"
 

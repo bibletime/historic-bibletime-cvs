@@ -24,7 +24,7 @@ Um das Dokument noch einmal zu öffnen klicken Sie erneut auf das Symbol.
 <screeninfo>Auswahl eines Dokumentes</screeninfo>
 <graphic fileref="common/hdbk_op_module_select_1.png" format="png"></graphic>
 </screenshot>
-<tip><para>Hier funktioniert Drag&Drop</para></tip>
+<tip><para>Hier funktioniert Drag&amp;Drop</para></tip>
 <para>
 Ein Dokument kann von einem bereits geöffneten Dokument geöffnet werden.
 Klicken Sie einfach auf eine Versnummer (Mauscursor ändert sich zu einer Hand) und ziehen Sie sie
@@ -60,9 +60,9 @@ Folgen Sie der gleichen Prozedur um diese zu durchsuchen.
 
 
 <section ID="hdbk_op_module_tree_bookmark"><title>Auf Lesezeichen zugreifen</title> <para>
-<tip><para>Drag&Drop funktioniert hier</para></tip>
+<tip><para>Drag&amp;Drop funktioniert hier</para></tip>
 Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Hauptgruppe und wählen Sie
-"Erzeuge neuen Ordner" um einen neuen Ordner anzulegen. Sie können normale Drag&Drop Funktionen
+"Erzeuge neuen Ordner" um einen neuen Ordner anzulegen. Sie können normale Drag&amp;Drop Funktionen
 benutzen, um Verse aus den Suchdialogs-Ergebnissen in den Lesezeichen Ordner zu ziehen und um Lesezeichen zwischen
 Ordnern neu auszurichten.
 Es gibt auch eine Import/Export Funktion für Lesezeichen. Wählen Sie "Exportiere Lesezeichen" im Menü der rechten Maustaste.
@@ -103,7 +103,7 @@ Scrollleiste verwirklicht.
 <tip><para>Für Bibeltexte ist die Indexreihenfolge <emphasis>Buch - Kapitel - Vers</emphasis></para></tip>
 <tip><para>Für Kommentare ist die Indexreihenfolge <emphasis>Buch - Kapitel - Vers</emphasis></para></tip>
 <tip><para>Für Lexika ist der Index <emphasis>Schlüsselwort</emphasis></para></tip>
-<tip><para>Drag&Drop funktioniert hier; Wenn Sie einen Vers eines geöffneten Fensters oder ein Lesezeichen
+<tip><para>Drag&amp;Drop funktioniert hier; Wenn Sie einen Vers eines geöffneten Fensters oder ein Lesezeichen
 ziehen und auf einem anderen Dokumentenfenster fallenlassen wird dieses von der aktuell angezeigten Stelle
 zur Stelle des Verses oder des Lesezeichens springen.</para></tip>
 </section>
@@ -122,7 +122,7 @@ Sie ihn bei der Crosswire Bibelgesellschaft bekommen.</para></tip>
 <tip><para>Falls Sie nicht in das Persönliche Kommentarmodul schreiben können sind die Zugriffsrechte
 für den persönlichen Kommentar falsch. Setzen Sie die Zugrigffsrechte zurück, um ihrem Benutzer zu erlauben
 hinein zu schreiben.</para></tip>
-<tip><para>Hier funktioniert Drag&Drop, wie bei anderen Kommentaren und Bibeltexten.
+<tip><para>Hier funktioniert Drag&amp;Drop, wie bei anderen Kommentaren und Bibeltexten.
 </para></tip>
 </section>
 </section>
@@ -155,7 +155,7 @@ Wie der im Eingabebereich eingegebene Text interpretiert wird, hängt davon ab we
 ausgewählt wurde uch ob Unterscheidung für GROß/klein ausgewält wurde.
 </para>
 
-<tip><para>Hier funktioniert Drag&Drop, Sie können Verse und Lesezeichen in die Text-Eingabebox ziehen. Sie können
+<tip><para>Hier funktioniert Drag&amp;Drop, Sie können Verse und Lesezeichen in die Text-Eingabebox ziehen. Sie können
 Text in die Zwischenablage kopieren und in die Eingabezeile einfügen.
 </para></tip>
 </section>
@@ -244,7 +244,8 @@ besonderern Zeichens. Siehe auch <link linkend="asterisk">Einzelheiten</link></p
 
 <listitem><para>+ Das Pluszeichen findet 1 oder mehr Zeichen des vorhergehenden Sets, des vorhergehenden Zeichens oder des vorhergehenden
 besonderern Zeichens.
-Siehe auch <link linkend="plus">Einzelheiten</link></para></listitem>.
+Siehe auch <link linkend="plus">Einzelheiten</link>.
+</para></listitem>
 
 <listitem><para>? Das Fragezeichen  passt auf 0 oder 1 Zeichen des vorhergehenden Sets, Zeichens oder besonderern Zeichens.
 Siehe auch <link linkend="question">Einzelheiten</link></para></listitem>
@@ -461,11 +462,11 @@ Wenn <emphasis>Letztes Suchergebnis</emphasis> ausgewähl bleibt und eine weitere
 durchgeführt wird, verbleibemn 106 Treffer, die alle den Namen Jesus und die beiden Titel Christ und Lord enthalten.
 </para>
 
-<tip><para>Hier funktioniert Drag&Drop; Sie können Versnummern und Lesezeichen in das Suchbereichs Feld ziehen.
+<tip><para>Hier funktioniert Drag&amp;Drop; Sie können Versnummern und Lesezeichen in das Suchbereichs Feld ziehen.
 Sie könne auch Text in das Eintragsfeld einfügen.</para></tip>
 
 <screenshot>
-<screeninfo>Suchbereichs-Dialogbox/screeninfo>
+<screeninfo>Suchbereichs-Dialogbox/screeninfo</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchscope.png" format="png"></graphic>
 </screenshot>
 </section></section>
@@ -477,7 +478,7 @@ gefunden wurden. Klicken auf das Dokument wird die Liste der Referenzen öffnen.
 Das Klicken auf eine Referenz öffnet diese im Fenster darunter.
 Ziehen Sie die Referenz und lassen Sie diese auf einem Dokument in der Hauptgruppe fallen, um dieses Modul
 an der gewünschten Stelle zu öffnen.</para>
-<tip><para>Hier funktioniert Drag&Drop</para></tip>
+<tip><para>Hier funktioniert Drag&amp;Drop</para></tip>
 <tip><para>Select verse numbers and drag them to the main index to create bookmarks.</para></tip>
 <tip><para>Wählen Sie einen Vers aus und ziehen Sie ihn auf ein ungeöffnetes Modul um diese zu öffnen und
 damit dieses die gewünschte Stelle anzeigt (Nur für Bibeln und Kommentare).</para></tip>
@@ -485,9 +486,10 @@ damit dieses die gewünschte Stelle anzeigt (Nur für Bibeln und Kommentare).</par
 </para></tip>
 
 <screenshot>
-<screeninfo>Suchergebnis Dialogbox/screeninfo>
+<screeninfo>Suchergebnis Dialogbox</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchresult.png" format="png"></graphic>
-</screenshot> </section>
+</screenshot>
+</section>
 
 <section ID="hdbk_op_search_dialog_text_analysis"><title>Benutzung des Suchanalyse Teils</title>
 <para>

@@ -75,7 +75,7 @@ Die Hauptgruppe ist der Baum auf der linken Seite von BibleTimes Anwendungsfenst
 Die Hauptgruppe kombiniert die Lesezeichenverwaltung und die Moduleverwaltung von BibleTime 0.2x.
 Um mit der Hauptgruppe zu arbeiten benutzen Sie das Menü der rechte Maustaste.
 
-Die Hauptgruppe ist Drag&Drop fähig: Sie können Versreferenzen aus einem geöffneten Anzeigefenster oder aus dem Suchdialog ziehen
+Die Hauptgruppe ist Drag&amp;Drop fähig: Sie können Versreferenzen aus einem geöffneten Anzeigefenster oder aus dem Suchdialog ziehen
 um ein Lesezeichen zu erzeugen, und sie können Einträge im Baum bewegen (z.B. Gruppen oder Lesezeichen in andere Gruppen bewegen).
 </entry>
 </row>
@@ -96,14 +96,14 @@ Die letzte Karteikarte zeigt die grafische Suchanalyse.
 <row>
 <entry>
 <emphasis>
-Drag&Drop
+Drag&amp;Drop
 </emphasis>
 </entry>
 <entry>
 
-Drag&Drop ist einw cihtiger Teil von BibleTime! Sie können Dokumente, Versreferenzen, Lesezeichen, Ordner, Suchergebnisse usw. herumziehen.
+Drag&amp;Drop ist ein wichtiger Teil von BibleTime! Sie können Dokumente, Versreferenzen, Lesezeichen, Ordner, Suchergebnisse usw. herumziehen.
 Orte, an denen Sie sie fallenlassen können sind die Hauptgruppe, die Anzeigefenster und der Kommentareditor.
-Spielen Sie einfach etwas herum um herauszufinden wie unser Drag&Drop System arbeitet!
+Spielen Sie einfach etwas herum um herauszufinden wie unser Drag&amp;Drop System arbeitet!
 Wir hoffen, dass es ihnen gefällt!
 </entry>
 </row>
@@ -141,9 +141,7 @@ Beschreibung
 <entry>
 <emphasis>
 
-<ulink url="http://www.bibletime.de/">www.bibletime.de
-
-</ulink>
+<ulink url="http://www.bibletime.de/">www.bibletime.de</ulink>
 </emphasis>
 </entry>
 <entry>
@@ -165,7 +163,7 @@ die sie wahrscheinlich haben.
 </entry>
 <entry>
 
-Dies ist das Zuhause von Crosswire! Crosswire ist die Bibelgesellschaft, welche die Textbibliothek und den Installationsmanager für Sword herstellt.
+Dies ist das Heim von Crosswire! Crosswire ist die Bibelgesellschaft, welche die Textbibliothek und den Installationsmanager für Sword herstellt.
 Sie können die Bibeltexte von dieser Seite herunterladen. Die meisten der auf Crosswire erhältlichen Texte sind entweder Public Domain
 oder sind von dem Copyrighthalter für Crosswire zur Verteilung bereitgstellt worden.
 Module, die nicht zur freien Verteilung herausgegeben wurden sind verschlüsselt.

@@ -21,12 +21,13 @@ export KDEDIR=<KDE2 directory (where KDE2 is installed)>
 export PATH=$KDEDIR/bin:$PATH
 make -f Makefile.cvs
 ./configure					# create makefiles
-make						# compile BibleTime
-make install					# install BibleTime
+make							# compile BibleTime
+make install				# install BibleTime
 
 If something is missing in this file please post to jansorg@gmx.de, my peronal
 eMail adress.
-Please read README for a short description of BibleTime @VERSION@.
+Please read README for a short description of BibleTime @VERSION@. The new handbook
+does contain better instructions how to install BibleTime from sources.
 Don't forget to read the new handbook of BibleTime, too.
 It has more information about BibleTime's features.
 

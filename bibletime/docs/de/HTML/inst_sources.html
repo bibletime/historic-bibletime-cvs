@@ -104,7 +104,7 @@ NAME="INST_SOURCES"
 ></H1
 ><P
 >Dieses Kapitel beschreibt, wie der Quellcode compiliert wird.
-Diese Schritte treffen sowohl auf die Entwicklungsversion als auch auf die veröffentlichte Version von
+Diese Schritte treffen sowohl auf die Entwicklungsversionen als auch auf die veröffentlichten Versionen von
 BibleTime und Sword zu.</P
 ><DIV
 CLASS="SECTION"
@@ -112,15 +112,14 @@ CLASS="SECTION"
 CLASS="SECTION"
 ><A
 NAME="INST_SOURCES_SWORD"
->3.1. Installation von Sword und der Sword
-Module</A
+>3.1. Installation von Sword und der Sword Module</A
 ></H1
 ><P
 >Sword und die Sword Module sind die "Buchbibliothek" für BibleTime.
 Bitte lesen sie auch die Download-Seite für weitere Informationen über das Herunterladen von BibleTime.</P
 ><P
 >Lesen Sie die "Systemvorraussetzungen" Seite um Sword 1.5 zu bekommen. Lesen Sie die "Verweise" Seite
-um Sword's Module zu bekommen.</P
+um Swords Module zu bekommen.</P
 ><DIV
 CLASS="SECTION"
 ><H2
@@ -168,7 +167,7 @@ Schalter gesetzt werden.</P
 ><DIV
 CLASS="TABLE"
 ><HR><A
-NAME="AEN1272"
+NAME="AEN1271"
 ></A
 ><P
 ><B
@@ -205,7 +204,7 @@ Sie den von ihnen benutzen Compiler ein.</TD
 ><TD
 ALIGN="LEFT"
 VALIGN="TOP"
-># shared library-</TD
+># shared library</TD
 ><TD
 ALIGN="LEFT"
 VALIGN="TOP"
@@ -227,7 +226,7 @@ CLASS="FILENAME"
 ><TD
 ALIGN="LEFT"
 VALIGN="TOP"
-># VCL library-</TD
+># VCL library</TD
 ><TD
 ALIGN="LEFT"
 VALIGN="TOP"
@@ -302,15 +301,14 @@ CLASS="FILENAME"
 >Beginnen Sie nun durch das Eingeben von <B
 CLASS="COMMAND"
 >make</B
-> und warten
-sie bis es zu Ende ist.
-Danach müssen Sie die Dateien installieren. Das ist einfach. Geben Sie nur
+> und warten Sie bis es zu Ende ist.
+Danach müssen Sie die Dateien installieren. Das ist einfach. Geben Sie einfach
 <B
 CLASS="COMMAND"
 > make install </B
 > ein.</P
 ><P
->Wenn sich das make Kommando mit einem Fehler beendet, heisst das wahrscheinlich, dass ihnen ein Paket fehlt.
+>Wenn sich das make Kommando mit einem Fehler beendet, heißt das wahrscheinlich, dass ihnen ein Paket fehlt.
 Zum Beispiel:</P
 ><TABLE
 BORDER="0"
@@ -359,7 +357,7 @@ CLASS="EMPHASIS"
 ></TR
 ></TABLE
 ><P
->Die kursiven Zeilen oben zeigen, dass eine GTK ANwendung fehlt.
+>Die kursiven Zeilen oben zeigen, dass eine GTK Anwendung fehlt.
 Eine Durchsicht der der vorhandenen Pakete zeigte, dass eines der mit SuSE geliferten Pakete gtkdev ist.
 Es stellte sich heraus, dass dieses das benötigte Paket ist, dass make gestattet ohne Fehler durchzulaufen.
 Oft fehlende Pakete können entweder auf den Installationsmedien oder auf den Internetseite ihres
@@ -367,7 +365,7 @@ Distributors gefunden werden.
 Nachdem <B
 CLASS="COMMAND"
 >make</B
-> ohne Fehler durchläuft, starten Sie <B
+> ohne Fehler durchgelaufen ist, starten Sie <B
 CLASS="COMMAND"
 >make install</B
 >.
@@ -375,7 +373,7 @@ Wenn es immernoch nicht funktioniert, öfnnen Sie die Datei <TT
 CLASS="FILENAME"
 >Makefile.cfg</TT
 >
-im obersten Verzeichnis des Sword-Quelltextes und ändern sie die Zeile
+im Hauptverzeichnis des Sword-Quelltextes und ändern sie die Zeile
 "<B
 CLASS="COMMAND"
 >buildvcl := yes</B
@@ -401,11 +399,12 @@ NAME="INST_SOURCES_SWORD_MODULES_DIR"
 >3.1.2.1. Wählen Sie ein Sword-Verzeichnis</A
 ></H3
 ><P
->Sword unterstützt zur Zeit 3 Arten von Modulen: Bibeln, Lexika und Kommentare.
+>Sword unterstützt zur Zeit drei Arten von Modulen: Bibeln, Lexika und Kommentare.
 Sie müssen die Dateien der Module in ihr eigenes Verzeichnis installieren.
 Sie müssen entscheiden, welches Verzeichnis ihr Sword Verzeichnis sein soll.
 Wenn Sie die Bibliotheken und Include-Dateien in ein eigenes Verzeichnis installiert haben benutzen Sie dieses
-als ihr Sword-Verzeichnis. Wenn Sie die Bibliotheken und Include-Dateien in einem bekannten Verzeichnis (z.B. <TT
+als ihr Sword-Verzeichnis. Wenn Sie die Bibliotheken und Include-Dateien in einem bekannten
+Verzeichnis (z.B. <TT
 CLASS="FILENAME"
 >/usr/local/sword/</TT
 >)

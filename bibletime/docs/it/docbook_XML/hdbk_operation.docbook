@@ -457,7 +457,8 @@ speciale.</para>
 che la parola termina lì. Se usato all'interno di [ ], significa
 backspace.  <emphasis>\bgiusti\b</emphasis> corrisponde a
 <emphasis>giusti</emphasis> ma non a in<emphasis>giusti</emphasis> o a
-<emphasis>giusti</emphasis>zia.</listitem> <listitem><para>\B indica
+<emphasis>giusti</emphasis>zia.</para></listitem>
+<listitem><para>\B indica
 di non considerare i confini della parola.
 <emphasis>\Bgiusti\B</emphasis> corrisponde a
 in<emphasis>giusti</emphasis>zia e in<emphasis>giusti</emphasis>ficato
@@ -480,9 +481,13 @@ alfanumerico; lo stesso di [a-zA-Z0-9_].</para></listitem>
 linguetta Limiti di ricerca</title> <para>Definisci qui i limiti della
 tua ricerca</para>
 
-<section ID="hd_op_sch_dia_txt_scope_options"><title>Opzioni dei limiti di ricerca</title itemizedlist listitem><para><guibutton>Nessun limite</guibutton> disattiva la ricerca con limiti. La ricerca viene effettuata sull'intero documento.</para></listitem>
+<section ID="hd_op_sch_dia_txt_scope_options"><title>Opzioni dei limiti di ricerca</title>
+
+<itemizedlist>
+<listitem><para><guibutton>Nessun limite</guibutton> disattiva la ricerca con limiti. La ricerca viene effettuata sull'intero documento.</para></listitem>
 <listitem><para><guibutton>Ultimo risultato</guibutton> La nuova ricerca avverrà solo entro i versetti trovati nella ricerca precedente.</para></listitem>
-<listitem><para><guibutton>Usa limiti</guibutton> La nuova ricerca avverrà entro l'intervallo stabilito dai limiti specificati.</para></listitem></itemizedlist>
+<listitem><para><guibutton>Usa limiti</guibutton> La nuova ricerca avverrà entro l'intervallo stabilito dai limiti specificati.</para></listitem>
+</itemizedlist>
 
 <para>Se <guibutton>Nessun limite</guibutton> è selezionato e una
 ricerca viene effettuata nel modulo itaNRV per il nome Gesù, verranno
@@ -532,12 +537,15 @@ per aprirlo posizionato a quel versetto in un nuovo
 visualizzatore. </para> <tip><para>Qui funziona il Drag &
 Drop</para></tip> <tip><para>Seleziona il numero del versetto e
 trascinalo sull'indice principale per creare dei
-segnalibri.</para></tip> <tip><para>Seleziona i numeri dei versetti e
+segnalibri.</para></tip>
+<tip><para>Seleziona i numeri dei versetti e
 trascinali su un moduilo non aperto nell'indice principale per aprirlo
 in corrispondenza di quel versetto (solo per Bibbie e
-commentari).</para></tip> <tip><para>Seleziona i numeri dei versetti e
+commentari).</para></tip>
+<tip><para>Seleziona i numeri dei versetti e
 trascinali su un documento aperto: questo si posizionerà su quel
-versetto (solo Bibbie e commentari).  <screenshot> <screeninfo>Search
+versetto (solo Bibbie e commentari).</para></tip>
+<screenshot> <screeninfo>Search
 Result Dialog Box</screeninfo> <graphic
 fileref="common/hdbk_op_search_dialog_searchresult.png"
 format="png"></graphic> </screenshot> </section>

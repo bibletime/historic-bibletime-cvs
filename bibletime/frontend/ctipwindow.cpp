@@ -63,9 +63,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "ctipwindow.h"
 #include "chtmlwidget.h"
 #include "ctoolclass.h"
+#include "../ressource.h"
 
 CTipWindow::CTipWindow() : KDialog(0,0,true) {
   setCaption(i18n("Useful tips for BibleTime"));
+  setIcon( LOAD_SMALL_ICON(ICON_HELP_DAILY_TIP) );
 
   QHBoxLayout *hbox = new QHBoxLayout(this, 4);
   QVBoxLayout *vbox = new QVBoxLayout(hbox, 4);
