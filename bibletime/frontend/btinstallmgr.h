@@ -57,11 +57,15 @@ public:
       static const QString configPath();
       static const QString configFilename();
 
+			static void resetSources();
+
       static QStringList sourceList( sword::InstallMgr* );
       static sword::InstallSource source( sword::InstallMgr*, const QString& name );
       static const bool isRemoteSource( sword::InstallSource* is );
       static void addSource( sword::InstallSource* );
       static void removeSource( sword::InstallMgr*, sword::InstallSource* );
+
+
     private:
       RemoteConfig() {};
     };

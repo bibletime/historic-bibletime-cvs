@@ -36,7 +36,7 @@
 #include <qwidgetstack.h>
 #include <qfileinfo.h>
 #include <qpushbutton.h>
-#include <klistview.h>
+#include <qlineedit.h>
 
 
 //KDE includes
@@ -51,11 +51,11 @@
 #include <kprogress.h>
 #include <kurl.h>
 
-
 //Sword includes
 #include <installmgr.h>
 #include <swmodule.h>
 #include <swversion.h>
+
 
 using std::cout;
 using std::cerr;
@@ -63,14 +63,90 @@ using std::endl;
 
 using namespace sword;
 
-CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent ) : KListViewItem(parent){
+CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent ) :
+	QCheckListItem(parent, QString::null, QCheckListItem::CheckBoxController)
+{
 
 }
 
-const KURL& CInstallSourcesMgrDialog::InstallSourceItem::url() const {
+CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent, sword::InstallSource is ) : QCheckListItem(parent, QString::null, QCheckListItem::CheckBoxController)
+{
+	setCaption( QString::fromLatin1(is.caption.c_str()) );
+	m_url.setHost( QString::fromLatin1(is.source.c_str()) );
+	m_url.setPath( QString::fromLatin1(is.directory.c_str()) );
+	setEnabled(true);
+
+	updateItem();
+}
+
+const QUrl& CInstallSourcesMgrDialog::InstallSourceItem::url() const {
 	return m_url;
 }
 
+
+void CInstallSourcesMgrDialog::InstallSourceItem::setURL(const QUrl& url) {
+	m_url = url;
+	updateItem();
+}
+
+const QString& CInstallSourcesMgrDialog::InstallSourceItem::caption() const {
+	return m_caption;
+}
+
+void CInstallSourcesMgrDialog::InstallSourceItem::setCaption( const QString& caption ) {
+	if (caption.isEmpty())
+		return;
+
+	m_caption = caption;
+	updateItem();
+}
+
+const QString CInstallSourcesMgrDialog::InstallSourceItem::server() const {
+	return m_url.host();
+}
+
+void CInstallSourcesMgrDialog::InstallSourceItem::setServer( const QString& server ) {
+	if (server.isEmpty())
+		return;
+
+	m_url.setHost(server);
+	updateItem();
+}
+
+const QString CInstallSourcesMgrDialog::InstallSourceItem::path() const {
+	return m_url.path();
+}
+
+void CInstallSourcesMgrDialog::InstallSourceItem::setPath( const QString& path ) {
+	if (path.isEmpty())
+		return;
+
+	m_url.setPath(path);
+	updateItem();
+}
+
+const bool CInstallSourcesMgrDialog::InstallSourceItem::isEnabled() const {
+	return isOn();
+}
+
+void CInstallSourcesMgrDialog::InstallSourceItem::setEnabled( const bool enabled ) {
+	setOn(enabled);
+	updateItem();
+}
+
+void CInstallSourcesMgrDialog::InstallSourceItem::updateItem() {
+	setText(0, m_caption);
+	setText(1, m_url.host() + m_url.path());
+}
+
+sword::InstallSource CInstallSourcesMgrDialog::InstallSourceItem::swordInstallSource() {
+	sword::InstallSource src("FTP");
+	src.caption = m_caption.latin1();
+	src.source = m_url.host().latin1();
+	src.directory = m_url.path().latin1();
+
+	return src;
+}
 
 CInstallSourcesMgrDialog::CInstallSourcesMgrDialog(QWidget *parent, const char *name )
 	: KDialogBase(IconList, i18n("Manage installation sources"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
@@ -83,11 +159,33 @@ void CInstallSourcesMgrDialog::initView() {
 
 }
 
+void CInstallSourcesMgrDialog::slotOk() {
+	//save the source items to disk
+
+	//save local sources
+
+
+	//save remote sources
+	BTInstallMgr::Tool::RemoteConfig::resetSources(); //we wan't to overwrite old sources, not add to them
+	QListViewItemIterator it(m_remoteSourcesList, QListViewItemIterator::Checked );
+	while (it.current()) {
+		InstallSourceItem* item = dynamic_cast<InstallSourceItem*>(it.current());
+		if (!item)
+			continue;
+
+		sword::InstallSource is = item->swordInstallSource();
+		BTInstallMgr::Tool::RemoteConfig::addSource( &is );
+		++it; //next checked item
+	}
+
+	KDialogBase::slotOk();
+}
+
 void CInstallSourcesMgrDialog::initLocalSourcesPage() {
 	m_localSourcesPage = addPage(i18n("Local sources"), QString::null, DesktopIcon("dir",32));
  	m_localSourcesPage->setMinimumSize(500,400);
 
-	QGridLayout* grid = new QGridLayout(m_localSourcesPage, 3,3);
+	QGridLayout* grid = new QGridLayout(m_localSourcesPage, 3,3, 5, 5);
 
 	m_localSourcesList = new KListView( m_localSourcesPage );
 	m_localSourcesList->addColumn("Local sources");
@@ -98,8 +196,12 @@ void CInstallSourcesMgrDialog::initLocalSourcesPage() {
 	connect(removeButton, SIGNAL(clicked()), SLOT(slot_localRemoveSource()));
 
 	grid->addMultiCellWidget( m_localSourcesList, 0,2, 0,1 );
+	grid->setColStretch(0, 5);
+	grid->setColStretch(1, 5);
+
 	grid->addWidget( addButton, 0,2 );
 	grid->addWidget( removeButton, 1,2 );
+	grid->setColStretch(2, 0);
 }
 
 void CInstallSourcesMgrDialog::slot_localAddSource() {
@@ -122,26 +224,77 @@ void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
 	QGridLayout* grid = new QGridLayout(m_remoteSourcesPage, 4,5, 5,5);
 
 	m_remoteSourcesList = new KListView( m_remoteSourcesPage );
-	m_remoteSourcesList->addColumn("Remote sources");
-	connect(m_remoteSourcesList, SIGNAL(selectioNChanged()), SLOT(slot_remoteSourceSelectionChanged()));
+	m_remoteSourcesList->setAllColumnsShowFocus(true);
+	m_remoteSourcesList->addColumn("Name");
+	m_remoteSourcesList->addColumn("URL");
+	connect(m_remoteSourcesList, SIGNAL(selectionChanged()), SLOT(slot_remoteSourceSelectionChanged()));
 
  	QPushButton* addButton = new QPushButton(i18n("New"), m_remoteSourcesPage);
 	connect(addButton, SIGNAL(clicked()), SLOT(slot_remoteAddSource()));
 
- 	QPushButton* editButton = new QPushButton(i18n("Edit"), m_remoteSourcesPage);
-	connect(editButton, SIGNAL(clicked()), SLOT(slot_remoteChangeSource()));
+// 	QPushButton* editButton = new QPushButton(i18n("Edit"), m_remoteSourcesPage);
+//	connect(editButton, SIGNAL(clicked()), SLOT(slot_remoteChangeSource()));
 
 	QPushButton* removeButton = new QPushButton(i18n("Remove"), m_remoteSourcesPage);
 	connect(removeButton, SIGNAL(clicked()), SLOT(slot_remoteRemoveSource()));
 
-	QGroupBox* box = new QGroupBox(m_remoteSourcesPage);
-
 	grid->addMultiCellWidget( m_remoteSourcesList, 0,2, 0,2 );
 	grid->addWidget( addButton, 3,0 );
-	grid->addWidget( editButton, 3,1 );
+	//grid->addWidget( editButton, 3,1 );
 	grid->addWidget( removeButton, 3,2 );
 
+	grid->setColStretch(0, 0);
+	grid->setColStretch(1, 0);
+	grid->setColStretch(2, 0);
+	grid->setColStretch(3, 5);
+
+	//contains the remote sources edit controls, we need boxes for the caption, the server, the dir on the server
+	QGroupBox* box = new QGroupBox(m_remoteSourcesPage);
 	grid->addMultiCellWidget( box, 0,3, 3,4 );
+
+	QGridLayout* boxGrid = new QGridLayout(box, 4, 3, 5, 5);
+	boxGrid->setColStretch(1, 5);
+
+	boxGrid->addWidget(new QLabel(i18n("Name:"), box), 0,0);
+
+	m_remoteCaptionEdit = new QLineEdit(box);
+	connect(m_remoteCaptionEdit, SIGNAL(textChanged(const QString&)),
+		SLOT(slot_remoteCaptionChanged(const QString&)));
+	boxGrid->addWidget(m_remoteCaptionEdit, 0,1);
+
+
+	m_remoteServerEdit = new QLineEdit(box);;
+	connect(m_remoteServerEdit, SIGNAL(textChanged(const QString&)),
+		SLOT(slot_remoteServerChanged(const QString&)));
+	boxGrid->addWidget(new QLabel(i18n("Server:"), box), 1,0);
+	boxGrid->addWidget(m_remoteServerEdit, 1,1);
+
+	m_remotePathEdit = new QLineEdit(box);;
+	connect(m_remotePathEdit, SIGNAL(textChanged(const QString&)),
+		SLOT(slot_remotePathChanged(const QString&)));
+	boxGrid->addWidget(new QLabel(i18n("Path on server:"), box), 2,0);
+	boxGrid->addWidget(m_remotePathEdit, 2,1);
+
+
+	//now setup some reasonable default server entries
+
+	//noe insert existing remote source items, if there are no sources setup with default source
+	BTInstallMgr mgr;
+	QStringList sources = BTInstallMgr::Tool::RemoteConfig::sourceList( &mgr );
+	for (QStringList::iterator it = sources.begin(); it != sources.end(); ++it) {
+		sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&mgr, (*it).latin1());
+		if (!BTInstallMgr::Tool::RemoteConfig::isRemoteSource( &is )) { //only use remote sources as items
+			continue;
+		}
+
+		(void)new InstallSourceItem( m_remoteSourcesList, is );
+	}
+
+	if (m_remoteSourcesList->childCount() == 0) {
+		InstallSourceItem* i = new InstallSourceItem(m_remoteSourcesList);
+		i->setCaption("Crosswire");
+		i->setURL(QUrl("ftp://ftp.crosswire.org/pub/sword/raw/"));
+	}
 }
 
 void CInstallSourcesMgrDialog::slot_remoteAddSource() {
@@ -157,6 +310,37 @@ void CInstallSourcesMgrDialog::slot_remoteRemoveSource() {
 
 void CInstallSourcesMgrDialog::slot_remoteSourceSelectionChanged() {
 	//Apply settings of new source to the edit widgets
+	InstallSourceItem* i = dynamic_cast<InstallSourceItem*>(m_remoteSourcesList->currentItem());
+	if (!i)
+		return;
+
+	m_remoteCaptionEdit->setText( i->caption() );
+	m_remoteServerEdit->setText( i->server() );
+	m_remotePathEdit->setText( i->path() );
+}
+
+void CInstallSourcesMgrDialog::slot_remoteCaptionChanged( const QString& t) {
+	InstallSourceItem* i = dynamic_cast<InstallSourceItem*>(m_remoteSourcesList->currentItem());
+	if (!i)
+		return;
+
+	i->setCaption(t);
+}
+
+void CInstallSourcesMgrDialog::slot_remoteServerChanged( const QString& t ) {
+	InstallSourceItem* i = dynamic_cast<InstallSourceItem*>(m_remoteSourcesList->currentItem());
+	if (!i)
+		return;
+
+	i->setServer(t);
+}
+
+void CInstallSourcesMgrDialog::slot_remotePathChanged( const QString& t) {
+	InstallSourceItem* i = dynamic_cast<InstallSourceItem*>(m_remoteSourcesList->currentItem());
+	if (!i)
+		return;
+
+	i->setPath(t);
 }
 
 /*******************************/
@@ -208,19 +392,19 @@ void CSwordSetupDialog::initSwordConfig(){
   m_swordEditPathButton = new QPushButton(i18n("Edit Entry"), page);
   connect(m_swordEditPathButton, SIGNAL(clicked()), this, SLOT(slot_swordEditClicked()));
   layout->addWidget(m_swordEditPathButton, 2, 3);
-  
+
   m_swordAddPathButton = new QPushButton(i18n("Add Entry"), page);
   connect(m_swordAddPathButton, SIGNAL(clicked()), this, SLOT(slot_swordAddClicked()));
   layout->addWidget(m_swordAddPathButton, 3,3);
 
   m_swordRemovePathButton = new QPushButton(i18n("Remove Entry"), page);
   connect(m_swordRemovePathButton, SIGNAL(clicked()), this, SLOT(slot_swordRemoveClicked()));
-  layout->addWidget(m_swordRemovePathButton, 4,3); 
+  layout->addWidget(m_swordRemovePathButton, 4,3);
 
 
   setupSwordPathListBox();
 }
-  
+
 void CSwordSetupDialog::initInstall(){
 	QFrame* newpage = m_installPage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("connect_create",32));
 
@@ -263,7 +447,7 @@ void CSwordSetupDialog::initInstall(){
 	m_sourceLabel = new QLabel(m_installSourcePage);
 	layout->addMultiCellWidget(m_sourceLabel, 3,3,0,1);
 
-	QLabel* targetHeadingLabel = new QLabel("<b>Select target location</b>",m_installSourcePage);
+	QLabel* targetHeadingLabel = new QLabel("<b>Select target location</b>", m_installSourcePage);
 	layout->addMultiCellWidget(targetHeadingLabel, 4,4,0,1);
 
 	m_targetCombo = new QComboBox(m_installSourcePage);
@@ -344,7 +528,7 @@ void CSwordSetupDialog::slotOk(){
   //save the Sword path configuration here
   if (m_swordPathListBox->childCount()) {
     QStringList targets;
-  
+
     QListViewItemIterator it( m_swordPathListBox );
     while ( it.current() ) {
       QListViewItem *item = it.current();
@@ -356,8 +540,8 @@ void CSwordSetupDialog::slotOk(){
 
     BTInstallMgr::Tool::LocalConfig::setTargetList(targets); //creates new Sword config
   }
-  
-  KDialogBase::slotOk();  
+
+  KDialogBase::slotOk();
   emit signalSwordSetupChanged( );
 }
 
@@ -368,7 +552,7 @@ void CSwordSetupDialog::slotApply(){
 }
 
 /** Opens the page which contaisn the given part ID. */
-const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool exclusive ){
+const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool exclusive ) {
 //  if (exlusive) {
 //    m_swordConfigPage->setEnabled(false);
 //    m_installPage->setEnabled(false)
@@ -412,12 +596,18 @@ void CSwordSetupDialog::populateInstallCombos(){
 	m_sourceCombo->clear();
 	m_targetCombo->clear();
 
-  BTInstallMgr mgr;
   BTInstallMgr::Tool::RemoteConfig::initConfig();
+  BTInstallMgr mgr;
 
   QStringList list = BTInstallMgr::Tool::RemoteConfig::sourceList(&mgr);
   for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
-    m_sourceCombo->insertItem( *it );
+		sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&mgr, *it);
+		if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) { //remote source?
+    	m_sourceCombo->insertItem( i18n("[Remote]") + " " + *it );
+		}
+		else {
+			m_sourceCombo->insertItem( i18n("[Local]") + " " + *it );
+		}
   }
 
   list = BTInstallMgr::Tool::LocalConfig::targetList();
@@ -425,15 +615,24 @@ void CSwordSetupDialog::populateInstallCombos(){
     m_targetCombo->insertItem( *it );
   }
 
+	m_targetCombo->setEnabled( (m_targetCombo->count() > 0) );
+	slot_sourceSelected( m_sourceCombo->currentText() );
 }
 
 /** No descriptions */
 void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
+	//remove status parta
+	QString source = sourceName;
+	source = source.remove( i18n("[Local]") + " " );
+	source = source.remove( i18n("[Remote]") + " " );
+
   BTInstallMgr mgr;
 
+	// qWarning("%s schosen", source.latin1());
+
   QString url;
-  sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&mgr, sourceName) ;
-  
+  sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&mgr, source) ;
+
   if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
     url = QString::fromLatin1("ftp://%1%2").arg(is.source.c_str()).arg(is.directory.c_str());
   }
@@ -478,7 +677,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 	else if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)){  //Yes was pressed.
     //module are removed in this section of code
     sword::InstallMgr installMgr;
-    
+
   	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
       if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) { //module found?
         QString prefixPath = m->config(CSwordModuleInfo::AbsoluteDataPath) + "/";
@@ -570,9 +769,9 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 //			newItem = new QListViewItem(parent, name);
 
     newItem->setPixmap(0, CToolClass::getIconForModule(list.current()));
-		newItem->setText(1,list.current()->config(CSwordModuleInfo::AbsoluteDataPath)); 
+		newItem->setText(1,list.current()->config(CSwordModuleInfo::AbsoluteDataPath));
   }
-    
+
 	m_populateListNotification->setText("");
 //	m_removeBackButton->setEnabled(true);
 	m_removeRemoveButton->setEnabled(true);
@@ -596,7 +795,7 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 
 	QListViewItem* categoryBible = new KListViewItem(m_installModuleListView, i18n("Bibles"));
   categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
-  
+
 	QListViewItem* categoryCommentary = new KListViewItem(m_installModuleListView, i18n("Commentaries"));
   categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
@@ -610,11 +809,11 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   categoryCommentary->setOpen(true);
   categoryLexicon->setOpen(true);
   categoryBook->setOpen(true);
-  
+
   BTInstallMgr iMgr;
   sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
 
-  if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {        
+  if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
     if (!m_refreshedRemoteSources)
       iMgr.refreshRemoteSource( &is );
     m_refreshedRemoteSources = true;
@@ -721,7 +920,7 @@ void CSwordSetupDialog::slot_connectToSource(){
   disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
   connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
 
-  populateInstallModuleListView( m_sourceCombo->currentText() );
+  populateInstallModuleListView( currentInstallSource() );
   m_installContinueButton->setText(i18n("Install modules"));
   m_installContinueButton->setEnabled(true);
 
@@ -732,6 +931,8 @@ void CSwordSetupDialog::slot_connectToSource(){
 void CSwordSetupDialog::slot_installManageSources() {
 	CInstallSourcesMgrDialog* dlg = new CInstallSourcesMgrDialog(this);
 	dlg->exec();
+
+	populateInstallCombos(); //make sure the items are updated
 }
 
 /** Installs chosen modules */
@@ -760,7 +961,9 @@ void CSwordSetupDialog::slot_installModules(){
 	}
 	else if ((KMessageBox::warningYesNo(0, message, "Warning") == KMessageBox::Yes)){  //Yes was pressed.
     BTInstallMgr iMgr;
-    sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, m_sourceCombo->currentText());
+    sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, currentInstallSource());
+
+		qWarning("installung from %s/%s", is.source.c_str(), is.directory.c_str());
 
     QString target = m_targetCombo->currentText();
     if (target.contains("$HOME"))
@@ -822,7 +1025,7 @@ void CSwordSetupDialog::slot_installModules(){
 
     //reload our backend because modules may have changed
     backend()->reloadModules();
-    populateInstallModuleListView( m_sourceCombo->currentText() ); //rebuild the tree
+    populateInstallModuleListView( currentInstallSource() ); //rebuild the tree
     populateRemoveModuleListView();
   }
 }
@@ -888,3 +1091,15 @@ void CSwordSetupDialog::setupSwordPathListBox(){
 void CSwordSetupDialog::slot_swordPathSelected(){
   m_swordEditPathButton->setEnabled( m_swordPathListBox->currentItem() );
 }
+
+/*!
+    \fn CSwordSetupDialog::remoteCurrentInstallSource()
+ */
+const QString CSwordSetupDialog::currentInstallSource() {
+	QString source = m_sourceCombo->currentText();
+	source = source.remove( i18n("[Local]") + " " );
+	source = source.remove( i18n("[Remote]") + " " );
+
+	return source;
+}
+

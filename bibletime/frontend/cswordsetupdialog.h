@@ -25,10 +25,11 @@
 //QT includes
 #include <qstring.h>
 #include <qmap.h>
+#include <qlistview.h>
+#include <qurl.h>
 
 //KDE includes
 #include <kdialogbase.h>
-#include <kurl.h>
 #include <klistview.h>
 
 
@@ -38,6 +39,8 @@ class QLabel;
 class QComboBox;
 class QWidgetStack;
 class QButton;
+class QLineEdit;
+
 class KProgressDialog;
 // class KListView;
 
@@ -49,13 +52,33 @@ public:
 
 protected:
 
-	class InstallSourceItem : public KListViewItem {
-		public:
-			InstallSourceItem( KListView* parent );
-			const KURL& url() const;
+	class InstallSourceItem : public QCheckListItem {
+	public:
+		InstallSourceItem( KListView* parent );
+		InstallSourceItem( KListView* parent, sword::InstallSource );
 
-		private:
-			KURL m_url;
+		const QUrl& url() const;
+		void setURL(const QUrl& url);
+
+		void setServer(const QString& server);
+		const QString server() const;
+
+		void setPath(const QString& server);
+		const QString path() const;
+
+		const QString& caption() const;
+		void setCaption( const QString& caption );
+
+		const bool isEnabled() const;
+		void setEnabled( const bool enabled );
+
+		sword::InstallSource swordInstallSource();
+
+	private:
+		void updateItem();
+
+		QUrl m_url;
+		QString m_caption;
 	};
 
 	void initView();
@@ -70,6 +93,11 @@ protected slots:
 	void slot_remoteChangeSource();
 	void slot_remoteRemoveSource();
 	void slot_remoteSourceSelectionChanged();
+	void slot_remoteCaptionChanged(const QString&);
+	void slot_remoteServerChanged(const QString&);
+	void slot_remotePathChanged(const QString&);
+
+	void slotOk();
 
 private:
 	QFrame* m_localSourcesPage;
@@ -77,6 +105,9 @@ private:
 
 	QFrame* m_remoteSourcesPage;
 	KListView* m_remoteSourcesList;
+	QLineEdit* m_remoteCaptionEdit;
+	QLineEdit* m_remoteServerEdit;
+	QLineEdit* m_remotePathEdit;
 };
 
 
@@ -108,6 +139,8 @@ private:
   void setupSwordPathListBox();
 
   void populateInstallCombos();
+
+ 	const QString currentInstallSource();
 
   QFrame* m_swordConfigPage;
   KListView* m_swordPathListBox;

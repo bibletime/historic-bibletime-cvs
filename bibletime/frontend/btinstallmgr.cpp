@@ -55,7 +55,7 @@ QStringList BTInstallMgr::Tool::RemoteConfig::sourceList( sword::InstallMgr* mgr
   //add Sword remote sources
 	for (InstallSourceMap::iterator it = mgr->sources.begin(); it != mgr->sources.end(); it++) {    
     names << QString::fromLocal8Bit(it->second->caption);
-  }  
+  }
 
   // Add local directory sources
   SWConfig config(Tool::RemoteConfig::configFilename().latin1());
@@ -63,7 +63,7 @@ QStringList BTInstallMgr::Tool::RemoteConfig::sourceList( sword::InstallMgr* mgr
 	if (sourcesSection != config.Sections.end()) {
 		sword::ConfigEntMap::iterator sourceBegin = sourcesSection->second.lower_bound("DIRSource");
 		sword::ConfigEntMap::iterator sourceEnd = sourcesSection->second.upper_bound("DIRSource");
-    
+
 		while (sourceBegin != sourceEnd) {
 			InstallSource is("DIR", sourceBegin->second.c_str());
       names << QString::fromLatin1(is.caption.c_str());
@@ -71,7 +71,7 @@ QStringList BTInstallMgr::Tool::RemoteConfig::sourceList( sword::InstallMgr* mgr
       sourceBegin++;
 		}
 	}
-  
+
   return names;
 }
 
@@ -84,13 +84,13 @@ void BTInstallMgr::Tool::LocalConfig::setTargetList( const QStringList& targets 
   //saves a new Sworc config using the provided target list
   QString filename =  KGlobal::dirs()->saveLocation("data", "bibletime/") + "sword.conf";
   bool directAccess = false;
-  
+
   QFileInfo i(LocalConfig::swordConfigFilename());
   if (i.exists() && i.isWritable()) { //we can write to the file ourself
     filename = LocalConfig::swordConfigFilename();
     directAccess = true;
   }
-  
+
   bool setDataPath = false;
   SWConfig conf(filename.local8Bit());
   conf.Sections.clear();
@@ -134,10 +134,10 @@ sword::InstallSource BTInstallMgr::Tool::RemoteConfig::source( sword::InstallMgr
 			ConfigEntMap::iterator sourceEnd = sourcesSection->second.upper_bound("DIRSource");
 
     	//	qWarning("looking for local source %s", name.latin1());
-    
+
          	while (sourceBegin != sourceEnd) {
             	InstallSource is("DIR", sourceBegin->second.c_str());
-            	qWarning("found %s", is.caption.c_str());
+            	//qWarning("found %s", is.caption.c_str());
         
           		if (!strcmp(is.caption, name.latin1()) ) { //found local dir source
             		//qWarning("found it");
@@ -155,7 +155,7 @@ sword::InstallSource BTInstallMgr::Tool::RemoteConfig::source( sword::InstallMgr
   return is;
 }
 
-const bool BTInstallMgr::Tool::RemoteConfig::isRemoteSource( InstallSource* is ) {
+const bool BTInstallMgr::Tool::RemoteConfig::isRemoteSource( sword::InstallSource* is ) {
   Q_ASSERT(is);
   if (is)
     return !strcmp(is->type, "FTP");
@@ -169,7 +169,12 @@ void BTInstallMgr::Tool::RemoteConfig::addSource( sword::InstallSource* is ) {
   }
 
   SWConfig config(Tool::RemoteConfig::configFilename().latin1());
-  if (!strcmp(is->type, "FTP")) {  
+  if (!strcmp(is->type, "FTP")) {
+		//make sure the path doesn't have a trailing slash, sword doesn't like it
+		if (is->directory[ is->directory.length()-1 ] == '/') {
+			is->directory--; //make one char shorter
+		}
+
     config["Sources"].insert( std::make_pair("FTPSource", is->getConfEnt()) );
   }
   else if (!strcmp(is->type, "DIR")) {
@@ -186,6 +191,8 @@ void BTInstallMgr::Tool::RemoteConfig::initConfig() {
 
   QFile::remove(configFilename());
 
+//remote sources will be setup by the manage sources dialog
+/*
   InstallSource is("FTP");
   is.caption = "Crosswire";
   is.source = "ftp.crosswire.org";
@@ -198,18 +205,21 @@ void BTInstallMgr::Tool::RemoteConfig::initConfig() {
   is.directory = "/pub/sword/betaraw";
   Tool::RemoteConfig::addSource(&is);
 
+
   //add default local sources
-  is.type = "DIR";
-  is.caption = "[CD-Rom] /cdrom";
+  InstallSource is("DIR");
+	is.type = "DIR";
+  is.caption = "/cdrom";
   is.source = "file://";
   is.directory = "/cdrom/";
   Tool::RemoteConfig::addSource(&is);
 
   is.type = "DIR";
-  is.caption = "[CD-Rom] /cdrom1";
+  is.caption = "/cdrom1";
   is.source = "file://";
   is.directory = "/cdrom1/";
   Tool::RemoteConfig::addSource(&is);
+*/
 
   SWConfig config(Tool::RemoteConfig::configFilename().latin1());
   config["General"]["PassiveFTP"] = "true";
@@ -231,6 +241,16 @@ const QString BTInstallMgr::Tool::RemoteConfig::configFilename() {
 void BTInstallMgr::Tool::RemoteConfig::removeSource( sword::InstallMgr* mgr, sword::InstallSource* is) {
   Q_ASSERT(mgr);
   Q_ASSERT(is);
+
+}
+
+void BTInstallMgr::Tool::RemoteConfig::resetSources() {
+  SWConfig config(Tool::RemoteConfig::configFilename().latin1());
+  config["Sources"].erase( //remove all FTP sources
+		config["Sources"].lower_bound("FTPSource"),
+		config["Sources"].upper_bound("FTPSource")
+	);
+	config.Save();
 
 }
 
