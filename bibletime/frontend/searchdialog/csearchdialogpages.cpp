@@ -44,7 +44,7 @@
 #include <qtooltip.h>
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
-#include <qwhatsthis.h>
+
 #include <qheader.h>
 #include <qgroupbox.h>
 #include <qregexp.h>
@@ -687,7 +687,7 @@ void CSearchOptionsPage::initView(){
 		connect(m_chooseModulesButton, SIGNAL(clicked()),
 			this, SLOT(chooseModules()));
 		QToolTip::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::tooltip);
-		QWhatsThis::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::whatsthis);
+
 	
 		QLabel* label = new QLabel(box1);
 		label->setText(i18n("Search text:"));
@@ -706,7 +706,7 @@ void CSearchOptionsPage::initView(){
 		);
 	
 		QToolTip::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
-		QWhatsThis::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::whatsthis);
+
   }
 	
   {
@@ -715,21 +715,21 @@ void CSearchOptionsPage::initView(){
 		m_multipleWordsRadio = new QRadioButton(i18n("Multiple words (AND)"), group);
 		m_multipleWordsRadio->setChecked( true );
 		QToolTip::add(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::tooltip);
-		QWhatsThis::add(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::whatsthis);
+
 		m_multipleWordsRadioID = group->id( m_multipleWordsRadio);
 		
 		m_multipleWordsORRadio =  new QRadioButton(i18n("Multiple words (OR)"), group);
 		QToolTip::add(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::tooltip);
-		QWhatsThis::add(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::whatsthis);
+
 		
 		m_exactTextRadio = new QRadioButton(i18n("Exact"), group);
 		QToolTip::add(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::tooltip);
-		QWhatsThis::add(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::whatsthis);
+
 		m_exactTextRadioID = group->id( m_exactTextRadio);
 		
 		m_regexpRadio = new QRadioButton(i18n("Regular expression"), group);
 		QToolTip::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::tooltip);
-		QWhatsThis::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::whatsthis);
+
 		m_regexpRadioID = group->id( m_regexpRadio );
 		
 		grid->addMultiCellWidget(group, 4,5,0,0);
@@ -742,7 +742,7 @@ void CSearchOptionsPage::initView(){
 		
 		m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive"), group2);
 		QToolTip::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::tooltip);
-		QWhatsThis::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::whatsthis);
+
 	
 		QHBox* limitTextBox = new QHBox(group2);
 		limitTextBox->setSpacing(5);
@@ -766,7 +766,7 @@ void CSearchOptionsPage::initView(){
 	
 		m_rangeChooserCombo = new KComboBox(box2);
 		QToolTip::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
-		QWhatsThis::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::whatsthis);
+
 	
 		refreshRanges();  
 		m_chooseRangeButton = new QPushButton(i18n("Setup ranges"), box2);

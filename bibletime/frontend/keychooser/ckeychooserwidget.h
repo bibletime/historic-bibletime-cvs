@@ -108,10 +108,6 @@ public:
   */
 //  virtual void adjustSize();
   /**
-  * Sets the QWhatsThis help for the different parts.
-  */
-  void setWhatsThis(const QString comboTip, const QString nextEntry, const QString scrollButton, const QString previousEntry);
-  /**
   * Sets the tooltips for the given entries using the parameters as text.
   */
   void setToolTips( const QString comboTip, const QString nextEntry, const QString scrollButton, const QString previousEntry);

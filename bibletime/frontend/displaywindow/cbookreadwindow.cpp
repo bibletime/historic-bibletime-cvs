@@ -116,7 +116,6 @@ void CBookReadWindow::initView(){
     CResMgr::displaywindows::general::search::actionName
   );
   action->setToolTip( CResMgr::displaywindows::general::search::tooltip );
-  action->setWhatsThis( CResMgr::displaywindows::general::search::whatsthis );
 	action->plug(mainToolBar());
 #if KDE_VERSION_MINOR < 1
 	action->plugAccel( accel() );

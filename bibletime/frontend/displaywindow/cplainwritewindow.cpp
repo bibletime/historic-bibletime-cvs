@@ -60,7 +60,7 @@ void CPlainWriteWindow::initView(){
 		actionCollection(),
 		CResMgr::displaywindows::commentaryWindow::syncWindow::actionName
 	);
-	m_actions.syncWindow->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip); m_actions.syncWindow->setWhatsThis(CResMgr::displaywindows::commentaryWindow::syncWindow::whatsthis);
+	m_actions.syncWindow->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip);
   m_actions.syncWindow->plug(mainToolBar());
 
 
@@ -72,7 +72,6 @@ void CPlainWriteWindow::initView(){
 		CResMgr::displaywindows::writeWindow::saveText::actionName
   );
   m_actions.saveText->setToolTip( CResMgr::displaywindows::writeWindow::saveText::tooltip );
-  m_actions.saveText->setWhatsThis( CResMgr::displaywindows::writeWindow::saveText::whatsthis );
   m_actions.saveText->plug(mainToolBar());
 
 
@@ -84,7 +83,6 @@ void CPlainWriteWindow::initView(){
 		CResMgr::displaywindows::writeWindow::deleteEntry::actionName
   );
   m_actions.deleteEntry->setToolTip( CResMgr::displaywindows::writeWindow::deleteEntry::tooltip );
-  m_actions.deleteEntry->setWhatsThis( CResMgr::displaywindows::writeWindow::deleteEntry::whatsthis );
   m_actions.deleteEntry->plug(mainToolBar());
 
 
@@ -96,7 +94,6 @@ void CPlainWriteWindow::initView(){
 		CResMgr::displaywindows::writeWindow::restoreText::actionName
   );
   m_actions.restoreText->setToolTip( CResMgr::displaywindows::writeWindow::restoreText::tooltip );
-  m_actions.restoreText->setWhatsThis( CResMgr::displaywindows::writeWindow::restoreText::whatsthis );
   m_actions.restoreText->plug(mainToolBar());
 }
 

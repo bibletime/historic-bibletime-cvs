@@ -33,7 +33,6 @@
 #include <qstyle.h>
 #include <qpixmap.h>
 #include <qapplication.h>
-#include <qwhatsthis.h>
 #include <qtooltip.h>
 #include <qrect.h>
 
@@ -283,25 +282,13 @@ void CKeyChooserWidget::init(){
 	setTabOrder(m_comboBox, 0);
 		
 // signals and slots connections
- 	if ( CBTConfig::get(CBTConfig::scroll) ) {
-		if (m_useNextPrevSignals) {
-			connect(btn_up, SIGNAL(clicked()), SIGNAL(prev_requested()) );	
-			connect(btn_down, SIGNAL(clicked()), SIGNAL(next_requested()) );
-	  }
-	  else {
-			connect(btn_up, SIGNAL(clicked()), SLOT(previous()) );	
-			connect(btn_down, SIGNAL(clicked()), SLOT(next()) );	
-	  }
+	if (m_useNextPrevSignals) {
+		connect(btn_up, SIGNAL(clicked()), SIGNAL(prev_requested()) );	
+		connect(btn_down, SIGNAL(clicked()), SIGNAL(next_requested()) );
 	}
 	else {
-		if (m_useNextPrevSignals) {
-			connect(btn_up, SIGNAL(clicked()), SIGNAL(next_requested()) );	
-			connect(btn_down, SIGNAL(clicked()), SIGNAL(prev_requested()) );
-	  }
-	  else {
-			connect(btn_up, SIGNAL(clicked()), SLOT(next()) );	
-			connect(btn_down, SIGNAL(clicked()), SLOT(previous()) );	
-		}
+		connect(btn_up, SIGNAL(clicked()), SLOT(previous()) );	
+		connect(btn_down, SIGNAL(clicked()), SLOT(next()) );	
 	}
 	
 	connect(btn_fx, SIGNAL(lock()), SLOT(lock()) );
@@ -348,30 +335,8 @@ void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextE
   QToolTip::add(comboBox(),comboTip);
 	QToolTip::add(btn_fx,  scrollButtonTip);
 
- 	if ( CBTConfig::get(CBTConfig::scroll) ){
-		QToolTip::add(btn_down, nextEntryTip);
-		QToolTip::add(btn_up,	previousEntryTip);
-	}
-	else {
-		QToolTip::add(btn_up,   nextEntryTip);
-		QToolTip::add(btn_down, previousEntryTip);
-	}
-}
-
-/** No descriptions */
-void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
-//  qWarning("add whatsthis heklps: %s, %s, %s, %s", comboTip.latin1(), nextEntryTip.latin1(), scrollButtonTip.latin1(), previousEntryTip.latin1());
-  QWhatsThis::add(comboBox(),comboTip);
-	QWhatsThis::add(btn_fx,  scrollButtonTip);
-
- 	if ( CBTConfig::get(CBTConfig::scroll) ) {
-		QWhatsThis::add(btn_down, nextEntryTip);
-		QWhatsThis::add(btn_up,   previousEntryTip);
-	}
-	else {
-		QWhatsThis::add(btn_up,   nextEntryTip);
-		QWhatsThis::add(btn_down, previousEntryTip);
-	}
+	QToolTip::add(btn_down, nextEntryTip);
+	QToolTip::add(btn_up,	previousEntryTip);
 }
 
 /** Sets the current item to the one with the given text */

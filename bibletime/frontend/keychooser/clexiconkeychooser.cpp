@@ -58,13 +58,7 @@ CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *
     CResMgr::displaywindows::general::scrollButton::tooltip,
     CResMgr::displaywindows::lexiconWindow::previousEntry::tooltip
   );
-	m_widget->setWhatsThis(
-    CResMgr::displaywindows::lexiconWindow::entryList::whatsthis,
-    CResMgr::displaywindows::lexiconWindow::nextEntry::whatsthis,
-    CResMgr::displaywindows::general::scrollButton::whatsthis,
-    CResMgr::displaywindows::lexiconWindow::previousEntry::whatsthis
-  );
-
+	
 	m_layout->addWidget(m_widget,0,Qt::AlignLeft);
 	
 	connect(m_widget,SIGNAL(changed(int)),SLOT(activated(int)));

@@ -55,12 +55,6 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
     CResMgr::displaywindows::general::scrollButton::tooltip,
     CResMgr::displaywindows::bibleWindow::previousBook::tooltip
   );
-	w_book->setWhatsThis(
-    CResMgr::displaywindows::bibleWindow::bookList::whatsthis,
-    CResMgr::displaywindows::bibleWindow::nextBook::whatsthis,
-    CResMgr::displaywindows::general::scrollButton::whatsthis,
-    CResMgr::displaywindows::bibleWindow::previousBook::whatsthis
-  );
 	
   w_chapter = new CKeyChooserWidget( m_modules.first()->chapterCount(w_book->comboBox()->currentText()),true,this);		
 	w_chapter->setToolTips(
@@ -68,12 +62,6 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
     CResMgr::displaywindows::bibleWindow::nextChapter::tooltip,
     CResMgr::displaywindows::general::scrollButton::tooltip,
     CResMgr::displaywindows::bibleWindow::previousChapter::tooltip
-  );
-	w_chapter->setWhatsThis(
-    CResMgr::displaywindows::bibleWindow::chapterList::whatsthis,
-    CResMgr::displaywindows::bibleWindow::nextChapter::whatsthis,
-    CResMgr::displaywindows::general::scrollButton::whatsthis,
-    CResMgr::displaywindows::bibleWindow::previousChapter::whatsthis
   );
 	
   w_verse = new CKeyChooserWidget( 
@@ -86,12 +74,6 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
     CResMgr::displaywindows::bibleWindow::nextVerse::tooltip,
     CResMgr::displaywindows::general::scrollButton::tooltip,
     CResMgr::displaywindows::bibleWindow::previousVerse::tooltip
-  );
-	w_verse->setWhatsThis(
-    CResMgr::displaywindows::bibleWindow::verseList::whatsthis,
-    CResMgr::displaywindows::bibleWindow::nextVerse::whatsthis,
-    CResMgr::displaywindows::general::scrollButton::whatsthis,
-    CResMgr::displaywindows::bibleWindow::previousVerse::whatsthis
   );
 
 	QWidget::setTabOrder(w_book, w_chapter);

@@ -29,7 +29,6 @@
 #include <qhbox.h>
 #include <qptrlist.h>
 #include <qpainter.h>
-#include <qwhatsthis.h>
 #include <qlayout.h>
 #include <qmap.h>
 #include <qlineedit.h>
@@ -195,10 +194,8 @@ void CSearchDialog::setSearchText( const QString searchText ){
 /** Initializes this object. */
 void CSearchDialog::initView(){
 	setButtonTip(User1, CResMgr::searchdialog::searchButton::tooltip);
-  setButtonWhatsThis(User1, CResMgr::searchdialog::searchButton::whatsthis);
 
   setButtonTip(User2, CResMgr::searchdialog::cancelSearchButton::tooltip);
-  setButtonWhatsThis(User2, CResMgr::searchdialog::cancelSearchButton::whatsthis);
 
   QHBox* box = addHBoxPage(i18n("Search options"));
   m_index.optionsPage = pageIndex(box);
@@ -1127,7 +1124,6 @@ const QString CSearchAnalysisItem::getToolTip(){
 
 CSearchAnalysisView::CSearchAnalysisView(QCanvas* canvas, QWidget* parent)
 	: QCanvasView(canvas, parent) {
-//	QWhatsThis::add(this, WT_SD_ANALYSIS_VIEW);
 	setFocusPolicy(QWidget::WheelFocus);
 	m_toolTip = new ToolTip(this);
 	resize(sizeHint());

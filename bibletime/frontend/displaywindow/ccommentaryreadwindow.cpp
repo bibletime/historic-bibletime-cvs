@@ -57,7 +57,7 @@ void CCommentaryReadWindow::initView(){
 		actionCollection(),
 		CResMgr::displaywindows::commentaryWindow::syncWindow::actionName
 	);
-	m_syncButton->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip); 	m_syncButton->setWhatsThis(CResMgr::displaywindows::commentaryWindow::syncWindow::whatsthis);
+	m_syncButton->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip); 
   m_syncButton->plug(mainToolBar());
 }
 

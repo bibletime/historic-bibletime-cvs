@@ -68,7 +68,6 @@ public:
 
 		lineBreaks,
 		verseNumbers,
-		scroll,
 
 		tips,
 		logo,

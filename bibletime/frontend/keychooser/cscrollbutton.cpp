@@ -60,22 +60,20 @@ const QPoint CScrollButton::get_lock_Point() const {
 }
 
 void CScrollButton::mouseMoveEvent( QMouseEvent* e ){
- 	const short signed int scrollDirection = CBTConfig::get(CBTConfig::scroll) ? -1 : 1;
-	
 	if (m_isLocked) {
-		int vchange = (QCursor::pos().y() - lock_Point.y()) * scrollDirection;
+		int vchange = (QCursor::pos().y() - lock_Point.y());
 		
 		if (abs(vchange) < 10) {
-      vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3));
+      vchange = (int)((vchange>0 ? 1 : -1) * pow(abs(vchange), 0.3));
 		}
 		else if (abs(vchange) < 30) {
-      vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.6));
+      vchange = (int)((vchange>0 ? 1 : -1) * pow(abs(vchange), 0.6));
 		}
 		else if (abs(vchange) < 40) {
-      vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 1.2));
+      vchange = (int)((vchange>0 ? 1 : -1) * pow(abs(vchange), 1.2));
 		}
 		else {
-      vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 2.0));
+      vchange = (int)((vchange>0 ? 1 : -1) * pow(abs(vchange), 2.0));
 		}
 
 		if (vchange) { //not emit 0
@@ -96,8 +94,7 @@ void CScrollButton::wheelEvent( QWheelEvent* e ){
 	/**
 	* The problem is, that wheel events do everytime have the delta value 120
 	*/
- 	const short signed int scrollDirection = CBTConfig::get(CBTConfig::scroll) ? -1 : 1;	 	
-	const int vchange = scrollDirection * ((e->delta() > 0) ? (1) : (-1));
+	const int vchange = ((e->delta() > 0) ? (1) : (-1));
 	
 	if (vchange!=0) {//do not emit a change with value 0	
 		emit change_requested( vchange );

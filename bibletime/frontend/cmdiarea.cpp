@@ -33,7 +33,6 @@
 #include <qobjectlist.h>
 #include <qtimer.h>
 #include <qevent.h>
-#include <qwhatsthis.h>
 #include <qtimer.h>
 
 
@@ -52,7 +51,6 @@ CMDIArea::CMDIArea(QWidget *parent, const char *name )
 
 /** Initializes the view of the MDI area */
 void CMDIArea::initView(){
-//	QWhatsThis::add(this, WT_MDI_AREA_WIDGET );
 	setPaletteBackgroundColor( parentWidget()->paletteBackgroundColor() );	//work around a KDE bug (IMHO was in KDE 2.x)
 }
 

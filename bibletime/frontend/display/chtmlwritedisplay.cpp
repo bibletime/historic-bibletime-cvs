@@ -24,7 +24,6 @@
 //Qt includes
 #include <qpopupmenu.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
 
 //KDE includes
 #include <kaction.h>
@@ -140,7 +139,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 		CResMgr::displaywindows::writeWindow::fontFamily::actionName
   );
   m_actions.fontChooser->setToolTip( CResMgr::displaywindows::writeWindow::fontFamily::tooltip );
-  m_actions.fontChooser->setWhatsThis( CResMgr::displaywindows::writeWindow::fontFamily::whatsthis );
+
   m_actions.fontChooser->plug(bar);
   connect(m_actions.fontChooser, SIGNAL(activated(const QString&)), this, SLOT(setFamily(const QString&)));
 
@@ -151,7 +150,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 		CResMgr::displaywindows::writeWindow::fontSize::actionName
   );
   m_actions.fontSizeChooser->setToolTip( CResMgr::displaywindows::writeWindow::fontSize::tooltip );
-  m_actions.fontSizeChooser->setWhatsThis( CResMgr::displaywindows::writeWindow::fontSize::whatsthis );
+
   m_actions.fontSizeChooser->plug(bar);
   connect(m_actions.fontSizeChooser, SIGNAL(fontSizeChanged(int)), this, SLOT(setPointSize(int)));
 
@@ -159,7 +158,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
   connect(m_colorButton, SIGNAL(changed(const QColor&)), this, SLOT(slotColorSelected(const QColor&)));
   bar->insertWidget(50, m_colorButton->sizeHint().width(), m_colorButton);
   QToolTip::add(m_colorButton, CResMgr::displaywindows::writeWindow::fontColor::tooltip );
-  QWhatsThis::add(m_colorButton, CResMgr::displaywindows::writeWindow::fontColor::whatsthis );
+
 
 
   (new KActionSeparator())->plug(bar); //seperate font options from formatting buttons
@@ -172,7 +171,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 		CResMgr::displaywindows::writeWindow::boldText::actionName
   );
   m_actions.bold->setToolTip( CResMgr::displaywindows::writeWindow::boldText::tooltip );
-  m_actions.bold->setWhatsThis( CResMgr::displaywindows::writeWindow::boldText::whatsthis );
+
   m_actions.bold->plug(bar);
 
  	m_actions.italic = new KToggleAction( i18n("Italic"),
@@ -183,7 +182,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 		CResMgr::displaywindows::writeWindow::italicText::actionName
   );
   m_actions.italic->setToolTip( CResMgr::displaywindows::writeWindow::italicText::tooltip );
-  m_actions.italic->setWhatsThis( CResMgr::displaywindows::writeWindow::italicText::whatsthis );
+
   m_actions.italic->plug(bar);
 
  	m_actions.underline = new KToggleAction( i18n("Underline"),
@@ -194,7 +193,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 		CResMgr::displaywindows::writeWindow::underlinedText::actionName
   );
   m_actions.underline->setToolTip( CResMgr::displaywindows::writeWindow::underlinedText::tooltip );
-  m_actions.underline->setWhatsThis( CResMgr::displaywindows::writeWindow::underlinedText::whatsthis );
+
   m_actions.underline->plug(bar);
 
 
@@ -208,7 +207,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 		CResMgr::displaywindows::writeWindow::alignLeft::actionName
   );
   m_actions.alignLeft->setToolTip( CResMgr::displaywindows::writeWindow::alignLeft::tooltip );
-  m_actions.alignLeft->setWhatsThis( CResMgr::displaywindows::writeWindow::alignLeft::whatsthis );
+
   m_actions.alignLeft->plug(bar);
 
  	m_actions.alignCenter = new KToggleAction( i18n("Center"),
@@ -219,7 +218,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 		CResMgr::displaywindows::writeWindow::alignCenter::actionName
   );
   m_actions.alignCenter->setToolTip( CResMgr::displaywindows::writeWindow::alignCenter::tooltip );
-  m_actions.alignCenter->setWhatsThis( CResMgr::displaywindows::writeWindow::alignCenter::whatsthis );
+
   m_actions.alignCenter->plug(bar);
 
  	m_actions.alignRight = new KToggleAction( i18n("Right"),
@@ -230,7 +229,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 		CResMgr::displaywindows::writeWindow::alignRight::actionName
   );
   m_actions.alignRight->setToolTip( CResMgr::displaywindows::writeWindow::alignRight::tooltip );
-  m_actions.alignRight->setWhatsThis( CResMgr::displaywindows::writeWindow::alignRight::whatsthis );
+
   m_actions.alignRight->plug(bar);
 
 // 	m_actions.alignJustify = new KToggleAction( i18n("Justify"),
@@ -240,7 +239,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 //    actions
 //  );
 //  m_actions.alignJustify->setToolTip( CResMgr::displaywindows::writeWindow::alignJustify::tooltip );
-//  m_actions.alignJustify->setWhatsThis( CResMgr::displaywindows::writeWindow::alignJustify::whatsthis );
+
 //  m_actions.alignJustify->plug(bar);
 
 

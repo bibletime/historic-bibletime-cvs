@@ -114,7 +114,6 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 
 		case lineBreaks: 					return "lineBreaks";
 		case verseNumbers: 				return "verseNumbers";
-		case scroll:			 				return "scroll";
 
 		case tips: 								return "RunOnStart";
 		case logo: 								return "logo";
@@ -156,7 +155,6 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 
 		case lineBreaks: 					return false;
 		case verseNumbers: 				return true;
-		case scroll:			 				return true;
 
 		case tips: 								return true;
 		case logo: 								return true;

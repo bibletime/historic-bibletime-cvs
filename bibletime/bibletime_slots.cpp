@@ -43,7 +43,6 @@
 //QT includes
 #include <qprogressdialog.h>
 #include <qlistview.h>
-#include <qwhatsthis.h>
 #include <qvaluelist.h>
 #include <qclipboard.h>
 #include <qinputdialog.h>

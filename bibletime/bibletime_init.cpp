@@ -105,7 +105,7 @@ void BibleTime::initActions() {
 
   action = KStdAction::quit(kapp, SLOT( quit() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::file::quit::tooltip );
-	action->setWhatsThis( CResMgr::mainMenu::file::quit::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
     action->plugAccel( accel() );
   #endif
@@ -117,7 +117,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::mainIndex::search::actionName
   );
   action->setToolTip( CResMgr::mainMenu::mainIndex::search::tooltip );
-  action->setWhatsThis( CResMgr::mainMenu::mainIndex::search::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
     action->plugAccel( accel() );
   #endif
@@ -129,14 +129,14 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::mainIndex::searchdefaultbible::actionName
   );
   action->setToolTip( CResMgr::mainMenu::mainIndex::searchdefaultbible::tooltip );
-  action->setWhatsThis( CResMgr::mainMenu::mainIndex::searchdefaultbible::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
   	action->plugAccel( accel() );
   #endif
 
   m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
 	m_viewToolbar_action->setToolTip( CResMgr::mainMenu::view::showToolBar::tooltip );
-	m_viewToolbar_action->setWhatsThis( CResMgr::mainMenu::view::showToolBar::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
   	m_viewToolbar_action->plugAccel( accel() );
   #endif
@@ -148,7 +148,7 @@ void BibleTime::initActions() {
 		this, SLOT(slotToggleMainIndex()), actionCollection(),
     CResMgr::mainMenu::view::showMainIndex::actionName);
 	m_viewMainIndex_action->setToolTip( CResMgr::mainMenu::view::showMainIndex::tooltip );
-	m_viewMainIndex_action->setWhatsThis( CResMgr::mainMenu::view::showMainIndex::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
     m_viewMainIndex_action->plugAccel( accel() );
   #endif
@@ -159,14 +159,14 @@ void BibleTime::initActions() {
 		this, SLOT(slotToggleInfoDisplay()), actionCollection(),
     CResMgr::mainMenu::view::showInfoDisplay::actionName);
 	m_viewMainIndex_action->setToolTip( CResMgr::mainMenu::view::showInfoDisplay::tooltip );
-	m_viewMainIndex_action->setWhatsThis( CResMgr::mainMenu::view::showInfoDisplay::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
     m_viewInfoDisplay_action->plugAccel( accel() );
   #endif
 
   action = KStdAction::preferences(this, SLOT( slotSettingsOptions() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::settings::optionsDialog::tooltip );
-	action->setWhatsThis( CResMgr::mainMenu::settings::optionsDialog::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
   	action->plugAccel( accel() );
   #endif
@@ -178,14 +178,14 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::settings::swordSetupDialog::actionName
   );
 	action->setToolTip( CResMgr::mainMenu::settings::swordSetupDialog::tooltip );
-	action->setWhatsThis( CResMgr::mainMenu::settings::swordSetupDialog::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
     action->plugAccel( accel() );
   #endif
 
   action = KStdAction::configureToolbars(this, SLOT( slotSettingsToolbar() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::settings::editToolBar::tooltip );
-	action->setWhatsThis( CResMgr::mainMenu::settings::editToolBar::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
     action->plugAccel( accel() );
   #endif
@@ -206,9 +206,6 @@ void BibleTime::initActions() {
 	m_windowManualMode_action->setToolTip( 
 		CResMgr::mainMenu::window::arrangementMode::manual::tooltip 
 	);
-	m_windowManualMode_action ->setWhatsThis(
-		CResMgr::mainMenu::window::arrangementMode::manual::whatsthis 
-	);
   #if KDE_VERSION_MINOR < 1
   	m_windowManualMode_action->plugAccel( accel() );
   #endif
@@ -223,9 +220,6 @@ void BibleTime::initActions() {
   );
 	m_windowAutoTileVertical_action->setToolTip( 
 		CResMgr::mainMenu::window::arrangementMode::autoTileVertical::tooltip 
-	);
-	m_windowAutoTileVertical_action->setWhatsThis( 
-		CResMgr::mainMenu::window::arrangementMode::autoTileVertical::whatsthis 
 	);
   #if KDE_VERSION_MINOR < 1
   	m_windowAutoTileVertical_action->plugAccel( accel() );
@@ -242,9 +236,6 @@ void BibleTime::initActions() {
 	m_windowAutoTileHorizontal_action->setToolTip( 
 		CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::tooltip 
 	);
-	m_windowAutoTileHorizontal_action->setWhatsThis( 
-		CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::whatsthis 
-	);
   #if KDE_VERSION_MINOR < 1
   	m_windowAutoTileHorizontal_action->plugAccel( accel() );
   #endif
@@ -260,9 +251,6 @@ void BibleTime::initActions() {
 	m_windowAutoCascade_action->setToolTip( 
 		CResMgr::mainMenu::window::arrangementMode::autoCascade::tooltip 
 	);
-	m_windowAutoCascade_action->setWhatsThis(
-		CResMgr::mainMenu::window::arrangementMode::autoCascade::whatsthis 
-	);
   #if KDE_VERSION_MINOR < 1
   	m_windowAutoCascade_action->plugAccel( accel() );
   #endif
@@ -275,7 +263,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::cascade::actionName
   );
 	m_windowCascade_action->setToolTip( CResMgr::mainMenu::window::cascade::tooltip );
-	m_windowCascade_action->setWhatsThis( CResMgr::mainMenu::window::cascade::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
   	m_windowCascade_action->plugAccel( accel());
   #endif
@@ -288,7 +276,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::tile::actionName
 	);
 	m_windowTile_action->setToolTip( CResMgr::mainMenu::window::tile::tooltip );
-	m_windowTile_action->setWhatsThis( CResMgr::mainMenu::window::tile::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
   	m_windowTile_action->plugAccel( accel() );
   #endif
@@ -302,7 +290,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::closeAll::actionName
   );
 	m_windowCloseAll_action->setToolTip( CResMgr::mainMenu::window::closeAll::tooltip );
-	m_windowCloseAll_action->setWhatsThis( CResMgr::mainMenu::window::closeAll::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
   	m_windowCloseAll_action->plugAccel( accel() );
   #endif
@@ -314,7 +302,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::saveProfile::actionName
   );
 	m_windowSaveProfile_action->setToolTip( CResMgr::mainMenu::window::saveProfile::tooltip );
-	m_windowSaveProfile_action->setWhatsThis( CResMgr::mainMenu::window::saveProfile::whatsthis );
+
   #if KDE_VERSION_MINOR < 1                           
   	m_windowSaveProfile_action->plugAccel( accel() );
   #endif
@@ -327,7 +315,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::saveToNewProfile::actionName
   );
 	m_windowSaveToNewProfile_action->setToolTip( CResMgr::mainMenu::window::saveToNewProfile::tooltip );
-	m_windowSaveToNewProfile_action->setWhatsThis( CResMgr::mainMenu::window::saveToNewProfile::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
   	m_windowSaveToNewProfile_action->plugAccel( accel() );
   #endif
@@ -339,7 +327,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::loadProfile::actionName
   );
 	m_windowLoadProfile_action->setToolTip( CResMgr::mainMenu::window::loadProfile::tooltip );
-	m_windowLoadProfile_action->setWhatsThis( CResMgr::mainMenu::window::loadProfile::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
   	m_windowLoadProfile_action->plugAccel( accel() );
   #endif
@@ -350,7 +338,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::deleteProfile::actionName
   );
 	m_windowDeleteProfile_action->setToolTip( CResMgr::mainMenu::window::deleteProfile::tooltip );
-	m_windowDeleteProfile_action->setWhatsThis( CResMgr::mainMenu::window::deleteProfile::whatsthis );
+
   #if KDE_VERSION_MINOR < 1
   	m_windowDeleteProfile_action->plugAccel( accel() );
   #endif
@@ -362,7 +350,7 @@ void BibleTime::initActions() {
 //     CResMgr::mainMenu::window::setupProfiles::actionName
 //   );
 // 	m_windowEditProfiles_action->setToolTip( CResMgr::mainMenu::window::setupProfiles::tooltip );
-// 	m_windowEditProfiles_action->setWhatsThis( CResMgr::mainMenu::window::setupProfiles::whatsthis );
+
 //   #if KDE_VERSION_MINOR < 1
 //   	m_windowEditProfiles_action->plugAccel( accel() );
 //   #endif
@@ -375,7 +363,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::window::showFullscreen::actionName
   );
 	m_windowFullscreen_action->setToolTip( CResMgr::mainMenu::window::showFullscreen::tooltip );
-	m_windowFullscreen_action->setWhatsThis( CResMgr::mainMenu::window::showFullscreen::whatsthis );
+
 	m_windowFullscreen_action->setShortcutConfigurable(true);
   #if KDE_VERSION_MINOR < 1
   	m_windowFullscreen_action->plugAccel( accel() );
@@ -408,7 +396,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::help::handbook::actionName
   );
   action->setToolTip( CResMgr::mainMenu::help::handbook::tooltip );
-  action->setWhatsThis( CResMgr::mainMenu::help::handbook::whatsthis  );
+
   #if KDE_VERSION_MINOR < 1
 	  action->plugAccel( accel() );
   #endif
@@ -420,7 +408,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::help::bibleStudyHowTo::actionName
   );
   action->setToolTip( CResMgr::mainMenu::help::bibleStudyHowTo::tooltip );
-  action->setWhatsThis( CResMgr::mainMenu::help::bibleStudyHowTo::whatsthis  );
+
   #if KDE_VERSION_MINOR < 1
 	  action->plugAccel( accel() );
   #endif
@@ -429,16 +417,16 @@ void BibleTime::initActions() {
 		KAction* action = actionCollection()->action(KStdAction::stdName( KStdAction::WhatsThis ));
 		actionCollection()->remove( action );
   }
-	action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
-	action->setToolTip(CResMgr::mainMenu::help::whatsThis::tooltip);
-	action->setWhatsThis(CResMgr::mainMenu::help::whatsThis::whatsthis);
+// 	action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
+// 	action->setToolTip(CResMgr::mainMenu::help::whatsThis::tooltip);
+
   #if KDE_VERSION_MINOR < 1
 	action->plugAccel( accel() );
   #endif
 
 	action = KStdAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::bugreport::tooltip);
-	action->setWhatsThis(CResMgr::mainMenu::help::bugreport::whatsthis);
+
   #if KDE_VERSION_MINOR < 1
 	  action->plugAccel( accel() );
   #endif
@@ -451,7 +439,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::help::dailyTip::actionName
   );
 	action->setToolTip(CResMgr::mainMenu::help::dailyTip::tooltip);
-	action->setWhatsThis(CResMgr::mainMenu::help::dailyTip::whatsthis);
+
   #if KDE_VERSION_MINOR < 1
 	  action->plugAccel( accel() );
   #endif
@@ -461,7 +449,7 @@ void BibleTime::initActions() {
   }
   action = KStdAction::aboutApp(m_helpMenu, SLOT(aboutApplication()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::aboutBibleTime::tooltip);
-	action->setWhatsThis(CResMgr::mainMenu::help::aboutBibleTime::whatsthis);
+
 
 	//delete About KDE action if KDE created it already
 	if ( actionCollection()->action( KStdAction::stdName( KStdAction::AboutKDE ) ) ) {	 //delete About KDE action if KDE created it
@@ -469,7 +457,7 @@ void BibleTime::initActions() {
   }
 	action = KStdAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::aboutKDE::tooltip);
-	action->setWhatsThis(CResMgr::mainMenu::help::aboutKDE::whatsthis);
+
 }
 
 /** Initializes the menubar of BibleTime. */

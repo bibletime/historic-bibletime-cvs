@@ -47,7 +47,7 @@
 #include <qradiobutton.h>
 #include <qcolor.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+
 #include <qstringlist.h>
 #include <qinputdialog.h>
 #include <qdir.h>
@@ -145,7 +145,7 @@ void COptionsDialog::initStartup(){
 		m_settings.startup.showTips = new QCheckBox(page);
 		m_settings.startup.showTips->setText(i18n("Show tip of the day"));
 		QToolTip::add(m_settings.startup.showTips, CResMgr::settings::startup::dailyTip::tooltip );	
-		QWhatsThis::add(m_settings.startup.showTips, CResMgr::settings::startup::dailyTip::whatsthis );
+
 		
 		m_settings.startup.showTips->setChecked( CBTConfig::get(CBTConfig::tips) );
 	}
@@ -156,28 +156,13 @@ void COptionsDialog::initStartup(){
 		m_settings.startup.showLogo = new QCheckBox(page);
 		m_settings.startup.showLogo->setText(i18n("Show startuplogo"));
 		QToolTip::add(m_settings.startup.showLogo, CResMgr::settings::startup::showLogo::tooltip);		
-    QWhatsThis::add(m_settings.startup.showLogo, CResMgr::settings::startup::showLogo::whatsthis);
+
 		
 		m_settings.startup.showLogo->setChecked(CBTConfig::get(CBTConfig::logo));			
 		layout->addWidget(m_settings.startup.showLogo);
 		layout->addSpacing(20);
 	}		
-	{ // Scrolling
-		layout->addWidget(
-			CToolClass::explanationLabel(page, i18n("Scrolling behaviour"),
-				i18n("The down arrow moves to the <i>next</i> verse by default. Uncheck this box \
-	if you want it to move to the <i>previous</i> verse."))
-		);
-	
-		m_settings.swords.useDownArrow = new QCheckBox(page);
-		m_settings.swords.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
-		m_settings.swords.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));
-		QToolTip::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::tooltip);
-		QWhatsThis::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::whatsthis);
-		layout->addWidget(m_settings.swords.useDownArrow);	
-	
-		layout->addStretch(4);
-	}
+	layout->addStretch(4);
 }
 
 /** Init fonts section. */
@@ -197,7 +182,7 @@ void COptionsDialog::initFonts(){
 		m_settings.fonts.swordLocaleCombo = new QComboBox(page);
 		QLabel* label = new QLabel(m_settings.fonts.swordLocaleCombo, i18n("Language for biblical booknames"), page);
 		QToolTip::add(m_settings.fonts.swordLocaleCombo, CResMgr::settings::sword::general::language::tooltip);
-		QWhatsThis::add(m_settings.fonts.swordLocaleCombo, CResMgr::settings::sword::general::language::whatsthis);
+
 		
 		QHBoxLayout* hBoxLayout = new QHBoxLayout();
 		hBoxLayout->addWidget(label);
@@ -272,7 +257,7 @@ void COptionsDialog::initFonts(){
 	
 		m_settings.fonts.usage = new QComboBox(page);
 		QToolTip::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::tooltip);
-		QWhatsThis::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::whatsthis);
+
 	
 		hLayout->addWidget(m_settings.fonts.usage);
 	
@@ -374,7 +359,6 @@ void COptionsDialog::initAccelerators(){
 	
 	
 // 	QToolTip::add(m_settings.keys.application.keyChooser, TT_OD_KEYS_CHOOSER);
-//	QWhatsThis::add(m_settings.keys.application.keyChooser, WT_OD_KEYS_CHOOSER);
 
 // ----- new tab: All display windows ------ //
 	currentTab = new QVBox(tabCtl);
@@ -388,7 +372,6 @@ void COptionsDialog::initAccelerators(){
 
  	m_settings.keys.general.keyChooser = new KKeyChooser( m_settings.keys.general.accel, currentTab );
 //	QToolTip::add(m_settings.keys.general.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
-//	QWhatsThis::add(m_settings.keys.general.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
 
 // ----- new tab: Bible windows ------ //
 	currentTab = new QVBox(tabCtl);
@@ -402,7 +385,6 @@ void COptionsDialog::initAccelerators(){
 
  	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab/*, false*/ );
 //	QToolTip::add(m_settings.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
-//	QWhatsThis::add(m_settings.keys.bible.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
 
 // ----- new tab: Commentary windows ------ //
 	currentTab = new QVBox(tabCtl);
@@ -417,7 +399,6 @@ void COptionsDialog::initAccelerators(){
 
  	m_settings.keys.commentary.keyChooser = new KKeyChooser( m_settings.keys.commentary.accel, currentTab, false );
 // 	QToolTip::add(m_settings.keys.commentary.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
-//	QWhatsThis::add(m_settings.keys.commentary.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
 
 // ----- new tab: Lexicon windows ------ //
 	currentTab = new QVBox(tabCtl);
@@ -432,7 +413,6 @@ void COptionsDialog::initAccelerators(){
 
  	m_settings.keys.lexicon.keyChooser = new KKeyChooser( m_settings.keys.lexicon.accel, currentTab, false );
 // 	QToolTip::add(m_settings.keys.lexicon.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
-//	QWhatsThis::add(m_settings.keys.lexicon.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 
 
 // ----- new tab: Book windows ------ //
@@ -448,7 +428,6 @@ void COptionsDialog::initAccelerators(){
 
 	m_settings.keys.book.keyChooser = new KKeyChooser( m_settings.keys.book.accel, currentTab, false );
 // 	QToolTip::add(m_settings.keys.book.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
-//	QWhatsThis::add(m_settings.keys.book.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 }
 
 /** Init Sword section. */
@@ -473,7 +452,7 @@ void COptionsDialog::initSword(){
 		QLabel* label = new QLabel(m_settings.swords.standardBible, i18n("Standard Bible"), currentTab);
 		label->setAutoResize(true);
 		QToolTip::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::tooltip);
-		QWhatsThis::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::whatsthis);
+
 		gridLayout->addWidget(label,1,0);
 		gridLayout->addWidget(m_settings.swords.standardBible,1,1);
 	
@@ -481,7 +460,7 @@ void COptionsDialog::initSword(){
 		label = new QLabel(m_settings.swords.standardCommentary, i18n("Standard Commentary"), currentTab);
 		label->setAutoResize(true);
 		QToolTip::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::tooltip);
-		QWhatsThis::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::whatsthis);
+
 		gridLayout->addWidget(label,2,0);
 		gridLayout->addWidget(m_settings.swords.standardCommentary,2,1);
 	
@@ -490,7 +469,7 @@ void COptionsDialog::initSword(){
 		label = new QLabel(m_settings.swords.standardLexicon, i18n("Standard Lexicon"), currentTab);
 		label->setAutoResize(true);
 		QToolTip::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::tooltip);
-		QWhatsThis::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::whatsthis);
+
 		gridLayout->addWidget(label,3,0);
 		gridLayout->addWidget(m_settings.swords.standardLexicon,3,1);
 	
@@ -498,7 +477,7 @@ void COptionsDialog::initSword(){
 		label = new QLabel(m_settings.swords.standardDailyDevotional, i18n("Standard Daily Devotional"), currentTab);
 		label->setAutoResize(true);
 		QToolTip::add(m_settings.swords.standardDailyDevotional, CResMgr::settings::sword::modules::dailyDevotional::tooltip);
-		QWhatsThis::add(m_settings.swords.standardDailyDevotional, CResMgr::settings::sword::modules::dailyDevotional::whatsthis);
+
 		gridLayout->addWidget(label,4,0);
 		gridLayout->addWidget(m_settings.swords.standardDailyDevotional,4,1);
 	
@@ -506,7 +485,7 @@ void COptionsDialog::initSword(){
 		label = new QLabel(m_settings.swords.standardHebrewStrong, i18n("Standard Hebrew Strong's Lexicon"), currentTab);
 		label->setAutoResize(true);
 		QToolTip::add(m_settings.swords.standardHebrewStrong, CResMgr::settings::sword::modules::hebrewStrongs::tooltip);
-		QWhatsThis::add(m_settings.swords.standardHebrewStrong, CResMgr::settings::sword::modules::hebrewStrongs::whatsthis);
+
 		gridLayout->addWidget(label,5,0);
 		gridLayout->addWidget(m_settings.swords.standardHebrewStrong,5,1);
 	
@@ -514,14 +493,14 @@ void COptionsDialog::initSword(){
 		label = new QLabel(m_settings.swords.standardGreekStrong, i18n("Standard Greek Strong's Lexicon"), currentTab);
 		label->setAutoResize(true);
 		QToolTip::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::tooltip);
-		QWhatsThis::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::whatsthis);
+
 		gridLayout->addWidget(label,6,0);
 		gridLayout->addWidget(m_settings.swords.standardGreekStrong,6,1);
 			
 		m_settings.swords.standardHebrewMorph = new QComboBox(currentTab);
 		label = new QLabel(m_settings.swords.standardHebrewMorph, i18n("Standard Hebrew Morphological Lexicon"), currentTab);
 		QToolTip::add(m_settings.swords.standardHebrewMorph, CResMgr::settings::sword::modules::hebrewMorph::tooltip);
-		QWhatsThis::add(m_settings.swords.standardHebrewMorph, CResMgr::settings::sword::modules::hebrewMorph::whatsthis);
+
 		gridLayout->addWidget(label,7,0);
 		gridLayout->addWidget(m_settings.swords.standardHebrewMorph,7,1);
 	
@@ -529,7 +508,7 @@ void COptionsDialog::initSword(){
 		label = new QLabel(m_settings.swords.standardGreekMorph, i18n("Standard Greek Morphological Lexicon"), currentTab);
 		label->setAutoResize(true); 	 	
 		QToolTip::add(m_settings.swords.standardGreekMorph, CResMgr::settings::sword::modules::greekMorph::tooltip);
-		QWhatsThis::add(m_settings.swords.standardGreekMorph, CResMgr::settings::sword::modules::greekMorph::whatsthis);
+
 		gridLayout->addWidget(label,8,0);
 		gridLayout->addWidget(m_settings.swords.standardGreekMorph,8,1);
 	
@@ -834,7 +813,6 @@ void COptionsDialog::saveSword(){
   	CBTConfig::set(CBTConfig::language, languageAbbrev);
  	}
 
- 	CBTConfig::set(CBTConfig::scroll, m_settings.swords.useDownArrow->isChecked());
  	CBTConfig::set(CBTConfig::lineBreaks, m_settings.swords.lineBreaks->isChecked());
  	CBTConfig::set(CBTConfig::verseNumbers, m_settings.swords.verseNumbers->isChecked());
  	CBTConfig::set(CBTConfig::headings, m_settings.swords.headings->isChecked());
