@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BibleTime 1.0\n"
 "POT-Creation-Date: 2001-05-24 00:52+0200\n"
-"PO-Revision-Date: 2001-05-24 01:07GMT\n"
+"PO-Revision-Date: 2001-05-24 12:38GMT\n"
 "Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,7 @@ msgid "&Main index"
 msgstr "&Hauptgruppe"
 
 #: bibletime/rc-dummy.cpp:5
+#, fuzzy
 msgid "&Window"
 msgstr "&Fenster"
 
