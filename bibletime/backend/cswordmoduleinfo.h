@@ -169,6 +169,11 @@ public:
   * Returns true if this module is Unicode encoded. False if the charset is iso8859-1.
   */
   const bool isUnicode();
+  /**
+  * Snaps to the closest entry in the module if the current key is
+  * not present in the data files.
+  */
+  virtual const bool snap() {return false;};
 	
 private:
 	SWModule*	m_module;
@@ -179,7 +184,7 @@ private:
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
 
 inline const CSwordModuleInfo::type CSwordModuleInfo::getType() const {
-	return CSwordModuleInfo::GenericBook;
+	return CSwordModuleInfo::Unknown;
 }
 
 inline SWModule* CSwordModuleInfo::module() const {

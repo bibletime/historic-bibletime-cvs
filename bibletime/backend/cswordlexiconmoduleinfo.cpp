@@ -107,3 +107,8 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 	}	
 	return m_entryList;
 }
+
+/** Jumps to the closest entry in the module.  */
+const bool CSwordLexiconModuleInfo::snap(){
+	module()->getRawEntry();
+}

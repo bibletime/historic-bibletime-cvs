@@ -41,22 +41,18 @@ CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : V
 }
 
 CSwordVerseKey::~CSwordVerseKey(){
-//	qDebug("CSwordVerseKey::~CSwordVerseKey()");
 }
 
 /** Clones this object. */
 CSwordKey* CSwordVerseKey::copy() const {
-	qWarning("CSwordVerseKey* CSwordVerseKey::copy() const");
 	CSwordVerseKey* k = new CSwordVerseKey(*this);
-	ASSERT(k);
-	qWarning(k->key().latin1());
 	return k;
 }
 
 /** Sets the module for this key */
 CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 	if (newModule && (newModule->getType() == CSwordModuleInfo::Bible || newModule->getType() == CSwordModuleInfo::Commentary) ) {
-		const QString oldKey = key();
+		const QString& oldKey = key();
 		m_module = newModule;
 		key(oldKey);
 	}

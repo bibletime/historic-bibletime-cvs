@@ -181,12 +181,12 @@ void CKeyChooserWidget::reset(QStringList& list, int index, bool do_emit){
 void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	if (isResetting || !isUpdatesEnabled())
 		return;
+	isResetting = true;	
 	setUpdatesEnabled(false);
 	comboBox()->setUpdatesEnabled(false);
 
 	m_mainLayout->setResizeMode(QLayout::FreeResize);
-				
-	isResetting = true;
+
 	oldKey = QString::null;
 	comboBox()->clear();
 	comboBox()->insertStringList(*list);
@@ -211,11 +211,10 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	
 	if (do_emit)
 		emit changed(comboBox()->currentItem());			
-	isResetting = false;
 	
 	setUpdatesEnabled(true);
 	comboBox()->setUpdatesEnabled(true);
-//	qWarning("layout()->sizeHint().width(): %i", layout()->sizeHint().width());			
+	isResetting = false;	
 }
 
 void CKeyChooserWidget::lock(void){

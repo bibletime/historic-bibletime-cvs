@@ -39,7 +39,7 @@
 #include <klocale.h>
 #include <kfiledialog.h>
 #include <kaccel.h>
-#include <kapplication.h>
+#include <kapp.h>
 
 CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, importantClasses, parent,name),

@@ -51,9 +51,9 @@ CSwordLDKey* CSwordLDKey::copy() const {
 }
 
 /** Sets the module of this key. */
-CSwordModuleInfo* CSwordLDKey::module(CSwordModuleInfo* newModule){
-	const QString oldKey = key();	
+CSwordModuleInfo* CSwordLDKey::module(CSwordModuleInfo* newModule){	
 	if (newModule && newModule->getType() == CSwordModuleInfo::Lexicon) {
+		const QString oldKey = key();	
 		m_module = newModule;
 		key(oldKey);
 	}	
@@ -62,11 +62,10 @@ CSwordModuleInfo* CSwordLDKey::module(CSwordModuleInfo* newModule){
 
 /** Sets the key of this instance */
 const QString CSwordLDKey::key( const QString& newKey ){
-//	qWarning("const QString CSwordLDKey::key( const QString& newKey )");
 	if (!newKey.isNull()) {
 		SWKey::operator = ((const char*)newKey.local8Bit());		
 		m_module->module()->SetKey(this);
-		(const char*)*(m_module->module()); //snap to entry
+		m_module->snap();
 		SWKey::operator = (m_module->module()->KeyText());
 	}
  	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8
@@ -93,7 +92,7 @@ void CSwordLDKey::key( const char* newKey ){
 		SWKey::operator = (newKey);
 
 		m_module->module()->SetKey(this);
-		(const char*)*(m_module->module()); //snap to entry
+		m_module->snap();
 		SWKey::operator = (m_module->module()->KeyText());
 	}
 }

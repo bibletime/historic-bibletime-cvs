@@ -55,6 +55,10 @@ public:
   * Reimplementation.
   */
   virtual const CSwordModuleInfo::type getType() const;
+  /**
+  * Jumps to the closest entry in the module.
+  */
+  const bool snap();
 
 private:
 	/**
