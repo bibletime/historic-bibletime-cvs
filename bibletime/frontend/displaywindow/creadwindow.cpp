@@ -67,7 +67,7 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
 
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ){
-	if (!newKey)
+	if (!newKey || !modules().first())
 		return;
 
 	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?

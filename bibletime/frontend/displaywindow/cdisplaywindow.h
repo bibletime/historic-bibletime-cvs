@@ -172,7 +172,7 @@ public slots:
   /**
   * Refresh the settings of this window.
   */
-  virtual void refresh();
+  virtual void reload();
 
 protected:
 	friend class CMDIArea;
@@ -227,7 +227,7 @@ protected slots:
   */
   void lookup();
   /**
-  * Reimplementation from QWidget. Used to initialize things before the widget is shown.
+  * Reimplementation from QWidget. Used to initialize things before this widget is shown.
   */
   virtual void polish();
   virtual void updatePopupMenu();

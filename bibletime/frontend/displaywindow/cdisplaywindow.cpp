@@ -139,8 +139,32 @@ void CDisplayWindow::polish(){
 }
 
 /** Refresh the settings of this window. */
-void CDisplayWindow::refresh() {
-  lookup();
+void CDisplayWindow::reload() {
+  qWarning("reload()");
+  //first make sure all used Sword modules are still present
+  for (int i = 0; i < m_modules.count(); ++i) {
+    CSwordModuleInfo* m = m_modules.at(i);
+
+    Q_ASSERT(m);
+    if (!(m && backend()->findModuleByPointer(m))) {
+      qWarning("refresh(): remove uninstalled module");
+      m_modules.remove(m);
+    }
+    else {
+      qWarning("module %s is valid", m->name().latin1());
+    }
+  }
+
+  //call's moduleChanged so we don't need it
+  qWarning("refresh(): set modules");
+  m_moduleChooserBar->setModules(m_modules);
+  qWarning("refresh(): modules changed");
+  modulesChanged();
+  
+  if (m_modules.count() > 0) {
+    qWarning("refresh(): we still have modules to lookup");
+    lookup();
+  }
 }
 
 /** Returns the filter options used by this window. */
@@ -199,6 +223,7 @@ void CDisplayWindow::setKey( CSwordKey* key ){
 }
 
 void CDisplayWindow::modulesChanged(){
+  qWarning("CDisplayWindow::modulesChaneed");
   setModules( m_moduleChooserBar->getModuleList() );
   if (!modules().count())
   	close();

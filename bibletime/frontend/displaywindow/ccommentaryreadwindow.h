@@ -62,7 +62,7 @@ public slots: // Public slots
   /**
   * Reimplementation to handle the keychooser refresh.
   */
-  virtual void refresh();
+  virtual void reload();
 
 protected:
 	virtual void initKeyboardActions();

@@ -79,23 +79,7 @@ CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
 }
 
 CMainIndex::~CMainIndex(){
-  //find the bookmark folder
-  CItemBase* i = 0;
-  QListViewItemIterator it( this );
-  while ( it.current() != 0 ) {
-    i = dynamic_cast<CItemBase*>( it.current() );
-    if (i && i->type() == CItemBase::BookmarkFolder) { //found the bookmark folder
-      KStandardDirs stdDirs;
-    	const QString path = stdDirs.saveLocation("data", "bibletime/");	
-      if (!path.isEmpty()) {
-        //save the bookmarks to the right file
-        if (CBookmarkFolder* f = dynamic_cast<CBookmarkFolder*>(i))
-          f->saveBookmarks( path + "bookmarks.xml" );
-      }
-      break;
-    }
-    ++it;
-  }
+  saveBookmarks();
 }
 
 /** Reimplementation. Adds the given group to the tree. */
@@ -591,4 +575,33 @@ void CMainIndex::editModuleHTML(){
   if (modules.count() == 1) {
     emit createWriteDisplayWindow(modules.first(), QString::null, CDisplayWindow::HTMLWindow);
   };
+}
+
+/** Reloads the main index's Sword dependend things like modules */
+void CMainIndex::reloadSword(){
+  //reload the modules
+//  saveBookmarks();
+  clear();
+  initTree();  
+}
+
+/** Saves the bookmarks to disk */
+void CMainIndex::saveBookmarks(){
+  //find the bookmark folder
+  CItemBase* i = 0;
+  QListViewItemIterator it( this );
+  while ( it.current() != 0 ) {
+    i = dynamic_cast<CItemBase*>( it.current() );
+    if (i && i->type() == CItemBase::BookmarkFolder) { //found the bookmark folder
+      KStandardDirs stdDirs;
+    	const QString path = stdDirs.saveLocation("data", "bibletime/");
+      if (!path.isEmpty()) {
+        //save the bookmarks to the right file
+        if (CBookmarkFolder* f = dynamic_cast<CBookmarkFolder*>(i))
+          f->saveBookmarks( path + "bookmarks.xml" );
+      }
+      break;
+    }
+    ++it;
+  }
 }

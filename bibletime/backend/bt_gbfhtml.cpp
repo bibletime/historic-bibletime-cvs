@@ -93,7 +93,7 @@ BT_GBFHTML::BT_GBFHTML(){
 char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const sword::SWModule * module){
 	GBFHTML::processText(buf, key, module);
 
-  CSwordModuleInfo* const mod = CPointers::backend()->findModuleByPointer(module);
+  CSwordModuleInfo* const mod = CPointers::backend()->findSwordModuleByPointer(module);
   if (!mod || (mod && (mod->type() != CSwordModuleInfo::Bible) && (mod->type() != CSwordModuleInfo::GenericBook))) {
     ProcessRWPRefs(buf, mod ? mod->module() : 0);
   }

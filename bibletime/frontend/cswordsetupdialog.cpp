@@ -65,15 +65,16 @@
 //#include <kaction.h>
 //#include <kconfigbase.h>
 #include <kconfig.h>
+#include <kmessagebox.h>
 
 //Sword includes
-//#include <localemgr.h>
+#include <installmgr.h>
 
 //using std::string;
 //using std::list;
 
 CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* accel )
-	: KDialogBase(IconList, i18n("Sword configuration"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
+	: KDialogBase(IconList, i18n("Sword configuration"), Ok/* | Cancel | Apply*/, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
 	setIconListAllVisible(true);
 
@@ -188,10 +189,11 @@ void CSwordSetupDialog::initRemove(){
 
   m_removeBackButton = new QPushButton(page);
 	m_removeBackButton->setText( "Back");
+  m_removeBackButton->setEnabled(false);
 	layout->addWidget(m_removeBackButton, 3, 0, Qt::AlignLeft);
 
 //	connect(m_removeBackButton,   SIGNAL( clicked() ), m_main, SLOT( slot_backtoMainPage() ));
-	connect(m_removeRemoveButton, SIGNAL( clicked() ), this,   SLOT( slot_doRemoveModules() ));
+	connect(m_removeRemoveButton, SIGNAL( clicked() ), this, SLOT( slot_doRemoveModules() ));
 
 	populateRemoveModuleListView();
 }
@@ -292,35 +294,42 @@ void CSwordSetupDialog::determineTargetLocations(){
 	m_targetMap["Global Sword path"]="file://usr/share/sword/";
 	m_targetMap["User's Sword directory"]="file://$HOME/.sword/";
 }
+
 /** No descriptions */
 void CSwordSetupDialog::slot_doRemoveModules(){
-//	QStringList list;
-//	QListViewItem* item1 = 0;
-//	QListViewItem* item2 = 0;
-//
-//	for (item1 = m_removeModuleListView->firstChild(); item1; item1 = item1->nextSibling())
-//		for (item2 = item1->firstChild(); item2; item2 = item2->nextSibling())
-//			if ( dynamic_cast<QCheckListItem*>(item2) && dynamic_cast<QCheckListItem*>(item2)->isOn() )
-//				list << item2->text(0);
-//
-//	QString catList;
-//
-//	for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-//		if (!catList.isEmpty())
-//			catList += ", ";
-//     catList += *it;
-//  }
-//	QString Message("You selected the following modules: %1.\n\n"
-//		"Do you really want to remove them from your system?");
-//	Message = Message.arg(catList);
-//	if (catList.isEmpty()){
-//		KMessageBox::error(0, "No modules selected.", "Error") ;
-//	}
-//	else if ((KMessageBox::warningYesNo(0, Message, "Warning") == KMessageBox::Yes)){  //Yes was pressed.
-////
-//// Perform actual removal here.
-////
-//	}
+	QStringList moduleList;
+	QListViewItem* item1 = 0;
+	QListViewItem* item2 = 0;
+
+	for (item1 = m_removeModuleListView->firstChild(); item1; item1 = item1->nextSibling())
+		for (item2 = item1->firstChild(); item2; item2 = item2->nextSibling())
+			if ( dynamic_cast<QCheckListItem*>(item2) && dynamic_cast<QCheckListItem*>(item2)->isOn() )
+				moduleList << item2->text(0);
+
+	QString catList;
+
+	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
+		if (!catList.isEmpty())
+			catList += ", ";
+     catList += *it;
+  }
+	QString message("You selected the following modules: %1.\n\n"
+		"Do you really want to remove them from your system?");
+	message = message.arg(catList);
+	if (catList.isEmpty()){
+		KMessageBox::error(0, "No modules selected.", "Error") ;
+	}
+	else if ((KMessageBox::warningYesNo(0, message, "Warning") == KMessageBox::Yes)){  //Yes was pressed.
+    //module are removed in this section of code
+    sword::InstallMgr installMgr;
+    
+  	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
+      if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) { //module found?
+        	installMgr.removeModule(backend(), m->name().latin1());
+        	qWarning("Removed module: [%s]" , m->name().latin1());
+      }
+    }
+  }
 //	this->activate();
 }
 
@@ -394,5 +403,3 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 	m_removeBackButton->setEnabled(true);
 	m_removeRemoveButton->setEnabled(true);
 }
-
-

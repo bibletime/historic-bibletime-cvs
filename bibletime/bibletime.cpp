@@ -199,7 +199,7 @@ void BibleTime::refreshDisplayWindows() {
 	unsigned int index;				
 	for ( index = 0; index < m_mdi->windowList().count(); index++) {
 		if (CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index))) {
-   		window->refresh();
+   		window->reload();
     }
 	}
 }

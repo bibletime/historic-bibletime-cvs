@@ -109,8 +109,20 @@ void BibleTime::slotSwordSetupDialog(){
 /** Is called when settings in the sword setup dialog were changed (ok or apply) */
 void BibleTime::slotSwordSetupChanged(){
 #warning fixme: code this function =)
+  /*
+    Refresh everything here what might have changed
+    these are the mainindex, the searchdialog, the displaywindows
+    But at first we have to reset the Sword backend to reload the modules
+  */
+  m_mainIndex->saveBookmarks();
+  m_backend->reloadModules();
+  m_mainIndex->reloadSword();
+  
+//  refresh display windows
+  qWarning("swordChanged: reload windows");
+  refreshDisplayWindows();
 
-//  refreshDisplayWindows();
+
 //  refreshProfileMenus();
 }
 

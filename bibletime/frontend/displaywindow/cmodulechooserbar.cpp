@@ -77,7 +77,8 @@ void CModuleChooserBar::removeButton( const int ID ){
 
 /** Returns a list of selected modules. */
 ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
-	ListCSwordModuleInfo list;
+	qWarning(": getMOduleList called");
+  ListCSwordModuleInfo list;
 	list.setAutoDelete(false);
 	list.clear();
 	
@@ -86,6 +87,8 @@ ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
   		list.append( m );
     }
 	}
+
+  qWarning("return");
 	return list;
 }
 
@@ -104,7 +107,12 @@ void CModuleChooserBar::setButtonLimit(const int limit){
 void CModuleChooserBar::setModules( ListCSwordModuleInfo useModules ){
 	setButtonLimit(0);	
 	setButtonLimit(-1);		//these two lines clear the bar
-	
+
+  if (!useModules.count()) {
+    qWarning("no modules available");
+    return;
+  }
+  
 	for (useModules.first(); useModules.current(); useModules.next())		 {
 		if ( (m_buttonLimit != -1) && (m_buttonLimit <= (int)m_buttonList.count()) ) {
 			break;

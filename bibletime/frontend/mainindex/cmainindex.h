@@ -61,6 +61,10 @@ public:
   * Opens the searchdialog using the given modules using the given search text.
   */
   void emitModulesChosen( ListCSwordModuleInfo modules, QString key );
+  /** Saves the bookmarks to disk */
+  void saveBookmarks();
+  /** Reloads the main index's Sword dependend things like modules */
+  void reloadSword();
 
 protected: // Protected methods
   /**

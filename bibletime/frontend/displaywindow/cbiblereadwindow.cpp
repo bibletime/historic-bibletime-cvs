@@ -301,12 +301,13 @@ void CBibleReadWindow::saveChapterPlain(){
   mgr.saveKey(&vk, CExportManager::Text, true);
 }
 
-void CBibleReadWindow::refresh(){
+void CBibleReadWindow::reload(){
+  CLexiconReadWindow::reload();
   //refresh the book lists
   verseKey()->setLocale( backend()->booknameLanguage().latin1() );
   keyChooser()->refreshContent();
   
-  lookup(key());
+//  lookup(key());
 }
 
 /** No descriptions */

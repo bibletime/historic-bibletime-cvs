@@ -277,7 +277,7 @@ CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name){
   return 0;
 }
 
-CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const sword::SWModule* const swmodule){
+CSwordModuleInfo* const CSwordBackend::findSwordModuleByPointer(const sword::SWModule* const swmodule){
   if (swmodule) {
     for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
       if ( m_moduleList.current()->module() == swmodule ) {
@@ -288,6 +288,16 @@ CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const sword::SWModule
   return 0;
 }
 
+CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const CSwordModuleInfo* const module){
+  if (module) {
+    for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
+      if ( m_moduleList.current()->module() == module ) {
+        return m_moduleList.current();
+      }
+    }
+  }
+  return 0;
+}
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
 const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& moduleConfig) {
@@ -462,4 +472,10 @@ sword::SWFilter* const CSwordBackend::transliterator() {
 /** Returns true if ICU is being used. */
 const bool CSwordBackend::useICU() const{
   return SWMgr::isICU;
+}
+
+/** Reload all Sword modules. */
+void CSwordBackend::reloadModules(){
+  shutdownModules();
+  initModules();
 }

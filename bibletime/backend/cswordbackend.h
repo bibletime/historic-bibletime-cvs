@@ -167,7 +167,8 @@ public:
   * @param pointer to a Sword module
   * @return pointer to the desired module; null if no module has the specified name
   */
-  CSwordModuleInfo* const findModuleByPointer(const sword::SWModule* const swmodule);
+  CSwordModuleInfo* const findSwordModuleByPointer(const sword::SWModule* const swmodule);
+  CSwordModuleInfo* const findModuleByPointer(const CSwordModuleInfo* const module);
   /**
   * @return Our global config object to store the cipher keys etc.
 	*/
@@ -199,6 +200,8 @@ public:
   sword::SWFilter* const transliterator();
   /** Returns true if ICU is being used. */
   const bool useICU() const;
+  /** Reload all Sword modules. */
+  void reloadModules();
 	
 protected:
 	/**

@@ -68,12 +68,13 @@ void CCommentaryReadWindow::syncToKey( CSwordKey* const newKey ){
 }
 
 /** Reimplementation to handle the keychooser refresh. */
-void CCommentaryReadWindow::refresh(){
+void CCommentaryReadWindow::reload(){
+  CLexiconReadWindow::reload();
   //refresh the book lists
   verseKey()->setLocale( backend()->booknameLanguage().latin1() );
   keyChooser()->refreshContent();
 
-  lookup(key());
+//  lookup(key());
 }
 
 /** rapper around key() to return the right type of key. */

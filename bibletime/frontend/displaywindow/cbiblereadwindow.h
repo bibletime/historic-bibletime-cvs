@@ -108,7 +108,7 @@ public slots:
   /**
   * Refreshes the content of this display window and the content of the keychooser.
   */
-  virtual void refresh();
+  virtual void reload();
      
 protected slots: // Protected slots 
   void keyChanged(CSwordKey* key);

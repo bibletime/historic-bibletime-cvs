@@ -234,3 +234,4 @@ const QString CMDIArea::currentApplicationCaption() const {
 void CMDIArea::emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName ) {
   emit createReadDisplayWindow(modules, keyName);
 }
+
