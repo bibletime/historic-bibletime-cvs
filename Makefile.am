@@ -2,10 +2,8 @@ SUBDIRS = bibletime po admin
 
 EXTRA_DIST = \
 bibletime.kdevprj \
-AUTHORS \
 COPYING \
 ChangeLog \
-AUTHORS.in \
 bibletime.spec.in \
 README.in \
 TODO.in \

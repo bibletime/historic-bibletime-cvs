@@ -488,13 +488,8 @@ dist=true
 install=true
 install_location=$$$$(kde_htmldir)/de/bibletime/tipdatabase
 type=DATA
-[bibletime/docs/development/FEATURES]
-dist=true
-install=false
-install_location=
-type=DATA
 [bibletime/docs/development/Makefile.am]
-files=bibletime/docs/development/FEATURES
+files=
 sub_dirs=
 type=normal
 [bibletime/docs/en/Makefile.am]

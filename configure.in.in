@@ -91,7 +91,7 @@ AC_MSG_RESULT([$SWORD_LIB_TYPE $sword_libdir])
 
 
 dnl add here all your Makefiles. They are created by configure
-dnl AC_OUTPUT(NEWS README INSTALL AUTHORS TODO bibletime.lsm bibletime.spec bibletime.desktop)
+dnl AC_OUTPUT(NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop)
 
 dnl echo "Executing perl am_edit ..."
 dnl perl am_edit

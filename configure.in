@@ -91,7 +91,7 @@ AC_MSG_RESULT([$SWORD_LIB_TYPE $sword_libdir])
 
 
 dnl add here all your Makefiles. They are created by configure
-dnl AC_OUTPUT(NEWS README INSTALL AUTHORS TODO bibletime.lsm bibletime.spec bibletime.desktop)
+dnl AC_OUTPUT(NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop)
 
 dnl echo "Executing perl am_edit ..."
 dnl perl am_editKDE_CREATE_SUBDIRSLIST
@@ -114,17 +114,8 @@ bibletime/frontend/presenters/Makefile \
 bibletime/frontend/searchdialog/Makefile \
 bibletime/frontend/thirdparty/Makefile \
 bibletime/frontend/thirdparty/qt3stuff/Makefile \
-bibletime/pics/Makefile \
-bibletime/pics/highcolor/Makefile \
-bibletime/pics/highcolor/22x22/Makefile \
-bibletime/pics/highcolor/32x32/Makefile \
-bibletime/pics/highcolor/48x48/Makefile \
-bibletime/pics/lowcolor/Makefile \
-bibletime/pics/lowcolor/16x16/Makefile \
-bibletime/pics/lowcolor/22x22/Makefile \
-bibletime/pics/lowcolor/32x32/Makefile \
 bibletime/printing/Makefile \
 bibletime/xml/Makefile \
 po/Makefile \
-NEWS README INSTALL AUTHORS TODO bibletime.lsm bibletime.spec bibletime.desktop
+NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop
 )
