@@ -147,7 +147,7 @@ void CModuleChooserButton::populateMenu(){
 		if (modules.current()->type() == m_moduleType) {
 			QString lang = QString::fromLatin1(modules.current()->module()->Lang());
 			if (lang.isEmpty())
-				lang = QString::fromLatin1("en"); //unknwon language
+				lang = QString::fromLatin1("xx"); //unknwon language -- not use English as default!!
 		 	if (languages.find( lang ) == languages.end() ){ //not yet added
 				languages += lang;
 				KPopupMenu* menu = new KPopupMenu;
@@ -162,7 +162,7 @@ void CModuleChooserButton::populateMenu(){
 		if (modules.current()->type() == m_moduleType) {
 			QString lang = QString::fromLatin1(modules.current()->module()->Lang());
 			if (lang.isEmpty())
-				lang = QString::fromLatin1("en"); //english is default
+				lang = QString::fromLatin1("xx"); //unknown language
 			QString name = QString(modules.current()->name()) + QString(" ")+
 				(modules.current()->isLocked() ? i18n("[locked]") : QString::null); 			
 			int id = langdict[lang]->insertItem( name );
