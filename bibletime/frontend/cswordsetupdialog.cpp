@@ -37,7 +37,7 @@
 #include <qfileinfo.h>
 #include <qpushbutton.h>
 #include <qlineedit.h>
-
+#include <qdict.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -555,6 +555,7 @@ void CSwordSetupDialog::initRemove(){
   m_removeModuleListView->addColumn(i18n("Location"));
  	m_removeModuleListView->setAllColumnsShowFocus(true);
  	m_removeModuleListView->setFullWidth(true);
+	m_removeModuleListView->setRootIsDecorated(true);
 	connect(m_removeModuleListView, SIGNAL(executed(QListViewItem*)), SLOT(slot_removeModuleItemExecuted(QListViewItem*)));
 
   m_removeRemoveButton = new QPushButton(i18n("Remove selected module(s)"), page);
@@ -700,7 +701,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 	QListViewItem* item1 = 0;
 	QListViewItem* item2 = 0;
 
-	QListViewItemIterator list_it( m_installModuleListView, QListViewItemIterator::Checked );
+	QListViewItemIterator list_it( m_removeModuleListView, QListViewItemIterator::Checked );
 	while ( list_it.current() ) {
 		moduleList << list_it.current()->text(0);
 		++list_it;
@@ -710,13 +711,14 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 		"Do you really want to remove them from your system?").arg(moduleList.join(", "));
 
 	if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)){  //Yes was pressed.
-    //module are removed in this section of code
     sword::InstallMgr installMgr;
+		QDict<sword::SWMgr> mgrDict; //maps config paths to SWMgr objects
 
   	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
       if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) { //module found?
         QString prefixPath = m->config(CSwordModuleInfo::AbsoluteDataPath) + "/";
         QString dataPath = m->config(CSwordModuleInfo::DataPath);
+
         if (dataPath.left(2) == "./") {
           dataPath = dataPath.mid(2);
         }
@@ -727,12 +729,24 @@ void CSwordSetupDialog::slot_doRemoveModules(){
           prefixPath = QString::fromLatin1(backend()->prefixPath);
         }
 
-        sword::SWMgr mgr(prefixPath.latin1());
-        installMgr.removeModule(&mgr, m->name().latin1());
+				sword::SWMgr* mgr = mgrDict[ prefixPath ];
+				qWarning(prefixPath.latin1());
+				Q_ASSERT(mgr);
+				if (!mgr) {
+					mgrDict.insert(prefixPath, new sword::SWMgr(prefixPath.local8Bit()));
+					mgr = mgrDict[ prefixPath ];
+				}
+				Q_ASSERT(mgr);
+
+        installMgr.removeModule(mgr, m->name().latin1());
       }
     }
 
     populateRemoveModuleListView(); //rebuild the tree
+
+		//delete all mgrs
+		mgrDict.setAutoDelete(true);
+		mgrDict.clear();
   }
 }
 
@@ -761,12 +775,11 @@ void CSwordSetupDialog::slot_removeModuleItemExecuted(QListViewItem* item) {
 
 /** No descriptions */
 void CSwordSetupDialog::populateRemoveModuleListView(){
-//	m_removeBackButton->setEnabled(false);
 	m_removeRemoveButton->setEnabled(false);
 
-	CSwordBackend* m_backend = new CSwordBackend();
+	CSwordBackend myBackend;
 	KApplication::kApplication()->processEvents();
-	m_backend->initModules();
+	myBackend.initModules();
 
 	m_removeModuleListView->clear();
 
@@ -774,18 +787,25 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 	KListViewItem* categoryCommentary = new KListViewItem(m_removeModuleListView, i18n("Commentaries"));
 	KListViewItem* categoryLexicon = new KListViewItem(m_removeModuleListView, i18n("Lexicons"));
 	KListViewItem* categoryBook = new KListViewItem(m_removeModuleListView, i18n("Books"));
+	KListViewItem* categoryDevotionals = new KListViewItem(m_removeModuleListView, i18n("Daily Devotionals"));
+	KListViewItem* categoryGlossaries = new KListViewItem(m_removeModuleListView, i18n("Glossaries"));
 
   categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
   categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
   categoryLexicon->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
   categoryBook->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+  categoryDevotionals->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+  categoryGlossaries->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+
 
   categoryBible->setOpen(true);
   categoryCommentary->setOpen(true);
   categoryLexicon->setOpen(true);
   categoryBook->setOpen(true);
+  categoryDevotionals->setOpen(true);
+  categoryGlossaries->setOpen(true);
 
-	QPtrList<CSwordModuleInfo> list = m_backend->moduleList();
+	QPtrList<CSwordModuleInfo> list = myBackend.moduleList();
 	int modcount = list.count();
 	int mod = 0;
 	QListViewItem* newItem = 0;
@@ -795,37 +815,61 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 	for ( list.first(), mod = 1; list.current(); list.next(), mod++ ){
 		if (mod % 20){
 			m_populateListNotification->setText(i18n("Scanning your modules: %1%").arg((mod*100)/modcount));
-			KApplication::kApplication()->processEvents();
+			//KApplication::kApplication()->processEvents();
+			m_removeModuleListView->triggerUpdate();
 		}
 
 		switch (list.current()->type()) {
 			case CSwordModuleInfo::Bible:
-        parent = categoryBible; break;
+        parent = categoryBible;
+				break;
 			case CSwordModuleInfo::Commentary:
-        parent = categoryCommentary; break;
+        parent = categoryCommentary;
+				break;
 			case CSwordModuleInfo::Lexicon:
-        parent = categoryLexicon; break;
+        parent = categoryLexicon;
+				break;
 			case CSwordModuleInfo::GenericBook:
-        parent = categoryBook; break;
+        parent = categoryBook;
+				break;
       default:
         parent = 0; //shouldn't happen;
         break;
 		}
 
-//		m_backend->moduleConfig(name, moduleConfig);
-//		QFileInfo file(moduleConfig.filename.c_str());
-//		if (file.isWritable()) //only writable modules can be removed
-		newItem = new QCheckListItem(parent,list.current()->name(),QCheckListItem::CheckBox);
-//		else
-//			newItem = new QListViewItem(parent, name);
+		//handling for special module types
+		if ((parent == categoryLexicon) && (list.current()->category() == CSwordModuleInfo::Glossary)) {
+			parent = categoryGlossaries;
+		}
+		if ((parent == categoryLexicon) && (list.current()->category() == CSwordModuleInfo::DailyDevotional)) {
+			parent = categoryDevotionals;
+		}
 
+		//now we know the category, find the right language group in that category
+		CLanguageMgr::Language lang = list.current()->language();
+		QString langName = lang.translatedName();
+		if (!lang.isValid())
+			langName = QString::fromLatin1(list.current()->module()->Lang());
+
+		QListViewItem * langFolder = parent->firstChild();
+    while( langFolder ) { //try to find language folder if it exsists
+			if (langFolder->text(0) == langName) //found right folder
+				break;
+			langFolder = langFolder->nextSibling();
+		}
+
+		if (!langFolder) { //not yet there
+			langFolder = new KListViewItem(parent, langName);
+			langFolder->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+			langFolder->setOpen(true);
+		}
+
+		newItem = new QCheckListItem(langFolder, list.current()->name(), QCheckListItem::CheckBox);
     newItem->setPixmap(0, CToolClass::getIconForModule(list.current()));
 		newItem->setText(1,list.current()->config(CSwordModuleInfo::AbsoluteDataPath));
   }
 
 	m_populateListNotification->setText("");
-//	m_removeBackButton->setEnabled(true);
-//	m_removeRemoveButton->setEnabled(false);
 
   //clean up groups
   if (!categoryBible->childCount())
@@ -836,7 +880,10 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
     delete categoryBook;
   if (!categoryLexicon->childCount())
     delete categoryLexicon;
-
+  if (!categoryDevotionals->childCount())
+    delete categoryDevotionals;
+  if (!categoryGlossaries->childCount())
+    delete categoryGlossaries;
 }
 
 /** No descriptions */
@@ -844,22 +891,26 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   KApplication::kApplication()->processEvents();
 	m_installModuleListView->clear();
 
-	QListViewItem* categoryBible = new KListViewItem(m_installModuleListView, i18n("Bibles"));
+	KListViewItem* categoryBible = new KListViewItem(m_installModuleListView, i18n("Bibles"));
+	KListViewItem* categoryCommentary = new KListViewItem(m_installModuleListView, i18n("Commentaries"));
+	KListViewItem* categoryLexicon = new KListViewItem(m_installModuleListView, i18n("Lexicons"));
+	KListViewItem* categoryBook = new KListViewItem(m_installModuleListView, i18n("Books"));
+	KListViewItem* categoryDevotionals = new KListViewItem(m_installModuleListView, i18n("Daily Devotionals"));
+	KListViewItem* categoryGlossaries = new KListViewItem(m_installModuleListView, i18n("Glossaries"));
+
   categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
-
-	QListViewItem* categoryCommentary = new KListViewItem(m_installModuleListView, i18n("Commentaries"));
   categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
-
-	QListViewItem* categoryLexicon = new KListViewItem(m_installModuleListView, i18n("Lexicons"));
   categoryLexicon->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
-
-  QListViewItem* categoryBook = new KListViewItem(m_installModuleListView, i18n("Books"));
   categoryBook->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+  categoryDevotionals->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+  categoryGlossaries->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
   categoryBible->setOpen(true);
   categoryCommentary->setOpen(true);
   categoryLexicon->setOpen(true);
   categoryBook->setOpen(true);
+  categoryDevotionals->setOpen(true);
+  categoryGlossaries->setOpen(true);
 
   BTInstallMgr iMgr;
   sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
@@ -892,7 +943,7 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 
     if (newModule->isLocked() || newModule->isEncrypted()) //encrypted modules have no data files on the server
       continue;
-    
+
     switch (newModule->type()) {
       case CSwordModuleInfo::Bible:
         parent = categoryBible;
@@ -911,14 +962,41 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
         break;
     }
 
+		//handling for special module types
+		if ((parent == categoryLexicon) && (newModule->category() == CSwordModuleInfo::Glossary)) {
+			parent = categoryGlossaries;
+		}
+		if ((parent == categoryLexicon) && (newModule->category() == CSwordModuleInfo::DailyDevotional)) {
+			parent = categoryDevotionals;
+		}
+
+		//now we know the category, find the right language group in that category
+		CLanguageMgr::Language lang = newModule->language();
+		QString langName = lang.translatedName();
+		if (!lang.isValid())
+			langName = QString::fromLatin1(newModule->module()->Lang());
+
+		QListViewItem * langFolder = parent->firstChild();
+    while( langFolder ) { //try to find language folder if it exsists
+			if (langFolder->text(0) == langName) //found right folder
+				break;
+			langFolder = langFolder->nextSibling();
+		}
+
+		if (!langFolder) { //not yet there
+			langFolder = new KListViewItem(parent, langName);
+			langFolder->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+			langFolder->setOpen(true);
+		}
+
 		QListViewItem* newItem = 0;
-    if (parent) {
-       newItem = new QCheckListItem(parent, newModule->name(), QCheckListItem::CheckBox);
+    if (langFolder) {
+       newItem = new QCheckListItem(langFolder, newModule->name(), QCheckListItem::CheckBox);
     }
-    else {
+    else { //shouldn't happen
       newItem = new QCheckListItem(m_installModuleListView, newModule->name(), QCheckListItem::CheckBox);
     }
-    
+
     newItem->setPixmap(0, CToolClass::getIconForModule(newModule));
     newItem->setText(1, installedModule ? installedModule->config(CSwordModuleInfo::ModuleVersion) : "");
     newItem->setText(2, newModule->config(CSwordModuleInfo::ModuleVersion));
@@ -934,6 +1012,10 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
     delete categoryBook;
   if (!categoryLexicon->childCount())
     delete categoryLexicon;
+  if (!categoryDevotionals->childCount())
+    delete categoryDevotionals;
+  if (!categoryGlossaries->childCount())
+    delete categoryGlossaries;
 }
 
 /** Connects to the chosen source. */
@@ -943,13 +1025,13 @@ void CSwordSetupDialog::slot_connectToSource(){
 	QGridLayout* layout = new QGridLayout(m_installModuleListPage, 7, 2);
 	layout->setMargin(5);
 	layout->setSpacing(10);
-//	layout->setColStretch(1);
 
   QLabel* installLabel = CToolClass::explanationLabel(m_installModuleListPage,
 		i18n("Install/update modules - Step 2"),
 		i18n("Please choose the modules which should be installed / updated and click the install button.")
   );
 	layout->addMultiCellWidget(installLabel, 0,0,0,1);
+	layout->setRowStretch(0,0);
 
   m_installWidgetStack->addWidget(m_installModuleListPage);
 	m_installModuleListPage->setMinimumSize(500,400);
@@ -957,12 +1039,16 @@ void CSwordSetupDialog::slot_connectToSource(){
   //insert a list box which contains all available remote modules
 	m_installModuleListView = new KListView(m_installModuleListPage, "install modules view");
 	layout->addMultiCellWidget( m_installModuleListView, 1,6,0,1);
+	layout->setColStretch(0,5);
+	layout->setRowStretch(1,5);
+
 	m_installModuleListView->addColumn(i18n("Name"));
   m_installModuleListView->addColumn(i18n("Installed version"));
   m_installModuleListView->addColumn(i18n("Remote version"));
   m_installModuleListView->addColumn(i18n("Status"));
  	m_installModuleListView->setAllColumnsShowFocus(true);
  	m_installModuleListView->setFullWidth(true);
+	m_installModuleListView->setRootIsDecorated(true);
 	connect(m_installModuleListView, SIGNAL(executed(QListViewItem*)), SLOT(slot_installModuleItemExecuted(QListViewItem*)));
 
   m_installContinueButton->setEnabled(false);
@@ -1012,7 +1098,10 @@ void CSwordSetupDialog::slot_installModuleItemExecuted(QListViewItem* item) {
 
 /** Installs chosen modules */
 void CSwordSetupDialog::slot_installModules(){
-  //first get all chosen modules
+	m_installContinueButton->setEnabled(false);
+	m_installBackButton->setEnabled(false);
+
+	//first get all chosen modules
 	QStringList moduleList;
 	QListViewItem* item1 = 0;
 	QListViewItem* item2 = 0;
@@ -1093,8 +1182,9 @@ void CSwordSetupDialog::slot_installModules(){
     backend()->reloadModules();
     populateInstallModuleListView( currentInstallSource() ); //rebuild the tree
     populateRemoveModuleListView();
-		m_installContinueButton->setEnabled(false);
   }
+	m_installContinueButton->setEnabled(false);
+	m_installBackButton->setEnabled(true);
 }
 
 /** No descriptions */
@@ -1171,4 +1261,3 @@ const QString CSwordSetupDialog::currentInstallSource() {
 
 	return source;
 }
-
