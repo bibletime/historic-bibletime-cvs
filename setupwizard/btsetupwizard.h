@@ -26,6 +26,7 @@ class KJanusWidget;
 class QLabel;
 class QCheckBox;
 class QListView;
+class QFrame;
 
 class CSwordBackend;
 
@@ -55,10 +56,17 @@ private: // Private methods
 	QListView* m_removeModuleListView;
 	CSwordBackend* m_backend;
 
+	QFrame* m_mainPage;
+	QFrame* m_removePage;
+
 
 private slots: // Private slots
   /** No descriptions */
   void slot_exitRequested();
+  /** No descriptions */
+  void slot_backtoMainPage();
+  /** No descriptions */
+  void slot_gotoRemovePage();
 };
 
 #endif
