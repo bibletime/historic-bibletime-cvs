@@ -28,12 +28,6 @@
 class CHTMLChapterDisplay : public CHTMLEntryDisplay  {
 public: 
   /**
- 	* The constructor of CHTMLChapterDisplay.
- 	*	This is the constructor of CHTMLChapterDisplay,
- 	* it sets the member variables to the default values.
- 	*/
-  CHTMLChapterDisplay();
-  /**
  	* Renders the current chapter of the module using HTML tags.
  	* The finished HTML text could be retrieved using the function
 	* #getHTML.
@@ -53,7 +47,6 @@ protected:
  	*/
   bool m_useLineBreak;
 	bool m_useVerseNumbers;
-	QString m_highlightedVerseColorName;
 };
 
 #endif

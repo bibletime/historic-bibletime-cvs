@@ -37,30 +37,23 @@ CHTMLEntryDisplay::CHTMLEntryDisplay(){
 	m_includeHeader = true;
 }
 
-
-CHTMLEntryDisplay::~CHTMLEntryDisplay(){
-}
-
 void CHTMLEntryDisplay::updateSettings(void){
+  m_highlightedVerseColorName = COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name();
 	m_standardFontColorName = COptionsDialog::getBTColor(COptionsDialog::text).name();
-  StandardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
-	UnicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
-  StandardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );
-  UnicodeFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::unicode).pointSize() );
+  m_standardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
+  m_standardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );
+	m_unicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
+  m_unicodeFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::unicode).pointSize() );
 }
 
 /** Displays the current entry of the module as HTML */
 char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
-	qDebug("CHTMLEntryDisplay::Display(CSwordModuleInfo* module)");
 	if (!module) {
 		m_htmlText = QString::null;
 		return -1;
 	}
   //refresh font settings
 	updateSettings();
-
-	QString FontName = StandardFontName;
-  int FontSize = StandardFontSize;
 	
   CSwordKey* key = 0;
   if (module->getType() == CSwordModuleInfo::Commentary || module->getType() == CSwordModuleInfo::Bible)
@@ -69,25 +62,22 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 		key = new CSwordLDKey(module);
 	key->key(module->module()->KeyText());
 	
-  if (module->encoding() == QFont::Unicode ){ //use custom font
-    FontName = UnicodeFontName;
-    FontSize = UnicodeFontSize;
-  }
 	if (m_includeHeader) {
-		m_htmlText =
-			m_htmlHeader + QString::fromLatin1("<BODY><FONT color=\"%1\" face=\"%2\" size=\"%3\">\
-<A HREF=\"sword://%4\">%5: <B>%6</B></A></FONT>\
-<HR><FONT face=\"%7\" size=\"%8\">%9</FONT>")
-				.arg(COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name())
-        .arg(FontName)
-				.arg(FontSize)
-  			.arg(key->key())
-				.arg(module->getDescription())
-				.arg(key->key())
-				.arg(FontName)
-				.arg(FontSize)
-				.arg(key->renderedText())
-			+ m_htmlBody;
+		m_htmlText = m_htmlHeader;
+
+		m_htmlText.append(QString("<body><font color=\"%1\" face=\"%2\" size=\"%3\">")
+			.arg(m_standardFontColorName)
+      .arg((module->encoding() == QFont::Unicode ) ? m_unicodeFontName : m_standardFontName)
+			.arg((module->encoding() == QFont::Unicode ) ? m_unicodeFontSize : m_standardFontSize));
+
+		m_htmlText.append(QString("<font color=\"%1\"><a href=\"sword://%2\">%3: <b>%4</b></a></font><hr>%5")
+			.arg(COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name())
+ 			.arg(key->key())
+			.arg(module->getDescription())
+			.arg(key->key())
+			.arg(key->renderedText()));
+
+		m_htmlText.append(QString("</font>")+m_htmlBody);
 	}
 	else
 		m_htmlText = key->renderedText();
@@ -105,9 +95,6 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	}
 	//reload font settings
 	updateSettings();
-
- 	QString FontName = StandardFontName;
- 	int FontSize = StandardFontSize;
 
  	CSwordKey* key = 0;
  	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible)
@@ -153,29 +140,22 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	
 	const int width=(int)((double)100/(double)moduleList->count());
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<TABLE cellpadding=\"2\" cellspacing=\"0\"><TR>"); 	
+	m_htmlText.append(QString("<font face=\"%1\" size=\"%2\" color=\"%3\">")
+		.arg(m_standardFontName).arg(m_standardFontSize).arg(m_standardFontColorName));
 	
 	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
 		key->module(d);
-		if (d && d->encoding() == QFont::Unicode ) { //use custom font
-      FontName = UnicodeFontName;
-      FontSize = UnicodeFontSize;
-		}
-		else {
-			FontName = StandardFontName;
-			FontSize = StandardFontSize;
-		}
-    if (m)
-    	m_htmlText.append(
-				QString::fromLatin1(
- "<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2 (<FONT COLOR=\"%3\" FACE=\"%4\" SIZE=\"%5\">%6</FONT>)</B></TD>")
-					.arg(width)
-					.arg(d->name())
-					.arg(COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name())
-          .arg(FontName)
-		  		.arg(FontSize)
+    if (m){
+    	m_htmlText.append(QString("<td width=\"%1\" bgcolor=\"#f1f1f1\"><b>%2 ")
+					.arg(width).arg(d->name()));
+			m_htmlText.append(QString("(<font color=\"%1\" face=\"%2\" size=\"%3\">%4</font>)</b></td>")
+					.arg(m_highlightedVerseColorName)
+          .arg((d && d->encoding() == QFont::Unicode ) ? m_unicodeFontName : m_standardFontName)
+		  		.arg((d && d->encoding() == QFont::Unicode ) ? m_unicodeFontSize : m_standardFontSize)
       		.arg(key->key())
 			);
+		}
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
 	m_htmlText.append(QString::fromLatin1("</TR>"));
@@ -184,26 +164,18 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	m_htmlText.append(QString::fromLatin1("<TR>"));
 	while (m) {
 
-		if (d && d->encoding() == QFont::Unicode ) { //use custom font
-      FontName = UnicodeFontName;
-      FontSize = UnicodeFontSize;
-		}
-		else {
-			FontName = StandardFontName;
-			FontSize = StandardFontSize;
-		}
 		key->module(d);
 		key->key(usedKey);
 		
 		m_htmlText +=
-			QString::fromLatin1("<TD width=\"%1%\"><FONT SIZE=\"%2\" FACE=\"%3\">%4</FONT></TD>")
+			QString::fromLatin1("<td width=\"%1%\"><FONT face =\"%2\" size=\"%3\">%4</font></td>")
 				.arg(width)
-				.arg(FontSize)
-				.arg(FontName)
+				.arg((d && d->encoding() == QFont::Unicode ) ? m_unicodeFontName : m_standardFontName)
+				.arg((d && d->encoding() == QFont::Unicode ) ? m_unicodeFontSize : m_standardFontSize)
 				.arg(key->renderedText());
 		m = (d = moduleList->next()) ? d->module() : 0;		
 	}
-	m_htmlText += QString::fromLatin1("</TR></TABLE>") + m_htmlBody;
+	m_htmlText += QString::fromLatin1("</font></tr></table>") + m_htmlBody;
 
 	//clean up
 	delete key;	

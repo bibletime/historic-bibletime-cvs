@@ -109,7 +109,7 @@ public:
   * @return Returns true if the options given as aparameter is switched on at this time, otherwise return false.
   */
   virtual const bool isOptionEnabled( const CSwordBackend::moduleOptions type);
-	/** Fonds the Sword
+	/**
 	*
 	*/
 	virtual void Load();
@@ -157,8 +157,8 @@ public:
   */
   const QString getConfigOptionName( const CSwordBackend::moduleOptions option);
 
-	CHTMLChapterDisplay* m_chapterDisplay;	
-	CHTMLEntryDisplay* m_entryDisplay;
+	CHTMLChapterDisplay* 	m_chapterDisplay;	
+	CHTMLEntryDisplay* 		m_entryDisplay;
 
 protected:
 	/**

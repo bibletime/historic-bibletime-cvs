@@ -29,15 +29,9 @@
 //Sword includes
 #include <versekey.h>
 
-
-/** The constructor */
-CHTMLChapterDisplay::CHTMLChapterDisplay(){
-}
-
 void CHTMLChapterDisplay::updateSettings(void){
 	m_useLineBreak    = COptionsDialog::getBTBool(COptionsDialog::lineBreaks);	
 	m_useVerseNumbers = COptionsDialog::getBTBool(COptionsDialog::verseNumbers);	
-  m_highlightedVerseColorName = COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name();
 	CHTMLEntryDisplay::updateSettings();
 }
 
@@ -59,24 +53,16 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	if (module->encoding() == QFont::Unicode) {
 		m_htmlHeader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>";
 	}
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");//dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
+	m_htmlText = m_htmlHeader + QString("<body>");//dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
 	
 	//reload font settings
 	updateSettings();
 
 	m_htmlText.append(QString("<font face=\"%1\" size=\"%2\" color=\"%3\">")
-		.arg((module->encoding() == QFont::Unicode)? UnicodeFontName : StandardFontName)
-		.arg((module->encoding() == QFont::Unicode)? UnicodeFontSize : StandardFontSize)
+		.arg((module->encoding() == QFont::Unicode)? m_unicodeFontName : m_standardFontName)
+		.arg((module->encoding() == QFont::Unicode)? m_unicodeFontSize : m_standardFontSize)
 		.arg(m_standardFontColorName)
 	);
-
-// 	QString FontName = StandardFontName;
-// 	int FontSize = StandardFontSize;
-//
-//  if (module->encoding() == QFont::Unicode){ //use custom font?
-//    FontName = UnicodeFontName;
-//    FontSize = UnicodeFontSize;
-//  }
 
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.NextVerse()) {
 		verse = key.Verse();
@@ -133,7 +119,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		QString("<table cellpadding=\"2\" cellspacing=\"0\"><td bgcolor=\"#f1f1f1\"></td>"));
 
 	m_htmlText.append(QString("<font face=\"%1\" size=\"%2\" color=\"%3\">")
-		.arg(StandardFontName).arg(StandardFontSize).arg(m_standardFontColorName));
+		.arg(m_standardFontName).arg(m_standardFontSize).arg(m_standardFontColorName));
 
 	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
@@ -163,7 +149,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 				.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
 			if (d->encoding()==QFont::Unicode)
 				rowText += QString("<font face=\"%1\" size=\"%2\">")
-					.arg(UnicodeFontName).arg(UnicodeFontSize);
+					.arg(m_unicodeFontName).arg(m_unicodeFontSize);
 			if (currentVerse == chosenVerse)
 				rowText += QString("<font color=\"%1\">")
 					.arg(m_highlightedVerseColorName);

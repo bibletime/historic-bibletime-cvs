@@ -33,7 +33,7 @@
 class CHTMLChapterDisplay;
 class CSwordModuleInfo;
 /**	
-	* The display class for entrie based modules.
+	* The display class for entry based modules.
   *	@author The BibleTime team
   * @version $Id$
   */
@@ -45,10 +45,6 @@ public:
 	* and creates the objects we need to create the required HTML formatted text.
 	*/
 	CHTMLEntryDisplay();
-	/**
-	* The destructor of this display object
-	*/
-	virtual ~CHTMLEntryDisplay();
   /**
   * Renders the current entry of the module using HTML tags.
   * The rendered text is cached so it's faster if it's called for the
@@ -73,21 +69,20 @@ public:
   virtual char Display( QList<CSwordModuleInfo>* moduleList);
 
 protected:
-	bool m_useLineBreaks;
+	bool 		m_useLineBreaks;
+	bool 		m_includeHeader;
 
-//private:
-	//friend class CHTMLChapterDisplay;	
 	QString m_htmlText;
 	QString m_htmlHeader;
 	QString m_htmlBody;
 
-	bool m_includeHeader;
+	QString m_highlightedVerseColorName;
 	QString m_standardFontColorName;
 
-  QString StandardFontName;
-	QString UnicodeFontName;
-  int StandardFontSize;
-  int UnicodeFontSize;
+  QString m_standardFontName;
+	QString m_unicodeFontName;
+  int 		m_standardFontSize;
+  int 		m_unicodeFontSize;
 
 	void updateSettings(void);
 

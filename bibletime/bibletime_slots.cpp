@@ -69,12 +69,7 @@ void BibleTime::slotFileQuit(){
 	// close the first window, the list makes the next one the first again.
 	// This ensures that queryClose() is called on each window to ask for closing
 	
-#if KDE_VERSION >= 193
 	KMainWindow* w;
-#else
-	#warning You are using a KDE Beta release!
-	KTMainWindow* w;
-#endif
 
 	if(memberList){
 		for(w = memberList->first(); w; w = memberList->first()){
@@ -263,7 +258,7 @@ void BibleTime::slotWindowMenuActivated( int id ) {
   if (!m_windowMenu)
   	return;
   	
-  QString dummy;
+//  QString dummy;
   QWidget* w = m_mdi->windowList().at( id );
   if ( w )
 		w->setFocus();
