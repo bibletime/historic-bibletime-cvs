@@ -151,8 +151,18 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 				e.replace(pos, tag.matchedLength(), "</span>");
  				pos += 7;
 				
+				//skip blanks, commas, dots and stuff at the beginning, it doesn't belong to the morph code
 				QString rep = QString("<span lemma=\"%1\">").arg(value);
-				e.prepend( rep );
+				
+				int startPos = 0;
+				QChar c = e[startPos];
+				while ((startPos < pos) && (c.isSpace() || c.isPunct())) {
+					++startPos;
+					
+					c = e[startPos];
+				}
+				
+				e.insert( startPos, rep );
 				pos += rep.length();
 			}
 			else { //add the attribute to the existing tag

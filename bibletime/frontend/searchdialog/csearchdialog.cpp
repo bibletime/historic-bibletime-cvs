@@ -99,6 +99,7 @@ CSearchDialog* const CSearchDialog::getSearchDialog() {
 CSearchDialog::CSearchDialog(QWidget *parent)
   : KDialogBase(Tabbed, i18n("Search dialog"), Close | User1 | User2, User1, parent, "CSearchDialog", false, true, i18n("Search"), i18n("Interrupt")) {
 
+  setWFlags( getWFlags() | Qt::WStyle_MinMax );
 	setIcon(CResMgr::searchdialog::icon);
 	m_searcher.connectPercentUpdate(this, SLOT(percentUpdate()));
 	m_searcher.connectFinished(this, SLOT(searchFinished()));
@@ -199,7 +200,7 @@ void CSearchDialog::setSearchText( const QString searchText ){
 
 /** Initializes this object. */
 void CSearchDialog::initView(){
-  setButtonTip(User1, CResMgr::searchdialog::searchButton::tooltip);
+	setButtonTip(User1, CResMgr::searchdialog::searchButton::tooltip);
   setButtonWhatsThis(User1, CResMgr::searchdialog::searchButton::whatsthis);
 
   setButtonTip(User2, CResMgr::searchdialog::cancelSearchButton::tooltip);
