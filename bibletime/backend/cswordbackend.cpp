@@ -150,37 +150,42 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 	moduleDriver = ((entry = section.find("ModDrv")) != section.end()) ? (*entry).second : (sword::SWBuf) "";
 
 	if (sourceformat == "GBF") {
-		if (!m_filters.gbf)
+		if (!m_filters.gbf) {
 			m_filters.gbf = new BT_GBFHTML();
+		}
 		module->AddRenderFilter(m_filters.gbf);
 		noDriver = false;
 	}
 
 	if (sourceformat == "PLAIN") {
-		if (!m_filters.plain)
+		if (!m_filters.plain) {
 			m_filters.plain = new sword::PLAINHTML();	
+		}
 		module->AddRenderFilter(m_filters.plain);
 		noDriver = false;
 	}
 
 	if (sourceformat == "ThML") {
-		if (!m_filters.thml)
+		if (!m_filters.thml) {
 			m_filters.thml = new BT_ThMLHTML();
+		}
 		module->AddRenderFilter(m_filters.thml);
 		noDriver = false;
 	}
 
 	if (sourceformat == "OSIS") {
-		if (!m_filters.osis)
+		if (!m_filters.osis) {
 			m_filters.osis = new BT_OSISHTML();
+		}
 		module->AddRenderFilter(m_filters.osis);
 		noDriver = false;
 	}
 
 	if (noDriver){ //no driver found
 		if ( (moduleDriver == "RawCom") || (moduleDriver == "RawLD") ) {
-			if (!m_filters.plain)
+			if (!m_filters.plain) {
 				m_filters.plain = new sword::PLAINHTML();
+			}
 			module->AddRenderFilter(m_filters.plain);
 			noDriver = false;
 		}
@@ -192,6 +197,7 @@ const bool CSwordBackend::shutdownModules(){
 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		CSwordModuleInfo* current = m_moduleList.current();
     m_moduleList.removeRef(current);
+		
 		delete current;
 	}
 	m_moduleList.clear();
@@ -244,7 +250,6 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
 }
 
 void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options){
-//  qWarning("CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options)");
   setOption( footnotes, 					options.footnotes );
   setOption( strongNumbers, 			options.strongNumbers );
   setOption( headings, 						options.headings );
@@ -260,20 +265,26 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options
 }
 
 void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptions options){
-  if (m_displays.entry)
+  if (m_displays.entry) {
 		m_displays.entry->setDisplayOptions(options);	
-  if (m_displays.chapter)
+	}
+  if (m_displays.chapter) {
 		m_displays.chapter->setDisplayOptions(options);	
-  if (m_displays.book)
+	}
+  if (m_displays.book) {
 		m_displays.book->setDisplayOptions(options);
+	}
 }
 
 /** This function searches for a module with the specified description */
 CSwordModuleInfo* const CSwordBackend::findModuleByDescription(const QString& description){
-  if (m_moduleList.count())
-    for ( m_moduleList.first();m_moduleList.current();m_moduleList.next() )
-      if ( m_moduleList.current()->config(CSwordModuleInfo::Description) == description )
+  if (m_moduleList.count()) {
+    for ( m_moduleList.first();m_moduleList.current();m_moduleList.next() ) {
+      if ( m_moduleList.current()->config(CSwordModuleInfo::Description) == description ) {
         return m_moduleList.current();
+			}
+		}
+	}
   return 0;
 }
 
@@ -282,6 +293,7 @@ const QString CSwordBackend::findModuleNameByDescription(const QString& descript
 	if (moduleDescriptionMap.contains(description)) {
 		return moduleDescriptionMap[description];
   }
+	
   return QString::null;
 }
 
@@ -294,6 +306,7 @@ CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name){
       }
     }
   }
+	
   return 0;
 }
 
@@ -484,9 +497,8 @@ const sword::SWVersion CSwordBackend::Version() {
 sword::SWFilter* const CSwordBackend::transliterator() {
   if (!useICU())
     return 0;
-  if (sword::SWFilter* filter = optionFilters["UTF8Transliterator"])
-    return filter;
-  return 0;
+  
+	return  optionFilters["UTF8Transliterator"]; //either valid or null pointer
 }
 
 /** Returns true if ICU is being used. */
@@ -516,16 +528,19 @@ const QStringList CSwordBackend::swordDirList(){
 
   //return a list of used Sword dirs. Useful for the installer
   QString configPath;
-	if (!home.isEmpty())
+	if (!home.isEmpty()) {
 		configPath = home + "/.sword/sword.conf";
-	else
+	}
+	else {
 		configPath = globalConfPath; //e.g. /etc/sword.conf, /usr/local/etc/sword.conf
+	}
 
 
   QStringList configs = QStringList::split(":", configPath);
   for (QStringList::iterator it = configs.begin(); it != configs.end(); ++it) {
-    if (!QFileInfo(*it).exists())
+    if (!QFileInfo(*it).exists()) {
       continue;
+		}
 
     //get all DataPath and AugmentPath entries from the config file and add them to the list
     sword::SWConfig conf( (*it).latin1() );

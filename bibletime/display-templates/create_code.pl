@@ -2,16 +2,31 @@
 
 use strict;
 
+my %names;
+
+sub read_names() {
+	open(IN, "< names.conf");
+	
+	while (<IN>) {
+		my $line = $_;
+		chomp $line;
+		
+		my ($filename, $description) = split("\t", $line);
+		$names{ $filename } = $description;
+	}	
+	
+	close(IN);
+}
+
 sub extract_data {
 	my $file = shift || die;
 	
 	my $name;
 	my $html;
 	
-	open(IN, "< $file");
-	$name = <IN>;
-	chomp($name);
+	$name = $names{ $file };
 	
+	open(IN, "< $file");	
 	while( <IN> ) {
 		my $line = $_;
 		chomp($line);
@@ -19,7 +34,6 @@ sub extract_data {
 		
 		$html .= $line;
 	}
-	
 	close(INT);
 	
 	
@@ -27,6 +41,7 @@ sub extract_data {
 	return ($name, $html);
 }
 
+&read_names;
 my $code = "";
 foreach my $f (@ARGV) {
 	my ($name, $html) = &extract_data( $f );
