@@ -175,16 +175,12 @@ char CHTMLEntryDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList) {
 
 /** Returns the header which should be used for each page. */
 const QString& CHTMLEntryDisplay::header(){
-  m_htmlHeader = QString::fromLatin1("<HTML><HEAD>\n\n<style type=\"text/css\">\n\n");
-  for (int t = MinType; t <= MaxType; ++t) {
-    m_htmlHeader += "\t" + formatString(static_cast<CHTMLEntryDisplay::StyleType>(t)) + "\n\n";
-  }
-  m_htmlHeader += QString::fromLatin1("</style>\n\n</HEAD>");
+  m_htmlHeader = QString::fromLatin1("<HTML><HEAD>\n\n%1</HEAD>").arg(cssHeader());
   return m_htmlHeader;
 }
 
 /** Returns the string which is used for the given styleType, */
-const QString CHTMLEntryDisplay::formatString( const CHTMLEntryDisplay::StyleType type){
+const QString CHTMLEntryDisplay::formatString( const CHTMLEntryDisplay::StyleType type, const bool useBGColor ){
   const QString bgColor = CBTConfig::get(CBTConfig::backgroundColor).name();
   const QString textColor = CBTConfig::get(CBTConfig::textColor).name();
   const QString highlightColor = CBTConfig::get(CBTConfig::highlightedVerseColor).name();
@@ -201,8 +197,8 @@ const QString CHTMLEntryDisplay::formatString( const CHTMLEntryDisplay::StyleTyp
   QString text;
   switch(type) {
     case Body:
-      text =  QString::fromLatin1("body {background-color: %1; color: %2; font-size: %3pt; font-family: %4;}")
-                .arg(bgColor)
+      text =  QString::fromLatin1("body {%1; color: %2; font-size: %3pt; font-family: %4;}")
+                .arg(useBGColor ? QString::fromLatin1("background-color: %1").arg(bgColor) : QString::null)
                 .arg(textColor)
                 .arg(m_standardFontSize)
                 .arg(m_standardFontName);
@@ -267,4 +263,16 @@ const QString CHTMLEntryDisplay::formatString( const CHTMLEntryDisplay::StyleTyp
     break;
   };
   return text;
+}
+
+/** Returns the CSS header used by the display classes. */
+const QString CHTMLEntryDisplay::cssHeader(const bool useBGColor){
+  QString css;
+  css = QString::fromLatin1("<style type=\"text/css\">\n\n");
+  for (int t = MinType; t <= MaxType; ++t) {
+    css += "\t" + formatString(static_cast<CHTMLEntryDisplay::StyleType>(t), useBGColor) + "\n\n";
+  }
+  css += QString::fromLatin1("</style>");
+
+  return css;
 }

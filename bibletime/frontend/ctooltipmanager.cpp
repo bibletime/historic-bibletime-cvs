@@ -20,6 +20,7 @@
 
 #include "backend/creferencemanager.h"
 #include "backend/cswordkey.h"
+#include "backend/chtmlentrydisplay.h"
 
 #include "util/scoped_resource.h"
 
@@ -80,20 +81,27 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
       );
   };
 
-  if (CSwordModuleInfo* m = backend()->findModuleByName(moduleName))
-  	return QString::fromLatin1("<B>%1</B><HR>%2").arg(keyText(m ? m->type() : CSwordModuleInfo::Unknown, keyName)).arg(moduleText(moduleName, keyName));
-  else
+  if (CSwordModuleInfo* m = backend()->findModuleByName(moduleName)) {
+    CHTMLEntryDisplay* display = m ? m->getDisplay() : 0;
+  	return QString::fromLatin1("<HEAD>%1</HEAD><B>%1</B><HR>%2")
+      .arg(display ? display->cssHeader(false) : QString::null)
+      .arg(keyText(m ? m->type() : CSwordModuleInfo::Unknown, keyName)).arg(moduleText(moduleName, keyName));
+  }
+  else {
     return QString::fromLatin1("<FONT COLOR=\"red\"><CENTER><B>%1</B></CENTER>%2</FONT><HR>")
             .arg(i18n("Configuration problem!"))
             .arg(i18n("The module <FONT COLOR=\"blue\"><I>%1</I></FONT> was not found on your system! Install the module to make this tooltip working!")
               .arg(moduleName)
            );
+  }
 }
 
 /** Returns the tooltip text for the given hyperlink. */
 const QString CTooltipManager::textForReference( const QString& moduleName, const QString& keyName, const QString& description){
 	CSwordModuleInfo* module = backend()->findModuleByName(moduleName);
-  return QString::fromLatin1("<B>%1 %2</B>%3<HR>%4")
+  CHTMLEntryDisplay* display = module ? module->getDisplay() : 0;
+  return QString::fromLatin1("<HEAD>%1</HEAD><B>%1 %2</B>%3<HR>%4")
+    .arg(display ? display->cssHeader(false) : QString::null)
   	.arg(i18n("Bookmark to"))
   	.arg(keyText(module ? module->type() : CSwordModuleInfo::Unknown, keyName))
    	.arg(!description.isEmpty() ? QString::fromLatin1("<FONT color=\"#800000\">(%1)</FONT><BR>").arg(description.stripWhiteSpace()) : QString::null )
@@ -112,7 +120,6 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
    	text = key->renderedText();
 
 		if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
-//    	qWarning("BIBLE or Commentary!!");
       text = QString::null;
       ListKey verses = VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
 			
@@ -120,16 +127,25 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
     		VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
     		if (element) {
      			VerseKey lowerBound = element->LowerBound();
+          lowerBound.Headings(false);
+
 					VerseKey upperBound = element->UpperBound();
+          upperBound.Headings(false);
         	
          	while (lowerBound < upperBound) {
       			key->key( (const char*)lowerBound );
-		    		text += QString::fromLatin1("<B>%1</B> %2<BR>").arg(lowerBound.Verse()).arg(key->renderedText());
+		    		text += QString::fromLatin1("<B>%1:%2</B> %3<BR>")
+              .arg(lowerBound.Chapter())
+              .arg(lowerBound.Verse())
+              .arg(key->renderedText());
 						lowerBound++;
           }
           if (lowerBound == upperBound) {
       			key->key( (const char*)lowerBound );
-		    		text += QString::fromLatin1("<B>%1</B> %2").arg(lowerBound.Verse()).arg(key->renderedText());
+		    		text += QString::fromLatin1("<B>%1:%2</B> %3<BR>")
+              .arg(lowerBound.Chapter())
+              .arg(lowerBound.Verse())
+              .arg(key->renderedText());
           }
 				}
     		else {
@@ -140,7 +156,7 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 		}
 
     if (module->textDirection() == CSwordModuleInfo::RightToLeft) {
-      text = QString::fromLatin1("<font face=\"%1\">").arg(CBTConfig::get(CBTConfig::unicode).family()) + text + QString::fromLatin1("</font>");
+      text = QString::fromLatin1("<DIV dir=\"rtl\"><font face=\"%1\">").arg(CBTConfig::get(CBTConfig::unicode).family()) + text + QString::fromLatin1("</font></DIV>");
 //      qWarning(text.latin1());
     }
 	}

@@ -31,11 +31,14 @@
 #include "resource.h"
 
 //Qt includes
+#include <qcursor.h>
 #include <qwidget.h>
 #include <qdragobject.h>
 #include <qpopupmenu.h>
+#include <qlayout.h>
 
 //KDE includes
+#include <kapplication.h>
 #include <khtmlview.h>
 #include <kglobalsettings.h>
 #include <khtml_events.h>
@@ -234,12 +237,12 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
   KHTMLPart::khtmlMouseMoveEvent(e);
 }
 /* -------------------------- */
-CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : QToolTip(view) {
-  m_view = view;
+CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : CToolTip(view), m_view( view ) {
 };
 
 /** Decides whether a tooltip should be shown. */
 void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
+  qWarning("CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p )");
   DOM::Node node = m_view->part()->nodeUnderMouse();
   if (node.isNull())
   	return;
@@ -260,10 +263,10 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
         const QString tooltipText = CTooltipManager::textForHyperlink( link );
         if (!tooltipText.isEmpty()) {
           QRect rect = linkNode.getRect();
-          rect.setX( p.x() );
-          rect.setY( p.y() );
-          rect.setWidth( linkNode.getRect().width() );
-          rect.setHeight( linkNode.getRect().height() );
+          rect.setX( m_view->mapFromGlobal(QCursor::pos()).x() );
+          rect.setY( m_view->mapFromGlobal(QCursor::pos()).y() );
+//          rect.setWidth( linkNode.getRect().width() );
+//          rect.setHeight( linkNode.getRect().height() );
 
 	        tip( rect, tooltipText );
         }

@@ -68,6 +68,10 @@ public:
   */
   void setIncludeHeader( const bool includeHeader );
   void setDisplayOptions( const CSwordBackend::DisplayOptionsBool options);
+  /**
+  * Returns the CSS header used by the display classes.
+  */
+  const QString cssHeader(const bool useBGColor = true);
 
 protected:
   enum StyleType {
@@ -121,7 +125,7 @@ protected:
   /**
   * Returns the string which is used for the given styleType,
   */
-  virtual const QString formatString( const CHTMLEntryDisplay::StyleType type);
+  virtual const QString formatString( const CHTMLEntryDisplay::StyleType type, const bool useBGColor = true);
 
 	CSwordBackend::DisplayOptionsBool m_displayOptionsBool;
 };

@@ -217,7 +217,7 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 		}		
     case DisplayLevel: {
 			const QString level = QString::fromLatin1(m_module->getConfigEntry("DisplayLevel"));
-			return !level.isEmpty() ? level : QString::fromLatin1("0");
+			return !level.isEmpty() ? level : QString::fromLatin1("1");
 		}
 		default:
 			return QString::null;

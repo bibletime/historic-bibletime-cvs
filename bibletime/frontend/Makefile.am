@@ -15,7 +15,8 @@ cexportmanager.cpp \
 cmdiarea.cpp \
 kstartuplogo.cpp \
 cpointers.cpp \
-ctooltipmanager.cpp
+ctooltipmanager.cpp \
+ctooltip.cpp
 
 all_headers=cmdiarea.h \
 kstartuplogo.h \
@@ -28,7 +29,8 @@ cprofile.h \
 cprofilewindow.h \
 cpointers.h \
 cexportmanager.h \
-ctooltipmanager.h
+ctooltipmanager.h \
+ctooltip.h
 
 EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)
 

@@ -21,12 +21,12 @@
 #include "cgroupmanageritem.h"
 #include "backend/cswordmoduleinfo.h"
 #include "frontend/cpointers.h"
+#include "frontend/ctooltip.h"
 
 //QT includes
 #include <qwidget.h>
 #include <qlist.h>
 #include <qlistview.h>
-#include <qtooltip.h>
 
 //KDE includes
 #include <klistview.h>
@@ -173,7 +173,7 @@ private:
 	/**
 	* Our tooltip class. It displays a tooltip depending on the current item under the mouse cursor.
 	*/
-	class ToolTip : public QToolTip {
+	class ToolTip : public CToolTip {
 	public:
 		ToolTip(QWidget* parent);
 		/**

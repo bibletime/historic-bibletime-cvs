@@ -67,7 +67,7 @@
 #include <kmessagebox.h>
 
 
-CGroupManager::ToolTip::ToolTip(QWidget* parent) : QToolTip(parent) {
+CGroupManager::ToolTip::ToolTip(QWidget* parent) : CToolTip(parent) {
 }
 
 void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
@@ -88,15 +88,17 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 	//get type of item and display correct text
 	const QString text = i->getToolTip();
 	if (!text.isEmpty()) {
-		const QFont oldFont = font();				
-		CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(i->moduleInfo());
+//		const QFont oldFont = font();				
+//		CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(i->moduleInfo());
 
 		//Module is Unicode-based. Only set font if a bookmark should be displayed
-		if (i->getBookmarkKey() && m && m->isUnicode() )
-			setFont(CBTConfig::get( CBTConfig::unicode ));
-
+//		if (i->getBookmarkKey() && m && m->isUnicode() )
+//			setFont(CBTConfig::get( CBTConfig::unicode ));
+    QPoint globalPoint = m->viewport()->mapToParent(r.topLeft());
+    r.setX(globalPoint.x());
+    r.setY(globalPoint.y());
 		tip(r, text);
-		setFont(oldFont);
+//		setFont(oldFont);
 	}
 }
 

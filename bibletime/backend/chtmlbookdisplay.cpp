@@ -26,18 +26,19 @@ char CHTMLBookDisplay::Display( CSwordModuleInfo* module ){
 	util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
 	m_htmlText = header();
 	
-	if (!module || !key) {		
+	if (!module || !key) {
 		return 0;
 	}	
-	const int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
-	key->key(book->module()->KeyText());		
-	updateSettings();	
-	if (!displayLevel) {
+	int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
+	key->key(book->module()->KeyText());
+  updateSettings();	
+	if (displayLevel <= 1) {
 	 	m_htmlText = key->renderedText();
 	 	return 0;
 	}	
-	const QString oldKey = key->key();			
-
+	
+  --displayLevel; //better handling if 1 is to concat the last level
+  const QString oldKey = key->key();			
 	int moved = 0;
 	
 	while (key->firstChild())
@@ -68,7 +69,7 @@ void CHTMLBookDisplay::printTree(CSwordTreeKey treeKey, CSwordBookModuleInfo* mo
 		m_htmlText += QString::fromLatin1("<DIV STYLE=\"padding-left: %1px;\">").arg(levelPos*10+10);
 	}
 
-  m_htmlText += QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\">%3</A>: %4")
+  m_htmlText += QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\">%3</A>: %4<BR>")
   	.arg(treeKey.getFullName())
   	.arg(CReferenceManager::encodeHyperlink(module->name(), treeKey.getFullName(), CReferenceManager::GenericBook))
   	.arg(treeKey.getLocalName())
