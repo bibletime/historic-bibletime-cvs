@@ -18,7 +18,7 @@
 #include "install.h"
 #include "btsetupwizard.h"
 
-#include "frontend/ctoolclass.h"
+#include "util/ctoolclass.h"
 
 #include <qwidget.h>
 #include <qlayout.h>
