@@ -19,7 +19,10 @@
 
 #include "csearchdialog.h"
 
-#include "backend/centrydisplay.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/ctextrendering.h"
+// #include "backend/centrydisplay.h"
 
 #include "frontend/cbtconfig.h"
 #include "frontend/cdragdropmgr.h"
@@ -486,22 +489,46 @@ void CSearchResultPage::reset(){
 /** Update the preview of the selected key. */
 void CSearchResultPage::updatePreview(const QString& key){
   if ( CSwordModuleInfo* module = m_moduleListBox->activeModule() ) {
-  	if (CEntryDisplay* display = module->getDisplay()) {	//do we have a display object?
-      ListCSwordModuleInfo moduleList;
-      moduleList.append(module);
-
-      //mark the searched text part
-      const QString searchedText = CSearchDialog::getSearchDialog()->searchText();
-      const int searchFlags = CSearchDialog::getSearchDialog()->searchFlags();            
-      const QString content = display->text( moduleList, key, CBTConfig::getDisplayOptionDefaults(), CBTConfig::getFilterOptionDefaults() );
-
-      const QString text = highlightSearchedText(content, searchedText, searchFlags);
-      
-   		m_previewDisplay->setText( text );
-      m_previewDisplay->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key) );      
-  	}	
-    else
-      m_previewDisplay->setText(QString::null);
+    const QString searchedText = CSearchDialog::getSearchDialog()->searchText();
+    const int searchFlags = CSearchDialog::getSearchDialog()->searchFlags();            
+		
+		QString text;
+		CDisplayRendering render;
+		ListCSwordModuleInfo modules;
+		modules.append(module);
+		
+		CTextRendering::KeyTreeItem::Settings settings;
+	
+		//for bibles only render 5 verses, for all other modules only one entry
+		if (module->type() == CSwordModuleInfo::Bible) {
+			CSwordVerseKey firstKey(module);
+			firstKey.key(key);
+			
+			CSwordVerseKey lastKey(module);
+			lastKey.key(key);
+			
+			bool prevWasOk = true;
+			bool nextWasOk = true;
+			for (int i = 0; i < 2; ++i) {
+				if (prevWasOk) {
+					prevWasOk = firstKey.previous(CSwordVerseKey::UseVerse) && !firstKey.Error() && !module->module()->Error();
+				}
+				
+				if (nextWasOk) {
+					nextWasOk = lastKey.next(CSwordVerseKey::UseVerse) && !lastKey.Error() && !module->module()->Error();
+				}
+			}
+				
+			//now render the range
+			settings.keyRenderingFace = CTextRendering::KeyTreeItem::Settings::CompleteShort;
+			text = render.renderKeyRange(firstKey.key(), lastKey.key(), modules, key, settings);
+		}
+		else {
+			text = render.renderSingleKey(key, modules, settings);
+		}
+		
+   	m_previewDisplay->setText( highlightSearchedText(text, searchedText, searchFlags) );
+		m_previewDisplay->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key) );      
   }
 }
 
@@ -831,7 +858,7 @@ sword::ListKey CSearchOptionsPage::searchScope(){
     CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
     QString scope = map[ m_rangeChooserCombo->currentText() ];
     if (!scope.isEmpty())
-      return sword::VerseKey().ParseVerseList( scope.local8Bit(), "Genesis 1:1", true);
+      return sword::VerseKey().ParseVerseList( (const char*)scope.utf8(), "Genesis 1:1", true);
   };
   return sword::ListKey();
 }

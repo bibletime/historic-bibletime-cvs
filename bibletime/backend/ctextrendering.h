@@ -40,9 +40,18 @@ public:
 	class KeyTreeItem {
 	public:
 		struct Settings {
-			Settings() : highlight(false) {};
+			enum KeyRenderingFace {
+				NoKey, //means no key shown at all
+				SimpleKey, //means only versenumber or only lexicon entry name
+				CompleteShort, //means key like "Gen 1:1"
+				CompleteLong //means "Genesis 1:1"
+			};
+
+			Settings() : highlight(false), keyRenderingFace(SimpleKey) {
+			};
 			
 			bool highlight;
+			KeyRenderingFace keyRenderingFace;
 		};
 		
 		KeyTreeItem();
@@ -73,9 +82,6 @@ public:
 	
 	class KeyTree : public KeyTreeItemList {
 	public:
-		KeyTree() {
-// 			setAutoDelete(true);
-		};
 		ListCSwordModuleInfo collectModules();
 	};
 
@@ -83,8 +89,9 @@ public:
   virtual ~CTextRendering();
 
 	const QString renderKeyTree( KeyTree& );
-	const QString renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo );
-	const QString renderSingleKey( const QString& key, ListCSwordModuleInfo );
+	
+	const QString renderKeyRange( const QString& start, const QString& stop, const ListCSwordModuleInfo& modules, const QString& hightlightKey = QString::null, const KeyTreeItem::Settings settings = KeyTreeItem::Settings() );
+	const QString renderSingleKey( const QString& key, const ListCSwordModuleInfo&, const KeyTreeItem::Settings settings = KeyTreeItem::Settings() );
 	
 protected:
 	virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 ) = 0;
