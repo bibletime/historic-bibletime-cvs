@@ -24,7 +24,7 @@ $(LIB_X11) \
 $(LIB_SWORD) \
 $(LIBSOCKET)
 
-SUBDIRS = backend printing frontend xml pics 
+SUBDIRS = backend printing frontend xml pics util
 
 all_headers = bibletime.h \
 ressource.h \
@@ -77,4 +77,5 @@ uninstall-local:
 
 rpm: dist
 	
+
 
