@@ -26,7 +26,7 @@
 #include <osishtmlhref.h>
 
 #warning Hack to compile with Sword 1.5.6
-//#define OSISHTMLHREF OSISHTMLHref
+#define OSISHTMLHREF OSISHTMLHref
 
 
 
