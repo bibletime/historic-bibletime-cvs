@@ -1307,10 +1307,10 @@ QTextDocument::~QTextDocument()
     delete backBrush;
     if ( tArray )
 	delete [] tArray;
-	if (charsetMap) {
-		delete charsetMap;
-		charsetMap = m_charsetMap = 0;
-	}
+//	if (charsetMap) {
+//		delete charsetMap;
+//		charsetMap = m_charsetMap = 0;
+//	}
 }
 
 void QTextDocument::clear( bool createEmptyParag )
@@ -5085,14 +5085,14 @@ void QTextFormatCollection::updateFontAttributes( const QFont &f, const QFont &o
 	if ( fm->fn.family() == old.family() &&
 	     fm->fn.weight() == old.weight() &&
 	     fm->fn.italic() == old.italic() &&
-	     fm->fn.underline() == old.underline() ) {
+	     fm->fn.underline() == old.underline() &&
+	     fm->fn.charSet() == old.charSet()) {
+	
 	    fm->fn.setFamily( f.family() );
 	    fm->fn.setWeight( f.weight() );
 	    fm->fn.setItalic( f.italic() );
-	    fm->fn.setUnderline( f.underline() );
-	
-	    if (m_charsetMap && m_charsetMap->contains(f.family()))
-	    	fm->fn.setCharSet((*m_charsetMap)[f.family()]);
+	    fm->fn.setUnderline( f.underline() );	
+    	fm->fn.setCharSet(f.charSet());
 	    	
 	    fm->update();
 	}
@@ -5101,13 +5101,14 @@ void QTextFormatCollection::updateFontAttributes( const QFont &f, const QFont &o
     if ( fm->fn.family() == old.family() &&
 	 fm->fn.weight() == old.weight() &&
 	 fm->fn.italic() == old.italic() &&
-	 fm->fn.underline() == old.underline() ) {
+	 fm->fn.underline() == old.underline() &&
+   fm->fn.charSet() == old.charSet() ) {
+
 	fm->fn.setFamily( f.family() );
 	fm->fn.setWeight( f.weight() );
 	fm->fn.setItalic( f.italic() );
 	fm->fn.setUnderline( f.underline() );
-	if (m_charsetMap && m_charsetMap->contains(f.family()))
-		fm->fn.setCharSet((*m_charsetMap)[f.family()]);
+	fm->fn.setCharSet(f.charSet());
 	
 	fm->update();
     }
@@ -5133,10 +5134,10 @@ void QTextFormat::copyFormat( const QTextFormat & nf, int flags )
 	missp = nf.missp;
     if ( flags & QTextFormat::VAlign )
 	ha = nf.ha;
- 	
+	 	
  	fn.setCharSet(nf.fn.charSet());
 	
-    update();
+  update();
 }
 
 void QTextFormat::setBold( bool b )
@@ -5184,7 +5185,10 @@ void QTextFormat::setFamily( const QString &f )
     if ( f == fn.family() )
 	return;
     fn.setFamily( f );
-    update();
+  if ( m_charsetMap && m_charsetMap->contains(f) ) {
+		fn.setCharSet((*m_charsetMap)[f]);
+  }
+	update();
 }
 
 void QTextFormat::setPointSize( int s )
@@ -5316,9 +5320,11 @@ QString QTextFormat::makeFormatEndTags() const
 
 QTextFormat QTextFormat::makeTextFormat( const QStyleSheetItem *style, const QMap<QString,QString>& attr ) const
 {
-		QMap<QString, QFont::CharSet>::Iterator it;
-		for( it = m_charsetMap->begin(); it != m_charsetMap->end(); ++it )
-			printf( "%s => %i\n", it.key().latin1(), (int)it.data() );
+		if (m_charsetMap) {
+			QMap<QString, QFont::CharSet>::Iterator it;
+			for( it = m_charsetMap->begin(); it != m_charsetMap->end(); ++it )
+				printf( "%s => %i\n", it.key().latin1(), (int)it.data() );
+		}
 
     QTextFormat format(*this);
     bool changed = FALSE;
@@ -5373,8 +5379,11 @@ QTextFormat QTextFormat::makeTextFormat( const QStyleSheetItem *style, const QMa
 		format.fn.setPointSize( format.stdPointSize );
 		style->styleSheet()->scaleFont( format.fn, format.logicalFontSize );
 	    }
-	    if ( !style->fontFamily().isEmpty() )
-		format.fn.setFamily( style->fontFamily() );
+		if ( !style->fontFamily().isEmpty() ) {
+			format.fn.setFamily( style->fontFamily() );
+			if (m_charsetMap && m_charsetMap->contains(style->fontFamily()))
+				format.fn.setCharSet( (*m_charsetMap)[style->fontFamily()] );
+		}
 	    if ( style->color().isValid() )
 		format.col = style->color();
 	    if ( style->definesFontItalic() )
