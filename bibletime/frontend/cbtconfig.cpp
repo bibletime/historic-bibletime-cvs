@@ -213,7 +213,7 @@ const QFont CBTConfig::get(const CBTConfig::fonts ID){
 }
 
 const bool CBTConfig::get( const CBTConfig::bools ID){
-	//specila behaviour for the KTipDialog class
+	//special behaviour for the KTipDialog class
 	KConfig* config = KGlobal::config();	
 	KConfigGroupSaver groupSaver(config, (ID == CBTConfig::tips) ? "TipOfDay" : "bools");		
 	return config->readBoolEntry(getKey(ID),getDefault(ID));

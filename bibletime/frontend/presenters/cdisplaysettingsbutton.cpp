@@ -90,6 +90,8 @@ int CDisplaySettingsButton::populateMenu(void){
 		isOptionAvailable(CSwordBackend::hebrewCantillation ));
 	ret += addMenuEntry(i18n("Show Greek accents"), &m_moduleSettings->greekAccents,
 		isOptionAvailable(CSwordBackend::greekAccents ));
+	ret += addMenuEntry(i18n("Use alternative textual variant"), &m_moduleSettings->textualVariants,
+		isOptionAvailable(CSwordBackend::greekAccents ));
 
 	return ret;
 }

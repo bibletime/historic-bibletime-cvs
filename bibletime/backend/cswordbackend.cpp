@@ -170,7 +170,8 @@ void CSwordBackend::setOption( const CSwordBackend::FilterOptions type, const bo
 	string value;
 	switch (type) {
 		case textualVariants:
-			value = enable ? "Primary Reading" : "Secondary Reading";
+			value = enable ? "Secondary Reading" : "Primary Reading";
+			//if on, user alternaticve (secondary) reading
 			break;
 		default:		
 			value = enable ? "On": "Off";
