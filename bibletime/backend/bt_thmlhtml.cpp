@@ -48,14 +48,17 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	setTokenEnd(">");
 	setTokenCaseSensitive(true);
   
-	replaceTokenSubstitute("/foreign", "</span>");
+	addTokenSubstitute("/foreign", "</span>");
+	
+	deleteTokenSubstitute("note");
+	deleteTokenSubstitute("/note");
 
-  if (tokenSubMap.find("note") != tokenSubMap.end()) { //remove note tag
+/*  if (tokenSubMap.find("note") != tokenSubMap.end()) { //remove note tag
 	  tokenSubMap.erase( tokenSubMap.find("note") );
   }
   if (tokenSubMap.find("/note") != tokenSubMap.end()) { //remove note tag
 	  tokenSubMap.erase( tokenSubMap.find("/note") );
-  }
+  }*/
 }
 
 char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const sword::SWModule* module) {

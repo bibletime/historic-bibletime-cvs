@@ -46,14 +46,14 @@ using namespace Filters;
 BT_OSISHTML::BT_OSISHTML() : sword::OSISHTMLHREF() {
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes
 
-	replaceTokenSubstitute("inscription", "<span class=\"inscription\">");
-	replaceTokenSubstitute("/inscription","</span>");
+	addTokenSubstitute("inscription", "<span class=\"inscription\">");
+	addTokenSubstitute("/inscription","</span>");
 	
-	replaceTokenSubstitute("mentioned", "<span class=\"mentioned\">");
-	replaceTokenSubstitute("/mentioned", "</span>");
+	addTokenSubstitute("mentioned", "<span class=\"mentioned\">");
+	addTokenSubstitute("/mentioned", "</span>");
 	
-	replaceTokenSubstitute("divineName", "<span class=\"name\"><span class=\"divine\">");
-	replaceTokenSubstitute("/divineName", "</span></span>");
+	addTokenSubstitute("divineName", "<span class=\"name\"><span class=\"divine\">");
+	addTokenSubstitute("/divineName", "</span></span>");
 }
 
 bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {

@@ -40,51 +40,53 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 	setEscapeStringCaseSensitive(true);
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
   
-  if (tokenSubMap.find("Rf") != tokenSubMap.end()) { //remove note tag
-	  tokenSubMap.erase( tokenSubMap.find("Rf") );
-  }
+	deleteTokenSubstitute("Rf");
+	
+//   if (tokenSubMap.find("Rf") != tokenSubMap.end()) { //remove note tag
+// 	  tokenSubMap.erase( tokenSubMap.find("Rf") );
+//   }
 
-	replaceTokenSubstitute("FI", "<span class=\"italic\">"); // italics begin
-	replaceTokenSubstitute("Fi", "</span>");
+	addTokenSubstitute("FI", "<span class=\"italic\">"); // italics begin
+	addTokenSubstitute("Fi", "</span>");
 
-	replaceTokenSubstitute("FB", "<span class=\"bold\">"); // bold begin
-	replaceTokenSubstitute("Fb", "</span>");
+	addTokenSubstitute("FB", "<span class=\"bold\">"); // bold begin
+	addTokenSubstitute("Fb", "</span>");
 
-	replaceTokenSubstitute("FR", "<span class=\"jesuswords\">");
-	replaceTokenSubstitute("Fr", "</span>");
+	addTokenSubstitute("FR", "<span class=\"jesuswords\">");
+	addTokenSubstitute("Fr", "</span>");
 
-	replaceTokenSubstitute("FU", "<u>"); // underline begin
-	replaceTokenSubstitute("Fu", "</u>");
+	addTokenSubstitute("FU", "<u>"); // underline begin
+	addTokenSubstitute("Fu", "</u>");
 
-	replaceTokenSubstitute("FO", "<span class=\"quotation\">"); //  Old Testament quote begin
-	replaceTokenSubstitute("Fo", "</span>");
+	addTokenSubstitute("FO", "<span class=\"quotation\">"); //  Old Testament quote begin
+	addTokenSubstitute("Fo", "</span>");
 
 
-  replaceTokenSubstitute("FS", "<span class-\"sup\">"); // Superscript begin// Subscript begin
-	replaceTokenSubstitute("Fs", "</span>");
+  addTokenSubstitute("FS", "<span class-\"sup\">"); // Superscript begin// Subscript begin
+	addTokenSubstitute("Fs", "</span>");
 
-  replaceTokenSubstitute("FV", "<span class=\"sub\">"); // Subscript begin
-	replaceTokenSubstitute("Fv", "</span>");
+  addTokenSubstitute("FV", "<span class=\"sub\">"); // Subscript begin
+	addTokenSubstitute("Fv", "</span>");
 
-	replaceTokenSubstitute("TT", "<div class=\"booktitle\">");
-	replaceTokenSubstitute("Tt", "</div>");
+	addTokenSubstitute("TT", "<div class=\"booktitle\">");
+	addTokenSubstitute("Tt", "</div>");
 
-	replaceTokenSubstitute("TS", "<div class=\"sectiontitle\">");
-	replaceTokenSubstitute("Ts", "</div>");
+	addTokenSubstitute("TS", "<div class=\"sectiontitle\">");
+	addTokenSubstitute("Ts", "</div>");
 
-	replaceTokenSubstitute("PP", "<span class=\"poetry\">"); //  poetry  begin
-	replaceTokenSubstitute("Pp", "</span>");
+	addTokenSubstitute("PP", "<span class=\"poetry\">"); //  poetry  begin
+	addTokenSubstitute("Pp", "</span>");
 
-	replaceTokenSubstitute("Fn", "</font>"); //  font  end
-	replaceTokenSubstitute("CL", "<br/>"); //  new line
-	replaceTokenSubstitute("CM", "<br/>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
+	addTokenSubstitute("Fn", "</font>"); //  font  end
+	addTokenSubstitute("CL", "<br/>"); //  new line
+	addTokenSubstitute("CM", "<br/>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
 
-  replaceTokenSubstitute("CG", "&gt;"); // literal greater-than sign
-	replaceTokenSubstitute("CT", "&lt;"); // literal less-than sign
+  addTokenSubstitute("CG", "&gt;"); // literal greater-than sign
+	addTokenSubstitute("CT", "&lt;"); // literal less-than sign
 
-  replaceTokenSubstitute("JR", "<span class=\"right\">"); // right align begin
-	replaceTokenSubstitute("JC", "<span class=\"center\">"); // center align begin
-	replaceTokenSubstitute("JL", "</span>"); // align end
+  addTokenSubstitute("JR", "<span class=\"right\">"); // right align begin
+	addTokenSubstitute("JC", "<span class=\"center\">"); // center align begin
+	addTokenSubstitute("JL", "</span>"); // align end
 }
 
 /** No descriptions */
@@ -257,7 +259,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 		else if (!strncmp(token, "Rf", 2)) { //end of footnote
 			userData->suspendTextPassThru = false;
 		}
-		else if (!strncmp(token, "FN", 2)) { //the end </font> tag is inserted in replaceTokenSubsitutes
+		else if (!strncmp(token, "FN", 2)) { //the end </font> tag is inserted in addTokenSubsitute
 			buf.append("<font face=\"");
 			
 			for (i = 2; i < tokenLength; i++) {
