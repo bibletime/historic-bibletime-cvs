@@ -178,6 +178,11 @@ void BibleTime::initActions() {
 		this, SLOT( slotSwordSetupDialog() ), actionCollection(),
     CResMgr::mainMenu::settings::swordSetupDialog::actionName
   );
+	action->setToolTip( CResMgr::mainMenu::settings::swordSetupDialog::tooltip );
+	action->setWhatsThis( CResMgr::mainMenu::settings::swordSetupDialog::whatsthis );
+  #if KDE_VERSION_MINOR < 1
+    action->plugAccel( accel() );
+  #endif
 
   action = KStdAction::configureToolbars(this, SLOT( slotSettingsToolbar() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::settings::editToolBar::tooltip );
