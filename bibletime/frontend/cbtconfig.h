@@ -23,7 +23,7 @@
 #include <qfont.h>
 #include <qvaluelist.h>
 
-#include "../backend/cswordbackend.h"
+#include "backend/cswordbackend.h"
 /**This class is the interface to the config object of BibleTime
   *@author The BibleTime team
   */
@@ -56,8 +56,6 @@ public:
 		swordRefColor  //SWORD hyperlink
 	};
 	enum bools{
-//		firstStartUp,
-//		isConfigured,
 		firstSearchDialog,
 
 		toolbar,

@@ -20,9 +20,9 @@
 #include "cprintdialogpages.h"
 #include "cprintitemlist.h"
 #include "cprintitem.h"
-#include "../tooltipdef.h"
-#include "../resource.h"
-#include "../whatsthisdef.h"
+#include "tooltipdef.h"
+#include "resource.h"
+#include "whatsthisdef.h"
 
 //QT includes
 #include <qbuttongroup.h>

@@ -16,8 +16,8 @@
  ***************************************************************************/
 
 #include "cpointers.h"
-#include "../backend/cswordbackend.h"
-#include "../printing/cprinter.h"
+#include "backend/cswordbackend.h"
+#include "printing/cprinter.h"
 
 //the static pointers
 static CSwordBackend* m_backend = 0;

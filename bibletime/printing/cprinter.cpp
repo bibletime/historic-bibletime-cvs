@@ -21,9 +21,9 @@
 #include "cstyleformatframe.h"
 #include "cprintdialogpages.h"
 
-#include "../backend/cswordbackend.h"
-#include "../backend/cswordversekey.h"
-#include "../backend/cswordldkey.h"
+#include "backend/cswordbackend.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordldkey.h"
 
 //KDE includes
 #include <kconfig.h>

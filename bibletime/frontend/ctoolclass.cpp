@@ -19,8 +19,8 @@
 //own includes
 #include "ctoolclass.h"
 
-#include "../resource.h"
-#include "../backend/cswordmoduleinfo.h"
+#include "resource.h"
+#include "backend/cswordmoduleinfo.h"
 
 //QT includes
 #include <qlabel.h>

@@ -19,7 +19,7 @@
 #define CSTYLELIST_H
 
 //BibleTime includes
-#include "../frontend/cpointers.h"
+#include "frontend/cpointers.h"
 #include "cstyle.h"
 
 

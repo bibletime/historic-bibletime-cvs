@@ -17,15 +17,15 @@
 
 //BibleTime includes
 #include "csearchdialoganalysis.h"
-#include "../../backend/cswordmoduleinfo.h"
-#include "../../backend/cswordbiblemoduleinfo.h"
-#include "../../backend/cswordcommentarymoduleinfo.h"
-#include "../../backend/cswordlexiconmoduleinfo.h"
-#include "../../backend/cswordversekey.h"
-#include "../../backend/cswordbackend.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordbiblemoduleinfo.h"
+#include "backend/cswordcommentarymoduleinfo.h"
+#include "backend/cswordlexiconmoduleinfo.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordbackend.h"
+#include "frontend/ctoolclass.h"
 #include "csearchdialog.h"
-#include "../ctoolclass.h"
-#include "../../whatsthisdef.h"
+#include "whatsthisdef.h"
 
 //QT includes
 #include <qpixmap.h>

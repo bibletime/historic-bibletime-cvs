@@ -16,15 +16,15 @@
  ***************************************************************************/
 
 #include "cmdiarea.h"
-#include "../backend/cswordmoduleinfo.h"
-#include "../backend/cswordversekey.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordversekey.h"
 #include "presenters/cbiblepresenter.h"
 #include "presenters/clexiconpresenter.h"
 #include "presenters/ccommentarypresenter.h"
 #include "keychooser/ckeychooser.h"
-#include "../resource.h"
-#include "../whatsthisdef.h"
-#include "../../config.h"
+#include "resource.h"
+#include "whatsthisdef.h"
+#include "config.h"
 
 //KDE includes
 #include <kpopupmenu.h>

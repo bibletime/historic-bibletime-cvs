@@ -19,7 +19,10 @@
 #define KSTARTUPLOGO_H
 
 #include <qwidget.h>
-#include <qlabel.h>
+
+//forward declarations
+class QLabel;
+
 
 /**
 	* This class provides a startuplogo.

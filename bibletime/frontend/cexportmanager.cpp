@@ -16,11 +16,11 @@
  ***************************************************************************/
 
 #include "cexportmanager.h"
-#include "../backend/cswordkey.h"
-#include "../backend/cswordmoduleinfo.h"
-#include "../printing/cprintitem.h"
-#include "../printing/cprinter.h"
-#include "../util/scoped_resource.h"
+#include "backend/cswordkey.h"
+#include "backend/cswordmoduleinfo.h"
+#include "printing/cprintitem.h"
+#include "printing/cprinter.h"
+#include "util/scoped_resource.h"
 #include "ctoolclass.h"
 
 //Qt includes

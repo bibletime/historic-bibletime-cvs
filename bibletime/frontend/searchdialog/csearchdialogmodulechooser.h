@@ -18,8 +18,8 @@
 #ifndef CSEARCHDIALOGMODULECHOOSER_H
 #define CSEARCHDIALOGMODULECHOOSER_H
 
-#include "../../backend/cswordmoduleinfo.h"
-#include "../cpointers.h"
+#include "backend/cswordmoduleinfo.h"
+#include "frontend/cpointers.h"
 
 //Qt includes
 #include <qwidget.h>

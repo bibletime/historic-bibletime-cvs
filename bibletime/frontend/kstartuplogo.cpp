@@ -19,8 +19,9 @@
 #include "kstartuplogo.h"
 
 //Qt includes
-#include <qlayout.h>
 #include <qapp.h>
+#include <qlabel.h>
+#include <qlayout.h>
 
 //KDE includes
 #include <kapp.h>

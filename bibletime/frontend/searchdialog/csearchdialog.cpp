@@ -21,13 +21,13 @@
 #include "csearchdialogresult.h"
 #include "csearchdialoganalysis.h"
 #include "csearchdialogscope.h"
-#include "../chtmldialog.h"
-#include "../../resource.h"
-#include "../../backend/cswordmodulesearch.h"
-#include "../../backend/cswordversekey.h"
-#include "../../backend/cswordmoduleinfo.h"
-#include "../ctoolclass.h"
-#include "../cbtconfig.h"
+#include "frontend/chtmldialog.h"
+#include "backend/cswordmodulesearch.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordmoduleinfo.h"
+#include "frontend/ctoolclass.h"
+#include "frontend/cbtconfig.h"
+#include "resource.h"
 
 //KDE includes
 #include <kapp.h>

@@ -23,10 +23,10 @@
 #include "presenters/ccommentarypresenter.h"
 #include "presenters/clexiconpresenter.h"
 #include "presenters/cbookpresenter.h"
-#include "../resource.h"
-#include "../whatsthisdef.h"
-#include "../backend/cswordbackend.h"
-#include "../backend/cswordmoduleinfo.h"
+#include "resource.h"
+#include "whatsthisdef.h"
+#include "backend/cswordbackend.h"
+#include "backend/cswordmoduleinfo.h"
 #include "cbtconfig.h"
 
 #include <stdio.h>

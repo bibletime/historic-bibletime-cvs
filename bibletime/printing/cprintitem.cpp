@@ -21,12 +21,12 @@
 #include "cstyle.h"
 #include "cstyleformat.h"
 #include "cstyleformatframe.h"
-#include "../backend/cswordmoduleinfo.h"
-#include "../backend/cswordversekey.h"
-#include "../backend/cswordldkey.h"
-#include "../backend/chtmlentrydisplay.h"
-#include "../frontend/cbtconfig.h"
-#include "../util/scoped_resource.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordldkey.h"
+#include "backend/chtmlentrydisplay.h"
+#include "frontend/cbtconfig.h"
+#include "util/scoped_resource.h"
 
 
 //Qt includes

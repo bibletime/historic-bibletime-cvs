@@ -20,8 +20,8 @@
 
 #include <qwidget.h>
 
-#include "../../backend/cswordmoduleinfo.h"
-#include "../chtmlwidget.h"
+#include "backend/cswordmoduleinfo.h"
+#include "frontend/chtmlwidget.h"
 
 class CSearchDialog;
 class CSearchDialogResultModuleView;

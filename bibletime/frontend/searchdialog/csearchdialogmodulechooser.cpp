@@ -18,12 +18,13 @@
 
 //BibleTime's includes
 #include "csearchdialogmodulechooser.h"
-#include "../groupmanager/cgroupmanager.h"
-#include "../groupmanager/cgroupmanageritem.h"
-#include "../ctoolclass.h"
-#include "../../backend/cswordbackend.h"
-#include "../../whatsthisdef.h"
-#include "../../tooltipdef.h"
+
+#include "backend/cswordbackend.h"
+#include "frontend/groupmanager/cgroupmanager.h"
+#include "frontend/groupmanager/cgroupmanageritem.h"
+#include "frontend/ctoolclass.h"
+#include "whatsthisdef.h"
+#include "tooltipdef.h"
 
 //Qt includes
 #include <qlabel.h>

@@ -19,8 +19,8 @@
 #define CSEARCHDIALOGANALYSIS_H
 
 //BibleTime includes
-#include "../../backend/cswordmoduleinfo.h"
-#include "../../backend/cswordbackend.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordbackend.h"
 
 //Qt includes
 #include <qwidget.h>

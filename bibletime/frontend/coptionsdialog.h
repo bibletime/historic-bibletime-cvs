@@ -18,7 +18,6 @@
 #ifndef COPTIONSDIALOG_H
 #define COPTIONSDIALOG_H
 
-//#include "../structdef.h"
 #include "cprofilemgr.h"
 #include "cpointers.h"
 

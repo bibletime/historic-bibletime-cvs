@@ -20,7 +20,7 @@
 
 //BibleTime includes
 #include "cpointers.h"
-#include "../backend/cswordbackend.h"
+#include "backend/cswordbackend.h"
 
 #define private public // It's a really bad hack, but I don't know how to do it in another way
 #include "thirdparty/qt3stuff/qtextedit.h"

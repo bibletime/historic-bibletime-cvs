@@ -22,9 +22,9 @@
 #define CSEARCHDIALOG_H
 
 //BibleTime includes
-#include "../../backend/cswordmoduleinfo.h"
-#include "../../backend/cswordmodulesearch.h"
-#include "../cpointers.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordmodulesearch.h"
+#include "frontend/cpointers.h"
 
 //QT includes
 

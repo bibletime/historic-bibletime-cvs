@@ -17,20 +17,20 @@
 
 #include "chtmlwidget.h"
 #include "ctoolclass.h"
-#include "../backend/creferencemanager.h"
-#include "../backend/cswordldkey.h"
-#include "../backend/cswordversekey.h"
-#include "../backend/cswordbackend.h"
-#include "../backend/cswordmoduleinfo.h"
+#include "backend/creferencemanager.h"
+#include "backend/cswordldkey.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordbackend.h"
+#include "backend/cswordmoduleinfo.h"
 #include "presenters/cswordpresenter.h"
 #include "thirdparty/qt3stuff/qt3stuff.h"
 #include "thirdparty/qt3stuff/qrichtext_p.h"
-#include "../resource.h"
-#include "../tooltipdef.h"
-#include "../whatsthisdef.h"
+#include "resource.h"
+#include "tooltipdef.h"
+#include "whatsthisdef.h"
 #include "cbtconfig.h"
 
-#include "../util/scoped_resource.h"
+#include "util/scoped_resource.h"
 
 #include <stdio.h>
 
