@@ -1,48 +1,49 @@
-<chapter ID="hdbk_term"><title>Starting Bibletime</title>
+<chapter ID="hdbk_term">
+<title>Spu¹tìní Bibletime</title>
 <para>
-Bibletime is a KDE program and is integrated with the KDE desktop.
-You should find an icon for launching Bibletime from the desktop.
+BibleTime je program pro KDE a je integrováno s KDE desktopem.
+Na va¹í pracovní plo¹e nebo v menu byste mìli najít ikonku BibleTime, pomocí které mù¾ete program spustit.
 <graphic fileref="common/hdbk_start_bticon.png" format="png"></graphic>
 </para>
 <para>
-Bibletime can be launched from inside other window managers
-(like gnome) providing KDE is installed.  You will need to install
-your own icon to launch the program.  See the window manager help
-files to see how.
+BibleTime mù¾e být spu¹tìno i z jiných správcù plochy nebo oken (napø. GNOME),
+pokud jsou nainstalovány knihovny potøebné pro bìh KDE programù.
 </para>
 <para>
-Bibletime can also be launched from a terminal command prompt.
-To launch Bibletime open a terminal (any Xterminal) and type
-<command>bibletime</command>.
+BibleTime je mo¾né spustit i z pøíkazové øádky pøíkazem <command>bibletime</command>.
+Musí ale být spu¹tìné grafické prostøedí (X Window System).
 </para>
-<section ID="hdbk_start_sequence"><title>Startup Sequence</title>
+
+<section ID="hdbk_start_sequence">
+<title>Prùbìh spou¹tìní</title>
 <para>
-As Bibletime launches you may see the following screens:</para>
+Bìhem spou¹tìní aplikace BibleTime mù¾ete vidìt následujicí ookna:
+</para>
 <itemizedlist>
-<listitem><para>No Modules Installed - This is shown if you
-have forgotten to install sword modules, or if the sword modules
-can not be found.
-<link linkend="help_no_modules">
-Click here to see the No Modules Installed help screen</link>
+<listitem><para>
+Nejsou nainstalovány moduly - zobrazí se v pøípadì, ¾e jste zapomnìli nainstalovat moduly SWORDu
+nebo tyto moduly nelze nalézt.
+<link linkend="help_no_modules">Kliknìte pro nápovìdu</link>
 </para></listitem>
-<listitem><para>First Time Startup - This is shown the first time
-Bibletime is launched.
-<link linkend="help_first_startup">
-Click here to see the First Time Startup help screen</link>
+<listitem><para>
+První spu¹tìní - pokud spou¹títe BibleTime úplnì poprvé.
+<link linkend="help_first_startup">Kliknìte pro nápovìdu</link>
 </para></listitem>
-<listitem><para>Daily Tips - These show on every startup, unless
-you turn them off.
+<listitem><para>
+Tip dne - zobrazuje se pøi ka¾dém spu¹tìní, pokud to nezaká¾ete.
 <graphic fileref="common/hdbk_start_sequence_tips.png" format="png"></graphic>
 </para></listitem>
 </itemizedlist>
-
 </section>
-<section ID="hdbk_start_screen"><title>Parts of the Bibletime Screen</title>
+
+<section ID="hdbk_start_screen">
+<title>Èásti okna aplikace BibleTime</title>
 <para>
-Now the main Bibletime screen will open.  It's operation is covered in the next chapter.
+Nyní se otevøe hlavní okno aplikace.
+Jeho ovládání je popsáno v dal¹í kapitole.
 </para>
 <screenshot>
-<screeninfo>The Bibletime Application Window</screeninfo>
+<screeninfo>Okno aplikace BibleTime</screeninfo>
 <graphic fileref="common/hdbk_start_screen_terms.png" format="png"></graphic>
 </screenshot>
 </section>

@@ -1,571 +1,646 @@
-<chapter ID="hdbk_op"><title>Program Operation</title>
+<chapter ID="hdbk_op">
+<title>Ovládání programu</title>
 <para>
-Bibletime is mainly operated from the Module Tree (this tree is called the
-"Main Index"). The second important place to work with Bibletime is the MDI
-area (MDI = Multiple Document Interface). </para>
+Hlavní ovládací oblast je stromová struktura modulù (nazývaná "Hlavní seznam").
+Druhou dùle¾itou oblastí je MDI (MDI = Multiple Document Interface; èesky zhruba "<emphasis>rozhraní k více dokumentùm</emphasis>")
+</para>
 
-<section ID="hdbk_op_module_tree"><title>Main Index</title>
+<section ID="hdbk_op_module_tree">
+<title>Hlavní seznam</title>
 <para>
-This is the pane on the left side of the Bibletime window.
-It contains the tree of installed documents (Sword Modules), as well as any bookmarks you enter.
+Jedná se o oblast na levé stranì okna aplikace BibleTime.
+Obsahuje stromový seznam nainstalovaných dokumentù (modulù SWORDu) a va¹ich zálo¾ek.
 </para>
 <screenshot>
-<screeninfo>Module Tree</screeninfo>
+<screeninfo>Strom modulù</screeninfo>
 <graphic fileref="common/hdbk_op_module_tree_1.png" format="png"></graphic>
 </screenshot>
 </section>
 
-<section ID="hdbk_op_module_tree_select"><title>Selecting a document to
-view</title>
-<para>To select a document, simply click on the desired document group (Bibles, Commentaries, or
-Lexicons) to display the contents of a document group, click on the icon for
-the desired group.  To open a document, click on it's icon.  To open
-another instance of the same document, right-click on the mouse and choose, "New
-Presenter".
+<section ID="hdbk_op_module_tree_select">
+<title>Výbìr dokumentu pro zobrazení</title>
+<para>
+Pro zobrazení dokumentu jednodu¹e kliknìte na pøíslu¹nou skupinu (Bible, Komentáøe nebo Slovníky) a uká¾e se vám obsah skupiny.
+Kliknutím na po¾adovaný dokument otevøete okno s jeho textem.
 </para>
 <screenshot>
-<screeninfo>Document Selection</screeninfo>
+<screeninfo>Výbìr dokumentu</screeninfo>
 <graphic fileref="common/hdbk_op_module_select_1.png" format="png"></graphic>
 </screenshot>
-<tip><para>Drag & Drop Works Here</para></tip>
-<para>
-A document can be opened from an already opened document.
-Simply click on the verse number (pointer changes to hand) and drag it to the
-module list. Drop it on the name of the module you want to open, and it will
-open that module to the verse you dragged over. If you drag a verse number to an
-already open module, it will automatically jump that module to the verse dragged
-over. This works for Bibles and Commentaries only. </para>
-<para>
-There are two other functions accessible through right-clicking on
-the document name. "Show info" opens a window with information about copyright and
-other pertinent things about the selected document. "Set unlock key" opens a small
-dialog for encrypted documents. This allows those with the key to
-enter it to decrypt the document and make it human-readable.  Crosswire Bible
-Society must encrypt modules unless either the copyright holder provides permission for
-distribution as a sword module, or the text has passed into the public domane
-(copyright has expired).  <ulink url="http://www.crosswire.org">See information
-on locked modules on the crosswire web site.</ulink></para>
+<tip><para>
+Funguje zde "táhni a pus»" (Drag & Drop)
+</para></tip>
 
-<section ID="hdbk_op_module_tree_search"><title>Accessing the search
-dialog</title> <para>
-You can search in a module by  right-clicking on the module name in the module
-list and selecting "Search in module(s)". By shift-clicking on other module
-names you can select more than one.  Then follow the same procedure to open the
-search dialog. You will be searching in all of these documents. </para>
-<para>A complete description of the operation of the search features can be found
+<para>
+Dokument je mo¾né otevøít i pomocí ji¾ otevøeného dokumentu.
+Jednodu¹e najeïte my¹í na èíslo ver¹e, který vás zajímá, a pøetáhnìte toto èíslo do Hlavního seznamu.
+Upus»te jej nad modulem, který chcete otevøít a on se zobrazí pøesnì na potøebném ver¹i.
+Èíslo ver¹e mù¾ete pøetáhnout i do okna ji¾ otevøeného dokumentu, který se tak pøepne na tento ver¹.
+Toto chování funguje pouze pro moduly Biblí a komentáøù.
+</para>
+<para>
+Dal¹í dvì funkce jsou dostupné kliknutím pravým tlaèítkem my¹i na jméno modulu v Hlavním seznamu.
+Volba "O tomto modulu" otevøe okno s copyrightem a dal¹ími souvisejicími informacemi o modulu.
+Dal¹í volba "Odemknout tento modul" je dostupná jen pro zamèené moduly.
+Otevøe se malé okénko a pokud máte odblokovací klíè, mù¾ete zamèený modul odemknout a uèinit èitelným.
+Crosswire Bible Society musí zamykat moduly, dokud vlastníci práv nedovolí volnou distribuci modulu nebo
+dokud nevypr¹í copyright.
+Informace o zamèených modulech naleznete na stránkách <ulink url="http://www.crosswire.org">Crosswire Bible Society</ulink>.
+</para>
+
+<section ID="hdbk_op_module_tree_search">
+<title>Pøístup k funkci hledání</title>
+<para>
+Hledat v modulu mù¾ete pomocí pravého tlaèítka menu a zvolením "Hledat ve vybraných modulech".
+Kliknutím s klávesou SHIFT nebo CTRL mù¾ete vybrat více ne¾ jeden modul.
+Vyhledávací okno pak otevøete stejným zpùsobem.
+Hledání bude probíhat ve v¹ech tìchto dokumentech.
 </para>
 <screenshot>
-<screeninfo>Bookmark Selection</screeninfo>
+<screeninfo>Výbìr modulu</screeninfo>
 <graphic fileref="common/hdbk_op_module_select_2.png" format="png">
 </graphic>
 </screenshot
 </section>
 
 
-<section ID="hdbk_op_module_tree_bookmark"><title>Accessing bookmark
-functions</title> <para>
-<tip><para>Drag & Drop Works Here</para></tip>
-Right-click on an empty part of the module tree window and select "Create new
-group"  to create a new bookmark folder. You can use normal drag 'n' drop
-functions to drag verse numbers from search dialog results to the bookmark folder,
-and to rearrange bookmarks between folders.  There is an import/export function
-for bookmarks also.  From the right-mouse-button menu, select "Export
-bookmarks". This will bring up a dialog box for you to save the bookmark
-collection.  They can be shared with other Bibletime users, archived, etc.  They
-can be imported in the same way. You can also right-click to change folder names
-and bookmark descriptions (to be implemented later), and delete folders and
-bookmarks. </para>
+<section ID="hdbk_op_module_tree_bookmark">
+<title>Pøístup k zálo¾kám</title>
+<tip><para>
+Funguje zde "táhni a pus»" (Drag & Drop)
+</para></tip>
+<para>
+Kliknìte pravým tlaèítkem my¹i do prázdné èásti Hlavního seznamu a vyberte "Vytvoøit novou slo¾ku".
+Takto si vytvoøte slo¾ku pro zálo¾ky.
+Pomocí vlastnosti "táhni a pus»" (drag & drop) mù¾ete jednodu¹e pøetahovat odkazy z výsledku hledání do této slo¾ky zálo¾ek
+a pøemís»ovat zálo¾ky mezi slo¾kami.
+Je také dostupná mo¾nost importu/exportu zálo¾ek.
+Kliknìte pravým tlaèítkem a vyberte "Export zálo¾ek".
+Otevøe se okno, ve kterém si zvolíte soubor, do kterého se mají zálo¾ky exportovat.
+Takto je pak mù¾ete sdílet s ostatními u¾ivateli, zálohovat a pod.
+Stejným zpùsobem mù¾ete zálo¾ky importovat.
+Pøes pravé tlaèítko mù¾ete navíc mìnit jméno slo¾ky a popis zálo¾ky, mazat slo¾ky i zálo¾ky.
+</para>
 <screenshot>
-<screeninfo>Bookmark Selection</screeninfo>
+<screeninfo>Výbìr zálo¾ky</screeninfo>
 <graphic fileref="common/hdbk_op_module_tree_bookmark_bookmarkandfolder.png" format="png">
 </graphic>
 </screenshot
 </section>
 </section>
 
-<section ID="hdbk_op_MDI_Window"><title>Multiple Document Interface (MDI) Window</title>
+<section ID="hdbk_op_MDI_Window">
+<title>Okno MDI</title>
 <para>
-This is where the opened documents are displayed.
-documents are displayed in "Document Windows", that are specific to the three types of
-documents. (Crosswire Bible Society may release other document types for sword in the
-future. When they are released, Bibletime will support them as well. </para>
-
-<section ID="hdbk_op_MDI_Window_control_modules"><title>Controlling
-open Documents</title> <para>
-Document Windows can be controlled and
-manipulated with normal KDE window/title bar functions. In addition to this, you
-can tile and cascade open Document Windows. Use the appropriate tool bar buttons, or
-menu functions under "Window" in the main menu bar. Document Windows can be set to
-automatically cascade or tile also. </para>
-</section>
-
-<section ID="hdbk_op_MDI_Window_module_navigation"><title>Navigating in
-open documents</title> <para>
-Navigation within a document is accomplished with the Document Key
-Control Menu, and the scroll bar.
+V tomto oknì jsou zobrazeny otevøené dokumenty.
+Dokumenty jsou zobrazeny v "prohlí¾eèích", které jsou specifické pro tøi druhy dokumentù.
+(Crosswire Bible Society mo¾ná v budoucnosti uvede dal¹í typy modulù pro SWORD.
+A¾ k tomu dojde, bude jejich podpora zaøazena i do aplikace BibleTime.)
 </para>
-<tip><para>To move to a specific location use the Document Key Control.</para></tip>
-<tip><para>To move within a section of a document use the scroll bar.</para></tip>
-<tip><para>For Bible texts the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
-<tip><para>For commentaries the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
-<tip><para>For lexicons the index key is <emphasis>Keyword</emphasis></para></tip>
-<tip><para>Drag & Drop Works Here; if you drag a verse from one open document or a bookmark and drop
-it on another the second document will jump from it's current location to the location
-of the verse or bookmark dragged.</para></tip>
-</section>
 
-<section
-ID="hdbk_op_MDI_Window_autoscrolling"><title>Autoscrolling</title>
-<para> One of Bibletime's advanced features is the ability to control more than
-one open Document Window at a time. For Bible and Commentary documents, the rightmost
-tool bar button is the Auto scroll button. Selecting it in open Document Windows will
-allow that module it to scroll in tandem with other documents with autoscrolling
-on. </para> </section>
-
-<section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Editing
-your own commentary</title> <para>
-The tool bar of commentary presenters has another button, with the picture of a
-pencil.<graphic fileref="common/hdbk_op_pencil.png"></graphic>
-For the "Personal" commentary module, click that button to be able to
-enter your own notes into the Personal commentary, or to edit notes you've
-already entered. When you're done, click on the "Save" (disk) button to save
-your notes. To delete notes for a selected verse, click the button with the
-trash can. You can also set the endpoint of your notes, if for example you want
-to use the same notes to comment on a range of verses. Click the "Edit" button
-again to return to normal commentary browsing mode. </para>
-<tip><para>The personal commentary is a sword module.  If you do not find it in the
-main index, get it from Crosswire Bible Society.</para></tip>
-<tip><para>If you can not write to the personal commentary your permissions for the
-personal commentary module are wrong.  Reset the permissions to allow your user
-to write to it.</para></tip>
-<tip><para>Drag & Drop Works Here, just like other
-commentaries and Bible texts.</para></tip>
-</section>
-</section>
-
-<section ID="hdbk_op_search"><title>Searching in Documents</title>
-<para>Portions instructions for Searching Documents is taken from the help files
-for the MS Windows (R) version of Sword</para>
-
-<section ID="hdbk_op_search_functions"><title>Accessing search functions</title>
+<section ID="hdbk_op_MDI_Window_control_modules">
+<title>Práce s otevøenými dokumenty</title>
 <para>
-You can search in a document by right-clicking on the document name in the Main
-Index and selecting "Search in module(s)". By shift- or ctrl-clicking on other
-module names you can select more than one. Then follow the same procedure to
-open the search dialog.  You will be searching in all of these Documents. </para>
+S okny prohlí¾eèù mù¾ete pracovat jako s normálními okny prostøedí KDE.
+Navíc je mù¾ete uspoøádat do kaskády nebo jimi "vydlá¾dit" celou plochu okna MDI.
+Pou¾ijte patøièná tlaèítka a volby v menu "Okno".
+Mù¾ete nastavit i automatické kaskádování nebo dlá¾dìní oken.
+</para>
 </section>
 
-<section ID="hdbk_op_search_dialog"><title>Using the Search dialog</title>
-<section ID="hdbk_op_search_dialog_text"><title>Using the Search Text Tab</title>
+<section ID="hdbk_op_MDI_Window_module_navigation">
+<title>Navigace v otevøených dokumentech</title>
 <para>
-Search Text - In this pane enter the text string to be searched for, and set
-search properties. "Regular Expression" uses standard regexp syntax to refine
-the search. </para></section>
-
-<section ID="hdbk_op_search_dialog_text_input"><title>Using the Search Text Input Field</title>
-<para>Enter one or more words, or partial words, (separate words, or
-partials, with a space), a phrase, or pattern (Regular
-Expression) to search for. How the data entered in the Input
-Field is used will depend on which button is marked for Mult,
-Phrase and Regular Expression, and also if Case Sensitive is
-marked.</para>
-
-<tip><para>Drag & Drop Works Here, you can drop verses and bookmarks into the
-text entry box.  You can also copy and paste text into the entry box.</para></tip>
+Pohyb v dokumentu zaji¹»uje Navigaèní menu a posuvník (scroll bar).
+</para>
+<tip><para>
+Na konkrétní odkaz se dostanete pomocí Navigaèního menu.
+</para></tip>
+<tip><para>
+V rámci zobrazené stránky se mù¾ete pohybovat pomocí posuvníku.
+</para></tip>
+<tip><para>
+Pro biblické texty je klíèem <emphasis>Kniha - kapitola - ver¹</emphasis>
+</para></tip>
+<tip><para>
+Pro komentáøe je klíèem <emphasis>Kniha - kapitola - ver¹</emphasis>
+</para></tip>
+<tip><para>
+Pro slovníky je klíèem slovníkové <emphasis>Heslo</emphasis>
+</para></tip>
+<tip><para>
+Funguje zde "táhni a pus»" (Drag & Drop);
+pokud pøetáhnete zálo¾ku nebo ver¹ z jednoho otevøeného dokumentu a upustíte ji do jiného,
+pøeskoèí cílový dokument na místo urèené upu¹tìným odkazem.
+</para></tip>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_input_case"><title>Using the Search Text Case Sensitive Button</title>
-<para>Click on the <guibutton>Case Sensitive</guibutton> check
-box to toggle case sensitivity on or off. If the box is marked a
-search will only find verse in which the found text matches also
-the case of the text in the input field. If the box is unmarked
-the search will match if the texts match but are different in
-case. To locate &quot;LORD&quot; but not &quot;Lord&quot; or
-&quot;lord&quot; mark the check box. To let &quot;LORD&quot; and
-&quot;Lord&quot; match &quot;lord&quot; leave the check box
-unmarked.</para>
+<section ID="hdbk_op_MDI_Window_Personal_commentary">
+<title>Editace vlastních poznámek</title>
+<para>
+Komentáøová okna mají navíc jedno tlaèítko s ikonkou tu¾ky.
+<graphic fileref="common/hdbk_op_pencil.png"></graphic>
+V Osobním (Personal) komentáøi mù¾ete po kliknutí na toto tlaèítko zapisovat vlastní poznámky
+nebo upravovat ty, které jste si udìlali døíve.
+A¾ budete hotovi, kliknìte na tlaèítko "Ulo¾it tento komentáø" (ikonka diskety),
+aby se va¹e poznámka ulo¾ila.
+Kliknutím na vedlej¹í ikonku mù¾ete celou poznámku smazat.
+Rovnì¾ mù¾ete nastavit koncový ver¹, pokud chcete, aby va¹e poznámka platila pro více ver¹ù naráz.
+Opìtovným kliknutím na ikonku tu¾ky se vrátíte do normálního re¾imu prohlí¾ení.
+</para>
+<tip><para>
+Osobní komentáø (Personal) je modul SWORDu.
+Pokud jej nemáte v Hlavním seznamu, stáhnìte jej z webu Crosswire Bible Society.
+</para></tip>
+<tip><para>
+Pokud nelze do osobního komentáøe zapisovat, je chyba v pøístupových právech k souboru modulu.
+Zmìòte nastavení práv tak, aby byl mo¾ný zápis.
+</para></tip>
+<tip><para>
+I zde funguje vlastnost "táhni a pus»" (Drag & Drop).
+</para></tip>
+</section>
 </section>
 
 
-<section ID="hdbk_op_search_dialog_text_input_multi"><title>Using the Search Text Mult Word Button</title>
-<para>If <guibutton>Mult Word</guibutton> is marked the search will locate all lines (or
-verses) that have all the words, (or partials), listed in the
-Input Field. The position and order of the words, (or partials),
-in the line is not a factor. If all the words, (or partials), are
-in a line, in any order, even separated by other words, the line
-will be included in the list of found line. A search for
-&quot;prove cause&quot; will find Gen. 21:25, &quot;And Abraham
-re<emphasis>prove</emphasis>d Abimelech be
-<emphasis>cause</emphasis> of a well of
-water...&quot; This is because a word that is part of another
-word is considered found if a word containing it is found.</para>
+<section ID="hdbk_op_search">
+<title>Hledání v dokumentech</title>
+
+<section ID="hdbk_op_search_functions">
+<title>Pøístup k funkci hledání</title>
+<para>
+Hledání v dokumentu je pøístupné pøes pravé tlaèítko my¹i na názvu modulu v Hlavním seznamu.
+Volba se pøekvapivì jmenuje "Hledat ve vybraných modulech".
+Pøidr¾ením klávesy Shift nebo CTRL a kliknutím na dal¹í moduly vyberete více modulù,
+které se budou prohledávat zároveò.
+</para>
+</section>
+
+<section ID="hdbk_op_search_dialog">
+<title>Pou¾ití vyhledávacího okna</title>
+<section ID="hdbk_op_search_dialog_text">
+<title>Pou¾ití èásti "Hledaný text"</title>
+<para>
+Zde mù¾ete zadat text, který chcete hledat a nastavit vlastnosti hledání.
+"Regulární výraz" umo¾òuje pomocí standardní syntaxe regexp vytøíbit hledání.
+</para>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_input">
+<title>Pou¾ití vstupního øádku</title>
+<para>
+Napi¹te jedno nebo více slov èi jejich èástí (oddìlujte je mezerama),
+frázi nebo vzor (regulární výraz), které chcete hledat.
+Jak budou vlo¾ená data pou¾ita urèuje zvolená mo¾nost - Více slov, Pøesné hledání nebo Regulární výraz.
+A samozøejmì také volba Rozli¹ovat velikost.
+</para>
+
+<tip><para>
+Funguje zde "táhni a pus»" (drop & drop), mù¾ete pøetahovat ver¹e a zálo¾ky do vstupního øádku.
+Rovnì¾ mù¾ete pou¾ít funkci kopírovat - vlo¾it.
+</para></tip>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_input_case">
+<title>Pou¾ití volby Rozli¹ovat velikost</title>
+<para>
+Kliknutím na políèko <guibutton>Rozli¹ovat velikost</guibutton> zapnete nebo vypnete tuto volbu.
+Pokud je políèko za¹krtnuté, budou nalezeny pouze ver¹e, ve kterých souhlasí i velká a malá písmena.
+Pøi neza¹krtnutém políèku budou nalezeny i ty ver¹e, které se neshodují se zadanými velkýmí a malými písmeny.
+Napøíklad chcete najít "JSEM", ale ne "Jsem" nebo "jsem" - za¹krtnìte Rozli¹ovat velikost.
+A pokud chcete najít v¹echna "jsem", "Jsem" i "JSEM" (nebo i "JSeM" apod.), ponechte políèko neza¹krtnuté.
+</para>
 </section>
 
 
-<section ID="hdbk_op_search_dialog_text_input_phrase"><title>Using the Phrase Button</title>
-<para>If <guibutton>Phrase</guibutton> is marked the search will locate all lines (or
-verses) that contain what was entered in the input field, exactly
-as entered, including any spaces. The phrase found does not have
-to start or end at a word boundary. A search for &quot;now how
-thou ought&quot; will find 1 Timothy 3:1, &quot;...that thou
-mayest k<emphasis>now how thou ought</emphasis>est
-to behave...&quot; </para>
+<section ID="hdbk_op_search_dialog_text_input_multi">
+<title>Pou¾ití volby Více slov</title>
+<para>
+Volba <guibutton>Více slov</guibutton> umo¾òuje hledat v¹echny øádky (nebo ver¹e), které obsahují v¹echna zadaná slova nebo jejich èásti.
+Pozice a poøadí slov na øádku není dùle¾itá.
+Pokud se v¹echna zadaná slova (nebo jejich èásti) v jakémkoli poøadí, tøeba i oddìlena jinými slovy, ve ver¹i vyskytují,
+bude tento ver¹ uveden ve výpisu nalezených ver¹ù.
+Pøíklad: pro "øekl volal" bude nalezeno i Genesis 24,58
+"Tedy za<emphasis>volal</emphasis>i Rebeky, a <emphasis>øekl</emphasis>i jí: Chce¹-li jíti s mu¾em tímto? I <emphasis>øekl</emphasis>a: Pùjdu."
+</para>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_input_search"><title>Using the Search Text Button</title>
-<para>Click the <guibutton>Search Button</guibutton> to start
-the search.</para>
+
+<section ID="hdbk_op_search_dialog_text_input_phrase">
+<title>Pou¾ití volby Pøesné volání</title>
+<para>
+Volba <guibutton>Pøesné hledání</guibutton> umo¾òuje hledat v¹echny øádky (nebo ver¹e),
+které pøesnì obsahují zadaný text, vèetnì mezer.
+Nalezená fráze nemusí odpovídat zaèátku nebo konci slova.
+Pøíklad: pro "bral se od" bude nalezeno i Matou¹ 19,15
+"A po vzkládání na nì rukou ode<emphasis>bral se od</emphasis>tud."
+</para>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_input_search">
+<title>Pou¾ití tlaèítka Hledat</title>
+<para>
+Kliknutím na tlaèítko <guibutton>Hledat</guibutton> zahájíte hledání.
+</para>
 
 <screenshot>
-<screeninfo>Search Text Dialog Box</screeninfo>
+<screeninfo>Dialogové okno Hledání</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchtext.png" format="png"></graphic>
 </screenshot>
 </section>
 
 <section ID="hdbk_op_search_dialog_text_regexp">
-<title>Search Syntax using GCC Regular Expression</title>
+<title>Hledání pomocí GNU regulárních výrazù</title>
+<para>
+Regulární výrazy umo¾òují hledání na základì pøedlohy (pattern) nebo sady pøedloh oddìlených svislou èarou "|".
+Základní hledání pomocí regulárních výrazù je stejné jako u Pøesného hledání se zapnutou volbou Rozli¹ovat velikost.
+</para>
 
-<para>Regular expression searches provide a way to do simple or
-complex searches for strings that match a pattern or set of
-patterns (branches) separated by vertical bars &quot;|&quot;.
-While a pattern can be built to look for a word or phrase, a
-simple pattern that consists of a word does not look for only
-that word but for any place the string of letters that make that
-word are found. A search for &quot;right&quot; will return verses
-that contain the word &quot;right&quot;, but also &quot;<emphasis>right</emphasis>eous&quot;,
-&quot;<emphasis>right</emphasis>eousness&quot;, &quot;un<emphasis>right</emphasis>eous&quot;,
-&quot;up<emphasis>right</emphasis>&quot; and even &quot;b<emphasis>right</emphasis>&quot;.
-A search for &quot;hall not&quot; is not a search for
-&quot;hall&quot; AND &quot;not&quot; but for the string
-&quot;hall not&quot; with a space between the second
-&quot;l&quot; and the &quot;n&quot;. The search for &quot;hall
-not&quot; will find occurrences of &quot;s<emphasis>hall not</emphasis>&quot;.</para>
+<para>
+Síla regulárních výrazù je ale v mo¾nostech definování výrazù, podle kterých se vyhledává.
+Výraz se skládá z obyèejných znakù (písmen apod.) a znakù speciálních, které mají zvlá¹tní význam.
+Speciálními znaky jsou .\[^*$?+.
+Obyèejné znaky jsou v¹echny ostatní znaky, které nejsou speciální.
+Znak zpìtného lomítka "\" se pou¾ívá na konverzi speciálního znaku na znak obyèejný a naopak.
+</para>
 
-<para>The power of Regular Expressions is in the patterns (or
-templates) used to define a search. A pattern consists of
-ordinary characters and some special characters that are used and
-interpreted by a set of rules. Special characters include
-.\[^*$?+. Ordinary (or simple) characters are any characters that
-are not special. The backslash, &quot;\&quot;, is used to convert
-special characters to ordinary and ordinary characters to
-special. </para>
-
-<para>Example: the pattern &quot;<emphasis>i. love\.</emphasis>&quot;
-will find sentences that end with &quot;h<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot;
-or &quot;<emphasis>i</emphasis>n <emphasis>love</emphasis>&quot; or
-&quot;<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; followed by
-a period. The first period in &quot;i. love\.&quot; is a special
-character that means allow any character in this position. The
-backslash in &quot;i. love\.&quot; means that the period
-following it is not to be considered a special character, but is
-an ordinary period. </para>
+<para>
+Pøíklad: podle výrazu "m. jest\." budou nalezeny vìty, které konèí na "<emphasis>m</emphasis>á <emphasis>jest.</emphasis>" nebo
+"<emphasis>m</emphasis>é <emphasis>jest.</emphasis>" nebo tøeba "které<emphasis>m</emphasis>¾ <emphasis>jest.</emphasis>"
+První teèka v "m. jest\." je speciální znak, který zastupuje libovolný znak na této pozici.
+Zpìtné lomítko pak znamená, ¾e následujicí znak (teèka) nemá být chápán jako speciální, ale jako obyèejný.
+</para>
 </section>
 
-
-
-<section ID="hdbk_op_search_dialog_text_regexp_rules"><title>Rules for GCC Regular Expression Search Requests</title>
+<section ID="hdbk_op_search_dialog_text_regexp_rules">
+<title>Pravidla pro regulární výrazy</title>
 <itemizedlist>
-<listitem><para>. The period matches any character. See <link
-        linkend="period">Details</link></para></listitem>
-<listitem><para>* The asterisk matches 0 or more characters of the
-        preceding: set, character or indicated character. See <link
-        linkend="asterisk">Details</link></para></listitem>
-<listitem><para>+ The plus sign matches 1 or more characters of the
-        preceding: set, character or indicated character. See <link
-        linkend="plus">Details</link></para></listitem>
-<listitem><para>? The question mark matches 0 or 1 character of the
-        preceding: set, character or indicated character. See <link
-        linkend="question">Details</link></para></listitem>
-<listitem><para>[ ] Square brackets match any one of the characters
-        specified inside [ ]. See <link linkend="bracket">Details</link></para></listitem>
-<listitem><para>^ A caret as the first character inside [ ] means NOT. See
-        <link linkend="caret">Details</link></para></listitem>
-<listitem><para>^ A caret beginning a pattern anchors the beginning of a
-        line. See <link linkend="caret">Details</link></para></listitem>
-<listitem><para>$ A dollar at the end of a pattern anchors the end of a
-        line. See <link linkend="dollar">Details</link></para></listitem>
-<listitem><para>| A vertical bar means logical OR. See <link
-        linkend="bar">Details</link></para></listitem>
-<listitem><para>( ) Parentheses enclose expressions for grouping.
-    <emphasis>Not supported!</emphasis></para></listitem>
-<listitem><para>\ A backslash can be used prior to any special character
-        to match that character. See <link linkend="backslash">Details</link></para></listitem>
-<listitem><para>\ A backslash can be used prior to an ordinary character
-        to make it a special character. See <link linkend="backslash">Details</link></para></listitem>
+<listitem><para>
+	. Teèka zastupuje libovolný znak.
+	<link linkend="period">Detaily...</link>
+</para></listitem>
+<listitem><para>
+	* Hvìzdièka zastupuje 0 nebo více znakù podle priority: sada, znak nebo urèený znak.
+	<link linkend="asterisk">Detaily...</link>
+</para></listitem>
+<listitem><para>
+	+ Plus zastupuje 1 nebo více znakù podle priority: sada, znak nebo urèený znak.
+	<link linkend="plus">Detaily...</link>
+</para></listitem>
+<listitem><para>
+	? Otazník zastupuje 0 nebo 1 znak podle priority: sada, znak nebo urèený znak.
+	<link linkend="question">Detaily...</link>
+</para></listitem>
+<listitem><para>
+	[ ] Hranaté závorky zastupují libovolný znak uvedený mezi nimi.
+	<link linkend="bracket">Detaily...</link>
+</para></listitem>
+<listitem><para>
+	^ Støí¹ka (¹ipka nahoru) jako první znak mezi [ ] znamená negaci.
+        <link linkend="caret">Detaily...</link>
+</para></listitem>
+<listitem><para>
+	^ Støí¹ka (¹ipka nahoru) na zaèátku výrazu zastupuje zaèátek øádku.
+	<link linkend="caret">Detaily...</link>
+</para></listitem>
+<listitem><para>
+	$ Dolar na konci výrazu zastupuje konec øádku.
+	<link linkend="dollar">Detaily...</link>
+</para></listitem>
+<listitem><para>
+	| Svislá èára znamená logické NEBO (OR).
+	<link linkend="bar">Detaily...</link>
+</para></listitem>
+<listitem><para>
+	( ) Závorky uzavírají výraz do skupiny.
+    <emphasis>Není podporováno!</emphasis>
+</para></listitem>
+<listitem><para>
+	\ Zpìtné lomítko (backslash) pøed speciálním znakem z nìj udìlá obyèejný znak.
+	<link linkend="backslash">Detaily...</link>
+</para></listitem>
+<listitem><para>
+	\ Zpìtné lomítko (backslash) pøed obyèejným znakem z nìj udìlá speciální znak.
+	<link linkend="backslash">Detaily...</link>
+</para></listitem>
 </itemizedlist>
 
-<section ID="period"><title>The Period .</title>
+<section ID="period">
+<title>Teèka .</title>
 
-<para>The Period &quot;.&quot; will match any single character even
-a space or other non-alphabet character.
-<emphasis>s.t</emphasis> matches <emphasis>s</emphasis>i<emphasis>t</emphasis>,
-<emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>,
-etc., which could be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting,
-compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</emphasis>o<emphasis>t</emphasis>tish
-<emphasis>b..t</emphasis> matches <emphasis>b</emphasis>oo<emphasis>t</emphasis>,
-<emphasis>b</emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t
-foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </emphasis>and
-<emphasis>foot tool</emphasis></para>
+<para>
+Teèka "." zastupuje jakýkoli jeden znak vèetnì mezery a ostatních nepísmenných znakù.
+<emphasis>s.t</emphasis> mù¾e znamenat <emphasis>s</emphasis>e<emphasis>t</emphasis>,
+<emphasis>s</emphasis>á<emphasis>t</emphasis>, <emphasis>s</emphasis>i<emphasis>t</emphasis>
+i <emphasis>s</emphasis> <emphasis>t</emphasis> apod.,
+a nalezneme jej ve slovech jako <emphasis>s</emphasis>e<emphasis>t</emphasis>í,
+pade<emphasis>s</emphasis>á<emphasis>t</emphasis>, <emphasis>s</emphasis>i<emphasis>t</emphasis>uace,
+<emphasis>s</emphasis> <emphasis>t</emphasis>ebou,
+<emphasis>s</emphasis>s<emphasis>t</emphasis>oupil (kralicky).
+<emphasis>b..t</emphasis> nalezne slova jako <emphasis>b</emphasis>ra<emphasis>t</emphasis>r,
+<emphasis>b</emphasis>ys<emphasis>t</emphasis>e, <emphasis>b</emphasis>uï<emphasis>t</emphasis>e,
+ne<emphasis>b</emphasis>e¹<emphasis>t</emphasis>í.
+</para>
 </section>
 
 
-<section ID="asterisk"><title>The Asterisk *</title>
-
-<para>The asterisk matches zero or more characters of the preceding:
-set, character or indicated character. Using
-a period asterisk combination &quot;.*&quot; after a commonly
-found pattern can cause the search to take a very long time,
-making the program seem to freeze.
-<emphasis>be*n</emphasis> matches<emphasis> beeen, been, ben</emphasis>,
-and <emphasis>bn</emphasis> which could locate Reu<emphasis>ben</emphasis>
-and She<emphasis>bn</emphasis>a.</para>
+<section ID="asterisk">
+<title>Hvìzdièka *</title>
+<para>
+Hvìzdièka zastupuje nula nebo více znakù v poøadí: sada, znak nebo urèený znak.
+Pou¾ití kombinace ".*" (teèkahvìzdièka) po velmi obecném výrazu mù¾e zpùsobit,
+¾e hledání bude trvat velmi dlouho a program bude pùsobit zamrzlým dojmem.
+<emphasis>ra*b</emphasis> nalezne pah<emphasis>rb</emphasis>ek, d<emphasis>rab</emphasis>ant
+i <emphasis>Raab</emphasis>.
+Abra.*m najde i ver¹e typu Numeri 16,18
+"Tedy vzal jeden ka¾dý kadidlnici svou, a n<emphasis>abrav¹e do nich uhlí, vlo¾ili na nì i kadidla,
+a stáli u dveøí stánku úmluvy, i M</emphasis>oj¾í¹ i Aron."
+</para>
 </section>
 
 
-<section ID="plus"><title>The Plus Sign +</title>
-<para>The Plus Sign matches one or more characters of the preceding:
-set, character or indicated character. Using
-a period and plus sign combination &quot;.+&quot; after a
-commonly found pattern can cause the search to take a very long
-time, making the program seem to freeze<.
-<emphasis>be+n</emphasis> matches <emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>,
-but not <emphasis>bn</emphasis>.</para>
+<section ID="plus">
+<title>Plus +</title>
+<para>
+Plus zastupuje jeden nebo více znakù v poøadí: sada, znak nebo urèený znak.
+Pou¾ití kombinace ".+" (teèkaplus) po velmi obecném výrazu mù¾e zpùsobit,
+¾e hledání bude trvat velmi dlouho a program bude pùsobit zamrzlým dojmem.
+<emphasis>ra+b</emphasis> nalezne d<emphasis>rab</emphasis>ant a <emphasis>Raab</emphasis>,
+ale ne pah<emphasis>rb</emphasis>ek.
+</para>
 </section>
 
 
-<section ID="question"><title>The Question Mark ?</title>
-<para>The Question Mark matches zero or one character of the
-preceding: set, character or indicated character.
-<emphasis>be?n</emphasis> matches <emphasis>ben</emphasis> and <emphasis>bn</emphasis>
-but not <emphasis>been</emphasis>.
-<emphasis>trees?</emphasis> matches <emphasis>trees</emphasis> or <emphasis>tree</emphasis>.</para>
+<section ID="question">
+<title>Otazník ?</title>
+<para>
+Otazník zastupuje nula nebo jeden znak v poøadí: sada, znak nebo urèený znak.
+<emphasis>ra?b</emphasis> nalezne pah<emphasis>rb</emphasis>ek a d<emphasis>rab</emphasis>ant,
+ale ne <emphasis>Raab</emphasis>.
+</para>
 </section>
 
 
-<section ID="bracket"><title>The Square Brackets [ ]</title>
-<para>The Square Brackets enclose a set of characters that can
-match. The period, asterisk, plus sign and question mark are not
-special inside the brackets. A minus sign can be used to indicate
-a range. If you want a caret &quot;^&quot; to be part of the
-range do not place it first after the left bracket or it will be
-a special character. To include a &quot;]&quot; in the set make
-it the first (or second after a special &quot;^&quot;) character
-in the set. To include a minus sign in the set make it the first
-(or second after a special &quot;^&quot;) or last character in
-the set.
-<emphasis>s[eia]t</emphasis> matches <emphasis>set</emphasis>, <emphasis>sit</emphasis>,
-and <emphasis>sat</emphasis>, but not <emphasis>s</emphasis>o<emphasis>t</emphasis>.
-<emphasis>s[eia]+t </emphasis>matches as above but also, <emphasis>seat,
-seet, siet</emphasis>, etc.
-<emphasis>[a-d]</emphasis> matches <emphasis>a, b, c,</emphasis> or <emphasis>d</emphasis>.
-<emphasis>[A-Z]</emphasis> matches any uppercase letter.
-[.;:?!] matches ., ;, :, ?, or ! but not a comma.
-[ ]^-] matches ] or ^ or -</para>
+<section ID="bracket">
+<title>Hranaté závorky [ ]</title>
+<para>
+Hranaté závorky uzavírají seznam mo¾ných znakù, které se mohou na tomto místì vyskytnout.
+Celý seznam zastupuje pouze jeden mo¾ný znak!
+Teèka, plus a otazník nejsou uvnitø závorek speciální znaky.
+Znakem mínus "-" mù¾ete vyznaèit rozsah.
+Pokud chcete mít v seznamu i støí¹ku "^", neuvádìjte ji hned za levou závorkou,
+proto¾e tam má speciální význam (negace).
+Pravou hranatou závorku jako souèást seznamu uveïte hned na prvním místì
+(nebo na druhém za speciálním znakem "^").
+Obyèejný znak mínus "-" uveïte jako první (nebo druhý za speciálním znakem "^") nebo poslední znak v seznamu.
+<emphasis>s[eia]t</emphasis> zastupuje <emphasis>set</emphasis>, <emphasis>sit</emphasis>
+a <emphasis>sat</emphasis>, ale ne <emphasis>s</emphasis>o<emphasis>t</emphasis>.
+<emphasis>s[eia]+t</emphasis> zastupuje navíc i <emphasis>seat,
+seet, siet</emphasis>, atd.
+<emphasis>[a-d]</emphasis> zastupuje <emphasis>a, b, c,</emphasis> nebo <emphasis>d</emphasis>.
+<emphasis>[A-Z]</emphasis> zastupuje libovolné velké písmeno.
+[.;:?!] zastupuje ., ;, :, ?, nebo ! ale ne èárku.
+[ ]^-] zastupuje ] nebo ^ nebo -
+</para>
 </section>
 
 
-<section ID="caret"><title>The Caret first in Square Brackets [^xxx</title>
-<para>If the Caret is the first character after the left bracket it
-means NOT.
-<emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc.,
-but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</emphasis>o<emphasis>t</emphasis>.</para>
+<section ID="caret">
+<title>Støí¹ka na prvním místì v hranatých závorkách [^xxx</title>
+<para>
+Pokud je støí¹ka jako první znak za levou hranatou závorkou, má význam negace (NOT).
+<emphasis>s[^io]t</emphasis> zastupuje <emphasis>set, sat</emphasis>, atd.,
+ale ne <emphasis>s</emphasis>i<emphasis>t</emphasis> a <emphasis>s</emphasis>o<emphasis>t</emphasis>.
+</para>
 </section>
 
-<section ID="caret_s"><title>The Caret as Start of Line Anchor ^xxx</title>
-<para>If the Caret is the first character in a pattern it anchors
-the pattern to the start of a line. Any match must be at the
-beginning of a line. Because of unfiltered
-formatting characters in some texts, this feature does not always
-work, but may if a few periods are placed after the caret to
-account for the formatting characters.
-<emphasis>^In the beginning</emphasis> matches lines that
-start with &quot;<emphasis>In the beginning</emphasis>&quot;.
-(May need to use: <emphasis>^.....In the beginning</emphasis>)</para>
-</section>
-
-
-<section ID="dollar"><title>The Dollar Sign as End of Line Anchor xxx$</title>
-<para>If the Dollar Sign is the last character in a pattern it
-anchors the pattern to the end of a line. Any match must be at
-the end of a line. Because of unfiltered
-formatting characters in some texts, this feature does not always
-work, but may if a few periods are placed before the dollar sign
-to account for the formatting characters.
-<emphasis>Amen\.$</emphasis> matches lines that end with
-&quot;<emphasis>Amen.</emphasis>&quot; (May
-need to use Amen\....$, Amen\..........$, or even
-Amen\....................$)</para>
+<section ID="caret_s">
+<title>Støí¹ka na zaèátku výrazu ^xxx</title>
+<para>
+Pokud je støí¹ka prvním znakem výrazu, hledají se pouze øádky, které tímto výrazem zaèínají.
+V nìkterých textech ov¹em mohou být urèité formátovací znaky,
+kvùli kterým tato vlastnost nemusí v¾dy pøesnì fungovat,
+ale mù¾e pomoci napsat za støí¹ku nìkolik teèek podle poètu formátovacích znakù.
+<emphasis>^Na poèátku</emphasis> odpovídá øádkùm zaèínajícím na
+&quot;<emphasis>Na poèátku</emphasis>&quot;.
+(Mù¾e být potøeba zadat: <emphasis>^.....Na poèátku</emphasis>)
+</para>
 </section>
 
 
-<section ID="bar"><title>The Vertical Bar |</title>
-<para>The Vertical Bar between patterns means OR.
-<emphasis>John|Peter</emphasis> matches <emphasis>John</emphasis> or <emphasis>Peter.
-John .*Peter|Peter .*John</emphasis> matches <emphasis>John</emphasis>
-... <emphasis>Peter</emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>.
-(.* slows a search)
-<emphasis>pain|suffering|sorrow</emphasis> matches <emphasis>pain</emphasis>,
-or <emphasis>suffering</emphasis>, or <emphasis>sorrow</emphasis>.</para>
+<section ID="dollar">
+<title>Dolar na konci výrazu xxx$</title>
+<para>
+Pokud je dolar posledním znakem výrazu, hledají se pouze øádky, které tímto výrazem konèí.
+V nìkterých textech ov¹em mohou být urèité formátovací znaky,
+kvùli kterým tato vlastnost nemusí v¾dy pøesnì fungovat,
+ale mù¾e pomoci napsat pøed dolar nìkolik teèek podle poètu formátovacích znakù.
+<emphasis>Amen\.$</emphasis> odpovídá øádkùm konèícím na
+&quot;<emphasis>Amen.</emphasis>&quot;
+(Mù¾e být potøeba zadat: <emphasis>Amen\....$</emphasis>, <emphasis>Amen\..........$</emphasis>,
+nebo dokonce <emphasis>Amen\....................$</emphasis>)
+</para>
 </section>
 
 
-<section ID="parenth"><title>The Parentheses ( ) </title>
-<para><emphasis>The use of Parentheses ( ) is
-not supported!</emphasis></para>
+<section ID="bar">
+<title>Svislá èára |</title>
+<para>
+Svislá èára mezi výrazy znamená NEBO (OR).
+<emphasis>Jan|Petr</emphasis> znamená <emphasis>Jan</emphasis> nebo <emphasis>Petr</emphasis>.
+<emphasis>Jan .*Petr|Petr .*Jan</emphasis> znamená <emphasis>Jan</emphasis>
+... <emphasis>Petr</emphasis> nebo <emphasis>Petr</emphasis> ... <emphasis>Jan</emphasis>.
+(kombinace .* zpomaluje hledání)
+<emphasis>bolest|utrpení|smutek</emphasis> znamená <emphasis>bolest</emphasis>,
+nebo <emphasis>utrpení</emphasis> nebo <emphasis>smutek</emphasis>.
+</para>
 </section>
 
 
-<section ID="backslash"><title>The Backslash Prior to a Special Character \*</title>
-<para>The Backslash prior to a special character indicates that the
-character is not being used in its special meaning, but is just
-to match itself.
-<emphasis>amen\.</emphasis> matches <emphasis>amen.</emphasis> but not <emphasis>amen</emphasis>t
-and will not locate firm<emphasis>amen</emphasis>t.</para>
+<section ID="parenth">
+<title>Závorky ( )</title>
+<para>
+<emphasis>Pou¾ití závorek ( ) není podporováno!</emphasis>
+</para>
 </section>
 
-<section ID="backslash_o"><title>The Backslash Prior to an Ordinary Character \s</title>
 
-<para>The Backslash prior to an ordinary character indicates that
-the character is not being used to match itself, but has special
-meaning.</para>
+<section ID="backslash">
+<title>Zpìtné lomítko pøed speciálním znakem \*</title>
+<para>
+Zpìtné lomítko pøed speciálním znakem urèuje, ¾e znak nemá speciální význam,
+ale zastupuje pouze sám sebe.
+<emphasis>mluv\.</emphasis> znamená <emphasis>mluv.</emphasis>, ale ne <emphasis>mluv</emphasis>í
+a nenalezne proto pro<emphasis>mluv</emphasis>í.
+</para>
+</section>
+
+<section ID="backslash_o">
+<title>Zpìtné lomítko pøed obyèejným znakem \s</title>
+<para>
+Zpìtné lomítko pøed obyèejným znakem urèuje, ¾e znak nezastupuje obyèejný znak,
+ale ¾e má speciální význam.
+</para>
 
 <itemizedlist>
 <listitem><para>
-\b if use outside [ ] means word boundary. If used inside [ ] means backspace.
-<emphasis>\brighteous\b</emphasis> matches <emphasis>righteous</emphasis> but
-not un<emphasis>righteous</emphasis> or <emphasis>righteous</emphasis>ness</para></listitem>
-<listitem><para>\B means non-word boundary.  <emphasis>\Brighteous\B</emphasis>
-matches un<emphasis>righteous</emphasis>ness and un<emphasis>righteous</emphasis>ly
-but not <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or <emphasis>
-righteous</emphasis>ness.</para></listitem>
-<listitem><para>\d means digit; same as [0-9].</para></listitem>
-<listitem><para>\D means non-digit, same as [^0-9].</para></listitem>
-<listitem><para>\s means space. </para></listitem>
-<listitem><para>\S means not a space. </para></listitem>
-<listitem><para>\w means alphanumeric; same as [a-zA-Z0-9_].</para></listitem>
-<listitem><para>\W means not alphanumeric; same as [^a-zA-Z0-9_].</para></listitem>
+\b mimo [ ] oznaèuje okraj slova.
+Uvnitø [ ] znamená vrácení o jeden znak (backspace).
+<emphasis>\bmluv\b</emphasis> znamená <emphasis>mluv</emphasis>, ale ne
+pro<emphasis>mluv</emphasis> nebo <emphasis>mluv</emphasis>ení
+</para></listitem>
+<listitem><para>
+\B oznaèuje ne-okraj slova.
+<emphasis>\Bmluv\B</emphasis> znamená pro<emphasis>mluv</emphasis>í a ne<emphasis>mluv</emphasis>ila,
+ale ne <emphasis>mluv</emphasis>, pro<emphasis>mluv</emphasis> nebo <emphasis>mluv</emphasis>ení.
+</para></listitem>
+<listitem><para>
+\d oznaèuje èíslici; stejnì jako [0-9].
+</para></listitem>
+<listitem><para>
+\D oznaèuje ne-èíslici, stejnì jako [^0-9].
+</para></listitem>
+<listitem><para>
+\s oznaèuje mezeru. 
+</para></listitem>
+<listitem><para>
+\S oznaèuje ne-mezeru. 
+</para></listitem>
+<listitem><para>
+\w oznaèuje alfanumerický znak; stejnì jako [a-zA-Z0-9_].
+</para></listitem>
+<listitem><para>
+\W oznaèuje ne-alfanumerický znak; stejnì jako [^a-zA-Z0-9_].
+</para></listitem>
 </itemizedlist>
 
 </section>
 </section>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_scope"><title>Using the Search Scope Tab</title>
-<para>Define the Scope of your search here</para>
+<section ID="hdbk_op_search_dialog_text_scope">
+<title>Nastavení rozsahu hledání</title>
+<para>
+Mù¾ete omezit hledání jen na urèitou oblast textu.
+</para>
 
-<section ID="hd_op_sch_dia_txt_scope_options"><title>Search Scope Options</title>
+<section ID="hd_op_sch_dia_txt_scope_options">
+<title>Volby</title>
 <itemizedlist>
-<listitem><para><guibutton>No Scope</guibutton> this turns off the search
-scope tab.  The entire document is searched.</para></listitem>
-<listitem><para><guibutton>Last Result</guibutton> The new search will only
-search within the verses found in the previous search.</para></listitem>
-<listitem><para><guibutton>Use Scope</guibutton> The new search will be
-performed within the range specified in the maintain custom ranges portion
-of the search scope tab.</para></listitem>
+<listitem><para>
+<guibutton>Bez omezení</guibutton> zru¹í jakékoli omezení.
+Hledat se bude v celém dokumentu.
+</para></listitem>
+<listitem><para>
+<guibutton>Poslední výsledek</guibutton>
+Umo¾òuje prohledat pouze nalezené ver¹e z pøedchozího hledání.
+</para></listitem>
+<listitem><para>
+<guibutton>Pou¾ít rozsah</guibutton>
+Hledat se bude pouze v oblasti vymezené zvoleným rozsahem.
+</para></listitem>
 </itemizedlist>
 
-<para>If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible module is
-done for the name, Jesus, 939 matches will result. Then if
-<guibutton>Last Result</guibutton>is checked and another search is done for the
-title, Christ, 257 matches from the first 939 matches will
-remain. Then if<guibutton>Last Result</guibutton> remains checked and another
-search is done for the title, Lord, 106 matches from the 257 will
-remain. All the remaining 106 matches will have the name, Jesus,
-and both the titles, Christ and Lord.</para>
+<para>
+Pokud zvolíte <guibutton>Bez omezení</guibutton> a zadáte v modulu CzeBKR hledání jména Je¾í¹, nalezne se 846 ver¹ù.
+Kdy¾ pak zvolíte <guibutton>Poslední výsledek</guibutton> a spustíte hledání pro titul Kristus, zùstane jich 31 z pøedchozích 846.
+A kdy¾ pak spustíte hledání je¹tì pro titul Pán, zùstane pouhých 5 ver¹ù z tìch 31.
+V¹ech zbylých pìt ver¹ù obsahuje jméno Je¾í¹ a oba tituly Kristus a Pán.
+</para>
 </section>
-<section ID="hd_op_sch_dia_txt_scope_maintain"><title>Maintain Custom Ranges</title><para>Maintain Custom Ranges -
-For each document selected to be searched, you can enter and delete lower and
-upper boundaries. Then click <guibutton>Add </guibutton> and an entry box for
-the range name will pop up.  After entering the name, your range is added to
-the list of custom ranges.</para>
 
-<para>The scope of a search can be set to the <emphasis>Entire
-Module</emphasis>or the <emphasis>Current Results. </emphasis>If
-Entire Module is checked and a search of the KJV Bible module is
-done for the name, Jesus, 939 matches will result. Then if
-Current Results is checked and another search is done for the
-title, Christ, 257 matches from the first 939 matches will
-remain. Then if Current Results remains checked and another
-search is done for the title, Lord, 106 matches from the 257 will
-remain. All the remaining 106 matches will have the name, Jesus,
-and both the titles, Christ and Lord.</para>
+<section ID="hd_op_sch_dia_txt_scope_maintain">
+<title>Správa u¾ivatelských rozsahù</title><para>
+Mù¾ete si vytváøet vlastní definice rozsahù.
+Zvolte <guibutton>Pou¾ít rozsah</guibutton> a kliknìte na tlaèítko <guibutton>Upravit rozsahy</guibutton>.
+Do objeviv¹ího se okna pak zadejde dolní a horní mez oddìlené pomlèkou "-".
+Èíslo kapitoly od èísla ver¹e oddìlujte dvojteèkou.
+Mù¾ete zadat i nìkolik nespojitých oblastí, oddìlte je èárkou nebo støedníkem (chovají se trochu jinak, vyzkou¹ejte).
+Ve spodním políèku se prùbì¾nì zobrazuje rozbor vámi zadaného rozsahu.
+Ovìøte si, ¾e systém správnì pochopil vás zámìr a pokud ne, upravte vstupní pole.
+Pokud jste spokojeni, kliknìte na <guibutton>Pøidat</guibutton> a do okénka zadejte název va¹eho rozsahu.
+</para>
 
-<tip><para>Drag & Drop Works Here; you can drop
-verse numbers, and bookmarks into the custom range entry field.
-You can also paste text into the entry field.</para></tip>
+<tip><para>
+Funguje zde "táhni a pus»" (Drag & Drop) - mù¾ete do vstupního pole pøetahovat èísla ver¹ù nebo zálo¾ky
+Mù¾ete pou¾ít i funkci Kopírovat - Vlo¾it.
+</para></tip>
 
 <screenshot>
-<screeninfo>Search Scope Dialog Box</screeninfo>
+<screeninfo>Dilogové okno Rozsahu hledání</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchscope.png" format="png"></graphic>
 </screenshot>
-</section></section>
+</section>
+</section>
 
-<section ID="hdbk_op_search_dialog_text_result"><title>Using the Search Results Tab</title>
+<section ID="hdbk_op_search_dialog_text_result">
+<title>Výsledek hledání</title>
 <para>
-Search Result - This tells you first, by module, how many instances of the
-search string were found. Double-clicking on that document will open the list of
-references. Clicking on a reference opens that verse up in the window below.
-Drag the reference and drop it on a document in the main index to open the
-module to that verse in a new presenter </para>
-<tip><para>Drag & Drop Works Here</para></tip>
-<tip><para>Select verse numbers and drag them to the main index to create bookmarks.</para></tip>
-<tip><para>Select verse numbers and drop them on an unopened module in the main index
-to open the module and jump to the verse location (Bibles and commentaries only).</para></tip>
-<tip><para>Select verse numbers and drag them to an open document and the document will jump
-to the verse location (Bibles and commentaries only).</para></tip>
+Zde mù¾ete vidìt, kolikrát byl hledaný text nalezen v ka¾dém jednotlivém modulu.
+Poklepáním na název modulu rozbalíte seznam odkazù.
+Kliknutím na odkaz zobrazíte náhled ver¹e ve spodní èásti okna.
+</para>
+<tip><para>
+Funguje zde "táhni a pus»" (Drag & Drop).
+</para></tip>
+<tip><para>
+Pøeta¾ením odkazu do Hlavního seznamu mù¾ete vytvoøit zálo¾ku.
+</para></tip>
+<tip><para>
+Pøeta¾ením odkazu na modul v Hlavním seznamu otevøete nové okno modulu na místì odkazu.
+(Pouze u Biblí a komentáøù.)
+</para></tip>
+<tip><para>
+Pøeta¾ením odkazu do ji¾ otevøeného dokumentu pøeskoèíte na místo odkazu.
+(Pouze u Biblí a komentáøù.)
+</para></tip>
 
 <screenshot>
-<screeninfo>Search Result Dialog Box</screeninfo>
+<screeninfo>Dialogové okno Výsledku hledání</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchresult.png" format="png"></graphic>
-</screenshot> </section>
+</screenshot> 
+</section>
 
-<section ID="hdbk_op_search_dialog_text_analysis"><title>Using the Search Analysis Tab</title>
+<section ID="hdbk_op_search_dialog_text_analysis">
+<title>Analýza hledání</title>
 <para>
-Search Analysis - This gives a graphic analysis of the number of instances the
-search string was found in each book. It can display results for all documents searched.
-You have the option of saving the graph as an image file on
-your hard drive. </para>
+Analýza hledání graficky znázoròuje poèet výskytù v jednotlivých knihách.
+Pro ka¾dý modul je pou¾ita jiná barva.
+</para>
+<tip><para>
+Pokud umítíte ukazatel my¹i na nìkterou knihu, objeví se po chvíli informace o poètu výskytù v knize.
+</para></tip>
 <screenshot>
-<screeninfo>Search Analysis Dialog Box</screeninfo>
+<screeninfo>Dialogové okno Analýzy hledání</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchanal.png" format="png"></graphic>
 </screenshot>
+</section>
 
 </section>
-</section>
-<section ID="hdbk_op_output"><title>Output</title>
-<section ID="hdbk_op_export"><title>Exporting</title>
-<para>
-To export text as HTML, text, or to the clipboard from an open document.  Do a
-<mousebutton>right mouse click</mousebutton> in the document, and a drop down
-menu will appear.  Select the desired option,
-A save text dialog box will appear for you to enter the desired
-file name.
-</para>
 
+<section ID="hdbk_op_output">
+<title>Výstup</title>
+<section ID="hdbk_op_export">
+<title>Export</title>
 <para>
-Context Menu Information Later
+Text z otevøeného dokumentu mù¾ete ulo¾it do souboru jako obyèejný text, HTML stránku nebo
+zkopírovat do schránky (clipboardu).
+Kliknìte v dokumentu <mousebutton>pravým tlaèítkem my¹i</mousebutton> a v menu vyberte po¾adovanou volbu.
+Pøi ukládání do souboru se objeví okno, ve kterém si vyberete název souboru.
 </para>
 </section>
 
-<section ID="hdbk_op_print"><title>Printing</title>
-<para>The printing system has been changed, This section is under
-revision</para> <para>Printing from Bibletime is rather basic and is intended as 
-a utility.  If you are composing a document or presentation containing text from
-Bibletime documents, we suggest that you use one of the presentation or editing
-tools on your system.  See the instructions on exporting. </para>
+<section ID="hdbk_op_print">
+<title>Tisk</title>
 <para>
-To print, select an open document, then select <guiicon>print</guiicon>.  The print dialog box will appear.
-You will have the option of sending your selection to the printer, or previewing
-it with kghostview.
+Tiskový systém se zmìnil. Tato èást návodu se nyní pøedìlává.
 </para>
-
 <para>
-Context Menu Information Later
+Podpora tisku v BibleTime je zatím pouze jednoduchá.
+Pokud zpracováváte dokument nebo prezentaci a chcete zahrnout i text dokumentù BibleTime,
+doporuèujeme vyu¾ít mo¾nosti exportu textu.
 </para>
-
 </section>
+
 </section>
 </chapter>
-
-
-

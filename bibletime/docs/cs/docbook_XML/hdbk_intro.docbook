@@ -1,96 +1,92 @@
-<chapter ID="hdbk_intro"><title>Introduction</title>
+<chapter ID="hdbk_intro">
+<title>Úvod</title>
 <para>
-Bibletime is a powerful Bible study tool written for the KDE environment on the
-Linux operating system. It is based on the <ulink
-url="http://www.crosswire.org">Sword</ulink> library, which provide the back-end
-functionality for Bibletime, such as viewing Bible text, searching, bookmarking,
-etc. Sword is the flagship product of the <ulink
-url="http://www.crosswire.org">Crosswire Bible Society</ulink>. </para>
+BibleTime je silný nástroj pro studium Bible v prostøedí KDE pro operaèní systém Linux.
+Je zalo¾en na knihovnì <ulink url="http://www.crosswire.org">SWORD</ulink>,
+která poskytuje zázemí (backend) pro BibleTime, jako je ètení textu, hledání, zálo¾ky apod.
+SWORD je vlajkovou lodí spoleènosti <ulink url="http://www.crosswire.org">Crosswire Bible Society</ulink>.
+</para>
 
 <para>
-There are three types of modules that can be displayed:
+Existují tøi typy modulù, které lze zobrazit:
 </para
 
 <para>
 <variablelist>
 <varlistentry>
-<term>Bibles</term>
+<term>Bible</term>
 <listitem>
 <para>
-The full text, with optional Strong's Numbers and footnotes in the text
+Biblický text, který mù¾e obsahovat Strongova èísla a poznámky v textu
 </para>
-</listitem> </varlistentry>
-
-<varlistentry>
-<term>Commentaries</term>
-<listitem>
-<para>
-With a <quote>Personal</quote> commentary you can record your own personal
-notes to different parts of the Bible.
-</para> </listitem>
+</listitem>
 </varlistentry>
 
 <varlistentry>
-<term>Lexicons</term>
+<term>Komentáøe</term>
 <listitem>
 <para>
-For word definitions and Bible topics. You an choose a key in a list which will
-be displayed. </para>
+Komentáøe k Biblickému textu.
+V osobním komentáøi (<quote>Personal</quote>) si mù¾ete psát vlastní poznámky k rùzným èástem Bible.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Slovníky</term>
+<listitem>
+<para>
+Obsahují vysvìtlení významu slov nebo Biblických témat.
+V menu si vyberete klíè (slovo, téma), které si chcete pøeèíst.
+</para>
 </listitem>
 </varlistentry>
 
 </variablelist>
 </para>
 
-<sect1 ID="hdbk_intro_changes"><title>Changes</title>
+<sect1 ID="hdbk_intro_changes"><title>Zmìny</title>
 <para>
-Please read the file Changelog of the sourcecode package if you are
-interested in more detailed changes. </para>
+Bli¾¹í informace o zmìnách obsahuje soubor Changelog v balíèku se zdrojovými kódy.
+</para>
 
-<para>A listing of the features included in the current package can be found
-in the sourcecode at
+<para>
+Aktuální seznam vlastností je dostupný na adrese
 <ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bibletime/bibletime/ChangeLog">
-CVS log for <filename>bibletime/bibletime/ChangeLog</filename></ulink></para>
+projektu BibleTime</ulink>
+</para>
 </sect1>
 
-<sect1 ID="hdbk_intro_ToDo"><title>ToDo</title>
+<sect1 ID="hdbk_intro_ToDo"><title>Úkoly</title>
 <para>
-Very much!
+Je toho mnoho, co bychom mìli udìlat.
+Proto¾e jsme velmi malý tým aktivních vývojáøù, je velmi te¾ké dosáhnout uspokojivých výsledkù v krátkém èase.
+Pokud byste nám chtìli nabídnout svou pomoc, kontaktujte nás na 
+<ulink url="http://sourceforge.net/pm/?group_id=954">na¹ich stránkách</ulink>.
+
+<para>
+Ná¹ projekt potøebuje programátory / vývojáøe, korektory, pokusné králíky a taky modlitební bojovníky.
+Pokud nám mù¾ete pomoci v jakékoli oblasti nebo máte dal¹í nápady, pøipojte se prosím k nám.
+Bez va¹í pomoci bude dal¹í vývoj postupovat jen pomalu a bude dlouho trvat, ne¾ vám budeme moci nabídnout v¹echny po¾adované vlastnosti a funkce.
 </para>
-<para>
-We have lots to do. Because we are a very small team of active developers it's
-very hard to get reasonable results in a short time. If you are interested in
-helping the Bibletime team, please contact us at
-<ulink url="http://sourceforge.net/pm/?group_id=954">Sourceforge bibletime home page</ulink>.
-Information can also be found at <ulink url="http://www.bibletime.de">.</ulink></para>
+</sect1>
 
-<para>The Bibletime project needs programmers / developers, reviewers, testers, and
-prayer warriors.  If you can help with any of these tasks or think up another, please join us.
-Without your help, Bibletime will develop very very slow and it will take a very long time until you get a
-full-featured Bible study tool.
-</para> </sect1>
-
-<sect1 ID="hdbk_intro_motivation"><title>Motivation</title>
+<sect1 ID="hdbk_intro_motivation"><title>Motivace</title>
 <para>
-Our desire is to serve God, and to do our part to help others grow in their
-relationship with Him. We have found a gaping hole, in that there has been a
-total lack of user-friendly Bible-study software available for Linux-based
-computers. We have developed Bibletime to fill that void.
-We have striven to make this a powerful, quality program, and still make it
-simple and intuitive to operate. It is our desire that God be praised, as He is
-the Source of all good things.
+Na¹í touhou je slo¾it Bohu a pøispìt svým dílem ostatním v jejich vztahu s Ním.
+Objevili jsme, ¾e je naprostý nedostatek v u¾ivatelsky pøívìtivém studijním softwaru Bible pro Linuxové systémy.
+Abychom zaplnili tuto mezeru, vytvoøili jsme BibleTime.
+Sna¾ili jsme se vytvoøit program, který bude kvalitní a pøitom jednoduchý a intuitivní na ovládání.
+Je na¹im pøáním oslavit Pána, proto¾e On je zdrojem v¹ech dobrých vìcí.
 </para>
 <screen>
 <quote>
-Every good thing given and every perfect gift is from above,
-coming down from the Father of lights, with whom there is no
-variation or shifting shadow.
+Ka¾dý dobrý dar a ka¾dé dokonalé obdarování je shùry a pøichází od Otce svìtel, u nìho¾ není ¾ádná promìna a ani stín posunu.
 </quote>
--James 1:17, NASB
+-Jakub 1,17, NBK
 </screen>
 <para>
-God bless you as you use this program, and may He be glorified by the work of
-our hands!
+Bùh vám ¾ehnej pøi pou¾ívání tohoto programu a ké¾ je oslaven dílem na¹ich rukou.
 </para>
 
 </sect1>

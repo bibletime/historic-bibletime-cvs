@@ -27,10 +27,10 @@
 ]>
 
 
-<set LANG="CS">
-<title>BibleTime Documentation Package</title>
+<set>
+<title>Dokumentace k programu BibleTime</title>
 <setinfo>
-<date>04/15/2001</date>
+<date>15. 4. 2001</date>
 <releaseinfo>1.0</releaseinfo>
 
 </setinfo>

@@ -1,7 +1,7 @@
-<book lang="SK" ID="hdbk_idx">
+<book lang="cs" ID="hdbk_idx">
 
 <bookinfo>
-<title>The Bibletime Handbook</title>
+<title>Pøíruèka k Bibletime</title>
 
 <copyright>
 <year>1999</year>
@@ -14,8 +14,33 @@ The team of Bibletime, info@bibletime.de
 
 <legalnotice>
 <para>
-The Bibletime handbook is part of Bibletime.
+Tato pøíruèka je souèástí aplikace BibleTime.
 </para>
+
+<para>
+BibleTime je volné programové vybavení; mù¾ete jej ¹íøit a
+modifikovat podle ustanovení Obecné veøejné licence GNU, vydávané Free
+Software Foundation; a to buï verze 2 této licence anebo (podle va¹eho
+uvá¾ení) kterékoli pozdìj¹í verze.
+</para>
+
+<para>
+Tento program je roz¹iøován v nadìji, ¾e bude u¾iteèný, av¹ak BEZ
+JAKÉKOLI ZÁRUKY; neposkytují se ani odvozené záruky PRODEJNOSTI anebo
+VHODNOSTI PRO URÈITÝ ÚÈEL.
+Dal¹í podrobnosti hledejte v Obecné veøejné licenci GNU.
+</para>
+
+<para>
+Kopii Obecné veøejné licence GNU jste mìl obdr¾et spolu s tímto
+programem; pokud se tak nestalo, napi¹te o ni Free Software Foundation,
+Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+</para>
+
+<para>
+Pùvodní anglické znìní:
+</para>
+
 <para>
 Bibletime is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as published by
@@ -49,15 +74,14 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 </author>
 </authorgroup>
 
-<date>14 April 2001</date>
+<date>14. dubna 2001</date>
 <releaseinfo>1.0</releaseinfo>
 
 <abstract>
-<title>Abstract</title>
+<title>Abstrakt</title>
 <para>
-<application>Bibletime</application> is a Bible study tool.  It provides an easy
-to use but powerful interface. This handbook gives you an overview of the
-functions and introduces you to their use.
+<application>Bibletime</application> je nástrojem pro studium Bible s jednoduchým ovládáním.
+Tato pøíruèka se vám pokusí pøiblí¾it a vysvìtlit jednotlivé funkce programu.
 </para>
 </abstract>
 
