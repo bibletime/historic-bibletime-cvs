@@ -43,6 +43,7 @@
 #include <rtfhtml.h>
 #include <filemgr.h>
 #include <utilstr.h>
+#include <utf8transliterator.h>
 
 //static class-wide members
 static QMap<QString, QString> moduleDescriptionMap;
@@ -57,6 +58,7 @@ CSwordBackend::CSwordBackend()
 	m_filters.gbf = 0;
 	m_filters.thml = 0;
 	m_filters.plain = 0;
+  m_filters.transliterator = 0;
 }
 
 CSwordBackend::~CSwordBackend(){
@@ -64,6 +66,7 @@ CSwordBackend::~CSwordBackend(){
 	delete m_filters.gbf;
 	delete m_filters.plain;	
 	delete m_filters.thml;	
+  delete m_filters.transliterator;
 }
 
 /** Initializes the Sword modules. */
@@ -373,4 +376,11 @@ const QString CSwordBackend::booknameLanguage( const QString& language ) {
 /** Returns the version of the Sword library. */
 const SWVersion CSwordBackend::Version() {
 	return SWVersion::currentVersion;
+}
+
+/** Returns our transliterator object we use. Returns 0 if ICU is not used. */
+SWFilter* const CSwordBackend::transliterator() {
+  if (/*isICU &&*/ !m_filters.transliterator)
+    m_filters.transliterator = new UTF8Transliterator();
+  return m_filters.transliterator;
 }

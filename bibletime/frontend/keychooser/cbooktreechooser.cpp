@@ -58,9 +58,9 @@ CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 
 	//now setup the keychooser widgets
 	QHBoxLayout* layout = new QHBoxLayout(this);
-	m_treeView = new KListView(this);
-	layout->addWidget(m_treeView);
 	
+  m_treeView = new KListView(this);
+	layout->addWidget(m_treeView);	
 	connect( m_treeView, SIGNAL(executed(QListViewItem*)), SLOT(itemClicked(QListViewItem*)));
 	m_treeView->addColumn("Tree");	
 	m_treeView->header()->resizeSection( 0,m_treeView->sizeHint().width());
@@ -68,6 +68,7 @@ CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	m_treeView->header()->hide();
 	m_treeView->setSorting(-1);
 	m_treeView->setRootIsDecorated(true);
+  m_treeView->setFullWidth(true);
 
   setModules(modules); //fill the tree
 }
@@ -134,8 +135,6 @@ void CBookTreeChooser::setModules(ListCSwordModuleInfo modules, const bool refre
 		m_treeView->clear();
 	
     const QString oldKey = m_key->key();
-    qWarning("oldkey is %s", oldKey.latin1());
-
 		m_key->root();
 		m_key->firstChild();
 		setupTree(0,0,m_key);

@@ -832,7 +832,7 @@ type=HEADER
 
 [bibletime/frontend/displaywindow/Makefile.am]
 dist=true
-files=bibletime/frontend/displaywindow/cdisplaywindow.cpp,bibletime/frontend/displaywindow/cdisplaywindow.h,bibletime/frontend/displaywindow/creadwindow.cpp,bibletime/frontend/displaywindow/creadwindow.h,bibletime/frontend/displaywindow/cwritewindow.cpp,bibletime/frontend/displaywindow/cwritewindow.h,bibletime/frontend/displaywindow/cbiblereadwindow.cpp,bibletime/frontend/displaywindow/cbiblereadwindow.h,bibletime/frontend/displaywindow/ccommentaryreadwindow.cpp,bibletime/frontend/displaywindow/ccommentaryreadwindow.h,bibletime/frontend/displaywindow/clexiconreadwindow.cpp,bibletime/frontend/displaywindow/clexiconreadwindow.h,bibletime/frontend/displaywindow/cbookreadwindow.cpp,bibletime/frontend/displaywindow/cbookreadwindow.h,bibletime/frontend/displaywindow/Makefile.am,bibletime/frontend/displaywindow/cmodulechooserbutton.cpp,bibletime/frontend/displaywindow/cmodulechooserbar.h,bibletime/frontend/displaywindow/cmodulechooserbar.cpp,bibletime/frontend/displaywindow/cmodulechooserbutton.h,bibletime/frontend/displaywindow/cdisplaysettingsbutton.cpp,bibletime/frontend/displaywindow/cdisplaysettingsbutton.h
+files=bibletime/frontend/displaywindow/cdisplaywindow.cpp,bibletime/frontend/displaywindow/cdisplaywindow.h,bibletime/frontend/displaywindow/creadwindow.cpp,bibletime/frontend/displaywindow/creadwindow.h,bibletime/frontend/displaywindow/cwritewindow.cpp,bibletime/frontend/displaywindow/cwritewindow.h,bibletime/frontend/displaywindow/cbiblereadwindow.cpp,bibletime/frontend/displaywindow/cbiblereadwindow.h,bibletime/frontend/displaywindow/ccommentaryreadwindow.cpp,bibletime/frontend/displaywindow/ccommentaryreadwindow.h,bibletime/frontend/displaywindow/clexiconreadwindow.cpp,bibletime/frontend/displaywindow/clexiconreadwindow.h,bibletime/frontend/displaywindow/cbookreadwindow.cpp,bibletime/frontend/displaywindow/cbookreadwindow.h,bibletime/frontend/displaywindow/Makefile.am,bibletime/frontend/displaywindow/cmodulechooserbutton.cpp,bibletime/frontend/displaywindow/cmodulechooserbar.h,bibletime/frontend/displaywindow/cmodulechooserbar.cpp,bibletime/frontend/displaywindow/cmodulechooserbutton.h,bibletime/frontend/displaywindow/cbuttons.cpp,bibletime/frontend/displaywindow/cbuttons.h
 install=false
 install_location=
 sharedlib_LDFLAGS=-version-info 0:0:0
@@ -864,6 +864,18 @@ install=false
 install_location=
 type=HEADER
 
+[bibletime/frontend/displaywindow/cbuttons.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/frontend/displaywindow/cbuttons.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [bibletime/frontend/displaywindow/ccommentaryreadwindow.cpp]
 dist=true
 install=false
@@ -871,18 +883,6 @@ install_location=
 type=SOURCE
 
 [bibletime/frontend/displaywindow/ccommentaryreadwindow.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[bibletime/frontend/displaywindow/cdisplaysettingsbutton.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[bibletime/frontend/displaywindow/cdisplaysettingsbutton.h]
 dist=true
 install=false
 install_location=

@@ -16,7 +16,7 @@
 # from the following variable.
 
 #export FOREIGN_DOC_LANGUAGES="cs da de fi fr hu it nl no pl sk"
-export FOREIGN_DOC_LANGUAGES="de"
+export FOREIGN_DOC_LANGUAGES="de fr"
 
 # This variable identifies which parts of the documentation
 # are in use.

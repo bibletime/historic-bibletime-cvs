@@ -21,6 +21,9 @@
 
 //Qt includes
 #include <qlayout.h>
+#include <qmap.h>
+
+QMap<QObject*, int> boxes;
 
 CBookKeyChooser::CBookKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, QWidget *parent, const char *name)
 	: CKeyChooser(modules, key, parent,name), m_layout(0) {
@@ -94,7 +97,6 @@ CSwordKey* const CBookKeyChooser::key(){
 
 /** Sets another module to this keychooser */
 void CBookKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refresh){
-//	m_module = dynamic_cast<CSwordBookModuleInfo*>(module);	
   m_modules.clear();
   for (modules.first(); modules.current(); modules.next()) {
     if ( modules.current()->type() == CSwordModuleInfo::GenericBook ) {
@@ -117,9 +119,12 @@ void CBookKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refres
 		for (int i = 0; i < m_modules.first()->depth(); ++i) {			
 			CKeyChooserWidget* w = new CKeyChooserWidget(0, false, this); //empty keychooser
 			m_chooserWidgets.append( w );
-			w->show();			
 			connect(w, SIGNAL(changed(int)), SLOT(keyChooserChanged(int)));			
 			m_layout->addWidget(w);
+
+      boxes[w] = i;
+
+			w->show();
 		}
 		updateKey(m_key);		
 	}
@@ -135,9 +140,7 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 	CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth);
 	if (depth == 0 && chooserWidget && chooserWidget->comboBox()->count()) { //has already items
 		//set now the right item		
-		CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth);
-//		ASSERT(chooserWidget);
-		if (chooserWidget) {
+		if (CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth)) {
 			chooserWidget->setItem( chooserWidget->comboBox()->text(currentItem) );
 		}
 		return;
@@ -164,22 +167,24 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 
 /** A keychooser changed. Update and emit a signal if necessary. */
 void CBookKeyChooser::keyChooserChanged(int newIndex){
-	QStringList items;
+  const int activeID = boxes[const_cast<QObject*>(sender())];
+	
+  QStringList items;
 	CKeyChooserWidget* chooser;
 	const int count = m_chooserWidgets.count();
 	for (int i = 0; i < count; ++i) {
 		chooser = m_chooserWidgets.at(i);
 		const QString currentText = (chooser && chooser->comboBox()) ? chooser->comboBox()->currentText() : QString::null;
-		if (currentText.isEmpty())
+		if (currentText.isEmpty() || i > activeID)
 			break;
 		items << currentText;
 	}
+
 	QString newKey = QString::fromLatin1("/") + items.join("/");
- qWarning("CBookKeyChooser::keyChooserChanged: %s", newKey.latin1());
 	if (newKey.length() > 1)
 		newKey.remove(newKey.length(),1); //remove the traling slash
 	
-	m_key->key(newKey);	
+	m_key->key(newKey);
 	setKey(m_key);
 }
 

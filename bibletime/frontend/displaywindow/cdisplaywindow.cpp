@@ -23,7 +23,7 @@
 #include "clexiconreadwindow.h"
 #include "cbookreadwindow.h"
 #include "cmodulechooserbar.h"
-#include "cdisplaysettingsbutton.h"
+#include "cbuttons.h"
 
 #include "backend/cswordkey.h"
 

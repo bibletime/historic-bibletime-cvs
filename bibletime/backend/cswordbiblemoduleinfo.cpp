@@ -32,6 +32,8 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( SWModule* module )
 	m_bookList = 0;
 	m_cachedLocale = "unknown";
 	m_hasOT = m_hasNT = -1;
+
+
 }
 
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) : CSwordModuleInfo(m), m_lowerBound(0), m_upperBound(0) {

@@ -1,8 +1,8 @@
 /***************************************************************************
-                          cdisplaysettingsbutton.h  -  description
+                          cbuttons.h  -  description
                              -------------------
-    begin                : Thu Nov 8 2001
-    copyright            : (C) 2001 by The BibleTime team
+    begin                : Sam Jul 13 2002
+    copyright            : (C) 2002 by The BibleTime team
     email                : info@bibletime.de
  ***************************************************************************/
 
@@ -15,9 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef CDISPLAYSETTINGSBUTTON_H
-#define CDISPLAYSETTINGSBUTTON_H
+#ifndef CBUTTONS_H
+#define CBUTTONS_H
 
+//BibleTime includes
 #include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
 
@@ -27,15 +28,24 @@
 //KDE includes
 #include <ktoolbarbutton.h>
 
-/**
-  * @author The BibleTime team
-  */
-class CSwordModuleInfo;
 class KPopupMenu;
 
-class CDisplaySettingsButton : public KToolBarButton  {
+/** This class manages the transliteration of the selected modules.
+  * @author The BibleTime team
+  */
+class CTransliterationButton : public KToolBarButton  {
    Q_OBJECT
 public: 
+	CTransliterationButton(QWidget *parent=0, const char *name=0);
+	~CTransliterationButton();
+};
+
+/** This class manages the display options of the selected modules.
+  * @author The BibleTime team
+  */
+class CDisplaySettingsButton : public KToolBarButton  {
+   Q_OBJECT
+public:
 	CDisplaySettingsButton(CSwordBackend::DisplayOptionsBool *displaySettings, CSwordBackend::FilterOptionsBool *settings, const ListCSwordModuleInfo& useModules, QWidget *parent=0, const char *name=0);
 	void reset(const ListCSwordModuleInfo& useModules);
   /**

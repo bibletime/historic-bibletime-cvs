@@ -1,8 +1,8 @@
 /***************************************************************************
-                          cdisplaysettingsbutton.cpp  -  description
+                          cbuttons.cpp  -  description
                              -------------------
-    begin                : Thu Nov 8 2001
-    copyright            : (C) 2001 by The BibleTime team
+    begin                : Sam Jul 13 2002
+    copyright            : (C) 2002 by The BibleTime team
     email                : info@bibletime.de
  ***************************************************************************/
 
@@ -15,14 +15,29 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "cdisplaysettingsbutton.h"
+//HibleTime includes
+#include "cbuttons.h"
 #include "resource.h"
 
+//Qt includes
 #include <qstring.h>
 #include <qtooltip.h>
 
+//KDE includes
 #include <kpopupmenu.h>
 #include <klocale.h>
+
+
+CTransliterationButton::CTransliterationButton(QWidget *parent, const char *name ) : KToolBarButton(parent,name) {
+}
+
+CTransliterationButton::~CTransliterationButton(){
+}
+
+
+/************************************************
+ *********** CDisplaySettingsButton**************
+ ************************************************/
 
 CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptionsBool *displaySettings, CSwordBackend::FilterOptionsBool *moduleSettings, const ListCSwordModuleInfo& useModules,QWidget *parent, const char *name )
 	: KToolBarButton(DSB_ICON, 0, parent, name)

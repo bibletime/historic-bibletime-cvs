@@ -17,7 +17,7 @@
 
 #include "cbiblereadwindow.h"
 #include "ccommentaryreadwindow.h"
-#include "cdisplaysettingsbutton.h"
+#include "cbuttons.h"
 
 #include "resource.h"
 
