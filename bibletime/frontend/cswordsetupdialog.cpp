@@ -21,6 +21,7 @@
 
 #include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
+// #include "btinstallmgr.h"
 
 #include "util/cresmgr.h"
 #include "util/ctoolclass.h"
@@ -299,11 +300,13 @@ void CSwordSetupDialog::populateInstallCombos(){
   BTInstallMgr mgr;
   for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&mgr, *it);
+		
 		if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) { //remote source?
     	m_sourceCombo->insertItem( i18n("[Remote]") + " " + *it );
 		}
 		else {
 			QFileInfo fi(*it);
+			qWarning( "test dir" );
 			if (fi.isDir() && fi.isReadable()) {
 				m_sourceCombo->insertItem( i18n("[Local]") + " " + *it );
 			}
@@ -594,10 +597,12 @@ void CSwordSetupDialog::slot_connectToSource(){
 
 /** Connects to the chosen source. */
 void CSwordSetupDialog::slot_installManageSources() {
-// 	CInstallSourcesMgrDialog* dlg = new CInstallSourcesMgrDialog(this);
-// 	dlg->exec();
 
-	qWarning( ((QString)CSwordSetupInstallSourcesDialog::getSourceURL()).latin1() );
+	sword::InstallSource newSource = CSwordSetupInstallSourcesDialog::getSource();
+	
+	if ( !((QString)newSource.type.c_str()).isEmpty() ) { // we have a valid source to add
+		BTInstallMgr::Tool::RemoteConfig::addSource( &newSource );
+	}
 
 	populateInstallCombos(); //make sure the items are updated
 }

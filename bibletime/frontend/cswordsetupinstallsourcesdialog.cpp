@@ -6,6 +6,7 @@
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qfiledialog.h>
+#include <qmessagebox.h>
 
 
 #include <klocale.h>
@@ -17,15 +18,6 @@
 
 namespace InstallationManager {
 
-// sword::InstallSource CSwordSetupInstallSourcesDialog::InstallSourceItem::swordInstallSource() {
-// 	sword::InstallSource src("FTP");
-// 	src.caption = m_caption.latin1();
-// 	src.source = m_url.host().latin1();
-// 	src.directory = m_url.path().latin1();
-// 
-// 	return src;
-// }
-
 CSwordSetupInstallSourcesDialog::CSwordSetupInstallSourcesDialog(/*QWidget *parent*/)
 	: QDialog() {
 	
@@ -33,10 +25,19 @@ CSwordSetupInstallSourcesDialog::CSwordSetupInstallSourcesDialog(/*QWidget *pare
 	mainLayout->setMargin( 10 );
 	mainLayout->setSpacing( 5 );
 	
+	QHBoxLayout *captionLayout = new QHBoxLayout( mainLayout );
+	QLabel *label = new QLabel( i18n("Caption"), this );
+	captionLayout->addWidget( label );
+	m_captionEdit = new QLineEdit( this );
+	m_captionEdit->setText("Crosswire Bible Society");
+	captionLayout->addWidget( m_captionEdit );
+	
+	mainLayout->addSpacing( 10 );
+		
 	QGridLayout* layout = new QGridLayout( mainLayout, 3, 3 );
 	layout->setSpacing( 5 );
 	
-	QLabel* label = new QLabel(i18n("Type"), this);
+	label = new QLabel(i18n("Type"), this);
 	layout->addWidget( label, 0, 0);
 	m_serverLabel = new QLabel(i18n("Server"), this);
 	layout->addWidget( m_serverLabel, 0, 1);
@@ -72,6 +73,19 @@ CSwordSetupInstallSourcesDialog::CSwordSetupInstallSourcesDialog(/*QWidget *pare
 
 }
 void CSwordSetupInstallSourcesDialog::slotOk(){
+	if ( m_captionEdit->text().stripWhiteSpace().isEmpty() ){
+		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a caption."), QMessageBox::Retry);
+		return;
+	}
+	if ( m_protocolCombo->currentText() == PROTO_FTP && 
+			m_serverEdit->text().stripWhiteSpace().isEmpty() ){
+		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a server name."), QMessageBox::Retry);
+		return;
+	}
+	if ( m_pathEdit->text().stripWhiteSpace().isEmpty() ){
+		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a valid path."), QMessageBox::Retry);
+		return;
+	}
 	accept();
 }
 
@@ -88,22 +102,24 @@ void CSwordSetupInstallSourcesDialog::slotProtocolChanged(){
 	
 }
 
-QUrl CSwordSetupInstallSourcesDialog::getSourceURL(){
+sword::InstallSource CSwordSetupInstallSourcesDialog::getSource(){
 
 	CSwordSetupInstallSourcesDialog* dlg = new CSwordSetupInstallSourcesDialog();
-	QUrl url; //empty, invalid URL
+	sword::InstallSource newSource(""); //empty, invalid Source
 		
 	if (dlg->exec() == QDialog::Accepted){
 		if (dlg->m_protocolCombo->currentText() == PROTO_FTP){
-			url.setProtocol( "ftp" );
-			url.setHost( dlg->m_serverEdit->text() );
+			newSource.type = "FTP";
+			newSource.source = dlg->m_serverEdit->text().utf8();
 		}
 		else{
-			url.setProtocol( "file" );
+			newSource.type = "DIR";
+			newSource.source = "local";
 		}
-		url.setPath( dlg->m_pathEdit->text() );
+		newSource.caption = dlg->m_captionEdit->text().utf8();
+		newSource.directory = dlg->m_pathEdit->text().utf8();
 	}
-	return url;
+	return newSource;
 }
 
 

@@ -1,8 +1,8 @@
 #ifndef CSWORDSETUPINSTALLSOURCESDIALOG_H
 #define CSWORDSETUPINSTALLSOURCESDIALOG_H
 
+#include "btinstallmgr.h"
 #include <qdialog.h>
-#include <qurl.h>
 
 class QLabel;
 class QComboBox;
@@ -14,7 +14,7 @@ class CSwordSetupInstallSourcesDialog : public QDialog  {
    Q_OBJECT
 
 public:
-	static QUrl getSourceURL();
+	static sword::InstallSource getSource();
 	
 protected:
 	CSwordSetupInstallSourcesDialog();
@@ -24,10 +24,9 @@ protected slots:
 	void slotProtocolChanged();
 
 private:
-	QLabel*    m_serverLabel;
-	QLineEdit* m_serverEdit;
-	QLineEdit* m_pathEdit;
-	QComboBox* m_protocolCombo;
+	QLabel    *m_serverLabel;
+	QLineEdit *m_captionEdit, *m_serverEdit, *m_pathEdit;
+	QComboBox *m_protocolCombo;
 };
 
 } //namespace
