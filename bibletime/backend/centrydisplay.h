@@ -102,7 +102,7 @@ public: // Public methods
   /**
   * Returns the font of the given type.
   */
-  const QFont font( const CLanguageMgr::Language& lang );
+//  const QFont font( const CLanguageMgr::Language& lang );
 
 protected:
   /**

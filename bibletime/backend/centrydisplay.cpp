@@ -42,8 +42,24 @@ const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QSt
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
+	QString text = entryText( modules, keyName );
+	if (modules.count() > 1) {
+		QString header;
+
+		for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
+			header += QString::fromLatin1("<th width=\"%1%\">%2</th>")
+					.arg(100 / modules.count())
+					.arg(m->name());
+		}
+		text = "<table><tr>" + header + "</tr>" + text + "</table>";
+	}
+
+	const QString langAbbrev = ((modules.count() == 1) && modules.first()->language().isValid()) 
+		? modules.first()->language().abbrev() 
+		: "unknown";
+	
 	CDisplayTemplateMgr tMgr;
-	return tMgr.fillTemplate( CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, keyName) );
+	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text, langAbbrev);
 }
 
 /** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
@@ -63,35 +79,71 @@ const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QStri
 const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName){
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   key->key(keyName);
-  QString renderedText = QString::null;
+  
+	//declarations out of the loop for optimization
+  QString entry;
+	QString renderedText;
+  QString keyText;
+  bool isRTL;
 
-  QFont moduleFont;
-  QString tdStyle;
-
-  renderedText = QString::fromLatin1("<tr valign=\"top\">");
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    moduleFont = CBTConfig::get( m->language() ).second;
-    tdStyle = QString::fromLatin1("style=\"%1 %2 font-family:%3; font-size:%4pt;\"")
-      .arg(((modules.at()+1) < (int)modules.count()) ? QString::fromLatin1("padding-right:2mm; border-right:1px solid black;") : QString::null)
-      .arg(((modules.at()>0) && ((modules.at()+1) <= (int)modules.count() )) ? QString::fromLatin1("padding-left:2mm;") : QString::null)
-      .arg(moduleFont.family())
-      .arg(moduleFont.pointSize());
-
     key->module(m);
     key->key(keyName);
+    keyText = key->key();
+    isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
+		
+		entry = QString::null;
 
-    renderedText += QString::fromLatin1("<td %1 valign=\"top\">%2</td>")
-                      .arg(tdStyle)
-                      .arg(key->renderedText());
-  }
-  renderedText += QString::fromLatin1("</tr>");
+/*		key.renderedText();
+		int pvHeading = 0;
+		do { //add sectiontitle before we add the versenumber
+			QString preverseHeading = QString::fromUtf8(
+m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeading++).latin1()].c_str());
+			if (!preverseHeading.isEmpty()) {
+				entry += QString::fromLatin1("<div lang=\"%1\" class=\"sectiontitle\">%1</div>")
+					.arg(m->language().isValid() 
+						? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
+						: QString::null
+					)
+					.arg(preverseHeading);
+			}
+			else {
+				break;
+			}
+		} while (true);
+*/
+
+		entry += QString::fromLatin1("<div %1 %2 dir=\"%3\">%4</div>")
+			.arg(m->language().isValid() 
+				? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
+				: QString::null
+			)
+			.arg((modules.count() == 1) ? QString::fromLatin1("class=\"entry\"") : QString::null)
+			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
+			.arg(key->renderedText());
+		
+  	if (modules.count() == 1) {
+			renderedText += entry;
+		}
+  	else {
+	    renderedText += QString::fromLatin1("<td class=\"entry\" %1 dir=\"%2\">%3</td>")
+				.arg(m->language().isValid() 
+					? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
+					: QString::null
+				)
+				.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
+				.arg(entry);
+		}
+	}
+ 	if (modules.count() > 1) {
+		renderedText += QString::fromLatin1("</tr>");
+	}
   return renderedText;
 }
-
 /** Returns the font of the given type. */
-const QFont CEntryDisplay::font( const CLanguageMgr::Language& lang ) {
-  return CBTConfig::get(lang).second;
-}
+//const QFont CEntryDisplay::font( const CLanguageMgr::Language& lang ) {
+ // return CBTConfig::get(lang).second;
+//}
 
 void CEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptions options) {
   m_displayOptions = options;
@@ -316,17 +368,19 @@ const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, CSwor
   * creating copies of the key object takes too long
   */
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
-  const QFont font = CBTConfig::get(book->language()).second;
+  //const QFont font = CBTConfig::get(book->language()).second;
   const QString& keyName = key->getFullName();
 
-  return QString::fromLatin1("<%1 class=\"%2\"><span class\"entryname\">%3</span> <span style=\"font-family:%4; font-size:%5pt;\">%6</span></%7>")
-    .arg( m_displayOptions.lineBreaks  ? "div" : "span")
-		.arg( activeKey ? "currententry" : "entry")
+  return QString::fromLatin1("<%1 class=\"%2\"><span class\"entryname\">%3</span> <span %4>%5</span></%6>")
+    .arg( m_displayOptions.lineBreaks  ? "div" : "span" )
+		.arg( activeKey ? "currententry" : "entry" )
     .arg( htmlReference(book, keyName, key->getLocalName(), (!keyName.isEmpty() ? keyName : "/") ))
-		.arg( font.family() )
-		.arg( font.pointSize() )
+    .arg( book->language().isValid() 
+			? QString::fromLatin1("lang=\"%1\"").arg(book->language().abbrev()) 
+			: QString::null
+		)
 		.arg( key->renderedText() )
-    .arg( m_displayOptions.lineBreaks  ? "div" : "span" );
+		.arg( m_displayOptions.lineBreaks ? "div" : "span" );
 }
 
 void CBookDisplay::printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos){

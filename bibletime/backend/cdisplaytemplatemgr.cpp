@@ -63,16 +63,16 @@ body {\n\
 #content table {\n\
 	margin:0;\
 	padding:0;\
-	border-spacing:0;\
+	border-spacing:15px;;\
 	border-collapse:collapse;\
 	vertical-align:top;\
 }\n\
 #content table th {\n\
-	padding: 5px; \
+	padding: 3px; \
 	text-align: center; \
-	font-weight:bold;\
-	font-siye:1.1em;\
-	border-bottom: 2px solid black;\
+	font-weight: bold;\
+	font-siye: 1.1em;\
+	border-bottom: 1px solid darkGray;\
 }\n\
 a {\n\
 	text-decoration:none;\
@@ -82,6 +82,7 @@ a {\n\
 }\n\
 a:hover {\n\
 	background-color:#FBFBFB;\
+	color:darkRed;\
 	padding:2px;\
 }\n\
 div.verse, td.verse, div.entry {\n\
@@ -97,7 +98,8 @@ div.currentverse, td.currentverse, div.currententry {\n\
 	background-color: #F6FFF7;\
 	vertical-align: top;\
 }\n\
-td.verse + td.verse, td.currentverse + td.currentverse { \
+td.verse + td.verse, td.entry + td.entry { \
+	margin-left:5px;\
 }\n\
 span.currentverse, span.currententry {\n\
 	background-color: #F6FFF7;\
@@ -106,12 +108,20 @@ span.currentverse, span.currententry {\n\
 }\n\
 .versenum, .entryname {\n\
 }\n\
-.versenum a, .entryname a {\n\
-	padding-right: 5px;\
-	padding-left: 5px;\
-	font-size: 60%;\
+\
+.versenum a , .entryname a  {\n\
+	font-size: 70%;\
 	vertical-align: top;\
+}\
+.versenum[dir=ltr] a , .entryname[dir=ltr] a  {\n\
+	padding-right: 2px;\
+	padding-left: 10px;\
 }\n\
+.versenum[dir=rtl] a, .entryname[dir=rtl] a {\n\
+	padding-right: 10px;\
+	padding-left: 2px;\
+}\n\
+\
 .footnotepre {\n\
 	font-color: gray;\
 	font-size: 0.9em;\
@@ -135,6 +145,9 @@ span.currentverse, span.currententry {\n\
 }\n\
 .lemma {\n\
 }\n\
+.strongnumber:hover, .morphcode:hover {\n\
+	color:darkRed;\
+}\
 .sectiontitle {\n\
 	font-weight:bold;\
 	font-size:120%;\
@@ -208,7 +221,11 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
   	CLanguageMgr::Language lang = it.data();
 		if (lang.isValid() && CBTConfig::get(lang).first) {
 			QFont f = CBTConfig::get(lang).second;
-			langCSS += QString::fromLatin1("*[lang=%1] { font-family:%2; font-size:%3pt;}\n").arg(lang.abbrev()).arg(f.family()).arg(f.pointSize());
+			langCSS += QString::fromLatin1("*[lang=%1] { font-family:%2; font-size:%3pt; font-weight:%3; font-style: %4;}\n")
+				.arg(lang.abbrev())
+				.arg(f.family()).arg(f.pointSize())
+				.arg(f.bold() ? "bold" : "normal")
+				.arg(f.italic() ? "italic" : "normal");
 		}
 	}
 			
@@ -218,7 +235,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	t.replace("#LANG_ABBREV#", langAbbrev);
 	t.replace("#CONTENT#", content);
 	
-//	std::cout << t.latin1() << std::endl;
+	//std::cout << t.latin1() << std::endl;
 	
 	return t;
 }
