@@ -501,27 +501,24 @@ void CSearchResultPage::updatePreview(const QString& key){
 	
 		//for bibles only render 5 verses, for all other modules only one entry
 		if (module->type() == CSwordModuleInfo::Bible) {
-			CSwordVerseKey firstKey(module);
-			firstKey.key(key);
+			CSwordVerseKey vk(module);
+			vk.key(key);
 			
-			CSwordVerseKey lastKey(module);
-			lastKey.key(key);
+			//first go back and then go forward the keys to be in context
+			vk.previous(CSwordVerseKey::UseVerse);
+			vk.previous(CSwordVerseKey::UseVerse);			
+			const QString startKey = vk.key();
 			
-			bool prevWasOk = true;
-			bool nextWasOk = true;
-			for (int i = 0; i < 2; ++i) {
-				if (prevWasOk) {
-					prevWasOk = firstKey.previous(CSwordVerseKey::UseVerse) && !firstKey.Error() && !module->module()->Error();
-				}
-				
-				if (nextWasOk) {
-					nextWasOk = lastKey.next(CSwordVerseKey::UseVerse) && !lastKey.Error() && !module->module()->Error();
-				}
-			}
-				
+			vk.key(key);
+			
+			vk.next(CSwordVerseKey::UseVerse);
+			vk.next(CSwordVerseKey::UseVerse);
+			const QString endKey = vk.key();
+
+			qWarning("want to render from %s to %s", startKey.latin1(), endKey.latin1());				
 			//now render the range
 			settings.keyRenderingFace = CTextRendering::KeyTreeItem::Settings::CompleteShort;
-			text = render.renderKeyRange(firstKey.key(), lastKey.key(), modules, key, settings);
+			text = render.renderKeyRange(startKey, endKey, modules, key, settings);
 		}
 		else {
 			text = render.renderSingleKey(key, modules, settings);

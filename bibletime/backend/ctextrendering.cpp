@@ -95,16 +95,7 @@ ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 		}
 	}
 	 
-	qWarning("return fromc collectModules, count=%i", modules.count());
 	return modules;
-}
-
-CTextRendering::CTextRendering() {
-}
-
-
-CTextRendering::~CTextRendering() {
-
 }
 
 const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
@@ -112,8 +103,6 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 	
 	ListCSwordModuleInfo modules = tree.collectModules();	
 	QString t = QString::null;
-	
-// 	const KeyTree::const_iterator end = tree.end();
 	
 	//opimization for entries with the same key
 	util::scoped_ptr<CSwordKey> key( 
@@ -155,13 +144,14 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 		CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(lowerBound.get());
 		CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(upperBound.get());
 		
-		while ((*vk_start < *vk_stop) || (*vk_start == *vk_stop)) {
+		bool ok = true;
+		while (ok && ((*vk_start < *vk_stop) || (*vk_start == *vk_stop))) {
 			//make sure the key given by highlightKey gets marked as current key
 			settings.highlight = (!highlightKey.isEmpty() ? (vk_start->key() == highlightKey) : false);
 			
 			tree.append( new KeyTreeItem(vk_start->key(), modules, settings) );
 			
-			vk_start->next(CSwordVerseKey::UseVerse);
+			ok = vk_start->next(CSwordVerseKey::UseVerse);
 		}
 		
 		return renderKeyTree(tree);

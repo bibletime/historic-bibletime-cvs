@@ -85,8 +85,8 @@ public:
 		ListCSwordModuleInfo collectModules();
 	};
 
-  CTextRendering();
-  virtual ~CTextRendering();
+  virtual ~CTextRendering() {
+	};
 
 	const QString renderKeyTree( KeyTree& );
 	
