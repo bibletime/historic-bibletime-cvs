@@ -99,6 +99,8 @@ public:
   * Returns the current key as a QString
   */
   virtual void key( const char* );
+  /** Assignment operator for more ease of use of this class. */
+  virtual CSwordLDKey& operator = (const QString& keyname );
 };
 
 

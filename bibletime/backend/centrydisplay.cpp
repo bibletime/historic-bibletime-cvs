@@ -285,7 +285,8 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
   QString text = QString::null;
 
   CSwordVerseKey key(0);
-  key.key(keyName);
+//  key.key(keyName);
+  key = keyName;
 
   const int currentTestament = key.Testament();	
 	const int currentBook = key.Book();

@@ -22,7 +22,6 @@
 #include "cswordbackend.h"
 #include "frontend/cpointers.h"
 
-
 //Qt includes
 #include <qstring.h>
 #include <qfont.h>

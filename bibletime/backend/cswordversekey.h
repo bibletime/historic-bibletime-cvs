@@ -111,6 +111,8 @@ public:
   * Sets the module for this key
   */
   virtual CSwordModuleInfo* const module( CSwordModuleInfo* const newModule = 0 );
+  /** Assignment operator for more ease of use. */
+  virtual CSwordVerseKey& operator = (const QString& keyname);
 };
 
 #endif

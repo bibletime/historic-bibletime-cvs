@@ -54,7 +54,7 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 
 /** Returns the entries of the module. */
 QStringList* const CSwordLexiconModuleInfo::entries(){
-//  qWarning("QStringList* const CSwordLexiconModuleInfo::entries() #");
+  qWarning("QStringList* const CSwordLexiconModuleInfo::entries() #");
 	if (!module())
 		return 0;
 
@@ -86,23 +86,21 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 		}
 
     if (!read){
-			(*module()) = TOP;  		
+			(*module()) = TOP;
   		do {
-        if (this->isUnicode())
+        if (isUnicode())
      			m_entryList->append(QString::fromUtf8(module()->KeyText()));
-        else
-//latin1 is a lot faster than UTF8, we can use it because latin1 modules won't contain unicode keys
+        else //latin1 is a lot faster than UTF8, use it because latin1 modules won't contain unicode keys
           m_entryList->append(QString::fromLatin1(module()->KeyText()));
-//				qWarning(module()->KeyText());
   			(*module())++;
   		} while ( !module()->Error() );
+			(*module()) = TOP;
 
   		if (m_entryList->first().stripWhiteSpace().isEmpty())
 	  		m_entryList->remove( m_entryList->begin() );			
 
 			if (lexiconCache){
-				qWarning("(re-)creating module cache");
-  			// create cache
+  			//create cache
 		 		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
         QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );
         if (f2.open( IO_WriteOnly )){
@@ -113,7 +111,6 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
   			  f2.close();
         }
 			}
-			(*module()) = TOP;			
 		}
 	}	
 	return m_entryList;
@@ -121,12 +118,9 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 
 /** Jumps to the closest entry in the module.  */
 const bool CSwordLexiconModuleInfo::snap(){
-//	bool ret = false;
 	if(module()->getRawEntry()){	//snap to the current entry
-//		ret = true;
 		return true;
 	}
-//	return ret;
 	return false;
 }
 

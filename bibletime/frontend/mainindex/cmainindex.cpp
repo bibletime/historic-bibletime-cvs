@@ -159,6 +159,8 @@ void CMainIndex::initConnections(){
     SLOT(slotExecuted(QListViewItem*)));
   connect(this, SIGNAL(dropped(QDropEvent*, QListViewItem*)),
     SLOT(dropped(QDropEvent*, QListViewItem*)));
+  connect(this, SIGNAL(moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)),
+    SLOT(moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)));
   connect(this, SIGNAL(contextMenu(KListView*, QListViewItem*, const QPoint&)),
     SLOT(contextMenu(KListView*, QListViewItem*, const QPoint&)));
   connect(&m_autoOpenTimer, SIGNAL(timeout()),
@@ -178,6 +180,7 @@ void CMainIndex::slotExecuted( QListViewItem* i ){
     CSwordModuleInfo* mod = m->module();
     ListCSwordModuleInfo modules;
     modules.append(mod);
+
     emit modulesChosen(modules, QString::null);
   }
   else if (CBookmarkItem* b = dynamic_cast<CBookmarkItem*>(i) ) { //clicked on a bookmark
@@ -185,14 +188,14 @@ void CMainIndex::slotExecuted( QListViewItem* i ){
     const QString& key = b->key();
     ListCSwordModuleInfo modules;
     modules.append(mod);
+
     emit modulesChosen(modules, b->key());
   }
 }
 
 /** Reimplementation. Returns the drag object for the current selection. */
-QDragObject* CMainIndex::dragObject(){
+QDragObject* CMainIndex::dragObject() {
   if (CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>(currentItem())) {
-
     const QString ref = bookmark->key();
     const QString mod = bookmark->module()->name();
 
@@ -205,8 +208,9 @@ QDragObject* CMainIndex::dragObject(){
 
 /** Reimplementation from KListView. Returns true if the drag is acceptable for the listview. */
 bool CMainIndex::acceptDrag( QDropEvent* event ) const {
-//  qWarning("CMainIndex::acceptDrag( QDropEvent* event )");
+  qWarning("CMainIndex::acceptDrag( QDropEvent* event )");
   if (m_itemsMovable) {
+    qWarning("return true");
     return true;
   }
 
@@ -230,6 +234,9 @@ void CMainIndex::initTree(){
 
 /** No descriptions */
 void CMainIndex::dropped( QDropEvent* e, QListViewItem* after){
+  qWarning("CMainIndex::dropped( QDropEvent* e, QListViewItem* after)");
+//  if (m_itemsMovable)
+//    KListView::dropped(e, after);
   if (CItemBase* i = dynamic_cast<CItemBase*>(after))
     i->dropped(e);
 }
@@ -309,14 +316,17 @@ void CMainIndex::contextMenu(KListView* list, QListViewItem* i, const QPoint& p)
         a->setEnabled(false);
     }
 
-    for (items.first(); items.current(); items.next()) {
-      for (int index = CItemBase::ActionBegin; index <= CItemBase::ActionEnd; ++index) {
-        actionType = static_cast<CItemBase::MenuAction>(index);
+    for (int index = CItemBase::ActionBegin; index <= CItemBase::ActionEnd; ++index) {
+      actionType = static_cast<CItemBase::MenuAction>(index);
+      bool enableAction = isMultiAction(actionType);
+      for (items.first(); items.current(); items.next()) {
         CItemBase* i = dynamic_cast<CItemBase*>(items.current());
+        enableAction = enableAction && i->enableAction(actionType);
+      }
+      if (enableAction) {
         KAction* a = action(actionType) ;
-        if (i && a && !a->isEnabled()) {
-          a->setEnabled(i->enableAction(actionType));
-        }
+        if (i && a)
+          a->setEnabled(enableAction);
       }
     }
   }
@@ -325,37 +335,64 @@ void CMainIndex::contextMenu(KListView* list, QListViewItem* i, const QPoint& p)
 
 /** Adds a new subfolder to the current item. */
 void CMainIndex::createNewFolder(){
-  qWarning("add a new folder!");
+  if (CFolderBase* i = dynamic_cast<CFolderBase*>(currentItem()) ) {
+    i->newSubFolder();
+  }
 }
 
 /** Opens a dialog to change the current folder. */
 void CMainIndex::changeFolder(){
   if (CFolderBase* i = dynamic_cast<CFolderBase*>(currentItem()) ) {
-    i->startRename(0);
+    i->rename();
   }
 }
 
 /** Changes the current bookmark. */
 void CMainIndex::changeBookmark(){
+  if (CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(currentItem()) ) {
+    i->rename();
+  }
 }
 
 /** Exports the bookmarks being in the selected folder. */
 void CMainIndex::exportBookmarks(){
+  if (CBookmarkFolder* i = dynamic_cast<CBookmarkFolder*>(currentItem()) ) {
+    i->exportBookmarks();
+  }
 }
 
 /** Import bookmarks from a file and add them to the selected folder. */
 void CMainIndex::importBookmarks(){
+  if (CBookmarkFolder* i = dynamic_cast<CBookmarkFolder*>(currentItem()) ) {
+    i->importBookmarks();
+  }
 }
 
 /** Prints the selected bookmarks. */
 void CMainIndex::printBookmarks(){
+  QPtrList<QListViewItem> items = selectedItems();
+  for (items.first(); items.current(); items.next()) {
+    if (CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(items.current())) {
+      i->print();
+    }
+  }
 }
 
 /** Deletes the selected entries. */
 void CMainIndex::deleteEntries(){
   QPtrList<QListViewItem> items = selectedItems();
-  items.setAutoDelete(true);
-  items.clear();
+  QPtrList<QListViewItem> deleteItems;
+
+  for (items.first(); items.current(); items.next()) {
+    if (CItemBase* i = dynamic_cast<CItemBase*>(items.current())) {
+      if (i->enableAction(CItemBase::DeleteEntries)) {
+        deleteItems.append(i);
+      }
+    }
+  }
+
+  deleteItems.setAutoDelete(true);
+  deleteItems.clear();
 }
 
 /** Opens the searchdialog for the selected modules. */
@@ -414,13 +451,14 @@ void CMainIndex::startDrag(){
       m_itemsMovable = false;
     }
   }
+  qWarning("movable? %i", m_itemsMovable);
   KListView::startDrag();
 }
 
 /** Reimplementation to support the items dragEnter and dragLeave functions. */
 void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ){
   if ( CItemBase* i = dynamic_cast<CItemBase*>( itemAt( contentsToViewport(event->pos())) )) {
-  	if (i->isFolder() && !i->isOpen() && autoOpen()) {
+  	if (i->acceptDrop(event) && i->isFolder() && !i->isOpen() && autoOpen()) {
       if (m_autoOpenFolder != i)
         m_autoOpenTimer.stop();
       m_autoOpenFolder = i;
@@ -447,4 +485,38 @@ void CMainIndex::contentsDragLeaveEvent( QDragLeaveEvent* e ){
   m_autoOpenTimer.stop();
 
   KListView::contentsDragLeaveEvent(e);
+}
+
+/** Returns true if more than one netry is supported by this action type. Returns false for actions which support only one entry, e.g. about module etc. */
+const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
+  switch (type) {
+    case CItemBase::NewFolder:
+      return false;
+    case CItemBase::ChangeFolder:
+      return false;
+
+    case CItemBase::ChangeBookmark:
+      return false;
+    case CItemBase::ImportBookmarks:
+      return false;
+    case CItemBase::ExportBookmarks:
+      return false;
+    case CItemBase::PrintBookmarks:
+      return true;
+
+    case CItemBase::DeleteEntries:
+      return true;
+
+    case CItemBase::SearchInModules:
+      return true;
+    case CItemBase::UnlockModule:
+      return false;
+    case CItemBase::AboutModule:
+      return false;
+  }
+}
+
+/** Is called when items should be moved. */
+void CMainIndex::moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow){
+   qWarning("moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)");
 }

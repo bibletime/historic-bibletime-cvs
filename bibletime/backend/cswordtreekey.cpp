@@ -61,3 +61,9 @@ CSwordModuleInfo* const CSwordTreeKey::module( CSwordModuleInfo* const newModule
 	}
 	return m_module;
 }
+
+/** Assignment operator. */
+CSwordTreeKey& CSwordTreeKey::operator = (const QString& keyname ){
+  key(keyname);
+  return *this;
+}

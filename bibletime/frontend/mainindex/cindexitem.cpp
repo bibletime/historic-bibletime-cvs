@@ -311,6 +311,28 @@ const QString& CBookmarkItem::description(){
    return m_description;
 }
 
+/** No descriptions */
+const bool CBookmarkItem::isMovable(){
+  return true;
+}
+
+/** Reimplementation to handle  the menu entries of the main index. */
+const bool CBookmarkItem::enableAction(const MenuAction action){
+  if (action == ChangeBookmark || action == PrintBookmarks || action == DeleteEntries)
+    return true;
+
+  return false;
+}
+
+void CBookmarkItem::print(){
+
+}
+
+/** Changes this bookmark. */
+void CBookmarkItem::rename(){
+
+}
+
 /****************************************/
 /*****  class: CItemFolder  *************/
 /****************************************/
@@ -352,6 +374,22 @@ void CFolderBase::setOpen( bool open ){
   update();
 }
 
+/** The function which renames this folder. */
+void CFolderBase::rename(){
+  startRename(0);
+}
+
+/** Creates a new sub folder of this folder. */
+void CFolderBase::newSubFolder(){
+  if (dynamic_cast<CBookmarkFolder*>(this) || dynamic_cast<CBookmarkFolder::SubFolder*>(this) ) {
+    CBookmarkFolder::SubFolder* f = new CBookmarkFolder::SubFolder(this, i18n("New folder"));
+    f->init();
+
+    listView()->setCurrentItem(f);
+    listView()->ensureItemVisible(f);
+    f->rename();
+  }
+}
 
 /****************************************/
 /*****  class: CTreeFolder  *************/
@@ -703,11 +741,13 @@ bool CBookmarkFolder::SubFolder::acceptDrop(const QMimeSource * src) const {
 
 /** Reimplementation from  CItemBase. */
 const bool CBookmarkFolder::SubFolder::enableAction(const MenuAction action){
-  if (action == ChangeFolder || action == NewFolder || action == DeleteEntries) {
+  if (action == ChangeFolder || action == NewFolder || action == DeleteEntries || action == ImportBookmarks )
     return true;
-  }
-  else
-    return false;
+
+  if (childCount() > 0 && action == ExportBookmarks)
+    return true;
+
+  return false;
 }
 
 /* --------------------------------------------------*/
@@ -730,7 +770,46 @@ void CBookmarkFolder::initTree(){
   addGroup(OldBookmarkFolder, "*");
 }
 
-/** No descriptions */
-const bool CBookmarkItem::isMovable(){
-  return true;
+/** Reimplementation. */
+const bool CBookmarkFolder::enableAction(const MenuAction action){
+  if (action == NewFolder || action == ImportBookmarks)
+    return true;
+
+  if (action == ExportBookmarks && childCount())
+    return true;
+
+  return false;
+}
+
+
+void CBookmarkFolder::exportBookmarks(){
+}
+
+
+void CBookmarkFolder::importBookmarks(){
+}
+
+bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
+  qWarning("CBookmarkFolder::acceptDrop(const QMimeSource * src)");
+  if (src->provides("text/"REFERENCE) || src->provides("text/"BOOKMARK)) {
+    return true;
+  }
+  return false;
+}
+
+void CBookmarkFolder::dropped(QDropEvent * e) {
+  QString str;
+  QCString submime;
+
+  if (acceptDrop(e) && QTextDrag::decode(e,str,submime=REFERENCE) ) { //a drag object, we can handle
+    QString mod;
+    QString key;
+    CReferenceManager::decodeReference(str,mod,key);
+
+    CSwordModuleInfo* module = backend()->findModuleByName(mod);
+    CBookmarkItem* i = new CBookmarkItem(this, module, key, QString::null);
+    i->init();
+  }
+  else if (acceptDrop(e) && QTextDrag::decode(e,str,submime=BOOKMARK) ) { //a drag object, we can handle
+  }
 }

@@ -101,3 +101,8 @@ void CSwordLDKey::key( const char* newKey ){
 	}
 }
 
+/** Assignment operator for more ease of use of this class. */
+CSwordLDKey& CSwordLDKey::operator = (const QString& keyname ){
+  key(keyname);
+  return *this;
+}

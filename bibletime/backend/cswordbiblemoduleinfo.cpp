@@ -209,7 +209,8 @@ const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament
 		case OldTestament:
 			return m_hasOT>0;
 		case NewTestament:
-			return m_hasNT>0;		
+			return m_hasNT>0;
+
 		default:
 			return false;
 	}

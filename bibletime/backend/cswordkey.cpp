@@ -84,3 +84,9 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo* const module ){
 			return 0;
 	}
 }
+
+/** The assignment operator for more easy use of the key classes. */
+CSwordKey& CSwordKey::operator = ( const QString& newKey ){
+  key(newKey);
+  return *this;
+}

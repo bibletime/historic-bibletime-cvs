@@ -145,6 +145,10 @@ protected slots: // Protected slots
   */
   void unlockModule();
   void autoOpenTimeout();
+  /**
+  * Is called when items should be moved.
+  */
+  void moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow);
 
 private: // Private methods
   CSearchDialog* m_searchDialog;
@@ -157,6 +161,11 @@ private: // Private methods
   * Initializes the view.
   */
   void initView();
+  /**
+  * Returns true if more than one netry is supported by this action type.
+  * Returns false for actions which support only one entry, e.g. about module etc.
+  */
+  const bool isMultiAction( const CItemBase::MenuAction type ) const;
 
   struct Actions {
     KAction* newFolder;

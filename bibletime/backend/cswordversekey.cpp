@@ -221,4 +221,8 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
   return true;
 };
 
-
+/** Assignment operator for more ease of use. */
+CSwordVerseKey& CSwordVerseKey::operator = (const QString& keyname){
+  key(keyname);
+  return *this;
+}

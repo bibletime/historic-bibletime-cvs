@@ -57,6 +57,10 @@ public:
   * @see CSwordModuleInfo, CSwordBibleModuleInfo, CSwordCommentaryModuleInfo, CSwordLexiconModukleInfo
   */
   static CSwordKey* createInstance(CSwordModuleInfo * const module);
+  /**
+  * The assignment operator for more easy use of the key classes.
+  */
+  virtual CSwordKey& operator = ( const QString& );
 
 protected:
 	CSwordModuleInfo* m_module; //module pointer used by all keys

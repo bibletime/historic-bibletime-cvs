@@ -136,6 +136,14 @@ public:
   virtual void update();
   virtual void init();
   virtual const bool isMovable();
+  /**
+  * Reimplementation to handle  the menu entries of the main index.
+  */
+  virtual const bool enableAction(const MenuAction action);
+  /** Prints this bookmark. */
+  void print();
+  /** Changes this bookmark. */
+  void rename();
 
 private:
   QString m_key;
@@ -156,6 +164,11 @@ public:
   virtual void update();
   virtual void init();
   virtual void setOpen( bool open );
+  /**
+  * The function which renames this folder.
+  */
+  void rename();
+  virtual void newSubFolder();
 };
 
 /** The base class for all items in the tree. Subclasses for module folders, modules and bookmarks exist.
@@ -206,6 +219,11 @@ public:
 	CBookmarkFolder(CMainIndex* mainIndex, const Type type = BookmarkFolder);
 	CBookmarkFolder(CFolderBase* parentItem, const Type type = BookmarkFolder);
 	virtual ~CBookmarkFolder();
+  virtual const bool enableAction(const MenuAction action);
+  void exportBookmarks();
+  void importBookmarks();
+  bool acceptDrop(const QMimeSource * src) const;
+  void dropped(QDropEvent * e);
 
 protected: // Protected methods
   virtual void initTree();
