@@ -32,7 +32,7 @@ CProfileMgr::CProfileMgr() : m_startupProfile(0) {
 	m_profilePath = stdDirs.saveLocation("data", "bibletime/profiles/");	
 	
 	//load available profiles
-	qDebug("profile path is %s", m_profilePath.latin1());	
+
 	QDir d( m_profilePath );
 	QStringList files = d.entryList("*.xml");
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
@@ -91,4 +91,21 @@ CProfile* CProfileMgr::startupProfile(){
 	if (!m_startupProfile)
 		m_startupProfile = new CProfile(QString::null, "_startup_");
 	return m_startupProfile;	
+}
+
+/** Refreshes the profiles available on disk. Use this function to update the list of profiles after another instance of CProfileMgr created a new profile. */
+void CProfileMgr::refresh(){
+	//appends the profiles to the list, which do not yet exist
+	QDir d( m_profilePath );
+	QStringList files = d.entryList("*.xml");
+	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
+		CProfile p(m_profilePath + *it);
+		if ((p.name() == "_startup_")) { //new startup profile
+			if (!m_startupProfile)
+				m_startupProfile = new CProfile(m_profilePath + *it);
+		}
+		else if (!profile(p.name())) { //do we have it already?
+			m_profiles.append(new CProfile(m_profilePath + *it));
+		}
+	}
 }

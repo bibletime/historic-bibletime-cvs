@@ -312,7 +312,7 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
 
 /** Returns the width of this item. */
 int CSearchDialogAnalysisItem::width(){
-	return m_moduleCount*(m_moduleCount >1 ? BAR_WIDTH - BAR_DELTAX : BAR_WIDTH);	
+	return m_moduleCount*(m_moduleCount>1 ? BAR_DELTAX : 0) + BAR_WIDTH;	
 }
 
 /** Returns the tooltip for this item. */

@@ -90,17 +90,13 @@ void BibleTime::slotFileQuit(){
 /** Opens the optionsdialog of BibleTime. */
 void BibleTime::slotSettingsOptions(){
 	COptionsDialog *dlg = new COptionsDialog(m_important, this, "COptionsDialog", m_keyAccel);
-//	dlg->setMinimumSize(dlg->sizeHint());
-//	dlg->resize(dlg->sizeHint());
   connect(dlg, SIGNAL(signalSettingsChanged(const int)), SLOT(slotSettingsChanged(const int)) );
 	
 	dlg->exec();
-	//delete dlg;
 	dlg->delayedDestruct();
 }
-/** Is called when settings in
-the optionsdialog have been
-changed (ok or apply) */
+
+/** Is called when settings in the optionsdialog have been changed (ok or apply) */
 void BibleTime::slotSettingsChanged(const int changedSettings){
  	if (m_important->swordBackend->m_entryDisplay) {
  		KConfigGroupSaver groupSaver(m_config, "Colors");
@@ -120,8 +116,7 @@ void BibleTime::slotSettingsChanged(const int changedSettings){
  		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
  		m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );			
  	}				
-// is now an argument:
-// 	const int changedSettings = dlg->getChangedSettings();
+
  	if (changedSettings & CSwordPresenter::language) {	//the language changed
  		KConfigGroupSaver gs(m_config, "SWORD");
  		const QString language = m_config->readEntry("Language", "");
@@ -146,7 +141,9 @@ void BibleTime::slotSettingsChanged(const int changedSettings){
  		if (myPresenter)
  			myPresenter->refresh(changedSettings);
  	}
+
  	//refresh the load profile and save profile menus
+	m_profileMgr.refresh();
  	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
  	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();	
  	loadPopup->clear();

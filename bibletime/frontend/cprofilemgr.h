@@ -57,6 +57,8 @@ public:
   * Returns the startup profile if it exists, otherwise return 0.
   */
   CProfile* startupProfile();
+  /** Refreshes the profiles available on disk. Use this function to update the list of profiles after another instance of CProfileMgr created a new profile. */
+  void refresh();
 
 protected:	
 	QList<CProfile> m_profiles;	

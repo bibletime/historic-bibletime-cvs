@@ -53,6 +53,7 @@ void CLexiconPresenter::initView(){
 	m_mainToolBar = new KToolBar(this);
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
+//	m_mainToolBar->setItemAutoSized(0);
 	addToolBar(m_mainToolBar);
 	
 	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Lexicon, this );
@@ -98,7 +99,7 @@ void CLexiconPresenter::initConnections(){
 	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)), SLOT(lookup(const QString&))); 	
  	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)), SLOT(lookup(CSwordKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()), SLOT(popupAboutToShow()));
-	connect(m_moduleChooserBar, SIGNAL(sigChanged()), SLOT(moduleChanged()));
+	connect(m_moduleChooserBar, SIGNAL(sigChanged()), SLOT(modulesChanged()));
 }
 
 /** No descriptions */
@@ -122,19 +123,6 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 		
 	setUpdatesEnabled(true);
 	setCaption( windowCaption() );
-}
-
-/** No descriptions */
-void CLexiconPresenter::moduleChanged(){
-  m_moduleList = m_moduleChooserBar->getModuleList();
-  refreshFeatures();
-  if (!m_moduleList.count())
-  	close();
-  else {
-	  m_key->module(m_moduleList.first());
-	  m_keyChooser->setModule(m_moduleList.first());
-	  lookup(m_key);
-	}
 }
 
 /** No descriptions */
@@ -179,7 +167,6 @@ void CLexiconPresenter::modulesChanged(){
     refreshFeatures();
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
-	
 	  lookup(m_key);
 	}
 }
