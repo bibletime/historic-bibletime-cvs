@@ -597,7 +597,7 @@ void CSwordSetupDialog::slot_installManageSources() {
 // 	CInstallSourcesMgrDialog* dlg = new CInstallSourcesMgrDialog(this);
 // 	dlg->exec();
 
-	QString test = CSwordSetupInstallSourcesDialog::getSourceURL();
+	qWarning( ((QString)CSwordSetupInstallSourcesDialog::getSourceURL()).latin1() );
 
 	populateInstallCombos(); //make sure the items are updated
 }
