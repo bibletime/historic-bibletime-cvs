@@ -42,7 +42,7 @@
 #include <utilstr.h>
 
 CSwordBackend::CSwordBackend()
-	: SWMgr(0,0,false), m_errorCode(noError), m_entryDisplay(0), m_chapterDisplay(0), m_moduleList(0),
+	: SWEncodingMgr(0,0,false,ENC_UTF8), m_errorCode(noError), m_entryDisplay(0), m_chapterDisplay(0), m_moduleList(0),
 	m_gbfFilter(0),m_rwpFilter(0), m_plainTextFilter(0), m_thmlFilter(0) {
 		
 	m_rwpModules.append(QString::fromLatin1("RWP"));

@@ -41,12 +41,12 @@ const QString CSwordKey::renderedText() {
 		m_module->module()->SetKey(k);	
 	}
 	
-	switch (m_module->encoding()) {
-		case QFont::Unicode:
-			return QString::fromUtf8( (const char*)*(m_module->module()) );	
-		default:
-			return QString::fromLocal8Bit( (const char*)*(m_module->module()) );	
-	}
+//	switch (m_module->encoding()) {
+//		case QFont::Unicode:
+	return QString::fromUtf8( (const char*)*(m_module->module()) );	
+//		default:
+//			return QString::fromLocal8Bit( (const char*)*(m_module->module()) );	
+//	}
 }
 
 const QString CSwordKey::strippedText() {
@@ -56,10 +56,10 @@ const QString CSwordKey::strippedText() {
 	if (k)
 		m_module->module()->SetKey(k);
 		
-	switch (m_module->encoding()) {
-		case QFont::Unicode:
-			return QString::fromUtf8( m_module->module()->StripText() );
-		default:
-			return QString::fromLocal8Bit( m_module->module()->StripText() );
-	}
+//	switch (m_module->encoding()) {
+//		case QFont::Unicode:
+	return QString::fromUtf8( m_module->module()->StripText() );
+//		default:
+//			return QString::fromLocal8Bit( m_module->module()->StripText() );
+//	}
 }

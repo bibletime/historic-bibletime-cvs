@@ -93,6 +93,7 @@ const bool CSwordVerseKey::NextVerse(){
 //	qDebug("const bool CSwordVerseKey::NextVerse()");
 	m_module->module()->SetKey(this);	//use this key as base for the next one!
 	( *( m_module->module() ) )++;
+#warning Use Unicode??
 	key(QString::fromLocal8Bit(m_module->module()->KeyText()));
 	
 	return true;
@@ -103,6 +104,7 @@ const bool CSwordVerseKey::PreviousVerse(){
 //	qDebug("const bool CSwordVerseKey::PreviousVerse()");	
 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )--;
+#warning Use Unicode??
 	key(QString::fromLocal8Bit(m_module->module()->KeyText()));
 	
 	return true;
@@ -145,6 +147,7 @@ const QString CSwordVerseKey::key( const QString& newKey ){
 	if (!newKey.isNull()) {
 		VerseKey::operator = ((const char*)newKey.local8Bit());
 	}
+#warning Use Unicode??
 	return QString::fromLocal8Bit((const char*)*this);
 }
 

@@ -87,6 +87,7 @@ QStringList* CSwordBibleModuleInfo::getBooks() {
 		staticKey.setLocale(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 		for (int i = min; i <= max; ++i) {
 			for ( int j = 0; j < staticKey.BMAX[i]; ++j) {
+#warning use Unicode???
 				m_bookList->append( QString::fromLocal8Bit(staticKey.books[i][j].name) );
 			}
 		}
@@ -128,6 +129,7 @@ const unsigned int CSwordBibleModuleInfo::getBookNumber(const QString &book){
 	for (int i = 0; i <= 1 && !found; ++i) {
 		for ( int j = 0; j < staticKey.BMAX[i] && !found; ++j) {
 			++bookNumber;
+#warning Use Unicode???
 			if (book == QString::fromLocal8Bit( staticKey.books[i][j].name) )
 				found = true;
 		}

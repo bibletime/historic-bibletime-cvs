@@ -119,6 +119,7 @@ const QString CSwordModuleInfo::getCipherKey() const {
 
 /** Returns the description of the module */
 const QString CSwordModuleInfo::getDescription() const {
+#warning Use Unicode???
 	return QString::fromLocal8Bit( m_module->Description() );
 }
 

@@ -86,10 +86,11 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 
 		if (!read){
   		do {
-  			if (encoding() == QFont::Unicode)
+#warning check!!
+//  			if (encoding() == QFont::Unicode)
     			m_entryList->append(QString::fromUtf8(module()->KeyText()));
-        else
-    			m_entryList->append(QString::fromLocal8Bit(module()->KeyText()));
+//        else
+//    			m_entryList->append(QString::fromLocal8Bit(module()->KeyText()));
   			(*module())++;
   		} while (!module()->Error());
   		if (m_entryList->first().stripWhiteSpace().isEmpty())
