@@ -1,3 +1,6 @@
+2004-07-17 Daniel Glassey <danglassey@ntlworld.com>
+  * Added English and German man files courtesy of Erik Schanze
+
 2004-07-16 Martin Gruner <mg.pub@gmx.net>
   * Added invocation of KDE's graphical regular expression editor.
     -invoke simply by selecting "regular expression" as search type.
