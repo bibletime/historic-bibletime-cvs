@@ -363,6 +363,7 @@ QIconSet CKeyChooserWidget::getUpIconSet(){
 /** Returns the icons set which contains the down button. */
 QIconSet CKeyChooserWidget::getDownIconSet(){
   QPixmap pix(WIDTH,ARROW_HEIGHT);
+
 	QPainter p(&pix);
 	p.fillRect(0,0, WIDTH-1, ARROW_HEIGHT-1, colorGroup().background());
 

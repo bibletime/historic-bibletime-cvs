@@ -240,7 +240,11 @@ void BibleTime::initActions() {
 		actionCollection()->remove(actionCollection()->action("help_about_kde"));	
 	action = KStdAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());	
 	action->setToolTip(TT_HELP_ABOUT_KDE);
-	action->setWhatsThis(WT_HELP_ABOUT_KDE);	
+	action->setWhatsThis(WT_HELP_ABOUT_KDE);
+
+//	action = KStdAction::keybindings(m_helpMenu, SLOT(aboutApplication()), actionCollection());	
+//	action->setToolTip(TT_HELP_ABOUT);
+//	action->setWhatsThis(WT_HELP_ABOUT);	
 }
 
 /** Initializes the menubar of BibleTime. */
