@@ -19,17 +19,17 @@
 #ifndef THMLHTML_H
 #define THMLHTML_H
 
-#include <swfilter.h>
-#include <defs.h>
+#include "bt_basicfilter.h"
 
 /**
 * This filter converts ThML text to HTML text
 */
-class BT_ThMLHTML : public SWFilter
-{
+class BT_ThMLHTML : public BT_BASICFILTER {
+
 public:
   BT_ThMLHTML ();
-  virtual char ProcessText (char *text, int maxlen = -1);
+  virtual bool handleToken(char **buf, const char *token, DualStringMap &userData);
+//  virtual char ProcessText (char *text, int maxlen = -1);
 };
 
 #endif

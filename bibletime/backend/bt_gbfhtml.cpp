@@ -129,7 +129,6 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 				pushString(buf, "</i> ");
 			}
 			pushString(buf, QString("<font color=\"%1\"><small> (").arg(footnote_color).utf8());
-		  qWarning( QString("Jesus: %1").arg(footnote_color).latin1() );
 		}
 
 		else if (!strncmp(token, "FN", 2)) {
