@@ -6,6 +6,10 @@
   <Separator/>
   <Action name="file_quit"/>
  </Menu>
+ <Menu name="search" noMerge="1"><Text>&amp;Search</Text>
+ <Action name="GMsearchdefaultbible_action"/>
+ <Action name="GMsearch_action"/>
+ </Menu>
  <Menu name="view" noMerge="1"><Text>&amp;View</Text>
   <Action name="options_show_toolbar"/>
   <Separator/>

@@ -79,6 +79,13 @@ namespace CResMgr {
         extern const KShortcut accel;
         extern const char* actionName;
       }
+      namespace searchdefaultbible {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+        extern const char* actionName;
+      }
     };
 
     namespace window { //Main menu->Window

@@ -63,6 +63,13 @@ namespace CResMgr {
         const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_M;
         const char* actionName    = "GMsearch_action";
       }
+      namespace searchdefaultbible {
+        const QString tooltip     = makeToolTip(i18n("Search default bible"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Opens the search dialog to search your default bible."));
+        const QString icon        = "find";
+        const KShortcut accel     = Qt::CTRL + Qt::Key_F;
+        const char* actionName    = "GMsearchdefaultbible_action";
+      }
     };
 
     namespace window { //Main menu->Window

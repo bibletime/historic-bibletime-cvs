@@ -116,7 +116,6 @@ void BibleTime::initActions() {
 	action->setWhatsThis( CResMgr::mainMenu::file::quit::whatsthis );
 	action->plugAccel( m_keyAccel );
 
-
   action =  new KAction(i18n("Search in open module(s)"),
     CResMgr::mainMenu::mainIndex::search::icon,
     CResMgr::mainMenu::mainIndex::search::accel,
@@ -124,7 +123,16 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::mainIndex::search::actionName
   );
   action->setToolTip( CResMgr::mainMenu::mainIndex::search::tooltip );
-	action->setWhatsThis( CResMgr::mainMenu::mainIndex::search::whatsthis );
+  action->setWhatsThis( CResMgr::mainMenu::mainIndex::search::whatsthis );
+
+  action =  new KAction(i18n("Search in default bible"),
+    CResMgr::mainMenu::mainIndex::searchdefaultbible::icon,
+    CResMgr::mainMenu::mainIndex::searchdefaultbible::accel,
+    this, SLOT(slotSearchDefaultBible()), actionCollection(),
+    CResMgr::mainMenu::mainIndex::searchdefaultbible::actionName
+  );
+  action->setToolTip( CResMgr::mainMenu::mainIndex::searchdefaultbible::tooltip );
+  action->setWhatsThis( CResMgr::mainMenu::mainIndex::searchdefaultbible::whatsthis );
 
 
   m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
@@ -275,7 +283,7 @@ void BibleTime::initActions() {
 		actionCollection()->remove(actionCollection()->action(KStdAction::stdName(KStdAction::HelpContents)) );
   }
 
-	action = new KAction(i18n("&Handbook"),
+    action = new KAction(i18n("&Handbook"),
     CResMgr::mainMenu::help::handbook::icon,
     CResMgr::mainMenu::help::handbook::accel,
     this, SLOT(openOnlineHelp_Handbook()), actionCollection(),
@@ -283,7 +291,7 @@ void BibleTime::initActions() {
   );
   action->setToolTip( CResMgr::mainMenu::help::handbook::tooltip );
   action->setWhatsThis( CResMgr::mainMenu::help::handbook::whatsthis  );
-	action->plugAccel( m_keyAccel );
+  action->plugAccel( m_keyAccel );
 
 	action = new KAction(i18n("&Installation"),
     CResMgr::mainMenu::help::installation::icon,

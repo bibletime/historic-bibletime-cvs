@@ -144,7 +144,7 @@ void BibleTime::slotWindowMenuAboutToShow(){
 			
 	m_windowSaveProfile_action->plug(m_windowMenu);	
 	m_windowSaveToNewProfile_action->plug(m_windowMenu);	
-  m_windowLoadProfile_action->plug(m_windowMenu);  
+    m_windowLoadProfile_action->plug(m_windowMenu);
 	m_windowEditProfiles_action->plug(m_windowMenu);	
 	m_windowMenu->insertSeparator();	
 	m_windowFullscreen_action->plug(m_windowMenu);				
@@ -307,7 +307,19 @@ void BibleTime::slotSearchModules() {
   CSearchDialog::openDialog(modules, QString::null);
 }
 
-void BibleTime::slotBack() {
+/* Search default Bible slot
+ * Call CSearchDialog::openDialog with only the default bible module
+ */
+void BibleTime::slotSearchDefaultBible() {
+  ListCSwordModuleInfo module;
+  CSwordModuleInfo* bible = CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible));
+  if(bible != 0)
+    module.append(bible);
+
+  CSearchDialog::openDialog(module, QString::null);
+}
+
+    void BibleTime::slotBack() {
   CBibleReadWindow* w = 
     dynamic_cast<CBibleReadWindow*> (m_mdi->activeWindow());
   // no proper action target

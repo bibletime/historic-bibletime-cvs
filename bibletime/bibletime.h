@@ -337,6 +337,10 @@ protected slots:
 	 **/
 	void slotSearchModules();
 	/**
+	 * Called for search default bible
+	 **/
+	void slotSearchDefaultBible();
+	/**
 	 * Called when back button pressed
 	 **/
 	void slotBack();
