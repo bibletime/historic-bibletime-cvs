@@ -310,7 +310,7 @@ const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection(){
 
 /** Writes the new text at the given position into the module. This does only work for writable modules. */
 void CSwordModuleInfo::write( CSwordKey* key, const QString& newText ){
-/  qWarning("write %s to key %s", newText.latin1(), key->key().latin1());
+//  qWarning("write %s to key %s", newText.latin1(), key->key().latin1());
   module()->KeyText( key->key().local8Bit() );
   const char* text = isUnicode() ? (const char*)newText.utf8() : (const char*)newText.local8Bit();
   Q_ASSERT( module()->isWritable() );
