@@ -103,10 +103,11 @@ for I1 in `ls -d [a-z][a-z]`; do
         done
         echo
 
+        echo
         echo 'install-data-local:'
         echo '	mkdir -p $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime;'
         echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1';'
-        echo '	for file in *.html; do \'
+        echo '	for file in *.html *.png; do \'
         echo '	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime && \'
         echo '	  chmod a+r $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/$$file;\'
         echo '	done;'
@@ -119,11 +120,11 @@ for I1 in `ls -d [a-z][a-z]`; do
         echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/'
         echo
         echo 'uninstall-local:'
-        echo '	for f in *.html; do \'
-        echo '	  echo Removing $(kde_htmldir)/'$I1'/bibletime/$$f; \'
-        echo '	  rm -f $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/$$f; \'
+        echo '	for file in *.html *.png; do \'
+        echo '	  echo Removing $(kde_htmldir)/'$I1'/bibletime/$$file; \'
+        echo '	  rm -f $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/$$file; \'
         echo '	done; \'
-        echo '	cd .. \'
+        echo '	cd ..;'
 #        echo '	echo Deleting $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/common;\'
 #        echo '	rm -Rf $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/common;'
       ) > $I2/Makefile.am
