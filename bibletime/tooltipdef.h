@@ -20,14 +20,14 @@
 #define TT_FILE_PRINT  i18n("Open the printerdialog")
 #define TT_FILE_QUIT  i18n("Close BibleTime")
 	
-#define TT_GM_SEARCH_MODULES i18n("Search in selected modules")
+#define TT_GM_SEARCH_MODULES i18n("Search in modules")
 #define TT_GM_DELETE_ITEMS i18n("Remove selected items")
 #define TT_GM_RESET	i18n("Reset main index")
 
-#define TT_VIEW_GROUPMANAGER i18n("Show / hide main index")
-#define TT_VIEW_TOOLBAR i18n("Show / hide tooolbar")
-#define TT_VIEW_FOOTNOTES i18n("Show / hide footnotes")
-#define TT_VIEW_STRONGS i18n("Show / hide Strong's numbers")
+#define TT_VIEW_GROUPMANAGER i18n("Show main index")
+#define TT_VIEW_TOOLBAR i18n("Show tooolbar")
+#define TT_VIEW_FOOTNOTES i18n("Show footnotes")
+#define TT_VIEW_STRONGS i18n("Show Strong's numbers")
 
 #define TT_WINDOW_TILE i18n("Tile windows")
 #define TT_WINDOW_AUTO_TILE  i18n("Automatically tile windows")
@@ -35,11 +35,11 @@
 #define TT_WINDOW_AUTO_CASCADE  i18n("Automatically cascade windows")
 #define TT_WINDOW_CLOSE_ALL  i18n("Close all windows")
 
-#define TT_SETTINGS_EDIT_TOOLBAR i18n("Edit main toolbar")
+#define TT_SETTINGS_EDIT_TOOLBAR i18n("Edit toolbar")
 #define TT_SETTINGS_OPTIONS i18n("Options")
 
 #define TT_HELP_CONTENT i18n("BibleTime's handbook")
-#define TT_HELP_WHATSTHIS i18n("What's this?")
+#define TT_HELP_WHATSTHIS i18n("Enter \"What's this?\" mode")
 #define TT_HELP_BUGREPORT i18n("Send bugreport")
 #define TT_HELP_ABOUT i18n("About BibleTime")
 #define TT_HELP_ABOUT_KDE i18n("About KDE")
@@ -82,8 +82,8 @@
 #define TT_PRESENTER_EDIT_SET_ITALIC i18n("Set italic")
 #define TT_PRESENTER_EDIT_SET_UNDERLINED i18n("Set underlined")
 #define TT_PRESENTER_EDIT_SET_FONT i18n("Set font")
-#define TT_PRESENTER_EDIT_COLOR_CHOOSER i18n("Choose a color")
-#define TT_PRESENTER_EDIT_FONTSIZE_CHOOSER i18n("Choose a fontsize")
+#define TT_PRESENTER_EDIT_COLOR_CHOOSER i18n("Set the color")
+#define TT_PRESENTER_EDIT_FONTSIZE_CHOOSER i18n("Set the fontsize")
 
 #define TT_PRESENTER_SYNC i18n("Synchronize with Bibles")
 
@@ -106,9 +106,9 @@
 
 #define TT_SD_SCOPE_NO_SCOPE i18n("No scope")
 #define TT_SD_SCOPE_LAST_RESULT i18n("Last search result")
-#define TT_SD_SCOPE_OWN_SCOPE i18n("Last search result")
+#define TT_SD_SCOPE_OWN_SCOPE i18n("Use own scope")
 #define TT_SD_SCOPE_NEW_SCOPE i18n("Add a new scope")
-#define TT_SD_SCOPE_DELETE_SCOPE i18n("Delete scope")
+#define TT_SD_SCOPE_DELETE_SCOPE i18n("Delete this scope")
 #define TT_SD_SCOPE_EDIT_SCOPE_BUTTON i18n("Edit and define your scopes")
 #define TT_SD_SCOPE_CHOOSER i18n("Choose a scope from the list")
 #define TT_SD_SCOPE_EDIT_LINE	i18n("Enter your own scope")
@@ -116,7 +116,7 @@
 #define TT_SD_SCOPE_CLOSE i18n("Close this dialog")
 
 #define TT_SD_RESULT_MODULE_VIEW i18n("Used modules")
-#define TT_SD_RESULT_RESULT_VIEW i18n("Found items")
+#define TT_SD_RESULT_RESULT_VIEW i18n("Items found")
 #define TT_SD_RESULT_PREVIEW i18n("Preview")
 
 #define TT_SD_ANALYSIS_VIEW i18n("Graphical analysis")
@@ -134,13 +134,11 @@
 #define TT_OD_FFM_FONTS_LIST i18n("List of modules")
 
 #define TT_OD_COLORS_BACKGROUND i18n("Color of the background")
-#define TT_OD_COLORS_NORMAL_TEXT i18n("Color of normal text")
-#define TT_OD_COLORS_VERSENUMBER i18n("Coor of the verse numbers")
 #define TT_OD_COLORS_CURRENT_VERSE i18n("Color of the highlighted verse")
 
 //defines for the printing dialog; PI == Print Item; PD=Printer Dialog
 #define TT_PD_PRINT i18n("Start printing")
-#define TT_PD_PREVIEW i18n("Open preview")
+#define TT_PD_PREVIEW i18n("Show a preview")
 #define TT_PD_CANCEL i18n("Cancel")
 #define TT_PD_HELP i18n("Open help")
 

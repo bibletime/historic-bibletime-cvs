@@ -167,9 +167,9 @@
 #define ICON_EDIT_RIGHT "text_right"
 #define ICON_EDIT_JUST "text_block"
 
-#define ICON_MAININDEX_RESET "bt_reset"
+#define ICON_MAININDEX_RESET "start"
 #define ICON_MAININDEX_SEARCH "bt_search"
-#define ICON_MAININDEX_DELETE_ITEMS "bt_delete_items"
+#define ICON_MAININDEX_DELETE_ITEMS ICON_FILE_DELETE
 
 #define ICON_VIEW_MAININDEX "bt_mainindex"
 #define ICON_VIEW_FOOTNOTES "bt_footnotes"
@@ -181,7 +181,7 @@
 #define ICON_WINDOW_CASCADE_AUTO "bt_cascade_auto"
 #define ICON_WINDOW_CLOSE_ALL "fileclose"
 
-#define ICON_HELP_DAILY_TIP "bt_tip"
+#define ICON_HELP_DAILY_TIP "daily_tip"
 
 #define ICON_SYNC	"bt_sync"
 
