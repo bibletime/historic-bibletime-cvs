@@ -799,7 +799,7 @@ install_location=
 type=DATA
 
 [bibletime/frontend/Makefile.am]
-files=bibletime/frontend/cmdiarea.cpp,bibletime/frontend/cmdiarea.h,bibletime/frontend/actions.cpp,bibletime/frontend/actions.h,bibletime/frontend/ceditwidget.h,bibletime/frontend/chtmldialog.cpp,bibletime/frontend/chtmldialog.h,bibletime/frontend/chtmlwidget.cpp,bibletime/frontend/chtmlwidget.h,bibletime/frontend/ctipwindow.cpp,bibletime/frontend/ctipwindow.h,bibletime/frontend/kstartuplogo.h,bibletime/frontend/kstartuplogo.cpp,bibletime/frontend/ctoolclass.h,bibletime/frontend/ctoolclass.cpp,bibletime/frontend/cminmaxlayout.cpp,bibletime/frontend/cminmaxlayout.h,bibletime/frontend/cinputdialog.cpp,bibletime/frontend/cinputdialog.h,bibletime/frontend/cprofilemgr.cpp,bibletime/frontend/cprofilemgr.h,bibletime/frontend/cprofile.cpp,bibletime/frontend/cprofile.h,bibletime/frontend/cprofilewindow.cpp,bibletime/frontend/cprofilewindow.h,bibletime/frontend/creferencemanager.cpp,bibletime/frontend/creferencemanager.h
+files=bibletime/frontend/cmdiarea.cpp,bibletime/frontend/cmdiarea.h,bibletime/frontend/actions.cpp,bibletime/frontend/actions.h,bibletime/frontend/ceditwidget.h,bibletime/frontend/chtmldialog.cpp,bibletime/frontend/chtmldialog.h,bibletime/frontend/chtmlwidget.cpp,bibletime/frontend/chtmlwidget.h,bibletime/frontend/ctipwindow.cpp,bibletime/frontend/ctipwindow.h,bibletime/frontend/kstartuplogo.h,bibletime/frontend/kstartuplogo.cpp,bibletime/frontend/ctoolclass.h,bibletime/frontend/ctoolclass.cpp,bibletime/frontend/cminmaxlayout.cpp,bibletime/frontend/cminmaxlayout.h,bibletime/frontend/cinputdialog.cpp,bibletime/frontend/cinputdialog.h,bibletime/frontend/cprofilemgr.cpp,bibletime/frontend/cprofilemgr.h,bibletime/frontend/cprofile.cpp,bibletime/frontend/cprofile.h,bibletime/frontend/cprofilewindow.cpp,bibletime/frontend/cprofilewindow.h,bibletime/frontend/creferencemanager.cpp,bibletime/frontend/creferencemanager.h,bibletime/frontend/cbtconfig.cpp,bibletime/frontend/cbtconfig.h
 sub_dirs=groupmanager,presenters,optionsdialog,searchdialog,keychooser,thirdparty
 type=static_library
 
@@ -810,6 +810,18 @@ install_location=
 type=SOURCE
 
 [bibletime/frontend/actions.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/frontend/cbtconfig.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/frontend/cbtconfig.h]
 dist=true
 install=false
 install_location=
