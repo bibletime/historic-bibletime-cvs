@@ -257,6 +257,21 @@ const QString CGroupManagerItem::getToolTip(){
       return text;				
 		}
 		case Module:
+		{
+			text = i18n("Module") + QString(": <B>%1</B><HR>").arg(QString::fromLocal8Bit(moduleInfo()->module()->Name()));
+			text += QString("%1<HR>").arg(moduleInfo()->getDescription());
+			text += i18n("Foonotes: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::strongNumbers) ? i18n("Yes") : i18n("No"));
+			text += i18n("Strong's numbers: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::footnotes) ? i18n("Yes") : i18n("No"));
+			if (moduleInfo()->isEncrypted())
+				text += QString("Unlock key: %1<BR>").arg(!moduleInfo()->getCipherKey().isEmpty() ? moduleInfo()->getCipherKey() : i18n("<FONT COLOR=\"red\">not set</FONT>"));
+			if (!moduleInfo()->getVersion().isEmpty())
+				text += QString("Version: %1<BR>").arg(moduleInfo()->getVersion());
+			if (moduleInfo()->hasFont())
+				text += QString("Font: %1<BR>").arg(moduleInfo()->getFont().family());
+			if (text.right(4) == "<BR>")
+				text = text.left(text.length()-4);
+			return text;
+		}
 		case Group:
 		default:
 			return QString::null;

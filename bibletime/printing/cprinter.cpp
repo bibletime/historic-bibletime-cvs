@@ -393,6 +393,7 @@ void CPrinter::appendItemsToQueue( printItemList* items ){
 void CPrinter::clearQueue(){
 	qDebug("CPrinter::clearQueue()");
 	m_queue->clear();
+	emit queueCleared();	
 }
 
 /** Returns the print queue object. */

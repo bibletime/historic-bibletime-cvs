@@ -113,10 +113,7 @@ void CSearchDialogModuleChooser::addCurrentItem(){
 	if ( i && (i->type() == CGroupManagerItem::Module) && i->moduleInfo() ) {
 		m_moduleList->insertItem( CToolClass::getIconForModule(i->moduleInfo()), QString::fromLocal8Bit(i->moduleInfo()->module()->Name()),-1 );
 		QListViewItem* parentItem = i->parent();
-		char* charText = 0;
-		if (parentItem)
-			charText = (const char*)parentItem->text(0).latin1();
-		m_itemsDict.insert(i, charText ? charText : "");//I don't know why .local8Bit() doesn't work
+		m_itemsDict.insert(i, parentItem ? (const char*)parentItem->text(0).latin1() : "");//I don't know why .local8Bit() doesn't work
 		parentItem ? parentItem->takeItem(i) : m_moduleIndex->takeItem(i);			
 	}
 	if (m_initialized)	
