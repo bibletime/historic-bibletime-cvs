@@ -1,0 +1,152 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
+  <!ENTITY bibletimedocs '<application>Bibletime Documentation</application>'>
+  <!ENTITY kapp "&bibletime;"><!-- replace bibletimehandbook here -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"><!-- change language only here -->
+  
+  
+  <!-- Do not define any other entities; instead, use the entities
+       from kde-genent.entities and $LANG/user.entities. -->
+]>
+
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title>The BibletimeHandbook Handbook</title>
+
+<authorgroup>
+<author>
+<firstname></firstname>
+<othername></othername>
+<surname></surname>
+<affiliation>
+<address><email>info@bibletime.de</email></address>
+</affiliation>
+</author>
+</authorgroup>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+<copyright>
+<year>2001</year>
+<holder>The Bibletime Team</holder>
+</copyright>
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook 
+     and in the FDL itself on how to use it. -->
+<legalnotice>&FDLNotice;</legalnotice>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (DD/MM/YYYY) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>15/Nov/2001</date>
+<releaseinfo>1.00</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&bibletimedocs; is the documentation set for BibleTime
+</para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdeutils</keyword>
+<keyword>Kapp</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="documentation-links">
+<title>Documentation Links</title>
+<para>The bibletime documents are being revised.  Some links may not work.  Some
+links may lead to temporary pages where translations are not completed yet.   If a
+translation for your language does not yet exist, please consider doing a translation
+to your language.</para>
+
+<para>Czechoslovakian (cs) documentation.</para>
+<para><ulink url="./cs/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
+<para><ulink url="./cs/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./cs/handbook/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./cs/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
+<para>German (de) documentation.</para>
+<para><ulink url="./de/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
+<para><ulink url="./de/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./de/handbook/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./de/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
+<para>English (en) documentation.</para>
+<para><ulink url="./en/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
+<para><ulink url="./en/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./en/handbook/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./en/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
+<para>Italian (it) documentation.</para>
+<para><ulink url="./it/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
+<para><ulink url="./it/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./it/handbook/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./it/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
+<para>Dutch (nl) documentation.</para>
+<para><ulink url="./nl/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
+<para><ulink url="./nl/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./nl/handbook/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./nl/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
+<para>Norwegian (no) documentation.</para>
+<para><ulink url="./no/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
+<para><ulink url="./no/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./no/handbook/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./no/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
+<para>Dutch (sk) documentation.</para>
+<para><ulink url="./sk/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
+<para><ulink url="./sk/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./sk/handbook/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./sk/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
+</chapter>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
