@@ -1053,8 +1053,8 @@ void QWorkspace::maximizeWindow( QWidget* w)
 	showMaximizeControls();
 	inCaptionChange = TRUE;
 	if ( !!d->topCaption )
-	    topLevelWidget()->setCaption( QString("%1 - [%2]")
-		.arg(d->topCaption).arg(c->caption()) );
+//	    topLevelWidget()->setCaption( QString("%1 - [%2]")
+//		.arg(d->topCaption).arg(c->caption()) );
 	inCaptionChange = FALSE;
 	setUpdatesEnabled( TRUE );
     }
@@ -1168,8 +1168,8 @@ bool QWorkspace::eventFilter( QObject *o, QEvent * e)
 	    d->topCaption = ((QWidget*)o)->caption();
 
 	if ( d->maxWindow && !!d->topCaption )
-	    topLevelWidget()->setCaption( QString("%1 - [%2]")
-		.arg(d->topCaption).arg(d->maxWindow->caption()));
+//	    topLevelWidget()->setCaption( QString("%1 - [%2]")
+//		.arg(d->topCaption).arg(d->maxWindow->caption()));
 	inCaptionChange = FALSE;
 
 	break;

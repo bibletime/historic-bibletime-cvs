@@ -22,6 +22,8 @@
 #include "cstyleeditordialog.h"
 #include "../../config.h"
 #include "../whatsthisdef.h"
+#include "../tooltipdef.h"
+#include "../ressource.h"
 
 #include <qtextstream.h>
 #include <qmessagebox.h>
@@ -44,6 +46,8 @@
 #include <qlayout.h>
 #include <qspinbox.h>
 #include <qwhatsthis.h>
+#include <qtooltip.h>
+
 
 #include <values.h>
 #include <ctype.h>
@@ -385,34 +389,24 @@ void CPrinterDialog::paperType( QStringList &list )
 void CPrinterDialog::initLayoutPage(){
 	qDebug("CPrinterDialog::initLayoutPage()");
   QFrame *page = addPage( i18n("Layout"), i18n("Layout specific settings") );
-
   QVBoxLayout *topLayout = new QVBoxLayout( page, OUTER_BORDER, INNER_BORDER );
-  if( topLayout == 0 )
-  	return;
   	
   QButtonGroup *group = new QButtonGroup( i18n("Margins (in millimeter)"), page );
-  if( group == 0 )
-  	return;
+  QWhatsThis::add(group, WT_PD_LAYOUT_BORDER);
   topLayout->addWidget( group, 0 );
 
   QGridLayout *gbox = new QGridLayout( group, 4, 2, OUTER_BORDER, INNER_BORDER );
-  if( gbox == 0 ) { return; }
   gbox->addRowSpacing( 0, group->fontMetrics().height()-INNER_BORDER );
 
   QString name[4];
-  int i;
-
   name[0] = i18n("&Top");
   name[1] = i18n("&Bottom");
   name[2] = i18n("&Left");
   name[3] = i18n("&Right");
-
-  for( i=0; i<4; i++ )
-  {
+  for( int i=0; i<4; i++ ) {
     m_layout.marginSpin[i] = new QSpinBox( group );
     m_layout.marginSpin[i]->setFixedHeight( m_layout.marginSpin[i]->sizeHint().height() );
     m_layout.marginSpin[i]->setMinimumWidth( m_layout.marginSpin[i]->fontMetrics().width("M")*10 );
-//    m_layout.marginSpin[i]->setRange( 0, MAXINT );
 
     QLabel *label = new QLabel( m_layout.marginSpin[i], name[i], group );
     label->setFixedHeight( m_layout.marginSpin[i]->sizeHint().height() );
@@ -429,6 +423,16 @@ void CPrinterDialog::initLayoutPage(){
       gbox->addWidget( m_layout.marginSpin[i], i-1, 4, AlignLeft );
     }
   }
+  QWhatsThis::add(m_layout.marginSpin[0], WT_PD_LAYOUT_BORDER_TOP);
+  QWhatsThis::add(m_layout.marginSpin[1], WT_PD_LAYOUT_BORDER_BOTTOM);
+  QWhatsThis::add(m_layout.marginSpin[2], WT_PD_LAYOUT_BORDER_LEFT);
+  QWhatsThis::add(m_layout.marginSpin[3], WT_PD_LAYOUT_BORDER_RIGHT);
+
+  QToolTip::add(m_layout.marginSpin[0], TT_PD_LAYOUT_BORDER_TOP);
+  QToolTip::add(m_layout.marginSpin[1], TT_PD_LAYOUT_BORDER_BOTTOM);
+  QToolTip::add(m_layout.marginSpin[2], TT_PD_LAYOUT_BORDER_LEFT);
+  QToolTip::add(m_layout.marginSpin[3], TT_PD_LAYOUT_BORDER_RIGHT);
+
   gbox->activate();	
   group->setFixedHeight( group->sizeHint().height() );
   //set minimum borders
@@ -438,34 +442,36 @@ void CPrinterDialog::initLayoutPage(){
   m_layout.marginSpin[3]->setRange( m_printer->margins().width(), MAXINT );	//right margin
 
   QHBoxLayout *entryLayout = new QHBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
-  if( !entryLayout )
-  	return;
   QVBoxLayout *styleLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
-  if( !styleLayout )
-  	return;
   QVBoxLayout *buttonLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
-  if( !buttonLayout )
-  	return;
-
   	
   m_layout.styleList = new CStyleList( m_printer->getStyleList(), page, "CStyleList1");
+	QToolTip::add(m_layout.styleList, TT_PD_LAYOUT_STYLE_LIST);	
+	QWhatsThis::add(m_layout.styleList, WT_PD_LAYOUT_STYLE_LIST);
+
   QLabel* label = new QLabel(m_layout.styleList, i18n("List of style items:"), page);
   styleLayout->addWidget(label,0);
 	styleLayout->addWidget( m_layout.styleList, 3);
 	
 	m_layout.newStyleButton = new QToolButton( page, "newStyle Button");
-	m_layout.newStyleButton->setOnIconSet( SmallIcon("wizard"));
-	m_layout.newStyleButton->setOffIconSet( SmallIcon("wizard"));	
+	m_layout.newStyleButton->setOnIconSet( SmallIcon(ICON_FILE_NEW));
+	m_layout.newStyleButton->setOffIconSet( SmallIcon(ICON_FILE_NEW));	
+	QToolTip::add(m_layout.newStyleButton, TT_PD_LAYOUT_STYLE_NEW);	
+	QWhatsThis::add(m_layout.newStyleButton, WT_PD_LAYOUT_STYLE_NEW);	
 	connect( m_layout.newStyleButton, SIGNAL(clicked()),m_layout.styleList, SLOT(createNewStyle()));
 		
 	m_layout.deleteStyleButton = new QToolButton( page, "deleteStyle Button");	
-	m_layout.deleteStyleButton->setOnIconSet( SmallIcon("edittrash"));
-	m_layout.deleteStyleButton->setOffIconSet( SmallIcon("edittrash"));	
+	m_layout.deleteStyleButton->setOnIconSet( SmallIcon(ICON_FILE_DELETE));
+	m_layout.deleteStyleButton->setOffIconSet( SmallIcon(ICON_FILE_DELETE));	
+	QToolTip::add(m_layout.deleteStyleButton, TT_PD_LAYOUT_STYLE_DELETE);	
+	QWhatsThis::add(m_layout.deleteStyleButton, WT_PD_LAYOUT_STYLE_DELETE);		
 	connect( m_layout.deleteStyleButton, SIGNAL(clicked()), m_layout.styleList, SLOT(deleteCurrentStyle()));
 
 	m_layout.editStyleButton = new QToolButton( page, "editStyle");
-	m_layout.editStyleButton->setOnIconSet( SmallIcon("edit"));
-	m_layout.editStyleButton->setOffIconSet( SmallIcon("edit"));	
+	m_layout.editStyleButton->setOnIconSet( SmallIcon(ICON_EDIT));
+	m_layout.editStyleButton->setOffIconSet( SmallIcon(ICON_EDIT));	
+	QToolTip::add(m_layout.editStyleButton, TT_PD_LAYOUT_STYLE_EDIT);	
+	QWhatsThis::add(m_layout.editStyleButton, WT_PD_LAYOUT_STYLE_EDIT);		
 	connect( m_layout.editStyleButton, SIGNAL(clicked()), m_layout.styleList, SLOT(editCurrentStyle()));
 		
 	buttonLayout->addWidget( m_layout.newStyleButton );
@@ -482,13 +488,16 @@ void CPrinterDialog::initLayoutPage(){
 /** Initialitzes the page which contains the two lists of CStyles and PrintItems. */
 void CPrinterDialog::initListPage(){
 	qDebug("CPrinterDialog::initListPage()");
-  QFrame *page = addPage( i18n("Entries"), i18n("Management of BibleTimes print queue") );
+  QFrame *page = addPage( i18n("Entries"), i18n("Management of BibleTimes printing queue") );
   QVBoxLayout *topLayout = new QVBoxLayout( page, OUTER_BORDER, INNER_BORDER );
   QVBoxLayout *entryLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   QLabel*	label = 0;
 
   m_entryWidgets.styleComboBox = new QComboBox( page, "styleComboBox" );
+	QToolTip::add(m_entryWidgets.styleComboBox, TT_PD_ENTRIES_STYLE_COMBO);
+	QWhatsThis::add(m_entryWidgets.styleComboBox, WT_PD_ENTRIES_STYLE_COMBO);
   connect(m_entryWidgets.styleComboBox, SIGNAL(activated(const QString&)), SLOT(slotListApplyStyle(const QString&)));
+
   label = new QLabel( m_entryWidgets.styleComboBox, i18n("Choose a style"), page);
   QHBoxLayout*	hboxLayout = new QHBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   hboxLayout->addWidget( label );
@@ -496,7 +505,11 @@ void CPrinterDialog::initListPage(){
   topLayout->addLayout( hboxLayout );
 
   hboxLayout = new QHBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
+
   m_entryWidgets.printItemList = new CPrintItemList( m_printer->getPrintQueue(), page, "CPrintItemList1");
+	QToolTip::add(m_entryWidgets.printItemList, TT_PD_ENTRIES_PI_LIST);
+	QWhatsThis::add(m_entryWidgets.printItemList, WT_PD_ENTRIES_PI_LIST);
+
   label = new QLabel(m_entryWidgets.printItemList, i18n("Entries which should be printed:"), page);
   entryLayout->addWidget(label);
   entryLayout->addWidget( m_entryWidgets.printItemList );
@@ -506,21 +519,29 @@ void CPrinterDialog::initListPage(){
   m_entryWidgets.moveUpButton = new QToolButton(page);
  	m_entryWidgets.moveUpButton->setOnIconSet( SmallIcon("up"));
 	m_entryWidgets.moveUpButton->setOffIconSet( SmallIcon("up"));	
-	connect( m_entryWidgets.moveUpButton, SIGNAL(clicked()),m_entryWidgets.printItemList, SLOT(moveUp()));
+	QToolTip::add(m_entryWidgets.moveUpButton, TT_PD_ENTRIES_PI_MOVE_UP);
+	QWhatsThis::add(m_entryWidgets.moveUpButton, WT_PD_ENTRIES_PI_MOVE_UP);	
+	connect(m_entryWidgets.moveUpButton, SIGNAL(clicked()),m_entryWidgets.printItemList, SLOT(moveUp()));
 	
   m_entryWidgets.moveDownButton = new QToolButton(page);
  	m_entryWidgets.moveDownButton->setOnIconSet( SmallIcon("down"));
 	m_entryWidgets.moveDownButton->setOffIconSet( SmallIcon("down"));	
+	QToolTip::add(m_entryWidgets.moveDownButton, TT_PD_ENTRIES_PI_MOVE_DOWN);
+	QWhatsThis::add(m_entryWidgets.moveDownButton, WT_PD_ENTRIES_PI_MOVE_DOWN);
 	connect( m_entryWidgets.moveDownButton, SIGNAL(clicked()),m_entryWidgets.printItemList, SLOT(moveDown()));
 	
   m_entryWidgets.deleteButton = new QToolButton(page);
 	m_entryWidgets.deleteButton->setOnIconSet( SmallIcon("edittrash"));
 	m_entryWidgets.deleteButton->setOffIconSet( SmallIcon("edittrash"));	
+	QToolTip::add(m_entryWidgets.deleteButton, TT_PD_ENTRIES_PI_DELETE);
+	QWhatsThis::add(m_entryWidgets.deleteButton, WT_PD_ENTRIES_PI_DELETE);		
 	connect( m_entryWidgets.deleteButton, SIGNAL(clicked()),m_entryWidgets.printItemList, SLOT(deleteCurrentItem()));
 	
   m_entryWidgets.newPageButton = new QToolButton(page);
  	m_entryWidgets.newPageButton->setOnIconSet( SmallIcon("filenew"));
 	m_entryWidgets.newPageButton->setOffIconSet( SmallIcon("filenew"));	
+	QToolTip::add(m_entryWidgets.newPageButton, TT_PD_ENTRIES_PI_PAGE_BREAK);
+	QWhatsThis::add(m_entryWidgets.newPageButton, WT_PD_ENTRIES_PI_PAGE_BREAK);		
 	connect( m_entryWidgets.newPageButton, SIGNAL(clicked()),m_entryWidgets.printItemList, SLOT(newPage()));
 
   buttonLayout->addWidget(m_entryWidgets.moveUpButton);

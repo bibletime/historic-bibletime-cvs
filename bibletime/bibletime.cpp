@@ -275,9 +275,9 @@ void BibleTime::show(){
 
 /** Reimplementation from QWidget. Sets the correct plain caption. */
 void BibleTime::setPlainCaption(const QString& c){
-	qWarning(c.local8Bit());
+//	qWarning(c.local8Bit());
 	if (c.isEmpty())
 		KMainWindow::setPlainCaption(QString("BibleTime %1").arg(VERSION));
 	else
-		KMainWindow::setPlainCaption(QString("%1").arg(c));
+		KMainWindow::setPlainCaption(QString("%1 - BibleTime").arg(c));
 }

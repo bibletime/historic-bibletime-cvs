@@ -102,7 +102,7 @@ void CLexiconPresenter::lookup(CKey* key){
 		m_key->setKey(ldKey->getKey());
 		
 	setUpdatesEnabled(true);
-	setCaption( m_key->getKey() );
+	setPlainCaption( caption() );
 }
 
 /** No descriptions */

@@ -153,6 +153,7 @@
 
 //ICONS
 #define ICON_FILE_CLEAR_QUEUE "queue"
+#define ICON_FILE_NEW "filenew"
 #define ICON_FILE_PRINT "fileprint"
 #define ICON_FILE_SAVE "filesave"
 #define ICON_FILE_DELETE "editdelete"

@@ -143,9 +143,9 @@ void CCommentaryPresenter::lookup(CKey* key){
 	if (m_key != vKey)
 		m_key->setKey(*vKey);
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
-	setCaption( m_key->getKey() );
-	
 	setUpdatesEnabled(true);		
+	
+	setPlainCaption( caption() );	
 }
 
 /** No descriptions */
