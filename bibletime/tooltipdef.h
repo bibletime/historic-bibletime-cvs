@@ -128,6 +128,7 @@
 #define TT_OD_GENERAL_DAILY_TIP i18n("Show daily tip")
 #define TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES i18n("List of languages")
 #define TT_OD_GENERAL_SHOW_STARTUPLOGO i18n("Show startuplogo")
+#define TT_OD_GENERAL_SCROLL_PREVIOUS i18n("Use down arrow to scroll to previous verse")
 
 #define TT_OD_KEYS_CHOOSER i18n("Set keyboard accelerators")
 
