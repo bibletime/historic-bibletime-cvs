@@ -253,7 +253,7 @@ protected slots:
 	/**
 	* Is called when a client was selected in the window menu
 	*/
-	void slotWindowMenuActivated( int );
+	void slotWindowMenuActivated();
 	/**
  	* Shows/hides the toolbar
  	*/
@@ -347,6 +347,8 @@ private:
 	KActionMenu*	m_windowLoadProfile_action;
  	KActionMenu*	m_windowDeleteProfile_action;
 	KToggleAction*	m_windowFullscreen_action;
+
+	QPtrList<KAction> m_windowOpenWindowsList;
 
 	KHelpMenu* m_helpMenu;
 

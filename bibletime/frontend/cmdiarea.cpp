@@ -205,7 +205,6 @@ void CMDIArea::myTileHorizontal(){
 		for ( int i = 0; i < int(windows.count()); ++i ) {
 			QWidget *window = windows.at(i);
 			if ( window->isMaximized() ) { // prevent flicker
-// 					window->hide();
 					window->showNormal();
 			}
 			const int preferredHeight = window->minimumHeight() + window->parentWidget()->baseSize().height();

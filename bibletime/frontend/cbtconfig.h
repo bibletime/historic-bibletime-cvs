@@ -28,6 +28,7 @@
 
 //Forward declarations
 class KAccel;
+class KActionCollection;
 class KConfig;
 
 /**
@@ -140,7 +141,10 @@ public:
 
   static const CSwordBackend::FilterOptions getFilterOptionDefaults();
   static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();
+
   static void setupAccel(const CBTConfig::keys type, KAccel* const accel);
+  static void setupAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection);
+  static void saveAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection);
 
   static const QString getModuleEncryptionKey( const QString& name );
   static void setModuleEncryptionKey( const QString& name, const QString& key );

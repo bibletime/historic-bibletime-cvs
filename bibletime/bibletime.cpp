@@ -58,7 +58,7 @@
 #include <krandomsequence.h>
 
 BibleTime::BibleTime()
-  : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/),
+  : KMainWindow(0,0, WType_TopLevel),
 	  m_initialized(false),
 	  m_moduleList(0),
 	  m_progress(0),
@@ -90,9 +90,7 @@ BibleTime::BibleTime()
 }
 
 BibleTime::~ BibleTime() {
-// 	delete m_backend;
-// 	m_backend = 0;
-	// The backend is deleted by BibleTimeApp
+	// The backend is deleted by the BibleTimeApp instance
 }
 
 /** Saves the properties of BibleTime to the application wide configfile  */
@@ -144,7 +142,8 @@ void BibleTime::saveSettings(){
 
 /** Reads the settings from the configfile and sets the right properties. */
 void BibleTime::readSettings(){
-	accel()->readSettings(CBTConfig::getConfig());
+// 	accel()->readSettings(CBTConfig::getConfig());
+	CBTConfig::setupAccelSettings(CBTConfig::application, actionCollection());
 
  	m_viewToolbar_action->setChecked( CBTConfig::get(CBTConfig::toolbar) );
  	slotToggleToolbar();

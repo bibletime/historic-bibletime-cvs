@@ -75,10 +75,10 @@
 using std::string;
 using std::list;
 
-COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel )
+COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KActionCollection* actionCollection )
 	: KDialogBase(IconList, i18n("Preferences"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
-	m_settings.keys.application.accel = accel;
+	m_settings.keys.application.accelCollection = actionCollection;
 	setIconListAllVisible(true);
 
 	initStartup();
@@ -346,11 +346,14 @@ void COptionsDialog::initAccelerators(){
 	currentTab->setMargin(3);
   tabCtl->addTab(currentTab, i18n("Application-wide"));
 
-	CBTConfig::setupAccel( CBTConfig::application, m_settings.keys.application.accel  );
-//	CSwordPresenter::insertKeyboardActions( m_settings.keys.application.accel );
-	m_settings.keys.application.accel->readSettings();
+	CBTConfig::setupAccelSettings(
+		CBTConfig::application,
+		m_settings.keys.application.accelCollection
+	);
+// 	CBTConfig::setupAccel( CBTConfig::application, m_settings.keys.application.accelCollection->kaccel()  );
+// 	m_settings.keys.application.accelCollection->kaccel()->readSettings();
 
- 	m_settings.keys.application.keyChooser = new KKeyChooser( m_settings.keys.application.accel, currentTab, false );
+ 	m_settings.keys.application.keyChooser = new KKeyChooser( m_settings.keys.application.accelCollection, currentTab, false );
 	
 	
 // 	QToolTip::add(m_settings.keys.application.keyChooser, TT_OD_KEYS_CHOOSER);
@@ -682,7 +685,11 @@ void COptionsDialog::saveAccelerators(){
 // 	m_settings.keys.application.accel->writeSettings();
 // 	m_settings.keys.application.keyChooser->save();
  	m_settings.keys.application.keyChooser->commitChanges();
-	m_settings.keys.application.accel->writeSettings(); 	
+// 	m_settings.keys.application.accelCollection->kaccel()->writeSettings();
+	CBTConfig::saveAccelSettings(
+		CBTConfig::application,
+		m_settings.keys.application.accelCollection
+	);
 
 // 	m_settings.keys.general.accel->writeSettings();
 //		

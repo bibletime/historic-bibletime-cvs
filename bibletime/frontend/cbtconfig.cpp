@@ -33,6 +33,7 @@
 
 //KDE includes
 #include <kapplication.h>
+#include <kactioncollection.h>
 #include <kconfig.h>
 #include <kcharsets.h>
 #include <kglobal.h>
@@ -541,15 +542,90 @@ void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
 			break;
 		};
 		case lexiconWindow : {
-			accel->setConfigGroup("Lexicon shortcuts");					
+			accel->setConfigGroup("Lexicon shortcuts");
 			break;
 		};
 		case application : {
-			accel->setConfigGroup("Application shortcuts");				
+			accel->setConfigGroup("Application shortcuts");
 			break;
 		};
 	};
 }
+
+void CBTConfig::setupAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection) {
+	QString groupName;
+	switch (type) {
+		case writeWindow : {
+			groupName = "Writewindow shortcuts";
+			break;
+		};
+		case readWindow : {
+			groupName = "Readwindow shortcuts";
+			break;
+		};
+		case bookWindow : {
+			groupName = "Book shortcuts";
+			break;
+		};
+		case bibleWindow : {
+			groupName =  "Bible shortcuts";
+			break;
+		};
+		case commentaryWindow : {
+			groupName = "Commentary shortcuts";
+			break;
+		};
+		case lexiconWindow : {
+			groupName = "Lexicon shortcuts";
+			break;
+		};
+		case application : {
+			groupName = "Application shortcuts";
+			break;
+		};
+	};
+
+
+	actionCollection->readShortcutSettings(groupName, CBTConfig::getConfig());
+}
+
+void CBTConfig::saveAccelSettings(const CBTConfig::keys type, KActionCollection* const actionCollection) {
+	QString groupName;
+	switch (type) {
+		case writeWindow : {
+			groupName = "Writewindow shortcuts";
+			break;
+		};
+		case readWindow : {
+			groupName = "Readwindow shortcuts";
+			break;
+		};
+		case bookWindow : {
+			groupName = "Book shortcuts";
+			break;
+		};
+		case bibleWindow : {
+			groupName =  "Bible shortcuts";
+			break;
+		};
+		case commentaryWindow : {
+			groupName = "Commentary shortcuts";
+			break;
+		};
+		case lexiconWindow : {
+			groupName = "Lexicon shortcuts";
+			break;
+		};
+		case application : {
+			groupName = "Application shortcuts";
+			break;
+		};
+	};
+
+
+	actionCollection->writeShortcutSettings(groupName, CBTConfig::getConfig());
+}
+
 
 const QString CBTConfig::getModuleEncryptionKey( const QString& module ) {
 	KConfig* config = CBTConfig::getConfig();

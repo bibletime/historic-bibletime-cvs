@@ -67,9 +67,27 @@
 //Sword includes
 #include <versekey.h>
 
+
+class KUserDataAction : public KToggleAction {
+public:
+	KUserDataAction( QString caption, const KShortcut& shortcut, const QObject* receiver, const char* slot, KActionCollection* actionCollection)
+		: KToggleAction(caption, shortcut, receiver, slot, actionCollection)
+	{};
+
+	void setUserData(QWidget* const data) {
+		m_userData = data;
+	};
+	QWidget* const getUserData() const {
+		return m_userData;
+	};
+
+private:
+	QWidget* m_userData;
+};
+
 /** Opens the optionsdialog of BibleTime. */
 void BibleTime::slotSettingsOptions(){
-	COptionsDialog *dlg = new COptionsDialog(this, "COptionsDialog", accel());
+	COptionsDialog *dlg = new COptionsDialog(this, "COptionsDialog", actionCollection());
   connect(dlg, SIGNAL(signalSettingsChanged()), SLOT(slotSettingsChanged()) );
 	
 	dlg->exec();
@@ -135,43 +153,6 @@ void BibleTime::slotWindowMenuAboutToShow(){
 		return;
   }
 
-	if ( m_windowSaveProfile_action->isPlugged() )
-		m_windowSaveProfile_action->unplug(m_windowMenu);
-	if ( m_windowLoadProfile_action->isPlugged() )
-		m_windowLoadProfile_action->unplug(m_windowMenu);
-	if ( m_windowDeleteProfile_action->isPlugged() )
-		m_windowDeleteProfile_action->unplug(m_windowMenu);
-	if ( m_windowFullscreen_action->isPlugged() )
-		m_windowFullscreen_action->unplug(m_windowMenu);
-				
-	if ( m_windowCascade_action->isPlugged() )
-		m_windowCascade_action->unplug(m_windowMenu);
-	if ( m_windowTileVertical_action->isPlugged() )
-		m_windowTileVertical_action->unplug(m_windowMenu);
-	if ( m_windowTileHorizontal_action->isPlugged() )
-		m_windowTileHorizontal_action->unplug(m_windowMenu);
-	if ( m_windowArrangementMode_action->isPlugged() )
-		m_windowArrangementMode_action->unplug(m_windowMenu);
-	if ( m_windowCloseAll_action->isPlugged() )
-		m_windowCloseAll_action->unplug(m_windowMenu);
-
-	m_windowMenu->clear();
-			
-	m_windowSaveProfile_action->plug(m_windowMenu);	
-	m_windowSaveToNewProfile_action->plug(m_windowMenu);	
-	m_windowLoadProfile_action->plug(m_windowMenu);
- 	m_windowDeleteProfile_action->plug(m_windowMenu);	
-	m_windowMenu->insertSeparator();
-	
-	m_windowFullscreen_action->plug(m_windowMenu);
-	m_windowMenu->insertSeparator();
-	
-	m_windowArrangementMode_action->plug(m_windowMenu);
-	m_windowTileVertical_action->plug(m_windowMenu);
-	m_windowTileHorizontal_action->plug(m_windowMenu);
-	m_windowCascade_action->plug(m_windowMenu);
-	m_windowCloseAll_action->plug(m_windowMenu);	
-	
 	if ( m_mdi->windowList().isEmpty() ) {
 		m_windowCascade_action->setEnabled(false);
 		m_windowTileVertical_action->setEnabled(false);
@@ -188,19 +169,24 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	else {
 		slotUpdateWindowArrangementActions(0); //update the window tile/cascade states
 		m_windowCloseAll_action->setEnabled( true );
-		m_windowMenu->insertSeparator();
+// 		m_windowMenu->insertSeparator();
 	}
-	
+
+	QPtrList<KAction>::iterator end = m_windowOpenWindowsList.end();
+	for (QPtrList<KAction>::iterator it = m_windowOpenWindowsList.begin(); it != end; ++it ) {
+		(*it)->unplug(m_windowMenu);
+	}
+	m_windowOpenWindowsList.setAutoDelete(true);
+	m_windowOpenWindowsList.clear();
+
 	QWidgetList windows = m_mdi->windowList();
-	int i, id;
-	for ( i = 0; i < int(windows.count()); ++i ) {
-    QString caption = windows.at(i)->caption();
-		
-		id = m_windowMenu->insertItem(
-			QString("&").append(QString::number(i+1)).append(" ").append(caption),
-			this, SLOT(slotWindowMenuActivated( int )) );
-		m_windowMenu->setItemParameter( id, i );
-	  m_windowMenu->setItemChecked( id, m_mdi->activeWindow() == windows.at(i) );
+	for ( int i = 0; i < int(windows.count()); ++i ) {
+		KUserDataAction* action = new KUserDataAction(windows.at(i)->caption(), KShortcut(), this, SLOT(slotWindowMenuActivated()), actionCollection());
+		action->setUserData(windows.at(i));
+
+		m_windowOpenWindowsList.append(action);
+		action->setChecked( windows.at(i) == m_mdi->activeWindow() );
+		action->plug(m_windowMenu);
 	}
 }
 
@@ -311,24 +297,20 @@ void BibleTime::slotTileHorizontal() {
 /** This slot is connected with the windowAutoCascade_action object */
 void BibleTime::slotAutoCascade(){
 	slotUpdateWindowArrangementActions( m_windowAutoCascade_action );
-/*	if (m_windowAutoCascade_action->isChecked()) {
-		m_windowAutoTileVertical_action->setChecked(false);
-		m_windowAutoTileHorizontal_action->setChecked(false);
-		m_mdi->setGUIOption( CMDIArea::autoCascade );
-	}
-	else if (!m_windowAutoTileVertical_action->isChecked()) { //tile and cascade are enabled/disbled in  slotWindowMenuAboutToShow
-		m_mdi->setGUIOption( CMDIArea::Nothing );    
-  }*/
 }
 
-void BibleTime::slotWindowMenuActivated( int id ) {
+void BibleTime::slotWindowMenuActivated() {
   if (!m_windowMenu) {
   	return;
 	}
-  	
-  QWidget* const window = m_mdi->windowList().at( id );
-  if ( window ) {
-		window->setFocus();
+
+	const KUserDataAction* action = dynamic_cast<const KUserDataAction*>(sender());
+	Q_ASSERT(action);
+	if (action) {
+		QWidget* const window = action->getUserData();
+		if ( window ) {
+			window->setFocus();
+		}
 	}
 }
 
@@ -556,10 +538,10 @@ void BibleTime::refreshProfileMenus(){
  	//refresh the load profile and save profile menus
 	m_profileMgr.refresh();
  	
-	KPopupMenu* savePopup 	= m_windowSaveProfile_action->popupMenu();
+	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();
  	savePopup->clear();
  	
-	KPopupMenu* loadPopup 	= m_windowLoadProfile_action->popupMenu();
+	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
  	loadPopup->clear();
 	
 	KPopupMenu* deletePopup = m_windowDeleteProfile_action->popupMenu();

@@ -53,18 +53,19 @@
 
 //KDE includes
 #include <kaboutdata.h>
+#include <kaccel.h>
+#include <kaction.h>
 #include <kapplication.h>
 #include <kconfigbase.h>
-#include <ktoolbar.h>
+#include <kdeversion.h>
+#include <kglobal.h>
+#include <khelpmenu.h>
 #include <kiconloader.h>
+#include <kmenubar.h>
 #include <kstddirs.h>
 #include <kstdaction.h>
-#include <kmenubar.h>
-#include <kaccel.h>
+#include <ktoolbar.h>
 #include <klocale.h>
-#include <kaction.h>
-#include <khelpmenu.h>
-#include <kglobal.h>
 #include <kpopupmenu.h>
 
 //Sword includes
@@ -252,6 +253,7 @@ void BibleTime::initActions() {
 		CResMgr::mainMenu::window::arrangementMode::autoCascade::tooltip 
 	);
   #if KDE_VERSION_MINOR < 1
+		qWarning("Plug accel");
   	m_windowAutoCascade_action->plugAccel( accel() );
   #endif
 	m_windowArrangementMode_action->insert( m_windowAutoCascade_action );
@@ -265,7 +267,7 @@ void BibleTime::initActions() {
 	m_windowCascade_action->setToolTip( CResMgr::mainMenu::window::cascade::tooltip );
 
   #if KDE_VERSION_MINOR < 1
-  	m_windowCascade_action->plugAccel( accel());
+  	m_windowCascade_action->plugAccel( accel() );
   #endif
 
 
@@ -314,7 +316,7 @@ void BibleTime::initActions() {
   );
 	m_windowSaveProfile_action->setToolTip( CResMgr::mainMenu::window::saveProfile::tooltip );
 
-  #if KDE_VERSION_MINOR < 1                           
+  #if KDE_VERSION_MINOR < 1
   	m_windowSaveProfile_action->plugAccel( accel() );
   #endif
 
@@ -353,19 +355,6 @@ void BibleTime::initActions() {
   #if KDE_VERSION_MINOR < 1
   	m_windowDeleteProfile_action->plugAccel( accel() );
   #endif
-
-// 	m_windowEditProfiles_action = new KAction(i18n("Co&nfigure sessions"),
-//     CResMgr::mainMenu::window::setupProfiles::icon,
-//     CResMgr::mainMenu::window::setupProfiles::accel,
-//     this, SLOT(editProfiles()), actionCollection(),
-//     CResMgr::mainMenu::window::setupProfiles::actionName
-//   );
-// 	m_windowEditProfiles_action->setToolTip( CResMgr::mainMenu::window::setupProfiles::tooltip );
-
-//   #if KDE_VERSION_MINOR < 1
-//   	m_windowEditProfiles_action->plugAccel( accel() );
-//   #endif
-
 
 	m_windowFullscreen_action = new KToggleAction(i18n("&Fullscreen mode"),
     CResMgr::mainMenu::window::showFullscreen::icon,
@@ -484,48 +473,24 @@ void BibleTime::initConnections(){
 	connect(m_mdi, SIGNAL(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)),
 		this, SLOT(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)));
 
+	Q_ASSERT(m_windowMenu);
 	if (m_windowMenu) {
 		connect(m_windowMenu, SIGNAL(aboutToShow()),
 			this, SLOT(slotWindowMenuAboutToShow()));
-		connect(m_windowMenu, SIGNAL(activated(int)),
-			this, SLOT(slotWindowMenuActivated(int)));
 	}
 	else {
 		qWarning("Main window: can't find window menu");
   }
 
 
-	connect(m_mainIndex, SIGNAL(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)),
-		this, SLOT(createReadDisplayWindow(ListCSwordModuleInfo,const QString&)));
-	connect(m_mainIndex, SIGNAL(createWriteDisplayWindow(CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType&)),
-		this, SLOT(createWriteDisplayWindow(CSwordModuleInfo*,const QString&, const CDisplayWindow::WriteWindowType&)));
-    
-
-//   //connect to the signals of the printer object
-//   connect(m_printer, SIGNAL(addedFirstQueueItem()),
-// 		this, SLOT(slotSetPrintingStatus()));
-// 	connect(m_printer, SIGNAL(printingFinished()),
-// 		this, SLOT(slotPrintingFinished()));
-// 	connect(m_printer, SIGNAL(queueCleared()),
-// 		this, SLOT(slotSetPrintingStatus()));
-
-  //if we use KDE 3.1 we do not use our own printing status window, KDE >= 3.1 has a better one
-// #ifdef KDE_VERSION_MINOR
-// #if KDE_VERSION_MINOR < 1
-//   connect(m_printer, SIGNAL(printingStarted()),
-// 		this, SLOT(slotPrintingStarted()));		
-// 	connect(m_printer, SIGNAL(printingFinished()),
-// 		this, SLOT(slotSetPrintingStatus()));		
-//   connect(m_printer, SIGNAL(printingInterrupted()),
-// 		this, SLOT(slotPrintingFinished()));
-// 	connect(m_printer, SIGNAL(percentCompleted(const int)),
-// 		this, SLOT(slotPrintedPercent(const int)));
-// #endif
-// #endif
-
-// 	connect(m_printer, SIGNAL(printingInterrupted()),
-// 		this, SLOT(slotSetPrintingStatus()));
-
+	connect(
+		m_mainIndex, SIGNAL(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)),
+		this, SLOT(createReadDisplayWindow(ListCSwordModuleInfo,const QString&))
+	);
+	connect(
+		m_mainIndex, SIGNAL(createWriteDisplayWindow(CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType&)),
+		this, SLOT(createWriteDisplayWindow(CSwordModuleInfo*,const QString&, const CDisplayWindow::WriteWindowType&))
+	);
 }
 
 /** Initializes the backend */

@@ -136,7 +136,7 @@ namespace CResMgr {
 				QString tooltip;
 
 				const QString icon        = "bt_tile";
-				const KShortcut accel     = Qt::CTRL + Qt::Key_A;
+				const KShortcut accel     = KKeySequence();
 				const char* actionName    = "windowArrangementMode_action";
 				
 				namespace manual {
@@ -150,43 +150,43 @@ namespace CResMgr {
 					QString tooltip;
 
 					const QString icon        = "bt_tile_auto";
-					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_T;
+					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_H;
 					const char* actionName    = "windowAutoTileHorizontal_action";
 				}
 				namespace autoTileVertical {
 					QString tooltip;
 
 					const QString icon        = "bt_tile_auto";
-					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_T;
+					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_G;
 					const char* actionName    = "windowAutoTileVertical_action";
 				}
 				namespace autoCascade {
 					QString tooltip;
 
 					const QString icon        = "bt_cascade_auto";
-					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_A;
+					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_J;
 					const char* actionName    = "windowAutoCascade_action";
 				}
-      }
-      namespace tileVertical {
-        QString tooltip;
-
-        const QString icon        = "bt_tile";
-        const KShortcut accel     = Qt::CTRL + Qt::Key_T;
-        const char* actionName    = "windowTileVertical_action";
       }
       namespace tileHorizontal {
         QString tooltip;
 
         const QString icon        = "bt_tile";
-        const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_T;
+        const KShortcut accel     = Qt::CTRL + Qt::Key_H;
         const char* actionName    = "windowTileHorizontal_action";
+      }
+      namespace tileVertical {
+        QString tooltip;
+
+        const QString icon        = "bt_tile";
+        const KShortcut accel     = Qt::CTRL + Qt::Key_G;
+        const char* actionName    = "windowTileVertical_action";
       }
       namespace cascade {
         QString tooltip;
 
         const QString icon        = "bt_cascade";
-        const KShortcut accel     = Qt::CTRL + Qt::Key_A;
+        const KShortcut accel     = Qt::CTRL + Qt::Key_J;
         const char* actionName    = "windowCascade_action";
       }
       namespace closeAll {

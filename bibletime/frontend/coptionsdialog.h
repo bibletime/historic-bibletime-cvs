@@ -46,6 +46,7 @@ class KListBox;
 class KKeyChooser;
 class KTabCtl;
 class KHTMLPart;
+class KActionCollection;
 
 /**
 	* The optionsdialog of BibleTime
@@ -55,7 +56,7 @@ class COptionsDialog : public KDialogBase, public CPointers  {
    Q_OBJECT
 
 public:
-	COptionsDialog(QWidget *parent=0, const char *name=0, KAccel* key_accel=0);
+	COptionsDialog(QWidget *parent, const char *name, KActionCollection* actionCollection);
 
   enum Parts {
 		Startup,
@@ -95,11 +96,15 @@ private:
 		} swords; // not: sword instead of sword -> namespace error
 
 		struct KeySettings {
+			struct MainWindowType {
+				KKeyChooser* keyChooser;
+				KActionCollection* accelCollection;
+			};
 			struct WindowType {
 				KKeyChooser* keyChooser;
 				KAccel* accel;
 			};
-			WindowType application;
+			MainWindowType application;
 			WindowType general;
 			WindowType bible;
 			WindowType commentary;
