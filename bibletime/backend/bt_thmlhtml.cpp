@@ -45,7 +45,7 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	replaceTokenSubstitute("/foreign", "</span>");
 }
 
-bool BT_ThMLHTML::handleToken(SWBuf &buf, const char *token, UserData *userData) {  
+bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::SWFilterUserData *userData) {  
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
     sword::XMLTag tag(token);
     BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);

@@ -27,7 +27,6 @@ BibleTimeApp::BibleTimeApp(){
 
 BibleTimeApp::~BibleTimeApp(){
   if (backend()) {
-//    qWarning("BibleTimeApp: delete the backend now");
     deleteBackend();
   }
 

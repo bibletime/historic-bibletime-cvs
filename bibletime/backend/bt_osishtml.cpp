@@ -51,7 +51,7 @@ BT_OSISHTML::BT_OSISHTML() {
 	setTokenCaseSensitive(true);
 }
 
-bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::SWBasicFilter::UserData *userData) {
+bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::SWFilterUserData *userData) {
   // manually process if it wasn't a simple substitution
 	if (!substituteToken(buf, token)) {
     BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
