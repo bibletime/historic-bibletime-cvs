@@ -28,6 +28,7 @@ CModuleChooserBar::CModuleChooserBar(CImportantClasses* important, ListCSwordMod
 	m_moduleType = type;
 	m_idCounter = 0;
 	m_buttonLimit = -1; //-1 means no limit
+
   //insert buttons if useModules != 0
 	for (useModules.first(); useModules.current(); useModules.next())		 {
 		if (m_buttonLimit && (unsigned int)m_buttonLimit <= m_buttonList.count())
@@ -105,4 +106,25 @@ void CModuleChooserBar::setButtonLimit(const int limit){
 			delete b;
 		}
 	}
+}
+
+/** Sets the modules which are chosen in this module chooser bar. */
+void CModuleChooserBar::setModules( ListCSwordModuleInfo useModules ){
+	setButtonLimit(0);	
+	setButtonLimit(-1);		//these two lines clear the bar
+	
+	for (useModules.first(); useModules.current(); useModules.next())		 {
+		if (m_buttonLimit && (unsigned int)m_buttonLimit <= m_buttonList.count())
+			break;
+			
+		CModuleChooserButton* b = new CModuleChooserButton(m_important,useModules.current(),m_moduleType,++m_idCounter,this);
+		m_buttonList.append(b);
+		insertWidget(m_idCounter, b->sizeHint().width(),b);
+		connect( b, SIGNAL(sigAddButton()), this, SLOT(addButton()) );
+		connect( b, SIGNAL(sigRemoveButton(const int)), this, SLOT(removeButton(const int)) );
+		connect( b, SIGNAL(sigChanged()), SIGNAL(sigChanged()) );
+		b->show();
+	}
+  if (m_buttonLimit && (unsigned int)m_buttonLimit > m_buttonList.count() )
+	  addButton();
 }

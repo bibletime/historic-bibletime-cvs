@@ -22,7 +22,7 @@
 #include "cpresenter.h"
 #include "../../backend/sword_backend/cswordmoduleinfo.h"
 #include "../../structdef.h"
-
+#include "../cprofilewindow.h"
 
 //Qt includes
 #include <qwidget.h>
@@ -90,6 +90,14 @@ public:
   * Returns the caption for this Sword display window.
   */
   const QString windowCaption();
+  /**
+  * Stores the settings of this window in the CProfileWindow object given as parameter.
+  */
+  virtual void storeSettings( CProfileWindow* p );
+  /**
+  * Applies the settings given in the parameter to the window.
+  */
+  virtual void applySettings( CProfileWindow* settings );
 
 public slots: // Public slots
   /**

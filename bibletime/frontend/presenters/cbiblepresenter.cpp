@@ -24,9 +24,12 @@
 #include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
 #include "../../backend/sword_backend/cswordversekey.h"
 #include "../../backend/sword_backend/chtmlchapterdisplay.h"
+#include "../cprofile.h"
+#include "../cprofilewindow.h"
 
 //Qt includes
 #include <qclipboard.h>
+#include <qlist.h>
 
 //KDE includes
 #include <kapp.h>
@@ -36,11 +39,8 @@
 
 CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, importantClasses, parent,name) {
-//	m_key = 0;
-//	if (m_moduleList.first()) {
-		m_key = new CSwordVerseKey(m_moduleList.first());	
-		m_key->key("Genesis 1:1");
-//	}
+	m_key = new CSwordVerseKey(m_moduleList.first());	
+	m_key->key("Genesis 1:1");
 	
 	initView();
 	show();	
@@ -179,6 +179,25 @@ void CBiblePresenter::lookup(const QString& key){
 
 /** Reimplementation. Refreshes the things which are described by the event integer. */
 void CBiblePresenter::refresh( const int events ){
+	
+//qWarning("profile test ------------ BEGIN");	
+//	CProfile p("/home/joachim/.kde2/share/apps/bibletime/test_profile.xml");	
+//	CProfileWindow* w = new CProfileWindow;
+//	storeSettings(w);
+//	QList<CProfileWindow> windows;
+//	windows.append(w);
+//	p.save(windows);
+//	
+//	delete w;
+//qWarning("profile test ------------ MIDDLE");	
+//
+//	windows = p.load();
+//	qWarning("%i",windows.count());
+//	if (windows.count())
+//		applySettings(windows.first());
+//
+//qWarning("profile test ------------ END");		
+
 	bool doLookup = false;
 	bool refreshHTMLWidget = false;
 	

@@ -73,7 +73,7 @@ void CMDIArea::slotClientActivated(QWidget* client){
 	if (!client)
 		return;				
 //	qWarning(client->caption().latin1());
-//	emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(client->caption().stripWhiteSpace()) );	
+	emit sigSetToplevelCaption( client->caption()/*KApplication::kApplication()->makeStdCaption(client->caption().stripWhiteSpace())*/ );	
 	
 	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
 	if (p)
@@ -89,26 +89,28 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 	m_childEvent = true;
 	
 	if (!windowList().count()) {
-//		emit sigLastPresenterClosed();
-//		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(QString::null) );
+		emit sigLastPresenterClosed();
+		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(QString::null) );
 	}	
 	if (!e) {
 		m_childEvent = false;
 		return;
 	}
 	
-//	if (e->inserted() || e->removed()) {
-//		switch (guiOption) {
-//	 		case autoTile:
+	if (e->inserted() || e->removed()) {
+		switch (guiOption) {
+	 		case autoTile:
 //				QTimer::singleShot( 0, this, SLOT(tile()) );
-//	 			break;
-//	 		case autoCascade:
+				tile();
+	 			break;
+	 		case autoCascade:
 //				QTimer::singleShot( 0, this, SLOT(cascade()) );
-//	 			break;
-//	 		default:
-//	 			break;
-//		}
-//	}
+				cascade();
+	 			break;
+	 		default:
+	 			break;
+		}
+	}
 
 //	qWarning("CMDIArea: switch e->type()");
 //	qWarning("%i", e->type());	
@@ -132,10 +134,12 @@ void CMDIArea::resizeEvent(QResizeEvent* e){
 	QWorkspace::resizeEvent(e);	
 	switch (guiOption) {
  		case autoTile:
- 			QTimer::singleShot( 0, this, SLOT(tile()) );
+// 			QTimer::singleShot( 0, this, SLOT(tile()) );
+			tile();
  			break;
  		case autoCascade:
- 			QTimer::singleShot( 0, this, SLOT(cascade()) );
+// 			QTimer::singleShot( 0, this, SLOT(cascade()) );
+			cascade();
  			break;
  		default:
  			break;

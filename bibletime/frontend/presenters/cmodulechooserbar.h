@@ -43,6 +43,8 @@ public:
   * Sets the number of the maximum count of buttons.
   */
   void setButtonLimit( const int limit);
+  /** Sets the modules which are chosen in this module chooser bar. */
+  void setModules( ListCSwordModuleInfo modules );
 	
 protected slots: // Protected slots
   /**
