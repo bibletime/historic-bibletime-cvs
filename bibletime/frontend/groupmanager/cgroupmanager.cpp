@@ -181,13 +181,13 @@ void CGroupManager::setupStandardSwordTree() {
 			}
 		}
 		if ( moduleInfo && !alreadyCreated) {
-			if ( dynamic_cast<CSwordCommentaryModuleInfo*>(moduleInfo) ) {	//a Dictionary
+			if (moduleInfo->getType() == CSwordModuleInfo::Commentary ) {	//a Commentary
 				(void) new CGroupManagerItem(commentaryGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module);
 			}
-			else if ( dynamic_cast<CSwordBibleModuleInfo*>(moduleInfo) ) {	//a Bible
+			else if (moduleInfo->getType() == CSwordModuleInfo::Bible ) {	//a Bible
 				(void)new CGroupManagerItem(bibleGroup, "",QString::null, moduleInfo, 0,CGroupManagerItem::Module);
 			}
-			else if ( dynamic_cast<CSwordLexiconModuleInfo*>(moduleInfo) ) {	//a Dictionary
+			else if (moduleInfo->getType() == CSwordModuleInfo::Lexicon ) {	//a Dictionary
 				(void) new CGroupManagerItem(lexiconGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module);
 			}
 		}
@@ -376,8 +376,8 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 	else
 		myItem = new CGroupManagerItem(this,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark);
 		
-	if (myItem && (CSwordModuleInfo*)module) {	//it's a Sword module
-		CSwordModuleInfo* swordModule = (CSwordModuleInfo*)module;
+	CSwordModuleInfo* swordModule = dynamic_cast<CSwordModuleInfo*>(module);	
+	if (myItem && swordModule) {	//it's a Sword module
 		if (swordModule->getType() == CSwordModuleInfo::Bible || swordModule->getType() == CSwordModuleInfo::Commentary) {	//a bible or commentary
 			CSwordVerseKey* key = new CSwordVerseKey(swordModule);
 			key->setKey(ref);
@@ -526,10 +526,8 @@ void CGroupManager::slotShowAbout(){
 	
 	QString text;
 	
-	CSwordModuleInfo* module = 0;
-	if (dynamic_cast<CSwordModuleInfo*>(m_pressedItem->moduleInfo()))
-		module = m_pressedItem->moduleInfo();		
-	else {
+	CSwordModuleInfo* module = dynamic_cast<CSwordModuleInfo*>(m_pressedItem->moduleInfo());
+	if (!module) {
 		qWarning("Invalid module");
 		return;
 	}		
@@ -1132,7 +1130,7 @@ bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* g
 			parentList.append( parentID );
 						
 			if (myItem->getBookmarkKey())	{ //has a
-				SWKey* key = (SWKey*)(myItem->getBookmarkKey());			
+				SWKey* key = dynamic_cast<SWKey*>(myItem->getBookmarkKey());			
 				if (key)
 					bookmarkList.append( QString::fromLocal8Bit((const char*)*key) );
 			}

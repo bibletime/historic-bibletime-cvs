@@ -101,7 +101,7 @@ void CBiblePresenter::initView(){
 void CBiblePresenter::lookup(CKey* key){
 	setUpdatesEnabled(false);	
 	
-	CSwordVerseKey* vKey = (CSwordVerseKey*)key;	
+	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);	
 	if (!vKey)
 		return;
   m_moduleList.first()->module()->SetKey(*vKey);
@@ -259,13 +259,14 @@ void CBiblePresenter::copyVerseAndText(){
 //print functions
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::printVerseAndText(){
+	qDebug("CBiblePresenter::printVerseAndText()");
 	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
 	key->setKey(m_key->getKey());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()- (currentAnchor.right(1) == "/" ? 9 : 8));
 	key->setKey(currentAnchor);
-		
+
 	printKey(key, key, m_moduleList.first());
 }
 

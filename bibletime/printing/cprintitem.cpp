@@ -21,12 +21,12 @@
 #include "cstyle.h"
 #include "cstyleformat.h"
 #include "cstyleformatframe.h"
-#include <../backend/cmoduleinfo.h>
-#include <../backend/sword_backend/cswordmoduleinfo.h>
-#include <../backend/ckey.h>
-#include <../backend/sword_backend/cswordversekey.h>
-#include <../backend/sword_backend/cswordldkey.h>
-#include <../backend/sword_backend/chtmlentrydisplay.h>
+#include "../backend/sword_backend/cswordmoduleinfo.h"
+#include "../backend/cmoduleinfo.h"
+#include "../backend/sword_backend/cswordversekey.h"
+#include "../backend/sword_backend/cswordldkey.h"
+#include "../backend/ckey.h"
+#include "../backend/sword_backend/chtmlentrydisplay.h"
 
 //Qt includes
 #include <qsimplerichtext.h>
@@ -77,41 +77,43 @@ CKey* CPrintItem::getStartKey() const{
 
 /** Sets the startkey. */
 void CPrintItem::setStartKey(CKey* newKey) {
-	if (m_startKey /*&& newKey*/)
+	qDebug("CPrintItem::setStartKey( CKey* newKey )");	
+	if (m_startKey)
 		delete m_startKey;
 	m_startKey = newKey;
 
-	SWKey* startKey = (SWKey*)m_startKey;	
-	SWKey* stopKey = (SWKey*)m_stopKey;	
-	if ( m_startKey ) {
-		if (m_startKey == m_stopKey || !m_stopKey)
-			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );		
-		else if (stopKey) { //start and stop key do exist and are different
+	SWKey* startKey = dynamic_cast<SWKey*>(m_startKey);	
+	SWKey* stopKey = dynamic_cast<SWKey*>(m_stopKey);
+	
+	if ( startKey ) {
+		if ((startKey == stopKey) || !stopKey)
+			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );
+		else if (startKey && stopKey) //start and stop key do exist and are different
 			m_headerText = QString::fromLatin1("%1 - %2")
 				.arg(QString::fromLocal8Bit((const char*)*startKey))
 				.arg(QString::fromLocal8Bit((const char*)*stopKey));
-		}
 	}
 	else
 		m_headerText = QString::null;			
+	qWarning("finished");
 }
 
 /** Sets the end key. */
 void CPrintItem::setStopKey( CKey* newKey ){
-	if (m_stopKey /*&& newKey*/)
+	qDebug("CPrintItem::setStopKey( CKey* newKey )");
+	if (m_stopKey)
 		delete m_stopKey;	
 	m_stopKey = newKey;
-	
-	SWKey* startKey = (SWKey*)m_startKey;	
-	SWKey* stopKey = (SWKey*)m_stopKey;	
-	if ( m_startKey ) {
-		if (m_startKey == m_stopKey || !m_stopKey)
-			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );		
-		else if (stopKey) { //start and stop key do exist and are different
+
+	SWKey* startKey = dynamic_cast<SWKey*>(m_startKey);
+	SWKey* stopKey = dynamic_cast<SWKey*>(m_stopKey);
+	if ( startKey ) {
+		if (startKey == stopKey || !stopKey)
+			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );
+		else if (stopKey) //start and stop key do exist and are different
 			m_headerText = QString::fromLatin1("%1 - %2")
 				.arg(QString::fromLocal8Bit((const char*)*startKey))
 				.arg(QString::fromLocal8Bit((const char*)*stopKey));
-		}
 	}
 	else
 		m_headerText = QString::null;			
@@ -226,19 +228,23 @@ void CPrintItem::clearData(){
 
 /** Updates the item. */
 void CPrintItem::updateListViewItem(){
-	if (getModule() && (CSwordModuleInfo*)(getModule()) ) {
-		CSwordModuleInfo* swModule = (CSwordModuleInfo*)(getModule());
-		m_listViewItem->setText(0, swModule->module()->Name() );
+	qDebug("CPrintItem::updateListViewItem()");
+	if (/*getModule() && */dynamic_cast<CSwordModuleInfo*>(getModule()) ) {
+		CSwordModuleInfo* module = dynamic_cast<CSwordModuleInfo*>(getModule());
+		m_listViewItem->setText(0, module->module()->Name() );
 	}
 
-	SWKey* key = (SWKey*)getStartKey();	
-	if (key)
+	qDebug("set key");
+	SWKey* key = 0;	
+	if ( (key = dynamic_cast<SWKey*>(getStartKey())) )
 		m_listViewItem->setText(1, (const char*)*key);
-	key = (SWKey*)getStopKey();
-	if (key)
+	qDebug("set 1 key");	
+	if ( (key = dynamic_cast<SWKey*>(getStopKey())) )
 		m_listViewItem->setText(2, (const char*)*key);
+	qDebug("set 2 key");	
 	if (getStyle())
 		m_listViewItem->setText(3, getStyle()->getStyleName() );
+	qDebug("finished");		
 }
 
 /**  */

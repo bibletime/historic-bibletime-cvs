@@ -143,7 +143,7 @@ void CCommentaryPresenter::modulesChanged(){
 void CCommentaryPresenter::lookup(CKey* key){
 	setUpdatesEnabled(false);	
 	
-	CSwordVerseKey* vKey = (CSwordVerseKey*)key;	
+	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);
 	if (!vKey)
 		return;
   m_moduleList.first()->module()->SetKey(*vKey);

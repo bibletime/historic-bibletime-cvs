@@ -27,7 +27,11 @@
   *	@author The BibleTime team
   * $Id$
   */
-class CModuleInfo {};
+class CModuleInfo {
+public:
+	CModuleInfo() {};
+	virtual ~CModuleInfo() {};	
+};
 
 typedef QList<CModuleInfo> ListCModuleInfo;
 

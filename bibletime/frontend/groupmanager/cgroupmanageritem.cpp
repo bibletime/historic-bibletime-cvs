@@ -157,14 +157,14 @@ void CGroupManagerItem::update(){
 				title = QString::fromLocal8Bit((const char*)*swKey);
 		}
 		else if (!m_caption.isEmpty()){	//bookmark key is 0, we use now the m_caption member to create a valid key
-			if ( m_moduleInfo && dynamic_cast<CSwordBibleModuleInfo*>(m_moduleInfo) ) {	//a Bible or a commentary module
+			if (m_moduleInfo &&  m_moduleInfo->getType() == CSwordModuleInfo::Bible || m_moduleInfo->getType() == CSwordModuleInfo::Commentary ) {	//a Bible or a commentary module
 				CSwordVerseKey* key = new CSwordVerseKey(m_moduleInfo);
 				m_createdOwnKey = true;				
 				key->setKey(m_caption);
 				setBookmarkKey(key);
 				update();	// this won't lead to a infinite loop because we have now a valid key
 			}
-			else if ( m_moduleInfo && dynamic_cast<CSwordLexiconModuleInfo*>(m_moduleInfo) ) {	//a Bible or a commentary module
+			else if ( m_moduleInfo && m_moduleInfo->getType() == CSwordModuleInfo::Lexicon ) {	//a lexicon
 				CSwordLDKey* key = new CSwordLDKey(m_moduleInfo);
 				m_createdOwnKey = true;
 				key->setKey(m_caption);
@@ -198,14 +198,7 @@ void CGroupManagerItem::setType( CGroupManagerItem::itemType type){
 
 /** Sets the module of ths item. */
 void CGroupManagerItem::setModuleInfo( CModuleInfo* moduleInfo ){
-//	ASSERT(moduleInfo);
-	if (!moduleInfo)
-		return;
-		
-	if ((CSwordModuleInfo*)moduleInfo)
-		m_moduleInfo = (CSwordModuleInfo*)moduleInfo;
-  else
-  	m_moduleInfo = 0;
+	m_moduleInfo = dynamic_cast<CSwordModuleInfo*>(moduleInfo);
 }
 
 /** Returns a QString version of the key. */
@@ -232,8 +225,8 @@ const QString CGroupManagerItem::getToolTip(){
 			CKey* key = getBookmarkKey();			
 			if (!key)
 				return QString::null;				
-			CSwordVerseKey* vk = (CSwordVerseKey*)(key);
-			CSwordLDKey* lk = (CSwordLDKey*)(key);
+			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
+			CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
 					
 			QString bookmarkText = 	vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString());					
 			if (bookmarkText.length() > 150 && (moduleInfo()->getType() != CSwordModuleInfo::Bible))

@@ -448,13 +448,13 @@ void CSearchDialogResultView::printItem() {
 	QList<QListBoxItem> list = selectedItems();
 	for (list.first(); list.current(); list.next()) {
 		CPrintItem*	printItem = new CPrintItem();
-		if ( dynamic_cast<CSwordBibleModuleInfo*>(m_module) ) {	//a bible or a commentary
+		if ( m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {	//a bible or a commentary
 			CSwordVerseKey* verseKey = new CSwordVerseKey(m_module); 	//the key is deleted by the CPrintItem
 			verseKey->setKey( list.current()->text() );
 			printItem->setStartKey(verseKey);
 			printItem->setStopKey(verseKey);
 		}
-		else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module)) {	//a lexicon
+		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {	//a lexicon
 			CSwordLDKey* ldKey = new CSwordLDKey(m_module);	//the key is deleted by the CPrintItem
 			ldKey->setKey( list.current()->text() );
 			printItem->setStartKey(ldKey);
@@ -475,12 +475,12 @@ void CSearchDialogResultView::rightButtonPressed( QListBoxItem* item, const QPoi
 	m_currentItem = item;	
 	if (m_currentItem) {
 		QString text = QString::null;
-		if ( dynamic_cast<CSwordBibleModuleInfo*>(m_module) ) {
+		if ( m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary ) {
 			CSwordVerseKey key(m_module);
 			key.setKey(item->text());
 			text = key.getRenderedText();
 		}
-		else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module)) {
+		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
 			CSwordLDKey key(m_module);
 			key.setKey(item->text());
 			text = key.getRenderedText();
@@ -498,12 +498,12 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 		return;
 	
 	QString text = QString::null;
-	if (dynamic_cast<CSwordBibleModuleInfo*>(m_module)) {
+	if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
 		CSwordVerseKey key(m_module);
 		key.setKey(item->text());
 		text = key.getRenderedText();
 	}
-	else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module) ) {
+	else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
 		CSwordLDKey key(m_module);				
 		key.setKey(item->text());
 		text = key.getRenderedText();
@@ -528,13 +528,13 @@ void CSearchDialogResultView::slotCopyCurrentWithKeytext(){
 	QString text;
 	QString keyText, keyName;
 	for (list.first(); list.current(); list.next()) {
-		if (dynamic_cast<CSwordBibleModuleInfo*>(m_module)) {
+		if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
 			CSwordVerseKey key(m_module);
 			key.setKey(list.current()->text());
 			keyName = key.getKey();
 			keyText += key.getStrippedText();
 		}
-		else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module) ) {
+		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
 			CSwordLDKey key(m_module);						
 			key.setKey(list.current()->text());
 			keyName = key.getKey();			
@@ -564,13 +564,13 @@ void CSearchDialogResultView::slotSaveCurrentWithKeytext(){
 	QString text;
 	QString keyText, keyName;
 	for (list.first(); list.current(); list.next()) {
-		if (dynamic_cast<CSwordBibleModuleInfo*>(m_module)) {
+		if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
 			CSwordVerseKey key(m_module);
 			key.setKey(list.current()->text());
 			keyName = key.getKey();
 			keyText += key.getStrippedText();
 		}
-		else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module) ) {
+		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
 			CSwordLDKey key(m_module);						
 			key.setKey(list.current()->text());
 			keyName = key.getKey();			

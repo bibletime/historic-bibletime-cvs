@@ -40,7 +40,7 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 	: CKeyChooser(info, key, parent, name){
 	if (info && ( ((CSwordModuleInfo*)info)->getType()==CSwordModuleInfo::Bible
 	            ||((CSwordModuleInfo*)info)->getType()==CSwordModuleInfo::Commentary ) )
-		m_info = (CSwordBibleModuleInfo*)info;
+		m_info = (CSwordBibleModuleInfo*)(info);
 	else {
 		qWarning("CBibleKeyChooser: module is not a Bible or commentary!");
 		return;

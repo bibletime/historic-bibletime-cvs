@@ -27,6 +27,10 @@
   *	@author The BibleTime team
   *	@version $Id$
   */
-class CKey {};
+class CKey {
+public:	
+	CKey() {};
+	virtual ~CKey() {};
+};
 
 #endif

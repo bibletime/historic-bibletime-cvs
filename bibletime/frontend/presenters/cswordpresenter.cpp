@@ -60,11 +60,13 @@ void CSwordPresenter::refresh( const int /*events*/ ){
 
 /** Prints the key given as parameter. */
 void CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module) {
-	CPrintItem* printItem = new CPrintItem();	
-	printItem->setModule(module);	
+	qDebug("CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module) ");
+	CPrintItem* printItem = new CPrintItem();
+	printItem->setModule(module);
 	printItem->setStartKey(start);
 	printItem->setStopKey(stop);
-	
+
+	qDebug("add now to the queue");
 	m_important->printer->addItemToQueue(printItem);
 }
 
