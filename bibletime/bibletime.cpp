@@ -15,22 +15,15 @@
  *                                                                         *
  ***************************************************************************/
 
-//own includes
+//local includes
 #include "config.h"
 #include "bibletime.h"
-#include "frontend/chtmldialog.h"
 #include "ressource.h"
+
+//frontend includes
+#include "frontend/chtmldialog.h"
 #include "frontend/ctoolclass.h"
 #include "frontend/cmdiarea.h"
-#include "backend/cswordmoduleinfo.h"
-#include "backend/cswordbiblemoduleinfo.h"
-#include "backend/cswordcommentarymoduleinfo.h"
-#include "backend/cswordlexiconmoduleinfo.h"
-#include "backend/cswordbookmoduleinfo.h"
-#include "backend/chtmlentrydisplay.h"
-#include "backend/chtmlchapterdisplay.h"
-#include "backend/cswordversekey.h"
-#include "backend/cswordldkey.h"
 #include "frontend/presenters/cswordpresenter.h"
 #include "frontend/presenters/cbiblepresenter.h"
 #include "frontend/presenters/ccommentarypresenter.h"
@@ -40,6 +33,18 @@
 #include "frontend/cbtconfig.h"
 #include "frontend/cpointers.h"
 
+//backend includes
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordbiblemoduleinfo.h"
+#include "backend/cswordcommentarymoduleinfo.h"
+#include "backend/cswordlexiconmoduleinfo.h"
+#include "backend/cswordbookmoduleinfo.h"
+#include "backend/chtmlentrydisplay.h"
+#include "backend/chtmlchapterdisplay.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordldkey.h"
+
+//printing includes
 #include "printing/cprinter.h"
 
 //Qt includes
