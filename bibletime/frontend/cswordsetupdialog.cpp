@@ -406,7 +406,7 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name )
 
 
 void CSwordSetupDialog::initSwordConfig(){
-	QFrame* page = m_swordConfigPage = addPage(i18n("Sword Path"), QString::null, DesktopIcon("bt_sword",32));
+	QFrame* page = m_swordConfigPage = addPage(i18n("Sword Path"), QString::null, DesktopIcon("bt_swordconfig",32));
  	page->setMinimumSize(500,400);
 
 	QGridLayout* layout = new QGridLayout(page, 6, 4);
@@ -432,7 +432,7 @@ void CSwordSetupDialog::initSwordConfig(){
   m_swordPathListBox->addColumn(i18n("Path to Sword modules"));
   connect(m_swordPathListBox, SIGNAL(selectionChanged()), this, SLOT(slot_swordPathSelected()));
   layout->addMultiCellWidget(m_swordPathListBox, 2,5,0,1);
-  
+
   m_swordEditPathButton = new QPushButton(i18n("Edit Entry"), page);
   connect(m_swordEditPathButton, SIGNAL(clicked()), this, SLOT(slot_swordEditClicked()));
   layout->addWidget(m_swordEditPathButton, 2, 3);
@@ -450,7 +450,7 @@ void CSwordSetupDialog::initSwordConfig(){
 }
 
 void CSwordSetupDialog::initInstall(){
-	QFrame* newpage = m_installPage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("connect_create",32));
+	QFrame* newpage = m_installPage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("bt_bible",32));
 
 	QVBoxLayout* vboxlayout = new QVBoxLayout(newpage);
 	QHBoxLayout* hboxlayout = new QHBoxLayout();
@@ -466,7 +466,7 @@ void CSwordSetupDialog::initInstall(){
 
 	m_installSourcePage->setMinimumSize(500,400);
 
-	QGridLayout* layout = new QGridLayout(m_installSourcePage, 8, 2);
+	QGridLayout* layout = new QGridLayout(m_installSourcePage, 7, 2);
 	layout->setMargin(5);
 	layout->setSpacing(10);
 	layout->setRowStretch(6,5);
@@ -500,17 +500,23 @@ void CSwordSetupDialog::initInstall(){
 	m_targetLabel = new QLabel(m_installSourcePage);
 	layout->addMultiCellWidget(m_targetLabel, 6,6,0,1,Qt::AlignTop);
 
-  QHBoxLayout* myHBox = new QHBoxLayout();
+//part beloew main layout with the back/next buttons
+	QHBoxLayout* myHBox = new QHBoxLayout();
   vboxlayout->addLayout(myHBox);
 
   m_installBackButton = new QPushButton(newpage);
+//	m_installBackButton->setPixmap(DesktopIcon("back",22));
 	m_installBackButton->setText(i18n("Back"));
-	myHBox->addWidget(m_installBackButton, 7, 0);
+	myHBox->addWidget(m_installBackButton);
+
+	myHBox->addSpacing(10);
+	myHBox->addStretch(5);
 
   m_installContinueButton = new QPushButton(newpage);
+//	m_installContinueButton->setPixmap(DesktopIcon("forward",22));
 	m_installContinueButton->setText( i18n("Connect to source") );
   connect(m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
-	myHBox->addWidget(m_installContinueButton, 7, 1);
+	myHBox->addWidget(m_installContinueButton);
 
   m_installBackButton->setEnabled(false);
 
@@ -522,7 +528,7 @@ void CSwordSetupDialog::initInstall(){
 }
 
 void CSwordSetupDialog::initRemove(){
-	QFrame* page = m_removePage = addPage(i18n("Remove Modules"), QString::null, DesktopIcon("editdelete",32));
+	QFrame* page = m_removePage = addPage(i18n("Remove Modules"), QString::null, DesktopIcon("edittrash",32));
 
 	page->setMinimumSize(500,400);
 
@@ -933,7 +939,7 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 void CSwordSetupDialog::slot_connectToSource(){
 	m_installModuleListPage = new QWidget(0);
 
-	QGridLayout* layout = new QGridLayout(m_installModuleListPage, 8, 2);
+	QGridLayout* layout = new QGridLayout(m_installModuleListPage, 7, 2);
 	layout->setMargin(5);
 	layout->setSpacing(10);
 //	layout->setColStretch(1);
