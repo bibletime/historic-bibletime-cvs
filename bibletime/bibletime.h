@@ -346,6 +346,10 @@ protected slots:
 	 * Called when forward button pressed
 	 **/
 	void slotForward();
+	/**
+	 * Called when select key button pressed
+	 **/
+	void slotSelectKey();
 	
 
 private slots: // Private slots

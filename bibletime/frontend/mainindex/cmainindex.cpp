@@ -554,6 +554,9 @@ void CMainIndex::moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>&
 }
 
 void CMainIndex::initDefaultModules() {
+  // do nothing is restore workspace selected
+  if (CBTConfig::get(CBTConfig::restoreWorkspace)) return;
+
   // make default Bible active
   QString defaultBible(CBTConfig::get(CBTConfig::standardBible));
   if (!defaultBible.isEmpty()) {

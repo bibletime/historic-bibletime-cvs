@@ -314,6 +314,15 @@ void BibleTime::slotForward() {
 }
 
 
+void BibleTime::slotSelectKey() {
+  CDisplayWindow* w = 
+    dynamic_cast<CDisplayWindow*> (m_mdi->activeWindow());
+  // no proper action target
+  if (!w || !w->isReady()) return;
+  qWarning("slotSelectKey()");
+}
+
+
 void BibleTime::openOnlineHelp_Handbook() {
 //#ifdef STATIC_BUILD
 //	CHTMLDialog dlg("bibletime/handbook/index.html");

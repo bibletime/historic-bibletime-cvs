@@ -108,7 +108,7 @@ void BibleTime::initActions() {
 //	action->setWhatsThis( WT_GM_RESET );		
 //	action->plugAccel( m_keyAccel );
 	
-        action =  new KAction(i18n("Back"), 
+        action =  new KAction(i18n("Previous"), 
 			      ICON_MAININDEX_BACK, 
 			      IDK_GM_MODULES_BACK,
 			      this, SLOT(slotBack()), 
@@ -124,7 +124,14 @@ void BibleTime::initActions() {
 	action->setToolTip( TT_GM_SEARCH_MODULES );
 	action->setWhatsThis( WT_GM_SEARCH_MODULES );
 
-	action =  new KAction(i18n("Forward"), 
+	action =  new KAction(i18n("Go to key"), 
+			      "contents.png", CTRL+Key_K,
+			      this, SLOT(slotSelectKey()), 
+			      actionCollection(), "GMselect_action");	
+	action->setToolTip( "go to key" );
+	action->setWhatsThis( "go to key" );
+
+	action =  new KAction(i18n("Next"), 
 			      ICON_MAININDEX_FORWARD, 
 			      IDK_GM_MODULES_FORWARD,
 			      this, SLOT(slotForward()), 
