@@ -407,12 +407,14 @@ void CInstallSourcesMgrDialog::slot_remotePathChanged( const QString& t) {
 
 
 CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name )
-	: KDialogBase(IconList, i18n("Sword configuration"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
-
-  m_progressDialog = 0;
+	: KDialogBase(IconList, i18n("Sword configuration"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null),
+		m_removeModuleListView(0),
+		m_installModuleListPage(0),
+		m_installModuleListView(0),
+		m_progressDialog(0),
+  	m_refreshedRemoteSources(false)
+{
 	setIconListAllVisible(true);
-  m_refreshedRemoteSources = false;
-	m_installModuleListPage = 0;
 
   initSwordConfig();
 	initInstall();
@@ -802,6 +804,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 
 		CPointers::backend()->reloadModules();
     populateRemoveModuleListView(); //rebuild the tree
+    populateInstallModuleListView( currentInstallSource() ); //rebuild the tree
 
 		//delete all mgrs
 		mgrDict.setAutoDelete(true);
@@ -958,6 +961,10 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 /** No descriptions */
 void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName ){
   KApplication::kApplication()->processEvents();
+	if (!m_installModuleListView) { // it may be an update after removing modules, so the widgets we need do not have to exist
+		return;
+	}
+	
 	m_installModuleListView->clear();
 
 	QListViewItem* categoryBible = new QListViewItem(m_installModuleListView, i18n("Bibles"));
