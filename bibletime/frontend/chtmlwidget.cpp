@@ -340,14 +340,9 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 	 		if (m_important){
 	 			CSwordModuleInfo* module = m_important->swordBackend->findModuleByName(mod);
 		 		if (module) {		 			
-		 			CSwordKey* key = 0;
-	 				if (module->getType() == CSwordModuleInfo::Bible || module->getType() == CSwordModuleInfo::Commentary)
-	 					key = new CSwordVerseKey(module);
-	 				else if (module->getType() == CSwordModuleInfo::Lexicon)
-	 					key = new CSwordLDKey(module);
- 					
+		 			CSwordKey* key = CSwordKey::createInstance(module);; 					
  					key->key(ref);
- 					text = key->strippedText();	 				
+ 					text = key->strippedText();
  					delete key;
 		 		}
 		 	}
@@ -359,7 +354,6 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 			insert(text);
 		else {
 			e->ignore();
-//			QTextEdit::contentsDropEvent(e);
 		}
 	}
 }

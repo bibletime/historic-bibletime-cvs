@@ -153,7 +153,7 @@ void CLexiconPresenter::popupAboutToShow(){
 
 /** No descriptions */
 void CLexiconPresenter::lookup(const QString& module, const QString& key){
-	//displayed in this displa window?
+	//displayed in this display window?
 	bool found = false;
 	for (m_moduleList.first(); m_moduleList.current() && !found; m_moduleList.next()) {
   	found = (m_moduleList.current()->name() == module); //found			
