@@ -278,28 +278,28 @@ void COptionsDialog::initColors(){
 
 	m_settings.colors.swordrefs = new KColorButton(CBTConfig::get(CBTConfig::swordRefColor), page);
 	label = new QLabel(m_settings.colors.swordrefs,i18n("Hyperlinks"), page);
-	gridLayout->addWidget(label,3,0);
-	gridLayout->addWidget(m_settings.colors.swordrefs,3,1);
+	gridLayout->addWidget(label,4,0);
+	gridLayout->addWidget(m_settings.colors.swordrefs,4,1);
 
 	m_settings.colors.footnotes = new KColorButton(CBTConfig::get(CBTConfig::footnotesColor), page);		
 	label = new QLabel(m_settings.colors.footnotes,i18n("Footnotes"), page);			
-	gridLayout->addWidget(label,3,3);
-	gridLayout->addWidget(m_settings.colors.footnotes,3,4);
+	gridLayout->addWidget(label,6,0);
+	gridLayout->addWidget(m_settings.colors.footnotes,6,1);
 
 	m_settings.colors.jesuswords = new KColorButton(CBTConfig::get(CBTConfig::jesuswordsColor), page);		
 	label = new QLabel(m_settings.colors.jesuswords, i18n("Words of Jesus"), page);			
-	gridLayout->addWidget(label,4,0);
-	gridLayout->addWidget(m_settings.colors.jesuswords,4,1);
+	gridLayout->addWidget(label,6,3);
+	gridLayout->addWidget(m_settings.colors.jesuswords,6,4);
 
 	m_settings.colors.strongs = new KColorButton(CBTConfig::get(CBTConfig::strongsColor), page);		
 	label = new QLabel(m_settings.colors.strongs, i18n("Strong's numbers"), page);			
-	gridLayout->addWidget(label,5,0);
-	gridLayout->addWidget(m_settings.colors.strongs,5,1);
+	gridLayout->addWidget(label,7,0);
+	gridLayout->addWidget(m_settings.colors.strongs,7,1);
 
 	m_settings.colors.morph = new KColorButton(CBTConfig::get(CBTConfig::morphsColor), page);		
 	label = new QLabel(m_settings.colors.morph, i18n("Morphologic tags"), page);			
-	gridLayout->addWidget(label,5,3);
-	gridLayout->addWidget(m_settings.colors.morph,5,4);
+	gridLayout->addWidget(label,7,3);
+	gridLayout->addWidget(m_settings.colors.morph,7,4);
 
 	gridLayout->setRowStretch(9, 5);
 	gridLayout->addColSpacing(3, 5);
