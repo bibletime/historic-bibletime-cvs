@@ -41,50 +41,6 @@
 
 class CEntryDisplay : public sword::SWDisplay, public CPointers  {
 public: // Public methods
-  enum StyleType {
-    Body = 0,
-    Font,
-    Link,
-    LinkHover,
-    Background,
-    HighlightedText,
-
-    Reference,
-		Verse,
-		CurrentVerse,
-		VerseNum,
-
-    MorphCode,
-    StrongNumber,
-    Lemma,
-    Footnote,
-    FootnotePre,
-
-    Poetry,
-    Quotation,
-    JesusWords,
-
-    BookTitle,
-    SectionTitle,
-
-    MinType = Body,
-    MaxType = SectionTitle
-  };
-
-  enum ColorType {
-    ReferenceColor,
-    TextColor,
-    HighlightedTextColor,
-    BackgroundColor,
-    BackgroundColor2,
-
-    FootnoteColor,
-    StrongsNumberColor,
-    MorphCodeColor,
-    LemmaColor,
-    JesusWordColor
-  };
-
   CEntryDisplay();
 	virtual ~CEntryDisplay();
   /**
@@ -96,13 +52,7 @@ public: // Public methods
   * Returns a preview for the given module and key.
   * This is useful for the seatchdialog and perhaps the tooltips.
   */
-  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key, const QString& headerText = QString::null,  CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults());
   void setDisplayOptions(const CSwordBackend::DisplayOptions options);
-
-  /**
-  * Returns the font of the given type.
-  */
-//  const QFont font( const CLanguageMgr::Language& lang );
 
 protected:
   /**
@@ -125,13 +75,6 @@ public: // Public methods
   *  The displayoptions and filter options are used, too.
   */
   virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
-
-protected:
-  /**
-  * Renders one entry using the given modules and the key.
-  * This makes chapter rendering more easy.
-  */
-  virtual const QString entryText( QPtrList<CSwordModuleInfo> modules, const QString& key, const QString& chosenKey);
 };
 
 class CBookDisplay : public CEntryDisplay  {

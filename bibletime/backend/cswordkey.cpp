@@ -24,6 +24,8 @@
 #include "cswordldkey.h"
 #include "cswordtreekey.h"
 
+#include "util/ctoolclass.h"
+
 //Sword includes
 #include <swmodule.h>
 #include <swkey.h>
@@ -31,6 +33,9 @@
 #include <treekey.h>
 #include <treekeyidx.h>
 
+//Qt includes
+#include <qregexp.h>
+#include <qstring.h>
 
 CSwordKey::CSwordKey(CSwordModuleInfo* module) : m_module(module) {
 }
@@ -87,8 +92,8 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
       return ret;
     }
     else {
-      return text;
-    }
+    	return text;
+		}
   }
   return QString::null;
 }

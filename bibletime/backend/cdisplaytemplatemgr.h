@@ -12,6 +12,10 @@
 #ifndef CDISPLAYTEMPLATEMGR_H
 #define CDISPLAYTEMPLATEMGR_H
 
+//BibleTime include
+#include "cswordmoduleinfo.h"
+
+//Qt includes
 #include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
@@ -27,7 +31,7 @@ public:
     ~CDisplayTemplateMgr();
 		
     const QStringList availableTemplates();
-    const QString fillTemplate( const QString& name, const QString& title, const QString& content, const QString& langAbbrev = QString::null );
+    const QString fillTemplate( const QString& name, const QString& title, const QString& content, const CSwordModuleInfo::ModuleType type, const QString& langAbbrev = QString::null );
     
 		static const QString defaultTemplate();
 

@@ -54,7 +54,7 @@ QString CToolClass::htmlToText(const QString& html) {
   QString newText = html;
   // convert some tags we need in code
 	newText.replace( QRegExp(" "),"#SPACE#" );
-	newText.replace( QRegExp("<BR>\\s*"), "<BR>\n" );
+	newText.replace( QRegExp("<br/?>\\s*"), "<br/>\n" );
  	newText.replace( QRegExp("#SPACE#")," " );
 
   QRegExp re("<.+>");

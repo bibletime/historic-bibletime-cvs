@@ -268,30 +268,33 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 	}
  	else { //no mouse button pressed
 		KHTMLPart::khtmlMouseMoveEvent(e);
-	  DOM::Node node = e->innerNode();//m_view->part()->nodeUnderMouse();
+	  DOM::Node node = m_view->part()->nodeUnderMouse();
 
-		DOM::Node textNode;
+/*		DOM::Node textNode;
 		DOM::NodeList childNodes = node.childNodes();
 		int childIndex = 0;
 		while (!childNodes.item(childIndex).isNull()) {
 			DOM::Node child = childNodes.item(childIndex);
+			//qWarning("X: %i in %i - %i?", e->x(),child.getRect().x(), child.getRect().x() + child.getRect().width());
+			//qWarning("Y: %i in %i - %i?", e->y(),child.getRect().y(), child.getRect().y() + child.getRect().height());
 			if ( child.getRect().contains( QPoint( e->x(), e->y() ) )) { //text has to be child of this node
-				//qWarning("in the rect: %s", child.nodeName().string().latin1());
 				childNodes = child.childNodes();
 				childIndex = 0;
 				
 				if (!childNodes.length()) {
 					textNode = child;
-					//qWarning("%i", e->offset());
+					qWarning("found");
 					break;
 				}
 			}
 		
 			childIndex++;
-		}
+		}*/
 		
-		if (!textNode.isNull()) {
-			CPointers::infoDisplay()->setText( textNode.nodeValue().string() );
+
+		QString myText = node.nodeName().string() + "<br/>" + node.nodeValue().string() + "<br/>" + node.toHTML();
+		if (!myText.isEmpty()) {
+			CPointers::infoDisplay()->setText( myText );
 		}
 	} 
 	KHTMLPart::khtmlMouseMoveEvent(e);

@@ -56,7 +56,7 @@ const QStringList CDisplayTemplateMgr::availableTemplates() {
 /*!
     \fn CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content )
  */
-const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content, const QString& langAbbrev ) {
+const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content, const CSwordModuleInfo::ModuleType type, const QString& langAbbrev ) {
 	if (!m_templateMap.contains(name))
 		return QString::null;
 
@@ -75,11 +75,27 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 				.arg(f.italic() ? "italic" : "normal");
 		}
 	}
-			
+	
+	QString displayType;
+	switch (type) {
+	case CSwordModuleInfo::Bible:
+	case CSwordModuleInfo::GenericBook:
+		displayType = "multiple";
+		break;
+		
+	case CSwordModuleInfo::Commentary:
+	case CSwordModuleInfo::Lexicon:
+	default:
+	 displayType = "single";
+	 break;
+	}
+	
+	
 	QString t = m_templateMap[ name ];
 	t.replace("#TITLE#", title);
 	t.replace("#LANG_CSS#", langCSS);
 	t.replace("#LANG_ABBREV#", langAbbrev);
+ 	t.replace("#DISPLAY_TYPE#", displayType);
 	t.replace("#CONTENT#", content);
 	
 //	std::cout << t.latin1() << std::endl;

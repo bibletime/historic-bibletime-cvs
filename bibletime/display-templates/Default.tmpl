@@ -45,24 +45,24 @@ a:hover {
 	padding:2px;
 }
 
-div.verse, td.verse, div.entry {
+td.entry, div.entry {
 	padding: 2px;
 	vertical-align: top;
 }
-span.verse, span.entry {
+span.entry {
 	padding: 2px;
 }
 
-div.currentverse, td.currentverse, div.currententry {
+#multiple div.currententry, #multiple td.currententry, div.currententry {
 	padding: 5px;
 	border: 1px solid black;
 	background-color: #F6FFF7;
 	vertical-align: top;
 }
-td.verse + td.verse, td.entry + td.entry { 
+#multiple td.entry + td.entry, td.entry + td.entry { 
 	margin-left: 2px;
 }
-span.currentverse, span.currententry {
+#multiple span.currententry, #multiple span.currententry {
 	background-color: #C0F6C8;
 	vertical-align: middle;
 	padding: 2px;
@@ -197,7 +197,7 @@ span.currentverse, span.currententry {
 	</style>
 </head>
 
-<body>
+<body id="#DISPLAY_TYPE#">
 	<div id="content" lang="#LANG_ABBREV#">
 		#CONTENT#
 	</div>

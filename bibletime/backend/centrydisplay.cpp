@@ -22,6 +22,7 @@
 #include "cswordbookmoduleinfo.h"
 #include "creferencemanager.h"
 #include "cdisplaytemplatemgr.h"
+#include "ctextrendering.h"
 
 #include "frontend/cbtconfig.h"
 
@@ -29,6 +30,7 @@
 
 //Qt includes
 #include <qapplication.h>
+#include <qregexp.h>
 
 CEntryDisplay::CEntryDisplay(){
 }
@@ -42,37 +44,8 @@ const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QSt
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
-	QString text = entryText( modules, keyName );
-	if (modules.count() > 1) {
-		QString header;
-
-		for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-			header += QString::fromLatin1("<th width=\"%1%\">%2</th>")
-					.arg(100 / modules.count())
-					.arg(m->name());
-		}
-		text = "<table><tr>" + header + "</tr>" + text + "</table>";
-	}
-
-	const QString langAbbrev = ((modules.count() == 1) && modules.first()->language().isValid()) 
-		? modules.first()->language().abbrev() 
-		: "unknown";
-	
-	CDisplayTemplateMgr tMgr;
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text, langAbbrev);
-}
-
-/** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
-const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QString& keyName, const QString& headerText, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
-{
-  backend()->setDisplayOptions( displayOptions );
-  backend()->setFilterOptions( filterOptions );
-
-  util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
-  key->key(keyName);
-
-	CDisplayTemplateMgr tMgr;
-	return tMgr.fillTemplate( CBTConfig::get(CBTConfig::displayStyle), QString::null, key->renderedText() );
+	CDisplayRendering render(displayOptions, filterOptions);
+	return render.renderSingleKey(keyName, modules);
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
@@ -180,111 +153,16 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
   CSwordModuleInfo* module = modules.first();
   bool ok = true;
 
-	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse) && !key.Error() ) {
-    text += entryText(modules, key.key(), keyName);
-	}
-
-	if (modules.count() > 1) {
-//		text = QString::fromLatin1("<table>%1</table>").arg(text);
-		QString header;
-
-		for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-			header += QString::fromLatin1("<th width=\"%1%\">%2</th>")
-					.arg(100 / modules.count())
-					.arg(m->name());
-		}
-		text = "<table><tr>" + header + "</tr>" + text + "</table>";
-	}
-
-	QString langAbbrev = ((modules.count() == 1) && modules.first()->language().isValid()) ? modules.first()->language().abbrev() : "unknown";
+	CTextRendering::KeyTree tree;
 	
-	CDisplayTemplateMgr tMgr;
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text, langAbbrev);
-}
-
-/** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
-const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const QString& chosenKey ) {
-
-  CSwordVerseKey key(modules.first());
-  QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr>") : QString::null;
-
-	// Only insert the table stuff if we are displaying parallel.
-  // Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
-
-
-  //declarations out of the loop for optimization
-  QString entry;
-  QString keyText;
-  bool isRTL;
-
-  for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    key.module(m);
-    key.key(keyName);
-    keyText = key.key();
-    isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
-    //font = CBTConfig::get(m->language()).second;
-		entry = QString::null;
-
-		key.renderedText();
-		int pvHeading = 0;
-		do { //add sectiontitle before we add the versenumber
-			QString preverseHeading = QString::fromUtf8(
-m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeading++).latin1()].c_str());
-			if (!preverseHeading.isEmpty()) {
-				entry += QString::fromLatin1("<div %1 class=\"sectiontitle\">%1</div>")
-					.arg(m->language().isValid() 
-						? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
-						: QString::null
-					)
-					.arg(preverseHeading);
-			}
-			else {
-				break;
-			}
-		} while (true);
-
-		entry += QString::fromLatin1("<%1 %2 %3 dir=\"%4\">") //linebreaks = div, without = span
-    	.arg(m_displayOptions.lineBreaks ? QString::fromLatin1("div") : QString::fromLatin1("span"))
-			.arg((modules.count() == 1) 
-				? ((keyText == chosenKey) ? QString::fromLatin1("class=\"currentverse\"") : QString::fromLatin1("class=\"verse\"")) 
-				: "") //insert only the class if we're not in a td
-			.arg(m->language().isValid() 
-				? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
-				: QString::null
-			)
-			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
-
-		entry += QString::fromLatin1("<span dir=\"%1\" class=\"versenum\">%2</span>")
-			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-			.arg( m_displayOptions.verseNumbers 
-				? htmlReference(m, keyText, QString::number(key.Verse()), keyText) 
-				: htmlReference(0, QString::null, QString::null, keyText)
-			);
-		
-		//entry += QString::fromLatin1("<span>%1</span>").arg(key.renderedText());
-		entry += key.renderedText();
-		entry +=  (m_displayOptions.lineBreaks 
-			? QString::fromLatin1("</div>") 
-			: QString::fromLatin1("</span>"));
-		
-  	if (modules.count() == 1) {
-			renderedText += entry;
-		}
-  	else {
-	    renderedText += QString::fromLatin1("<td class=\"%1\" %2 dir=\"%3\">%4</td>")
-				.arg((keyText == chosenKey) ? QString::fromLatin1("currentverse") : QString::fromLatin1("verse"))
-				.arg(m->language().isValid() 
-					? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
-					: QString::null
-				)
-				.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-				.arg(entry);
-		}
+	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse) && !key.Error() ) {
+		CTextRendering::KeyTreeItem::Settings settings;
+		settings.highlight = (key.key() == keyName);
+		tree +=  CTextRendering::KeyTreeItem( key.key(), modules, settings );
 	}
- 	if (modules.count() > 1) {
-		renderedText += QString::fromLatin1("</tr>");
-	}
-  return renderedText;
+
+	CDisplayRendering render(displayOptions, filterOptions);
+	return render.renderKeyTree( tree );
 }
 
 
@@ -310,7 +188,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   // standard of DisplayLevel, display nothing together
   // if the current key is the root entry don't display anything together!
   if ((displayLevel <= 1) || (key->key().isEmpty() || (key->key() == "/") )) {
-		QString ret = tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key));
+		QString ret = tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key), modules.first()->type());
   	key->key(keyName); //restore before we return so make sure it doesn't break anything
     return ret;
   };
@@ -332,7 +210,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 
   if (possibleLevels < displayLevel) { //too few levels available!
     //display current level, we could also decide to display the available levels together
-		return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key));
+		return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key), modules.first()->type());
   };
   if ((displayLevel > 2) && (displayLevel == possibleLevels)) { //fix not to diplay the whole module
     --displayLevel;
@@ -342,7 +220,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   // at the moment we're at the lowest level, so we only have to go up!
   for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
     if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
-			return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key));
+			return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, entryText(modules, key), modules.first()->type());
     };
   };
 
@@ -357,7 +235,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   printTree(key, modules, hasToplevelText); //if the top level entry has text ident the other text
 
 	key->key(keyName); //restore key
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, m_text);
+	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, m_text, modules.first()->type());
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
