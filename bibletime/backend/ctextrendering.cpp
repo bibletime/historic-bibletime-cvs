@@ -126,9 +126,12 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString&
 		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
 	}
 				
-	m_alternativeContent = QString::fromLatin1("%1 (%2)")
-		.arg((startKey != stopKey) ? QString::fromLatin1("%1 - %2").arg(startKey).arg(stopKey) : startKey)
-		.arg(module->name());
+	//make it into "<simple|range> (modulename)"
+	m_alternativeContent = startKey; 
+	if (startKey != stopKey) {
+		m_alternativeContent.append(" - ").append(stopKey);
+	}
+	m_alternativeContent.append("(").append(module->name()).append(")");
 }
 
 /*!

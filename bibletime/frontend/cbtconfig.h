@@ -128,7 +128,7 @@ public:
 	static const QValueList<int> getDefault( const CBTConfig::intLists );
 	static const QStringList getDefault( const CBTConfig::stringLists );
 	static const CBTConfig::StringMap getDefault( const CBTConfig::stringMaps );
-  static const QFont getDefault( const CLanguageMgr::Language* const );
+  static const QFont& getDefault( const CLanguageMgr::Language* const );
 
 	static void set( const CBTConfig::strings, 	const QString value );
 	static void set( const CBTConfig::modules, CSwordModuleInfo* const module );
@@ -161,6 +161,9 @@ private:
 	static const QString getKey( const CBTConfig::stringLists );
 	static const QString getKey( const CBTConfig::stringMaps );
 	static const QString getKey( const CLanguageMgr::Language* const );    
+	
+	//static caches
+	static QFont* m_defaultFont;
 };
 
 

@@ -31,12 +31,12 @@ CPlainTextExportRendering::~CPlainTextExportRendering() {
 
 const QString CPlainTextExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey*  ) {
 	if (!m_settings.addText) {
-		return QString::fromLatin1("%1\n").arg(i.key());
+		return QString(i.key()).append("\n");
 	}
 		
 	ListCSwordModuleInfo modules = i.modules();	
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
-	QString renderedText = QString::fromLatin1("%1:\n").arg(i.key());
+	QString renderedText = QString(i.key()).append(":\n");
 		
   QString entry;
 //   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {

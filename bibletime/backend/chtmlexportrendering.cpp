@@ -40,8 +40,10 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
 	if (i.hasAlternativeContent()) {
-		QString ret = QString::fromLatin1("<div class=\"entry\"><div class=\"rangeheading\">%1</div>").arg(i.getAlternativeContent());
-		
+		QString ret;
+		ret.setLatin1("<div class=\"entry\"><div class=\"rangeheading\">")
+			.append(i.getAlternativeContent()).append("</div>");
+
 		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
 			
@@ -65,7 +67,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		myVK->Headings(1);
 	}
   
-	QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr>") : QString::null;
+	QString renderedText( (modules.count() > 1) ? "<tr>" : "" );
 
 	// Only insert the table stuff if we are displaying parallel.
   // Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
@@ -88,14 +90,20 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
     isRTL = ((*mod_Itr)->textDirection() == CSwordModuleInfo::RightToLeft);
 		entry = QString::null;
 		
-
-		langAttr = ((*mod_Itr)->language()->isValid())
-			? QString::fromLatin1("xml:lang=\"%1\" lang=\"%2\"")
-				.arg((*mod_Itr)->language()->abbrev())//twice the same
-				.arg((*mod_Itr)->language()->abbrev()) 
-			: QString::fromLatin1("xml:lang=\"%1\" lang=\"%2\"")
-				.arg((*mod_Itr)->module()->Lang()) //again twice times the same
-				.arg((*mod_Itr)->module()->Lang());
+		if ((*mod_Itr)->language()->isValid()) {
+			langAttr.setLatin1("xml:lang=\"")
+				.append((*mod_Itr)->language()->abbrev())
+				.append("\" lang=\"")
+				.append((*mod_Itr)->language()->abbrev())
+				.append("\"");
+		}
+		else {
+			langAttr.setLatin1("xml:lang=\"")
+				.append((*mod_Itr)->module()->Lang())
+				.append("\" lang=\"")
+				.append((*mod_Itr)->module()->Lang())
+				.append("\"");
+		}
 		
 		const QString key_renderedText = key->renderedText();
 		
@@ -109,37 +117,25 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 				preverseHeading = QString::fromUtf8(it->second.c_str());
 				
 				if (!preverseHeading.isEmpty()) {
-					entry.append(
-						QString::fromLatin1("<div %1 class=\"sectiontitle\">%1</div>")
-							.arg(langAttr)
-							.arg(preverseHeading)
-					);
+					entry.append("<div")
+						.append(langAttr)
+						.append("class=\"sectiontitle\">")
+						.append(preverseHeading) 
+						.append("</div>");
 				}		
 			}
 		}
 		
-// 		entry += QString::fromLatin1("<%1 %2 %3 dir=\"%4\">") //linebreaks = div, without = span
-		entry.append( 
-			QString::fromLatin1("<%1 %2 %3 %4>") //linebreaks = div, without = span
-				.arg(m_displayOptions.lineBreaks 
-						? QString::fromLatin1("div") 
-						: QString::fromLatin1("span")
-				)
-				.arg((modules.count() == 1) //insert only the class if we're not in a td
-						? (	i.settings().highlight 
-							? QString::fromLatin1("class=\"currententry\"") 
-							: QString::fromLatin1("class=\"entry\"")
-						)
-						: QString::null
-				)
-				.arg(langAttr)
-	// 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
-				.arg(isRTL ? QString::fromLatin1("dir=\"rtl\"") : QString::fromLatin1("dir=\"ltr\"")) 
-		);
+		entry.setLatin1("<").append(m_displayOptions.lineBreaks  ? "div "  : "span ");
+		
+		if (modules.count() == 1) { //insert only the class if we're not in a td
+			entry.append( i.settings().highlight  ? "class=\"currententry\"" : "class=\"entry\"" );
+		}
+		
+		entry.append(langAttr).append(isRTL ? " dir=\"rtl\"" : " dir=\"ltr\"").append(">");
 
  		//keys should normally be left-to-right, but this doesn't apply in all cases
-//  		entry.append( QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>").arg(entryLink(i, *mod_Itr)) );
- 		entry.append( QString::fromLatin1("<span class=\"entryname\">%1</span>").arg(entryLink(i, *mod_Itr)) );
+		entry.append("<span class=\"entryname\">").append(entryLink(i, *mod_Itr)).append("</span>");
 		
 		if (m_settings.addText) {
 			//entry.append( QString::fromLatin1("<span %1>%2</span>").arg(langAttr).arg(key_renderedText) );
@@ -154,27 +150,26 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 			}
 		}
 		
-		entry.append(m_displayOptions.lineBreaks
-			? QString::fromLatin1("</div>\n") 
-			: QString::fromLatin1("</span>\n")
-		);
+		entry.append(m_displayOptions.lineBreaks ? "</div>\n"  : "</span>\n");
 		
   	if (modules.count() == 1) {
 			renderedText.append( entry );
 		}
   	else {
-	    renderedText.append( 
-				QString::fromLatin1("<td class=\"%1\" %2 dir=\"%3\">%4</td>\n")
-					.arg( i.settings().highlight ? QString::fromLatin1("currententry") : QString::fromLatin1("entry"))
-					.arg( langAttr )
-					.arg( isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr") )
-					.arg( entry ) 
-			);
+	    renderedText.append("<td class=\"")
+				.append(i.settings().highlight ? "currententry" : "entry")
+				.append("\" ")
+				.append(langAttr)
+				.append(" dir=\"")
+				.append(isRTL ? "rtl" : "ltr")
+				.append("\">")
+				.append(entry)
+				.append("</td>\n");
 		}
 	}
  	
 	if (modules.count() > 1) {
-		renderedText.append( QString::fromLatin1("</tr>\n") );
+		renderedText.append("</tr>\n");
 	}
 	
   return renderedText;	

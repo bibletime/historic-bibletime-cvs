@@ -28,38 +28,38 @@ const QString CReferenceManager::encodeHyperlink( const QString& moduleName, con
 	QString ret = QString::null;
 	switch (type) {
 		case Bible:				
-			ret = QString::fromLatin1("sword://Bible/");
+			ret.setLatin1("sword://Bible/");
 			break;
 		case Commentary:
-			ret = QString::fromLatin1("sword://Commentary/");
+			ret.setLatin1("sword://Commentary/");
 			break;
 		case Lexicon:
-			ret = QString::fromLatin1("sword://Lexicon/");
+			ret.setLatin1("sword://Lexicon/");
 			break;
 		case GenericBook:
-			ret = QString::fromLatin1("sword://Book/");
+			ret.setLatin1("sword://Book/");
 			break;			
 		case MorphHebrew:				
-			ret = QString::fromLatin1("morph://Hebrew/");		
+			ret.setLatin1("morph://Hebrew/");		
 			break;
 		case MorphGreek:
-			ret = QString::fromLatin1("morph://Greek/");				
+			ret.setLatin1("morph://Greek/");				
 			break;
 		case StrongsHebrew:				
-			ret = QString::fromLatin1("strongs://Hebrew/");				
+			ret.setLatin1("strongs://Hebrew/");				
 			break;
 		case StrongsGreek:				
-			ret = QString::fromLatin1("strongs://Greek/");					
+			ret.setLatin1("strongs://Greek/");					
 			break;
 		default:
 			break;
 	}
 
 	if (!moduleName.isEmpty()) {
-		ret += moduleName + QString::fromLatin1("/");
+		ret.append( moduleName ).append('/');
   }
 	else { //if module is empty use fallback module
-		ret += preferredModule(type) + QString::fromLatin1("/");
+		ret.append( preferredModule(type) ).append('/');
 	}	
 	
 	if (type == GenericBook) {
@@ -72,13 +72,13 @@ const QString CReferenceManager::encodeHyperlink( const QString& moduleName, con
 		for(unsigned int i = 0; i < s.length(); ++i) {
       c = s.at(i);
 			if (c == '/') {
-				newKey += "\\/";
+				newKey.append("\\/");
       }
 			else {
-				newKey += c;
+				newKey.append(c);
       }
 		}
-		ret += newKey;		
+		ret.append( newKey );
 	}
 	else { //slashes do not appear in verses and dictionary entries
    	switch (type) {
@@ -202,7 +202,8 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 }
 
 const QString CReferenceManager::encodeReference(const QString &module, const QString &reference){
-	return QString::fromLatin1("(%1)%2").arg(module).arg(reference);
+	//return QString("(%1)%2").arg(module).arg(reference);
+	return QString("(").append(module).append(")").append(reference);
 }
 
 void CReferenceManager::decodeReference(QString &dragreference, QString &module, QString &reference){

@@ -29,6 +29,7 @@
 #include <qfontdatabase.h>
 #include <qstring.h>
 #include <qstringlist.h>
+#include <qmap.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -37,8 +38,14 @@
 #include <kglobal.h>
 #include <klocale.h>
 #include <kaccel.h>
+#include <kstaticdeleter.h>
 
 #include <khtml_settings.h>
+
+QFont* CBTConfig::m_defaultFont = 0;
+
+typedef QMap<const CLanguageMgr::Language*, CBTConfig::FontSettingsPair> FontCache;
+static FontCache* fontConfigMap = 0;
 
 /* 	No constructor and destructor, because this class only contains static methods.
 		It won't be instantiated. */
@@ -269,9 +276,14 @@ const QString CBTConfig::getKey( const CLanguageMgr::Language* const language ){
 	return language->name();
 }
 
-const QFont CBTConfig::getDefault( const CLanguageMgr::Language* const){
+const QFont& CBTConfig::getDefault( const CLanguageMgr::Language* const){
   //language specific lookup of the font name
 	//return KApplication::font();
+	if (m_defaultFont) {
+		return *m_defaultFont;
+	}
+
+ 	static KStaticDeleter<QFont> sd;
 	
 	//TODO: We need a better way to get the KDE konqueror KHTML settings
 	KConfig conf("konquerorrc"); 
@@ -280,9 +292,10 @@ const QFont CBTConfig::getDefault( const CLanguageMgr::Language* const){
 	
 	const QString fontName = settings.stdFontName();
 	const int fontSize = settings.mediumFontSize();
+		
+	sd.setObject(m_defaultFont, new QFont(fontName, fontSize));
 	
-// 	qWarning("%s %i" , fontName.latin1(), fontSize);
-	return QFont(fontName, fontSize);
+	return *m_defaultFont;
 }
 
 
@@ -355,6 +368,15 @@ const CBTConfig::StringMap CBTConfig::get( const CBTConfig::stringMaps ID ){
 }
 
 const CBTConfig::FontSettingsPair	CBTConfig::get( const CLanguageMgr::Language* const language ){
+	if (fontConfigMap && fontConfigMap->contains(language)) {
+		return fontConfigMap->find(language).data();
+	}
+	
+ 	if (!fontConfigMap) {
+		static KStaticDeleter<FontCache> sd;
+		sd.setObject(fontConfigMap, new FontCache());
+	}
+	
 	KConfig* config = CBTConfig::getConfig();
 	KConfigGroupSaver groupSaver(config, "font standard settings");
 
@@ -363,8 +385,12 @@ const CBTConfig::FontSettingsPair	CBTConfig::get( const CLanguageMgr::Language* 
 
   config->setGroup("fonts");
 
-  settings.second = settings.first ? config->readFontEntry(getKey(language)) : KApplication::font();
+  settings.second =
+		  settings.first
+		? config->readFontEntry(getKey(language))
+		: getDefault(language);
 
+	fontConfigMap->insert(language, settings); //cache the value
   return settings;
 }
 
@@ -460,6 +486,10 @@ void CBTConfig::set( const CLanguageMgr::Language* const language, const FontSet
   
   config->setGroup("font standard settings");  
 	config->writeEntry(getKey(language), value.first);
+
+	if (fontConfigMap && fontConfigMap->contains(language)) {
+		fontConfigMap->remove(language); //remove it from the cache
+	}
 }
 
 

@@ -389,9 +389,10 @@ const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& m
 		rewinddir(dir);
 		while ((ent = readdir(dir)) && !foundConfig) {
 			if ((strcmp(ent->d_name, ".")) && (strcmp(ent->d_name, ".."))) {								
-				modFile = QString::fromLocal8Bit(configPath);
-				modFile += QString::fromLatin1("/");
-				modFile += QString::fromLocal8Bit(ent->d_name);
+				modFile.setLatin1(configPath);
+				modFile.append("/");
+				modFile.append( QString::fromLocal8Bit(ent->d_name) );
+				
 				moduleConfig = sword::SWConfig( (const char*)modFile.local8Bit() );
 				section =	moduleConfig.Sections.find( (const char*)module.local8Bit() );
 				foundConfig = ( section != moduleConfig.Sections.end() );
@@ -414,15 +415,18 @@ const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& m
 	}
 	
 	if (!foundConfig && configType != 2) { //search in $HOME/.sword/
-		QString myPath = QString::fromLatin1("%1/.sword/mods.d").arg(getenv("HOME"));
+		QString myPath(getenv("HOME"));
+		myPath.append("/.sword/mods.d");
 		dir = opendir(myPath.latin1());
+		
 		if (dir) {
 			rewinddir(dir);
+			
 			while ((ent = readdir(dir)) && !foundConfig) {
 				if ((strcmp(ent->d_name, ".")) && (strcmp(ent->d_name, ".."))) {								
 					modFile = myPath;
-					modFile += "/";
-					modFile += ent->d_name;
+					modFile.append('/');
+					modFile.append(ent->d_name);
 					moduleConfig = sword::SWConfig( (const char*)modFile.local8Bit() );
 					section =	moduleConfig.Sections.find( (const char*)module.local8Bit() );
 					foundConfig = ( section != moduleConfig.Sections.end() );
@@ -438,31 +442,31 @@ const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& m
 const QString CSwordBackend::optionName( const CSwordModuleInfo::FilterTypes option ){
 	switch (option) {
 		case CSwordModuleInfo::footnotes:
-			return QString::fromLatin1("Footnotes");
+			return QString("Footnotes");
 		case CSwordModuleInfo::strongNumbers:
-			return QString::fromLatin1("Strong's Numbers");
+			return QString("Strong's Numbers");
 		case CSwordModuleInfo::headings:
-			return QString::fromLatin1("Headings");
+			return QString("Headings");
 		case CSwordModuleInfo::morphTags:
-			return QString::fromLatin1("Morphological Tags");
+			return QString("Morphological Tags");
   	case CSwordModuleInfo::lemmas:
-			return QString::fromLatin1("Lemmas");
+			return QString("Lemmas");
 		case CSwordModuleInfo::hebrewPoints:
-			return QString::fromLatin1("Hebrew Vowel Points");
+			return QString("Hebrew Vowel Points");
 		case CSwordModuleInfo::hebrewCantillation:
-			return QString::fromLatin1("Hebrew Cantillation");
+			return QString("Hebrew Cantillation");
 		case CSwordModuleInfo::greekAccents:
-			return QString::fromLatin1("Greek Accents");
+			return QString("Greek Accents");
 		case CSwordModuleInfo::redLetterWords:
-			return QString::fromLatin1("Words of Christ in Red");
+			return QString("Words of Christ in Red");
     case CSwordModuleInfo::textualVariants:
-			return QString::fromLatin1("Textual Variants");	
+			return QString("Textual Variants");	
 		case CSwordModuleInfo::scriptureReferences:
-			return QString::fromLatin1("Cross-references");
+			return QString("Cross-references");
 		case CSwordModuleInfo::transliteration:
-			return QString::fromLatin1("Transliteration");
+			return QString("Transliteration");
 	}
-	return QString::null;	
+	return QString::null;
 }
 
 /** Returns the translated name of the option given as parameter. */
@@ -500,27 +504,27 @@ const QString CSwordBackend::translatedOptionName(const CSwordModuleInfo::Filter
 const QString CSwordBackend::configOptionName( const CSwordModuleInfo::FilterTypes option ){
 	switch (option) {
 		case CSwordModuleInfo::footnotes:
-			return QString::fromLatin1("Footnotes");         
+			return QString("Footnotes");         
 		case CSwordModuleInfo::strongNumbers:
-			return QString::fromLatin1("Strongs");
+			return QString("Strongs");
 		case CSwordModuleInfo::headings:
-			return QString::fromLatin1("Headings");
+			return QString("Headings");
 		case CSwordModuleInfo::morphTags:
-			return QString::fromLatin1("Morph");
+			return QString("Morph");
   	case CSwordModuleInfo::lemmas:
-			return QString::fromLatin1("Lemma");
+			return QString("Lemma");
 		case CSwordModuleInfo::hebrewPoints:
-			return QString::fromLatin1("HebrewPoints");
+			return QString("HebrewPoints");
 		case CSwordModuleInfo::hebrewCantillation:
-			return QString::fromLatin1("Cantillation");
+			return QString("Cantillation");
 		case CSwordModuleInfo::greekAccents:
-			return QString::fromLatin1("GreekAccents");
+			return QString("GreekAccents");
 		case CSwordModuleInfo::redLetterWords:
-			return QString::fromLatin1("RedLetterWords");
+			return QString("RedLetterWords");
 		case CSwordModuleInfo::textualVariants:
-			return QString::fromLatin1("Variants");
+			return QString("Variants");
 		case CSwordModuleInfo::scriptureReferences:
-			return QString::fromLatin1("Scripref");
+			return QString("Scripref");
     default:
       return QString::null;
 	}
@@ -544,7 +548,7 @@ const QString CSwordBackend::booknameLanguage( const QString& language ) {
 		
 	}
 		
-	return QString::fromLatin1( sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName() );
+	return QString( sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName() );
 }
 
 
@@ -566,7 +570,7 @@ void CSwordBackend::reloadModules(){
 
 const QStringList CSwordBackend::swordDirList(){
 	QStringList ret;
-	const QString home = getenv("HOME");
+	const QString home( getenv("HOME") );
 	
 	//return a list of used Sword dirs. Useful for the installer
 	QString configPath;

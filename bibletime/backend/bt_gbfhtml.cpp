@@ -154,7 +154,8 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
  				pos += 7;
 				
 				//skip blanks, commas, dots and stuff at the beginning, it doesn't belong to the morph code
-				QString rep = QString::fromLatin1("<span %1=\"%2\">").arg(isMorph ? "morph" : "lemma").arg(value);
+				QString rep("<span ");
+				rep.append(isMorph ? "morph" : "lemma").append("=\"").append(value).append("\">");
 		
 				hasMorphAttr = isMorph;
 				hasLemmaAttr = !isMorph;
@@ -193,9 +194,10 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 					}
 				}
 				else { //attribute was not yet inserted
-					const QString attr = QString::fromLatin1("%1=\"%2\" ")
-						.arg(isMorph ? "morph" : "lemma")
-						.arg(value);
+// 					const QString attr("%1=\"%2\" ");
+// 					attr.arg(isMorph ? "morph" : "lemma").arg(value);
+					QString attr;
+					attr.setLatin1(isMorph ? "morph" : "lemma").append("=\"").append(value).append("\" ");
 						
 					e.insert(tagAttributeStart, attr);
 					pos += attr.length();

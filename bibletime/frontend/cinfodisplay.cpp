@@ -73,6 +73,11 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 	if (!isVisible()) {
 		return;
 	}	
+	
+	if (list.count() == 0) {
+		m_htmlPart->setText("<html></html>");
+		return;
+	}
 
 	QString text;
 	

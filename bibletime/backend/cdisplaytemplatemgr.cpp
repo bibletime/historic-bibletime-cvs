@@ -74,16 +74,18 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 		
 		ListCSwordModuleInfo::iterator end_it = settings.modules.end();
 		for (ListCSwordModuleInfo::iterator it(settings.modules.begin()); it != end_it; ++it) {
-			header.append( 
-				QString::fromLatin1("<th style=\"width:%1%;\">%2</th>")
-					.arg( int( 100.0 / (float)moduleCount ) )
-					.arg( (*it)->name() )
-				);
+			header.append("<th style=\"width:")
+						.append(QString::number(int( 100.0 / (float)moduleCount )))
+						.append("%;\">")
+						.append((*it)->name())
+						.append("</th>");
 		}
 		
-		newContent = QString::fromLatin1("<table><tr>%1</tr>%2</table>")
-			.arg(header)
-			.arg(content);
+		newContent.setLatin1("<table><tr>")
+		 			.append(header)
+					.append("</tr>")
+					.append(content)
+					.append("</table>");
 	}
 
 	QString langCSS;
@@ -94,30 +96,26 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 		
 		if (lang->isValid() && CBTConfig::get(lang).first) {
 			const QFont f = CBTConfig::get(lang).second;
-			langCSS.append( 
-				QString::fromLatin1("\n#content[lang=%1] {font-family:%2; font-size:%3pt; font-weight:%4; font-style: %5;}\n")
-				.arg(lang->abbrev())
-				.arg(f.family()).arg(f.pointSize())
-				.arg(f.bold() ? "bold" : "normal")
-				.arg(f.italic() ? "italic" : "normal")
-			);
-			langCSS.append( 
-				QString::fromLatin1("\ntd[lang=%1] {font-family:%2; font-size:%3pt; font-weight:%4; font-style: %5;}\n")
-				.arg(lang->abbrev())
-				.arg(f.family()).arg(f.pointSize())
-				.arg(f.bold() ? "bold" : "normal")
-				.arg(f.italic() ? "italic" : "normal")
-			);
+				
+			QString css("{ ");
+			css.append("font-family:").append(f.family());
+			css.append("; font-size:").append(QString::number(f.pointSize())).append("pt");
+			css.append("; font-weight:").append(f.bold() ? "bold" : "normal");
+			css.append("; font-style:").append(f.italic() ? "italic" : "normal");
+			css.append("; }\n");
+			
+			langCSS.append("\n#content[lang=").append(lang->abbrev()).append("] ").append(css);
+			langCSS.append("\ntd[lang=").append(lang->abbrev()).append("] ").append(css);
 		}
 	}
 		
 	//at first append the font standard settings for all languages without configured font
-	CLanguageMgr::LangMapIterator it( langMap );
-	const CLanguageMgr::Language* lang = it.current();
+ 	CLanguageMgr::LangMapIterator it( langMap );
+ 	const CLanguageMgr::Language* lang = it.current();
 	if (lang && lang->isValid()) {
 		const QFont standardFont = CBTConfig::getDefault(lang); //we just need a dummy lang param
 		langCSS.prepend( 
-			QString::fromLatin1("\n#content {font-family:%1; font-size:%2pt; font-weight:%3; font-style: %4;}\n")
+			QString("\n#content {font-family:%1; font-size:%2pt; font-weight:%3; font-style: %4;}\n")
 // 			.arg(lang->abbrev())
 			.arg(standardFont.family()).arg(standardFont.pointSize())
 			.arg(standardFont.bold() ? "bold" : "normal")

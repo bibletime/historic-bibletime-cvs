@@ -63,11 +63,12 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
     const bool lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
 		bool read = false;
 
-		if (lexiconCache){
+		if (lexiconCache) {
+			QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
   		QFile f1(
-  			QString::fromLatin1("%1/%2")
-  				.arg(KGlobal::dirs()->saveLocation("data", "bibletime/cache/"))
-  				.arg(name())
+  			QString(dir)
+					.append("/")
+					.append(name())
   		);
 
       if ( f1.open( IO_ReadOnly ) ){
@@ -87,15 +88,18 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
       module()->setSkipConsecutiveLinks(true);
 			(*module()) = sword::TOP;
       snap(); //snap to top entry
-  		do {
+  		
+			do {
         if (isUnicode()) {
      			m_entryList->append(QString::fromUtf8(module()->KeyText()));
 				}
         else { //for latin1 modules use fromLatin1 because of speed
-          m_entryList->append(QString::fromLatin1(module()->KeyText()));
-				}
-  			(*module())++;
+//           m_entryList->append(QString::fromLatin1(module()->KeyText()));
+					m_entryList->append(QString(module()->KeyText()));
+				}  			
+				(*module())++;
   		} while ( !module()->Error() );
+			
 			(*module()) = sword::TOP; //back to the first entry
       module()->setSkipConsecutiveLinks(false);
 
@@ -109,11 +113,14 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 			if (lexiconCache && m_entryList->count()){
   			//create cache
 		 		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
-        QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );
+        //QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );
+				QFile f2( QString(dir).append("/").append(name()) );
+				
+				
         if (f2.open( IO_WriteOnly )){
           QDataStream s( &f2 );
   				s << config(CSwordModuleInfo::ModuleVersion); //store module version
-					s << QString::fromLatin1(CACHE_FORMAT); //store BT version -- format may change
+					s << QString(CACHE_FORMAT); //store BT version -- format may change
   				s << *m_entryList;
   			  f2.close();
         }

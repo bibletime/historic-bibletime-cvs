@@ -49,7 +49,7 @@ CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module, CSwordBackend* cons
 	m_module = module;
 	m_searchResult.ClearList();
   m_backend = usedBackend;
-	m_dataCache.name = module ? QString::fromLatin1(module->Name()) : QString::null;
+	m_dataCache.name = module ? QString(module->Name()) : QString::null;
 	m_dataCache.isUnicode = module ? module->isUnicode() : false;
 	m_dataCache.category = UnknownCategory;
 	m_dataCache.language = 0;
@@ -193,21 +193,24 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 				filter.processText(buf, 0, 0);
 			}
 			
-			const QString about = isUnicode() 
-				? QString::fromUtf8(buf.c_str())
-				: QString::fromLatin1(buf.c_str());
+			QString about;
+			if (isUnicode())
+				about = QString::fromUtf8(buf.c_str());
+			else
+				about.setLatin1(buf.c_str());
+				
 			return about;
 		}
 		case CipherKey: {
       if (CBTConfig::getModuleEncryptionKey(name()).isNull()) { //fall back!
-  			return QString::fromLatin1( m_module->getConfigEntry("CipherKey") );
+  			return QString( m_module->getConfigEntry("CipherKey") );
       }
       else {
         return CBTConfig::getModuleEncryptionKey(name());
       };
 		}
 		case AbsoluteDataPath: {
-			QString path = QString::fromLatin1(m_module->getConfigEntry("AbsoluteDataPath"));
+			QString path = QString(m_module->getConfigEntry("AbsoluteDataPath"));
       path.replace(QRegExp("/./"), "/"); // make /abs/path/./modules/ looking better
 			//make sure we have a trailing slash!
 			if (path.right(1) != "/") {
@@ -216,7 +219,7 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
       return path;
     }
 		case DataPath: { //make sure we remove the dataFile part if it's a Lexicon
-			QString path = QString::fromLatin1(m_module->getConfigEntry("DataPath"));
+			QString path(m_module->getConfigEntry("DataPath"));
 			if ((type() == CSwordModuleInfo::GenericBook) || (type() == CSwordModuleInfo::Lexicon)) {
 				int pos = path.findRev("/"); //last slash in the string
 				if (pos != -1) {
@@ -226,38 +229,38 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 			return path;
 		}
 		case Description:
-			return QString::fromLatin1(m_module->Description());
+			return QString(m_module->Description());
 		case ModuleVersion: {
-			QString version = QString::fromLatin1(m_module->getConfigEntry("Version"));
+			QString version = QString(m_module->getConfigEntry("Version"));
       if (version.isEmpty()) {
         version = "1.0";
 			}
       return version;
     }        
 		case MinimumSwordVersion: {
-			const QString version = QString::fromLatin1(m_module->getConfigEntry("MinimumVersion"));
-			return !version.isEmpty() ? version : QString::fromLatin1("0.0");
+			const QString version(m_module->getConfigEntry("MinimumVersion"));
+			return !version.isEmpty() ? version : QString("0.0");
 		}
 		case TextDir: {
-			const QString dir = QString::fromLatin1(m_module->getConfigEntry("Direction"));
-			return !dir.isEmpty() ? dir : QString::fromLatin1("LtoR");
+			const QString dir(m_module->getConfigEntry("Direction"));
+			return !dir.isEmpty() ? dir : QString("LtoR");
 		}		
     case DisplayLevel: {
-			const QString level = QString::fromLatin1(m_module->getConfigEntry("DisplayLevel"));
-			return !level.isEmpty() ? level : QString::fromLatin1("1");
+			const QString level(m_module->getConfigEntry("DisplayLevel"));
+			return !level.isEmpty() ? level : QString("1");
 		}
     case GlossaryFrom: {
       if (!category() == Glossary) {
         return QString::null;
       };
-      const QString lang = QString::fromLatin1(m_module->getConfigEntry("GlossaryFrom"));
+      const QString lang(m_module->getConfigEntry("GlossaryFrom"));
 			return !lang.isEmpty() ? lang : QString::null;
     }
     case GlossaryTo: {
       if (!category() == Glossary) {
         return QString::null;
       };
-      const QString lang = QString::fromLatin1(m_module->getConfigEntry("GlossaryTo"));
+      const QString lang(m_module->getConfigEntry("GlossaryTo"));
 			return !lang.isEmpty() ? lang : QString::null;
     }
 		default:
@@ -285,13 +288,13 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 const bool CSwordModuleInfo::has( const CSwordModuleInfo::FilterTypes option ){
 	//BAD workaround to see if the filter is GBF, OSIS or ThML!	
   const QString name = backend()->configOptionName(option);
- 	if (m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("OSIS%1").arg(name).latin1()))
+ 	if (m_module->getConfig().has("GlobalOptionFilter", QString("OSIS").append(name).latin1()))
  		return true;
-  if (m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("GBF%1").arg(name).latin1()))
+  if (m_module->getConfig().has("GlobalOptionFilter", QString("GBF").append(name).latin1()))
  		return true;
- 	if (m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("ThML%1").arg(name).latin1()))
+ 	if (m_module->getConfig().has("GlobalOptionFilter", QString("ThML").append(name).latin1()))
  		return true;
- 	if (m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("UTF8%1").arg(name).latin1()))
+ 	if (m_module->getConfig().has("GlobalOptionFilter", QString("UTF8").append(name).latin1()))
  		return true; 		
  	if (m_module->getConfig().has("GlobalOptionFilter", name.latin1()))
  		return true;
@@ -331,15 +334,15 @@ const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
 /** Returns the category of this module. See CSwordModuleInfo::Category for possible values. */
 const CSwordModuleInfo::Category CSwordModuleInfo::category() const {
   if (m_dataCache.category == CSwordModuleInfo::UnknownCategory) {
-		const QString cat = QString::fromLatin1(m_module->getConfigEntry("Category"));
+		const QString cat(m_module->getConfigEntry("Category"));
 		
-		if (cat == QString::fromLatin1("Cults / Unorthodox / Questionable Material")) {
+		if (cat == "Cults / Unorthodox / Questionable Material") {
 			m_dataCache.category = Cult;
 		}
-		else if (cat == QString::fromLatin1("Daily Devotional") || m_module->getConfig().has("Feature", "DailyDevotion")) {
+		else if (cat == "Daily Devotional" || m_module->getConfig().has("Feature", "DailyDevotion")) {
 			m_dataCache.category = DailyDevotional;
 		}
-		else if (cat == QString::fromLatin1("Glossaries") || m_module->getConfig().has("Feature", "Glossary")) { //alow both
+		else if (cat == "Glossaries" || m_module->getConfig().has("Feature", "Glossary")) { //alow both
 			m_dataCache.category = Glossary;
 		};
 	}

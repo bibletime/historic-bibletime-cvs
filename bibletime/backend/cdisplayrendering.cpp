@@ -76,20 +76,25 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 	}	
 	
   if (linkText.isEmpty()) {
-    return QString::fromLatin1("<a name=\"%1\" />")
-			.arg( keyToHTMLAnchor(item.key()) );
+    return QString("<a name=\"").append(keyToHTMLAnchor(item.key())).append("\" />");
   }
   else {
-    return QString::fromLatin1("<a name=\"%1\" href=\"%2\">%3</a>\n")
+/*    return QString("<a name=\"%1\" href=\"%2\">%3</a>\n")
       .arg( keyToHTMLAnchor(item.key()) )
       .arg(
 				CReferenceManager::encodeHyperlink(
-					module->name(), 
-					item.key(), 
+					module->name(), item.key(), 
 					CReferenceManager::typeFromModule(module->type())
 				)
 			)
-			.arg(linkText);
+			.arg(linkText);*/
+			
+		return QString("<a name=\"").append(keyToHTMLAnchor(item.key())).append("\" ")
+			.append("href=\"")
+			.append(CReferenceManager::encodeHyperlink(
+					module->name(), item.key(), CReferenceManager::typeFromModule(module->type()))
+			)
+			.append("\">").append(linkText).append("</a>\n");
   }
 	
 	return QString::null;

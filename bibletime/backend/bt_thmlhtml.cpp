@@ -135,7 +135,8 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 				e.replace(pos, tag.matchedLength(), "</span>");
  				pos += 7;
 
-				QString rep = QString("<span lemma=\"%1\">").arg(value);
+				QString rep;
+				rep.setLatin1("<span lemma=\"").append(value).append("\">");
 				int startPos = 0;
 				QChar c = e[startPos];
 				
@@ -170,7 +171,8 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 				else { //attribute was not yet inserted
 					const int attrPos = e.find(QRegExp("morph=|lemma="), 0);
 					if (attrPos >= 0) {
-						const QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
+						QString attr;
+						attr.append(isMorph ? "morph" : "lemma").append("=\"").append(value).append("\" ");
 						e.insert(attrPos, attr);
 						
 						hasMorphAttr = isMorph;

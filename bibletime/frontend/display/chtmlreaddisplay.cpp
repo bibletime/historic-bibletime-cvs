@@ -253,7 +253,7 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
 
 /** Reimplementation for our drag&drop system. Also needed for the mouse tracking */
 void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
-  if( e->qmouseEvent()->state() & LeftButton ) { //left mouse button pressed
+  if( e->qmouseEvent()->state() & LeftButton == LeftButton) { //left mouse button pressed
 		const int delay = KGlobalSettings::dndEventDelay();
 		QPoint newPos = QPoint(e->x(), e->y());
 	
@@ -262,7 +262,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				!m_dndData.isDragging && m_dndData.mousePressed  )
 		{
 			QDragObject* d = 0;
-			if (!m_dndData.anchor.isEmpty() && m_dndData.dragType == DNDData::Link && !m_dndData.node.isNull() ) {
+			if (!m_dndData.anchor.isEmpty() && (m_dndData.dragType == DNDData::Link) && !m_dndData.node.isNull() ) {
 			// create a new bookmark drag!
 				QString module = QString::null;
 				QString key = QString::null;
@@ -274,7 +274,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); //no description!
 				d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
 			}
-			else if (m_dndData.dragType == DNDData::Text && !m_dndData.selection.isEmpty()) {    // create a new plain text drag!
+			else if ((m_dndData.dragType == DNDData::Text) && !m_dndData.selection.isEmpty()) {    // create a new plain text drag!
 				CDragDropMgr::ItemList dndItems;
 				dndItems.append( CDragDropMgr::Item(m_dndData.selection) ); //no description!
 				d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
@@ -291,7 +291,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 			}
 		}
 	}
- 	else if (getMouseTracking() && !(e->qmouseEvent()->state() & Qt::ShiftButton)) { //no mouse button pressed and tracking enabled
+ 	else if (getMouseTracking() && !(e->qmouseEvent()->state() & Qt::ShiftButton == Qt::ShiftButton)) { //no mouse button pressed and tracking enabled
 	  DOM::Node node = e->innerNode();
 //		bool setInfo = false;
 
