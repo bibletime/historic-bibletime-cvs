@@ -1,29 +1,30 @@
 
 <chapter ID="hdbk_op"><title>Program Operation</title>
 <para>
-BibleTime is mainly operated from the Module Tree (this tree is called the
-"Groupmanager"). The second important place to work with BibleTime is the MDI
+Bibletime is mainly operated from the Module Tree (this tree is called the
+"Main Index"). The second important place to work with Bibletime is the MDI
 area (MDI = Multiple Document Interface). </para>
 
-<sect1 ID="hdbk_op_module_tree"><title>Module Tree</title>
+<section ID="hdbk_op_module_tree"><title>Main Index</title>
 <para>
-This is the pane on the left side of the BibleTime window.
-It contains the tree of installed modules, as well as any bookmarks you enter.
+This is the pane on the left side of the Bibletime window.
+It contains the tree of installed documents (Sword Modules), as well as any bookmarks you enter.
 </para>
 <screenshot>
 <screeninfo>Module Tree</screeninfo>
 <graphic fileref="common/hdbk_op_module_tree_1.png" format="png"></graphic>
 </screenshot>
 
-<sect2 ID="hdbk_op_module_tree_select"><title>Selecting a module to
+<section ID="hdbk_op_module_tree_select"><title>Selecting a documents to
 view</title> <para>
-To do this, simply click on the desired category (Bibles, Commentaries, or
-Lexicons) to show the modules in it, then click on the desired module.  To open
-another instance of the same module, right-click on the mouse and choose, "New
+To do this, simply click on the desired document group (Bibles, Commentaries, or
+Lexicons) to to display the contents of a document group, click on the icon for
+the desired group.  To open a document, click on it's icon.  To open
+another instance of the same document, right-click on the mouse and choose, "New
 Presenter".
 </para>
 <screenshot>
-<screeninfo>Module Selection</screeninfo>
+<screeninfo>Document Selection</screeninfo>
 <graphic fileref="common/hdbk_op_module_select_1.png" format="png"></graphic>
 </screenshot>
 <para>
@@ -37,15 +38,15 @@ over. This works for Bibles and Commentaries only. </para>
 There are two other less-used functions accessible through right-clicking on
 the module name. "Show info" opens a window with information about copyright and
 other pertinent things about the selected module. "Set unlock key" opens a small
-dialog for encrypted (copyrighed) modules. This allows those with the key to
+dialog for encrypted (copyrighted) modules. This allows those with the key to
 enter it to decrypt the module and make it human-readable. </para>
 <screenshot>
-<screeninfo>Module Selection</screeninfo>
+<screeninfo>Document Selection</screeninfo>
 <graphic fileref="common/hdbk_op_module_select_2.png" format="png"></graphic>
 </screenshot>
-</sect2>
+</section>
 
-<sect2 ID="hdbk_op_module_tree_search"><title>Accessing the search
+<section ID="hdbk_op_module_tree_search"><title>Accessing the search
 dialog</title> <para>
 You can search in a module by  right-clicking on the module name in the module
 list and selecting "Search in module(s)". By shift-clicking on other module
@@ -55,77 +56,95 @@ search dialog. You will be searching in all of these modules. </para>
 <screeninfo>Bookmarks</screeninfo>
 <graphic fileref="common/hdbk_op_module_bookmark_1.png" format="png"></graphic>
 </screenshot>
-</sect2>
+</section>
 
-<sect2 ID="hdbk_op_module_tree_bookmark"><title>Accessing bookmark
+
+<section ID="hdbk_op_module_tree_bookmark"><title>Accessing bookmark
 functions</title> <para>
 Right-click on an empty part of the module tree window and select "Create new
 group"  to create a new bookmark folder. You can use normal drag 'n' drop
-functions to drag verse numbers to create the actual bookmarks under the folder,
+functions to drag verse numbers from search dialog results to the bookmark folder,
 and to rearrange bookmarks between folders.  There is an import/export function
 for bookmarks also.  From the right-mouse-button menu, select "Export
 bookmarks". This will bring up a dialog box for you to save the bookmark
-collection.  They can be shared with other BibleTime users, archived, etc.  They
+collection.  They can be shared with other Bibletime users, archived, etc.  They
 can be imported in the same way. You can also right-click to change folder names
 and bookmark descriptions (to be implemented later), and delete folders and
-bookmarks. </para> </sect2> </sect1>
+bookmarks. </para>
+<screenshot>
+<screeninfo>Bookmark Selection</screeninfo>
+<graphic fileref="common/hdbk_op_module_tree_bookmark_bookmarkandfolder.png" format="png">
+</graphic>
+</screenshot
+</section>
+</section>
 
-<sect1 ID="hdbk_op_MDI_Window"><title>MDI Window</title>
+<section ID="hdbk_op_MDI_Window"><title>Multiple Document Interface (MDI) Window</title>
 <para>
-This is where the opened modules are displayed.
-Modules are displayed in "presenters", that are specific to the three types of
-modules. </para>
+This is where the opened documents are displayed.
+Modules are displayed in "Document Windows", that are specific to the three types of
+documents. (Crosswire Bible Society may release other document types for sword in the
+future. When they are released, Bibletime will support them as well. </para>
 
-<sect2 ID="hdbk_op_MDI_Window_controll_modules"><title>Controlling
+<section ID="hdbk_op_MDI_Window_control_modules"><title>Controlling
 open modules</title> <para>
-Presenters (the windows that contain the modules) can be controlled and
-manipulated with normal KDE window/titlebar functions. In addition to this, you
-can tile and cascade open presenters. Use the appropriate toolbar buttons, or
-menu functions under "Window" in the main menubar. Presenters can be set to
+Document Windows can be controlled and
+manipulated with normal KDE window/title bar functions. In addition to this, you
+can tile and cascade open Document Windows. Use the appropriate tool bar buttons, or
+menu functions under "Window" in the main menu bar. Document Windows can be set to
 automatically cascade or tile also. </para>
-</sect2>
+</section>
 
-<sect2 ID="hdbk_op_MDI_Window_module_navigation"><title>Navigating in
-open modules</title> <para>
-Using the comboboxes and presenter toolbar buttons are the way to navigate
-within a module. You can directly select book, secter, or verse using the
-comboboxes, and advance or back up secters and verses using the toolbar buttons.
+<section ID="hdbk_op_MDI_Window_module_navigation"><title>Navigating in
+open documents</title> <para>
+Navigation within a document is accomplished with the Document Key
+Control Menu, and the scroll bar.
 </para>
-</sect2>
+<tip><para>To move to a specific location use the Document Key Control.</para></tip>
+<tip><para>To move within a section of a document use the scroll bar.</para></tip>
+<tip><para>For Bible texts the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
+<tip><para>For commentaries the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
+<tip><para>For lexicons the index key is <emphasis>Keyword</emphasis></para></tip>
+</section>
 
-<sect2
+<section
 ID="hdbk_op_MDI_Window_autoscrolling"><title>Autoscrolling</title>
-<para> One of BibleTime's advanced features is the ability to control more than
-one open presenter at a time. For Bible and Commentary modules, the rightmost
-toolbar button is the Autoscroll button. Selecting it in open presenters will
+<para> One of Bibletime's advanced features is the ability to control more than
+one open Document Window at a time. For Bible and Commentary modules, the rightmost
+tool bar button is the Auto scroll button. Selecting it in open Document Windows will
 allow that module it to scroll in tandem with other modules with autoscrolling
-on. </para> </sect2>
+on. </para> </section>
 
-<sect2 ID="hdbk_op_MDI_Window_Personal_commentary"><title>Editing
+<section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Editing
 your own commentary</title> <para>
-The toolbar of commentary presenters has another button, with the picture of a
+The tool bar of commentary presenters has another button, with the picture of a
 pencil. For the "Personal" commentary module, click that button to be able to
 enter your own notes into the Personal commentary, or to edit notes you've
 already entered. When you're done, click on the "Save" (disk) button to save
 your notes. To delete notes for a selected verse, click the button with the
-trashcan. You can also set the endpoint of your notes, if for example you want
+trash can. You can also set the endpoint of your notes, if for example you want
 to use the same notes to comment on a range of verses. Click the "Edit" button
 again to return to normal commentary browsing mode. </para>
-</sect2>
-</sect1>
+<tip><para>The personal commentary is a sword module.  If you do not find it in the
+main index, get it from crosswire bible society.</para></tip>
+<tip><para>If you can not write to the personal commentary your permissions for the
+personal commentary module are wrong.  Reset the permissions to allow your user
+to write to it.</para></tip>
+</section>
+</section>
 
-<sect1 ID="hdbk_op_search"><title>Searching in modules</title>
+<section ID="hdbk_op_search"><title>Searching in modules</title>
 <para></para>
 
-<sect2 ID="hdbk_op_search_functions"><title>Accessing search functions</title>
+<section ID="hdbk_op_search_functions"><title>Accessing search functions</title>
 <para>
-You can search in a module by right-clicking on the module name in the module
-list and selecting "Search in module(s)". By shift- or ctrl-clicking on other
+You can search in a document by right-clicking on the document name in the Main
+Index and selecting "Search in module(s)". By shift- or ctrl-clicking on other
 module names you can select more than one. Then follow the same procedure to
 open the search dialog.  You will be searching in all of these modules. </para>
-</sect2>
+</section>
 
-<sect2 ID="hdbk_op_search_dialog"><title>Using the Search dialog</title>
+<section ID="hdbk_op_search_dialog"><title>Using the Search dialog</title>
 <para>
 Search Text - In this pane enter the text string to be searched for, and set
 search properties. "Regular Expression" uses standard regexp syntax to refine
@@ -157,15 +176,15 @@ module to that verse in a new presenter </para>
 </screenshot>
 <para>
 Search Analysis - This gives a graphic analysis of the number of instances the
-search string was found in each book. It can display results for more than one
-book at a time, and you have the option of saving the graph as an image file on
+search string was found in each book. It can display results for all documents searched.
+You have the option of saving the graph as an image file on
 your hard drive. </para>
 <screenshot>
 <screeninfo>Search Analysis Dialog Box</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchanal.png" format="png"></graphic>
 </screenshot>
 
-</sect2>
-</sect1>
+</section>
+</section>
 </chapter>
 

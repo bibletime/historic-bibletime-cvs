@@ -1,7 +1,7 @@
 <chapter ID="hdbk_term"><title>Starting Bibletime</title>
 <para>
-Bibletime is a KDE program and is intrigrated with the KDE desktop.
-You should find an icon for launching bibletime from the desktop.
+Bibletime is a KDE program and is integrated with the KDE desktop.
+You should find an icon for launching Bibletime from the desktop.
 <graphic fileref="common/hdbk_start_bticon.png" format="png"></graphic>
 </para>
 <para>
@@ -13,7 +13,7 @@ files to see how.
 <para>
 Bibletime can also be launched from a terminal command prompt.
 To launch Bibletime open a terminal (any Xterminal) and type
-<command>bibletime</command>.
+<command>Bibletime</command>.
 </para>
 <section ID="hdbk_start_sequence"><title>Startup Sequence</title>
 <para>
@@ -32,12 +32,12 @@ you turn them off.
 </itemizedlist>
 
 </section>
-<section ID="hdbk_start_screen"><title>Parts of the BibleTime Screen</title>
+<section ID="hdbk_start_screen"><title>Parts of the Bibletime Screen</title>
 <para>
 Now the main Bibletime screen will open.  It's operation is covered in the next chapter.
 </para>
 <screenshot>
-<screeninfo>The BibleTime Application Window</screeninfo>
+<screeninfo>The Bibletime Application Window</screeninfo>
 <graphic fileref="common/hdbk_start_screen_terms.png" format="png"></graphic>
 </screenshot>
 </section>

@@ -2,19 +2,19 @@
 <book lang="EN" ID="hdbk_idx">
 
 <bookinfo>
-<title>The BibleTime Handbook</title>
+<title>The Bibletime Handbook</title>
 
 <copyright>
 <year>1999</year>
 <year>2000</year>
 <holder>
-The team of BibleTime, info@bibletime.de
+The team of Bibletime, info@bibletime.de
 </holder>
 </copyright>
 
 <legalnotice>
 <para>
-The bibletime handbook is part of Bibletime.
+The Bibletime handbook is part of Bibletime.
 </para>
 <para>
 Bibletime is free software; you can redistribute it and/or
@@ -46,6 +46,10 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 <firstname>Joachim</firstname>
 <surname>Ansorg</surname>
 </author>
+<author>
+<firstname>Fred</firstname>
+<surname>Saalbach</surname>
+</author>
 </authorgroup>
 
 <date>01/17/2001</date>
@@ -54,14 +58,14 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 <abstract>
 <title>Abstract</title>
 <para>
-<application>BibleTime</application> is a Bible study tool.  It provides an easy
+<application>Bibletime</application> is a Bible study tool.  It provides an easy
 to use but powerful interface. This handbook gives you an overview of the
 functions and introduces you to their use.
 </para>
 </abstract>
 
 <keywordset>
-<keyword>BibleTime</keyword>
+<keyword>Bibletime</keyword>
 <keyword>Sword</keyword>
 <keyword>Crosswire</keyword>
 </keywordset>

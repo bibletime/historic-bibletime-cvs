@@ -26,6 +26,7 @@ tags to name HTML files.  The file names are as follows now.
 hdbk_idx.docbook
 hdbk_intro.docbook
 hdbk_operation.docbook
+hdbk_start.docbook
 hdbk_toolbars.docbook
 help_first_startup.docbook
 help_first_time_search.docbook
@@ -41,19 +42,23 @@ inst_idx.docbook
 inst_preq.docbook
 inst_sources.docbook
 inst_user.docbook
+readme.txt
 
 Pictures
-All pictures are stored in the en/common folder, and the en/HTML/common folder.
+All pictures are stored in the en/HTML/common folder. If you want to recompile
+these files (kdb2html dockbook.index) such as when translating them, please move
+the pictures to another location.  You wlll need to move them back after kdb2html finishes.
 The reason for this is that kdb2html discardes the contents of HTML and
 subdirectories every time it is run.  However the generated HTML always look for
 pictures in en/HTML/common.
 
-Every time you run kdb2html you will need to copy the /common folder to
+Every time you run kde2html you will need to copy the /common folder to
 /html/common for pictures to display correctly.
 
 Picture naming convention is as follows:
 logotp3.png is the default name for the logo at the top of the page.  This is
-defined by the DTD.  For the time being we are placing the Bibletime logo here.
+defined by the DTD.  For the time being we are placing the Kdesktop Environment
+logo here.  The DTD links this logo to the KDE home.
 
 As in the case for naming document ID's please name pictures according to the
 document ID's of the section they belong in.  For example:
