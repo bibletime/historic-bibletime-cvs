@@ -213,7 +213,8 @@ void CBiblePresenter::copyVerse(){
 	QString key = QString::null;
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CReferenceManager::Type type;	
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
 	
 	CSwordVerseKey vKey(m);
@@ -228,7 +229,8 @@ void CBiblePresenter::copyVerseText(){
 	QString key = QString::null;
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CReferenceManager::Type type;
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
 	
 	CSwordVerseKey vKey(m);
@@ -242,7 +244,8 @@ void CBiblePresenter::copyVerseAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CReferenceManager::Type type;	
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
 	CSwordVerseKey vKey(m);
 	vKey.key(key);
@@ -258,7 +261,8 @@ void CBiblePresenter::printVerseAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CReferenceManager::Type type;	
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
 	
 	CSwordVerseKey* vKey = new CSwordVerseKey(m);//deleted by the print item
@@ -287,7 +291,8 @@ void CBiblePresenter::saveVerseAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CReferenceManager::Type type;	
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
 	CSwordVerseKey vKey(m);
 	vKey.key(key);

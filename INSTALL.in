@@ -2,8 +2,8 @@ Additions for BibleTime @VERSION@:
 ---------------------------
 
 These are instructions how to install BibleTime @VERSION@.
-It's sometimes a little bit tricky to get BIbletime and SWORD working, but
-it possible.
+It's sometimes a little bit tricky to get Bibletime and SWORD working, but
+it's possible.
 
 BibleTime @VERSION@ requires:
 	-QT 2.2.x or later
@@ -11,7 +11,7 @@ BibleTime @VERSION@ requires:
 	-SWORD 1.52 or later
 	
 If you don't have the sources already please browse to www.bibletime.de to see
-a list of required packages with it's download URL.	
+a list of required packages with their download URLs.	
 		
 Compile BibleTime @VERSION@:
 ----------------------------

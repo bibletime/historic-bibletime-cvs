@@ -91,17 +91,26 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 	}
 	
 	if (!link.isEmpty()) {
-		QString module;
-		QString ref;
-		const bool ok = CReferenceManager::decodeHyperlink(link, module, ref);
-		if (!ok)
+		QString module = QString::null;
+		QString ref = QString::null;
+		CReferenceManager::Type type;		
+		const bool ok = CReferenceManager::decodeHyperlink(link, module, ref, type);
+		if (ref.isEmpty())
 			return;
-			
+
 		const QFont oldFont = font();				
-		CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
-		if (!m)
-			m = m_important->swordBackend->findModuleByName(QString::fromLatin1("WEB"));
-					
+		
+		CSwordModuleInfo* m	= 0;
+		if (module.isEmpty() || module.isNull()) {
+			qWarning("get standard module");
+			module = CReferenceManager::preferredModule( type );								
+			m = m_important->swordBackend->findModuleByDescription(module);
+			qWarning("preferred module is %s", module.latin1());
+		}
+		else
+			m = m_important->swordBackend->findModuleByName(module);
+
+		ASSERT(m);							
 		if (m){
 			switch(m->getType()) {			
 				case CSwordModuleInfo::Lexicon:
@@ -413,7 +422,8 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
 		else if (!m_anchor.isEmpty()/*!anchorAt(e->pos()).isEmpty() && !hasSelectedText()*/) {
 			QString module = QString::null;
 			QString key = QString::null;
-			const bool ok = CReferenceManager::decodeHyperlink(m_anchor, module, key);
+			CReferenceManager::Type type;			
+			const bool ok = CReferenceManager::decodeHyperlink(m_anchor, module, key, type);
 			if (!ok)
 				return;
 			
@@ -660,7 +670,8 @@ void CHTMLWidget::emitLinkClicked( const QString& link){
 //		qWarning("HYPERLINK!! ##");
 		QString ref;
 		QString module;
-		CReferenceManager::decodeHyperlink(link, module, ref);
+		CReferenceManager::Type type;			
+		CReferenceManager::decodeHyperlink(link, module, ref, type);
 		CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
 		if (m) {
 			switch (m->getType()) {

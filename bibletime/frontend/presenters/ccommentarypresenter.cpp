@@ -286,7 +286,8 @@ void CCommentaryPresenter::copyEntry(){
 	QString key = QString::null;
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CReferenceManager::Type type;
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
 	
 	CSwordVerseKey vKey(m);
@@ -299,9 +300,10 @@ void CCommentaryPresenter::copyEntry(){
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::copyEntryText(){
 	QString key = QString::null;
-	QString module = QString::null;
+	QString module = QString::null;	
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CReferenceManager::Type type;	
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
 	
 	CSwordVerseKey vKey(m);
@@ -316,7 +318,8 @@ void CCommentaryPresenter::copyEntryAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CReferenceManager::Type type;	
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
 	
 	CSwordVerseKey vKey(m);
@@ -334,7 +337,8 @@ void CCommentaryPresenter::printEntryAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CReferenceManager::Type type;	
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
 	
 	CSwordVerseKey* vKey = new CSwordVerseKey(m);	//this key is deleted by the printem

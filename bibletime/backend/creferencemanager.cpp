@@ -20,56 +20,131 @@
 #include "../frontend/cbtconfig.h"
 
 /** Returns a hyperlink used to be imbedded in the display windows. At the moment the format is sword://module/key */
-const QString CReferenceManager::encodeHyperlink( const QString& module, const QString& key){
-//	switch (type) {
-//		case morphCode:
-//			return QString::fromLatin1("sword://morph_/%2").arg(key);			
-//			break;
-//		case strongsNumber:
-//			break;		
-//		default:
-//			break;		
-//	}
-	return QString::fromLatin1("sword://%1/%2").arg(module/*.replace("/", "\\/")*/).arg(key/*.replace("/", "\\/")*/);
+const QString CReferenceManager::encodeHyperlink( const QString& module, const QString& key, const CReferenceManager::Type& type){
+	QString ret = QString::null;
+	switch (type) {
+		case Bible:				
+			ret = QString::fromLatin1("sword://Bible/");
+			break;
+		case Commentary:
+			ret = QString::fromLatin1("sword://Commentary/");
+			break;
+		case Lexicon:
+			ret = QString::fromLatin1("sword://Lexicon/");
+			break;
+		case Morph_OT:				
+			ret = QString::fromLatin1("morph://OT/");		
+			break;
+		case Morph_NT:
+			ret = QString::fromLatin1("morph://NT/");				
+			break;
+		case Strongs_OT:				
+			ret = QString::fromLatin1("strongs://OT/");				
+			break;
+		case Strongs_NT:				
+			ret = QString::fromLatin1("strongs://NT/");					
+			break;
+		default:
+			break;
+	}
+
+	if (!module.isEmpty())
+		ret += module+QString::fromLatin1("/");
+	if (!key.isEmpty())
+		ret += key;
+	ret += QString::fromLatin1("/");
+	
+	qWarning(ret.local8Bit());
+	return ret;
+//	return QString::fromLatin1("sword://%1/%2/%3").arg(module/*.replace("/", "\\/")*/).arg(key/*.replace("/", "\\/")*/);
 }
 
 /** Decodes the given hyperlink to module and key. */
-const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString& module, QString& key){
-	//remove the sword:// at the beginning (e.g. sword://WEB/Genesis 1:1/)
+const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString& module, QString& key, CReferenceManager::Type& type ){
+	/**
+	* We have to decide between three types of URLS: sword://Type/Module/Key, morph://Testament/key and strongs://Testament/Key
+	*/	
+  module = QString::null;
+  key = QString::null;
+  	
+	type = Unknown; //not yet known
 	QString ref = hyperlink;
-	QString dummy;
-	if (ref.left(8) == "sword://") { //remove sword:// and trailing /
+	//remove the trailing slash
+	if (ref.right(1)=="/")
+		ref = ref.left(ref.length()-1);
+	
+	//find out which type we have by looking at the beginning (protocoll section of URL)
+	if (ref.left(8) == "sword://") { //Bible, Commentary or Lexicon
 		ref = ref.mid(8);
-  }
-  //remove trailing slash (now it's for example "WEB/Genesis 1:1/")
-  if (ref.right(1) == "/") {
-		ref = ref.mid(0, ref.length()-1);		
-  }
-
-  //the string up to the first slash is the module name, the rest is the key
-  const int pos = ref.find("/");
-  if (pos == -1) //not found
-  	return false;
-
-	dummy = ref.left(pos);
-	if (dummy.left(8) == "strongs_") {
-		module = preferedModule(CReferenceManager::strongsNumbers);
+		if (ref.left(5) == "Bible") { //a bible hyperlink
+			type = CReferenceManager::Bible;			
+			ref = ref.mid(6); //inclusive trailing slash
+		}
+		else if (ref.left(10) == "Commentary") { // a Commentary hyperlink
+			type = CReferenceManager::Commentary;			
+			ref = ref.mid(11);			//inclusive trailing slash
+		}
+		else if (ref.left(7) == "Lexicon") { // a Lexicon hyperlink
+			type = CReferenceManager::Lexicon;
+			ref = ref.mid(8); //inclusive trailing slash
+		}
+		// string up to next slash is the modulename
+		const int pos = ref.find("/");
+		if (pos>0) { //found
+			module = ref.mid(0,pos);
+			ref = ref.mid(pos+1);			
+		}
+		// the rest is the key
+		key = ref;		
 	}
-	else if (dummy.left(6) == "morph_") {
-		module = preferedModule(CReferenceManager::morphCode);	
+	else if (ref.left(8) == "morph://" || ref.left(10) == "strongs://") { //strongs or morph URL have the same format
+		enum PreType {IsMorph, IsStrongs};
+		PreType preType;
+		if (ref.left(8) == "morph://") { //morph code hyperlink
+			ref = ref.mid(8);
+			preType = IsMorph;
+		}
+		else if (ref.left(10) == "strongs://") {
+			ref = ref.mid(10);		
+			preType = IsStrongs;			
+		}
+		//part up to next slash is the testament
+		qWarning("string before testament: %s", ref.latin1());
+		const int pos = ref.find("/");
+		if (pos>0) { //found
+			const QString testament = ref.mid(0,pos); //pos or pos-1 ??
+			qWarning("testament is %s", testament.latin1());
+			if (testament == "OT") {
+				switch (preType) {
+					case IsMorph:
+						type = CReferenceManager::Morph_OT;
+						break;
+					case IsStrongs:
+						type = CReferenceManager::Strongs_OT;
+						break;								
+				}			
+			}
+			else if (testament == "NT") {
+				switch (preType) {
+					case IsMorph:
+						type = CReferenceManager::Morph_NT;
+						break;
+					case IsStrongs:
+						type = CReferenceManager::Strongs_NT;
+						break;								
+				}
+			}
+			ref = ref.mid(pos+1);
+			key = ref; //the remaining part is the key
+		}
 	}
-	else
-		module = dummy;//no special type
 
-//  module = ref.left(pos);
-  qWarning("decodeHyperlink: %s", module.latin1());
-
-  key = ref.mid(pos+1);
-  qWarning("decodeHyperlink: %s", key.latin1());
+  qWarning("decodeHyperlink: module %s key %s", module.latin1(), key.latin1());
   if (key.isEmpty() && module.isEmpty())
   	return false;
 	return true;
 }
+
 const QString CReferenceManager::encodeReference(const QString &module, const QString &reference){
 	return QString::fromLatin1("(%1)%2").arg(module).arg(reference);
 }
@@ -91,16 +166,39 @@ const bool CReferenceManager::isHyperlink( const QString& hyperlink ){
 	return ( (hyperlink.left(8) == "sword://") && hyperlink.mid(8).contains("/"));
 }
 
-/** Returns the name of the module prefered for the set module type. */
-const QString CReferenceManager::preferedModule(CReferenceManager::Type type){
-/*	switch (type) {
-		case strongsNumbers:
-			return config->readEntry("strongs module");
-		case morphCode:
-			return config->readEntry("morph code module");		
+/** Returns the preferred module name for the given type. */
+const QString CReferenceManager::preferredModule( const CReferenceManager::Type type ){
+	switch (type) {
+		case CReferenceManager::Bible:
+			return CBTConfig::get( CBTConfig::standardBible );
+		case CReferenceManager::Commentary:
+			return CBTConfig::get( CBTConfig::standardCommentary );
+		case CReferenceManager::Lexicon:
+			return CBTConfig::get( CBTConfig::standardLexicon );
+		case CReferenceManager::Morph_OT:
+		case CReferenceManager::Strongs_OT:
+			qWarning("typpe is OT");
+			return CBTConfig::get( CBTConfig::standardHebrewLexicon );
+		case CReferenceManager::Morph_NT:
+		case CReferenceManager::Strongs_NT:
+			qWarning("typpe is NT");		
+			return CBTConfig::get( CBTConfig::standardGreekLexicon );
 		default:
+			qWarning("unknwon type");
 			return QString::null;
-	}*/
-#warning rethink this. strongs and morph are different for greek/hebrew.
-#warning use CBTConfig to implement this.
+	}
+}
+
+/** No descriptions */
+CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInfo::type type){
+	switch (type) {
+		case CSwordModuleInfo::Bible:
+			return CReferenceManager::Bible;
+		case CSwordModuleInfo::Commentary:
+			return CReferenceManager::Commentary;
+		case CSwordModuleInfo::Lexicon:
+			return CReferenceManager::Lexicon;
+		default:
+			return CReferenceManager::Unknown;
+	}
 }

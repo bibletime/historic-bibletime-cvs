@@ -38,7 +38,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 	if (!substituteToken(buf, token)) {
 	// manually process if it wasn't a simple substitution
 		if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"sword://strongs_hebrew/");
+			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://OT/");
 			for (i = 5; i < strlen(token)-1; i++)
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
@@ -50,7 +50,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}
 #warning not handled: token[27] == 'A')
 		if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"sword://strongs_greek/");
+			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://NT/");
 			for (i = 5; i < strlen(token)-1; i++)
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
@@ -61,7 +61,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			pushString(buf, "&gt;</a></em></small></font> ");
 		}
 		else if (!strncmp(token, "sync type=\"Morph\" value=\"", 25)) {
-			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"sword://morph/");
+			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://OT/");//OT or NT as default?
 			for (i = 5; i < strlen(token)-1; i++)				
 				if(token[i] != '\"') 			
 					*(*buf)++ = token[i];
@@ -75,7 +75,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
 			userData["inscriptRef"] = "true";
 #warning make color customizable
-			pushString(buf, "<a href=\"sword://bible/");
+			pushString(buf, "<a href=\"sword://Bible/");
 			for (i = 9; i < strlen(token)-1; i++)				
 				if(token[i] != '\"') 			
 					*(*buf)++ = token[i];
@@ -97,7 +97,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			}
 			
 			else { // like "<scripRef>John 3:16</scripRef>"
-				pushString(buf, "<a href=\"sword://bible/");
+				pushString(buf, "<a href=\"sword://Bible/");
 				pushString(buf, userData["lastTextNode"].c_str());
 				pushString(buf, "\">");
 				pushString(buf, userData["lastTextNode"].c_str());

@@ -62,7 +62,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 #warning make color configurable
 			m_htmlText.append( QString::fromLatin1("<a name=\"%1\" href=\"%2\"><b>%3</b></a> ")
 				.arg(verse)
-				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key() ))
+				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key(), CReferenceManager::typeFromModule(module->getType()) ))
 				.arg(verse)
 			);
 		if (verse == currentVerse)
@@ -134,7 +134,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		
 		rowText = QString("<tr><td bgcolor=\"#f1f1f1\"><b><a name=\"%1\" href=\"%2\">%3</a></b></td>\n")
 			.arg(currentVerse)
-			.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey ))
+			.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey, CReferenceManager::typeFromModule(d->getType()) ))
 			.arg(currentVerse);
 					
 		while (m) {

@@ -21,6 +21,8 @@
 //Qt includes
 #include <qstring.h>
 
+#include "cswordmoduleinfo.h"
+
 /**Contains static functions to compute with referneces used for Drag&Drop and for hyperlinks used in HTML.
   *@author The BibleTime team
   */
@@ -28,19 +30,24 @@
 class CReferenceManager {
 public:
 	enum Type {
-		morphCode,
-		strongsNumbers,
-		reference
+		Bible,
+		Commentary,
+		Lexicon,
+		Morph_OT,
+		Morph_NT,
+		Strongs_OT,
+		Strongs_NT,
+		Unknown
 	};
   /**
 	* Decodes the given hyperlink to module and key.
 	*/
-  static const bool decodeHyperlink( const QString& hyperlink, QString& module, QString& key);
+  static const bool decodeHyperlink( const QString& hyperlink, QString& module, QString& key,Type& type);
   /**
 	* Returns a hyperlink used to be imbedded in the display windows.
 	* At the moment the format is sword://module/key
  	*/
-  static const QString encodeHyperlink( const QString& module, const QString& key);
+  static const QString encodeHyperlink( const QString& module, const QString& key, const Type& type);
   /**
 	* Puts a module Name and a Reference together in the 'draggable' form
 	* (module)reference
@@ -60,9 +67,11 @@ public:
   */
   static const bool isHyperlink( const QString& hyperlink );
   /**
-  * Returns the name of the module prefered for the set module type.
+  * Returns the preferred module name for the given type.
   */
-  static const QString preferedModule(CReferenceManager::Type type);
+  static const QString preferredModule( const Type type );
+  static CReferenceManager::Type typeFromModule( const CSwordModuleInfo::type type );
 };
 
 #endif
+
