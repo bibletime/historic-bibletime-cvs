@@ -1581,8 +1581,7 @@ void CGroupManager::slotDeleteSearchdialog(){
 void CGroupManager::resizeEvent ( QResizeEvent* e )  {
 	KListView::resizeEvent(e);		
 	setColumnWidth(0, visibleWidth() );
-	triggerUpdate();
-	
+	triggerUpdate();	
 }
 
 /** Is called when the return key was pressed on a listview item. */

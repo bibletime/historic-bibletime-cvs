@@ -25,11 +25,7 @@
 
 # This the RPM group on your system that this will installed into.
 # Graphical desktop/KDE, X11/apps, etc.
-if []; then
- %define 		rpmgroup	X11/KDE/Applications
-else
- %define		rpmgroup 	Graphical desktop/KDE
-fi;
+%define		rpmgroup 	Graphical desktop/KDE
 
 # this is were the sword modules will be installed on your system.
 # /usr/local/sword, /usr/share/sword, /opt/local/sword, etc.
@@ -46,7 +42,7 @@ Summary:        BibleTime %{version} is an easy to use Bible study tool for KDE2
 Name:		%{name}
 Version:        %{version}
 Release:        %{release}
-Icon:		bibletime.xpm
+#Icon:		bibletime.xpm
 Copyright:      GPL
 Vendor:         The team of BibleTime <info@bibletime.de>
 Url:            http://www.bibletime.de
@@ -59,7 +55,7 @@ Source0:        %{name}-%{version}.tar.bz2
 #Source1:        bibletime_icons.tar.bz2
 
 # This is to make a static KDE/QT version
-Patch1:         %{name}-1.0.patch.tar.bz2
+#Patch1:         %{name}-1.0.patch.tar.bz2
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
 Provides:       sword-base
@@ -107,12 +103,10 @@ fi
 %setup -q
 #Icons for Mandrake menu system
 if [ %{ostype} = "Mandrake" ] ; then
- tar jxvf %{SOURCE1}
+#tar jxvf %{SOURCE1}
  export KDEDIR=/usr
- Prefix:	/usr
 elif [%{ostype} = "SuSE"] ; then
  export KDEDIR=/opt/kde2 QTDIR=/usr/lib/qt2
- Prefix:	/opt/kde2
 fi
 
 echo Using $KDEDIR as KDE2 directory

@@ -37,6 +37,8 @@ void&nbsp;</td><td valign=bottom><a class="el" href="class_bibletime.html#g1">sl
 <tr><td nowrap align=right valign=top><a name="g2" doxytag="BibleTime::lastWindowClosed"></a>
 void&nbsp;</td><td valign=bottom><a class="el" href="class_bibletime.html#g2">lastWindowClosed</a> ()</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>The last window was closed!</em></font><br><br></td></tr>
+<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="class_bibletime.html#g3">openOnlineHelp</a> ()</td></tr>
+<tr><td>&nbsp;</td><td><font size=-1><em>Opens the online help.</em> <a href="#g3">More...</a><em></em></font><br><br></td></tr>
 <tr><td colspan=2><br><h2>Protected Methods</h2></td></tr>
 <tr><td nowrap align=right valign=top><a name="b0" doxytag="BibleTime::initView"></a>
 void&nbsp;</td><td valign=bottom><a class="el" href="class_bibletime.html#b0">initView</a> ()</td></tr>
@@ -227,9 +229,41 @@ Here are the main widgets created.
 <p>
 This is the main class of BibleTime! This class creates the GUI, the KAction objects and connects to some slots. Please insert the creation of actions in initActions, the creation of widgets into initView and the connect(...) calls into initConnections. Reading from a config file on creation time should go into <a class="el" href="class_bibletime.html#b5">readSettings</a>(), saving into <a class="el" href="class_bibletime.html#b6">saveSettings</a>(). This is the general way of all BibleTime classes. 
 <p>
+<hr><h2>Member Function Documentation</h2>
+<a name="g3" doxytag="BibleTime::openOnlineHelp"></a><p>
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+  <tr>
+    <td class="md">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td nowrap valign="top"><b> 
+void BibleTime::openOnlineHelp (
+          </b></td>
+          <td valign="bottom"><b>
+)<code> [slot]</code>
+          </b></td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Opens the online help.
+<p>
+If STATIC_BUILD is defined it opens an own dialog, otherwise the standard KDE helpsystem will be opened.     </td>
+  </tr>
+</table>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="bibletime_h-source.html">bibletime.h</a></ul>
-<hr><address><small>Generated at Wed Jun 13 23:19:43 2001 for BibleTime by
+<hr><address><small>Generated at Thu Jul 5 14:52:15 2001 for BibleTime by
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.gif" alt="doxygen" align="middle" border=0 
 width=110 height=53></a>1.2.6 written by <a href="mailto:dimitri@stack.nl">Dimitri van Heesch</a>,

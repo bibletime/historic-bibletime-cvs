@@ -1,3 +1,34 @@
+[Black&White (Helvetica)__DESCRIPTION]
+Alignement=0
+BGColor=255,255,255
+FGColor=0,0,0
+Font=helvetica,8,5,0,50,1
+Identation=0
+has frame=false
+isEnabled=true
+
+[Black&White (Helvetica)__HEADER]
+Alignement=0
+BGColor=255,255,255
+FGColor=0,0,0
+Font=helvetica,9,5,0,75,0
+Identation=0
+has frame=false
+isEnabled=true
+
+[Black&White (Helvetica)__MODULETEXT]
+Alignement=0
+BGColor=255,255,255
+FGColor=0,0,0
+Font=helvetica,12,5,0,50,0
+Identation=0
+has frame=true
+isEnabled=true
+
+[Black&White (Helvetica)__MODULETEXT__FRAME]
+Color=0,0,0
+Thickness=1
+
 [Black&White__DESCRIPTION]
 Alignement=2
 BGColor=255,255,255
@@ -6,6 +37,7 @@ Font=helvetica,9,5,0,50,0
 Identation=0
 has frame=false
 isEnabled=true
+
 [Black&White__HEADER]
 Alignement=1
 BGColor=0,0,0
@@ -14,6 +46,7 @@ Font=helvetica,9,5,0,50,0
 Identation=0
 has frame=false
 isEnabled=true
+
 [Black&White__MODULETEXT]
 Alignement=0
 BGColor=255,255,255
@@ -22,9 +55,77 @@ Font=helvetica,9,5,0,50,0
 Identation=0
 has frame=true
 isEnabled=true
+
 [Black&White__MODULETEXT__FRAME]
 Color=0,0,0
 Thickness=2
+
+[Pastel (Arial)__DESCRIPTION]
+Alignement=0
+BGColor=255,255,255
+FGColor=151,174,178
+Font=arial,9,5,0,50,1
+Identation=0
+has frame=false
+isEnabled=true
+
+[Pastel (Arial)__HEADER]
+Alignement=2
+BGColor=255,255,255
+FGColor=120,148,178
+Font=arial,10,5,0,75,0
+Identation=0
+has frame=false
+isEnabled=true
+
+[Pastel (Arial)__MODULETEXT]
+Alignement=0
+BGColor=255,255,255
+FGColor=135,168,201
+Font=arial,9,5,0,50,0
+Identation=0
+has frame=true
+isEnabled=true
+
+[Pastel (Arial)__MODULETEXT__FRAME]
+Color=120,148,178
+Thickness=1
+
+[Rainbow (Arial)__DESCRIPTION]
+Alignement=0
+BGColor=255,255,255
+FGColor=0,0,0
+Font=helvetica,9,5,15,50,0
+Identation=0
+has frame=false
+isEnabled=true
+
+[Rainbow (Arial)__HEADER]
+Alignement=1
+BGColor=255,255,255
+FGColor=255,109,18
+Font=arial,10,5,0,75,0
+Identation=0
+has frame=true
+isEnabled=true
+
+[Rainbow (Arial)__HEADER__FRAME]
+Color=114,141,169
+Thickness=1
+
+[Rainbow (Arial)__MODULETEXT]
+Alignement=0
+BGColor=255,255,255
+FGColor=114,141,169
+Font=arial,12,5,0,50,0
+Identation=0
+has frame=true
+isEnabled=true
+
+[Rainbow (Arial)__MODULETEXT__FRAME]
+Color=139,0,0
+Thickness=1
+
 [Rainbow__DESCRIPTION]
 Alignement=2
 BGColor=255,255,213
@@ -33,6 +134,7 @@ Font=helvetica,9,5,0,50,0
 Identation=0
 has frame=false
 isEnabled=true
+
 [Rainbow__HEADER]
 Alignement=0
 BGColor=255,255,255
@@ -41,9 +143,11 @@ Font=helvetica,9,5,0,50,0
 Identation=0
 has frame=true
 isEnabled=true
+
 [Rainbow__HEADER__FRAME]
 Color=42,156,213
 Thickness=1
+
 [Rainbow__MODULETEXT]
 Alignement=0
 BGColor=255,255,255
@@ -52,47 +156,55 @@ Font=futura,13,5,0,50,0
 Identation=0
 has frame=true
 isEnabled=true
+
 [Rainbow__MODULETEXT__FRAME]
 Color=42,156,213
 Thickness=1
+
 [Settings]
 Filename=
 Paper size=0
 Printer=lp
-left margin=39
-lower margin=39
+left margin=34
+lower margin=34
 preview application=gv
-right margin=39
-upper margin=39
+right margin=34
+upper margin=34
+
 [Standard__DESCRIPTION]
-Alignement=24
+Alignement=0
 BGColor=255,255,255
 FGColor=0,0,0
 Font=helvetica,10,5,0,0,0
 Identation=0
 has frame=false
 isEnabled=true
+
 [Standard__HEADER]
 Alignement=2
 BGColor=255,255,255
 FGColor=0,0,192
-Font=futura,16,5,0,75,0
+Font=times,16,5,0,75,0
 Identation=8
 has frame=true
 isEnabled=true
+
 [Standard__HEADER__FRAME]
 Color=0,0,0
 Thickness=1
+
 [Standard__MODULETEXT]
 Alignement=0
 BGColor=220,220,220
 FGColor=0,0,0
-Font=arial,14,5,0,0,0
+Font=helvetica,14,5,0,0,0
 Identation=0
 has frame=true
 isEnabled=true
+
 [Standard__MODULETEXT__FRAME]
 Color=128,128,128
 Thickness=1
+
 [Styles]
-styles=Standard,Black&White,Rainbow
+styles=Standard,Rainbow (Arial),Black&White (Helvetica),Pastel (Arial)

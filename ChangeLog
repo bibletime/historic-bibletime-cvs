@@ -1,3 +1,6 @@
+2001-07-05 Joachim Ansorg <jansorg@gmx.de>
+	* The button "Cancel" in the styleeditor closes now the dialog without creating a new item in the style list
+
 2001-07-03 Joachim Ansorg <jansorg@gmx.de>
 	* Updated version to 1.0.1
 	* Fixed some bugs with the doc system
