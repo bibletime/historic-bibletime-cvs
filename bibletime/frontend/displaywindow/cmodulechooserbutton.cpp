@@ -29,8 +29,8 @@
 #include <klocale.h>
 
 CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent, const char *name )
-	: KToolBarButton("", id, parent,name) {
-	qDebug("CModuleChooserButton::CModuleCHooserButton");
+	: KToolBarButton("", id, parent,name),m_popup(0) {
+//	qDebug("CModuleChooserButton::CModuleCHooserButton");
 
 	m_id = id;
 	m_moduleType = type;	
@@ -42,61 +42,8 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
 	
 	setIcon( iconName() );
 	setPopupDelay(0);
-	
-	//create popup
-	m_popup = new KPopupMenu(this);	
-	m_popup->insertTitle(i18n("Select additional modules"));	
-	m_popup->setCheckable(true);
-	m_popup->insertItem(i18n("NONE"));
-	m_popup->insertSeparator();	
-	connect(m_popup, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));		
-	setPopup(m_popup);
 
-	QStringList languages;
-	QDict<KPopupMenu> langdict;
-
-	ListCSwordModuleInfo& modules = backend()->moduleList();
-	for (modules.first(); modules.current(); modules.next()) {
-		if (modules.current()->type() == m_moduleType) {
-			QString lang = QString(modules.current()->module()->Lang());
-			if (lang.isEmpty())
-				lang = QString("xx");
-			if (languages.find( lang ) == languages.end() ){
-				languages += lang;
-				KPopupMenu* menu = new KPopupMenu;
-				langdict.insert(lang, menu );
-				m_submenus.append(menu);
-				connect(menu, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));		
-			}
-		}
-	}	
-	//Check the appropriate entry
-	for (modules.first(); modules.current(); modules.next()) {
-		if (modules.current()->type() == m_moduleType) {
-			QString lang = QString(modules.current()->module()->Lang());
-			if (lang.isEmpty())
-				lang = QString("xx");
-			QString name = QString(modules.current()->name()) + QString(" ")+
-				(modules.current()->isLocked() ? i18n("[locked]") : QString::null); 			
-			int id = langdict[lang]->insertItem( name );
-			if ( m_module && modules.current()->name() == m_module->name()) {
-				langdict[lang]->setItemChecked(id,true);
-			}
-		}
-	}	
-	if ( !m_module ) {
-		for (unsigned int i = 0; i < m_popup->count(); i++) {
-			if (m_popup->text(m_popup->idAt(i)) == i18n("NONE") )
-				m_popup->setItemChecked(m_popup->idAt(i),true);
-				break;
-		}
-	}
-
-	languages.sort();
-
-  for ( QStringList::Iterator it = languages.begin(); it != languages.end(); ++it ) {
-		m_popup->insertItem( *it, langdict[*it]);
-	}
+	populateMenu();
 }	
 
 /** Returns the icon used for the current status. */
@@ -174,4 +121,67 @@ void CModuleChooserButton::moduleChosen( int ID ){
    	if (module())
    		QToolTip::add(this, module()->name());
  	}
+}
+/** No descriptions */
+void CModuleChooserButton::populateMenu(){
+	if (m_popup)
+		delete m_popup;
+	m_submenus.setAutoDelete(true);
+	m_submenus.clear();
+
+	//create popup
+	m_popup = new KPopupMenu(this);	
+	m_popup->insertTitle(i18n("Select additional modules"));	
+	m_popup->setCheckable(true);
+	m_popup->insertItem(i18n("NONE"));
+	m_popup->insertSeparator();	
+	connect(m_popup, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));		
+	setPopup(m_popup);
+
+	QStringList languages;
+	QDict<KPopupMenu> langdict;
+
+	ListCSwordModuleInfo& modules = backend()->moduleList();
+	for (modules.first(); modules.current(); modules.next()) {
+		if (modules.current()->type() == m_moduleType) {
+			QString lang = QString(modules.current()->module()->Lang());
+			if (lang.isEmpty())
+				lang = QString("xx");
+			if (languages.find( lang ) == languages.end() ){
+				languages += lang;
+				KPopupMenu* menu = new KPopupMenu;
+				langdict.insert(lang, menu );
+				m_submenus.append(menu);
+				connect(menu, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));		
+			}
+		}
+	}	
+	//Check the appropriate entry
+	for (modules.first(); modules.current(); modules.next()) {
+		if (modules.current()->type() == m_moduleType) {
+			QString lang = QString(modules.current()->module()->Lang());
+			if (lang.isEmpty())
+				lang = QString("xx");
+			QString name = QString(modules.current()->name()) + QString(" ")+
+				(modules.current()->isLocked() ? i18n("[locked]") : QString::null); 			
+			int id = langdict[lang]->insertItem( name );
+			if ( m_module && modules.current()->name() == m_module->name()) {
+				langdict[lang]->setItemChecked(id,true);
+			}
+		}
+	}	
+	if ( !m_module ) {
+		for (unsigned int i = 0; i < m_popup->count(); i++) {
+			if (m_popup->text(m_popup->idAt(i)) == i18n("NONE") )
+				m_popup->setItemChecked(m_popup->idAt(i),true);
+				break;
+		}
+	}
+
+	languages.sort();
+
+  for ( QStringList::Iterator it = languages.begin(); it != languages.end(); ++it ) {
+		m_popup->insertItem( *it, langdict[*it]);
+	}
+
 }

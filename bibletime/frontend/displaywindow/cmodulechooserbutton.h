@@ -41,6 +41,10 @@ public:
   * Returns the id used for this button.
   */
   int getId() const;
+
+protected: // Protected methods
+  /** No descriptions */
+  void populateMenu();
 	
 private:
   /**
@@ -52,8 +56,8 @@ private:
 	CSwordModuleInfo::ModuleType m_moduleType;
 	CSwordModuleInfo* m_module;
 	int m_id;
-	KPopupMenu* m_popup;
 
+	KPopupMenu* m_popup;
 	QPtrList<KPopupMenu> m_submenus;
 
 private slots:
