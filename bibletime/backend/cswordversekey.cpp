@@ -29,13 +29,6 @@
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
 	if (!(m_module = dynamic_cast<CSwordBibleModuleInfo*>(module)))
 		return;
-		
-//	VerseKey* vk = (VerseKey*)(SWKey*)*(m_module->module());	
-//	m_oldKey = QString::null;
-//	if (vk && vk != this) {
-//		m_oldKey = QString::fromLocal8Bit((const char*)*vk);		
-//		key(QString::fromLocal8Bit((const char*)*vk));
-//	}
 }
 
 /** No descriptions */
@@ -45,10 +38,6 @@ CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKe
 
 CSwordVerseKey::~CSwordVerseKey(){
 	qDebug("CSwordVerseKey::~CSwordVerseKey()");
-//	if (module() && module()->module()) {
-//		VerseKey k(m_oldKey.local8Bit());
-//		module()->module()->SetKey(k);
-//	}
 }
 
 /** Clones this object. */
@@ -68,7 +57,6 @@ CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 
 /** Returns the current book as Text, not as integer. */
 const QString CSwordVerseKey::book( const QString& newBook ) {
-//	qDebug("const QString CSwordVerseKey::book( const QString& newBook )");
 	if (!newBook.isEmpty()) {
 		int min = 0;
 		int max = 1;
@@ -90,22 +78,19 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 
 /**  */
 const bool CSwordVerseKey::NextVerse(){	
-//	qDebug("const bool CSwordVerseKey::NextVerse()");
 	m_module->module()->SetKey(this);	//use this key as base for the next one!
 	( *( m_module->module() ) )++;
-#warning Use Unicode??
-	key(QString::fromLocal8Bit(m_module->module()->KeyText()));
+	key( QString::fromUtf8(m_module->module()->KeyText()) );
 	
 	return true;
 }
 
 /**  */
 const bool CSwordVerseKey::PreviousVerse(){
-//	qDebug("const bool CSwordVerseKey::PreviousVerse()");	
 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )--;
-#warning Use Unicode??
-	key(QString::fromLocal8Bit(m_module->module()->KeyText()));
+
+	key( QString::fromUtf8(m_module->module()->KeyText()) );
 	
 	return true;
 }
@@ -147,8 +132,7 @@ const QString CSwordVerseKey::key( const QString& newKey ){
 	if (!newKey.isNull()) {
 		VerseKey::operator = ((const char*)newKey.local8Bit());
 	}
-#warning Use Unicode??
-	return QString::fromLocal8Bit((const char*)*this);
+	return QString::fromUtf8((const char*)*this);
 }
 
 void CSwordVerseKey::key( const char* newKey ){

@@ -70,6 +70,12 @@ public:
   */
   static const QString preferredModule( const Type type );
   static CReferenceManager::Type typeFromModule( const CSwordModuleInfo::type type );
+  /** Parses the given verse references using the given language and the module.
+	* @param ref The verse refernce
+	* @param lang The language of the verse reference
+	* @param newLang The language of the reference, which will be returned. For example: If BibleTime using an english environment parses a spanish ref (lang=es) the returned ref should be in english (newLang=en), because his english standard module only understands en.
+	*/
+  static const QString parseVerseReference( const QString ref, const QString& lang, const QString& newLang = "en");
 };
 
 #endif

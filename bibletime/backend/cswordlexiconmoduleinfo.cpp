@@ -52,14 +52,11 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 
 /** Returns the entries of the module. */
 QStringList* CSwordLexiconModuleInfo::getEntries(){
-	qDebug("CSwordLexiconModuleInfo::getEntries()");
 	if (!m_entryList) {
 		if (!module()) {
-//		 	qDebug("return 0");
 			return 0;
 		}
 		m_entryList = new QStringList();
-		(*module()) = TOP;
 
     bool lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
 		bool read = false;
@@ -75,7 +72,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
         QDataStream s( &f1 );
   			QString version;
         s >> version;
-  			if (version == ( (getVersion() == QString::null) ? QString("0") : getVersion())) {
+  			if (version == ( getVersion().isEmpty() ? QString::fromLatin1("0") : getVersion())) {
   				s >> *m_entryList;
   				read = true;
   			}
@@ -85,9 +82,8 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 
 
 		if (!read){
+			(*module()) = TOP;  		
   		do {
-#warning check!!
-				qDebug(module()->KeyText());
    			m_entryList->append(QString::fromUtf8(module()->KeyText()));
   			(*module())++;
   		} while (!module()->Error());
@@ -98,17 +94,16 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 			if (lexiconCache){
   			// create cache
 		 		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
-        QFile f2( QString("%1/%2").arg(dir).arg( name() ) );
+        QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );
         if (f2.open( IO_WriteOnly )){
           QDataStream s( &f2 );
-  				s << ( (getVersion() == QString::null) ? QString::fromLatin1("0") : getVersion());
+  				s << ( getVersion().isEmpty() ? QString::fromLatin1("0") : getVersion());
   				s << *m_entryList;
   			  f2.close();
         }
 			}
+			(*module()) = TOP;			
 		}
-
-		(*module()) = TOP;
 	}	
 	return m_entryList;
 }

@@ -59,19 +59,12 @@ CSwordModuleInfo* CSwordLDKey::module(CSwordModuleInfo* newModule){
 /** Sets the key of this instance */
 const QString CSwordLDKey::key( const QString& newKey ){
 	if (!newKey.isNull()) {
-#warning check
-//    if ( m_module->encoding() == QFont::Unicode )
 		SWKey::operator = ((const char*)newKey.utf8());		
-//    else
-//  		SWKey::operator = ((const char*)newKey.local8Bit());		
 		m_module->module()->SetKey(this);
 		(const char*)*(m_module->module()); //snap to entry
 		SWKey::operator = (m_module->module()->KeyText());
 	}
-//  if ( m_module->encoding() == QFont::Unicode )
  	return QString::fromUtf8(m_module->module()->KeyText());
-//  else
-//  	return QString::fromLocal8Bit(m_module->module()->KeyText());
 }
 
 /** Uses the parameter to returns the next entry afer this key. */

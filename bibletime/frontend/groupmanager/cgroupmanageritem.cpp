@@ -243,6 +243,7 @@ const QString CGroupManagerItem::getToolTip(){
 		{
 			text = i18n("Module") + QString::fromLatin1(": <B>%1</B><HR>").arg( moduleInfo()->name() );
 			text += moduleInfo()->getDescription() + QString::fromLatin1("<HR>");
+			text += i18n("Language:")+ QString::fromLatin1(" %1<BR>").arg(moduleInfo()->module()->Lang());
 			text += i18n("Foonotes:")+ QString::fromLatin1(" %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::footnotes) ? i18n("Yes") : i18n("No"));
 			text += i18n("Strong's numbers: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::strongNumbers) ? i18n("Yes") : i18n("No"));
 			if (moduleInfo()->isEncrypted())

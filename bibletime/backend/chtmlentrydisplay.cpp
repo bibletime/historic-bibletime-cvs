@@ -92,7 +92,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 
 /** Generates code to display the given modules side by side. */
 char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
-	qDebug("CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
+//	qDebug("CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		m_htmlText = QString::null;
 		return 0;
@@ -167,7 +167,6 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	m = (d = moduleList->first()) ? d->module() : 0;
 	m_htmlText.append(QString::fromLatin1("<TR>"));
 	while (m) {
-
 		key->module(d);
 		key->key(usedKey);
 		

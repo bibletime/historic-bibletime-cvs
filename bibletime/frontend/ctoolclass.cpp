@@ -42,8 +42,8 @@ QString CToolClass::locatehtml(const QString &filename) {
        path = locate("html", "default/" + filename);
     if (path.isNull())
        path = locate("html", "en/" + filename);
-#warning remove
-		qWarning( path.utf8() );
+//#warning remove
+//		qWarning( path.utf8() );
     return path;
 }
 

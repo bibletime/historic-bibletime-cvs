@@ -66,6 +66,16 @@ void CHTMLDialog::init(const bool enableHistory){
 	QVBoxLayout* layout = new QVBoxLayout(this, 5);
 		
 	m_textBrowser = new QTextBrowser(this);		
+	KURL url(CToolClass::locatehtml("bibletime/helpdialog/index.docbook"));	
+	m_textBrowser->mimeSourceFactory()->addFilePath(url.directory());
+	url.cd(QString::fromLatin1(".."));
+	m_textBrowser->mimeSourceFactory()->addFilePath(url.directory());
+	url.cd(QString::fromLatin1(".."));
+	m_textBrowser->mimeSourceFactory()->addFilePath(url.directory());
+	url.cd(QString::fromLatin1(".."));
+	m_textBrowser->mimeSourceFactory()->addFilePath(url.directory());
+	
+	
 	if (enableHistory) {
 		QHBox* toolBar = new QHBox(this, "history toolbar");
 		

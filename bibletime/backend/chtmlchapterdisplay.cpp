@@ -85,7 +85,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 /** Generates code to display the given modules side by side. */
 char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){	
 #warning make table colors configurable
-	qDebug("CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
+//	qDebug("CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		m_htmlText = QString::null;
 		return 0;

@@ -97,6 +97,7 @@ void CLexiconPresenter::initView(){
 
 	m_htmlWidget->installPopup(m_popup);	
 	m_htmlWidget->installAnchorMenu(m_popup);
+	m_htmlWidget->setModules(m_moduleList);	
 
 	setCentralWidget(m_htmlWidget);
 	setIcon(LEXICON_ICON_SMALL);
@@ -171,6 +172,7 @@ void CLexiconPresenter::modulesChanged(){
 //    refreshFeatures();
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
+		m_htmlWidget->setModules(m_moduleList);		
 	  lookup(m_key);
 	}
 }

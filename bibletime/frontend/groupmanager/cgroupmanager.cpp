@@ -591,9 +591,15 @@ void CGroupManager::slotShowAbout(){
 	.arg(module->hasVersion() ? module->getVersion() : QString::fromLatin1("<I>%1</I>").arg(i18n("Not available")))
 	.arg(i18n("Unlock key"))
 	.arg(unlockKey)
+	.arg(i18n("Language"))
+	.arg(QString::fromLatin1(module->module()->Lang()));
+
+
+text += QString::fromLatin1("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>")
 	.arg(i18n("Writable"))
 	.arg(isWritable);
 
+		
 text += QString::fromLatin1("\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\

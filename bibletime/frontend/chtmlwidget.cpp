@@ -71,23 +71,16 @@ CHTMLWidget::ToolTip::ToolTip(CImportantClasses* importantClasses, QWidget* pare
 }
 
 void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
-//	qWarning("CHTMLWidget::ToolTip::maybeTip(const QPoint& p)");
 	if (!parentWidget()->inherits("CHTMLWidget"))
 		return;
 
-//	const QRect r = QRect(p.x()-15,p.y()+15,p.x()+15, p.y()-15);
-
 	CHTMLWidget* htmlWidget = dynamic_cast<CHTMLWidget*>(parentWidget());	
 	QPoint p1 = htmlWidget->viewportToContents(p);
-//	qWarning("pos of tooltip is [%i|%i]", p1.x(), p1.y());
 	QString link = QString::null;
 	QString text = QString::null;
 
-//	link = htmlWidget->anchorAt( p1 );
   link = htmlWidget->anchorAt(p1);
-//	qWarning("TooLTip::maybeTip: %s", link.latin1());
 	if (link.isEmpty()) {
-//		qWarning("empty link - return");
 		return;
 	}
 	
@@ -102,7 +95,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
     rect.setHeight( htmlWidget->contentsToViewport(rect.bottomLeft()).y() - rect.y() );
         				
 		//debug rect
-		qWarning("rect is %i - %i - %i - %i", rect.x(),rect.y(), rect.width(), rect.height());
+//		qWarning("rect is %i - %i - %i - %i", rect.x(),rect.y(), rect.width(), rect.height());
 		
 		QString module = QString::null;
 		QString ref = QString::null;
@@ -115,33 +108,36 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 		
 		CSwordModuleInfo* m	= 0;
 		if (module.isEmpty() || module.isNull()) {
-			qDebug("get standard module");
-			module = CReferenceManager::preferredModule( type );								
-//			m = m_important->swordBackend->findModuleByDescription(module);
-			qDebug("preferred module is %s", module.latin1());
+			module = CReferenceManager::preferredModule( type );
 		}
-		else
-			m = m_important->swordBackend->findModuleByName(module);
+		m = m_important->swordBackend->findModuleByName(module);
 
-		ASSERT(m);							
 		if (m){
 			switch(m->getType()) {			
 				case CSwordModuleInfo::Lexicon:
 				{
 					CSwordLDKey key(m);
 					key.key(ref);
-					ref = key.key();//parsed result
+					ref = key.key(); //parsed result
 					text = key.renderedText();				
 					break;
 				}	
 				case CSwordModuleInfo::Bible: //pass
 				case CSwordModuleInfo::Commentary: //pass
 				default:
+				/*
+				* Parsing a key is a little bit difficult,
+				* because we have to care about the language of the module
+				* For example: Pr 6:6 would result in Ecclesiastes 6:6 in a german environment.
+				* We have to care about this.
+				*/
 				{
+//					const QString newLanguage = QString::fromLatin1(htmlWidget->modules().first()->module()->Lang());
+					ref = CReferenceManager::parseVerseReference(ref, m->module()->Lang(), m_important->swordBackend->getCurrentBooknameLanguage() );
+
 					CSwordVerseKey key(m);
 					key.key(ref);
-					ref = key.key(); //parsed result					
-					text = key.renderedText();						
+					text = key.renderedText();					
 					break;
 				}
 			}
@@ -149,7 +145,6 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 				setFont( CBTConfig::get( CBTConfig::unicode) );
 			}
 		}
-//		qWarning("text is %s", text.latin1());
 		if (!text.isEmpty())
 		{
 			text = QString::fromLatin1("<B>%1</B><HR>%2").arg(ref).arg(text);
@@ -169,6 +164,7 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 	mousePressed = inDoubleClick = false;		
 	setTextFormat( Qt::RichText );
 	setReadOnly(true);
+	m_moduleList = 0;
 
 	QFont unicodeFont = CBTConfig::get(CBTConfig::unicode);
  	if (!document()->charsetMap->contains(unicodeFont.family()))
@@ -227,9 +223,7 @@ void CHTMLWidget::initView(){
 	disconnect(dragStartTimer, SIGNAL(timeout()),
 		this, SLOT(startDrag()));
 	
-	QStringList paths;	
-	KURL url(CToolClass::locatehtml("bibletime/index.html"));	
-	mimeSourceFactory()->addFilePath(url.directory());
+//	QStringList paths;	
 	
 	setAcceptDrops(true);
 	viewport()->setAcceptDrops(true);
@@ -782,4 +776,14 @@ Qt3::QTextDocument* CHTMLWidget::getDocument() const{
 /** Places the cursor at position pos */
 void CHTMLWidget::placeCursor( const QPoint &pos, Qt3::QTextCursor *c ){
 	QTextEdit::placeCursor(pos, c);
+}
+
+/** Returns a list of modules which are used by the display window which uses this HTML widget. */
+ListCSwordModuleInfo& CHTMLWidget::modules() const{
+	return *m_moduleList;
+}
+
+/** Sets the list of modules used by the display window which uses this widget. */
+void CHTMLWidget::setModules( ListCSwordModuleInfo& modules ) {
+	m_moduleList = &modules;
 }

@@ -108,10 +108,11 @@ void CCommentaryPresenter::initView(){
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup, ID_PRESENTER_PRINT_POPUP);	
 	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup,ID_PRESENTER_SAVE_POPUP);		
 
-	ASSERT(m_htmlWidget);
+//SSERT(m_htmlWidget);
 	m_htmlWidget->installPopup(m_popup);		
 	m_htmlWidget->installAnchorMenu( m_popup );
-	qWarning("before set icon");
+	m_htmlWidget->setModules(m_moduleList);	
+//	qWarning("before set icon");
 	setCentralWidget(m_htmlWidget);	
 	setIcon( COMMENTARY_ICON_SMALL );
 }
@@ -153,7 +154,7 @@ void CCommentaryPresenter::modulesChanged(){
 //	  refreshFeatures();	
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
-	
+		m_htmlWidget->setModules(m_moduleList);	
 	  lookup(m_key);
 	}
 }

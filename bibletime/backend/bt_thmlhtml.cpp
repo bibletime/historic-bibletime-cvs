@@ -122,7 +122,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				if(token[i] != '\"') 			
 					*(*buf)++ = token[i];
 			pushString(buf,"\">");
-		}
+		}		
 		// we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 		else if (!strcmp(token, "scripRef")) {
 			userData["inscriptRef"] = "false";

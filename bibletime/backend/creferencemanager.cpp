@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "creferencemanager.h"
+#include "cswordversekey.h"
 
 #include "../frontend/cbtconfig.h"
 
@@ -154,36 +155,10 @@ const QString CReferenceManager::encodeReference(const QString &module, const QS
 void CReferenceManager::decodeReference(QString &dragreference, QString &module, QString &reference){
   const int pos = dragreference.find(")");
 	const QString fallbackModule = dragreference.mid( 1, pos - 1);
-	qWarning("decodeReference: module is %s", fallbackModule.latin1());
   dragreference = dragreference.mid(pos+1);
-
-  qWarning("decodeReference: %s", dragreference.latin1());
-
 
   module = fallbackModule;
   reference = dragreference;
-//  if (dragreference.right(1) == "/") {
-//		dragreference = dragreference.left(dragreference.length()-1);		
-//  }
-
-//  if (dragreference.left(8) == "sword://") { //remove sword:// and trailing /
-//		dragreference = dragreference.mid(8);
-//  }
-//  else if (dragreference.left(10) == "strongs://") { //remove sword:// and trailing /
-//		dragreference = dragreference.mid(10);
-//  }
-//  else if (dragreference.left(8) == "morph://") { //remove sword:// and trailing /
-//		dragreference = dragreference.mid(8);
-//  }
-
-//	Type type;
-//	QString mod;	
-//  CReferenceManager::decodeHyperlink(dragreference, module, reference, type);
-//  if (module.isEmpty())
-//  	module = preferredModule(type);
-//  if (module.isEmpty())
-//  	module = fallbackModule;
-//  reference = dragreference.right( dragreference.length() - dragreference.find(")") - 1 );
 }
 
 /** Returns true if the parameter is a hyperlink. */
@@ -241,4 +216,18 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 		default:
 			return CReferenceManager::Unknown;
 	}
+}
+
+/** Parses the given verse references using the given language and the module.*/
+const QString CReferenceManager::parseVerseReference( const QString ref, const QString& lang, const QString& newLang){
+	VerseKey key;
+	key = ref.latin1();	
+	
+	key.setLocale(lang.latin1()); //set the language for parsing
+//	qWarning("ref is %s", ref.latin1());
+		
+	if (lang != newLang)
+		key.setLocale(newLang.latin1());
+//	qWarning("new key in language %s is %s", newLang.latin1(), (const char*)key);	
+	return QString::fromLatin1((const char*)key);//parsed result
 }

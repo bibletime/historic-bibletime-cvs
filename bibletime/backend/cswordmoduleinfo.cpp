@@ -119,7 +119,7 @@ const QString CSwordModuleInfo::getCipherKey() const {
 
 /** Returns the description of the module */
 const QString CSwordModuleInfo::getDescription() const {
-#warning Use Unicode???
+//#warning Use Unicode???
 	return QString::fromLocal8Bit( m_module->Description() );
 }
 
@@ -234,47 +234,6 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 	return false;
 }
 
-///** Used to find out the module specific font */
-//const QFont CSwordModuleInfo::getFont(){
-//  const string familyString = (*m_backend->getConfig())[name().latin1()]["Font"];
-//  const string sizeString = (*m_backend->getConfig())[name().latin1()]["Font size"];
-//	
-//  QString family = QString::null;
-//  int size = 12;
-//  if (strlen(familyString.c_str()))
-//  	family = QString::fromLocal8Bit( familyString.c_str() );
-//  if (strlen(sizeString.c_str()))
-//  	size = QString::fromLocal8Bit( sizeString.c_str() ).toInt();
-//  QFont f;
-//  f.setCharSet(QFont::AnyCharSet);
-//  f.setFamily(family);
-//  f.setPointSize(size);
-//
-//  return f;
-//}
-
-
-///** Used to set the module specific font */
-//void CSwordModuleInfo::setFont(const QFont &font){
-//	SWConfig moduleConfig("");
-//	if (m_backend->getModuleConfig(name(), moduleConfig)) {
-//		moduleConfig[name().latin1()]["Font"] = font.family().local8Bit();
-//		moduleConfig[name().latin1()]["Font size"] = QString::number(font.pointSize()).local8Bit();
-//		moduleConfig.Save();
-//		(*m_backend->getConfig())[name().latin1()]["Font"] = moduleConfig[name().latin1()]["Font"];		
-//		(*m_backend->getConfig())[name().latin1()]["Font size"] = moduleConfig[name().latin1()]["Font size"];
-//		(*m_backend->getConfig()) += moduleConfig;
-//	}
-//}
-
-///** Used to find out if the module has a specific font */
-//const bool CSwordModuleInfo::hasFont(){
-//	const string font = (*m_backend->getConfig())[name().latin1()]["Font"];
-//	if (strlen(font.c_str()))
-//		return true;
-//	return false;
-//}
-
 /** Returns the backend. */
 CSwordBackend* CSwordModuleInfo::backend() const {
 	return m_backend;
@@ -298,7 +257,7 @@ const float CSwordModuleInfo::requiredSwordVersion(){
 	if (!strlen(version.c_str()))	//no special version required
 		return -1;
 	const float swordVersion = QString::fromLatin1( version.c_str() ).toFloat();	
-	qDebug("%f", swordVersion);
+//	qDebug("%f", swordVersion);
 	return swordVersion;
 }
 

@@ -20,6 +20,7 @@
 
 //BibleTime includes
 #include "../structdef.h"
+#include "../backend/cswordbackend.h"
 #define private public
 #include "thirdparty/qt3stuff/qtextedit.h"
 #undef private
@@ -40,6 +41,7 @@ class QToolButton;
 class KFontAction;
 class QComboBox;
 class KColorButton;
+
 
 /** This widget enhances the KHTMLWidget to support BibleTime's colour
 	* management and to support verse references and the like.
@@ -98,6 +100,14 @@ public:
   * Places the cursor at position pos
   */
   virtual void placeCursor( const QPoint &pos, Qt3::QTextCursor *c = 0);
+  /**
+  * Sets the list of modules used by the display window which uses this widget.
+  */
+  void setModules( ListCSwordModuleInfo& modules ) ;
+  /**
+  * Returns a list of modules which are used by the display window which uses this HTML widget.
+  */
+  ListCSwordModuleInfo& modules() const;
 
   QPoint m_pressedPos;
 
@@ -262,6 +272,8 @@ private:
 	KFontAction* m_fontAction;
 	KColorButton* m_colorChooser;
 	QPoint m_hoverPos;
+	
+	ListCSwordModuleInfo* m_moduleList;
 			
 signals: // Signals
   void sigDeleteDocument();

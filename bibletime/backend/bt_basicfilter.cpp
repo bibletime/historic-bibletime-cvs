@@ -107,23 +107,6 @@ char BT_BASICFILTER::ProcessRWPRefs(char * text, int maxlen){
 			continue;
 		}
 
-//		if ((*from == '#') || (*from == -81)) {	// verse markings (e.g. "#Mark 1:1|")
-//			inverse = true;
-//			strcpy(to,"<A HREF=\"sword:///"); //no special module
-//			to += strlen(to);			
-//			for (int i = 1; from[i] != '|'; ++i) {
-//				*to++ = from[i];
-//			}
-//			strcpy(to,"\">");
-//			to += strlen(to);			
-//			continue;
-//		}
-//		if ((*from == '|') && (inverse)) {
-//			inverse = false;
-//			strcpy(to,"</A>");
-//			to += strlen(to);
-//			continue;
-//		}
 		*to++ = *from;
 	}
 	*to++ = 0;

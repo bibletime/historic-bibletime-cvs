@@ -53,7 +53,7 @@ void CStyleList::insertItems( styleItemList* itemList ){
 		if (itemList != m_items)	//check if we do not insert our own m_items list
 			m_items->append( itemList->current() );
 		QListViewItem* item = itemList->current()->getListViewItem(this);
-		ASSERT(item);
+//		ASSERT(item);
 	}
 	updateStyleCombo();
 }

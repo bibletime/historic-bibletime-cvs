@@ -50,9 +50,9 @@ public:
 //		RTL /*RTL = Right To Left*/
 //	};
   /**
-  	* This enum is used to give
-  	* back an error code after unlocking the module
-  	*/
+ 	* This enum is used to give
+ 	* back an error code after unlocking the module
+ 	*/
   enum unlockErrorCode {
 		noError,	/* No error occured, everything worked ok. The key was written to the config*/
 		wrongUnlockKey, /* The wrong key was used. Module is not unlocked */				
@@ -148,18 +148,6 @@ public:
   * @param type The type which should be checked
   */
   virtual const bool supportsFeature( const CSwordBackend::moduleOptions type );
-//  /**
-//  * Used to set the module specific font
-//  */
-//  void setFont(const QFont &font);
-//  /**
-//  * Used to find out the module specific font
-//  */
-//  const QFont getFont();
-//  /**
-//  * Used to find out if the module has a specific font
-//  */
-//  const bool hasFont();
   /**
   * Returns the type of the module.
   */
@@ -188,7 +176,6 @@ private:
 	CSwordBackend* m_backend;	
 };
 
-//class CSwordModuleInfo;
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
 
 inline const CSwordModuleInfo::type CSwordModuleInfo::getType() const {
