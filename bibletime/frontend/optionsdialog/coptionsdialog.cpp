@@ -135,9 +135,8 @@ void COptionsDialog::initGeneral() {
 		
 		KConfigGroupSaver groupSaver(m_config, "SWORD");
 		m_general.sword.lexiconCache->setChecked( m_config->readBoolEntry("use lexicon cache", true) );
-
+  	layout2->addWidget(m_general.sword.lexiconCache);	
 	}
-	layout2->addWidget(m_general.sword.lexiconCache);	
 
 	{//sword standard modules
 		QHBoxLayout* hBox = new QHBoxLayout();				

@@ -24,6 +24,7 @@
 #include "csearchdialogtext.h"
 #include "csearchdialogresult.h"
 #include "csearchdialogresultview.h"
+#include "../ctoolclass.h"
 
 //Qt includes
 #include <qpixmap.h>
@@ -162,11 +163,11 @@ void CSearchDialogResult::updatePreview(QString text) {
 			}			
 		}
 	}
-#warning todo: use UTF8 specific font
-//	if (resultModuleTree->getCurrentModule()->encoding() == QFont::Unicode ) {
-//		QFont f = resultModuleTree->getCurrentModule()->getFont();
-//		text = QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(f.pointSize()).arg(text);
-//	}
+	//module is Unicode-based
+	if (resultModuleTree->getCurrentModule()->encoding() == QFont::Unicode ) {
+		QFont f = CToolClass::getDisplayUnicodeFont();
+		text = QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(f.pointSize()).arg(text);
+	}
 	html_widget->setText(
 		QString::fromLatin1("<HTML><HEAD></HEAD><BODY><FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3</BODY></HTML>")
 		 .arg(resultTree->currentText())
