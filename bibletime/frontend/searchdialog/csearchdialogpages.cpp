@@ -633,16 +633,16 @@ const QString CSearchOptionsPage::searchText() {
   }
 	else if (searchFlags() & CSwordModuleSearch::entryAttribs) { //special treatment neccessary
 		const QString textType = m_textTypeCombo->currentText();
-		if (textType == "Footnotes")
+		if (textType == i18n("Footnotes"))
 			return QString("Footnote//body/") + m_searchTextCombo->currentText() + QString("/");
 		
-		if (textType == "Headings")
+		if (textType == i18n("Headings"))
 			return QString("Heading///") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
 		
-		if (textType == "Strong's numbers")
+		if (textType == i18n("Strong's numbers"))
 			return QString("Word//Strongs/") + m_searchTextCombo->currentText() + QString("/"); // e.g. Word//Strongs/G1234/
 		
-		if (textType == "Morph codes")
+		if (textType == i18n("Morph codes"))
 			return QString("Word//Morph/") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
 	}
 
@@ -675,113 +675,121 @@ void CSearchOptionsPage::initView(){
   QGridLayout* grid = new QGridLayout(this,11,3);
   grid->setSpacing(3);
 
-	QGroupBox* box1 = new QGroupBox(2, Qt::Horizontal , i18n("Main search parameters"), this);
-  grid->addMultiCellWidget(box1, 0,1,0,2);
-
-  m_modulesLabel = new QLabel(box1);
-  m_modulesLabel->setTextFormat(Qt::RichText);
-  m_modulesLabel->setAlignment( AlignLeft | WordBreak );
-
-  m_chooseModulesButton = new QPushButton(i18n("Choose work(s)"), box1);
-  connect(m_chooseModulesButton, SIGNAL(clicked()),
-	  this, SLOT(chooseModules()));
-  QToolTip::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::tooltip);
-  QWhatsThis::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::whatsthis);
-
-  QLabel* label = new QLabel(box1);
-  label->setText(i18n("Search text:"));
-  m_searchTextCombo = new KHistoryCombo(box1);
-  label->setAutoResize(true);
-
-  m_searchTextCombo->setInsertionPolicy( QComboBox::AtBottom );
-  m_searchTextCombo->setMaxCount(25);
-  m_searchTextCombo->setDuplicatesEnabled(false);
-  m_searchTextCombo->setFocusPolicy(QWidget::WheelFocus);
-  connect( m_searchTextCombo, SIGNAL(activated( const QString& )),
-    m_searchTextCombo, SLOT( addToHistory( const QString& ))
-  );
-  connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),
-    m_searchTextCombo, SLOT(addToHistory(const QString&))
-  );
-
-  QToolTip::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
-  QWhatsThis::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::whatsthis);
-  
-  QButtonGroup* group  = new QButtonGroup(5, Vertical,i18n("Search type"), this);
-    
-  m_multipleWordsRadio = new QRadioButton(i18n("Multiple words (AND)"), group);
-  m_multipleWordsRadio->setChecked( true );
-  QToolTip::add(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::tooltip);
-  QWhatsThis::add(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::whatsthis);
-  m_multipleWordsRadioID = group->id( m_multipleWordsRadio);
+	{
+		QGroupBox* box1 = new QGroupBox(2, Qt::Horizontal , i18n("Main search parameters"), this);
+		grid->addMultiCellWidget(box1, 0,1,0,2);
 	
-  m_multipleWordsORRadio =  new QRadioButton(i18n("Multiple words (OR)"), group);
-  QToolTip::add(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::tooltip);
-  QWhatsThis::add(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::whatsthis);
-  
-  m_exactTextRadio = new QRadioButton(i18n("Exact"), group);
-  QToolTip::add(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::tooltip);
-  QWhatsThis::add(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::whatsthis);
-  m_exactTextRadioID = group->id( m_exactTextRadio);
+		m_modulesLabel = new QLabel(box1);
+		m_modulesLabel->setTextFormat(Qt::RichText);
+		m_modulesLabel->setAlignment( AlignLeft | WordBreak );
 	
-	m_regexpRadio = new QRadioButton(i18n("Regular expression"), group);
-  QToolTip::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::tooltip);
-  QWhatsThis::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::whatsthis);
-	m_regexpRadioID = group->id( m_regexpRadio );
+		m_chooseModulesButton = new QPushButton(i18n("Choose work(s)"), box1);
+		connect(m_chooseModulesButton, SIGNAL(clicked()),
+			this, SLOT(chooseModules()));
+		QToolTip::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::tooltip);
+		QWhatsThis::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::whatsthis);
 	
-  grid->addMultiCellWidget(group, 4,5,0,0);
+		QLabel* label = new QLabel(box1);
+		label->setText(i18n("Search text:"));
+		m_searchTextCombo = new KHistoryCombo(box1);
+		label->setAutoResize(true);
 	
-	connect( group, SIGNAL( clicked(int) ), this, SLOT( searchTypeSelected(int) ) );
-
-  QGroupBox* group2 = new QGroupBox(2, Qt::Vertical,i18n("Search options"), this);
-  
-	m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive"), group2);
-  QToolTip::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::tooltip);
-  QWhatsThis::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::whatsthis);
-
-	QHBox* limitTextBox = new QHBox(group2);
-	limitTextBox->setSpacing(5);
-	new QLabel(i18n("Text type"), limitTextBox);
-	m_textTypeCombo = new KComboBox(limitTextBox);
-	m_textTypeCombo->setEditable(false);
-	m_textTypeCombo->insertItem(QString("Main text"));
-	m_textTypeCombo->insertItem(QString("Footnotes"));
-	m_textTypeCombo->insertItem(QString("Headings"));
-	m_textTypeCombo->insertItem(QString("Strong's numbers"));
-	m_textTypeCombo->insertItem(QString("Morph codes"));
+		m_searchTextCombo->setInsertionPolicy( QComboBox::AtBottom );
+		m_searchTextCombo->setMaxCount(25);
+		m_searchTextCombo->setDuplicatesEnabled(false);
+		m_searchTextCombo->setFocusPolicy(QWidget::WheelFocus);
+		connect( m_searchTextCombo, SIGNAL(activated( const QString& )),
+			m_searchTextCombo, SLOT( addToHistory( const QString& ))
+		);
+		connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),
+			m_searchTextCombo, SLOT(addToHistory(const QString&))
+		);
 	
-	connect(m_textTypeCombo, SIGNAL( activated(int) ), this, SLOT( textTypeSelected() ) );
+		QToolTip::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
+		QWhatsThis::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::whatsthis);
+  }
 	
-//   grid->addWidget(group, 4,2);
-  grid->addWidget(group2, 4,2);
+  {
+		QButtonGroup* group  = new QButtonGroup(5, Vertical,i18n("Search type"), this);
+			
+		m_multipleWordsRadio = new QRadioButton(i18n("Multiple words (AND)"), group);
+		m_multipleWordsRadio->setChecked( true );
+		QToolTip::add(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::tooltip);
+		QWhatsThis::add(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::whatsthis);
+		m_multipleWordsRadioID = group->id( m_multipleWordsRadio);
+		
+		m_multipleWordsORRadio =  new QRadioButton(i18n("Multiple words (OR)"), group);
+		QToolTip::add(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::tooltip);
+		QWhatsThis::add(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::whatsthis);
+		
+		m_exactTextRadio = new QRadioButton(i18n("Exact"), group);
+		QToolTip::add(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::tooltip);
+		QWhatsThis::add(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::whatsthis);
+		m_exactTextRadioID = group->id( m_exactTextRadio);
+		
+		m_regexpRadio = new QRadioButton(i18n("Regular expression"), group);
+		QToolTip::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::tooltip);
+		QWhatsThis::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::whatsthis);
+		m_regexpRadioID = group->id( m_regexpRadio );
+		
+		grid->addMultiCellWidget(group, 4,5,0,0);
+		
+		connect( group, SIGNAL( clicked(int) ), this, SLOT( searchTypeSelected(int) ) );
+	}
 
-	QGroupBox* box2 = new QGroupBox(2, Qt::Vertical , i18n("Search scope"), this);
-//   grid->addMultiCellWidget(box2, 6,7,0,2);
-  grid->addWidget(box2, 5,2);
+  {
+		QGroupBox* group2 = new QGroupBox(2, Qt::Vertical,i18n("Search options"), this);
+		
+		m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive"), group2);
+		QToolTip::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::tooltip);
+		QWhatsThis::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::whatsthis);
+	
+		QHBox* limitTextBox = new QHBox(group2);
+		limitTextBox->setSpacing(5);
+		new QLabel(i18n("Text type"), limitTextBox);
+		m_textTypeCombo = new KComboBox(limitTextBox);
+		m_textTypeCombo->setEditable(false);
+		m_textTypeCombo->insertItem(i18n("Main text"));
+		m_textTypeCombo->insertItem(i18n("Footnotes"));
+		m_textTypeCombo->insertItem(i18n("Headings"));
+		m_textTypeCombo->insertItem(i18n("Strong's numbers"));
+		m_textTypeCombo->insertItem(i18n("Morph codes"));
+		
+		connect(m_textTypeCombo, SIGNAL( activated(int) ), this, SLOT( textTypeSelected() ) );
+		
+		grid->addWidget(group2, 4,2);
+	}
 
-  m_rangeChooserCombo = new KComboBox(box2);
-  QToolTip::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
-  QWhatsThis::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::whatsthis);
+	{
+		QGroupBox* box2 = new QGroupBox(2, Qt::Vertical , i18n("Search scope"), this);
+		grid->addWidget(box2, 5,2);
+	
+		m_rangeChooserCombo = new KComboBox(box2);
+		QToolTip::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
+		QWhatsThis::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::whatsthis);
+	
+		refreshRanges();  
+		m_chooseRangeButton = new QPushButton(i18n("Setup ranges"), box2);
+		connect(m_chooseRangeButton, SIGNAL(clicked()),
+			this, SLOT(setupRanges()));
+		
+		grid->setRowStretch(8,5);
+	}
 
-  refreshRanges();  
-  m_chooseRangeButton = new QPushButton(i18n("Setup ranges"), box2);
-  connect(m_chooseRangeButton, SIGNAL(clicked()),
-    this, SLOT(setupRanges()));
-  
-  grid->setRowStretch(8,5);
-
-	QGroupBox* box3 = new QGroupBox(2, Qt::Horizontal , i18n("Search progress"), this);
-  grid->addMultiCellWidget(box3, 9,10,0,2);
-
-
-  label = new QLabel(i18n("Current work:"), box3);
-	m_currentProgressBar = new KProgress(box3);
-
-  label = new QLabel(i18n("All works:"), box3);
-	m_overallProgressBar = new KProgress(box3);
-
-  //set the initial focus
-  m_searchTextCombo->setFocus();
+	{	
+		QGroupBox* box3 = new QGroupBox(2, Qt::Horizontal , i18n("Search progress"), this);
+		grid->addMultiCellWidget(box3, 9,10,0,2);
+	
+	
+		new QLabel(i18n("Current work:"), box3);
+		m_currentProgressBar = new KProgress(box3);
+	
+		new QLabel(i18n("All works:"), box3);
+		m_overallProgressBar = new KProgress(box3);
+	
+		//set the initial focus
+		m_searchTextCombo->setFocus();
+	}
 }
 
 /** Sets the modules used by the search. */

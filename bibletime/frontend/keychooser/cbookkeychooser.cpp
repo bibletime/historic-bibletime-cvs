@@ -141,7 +141,19 @@ void CBookKeyChooser::setModules(const ListCSwordModuleInfo& modules, const bool
 			CKeyChooserWidget* w = new CKeyChooserWidget(0, false, this); //empty keychooser
 			m_chooserWidgets.append( w );
 			
-			w->comboBox()->setMaximumWidth(200); //don't allow a too high width
+			//don't allow a too high width, try to keep as narrow as possible
+			//to aid users with smaller screen resolutions
+			int totalWidth = 200; //only 1 level
+			if (m_modules.first()->depth() > 1){
+				if (m_modules.first()->depth() > 3)
+					totalWidth = 400; //4+ levels
+				else
+					totalWidth = 300; //2-3 levels
+			}
+			
+			int maxWidth = (int) ((float) totalWidth / (float) m_modules.first()->depth());
+			
+			w->comboBox()->setMaximumWidth(maxWidth); 
 			w->comboBox()->setCurrentItem(0);
 			
 			connect(w, SIGNAL(changed(int)), SLOT(keyChooserChanged(int)));

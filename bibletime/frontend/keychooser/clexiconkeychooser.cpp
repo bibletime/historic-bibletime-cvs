@@ -47,7 +47,11 @@ CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *
   m_layout->setResizeMode(QLayout::FreeResize);
 
 	m_widget = new CKeyChooserWidget(0, false, this);
-	m_widget->comboBox()->setMaximumWidth(450);
+	
+	//don't allow a too high width, try to keep as narrow as possible
+	//to aid users with smaller screen resolutions
+	m_widget->comboBox()->setMaximumWidth(200);
+	
 	m_widget->setToolTips(
     CResMgr::displaywindows::lexiconWindow::entryList::tooltip,
     CResMgr::displaywindows::lexiconWindow::nextEntry::tooltip,
