@@ -67,13 +67,14 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
 
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ){
-//	qWarning("CReadWindow::lookup");	
+	qWarning("CReadWindow::lookup");	
 	if (!newKey)
 		return;
 
 	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
 		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
 	}	
+  qWarning("set the key");
 	if (key() != newKey)
 		key()->key(newKey->key());
 	

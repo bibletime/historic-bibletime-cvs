@@ -126,11 +126,10 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 		w_chapter->reset(m_modules.first()->chapterCount(m_key->book()), chapter-1, false);
 		w_verse->reset(m_modules.first()->verseCount(m_key->book(), chapter), verse-1, false);
 		
-    qWarning("key changed: %s", m_key->key().latin1());
+//    qWarning("key changed: %s", m_key->key().latin1());
     emit keyChanged(m_key);					
 	}
 	else {
-//		qWarning("CBibleKeyChooser::setKey: book %s is invalid!", m_key->book().latin1());
   	w_chapter->comboBox()->setCurrentItem(0);				
  		m_key->Chapter(1);		
 

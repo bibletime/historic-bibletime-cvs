@@ -56,7 +56,6 @@ CSwordModuleInfo* const CSwordVerseKey::module( CSwordModuleInfo* const newModul
 
 /** Returns the current book as Text, not as integer. */
 const QString CSwordVerseKey::book( const QString& newBook ) {
-//  qWarning("CSwordVerseKey::book( const QString& newBook )");
 	int min = 0;
 	int max = 1;
 	
@@ -95,7 +94,6 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 	}
 	if ( Testament() >= min+1 && Testament() <= max+1 && Book() <= BMAX[min] )
 		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-//  qWarning("return standard book: %s", books[min][0].name);
 	return QString::fromLocal8Bit( books[min][0].name ); //return the first book, i.e. Genesis
 }
 
@@ -126,7 +124,6 @@ void CSwordVerseKey::key( const char* newKey ){
 }
 
 const bool CSwordVerseKey::next( const JumpType type ) {
-//  const QString& oldKey = key();
 	switch (type) {
 		case UseBook: {
 			if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
@@ -142,15 +139,17 @@ const bool CSwordVerseKey::next( const JumpType type ) {
     	if (m_module && m_module->module()) {
     		m_module->module()->SetKey(this);	//use this key as base for the next one!	
     		(*(m_module->module()) )++;
-    		if (!m_module->module()->Error())		
+    		if (!m_module->module()->Error()) {
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
-    		else {    			
+        }
+    		else {
 	    	  Verse(Verse()+1);
 	    	  break;
 	    	}
     	}
-    	else
+    	else {
     	  Verse(Verse()+1);
+      }
     	break;
 		}
 		default:	
@@ -159,7 +158,9 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 
   if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
     bool ret = true;
-    if (_compare(bible->lowerBound()) < 0 ) {
+    if (Error())
+      ret = false;
+    else if (_compare(bible->lowerBound()) < 0 ) {
       key( bible->lowerBound() );
       ret = false;
     }
@@ -169,11 +170,12 @@ const bool CSwordVerseKey::next( const JumpType type ) {
     }
     return ret;
   }
+  else if (Error()) //we have no module, so take care of VerseKey::Error()
+    return false;
   return true;
 };
 
 const bool CSwordVerseKey::previous( const JumpType type ) {
-//  const QString& oldKey = key();
 	switch (type) {
 		case UseBook: {
 			if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
@@ -204,9 +206,6 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 	};
 
   if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
-    qWarning("lower bound: %s", bible->lowerBound().key().latin1());
-    qWarning("upper bound: %s", bible->upperBound().key().latin1());
-
     bool ret = true;
     if (_compare(bible->lowerBound()) < 0 ) {
       key( bible->lowerBound() );
@@ -218,6 +217,8 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
     }
     return ret;
   }
+  else if (Error())
+    return false;
   return true;
 };
 

@@ -36,7 +36,6 @@ const QString CSwordTreeKey::key( ){
 
 void CSwordTreeKey::key( const QString& newKey ){
   if (newKey.isEmpty()) {
-//    qWarning("go to root!");
     root();
   }
   else

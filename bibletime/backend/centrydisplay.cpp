@@ -280,8 +280,6 @@ const QString CEntryDisplay::htmlReference( CSwordModuleInfo* module, const QStr
 const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {	
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
-
-
   QString text = QString::null;
 
   CSwordVerseKey key(0);
@@ -292,7 +290,7 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 	
- CSwordModuleInfo* module = modules.first();
+  CSwordModuleInfo* module = modules.first();
   bool ok = true;
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse)) {
     text += entryText(modules, key.key(), keyName);
@@ -387,8 +385,6 @@ const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordM
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
 const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
-  qWarning("CBookDisplay::text: %s", keyName.latin1());
-
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
