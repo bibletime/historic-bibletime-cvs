@@ -29,6 +29,8 @@
 
 CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
 	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
+	if (m_module)
+		SWKey::operator = (m_module->module()->KeyText());
 }
 
 /** No descriptions */

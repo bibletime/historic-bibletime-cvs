@@ -24,7 +24,7 @@
 #include <swmodule.h>
 
 CSwordKey::CSwordKey() {
-	m_module = 0;
+	m_module = 0;	
 }
 
 CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {
@@ -34,7 +34,7 @@ CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {
 }
 
 const QString CSwordKey::renderedText() {
-	qDebug("CSwordKey::renderedText");
+//	qDebug("CSwordKey::renderedText");
 	if (!m_module)
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);

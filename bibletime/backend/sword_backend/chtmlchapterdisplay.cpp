@@ -90,12 +90,12 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		
 	VerseKey* vk = (VerseKey*)(SWKey*)*module;
 	CSwordVerseKey key(moduleList->first());
-	key.Persist(1);
+//	key.Persist(1);
 	key.key((const char*)*vk);
 
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
-	const int chosenVerse = key.Verse();	
+	const int chosenVerse = key.Verse();
 	const int width=(int)((double)97/(double)moduleList->count());
 	CSwordModuleInfo *d = 0;
 			
@@ -116,23 +116,24 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		
 	QString rowText   = QString::null;
 	int currentVerse = 0;
-	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); /*(*module)++*/key.NextVerse() ) {
+	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.NextVerse()) {
+		const QString currentKey = key.key();
 		currentVerse = key.Verse();
-//		const QString direction = (module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr";		
 		rowText = QString::fromLatin1("<TR><TD bgcolor=\"#F1F1F1\"><B><A NAME=\"%1\" HREF=\"sword://%2\">%3</A></B></TD>\n")
 			.arg(currentVerse)
-			.arg(key.key())
+			.arg(currentKey)
 			.arg(currentVerse);
 		m = (d = moduleList->first()) ? d->module() : 0;
 		while (m) {
-			m->SetKey(key);
+			CSwordVerseKey current(d);
+			current.key(currentKey);
 			rowText += QString::fromLatin1("<TD %1 BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\" %5>%6</FONT></TD>\n")
 				.arg(QString::fromLatin1("width=\"%1%\"").arg(width))
 				.arg(currentVerse % 2 ? "white" : "#F1F1F1")
 				.arg(fontMap.contains(d) ? fontMap[d].family() : m_standardFontName)
 				.arg(fontMap.contains(d) ? CToolClass::makeLogicFontSize(fontMap[d].pointSize()) : m_standardFontSize)
 				.arg((currentVerse == chosenVerse) ? QString::fromLatin1("color=\"%1\"").arg(m_highlightedVerseColor) : QString::null)
-				.arg(CSwordVerseKey(d).renderedText());
+				.arg(current.renderedText());
 			m = (d = moduleList->next()) ? d->module() : 0;
 		}
 		m_htmlText.append(rowText + QString::fromLatin1("</TR>\n"));
@@ -140,5 +141,5 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	m_htmlText.append( QString::fromLatin1("</TABLE>")+m_htmlBody );		
 	
 	//clean up
-	return 0;		
+	return 1;		
 }

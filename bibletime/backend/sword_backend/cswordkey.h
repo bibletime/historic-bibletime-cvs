@@ -45,9 +45,8 @@ public:
 
 protected:
 	CSwordModuleInfo* m_module;
-
-protected:
 	CSwordKey();
+	QString m_oldKey;
 };
 
 #endif

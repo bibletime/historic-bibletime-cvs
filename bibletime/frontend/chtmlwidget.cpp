@@ -265,16 +265,16 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 	 		CToolClass::decodeReference(str,mod,ref);
 	 		if (m_important){
 	 			CSwordModuleInfo* module = m_important->swordBackend->findModuleByName(mod);
-		 		if (module) {
-	 				if (module->getType() == CSwordModuleInfo::Bible || module->getType() == CSwordModuleInfo::Commentary) {
-	 					CSwordVerseKey vk(module);
-	 					vk.key(ref);
-	 					text = vk.strippedText();
-	 				}
-	 				else if (module->getType() == CSwordModuleInfo::Lexicon) {
-	 					CSwordLDKey ld(module);
-	 					text = ld.strippedText();
-	 				}
+		 		if (module) {		 			
+		 			CSwordKey* key = 0;
+	 				if (module->getType() == CSwordModuleInfo::Bible || module->getType() == CSwordModuleInfo::Commentary)
+	 					key = new CSwordVerseKey(module);
+	 				else if (module->getType() == CSwordModuleInfo::Lexicon)
+	 					key = new CSwordLDKey(module);
+ 					
+ 					key->key(ref);
+ 					text = key->strippedText();	 				
+ 					delete key;
 		 		}
 		 	}
 		}

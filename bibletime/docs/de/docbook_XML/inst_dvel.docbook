@@ -13,8 +13,7 @@ cvs -z3 -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co
 </screen>
 
 <para>
-Updates innerhalb eines Verzeichnisses des Modules benötigen
-den -d Parameter nicht.
+Updates innerhalb eines Verzeichnisses des Modules benötigen den -d Parameter nicht.
 </para>
 </section>
 
@@ -23,15 +22,14 @@ den -d Parameter nicht.
 Nur Entwickler des Projektes haben mit dieser Methode Zugriff auf den
 CVS Baum.  SSH1 muss auf ihrem Rechner installiert sein. Ersetzen Sie
 <emphasis>Modulname</emphasis> und <emphasis>Entwicklername</emphasis>
-mit den richtigen Werten.
-Geben Sie Ihr Passwort ein, wenn Sie dazu aufgefordert werden.
+mit den richtigen Werten. Geben Sie Ihr Passwort ein, wenn Sie dazu aufgefordert werden.
 </Para>
 
 <para>Wie man eine frische Kopie von BibleTime bekommt</para>
 
 <screen>
 cd $home/<emphasis>ihr Enwicklungsverzeichnis</emphasis>
-export CVS_RSH=ssh      # Die Aktivierung von ssh ist nur einmal pro Sitzung erfordelich
+export CVS_RSH=ssh      # Die Aktivierung von ssh ist nur einmal pro Sitzung erforderlich
 cvs -z3 -d:ext:<emphasis>Entwicklernamename</emphasis>@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <emphasis>Modulename</emphasis>
 </screen>
 
@@ -47,7 +45,7 @@ cvs -z5 commit -m "<emphasis>Kommentare für diesen Commit</emphasis>"
 
 <para>Wie Sie neue Dateien hinzufügen, die Sie erzeugt haben</para>
 <screen>
-cvs -z5 add <emphasis>meine_neue_dateie</emphasis>
+cvs -z5 add <emphasis>meine_neue_dateien</emphasis>
 </screen>
 </section>
 
