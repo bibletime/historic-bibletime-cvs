@@ -110,8 +110,8 @@ const QString CSwordModuleInfo::getCipherKey() const {
 	if (!isEncrypted())
 		return QString::null;
 		
-	string key = (*m_backend->getConfig())[name().latin1()]["CipherKey"];		
-	if (strlen(key.c_str()))
+	const string key = (*m_backend->getConfig())[name().latin1()]["CipherKey"];		
+	if (key.length())
 		return QString::fromLocal8Bit( key.c_str() );
 	else
 		return QString::null;
@@ -119,7 +119,6 @@ const QString CSwordModuleInfo::getCipherKey() const {
 
 /** Returns the description of the module */
 const QString CSwordModuleInfo::getDescription() const {
-//#warning Use Unicode???
 	return QString::fromLocal8Bit( m_module->Description() );
 }
 
@@ -143,17 +142,14 @@ const QString CSwordModuleInfo::getAboutInformation() const {
 /** Returns the version number of this module. */
 const QString CSwordModuleInfo::getVersion() const{
 	const string version = (*m_backend->getConfig())[name().latin1()]["Version"];
-	if (strlen( version.c_str() ))
+	if (version.length())
 		return QString::fromLocal8Bit( version.c_str() );
 	return  QString::null;
 }
 
-/** Returns the version number of this module. */
 const bool CSwordModuleInfo::hasVersion() const {
 	const string version = (*m_backend->getConfig())[name().latin1()]["Version"];
-	if (strlen( version.c_str() ))
-		return true;
-	return  false;
+	return version.length();
 }
 
 

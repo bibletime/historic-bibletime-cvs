@@ -552,23 +552,30 @@ void CGroupManager::slotShowAbout(){
 	QString text;	
 
   if (module->hasVersion())
-    text += i18n("<b>Version:</b> %1<br>").arg(module->getVersion());
+    text += i18n("<b>%1:</b> %2<br>")
+    	.arg(i18n("Version"))
+    	.arg(module->getVersion());
 
-	text += i18n("<b>Location:</b> %1<br><b>Language:</b> %2<br>")
-	.arg(m_important->swordBackend->getModulePath(module->name())/*module->getPath()*/)
-	.arg(module->module()->Lang());
+	text += QString::fromLatin1("<b>%1:</b> %2<br><b>%3:</b> %4<br>")
+		.arg(i18n("Location"))
+		.arg(m_important->swordBackend->getModulePath(module->name()))
+		.arg(i18n("Language"))
+		.arg(module->module()->Lang());
 
 	if (module->module()->isWritable())
-		text += i18n("<b>Writable:</b> yes<br>");
+		text += QString::fromLatin1("<b>%1:</b> %2<br>")
+							.arg(i18n("Writable"))
+							.arg(i18n("yes"));
 
 	if ( module->isEncrypted() )
-		text += i18n("<b>Unlock key:</b> %1<br>")
-			.arg(module->getCipherKey());	
+		text += QString::fromLatin1("<b>%1:</b> %2<br>")
+							.arg(i18n("Unlock key"))
+							.arg(module->getCipherKey());	
 
-	if (!module->isUnicode())
-		text += i18n("<b>Encoding:</b> Unicode<br>");
+	if (module->isUnicode())
+		text += QString::fromLatin1("<b>%1:</b> %2<br>").arg(i18n("Encoding")).arg(i18n("Unicode"));
 	else
-		text += i18n("<b>Encoding:</b> iso8859-1<br>");		
+		text += QString::fromLatin1("<b>%1:</b> %2<br>").arg(i18n("Encoding")).arg(i18n("iso8859-1"));
 
 	QString options;
 	unsigned int opts;
@@ -580,11 +587,15 @@ void CGroupManager::slotShowAbout(){
 		}
 	}
 	if (!options.isEmpty())
-		text += QString("<b>Features:</b> %1<br>").arg(options);
+		text += QString("<b>%1:</b> %2<br>")
+			.arg(i18n("Features"))
+			.arg(options);
 
-	text += QString("<b>About:</b><br> <font size=\"-1\">%1</font>").arg(module->getAboutInformation());
+	text += QString::fromLatin1("<b>%1:</b><br> <font size=\"-1\">%2</font>")
+						.arg("About")
+						.arg(module->getAboutInformation());
 
-	KMessageBox::about(this, text, QString(module->getDescription()), false);
+	KMessageBox::about(this, text, module->getDescription(), false);
 }
 
 /**  */

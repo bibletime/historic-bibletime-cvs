@@ -237,15 +237,27 @@ const QString CGroupManagerItem::getToolTip(){
 		{
 			text = i18n("Module") + QString::fromLatin1(": <B>%1</B><HR>").arg( moduleInfo()->name() );
 			text += moduleInfo()->getDescription() + QString::fromLatin1("<HR>");
-			text += i18n("Language:")+ QString::fromLatin1(" %1<BR>").arg(moduleInfo()->module()->Lang());
-			text += i18n("Foonotes:")+ QString::fromLatin1(" %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::footnotes) ? i18n("Yes") : i18n("No"));
-			text += i18n("Strong's numbers: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::strongNumbers) ? i18n("Yes") : i18n("No"));
+			text += i18n("Language")+ QString::fromLatin1(": %1<BR>").arg(moduleInfo()->module()->Lang());
 			if (moduleInfo()->isEncrypted())
-				text += i18n("Unlock key:") + QString::fromLatin1(" %1<BR>").arg(!moduleInfo()->getCipherKey().isEmpty() ? moduleInfo()->getCipherKey() : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
-			if (!moduleInfo()->getVersion().isEmpty())
-				text += i18n("Version:") + QString::fromLatin1(" %1<BR>").arg(moduleInfo()->getVersion());
+				text += i18n("Unlock key") + QString::fromLatin1(": %1<BR>")
+					.arg(!moduleInfo()->getCipherKey().isEmpty() ? moduleInfo()->getCipherKey() : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
+			if (moduleInfo()->hasVersion())
+				text += i18n("Version") + QString::fromLatin1(": %1<BR>").arg(moduleInfo()->getVersion());
+     	     	
+     	QString options;
+     	unsigned int opts;
+     	for (opts = CSwordBackend::moduleOptionsMIN; opts <= CSwordBackend::moduleOptionsMAX; ++opts){
+     		if (moduleInfo()->supportsFeature( (CSwordBackend::moduleOptions) opts)){
+       		if (!options.isEmpty())
+       			options += QString::fromLatin1(", ");
+       		options += CSwordBackend::getTranslatedOptionName( (CSwordBackend::moduleOptions) opts);
+     		}
+     	}
+     	if (!options.isEmpty())
+     		text += i18n("Options") + QString::fromLatin1(": <font size= \"-1\">") + options + QString::fromLatin1("</font>");
+     		
 			if (text.right(4) == QString::fromLatin1("<BR>"))
-				text = text.left(text.length()-4);
+				text = text.left(text.length()-4);     		
 			return text;
 		}
 		case Group:
