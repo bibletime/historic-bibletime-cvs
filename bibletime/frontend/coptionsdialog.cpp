@@ -299,9 +299,10 @@ void COptionsDialog::initDisplayStyle(){
 	gridLayout->addMultiCellWidget(label,1,1,0,-1);
 	gridLayout->addMultiCellWidget(m_settings.displayStyle.styleChooser,2,2,0,-1);
 
-	CDisplayTemplateMgr tMgr;
-	m_settings.displayStyle.styleChooser->insertStringList( tMgr.availableTemplates() );
+	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager(); 
+	m_settings.displayStyle.styleChooser->insertStringList( tMgr->availableTemplates() );
 	QListBoxItem*  i = m_settings.displayStyle.styleChooser->findItem( CBTConfig::get(CBTConfig::displayStyle), Qt::CaseSensitive );
+	
 	if ( i ) {
 		m_settings.displayStyle.styleChooser->setCurrentItem( i );
 	}

@@ -30,30 +30,32 @@ Manages the display templates used in the filters and display classes.
 */
 class CDisplayTemplateMgr{
 public:
-    struct Settings {
-			Settings() {
-				title = QString::null;
-				langAbbrev = QString::null;
-				pageCSS_ID = QString::null;
-			};
-			
-			ListCSwordModuleInfo modules;
-			QString title;
-			QString langAbbrev;
-			QString pageCSS_ID;
+	struct Settings {
+		Settings() {
+			title = QString::null;
+			langAbbrev = QString::null;
+			pageCSS_ID = QString::null;
 		};
 		
-		CDisplayTemplateMgr();
-    ~CDisplayTemplateMgr();
-		
-    inline const QStringList availableTemplates();
-    const QString fillTemplate( const QString& name, const QString& content, Settings& settings);
-    
-		inline static const QString defaultTemplate();
+		ListCSwordModuleInfo modules;
+		QString title;
+		QString langAbbrev;
+		QString pageCSS_ID;
+	};
+	
+	inline const QStringList availableTemplates();
+	const QString fillTemplate( const QString& name, const QString& content, Settings& settings);
+	
+	inline static const QString defaultTemplate();
 
-private:
-    void init();
-		QMap<QString, QString> m_templateMap;
+protected:
+	friend class CPointers;
+	CDisplayTemplateMgr();
+	~CDisplayTemplateMgr();
+
+private:	
+	void init();
+	QMap<QString, QString> m_templateMap;
 };
 
 inline const QString CDisplayTemplateMgr::defaultTemplate() {

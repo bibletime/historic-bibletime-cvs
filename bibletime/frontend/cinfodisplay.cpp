@@ -92,18 +92,14 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 		};
 	}
 	
-// 	qWarning("rendering text %s", text.latin1());
-	CDisplayTemplateMgr mgr;
+	CDisplayTemplateMgr* mgr = CPointers::displayTemplateManager();
 	CDisplayTemplateMgr::Settings settings;
 	settings.pageCSS_ID = "infodisplay";
-	QString content = mgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
-	
-//  	qWarning("html: %s", content.latin1());
+	QString content = mgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
 	
 	m_htmlPart->begin();
 	m_htmlPart->write( content );
 	m_htmlPart->end();
-// 	m_htmlPart->view()->layout();
 }
 
 
@@ -262,12 +258,12 @@ const QString CInfoDisplay::getWordTranslation( const QString& data ) {
     \fn CInfoDisplay::clearInfo()
  */
 void CInfoDisplay::clearInfo() {
-	CDisplayTemplateMgr tmgr;
+	CDisplayTemplateMgr* tmgr = CPointers::displayTemplateManager();
 	CDisplayTemplateMgr::Settings settings;
 	settings.pageCSS_ID = "infodisplay";
 	
 	m_htmlPart->begin();
-	m_htmlPart->write( tmgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, settings) );
+	m_htmlPart->write( tmgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, settings) );
 	m_htmlPart->end();
 }
 

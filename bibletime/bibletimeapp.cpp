@@ -26,10 +26,11 @@ BibleTimeApp::BibleTimeApp(){
 }
 
 BibleTimeApp::~BibleTimeApp(){
-  if (backend()) {
-    deleteBackend();
-  }
-
+  deleteBackend();
+/*	deleteLanguageMgr();
+	deleteDisplayTemplateMgr();
+	deletePrinter();*/
+		
   //we can set this safely now because we close now (hopyfully without crash)
   CBTConfig::set(CBTConfig::crashedLastTime, false);
   CBTConfig::set(CBTConfig::crashedTwoTimes, false);

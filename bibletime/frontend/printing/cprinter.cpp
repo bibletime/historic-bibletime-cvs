@@ -163,6 +163,6 @@ const QString CPrinter::finishText(const QString& text, KeyTree& tree)
 		?	lang->abbrev() 
 		: "unknown";
 
-	CDisplayTemplateMgr tMgr;	
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
+	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager(); 	
+	return tMgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
 }

@@ -27,8 +27,10 @@
 #include "bt_thmlhtml.h"
 #include "bt_osishtml.h"
 #include "bt_gbfhtml.h"
+
 #include <dirent.h>
 #include <unistd.h>
+#include <ctype.h>
 
 //Qt includes
 #include <qdir.h>
@@ -36,6 +38,7 @@
 
 //KDE includes
 #include <klocale.h>
+#include <kstringhandler.h>
 
 //Sword includes
 #include <swdisp.h>
@@ -51,16 +54,35 @@ using std::string;
 
 char* BTStringMgr::upperUTF8(char* text, const unsigned int maxlen) {
 	const int max = (maxlen>0) ? maxlen : strlen(text);
-	const QString t = QString::fromUtf8(text).upper();
-	strncpy(text, (const char*)t.utf8(), max);
 	
+	if (KStringHandler::isUtf8(text)) {
+		strncpy(text, (const char*)QString::fromUtf8(text).upper().utf8(), max);
+	
+		return text;
+	}
+	else {
+// 		strncpy(text, (const char*)QString::fromLatin1(text).upper().latin1(), max);
+		char* ret = text;	
+		while (*text) {
+			*text = toupper(*text);
+			text++;
+		}
+		
+		return ret;
+	}
+	
+		
 	return text;
 }
 
 char* BTStringMgr::upperLatin1(char* text) {
-	const QString t = QString::fromLatin1(text).upper();
-	strncpy(text, (const char*)t.latin1(), strlen(text));
+// 	strncpy(text, (const char*)QString::fromLatin1(text).upper().latin1(), strlen(text));
 
+	char* ret = text;	
+	while (*text) {
+		*text++ = toupper(*text);
+	}
+	
 	return text;
 }
 

@@ -178,8 +178,6 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 }
 
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
-// 	qWarning("rendering for %s", i.key().latin1());
-
 	ListCSwordModuleInfo modules = i.modules();	
 	Q_ASSERT(modules.count() > 0);
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
@@ -252,16 +250,16 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
 		
 		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
-			KeyTree::const_iterator end = tree->constEnd();
+			const KeyTree::const_iterator end = tree->constEnd();
 			
 			for ( KeyTree::const_iterator it = tree->constBegin(); it != end; ++it ) {
 				entry += renderEntry( **it );
 			}
 		}
 		
-		entry += (m_displayOptions.lineBreaks 
+		entry += m_displayOptions.lineBreaks
 			? QString::fromLatin1("</div>") 
-			: QString::fromLatin1("</span>"));
+			: QString::fromLatin1("</span>");
 		
   	if (modules.count() == 1) {
 			renderedText += entry;
@@ -289,19 +287,18 @@ void CHTMLExportRendering::initRendering() {
 
 const QString CHTMLExportRendering::finishText( const QString& text, KeyTree& tree ) {
 	ListCSwordModuleInfo modules = tree.collectModules();
-	
+
 	const CLanguageMgr::Language* const lang = modules.first()->language();
-	
-	CDisplayTemplateMgr tMgr;
+
+	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
 	CDisplayTemplateMgr::Settings settings;
 	settings.modules = modules;
 	settings.langAbbrev = ((modules.count() == 1) && lang->isValid())
 		?	lang->abbrev() 
 		: "unknown";
 
-	return tMgr.fillTemplate(i18n("Export"), text, settings);
+	return tMgr->fillTemplate(i18n("Export"), text, settings);
 }
-
 
 /*!
     \fn CHTMLExportRendering::entryLink( KeyTreeItem& item )
@@ -315,7 +312,6 @@ CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOption
 {
 
 }
-
 
 const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
 	QString linkText;
@@ -395,14 +391,14 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	
 	const CLanguageMgr::Language* const lang = modules.first()->language();
 	
-	CDisplayTemplateMgr tMgr;
+	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
 	CDisplayTemplateMgr::Settings settings;
 	settings.modules = modules;
 	settings.langAbbrev = ((modules.count() == 1) && lang->isValid())
 		?	lang->abbrev() 
 		: QString::null;
 
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), oldText, settings);
+	return tMgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), oldText, settings);
 }
 
 

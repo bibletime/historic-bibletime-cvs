@@ -25,6 +25,7 @@ class CSwordBackend;
 class CPrinter;
 class CLanguageMgr;
 class CInfoDisplay;
+class CDisplayTemplateMgr;
 
 /** Holds the pointers to important classes like modules, backend etc.
   * @author The BibleTime team
@@ -38,8 +39,11 @@ protected:
 	static void setBackend(CSwordBackend* const);
 	static void setPrinter(CPrinter* const);
 	static void setInfoDisplay(CInfoDisplay* const);
+	
 	static void deleteBackend();
 	static void deletePrinter();
+	static void deleteLanguageMgr();
+	static void deleteDisplayTemplateMgr();
 
 public: // Public methods
   /**
@@ -52,6 +56,7 @@ public: // Public methods
   inline static CSwordBackend* const backend();
   inline static CLanguageMgr* const languageMgr();
 	inline static CInfoDisplay* const infoDisplay();  
+	static CDisplayTemplateMgr* const displayTemplateManager();
 
 	struct PointerCache {
 		PointerCache() {
@@ -59,14 +64,15 @@ public: // Public methods
 			printer = 0;
 			langMgr = 0;
 			infoDisplay = 0;
+			displayTemplateMgr = 0;
 		};
 		
 		CSwordBackend* backend;
 		CPrinter*      printer;
 		CLanguageMgr*  langMgr;
 		CInfoDisplay*  infoDisplay;
+		CDisplayTemplateMgr* displayTemplateMgr;
 	};
-
 };
 
 extern CPointers::PointerCache m_pointerCache;
