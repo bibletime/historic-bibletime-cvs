@@ -36,7 +36,7 @@ class KPopupMenu;
   * which can be displayed together with the first one.
   * @author The BibleTime team
   */
-class CModuleChooserButton : public QToolButton, public CPointers  {
+class CModuleChooserButton : public KToolBarButton, public CPointers  {
    Q_OBJECT
 public: 
 	CModuleChooserButton(CSwordModuleInfo* useModule, CSwordModuleInfo::ModuleType type, const int id, QWidget *parent = 0, const char *name = 0 );

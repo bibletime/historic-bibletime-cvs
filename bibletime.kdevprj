@@ -35,7 +35,7 @@ dir_where_make_will_be_called=./
 email=info@bibletime.de
 execute_args=--debug --ignore-startprofile
 kdevprj_version=1.3
-lfv_open_groups=Ressource files
+lfv_open_groups=
 make_options=\s-j1
 makefiles=bibletime/backend/sword_backend/Makefile.am,bibletime/backend/Makefile.am,bibletime/Makefile.am,bibletime/frontend/Makefile.am,bibletime/frontend/presenters/Makefile.am,bibletime/frontend/groupmanager/Makefile.am,bibletime/frontend/optionsdialog/Makefile.am,bibletime/frontend/searchdialog/Makefile.am,AUTHORS.in,TODO.in,bibletime.lsm.in,bibletime.spec.in,README.in,INSTALL.in,bibletime/docs/en/helpdialog/Makefile.am,bibletime/docs/de/helpdialog/Makefile.am,bibletime/pics/lowcolor/16*16/Makefile.am,bibletime/pics/lowcolor/Makefile.am,bibletime/pics/highcolor/16*16/Makefile.am,bibletime/pics/highcolor/Makefile.am,bibletime/pics/highcolor/22*22/Makefile.am,bibletime/pics/highcolor/32*32/Makefile.am,bibletime/pics/lowcolor/32*32/Makefile.am,bibletime/pics/lowcolor/22*22/Makefile.am,bibletime/pics/highcolor/48*48/Makefile.am,doc/Makefile.am,bibletime/printing/Makefile.am,bibletime/docs/sk/Makefile.am,bibletime/libhtmlparse/Makefile.am,bibletime/frontend/keychooser/Makefile.am,bibletime/xml/Makefile.am,README,INSTALL,bibletime.lsm,AUTHORS,TODO,bibletime.spec,admin/Makefile.am,bibletime/docs/Makefile.am,bibletime/docs/en/Makefile.am,po/Makefile.am,bibletime/docs/de/Makefile.am,bibletime/pics/Makefile.am,Makefile.am,bibletime/docs/development/Makefile.am,bibletime/frontend/thirdparty/Makefile.am,bibletime/docs/en/handbook/Makefile.am,bibletime/docs/en/handbook/common/Makefile.am,bibletime/frontend/thirdparty/qt3stuff/Makefile.am,bibletime/util/Makefile.am,bibletime/frontend/display/Makefile.am,bibletime/frontend/displaywindow/Makefile.am,bibletime/frontend/mainindex/Makefile.am,setupwizard/Makefile.am
 modifyMakefiles=false
@@ -733,11 +733,7 @@ install_location=
 type=HEADER
 
 [bibletime/frontend/display/Makefile.am]
-dist=true
-files=bibletime/frontend/display/Makefile.am,bibletime/frontend/display/cdisplay.cpp,bibletime/frontend/display/cdisplay.h,bibletime/frontend/display/creaddisplay.cpp,bibletime/frontend/display/creaddisplay.h,bibletime/frontend/display/cwritedisplay.cpp,bibletime/frontend/display/cwritedisplay.h,bibletime/frontend/display/chtmlreaddisplay.cpp,bibletime/frontend/display/chtmlreaddisplay.h
-install=false
-install_location=
-sub_dirs=
+files=bibletime/frontend/display/cdisplay.cpp,bibletime/frontend/display/cdisplay.h,bibletime/frontend/display/chtmlreaddisplay.cpp,bibletime/frontend/display/chtmlreaddisplay.h,bibletime/frontend/display/cwritedisplay.cpp,bibletime/frontend/display/cwritedisplay.h,bibletime/frontend/display/creaddisplay.cpp,bibletime/frontend/display/creaddisplay.h
 type=static_library
 
 [bibletime/frontend/display/cdisplay.cpp]
@@ -789,13 +785,7 @@ install_location=
 type=HEADER
 
 [bibletime/frontend/displaywindow/Makefile.am]
-dist=true
-files=bibletime/frontend/displaywindow/cdisplaywindow.cpp,bibletime/frontend/displaywindow/cdisplaywindow.h,bibletime/frontend/displaywindow/creadwindow.cpp,bibletime/frontend/displaywindow/creadwindow.h,bibletime/frontend/displaywindow/cwritewindow.cpp,bibletime/frontend/displaywindow/cwritewindow.h,bibletime/frontend/displaywindow/cbiblereadwindow.cpp,bibletime/frontend/displaywindow/cbiblereadwindow.h,bibletime/frontend/displaywindow/ccommentaryreadwindow.cpp,bibletime/frontend/displaywindow/ccommentaryreadwindow.h,bibletime/frontend/displaywindow/clexiconreadwindow.cpp,bibletime/frontend/displaywindow/clexiconreadwindow.h,bibletime/frontend/displaywindow/cbookreadwindow.cpp,bibletime/frontend/displaywindow/cbookreadwindow.h,bibletime/frontend/displaywindow/Makefile.am,bibletime/frontend/displaywindow/cmodulechooserbutton.cpp,bibletime/frontend/displaywindow/cmodulechooserbar.h,bibletime/frontend/displaywindow/cmodulechooserbar.cpp,bibletime/frontend/displaywindow/cmodulechooserbutton.h,bibletime/frontend/displaywindow/cbuttons.cpp,bibletime/frontend/displaywindow/cbuttons.h
-install=false
-install_location=
-sharedlib_LDFLAGS=-version-info 0:0:0
-sharedlib_rootname=displaywindow
-sub_dirs=
+files=bibletime/frontend/displaywindow/cbiblereadwindow.cpp,bibletime/frontend/displaywindow/cbiblereadwindow.h,bibletime/frontend/displaywindow/cbuttons.cpp,bibletime/frontend/displaywindow/cbuttons.h,bibletime/frontend/displaywindow/cdisplaywindow.cpp,bibletime/frontend/displaywindow/cdisplaywindow.h,bibletime/frontend/displaywindow/clexiconreadwindow.cpp,bibletime/frontend/displaywindow/clexiconreadwindow.h,bibletime/frontend/displaywindow/cmodulechooserbar.h,bibletime/frontend/displaywindow/cmodulechooserbar.cpp,bibletime/frontend/displaywindow/cbookreadwindow.cpp,bibletime/frontend/displaywindow/cbookreadwindow.h,bibletime/frontend/displaywindow/ccommentaryreadwindow.cpp,bibletime/frontend/displaywindow/ccommentaryreadwindow.h,bibletime/frontend/displaywindow/cmodulechooserbutton.cpp,bibletime/frontend/displaywindow/cmodulechooserbutton.h,bibletime/frontend/displaywindow/creadwindow.cpp,bibletime/frontend/displaywindow/creadwindow.h,bibletime/frontend/displaywindow/cwritewindow.cpp,bibletime/frontend/displaywindow/cwritewindow.h
 type=static_library
 
 [bibletime/frontend/displaywindow/cbiblereadwindow.cpp]
@@ -1101,14 +1091,6 @@ install=false
 install_location=
 type=HEADER
 
-[bibletime/frontend/searchdialog/Makefile.am]
-dist=true
-files=bibletime/frontend/searchdialog/csearchdialog.h,bibletime/frontend/searchdialog/csearchdialog.cpp,bibletime/frontend/searchdialog/Makefile.am,bibletime/frontend/searchdialog/csearchdialogpages.cpp,bibletime/frontend/searchdialog/csearchdialogpages.h
-install=false
-install_location=
-sub_dirs=
-type=static_library
-
 [bibletime/frontend/searchdialog/csearchdialog.cpp]
 dist=true
 install=false
@@ -1132,14 +1114,6 @@ dist=true
 install=false
 install_location=
 type=HEADER
-
-[bibletime/frontend/thirdparty/qt3stuff/Makefile.am]
-dist=true
-files=bibletime/frontend/thirdparty/qt3stuff/Makefile.am
-install=false
-install_location=
-sub_dirs=
-type=static_library
 
 [bibletime/libhtmlparse/Makefile.am]
 files=

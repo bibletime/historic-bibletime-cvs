@@ -35,7 +35,7 @@
 /**
   * @author The BibleTime team
   */
-class CModuleChooserBar : public QHBox  {
+class CModuleChooserBar : public KToolBar  {
    Q_OBJECT
 public: 
 	/**

@@ -31,7 +31,7 @@
 #include <kiconloader.h>
 
 CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent, const char *name )
-	: QToolButton(parent,name), m_id(id), m_popup(0) {
+	: KToolBarButton(iconName(), id, parent,name), m_id(id), m_popup(0) {
 
   m_moduleType = type;	
 	m_module = useModule;
@@ -40,7 +40,7 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
   else
     m_hasModule = true;
 	
-	setIconSet( BarIconSet(iconName()) );
+	setIcon( iconName() );
 	setPopupDelay(0);
 //  setAutoRaise(true);
 
@@ -113,7 +113,7 @@ void CModuleChooserButton::moduleChosen( int ID ){
  	    emit sigAddButton();
  		m_hasModule = true;  	
  		m_module = module();
-  	setIconSet( BarIconSet(iconName()) );
+  	setIcon( iconName() );
    	emit sigChanged();
      	
    	QToolTip::remove(this);
@@ -144,7 +144,7 @@ void CModuleChooserButton::populateMenu(){
   //the modules list contains only the modules we can use, i.e. same type and same features
   ListCSwordModuleInfo modules;
   ListCSwordModuleInfo allMods = backend()->moduleList();
-//
+
   for (allMods.first(); allMods.current(); allMods.next()) {
     if (allMods.current()->type() != m_moduleType)
       continue;

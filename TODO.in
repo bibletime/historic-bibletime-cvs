@@ -1,34 +1,8 @@
-ToDo file for BibleTime @VERSION@
-
-Help wanted
------------
-
-We do especially need developers, but there are also other jobs like
-documentation writing, translating, artwork etc.
-For further information, see www.bibletime.de
-and www.sourceforge.net/projects/bibletime.
-
-Important unimplemented things:
--------------------------------
-	-searchdialog
-		o Better interface so it's more easy to use (thanks to Dre for the suggestions)
-		o perhaps RegExp edit widget (later)
-	-Installmanager
-	-Morphological analysis (maybe in 2.0 :)
-
-Things which should be optimized:
----------------------------------
-	[partly] Search for mem leaks
-	[partly] Optmize memory usage
-	[partly] Check BibleTime with a profiler and optimize the time consuming functions
-
-Features we are thinking about:
-------------------------------
-	-Commandline options: Implement commandline options to control BibleTime
-	  (e.g. open presenters, lookup verses and exit, import bookmarks and exit etc.	)
-
-	
-For a more up-to-date list of task please have a look at www.sourceforge.net/projects/bibletime/!
-
+This ToDo file is not maintained any more. Please visit the BibleTime project webpages
+at www.sf.net/projects/bibletime.
+The task tracker will help you to get an overview what is planned for the next versions of BibleTime.
 
 Thank you!
+The BibleTime team <info@bibletime.de>
+
+

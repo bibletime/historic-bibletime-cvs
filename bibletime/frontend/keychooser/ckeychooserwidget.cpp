@@ -181,7 +181,7 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	oldKey = QString::null;
 
   //DON'T REMOVE THE HIDE: Otherwise QComboBox's sizeHint() function won't work properly
-  m_comboBox->setUpdatesEnabled(false);
+//  m_comboBox->setUpdatesEnabled(false);
   m_comboBox->hide();
   m_comboBox->clear(); 
 	if (list) {
@@ -209,7 +209,9 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
   qWarning("combo size hint: %i x %i", m_comboBox->sizeHint().width(), m_comboBox->sizeHint().height());
   //DON'T REMOVE OR MOVE THE show()! Otherwise QComboBox's sizeHint() function won't work properly!
   m_comboBox->show();
-  m_comboBox->setUpdatesEnabled(true);
+
+//  m_comboBox->setFont( m_comboBox->font() );
+//  m_comboBox->setUpdatesEnabled(true);
 
 	isResetting = false;	
 }
