@@ -191,13 +191,14 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	int i, id;
 	for ( i = 0; i < int(windows.count()); ++i ) {
     QString caption;
-		CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(windows.at(i));
+/*		CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(windows.at(i));
     if (window) {
-      caption = QString::fromLatin1("%1 (%2)").arg(window->caption()).arg(window->key()->key());
+//       caption = QString::fromLatin1("%1 (%2)").arg(window->caption()).arg(window->key()->key());
+			caption = window->caption();
 		}
-    else {
+    else {*/
       caption = windows.at(i)->caption();
-		}
+// 		}
 		
 		id = m_windowMenu->insertItem(QString::fromLatin1("&%1 ").arg(i+1) + caption,
 			this, SLOT(slotWindowMenuActivated( int )) );

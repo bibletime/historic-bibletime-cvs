@@ -225,3 +225,15 @@ void CMDIArea::myCascade(){
   }
 }
 
+
+
+/*!
+    \fn CMDIArea::emitWindowCaptionChanged()
+ */
+void CMDIArea::emitWindowCaptionChanged() {
+	if (activeWindow()) {
+		m_appCaption = activeWindow()->caption();
+	}
+	
+	emit sigSetToplevelCaption(currentApplicationCaption());
+}

@@ -66,6 +66,7 @@ public:
 	* This function returns the right caption (using the MDI child).
 	*/
   inline const QString currentApplicationCaption() const;
+    void emitWindowCaptionChanged();
 
 public slots:
   /**

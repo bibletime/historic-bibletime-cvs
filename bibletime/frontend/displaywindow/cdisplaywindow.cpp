@@ -112,7 +112,8 @@ const QString CDisplayWindow::windowCaption(){
 //			ret += " | " + m_modules.current();
 //		}
 //	}
-	return m_modules.join(" | ");
+// 	return m_modules.join(" | ").append(" (").append(key()->key()).append(")");
+	return QString::fromLatin1("%1 (%2)").arg(key()->key()).arg(m_modules.join(" | "));
 }
 
 /** Returns the used modules as a QPtrList */
@@ -132,6 +133,7 @@ ListCSwordModuleInfo CDisplayWindow::modules() {
 /** Set the window caption. */
 void CDisplayWindow::setCaption( const QString&  ){
 	QWidget::setCaption( windowCaption() );
+	m_mdi->emitWindowCaptionChanged();
 }
 
 void CDisplayWindow::insertKeyboardActions( KAccel* const /*accel*/ ) {
