@@ -37,12 +37,13 @@ DISTRIBUTION_VERSION="unknown"
 
 PREFIX="/usr"
 
-RPM_GROUP="Graphical desktop/KDE";
+RPM_GROUP="Graphical desktop/KDE"; #standard, change it below if it's not fitting
 	
 if test -f "/etc/SuSE-release"; then
 	DISTRIBUTION="SuSE"
+	DISTRIBUTION_VERSION=[`grep "VERSION =" /etc/SuSE-release | sed 's/VERSION = //'`];	
 	PREFIX="/opt/kde2"
-	DISTRIBUTION_VERSION=[`grep "VERSION =" /etc/SuSE-release | sed 's/VERSION = //'`];
+	RPM_GROUP="X11/KDE/Applications";
 elif test -f "/etc/mandrake-release"; then #Mandrake
 	DISTRIBUTION="Mandrake"
 	DISTRIBUTION_VERSION=[`grep "Mandrake" /etc/mandrake-release | sed 's/[a-zA-Z()]*//g' | awk '{print $1}'`];
