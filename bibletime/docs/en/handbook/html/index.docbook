@@ -1,0 +1,160 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
+  <!ENTITY bibletime '<application>Bibletime</application>'>
+  <!ENTITY kapp "&bibletimehandbook;"><!-- replace bibletimehandbook here -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"><!-- change language only here -->
+
+  <!-- user entities -->
+  <!ENTITY hdbkchap1 SYSTEM "hdbk-intro.docbook">
+  <!ENTITY hdbkchap2 SYSTEM "hdbk-start.docbook">
+  <!ENTITY hdbkchap3 SYSTEM "hdbk-operation.docbook">
+  <!ENTITY hdbkchap4 SYSTEM "hdbk-toolbars.docbook">
+
+
+  <!-- Do not define any other entities; instead, use the entities
+       from kde-genent.entities and $LANG/user.entities. -->
+]>
+<!-- kdoctemplate v0.8 October 1 1999 
+     Minor update to "Credits and Licenses" section on August 24, 2000
+     Removed "Revision history" section on 22 January 2001   -->
+
+<!--
+This template was designed by: David Rugge davidrugge@mindspring.com
+with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
+and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
+of the KDE DocBook team.
+
+You may freely use this template for writing any sort of KDE documentation.
+If you have any changes or improvements, please let us know.
+
+In the future, we may want to change from SGML-based DocBook to XML-based
+DocBook. To make this change easier, please be careful :
+- in XML, the case of the <tags> and attributes is relevant ;
+- also, quote all attributes.
+
+Please don't forget to remove all these comments in your final documentation,
+thanks ;-).
+-->
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title>The BibleTime Handbook</title>
+
+<authorgroup>
+<author>
+<firstname>Fred</firstname>
+<othername></othername>
+<surname>Saalbach</surname>
+<affiliation>
+<address><email>info@bibletime.de</email></address>
+</affiliation>
+</author>
+<author>
+<firstname>Jeffrey</firstname>
+<surname>Hoyt</surname>
+</author>
+</authorgroup>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+<copyright>
+<year>1999</year>
+<year>2000</year>
+<year>2001</year>
+<holder>The team of BibleTime, info@bibletime.de</holder>
+</copyright>
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>
+
+<para>The bibletime helpdialog is part of Bibletime.
+</para>
+
+<para>
+Bibletime is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+</para>
+
+<para>
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+</para>
+
+<para>
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+</para></legalnotice>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (DD/MM/YYYY) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>10/23/2001</date>
+<releaseinfo>1.01.00</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&bibletime; is an application to aid in study of the Bible.
+
+</para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>bibletime</keyword>
+<keyword>Bibletime</keyword>
+<keyword>sword</keyword>
+<keyword>crosswire</keyword>
+<keyword>help dialog</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label
+each chapter so with the id attribute. This is necessary for two reasons: it
+allows you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files will vary
+from time to time making it hard to manage for maintainers and for the CVS
+system. Any chapter labelled (OPTIONAL) may be left out at the author's
+discretion. Other chapters should not be left out in order to maintain a
+consistent documentation style across all KDE apps. -->
+
+&hdbkchap1;
+&hdbkchap2;
+&hdbkchap3;
+&hdbkchap4;
+
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->

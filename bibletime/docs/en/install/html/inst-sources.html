@@ -9,7 +9,7 @@
 <link rel="home" href="index.html" title="Bibletime Installation Guide for Bibletime version 1.1">
 <link rel="up" href="index.html" title="Bibletime Installation Guide for Bibletime version 1.1">
 <link rel="previous" href="inst-preq-install.html" title="Installation of prerequisite programs">
-<link rel="next" href="inst-sources-bibletime.html" title="Installing the Bibletime Source">
+<link rel="next" href="inst-user.html" title="Chapter 4. Installation">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div id="headline" style="position : absolute;                 height : 85px;                 z-index : 100;                 background : transparent;                 text-align : center;   text-transform: smallcaps;                 width : 100%;                 top : 0px;                 left : 0px;                 width : 100%;                 color : #000000;"><h1>Installing Bibletime Sources</h1></div>
@@ -19,7 +19,7 @@
 <div id="bulb-bit" style="position : absolute;   width : 100%;   height : 25px;   top : 85px;   left : 0px;   background-image : url('common/doctop1b.png');   background-repeat : no-repeat;   background-color : transparent;   z-index : 5;"><table width="100%" id="navtable"><tbody><tr>
 <td align="left" class="left"><a accesskey="p" href="inst-preq-install.html">Prev</a></td>
 <td align="center" class="center"> </td>
-<td align="right" class="right"><a accesskey="n" href="inst-sources-bibletime.html">Next</a></td>
+<td align="right" class="right"><a accesskey="n" href="inst-user.html">Next</a></td>
 </tr></tbody></table></div>
 </div>
 <div class="chapter">
@@ -71,7 +71,7 @@ For many installations the defaults will work.  When the defaults don't work,
 these switches may be set.</p>
 <div class="table">
 <p>
-<a name="id2722956"></a><b>Table 3.1. Sword Makefile.cfg switches</b>
+<a name="id2723133"></a><b>Table 3.1. Sword Makefile.cfg switches</b>
 </p>
 <table summary="Sword Makefile.cfg switches" border="1">
 <colgroup>
@@ -185,131 +185,16 @@ and change the line &quot;<span class="command"><b>buildvcl := yes</b></span>&qu
 commentaries.  In order for sword and bibletime to be useful these modules must be installed.
 </p>
 <p>
-Sword modules can be installed <a href="inst-sources.html#inst-sources-sword-manual" title="Manual installation of Sword Modules">manually</a> or with
-<a href="inst-sources.html#inst-sources-sword-installmgr" title="Sword installmgr">installmgr</a>.
+Sword modules can be installed <a href="">manually</a> or with
+<a href="">installmgr</a>.
 Installmgr is provided as part of the sword package.  The directions here
 will install the sword modules to the same location with either the manual method
 or the installmgr.  However if you wish to customize the location of your
 sword module directory, you must use the manual method.</p>
 <div class="section">
-<a name="inst-sources-sword-installmgr"></a><div class="titlepage"><div><h4 class="title">
-<a name="inst-sources-sword-installmgr"></a>Sword installmgr</h4></div></div>
-<p>To compile installmgr first sword must have been compiled.
-<a href="inst-sources.html#inst-sources-sword-install" title="Installation of SWORD
-">See the instructions for sword</a>.</p>
-<p>Find the file <tt> libsword.so</tt>, sword probably installed it to
-<tt>/usr/local/sword/lib</tt> unless you customized the installation.</p>
-<p>
-In order that installmgr (and also bibletime) can find this shared library
-open a text editor and add <tt>/usr/local/sword/lib</tt> to the
-end of <tt>/etc/ld.so.conf</tt>.</p>
-<p>
-Now you are ready to compile installmgr.</p>
-<p>
-CD to your sword source and open the directory
-<tt>.../sword/apps/X11/InstallMgr</tt>.
-Now in a shell do:</p>
-<pre class="screen">
-ldconfig
-./configure
-make
-su
-make install
-</pre>
-<p>
-Now in a shell as su you can run installmgr by typing
-<tt>/usr/local/bin/installmgr</tt>.</p>
-<p>
-If this was successful, there are two options for loading
-text modules into sword.</p>
-<div class="itemizedlist"><ul>
-<li><p>
-<a name="id2721043"></a>Options&gt;Manage remote sources. -- This is used to load sources from a sword CD.</p></li>
-<li><p>
-<a name="id2721053"></a>Options&gt;Local Path -- If you have unzipped sources point this to your local
-module repository.  All of the available modules will be displayed, and are
-available for installation.</p></li>
-</ul></div>
-<div class="section">
-<a name="inst-sources-sword-instmgr-rep"></a><div class="titlepage"><div><h5 class="title">
-<a name="inst-sources-sword-instmgr-rep"></a>Setting up your repository</h5></div></div>
-<p>
-Download modules from <a href="http://www.crosswire.org" target="_top">Crosswire Bible Society</a>
-use the zipped up modules (modulename.zip),
-not the windows executable compressed files (modulename.exe).
-</p>
-<p>
-Create a directory for your module repository, <tt>$HOME/sword_modules</tt>
-for example.
-</p>
-<p>
-Open a program that can uncompress zip files.  Such as gnozup or archiver.  Command line
-tools can also be used, to find which ones are installed on your system do a <span class="command"><b>man -k zip</b></span>
-</p>
-<p>
-Use your unzipping program to extract the module files into <tt>$HOME/sword_modules</tt>.
-All of the files will be placed into the correct subdirectories. If you wish to add modules later
-remember to unzip to <tt>$HOME/sword_modules</tt>.
-</p>
-</div>
-<div class="section">
-<a name="inst-sources-sword-instmgr-cfg"></a><div class="titlepage"><div><h5 class="title">
-<a name="inst-sources-sword-instmgr-cfg"></a>Setting up the sword configuration file.</h5></div></div>
-<p>
-Instructions for the sword configuration file can be found in the section
-<a href="inst-sources.html#inst-sources-sword-modules-config" title="The SWORD configuration file">&quot;The SWORD configuration
-file&quot; in the section covering the manual installation of the sword modules.</a>
-</p>
-</div>
-<div class="section">
-<a name="inst-sources-sword-instmgr-load"></a><div class="titlepage"><div><h5 class="title">
-<a name="inst-sources-sword-instmgr-load"></a>Using installmanager to load sword modules.</h5></div></div>
-<p>
-You must start installmgr as root for it to be able to load modules.
-Start it with these commands:</p>
-<pre class="screen">
-[me@localhost user]$ su
-Password:
-[root@localhost user]# /usr/local/bin/installmgr
-</pre>
-<p>
-You will now see the installmgr window.  You will need to use
-<span style="background-color: rgb(240,240,240);   color: rgb(0,0,0);">options&gt;local path</span> to point to your local module repository.
-</p>
-<p>
-Now the available modules will be shown on the left pane and
-the installed modules on the right.  All you need to do is
-select modules in the left pane and click install to make them
-available to sword and bibletime.
-
-<div class="screenshot"><div class="mediaobject"><img src="hdbk-inst-sources-installmgr.png" alt="installmgr"></div></div>
-</p>
-</div>
-</div>
-<div class="section">
-<a name="inst-sources-sword-manual"></a><div class="titlepage"><div><h4 class="title">
-<a name="inst-sources-sword-manual"></a>Manual installation of Sword Modules</h4></div></div>
-<p>
-This section explains how to install sword modules manually.
-</p>
-<div class="section">
-<a name="inst-sources-sword-modules-dir"></a><div class="titlepage"><div><h5 class="title">
-<a name="inst-sources-sword-modules-dir"></a>Choose a SWORD
-directory</h5></div></div>
-<p>
-SWORD currently supports 3 types of modules: Bibles, dictionaries and
-commentaries. You have to install the files of the modules their own directory.
-You must decide which directory will be your SWORD directory. If you installed
-the libs and includes in an extra directory use that directory as your SWORD
-directory (e.g. <tt>/usr/local/sword/</tt>). If you installed the
-library and include files in a common place like
-<tt>/usr/local/</tt> please select another location for your SWORD
-directory. </p>
-</div>
-<div class="section">
-<a name="inst-sources-sword-modules-upack"></a><div class="titlepage"><div><h5 class="title">
+<a name="inst-sources-sword-modules-upack"></a><div class="titlepage"><div><h4 class="title">
 <a name="inst-sources-sword-modules-upack"></a>
-Unpack the downloaded package</h5></div></div>
+Unpack the downloaded package</h4></div></div>
 <p>
 First you have to unpack the downloaded package. On the download page of SWORD
 you can choose if you want to get a Windows or RAW package. If you have a &quot;Linux
@@ -319,9 +204,9 @@ to change the filename of &quot;_INSTALL.1&quot; to &quot;_install.1&quot; to ge
 </p>
 </div>
 <div class="section">
-<a name="inst-sources-sword-modules-intig"></a><div class="titlepage"><div><h5 class="title">
+<a name="inst-sources-sword-modules-intig"></a><div class="titlepage"><div><h4 class="title">
 <a name="inst-sources-sword-modules-intig"></a>
-Integrating modules</h5></div></div>
+Integrating modules</h4></div></div>
 <p>
 Create the directory <tt>mods.d</tt> inside of your SWORD directory.
 Please copy the file <tt>[modulename].conf</tt> into the
@@ -339,42 +224,20 @@ example <tt>/usr/local/sword/share</tt> is the SWORD directory.</p>
                                       |-module_2_name/files
 </pre>
 </div>
-<div class="section">
-<a name="inst-sources-sword-modules-config"></a><div class="titlepage"><div><h5 class="title">
-<a name="inst-sources-sword-modules-config"></a>The SWORD configuration file</h5></div></div>
-<p>
-A SWORD based app has to know where the modules are located. You need a small
-configuration file in <tt>/etc</tt> to do this. Create the file
-<tt>/etc/sword.conf</tt>.The file has to contain only the two
-following lines: </p>
-<pre class="screen">
-[Install]
-DataPath=/usr/local/sword/share
-</pre>
-<p>If you select a location other than <tt>/usr/local/sword/share</tt>
-in the example above for your path to the SWORD directory, point the data path
-to your selected Sword directory.</p>
-<p>Now start BibleTime and enjoy ;-)
-If you have problems with the installation of the modules please read the &quot;FAQ
-page. If there's no solution for your problem please see page &quot;Contact&quot; how to
-get help.</p>
 </div>
 </div>
-</div>
-</div>
-
 </div>
 <div id="bottom-nav" style="position : relative;                 width : 100%;                 height : 185px;                 left : 0px;   right : 0px;                 top : 0px;   margin-top: 100px;                 background-image : url('common/bottom1.png');                 background-repeat : repeat-x;                 background-color : transparent;   margin-left: 0px;   margin-right: 0px;                 z-index : 25;">
 <img src="common/bottom2.png" align="right" height="59" width="227" alt="KDE Logo"><div id="navtable2" style="width : 100%;   margin-left: 0px;          margin-right: 0px;                      z-index : 15;                  background-color : transparent;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="position: absolute;         top: 70px;         left: 0px;">
 <tr>
 <td width="33%" align="left" valign="top"><a href="inst-preq-install.html">Prev</a></td>
 <td width="34%" align="center" valign="top"><a href="index.html">Home</a></td>
-<td width="33%" align="right" valign="top"><a href="inst-sources-bibletime.html">Next</a></td>
+<td width="33%" align="right" valign="top"><a href="inst-user.html">Next</a></td>
 </tr>
 <tr>
 <td width="33%" align="left">Installation of prerequisite programs </td>
 <td width="34%" align="center"><a href="index.html">Up</a></td>
-<td width="33%" align="right"> Installing the Bibletime Source</td>
+<td width="33%" align="right"> Installation</td>
 </tr>
 </table></div>
 </div>
