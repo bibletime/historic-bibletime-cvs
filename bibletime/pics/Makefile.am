@@ -1,6 +1,8 @@
 SUBDIRS = \
-lowcolor \
-highcolor \
+16x16 \
+22x22 \
+32x32 \
+48x48 \
 .
 
 BIBLETIME_PICS = \
