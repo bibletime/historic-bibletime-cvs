@@ -638,7 +638,7 @@ const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool 
 		default:
 			break;
 	}
-  return false;
+  return ret;
 }
 
 /** No descriptions */
@@ -703,12 +703,12 @@ void CSwordSetupDialog::slot_targetSelected(const QString &targetName){
 /** No descriptions */
 void CSwordSetupDialog::slot_doRemoveModules(){
 	QStringList moduleList;
-	QListViewItem* item1 = 0;
-	QListViewItem* item2 = 0;
 
-	QListViewItemIterator list_it( m_removeModuleListView, QListViewItemIterator::Checked );
+	QListViewItemIterator list_it( m_removeModuleListView/*, QListViewItemIterator::Checked */);
 	while ( list_it.current() ) {
-		moduleList << list_it.current()->text(0);
+		QCheckListItem* i = dynamic_cast<QCheckListItem*>( list_it.current() );
+		if (i && i->isOn())
+			moduleList << list_it.current()->text(0);
 		++list_it;
 	}
 
@@ -735,13 +735,10 @@ void CSwordSetupDialog::slot_doRemoveModules(){
         }
 
 				sword::SWMgr* mgr = mgrDict[ prefixPath ];
-				qWarning(prefixPath.latin1());
-				Q_ASSERT(mgr);
 				if (!mgr) {
 					mgrDict.insert(prefixPath, new sword::SWMgr(prefixPath.local8Bit()));
 					mgr = mgrDict[ prefixPath ];
 				}
-				Q_ASSERT(mgr);
 
         installMgr.removeModule(mgr, m->name().latin1());
       }
@@ -1111,9 +1108,12 @@ void CSwordSetupDialog::slot_installModules(){
 	QListViewItem* item1 = 0;
 	QListViewItem* item2 = 0;
 
-	QListViewItemIterator list_it( m_installModuleListView, QListViewItemIterator::Checked );
+	QListViewItemIterator list_it( m_installModuleListView /*, QListViewItemIterator::Checked*/ );
 	while ( list_it.current() ) {
-		moduleList << list_it.current()->text(0);
+		QCheckListItem* i = dynamic_cast<QCheckListItem*>( list_it.current() );
+		if (i && i->isOn()) {
+			moduleList << list_it.current()->text(0);
+		}
 		++list_it;
 	}
 
@@ -1193,7 +1193,7 @@ void CSwordSetupDialog::slot_installModules(){
 }
 
 /** No descriptions */
-void CSwordSetupDialog::installCompleted( const int total, const int file ){
+void CSwordSetupDialog::installCompleted( const int total, const int /* file */){
 	if (m_progressDialog) {
     m_progressDialog->progressBar()->setProgress(total+100*m_installedModuleCount);
     m_progressDialog->setLabel( i18n("[%1]: %2% complete").arg(m_installingModule).arg(total) );
