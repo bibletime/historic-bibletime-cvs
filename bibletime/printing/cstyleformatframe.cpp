@@ -20,6 +20,7 @@
 CStyleFormatFrame::CStyleFormatFrame() {
 	m_thickness = 1;
 	m_color = Qt::black;
+	m_lineStyle = Qt::DashLine;
 }
 
 CStyleFormatFrame::~CStyleFormatFrame(){

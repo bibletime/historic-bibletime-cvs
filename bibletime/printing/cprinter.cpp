@@ -236,28 +236,30 @@ void CPrinter::printQueue(){
 		setOutputFileName( s );
 		m_createdFiles.append(s);
 	}
+	
 	emit printingStarted();
 	QPainter p;
 	if (!p.begin(this)) {
 		p.end();
 		return;
-	}
-	
+	}	
+	CSwordKey* key = 0;	
 	m_pagePosition.rect = getPageSize();
 	for (int page = 1; page <= numCopies() && !aborted(); ++page) {	//make numCopies() copies of the pages
 		for (m_queue->first(); m_queue->current() && !aborted(); m_queue->next()) {
-			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
+			KApplication::kApplication()->processEvents(2); //do not lock the GUI!
 			if (!aborted())
 				m_queue->current()->draw(&p,this);
-			CSwordKey* key = dynamic_cast<CSwordKey*>(m_queue->current()->getStartKey());
+			key = m_queue->current()->getStartKey();
 			if (!aborted())
 				emit printedOneItem(key ? key->key() : QString::null, m_queue->at()+1);
 		};
 		if (!aborted() && (page < numCopies()) )
 			newPage();	//new pages seperate copies
 	}
-	emit printingFinished();	
-	if (!getPreview())
+	emit printingFinished();
+	
+	if (!getPreview()) //don't clear if preview was chosen
 		clearQueue();
 		
 	if ( !aborted() && getPreview() ) {
@@ -355,7 +357,7 @@ void CPrinter::setupStyles(){
 			format[index]->setBGColor( config->readColorEntry("BGColor", &Qt::white) );
  			format[index]->setFont( config->readFontEntry("Font") );
 			format[index]->setIdentation( config->readNumEntry("Identation",0) );
-			format[index]->setAlignement( (CStyleFormat::alignement)config->readNumEntry("Alignement",0));
+			format[index]->setAlignement( (CStyleFormat::alignement)config->readNumEntry("Alignement",CStyleFormat::Left));
 			dummyStyle->setFormatTypeEnabled( formatTypes[index], config->readBoolEntry("isEnabled", true) );
 			const bool hasFrame = config->readBoolEntry( "has frame", false );
 			
@@ -365,6 +367,7 @@ void CPrinter::setupStyles(){
 				config->setGroup(QString("%1__%2__FRAME").arg(*it).arg(names[index]));
 				frame->setColor( config->readColorEntry("Color", &Qt::black) );
 				frame->setThickness( config->readNumEntry("Thickness", 1) );
+				frame->setLineStyle( (Qt::PenStyle)(config->readNumEntry("Line style", (int)Qt::SolidLine)) );				
 			}
 			format[index]->setFrame( hasFrame, frame);
 		}		
@@ -438,6 +441,7 @@ void CPrinter::saveStyles(){
 				CStyleFormatFrame* frame = format[index]->getFrame();
 				config->writeEntry("Color", frame->getColor() );
 				config->writeEntry("Thickness", frame->getThickness());
+				config->writeEntry("Line style", (int)(frame->getLineStyle()));
 			}
 		}
 	}	

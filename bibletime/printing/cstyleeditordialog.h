@@ -47,29 +47,6 @@ public:
 	~CStyleEditorDialog();
 
 protected: // Protected methods
-	struct alignementRadios {
-		QRadioButton*	leftRB;
-		QRadioButton*	centerRB;
-		QRadioButton*	rightRB;
-//		QRadioButton*	justificationRB;
-		QVButtonGroup*	buttongroup;
-	};
-	struct colorButtons {
-		KColorButton*	foregroundChooser;
-		KColorButton*	backgroundChooser;
-	};
-	struct frameWidgets {
-		QCheckBox*	useFrame;
-		KColorButton*	colorChooser;
-		QSpinBox* lineThicknessChooser;
-		QGroupBox*	groupbox;
-	};
-	struct fontWidgets {
-		QFont font;
-		QPushButton* fontButton;
-		QLabel*	fontDisplay;
-	};
-	
   /**
   * Saves settings to config file.
   */
@@ -114,15 +91,37 @@ protected slots:
   void styleTypeChanged( const QString& );
 
 private:
+	struct alignementRadios {
+		QRadioButton*	leftRB;
+		QRadioButton*	centerRB;
+		QRadioButton*	rightRB;
+//		QRadioButton*	justificationRB;
+		QVButtonGroup*	buttongroup;
+	} m_alignRadios;
+	struct colorButtons {
+		KColorButton*	foregroundChooser;
+		KColorButton*	backgroundChooser;
+	} m_colors;
+	struct frameWidgets {
+		QCheckBox*	useFrame;
+		KColorButton*	colorChooser;
+		QSpinBox* lineThicknessChooser;
+		QComboBox* lineStyleChooser;		
+		QGroupBox*	groupbox;
+	} m_frame;
+	struct fontWidgets {
+		QFont font;
+		QPushButton* fontButton;
+		QLabel*	fontDisplay;
+	} m_font;
+	
+
   QLineEdit*	m_styleNameEdit;
   KComboBox*	m_styleTypeChooser;
 	CStyle*	m_style;
 	CStyleFormat* m_currentFormat;
 	QCheckBox*	m_setEnabledBox;
-	alignementRadios m_alignRadios;
-	colorButtons m_colors;
-	frameWidgets m_frame;
-	fontWidgets m_font;
+
 
 	bool m_formatEnabled;
 };

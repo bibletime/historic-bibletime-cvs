@@ -339,7 +339,7 @@ void CBiblePresenter::insertKeyboardActions(KAccel* a){
 /** Initializes the accelerator object. */
 void CBiblePresenter::initAccels(){
 	qWarning("CBiblePresenter::initAccels()");
-	CSwordPresenter::initAccels();
+	ASSERT(m_accel);
 	m_accel->setConfigGroup("Bible window");
 	
 	m_accel->insertItem(i18n("Next book"), "Next book", 0);
@@ -358,6 +358,7 @@ void CBiblePresenter::initAccels(){
 	m_accel->connectItem("Previous verse", this, SLOT(previousVerse()));	
 	
 	m_accel->readSettings();
+	CSwordPresenter::initAccels();	
 }
 
 /** Jumps to the next entry */
@@ -387,6 +388,7 @@ void CBiblePresenter::previousChapter(){
 
 /** Jumps to the next entry */
 void CBiblePresenter::nextVerse(){
+	qWarning("CBiblePresenter::nextVerse()");
 	m_key->NextVerse();
 	m_keyChooser->setKey(m_key);	
 }

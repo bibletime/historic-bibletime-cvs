@@ -21,8 +21,8 @@
 #include <qobject.h>
 #include <qcolor.h>
 
-/**A class which represents the frame around different CStyleFormats
-  *@author The BibleTime team
+/** A class which represents the frame around different CStyleFormats
+  * @author The BibleTime team
   */
 
 class CStyleFormatFrame  {

@@ -168,9 +168,35 @@ void CStyleEditorDialog::initView(){
 	hboxLayout->addWidget(label);
 	hboxLayout->addWidget(m_frame.colorChooser);
 	boxLayout->addLayout(hboxLayout);
-	
+
+	hboxLayout = new QHBoxLayout();
+	m_frame.lineStyleChooser = new QComboBox(m_frame.groupbox);
+	label = new QLabel(m_frame.lineStyleChooser, "", m_frame.groupbox);
+	label->setText(i18n("Line style:"));
+	hboxLayout->addWidget(label);
+	hboxLayout->addWidget(m_frame.lineStyleChooser);
+	boxLayout->addLayout(hboxLayout);
+			
 	topLayout->addWidget(m_frame.groupbox);
 	topLayout->addStretch(3);
+	
+	QPainter* p = new QPainter();
+	QPen pen(Qt::black, 2, Qt::SolidLine);
+	QBrush brush(Qt::white);
+		
+	for (int i=1; i <= 5; i++) {  // from Qt::SolidLine to Qt::DashDotDotLine
+		QPixmap* pix = new QPixmap(/*m_frame.lineStyleChooser->width()*/150,15);
+		pen.setStyle((Qt::PenStyle)i);
+		p->begin(pix);
+		p->setPen(pen);
+		p->fillRect(0,0, pix->width(), pix->height(), brush);
+		p->drawLine(0,(int)((float)pix->height()/2),pix->width(),(int)((float)pix->height()/2));
+		p->end();
+		m_frame.lineStyleChooser->insertItem(*pix);	
+	}
+	delete p;
+	
+	
 	
 	m_currentFormat = m_style->getFormatForType( CStyle::Header );	
 	setupWithFormat( m_currentFormat );
@@ -260,8 +286,10 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	m_frame.useFrame->setEnabled(m_formatEnabled);		
 	m_frame.groupbox->setEnabled(m_formatEnabled);		
 	useFrameClicked();
+	
 	m_frame.colorChooser->setColor( frame->getColor() );
 	m_frame.lineThicknessChooser->setValue( frame->getThickness() );	
+	m_frame.lineStyleChooser->setCurrentItem((int)(frame->getLineStyle())-1);	
 }
 
 /** Setups the font widgets using the parameter. */
@@ -323,8 +351,12 @@ void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
 	
 	//apply frame settings
 	CStyleFormatFrame* frame = format->getFrame();
-	frame->setColor( m_frame.colorChooser->color() );
+	frame->setColor( m_frame.colorChooser->color() );	
 	frame->setThickness( m_frame.lineThicknessChooser->value() );
+	//the position in the list equal to the position in Qt::PenStyle+1
+	frame->setLineStyle((Qt::PenStyle)(m_frame.lineStyleChooser->currentItem()+1));
+	qWarning("%i",m_frame.lineStyleChooser->currentItem()+1);
+	
 	format->setFrame( m_frame.useFrame->isChecked(), frame );
 }
 

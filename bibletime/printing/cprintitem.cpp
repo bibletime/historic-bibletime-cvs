@@ -42,18 +42,14 @@
 
 #define PARAGRAPH_SPACE 10 // Space between different paragraphs
 #define STYLE_PART_SPACE 1	//Space between the different parts (header, moduletext ...)
-#define BORDER_SPACE 4 	//border between text and rectangle
+#define BORDER_SPACE 3 	//border between text and rectangle
 
 
 CPrintItem::CPrintItem() : 	
-	m_listViewItem(0), m_module(0),
-	m_style(0),	m_startKey(0),m_stopKey(0),
-	m_headerText(QString::null),
-	m_description(QString::null),
-	m_moduleText(QString::null)
+	m_listViewItem(0), m_module(0),m_style(0),	m_startKey(0),m_stopKey(0),
+	m_headerText(QString::null),m_description(QString::null),m_moduleText(QString::null)
 {
-	
-//	clearData();
+
 }
 
 CPrintItem::~CPrintItem(){
@@ -319,40 +315,42 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 					arguments, text
 				);
 			}
-			boundingRect.setHeight(boundingRect.height()+2*BORDER_SPACE);			
-			
-			br = boundingRect;			
-			br.setLeft(printer->leftMargin()+frameThickness);
-			br.setTop(printer->getVerticalPos()+frameThickness);
-			br.setWidth(printer->getPageSize().width() - 2*frameThickness);
-			br.setHeight(br.height() + frameThickness);						
-			p->fillRect(br, bgColor );
+			br = boundingRect;	//rectangle for the background fill		
+			br.setLeft(printer->leftMargin());
+			br.setWidth(printer->getPageSize().width()-frameThickness); //because we move in the next lines
+			br.setHeight(br.height()+BORDER_SPACE); //because we move in the next lines
+			br.moveBy(frameThickness, frameThickness);			
+			p->fillRect(br, bgColor);
 
-			br = boundingRect;			
+			br = boundingRect;	// the rect for the border		
 			/**
 			* we have to substract frameThickness/2,
 			* because QPainter paints one half outline and the other part inside the rectangle.
 			*/
-			br.setLeft( printer->leftMargin() + (int)((double)frameThickness/2));
-			br.setTop( br.top() + (int)((double)frameThickness/2));			
-			br.setWidth( printer->getPageSize().width() - frameThickness);			
-			br.setHeight( br.height() + frameThickness);						
-						
-			boundingRect.moveBy( BORDER_SPACE+frameThickness, frameThickness );
+			const int halfWidth = (int)((float)frameThickness/2);
 
-																																							
-			arguments |= Qt::AlignVCenter; //WARNING: Right here? Will it change the boundingrect??
+//			br.setHeight( br.height() + 2*halfWidth  + BORDER_SPACE );						
+			br.setLeft( printer->leftMargin() + halfWidth );
+			br.setTop( br.top() + halfWidth ); //boundingRect is moved by 2*halfWidth down -> use +halfWidth !!
+			br.setWidth( printer->getPageSize().width() - 2*halfWidth);
+			br.setHeight( br.height() + 2*halfWidth  + BORDER_SPACE );						
+			
+//			boundingRect.setWidth(boundingRect.width()+5);//HACK to avoid cut letters
+			boundingRect.moveBy(BORDER_SPACE + frameThickness, frameThickness);
+//			arguments |= Qt::AlignVCenter; //WARNING: Right here? Will it change the boundingrect??
 			p->drawText(boundingRect, arguments, text);
-			printer->setVerticalPos(printer->getVerticalPos() + boundingRect.height() + 2*frameThickness + STYLE_PART_SPACE);
+			printer->setVerticalPos(/*printer->getVerticalPos()*/boundingRect.top() + boundingRect.height() + 2*frameThickness + STYLE_PART_SPACE);
 
 			if (frame) {
 				QPen framePen = pen;
 				framePen.setWidth( frameThickness );
 				framePen.setColor( frame->getColor() );
+				framePen.setStyle( frame->getLineStyle() );
 				p->setPen( framePen );
-					
+
 				p->drawRect( br );
 			}						
+//			p->drawRect( printer->getPageSize());			// FOR DEBUGGING
 		}
 		else if (type == CStyle::ModuleText) {		
 			p->save();
@@ -407,6 +405,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 					QPen framePen = pen;
 					framePen.setWidth( frameThickness );
 					framePen.setColor( frame->getColor() );
+					framePen.setStyle( frame->getLineStyle() );									
 					p->setPen( framePen );
 
 					p->drawRect(br);
