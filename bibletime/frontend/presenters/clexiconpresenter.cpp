@@ -24,7 +24,6 @@
 #include "../../ressource.h"
 #include "../../backend/cswordldkey.h"
 #include "../../backend/chtmlentrydisplay.h"
-#include "../optionsdialog/coptionsdialog.h"
 #include "../../backend/cswordbackend.h"
 
 
@@ -44,6 +43,7 @@ CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, CImportant
 	m_key( new CSwordLDKey(m_moduleList.first()) )
 {
 	m_key->key("");
+
 	initView();
 	show();
 	initConnections();			
@@ -120,8 +120,8 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 	if (!ldKey)
 		return;
 
-	m_important->swordBackend->setAllModuleOptions( COptionsDialog::getAllModuleOptionDefaults() );
-	m_important->swordBackend->setAllDisplayOptions( COptionsDialog::getAllDisplayOptionDefaults() );
+	m_important->swordBackend->setAllModuleOptions( m_moduleOptions );
+	m_important->swordBackend->setAllDisplayOptions( m_displayOptions );
 
 	m_moduleList.first()->module()->SetKey(*ldKey);
 	
@@ -154,22 +154,9 @@ void CLexiconPresenter::lookup(const QString& key){
 }
 
 /** Refreshes all parts decsribed by the parameter. */
-void CLexiconPresenter::refresh( const int events){
-	bool doLookup = false;
-	bool refreshHTMLWidget = false;
-	
-	if ( (events & backgroundChanged) || (events & textColorChanged) )
-		refreshHTMLWidget = true;
-	if ( events & fontChanged ) {
-		doLookup = true;
-		refreshHTMLWidget = true;
-	}
-	
-	//check for footnotes			
-	if (doLookup)
-		lookup(m_key);
-	if (refreshHTMLWidget)
-		m_htmlWidget->refresh();
+void CLexiconPresenter::refresh( ){
+	lookup(m_key);
+	m_htmlWidget->refresh();
 }
 
 /** Is called when the modules shown by this display window were changed. */
@@ -179,7 +166,7 @@ void CLexiconPresenter::modulesChanged(){
   	close();
   else {
 //		m_displaySettingsButton->reset(m_moduleList);
-    refreshFeatures();
+//    refreshFeatures();
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
 	  lookup(m_key);

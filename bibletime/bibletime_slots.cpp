@@ -92,9 +92,9 @@ void BibleTime::slotSettingsOptions(){
 }
 
 /** Is called when settings in the optionsdialog have been changed (ok or apply) */
-void BibleTime::slotSettingsChanged(const int changedSettings){
+void BibleTime::slotSettingsChanged(){
 
- 	if (changedSettings & CSwordPresenter::language) {	//the language changed
+// 	if (changedSettings & CSwordPresenter::language) {	//the language changed
  		KConfigGroupSaver gs(m_config, "SWORD");
  		const QString language = m_config->readEntry("Language", "");
  		m_important->swordBackend->setBooknameLanguage(language);		
@@ -112,11 +112,11 @@ void BibleTime::slotSettingsChanged(const int changedSettings){
  				}
  			}
  		}			
- 	}
+// 	}
  	for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
  		CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index));
  		if (myPresenter)
- 			myPresenter->refresh(changedSettings);
+ 			myPresenter->refresh();
  	}
 
  	//refresh the load profile and save profile menus

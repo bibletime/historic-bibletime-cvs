@@ -27,7 +27,6 @@
 #include "../../backend/cswordversekey.h"
 #include "../../backend/chtmlchapterdisplay.h"
 #include "../../backend/creferencemanager.h"
-#include "../optionsdialog/coptionsdialog.h"
 #include "../../backend/cswordbackend.h"
 
 
@@ -151,7 +150,7 @@ void CCommentaryPresenter::modulesChanged(){
   else {
 		presenterEdit_action->setEnabled( m_moduleList.first()->module()->isWritable() );
 //		m_displaySettingsButton->reset(m_moduleList);
-	  refreshFeatures();	
+//	  refreshFeatures();	
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
 	
@@ -171,8 +170,8 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
 		return;
 //	vKey->Persist(1);
 
-	m_important->swordBackend->setAllModuleOptions( COptionsDialog::getAllModuleOptionDefaults() );
-	m_important->swordBackend->setAllDisplayOptions( COptionsDialog::getAllDisplayOptionDefaults() );
+	m_important->swordBackend->setAllModuleOptions( m_moduleOptions );
+	m_important->swordBackend->setAllDisplayOptions( m_displayOptions );
 
   m_moduleList.first()->module()->SetKey(*vKey);
 
@@ -246,28 +245,11 @@ void CCommentaryPresenter::lookup(const QString& key){
 }
 
 /** No descriptions */
-void CCommentaryPresenter::refresh( const int events){
-	bool doLookup = false;
-	bool refreshHTMLWidget = false;
-	
-	if (events & languageChanged) {
-		m_key->setLocale((const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
-		m_keyChooser->refreshContent();
-		doLookup = true;
-	}
-	
-	if ( (events & backgroundChanged) || (events & textColorChanged) )
-		refreshHTMLWidget = true;
-	if ( events & fontChanged ) {
-		doLookup = true;
-		refreshHTMLWidget = true;
-	}
-	
-	//check for footnotes			
-	if (doLookup)
-		lookup(m_key);
-	if (refreshHTMLWidget)
-		m_htmlWidget->refresh();		
+void CCommentaryPresenter::refresh( ){
+	m_key->setLocale((const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
+	m_keyChooser->refreshContent();
+	lookup(m_key);
+	m_htmlWidget->refresh();		
 }
 
 /** Printes the verse the user has chosen. */

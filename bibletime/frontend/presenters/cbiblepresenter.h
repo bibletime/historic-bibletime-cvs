@@ -38,9 +38,8 @@ public:
   virtual void lookup(const QString&);
   /**
   * Reimplementation.
-	* Refreshes the things which are described by the event integer.
 	*/
-  virtual void refresh( const int events );
+  virtual void refresh( );
   /**
   * Inserts the actions used by this window class into the given KAccel object.
   */

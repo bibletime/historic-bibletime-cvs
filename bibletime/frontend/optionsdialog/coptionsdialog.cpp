@@ -68,7 +68,7 @@ COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *par
 
 	m_config = KGlobal::config();	
 	m_important = importantClasses;
-	m_changedSettings = 0;	
+//	m_changedSettings = 0;	
 	m_general.keys.accel = accel;
 
 	setTreeListAutoResize(true);	
@@ -304,7 +304,7 @@ void COptionsDialog::saveGeneral() {
   	m_config->writeEntry("standard commentary", m_general.sword.standardCommentary->currentText());
   	m_config->writeEntry("standard lexicon", m_general.sword.standardLexicon->currentText());
   	m_config->writeEntry("standard hebrew lexicon", m_general.sword.standardHebrewStrong->currentText());
- 	m_config->writeEntry("standard greek lexicon", m_general.sword.standardGreekStrong->currentText() );  	
+	 	m_config->writeEntry("standard greek lexicon", m_general.sword.standardGreekStrong->currentText() );  	
 	}
 }
 
@@ -563,10 +563,10 @@ void COptionsDialog::saveDisplayWindow() {
 			}
 		}
 
-		const QString oldValue = m_config->readEntry("Language", KGlobal::locale()->language());
-		if (oldValue == QString::null || oldValue != localeName) {	//changed
-				m_changedSettings |= CSwordPresenter::language;
-		}				
+//		const QString oldValue = m_config->readEntry("Language", KGlobal::locale()->language());
+//		if (oldValue == QString::null || oldValue != localeName) {	//changed
+//				m_changedSettings |= CSwordPresenter::language;
+//		}				
 		
 		if (!localeName.isEmpty())
 			m_config->writeEntry("Language", localeName);
@@ -591,9 +591,9 @@ void COptionsDialog::saveDisplayWindow() {
 	
 	{
 		KConfigGroupSaver groupSaver(m_config, "Fonts");
-		if (m_config->readFontEntry(i18n("Display window")) != m_displayWindows.fonts.fontMap[i18n("Display window")]
-      || m_config->readFontEntry(i18n("Display window Unicode")) != m_displayWindows.fonts.fontMap[i18n("Display window Unicode")] )
-		m_changedSettings |= CSwordPresenter::font;
+//		if (m_config->readFontEntry(i18n("Display window")) != m_displayWindows.fonts.fontMap[i18n("Display window")]
+//      || m_config->readFontEntry(i18n("Display window Unicode")) != m_displayWindows.fonts.fontMap[i18n("Display window Unicode")] )
+//		m_changedSettings |= CSwordPresenter::font;
 
 		for(QMap<QString, QFont>::Iterator it = m_displayWindows.fonts.fontMap.begin(); it != m_displayWindows.fonts.fontMap.end(); ++it )
 			m_config->writeEntry(it.key(), it.data());
@@ -604,12 +604,12 @@ void COptionsDialog::saveDisplayWindow() {
 
 		m_config->writeEntry("text", m_displayWindows.colors.text->color().name());	
 
-		if ( m_config->readColorEntry("Background") != m_displayWindows.colors.background->color() )
-			m_changedSettings |= CSwordPresenter::backgroundColor;
+//		if ( m_config->readColorEntry("Background") != m_displayWindows.colors.background->color() )
+//			m_changedSettings |= CSwordPresenter::backgroundColor;
 		m_config->writeEntry("Background", m_displayWindows.colors.background->color().name());	
 	
-		if ( m_config->readColorEntry("Highlighted Verse") != m_displayWindows.colors.highlightedVerse->color() )
-				m_changedSettings |= CSwordPresenter::highlightedVerseColor;
+//		if ( m_config->readColorEntry("Highlighted Verse") != m_displayWindows.colors.highlightedVerse->color() )
+//				m_changedSettings |= CSwordPresenter::highlightedVerseColor;
 
 		m_config->writeEntry("Highlighted Verse", m_displayWindows.colors.highlightedVerse->color().name());		
 #warning missing change notice in enum value of CSWordPresenter? Maybe only CSwordPresenter::colorchaged for all color changes?
@@ -651,7 +651,7 @@ void COptionsDialog::slotOk(){
 	
 	KDialogBase::slotOk();
 
-  emit signalSettingsChanged( getChangedSettings() );
+  emit signalSettingsChanged( );
 }
 
 /*called if the apply button was clicked*/
@@ -661,13 +661,13 @@ void COptionsDialog::slotApply(){
 	
 	KDialogBase::slotApply();
 
-  emit signalSettingsChanged( getChangedSettings() );
+  emit signalSettingsChanged( );
 }
 
 /** Returns an integer with ORed feature enum entries of the changed settings. */
-const int COptionsDialog::getChangedSettings() const {
-	return m_changedSettings;
-}
+//const int COptionsDialog::getChangedSettings() const {
+//	return m_changedSettings;
+//}
 
 /** Adds a new view profile to the list. */
 void COptionsDialog::addNewProfile(){
@@ -757,35 +757,7 @@ bool COptionsDialog::getBTBool( BTBool which){
 	}
 }
 
-CSwordBackend::moduleOptionsBool COptionsDialog::getAllModuleOptionDefaults( void ){
-  KConfig* config = KGlobal::config();
-  KConfigGroupSaver groupSaver(config,"General");
 
-  CSwordBackend::moduleOptionsBool options;
-
-  options.footnotes = 					config->readBoolEntry( "footnotes", true );
-  options.strongNumbers = 			config->readBoolEntry( "strongNumbers", true );
-  options.headings = 						config->readBoolEntry( "headings", true );
-  options.morphTags = 					config->readBoolEntry( "morphTags", true );
-  options.lemmas = 							config->readBoolEntry( "lemmas", true );
-  options.hebrewPoints = 				config->readBoolEntry( "hebrewPoints", true );
-  options.hebrewCantillation = 	config->readBoolEntry( "hebrewCantillation", true );
-  options.greekAccents = 				config->readBoolEntry( "greekAccents", true );
-
-	return options;
-}
-
-CSwordBackend::displayOptionsBool COptionsDialog::getAllDisplayOptionDefaults( void ){
-  KConfig* config = KGlobal::config();
-  KConfigGroupSaver groupSaver(config,"General");
-
-  CSwordBackend::displayOptionsBool options;
-
-	options.lineBreaks = 					config->readBoolEntry( "lineBreaks", true );
-  options.verseNumbers = 				config->readBoolEntry( "verseNumbers", true );
-
-	return options;
-}
 
 /** Opens the page which contaisn the given part ID. */
 const bool COptionsDialog::showPart(  COptionsDialog::Parts ID ){

@@ -209,17 +209,13 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, co
 	return createNewSwordPresenter(list, key);		
 }
 
-/** Refreshes all presenter supporting at least in of the features given as parameter.*/
-void BibleTime::refreshPresenters( int useFeatures ) {
-	/*
-	*	Iterate through all features and test their support by the psenters.
-	*	If the feature is supported refresh the presenter and continue.
-	*/		
+/** Refreshes all presenters.*/
+void BibleTime::refreshPresenters() {
 	unsigned int index;				
 	for ( index = 0; index < m_mdi->windowList().count(); index++) {
 		CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index));
 		if (myPresenter)
-   		myPresenter->refresh(useFeatures);
+   		myPresenter->refresh();
 	}
 }
 

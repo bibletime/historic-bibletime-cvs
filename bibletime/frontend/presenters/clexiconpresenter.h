@@ -51,7 +51,7 @@ public slots: // Public slots
   /**
   * Refreshes all parts decsribed by the parameter.
   */
-  virtual void refresh( const int events);
+  virtual void refresh( );
 
 protected: // Protected methods
   /**

@@ -178,7 +178,7 @@ protected: // Protected methods
   /**
   * Refreshes all presenter supporting at least in of the features given as parameter.
   */
-  void refreshPresenters( int useFeatures );
+  void refreshPresenters();
   /**
   * Called before a window is closed
   */
@@ -353,7 +353,7 @@ protected slots:
   /** Is called when settings in
   the optionsdialog have been
   changed (ok or apply) */
-  void slotSettingsChanged(const int);
+  void slotSettingsChanged();
 
 
 

@@ -30,8 +30,6 @@
 #include "../../backend/creferencemanager.h"
 #include "../cprofile.h"
 #include "../cprofilewindow.h"
-#include "../optionsdialog/coptionsdialog.h"
-
 
 //Qt includes
 #include <qclipboard.h>
@@ -147,7 +145,7 @@ void CBiblePresenter::modulesChanged(){
   }
   else {
 		m_displaySettingsButton->reset(m_moduleList);
-    refreshFeatures();
+//    refreshFeatures()
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
 	
@@ -200,70 +198,11 @@ void CBiblePresenter::lookup(const QString& key){
 }
 
 /** Reimplementation. Refreshes the things which are described by the event integer. */
-void CBiblePresenter::refresh( const int events ){	
-	bool doLookup = false;
-	bool refreshHTMLWidget = false;
-	
-	if (events & languageChanged) {
-		m_key->setLocale((const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
-		m_keyChooser->refreshContent();
-		doLookup = true;
-	}
-	
-	if ( (events & backgroundChanged) || (events & textColorChanged) || (events & verseNumberColorChanged) )
-		refreshHTMLWidget = true;
-	if ( events & highlightedVerseColorChanged )
-		doLookup = true;
-		
-	if ( events & fontChanged ) {
-		doLookup = true;
-		refreshHTMLWidget = true;
-	}
-	
-	//check for footnotes
-	if (events & footnotesChanged) {
-		for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-			if ( m_moduleList.current()->supportsFeature(CSwordBackend::footnotes) ) {
-				doLookup = true;	
-				break;
-			}
-		}
-	}
-	
-	//check for strongs support
-	if (events & strongNumbersChanged) {
-		for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-			if ( m_moduleList.current()->supportsFeature(CSwordBackend::strongNumbers) ) {
-				doLookup = true;	
-				break;
-			}
-		}
-	}
-
-	//check for headings support
-	if (events & headingsChanged) {
-		for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-			if ( m_moduleList.current()->supportsFeature(CSwordBackend::headings) ) {
-				doLookup = true;	
-				break;
-			}
-		}
-	}
-				
-	//check for morphological tags support
-	if (events & morphTagsChanged) {
-		for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-			if ( m_moduleList.current()->supportsFeature(CSwordBackend::morphTags) ) {
-				doLookup = true;	
-				break;
-			}
-		}
-	}
-	
-	if (doLookup)
-		lookup(m_key);
-	if (refreshHTMLWidget)
-		m_htmlWidget->refresh();		
+void CBiblePresenter::refresh( ){	
+	m_key->setLocale((const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
+	m_keyChooser->refreshContent();
+	lookup(m_key);
+	m_htmlWidget->refresh();		
 }
 
 

@@ -21,7 +21,7 @@
 #include "../../backend/cswordkey.h"
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
-#include "../optionsdialog/coptionsdialog.h"
+#include "../optionsdialog/cbtconfig.h"
 
 //Qt includes
 #include <qpopupmenu.h>
@@ -35,8 +35,8 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClas
 	m_printPopup(0), m_features(0),
 	m_lexiconPopup(new QPopupMenu(this)),
 	m_accel(new KAccel(this)),
-	m_moduleOptions( COptionsDialog::getAllModuleOptionDefaults() ),
-	m_displayOptions( COptionsDialog::getAllDisplayOptionDefaults() )
+	m_moduleOptions( CBTConfig::getAllModuleOptionDefaults() ),
+	m_displayOptions( CBTConfig::getAllDisplayOptionDefaults() )
 
 {		
 
@@ -56,8 +56,8 @@ int CSwordPresenter::getFeatures(){
 }
 
 /** Refreshes the presenter depending on the events given as parameter. */
-void CSwordPresenter::refresh( const int /*events*/ ){	
-}
+//void CSwordPresenter::refresh( ){	
+//}
 
 /** Prints the key given as parameter. */
 void CSwordPresenter::printKey(CSwordKey* start, CSwordKey* stop, CSwordModuleInfo* module) {
@@ -70,35 +70,35 @@ void CSwordPresenter::printKey(CSwordKey* start, CSwordKey* stop, CSwordModuleIn
 }
 
 /** Refreshes the supported features. */
-void CSwordPresenter::refreshFeatures(){
-	m_features = 0;	
-	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-		if (m_moduleList.current()->supportsFeature( CSwordBackend::strongNumbers )){
-			if (m_features != 0)
-				m_features |= strongNumbers;
-			else
-				m_features = strongNumbers;
-		}
-		if (m_moduleList.current()->supportsFeature( CSwordBackend::footnotes )){
-			if (m_features != 0)
-				m_features |= footnotes;
-			else
-				m_features = footnotes;
-		}
-		if (m_moduleList.current()->supportsFeature( CSwordBackend::headings )){
-			if (m_features != 0)
-				m_features |= headings;
-			else
-				m_features = headings;
-		}
-		if (m_moduleList.current()->supportsFeature( CSwordBackend::morphTags )){
-			if (m_features != 0)
-				m_features |= morphTags;
-			else
-				m_features = morphTags;
-		}		
-	}
-}
+//void CSwordPresenter::refreshFeatures(){
+//	m_features = 0;	
+//	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+//		if (m_moduleList.current()->supportsFeature( CSwordBackend::strongNumbers )){
+//			if (m_features != 0)
+//				m_features |= strongNumbers;
+//			else
+//				m_features = strongNumbers;
+//		}
+//		if (m_moduleList.current()->supportsFeature( CSwordBackend::footnotes )){
+//			if (m_features != 0)
+//				m_features |= footnotes;
+//			else
+//				m_features = footnotes;
+//		}
+//		if (m_moduleList.current()->supportsFeature( CSwordBackend::headings )){
+//			if (m_features != 0)
+//				m_features |= headings;
+//			else
+//				m_features = headings;
+//		}
+//		if (m_moduleList.current()->supportsFeature( CSwordBackend::morphTags )){
+//			if (m_features != 0)
+//				m_features |= morphTags;
+//			else
+//				m_features = morphTags;
+//		}		
+//	}
+//}
 
 void CSwordPresenter::lookupWord(int moduleID){
 	const QString module = m_lexiconPopup->text(moduleID);	
@@ -204,7 +204,7 @@ void CSwordPresenter::polish(){
 	qWarning("CSwordPresenter::polish()");
 	KMainWindow::polish();	
 	
-	refreshFeatures();
+//	refreshFeatures();
 	setCaption(windowCaption());
 				
 	initAccels();

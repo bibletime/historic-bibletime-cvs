@@ -60,9 +60,9 @@ public slots: // Public slots
   */
   virtual void lookup(const QString&);
   /**
-  * No descriptions
+  * Reimplementation
   */
-  virtual void refresh( const int events);
+  virtual void refresh( );
 
 protected: // Protected methods
   /**

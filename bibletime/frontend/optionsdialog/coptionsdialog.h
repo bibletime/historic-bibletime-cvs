@@ -58,7 +58,7 @@ public:
   * Returns an integer with ORed feature enum
   * entries of the changed settings.
   */
-  const int getChangedSettings() const;
+//  const int getChangedSettings() const;
 
   enum BTFont {
 		standard,
@@ -96,10 +96,6 @@ public:
   /** Opens the page which contaisn the given part ID. */
   const bool showPart( COptionsDialog::Parts ID );
 
-  static CSwordBackend::moduleOptionsBool getAllModuleOptionDefaults( void );
-
-  static CSwordBackend::displayOptionsBool getAllDisplayOptionDefaults( void );
-
 private:
   void initGeneral();
   void saveGeneral();
@@ -110,7 +106,7 @@ private:
 
   KConfig* m_config;
   CImportantClasses* m_important;
-  int m_changedSettings;
+//  int m_changedSettings;
 
 	struct GeneralSettings {
 		struct StartupSettings {
@@ -215,7 +211,7 @@ protected slots: // Protected slots
   void deleteProfile();
 
 signals: // Signals
-  void signalSettingsChanged(const int changedSettings);
+  void signalSettingsChanged();
 };
 
 #endif

@@ -21,6 +21,7 @@
 #include <qstring.h>
 #include <qfont.h>
 
+#include "../../backend/cswordbackend.h"
 /**This class is the interface to the config object of BibleTime
   *@author The BibleTime team
   */
@@ -35,12 +36,47 @@ public:
 	enum colors{
 	};
 	enum bools{
+
+		lexicon_cache,
+
+  	footnotes,
+  	strongNumbers,
+  	headings,
+  	morphTags,
+		lemmas,
+		hebrewPoints,
+		hebrewCantillation,
+		greekAccents,
+
+		lineBreaks,
+		verseNumbers
 	};
 
-  /** No descriptions */
-  static QString get( CBTConfig::strings );
-  /** No descriptions */
-  static QFont get(CBTConfig::fonts );
+  static QString 	get( CBTConfig::strings );
+  static QFont 		get( CBTConfig::fonts );
+  static bool 		get( CBTConfig::bools );
+  static QColor 	get( CBTConfig::colors );
+
+	static void set( CBTConfig::strings, 	QString value );
+	static void set( CBTConfig::fonts, 		QFont value );
+	static void set( CBTConfig::bools, 		bool value );
+	static void set( CBTConfig::colors, 	QColor value );
+
+  static CSwordBackend::moduleOptionsBool getAllModuleOptionDefaults( void );
+  static CSwordBackend::displayOptionsBool getAllDisplayOptionDefaults( void );
+
+private:
+	static QString getKey( CBTConfig::strings );
+	static QString getKey( CBTConfig::fonts );
+	static QString getKey( CBTConfig::bools );
+	static QString getKey( CBTConfig::colors );
+
+	static QString getDefault( CBTConfig::strings );
+	static QFont	 getDefault( CBTConfig::fonts );
+	static bool		 getDefault( CBTConfig::bools );
+	static QColor	 getDefault( CBTConfig::colors );
+
 };
+
 
 #endif
