@@ -33,7 +33,7 @@ BuildArch:      %{buildarch}
 Source0:        %{name}-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
 Prefix: 	@RPM_PREFIX@
-Requires:	sword >= 1.5.6
+Requires:	sword >= 1.5.7
 Distribution:	%{ostype} %{osversion}
 
 %description
@@ -74,7 +74,7 @@ fi
 make -j$numprocs
 
 %install
-make DESTDIR=$RPM_BUILD_ROOT install
+make DESTDIR=$RPM_BUILD_ROOT install-strip
 
 #cd $RPM_BUILD_ROOT
 #find . -type d | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' > $RPM_BUILD_DIR/bt-files.list
