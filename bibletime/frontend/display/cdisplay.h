@@ -127,6 +127,7 @@ public slots:
   virtual void selectAll();
 	void emitReferenceClicked( const QString& module, const QString& key);
 	void emitReferenceDropped( const QString& key );
+	void emitTextChanged();  
 
   void saveAsPlain();
   void saveAsHTML();		
@@ -146,6 +147,8 @@ public slots:
 signals:
   void referenceClicked(const QString& module, const QString& key);
   void referenceDropped(const QString& key);
+  void textChanged();
+  
 
 private:
 	CDisplay* m_display;

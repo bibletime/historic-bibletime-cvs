@@ -23,6 +23,9 @@
 CPlainWriteDisplay::CPlainWriteDisplay(CWriteWindow* parentWindow, QWidget* parent) : QTextEdit(parentWindow ? parentWindow : parent), CWriteDisplay(parentWindow) {
   qWarning("constructor of CPlainWriteDisplay");
   setTextFormat(Qt::PlainText);
+
+  connect(this, SIGNAL(textChanged()),
+    connectionsProxy(), SLOT(emitTextChanged()));
 }
 
 CPlainWriteDisplay::~CPlainWriteDisplay(){
@@ -54,3 +57,19 @@ const QString CPlainWriteDisplay::text( const CDisplay::TextType format = CDispl
 void CPlainWriteDisplay::print( const CDisplay::TextPart ) {
 
 };
+
+/** Sets the current status of the edit widget. */
+void CPlainWriteDisplay::setModified( const bool modified ){
+  QTextEdit::setModified(modified);
+}
+
+/** Reimplementation. */
+const bool CPlainWriteDisplay::isModified() const{
+  return QTextEdit::isModified();
+}
+
+
+/** Returns the text of this edit widget. */
+const QString CPlainWriteDisplay::plainText(){
+  return QTextEdit::text();
+}

@@ -60,6 +60,12 @@ void CDisplayConnections::emitReferenceDropped( const QString& key){
  	emit referenceDropped(key);
 }
 
+/** Emits the signal. */
+void CDisplayConnections::emitTextChanged(){
+	qWarning("CDisplayConnections::emitTextChanged");
+ 	emit textChanged();
+}
+
 /** No descriptions */
 void CDisplayConnections::copyAll(){
 	m_display->copy(CDisplay::PlainText, CDisplay::Document);

@@ -109,3 +109,4 @@ void CReadDisplay::print(const CDisplay::TextPart type){
     	break;
 	}
 }
+

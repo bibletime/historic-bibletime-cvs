@@ -51,6 +51,7 @@ public:
   virtual void moveToAnchor( const QString& ) = 0;
   virtual void print(const CDisplay::TextPart);
 
+
 protected: // Protected methods
 	friend class CDisplay;
  	friend class CHTMLReadDisplay;

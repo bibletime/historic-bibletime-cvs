@@ -24,6 +24,9 @@
 //Qt includes
 #include <qwidget.h>
 
+
+class KAction;
+
 /** The write window class which offers a plain editor for source code editing.
   * @author The BibleTime team
   */
@@ -39,6 +42,26 @@ protected: // Protected methods
   */
   virtual void initView();
   virtual void initConnections();
+
+private:
+  struct {
+    KAction* saveText;
+    KAction* restoreText;
+  } m_actions;
+  
+protected slots: // Protected slots
+  /**
+  * Saves the text for the current key. Directly writes the changed text into the module.
+  */
+  void saveCurrentText();
+  /**
+  * Is called when the current text was changed.
+  */
+  void textChanged();
+  /**
+  * Loads the original text from the module.
+  */
+  void restoreText();
 };
 
 #endif

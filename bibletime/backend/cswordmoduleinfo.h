@@ -35,6 +35,7 @@
 class sword::SWModule;
 class CSwordBackend;
 class CEntryDisplay;
+class CSwordKey;
 
 /**
 	* Base class for Sword modules.
@@ -182,6 +183,10 @@ public:
   * Returns the text direction of the module's text.,
   */
   virtual const CSwordModuleInfo::TextDirection textDirection();
+  /**
+  * Writes the new text at the given position into the module. This does only work for writabe modules.
+  */
+  virtual void write( CSwordKey* key, const QString& newText );
 
 private:
 	sword::SWModule*	m_module;

@@ -30,6 +30,20 @@ protected:
  	friend class CPlainWriteDisplay;  
 	CWriteDisplay( CWriteWindow* writeWindow );
 	~CWriteDisplay();
+
+public: // Public methods
+  /**
+  * Sets the current modified status of the widget.
+  */
+  virtual void setModified( const bool modified ) = 0;
+  /**
+  * Returns true if the current text was modified.
+  */
+  virtual const bool isModified() const = 0;
+  /**
+  * Returns the text of this edit widget.
+  */
+  virtual const QString plainText() = 0;
 };
 
 #endif

@@ -273,3 +273,9 @@ const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection(){
   else
     return CSwordModuleInfo::LeftToRight;
 }
+
+/** Writes the new text at the given position into the module. This does only work for writabe modules. */
+void CSwordModuleInfo::write( CSwordKey* key, const QString& newText ){
+  module()->KeyText( isUnicode() ? (const char*)(key->key().utf8()) : key->key().latin1() );
+  (*module()) << (isUnicode() ? (const char*)newText.utf8() : newText.latin1());
+}

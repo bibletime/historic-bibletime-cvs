@@ -49,7 +49,19 @@ public:
   virtual QWidget* view();
   virtual const QString text( const CDisplay::TextType format = CDisplay::HTMLText, const CDisplay::TextPart part = CDisplay::Document );
   virtual void print( const CDisplay::TextPart );
+  /**
+  * Reimplementation.
+  */
+  virtual const bool isModified() const;
+  /**
+  * Sets the current status of the edit widget.
+  */
+  virtual void setModified( const bool modified );
 
+  /** Returns the text of this edit widget. */
+  virtual const QString plainText();
+
+  
 protected:
 	friend class CDisplay;
 	CPlainWriteDisplay(CWriteWindow* parentWindow, QWidget* parent);

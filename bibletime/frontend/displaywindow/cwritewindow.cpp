@@ -16,7 +16,11 @@
  ***************************************************************************/
 
 #include "cwritewindow.h"
+
+#include "backend/cswordmoduleinfo.h"
+
 #include "frontend/keychooser/ckeychooser.h"
+
 
 CWriteWindow::CWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
   : CDisplayWindow(modules, parent,name), m_writeDisplay(0) {
@@ -73,7 +77,18 @@ void CWriteWindow::lookup( CSwordKey* newKey ){
 }
 
 /** Saves the given text as text of the given key. Use this function as backend in each write window implementation. */
-const bool CWriteWindow::saveText( CSwordKey* key, const QString newText ){
+const bool CWriteWindow::saveText( CSwordKey* newKey, const QString newText ){
+//  qWarning("CWriteWindow::saveText: %s", newText.latin1());
+//  newKey->key( newKey->key() ); //set the key to the module
+//  sword::SWModule* m = modules().first()->module();
+//  m->KeyText( newKey->key().latin1() );
+//
+//  qWarning("used key: %s",newKey->key().latin1());
+//
+//  if (m->isWritable())  {
+//    (*m) << newText.latin1();
+//  };
+  modules().first()->write(newKey, newText);
 }
 
 /** Returns the write display widget used by this window. */
