@@ -356,17 +356,13 @@ void CGroupManager::slotSearchSelectedModules() {
 				searchList.append(item->moduleInfo());
 		}
 	}	
-	qWarning("void CGroupManager::slotSearchSelectedModules() sync");		
-	config->sync();	
-	qWarning("void CGroupManager::slotSearchSelectedModules() create");				
+	saveSettings();
+	config->sync();
 	if (!searchDialog)
 		searchDialog = new CSearchDialog(m_important,&searchList,0,0);
-	qWarning("void CGroupManager::slotSearchSelectedModules() created");			
 	connect(searchDialog, SIGNAL(finished()),
 		this, SLOT(slotDeleteSearchdialog()));
-	qWarning("void CGroupManager::slotSearchSelectedModules() show");			
 	searchDialog->show();
-	qWarning("void CGroupManager::slotSearchSelectedModules() finished");		
 }	
 
 void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item) {	

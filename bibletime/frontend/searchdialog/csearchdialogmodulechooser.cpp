@@ -66,8 +66,7 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 	mainLayout->addLayout(buttonLayout,0);
 	mainLayout->addWidget(m_moduleList,2);
 
-	m_initialized = true;	
-//	emit chosenModulesChanged();		
+	m_initialized = true;
 }
 
 CSearchDialogModuleChooser::~CSearchDialogModuleChooser(){
