@@ -428,16 +428,19 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
     m_refreshedRemoteSources = true;
   }
 
-  sword::SWMgr mgr = BTInstallMgr::Tool::isRemoteSource(&is) ? *(is.getMgr()) : sword::SWMgr(is.directory.c_str());
+  //kind of a hack to provide a pointer to mgr next line
+  sword::SWMgr lMgr( BTInstallMgr::Tool::isRemoteSource(&is) ? "" : is.directory.c_str());
+  
+  sword::SWMgr* mgr = BTInstallMgr::Tool::isRemoteSource(&is) ? is.getMgr() : &lMgr;
 
   QListViewItem* parent = 0;
-  for (sword::ModMap::iterator it = mgr.Modules.begin(); it != mgr.Modules.end(); it++) {
+  for (sword::ModMap::iterator it = mgr->Modules.begin(); it != mgr->Modules.end(); it++) {
     sword::SWModule* module = it->second;
 
     if (CPointers::backend()->findModuleByName(module->Name())) //module already installed?
       continue;
-    sword::SectionMap::iterator section = mgr.config->Sections.find(module->Name());
-    if ((section != mgr.config->Sections.end()) && (section->second.find("CipherKey") != section->second.end())) //module enciphered
+    sword::SectionMap::iterator section = mgr->config->Sections.find(module->Name());
+    if ((section != mgr->config->Sections.end()) && (section->second.find("CipherKey") != section->second.end())) //module enciphered
       continue;
     
     Q_ASSERT(module);
@@ -532,10 +535,9 @@ void CSwordSetupDialog::slot_installModules(){
     BTInstallMgr iMgr;
     sword::InstallSource is = BTInstallMgr::Tool::source(&iMgr, m_sourceCombo->currentText());
 
-//    Q_ASSERT(is);
-
     QString target = m_targetCombo->currentText();
-    target.replace("$HOME", getenv("HOME"));
+    if (target.contains("$HOME"))
+      target.replace("$HOME", getenv("HOME"));
 
     //make sure target/mods.d and target/modules exist
     QDir dir(target.latin1());
