@@ -39,7 +39,6 @@ class ListKey;
   */
 class CSwordModuleSearch {
 public:
-
 	enum scopeType {
 		Scope_NoScope,
 		Scope_LastSearch,
@@ -60,58 +59,58 @@ public:
 
 	CSwordModuleSearch();
 	/**
-		* The destructor of this class. It cleans uop memory before it's deleted.
-		*/
+	* The destructor of this class. It cleans uop memory before it's deleted.
+	*/
 	~CSwordModuleSearch();
   /**
-  	* Sets the text which should be search in the modules.
-  	*/
+ 	* Sets the text which should be search in the modules.
+ 	*/
   void setSearchedText( const QString );
   /**
-  	* Starts the search for the search text.
-  	*/
+ 	* Starts the search for the search text.
+ 	*/
   bool startSearch();
   /**
-  	* This function sets the modules which should be searched.
-  	*/
+ 	* This function sets the modules which should be searched.
+ 	*/
   void setModules( ListCSwordModuleInfo* );
   /**
-  	* Sets the search scope.
-  	*/
+ 	* Sets the search scope.
+ 	*/
   void setSearchScope( ListKey scope );
   /**
-   	*	Calls with true if you want to use the last searchresult as search scope.
-   	*/
+ 	*	Calls with true if you want to use the last searchresult as search scope.
+ 	*/
   void useLastSearchResult( bool useIt );
   /**
-  	* Sets the seaech scope back.
-  	*/
+ 	* Sets the seaech scope back.
+ 	*/
   void resetSearchScope();
   /**
-  	* Interrupts the current search.
-  	*/
+ 	* Interrupts the current search.
+ 	*/
   void interruptSearch();
   /**
-  	* Returns true if in the last search the searcher found items, if no items were found return false
-  	*/
+ 	* @return "true" if in the last search the searcher found items, if no items were found return "false"
+ 	*/
   bool foundItems();
   /**
-  	* Returns true if the search is still in progress, otherwise return false.
-  	*/
+ 	* Returns true if the search is still in progress, otherwise return false.
+ 	*/
   bool isSearching();
   /**
-  	* This functions starts the search: First it creates a new thread for the search and it calles the the
-  	* function to start the search.
-  	*/
+ 	* This functions starts the search: First it creates a new thread for the search and it calles the the
+ 	* function to start the search.
+ 	*/
 	void startSearchThread(void);
   /**
-  	* Sets the options for this search. Options include the
-		* flags and search types of the Sword searc interface.
-		*/
+ 	* Sets the options for this search. Options include the
+	* flags and search types of the Sword searc interface.
+	*/
   void setSearchOptions( int options );
   /**
-  	* Returns the percent for the given type.
-  	*/
+ 	* Returns the percent for the given type.
+ 	*/
   int getPercent( percentType type );
 	void percentUpdate(char percent, void *p);
 
@@ -131,10 +130,8 @@ protected:
 	int cms_overallProgress;
 	int cms_module_count;
 	int cms_module_current;
-//	char old_p;
 
 private:
-//	pthread_t *thread;
 	pthread_mutex_t percentage_mutex;
 };
 

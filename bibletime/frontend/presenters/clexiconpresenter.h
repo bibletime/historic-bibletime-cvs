@@ -23,8 +23,9 @@
 
 class CSwordLDKey;
 
-/**Presenter used for lexicons
-  *@author The BibleTime team
+/**
+ 	* Presenter used for lexicons
+  * @author The BibleTime team
   */
 class CLexiconPresenter : public CSwordPresenter  {
    Q_OBJECT
@@ -55,6 +56,8 @@ private slots: // Protected slots
   * No descriptions
   */
   void lookup(CKey*);
+  /** Printes the displayed entry of the used module. */
+  void printEntry();
 
 private: // Private methods
   /**
@@ -67,10 +70,15 @@ private: // Private methods
   void initView();
 
   CSwordLDKey* m_key;
+
 public slots: // Public slots
-  /** No descriptions */
+  /**
+  * No descriptions
+  */
   virtual void lookup(const QString&);
-  /** Refreshes all parts decsribed by the parameter. */
+  /**
+  * Refreshes all parts decsribed by the parameter.
+  */
   virtual void refresh( const int events);
 };
 

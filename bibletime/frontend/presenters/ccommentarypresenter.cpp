@@ -74,8 +74,8 @@ void CCommentaryPresenter::initView(){
 	m_popup->insertItem(i18n("Copy chapter into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);
 	m_popup->insertSeparator();		
   m_popup->insertItem(i18n("Lookup word in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP );	
-//	m_popup->insertSeparator();		
-//	m_popup->insertItem(i18n("Add verse to print queue"), this, SLOT(printHighlightedVerse()));	
+	m_popup->insertSeparator();			
+	m_popup->insertItem(i18n("Add verse to print queue"), this, SLOT(printHighlightedVerse()),0, ID_PRESENTER_PRINT_VERSE);	
 	m_htmlWidget->installPopup(m_popup);		
 	m_htmlWidget->installAnchorMenu( m_popup );
 		
@@ -138,13 +138,10 @@ void CCommentaryPresenter::lookup(CKey* key){
 		}
 	}
 	
-	if (m_key != vKey) {
-		ASSERT(m_key);
-		ASSERT(vKey);
-		m_key->setKey(QString::fromLocal8Bit((const char*)*vKey));
-	}
+	if (m_key != vKey)
+		m_key->setKey(*vKey);
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
-	setPlainCaption( QString::fromLocal8Bit((const char*)*m_key) );
+	setPlainCaption( m_key->getKey() );
 	
 	setUpdatesEnabled(true);		
 }
@@ -153,6 +150,7 @@ void CCommentaryPresenter::lookup(CKey* key){
 void CCommentaryPresenter::popupAboutToShow(){
 	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());	
 	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
+	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
 }
 
 /** No descriptions */
@@ -224,4 +222,12 @@ void CCommentaryPresenter::refresh( const int events){
 		lookup(m_key);
 	if (refreshHTMLWidget)
 		m_htmlWidget->refresh();		
+}
+
+/** Printes the verse the user has chosen. */
+void CCommentaryPresenter::printHighlightedVerse(){
+	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
+	key->setKey(QString::fromLocal8Bit((const char*)*m_key));
+	
+	printKey(key, key, m_moduleList.first());
 }

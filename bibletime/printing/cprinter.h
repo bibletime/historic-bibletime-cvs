@@ -43,6 +43,7 @@ class CPrintItem;
 class CSwordBackend;
 
 class KConfig;
+class KProcess;
 
 class CPrinter : public QObject, public QPrinter  {
 	Q_OBJECT
@@ -258,7 +259,7 @@ signals: // Signals
   /**
  	* Is emitted everytime after an item was printed.
  	*/
-  void printedOneItem();
+  void printedOneItem(const QString& key);
   /**
  	* Is emitted after all items were printed.
  	*/
@@ -281,6 +282,12 @@ signals: // Signals
  	* Is emmitted when the printing queue was cleared.
  	*/
   void queueCleared();
+
+private slots: // Private slots
+  /**
+  * Is called after the preview application was closed.
+  */
+  void previewFinished(KProcess*);
 };
 
 #endif

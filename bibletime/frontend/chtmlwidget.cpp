@@ -62,6 +62,7 @@ CHTMLWidget::CHTMLWidget(QWidget *parent, const char *name ) : QTextEdit(parent,
 	m_popup = 0;
 	m_anchor = QString::null;
 	m_anchorMenu = 0;
+	m_selectedWord = false;
 	mousePressed = inDoubleClick = false;
 		
 	setTextFormat( Qt::RichText );
@@ -248,35 +249,36 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {	
   m_pressedPos = e->pos();
   m_anchor = anchorAt(e->pos());
-	viewport()->setCursor( anchorAt(e->pos()).isEmpty() ? arrowCursor : KCursor::handCursor() );
+	viewport()->setCursor(anchorAt(e->pos()).isEmpty() ? arrowCursor : KCursor::handCursor() );
 	QTextEdit::contentsMousePressEvent(e);
 		
  	if (!onLink.isEmpty() && e->button() == RightButton && m_anchorMenu) {	//popup installed menu 	
 		m_anchorMenu->exec( e->globalPos() );
   }
   else if (m_popup && e->button() == RightButton){ //popup normal menu
-    bool selectedWord = false;
+    m_selectedWord = false;
    	drawCursor(false);
    	placeCursor(e->pos());    	
    	ensureCursorVisible();
-    	
-    Qt3::QTextCursor c1 = *cursor;
-    Qt3::QTextCursor c2 = *cursor;
-    c1.gotoWordLeft();
-    c2.gotoWordRight();
-    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
-    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
-    *cursor = c2;
-
-    repaintChanged();
-    mousePressed = true;
-    selectedWord = true;
-		m_popup->exec( e->globalPos() );
+		emit cursorPositionChanged(cursor);
 		
-		if (selectedWord) {
-			document()->removeSelection( Qt3::QTextDocument::Standard);
-		  repaintChanged();					
-		}
+    if (!doc->hasSelection(Qt3::QTextDocument::Standard)) {
+    	Qt3::QTextCursor c1 = *cursor;
+	    Qt3::QTextCursor c2 = *cursor;
+	    c1.gotoWordLeft();
+	    c2.gotoWordRight();
+	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
+	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
+	    *cursor = c2;
+	    	
+	    repaintChanged();
+	    m_selectedWord = true;
+	  }
+		m_popup->exec( e->globalPos() );		
+		if (m_selectedWord) {
+			m_selectedWord = false;
+			selectAll(false);
+		}		
   }	
 }
 
@@ -290,7 +292,7 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
   if ( mousePressed ) {
 		if ( mightStartDrag ) { //e might star a drag
 	    dragStartTimer->stop();
-	    if ( ( e->pos() - dragStartPos ).manhattanLength() > QApplication::startDragDistance() )
+	    if ( ( e->pos() - dragStartPos ).manhattanLength() > KApplication::startDragDistance() )
 				startDrag();
 	    if ( !isReadOnly() )
 				viewport()->setCursor( ibeamCursor );
@@ -363,91 +365,6 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
 	}
 #endif
     }
-//	if (mousePressed) {	//time to start a drag (ref or text) ? 	
-// 	  if (abs(e->pos().x() - m_pressedPos.x()) > KGlobalSettings::dndEventDelay()
-// 	  	|| abs(e->pos().y() - m_pressedPos.y()) > KGlobalSettings::dndEventDelay())
-//		{
-//			dragStartTimer->stop();					
-//			if (mightStartDrag && mousePressed &&
-//				document()->hasSelection(Qt3::QTextDocument::Standard) )
-//			{
-//				mousePressed = false;
-//				inDoubleClick = false;								
-//				mightStartDrag = false;				
-//				
-//				QDragObject *drag = new QTextDrag( document()->selectedText( Qt3::QTextDocument::Standard ), viewport() );
-//				if ( isReadOnly() )
-//					drag->dragCopy();
-//		    else  if ( drag->drag() && QDragObject::target() != this
-//		    	&& QDragObject::target() != viewport() )
-//		    {
-//			    doc->removeSelectedText( Qt3::QTextDocument::Standard, cursor );
-//			    repaintChanged();
-//				}
-//				return;
-//			}			
-//			if ( !m_anchor.isEmpty()
-//				&& linksEnabled()
-//				&& !mightStartDrag
-//				&& mousePressed /* mightStartDrag is for plain text drags */
-//			)
-//			{ //drag a reference
-//				//qDebug((const char*)m_anchor.local8Bit());
-//				QString ref = m_anchor;
-//				if (ref.left(8) == "sword://") //remove sword://, if it is there
-//					ref = onLink.mid( 8, ref.length() - 9 );
-//				QString Module = QString::null;
-//				if ( parent() && parent()->inherits("CModulePresenter") ) {
-//					if (static_cast<CSwordModuleInfo*>(((CModulePresenter *)this->parent())->getModuleInfo())) {
-//						Module = static_cast<CSwordModuleInfo*>(((CModulePresenter *)this->parent())->getModuleInfo())->module()->Name();
-//					}
-//					else {
-//						Module = "unknown";
-//					}
-//				}				
-//				mousePressed = false;
-//				inDoubleClick = false;				 				
-//				mightStartDrag = false;
-//				
-// 				QTextDrag *d = new QTextDrag(CToolClass::encodeReference(Module,ref),viewport());
-//        d->setSubtype(REFERENCE);
-//        d->setPixmap(REFERENCE_ICON_SMALL);
-//        d->drag();
-//
-//				return;
-//			}
-//		}							
-//		mousePos = e->pos();
-//		doAutoScroll();
-//		oldMousePos = mousePos;				
-//	}
-//	
-//  if ( !isReadOnly() && !mousePressed ) {
-//		if ( document()->hasSelection( Qt3::QTextDocument::Standard )
-//			&& doc->inSelection( Qt3::QTextDocument::Standard, e->pos() )
-//		)			
-//			viewport()->setCursor( arrowCursor );
-//		else
-//			viewport()->setCursor( ibeamCursor );
-//	}
-//
-//	if ( isReadOnly() && linksEnabled() ) {
-//		Qt3::QTextCursor c = *cursor;
-//		placeCursor( e->pos(), &c );
-//		if ( c.parag() && c.parag()->at( c.index() )
-//			&& /*c.parag()->at( c.index() )->format()->isAnchor()*/!anchorAt(e->pos()).isEmpty() )
-//		{
-//			viewport()->setCursor( KCursor::handCursor() );
-//			onLink = c.parag()->at( c.index() )->format()->anchorHref();
-//			QUrl u( document()->context(), onLink, true );
-//			emitHighlighted( u.toString( false, false ) );
-//		}
-//		else {
-//			viewport()->setCursor( isReadOnly() ? arrowCursor : ibeamCursor );
-//			onLink = QString::null;
-//			emitHighlighted( QString::null );
-//		}
-//	}	
 }
 
 /** Installes a menu which will popup if the right mouse button was pressed on an anchor. */
@@ -460,7 +377,8 @@ void CHTMLWidget::installAnchorMenu( QPopupMenu* anchorMenu ){
 /** Returns the current anchor. */
 QString CHTMLWidget::getCurrentAnchor(){
 	qDebug("CHTMLWidget::getCurrentAnchor()");
-	return pressedLink;
+//	return pressedLink;
+	return anchorAt(m_pressedPos);
 }
 
 /** No descriptions */

@@ -30,7 +30,6 @@ class QStringList;
 /**
 	* This is the CModuleInfo imlementation for Bible modules managed by Sword.
 	*	
-	*
 	*	@short Implementation for Sword Bibles
   *	@author The BibleTime team
   * @version $Id$
@@ -38,34 +37,37 @@ class QStringList;
 class CSwordBibleModuleInfo : public CSwordModuleInfo  {
 public:	
 	/**
-		* The constructor of this class
-		*/
+	* The constructor of this class
+	*/
 	CSwordBibleModuleInfo( CSwordBackend* backend, SWModule* module  );
 	/**
-		* The destructor of this class
-		*/
+	* The destructor of this class
+	*/
 	~CSwordBibleModuleInfo();
   /**
-  	* Returns the number of avalable verses for the given chapter and book.
-  	*
-  	* @param book The book we should use
-  	* @param chapter The chapter we should use
-  	*/
+ 	* Returns the number of avalable verses for the given chapter and book.
+ 	*
+ 	* @param book The book we should use
+ 	* @param chapter The chapter we should use
+ 	* @return The number of verses for the given book and chapter
+ 	*/
   virtual unsigned int getVerseCount( const unsigned int book, const unsigned int chapter ) const;
   /**
-  	* @return The number of available chapters of the given book.
-  	*/
+ 	* @return The number of available chapters of the given book.
+ 	* @return The number of chapters for the given book
+ 	*/
   virtual unsigned int getChapterCount( const unsigned int book ) const;
-  /**
-  	* @return A QStringList containing the books which are available in this module.
-  	*
-  	*/
+  /** Return all book of this module.
+  * @return A QStringList containing the books which are available in this module.
+  */
   virtual QStringList* getBooks();
   /**
   * Reimplementation, Returns the type
   */
   virtual CSwordModuleInfo::type getType();
-  /** @return the book number, values starting with 1; 0 if not found */
+  /**
+  * @return the book number, values starting with 1; 0 if not found
+  */
   unsigned int getBookNumber(const QString &book);
 
 private:

@@ -79,3 +79,8 @@ void CSwordLDKey::setModule( CSwordModuleInfo* module ){
 		setKey(oldKey);
 	}
 }
+
+/** Returns the current key as a QString */
+const QString CSwordLDKey::getKey() const{
+	return QString::fromLocal8Bit((const char*)*this);
+}

@@ -742,7 +742,7 @@ void CGroupManager::contentsDragLeaveEvent( QDragLeaveEvent* e){
 /**  */
 void CGroupManager::contentsDropEvent( QDropEvent* e){
   qDebug("CGroupMAnager::contentsDropEvent");
-  CGroupManagerItem* target = (CGroupManagerItem *)itemAt(e->pos());
+  CGroupManagerItem* target = (CGroupManagerItem *)itemAt(contentsToViewport(e->pos()));
 
   QString str;
   QCString submime;
@@ -927,7 +927,7 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 /** Reimplementation */
 void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
 	KListView::contentsMouseMoveEvent( e );	
-	CGroupManagerItem* dragItem=(CGroupManagerItem *)itemAt(e->pos());
+	CGroupManagerItem* dragItem=(CGroupManagerItem *)itemAt( contentsToViewport(e->pos()) );
 
 	//mouse is pressed, an item is selected and the popup menu isn't opened
 	if ( (e->state()&LeftButton) && (e->stateAfter()&LeftButton) && dragItem && !m_menu)
@@ -949,25 +949,25 @@ void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
         		return;
 			switch (dragItem->type()){
 				case (CGroupManagerItem::Bookmark):
-	           	if (dragItem->moduleInfo()) {
-	              	QString ref = dragItem->getKeyText();
-	              	QString mod = dragItem->moduleInfo()->module()->Name();
-	              	
-	              	d = new QTextDrag(CToolClass::encodeReference(mod,ref), this->viewport());
-	              	d->setSubtype(BOOKMARK);
-	              	m_dragType = BOOKMARK;
-							}
-				break;					
+	         if (dragItem->moduleInfo()) {
+	           	QString ref = dragItem->getKeyText();
+	           	QString mod = dragItem->moduleInfo()->module()->Name();
+	            	
+	          	d = new QTextDrag(CToolClass::encodeReference(mod,ref), viewport());
+	          	d->setSubtype(BOOKMARK);
+	        		m_dragType = BOOKMARK;
+					}
+					break;					
 				case (CGroupManagerItem::Module):
-	            	d = new QTextDrag( "" , this->viewport());
-	            	d->setSubtype(MODULE);
-	            	m_dragType = MODULE;
-			  break;					
+					d = new QTextDrag( "" , viewport());
+					d->setSubtype(MODULE);
+					m_dragType = MODULE;
+					break;					
 				case (CGroupManagerItem::Group):
-	            	d = new QTextDrag( "" , this->viewport());
-	            	d->setSubtype(GROUP);
-	            	m_dragType = GROUP;
-				break;
+					d = new QTextDrag( "" , viewport());
+					d->setSubtype(GROUP);
+					m_dragType = GROUP;
+					break;
 			}
 			
 			if (d) {
@@ -1028,9 +1028,8 @@ int CGroupManager::parentId(CGroupManagerItem *item, CGroupManagerItem* parentIt
 				}
 				it++;
 			}
-			if (it.current()) {
+			if (it.current())
 				ret = index;
-			}
 		}
 	}
 	return ret;
@@ -1594,16 +1593,10 @@ QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem *parent,
   }
 
   if ( p && insertmarker.isValid() )  {
-  	int diff = 0;
-//  	if (useParent)
-//  		diff = after->parent()->depth()*treeStepSize() - contentsX();
-//  	else
-//  		diff = after->depth()*treeStepSize() - contentsX();
-  		
   	if (useParent)
-  		insertmarker.setLeft( after->parent()->depth()*treeStepSize() + diff);
+  		insertmarker.setLeft( treeStepSize()*(after->parent()->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin()- contentsX());
   	else
-  		insertmarker.setLeft( after->depth()*treeStepSize() + diff);
+  		insertmarker.setLeft( treeStepSize()*(after->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin() - contentsX());
   	style().drawFocusRect( p, insertmarker, colorGroup(), after->isSelected() ? &colorGroup().highlight() : &colorGroup().base(), after->isSelected() && !useParent );
   }
   else if (!insertmarker.isValid()) {

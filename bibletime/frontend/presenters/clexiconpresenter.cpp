@@ -69,6 +69,8 @@ void CLexiconPresenter::initView(){
 	m_popup->insertItem(i18n("Copy entry into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);
 	m_popup->insertSeparator();		
   m_popup->insertItem(i18n("Lookup word in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP );	
+	m_popup->insertSeparator();			
+	m_popup->insertItem(i18n("Add entry to print queue"), this, SLOT(printEntry()),0, ID_PRESENTER_PRINT_ENTRY);	
 	
 	m_htmlWidget->installPopup(m_popup);	
 	m_htmlWidget->installAnchorMenu(m_popup);
@@ -94,17 +96,14 @@ void CLexiconPresenter::lookup(CKey* key){
 	if (!key)
 		return;
 	CSwordLDKey* ldKey = dynamic_cast<CSwordLDKey*>(key);
-	if (!ldKey || (const char*)*ldKey == "")
+	if (!ldKey || ldKey->getKey().isEmpty())
 		return;
-	ASSERT(m_moduleList.first());
-	
 	m_moduleList.first()->module()->SetKey(*ldKey);
 	if (m_moduleList.first()->getDisplay()) {	//we have a valid display object
 		m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
 		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());
-	}
-	
-	setPlainCaption( QString::fromLocal8Bit((const char*)*m_key) );
+	}	
+	setPlainCaption( m_key->getKey() );
 }
 
 /** No descriptions */
@@ -128,10 +127,10 @@ void CLexiconPresenter::popupAboutToShow(){
 
 /** No descriptions */
 void CLexiconPresenter::referenceClicked( const QString& ref){
-	if ( !ref.isEmpty() ) {
-		m_key->setKey(ref);
-		m_keyChooser->setKey( m_key );
-	}	
+	if ( ref.isEmpty() )
+		return;		
+	m_key->setKey(ref);
+	m_keyChooser->setKey(m_key);
 }
 
 /** No descriptions */
@@ -156,4 +155,9 @@ void CLexiconPresenter::refresh( const int events){
 		lookup(m_key);
 	if (refreshHTMLWidget)
 		m_htmlWidget->refresh();
+}
+
+/** Printes the displayed entry of the used module. */
+void CLexiconPresenter::printEntry(){
+	
 }

@@ -567,6 +567,8 @@ void CPrinterDialog::slotUser2(){
 	qDebug("do _not_ use preview");
 	applySettingsToPrinter(false);
 	m_printer->printQueue();	
+	
+	close();
 }
 
 /** Calls the CPrinter methods to set settings. */

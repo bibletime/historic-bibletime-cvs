@@ -82,6 +82,8 @@ public:
   virtual void PreviousEntry( void );  	
   /** Sets the module of this key. */
   void setModule( CSwordModuleInfo* module );
+  /** Returns the current key as a QString */
+  const QString getKey() const;
   /**
   	* This is out data member, which contains the data for this key.
   	*/

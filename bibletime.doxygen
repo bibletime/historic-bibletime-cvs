@@ -4,8 +4,8 @@
 #---------------------------------------------------------------------------
 PROJECT_NAME          = BibleTime
 PROJECT_NUMBER        = 1.0
-OUTPUT_DIRECTORY      = /home/joachim/BibleTime/bibletime-2/bibletime-api/
-OUTPUT_LANGUAGE       = English
+OUTPUT_DIRECTORY      = /home/joachim/BibleTime/bibletime/bibletime-api/
+OUTPUT_LANGUAGE       = German
 DISABLE_INDEX         = NO
 EXTRACT_ALL           = YES
 EXTRACT_PRIVATE       = YES
@@ -42,7 +42,7 @@ WARN_FORMAT           = "$file:$line: $text"
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                 = /home/joachim/BibleTime/bibletime-2/
+INPUT                 = /home/joachim/BibleTime/bibletime/
 FILE_PATTERNS         = *.h \
                         *.hh \
                         *.H

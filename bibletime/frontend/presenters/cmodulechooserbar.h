@@ -27,13 +27,18 @@
 class CModuleChooserButton;
 
 /**
-  *@author The BibleTime team
+  * @author The BibleTime team
   */
-
 class CModuleChooserBar : public KToolBar  {
    Q_OBJECT
 public: 
+	/**
+	* Default constructor
+	*/
 	CModuleChooserBar(CImportantClasses* important, ListCSwordModuleInfo useModules,CSwordModuleInfo::type type,  QWidget *parent=0, const char *name=0);
+	/**
+	* Default destructor
+	*/	
 	~CModuleChooserBar();
   /**
   * Returns a list of selected modules.
@@ -44,14 +49,6 @@ public:
   */
   void setButtonLimit( const int limit);
 	
-private:
-	CImportantClasses* m_important;
-	QList<CModuleChooserButton> m_buttonList;
-	CSwordModuleInfo::type m_moduleType;
-	int m_idCounter;
-	int m_deleteID;
-	int m_buttonLimit;
-
 protected slots: // Protected slots
   /**
   * Adds a button to the toolbar
@@ -65,6 +62,14 @@ protected slots: // Protected slots
   * No descriptions
   */
   void deleteButton();
+
+private:
+	CImportantClasses* m_important;
+	QList<CModuleChooserButton> m_buttonList;
+	CSwordModuleInfo::type m_moduleType;
+	int m_idCounter;
+	int m_deleteID;
+	int m_buttonLimit;
 
 signals: // Signals
   /**

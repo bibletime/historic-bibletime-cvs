@@ -97,7 +97,9 @@ public slots: // Public slots
   * No descriptions
   */
   void slotCopyAll();
-  /** Copies the displayed document into the clipboard. */
+  /**
+  * Copies the displayed document into the clipboard.
+  */
   void copyDocument();
 
 
@@ -105,30 +107,30 @@ protected: // Protected attributes
   /*
   * Initializes the colors of this widget (backgrouznd, links, text)
   */
-  virtual void initColors();
+  void initColors();
   /**
   * Initializes the fonts of the HTML-widget
   */
-  virtual void initFonts();
+  void initFonts();
   /**
   * Initializes the connections to SIGNALs
   */
-  virtual void initConnections();
+  void initConnections();
   /**
   * Initializes the view of this widget (childs, popups etc.)
   */
-  virtual void initView();
+  void initView();
   /**
-  	* Reimplementation.
-  	*/
+ 	* Reimplementation.
+ 	*/
   virtual void contentsDragEnterEvent(QDragEnterEvent* e);
   /**
-  	* Reimplementation.
-  	*/
+ 	* Reimplementation.
+ 	*/
   virtual void contentsDragMoveEvent (QDragMoveEvent* e);
   /**
-  	* Reimplementation.
-  	*/
+ 	* Reimplementation.
+ 	*/
   virtual void contentsDropEvent(QDropEvent* e);
   /**
  	* Reimplementation.
@@ -216,6 +218,7 @@ protected slots: // Protected slots
 	
 private:
 	bool m_readOnly;
+	bool m_selectedWord;
 	QString m_anchor;
 	
   /**

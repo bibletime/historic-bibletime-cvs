@@ -37,8 +37,10 @@ public:
   * Reimplementation from CSwordPresenter.
   */
   virtual void lookup(const QString&);
-  /** Reimplementation.
-Refreshes the things which are described by the event integer. */
+  /**
+  * Reimplementation.
+	* Refreshes the things which are described by the event integer.
+	*/
   virtual void refresh( const int events );
 
 protected:
@@ -71,6 +73,8 @@ private slots: // Private slots
   ** No descriptions
   */
   void popupAboutToShow();
+  /** Printes the verse the user has chosen. */
+  void printHighlightedVerse();
 
 private:
 	CSwordVerseKey* m_key;

@@ -52,101 +52,111 @@
 class CSwordVerseKey :  public VerseKey, public CKey  {
 public: 
 	/**
-		* Constructor of this class.
-		*
-		* This function will construct a versekey with the current module position
-		* and it will setup the m_module members.
-		*
-		*	If you specifiy a module as parameter, which is not verse based the exception EBadModule
-		* is thrown to show this problem to the creator of this class.
-		*
-		*/
+	* Constructor of this class.
+	*
+	* This function will construct a versekey with the current module position
+	* and it will setup the m_module members.
+	*
+	*	If you specifiy a module as parameter, which is not verse based the exception EBadModule
+	* is thrown to show this problem to the creator of this class.
+	*
+	*/
 	CSwordVerseKey( CSwordModuleInfo* module );
 	/**
-		* Destructor of this class.
-		*
-		* Clean up the data variables and delete objects used and
-		* created by this class.
-		*/
+	* Destructor of this class.
+	*
+	* Clean up the data variables and delete objects used and
+	* created by this class.
+	*/
 	~CSwordVerseKey();
   /**
-  	* Get the data for the this object in the member variable m_data.
-  	*
-  	* You have to manually access the m_data variable to get the text.
-  	*/
+  * Get the data for the this object in the member variable m_data.
+  *
+  * You have to manually access the m_data variable to get the text.
+  */
   void getData();
   /**
-  	* Sets the key we use to the parameter.
-  	*
-  	* This will also set the position of the module to the new key.
-  	*/
+  * Sets the key we use to the parameter.
+  *
+  * This will also set the position of the module to the new key.
+  */
   bool setKey( QString key );
   /**
-  	* Gets the key with the next verse in comparision with the current verse and stores
-  	* the key in the parameter key.
-  	*
-  	* If this object and the parameter are the same we'll directly modify this key object.
-  	*/
+  * Gets the key with the next verse in comparision with the current verse and stores
+  * the key in the parameter key.
+  *
+  * If this object and the parameter are the same we'll directly modify this key object.
+  */
   bool NextVerse();
   /**
-  	* Gets the key with the previous verse in comparision with the current verse and stores
-  	* the key in the parameter key.
-  	*
-  	* If this object and the parameter are the same we'll directly modify this key object.
-  	*/
+  * Gets the key with the previous verse in comparision with the current verse and stores
+  * the key in the parameter key.
+  *
+  * If this object and the parameter are the same we'll directly modify this key object.
+  */
   bool PreviousVerse();
   /**
-  	* Gets the key with the next chapter in comparision with the current chapter and stores
-  	* the key in the parameter key.
-  	*
-  	* If this object and the parameter are the same we'll directly modify this key object.
-  	*/
+  * Gets the key with the next chapter in comparision with the current chapter and stores
+  * the key in the parameter key.
+  *
+  * If this object and the parameter are the same we'll directly modify this key object.
+  */
   bool NextChapter();
   /**
-  	* Gets the key with the previous chapter in comparision with the current chapter and stores
-  	* the key in the parameter key.
-  	* If this object and the parameter are the same we'll directly modify this key object.
-  	*/
+  * Gets the key with the previous chapter in comparision with the current chapter and stores
+  * the key in the parameter key.
+  * If this object and the parameter are the same we'll directly modify this key object.
+  */
   bool PreviousChapter();
   /**
-  	* Gets the key with the next book in comparision with the current book and stores
-  	* the key in the parameter key.
-  	*
-  	* If this object and the parameter are the same we'll directly modify this key object.
-  	*/
+  * Gets the key with the next book in comparision with the current book and stores
+  * the key in the parameter key.
+  *
+  * If this object and the parameter are the same we'll directly modify this key object.
+  */
   bool NextBook();
   /**
-  	* Gets the key with the previous chapter in comparision with the current book and stores
-  	* the key in the parameter key.
-  	*
-  	* If this object and the parameter are the same we'll directly modify this key object.
-  	*/
+  * Gets the key with the previous chapter in comparision with the current book and stores
+  * the key in the parameter key.
+  *
+  * If this object and the parameter are the same we'll directly modify this key object.
+  */
   bool PreviousBook();
   /**
-  	* This functions returns the current book as localised text, not as book numer.
-  	*
-  	* Use "char Book()" to retrieve the book number of the current book.
-  	* @return The name of the current book
-  	*/
+  * This functions returns the current book as localised text, not as book numer.
+  *
+  * Use "char Book()" to retrieve the book number of the current book.
+  * @return The name of the current book
+  */
   QString getBook() const;
   /**
-  	* Sets the book for this key. It gets a text parameter, not a booknumber.
-  	*
-  	* Use "Book(char)" to set the number using a number.
-  	* @param newBook The QString object which contains the new book for this key.
-  	*/
+  * Sets the book for this key. It gets a text parameter, not a booknumber.
+  *
+  * Use "Book(char)" to set the number using a number.
+  * @param newBook The QString object which contains the new book for this key.
+  */
   void setBook(const QString newBook);
-  /** Sets the module for this key */
-  virtual void setModule( CSwordModuleInfo* module );
   /**
-  	* This is our data member, which contains the data for this key.
-  	*
-  	* Access it to get the content for the current key.
-  	* @see setKey() clears the content of this variable, use the function @see getData() to fill it again.
-  	*/
+  * Sets the module for this key
+  */
+  void setModule( CSwordModuleInfo* module );
+  /**
+   Sets the key using a versekey object of Sword.
+  */
+  void setKey( VerseKey& key );
+  /**
+  * Returns the key as a QString.
+  */
+  const QString getKey() const;
+  /**
+  * This is our data member, which contains the data for this key.
+  *
+  * Access it to get the content for the current key.
+  * @see setKey() clears the content of this variable, use the function @see getData() to fill it again.
+  */
   QString m_data;
 
-protected:
+private:
   /**
   	* This is the pointer to the module we use.
   	*/

@@ -79,6 +79,7 @@ void BibleTime::initActions() {
 	m_fileClearQueue_action->setWhatsThis( WT_FILE_CLEAR_QUEUE );
 	
 	m_filePrint_action = KStdAction::print(this, SLOT( slotFilePrint() ), actionCollection());
+	m_filePrint_action->setEnabled(false);		
 	m_filePrint_action->setToolTip( TT_FILE_PRINT );	
 	m_filePrint_action->setWhatsThis( WT_FILE_PRINT );
 	
@@ -202,9 +203,13 @@ void BibleTime::initConnections(){
 	
 	//connect to the signals of the printer object
 	connect(m_important->printer, SIGNAL(addedFirstQueueItem()),
-		this, SLOT(slotSetClearQueueStatus()));
+		this, SLOT(slotSetPrintingStatus()));
+	connect(m_important->printer, SIGNAL(printingFinished()),
+		this, SLOT(slotSetPrintingStatus()));		
+	connect(m_important->printer, SIGNAL(printingInterrupted()),
+		this, SLOT(slotSetPrintingStatus()));				
 	connect(m_important->printer, SIGNAL(queueCleared()),
-		this, SLOT(slotSetClearQueueStatus()));
+		this, SLOT(slotSetPrintingStatus()));
 }
 
 /** Initializes the keyboard accelerators */

@@ -17,6 +17,8 @@
 
 #include "cswordpresenter.h"
 #include "../chtmlwidget.h"
+#include "../../printing/cprintitem.h"
+#include "../../printing/cprinter.h"
 
 //Qt includes
 #include <qpopupmenu.h>
@@ -53,13 +55,18 @@ int CSwordPresenter::getFeatures(){
 }
 
 /** Refreshes the presenter depending on the events given as parameter. */
-void CSwordPresenter::refresh( const int events ){
-	
+void CSwordPresenter::refresh( const int events ){	
 }
 
 /** Prints the key given as parameter. */
-void CSwordPresenter::printKey(CKey*){
+void CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module) {
 #warning ToDO: implementation
+	CPrintItem* printItem = new CPrintItem();	
+	printItem->setModule(module);	
+	printItem->setStartKey(start);
+	printItem->setStopKey(stop);
+	
+	m_important->printer->addItemToQueue( printItem );
 }
 
 /** Refreshes the supported features. */
@@ -82,12 +89,6 @@ void CSwordPresenter::refreshFeatures(){
 	}
 }
 
-/** No descriptions */
-void CSwordPresenter::printHighlightedVerse(){
-	
-}
-
-/** No descriptions */
 void CSwordPresenter::lookupWord(int ID){
 	const QString text = m_lexiconPopup->text(ID);	
 

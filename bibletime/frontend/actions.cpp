@@ -176,7 +176,7 @@ void KonqLabelAction::unplug( QWidget *widget )
 	* The copyright of KonqComboAction and KonqLabelAction is owned by him!
 	*	We included it and added the QT exception with his agreement.
 	*/
-CColorComboAction::CColorComboAction( QColor color, const bool autoSized, const int width, const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name )
+/*CColorComboAction::CColorComboAction( QColor color, const bool autoSized, const int width, const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name )
     : KAction( "nothing", 0, parent, name ) {
   qDebug("constructor of CColorComboAction");
   m_receiver = receiver;
@@ -227,3 +227,4 @@ void CColorComboAction::unplug( QWidget *w ) {
 
   removeContainer( idx );
 }
+*/

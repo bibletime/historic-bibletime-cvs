@@ -101,7 +101,7 @@ private:
 	* The copyright of KonqComboAction and KonqLabelAction is owned by him!
 	*	We included it and added the QT exception with his agreement.
 	*/
-class CColorComboAction : public KAction
+/*class CColorComboAction : public KAction
 {
   Q_OBJECT
 public:
@@ -123,5 +123,6 @@ private:
     bool m_autoSized;
     int m_width;
 };
+*/
 
 #endif

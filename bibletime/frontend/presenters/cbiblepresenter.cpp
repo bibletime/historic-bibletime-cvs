@@ -69,8 +69,8 @@ void CBiblePresenter::initView(){
 	m_popup->insertItem(i18n("Copy chapter into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);
 	m_popup->insertSeparator();		
   m_popup->insertItem(i18n("Lookup word in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP );	
-//m_popup->insertSeparator();			
-//	m_popup->insertItem(i18n("Add verse to print queue"), this, SLOT(printHighlightedVerse()));	
+	m_popup->insertSeparator();			
+	m_popup->insertItem(i18n("Add verse to print queue"), this, SLOT(printHighlightedVerse()),0, ID_PRESENTER_PRINT_VERSE);	
 	
 	m_htmlWidget->installPopup(m_popup);			
 	m_htmlWidget->installAnchorMenu( m_popup );
@@ -95,15 +95,11 @@ void CBiblePresenter::lookup(CKey* key){
 			m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
  		m_htmlWidget->setText( m_moduleList.first()->getDisplay()->getHTML() );
 	}
-	if (m_key != vKey) {
-		ASSERT(m_key);
-		ASSERT(vKey);
-		m_key->setKey(QString::fromLocal8Bit((const char*)*vKey));
-	}
-
-
+	if (m_key != vKey)
+		m_key->setKey(*vKey);
+;		
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
-	setPlainCaption( QString::fromLocal8Bit((const char*)*m_key) );
+	setPlainCaption( m_key->getKey() );
 	
 	setUpdatesEnabled(true);		
 }
@@ -139,6 +135,7 @@ void CBiblePresenter::initConnections(){
 void CBiblePresenter::popupAboutToShow(){
 	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());
 	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
+	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());
 }
 
 /** No descriptions */
@@ -196,4 +193,16 @@ void CBiblePresenter::refresh( const int events ){
 		lookup(m_key);
 	if (refreshHTMLWidget)
 		m_htmlWidget->refresh();		
+}
+
+/** Printes the verse the user has chosen. */
+void CBiblePresenter::printHighlightedVerse(){
+	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
+	key->setKey(m_key->getKey());
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	if (currentAnchor.left(8) == "sword://")
+		currentAnchor = currentAnchor.mid(8, currentAnchor.length()- (currentAnchor.right(1) == "/" ? 9 : 8));
+	key->setKey(currentAnchor);
+	
+	printKey(key, key, m_moduleList.first());
 }

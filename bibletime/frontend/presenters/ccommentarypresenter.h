@@ -37,6 +37,9 @@ public:
 	* Default constructor
 	*/
 	CCommentaryPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0);
+	/**
+	* Default destructor
+	*/	
 	~CCommentaryPresenter();
 
 	
@@ -49,7 +52,9 @@ public slots: // Public slots
   * Reimplementation.
   */
   virtual void lookup(const QString&);
-  /** No descriptions */
+  /**
+  * No descriptions
+  */
   virtual void refresh( const int events);
 
 protected slots: // Protected slots
@@ -69,6 +74,10 @@ protected slots: // Protected slots
 	*
 	*/
 	void editComment();
+	/**
+	* Print the current item displayed in the presenter.
+	*/
+	void printHighlightedVerse();
 
 private: // Private methods
   /**

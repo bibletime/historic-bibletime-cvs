@@ -391,7 +391,6 @@ void CSearchDialogResultView::popupAboutToShow(){
 
 /**  */
 void CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e){
-//  qDebug("CSearchDialogResultView::viewportMouseMoveEvent");
   QListBox::viewportMouseMoveEvent(e);
 	if ( e->state() ){
 	//Is it time to start a drag?
@@ -404,9 +403,7 @@ void CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e){
 				ASSERT(m_currentItem);
 
 				mod = m_module->module()->Name();
-//				//getResultItem() returns a CSearchResultItem which is a CKey derived class. CKey offers useful functions.
-				ref = m_currentItem->text(/*0*/);
-//				qDebug("mod "+mod+" key "+ref);
+				ref = m_currentItem->text();
 
 				QTextDrag *d = new QTextDrag(CToolClass::encodeReference(mod,ref),this->viewport());
 				if (d){

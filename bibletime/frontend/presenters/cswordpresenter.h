@@ -36,22 +36,23 @@ class CHTMLWidget;
 class CModuleChooserBar;
 class CKey;
 
-/**
+/** Base class for all Sword based presneters
 	* The base class for all Sword based presenters.
+	*
   * @author The BibleTime team
   */
 class CSwordPresenter : public CPresenter  {
    Q_OBJECT
 public: 
 	enum features {
-	 	strongNumbers = 0x000000010,
-	 	footnotes = 0x000000020,
-	 	language = 0x000000040,
-	 	textColor = 0x000000080,
-	 	highlightedVerseColor = 0x000000100,
-	 	verseNumberColor = 0x000000200,
-	 	backgroundColor = 0x000000400,
-	 	font = 0x000000800	
+	 	strongNumbers = 0x000000010, /* Set if Strong's numbers are supported*/
+	 	footnotes = 0x000000020, /* Set if footnotes are supported*/
+	 	language = 0x000000040, /* Set if different languages are supported (for example in the key chooser)*/
+	 	textColor = 0x000000080, /* Set if different text colors are supported*/
+	 	highlightedVerseColor = 0x000000100, /* Set if different color for the highlighted verse are supported*/
+	 	verseNumberColor = 0x000000200, /* Set if different colors for the versenumber are supported*/
+	 	backgroundColor = 0x000000400, /* Set if different background colors are supported*/
+	 	font = 0x000000800	/* Set if different fonts are supported*/
   };	
 	enum events {
   	strongNumbersChanged = strongNumbers,
@@ -64,6 +65,9 @@ public:
   	fontChanged = font  	
   };
 
+	/**
+	* Default constructor
+	*/
 	CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0);
 	/**
 	* Destructor of this sword üresenter
@@ -77,22 +81,23 @@ public:
   * Refreshes the presenter depending on the events given as parameter.
   */
   virtual void refresh( const int events);
+  /**
+  * Returns the listof used modules.
+  */
+  ListCSwordModuleInfo& getModuleList();
 
 public slots: // Public slots
   /**
   * Look up the key given as parameter.
   */
   virtual void lookup(const QString&);
-  /**
-  * Returns the listof used modules.
-  */
-  ListCSwordModuleInfo& getModuleList();
+
 
 protected: // Protected methods
   /**
   * Prints the key given as parameter.
   */
-  void printKey(CKey*);
+  void printKey(CKey*, CKey*, CSwordModuleInfo*);
   /**
   * Refreshes the supported features.
   */
@@ -114,10 +119,6 @@ protected slots: // Protected slots
   * No descriptions
   */
   void lookupWord(int ID);
-  /**
-  * No descriptions
-  */
-  void printHighlightedVerse();
 
 signals: // Signals
   /**

@@ -30,7 +30,13 @@ class KConfig;
 class CPresenter : public KMainWindow  {
    Q_OBJECT
 public: 
+	/**
+	* Default xonstructor
+	*/
 	CPresenter(QWidget *parent, const char *name=0, WFlags f= WDestructiveClose);
+	/**
+	* Default destructor
+	*/	
 	~CPresenter();
 
 protected:

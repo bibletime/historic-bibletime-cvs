@@ -105,6 +105,7 @@ unsigned int CSwordBibleModuleInfo::getVerseCount( const unsigned int book, cons
 CSwordModuleInfo::type CSwordBibleModuleInfo::getType(){
 	return CSwordModuleInfo::Bible;
 }
+
 /** @return the book number, values starting with 1; 0 if not found */
 unsigned int CSwordBibleModuleInfo::getBookNumber(const QString &book){
   if (!m_bookList)

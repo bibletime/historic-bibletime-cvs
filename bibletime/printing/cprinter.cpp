@@ -22,6 +22,8 @@
 #include "cstyleformatframe.h"
 
 #include "../backend/sword_backend/cswordbackend.h"
+#include "../backend/sword_backend/cswordversekey.h"
+#include "../backend/sword_backend/cswordldkey.h"
 
 #include <kconfig.h>
 #include <kprocess.h>
@@ -30,6 +32,7 @@
 #include <klocale.h>
 #include <kapp.h>
 
+#include <qfile.h>
 #include <qstringlist.h>
 #include <qpainter.h>
 #include <qpaintdevice.h>
@@ -46,9 +49,10 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 	ASSERT(important);
 	m_important = important;
 	m_backend = m_important->swordBackend;
-	m_queue = new printItemList;
+	m_queue = new printItemList;	
+	m_queue->setAutoDelete(true);
 	m_styleList = new styleItemList;
-	
+	m_styleList->setAutoDelete(true);	
 	
 		
 	readSettings();
@@ -57,13 +61,11 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 
 CPrinter::~CPrinter(){
 	qDebug("destructor of CPrinter");
-	saveSettings();
-	
+	saveSettings();	
 	config->sync();		
-	delete config;
-	
-//	delete m_queue;
-//	delete m_styleList;
+	delete config;	
+	delete m_queue;
+	delete m_styleList;
 }
 
 /** Returns the path to the preview application. */
@@ -335,20 +337,33 @@ void CPrinter::printQueue(){
 
 	emit printingStarted();
 	QPainter *p = new QPainter();	
-	if (!p->begin(this))
+	if (!p->begin(this)) {
+		clearQueue();
 		return;	
+	}
 	
 	m_pagePosition.rect = getPageSize();
 	for (int page = 1; page <= numCopies(); page++) {	//make numCopies() copies of the pages
 		for (m_queue->first(); m_queue->current(); m_queue->next()) {
-			ASSERT(m_queue->current());
+			KApplication::kApplication()->processEvents(10); //do not lock the GUI!			
 			printItem( p, m_queue->current());
-			KApplication::kApplication()->processEvents(); //do not lock the GUI!
-			emit printedOneItem();
+			CKey* key = m_queue->current()->getStartKey();
+			
+			QString keyName = QString::null;			
+			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
+			if (vk) {
+				keyName = vk->getKey();
+			}
+			else {			
+				CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
+				keyName = lk->getKey();
+			}
+			emit printedOneItem(keyName);
+			
 		};
 		if (page < numCopies())
 			newPage();	//new pages seperate copies
-	}	
+	}
 	p->end();	//send away print job
 
 	if ( getPreview() ) {
@@ -356,7 +371,10 @@ void CPrinter::printQueue(){
 		process << getPreviewApplication();
 		process << outputFileName();
 		process.start(KProcess::DontCare);
-	}
+//		connect(&process, SIGNAL(processExited(KProcess*)), SLOT(previewFinished(KProcess*)));		
+	}	
+	if (!getPreview())
+		clearQueue();
 	emit printingFinished();
 }
 
@@ -367,7 +385,7 @@ void CPrinter::appendItemsToQueue( printItemList* items ){
 		ASSERT( items->current() );
 		m_queue->append(items->current());
 	}
-	if (m_queue->count() > 0)
+	if (m_queue->count() == 1)
 		emit addedFirstQueueItem();	
 }
 
@@ -387,6 +405,10 @@ printItemList* CPrinter::getPrintQueue(){
 /** Sets the printing queue to queue. */
 void CPrinter::setPrintQueue( printItemList* queue){
 	qDebug("CPrinter::setPrintQueue( printItemList* queue)");
+	if (queue != m_queue) { //delete old queue
+		clearQueue();
+		delete m_queue;
+	}
 	m_queue = queue;
 }
 
@@ -592,12 +614,9 @@ QRect CPrinter::getPageSize(){
 	size.width  = metric.width();
   size.height = metric.height();
 
-//  qDebug( QString::number(m_pageMargin.left) );
-//  qDebug( QString::number(m_pageMargin.top) );
-
   r.setLeft( m_pageMargin.left );
   r.setTop( m_pageMargin.top );
-  r.setRight( metric.width() - /*m_pageMargin.left -*/ m_pageMargin.right );
+  r.setRight( metric.width() -  m_pageMargin.right );
   r.setBottom( metric.height() - m_pageMargin.top - m_pageMargin.bottom );
 
   return r;
@@ -612,6 +631,7 @@ KConfig* CPrinter::getConfig() {
 /** Creates the standard style. */
 void CPrinter::setupStandardStyle(){
 	qDebug("CPrinter::setupStandardStyle()");
+	
 	//see if m_items contains standard style
 	bool found = false;
 	for (m_styleList->first(); m_styleList->current(); m_styleList->next()) {
@@ -626,4 +646,10 @@ void CPrinter::setupStandardStyle(){
 		standardStyle->setStyleName(i18n("Standard"));		
 		m_styleList->append( standardStyle );
 	}
+}
+
+/** Is called after the preview application was closed. */
+void CPrinter::previewFinished(KProcess*){
+	if (QFile::exists( outputFileName() ))
+		QFile::remove( outputFileName() );
 }

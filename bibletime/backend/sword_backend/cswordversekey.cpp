@@ -157,3 +157,13 @@ void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
 		setKey(oldKey);
 	}
 }
+
+/** Returns the key as a QString. */
+const QString CSwordVerseKey::getKey() const {
+	return QString::fromLocal8Bit( (const char*)*this );
+}
+
+/** Sets the key using a versekey object of Sword. */
+void CSwordVerseKey::setKey( VerseKey& key ){
+	setKey( (const char*)key );
+}

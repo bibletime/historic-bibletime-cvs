@@ -98,83 +98,85 @@ class BibleTime : public KMainWindow {
 	friend class CMDIArea;
 	Q_OBJECT
 public:
-  /** construtor of BibleTime
-  	*/
+  /**
+  * construtor of BibleTime
+  */
   BibleTime();
-  /** destructor of BibleTime
-  	*/
+  /**
+  * Destructor of BibleTime
+  */
   virtual ~BibleTime();
   /**
-  	* No descriptions
-  	*/
+  * No descriptions
+  */
   virtual void show();
 
 public slots:
   /**
-   * Shows the daily tip
-   */
+  * Shows the daily tip
+  */
   void slotHelpTipOfDay();
   /**
-   * Opens the optionsdialog of BibleTime.
-   */
+  * Opens the optionsdialog of BibleTime.
+  */
   void slotSettingsOptions();
   /**
-   * The last window was closed!
-   */
+  * The last window was closed!
+  */
   void lastWindowClosed();
   /**
-  	* Reimplementation. Sets the caption and takes care of special captions set by the MDI window
-  	*/
+ 	* Reimplementation. Sets the caption and takes care of special captions set by the MDI window
+ 	*/
   virtual void setCaption(const QString&);
 
 protected: // Protected methods
   /**
-   * Initializes the view of this widget
-   */
+  * Initializes the view of this widget
+  */
   void initView();
   /**
-   * Initializes the menubar of BibleTime.
-   */
+  * Initializes the menubar of BibleTime.
+  */
   void initMenubar();
   /**
-   * Initializes the SIGNAL / SLOT connections
-   */
+  * Initializes the SIGNAL / SLOT connections
+  */
   void initConnections();
   /**
-   * Initializes the keyboard accelerators
-   */
+  * Initializes the keyboard accelerators
+  */
   void initKeyAccels();
   /**
-   * Initializes the backend
-   */
+  * Initializes the backend
+  */
   void initBackends();
   /**
-   * Reads the settings from the configfile and sets the right properties.
-   */
+  * Reads the settings from the configfile and sets the right properties.
+  */
   void readSettings();
   /**
-   * Saves the settings of this class
-   */
+  * Saves the settings of this class
+  */
   void saveSettings();
   /**
- 	 * Initializes the action objects of the GUI
-   */
+	* Initializes the action objects of the GUI
+	*/
   void initActions();
   /**
-   * Refreshes all presenter supporting at least in of the features given as parameter.
-   */
+  * Refreshes all presenter supporting at least in of the features given as parameter.
+  */
   void refreshPresenters( int useFeatures );
   /**
-   * Called before a window is closed
-   */
+  * Called before a window is closed
+  */
   bool queryClose();
   /**
-   * Called before quit.
-   */
+  * Called before quit.
+  */
   bool queryExit();
   /**
-   * Initializes the CPrinter object.
-   */
+  * Initializes the CPrinter object.
+  */
   void initPrinter();
 
 	QGuardedPtr<QPopupMenu> m_windowMenu;
@@ -224,8 +226,8 @@ protected: // Protected methods
 	QGuardedPtr<CGroupManager> m_groupmanager;
 	QGuardedPtr<CMDIArea> m_mdi;
   /**
-  	* The list of installed SWORD modules
-  	*/
+  * The list of installed SWORD modules
+  */
   ListCSwordModuleInfo* m_moduleList;
   CImportantClasses* m_important;
 
@@ -287,6 +289,6 @@ protected slots:
   /**
  	* Enables the "Clear printer queue" action
  	*/
-  void slotSetClearQueueStatus();
+  void slotSetPrintingStatus();
 };
 #endif

@@ -297,8 +297,9 @@ void BibleTime::slotFilePrint(){
 }
 
 /** Enables the "Clear printer queue" action */
-void BibleTime::slotSetClearQueueStatus(){
-	m_fileClearQueue_action->setEnabled( m_important->printer->getPrintQueue()->count() >0 );
+void BibleTime::slotSetPrintingStatus(){
+	m_filePrint_action->setEnabled( m_important->printer->getPrintQueue()->count()>0 );
+	m_fileClearQueue_action->setEnabled( m_important->printer->getPrintQueue()->count()>0 );
 }
 
 /** Reimplementation. Sets the caption and takes care of special captions set by the MDI window */
