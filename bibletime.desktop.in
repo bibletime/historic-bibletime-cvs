@@ -7,6 +7,7 @@ Comment[de]=Ein einfach zu benutzendes Bibelprogram
 Comment[fr]=Un outil d'�ude biblique facile �utiliser
 Exec=bibletime
 Icon=bibletime.png
+DocPath=bibletime/hdbk_index.html
 MimeType=
 Name=BibleTime @VERSION@
 Name[C]=BibleTime @VERSION@

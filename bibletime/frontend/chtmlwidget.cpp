@@ -272,81 +272,69 @@ void CHTMLWidget::contentsMouseReleaseEvent( QMouseEvent* e){
 /** Reimplementation.*/
 void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
   if ( mousePressed ) {
-		if ( mightStartDrag ) { //e might star a drag
+		if ( mightStartDrag ) { //we might start a drag
 	    dragStartTimer->stop();
 	    if ( ( e->pos() - dragStartPos ).manhattanLength() > KApplication::startDragDistance() )
 				startDrag();
 	    if ( !isReadOnly() )
 				viewport()->setCursor( ibeamCursor );
 	    return;
-	}
-	else if (!anchorAt(e->pos()).isEmpty()) {
-		QString ref = m_anchor;
-		if (ref.left(8) == "sword://") //remove sword://, if it is there
-			ref = ref.mid( 8, ref.length() - 8 );
-		if (ref.right(1) == "/") {
-			ref = ref.mid( 0, ref.length() - 1 );
 		}
+		else if (!m_anchor.isEmpty()/*!anchorAt(e->pos()).isEmpty() && !hasSelectedText()*/) {
+			QString ref = m_anchor;
+			if (ref.left(8) == "sword://") //remove sword://, if it is there
+				ref = ref.mid( 8, ref.length() - 8 );
+			if (ref.right(1) == "/")
+				ref = ref.mid( 0, ref.length() - 1 );
 
-#warning HACK!		
-		QString Module = QString::null;
-		if ( parent() && parent()->inherits("CSwordPresenter") ) {
-			if (static_cast<CSwordModuleInfo*>(((CSwordPresenter*)parent())->getModuleList().first())) {
-				Module = static_cast<CSwordModuleInfo*>(((CSwordPresenter*)parent())->getModuleList().first())->module()->Name();
+			QString Module = QString::null;
+			if ( parent() && parent()->inherits("CSwordPresenter") ) {
+				if (static_cast<CSwordModuleInfo*>(((CSwordPresenter*)parent())->getModuleList().first())) {
+					Module = static_cast<CSwordModuleInfo*>(((CSwordPresenter*)parent())->getModuleList().first())->module()->Name();
+				}
+				else {
+					Module = "unknown";
+				}
 			}
-			else {
-				Module = "unknown";
-			}
-		}
-		else
+			else
+				return;
+			
+			mousePressed = false;
+			inDoubleClick = false;				 				
+			mightStartDrag = false;
+					
+			QTextDrag *d = new QTextDrag(CToolClass::encodeReference(Module,ref),viewport());
+	    d->setSubtype(REFERENCE);
+	    d->setPixmap(REFERENCE_ICON_SMALL);
+	    d->drag();
 			return;
-		mousePressed = false;
-		inDoubleClick = false;				 				
-		mightStartDrag = false;
-				
-		mousePressed = false;
-		inDoubleClick = false;
-
-		QTextDrag *d = new QTextDrag(CToolClass::encodeReference(Module,ref),viewport());
-    d->setSubtype(REFERENCE);
-    d->setPixmap(REFERENCE_ICON_SMALL);
-    d->drag();
-		return;
+		}		
+		mousePos = e->pos();
+		doAutoScroll();
+		oldMousePos = mousePos;
 	}
-	
-	mousePos = e->pos();
-	doAutoScroll();
-	oldMousePos = mousePos;
-    }
 
-    if ( !isReadOnly() && !mousePressed ) {
-	if ( doc->hasSelection( Qt3::QTextDocument::Standard ) && doc->inSelection( Qt3::QTextDocument::Standard, e->pos() ) )
+	if ( !isReadOnly() && !mousePressed ) {
+		if ( doc->hasSelection( Qt3::QTextDocument::Standard ) && doc->inSelection( Qt3::QTextDocument::Standard, e->pos() ) )
 	    viewport()->setCursor( arrowCursor );
-	else
+		else
 	    viewport()->setCursor( ibeamCursor );
-    }
-
-    if ( isReadOnly() && linksEnabled() ) {
-	Qt3::QTextCursor c = *cursor;
-	placeCursor( e->pos(), &c );
-#ifndef QT_NO_NETWORKPROTOCOL
-	if ( c.parag() && c.parag()->at( c.index() ) &&
+	}
+	if ( isReadOnly() && linksEnabled() ) {
+		Qt3::QTextCursor c = *cursor;
+		placeCursor( e->pos(), &c );
+		if ( c.parag() && c.parag()->at( c.index() ) &&
 	     !anchorAt(e->pos()).isEmpty() ) {
-#ifndef QT_NO_CURSOR
-	    viewport()->setCursor( pointingHandCursor );
-#endif
+			viewport()->setCursor( pointingHandCursor );
 	    onLink = c.parag()->at( c.index() )->format()->anchorHref();
 	    QUrl u( doc->context(), onLink, TRUE );
 	    emitHighlighted( u.toString( FALSE, FALSE ) );
-	} else {
-#ifndef QT_NO_CURSOR
+		} else {
 	    viewport()->setCursor( isReadOnly() ? arrowCursor : ibeamCursor );
-#endif
 	    onLink = QString::null;
 	    emitHighlighted( QString::null );
+		}
 	}
-#endif
-    }
 }
 
 /** Installes a menu which will popup if the right mouse button was pressed on an anchor. */
