@@ -220,17 +220,13 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 
 /** Parses the given verse references using the given language and the module.*/
 const QString CReferenceManager::parseVerseReference( const QString ref, const QString& lang, const QString& newLang){
-	VerseKey key(ref.local8Bit());
-//	key = ref.local8Bit();	
-
-	qWarning("language is %s", lang.latin1());
-	qWarning("new language  is %s", newLang.latin1());		
-		
-	key.setLocale(lang.latin1()); //set the language for parsing in original language
-//	key = ref.local8Bit();			
+	CSwordVerseKey key(0);
+	key.key(ref);
+	key.setLocale( lang.local8Bit() );
+			
 	qWarning("ref is %s", ref.latin1());
 	qWarning("key in language %s is %s", lang.latin1(), (const char*)key);
-			
+				
 	if (lang != newLang)
 		key.setLocale(newLang.latin1());
 	qWarning("new key in language %s is %s", newLang.latin1(), (const char*)key);	

@@ -120,6 +120,21 @@ void CKCComboBox::wheelEvent( QWheelEvent* e ) {
 //	return QComboBox::sizeHint(); //return standard sizeHint	
 //}
 
+
+void CKCComboBox::insertItem ( const QString & text, int index, unsigned long int userData ) {
+	insertItem(text, index);
+	const int newIndex = ((index == -1) ? count()-1 : index);
+	m_userDataMap.insert(newIndex, userData);
+}
+
+/** Returns the user data for index. */
+const unsigned long int CKCComboBox::userData( const int index ){
+	if (index < (count()-1))
+		return m_userDataMap[index];
+	else
+		return 0;
+}
+
 //**********************************************************************************/
 
 CKeyChooserWidget::CKeyChooserWidget(int count, const bool useNextPrevSignals,  QWidget *parent, const char *name) : QWidget(parent,name) {
@@ -453,3 +468,4 @@ void CKeyChooserWidget::previous(){
 QComboBox* CKeyChooserWidget::comboBox(){
 	return m_comboBox;
 }
+

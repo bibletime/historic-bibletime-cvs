@@ -43,13 +43,13 @@ CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {
 }
 
 const QString CSwordKey::renderedText() {
-	qWarning("const QString CSwordKey::renderedText()");	
+//	qWarning("const QString CSwordKey::renderedText()");	
 	if (!m_module)
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);
 	if (k)
 		m_module->module()->SetKey(k);	
-	qWarning("almost finished const QString CSwordKey::renderedText()");		
+//	qWarning("almost finished const QString CSwordKey::renderedText()");		
 	return QString::fromUtf8( (const char*)*(m_module->module()) /*m_module->module()->RenderText()*/ );	
 }
 

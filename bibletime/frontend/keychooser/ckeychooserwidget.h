@@ -19,6 +19,7 @@
 #define CKEYCHOOSERWIDGET_H
 
 #include <qwidget.h>
+#include <qmap.h>
 #include <qcombobox.h>
 
 class cfx_btn;
@@ -34,7 +35,7 @@ class QMouseEvent;
 class QWheelEvent;
 
 /*
-* We use this class to contol the focus move in the combobox
+* We use this class to conrtol the focus move in the combobox
 * This class is used in the key chooser widgets
 */
 class CKCComboBox : public QComboBox {
@@ -42,6 +43,10 @@ class CKCComboBox : public QComboBox {
 
 public:
   CKCComboBox(bool rw, QWidget * parent=0, const char * name=0 );
+
+	void insertItem ( const QString & text, int index=-1, unsigned long int userData = 0 );
+  /** Returns the user data for index. */
+  const unsigned long int userData( const int index );
   /**
   * Returns the size this widget would like to have.
   */
@@ -62,6 +67,9 @@ signals:
   * Emitted when the user moves the focus away from the combo by pressing tab
   */
 	void focusOut(int itemIndex);
+
+private:
+	QMap<int, unsigned long int> m_userDataMap;
 };
 
 /**
