@@ -19,7 +19,6 @@
 #define BT_BASICFILTER_H
 
 #include <swbasicfilter.h>
-#include <qstring.h>
 
 /**
   * This is the base class for all filters in BT
@@ -29,13 +28,19 @@ class BT_BASICFILTER : public SWBasicFilter  {
 public: 
 	BT_BASICFILTER();
   virtual char ProcessText (char *text, int maxlen = -1);
-	void updateSettings(void);
 
 protected:
-	QString footnote_color;
-	QString strongs_color;
-	QString morph_color;
-	QString jesuswords_color;
+	/**
+	* updates the filter specific settings like colors
+	* the variables are used in the inherited filters
+	* in HandleToken()
+	*/
+	void updateSettings(void);
+
+	char footnote_color[8];
+	char strongs_color[8];
+	char morph_color[8];
+	char jesuswords_color[8];
 };
 
 #endif
