@@ -76,7 +76,11 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
     CResMgr::displaywindows::bibleWindow::previousChapter::whatsthis
   );
 	
-  w_verse = new CKeyChooserWidget( m_modules.first()->verseCount(w_book->comboBox()->currentText(),1),true,this);
+  w_verse = new CKeyChooserWidget( 
+		m_modules.first()->verseCount(w_book->comboBox()->currentText(),1), //init with verses of 1st chapter
+		true,
+		this
+	);
 	w_verse->setToolTips(
     CResMgr::displaywindows::bibleWindow::verseList::tooltip,
     CResMgr::displaywindows::bibleWindow::nextVerse::tooltip,
@@ -121,6 +125,7 @@ CSwordKey* const CBibleKeyChooser::key(){
     const int chapter =  w_chapter->comboBox()->currentText().toInt();
     const int verse = w_verse->comboBox()->currentText().toInt();
 		
+		m_key->Headings(1);
 		m_key->book(w_book->comboBox()->currentText());
 		m_key->Chapter((chapter < 0) ? 0 : chapter);
 		m_key->Verse((verse < 0) ? 0 : verse);
@@ -274,15 +279,15 @@ void CBibleKeyChooser::chapterChanged(int /*i*/){
 	setUpdatesEnabled(true);
 }
 
-void CBibleKeyChooser::verseChanged(int /*i*/){
-//	qDebug("CBibleKeyChooser::verseChanged(int /*i*/)");
+void CBibleKeyChooser::verseChanged(int i){
+	qWarning("CBibleKeyChooser::verseChanged(%d", i);
 	if (!isUpdatesEnabled())
 		return;	
 	
 	setUpdatesEnabled(false);			
 
-	if (m_key->Verse() != w_verse->comboBox()->currentText().toInt()) {		
-		m_key->Verse( w_verse->comboBox()->currentText().toInt() );	
+	if (m_key->Verse() != w_verse->comboBox()->currentText().toInt()) {
+		m_key->Verse( w_verse->comboBox()->currentText().toInt() );
 		setKey( m_key );
 	}
 	

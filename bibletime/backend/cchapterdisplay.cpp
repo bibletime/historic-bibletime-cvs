@@ -22,27 +22,43 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
   Q_ASSERT( modules.count() >= 1 );
 	Q_ASSERT( !keyName.isEmpty() );
 	
-	qWarning("rendering");
-	CSwordVerseKey key(0);
-  key = keyName;
+  CSwordModuleInfo* module = modules.first();
+	if (modules.count() == 1) {
+		module->module()->setSkipConsecutiveLinks( true ); //skip empty, linked verses
+	}
+  
+	bool ok = true;
+	
+	CSwordVerseKey key(modules.count() == 1 ? module : 0);
+	key.Headings(1);	
+  key.key( keyName );
 	
 	const int currentTestament = key.Testament();
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 
-  CSwordModuleInfo* module = modules.first();
-  bool ok = true;
-	
-	if (modules.count() == 1) {
-		key.module(module);
-		module->module()->setSkipConsecutiveLinks( true ); //skip empty, linked verses
-	}
-
 	CTextRendering::KeyTree tree;
 	CTextRendering::KeyTreeItem::Settings settings;
-	
 
-	for (key.Verse(1); 
+	int startVerse = 0;
+	
+	//check whether there's an intro we have to include
+ 	if (module->type() == CSwordModuleInfo::Bible) {
+ 		((VerseKey*)(module->module()->getKey()))->Headings(1);
+ 		
+		CSwordVerseKey k1(module); 
+		k1.Headings(true);
+		k1.key(key.key());
+		k1.Verse(0);
+		
+ 		QString raw = k1.rawText();
+		if (raw.length() == 0) {
+			startVerse = 1;
+		}
+ 	}
+	
+	key = keyName;
+	for (key.Verse(startVerse); 
 				(key.Testament() == currentTestament)
 				&& (key.Book() == currentBook)
 				&& (key.Chapter() == currentChapter)

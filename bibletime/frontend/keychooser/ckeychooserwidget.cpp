@@ -111,17 +111,22 @@ CKeyChooserWidget::CKeyChooserWidget(int count, const bool useNextPrevSignals,  
 
 CKeyChooserWidget::CKeyChooserWidget(QStringList *list, const bool useNextPrevSignals, QWidget *parent, const char *name ) : QWidget(parent,name) {
 	m_useNextPrevSignals = useNextPrevSignals;		
-	if (list)
+	if (list) {
 		m_list = *list;//copy the items of list
-	else
+	}
+	else {
 		m_list.clear();
+	}
+	
 	init();
 	reset(m_list,0,false);	
 }
 
 void CKeyChooserWidget::changeCombo(int i){
-	if (!isUpdatesEnabled())
+	if (!isUpdatesEnabled()) {
 		return;
+	}
+	
 	setUpdatesEnabled(false);
 	
 	int current = comboBox()->currentItem();
@@ -130,19 +135,25 @@ void CKeyChooserWidget::changeCombo(int i){
 	const int count = comboBox()->count()-1;
 	int j = current + i;
 	if (i > 0){
-		if (j <= count)
+		if (j <= count) {
 			comboBox()->setCurrentItem(j);
-		else
+		}
+		else {
 			comboBox()->setCurrentItem(count);
+		}
 	}
 	else if (i < 0){
-		if (j>=0)
+		if (j>=0) {
 			comboBox()->setCurrentItem(j);
-		else
+		}
+		else {
 			comboBox()->setCurrentItem(0);
-	}	
-	if (!isResetting && !btn_fx->isLocked() && (current != comboBox()->currentItem()))	
+		}
+	}
+	
+	if (!isResetting && !btn_fx->isLocked() && (current != comboBox()->currentItem())) {
 		emit changed(comboBox()->currentItem());
+	}
 		
 	setUpdatesEnabled(true);		
 }
@@ -152,8 +163,10 @@ void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
 		return;
 
 	m_list.clear();
-	for (int i=1; i <= count; i++)
+	for (int i=1; i <= count; i++) { //TODO: CHECK
 		m_list.append( QString::number(i) );
+	}
+	
 	reset(&m_list,index,do_emit);
 }
 
@@ -222,8 +235,9 @@ void CKeyChooserWidget::lock(void){
 void CKeyChooserWidget::unlock(void){
 	comboBox()->setEditable(true);
 	comboBox()->setEditText(comboBox()->text(comboBox()->currentItem()));
-	if (comboBox()->currentText() != oldKey);
+	if (comboBox()->currentText() != oldKey) {
 		emit changed(comboBox()->currentItem());
+	}
 }
 
 /** Initializes this widget. We need this function because we have more than one constructor. */

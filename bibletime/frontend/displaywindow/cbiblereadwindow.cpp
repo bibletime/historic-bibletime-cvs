@@ -130,6 +130,7 @@ void CBibleReadWindow::initView(){
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 
+	verseKey()->Headings(1);
 /*	if (backend()->useICU()){
 	  m_transliterationButton = new CTransliterationButton(&filterOptions(), mainToolBar());
 		mainToolBar()->insertWidget( 3, m_transliterationButton->size().width(), m_transliterationButton );

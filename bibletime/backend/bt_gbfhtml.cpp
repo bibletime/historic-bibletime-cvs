@@ -41,7 +41,8 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
   
 	removeTokenSubstitute("Rf");
-
+	addTokenSubstitute("RB", "<span>"); //start of a footnote with embedded text
+	
 	addTokenSubstitute("FI", "<span class=\"italic\">"); // italics begin
 	addTokenSubstitute("Fi", "</span>");
 
@@ -251,9 +252,11 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 			buf.append("\">*</span> ");
 			
 			userData->suspendTextPassThru = true;
+			qWarning("inserted");
 		}
 		else if (!strncmp(token, "Rf", 2)) { //end of footnote
 			userData->suspendTextPassThru = false;
+			qWarning("%s", buf.c_str());
 		}
 		else if (!strncmp(token, "FN", 2)) { //the end </font> tag is inserted in addTokenSubsitute
 			buf.append("<font face=\"");

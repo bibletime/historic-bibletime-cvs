@@ -69,8 +69,23 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       return false;
     }
 
-		// <w> tag
-		if (!strcmp(tag.getName(), "w")) {		
+		// <div> tag
+		if (!strcmp(tag.getName(), "div")) {
+			//handle intro
+			if ((!tag.isEmpty()) && (!tag.isEndTag())) { //start tag
+				SWBuf type = tag.getAttribute("type");
+				if (type == "introduction") {
+					buf.append("<div class=\"introduction\">");
+				}
+				else {
+					buf.append("<div>");
+				}
+			}
+			else if (tag.isEndTag()) { //start tag
+				buf.append("</div>");
+			}
+		}
+		else if (!strcmp(tag.getName(), "w")) {
 			if ((!tag.isEmpty()) && (!tag.isEndTag())) { //start tag
 				const char *attrib;
 				const char *val;

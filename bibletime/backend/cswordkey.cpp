@@ -50,7 +50,8 @@ const QString CSwordKey::rawText() {
 	}
 
 	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
-    m_module->module()->SetKey(k);
+//     m_module->module()->SetKey(k);
+		m_module->module()->getKey()->setText( (const char*)key().utf8() );
 	}
   if (key().isNull()) {
     return QString::null;
@@ -59,12 +60,19 @@ const QString CSwordKey::rawText() {
   return QString::fromUtf8(m_module->module()->getRawEntry());
 }
 
-const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
+const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
   if (!m_module)
 		return QString::null;
 
-	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
-    m_module->module()->SetKey(k);
+	using namespace sword;
+	SWKey* k = dynamic_cast<sword::SWKey*>(this);
+	if (k) {
+ 		VerseKey* vk_mod = dynamic_cast<VerseKey*>(m_module->module()->getKey());
+		if (vk_mod) {
+ 			vk_mod->Headings(1);
+		}
+		
+		m_module->module()->getKey()->setText( this->key().utf8() );
 	}
   
 	if (!key().isNull()) { //we have valid text
@@ -94,6 +102,7 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
 			return text;
 		}
   }
+	
   return QString::null;
 }
 
@@ -103,10 +112,12 @@ const QString CSwordKey::strippedText() {
 	}
 	
 	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
-		m_module->module()->SetKey(k);
+// 		m_module->module()->SetKey(k);
+		m_module->module()->getKey()->setText( (const char*)key().utf8() );
   }
 	return QString::fromUtf8( m_module->module()->StripText() );
 }
+
 
 /** This will create a proper key object from a given module */
 CSwordKey* CSwordKey::createInstance( CSwordModuleInfo* const module ){

@@ -256,7 +256,12 @@ protected:
 private:
 	sword::SWModule* m_module;
 	sword::ListKey m_searchResult;
-	mutable struct {
+	mutable struct DataCache {
+		DataCache() {
+			language = 0;
+// 			isUnicode = false;
+		}
+		
 		QString name;
 		bool isUnicode;
 		CSwordModuleInfo::Category category;

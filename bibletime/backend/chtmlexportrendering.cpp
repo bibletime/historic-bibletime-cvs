@@ -16,6 +16,7 @@
 #include "cdisplaytemplatemgr.h"
 #include "clanguagemgr.h"
 #include "cswordkey.h"
+#include "cswordversekey.h"
 #include "cswordmoduleinfo.h"
 
 //Util
@@ -58,6 +59,11 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 	util::scoped_ptr<CSwordKey> scoped_key( !k ? CSwordKey::createInstance(modules.first()) : 0 );
 	
 	CSwordKey* key = k ? k : scoped_key;
+	
+	CSwordVerseKey* myVK = dynamic_cast<CSwordVerseKey*>(key);
+	if ( myVK  ) {
+		myVK->Headings(1);
+	}
   
 	QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr>") : QString::null;
 
@@ -75,11 +81,13 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 	
 	ListCSwordModuleInfo::const_iterator end_modItr = modules.end();
 	for (ListCSwordModuleInfo::const_iterator mod_Itr(modules.begin()); mod_Itr != end_modItr; ++mod_Itr) {
-    key->module(*mod_Itr);
+		key->module(*mod_Itr);
     key->key( i.key() );
-    keyText = key->key();
+    
+		keyText = key->key();
     isRTL = ((*mod_Itr)->textDirection() == CSwordModuleInfo::RightToLeft);
 		entry = QString::null;
+		
 
 		langAttr = ((*mod_Itr)->language()->isValid())
 			? QString::fromLatin1("xml:lang=\"%1\" lang=\"%2\"")

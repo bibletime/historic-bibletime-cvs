@@ -68,7 +68,8 @@ const QString CSwordLDKey::key() const {
 void CSwordLDKey::key( const QString& newKey ){
 //	SWKey::operator = ((const char*)newKey.local8Bit());		
 	SWKey::operator = ((const char*)newKey.utf8());		
-	m_module->module()->SetKey(this);
+// 	m_module->module()->SetKey(this);
+	m_module->module()->getKey()->setText( (const char*)key().utf8() );
 	m_module->snap();
 	SWKey::operator = (m_module->module()->KeyText());
 }
@@ -79,7 +80,8 @@ void CSwordLDKey::key( const char* newKey ){
 	if (newKey) {
 		SWKey::operator = (newKey);
 
-		m_module->module()->SetKey(this);
+// 		m_module->module()->SetKey(this);
+		m_module->module()->getKey()->setText( (const char*)key().utf8() );
 		m_module->snap();
 		SWKey::operator = (m_module->module()->KeyText());
 	}
@@ -87,10 +89,13 @@ void CSwordLDKey::key( const char* newKey ){
 
 /** Uses the parameter to returns the next entry afer this key. */
 CSwordLDKey* CSwordLDKey::NextEntry(){
-	m_module->module()->SetKey(this);	//use this key as base for the next one!
-  m_module->module()->setSkipConsecutiveLinks(true);  
+// 	m_module->module()->SetKey(this);	//use this key as base for the next one!
+  m_module->module()->getKey()->setText( (const char*)key().utf8() );
+	
+	m_module->module()->setSkipConsecutiveLinks(true);  
 	( *( m_module->module() ) )++;
   m_module->module()->setSkipConsecutiveLinks(false);    
+	
 	key(m_module->module()->KeyText());
 	SWKey::operator = (m_module->module()->KeyText());	
 	
@@ -99,10 +104,13 @@ CSwordLDKey* CSwordLDKey::NextEntry(){
 
 /** Uses the parameter to returns the next entry afer this key. */
 CSwordLDKey* CSwordLDKey::PreviousEntry(){
-	m_module->module()->SetKey(this);	//use this key as base for the next one!		
-  m_module->module()->setSkipConsecutiveLinks(true);
+// 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
+  m_module->module()->getKey()->setText( (const char*)key().utf8() );
+	
+	m_module->module()->setSkipConsecutiveLinks(true);
   ( *( m_module->module() ) )--;
   m_module->module()->setSkipConsecutiveLinks(false);
+	
 	SWKey::operator = (m_module->module()->KeyText());	
 	
 	return this;

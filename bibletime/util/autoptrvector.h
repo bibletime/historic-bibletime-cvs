@@ -94,7 +94,7 @@ public:
 	*/
 	inline T* const first() const {
 		m_current = m_first;
-		return m_current->value;
+		return m_current ? m_current->value : 0;
 	};
 	
 	/** The current item

@@ -34,8 +34,13 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 	
 	const bool isBible = module && (module->type() == CSwordModuleInfo::Bible);
 	CSwordVerseKey vk(module); //only valid for bible modules, i.e. isBible == true
+	vk.Headings(true);
 	if (isBible) {
 		vk = item.key();
+	}
+	
+	if (vk.Verse() == 0) {
+		return QString::null; //Warning: return already here
 	}
 		
 	switch (item.settings().keyRenderingFace) {
@@ -131,7 +136,10 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	}
 */
 	
-	const CLanguageMgr::Language* const lang = modules.first()->language();
+	const CLanguageMgr::Language* const lang = 
+		  modules.first() 
+		? modules.first()->language() 
+		: CPointers::languageMgr()->defaultLanguage();
 	
 	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
 	CDisplayTemplateMgr::Settings settings;

@@ -52,13 +52,6 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	
 	removeTokenSubstitute("note");
 	removeTokenSubstitute("/note");
-
-/*  if (tokenSubMap.find("note") != tokenSubMap.end()) { //remove note tag
-	  tokenSubMap.erase( tokenSubMap.find("note") );
-  }
-  if (tokenSubMap.find("/note") != tokenSubMap.end()) { //remove note tag
-	  tokenSubMap.erase( tokenSubMap.find("/note") );
-  }*/
 }
 
 char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const sword::SWModule* module) {

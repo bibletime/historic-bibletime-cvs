@@ -50,7 +50,13 @@ CSwordModuleInfo* const CSwordVerseKey::module( CSwordModuleInfo* const newModul
 		m_module = newModule;
 
 		//check if the module contains the key we present
-		CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(newModule);
+ 		CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(newModule);
+/*		VerseKey* vk = dynamic_cast<VerseKey*>(bible->module()->getKey());
+		if (vk) {
+			qWarning("setting headings");
+			vk->Headings( this->Headings() );
+		}*/
+		
    	if (_compare(bible->lowerBound()) < 0) {
       key( bible->lowerBound() );
     }
@@ -158,22 +164,31 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 		}
 		case UseVerse: {
     	if (m_module && m_module->module()) {
-    		m_module->module()->SetKey(this);	//use this key as base for the next one!
-        
 				const bool oldStatus = m_module->module()->getSkipConsecutiveLinks();
- 				m_module->module()->setSkipConsecutiveLinks(true);
-    		(*(m_module->module()) )++;
-         m_module->module()->setSkipConsecutiveLinks(oldStatus);
+				m_module->module()->setSkipConsecutiveLinks(true);
+				
+				//disable headings for next verse
+				const bool useHeaders = (Verse() == 0);
+				const bool oldHeadingsStatus = ((VerseKey*)(m_module->module()->getKey()))->Headings( useHeaders );
+				//don't use setKey(), that would create a new key without Headings set
+				m_module->module()->getKey()->setText( (const char*)key().utf8() ); 
+				
+				(*(m_module->module()) )++;
+				
+				((VerseKey*)(m_module->module()->getKey()))->Headings(oldHeadingsStatus);
+				m_module->module()->setSkipConsecutiveLinks(oldStatus);
 
-				//qWarning("status: %i", m_module->module()->getSkipConsecutiveLinks());
     		if (!m_module->module()->Error()) {
 					key( QString::fromUtf8(m_module->module()->KeyText()) );
         }
     		else {
-	    	  Verse(Verse()+1);
+// 	    	  Verse(Verse()+1);
+					//don't change the key, restore the module's position
+					m_module->module()->getKey()->setText( (const char*)key().utf8() ); 
 					ret = false;
 	    	  break;
 	    	}
+				
     	}
     	else {
     	  Verse(Verse()+1);
@@ -219,11 +234,16 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 		}
 		case UseVerse: {
     	if (m_module && m_module->module()) {
-    		m_module->module()->SetKey(this);	//use this key as base for the next one!
+				const bool useHeaders = (Verse() == 0);
+				const bool oldHeadingsStatus = ((VerseKey*)(m_module->module()->getKey()))->Headings( useHeaders );
+				
+				m_module->module()->getKey()->setText( (const char*)key().utf8() );
         
 				const bool oldStatus = m_module->module()->getSkipConsecutiveLinks();
 				m_module->module()->setSkipConsecutiveLinks(true);
     		( *( m_module->module() ) )--;
+				
+				((VerseKey*)(m_module->module()->getKey()))->Headings( oldHeadingsStatus );
         m_module->module()->setSkipConsecutiveLinks(oldStatus);
     		
 				if (!m_module->module()->Error()) {
@@ -231,7 +251,8 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 				}
     		else {
 					ret = false;
-	    	  Verse(Verse()-1);
+// 	    	  Verse(Verse()-1);
+					m_module->module()->getKey()->setText( (const char*)key().utf8() ); //restore module's key
 				}
     	}
     	else {
