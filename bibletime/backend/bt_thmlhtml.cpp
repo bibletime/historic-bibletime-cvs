@@ -40,9 +40,6 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	setTokenCaseSensitive(true);
 	addTokenSubstitute("note", " <span class=\"footnote\">(");
 	addTokenSubstitute("/note", ")</span> ");
-
-//	addTokenSubstitute("foreign lang=\"el\"", "<span lang=\"el\">");
-//	addTokenSubstitute("foreign lang=\"he\"", "<span lang=\"he\" dir=\"rtl\">");
 	addTokenSubstitute("/foreign",						"</span>");
 }
 
@@ -66,7 +63,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
         if (language.isValid()) {
           CBTConfig::FontSettingsPair fontSetting = CBTConfig::get(language);
           if (fontSetting.first) {
-            QFont f = fontSetting.second;
+            const QFont f = fontSetting.second;
             buf.appendFormatted("<span lang=\"%s\" style=\"font-family:%s;font-size:%ipt;\">",
               abbrev.c_str(),
               f.family().latin1(),

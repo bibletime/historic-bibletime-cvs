@@ -136,14 +136,8 @@ show_outputview=true
 show_treeview=true
 
 [admin/Makefile.am]
-files=admin/acinclude.m4.in,admin/Makefile.common,admin/missing,admin/ylwrap,admin/mkinstalldirs,admin/ltmain.sh,admin/config.sub,admin/config.pl,admin/config.guess,admin/conf.change.pl,admin/libtool.m4.in,admin/install-sh,admin/debianrules,admin/depcomp,admin/ltconfig
+files=admin/acinclude.m4.in,admin/missing,admin/ylwrap,admin/mkinstalldirs,admin/ltmain.sh,admin/config.sub,admin/config.pl,admin/config.guess,admin/conf.change.pl,admin/libtool.m4.in,admin/install-sh,admin/debianrules,admin/depcomp,admin/ltconfig
 type=HEADER
-
-[admin/Makefile.common]
-dist=true
-install=false
-install_location=
-type=DATA
 
 [admin/acinclude.m4.in]
 dist=true
