@@ -1029,9 +1029,11 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   BTInstallMgr iMgr;
 	sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
 
-	if (!refreshRemoteModuleCache(sourceName)) {
-		return;
-	}
+ 	if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is) 
+			&& !refreshRemoteModuleCache(sourceName)) 
+	{
+ 		return;
+ 	}
 
   //kind of a hack to provide a pointer to mgr next line
   util::scoped_ptr<CSwordBackend> backend( BTInstallMgr::Tool::backend(&is) );

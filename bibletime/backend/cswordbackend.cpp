@@ -592,6 +592,8 @@ const QStringList CSwordBackend::swordDirList(){
 	QString configPath = QString("%1/.sword/sword.conf").arg(home);
 	if (!QFile(configPath).exists()) {
 		configPath = globalConfPath; //e.g. /etc/sword.conf, /usr/local/etc/sword.conf
+		
+		
 	}
 	
 	
