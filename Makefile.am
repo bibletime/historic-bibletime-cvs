@@ -1,4 +1,4 @@
-SUBDIRS = bibletime bibleinstaller admin docs .
+SUBDIRS = bibletime bibleinstaller pot admin docs .
 
 EXTRA_DIST = \
 bibletime.kdevprj \

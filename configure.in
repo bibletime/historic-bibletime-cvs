@@ -107,5 +107,6 @@ docs/howto/unicode/Makefile \
 docs/install/Makefile \
 docs/install/html/Makefile \
 docs/install/unicode/Makefile \
+pot/Makefile \
 NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop \
 )

@@ -1,5 +1,3 @@
-PACKAGE=bibletime
-
 GMOFILES = $(POFILES:.po=.gmo)
 
 localedir = $(DESTDIR)$(kde_locale)
@@ -8,7 +6,7 @@ MAINTAINERCLEANFILES = $(GMOFILES)
 GMSGFMT = @GMSGFMT@
 MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
-EXTRA_DIST = bibletime.pot $(POFILES) $(GMOFILES)
+EXTRA_DIST = messages.pot $(POFILES) $(GMOFILES)
 
 all: all-yes
 install-data-local: install-yes
@@ -30,7 +28,7 @@ install-yes: all
 	for cat in $$catalogs; do \
 	destdir=$(localedir); \
 	lang=`echo $$cat | sed 's/\.gmo//'`; \
-	name=$(PACKAGE).mo \
+	name=messages.mo \
 	dir=$$destdir/$$lang/LC_MESSAGES; \
 	$(mkinstalldirs) $$dir; \
 	$(INSTALL_DATA) $$cat $$dir/$$name; \
@@ -44,7 +42,7 @@ uninstall-local:
 	for cat in $$catalogs; do \
 	destdir=$(localedir); \
 	lang=`echo $$cat | sed 's/\.gmo//'`; \
-	name=$(PACKAGE).mo; \
+	name=$messages.mo; \
 	dir=$$destdir/$$lang/LC_MESSAGES; \
 	rm -f $$cat $$dir/$$name; \
 	echo "removing $$dir/$$name" ; \
@@ -53,7 +51,7 @@ uninstall-local:
 merge:
 	@catalogs='$(POFILES)'; \
 	for cat in $$catalogs; do \
-	name=../../bibletime/pot/$(PACKAGE).pot ; \
+	name=../../bibletime/pot/messages.pot ; \
 	echo $$cat $$name; \
 	msgmerge $$cat $$name > $$cat.new ; \
 	if diff $$cat $$cat.new; then \
