@@ -23,6 +23,7 @@
 #include "../../backend/sword_backend/cswordbackend.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 //KDE includes
 #include <kapp.h>
@@ -188,25 +189,18 @@ void COptionsDialog::initGeneralPage(){
 
 	{
 		KConfigGroupSaver groupSaver(config, "SWORD");
-		localeCheckBox = new QCheckBox(general_page);
-		localeCheckBox->setText(i18n("Use international booknames"));
-		QWhatsThis::add(localeCheckBox, WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES );
-		
 		localeComboBox = new QComboBox(general_page);
-		localeCheckBox->setChecked(config->readBoolEntry("useLocalisation", true));
-		localeComboBox->setEnabled(config->readBoolEntry("useLocalisation", true));
-  		connect(localeCheckBox, SIGNAL(stateChanged(int)), SLOT(localeStateChanged(int)));		  			
 		QWhatsThis::add(localeComboBox, WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES_LIST );	
 			
+		localeComboBox->insertItem( i18n("English") );
 		list <string> locales = LocaleMgr::systemLocaleMgr.getAvailableLocales();
 		for (list <string>::iterator it = locales.begin(); it != locales.end(); it++) {
 			localeComboBox->insertItem( LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription() );
 		}
 
 		int current_item = -1;
-		qDebug("restore locale");
 		for(int test_item = 0; test_item < localeComboBox->count(); test_item++) {
-			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale((const char*)config->readEntry("Language", QString::null).local8Bit());
+			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale((const char*)config->readEntry("Language", QString::fromLatin1(getenv("HOME"))).local8Bit());
 			if (locale && localeComboBox->text(test_item).contains(locale->getDescription()) )
 				current_item = test_item;
 		}
@@ -224,21 +218,8 @@ void COptionsDialog::initGeneralPage(){
 	
 	main_layout->addWidget(tipCheckBox);
 	main_layout->addWidget(logoCheckBox);
-	main_layout->addWidget(localeCheckBox);
 	main_layout->addWidget(localeComboBox);	
 	main_layout->addStretch(4);
-}
-
-/**  */
-void COptionsDialog::localeStateChanged(int state){
-	switch (state) {
-		case 2:
-			localeComboBox->setEnabled(true);
-			break;
-		case 0:
-			localeComboBox->setEnabled(false);		
-			break;
-	}
 }
 
 /**  */
@@ -285,9 +266,9 @@ void COptionsDialog::saveGeneralOptions(){
 	//Now save localisation settings
 	{
 		KConfigGroupSaver groupSaver(config, "SWORD");
-		config->writeEntry("useLocalisation",localeCheckBox->isChecked());	
+//		config->writeEntry("useLocalisation",localeCheckBox->isChecked());	
 	
-		const QString currentText = (localeCheckBox->isChecked()) ? localeComboBox->currentText() : QString("");
+		const QString currentText = localeComboBox->currentText();
 		const QString oldValue = config->readEntry("Language", QString::null);	//default nonexisting language
 		if (oldValue == QString::null || oldValue != currentText) {	//changed
 			if (m_changedSettings)

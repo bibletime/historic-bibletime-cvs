@@ -414,7 +414,7 @@ void CHTMLWidget::createEditToolbar( KToolBar* bar ){
 	m_docSaveAction->setWhatsThis( WT_PRESENTER_EDIT_SAVE );	
 	m_docSaveAction->plug(bar);
 	
-	m_docDeleteAction = new KAction(i18n("Delete"), ICON_FILE_DELETE, 0, this, SLOT(sigDeleteDocument()),bar, "deleteDoc_action");	
+	m_docDeleteAction = new KAction(i18n("Delete"), ICON_FILE_DELETE, 0, this, SIGNAL(sigDeleteDocument()),bar, "deleteDoc_action");	
 	m_docDeleteAction->setToolTip( TT_PRESENTER_EDIT_DELETE );
 	m_docDeleteAction->setWhatsThis( WT_PRESENTER_EDIT_DELETE );	
 	m_docDeleteAction->plug(bar);
@@ -483,7 +483,7 @@ void CHTMLWidget::slotSetCurrentFont(const QString& font) {
 	newFont.setItalic(italic());
 	newFont.setUnderline(underline());	
 	
-	setCurrentFont( newFont );
+	setFont( newFont );
 }
 
 /** Is calledwhen a new color was selected. */

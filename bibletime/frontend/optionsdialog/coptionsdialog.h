@@ -81,7 +81,6 @@ protected: // Protected methods
 	//items of general configuration page
 	QCheckBox*	tipCheckBox;	
 	QCheckBox*	logoCheckBox;
-	QCheckBox*	localeCheckBox;
 	QFont currentFonts[1];
 	QComboBox*	localeComboBox;
 
@@ -90,11 +89,7 @@ protected: // Protected methods
 	QFont presenterFont;
 	QButtonGroup* fontButtonGroup;
 	QRadioButton* font1vButton;
-//	QRadioButton* font1fButton;
-//	QRadioButton* font2fButton;
-//	QRadioButton* font2vButton;
 	int currentFont;
-//	bool fixedFonts;
   CImportantClasses* m_important;
 	
 	//Key binding definitions
@@ -124,10 +119,8 @@ protected: // Protected methods
   CBackEnd* backend;
 
 protected slots: // Protected slots
-	void localeStateChanged(int);
   void fontButtonClicked(int);
   void newFontSelected(const QFont &);
-
   /**
   	* Is called when a new font was selected in the
 		* foreign font manager dialog.

@@ -25,6 +25,8 @@
 #include "whatsthisdef.h"
 #include "config.h"
 
+#include <stdlib.h>
+
 //QT includes
 #include <qpopupmenu.h>
 #include <qsplitter.h>
@@ -276,9 +278,8 @@ void BibleTime::initBackends(){
 	}
 	//initialize international bookname language
 	KConfigGroupSaver dummy(m_config, "SWORD");
-	const QString language = m_config->readEntry("Language", "");
-	if (!language.isEmpty())
-		m_important->swordBackend->setBooknameLanguage(language);
+	const QString language = m_config->readEntry("Language", QString::fromLatin1(getenv("HOME")));
+	m_important->swordBackend->setBooknameLanguage(language);
 }
 
 /** Initializes the CPrinter object. */
