@@ -260,8 +260,9 @@
 #define OD_ICON_GENERAL	LOAD_OD_ICON("go")
 #define OD_ICON_KEY_BINDINGS LOAD_OD_ICON("key_bindings")
 #define OD_ICON_FONTS LOAD_OD_ICON("fonts")
-#define OD_ICON_FONTMANAGER LOAD_OD_ICON("fonts")
-#define OD_ICON_COLORS	LOAD_OD_ICON("colorize")
+#define OD_ICON_COLORS	LOAD_OD_ICON("colors")
+#define OD_ICON_PROFILES	LOAD_OD_ICON("view_sidetree")
+#define OD_ICON_SWORD	LOAD_OD_ICON("go")
 
 //define HelpDialog aliases for defines
 #define HELPDIALOG_MODULE_LOCKED							"bibletime/helpdialog/help-module-encrypted.html"

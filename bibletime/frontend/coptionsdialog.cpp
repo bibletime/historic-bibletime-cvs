@@ -200,7 +200,7 @@ void COptionsDialog::initStartup(){
 
 /** Init fonts section. */
 void COptionsDialog::initFonts(){
-	QFrame* page = addPage(i18n("Fonts"), QString::null, OD_ICON_GENERAL);
+	QFrame* page = addPage(i18n("Fonts"), QString::null, OD_ICON_FONTS);
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
 	
 
@@ -234,7 +234,7 @@ void COptionsDialog::initFonts(){
 
 /** Init color section. */
 void COptionsDialog::initColors(){
-	QFrame* page = addPage(i18n("Colors"), QString::null, OD_ICON_GENERAL);
+	QFrame* page = addPage(i18n("Colors"), QString::null, OD_ICON_COLORS);
 //	QVBoxLayout* layout = new QVBoxLayout(page);
 	QGridLayout* gridLayout = new QGridLayout(page,5,5,5,5);
   gridLayout->setResizeMode(QLayout::Minimum);
@@ -293,7 +293,7 @@ void COptionsDialog::initColors(){
 
 /** Init profiles section. */
 void COptionsDialog::initProfiles(){
-	QFrame* page = addPage(i18n("Profiles"),QString::null, OD_ICON_GENERAL);
+	QFrame* page = addPage(i18n("Profiles"),QString::null, OD_ICON_PROFILES);
 	QGridLayout* gridLayout = new QGridLayout(page, 3,3,5,5);
 
 	gridLayout->addMultiCellWidget(
@@ -336,7 +336,7 @@ Don't forget that new profiles only work after you've saved something in them.")
 
 /** Init accel key section. */
 void COptionsDialog::initAccelerators(){
-	QVBox* page = addVBoxPage(i18n("Accelerators"),QString::null, OD_ICON_GENERAL);
+	QVBox* page = addVBoxPage(i18n("Accelerators"),QString::null, OD_ICON_KEY_BINDINGS);
 
   KTabCtl* tabCtl = new KTabCtl(page);
   QFrame* currentTab = new QVBox(tabCtl);
@@ -404,7 +404,7 @@ void COptionsDialog::initAccelerators(){
 
 /** Init Sword section. */
 void COptionsDialog::initSword(){
-	QVBox* page = addVBoxPage(i18n("Sword"),QString::null, OD_ICON_GENERAL);
+	QVBox* page = addVBoxPage(i18n("Sword"),QString::null, OD_ICON_SWORD);
   KTabCtl* tabCtl = new KTabCtl(page);
   QFrame* currentTab = new QFrame(tabCtl);
   tabCtl->addTab(currentTab, i18n("General"));
