@@ -69,8 +69,8 @@ namespace CResMgr {
         const QString tooltip     = makeToolTip(i18n("Show main index"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Toggle the main index view."));
         const QString icon        = "view_sidetree";
-        const KShortcut accel     = KShortcut();
-        const char* actionName    = "viewGroupManager_action";
+        const KShortcut accel     = Qt::Key_F9;
+        const char* actionName    = "viewMainIndex_action";
       }
       namespace showToolBar { //a standard action
         const QString tooltip     = makeToolTip(i18n("Show toolbar"));
@@ -112,14 +112,14 @@ namespace CResMgr {
         const QString tooltip     = makeToolTip(i18n("Save as a new profile"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Save the current settings as a new profile."));
         const QString icon        = "view_sidetree";
-        const KShortcut accel     = KShortcut();        
+        const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_S;
         const char* actionName    = "windowSaveToNewProfile_action";
       }
       namespace setupProfiles {
         const QString tooltip     = makeToolTip(i18n("Edit profiles"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Create new, delete or rename existing profiles."));
         const QString icon        = "view_sidetree";
-        const KShortcut accel     = Qt::CTRL + Qt::Key_A;
+        const KShortcut accel     = KShortcut();
         const char* actionName    = "windowEditProfiles_action";
       }
       namespace showFullscreen {
@@ -182,21 +182,21 @@ namespace CResMgr {
         const QString tooltip     = makeToolTip(i18n("BibleTime's handbook"));
         const QString whatsthis   = makeWhatsThis(tooltip,i18n("Open KDE's helpbrowser with BibleTime's handbook.<BR>The handbook explains how to use BibleTime in the best way."));
         const QString icon        = "contents";
-        const KShortcut accel     = KShortcut();
+        const KShortcut accel     = Qt::Key_F1;
         const char* actionName    = "helpHandbook_action";
       };
-      namespace installation {
-        const QString tooltip     = makeToolTip(i18n("BibleTime's installation documentation"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open KDE's helpbrowser with BibleTime's installation instructions.<BR>The installation instructions explain how to set up BibleTime and the text modules."));
-        const QString icon        = "contents";
-        const KShortcut accel     = KShortcut();
-        const char* actionName    = "helpInstallation_action";
-      };
+//      namespace installation {
+//        const QString tooltip     = makeToolTip(i18n("BibleTime's installation documentation"));
+//        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open KDE's helpbrowser with BibleTime's installation instructions.<BR>The installation instructions explain how to set up BibleTime and the text modules."));
+//        const QString icon        = "contents";
+//        const KShortcut accel     = KShortcut();
+//        const char* actionName    = "helpInstallation_action";
+//      };
       namespace bibleStudyHowTo {
         const QString tooltip     = makeToolTip(i18n("BibleTime's Bible study HowTo"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open KDE's helpbrowser with the Bible study HowTo included with BibleTime.<BR>This HowTo is an introduction on how to study the Bible in an efficient way."));
         const QString icon        = "contents";
-        const KShortcut accel     = KShortcut();
+        const KShortcut accel     = Qt::Key_F2;
         const char* actionName    = "helpHowTo_action";
       };
       namespace whatsThis { // available as KStdAction
@@ -238,10 +238,10 @@ namespace CResMgr {
     };
 
     namespace options {
-      namespace moduleChooserDialog {
-        const QString tooltip     = makeToolTip(i18n(""));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n(""));
-      };
+//      namespace moduleChooserDialog {
+//        const QString tooltip     = makeToolTip(i18n(""));
+//        const QString whatsthis   = makeWhatsThis(tooltip, i18n(""));
+//      };
       namespace moduleChooserButton {
         const QString tooltip     = makeToolTip(i18n("Choose modules"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Opens a dialog to choose modules for the search."));

@@ -172,9 +172,9 @@ const QColor CBTConfig::getDefault( const CBTConfig::colors ID){
 	switch ( ID ){
 		case textColor: 							return QColor(Qt::black);
 		case backgroundColor: 				return QColor(Qt::white);
-		case background2Color: 				return QColor(QString("#f1f1f1"));
+		case background2Color: 				return QColor(QString::fromLatin1("#f1f1f1"));
 		case highlightedVerseColor:		return QColor(Qt::red);
-		case footnotesColor: 					return QColor(Qt::black);
+		case footnotesColor: 					return QColor(QString::fromLatin1("#515151"));
 		case strongsColor: 						return QColor(Qt::darkBlue);
 		case morphsColor: 						return QColor(Qt::darkBlue);
 		case jesuswordsColor: 				return QColor(Qt::red);

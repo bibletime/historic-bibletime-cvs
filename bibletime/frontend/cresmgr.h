@@ -201,13 +201,13 @@ namespace CResMgr {
         extern const KShortcut accel;
         extern const char* actionName;
       };
-      namespace installation {
-        extern const QString tooltip;
-        extern const QString whatsthis;
-        extern const QString icon;
-        extern const KShortcut accel;
-        extern const char* actionName;
-      };
+//      namespace installation {
+//        extern const QString tooltip;
+//        extern const QString whatsthis;
+//        extern const QString icon;
+//        extern const KShortcut accel;
+//        extern const char* actionName;
+//      };
       namespace bibleStudyHowTo {
         extern const QString tooltip;
         extern const QString whatsthis;
@@ -254,10 +254,10 @@ namespace CResMgr {
     };
     
     namespace options {
-      namespace moduleChooserDialog {
-        extern const QString tooltip;
-        extern const QString whatsthis;
-      };
+//      namespace moduleChooserDialog {
+//        extern const QString tooltip;
+//        extern const QString whatsthis;
+//      };
       namespace moduleChooserButton {
         extern const QString tooltip;
         extern const QString whatsthis;

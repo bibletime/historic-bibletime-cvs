@@ -29,7 +29,7 @@
 #include <kapplication.h>
 #include <dom/html_element.h>
 
-static QRect screenSize = QRect();
+static QRect screenSize; // = QRect();
 
 CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Customize | WStyle_NoBorder | WStyle_Tool | WStyle_StaysOnTop | WX11BypassWM ),
   m_filter(false), m_parentWidget( parent ) {

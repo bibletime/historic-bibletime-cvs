@@ -62,26 +62,24 @@
 
 /**Initializes the view of this widget*/
 void BibleTime::initView(){
-  qWarning("BibleTime::initView()");
+//  qWarning("BibleTime::initView()");
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
 	
 	m_splitter = new QSplitter(this, "mainsplitter");
 	setCentralWidget(m_splitter);	
 	
-	m_mainIndex = new CMainIndex( centralWidget() );	
+	m_mainIndex = new CMainIndex(m_splitter);
 	m_mainIndex->initTree();
 	m_mainIndex->setFocusPolicy(WheelFocus);       	
-	
 
-	m_mdi = new CMDIArea(centralWidget(), "mdiarea" );
+//  m_splitter->setResizeMode(m_mainIndex, QSplitter::KeepSize);
+//  m_mainIndex->setMinimumWidth(0);
+//  m_splitter->setMinimumWidth(0);
+    
+	m_mdi = new CMDIArea(m_splitter, "mdiarea" );
 	m_mdi->setFocusPolicy(ClickFocus);
 
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
-	
-//	m_selectDialog = 0;
-
-
-//  CPointers::languageMgr()->availableLanguages();
 }
 
 
@@ -115,7 +113,7 @@ void BibleTime::initActions() {
 	action->setWhatsThis( CResMgr::mainMenu::file::quit::whatsthis );
 	action->plugAccel( m_keyAccel );
 
-  action =  new KAction(i18n("Search in open module(s)"),
+  action = new KAction(i18n("Search in open module(s)"),
     CResMgr::mainMenu::mainIndex::search::icon,
     CResMgr::mainMenu::mainIndex::search::accel,
     this, SLOT(slotSearchModules()), actionCollection(),
@@ -123,8 +121,9 @@ void BibleTime::initActions() {
   );
   action->setToolTip( CResMgr::mainMenu::mainIndex::search::tooltip );
   action->setWhatsThis( CResMgr::mainMenu::mainIndex::search::whatsthis );
-
-  action =  new KAction(i18n("Search in default bible"),
+	action->plugAccel( m_keyAccel );
+  
+  action = new KAction(i18n("Search in default bible"),
     CResMgr::mainMenu::mainIndex::searchdefaultbible::icon,
     CResMgr::mainMenu::mainIndex::searchdefaultbible::accel,
     this, SLOT(slotSearchDefaultBible()), actionCollection(),
@@ -132,7 +131,7 @@ void BibleTime::initActions() {
   );
   action->setToolTip( CResMgr::mainMenu::mainIndex::searchdefaultbible::tooltip );
   action->setWhatsThis( CResMgr::mainMenu::mainIndex::searchdefaultbible::whatsthis );
-
+	action->plugAccel( m_keyAccel );
 
   m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
 	m_viewToolbar_action->setToolTip( CResMgr::mainMenu::view::showToolBar::tooltip );
@@ -147,7 +146,7 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::view::showMainIndex::actionName);
 	m_viewMainIndex_action->setToolTip( CResMgr::mainMenu::view::showMainIndex::tooltip );
 	m_viewMainIndex_action->setWhatsThis( CResMgr::mainMenu::view::showMainIndex::whatsthis );
-
+	m_viewMainIndex_action->plugAccel( m_keyAccel );
 
   action = KStdAction::preferences(this, SLOT( slotSettingsOptions() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::settings::optionsDialog::tooltip );
@@ -292,15 +291,15 @@ void BibleTime::initActions() {
   action->setWhatsThis( CResMgr::mainMenu::help::handbook::whatsthis  );
   action->plugAccel( m_keyAccel );
 
-	action = new KAction(i18n("&Installation"),
-    CResMgr::mainMenu::help::installation::icon,
-    CResMgr::mainMenu::help::installation::accel,
-    this, SLOT(openOnlineHelp_Install()), actionCollection(),
-    CResMgr::mainMenu::help::installation::actionName
-  );
-  action->setToolTip( CResMgr::mainMenu::help::installation::tooltip );
-  action->setWhatsThis( CResMgr::mainMenu::help::installation::whatsthis  );
-	action->plugAccel( m_keyAccel );
+//	action = new KAction(i18n("&Installation"),
+//    CResMgr::mainMenu::help::installation::icon,
+//    CResMgr::mainMenu::help::installation::accel,
+//    this, SLOT(openOnlineHelp_Install()), actionCollection(),
+//    CResMgr::mainMenu::help::installation::actionName
+//  );
+//  action->setToolTip( CResMgr::mainMenu::help::installation::tooltip );
+//  action->setWhatsThis( CResMgr::mainMenu::help::installation::whatsthis  );
+//	action->plugAccel( m_keyAccel );
 
 	action = new KAction(i18n("&Bible Study Howto"),
     CResMgr::mainMenu::help::bibleStudyHowTo::icon,
@@ -315,10 +314,12 @@ void BibleTime::initActions() {
 	action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::whatsThis::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::whatsThis::whatsthis);
-
+	action->plugAccel( m_keyAccel );
+  
 	action = KStdAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::bugreport::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::bugreport::whatsthis);
+ 	action->plugAccel( m_keyAccel );
 //	action->setIcon(ICON_BUG_REPORT);
 
 	action = new KAction(i18n("&Daily tip"),
@@ -329,6 +330,7 @@ void BibleTime::initActions() {
   );
 	action->setToolTip(CResMgr::mainMenu::help::dailyTip::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::dailyTip::whatsthis);
+	action->plugAccel( m_keyAccel );  
 
 	if ( actionCollection()->action( KStdAction::stdName( KStdAction::AboutApp ) ) )	 //delete About KDE action if KDE created it
 		actionCollection()->remove(actionCollection()->action(KStdAction::stdName( KStdAction::AboutApp )));
@@ -363,8 +365,9 @@ void BibleTime::initConnections(){
 		connect(m_windowMenu, SIGNAL(activated(int)),
 			this, SLOT(slotWindowMenuActivated(int)));		
 	}
-	else
-		qWarning("can't find window menu");
+	else {
+		qWarning("Main window: can't find window menu");
+  }
 		 	
 	
 	connect(m_mainIndex, SIGNAL(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)),

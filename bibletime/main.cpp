@@ -170,7 +170,12 @@ int main(int argc, char* argv[]) {
   *        Credits (sorted by last name)         *
   ************************************************/
   // Bible study HowTo
+
+  //Sponsored many years the www.bibletime.de domain!
+  aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Spnsored many years our internet domain"), "tom@theta-consulting.de", "");  
+
   aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible study HowTo"), "ncc@ncchampton.org", "");
+
   // Language codes iso639-1, iso639-2 and SIL language codes
   aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
 

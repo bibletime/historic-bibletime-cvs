@@ -119,8 +119,12 @@ void CMainIndex::addGroup(const CItemBase::Type type, const QString language){
 /** Initializes the view. */
 void CMainIndex::initView(){
 //  setRootIsDecorated(true);
- 	addColumn(i18n("Caption"));
+// 	addColumn(i18n("Caption"));
+ 	addColumn(QString::null);
+//  header()->setMinimumWidth(0);
  	header()->hide();
+//  setColumnWidthMode(0, KListView::Manual);
+//  viewport()->setMinimumWidth(0);
 
  	m_toolTip = new ToolTip(this);
   setTooltipColumn(-1);
