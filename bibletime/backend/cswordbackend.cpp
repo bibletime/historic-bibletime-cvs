@@ -168,6 +168,24 @@ void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bo
 	setGlobalOption(optionName.latin1(), enable ? "On": "Off");
 }
 
+void CSwordBackend::setAllModuleOptions( const CSwordBackend::moduleOptionsBool options){
+  setOption( footnotes, 					options.footnotes );
+  setOption( strongNumbers, 			options.strongNumbers );
+  setOption( headings, 						options.headings );
+  setOption( morphTags, 					options.morphTags );
+	setOption( lemmas, 							options.lemmas );
+	setOption( hebrewPoints, 				options.hebrewPoints );
+	setOption( hebrewCantillation, 	options.hebrewCantillation );
+	setOption( greekAccents, 				options.greekAccents);
+}
+
+void CSwordBackend::setAllDisplayOptions( const CSwordBackend::displayOptionsBool options){
+  if (m_entryDisplay)
+		m_entryDisplay->setAllDisplayOptions(options);	
+  if (m_chapterDisplay)
+		m_chapterDisplay->setAllDisplayOptions(options);	
+}
+
 /** I copied this method from swmgr.cpp of SWORD. This is just a workaround
 	* that BibleTime isn't closed when
 	* mods.d wasn't found.
@@ -345,15 +363,21 @@ const QString CSwordBackend::getModulePath( const QString moduleName ){
 const QString CSwordBackend::getOptionName( const CSwordBackend::moduleOptions option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
-			return QString::fromLatin1("Footnotes");
+			return QString("Footnotes");
 		case CSwordBackend::strongNumbers:
-			return QString::fromLatin1("Strong's Numbers");
+			return QString("Strong's Numbers");
 		case CSwordBackend::headings:
-			return QString::fromLatin1("Headings");
+			return QString("Headings");
 		case CSwordBackend::morphTags:
-			return QString::fromLatin1("Morphological Tags");
-		default: //unsupported option
-			return QString::null;
+			return QString("Morphological Tags");
+  	case CSwordBackend::lemmas:
+			return QString("Lemmas");
+		case CSwordBackend::hebrewPoints:
+			return QString("Hebrew Vowel Points");
+		case CSwordBackend::hebrewCantillation:
+			return QString("Hebrew Cantillation");
+		case CSwordBackend::greekAccents:
+			return QString("Greek Accents");
 	}
 	return QString::null;	
 }
@@ -361,15 +385,21 @@ const QString CSwordBackend::getOptionName( const CSwordBackend::moduleOptions o
 const QString CSwordBackend::getConfigOptionName( const CSwordBackend::moduleOptions option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
-			return QString::fromLatin1("Footnotes");
+			return QString("Footnotes");
 		case CSwordBackend::strongNumbers:
-			return QString::fromLatin1("Strongs");
+			return QString("Strongs");
 		case CSwordBackend::headings:
-			return QString::fromLatin1("Headings");
+			return QString("Headings");
 		case CSwordBackend::morphTags:
-			return QString::fromLatin1("Morph");
-		default: //unsupported option
-			return QString::null;
+			return QString("Morph");
+  	case CSwordBackend::lemmas:
+			return QString("Lemma");
+		case CSwordBackend::hebrewPoints:
+			return QString("HebrewPoints");
+		case CSwordBackend::hebrewCantillation:
+			return QString("Cantillation");
+		case CSwordBackend::greekAccents:
+			return QString("GreekAccents");
 	}
 	return QString::null;	
 }

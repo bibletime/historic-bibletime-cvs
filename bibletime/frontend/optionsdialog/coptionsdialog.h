@@ -83,6 +83,9 @@ public:
 	static QColor getBTColor( BTColor which );
 	static bool		getBTBool ( BTBool which );
 
+  static CSwordBackend::moduleOptionsBool getAllModuleOptionDefaults( void );
+
+  static CSwordBackend::displayOptionsBool getAllDisplayOptionDefaults( void );
 
 private:
   void initGeneral();
@@ -123,6 +126,14 @@ private:
 			QCheckBox* useDownArrow;
 			QCheckBox* lineBreaks;
 			QCheckBox* verseNumbers;
+			QCheckBox* footnotes;
+  		QCheckBox* strongNumbers;
+  		QCheckBox* headings;
+  		QCheckBox* morphTags;
+			QCheckBox* lemmas;
+			QCheckBox* hebrewPoints;
+			QCheckBox* hebrewCantillation;
+			QCheckBox* greekAccents;
 		} general;
 		
 		struct ColorSettings {

@@ -29,9 +29,12 @@
 #include <swdisp.h>
 #include <swmodule.h>
 
+#include "cswordbackend.h"
+
 
 class CHTMLChapterDisplay;
 class CSwordModuleInfo;
+
 /**	
 	* The display class for entry based modules.
   *	@author The BibleTime team
@@ -68,6 +71,8 @@ public:
   */
   virtual char Display( QList<CSwordModuleInfo>* moduleList);
 
+  void setAllDisplayOptions( const CSwordBackend::displayOptionsBool options);
+
 protected:
 	bool 		m_useLineBreaks;
 	bool 		m_includeHeader;
@@ -86,7 +91,15 @@ protected:
 
 	void updateSettings(void);
 
+	CSwordBackend::displayOptionsBool m_displayOptionsBool;
+
 };
+
+/** Returns the generated HTML text. */
+inline void CHTMLEntryDisplay::setAllDisplayOptions(const CSwordBackend::displayOptionsBool options){
+  m_displayOptionsBool = options;	
+}
+
 
 /** Returns the generated HTML text. */
 inline const QString CHTMLEntryDisplay::getHTML() const {

@@ -53,10 +53,28 @@ public:
  	* It's used in @ref isOptionEnabled and @ref setOption
  	*/
   enum moduleOptions {
-  	footnotes	= 		0x000000001,
-  	strongNumbers	= 0x000000002,
-  	headings = 			0x000000004,
-  	morphTags = 		0x000000008
+  	footnotes	= 					0x000000001,
+  	strongNumbers	= 			0x000000002,
+  	headings = 						0x000000004,
+  	morphTags = 					0x000000008,
+		lemmas =							0x000000016,
+		hebrewPoints =				0x000000032,
+		hebrewCantillation =	0x000000064,
+		greekAccents =				0x000000128
+	};
+  struct moduleOptionsBool {
+  	bool footnotes;
+  	bool strongNumbers;
+  	bool headings;
+  	bool morphTags;
+		bool lemmas;
+		bool hebrewPoints;
+		bool hebrewCantillation;
+		bool greekAccents;
+	};
+	struct displayOptionsBool {
+		bool lineBreaks;
+		bool verseNumbers;
 	};
   enum errorCode {
 		noError,
@@ -103,6 +121,10 @@ public:
   * @param enable If this is true the option will be enabled, otherwise it will be disabled.
   */
   virtual void setOption( const CSwordBackend::moduleOptions type, bool enable);
+
+  void setAllModuleOptions( const CSwordBackend::moduleOptionsBool options);
+
+  void setAllDisplayOptions( const CSwordBackend::displayOptionsBool options);
   /**
   * Returns true if the given option is enabled.
   *

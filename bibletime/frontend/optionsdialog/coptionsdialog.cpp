@@ -299,30 +299,65 @@ void COptionsDialog::initDisplayWindow() {
 	layout->addLayout(localeLayout);
 	
 	{
+		KConfigGroupSaver groupSaver(m_config, "General");		
+
 		m_displayWindows.general.useDownArrow = new QCheckBox(page);
   	m_displayWindows.general.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
+		m_displayWindows.general.useDownArrow->setChecked(m_config->readBoolEntry("Scroll",true));		
 		QWhatsThis::add(m_displayWindows.general.useDownArrow, WT_OD_GENERAL_SCROLL_PREVIOUS);
 		QToolTip::add(m_displayWindows.general.useDownArrow, TT_OD_GENERAL_SCROLL_PREVIOUS);
+		layout->addWidget(m_displayWindows.general.useDownArrow);
 
 		m_displayWindows.general.lineBreaks = new QCheckBox(page);
   	m_displayWindows.general.lineBreaks->setText(i18n("Show linebreak after each verse"));
-//		QWhatsThis::add(m_displayWindows.general.lineBreaks, WT_OD_GENERAL_SCROLL_PREVIOUS);
-//		QToolTip::add(m_displayWindows.general.lineBreaks, TT_OD_GENERAL_SCROLL_PREVIOUS);
+		m_displayWindows.general.lineBreaks->setChecked(m_config->readBoolEntry("lineBreaks",true));		
+		layout->addWidget(m_displayWindows.general.lineBreaks);
 
 		m_displayWindows.general.verseNumbers = new QCheckBox(page);
   	m_displayWindows.general.verseNumbers->setText(i18n("Show versenumbers"));
-//		QWhatsThis::add(m_displayWindows.general.verseNumbers, WT_OD_GENERAL_SCROLL_PREVIOUS);
-//		QToolTip::add(m_displayWindows.general.verseNumbers, TT_OD_GENERAL_SCROLL_PREVIOUS);
-
-		
-		KConfigGroupSaver groupSaver(m_config, "General");		
-		m_displayWindows.general.useDownArrow->setChecked(m_config->readBoolEntry("Scroll",true));		
-		m_displayWindows.general.lineBreaks->setChecked(m_config->readBoolEntry("lineBreaks",true));		
 		m_displayWindows.general.verseNumbers->setChecked(m_config->readBoolEntry("verseNumbers",true));		
+		layout->addWidget(m_displayWindows.general.verseNumbers);
+
+		m_displayWindows.general.footnotes = new QCheckBox(page);
+  	m_displayWindows.general.footnotes->setText(i18n("Show footnotes"));
+		m_displayWindows.general.footnotes->setChecked(m_config->readBoolEntry("footnotes",true));		
+  	layout->addWidget(m_displayWindows.general.footnotes);
+
+		m_displayWindows.general.strongNumbers = new QCheckBox(page);
+  	m_displayWindows.general.strongNumbers->setText(i18n("Show Strong's Numbers"));
+		m_displayWindows.general.strongNumbers->setChecked(m_config->readBoolEntry("strongNumbers",true));		
+  	layout->addWidget(m_displayWindows.general.strongNumbers);
+
+		m_displayWindows.general.headings = new QCheckBox(page);
+  	m_displayWindows.general.headings->setText(i18n("Show headings"));
+		m_displayWindows.general.headings->setChecked(m_config->readBoolEntry("headings",true));		
+  	layout->addWidget(m_displayWindows.general.headings);
+
+		m_displayWindows.general.morphTags = new QCheckBox(page);
+  	m_displayWindows.general.morphTags->setText(i18n("Show morphologic tags"));
+		m_displayWindows.general.morphTags->setChecked(m_config->readBoolEntry("morphTags",true));		
+  	layout->addWidget(m_displayWindows.general.morphTags);
+
+		m_displayWindows.general.lemmas = new QCheckBox(page);
+  	m_displayWindows.general.lemmas->setText(i18n("Show lemmas"));
+		m_displayWindows.general.lemmas->setChecked(m_config->readBoolEntry("lemmas",true));		
+  	layout->addWidget(m_displayWindows.general.lemmas);
+		
+		m_displayWindows.general.hebrewPoints = new QCheckBox(page);
+  	m_displayWindows.general.hebrewPoints->setText(i18n("Show Hebrew vowel points"));
+		m_displayWindows.general.hebrewPoints->setChecked(m_config->readBoolEntry("hebrewPoints",true));		
+  	layout->addWidget(m_displayWindows.general.hebrewPoints);
+
+		m_displayWindows.general.hebrewCantillation = new QCheckBox(page);
+  	m_displayWindows.general.hebrewCantillation->setText(i18n("Show Hebrew cantillation marks"));
+		m_displayWindows.general.hebrewCantillation->setChecked(m_config->readBoolEntry("hebrewCantillation",true));		
+  	layout->addWidget(m_displayWindows.general.hebrewCantillation);
+
+		m_displayWindows.general.greekAccents = new QCheckBox(page);
+  	m_displayWindows.general.greekAccents->setText(i18n("Show Greek accents"));
+		m_displayWindows.general.greekAccents->setChecked(m_config->readBoolEntry("greekAccents",true));		
+  	layout->addWidget(m_displayWindows.general.greekAccents);
 	}
-	layout->addWidget(m_displayWindows.general.useDownArrow);
-	layout->addWidget(m_displayWindows.general.lineBreaks);
-	layout->addWidget(m_displayWindows.general.verseNumbers);
 	layout->addStretch(4);	
 
 	items.clear();		
@@ -496,6 +531,14 @@ void COptionsDialog::saveDisplayWindow() {
 		m_config->writeEntry("Scroll", m_displayWindows.general.useDownArrow->isChecked(), true);
 		m_config->writeEntry("lineBreaks", m_displayWindows.general.lineBreaks->isChecked(), true);
 		m_config->writeEntry("verseNumbers", m_displayWindows.general.verseNumbers->isChecked(), true);
+		m_config->writeEntry("footnotes", m_displayWindows.general.footnotes->isChecked(), true);
+		m_config->writeEntry("strongNumbers", m_displayWindows.general.strongNumbers->isChecked(), true);
+		m_config->writeEntry("headings", m_displayWindows.general.headings->isChecked(), true);
+		m_config->writeEntry("morphTags", m_displayWindows.general.morphTags->isChecked(), true);
+		m_config->writeEntry("lemmas", m_displayWindows.general.lemmas->isChecked(), true);
+		m_config->writeEntry("hebrewPoints", m_displayWindows.general.hebrewPoints->isChecked(), true);
+		m_config->writeEntry("hebrewCantillation", m_displayWindows.general.hebrewCantillation->isChecked(), true);
+		m_config->writeEntry("greekAccents", m_displayWindows.general.greekAccents->isChecked(), true);
 	}
 	
 	{
@@ -648,6 +691,7 @@ QColor COptionsDialog::getBTColor( BTColor which){
 			return QColor( Qt::black );
 	}
 }
+
 /** No descriptions */
 bool COptionsDialog::getBTBool( BTBool which){
   KConfig* config = KGlobal::config();
@@ -664,3 +708,34 @@ bool COptionsDialog::getBTBool( BTBool which){
 			return true;
 	}
 }
+
+CSwordBackend::moduleOptionsBool COptionsDialog::getAllModuleOptionDefaults( void ){
+  KConfig* config = KGlobal::config();
+  KConfigGroupSaver groupSaver(config,"General");
+
+  CSwordBackend::moduleOptionsBool options;
+
+  options.footnotes = 					config->readBoolEntry( "footnotes", true );
+  options.strongNumbers = 			config->readBoolEntry( "strongNumbers", true );
+  options.headings = 						config->readBoolEntry( "headings", true );
+  options.morphTags = 					config->readBoolEntry( "morphTags", true );
+  options.lemmas = 							config->readBoolEntry( "lemmas", true );
+  options.hebrewPoints = 				config->readBoolEntry( "hebrewPoints", true );
+  options.hebrewCantillation = 	config->readBoolEntry( "hebrewCantillation", true );
+  options.greekAccents = 				config->readBoolEntry( "greekAccents", true );
+
+	return options;
+}
+
+CSwordBackend::displayOptionsBool COptionsDialog::getAllDisplayOptionDefaults( void ){
+  KConfig* config = KGlobal::config();
+  KConfigGroupSaver groupSaver(config,"General");
+
+  CSwordBackend::displayOptionsBool options;
+
+	options.lineBreaks = 					config->readBoolEntry( "lineBreaks", true );
+  options.verseNumbers = 				config->readBoolEntry( "verseNumbers", true );
+
+	return options;
+}
+
