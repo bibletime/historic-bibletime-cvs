@@ -237,7 +237,11 @@ const QFont CSwordModuleInfo::getFont(){
   	family = QString::fromLocal8Bit( familyString.c_str() );
   if (strlen(sizeString.c_str()))
   	size = QString::fromLocal8Bit( sizeString.c_str() ).toInt();
-  QFont f( family, size );
+  //QFont f( family, size );
+  QFont f;
+  f.setCharSet(QFont::AnyCharSet);
+  f.setFamily( family );
+  f.setPointSize( size );
 
   return f;
 }
