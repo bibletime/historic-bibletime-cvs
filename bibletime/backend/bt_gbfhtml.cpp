@@ -101,7 +101,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
   return 1;
 }
 
-bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::SWFilterUserData *userData) {
+bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {
 	if (!substituteToken(buf, token)) {  //more than a simple replace
   	const unsigned int tokenLength = strlen(token);
 		unsigned long i;

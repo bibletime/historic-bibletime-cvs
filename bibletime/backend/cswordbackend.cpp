@@ -236,7 +236,7 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options
 	setOption( redLetterWords,			options.redLetterWords );	
   setOption( textualVariants,			options.textualVariants );	
 	setOption( transliteration,			options.transliteration );	
-//	setOption( scriptureReferences,			options.scriptureReferences);	
+	setOption( scriptureReferences,	options.scriptureReferences);	
 }
 
 void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptions options){
@@ -412,7 +412,7 @@ const QString CSwordBackend::translatedOptionName(const CSwordBackend::FilterTyp
 const QString CSwordBackend::configOptionName( const CSwordBackend::FilterTypes option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
-			return QString::fromLatin1("Footnotes");
+			return QString::fromLatin1("Footnotes");         
 		case CSwordBackend::strongNumbers:
 			return QString::fromLatin1("Strongs");
 		case CSwordBackend::headings:
@@ -431,7 +431,7 @@ const QString CSwordBackend::configOptionName( const CSwordBackend::FilterTypes 
 			return QString::fromLatin1("RedLetterWords");
 		case CSwordBackend::textualVariants:
 			return QString::fromLatin1("Variants");
-		case CSwordBackend::scriptureReferences: //scriprefs don't work yet
+		case CSwordBackend::scriptureReferences:
 			return QString::fromLatin1("Scripref");
     default:
       return QString::null;

@@ -35,13 +35,13 @@ protected:
     bool insertedFootnoteTags;
   };
 
-  virtual sword::SWFilterUserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {
+  virtual sword::BasicFilterUserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {
     return new BT_UserData(module, key);
   }
 
 public:
   BT_OSISHTML();
-  virtual bool handleToken(sword::SWBuf &buf, const char *token, sword::SWFilterUserData *userData);
+  virtual bool handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData);
 };
 
 #endif

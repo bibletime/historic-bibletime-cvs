@@ -278,6 +278,8 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 const bool CSwordModuleInfo::has( const CSwordBackend::FilterTypes option ){
 	//BAD workaround to see if the filter is GBF, OSIS or ThML!	
   const QString name = backend()->configOptionName(option);
+ 	if (m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("OSIS%1").arg(name).latin1()))
+ 		return true;
   if (m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("GBF%1").arg(name).latin1()))
  		return true;
  	if (m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("ThML%1").arg(name).latin1()))
@@ -285,10 +287,6 @@ const bool CSwordModuleInfo::has( const CSwordBackend::FilterTypes option ){
  	if (m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("UTF8%1").arg(name).latin1()))
  		return true; 		
  	if (m_module->getConfig().has("GlobalOptionFilter", name.latin1()))
- 		return true;
-
-  //workaround for the new KJV2003 module
- 	if (/*(option == CSwordBackend::footnotes) && */(m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("OSIS%1").arg(name).latin1())))
  		return true;
  	
  	return false;

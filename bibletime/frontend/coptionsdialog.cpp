@@ -799,6 +799,13 @@ You can change the filter settings in each display window, of course.")) );
   QWhatsThis::add(m_settings.swords.footnotes, CResMgr::settings::sword::filters::footnotes::whatsthis);
  	layout->addWidget(m_settings.swords.footnotes);
 
+ 	m_settings.swords.headings = new QCheckBox(currentTab);
+ 	m_settings.swords.headings->setText(i18n("Show section headings"));
+ 	m_settings.swords.headings->setChecked(CBTConfig::get(CBTConfig::headings));
+  QToolTip::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::tooltip);
+  QWhatsThis::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::whatsthis);
+ 	layout->addWidget(m_settings.swords.headings);
+
  	m_settings.swords.strongNumbers = new QCheckBox(currentTab);
  	m_settings.swords.strongNumbers->setText(i18n("Show Strong's numbers"));
  	m_settings.swords.strongNumbers->setChecked(CBTConfig::get(CBTConfig::strongNumbers));
@@ -812,13 +819,6 @@ You can change the filter settings in each display window, of course.")) );
   QToolTip::add(m_settings.swords.morphTags, CResMgr::settings::sword::filters::morphTags::tooltip);
   QWhatsThis::add(m_settings.swords.morphTags, CResMgr::settings::sword::filters::morphTags::whatsthis);
  	layout->addWidget(m_settings.swords.morphTags);
-
- 	m_settings.swords.headings = new QCheckBox(currentTab);
- 	m_settings.swords.headings->setText(i18n("Show section headings"));
- 	m_settings.swords.headings->setChecked(CBTConfig::get(CBTConfig::headings));
-  QToolTip::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::tooltip);
-  QWhatsThis::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::whatsthis);  
- 	layout->addWidget(m_settings.swords.headings);
 
  	m_settings.swords.lemmas = new QCheckBox(currentTab);
  	m_settings.swords.lemmas->setText(i18n("Show lemmas"));

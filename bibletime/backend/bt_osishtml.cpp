@@ -51,7 +51,7 @@ BT_OSISHTML::BT_OSISHTML() {
 	setTokenCaseSensitive(true);
 }
 
-bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::SWFilterUserData *userData) {
+bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {
   // manually process if it wasn't a simple substitution
 	if (!substituteToken(buf, token)) {
     BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
@@ -146,10 +146,10 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::SWFil
 		else if (!strcmp(tag.getName(), "note")) {
 			if (!tag.isEndTag()) {
 //				SWBuf footnoteNum = myUserData["fn"];
-				SWBuf type = tag.getAttribute("type");
+				const SWBuf type = tag.getAttribute("type");
 
 				if (type != "strongsMarkup") {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
-          buf += "<span class=\"footnote\">(";
+          buf += " <span class=\"footnote\">(";
           myUserData->insertedFootnoteTags = true;
 
 //					int footnoteNumber = (footnoteNum.length()) ? atoi(footnoteNum.c_str()) : 1;
@@ -168,7 +168,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::SWFil
 			}
 			if (tag.isEndTag()) {
         if (myUserData->insertedFootnoteTags) {
-          buf += ")</span>";
+          buf += ")</span> ";
           myUserData->insertedFootnoteTags = false;
         }
 				myUserData->suspendTextPassThru = false;

@@ -96,7 +96,8 @@ public:
 		hebrewCantillation,
 		greekAccents,
 		textualVariants,
-    transliteration
+    transliteration,
+    scriptureReferences
   };
   enum intLists {
 		splitterSizes
