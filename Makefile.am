@@ -17,7 +17,6 @@ TODO \
 INSTALL \
 configure.in.in \
 configure.in \
-am_edit \
 bibletime.desktop.in \
 bibletime.desktop \
 NEWS.in \
@@ -31,7 +30,7 @@ datadir = $(kde_appsdir)/Applications
 data_DATA = bibletime.desktop
 
 $(top_srcdir)/acinclude.m4: $(top_srcdir)/admin/acinclude.m4.in $(top_srcdir)/admin/libtool.m4.in
-	@cd $(top_srcdir) && cat admin/acinclude.m4.in admin/libtool.m4.in > acinclude.m4
+	cd $(top_srcdir) && cat admin/acinclude.m4.in admin/libtool.m4.in > acinclude.m4
 $(top_srcdir)/configure.in: $(top_srcdir)/configure.files $(shell test -f $(top_srcdir)/configure.files && cat $(top_srcdir)/configure.files)
 	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common configure.in
 $(top_srcdir)/subdirs:
@@ -39,11 +38,21 @@ $(top_srcdir)/subdirs:
 $(top_srcdir)/configure.files:
 	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common configure.files
 
+#$(top_srcdir)/acinclude.m4: $(top_srcdir)/admin/acinclude.m4.in $(top_srcdir)/admin/libtool.m4.in
+#	@cd $(top_srcdir) && cat admin/acinclude.m4.in admin/libtool.m4.in > acinclude.m4
+#$(top_srcdir)/configure.in: $(top_srcdir)/configure.files $(shell test -f $(top_srcdir)/configure.files && cat $(top_srcdir)/configure.files)
+#	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common configure.in
+#$(top_srcdir)/subdirs:
+#	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common subdirs
+#$(top_srcdir)/configure.files:
+#	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common configure.files
+
 install-data-local:
-	chmod 755 $(DESTDIR)$(kde_datadir)/bibletime -R
+	chmod -R 755 $(DESTDIR)$(kde_datadir)/bibletime
 
 MAINTAINERCLEANFILES = configure.files subdirs 
 
 dist-hook:
-	cd $(top_distdir) && perl admin/am_edit -padmin
-	cd $(top_distdir) && $(MAKE) -f admin/Makefile.common subdirs
+#	cd $(top_distdir) && perl admin/am_edit -padmin
+#	cd $(top_distdir) && $(MAKE) -f admin/Makefile.common subdirs
+	cd $(top_distdir) && $(MAKE) -f Makefile.cvs

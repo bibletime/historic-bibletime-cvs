@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bibletime-1.0\n"
-"POT-Creation-Date: 2001-09-06 17:18+0200\n"
+"POT-Creation-Date: 2002-01-04 17:05+0100\n"
 "PO-Revision-Date: 2001-06-11 11:02GMT+1\n"
 "Last-Translator: Michal Rovnaník <Michal.Rovnanik@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -13,68 +13,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.8\n"
-
-#: bibletime/rc-dummy.cpp:2
-msgid "&Main index"
-msgstr "&Hlavní seznam"
-
-#: bibletime/rc-dummy.cpp:5
-msgid "&Window"
-msgstr "&Okno"
-
-#: bibletime/bibletime_init.cpp:73
-msgid "Clear printing queue"
-msgstr "Vyprázdnit tiskovou frontu"
-
-#: bibletime/bibletime_init.cpp:88 bibletime/dummy.h:25
-#: bibletime/tooltipdef.h:25
-msgid "Reset main index"
-msgstr "Reset hlavního seznamu"
-
-#: bibletime/bibletime_init.cpp:93
-msgid "Search in module(s)"
-msgstr "Hledat v modulu (-ech)"
-
-#: bibletime/bibletime_init.cpp:98
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:314
-msgid "Remove selected item(s)"
-msgstr "Odstranit zvolenou (-é) položku (-y)"
-
-#: bibletime/bibletime_init.cpp:103
-msgid "&Show footnotes"
-msgstr "&Poznámky pod čarou"
-
-#: bibletime/bibletime_init.cpp:108
-msgid "S&how Strong's numbers"
-msgstr "&Strongova čísla"
-
-#: bibletime/bibletime_init.cpp:117
-msgid "&Show main index"
-msgstr "&Hlavní seznam"
-
-#: bibletime/bibletime_init.cpp:129
-msgid "&Cascade"
-msgstr "&Kaskádovat"
-
-#: bibletime/bibletime_init.cpp:134
-msgid "&Tile"
-msgstr "&Vydláždit"
-
-#: bibletime/bibletime_init.cpp:139
-msgid "&Auto cascade"
-msgstr "&Automaticky kaskádovat"
-
-#: bibletime/bibletime_init.cpp:144
-msgid "A&uto Tile"
-msgstr "A&utomaticky dláždit"
-
-#: bibletime/bibletime_init.cpp:149
-msgid "&Close all"
-msgstr "&Zavřít vše"
-
-#: bibletime/bibletime_init.cpp:171
-msgid "&Daily tip"
-msgstr "&Tip dne"
 
 #: bibletime/main.cpp:70
 msgid "Enable debug messages."
@@ -186,6 +124,60 @@ msgstr ""
 "Vedoucí projektu SWORD.\n"
 "Pomoc s API SWORDu!"
 
+#: bibletime/bibletime_init.cpp:73
+msgid "Clear printing queue"
+msgstr "Vyprázdnit tiskovou frontu"
+
+#: bibletime/bibletime_init.cpp:88 bibletime/dummy.h:25
+#: bibletime/tooltipdef.h:25
+msgid "Reset main index"
+msgstr "Reset hlavního seznamu"
+
+#: bibletime/bibletime_init.cpp:93
+msgid "Search in module(s)"
+msgstr "Hledat v modulu (-ech)"
+
+#: bibletime/bibletime_init.cpp:98
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:314
+msgid "Remove selected item(s)"
+msgstr "Odstranit zvolenou (-é) položku (-y)"
+
+#: bibletime/bibletime_init.cpp:103
+msgid "&Show footnotes"
+msgstr "&Poznámky pod čarou"
+
+#: bibletime/bibletime_init.cpp:108
+msgid "S&how Strong's numbers"
+msgstr "&Strongova čísla"
+
+#: bibletime/bibletime_init.cpp:117
+msgid "&Show main index"
+msgstr "&Hlavní seznam"
+
+#: bibletime/bibletime_init.cpp:129
+msgid "&Cascade"
+msgstr "&Kaskádovat"
+
+#: bibletime/bibletime_init.cpp:134
+msgid "&Tile"
+msgstr "&Vydláždit"
+
+#: bibletime/bibletime_init.cpp:139
+msgid "&Auto cascade"
+msgstr "&Automaticky kaskádovat"
+
+#: bibletime/bibletime_init.cpp:144
+msgid "A&uto Tile"
+msgstr "A&utomaticky dláždit"
+
+#: bibletime/bibletime_init.cpp:149
+msgid "&Close all"
+msgstr "&Zavřít vše"
+
+#: bibletime/bibletime_init.cpp:171
+msgid "&Daily tip"
+msgstr "&Tip dne"
+
 #: bibletime/bibletime.cpp:175 bibletime/bibletime.cpp:190
 #: bibletime/bibletime_slots.cpp:100 bibletime/bibletime_slots.cpp:109
 #: bibletime/frontend/chtmlwidget.cpp:135
@@ -193,52 +185,6 @@ msgstr ""
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:297
 msgid "Display window"
 msgstr "Okno prohlížeče"
-
-#: bibletime/bibletime_slots.cpp:290
-msgid "Printing..."
-msgstr "Tisk..."
-
-#: bibletime/bibletime_slots.cpp:290
-msgid "Abort printing"
-msgstr "Ukončit tisk"
-
-#: bibletime/bibletime_slots.cpp:315
-#, c-format, ycp-format
-msgid "Printing %1"
-msgstr "Tisk %1"
-
-#: bibletime/printing/cstylelist.cpp:46
-msgid "Name:"
-msgstr "Jméno:"
-
-#: bibletime/printing/cprinter.cpp:310 bibletime/printing/cprinter.cpp:341
-#: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
-#: bibletime/printing/cprinterdialog.cpp:617
-#: bibletime/printing/cstyleeditordialog.cpp:182
-#: bibletime/printing/cstylelist.cpp:132
-msgid "Standard"
-msgstr "Standard"
-
-#: bibletime/printing/cstyle.cpp:42
-msgid "unknown name"
-msgstr "neznámé jméno"
-
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:248
-#: bibletime/printing/cprintitemlist.cpp:48
-msgid "Module"
-msgstr "Modul"
-
-#: bibletime/printing/cprintitemlist.cpp:49
-msgid "From"
-msgstr "Od"
-
-#: bibletime/printing/cprintitemlist.cpp:50
-msgid "To"
-msgstr "Do"
-
-#: bibletime/printing/cprintitemlist.cpp:51
-msgid "Style"
-msgstr "Styl"
 
 #: bibletime/printing/cstyleeditordialog.cpp:43
 msgid "style editor"
@@ -299,6 +245,22 @@ msgstr "Síla čáry (v bodech):"
 #: bibletime/printing/cstyleeditordialog.cpp:166
 msgid "Frame color:"
 msgstr "Barva rámečku:"
+
+#: bibletime/printing/cprinter.cpp:310 bibletime/printing/cprinter.cpp:341
+#: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
+#: bibletime/printing/cprinterdialog.cpp:617
+#: bibletime/printing/cstyleeditordialog.cpp:182
+#: bibletime/printing/cstylelist.cpp:132
+msgid "Standard"
+msgstr "Standard"
+
+#: bibletime/printing/cstylelist.cpp:46
+msgid "Name:"
+msgstr "Jméno:"
+
+#: bibletime/printing/cstyle.cpp:42
+msgid "unknown name"
+msgstr "neznámé jméno"
 
 #: bibletime/printing/cprinterdialog.cpp:65
 msgid "Printdialog"
@@ -436,138 +398,22 @@ msgstr "Tisknutelné záznamy:"
 msgid "Size: %1mm x %2mm"
 msgstr "Velikost: %1mm x %2mm"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:63
-msgid "Synchronize..."
-msgstr "Synchronizace..."
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:248
+#: bibletime/printing/cprintitemlist.cpp:48
+msgid "Module"
+msgstr "Modul"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:68
-msgid "Edit entry..."
-msgstr "Změna záznamu..."
+#: bibletime/printing/cprintitemlist.cpp:49
+msgid "From"
+msgstr "Od"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:78
-msgid "Commentary window"
-msgstr "Komentář"
+#: bibletime/printing/cprintitemlist.cpp:50
+msgid "To"
+msgstr "Do"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:81
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:66
-msgid "Entry"
-msgstr "Záznam"
-
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:82
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:67
-msgid "Text of entry"
-msgstr "Text záznamu"
-
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:83
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:88
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:68
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:73
-msgid "Entry with text"
-msgstr "Záznam s textem"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:76
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:85
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:70
-msgid "Selected text"
-msgstr "Vybraný text"
-
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:91
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:76
-msgid "Entry as plain text"
-msgstr "Záznam jako obyčejný text"
-
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:92
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:77
-msgid "Entry as HTML"
-msgstr "Záznam jako HTML"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:88
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:95
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:80
-msgid "Lookup selected text in lexicon"
-msgstr "Vyhledat vybraný text ve slovníku"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:90
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:82
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:133
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:400
-msgid "Copy..."
-msgstr "Kopírovat..."
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:91
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:98
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:83
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:401
-msgid "Add to printing queue..."
-msgstr "Přidat do tiskové fronty..."
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:92
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:99
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:84
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:135
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:402
-msgid "Save..."
-msgstr "Uložit..."
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:68
-msgid "Bible window"
-msgstr "Bible"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:71
-msgid "Verse"
-msgstr "Verš"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:72
-msgid "Text of verse"
-msgstr "Text verše"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:73
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:79
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:83
-msgid "Verse with text"
-msgstr "Verš s textem"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:74
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:80
-msgid "Chapter"
-msgstr "Kapitolu"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:84
-msgid "Chapter as plain text"
-msgstr "Kapitolu jako obyčejný text"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:85
-msgid "Chapter as HTML"
-msgstr "Kapitolu jako HTML"
-
-#: bibletime/frontend/chtmlwidget.cpp:237
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
-msgid ""
-"*.txt | Text file (*.txt)\n"
-"*.* | All files (*.*)"
-msgstr ""
-"*.txt | Textové soubory (*.txt)\n"
-"*.* | Všechny soubory (*.*)"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
-msgid "Save verse with text as ..."
-msgstr "Uložit verš s textem jako ..."
-
-#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:49
-msgid "Select additional modules"
-msgstr "Vybrat další moduly"
-
-#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:51
-#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:72
-#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:121
-msgid "NONE"
-msgstr "Žádný modul"
-
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:63
-msgid "Lexicon window"
-msgstr "Slovník"
+#: bibletime/printing/cprintitemlist.cpp:51
+msgid "Style"
+msgstr "Styl"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:76
 msgid "Accelerators"
@@ -635,234 +481,6 @@ msgstr "Angličtina"
 msgid "Show startuplogo"
 msgstr "Zobrazovat logo"
 
-#: bibletime/frontend/cinputdialog.cpp:72
-msgid "Ok"
-msgstr "Ok"
-
-#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:52
-msgid "Modules:"
-msgstr "Moduly:"
-
-#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:55
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:203
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:240
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:273
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:318
-msgid "Entries found:"
-msgstr "Nalezené záznamy:"
-
-#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:172
-msgid "<I>module not set</I>"
-msgstr "<I>není nastavený modul</I>"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:51
-msgid "Search Dialog"
-msgstr "Hledání"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:51
-msgid "Interrupt"
-msgstr "Přerušit"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:94
-msgid "Choose modules"
-msgstr "Volba modulů"
-
-#: bibletime/dummy.h:99 bibletime/frontend/searchdialog/csearchdialog.cpp:94
-#: bibletime/tooltipdef.h:99
-msgid "Choose the modules for the search"
-msgstr "Zvolte moduly k prohledání"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:98
-msgid "Search Text"
-msgstr "Hledaný text"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:98
-msgid "Enter the text to search for"
-msgstr "Vložte hledaný text"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:102
-msgid "Search Result"
-msgstr "Výsledek hledání"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:102
-msgid "The result of your search"
-msgstr "Výsledek Vašeho hledání"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:106
-msgid "Search Analysis"
-msgstr "Analýza hledání"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:106
-msgid "Graphical analysis of your search result"
-msgstr "Grafická analýza Vašeho hledání"
-
-#: bibletime/frontend/searchdialog/csearchdialoganalysis.cpp:316
-#, ycp-format
-msgid "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
-msgstr "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:57
-msgid "Search properties"
-msgstr "Vlastnosti hledání"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:75
-msgid "Multiple Words"
-msgstr "Více slov"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:83
-msgid "Exact Search"
-msgstr "Přesné hledání"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:90
-msgid "Regular Expression"
-msgstr "Regulární výraz"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:103
-msgid "Case Sensitive"
-msgstr "Rozlišovat velikost"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:107
-msgid "Search scope"
-msgstr "Rozsah hledání"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:111
-msgid "Search progress"
-msgstr "Postup hledání"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:116
-msgid "Current module:"
-msgstr "Aktuální modul:"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:117
-msgid "Overall:"
-msgstr "Celkem:"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:116
-msgid "Modules"
-msgstr "Moduly"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:123
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:127
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:130
-msgid "Search result"
-msgstr "Výsledek hledání"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:124
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:131
-msgid "Search result with text"
-msgstr "Výsledek hledání s textem"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:202
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:239
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:272
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:317
-#, ycp-format
-msgid "Search result for \"%1\" in module \"%2\"\n"
-msgstr "Výsledek hledání \"%1\" v modulu \"%2\"\n"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:311
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:551
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:585
-msgid ""
-"*.txt | Text files\n"
-" *.* | All files (*.*)"
-msgstr ""
-"*.txt | Textové soubory\n"
-" *.* | Všechny soubory (*.*)"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:311
-msgid "Save search result ..."
-msgstr "Uložit výsledek hledání ..."
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:390
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:397
-msgid "Key"
-msgstr "Odkaz"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:391
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:394
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:398
-msgid "Key with text"
-msgstr "Odkaz s textem"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:551
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:585
-msgid "Save key ..."
-msgstr "Uložit klíč ..."
-
-#: bibletime/dummy.h:110
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:44
-#: bibletime/tooltipdef.h:110
-msgid "No scope"
-msgstr "Bez omezení"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:48
-msgid "Last result"
-msgstr "Poslední výsledek"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:52
-msgid "Use scope"
-msgstr "Použít rozsah"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:63
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:216
-msgid "Choose custom range"
-msgstr "Zvolte požadovaný rozsah"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:67
-msgid "Edit ranges"
-msgstr "Upravit rozsahy"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:96
-msgid "Old testament"
-msgstr "Stará Smlouva"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:97
-msgid "Moses/Pentateuch/Torah"
-msgstr "Mojžíš/Pentateuch/Tóra"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:98
-msgid "History"
-msgstr "Spisy"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:99
-msgid "Prophets"
-msgstr "Proroci"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:100
-msgid "New testament"
-msgstr "Nová Smlouva"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:101
-msgid "Gospels"
-msgstr "Evangelia"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:102
-msgid "Letters/Epistels"
-msgstr "Epištoly/Dopisy"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:103
-msgid "Paul's Epistels"
-msgstr "Pavlovy epištoly"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:217
-msgid "Define range text"
-msgstr "Zadejte požadovaný rozsah"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:218
-msgid "Range parsing results"
-msgstr "Výsledek rozboru rozsahu"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:282
-msgid "Range name"
-msgstr "Jméno rozsahu"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:282
-msgid "Please enter a name for the new range"
-msgstr "Vložte prosím jméno pro nový rozsah"
-
 #: bibletime/frontend/ctipwindow.cpp:69
 msgid "Useful tips for BibleTime"
 msgstr "Užitečné tipy pro BibleTime"
@@ -885,6 +503,10 @@ msgstr ""
 "se Vám nedaří tento problém vyřešit, kontaktujte nás prosím na adrese\t\t<A "
 "HREF=\"mailto:info@bibletime.de\">info@bibletime.de</A>!"
 
+#: bibletime/frontend/cinputdialog.cpp:72
+msgid "Ok"
+msgstr "Ok"
+
 #: bibletime/frontend/chtmlwidget.cpp:210
 #, ycp-format
 msgid "Unable to find the page %1!"
@@ -901,6 +523,15 @@ msgstr ""
 #: bibletime/frontend/chtmlwidget.cpp:230
 msgid "Save text as HTML page ..."
 msgstr "Uložit text jako HTML stránku ..."
+
+#: bibletime/frontend/chtmlwidget.cpp:237
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
+msgid ""
+"*.txt | Text file (*.txt)\n"
+"*.* | All files (*.*)"
+msgstr ""
+"*.txt | Textové soubory (*.txt)\n"
+"*.* | Všechny soubory (*.*)"
 
 #: bibletime/frontend/chtmlwidget.cpp:237
 msgid "Save text as plain text ..."
@@ -1130,6 +761,354 @@ msgstr ""
 msgid "BibleTime - Reset main index"
 msgstr "BibleTime - Reset hlavního seznamu"
 
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:63
+msgid "Lexicon window"
+msgstr "Slovník"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:81
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:66
+msgid "Entry"
+msgstr "Záznam"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:82
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:67
+msgid "Text of entry"
+msgstr "Text záznamu"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:83
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:88
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:68
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:73
+msgid "Entry with text"
+msgstr "Záznam s textem"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:76
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:85
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:70
+msgid "Selected text"
+msgstr "Vybraný text"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:91
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:76
+msgid "Entry as plain text"
+msgstr "Záznam jako obyčejný text"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:92
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:77
+msgid "Entry as HTML"
+msgstr "Záznam jako HTML"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:88
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:95
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:80
+msgid "Lookup selected text in lexicon"
+msgstr "Vyhledat vybraný text ve slovníku"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:90
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:82
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:133
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:400
+msgid "Copy..."
+msgstr "Kopírovat..."
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:91
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:98
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:83
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:401
+msgid "Add to printing queue..."
+msgstr "Přidat do tiskové fronty..."
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:92
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:99
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:84
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:135
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:402
+msgid "Save..."
+msgstr "Uložit..."
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:68
+msgid "Bible window"
+msgstr "Bible"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:71
+msgid "Verse"
+msgstr "Verš"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:72
+msgid "Text of verse"
+msgstr "Text verše"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:73
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:79
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:83
+msgid "Verse with text"
+msgstr "Verš s textem"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:74
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:80
+msgid "Chapter"
+msgstr "Kapitolu"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:84
+msgid "Chapter as plain text"
+msgstr "Kapitolu jako obyčejný text"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:85
+msgid "Chapter as HTML"
+msgstr "Kapitolu jako HTML"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
+msgid "Save verse with text as ..."
+msgstr "Uložit verš s textem jako ..."
+
+#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:49
+msgid "Select additional modules"
+msgstr "Vybrat další moduly"
+
+#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:51
+#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:72
+#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:121
+msgid "NONE"
+msgstr "Žádný modul"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:63
+msgid "Synchronize..."
+msgstr "Synchronizace..."
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:68
+msgid "Edit entry..."
+msgstr "Změna záznamu..."
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:78
+msgid "Commentary window"
+msgstr "Komentář"
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:52
+msgid "Modules:"
+msgstr "Moduly:"
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:55
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:203
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:240
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:273
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:318
+msgid "Entries found:"
+msgstr "Nalezené záznamy:"
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:172
+msgid "<I>module not set</I>"
+msgstr "<I>není nastavený modul</I>"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:57
+msgid "Search properties"
+msgstr "Vlastnosti hledání"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:75
+msgid "Multiple Words"
+msgstr "Více slov"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:83
+msgid "Exact Search"
+msgstr "Přesné hledání"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:90
+msgid "Regular Expression"
+msgstr "Regulární výraz"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:103
+msgid "Case Sensitive"
+msgstr "Rozlišovat velikost"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:107
+msgid "Search scope"
+msgstr "Rozsah hledání"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:111
+msgid "Search progress"
+msgstr "Postup hledání"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:116
+msgid "Current module:"
+msgstr "Aktuální modul:"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:117
+msgid "Overall:"
+msgstr "Celkem:"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:51
+msgid "Search Dialog"
+msgstr "Hledání"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:51
+msgid "Interrupt"
+msgstr "Přerušit"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:94
+msgid "Choose modules"
+msgstr "Volba modulů"
+
+#: bibletime/dummy.h:99 bibletime/frontend/searchdialog/csearchdialog.cpp:94
+#: bibletime/tooltipdef.h:99
+msgid "Choose the modules for the search"
+msgstr "Zvolte moduly k prohledání"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:98
+msgid "Search Text"
+msgstr "Hledaný text"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:98
+msgid "Enter the text to search for"
+msgstr "Vložte hledaný text"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:102
+msgid "Search Result"
+msgstr "Výsledek hledání"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:102
+msgid "The result of your search"
+msgstr "Výsledek Vašeho hledání"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:106
+msgid "Search Analysis"
+msgstr "Analýza hledání"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:106
+msgid "Graphical analysis of your search result"
+msgstr "Grafická analýza Vašeho hledání"
+
+#: bibletime/dummy.h:110
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:44
+#: bibletime/tooltipdef.h:110
+msgid "No scope"
+msgstr "Bez omezení"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:48
+msgid "Last result"
+msgstr "Poslední výsledek"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:52
+msgid "Use scope"
+msgstr "Použít rozsah"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:63
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:216
+msgid "Choose custom range"
+msgstr "Zvolte požadovaný rozsah"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:67
+msgid "Edit ranges"
+msgstr "Upravit rozsahy"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:96
+msgid "Old testament"
+msgstr "Stará Smlouva"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:97
+msgid "Moses/Pentateuch/Torah"
+msgstr "Mojžíš/Pentateuch/Tóra"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:98
+msgid "History"
+msgstr "Spisy"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:99
+msgid "Prophets"
+msgstr "Proroci"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:100
+msgid "New testament"
+msgstr "Nová Smlouva"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:101
+msgid "Gospels"
+msgstr "Evangelia"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:102
+msgid "Letters/Epistels"
+msgstr "Epištoly/Dopisy"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:103
+msgid "Paul's Epistels"
+msgstr "Pavlovy epištoly"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:217
+msgid "Define range text"
+msgstr "Zadejte požadovaný rozsah"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:218
+msgid "Range parsing results"
+msgstr "Výsledek rozboru rozsahu"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:282
+msgid "Range name"
+msgstr "Jméno rozsahu"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:282
+msgid "Please enter a name for the new range"
+msgstr "Vložte prosím jméno pro nový rozsah"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:116
+msgid "Modules"
+msgstr "Moduly"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:123
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:127
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:130
+msgid "Search result"
+msgstr "Výsledek hledání"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:124
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:131
+msgid "Search result with text"
+msgstr "Výsledek hledání s textem"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:202
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:239
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:272
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:317
+#, ycp-format
+msgid "Search result for \"%1\" in module \"%2\"\n"
+msgstr "Výsledek hledání \"%1\" v modulu \"%2\"\n"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:311
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:551
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:585
+msgid ""
+"*.txt | Text files\n"
+" *.* | All files (*.*)"
+msgstr ""
+"*.txt | Textové soubory\n"
+" *.* | Všechny soubory (*.*)"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:311
+msgid "Save search result ..."
+msgstr "Uložit výsledek hledání ..."
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:390
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:397
+msgid "Key"
+msgstr "Odkaz"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:391
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:394
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:398
+msgid "Key with text"
+msgstr "Odkaz s textem"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:551
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:585
+msgid "Save key ..."
+msgstr "Uložit klíč ..."
+
+#: bibletime/frontend/searchdialog/csearchdialoganalysis.cpp:316
+#, ycp-format
+msgid "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
+msgstr "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
+
 #: bibletime/frontend/ctoolclass.cpp:83
 msgid ""
 "<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
@@ -1138,6 +1117,27 @@ msgstr "<qt><B>Soubor již existuje!</B><BR>Chcete jej přepsat?</qt>"
 #: bibletime/frontend/ctoolclass.cpp:83
 msgid "BibleTime - Save file as ..."
 msgstr "BibleTime - Uložit soubor jako ..."
+
+#: bibletime/bibletime_slots.cpp:290
+msgid "Printing..."
+msgstr "Tisk..."
+
+#: bibletime/bibletime_slots.cpp:290
+msgid "Abort printing"
+msgstr "Ukončit tisk"
+
+#: bibletime/bibletime_slots.cpp:315
+#, c-format, ycp-format
+msgid "Printing %1"
+msgstr "Tisk %1"
+
+#: bibletime/rc-dummy.cpp:2
+msgid "&Main index"
+msgstr "&Hlavní seznam"
+
+#: bibletime/rc-dummy.cpp:5
+msgid "&Window"
+msgstr "&Okno"
 
 #: bibletime/dummy.h:19 bibletime/tooltipdef.h:19
 msgid "Clear the printing queue"

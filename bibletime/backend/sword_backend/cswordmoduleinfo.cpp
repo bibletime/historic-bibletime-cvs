@@ -45,11 +45,11 @@ CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module ){
 	m_module = module;
 	m_searchResult.ClearList();
 	
-	if (backend) {
-		if (requiredSwordVersion() != -1 && requiredSwordVersion() > backend->Version()) {
-		 	qWarning("THIS MODULE IS NOT USABLE WITH THIS SWORD VERSION: UPDATE TO SWORD version %f", backend->Version());
-		}
-	}
+//	if (backend) {
+//		if (requiredSwordVersion() != -1 && requiredSwordVersion() > backend->Version()) {
+//		 	qWarning("THIS MODULE IS NOT USABLE WITH THIS SWORD VERSION: UPDATE TO SWORD version %f", backend->Version());
+//		}
+//	}
 }
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) : CModuleInfo() {
@@ -226,19 +226,15 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 			text = "Strongs";
 			break;			
 		case CSwordBackend::headings:
-//			text = "Headings"; //heading-support is not shown by a special config entry
-//			return (getType() == CSwordModuleInfo::Bible || getType() == CSwordModuleInfo::Commentary);
-			return true;
-			//break;			
+			text = "Headings";
+			break;			
 		case CSwordBackend::morphTags:
-//			text = "Morphological Tags"; //heading-support is not shown by a special config entry
-			return true;
-//			return (getType() == CSwordModuleInfo::Bible);
-			//break;
+			text = "Morphological Tags";
+			break;
 	}	
 	
 	for (; start != end; start++) {
-		QString option = QString::fromLatin1((*start).second.c_str());
+		QString option = (*start).second.c_str();
 		if ( option.contains(text) > 0 ) {
 			ret = true;
 			break;

@@ -7,7 +7,7 @@ EXTRA_DIST =  tipdatabase
 
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/de/bibletime/;\
-	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/de;\
+	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/de;\
 	$(INSTALL_DATA) tipdatabase $(DESTDIR)$(kde_htmldir)/de/bibletime/tipdatabase
 
 uninstall-local:

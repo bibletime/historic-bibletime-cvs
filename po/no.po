@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2001-09-06 17:18+0200\n"
+"POT-Creation-Date: 2002-01-04 17:05+0100\n"
 "PO-Revision-Date: 2001-06-17 20:56CET\n"
 "Last-Translator: Espen Knut Trydal <etrydal@postkassa.no>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -9,68 +9,6 @@ msgstr ""
 "=======POT-Creation-Date: 2001-06-17 09:52+0200\n"
 ">>>>>>> 1.21Language-Team: Norsk Bokmål <->\n"
 "X-Generator: KBabel 0.8\n"
-
-#: bibletime/rc-dummy.cpp:2
-msgid "&Main index"
-msgstr "&Hovedindeks"
-
-#: bibletime/rc-dummy.cpp:5
-msgid "&Window"
-msgstr "&Vindu"
-
-#: bibletime/bibletime_init.cpp:73
-msgid "Clear printing queue"
-msgstr "Tøm utskriftskø"
-
-#: bibletime/bibletime_init.cpp:88 bibletime/dummy.h:25
-#: bibletime/tooltipdef.h:25
-msgid "Reset main index"
-msgstr "Tilbakestill hovedindeks"
-
-#: bibletime/bibletime_init.cpp:93
-msgid "Search in module(s)"
-msgstr "Søk i modul(er)"
-
-#: bibletime/bibletime_init.cpp:98
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:314
-msgid "Remove selected item(s)"
-msgstr "Fjern valgte element(er)"
-
-#: bibletime/bibletime_init.cpp:103
-msgid "&Show footnotes"
-msgstr "&Vis fotnoter"
-
-#: bibletime/bibletime_init.cpp:108
-msgid "S&how Strong's numbers"
-msgstr "V&is Strongs nummer"
-
-#: bibletime/bibletime_init.cpp:117
-msgid "&Show main index"
-msgstr "&Vis hovedindeks"
-
-#: bibletime/bibletime_init.cpp:129
-msgid "&Cascade"
-msgstr "&Overlapp"
-
-#: bibletime/bibletime_init.cpp:134
-msgid "&Tile"
-msgstr "&Flislegg"
-
-#: bibletime/bibletime_init.cpp:139
-msgid "&Auto cascade"
-msgstr "&Automatisk overlapp"
-
-#: bibletime/bibletime_init.cpp:144
-msgid "A&uto Tile"
-msgstr "A&utomatisk flislegg"
-
-#: bibletime/bibletime_init.cpp:149
-msgid "&Close all"
-msgstr "&Lukk alle"
-
-#: bibletime/bibletime_init.cpp:171
-msgid "&Daily tip"
-msgstr "&Dagens tips"
 
 #: bibletime/main.cpp:70
 msgid "Enable debug messages."
@@ -185,6 +123,60 @@ msgstr ""
 "Lederen av SWORD prosjektet\n"
 "Mye hjelp med SWORD APIen!"
 
+#: bibletime/bibletime_init.cpp:73
+msgid "Clear printing queue"
+msgstr "Tøm utskriftskø"
+
+#: bibletime/bibletime_init.cpp:88 bibletime/dummy.h:25
+#: bibletime/tooltipdef.h:25
+msgid "Reset main index"
+msgstr "Tilbakestill hovedindeks"
+
+#: bibletime/bibletime_init.cpp:93
+msgid "Search in module(s)"
+msgstr "Søk i modul(er)"
+
+#: bibletime/bibletime_init.cpp:98
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:314
+msgid "Remove selected item(s)"
+msgstr "Fjern valgte element(er)"
+
+#: bibletime/bibletime_init.cpp:103
+msgid "&Show footnotes"
+msgstr "&Vis fotnoter"
+
+#: bibletime/bibletime_init.cpp:108
+msgid "S&how Strong's numbers"
+msgstr "V&is Strongs nummer"
+
+#: bibletime/bibletime_init.cpp:117
+msgid "&Show main index"
+msgstr "&Vis hovedindeks"
+
+#: bibletime/bibletime_init.cpp:129
+msgid "&Cascade"
+msgstr "&Overlapp"
+
+#: bibletime/bibletime_init.cpp:134
+msgid "&Tile"
+msgstr "&Flislegg"
+
+#: bibletime/bibletime_init.cpp:139
+msgid "&Auto cascade"
+msgstr "&Automatisk overlapp"
+
+#: bibletime/bibletime_init.cpp:144
+msgid "A&uto Tile"
+msgstr "A&utomatisk flislegg"
+
+#: bibletime/bibletime_init.cpp:149
+msgid "&Close all"
+msgstr "&Lukk alle"
+
+#: bibletime/bibletime_init.cpp:171
+msgid "&Daily tip"
+msgstr "&Dagens tips"
+
 #: bibletime/bibletime.cpp:175 bibletime/bibletime.cpp:190
 #: bibletime/bibletime_slots.cpp:100 bibletime/bibletime_slots.cpp:109
 #: bibletime/frontend/chtmlwidget.cpp:135
@@ -192,52 +184,6 @@ msgstr ""
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:297
 msgid "Display window"
 msgstr "Visnings vindu"
-
-#: bibletime/bibletime_slots.cpp:290
-msgid "Printing..."
-msgstr "Skriver ut..."
-
-#: bibletime/bibletime_slots.cpp:290
-msgid "Abort printing"
-msgstr "Avbryt utskrift"
-
-#: bibletime/bibletime_slots.cpp:315
-#, c-format, ycp-format
-msgid "Printing %1"
-msgstr "Skriver ut %1"
-
-#: bibletime/printing/cstylelist.cpp:46
-msgid "Name:"
-msgstr "Navn:"
-
-#: bibletime/printing/cprinter.cpp:310 bibletime/printing/cprinter.cpp:341
-#: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
-#: bibletime/printing/cprinterdialog.cpp:617
-#: bibletime/printing/cstyleeditordialog.cpp:182
-#: bibletime/printing/cstylelist.cpp:132
-msgid "Standard"
-msgstr "Standard"
-
-#: bibletime/printing/cstyle.cpp:42
-msgid "unknown name"
-msgstr "ukjent navn"
-
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:248
-#: bibletime/printing/cprintitemlist.cpp:48
-msgid "Module"
-msgstr "Modul"
-
-#: bibletime/printing/cprintitemlist.cpp:49
-msgid "From"
-msgstr "Fra"
-
-#: bibletime/printing/cprintitemlist.cpp:50
-msgid "To"
-msgstr "Til"
-
-#: bibletime/printing/cprintitemlist.cpp:51
-msgid "Style"
-msgstr "Stil"
 
 #: bibletime/printing/cstyleeditordialog.cpp:43
 msgid "style editor"
@@ -298,6 +244,22 @@ msgstr "Tykkelse på linje (i punkt):"
 #: bibletime/printing/cstyleeditordialog.cpp:166
 msgid "Frame color:"
 msgstr "Farge på ramme:"
+
+#: bibletime/printing/cprinter.cpp:310 bibletime/printing/cprinter.cpp:341
+#: bibletime/printing/cprinter.cpp:519 bibletime/printing/cprinter.cpp:527
+#: bibletime/printing/cprinterdialog.cpp:617
+#: bibletime/printing/cstyleeditordialog.cpp:182
+#: bibletime/printing/cstylelist.cpp:132
+msgid "Standard"
+msgstr "Standard"
+
+#: bibletime/printing/cstylelist.cpp:46
+msgid "Name:"
+msgstr "Navn:"
+
+#: bibletime/printing/cstyle.cpp:42
+msgid "unknown name"
+msgstr "ukjent navn"
 
 #: bibletime/printing/cprinterdialog.cpp:65
 msgid "Printdialog"
@@ -435,138 +397,22 @@ msgstr "Oppføringer som skal skrives ut:"
 msgid "Size: %1mm x %2mm"
 msgstr "Størrelse: %1mm x %2mm"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:63
-msgid "Synchronize..."
-msgstr "Synkroniser..."
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:248
+#: bibletime/printing/cprintitemlist.cpp:48
+msgid "Module"
+msgstr "Modul"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:68
-msgid "Edit entry..."
-msgstr "Rediger oppføring..."
+#: bibletime/printing/cprintitemlist.cpp:49
+msgid "From"
+msgstr "Fra"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:78
-msgid "Commentary window"
-msgstr "Kommentarvindu"
+#: bibletime/printing/cprintitemlist.cpp:50
+msgid "To"
+msgstr "Til"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:81
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:66
-msgid "Entry"
-msgstr "Oppføring"
-
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:82
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:67
-msgid "Text of entry"
-msgstr "Tekst i oppføring"
-
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:83
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:88
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:68
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:73
-msgid "Entry with text"
-msgstr "Oppføring med tekst"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:76
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:85
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:70
-msgid "Selected text"
-msgstr "Valgt tekst"
-
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:91
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:76
-msgid "Entry as plain text"
-msgstr "Oppføring som ren tekst"
-
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:92
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:77
-msgid "Entry as HTML"
-msgstr "Oppføring som HTML"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:88
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:95
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:80
-msgid "Lookup selected text in lexicon"
-msgstr "Slå opp valgte tekst i leksikon"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:90
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:82
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:133
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:400
-msgid "Copy..."
-msgstr "Kopier..."
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:91
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:98
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:83
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:401
-msgid "Add to printing queue..."
-msgstr "Legg til i utskriftskø..."
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:92
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:99
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:84
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:135
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:402
-msgid "Save..."
-msgstr "Lagre..."
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:68
-msgid "Bible window"
-msgstr "Bibelvindu"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:71
-msgid "Verse"
-msgstr "Vers"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:72
-msgid "Text of verse"
-msgstr "Tekst i vers"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:73
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:79
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:83
-msgid "Verse with text"
-msgstr "Vers med tekst"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:74
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:80
-msgid "Chapter"
-msgstr "Kapittel"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:84
-msgid "Chapter as plain text"
-msgstr "Kapittel som ren tekst"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:85
-msgid "Chapter as HTML"
-msgstr "Kapittel som HTML"
-
-#: bibletime/frontend/chtmlwidget.cpp:237
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
-msgid ""
-"*.txt | Text file (*.txt)\n"
-"*.* | All files (*.*)"
-msgstr ""
-"*.txt | Tekst fil (*.txt)\n"
-"*.* | Alle filer (*.*)"
-
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
-msgid "Save verse with text as ..."
-msgstr "Lagre vers med tekst som ..."
-
-#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:49
-msgid "Select additional modules"
-msgstr "Velg en til modul"
-
-#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:51
-#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:72
-#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:121
-msgid "NONE"
-msgstr "INGEN"
-
-#: bibletime/frontend/presenters/clexiconpresenter.cpp:63
-msgid "Lexicon window"
-msgstr "Leksikon vindu"
+#: bibletime/printing/cprintitemlist.cpp:51
+msgid "Style"
+msgstr "Stil"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:76
 msgid "Accelerators"
@@ -634,234 +480,6 @@ msgstr "Engelsk"
 msgid "Show startuplogo"
 msgstr "Vis oppstartslogo"
 
-#: bibletime/frontend/cinputdialog.cpp:72
-msgid "Ok"
-msgstr "Ok"
-
-#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:52
-msgid "Modules:"
-msgstr "Moduler:"
-
-#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:55
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:203
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:240
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:273
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:318
-msgid "Entries found:"
-msgstr "Oppføringer funnet:"
-
-#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:172
-msgid "<I>module not set</I>"
-msgstr "<I>modul ikke satt</I>"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:51
-msgid "Search Dialog"
-msgstr "Søkedialog"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:51
-msgid "Interrupt"
-msgstr "Avbryt"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:94
-msgid "Choose modules"
-msgstr "Velg moduler"
-
-#: bibletime/dummy.h:99 bibletime/frontend/searchdialog/csearchdialog.cpp:94
-#: bibletime/tooltipdef.h:99
-msgid "Choose the modules for the search"
-msgstr "Velg modulene for søket"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:98
-msgid "Search Text"
-msgstr "Søketekst"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:98
-msgid "Enter the text to search for"
-msgstr "Skriv inn teksten det skal søkes etter"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:102
-msgid "Search Result"
-msgstr "Søkeresultat"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:102
-msgid "The result of your search"
-msgstr "Resultatet av søket"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:106
-msgid "Search Analysis"
-msgstr "Søkeanalyse"
-
-#: bibletime/frontend/searchdialog/csearchdialog.cpp:106
-msgid "Graphical analysis of your search result"
-msgstr "Grafisk analyse av søkeresultatet"
-
-#: bibletime/frontend/searchdialog/csearchdialoganalysis.cpp:316
-#, ycp-format
-msgid "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
-msgstr "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:57
-msgid "Search properties"
-msgstr "Søke alternativer"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:75
-msgid "Multiple Words"
-msgstr "Flere ord"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:83
-msgid "Exact Search"
-msgstr "Eksakt søk"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:90
-msgid "Regular Expression"
-msgstr "Regulært utrykk"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:103
-msgid "Case Sensitive"
-msgstr "Forskjell på store og små bokstaver"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:107
-msgid "Search scope"
-msgstr "Områdesøk"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:111
-msgid "Search progress"
-msgstr "Søk i fremgang"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:116
-msgid "Current module:"
-msgstr "Gjeldende modul:"
-
-#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:117
-msgid "Overall:"
-msgstr "Samlet:"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:116
-msgid "Modules"
-msgstr "Moduler"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:123
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:127
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:130
-msgid "Search result"
-msgstr "Søkeresultat"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:124
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:131
-msgid "Search result with text"
-msgstr "Søkeresultat med tekst"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:202
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:239
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:272
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:317
-#, ycp-format
-msgid "Search result for \"%1\" in module \"%2\"\n"
-msgstr "Søk i resultat for \"%1\" i modul \"%2\"\n"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:311
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:551
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:585
-msgid ""
-"*.txt | Text files\n"
-" *.* | All files (*.*)"
-msgstr ""
-"*.txt | Tekst filer\n"
-" *.* | Alle filer (*.*)"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:311
-msgid "Save search result ..."
-msgstr "Lagre søkeresultat ..."
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:390
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:397
-msgid "Key"
-msgstr "Nøkkel"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:391
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:394
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:398
-msgid "Key with text"
-msgstr "Nøkkel med tekst"
-
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:551
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:585
-msgid "Save key ..."
-msgstr "Lagre nøkkel ..."
-
-#: bibletime/dummy.h:110
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:44
-#: bibletime/tooltipdef.h:110
-msgid "No scope"
-msgstr "Intet områdesøk"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:48
-msgid "Last result"
-msgstr "Siste resultat"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:52
-msgid "Use scope"
-msgstr "Bruk områdesøk"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:63
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:216
-msgid "Choose custom range"
-msgstr "Velg egendefinert område"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:67
-msgid "Edit ranges"
-msgstr "Rediger grenser"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:96
-msgid "Old testament"
-msgstr "Det Gamle Testamentet"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:97
-msgid "Moses/Pentateuch/Torah"
-msgstr "Moses/Pentateuch/Tora"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:98
-msgid "History"
-msgstr "Historie"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:99
-msgid "Prophets"
-msgstr "Profeter"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:100
-msgid "New testament"
-msgstr "Det Nye Testamentet"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:101
-msgid "Gospels"
-msgstr "Evangeliene"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:102
-msgid "Letters/Epistels"
-msgstr "Brev/Epistlene"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:103
-msgid "Paul's Epistels"
-msgstr "Paulus' brev"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:217
-msgid "Define range text"
-msgstr "Definer tekstområde"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:218
-msgid "Range parsing results"
-msgstr "Tekstområde som vil gjelde"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:282
-msgid "Range name"
-msgstr "Område navn"
-
-#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:282
-msgid "Please enter a name for the new range"
-msgstr "Skriv inn et navn for det nye området"
-
 #: bibletime/frontend/ctipwindow.cpp:69
 msgid "Useful tips for BibleTime"
 msgstr "Nyttige tips for BibleTime"
@@ -884,6 +502,10 @@ msgstr ""
 "ikke klarer å løse problemet så kan du kontakte BibleTime teamet på\t\t<A "
 "HREF=\"mailto:info@bibletime.de\">info@bibletime.de</A>!"
 
+#: bibletime/frontend/cinputdialog.cpp:72
+msgid "Ok"
+msgstr "Ok"
+
 #: bibletime/frontend/chtmlwidget.cpp:210
 #, ycp-format
 msgid "Unable to find the page %1!"
@@ -900,6 +522,15 @@ msgstr ""
 #: bibletime/frontend/chtmlwidget.cpp:230
 msgid "Save text as HTML page ..."
 msgstr "Lagre tekst som HTML ..."
+
+#: bibletime/frontend/chtmlwidget.cpp:237
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
+msgid ""
+"*.txt | Text file (*.txt)\n"
+"*.* | All files (*.*)"
+msgstr ""
+"*.txt | Tekst fil (*.txt)\n"
+"*.* | Alle filer (*.*)"
 
 #: bibletime/frontend/chtmlwidget.cpp:237
 msgid "Save text as plain text ..."
@@ -1130,6 +761,354 @@ msgstr ""
 msgid "BibleTime - Reset main index"
 msgstr "BibleTime - Tilbakestill hovedindeks"
 
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:63
+msgid "Lexicon window"
+msgstr "Leksikon vindu"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:81
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:66
+msgid "Entry"
+msgstr "Oppføring"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:82
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:67
+msgid "Text of entry"
+msgstr "Tekst i oppføring"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:83
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:88
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:68
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:73
+msgid "Entry with text"
+msgstr "Oppføring med tekst"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:76
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:85
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:70
+msgid "Selected text"
+msgstr "Valgt tekst"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:91
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:76
+msgid "Entry as plain text"
+msgstr "Oppføring som ren tekst"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:92
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:77
+msgid "Entry as HTML"
+msgstr "Oppføring som HTML"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:88
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:95
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:80
+msgid "Lookup selected text in lexicon"
+msgstr "Slå opp valgte tekst i leksikon"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:90
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:82
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:133
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:400
+msgid "Copy..."
+msgstr "Kopier..."
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:91
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:98
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:83
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:401
+msgid "Add to printing queue..."
+msgstr "Legg til i utskriftskø..."
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:92
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:99
+#: bibletime/frontend/presenters/clexiconpresenter.cpp:84
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:135
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:402
+msgid "Save..."
+msgstr "Lagre..."
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:68
+msgid "Bible window"
+msgstr "Bibelvindu"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:71
+msgid "Verse"
+msgstr "Vers"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:72
+msgid "Text of verse"
+msgstr "Tekst i vers"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:73
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:79
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:83
+msgid "Verse with text"
+msgstr "Vers med tekst"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:74
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:80
+msgid "Chapter"
+msgstr "Kapittel"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:84
+msgid "Chapter as plain text"
+msgstr "Kapittel som ren tekst"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:85
+msgid "Chapter as HTML"
+msgstr "Kapittel som HTML"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:308
+msgid "Save verse with text as ..."
+msgstr "Lagre vers med tekst som ..."
+
+#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:49
+msgid "Select additional modules"
+msgstr "Velg en til modul"
+
+#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:51
+#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:72
+#: bibletime/frontend/presenters/cmodulechooserbutton.cpp:121
+msgid "NONE"
+msgstr "INGEN"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:63
+msgid "Synchronize..."
+msgstr "Synkroniser..."
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:68
+msgid "Edit entry..."
+msgstr "Rediger oppføring..."
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:78
+msgid "Commentary window"
+msgstr "Kommentarvindu"
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:52
+msgid "Modules:"
+msgstr "Moduler:"
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:55
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:203
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:240
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:273
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:318
+msgid "Entries found:"
+msgstr "Oppføringer funnet:"
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:172
+msgid "<I>module not set</I>"
+msgstr "<I>modul ikke satt</I>"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:57
+msgid "Search properties"
+msgstr "Søke alternativer"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:75
+msgid "Multiple Words"
+msgstr "Flere ord"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:83
+msgid "Exact Search"
+msgstr "Eksakt søk"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:90
+msgid "Regular Expression"
+msgstr "Regulært utrykk"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:103
+msgid "Case Sensitive"
+msgstr "Forskjell på store og små bokstaver"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:107
+msgid "Search scope"
+msgstr "Områdesøk"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:111
+msgid "Search progress"
+msgstr "Søk i fremgang"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:116
+msgid "Current module:"
+msgstr "Gjeldende modul:"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:117
+msgid "Overall:"
+msgstr "Samlet:"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:51
+msgid "Search Dialog"
+msgstr "Søkedialog"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:51
+msgid "Interrupt"
+msgstr "Avbryt"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:94
+msgid "Choose modules"
+msgstr "Velg moduler"
+
+#: bibletime/dummy.h:99 bibletime/frontend/searchdialog/csearchdialog.cpp:94
+#: bibletime/tooltipdef.h:99
+msgid "Choose the modules for the search"
+msgstr "Velg modulene for søket"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:98
+msgid "Search Text"
+msgstr "Søketekst"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:98
+msgid "Enter the text to search for"
+msgstr "Skriv inn teksten det skal søkes etter"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:102
+msgid "Search Result"
+msgstr "Søkeresultat"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:102
+msgid "The result of your search"
+msgstr "Resultatet av søket"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:106
+msgid "Search Analysis"
+msgstr "Søkeanalyse"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:106
+msgid "Graphical analysis of your search result"
+msgstr "Grafisk analyse av søkeresultatet"
+
+#: bibletime/dummy.h:110
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:44
+#: bibletime/tooltipdef.h:110
+msgid "No scope"
+msgstr "Intet områdesøk"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:48
+msgid "Last result"
+msgstr "Siste resultat"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:52
+msgid "Use scope"
+msgstr "Bruk områdesøk"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:63
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:216
+msgid "Choose custom range"
+msgstr "Velg egendefinert område"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:67
+msgid "Edit ranges"
+msgstr "Rediger grenser"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:96
+msgid "Old testament"
+msgstr "Det Gamle Testamentet"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:97
+msgid "Moses/Pentateuch/Torah"
+msgstr "Moses/Pentateuch/Tora"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:98
+msgid "History"
+msgstr "Historie"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:99
+msgid "Prophets"
+msgstr "Profeter"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:100
+msgid "New testament"
+msgstr "Det Nye Testamentet"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:101
+msgid "Gospels"
+msgstr "Evangeliene"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:102
+msgid "Letters/Epistels"
+msgstr "Brev/Epistlene"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:103
+msgid "Paul's Epistels"
+msgstr "Paulus' brev"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:217
+msgid "Define range text"
+msgstr "Definer tekstområde"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:218
+msgid "Range parsing results"
+msgstr "Tekstområde som vil gjelde"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:282
+msgid "Range name"
+msgstr "Område navn"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:282
+msgid "Please enter a name for the new range"
+msgstr "Skriv inn et navn for det nye området"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:116
+msgid "Modules"
+msgstr "Moduler"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:123
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:127
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:130
+msgid "Search result"
+msgstr "Søkeresultat"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:124
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:131
+msgid "Search result with text"
+msgstr "Søkeresultat med tekst"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:202
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:239
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:272
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:317
+#, ycp-format
+msgid "Search result for \"%1\" in module \"%2\"\n"
+msgstr "Søk i resultat for \"%1\" i modul \"%2\"\n"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:311
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:551
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:585
+msgid ""
+"*.txt | Text files\n"
+" *.* | All files (*.*)"
+msgstr ""
+"*.txt | Tekst filer\n"
+" *.* | Alle filer (*.*)"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:311
+msgid "Save search result ..."
+msgstr "Lagre søkeresultat ..."
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:390
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:397
+msgid "Key"
+msgstr "Nøkkel"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:391
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:394
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:398
+msgid "Key with text"
+msgstr "Nøkkel med tekst"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:551
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:585
+msgid "Save key ..."
+msgstr "Lagre nøkkel ..."
+
+#: bibletime/frontend/searchdialog/csearchdialoganalysis.cpp:316
+#, ycp-format
+msgid "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
+msgstr "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
+
 #: bibletime/frontend/ctoolclass.cpp:83
 msgid ""
 "<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
@@ -1138,6 +1117,27 @@ msgstr "<qt><B>Filen eksisterer allerede!</B><BR>Vil du overskrive den?</qt>"
 #: bibletime/frontend/ctoolclass.cpp:83
 msgid "BibleTime - Save file as ..."
 msgstr "BibleTime - Lagre fil som ..."
+
+#: bibletime/bibletime_slots.cpp:290
+msgid "Printing..."
+msgstr "Skriver ut..."
+
+#: bibletime/bibletime_slots.cpp:290
+msgid "Abort printing"
+msgstr "Avbryt utskrift"
+
+#: bibletime/bibletime_slots.cpp:315
+#, c-format, ycp-format
+msgid "Printing %1"
+msgstr "Skriver ut %1"
+
+#: bibletime/rc-dummy.cpp:2
+msgid "&Main index"
+msgstr "&Hovedindeks"
+
+#: bibletime/rc-dummy.cpp:5
+msgid "&Window"
+msgstr "&Vindu"
 
 #: bibletime/dummy.h:19 bibletime/tooltipdef.h:19
 msgid "Clear the printing queue"

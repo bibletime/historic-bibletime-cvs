@@ -59,7 +59,7 @@ INCLUDES= $(all_includes)
 
 # claim, which subdirectories you want to install
 # you can add here more. This one gets installed 
-bin_PROGRAMS = bibletime 
+# bin_PROGRAMS = bibletime 
 
 bibletime_METASOURCES = AUTO
 

@@ -1316,7 +1316,7 @@ fi
 
 PACKAGE=bibletime
 
-VERSION=1.0.2
+VERSION=1.0.3
 
 if test "`cd $srcdir && pwd`" != "`pwd`" && test -f $srcdir/config.status; then
   { { echo "$as_me:1322: error: source directory already configured; run \"make distclean\" there first" >&5
@@ -9589,7 +9589,7 @@ echo "$as_me: error: SWORD library not found. Try to use configure with --with-s
 fi
 
 SWORDLIB=-L$sword_libdir
-CPPFLAGS="$CPPFLAGS -D_REENTRANT $SWORDINC -DQT_NO_ASCII_CAST"
+CPPFLAGS="$CPPFLAGS  $SWORDINC -DQT_NO_ASCII_CAST"
 #CXXFLAGS="-O2 -Wall"
 
 all_libraries="$all_libraries $SWORDLIB"
@@ -9598,7 +9598,44 @@ LIBS="$LIBS -lsword"
 echo "$as_me:9598: result: $SWORD_LIB_TYPE $sword_libdir" >&5
 echo "${ECHO_T}$SWORD_LIB_TYPE $sword_libdir" >&6
 
-ac_config_files="$ac_config_files ./Makefile admin/Makefile bibletime/Makefile bibletime/backend/Makefile bibletime/backend/sword_backend/Makefile bibletime/docs/Makefile bibletime/docs/cs/Makefile bibletime/docs/cs/HTML/Makefile bibletime/docs/cs/HTML/common/Makefile bibletime/docs/cs/docbook_XML/Makefile bibletime/docs/de/Makefile bibletime/docs/de/HTML/Makefile bibletime/docs/de/HTML/common/Makefile bibletime/docs/de/docbook_XML/Makefile bibletime/docs/en/Makefile bibletime/docs/en/HTML/Makefile bibletime/docs/en/HTML/common/Makefile bibletime/docs/en/docbook_XML/Makefile bibletime/docs/es/Makefile bibletime/docs/it/Makefile bibletime/docs/it/HTML/Makefile bibletime/docs/it/docbook_XML/Makefile bibletime/docs/nl/Makefile bibletime/docs/no/Makefile bibletime/docs/sk/Makefile bibletime/docs/sk/HTML/Makefile bibletime/docs/sk/docbook_XML/Makefile bibletime/frontend/Makefile bibletime/frontend/groupmanager/Makefile bibletime/frontend/keychooser/Makefile bibletime/frontend/optionsdialog/Makefile bibletime/frontend/presenters/Makefile bibletime/frontend/searchdialog/Makefile bibletime/frontend/thirdparty/Makefile bibletime/frontend/thirdparty/qt3stuff/Makefile bibletime/pics/Makefile bibletime/pics/highcolor/Makefile bibletime/pics/highcolor/16x16/Makefile bibletime/pics/highcolor/22x22/Makefile bibletime/pics/highcolor/32x32/Makefile bibletime/pics/highcolor/48x48/Makefile bibletime/pics/lowcolor/Makefile bibletime/pics/lowcolor/16x16/Makefile bibletime/pics/lowcolor/22x22/Makefile bibletime/pics/lowcolor/32x32/Makefile bibletime/printing/Makefile bibletime/xml/Makefile po/Makefile NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop"
+DO_NOT_COMPILE="$DO_NOT_COMPILE CVS debian bsd-port admin"
+
+if test ! -s $srcdir/subdirs; then
+    TOPSUBDIRS=""
+  files=`cd $srcdir && ls -1`
+  dirs=`for i in $files; do if test -d $i; then echo $i; fi; done`
+  for i in $dirs; do
+    echo $i >> $srcdir/subdirs
+  done
+fi
+
+if test -s $srcdir/inst-apps; then
+  ac_topsubdirs="`cat $srcdir/inst-apps`"
+else
+  ac_topsubdirs="`cat $srcdir/subdirs`"
+fi
+
+for i in $ac_topsubdirs; do
+  echo "$as_me:9619: checking if $i should be compiled" >&5
+echo $ECHO_N "checking if $i should be compiled... $ECHO_C" >&6
+  if test -d $srcdir/$i; then
+    install_it="yes"
+    for j in $DO_NOT_COMPILE; do
+      if test $i = $j; then
+        install_it="no"
+      fi
+    done
+  else
+    install_it="no"
+  fi
+  echo "$as_me:9631: result: $install_it" >&5
+echo "${ECHO_T}$install_it" >&6
+  if test $install_it = "yes"; then
+    TOPSUBDIRS="$TOPSUBDIRS $i"
+  fi
+done
+
+ac_config_files="$ac_config_files ./Makefile admin/Makefile bibletime/Makefile bibletime/backend/Makefile bibletime/backend/sword_backend/Makefile bibletime/docs/Makefile bibletime/docs/cs/Makefile bibletime/docs/cs/HTML/Makefile bibletime/docs/cs/HTML/common/Makefile bibletime/docs/cs/docbook_XML/Makefile bibletime/docs/de/Makefile bibletime/docs/de/HTML/Makefile bibletime/docs/de/HTML/common/Makefile bibletime/docs/de/docbook_XML/Makefile bibletime/docs/en/Makefile bibletime/docs/en/HTML/Makefile bibletime/docs/en/HTML/common/Makefile bibletime/docs/en/docbook_XML/Makefile bibletime/docs/es/Makefile bibletime/docs/it/Makefile bibletime/docs/it/HTML/Makefile bibletime/docs/it/docbook_XML/Makefile bibletime/docs/nl/Makefile bibletime/docs/no/Makefile bibletime/docs/ru/Makefile bibletime/docs/sk/Makefile bibletime/docs/sk/HTML/Makefile bibletime/docs/sk/docbook_XML/Makefile bibletime/frontend/Makefile bibletime/frontend/groupmanager/Makefile bibletime/frontend/keychooser/Makefile bibletime/frontend/optionsdialog/Makefile bibletime/frontend/presenters/Makefile bibletime/frontend/searchdialog/Makefile bibletime/frontend/thirdparty/Makefile bibletime/frontend/thirdparty/qt3stuff/Makefile bibletime/pics/Makefile bibletime/pics/highcolor/Makefile bibletime/pics/highcolor/16x16/Makefile bibletime/pics/highcolor/22x22/Makefile bibletime/pics/highcolor/32x32/Makefile bibletime/pics/highcolor/48x48/Makefile bibletime/pics/lowcolor/Makefile bibletime/pics/lowcolor/16x16/Makefile bibletime/pics/lowcolor/22x22/Makefile bibletime/pics/lowcolor/32x32/Makefile bibletime/printing/Makefile bibletime/xml/Makefile po/Makefile NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop"
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -9678,7 +9715,7 @@ DEFS=-DHAVE_CONFIG_H
 : ${CONFIG_STATUS=./config.status}
 ac_clean_files_save=$ac_clean_files
 ac_clean_files="$ac_clean_files $CONFIG_STATUS"
-{ echo "$as_me:9681: creating $CONFIG_STATUS" >&5
+{ echo "$as_me:9718: creating $CONFIG_STATUS" >&5
 echo "$as_me: creating $CONFIG_STATUS" >&6;}
 cat >$CONFIG_STATUS <<_ACEOF
 #! $SHELL
@@ -9854,7 +9891,7 @@ cat >>$CONFIG_STATUS <<\EOF
     echo "$ac_cs_version"; exit 0 ;;
   --he | --h)
     # Conflict between --help and --header
-    { { echo "$as_me:9857: error: ambiguous option: $1
+    { { echo "$as_me:9894: error: ambiguous option: $1
 Try \`$0 --help' for more information." >&5
 echo "$as_me: error: ambiguous option: $1
 Try \`$0 --help' for more information." >&2;}
@@ -9873,7 +9910,7 @@ Try \`$0 --help' for more information." >&2;}
     ac_need_defaults=false;;
 
   # This is an error.
-  -*) { { echo "$as_me:9876: error: unrecognized option: $1
+  -*) { { echo "$as_me:9913: error: unrecognized option: $1
 Try \`$0 --help' for more information." >&5
 echo "$as_me: error: unrecognized option: $1
 Try \`$0 --help' for more information." >&2;}
@@ -9939,6 +9976,7 @@ do
   "bibletime/docs/it/docbook_XML/Makefile" ) CONFIG_FILES="$CONFIG_FILES bibletime/docs/it/docbook_XML/Makefile" ;;
   "bibletime/docs/nl/Makefile" ) CONFIG_FILES="$CONFIG_FILES bibletime/docs/nl/Makefile" ;;
   "bibletime/docs/no/Makefile" ) CONFIG_FILES="$CONFIG_FILES bibletime/docs/no/Makefile" ;;
+  "bibletime/docs/ru/Makefile" ) CONFIG_FILES="$CONFIG_FILES bibletime/docs/ru/Makefile" ;;
   "bibletime/docs/sk/Makefile" ) CONFIG_FILES="$CONFIG_FILES bibletime/docs/sk/Makefile" ;;
   "bibletime/docs/sk/HTML/Makefile" ) CONFIG_FILES="$CONFIG_FILES bibletime/docs/sk/HTML/Makefile" ;;
   "bibletime/docs/sk/docbook_XML/Makefile" ) CONFIG_FILES="$CONFIG_FILES bibletime/docs/sk/docbook_XML/Makefile" ;;
@@ -9972,7 +10010,7 @@ do
   "bibletime.desktop" ) CONFIG_FILES="$CONFIG_FILES bibletime.desktop" ;;
   "default-1" ) CONFIG_COMMANDS="$CONFIG_COMMANDS default-1" ;;
   "config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
-  *) { { echo "$as_me:9975: error: invalid argument: $ac_config_target" >&5
+  *) { { echo "$as_me:10013: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;
   esac
@@ -10184,6 +10222,7 @@ s,@LIB_KSPELL@,$LIB_KSPELL,;t t
 s,@LIB_KPARTS@,$LIB_KPARTS,;t t
 s,@LIB_KWRITE@,$LIB_KWRITE,;t t
 s,@LIB_KFM@,$LIB_KFM,;t t
+s,@TOPSUBDIRS@,$TOPSUBDIRS,;t t
 CEOF
 
 EOF
@@ -10298,7 +10337,7 @@ done; }
   esac
 
   if test x"$ac_file" != x-; then
-    { echo "$as_me:10301: creating $ac_file" >&5
+    { echo "$as_me:10340: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
     rm -f "$ac_file"
   fi
@@ -10316,7 +10355,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo $tmp/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:10319: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:10358: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -10329,7 +10368,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo $srcdir/$f
          else
            # /dev/null tree
-           { { echo "$as_me:10332: error: cannot find input file: $f" >&5
+           { { echo "$as_me:10371: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -10390,7 +10429,7 @@ for ac_file in : $CONFIG_HEADERS; do test "x$ac_file" = x: && continue
   * )   ac_file_in=$ac_file.in ;;
   esac
 
-  test x"$ac_file" != x- && { echo "$as_me:10393: creating $ac_file" >&5
+  test x"$ac_file" != x- && { echo "$as_me:10432: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
 
   # First look for the input files in the build tree, otherwise in the
@@ -10401,7 +10440,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo $tmp/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:10404: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:10443: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -10414,7 +10453,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo $srcdir/$f
          else
            # /dev/null tree
-           { { echo "$as_me:10417: error: cannot find input file: $f" >&5
+           { { echo "$as_me:10456: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -10531,7 +10570,7 @@ cat >>$CONFIG_STATUS <<\EOF
   rm -f $tmp/in
   if test x"$ac_file" != x-; then
     if cmp -s $ac_file $tmp/config.h 2>/dev/null; then
-      { echo "$as_me:10534: $ac_file is unchanged" >&5
+      { echo "$as_me:10573: $ac_file is unchanged" >&5
 echo "$as_me: $ac_file is unchanged" >&6;}
     else
       ac_dir=`$as_expr X"$ac_file" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
@@ -10591,10 +10630,6 @@ cat >>$CONFIG_STATUS <<\EOF
 
 { (exit 0); exit 0; }
 EOF
-if test "x$with_fast_perl" = "xyes" ; then
-  perl -i.bak $ac_aux_dir/conf.change.pl $CONFIG_STATUS || mv $CONFIG_STATUS.bak $CONFIG_STATUS; 
-  rm -f $CONFIG_STATUS.bak;
-fi 
 chmod +x $CONFIG_STATUS
 ac_clean_files=$ac_clean_files_save
 

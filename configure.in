@@ -13,7 +13,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(bibletime, 1.0.2) dnl searches for some needed programs
+AM_INIT_AUTOMAKE(bibletime, 1.0.3) dnl searches for some needed programs
 
 KDE_SET_PREFIX
 
@@ -31,9 +31,6 @@ dnl WITH_NLS is for the po files
 AM_KDE_WITH_NLS
 
 AC_PATH_KDE
-
-dnl Perform program name transformation
-AC_ARG_PROGRAM
 
 dnl in this space add everything you want to check for;
 dnl examples are specific headers, libraries, etc.
@@ -81,7 +78,7 @@ if test $HAVE_SWORD_LIB = no; then
 fi	
 
 SWORDLIB=-L$sword_libdir
-CPPFLAGS="$CPPFLAGS -D_REENTRANT $SWORDINC -DQT_NO_ASCII_CAST"
+CPPFLAGS="$CPPFLAGS  $SWORDINC -DQT_NO_ASCII_CAST"
 #CXXFLAGS="-O2 -Wall"
 
 all_libraries="$all_libraries $SWORDLIB"
@@ -92,9 +89,7 @@ AC_MSG_RESULT([$SWORD_LIB_TYPE $sword_libdir])
 
 dnl add here all your Makefiles. They are created by configure
 dnl AC_OUTPUT(NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop)
-
-dnl echo "Executing perl am_edit ..."
-dnl perl am_editKDE_CREATE_SUBDIRSLIST
+KDE_CREATE_SUBDIRSLIST
 AC_OUTPUT( \
 ./Makefile \
 admin/Makefile \
@@ -120,6 +115,7 @@ bibletime/docs/it/HTML/Makefile \
 bibletime/docs/it/docbook_XML/Makefile \
 bibletime/docs/nl/Makefile \
 bibletime/docs/no/Makefile \
+bibletime/docs/ru/Makefile \
 bibletime/docs/sk/Makefile \
 bibletime/docs/sk/HTML/Makefile \
 bibletime/docs/sk/docbook_XML/Makefile \

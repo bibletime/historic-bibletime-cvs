@@ -55,7 +55,7 @@ for I1 in `ls -d [a-z][a-z]`; do
   echo
   echo 'install-data-local:'
   echo '	mkdir -p $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/;\'
-  echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1';\'
+  echo '	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/'$I1';\'
   echo '	$(INSTALL_DATA) tipdatabase $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/tipdatabase'
   echo
   echo 'uninstall-local:'
@@ -97,18 +97,18 @@ for I1 in `ls -d [a-z][a-z]`; do
 
     echo 'install-data-local:'
     echo '	mkdir -p $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime;'
-    echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1';'
+    echo '	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/'$I1';'
     echo '	for file in *.html; do \'
     echo '	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime && \'
     echo '	  chmod a+r $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/$$file;\'
     echo '	done;'
     echo '	if test -d common; then \'
-    echo '	  cp -Ra common $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime;\'
+    echo '	  cp -R common $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime;\'
     echo '	elif test -d $(DESTDIR)$(kde_htmldir)/default/bibletime/common; then \'
     echo '	  ln -s $(DESTDIR)$(kde_htmldir)/default/bibletime/common $(kde_htmldir)/'$I1'/bibletime/common;\'
     echo '	fi;'
     echo '	cd ..;'
-    echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/'
+    echo '	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/'
     echo 
     echo 'uninstall-local:'
     echo '	for f in *.html; do \'
