@@ -32,6 +32,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qcombobox.h>
+#include <qwidgetstack.h>
 //#include <qvbox.h>
 //#include <qdict.h>
 //#include <qcheckbox.h>
@@ -76,15 +77,28 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* 
 	QFrame* page = addPage(i18n("Sword Path"), QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
 //	QVBoxLayout* layout = new QVBoxLayout(page,5);
 
-	page = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("filenew",32));
+	initInstall();
+
+	page = addPage(i18n("Remove Modules"), QString::null, DesktopIcon("editdelete",32));
+}
+
+void CSwordSetupDialog::initInstall(){
+
+	QFrame* newpage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("filenew",32));
+
+	QHBoxLayout* hboxlayout = new QHBoxLayout( newpage );
+  hboxlayout->setAutoAdd( true );
+
+	QWidgetStack* m_installWidgetStack = new QWidgetStack(newpage);
+
+	QWidget* page = new QWidget(0);
+  m_installWidgetStack->addWidget(page);
 
 //Add step 1
 	loadSourceLocations();
 #warning test only
 	saveSourceLocations();
 	determineTargetLocations();
-
-//	m_main->m_widgetStack->addWidget(m_widget);
 
 	page->setMinimumSize(500,400);
 
@@ -133,18 +147,7 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* 
 	connect(m_targetCombo, SIGNAL( highlighted(const QString&) ), SLOT( slot_targetSelected( const QString&) ));
 	populateInstallCombos();
 
-
-	page = addPage(i18n("Remove Modules"), QString::null, DesktopIcon("editdelete",32));
-
-
-//	initStartup();
-//	initFonts();
-//	initColors();
-//	initProfiles();
-//	initSword();
-//	initAccelerators();
 }
-
 
 /** Called if the OK button was clicked */
 void CSwordSetupDialog::slotOk(){

@@ -41,6 +41,7 @@
 class QWidget;
 class QLabel;
 class QComboBox;
+class QWidgetStack;
 //class QHBox;
 //class QCheckBox;
 //class QRadioButton;
@@ -68,6 +69,7 @@ public:
   const bool showPart( CSwordSetupDialog::Parts ID );
 
 private:
+  void initInstall();
   /** No descriptions */
   void loadSourceLocations();
   /** No descriptions */
@@ -76,6 +78,8 @@ private:
   void determineTargetLocations();
   /** No descriptions */
   void populateInstallCombos();
+
+	QWidgetStack* m_installWidgetStack;
 
 	QString source;
   QString target;
