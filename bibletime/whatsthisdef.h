@@ -103,6 +103,11 @@
 #define WT_HTML_COPY WT(TT_HTML_COPY, i18n("This will copy the selected text to the clipboard."))
 
 //searchdialog related #defines, SD means searchdialog
+#define WT_SD_MODULECHOOSER WT(TT_SD_MODULECHOOSER, i18n("Choose the modules for the search and use the two button on the right side to add or delete them to/from the used modules."))
+#define WT_SD_MC_ADD_MODULE WT(TT_SD_MC_ADD_MODULE, i18n("Add the selected module to the list"))
+#define WT_SD_MC_REMOVE_MODULE WT(TT_SD_MC_REMOVE_MODULE, i18n("Remove the selected module from the list"))
+#define WT_SD_MC_MODULELIST WT(TT_SD_MC_MODULELIST, i18n("List of modules used for the search"))
+
 #define WT_SD_SEARCH_TEXT_EDIT WT(TT_SD_SEARCH_TEXT_EDIT, i18n("The text entered in this box will be searched in all modules."))
 #define WT_SD_SEARCH_MULTIPLE_WORDS WT(TT_SD_SEARCH_MULTIPLE_WORDS, i18n("Select this to search more than one word."))
 #define WT_SD_SEARCH_EXACT_MATCH WT(TT_SD_SEARCH_EXACT_MATCH, i18n("Select this to search exactly the text you entered."))
@@ -111,22 +116,24 @@
 
 #define WT_SD_SCOPE_NO_SCOPE WT(TT_SCOPE_NO_SCOPE, i18n("Select this if you want to search through alls parts of the module(s)."))
 #define WT_SD_SCOPE_LAST_RESULT WT(TT_SCOPE_LAST_RESULT, i18n("Select this if you want to use the last search result of each module as search scope."))
-#define WT_SD_SCOPE_SET_BOUNDS WT(TT_SCOPE_SET_BOUND, i18n("Select this if you want to specify your own search scopes."))
 #define WT_SD_SCOPE_ADD_SCOPE WT(TT_SCOPE_ADD_SCOPE, i18n("Use this button to add the edited scope to the selected module."))
 #define WT_SD_SCOPE_DELETE_SCOPE WT(TT_SCOPE_DELETE_SCOPE, i18n("Use this button to delete the currently selected scope."))
 
-#define WT_SD_RESULT_RESULT_VIEW WT(TT_SD_RESULT_VIEW, i18n("This contains the items found in the chosen module(s)"))
+#define WT_SD_RESULT_MODULE_VIEW WT(TT_SD_RESULT_MODULE_VIEW, i18n("List of modules used for the search"))
+#define WT_SD_RESULT_RESULT_VIEW WT(TT_SD_RESULT_RESULT_VIEW, i18n("This contains the items found in the chosen module(s)"))
 #define WT_SD_RESULT_PREVIEW WT(TT_SD_RESULT_PREVIEW, i18n("This text box shows a preview of the chosen entry."))
+
+#define WT_SD_ANALYSIS_VIEW WT(TT_SD_ANALYSIS_VIEW, i18n("Graphical analysis"))
 
 //#defines for the settings dialog, OD means Optionsdialog
 #define WT_OD_GENERAL_DAILY_TIP WT(TT_OD_GENERAL_DAILY_TIP, i18n("Activate this box to see a daily tip on startup."))
-#define WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES WT(TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES, i18n("Activate this to have international booknames."))
-#define WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES_LIST WT(TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES_LIST, i18n("This list contains the available<BR>languages used for international booknames."))
+#define WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES WT(TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES, i18n("This list contains the available<BR>languages used for international booknames."))
 #define WT_OD_GENERAL_SHOW_STARTUPLOGO WT(TT_OD_GENERAL_SHOW_STARTUPLOGO, i18n("Activate this to see a startup logo on each startup of BibleTime."))
 
+#define WT_OD_KEYS_CHOOSER WT(TT_OD_KEYS_CHOOSER, i18n("<B>Key chooser</B><BR><BR>Select a action and change the key for the action."))
 #define WT_OD_FONTS_PRESENTER WT(TT_OD_FONTS_PRESENTER, i18n("This font will be used as general font in all display windows."))
+#define WT_OD_FONTS_CHOOSER WT(TT_OD_FONTS_CHOOSER, i18n("Choose a font"))
 
-//FFM does mean "Foreign font management"
 #define WT_OD_FFM_FONTS_LIST WT(TT_OD_FFM_FONTS_LIST, i18n("This list contains the modules using foreign fonts."))
 
 #define WT_OD_COLORS_BACKGROUND WT(TT_OD_COLORS_BACKGROUND, i18n("This is the background color used in display windows."))

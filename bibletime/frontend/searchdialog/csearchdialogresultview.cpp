@@ -20,6 +20,8 @@
 #include "csearchdialog.h"
 #include "../../structdef.h"
 #include "../../ressource.h"
+#include "../../whatsthisdef.h"
+#include "../../tooltipdef.h"
 #include "../../backend/cmoduleinfo.h"
 #include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
 #include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
@@ -37,6 +39,8 @@
 #include <qwidget.h>
 #include <qclipboard.h>
 #include <qprogressdialog.h>
+#include <qwhatsthis.h>
+#include <qtooltip.h>
 
 //KDE includes
 #include <kfiledialog.h>
@@ -55,8 +59,6 @@
 
 CSearchDialogResultModuleView::CSearchDialogResultModuleView(CImportantClasses* importantClasses,QWidget *parent, const char *name)
 	: QListView ( parent, name ) {
-	
-	qDebug("constructor of CSearchDialogResultModuleView");	
 	m_important = importantClasses;
 	
 	initView();
@@ -106,13 +108,14 @@ void CSearchDialogResultModuleView::viewportMousePressEvent(QMouseEvent *e) {
 		}
 	}
 	
-	if (e->button() == RightButton) {
+	if (e->button() == RightButton)
 		m_popup->popup( mapToGlobal(e->pos()) );
-	}
 }
 
 /** Initializes this widget */
 void CSearchDialogResultModuleView::initView(){
+	QWhatsThis::add(this, WT_SD_RESULT_MODULE_VIEW);
+	
 	setFocusPolicy(QWidget::WheelFocus);
 	setAllColumnsShowFocus( true );
 	setRootIsDecorated( false );
@@ -379,6 +382,8 @@ void CSearchDialogResultView::initConnections() {
 
 /** Initializes this widget */
 void CSearchDialogResultView::initView(){
+	QWhatsThis::add(this, WT_SD_RESULT_RESULT_VIEW);
+	
 	m_popup = new KPopupMenu(this);	
 	m_popup->insertTitle(i18n("Search result"));	
 	m_popup->insertItem(i18n("Save key ..."), this, SLOT(slotSaveCurrent()));

@@ -97,15 +97,10 @@ protected: // Protected methods
 	* Saves the settings of this widget to the config file
 	*/
   void saveSettings();
-	void	startSearch();
-
-protected slots:
-	virtual void slotUser1();
-	virtual void slotUser2();
+	void startSearch();
 
 private:
 	friend class CSearchDialogResult;
-
 	QVBox* moduleChooser_page;	
 	QVBox* searchText_page;
 	QHBox* searchResult_page;
@@ -119,9 +114,11 @@ private:
 	CImportantClasses* m_important;			
 	int old_overallProgress;
 	int old_currentProgress;
+
 private slots: // Private slots
-  /** No descriptions */
   void chosenModulesChanged();
+	virtual void slotUser1();
+	virtual void slotUser2();
 };
 
 #endif

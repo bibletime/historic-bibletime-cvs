@@ -26,6 +26,7 @@
 #include "csearchdialog.h"
 #include "../ctoolclass.h"
 #include "../../structdef.h"
+#include "../../whatsthisdef.h"
 
 //QT includes
 #include <qdatetime.h>
@@ -35,6 +36,8 @@
 #include <qtooltip.h>
 #include <qrect.h>
 #include <qpoint.h>
+#include <qtooltip.h>
+#include <qwhatsthis.h>
 
 //KDE includes
 #include <kfiledialog.h>
@@ -320,6 +323,7 @@ const QString CSearchDialogAnalysisItem::getToolTip(){
 
 CSearchDialogAnalysisView::CSearchDialogAnalysisView(QCanvas* canvas, QWidget* parent)
 	: QCanvasView(canvas, parent) {
+	QWhatsThis::add(this, WT_SD_ANALYSIS_VIEW);
 	setFocusPolicy(QWidget::WheelFocus);
 	m_toolTip = new ToolTip(this);	
 	resize(sizeHint());

@@ -46,6 +46,7 @@
 #include <qbuttongroup.h>
 #include <qradiobutton.h>
 #include <qcolor.h>
+#include <qtooltip.h>
 #include <qwhatsthis.h>
 
 //Sword includes
@@ -77,7 +78,8 @@ void COptionsDialog::initKeyPage(KAccel* accel){
  	dict = key_accel->keyDict();
 
  	KKeyChooser* keyChooser = new KKeyChooser( &dict, keyaccel_page, false );	
- 	QWhatsThis::add(keyChooser, i18n("<B>Key chooser</B><BR><BR>Select a action and change the key for the action.") );
+ 	QToolTip::add(keyChooser, TT_OD_KEYS_CHOOSER); 	
+ 	QWhatsThis::add(keyChooser, WT_OD_KEYS_CHOOSER);
 }
 
 void COptionsDialog::initFontPage(){
@@ -96,26 +98,15 @@ void COptionsDialog::initFontPage(){
 	
 	font1vButton = new QRadioButton(i18n("Presenter"), fontButtonGroup);
 	QWhatsThis::add(font1vButton, WT_OD_FONTS_PRESENTER );
-	
-//	font1fButton = new QRadioButton(i18n("Presenter Fixed"), fontButtonGroup);
-//	QWhatsThis::add(font1fButton, WT_OD_FONTS_PRESENTER_FIXED );	
-//	
-//	font2vButton = new QRadioButton(i18n("Printer"), fontButtonGroup);
-//	QWhatsThis::add(font2vButton, WT_OD_FONTS_PRINTING );	
-//	
-//	font2fButton = new QRadioButton(i18n("Printer Fixed"), fontButtonGroup);
-//	QWhatsThis::add(font2fButton, WT_OD_FONTS_PRINTING_FIXED );	
+
 		
 	fontButtonGroup->insert( font1vButton, 1);
-//	fontButtonGroup->insert( font1fButton, 2);
-//	fontButtonGroup->insert( font2vButton, 3);
-//	fontButtonGroup->insert( font2fButton, 4);
 	fontButtonGroup->setButton(1);
 	
 	fonts = new KFontChooser(font_page, "fonts", false, QStringList(), true, 6);
 	fonts->setSampleText(i18n("The quick brown fox jumped over the lazy dog"));
 	fonts->setFont(currentFonts[0], false);
-// 	QWhatsThis::add(fonts, i18n("<B>Key chooser</B><BR><BR>Select a action and change the key for the action.") ); 		
+ 	QWhatsThis::add(fonts, WT_OD_FONTS_CHOOSER);
  		
 	currentFont = 0;
   connect(fontButtonGroup, SIGNAL(clicked(int)), SLOT(fontButtonClicked(int)));
@@ -157,18 +148,22 @@ void COptionsDialog::initColorsPage(){
 	
 	QLabel* label;
 	label = new QLabel(i18n("Background"), colorGroup);
+	QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 	QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
 	backgroundButton = new KColorButton(config->readColorEntry("Background", &Qt::lightGray), colorGroup);
 	
 	label = new QLabel(i18n("Normal Text"), colorGroup);
+	QToolTip::add(label, TT_OD_COLORS_NORMAL_TEXT );	
 	QWhatsThis::add(label, WT_OD_COLORS_NORMAL_TEXT );
 	normalTextButton = new KColorButton(config->readColorEntry("Normal Text", &Qt::black), colorGroup);
 	
 	label = new QLabel(i18n("Verse number / URL"), colorGroup);
+	QToolTip::add(label, TT_OD_COLORS_VERSENUMBER );	
 	QWhatsThis::add(label, WT_OD_COLORS_VERSENUMBER );
 	URLLinkButton = new KColorButton(config->readColorEntry("Versenumber/URL", &Qt::darkBlue), colorGroup);
 
 	label = new QLabel(i18n("Highlighted Verse"), colorGroup);
+	QToolTip::add(label, TT_OD_COLORS_CURRENT_VERSE );	
 	QWhatsThis::add(label, WT_OD_COLORS_CURRENT_VERSE );
 	highlightedVerseButton = new KColorButton(config->readColorEntry("Highlighted Verse", &Qt::red ), colorGroup);
 }
@@ -180,7 +175,8 @@ void COptionsDialog::initGeneralPage(){
 			
 	tipCheckBox = new QCheckBox(general_page);
 	tipCheckBox->setText(i18n("Show tip of the day"));
-	QWhatsThis::add(tipCheckBox, WT_OD_GENERAL_DAILY_TIP );
+	QToolTip::add(tipCheckBox, TT_OD_GENERAL_DAILY_TIP);	
+	QWhatsThis::add(tipCheckBox, WT_OD_GENERAL_DAILY_TIP);
 
 	{
 		KConfigGroupSaver groupSaver(config, "Daily tip");
@@ -190,7 +186,8 @@ void COptionsDialog::initGeneralPage(){
 	{
 		KConfigGroupSaver groupSaver(config, "SWORD");
 		localeComboBox = new QComboBox(general_page);
-		QWhatsThis::add(localeComboBox, WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES_LIST );	
+		QToolTip::add(localeComboBox, TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);				
+		QWhatsThis::add(localeComboBox, WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);		
 			
 		localeComboBox->insertItem( i18n("English") );
 		list <string> locales = LocaleMgr::systemLocaleMgr.getAvailableLocales();
@@ -213,9 +210,10 @@ void COptionsDialog::initGeneralPage(){
 		logoCheckBox = new QCheckBox(general_page);
 		logoCheckBox->setText(i18n("Show startuplogo"));
 		logoCheckBox->setChecked(config->readBoolEntry("Logo", true));	
-		QWhatsThis::add(logoCheckBox, WT_OD_GENERAL_SHOW_STARTUPLOGO );	
+		QWhatsThis::add(logoCheckBox, WT_OD_GENERAL_SHOW_STARTUPLOGO);
+		QToolTip::add(logoCheckBox, TT_OD_GENERAL_SHOW_STARTUPLOGO);		
 	}
-	
+
 	main_layout->addWidget(tipCheckBox);
 	main_layout->addWidget(logoCheckBox);
 	main_layout->addWidget(localeComboBox);	

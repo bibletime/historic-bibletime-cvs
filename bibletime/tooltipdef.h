@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 //ToolTip entries for Mainwindow actions
-//QWhatsThis entries for Mainwindow actions
 #define TT_FILE_CLEAR_QUEUE  i18n("Clear printing queue")
 #define TT_FILE_PRINT  i18n("Open the printerdialog")
 #define TT_FILE_QUIT  i18n("Quit")
@@ -95,7 +94,12 @@
 #define TT_HTML_SELECT_ALL i18n("Select all")
 #define TT_HTML_COPY i18n("Copy to clipboard")
 
-//searchdialog related #defines, SD means searchdialog
+//searchdialog related #defines, SD means searchdialog; mc==Module chooser
+#define TT_SD_MODULECHOOSER i18n("Choose the modules for the search")
+#define TT_SD_MC_ADD_MODULE i18n("Add the selected module to the list")
+#define TT_SD_MC_REMOVE_MODULE i18n("Remove the selected module from the list")
+#define TT_SD_MC_MODULELIST i18n("List of modules used for the search")
+
 #define TT_SD_SEARCH_TEXT_EDIT i18n("Search this text")
 #define TT_SD_SEARCH_MULTIPLE_WORDS i18n("Search multiple words")
 #define TT_SD_SEARCH_EXACT_MATCH i18n("Exact match")
@@ -105,29 +109,25 @@
 #define TT_SD_SCOPE_NO_SCOPE i18n("No scope")
 #define TT_SD_SCOPE_LAST_RESULT i18n("Last search result")
 #define TT_SD_SCOPE_SET_BOUNDS i18n("Set bounds")
-#define TT_SD_SCOPE_LOWER_BOUND i18n("Lower bound")
-#define TT_SD_SCOPE_UPPER_BOUND i18n("Upper bound")
 #define TT_SD_SCOPE_ADD_SCOPE i18n("Add scope")
 #define TT_SD_SCOPE_DELETE_SCOPE i18n("Delete scope")
 
+#define TT_SD_RESULT_MODULE_VIEW i18n("Used modules")
 #define TT_SD_RESULT_RESULT_VIEW i18n("Found items")
 #define TT_SD_RESULT_PREVIEW i18n("Preview")
 
-#define TT_SD_ANALYSIS_SAVE_AS_IMAGE i18n("Save as image")
-#define TT_SD_ANALYSIS_GRAPH_VIEW i18n("Graphical analysis")
+#define TT_SD_ANALYSIS_VIEW i18n("Graphical analysis")
 
 //#defines for the settings dialog, OD means Optionsdialog
 #define TT_OD_GENERAL_DAILY_TIP i18n("Show daily tip")
-#define TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES i18n("International booknames")
-#define TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES_LIST i18n("List of languages")
+#define TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES i18n("List of languages")
 #define TT_OD_GENERAL_SHOW_STARTUPLOGO i18n("Show startuplogo")
 
-#define TT_OD_FONTS_PRESENTER i18n("Font of presenter")
-#define TT_OD_FONTS_PRESENTER_FIXED i18n("Fixed font of presenters")
-#define TT_OD_FONTS_PRINTING i18n("Font for printing")
-#define TT_OD_FONTS_PRINTING_FIXED i18n("Fixed font for printing")
+#define TT_OD_KEYS_CHOOSER i18n("Set keyboard accelerators")
 
-//FFM does mean "Foreign font management"
+#define TT_OD_FONTS_PRESENTER i18n("Font of presenter")
+#define TT_OD_FONTS_CHOOSER i18n("Choose a font")
+
 #define TT_OD_FFM_FONTS_LIST i18n("List of modules")
 
 #define TT_OD_COLORS_BACKGROUND i18n("Background color")

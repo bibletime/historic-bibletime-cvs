@@ -22,12 +22,16 @@
 #include "../ctoolclass.h"
 #include "../../structdef.h"
 #include "../../backend/sword_backend/cswordbackend.h"
+#include "../../whatsthisdef.h"
+#include "../../tooltipdef.h"
 
 //Qt includes
 #include <qlayout.h>
 #include <qtoolbutton.h>
 #include <qlist.h>
 #include <qlistbox.h>
+#include <qwhatsthis.h>
+#include <qtooltip.h>
 
 //KDE includes
 #include <klocale.h>
@@ -42,7 +46,10 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 
 	QHBoxLayout* mainLayout = new QHBoxLayout(this);
 	m_moduleIndex = new CGroupManager(importantClasses, this, "module index", importantClasses->swordBackend->getModuleList(), false, false, false, false, false, false);	
+	QWhatsThis::add(m_moduleIndex, WT_SD_MODULECHOOSER);
+	
 	m_moduleList = new QListBox(this);
+	QWhatsThis::add(m_moduleList, WT_SD_MC_MODULELIST);
 
 	QVBoxLayout* buttonLayout = new QVBoxLayout();
 	
@@ -50,12 +57,16 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 	addButton->setOnIconSet(SmallIcon("forward"));
 	addButton->setOffIconSet(SmallIcon("forward"));	
 	addButton->setFixedSize( addButton->sizeHint() );	
+	QWhatsThis::add(addButton, WT_SD_MC_ADD_MODULE);
+	QToolTip::add(addButton, TT_SD_MC_ADD_MODULE);
 	connect( addButton, SIGNAL(clicked()), SLOT(addCurrentItem()));
 
 	QToolButton* removeButton = new QToolButton(this);
 	removeButton->setOnIconSet(SmallIcon("back"));
 	removeButton->setOffIconSet(SmallIcon("back"));	
 	removeButton->setFixedSize( removeButton->sizeHint() );
+	QToolTip::add(removeButton, TT_SD_MC_REMOVE_MODULE);
+	QWhatsThis::add(removeButton, WT_SD_MC_REMOVE_MODULE);	
 	connect(removeButton, SIGNAL(clicked()), SLOT(removeCurrentItem()));
 	
 	buttonLayout->addWidget(addButton,0);

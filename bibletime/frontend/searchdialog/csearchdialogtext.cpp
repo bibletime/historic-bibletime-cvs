@@ -20,6 +20,8 @@
 #include "csearchdialogtext.h"
 #include "csearchdialogscope.h"
 #include "../../structdef.h"
+#include "../../whatsthisdef.h"
+#include "../../tooltipdef.h"
 #include "../../backend/sword_backend/cswordmodulesearch.h"
 #include "../keychooser/ckeychooser.h"
 
@@ -35,6 +37,8 @@
 #include <qhbox.h>
 #include <qvbox.h>
 #include <qlineedit.h>
+#include <qtooltip.h>
+#include <qwhatsthis.h>
 
 //KDE includes
 #include <kiconloader.h>
@@ -54,10 +58,10 @@ CSearchDialogText::CSearchDialogText(CImportantClasses *importantClasses, QWidge
 	editSearchText->setFocusPolicy(QWidget::StrongFocus);
 	editSearchText->setFrame( true );
 	editSearchText->setAlignment( AlignLeft );
+	QToolTip::add(editSearchText, TT_SD_SEARCH_TEXT_EDIT);
+	QWhatsThis::add(editSearchText, WT_SD_SEARCH_TEXT_EDIT);
 	
-	/* manages the radio buttons next to the checkbox (horizontal)*/
 	QHBox *settingsBox = new QHBox(textBox,"settingsBox");
-	/* manages the radio buttons (vertical)*/
 	QVBox *radioBox = new QVBox(settingsBox,"radioBox");
 
 	radioMultipleWords = new QRadioButton( radioBox,"RadioButton_1");
@@ -65,16 +69,22 @@ CSearchDialogText::CSearchDialogText(CImportantClasses *importantClasses, QWidge
 	radioMultipleWords->setText( i18n( "Multiple Words" ) );
 	radioMultipleWords->setAutoResize( true );
 	radioMultipleWords->setChecked( true );
-
+	QToolTip::add(radioMultipleWords, TT_SD_SEARCH_MULTIPLE_WORDS);
+	QWhatsThis::add(radioMultipleWords, WT_SD_SEARCH_MULTIPLE_WORDS);	
+	
 	radioExactSearch = new QRadioButton(radioBox, "RadioButton_2");
 	radioExactSearch->setFocusPolicy(QWidget::TabFocus);
 	radioExactSearch->setText( i18n( "Exact Search" ) );
 	radioExactSearch->setAutoResize( true );
+	QToolTip::add(radioExactSearch, TT_SD_SEARCH_EXACT_MATCH);
+	QWhatsThis::add(radioExactSearch, WT_SD_SEARCH_EXACT_MATCH);	
 
 	radioRegularExpression = new QRadioButton(radioBox, "RadioButton_3");
 	radioRegularExpression->setFocusPolicy(QWidget::TabFocus);
 	radioRegularExpression->setText( i18n( "Regular Expression" ) );
 	radioRegularExpression->setAutoResize( true );
+	QToolTip::add(radioRegularExpression, TT_SD_SEARCH_REGEXP );
+	QWhatsThis::add(radioRegularExpression, WT_SD_SEARCH_REGEXP );
 	
 	/* this widget is hidden - it is only used for exclusive radio button management*/
 	QVButtonGroup *bgroup1 = new QVButtonGroup();
@@ -84,10 +94,12 @@ CSearchDialogText::CSearchDialogText(CImportantClasses *importantClasses, QWidge
 
 	checkCaseSensitive = new QCheckBox(settingsBox, "CheckBox_1");
 	checkCaseSensitive->setFocusPolicy(QWidget::TabFocus);
-	checkCaseSensitive->setText( i18n( "Case Sensitive" ) );
+	checkCaseSensitive->setText( i18n("Case Sensitive") );
+	QToolTip::add(checkCaseSensitive, TT_SD_SEARCH_CASE_SENSITIVE);
+	QWhatsThis::add(checkCaseSensitive, WT_SD_SEARCH_CASE_SENSITIVE);
 	
   QGroupBox *scopeBox = new QGroupBox(2,Qt::Horizontal,i18n("Search scope"),this,"scopeBox");
-  scopeChooser = new CSearchDialogScopeChooser( scopeBox, "scopeChooser");
+  scopeChooser = new CSearchDialogScopeChooser(scopeBox, "scopeChooser");
 	
 	/*the third main groupbox - progress indication */
 	QGroupBox *progressBox = new QGroupBox(2,Qt::Horizontal,i18n("Search progress"),this,"progressBox");

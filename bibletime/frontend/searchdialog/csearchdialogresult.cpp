@@ -19,6 +19,7 @@
 //BIbleTime includes
 #include "../../backend/sword_backend/cswordmodulesearch.h"
 #include "../../structdef.h"
+#include "../../whatsthisdef.h"
 #include "csearchdialog.h"
 #include "csearchdialogtext.h"
 #include "csearchdialogresult.h"
@@ -39,7 +40,6 @@
 
 CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QWidget *parent, const char *name) : QWidget(parent, name) {	
 	m_important = importantClasses;
-	
 	QLabel *label1 = new QLabel(this, "label1");
 	label1->setText( i18n( "Modules:" ) );
 	label1->setAutoResize(true);
