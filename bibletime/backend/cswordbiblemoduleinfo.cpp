@@ -36,7 +36,12 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( sword::SWModule* module )
 
 }
 
-CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) : CSwordModuleInfo(m), m_lowerBound(0), m_upperBound(0) {
+CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) :
+  CSwordModuleInfo(m),
+  m_lowerBound(0),
+  m_upperBound(0),
+  m_bookList(0)
+{
 	if (m.m_bookList) {
 		m_bookList = new QStringList();
 		*m_bookList = *m.m_bookList;

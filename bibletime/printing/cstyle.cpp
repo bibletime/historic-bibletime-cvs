@@ -199,6 +199,9 @@ CStyle::CStyle( const QString text ) :
 }
 
 CStyle::~CStyle(){
+  delete m_headerFormat;
+  delete m_descriptionFormat;
+  delete m_moduleTextFormat;
 }
 
 /** Returns the proper CStyleFormat for the given type. */

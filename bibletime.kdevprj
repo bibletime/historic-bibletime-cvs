@@ -33,7 +33,7 @@ configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux --with
 debug_args=--debug --nocrashhandler
 dir_where_make_will_be_called=./
 email=info@bibletime.info
-execute_args=--debug --ignore-startprofile
+execute_args=--debug --ignore-session
 kdevprj_version=1.3
 lfv_open_groups=
 make_options=\s-j1

@@ -131,6 +131,7 @@ CDisplay::CDisplay(CDisplayWindow* parent) :
 }
 
 CDisplay::~CDisplay(){
+  delete m_connections;
 }
 
 const bool CDisplay::copy( const CDisplay::TextType format, const CDisplay::TextPart part  ) {

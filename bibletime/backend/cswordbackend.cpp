@@ -66,8 +66,11 @@ CSwordBackend::~CSwordBackend(){
 	shutdownModules();	
 	delete m_filters.gbf;
 	delete m_filters.plain;	
-	delete m_filters.thml;	
-//  delete m_filters.transliterator;
+	delete m_filters.thml;
+
+  delete m_displays.book;
+  delete m_displays.chapter;
+  delete m_displays.entry;
 }
 
 /** Initializes the Sword modules. */

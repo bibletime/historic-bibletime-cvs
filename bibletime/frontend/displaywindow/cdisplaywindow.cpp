@@ -92,7 +92,7 @@ CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, c
 }
 
 CDisplayWindow::~CDisplayWindow(){
-//	qWarning("destructor of CDisplayWindow");
+	qWarning("destructor of CDisplayWindow");
 }
 
 CMDIArea* const CDisplayWindow::mdi() {

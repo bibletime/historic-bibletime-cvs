@@ -133,36 +133,43 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 	//work around Swords thread insafety for Bibles and Commentaries
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(this) );
 	sword::SWKey* s = dynamic_cast<sword::SWKey*>(key.get());
-	if (s)
+	if (s) {
 		m_module->SetKey(*s);
+  }
 	
 	//setup variables required for Sword
 	if (searchOptions & CSwordModuleSearch::caseSensitive)
 		searchFlags = 0;
 
-	if (searchOptions & CSwordModuleSearch::multipleWords)
-		searchType = -2; //multiple words	
-	else if (searchOptions & CSwordModuleSearch::exactPhrase)
+	if (searchOptions & CSwordModuleSearch::multipleWords) {
+		searchType = -2; //multiple words
+  }
+	else if (searchOptions & CSwordModuleSearch::exactPhrase) {
 		searchType = -1; //exact phrase
-	else if (searchOptions & CSwordModuleSearch::regExp)
+  }
+	else if (searchOptions & CSwordModuleSearch::regExp) {
 		searchType = 0;	//regexp matching
+  }
 
-	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {		
+	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
 		util::scoped_ptr<sword::SWKey> searchScope( m_searchResult.clone() );
 		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, searchScope, 0, percentUpdate);
 	}
 	else if (searchOptions & CSwordModuleSearch::useScope) {
 		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, (type() != Lexicon && type() != GenericBook) ? &scope : 0, 0, percentUpdate);
 	}
-  else
+  else {
   	m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
-	return (m_searchResult.Count()>0);
+  }
+  
+	return (m_searchResult.Count() > 0);
 }
 
 /** Returns the last search result for this module. */
 sword::ListKey& CSwordModuleInfo::searchResult(const sword::ListKey* newResult) {
-	if (newResult)
-		m_searchResult.copyFrom( *newResult );	
+	if (newResult) {
+		m_searchResult.copyFrom( *newResult );
+  }
 	return m_searchResult;
 }
 

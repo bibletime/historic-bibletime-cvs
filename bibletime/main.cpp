@@ -221,7 +221,6 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
     
 		util::scoped_ptr<BibleTime> bibletime( new BibleTime() );
     bibletime_ptr = bibletime;
-		app.setMainWidget(bibletime);
 
 		if (showIt) {
 			KStartupLogo::hideSplash();
@@ -243,7 +242,9 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
     };
     bibletime->show();		
 
-    // restore the workspace
+    app.setMainWidget(bibletime);
+
+    // restore the workspace and process command line options
     bibletime->processCommandline();
  
     const int ret = app.exec();
