@@ -48,8 +48,9 @@ CProfile::CProfile( const QString& file, const QString& name ):
 		m_filename = stdDirs.saveLocation("data", "bibletime/sessions/") + m_filename + ".xml";
 		init(m_filename);
 	}
-	else
+	else {
 		qWarning("CProfile: empty file name!");
+  }
 }
 
 CProfile::~CProfile(){
