@@ -45,70 +45,34 @@
 #define BORDER_SPACE 3 	//border between text and rectangle
 
 
-CPrintItem::CPrintItem() : 	
-	m_listViewItem(0), m_module(0),m_style(0),m_startKey(0),m_stopKey(0),
-	m_headerText(QString::null),m_description(QString::null),m_moduleText(QString::null)
-{
+CPrintItem::ListViewItem::ListViewItem( QListView* parent, CPrintItem* printItem )
+	: QListViewItem(parent), m_printItem(printItem) {
+	
+};
 
-}
+CPrintItem::ListViewItem::~ListViewItem() {
 
-CPrintItem::~CPrintItem(){
-	if (m_startKey && m_startKey == m_stopKey)
-		delete m_startKey;
-	else {
-		delete m_startKey;
-		delete m_stopKey;
-	}
-}
+};
 
-/** Returns the first key covered by this entry. */
-CSwordKey* CPrintItem::getStartKey() const{
-	return m_startKey;
-}
+CPrintItem* CPrintItem::ListViewItem::printItem() const {
+	return m_printItem;
+};
 
-/** Sets the startkey. */
-void CPrintItem::setStartKey(CSwordKey* newKey) {
-	if (m_startKey)
-		delete m_startKey;
-	m_startKey = newKey;
 
-}
-
-/** Sets the end key. */
-void CPrintItem::setStopKey( CSwordKey* newKey ){
-	if (m_stopKey)
-		delete m_stopKey;	
-	m_stopKey = newKey;
-}
-
-/** Returns the last covered key. */
-CSwordKey* CPrintItem::getStopKey() const {
-	return m_stopKey;
-}
-
-/** Returns the used module. */
-CSwordModuleInfo* CPrintItem::getModule() const {
-	return m_module;
-}
-
-/** Sets the used module. */
-void CPrintItem::setModule( CSwordModuleInfo* newModule ){
-	m_module = newModule;
-}
-
-/** Returns the description. Only valid for inserted bookmarks. */
-const QString& CPrintItem::getDescription() const {
-	return m_description;
-}
-
-/** Sets the decsription. */
-void CPrintItem::setDescription( const QString& newDescription ){
-	m_description = newDescription;
+CPrintItem::CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description) : 	
+	m_listViewItem(0), m_module(module),m_style(0),m_startKey(startKey),
+	m_headerText(QString::null),m_description(description),m_moduleText(QString::null)	
+{	
+	m_startEmpty = startKey.isEmpty();	
+	m_stopKey = (m_startEmpty && startKey != stopKey) ? stopKey : QString::null;		
+	m_stopEmpty  = m_stopKey.isEmpty();	
+	
+//	getHeaderText();
+	getModuleText(); //cache the module text, makes printing faster (at leat the user thinks this :)
 }
 
 /** Returns the moduletext used by this item. */
 const QString& CPrintItem::getModuleText() {
-//	qDebug("const QString CPrintItem::getModuleText()");
 	/**
 	* If a special text is set use the text.
 	* If the moduleText variable is empty use the CModuleInfo
@@ -116,96 +80,68 @@ const QString& CPrintItem::getModuleText() {
 	*/
 	if (!m_moduleText.isEmpty())
 		return m_moduleText;
-	if (!m_startKey)
+	if (m_startEmpty || !m_module)
 		return QString::null;
-	
-	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
-	if (m_startKey && (m_startKey == m_stopKey || !m_stopKey)) {//only one key
-		m_moduleText = m_startKey->renderedText();	
+
+	if (m_stopEmpty) {//only one key
+		CSwordKey* key = CSwordKey::createInstance(m_module);
+		key->key(m_startKey);
+		m_moduleText = key->renderedText();			
+		delete key;
 	}
-	else if (m_startKey && m_stopKey && m_startKey != m_stopKey) { //range from start to stop
+	else { //range from start to stop
+		CSwordKey* startKey = CSwordKey::createInstance(m_module);	
+		startKey->key(m_startKey);		
+		CSwordKey* stopKey = CSwordKey::createInstance(m_module);	
+		stopKey->key(m_stopKey);
+		
 		if (m_module->getType() == CSwordModuleInfo::Bible  || m_module->getType() == CSwordModuleInfo::Commentary ) {
-			QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");		
-			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(m_startKey);
-			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(m_stopKey);			
-//			if (!vk_start && !vk_stop)
-//				return m_moduleText;
+			const QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");		
+			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(startKey);
+			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(stopKey);						
 			
-			CSwordVerseKey key(*vk_start);
-			while (key < *vk_stop) {
-				key.NextVerse();
-				m_moduleText += format.arg(key.Verse()) + key.renderedText();
+			while (*vk_start < *vk_stop) {
+				vk_start->NextVerse();
+				m_moduleText += format.arg(vk_start->Verse()) + vk_start->renderedText();
 			}
+			delete startKey;
+			delete stopKey;			
 		}
 	}		
+
 //	m_moduleText.replace(QRegExp("$\n+"), "");
 	m_moduleText.replace(QRegExp("$<BR>+"), "");	
-	
 	return m_moduleText;
-}
-
-/** Sets the module text. */
-void CPrintItem::setModuleText( const QString& newText ){
-	m_moduleText = newText;
-}
-
-/** Returns the text of the header. */
-const QString& CPrintItem::getHeader() const {
-	return m_headerText;
-}
-
-/**  */
-void CPrintItem::setHeader( const QString& newText){
-	m_headerText = newText;
 }
 
 /** Sets the style for this item. */
 void CPrintItem::setStyle( CStyle* newStyle ) {
-//	qDebug("CPrintItem::setStyle( CStyle* newStyle )");
 	m_style = newStyle;
 }
 
-/** Returns the style used by this item. */
-CStyle* CPrintItem::getStyle() const {
-	return m_style;
-}
 /** Returns the listview item for this printitem. */
 QListViewItem* CPrintItem::getListViewItem( CPrintItemList* list ) {
 	deleteListViewItem();
-	m_listViewItem = new QListViewItem( list );
+	m_listViewItem = new ListViewItem( list, this );
 	updateListViewItem();
 	return m_listViewItem;
 }
 
-/** sets the variables back. */
-void CPrintItem::clearData(){
-	deleteListViewItem();
-	setHeader(QString::null);
-	setDescription(QString::null);
-	setModuleText(QString::null);	
-	setStyle(0);	
-	setStartKey(0);
-	setStopKey(0);
-	setModule(0);
-}
-
 /** Updates the item. */
 void CPrintItem::updateListViewItem(){
-//	qWarning("CPrintItem::updateListViewItem()");
 	if (m_module)
 		m_listViewItem->setText(0, m_module->name() );
 	
-	if (m_startKey)
-		m_listViewItem->setText(1,m_startKey->key());
+	if (!m_startEmpty)
+		m_listViewItem->setText(1,m_startKey);
 	
-	if (m_stopKey)
-		m_listViewItem->setText(2,m_stopKey->key());
-	else if (m_startKey)
-		m_listViewItem->setText(2,m_startKey->key());		
+	if (!m_stopEmpty)
+		m_listViewItem->setText(2,m_stopKey);
+	else if (!m_startEmpty)
+		m_listViewItem->setText(2,m_startKey);
 	
-	CStyle* s = getStyle();
-	if (s)
-		m_listViewItem->setText(3, s->getStyleName() );
+	if (m_style)
+		m_listViewItem->setText(3, m_style->getStyleName() );
 }
 
 /**  */
@@ -215,7 +151,6 @@ QListViewItem* CPrintItem::getListViewItem() const {
 
 /** Deletes the list view item. */
 void CPrintItem::deleteListViewItem(){
-//	if (m_listViewItem)
 	delete m_listViewItem;
 	m_listViewItem = 0;
 }
@@ -244,7 +179,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QPen pen;
 	QBrush brush;
 
-	CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(getModule());	
+	CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(m_module);	
 	const bool isUnicode 	= (m && m->isUnicode());
 	const int leftMargin 	= printer->leftMargin();
 	const int rightMargin = printer->rightMargin();
@@ -263,7 +198,6 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QRect view;
 	QPen framePen;
 	int movePixs;
-//	QSimpleRichText richText;	
 	
 	for (int i = 0; i < 3; ++i) {		
 		type = static_cast<CStyle::styleType>(i);
@@ -392,7 +326,6 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
     	);
     	int translated = 0;
     	do {
-//    		verticalPos = printer->getVerticalPos();
     		if ((int)(richText.height()-translated + verticalPos) < (int)(pageHeight+upperMargin) )
     			br = QRect(
     						leftMargin,
@@ -454,11 +387,15 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 
 /** Updates and returns the header text. */
 const QString& CPrintItem::getHeaderText() {
-	if ( m_startKey && ( (m_startKey == m_stopKey) || (m_startKey && !m_stopKey)) )
-		m_headerText = m_startKey->key();
-	else if (m_startKey && m_stopKey) {//start and stop key do exist and are different
-		m_headerText = QString::fromLatin1("%1 - %2").arg(m_startKey->key()).arg(m_stopKey->key());
-	}
-
+	if (!m_headerText.isEmpty())  // cached?
+		return m_headerText;
+  if (m_startEmpty)
+  	return QString::null;
+  	
+	if ( m_stopEmpty )
+		m_headerText = m_startKey;
+	else {//start and stop key do exist and are different
+		m_headerText = QString::fromLatin1("%1 - %2").arg(m_startKey).arg(m_stopKey);
+	}	
 	return m_headerText;
 }

@@ -62,12 +62,12 @@ int CSwordPresenter::getFeatures(){
 //}
 
 /** Prints the key given as parameter. */
-void CSwordPresenter::printKey(CSwordKey* start, CSwordKey* stop, CSwordModuleInfo* module) {
-	CPrintItem* printItem = new CPrintItem();
-	printItem->setModule(module);
-	printItem->setStartKey(start);
-	if (stop &&start != stop)
-		printItem->setStopKey(stop);
+void CSwordPresenter::printKey(const QString& startKey, const QString&  stopKey, CSwordModuleInfo* module) {
+	CPrintItem* printItem = new CPrintItem(module, startKey, stopKey);
+//	printItem->setModule(module);
+//	printItem->setStartKey(start);
+//	if (stop &&start != stop)
+//		printItem->setStopKey(stop);
 	printer()->addItemToQueue(printItem);
 }
 

@@ -21,6 +21,7 @@
 #include <qobject.h>
 #include <qguardedptr.h>
 #include <qlist.h>
+#include <qlistview.h>
 
 class CSwordKey;
 class CSwordModuleInfo;
@@ -28,9 +29,6 @@ class CSwordModuleInfo;
 class CStyle;
 class CPrintItemList;
 class CPrinter;
-
-class QListViewItem;
-class QListView;
 
 class CPrintItem;
 typedef QList<CPrintItem> printItemList;
@@ -40,65 +38,26 @@ typedef QList<CPrintItem> printItemList;
   * @author The BibleTime team
   */
 class CPrintItem {
-public: 
-	CPrintItem();
-	~CPrintItem();
-  /**
- 	* Returns thestyle used by this item.
- 	*/
-  CStyle* getStyle() const;
+public:
+  class ListViewItem : public QListViewItem {
+		public:
+			ListViewItem( QListView* parent, CPrintItem* printItem );
+			~ListViewItem();
+			CPrintItem* printItem() const;		
+		private:
+			CPrintItem* m_printItem;
+  };
+	
+
+	CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null);
   /**
 	* Sets the style for this item.
  	*/
 	void setStyle( CStyle* );
   /**
- 	*
- 	*/
-  void setHeader( const QString& );
-  /**
- 	* Returns the text of the header.
- 	*/
-  const QString& getHeader() const;
-  /**
- 	* Sets the module text.
- 	*/
-  void setModuleText( const QString& );
-  /**
  	* Returns the moduletext used by this item.
  	*/
   const QString& getModuleText();
-  /**
- 	* Sets the decsription.
- 	*/
-	void setDescription( const QString& );
-  /**
-  * Returns the description. Only valid for inserted bookmarks.
-  */
-  const QString& getDescription() const;
-  /**
-  * Sets the used module.
-  */
-  void setModule( CSwordModuleInfo* );
-  /**
- 	* Returns the used module.
- 	*/
-  CSwordModuleInfo* getModule() const;
-  /**
- 	* Returns the last covered key.
- 	*/
-  CSwordKey* getStopKey() const;
-  /**
- 	* Sets the end key.
- 	*/
-  void setStopKey( CSwordKey* );
-  /**
- 	* Sets the startkey.
- 	*/
-  void setStartKey( CSwordKey* );
-  /**
- 	* Returns the first key covered by this entry.
- 	*/
-  CSwordKey* getStartKey() const;
   /**
  	* Returns the listview item for this printitem.
  	*/
@@ -121,15 +80,16 @@ public:
   void draw(QPainter* p, CPrinter* printer);
 
 private: // Protected attributes
-  void clearData();
   const QString& getHeaderText();
 
   CStyle* m_style;
   QString m_description;
   QString m_headerText;
   QString m_moduleText;
-  CSwordKey*	m_startKey;
-  CSwordKey*	m_stopKey;
+	QString m_startKey;
+	QString m_stopKey;
+	bool m_startEmpty;
+	bool m_stopEmpty;
   CSwordModuleInfo* m_module;
   QListViewItem* m_listViewItem;
 };

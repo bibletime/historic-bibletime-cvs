@@ -160,21 +160,16 @@ void CSearchDialogResultModuleView::printSearchResult(){
 	const CSwordModuleInfo::type type = m_currentModule->getType();
 	CPrinter* p = printer();
 	SWKey* key = 0;
+	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);						
+	
 	for (int index = 0; index < count && !progress.wasCancelled(); ++index) {
 		progress.setProgress(index);
 		KApplication::kApplication()->processEvents(10); //do not lock the GUI!				
 		key = searchResult.GetElement(index);
 		if (!key)
 			break;
-		
-		CPrintItem*	printItem = new CPrintItem();
-		printItem->setModule(m_currentModule);		
-		CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
-		if (newKey) {
-			newKey->key((const char*)*key);
-			printItem->setStartKey(newKey);		
-		}
-		p->addItemToQueue( printItem );
+		newKey->key((const char*)*key);
+		p->addItemToQueue( new CPrintItem(m_currentModule, newKey->key(), newKey->key()) );
 	}
 	progress.setProgress(count);		
 }
@@ -446,15 +441,12 @@ void CSearchDialogResultView::printItem() {
 	if (currentText().isEmpty())
 		return;
 	QList<QListBoxItem> list = selectedItems();
+	CSwordKey* key = CSwordKey::createInstance(m_module); //deleted by the CPrintItem	
+	
 	for (list.first(); list.current(); list.next()) {
-		CPrintItem*	printItem = new CPrintItem();		
-		CSwordKey* key = CSwordKey::createInstance(m_module); //deleted by the CPrintItem
-		if (key) {
-			key->key( list.current()->text() );
-			printItem->setStartKey(key);
-			printItem->setStopKey(key);			
-		}
-		printItem->setModule(m_module);		
+		key->key( list.current()->text() );
+		
+		CPrintItem*	printItem = new CPrintItem(m_module,key->key(), key->key());		
 		printer()->addItemToQueue( printItem );
 	}
 }

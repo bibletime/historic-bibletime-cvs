@@ -241,8 +241,9 @@ void CLexiconPresenter::copyEntryAndText(){
 
 //print functions
 void CLexiconPresenter::printEntryAndText(){
-	CSwordLDKey* key = dynamic_cast<CSwordLDKey*>(m_key->copy()); // later deleted by the print entry
-	printKey(key, key, m_moduleList.first());
+//	CSwordLDKey* key = dynamic_cast<CSwordLDKey*>(m_key->copy()); // later deleted by the print entry
+	CSwordLDKey key(*m_key);
+	printKey(key.key(), key.key(), m_moduleList.first());
 }
 
 /** Inserts the used keyboard actions into the given KAccel object. */

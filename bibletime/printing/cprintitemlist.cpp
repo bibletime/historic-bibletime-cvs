@@ -112,18 +112,14 @@ void CPrintItemList::moveDown(){
 
 /** Applies the style to the selected items. */
 void CPrintItemList::applyStyleToSelected( CStyle* style){
-	QListViewItemIterator it( this );
-	for ( ; it.current(); ++it) {
-		if (it.current()->isSelected()) {
-			//find right CPrintItem
-			for ( m_items->first(); m_items->current(); m_items->next() ) {
-				if ( m_items->current()->getListViewItem() == it.current() ) {
-					//found right CPrintItem
-					m_items->current()->setStyle(style);
-					m_items->current()->updateListViewItem();
-					break;
-				}
-			}
+	CPrintItem* printItem;
+	CPrintItem::ListViewItem* item;
+	QList<QListViewItem> list = selectedItems();
+	for ( QListViewItem* i = list.first(); i; i = list.next()) {
+		if ((item = dynamic_cast<CPrintItem::ListViewItem*>(i))) {
+			printItem = item->printItem();
+			printItem->setStyle(style);
+			printItem->updateListViewItem();
 		}
 	}
 }

@@ -268,9 +268,10 @@ void CCommentaryPresenter::refresh( ){
 
 /** Printes the verse the user has chosen. */
 void CCommentaryPresenter::printHighlightedVerse(){
-	CSwordVerseKey* key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
-	key->key(m_key->key());	
-	printKey(key, key, m_moduleList.first());
+//	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
+//	key->key(m_key->key());	
+	CSwordVerseKey key(*m_key);
+	printKey(key.key(), key.key(), m_moduleList.first());
 }
 
 /** The sync button was pressed for synchronization. */
@@ -347,18 +348,17 @@ void CCommentaryPresenter::copyEntryAndText(){
 //print functions
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::printEntryAndText(){
-
 	QString key = QString::null;
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	
-	CSwordVerseKey* vKey = new CSwordVerseKey(m);	//this key is deleted by the printem
-	vKey->key(key);
+	CSwordModuleInfo* m = backend()->findModuleByName(module);			
+	CSwordVerseKey vKey(m);	//this key is deleted by the printem
+	vKey.key(key);
 		
-	printKey(vKey, vKey, m);
+	printKey(vKey.key(), vKey.key(), m);
 }
 
 /** Checks for changes and saves the text. */

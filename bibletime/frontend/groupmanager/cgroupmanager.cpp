@@ -1549,17 +1549,17 @@ void CGroupManager::slotReset(){
 void CGroupManager::slotPrintBookmark(){	
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() != CGroupManagerItem::Bookmark) )
 		return;
-	qWarning("CGroupManager::slotPrintBookmark()");
+//	qWarning("CGroupManager::slotPrintBookmark()");
 	
-	CPrintItem*	printItem = new CPrintItem();
-	printItem->setDescription( m_pressedItem->description() );
-	printItem->setModule(m_pressedItem->moduleInfo());	
+	CPrintItem*	printItem = new CPrintItem(m_pressedItem->moduleInfo(), m_pressedItem->getBookmarkKey()->key(), m_pressedItem->getBookmarkKey()->key(), m_pressedItem->description());
+//	printItem->setDescription( m_pressedItem->description() );
+//	printItem->setModule(m_pressedItem->moduleInfo());	
 
-	CSwordKey* key = m_pressedItem->getBookmarkKey()->copy();//deleted by CPrinter
-	if (key) {
-   	key->key(m_pressedItem->getBookmarkKey()->key());
-		printItem->setStartKey( key );
-  }
+//	CSwordKey* key = m_pressedItem->getBookmarkKey()->copy();//deleted by CPrinter
+//	if (key) {
+//   	key->key(m_pressedItem->getBookmarkKey()->key());
+//		printItem->setStartKey( key );
+//  }
 	printer()->addItemToQueue( printItem );
 }
 
