@@ -27,23 +27,10 @@
 
 #include "../util/scoped_resource.h"
 
-
-//Qt includes
-#include <qfont.h>
-#include <qregexp.h>
-
 //Sword includes
 #include <versekey.h>
 
 CHTMLEntryDisplay::CHTMLEntryDisplay(){
-//	m_htmlHeader = QString::fromLatin1("<html><head>\
-//<style type=\"text/css\">\
-//a:link {color: %1}\n\
-//a:hover {color: %2}\
-//</style></head>").arg(m_swordRefColorName).arg(m_swordRefColorName);
-//
-//  qWarning(m_swordRefColorName.latin1());
-
 	m_includeHeader = true;
 }
 
@@ -101,8 +88,6 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 
 		m_htmlText += QString::fromLatin1("<span %1>%1</span>")
       .arg(module->isUnicode() ? "id=\"unicodetext\"" : "")
-//      .arg( module->isUnicode() ? m_unicodeFontName : m_standardFontName)
-//			.arg( module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
       .arg( key->renderedText() );
 
     m_htmlText += "</body></html>";
@@ -146,19 +131,16 @@ char CHTMLEntryDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList) {
 
 	const int width=(int)((double)100/(double)moduleList->count());
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<TABLE cellpadding=\"2\" cellspacing=\"0\"><TR>"); 	
-	m_htmlText.append(QString("<font face=\"%1\" size=\"%2\" color=\"%3\">")
-		.arg(m_standardFontName).arg(m_standardFontSize).arg(m_standardFontColorName));
 	
 	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
 		key->module(d);
     if (m){
-    	m_htmlText.append(QString("<td width=\"%1\" bgcolor=\"#f1f1f1\"><b>%2 ")
+    	m_htmlText.append(QString("<td width=\"%1\" bgcolor=\"#f1f1f1\"><b><span>%2</span> ")
 				.arg(width).arg(d->name()));
-			m_htmlText.append(QString("(<font color=\"%1\" face=\"%2\" size=\"%3\">%4</font>)</b></td>")
-				.arg(m_highlightedVerseColorName)
-        .arg((d && d->isUnicode() ) ? m_unicodeFontName : m_standardFontName)
-	  		.arg((d && d->isUnicode() ) ? m_unicodeFontSize : m_standardFontSize)
+
+			m_htmlText.append(QString("<span id=\"highlighted\"><span %1>(%2)</span></span></td>")
+        .arg((d && d->isUnicode() ) ? "id=\"unicodetext\"" : "" )
      		.arg(key->key())
 			);
 		}
@@ -173,17 +155,14 @@ char CHTMLEntryDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList) {
 		key->key(usedKey);
 		
 		m_htmlText +=
-			QString::fromLatin1("<td width=\"%1%\"><FONT face =\"%2\" size=\"%3\">%4</font></td>")
+			QString::fromLatin1("<td width=\"%1%\"><span %2>%3</span></td>")
 				.arg(width)
-				.arg((d && d->isUnicode() ) ? m_unicodeFontName : m_standardFontName)
-				.arg((d && d->isUnicode() ) ? m_unicodeFontSize : m_standardFontSize)
+				.arg((d && d->isUnicode() ) ? "id=\"unicodetext\"" : "" )
 				.arg(key->renderedText());
 		m = (d = moduleList->next()) ? d->module() : 0;		
 	}
 	m_htmlText += QString::fromLatin1("</font></tr></table></body></html>");
 
-	//clean up
-//	delete key;	
 	return 1;
 }
 

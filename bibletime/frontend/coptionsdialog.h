@@ -115,6 +115,7 @@ private:
 		struct ColorSettings {
 			KColorButton* text;
 			KColorButton* background;
+			KColorButton* background2;
 			KColorButton* highlightedVerse;
 			KColorButton* swordrefs;
 			KColorButton* footnotes;

@@ -52,6 +52,7 @@ public:
 	enum colors {
 		textColor,
 		backgroundColor,
+		background2Color,
 		highlightedVerseColor,
 		footnotesColor,
 		strongsColor,

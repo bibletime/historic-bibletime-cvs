@@ -245,7 +245,7 @@ void COptionsDialog::initFonts(){
 void COptionsDialog::initColors(){
 	QFrame* page = addPage(i18n("Colors"), QString::null, OD_ICON_COLORS);
 //	QVBoxLayout* layout = new QVBoxLayout(page);
-	QGridLayout* gridLayout = new QGridLayout(page,5,5,5,5);
+	QGridLayout* gridLayout = new QGridLayout(page,8,5,5,5);
   gridLayout->setResizeMode(QLayout::Minimum);
 		
   gridLayout->addMultiCellWidget(
@@ -261,43 +261,50 @@ void COptionsDialog::initColors(){
 	gridLayout->addWidget(label,1,0);
 	gridLayout->addWidget(m_settings.colors.text,1,1);
 	
-	m_settings.colors.background = new KColorButton(CBTConfig::get(CBTConfig::backgroundColor), page);			
-	label = new QLabel(m_settings.colors.background, i18n("Background"), page);		
-	gridLayout->addWidget(label,1,3);
-	gridLayout->addWidget(m_settings.colors.background,1,4);
-		
 	m_settings.colors.highlightedVerse = new KColorButton(CBTConfig::get(CBTConfig::highlightedVerseColor), page);
 	label = new QLabel(m_settings.colors.highlightedVerse, i18n("Highlighted verse"), page);
+	gridLayout->addWidget(label,1,3);
+	gridLayout->addWidget(m_settings.colors.highlightedVerse,1,4);
+
+	m_settings.colors.background = new KColorButton(CBTConfig::get(CBTConfig::backgroundColor), page);			
+	label = new QLabel(m_settings.colors.background, i18n("Background"), page);		
 	gridLayout->addWidget(label,2,0);
-	gridLayout->addWidget(m_settings.colors.highlightedVerse,2,1);
+	gridLayout->addWidget(m_settings.colors.background,2,1);
+
+	m_settings.colors.background2 = new KColorButton(CBTConfig::get(CBTConfig::background2Color), page);			
+	label = new QLabel(m_settings.colors.background2, i18n("Background 2 (in tables)"), page);		
+	gridLayout->addWidget(label,2,3);
+	gridLayout->addWidget(m_settings.colors.background2,2,4);
 
 	m_settings.colors.swordrefs = new KColorButton(CBTConfig::get(CBTConfig::swordRefColor), page);
 	label = new QLabel(m_settings.colors.swordrefs,i18n("Hyperlinks"), page);
-	gridLayout->addWidget(label,2,3);
-	gridLayout->addWidget(m_settings.colors.swordrefs,2,4);
+	gridLayout->addWidget(label,4,0);
+	gridLayout->addWidget(m_settings.colors.swordrefs,4,1);
 
 	m_settings.colors.footnotes = new KColorButton(CBTConfig::get(CBTConfig::footnotesColor), page);		
 	label = new QLabel(m_settings.colors.footnotes,i18n("Footnotes"), page);			
-	gridLayout->addWidget(label,3,0);
-	gridLayout->addWidget(m_settings.colors.footnotes,3,1);
-
-	m_settings.colors.strongs = new KColorButton(CBTConfig::get(CBTConfig::strongsColor), page);		
-	label = new QLabel(m_settings.colors.strongs, i18n("Strong's numbers"), page);			
-	gridLayout->addWidget(label,3,3);
-	gridLayout->addWidget(m_settings.colors.strongs,3,4);
-
-	m_settings.colors.morph = new KColorButton(CBTConfig::get(CBTConfig::morphsColor), page);		
-	label = new QLabel(m_settings.colors.morph, i18n("Morphologic tags"), page);			
-	gridLayout->addWidget(label,4,0);
-	gridLayout->addWidget(m_settings.colors.morph,4,1);
+	gridLayout->addWidget(label,6,0);
+	gridLayout->addWidget(m_settings.colors.footnotes,6,1);
 
 	m_settings.colors.jesuswords = new KColorButton(CBTConfig::get(CBTConfig::jesuswordsColor), page);		
 	label = new QLabel(m_settings.colors.jesuswords, i18n("Words of Jesus"), page);			
-	gridLayout->addWidget(label,4,3);
-	gridLayout->addWidget(m_settings.colors.jesuswords,4,4);
-	
-	gridLayout->setRowStretch(5, 5);
+	gridLayout->addWidget(label,6,3);
+	gridLayout->addWidget(m_settings.colors.jesuswords,6,4);
+
+	m_settings.colors.strongs = new KColorButton(CBTConfig::get(CBTConfig::strongsColor), page);		
+	label = new QLabel(m_settings.colors.strongs, i18n("Strong's numbers"), page);			
+	gridLayout->addWidget(label,7,0);
+	gridLayout->addWidget(m_settings.colors.strongs,7,1);
+
+	m_settings.colors.morph = new KColorButton(CBTConfig::get(CBTConfig::morphsColor), page);		
+	label = new QLabel(m_settings.colors.morph, i18n("Morphologic tags"), page);			
+	gridLayout->addWidget(label,7,3);
+	gridLayout->addWidget(m_settings.colors.morph,7,4);
+
+	gridLayout->setRowStretch(9, 5);
 	gridLayout->addColSpacing(3, 5);
+	gridLayout->addRowSpacing(3, 10);
+	gridLayout->addRowSpacing(5, 10);
 }
 
 /** Init profiles section. */
@@ -753,6 +760,7 @@ void COptionsDialog::saveAccelerators(){
 void COptionsDialog::saveColors(){
  	CBTConfig::set(CBTConfig::textColor, m_settings.colors.text->color().name());	
  	CBTConfig::set(CBTConfig::backgroundColor, m_settings.colors.background->color().name());	
+ 	CBTConfig::set(CBTConfig::background2Color, m_settings.colors.background2->color().name());	
  	CBTConfig::set(CBTConfig::highlightedVerseColor, m_settings.colors.highlightedVerse->color().name());		
  	CBTConfig::set(CBTConfig::swordRefColor, m_settings.colors.swordrefs->color().name());		
  	CBTConfig::set(CBTConfig::footnotesColor, m_settings.colors.footnotes->color().name());		

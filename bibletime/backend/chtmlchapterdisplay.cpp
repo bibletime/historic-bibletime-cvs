@@ -23,9 +23,6 @@
 #include "frontend/cbtconfig.h"
 #include "creferencemanager.h"
 
-//Qt includes
-#include <qfont.h>
-
 //Sword includes
 #include <versekey.h>
 
@@ -48,46 +45,29 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 
 	//reload font settings
 	updateSettings();
-	
   m_htmlHeader = header();
+
   if (module->textDirection() == CSwordModuleInfo::RightToLeft)
     m_htmlText = m_htmlHeader + QString::fromLatin1("\n<body dir=\"rtl\">\n");
   else
     m_htmlText = m_htmlHeader + QString::fromLatin1("\n<body>\n");
-	
 
 	bool ok = true;
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse)) {
 		verse = key.Verse();
 		if (m_displayOptionsBool.verseNumbers) {
 			m_htmlText.append( QString::fromLatin1("<span id=\"reference\"><a name=\"%1\" href=\"%2\">%3</a></span>\n ")
-//				.arg(m_swordRefColorName)
 				.arg(verse)
 				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key(), CReferenceManager::typeFromModule(module->type()) ))
 				.arg(verse)
 			);
 		}
-		if (verse == currentVerse)
-		  m_htmlText += QString::fromLatin1("<span id=\"highlighted\">\n");
-		else
-			m_htmlText += QString::fromLatin1("<span>\n");
 
-//  	m_htmlText.append(QString::fromLatin1(" <font face=\"%1\" size=\"%2\">\n")
-//	  	.arg(module->isUnicode() ? m_unicodeFontName : m_standardFontName)
-//		  .arg(module->isUnicode() ? m_unicodeFontSize : m_standardFontSize) );
-    m_htmlText += QString::fromLatin1("<span %1>").arg( module->isUnicode() ? "id=\"unicodetext\"" : ""  );
-
-		m_htmlText += key.renderedText();
-
-		m_htmlText += " </span>\n";
-
-//		if (verse == currentVerse)
-		  m_htmlText += QString::fromLatin1("</span>\n");
-
-		if (m_displayOptionsBool.lineBreaks)
-			m_htmlText += QString::fromLatin1("<br>\n");
-		else
-			m_htmlText += QString::fromLatin1("\n");
+	  m_htmlText += QString::fromLatin1("<span %1>\n<span %2>\n%3\n</span></span>%4\n")
+			.arg( verse == currentVerse ? "id=\"highlighted\"" : "" )
+			.arg( module->isUnicode()   ? "id=\"unicodetext\"" : "" )
+			.arg( key.renderedText() )
+			.arg( m_displayOptionsBool.lineBreaks ? "<br>" : "");
 	}
 	
 	m_htmlText += QString::fromLatin1("</body></html>");
@@ -129,11 +109,8 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
     	m_htmlText.append(QString::fromLatin1("<td bgcolor=\"#f1f1f1\" width=\"%1%\">\
-<font face=\"%2\" size=\"%3\" color=\"%4\"><b>%5</b></td>")
+						<span>%2</span></td>")
 				.arg(width)
-				.arg(m_standardFontName)
-				.arg(m_standardFontSize)
-				.arg(m_standardFontColorName)
 				.arg(d->name()));
 			m = (d=moduleList->next()) ? d->module() : 0;
 	}
@@ -142,47 +119,44 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 	QString rowText = QString::null;
 	int currentVerse = 0;
 
-	const QString text = QString::fromLatin1("</tr><tr><td bgcolor=\"#f1f1f1\"><b>\
-<font face=\"%1\" size=\"%2\" color=\"%3\"><a name=\"%4\" href=\"%5\">%6</a></font></b></td>\n");
-	
- const QString cell = QString::fromLatin1("<td dir=\"%1\" bgcolor=\"%2\" width=\"%3%\">");
+	int currentRow = 0;
 	
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.next(CSwordVerseKey::UseVerse)) {
 		const QString currentKey = key.key();
 		currentVerse = key.Verse();
 		m = (d = moduleList->first()) ? d->module() : 0;
 		if (m_displayOptionsBool.verseNumbers) {
-  		 rowText = text.arg(m_standardFontName)
-						.arg(m_standardFontSize)
-						.arg(m_swordRefColorName)
+
+  		 rowText = QString::fromLatin1("</tr><tr><td bgcolor=\"#f1f1f1\">\
+							<span id=\"reference\"><a name=\"%1\" href=\"%2\">%3</a></span></td>\n")
 						.arg(currentVerse)
 						.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey, CReferenceManager::typeFromModule(d->type()) ))
 						.arg(currentVerse);
+
     }
     else {
        rowText = QString::fromLatin1("</tr><tr>\n");
     }
-		
+
+		currentRow = 0;
 		current.key(currentKey);	
 		while (m) {
 			current.module(d);
-      rowText += cell.arg(d->textDirection() == CSwordModuleInfo::RightToLeft ? QString::fromLatin1("rtl") : QString::fromLatin1("ltor")  )
-                     .arg(currentVerse % 2 ? "white" : "#f1f1f1")
-                     .arg(width);
 
-			if (d->isUnicode())
-				rowText += QString::fromLatin1("<font face=\"%1\" size=\"%2\" color=\"%3\">")
-						.arg(m_unicodeFontName)
-						.arg(m_unicodeFontSize)
-						.arg(currentVerse == chosenVerse ? m_highlightedVerseColorName : m_standardFontColorName);
-			else
-				rowText += QString::fromLatin1("<font face=\"%1\" size=\"%2\" color=\"%3\">")
-						.arg(m_standardFontName)
-						.arg(m_standardFontSize)
-						.arg(currentVerse == chosenVerse ? m_highlightedVerseColorName : m_standardFontColorName);
+ 			rowText += QString::fromLatin1("<td %1 bgcolor=\"%2\" width=\"%3%\">")
+ 				.arg(d->textDirection() == CSwordModuleInfo::RightToLeft ? "dir=\"rtl\"" : "" )
+         .arg((currentVerse + currentRow)% 2 ? "white" : "#f1f1f1")
+         .arg(width);
 
-			rowText += current.renderedText() + QString::fromLatin1("</font>");
+			qWarning("%d %d", currentVerse, currentRow);
+
+ 			rowText += QString::fromLatin1("<span %1>\n<span %2>\n%3\n</span>\n</span>\n</td>")
+ 					.arg(currentVerse == chosenVerse ? "id=\"highlighted\"" : "" )
+ 					.arg(d->isUnicode() ? "id=\"unicodetext\"" : "")
+ 					.arg( current.renderedText() );
+
 			m = (d = moduleList->next()) ? d->module() : 0;
+			currentRow++;
 		}
 		m_htmlText += rowText + QString::fromLatin1("</tr>\n");
 	}

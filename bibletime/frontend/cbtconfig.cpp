@@ -216,6 +216,7 @@ const QString CBTConfig::getKey( const CBTConfig::colors ID){
 	switch ( ID ){
 		case textColor: 							return "textColor";
 		case backgroundColor: 				return "backgroundColor";
+		case background2Color: 				return "background2Color";
 		case highlightedVerseColor: 	return "highlightedVerseClolor";
 		case footnotesColor: 					return "footnotesColor";
 		case strongsColor: 						return "strongsColor";
@@ -230,6 +231,7 @@ const QColor CBTConfig::getDefault( const CBTConfig::colors ID){
 	switch ( ID ){
 		case textColor: 							return QColor(Qt::black);
 		case backgroundColor: 				return QColor(Qt::white);
+		case background2Color: 				return QColor(QString("#f1f1f1"));
 		case highlightedVerseColor:		return QColor(Qt::red);
 		case footnotesColor: 					return QColor(Qt::black);
 		case strongsColor: 						return QColor(Qt::green);
