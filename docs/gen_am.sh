@@ -105,9 +105,11 @@ for PART in $DOC_PARTS; do
 				fi;
 			fi;
 
+			HAS_FILES="NO"
 			for I3 in $FILES; do
 				echo -n `basename $I3`" "
 				BASE_FILES="$BASE_FILES `basename $I3`";
+				HAS_FILES="YES"
 			done
 			FILES=$BASE_FILES
 			echo
@@ -116,24 +118,26 @@ for PART in $DOC_PARTS; do
 			TARGET_ROOT='$(DESTDIR)$(kde_htmldir)/en/bibletime'
 			TARGET_DIR=$TARGET_ROOT/$PART
 
-			echo
-			echo 'install-data-local:'
-			echo '	mkdir -p '$TARGET_DIR'/;'  #mkdir -p creates all directories leaing to $TARGET_DIR
-			echo '	chmod -R a+r+X  '$TARGET_ROOT';'
-			echo '	for file in '$FILES'; do \'
-			echo '	  $(INSTALL_DATA) $$file '$TARGET_DIR'; \'
-			echo '	  chmod a+r '$TARGET_DIR'/$$file; \'
-			echo '	done;'
-			echo '	ln -sf ../../common '$TARGET_DIR'/common;\'
-			echo '	chmod -R a+r+X '$TARGET_ROOT
-			echo
-			echo 'uninstall-local:'
-			echo '	for file in 'FILES'; do \'
-			echo '	  echo Removing '$TARGET_DIR'/$$file; \'
-			echo '	  rm -f '$TARGET_DIR'/$$file; \'
-			echo '	done;'
-			echo '	echo Removing '$TARGET_DIR'/common;'
-			echo '	rm -f '$TARGET_DIR'/common;'
+			if test $HAS_FILES = YES; then
+				echo
+				echo 'install-data-local:'
+				echo '	mkdir -p '$TARGET_DIR'/;'  #mkdir -p creates all directories leaing to $TARGET_DIR
+				echo '	chmod -R a+r+X  '$TARGET_ROOT';'
+				echo '	for file in '$FILES'; do \'
+				echo '	  $(INSTALL_DATA) $$file '$TARGET_DIR'; \'
+				echo '	  chmod a+r '$TARGET_DIR'/$$file; \'
+				echo '	done;'
+				echo '	ln -sf ../../common '$TARGET_DIR'/common;\'
+				echo '	chmod -R a+r+X '$TARGET_ROOT
+				echo
+				echo 'uninstall-local:'
+				echo '	for file in 'FILES'; do \'
+				echo '	  echo Removing '$TARGET_DIR'/$$file; \'
+				echo '	  rm -f '$TARGET_DIR'/$$file; \'
+				echo '	done;'
+				echo '	echo Removing '$TARGET_DIR'/common;'
+				echo '	rm -f '$TARGET_DIR'/common;'
+			fi;
 		) > $I2/Makefile.am
 	done
 done

@@ -4,21 +4,3 @@
 
 EXTRA_DIST = 
 
-
-install-data-local:
-	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/;
-	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in ; do \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/howto; \
-	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
-	done;
-	ln -sf ../../common $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/common;\
-	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/en/bibletime
-
-uninstall-local:
-	for file in FILES; do \
-	  echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
-	  rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
-	done;
-	echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/common;
-	rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/common;
