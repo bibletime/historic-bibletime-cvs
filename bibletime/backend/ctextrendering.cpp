@@ -242,8 +242,8 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 			
 
 		//entry += QString::fromLatin1("<span dir=\"%1\" class=\"entryname\">%2</span>")
-		entry += QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%2</span>") //keys should normally be left-to-right, but this doesn't apply in all cases
-			.arg(m_displayOptions.verseNumbers 
+		entry += QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>") //keys should normally be left-to-right, but this doesn't apply in all cases
+			.arg(m_displayOptions.verseNumbers
 				? entryLink(i, m)
 				: QString::null
 			);
@@ -332,13 +332,13 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 		linkText = item.key();
 	}
 	
-  if (!linkText.isEmpty()) {
+  if (linkText.isEmpty()) {
     return QString::fromLatin1("<a id=\"%1\" name=\"%2\" />")
 			.arg( keyToHTMLAnchor(item.key()) )
 			.arg( keyToHTMLAnchor(item.key()) );
   }
   else {
-    return QString::fromLatin1("<a id=\"%1\" name=\"%3\" href=\"%4\">%5</a>")
+    return QString::fromLatin1("<a id=\"%1\" name=\"%2\" href=\"%3\">%4</a>")
       .arg( keyToHTMLAnchor(item.key()) )
       .arg( keyToHTMLAnchor(item.key()) )
       .arg(
