@@ -532,7 +532,6 @@ void BibleTime::initConnections(){
 void BibleTime::initBackends(){
 	KStartupLogo::setStatusMessage(i18n("Initializing Sword") + QString("..."));
 
-//  qWarning("backend constructed with a path argument! %s", path.latin1());
 	StringMgr::setSystemStringMgr( new BTStringMgr() );
 	SWLog::getSystemLog()->setLogLevel(0);
 	
@@ -578,7 +577,6 @@ void BibleTime::initBackends(){
 		  }
 		}
 	}
-/*	m_backend->booknameLanguage( CBTConfig::get(CBTConfig::language) );*/
 }
 
 /** Initializes the CPrinter object. */

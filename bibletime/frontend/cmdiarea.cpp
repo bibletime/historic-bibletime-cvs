@@ -247,10 +247,10 @@ void CMDIArea::myCascade(){
 	}
 	else {
 
-		const int offsetX = 50;
-		const int offsetY = 50;
-		const int windowWidth =  width()  - (windows.count() * offsetX);
-		const int windowHeight = height() - (windows.count() * offsetY);
+		const int offsetX = 40;
+		const int offsetY = 40;
+		const int windowWidth =  width() - (windows.count()-1)*offsetX;
+		const int windowHeight = height() - (windows.count()-1)*offsetY;
 		
 		int x = 0;
 		int y = 0;
@@ -262,7 +262,7 @@ void CMDIArea::myCascade(){
 					window->hide();
 					window->showNormal();
 			}
-			window->parentWidget()->setGeometry( x, y, windowWidth, windowHeight);
+			window->parentWidget()->setGeometry(x, y, windowWidth, windowHeight);
 			x += offsetX;
 			y += offsetY;
 		}

@@ -37,6 +37,9 @@
 #include <map>
 #include <utility>
 
+//Stl includes
+#include <functional>
+
 using namespace sword;
 
 namespace InstallationManager {
@@ -209,7 +212,27 @@ const QString BTInstallMgr::Tool::RemoteConfig::configFilename() {
 void BTInstallMgr::Tool::RemoteConfig::removeSource( sword::InstallMgr* mgr, sword::InstallSource* is) {
   Q_ASSERT(mgr);
   Q_ASSERT(is);
- //TODO: WRITE!
+ 
+  SWConfig config(Tool::RemoteConfig::configFilename().latin1());
+	
+	//this code can probably be shortened by using the stl remove_if functionality
+	std::pair< ConfigEntMap::iterator, ConfigEntMap::iterator > range = 
+			isRemoteSource(is)
+		? config["Sources"].equal_range("FTPSource")
+		: config["Sources"].equal_range("DIRSource");	
+	
+	ConfigEntMap::iterator it = range.first;
+	while (it != range.second) {
+		if (it->second == is->getConfEnt()) {
+// 			qWarning("found the source!");
+			config["Sources"].erase(it);
+			break;
+		}
+		
+		++it;
+	}
+	
+	config.Save();
 }
 
 void BTInstallMgr::Tool::RemoteConfig::resetRemoteSources() {
