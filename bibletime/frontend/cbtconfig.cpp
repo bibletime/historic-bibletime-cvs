@@ -28,6 +28,7 @@
 
 QString CBTConfig::getKey( CBTConfig::strings ID){
 	switch ( ID ){
+		case bibletimeVersion:			return "bibletimeVersion";
 		case language: 							return "language";
 		case standardBible: 				return "standardBible";
 		case standardCommentary: 		return "standardCommentary";
@@ -41,6 +42,8 @@ QString CBTConfig::getKey( CBTConfig::strings ID){
 
 QString CBTConfig::getDefault( CBTConfig::strings ID){
 	switch ( ID ){
+		case bibletimeVersion:			return ( "NOT YET INSTALLED" );
+			// main() will realize this and set the value to VERSION
 		case language: 							return (KGlobal::locale()->language()).local8Bit();
 		case standardBible: 				return "NIV";  // no effect
 		case standardCommentary: 		return "MHC";
@@ -67,9 +70,7 @@ QFont CBTConfig::getDefault( CBTConfig::fonts ID){
 
 QString CBTConfig::getKey( CBTConfig::bools ID){
 	switch ( ID ){
-		case firstStartUp:				return "firstStartUp";
 		case firstSearchDialog:		return "firstSearchDialog";
-		case isConfigured:				return "isConfigured";
 
 		case toolbar:							return "toolbar";
 		case mainIndex:						return "mainIndex";
@@ -100,9 +101,7 @@ QString CBTConfig::getKey( CBTConfig::bools ID){
 }
 bool CBTConfig::getDefault( CBTConfig::bools ID){
 	switch ( ID ){
-		case firstStartUp:				return true;
 		case firstSearchDialog:		return true;
-		case isConfigured:				return false;
 
 		case toolbar:							return true;
 		case mainIndex:						return true;

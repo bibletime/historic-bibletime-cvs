@@ -190,17 +190,15 @@ int main(int argc, char* argv[]) {
  	if (app.isRestored()) {
 		RESTORE(BibleTime)
 	}
+
   else {
-		bool showIt = false;	
-	  {
-			showIt = CBTConfig::get(CBTConfig::logo);	
+		bool showIt = CBTConfig::get(CBTConfig::logo);	
 	
-			if(showIt) {
-				KStartupLogo::createSplash();
-				KStartupLogo::showSplash();				
-				KStartupLogo::setStatusMessage( i18n("Starting BibleTime")+QString::fromLatin1("...") );
-			};
-	  }
+ 		if(showIt) {
+ 			KStartupLogo::createSplash();
+ 			KStartupLogo::showSplash();				
+ 			KStartupLogo::setStatusMessage( i18n("Starting BibleTime")+QString::fromLatin1("...") );
+ 		}
 		
 	  bibletime = new BibleTime();
 	
@@ -209,30 +207,24 @@ int main(int argc, char* argv[]) {
 	  	KStartupLogo::hideSplash();
 		}
 
-	  			
-		//first startup of BibleTime?		
-		{
-#warning implement reaction to new BT version that was installed
-			if (CBTConfig::get(CBTConfig::firstStartUp)) {
-				CBTConfig::set(CBTConfig::firstStartUp, false);
-				HTML_DIALOG(HELPDIALOG_FIRST_START);
-			}			
-		}			
-		{
-			if (!CBTConfig::get(CBTConfig::isConfigured)) {
-				CBTConfig::set( CBTConfig::isConfigured, true);
-				bibletime->slotSettingsOptions();
-			}
-		}		
-		{ //The tip of the day
-			if (CBTConfig::get(CBTConfig::tips))
+		// a new BibleTime version was installed (maybe a completely new installation)
+ 		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
+
+ 			CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
+ 			HTML_DIALOG(HELPDIALOG_FIRST_START);
+ 			bibletime->slotSettingsOptions();
+ 		}			
+
+		//The tip of the day
+		if (CBTConfig::get(CBTConfig::tips))
 				bibletime->slotHelpTipOfDay();
-		}		
-		bibletime->show();							
-		{
-		 	if (CBTConfig::get(CBTConfig::restoreWorkspace))
-		 		bibletime->restoreWorkspace();
-		}
+
+		bibletime->show();			
+				
+		// restore the workspace
+	 	if (CBTConfig::get(CBTConfig::restoreWorkspace))
+	 		bibletime->restoreWorkspace();
+
 	  setSignalHandler(signalHandler);		
   	return app.exec();
 	}

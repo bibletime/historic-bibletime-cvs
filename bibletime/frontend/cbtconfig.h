@@ -32,6 +32,7 @@ class CBTConfig {
 public:
 
 	enum strings{
+		bibletimeVersion,
 		language,
 		standardBible,
 		standardCommentary,
@@ -56,9 +57,9 @@ public:
 		swordRefColor  //SWORD hyperlink
 	};
 	enum bools{
-		firstStartUp,
+//		firstStartUp,
+//		isConfigured,
 		firstSearchDialog,
-		isConfigured,
 
 		toolbar,
 		mainIndex,
