@@ -151,9 +151,15 @@ const QString CReferenceManager::encodeReference(const QString &module, const QS
 
 void CReferenceManager::decodeReference(QString &dragreference, QString &module, QString &reference){
   const int pos = dragreference.find(")");
-	const QString fallbackModule    = dragreference.mid( 1, pos - 1);
+	const QString fallbackModule = dragreference.mid( 1, pos - 1);
+	qWarning("decodeReference: module is %s", fallbackModule.latin1());
   dragreference = dragreference.mid(pos+1);
 
+  qWarning("decodeReference: %s", dragreference.latin1());
+
+
+  module = fallbackModule;
+  reference = dragreference;
 //  if (dragreference.right(1) == "/") {
 //		dragreference = dragreference.left(dragreference.length()-1);		
 //  }
@@ -168,13 +174,13 @@ void CReferenceManager::decodeReference(QString &dragreference, QString &module,
 //		dragreference = dragreference.mid(8);
 //  }
 
-	Type type;
+//	Type type;
 //	QString mod;	
-  CReferenceManager::decodeHyperlink(dragreference, module, reference, type);
-  if (module.isEmpty())
-  	module = preferredModule(type);
-  if (module.isEmpty())
-  	module = fallbackModule;
+//  CReferenceManager::decodeHyperlink(dragreference, module, reference, type);
+//  if (module.isEmpty())
+//  	module = preferredModule(type);
+//  if (module.isEmpty())
+//  	module = fallbackModule;
 //  reference = dragreference.right( dragreference.length() - dragreference.find(")") - 1 );
 }
 

@@ -714,7 +714,7 @@ void CGroupManager::contentsDragLeaveEvent( QDragLeaveEvent* e){
 
 /**  */
 void CGroupManager::contentsDropEvent( QDropEvent* e){
-  CGroupManagerItem* target = (CGroupManagerItem *)itemAt(contentsToViewport(e->pos()));
+  CGroupManagerItem* target = dynamic_cast<CGroupManagerItem *>(itemAt(contentsToViewport(e->pos())));
 
   QString str;
   QCString submime;
@@ -790,11 +790,14 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
 						break;
 					case (CGroupManagerItem::Module):
 						if (target->moduleInfo()){
-							// In bibles or commentaries, the reference is opened
+							/**
+							* In bibles or commentaries, the reference is opened
+							* in lexicons, the reference is searched
+							*/
 							if (dynamic_cast<CSwordModuleInfo*>(target->moduleInfo()) ) {
 								if (dynamic_cast<CSwordBibleModuleInfo*>(target->moduleInfo()) )
 									emit createSwordPresenter( target->moduleInfo(),ref );
-								else if  (dynamic_cast<CSwordLexiconModuleInfo*>(target->moduleInfo())) // in lexicons, the reference is searched
+								else if (dynamic_cast<CSwordLexiconModuleInfo*>(target->moduleInfo()))
 									searchBookmarkedModule(ref,target);							
 							}
 						}
