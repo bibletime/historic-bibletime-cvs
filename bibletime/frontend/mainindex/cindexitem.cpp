@@ -33,6 +33,8 @@
 
 #include "resource.h"
 
+#include <string.h>
+
 //Qt includes
 #include <qdragobject.h>
 #include <qstringlist.h>
@@ -276,7 +278,7 @@ const bool CModuleItem::enableAction( const MenuAction action ){
   if (action == EditModule) {
     if (!module())
       return false;
-    if ( (module()->module()->getConfigEntry("ModDrv") == (string)"RawFiles") && module()->module()->isWritable())
+    if ( (module()->module()->getConfigEntry("ModDrv") == string("RawFiles")) && module()->module()->isWritable())
       return true;
     else
       return false;
