@@ -1,0 +1,48 @@
+/***************************************************************************
+                          chtmlwritewindow.h  -  description
+                             -------------------
+    begin                : Fre Nov 29 2002
+    copyright            : (C) 2002 by The BibleTime team
+    email                : info@bibletime.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#ifndef CHTMLWRITEWINDOW_H
+#define CHTMLWRITEWINDOW_H
+
+//BibleTime includes
+#include "cwritewindow.h"
+
+//Qt includes
+#include <qwidget.h>
+
+/** The WYSIWYG implementation of the editor.
+  * @author The BibleTime team
+  */
+class CHTMLWriteWindow : public CWriteWindow  {
+   Q_OBJECT
+public: 
+	CHTMLWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name = 0);
+	~CHTMLWriteWindow();
+  /**
+  * Setups the popup menu of this display widget.
+  */
+  virtual void setupPopupMenu();
+
+protected: // Protected methods
+  /**
+  * Initialize the state of this widget.
+  */
+  virtual void initView();
+  virtual void initConnections();  
+};
+
+#endif
