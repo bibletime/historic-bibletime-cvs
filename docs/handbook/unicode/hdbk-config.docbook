@@ -151,20 +151,21 @@ dialog.</para>
 		
 	</sect2>
 	
-</sect1>
-
-<sect1 id="hdbk-config-bt-Accelerators"><title>HotKeys</title>
-
-<!-- TODO: RECREATE FONTCONFIG SCREENSHOT-->
-
-	<para>HotKeys are special key commands that can be used in the place of
-	the menu items and icons. A number of &bibletime;'s commands have
-	predefined HotKeys (see <link linkend="hdbk-reference-hotkeys">this section</link>
-	for a complete listing). All of &bibletime;'s commands can be assigned
-	HotKeys here. This is very helpful to quickly access the functions that you need the most.</para>
+	<sect2 id="hdbk-config-bt-Accelerators"><title>HotKeys</title>
+	
+	<!-- TODO: RECREATE FONTCONFIG SCREENSHOT-->
+	
+		<para>HotKeys are special key commands that can be used in the place of
+		the menu items and icons. A number of &bibletime;'s commands have
+		predefined HotKeys (see <link linkend="hdbk-reference-hotkeys">this section</link>
+		for a complete listing). All of &bibletime;'s commands can be assigned
+		HotKeys here. This is very helpful to quickly access the functions that you need the most.</para>
+	
+	</sect2>
 
 </sect1>
 	
+		
 	<sect1 id="hdbk-config-toolbar"><title>Toolbar configuration dialog</title>
 	<!-- THIS SECTION IS FINISHED -->
 	<para>You can adapt the toolbar to your needs. Please use the following entry in the main menu:
