@@ -183,7 +183,7 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 	) > ../../bibletime-i18n/docs/Makefile.am
 
 	###########################
-	# create Makefile.am's in bibletime-i18n/??/docs directories
+	# create Makefile.am's in bibletime-i18n/docs/?? directories
 	###########################
 
 	echo generating ../../bibletime-i18n/docs/$I1/Makefile.am
@@ -193,7 +193,7 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 		echo -n "SUBDIRS = "
 
 		for PART in $DOC_PARTS; do
-			if test -d ../../bibletime-i18n/$I1/docs/$PART; then
+			if test -d ../../bibletime-i18n/docs/$I1/$PART; then
 				echo -n "$PART "
 			fi
 		done
@@ -203,7 +203,7 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 
 
 	###########################
-	# create Makefile.am's in bibletime-i18n/??/$PART directories
+	# create Makefile.am's in bibletime-i18n/docs/??/$PART directories
 	###########################
 	for PART in $DOC_PARTS; do
 

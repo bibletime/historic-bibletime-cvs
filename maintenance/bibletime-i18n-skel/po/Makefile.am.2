@@ -28,7 +28,7 @@ install-yes: all
 	for cat in $$catalogs; do \
 	destdir=$(localedir); \
 	lang=`echo $$cat | sed 's/\.gmo//'`; \
-	name=messages.mo \
+	name=bibletime.mo \
 	dir=$$destdir/$$lang/LC_MESSAGES; \
 	$(mkinstalldirs) $$dir; \
 	$(INSTALL_DATA) $$cat $$dir/$$name; \
@@ -42,7 +42,7 @@ uninstall-local:
 	for cat in $$catalogs; do \
 	destdir=$(localedir); \
 	lang=`echo $$cat | sed 's/\.gmo//'`; \
-	name=$messages.mo; \
+	name=bibletime.mo; \
 	dir=$$destdir/$$lang/LC_MESSAGES; \
 	rm -f $$cat $$dir/$$name; \
 	echo "removing $$dir/$$name" ; \
