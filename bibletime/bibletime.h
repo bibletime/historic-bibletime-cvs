@@ -320,6 +320,7 @@ private slots: // Private slots
 
 private:
 	QProgressDialog* m_progress;
-	pthread_mutex_t progress_mutex;	
+	pthread_mutex_t progress_mutex;
+		
 };
 #endif
