@@ -21,6 +21,7 @@
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
 #include "../../ressource.h"
+#include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
 #include "../../backend/sword_backend/cswordversekey.h"
 #include "../../backend/sword_backend/chtmlchapterdisplay.h"
 
@@ -275,6 +276,17 @@ void CBiblePresenter::printVerseAndText(){
 
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::printChapter(){
+	CSwordVerseKey *startKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
+	startKey->setKey(m_key->getKey());
+		
+	CSwordVerseKey *stopKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem	
+	stopKey->setKey(m_key->getKey());
+	
+	CSwordBibleModuleInfo* b = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
+	if (b)
+		stopKey->Verse( b->getVerseCount(b->getBookNumber(startKey->getBook()),startKey->Chapter()) );
+
+	printKey(startKey, stopKey, m_moduleList.first());	
 }
 
 //save functions

@@ -186,7 +186,7 @@ const QString CPrintItem::getModuleText() {
 			dummyKey.setKey( vk_start->getKey() );
 			while (dummyKey < *vk_stop) {
 				dummyKey.NextVerse();
-				text += QString("<BR>\n") + dummyKey.getKey() + QString::fromLatin1(" ") + dummyKey.getRenderedText();
+				text += QString("<BR>") + dummyKey.getRenderedText();
 			}			
 		}
 		else if (sw->getType() == CSwordModuleInfo::Lexicon ) {
