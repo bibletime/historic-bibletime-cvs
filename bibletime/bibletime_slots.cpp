@@ -308,7 +308,7 @@ void BibleTime::slotSetPrintingStatus(){
 
 /** Printing was started */
 void BibleTime::slotPrintingStarted(){
-	m_progress = new QProgressDialog( "Copying files...", i18n("Abort printing"),m_important->printer->getPrintQueue()->count(),this, "progress", true);
+	m_progress = new QProgressDialog( i18n("Printing..."), i18n("Abort printing"),m_important->printer->getPrintQueue()->count(),this, "progress", true);
 	connect( m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
 	m_progress->setProgress(0);
 	m_progress->show();
