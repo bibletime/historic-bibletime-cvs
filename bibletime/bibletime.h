@@ -112,6 +112,10 @@ public:
 	* construtor of BibleTime
 	*/
 	BibleTime();
+	/**
+	* destrutor of BibleTime
+	*/
+	virtual ~BibleTime();
 	
   virtual void polish();
   /**

@@ -84,21 +84,21 @@ void CSearchResultView::initView(){
   m_popup = new KPopupMenu(this);
 //	m_popup->insertTitle(i18n("Bible window"));
 
- 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::searchdialog::result::foundItems::copyMenu::icon);
+ 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::searchdialog::result::foundItems::copyMenu::icon, m_popup);
  	m_actions.copy.result = new KAction(i18n("Reference only"), KShortcut(0), this, SLOT(copyItems()), this);
  	m_actions.copyMenu->insert(m_actions.copy.result);
  	m_actions.copy.resultWithText = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(copyItemsWithText()), this);
  	m_actions.copyMenu->insert(m_actions.copy.resultWithText);
  	m_actions.copyMenu->plug(m_popup);
 
- 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::searchdialog::result::foundItems::saveMenu::icon);
+ 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::searchdialog::result::foundItems::saveMenu::icon, m_popup);
  	m_actions.save.result = new KAction(i18n("Reference only"), KShortcut(0), this, SLOT(saveItems()), this);
  	m_actions.saveMenu->insert(m_actions.save.result);
  	m_actions.save.resultWithText = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(saveItemsWithText()), this);
  	m_actions.saveMenu->insert(m_actions.save.resultWithText);
  	m_actions.saveMenu->plug(m_popup);
 
- 	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::searchdialog::result::foundItems::printMenu::icon);
+ 	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::searchdialog::result::foundItems::printMenu::icon, m_popup);
  	m_actions.print.result = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(printItems()), this);
  	m_actions.printMenu->insert(m_actions.print.result);
   m_actions.printMenu->plug(m_popup);  
@@ -294,21 +294,21 @@ void CModuleResultView::initView(){
   m_popup = new KPopupMenu(this);
 //	m_popup->insertTitle(i18n("Bible window"));
 
- 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::searchdialog::result::moduleList::copyMenu::icon);
+ 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::searchdialog::result::moduleList::copyMenu::icon, m_popup);
  	m_actions.copy.result = new KAction(i18n("Reference only"), KShortcut(0), this, SLOT(copyResult()), this);
  	m_actions.copyMenu->insert(m_actions.copy.result);
  	m_actions.copy.resultWithText = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(copyResultWithText()), this);
  	m_actions.copyMenu->insert(m_actions.copy.resultWithText);
  	m_actions.copyMenu->plug(m_popup);
 
- 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::searchdialog::result::moduleList::saveMenu::icon);
+ 	m_actions.saveMenu = new KActionMenu(i18n("Save..."), CResMgr::searchdialog::result::moduleList::saveMenu::icon, m_popup);
  	m_actions.save.result = new KAction(i18n("Reference only"), KShortcut(0), this, SLOT(saveResult()), this);
  	m_actions.saveMenu->insert(m_actions.save.result);
  	m_actions.save.resultWithText = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(saveResultWithText()), this);
  	m_actions.saveMenu->insert(m_actions.save.resultWithText);
  	m_actions.saveMenu->plug(m_popup);
 
- 	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::searchdialog::result::moduleList::printMenu::icon);
+ 	m_actions.printMenu = new KActionMenu(i18n("Print..."), CResMgr::searchdialog::result::moduleList::printMenu::icon, m_popup);
  	m_actions.print.result = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(printResult()), this);
  	m_actions.printMenu->insert(m_actions.print.result);
 

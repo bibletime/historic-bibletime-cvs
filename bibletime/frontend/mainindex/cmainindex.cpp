@@ -95,6 +95,9 @@ CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
 
 CMainIndex::~CMainIndex(){
 	saveBookmarks();
+	
+	m_toolTip->remove(this);
+	delete m_toolTip;
 }
 
 /** Reimplementation. Adds the given group to the tree. */

@@ -97,6 +97,8 @@ CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, c
 }
 
 CDisplayWindow::~CDisplayWindow(){
+	delete m_swordKey;
+	m_swordKey = 0;
 }
 
 CMDIArea* const CDisplayWindow::mdi() const {
@@ -105,8 +107,9 @@ CMDIArea* const CDisplayWindow::mdi() const {
 
 /** Returns the right window caption. */
 const QString CDisplayWindow::windowCaption(){
- 	if (!m_modules.count())
+ 	if (!m_modules.count()) {
 		return QString::null;
+	}
 
 //	QString ret = m_modules.first()->name();
 //	if (m_modules.count() > 1) {
@@ -116,6 +119,7 @@ const QString CDisplayWindow::windowCaption(){
 //	}
 // 	return m_modules.join(" | ").append(" (").append(key()->key()).append(")");
 //	return QString::fromLatin1("%1 (%2)").arg(key()->key()).arg(m_modules.join(" | "));
+
 	return QString(key()->key()).append(" (").append(m_modules.join(" | ")).append(")");
 }
 

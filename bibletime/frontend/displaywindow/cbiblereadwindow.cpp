@@ -144,9 +144,9 @@ void CBibleReadWindow::setupPopupMenu(){
  	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection());
   m_actions.selectAll->plug(popup());
 
-  (new KActionSeparator())->plug( popup() );
+  (new KActionSeparator(this))->plug( popup() );
 
- 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::bibleWindow::copyMenu::icon);
+ 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::bibleWindow::copyMenu::icon, popup());
  	m_actions.copy.referenceOnly = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.referenceOnly);
 	m_actions.copy.referenceTextOnly = new KAction(i18n("Text of reference"), KShortcut(0),displayWidget()->connectionsProxy(), SLOT(copyAnchorTextOnly()), actionCollection());
@@ -155,12 +155,12 @@ void CBibleReadWindow::setupPopupMenu(){
  	m_actions.copyMenu->insert(m_actions.copy.referenceAndText);
   m_actions.copy.chapter = new KAction(i18n("Chapter"), KShortcut(0), this, SLOT(copyDisplayedText()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.chapter);
-  m_actions.copyMenu->insert(new KActionSeparator());
+  m_actions.copyMenu->insert(new KActionSeparator(this));
   m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.selectedText);
   m_actions.copyMenu->plug(popup());
 
- 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::displaywindows::bibleWindow::saveMenu::icon);
+ 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::displaywindows::bibleWindow::saveMenu::icon, popup());
  	m_actions.save.referenceAndText = new KAction(i18n("Reference with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(saveAnchorWithText()), actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.referenceAndText);
 	m_actions.save.chapterAsPlain = new KAction(i18n("Chapter as plain text"), KShortcut(0), this, SLOT(saveChapterPlain()),actionCollection());
@@ -169,7 +169,7 @@ void CBibleReadWindow::setupPopupMenu(){
  	m_actions.saveMenu->insert(m_actions.save.chapterAsHTML);
  	m_actions.saveMenu->plug(popup());
 
- 	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::displaywindows::bibleWindow::printMenu::icon);	
+ 	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::displaywindows::bibleWindow::printMenu::icon, popup());	
  	m_actions.print.reference = new KAction(i18n("Reference with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection());
  	m_actions.printMenu->insert(m_actions.print.reference); 	
   m_actions.print.chapter = new KAction(i18n("Chapter"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAll()),actionCollection());

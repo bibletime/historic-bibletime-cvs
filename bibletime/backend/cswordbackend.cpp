@@ -90,6 +90,7 @@ CSwordBackend::CSwordBackend(const QString& path)
 
 CSwordBackend::~CSwordBackend(){
 	shutdownModules();
+	
 	delete m_filters.gbf;
 	delete m_filters.plain;
 	delete m_filters.thml;
@@ -116,16 +117,32 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 				
 		if (!strcmp(curMod->Type(), "Biblical Texts")) {
 			newModule = new CSwordBibleModuleInfo(curMod, this);
-			newModule->module()->Disp(m_displays.chapter ? m_displays.chapter : (m_displays.chapter = new CChapterDisplay));
+			newModule->module()->Disp(
+					  m_displays.chapter 
+					? m_displays.chapter 
+					: (m_displays.chapter = new CChapterDisplay)
+			);
 		} else if (!strcmp(curMod->Type(), "Commentaries")) {
 			newModule = new CSwordCommentaryModuleInfo(curMod, this);
-			newModule->module()->Disp(m_displays.entry ? m_displays.entry : (m_displays.entry = new CEntryDisplay));
+			newModule->module()->Disp(
+			  		m_displays.entry 
+					? m_displays.entry 
+					: (m_displays.entry = new CEntryDisplay)
+			);
 		} else if (!strcmp(curMod->Type(), "Lexicons / Dictionaries")) {
 			newModule = new CSwordLexiconModuleInfo(curMod, this);
-			newModule->module()->Disp(m_displays.entry ? m_displays.entry : (m_displays.entry = new CEntryDisplay));
+			newModule->module()->Disp(
+					m_displays.entry 
+				? m_displays.entry 
+				: (m_displays.entry = new CEntryDisplay)
+			);
 		} else if (!strcmp(curMod->Type(), "Generic Books")) {
 			newModule = new CSwordBookModuleInfo(curMod, this);
-			newModule->module()->Disp(m_displays.book ? m_displays.book : (m_displays.book = new CBookDisplay));
+			newModule->module()->Disp(
+					  m_displays.book 
+					? m_displays.book 
+					: (m_displays.book = new CBookDisplay)
+			);
 		}
 		
 		if (newModule) {	//append the new modules to our list
@@ -155,8 +172,8 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 }
 
 void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMap &section) {
-	sword::SWBuf sourceformat;
 	sword::SWBuf moduleDriver;
+	sword::SWBuf sourceformat;
 	sword::ConfigEntMap::iterator entry;
 	bool noDriver = true;
 
@@ -208,17 +225,16 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 
 /** This function deinitializes the modules and deletes them. */
 const bool CSwordBackend::shutdownModules(){
-// 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
-	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
+	ListCSwordModuleInfo::iterator it = m_moduleList.begin();
+	ListCSwordModuleInfo::iterator end = m_moduleList.end();
+	while (it != end) {
 		CSwordModuleInfo* current = (*it);
-		++it; //make sure that we don't remove the current it pos in the next call!
+		it = m_moduleList.remove(it);
 		
-		m_moduleList.remove(current);
-		
- 		delete current;
+		delete current;
 	}
- 	m_moduleList.clear();
+
+	Q_ASSERT(m_moduleList.count() == 0);
 
   //BT  mods are deleted now, delete Sword mods, too.
   DeleteMods();
@@ -540,9 +556,9 @@ const QString CSwordBackend::booknameLanguage( const QString& language ) {
 		for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
       if ( (*it)->type() == CSwordModuleInfo::Bible || (*it)->type() == CSwordModuleInfo::Commentary ) {
 				//Create a new key, it will get the default bookname language
-        SWKey* k = (*it)->module()->CreateKey();
-				k->Persist(1);
-				(*it)->module()->setKey(k);
+//         SWKey* k = (*it)->module()->CreateKey();
+// 				k->Persist(1);
+				((sword::VerseKey*)((*it)->module()->getKey()))->setLocale( language.latin1() );
       }
     }
 		

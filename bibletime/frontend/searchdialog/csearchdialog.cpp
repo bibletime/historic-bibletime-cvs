@@ -1129,9 +1129,8 @@ CSearchAnalysisView::CSearchAnalysisView(QCanvas* canvas, QWidget* parent)
 	: QCanvasView(canvas, parent) {
 //	QWhatsThis::add(this, WT_SD_ANALYSIS_VIEW);
 	setFocusPolicy(QWidget::WheelFocus);
-	m_toolTip = new ToolTip(this);	
+	m_toolTip = new ToolTip(this);
 	resize(sizeHint());
-
 }
 
 /** Returns the sizeHint for this view */

@@ -89,6 +89,12 @@ BibleTime::BibleTime()
   setAutoSaveSettings(QString::fromLatin1("MainWindow"), false);
 }
 
+BibleTime::~ BibleTime() {
+// 	delete m_backend;
+// 	m_backend = 0;
+	// The backend is deleted by BibleTimeApp
+}
+
 /** Saves the properties of BibleTime to the application wide configfile  */
 void BibleTime::saveSettings(){
 	if (m_mdi) {

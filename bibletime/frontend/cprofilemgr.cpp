@@ -34,15 +34,18 @@ CProfileMgr::CProfileMgr() : m_startupProfile(0) {
 	QDir d( m_profilePath );
 	QStringList files = d.entryList("*.xml");
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-		if ((*it) != "_startup_.xml")
+		if ((*it) != "_startup_.xml") {
 			m_profiles.append(new CProfile(m_profilePath + *it));
-		else
+		}
+		else {
 			m_startupProfile = new CProfile(m_profilePath + *it);
+		}
 	}
 }
 
 CProfileMgr::~CProfileMgr(){
-	m_profiles.clear();//autoDelete is enabled, so all profiles are deleted
+	m_profiles.clear(); // autoDelete is enabled, so all profiles are deleted
+	delete m_startupProfile;
 }
 
 /** Returns a list of available profiles. */
@@ -87,13 +90,16 @@ CProfile* CProfileMgr::profile(const QString& name) {
 			return m_profiles.current();	
 		}
 	}
+	
 	return 0;
 }
 
 /** Returns the startup profile if it exists, otherwise return 0. */
 CProfile* CProfileMgr::startupProfile(){
-	if (!m_startupProfile)
+	if (!m_startupProfile) {
 		m_startupProfile = new CProfile(QString::null, "_startup_");
+	}
+	
 	return m_startupProfile;	
 }
 
@@ -105,8 +111,9 @@ void CProfileMgr::refresh(){
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
 		CProfile p(m_profilePath + *it);
 		if (p.name() == "_startup_") { //new startup profile
-			if  (!m_startupProfile) //don't put this in the if clause above,it doesn't work!
+			if  (!m_startupProfile) { //don't put this in the if clause above,it doesn't work!
 				m_startupProfile = new CProfile(m_profilePath + *it);
+			}
 		}
 		else if (!profile(p.name())) { //don't have it already
 			m_profiles.append(new CProfile(m_profilePath + *it));
