@@ -136,7 +136,7 @@ void CBiblePresenter::lookup(CSwordKey* key){
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
 	setUpdatesEnabled(true);		
 	
-	QWidget::setCaption( windowCaption() );	
+	CSwordPresenter::setCaption();	
 }
 
 /** This slot is called when the modules selected in the module chooserbar have changed. */

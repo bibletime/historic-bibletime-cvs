@@ -45,11 +45,11 @@ CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module )
 	
 	m_searchResult.ClearList();
 	
-	if (backend) {
-		if (requiredSwordVersion() != -1 && requiredSwordVersion() > backend->Version()) {
-		 	qWarning("THIS MODULE IS NOT USABLE WITH THIS SWORD VERSION: UPDATE TO SWORD version %f", backend->Version());
-		}
-	}
+//	if (backend) {
+//		if (requiredSwordVersion() != -1 && requiredSwordVersion() > backend->Version()) {
+//		 	qWarning("THIS MODULE IS NOT USABLE WITH THIS SWORD VERSION: UPDATE TO SWORD version %f", backend->Version());
+//		}
+//	}
 }
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {

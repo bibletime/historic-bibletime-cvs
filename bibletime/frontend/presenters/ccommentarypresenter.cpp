@@ -194,7 +194,7 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
 	m_htmlWidget->setModified(false);
 	setUpdatesEnabled(true);
 	
-	setCaption( windowCaption() );	
+	CSwordPresenter::setCaption( windowCaption() );	
 }
 
 /** No descriptions */

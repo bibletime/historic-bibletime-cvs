@@ -39,6 +39,7 @@
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
   : QComboBox(rw,parent,name){
+	setFocusPolicy(QWidget::WheelFocus);
   installEventFilter( lineEdit() );
 }
 

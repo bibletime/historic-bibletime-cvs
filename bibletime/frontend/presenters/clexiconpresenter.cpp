@@ -136,7 +136,7 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 		m_key->key(ldKey->key());
 		
 	setUpdatesEnabled(true);
-	setCaption( windowCaption() );
+	CSwordPresenter::setCaption( windowCaption() );
 }
 
 /** No descriptions */
