@@ -32,8 +32,7 @@
 #include <treekeyidx.h>
 
 
-CSwordKey::CSwordKey() {
-	m_module = 0;	
+CSwordKey::CSwordKey() : m_module(0) {
 }
 
 CSwordKey::CSwordKey(const CSwordKey& k) {
@@ -56,9 +55,6 @@ const QString CSwordKey::renderedText() {
 	if (k)
 		m_module->module()->SetKey(k);	
 	return QString::fromUtf8((const char*)*(m_module->module()));
-//	return m_module->isUnicode()
-//		? QString::fromUtf8((const char*)*(m_module->module()))
-//		: QString::fromLocal8Bit((const char*)*(m_module->module()));
 }
 
 const QString CSwordKey::strippedText() {
@@ -68,15 +64,13 @@ const QString CSwordKey::strippedText() {
 	if (k)
 		m_module->module()->SetKey(k);
 	return QString::fromUtf8(m_module->module()->StripText());	
-//	return m_module->isUnicode()
-//		? QString::fromUtf8(m_module->module()->StripText())
-//		: QString::fromLocal8Bit(m_module->module()->StripText());		
 }
 
 /** This will create a proper key object from a given module */
 CSwordKey* CSwordKey::createInstance( CSwordModuleInfo *module ){
 	if (!module)
 		return 0;
+		
 	switch( module->getType() ){
 		case CSwordModuleInfo::Bible:
 		case CSwordModuleInfo::Commentary:

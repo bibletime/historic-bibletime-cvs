@@ -46,7 +46,7 @@ CSwordLDKey::~CSwordLDKey(){
 }
 
 /** Clones this object by copying the members. */
-CSwordLDKey* CSwordLDKey::copy() const {
+CSwordKey* CSwordLDKey::copy() const {
 	return new CSwordLDKey(*this);
 }
 

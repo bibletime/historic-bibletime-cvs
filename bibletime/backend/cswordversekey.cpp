@@ -32,7 +32,7 @@ CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
 
 /** No descriptions */
 CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKey(k) {
- qWarning("copy constructor of CSwordVerseKey");
+// qWarning("copy constructor of CSwordVerseKey");
 }
 
 /** No descriptions */

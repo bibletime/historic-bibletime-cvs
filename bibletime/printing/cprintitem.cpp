@@ -201,6 +201,10 @@ void CPrintItem::clearData(){
 
 /** Updates the item. */
 void CPrintItem::updateListViewItem(){
+	qWarning("CPrintItem::updateListViewItem()");
+	ASSERT(m_module);
+	ASSERT(m_startKey);
+	ASSERT(m_stopKey);
 	if (m_module)
 		m_listViewItem->setText(0, m_module->name() );
 	if (m_startKey)

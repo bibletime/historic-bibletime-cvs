@@ -36,64 +36,64 @@ class KLineEdit;
 	* The copyright of KonqComboAction and KonqLabelAction is owned by him!
 	*	We included it and added the QT exception with his agreement.
 	*/
-class KonqComboAction : public KAction
-{
-  Q_OBJECT
-public:
-    KonqComboAction( const QString& text, int accel, const bool autoSized, const int width, const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name );
-    virtual int plug( QWidget *w, int index = -1 );
-    virtual void unplug( QWidget *w );
-    QGuardedPtr<KComboBox> combo() { ASSERT(m_combo); return m_combo; }
+//class KonqComboAction : public KAction
+//{
+//  Q_OBJECT
+//public:
+//    KonqComboAction( const QString& text, int accel, const bool autoSized, const int width, const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name );
+//    virtual int plug( QWidget *w, int index = -1 );
+//    virtual void unplug( QWidget *w );
+//    QGuardedPtr<KComboBox> combo() { ASSERT(m_combo); return m_combo; }
+//
+//signals:
+//    void plugged();
+//
+//private:
+//    QGuardedPtr<KComboBox> m_combo;
+//    QStringList m_items;
+//    const QObject *m_receiver;
+//    const char *m_member;
+//    const char *m_signal;
+//    bool m_autoSized;
+//    int m_width;
+//};
 
-signals:
-    void plugged();
-
-private:
-    QGuardedPtr<KComboBox> m_combo;
-    QStringList m_items;
-    const QObject *m_receiver;
-    const char *m_member;
-    const char *m_signal;
-    bool m_autoSized;
-    int m_width;
-};
-
-class KonqLabelAction : public KAction
-{
-  Q_OBJECT
-public:
-  KonqLabelAction( const QString &text, QObject *parent = 0, const char *name = 0 );
-
-  virtual int plug( QWidget *widget, int index = -1 );
-  virtual void unplug( QWidget *widget );
-};
+//class KonqLabelAction : public KAction
+//{
+//  Q_OBJECT
+//public:
+//  KonqLabelAction( const QString &text, QObject *parent = 0, const char *name = 0 );
+//
+//  virtual int plug( QWidget *widget, int index = -1 );
+//  virtual void unplug( QWidget *widget );
+//};
 
 // ***************************************************************************
 /** This class was created by Joachim Ansorg.
 	* It's not part of konqueror.
 	*/
-class CLineEditAction : public KAction
-{
-  Q_OBJECT
-public:
-    CLineEditAction( const QString& text, int accel, const bool autoSized, const int width, const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name );
-
-    virtual int plug( QWidget *w, int index = -1 );
-
-    virtual void unplug( QWidget *w );
-
-    QGuardedPtr<KLineEdit> lineEdit() { ASSERT(m_lineEdit); return m_lineEdit; }
-
-signals:
-    void plugged();
-
-private:
-    QGuardedPtr<KLineEdit> m_lineEdit;
-    const QObject *m_receiver;
-    const char *m_member;
-    const char *m_signal;
-    bool m_autoSized;
-    int m_width;
-};
+//class CLineEditAction : public KAction
+//{
+//  Q_OBJECT
+//public:
+//    CLineEditAction( const QString& text, int accel, const bool autoSized, const int width, const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name );
+//
+//    virtual int plug( QWidget *w, int index = -1 );
+//
+//    virtual void unplug( QWidget *w );
+//
+//    QGuardedPtr<KLineEdit> lineEdit() { ASSERT(m_lineEdit); return m_lineEdit; }
+//
+//signals:
+//    void plugged();
+//
+//private:
+//    QGuardedPtr<KLineEdit> m_lineEdit;
+//    const QObject *m_receiver;
+//    const char *m_member;
+//    const char *m_signal;
+//    bool m_autoSized;
+//    int m_width;
+//};
 
 #endif

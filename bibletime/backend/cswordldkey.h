@@ -74,7 +74,7 @@ public:
   /**
   * Clones this object by copying the members.
   */
-  virtual CSwordLDKey* copy() const;
+  virtual CSwordKey* copy() const;
   /**
   * Uses the parameter to returns the next entry afer this key.
   */

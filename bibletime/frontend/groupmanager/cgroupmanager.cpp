@@ -1584,21 +1584,20 @@ void CGroupManager::slotPrintBookmark(){
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() != CGroupManagerItem::Bookmark) )
 		return;
 	CPrinter*	printer = m_important->printer;	
-	ASSERT(printer);
-	
 	qWarning("CGroupManager::slotPrintBookmark()");
 	
 	CPrintItem*	printItem = new CPrintItem();
 	printItem->setDescription( m_pressedItem->description() );
-	ASSERT(m_pressedItem->getBookmarkKey());	
-	CSwordKey* k = (m_pressedItem->getBookmarkKey() ? m_pressedItem->getBookmarkKey()->copy() : 0);
-	ASSERT(k);
-	if (!k)
-		return;
-	printItem->setStartKey( k );
-	printItem->setStopKey( k );
-	printItem->setModule(m_pressedItem->moduleInfo());
-	
+	printItem->setModule(m_pressedItem->moduleInfo());	
+
+#warning "Debug CTreeKey's copy constructor!!"	
+//	CSwordKey* key = CSwordVerseKey::createInstance(m_pressedItem->moduleInfo());
+	CSwordKey* key = m_pressedItem->getBookmarkKey()->copy();
+	if (key) {
+   	key->key(m_pressedItem->getBookmarkKey()->key());
+		printItem->setStartKey( key );
+	//	printItem->setStopKey( key );
+  }
 	printer->addItemToQueue( printItem );
 }
 

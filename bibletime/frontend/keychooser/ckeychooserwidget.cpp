@@ -92,11 +92,14 @@ void CKCComboBox::wheelEvent( QWheelEvent* e ) {
 ///** Returns the size this widget would like to have. */
 QSize CKCComboBox::sizeHint() const {
 	// IMHO Qt has a bug: The sizehint is not updated if the list is refreshed with other items
-	QSize oldSize = QComboBox::sizeHint();
+	const QSize oldSize = QComboBox::sizeHint();
 	QRect contentsRect = style().comboButtonRect(0,0, oldSize.width(), oldSize.height());
 	const int buttonWidth = (oldSize.width() - contentsRect.width());
-	
-	return QSize( listBox()->sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());
+	ASSERT(listBox());
+	if (listBox())	
+		return QSize( listBox()->sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());
+	else
+		return QSize( sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());	
 }
 
 
@@ -135,7 +138,7 @@ CKeyChooserWidget::CKeyChooserWidget(QStringList *list, const bool useNextPrevSi
 }
 
 void CKeyChooserWidget::changeCombo(int i){
-	qDebug("CKeyChooserWidget::changeCombo(int i)");
+//	qDebug("CKeyChooserWidget::changeCombo(int i)");
 	if (!isUpdatesEnabled())
 		return;
 	setUpdatesEnabled(false);
@@ -164,7 +167,9 @@ void CKeyChooserWidget::changeCombo(int i){
 }
 
 void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
-//	qDebug("CKeyChooserWidget::reset(const int count, int index, bool do_emit)");
+	if (!isUpdatesEnabled())
+		return;
+
 	m_list.clear();
 	for (int i=1; i <= count; i++)
 		m_list.append( QString::number(i) );
@@ -173,8 +178,13 @@ void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
 
 void CKeyChooserWidget::reset(QStringList& list, int index, bool do_emit){
 	qDebug("CKeyChooserWidget::reset(QStringList&, int index, bool do_emit)");
+	if (!isUpdatesEnabled())
+		return;
+	
 	m_list = list;
 	reset(&m_list,index,do_emit);
+	
+	isResetting = false;		
 }
 
 
@@ -183,7 +193,7 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		return;
 	isResetting = true;	
 	setUpdatesEnabled(false);
-	comboBox()->setUpdatesEnabled(false);
+//	comboBox()->setUpdatesEnabled(false);
 
 	m_mainLayout->setResizeMode(QLayout::FreeResize);
 
@@ -213,7 +223,7 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		emit changed(comboBox()->currentItem());			
 	
 	setUpdatesEnabled(true);
-	comboBox()->setUpdatesEnabled(true);
+//	comboBox()->setUpdatesEnabled(true);
 	isResetting = false;	
 }
 

@@ -171,7 +171,7 @@ void CSearchDialogResultModuleView::printSearchResult(){
 		CPrintItem*	printItem = new CPrintItem();
 		printItem->setModule(m_currentModule);		
 		CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
-		if (key) {
+		if (newKey) {
 			newKey->key(text);
 			printItem->setStartKey(newKey);		
 		}

@@ -48,7 +48,7 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 		
 	m_queue = new printItemList;	
 	m_queue->setAutoDelete(true);	
-	
+		
 	m_styleList = new styleItemList;
 	m_styleList->setAutoDelete(true);		
 			
@@ -63,16 +63,12 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 }
 
 CPrinter::~CPrinter(){
-	qWarning("CPrinter::~CPrinter()");
 	saveSettings();
 	saveStyles();	
-	qWarning("CPrinter::~CPrinter(): 2.");	
 	config->sync();		
 	delete config;		
-	qWarning("CPrinter::~CPrinter(): 2.5");		
 	if (m_queue)
 		delete m_queue;
-	qWarning("CPrinter::~CPrinter(): 3.");			
 	delete m_styleList;
 }
 
@@ -133,7 +129,8 @@ void CPrinter::setup( QWidget* parent ){
 
 /** Starts printing the items. */
 void CPrinter::printQueue(){
-	qDebug("CPrinter::printQueue()");
+//	qDebug("CPrinter::printQueue()");
+	setCreator("BibleTime");
 
 	emit printingStarted();
 	QPainter p;
@@ -241,7 +238,6 @@ void CPrinter::setupStyles(){
 			const bool hasFrame = config->readBoolEntry( "has frame", false );
 			
 			CStyleFormatFrame* frame = format[index]->getFrame();
-//			ASSERT(frame);
 			if (frame) {
 				config->setGroup(QString("%1__%2__FRAME").arg(*it).arg(names[index]));
 				frame->setColor( config->readColorEntry("Color", &Qt::black) );
@@ -271,18 +267,13 @@ void CPrinter::saveStyles(){
 		*		...
 		*
 		*/
-//	ASSERT(config);
-	
 	//save list of styles
 	{
 		KConfigGroupSaver gs( config, "Styles");	
 		QStringList strList;
 		ASSERT(m_styleList);
 		for (m_styleList->first(); m_styleList->current(); m_styleList->next()) {
-			ASSERT(m_styleList);
-			ASSERT(m_styleList->current());
-			if (m_styleList->current())
-				strList.append(m_styleList->current()->getStyleName());
+			strList.append(m_styleList->current()->getStyleName());
 		}	
 		config->writeEntry( "styles", strList);			
 	}
@@ -295,7 +286,6 @@ void CPrinter::saveStyles(){
 	names[2] = "MODULETEXT";
 	
 	for (m_styleList->first(); m_styleList->current(); m_styleList->next()) {
-//		ASSERT(m_styleList->current());
 		config->setGroup(m_styleList->current()->getStyleName());
 		CStyle*	current = m_styleList->current();
 				

@@ -36,134 +36,134 @@
 	* The copyright of KonqComboAction and KonqLabelAction is owned by him!
 	*	We included it and added the QT exception with his agreement.
 	*/
-KonqComboAction::KonqComboAction( const QString& text, int accel, const bool autoSized, const int width, const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name )
-    : KAction( text, accel, parent, name )	 {
-
-  m_receiver = receiver;
- 	m_signal = signal;
-  m_member = member;
-  m_combo = 0;
-  m_autoSized = autoSized;
-  m_width = width;
-}
-
-int KonqComboAction::plug( QWidget *w, int index ) {
-  KToolBar *toolbar = (KToolBar*)w;
-  int id = getToolButtonID();
-
-  toolbar->insertCombo( m_items, id, true, m_signal, m_receiver, m_member, true, QString::null, m_width, index );
-  m_combo = (KComboBox*)toolbar->getCombo( id );
-  ASSERT(m_combo);
-
-  QWhatsThis::add( toolbar->getCombo(id), whatsThis() );
-  addContainer( toolbar, id );
-
-  connect( toolbar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
-  toolbar->setItemAutoSized( id, m_autoSized );
-
-  emit plugged();
-
-  return containerCount() - 1;
-}
-
-void KonqComboAction::unplug( QWidget *w ) {
-//  if ( !w->inherits( "KToolBar" ) )
-//    return;
-
-  KToolBar *toolbar = (KToolBar *)w;
-
-  int idx = findContainer( w );
-
-  toolbar->removeItem( menuId( idx ) );
-
-  removeContainer( idx );
-}
+//KonqComboAction::KonqComboAction( const QString& text, int accel, const bool autoSized, const int width, const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name )
+//    : KAction( text, accel, parent, name )	 {
+//
+//  m_receiver = receiver;
+// 	m_signal = signal;
+//  m_member = member;
+//  m_combo = 0;
+//  m_autoSized = autoSized;
+//  m_width = width;
+//}
+//
+//int KonqComboAction::plug( QWidget *w, int index ) {
+//  KToolBar *toolbar = (KToolBar*)w;
+//  int id = getToolButtonID();
+//
+//  toolbar->insertCombo( m_items, id, true, m_signal, m_receiver, m_member, true, QString::null, m_width, index );
+//  m_combo = (KComboBox*)toolbar->getCombo( id );
+//  ASSERT(m_combo);
+//
+//  QWhatsThis::add( toolbar->getCombo(id), whatsThis() );
+//  addContainer( toolbar, id );
+//
+//  connect( toolbar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+//  toolbar->setItemAutoSized( id, m_autoSized );
+//
+//  emit plugged();
+//
+//  return containerCount() - 1;
+//}
+//
+//void KonqComboAction::unplug( QWidget *w ) {
+////  if ( !w->inherits( "KToolBar" ) )
+////    return;
+//
+//  KToolBar *toolbar = (KToolBar *)w;
+//
+//  int idx = findContainer( w );
+//
+//  toolbar->removeItem( menuId( idx ) );
+//
+//  removeContainer( idx );
+//}
 
 /**********************************************************************************************/
 
-CLineEditAction::CLineEditAction( const QString& text, int accel, const bool autoSized,const int width,  const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name )
-    : KAction( text, accel, parent, name )	 {
-
-  m_receiver = receiver;
- 	m_signal = signal;
-  m_member = member;
-  m_autoSized = autoSized;
-  m_width = width;
-}
-
-int CLineEditAction::plug( QWidget *w, int index ) {
-  KToolBar *toolbar = (KToolBar *)w;
-  if (!w)
-  	return -1	;
-
-  int id = KAction::getToolButtonID();
-
-  toolbar->insertLined( "", id, m_signal, m_receiver, m_member, true, QString::null, m_width, index );
-  m_lineEdit = toolbar->getLined( id );
-  ASSERT(m_lineEdit);
-
-  addContainer( toolbar, id );
-  QWhatsThis::add( toolbar->getLined(id), whatsThis());
-  connect( toolbar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
-
-  toolbar->setItemAutoSized( id, m_autoSized );
-  emit plugged();
-
-  return containerCount() - 1;
-}
-
-void CLineEditAction::unplug( QWidget *w ) {
-  KToolBar *toolbar = (KToolBar *)w;
-  int idx = findContainer( w );
-  toolbar->removeItem( menuId( idx ) );
-  removeContainer( idx );
-}
+//CLineEditAction::CLineEditAction( const QString& text, int accel, const bool autoSized,const int width,  const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name )
+//    : KAction( text, accel, parent, name )	 {
+//
+//  m_receiver = receiver;
+// 	m_signal = signal;
+//  m_member = member;
+//  m_autoSized = autoSized;
+//  m_width = width;
+//}
+//
+//int CLineEditAction::plug( QWidget *w, int index ) {
+//  KToolBar *toolbar = (KToolBar *)w;
+//  if (!w)
+//  	return -1	;
+//
+//  int id = KAction::getToolButtonID();
+//
+//  toolbar->insertLined( "", id, m_signal, m_receiver, m_member, true, QString::null, m_width, index );
+//  m_lineEdit = toolbar->getLined( id );
+//  ASSERT(m_lineEdit);
+//
+//  addContainer( toolbar, id );
+//  QWhatsThis::add( toolbar->getLined(id), whatsThis());
+//  connect( toolbar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+//
+//  toolbar->setItemAutoSized( id, m_autoSized );
+//  emit plugged();
+//
+//  return containerCount() - 1;
+//}
+//
+//void CLineEditAction::unplug( QWidget *w ) {
+//  KToolBar *toolbar = (KToolBar *)w;
+//  int idx = findContainer( w );
+//  toolbar->removeItem( menuId( idx ) );
+//  removeContainer( idx );
+//}
 
 //--------------------------
 
-KonqLabelAction::KonqLabelAction( const QString &text, QObject *parent, const char *name )
-: KAction( text, 0, parent, name )
-{
-}
-
-int KonqLabelAction::plug( QWidget *widget, int index )
-{
-  //do not call the previous implementation here
-
-  if ( widget->inherits( "KToolBar" ) )
-  {
-    KToolBar *toolbar = (KToolBar *)widget;
-
-    int id = KAction::getToolButtonID();
-
-    QLabel *label = new QLabel( plainText(), widget );
-    label->adjustSize();
-    toolbar->insertWidget( id, label->width(), label, index );
-
-    addContainer( toolbar, id );
-    QWhatsThis::add( toolbar->getWidget(id), whatsThis());
-    connect( toolbar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
-
-    return containerCount() - 1;
-  }
-
-  return -1;
-}
-
-void KonqLabelAction::unplug( QWidget *widget )
-{
-  if ( widget->inherits( "KToolBar" ) )
-  {
-    KToolBar *bar = (KToolBar *)widget;
-
-    int idx = findContainer( bar );
-
-    if ( idx != -1 )
-    {
-      bar->removeItem( menuId( idx ) );
-      removeContainer( idx );
-    }
-
-    return;
-  }
-}
+//KonqLabelAction::KonqLabelAction( const QString &text, QObject *parent, const char *name )
+//: KAction( text, 0, parent, name )
+//{
+//}
+//
+//int KonqLabelAction::plug( QWidget *widget, int index )
+//{
+//  //do not call the previous implementation here
+//
+//  if ( widget->inherits( "KToolBar" ) )
+//  {
+//    KToolBar *toolbar = (KToolBar *)widget;
+//
+//    int id = KAction::getToolButtonID();
+//
+//    QLabel *label = new QLabel( plainText(), widget );
+//    label->adjustSize();
+//    toolbar->insertWidget( id, label->width(), label, index );
+//
+//    addContainer( toolbar, id );
+//    QWhatsThis::add( toolbar->getWidget(id), whatsThis());
+//    connect( toolbar, SIGNAL( destroyed() ), this, SLOT( slotDestroyed() ) );
+//
+//    return containerCount() - 1;
+//  }
+//
+//  return -1;
+//}
+//
+//void KonqLabelAction::unplug( QWidget *widget )
+//{
+//  if ( widget->inherits( "KToolBar" ) )
+//  {
+//    KToolBar *bar = (KToolBar *)widget;
+//
+//    int idx = findContainer( bar );
+//
+//    if ( idx != -1 )
+//    {
+//      bar->removeItem( menuId( idx ) );
+//      removeContainer( idx );
+//    }
+//
+//    return;
+//  }
+//}

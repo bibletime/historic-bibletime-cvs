@@ -241,7 +241,7 @@ void CLexiconPresenter::copyEntryAndText(){
 
 //print functions
 void CLexiconPresenter::printEntryAndText(){
-	CSwordLDKey* key = m_key->copy(); // later deleted by the print entry
+	CSwordLDKey* key = dynamic_cast<CSwordLDKey*>(m_key->copy()); // later deleted by the print entry
 	printKey(key, key, m_moduleList.first());
 }
 

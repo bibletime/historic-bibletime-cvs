@@ -105,7 +105,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			userData["inscriptRef"] = "true";
 			if (!strncmp(token, "scripRef v", 10)) { //module given
 
-				char module_version[5000];
+				char module_version[500];
 				for (i = 18; i < tokenLength-1; i++) {
 					if(token[i] != '\"')
 						module_version[i-18] = token[i];						
@@ -127,7 +127,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				verse_str[i-18] = 0;
 				const char* ref = parseThMLRef(verse_str);
  			  pushString(buf, ref);
- 			  delete ref;//delete now because it's unused
+ 			  delete [] ref;//delete now because it's unused
 			}
 			if ( !strncmp(token+i+2, "passage=", 8) ) { //passage after module part
 				char verse_str[5000];
@@ -142,7 +142,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				verse_str[idx] = '\0';
 				const char* ref = parseThMLRef(verse_str, userData["lastRefModule"].c_str());
 				pushString(buf, ref);
-				delete ref;
+				delete [] ref;
 			}
 		}
 		// we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
@@ -160,9 +160,9 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			}			
 			else { // like "<scripRef>John 3:16</scripRef>"
 				const char* ref = parseSimpleRef(userData["lastTextNode"].c_str());
-				cerr << ref << endl;				
+//				cerr << ref << endl;				
  			  pushString(buf, ref);
- 			  delete ref;//delete now because it's unused
+ 			  delete [] ref;//delete now because it's unused
 				// let's let text resume to output again
 				userData["suspendTextPassThru"] = "false";
 			}

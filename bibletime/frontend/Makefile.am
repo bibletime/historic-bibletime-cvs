@@ -7,7 +7,6 @@ cmdiarea.cpp \
 kstartuplogo.cpp \
 chtmlwidget.cpp \
 chtmldialog.cpp \
-actions.cpp \
 ctoolclass.cpp \
 cbtconfig.cpp \
 cinputdialog.cpp \
@@ -22,7 +21,6 @@ chtmlwidget.h \
 chtmldialog.h \
 ctoolclass.h \
 cbtconfig.h \
-actions.h \
 cinputdialog.h \
 cprofilemgr.h \
 cprofile.h \
