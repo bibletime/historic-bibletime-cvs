@@ -68,21 +68,22 @@ private:
     KAction* selectAll;
     KActionMenu* copyMenu;
   	struct {
-			KAction* entryOnly;
-   		KAction* textOnly;
-     	KAction* entryAndText;
+      KAction* reference;
+			KAction* entry;
       KAction* selectedText;
    	} copy;
 
     KActionMenu* saveMenu;
     struct {
+      KAction* reference;
    		KAction* entryAsPlain;
      	KAction* entryAsHTML;
     } save;
 
     KActionMenu* printMenu;
     struct {
-			KAction* entryAndText;
+      KAction* reference;
+			KAction* entry;
 		} print;
   } m_actions;
 

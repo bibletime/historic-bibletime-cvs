@@ -44,7 +44,7 @@
 
 
 CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, const char* name ) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, readWindow)),readWindow,name), CReadDisplay(readWindow) {
-	qWarning("constructor of CHTMLReadDisplay");
+//	qWarning("constructor of CHTMLReadDisplay");
   setDNDEnabled(false);
   m_view->setDragAutoScroll(false);
 }
@@ -53,7 +53,7 @@ CHTMLReadDisplay::~CHTMLReadDisplay(){
 }
 
 const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDisplay::TextPart part) {
-  qWarning("CHTMLReadDisplay::text( const CDisplay::TextType format, const CDisplay::TextPart part)");
+//  qWarning("CHTMLReadDisplay::text( const CDisplay::TextType format, const CDisplay::TextPart part)");
   switch (part) {
     case Document: {
       if (format == HTMLText)
@@ -80,8 +80,13 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
       }
 		}
 
-  	case AnchorOnly:
-   		return activeAnchor();
+  	case AnchorOnly: {
+			QString moduleName;
+   		QString keyName;
+     	CReferenceManager::Type type;
+      CReferenceManager::decodeHyperlink(activeAnchor(), moduleName, keyName, type);
+     	return keyName;
+    }
 
 		case AnchorTextOnly: {
 			QString moduleName;
@@ -174,8 +179,6 @@ void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event )
 }
 
 void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
-	KHTMLPart::khtmlMousePressEvent(event);
-
   m_dndData.node = DOM::Node();
   m_dndData.anchor = DOM::DOMString();
   m_dndData.mousePressed = false;
@@ -194,6 +197,7 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
       m_dndData.dragType = DNDData::Link;
     }
   }
+	KHTMLPart::khtmlMousePressEvent(event);
 }
 
 /** Reimplementation for our drag&drop system. */
@@ -280,7 +284,7 @@ CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWid
 
 /** Opens the popupmenu at the given position. */
 void CHTMLReadDisplayView::popupMenu( const QString& url, const QPoint& pos){	
-	qWarning("CHTMLReadDisplayView::popupMenu");
+//	qWarning("CHTMLReadDisplayView::popupMenu");
  	if (!url.isEmpty()) {
     qWarning(url.latin1());
   	m_display->setActiveAnchor(url);

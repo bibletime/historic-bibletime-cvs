@@ -38,7 +38,7 @@
 #include <qpopupmenu.h>
 
 CReadDisplay::CReadDisplay(CReadWindow* readWindow) : CDisplay(readWindow) {
-	qWarning("constructor of CReadDisplay");
+//	qWarning("constructor of CReadDisplay");
  	m_popup = 0;
  	m_activeAnchor = QString::null;
 }

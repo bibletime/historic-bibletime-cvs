@@ -28,7 +28,7 @@
   *@author The BibleTime team
   */
 
-class CCommentaryReadWindow : public CBibleReadWindow  {
+class CCommentaryReadWindow : public CLexiconReadWindow  {
    Q_OBJECT
 public: 
 	CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
@@ -46,6 +46,33 @@ protected:
 	virtual void initKeyboardActions();
   virtual void initConnections();
   virtual void initView();
+//  virtual void updatePopupMenu();
+//  virtual void setupPopupMenu();
+//
+//  struct {
+//    KAction* selectAll;
+//    KActionMenu* copyMenu;
+//  	struct {
+//			KAction* verseOnly;
+//   		KAction* textOnly;
+//     	KAction* verseAndText;
+//      KAction* entry;
+//      KAction* selectedText;
+//   	} copy;
+//
+//    KActionMenu* saveMenu;
+//    struct {
+//			KAction* verseAndText;
+//   		KAction* entryAsPlain;
+//     	KAction* entryAsHTML;
+//    } save;
+//
+//    KActionMenu* printMenu;
+//    struct {
+//			KAction* verseAndText;
+//			KAction* entry;
+//		} print;
+//  } m_actions;
 };
 
 #endif

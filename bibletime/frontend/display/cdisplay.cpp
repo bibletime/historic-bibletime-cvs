@@ -108,7 +108,7 @@ CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow ) {
 
 
 CDisplay::CDisplay(CDisplayWindow* parent) : m_parentWindow(parent) {
-  qWarning("constructor of CDisplay");
+//  qWarning("constructor of CDisplay");
   m_connections = new CDisplayConnections( this );
 }
 
@@ -116,7 +116,7 @@ CDisplay::~CDisplay(){
 }
 
 const bool CDisplay::copy( const CDisplay::TextType format, const CDisplay::TextPart part  ) {
-  qWarning("CDisplay::copy( const CDisplay::TextType format, const CDisplay::TextPart part  )");
+//  qWarning("CDisplay::copy( const CDisplay::TextType format, const CDisplay::TextPart part  )");
   const QString content = text(format, part);
 
   QClipboard* cb = KApplication::clipboard();
@@ -124,7 +124,7 @@ const bool CDisplay::copy( const CDisplay::TextType format, const CDisplay::Text
 }
 
 const bool CDisplay::save( const CDisplay::TextType format, const CDisplay::TextPart part ) {
-  qWarning("CDisplay::save( const CDisplay::TextType format, const CDisplay::TextPart part  )");
+//  qWarning("CDisplay::save( const CDisplay::TextType format, const CDisplay::TextPart part  )");
   const QString content = text(format, part);
   QString filter = QString::null;
 
@@ -175,6 +175,6 @@ CDisplayConnections* const CDisplay::connectionsProxy() const{
 }
 
 CDisplayWindow* const CDisplay::parentWindow() const {
-	qWarning("CDisplay::parentWindow()");
+//	qWarning("CDisplay::parentWindow()");
  	return m_parentWindow;
 }

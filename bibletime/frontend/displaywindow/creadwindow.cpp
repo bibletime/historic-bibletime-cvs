@@ -67,7 +67,7 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
 
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ){
-	qWarning("CReadWindow::lookup");
+//	qWarning("CReadWindow::lookup");
 	setUpdatesEnabled(false);	
 	
 	if (!key())

@@ -69,23 +69,23 @@ protected:
     KAction* selectAll;
     KActionMenu* copyMenu;
   	struct {
-			KAction* verseOnly;
-   		KAction* textOnly;
-     	KAction* verseAndText;
+			KAction* referenceOnly;
+   		KAction* referenceTextOnly;
+     	KAction* referenceAndText;
       KAction* chapter;
       KAction* selectedText;
    	} copy;
 
     KActionMenu* saveMenu;
     struct {
-			KAction* verseAndText;
+			KAction* referenceAndText;
    		KAction* chapterAsPlain;
      	KAction* chapterAsHTML;
     } save;
 
     KActionMenu* printMenu;
     struct {
-			KAction* verseAndText;
+			KAction* reference;
 			KAction* chapter;
 		} print;
   } m_actions;

@@ -103,7 +103,7 @@ void CLexiconReadWindow::initView(){
 }
 
 void CLexiconReadWindow::setupPopupMenu(){
-	popup()->insertTitle(CToolClass::getIconForModule(modules().first()), i18n("Bible window"));
+	popup()->insertTitle(CToolClass::getIconForModule(modules().first()), i18n("Lexicon window"));
 
  	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection());
   m_actions.selectAll->plug(popup());
@@ -111,12 +111,12 @@ void CLexiconReadWindow::setupPopupMenu(){
   (new KActionSeparator())->plug( popup() );
 
  	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), ICON_EDIT_COPY);	
- 	m_actions.copy.entryOnly = new KAction(i18n("Entry"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
- 	m_actions.copyMenu->insert(m_actions.copy.entryOnly);
-	m_actions.copy.textOnly = new KAction(i18n("Text of entry"), KShortcut(0),displayWidget()->connectionsProxy(), SLOT(copyAnchorTextOnly()), actionCollection());	
- 	m_actions.copyMenu->insert(m_actions.copy.textOnly);
- 	m_actions.copy.entryAndText = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection());
- 	m_actions.copyMenu->insert(m_actions.copy.entryAndText); 	
+ 	
+  m_actions.copy.reference = new KAction(i18n("Reference"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
+ 	m_actions.copyMenu->insert(m_actions.copy.reference);
+
+  m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAll()), actionCollection());
+ 	m_actions.copyMenu->insert(m_actions.copy.entry);
   m_actions.copyMenu->insert(new KActionSeparator());	
 	m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.selectedText);
@@ -130,18 +130,22 @@ void CLexiconReadWindow::setupPopupMenu(){
  	m_actions.saveMenu->plug(popup());
 
  	m_actions.printMenu = new KActionMenu(i18n("Print..."),ICON_FILE_PRINT);	
- 	m_actions.print.entryAndText = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection());
- 	m_actions.printMenu->insert(m_actions.print.entryAndText); 	
+ 	m_actions.print.reference = new KAction(i18n("Reference"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection());
+ 	m_actions.printMenu->insert(m_actions.print.reference); 	 	
+  m_actions.print.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAll()), actionCollection());
+ 	m_actions.printMenu->insert(m_actions.print.entry); 	
  	m_actions.printMenu->plug(popup());
 }
 
 /** Reimplemented. */
 void CLexiconReadWindow::updatePopupMenu(){
  	
-  m_actions.copy.entryOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
- 	m_actions.copy.textOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
- 	m_actions.copy.entryAndText->setEnabled( displayWidget()->hasActiveAnchor() );
+//  m_actions.copy.entryOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
+// 	m_actions.copy.textOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
+ 	m_actions.copy.reference->setEnabled( displayWidget()->hasActiveAnchor() );
 	m_actions.copy.selectedText->setEnabled( displayWidget()->hasSelection() );
+
+ 	m_actions.print.reference->setEnabled( displayWidget()->hasActiveAnchor() );
 }
 
 /** No descriptions */

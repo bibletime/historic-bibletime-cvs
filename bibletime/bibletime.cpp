@@ -183,7 +183,7 @@ void BibleTime::refreshPresenters() {
 
 /** Called before quit. */
 bool BibleTime::queryExit(){
-	qWarning("BibleTime::queryExit()");
+//	qWarning("BibleTime::queryExit()");
 	return true;
 
   if (!m_initialized)
@@ -194,7 +194,7 @@ bool BibleTime::queryExit(){
 
 /** Called before a window is closed */
 bool BibleTime::queryClose(){
-	qWarning("BibleTime::queryClose()");
+//	qWarning("BibleTime::queryClose()");
 	return true;
 
 	bool ret = true;
