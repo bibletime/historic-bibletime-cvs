@@ -46,5 +46,6 @@ install-data-local:
 MAINTAINERCLEANFILES = configure.files subdirs 
 
 dist-hook:
-	cd $(top_distdir) && perl admin/am_edit -padmin
-	cd $(top_distdir) && $(MAKE) -f admin/Makefile.common subdirs
+	cd $(top_distdir) && $(MAKE) -f Makefile.cvs
+
+
