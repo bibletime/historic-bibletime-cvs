@@ -197,6 +197,8 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 		showDebugMessages = true;
   }
 
+  CResMgr::init_i18n();
+  
   //since we don't support session management at the moment we disable this. Only leads to troubles.
 
 //  if (kapp->isRestored()){

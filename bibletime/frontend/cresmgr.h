@@ -29,7 +29,8 @@
   * @author The BibleTime team
   */  
 namespace CResMgr {
-//public:
+  void init_i18n();
+  
   namespace modules {
     namespace bible {
       extern const QString icon_unlocked;
@@ -56,47 +57,47 @@ namespace CResMgr {
   namespace mainMenu { //Main menu
     namespace file { //Main menu->File
       namespace clearQueue {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace print { //a standard action
-        extern const QString tooltip;
-        extern const QString whatsthis;
-      }      
+        extern QString tooltip;
+        extern QString whatsthis;
+      }
       namespace quit { //a standard action
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       }
     }
-    
+
     namespace view { //Main menu->View
       namespace showMainIndex {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace showToolBar { //a standard action
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       }
     }
 
     namespace mainIndex { //configuration for the main index and the view->search menu
       namespace search {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace searchdefaultbible {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
@@ -105,69 +106,69 @@ namespace CResMgr {
 
     namespace window { //Main menu->Window
       namespace loadProfile {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const char* actionName;
       }
       namespace saveProfile {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const char* actionName;
       }
       namespace saveToNewProfile {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace setupProfiles {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace showFullscreen {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace tile {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace cascade {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace autoTile {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace autoCascade {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace closeAll {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
@@ -176,53 +177,53 @@ namespace CResMgr {
 
     namespace settings { //Main menu->Settings
       namespace editToolBar { // available as KStdAction
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       }
       namespace optionsDialog { // available as KStdAction
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
     };
 
     namespace help { //Main menu->Help
       namespace handbook {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       };
       namespace bibleStudyHowTo {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       };
       namespace whatsThis { // available as KStdAction
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace bugreport { // available as KStdAction
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace dailyTip {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
         extern const char* actionName;
       };
       namespace aboutBibleTime { // available as KStdAction
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace aboutKDE { // available as KStdAction
-        extern const QString tooltip;
-        extern const QString whatsthis;
-      };      
+        extern QString tooltip;
+        extern QString whatsthis;
+      };
     };
   }  //end of main menu
 
@@ -230,88 +231,88 @@ namespace CResMgr {
     extern const QString icon;
 
     namespace searchButton {
-      extern const QString tooltip;
-      extern const QString whatsthis;
+      extern QString tooltip;
+      extern QString whatsthis;
     };
     namespace cancelSearchButton {
-      extern const QString tooltip;
-      extern const QString whatsthis;
+      extern QString tooltip;
+      extern QString whatsthis;
     };
-    
+
     namespace options {
 //      namespace moduleChooserDialog {
-//        extern const QString tooltip;
-//        extern const QString whatsthis;
+//        extern QString tooltip;
+//        extern QString whatsthis;
 //      };
       namespace moduleChooserButton {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace searchedText {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace searchType {
         namespace multipleWords_and {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace multipleWords_or {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace exactMatch {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace regExp {
-          extern const QString tooltip;
-          extern const QString whatsthis;
-        };        
+          extern QString tooltip;
+          extern QString whatsthis;
+        };
       };
-      
+
       namespace searchOptions {
         namespace caseSensitive {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
       };
       namespace chooseScope {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace scopeEditor {
         namespace rangeList {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace nameEdit {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace editRange {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace parsedResult {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace addNewRange {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace deleteCurrentRange {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
 
       };
     }
     namespace result {
       namespace moduleList {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
 
         namespace copyMenu {
           extern const QString icon;
@@ -324,8 +325,8 @@ namespace CResMgr {
         };
       };
       namespace foundItems {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
 
         namespace copyMenu {
           extern const QString icon;
@@ -336,13 +337,13 @@ namespace CResMgr {
         namespace printMenu {
           extern const QString icon;
         };
-        
+
       };
       namespace textPreview {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
-    };    
+    };
   };
 
   namespace workspace {
@@ -358,54 +359,54 @@ namespace CResMgr {
 
     namespace general {
       namespace scrollButton{
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
     };
-    
+
     namespace bibleWindow {
       namespace bookList {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       }
       namespace nextBook {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const KShortcut accel;
       }
       namespace previousBook {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const KShortcut accel;
       }
 
       namespace chapterList {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       }
       namespace nextChapter {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const KShortcut accel;
       }
       namespace previousChapter {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const KShortcut accel;
       }
 
       namespace verseList {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       }
       namespace nextVerse {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const KShortcut accel;
       }
       namespace previousVerse {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const KShortcut accel;
       }
 
@@ -422,26 +423,26 @@ namespace CResMgr {
     namespace commentaryWindow {
       namespace syncWindow {
         extern const QString icon;
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const KShortcut accel;
       }
-      
+
     };
 
     namespace lexiconWindow {
       namespace entryList {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       }
       namespace nextEntry {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const KShortcut accel;
       }
       namespace previousEntry {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const KShortcut accel;
       }
 
@@ -453,7 +454,7 @@ namespace CResMgr {
       }
       namespace printMenu {
         extern const QString icon;
-      }      
+      }
     };
     namespace bookWindow {
       namespace toggleTree {
@@ -462,152 +463,152 @@ namespace CResMgr {
       };
     };
 
-    
+
     namespace writeWindow {
       namespace saveText {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
       };
       namespace restoreText {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
       };
       namespace deleteEntry {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
       };
 
     //formatting buttons
       namespace boldText {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
       };
       namespace italicText {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
       };
       namespace underlinedText {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
       };
 
       namespace alignLeft {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
       };
       namespace alignCenter {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
       };
       namespace alignRight {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
       };
       namespace alignJustify {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
       };
 
 
       namespace fontFamily {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace fontSize {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace fontColor {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
-            
+
     };
   };
-  
+
    namespace printing {
     namespace itemPage {
       namespace styleChooser {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace itemList {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace itemUp {
         extern const QString icon;
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace itemDown {
         extern const QString icon;
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace itemDelete {
         extern const QString icon;
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
     };
 
     namespace styleList {
       namespace newStyle {
         extern const QString icon;
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace deleteStyle {
         extern const QString icon;
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace editStyle {
         extern const QString icon;
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
     };
     namespace printerSettings {
       namespace margins {
-        extern const QString whatsthis;
+        extern QString whatsthis;
 
         namespace upper {
-          extern const QString tooltip;
-          extern const QString whatsthis;          
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace lower {
-          extern const QString tooltip;
-          extern const QString whatsthis;          
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace left {
-          extern const QString tooltip;
-          extern const QString whatsthis;          
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace right {
-          extern const QString tooltip;
-          extern const QString whatsthis;          
+          extern QString tooltip;
+          extern QString whatsthis;
         };
       };
     };
@@ -616,82 +617,82 @@ namespace CResMgr {
   namespace settings {
     namespace startup {
       extern const QString icon;
-      
+
       namespace dailyTip {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace showLogo {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace restoreWorkingArea {
-        extern const QString tooltip;
-        extern const QString whatsthis;
-      };      
+        extern QString tooltip;
+        extern QString whatsthis;
+      };
     };
     namespace fonts {
       extern const QString icon;
 
       namespace typeChooser {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
     };
     namespace colors {
       extern const QString icon;
 
       namespace text {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace background {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace links {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace footnotes {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace strongNumbers {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace highlightedVerse {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace jesusWords {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace morphTags {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
-    };    
+    };
     namespace profiles {
       extern const QString icon;
-      
+
       namespace list {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace createNew {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace deleteCurrent {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
       namespace renameCurrent {
-        extern const QString tooltip;
-        extern const QString whatsthis;
+        extern QString tooltip;
+        extern QString whatsthis;
       };
     };
     namespace sword {
@@ -699,108 +700,108 @@ namespace CResMgr {
 
       namespace general {
         namespace cacheKeys {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace scrolling {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace language {
-          extern const QString tooltip;
-          extern const QString whatsthis;
-        };        
+          extern QString tooltip;
+          extern QString whatsthis;
+        };
       };
       namespace modules {
         namespace bible {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace commentary {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace lexicon {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace dailyDevotional {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace hebrewStrongs {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace greekStrongs {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace hebrewMorph {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace greekMorph {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
       };
       namespace filters {
         namespace lineBreaks {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace verseNumbers {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace footnotes {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace strongsNumbers {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace morphTags {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace headings {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace lemmas {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace hebrewVowelPoints {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace hebrewCantillation {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace greekAccents {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
         namespace textualVariants {
-          extern const QString tooltip;
-          extern const QString whatsthis;
+          extern QString tooltip;
+          extern QString whatsthis;
         };
       };
     };
     namespace keys {
       extern const QString icon;
-    };    
+    };
   };
 
   namespace mainIndex { //configuration for the main index and the view->search menu
     namespace search {
-      extern const QString tooltip;
-      extern const QString whatsthis;
+      extern QString tooltip;
+      extern QString whatsthis;
       extern const QString icon;
       extern const KShortcut accel;
       extern const char* actionName;
