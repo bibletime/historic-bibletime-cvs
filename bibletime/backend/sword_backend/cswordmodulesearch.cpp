@@ -134,6 +134,7 @@ void CSwordModuleSearch::startSearchThread(void){
 	pthread_attr_init(&attr);
 	
 	pthread_mutex_init(&percentage_mutex, NULL);	
+//	percentage_mutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	const int i = pthread_create( &thread, &attr, &dummy, this );	
 
