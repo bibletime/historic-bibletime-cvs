@@ -58,7 +58,7 @@ public:
   	useLastResult	= 0x000000010,
   	useScope	 		= 0x000000020
 	};
-	enum percentType {
+	enum PercentType {
   	currentModule,
 		allModules
 	};
@@ -81,7 +81,7 @@ public:
   /**
  	* Sets the text which should be search in the modules.
  	*/
-  void setSearchedText( const QString );
+  void setSearchedText( const QString& );
   /**
  	* Starts the search for the search text.
  	*/
@@ -89,11 +89,11 @@ public:
   /**
  	* This function sets the modules which should be searched.
  	*/
-  void setModules( ListCSwordModuleInfo );
+  void setModules( const ListCSwordModuleInfo& );
   /**
  	* Sets the search scope.
  	*/
-  void setSearchScope( sword::ListKey scope );
+  void setSearchScope( const sword::ListKey& scope );
   /**
  	*	Calls with true if you want to use the last searchresult as search scope.
  	*/
@@ -109,30 +109,30 @@ public:
   /**
  	* @return "true" if in the last search the searcher found items, if no items were found return "false"
  	*/
-  const bool foundItems();
+  const bool foundItems() const;
   /**
  	* This functions starts the search: First it creates a new thread for the search and it calles the the
  	* function to start the search.
  	*/
-	void startSearchThread(void);
+	void startSearchThread();
   /**
  	* Sets the options for this search. Options include the
 	* flags and search types of the Sword searc interface.
 	*/
-  void setSearchOptions( int options );
+  void setSearchOptions( const int options );
   /**
  	* Returns the percent for the given type.
  	*/
-  const int getPercent( percentType type );
-	void percentUpdate(char percent, void *p);
+  const int getPercent( const PercentType type );
+	inline static void percentUpdate(char percent, void *p);
   /**
   * Returns a copy of the used search scope.
   */
-  sword::ListKey& scope();
-	void connectPercentUpdate( QObject *receiver, const char *member );
-	void connectFinished( QObject *receiver, const char *member );
+  const sword::ListKey& scope() const;
+	void connectPercentUpdate( QObject * receiver, const char * member );
+	void connectFinished( QObject * receiver, const char * member );
   void searchFinished();
-		
+	
 protected:
 	QString m_searchedText;
 	sword::ListKey m_searchScope;

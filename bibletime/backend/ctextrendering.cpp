@@ -31,7 +31,7 @@
 #include <klocale.h>
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo const * mod, const Settings settings ) 
-	: m_settings(settings),
+	: m_settings( settings ),
 		m_moduleList(),
 		m_key(key),
 		m_childList( 0 )
@@ -39,10 +39,10 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo co
 	m_moduleList.append( mod );
 }
 
-CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, ListCSwordModuleInfo& mods, const Settings settings ) 
-	: m_settings(settings),
+CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, const ListCSwordModuleInfo& mods, const Settings settings ) 
+	: m_settings( settings ),
 		m_moduleList( mods ),
-		m_key(key),
+		m_key( key ),
 		m_childList( 0 )
 {
 	
@@ -58,14 +58,6 @@ CTextRendering::KeyTreeItem::KeyTreeItem()
 CTextRendering::KeyTreeItem::~KeyTreeItem() {
 	delete m_childList;
 }
-
-CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() const {
-	if (!m_childList) {
-		m_childList = new KeyTree();
-	}
-		
-	return m_childList;
-};
 
 ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 	//collect all modules which are available and used by child items

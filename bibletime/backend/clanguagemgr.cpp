@@ -31,8 +31,6 @@
 //initialize static language list
 typedef QPtrList<CLanguageMgr::Language> LanguageList;
 static LanguageList m_langList;
-static CLanguageMgr::Language m_defaultLanguage;
-
 static LanguageList cleanupLangPtrs;
 
 CLanguageMgr::Language::Language() : m_altAbbrevs(0) {
@@ -55,9 +53,8 @@ CLanguageMgr::Language::Language(const Language& l)  {
 	}
 }
 
-CLanguageMgr::Language::Language( const QString& abbrev, const QString& name, const QString& translatedName, const QStringList altAbbrevs ) : m_altAbbrevs(0) {
+CLanguageMgr::Language::Language( const QString& abbrev, const QString& name, const QString& translatedName, const QStringList& altAbbrevs ) : m_altAbbrevs(0) {
   m_abbrev = abbrev;
-  // m_altAbbrevs = altAbbrevs;
   m_englishName = name;
   m_translatedName = translatedName;
 	
@@ -71,32 +68,13 @@ CLanguageMgr::Language::~Language() {
 	delete m_altAbbrevs;
 };
 
-/** Returns true if this language object is valid, i.e. has an abbrev and name. */
-const bool CLanguageMgr::Language::isValid() const {
-  return (!abbrev().isEmpty() && !name().isEmpty());
-}
-
-const QString& CLanguageMgr::Language::abbrev() const {
-  if (m_altAbbrevs && m_abbrev.isEmpty() && m_altAbbrevs->count()) { //no standard abbrev but alternative ones
-    return m_altAbbrevs->first();
-  };
-  return m_abbrev;
-};
-
-const QString& CLanguageMgr::Language::translatedName() const {
-  return m_translatedName;
-};
-
-/*
-const QPixmap CLanguageMgr::Language::flag() {
-  return QPixmap();
-};
-*/
 
 /****************************************************/
 /******************** CLanguageMgr ******************/
 /****************************************************/
 CLanguageMgr::CLanguageMgr() : m_langMap(0) {
+ 	m_availableModulesCache.moduleCount = 0;
+	
   init();
 }
 
@@ -108,40 +86,40 @@ CLanguageMgr::~CLanguageMgr() {
 	m_langList.clear();
 }
 
-const CLanguageMgr::LangMap* const CLanguageMgr::languages() const {
-  return &m_langMap;
-};
-
-const CLanguageMgr::LangMap CLanguageMgr::availableLanguages() {
-  LangMap map;
-  
-  //collect the languages abbrevs of all modules
-  ListCSwordModuleInfo mods = CPointers::backend()->moduleList();
-  QStrList abbrevs;
-  char *abbrev;  
-
-  for (CSwordModuleInfo* m = mods.first(); m; m = mods.next()) {
-    abbrev = m->module()->Lang();
-    if (abbrev && !abbrevs.contains(abbrev)) {
-      abbrevs.append( abbrev );
-    }
-  };
-
-  //now create a map of available langs
-  
-  for ( abbrev = abbrevs.first(); abbrev; abbrev = abbrevs.next() ) {
-    const Language* const lang = languageForAbbrev(abbrev);
-    if (lang->isValid()) {
-      map.insert( abbrev, lang );
-    }
-    else {
-			Language* newLang = new Language(abbrev, abbrev, abbrev);
-			cleanupLangPtrs.append(newLang);
-      map.insert( abbrev, newLang );
-    }
-  };
-
-  return map;
+const CLanguageMgr::LangMap& CLanguageMgr::availableLanguages() {
+	ListCSwordModuleInfo mods = CPointers::backend()->moduleList();
+	
+  if ( m_availableModulesCache.moduleCount != mods.count() ) { //we have to refill the cached map
+		m_availableModulesCache.availableLanguages.clear();
+		m_availableModulesCache.moduleCount = mods.count();
+		
+		//collect the languages abbrevs of all modules
+		QStrList abbrevs;
+		char *abbrev;  
+	
+		for (CSwordModuleInfo* m = mods.first(); m; m = mods.next()) {
+			abbrev = m->module()->Lang();
+			if (abbrev && !abbrevs.contains(abbrev)) {
+				abbrevs.append( abbrev );
+			}
+		};
+	
+		//now create a map of available langs
+		for ( abbrev = abbrevs.first(); abbrev; abbrev = abbrevs.next() ) {
+			const Language* const lang = languageForAbbrev(abbrev);
+			if (lang->isValid()) {
+				m_availableModulesCache.availableLanguages.insert( abbrev, lang );
+			}
+			else { //invalid lang used by a modules, create a new language using the abbrev
+				Language* newLang = new Language(abbrev, abbrev, abbrev);
+				cleanupLangPtrs.append(newLang);
+				
+				m_availableModulesCache.availableLanguages.insert( abbrev, newLang );
+			}
+		};	
+	}
+	
+	return m_availableModulesCache.availableLanguages;
 };
 
 const CLanguageMgr::Language* const CLanguageMgr::languageForAbbrev( const QString& abbrev ) const {
@@ -179,15 +157,11 @@ const CLanguageMgr::Language* const CLanguageMgr::languageForTranslatedName( con
   return &m_defaultLanguage; //invalid language
 };
 
-const CLanguageMgr::Language* const CLanguageMgr::defaultLanguage() const {
-	return &m_defaultLanguage;
-};
-
-
 void CLanguageMgr::init() {
   //if we've already inserted all items we do not proceed
-  if (m_langMap.count() > 0)
+  if (m_langMap.count() > 0) {
     return;
+	}
 
 /*
 * Chris explained in an eMail how language codes are build:
@@ -210,10 +184,6 @@ xx-???, including the AleWiesler module.
 
 */    
     
-//	m_langList.setAutoDelete(true);
-	
-//	m_langList.setAutoDelete(false);
-		
 //  m_langList.append( new Language("aa"  , "Afar"        , i18n("Afar")) );
 //  m_langList.append( new Language("ab"  , "Abkhazian"   , i18n("Abkhazian")) );
 //  m_langList.append( new Language("ae"  , "Avestan"     , i18n("Avestan")) );
@@ -267,7 +237,7 @@ xx-???, including the AleWiesler module.
   m_langList.append( new Language("fy"  , "Frisian"     , i18n("Frisian")) );
 
   m_langList.append( new Language("ga"  , "Irish"       , i18n("Irish")) );
-  m_langList.append( new Language("gd"  , "Gaelic (Scots)"     , i18n("Gaelic (Scots)")) );
+  m_langList.append( new Language("gd"  , "Gaelic (Scots)", i18n("Gaelic (Scots)")) );
 //  m_langList.append( new Language("gl"  , "Gallegan"    , i18n("Gallegan")) );
 //  m_langList.append( new Language("gn"  , "Guarani"     , i18n("Guarani")) );
 //  m_langList.append( new Language("gn"  , "Gujarati"    , i18n("Gujarati")) );
@@ -433,26 +403,3 @@ xx-???, including the AleWiesler module.
     m_langMap.insert( lang->abbrev(), lang);
   };
 };
-
-/** No descriptions */
-/*void CLanguageMgr::debug(){
-  Language lang = languageForName("German");
-  qWarning("abbrev of language German is %s", lang.abbrev().latin1());
-
-  lang = languageForTranslatedName("Deutsch");
-  qWarning("abbrev of translated language name Deutsch is %s", lang.abbrev().latin1());
-
-  lang =  languageForAbbrev("ar");
-  qWarning("language name of abbrev ar is %s", lang.name().latin1());
-
-  lang =  languageForAbbrev("sd");
-  qWarning("language name of abbrev sd is %s and is valid? %i", lang.name().latin1(), lang.isValid());
-
-  // print out all languages
-  LangMap map = languages();
-	
-	LangMap::const_iterator end = map.end();
-  for ( LangMap::const_iterator it = map.begin(); it != end; ++it ) {
-    qWarning("language %s: %s (%s)", it.data().abbrev().latin1(), it.data().name().latin1(),it.data().translatedName().latin1());
-  };
-}*/

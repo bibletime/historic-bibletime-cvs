@@ -43,9 +43,7 @@ public:
     Normal = 0,
     HTMLEscaped
   };
-
 	virtual ~CSwordKey() {};
-	
 	
 	//pure virtual functions		
 	virtual const QString key() = 0;
@@ -54,7 +52,7 @@ public:
 	virtual CSwordKey* copy() const = 0;	
 	
 	//implemented functions
-	virtual CSwordModuleInfo* const module(CSwordModuleInfo* const newModule = 0);
+	inline virtual CSwordModuleInfo* const module(CSwordModuleInfo* const newModule = 0);
 	virtual const QString rawText();
   virtual const QString renderedText( const CSwordKey::TextRenderType mode = CSwordKey::Normal );
 	virtual const QString strippedText();
@@ -67,10 +65,26 @@ public:
   /**
   * The assignment operator for more easy use of the key classes.
   */
-  virtual CSwordKey& operator = ( const QString& );
+  inline virtual CSwordKey& operator = ( const QString& );
 
 protected:
 	CSwordModuleInfo* m_module; //module pointer used by all keys
 };
+
+
+/** The assignment operator for more easy use of the key classes. */
+inline CSwordKey& CSwordKey::operator = ( const QString& newKey ){
+  key(newKey);
+  return *this;
+}
+
+inline CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
+	if (newModule) {
+		m_module = newModule;
+	}
+	
+	return m_module;
+}
+
 
 #endif

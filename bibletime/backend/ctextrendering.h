@@ -44,19 +44,20 @@ public:
 		
 		KeyTreeItem();
 		KeyTreeItem(const QString& key, CSwordModuleInfo const * module, const Settings settings);
-		KeyTreeItem(const QString& key, ListCSwordModuleInfo& modules, const Settings settings);
+		KeyTreeItem(const QString& key, const ListCSwordModuleInfo& modules, const Settings settings);
 		~KeyTreeItem();
 		
-		const ListCSwordModuleInfo& modules() const {
+		inline const ListCSwordModuleInfo& modules() const {
 			return m_moduleList;
 		};
-		const QString& key() const {
+		inline const QString& key() const {
 			return m_key;
 		};
-		const Settings& settings() const {
+		inline const Settings& settings() const {
 			return m_settings;
 		};
-		KeyTree* const childList() const;
+		
+		inline KeyTree* const childList() const;
 
 	private:
 		Settings m_settings;
@@ -136,6 +137,14 @@ public:
 protected:	
 	virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* const module );
 	virtual const QString finishText( const QString&, KeyTree& tree );
+};
+
+inline CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() const {
+	if (!m_childList) {
+		m_childList = new KeyTree();
+	}
+		
+	return m_childList;
 };
 
 #endif

@@ -338,6 +338,7 @@ const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
     module()->deleteEntry();
     return true;
   };
+	
   return false;
 }
 

@@ -29,18 +29,12 @@
 
 static CSwordModuleSearch* searcher = 0;
 
-void startSearchCallback(void* /*p*/){
-	if (searcher)
-		searcher->startSearch();
-}
-
-void percentUpdateDummy(char percent, void *p) {
-	searcher->percentUpdate(percent, p);
-};
-
 CSwordModuleSearch::CSwordModuleSearch() :
 	m_searchedText(QString::null),
-	m_searchOptions(0),m_foundItems(false),m_isSearching(false),m_terminateSearch(false)
+	m_searchOptions(0),
+	m_foundItems(false),
+	m_isSearching(false),
+	m_terminateSearch(false)
 {
 	searcher = this;
 }
@@ -50,16 +44,20 @@ CSwordModuleSearch::~CSwordModuleSearch(){
 }
 
 void CSwordModuleSearch::percentUpdate(char percent, void *){
-	cms_currentProgress = (int)percent;
-	if (cms_module_count > 1)
-	  cms_overallProgress = (int)((float)((cms_module_current - 1)*100+cms_currentProgress))/cms_module_count;
-	else
-	  cms_overallProgress = cms_currentProgress;
-	m_updateSig.activate();	
+	Q_ASSERT(searcher);
+	
+	searcher->cms_currentProgress = (int)percent;
+	if (searcher->cms_module_count > 1) {
+	  searcher->cms_overallProgress = (int)((float)((searcher->cms_module_current - 1) * 100 + searcher->cms_currentProgress)) / searcher->cms_module_count;
+	}
+	else {
+	  searcher->cms_overallProgress = searcher->cms_currentProgress;
+	}
+	searcher->m_updateSig.activate();	
 }
 
 /** This function sets the modules which should be searched. */
-void CSwordModuleSearch::setModules( ListCSwordModuleInfo list ) {
+void CSwordModuleSearch::setModules( const ListCSwordModuleInfo& list ) {
 	m_moduleList = list;
 }
 
@@ -79,8 +77,9 @@ const bool CSwordModuleSearch::startSearch() {
 	
 	for (m_moduleList.first(); m_moduleList.current() && !m_terminateSearch; m_moduleList.next()) {
 		cms_module_current++;
-		if ( m_moduleList.current()->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) )
+		if ( m_moduleList.current()->search(m_searchedText, m_searchOptions, m_searchScope, &CSwordModuleSearch::percentUpdate) ) {
 			foundItems = true;
+		}
 	}
 	cms_currentProgress = 100;
 	cms_overallProgress = 100;
@@ -93,27 +92,27 @@ const bool CSwordModuleSearch::startSearch() {
 	return true;
 }
 
-void CSwordModuleSearch::startSearchThread(void){
+void CSwordModuleSearch::startSearchThread(){
 	startSearch();
 }
 
 /** Sets the text which should be search in the modules. */
-void CSwordModuleSearch::setSearchedText( const QString text ){
+void CSwordModuleSearch::setSearchedText( const QString& text ){
 	m_searchedText = text;
 }
 
 /** Sets the search scope. */
-void CSwordModuleSearch::setSearchScope( sword::ListKey scope ) {
+void CSwordModuleSearch::setSearchScope( const sword::ListKey& scope ) {
   m_searchScope.copyFrom( scope );
   if (!strlen(scope.getRangeText())) { //we can't search with an empty search scope, would crash
     //reset the scope
     resetSearchScope();
     
     //disable searching with a scope!
-    if (m_searchOptions | useScope) {
+  //  if (m_searchOptions | useScope) {
 //      qWarning("using the scope!");
       //set back the scope flag
-    }
+   // }
   }
 }
 
@@ -124,24 +123,27 @@ void CSwordModuleSearch::resetSearchScope() {
 
 /** Interrupts the current search. */
 void CSwordModuleSearch::interruptSearch() {
-	if (m_isSearching)
+	if (m_isSearching) {
 		m_terminateSearch = true; //no other modules will be searched
-	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next())
+	}
+	
+	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		m_moduleList.current()->interruptSearch(); //interrupt the current module
+	}
 }
 
 /** Returns true if in the last search the searcher found items, if no items were found return false. */
-const bool CSwordModuleSearch::foundItems() {
+const bool CSwordModuleSearch::foundItems() const {
 	return m_foundItems;
 }
 
 /** Sets the options for this search. Options include theflags and search types of the Sword searc interface. */
-void CSwordModuleSearch::setSearchOptions( int options ){
+void CSwordModuleSearch::setSearchOptions( const int options ){
 	m_searchOptions = options;
 }
 
 /** Returns the percent for the given type. */
-const int CSwordModuleSearch::getPercent( percentType type ){
+const int CSwordModuleSearch::getPercent( const PercentType type ){
 	switch (type) {
 		case currentModule:
 			return cms_currentProgress;
@@ -154,7 +156,7 @@ const int CSwordModuleSearch::getPercent( percentType type ){
 }
 
 /** Returns a copy of the used search scope. */
-sword::ListKey& CSwordModuleSearch::scope() {
+const sword::ListKey& CSwordModuleSearch::scope() const {
 	return m_searchScope;
 }
 

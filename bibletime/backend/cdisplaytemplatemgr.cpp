@@ -64,8 +64,6 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 
 	QString langCSS;
   CLanguageMgr::LangMap langMap = CPointers::languageMgr()->availableLanguages();
-//   CLanguageMgr::LangMapIterator it;
-// 	CLanguageMgr::LangMapIterator end = langMap.end();
 	
   for ( CLanguageMgr::LangMapIterator it( langMap ); it.current(); ++it ) {
   	const CLanguageMgr::Language* lang = it.current();

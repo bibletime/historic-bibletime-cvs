@@ -114,7 +114,7 @@ public:
   *	
   *	@return The list of modules managed by this backend
   */
-  virtual ListCSwordModuleInfo& moduleList();
+  inline virtual ListCSwordModuleInfo& moduleList();
   /**
   * Initializes the Sword modules.
   *
@@ -174,7 +174,7 @@ public:
   /**
   * @return Our global config object to store the cipher keys etc.
 	*/
-  sword::SWConfig* const getConfig() const;
+  inline sword::SWConfig* const getConfig() const;
   /**
   * Tries to find the config object for the module. The second paramter will be the found config.
   * @return True if the config was found, false if not. If false is returned the moduleConfig object is in undefined/unknwon state.
@@ -200,7 +200,9 @@ public:
   * Returns our transliterator object we use. Returns 0 if ICU is not used.
   */
   sword::SWFilter* const transliterator();
-  /** Returns true if ICU is being used. */
+  /** 
+	* Returns true if ICU is being used. 
+	*/
   const bool useICU() const;
   /**
   * Reload all Sword modules.

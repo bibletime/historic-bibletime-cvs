@@ -15,11 +15,13 @@
  *                                                                         *
  ***************************************************************************/
 
+//BibleTime includes
+#include "backend/clanguagemgr.h"
+
+
 #ifndef CPOINTERS_H
 #define CPOINTERS_H
 
-//BibleTime includes
-#include "backend/clanguagemgr.h"
 
 class CSwordBackend;
 class CPrinter;
@@ -45,13 +47,54 @@ public: // Public methods
   /**
   * Returns a pointer to the printer object.
   */
-  static CPrinter* const printer();
+  inline static CPrinter* const printer();
   /**
   * Returns a pointer to the backend ...
   */
-  static CSwordBackend* const backend();
-  static CLanguageMgr* const languageMgr();
-	static CInfoDisplay* const infoDisplay();  
+  inline static CSwordBackend* const backend();
+  inline static CLanguageMgr* const languageMgr();
+	inline static CInfoDisplay* const infoDisplay();  
+
+	struct PointerCache {
+		PointerCache() {
+			backend = 0;
+			printer = 0;
+			langMgr = 0;
+			infoDisplay = 0;
+		};
+		
+		CSwordBackend* backend;
+		CPrinter*      printer;
+		CLanguageMgr*  langMgr;
+		CInfoDisplay*  infoDisplay;
+	};
+
 };
+
+extern CPointers::PointerCache m_pointerCache;
+
+/** Returns a pointer to the backend ... */
+inline CSwordBackend* const CPointers::backend() {
+	return m_pointerCache.backend;
+}
+
+/** Returns a pointer to the backend ... */
+inline CLanguageMgr* const CPointers::languageMgr() {
+  if (!m_pointerCache.langMgr) {
+    m_pointerCache.langMgr = new CLanguageMgr();
+  }
+	return m_pointerCache.langMgr;
+}
+
+/** Returns a pointer to the printer object. */
+inline CPrinter* const CPointers::printer() {
+	return m_pointerCache.printer;
+}
+
+/** Returns a pointer to the printer object. */
+inline CInfoDisplay* const CPointers::infoDisplay() {
+	return m_pointerCache.infoDisplay;
+}
+
 
 #endif

@@ -44,14 +44,6 @@ CSwordKey::CSwordKey(const CSwordKey& k) {
 	m_module = k.m_module;
 }
 
-CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
-	if (newModule) {
-		m_module = newModule;
-	}
-	
-	return m_module;
-}
-
 const QString CSwordKey::rawText() {
   if (!m_module) {
 		return QString::null;
@@ -104,9 +96,10 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
 }
 
 const QString CSwordKey::strippedText() {
-//	qWarning("const QString CSwordKey::strippedText()");
-  if (!m_module)
+  if (!m_module) {
 		return QString::null;
+	}
+	
 	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
 		m_module->module()->SetKey(k);
   }
@@ -129,10 +122,4 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo* const module ){
 		default:
 			return 0;
 	}
-}
-
-/** The assignment operator for more easy use of the key classes. */
-CSwordKey& CSwordKey::operator = ( const QString& newKey ){
-  key(newKey);
-  return *this;
 }

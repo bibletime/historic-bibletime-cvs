@@ -22,7 +22,6 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qvaluelist.h>
-#include <qpixmap.h>
 #include <qmap.h>
 #include <qdict.h>
 
@@ -39,14 +38,14 @@ public:
     */
     Language();
 		Language(const Language&); //copy constructor
-    Language(const QString& abbrev, const QString& englishName, const QString& translatedName, const QStringList altAbbrevs = QStringList());
+    Language(const QString& abbrev, const QString& englishName, const QString& translatedName, const QStringList& altAbbrevs = QStringList());
     ~Language();
 		
-    const QString& abbrev() const;
-    const QString& translatedName() const;
+		inline const QString& abbrev() const;
+    inline const QString& translatedName() const;
 
 		//always define inlines in the header file, or make them not inline.
-    inline const QString& name() const{
+    inline const QString& name() const {
 			return m_englishName;
 		}
 
@@ -54,12 +53,10 @@ public:
 			return m_altAbbrevs;
 		};
    	
-		// const QPixmap flag();
-    
 		/**
     * Returns true if this language object is valid, i.e. has an abbrev and name.
     */
-    const bool isValid() const;
+    inline const bool isValid() const;
 		
   private:
     QString m_abbrev;
@@ -72,22 +69,20 @@ public:
   typedef QDictIterator<Language> LangMapIterator;
 
   CLanguageMgr();
-	virtual ~CLanguageMgr();
+	~CLanguageMgr();
   /**
   * Returns the standard languages available as standard. Does nothing for Sword.
   */
-  const CLanguageMgr::LangMap* const languages() const;
+  inline const CLanguageMgr::LangMap* const languages() const;
   /**
   * Returns the languages which are available. The languages cover all available modules, but nothing more.
   */
-  const CLanguageMgr::LangMap availableLanguages();
+  const CLanguageMgr::LangMap& availableLanguages();
   const CLanguageMgr::Language* const languageForAbbrev( const QString& abbrev ) const;
   const CLanguageMgr::Language* const languageForName( const QString& language ) const;
   const CLanguageMgr::Language* const languageForTranslatedName( const QString& language ) const;
 	
-	const CLanguageMgr::Language* const defaultLanguage() const;
-
-  //void debug();
+	inline const CLanguageMgr::Language* const defaultLanguage() const;
 
 private:
   void init();
@@ -96,6 +91,38 @@ private:
 	}
 	
   mutable LangMap m_langMap;
+	Language m_defaultLanguage;
+	
+	struct {
+		unsigned int moduleCount;
+		LangMap availableLanguages;
+	} m_availableModulesCache;
 };
+
+
+/** Returns true if this language object is valid, i.e. has an abbrev and name. */
+inline const bool CLanguageMgr::Language::isValid() const {
+  return (!abbrev().isEmpty() && !name().isEmpty());
+}
+
+inline const QString& CLanguageMgr::Language::abbrev() const {
+  if (m_altAbbrevs && m_abbrev.isEmpty() && m_altAbbrevs->count()) { //no standard abbrev but alternative ones
+    return m_altAbbrevs->first();
+  };
+  return m_abbrev;
+};
+
+inline const QString& CLanguageMgr::Language::translatedName() const {
+  return m_translatedName;
+};
+
+inline const CLanguageMgr::LangMap* const CLanguageMgr::languages() const {
+  return &m_langMap;
+};
+
+inline const CLanguageMgr::Language* const CLanguageMgr::defaultLanguage() const {
+	return &m_defaultLanguage;
+};
+
 
 #endif

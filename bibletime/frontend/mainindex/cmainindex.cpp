@@ -263,13 +263,13 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
    Q_ASSERT(after);
    Q_ASSERT(parent);
 
- 	if (after)
+/* 	if (after)
  		qWarning("DROP AFTER %s", after->text(0).latin1());
  	if (parent)
  		qWarning("DROP parent %s", parent->text(0).latin1());
-
+*/
   //the drop was started in this main index widget
-  if (m_itemsMovable && e->source() == viewport()) {
+  if (m_itemsMovable && (e->source() == viewport())) {
     /*
     * If the drag was started from the main index and should move items and if the destination is the bookmark
     * folder or one of its subfolders
@@ -286,16 +286,16 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
 	CItemBase* parentItem = dynamic_cast<CItemBase*>(parent);
 	CItemBase* afterItem = dynamic_cast<CItemBase*>(after);
 	if (afterItem && afterItem->isFolder()) {
-			afterItem->setOpen(true);
-			afterItem->dropped(e);
+		afterItem->setOpen(true);
+		afterItem->dropped(e);
 	}
 	else if (afterItem && !afterItem->isFolder() && parentItem) {
-			parentItem->setOpen(true);
-			parentItem->dropped(e);
+		parentItem->setOpen(true);
+		afterItem->dropped(e);
 	}
 	else if (parentItem) {
-			parentItem->setOpen(true);
-			parentItem->dropped(e);
+		parentItem->setOpen(true);
+		parentItem->dropped(e);
 	}
 }
 

@@ -192,7 +192,7 @@ bool CModuleItem::acceptDrop( const QMimeSource* src ) const {
     if (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark) {
       CDragDropMgr::Item item = CDragDropMgr::decode(src).first();
       CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
-      if (m && module()->type() == m->type()) { //it makes only sense
+      if (m && (module()->type() == m->type())) { //it makes only sense
         return true;
       }
       //but we also allow drops from bibles on commentaries and the other way from commentaries
@@ -233,7 +233,7 @@ void CModuleItem::dropped( QDropEvent* e ){
       }
     }
     else if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) { //open the module
-//      qWarning("type is Bookmark!");    
+/*      qWarning("type is Bookmark!");    */
       CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
       if (m) { //it makes only sense to create a new window for a module with the same type
         if ((module()->type() == m->type()) ||
@@ -247,9 +247,9 @@ void CModuleItem::dropped( QDropEvent* e ){
         };
       }
     }
-//    else {
-////      qWarning("type is Unknown!");
-//    };
+/*    else {
+      qWarning("type is Unknown!");
+    };*/
   };
 }
 

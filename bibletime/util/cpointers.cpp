@@ -21,54 +21,26 @@
 
 #include "printing/cprinter.h"
 
-static CSwordBackend* m_backend 		= 0;
-static CPrinter*      m_printer 		= 0;
-static CLanguageMgr*  m_langMgr 		= 0;
-static CInfoDisplay*  m_infoDisplay = 0;
-
+CPointers::PointerCache m_pointerCache;
 
 void CPointers::setPrinter(CPrinter* const printer) {
-	m_printer = printer;
+	m_pointerCache.printer = printer;
 }
 
 void CPointers::setBackend(CSwordBackend* const backend) {
-	m_backend = backend;
+	m_pointerCache.backend = backend;
 }
 
 void CPointers::setInfoDisplay(CInfoDisplay* const infoDisplay) {
-	m_infoDisplay = infoDisplay;
+	m_pointerCache.infoDisplay = infoDisplay;
 }
 
 void CPointers::deletePrinter() {
-	delete m_printer;
-	m_printer = 0;
+	delete m_pointerCache.printer;
+	m_pointerCache.printer = 0;
 }
 
 void CPointers::deleteBackend() {
-	delete m_backend;
-	m_backend = 0;
+	delete m_pointerCache.backend;
+	m_pointerCache.backend = 0;
 }
-
-/** Returns a pointer to the backend ... */
-CSwordBackend* const CPointers::backend() {
-	return m_backend;
-}
-
-/** Returns a pointer to the backend ... */
-CLanguageMgr* const CPointers::languageMgr() {
-  if (!m_langMgr) {
-    m_langMgr = new CLanguageMgr();
-  }
-	return m_langMgr;
-}
-
-/** Returns a pointer to the printer object. */
-CPrinter* const CPointers::printer() {
-	return m_printer;
-}
-
-/** Returns a pointer to the printer object. */
-CInfoDisplay* const CPointers::infoDisplay() {
-	return m_infoDisplay;
-}
-
