@@ -64,7 +64,8 @@ QStringList BTInstallMgr::Tool::RemoteConfig::sourceList( sword::InstallMgr* mgr
   QStringList names;
 
   //add Sword remote sources
-	for (InstallSourceMap::iterator it = mgr->sources.begin(); it != mgr->sources.end(); it++) {
+	for (InstallSourceMap::iterator it = mgr->sources.begin(); it != mgr->sources.end(); it++)
+	{
     names << QString::fromLocal8Bit(it->second->caption);
   }
 
@@ -146,21 +147,19 @@ sword::InstallSource BTInstallMgr::Tool::RemoteConfig::source( sword::InstallMgr
 		SWConfig config(Tool::RemoteConfig::configFilename().latin1());
 		SectionMap::iterator sourcesSection = config.Sections.find("Sources");
 		if (sourcesSection != config.Sections.end()) {
-			ConfigEntMap::iterator sourceBegin = sourcesSection->second.lower_bound("DIRSource");
-			ConfigEntMap::iterator sourceEnd = sourcesSection->second.upper_bound("DIRSource");
+			ConfigEntMap::iterator sourceBegin =
+					sourcesSection->second.lower_bound("DIRSource");
+			ConfigEntMap::iterator sourceEnd =
+					sourcesSection->second.upper_bound("DIRSource");
 
-    	//	qWarning("looking for local source %s", name.latin1());
+			while (sourceBegin != sourceEnd) {
+      	InstallSource is("DIR", sourceBegin->second.c_str());
+        if (!strcmp(is.caption, name.latin1()) ) { //found local dir source
+        	return is;
+				}
 
-         	while (sourceBegin != sourceEnd) {
-            	InstallSource is("DIR", sourceBegin->second.c_str());
-            	//qWarning("found %s", is.caption.c_str());
-        
-          		if (!strcmp(is.caption, name.latin1()) ) { //found local dir source
-            		//qWarning("found it");
-            		return is;
-          		}
-			sourceBegin++;
-        	}
+				sourceBegin++;//next source
+			}
 		}
   }
 
@@ -168,7 +167,8 @@ sword::InstallSource BTInstallMgr::Tool::RemoteConfig::source( sword::InstallMgr
   is.caption = "unknwon caption";
   is.source = "unknwon source";
   is.directory = "unknown dir";
-  return is;
+	qWarning("no source with name %s available!", name.latin1());
+	return is;
 }
 
 const bool BTInstallMgr::Tool::RemoteConfig::isRemoteSource( sword::InstallSource* is ) {
@@ -259,6 +259,7 @@ CSwordBackend* BTInstallMgr::Tool::backend( sword::InstallSource* const is) {
     ret = new CSwordBackend( QString::fromLatin1(is->localShadow.c_str()) );
 	}
   else {
+		qWarning("constructing a backend in %s", is->directory.c_str());
     ret = new CSwordBackend( QString::fromLatin1(is->directory.c_str()) );
 	}
 

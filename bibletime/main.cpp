@@ -133,6 +133,7 @@ int main(int argc, char* argv[]) {
 		{"debug", I18N_NOOP("Enable debug messages"),0},
 		{"ignore-session", I18N_NOOP("Ignore the startup session that was saved when BibleTime was closed the last time."),0},
 		{"open-default-bible <key>", I18N_NOOP("Open the default bible with the given key. Use <random> to open at a random position."),0},
+		{"install-local <path>", I18N_NOOP("Open the SwordSetup dialog to install modules from <path>"),0},
 		{0,0,0}
 	};
 
@@ -149,7 +150,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 		"http://www.bibletime.info/",
 		"info@bibletime.info"
 	);
-	
+
   /***********************************************
   *    Active developers (sorted by last name)   *
   ************************************************/
@@ -160,24 +161,24 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   // and / or search for multiple words, other fixes and improvements
   aboutData.addAuthor("Nikolay Igotti", I18N_NOOP("Frontend"), "olonho@hotmail.com", "");
   // comitted search in default bible, opened modules, other smaller things
-  aboutData.addAuthor("Gary Sims", I18N_NOOP("Frontend"), "gary@garysims.co.uk", "");  
+  aboutData.addAuthor("Gary Sims", I18N_NOOP("Frontend"), "gary@garysims.co.uk", "");
 	// artwork
 	aboutData.addAuthor("Timothy R. Butler", I18N_NOOP("Icons, startlogo, webpage"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");
 	aboutData.addAuthor("James Ots", I18N_NOOP("Crystal icons, crystal startlogo, webpage"), "me@jamesots.com", "www.jamesots.com");
   // documentation
-	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");		
+	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
 
   //inactiv
 //	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), 				"mlybarge@insight.rr.com","");
 //	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
 //	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
 //	aboutData.addAuthor("Tim Brodie", 	  I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
-	
+
   /***********************************************
   *        Credits (sorted by last name)         *
   ************************************************/
   //Sponsored many years the www.bibletime.de domain!
-  aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Sponsored our internet domain for many years"), "tom@theta-consulting.de", "");  
+  aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Sponsored our internet domain for many years"), "tom@theta-consulting.de", "");
   //He provided us with the Bible Study HowTo
   aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible Study HowTo"), "ncc@ncchampton.org", "");
   // Language codes iso639-1, iso639-2 and SIL language codes
@@ -187,9 +188,9 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   QString dummy = I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name
   dummy = I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"); //translators eMail
 
-	KCmdLineArgs::init(argc, argv, &aboutData);	
+	KCmdLineArgs::init(argc, argv, &aboutData);
 	KCmdLineArgs::addCmdLineOptions( options );
-	
+
 	BibleTimeApp app;
 	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics/");
 
@@ -211,11 +212,11 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   }
 	else {
 */
-		const bool showIt = CBTConfig::get(CBTConfig::logo);	
+		const bool showIt = CBTConfig::get(CBTConfig::logo);
 
 		if(showIt) {
 			KStartupLogo::createSplash();
-			KStartupLogo::showSplash();				
+			KStartupLogo::showSplash();
 			KStartupLogo::setStatusMessage( i18n("Starting BibleTime") + QString::fromLatin1("...") );
 		}
 
@@ -227,34 +228,26 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
       QDir dir(stdDirs.saveLocation("data", "bibletime/"));
       if (!dir.exists("sessions/") && dir.exists("profiles/")) { //only old dir exists
         dir.rename("profiles", "sessions");
-      }   
+      }
     }
-            
+
 		util::scoped_ptr<BibleTime> bibletime( new BibleTime() );
 		bibletime_ptr = bibletime.get();
-//    bibletime->hide();
 
 		// a new BibleTime version was installed (maybe a completely new installation)
 		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
       KStartupLogo::hideSplash();
 
       CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
-//			CHTMLDialog dlg(CResMgr::helpDialog::firstStart);
-//			dlg.exec();
 			bibletime->slotSettingsOptions();
+		}
 
-//      KStartupLogo::showSplash();
-		}			
-   
 		//The tip of the day
 		if (CBTConfig::get(CBTConfig::tips)) {
       KStartupLogo::hideSplash();
-      
 			bibletime->slotHelpTipOfDay();
-
-//      KStartupLogo::showSplash();
     }
-    
+
     // restore the workspace and process command line options
     app.setMainWidget(bibletime);
     bibletime->show();

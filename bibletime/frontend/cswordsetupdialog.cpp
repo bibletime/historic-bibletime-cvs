@@ -160,10 +160,14 @@ void CInstallSourcesMgrDialog::slotOk() {
 	QListViewItemIterator it(m_localSourcesList);
 	while (it.current()) {
 		sword::InstallSource is = sword::InstallSource("DIR");
+		is.caption = it.current()->text(0).latin1();
+		is.source = "local"; //just some placeholder to make InstallSrc's parsing happy
 		is.directory = it.current()->text(0).latin1();
 		BTInstallMgr::Tool::RemoteConfig::addSource( &is );
+
 		++it; //next local source item
 	}
+
 
 	//save remote sources
 	BTInstallMgr::Tool::RemoteConfig::resetRemoteSources(); //we wan't to overwrite old sources, not add to them
@@ -934,16 +938,19 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   categoryGlossaries->setOpen(true);
 
   BTInstallMgr iMgr;
-  sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
+	qWarning("trying to find source %s!", sourceName.latin1());
+	sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
+	qWarning("found source %s with dir %s!", is.caption.c_str(), is.directory.c_str());
 
   if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
-    if (!m_refreshedRemoteSources)
+    if (!m_refreshedRemoteSources) {
       iMgr.refreshRemoteSource( &is );
+		}
     m_refreshedRemoteSources = true;
   }
 
   //kind of a hack to provide a pointer to mgr next line
-  util::scoped_ptr<CSwordBackend> backend(BTInstallMgr::Tool::backend(&is) );
+  util::scoped_ptr<CSwordBackend> backend( BTInstallMgr::Tool::backend(&is) );
   Q_ASSERT(backend);
   if (!backend)
     return;
@@ -1131,8 +1138,6 @@ void CSwordSetupDialog::slot_installModules(){
 
 	//first get all chosen modules
 	QStringList moduleList;
-//	QListViewItem* item1 = 0;
-//	QListViewItem* item2 = 0;
 
 	QListViewItemIterator list_it( m_installModuleListView );
 	while ( list_it.current() ) {
@@ -1150,7 +1155,7 @@ void CSwordSetupDialog::slot_installModules(){
 		m_currentInstallMgr = &iMgr;
     sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, currentInstallSource());
 
-//		qWarning("installung from %s/%s", is.source.c_str(), is.directory.c_str());
+		qWarning("installung from %s/%s", is.source.c_str(), is.directory.c_str());
     QString target = m_targetCombo->currentText();
 
 		//make sure target/mods.d and target/modules exist
