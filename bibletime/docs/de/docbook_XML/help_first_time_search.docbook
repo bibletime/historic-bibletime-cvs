@@ -13,7 +13,7 @@ Was ist der Suchdialog?
 </question>
 <answer>
 <para>
-Der Suchdialog ist der Dialog, in dem sie die installierten Sword Dokuments (Module) mit ihrer Kopie von BibleTime durchsuchen können.
+Der Suchdialog ist der Dialog, in dem sie die installierten Sword Dokumente (Module) mit Ihrer Kopie von BibleTime durchsuchen können.
 Sie können Text eingeben und diese Text in den Dokumenten suchen. Die gefundenen EInträge erscheinen
 in einer List, so dass Sie mit ihnen arbeiten können.
 </para>
@@ -27,15 +27,15 @@ Wie suche ich nach Text?
 </question>
 <answer>
 <para>
-Um Text zu suchen, klicken sie auf den ersten Eintrag der Karteikarten im obreren Bereich des Dialoges.
+Um Text zu suchen, klicken sie auf den ersten Eintrag der Karteikarten im oberen Bereich des Dialoges.
 Geben Sie nun etwas Text in der Eingabezeile am Beginn der Seite ein.
-Falls Sie keine besonderen Dine tun möchten lassen Sie die Einstellungen unberührt und klicken
-Sie auf den "Suchen" Knopf am unteren Ende des Dialoges.
+Falls Sie keine besonderen Dinge tun möchten, lassen Sie die Einstellungen unberührt und klicken
+Sie auf den Knopf "Suchen" am unteren Ende des Dialoges.
 Der Fortschritt der Suche wird in den beiden Anzeigen unten angezeigt.
 Die erste Anzeige zeigt den Fortschritt für das aktuelle Modul, die zweite zeigt die
 Prozent der gesamten Suche.
 Es ist möglich in mehr als einem Modul zu suchen, daher werden zwei Anzeigen benötigt.
-Falls Sie jedoch mehr Dinge mit dem Suchdialog tun möchten bieten wir ihnen Einstellungen an:
+Falls Sie jedoch mehr Dinge mit dem Suchdialog tun möchten, bieten wir Ihnen Einstellungen an:
 
 </para>
 <para>
@@ -53,7 +53,7 @@ Genaue Suche
 </emphasis>
 </para>
 <para>
-Der text wird genauso gesucht, wie er eingegeben wurde. Außer wenn Sie die GRO?/klein Unterscheidung anschalten,
+Der Text wird genauso gesucht, wie er eingegeben wurde. Außer wenn Sie die GROSS/klein Unterscheidung anschalten,
 wird ohne deren Unterscheidung gesucht.
 </para>
 <para>
@@ -62,12 +62,12 @@ Reguläre Ausdrücke
 </emphasis>
 </para>
 <para>
-Falls Sie diesen Typ der Suche benutzen werden normalen GNU reguläre Ausdrücke benutzt.
+Falls Sie diesen Typ der Suche benutzen, werden normalen GNU reguläre Ausdrücke eingesetzt.
 </para>
 <para>
-Im Normalfall werden all Suchen ohne Unterscheidung von GROß/klein durchgeführt,
-um die Unterscheidung anzuschalten aktivieren Sie die Box "GROß/klein".
-Falls SIe Probleme mit den Suchtypen, der Unterscheidung von GROß/klein oder anderen
+Im Normalfall werden alle Suchen ohne Unterscheidung von GROSS/klein durchgeführt,
+um die Unterscheidung anzuschalten aktivieren Sie die Box "GROSS/klein".
+Falls SIe Probleme mit den Suchtypen, der Unterscheidung von GROSS/klein oder anderen
 Suche relevanten Dingen bekommen schauen Sie in unser Handbuch für mehr Informationen.
 </para>
 </answer>

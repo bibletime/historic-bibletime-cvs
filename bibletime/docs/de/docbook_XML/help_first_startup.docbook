@@ -33,14 +33,18 @@ MDI
 </entry>
 <entry>
 
-MDI ist die Abkürzung für <emphasis>Multiple Document Interface</emphasis>.
-Mit der Hilfe von MDI ist es möglich mehr als ein Anzeigefenster zur selben Zeit geöffnet zu haben!
-Sie können zwei verschiedene Bibeln Seite an Seite anschauen und ihren Text vergleichen.
-Aber es ist ebenfalls möglich nur ein Fenster wie in BibleTime 0.2x geöffnet zu haben.
-Das Menü <emphasis>Fenster</emphasis> wird zum arbeiten mit der MDI Schnittstelle benutzt.
+MDI ist die Abkürzung für <emphasis>Multiple Document
+Interface</emphasis>.  Mit der Hilfe von MDI ist es möglich mehr als
+ein Anzeigefenster zur selben Zeit geöffnet zu haben!  Sie können zwei
+verschiedene Bibeln Seite an Seite anschauen und ihren Text
+vergleichen.  Aber es ist ebenfalls möglich nur ein Fenster wie in
+BibleTime 0.2x geöffnet zu haben.  Das Menü
+<emphasis>Fenster</emphasis> wird zum Arbeiten mit der MDI
+Schnittstelle benutzt.
 
-Der MDI Bereich wird nur Anzeigefenster enthalten, nicht anderes. Diese saubere Darstellung
-vermeidet die Verwirrung von Benutzern durch zu viele Möglichkeiten.
+Der MDI Bereich wird nur Anzeigefenster enthalten, nicht
+anderes. Diese saubere Darstellung vermeidet die Verwirrung der
+Benutzern durch zu viele Möglichkeiten.
 </entry>
 </row>
 
@@ -52,14 +56,18 @@ Anzeigefenster
 </entry>
 <entry>
 
-Ein Anzeigefenster ist ein Fenster innerhalb des MDI Bereiches von BibleTime. Ein Anzeigefenster präsentiert den Inhalt eines Dokumentes
-(SWORD Modul) in einem vernünftigen Format (Bibeln werden zum Beispiel als HTML Text mit mit Verknüpfungen auf Versreferenzen).
-Wir benutzen Anzeigefenster um einen allgemeinen Ansatz für die Zukunft zu haben.
-Crosswire wird Sword erweitern sowie mehr Material zur Verteilung veröffentlicht wird.
-Wenn neue Modultypen für Sword erzeugt werden werden wir einfach zusätzliche Typen von Anzeigefenstern hinzufügen.
+Ein Anzeigefenster ist ein Fenster innerhalb des MDI Bereiches von
+BibleTime. Ein Anzeigefenster präsentiert den Inhalt eines Dokumentes
+(SWORD Modul) in einem vernünftigen Format (Bibeln werden zum Beispiel
+als HTML-Text mit Verknüpfungen auf Versreferenzen dargestellt).  Wir
+benutzen Anzeigefenster um einen allgemeinen Ansatz für die Zukunft zu
+haben.  Crosswire wird Sword erweitern sowie mehr Material
+veröffentlichen.  Wenn neue Modultypen für Sword entstehen, werden
+wir einfach zusätzliche Typen von Anzeigefenstern hinzufügen.
 
-Dieser Ansatz macht BibleTime für die Zukunft erweiterbar und macht es möglich jede Art von Modulen anzuzeigen
-die in Zukunft eruegt werden können (zum Beispiel Karten oder Sound-Module).
+Dieser Ansatz macht BibleTime für die Zukunft erweiterbar und macht es
+möglich jede Art von Modulen anzuzeigen, die in Zukunft erzeugt werden
+können (zum Beispiel Karten oder Sound-Module).
 
 </entry>
 </row>
@@ -71,12 +79,16 @@ Hauptgruppe
 </entry>
 <entry>
 
-Die Hauptgruppe ist der Baum auf der linken Seite von BibleTimes Anwendungsfenster.
-Die Hauptgruppe kombiniert die Lesezeichenverwaltung und die Moduleverwaltung von BibleTime 0.2x.
-Um mit der Hauptgruppe zu arbeiten benutzen Sie das Menü der rechte Maustaste.
+Die Hauptgruppe ist der Baum auf der linken Seite von BibleTimes
+Anwendungsfenster.  Die Hauptgruppe kombiniert die
+Lesezeichenverwaltung und die Moduleverwaltung von BibleTime 0.2x.  Um
+mit der Hauptgruppe zu arbeiten benutzen Sie das Menü der rechte
+Maustaste.
 
-Die Hauptgruppe ist Drag&amp;Drop fähig: Sie können Versreferenzen aus einem geöffneten Anzeigefenster oder aus dem Suchdialog ziehen
-um ein Lesezeichen zu erzeugen, und sie können Einträge im Baum bewegen (z.B. Gruppen oder Lesezeichen in andere Gruppen bewegen).
+Die Hauptgruppe ist Drag&amp;Drop fähig: Sie können Versreferenzen aus
+einem geöffneten Anzeigefenster oder aus dem Suchdialog ziehen um ein
+Lesezeichen zu erzeugen, und sie können Einträge im Baum bewegen
+(z.B. Gruppen oder Lesezeichen in andere Gruppen bewegen).
 </entry>
 </row>
 <row>
@@ -86,11 +98,12 @@ Suchschnittstelle
 </emphasis>
 </entry>
 <entry>
-
-Die Suchfunktion befindet sich nun in einem eigenen Fenster. Klicken Sie mit der rechten Maustaste auf ein Modul und wählen Sie "Suche Modul(e)"
-um den Suchdialog zu öffnen.
-Der Dialog enthält Bereiche zum eingeben des Suchbegriffes, zum setzen des Suchbereiches und zum Navigieren in den gefundenen Einträgen.
-Die letzte Karteikarte zeigt die grafische Suchanalyse.
+Die Suchfunktion befindet sich nun in einem eigenen Fenster. Klicken
+Sie mit der rechten Maustaste auf ein Modul und wählen Sie "Suche
+Modul(e)" um den Suchdialog zu öffnen.  Der Dialog enthält Bereiche,
+in denen Suchbegriffe eingegeben, Suchbereiche gesetzt und in den
+gefundenen Einträgen navigiert werden kann. Die
+letzte Karteikarte zeigt die grafische Suchanalyse.
 </entry>
 </row>
 <row>
@@ -100,11 +113,12 @@ Drag&amp;Drop
 </emphasis>
 </entry>
 <entry>
-
-Drag&amp;Drop ist ein wichtiger Teil von BibleTime! Sie können Dokumente, Versreferenzen, Lesezeichen, Ordner, Suchergebnisse usw. herumziehen.
-Orte, an denen Sie sie fallenlassen können sind die Hauptgruppe, die Anzeigefenster und der Kommentareditor.
-Spielen Sie einfach etwas herum um herauszufinden wie unser Drag&amp;Drop System arbeitet!
-Wir hoffen, dass es ihnen gefällt!
+Drag&amp;Drop ist ein wichtiger Teil von BibleTime! Sie können
+Dokumente, Versreferenzen, Lesezeichen, Ordner, Suchergebnisse
+usw. herumziehen.  Orte, an denen Sie sie fallen lassen können, sind
+die Hauptgruppe, die Anzeigefenster und der Kommentareditor.  Spielen
+Sie einfach etwas herum um herauszufinden wie unser
+Drag&amp;Drop-System arbeitet!  Wir hoffen, dass es Ihnen gefällt!
 </entry>
 </row>
 </tbody>
@@ -146,9 +160,11 @@ Beschreibung
 </entry>
 <entry>
 
-Dies ist die Homepage von BibleTime! Gehen Sie zu dieser Seite um Dokumentationsseiten zu lesen. Vergessen sie nicht
-das FAQ auf <ulink url="http://www.bibletime.de">www.bibletime.de</ulink> zu lesen, es enthält Antworten auf Fragen,
-die sie wahrscheinlich haben.
+Dies ist die Homepage von BibleTime! Gehen Sie zu dieser Seite um
+Dokumentationsseiten zu lesen. Vergessen sie nicht das FAQ auf <ulink
+url="http://www.bibletime.de">www.bibletime.de</ulink> zu lesen, es
+enthält Antworten auf Fragen, die Sie wahrscheinlich haben.
+
 </entry>
 </row>
 
@@ -163,11 +179,16 @@ die sie wahrscheinlich haben.
 </entry>
 <entry>
 
-Dies ist das Heim von Crosswire! Crosswire ist die Bibelgesellschaft, welche die Textbibliothek und den Installationsmanager für Sword herstellt.
-Sie können die Bibeltexte von dieser Seite herunterladen. Die meisten der auf Crosswire erhältlichen Texte sind entweder Public Domain
-oder sind von dem Copyrighthalter für Crosswire zur Verteilung bereitgstellt worden.
-Module, die nicht zur freien Verteilung herausgegeben wurden sind verschlüsselt.
-Bitte lesen sie die Seite <ulink url="module_encrypted.html">Hilfedialog für verschlüsselte Module</ulink> vor dem Herunterladen von Modulen.
+Dies ist das Heim von Crosswire! Crosswire ist die Bibelgesellschaft,
+welche die Textbibliothek und den Installationsmanager für Sword
+herstellt.  Sie können die Bibeltexte von dieser Seite
+herunterladen. Die meisten der auf Crosswire erhältlichen Texte sind
+entweder Public Domain oder sind von dem Copyrighthalter für Crosswire
+zur Verteilung bereitgestellt worden.  Module, die nicht zur freien
+Verteilung herausgegeben wurden, sind verschlüsselt.  Bitte lesen Sie
+die Seite <ulink url="module_encrypted.html">Hilfedialog für
+verschlüsselte Module</ulink> vor dem Herunterladen von Modulen.
+
 </entry>
 </row>
 </tbody>
