@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "<<<<<<< no.po"
-"PO-Revision-Date: 2001-06-17 16:40CET\n"
+"PO-Revision-Date: 2001-06-17 20:56CET\n"
 "======="
 "POT-Creation-Date: 2001-06-17 09:52+0200\n"
-"PO-Revision-Date: 2001-06-17 16:40CET\n"
+"PO-Revision-Date: 2001-06-17 20:56CET\n"
 "Last-Translator: Espen Knut Trydal <etrydal@postkassa.no>\n"
 ">>>>>>> 1.21"
 "Language-Team: Norsk Bokmål <->\n"
@@ -27,7 +27,7 @@ msgstr "Tøm utskriftskø"
 #: bibletime/bibletime_init.cpp:88 bibletime/dummy.h:25
 #: bibletime/tooltipdef.h:25
 msgid "Reset main index"
-msgstr "Tilbakestill hovedregister"
+msgstr "Tilbakestill hovedindeks"
 
 #: bibletime/bibletime_init.cpp:93
 msgid "Search in module(s)"
@@ -48,7 +48,7 @@ msgstr "V&is Strongs nummer"
 
 #: bibletime/bibletime_init.cpp:117
 msgid "&Show main index"
-msgstr "&Vis hovedregister"
+msgstr "&Vis hovedindeks"
 
 #: bibletime/bibletime_init.cpp:129
 msgid "&Cascade"
@@ -385,7 +385,7 @@ msgstr "Størrelse: 8888mm x 8888mm"
 
 #: bibletime/printing/cprinterdialog.cpp:197
 msgid "Preview application:"
-msgstr "Forhåndsvis applikasjon"
+msgstr "Forhåndsvis med:"
 
 #: bibletime/printing/cprinterdialog.cpp:293
 msgid "*.ps | Postscript files"
@@ -458,7 +458,7 @@ msgstr "Oppføringer som skal skrives ut:"
 #: bibletime/printing/cprinterdialog.cpp:541
 #, c-format, ycp-format
 msgid "Size: %1mm x %2mm"
-msgstr "Størrelse %1mm x %2mm"
+msgstr "Størrelse: %1mm x %2mm"
 
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:63
 msgid "Synchronize..."
@@ -614,7 +614,7 @@ msgstr "Velg skrifttyper for BibleTime"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:90
 msgid "Choose the area of application and set the font for it"
-msgstr "Velg del av applikasjon og velg skrifttypen for den"
+msgstr "Velg en del av applikasjonen og velg skrifttypen for denne"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:101
 msgid "The quick brown fox jumped over the lazy dog"
@@ -762,7 +762,7 @@ msgstr "Gjeldende modul:"
 
 #: bibletime/frontend/searchdialog/csearchdialogtext.cpp:117
 msgid "Overall:"
-msgstr "Samlet"
+msgstr "Samlet:"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:117
 msgid "Modules"
@@ -1009,7 +1009,7 @@ msgstr "Billedtekst"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:294
 msgid "Main index"
-msgstr "Hovedregister"
+msgstr "Hovedindeks"
 
 #: bibletime/dummy.h:51 bibletime/frontend/groupmanager/cgroupmanager.cpp:295
 #: bibletime/tooltipdef.h:51
@@ -1068,7 +1068,7 @@ msgstr "Forandre bokmerke beskrivelsen - BibleTime"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:417
 msgid "Please change the description of the item!"
-msgstr "Vær snill å forandre beskrivelsen til elementet!"
+msgstr "Forandre beskrivelsen til elementet!"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:428
 msgid "Change folder - BibleTime"
@@ -1076,7 +1076,7 @@ msgstr "Forandre mappe - BibleTime"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:428
 msgid "Please change the name of the group!"
-msgstr "Vær snill å forandre navnet på gruppen!"
+msgstr "Forandre navnet på gruppen!"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:565
 msgid "<I>Not necessary!</I>"
@@ -1113,7 +1113,7 @@ msgstr "Skriv navnet til mappen - BibleTime"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:938
 msgid "Please enter the name of the folder!"
-msgstr "Vær snill å skriv navnet på mappen!"
+msgstr "Skriv navnet på mappen!"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:1022
 msgid "BibleTime - Unlock module"
@@ -1331,7 +1331,7 @@ msgstr "Oppføringsliste"
 
 #: bibletime/dummy.h:79 bibletime/tooltipdef.h:79
 msgid "Scroll through the list"
-msgstr "Bla igjennom lista"
+msgstr "Bla igjennom listen"
 
 #: bibletime/dummy.h:80 bibletime/tooltipdef.h:80
 msgid "Edit this entry"
@@ -1387,11 +1387,11 @@ msgstr "Kopier til utklippstavle"
 
 #: bibletime/dummy.h:100 bibletime/tooltipdef.h:100
 msgid "Add the selected module to the list"
-msgstr "Lagre den valgte modulen til lista"
+msgstr "Lagre den valgte modulen til listen"
 
 #: bibletime/dummy.h:101 bibletime/tooltipdef.h:101
 msgid "Remove the selected module from the list"
-msgstr "Slett den valgte modulen fra lista"
+msgstr "Slett den valgte modulen fra listen"
 
 #: bibletime/dummy.h:102 bibletime/tooltipdef.h:102
 msgid "List of modules used for the search"
@@ -1399,7 +1399,7 @@ msgstr "Liste av moduler brukt i søket"
 
 #: bibletime/dummy.h:104 bibletime/tooltipdef.h:104
 msgid "Search this text"
-msgstr "Søk denne teksten"
+msgstr "Søk etter denne teksten"
 
 #: bibletime/dummy.h:105 bibletime/tooltipdef.h:105
 msgid "Search multiple words"
@@ -1440,7 +1440,7 @@ msgstr "Rediger og definer dine søkeområder"
 
 #: bibletime/dummy.h:116 bibletime/tooltipdef.h:116
 msgid "Choose a search scope from the list"
-msgstr "Velg et søkeområde fra lista"
+msgstr "Velg et søkeområde fra listen"
 
 #: bibletime/dummy.h:117 bibletime/tooltipdef.h:117
 msgid "Enter your own search scope"
@@ -1974,7 +1974,7 @@ msgstr ""
 #: bibletime/dummy.h:288 bibletime/whatsthisdef.h:114
 msgid "Select this to search for exactly the same text you entered in the edit line."
 msgstr ""
-"Velg denne for å søke etter den eksakt samme teksten som du skrev inn i "
+"Velg dette for å søke etter den eksakt samme teksten som du skrev inn i "
 "søkeboksen."
 
 #: bibletime/dummy.h:289 bibletime/whatsthisdef.h:115
@@ -1991,7 +1991,7 @@ msgstr "Aktiver dette for å søke med forskjell på STORE og små bokstaver."
 
 #: bibletime/dummy.h:292 bibletime/whatsthisdef.h:118
 msgid "Select this if you want to search through all parts of the module(s)."
-msgstr "Velg dette hvis du søke gjennom alle delene av modulen(e)."
+msgstr "Velg dette hvis du vil søke gjennom alle delene av modulen(e)."
 
 #: bibletime/dummy.h:293 bibletime/whatsthisdef.h:119
 msgid ""
