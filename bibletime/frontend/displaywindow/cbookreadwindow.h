@@ -24,10 +24,12 @@
 #include "backend/cswordtreekey.h"
 #include "backend/cswordversekey.h"
 
-/**
-  *@author The BibleTime team
-  */
+class KToggleAction;
+class CBookTreeChooser;
 
+/**
+  * @author The BibleTime team
+  */
 class CBookReadWindow : public CLexiconReadWindow  {
   Q_OBJECT
 public:
@@ -48,8 +50,20 @@ protected:
 	virtual void initKeyboardActions();
   virtual void initConnections();
   virtual void initView();
-  /** Reimplementation. */
   virtual void setupPopupMenu();
+
+private:
+  KToggleAction* m_treeAction;
+  CBookTreeChooser* m_treeChooser;
+
+private slots: // Private slots
+  /**
+  * Is called when the action was executed to toggle the tree view.
+  */
+  void treeToggled();
+protected slots: // Protected slots
+  /** Reimplementation to take care of the tree chooser. */
+  virtual void modulesChanged();
 };
 
 #endif

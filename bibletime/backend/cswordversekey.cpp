@@ -110,13 +110,15 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 }
 
 /** Sets the key we use to the parameter. */
-const QString CSwordVerseKey::key( const QString& newKey ){	
-	if (!newKey.isEmpty()) {
-		VerseKey::operator = ((const char*)newKey.local8Bit());
-//    module()->snap();
-//    VerseKey::operator = (module()->module()->KeyText());
-	}
+const QString CSwordVerseKey::key(){	
 	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8 here!
+}
+
+void CSwordVerseKey::key( const QString& newKey ) {
+	VerseKey::operator = ((const char*)newKey.local8Bit());
+//  module()->snap();
+//  VerseKey::operator = (module()->module()->KeyText());
+
 }
 
 void CSwordVerseKey::key( const char* newKey ){

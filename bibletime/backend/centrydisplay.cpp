@@ -334,6 +334,12 @@ const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordM
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
 const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions ) {
+  qWarning("CBookDisplay::text: %s", keyName.latin1());
+  if (keyName.isNull())
+    qWarning("null");
+  if (keyName.isEmpty())
+    qWarning("empty");
+
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
@@ -342,20 +348,21 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
 	key->key(keyName);
 
+  qWarning("used key is %s", key->key().latin1());
+
 	int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
-  if (displayLevel <= 1) {
+  if (displayLevel <= 1) { //don't display entries together
     return finishText( entryText(modules, keyName), modules, keyName );
   }
 
   --displayLevel; //better handling if 1 is to concat the last level
-  const QString oldKey = key->key();
 	int moved = 0;
 	
 	while (key->firstChild())
 		++moved; //down
 
 	for (int i = 1; i < displayLevel; i++) {
-		if (!key->parent() || key->key() == "/" || key->key().isEmpty()) {
+		if (!key->parent() || key->key() == "/" || key->key().isEmpty()) { //first entry
 			break;		
 		}
 		--moved; //up
@@ -365,12 +372,11 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 		while(key->previousSibling()); //first entry of it's parent		
 		m_text = QString::null;
     printTree(*key, modules);	
-		key->key(oldKey);
 	}
 	else { //do not display entries together
     return finishText( entryText(modules, keyName), modules, keyName );
 	}	
-
+	key->key(keyName);
   return finishText(m_text, modules, keyName);
 }
 
@@ -384,10 +390,10 @@ const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
   util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
 
-  key->key(keyName.isEmpty() ? QString::fromLatin1("/") : keyName);
+  key->key(keyName);
 
   return QString::fromLatin1("<TR><TD STYLE=\"padding-left: %1px;\"><SUP>%2</SUP> %3</TD></TR>")
-    .arg(level*10)
+    .arg(level*30)
     .arg(htmlReference(book, keyName, key->getLocalName(), !key->key().isEmpty() ? key->key() : "/" ))
     .arg(key->renderedText());
 }

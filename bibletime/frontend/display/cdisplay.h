@@ -40,7 +40,8 @@ class CWriteDisplay;
   */
 class CDisplay : public CPointers {
 public:
-	static CReadDisplay* createReadInstance(CReadWindow* readWindow);
+	static CReadDisplay* createReadInstance(CReadWindow* readWindow, QWidget* parent = 0);
+
 	static CWriteDisplay* createWriteInstance(CWriteWindow* writeWindow);
 
   enum TextType {

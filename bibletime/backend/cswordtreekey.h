@@ -30,27 +30,23 @@
   */
 class CSwordTreeKey : public TreeKeyIdx, public CSwordKey  {
 public:
-//	enum JumpType {
-//		NextEntry,
-//		PreviousEntry
-//	};
-	
 	CSwordTreeKey( const CSwordTreeKey& k );
 	CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module );
 	CSwordModuleInfo* const module( CSwordModuleInfo* const newModule );
 	virtual CSwordTreeKey* copy() const;
   /**
-  * Set/get the key. If the parameter is not set (means equal to QString::null)
-  * the used key is returned. Otherwise the key is set and the new on ei returned.
+  * Returns the current key
   */
-  virtual const QString key( const QString& key = QString::null );
+  virtual const QString key( );
+  /**
+  * Set the key. If the parameter is empty or null, the key will be set to "/"
+  */
+  virtual void key( const QString& key );
   /**
   * Set/get the key. If the parameter is not set (means equal to QString::null)
   * the used key is returned. Otherwise the key is set and the new on ei returned.
   */
 	virtual void key( const char* key );
-	
-//	const bool jumpTo( const JumpType type );
 };
 
 #endif

@@ -46,8 +46,10 @@
 #include <dom/html_element.h>
 
 
-CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, const char* name ) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, readWindow)),readWindow,name), CReadDisplay(readWindow) {
-//	qWarning("constructor of CHTMLReadDisplay");
+CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow), CReadDisplay(readWindow) {
+	qWarning("constructor of CHTMLReadDisplay");
+  Q_ASSERT(readWindow);
+  Q_ASSERT(parentWidget);
   setDNDEnabled(false);
   m_view->setDragAutoScroll(false);
 }
@@ -284,8 +286,9 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
 
 // ---------------------
 
-CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWidget* parent) : KHTMLView(displayWidget, parent) {
-  m_display = displayWidget;
+CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWidget* parent) : KHTMLView(displayWidget, parent), m_display(displayWidget) {
+  qWarning("constructor of CHTMLReadDisplayView");
+  Q_ASSERT(parent);
   viewport()->setAcceptDrops(true);
   setMarginWidth(4);
   setMarginHeight(4);

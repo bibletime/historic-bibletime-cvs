@@ -214,8 +214,7 @@ void COptionsDialog::initFonts(){
 	QFrame* page = addPage(i18n("Fonts"), QString::null, OD_ICON_FONTS);
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
 	
-
- 	layout->addWidget( CToolClass::explanationLabel(page, i18n("Choose fonts"), i18n("The fonts you can choose here are used in the display windows. Use the drop-down box below to choose the area of application. Then select a font for it. Make sure the charset \"iso10646-1\" is available for the selected Unicode font.!")) );
+ 	layout->addWidget( CToolClass::explanationLabel(page, i18n("Choose fonts"), i18n("The fonts you can choose here are used in the display windows. Use the drop-down box below to choose the area of application. Then select a font for it. Make sure the font contains the characters of the modules you use!")) );
   layout->addSpacing(5);
  					
  	m_settings.fonts.usage = new QComboBox(page);		

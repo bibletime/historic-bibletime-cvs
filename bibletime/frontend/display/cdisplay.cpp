@@ -94,10 +94,11 @@ void CDisplayConnections::saveAnchorWithText(){
 
 /*----------------------*/
 
-CReadDisplay* CDisplay::createReadInstance( CReadWindow* readWindow ) {
+CReadDisplay* CDisplay::createReadInstance( CReadWindow* readWindow, QWidget* parent ) {
 	Q_ASSERT(readWindow);
+  Q_ASSERT(parent);
  	if (readWindow)
-	 	return new CHTMLReadDisplay(readWindow);
+	 	return new CHTMLReadDisplay(readWindow, parent);
   else
   	return 0;
 }
@@ -107,9 +108,8 @@ CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow ) {
 }
 
 
-CDisplay::CDisplay(CDisplayWindow* parent) : m_parentWindow(parent) {
-//  qWarning("constructor of CDisplay");
-  m_connections = new CDisplayConnections( this );
+CDisplay::CDisplay(CDisplayWindow* parent) : m_parentWindow(parent), m_connections( new CDisplayConnections( this ) ) {
+  qWarning("constructor of CDisplay");
 }
 
 CDisplay::~CDisplay(){

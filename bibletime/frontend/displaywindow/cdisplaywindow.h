@@ -199,7 +199,7 @@ protected:
   virtual void initView() = 0;
 
 protected slots:
-	void modulesChanged();
+	virtual void modulesChanged();
   /**
   * Lookup the current key. Used to refresh the display.
   */

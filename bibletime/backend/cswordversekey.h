@@ -81,7 +81,11 @@ public:
   * Set/get the key. If the parameter is not set (means equal to QString::null)
   * the used key is returned. Otherwise the key is set and the new on ei returned.
   */
-  virtual const QString key( const QString& key = QString::null );
+  virtual const QString key();
+  /**
+  * Set the current key.
+  */
+  virtual void key( const QString& );
   /**
   * Set/get the key. If the parameter is not set (means equal to QString::null)
   * the used key is returned. Otherwise the key is set and the new on ei returned.

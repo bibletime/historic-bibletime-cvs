@@ -16,8 +16,8 @@
  ***************************************************************************/
 
 #include "cbooktreechooser.h"
-#include "../../backend/cswordtreekey.h"
-#include "../../backend/cswordbookmoduleinfo.h"
+#include "backend/cswordtreekey.h"
+#include "backend/cswordbookmoduleinfo.h"
 
 //Qt includes
 #include <qlayout.h>
@@ -99,13 +99,10 @@ void CBookTreeChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 	
   QListViewItem* child = m_treeView->firstChild();
   while( child && index < count ) {
-//  	qWarning("trying to find %s", currentSibling.latin1() );
-
   	if (child->text(0) == currentSibling) { //found parent of our item
   		//found right entry?
   		TreeItem* i = dynamic_cast<TreeItem*>(child);
   		if (!i || i->key() == key) {
-//  			qWarning("found!");
   			break;
   		}
   		child = child->firstChild();
@@ -133,9 +130,14 @@ void CBookTreeChooser::setModule(CSwordModuleInfo* module){
 	if (m_module && m_key) {
 		m_treeView->clear();
 	
+    const QString oldKey = m_key->key();
+    qWarning("oldkey is %s", oldKey.latin1());
+
 		m_key->root();
 		m_key->firstChild();
 		setupTree(0,0,m_key);
+
+    m_key->key(oldKey);
 		
 		updateKey(m_key);
 	}
@@ -149,7 +151,6 @@ void CBookTreeChooser::refreshContent(){
 
 /** Set up the tree with the current level of key. */
 void CBookTreeChooser::setupTree( QListViewItem* parent, QListViewItem* after, CSwordTreeKey* key ){
-//	ASSERT(key);
 	QListViewItem* item = 0;
 	if (parent)
 		item = new TreeItem(parent, after, key->getLocalName(), key->key());
@@ -167,7 +168,6 @@ void CBookTreeChooser::setupTree( QListViewItem* parent, QListViewItem* after, C
 /** No descriptions */
 void CBookTreeChooser::itemClicked( QListViewItem* item ){
 	TreeItem* i = dynamic_cast<TreeItem*>(item);
-//	ASSERT(i);
 	if (!i)
 		return;
 

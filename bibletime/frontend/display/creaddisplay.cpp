@@ -37,10 +37,8 @@
 //Qt includes
 #include <qpopupmenu.h>
 
-CReadDisplay::CReadDisplay(CReadWindow* readWindow) : CDisplay(readWindow) {
-//	qWarning("constructor of CReadDisplay");
- 	m_popup = 0;
- 	m_activeAnchor = QString::null;
+CReadDisplay::CReadDisplay(CReadWindow* readWindow) : CDisplay(readWindow),m_popup(0), m_activeAnchor(QString::null) {
+	qWarning("constructor of CReadDisplay");
 }
 
 CReadDisplay::~CReadDisplay(){

@@ -776,7 +776,7 @@ type=HEADER
 
 [bibletime/frontend/display/Makefile.am]
 dist=true
-files=bibletime/frontend/display/Makefile.am,bibletime/frontend/display/cdisplay.cpp,bibletime/frontend/display/cdisplay.h,bibletime/frontend/display/creaddisplay.cpp,bibletime/frontend/display/creaddisplay.h,bibletime/frontend/display/cwritedisplay.cpp,bibletime/frontend/display/cwritedisplay.h,bibletime/frontend/display/chtmlreaddisplay.cpp
+files=bibletime/frontend/display/Makefile.am,bibletime/frontend/display/cdisplay.cpp,bibletime/frontend/display/cdisplay.h,bibletime/frontend/display/creaddisplay.cpp,bibletime/frontend/display/creaddisplay.h,bibletime/frontend/display/cwritedisplay.cpp,bibletime/frontend/display/cwritedisplay.h,bibletime/frontend/display/chtmlreaddisplay.cpp,bibletime/frontend/display/chtmlreaddisplay.h
 install=false
 install_location=
 sub_dirs=
@@ -799,6 +799,12 @@ dist=true
 install=false
 install_location=
 type=SOURCE
+
+[bibletime/frontend/display/chtmlreaddisplay.h]
+dist=true
+install=false
+install_location=
+type=HEADER
 
 [bibletime/frontend/display/creaddisplay.cpp]
 dist=true

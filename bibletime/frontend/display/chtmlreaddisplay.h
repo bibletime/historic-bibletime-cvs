@@ -58,7 +58,7 @@ public:
 
 protected:
 	friend class CDisplay;
- 	CHTMLReadDisplay( CReadWindow* readWindow, const char* name = 0 );
+ 	CHTMLReadDisplay( CReadWindow* readWindow, QWidget* parent = 0 );
 	virtual ~CHTMLReadDisplay();
 
 	void urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args);

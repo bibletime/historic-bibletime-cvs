@@ -18,8 +18,7 @@
 #include "cswordtreekey.h"
 #include "cswordbookmoduleinfo.h"
 
-CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(/*(const char*)*/k), CSwordKey(k) {
-
+CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(k), CSwordKey(k) {
 }
 
 CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module )
@@ -31,19 +30,20 @@ CSwordTreeKey* CSwordTreeKey::copy() const {
 }
 
 /** Sets the key of this instance */
-const QString CSwordTreeKey::key( const QString& newKey ){
-	if (!newKey.isNull()) {
-		if (newKey.isEmpty())
-			root();	
-		else
-			TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!
-	
-		if (Error()) {
-			root();
-			return QString::null;
-		}		
-	}
- 	return QString::fromLocal8Bit( getFullName() ); //don't use fromUtf8
+const QString CSwordTreeKey::key( ){
+  return QString::fromLocal8Bit( getFullName() ); //don't use fromUtf8
+}
+
+void CSwordTreeKey::key( const QString& newKey ){
+   if (newKey.isEmpty()) {
+     qWarning("go to root!");
+     root();
+   }
+   else
+ 		TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!	
+ 	if (Error()) {
+ 		root();
+ 	}	
 }
 
 void CSwordTreeKey::key( const char* newKey ){
@@ -61,24 +61,3 @@ CSwordModuleInfo* const CSwordTreeKey::module( CSwordModuleInfo* const newModule
 	}
 	return m_module;
 }
-
-//const bool CSwordTreeKey::jumpTo(const JumpType type) {
-//	switch (type) {
-//		case NextEntry:
-//			if (Traversable()) {
-//				(*this)++;
-//				return !Error();
-//			}
-//			return false;
-//			
-//		case PreviousEntry:
-//			if (Traversable()) {
-//				(*this)++;
-//				return !Error();
-//			}
-//			return false;
-//			
-//		default:
-//			return false;
-//	};
-//}

@@ -28,7 +28,7 @@
 
 
 CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
-	if (m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module)) {
+	if ((m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module))) {
 //    *(m_module->module()) = TOP;	
   }
   SWKey::operator = (" ");
@@ -58,14 +58,15 @@ CSwordModuleInfo* const CSwordLDKey::module(CSwordModuleInfo* const newModule){
 }
 
 /** Sets the key of this instance */
-const QString CSwordLDKey::key( const QString& newKey ){
-	if (!newKey.isNull()) {
-		SWKey::operator = ((const char*)newKey.local8Bit());		
-		m_module->module()->SetKey(this);
-		m_module->snap();
-		SWKey::operator = (m_module->module()->KeyText());
-	}
+const QString CSwordLDKey::key(){
  	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8
+}
+
+void CSwordLDKey::key( const QString& newKey ){
+	SWKey::operator = ((const char*)newKey.local8Bit());		
+	m_module->module()->SetKey(this);
+	m_module->snap();
+	SWKey::operator = (m_module->module()->KeyText());
 }
 
 /** Uses the parameter to returns the next entry afer this key. */

@@ -90,7 +90,11 @@ public:
   /**
   * Returns the current key as a QString
   */
-  virtual const QString key( const QString& newKey = QString::null);
+  virtual const QString key();
+  /**
+  * Set the current key
+  */
+  virtual void key( const QString& newKey );
   /**
   * Returns the current key as a QString
   */
