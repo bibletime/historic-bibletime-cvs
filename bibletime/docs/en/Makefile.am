@@ -1,4 +1,4 @@
-SUBDIRS = Documents
+
 
 EXTRA_DIST =  tipdatabase
 
