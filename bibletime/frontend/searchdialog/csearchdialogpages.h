@@ -238,6 +238,7 @@ protected slots: // Protected slots
   * Shows a dialog with the search analysis of the current search.
   */
   void showAnalysis();
+
 };
 
 class CSearchOptionsPage : public QWidget  {
@@ -289,6 +290,7 @@ private:
   QRadioButton* m_multipleWordsRadio;
   QRadioButton* m_exactTextRadio;
   QRadioButton* m_regexpRadio;
+	int m_regexpRadioID;
   QRadioButton* m_multipleWordsORRadio;
   QCheckBox* m_caseSensitiveBox;
   KProgress* m_currentProgressBar;
@@ -307,6 +309,13 @@ protected: // Protected methods
   * Reads the settings for the searchdialog from disk.
   */
   void saveSettings();
+
+protected slots:	
+  /**
+  * Launches RegExpEditor
+  */
+  void editRegExp(int buttonID);
+
 
 public slots: // Public slots
   /**

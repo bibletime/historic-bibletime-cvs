@@ -57,6 +57,8 @@
 #include <kprogress.h>
 #include <kpopupmenu.h>
 #include <ksqueezedtextlabel.h>
+#include <kparts/componentfactory.h> //KParts
+#include <kregexpeditorinterface.h>
 
 /********************************************
 ************  ModuleResultList **************
@@ -694,8 +696,11 @@ void CSearchOptionsPage::initView(){
   m_regexpRadio = new QRadioButton(i18n("Regular expression"), group);
   QToolTip::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::tooltip);
   QWhatsThis::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::whatsthis);
+	m_regexpRadioID = group->id( m_regexpRadio );
 
   grid->addWidget(group, 4,0);
+	
+	connect( group, SIGNAL( clicked(int) ), this, SLOT( editRegExp(int) ) );
 
   group = new QButtonGroup(1,Vertical,i18n("Search options"), this);
   m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive search"), group);
@@ -868,4 +873,24 @@ const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType(){
 	
   return CSwordModuleSearch::Scope_NoScope;
 }
+void CSearchOptionsPage::editRegExp(int buttonID){
+	if (buttonID != m_regexpRadioID) //regular expression selected?
+		return;
+	QDialog *editorDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor" );
+	if ( editorDialog ) {
+		// kdeutils was installed, so the dialog was found fetch the editor interface
+		KRegExpEditorInterface *editor = static_cast<KRegExpEditorInterface *>( editorDialog->qt_cast( "KRegExpEditorInterface" ) );
+		Q_ASSERT( editor ); // This should not fail!
+
+		// now use the editor.
+		editor->setRegExp( searchText() );
+		// Finally exec the dialog
+		if (editorDialog->exec() == QDialog::Accepted){
+			m_searchTextCombo->setCurrentText( editor->regExp() );
+		}
+	}
+	else {
+		// Don't offer the dialog.
+	}
+};
 
