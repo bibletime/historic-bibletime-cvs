@@ -277,7 +277,7 @@ sub_dirs=backend,frontend,pics,docs,xml,printing,libhtmlparse,util
 type=prog_main
 
 [bibletime/backend/Makefile.am]
-files=bibletime/backend/ckey.h,bibletime/backend/cswordbackend.cpp,bibletime/backend/cswordbackend.h,bibletime/backend/cswordbiblemoduleinfo.cpp,bibletime/backend/cswordbiblemoduleinfo.h,bibletime/backend/cswordcommentarymoduleinfo.cpp,bibletime/backend/cswordcommentarymoduleinfo.h,bibletime/backend/cswordkey.cpp,bibletime/backend/cswordkey.h,bibletime/backend/cswordldkey.cpp,bibletime/backend/cswordldkey.h,bibletime/backend/cswordlexiconmoduleinfo.cpp,bibletime/backend/cswordlexiconmoduleinfo.h,bibletime/backend/cswordmoduleinfo.cpp,bibletime/backend/cswordmoduleinfo.h,bibletime/backend/cswordmodulesearch.cpp,bibletime/backend/cswordmodulesearch.h,bibletime/backend/cswordversekey.cpp,bibletime/backend/cswordversekey.h,bibletime/backend/creferencemanager.cpp,bibletime/backend/creferencemanager.h,bibletime/backend/bt_gbfhtml.cpp,bibletime/backend/bt_gbfhtml.h,bibletime/backend/bt_thmlhtml.cpp,bibletime/backend/bt_thmlhtml.h,bibletime/backend/bt_basicfilter.cpp,bibletime/backend/bt_basicfilter.h,bibletime/backend/cswordtreekey.h,bibletime/backend/cswordtreekey.cpp,bibletime/backend/cswordbookmoduleinfo.h,bibletime/backend/cswordbookmoduleinfo.cpp,bibletime/backend/centrydisplay.cpp,bibletime/backend/centrydisplay.h,bibletime/backend/clanguagemgr.cpp,bibletime/backend/clanguagemgr.h
+files=bibletime/backend/ckey.h,bibletime/backend/cswordbackend.cpp,bibletime/backend/cswordbackend.h,bibletime/backend/cswordbiblemoduleinfo.cpp,bibletime/backend/cswordbiblemoduleinfo.h,bibletime/backend/cswordcommentarymoduleinfo.cpp,bibletime/backend/cswordcommentarymoduleinfo.h,bibletime/backend/cswordkey.cpp,bibletime/backend/cswordkey.h,bibletime/backend/cswordldkey.cpp,bibletime/backend/cswordldkey.h,bibletime/backend/cswordlexiconmoduleinfo.cpp,bibletime/backend/cswordlexiconmoduleinfo.h,bibletime/backend/cswordmoduleinfo.cpp,bibletime/backend/cswordmoduleinfo.h,bibletime/backend/cswordmodulesearch.cpp,bibletime/backend/cswordmodulesearch.h,bibletime/backend/cswordversekey.cpp,bibletime/backend/cswordversekey.h,bibletime/backend/creferencemanager.cpp,bibletime/backend/creferencemanager.h,bibletime/backend/bt_gbfhtml.cpp,bibletime/backend/bt_gbfhtml.h,bibletime/backend/bt_thmlhtml.cpp,bibletime/backend/bt_thmlhtml.h,bibletime/backend/bt_basicfilter.cpp,bibletime/backend/bt_basicfilter.h,bibletime/backend/cswordtreekey.h,bibletime/backend/cswordtreekey.cpp,bibletime/backend/cswordbookmoduleinfo.h,bibletime/backend/cswordbookmoduleinfo.cpp,bibletime/backend/centrydisplay.cpp,bibletime/backend/centrydisplay.h,bibletime/backend/clanguagemgr.cpp,bibletime/backend/clanguagemgr.h,bibletime/backend/bt_osishtml.cpp,bibletime/backend/bt_osishtml.h
 sub_dirs=sword_backend,
 type=shared_library
 
@@ -300,6 +300,18 @@ install_location=
 type=SOURCE
 
 [bibletime/backend/bt_gbfhtml.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/backend/bt_osishtml.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/backend/bt_osishtml.h]
 dist=true
 install=false
 install_location=

@@ -213,7 +213,7 @@ private:
 		sword::SWFilter *gbf;
 		sword::SWFilter *plain;
 		sword::SWFilter *thml;
-//    SWFilter *transliterator;
+ 		sword::SWFilter *osis;
 	} m_filters;
 	ListCSwordModuleInfo m_moduleList;
 

@@ -25,6 +25,7 @@
 #include "frontend/cbtconfig.h"
 
 #include "bt_thmlhtml.h"
+#include "bt_osishtml.h"
 #include "bt_gbfhtml.h"
 #include <dirent.h>
 #include <unistd.h>
@@ -59,6 +60,7 @@ CSwordBackend::CSwordBackend()
 
 	m_filters.gbf = 0;
 	m_filters.thml = 0;
+	m_filters.osis = 0;
 	m_filters.plain = 0;
 }
 
@@ -67,6 +69,7 @@ CSwordBackend::~CSwordBackend(){
 	delete m_filters.gbf;
 	delete m_filters.plain;
 	delete m_filters.thml;
+	delete m_filters.osis;
 
   delete m_displays.book;
   delete m_displays.chapter;
@@ -123,37 +126,44 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 }
 
 void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMap &section) {
-	string sourceformat;
-	string moduleDriver;
+	sword::SWBuf sourceformat;
+	sword::SWBuf moduleDriver;
 	sword::ConfigEntMap::iterator entry;
 	bool noDriver = true;
 
 	sourceformat = ((entry = section.find("SourceType")) != section.end()) ? (*entry).second : (sword::SWBuf) "";
 	moduleDriver = ((entry = section.find("ModDrv")) != section.end()) ? (*entry).second : (sword::SWBuf) "";
 
-	if (!sword::stricmp(sourceformat.c_str(), "GBF")) {
+	if (sourceformat == "GBF") {
 		if (!m_filters.gbf)
 			m_filters.gbf = new BT_GBFHTML();
 		module->AddRenderFilter(m_filters.gbf);
 		noDriver = false;
 	}
 
-	if (!sword::stricmp(sourceformat.c_str(), "PLAIN")) {
+	if (sourceformat == "PLAIN") {
 		if (!m_filters.plain)
 			m_filters.plain = new sword::PLAINHTML();	
 		module->AddRenderFilter(m_filters.plain);
 		noDriver = false;
 	}
 
-	if (!sword::stricmp(sourceformat.c_str(), "ThML")) {
+	if (sourceformat == "ThML") {
 		if (!m_filters.thml)
 			m_filters.thml = new BT_ThMLHTML();
 		module->AddRenderFilter(m_filters.thml);
 		noDriver = false;
 	}
 
+	if (sourceformat == "OSIS") {
+		if (!m_filters.osis)
+			m_filters.osis = new BT_OSISHTML();
+		module->AddRenderFilter(m_filters.osis);
+		noDriver = false;
+	}
+
 	if (noDriver){ //no driver found
-		if (!sword::stricmp(moduleDriver.c_str(), "RawCom") || !sword::stricmp(moduleDriver.c_str(), "RawLD")) {
+		if ( (moduleDriver == "RawCom") || (moduleDriver == "RawLD") ) {
 			if (!m_filters.plain)
 				m_filters.plain = new sword::PLAINHTML();
 			module->AddRenderFilter(m_filters.plain);

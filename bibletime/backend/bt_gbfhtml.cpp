@@ -120,35 +120,35 @@ bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap
   			userData["suspendTextPassThru"] = "true";
   		}
     }
-		else if (tag.getName() && !strcasecmp(tag.getName(), "w")) {    // OSIS Word (temporary until OSISRTF is done)
-      if (const char* value = tag.getAttribute("lemma")) {
-        if (value && !strncmp(value, "x-Strongs:", 10)) { //we have a String number
-          value += 10;
-          if (*value == 'H') { //hebrew strongs number
-  			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-  				    value+1, //skip the H
-              value+1
-            );
-          }
-          else if (*value == 'G'){ //greek Strongs number
-  			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-  				    value+1, //skip the G
-              value+1
-            );
-          }
-        }
-      }
-      if (const char* value = tag.getAttribute("morph")) {
-        if (value && !strncmp(value, "x-Robinson:", 11)) {
-          value += 11;
-  				// normal robinsons tense
-          buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
-		  		  value,
-            value
-          );
-  			}
-      }
-		}
+//		else if (tag.getName() && !strcasecmp(tag.getName(), "w")) {    // OSIS Word (temporary until OSISRTF is done)
+//      if (const char* value = tag.getAttribute("lemma")) {
+//        if (value && !strncmp(value, "x-Strongs:", 10)) { //we have a String number
+//          value += 10;
+//          if (*value == 'H') { //hebrew strongs number
+//  			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+//  				    value+1, //skip the H
+//              value+1
+//            );
+//          }
+//          else if (*value == 'G'){ //greek Strongs number
+//  			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+//  				    value+1, //skip the G
+//              value+1
+//            );
+//          }
+//        }
+//      }
+//      if (const char* value = tag.getAttribute("morph")) {
+//        if (value && !strncmp(value, "x-Robinson:", 11)) {
+//          value += 11;
+//  				// normal robinsons tense
+//          buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+//		  		  value,
+//            value
+//          );
+//  			}
+//      }
+//		}
 		else if (!strncmp(token, "WG", 2)){ // strong's numbers greek
 			for (i = 2; i < tokenLength; i++) {
 					value += token[i];
