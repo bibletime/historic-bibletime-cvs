@@ -255,24 +255,21 @@ QDragObject* CMainIndex::dragObject() {
 
 /** Reimplementation from KListView. Returns true if the drag is acceptable for the listview. */
 bool CMainIndex::acceptDrag( QDropEvent* event ) const {
-//  qWarning("CMainIndex::acceptDrag( QDropEvent* event )");
-
   const QPoint pos = contentsToViewport(event->pos());
-  if (CItemBase* i = dynamic_cast<CItemBase*>(itemAt(pos))) {
-    return i->acceptDrop(event);
-  }
-  return false;
+		
+	CItemBase* i = dynamic_cast<CItemBase*>(itemAt(pos));
+  return i ? (i->acceptDrop(event) || i->isMovable()) : false;
 }
 
 /** No descriptions */
 void CMainIndex::initTree(){
-  addGroup(CItemBase::BookmarkFolder, QString::fromLatin1("*"));
-  addGroup(CItemBase::BibleModuleFolder, QString::fromLatin1("*"));
-  addGroup(CItemBase::BookModuleFolder, QString::fromLatin1("*"));
-  addGroup(CItemBase::CommentaryModuleFolder, QString::fromLatin1("*"));
-  addGroup(CItemBase::DevotionalModuleFolder, QString::fromLatin1("*"));
-  addGroup(CItemBase::GlossaryModuleFolder, QString::fromLatin1("*"));
-  addGroup(CItemBase::LexiconModuleFolder, QString::fromLatin1("*"));
+  addGroup(CItemBase::BookmarkFolder, QString("*"));
+  addGroup(CItemBase::BibleModuleFolder, QString("*"));
+  addGroup(CItemBase::BookModuleFolder, QString("*"));
+  addGroup(CItemBase::CommentaryModuleFolder, QString("*"));
+  addGroup(CItemBase::DevotionalModuleFolder, QString("*"));
+  addGroup(CItemBase::GlossaryModuleFolder, QString("*"));
+  addGroup(CItemBase::LexiconModuleFolder, QString("*"));
 }
 
 /** No descriptions */
@@ -281,11 +278,11 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
    Q_ASSERT(after);
    Q_ASSERT(parent);
 
-/* 	if (after)
- 		qWarning("DROP AFTER %s", after->text(0).latin1());
- 	if (parent)
- 		qWarning("DROP parent %s", parent->text(0).latin1());
-*/
+//  	if (after)
+//  		qWarning("DROP AFTER %s", after->text(0).latin1());
+//  	if (parent)
+//  		qWarning("DROP parent %s", parent->text(0).latin1());
+
   //the drop was started in this main index widget
   if (m_itemsMovable && (e->source() == viewport())) {
     /*
@@ -294,26 +291,78 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
     * we remove the current items because the new ones will be inserted soon.
     */
     if (dynamic_cast<CBookmarkFolder*>(parent) || dynamic_cast<Bookmarks::SubFolder*>(parent)) { //we drop onto the bookmark folder or one of it's subfolders
-      QPtrList<QListViewItem> items = selectedItems();
-      items.setAutoDelete(true);
-      items.clear(); //delete the selected items we dragged
+//       QPtrList<QListViewItem> items = selectedItems();
+//       items.setAutoDelete(true);
+//       items.clear(); //delete the selected items we dragged
     };
   };
 
   //finally do the drop, either with external drop data or with the moved items' data
-	CItemBase* parentItem = dynamic_cast<CItemBase*>(parent);
-	CItemBase* afterItem = dynamic_cast<CItemBase*>(after);
+	CItemBase* const parentItem = dynamic_cast<CItemBase*>(parent);
+	CItemBase* const afterItem  = dynamic_cast<CItemBase*>(after);
+	
+	bool removeSelectedItems = true;
+	bool moveSelectedItems = false;
+	
 	if (afterItem && afterItem->isFolder()) {
+		moveSelectedItems = false;
+		removeSelectedItems = true;
+		
 		afterItem->setOpen(true);
-		afterItem->dropped(e);
+		afterItem->dropped(e); //inserts new items, moving only works on the same level
 	}
-	else if (afterItem && !afterItem->isFolder() && parentItem) {
+	else if (afterItem && !afterItem->isFolder() && parentItem) {	
+		const bool justMoveSelected = 
+				 (e->source() == viewport())
+			&& m_itemsMovable
+			&& parentItem->acceptDrop(e)
+			&& !afterItem->acceptDrop(e);
+		
+		if (justMoveSelected) {
+			moveSelectedItems = true;
+			removeSelectedItems = false;
+		}
+		else {
+			moveSelectedItems = false;
+			removeSelectedItems = false;
+			
+			if (afterItem->acceptDrop(e)) {
+ 				afterItem->dropped(e, after);
+			} 
+			else { //insert in the parent folder and then move the inserted items
+				parentItem->dropped(e, after);
+			}
+		}
+		
 		parentItem->setOpen(true);
-		afterItem->dropped(e);
 	}
 	else if (parentItem) {
+		moveSelectedItems = false;
+		removeSelectedItems = true;
+
 		parentItem->setOpen(true);
 		parentItem->dropped(e);
+	}
+	
+	if (moveSelectedItems) {
+		//move all selected items after the afterItem
+		if (m_itemsMovable) {
+			QPtrList<QListViewItem> items = selectedItems();
+			QListViewItem* i = items.first();
+			QListViewItem* after = afterItem;
+			while (i && afterItem) {
+				i->moveItem(after);
+				after = i;
+				
+				i = items.next();
+			}
+		}
+	}
+	
+	if (removeSelectedItems) {
+		QPtrList<QListViewItem> items = selectedItems();
+		items.setAutoDelete(true);
+		items.clear(); //delete the selected items we dragged
 	}
 }
 
@@ -528,23 +577,25 @@ void CMainIndex::aboutModule(){
 void CMainIndex::startDrag(){
   QPtrList<QListViewItem> items = selectedItems();
   m_itemsMovable = true;
-  for (items.first(); items.current() && m_itemsMovable; items.next()) {
+  
+	for (items.first(); items.current() && m_itemsMovable; items.next()) {
     if (CItemBase* i = dynamic_cast<CItemBase*>(items.current())) {
-      m_itemsMovable = m_itemsMovable && i->isMovable();
+      m_itemsMovable = (m_itemsMovable && i->isMovable());
     }
     else {
       m_itemsMovable = false;
     }
   }
-  KListView::startDrag();
+  
+	KListView::startDrag();
 }
 
 /** Reimplementation to support the items dragEnter and dragLeave functions. */
 void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ){
 //  qWarning("void CMainIndex:: drag move event ( QDragLeaveEvent* e )");
-  if ( CItemBase* i = dynamic_cast<CItemBase*>( itemAt( contentsToViewport(event->pos())) )) {
+ 	CItemBase* i = dynamic_cast<CItemBase*>( itemAt( contentsToViewport(event->pos())) );
+  if (i) {
   	if (i->allowAutoOpen(event) || (i->acceptDrop(event) && i->isFolder() && i->allowAutoOpen(event) && !i->isOpen() && autoOpen()) ) {
-//       qWarning("autoopen: %s", i->text(0).latin1());
       if (m_autoOpenFolder != i)  {
         m_autoOpenTimer.stop();
       }
@@ -561,6 +612,16 @@ void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ){
   
   KListView::contentsDragMoveEvent(event);
 }
+
+QRect CMainIndex::drawItemHighlighter(QPainter* painter, QListViewItem* item) {
+	CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>(item);
+	if (bookmark) { //no drops on bookmarks allowed, just moving items after it
+		return QRect();
+	}
+	
+	return KListView::drawItemHighlighter(painter, item);
+}
+
 
 void CMainIndex::autoOpenTimeout(){
   m_autoOpenTimer.stop();
@@ -610,6 +671,7 @@ const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
 
 /** Is called when items should be moved. */
 void CMainIndex::moved( QPtrList<QListViewItem>& /*items*/, QPtrList<QListViewItem>& /*afterFirst*/, QPtrList<QListViewItem>& /*afterNow*/){
+	qWarning("move items");
 }
 
 /** Opens an editor window to edit the modules content. */

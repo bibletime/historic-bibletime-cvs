@@ -100,21 +100,12 @@ void CItemBase::moveAfter( CItemBase* const item ){
 	if (!item)
 		return;
 	
-	if ( parent() != item->parent() ) { //different levels
-//		if (type == AllowDifferentParents) { //different parents are allowed
-//			if (item->parent())
-//				item->parent()->insertItem(this); //insert item to the childs
-//			else
-//				listView()->insertItem(this);
-//			moveItem(item);
-//		}
-	}
-	else {
+	if ( parent() == item->parent() ) { //same parent means level
 		moveItem(item); //both items are on the same level, so we can use moveItem
 	}
 }
 
-void CItemBase::dropped( QDropEvent* /*e*/ ) {
+void CItemBase::dropped( QDropEvent* /*e*/, QListViewItem* /*after*/ ) {
 }
 
 
@@ -213,7 +204,7 @@ bool CModuleItem::acceptDrop( const QMimeSource* src ) const {
 }
 
 /** No descriptions */
-void CModuleItem::dropped( QDropEvent* e ){
+void CModuleItem::dropped( QDropEvent* e, QListViewItem* /*after */){
   /* Something was dropped on a module item
   *
   * 1. If the drop type is plain text open the searchdialog for this text and start the search
@@ -235,7 +226,6 @@ void CModuleItem::dropped( QDropEvent* e ){
       }
     }
     else if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) { //open the module
-/*      qWarning("type is Bookmark!");    */
       CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
       if (m) { //it makes only sense to create a new window for a module with the same type
         if ((module()->type() == m->type()) ||
@@ -249,9 +239,6 @@ void CModuleItem::dropped( QDropEvent* e ){
         };
       }
     }
-/*    else {
-      qWarning("type is Unknown!");
-    };*/
   };
 }
 
@@ -398,15 +385,12 @@ CBookmarkItem::~CBookmarkItem() {
 /** No descriptions */
 void CBookmarkItem::update(){
 	setMultiLinesEnabled(true);
-/*  const QString title = QString::fromLatin1("%1 (%2)\n<small>%3</small>")
-		.arg(key())
-		.arg(module() ? module()->name() : i18n("unknown"))
-		.arg(description());*/
+  setPixmap(0,SmallIcon(CResMgr::mainIndex::bookmark::icon,16));
+	
   const QString title = QString::fromLatin1("%1 (%2)")
 		.arg(key())
 		.arg(module() ? module()->name() : i18n("unknown"));
   setText(0, title);
-  setPixmap(0,SmallIcon(CResMgr::mainIndex::bookmark::icon,16));
 }
 
 void CBookmarkItem::init(){
@@ -449,8 +433,8 @@ const QString CBookmarkItem::toolTip(){
 
 /** Returns the used module. */
 CSwordModuleInfo* const CBookmarkItem::module() {
-  CSwordModuleInfo* m = backend()->findModuleByName(m_moduleName);
-//  Q_ASSERT(m);
+  CSwordModuleInfo* const m = backend()->findModuleByName(m_moduleName);
+  Q_ASSERT(m);
   return m;
 }
 
@@ -539,26 +523,13 @@ const QString& CBookmarkItem::englishKey() const {
 }
 
 /** Reimplementation. Returns false everytime because a bookmarks  has not possible drops. */
-bool CBookmarkItem::acceptDrop(const QMimeSource* /*src*/){
-  return false;
-}
+bool CBookmarkItem::acceptDrop(const QMimeSource* /*src*/) const {
+//  	qWarning("CBookmarkItem::acceptDrop");
+// 	return CDragDropMgr::canDecode(src) 
+// 			&& (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
 
-/*int CBookmarkItem::compare( QListViewItem * i, int col, bool ascending ) const {
-	qWarning("CBookmarkItem::compare( QListViewItem * i, int col, bool ascending ) const");
-	CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>(i);
-	CBookmarkFolder* folder = dynamic_cast<CBookmarkFolder*>(i);	
-	
-	if (bookmark) {
-		qWarning("comparing %s with %s", englishKey().latin1(), bookmark->englishKey().latin1());
-	}
-	else if (folder) {
-		return -1; //bookmarks should appear after foldera
-		//qWarning("comparing %s with folder %s", key().latin1(), folder->text(0).latin1());			
-	}
-	
-	return CItemBase::compare(i,col,ascending);
+	return false;
 }
-*/
 
 /****************************************/
 /*****  class: CItemFolder  *************/
@@ -624,7 +595,7 @@ const bool CFolderBase::allowAutoOpen( const QMimeSource* ) const{
 }
 
 /** Reimplementation. Returns false because folders have no use for drops (except for the bookmark folders) */
-bool CFolderBase::acceptDrop(const QMimeSource*){
+bool CFolderBase::acceptDrop(const QMimeSource*) const {
 //  qWarning("CFolderBase::acceptDrop");
   return false;
 }
@@ -1103,27 +1074,34 @@ void CBookmarkFolder::importBookmarks(){
 }
 
 bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
-  qWarning("bool CBookmarkFolder::acceptDrop(const QMimeSource * src): return%ii", (CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark)));
-  return (CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark));
+//   qWarning("bool CBookmarkFolder::acceptDrop(const QMimeSource * src): return%ii", (CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark)));
+	
+  return CDragDropMgr::canDecode(src)
+		  && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
 }
 
-void CBookmarkFolder::dropped(QDropEvent *e) {
-//  qWarning("CBookmarkFolder::dropped?");
+void CBookmarkFolder::dropped(QDropEvent *e, QListViewItem* after) {
   if (acceptDrop(e)) {
-  //  qWarning("CBookmarkFolder: item drop accepted");
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
-
-//    qWarning("decoded items: %i", dndItems.count() );
     CDragDropMgr::ItemList::Iterator it;
-    CItemBase* previousItem = 0;
+    CItemBase* previousItem = dynamic_cast<CItemBase*>(after);
+		
     for( it = dndItems.begin(); it != dndItems.end(); ++it) {
-      CSwordModuleInfo* module = backend()->findModuleByName( (*it).bookmarkModule() );
-      CBookmarkItem* i = new CBookmarkItem(this, module, (*it).bookmarkKey(), (*it).bookmarkDescription());
-  //    qWarning("created new item");
+      CSwordModuleInfo* module =  backend()->findModuleByName(
+				(*it).bookmarkModule() 
+			);
+			
+      CBookmarkItem* i = new CBookmarkItem(
+					this, 
+					module, 
+					(*it).bookmarkKey(), 
+					(*it).bookmarkDescription()
+			);
+				
       if (previousItem) {
         i->moveAfter( previousItem );
-  //      qWarning("moved new item");
       }
+			
       i->init();
       previousItem = i;
     };

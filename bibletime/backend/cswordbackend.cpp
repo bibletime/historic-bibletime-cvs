@@ -63,7 +63,7 @@ using namespace Rendering;
 static QMap<QString, QString> moduleDescriptionMap;
 
 CSwordBackend::CSwordBackend()
-	: sword::SWMgr(0, 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
+	: sword::SWMgr(0, 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), true)
 {	
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
@@ -76,7 +76,7 @@ CSwordBackend::CSwordBackend()
 }
 
 CSwordBackend::CSwordBackend(const QString& path)
-	: sword::SWMgr((!path.isEmpty() ? (const char*)path.local8Bit() : 0), false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
+	: sword::SWMgr((!path.isEmpty() ? (const char*)path.local8Bit() : 0), false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ), true)
 {	
 	m_displays.entry = 0;
 	m_displays.chapter = 0;

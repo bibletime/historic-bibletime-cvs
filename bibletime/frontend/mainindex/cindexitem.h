@@ -72,8 +72,8 @@ public:
 
   CItemBase(CMainIndex* mainIndex, const Type type = Unknown);
   CItemBase(CItemBase* item, const Type type = Unknown);
-
   virtual ~CItemBase();
+	
   virtual const QString toolTip();
   virtual CMainIndex* listView() const;
   /**
@@ -119,7 +119,7 @@ public:
 
 protected:
   friend class CMainIndex;
-  virtual void dropped( QDropEvent* e );
+  virtual void dropped( QDropEvent* e, QListViewItem* after = 0 );
   /**
   * Reimplementation. Returns true if the auto opening of this folder is allowd
   * The default return value is "false"
@@ -155,7 +155,7 @@ protected: // Protected methods
   * In this case open the searchdialog. In the case of a referebnce open the module at the given position.
   */
   virtual bool acceptDrop( const QMimeSource* src ) const;
-  virtual void dropped( QDropEvent* e );
+  virtual void dropped( QDropEvent* e, QListViewItem* after = 0 );
 
 private:
   CSwordModuleInfo* m_module;
@@ -204,23 +204,20 @@ private:
 
   QDomElement m_startupXML;
 
-private: // Private methods
-  /**
-  * Returns the english key.
-  * Only used internal of this class implementation.
-  */
-  const QString& englishKey() const;
 protected: // Protected methods
   /**
   * Reimplementation. Returns false everytime
   * because a bookmarks 
   * has not possible drops.
   */
-  virtual bool acceptDrop(const QMimeSource * src);
+  virtual bool acceptDrop(const QMimeSource * src) const;
+
+private: // Private methods
   /**
-  * Compares this item to another one. Used for sorting.
+  * Returns the english key.
+  * Only used internal of this class implementation.
   */
-//  virtual int compare( QListViewItem*, int col, bool ascending) const;
+  const QString& englishKey() const;
 };
 
 
@@ -253,7 +250,7 @@ protected:
 	* Reimplementation. Returns false because folders have no use for drops
 	* (except for the bookmark folders) 
 	*/
-  bool acceptDrop(const QMimeSource * src);
+  bool acceptDrop(const QMimeSource * src) const;
 };
 
 /** The base class for all items in the tree. Subclasses for module folders, modules and bookmarks exist.
@@ -311,7 +308,7 @@ public:
   virtual void exportBookmarks();
   virtual void importBookmarks();
   virtual bool acceptDrop(const QMimeSource * src) const;
-  virtual void dropped(QDropEvent *e);
+  virtual void dropped(QDropEvent *e, QListViewItem* after = 0);
 
   /**
   * Loads bookmarks from XML content

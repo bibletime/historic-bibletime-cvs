@@ -74,6 +74,12 @@ public:
 	*/
   void reloadSword();
 
+public slots:
+  /**
+   * Opens the searchdialog for the selected modules.
+   */
+  void searchInModules();
+
 protected: // Protected methods
   /**
   * Reimplementation. Adds the given group to the tree.
@@ -104,13 +110,8 @@ protected: // Protected methods
   */
   virtual void contentsDragMoveEvent( QDragMoveEvent* event );
   virtual void contentsDragLeaveEvent( QDragLeaveEvent* e );
+	QRect drawItemHighlighter(QPainter* painter, QListViewItem * item );
 	
-public slots:
-  /**
-   * Opens the searchdialog for the selected modules.
-   */
-  void searchInModules();
-
 protected slots: // Protected slots
   /**
   * Is called when an item was clicked/double clicked.
