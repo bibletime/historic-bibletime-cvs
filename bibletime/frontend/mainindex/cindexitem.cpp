@@ -464,13 +464,13 @@ const bool CBookmarkItem::enableAction(const MenuAction action){
   return false;
 }
 
-void CBookmarkItem::print(){
-  if (!module())
-    return;
-
-  CExportManager mgr(i18n("Print bookmark"),false);
-  mgr.printKey(module(), key(), key(), description());
-}
+// void CBookmarkItem::print(){
+//   if (!module())
+//     return;
+// 
+//   CExportManager mgr(i18n("Print bookmark"),false);
+//   mgr.printKey(module(), key(), key(), description());
+// }
 
 /** Changes this bookmark. */
 void CBookmarkItem::rename(){

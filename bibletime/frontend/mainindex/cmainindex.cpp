@@ -26,6 +26,8 @@
 #include "frontend/cbtconfig.h"
 #include "frontend/cdragdropmgr.h"
 
+#include "frontend/printing/cprinter.h"
+
 #include "util/cresmgr.h"
 
 //Qt includes
@@ -428,12 +430,18 @@ void CMainIndex::importBookmarks(){
 
 /** Prints the selected bookmarks. */
 void CMainIndex::printBookmarks(){
+	CPrinter::KeyTree tree;
+	CPrinter::Item::Settings settings;
+	
   QPtrList<QListViewItem> items = selectedItems();
   for (items.first(); items.current(); items.next()) {
     if (CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(items.current())) {
-      i->print();
+      //i->print();
+			tree.append( new CPrinter::Item( i->key(), i->module(), settings ) );
     }
   }
+	
+	CPointers::printer()->printKeyTree(tree);
 }
 
 /** Deletes the selected entries. */

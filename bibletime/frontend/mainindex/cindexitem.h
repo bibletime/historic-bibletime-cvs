@@ -183,7 +183,7 @@ public:
   /**
   * Prints this bookmark.
   */
-  void print();
+//   void print();
   /**
   * Changes this bookmark.
   */
