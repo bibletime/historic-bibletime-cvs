@@ -68,25 +68,20 @@ void CPrintItemList::setItems( ListCPrintItem* itemList ){
 	insertItems( itemList );
 }
 
-/** Inserts a page divider */
-void CPrintItemList::newPage(){
-}
-
 /** Deletes the current item. */
 void CPrintItemList::deleteSelectedItems(){
 	QList<QListViewItem> items = selectedItems();	
 	if (!items.count())
 		return;
 	const bool autoDelete = items.autoDelete();
+	
 	CPrintItem* p = 0;
-	CPrintItem::ListViewItem* item = 0;
 	for (items.first(); items.current(); items.next()) {
-		item = dynamic_cast<CPrintItem::ListViewItem*>(items.current());
-		if (item) {
+		if ( CPrintItem::ListViewItem* item = dynamic_cast<CPrintItem::ListViewItem*>(items.current()) ) {
 			if (!(p = item->printItem()))
 				continue;
-			p->deleteListViewItem();
 			m_items->removeRef(p);			
+			p->deleteListViewItem();
 			if (!autoDelete)
 				delete p;
 		}
@@ -95,15 +90,24 @@ void CPrintItemList::deleteSelectedItems(){
 
 /** Moves the item one item up. */
 void CPrintItemList::moveUp(){
-	if (currentItem() && currentItem()->itemAbove() &&  currentItem()->itemAbove()->itemAbove()) {
-		currentItem()->moveItem( currentItem()->itemAbove()->itemAbove() );
+	QList<QListViewItem> items = selectedItems();
+	for (items.first(); items.current(); items.next()) {
+		QListViewItem* current = items.current();
+		if (current && current->itemAbove() &&  current->itemAbove()->itemAbove()) {
+			current->moveItem( current->itemAbove()->itemAbove() );
+		}
 	}
 }
 
 /** Moves the selected entry one entry down. */
 void CPrintItemList::moveDown(){
-	if (currentItem() && currentItem()->itemBelow())
-		currentItem()->moveItem( currentItem()->itemBelow() );
+	QList<QListViewItem> items = selectedItems();
+	for (items.last(); items.current(); items.prev()) {
+		QListViewItem* current = items.current();
+		if (current && current->itemBelow()) {
+			current->moveItem( current->itemBelow() );
+		}
+	}
 }
 
 /** Applies the style to the selected items. */

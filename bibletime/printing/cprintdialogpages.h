@@ -83,7 +83,6 @@ private:
 	QToolButton* m_moveUpButton;
 	QToolButton* m_moveDownButton;
 	QToolButton* m_deleteButton;		
-	QToolButton* m_newPageButton;
 
 private slots:
   /**
@@ -91,8 +90,10 @@ private slots:
  	*/
   void slotListApplyStyle(const QString&);
 protected slots: // Protected slots
-  /** Is called when the CPrinter object
-sends a signal that the styles have changed. */
+  /**
+  * Is called when the CPrinter object sends a signal
+  * that the styles have changed.
+  */
   void stylesChanged();
 };
 

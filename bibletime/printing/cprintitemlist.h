@@ -62,10 +62,6 @@ public slots: // Public slots
  	* Deletes the current item.
  	*/
   void deleteSelectedItems();
-  /**
- 	* Inserts a page divider
- 	*/
-  void newPage();
 
 private:
 	ListCPrintItem* m_items;		

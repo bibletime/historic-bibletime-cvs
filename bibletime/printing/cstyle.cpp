@@ -315,11 +315,14 @@ const bool CStyle::load(const QString& filename){
 	
 	QDomDocument doc;		
 	if (file.open(IO_ReadOnly)) {	
-		doc.setContent(&file);
+		QTextStream t(&file);
+		t.setEncoding(QTextStream::UnicodeUTF8);		
+		doc.setContent( t.read() );
 		file.close();	
 	}
 	else {
 		qWarning("CStyle::load: unable to open file %s", filename.latin1());
+		return false;
 	};
 	
   QDomElement document = doc.documentElement();
@@ -329,9 +332,7 @@ const bool CStyle::load(const QString& filename){
 	}
 	if (document.hasAttribute("name")) { //name of the printing style
 		m_name = document.attribute("name");
-		qWarning("loaded style %s", m_name.latin1());
 		if (document.hasAttribute("translate") && document.attribute("translate").toInt()) {
-			qWarning("translated style name of %s is %s", m_name.latin1(), i18n(m_name.local8Bit()).latin1());
 			m_name = i18n(m_name.local8Bit()); //standard styles should be translated
 		}
 	}
@@ -414,23 +415,14 @@ const bool CStyle::save( const QString& filename ){
     <FONT family="Arial" charset="2" pointsize="10" weight="1" italic="0">
     <FRAME enabled="1" color="blue" style="1" thickness="2">
   </HEADER>
-  <DESCRIPTION enabled="1" alignment="left">
-    <COLORS bgcolor="black" fgcolor="white">
-    <FONT family="Arial" charset="1" pointsize="12" weight="1" italic="0">
-    <FRAME enabled="1" color="blue" style="1" thickness="2">
-  </DESCRIPTION>
-  <MODULETEXT enabled="1" alignment="right">
-    <COLORS bgcolor="black" fgcolor="white">
-    <FONT family="Arial" charset="1" pointsize="12" weight="1" italic="0">
-    <FRAME enabled="1" color="blue" style="1" thickness="2">
-  </MODULETEXT>
+  // same for DESCRIPTION and MODULETEXT
+
  </BibleTimePrintingStyle>
 */
 	bool ret = false;
 	
   QDomDocument doc("DOC");
-//  doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
-//  doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\"" ) );
+  doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
 
   QDomElement content = doc.createElement("BibleTimePrintingStyle");
   content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
@@ -471,7 +463,7 @@ const bool CStyle::save( const QString& filename ){
 				
 		QFont font = format->font();
 		object = doc.createElement("FONT");
-		object.setAttribute("family", font.family().utf8());
+		object.setAttribute("family", font.family()/*.utf8()*/);
 		object.setAttribute("pointsize", font.pointSize());		
 		object.setAttribute("weight", font.weight());
 		object.setAttribute("italic", font.italic());
@@ -495,7 +487,8 @@ const bool CStyle::save( const QString& filename ){
 	if (file.open(IO_WriteOnly)) {
 		ret = true;
 		QTextStream t( &file );        // use a text stream
-		t << doc.toString()/*.utf8()*/;
+		t.setEncoding(QTextStream::UnicodeUTF8);
+		t << doc.toString();
 		file.close();
 	}
 	return ret;

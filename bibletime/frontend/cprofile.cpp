@@ -33,7 +33,7 @@ CProfile::CProfile( const QString& file, const QString& name ):
 	m_name(name.isEmpty() ? i18n("unknown") : name),
 	m_filename(file),
 	m_fullscreen(false),
-	m_geometry(0,0,800,600)
+	m_geometry(0,0,640,480)
 {
 	
 	m_profileWindows.setAutoDelete(true);
@@ -60,12 +60,14 @@ QList<CProfileWindow> CProfile::load(){
 	QFile file(m_filename);	
 	if (!file.exists())
 		return QList<CProfileWindow>();
-
-	file.open(IO_ReadOnly);
 	
-	QDomDocument doc;
-	doc.setContent(&file);
-	file.close();	
+	QDomDocument doc;	
+	if (file.open(IO_ReadOnly)) {		
+		QTextStream t( &file );
+		t.setEncoding(QTextStream::UnicodeUTF8);
+		doc.setContent(t.read());
+		file.close();	
+	}
 	
   QDomElement document = doc.documentElement();
   if(document.tagName() != "BibleTime") {
@@ -106,9 +108,6 @@ QList<CProfileWindow> CProfile::load(){
 				if (object.hasAttribute("height")) {
 					rect.setHeight(object.attribute("height").toInt());
 				}
-//				if (object.hasAttribute("isMaximized")) {
-//					p->setMaximized( static_cast<bool>(object.attribute("isMaximized").toInt()) );
-//				}				
 			}
 			setGeometry(rect);			
 		}
@@ -212,12 +211,11 @@ const bool CProfile::save(QList<CProfileWindow> windows){
   	
   	QDomElement geometry = doc.createElement("GEOMETRY");
   	mainWindow.appendChild(geometry);
-  	QRect r = this->geometry();
+  	const QRect r = this->geometry();
   	geometry.setAttribute("x",r.x());
   	geometry.setAttribute("y",r.y());		
   	geometry.setAttribute("width",r.width());		
   	geometry.setAttribute("height",r.height());		
-//  	geometry.setAttribute("isMaximized",static_cast<int>(maximized()));
 
 		content.appendChild(mainWindow);
 	}
@@ -245,7 +243,7 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 		window.setAttribute("windowSettings", p->windowSettings());
 		
 		//save geomtery
-		QRect r = p->geometry();
+		const QRect r = p->geometry();
 		QDomElement geometry = doc.createElement("GEOMETRY");
 		geometry.setAttribute("x",r.x());
 		geometry.setAttribute("y",r.y());		
@@ -272,11 +270,15 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 	}		
 	
 	QFile file(m_filename);
-	if(file.open(IO_WriteOnly))
+	if ( file.open(IO_WriteOnly) ) {
 		ret = true;
-	QTextStream t( &file );        // use a text stream
-	t << doc.toString();
-	file.close();
+		QTextStream t( &file );
+		t.setEncoding(QTextStream::UnicodeUTF8);
+		t << doc.toString();
+		file.close();
+	}
+	else
+		ret = false;
 
 	return ret;
 }
@@ -316,16 +318,16 @@ void CProfile::loadBasics(){
 	if (!file.exists())
 		return;
 
-		
-	file.open(IO_ReadOnly);
-	
-	QDomDocument doc;
-	doc.setContent(&file);
+	QDomDocument doc;	
+	if (file.open(IO_ReadOnly)) {
+		QTextStream t( &file );
+		t.setEncoding(QTextStream::UnicodeUTF8);
+		doc.setContent(t.read());
+		file.close();			
+	}
   QDomElement document = doc.documentElement();
 	if (document.hasAttribute("name"))
-		m_name = document.attribute("name");	
-
-	file.close();	
+		m_name = document.attribute("name");
 }
 
 void CProfile::saveBasics(){
@@ -333,18 +335,23 @@ void CProfile::saveBasics(){
 	if (!file.exists())
 		return;
 
-	file.open(IO_ReadOnly);	
-	QDomDocument doc;
-	doc.setContent(&file);	
-	file.close();	
+	QDomDocument doc;	
+	if (file.open(IO_ReadOnly)) {
+		QTextStream t(&file);
+		t.setEncoding(QTextStream::UnicodeUTF8);
+		doc.setContent(t.read());
+		file.close();	
+	}
 	
   QDomElement document = doc.documentElement();
 	document.setAttribute("name", m_name);	
 	
-	file.open(IO_WriteOnly);	
-	QTextStream t( &file );
-	t << doc.toString();	
-	file.close();	
+	if (file.open(IO_WriteOnly)) {	
+		QTextStream t( &file );
+		t.setEncoding(QTextStream::UnicodeUTF8);
+		t << doc.toString();	
+		file.close();	
+	}
 }
 
 /** Returns true if the main window was in fullscreen mode as the profile was saved. */

@@ -238,18 +238,10 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
 	QToolTip::add(m_deleteButton, TT_PD_ENTRIES_PI_DELETE);
 	QWhatsThis::add(m_deleteButton, WT_PD_ENTRIES_PI_DELETE);		
 	connect( m_deleteButton, SIGNAL(clicked()),m_printItemList, SLOT(deleteSelectedItems()));
-	
-  m_newPageButton = new QToolButton(this);
- 	m_newPageButton->setOnIconSet( SmallIcon("filenew"));
-	m_newPageButton->setOffIconSet( SmallIcon("filenew"));	
-	QToolTip::add(m_newPageButton, TT_PD_ENTRIES_PI_PAGE_BREAK);
-	QWhatsThis::add(m_newPageButton, WT_PD_ENTRIES_PI_PAGE_BREAK);		
-	connect( m_newPageButton, SIGNAL(clicked()),m_printItemList, SLOT(newPage()));
 
   buttonLayout->addWidget(m_moveUpButton);
   buttonLayout->addWidget(m_moveDownButton);
   buttonLayout->addWidget(m_deleteButton);
-  buttonLayout->addWidget(m_newPageButton);
  	buttonLayout->addStretch(3);
 
   hboxLayout->addLayout( buttonLayout );
@@ -271,7 +263,7 @@ void CPrintItemListPage::setOptions (const QMap<QString,QString>& opts) {
 
 }
 
-bool CPrintItemListPage::isValid (QString& errorMessage) {
+bool CPrintItemListPage::isValid(QString& errorMessage) {
 	return true;
 }
 

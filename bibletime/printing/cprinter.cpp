@@ -214,7 +214,7 @@ void CPrinter::setupStyles(){
 				}
 			}		
 		}
-	};
+	}
 }
 
 /** Saves the styles to config file. */
@@ -240,7 +240,7 @@ void CPrinter::readSettings(){
 	m_pagePosition.rect = contentSize();
 
 	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();		
+	const float r = static_cast<float>(m.width()) / m.widthMM();		
 	m_pageMargin.left 	= (int)(r * m_config->readNumEntry("Left margin", 15));
 	setOption(leading+"left_margin", QString::number(m_config->readNumEntry("Left margin", 15)));
 	
