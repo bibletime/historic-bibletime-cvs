@@ -1,0 +1,228 @@
+Installation process
+
+describes the installation of the prerequisite programs and of BibleTime itself
+<HTML LANG=en-US>
+<HEAD PROFILE="http://purl.org/metadata/dublin_core">
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Installation process</TITLE>
+<LINK REV="made" href="mailto:info@bibletime.de ">
+<META NAME="keywords" CONTENT="installation, Documentation,">
+<META NAME="description" CONTENT="describes the installation of the prerequisite programs and of BibleTime itsel">
+</HEAD>
+
+<body>
+<!-- only part below is in the sourceforge site docs ->
+<p>Here are steps which are necessary to install BibleTime:</p>
+<ol>
+  <li><A HREF="#pre">Installation of prerequisite programs</A></li>
+  <li><A HREF="#sword">Installation of Sword</A></li>
+  <li><A HREF="#modules">Installation of Sword modules</A></li>
+  <li><A HREF="#bibletime">Installation of BibleTime using a source package</A></li>
+</ol>
+
+<H3><A name="pre">Installation of prerequisite programs</A></H3>
+<P>If you use a linux version which is not shipped with KDE 2 you have to install it otherwise omit this step.</P>
+<p>Now download the prerequisites and compile the libraries</P>
+<P>First you have to compile the QT 2.2.x sources. I assume the
+user has his QT sources in <TT>/usr/lib/qt2</TT>,
+his KDE2 sources in <TT>/usr/src/kde2/kdelibs</TT>
+and his KDE2 directory is <TT>/usr/local/kde2</TT>,
+if you don't like it use your own settings for this.</P>
+
+<PRE>
+ export QTDIR=/usr/lib/qt-2.2.2
+ cd $QTDIR
+ ./configure -sm -system-libpng -system-jpeg
+ make
+</PRE>
+
+<P>If you have enough RAM and a fast computer you can speedup the compile process
+by adding <B>-j2</B> to the make options. For example <B>make -j2</B>.
+
+If you have a slow computer with little RAM
+exit X windows and run make from a terminal to speed up the process.  After the
+compiling process is finished you have to compile your KDE2 stuff. Please do
+something like this:</P>
+<PRE>
+ export QTDIR=/usr/lib/qt-2.2.2
+ export KDEDIR=/usr/local/kde2
+ cd /usr/src/kde2/kdelibs
+ ./configure
+ make
+ make install
+</PRE>
+<P>The compilation of QT and KDE should finish without problems or errors.
+It's possible to add <B>-j2</B> again to speed up the compiling process if you have enough RAM and a fast PC.</P>
+
+
+<H3><A name="sword">Installation of Sword</A></H3>
+<P>First you have to unpack the downloaded .tar.gz file
+(if you are using the CVS version, your sources will already be unpacked,
+so skip this step) to a temporary directory. Do something like this:</P>
+<PRE>
+ mkdir /tmp
+ cd /tmp
+ tar -xzf sword-1.5.1a.tar.gz
+ cd /tmp/sword-1.5.1a
+</PRE>
+
+<P>(the tar file will have unpacked into a directory
+named something similar to sword-1.5.1a) </P>
+<P>If you have a customized installation you may want to modify <TT>Makefile.cfg</TT> in the top directory of the unpacked sources.
+The default settings should produce a usable installation for most systems, so for most users modifying
+<TT>Makefile .cfg</TT> should not be necessary.</P>
+<P>Normally you only have to set your system (Intel / Sparc / Mac OSx / Win CE)
+and to decide whether you want to build a shared and/or a static library.
+Perhaps you want to change the install location of the library and the include files.
+You have to decide if you want to install them in an extra directory
+like <TT>/usr/local/sword/</TT> or at a common place like
+<TT>/usr/local/</TT>.
+If you want to install the libraries in
+<TT>/usr/local/lib</TT> and the include files in
+<TT>/usr/local/include</TT> choose <TT>/usr/local</TT>.
+</P><P>Now start compiling by typing <B>make</B>
+and wait until it's finished. After this you have to install the files. It's easy. Simply type
+<B>make install</B></P>
+<P>In the event that make command reports an error on completion, it probably
+indicates that you are missing a package.  For example:</P>
+<PRE>
+ bash-2.03# make
+ make just-pre nodeps=yes
+ make[1]: Entering directory `/bible/sword-1.5.1a'
+ make -C src just-pre
+ .
+ .
+ .
+ make[1]: Entering directory `/bible/sword-1.5.1a/include'
+ make[1]: Nothing to be done for `just-targets'.
+ make[1]: Leaving directory `/bible/sword-1.5.1a/include'
+ make -C apps/X11/VCL just-targets
+ make[1]: Entering directory `/bible/sword-1.5.1a/apps/X11/VCL'
+ gcc -I../../../include/ -D_GNU_SOURCE -I. `gtk-config --cflags` -static -pipe -Wall -Wno-format
+ -fomit-frame-pointer -ggdb -O0 -m486 -c -o TWinControl.o TWinControl.cpp
+ <I>/bin/sh: gtk-config: command not found </I>
+ In file included from TWinControl.cpp:1:
+ <I>TWinControl.h:6: gtk/gtkwidget.h: No such file or directory</I>
+ <I>TWinControl.cpp:3: gtk/gtkwidget.h: No such file or directory </I>
+ In file included from TWinControl.cpp:1:
+ TWinControl.h:281: syntax error before `*'
+ TWinControl.h:284: parse error before `*'
+ TWinControl.cpp:10: parse error before `*'
+ make[1]: *** [TWinControl.o] Error 1
+ make[1]: Leaving directory `/bible/sword-1.5.1a/apps/X11/VCL'
+ make: *** [apps/X11/VCL/targets] Error 2
+ bash-2.03#
+</PRE>
+
+<P>The bold lines above indicate that a gtk application was missing.
+A review of the available packages showed that one of the gtk packages
+supplied with SuSE is gtkdev.  This turns out to be the application required to
+allow make to run to completion without errors. Often missing packages
+will be found on your installation disks, or on your distribution's website.
+Once make runs to completion without errors, then
+<B><TT>make install</TT></B>.
+But if it still doesn't work please edit the file <TT>Makefile.cfg</TT>
+in the top directory of the SWORD sources and change the line
+"<B>buildvcl := yes</B>" to "<B>buildvcl := no</B>"
+and try again. It should work now, now don't forget to execute the command we mentioned above.
+</P>
+
+<H3><A name="modules">Installation of Sword modules</A></H3>
+
+<ol>
+<li><B>Choose a Sword directory</B>
+<P>SWORD does currently support 3 types of modules: Bibles, dictionaries and
+commentaries. You have to install the files of the modules in an own directory.
+Now you have to choose a directory for SWORD. If you installed the libs and
+includes in an extra directory use that directory as your SWORD directory
+(e.g. <TT>/usr/local/sword/</TT>).
+If you installed the library and include files in a common
+place like <TT>/usr/local/</TT> please choose now a SWORD directory.
+</P>
+
+</li>
+
+<li><B>Unpack the downloaded package</B>
+<P>First you have to unpack the downloaded package. On the download page of SWORD
+you can choose if you want to get a Windows or RAW package. If you have a "Linux
+only" box please get the RAW packages. But if you accidentally got a Windows
+self extracting executable try using WINE to extract the files. Perhaps you have
+to change the filename of "_INSTALL.1" to "_install.1" to get the setup running.
+</P>
+</LI>
+
+
+<li><B>Integrating modules</B>
+<P>Create the directory mods.d inside of your SWORD directory.
+Please copy the file
+<TT>[modulename].conf</TT> into the
+<TT>mods.d</TT> directory.
+The <TT>.conf</TT> file is normally inside the unpacked
+module files. Now move the whole dir "modules" which contains your unpacked
+module data files to the SWORD directory.</P>
+<P>Directory Structure looks like this:</P>
+
+<PRE>
+ /usr/local/sword/ -|- mods.d/ -|- module_1_name.conf
+                    |           |- module_2_name.conf
+                    |
+                    |- texts/rawtext/ -|-module_1_name/files
+                                       |-module_2_name/files
+</PRE>
+</LI>
+
+
+<li><B>The Sword configuration file</B>
+<P>A SWORD based app has to know where the modules are located. You need a small
+configuration file in <TT>/etc</TT> to do this. Create the file
+<TT>/etc/sword.conf</TT>.
+The file has to contain only the two following lines: </P>
+
+<PRE>
+[Install]
+ DataPath=/usr/local/sword
+</PRE>
+
+<P>Please use for <TT>/usr/local/sword</TT> of the example your
+path to the SWORD directory. Now start BibleTime and enjoy ;-)  If
+you have problems with the installation of the modules please read the "FAQ
+page. If there's no solution for your problem please see page
+"Contact" how to get help.</P>
+</LI>
+</ol>
+
+<H3><A name="bibletime">Installation of BibleTime</A></H3>
+<p>First you have to unpack the downloaded .tar.gz file (if you are using the CVS
+version, your sources will already be unpacked, so skip this step) to a
+temporary directory. Do something like this: </P>
+
+<PRE>
+ mkdir /tmp
+ cd /tmp
+ tar -xzf bibletime.tar.gz
+ cd /tmp/bibletime
+</PRE>
+
+<P>(the tar file will have unpacked into a directory named something similar to
+bibletime)</P>
+
+<P>Now open a terminal and execute the following commands to compile the sources.</P>
+<PRE>
+ $ su
+ $ password *****
+ $ cd ./Develop/bibletime-2         # Path of source code
+ $ export QTDIR=/usr/lib/qt-2.2.2   # QT 2.2.x source directory
+ $ export KDEDIR=/usr/local/kde2    # KDE2 directory (where KDE2 is installed)
+ $ make -f Makefile.cvs             # configure for CVS version
+ $ ./configure                      # create makefiles
+ $ make                             # compile BibleTime
+ $ make install                     # install BibleTime
+</PRE>
+
+<P>Path to QTDIR and KDE2 may be different on your computer.</P>
+<P>Now open a terminal as a normal user and type bibletime.  Bibletime will
+start.</P>
+
+<!-- only part above is in the sourceforge site docs ->
+</body>
+</html>
