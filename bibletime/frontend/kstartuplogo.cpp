@@ -63,7 +63,7 @@ KStartupLogo::KStartupLogo()
 	: QWidget(0, "startuplogo", WStyle_Customize | WStyle_NoBorder) {
 
   QPixmap pm;	
-	if ( !pm.load(locate("BT_pic","startuplogo.jpg")) )
+	if ( !pm.load(locate("BT_pic","startuplogo.png")) )
   	qWarning("Can't load startuplogo! Check your installation.");
 
   setBackgroundPixmap(pm);
