@@ -33,6 +33,8 @@
 #include <qpicture.h>
 #include <qpainter.h>
 #include <qtooltip.h>
+#include <qrect.h>
+#include <qpoint.h>
 
 //KDE includes
 #include <kfiledialog.h>
@@ -116,8 +118,7 @@ void CSearchDialogAnalysis::analyse(){
 	m_maxCount = 0;
 	
 	xPos = LEFT_BORDER;
-	m_legend = new CSearchDialogAnalysisLegendItem(this, &m_moduleList);
-	
+	m_legend = new CSearchDialogAnalysisLegendItem(this, &m_moduleList);	
 	m_legend->setX(xPos);
 	m_legend->setY(UPPER_BORDER);
 	m_legend->setSize(LEGEND_WIDTH,
@@ -147,8 +148,6 @@ void CSearchDialogAnalysis::analyse(){
  	
  	currentBook = oldBook = QString::null;	
 	//now do the real analysis
-	m_scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(numberOfModules-1)*BAR_DELTAY)
-	                    /(double)m_maxCount);	
 	for (moduleIndex=0,currentModule = m_moduleList.first();currentModule;currentModule=m_moduleList.next(),++moduleIndex) {		
 		currentSearchResult = currentModule->getSearchResult();
 		if (!currentSearchResult.Count())
@@ -170,7 +169,7 @@ void CSearchDialogAnalysis::analyse(){
 				analysisItem = m_canvasItemList.find(oldBook);
 				if (analysisItem) {
 					analysisItem->setCountForModule(moduleIndex, itemsCount);
-					m_maxCount = (itemsCount > m_maxCount) ? itemsCount : m_maxCount;
+					m_maxCount = (itemsCount > m_maxCount) ? itemsCount+2 : m_maxCount;
 					itemsCount = 0;
 				}
 			}
@@ -184,12 +183,16 @@ void CSearchDialogAnalysis::analyse(){
 			analysisItem = m_canvasItemList.find(oldBook);
 			if (analysisItem) {
 				analysisItem->setCountForModule(moduleIndex, itemsCount);		
-				m_maxCount = (itemsCount > m_maxCount) ? itemsCount : m_maxCount;				
+				m_maxCount = (itemsCount > m_maxCount) ? itemsCount+2 : m_maxCount;				
 			} //if
 		}	// if		
 	} // for
-	resize( xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );
+	m_scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(numberOfModules-1)*BAR_DELTAY)
+	                    /(double)m_maxCount);		
+	resize(xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );
 	update();
+	
+	slotResized();
 	KApplication::restoreOverrideCursor();	
 }
 
@@ -207,7 +210,6 @@ void CSearchDialogAnalysis::reset(){
 	m_canvasItemList.clear();
 	delete m_legend;
 	m_legend = 0;	
-	
 	
 	update();
 }
@@ -266,6 +268,7 @@ CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int 
 
 /** Sets the resultcount of this item for the given module */
 void CSearchDialogAnalysisItem::setCountForModule( const int moduleIndex, const int count) {
+	qWarning(QString::number(count).local8Bit());
 	m_resultCountArray[moduleIndex] = count;
 }
 
@@ -296,9 +299,8 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
     		QPoint p1(x()+(m_moduleCount-drawn-1)*BAR_DELTAX,
     		          height()+y()-BAR_LOWER_BORDER-(m_moduleCount-drawn)*BAR_DELTAY);
     		QPoint p2(p1.x() + BAR_WIDTH,
-    		          p1.y() - m_resultCountArray[index]*(*m_scaleFactor));		
+    		          p1.y() - (!m_resultCountArray[index] ? 0 : ((m_resultCountArray[index]+2)*(*m_scaleFactor))) );
     		QRect r(p1, p2);
-    		r.normalize();
     		painter.fillRect(r, QBrush(CSearchDialogAnalysis::getColor(index)) );
     		painter.drawRect(r);
     		drawn++;
@@ -330,11 +332,22 @@ int CSearchDialogAnalysisItem::width(){
 	return m_moduleCount*(m_moduleCount >1 ? BAR_WIDTH - BAR_DELTAX : BAR_WIDTH);	
 }
 
+/** Returns the tooltip for this item. */
+const QString CSearchDialogAnalysisItem::getToolTip(){
+	QString ret = i18n("Entries found for <B>%1</B><HR>").arg(m_bookName);
+	for (int i = 0; i < m_moduleCount; ++i) {
+		ret.append( QString("%1%2").arg(m_resultCountArray[i]).arg(i>1 ? "<BR>": ""));
+	}
+	return ret;
+}
+
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
 CSearchDialogAnalysisView::CSearchDialogAnalysisView(QCanvas* canvas, QWidget* parent)
 	: QCanvasView(canvas, parent) {
+	setFocusPolicy(QWidget::WheelFocus);
+	ToolTip* t = new ToolTip(this);
 	
 	resize(sizeHint());
 }
@@ -350,6 +363,47 @@ QSize CSearchDialogAnalysisView::sizeHint(){
 void CSearchDialogAnalysisView::resizeEvent( QResizeEvent* e){
 	QCanvasView::resizeEvent(e);
 	canvas()->resize( canvas()->width(), viewport()->height() );
+}
+
+CSearchDialogAnalysisView::ToolTip::ToolTip(QWidget* parent) : QToolTip(parent) {
+	qWarning("CSearchDialogAnalysisView::ToolTip::ToolTip(QWidget* parent) : QToolTip(parent)");
+}
+
+void CSearchDialogAnalysisView::ToolTip::maybeTip(const QPoint& p) {
+	qWarning("CSearchDialogAnalysisView::ToolTip::maybeTip(const QPoint& p)");	
+	CSearchDialogAnalysisView* view = dynamic_cast<CSearchDialogAnalysisView*>(parentWidget());
+	if (!view)
+		return;
+	QPoint point(p);
+	point = view->viewport()->mapFrom(view, point);
+//	point.setX( point.x() );
+//	point.setY( point.y() );	
+	CSearchDialogAnalysisItem* i = view->itemAt( view->viewportToContents(point) );
+	ASSERT(i);
+	if (!i)
+		return;
+				
+	//get type of item and display correct text
+	QString text = i->getToolTip();
+	ASSERT(text.isEmpty());
+	if (text.isEmpty())
+		return;
+
+	qWarning("computing points");
+	QPoint p1 = view->contentsToViewport(i->rect().topLeft());
+	QPoint p2 = view->contentsToViewport(i->rect().bottomRight());	
+	QRect r = QRect( p1, p2 );
+	tip(r, text);
+}
+
+
+/** Returns the item at position p. If there no item at that point return 0. */
+CSearchDialogAnalysisItem* CSearchDialogAnalysisView::itemAt( const QPoint& p ){
+	qWarning("CSearchDialogAnalysisView::itemAt( const QPoint& p )");
+	QCanvasItemList l = canvas()->collisions(p);
+	if (!l.count())
+		return 0;
+	return dynamic_cast<CSearchDialogAnalysisItem*>(l.first());	
 }
 
 //------------------------------------------------------------------
@@ -377,7 +431,7 @@ void CSearchDialogAnalysisLegendItem::draw (QPainter& painter) {
   f.setPointSize(ITEM_TEXT_SIZE);
   painter.setFont(f);
  	
- 	for (int index=0; index < m_moduleList->count(); index++){
+ 	for (unsigned int index=0; index < m_moduleList->count(); index++){
  	  // the module color indicators
  	  QPoint p1(x()+LEGEND_INNER_BORDER, y() + LEGEND_INNER_BORDER + index*(LEGEND_DELTAY + ITEM_TEXT_SIZE));
  	  QPoint p2( p1.x() + ITEM_TEXT_SIZE, p1.y() + ITEM_TEXT_SIZE);
@@ -389,7 +443,5 @@ void CSearchDialogAnalysisLegendItem::draw (QPainter& painter) {
  		QPoint p3( p2.x() + LEGEND_INNER_BORDER, p2.y() );
   	painter.drawText(p3, QString(m_moduleList->at(index)->module()->Name()) );
  	}
-
   painter.restore();
 }
-

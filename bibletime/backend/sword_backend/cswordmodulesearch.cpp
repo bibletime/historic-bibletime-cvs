@@ -101,8 +101,8 @@ const bool CSwordModuleSearch::startSearch() {
 	}
 
 	pthread_mutex_lock(&percentage_mutex);
-	cms_currentProgress=100;
-	cms_overallProgress=100;
+	cms_currentProgress = 100;
+	cms_overallProgress = 100;
 	pthread_mutex_unlock(&percentage_mutex);
 
 	m_foundItems = foundItems;

@@ -162,34 +162,25 @@ const bool CSwordModuleInfo::search( const QString searchedText, int searchOptio
 		searchFlags = 0;
 
 	if (searchOptions & CSwordModuleSearch::exactPhrase)
-		searchType = -1; //-1 == exact phrase
+		searchType = -1; //exact phrase
 	else if (searchOptions & CSwordModuleSearch::multipleWords)
-		searchType = -2; //-2 == multiple words
+		searchType = -2; //multiple words
 	else if (searchOptions & CSwordModuleSearch::regExp)
-		searchType = 0;	// 0 == regexp matching
+		searchType = 0;	//regexp matching
 
 	SWKey* searchScope = 0;
 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
-    qDebug("use last search result");
 		searchScope = &m_searchResult;
     m_searchResult = m_module->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, searchScope, 0, percentUpdate);
-//  	delete searchScope;
 	}
 	else if (searchOptions & CSwordModuleSearch::useScope) {
-		qDebug("use own scope");
 		searchScope = &scope;  	
-  	m_searchResult = m_module->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, searchScope, 0, percentUpdate);
-//  	delete searchScope;
+  	m_searchResult = m_module->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, getType() != Lexicon ? searchScope : 0, 0, percentUpdate);
 	}
   else  {
-    qDebug("use no scope");
   	m_searchResult = m_module->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, 0, 0, percentUpdate);
   }
-	
-	qDebug("finsished search");
-	qDebug((const char*)QString("Number of found items: %1").arg(m_searchResult.Count()).local8Bit());
-	
-	return (bool)m_searchResult.Count();
+	return m_searchResult.Count();
 }
 
 /** Returns the last search result for this module. */

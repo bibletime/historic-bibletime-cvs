@@ -58,9 +58,10 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 	removeButton->setFixedSize( removeButton->sizeHint() );
 	connect(removeButton, SIGNAL(clicked()), SLOT(removeCurrentItem()));
 	
-	buttonLayout->addWidget(addButton);
-	buttonLayout->addSpacing(50);
-	buttonLayout->addWidget(removeButton);
+	buttonLayout->addWidget(addButton,0);
+	buttonLayout->addSpacing(5);
+	buttonLayout->addWidget(removeButton,0);
+	buttonLayout->addStretch(5);
 		
 	mainLayout->addWidget(m_moduleIndex,2);
 	mainLayout->addLayout(buttonLayout,0);

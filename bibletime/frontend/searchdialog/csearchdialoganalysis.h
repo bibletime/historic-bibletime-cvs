@@ -27,6 +27,7 @@
 #include <qcanvas.h>
 #include <qarray.h>
 #include <qdict.h>
+#include <qtooltip.h>
 
 class CSearchDialog;
 class CSearchDialogAnalysisItem;
@@ -92,11 +93,16 @@ public:
   * Sets the resultcount of this item
   */
   void setCountForModule( const int moduleIndex, const int count);
-  /** Returns thw width of this item. */
+  /**
+  * Returns thw width of this item.
+  */
   virtual int width();
+  /** Returns the tooltip for this item. */
+  const QString getToolTip();
   	
 private:
   virtual void draw (QPainter & painter);	
+	
 	double *m_scaleFactor;
 	QString m_bookName;
  	int m_moduleCount;
@@ -104,10 +110,8 @@ private:
 };
 
 class CSearchDialogAnalysisLegendItem : public QCanvasRectangle  {
-
 public:	
 	CSearchDialogAnalysisLegendItem(QCanvas* parent, ListCSwordModuleInfo* list );
-
 private:
   virtual void draw (QPainter & painter);
   ListCSwordModuleInfo* m_moduleList;
@@ -128,12 +132,26 @@ public:
   * This is a reimplementation from QCanvasView::sizeHint().
   */
   virtual QSize sizeHint();	
+  /**
+  * Returns the item at position p.
+	* If there no item at that point return 0.
+	*/
+  CSearchDialogAnalysisItem* itemAt( const QPoint& p );
 
 protected:
   /**
   * Reimplementation.
   */
   virtual void resizeEvent(QResizeEvent* e);
+private:
+	class ToolTip : public QToolTip {
+	public:
+		ToolTip(QWidget* parent);
+		/**
+		* Displays a tooltip for position p
+		*/		
+		virtual void maybeTip(const QPoint &pos);
+	};
 };
 
 
