@@ -130,7 +130,10 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 	if (searchOptions & CSwordModuleSearch::caseSensitive)
 		searchFlags = 0;
 
-	if (searchOptions & CSwordModuleSearch::multipleWords) {
+	if (searchOptions & CSwordModuleSearch::entryAttribs) {
+		searchType = -3; //Entry attributes
+  }
+	else if (searchOptions & CSwordModuleSearch::multipleWords) {
 		searchType = -2; //multiple words
   }
 	else if (searchOptions & CSwordModuleSearch::exactPhrase) {

@@ -296,7 +296,7 @@ const CBTConfig::StringMap CBTConfig::get( const CBTConfig::stringMaps ID ){
         sword::VerseKey vk;
 
         for (it = map.begin(); it != map.end(); ++it) {
-          sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
+          sword::ListKey list = vk.ParseVerseList(it.data().utf8(), "Genesis 1:1", true);
           QString data;
           for (int i = 0; i < list.Count(); ++i) {
             data += QString::fromUtf8(list.GetElement(i)->getRangeText()) + "; ";
@@ -375,7 +375,7 @@ void CBTConfig::set( const CBTConfig::stringMaps ID, const CBTConfig::StringMap 
 
       sword::VerseKey vk;
       for (it = value.begin(); it != value.end(); ++it) {
-        sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
+        sword::ListKey list = vk.ParseVerseList(it.data().utf8(), "Genesis 1:1", true);
         data = QString::null;
         for (int i = 0; i < list.Count(); ++i) {
           if ( sword::VerseKey* range = dynamic_cast<sword::VerseKey*>(list.GetElement(i)) ) {

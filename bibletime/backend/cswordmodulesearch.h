@@ -54,9 +54,10 @@ public:
   	exactPhrase		= 0x000000001,
   	multipleWords	= 0x000000002,
   	regExp				= 0x000000004,
-  	caseSensitive	= 0x000000008,  	
-  	useLastResult	= 0x000000010,
-  	useScope	 		= 0x000000020
+  	entryAttribs  = 0x000000008,
+		caseSensitive	= 0x000000010,  	
+  	useLastResult	= 0x000000020,
+  	useScope	 		= 0x000000040
 	};
 	enum PercentType {
   	currentModule,
