@@ -1,3 +1,5 @@
+SUBDIRS = style-data
+
 INCLUDES = $(all_includes)
 
 libprinting_a_METASOURCES = AUTO

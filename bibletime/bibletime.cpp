@@ -175,7 +175,6 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			break;
 	}	
 	if (presenter) {
-		qWarning("CREATE NEW PRESENTER: %s", key.latin1());
 		connect(presenter, SIGNAL(lookupInLexicon(const QString&, const QString&)),
 			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
 		connect(presenter, SIGNAL(lookupInModule(const QString&, const QString&)),

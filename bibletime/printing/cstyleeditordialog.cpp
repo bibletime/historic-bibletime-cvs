@@ -226,7 +226,6 @@ void CStyleEditorDialog::setupWithFormat( CStyle::Format* const format ){
 	const CStyle::StyleType type = format->type();
 	if (type == CStyle::Unknown)
 		return;
-//	qWarning("setupWithFormat: %i", (int)type);
 	m_formatEnabled = m_style->hasFormatTypeEnabled(type);
 	
   m_styleNameEdit->setText( m_style->styleName());	
@@ -263,7 +262,6 @@ void CStyleEditorDialog::setupWithFormat( CStyle::Format* const format ){
 	CStyle::Format::Frame* frame = format->frame();
 	m_frame.useFrame->setChecked(frame);
 	m_frame.useFrame->setEnabled(m_formatEnabled);		
-	m_frame.groupbox->setEnabled(m_formatEnabled);		
 	useFrameClicked();
 	
 	if (frame) {
@@ -271,6 +269,8 @@ void CStyleEditorDialog::setupWithFormat( CStyle::Format* const format ){
 		m_frame.lineThicknessChooser->setValue( frame->thickness() );	
 		m_frame.lineStyleChooser->setCurrentItem((int)(frame->lineStyle())-1);
 	}
+	
+	m_frame.groupbox->setEnabled(m_formatEnabled);			
 }
 
 /** Setups the font widgets using the parameter. */
@@ -338,6 +338,7 @@ void CStyleEditorDialog::applySettingsToFormat( CStyle::Format* const format ){
 void CStyleEditorDialog::enableBoxClicked() {
 	const CStyle::StyleType styleType = m_currentFormat->type();		
 	m_style->setFormatTypeEnabled(styleType, m_setEnabledBox->isChecked());	
+	
 	applySettingsToFormat(m_style->formatForType(styleType));
 	setupWithFormat( m_currentFormat );
 }

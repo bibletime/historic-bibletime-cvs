@@ -175,6 +175,12 @@ CStyle::CStyle() :
 	m_descriptionFormat(new Format(CStyle::Description)),
 	m_moduleTextFormat(new Format(CStyle::ModuleText))
 {
+
+	//dummy command to translate names of standard styles
+	i18n("Standard");
+	i18n("Colored style for larger test portions");
+	i18n("Black&White for larger test portions");
+	
 	m_listViewItem = 0;
 	m_isHeaderFormatEnabled = m_isDescriptionFormatEnabled = m_isModuleTextFormatEnabled = true;
 
@@ -209,32 +215,15 @@ CStyle::Format* const CStyle::formatForType( const CStyle::StyleType type) {
 	}
 }
 
-/** Sets the format for the given type. */
-//void CStyle::setFormatForType( const CStyle::StyleType type, const CStyle::Format* format){
-//	switch (type) {
-//		case Header:
-//			m_headerFormat = format;
-//			break;
-//		case Description:
-//			m_descriptionFormat = format;			
-//			break;
-//		case ModuleText:
-//			m_moduleTextFormat = format;
-//			break;			
-//		default:
-//			break;
-//	}
-//}
-
 /** Set the printing of the header (true enables it). */
 const bool CStyle::hasFormatTypeEnabled( const CStyle::StyleType type) const {	
 	switch (type) {
 		case Header:
 			return m_isHeaderFormatEnabled;
-		case ModuleText:
-			return m_isModuleTextFormatEnabled;
 		case Description:
-			return m_isModuleTextFormatEnabled;		
+			return m_isDescriptionFormatEnabled;		
+		case ModuleText:
+			return m_isModuleTextFormatEnabled;			
 		default:
 			return false;
 	}
@@ -246,12 +235,15 @@ void CStyle::setFormatTypeEnabled( const CStyle::StyleType type, const bool setE
 		case Header:
 			m_isHeaderFormatEnabled = setEnabled;
 			break;
-		case ModuleText:
-			m_isModuleTextFormatEnabled = setEnabled;		
-			break;
+		
 		case Description:
 			m_isDescriptionFormatEnabled = setEnabled;		
 			break;
+		
+		case ModuleText:
+			m_isModuleTextFormatEnabled = setEnabled;		
+			break;
+		
 		default:
 			break;
 	}
@@ -278,11 +270,7 @@ const QString& CStyle::styleName() const{
 
 /** Sets the name of the style. */
 void CStyle::setStyleName( const QString name ){
-//	qDebug("CStyle::setStyleName( const QString name)");
 	m_name = name;
-//	m_filename = name;
-//	m_filename.replace(QRegExp("[&#+*\\s]"), "_");
-//	m_filename.append(".xml");
 }
 
 /** Clears all variables and sets them back */
@@ -295,7 +283,7 @@ void CStyle::clearData(){
 
 /** Updates the Listview items */
 void CStyle::updateListViewItem(){
-	qWarning("CStyle::updateListViewItem() for %s", m_name.latin1());
+//	qWarning("CStyle::updateListViewItem() for %s", m_name.latin1());
 	m_listViewItem->setText(0, styleName() );
 }
 
@@ -326,9 +314,13 @@ const bool CStyle::load(const QString& filename){
 	}
 	
 	QDomDocument doc;		
-	file.open(IO_ReadOnly);	
-	doc.setContent(&file);
-	file.close();	
+	if (file.open(IO_ReadOnly)) {	
+		doc.setContent(&file);
+		file.close();	
+	}
+	else {
+		qWarning("CStyle::load: unable to open file %s", filename.latin1());
+	};
 	
   QDomElement document = doc.documentElement();
   if(document.tagName() != "BibleTimePrintingStyle") {
@@ -336,8 +328,10 @@ const bool CStyle::load(const QString& filename){
 		return false;
 	}
 	if (document.hasAttribute("name")) { //name of the printing style
-		setStyleName( document.attribute("name") );
+		m_name = document.attribute("name");
+		qWarning("loaded style %s", m_name.latin1());
 		if (document.hasAttribute("translate") && document.attribute("translate").toInt()) {
+			qWarning("translated style name of %s is %s", m_name.latin1(), i18n(m_name.local8Bit()).latin1());
 			m_name = i18n(m_name.local8Bit()); //standard styles should be translated
 		}
 	}
@@ -377,11 +371,16 @@ const bool CStyle::load(const QString& filename){
 
 		object = elem.namedItem("FONT").toElement();
 		if (!object.isNull()) {
-			const QString family = object.hasAttribute("family") ? object.attribute("family") : QString::null;
-			const unsigned int size = object.hasAttribute("pointsize") ? object.attribute("pointsize").toInt() : QApplication::font().pointSize();		
+			QString family = object.hasAttribute("family") ? object.attribute("family") : QApplication::font().family();
+			unsigned int size = object.hasAttribute("pointsize") ? object.attribute("pointsize").toInt() : QApplication::font().pointSize();
 			const int weight = object.hasAttribute("weight") ? object.attribute("weight").toInt() : QFont::Normal;
 			const bool italic = object.hasAttribute("italic") ? static_cast<bool>(object.attribute("italic").toInt()) : false;
 			const QFont::CharSet charset = object.hasAttribute("charset") ? static_cast<QFont::CharSet>(object.attribute("charset").toInt()) : QApplication::font().charSet();
+			
+			if (family.isEmpty())
+				family = QApplication::font().family();
+			if (!size)
+				size = QApplication::font().pointSize();
 			
 			p->setFont( QFont(family, size, weight, italic, charset) );			
 		}	
@@ -430,11 +429,13 @@ const bool CStyle::save( const QString& filename ){
 	bool ret = false;
 	
   QDomDocument doc("DOC");
-  doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
+//  doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
+//  doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\"" ) );
 
   QDomElement content = doc.createElement("BibleTimePrintingStyle");
   content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
-  content.setAttribute("name", m_name);
+  content.setAttribute("name", m_name/*.utf8()*/);
+  content.setAttribute("translate", 0); //don't trabslate styles except of prinstalled ones
   doc.appendChild(content);
 
   for (unsigned int i = Header; i <= ModuleText; ++i) {
@@ -464,37 +465,38 @@ const bool CStyle::save( const QString& filename ){
 		elem.setAttribute("alignment", static_cast<int>(format->alignment()));
 		
 		QDomElement object = doc.createElement("COLORS");
-		object.setAttribute("bgcolor", format->color(Format::Background).name());
-		object.setAttribute("fgcolor", format->color(Format::Foreground).name());
+		object.setAttribute("bgcolor", format->color(Format::Background).name()/*.utf8()*/);
+		object.setAttribute("fgcolor", format->color(Format::Foreground).name()/*.utf8()*/);
 		elem.appendChild(object);		
 				
 		QFont font = format->font();
 		object = doc.createElement("FONT");
-		object.setAttribute("family", font.family());
+		object.setAttribute("family", font.family().utf8());
+		object.setAttribute("pointsize", font.pointSize());		
 		object.setAttribute("weight", font.weight());
 		object.setAttribute("italic", font.italic());
-		object.setAttribute("charset", (int)(font.charSet()));		
+		object.setAttribute("charset", static_cast<int>(font.charSet()));		
 		elem.appendChild(object);
 						
 		object = doc.createElement("FRAME");		
 		Format::Frame* frame = format->frame();
-		object.setAttribute("enabled", (bool)frame);
+		object.setAttribute("enabled", static_cast<bool>(frame) );
 		if (frame) {
-			object.setAttribute("color", frame->color().name());
+			object.setAttribute("color", frame->color().name()/*.utf8()*/);
 			object.setAttribute("thickness", frame->thickness());
-			object.setAttribute("style", (int)(frame->lineStyle()) );
+			object.setAttribute("style", static_cast<int>(frame->lineStyle()) );
     }		
 		elem.appendChild(object);
   };
-  ret = true;
+  ret = false;
 
 
 	QFile file(filename);
-	if (file.open(IO_WriteOnly))
+	if (file.open(IO_WriteOnly)) {
 		ret = true;
-	QTextStream t( &file );        // use a text stream
-	t << doc.toString();
-	file.close();
-
+		QTextStream t( &file );        // use a text stream
+		t << doc.toString()/*.utf8()*/;
+		file.close();
+	}
 	return ret;
 }

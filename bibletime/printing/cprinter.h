@@ -180,7 +180,8 @@ private:
 	
 	bool m_addedItem;
 	
-	QString m_stylePath;
+	QString m_styleSaveLocation;
+	QString m_styleDir;
 	
 signals: // Signals
 	/**

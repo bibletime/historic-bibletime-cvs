@@ -53,8 +53,10 @@ CPrinter::CPrinter( QObject* parent ) : QObject(parent) {
 		QMap<QString, QString> map = m_config->entryMap("Options");
 		setOptions(map);
 	}
+	
+	m_styleDir = "printing/";
 	KStandardDirs stdDirs;
-	m_stylePath = stdDirs.saveLocation("data", "bibletime/printingstyles/");		
+	m_styleSaveLocation = stdDirs.saveLocation("data", "bibletime/"+m_styleDir);		
 	
 	readSettings();
 	setupStyles();
@@ -183,25 +185,48 @@ void CPrinter::appendItem(CPrintItem* newItem){
 
 /** Reads the style from config. */
 void CPrinter::setupStyles(){	
-	QDir d( m_stylePath );
+//load local styles	
+	QDir d( m_styleSaveLocation );
 	QStringList files = d.entryList("*.xml");
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-		m_styleList.append( new CStyle(m_stylePath + *it) ); //automatically load from file		
+		m_styleList.append( new CStyle(m_styleSaveLocation + *it) ); //automatically load from file		
 	}
+	
+//load systemwide styles, probably standard styles installed by BibleTime
+	KStandardDirs stdDirs;
+	QStringList globalPaths = stdDirs.findDirs("data", "bibletime/"+m_styleDir);
+	if (globalPaths.count()) { //try to find some new global styles	
+		for (QStringList::Iterator path = globalPaths.begin(); path!=globalPaths.end(); ++path) {
+			d = QDir( *path );
+			QStringList files = d.entryList("*.xml");
+			for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
+				CStyle* newStyle = new CStyle(*path + *it);
+				
+				bool found = false;				
+				for(m_styleList.first(); m_styleList.current() && !found; m_styleList.next()) {
+					if (newStyle->styleName() == m_styleList.current()->styleName()) {
+						found = true;
+					}
+				}		
+				
+				if (!found) {
+					m_styleList.append( newStyle );
+				}
+			}		
+		}
+	};
 }
 
 /** Saves the styles to config file. */
 void CPrinter::saveStyles(){
-	QDir d(m_stylePath);	
+	QDir d(m_styleSaveLocation);	
 	QStringList files = d.entryList("*.xml");
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
 		d.remove(*it);
 	}
 	
 	for (m_styleList.first(); m_styleList.current(); m_styleList.next()) {
-		QString file = m_stylePath  + m_styleList.current()->styleName() + ".xml";
-		file.replace(QRegExp("[ δόφί]"), "_");
-		m_styleList.current()->save( file );
+		m_styleList.current()->save(  m_styleSaveLocation + QString::fromLatin1("printing-style-%1").arg(m_styleList.at()) + ".xml" );
 	}
 }
 
