@@ -29,7 +29,10 @@
 #ifndef CTOOLCLASS_H
 #define CTOOLCLASS_H
 
+
 class CSwordModuleInfo;
+class QLabel;
+
 /**
  * Provides some useful functions which would be normally global.
  *
@@ -90,6 +93,8 @@ public:
   * No descriptions
   */
   static const QString getOpenFileName( const QString& startDir = QString::null, const QString& filter = QString::null, QWidget* parent = 0, const QString& caption = QString::null);
+  /** Creates a QLabel wchich contains an explanation. This functions returns everytime the same style so the explanation labels are the same in all places. */
+  static QLabel* explanationLabel(QWidget* parent, const QString& heading, const QString& text );
 };
 
 #endif
