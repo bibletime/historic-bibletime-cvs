@@ -93,7 +93,7 @@ void CSwordSetupDialog::initSwordConfig(){
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
 
-  QString swordConfPath = BTInstallMgr::Tool::swordConfigFilename();
+  QString swordConfPath = BTInstallMgr::Tool::LocalConfig::swordConfigFilename();
 	QLabel* confPathLabel = new QLabel(QString::fromLatin1("Your Sword configuration file is <b>%1</b>").arg(swordConfPath), page);
 	layout->addMultiCellWidget(confPathLabel, 1,1,0,3);
 
@@ -239,7 +239,21 @@ void CSwordSetupDialog::initRemove(){
 /** Called if the OK button was clicked */
 void CSwordSetupDialog::slotOk(){
   //save the Sword path configuration here
+  if (m_swordPathListBox->childCount()) {
+    QStringList targets;
+  
+    QListViewItemIterator it( m_swordPathListBox );
+    while ( it.current() ) {
+      QListViewItem *item = it.current();
+      if (!item->text(0).isEmpty()) {
+        targets << item->text(0);
+      }
+      ++it;
+    }
 
+    BTInstallMgr::Tool::LocalConfig::setTargetList(targets); //creates new Sword config
+  }
+  
   KDialogBase::slotOk();  
   emit signalSwordSetupChanged( );
 }
@@ -273,14 +287,14 @@ void CSwordSetupDialog::populateInstallCombos(){
 	m_targetCombo->clear();
 
   BTInstallMgr mgr;
-  BTInstallMgr::Tool::initConfig();
+  BTInstallMgr::Tool::RemoteConfig::initConfig();
 
-  QStringList list = BTInstallMgr::Tool::sourceList(&mgr);
+  QStringList list = BTInstallMgr::Tool::RemoteConfig::sourceList(&mgr);
   for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
     m_sourceCombo->insertItem( *it );
   }
 
-  list = BTInstallMgr::Tool::targetList();
+  list = BTInstallMgr::Tool::LocalConfig::targetList();
   for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
     m_targetCombo->insertItem( *it );
   }
@@ -292,9 +306,9 @@ void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
   BTInstallMgr mgr;
 
   QString url;
-  sword::InstallSource is = BTInstallMgr::Tool::source(&mgr, sourceName) ;
+  sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&mgr, sourceName) ;
   
-  if (BTInstallMgr::Tool::isRemoteSource(&is)) {
+  if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
     url = QString::fromLatin1("ftp://%1%2").arg(is.source.c_str()).arg(is.directory.c_str());
   }
   else {
@@ -472,9 +486,9 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   categoryBook->setOpen(true);
   
   BTInstallMgr iMgr;
-  sword::InstallSource is = BTInstallMgr::Tool::source(&iMgr, sourceName);
+  sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
 
-  if (BTInstallMgr::Tool::isRemoteSource(&is)) {        
+  if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {        
     if (!m_refreshedRemoteSources)
       iMgr.refreshRemoteSource( &is );
     m_refreshedRemoteSources = true;
@@ -614,10 +628,8 @@ void CSwordSetupDialog::slot_installModules(){
 		KMessageBox::error(0, "No modules selected.", "Error") ;
 	}
 	else if ((KMessageBox::warningYesNo(0, message, "Warning") == KMessageBox::Yes)){  //Yes was pressed.
-    qWarning("proceeding");
-    
     BTInstallMgr iMgr;
-    sword::InstallSource is = BTInstallMgr::Tool::source(&iMgr, m_sourceCombo->currentText());
+    sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, m_sourceCombo->currentText());
 
     QString target = m_targetCombo->currentText();
     if (target.contains("$HOME"))
@@ -663,7 +675,7 @@ void CSwordSetupDialog::slot_installModules(){
         iMgr.removeModule(&mgr, m->name().latin1());
       }
       
-      if (BTInstallMgr::Tool::isRemoteSource(&is)) {
+      if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
         iMgr.installModule(&lMgr, 0, (*it).latin1(), &is);
       }
       else { //local source
@@ -699,11 +711,6 @@ void CSwordSetupDialog::slot_showInstallSourcePage(){
   m_installWidgetStack->raiseWidget(m_installSourcePage);
 }
 
-/** This function writes the Sword configuration file to disk. */
-void CSwordSetupDialog::writeSwordConfig(){
-//  SWConfig conf()
-}
-
 /** No descriptions */
 void CSwordSetupDialog::slot_swordEditClicked(){
   if (QListViewItem* i = m_swordPathListBox->currentItem()) {
@@ -731,10 +738,13 @@ void CSwordSetupDialog::slot_swordRemoveClicked(){
 
 /** Setup the path list box */
 void CSwordSetupDialog::setupSwordPathListBox(){
-  QStringList targets = BTInstallMgr::Tool::targetList();
+  QStringList targets = BTInstallMgr::Tool::LocalConfig::targetList();
   m_swordPathListBox->clear();
 
   for (QStringList::iterator it = targets.begin(); it != targets.end(); ++it)  {
+    if ((*it).isEmpty())
+      continue;
+    
     new KListViewItem(m_swordPathListBox, *it);
   }
   m_swordPathListBox->setCurrentItem( m_swordPathListBox->firstChild() );

@@ -42,27 +42,34 @@ class BTInstallMgr : public QObject, public sword::InstallMgr {
 public:
   class Tool {
   public:
-    //more Sword related stuff
-    static const QString swordConfigFilename();
+    class LocalConfig {
+    public:
+      static const QString swordConfigFilename();
+      static QStringList targetList();
+      static void setTargetList( const QStringList& );      
+    private:
+      LocalConfig() {};
+    };
 
+    class RemoteConfig {
+    public:
+      static void initConfig();
+      static const QString configPath();
+      static const QString configFilename();
 
-    static void initConfig();
-    static const QString configPath();
-    static const QString configFilename();
-
-
-    static QStringList targetList();
-    
-    static QStringList sourceList( sword::InstallMgr* );
-    static sword::InstallSource source( sword::InstallMgr*, const QString& name );
-    static const bool isRemoteSource( sword::InstallSource* is );
-    static void addSource( sword::InstallSource* );
-    static void removeSource( sword::InstallMgr*, sword::InstallSource* );
+      static QStringList sourceList( sword::InstallMgr* );
+      static sword::InstallSource source( sword::InstallMgr*, const QString& name );
+      static const bool isRemoteSource( sword::InstallSource* is );
+      static void addSource( sword::InstallSource* );
+      static void removeSource( sword::InstallMgr*, sword::InstallSource* );
+    private:
+      RemoteConfig() {};
+    };
 
     static CSwordBackend* backend( sword::InstallSource* const );
-    
+
   private:
-    Tool() {};
+    Tool() {};    
   };
 
 	BTInstallMgr();
@@ -76,9 +83,10 @@ protected:
   long m_completedBytes;
   
 signals: // Signals
-  /** No descriptions */
   void completed( const int, const int );
-  /** Emitted when a new file gets downloaded. */
+  /**
+  * Emitted when a new file gets downloaded.
+  */
   void downloadStarted( const QString& );
 };
 

@@ -135,8 +135,6 @@ private slots:
 
   void installCompleted( const int, const int );
 
-  /** This function writes the Sword configuration file to disk. */
-  void writeSwordConfig();
   /** No descriptions */
   void slot_swordRemoveClicked();
   /** No descriptions */
