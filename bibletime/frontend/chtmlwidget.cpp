@@ -284,33 +284,33 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
 		m_anchorMenu->exec( e->globalPos() );
   }
   else if (m_popup && e->button() == RightButton){ //popup normal menu
-//    m_selectedWord = false;
-//    QString selectedWord = QString::null;
-//
-//   	drawCursor(false);
-//   	placeCursor(e->pos());    	
-//   	ensureCursorVisible();
-//		emit cursorPositionChanged(cursor);
-//		
-//    if (selectedText().isEmpty()) {
-//    	Qt3::QTextCursor c1 = *cursor;
-//	    Qt3::QTextCursor c2 = *cursor;
-//	    c1.gotoWordLeft();
-//	    c2.gotoWordRight();
-//	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
-//	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
-//	    *cursor = c2;
-//	    selectedWord = selectedText();
-////			emit cursorPositionChanged(cursor);		    	
-////	   	ensureCursorVisible();			
-////	    repaintChanged();
-//	    m_selectedWord = true;
-//	  }
+    m_selectedWord = false;
+    QString selectedWord = QString::null;
+
+   	drawCursor(false);
+   	placeCursor(e->pos());    	
+   	ensureCursorVisible();
+		emit cursorPositionChanged(cursor);
+		
+    if (selectedText().isEmpty()) {
+    	Qt3::QTextCursor c1 = *cursor;
+	    Qt3::QTextCursor c2 = *cursor;
+	    c1.gotoWordLeft();
+	    c2.gotoWordRight();
+	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
+	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
+	    *cursor = c2;
+	    selectedWord = selectedText();
+			emit cursorPositionChanged(cursor);		    	
+	   	ensureCursorVisible();			
+	    repaintChanged();
+	    m_selectedWord = true;
+	  }
 		m_popup->exec( e->globalPos() );		
-//		if (m_selectedWord && (selectedWord == selectedText()) ) {
-//			m_selectedWord = false;
-//			selectAll(false);
-//		}		
+		if (m_selectedWord && (selectedWord == selectedText()) ) {
+			m_selectedWord = false;
+			selectAll(false);
+		}		
   }	
 }
 
