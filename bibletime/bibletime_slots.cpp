@@ -148,12 +148,10 @@ void BibleTime::slotWindowMenuAboutToShow(){
 		m_windowCascade_action->unplug(m_windowMenu);
 	if ( m_windowTile_action->isPlugged() )
 		m_windowTile_action->unplug(m_windowMenu);
-	if ( m_windowAutoCascade_action->isPlugged() )
-		m_windowAutoCascade_action->unplug(m_windowMenu);
-	if ( m_windowAutoTile_action->isPlugged() )
-		m_windowAutoTile_action->unplug(m_windowMenu);
+	if ( m_windowArrangementMenu->isPlugged() )
+		m_windowArrangementMenu->unplug(m_windowMenu);
 	if ( m_windowCloseAll_action->isPlugged() )
-		m_windowAutoTile_action->unplug(m_windowMenu);
+		m_windowCloseAll_action->unplug(m_windowMenu);
 
 	m_windowMenu->clear();
 			
@@ -166,10 +164,9 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	m_windowFullscreen_action->plug(m_windowMenu);
 	m_windowMenu->insertSeparator();
 	
+	m_windowArrangementMenu->plug(m_windowMenu);
 	m_windowCascade_action->plug(m_windowMenu);
 	m_windowTile_action->plug(m_windowMenu);
-	m_windowAutoCascade_action->plug(m_windowMenu);
-	m_windowAutoTile_action->plug(m_windowMenu);
 	m_windowCloseAll_action->plug(m_windowMenu);	
 	
 	if ( m_mdi->windowList().isEmpty() ) {
@@ -184,12 +181,7 @@ void BibleTime::slotWindowMenuAboutToShow(){
 		m_windowMenu->insertSeparator();
 	} 
 	else {
-		m_windowTile_action->setEnabled( 
-			!m_windowAutoTile_action->isChecked() && m_windowAutoCascade_action->isChecked() 
-		);
-		m_windowCascade_action->setEnabled( 
-			!m_windowAutoCascade_action->isChecked() && m_windowAutoTile_action->isChecked()
-		);
+		slotUpdateWindowArrangementActions(0); //update the window tile/cascade states
 		m_windowCloseAll_action->setEnabled( true );
 		m_windowMenu->insertSeparator();
 	}
@@ -207,30 +199,98 @@ void BibleTime::slotWindowMenuAboutToShow(){
 }
 
 /** This slot is connected with the windowAutoTile_action object */
-void BibleTime::slotAutoTile(){
-	if (m_windowAutoTile_action->isChecked()) {
-		m_windowAutoCascade_action->setChecked(false);
-		m_mdi->setGUIOption( CMDIArea::autoTile );
+void BibleTime::slotUpdateWindowArrangementActions( KAction* clickedAction ){
+	
+	/* If a toggle action was clicked we see if it checked ot unchecked and
+	* enable/disable the simple cascade and tile options accordingly 
+	*/
+	m_windowTile_action->setEnabled( m_windowManualMode_action->isChecked() );
+	m_windowCascade_action->setEnabled( m_windowManualMode_action->isChecked() );
+	
+	if (clickedAction) {
+		m_windowManualMode_action->setEnabled( m_windowManualMode_action != clickedAction );
+		m_windowAutoTileVertical_action->setEnabled( m_windowAutoTileVertical_action != clickedAction );
+		m_windowAutoTileHorizontal_action->setEnabled( m_windowAutoTileHorizontal_action != clickedAction );
+		m_windowAutoCascade_action->setEnabled( m_windowAutoCascade_action != clickedAction );
 	}
-	else if (!m_windowAutoCascade_action->isChecked()) { //tile and cascade are enabled/disbled in  slotWindowMenuAboutToShow
-    m_mdi->setGUIOption( CMDIArea::Nothing );    
-  }
+	
+	if (clickedAction == m_windowManualMode_action) {
+		m_windowAutoTileVertical_action->setChecked(false);
+		m_windowAutoTileHorizontal_action->setChecked(false);
+		m_windowAutoCascade_action->setChecked(false);
+		
+		m_mdi->setGUIOption( CMDIArea::Nothing );
+	}
+	else if (clickedAction == m_windowAutoTileVertical_action) {		
+		m_windowManualMode_action->setChecked(false);
+		m_windowAutoTileHorizontal_action->setChecked(false);
+		m_windowAutoCascade_action->setChecked(false);
+		
+		m_mdi->setGUIOption( CMDIArea::autoTileVertical );
+	}
+	else if (clickedAction == m_windowAutoTileHorizontal_action) {
+		m_windowManualMode_action->setChecked(false);
+		m_windowAutoTileVertical_action->setChecked(false);
+		m_windowAutoCascade_action->setChecked(false);
+		
+		m_mdi->setGUIOption( CMDIArea::autoTileHorizontal );
+	}
+	else if (clickedAction == m_windowAutoCascade_action) {
+		m_windowManualMode_action->setChecked(false);
+		m_windowAutoTileHorizontal_action->setChecked(false);
+		m_windowAutoTileVertical_action->setChecked(false);
+		
+		m_mdi->setGUIOption( CMDIArea::autoCascade );
+	}
+	else if (clickedAction == m_windowCascade_action) {
+		m_mdi->setGUIOption( CMDIArea::Nothing );
+		m_mdi->myCascade();
+	}
+	else if (clickedAction == m_windowTile_action) {
+		m_mdi->setGUIOption( CMDIArea::Nothing );
+ 		m_mdi->myTileVertical();
+	}
+}
+
+void BibleTime::slotManualArrangementMode() {
+	slotUpdateWindowArrangementActions( m_windowManualMode_action );
+}
+
+/** This slot is connected with the windowAutoTile_action object */
+void BibleTime::slotAutoTileHorizontal(){
+	slotUpdateWindowArrangementActions( m_windowAutoTileHorizontal_action );
+}
+
+/** This slot is connected with the windowAutoTile_action object */
+void BibleTime::slotAutoTileVertical(){
+	slotUpdateWindowArrangementActions( m_windowAutoTileVertical_action );
+}
+
+void BibleTime::slotCascade() { 
+	slotUpdateWindowArrangementActions( m_windowCascade_action );
+}
+
+void BibleTime::slotTileVertical() {
+	slotUpdateWindowArrangementActions( m_windowTile_action );
 }
 
 /** This slot is connected with the windowAutoCascade_action object */
 void BibleTime::slotAutoCascade(){
-	if (m_windowAutoCascade_action->isChecked()) {
-		m_windowAutoTile_action->setChecked(false);
+	slotUpdateWindowArrangementActions( m_windowAutoCascade_action );
+/*	if (m_windowAutoCascade_action->isChecked()) {
+		m_windowAutoTileVertical_action->setChecked(false);
+		m_windowAutoTileHorizontal_action->setChecked(false);
 		m_mdi->setGUIOption( CMDIArea::autoCascade );
 	}
-	else if (!m_windowAutoTile_action->isChecked()) { //tile and cascade are enabled/disbled in  slotWindowMenuAboutToShow
+	else if (!m_windowAutoTileVertical_action->isChecked()) { //tile and cascade are enabled/disbled in  slotWindowMenuAboutToShow
 		m_mdi->setGUIOption( CMDIArea::Nothing );    
-  }
+  }*/
 }
 
 void BibleTime::slotWindowMenuActivated( int id ) {
-  if (!m_windowMenu)
+  if (!m_windowMenu) {
   	return;
+	}
   	
   QWidget* const window = m_mdi->windowList().at( id );
   if ( window ) {
@@ -288,7 +348,6 @@ void BibleTime::slotSearchModules() {
 			
 			ListCSwordModuleInfo::iterator end_it = windowModules.end();
 			for (ListCSwordModuleInfo::iterator it(windowModules.begin()); it != end_it; ++it) {
-//       for (CSwordModuleInfo* module = windowModules.first(); module; module = windowModules.next()) {
         modules.append(*it);
       };
     };

@@ -138,6 +138,42 @@ namespace CResMgr {
         extern const KShortcut accel;
         extern const char* actionName;
       }
+			namespace arrangementMode {
+				extern QString tooltip;
+				extern QString whatsthis;
+				extern const QString icon;
+				extern const KShortcut accel;
+				extern const char* actionName;
+				
+				namespace manual {
+					extern QString tooltip;
+					extern QString whatsthis;
+					extern const QString icon;
+					extern const KShortcut accel;
+					extern const char* actionName;
+				}
+				namespace autoTileVertical {
+					extern QString tooltip;
+					extern QString whatsthis;
+					extern const QString icon;
+					extern const KShortcut accel;
+					extern const char* actionName;
+				}
+				namespace autoTileHorizontal {
+					extern QString tooltip;
+					extern QString whatsthis;
+					extern const QString icon;
+					extern const KShortcut accel;
+					extern const char* actionName;
+				}
+				namespace autoCascade {
+					extern QString tooltip;
+					extern QString whatsthis;
+					extern const QString icon;
+					extern const KShortcut accel;
+					extern const char* actionName;
+				}			
+			}
       namespace tile {
         extern QString tooltip;
         extern QString whatsthis;
@@ -146,20 +182,6 @@ namespace CResMgr {
         extern const char* actionName;
       }
       namespace cascade {
-        extern QString tooltip;
-        extern QString whatsthis;
-        extern const QString icon;
-        extern const KShortcut accel;
-        extern const char* actionName;
-      }
-      namespace autoTile {
-        extern QString tooltip;
-        extern QString whatsthis;
-        extern const QString icon;
-        extern const KShortcut accel;
-        extern const char* actionName;
-      }
-      namespace autoCascade {
         extern QString tooltip;
         extern QString whatsthis;
         extern const QString icon;

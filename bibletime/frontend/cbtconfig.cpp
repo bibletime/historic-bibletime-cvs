@@ -102,7 +102,8 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 		case mainIndex:						return "mainIndex";
 		case infoDisplay:					return "infoDisplay";
 
-		case autoTile:						return "autoTile";
+		case autoTileVertical:		return "autoTileVertical";
+		case autoTileHorizontal:	return "autoTileHorizontal";
 		case autoCascade:					return "autoCascade";
 
 		case lexiconCache: 				return "lexicon_chache";
@@ -146,7 +147,8 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 		case mainIndex:						return true;
 		case infoDisplay:					return true;
 
-		case autoTile:						return true;
+		case autoTileVertical:		return true;
+		case autoTileHorizontal:	return false;
 		case autoCascade:					return false;
 
 		case lexiconCache: 				return true;

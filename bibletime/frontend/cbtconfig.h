@@ -61,7 +61,8 @@ public:
 		mainIndex,
 		infoDisplay,
 
-		autoTile,
+		autoTileVertical,
+		autoTileHorizontal,
 		autoCascade,
 
 		lexiconCache,

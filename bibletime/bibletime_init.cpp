@@ -191,10 +191,88 @@ void BibleTime::initActions() {
     action->plugAccel( accel() );
   #endif
 
+	m_windowArrangementMenu = new KActionMenu(
+		i18n("&Arrangement mode"),
+    CResMgr::mainMenu::window::arrangementMode::icon,
+    actionCollection(),
+    CResMgr::mainMenu::window::arrangementMode::actionName	
+	);
+
+	m_windowManualMode_action = new KToggleAction(i18n("Manual mode"),
+    CResMgr::mainMenu::window::arrangementMode::manual::icon,
+		CResMgr::mainMenu::window::arrangementMode::manual::accel,
+    this, SLOT(slotManualArrangementMode()), actionCollection(),
+    CResMgr::mainMenu::window::arrangementMode::manual::actionName
+  );
+	m_windowManualMode_action->setToolTip( 
+		CResMgr::mainMenu::window::arrangementMode::manual::tooltip 
+	);
+	m_windowManualMode_action ->setWhatsThis(
+		CResMgr::mainMenu::window::arrangementMode::manual::whatsthis 
+	);
+  #if KDE_VERSION_MINOR < 1
+  	m_windowManualMode_action->plugAccel( accel() );
+  #endif
+	m_windowArrangementMenu->insert( m_windowManualMode_action );
+	
+	
+	m_windowAutoTileVertical_action = new KToggleAction(i18n("Tile (vertical)"),
+    CResMgr::mainMenu::window::arrangementMode::autoTileVertical::icon,
+		CResMgr::mainMenu::window::arrangementMode::autoTileVertical::accel,
+    this, SLOT(slotAutoTileVertical()), actionCollection(),
+    CResMgr::mainMenu::window::arrangementMode::autoTileVertical::actionName
+  );
+	m_windowAutoTileVertical_action->setToolTip( 
+		CResMgr::mainMenu::window::arrangementMode::autoTileVertical::tooltip 
+	);
+	m_windowAutoTileVertical_action->setWhatsThis( 
+		CResMgr::mainMenu::window::arrangementMode::autoTileVertical::whatsthis 
+	);
+  #if KDE_VERSION_MINOR < 1
+  	m_windowAutoTileVertical_action->plugAccel( accel() );
+  #endif
+	m_windowArrangementMenu->insert( m_windowAutoTileVertical_action );
+	
+
+	m_windowAutoTileHorizontal_action = new KToggleAction(i18n("Tile (horizontal)"),
+    CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::icon,
+		CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::accel,
+    this, SLOT(slotAutoTileHorizontal()), actionCollection(),
+    CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::actionName
+  );
+	m_windowAutoTileHorizontal_action->setToolTip( 
+		CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::tooltip 
+	);
+	m_windowAutoTileHorizontal_action->setWhatsThis( 
+		CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::whatsthis 
+	);
+  #if KDE_VERSION_MINOR < 1
+  	m_windowAutoTileHorizontal_action->plugAccel( accel() );
+  #endif
+	m_windowArrangementMenu->insert( m_windowAutoTileHorizontal_action );
+	
+	
+	m_windowAutoCascade_action 	= new KToggleAction(i18n("&Cascade"),
+    CResMgr::mainMenu::window::arrangementMode::autoCascade::icon,
+		CResMgr::mainMenu::window::arrangementMode::autoCascade::accel,
+    this, SLOT(slotAutoCascade()), actionCollection(),
+    CResMgr::mainMenu::window::arrangementMode::autoCascade::actionName
+  );
+	m_windowAutoCascade_action->setToolTip( 
+		CResMgr::mainMenu::window::arrangementMode::autoCascade::tooltip 
+	);
+	m_windowAutoCascade_action->setWhatsThis(
+		CResMgr::mainMenu::window::arrangementMode::autoCascade::whatsthis 
+	);
+  #if KDE_VERSION_MINOR < 1
+  	m_windowAutoCascade_action->plugAccel( accel() );
+  #endif
+	m_windowArrangementMenu->insert( m_windowAutoCascade_action );
+	
   m_windowCascade_action = new KAction(i18n("&Cascade"),
     CResMgr::mainMenu::window::cascade::icon,
     CResMgr::mainMenu::window::cascade::accel,
-		m_mdi, SLOT(myCascade()), actionCollection(),
+		this, SLOT(slotCascade()), actionCollection(),
     CResMgr::mainMenu::window::cascade::actionName
   );
 	m_windowCascade_action->setToolTip( CResMgr::mainMenu::window::cascade::tooltip );
@@ -204,10 +282,10 @@ void BibleTime::initActions() {
   #endif
 
 
-  m_windowTile_action = new KAction(i18n("&Tile"),
+  m_windowTile_action = new KAction(i18n("&Tile vertical"),
     CResMgr::mainMenu::window::tile::icon,
     CResMgr::mainMenu::window::tile::accel,
-    m_mdi, SLOT(myTile()), actionCollection(),
+    this, SLOT(slotTileVertical()), actionCollection(),
     CResMgr::mainMenu::window::tile::actionName
 	);
 	m_windowTile_action->setToolTip( CResMgr::mainMenu::window::tile::tooltip );
@@ -216,31 +294,6 @@ void BibleTime::initActions() {
   	m_windowTile_action->plugAccel( accel() );
   #endif
 
-
-	m_windowAutoCascade_action 	= new KToggleAction(i18n("&Auto cascade"),
-    CResMgr::mainMenu::window::autoCascade::icon,
-	CResMgr::mainMenu::window::autoCascade::accel,
-    this, SLOT(slotAutoCascade()), actionCollection(),
-    CResMgr::mainMenu::window::autoCascade::actionName
-  );
-	m_windowAutoCascade_action->setToolTip( CResMgr::mainMenu::window::autoCascade::tooltip );
-	m_windowAutoCascade_action->setWhatsThis( CResMgr::mainMenu::window::autoCascade::whatsthis );
-  #if KDE_VERSION_MINOR < 1
-  	m_windowAutoCascade_action->plugAccel( accel() );
-  #endif
-
-
-	m_windowAutoTile_action = new KToggleAction(i18n("A&uto Tile"),
-    CResMgr::mainMenu::window::autoTile::icon,
-	CResMgr::mainMenu::window::autoTile::accel,
-    this, SLOT(slotAutoTile()), actionCollection(),
-    CResMgr::mainMenu::window::autoTile::actionName
-  );
-	m_windowAutoTile_action->setToolTip( CResMgr::mainMenu::window::autoTile::tooltip );
-	m_windowAutoTile_action->setWhatsThis( CResMgr::mainMenu::window::autoTile::whatsthis );
-  #if KDE_VERSION_MINOR < 1
-  	m_windowAutoTile_action->plugAccel( accel() );
-  #endif
 
 
   m_windowCloseAll_action = new KAction(i18n("Cl&ose all"),
@@ -520,11 +573,11 @@ void BibleTime::applyProfileSettings( CProfile* p ){
 		return;
   }
 
-	if (m_initialized) {//on startup KDE sets the main geometry
+// 	if (!m_initialized) 
+	{ //on startup KDE sets the main geometry
     const QRect geometry = p->geometry();
 		resize( geometry.size() );
-		move( geometry.topLeft() );
-		
+		move( geometry.topLeft() );		
 	}
 	
 	m_windowFullscreen_action->setChecked( p->fullscreen() );  //set the fullscreen button state

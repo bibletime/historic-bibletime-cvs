@@ -86,7 +86,7 @@ BibleTime::BibleTime()
 	setPlainCaption("BibleTime " VERSION);
 
   // we don't save the geometry, it's stored in the startup profile
-  setAutoSaveSettings(QString::fromLatin1("MainWindow"), true);
+  setAutoSaveSettings(QString::fromLatin1("MainWindow"), false);
 }
 
 /** Saves the properties of BibleTime to the application wide configfile  */
@@ -105,16 +105,29 @@ void BibleTime::saveSettings(){
  		CBTConfig::set(CBTConfig::splitterSizes, m_splitter->sizes());
   }
 
- 	if (m_windowAutoTile_action->isChecked())	{
- 		CBTConfig::set(CBTConfig::autoTile, true);
+ 	if (m_windowManualMode_action->isChecked())	{
+		CBTConfig::set(CBTConfig::autoTileVertical, false);
+ 		CBTConfig::set(CBTConfig::autoTileHorizontal, false);
+ 		CBTConfig::set(CBTConfig::autoCascade, false);
+ 	}
+ 	else if (m_windowAutoTileVertical_action->isChecked())	{
+		CBTConfig::set(CBTConfig::autoTileVertical, true);
+ 		CBTConfig::set(CBTConfig::autoTileHorizontal, false);
+ 		CBTConfig::set(CBTConfig::autoCascade, false);
+ 	}
+ 	else if (m_windowAutoTileHorizontal_action->isChecked())	{
+		CBTConfig::set(CBTConfig::autoTileVertical, false);
+ 		CBTConfig::set(CBTConfig::autoTileHorizontal, true);
  		CBTConfig::set(CBTConfig::autoCascade, false);
  	}
  	else if ( m_windowAutoCascade_action->isChecked() ) {
-		CBTConfig::set(CBTConfig::autoTile, false);
+		CBTConfig::set(CBTConfig::autoTileVertical, false);
+		CBTConfig::set(CBTConfig::autoTileHorizontal, false);
  		CBTConfig::set(CBTConfig::autoCascade, true);	
  	}
- 	else {
-		CBTConfig::set(CBTConfig::autoTile, false);
+ 	else { //shouldn't happen, just to be safe
+		CBTConfig::set(CBTConfig::autoTileVertical, false);
+		CBTConfig::set(CBTConfig::autoTileHorizontal, false);
  		CBTConfig::set(CBTConfig::autoCascade, false);	
  	}
 
@@ -140,20 +153,21 @@ void BibleTime::readSettings(){
  	
 	m_splitter->setSizes( CBTConfig::get(CBTConfig::splitterSizes) );		
 
- 	if ( CBTConfig::get(CBTConfig::autoTile) ) {
- 		m_windowAutoTile_action->setChecked( true );
- 		m_windowAutoCascade_action->setChecked( false );
- 		m_mdi->setGUIOption( CMDIArea::autoTile );
+ 	if ( CBTConfig::get(CBTConfig::autoTileVertical) ) {
+ 		m_windowAutoTileVertical_action->setChecked( true );
+		slotAutoTileVertical();
+ 	}
+ 	else if ( CBTConfig::get(CBTConfig::autoTileHorizontal) ) {
+		slotAutoTileHorizontal();
+		m_windowAutoTileHorizontal_action->setChecked( true );
  	}
  	else if ( CBTConfig::get(CBTConfig::autoCascade) ) {
  		m_windowAutoCascade_action->setChecked(true);
- 		m_windowAutoTile_action->setChecked(false);
- 		m_mdi->setGUIOption( CMDIArea::autoCascade );
+		slotAutoCascade();
  	}
  	else {
- 		m_mdi->setGUIOption( CMDIArea::Nothing );
- 		m_windowAutoTile_action->setChecked(false);
- 		m_windowAutoCascade_action->setChecked(false);
+		m_windowManualMode_action->setChecked(true);
+		slotManualArrangementMode(); //update items
  	}
 }
 
@@ -161,9 +175,7 @@ void BibleTime::readSettings(){
 CDisplayWindow* BibleTime::createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& key) {
   kapp->setOverrideCursor( waitCursor );
 
-//  qWarning("will create now displayWindow (bibletime)");
   CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);
-//  qWarning("created displayWindow (bibletime)");
   if ( displayWindow ) {
   	displayWindow->init(key);
 		displayWindow->show();
@@ -214,17 +226,20 @@ bool BibleTime::queryExit(){
   	return false;
   }
 	saveSettings();
+	
 	return true;
 }
 
 /** Called before a window is closed */
 bool BibleTime::queryClose(){
   bool ret = true;
+	
 	for ( unsigned int index = 0; index < m_mdi->windowList().count(); ++index) {
 		if (CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index))) {
    		ret = ret && window->queryClose();
     }
-	}	
+	}
+	
 	return ret;
 }
 
@@ -235,7 +250,6 @@ void BibleTime::saveProperties(KConfig* /*myConfig*/){
 
 /** Reimplementation used for session management. */
 void BibleTime::readProperties(KConfig* /*myConfig*/){
-
 }
 
 /** Restores the workspace if the flag for this is set in the config. */
@@ -282,7 +296,7 @@ void BibleTime::processCommandline(){
     }
     createReadDisplayWindow(bible, bibleKey);
 //    if (isVisible())
-      m_mdi->myTile();//we are sure only one window is open, which should be displayed fullscreen in the working area
+      m_mdi->myTileVertical();//we are sure only one window is open, which should be displayed fullscreen in the working area
   }
 }
 

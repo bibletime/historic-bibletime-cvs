@@ -1,4 +1,4 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="20">
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="21">
 <MenuBar>
  <Menu name="file" noMerge="1"><text>&amp;File</text>
   <Action name="file_clear_queue_action"/>
@@ -31,10 +31,9 @@
   <Separator/>
   <Action name="windowFullscreen_action"/>
   <Separator/>
+  <Action name="windowArrangementMode_action"/>
   <Action name="windowTile_action"/>
   <Action name="windowCascade_action"/>
-  <Action name="windowAutoTile_action"/>
-  <Action name="windowAutoCascade_action"/>
   <Separator/>
   <Action name="windowCloseAll_action"/>
   <Separator/>

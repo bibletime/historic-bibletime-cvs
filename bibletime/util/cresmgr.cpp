@@ -142,6 +142,42 @@ namespace CResMgr {
         const KShortcut accel     = Qt::CTRL + Qt::SHIFT + Qt::Key_F;
         const char* actionName    = "windowFullscreen_action";
       }
+      namespace arrangementMode {
+				QString tooltip;
+				QString whatsthis;
+				const QString icon        = "bt_tile";
+				const KShortcut accel     = Qt::CTRL + Qt::Key_A;
+				const char* actionName    = "windowArrangementMode_action";
+				
+				namespace manual {
+					QString tooltip;
+					QString whatsthis;
+					const QString icon        = "bt_tile_manual";
+					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_M;
+					const char* actionName    = "windowArrangementManual_action";
+				}
+				namespace autoTileHorizontal {
+					QString tooltip;
+					QString whatsthis;
+					const QString icon        = "bt_tile_auto";
+					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_T;
+					const char* actionName    = "windowAutoTileHorizontal_action";
+				}
+				namespace autoTileVertical {
+					QString tooltip;
+					QString whatsthis;
+					const QString icon        = "bt_tile_auto";
+					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_T;
+					const char* actionName    = "windowAutoTileVertical_action";
+				}
+				namespace autoCascade {
+					QString tooltip;
+					QString whatsthis;
+					const QString icon        = "bt_cascade_auto";
+					const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_A;
+					const char* actionName    = "windowAutoCascade_action";
+				}
+      }
       namespace tile {
         QString tooltip;
         QString whatsthis;
@@ -155,20 +191,6 @@ namespace CResMgr {
         const QString icon        = "bt_cascade";
         const KShortcut accel     = Qt::CTRL + Qt::Key_A;
         const char* actionName    = "windowCascade_action";
-      }
-      namespace autoTile {
-        QString tooltip;
-        QString whatsthis;
-        const QString icon        = "bt_tile_auto";
-        const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_T;
-        const char* actionName    = "windowAutoTile_action";
-      }
-      namespace autoCascade {
-        QString tooltip;
-        QString whatsthis;
-        const QString icon        = "bt_cascade_auto";
-        const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_A;
-        const char* actionName    = "windowAutoCascade_action";
       }
       namespace closeAll {
         QString tooltip;
@@ -904,16 +926,29 @@ namespace CResMgr {
             whatsthis   = makeWhatsThis(tooltip,i18n("Cascade the open display windows."));
           }
           {
-            using namespace autoTile;
-            tooltip     = makeToolTip(i18n("Automatically tile windows"));
-            whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open display windows."));
+						{
+							using namespace arrangementMode;
+						
+//            	tooltip     = makeToolTip(i18n("Automatically tile windows"));
+//            	whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open display windows."));
+						}
+						{
+            	using namespace arrangementMode::autoTileVertical;
+            	tooltip     = makeToolTip(i18n("Automatically tile windows"));
+            	whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open display windows."));
+						}
+						{
+            	using namespace arrangementMode::autoTileHorizontal;
+            	tooltip     = makeToolTip(i18n("Automatically tile windows"));
+            	whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open display windows."));
+						}
+						{
+							using namespace arrangementMode::autoCascade;
+							tooltip     = makeToolTip(i18n("Automatically cascade windows"));
+							whatsthis   = makeWhatsThis(tooltip, i18n("Automatically cascade the open display windows."));
+						}
           }
-          {
-            using namespace autoCascade;
-            tooltip     = makeToolTip(i18n("Automatically cascade windows"));
-            whatsthis   = makeWhatsThis(tooltip, i18n("Automatically cascade the open display windows."));
-          }
-          {
+					{
             using namespace closeAll;
             tooltip     = makeToolTip(i18n("Close all windows"));
             whatsthis   = makeWhatsThis(tooltip, i18n("Close all open display windows."));

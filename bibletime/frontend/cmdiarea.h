@@ -44,7 +44,8 @@ public:
 	* The options you can set for this widget.
 	*/
 	enum MDIOption {
-		autoTile,
+		autoTileVertical,
+		autoTileHorizontal,
 		autoCascade,
 		Nothing
 	};	
@@ -87,11 +88,11 @@ public slots:
   /** Our own cascade version which, if only one window is left, shows this maximized.
  	* Also necessary for autoTile feature
  	*/
-  void myTile();
+  void myTileVertical();
 	/** Horizontal tile function
 	* This function was taken from Qt's MDI example.
 	*/
-	void tileHorizontal();
+	void myTileHorizontal();
 	/**
   * Emits the signal to create a new display window in the MDI area.
   */
@@ -116,6 +117,10 @@ protected: // Protected methods
   void initView();
   QPtrList<QWidget> usableWindowList();
 	bool eventFilter( QObject *o, QEvent *e );
+	/** 
+	* Tiles the windows in a horizontal way.
+	*/
+	void tileHorizontal();
 			
 signals: // Signals
   /**

@@ -229,11 +229,22 @@ protected slots:
 	/**
  	* This slot is connected with the windowAutoTile_action object
  	*/
-	void slotAutoTile();
+ 	void slotAutoTileVertical();
+	/**
+ 	* This slot is connected with the windowAutoTile_action object
+ 	*/
+ 	void slotAutoTileHorizontal();
 	/**
  	* This slot is connected with the windowAutoCascade_action object
  	*/
-	void slotAutoCascade();
+ 	void slotAutoCascade();
+	void slotUpdateWindowArrangementActions( KAction* );
+	
+	void slotCascade();
+	void slotTileVertical();
+	
+	void slotManualArrangementMode();
+	
 	/**
 	* Is called when a client was selected in the window menu
 	*/
@@ -318,8 +329,11 @@ private:
 	/** WINDOW menu actions */
 	KAction*	m_windowCascade_action;
 	KAction*	m_windowTile_action;
+	KActionMenu* m_windowArrangementMenu;
+	KToggleAction*	m_windowManualMode_action;
 	KToggleAction*	m_windowAutoCascade_action;
-	KToggleAction*	m_windowAutoTile_action;
+	KToggleAction*	m_windowAutoTileVertical_action;
+	KToggleAction*	m_windowAutoTileHorizontal_action;
 	KAction*	m_windowCloseAll_action;
 
 	KActionMenu*	m_windowSaveProfile_action;
