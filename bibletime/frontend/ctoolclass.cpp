@@ -155,7 +155,7 @@ const QString CToolClass::getSaveFileName( const QString& startDir, const QStrin
 /** No descriptions */
 const QString CToolClass::getOpenFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
 #ifdef STATIC_BUILD
-	return QFileDialog::getOpenFileName(startDir, filter, parent,"CToolClass::getOpenileName",caption);
+	return QFileDialog::getOpenFileName(startDir, filter, parent,"CToolClass::getOpenFileName",caption);
 #else
 	return KFileDialog::getOpenFileName(startDir, filter, parent, caption);
 #endif
