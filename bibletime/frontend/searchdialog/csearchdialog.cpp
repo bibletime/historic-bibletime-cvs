@@ -25,6 +25,7 @@
 #include "backend/cswordversekey.h"
 
 #include "frontend/ctoolclass.h"
+#include "frontend/cbtconfig.h"
 
 //Qt includes
 #include <qhbox.h>
@@ -33,6 +34,11 @@
 #include <qwhatsthis.h>
 #include <qlayout.h>
 #include <qmap.h>
+#include <qlineedit.h>
+#include <qtextedit.h>
+#include <qlabel.h>
+#include <qsizepolicy.h>
+#include <qpushbutton.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -83,10 +89,21 @@ void CSearchDialog::startSearch(){
   int searchFlags = m_searchOptionsPage->searchFlags();	
   m_searchOptionsPage->prepareSearch();
 
+  const CSwordModuleSearch::scopeType scopeType = m_searchOptionsPage->scopeType();
+  if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
+		searchFlags |= CSwordModuleSearch::useLastResult;
+	}
+	else if ( scopeType == CSwordModuleSearch::Scope_Bounds ) {
+		searchFlags |= CSwordModuleSearch::useScope;
+    qWarning(m_searchOptionsPage->searchScope());
+		m_searcher.setSearchScope( m_searchOptionsPage->searchScope() );
+	}  
+  
 	m_searcher.setModules( modules() );
 	m_searcher.setSearchedText(m_searchOptionsPage->searchText());
 	m_searcher.setSearchOptions(searchFlags);
-	
+
+  qWarning("start the search");
   m_searcher.startSearchThread();
 }
 
@@ -157,6 +174,7 @@ void CSearchDialog::searchFinished(){
 void CSearchDialog::initConnections(){
   connect(this, SIGNAL(user1Clicked()), SLOT(startSearch()));
   connect(this, SIGNAL(user2Clicked()), SLOT(interruptSearch()));
+  connect(this, SIGNAL(aboutToShowPage(QWidget*)), SLOT(slotShowPage(QWidget*)));
 }
 
 /** Updates the progress. */
@@ -179,6 +197,17 @@ void CSearchDialog::reset(){
   m_searchResultPage->reset();
   showPage(m_index.optionsPage);
 }
+
+
+/** Is the slot which is called when a page will be shown. */
+void CSearchDialog::slotShowPage(QWidget* page){
+  qWarning("show a page");
+  if (pageIndex(page) == m_index.optionsPage) {
+    qWarning("show options page"),
+    m_searchOptionsPage->aboutToShow();
+  };
+}
+
 
 /****************************/
 /****************************/
@@ -397,15 +426,147 @@ void CModuleChooserDialog::slotOk(){
 }
 
 /****************************/
+CRangeChooserDialog::RangeItem::RangeItem(QListView* view, const QString caption, const QString range) : KListViewItem(view) {
+  setCaption(caption);
+  setRange(range);
+};
 
-CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialog(parentDialog) {
+CRangeChooserDialog::RangeItem::~RangeItem() {
 
+};
+
+const QString& CRangeChooserDialog::RangeItem::range() {
+//  return VerseKey().ParseVerseList((const char*)m_range.local8Bit(), "Genesis 1:1", true);
+  return m_range;
+};
+
+void CRangeChooserDialog::RangeItem::setRange(QString newRange) {
+  m_range = newRange;
+};
+
+const QString CRangeChooserDialog::RangeItem::caption() {
+  return text(0);
+};
+
+void CRangeChooserDialog::RangeItem::setCaption(const QString newCaption) {
+  setText(0,newCaption);
+};
+
+
+/**************************/
+CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(Plain, i18n("Edit search ranges ..."), Close, Close, parentDialog, "CRangeChooserDialog", false, true) {
+  initView();
+  initConnections();
+
+  //add the existing scopes
+  CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
+  CBTConfig::StringMap::Iterator it;
+  for (it = map.begin(); it != map.end(); ++it) {
+    new RangeItem(m_rangeList, it.key(), it.data());
+  };
 };
 
 CRangeChooserDialog::~CRangeChooserDialog() {
 
 };
 
+/** Initializes the view of this object. */
+void CRangeChooserDialog::initView(){
+  QGridLayout* grid = new QGridLayout(plainPage(),4,4,0,3);
+
+  m_rangeList = new KListView(plainPage());
+  m_rangeList->addColumn(i18n("Name"));
+  m_rangeList->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
+  grid->addMultiCellWidget(m_rangeList,0,2,0,0);
+
+  QPushButton* newRange = new QPushButton(i18n("Add new range"),plainPage());
+  connect(newRange, SIGNAL(clicked()), this, SLOT(addNewRange()));
+  grid->addWidget(newRange,3,0);
+  
+  grid->addColSpacing(1, 5);
+  
+  QLabel* label = new QLabel(i18n("Name:"), plainPage());
+  m_nameEdit = new QLineEdit(plainPage());
+  grid->addWidget(label,0,2);
+  grid->addMultiCellWidget(m_nameEdit,0,0,3,3);
+
+//  grid->addRowSpacing(1,15);
+  m_rangeEdit = new QTextEdit(plainPage());
+  grid->addMultiCellWidget(m_rangeEdit,1,2,2,3);
+  
+  m_resultList = new QListBox(plainPage());
+  grid->addMultiCellWidget(m_resultList, 2,3,2,3);  
+}
+
+/** Initializes the connections of this widget. */
+void CRangeChooserDialog::initConnections(){
+  connect(m_rangeList, SIGNAL(executed(QListViewItem*)),
+    this, SLOT(editRange(QListViewItem*)));
+  connect(m_rangeEdit, SIGNAL(textChanged()),
+    this, SLOT(parseRange()));
+  connect(m_rangeEdit, SIGNAL(textChanged()),
+    this, SLOT(rangeChanged()));
+
+  connect(m_nameEdit, SIGNAL(textChanged(const QString&)),
+    this, SLOT(nameChanged(const QString&)));
+}
+
+/** Adds a new range to the list. */
+void CRangeChooserDialog::addNewRange(){
+  RangeItem* i = new RangeItem(m_rangeList, i18n("New range"));
+  m_rangeList->setSelected(i, true);
+  m_rangeList->setCurrentItem(i);  
+  editRange(i);
+}
+
+/** No descriptions */
+void CRangeChooserDialog::editRange(QListViewItem* item){
+  Q_ASSERT(item);
+  if (RangeItem* i = dynamic_cast<RangeItem*>(item)) {
+    m_nameEdit->setText(i->caption());
+
+//    QString text = QString::null;
+//    ListKey range = i->range();
+//    for (int i = 0; i < range.Count(); ++i) {
+//    	if (VerseKey* element = dynamic_cast<VerseKey*>(range.GetElement(i)))
+//  			text += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
+//  		else
+//  			text += QString::fromLocal8Bit((const char*)*range.GetElement(i));
+//  	}    
+    m_rangeEdit->setText(i->range());
+  };
+}
+
+/** Parses the entered text and prints out the result in the list box below the edit area. */
+void CRangeChooserDialog::parseRange(){
+  m_resultList->clear();
+  
+  VerseKey key;
+  ListKey verses = key.ParseVerseList((const char*)m_rangeEdit->text().local8Bit(), key, true);
+	for (int i = 0; i < verses.Count(); ++i) {
+		VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
+		if (element)
+			m_resultList->insertItem(QString("%1 - %2").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound())));
+		else
+			m_resultList->insertItem(QString::fromLocal8Bit((const char*)*verses.GetElement(i)));
+	}
+
+}
+
+/** No descriptions */
+void CRangeChooserDialog::rangeChanged(){
+  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
+    qWarning(m_rangeEdit->text().latin1());
+    i->setRange(m_rangeEdit->text());
+  };
+}
+
+/** No descriptions */
+void CRangeChooserDialog::nameChanged(const QString& newCaption){
+  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
+    i->setCaption(newCaption);
+  };
+}
 
 /****************************/
 

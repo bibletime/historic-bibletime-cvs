@@ -119,6 +119,7 @@ const QString CBTConfig::getKey( const CBTConfig::ints ID){
 		case hebrewCantillation: 	return "hebrewCantillation";
 		case greekAccents: 				return "greekAccents";
 		case textualVariants:			return "textualVariants";
+    case transliteration:     return "transliteration";
   }
   return QString::null;
 }
@@ -160,6 +161,7 @@ const int CBTConfig::getDefault( const CBTConfig::ints ID){
 		case textualVariants:			return false;
     case transliteration:     return 0;
   }
+  return 0;
 }
 
 const QString CBTConfig::getKey( const CBTConfig::colors ID){
@@ -224,6 +226,36 @@ const QStringList CBTConfig::getDefault( const CBTConfig::stringLists ID){
 	return QStringList();
 }
 
+const QString CBTConfig::getKey( const CBTConfig::stringMaps ID) {
+	switch (ID) {
+    case searchScopes:
+      return QString::fromLatin1("SearchScopes");
+  };
+	return QString::null;
+}
+
+const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID){
+	switch ( ID ){
+    case searchScopes: {
+      CBTConfig::StringMap map;
+      map.insert(i18n("Old testament"),         QString::fromLatin1("Gen - Mal"));
+  	  map.insert(i18n("Moses/Pentateuch/Torah"),QString::fromLatin1("Gen - Deut"));
+  	  map.insert(i18n("History"),               QString::fromLatin1("Jos - Est"));
+  	  map.insert(i18n("Prophets"),              QString::fromLatin1("Isa - Mal"));
+   	  map.insert(i18n("New testament"),         QString::fromLatin1("Mat - Rev"));
+  	  map.insert(i18n("Gospels"), 		          QString::fromLatin1("Mat - Joh"));
+  	  map.insert(i18n("Letters/Epistels"), 	    QString::fromLatin1("Rom - Jude"));
+  	  map.insert(i18n("Paul's Epistels"), 	    QString::fromLatin1("Rom - Phile"));
+
+      //make the list to the current bookname language!
+
+      
+      return map;
+    };        
+	}
+	return CBTConfig::StringMap();
+}
+
 const QString CBTConfig::get( const CBTConfig::strings ID){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "strings");
@@ -270,6 +302,17 @@ const QStringList	CBTConfig::get( const CBTConfig::stringLists ID ){
 	return config->readListEntry(getKey(ID));
 }
 
+const CBTConfig::StringMap	CBTConfig::get( const CBTConfig::stringMaps ID ){
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver groupSaver(config, getKey(ID));
+  CBTConfig::StringMap map = config->entryMap(getKey(ID));
+  if (!map.isEmpty())
+    return map;
+  else
+    return getDefault(ID);
+}
+
+
 void CBTConfig::set( const CBTConfig::strings ID, const QString value ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "strings");
@@ -313,6 +356,17 @@ void CBTConfig::set( const CBTConfig::stringLists ID, const QStringList value ){
 	config->writeEntry(getKey(ID), value);
 }
 
+void CBTConfig::set( const CBTConfig::stringMaps ID, const CBTConfig::StringMap value ){
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver groupSaver(config, getKey(ID));
+
+  //save the list
+  CBTConfig::StringMap::ConstIterator it;
+  for ( it = value.begin(); it != value.end(); ++it ) {
+    config->writeEntry(it.key(), it.data());
+  };
+}
+
 
 
 const CSwordBackend::DisplayOptions CBTConfig::getDisplayOptionDefaults(){
@@ -345,7 +399,7 @@ const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults(){
 }
 
 void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
-	KConfig* config = KGlobal::config();	
+//	KConfig* config = KGlobal::config();	
 	
 	switch (type) {
 		case readWindow : {

@@ -22,6 +22,7 @@
 #include <qcolor.h>
 #include <qfont.h>
 #include <qvaluelist.h>
+#include <qmap.h>
 
 #include "backend/cswordbackend.h"
 
@@ -34,6 +35,7 @@ class KAccel;
  */
 class CBTConfig {
 public:
+  typedef QMap<QString, QString> StringMap;
 	enum strings {
 		bibletimeVersion,
 		language,
@@ -97,7 +99,7 @@ public:
 	};
 	enum stringLists {
 		searchCompletionTexts,
-		searchTexts		
+		searchTexts
 	};
 	enum keys {		
 	  readWindow,		
@@ -108,6 +110,9 @@ public:
 		lexiconWindow,
 		application
 	};
+  enum stringMaps {
+    searchScopes
+  };
 
   static const QString 		get( const CBTConfig::strings );
   static const QFont 			get( const CBTConfig::fonts );
@@ -115,8 +120,8 @@ public:
   static const int   			get( const CBTConfig::ints );
   static const QColor 		get( const CBTConfig::colors );
   static const QValueList<int>	get( const CBTConfig::intLists );
-  static const QStringList			get( const CBTConfig::stringLists );
-
+  static const QStringList	get( const CBTConfig::stringLists );
+  static const CBTConfig::StringMap	get( const CBTConfig::stringMaps );
 	
 
 	static void set( const CBTConfig::strings, 	const QString value );
@@ -126,7 +131,7 @@ public:
 	static void set( const CBTConfig::colors, 	const QColor value );
 	static void set( const CBTConfig::intLists,	const QValueList<int> value );
   static void set( const CBTConfig::stringLists, const QStringList value);
-
+  static void set( const CBTConfig::stringMaps, const CBTConfig::StringMap value);
 
   static const CSwordBackend::FilterOptions getFilterOptionDefaults();
   static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();
@@ -141,6 +146,7 @@ private:
 	static const QString getKey( const CBTConfig::colors );
 	static const QString getKey( const CBTConfig::intLists );
 	static const QString getKey( const CBTConfig::stringLists );
+	static const QString getKey( const CBTConfig::stringMaps );  
 
 	static const QString 				 getDefault( const CBTConfig::strings );
 	static const QFont	 				 getDefault( const CBTConfig::fonts );
@@ -149,6 +155,7 @@ private:
 	static const QColor	 				 getDefault( const CBTConfig::colors );
 	static const QValueList<int> getDefault( const CBTConfig::intLists );
 	static const QStringList		 getDefault( const CBTConfig::stringLists );
+	static const CBTConfig::StringMap  		 getDefault( const CBTConfig::stringMaps );  
 };
 
 

@@ -908,7 +908,7 @@ QDomElement CBookmarkFolder::SubFolder::saveToXML( QDomDocument& doc ) {
   * Save all subitems (bookmarks and folders) to the XML file.
   * We get the XML code for the items by calling their own saveToXML implementations.
   */
-  qWarning("CBookmarkFolder::SubFolder::saveToXML( QDomDocument& doc )");
+//  qWarning("CBookmarkFolder::SubFolder::saveToXML( QDomDocument& doc )");
 
   QDomElement elem = doc.createElement("Folder");
   elem.setAttribute("caption", text(0));

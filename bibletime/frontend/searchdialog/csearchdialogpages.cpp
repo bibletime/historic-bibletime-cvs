@@ -260,9 +260,11 @@ void CSearchResultPage::showAnalysis(){
 
 CSearchOptionsPage::CSearchOptionsPage(QWidget *parent, const char *name ) : QWidget(parent,name) {
   initView();
+  readSettings();
 }
 
 CSearchOptionsPage::~CSearchOptionsPage() {
+  saveSettings();
 }
 
 /** Returns the search text set in this page. */
@@ -284,20 +286,24 @@ void CSearchOptionsPage::initView(){
   connect(m_chooseModulesButton, SIGNAL(clicked()),
     this, SLOT(chooseModules()));
 
-//  m_modulesLabel = new KSqueezedTextLabel(this);
   m_modulesLabel = new QLabel(this);
   m_modulesLabel->setTextFormat(RichText);
   m_modulesLabel->setAlignment( AlignLeft | WordBreak );
-//  m_modulesLabel->setAutoResize(true);
 
   grid->addColSpacing(1, 5);
 
   grid->addWidget(m_chooseModulesButton, 0,0);
-//  grid->addMultiCell(new QSpacerItem(1,1), 0,0,1,2);
   grid->addMultiCellWidget(m_modulesLabel, 1,1,0,2);
 
 
   m_searchTextCombo = new KHistoryCombo(this);
+  m_searchTextCombo->setInsertionPolicy( QComboBox::AtTop );
+	m_searchTextCombo->setMaxCount(25);
+	m_searchTextCombo->setDuplicatesEnabled(false);
+	m_searchTextCombo->setFocusPolicy(QWidget::StrongFocus);
+  connect( m_searchTextCombo, SIGNAL(activated( const QString& )),	m_searchTextCombo, SLOT( addToHistory( const QString& )));
+	connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),m_searchTextCombo,  SLOT(addToHistory(const QString&)) );
+	  
   QLabel* label = new QLabel(m_searchTextCombo, i18n("Searched text:"), this);
   label->setAutoResize(true);
 
@@ -322,10 +328,15 @@ void CSearchOptionsPage::initView(){
   grid->addWidget(group, 4,2);
   grid->addRowSpacing(5,10);
 
-  m_rangeChooserCombo = new KHistoryCombo(this);
-  label = new QLabel(m_rangeChooserCombo, i18n("Choose search range:"),this);
+  m_rangeChooserCombo = new KComboBox(this);
+  refreshRanges();
+  label = new QLabel(m_rangeChooserCombo, i18n("Choose search scope:"),this);
   label->setAutoResize(true);
-  m_chooseRangeButton = new QPushButton(i18n("Setup ranges"), this);
+  
+  m_chooseRangeButton = new QPushButton(i18n("Setup custom ranges..."), this);
+  connect(m_chooseRangeButton, SIGNAL(clicked()),
+    this, SLOT(setupRanges()));
+  
 
   grid->addMultiCellWidget(label, 6,6,0,2);
   grid->addWidget(m_rangeChooserCombo, 7,0);
@@ -413,4 +424,76 @@ const int CSearchOptionsPage::searchFlags() {
 /** Sets all options back to the default. */
 void CSearchOptionsPage::reset(){
   m_multipleWordsRadio->setChecked(true);
+  m_rangeChooserCombo->setCurrentItem(0); //no scope
+}
+
+/** Reads the settings for the searchdialog from disk. */
+void CSearchOptionsPage::saveSettings(){
+	QStringList list = CBTConfig::get( CBTConfig::searchCompletionTexts );
+	m_searchTextCombo->completionObject()->setItems( list );
+
+	list = CBTConfig::get(CBTConfig::searchTexts);
+	m_searchTextCombo->setHistoryItems( list );
+}
+
+/** Reads the settings of the last searchdialog session. */
+void CSearchOptionsPage::readSettings(){
+	QStringList list = m_searchTextCombo->completionObject()->items();
+	CBTConfig::set(CBTConfig::searchCompletionTexts, list);
+
+	list = m_searchTextCombo->historyItems();
+	CBTConfig::set(CBTConfig::searchTexts, list);	
+}
+
+void CSearchOptionsPage::aboutToShow(){
+  m_searchTextCombo->setFocus();
+}
+
+/** No descriptions */
+void CSearchOptionsPage::setupRanges(){
+  CRangeChooserDialog* chooser = new CRangeChooserDialog(this);
+  chooser->exec();
+
+  refreshRanges();
+}
+
+/** refreshes the listof ranges and the range combobox. */
+void CSearchOptionsPage::refreshRanges(){
+  //the first two options are fixed, the others can be edited using the "Setup ranges" button.
+  m_rangeChooserCombo->insertItem(i18n("No search scope"));
+  m_rangeChooserCombo->insertItem(i18n("Last search result"));
+//  m_rangeChooserCombo->insertItem(QString::null);
+
+  //insert the user-defined ranges
+  CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
+  CBTConfig::StringMap::Iterator it;
+  for (it = map.begin(); it != map.end(); ++it) {
+    m_rangeChooserCombo->insertItem(it.key());
+  };
+}
+
+/** Returns the selected search scope if a search scope was selected. */
+ListKey CSearchOptionsPage::searchScope(){
+  if (m_rangeChooserCombo->currentItem() > 1) { //neither "No Scope" nor "Last search result"
+    CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
+    QString scope = map[ m_rangeChooserCombo->currentText() ];
+    qWarning(scope.latin1());
+    if (!scope.isEmpty())
+      return VerseKey().ParseVerseList( scope.local8Bit(), "Genesis 1:1", true);
+  };
+  return ListKey();
+}
+
+/** Returns the selected scope type. */
+const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType(){
+  if (m_rangeChooserCombo->currentItem() == 0) {
+    return CSwordModuleSearch::Scope_NoScope;
+  }
+  else if (m_rangeChooserCombo->currentItem() == 1) {
+    return CSwordModuleSearch::Scope_LastSearch;
+  }
+  else {
+    return CSwordModuleSearch::Scope_Bounds;
+  };
+  return CSwordModuleSearch::Scope_NoScope;
 }

@@ -47,6 +47,8 @@ class CSearchAnalysisLegendItem;
 class CSearchAnalysis;
 class CSearchAnalysisView;
 
+class QLineEdit;
+class QTextEdit;
 
 /**
   *@author The BibleTime team
@@ -119,6 +121,10 @@ protected slots: // Protected slots
   * Interrupts the search.
   */
   void interruptSearch();
+  /**
+  * Is the slot which is called when a page will be shown.
+  */
+  void slotShowPage(QWidget* page);
 };
 
 class CModuleChooser : public KListView, public CPointers {
@@ -208,11 +214,52 @@ private:
   CSearchAnalysisView* m_analysisView;
 };
 
-class CRangeChooserDialog : public KDialog  {
+class CRangeChooserDialog : public KDialogBase {
   Q_OBJECT
 public:
   CRangeChooserDialog(QWidget* parentDialog);
   ~CRangeChooserDialog();
+
+protected: // Protected methods
+  class RangeItem : public KListViewItem {
+  public:
+    RangeItem(QListView*, const QString caption = QString::null, const QString range = QString::null);
+    ~RangeItem();
+    const QString& range();
+    const QString caption();
+    void setRange(QString range);
+    void setCaption(const QString);
+  private:
+    QString m_range;
+  };
+
+  /**
+  * Initializes the connections of this widget.
+  */
+  void initConnections();
+  /**
+  * Initializes the view of this object.
+  */
+  void initView();
+
+protected slots: // Protected slots
+  /**
+  * Adds a new range to the list.
+  */
+  void addNewRange();
+  void editRange(QListViewItem*);
+  /**
+  * Parses the entered text and prints out the result in the list box below the edit area.
+  */
+  void parseRange();
+  void nameChanged(const QString&);
+  void rangeChanged();
+
+private:
+  KListView* m_rangeList;
+  QListBox* m_resultList;
+  QLineEdit* m_nameEdit;
+  QTextEdit* m_rangeEdit;
 };
 
 /**

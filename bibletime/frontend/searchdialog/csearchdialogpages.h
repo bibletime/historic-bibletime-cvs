@@ -21,6 +21,7 @@
 //BibleTime includes
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordbackend.h"
+#include "backend/cswordmodulesearch.h"
 
 //Qt includes
 #include <qwidget.h>
@@ -179,6 +180,14 @@ public:
   * Sets all options back to the default.
   */
   void reset();
+  /**
+  * Returns the selected search scope if a search scope was selected.
+  */
+  ListKey searchScope();
+  /**
+  * Returns the selected scope type.
+  */
+  const CSwordModuleSearch::scopeType scopeType();
 
 private:
   QLabel* m_modulesLabel;
@@ -200,6 +209,14 @@ protected: // Protected methods
   * Initializes this page.
   */
   void initView();
+  /**
+  * Reads the settings of the last searchdialog session.
+  */
+  void readSettings();
+  /**
+  * Reads the settings for the searchdialog from disk.
+  */
+  void saveSettings();
 
 public slots: // Public slots
   /**
@@ -214,12 +231,16 @@ public slots: // Public slots
   * Sets the value for the "curret module" progress bar.
   */
   void setCurrentModuleProgress( const int );
-
+  void aboutToShow();
+  /** refreshes the listof ranges and the range combobox. */
+  void refreshRanges();
+  
 protected slots: // Protected slots
   /**
   * Opens the modules chooser dialog.
   */
   void chooseModules();
+  void setupRanges();
 };
 
 #endif

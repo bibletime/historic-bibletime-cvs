@@ -107,7 +107,9 @@ void CSwordModuleSearch::setSearchedText( const QString text ){
 
 /** Sets the search scope. */
 void CSwordModuleSearch::setSearchScope( ListKey scope ) {
-	m_searchScope.copyFrom( scope );
+//  qWarning("CSwordModuleSearch::setSearchScope( ListKey scope )");
+  m_searchScope.copyFrom( scope );
+//  qWarning("CSwordModuleSearch::setSearchScope( ListKey scope ) finished");
 }
 
 /** Sets the search scope back. */
