@@ -5,7 +5,7 @@ btsetupwizard.cpp \
 main.cpp
 
 if SETUPWIZARD
-btsetupwizard_SOURCES = $(btsetupwizrdSRC)
+btsetupwizard_SOURCES = $(btsetupwizardSRC)
 
 
 btsetupwizard_LDADD   = \
