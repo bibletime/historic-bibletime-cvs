@@ -108,7 +108,7 @@ public:
 	};
 	enum keys {		
 	  readWindow,		
-//		writeWindow,		
+		writeWindow,		
 	  bookWindow,
 		bibleWindow,
 		commentaryWindow,

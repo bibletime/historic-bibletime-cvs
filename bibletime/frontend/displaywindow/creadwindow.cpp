@@ -149,7 +149,7 @@ void CReadWindow::insertKeyboardActions( KAccel* const a ){
 }
 
 void CReadWindow::initKeyboardActions() {
-  CBTConfig::setupAccel( CBTConfig::readWindow, accel() );	
+  CBTConfig::setupAccel( CBTConfig::readWindow, accel() );
   insertKeyboardActions( accel() );
 
   accel()->readSettings();

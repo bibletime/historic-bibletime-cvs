@@ -62,6 +62,16 @@ protected: // Protected methods
     return CDisplayWindow::PlainTextWindow;
   };
 
+	/**
+  * Initializes the intern keyboard actions.
+  */
+  virtual void initKeyboardActions();
+  /**
+  * Insert the keyboard accelerators of this window into the given KAccel object.
+  */
+  static void insertKeyboardActions( KAccel* const accel );
+//  virtual void setupPopupMenu();
+
 private:
   struct {
     KAction* saveText;

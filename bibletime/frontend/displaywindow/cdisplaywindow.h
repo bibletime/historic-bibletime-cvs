@@ -243,8 +243,8 @@ protected slots:
   
 private:
 	CMDIArea* m_mdi;
-//	ListCSwordModuleInfo m_modules;
-  //we may only cache the module names bacause after a backend relaod the pointers are invalid!
+
+	//we may only cache the module names bacause after a backend relaod the pointers are invalid!
   QStringList m_modules;
   
   CSwordBackend::FilterOptions m_filterOptions;

@@ -139,7 +139,7 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "window_fullscreen";
-        const KShortcut accel     = KKeySequence();//KKeySequence();
+        const KShortcut accel     = Qt::CTRL + Qt::SHIFT + Qt::Key_F;
         const char* actionName    = "windowFullscreen_action";
       }
       namespace tile {
@@ -192,7 +192,7 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "bt_swordconfig";
-        const KShortcut accel     = Qt::CTRL + Qt::Key_S;
+        const KShortcut accel     = Qt::Key_F4;
         const char* actionName    = "options_sword_setup";
       }
 
@@ -410,7 +410,7 @@ namespace CResMgr {
       namespace nextVerse {
         QString tooltip;
         QString whatsthis;
-        const KShortcut accel = Qt::CTRL + Qt::Key_V;
+        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_V;
       }
       namespace previousVerse {
         QString tooltip;
