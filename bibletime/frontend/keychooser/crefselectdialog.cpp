@@ -62,23 +62,19 @@ void CRefSelectDialog::setChooser(CKeyChooser* const chooser) {
     m_chooser = chooser;
 
     // store old owner and position
-    m_oldParent = chooser->QWidget::parentWidget(false);   
+    m_oldParent = chooser->parentWidget(false);   
     m_oldPos = chooser->pos();
 
     // we temporary borrow chooser widget from the MDI window
     m_placeholder->setMinimumSize(chooser->size());
     chooser->reparent(m_placeholder, QPoint(0,0), true);   
-#if 0
-    m_placeholder->show();
-    m_layout->invalidate();
-    m_page->update();
-    m_page->adjustSize();
-    adjustSize();
-#endif
   }
 }
 
-void CRefSelectDialog::slotPressedOk() {  
+void CRefSelectDialog::slotPressedOk() {
+  CSwordKey* key = m_chooser->key();
+  key->key(m_lineedit->text());
+  m_chooser->setKey(key);
   restoreParent();
 }
 
@@ -92,4 +88,9 @@ void CRefSelectDialog::restoreParent() {
   }
   m_chooser = NULL;
 }
+
+
+
+
+
 
