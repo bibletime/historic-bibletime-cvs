@@ -43,13 +43,8 @@
 
 CSwordBackend::CSwordBackend()
 	: SWMgr(0,0,false), m_errorCode(noError), m_entryDisplay(0), m_chapterDisplay(0), m_moduleList(0),
-	m_gbfFilter(0),m_rwpFilter(0), m_plainTextFilter(0), m_thmlFilter(0), m_rwpModules() {
+	m_gbfFilter(0),m_rwpFilter(0), m_plainTextFilter(0), m_thmlFilter(0) {
 		
-	m_optionMap.insert(CSwordBackend::footnotes, "Footnotes");
-	m_optionMap.insert(CSwordBackend::strongNumbers, "Strong");
-	m_optionMap.insert(CSwordBackend::headings, "Headings");
-	m_optionMap.insert(CSwordBackend::morphTags, "Morph");	
-	
 	m_rwpModules.append(QString::fromLatin1("RWP"));
 	m_rwpModules.append(QString::fromLatin1("TSK"));
 	m_rwpModules.append(QString::fromLatin1("Geneva"));
@@ -363,9 +358,34 @@ const QString CSwordBackend::getModulePath( const QString moduleName ){
 }
 
 /** Returns the text used for the option given as parameter. */
-const QString CSwordBackend::getOptionName( const CSwordBackend::moduleOptions option){
-	if (m_optionMap.contains(option))
-		return m_optionMap[option];
-	else
-		return QString::null;
+const QString CSwordBackend::getOptionName( const CSwordBackend::moduleOptions option ){
+	switch (option) {
+		case CSwordBackend::footnotes:
+			return QString::fromLatin1("Footnotes");
+		case CSwordBackend::strongNumbers:
+			return QString::fromLatin1("Strong's Numbers");
+		case CSwordBackend::headings:
+			return QString::fromLatin1("Headings");
+		case CSwordBackend::morphTags:
+			return QString::fromLatin1("Morphological Tags");
+		default: //unsupported option
+			return QString::null;
+	}
+	return QString::null;	
+}
+
+const QString CSwordBackend::getConfigOptionName( const CSwordBackend::moduleOptions option ){
+	switch (option) {
+		case CSwordBackend::footnotes:
+			return QString::fromLatin1("Footnotes");
+		case CSwordBackend::strongNumbers:
+			return QString::fromLatin1("Strongs");
+		case CSwordBackend::headings:
+			return QString::fromLatin1("Headings");
+		case CSwordBackend::morphTags:
+			return QString::fromLatin1("Morph");
+		default: //unsupported option
+			return QString::null;
+	}
+	return QString::null;	
 }

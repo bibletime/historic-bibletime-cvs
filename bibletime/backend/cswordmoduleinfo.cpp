@@ -216,7 +216,7 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 	ConfigEntMap::iterator start 	= config.lower_bound("GlobalOptionFilter");
 	ConfigEntMap::iterator end 		= config.upper_bound("GlobalOptionFilter");		
 	
-	const QString text = m_backend->getOptionName(type);
+	const QString text = m_backend->getConfigOptionName(type);
 	for (; start != end; start++) {
 		const QString option = QString::fromLatin1((*start).second.c_str());
 		if ( option.contains(text) )

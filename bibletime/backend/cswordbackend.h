@@ -151,6 +151,10 @@ public:
   * Returns the text used for the option given as parameter.
   */
   const QString getOptionName( const CSwordBackend::moduleOptions option);
+  /**
+  * Returns the text used for the option given as parameter.
+  */
+  const QString getConfigOptionName( const CSwordBackend::moduleOptions option);
 
 	CHTMLChapterDisplay* m_chapterDisplay;	
 	CHTMLEntryDisplay* m_entryDisplay;
@@ -171,7 +175,6 @@ private:
 	
 	ListCSwordModuleInfo* m_moduleList;
 	errorCode m_errorCode;
-	QMap<CSwordBackend::moduleOptions, QString> m_optionMap;
 	QStringList m_rwpModules;
 };
 

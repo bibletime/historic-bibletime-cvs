@@ -168,7 +168,7 @@ void BibleTime::slotToggleFootnotes(){
 
 /** Switches displaying of strong number on or off */
 void BibleTime::slotToggleStrongs(){
-	m_important->swordBackend->setOption(CSwordBackend::strongNumbers, m_viewStrongs_action->isChecked());	
+	m_important->swordBackend->setOption(CSwordBackend::strongNumbers, m_viewStrongs_action->isChecked());
 	
 	refreshPresenters( CSwordPresenter::strongNumbersChanged );
 }

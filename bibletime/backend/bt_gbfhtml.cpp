@@ -58,58 +58,47 @@ char BT_GBFHTML::ProcessText(char *text, int maxlen, const SWKey *key)
 			unsigned int i;
 			intoken = false;
 			// process desired tokens
+			bool haveStrong = false;
 			switch (*token) {
 				case 'W':	// Strongs
 					switch(token[1])
 					{
 						case 'G':               // Greek
+							strcpy(to," <small><em>(<a href=\"sword://strongs_greek/");
+							to += strlen(to);						
+							haveStrong = true;
+							
 						case 'H':               // Hebrew
-						case 'T':               // Tense
-							*to++ = ' ';
-							*to++ = '<';
-							*to++ = 'S';
-							*to++ = 'M';
-							*to++ = 'A';
-							*to++ = 'L';
-							*to++ = 'L';
-							*to++ = '>';
-							*to++ = '<';							
-							*to++ = 'A';
-							*to++ = ' ';
-							*to++ = 'H';
-							*to++ = 'R';							
-							*to++ = 'E';
-							*to++ = 'F';
-							*to++ = '=';
-							*to++ = '\"';																												
-							*to++ = 's';
-							*to++ = 't';
-							*to++ = 'r';
-							*to++ = 'o';
-							*to++ = 'n';
-							*to++ = 'g';							
-							*to++ = ':';
-							*to++ = '/';
-							*to++ = '/';																												
+							if (!haveStrong) {
+								strcpy(to," <small><em>&lt;<a href=\"sword://strongs_hebrew/");
+								to += strlen(to);	
+							}
+							haveStrong = false;
+							for (i = 2;i < strlen(token); i++)
+								*to++ = token[i];
+							strcpy(to,"\">");
+              to += strlen(to);
+
+              for (i = 2; i < strlen(token); i++)
+              	if(isdigit(token[i]))
+              		*to++ = token[i];
+							strcpy(to,"</A>&gt;</em></small> ");
+							to += strlen(to);
+							continue;
+							
+						case 'T':               // Tense - Morphological tag
+							strcpy(to," <small><em>(<a href=\"sword://morph/");
+							to += strlen(to);
 							for (i = 2; i < strlen(token); i++)
 								*to++ = token[i];
-							*to++ = '\"';															
-							*to++ = '>';															
-							for (i = 2; i < strlen(token); i++)
-								*to++ = token[i];							
-							*to++ = '<';
-							*to++ = '/';
-							*to++ = 'A';
-							*to++ = '>';														
-							*to++ = '<';
-							*to++ = '/';
-							*to++ = 'S';
-							*to++ = 'M';
-							*to++ = 'A';
-							*to++ = 'L';
-							*to++ = 'L';
-							*to++ = '>';
-							*to++ = ' ';
+							strcpy(to,"\">");
+              to += strlen(to);
+
+              for (i = 2; i < strlen(token); i++)
+              	if(isdigit(token[i]))
+              		*to++ = token[i];
+							strcpy(to,"</A>)</em></small> ");
+							to += strlen(to);
 							continue;
 					}
 					break;
