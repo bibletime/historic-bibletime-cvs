@@ -4,19 +4,19 @@
 #---------------------------------------------------------------------------
 PROJECT_NAME          = BibleTime
 PROJECT_NUMBER        = 1.0
-OUTPUT_DIRECTORY      = /home/joachim/BibleTime/bibletime/bibletime-api/
-OUTPUT_LANGUAGE       = German
+OUTPUT_DIRECTORY      = bibletime-api/
+OUTPUT_LANGUAGE       = English
 DISABLE_INDEX         = NO
-EXTRACT_ALL           = YES
+EXTRACT_ALL           = NO
 EXTRACT_PRIVATE       = YES
 EXTRACT_STATIC        = YES
 HIDE_UNDOC_MEMBERS    = NO
-HIDE_UNDOC_CLASSES    = NO
+HIDE_UNDOC_CLASSES    = YES
 BRIEF_MEMBER_DESC     = YES
 REPEAT_BRIEF          = YES
 ALWAYS_DETAILED_SEC   = NO
 FULL_PATH_NAMES       = NO
-STRIP_FROM_PATH       = 
+STRIP_FROM_PATH       =
 INTERNAL_DOCS         = NO
 CLASS_DIAGRAMS        = YES
 SOURCE_BROWSER        = NO
@@ -31,7 +31,7 @@ INHERIT_DOCS          = YES
 INLINE_INFO           = YES
 SORT_MEMBER_DOCS      = YES
 TAB_SIZE              = 4
-ENABLED_SECTIONS      = 
+ENABLED_SECTIONS      =
 #---------------------------------------------------------------------------
 # configuration options related to warning and progress messages
 #---------------------------------------------------------------------------
@@ -42,7 +42,7 @@ WARN_FORMAT           = "$file:$line: $text"
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                 = /home/joachim/BibleTime/bibletime/
+INPUT                 = bibletime/
 FILE_PATTERNS         = *.h \
                         *.hh \
                         *.H
