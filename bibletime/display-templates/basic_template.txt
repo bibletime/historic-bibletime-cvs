@@ -71,7 +71,6 @@ td.entry + td.entry { }
 #printer .entry  .entry, #printer .entry .sectiontitle , #printer .entry .booktitle { }
 
 /* Footnote formatting options */
-.footnotepre { }
 /* A footnote is displayed as an asterisk or another small character. You can set the colors, font-size, etc. for the footnote. */
 .footnote { }
 /* You may use this to add sourrounding brackets in Bible modules. To do this the content command of CSS */
@@ -84,7 +83,10 @@ td.entry + td.entry { }
 #bible .crossreference:after { }
 
 /* Alternative reading as defined in the OSIS specs. The information about the alternative text is displayed in the info display. It's 
-often a good idea to format this the same as footnotes */
+often a good idea to format this the same as footnotes 
+The text which is the alternative of the displayed text is available in the attribute "alternative"
+so something like .alternative:before { content:"'"attr(alternative); } is possible
+*/
 .alternative {}
 .alternative:before { }
 .alternative:after { }
