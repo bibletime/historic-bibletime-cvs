@@ -28,7 +28,7 @@
 /** BibleTime's implementation of Sword's TreeKeyIdx class.
   * @author The BibleTime team
   */
-class CSwordTreeKey : public TreeKeyIdx, public CSwordKey  {
+class CSwordTreeKey : public CSwordKey, public TreeKeyIdx  {
 public:
 	CSwordTreeKey( const CSwordTreeKey& k );
 	CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module );

@@ -39,7 +39,7 @@
 //KDE includes
 #include <kaccel.h>
 
-CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name = 0) {
+CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name) {
   switch (modules.first()->type()) {
 		case CSwordModuleInfo::Bible:
 			return new CBibleReadWindow(modules, parent);
@@ -57,7 +57,7 @@ CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CM
 }
 
 
-CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name = 0) {
+CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name) {
 	return 0;
 }
 

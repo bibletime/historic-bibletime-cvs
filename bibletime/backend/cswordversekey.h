@@ -49,7 +49,7 @@
 	*	@version $Id$
   *	@author The BibleTime team
   */
-class CSwordVerseKey :  public VerseKey, public CSwordKey  {
+class CSwordVerseKey : public CSwordKey,  public VerseKey  {
 public:
 	enum JumpType {
 		UseBook,

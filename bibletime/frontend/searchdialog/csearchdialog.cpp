@@ -46,25 +46,25 @@
 #include <kapplication.h>
 #include <klocale.h>
 
-#define SPACE_BETWEEN_PARTS 5
-#define RIGHT_BORDER 15
-#define LEFT_BORDER 15
-#define LOWER_BORDER 10
-#define UPPER_BORDER 10
+const int SPACE_BETWEEN_PARTS = 5;
+const int RIGHT_BORDER = 15;
+const int LEFT_BORDER = 15;
+const int LOWER_BORDER = 10;
+const int UPPER_BORDER = 10;
 
-#define ITEM_TEXT_SIZE 8
-#define LABEL_TEXT_SIZE 6
+const int ITEM_TEXT_SIZE = 8;
+const int LABEL_TEXT_SIZE = 6;
 
 //used for the shift between the bars
-#define BAR_DELTAX 4
-#define BAR_DELTAY 2
-#define BAR_WIDTH 2+2*BAR_DELTAX  //should be equal or bigger than the label font size
+const int BAR_DELTAX = 4;
+const int BAR_DELTAY = 2;
+const int BAR_WIDTH  = 2 + (2*BAR_DELTAX);  //should be equal or bigger than the label font size
 //used for the text below the bars
-#define BAR_LOWER_BORDER 100
+const int BAR_LOWER_BORDER = 100;
 
-#define LEGEND_INNER_BORDER 5
-#define LEGEND_DELTAY 4
-#define LEGEND_WIDTH 85
+const int LEGEND_INNER_BORDER = 5;
+const int LEGEND_DELTAY = 4;
+const int LEGEND_WIDTH = 85;
 
 CSearchDialog::CSearchDialog(QWidget *parent)
   : KDialogBase(Tabbed, i18n("Search dialog"), Close | User1 | User2, User1, parent, "CSearchDialog", false, true, i18n("Search"), i18n("Interrupt")) {

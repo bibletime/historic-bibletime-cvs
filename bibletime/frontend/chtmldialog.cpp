@@ -46,8 +46,8 @@ CHTMLDialog::CHTMLDialog(const QString& url, QWidget* parent, const char *name)
 {
   init();
 	QString file = CToolClass::locatehtml(url);
-  KURL url = QString::fromLatin1("file:/") + file;
-	m_htmlPart->openURL(url);
+  KURL new_url = QString::fromLatin1("file:/") + file;
+	m_htmlPart->openURL(new_url);
 }
 
 CHTMLDialog::~CHTMLDialog(){
