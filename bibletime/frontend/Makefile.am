@@ -10,6 +10,7 @@ chtmldialog.cpp \
 ctipwindow.cpp \
 actions.cpp \
 ctoolclass.cpp \
+cbtconfig.cpp \
 cinputdialog.cpp \
 cprofilemgr.cpp cprofile.cpp cprofilewindow.cpp
 
@@ -20,6 +21,7 @@ chtmlwidget.h \
 chtmldialog.h \
 ctipwindow.h \
 ctoolclass.h \
+cbtconfig.h \
 actions.h \
 cinputdialog.h \
 cprofilemgr.h \

@@ -21,7 +21,7 @@
 #include <qstring.h>
 #include <qfont.h>
 
-#include "../../backend/cswordbackend.h"
+#include "../backend/cswordbackend.h"
 /**This class is the interface to the config object of BibleTime
   *@author The BibleTime team
   */

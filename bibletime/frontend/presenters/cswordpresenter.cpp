@@ -21,7 +21,7 @@
 #include "../../backend/cswordkey.h"
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
-#include "../optionsdialog/cbtconfig.h"
+#include "../cbtconfig.h"
 
 //Qt includes
 #include <qpopupmenu.h>
