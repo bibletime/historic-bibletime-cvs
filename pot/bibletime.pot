@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-23 14:18+0100\n"
+"POT-Creation-Date: 2003-12-19 16:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,80 +94,80 @@ msgstr ""
 msgid "Configure &Sword"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:189
+#: ../bibletime/bibletime_init.cpp:194
 msgid "&Cascade"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:202
+#: ../bibletime/bibletime_init.cpp:207
 msgid "&Tile"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:215
+#: ../bibletime/bibletime_init.cpp:220
 msgid "&Auto cascade"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:228
+#: ../bibletime/bibletime_init.cpp:233
 msgid "A&uto Tile"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:241
+#: ../bibletime/bibletime_init.cpp:246
 msgid "&Close all"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:254
+#: ../bibletime/bibletime_init.cpp:259
 msgid "&Save session"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:266
+#: ../bibletime/bibletime_init.cpp:271
 msgid "&Save as new session"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:279
+#: ../bibletime/bibletime_init.cpp:284
 msgid "&Load session"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:291
+#: ../bibletime/bibletime_init.cpp:296
 msgid "&Configure sessions"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:304
+#: ../bibletime/bibletime_init.cpp:309
 msgid "&Fullscreen mode"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:331
+#: ../bibletime/bibletime_init.cpp:336
 msgid "&Handbook"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:343
+#: ../bibletime/bibletime_init.cpp:348
 msgid "&Bible Study Howto"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:370
+#: ../bibletime/bibletime_init.cpp:375
 msgid "&Daily tip"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:457
+#: ../bibletime/bibletime_init.cpp:462
 msgid "Initializing Sword"
 msgstr ""
 
-#: ../bibletime/bibletime_init.cpp:512
+#: ../bibletime/bibletime_init.cpp:509
 msgid "Initializing print system"
 msgstr ""
 
-#: ../bibletime/bibletime_slots.cpp:285
+#: ../bibletime/bibletime_slots.cpp:291
 msgid "Abort printing"
 msgstr ""
 
-#: ../bibletime/bibletime_slots.cpp:285
+#: ../bibletime/bibletime_slots.cpp:291
 msgid "Printing..."
 msgstr ""
 
-#: ../bibletime/bibletime_slots.cpp:475
+#: ../bibletime/bibletime_slots.cpp:481
 #: ../bibletime/frontend/coptionsdialog.cpp:133
 msgid "Please enter a name for the new session."
 msgstr ""
 
-#: ../bibletime/bibletime_slots.cpp:475
+#: ../bibletime/bibletime_slots.cpp:481
 msgid "Session name:"
 msgstr ""
 
@@ -203,19 +203,19 @@ msgstr ""
 msgid "Paul's Epistles"
 msgstr ""
 
-#: ../bibletime/frontend/cexportmanager.cpp:408
+#: ../bibletime/frontend/cexportmanager.cpp:415
 msgid ""
 "*.html *.htm | HTML files\n"
 " *.* | All files (*.*)"
 msgstr ""
 
-#: ../bibletime/frontend/cexportmanager.cpp:410
+#: ../bibletime/frontend/cexportmanager.cpp:417
 msgid ""
 "*.txt | Text files\n"
 " *.* | All files (*.*)"
 msgstr ""
 
-#: ../bibletime/frontend/cexportmanager.cpp:412
+#: ../bibletime/frontend/cexportmanager.cpp:419
 msgid "All files (*.*)"
 msgstr ""
 
@@ -543,20 +543,20 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:152
+#: ../bibletime/frontend/cswordsetupdialog.cpp:151
 msgid "Manage installation sources"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:186
-#: ../bibletime/frontend/cswordsetupdialog.cpp:198
+#: ../bibletime/frontend/cswordsetupdialog.cpp:189
+#: ../bibletime/frontend/cswordsetupdialog.cpp:201
 msgid "Local sources"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:192
+#: ../bibletime/frontend/cswordsetupdialog.cpp:195
 msgid "Manage local sources"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:193
+#: ../bibletime/frontend/cswordsetupdialog.cpp:196
 msgid ""
 "Here you can setup the local sources for module installation, e.g. the path "
 "to your CD-Rom to install from a Sword CD.<br>On many Linux distributions "
@@ -565,250 +565,276 @@ msgid ""
 "Rom."
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:201
+#: ../bibletime/frontend/cswordsetupdialog.cpp:204
 msgid "Add new directory"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:204
+#: ../bibletime/frontend/cswordsetupdialog.cpp:207
 msgid "Remove directory"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:254
+#: ../bibletime/frontend/cswordsetupdialog.cpp:258
 msgid "Remote sources"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:260
+#: ../bibletime/frontend/cswordsetupdialog.cpp:264
 msgid "Manage remote sources"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:261
+#: ../bibletime/frontend/cswordsetupdialog.cpp:265
 msgid ""
 "Setup remote sources like FTP servers which can be used to download Sword "
 "modules on your computer."
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:267
-#: ../bibletime/frontend/cswordsetupdialog.cpp:554
-#: ../bibletime/frontend/cswordsetupdialog.cpp:952
+#: ../bibletime/frontend/cswordsetupdialog.cpp:271
+#: ../bibletime/frontend/cswordsetupdialog.cpp:573
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1099
 msgid "Name"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:273
-#: ../bibletime/frontend/cswordsetupdialog.cpp:917
+#: ../bibletime/frontend/cswordsetupdialog.cpp:277
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1055
 msgid "New"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:294
+#: ../bibletime/frontend/cswordsetupdialog.cpp:298
 msgid "Edit remote source"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:300
+#: ../bibletime/frontend/cswordsetupdialog.cpp:304
 #: ../bibletime/frontend/searchdialog/csearchdialog.cpp:607
 #: ../bibletime/printing/cstyleeditordialog.cpp:63
 #: ../bibletime/printing/cstylelist.cpp:44
 msgid "Name:"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:311
+#: ../bibletime/frontend/cswordsetupdialog.cpp:315
 msgid "Server:"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:317
+#: ../bibletime/frontend/cswordsetupdialog.cpp:321
 msgid "Path on server:"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:394
+#: ../bibletime/frontend/cswordsetupdialog.cpp:356
+msgid "New remote source"
+msgstr ""
+
+#: ../bibletime/frontend/cswordsetupdialog.cpp:410
 msgid "Sword configuration"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:407
+#: ../bibletime/frontend/cswordsetupdialog.cpp:423
 msgid "Sword Path"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:418
+#: ../bibletime/frontend/cswordsetupdialog.cpp:434
 #: ../bibletime/util/cresmgr.cpp:994
 msgid "Configure Sword"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:419
+#: ../bibletime/frontend/cswordsetupdialog.cpp:435
 msgid ""
 "The underlying Sword software uses an own configuration file. This page let "
 "you set up this file."
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:425
+#: ../bibletime/frontend/cswordsetupdialog.cpp:441
 msgid "Your Sword configuration file is <b>%1</b>"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:430
+#: ../bibletime/frontend/cswordsetupdialog.cpp:446
 msgid "Path to Sword modules"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:434
+#: ../bibletime/frontend/cswordsetupdialog.cpp:450
 msgid "Edit Entry"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:439
+#: ../bibletime/frontend/cswordsetupdialog.cpp:455
 msgid "Add Entry"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:444
+#: ../bibletime/frontend/cswordsetupdialog.cpp:460
 msgid "Remove Entry"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:453
+#: ../bibletime/frontend/cswordsetupdialog.cpp:469
 msgid "Install/Update Modules"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:475
+#: ../bibletime/frontend/cswordsetupdialog.cpp:491
 msgid "Install/update modules - Step 1"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:476
+#: ../bibletime/frontend/cswordsetupdialog.cpp:492
 msgid ""
 "Please choose a source and a destination. After that step click on the "
 "connect button."
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:486
+#: ../bibletime/frontend/cswordsetupdialog.cpp:502
 msgid "Maintain sources"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:494
+#: ../bibletime/frontend/cswordsetupdialog.cpp:510
 msgid "Select target location"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:514
-#: ../bibletime/frontend/cswordsetupdialog.cpp:1107
+#: ../bibletime/frontend/cswordsetupdialog.cpp:530
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1273
 msgid "Connect to source"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:529
+#: ../bibletime/frontend/cswordsetupdialog.cpp:548
 msgid "Remove Modules"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:541
+#: ../bibletime/frontend/cswordsetupdialog.cpp:560
 msgid "Remove installed module(s)"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:542
+#: ../bibletime/frontend/cswordsetupdialog.cpp:561
 msgid ""
 "This dialog lets you remove installed Sword modules from your system. Choose "
 "the modules and then click on the remove button."
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:546
+#: ../bibletime/frontend/cswordsetupdialog.cpp:565
 msgid "<b>Select modules to be uninstalled</b>"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:555
+#: ../bibletime/frontend/cswordsetupdialog.cpp:574
 #: ../bibletime/frontend/mainindex/cindexitem.cpp:304
 msgid "Location"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:559
+#: ../bibletime/frontend/cswordsetupdialog.cpp:583
 msgid "Remove selected module(s)"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:649
-#: ../bibletime/frontend/cswordsetupdialog.cpp:670
-#: ../bibletime/frontend/cswordsetupdialog.cpp:1163
+#: ../bibletime/frontend/cswordsetupdialog.cpp:657
+#: ../bibletime/frontend/cswordsetupdialog.cpp:710
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1353
 msgid "[Remote]"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:652
-#: ../bibletime/frontend/cswordsetupdialog.cpp:669
-#: ../bibletime/frontend/cswordsetupdialog.cpp:1162
+#: ../bibletime/frontend/cswordsetupdialog.cpp:662
+#: ../bibletime/frontend/cswordsetupdialog.cpp:704
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1347
 msgid "[Local]"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:714
+#: ../bibletime/frontend/cswordsetupdialog.cpp:751
 msgid ""
 "You selected the following modules: %1.\n"
 "\n"
 "Do you really want to remove them from your system?"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:718
-msgid "No modules selected."
-msgstr ""
-
-#: ../bibletime/frontend/cswordsetupdialog.cpp:765
-#: ../bibletime/frontend/cswordsetupdialog.cpp:839
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:650
+#: ../bibletime/frontend/cswordsetupdialog.cpp:832
+#: ../bibletime/frontend/cswordsetupdialog.cpp:942
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:649
 #: ../bibletime/frontend/searchdialog/csearchdialog.cpp:354
 msgid "Bibles"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:766
-#: ../bibletime/frontend/cswordsetupdialog.cpp:842
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:653
+#: ../bibletime/frontend/cswordsetupdialog.cpp:833
+#: ../bibletime/frontend/cswordsetupdialog.cpp:943
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:652
 #: ../bibletime/frontend/searchdialog/csearchdialog.cpp:355
 msgid "Commentaries"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:767
-#: ../bibletime/frontend/cswordsetupdialog.cpp:845
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:656
+#: ../bibletime/frontend/cswordsetupdialog.cpp:834
+#: ../bibletime/frontend/cswordsetupdialog.cpp:944
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:655
 #: ../bibletime/frontend/searchdialog/csearchdialog.cpp:356
 msgid "Lexicons"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:768
-#: ../bibletime/frontend/cswordsetupdialog.cpp:848
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:659
+#: ../bibletime/frontend/cswordsetupdialog.cpp:835
+#: ../bibletime/frontend/cswordsetupdialog.cpp:945
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:658
 #: ../bibletime/frontend/searchdialog/csearchdialog.cpp:357
 msgid "Books"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:789
+#: ../bibletime/frontend/cswordsetupdialog.cpp:836
+#: ../bibletime/frontend/cswordsetupdialog.cpp:946
+#: ../bibletime/frontend/searchdialog/csearchdialog.cpp:387
+msgid "Daily Devotionals"
+msgstr ""
+
+#: ../bibletime/frontend/cswordsetupdialog.cpp:837
+#: ../bibletime/frontend/cswordsetupdialog.cpp:947
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:664
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:1217
+#: ../bibletime/frontend/searchdialog/csearchdialog.cpp:396
+msgid "Glossaries"
+msgstr ""
+
+#: ../bibletime/frontend/cswordsetupdialog.cpp:863
 #, c-format
 msgid "Scanning your modules: %1%"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:917
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1055
 msgid "Updated"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:941
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1084
 msgid "Install/update modules - Step 2"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:942
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1085
 msgid ""
 "Please choose the modules which should be installed / updated and click the "
 "install button."
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:953
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1100
 msgid "Installed version"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:954
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1101
 msgid "Remote version"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:955
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1102
 msgid "Status"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:965
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1118
 msgid "Install modules"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:1019
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1183
 msgid ""
 "You selected the following modules: %1.\n"
 "\n"
 "Do you really want to install them on your system?"
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:1048
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1209
 msgid "Module installation ..."
 msgstr ""
 
-#: ../bibletime/frontend/cswordsetupdialog.cpp:1097
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1263
 msgid "[%1]: %2% complete"
+msgstr ""
+
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1289
+msgid ""
+"This directory is not writable, so modules can not be installed here using "
+"BibleTime. Do you want to use this directory instead of the previous value?"
+msgstr ""
+
+#: ../bibletime/frontend/cswordsetupdialog.cpp:1307
+msgid ""
+"This directory is not writable, so modules can not be installed here using "
+"BibleTime. Do you want to add it to the list of module directories?"
 msgstr ""
 
 #: ../bibletime/frontend/ctooltipmanager.cpp:52
@@ -1026,15 +1052,15 @@ msgstr ""
 msgid "Copying"
 msgstr ""
 
-#: ../bibletime/frontend/displaywindow/cbiblereadwindow.cpp:283
-#: ../bibletime/frontend/displaywindow/cbiblereadwindow.cpp:301
+#: ../bibletime/frontend/displaywindow/cbiblereadwindow.cpp:285
+#: ../bibletime/frontend/displaywindow/cbiblereadwindow.cpp:303
 #: ../bibletime/frontend/displaywindow/clexiconreadwindow.cpp:166
 #: ../bibletime/frontend/displaywindow/clexiconreadwindow.cpp:172
 msgid "Saving"
 msgstr ""
 
-#: ../bibletime/frontend/displaywindow/cbiblereadwindow.cpp:283
-#: ../bibletime/frontend/displaywindow/cbiblereadwindow.cpp:301
+#: ../bibletime/frontend/displaywindow/cbiblereadwindow.cpp:285
+#: ../bibletime/frontend/displaywindow/cbiblereadwindow.cpp:303
 msgid "Saving chapter ..."
 msgstr ""
 
@@ -1150,7 +1176,7 @@ msgstr ""
 msgid "No module selected"
 msgstr ""
 
-#: ../bibletime/frontend/displaywindow/creadwindow.cpp:147
+#: ../bibletime/frontend/displaywindow/creadwindow.cpp:148
 msgid "Copy selected text"
 msgstr ""
 
@@ -1194,61 +1220,55 @@ msgstr ""
 msgid "Features"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:473
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:472
 msgid "Print bookmark"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:480
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:479
 msgid "Change description ..."
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:480
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:479
 msgid "Enter a new description for the chosen bookmark."
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:580
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:579
 msgid "New folder"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:662
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:661
 msgid "Daily devotionals"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:665
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:1218
-#: ../bibletime/frontend/searchdialog/csearchdialog.cpp:396
-msgid "Glossaries"
-msgstr ""
-
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:668
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:667
 msgid "Bookmarks"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:671
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:670
 msgid "Old bookmarks"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:674
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:673
 #: ../bibletime/printing/cstyle.cpp:187
 msgid "Unknown"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:681
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:680
 msgid "Unknown language"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:1019
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:1027
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:1018
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:1026
 msgid ""
 "*.btb | BibleTime bookmark files (*.btb)\n"
 "*.* | All files (*.*)"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:1019
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:1018
 msgid "BibleTime - Export bookmarks"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cindexitem.cpp:1027
+#: ../bibletime/frontend/mainindex/cindexitem.cpp:1026
 msgid "BibleTime - Import bookmarks"
 msgstr ""
 
@@ -1308,19 +1328,19 @@ msgstr ""
 msgid "About this module"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cmainindex.cpp:436
+#: ../bibletime/frontend/mainindex/cmainindex.cpp:435
 msgid "Delete Items"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cmainindex.cpp:436
+#: ../bibletime/frontend/mainindex/cmainindex.cpp:435
 msgid "Do you really want to delete the selected items and child-items?"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cmainindex.cpp:474
+#: ../bibletime/frontend/mainindex/cmainindex.cpp:473
 msgid "BibleTime - Unlock module"
 msgstr ""
 
-#: ../bibletime/frontend/mainindex/cmainindex.cpp:474
+#: ../bibletime/frontend/mainindex/cmainindex.cpp:473
 msgid "Enter the unlock key for this module."
 msgstr ""
 
@@ -1343,10 +1363,6 @@ msgstr ""
 
 #: ../bibletime/frontend/searchdialog/csearchdialog.cpp:212
 msgid "Search result"
-msgstr ""
-
-#: ../bibletime/frontend/searchdialog/csearchdialog.cpp:387
-msgid "Daily Devotionals"
 msgstr ""
 
 #: ../bibletime/frontend/searchdialog/csearchdialog.cpp:499
@@ -1558,15 +1574,19 @@ msgid ""
 "position."
 msgstr ""
 
-#: ../bibletime/main.cpp:143
+#: ../bibletime/main.cpp:136
+msgid "Open the SwordSetup dialog to install modules from <path>"
+msgstr ""
+
+#: ../bibletime/main.cpp:144
 msgid "Bible study tool for KDE"
 msgstr ""
 
-#: ../bibletime/main.cpp:145
+#: ../bibletime/main.cpp:146
 msgid "(c)1999-2003, The BibleTime Team"
 msgstr ""
 
-#: ../bibletime/main.cpp:146
+#: ../bibletime/main.cpp:147
 msgid ""
 "BibleTime is an easy to use but powerful Bible study tool for KDE.\n"
 "\n"
@@ -1574,55 +1594,55 @@ msgid ""
 "If you'd like to join our team, please send an email to info@bibletime.info."
 msgstr ""
 
-#: ../bibletime/main.cpp:157
+#: ../bibletime/main.cpp:158
 msgid "Project coordinator"
 msgstr ""
 
-#: ../bibletime/main.cpp:159
+#: ../bibletime/main.cpp:160
 msgid "Frontend, backend"
 msgstr ""
 
-#: ../bibletime/main.cpp:161 ../bibletime/main.cpp:163
+#: ../bibletime/main.cpp:162 ../bibletime/main.cpp:164
 msgid "Frontend"
 msgstr ""
 
-#: ../bibletime/main.cpp:165
+#: ../bibletime/main.cpp:166
 msgid "Icons, startlogo, webpage"
 msgstr ""
 
-#: ../bibletime/main.cpp:166
+#: ../bibletime/main.cpp:167
 msgid "Crystal icons, crystal startlogo, webpage"
 msgstr ""
 
-#: ../bibletime/main.cpp:168
+#: ../bibletime/main.cpp:169
 msgid "Documentation"
 msgstr ""
 
-#: ../bibletime/main.cpp:180
+#: ../bibletime/main.cpp:181
 msgid "Sponsored our internet domain for many years"
 msgstr ""
 
-#: ../bibletime/main.cpp:182
+#: ../bibletime/main.cpp:183
 msgid "Bible Study HowTo"
 msgstr ""
 
-#: ../bibletime/main.cpp:184
+#: ../bibletime/main.cpp:185
 msgid "Language codes and names"
 msgstr ""
 
-#: ../bibletime/main.cpp:187
+#: ../bibletime/main.cpp:188
 msgid ""
 "_: NAME OF TRANSLATORS\n"
 "Your names"
 msgstr ""
 
-#: ../bibletime/main.cpp:188
+#: ../bibletime/main.cpp:189
 msgid ""
 "_: EMAIL OF TRANSLATORS\n"
 "Your emails"
 msgstr ""
 
-#: ../bibletime/main.cpp:219
+#: ../bibletime/main.cpp:220
 msgid "Starting BibleTime"
 msgstr ""
 
