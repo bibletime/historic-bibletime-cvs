@@ -97,12 +97,12 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 	if (e->inserted() || e->removed()) {
 		switch (guiOption) {
 	 		case autoTile:
-//				QTimer::singleShot( 0, this, SLOT(tile()) );
-				tile();
+				QTimer::singleShot( 0, this, SLOT(tile()) );
+//				tile();
 	 			break;
 	 		case autoCascade:
-//				QTimer::singleShot( 0, this, SLOT(cascade()) );
-				cascade();
+				QTimer::singleShot( 0, this, SLOT(cascade()) );
+//				cascade();
 	 			break;
 	 		default:
 	 			break;
@@ -256,8 +256,14 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 
 /** Closes and deletes the presenter given as argument. */
 void CMDIArea::closePresenter(CSwordPresenter* p){
+	qWarning("CMDIArea::closePresenter(CSwordPresenter* p)");
 	if (!p)
 		return;
+//	if (p && !p->close()) {
+//		qWarning("NOT CLOSED!!");
+//		return;
+//	}
+		
 	m_currentPresenter = p;
   QTimer::singleShot(5000, this, SLOT(deleteCurrentPresenter()) );	
 }

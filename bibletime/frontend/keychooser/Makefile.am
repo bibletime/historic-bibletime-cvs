@@ -19,7 +19,7 @@ ckeychooser.h \
 clexiconkeychooser.h \
 cbiblekeychooser.h \
 cbookkeychooser.h \
-cbooktreechoser.h
+cbooktreechooser.h
 
 EXTRA_DIST = $(libkeychooser_a_SOURCES) $(all_headers)
 

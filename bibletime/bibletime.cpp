@@ -223,7 +223,14 @@ bool BibleTime::queryExit(){
 
 /** Called before a window is closed */
 bool BibleTime::queryClose(){
-	return true;
+	qWarning("BibleTime::queryClose()");
+	bool ret = true;
+	for ( int index = 0; index < m_mdi->windowList().count(); ++index) {
+		CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index));
+		if (myPresenter)
+   		ret = myPresenter->queryClose() && ret;
+	}	
+	return ret;
 }
 
 /** No descriptions */

@@ -189,8 +189,13 @@ void CSwordPresenter::storeSettings( CProfileWindow* settings ){
 
 /** Is called when the presenter should be closed. To delete the presenter it emits "close(CPresenter*)".*/
 void CSwordPresenter::closeEvent(QCloseEvent* e) {
-	e->accept();
-	emit(closePresenter(this));
+	if (!queryClose()) {
+		e->ignore();		
+	}	
+	else {
+		e->accept();
+		emit(closePresenter(this));
+	}
 }
 
 /** Inserts the action used by this display window in the given KAccel object. */
@@ -241,4 +246,9 @@ void CSwordPresenter::refresh(){
 /** Is called when a reference was dropped on this window. */
 void CSwordPresenter::referenceDropped(const QString& ref){
 	lookup(m_moduleList.first()->name(), ref);
+}
+
+/** Reimplementation from KMainWindow. */
+bool CSwordPresenter::queryClose(){
+	return true;
 }

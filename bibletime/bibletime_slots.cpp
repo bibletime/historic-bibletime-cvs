@@ -71,16 +71,17 @@ void BibleTime::slotFileQuit(){
 	// This ensures that queryClose() is called on each window to ask for closing
 	
 	KMainWindow* w;
-
+	bool ok = true;
+	
 	if(memberList){
-		for(w = memberList->first(); w; w = memberList->first()){
+		for(w = memberList->first(); w && ok; w = memberList->first()){
 			// only close the window if the closeEvent is accepted. If the user presses Cancel on the saveModified() dialog,
 			// the window and the application stay open.
-			if(!w->close())
-				break;
+			ok = w->close();
 		}
 	}		
-	kapp->quit();
+	if (ok)
+		kapp->quit();
 }
 
 /** Opens the optionsdialog of BibleTime. */

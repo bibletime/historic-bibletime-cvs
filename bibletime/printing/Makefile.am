@@ -15,7 +15,7 @@ cprinter.cpp \
 cprintdialogpages.cpp
 
 
-all_headers = cstyleformatframe.hp \
+all_headers = cstyleformatframe.h \
 cstyleformat.h \
 cstylelist.h \
 cprintitemlist.h \

@@ -65,6 +65,10 @@ public slots: // Public slots
   * Reimplementation
   */
   virtual void refresh( );
+  /**
+  * Saves settings
+  */
+  virtual bool queryClose();
 
 protected: // Protected methods
   /**

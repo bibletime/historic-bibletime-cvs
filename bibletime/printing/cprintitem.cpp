@@ -67,7 +67,7 @@ CPrintItem::CPrintItem(CSwordModuleInfo* module, const QString& startKey, const 
 	m_stopKey = (m_startEmpty && startKey != stopKey) ? stopKey : QString::null;		
 	m_stopEmpty  = m_stopKey.isEmpty();	
 	
-//	getHeaderText();
+	getHeaderText();
 	getModuleText(); //cache the module text, makes printing faster (at leat the user thinks this :)
 }
 

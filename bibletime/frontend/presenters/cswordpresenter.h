@@ -97,6 +97,8 @@ public slots: // Public slots
 	* Is called when a reference was dropped on this window.
 	*/
   virtual void referenceDropped(const QString&);
+  /** Reimplementation from KMainWindow. */
+  virtual bool queryClose();
   /**
   * Inserts the action used by this display window in the given KAccel object.
   */

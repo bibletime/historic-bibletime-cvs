@@ -34,6 +34,7 @@
 #include <qclipboard.h>
 
 //KDE includes
+#include <kmessagebox.h>
 #include <ktoolbar.h>
 #include <kaction.h>
 #include <klocale.h>
@@ -53,7 +54,7 @@ CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, QWid
 }
 
 CCommentaryPresenter::~CCommentaryPresenter(){
-	checkChanges(); //save text if it was changed after last save
+//	checkChanges(); //save text if it was changed after last save
 	delete m_key;
 }
 
@@ -173,7 +174,6 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
 	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);
 	if (!vKey)
 		return;
-//	vKey->Persist(1);
 
 	backend()->setAllModuleOptions( m_moduleOptions );
 	backend()->setAllDisplayOptions( m_displayOptions );
@@ -189,7 +189,7 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
 			m_htmlWidget->setText( m_moduleList.first()->getDisplay()->getHTML() );
 		}
 		else
-			m_htmlWidget->setText( QString::fromLocal8Bit( m_moduleList.first()->module()->getRawEntry() ) );
+			m_htmlWidget->setText( QString::fromUtf8( m_moduleList.first()->module()->getRawEntry() ) );
 	}	
 	if (m_key != vKey)
 		m_key->key(vKey->key());
@@ -211,9 +211,10 @@ void CCommentaryPresenter::popupAboutToShow(){
 void CCommentaryPresenter::saveText(const QString text){
 	m_moduleList.first()->module()->SetKey(m_key);
 	if (!text.isEmpty())
-		*(m_moduleList.first()->module()) << (const char*)text.local8Bit();
+		*(m_moduleList.first()->module()) << (const char*)text.utf8();
 	else
 		m_moduleList.first()->module()->deleteEntry();		
+	m_htmlWidget->setModified( false );		
 }
 
 /** Deletes the displayed and edited text. */
@@ -223,11 +224,23 @@ void CCommentaryPresenter::deleteText(){
 }
 
 void CCommentaryPresenter::editComment(){
+	if (!m_htmlWidget->isReadOnly()) {
+		switch (KMessageBox::warningYesNo( this, i18n("The text was not saved to the module. Save the changes now?")) ) {
+			case KMessageBox::Yes:
+			{
+	   		saveText( m_htmlWidget->text() );
+	   		m_htmlWidget->setModified( false );
+				break;
+			}
+	   	default: //no
+	   		break;
+	  }
+	}
+	
 	m_htmlWidget->setReadOnly( !m_htmlWidget->isReadOnly() );	
 	if (!m_htmlWidget->isReadOnly() && !m_editToolBar) {
 		m_editToolBar = new KToolBar(this);
-		addToolBar(m_editToolBar);
-		
+		addToolBar(m_editToolBar);		
 		m_htmlWidget->createEditToolbar( m_editToolBar );
 	}	
 	if (!m_htmlWidget->isReadOnly() && !m_editToolBar)
@@ -365,7 +378,6 @@ void CCommentaryPresenter::printEntryAndText(){
 void CCommentaryPresenter::checkChanges(){
 //	qDebug("void CCommentaryPresenter::checkChanges()");
 	if (!m_htmlWidget->isReadOnly() && m_htmlWidget->isModified()) {//save
-//		qDebug("save!");
 		saveText( m_htmlWidget->text() );
 		m_htmlWidget->setModified( false );
 	}
@@ -373,14 +385,22 @@ void CCommentaryPresenter::checkChanges(){
 
 /** No descriptions */
 void CCommentaryPresenter::beforeKeyChange(const QString& oldKey){
-//	qWarning("check for %s", key.latin1());
-	if (!m_key)
-		return;
-		
-	const QString newKey = m_key->key();
-	m_key->key(oldKey);
-	checkChanges();		
-	m_key->key(newKey);	
+	qWarning("CCommentaryPresenter::beforeKeyChange");
+	if (!m_htmlWidget->isReadOnly()) {
+		switch (KMessageBox::warningYesNo( this, i18n("The text was not saved to the module. Save the changes now?")) ) {
+			case KMessageBox::Yes:
+			{
+				const QString newKey = m_key->key();
+				m_key->key(oldKey);
+	   		saveText( m_htmlWidget->text() );
+				m_key->key(newKey);		   		
+				break;
+			}
+	   	default: //no
+	   		break;
+	  }
+	}
+	m_htmlWidget->setModified( false );	
 }
 
 /** Inserts the actions used by this window class into the given KAccel object. */
@@ -480,4 +500,28 @@ void CCommentaryPresenter::storeSettings( CProfileWindow* settings ){
 void CCommentaryPresenter::applySettings( CProfileWindow* settings ){
 	CSwordPresenter::applySettings(settings);
 	presenterSync_action->setChecked(settings->windowSettings() == 1);
+}
+
+/** Saves settings */
+bool CCommentaryPresenter::queryClose(){
+	//save the text
+	if (!m_htmlWidget->isReadOnly() && m_htmlWidget->isModified()) {	
+		switch (KMessageBox::warningYesNoCancel( this, i18n("Save changes to module?")) ) {
+			case KMessageBox::Yes:
+			{
+				qWarning("YES");
+	    	//save
+	   		saveText( m_htmlWidget->text() );
+	   		m_htmlWidget->setModified( false );
+	     	return true;
+			}
+	   	case KMessageBox::No :
+				qWarning("No");
+	     	return true;
+	   	default: // cancel
+				qWarning("CANCEL");	   	
+	     	return false;	
+		}
+	}
+	return true;
 }
