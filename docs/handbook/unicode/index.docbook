@@ -10,7 +10,7 @@
   <!ENTITY hdbkchap2 SYSTEM "hdbk-start.docbook">
   <!ENTITY hdbkchap3 SYSTEM "hdbk-operation.docbook">
   <!ENTITY hdbkchap4 SYSTEM "hdbk-config.docbook">
-  <!ENTITY hdbkchap5 SYSTEM "hdbk-toolbars.docbook">
+  <!ENTITY hdbkchap5 SYSTEM "hdbk-reference.docbook">
 
 ]>
 

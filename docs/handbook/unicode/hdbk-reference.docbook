@@ -1,15 +1,22 @@
-<chapter id="hdbk-bars"><title>Main toolbar and menubar</title>
-<para></para>
+<chapter id="hdbk-reference">
+<title>Reference</title>
+
+<sect1 id="reference-windows">
+<title>Windows</title>
+	TODO: WRITE.
+</sect1>
 
 
-	<section id="hdbk-bars-toolbar"><title>Toolbar</title>
+	<sect2 id="hdbk-reference-toolbar"><title>Toolbar</title>
 
-	<para> The action of each button is described in the configuration dialog box.
-	<action>Moving the cursor over a button</action> will activate the button's tooltip which
-	describes that buttons action.
+	<para>This section describes the most important toolbar actions. You can find a
+	comlete listing of available actions and descriptions of them by clicking
+	<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+	toolbars</guimenuitem></menuchoice>. 
+	You can also <action>move the cursor over a button</action> to activate the button's tooltip 
+	with a short description.
 	</para>
-	</section>
-	<section id="hdbk-bars-toolbar-action"><title>Button Action</title>
+	
 	<para>
 
 	<mediaobject>
@@ -458,7 +465,7 @@
 	</mediaobject>
 
 	</para>
-	</section>
+	</sect2>
 
 
 	<section id="hdbk-bars-menubar"><title>Menubar</title>
