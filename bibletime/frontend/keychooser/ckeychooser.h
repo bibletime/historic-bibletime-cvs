@@ -90,6 +90,11 @@ protected:
 	* the constructor - DO NOT USE! -- use @ref #createInstance instead!
 	*/
 	CKeyChooser(ListCSwordModuleInfo info, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
+  /**
+  * Set the appropriate font do display the modules
+  */
+  virtual void adjustFont() = 0;
+
 };
 
 #endif

@@ -87,6 +87,8 @@ protected: // Protected methods
   * Creates the first level of the tree structure.
   */
   void setupTree();
+  /** No descriptions */
+  virtual void adjustFont();
 
 protected slots: // Protected slots
   void itemClicked( QListViewItem* item );

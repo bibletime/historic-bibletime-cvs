@@ -53,6 +53,7 @@ CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *
 	connect(m_widget,SIGNAL(focusOut(int)),SLOT(activated(int)));
 
   setModules(modules, true);
+	adjustFont();
 }
 
 CSwordKey* const CLexiconKeyChooser::key(){
@@ -131,6 +132,10 @@ void CLexiconKeyChooser::refreshContent(){
 
     m_widget->reset(entries, 0, true);	
   }
+}
+
+/** No descriptions */
+void CLexiconKeyChooser::adjustFont(){
 	//Make sure the entries are displayed correctly.
 	if ( m_modules.first()->isUnicode() )
 		m_widget->comboBox()->setFont( CBTConfig::get(CBTConfig::unicode) );
@@ -146,15 +151,10 @@ void CLexiconKeyChooser::setModules( ListCSwordModuleInfo modules, const bool re
       m_modules.append(lexicon);
     }
   }
-//
-//  if (m_modules.first()) {
-//    const bool unicode = m_modules.first()->isUnicode() && m_widget;
-//    if (unicode)
-//      m_widget->comboBox()->setFont( CBTConfig::get(unicode ? CBTConfig::unicode : CBTConfig::standard));
-//  };
-
-  if (refresh)
+  if (refresh){
     refreshContent();
+		adjustFont();
+	}
 }
 
 /** No descriptions */

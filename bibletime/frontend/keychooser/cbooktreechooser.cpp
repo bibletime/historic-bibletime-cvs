@@ -111,17 +111,7 @@ CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	m_treeView->setRootIsDecorated(true);
   m_treeView->setFullWidth(true);
 
-  //Make sure the entries are displayed correctly.
-	if ( m_modules.first()->isUnicode() ){
-		m_treeView->setFont( CBTConfig::get(CBTConfig::unicode) );
-		qWarning("Unicode Book detected");
-	}
-	else{
-		m_treeView->setFont( CBTConfig::get(CBTConfig::standard) );
-		qWarning("Standard Book detected");
-	}
-
-//  setModules(modules); //fill the tree
+  adjustFont();
 }
 
 CBookTreeChooser::~CBookTreeChooser(){
@@ -195,18 +185,23 @@ void CBookTreeChooser::setModules(ListCSwordModuleInfo modules, const bool refre
 //    m_key->key(oldKey);
 //		
 //		updateKey(m_key);
-
-    //Make sure the entries are displayed correctly.
-  	if ( m_modules.first()->isUnicode() ){
-  		m_treeView->setFont( CBTConfig::get(CBTConfig::unicode) );
-			qWarning("Unicode Book detected");
-  	}
-  	else{
-  		m_treeView->setFont( CBTConfig::get(CBTConfig::standard) );
-			qWarning("Standard Book detected");
-  	}
+		adjustFont(); //only when refresh is set.
 	}
 }
+
+/** No descriptions */
+void CBookTreeChooser::adjustFont(){
+  //Make sure the entries are displayed correctly.
+	if ( m_modules.first()->isUnicode() ){
+		m_treeView->setFont( CBTConfig::get(CBTConfig::unicode) );
+//		qWarning("Unicode Book detected");
+	}
+	else{
+		m_treeView->setFont( CBTConfig::get(CBTConfig::standard) );
+//		qWarning("Standard Book detected");
+	}
+}
+
 
 /** Refreshes the content. */
 void CBookTreeChooser::refreshContent(){

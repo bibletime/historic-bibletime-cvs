@@ -81,6 +81,8 @@ protected: // Protected methods
 	* The parent sibling is given by key.
 	*/
   void setupCombo(const QString key, const int depth, const int currentItem);
+  /** No descriptions */
+  virtual void adjustFont();
 
 protected slots:
   /**

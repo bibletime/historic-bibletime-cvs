@@ -80,6 +80,9 @@ protected:
 
 public slots: // Public slots
   virtual void updateKey(CSwordKey* key);
+protected: // Protected methods
+  /** No descriptions */
+  virtual void adjustFont();
 };
 
 #endif

@@ -35,6 +35,7 @@ CBookKeyChooser::CBookKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, Q
 		m_key = 0;
 	}
   setModules(modules, true);
+	adjustFont();
 }
 
 CBookKeyChooser::~CBookKeyChooser(){
@@ -127,21 +128,22 @@ void CBookKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refres
 
 			w->show();
 		}
-		updateKey(m_key);		
-
-  	//Make sure the entries are displayed correctly.
-		//Only when refresh is set.
-  	if ( m_modules.first()->isUnicode() ){
-  		for ( CKeyChooserWidget* idx = m_chooserWidgets.first(); idx; idx = m_chooserWidgets.next() )
-  			idx->comboBox()->setFont( CBTConfig::get(CBTConfig::unicode) );
-  	}
-  	else{
-  		for ( CKeyChooserWidget* idx = m_chooserWidgets.first(); idx; idx = m_chooserWidgets.next() )
-  			idx->comboBox()->setFont( CBTConfig::get(CBTConfig::standard) );
-  	}
-
+		updateKey(m_key);
+		adjustFont(); // only when refresh is set.		
 	}
+}
 
+/** No descriptions */
+void CBookKeyChooser::adjustFont(){
+ 	//Make sure the entries are displayed correctly.
+	if ( m_modules.first()->isUnicode() ){
+		for ( CKeyChooserWidget* idx = m_chooserWidgets.first(); idx; idx = m_chooserWidgets.next() )
+			idx->comboBox()->setFont( CBTConfig::get(CBTConfig::unicode) );
+	}
+	else{
+		for ( CKeyChooserWidget* idx = m_chooserWidgets.first(); idx; idx = m_chooserWidgets.next() )
+			idx->comboBox()->setFont( CBTConfig::get(CBTConfig::standard) );
+	}
 }
 
 /** Refreshes the content. */
@@ -206,3 +208,4 @@ void CBookKeyChooser::keyChooserChanged(int newIndex){
 void CBookKeyChooser::updateKey(CSwordKey* key){
 	setKey(key, false);
 }
+

@@ -125,6 +125,9 @@ private slots: // Private slots
   @param the new verse
   */
   void verseFocusOut(int);
+protected: // Protected methods
+  /** No descriptions */
+  virtual void adjustFont();
 };
 
 #endif
