@@ -1,3 +1,9 @@
+bibletime (1.2.99-2) unstable; urgency=low
+
+  * rebuild against not quite released sword1.5.5.99-3
+
+ -- Daniel Glassey <wdg@debian.org>  Fri, 18 Jul 2003 18:39:40 +0100
+
 bibletime (1.2.99-1) unstable; urgency=low
 
   * New upstream release

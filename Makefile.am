@@ -1,4 +1,4 @@
-SUBDIRS = bibletime pot docs .
+SUBDIRS = bibletime pot docs . setupwizard
 
 EXTRA_DIST = \
 bibletime.kdevprj \
@@ -11,7 +11,7 @@ bibletime.lsm.in bibletime.lsm \
 configure.in.in configure.in \
 bibletime.desktop.in bibletime.desktop \
 NEWS.in NEWS \
-Makefile.cvs \
+Makefile.cvs autogen.sh \
 bibletime.m4 sword.m4
 
 btadmindir = $(top_srcdir)/admin
@@ -66,7 +66,10 @@ MAINTAINERCLEANFILES = configure.files subdirs
 dist-hook:	
 	rm -f $(distdir)/bibletime-*.tar.gz $(distdir)/bibletime-*.tar.bz2
 	rm -rf `find $(distdir) -name tags -o -name TAGS -o -name \*.xcf`
-	rm -f $(distdir)/admin/Changelog $(distdir)/make-messages.sh $(distdir)/extractrc $(distdir)/preparetips $(distdir)/bibletime.doxygen $(distdir)/bibletime.kdevses $(distdir)/bibletime.start $(distdir)/configure.files $(distdir)/bibletime/pics/gen_am.sh
-	cd $(distdir) && make -f Makefile.cvs
+#	rm -f $(distdir)/admin/Changelog $(distdir)/make-messages.sh \
+#		$(distdir)/extractrc $(distdir)/preparetips \
+#		$(distdir)/bibletime.doxygen $(distdir)/bibletime.kdevses \
+#		$(distdir)/bibletime.start $(distdir)/configure.files \
+#		$(distdir)/bibletime/pics/gen_am.sh
 	rm -rf $(distdir)/autom4te.cache
 

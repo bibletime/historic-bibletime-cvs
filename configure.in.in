@@ -68,6 +68,10 @@ AC_CHECK_SWORD(1.5.5.99, [$ac_use_static])
 dnl Chek for the used distribution
 AC_CHECK_DISTRIBUTION
 
+dnl Make setupwizard optional
+AC_ARG_ENABLE(setupwiz,[  --enable-setupwiz          build setup wizard [default=no]],,enable_setupwiz=no)
+AM_CONDITIONAL(SETUPWIZARD, test x$enable_setupwiz = xyes)
+
 dnl add here all your Makefiles. They are created by configure
 
 AC_CONFIG_FILES([ NEWS ])

@@ -1,8 +1,12 @@
-btsetupwizard_SOURCES = \
+btsetupwizardSRC = \
 install.cpp \
 remove.cpp \
 btsetupwizard.cpp \
 main.cpp
+
+if SETUPWIZARD
+btsetupwizard_SOURCES = $(btsetupwizrdSRC)
+
 
 btsetupwizard_LDADD   = \
 ../bibletime/printing/libprinting.a \
@@ -21,12 +25,16 @@ $(LIB_KDEUI) \
 $(LIB_SWORD) \
 $(LIBSOCKET)
 
-all_headers = btsetupwizard.h
 
-EXTRA_DIST = $(btsetupwizard_SOURCES) $(all_headers)
 
 INCLUDES = $(all_includes) -I../bibletime/
 bin_PROGRAMS = btsetupwizard
 btsetupwizard_METASOURCES = AUTO
 btsetupwizard_LDFLAGS = $(BT_LDFLAGS) $(all_libraries) $(KDE_RPATH)
 DISTCLEANFILES = $(btsetupwizard_METASOURCES)
+
+endif
+
+all_headers = btsetupwizard.h
+EXTRA_DIST = $(btsetupwizardSRC) $(all_headers)
+
