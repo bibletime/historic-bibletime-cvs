@@ -44,13 +44,15 @@ BT_ThMLHTML::BT_ThMLHTML() {
 
 bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
 	unsigned long i;
+	const int tokenLength = strlen(token);	
+	
 	if (!substituteToken(buf, token) || !substituteEscapeString(buf, token)) {
 
 		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
 //			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em>&lt;");
 			pushString(buf," <small><em>&lt;");
 
-			for (unsigned int j = 17; j < strlen(token); j++) {
+			for (unsigned int j = 17; j < tokenLength; j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
 					j += 7;
 					for (;token[j] != '\"'; j++)
@@ -66,7 +68,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			char** oldbuf = buf;
 			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://Greek/");
 
-			for (unsigned int j = 17; j < strlen(token); j++) {
+			for (unsigned int j = 17; j < tokenLength; j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
 					j += 7;
 					for (;token[j] != '\"'; j++)
@@ -77,7 +79,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			*(*buf)++ = '"';
 			*(*buf)++ = '>';
 			*(*buf)++ = '(';
-			for (unsigned int j = 17; j < strlen(token); j++) {
+			for (unsigned int j = 17; j < tokenLength; j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
 					j += 7;
 					for (;token[j] != '\"'; j++)
@@ -90,11 +92,11 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
 			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Hebrew/");
-			for (i = 5; i < strlen(token)-1; i++)
+			for (i = 5; i < tokenLength-1; i++)
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
 			pushString(buf, "\">&lt;");
-			for (i = 28; i < strlen(token)-2; i++)				
+			for (i = 28; i < tokenLength-2; i++)				
 				if(token[i] != '\"') 			
 					*(*buf)++ = token[i];		
 			pushString(buf, "&gt;</a></em></small></font> ");
@@ -102,11 +104,11 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 //#warning not handled: token[27] == 'A')
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
 			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Greek/");
-			for (i = 5; i < strlen(token)-1; i++)
+			for (i = 5; i < tokenLength-1; i++)
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
 			pushString(buf, "\">&lt;");
-			for (i = 28; i < strlen(token)-2; i++)				
+			for (i = 28; i < tokenLength-2; i++)				
 				if(token[i] != '\"') 			
 					*(*buf)++ = token[i];		
 			pushString(buf, "&gt;</a></em></small></font> ");
@@ -127,16 +129,23 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
 			userData["inscriptRef"] = "true";
 			if (!strncmp(token, "scripRef v", 10)) { //module given
-				for (i = 18; i < strlen(token)-1; i++)				
+				char* module_version =  new char[5000];
+				char* c = module_version;						
+				for (i = 18; i < tokenLength-1; i++) {
 					if(token[i] != '\"')
-						*(*buf)++ = token[i];						
+						*c++ = token[i];						
 					else
 						break;
+				}
+				*c++ = '\0';
+				//c contains the module
+				userData["lastRefModule"] = module_version;
+			  delete module_version;
 			}
 			else if (!strncmp(token, "scripRef p", 10)) { //passage without module
 				char* verse_str =  new char[5000];
-				char* c = verse_str;
-				for (i = 18; i < strlen(token)-1; i++) {
+				char* c = verse_str;							
+				for (i = 18; i < tokenLength-1; i++) {
 					if(token[i] != '\"') {
 						*c++ = token[i];
 					}
@@ -145,22 +154,28 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				}
 				*c++ = '\0';
 				
-				const char* ref = parseRef(verse_str);
+				const char* ref = parseThMLRef(verse_str);
  			  pushString(buf, ref);
- 			  delete ref;//delete now because it's unused
+ 			  delete ref;
  			  delete verse_str;
-				
-				userData["suspendTextPassThru"] = "true"; //we don't want the ref-text of the module
 			}
 			if ( !strncmp(token+i+2, "passage=", 8) ) { //passage after module part
-				pushString(buf, "/");
+				char* verse_str =  new char[5000];
+				char* c = verse_str;							
 				i+=11;				
-				for (; i < strlen(token)-1; i++)	{
-					if(token[i] != '\"') 			
-						*(*buf)++ = token[i];
+				for (; i < tokenLength-1; i++)	{
+					if(token[i] != '\"')
+						*c++ = token[i];
 					else
-						break;
+						break;					
 				}
+				*c++ = '\0';				
+				const char* mod = userData["lastRefModule"].c_str();
+				cout << "Module is: " << mod << endl;
+				const char* ref = parseThMLRef(verse_str, mod);
+				pushString(buf, ref);
+				delete ref;
+				delete verse_str;
 			}
 		}
 		// we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
@@ -173,24 +188,15 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		else if (!strcmp(token, "/scripRef")) {
 			if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">John 3:16</scripRef>"
 				userData["inscriptRef"] = "false";
-				userData["suspendTextPassThru"] = "false"; 							
+				pushString(buf, thmlRefEnd());
+//				userData["suspendTextPassThru"] = "false"; 							
 			}			
 			else { // like "<scripRef>John 3:16</scripRef>"
-				//use standard Bible
-				pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/%s/", swordref_color, standard_bible);
-				
-				const char* ref = parseRef(userData["lastTextNode"].c_str());
+				const char* ref = parseSimpleRef(userData["lastTextNode"].c_str());
  			  pushString(buf, ref);
- 			  delete ref;//delete now because it's unused
-// 			  delete verse_str;
-				
-//				pushString(buf, userData["lastTextNode"].c_str());
-//				pushString(buf, "\">");
-//				pushString(buf, userData["lastTextNode"].c_str());
-				
+ 			  delete ref;
 				// let's let text resume to output again
-				userData["suspendTextPassThru"] = "false";	
-				pushString(buf, "</a></font>");
+				userData["suspendTextPassThru"] = "false";
 			}
 		}			
 		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
@@ -216,7 +222,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}
 		else { // let token pass thru
 			*(*buf)++ = '<';
-			for (i = 0; i < strlen(token); i++)
+			for (i = 0; i < tokenLength; i++)
 				*(*buf)++ = token[i];
 				*(*buf)++ = '>';
 		}

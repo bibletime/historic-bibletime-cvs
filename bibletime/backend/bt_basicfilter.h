@@ -30,10 +30,6 @@ class SWModule;
 class BT_BASICFILTER : public SWBasicFilter  {
 public:
   virtual char ProcessText (char *text, int maxlen, const SWKey *, const SWModule * = 0);
-  /**
-  * Parses the verse reference ref and returns it.
-  */
-  const char* parseRef(const char* ref);
 
 protected:
 	/**
@@ -47,7 +43,16 @@ protected:
 	* style bible references to HTML
 	*/
   char ProcessRWPRefs(char * text, int maxlen = -1);
-
+  /**
+  * Parses the verse reference ref and returns it.
+  */
+  const char* parseSimpleRef(const char* ref);
+  /**
+  * Parses the verse reference ref and returns it.
+  */
+  const char* parseThMLRef(const char* ref, const char* mod = 0);
+	const char* thmlRefEnd();
+	
 	char footnote_color[8];
 	char strongs_color[8];
 	char morph_color[8];

@@ -14,12 +14,16 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+//BIbleTime includes
 #include <stdlib.h>
-
 #include "bt_basicfilter.h"
 #include "creferencemanager.h"
 #include "cswordversekey.h"
 #include "../frontend/cbtconfig.h"
+
+//Qt includes
+#include <qregexp.h>
+#include <qstringlist.h>
 
 char BT_BASICFILTER::ProcessText (char *text, int maxlen, const SWKey *key, const SWModule *module){
 	m_module = module;
@@ -46,43 +50,82 @@ void BT_BASICFILTER::updateSettings(void){
 
 
 /** Parses the verse reference ref and returns it. */
-const char* BT_BASICFILTER::parseRef(const char* ref) {
- 	cerr << "BT_BASICFILTER::parseRef(const char* ref)" << endl;
+const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
  	VerseKey parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");
- 	ListKey list = parseKey.ParseVerseList(ref, parseKey, true);
-	cout << ref << endl;
- 	//where do I now get a const char* array from??
-  char* to = new char[5000]; //not right and doesn't work (refs do not appear)
-	char* ret = to;//erstes Zeichen
- 	 	
- 	for(int i = 0; i < list.Count(); i++) {
- 		SWKey* key = list.GetElement(i);
- 		VerseKey* vk =  dynamic_cast<VerseKey*>(key);
+ 	ListKey list;
+  char* to = new char[5000];
+	char* ret = to;
+	
+	QStringList refList = QStringList::split(QRegExp("[,.;]", false), QString::fromLocal8Bit(ref));
+	int pos = 0;
+	for ( QStringList::Iterator it = refList.begin(); it != refList.end(); ++it, pos++ ) {
+	 	list = parseKey.ParseVerseList((*it).local8Bit(), parseKey, true);
+		
+	 	const int count = list.Count();
+	 	for(int i = 0; i < count; i++) {
+	 		SWKey* key = list.GetElement(i);
+	 		VerseKey* vk =  dynamic_cast<VerseKey*>(key);
  		
- 		pushString(&to,"<font color=\"%s\"><a href=\"sword://Bible/%s/",
-			swordref_color,
-			standard_bible
-		);
- 		if (vk && vk->UpperBound() != vk->LowerBound()) {
- 			pushString(&to, "%s-%s\">%s-%s</a>",
- 				(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
- 				(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8(),
- 				(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
- 				(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8()
- 			); 			
- 		}
- 		else {
- 			pushString(&to, "%s\">%s</a>",
- 				(const char*)QString::fromLocal8Bit((const char*)*key).utf8(),
-				(const char*)QString::fromLocal8Bit((const char*)*key).utf8()
-			);
- 		}
- 		(i+1 < list.Count()) ? pushString(&to, "</font>, ") : pushString(&to, "</font>");
- 	}
+  		pushString(&to,"<font color=\"%s\"><a href=\"sword://Bible/%s/",
+ 				swordref_color,
+	 			standard_bible
+ 			);
+ 			if (vk && vk->UpperBound() != vk->LowerBound()) {
+	 			pushString(&to, "%s-%s\">%s</a>",
+	 				(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
+	 				(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8(),
+	 				(const char*)(*it).utf8()
+	 			); 			
+	 		}
+	 		else {
+	 			pushString(&to, "%s\">%s</a>",
+	 				(const char*)QString::fromLocal8Bit((const char*)*key).utf8(),
+					(const char*)(*it).utf8()
+				);
+	 		}
+	 		(pos+1 < refList.count()) ? pushString(&to, "</font>, ") : pushString(&to, "</font>");
+	 	}
+	}	
  	*to++ = '\0';
  	return ret;  //don't forget to delete it!
 }
 
+const char* BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
+  char* to = new char[5000];
+	char* ret = to;
+	const char* module = (mod ? mod : standard_bible);	
+// 	VerseKey parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");	
+//	ListKey list = parseKey.ParseVerseList(ref, parseKey, false);		
+//  const int count = list.Count();
+
+//  for(int i = 0; i < count; i++) {
+//	 	SWKey* key = list.GetElement(i);
+//	 	VerseKey* vk =  dynamic_cast<VerseKey*>(key);
+// 		
+	 	pushString(&to,"<font color=\"%s\"><a href=\"sword://Bible/%s/",
+	 		swordref_color,
+	 		module
+	 	);
+//	 	if (vk && vk->UpperBound() != vk->LowerBound()) {
+//	 		pushString(&to, "%s-%s\">",
+//	 			(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
+//	 			(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8()
+//	 		);
+//	 	}
+//	 	else {
+	 		pushString(&to, "%s\">",
+	 			(const char*)QString::fromLocal8Bit(ref).utf8()
+			);
+//	 	}
+//	 	(i+1 < refList.count()) ? pushString(&to, "</font>, ") : pushString(&to, "</font>");	
+//	}
+	*to++ = '\0';
+	return ret;
+}
+
+const char* BT_BASICFILTER::thmlRefEnd() {
+	return "</a></font>";
+}
 
 /** This filter converts the RWP #Gen 1:1| style bible references to HTML */
 char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
@@ -125,9 +168,9 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
 				from++;
 			}			
 			
-			const char* ref = parseRef(verse_str);
+			const char* ref = parseSimpleRef(verse_str);
 		  pushString(&to,"%s ", ref);
-		  delete ref;//delet now because it's unused
+		  delete ref;//delete now because it's unused
 		
 			continue;
 		}
