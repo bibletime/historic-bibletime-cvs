@@ -34,7 +34,7 @@ CProfile::CProfile( const QString& file, const QString& name ):
 	m_name(name.isEmpty() ? i18n("unknown") : name),
 	m_filename(file),
 	m_fullscreen(false),
-	m_geometry(0,0,640,480)
+	m_geometry(10,20,640,480)
 {
 	
 	m_profileWindows.setAutoDelete(true);
