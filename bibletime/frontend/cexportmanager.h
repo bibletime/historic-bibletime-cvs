@@ -48,30 +48,10 @@ public:
   const bool copyKey(CSwordKey* key, const Format format, const bool addText);
   const bool copyKeyList(ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);
 
-  const bool printKey(CSwordKey* key);
-//  const bool printHyperlink(const QString& hyperlink);  
+  const bool printKey(CSwordKey* key, const QString& description = QString::null);
+  const bool printByHyperlink(const QString& hyperlink);  
   const bool printKeyList(ListKey* list, CSwordModuleInfo* module);
-                        
-//  //save functions
-//  static const bool saveKey( CSwordKey* key, const Format format, const bool withText = true, CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults());
-//  static const bool saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
-//  static const bool saveKeyList( QPtrList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
-//
-//  //clipboard functions
-//  static const bool copyKey( CSwordKey* key, const bool withText = true, const CSwordBackend::FilterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions = CBTConfig::getDisplayOptionDefaults() );
-//  static const bool copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
-//
-//  //print function
-//  static const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopkey = QString::null, const QString& description = QString::null );
-//  static const bool printKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool showProgress = true );
-//  static void printKey( const QString& hyperlink );
-
-private:
-  QString m_caption;
-  QString m_progressLabel;
-  bool m_showProgress;
-  CSwordBackend::FilterOptions m_filterOptions;
-  CSwordBackend::DisplayOptions m_displayOptions;
+  const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null );
 
 protected: // Protected methods
   /**
@@ -86,6 +66,18 @@ protected: // Protected methods
   * Returns a string containing the linebreak for the current format.
   */
   const QString lineBreak( const Format format );
+
+private:
+  QString m_caption;
+  QString m_progressLabel;
+  bool m_showProgress;
+  CSwordBackend::FilterOptions m_filterOptions;
+  CSwordBackend::DisplayOptions m_displayOptions;
+
+  /**
+  * Returns the CSS string used in HTML pages.
+  */
+  const QString htmlCSS(CSwordModuleInfo* module);
 };
 
 #endif

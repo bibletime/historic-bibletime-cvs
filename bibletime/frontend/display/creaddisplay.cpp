@@ -37,6 +37,9 @@
 //Qt includes
 #include <qpopupmenu.h>
 
+//KDE includes
+#include <klocale.h>
+
 CReadDisplay::CReadDisplay(CReadWindow* readWindow) : CDisplay(readWindow),m_popup(0), m_activeAnchor(QString::null) {
 	qWarning("constructor of CReadDisplay");
 }
@@ -76,7 +79,8 @@ void CReadDisplay::print(const CDisplay::TextPart type){
   CDisplayWindow* window = parentWindow();
   CSwordKey* const key = window->key();
   CSwordModuleInfo* module = key->module();
-
+  CExportManager mgr(i18n("Print keys"),false);
+        
   switch (type) {
 		case Document: {
 			if (module->type() == CSwordModuleInfo::Bible) {
@@ -88,16 +92,17 @@ void CReadDisplay::print(const CDisplay::TextPart type){
     		CSwordVerseKey stopKey(*vk);
 				if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module))
 					stopKey.Verse( bible->verseCount( bible->bookNumber(startKey.book()), startKey.Chapter() ) );
-//				CExportManager::printKey(module, startKey.key(), stopKey.key());
+				mgr.printKey(module, startKey.key(), stopKey.key());
   		}
     	else if (module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary ) {
-//    		CExportManager::printKey(module, key->key(), key->key());
+    		mgr.printKey(module, key->key(), key->key());
       }
     };
 
     case AnchorWithText: {
-//      if (hasActiveAnchor())
-//				CExportManager::printKey( activeAnchor() );
+      if (hasActiveAnchor()) {
+				mgr.printByHyperlink( activeAnchor() );
+      };
     };
 
     default:

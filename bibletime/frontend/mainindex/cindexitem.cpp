@@ -28,6 +28,7 @@
 #include "frontend/ctooltipmanager.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cinputdialog.h"
+#include "frontend/cexportmanager.h"
 #include "resource.h"
 
 //Qt includes
@@ -375,7 +376,8 @@ const bool CBookmarkItem::enableAction(const MenuAction action){
 }
 
 void CBookmarkItem::print(){
-//  CExportManager::printKey(module(), key(), key(), description());
+  CExportManager mgr(i18n("Print bookmark"),false);
+  mgr.printKey(module(), key(), key(), description());
 }
 
 /** Changes this bookmark. */

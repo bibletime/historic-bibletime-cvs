@@ -21,6 +21,7 @@
 #include "backend/cswordmoduleinfo.h"
 #include "backend/creferencemanager.h"
 #include "backend/cswordversekey.h"
+#include "backend/centrydisplay.h"
 
 #include "frontend/ctoolclass.h"
 
@@ -73,6 +74,10 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
   		startKey.key(vk->LowerBound());
   		stopKey.key(vk->UpperBound());
       QString entryText;
+      if (format == HTML) {
+        text = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY>").arg(htmlCSS(module));
+      };
+      
   		while ( startKey < stopKey || startKey == stopKey ) {
         entryText = (format == HTML) ? startKey.renderedText() : startKey.strippedText();
       
@@ -86,6 +91,9 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
       text = (format == HTML) ? key->renderedText() : key->strippedText();
     }
     text += "\n" + QString::fromLatin1("(%1, %1)").arg(key->key()).arg(module->name());
+    if (format == HTML) {
+      text += QString::fromLatin1("</BODY></HTML>");
+    };    
   }
   else { //don't add text
     text = key ? key->key() : QString::null;
@@ -254,88 +262,49 @@ const bool CExportManager::printKeyList(ListKey* list, CSwordModuleInfo* module)
 	return true;
 };
 
-////////// printing functions //////////
-//
-//const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description ){
-//	printer()->appendItem( new CPrintItem(module, startKey, stopKey, description) );
-//	return true;
-//}
-//
-//const bool CExportManager::printKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool showProgress ){
-//	QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );
-//	progress.setProgress(0);
-//	progress.setMinimumDuration(10);
-//	progress.show();
-//
-//	int index = 0;
-//	QPtrList<CPrintItem> itemList;
-//	QString startKey, stopKey;
-//
-//	*list = TOP;
-//	while (!list->Error() && !progress.wasCancelled()) {
-//		VerseKey* vk = dynamic_cast<VerseKey*>(list);
-//		if (vk) {
-//			startKey = QString::fromLocal8Bit((const char*)(vk->LowerBound()) );
-//			stopKey = QString::fromLocal8Bit((const char*)(vk->UpperBound()) );
-//		}
-//		else {
-//			startKey = QString::fromLocal8Bit((const char*)*list);
-//			stopKey = QString::null;
-//		}
-//		itemList.append( new CPrintItem(module, startKey, stopKey) );
-//
-//		progress.setProgress(index++);
-//		KApplication::kApplication()->processEvents(10); //do not lock the GUI!
-//
-//		(*list)++;
-//	}
-//
-//	//add all items to the queue
-//	if (progress.wasCancelled()) {
-//		itemList.setAutoDelete(true);
-//		itemList.clear();//delete all items
-//		return false;
-//	}
-//
-//	progress.setProgress(list->Count());
-//	printer()->appendItems(itemList);
-//
-//	return true;
-//}
-//
-///** Prints a key using the hyperlink created by CReferenceManager. */
-//void CExportManager::printKey( const QString& hyperlink ){
-// 	QString moduleName;
-//  QString keyName;
-//  CReferenceManager::Type type;
-//
-//  CReferenceManager::decodeHyperlink(hyperlink, moduleName, keyName, type);
-//  if (moduleName.isEmpty()) {
-//  	moduleName = CReferenceManager::preferredModule(type);
-//	}
-//
-// 	if (CSwordModuleInfo* module = backend()->findModuleByName(moduleName)) {
-//    qWarning(keyName.latin1());
-//    QString startKey = keyName;
-//    QString stopKey = keyName;
-//
-//    //check if we have a range of entries or a single one
-//    if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
-//      ListKey verses = VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
-//    	for (int i = 0; i < verses.Count(); ++i) {
-//    		VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
-//    		if (element)
-//        	CExportManager::printKey(module,QString::fromLocal8Bit((const char*)element->LowerBound()), QString::fromLocal8Bit((const char*)element->UpperBound()) );
-//    		else
-//					CExportManager::printKey(module,(const char*)*verses.GetElement(i),(const char*)*verses.GetElement(i));
-//    	}
-//		}
-//  	else {
-//			CExportManager::printKey(module,keyName,keyName);
-//    }
-//	}
-//}
+const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description ){
+	printer()->appendItem( new CPrintItem(module, startKey, stopKey, description, m_displayOptions, m_filterOptions) );
+	return true;
+}
 
+const bool CExportManager::printKey( CSwordKey* key, const QString& description ){
+	printer()->appendItem( new CPrintItem(key->module(),key->key(), key->key(), description, m_displayOptions, m_filterOptions) );
+	return true;
+}
+
+/** Prints a key using the hyperlink created by CReferenceManager. */
+const bool CExportManager::printByHyperlink( const QString& hyperlink ){
+ 	QString moduleName;
+  QString keyName;
+  CReferenceManager::Type type;
+
+  CReferenceManager::decodeHyperlink(hyperlink, moduleName, keyName, type);
+  if (moduleName.isEmpty()) {
+  	moduleName = CReferenceManager::preferredModule(type);
+	}
+
+ 	if (CSwordModuleInfo* module = backend()->findModuleByName(moduleName)) {
+//    qWarning(keyName.latin1());
+    QString startKey = keyName;
+    QString stopKey = keyName;
+
+    //check if we have a range of entries or a single one
+    if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
+      ListKey verses = VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
+    	for (int i = 0; i < verses.Count(); ++i) {
+    		VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
+    		if (element)
+        	CExportManager::printKey(module,QString::fromLocal8Bit((const char*)element->LowerBound()), QString::fromLocal8Bit((const char*)element->UpperBound()) );
+    		else
+					CExportManager::printKey(module,(const char*)*verses.GetElement(i),(const char*)*verses.GetElement(i));
+    	}
+		}
+  	else {
+			CExportManager::printKey(module,keyName,keyName);
+    }
+	}
+  return true;
+}
 
 /** Returns the string for the filedialogs to show the correct files. */
 const QString CExportManager::filterString( const Format format ){
@@ -360,4 +329,20 @@ const QString CExportManager::lineBreak(const Format format){
     return (format == HTML) ? QString::fromLatin1("<BR>\n") : QString::fromLatin1("\n");
   else
     return QString::null;
+}
+
+/** Returns the CSS string used in HTML pages. */
+const QString CExportManager::htmlCSS(CSwordModuleInfo* module){
+  CEntryDisplay* display = module ? module->getDisplay() : 0;
+  if (!display)
+    return QString::null;
+
+  QString css = QString::null;
+  for (int i = CEntryDisplay::MinType; i <= CEntryDisplay::MaxType; ++i) {
+    CEntryDisplay::StyleType type = static_cast<CEntryDisplay::StyleType>(i);
+    if (type != CEntryDisplay::Body && type != CEntryDisplay::Background) {
+      css += display->cssString( type );
+    }
+  }
+  return css;
 }

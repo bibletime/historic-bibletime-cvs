@@ -68,8 +68,8 @@ private: // Public attributes
   /**
   * The member which hols the current anchor.
   */
-  QString m_activeAnchor;
   QPopupMenu* m_popup;
+  QString m_activeAnchor;
 };
 
 #endif
