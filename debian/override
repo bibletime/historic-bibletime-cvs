@@ -1,0 +1,2 @@
+# This tag is required for apps already in the KDE menu.
+bibletime: menu-item-contains-unknown-tag kderemove /usr/lib/menu/bibletime:8
