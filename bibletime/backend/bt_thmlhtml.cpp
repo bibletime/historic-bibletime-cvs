@@ -115,9 +115,9 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "note")) { // <note> tag
 			if (!tag.isEndTag() && !tag.isEmpty()) {
-				SWBuf type = tag.getAttribute("type");
-				SWBuf footnoteNumber = tag.getAttribute("swordFootnote");
-				buf.append("<span class=\"footnote\">(");
+				//SWBuf type = tag.getAttribute("type");
+				//SWBuf footnoteNumber = tag.getAttribute("swordFootnote");
+				buf += "<span class=\"footnote\">(";
 			}
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a more complicated scripRef
