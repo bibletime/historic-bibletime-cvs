@@ -62,8 +62,49 @@ using std::endl;
 
 using namespace sword;
 
-CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* accel )
-	: KDialogBase(IconList, i18n("Sword configuration"), Ok/* | Cancel | Apply*/, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
+CInstallSourcesMgrDialog::CInstallSourcesMgrDialog(QWidget *parent, const char *name )
+	: KDialogBase(IconList, i18n("Manage installation sources"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
+
+	initView();
+}
+
+void CInstallSourcesMgrDialog::initView() {
+	m_localSourcesPage = addPage(i18n("Local sources"), QString::null, DesktopIcon("dir",32));
+ 	m_localSourcesPage->setMinimumSize(500,400);
+	initLocalSourceList();
+
+	m_remoteSourcesPage = addPage(i18n("Remote sources"), QString::null, DesktopIcon("html",32));
+ 	m_remoteSourcesPage->setMinimumSize(500,400);
+	initRemoteSourceList();
+}
+
+void CInstallSourcesMgrDialog::initLocalSourceList() {
+
+}
+
+void CInstallSourcesMgrDialog::initRemoteSourceList() {
+
+}
+
+void CInstallSourcesMgrDialog::addSource() {
+
+}
+
+void CInstallSourcesMgrDialog::removeSource() {
+
+}
+
+void CInstallSourcesMgrDialog::applyToSource() {
+
+}
+
+/*******************************/
+/* 									New class												*/
+/******************************/
+
+
+CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name )
+	: KDialogBase(IconList, i18n("Sword configuration"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
   m_progressDialog = 0;
 	setIconListAllVisible(true);
@@ -126,7 +167,7 @@ void CSwordSetupDialog::initInstall(){
 	QHBoxLayout* hboxlayout = new QHBoxLayout();
   hboxlayout->setAutoAdd( true );
 
-  vboxlayout->addLayout(hboxlayout);  
+  vboxlayout->addLayout(hboxlayout);
 
 	m_installWidgetStack = new QWidgetStack(newpage);
   hboxlayout->addWidget(m_installWidgetStack);
@@ -154,7 +195,8 @@ void CSwordSetupDialog::initInstall(){
 	layout->addWidget(m_sourceCombo, 2, 0);
 
 	QPushButton* maintainSourcesButton = new QPushButton(m_installSourcePage);
-	maintainSourcesButton->setText("Maintain");
+	maintainSourcesButton->setText("Maintain sources");
+	connect(maintainSourcesButton, SIGNAL(clicked()), SLOT(slot_installManageSources()));
 	layout->addWidget(maintainSourcesButton, 2, 1, Qt::AlignLeft);
 
 	m_sourceLabel = new QLabel(m_installSourcePage);
@@ -171,7 +213,7 @@ void CSwordSetupDialog::initInstall(){
 
   QHBoxLayout* myHBox = new QHBoxLayout();
   vboxlayout->addLayout(myHBox);
-  
+
   m_installBackButton = new QPushButton(newpage);
 	m_installBackButton->setText(i18n("Back"));
 	myHBox->addWidget(m_installBackButton, 7, 0);
@@ -597,7 +639,7 @@ void CSwordSetupDialog::slot_connectToSource(){
 		i18n("Please choose the modules which should be installed / updated and click the install button.")
   );
 	layout->addMultiCellWidget(installLabel, 0,0,0,1);
-  
+
   m_installWidgetStack->addWidget(m_installModuleListPage);
 	m_installModuleListPage->setMinimumSize(500,400);
 
@@ -623,6 +665,12 @@ void CSwordSetupDialog::slot_connectToSource(){
   m_installContinueButton->setEnabled(true);
 
   m_installWidgetStack->raiseWidget(m_installModuleListPage);
+}
+
+/** Connects to the chosen source. */
+void CSwordSetupDialog::slot_installManageSources() {
+	CInstallSourcesMgrDialog* dlg = new CInstallSourcesMgrDialog(this);
+	dlg->exec();
 }
 
 /** Installs chosen modules */
@@ -732,7 +780,7 @@ void CSwordSetupDialog::slot_showInstallSourcePage(){
   disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
   m_installContinueButton->setText(i18n("Connect"));
   m_installBackButton->setEnabled(false);
-  
+
   m_installWidgetStack->raiseWidget(m_installSourcePage);
 }
 

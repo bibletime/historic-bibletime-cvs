@@ -89,9 +89,9 @@ CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, c
     m_popupMenu(0),
     m_displayWidget(0)
 {
-  qWarning("set modules now");
+//  qWarning("set modules now");
   setModules(modules);
-  qWarning("modules setting done");
+ // qWarning("modules setting done");
 }
 
 CDisplayWindow::~CDisplayWindow(){
@@ -152,29 +152,29 @@ void CDisplayWindow::polish(){
 
 /** Refresh the settings of this window. */
 void CDisplayWindow::reload() {
-  qWarning("reload()");
+  //qWarning("reload()");
   //first make sure all used Sword modules are still present
   for (QStringList::iterator it = m_modules.begin(); it != m_modules.end(); ++it) {
-    qWarning("module loop");
+    // qWarning("module loop");
     if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) {
-      qWarning("module %s is valid", (*it).latin1());
+    //  qWarning("module %s is valid", (*it).latin1());
     }
     else {
-      qWarning("refresh(): remove uninstalled module %s", (*it).latin1());
+//      qWarning("refresh(): remove uninstalled module %s", (*it).latin1());
       it = m_modules.remove(it);
       if (it == m_modules.end()) {
         break;
       }
-      qWarning("removed from list");
+     // qWarning("removed from list");
     }
   }
-  
-  qWarning("modules contain %i", m_modules.count());
+
+  //qWarning("modules contain %i", m_modules.count());
 
   //call's moduleChanged so we don't need it
-  qWarning("refresh(): set modules");
+//  qWarning("refresh(): set modules");
   m_moduleChooserBar->setModules(modules());
-  qWarning("refresh(): modules changed");
+//  qWarning("refresh(): modules changed");
 
   qWarning("%i modules available", m_modules.count());
   modulesChanged();

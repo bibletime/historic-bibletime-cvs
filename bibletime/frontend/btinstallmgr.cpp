@@ -123,36 +123,36 @@ sword::InstallSource BTInstallMgr::Tool::RemoteConfig::source( sword::InstallMgr
   Q_ASSERT(mgr);
 
   InstallSourceMap::iterator source = mgr->sources.find(name.latin1());
-	if (source != mgr->sources.end()) {
+  if (source != mgr->sources.end()) {
   	return *(source->second);
   }
   else { //not found in Sword, may be a local DIR source
-    SWConfig config(Tool::RemoteConfig::configFilename().latin1());
-  	SectionMap::iterator sourcesSection = config.Sections.find("Sources");
-  	if (sourcesSection != config.Sections.end()) {
-  		ConfigEntMap::iterator sourceBegin = sourcesSection->second.lower_bound("DIRSource");
-  		ConfigEntMap::iterator sourceEnd = sourcesSection->second.upper_bound("DIRSource");
+		SWConfig config(Tool::RemoteConfig::configFilename().latin1());
+		SectionMap::iterator sourcesSection = config.Sections.find("Sources");
+		if (sourcesSection != config.Sections.end()) {
+			ConfigEntMap::iterator sourceBegin = sourcesSection->second.lower_bound("DIRSource");
+			ConfigEntMap::iterator sourceEnd = sourcesSection->second.upper_bound("DIRSource");
 
-      qWarning("looking for local source %s", name.latin1());
+    	//	qWarning("looking for local source %s", name.latin1());
     
-  		while (sourceBegin != sourceEnd) {
-  			InstallSource is("DIR", sourceBegin->second.c_str());
-        qWarning("found %s", is.caption.c_str());
+         	while (sourceBegin != sourceEnd) {
+            	InstallSource is("DIR", sourceBegin->second.c_str());
+            	qWarning("found %s", is.caption.c_str());
         
-        if (!strcmp(is.caption, name.latin1()) ) { //found local dir source
-          qWarning("found it");
-
-          return is;
-        }
-
-        sourceBegin++;
-  		}
-  	}
+          		if (!strcmp(is.caption, name.latin1()) ) { //found local dir source
+            		//qWarning("found it");
+            		return is;
+          		}
+			sourceBegin++;
+        	}
+		}
   }
+
   InstallSource is("EMPTY");   //default return value
   is.caption = "unknwon caption";
   is.source = "unknwon source";
-  is.directory = "unknwon dir";
+  is.directory = "unknown dir";
+  return is;
 }
 
 const bool BTInstallMgr::Tool::RemoteConfig::isRemoteSource( InstallSource* is ) {
@@ -164,59 +164,62 @@ const bool BTInstallMgr::Tool::RemoteConfig::isRemoteSource( InstallSource* is )
 }
 
 void BTInstallMgr::Tool::RemoteConfig::addSource( sword::InstallSource* is ) {
- 	Q_ASSERT(is);
+  if (!is) {
+    return;
+  }
 
   SWConfig config(Tool::RemoteConfig::configFilename().latin1());
-
   if (!strcmp(is->type, "FTP")) {  
-  	config["Sources"].insert( std::make_pair("FTPSource", is->getConfEnt()) );
+    config["Sources"].insert( std::make_pair("FTPSource", is->getConfEnt()) );
   }
   else if (!strcmp(is->type, "DIR")) {
-  	config["Sources"].insert( std::make_pair("DIRSource", is->getConfEnt()) );
+    config["Sources"].insert( std::make_pair("DIRSource", is->getConfEnt()) );
   }
-  
   config.Save();
 }
 
 void BTInstallMgr::Tool::RemoteConfig::initConfig() {
+  //Do only continue if the config does not yet exist...
+  if (QFile::exists(configFilename())) {
+    return;
+  }
+
   QFile::remove(configFilename());
-  
-  
-	InstallSource is("FTP");
-	is.caption = "Crosswire";
-	is.source = "ftp.crosswire.org";
-	is.directory = "/pub/sword/raw";
+
+  InstallSource is("FTP");
+  is.caption = "Crosswire";
+  is.source = "ftp.crosswire.org";
+  is.directory = "/pub/sword/raw";
   Tool::RemoteConfig::addSource(&is);
 
-	is.type = "FTP";
-	is.caption = "Crosswire Beta";
-	is.source = "ftp.crosswire.org";
-	is.directory = "/pub/sword/betaraw";
-  Tool::RemoteConfig::addSource(&is);  
+  is.type = "FTP";
+  is.caption = "Crosswire Beta";
+  is.source = "ftp.crosswire.org";
+  is.directory = "/pub/sword/betaraw";
+  Tool::RemoteConfig::addSource(&is);
 
   //add default local sources
   is.type = "DIR";
-	is.caption = "[CD-Rom] /media/cdrom";
-	is.source = "file://";
-	is.directory = "/media/cdrom/";
+  is.caption = "[CD-Rom] /cdrom";
+  is.source = "file://";
+  is.directory = "/cdrom/";
   Tool::RemoteConfig::addSource(&is);
 
   is.type = "DIR";
-	is.caption = "[CD-Rom] /media/cdrom1";
-	is.source = "file://";
-	is.directory = "/media/cdrom1/";
+  is.caption = "[CD-Rom] /cdrom1";
+  is.source = "file://";
+  is.directory = "/cdrom1/";
   Tool::RemoteConfig::addSource(&is);
 
   SWConfig config(Tool::RemoteConfig::configFilename().latin1());
   config["General"]["PassiveFTP"] = "true";
-  config.Save();
+	config.Save();
 }
 
 const QString BTInstallMgr::Tool::RemoteConfig::configPath() {
 	const char *envhomedir  = getenv("HOME");
 	QString confPath = QString::fromLatin1((envhomedir) ? envhomedir : ".");
 	confPath += QString::fromLatin1("/.sword/InstallMgr");
-//	qWarning(confPath.latin1());
 
   return confPath;
 }
@@ -236,12 +239,16 @@ CSwordBackend* BTInstallMgr::Tool::backend( sword::InstallSource* const is) {
     return 0;
 
   CSwordBackend* ret = 0;
-  if (RemoteConfig::isRemoteSource(is))
+  if (RemoteConfig::isRemoteSource(is)) {
     ret = new CSwordBackend( QString::fromLatin1(is->localShadow.c_str()) );
-  else
+	}
+  else {
     ret = new CSwordBackend( QString::fromLatin1(is->directory.c_str()) );
-  if (ret)
+	}
+
+	if (ret) {
     ret->initModules();
+	}
 
   return ret;
 }
@@ -255,8 +262,9 @@ BTInstallMgr::~BTInstallMgr(){
 }
 
 void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
-	qWarning("total: %d; now: %d", dltotal, dlnow);
+	//qWarning("total: %d; now: %d", dltotal, dlnow);
   int totalPercent = (int)((float)(dlnow + m_completedBytes+1) / (float)(m_totalBytes) * 100);
+
 	if (totalPercent > 100) {
 		totalPercent = 100;
 	}
@@ -278,7 +286,8 @@ void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
 
 void BTInstallMgr::preDownloadStatus(long totalBytes, long completedBytes, const char *message) {
   emit downloadStarted( "unkown filename" );
-  m_completedBytes = completedBytes;
+
+	m_completedBytes = completedBytes;
   m_totalBytes = totalBytes;
   KApplication::kApplication()->processEvents();
 }

@@ -193,7 +193,7 @@ namespace CResMgr {
         QString whatsthis;
         const QString icon        = "bt_swordconfig";
         const KShortcut accel     = Qt::CTRL + Qt::Key_S;
-        const char* actionName    = "sword_setup";
+        const char* actionName    = "options_sword_setup";
       }
 
     };

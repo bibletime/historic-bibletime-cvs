@@ -98,7 +98,7 @@ void BibleTime::slotSettingsChanged(){
 
 /** Opens the sword setup dialog of BibleTime. */
 void BibleTime::slotSwordSetupDialog(){
-	CSwordSetupDialog *dlg = new CSwordSetupDialog(this, "CSwordSetupDialog", accel());
+	CSwordSetupDialog *dlg = new CSwordSetupDialog(this, "CSwordSetupDialog");
   connect(dlg, SIGNAL(signalSwordSetupChanged()), SLOT(slotSwordSetupChanged()) );
 
 	dlg->exec();

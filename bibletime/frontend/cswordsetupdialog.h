@@ -22,39 +22,44 @@
 #include "util/cpointers.h"
 #include "btinstallmgr.h"
 
-
 //QT includes
-//#include <qwidget.h>
-//#include <qframe.h>
-//#include <qlabel.h>
 #include <qstring.h>
 #include <qmap.h>
-//#include <qcombobox.h>
-//#include <qdict.h>
-//#include <qmap.h>
 
 //KDE includes
 #include <kdialogbase.h>
-//#include <kfontdialog.h>
-//#include <kaccel.h>
-//#include <kcolorbutton.h>
-//#include <kapp.h>
 
 
 //Sword includes
-
 class QWidget;
 class QLabel;
 class QComboBox;
 class QWidgetStack;
 class QButton;
-//class QHBox;
-//class QCheckBox;
-//class QRadioButton;
-//class KListBox;
-//class KKeyChooser;
 class KProgressDialog;
 class KListView;
+
+class CInstallSourcesMgrDialog : public KDialogBase, public CPointers  {
+   Q_OBJECT
+
+public:
+	CInstallSourcesMgrDialog(QWidget *parent=0, const char *name=0);
+
+protected slots:
+	void addSource();
+	void removeSource();
+	void applyToSource();
+
+protected:
+	void initView();
+	void initRemoteSourceList();
+	void initLocalSourceList();
+
+private:
+	QFrame* m_localSourcesPage;
+	QFrame* m_remoteSourcesPage;
+};
+
 
 /**
 	* The Sword configuration dialog of BibleTime
@@ -64,7 +69,7 @@ class CSwordSetupDialog : public KDialogBase, public CPointers  {
    Q_OBJECT
 
 public:
-	CSwordSetupDialog(QWidget *parent=0, const char *name=0, KAccel* key_accel=0);
+	CSwordSetupDialog(QWidget *parent=0, const char *name=0);
 
   enum Parts {
 		Sword,
@@ -134,6 +139,7 @@ private slots:
 	void slotOk();
 	void slotApply();
   void slot_connectToSource();
+  void slot_installManageSources();
   void slot_installModules();
   void slot_showInstallSourcePage();
 
