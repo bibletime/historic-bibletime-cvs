@@ -1,7 +1,7 @@
 /***************************************************************************
-                          cwritedisplay.h  -  description
+                          cplainwritewindow.h  -  description
                              -------------------
-    begin                : Don Mai 9 2002
+    begin                : Fre Okt 11 2002
     copyright            : (C) 2002 by The BibleTime team
     email                : info@bibletime.de
  ***************************************************************************/
@@ -15,21 +15,30 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef CWRITEDISPLAY_H
-#define CWRITEDISPLAY_H
+#ifndef CPLAINWRITEWINDOW_H
+#define CPLAINWRITEWINDOW_H
 
-#include "cdisplay.h"
+//BibleTime includes
+#include "cwritewindow.h"
 
-/**The base class for all read/write-display classes.
-  *@author The BibleTime team
+//Qt includes
+#include <qwidget.h>
+
+/** The write window class which offers a plain editor for source code editing.
+  * @author The BibleTime team
   */
+class CPlainWriteWindow : public CWriteWindow  {
+   Q_OBJECT
+public: 
+	CPlainWriteWindow( ListCSwordModuleInfo modules, CMDIArea* parent, const char *name = 0 );
+	~CPlainWriteWindow();
 
-class CWriteDisplay : public CDisplay  {
-protected:
-	friend class CDisplay;
- 	friend class CPlainWriteDisplay;  
-	CWriteDisplay( CWriteWindow* writeWindow );
-	~CWriteDisplay();
+protected: // Protected methods
+  /**
+  * Initialize the state of this widget.
+  */
+  virtual void initView();
+  virtual void initConnections();
 };
 
 #endif

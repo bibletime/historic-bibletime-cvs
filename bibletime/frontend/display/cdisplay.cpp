@@ -17,6 +17,7 @@
 
 #include "cdisplay.h"
 #include "chtmlreaddisplay.h"
+#include "cplainwritedisplay.h"
 
 #include "backend/creferencemanager.h"
 
@@ -108,8 +109,9 @@ CReadDisplay* CDisplay::createReadInstance( CReadWindow* readWindow, QWidget* pa
 //  	return 0;
 }
 
-CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow ) {
-	return 0;
+CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow, QWidget* parent ) {
+  qWarning("CDisplay::createWriteInstance");
+  return new CPlainWriteDisplay(writeWindow, parent);
 }
 
 

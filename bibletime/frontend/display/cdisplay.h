@@ -41,8 +41,7 @@ class CWriteDisplay;
 class CDisplay : public CPointers {
 public:
 	static CReadDisplay* createReadInstance(CReadWindow* readWindow, QWidget* parent = 0);
-
-	static CWriteDisplay* createWriteInstance(CWriteWindow* writeWindow);
+	static CWriteDisplay* createWriteInstance( CWriteWindow* writeWindow, QWidget* parent = 0 );
 
   enum TextType {
     HTMLText, /* Used for HTML markup */

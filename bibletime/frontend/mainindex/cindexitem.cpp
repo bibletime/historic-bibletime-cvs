@@ -273,6 +273,12 @@ const QString CModuleItem::aboutInfo(){
 
 /** Reimplementation from  CItemBase. */
 const bool CModuleItem::enableAction( const MenuAction action ){
+  if (action == EditModule) {
+    if (!module())
+      return false;
+    return static_cast<bool>(module()->module()->isWritable()); //enable if the module is writable
+  }
+
   if (action == SearchInModules || action == AboutModule)
     return true;
   if (module()->isEncrypted() && action == UnlockModule)

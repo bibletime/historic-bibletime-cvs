@@ -43,9 +43,10 @@
 #include <khtmlview.h>
 #include <kglobalsettings.h>
 #include <khtml_events.h>
+
 #include <dom/dom2_range.h>
 #include <dom/html_element.h>
-
+#include <dom/dom2_traversal.h>
 
 CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget), CReadDisplay(readWindow) {
 //	qWarning("constructor of CHTMLReadDisplay");
@@ -154,7 +155,6 @@ void CHTMLReadDisplay::selectAll() {
 
 /** No descriptions */
 void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
-//  qWarning("nove to anchor %s", anchor.latin1());
 	gotoAnchor(anchor);
 }
 
@@ -168,7 +168,7 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
     if (module.isEmpty())
       module = CReferenceManager::preferredModule( type );
 
-#warning Really bad bad work around! Otherwise the widget would scroll with the mouse moves afetr a link was clicked!
+//#warning Really bad bad work around! Otherwise the widget would scroll with the mouse moves afetr a link was clicked!
     QMouseEvent me( QEvent::MouseButtonRelease, QPoint(0,0), QPoint(0,0), QMouseEvent::LeftButton, QMouseEvent::NoButton);
     khtml::MouseReleaseEvent kme(&me, -1,-1, DOM::DOMString(), DOM::DOMString(), DOM::Node());
     KApplication::sendEvent( this, &kme );
@@ -192,6 +192,87 @@ void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event )
 }
 
 void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
+
+//  if (hasSelection()) {
+//    DOM::Range r1 = selection();
+//    if (!r1.isNull()) {
+//      qWarning("get selection: %s", r1.toString().string().latin1());
+//      qWarning("set selection AGAIN");
+//
+//      DOM::Range r2 = htmlDocument().createRange();
+//      DOM::Range();
+//      //find first node which is CDATA_TEXT
+//
+//      r2.setStart(r1.startContainer(), r1.startOffset());
+//      r2.setEnd(r1.endContainer(), r1.endOffset());
+//      setSelection(r2);
+//
+//      view()->layout();
+//    }
+//  };
+
+    //set selection for first text node
+//    DOM::Node start = document().isHTMLDocument() ? htmlDocument().body() : document().firstChild();
+//    int counter = 0;
+//    while (!start.isNull()) {
+//      start = start.hasChildNodes() ? start.firstChild() : start.nextSibling();
+//      qWarning("loop");
+//      if (start.nodeType() == DOM::Node::TEXT_NODE) {
+//        qWarning("found text node!");
+//        qWarning(start.nodeValue().string().latin1());
+//        break;
+//      }
+//    };
+//
+//    DOM::Range range = htmlDocument().createRange(); DOM::Range();
+//    range.selectNode( start );
+//
+//    setSelection(range);
+//    view()->layout();
+//    
+
+    //try to select the word under the mouse cursor!
+//    DOM::Node node = event->innerNode();
+//
+//    if (event->target().isEmpty())
+//      qWarning("TARGET is EMPTY!");
+//    else
+//      qWarning("target: %s", event->target().string().latin1());
+//    qWarning("node: %s", event->innerNode().nodeName().string().latin1());
+//    qWarning("mouse node: %s",nodeUnderMouse().nodeName().string().latin1());
+//
+//    if (node.hasChildNodes()) {
+//      qWarning("print node tree");
+//      DOM::NodeList childs = node.childNodes();
+//      bool selected = false;
+//      for(int i = 0; !childs.item(i).isNull();++i) {
+//        DOM::Node node = childs.item(i);
+//        qWarning("type is %i", node.nodeType());
+//        if (!selected /*&& (node.nodeType() == DOM::Node::TEXT_NODE)*/ )  {
+//          DOM::Range range = document().createRange();
+//          range.selectNodeContents(node);
+//          range.collapse(true);
+//          qWarning("## SELECTED range of %s is %s or HTML %s", node.nodeName().string().latin1(),node.nodeValue().string().latin1(),range.toHTML().string().latin1());
+//          setSelection(range);
+//
+//          if (hasSelection()) {
+//            qWarning("HAVE SELECTION: %s", selectedText().latin1());
+//          }
+//          else
+//            qWarning("HAVE #no# SELECTION");
+//
+//          selected = true;
+//        }
+//        qWarning("%s: %s",childs.item(i).nodeName().string().latin1(),childs.item(i).nodeValue().string().latin1());
+//        QRect r = childs.item(i).getRect();
+//        qWarning("%i,%i with %i x %i", r.x(), r.y(), r.width(), r.height());
+//      }
+//    }    
+//    if (!range.isNull() && !node.isNull())
+//      setSelection(range);
+
+//  return;
+  
   m_dndData.node = DOM::Node();
   m_dndData.anchor = DOM::DOMString();
   m_dndData.mousePressed = false;
@@ -199,21 +280,6 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
 
   if (event->qmouseEvent()->button() == Qt::RightButton) {
     setActiveAnchor( event->url().string() );
-
-    //try to select the word under the mouse cursor!
-//    DOM::Node node = event->innerNode();
-//
-//    if (event->target().isEmpty())
-//      qWarning("TARGET is EMPTY!");
-//    qWarning("target: %s", event->target().string().latin1());
-//    qWarning("node: %s", event->innerNode().nodeName().string().latin1());
-//    qWarning("mouse node: %s",nodeUnderMouse().nodeName().string().latin1());
-//
-//    DOM::Range range = document().createRange();
-////    qWarning("range is %s", range.toHTML().string().latin1());
-//    range.selectNode(node);
-//    if (!range.isNull() && !node.isNull())
-//      setSelection(range);
   }
   else if (event->qmouseEvent()->button() == Qt::LeftButton) {
     m_dndData.node = event->innerNode();

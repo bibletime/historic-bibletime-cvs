@@ -61,6 +61,7 @@ public:
 
     DeleteEntries,
 
+    EditModule,
     SearchInModules,
     UnlockModule,
     AboutModule,

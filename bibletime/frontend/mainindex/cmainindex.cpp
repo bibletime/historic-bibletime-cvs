@@ -156,6 +156,7 @@ void CMainIndex::initView(){
 
   m_actions.deleteEntries = new KAction(i18n("Remove selected item(s)"),ITEMS_DELETE_ICON_SMALL, 0, this, SLOT(deleteEntries()), this);
 
+  m_actions.editModule = new KAction(i18n("Edit this module"),MODULE_SEARCH_ICON_SMALL, 0, this, SLOT(editModule()), this);
   m_actions.searchInModules = new KAction(i18n("Search in selected module(s)"),MODULE_SEARCH_ICON_SMALL, 0, this, SLOT(searchInModules()), this);
   m_actions.unlockModule = new KAction(i18n("Unlock this module"),MODULE_UNLOCK_ICON_SMALL, 0, this, SLOT(unlockModule()), this);
   m_actions.aboutModule = new KAction(i18n("About this module"),MODULE_ABOUT_ICON_SMALL, 0, this, SLOT(aboutModule()), this);
@@ -171,6 +172,7 @@ void CMainIndex::initView(){
   (new KActionSeparator(this))->plug(m_popup);
   m_actions.deleteEntries->plug(m_popup);
   (new KActionSeparator(this))->plug(m_popup);
+  m_actions.editModule->plug(m_popup);
   m_actions.searchInModules->plug(m_popup);
   m_actions.unlockModule->plug(m_popup);
   m_actions.aboutModule->plug(m_popup);
@@ -203,13 +205,13 @@ void CMainIndex::slotExecuted( QListViewItem* i ){
     CSwordModuleInfo* mod = m->module();
     ListCSwordModuleInfo modules;
     modules.append(mod);
-    emit modulesChosen(modules, QString::null);
+    emit createReadDisplayWindow(modules, QString::null);
   }
   else if (CBookmarkItem* b = dynamic_cast<CBookmarkItem*>(i) ) { //clicked on a bookmark
     if (CSwordModuleInfo* mod = b->module()) {
       ListCSwordModuleInfo modules;
       modules.append(mod);
-      emit modulesChosen(modules, b->key());
+      emit createReadDisplayWindow(modules, b->key());
     }
   }
 }
@@ -284,7 +286,7 @@ void CMainIndex::openSearchDialog( ListCSwordModuleInfo modules, const QString s
 
 /** No descriptions */
 void CMainIndex::emitModulesChosen( ListCSwordModuleInfo modules, QString key ){
-  emit modulesChosen(modules, key);
+  emit createReadDisplayWindow(modules, key);
 }
 
 /** Returns the correct KAction object for the given type of action. */
@@ -306,6 +308,9 @@ KAction* CMainIndex::action( const CItemBase::MenuAction type ){
 
     case CItemBase::DeleteEntries:
       return m_actions.deleteEntries;
+      
+    case CItemBase::EditModule:
+      return m_actions.editModule;
     case CItemBase::SearchInModules:
       return m_actions.searchInModules;
     case CItemBase::UnlockModule:
@@ -331,7 +336,7 @@ void CMainIndex::contextMenu(KListView* list, QListViewItem* i, const QPoint& p)
     for (int index = CItemBase::ActionBegin; index <= CItemBase::ActionEnd; ++index) {
       actionType = static_cast<CItemBase::MenuAction>(index);
       if (KAction* a = action(actionType))
-        a->setEnabled(item->enableAction(actionType));
+        a->setEnabled( item->enableAction(actionType) );
     }
   }
   else {
@@ -540,6 +545,8 @@ const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
     case CItemBase::DeleteEntries:
       return true;
 
+    case CItemBase::EditModule:
+      return false;
     case CItemBase::SearchInModules:
       return true;
     case CItemBase::UnlockModule:
@@ -568,10 +575,25 @@ void CMainIndex::moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>&
 //      CPointers::backend()->findModuleByDescription(defaultBible);
 //    if (m) {
 //      modules.append(m);
-//      emit modulesChosen(modules, QString::null);
+//      emit createReadDisplayWindow(modules, QString::null);
 //    } else {
 //      qWarning("default Bible \"%s\" is no longer available, review your settings",
 //        defaultBible.latin1());
 //    }
 //  }
 //}
+
+/** Opens an editor window to edit the modules content. */
+void CMainIndex::editModule(){
+  QPtrList<QListViewItem> items = selectedItems();
+  ListCSwordModuleInfo modules;
+  for (items.first(); items.current(); items.next()) {
+    if (CModuleItem* i = dynamic_cast<CModuleItem*>(items.current())) {
+      modules.append(i->module());
+    }
+  }
+  if (modules.count() == 1) {
+    qWarning("CMainIndex: create WRITE window!");
+    emit createWriteDisplayWindow(modules.first(), QString::null);
+  };
+}

@@ -8,13 +8,15 @@ libdisplay_a_SOURCES = \
 cdisplay.cpp \
 creaddisplay.cpp \
 chtmlreaddisplay.cpp \
-cwritedisplay.cpp
+cwritedisplay.cpp \
+cplainwritedisplay.cpp
 
 all_headers = \
 cdisplay.h \
 creaddisplay.h \
 chtmlreaddisplay.h \
-cwritedisplay.h
+cwritedisplay.h \
+cplainwritedisplay.h
 
 EXTRA_DIST = $(libdisplay_a_SOURCES) $(all_headers)
 

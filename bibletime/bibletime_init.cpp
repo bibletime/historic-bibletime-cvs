@@ -292,8 +292,8 @@ void BibleTime::initMenubar(){
 void BibleTime::initConnections(){
 	connect(m_mdi, SIGNAL(sigSetToplevelCaption(const QString&)),
 		this, SLOT(setPlainCaption(const QString&)));
-	connect(m_mdi, SIGNAL(createDisplayWindow(ListCSwordModuleInfo, const QString&)),
-		this, SLOT(createDisplayWindow(ListCSwordModuleInfo, const QString&)));
+	connect(m_mdi, SIGNAL(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)),
+		this, SLOT(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)));
 		
 	if (m_windowMenu) {
 		connect(m_windowMenu, SIGNAL(aboutToShow()),
@@ -305,10 +305,11 @@ void BibleTime::initConnections(){
 		qWarning("can't find window menu");
 		 	
 	
-	connect(m_mainIndex, 
-		SIGNAL(modulesChosen(ListCSwordModuleInfo, const QString&)),
-		this, 
-		SLOT(createDisplayWindow(ListCSwordModuleInfo,const QString&)));
+	connect(m_mainIndex, SIGNAL(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)),
+		this, SLOT(createReadDisplayWindow(ListCSwordModuleInfo,const QString&)));
+	connect(m_mainIndex, SIGNAL(createWriteDisplayWindow(CSwordModuleInfo*, const QString&)),
+		this, SLOT(createWriteDisplayWindow(CSwordModuleInfo*,const QString&)));
+    
 	//connect to the signals of the printer object
 	connect(m_printer, SIGNAL(addedFirstQueueItem()),
 		this, SLOT(slotSetPrintingStatus()));

@@ -16,8 +16,75 @@
  ***************************************************************************/
 
 #include "cwritewindow.h"
+#include "frontend/keychooser/ckeychooser.h"
 
-CWriteWindow::CWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name ) : CDisplayWindow(modules, parent,name) {
+CWriteWindow::CWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
+  : CDisplayWindow(modules, parent,name), m_writeDisplay(0) {
 }
+
 CWriteWindow::~CWriteWindow(){
 }
+
+
+void CWriteWindow::insertKeyboardActions( KAccel* const a ) {
+
+};
+
+const bool CWriteWindow::init( const QString& keyName ) {
+  qWarning("CWriteWindow::init( const QString& keyName )");
+  CDisplayWindow::init(keyName);
+// 	setupPopupMenu();
+  keyChooser()->setKey(key());
+	setReady(true);
+  return true;
+};
+
+void CWriteWindow::storeProfileSettings(CProfileWindow * const settings) {
+
+};
+
+void CWriteWindow::applyProfileSettings(CProfileWindow * const settings) {
+
+};
+
+/** Sets the write display-widget for this write display window. */
+void CWriteWindow::setDisplayWidget( CWriteDisplay* display ){
+  m_writeDisplay = display;
+}
+
+/** Look up the given key and display the text. In our case we offer to edit the text. */
+void CWriteWindow::lookup( CSwordKey* newKey ){
+  //set the raw text to the display widget
+	if (!newKey)
+		return;
+
+//	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
+// 		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
+//	}
+  if (CSwordModuleInfo* module = modules().first()) {
+    displayWidget()->setText( newKey->rawText() );
+  }
+  
+	if (key() != newKey)
+		key()->key(newKey->key());
+
+	setCaption( windowCaption() );
+  
+}
+
+/** Saves the given text as text of the given key. Use this function as backend in each write window implementation. */
+const bool CWriteWindow::saveText( CSwordKey* key, const QString newText ){
+}
+
+/** Returns the write display widget used by this window. */
+CWriteDisplay* const CWriteWindow::displayWidget(){
+  return m_writeDisplay;
+}
+
+void CWriteWindow::initConnections() {
+
+};
+
+void CWriteWindow::initKeyboardActions() {
+
+};

@@ -45,6 +45,19 @@ CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
 	return m_module;
 }
 
+const QString CSwordKey::rawText() {
+	qWarning("const QString CSwordKey::rawText()");
+  if (!m_module)
+		return QString::null;
+	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
+    m_module->module()->SetKey(k);
+	}
+  if (key().isNull()) {
+    return QString::null;
+  }
+  return QString::fromUtf8(m_module->module()->getRawEntry());
+}
+
 const QString CSwordKey::renderedText() {
 //	qWarning("const QString CSwordKey::renderedText()");
   if (!m_module)

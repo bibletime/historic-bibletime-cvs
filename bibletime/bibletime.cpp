@@ -26,6 +26,7 @@
 #include "frontend/mainindex/cmainindex.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/displaywindow/creadwindow.h"
+#include "frontend/displaywindow/cwritewindow.h"
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/cbtconfig.h"
 
@@ -154,7 +155,7 @@ void BibleTime::readSettings(){
 }
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
-CDisplayWindow* BibleTime::createDisplayWindow(ListCSwordModuleInfo modules, const QString& key) {
+CDisplayWindow* BibleTime::createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& key) {
 //  qWarning("BibleTime::createDisplayWindow: key is %s", key.latin1());
   kapp->setOverrideCursor( waitCursor );
 
@@ -170,11 +171,30 @@ CDisplayWindow* BibleTime::createDisplayWindow(ListCSwordModuleInfo modules, con
 
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
-CDisplayWindow* BibleTime::createDisplayWindow(CSwordModuleInfo* module, const QString& key) {
+CDisplayWindow* BibleTime::createReadDisplayWindow(CSwordModuleInfo* module, const QString& key) {
 	ListCSwordModuleInfo list;
 	list.append(module);
-	
-	return createDisplayWindow(list, key);		
+
+	return createReadDisplayWindow(list, key);
+}
+
+CDisplayWindow* BibleTime::createWriteDisplayWindow(CSwordModuleInfo* module, const QString& key) {
+  qWarning("BibleTime::createWriteDisplayWindow: key is %s", key.latin1());
+
+  kapp->setOverrideCursor( waitCursor );
+
+	ListCSwordModuleInfo modules;
+	modules.append(module);
+  CDisplayWindow* displayWindow = CDisplayWindow::createWriteInstance(modules, m_mdi);
+  Q_ASSERT(displayWindow);
+  if (displayWindow) {
+    qWarning("init and show!");
+  	displayWindow->init(key);
+		displayWindow->show();
+	}
+
+  kapp->restoreOverrideCursor();
+	return displayWindow;
 }
 
 /** Refreshes all presenters.*/
@@ -264,7 +284,7 @@ void BibleTime::processCommandline(){
       vk.Index(newIndex);
       bibleKey = vk.key();
     }
-    createDisplayWindow(bible, bibleKey);
+    createReadDisplayWindow(bible, bibleKey);
     m_mdi->tile();//we are sure only one window is open, which should be displayed fullscreen in the working area
   }
 }

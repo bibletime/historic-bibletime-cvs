@@ -251,6 +251,7 @@ void CBibleReadWindow::keyChanged(CSwordKey* key){
 
 /** Copies the current chapter into the clipboard. */
 void CBibleReadWindow::copyDisplayedText(){
+//normal function  
   CSwordVerseKey vk(*verseKey());
   CSwordVerseKey dummy(*verseKey());
 

@@ -154,6 +154,10 @@ protected slots: // Protected slots
   * Is called when items should be moved.
   */
   void moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow);
+  /**
+  * Opens an editor window to edit the modules content.
+  */
+  void editModule();
 
 private: // Private methods
   CSearchDialog* m_searchDialog;
@@ -183,6 +187,7 @@ private: // Private methods
 
     KAction* deleteEntries;
 
+    KAction* editModule;
     KAction* searchInModules;
     KAction* unlockModule;
     KAction* aboutModule;
@@ -193,7 +198,8 @@ signals: // Signals
   /**
   * Is emitted when a module should be opened,
   */
-  void modulesChosen( ListCSwordModuleInfo, const QString& );
+  void createReadDisplayWindow( ListCSwordModuleInfo, const QString& );
+  void createWriteDisplayWindow( CSwordModuleInfo*, const QString& );  
 };
 
 #endif

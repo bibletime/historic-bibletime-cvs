@@ -420,7 +420,7 @@ void BibleTime::loadProfile(CProfile* p){
 		if (!modules.count()) //are the modules still installed?
 			continue;		
 		
-		if (CDisplayWindow* displayWindow = createDisplayWindow(modules, key)) {
+		if (CDisplayWindow* displayWindow = createReadDisplayWindow(modules, key)) {
 			displayWindow->applyProfileSettings(w);
 		}
 	}	

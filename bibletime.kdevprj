@@ -715,7 +715,7 @@ install_location=
 type=HEADER
 
 [bibletime/frontend/display/Makefile.am]
-files=bibletime/frontend/display/cdisplay.cpp,bibletime/frontend/display/cdisplay.h,bibletime/frontend/display/chtmlreaddisplay.cpp,bibletime/frontend/display/chtmlreaddisplay.h,bibletime/frontend/display/cwritedisplay.cpp,bibletime/frontend/display/cwritedisplay.h,bibletime/frontend/display/creaddisplay.cpp,bibletime/frontend/display/creaddisplay.h
+files=bibletime/frontend/display/cdisplay.cpp,bibletime/frontend/display/cdisplay.h,bibletime/frontend/display/chtmlreaddisplay.cpp,bibletime/frontend/display/chtmlreaddisplay.h,bibletime/frontend/display/cwritedisplay.cpp,bibletime/frontend/display/cwritedisplay.h,bibletime/frontend/display/creaddisplay.cpp,bibletime/frontend/display/creaddisplay.h,bibletime/frontend/display/cplainwritedisplay.cpp,bibletime/frontend/display/cplainwritedisplay.h
 type=static_library
 
 [bibletime/frontend/display/cdisplay.cpp]
@@ -737,6 +737,18 @@ install_location=
 type=SOURCE
 
 [bibletime/frontend/display/chtmlreaddisplay.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/frontend/display/cplainwritedisplay.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/frontend/display/cplainwritedisplay.h]
 dist=true
 install=false
 install_location=
@@ -767,7 +779,7 @@ install_location=
 type=HEADER
 
 [bibletime/frontend/displaywindow/Makefile.am]
-files=bibletime/frontend/displaywindow/cbiblereadwindow.cpp,bibletime/frontend/displaywindow/cbiblereadwindow.h,bibletime/frontend/displaywindow/cbuttons.cpp,bibletime/frontend/displaywindow/cbuttons.h,bibletime/frontend/displaywindow/cdisplaywindow.cpp,bibletime/frontend/displaywindow/cdisplaywindow.h,bibletime/frontend/displaywindow/clexiconreadwindow.cpp,bibletime/frontend/displaywindow/clexiconreadwindow.h,bibletime/frontend/displaywindow/cmodulechooserbar.h,bibletime/frontend/displaywindow/cmodulechooserbar.cpp,bibletime/frontend/displaywindow/cbookreadwindow.cpp,bibletime/frontend/displaywindow/cbookreadwindow.h,bibletime/frontend/displaywindow/ccommentaryreadwindow.cpp,bibletime/frontend/displaywindow/ccommentaryreadwindow.h,bibletime/frontend/displaywindow/cmodulechooserbutton.cpp,bibletime/frontend/displaywindow/cmodulechooserbutton.h,bibletime/frontend/displaywindow/creadwindow.cpp,bibletime/frontend/displaywindow/creadwindow.h,bibletime/frontend/displaywindow/cwritewindow.cpp,bibletime/frontend/displaywindow/cwritewindow.h
+files=bibletime/frontend/displaywindow/cbiblereadwindow.cpp,bibletime/frontend/displaywindow/cbiblereadwindow.h,bibletime/frontend/displaywindow/cbuttons.cpp,bibletime/frontend/displaywindow/cbuttons.h,bibletime/frontend/displaywindow/cdisplaywindow.cpp,bibletime/frontend/displaywindow/cdisplaywindow.h,bibletime/frontend/displaywindow/clexiconreadwindow.cpp,bibletime/frontend/displaywindow/clexiconreadwindow.h,bibletime/frontend/displaywindow/cmodulechooserbar.h,bibletime/frontend/displaywindow/cmodulechooserbar.cpp,bibletime/frontend/displaywindow/cbookreadwindow.cpp,bibletime/frontend/displaywindow/cbookreadwindow.h,bibletime/frontend/displaywindow/ccommentaryreadwindow.cpp,bibletime/frontend/displaywindow/ccommentaryreadwindow.h,bibletime/frontend/displaywindow/cmodulechooserbutton.cpp,bibletime/frontend/displaywindow/cmodulechooserbutton.h,bibletime/frontend/displaywindow/creadwindow.cpp,bibletime/frontend/displaywindow/creadwindow.h,bibletime/frontend/displaywindow/cwritewindow.cpp,bibletime/frontend/displaywindow/cwritewindow.h,bibletime/frontend/displaywindow/cplainwritewindow.cpp,bibletime/frontend/displaywindow/cplainwritewindow.h
 type=static_library
 
 [bibletime/frontend/displaywindow/cbiblereadwindow.cpp]
@@ -861,6 +873,18 @@ install_location=
 type=SOURCE
 
 [bibletime/frontend/displaywindow/cmodulechooserbutton.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/frontend/displaywindow/cplainwritewindow.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/frontend/displaywindow/cplainwritewindow.h]
 dist=true
 install=false
 install_location=
@@ -1336,7 +1360,7 @@ sub_dirs=
 type=po
 
 [setupwizard/Makefile.am]
-files=setupwizard/main.cpp,setupwizard/btsetupwizard.cpp,setupwizard/btsetupwizard.h,setupwizard/install.cpp,setupwizard/install.h
+files=setupwizard/main.cpp,setupwizard/btsetupwizard.cpp,setupwizard/btsetupwizard.h,setupwizard/install.cpp,setupwizard/install.h,setupwizard/remove.cpp,setupwizard/remove.h
 sharedlib_LDFLAGS=-version-info 0:0:0
 sharedlib_rootname=setupwizard
 sub_dirs=
@@ -1371,3 +1395,15 @@ dist=true
 install=false
 install_location=
 type=SOURCE
+
+[setupwizard/remove.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[setupwizard/remove.h]
+dist=true
+install=false
+install_location=
+type=HEADER

@@ -49,7 +49,8 @@ public:
 	
 	//implemented functions
 	virtual CSwordModuleInfo* const module(CSwordModuleInfo* const newModule = 0);
-	virtual const QString renderedText();
+	virtual const QString rawText();
+  virtual const QString renderedText();
 	virtual const QString strippedText();
   /**
   * This returns a new object of the right CSwordKey* implementation (e.g. CSwordVerseKey or CSwordLDKey)

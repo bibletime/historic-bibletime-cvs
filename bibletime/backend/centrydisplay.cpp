@@ -145,7 +145,7 @@ const QString CEntryDisplay::finishText( const QString text, QPtrList <CSwordMod
 
   const int columnWidth = (int)((float)100 / (float)modules.count());
 
-  QString pageStart = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY><TABLE cellspacing=\"0\" class=\"maintable\"><TR>")
+  QString pageStart = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY attr1=\"working!\"><TABLE cellspacing=\"0\" class=\"maintable\"><TR>")
     .arg(css);
 
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {

@@ -116,7 +116,7 @@ signals: // Signals
   * Is emitted when the last presenter was closed.
   */
   void sigLastPresenterClosed();
-  void createDisplayWindow(ListCSwordModuleInfo modules, const QString& keyName);
+  void createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& keyName);
 
 private:
 	mdiOption guiOption;

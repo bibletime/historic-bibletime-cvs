@@ -22,6 +22,10 @@
 #include "ccommentaryreadwindow.h"
 #include "clexiconreadwindow.h"
 #include "cbookreadwindow.h"
+
+#include "cwritewindow.h"
+#include "cplainwritewindow.h"
+
 #include "cmodulechooserbar.h"
 #include "cbuttons.h"
 
@@ -58,7 +62,8 @@ CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CM
 
 
 CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name) {
-	return 0;
+  return new CPlainWriteWindow(modules, parent);
+//  return 0;
 }
 
 CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, const char *name ) : KMainWindow(parent,name,WDestructiveClose) {
@@ -231,8 +236,9 @@ const bool CDisplayWindow::init( const QString& keyName ){
 	m_displayOptions = CBTConfig::getDisplayOptionDefaults();
 	if (displaySettingsButton())
 		displaySettingsButton()->reset(modules());
-
-  key()->key(keyName);
+  Q_ASSERT(key());
+  if (key())
+    key()->key(keyName);
 
   return true;
 }
