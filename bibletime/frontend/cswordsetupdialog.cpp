@@ -791,12 +791,12 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 
 	m_removeModuleListView->clear();
 
-	QListViewItem* categoryBible = new KListViewItem(m_removeModuleListView, i18n("Bibles"));
-	QListViewItem* categoryCommentary = new KListViewItem(m_removeModuleListView, i18n("Commentaries"));
-	QListViewItem* categoryLexicon = new KListViewItem(m_removeModuleListView, i18n("Lexicons"));
-	QListViewItem* categoryBook = new KListViewItem(m_removeModuleListView, i18n("Books"));
-	QListViewItem* categoryDevotionals = new KListViewItem(m_removeModuleListView, i18n("Daily Devotionals"));
-	QListViewItem* categoryGlossaries = new KListViewItem(m_removeModuleListView, i18n("Glossaries"));
+	QListViewItem* categoryBible = new QListViewItem(m_removeModuleListView, i18n("Bibles"));
+	QListViewItem* categoryCommentary = new QListViewItem(m_removeModuleListView, i18n("Commentaries"));
+	QListViewItem* categoryLexicon = new QListViewItem(m_removeModuleListView, i18n("Lexicons"));
+	QListViewItem* categoryBook = new QListViewItem(m_removeModuleListView, i18n("Books"));
+	QListViewItem* categoryDevotionals = new QListViewItem(m_removeModuleListView, i18n("Daily Devotionals"));
+	QListViewItem* categoryGlossaries = new QListViewItem(m_removeModuleListView, i18n("Glossaries"));
 
   categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
   categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
@@ -899,12 +899,12 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   KApplication::kApplication()->processEvents();
 	m_installModuleListView->clear();
 
-	QListViewItem* categoryBible = new KListViewItem(m_installModuleListView, i18n("Bibles"));
-	QListViewItem* categoryCommentary = new KListViewItem(m_installModuleListView, i18n("Commentaries"));
-	QListViewItem* categoryLexicon = new KListViewItem(m_installModuleListView, i18n("Lexicons"));
-	QListViewItem* categoryBook = new KListViewItem(m_installModuleListView, i18n("Books"));
-	QListViewItem* categoryDevotionals = new KListViewItem(m_installModuleListView, i18n("Daily Devotionals"));
-	QListViewItem* categoryGlossaries = new KListViewItem(m_installModuleListView, i18n("Glossaries"));
+	QListViewItem* categoryBible = new QListViewItem(m_installModuleListView, i18n("Bibles"));
+	QListViewItem* categoryCommentary = new QListViewItem(m_installModuleListView, i18n("Commentaries"));
+	QListViewItem* categoryLexicon = new QListViewItem(m_installModuleListView, i18n("Lexicons"));
+	QListViewItem* categoryBook = new QListViewItem(m_installModuleListView, i18n("Books"));
+	QListViewItem* categoryDevotionals = new QListViewItem(m_installModuleListView, i18n("Daily Devotionals"));
+	QListViewItem* categoryGlossaries = new QListViewItem(m_installModuleListView, i18n("Glossaries"));
 
   categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
   categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));

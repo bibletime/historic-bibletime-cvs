@@ -425,7 +425,6 @@ const QString CBookmarkItem::toolTip(){
 CSwordModuleInfo* const CBookmarkItem::module() {
   CSwordModuleInfo* m = backend()->findModuleByName(m_moduleName);
   Q_ASSERT(m);
-  
   return m;
 }
 
@@ -469,7 +468,7 @@ const bool CBookmarkItem::enableAction(const MenuAction action){
 void CBookmarkItem::print(){
   if (!module())
     return;
-    
+
   CExportManager mgr(i18n("Print bookmark"),false);
   mgr.printKey(module(), key(), key(), description());
 }
