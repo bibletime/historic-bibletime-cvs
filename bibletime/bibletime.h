@@ -24,9 +24,10 @@
 //Frontend includes
 #include "frontend/cprofilemgr.h"
 
+//Backend includes
+#include "backend/cswordmoduleinfo.h"
+
 //forward class declarations
-class CSwordModuleInfo;
-typedef QList<CSwordModuleInfo> ListCSwordModuleInfo;
 
 //BT classes
 class CGroupManager;
@@ -261,7 +262,7 @@ protected slots:
  	* Creates a new presenter in the MDI area according to the type of the module.
  	*/
 	CSwordPresenter* 
-		createNewSwordPresenter(ListCSwordModuleInfo,const QString&);
+		createNewSwordPresenter(ListCSwordModuleInfo, const QString&);
 	
 	/**
 	* No descriptions

@@ -187,5 +187,6 @@ inline SWModule*const CSwordModuleInfo::module() const {
 	return m_module;
 }
 
+typedef QList<CSwordModuleInfo> ListCSwordModuleInfo;
 
 #endif
