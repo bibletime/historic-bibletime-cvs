@@ -782,10 +782,11 @@ void CSwordSetupDialog::slot_doRemoveModules(){
         if (dataPath.left(2) == "./") {
           dataPath = dataPath.mid(2);
         }
-        if (prefixPath.contains(dataPath)) {
+
+				if (prefixPath.contains(dataPath)) { //remove module part to get the prefix path
           prefixPath = prefixPath.remove( prefixPath.find(dataPath), dataPath.length() );
         }
-        else {
+        else { //fall back to default Sword config path
           prefixPath = QString::fromLatin1(backend()->prefixPath);
         }
 

@@ -154,13 +154,13 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 
 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
 		util::scoped_ptr<sword::SWKey> searchScope( m_searchResult.clone() );
-		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, searchScope, 0, percentUpdate);
+		m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, searchScope, 0, percentUpdate);
 	}
 	else if (searchOptions & CSwordModuleSearch::useScope) {
-		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, (type() != Lexicon && type() != GenericBook) ? &scope : 0, 0, percentUpdate);
+		m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, (type() != Lexicon && type() != GenericBook) ? &scope : 0, 0, percentUpdate);
 	}
   else {
-  	m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
+  	m_searchResult = m_module->search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
   }
 
 	return (m_searchResult.Count() > 0);
@@ -222,10 +222,22 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 		case AbsoluteDataPath: {
 			QString path = QString::fromLatin1(m_module->getConfigEntry("AbsoluteDataPath"));
       path.replace(QRegExp("/./"), "/"); // make /abs/path/./modules/ looking better
+			//make sure we have a trailing slash!
+			if (path.right(1) != "/") {
+				path += "/";
+			}
       return path;
     }
-		case DataPath:
-			return QString::fromLatin1(m_module->getConfigEntry("DataPath"));
+		case DataPath: { //make sure we remove the dataFile part if it's a Lexicon
+			QString path = QString::fromLatin1(m_module->getConfigEntry("DataPath"));
+			if ((type() == CSwordModuleInfo::GenericBook) || (type() == CSwordModuleInfo::Lexicon)) {
+				int pos = path.findRev("/"); //last slash in the string
+				if (pos != -1) {
+					path = path.left(pos+1); //include the slash
+				}
+			}
+			return path;
+		}
 		case Description:
 			return QString::fromLatin1(m_module->Description());
 		case ModuleVersion: {
