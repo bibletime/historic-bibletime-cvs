@@ -11,7 +11,7 @@
 	/* <![CDATA[ */
 
 * { 
-	/* To work around a KDE 3.2 bug or problem */
+	/* To work around a KDE 3.2 bug / problem */
 	background-color:inherit;
 }
 
@@ -23,14 +23,13 @@
 	margin: 0;
 	padding: 0;
 	border-spacing:10px;
-	border-collapse: collapse;
 	vertical-align:top;
 }
 #content > table th {
 	padding: 0 0 2px 0;
 	text-align: center; 
 	font-weight: bold;
-	font-size: 115%;
+	font-size: 110%;
 	border-bottom: 1px solid #6B6B6B;
 }
 
@@ -49,7 +48,7 @@ a:hover {
 
 /* Settings which apply to all entries in all modules */
 .entry {
-	padding: 2px;
+	padding: 4px;
 	vertical-align: top;
 	text-align: justify;
 }
@@ -67,9 +66,9 @@ div.entry, td.entry {
 	vertical-align:top;	
 }
 
-/*Keep the values the same as in .entry*/
+/* Keep the values the same as in .entry (take the border into account!) */
 .currententry {
-	padding:3px;
+	padding:5px;
 	vertical-align:top;
 	text-align:justify;
 }
@@ -85,13 +84,13 @@ span.currententry {
 
 /*Space between the columns of modules displayed side by side*/
 td.entry + td.entry { 
-	margin-left: 2px;
+	margin-left: 5px;
 }
 
 /* Several additional settings for display of modules*/
 #bible div.currententry, #bible td.currententry {
 	border:1px solid black;
-	padding: 2px;
+	padding: 4px;
 	background-color:#F6FFF7;
 }
 #bible span.currententry {
@@ -110,11 +109,11 @@ td.entry + td.entry {
 
 .entryname {
 	font-size:70%;
-	padding:0 3px 0 0;
+	padding:0 2px 0 0;
 	vertical-align:top;
 }
 .entry[dir=rtl] .entryname, .currententry[dir=rtl] .entryname {
-	padding:0 0 0 3px;
+	padding:0 0 0 2px;
 	font-size:70%;
 	vertical-align:top;
 }
@@ -164,7 +163,7 @@ td.entry + td.entry {
 
 .sectiontitle {
 	font-weight: bold;
-	font-size: 120%;
+	font-size: 110%;
 }
 #printer .sectiontitle {
 	font-weight: bold;
@@ -176,7 +175,7 @@ td.entry + td.entry {
 
 .booktitle {
 	font-weight: bold;
-	font-size: 140%;
+	font-size: 120%;
 	font-variant: small-caps;
 }
 #printer .booktitle {
