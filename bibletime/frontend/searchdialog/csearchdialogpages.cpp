@@ -68,13 +68,13 @@ CSearchResultView::~CSearchResultView() {
 void CSearchResultView::initView(){
   addColumn(i18n("Found items"));
   setFullWidth(true);
-  setSorting(-1);
+  setSorting(-1);  
 }
 
 /** No descriptions */
 void CSearchResultView::initConnections(){
   connect(this, SIGNAL(executed(QListViewItem*)),
-    SLOT(executed(QListViewItem*)));
+	  SLOT(executed(QListViewItem*)));  
 }
 
 /** Setups the list with the given module. */
@@ -89,15 +89,15 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m){
   if (!count)
     return;
 
-	setUpdatesEnabled(false);
+  setUpdatesEnabled(false);
 
   QListViewItem* oldItem = 0;
   KListViewItem* item = 0;
-	for (int index = 0; index < count; index++) {
+  for (int index = 0; index < count; index++) {
     item = new KListViewItem(this, oldItem);
     item->setText(0,QString::fromLocal8Bit((const char*)*result.GetElement(index)));
     oldItem = item;
-	}
+  }
 
   setUpdatesEnabled(true);
 
@@ -364,6 +364,23 @@ CSearchOptionsPage::~CSearchOptionsPage() {
 
 /** Returns the search text set in this page. */
 const QString CSearchOptionsPage::searchText() {
+  // we emulate OR by RegExp
+  if (m_multipleWordsORRadio->isChecked()) {
+    QString regexp(m_searchTextCombo->currentText());
+
+    regexp = regexp.stripWhiteSpace();
+    regexp = regexp.simplifyWhiteSpace();    
+
+    int idx = -1;
+    QChar orsymbol('|');
+    while ((idx = regexp.find(' ', idx+1)) != -1) {
+      // use insert as replace() API is pretty strange
+      regexp.insert(idx, orsymbol);
+      idx++;
+    }
+
+    return regexp;
+  }
   return m_searchTextCombo->currentText();
 }
 
@@ -379,7 +396,7 @@ void CSearchOptionsPage::initView(){
 
   m_chooseModulesButton = new QPushButton(i18n("Choose modules..."), this);
   connect(m_chooseModulesButton, SIGNAL(clicked()),
-    this, SLOT(chooseModules()));
+	  this, SLOT(chooseModules()));
 
   m_modulesLabel = new QLabel(this);
   m_modulesLabel->setTextFormat(RichText);
@@ -393,11 +410,11 @@ void CSearchOptionsPage::initView(){
 
   m_searchTextCombo = new KHistoryCombo(this);
   m_searchTextCombo->setInsertionPolicy( QComboBox::AtTop );
-	m_searchTextCombo->setMaxCount(25);
-	m_searchTextCombo->setDuplicatesEnabled(false);
-	m_searchTextCombo->setFocusPolicy(QWidget::StrongFocus);
+  m_searchTextCombo->setMaxCount(25);
+  m_searchTextCombo->setDuplicatesEnabled(false);
+  m_searchTextCombo->setFocusPolicy(QWidget::StrongFocus);
   connect( m_searchTextCombo, SIGNAL(activated( const QString& )),	m_searchTextCombo, SLOT( addToHistory( const QString& )));
-	connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),m_searchTextCombo,  SLOT(addToHistory(const QString&)) );
+  connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),m_searchTextCombo,  SLOT(addToHistory(const QString&)) );
 	  
   QLabel* label = new QLabel(m_searchTextCombo, i18n("Searched text:"), this);
   label->setAutoResize(true);
@@ -407,9 +424,12 @@ void CSearchOptionsPage::initView(){
 
   grid->addRowSpacing(3, 10);
 
-  QButtonGroup* group = new QButtonGroup(3,Vertical,i18n("Search type"),this);
-  m_multipleWordsRadio = new QRadioButton(i18n("Multiple words"), group);
-	m_multipleWordsRadio->setChecked( true );
+  QButtonGroup* group 
+    = new QButtonGroup(4, Vertical,i18n("Search type"), this);
+
+  m_multipleWordsRadio = new QRadioButton(i18n("Multiple words (AND)"), group);
+  m_multipleWordsRadio->setChecked( true );
+  m_multipleWordsORRadio =  new QRadioButton(i18n("Multiple words (OR)"), group);  
   m_exactTextRadio = new QRadioButton(i18n("Exact"), group);
   m_regexpRadio = new QRadioButton(i18n("Regular expression"), group);
 
@@ -504,11 +524,12 @@ const int CSearchOptionsPage::searchFlags() {
 	if (m_exactTextRadio->isChecked()) {
 		ret = CSwordModuleSearch::exactPhrase;
 	}
-	else if (m_regexpRadio->isChecked()) {
+	else if (m_regexpRadio->isChecked() | 
+		 m_multipleWordsORRadio->isChecked()) {
 		ret = CSwordModuleSearch::regExp;
 	}
-  if (m_caseSensitiveBox->isChecked())
-    ret |= CSwordModuleSearch::caseSensitive;
+	if (m_caseSensitiveBox->isChecked())
+	  ret |= CSwordModuleSearch::caseSensitive;
 	return ret;
 }
 

@@ -275,6 +275,7 @@ private:
   QRadioButton* m_multipleWordsRadio;
   QRadioButton* m_exactTextRadio;
   QRadioButton* m_regexpRadio;
+  QRadioButton* m_multipleWordsORRadio;
   QCheckBox* m_caseSensitiveBox;
   KProgress* m_currentProgressBar;
   KProgress* m_overallProgressBar;

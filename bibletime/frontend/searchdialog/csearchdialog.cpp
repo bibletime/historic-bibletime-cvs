@@ -82,27 +82,31 @@ CSearchDialog::~CSearchDialog(){
 /** Starts the search with the set modules and the set search text. */
 void CSearchDialog::startSearch(){
   qWarning("CSearchDialog::startSearch()");
+  QString searchText(m_searchOptionsPage->searchText());
+
+  if (searchText.isEmpty()) return;
+
   m_searchResultPage->reset();
- 	enableButton(User1,false);
-	enableButton(User2,true);
+  enableButton(User1,false);
+  enableButton(User2,true);
   m_interruptedSearch = false;
 
   int searchFlags = m_searchOptionsPage->searchFlags();	
   m_searchOptionsPage->prepareSearch();
 
-  const CSwordModuleSearch::scopeType scopeType = m_searchOptionsPage->scopeType();
+  const CSwordModuleSearch::scopeType scopeType 
+    = m_searchOptionsPage->scopeType();
   if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
-		searchFlags |= CSwordModuleSearch::useLastResult;
-	}
-	else if ( scopeType == CSwordModuleSearch::Scope_Bounds ) {
-		searchFlags |= CSwordModuleSearch::useScope;
+    searchFlags |= CSwordModuleSearch::useLastResult;
+  } else if ( scopeType == CSwordModuleSearch::Scope_Bounds ) {
+    searchFlags |= CSwordModuleSearch::useScope;
     qWarning(m_searchOptionsPage->searchScope());
-		m_searcher.setSearchScope( m_searchOptionsPage->searchScope() );
-	}  
+    m_searcher.setSearchScope( m_searchOptionsPage->searchScope() );
+  }  
   
-	m_searcher.setModules( modules() );
-	m_searcher.setSearchedText(m_searchOptionsPage->searchText());
-	m_searcher.setSearchOptions(searchFlags);
+  m_searcher.setModules( modules() );
+  m_searcher.setSearchedText(searchText);
+  m_searcher.setSearchOptions(searchFlags);
 
   qWarning("start the search");
   m_searcher.startSearchThread();
@@ -685,19 +689,19 @@ CSearchAnalysis::CSearchAnalysis(QObject *parent, const char *name )
 
   m_scaleFactor = 0.0;
   m_legend = 0;
-	setBackgroundColor(Qt::white);	
-	m_canvasItemList.resize(67);
-	m_canvasItemList.setAutoDelete(true);
-	resize(1,1);
-	connect(this, SIGNAL(resized()), SLOT(slotResized()));
+  setBackgroundColor(Qt::white);	
+  m_canvasItemList.resize(67);
+  m_canvasItemList.setAutoDelete(true);
+  resize(1,1);
+  connect(this, SIGNAL(resized()), SLOT(slotResized()));
 }
 
 CSearchAnalysis::~CSearchAnalysis(){
 }
 
 QDict<CSearchAnalysisItem>* CSearchAnalysis::getSearchAnalysisItemList(){
-	// Returns pointer to the search analysis items
-	return &m_canvasItemList;
+  // Returns pointer to the search analysis items
+  return &m_canvasItemList;
 }
 
 /** Starts the analysis of the search result. This should be called only once because QCanvas handles the updates automatically. */
