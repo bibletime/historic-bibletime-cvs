@@ -148,33 +148,51 @@ void CPrintItem::setDescription( const QString& newDescription ){
 
 /** Returns the moduletext used by this item. */
 const QString CPrintItem::getModuleText() {
-	/** If a special text is set use the text.
+	/**
+	* If a special text is set use the text.
 	* If the moduleText variable is empty use the CModuleInfo
 	* object to retrieve the text,
 	*/
 	if (!m_moduleText.isEmpty())
 		return m_moduleText;
-		
-	#warning Todo: This function is incomplete. Implement for range between startKey and stopKey
+
+//	#warning Todo: This function is incomplete. Implement for range between startKey and stopKey
 	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
 	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);		
 	QString text = QString::null;
 	CSwordModuleInfo* sw = (CSwordModuleInfo*)m_module;
-	if (sw && sw->hasFont()) {
-		CHTMLEntryDisplay d;
-		d.setIncludeHeader(false);
-		d.setStandardFont(sw->getFont().family(), sw->getFont().pointSize());
-		if (vk)
-			sw->module()->SetKey(*vk);
-		else if (lk)
-			sw->module()->SetKey(*lk);
-		else
-			return QString::null;
-		d.Display(sw);
-		text = d.getHTML();
+//	if (sw && sw->hasFont()) {
+//		CHTMLEntryDisplay d;
+//		d.setIncludeHeader(false);
+//		d.setStandardFont(sw->getFont().family(), sw->getFont().pointSize());
+//		if (vk)
+//			sw->module()->SetKey(*vk);
+//		else if (lk)
+//			sw->module()->SetKey(*lk);
+//		else
+//			return QString::null;
+//		d.Display(sw);
+//		text = d.getHTML();
+//	}
+//	else
+	text = vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString());
+	if (sw && m_stopKey && m_stopKey != m_startKey) {
+		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
+			CSwordVerseKey dummyKey(sw);
+			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(m_startKey);			
+			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(m_stopKey);						
+			if (!vk_start && !vk_stop)
+				return text;
+			dummyKey.setKey( vk_start->getKey() );
+			while (dummyKey < *vk_stop) {
+				dummyKey.NextVerse();
+				text += QString("<BR>\n") + dummyKey.getKey() + QString::fromLatin1(" ") + dummyKey.getRenderedText();
+			}			
+		}
+		else if (sw->getType() == CSwordModuleInfo::Lexicon ) {
+		}
 	}
-	else
-		text = vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString());
+		
 	text.replace(QRegExp("$\n+"), "");
 	text.replace(QRegExp("$<BR>+"), "");	
 	return text;
