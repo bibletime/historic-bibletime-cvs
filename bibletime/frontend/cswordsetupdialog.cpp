@@ -245,8 +245,9 @@ void CInstallSourcesMgrDialog::slot_localAddSource() {
 }
 
 void CInstallSourcesMgrDialog::slot_localRemoveSource() {
-	if (m_localSourcesList->currentItem())
+	if (m_localSourcesList->currentItem()) {
 		delete m_localSourcesList->currentItem();
+	}
 }
 
 void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
@@ -336,6 +337,12 @@ void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
 		i->setCaption("Crosswire");
 		i->setURL(QUrl("ftp://ftp.crosswire.org/pub/sword/raw"));
 	}
+
+	//now select the first item in the list
+	m_remoteSourcesList->setSelected(m_remoteSourcesList->firstChild(), true);
+	m_remoteSourcesList->setCurrentItem( m_remoteSourcesList->firstChild() );
+	slot_remoteSourceSelectionChanged();
+	m_remoteCaptionEdit->setFocus();
 }
 
 void CInstallSourcesMgrDialog::slot_remoteAddSource() {
@@ -455,15 +462,15 @@ void CSwordSetupDialog::initSwordConfig(){
 }
 
 void CSwordSetupDialog::initInstall(){
-	QFrame* newpage = m_installPage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("bt_bible",32));
+	m_installPage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("bt_bible",32));
 
-	QVBoxLayout* vboxlayout = new QVBoxLayout(newpage);
+	QVBoxLayout* vboxlayout = new QVBoxLayout(m_installPage);
 	QHBoxLayout* hboxlayout = new QHBoxLayout();
   hboxlayout->setAutoAdd( true );
 
   vboxlayout->addLayout(hboxlayout);
 
-	m_installWidgetStack = new QWidgetStack(newpage);
+	m_installWidgetStack = new QWidgetStack(m_installPage);
   hboxlayout->addWidget(m_installWidgetStack);
 
 	m_installSourcePage = new QWidget(0);
@@ -509,14 +516,14 @@ void CSwordSetupDialog::initInstall(){
 	QHBoxLayout* myHBox = new QHBoxLayout();
   vboxlayout->addLayout(myHBox);
 
-  m_installBackButton = new QPushButton(i18n("Back"), newpage);
+  m_installBackButton = new QPushButton(i18n("Back"), m_installPage);
 	m_installBackButton->setIconSet(DesktopIcon("back",16));
 	myHBox->addWidget(m_installBackButton);
 
 	myHBox->addSpacing(10);
 	myHBox->addStretch(5);
 
-  m_installContinueButton = new QPushButton(i18n("Connect to source"), newpage);
+  m_installContinueButton = new QPushButton(i18n("Connect to source"), m_installPage);
 	m_installContinueButton->setIconSet(DesktopIcon("forward",16));
   connect(m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
 	myHBox->addWidget(m_installContinueButton);
@@ -612,28 +619,13 @@ const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool 
   bool ret = false;
 	switch (ID) {
 		case CSwordSetupDialog::Sword:
-      showPage( pageIndex(m_swordConfigPage->parentWidget()) );
-//      if (exlusive) {
-//        m_swordConfigPage->setEnabled(false);
-//        m_installPage->setEnabled(false)
-//        m_removePage->setEnabled(false)
-//      }
+      showPage( pageIndex(m_swordConfigPage) );
 			break;
 		case CSwordSetupDialog::Install:
-      showPage( pageIndex(m_installPage->parentWidget()));
-//      if (exlusive) {
-//        m_swordConfigPage->setEnabled(false);
-//        m_installPage->setEnabled(false)
-//        m_removePage->setEnabled(false)
-//      }
+      showPage( pageIndex(m_installPage) );
 			break;
 		case CSwordSetupDialog::Remove:
-      showPage( pageIndex(m_removePage->parentWidget()) );
-//      if (exlusive) {
-//        m_swordConfigPage->setEnabled(false);
-//        m_installPage->setEnabled(false)
-//        m_removePage->setEnabled(false)
-//      }
+      showPage( pageIndex(m_removePage) );
 			break;
 		default:
 			break;
@@ -665,13 +657,16 @@ void CSwordSetupDialog::populateInstallCombos(){
 
   list = BTInstallMgr::Tool::LocalConfig::targetList();
   for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
-			QFileInfo fi(*it);
-			if (fi.isDir() && fi.isWritable()) {
-		    m_targetCombo->insertItem( *it );
-			}
+		QFileInfo fi(*it);
+		if (fi.isDir() && fi.isWritable()) {
+			m_targetCombo->insertItem( *it );
+		}
   }
 
+//init widget states
 	m_targetCombo->setEnabled( (m_targetCombo->count() > 0) );
+	m_installContinueButton->setEnabled( (m_sourceCombo->count() > 0) && (m_targetCombo->count() > 0) );
+
 	slot_sourceSelected( m_sourceCombo->currentText() );
 }
 
@@ -679,11 +674,22 @@ void CSwordSetupDialog::populateInstallCombos(){
 void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
 	//remove status parta
 	QString source = sourceName;
-	source = source.remove( i18n("[Local]") + " " );
-	source = source.remove( i18n("[Remote]") + " " );
+	//we have to be a bit compilcated here because Qt 3.0.5 doesn't have the QString::replace(QString s) function
+
+	//source = source.remove( i18n("[Local]") + " " );
+	QString rep = i18n("[Local]") + " ";
+	int i = source.find(rep);
+	if (i>=0)
+		source.remove(i, rep.length());
+
+	//source = source.remove( i18n("[Remote]") + " " );
+	rep = i18n("[Remote]") + " ";
+	i = source.find(rep);
+	if (i>=0)
+		source.remove(i, rep.length());
+
 
   BTInstallMgr mgr;
-
 	// qWarning("%s schosen", source.latin1());
 
   QString url;
@@ -734,7 +740,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
           dataPath = dataPath.mid(2);
         }
         if (prefixPath.contains(dataPath)) {
-          prefixPath = prefixPath.replace( dataPath, "");
+          prefixPath = prefixPath.remove( prefixPath.find(dataPath), dataPath.length() );
         }
         else {
           prefixPath = QString::fromLatin1(backend()->prefixPath);
@@ -1125,8 +1131,8 @@ void CSwordSetupDialog::slot_installModules(){
 
 	//first get all chosen modules
 	QStringList moduleList;
-	QListViewItem* item1 = 0;
-	QListViewItem* item2 = 0;
+//	QListViewItem* item1 = 0;
+//	QListViewItem* item2 = 0;
 
 	QListViewItemIterator list_it( m_installModuleListView );
 	while ( list_it.current() ) {
@@ -1182,7 +1188,8 @@ void CSwordSetupDialog::slot_installModules(){
         }
 
         if (prefixPath.contains(dataPath)) {
-          prefixPath = prefixPath.replace(dataPath, "");
+					prefixPath.remove( prefixPath.find(dataPath), dataPath.length() );	//compilcated to work with Qt 3.0
+          //prefixPath = prefixPath.replace(dataPath, ""); //old code working with Qt 3.2
         }
         else {
           prefixPath = QString::fromLatin1(backend()->prefixPath);
@@ -1299,8 +1306,17 @@ void CSwordSetupDialog::slot_swordPathSelected(){
  */
 const QString CSwordSetupDialog::currentInstallSource() {
 	QString source = m_sourceCombo->currentText();
-	source = source.remove( i18n("[Local]") + " " );
-	source = source.remove( i18n("[Remote]") + " " );
+	//source = source.remove( i18n("[Local]") + " " );
+	QString rep = i18n("[Local]") + " ";
+	int i = source.find(rep);
+	if (i>=0)
+		source.remove(i, rep.length());
+
+	//source = source.remove( i18n("[Remote]") + " " );
+	rep = i18n("[Remote]") + " ";
+	i = source.find(rep);
+	if (i>=0)
+		source.remove(i, rep.length());
 
 	return source;
 }

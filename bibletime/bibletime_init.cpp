@@ -463,7 +463,8 @@ void BibleTime::initBackends(){
 	m_moduleList = 0;
 	if ( errorCode == CSwordBackend::NoError ) {	//no error
 		m_moduleList = &(m_backend->moduleList());
-	} else {
+	}
+	else {
 		m_moduleList = 0;
 		//show error message that initBackend failed
 		switch (errorCode) {
@@ -473,9 +474,6 @@ void BibleTime::initBackends(){
         CSwordSetupDialog dlg;
         dlg.showPart( CSwordSetupDialog::Sword );
         dlg.exec();
-//				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModuleConfigDir);
-//				dlg.exec();
-//				KStartupLogo::showSplash();
 				break;
 	    }
 
@@ -485,9 +483,6 @@ void BibleTime::initBackends(){
         CSwordSetupDialog dlg;
         dlg.showPart( CSwordSetupDialog::Install );
         dlg.exec();
-//				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModules);
-//				dlg.exec();
-//				KStartupLogo::showSplash();
 				break;
 		  }
 
@@ -497,9 +492,6 @@ void BibleTime::initBackends(){
         CSwordSetupDialog dlg;
         dlg.showPart( CSwordSetupDialog::Sword );
        	dlg.exec();
-//				CHTMLDialog dlg(CResMgr::helpDialog::initBackendFailed);
-//				dlg.exec();
-//				KStartupLogo::showSplash();
 				break;
 		  }
 		}

@@ -102,14 +102,14 @@
   </kdevfileview>
   <kdevcvs>
     <cvsoptions>-z3 -f</cvsoptions>
-    <commitoptions/>
+    <commitoptions></commitoptions>
     <updateoptions>-dP</updateoptions>
-    <addoptions/>
+    <addoptions></addoptions>
     <removeoptions>-f</removeoptions>
     <diffoptions>-u3 -p</diffoptions>
-    <logoptions/>
+    <logoptions></logoptions>
     <revertoptions>-C -d -P</revertoptions>
-    <rshoptions/>
+    <rshoptions></rshoptions>
   </kdevcvs>
   <kdevcppsupport>
     <codecompletion>
