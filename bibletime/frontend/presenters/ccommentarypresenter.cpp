@@ -281,12 +281,13 @@ void CCommentaryPresenter::insertReference(const QString& reference){
 
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::copyEntry(){
-	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.key(m_key->key());
+	QString key = QString::null;
+	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.key(currentAnchor);
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
+	CSwordVerseKey key(m);
+	key.key(key);
 		
 	QClipboard *cb = KApplication::clipboard();
 	cb->setText(key.key());
@@ -294,12 +295,13 @@ void CCommentaryPresenter::copyEntry(){
 
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::copyEntryText(){
-	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.key(m_key->key());
+	QString key = QString::null;
+	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.key(currentAnchor);
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
+	CSwordVerseKey key(m);
+	key.key(key);
 	
 	QClipboard *cb = KApplication::clipboard();
 	cb->setText(key.strippedText());
@@ -307,12 +309,13 @@ void CCommentaryPresenter::copyEntryText(){
 
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::copyEntryAndText(){
-	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.key(m_key->key());
+	QString key = QString::null;
+	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.key(currentAnchor);
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
+	CSwordVerseKey key(m);
+	key.key(key);
 	
 	const QString text = QString("%1\n%2").arg(key.key()).arg(key.strippedText());
 	QClipboard *cb = KApplication::clipboard();

@@ -248,12 +248,13 @@ void CBiblePresenter::refresh( const int events ){
 
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::copyVerse(){
-	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.key(m_key->key());
+	QString key = QString::null;
+	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.key(currentAnchor);
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
+	CSwordVerseKey key(m);
+	key.key(key);
 		
 	QClipboard *cb = KApplication::clipboard();
 	cb->setText(key.key());
@@ -261,12 +262,13 @@ void CBiblePresenter::copyVerse(){
 
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::copyVerseText(){
-	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.key(m_key->key());
+	QString key = QString::null;
+	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.key(currentAnchor);
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
+	CSwordVerseKey key(m);
+	key.key(key);
 	
 	QClipboard *cb = KApplication::clipboard();
 	cb->setText(key.strippedText());
@@ -274,12 +276,13 @@ void CBiblePresenter::copyVerseText(){
 
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::copyVerseAndText(){
-	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.key(m_key->key());
+	QString key = QString::null;
+	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.key(currentAnchor);
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
+	CSwordVerseKey key(m);
+	key.key(key);
 	
 	const QString text = QString("%1\n%2").arg(key.key()).arg(key.strippedText());
 	QClipboard *cb = KApplication::clipboard();
@@ -289,13 +292,13 @@ void CBiblePresenter::copyVerseAndText(){
 //print functions
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::printVerseAndText(){
-//	qDebug("CBiblePresenter::printVerseAndText()");
-	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
-	key->key(m_key->key());
+	QString key = QString::null;
+	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()- (currentAnchor.right(1) == "/" ? 9 : 8));
-	key->key(currentAnchor);
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
+	CSwordVerseKey key(m);
+	key.key(key);
 
 	printKey(key, key, m_moduleList.first());
 }
@@ -318,15 +321,15 @@ void CBiblePresenter::printChapter(){
 
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::saveVerseAndText(){
-	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.key(m_key->key());
+	QString key = QString::null;
+	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == QString::fromLatin1("sword://"))
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.key(currentAnchor);
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
+	CSwordVerseKey key(m);
+	key.key(key);
 	
-	const QString text = QString::fromLatin1("%1\n%2").arg(key.key()).arg(key.strippedText());
-	
+	const QString text = QString::fromLatin1("%1\n%2").arg(key.key()).arg(key.strippedText());	
 	const QString file = CToolClass::getSaveFileName(QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save verse with text as ..."));
 	if (!file.isNull())
 		CToolClass::savePlainFile( file, text);
@@ -335,7 +338,6 @@ void CBiblePresenter::saveVerseAndText(){
 /** Inserts the actions used by this window class into the given KAccel object. */
 void CBiblePresenter::insertKeyboardActions(KAccel* a){
 	a->setConfigGroup("Bible window");
-	ASSERT(a);
 	a->insertItem(i18n("Next book"), "Next book", 0);
 	a->insertItem(i18n("Previous book"), "Previous book", 0);	
 	
