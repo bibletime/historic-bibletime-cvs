@@ -1,5 +1,14 @@
 #! /usr/bin/perl
 
+#  NOTE: this script is part of the KDE SDK and added to KDevelop to support KDE 2 application development.
+#  The original is located in the KDE CVS module kdesdk/scripts. It gets installed in the same directory as
+#  the KDevelop binary to be in your PATH.
+#
+#  What it does is extract the strings in an application´s .rc file, e.g. testappui.rc, and writes into the pot file
+#  where the translations are build with (po-files)
+#
+#  Added to KDevelop 2000-10-29, Ralf Nolden (nolden@kde.org)
+
 $linenr = 0;
 $filename = "";
 @filenames = ();
@@ -29,22 +38,30 @@ while ( <FILE> ) {
    $string .= $_;   
    chomp($string);
  
+   $textstring = '([tT][eE][xX][tT]|string)>';
+
    if ($intext == 0) {
-     if ($string =~ /<text>/) {
-       $string =~ s/^.*<text>//;
+     if ($string =~ /<$textstring/) {
+       $string =~ s/^.*<$textstring//;
        $intext = 1;
+	   $starting_linenr = $linenr;
      } else {
        $string = "";
      }
    }
    
-   if (($intext == 1) && ($string =~ /<\/text>/)) {
+   if (($intext == 1) && ($string =~ /<\/$textstring/)) {
      my $text = $string;
-     $text =~ s/<\/text>.*$//;
-     $text =~ s/&amp;/&/g;
+     $text =~ s/<\/$textstring.*$//;
+	 $text =~ s/&lt;/</g;
+     $text =~ s/&gt;/>/g;
+     $text =~ s/&amp;/&/g; 
      writeoutstring($text); 
-     $string =~ s/^.*<\/text>//;
+     $string =~ s/^.*<\/$textstring//;
      $intext = 0;
+	 if ($linenr != $starting_linenr) {
+		print STDERR "there is <text> floating\n";
+     }
    }
 
 }

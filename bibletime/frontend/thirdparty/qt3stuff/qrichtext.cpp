@@ -64,6 +64,7 @@ using namespace Qt3;
 //#define DEBUG_TABLE_RENDERING
 
 static QTextFormatCollection *qFormatCollection = 0;
+static QMap<QString, QFont::CharSet>* m_charsetMap;
 
 #if defined(PARSER_DEBUG)
 static QString debug_indent;
@@ -1233,6 +1234,7 @@ QTextDocument::QTextDocument( QTextDocument *p, QTextFormatCollection *c )
 
 void QTextDocument::init()
 {
+	m_charsetMap = &charsetMap;
 #if defined(PARSER_DEBUG)
     qDebug( "new QTextDocument (%p)", this );
 #endif
@@ -5298,6 +5300,10 @@ QString QTextFormat::makeFormatEndTags() const
 
 QTextFormat QTextFormat::makeTextFormat( const QStyleSheetItem *style, const QMap<QString,QString>& attr ) const
 {
+		QMap<QString, QFont::CharSet>::Iterator it;
+		for( it = m_charsetMap->begin(); it != m_charsetMap->end(); ++it )
+			printf( "%s => %i\n", it.key().latin1(), (int)it.data() );
+
     QTextFormat format(*this);
     bool changed = FALSE;
     if ( style ) {
@@ -5324,6 +5330,11 @@ QTextFormat QTextFormat::makeTextFormat( const QStyleSheetItem *style, const QMa
 		if ( a.contains(',') )
 		    a = a.left( a.find(',') );
 		format.fn.setFamily( a );
+		qWarning(format.fn.family().latin1());
+		if (m_charsetMap->contains(format.fn.family())) {
+			qWarning("contained in list");
+			format.fn.setCharSet((*m_charsetMap)[format.fn.family()]);
+		}
 	    }
 	} else {
 

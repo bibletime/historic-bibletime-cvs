@@ -266,21 +266,20 @@ void CPrinter::printQueue(){
 	emit printingFinished();	
 	if (!getPreview())
 		clearQueue();
-	
+		
 	if ( !aborted() && getPreview() ) {
-		if (p.isActive()) {
+		if (p.isActive())
 			p.end();
-		}
 		KProcess process;
 		process << getPreviewApplication();
 		process << outputFileName();
 		process.start(KProcess::DontCare);
 	}	
 	
-	if (p.isActive()) {
-		cmd(QPaintDevice::PdcEnd,&p,0);
-		p.end();		
-	}
+//	if (p.isActive()) {
+//		cmd(QPaintDevice::PdcEnd,&p,0);
+//		p.end();		
+//	}
 }
 
 /** Appends items to the printing queue. */

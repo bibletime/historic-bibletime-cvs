@@ -68,12 +68,6 @@ public slots: // Public slots
  	*/
   void newPage();
 
-protected:
-  /**
- 	* Reimplementation.
- 	*/
-  virtual void clear();
-
 private:
 	printItemList* m_items;		
 };

@@ -115,6 +115,12 @@ void CStyle::setFormatTypeEnabled( CStyle::styleType type, const bool setEnabled
 
 /** Returns a QListViewItem for inserted in list. */
 QListViewItem* CStyle::getListViewItem( CStyleList* list ){
+	if (!list) {
+		if (!m_listViewItem)
+			return 0;
+		else
+			return m_listViewItem;
+	}
 	deleteListViewItem();
 	m_listViewItem = new QListViewItem( list );
 	updateListViewItem();	
@@ -135,20 +141,9 @@ void CStyle::setStyleName( const QString name ){
 /** Clears all variables and sets them back */
 void CStyle::clearData(){
 	qDebug("CStyle::clearData()");
-	if (m_listViewItem) {
-		delete m_listViewItem;
-		m_listViewItem = 0;
-	}
+	deleteListViewItem();
 	m_styleName = QString::null;
 	m_isDescriptionFormatEnabled = m_isHeaderFormatEnabled = m_isModuleTextFormatEnabled = true;		
-}
-
-/** Returns  listviewitem of this style, if it's not created already return 0. */
-QListViewItem* CStyle::getListViewItem() const{
-	if (!m_listViewItem)
-		return 0;
-	else
-		return m_listViewItem;
 }
 
 /** Updates the Listview items */

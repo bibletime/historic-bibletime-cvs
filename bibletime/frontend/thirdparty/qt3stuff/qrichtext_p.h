@@ -54,6 +54,7 @@
 #include "qstring.h"
 #include "qlist.h"
 #include "qrect.h"
+#include "qfont.h"
 #include "qfontmetrics.h"
 #include "qintdict.h"
 #include "qmap.h"
@@ -677,6 +678,8 @@ class Q_EXPORT QTextDocument : public QObject
     friend class QTextParag;
 
 public:
+	QMap<QString,QFont::CharSet> charsetMap;
+	
     enum SelectionIds {
 	Standard = 0,
 	Temp = 32000 // This selection must not be drawn, it's used e.g. by undo/redo to
@@ -1353,7 +1356,7 @@ public:
     QTextFormat( const QStyleSheetItem *s );
     QTextFormat( const QFont &f, const QColor &c, QTextFormatCollection * parent = 0L );
     QTextFormat( const QTextFormat &fm );
-    QTextFormat makeTextFormat( const QStyleSheetItem *style, const QMap<QString,QString>& attr ) const;
+    virtual QTextFormat makeTextFormat( const QStyleSheetItem *style, const QMap<QString,QString>& attr ) const;
     QTextFormat& operator=( const QTextFormat &fm );
     virtual void copyFormat( const QTextFormat &fm, int flags );
     QColor color() const;

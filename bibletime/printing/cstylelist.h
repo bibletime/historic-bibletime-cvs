@@ -88,10 +88,6 @@ private:
  	* Updates the combo box listing the styles being available.
  	*/
   void updateStyleCombo();
-  /**
- 	* Removes the list view items.
- 	*/
-  virtual void clear();
 };
 
 #endif

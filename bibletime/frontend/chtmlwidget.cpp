@@ -17,9 +17,10 @@
 
 #include "chtmlwidget.h"
 #include "ctoolclass.h"
+//#include "ctextdocument.h"
 #include "presenters/cswordpresenter.h"
-#include "thirdparty/qt3stuff/qrichtext_p.h"
 #include "thirdparty/qt3stuff/qt3stuff.h"
+#include "thirdparty/qt3stuff/qrichtext_p.h"
 #include "../backend/sword_backend/cswordldkey.h"
 #include "../backend/sword_backend/cswordversekey.h"
 #include "../backend/sword_backend/cswordbackend.h"
@@ -63,8 +64,31 @@
 //Sword includes
 #include <swmodule.h>
 
-CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts,  QWidget *parent, const char *name ) : QTextEdit(parent, name) {
+CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts,QWidget *parent, const char *name )
+	: QTextEdit(parent, name)/*, m_document(new CTextDocument(importantClasses, new CTextFormatCollection()))*/ {	
 	m_important = importantClasses;
+
+//	m_document->formatCollection()->setCharsetMap( m_document->);
+		
+//  connect(m_document, SIGNAL(minimumWidthChanged(int)), SLOT(setRealWidth( int ) ) );
+//  m_document->setFormatter( new Qt3::QTextFormatterBreakWords );
+////  currentFormat = m_document->formatCollection()->defaultFormat();
+//  currentAlignment = Qt3::AlignAuto;	
+//	setDocument(m_document);
+//  resizeContents( 0, doc->lastParag() ? ( doc->lastParag()->paragId() + 1 ) * doc->formatCollection()->defaultFormat()->height() : 0 );
+	
+	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
+	for (modules->first(); modules->current(); modules->next()) {
+		if (modules->current()->hasFont()) {
+			QFont font = modules->current()->getFont();
+			if (!document()->charsetMap.contains(font.family())) {
+				qWarning("insert new font family into list: %s", font.family().latin1());
+				document()->charsetMap.insert(font.family(), QFont::AnyCharSet);				
+			}
+		}
+	}
+
+	
 	m_config = KGlobal::config();
 	m_popup = 0;
 	m_anchor = QString::null;
@@ -84,6 +108,9 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 
 CHTMLWidget::~CHTMLWidget(){
 	qDebug("CHTMLWidget::~CHTMLWidget()");
+//	if (m_document)
+//		delete m_document;
+//	m_document = 0;
 }
 
 /**  */

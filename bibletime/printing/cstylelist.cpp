@@ -35,7 +35,10 @@ CStyleList::CStyleList(styleItemList* items, QWidget *parent, const char *name )
 }
 
 CStyleList::~CStyleList(){
-//	clear(); //is this really necessary?
+	for (m_items->first(); m_items->current(); m_items->next()) {
+		if (m_items->current())
+			m_items->current()->deleteListViewItem();
+	}
 }
 
 /** Initilizes the view. */
@@ -57,7 +60,12 @@ void CStyleList::insertItems( styleItemList* itemList ){
 
 /** Appends the items of itemList */
 void CStyleList::setItems( styleItemList* itemList ){
-	clear();
+//	clear();
+	for (m_items->first(); m_items->current(); m_items->next()) {
+		if (m_items->current())
+			m_items->current()->deleteListViewItem();
+	}
+
 	if (m_items != itemList)
 		m_items->clear();
 	insertItems(m_items);	
@@ -168,12 +176,3 @@ styleItemList* CStyleList::getStyleList(){
 	return m_items;
 }
 
-/** Removes the list view items. */
-void CStyleList::clear(){
-	//delete all listViewItems
-	for (m_items->first(); m_items->current(); m_items->next()) {
-		if (m_items->current())
-			m_items->current()->deleteListViewItem();
-	}
-	QListView::clear();
-}

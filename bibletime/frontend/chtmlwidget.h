@@ -29,6 +29,7 @@
 #include <qguardedptr.h>
 
 class CHTMLDialog;
+//class CTextDocument;
 class CBiblePresenter;
 class KConfig;
 class KPopupMenu;
@@ -217,6 +218,7 @@ protected slots: // Protected slots
 	
 private:
 	CImportantClasses* m_important;	
+//	CTextDocument* m_document;
 
 	bool m_readOnly;
 	bool m_selectedWord;

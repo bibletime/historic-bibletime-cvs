@@ -295,7 +295,8 @@ void CStyleEditorDialog::styleTypeChanged( const QString& name ){
 void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
 	if (!format)
 		return;
-
+	m_style->setStyleName(m_styleNameEdit->text());
+	
 	//apply alignement settings
 	if (m_alignRadios.buttongroup->selected() == m_alignRadios.leftRB ) {
 		format->setAlignement( CStyleFormat::Left);

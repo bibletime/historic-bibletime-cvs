@@ -35,7 +35,11 @@ CPrintItemList::CPrintItemList( printItemList* items,  QWidget *parent, const ch
 }
 
 CPrintItemList::~CPrintItemList(){
-	clear();
+	for (m_items->first(); m_items->current(); m_items->next()) {
+		if (m_items->current())
+			m_items->current()->deleteListViewItem();
+	}	
+//	clear();
 }
 
 /** Initializes the view. */
@@ -51,6 +55,7 @@ void CPrintItemList::initView(){
 
 /** Inserts the items of the list into the tree. */
 void CPrintItemList::insertItems( printItemList* itemList ) {
+	qDebug("CPrintItemList::insertItems( printItemList* itemList )");
 	for(itemList->last(); itemList->current(); itemList->prev() ) {
 		if (itemList != m_items)
 			m_items->append(itemList->current());
@@ -60,7 +65,11 @@ void CPrintItemList::insertItems( printItemList* itemList ) {
 
 /** Sets the tree to contain the items of the list. Other items will be removed. */
 void CPrintItemList::setItems( printItemList* itemList ){
-	clear();
+	for (m_items->first(); m_items->current(); m_items->next()) {
+		if (m_items->current())
+			m_items->current()->deleteListViewItem();
+	}
+
 	insertItems( itemList );
 }
 
@@ -99,9 +108,8 @@ void CPrintItemList::moveUp(){
 
 /** Moves the selected entry one entry down. */
 void CPrintItemList::moveDown(){
-	if (currentItem() && currentItem()->itemBelow()) {
+	if (currentItem() && currentItem()->itemBelow())
 		currentItem()->moveItem( currentItem()->itemBelow() );
-	}
 }
 
 /** Applies the style to the selected items. */
@@ -122,12 +130,3 @@ void CPrintItemList::applyStyleToSelected( CStyle* style){
 	}
 }
 
-/** Reimplementation. */
-void CPrintItemList::clear(){
-	//deletes all listViewItems
-	for (m_items->first(); m_items->current(); m_items->next()) {
-		if (m_items->current())
-			m_items->current()->deleteListViewItem();
-	}
-	KListView::clear();
-}

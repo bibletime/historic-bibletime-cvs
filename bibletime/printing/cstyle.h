@@ -64,7 +64,7 @@ public:
   /**
  	* Returns a QListViewItem for inserted in list.
  	*/
-  QListViewItem* getListViewItem( CStyleList* list );
+  QListViewItem* getListViewItem( CStyleList* list = 0 );
   /**
  	* Sets the name of the style.
  	*/
@@ -73,10 +73,6 @@ public:
  	* Returns the style name
  	*/
   const QString& getStyleName() const;
-  /**
- 	* Retusnt eh listvuiewitem of this style, if it's no created already return 0.
- 	*/
-  QListViewItem* getListViewItem() const;
   /**
  	* Updates the Listview items
  	*/

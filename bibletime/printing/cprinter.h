@@ -19,7 +19,6 @@
 #define CPRINTER_H
 
 //BibleTime includes
-//#include <time.h>
 #include "../structdef.h"
 #include "cprintitemlist.h"
 #include "cprintitem.h"
