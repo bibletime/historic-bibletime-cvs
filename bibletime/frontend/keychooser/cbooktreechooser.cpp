@@ -18,6 +18,7 @@
 #include "cbooktreechooser.h"
 #include "backend/cswordtreekey.h"
 #include "backend/cswordbookmoduleinfo.h"
+#include "frontend/cbtconfig.h"
 
 //Qt includes
 #include <qlayout.h>
@@ -110,6 +111,16 @@ CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	m_treeView->setRootIsDecorated(true);
   m_treeView->setFullWidth(true);
 
+  //Make sure the entries are displayed correctly.
+	if ( m_modules.first()->isUnicode() ){
+		m_treeView->setFont( CBTConfig::get(CBTConfig::unicode) );
+		qWarning("Unicode Book detected");
+	}
+	else{
+		m_treeView->setFont( CBTConfig::get(CBTConfig::standard) );
+		qWarning("Standard Book detected");
+	}
+
 //  setModules(modules); //fill the tree
 }
 
@@ -184,6 +195,16 @@ void CBookTreeChooser::setModules(ListCSwordModuleInfo modules, const bool refre
 //    m_key->key(oldKey);
 //		
 //		updateKey(m_key);
+
+    //Make sure the entries are displayed correctly.
+  	if ( m_modules.first()->isUnicode() ){
+  		m_treeView->setFont( CBTConfig::get(CBTConfig::unicode) );
+			qWarning("Unicode Book detected");
+  	}
+  	else{
+  		m_treeView->setFont( CBTConfig::get(CBTConfig::standard) );
+			qWarning("Standard Book detected");
+  	}
 	}
 }
 
