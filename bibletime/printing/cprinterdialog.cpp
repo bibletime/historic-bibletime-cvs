@@ -546,7 +546,6 @@ void CPrinterDialog::paperTypeChanged(int id){
 
 CPrinter::CPageSize CPrinterDialog::paperSize( QPrinter::PageSize pageSize ) {
   qDebug("CPrinterDialog::paperSize( QPrinter::PageSize pageSize )");
-//  CPrinter printer;
   m_printer->setPageSize( pageSize );
   QPaintDeviceMetrics paintMetric( m_printer );
 

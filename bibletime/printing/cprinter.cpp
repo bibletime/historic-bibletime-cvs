@@ -41,7 +41,6 @@
 #define BORDER_SPACE 5	//border between text and rectangle
 
 CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(parent) {
-	qDebug("constructor of CPrinter");
 	config = new KConfig("bt-printing", false, true );
 
 	ASSERT(important);
@@ -49,6 +48,8 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 	m_backend = m_important->swordBackend;
 	m_queue = new printItemList;
 	m_styleList = new styleItemList;
+	
+	
 		
 	readSettings();
 	setupStandardStyle();		
@@ -58,7 +59,11 @@ CPrinter::~CPrinter(){
 	qDebug("destructor of CPrinter");
 	saveSettings();
 	
-	config->sync();
+	config->sync();		
+	delete config;
+	
+//	delete m_queue;
+//	delete m_styleList;
 }
 
 /** Returns the path to the preview application. */
@@ -587,7 +592,7 @@ QRect CPrinter::getPageSize(){
   QRect r;
 
   CPageSize size;
-  metric.width();
+	size.width  = metric.width();
   size.height = metric.height();
 
 //  qDebug( QString::number(m_pageMargin.left) );

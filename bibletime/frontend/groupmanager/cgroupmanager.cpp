@@ -91,7 +91,7 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 	QString text = QString::null;
 	switch ( i->type() ) {
 		case CGroupManagerItem::Bookmark:
-			text = i18n("Bookmark to " );
+			text = i18n("Bookmark to" ) + QString(" ");
 			text.append(QString("<B>") + i->getKeyText() + "</B><BR>");
 			if (!i->description().stripWhiteSpace().isEmpty())
 				text.append("<FONT color=\"#800000\">(" + i->description().stripWhiteSpace() + ")</FONT><BR>");
@@ -114,8 +114,8 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 				if (lk)
 					bookmarkText = vk->m_data;
 			}								
-			if (bookmarkText.length() > 125)
-				bookmarkText = bookmarkText.left(122) + "...";
+			if (bookmarkText.length() > 150 && (i->moduleInfo()->getType() != CSwordModuleInfo::Bible))
+				bookmarkText = bookmarkText.left(150) + "...";
 			
 			
 			if (i->moduleInfo() && i->moduleInfo()->hasFont()) {

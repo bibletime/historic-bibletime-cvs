@@ -253,11 +253,11 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
 	viewport()->setCursor( anchorAt(e->pos()).isEmpty() ? arrowCursor : KCursor::handCursor() );
 	
  	if (!onLink.isEmpty() && e->button() == RightButton && m_anchorMenu) {	//popup installed menu 	
-		m_anchorMenu->popup( e->globalPos() );
+		m_anchorMenu->exec( e->globalPos() );
   }
   else if (m_popup && e->button() == RightButton){ //popup normal menu
     bool selectedWord = false;
-    if (!hasSelectedText()) {
+    if (!document()->hasSelection( Qt3::QTextDocument::Standard)) {
     	placeCursor(e->pos());
     	
 	    Qt3::QTextCursor c1 = *cursor;
@@ -267,15 +267,15 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
 	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
 	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
 	    *cursor = c2;
-	    repaintChanged();
+//	    repaintChanged();
 	    selectedWord = true;
 		}		
 		m_popup->exec( e->globalPos() );
 		
-		if (hasSelectedText() && selectedWord) {
+		if (selectedWord) {
 			document()->removeSelection( Qt3::QTextDocument::Standard);
 		}
-	  repaintChanged();		
+//	  repaintChanged();		
   }	
 	QTextEdit::contentsMousePressEvent(e);
 }
