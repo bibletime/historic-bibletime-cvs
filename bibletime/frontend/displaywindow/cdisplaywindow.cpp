@@ -152,36 +152,22 @@ void CDisplayWindow::polish(){
 
 /** Refresh the settings of this window. */
 void CDisplayWindow::reload() {
-  //qWarning("reload()");
   //first make sure all used Sword modules are still present
   for (QStringList::iterator it = m_modules.begin(); it != m_modules.end(); ++it) {
-    // qWarning("module loop");
-    if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) {
-    //  qWarning("module %s is valid", (*it).latin1());
-    }
-    else {
-//      qWarning("refresh(): remove uninstalled module %s", (*it).latin1());
+    if (!backend()->findModuleByName(*it)) {
       it = m_modules.remove(it);
       if (it == m_modules.end()) {
         break;
       }
-     // qWarning("removed from list");
     }
   }
 
-  //qWarning("modules contain %i", m_modules.count());
+	if (m_moduleChooserBar) { //necessary for edit windows which have now chooser bar
+  	m_moduleChooserBar->setModules(modules());
+	}
+ 	modulesChanged();
 
-  //call's moduleChanged so we don't need it
-//  qWarning("refresh(): set modules");
-  m_moduleChooserBar->setModules(modules());
-//  qWarning("refresh(): modules changed");
-
-  //qWarning("%i modules available", m_modules.count());
-  modulesChanged();
-  //qWarning("%i modules available", m_modules.count());
-
-  if (m_modules.count() > 0) {
-    //qWarning("refresh(): we still have modules to lookup");
+	if (m_modules.count() > 0) {
     lookup();
   }
 }
@@ -242,9 +228,9 @@ void CDisplayWindow::setKey( CSwordKey* key ){
 }
 
 void CDisplayWindow::modulesChanged(){
-//  qWarning("CDisplayWindow::modulesChaneed");
-  setModules( m_moduleChooserBar->getModuleList() );
-//  qWarning("now we have %i modules", modules().count());
+	if (moduleChooserBar()) { //necessary for write windows
+		setModules( m_moduleChooserBar->getModuleList() );
+	}
 
   if (!modules().count()) {
   	close();
@@ -260,7 +246,7 @@ void CDisplayWindow::modulesChanged(){
 }
 
 /** Lookup the given key. */
-void CDisplayWindow::lookup( CSwordKey* /*key*/ ){
+void CDisplayWindow::lookup( CSwordKey* ){
 }
 
 /** Returns the module chooser bar. */
@@ -273,7 +259,7 @@ void CDisplayWindow::setModuleChooserBar( CModuleChooserBar* bar ){
 	if (m_moduleChooserBar) {
  		disconnect(m_moduleChooserBar, SIGNAL(sigChanged()), this, SLOT(modulesChanged()));
   }
-  
+
 	if (bar) { //if a new bar should be set!
     m_moduleChooserBar = bar;
   	connect(bar, SIGNAL(sigChanged()), SLOT(modulesChanged()));
@@ -292,12 +278,12 @@ void CDisplayWindow::setModules( ListCSwordModuleInfo newModules ){
 const bool CDisplayWindow::init( const QString& keyName ){
   initView();
   setMinimumSize( 350,300 );
-  
+
   setCaption(windowCaption());
   //setup focus stuff.
   setFocusPolicy(QWidget::ClickFocus);
   parentWidget()->setFocusPolicy(QWidget::ClickFocus);
-  
+
   show();
  	initConnections();
   initKeyboardActions();
@@ -342,26 +328,25 @@ void CDisplayWindow::setDisplaySettingsButton( CDisplaySettingsButton* button ){
 
 /** Lookup the current key. Used to refresh the display. */
 void CDisplayWindow::lookup(){
-//	qWarning("CDisplayWindow::lookup()");
  	lookup( key() );
 }
 
 void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName ) {
-//  qWarning("CDisplayWindow::lookup( const QString&, const QString& )");
-//  Q_ASSERT(isReady());
   if (!isReady())
   	return;
 
-
 	CSwordModuleInfo* m = backend()->findModuleByName(moduleName);
-  if (!m)
+  if (!m) {
     return;
+	}
 
 	if (m && modules().containsRef(m) && !keyName.isEmpty()) {
 		key()->key(keyName);
 		keyChooser()->setKey(key()); //the key chooser does send an update signal
 	}
-	else {
+	else { //given module not chosen by user
+
+		//if the module is displayed in another display window we assume a wrong drop
 		QWidgetList windows = mdi()->windowList();
   	bool found = false;
 		CDisplayWindow* dw = 0;
@@ -372,19 +357,19 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 				break;
 			}
 		}
-		if (found) {
+
+		if (found) { //lookup in the window which has the module displayed
 			dw->lookup(moduleName, keyName);
   	}
-		else {
+		else { //create a new window for the given module
     	ListCSwordModuleInfo mList;
      	mList.append(m);
 			mdi()->emitCreateDisplayWindow(mList, keyName);
   	}
-	}	
+	}
 }
 
 void CDisplayWindow::lookup( const QString& key ) {
-//  qWarning("CDisplayWindow::lookup( const QString& key )");
 	lookup(modules().first()->name(), key);
 }
 

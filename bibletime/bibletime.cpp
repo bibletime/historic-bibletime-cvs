@@ -257,7 +257,7 @@ void BibleTime::processCommandline(){
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
   if (CBTConfig::get(CBTConfig::crashedLastTime) || CBTConfig::get(CBTConfig::restoreWorkspace)) {
-    if (!CBTConfig::get(CBTConfig::crashedTwoTimes) && !args->isSet("ignore-session")) { //restore workspace if it crashed ony once
+    if (!CBTConfig::get(CBTConfig::crashedTwoTimes) && !args->isSet("ignore-session")) { //restore workspace if it crashed only once
       restoreWorkspace();
     }
   }

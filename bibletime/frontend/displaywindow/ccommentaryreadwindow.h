@@ -30,7 +30,7 @@
 
 class CCommentaryReadWindow : public CLexiconReadWindow  {
    Q_OBJECT
-public: 
+public:
   /**
   * Reimplementation.
   */
@@ -46,12 +46,8 @@ public:
   * Store the settings of this window in the given profile window.
   */
   virtual void applyProfileSettings( CProfileWindow* profileWindow );
-  /**
-  * Jumps to the given key if syncronize is enabled for this display window.
-  */
-  void syncToKey( CSwordKey* const key);
+	virtual const bool syncAllowed() const;
 
-  
 public slots: // Public slots
   void nextBook();
   void previousBook();

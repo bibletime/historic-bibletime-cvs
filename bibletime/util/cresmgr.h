@@ -433,6 +433,7 @@ namespace CResMgr {
         extern QString tooltip;
         extern QString whatsthis;
         extern const KShortcut accel;
+				extern const char* actionName;
       }
 
     };
@@ -477,18 +478,21 @@ namespace CResMgr {
         extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
+				extern const char* actionName;
       };
       namespace restoreText {
         extern QString tooltip;
         extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
+				extern const char* actionName;
       };
       namespace deleteEntry {
         extern QString tooltip;
         extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
+				extern const char* actionName;
       };
 
     //formatting buttons
@@ -497,18 +501,21 @@ namespace CResMgr {
         extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
+				extern const char* actionName;
       };
       namespace italicText {
         extern QString tooltip;
         extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
+				extern const char* actionName;
       };
       namespace underlinedText {
         extern QString tooltip;
         extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
+				extern const char* actionName;
       };
 
       namespace alignLeft {
@@ -516,34 +523,41 @@ namespace CResMgr {
         extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
+				extern const char* actionName;
       };
       namespace alignCenter {
         extern QString tooltip;
         extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
+				extern const char* actionName;
       };
       namespace alignRight {
         extern QString tooltip;
         extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
+				extern const char* actionName;
       };
       namespace alignJustify {
         extern QString tooltip;
         extern QString whatsthis;
         extern const QString icon;
         extern const KShortcut accel;
+				extern const char* actionName;
       };
-
 
       namespace fontFamily {
         extern QString tooltip;
         extern QString whatsthis;
+	      extern const KShortcut accel;
+				extern const char* actionName;
       };
       namespace fontSize {
         extern QString tooltip;
         extern QString whatsthis;
+	      extern const KShortcut accel;
+				extern const char* actionName;
       };
       namespace fontColor {
         extern QString tooltip;

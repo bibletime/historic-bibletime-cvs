@@ -51,30 +51,23 @@ void CCommentaryReadWindow::storeProfileSettings( CProfileWindow* profileWindow 
 
 void CCommentaryReadWindow::initView(){
 	CLexiconReadWindow::initView();
-	m_syncButton = new KToggleAction(i18n("Sync with active bible"), CResMgr::displaywindows::commentaryWindow::syncWindow::icon, CResMgr::displaywindows::commentaryWindow::syncWindow::accel/*, this, SLOT(syncToggled(bool))*/, actionCollection());
-  m_syncButton->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip);
-  m_syncButton->setWhatsThis(CResMgr::displaywindows::commentaryWindow::syncWindow::whatsthis);
-    
+	m_syncButton = new KToggleAction(i18n("Sync with active bible"),
+		CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
+		CResMgr::displaywindows::commentaryWindow::syncWindow::accel,
+		actionCollection(),
+		CResMgr::displaywindows::commentaryWindow::syncWindow::actionName
+	);
+	m_syncButton->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip); 	m_syncButton->setWhatsThis(CResMgr::displaywindows::commentaryWindow::syncWindow::whatsthis);
   m_syncButton->plug(mainToolBar());
-
-//  verseKey()->ClearBounds();
-}
-
-/** Jumps to the given key if syncronize is enabled for this display window. */
-void CCommentaryReadWindow::syncToKey( CSwordKey* const newKey ){
-  if (m_syncButton->isChecked()) {
-    CDisplayWindow::lookup(newKey->key());
-  }
 }
 
 /** Reimplementation to handle the keychooser refresh. */
 void CCommentaryReadWindow::reload(){
   CLexiconReadWindow::reload();
-  //refresh the book lists
+
+	//refresh the book lists
   verseKey()->setLocale( backend()->booknameLanguage().latin1() );
   keyChooser()->refreshContent();
-
-//  lookup(key());
 }
 
 /** rapper around key() to return the right type of key. */
@@ -147,4 +140,8 @@ void CCommentaryReadWindow::nextVerse(){
 void CCommentaryReadWindow::previousVerse(){
 	if (verseKey()->previous(CSwordVerseKey::UseVerse))
 		keyChooser()->setKey(key());
+}
+
+const bool CCommentaryReadWindow::syncAllowed() const {
+	return m_syncButton->isChecked();
 }

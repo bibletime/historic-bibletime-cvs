@@ -18,6 +18,7 @@
 #include "cplainwritewindow.h"
 
 #include "frontend/keychooser/ckeychooser.h"
+#include "frontend/cprofilewindow.h"
 
 #include "util/cresmgr.h"
 
@@ -29,8 +30,7 @@
 #include <klocale.h>
 
 CPlainWriteWindow::CPlainWriteWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name ) : CWriteWindow(moduleList, parent, name) {
-//  qWarning("CPlainWriteWindow::CPlainWriteWindow");
-	setKey( CSwordKey::createInstance(moduleList.first()) );  
+	setKey( CSwordKey::createInstance(moduleList.first()) );
 }
 
 
@@ -52,11 +52,22 @@ void CPlainWriteWindow::initView(){
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
  	mainToolBar()->setFullSize(false);
 
- 	m_actions.saveText = new KAction(i18n("Save text"),
+	m_actions.syncWindow = new KToggleAction(i18n("Sync with active bible"),
+		CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
+		CResMgr::displaywindows::commentaryWindow::syncWindow::accel,
+		actionCollection(),
+		CResMgr::displaywindows::commentaryWindow::syncWindow::actionName
+	);
+	m_actions.syncWindow->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip); m_actions.syncWindow->setWhatsThis(CResMgr::displaywindows::commentaryWindow::syncWindow::whatsthis);
+  m_actions.syncWindow->plug(mainToolBar());
+
+
+	m_actions.saveText = new KAction(i18n("Save text"),
     CResMgr::displaywindows::writeWindow::saveText::icon,
     CResMgr::displaywindows::writeWindow::saveText::accel,
     this, SLOT(saveCurrentText()),
-    actionCollection()
+    actionCollection(),
+		CResMgr::displaywindows::writeWindow::saveText::actionName
   );
   m_actions.saveText->setToolTip( CResMgr::displaywindows::writeWindow::saveText::tooltip );
   m_actions.saveText->setWhatsThis( CResMgr::displaywindows::writeWindow::saveText::whatsthis );
@@ -67,7 +78,8 @@ void CPlainWriteWindow::initView(){
     CResMgr::displaywindows::writeWindow::deleteEntry::icon,
     CResMgr::displaywindows::writeWindow::deleteEntry::accel,
     this, SLOT(deleteEntry()),
-    actionCollection()
+    actionCollection(),
+		CResMgr::displaywindows::writeWindow::deleteEntry::actionName
   );
   m_actions.deleteEntry->setToolTip( CResMgr::displaywindows::writeWindow::deleteEntry::tooltip );
   m_actions.deleteEntry->setWhatsThis( CResMgr::displaywindows::writeWindow::deleteEntry::whatsthis );
@@ -78,7 +90,8 @@ void CPlainWriteWindow::initView(){
     CResMgr::displaywindows::writeWindow::restoreText::icon,
     CResMgr::displaywindows::writeWindow::restoreText::accel,
     this, SLOT(restoreText()),
-    actionCollection()
+    actionCollection(),
+		CResMgr::displaywindows::writeWindow::restoreText::actionName
   );
   m_actions.restoreText->setToolTip( CResMgr::displaywindows::writeWindow::restoreText::tooltip );
   m_actions.restoreText->setWhatsThis( CResMgr::displaywindows::writeWindow::restoreText::whatsthis );
@@ -93,21 +106,30 @@ void CPlainWriteWindow::initConnections(){
     this, SLOT(textChanged()) );
 }
 
+void CPlainWriteWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
+  CWriteWindow::storeProfileSettings(profileWindow);
+  profileWindow->setWindowSettings( m_actions.syncWindow->isChecked() );
+};
+
+void CPlainWriteWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
+  CWriteWindow::applyProfileSettings(profileWindow);
+  if (profileWindow->windowSettings()) {
+    m_actions.syncWindow->setChecked(true);
+	}
+};
+
 /** Saves the text for the current key. Directly writes the changed text into the module. */
 void CPlainWriteWindow::saveCurrentText(){
-//  qWarning("CPlainWriteWindow::saveCurrentText()");
-
   QString t = displayWidget()->plainText();
   //since t is a complete HTML page at the moment, strip away headers and footers of a HTML page
   QRegExp re("(?:<html.*>.+<body.*>)", false); //remove headers, match case insensitive
-  re.setMinimal(true);  
+  re.setMinimal(true);
   t.replace(re, "");
   t.replace(QRegExp("</BODY></HTML>", false), "");//remove footer
-  
+
   modules().first()->write(key(), t );
 
   displayWidget()->setModified(false);
-//  qWarning("sucessfully wrote into the module");
   textChanged();
 }
 
@@ -115,18 +137,13 @@ void CPlainWriteWindow::saveCurrentText(){
 void CPlainWriteWindow::restoreText(){
   lookup(key());
   displayWidget()->setModified(false);
-  textChanged();  
+  textChanged();
 }
 
 /** Is called when the current text was changed. */
 void CPlainWriteWindow::textChanged() {
-//  qWarning("textChanged");
-  Q_ASSERT(displayWidget());
-  Q_ASSERT(m_actions.saveText);
-  m_actions.saveText->setEnabled( displayWidget()->isModified() );
-//  qWarning("textChanged-1");
+	m_actions.saveText->setEnabled( displayWidget()->isModified() );
   m_actions.restoreText->setEnabled( displayWidget()->isModified() );
-//  qWarning("textChanged-2");
 }
 
 /** Deletes the module entry and clears the edit widget, */
@@ -138,4 +155,8 @@ void CPlainWriteWindow::deleteEntry(){
 
 /** Setups the popup menu of this display widget. */
 void CPlainWriteWindow::setupPopupMenu(){
+}
+
+const bool CPlainWriteWindow::syncAllowed() const {
+	return m_actions.syncWindow->isChecked();
 }

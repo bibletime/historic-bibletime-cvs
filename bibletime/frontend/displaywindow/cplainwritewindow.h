@@ -26,19 +26,31 @@
 
 
 class KAction;
+class KToggleAction;
 
 /** The write window class which offers a plain editor for source code editing.
   * @author The BibleTime team
   */
 class CPlainWriteWindow : public CWriteWindow  {
    Q_OBJECT
-public: 
+public:
 	CPlainWriteWindow( ListCSwordModuleInfo modules, CMDIArea* parent, const char *name = 0 );
 	~CPlainWriteWindow();
+
   /**
+  * Store the settings of this window in the given CProfileWindow object.
+  */
+  virtual void storeProfileSettings( CProfileWindow* profileWindow );
+  /**
+  * Store the settings of this window in the given profile window.
+  */
+  virtual void applyProfileSettings( CProfileWindow* profileWindow );
+
+	/**
   * Setups the popup menu of this display widget.
   */
   virtual void setupPopupMenu();
+	virtual const bool syncAllowed() const;
 
 protected: // Protected methods
   /**
@@ -54,9 +66,10 @@ private:
   struct {
     KAction* saveText;
     KAction* deleteEntry;
-    KAction* restoreText;    
+    KAction* restoreText;
+		KToggleAction* syncWindow;
   } m_actions;
-  
+
 protected slots: // Protected slots
   /**
   * Saves the text for the current key. Directly writes the changed text into the module.

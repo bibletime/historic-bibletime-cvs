@@ -158,7 +158,14 @@ public:
   * Sets the display widget used by this display window.
   */
   virtual void setDisplayWidget( CDisplay* newDisplay );
-  
+
+	/* Returns whether syncs to the active window are allowed at this time for this display window
+	* @return boolean value whether sync is allowed
+	*/
+	virtual const bool syncAllowed() const {
+		return false;
+	};
+
 public slots:
   /**
   * Lookup the specified key in the given module. If the module is not chosen withing
@@ -176,6 +183,8 @@ public slots:
 
 protected:
 	friend class CMDIArea;
+	friend class CBibleReadWindow;
+
 	CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
 	virtual ~CDisplayWindow();
   /**

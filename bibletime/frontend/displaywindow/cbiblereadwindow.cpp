@@ -44,7 +44,7 @@
 #include <kpopupmenu.h>
 
 CBibleReadWindow::CBibleReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name ) : CLexiconReadWindow(moduleList, parent,name) {
-  m_transliterationButton = 0;	
+  m_transliterationButton = 0;
 }
 
 CBibleReadWindow::~CBibleReadWindow(){
@@ -86,7 +86,7 @@ void CBibleReadWindow::insertKeyboardActions( KAccel* const a ){
   a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::bibleWindow::nextBook::accel,        0, "");
 	a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::bibleWindow::previousBook::accel,    0, "");
 	a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::bibleWindow::nextChapter::accel,     0, "");
-	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");	
+	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::bibleWindow::previousChapter::accel, 0, "");
 	a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::bibleWindow::nextVerse::accel,       0, "");
 	a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::bibleWindow::previousVerse::accel,   0, "");
 }
@@ -233,19 +233,21 @@ CSwordVerseKey* CBibleReadWindow::verseKey(){
 
 /** Is called when the key of the keychooser changed. */
 void CBibleReadWindow::keyChanged(CSwordKey* key){
-	QWidgetList windows = mdi()->windowList();	
+	QWidgetList windows = mdi()->windowList();
 	if (!windows.count())
-		return;	
+		return;
 
 	for (windows.first(); windows.current(); windows.next()) {
-		if (CCommentaryReadWindow* p = dynamic_cast<CCommentaryReadWindow*>(windows.current()))
-			p->syncToKey(key);
-	}	
+		CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.current());
+		if (w && w->syncAllowed()) {
+			w->lookup( key->key() );
+		}
+	}
 }
 
 /** Copies the current chapter into the clipboard. */
 void CBibleReadWindow::copyDisplayedText(){
-//normal function  
+//normal function
   CSwordVerseKey vk(*verseKey());
   CSwordVerseKey dummy(*verseKey());
 
@@ -304,25 +306,22 @@ void CBibleReadWindow::saveChapterPlain(){
 
 void CBibleReadWindow::reload(){
   CLexiconReadWindow::reload();
-  //refresh the book lists
+
+	//refresh the book lists
   verseKey()->setLocale( backend()->booknameLanguage().latin1() );
   keyChooser()->refreshContent();
-
-//	qWarning( backend()->booknameLanguage().latin1() );
-//	qWarning( CPointers::backend()->booknameLanguage().latin1() );
-//  lookup(key());
 }
 
 /** No descriptions */
 bool CBibleReadWindow::eventFilter( QObject* o, QEvent* e) {
-  if (e && (e->type() == QEvent::FocusIn)) {
+  if (e && (e->type() == QEvent::FocusIn)) { //sync other windows to this active window now
   	QWidgetList windows = mdi()->windowList();
-  	if (windows.count()) {
-    	for (windows.first(); windows.current(); windows.next()) {
-    		if (CCommentaryReadWindow* p = dynamic_cast<CCommentaryReadWindow*>(windows.current()))
-    			p->syncToKey(key()  );
-    	}
-    }
+   	for (windows.first(); windows.current(); windows.next()) {
+			CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.current());
+   		if (w && w->syncAllowed()) {
+   			w->lookup( key()->key() );
+			}
+   	}
   }
   return CLexiconReadWindow::eventFilter(o,e);
 }

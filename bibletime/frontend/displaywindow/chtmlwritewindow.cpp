@@ -19,6 +19,7 @@
 
 //frontend includes
 #include "frontend/keychooser/ckeychooser.h"
+#include "frontend/cprofilewindow.h"
 
 #include "util/cresmgr.h"
 
@@ -36,7 +37,7 @@ CHTMLWriteWindow::CHTMLWriteWindow(ListCSwordModuleInfo modules, CMDIArea* paren
 }
 
 CHTMLWriteWindow::~CHTMLWriteWindow(){
-  
+
 }
 
 //void CHTMLWriteWindow::setupPopupMenu() {
@@ -44,7 +45,6 @@ CHTMLWriteWindow::~CHTMLWriteWindow(){
 //};
 
 void CHTMLWriteWindow::initView() {
-  qWarning("CHTMLWriteWindow::initView()");
   CWriteDisplay* writeDisplay = CDisplay::createWriteInstance(this, CDisplay::HTMLDisplay);
   Q_ASSERT(writeDisplay);
  	setDisplayWidget( writeDisplay );
@@ -60,21 +60,32 @@ void CHTMLWriteWindow::initView() {
 
 
   //setip the toolbar
- 	m_actions.saveText = new KAction( i18n("Save text"),
+	m_actions.syncWindow = new KToggleAction(i18n("Sync with active bible"),
+		CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
+		CResMgr::displaywindows::commentaryWindow::syncWindow::accel,
+		actionCollection(),
+		CResMgr::displaywindows::commentaryWindow::syncWindow::actionName
+	);
+	m_actions.syncWindow->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip); m_actions.syncWindow->setWhatsThis(CResMgr::displaywindows::commentaryWindow::syncWindow::whatsthis);
+  m_actions.syncWindow->plug(mainToolBar());
+
+	m_actions.saveText = new KAction( i18n("Save text"),
     CResMgr::displaywindows::writeWindow::saveText::icon,
     CResMgr::displaywindows::writeWindow::saveText::accel,
     this, SLOT( saveCurrentText()  ),
-    actionCollection()
+    actionCollection(),
+		CResMgr::displaywindows::writeWindow::saveText::actionName
   );
   m_actions.saveText->setToolTip( CResMgr::displaywindows::writeWindow::saveText::tooltip );
   m_actions.saveText->setWhatsThis( CResMgr::displaywindows::writeWindow::saveText::whatsthis );
-  m_actions.saveText->plug(mainToolBar());  
+  m_actions.saveText->plug(mainToolBar());
 
  	m_actions.deleteEntry = new KAction(i18n("Delete current entry"),
     CResMgr::displaywindows::writeWindow::deleteEntry::icon,
     CResMgr::displaywindows::writeWindow::deleteEntry::accel,
     this, SLOT(deleteEntry()),
-    actionCollection()
+    actionCollection(),
+		CResMgr::displaywindows::writeWindow::deleteEntry::actionName
   );
   m_actions.deleteEntry->setToolTip( CResMgr::displaywindows::writeWindow::deleteEntry::tooltip );
   m_actions.deleteEntry->setWhatsThis( CResMgr::displaywindows::writeWindow::deleteEntry::whatsthis );
@@ -84,12 +95,13 @@ void CHTMLWriteWindow::initView() {
  	m_actions.restoreText = new KAction(i18n("Restore original text"),
     CResMgr::displaywindows::writeWindow::restoreText::icon,
     CResMgr::displaywindows::writeWindow::restoreText::accel,
-    this, SLOT(restoreText()), actionCollection()
+    this, SLOT(restoreText()), actionCollection(),
+		CResMgr::displaywindows::writeWindow::restoreText::actionName
   );
   m_actions.restoreText->setToolTip( CResMgr::displaywindows::writeWindow::restoreText::tooltip );
   m_actions.restoreText->setWhatsThis( CResMgr::displaywindows::writeWindow::restoreText::whatsthis );
   m_actions.restoreText->plug(mainToolBar());
-  
+
 
   KToolBar* bar = new KToolBar(this);
   bar->setFullSize(true);
@@ -105,6 +117,18 @@ void CHTMLWriteWindow::initConnections() {
     this, SLOT(textChanged()) );
 };
 
+void CHTMLWriteWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
+  CWriteWindow::storeProfileSettings(profileWindow);
+  profileWindow->setWindowSettings( m_actions.syncWindow->isChecked() );
+};
+
+void CHTMLWriteWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
+  CWriteWindow::applyProfileSettings(profileWindow);
+  if (profileWindow->windowSettings()) {
+    m_actions.syncWindow->setChecked(true);
+	}
+};
+
 /** Is called when the current text was changed. */
 void CHTMLWriteWindow::textChanged() {
   m_actions.saveText->setEnabled( displayWidget()->isModified() );
@@ -118,3 +142,6 @@ void CHTMLWriteWindow::restoreText(){
   textChanged();
 }
 
+const bool CHTMLWriteWindow::syncAllowed() const {
+	return m_actions.syncWindow->isChecked();
+}

@@ -121,19 +121,16 @@ void CWriteWindow::lookup( CSwordKey* newKey ){
 	if (!newKey)
 		return;
 
-//	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
-// 		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
-//	}
-  if (/*CSwordModuleInfo* module =*/ modules().first()) {
-    displayWidget()->setText( newKey->rawText() );
-  }
-  
-	if (key() != newKey) {
+	if (key() != newKey) { //set passage of newKey to key() if they're different, otherwise we'd get mixed up if we look up newkey which may have a different module set
 		key()->key(newKey->key());
   }
 
+	if ( modules().first() ) {
+    displayWidget()->setText( key()->rawText() );
+  }
+
+
 	setCaption( windowCaption() );
-  
 }
 
 /** Returns the write display widget used by this window. */

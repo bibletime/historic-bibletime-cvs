@@ -432,8 +432,9 @@ namespace CResMgr {
       namespace syncWindow {
          QString tooltip;
          QString whatsthis;
-         const QString icon = "bt_sync";
-         const KShortcut accel = KKeySequence();//CResMgr::displaywindows::biblewindow::nextBook::accel;
+         const QString icon 		= "bt_sync";
+         const KShortcut accel 	= KKeySequence(); //CResMgr::displaywindows::biblewindow::nextBook::accel;
+				 const char* actionName	= "commentary_syncWindow";
        }
 
     };
@@ -476,18 +477,21 @@ namespace CResMgr {
         QString whatsthis;
         const QString icon      = "filesave";
         const KShortcut accel   = KKeySequence();
+				const char* actionName 	= "writeWindow_saveText";
       };
       namespace restoreText {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "undo";
         const KShortcut accel   = KKeySequence();
+				const char* actionName 	= "writeWindow_restoreText";
       };
       namespace deleteEntry {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "editdelete";
         const KShortcut accel   = KKeySequence();
+				const char* actionName 	= "writeWindow_deleteEntry";
       };
 
       //formatting buttons
@@ -496,18 +500,21 @@ namespace CResMgr {
         QString whatsthis;
         const QString icon      = "text_bold";
         const KShortcut accel   = KKeySequence();
+				const char* actionName 	= "writeWindow_boldText";
       };
       namespace italicText {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "text_italic";
         const KShortcut accel   = KKeySequence();
+				const char* actionName 	= "writeWindow_italicText";
       };
       namespace underlinedText {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "text_under";
         const KShortcut accel   = KKeySequence();
+				const char* actionName 	= "writeWindow_underlineText";
       };
 
       namespace alignLeft {
@@ -515,33 +522,41 @@ namespace CResMgr {
         QString whatsthis;
         const QString icon      = "text_left";
         const KShortcut accel   = KKeySequence();
+				const char* actionName 	= "writeWindow_alignLeft";
       };
       namespace alignCenter {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "text_center";
         const KShortcut accel   = KKeySequence();
+				const char* actionName 	= "writeWindow_alignCenter";
       };
       namespace alignRight {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "rightjust";
         const KShortcut accel   = KKeySequence();
+				const char* actionName 	= "writeWindow_alignRight";
       };
       namespace alignJustify {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "text_block";
         const KShortcut accel   = KKeySequence();
+				const char* actionName	= "writeWindow_alignJustify";
       };
 
       namespace fontFamily {
         QString tooltip;
         QString whatsthis;
+	      const KShortcut accel   = KKeySequence();
+				const char* actionName	= "writeWindow_fontFamily";
       };
       namespace fontSize {
         QString tooltip;
         QString whatsthis;
+	      const KShortcut accel   = KKeySequence();
+				const char* actionName	= "writeWindow_fontSize";
       };
       namespace fontColor {
         QString tooltip;

@@ -31,14 +31,21 @@ class KAction;
   */
 class CHTMLWriteWindow : public CPlainWriteWindow  {
    Q_OBJECT
-public: 
+public:
 	CHTMLWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name = 0);
-	~CHTMLWriteWindow();
-//  /**
-//  * Setups the popup menu of this display widget.
-//  */
-//  virtual void setupPopupMenu();
-//
+	virtual ~CHTMLWriteWindow();
+
+  /**
+  * Store the settings of this window in the given CProfileWindow object.
+  */
+  virtual void storeProfileSettings( CProfileWindow* );
+  /**
+  * Store the settings of this window in the given profile window.
+  */
+  virtual void applyProfileSettings( CProfileWindow* );
+
+	virtual const bool syncAllowed() const;
+
 protected: // Protected methods
   /**
   * Initialize the state of this widget.
@@ -48,7 +55,7 @@ protected: // Protected methods
   virtual const CDisplayWindow::WriteWindowType writeWindowType() {
     return CDisplayWindow::HTMLWindow;
   };
-  
+
 protected slots:
   /**
   * Is called when the current text was changed.
@@ -63,7 +70,8 @@ private:
   struct {
     KAction* saveText;
     KAction* restoreText;
-    KAction* deleteEntry;    
+    KAction* deleteEntry;
+		KToggleAction* syncWindow;
   } m_actions;
 };
 

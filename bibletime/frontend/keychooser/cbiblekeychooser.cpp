@@ -128,15 +128,11 @@ CSwordKey* const CBibleKeyChooser::key(){
 }
 
 void CBibleKeyChooser::setKey(CSwordKey* key){
-//	qWarning("CBibleKeyChooser::setKey(CSwordKey* key)");
  	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
-			
-//	const unsigned int bookIndex = m_modules.first()->bookNumber( m_key->book() );
+
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
-
-	//qWarning("setkey: %s: %i %i:%i", m_key->book().latin1(), bookIndex, chapter, verse);
 
 	//reset the keychooser parts only if we found a valid book
 	const int count = w_book->comboBox()->count();
@@ -148,34 +144,33 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 			break;
 		}
 	}
-	
+
 	if (bookIsValid) {	//we have a valid book
-		if (w_book->comboBox()->currentText() != m_key->book()) //necessary?
+		if (w_book->comboBox()->currentText() != m_key->book()) { //necessary?
 			w_book->setItem( m_key->book() );
+		}
 
 		w_chapter->reset(m_modules.first()->chapterCount(m_key->book()), chapter-1, false);
 		w_verse->reset(m_modules.first()->verseCount(m_key->book(), chapter), verse-1, false);
-		
-//    qWarning("key changed: %s", m_key->key().latin1());
-    emit keyChanged(m_key);					
+
+    emit keyChanged(m_key);
 	}
 	else {
-  	w_chapter->comboBox()->setCurrentItem(0);				
- 		m_key->Chapter(1);		
+  	w_chapter->comboBox()->setCurrentItem(0);
+ 		m_key->Chapter(1);
 
-    w_verse->comboBox()->setCurrentItem(0);				
-		m_key->Verse(1);		
+    w_verse->comboBox()->setCurrentItem(0);
+		m_key->Verse(1);
 	}
 }
 
-/**  */
 void CBibleKeyChooser::chapterNextRequested(void){
 	if (!isUpdatesEnabled())
 		return;
-	
-	setUpdatesEnabled(false);	
+
+	setUpdatesEnabled(false);
 	if (m_key)
-		emit beforeKeyChange(m_key->key());	
+		emit beforeKeyChange(m_key->key());
 	if (m_key->next(CSwordVerseKey::UseChapter))	
 		setKey(m_key);
 	setUpdatesEnabled(true);	
