@@ -320,26 +320,43 @@ CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOption
 const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
 	QString linkText;
 	
-	if (module && (module->type() == CSwordModuleInfo::Bible)) {
-		CSwordVerseKey vk(module);
+	const bool isBible = module && (module->type() == CSwordModuleInfo::Bible);
+	CSwordVerseKey vk(module); //only valid for bible modules, i.e. isBible == true
+	if (isBible) {
 		vk = item.key();
-
-		switch (item.settings().keyRenderingFace) {
-			case KeyTreeItem::Settings::CompleteShort:
+	}
+		
+	switch (item.settings().keyRenderingFace) {
+		case KeyTreeItem::Settings::NoKey: {
+			linkText = QString::null;
+			break; //no key is valid for all modules
+		}
+		case KeyTreeItem::Settings::CompleteShort: {
+			if (isBible) {
 				linkText = QString::fromUtf8(vk.getShortText());
 				break;
-			case KeyTreeItem::Settings::CompleteLong:
+			}
+			//fall through for non-Bible modules
+		}
+		case KeyTreeItem::Settings::CompleteLong: {
+			if (isBible) {
 				linkText = vk.key();
-				break;				
-			default:
+				break;
+			}
+			//fall through for non-Bible modules
+		}
+		case KeyTreeItem::Settings::SimpleKey: {
+			if (isBible) {
 				linkText = QString::number(vk.Verse());
 				break;
-		}		
-// 			linkText = QString::number(vk.Verse());
-	}
-	else {
-		linkText = item.key();
-	}
+			}
+			//fall through for non-Bible modules
+		}
+		default: { //default behaviour to return the passed key
+			linkText = item.key();
+			break;
+		}
+	}	
 	
   if (linkText.isEmpty()) {
     return QString::fromLatin1("<a id=\"%1\" name=\"%2\" />")

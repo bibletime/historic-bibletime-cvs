@@ -155,8 +155,8 @@ void CHTMLReadDisplay::selectAll() {
 void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
  	qWarning("moving to anchor %s", anchor.latin1());
 	Q_ASSERT( gotoAnchor(anchor) );
-	nextAnchor();
-	prevAnchor();
+/*	nextAnchor();
+	prevAnchor();*/
 }
 
 void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args){
@@ -228,7 +228,7 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
   KHTMLPart::khtmlMousePressEvent(event);
 }
 
-/** Reimplementation for our drag&drop system. */
+/** Reimplementation for our drag&drop system. Also needed for the mouse tracking*/
 void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
   if( e->qmouseEvent()->state() & LeftButton ) { //left mouse button pressed
 		const int delay = KGlobalSettings::dndEventDelay();
@@ -268,8 +268,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 			}
 		}
 	}
- 	else { //no mouse button pressed
-		//KHTMLPart::khtmlMouseMoveEvent(e);
+ 	else if (getMouseTracking()) { //no mouse button pressed and tracking enabled
 	  DOM::Node node = e->innerNode();//m_view->part()->nodeUnderMouse();
 		bool setInfo = false;
 		

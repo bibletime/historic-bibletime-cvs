@@ -16,9 +16,12 @@
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordkey.h"
 #include "backend/cswordversekey.h"
+#include "backend/creferencemanager.h"
 #include "backend/cdisplaytemplatemgr.h"
 
 #include "frontend/cbtconfig.h"
+#include "frontend/display/cdisplay.h"
+#include "frontend/display/creaddisplay.h"
 
 #include "util/scoped_resource.h"
 
@@ -28,8 +31,6 @@
 #include <qscrollview.h>
 
 //KDE includes
-#include <khtml_part.h>
-#include <khtmlview.h>
 #include <klocale.h>
 
 CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
@@ -37,8 +38,11 @@ CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
 {
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	QLabel* headingLabel = new QLabel(i18n("Info display"),this);
-	m_htmlPart = new KHTMLPart(this);
-
+	
+	m_htmlPart = CDisplay::createReadInstance(0, this);
+	Q_ASSERT(m_htmlPart);
+	m_htmlPart->setMouseTracking(false); //we don't want strong/lemma/note mouse infos
+	
 	layout->addWidget(headingLabel);
 	layout->addWidget(m_htmlPart->view());
 }
@@ -63,31 +67,31 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 	for (ListInfoData::const_iterator it = list.begin(); it != end; ++it) {
 	  switch ( (*it).first ) {
 			case Lemma:
-				qWarning("lemma");
+// 				qWarning("lemma");
 				text += decodeLemma( (*it).second );
 				continue;
 			case Morph:
-				qWarning("morph");
+// 				qWarning("morph");
 				text += decodeMorph( (*it).second );
 				continue;
 			case CrossReference:
-				qWarning("cross ref");
+// 				qWarning("cross ref");
 				text += decodeCrossReference( (*it).second );
 				continue;
 			case Footnote:
-				qWarning("note");
+// 				qWarning("note");
 				text += decodeFootnote( (*it).second );
 				continue;
 			case WordTranslation:
-				qWarning("word");
+// 				qWarning("word");
 				text += getWordTranslation( (*it).second );
 				continue;
 			case WordGloss:
-				qWarning("word gloss");
+// 				qWarning("word gloss");
 				//text += getWordTranslation( (*it).second );
 				continue;
 			default:
-				qWarning("default");
+// 				qWarning("default");
 				continue;
 		};
 	}
@@ -97,9 +101,10 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 	settings.pageCSS_ID = "infodisplay";
 	QString content = mgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
 	
-	m_htmlPart->begin();
+	m_htmlPart->setText(content);
+/*	m_htmlPart->begin();
 	m_htmlPart->write( content );
-	m_htmlPart->end();
+	m_htmlPart->end();*/
 }
 
 
@@ -130,10 +135,12 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 		SWKey* key = refs.getElement(i);
 		Q_ASSERT(key);
 		
+		CTextRendering::KeyTreeItem::Settings settings(false, CTextRendering::KeyTreeItem::Settings::CompleteShort);
+
 		CTextRendering::KeyTreeItem* i = new CTextRendering::KeyTreeItem(
 			QString::fromUtf8(key->getText()),
 			CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible)), 
-			CTextRendering::KeyTreeItem::Settings()
+			settings
 		);
 		
 		tree.append( i );
@@ -269,9 +276,10 @@ void CInfoDisplay::clearInfo() {
 	CDisplayTemplateMgr::Settings settings;
 	settings.pageCSS_ID = "infodisplay";
 	
-	m_htmlPart->begin();
-	m_htmlPart->write( tmgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, settings) );
-	m_htmlPart->end();
+// 	m_htmlPart->begin();
+	m_htmlPart->setText( tmgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, settings) );
+// 	m_htmlPart->end();
+//	m_htmlPart->setText(QString::null);
 }
 
 
@@ -286,4 +294,60 @@ CInfoDisplay::CrossRefRendering::CrossRefRendering( CSwordBackend::DisplayOption
  
 const QString CInfoDisplay::CrossRefRendering::finishText( const QString& text, KeyTree& ) {
 	return text;
+}
+
+const QString CInfoDisplay::CrossRefRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
+	QString linkText;
+	
+	const bool isBible = module && (module->type() == CSwordModuleInfo::Bible);
+	CSwordVerseKey vk(module); //only valid for bible modules, i.e. isBible == true
+	if (isBible) {
+		vk = item.key();
+	}
+		
+	switch (item.settings().keyRenderingFace) {
+		case KeyTreeItem::Settings::NoKey: {
+			linkText = QString::null;
+			break; //no key is valid for all modules
+		}
+		case KeyTreeItem::Settings::CompleteShort: {
+			if (isBible) {
+				linkText = QString::fromUtf8(vk.getShortText());
+				break;
+			}
+			//fall through for non-Bible modules
+		}
+		case KeyTreeItem::Settings::CompleteLong: {
+			if (isBible) {
+				linkText = vk.key();
+				break;
+			}
+			//fall through for non-Bible modules
+		}
+		case KeyTreeItem::Settings::SimpleKey: {
+			if (isBible) {
+				linkText = QString::number(vk.Verse());
+				break;
+			}
+			//fall through for non-Bible modules
+		}
+		default: { //default behaviour to return the passed key
+			linkText = item.key();
+			break;
+		}
+	}	
+	
+  if (!linkText.isEmpty()) { //if we have a valid link text
+    return QString::fromLatin1("<a href=\"%3\">%4</a>")
+      .arg(
+				CReferenceManager::encodeHyperlink(
+					module->name(), 
+					item.key(), 
+					CReferenceManager::typeFromModule(module->type())
+				)
+			)
+     .arg(linkText);
+  }
+	
+	return QString::null;
 }

@@ -21,8 +21,9 @@
 #include <qvaluelist.h>
 #include <qpair.h>
 
+//class forward declarations
+class CReadDisplay;
 
-class KHTMLPart;
 /**
 @author The BibleTime team
 */
@@ -57,13 +58,14 @@ protected:
 	const QString getWordTranslation( const QString& data );
  
 private:
-	KHTMLPart* m_htmlPart;
+	CReadDisplay* m_htmlPart;
 	
 	class CrossRefRendering : public CHTMLExportRendering {
 	public:
 		CrossRefRendering( CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults() );
-	protected:	
 		
+	protected:	
+		virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module );
 		virtual const QString finishText( const QString&, KeyTree& tree );
 	};
 };

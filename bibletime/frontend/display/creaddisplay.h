@@ -43,6 +43,12 @@ public:
   virtual void moveToAnchor( const QString& ) = 0;
   virtual void print(const CDisplay::TextPart);
 
+	void setMouseTracking(const bool trackingEnabled) {
+		m_useMouseTracking = trackingEnabled;
+	};
+	const bool getMouseTracking() const {
+		return m_useMouseTracking;
+	};
 
 protected: // Protected methods
 	friend class CDisplay;
@@ -63,6 +69,8 @@ private: // Public attributes
   */
 
   QString m_activeAnchor;
+	
+	bool m_useMouseTracking;
 };
 
 #endif

@@ -91,6 +91,7 @@ public:
 	const QString renderKeyTree( KeyTree& );
 	
 	const QString renderKeyRange( const QString& start, const QString& stop, const ListCSwordModuleInfo& modules, const QString& hightlightKey = QString::null, const KeyTreeItem::Settings settings = KeyTreeItem::Settings() );
+	
 	const QString renderSingleKey( const QString& key, const ListCSwordModuleInfo&, const KeyTreeItem::Settings settings = KeyTreeItem::Settings() );
 	
 protected:
@@ -159,7 +160,6 @@ protected:
 inline CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() const {
 	if (!m_childList) {
 		m_childList = new KeyTree();
-		//m_childList->setAutoDelete(true);
 	}
 		
 	return m_childList;

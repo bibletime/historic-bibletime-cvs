@@ -40,7 +40,12 @@
 //KDE includes
 #include <klocale.h>
 
-CReadDisplay::CReadDisplay(CReadWindow* readWindow) : CDisplay(readWindow), m_activeAnchor(QString::null) {
+CReadDisplay::CReadDisplay(CReadWindow* readWindow) : 
+	CDisplay(readWindow), 
+	m_activeAnchor(QString::null), 
+	m_useMouseTracking(true) 
+{
+
 }
 
 CReadDisplay::~CReadDisplay(){
