@@ -145,7 +145,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 		else if (!strncmp(token, "scripRef ", 9) /*|| !strncmp(token, "scripRef v", 10) */) { // a more complicated scripRef
 			userData["inscriptRef"] = "true";
       token += 9;
-      sword::SWBuf module = "";
+      sword::SWBuf module;
       
       if ( const char* pos = strstr(token, "version=\"") ) { //a module is given in the scripRef tag!
         pos += 9;
@@ -189,43 +189,36 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
       userData["Title"] = "true";
 			buf += "<div class=\"booktitle\">";
 		}
-//		else if (!strncmp(token, "img ", 4)) {
-//			const char *src = strstr(token, "src");
-//			if (!src)	{	// assert we have a src attribute
-//				return false;
-//      }
-//
-//			buf += '<';
-//			for (const char *c = token; *c; c++) {
-//				if (c == src) {
-//					for (;((*c) && (*c != '"')); c++) {
-//						buf += *c;
-//          }
-//
-//					if (!*c) {
-//            c--;
-//            continue;
-//          }
-//
-//					buf += '"';
-//					if (*(c+1) == '/') {
-//						buf += "file:";
-//						buf += module->getConfigEntry("AbsoluteDataPath");
-//						if (*(*buf-1) == '/')
-//							c++;		// skip '/'
-//					}
-//					continue;
-//				}
-//				buf += *c;
-//			}
-//			buf += '>';
-//		}		
-		else { // let unknown token pass thru
+		else if (!strncmp(token, "img ", 4)) {
+			const char *src = strstr(token, "src");
+			if (!src)		// assert we have a src attribute
+				return false;
+
 			buf += '<';
-			for (i = 0; i < tokenLength; i++) {
-				buf += token[i];
-      }
+			for (const char *c = token; *c; c++) {
+				if (c == src) {
+					for (;((*c) && (*c != '"')); c++)
+						buf += *c;
+
+					if (!*c) { c--; continue; }
+
+					buf += '"';
+					if (*(c+1) == '/') {
+						buf += "file:";
+						buf += module->getConfigEntry("AbsoluteDataPath");
+						if (buf[buf.length()-2] == '/')
+							c++;		// skip '/'
+					}
+					continue;
+				}
+				buf += *c;
+			}
 			buf += '>';
+		}
+    else { // let unknown token pass thru
+			buf += '<';
+      buf += token;
+      buf += '>';
     }
   }
 	return true;
