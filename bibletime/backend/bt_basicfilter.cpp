@@ -124,9 +124,6 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
 		*to++ = *from;
 	}
 	*to++ = 0;
-	
-//	cout << text << endl;	
-	
 	*to = 0;
 	return 0;
 }

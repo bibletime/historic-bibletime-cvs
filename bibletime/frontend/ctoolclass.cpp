@@ -84,7 +84,9 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 		if (KMessageBox::warningYesNo(0,
 				QString::fromLatin1("<qt><B>%1</B><BR>%2</qt>")
 					.arg( i18n("The file does already exist!!") )
-					.arg( i18n("Do you want to overwrite it?"))))
+					.arg( i18n("Do you want to overwrite it?")))
+				== KMessageBox::No
+			)
 			return false;
 		else
 			saveFile.remove();

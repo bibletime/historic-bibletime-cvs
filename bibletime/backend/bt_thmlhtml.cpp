@@ -15,8 +15,10 @@
  ***************************************************************************/
 
 #include <stdlib.h>
-
 #include "bt_thmlhtml.h"
+
+//Qt includes
+
 
 BT_ThMLHTML::BT_ThMLHTML() {
 	setTokenStart("<");
@@ -117,12 +119,33 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
 			userData["inscriptRef"] = "true";
-			pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/", swordref_color);
-			for (i = 9; i < strlen(token)-1; i++)				
-				if(token[i] != '\"') 			
-					*(*buf)++ = token[i];
-			pushString(buf,"\">");
-		}		
+			pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/", swordref_color);									
+			
+			if (!strncmp(token, "scripRef v", 10)) { //module given
+				for (i = 18; i < strlen(token)-1; i++)				
+					if(token[i] != '\"')
+						*(*buf)++ = token[i];						
+					else
+						break;
+			}
+			else if (!strncmp(token, "scripRef p", 10)) { //passage without module
+				pushString(buf, "%s/", standard_bible);				
+				for (i = 18; i < strlen(token)-1; i++)				
+					if(token[i] != '\"') 			
+						*(*buf)++ = token[i];						
+					else
+						break;
+			}
+			if ( !strncmp(token+i+2, "passage", 7) ) { //passage after module part
+				pushString(buf, "/");
+				i+=11;				
+				for (; i < strlen(token)-1; i++)	{
+					if(token[i] != '\"') 			
+						*(*buf)++ = token[i];
+				}
+			}
+			pushString(buf,"\">");			
+		}
 		// we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 		else if (!strcmp(token, "scripRef")) {
 			userData["inscriptRef"] = "false";
