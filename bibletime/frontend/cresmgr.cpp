@@ -22,7 +22,6 @@
 
 
 namespace CResMgr {
-
   namespace modules {
     namespace bible {
       const QString icon_unlocked  = "bt_bible";
@@ -43,15 +42,14 @@ namespace CResMgr {
       const QString icon_unlocked  = "bt_book";
       const QString icon_locked    = "bt_book_locked";
       const QString icon_add       = "bt_book_add";
-    };
-    
+    };    
   };
   
   namespace mainMenu { //Main menu
     namespace file { //Main menu->File
       namespace clearQueue {
-        const QString tooltip    = CResMgr::makeToolTip( i18n("Clear the printing queue") );
-        const QString whatsthis  = CResMgr::makeWhatsThis( tooltip, i18n("Clear the print queue of BibleTime. All items will be removed from the list and the print button will be disabled.") );
+        const QString tooltip    = makeToolTip( i18n("Clear the printing queue") );
+        const QString whatsthis  = makeWhatsThis( tooltip, i18n("Clear the print queue of BibleTime. All items will be removed from the list and the print button will be disabled.") );
         const QString icon       = QString::fromLatin1("queue");
         const KShortcut accel    = KShortcut();
         const char* actionName   = "fileClearQueue_action";
@@ -228,6 +226,8 @@ namespace CResMgr {
   }  //end of main menu
 
   namespace searchdialog {
+    const QString icon = "find";
+    
     namespace searchButton {
       const QString tooltip     = makeToolTip(i18n("Start the search"));
       const QString whatsthis   = makeWhatsThis(tooltip, i18n("Starts to search the text in each of the chosen modules."));
@@ -311,10 +311,30 @@ namespace CResMgr {
       namespace moduleList {
         const QString tooltip     = makeToolTip(i18n("Used modules"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("The list of modules chosen for the search."));
+
+        namespace copyMenu {
+          const QString icon = "editcopy";
+        };
+        namespace saveMenu {
+          const QString icon = "filesace";
+        };
+        namespace printMenu {
+          const QString icon = "fileprint";
+        };
       };
       namespace foundItems {
         const QString tooltip     = makeToolTip(i18n("Found items of selected module"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("This list contains the search result of the selected module."));
+
+        namespace copyMenu {
+          const QString icon = "editcopy";
+        };
+        namespace saveMenu {
+          const QString icon = "filesace";
+        };
+        namespace printMenu {
+          const QString icon = "fileprint";
+        };
       };
       namespace textPreview {
         const QString tooltip     = makeToolTip(i18n("Text preview"));
@@ -327,15 +347,123 @@ namespace CResMgr {
   };
 
   namespace displaywindows {
+    namespace transliteration {
+      const QString icon = "bt_displayconfig";
+    };
+    namespace displaySettings {
+      const QString icon = "bt_displaytranslit";
+    };
+    
     namespace biblewindow {
-
+     namespace nextBook {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = Qt::CTRL + Qt::Key_B;
+      }
+      namespace previousBook {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_B;
+      }
+      namespace nextChapter {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = Qt::CTRL + Qt::Key_H;
+      }
+      namespace previousChapter {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_H;
+      }
+      namespace nextVerse {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = Qt::CTRL + Qt::Key_V;
+      }
+      namespace previousVerse {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_V;
+      }
+      namespace copyMenu {
+        const QString icon = "";//CResMgr::displaywindows::lexiconWindow::copyMenu::icon;
+      };
+      namespace saveMenu {
+        const QString icon = "";//CResMgr::displaywindows::lexiconWindow::saveMenu::icon;
+      }
+      namespace printMenu {
+        const QString icon = "";//CResMgr::displaywindows::lexiconWindow::printMenu::icon;
+      }
     };
-    namespace commentarywindow {
+    namespace commentaryWindow {
+     namespace nextBook {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::nextBook::accel;
+      }
+      namespace previousBook {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::previousBook::accel;
+      }
+      namespace nextChapter {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = KShortcut(); //CResMgr::displaywindows::biblewindow::nextChapter::accel;
+      }
+      namespace previousChapter {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = KShortcut();;//CResMgr::displaywindows::biblewindow::previousChapter::accel;
+      }
+      namespace nextVerse {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::nextVerse::accel;
+      }
+      namespace previousVerse {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::previousVerse::accel;
+      }
 
+     namespace syncWindow {
+        const QString icon = "bt_sync";
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::nextBook::accel;
+      }
+      
     };
-    namespace lexiconwindow {
-
+    namespace lexiconWindow {
+      namespace nextEntry {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = KShortcut();
+      }
+      namespace previousEntry {
+        const QString tooltip = "";
+        const QString whatsthis = "";
+        const KShortcut accel = KShortcut();
+      }
+            
+      namespace copyMenu {
+        const QString icon = "editcopy";
+      };
+      namespace saveMenu {
+        const QString icon = "filesave";
+      }
+      namespace printMenu {
+        const QString icon = "fileprint";
+      }
     };
+    namespace bookWindow {
+      namespace toggleTree{
+        const QString icon = "view_sidetree";
+        const KShortcut accel = KShortcut();
+      };
+    };
+    
     namespace writewindow {
       namespace saveText {
         const QString tooltip   = makeToolTip( i18n("Save the current text") );
@@ -400,15 +528,32 @@ namespace CResMgr {
         const QString icon      = "text_block";
         const KShortcut accel   = KShortcut();
       };
-      
+
     };
   };
 
   namespace printing {
+    namespace styleList {
+      namespace newStyle {
+        const QString tooltip = makeToolTip( i18n("New printing style") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Create a new printing style.<BR>The new style will be added to the list.") );
+        const QString icon = "filenew";
+      };
+      namespace deleteStyle {
+        const QString tooltip = makeToolTip( i18n("Delete printing style") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Remove the selected printing style from the list.") );
+        const QString icon = "editdelete";
+      };
+      namespace editStyle {
+        const QString tooltip = makeToolTip( i18n("Edit printing style") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Change the properties of the selected printing style.") );
+        const QString icon = "pencil";
+      };
+    };
   };
-
   namespace settings {
     namespace startup {
+      const QString icon = "bt_startconfig";
       namespace dailyTip {
         const QString tooltip   = makeToolTip( i18n("Show daily tip") );
         const QString whatsthis = makeWhatsThis( tooltip, i18n("Activate this box to see a daily tip on startup."));
@@ -423,12 +568,16 @@ namespace CResMgr {
       };
     };
     namespace fonts {
+      const QString icon = "fonts";
+            
       namespace typeChooser {
         const QString tooltip   = makeToolTip( i18n("Choose the area of application") );
         const QString whatsthis = makeWhatsThis( tooltip, i18n("Use this box to select how the font is used and change the font in the font chooser."));
       };
     };
     namespace colors {
+      const QString icon = "bt_displayconfig";
+            
       namespace text {
         const QString tooltip = makeToolTip( i18n("Text color") );
         const QString whatsthis = makeWhatsThis( tooltip, i18n("The color used for all normal text in the display windows."));
@@ -463,6 +612,8 @@ namespace CResMgr {
       };
     };
     namespace profiles {
+      const QString icon = "view_sidetree";
+            
       namespace list {
         const QString tooltip   = makeToolTip( i18n("") );
         const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
@@ -481,6 +632,8 @@ namespace CResMgr {
       };
     };
     namespace sword {
+      const QString icon = "bt_swordconfig";
+            
       namespace general {
         namespace cacheKeys {
           const QString tooltip   = makeToolTip( i18n("Use cache files for the lexicon entries") );
@@ -577,7 +730,77 @@ namespace CResMgr {
       };
     };
     namespace keys {
+      const QString icon = "key_bindings";
     };
   };
+
+    namespace mainIndex { //Main menu->Settings
+      namespace search {
+        const QString tooltip     = makeToolTip(i18n("Search in open modules"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Opens the search dialog to search in the currently opened modules."));
+        const QString icon        = "find";
+        const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_M;
+        const char* actionName    = "GMsearch_action";
+      }
+      namespace newFolder {
+        const QString icon = "folder_new";
+      }
+      namespace changeFolder {
+        const QString icon = "folder";
+      }
+      namespace openedFolder {
+        const QString icon = "folder_open";
+      }
+      namespace closedFolder {
+        const QString icon = "folder";
+      }
+
+      namespace bookmark {
+        const QString icon = "bookmark";
+      }
+      namespace changeBookmark {
+        const QString icon = "bookmark";
+      }
+      namespace importBookmarks {
+        const QString icon = "bookmark";
+      }
+      namespace exportBookmarks {
+        const QString icon = "bookmark";
+      }
+      namespace printBookmarks {
+        const QString icon = "fileprint";
+      }
+      namespace deleteItems {
+        const QString icon = "filedelete";
+      }
+
+      namespace editModuleMenu {
+        const QString icon = "pencil";
+      }
+      namespace editModulePlain {
+        const QString icon = "pencil";
+      }
+      namespace editModuleHTML {
+        const QString icon = "pencil";
+      }
+
+      namespace unlockModule {
+        const QString icon = "unlock";
+      }
+      namespace aboutModule {
+        const QString icon = "info";
+      }
+    };
+  
+  
+  namespace helpDialog {
+    const QString moduleLocked = "bibletime/helpdialog/help-module-encrypted.html";
+    const QString firstStart = "bibletime/helpdialog/help-first-startup.html";
+    const QString noSwordModules = "bibletime/helpdialog/help-no-modules.html";
+    const QString noSwordModuleConfigDir = "bibletime/helpdialog/help-no-mods-d.html";
+    const QString initBackendFailed = "bibletime/helpdialog/help-initbackend-failed.html";
+    const QString firstTimeSearchDialog = "bibletime/helpdialog/help-first-time-search.html";
+  };
+  
 };
 

@@ -17,7 +17,6 @@
 
 //BibleTime includes
 #include "creadwindow.h"
-#include "resource.h"
 
 #include "backend/centrydisplay.h"
 #include "backend/cswordkey.h"

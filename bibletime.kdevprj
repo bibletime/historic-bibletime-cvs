@@ -278,7 +278,7 @@ install_location=
 type=DATA
 
 [bibletime/Makefile.am]
-files=bibletime/main.cpp,bibletime/bibletime.cpp,bibletime/bibletime.h,bibletime/bibletime_slots.cpp,bibletime/bibletime_init.cpp,bibletime/whatsthisdef.h,bibletime/tooltipdef.h,bibletime/resource.h
+files=bibletime/main.cpp,bibletime/bibletime.cpp,bibletime/bibletime.h,bibletime/bibletime_slots.cpp,bibletime/bibletime_init.cpp,bibletime/whatsthisdef.h,bibletime/tooltipdef.h
 sub_dirs=backend,frontend,pics,docs,xml,printing,libhtmlparse,util
 type=prog_main
 
@@ -1316,12 +1316,6 @@ install_location=
 type=SOURCE
 
 [bibletime/printing/cstylelist.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[bibletime/resource.h]
 dist=true
 install=false
 install_location=

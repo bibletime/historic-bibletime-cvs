@@ -23,14 +23,13 @@
 #include "backend/cswordldkey.h"
 
 #include "frontend/cbtconfig.h"
+#include "frontend/cresmgr.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
 #include "frontend/keychooser/ckeychooser.h"
 
 #include "util/ctoolclass.h"
-
-#include "resource.h"
 
 //Qt includes
 
@@ -58,8 +57,8 @@ void CLexiconReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
 
 /** Reimplementation. */
 void CLexiconReadWindow::insertKeyboardActions( KAccel* a ){
-  a->insert("Next entry",     i18n("Next entry"),     "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);
-	a->insert("Previous entry", i18n("Previous entry"), "", IDK_PRESENTER_PREVIOUS_ENTRY, 0, "", true, true);	
+  a->insert("Next entry",     i18n("Next entry"),     "", CResMgr::displaywindows::lexiconWindow::nextEntry::accel, 0, "", true, true);
+	a->insert("Previous entry", i18n("Previous entry"), "", CResMgr::displaywindows::lexiconWindow::previousEntry::accel, 0, "", true, true);	
 }
 
 void CLexiconReadWindow::initKeyboardActions() {
@@ -108,7 +107,7 @@ void CLexiconReadWindow::setupPopupMenu(){
 
   (new KActionSeparator())->plug( popup() );
 
- 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), ICON_EDIT_COPY);	
+ 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::lexiconWindow::copyMenu::icon);	
  	
   m_actions.copy.reference = new KAction(i18n("Reference"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.reference);
@@ -120,14 +119,14 @@ void CLexiconReadWindow::setupPopupMenu(){
  	m_actions.copyMenu->insert(m_actions.copy.selectedText);
  	m_actions.copyMenu->plug(popup());
 
- 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),ICON_FILE_SAVE);	
+ 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::displaywindows::lexiconWindow::saveMenu::icon);	
 	m_actions.save.entryAsPlain = new KAction(i18n("Entry as plain text"), KShortcut(0), this, SLOT(saveAsPlain()),actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.entryAsPlain);
  	m_actions.save.entryAsHTML = new KAction(i18n("Entry as HTML"), KShortcut(0), this, SLOT(saveAsHTML()),actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.entryAsHTML);
  	m_actions.saveMenu->plug(popup());
 
- 	m_actions.printMenu = new KActionMenu(i18n("Print..."),ICON_FILE_PRINT);	
+ 	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::displaywindows::lexiconWindow::printMenu::icon);	
  	m_actions.print.reference = new KAction(i18n("Reference"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection());
  	m_actions.printMenu->insert(m_actions.print.reference); 	 	
   m_actions.print.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAll()), actionCollection());

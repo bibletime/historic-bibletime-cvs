@@ -16,15 +16,15 @@
  ***************************************************************************/
 
 //QWhatsThis defines for the groupmanager
-#define TT_GM_WIDGET i18n("The main index")
-#define TT_GM_NEW_GROUP i18n("Create a new folder")
-#define TT_GM_CHANGE_GROUP i18n("Change this folder")
-#define TT_GM_CHANGE_BOOKMARK i18n("Change this bookmark")
-#define TT_GM_IMPORT_BOOKMARKS i18n("Import bookmarks")
-#define TT_GM_EXPORT_BOOKMARKS i18n("Export bookmarks")
-#define TT_GM_PRINT_BOOKMARK i18n("Add bookmark to printing queue")
-#define TT_GM_UNLOCK_MODULE i18n("Unlock this module")
-#define TT_GM_ABOUT_MODULE i18n("About this module")
+//#define TT_GM_WIDGET i18n("The main index")
+//#define TT_GM_NEW_GROUP i18n("Create a new folder")
+//#define TT_GM_CHANGE_GROUP i18n("Change this folder")
+//#define TT_GM_CHANGE_BOOKMARK i18n("Change this bookmark")
+//#define TT_GM_IMPORT_BOOKMARKS i18n("Import bookmarks")
+//#define TT_GM_EXPORT_BOOKMARKS i18n("Export bookmarks")
+//#define TT_GM_PRINT_BOOKMARK i18n("Add bookmark to printing queue")
+//#define TT_GM_UNLOCK_MODULE i18n("Unlock this module")
+//#define TT_GM_ABOUT_MODULE i18n("About this module")
 
 //QWhatsThis defines for the presenters
 #define TT_MDI_AREA_WIDGET i18n("The working area")
@@ -116,7 +116,7 @@
 #define TT_PD_LAYOUT_BORDER_RIGHT i18n("Right border")
 #define TT_PD_LAYOUT_BORDER_TOP i18n("Upper border")
 #define TT_PD_LAYOUT_BORDER_BOTTOM i18n("Lower border")
-#define TT_PD_LAYOUT_STYLE_LIST i18n("List of print styles")
-#define TT_PD_LAYOUT_STYLE_DELETE i18n("Delete the selected style")
-#define TT_PD_LAYOUT_STYLE_EDIT i18n("Edit the selected style")
-#define TT_PD_LAYOUT_STYLE_NEW i18n("Create a new printing style")
+//#define TT_PD_LAYOUT_STYLE_LIST i18n("List of print styles")
+//#define TT_PD_LAYOUT_STYLE_DELETE i18n("Delete the selected style")
+//#define TT_PD_LAYOUT_STYLE_EDIT i18n("Edit the selected style")
+//#define TT_PD_LAYOUT_STYLE_NEW i18n("Create a new printing style")

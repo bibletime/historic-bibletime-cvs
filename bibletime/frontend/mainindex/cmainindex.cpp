@@ -21,11 +21,12 @@
 
 #include "backend/creferencemanager.h"
 #include "backend/cswordmoduleinfo.h"
+
 #include "frontend/searchdialog/csearchdialog.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cdragdropmgr.h"
+#include "frontend/cresmgr.h"
 
-#include "resource.h"
 #include "tooltipdef.h"
 #include "whatsthisdef.h"
 
@@ -127,7 +128,7 @@ void CMainIndex::initView(){
  	m_toolTip = new ToolTip(this);
   setTooltipColumn(-1);
   setShowToolTips(false);//to disable Qt's tooltips   	
- 	QWhatsThis::add(this, WT_GM_WIDGET );
+// 	QWhatsThis::add(this, WT_GM_WIDGET );
  	 		
 	setBackgroundMode(PaletteBase);
 //	setSorting(-1);
@@ -148,23 +149,23 @@ void CMainIndex::initView(){
   m_popup = new KPopupMenu(this);
   m_popup->insertTitle(i18n("Main index"));
 
-  m_actions.newFolder = new KAction(i18n("Create a new folder"),GROUP_NEW_ICON_SMALL, 0, this, SLOT(createNewFolder()), this);
-  m_actions.changeFolder = new KAction(i18n("Change this folder"),GROUP_CHANGE_ICON_SMALL, 0, this, SLOT(changeFolder()), this);
+  m_actions.newFolder = new KAction(i18n("Create a new folder"), CResMgr::mainIndex::newFolder::icon, 0, this, SLOT(createNewFolder()), this);
+  m_actions.changeFolder = new KAction(i18n("Change this folder"),CResMgr::mainIndex::changeFolder::icon, 0, this, SLOT(changeFolder()), this);
 
-  m_actions.changeBookmark = new KAction(i18n("Change this bookmark"),BOOKMARK_CHANGE_ICON_SMALL, 0, this, SLOT(changeBookmark()), this);
-  m_actions.importBookmarks = new KAction(i18n("Import bookmarks"),BOOKMARK_IMPORT_ICON_SMALL, 0, this, SLOT(importBookmarks()), this);
-  m_actions.exportBookmarks = new KAction(i18n("Export bookmarks"),BOOKMARK_EXPORT_ICON_SMALL, 0, this, SLOT(exportBookmarks()), this);
-  m_actions.printBookmarks = new KAction(i18n("Print bookmarks"),BOOKMARK_PRINT_ICON_SMALL, 0, this, SLOT(printBookmarks()), this);
+  m_actions.changeBookmark = new KAction(i18n("Change this bookmark"),CResMgr::mainIndex::changeBookmark::icon, 0, this, SLOT(changeBookmark()), this);
+  m_actions.importBookmarks = new KAction(i18n("Import bookmarks"),CResMgr::mainIndex::importBookmarks::icon, 0, this, SLOT(importBookmarks()), this);
+  m_actions.exportBookmarks = new KAction(i18n("Export bookmarks"),CResMgr::mainIndex::exportBookmarks::icon, 0, this, SLOT(exportBookmarks()), this);
+  m_actions.printBookmarks = new KAction(i18n("Print bookmarks"),CResMgr::mainIndex::printBookmarks::icon, 0, this, SLOT(printBookmarks()), this);
 
-  m_actions.deleteEntries = new KAction(i18n("Remove selected item(s)"),ITEMS_DELETE_ICON_SMALL, 0, this, SLOT(deleteEntries()), this);
+  m_actions.deleteEntries = new KAction(i18n("Remove selected item(s)"),CResMgr::mainIndex::deleteItems::icon, 0, this, SLOT(deleteEntries()), this);
 
-  m_actions.editModuleMenu = new KActionMenu(i18n("Edit this module"),MODULE_SEARCH_ICON_SMALL, this);
-  m_actions.editModulePlain = new KAction(i18n("Plain text"),MODULE_SEARCH_ICON_SMALL, 0, this, SLOT(editModulePlain()), this);
-  m_actions.editModuleHTML = new KAction(i18n("HTML"),MODULE_SEARCH_ICON_SMALL, 0, this, SLOT(editModuleHTML()), this);
+  m_actions.editModuleMenu = new KActionMenu(i18n("Edit this module"),CResMgr::mainIndex::editModuleMenu::icon, this);
+  m_actions.editModulePlain = new KAction(i18n("Plain text"),CResMgr::mainIndex::editModulePlain::icon, 0, this, SLOT(editModulePlain()), this);
+  m_actions.editModuleHTML = new KAction(i18n("HTML"),CResMgr::mainIndex::editModuleHTML::icon, 0, this, SLOT(editModuleHTML()), this);
     
-  m_actions.searchInModules = new KAction(i18n("Search in selected module(s)"),MODULE_SEARCH_ICON_SMALL, 0, this, SLOT(searchInModules()), this);
-  m_actions.unlockModule = new KAction(i18n("Unlock this module"),MODULE_UNLOCK_ICON_SMALL, 0, this, SLOT(unlockModule()), this);
-  m_actions.aboutModule = new KAction(i18n("About this module"),MODULE_ABOUT_ICON_SMALL, 0, this, SLOT(aboutModule()), this);
+  m_actions.searchInModules = new KAction(i18n("Search in selected module(s)"),CResMgr::mainIndex::search::icon, 0, this, SLOT(searchInModules()), this);
+  m_actions.unlockModule = new KAction(i18n("Unlock this module"),CResMgr::mainIndex::unlockModule::icon, 0, this, SLOT(unlockModule()), this);
+  m_actions.aboutModule = new KAction(i18n("About this module"),CResMgr::mainIndex::aboutModule::icon, 0, this, SLOT(aboutModule()), this);
 
 
   m_actions.newFolder->plug(m_popup);

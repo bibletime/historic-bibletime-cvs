@@ -17,7 +17,6 @@
 
 #include "csearchdialog.h"
 
-#include "resource.h"
 #include "whatsthisdef.h"
 #include "tooltipdef.h"
 
@@ -25,6 +24,7 @@
 #include "backend/cswordversekey.h"
 
 #include "frontend/cbtconfig.h"
+#include "frontend/chtmldialog.h"
 #include "frontend/cresmgr.h"
 
 #include "util/ctoolclass.h"
@@ -47,6 +47,7 @@
 #include <kapplication.h>
 #include <kfiledialog.h>
 #include <klocale.h>
+#include <kiconloader.h>
 
 const int SPACE_BETWEEN_PARTS = 5;
 const int RIGHT_BORDER = 15;
@@ -72,9 +73,14 @@ static CSearchDialog* m_staticDialog = 0;
 
 void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString& searchText, QWidget* parentDialog) {
   if (!m_staticDialog) {
+    //check whether the search dialog was shown before, if not show the searchdialog introduction
+		if (!CBTConfig::get(CBTConfig::firstSearchDialog)) {
+      CHTMLDialog dlg(CResMgr::helpDialog::firstTimeSearchDialog);
+      CBTConfig::set(CBTConfig::firstSearchDialog, true);
+    };
     m_staticDialog = new CSearchDialog(parentDialog);
   };
-  Q_ASSERT(m_staticDialog);
+//  Q_ASSERT(m_staticDialog);
   m_staticDialog->reset();
   if (modules.count()) {
     m_staticDialog->setModules(modules);
@@ -99,7 +105,7 @@ CSearchDialog* const CSearchDialog::getSearchDialog() {
 CSearchDialog::CSearchDialog(QWidget *parent)
   : KDialogBase(Tabbed, i18n("Search dialog"), Close | User1 | User2, User1, parent, "CSearchDialog", false, true, i18n("Search"), i18n("Interrupt")) {
 
-	setIcon(MODULE_SEARCH_ICON_SMALL);
+	setIcon(CResMgr::searchdialog::icon);
 	m_searcher.connectPercentUpdate(this, SLOT(percentUpdate()));
 	m_searcher.connectFinished(this, SLOT(searchFinished()));
 
@@ -431,7 +437,7 @@ void CModuleChooser::initTree(){
       language = langMgr->languageForAbbrev(*it).translatedName();
 
       QListViewItem* langFolder = new QListViewItem(typeFolder,language);
-      langFolder->setPixmap(0,GROUP_ICON_SMALL);
+      langFolder->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
       //create the module items of this lang folder
       for (modsForType.first(); modsForType.current(); modsForType.next()) {
@@ -441,7 +447,7 @@ void CModuleChooser::initTree(){
         };
       };
     };
-    typeFolder->setPixmap(0,GROUP_ICON_SMALL);
+    typeFolder->setPixmap(0,SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
     if (incType)
       ++type;

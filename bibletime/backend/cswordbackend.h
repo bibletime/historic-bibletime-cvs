@@ -63,7 +63,8 @@ public:
 		hebrewPoints,
 		hebrewCantillation,
 		greekAccents,
-    scriptureReferences,		
+    scriptureReferences,
+    redLetterWords,
     textualVariants,
 		filterTypesMIN = footnotes,
 		filterTypesMAX = textualVariants,
@@ -82,6 +83,7 @@ public:
 		int hebrewCantillation;
 		int greekAccents;
 		int textualVariants;
+    int redLetterWords;
     int scriptureReferences;
     int transliteration;
 	};

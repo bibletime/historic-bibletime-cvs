@@ -18,10 +18,9 @@
 //BibleTime includes
 #include "ccommentaryreadwindow.h"
 
-#include "resource.h"
-
 #include "frontend/cprofilewindow.h"
 #include "frontend/cbtconfig.h"
+#include "frontend/cresmgr.h"
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
@@ -52,7 +51,7 @@ void CCommentaryReadWindow::storeProfileSettings( CProfileWindow* profileWindow 
 
 void CCommentaryReadWindow::initView(){
 	CLexiconReadWindow::initView();
-	m_syncButton = new KToggleAction(i18n("Sync with active bible"), ICON_SYNC, KShortcut(0)/*, this, SLOT(syncToggled(bool))*/, actionCollection());	
+	m_syncButton = new KToggleAction(i18n("Sync with active bible"), CResMgr::displaywindows::commentaryWindow::syncWindow::icon, CResMgr::displaywindows::commentaryWindow::syncWindow::accel/*, this, SLOT(syncToggled(bool))*/, actionCollection());	
   m_syncButton->plug(mainToolBar());	
 }
 
@@ -83,12 +82,12 @@ CSwordVerseKey* CCommentaryReadWindow::verseKey(){
 
 /** Reimplementation. */
 void CCommentaryReadWindow::insertKeyboardActions( KAccel* const a ){
-  a->insert("Next book",        i18n("Next book"),        "", IDK_PRESENTER_NEXT_BOOK,        0, "");
-	a->insert("Previous book",    i18n("Previous book"),    "", IDK_PRESENTER_PREVIOUS_BOOK,    0, "");
-	a->insert("Next chapter",     i18n("Next chapter"),     "", IDK_PRESENTER_NEXT_CHAPTER,     0, "");
-	a->insert("Previous chapter", i18n("Previous chapter"), "", IDK_PRESENTER_PREVIOUS_CHAPTER, 0, "");
-	a->insert("Next verse",       i18n("Next verse"),       "", IDK_PRESENTER_NEXT_VERSE,       0, "");
-	a->insert("Previous verse",   i18n("Previous verse"),   "", IDK_PRESENTER_PREVIOUS_VERSE,   0, "");
+  a->insert("Next book",        i18n("Next book"),        "", CResMgr::displaywindows::commentaryWindow::nextBook::accel, 0, "");
+	a->insert("Previous book",    i18n("Previous book"),    "", CResMgr::displaywindows::commentaryWindow::previousBook::accel, 0, "");
+	a->insert("Next chapter",     i18n("Next chapter"),     "", CResMgr::displaywindows::commentaryWindow::nextChapter::accel, 0, "");
+	a->insert("Previous chapter", i18n("Previous chapter"), "", CResMgr::displaywindows::commentaryWindow::previousChapter::accel, 0, "");
+	a->insert("Next verse",       i18n("Next verse"),       "", CResMgr::displaywindows::commentaryWindow::nextVerse::accel, 0, "");
+	a->insert("Previous verse",   i18n("Previous verse"),   "", CResMgr::displaywindows::commentaryWindow::previousVerse::accel, 0, "");
 }
 
 void CCommentaryReadWindow::initKeyboardActions() {

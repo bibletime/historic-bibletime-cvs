@@ -47,7 +47,9 @@ public:
   * the used key is returned. Otherwise the key is set and the new on ei returned.
   */
 	virtual void key( const char* key );
-  /** Assignment operator. */
+  /**
+  * Assignment operator.
+  */
   virtual CSwordTreeKey& operator = (const QString& keyname );
 };
 

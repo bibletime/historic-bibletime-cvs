@@ -30,8 +30,6 @@
 
 #include "util/scoped_resource.h"
 
-#include "resource.h"
-
 //Qt includes
 #include <qcursor.h>
 #include <qwidget.h>

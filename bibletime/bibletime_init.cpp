@@ -17,7 +17,6 @@
 
 //BibleTime includes
 #include "bibletime.h"
-#include "resource.h"
 
 #include "backend/cswordbackend.h"
 
@@ -411,7 +410,7 @@ void BibleTime::initBackends(){
 			case CSwordBackend::NoSwordConfig: //mods.d or mods.conf missing
 			{
 				KStartupLogo::hideSplash();
-				CHTMLDialog dlg(HELPDIALOG_NO_SWORD_MODULE_CONFIG_DIR);
+				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModuleConfigDir);
 				dlg.exec();				
 				KStartupLogo::showSplash();				
 				break;
@@ -420,7 +419,7 @@ void BibleTime::initBackends(){
 			case CSwordBackend::NoModules: //no modules installed, but config exists
 			{
 				KStartupLogo::hideSplash();
-				CHTMLDialog dlg(HELPDIALOG_NO_SWORD_MODULES);
+				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModules);
 				dlg.exec();
 				KStartupLogo::showSplash();				
 				break;
@@ -429,7 +428,7 @@ void BibleTime::initBackends(){
 			default: //unknown error
 			{
 				KStartupLogo::hideSplash();
-				CHTMLDialog dlg(HELPDIALOG_INITBACKEND_FAILED);
+				CHTMLDialog dlg(CResMgr::helpDialog::initBackendFailed);
 				dlg.exec();
 				KStartupLogo::showSplash();				
 				break;

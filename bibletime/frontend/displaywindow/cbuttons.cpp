@@ -17,7 +17,8 @@
 
 //HibleTime includes
 #include "cbuttons.h"
-#include "resource.h"
+
+#include "frontend/cresmgr.h"
 
 #include "util/cpointers.h"
 
@@ -31,7 +32,7 @@
 
 
 CTransliterationButton::CTransliterationButton(CSwordBackend::FilterOptions* filterOptions, QWidget *parent, const char *name )
- : KToolBarButton(TRANSLIT_ICON, 0,parent,name) {
+ : KToolBarButton(CResMgr::displaywindows::transliteration::icon, 0,parent,name) {
  	m_filterOptions = filterOptions;
   m_filterOptions->transliteration = 0;
 
@@ -91,7 +92,7 @@ void CTransliterationButton::optionSelected(int ID){
  ************************************************/
 
 CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptions *displaySettings, CSwordBackend::FilterOptions *moduleSettings, const ListCSwordModuleInfo& useModules,QWidget *parent, const char *name )
-	: KToolBarButton(DSB_ICON, 0, parent, name)
+	: KToolBarButton(CResMgr::displaywindows::displaySettings::icon, 0, parent, name)
 {
 //  qWarning("CDisplaySettingsButton::CDisplaySettingsButton");
 	m_displaySettings = displaySettings;
@@ -139,6 +140,8 @@ int CDisplaySettingsButton::populateMenu(){
 		isOptionAvailable(CSwordBackend::headings));	
 	ret += addMenuEntry(i18n("Show footnotes"), &m_moduleSettings->footnotes,
 		isOptionAvailable(CSwordBackend::footnotes ));
+	ret += addMenuEntry(i18n("Show Jesus' words in red"), &m_moduleSettings->redLetterWords,
+		isOptionAvailable(CSwordBackend::redLetterWords ));
 	ret += addMenuEntry(i18n("Show Strong's Numbers"), &m_moduleSettings->strongNumbers,
 		isOptionAvailable(CSwordBackend::strongNumbers ));
 

@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "cmodulechooserbutton.h"
-#include "resource.h"
+
 #include "backend/cswordbackend.h"
+
+#include "frontend/cresmgr.h"
 
 //Qt includes
 #include <qstring.h>
@@ -52,26 +54,26 @@ const QString CModuleChooserButton::iconName(){
 	switch (m_moduleType) {
 		case CSwordModuleInfo::Bible:
 			if (m_hasModule)
-				return QString::fromLatin1(BIBLE_ICON_MC);
+				return CResMgr::modules::bible::icon_unlocked;
 			else
-				return QString::fromLatin1(BIBLE_ADD_ICON_MC);
+				return CResMgr::modules::bible::icon_add;
 		case CSwordModuleInfo::Commentary:
 			if (m_hasModule)
-				return QString::fromLatin1(COMMENTARY_ICON_MC);
+				return CResMgr::modules::commentary::icon_unlocked;
 			else
-				return QString::fromLatin1(COMMENTARY_ADD_ICON_MC);
+				return CResMgr::modules::commentary::icon_add;
 		case CSwordModuleInfo::Lexicon:
 			if (m_hasModule)
-				return QString::fromLatin1(LEXICON_ICON_MC);
+				return CResMgr::modules::lexicon::icon_unlocked;
 			else
-				return QString::fromLatin1(LEXICON_ADD_ICON_MC);
+				return CResMgr::modules::lexicon::icon_add;
 		case CSwordModuleInfo::GenericBook:
 			if (m_hasModule)
-				return QString::fromLatin1(BOOK_ICON_MC);
+				return CResMgr::modules::book::icon_unlocked;
 			else
-				return QString::fromLatin1(BOOK_ADD_ICON_MC);
-		default:
-			return QString::fromLatin1(BIBLE_ICON_MC);
+				return CResMgr::modules::book::icon_add;
+		default: //return as default the bible icon
+			return CResMgr::modules::bible::icon_unlocked;
 	}
 }
 

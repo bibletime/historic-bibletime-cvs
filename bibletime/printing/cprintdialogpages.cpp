@@ -21,8 +21,9 @@
 #include "cprintitemlist.h"
 #include "cprintitem.h"
 #include "tooltipdef.h"
-#include "resource.h"
 #include "whatsthisdef.h"
+
+#include "frontend/cresmgr.h"
 
 //QT includes
 #include <qbuttongroup.h>
@@ -36,9 +37,9 @@
 #include <qlistview.h>
 #include <qiconset.h>
 
-
 //KDE includes
 #include <klocale.h>
+#include <kiconloader.h>
 
 CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *name )
 	: KPrintDialogPage(parent,name), m_printer(printer) {
@@ -100,32 +101,29 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
   	
   m_styleList = new CStyleList( &(m_printer->styleList()), this, "CStyleList1");
 	connect(m_styleList, SIGNAL(currentChanged(QListViewItem*)), SLOT(currentStyleChanged(QListViewItem*)));
-	QToolTip::add(m_styleList, TT_PD_LAYOUT_STYLE_LIST);	
-	QWhatsThis::add(m_styleList, WT_PD_LAYOUT_STYLE_LIST);
+//	QToolTip::add(m_styleList, TT_PD_LAYOUT_STYLE_LIST);
+//	QWhatsThis::add(m_styleList, WT_PD_LAYOUT_STYLE_LIST);
 	
   QLabel* label = new QLabel(m_styleList, i18n("List of style items:"), this);
   styleLayout->addWidget(label,0);
 	styleLayout->addWidget( m_styleList, 3);
 	
 	m_newStyleButton = new QToolButton( this, "newStyle Button");
-	m_newStyleButton->setIconSet( SmallIcon(ICON_FILE_NEW));
-//	m_newStyleButton->setOffIconSet( SmallIcon(ICON_FILE_NEW));	
-	QToolTip::add(m_newStyleButton, TT_PD_LAYOUT_STYLE_NEW);	
-	QWhatsThis::add(m_newStyleButton, WT_PD_LAYOUT_STYLE_NEW);	
+	m_newStyleButton->setIconSet( SmallIcon( CResMgr::printing::styleList::newStyle::icon ) );
+	QToolTip::add(m_newStyleButton, CResMgr::printing::styleList::newStyle::tooltip);	
+	QWhatsThis::add(m_newStyleButton, CResMgr::printing::styleList::newStyle::whatsthis);	
 	connect( m_newStyleButton, SIGNAL(clicked()), m_styleList, SLOT(createNewStyle()));
 		
 	m_deleteStyleButton = new QToolButton( this, "deleteStyle Button");	
-	m_deleteStyleButton->setIconSet( SmallIcon(ICON_FILE_DELETE));
-//	m_deleteStyleButton->setOffIconSet( SmallIcon(ICON_FILE_DELETE));	
-	QToolTip::add(m_deleteStyleButton, TT_PD_LAYOUT_STYLE_DELETE);	
-	QWhatsThis::add(m_deleteStyleButton, WT_PD_LAYOUT_STYLE_DELETE);		
+	m_deleteStyleButton->setIconSet( SmallIcon(CResMgr::printing::styleList::deleteStyle::icon));
+	QToolTip::add(m_deleteStyleButton, CResMgr::printing::styleList::deleteStyle::tooltip);	
+	QWhatsThis::add(m_deleteStyleButton, CResMgr::printing::styleList::deleteStyle::whatsthis);		
 	connect( m_deleteStyleButton, SIGNAL(clicked()), m_styleList, SLOT(deleteCurrentStyle()));
 
 	m_editStyleButton = new QToolButton( this, "editStyle");
-	m_editStyleButton->setIconSet( SmallIcon(ICON_EDIT));
-//	m_editStyleButton->setOffIconSet( SmallIcon(ICON_EDIT));	
-	QToolTip::add(m_editStyleButton, TT_PD_LAYOUT_STYLE_EDIT);	
-	QWhatsThis::add(m_editStyleButton, WT_PD_LAYOUT_STYLE_EDIT);		
+	m_editStyleButton->setIconSet( SmallIcon(CResMgr::printing::styleList::editStyle::icon));
+	QToolTip::add(m_editStyleButton, CResMgr::printing::styleList::editStyle::tooltip);	
+	QWhatsThis::add(m_editStyleButton, CResMgr::printing::styleList::editStyle::whatsthis);		
 	connect( m_editStyleButton, SIGNAL(clicked()), m_styleList, SLOT(editCurrentStyle()));
 		
 	buttonLayout->addWidget( m_newStyleButton );
@@ -144,7 +142,7 @@ CStyleListPage::~CStyleListPage() {
 }
 
 void  CStyleListPage::getOptions (QMap<QString, QString>& opts, bool /*incldef*/) {
-	qWarning("CStyleListPage::getOptions (const QMap<QString,QString>& opts, bool)");
+//	qWarning("CStyleListPage::getOptions (const QMap<QString,QString>& opts, bool)");
 
 	const QString leading = "kde-bibletime-";
 	opts[ leading+"upper_margin" ] = QString::number(m_marginSpin[0]->value());

@@ -19,7 +19,6 @@
 //own includes
 #include "ctoolclass.h"
 
-#include "resource.h"
 #include "frontend/cresmgr.h"
 #include "backend/cswordmoduleinfo.h"
 
@@ -33,6 +32,7 @@
 //KDE includes
 #include <klocale.h>
 #include <kglobal.h>
+#include <kiconloader.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <kurl.h>

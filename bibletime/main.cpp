@@ -25,7 +25,6 @@
 #include <signal.h>
 
 //own includes
-#include "resource.h"
 #include "bibletime.h"
 #include "config.h"
 
@@ -36,6 +35,7 @@
 #include "frontend/kstartuplogo.h"
 #include "frontend/chtmldialog.h"
 #include "frontend/cbtconfig.h"
+#include "frontend/cresmgr.h"
 
 //KDE includes
 #include <kcmdlineargs.h>
@@ -225,7 +225,7 @@ int main(int argc, char* argv[]) {
 		// a new BibleTime version was installed (maybe a completely new installation)
 		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
 			CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
-			CHTMLDialog dlg(HELPDIALOG_FIRST_START);
+			CHTMLDialog dlg(CResMgr::helpDialog::firstStart);
 			dlg.exec();
 			bibletime->slotSettingsOptions();
 		}			

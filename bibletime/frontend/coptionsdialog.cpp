@@ -30,7 +30,6 @@
 
 #include "util/ctoolclass.h"
 
-#include "resource.h"
 #include "whatsthisdef.h"
 //#include "cbtconfig.h"
 
@@ -181,7 +180,7 @@ const bool COptionsDialog::showPart( COptionsDialog::Parts ID ){
 
 /** Initializes the startup section of the OD. */
 void COptionsDialog::initStartup(){
-	QFrame* page = addPage(i18n("Startup"), QString::null, OD_ICON_GENERAL);
+	QFrame* page = addPage(i18n("Startup"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
 	{//daily tips
 		m_settings.startup.showTips = new QCheckBox(page);
@@ -217,9 +216,9 @@ void COptionsDialog::initStartup(){
 
 /** Init fonts section. */
 void COptionsDialog::initFonts(){
-	QFrame* page = addPage(i18n("Fonts"), QString::null, OD_ICON_FONTS);
+	QFrame* page = addPage(i18n("Fonts"), QString::null, DesktopIcon(CResMgr::settings::fonts::icon, 32));
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
-	
+
  	layout->addWidget(
     CToolClass::explanationLabel(
       page,
@@ -228,7 +227,7 @@ void COptionsDialog::initFonts(){
     )
   );
   layout->addSpacing(5);
- 					
+
 
   //horizontal layout box to contain the chooser box and use own font checkbox
   QHBoxLayout* hLayout = new QHBoxLayout();
@@ -253,59 +252,59 @@ void COptionsDialog::initFonts(){
 	 		m_settings.fonts.usage->insertItem(it.key());
 
   }
-  
-  
+
+
   m_settings.fonts.useOwnFontBox = new QCheckBox(i18n("Use own font settings"), page, "font checkbox");
   connect(m_settings.fonts.useOwnFontBox, SIGNAL(toggled(bool)), SLOT(useOwnFontClicked(bool)));
  	hLayout->addWidget(m_settings.fonts.useOwnFontBox);
 
 
   layout->addLayout(hLayout);
-#warning TODO: remember the last selected font and jump there.    
-    
+#warning TODO: remember the last selected font and jump there.
+
  	m_settings.fonts.fontChooser = new KFontChooser(page, "fonts", false, QStringList(), true, 5);
  	m_settings.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog"));
  	layout->addWidget(m_settings.fonts.fontChooser);
-    		
+
   connect(m_settings.fonts.fontChooser, SIGNAL(fontSelected(const QFont&)), SLOT(newDisplayWindowFontSelected(const QFont&)));
   connect(m_settings.fonts.usage, SIGNAL(activated(const QString&)), SLOT(newDisplayWindowFontAreaSelected(const QString&)));
-		 	
+
  	m_settings.fonts.fontChooser->setFont( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].second );
   useOwnFontClicked( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].first );
 	m_settings.fonts.useOwnFontBox->setChecked( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].first );
- 	m_settings.fonts.fontChooser->setMinimumSize(m_settings.fonts.fontChooser->sizeHint());		
+ 	m_settings.fonts.fontChooser->setMinimumSize(m_settings.fonts.fontChooser->sizeHint());
 }
 
 /** Init color section. */
 void COptionsDialog::initColors(){
-	QFrame* page = addPage(i18n("Colors"), QString::null, OD_ICON_COLORS);
+	QFrame* page = addPage(i18n("Colors"), QString::null, DesktopIcon(CResMgr::settings::colors::icon,32));
 //	QVBoxLayout* layout = new QVBoxLayout(page);
 	QGridLayout* gridLayout = new QGridLayout(page,8,5,5,5);
   gridLayout->setResizeMode(QLayout::Minimum);
-		
+
   gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(page,
   		i18n("Choose colors"),
   		i18n("Choose the colors to alter the apperance of the display windows. Some options like \"Words of Jesus\" only apply to texts which support this special feature.")
-  	),  	
+  	),
   	0,0,0,-1
   );
-		
+
 	m_settings.colors.text = new KColorButton(CBTConfig::get(CBTConfig::textColor), page);
   QToolTip::add(m_settings.colors.text, CResMgr::settings::colors::text::tooltip);
   QWhatsThis::add(m_settings.colors.text, CResMgr::settings::colors::text::whatsthis);
-  
-	QLabel* label = new QLabel(m_settings.colors.text, i18n("Text"), page);			
+
+	QLabel* label = new QLabel(m_settings.colors.text, i18n("Text"), page);
 	gridLayout->addWidget(label,1,0);
 	gridLayout->addWidget(m_settings.colors.text,1,1);
   QToolTip::add(label, CResMgr::settings::colors::text::tooltip);
-  QWhatsThis::add(label, CResMgr::settings::colors::text::whatsthis);  
+  QWhatsThis::add(label, CResMgr::settings::colors::text::whatsthis);
 
-  	
+
 	m_settings.colors.highlightedVerse = new KColorButton(CBTConfig::get(CBTConfig::highlightedVerseColor), page);
   QToolTip::add(m_settings.colors.highlightedVerse, CResMgr::settings::colors::highlightedVerse::tooltip);
   QWhatsThis::add(m_settings.colors.highlightedVerse, CResMgr::settings::colors::highlightedVerse::whatsthis);
-  
+
 	label = new QLabel(m_settings.colors.highlightedVerse, i18n("Highlighted verse"), page);
   QToolTip::add(label, CResMgr::settings::colors::highlightedVerse::tooltip);
   QWhatsThis::add(label, CResMgr::settings::colors::highlightedVerse::whatsthis);
@@ -313,12 +312,12 @@ void COptionsDialog::initColors(){
   gridLayout->addWidget(label,1,3);
 	gridLayout->addWidget(m_settings.colors.highlightedVerse,1,4);
 
-  
-	m_settings.colors.background = new KColorButton(CBTConfig::get(CBTConfig::backgroundColor), page);			
+
+	m_settings.colors.background = new KColorButton(CBTConfig::get(CBTConfig::backgroundColor), page);
   QToolTip::add(m_settings.colors.background, CResMgr::settings::colors::background::tooltip);
   QWhatsThis::add(m_settings.colors.background, CResMgr::settings::colors::background::whatsthis);
 
-  label = new QLabel(m_settings.colors.background, i18n("Background"), page);		
+  label = new QLabel(m_settings.colors.background, i18n("Background"), page);
   QToolTip::add(label, CResMgr::settings::colors::background::tooltip);
   QWhatsThis::add(label, CResMgr::settings::colors::background::whatsthis);
 
@@ -337,18 +336,18 @@ void COptionsDialog::initColors(){
   gridLayout->addWidget(label,4,0);
 	gridLayout->addWidget(m_settings.colors.swordrefs,4,1);
 
-	m_settings.colors.footnotes = new KColorButton(CBTConfig::get(CBTConfig::footnotesColor), page);		
+	m_settings.colors.footnotes = new KColorButton(CBTConfig::get(CBTConfig::footnotesColor), page);
   QToolTip::add(m_settings.colors.footnotes, CResMgr::settings::colors::footnotes::tooltip);
   QWhatsThis::add(m_settings.colors.footnotes, CResMgr::settings::colors::footnotes::whatsthis);
 
   label = new QLabel(m_settings.colors.footnotes,i18n("Footnotes"), page);
   QToolTip::add(label, CResMgr::settings::colors::footnotes::tooltip);
   QWhatsThis::add(label, CResMgr::settings::colors::footnotes::whatsthis);
-  
+
 	gridLayout->addWidget(label,6,0);
 	gridLayout->addWidget(m_settings.colors.footnotes,6,1);
 
-	m_settings.colors.jesuswords = new KColorButton(CBTConfig::get(CBTConfig::jesuswordsColor), page);		
+	m_settings.colors.jesuswords = new KColorButton(CBTConfig::get(CBTConfig::jesuswordsColor), page);
   QToolTip::add(m_settings.colors.jesuswords, CResMgr::settings::colors::jesusWords::tooltip);
   QWhatsThis::add(m_settings.colors.jesuswords, CResMgr::settings::colors::jesusWords::whatsthis);
 
@@ -359,24 +358,24 @@ void COptionsDialog::initColors(){
 	gridLayout->addWidget(label,6,3);
 	gridLayout->addWidget(m_settings.colors.jesuswords,6,4);
 
-  
-	m_settings.colors.strongs = new KColorButton(CBTConfig::get(CBTConfig::strongsColor), page);		
+
+	m_settings.colors.strongs = new KColorButton(CBTConfig::get(CBTConfig::strongsColor), page);
   QToolTip::add(m_settings.colors.strongs, CResMgr::settings::colors::strongNumbers::tooltip);
   QWhatsThis::add(m_settings.colors.strongs, CResMgr::settings::colors::strongNumbers::whatsthis);
 
-  label = new QLabel(m_settings.colors.strongs, i18n("Strong's numbers"), page);			
+  label = new QLabel(m_settings.colors.strongs, i18n("Strong's numbers"), page);
 	QToolTip::add(label, CResMgr::settings::colors::strongNumbers::tooltip);
   QWhatsThis::add(label, CResMgr::settings::colors::strongNumbers::whatsthis);
-  
+
   gridLayout->addWidget(label,7,0);
 	gridLayout->addWidget(m_settings.colors.strongs,7,1);
 
-  
+
 	m_settings.colors.morph = new KColorButton(CBTConfig::get(CBTConfig::morphsColor), page);
   QToolTip::add(m_settings.colors.morph, CResMgr::settings::colors::morphTags::tooltip);
   QWhatsThis::add(m_settings.colors.morph, CResMgr::settings::colors::morphTags::whatsthis);
-  
-	label = new QLabel(m_settings.colors.morph, i18n("Morphologic tags"), page);			
+
+	label = new QLabel(m_settings.colors.morph, i18n("Morphologic tags"), page);
   QToolTip::add(label, CResMgr::settings::colors::morphTags::tooltip);
   QWhatsThis::add(label, CResMgr::settings::colors::morphTags::whatsthis);
 
@@ -391,7 +390,7 @@ void COptionsDialog::initColors(){
 
 /** Init profiles section. */
 void COptionsDialog::initProfiles(){
-	QFrame* page = addPage(i18n("Profiles"),QString::null, OD_ICON_PROFILES);
+	QFrame* page = addPage(i18n("Profiles"),QString::null, DesktopIcon(CResMgr::settings::profiles::icon,32));
 	QGridLayout* gridLayout = new QGridLayout(page, 3,3,5,5);
 
 	gridLayout->addMultiCellWidget(
@@ -403,29 +402,29 @@ Don't forget that new profiles only work after you've saved something in them.")
 		),
 		0,0,0,-1
 	);
-	
-	m_settings.profiles.profiles = new QListBox(page);					
+
+	m_settings.profiles.profiles = new QListBox(page);
 	gridLayout->addMultiCellWidget(m_settings.profiles.profiles, 1,1,0,-1);
 	gridLayout->setRowStretch(1,10);
-	
+
 	m_settings.profiles.createProfile = new QPushButton(i18n("Create new profile"), page);
 	connect(m_settings.profiles.createProfile, SIGNAL(clicked()), SLOT(addNewProfile()));
   gridLayout->addWidget(m_settings.profiles.createProfile,2,0);
-		
-	m_settings.profiles.deleteProfile = new QPushButton(i18n("Delete selected profile"), page);	
+
+	m_settings.profiles.deleteProfile = new QPushButton(i18n("Delete selected profile"), page);
 	connect(m_settings.profiles.deleteProfile, SIGNAL(clicked()), SLOT(deleteProfile()));
   gridLayout->addWidget(m_settings.profiles.deleteProfile,2,1);
-  		
-	m_settings.profiles.renameProfile = new QPushButton(i18n("Rename selected profile"), page);		
+
+	m_settings.profiles.renameProfile = new QPushButton(i18n("Rename selected profile"), page);
 	connect(m_settings.profiles.renameProfile, SIGNAL(clicked()), SLOT(renameProfile()));
-  gridLayout->addWidget(m_settings.profiles.renameProfile,2,2);	
+  gridLayout->addWidget(m_settings.profiles.renameProfile,2,2);
 
   //fill the profile list box
 	QPtrList<CProfile> profiles = m_settings.profiles.mgr.profiles();
 	if (profiles.count()) {
 		for (CProfile* p = profiles.first(); p; p = profiles.next()) {
 			m_settings.profiles.profiles->insertItem(p->name());
-		}	
+		}
 	}
 	else {
 		m_settings.profiles.profiles->setEnabled(false);
@@ -434,101 +433,101 @@ Don't forget that new profiles only work after you've saved something in them.")
 
 /** Init accel key section. */
 void COptionsDialog::initAccelerators(){
-  QVBox* page = addVBoxPage(i18n("Accelerators"),QString::null, OD_ICON_KEY_BINDINGS);
+  QVBox* page = addVBoxPage(i18n("Accelerators"),QString::null, DesktopIcon(CResMgr::settings::keys::icon,32));
 
   KTabCtl* tabCtl = new KTabCtl(page);
 
 // ----- new tab: All display windows ------ //
   QFrame* currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);	
+	currentTab->setMargin(3);
   tabCtl->addTab(currentTab, i18n("Application wide"));
 
 	CBTConfig::setupAccel( CBTConfig::application, m_settings.keys.application.accel  );
-//	CSwordPresenter::insertKeyboardActions( m_settings.keys.application.accel );	
-	m_settings.keys.application.accel->readSettings();		
+//	CSwordPresenter::insertKeyboardActions( m_settings.keys.application.accel );
+	m_settings.keys.application.accel->readSettings();
 
- 	m_settings.keys.application.keyChooser = new KKeyChooser( m_settings.keys.application.accel, currentTab, false );	
+ 	m_settings.keys.application.keyChooser = new KKeyChooser( m_settings.keys.application.accel, currentTab, false );
 // 	QToolTip::add(m_settings.keys.application.keyChooser, TT_OD_KEYS_CHOOSER);
-//	QWhatsThis::add(m_settings.keys.application.keyChooser, WT_OD_KEYS_CHOOSER);	
+//	QWhatsThis::add(m_settings.keys.application.keyChooser, WT_OD_KEYS_CHOOSER);
 
 // ----- new tab: All display windows ------ //
 	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);	
+	currentTab->setMargin(3);
 	tabCtl->addTab(currentTab, i18n("All display windows"));
-	
+
 	m_settings.keys.general.accel = new KAccel(this); //delete in destructor
-	CBTConfig::setupAccel( CBTConfig::readWindow, m_settings.keys.general.accel  );	
+	CBTConfig::setupAccel( CBTConfig::readWindow, m_settings.keys.general.accel  );
 	CReadWindow::insertKeyboardActions( m_settings.keys.general.accel );
 	m_settings.keys.general.accel->readSettings();
 
- 	m_settings.keys.general.keyChooser = new KKeyChooser( m_settings.keys.general.accel, currentTab );	
+ 	m_settings.keys.general.keyChooser = new KKeyChooser( m_settings.keys.general.accel, currentTab );
 //	QToolTip::add(m_settings.keys.general.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
 //	QWhatsThis::add(m_settings.keys.general.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
 
 // ----- new tab: Bible windows ------ //
 	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);	
+	currentTab->setMargin(3);
 	tabCtl->addTab(currentTab, i18n("Bible windows"));
 
 	m_settings.keys.bible.accel = new KAccel(this); //delete in destructor
-	CBTConfig::setupAccel( CBTConfig::bibleWindow, m_settings.keys.bible.accel  );	
+	CBTConfig::setupAccel( CBTConfig::bibleWindow, m_settings.keys.bible.accel  );
 	CBibleReadWindow::insertKeyboardActions( m_settings.keys.bible.accel );
 	m_settings.keys.bible.accel->readSettings();
 
- 	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab/*, false*/ );	
+ 	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab/*, false*/ );
 //	QToolTip::add(m_settings.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
 //	QWhatsThis::add(m_settings.keys.bible.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
 
 // ----- new tab: Commentary windows ------ //
 	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);	
+	currentTab->setMargin(3);
 	tabCtl->addTab(currentTab, i18n("Commentary windows"));
 
 	m_settings.keys.commentary.accel = new KAccel(this); //delete in destructor
-	CBTConfig::setupAccel( CBTConfig::commentaryWindow, m_settings.keys.commentary.accel  );	
-	CCommentaryReadWindow::insertKeyboardActions( m_settings.keys.commentary.accel );		
-//	m_settings.keys.commentary.accel->setConfigGroup("Lexicon shortcuts");	
-	m_settings.keys.commentary.accel->readSettings();	
-	 	
- 	m_settings.keys.commentary.keyChooser = new KKeyChooser( m_settings.keys.commentary.accel, currentTab, false );	
+	CBTConfig::setupAccel( CBTConfig::commentaryWindow, m_settings.keys.commentary.accel  );
+	CCommentaryReadWindow::insertKeyboardActions( m_settings.keys.commentary.accel );
+//	m_settings.keys.commentary.accel->setConfigGroup("Lexicon shortcuts");
+	m_settings.keys.commentary.accel->readSettings();
+
+ 	m_settings.keys.commentary.keyChooser = new KKeyChooser( m_settings.keys.commentary.accel, currentTab, false );
 // 	QToolTip::add(m_settings.keys.commentary.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
 //	QWhatsThis::add(m_settings.keys.commentary.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
 
 // ----- new tab: Lexicon windows ------ //
 	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);	
+	currentTab->setMargin(3);
 	tabCtl->addTab(currentTab, i18n("Lexicon windows"));
 
 	m_settings.keys.lexicon.accel = new KAccel(this); //delete in destructor
-	CBTConfig::setupAccel( CBTConfig::lexiconWindow, m_settings.keys.lexicon.accel  );	
-	CLexiconReadWindow::insertKeyboardActions( m_settings.keys.lexicon.accel );		
-//	m_settings.keys.lexicon.accel->setConfigGroup("Lexicon shortcuts");	
-	m_settings.keys.lexicon.accel->readSettings();	 	
- 	
- 	m_settings.keys.lexicon.keyChooser = new KKeyChooser( m_settings.keys.lexicon.accel, currentTab, false );	
+	CBTConfig::setupAccel( CBTConfig::lexiconWindow, m_settings.keys.lexicon.accel  );
+	CLexiconReadWindow::insertKeyboardActions( m_settings.keys.lexicon.accel );
+//	m_settings.keys.lexicon.accel->setConfigGroup("Lexicon shortcuts");
+	m_settings.keys.lexicon.accel->readSettings();
+
+ 	m_settings.keys.lexicon.keyChooser = new KKeyChooser( m_settings.keys.lexicon.accel, currentTab, false );
 // 	QToolTip::add(m_settings.keys.lexicon.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 //	QWhatsThis::add(m_settings.keys.lexicon.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 
-	
+
 // ----- new tab: Book windows ------ //
 	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);	
+	currentTab->setMargin(3);
 	tabCtl->addTab(currentTab, i18n("Book windows"));
 
 	m_settings.keys.book.accel = new KAccel(this); //delete in destructor
-	CBTConfig::setupAccel( CBTConfig::bookWindow, m_settings.keys.book.accel  );	
-	CBookReadWindow::insertKeyboardActions( m_settings.keys.book.accel );		
-//	m_settings.keys.book.accel->setConfigGroup("Book shortcuts");		
-	m_settings.keys.book.accel->readSettings();	 	
-	
-	m_settings.keys.book.keyChooser = new KKeyChooser( m_settings.keys.book.accel, currentTab, false );	
+	CBTConfig::setupAccel( CBTConfig::bookWindow, m_settings.keys.book.accel  );
+	CBookReadWindow::insertKeyboardActions( m_settings.keys.book.accel );
+//	m_settings.keys.book.accel->setConfigGroup("Book shortcuts");
+	m_settings.keys.book.accel->readSettings();
+
+	m_settings.keys.book.keyChooser = new KKeyChooser( m_settings.keys.book.accel, currentTab, false );
 // 	QToolTip::add(m_settings.keys.book.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
-//	QWhatsThis::add(m_settings.keys.book.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);						
+//	QWhatsThis::add(m_settings.keys.book.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 }
 
 /** Init Sword section. */
 void COptionsDialog::initSword(){
-	QVBox* page = addVBoxPage(i18n("Sword"),QString::null, OD_ICON_SWORD);
+	QVBox* page = addVBoxPage(i18n("Sword"),QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
   KTabCtl* tabCtl = new KTabCtl(page);
   QFrame* currentTab = new QFrame(tabCtl);
   tabCtl->addTab(currentTab, i18n("General"));

@@ -18,12 +18,10 @@
 #include "cmdiarea.h"
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordversekey.h"
+
 #include "frontend/displaywindow/cdisplaywindow.h"
-//#include "presenters/cbiblepresenter.h"
-//#include "presenters/clexiconpresenter.h"
-//#include "presenters/ccommentarypresenter.h"
-#include "keychooser/ckeychooser.h"
-#include "resource.h"
+#include "frontend/keychooser/ckeychooser.h"
+
 #include "whatsthisdef.h"
 #include "config.h"
 

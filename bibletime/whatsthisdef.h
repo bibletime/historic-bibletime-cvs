@@ -24,16 +24,16 @@
 //the general format of QWhatsThis help texts
 #define WT(title, description) QString::fromLatin1("<center><B>%1</B></center><HR>%2").arg(title).arg(description)
 
-//QWhatsThis defines for the groupmanager
-#define WT_GM_WIDGET WT(TT_GM_WIDGET, i18n("This is the main index of BibleTime.<BR>Use it to manage the installed modules, to work with bookmarks, to open display windows etc.."))
-#define WT_GM_NEW_GROUP WT(TT_GM_NEW_GROUP, i18n("Create a new folder in the main index.<BR>If you press the right mouse button on a folder, the new folder will become a sub-folder of it.<BR>Otherwise you will create a toplevel folder."))
-#define WT_GM_CHANGE_GROUP WT(TT_GM_CHANGE_GROUP, i18n("Change the properties of the selected folder."))
-#define WT_GM_CHANGE_BOOKMARK WT(TT_GM_CHANGE_BOOKMARK, i18n("Change the properties of the selected bookmark."))
-#define WT_GM_IMPORT_BOOKMARKS WT(TT_GM_IMPORT_BOOKMARKS, i18n("Import bookmarks from a file."))
-#define WT_GM_EXPORT_BOOKMARKS WT(TT_GM_EXPORT_BOOKMARKS, i18n("Export bookmarks to a file so you or other<BR>users can import them later."))
-#define WT_GM_PRINT_BOOKMARK WT(TT_GM_PRINT_BOOKMARK, i18n("Use this to add this bookmark to BibleTime's print queue. The key, the description, and the text of the key will be used for printing."))
-#define WT_GM_UNLOCK_MODULE WT(TT_GM_UNLOCK_MODULE, i18n("Open a small dialog where you can unlock the selected module."))
-#define WT_GM_ABOUT_MODULE WT(TT_GM_ABOUT_MODULE, i18n("Open a dialog to show information about the selected module."))
+////QWhatsThis defines for the groupmanager
+//#define WT_GM_WIDGET WT(TT_GM_WIDGET, i18n("This is the main index of BibleTime.<BR>Use it to manage the installed modules, to work with bookmarks, to open display windows etc.."))
+//#define WT_GM_NEW_GROUP WT(TT_GM_NEW_GROUP, i18n("Create a new folder in the main index.<BR>If you press the right mouse button on a folder, the new folder will become a sub-folder of it.<BR>Otherwise you will create a toplevel folder."))
+//#define WT_GM_CHANGE_GROUP WT(TT_GM_CHANGE_GROUP, i18n("Change the properties of the selected folder."))
+//#define WT_GM_CHANGE_BOOKMARK WT(TT_GM_CHANGE_BOOKMARK, i18n("Change the properties of the selected bookmark."))
+//#define WT_GM_IMPORT_BOOKMARKS WT(TT_GM_IMPORT_BOOKMARKS, i18n("Import bookmarks from a file."))
+//#define WT_GM_EXPORT_BOOKMARKS WT(TT_GM_EXPORT_BOOKMARKS, i18n("Export bookmarks to a file so you or other<BR>users can import them later."))
+//#define WT_GM_PRINT_BOOKMARK WT(TT_GM_PRINT_BOOKMARK, i18n("Use this to add this bookmark to BibleTime's print queue. The key, the description, and the text of the key will be used for printing."))
+//#define WT_GM_UNLOCK_MODULE WT(TT_GM_UNLOCK_MODULE, i18n("Open a small dialog where you can unlock the selected module."))
+//#define WT_GM_ABOUT_MODULE WT(TT_GM_ABOUT_MODULE, i18n("Open a dialog to show information about the selected module."))
 
 //QWhatsThis defines for the presenters
 #define WT_MDI_AREA_WIDGET WT(TT_MDI_AREA_WIDGET, i18n("This area is the main workspace of Bibletime.<BR>All display windows are opened in this window."))
@@ -93,10 +93,10 @@
 #define WT_PD_LAYOUT_BORDER_RIGHT WT(TT_PD_LAYOUT_BORDER_RIGHT, i18n("The size of the border on the right side of the paper."))
 #define WT_PD_LAYOUT_BORDER_TOP WT(TT_PD_LAYOUT_BORDER_TOP, i18n("The size of the border on the top of the paper."))
 #define WT_PD_LAYOUT_BORDER_BOTTOM WT(TT_PD_LAYOUT_BORDER_BOTTOM, i18n("The size of the border on the bottom of the paper."))
-#define WT_PD_LAYOUT_STYLE_LIST WT(TT_PD_LAYOUT_STYLE_LIST, i18n("This list contains the available printing styles.<BR>Create your own one using the \"New style\" button."))
-#define WT_PD_LAYOUT_STYLE_DELETE WT(TT_PD_LAYOUT_STYLE_DELETE, i18n("Remove the selected printing style from the list."))
-#define WT_PD_LAYOUT_STYLE_EDIT WT(TT_PD_LAYOUT_STYLE_EDIT, i18n("Change the properties of the selected printing style."))
-#define WT_PD_LAYOUT_STYLE_NEW WT(TT_PD_LAYOUT_STYLE_NEW, i18n("Create a new printing style.<BR>The new style will be added to the list."))
+//#define WT_PD_LAYOUT_STYLE_LIST WT(TT_PD_LAYOUT_STYLE_LIST, i18n("This list contains the available printing styles.<BR>Create your own one using the \"New style\" button."))
+//#define WT_PD_LAYOUT_STYLE_DELETE WT(TT_PD_LAYOUT_STYLE_DELETE, i18n("Remove the selected printing style from the list."))
+//#define WT_PD_LAYOUT_STYLE_EDIT WT(TT_PD_LAYOUT_STYLE_EDIT, i18n("Change the properties of the selected printing style."))
+//#define WT_PD_LAYOUT_STYLE_NEW WT(TT_PD_LAYOUT_STYLE_NEW, i18n("Create a new printing style.<BR>The new style will be added to the list."))
 
 #endif
 

@@ -23,10 +23,9 @@
 #include "frontend/display/cdisplay.h"
 #include "frontend/keychooser/cbooktreechooser.h"
 #include "frontend/cprofilewindow.h"
+#include "frontend/cresmgr.h"
 
 #include "util/ctoolclass.h"
-
-#include "resource.h"
 
 //Qt includes
 #include <qsplitter.h>
@@ -61,7 +60,7 @@ void CBookReadWindow::initKeyboardActions() {
   CReadWindow::initKeyboardActions();
 };
 
-void CBookReadWindow::insertKeyboardActions( KAccel* a ){
+void CBookReadWindow::insertKeyboardActions( KAccel* /*a*/ ){
 //  CReadWindow::insertKeyboardActions(a);
 };
 
@@ -91,7 +90,7 @@ void CBookReadWindow::initView(){
 	moduleChooserBar()->setButtonLimit(1);
 	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
   
-  m_treeAction = new KToggleAction(i18n("Toggle tree..."), ICON_VIEW_BOOKTREE, IDK_PRESENTER_TOGGLE_TREE, this, SLOT(treeToggled()), actionCollection(), "treeToggle_action");
+  m_treeAction = new KToggleAction(i18n("Toggle tree..."), CResMgr::displaywindows::bookWindow::toggleTree::icon, CResMgr::displaywindows::bookWindow::toggleTree::accel, this, SLOT(treeToggled()), actionCollection(), "treeToggle_action");
 	m_treeAction->plug(mainToolBar());
 
 	m_treeChooser = new CBookTreeChooser(modules(), key(), splitter);

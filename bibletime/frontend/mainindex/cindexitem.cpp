@@ -24,17 +24,16 @@
 #include "backend/cswordversekey.h"
 #include "backend/clanguagemgr.h"
 
+#include "frontend/searchdialog/csearchdialog.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/ctooltipmanager.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cinputdialog.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/cdragdropmgr.h"
-#include "frontend/searchdialog/csearchdialog.h"
+#include "frontend/cresmgr.h"
 
 #include "util/ctoolclass.h"
-
-#include "resource.h"
 
 #include <string.h>
 
@@ -49,6 +48,7 @@
 #include <kconfig.h>
 #include <klocale.h>
 #include <kfiledialog.h>
+#include <kiconloader.h>
 #include <kstandarddirs.h>
 
 #define CURRENT_SYNTAX_VERSION 1
@@ -351,7 +351,7 @@ void CBookmarkItem::update(){
 //  CItemBase::update();
   const QString title = QString::fromLatin1("%1 (%2)").arg(key()).arg(module() ? module()->name() : i18n("unknown"));
   setText(0, title);
-  setPixmap(0,BOOKMARK_ICON_SMALL);
+  setPixmap(0,SmallIcon(CResMgr::mainIndex::bookmark::icon,16));
 }
 
 void CBookmarkItem::init(){
@@ -516,9 +516,9 @@ const bool CFolderBase::isFolder() {
 void CFolderBase::update() {
   CItemBase::update();
   if (isOpen() && childCount())
-    setPixmap(0,GROUP_OPEN_ICON_SMALL);
+    setPixmap(0, SmallIcon(CResMgr::mainIndex::openedFolder::icon, 16));
   else
-    setPixmap(0,GROUP_ICON_SMALL);
+    setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 }
 
 void CFolderBase::init() {
@@ -971,8 +971,6 @@ const QString CBookmarkFolder::OldBookmarkImport::oldBookmarksXML( const QString
 		++it_bookmarks;
   };
 
-//  qWarning(doc.toString().latin1());
-
   return doc.toString();
 };
 /* --------------------------------------------------*/
@@ -1107,7 +1105,7 @@ const bool CBookmarkFolder::loadBookmarksFromXML( const QString& xml ){
     else if (child.tagName() == "Bookmark") {
       i = new CBookmarkItem(this, child);
     }
-    Q_ASSERT(i);
+//    Q_ASSERT(i);
     if (!i) {
       break;
     }
