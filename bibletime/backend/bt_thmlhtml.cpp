@@ -50,8 +50,9 @@ BT_ThMLHTML::BT_ThMLHTML() {
 
 bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
 	unsigned long i;
-	const int tokenLength = strlen(token);	
-	if (!substituteToken(buf, token) || !substituteEscapeString(buf, token)) {
+	const int tokenLength = strlen(token);
+	
+	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
 
 		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
 			pushString(buf," <small><em>&lt;");
@@ -187,9 +188,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				pushString(buf, "</FONT></H1>");
 				userData["Title"] = "false";
 			}
-		}
-		else if(!strncmp(token, "note", 4)) {
-			pushString(buf, "<small>(");
 		}
 		else if (!strncmp(token, "img ", 4)) {
 			const char *src = strstr(token, "src");
