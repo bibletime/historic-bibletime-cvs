@@ -106,7 +106,7 @@ void CSwordModuleSearch::setSearchedText( const QString text ){
 }
 
 /** Sets the search scope. */
-void CSwordModuleSearch::setSearchScope( ListKey scope ) {
+void CSwordModuleSearch::setSearchScope( sword::ListKey scope ) {
 //  qWarning("CSwordModuleSearch::setSearchScope( ListKey scope )");
   m_searchScope.copyFrom( scope );
 //  qWarning("CSwordModuleSearch::setSearchScope( ListKey scope ) finished");
@@ -149,7 +149,7 @@ const int CSwordModuleSearch::getPercent( percentType type ){
 }
 
 /** Returns a copy of the used search scope. */
-ListKey& CSwordModuleSearch::scope() {
+sword::ListKey& CSwordModuleSearch::scope() {
 	return m_searchScope;
 }
 

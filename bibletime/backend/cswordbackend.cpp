@@ -48,7 +48,7 @@
 static QMap<QString, QString> moduleDescriptionMap;
 
 CSwordBackend::CSwordBackend()
-	: SWMgr(0,0,false,new EncodingFilterMgr( ENC_UTF8 ))
+	: sword::SWMgr(0,0,false,new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
 {	
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
@@ -71,8 +71,8 @@ CSwordBackend::~CSwordBackend(){
 const CSwordBackend::LoadError CSwordBackend::initModules() {
 	LoadError ret = NoError;
 
-	ModMap::iterator it;
-	SWModule*	curMod = 0;
+	sword::ModMap::iterator it;
+	sword::SWModule*	curMod = 0;
 	CSwordModuleInfo* newModule = 0;
 		 	
  	shutdownModules(); //remove previous modules
@@ -106,30 +106,30 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 	return ret;
 }
 
-void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
+void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMap &section) {
 	string sourceformat;
 	string moduleDriver;
-	ConfigEntMap::iterator entry;
+	sword::ConfigEntMap::iterator entry;
 	bool noDriver = true;
 
 	sourceformat = ((entry = section.find("SourceType")) != section.end()) ? (*entry).second : (string) "";
 	moduleDriver = ((entry = section.find("ModDrv")) != section.end()) ? (*entry).second : (string) "";
 
-	if (!stricmp(sourceformat.c_str(), "GBF")) {
+	if (!sword::stricmp(sourceformat.c_str(), "GBF")) {
 		if (!m_filters.gbf)
 			m_filters.gbf = new BT_GBFHTML();
 		module->AddRenderFilter(m_filters.gbf);
 		noDriver = false;
 	}
 
-	if (!stricmp(sourceformat.c_str(), "PLAIN")) {
+	if (!sword::stricmp(sourceformat.c_str(), "PLAIN")) {
 		if (!m_filters.plain)
-			m_filters.plain = new PLAINHTML();	
+			m_filters.plain = new sword::PLAINHTML();	
 		module->AddRenderFilter(m_filters.plain);
 		noDriver = false;
 	}
 
-	if (!stricmp(sourceformat.c_str(), "ThML")) {
+	if (!sword::stricmp(sourceformat.c_str(), "ThML")) {
 		if (!m_filters.thml)
 			m_filters.thml = new BT_ThMLHTML();
 		module->AddRenderFilter(m_filters.thml);
@@ -137,9 +137,9 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	}
 
 	if (noDriver){
-		if (!stricmp(moduleDriver.c_str(), "RawCom") || !stricmp(moduleDriver.c_str(), "RawLD")) {
+		if (!sword::stricmp(moduleDriver.c_str(), "RawCom") || !sword::stricmp(moduleDriver.c_str(), "RawLD")) {
 			if (!m_filters.plain)
-				m_filters.plain = new PLAINHTML();
+				m_filters.plain = new sword::PLAINHTML();
 			module->AddRenderFilter(m_filters.plain);
 			noDriver = false;
 		}
@@ -178,8 +178,8 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
 			break;
     case transliteration:
       if (useICU()) {
-        OptionsList options = transliterator()->getOptionValues();
-        OptionsList::iterator it = options.begin();
+        sword::OptionsList options = transliterator()->getOptionValues();
+        sword::OptionsList::iterator it = options.begin();
         for (int index = state; index >0 && it != options.end(); ++it) {
           --index;
         }
@@ -244,8 +244,8 @@ CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name){
 }
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
-const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleConfig) {
-	SectionMap::iterator section;
+const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& moduleConfig) {
+	sword::SectionMap::iterator section;
 	DIR *dir = opendir(configPath);
 	struct dirent *ent;
 	
@@ -258,7 +258,7 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 				modFile = QString::fromLocal8Bit(configPath);
 				modFile += QString::fromLatin1("/");
 				modFile += QString::fromLocal8Bit(ent->d_name);
-				moduleConfig = SWConfig( (const char*)modFile.local8Bit() );
+				moduleConfig = sword::SWConfig( (const char*)modFile.local8Bit() );
 				section =	moduleConfig.Sections.find( (const char*)module.local8Bit() );
 				foundConfig = ( section != moduleConfig.Sections.end() );
 			}
@@ -267,14 +267,14 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 	}
 	else { //try to read mods.conf
 		//moduleConfig = SWConfig( configPath + "/mods.conf" );
-		moduleConfig = SWConfig("");//global config		
+		moduleConfig = sword::SWConfig("");//global config		
 		section =	config->Sections.find( (const char*)module.local8Bit() );		
 		foundConfig = ( section != config->Sections.end() );		
 		
-		ConfigEntMap::iterator entry;
+		sword::ConfigEntMap::iterator entry;
 		if (foundConfig) { //copy module section
 			for (entry = (*section).second.begin(); entry != (*section).second.end(); entry++) {
-					moduleConfig.Sections[(*section).first].insert(ConfigEntMap::value_type((*entry).first, (*entry).second));
+					moduleConfig.Sections[(*section).first].insert(sword::ConfigEntMap::value_type((*entry).first, (*entry).second));
 			}
 		}			
 	}
@@ -289,7 +289,7 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 					modFile = myPath;
 					modFile += "/";
 					modFile += ent->d_name;
-					moduleConfig = SWConfig( (const char*)modFile.local8Bit() );
+					moduleConfig = sword::SWConfig( (const char*)modFile.local8Bit() );
 					section =	moduleConfig.Sections.find( (const char*)module.local8Bit() );
 					foundConfig = ( section != moduleConfig.Sections.end() );
 				}
@@ -389,20 +389,20 @@ const QString CSwordBackend::configOptionName( const CSwordBackend::FilterTypes 
 
 const QString CSwordBackend::booknameLanguage( const QString& language ) {
 	if (!language.isNull())
-		LocaleMgr::systemLocaleMgr.setDefaultLocaleName( language.local8Bit() );
-	return QString::fromLatin1(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
+		sword::LocaleMgr::systemLocaleMgr.setDefaultLocaleName( language.local8Bit() );
+	return QString::fromLatin1(sword::LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 }
 
 /** Returns the version of the Sword library. */
-const SWVersion CSwordBackend::Version() {
-	return SWVersion::currentVersion;
+const sword::SWVersion CSwordBackend::Version() {
+	return sword::SWVersion::currentVersion;
 }
 
 /** Returns our transliterator object we use. Returns 0 if ICU is not used. */
-SWFilter* const CSwordBackend::transliterator() {
+sword::SWFilter* const CSwordBackend::transliterator() {
   if (!useICU())
     return 0;
-  SWFilter* filter = optionFilters["UTF8Transliterator"];
+  sword::SWFilter* filter = optionFilters["UTF8Transliterator"];
 //  Q_ASSERT(filter);
   if (filter)
     return filter;

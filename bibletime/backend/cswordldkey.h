@@ -56,7 +56,7 @@
   *	@version $Id$
   */
 
-class CSwordLDKey : public CSwordKey, public SWKey {
+class CSwordLDKey : public CSwordKey, public sword::SWKey {
 public: 
 	/**
 	* Constructor of CSwordLDKey
@@ -69,7 +69,7 @@ public:
 	/**
 	* Copy constructor for this key class.
 	*/
-	CSwordLDKey( const SWKey *k, CSwordModuleInfo* module);
+	CSwordLDKey( const sword::SWKey *k, CSwordModuleInfo* module);
 //	virtual ~CSwordLDKey();
   /**
   * Clones this object by copying the members.

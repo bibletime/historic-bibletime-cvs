@@ -258,7 +258,7 @@ public:
   /**
   * Returns the selected search scope if a search scope was selected.
   */
-  ListKey searchScope();
+  sword::ListKey searchScope();
   /**
   * Returns the selected scope type.
   */

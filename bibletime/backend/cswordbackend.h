@@ -48,7 +48,7 @@ typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
   *	@author The BibleTime team
   * @version $Id$
   */
-class CSwordBackend : public SWMgr {
+class CSwordBackend : public sword::SWMgr {
 public:
   /**
  	* These are the options which could be supported by modules and by this backend.
@@ -163,12 +163,12 @@ public:
   /**
   * @return Our global config object to store the cipher keys etc.
 	*/
-  SWConfig* const getConfig() const;
+  sword::SWConfig* const getConfig() const;
   /**
   * Tries to find the config object for the module. The second paramter will be the found config.
   * @return True if the config was found, false if not. If false is returned the moduleConfig object is in undefined/unknwon state.
 	*/
-  const bool moduleConfig(const QString& module, SWConfig& moduleConfig);
+  const bool moduleConfig(const QString& module, sword::SWConfig& moduleConfig);
   /**
   * Returns the text used for the option given as parameter.
   */
@@ -184,11 +184,11 @@ public:
   /**
   * Returns the version of the Sword library.
   */
-  virtual const SWVersion Version();
+  virtual const sword::SWVersion Version();
   /**
   * Returns our transliterator object we use. Returns 0 if ICU is not used.
   */
-  SWFilter* const transliterator();
+  sword::SWFilter* const transliterator();
   /** Returns true if ICU is being used. */
   const bool useICU() const;
 	
@@ -197,14 +197,14 @@ protected:
 	* Adds a render filter to the module.
 	* @param module Add a render filter to this module!
 	*/
-	virtual void AddRenderFilters(SWModule *module, ConfigEntMap &section);
+	virtual void AddRenderFilters(sword::SWModule *module, sword::ConfigEntMap &section);
 	
 private:
 	//filters
 	struct {
-		SWFilter *gbf;
-		SWFilter *plain;
-		SWFilter *thml;
+		sword::SWFilter *gbf;
+		sword::SWFilter *plain;
+		sword::SWFilter *thml;
 //    SWFilter *transliterator;
 	} m_filters;
 	ListCSwordModuleInfo m_moduleList;
@@ -222,7 +222,7 @@ inline ListCSwordModuleInfo& CSwordBackend::moduleList() {
 }
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
-inline SWConfig* const CSwordBackend::getConfig() const {
+inline sword::SWConfig* const CSwordBackend::getConfig() const {
 	return config;
 }
 

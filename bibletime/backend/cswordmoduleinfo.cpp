@@ -40,14 +40,14 @@
 #include <swconfig.h>
 #include <rtfhtml.h>
 
-CSwordModuleInfo::CSwordModuleInfo( SWModule* module ) {
+CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module ) {
 	m_module = module;
 	m_searchResult.ClearList();
 	m_dataCache.name = QString::fromLatin1(module->Name());
 	m_dataCache.isUnicode = m_module->isUnicode();
 
 	if (backend()) {
-		if (hasVersion() && (minimumSwordVersion() > SWVersion::currentVersion)) {
+		if (hasVersion() && (minimumSwordVersion() > sword::SWVersion::currentVersion)) {
 		 	qWarning("The module \"%s\" requires a newer Sword library. Please update to \"Sword %s\".", name().latin1(), (const char*)minimumSwordVersion());
 		}
 	}
@@ -72,7 +72,7 @@ CSwordModuleInfo::~CSwordModuleInfo(){
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/
 const CSwordModuleInfo::UnlockErrorCode CSwordModuleInfo::unlock( const QString& unlockKey ){
 	CSwordModuleInfo::UnlockErrorCode	ret = CSwordModuleInfo::noError;
-	SWConfig moduleConfig("");
+	sword::SWConfig moduleConfig("");
 	if ( backend()->moduleConfig(name(), moduleConfig) ) {
 		moduleConfig[name().latin1()]["CipherKey"] = unlockKey.local8Bit();	
 		backend()->setCipherKey(name().latin1(), unlockKey.local8Bit());	
@@ -103,8 +103,8 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	* If we have the CipherKey entry the module
 	* is encrypted but not necessary locked
 	*/		
-	ConfigEntMap config	= backend()->getConfig()->Sections.find( name().latin1() )->second;
-	ConfigEntMap::iterator it = config.find("CipherKey");
+	sword::ConfigEntMap config	= backend()->getConfig()->Sections.find( name().latin1() )->second;
+	sword::ConfigEntMap::iterator it = config.find("CipherKey");
 	if (it != config.end())
 		return true;
 	return false;
@@ -117,13 +117,13 @@ const bool CSwordModuleInfo::hasVersion() const {
 
 
 /** Returns true if something was found, otherwise return false. */
-const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
+const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percentUpdate)(char, void*) ) {
 	int searchType = 0;
  	int searchFlags = REG_ICASE;
 	
 	//work around Swords thread insafety for Bibles and Commentaries
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(this) );
-	SWKey* s = dynamic_cast<SWKey*>(key.get());
+	sword::SWKey* s = dynamic_cast<sword::SWKey*>(key.get());
 	if (s)
 		m_module->SetKey(*s);
 	
@@ -139,7 +139,7 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 		searchType = 0;	//regexp matching
 
 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {		
-		util::scoped_ptr<SWKey> searchScope( m_searchResult.clone() );
+		util::scoped_ptr<sword::SWKey> searchScope( m_searchResult.clone() );
 		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, searchScope, 0, percentUpdate);
 	}
 	else if (searchOptions & CSwordModuleSearch::useScope) {
@@ -151,7 +151,7 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 }
 
 /** Returns the last search result for this module. */
-ListKey& CSwordModuleInfo::searchResult(const ListKey* newResult) {
+sword::ListKey& CSwordModuleInfo::searchResult(const sword::ListKey* newResult) {
 	if (newResult)
 		m_searchResult.copyFrom( *newResult );	
 	return m_searchResult;
@@ -168,8 +168,8 @@ void CSwordModuleInfo::interruptSearch(){
 }
 
 /** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
-const SWVersion CSwordModuleInfo::minimumSwordVersion(){
-	return SWVersion( config(CSwordModuleInfo::MinimumSwordVersion).latin1() );
+const sword::SWVersion CSwordModuleInfo::minimumSwordVersion(){
+	return sword::SWVersion( config(CSwordModuleInfo::MinimumSwordVersion).latin1() );
 }
 
 /** Returns the name of the module. */
@@ -188,7 +188,7 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 		{
 			QString about = QString::fromLatin1(m_module->getConfigEntry("About"));
 			if (!about.isEmpty()) {	
-				RTFHTML filter;
+				sword::RTFHTML filter;
 				const int len = about.length()+600;
 				char dummy[len];
 				strcpy(dummy, about.local8Bit());

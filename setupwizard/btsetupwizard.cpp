@@ -264,7 +264,7 @@ void BTSetupWizard::populateRemoveModuleListView(){
 	QString location, name;
 	QListViewItem* newItem = 0;
 	QListViewItem* parent = 0;
-	SWConfig moduleConfig("");
+	sword::SWConfig moduleConfig("");
 
 	for ( list.first(), mod = 1; list.current(); list.next(), mod++ ){
 

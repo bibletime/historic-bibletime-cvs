@@ -65,8 +65,8 @@ void CTransliterationButton::populateMenu(){
   if (!CPointers::backend()->transliterator())
     return;
 
-  OptionsList options = CPointers::backend()->transliterator()->getOptionValues();
-  OptionsList::iterator it;
+  sword::OptionsList options = CPointers::backend()->transliterator()->getOptionValues();
+  sword::OptionsList::iterator it;
   for (it = options.begin(); it != options.end(); ++it) {
     m_popup->insertItem(QString::fromLatin1((*it).c_str()));
   }

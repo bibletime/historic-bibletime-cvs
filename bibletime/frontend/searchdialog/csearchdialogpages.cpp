@@ -87,7 +87,7 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m){
   if (!m)
     return;
 
-  ListKey result = m->searchResult();
+  sword::ListKey result = m->searchResult();
 	const int count = result.Count();
   if (!count)
     return;
@@ -178,7 +178,7 @@ void CModuleResultView::setupTree( ListCSwordModuleInfo modules ){
   clear();
   QListViewItem* item = 0;
   QListViewItem* oldItem = 0;
-  ListKey result;
+  sword::ListKey result;
   for (modules.first(); modules.current(); modules.next()) {
 		result = modules.current()->searchResult();
 		item = new KListViewItem(this, modules.current()->name(), QString::number(result.Count()) );
@@ -217,7 +217,7 @@ void CModuleResultView::showPopup(KListView*, QListViewItem* i, const QPoint& po
 /** Copies the whole search result into the clipboard. */
 void CModuleResultView::copyResult(){
   if (CSwordModuleInfo* m = activeModule()) {
-    ListKey result = m->searchResult();
+    sword::ListKey result = m->searchResult();
     CExportManager mgr(i18n("Copy search result ..."), true, i18n("Copying search result"));
     mgr.copyKeyList(&result,m,CExportManager::Text,false);
   };  
@@ -226,7 +226,7 @@ void CModuleResultView::copyResult(){
 /** Copies the whole search result with the text into the clipboard. */
 void CModuleResultView::copyResultWithText(){
   if (CSwordModuleInfo* m = activeModule()) {
-    ListKey result = m->searchResult();
+    sword::ListKey result = m->searchResult();
     CExportManager mgr(i18n("Copy search result ..."), true, i18n("Copying search result"));
     mgr.copyKeyList(&result,m,CExportManager::Text,true);
   };
@@ -235,7 +235,7 @@ void CModuleResultView::copyResultWithText(){
 /** Saves the search result keys. */
 void CModuleResultView::saveResult(){
   if (CSwordModuleInfo* m = activeModule()) {
-    ListKey result = m->searchResult();
+    sword::ListKey result = m->searchResult();
     CExportManager mgr(i18n("Save search result ..."), true, i18n("Saving search result"));
     mgr.saveKeyList(&result,m,CExportManager::Text,false);
   };  
@@ -244,7 +244,7 @@ void CModuleResultView::saveResult(){
 /** Saves the search result with it's text. */
 void CModuleResultView::saveResultWithText(){
   if (CSwordModuleInfo* m = activeModule()) {
-    ListKey result = m->searchResult();
+    sword::ListKey result = m->searchResult();
     CExportManager mgr(i18n("Save search result ..."), true, i18n("Saving search result"));
     mgr.saveKeyList(&result,m,CExportManager::Text,true);
   };
@@ -253,7 +253,7 @@ void CModuleResultView::saveResultWithText(){
 /** Appends the whole search result to the printer queue. */
 void CModuleResultView::printResult(){
   if (CSwordModuleInfo* m = activeModule()) {
-    ListKey result = m->searchResult();
+    sword::ListKey result = m->searchResult();
     CExportManager mgr(i18n("Print search result ..."), true, i18n("Printing search result"));
     mgr.printKeyList(&result,m);
   };
@@ -618,15 +618,15 @@ void CSearchOptionsPage::refreshRanges(){
 }
 
 /** Returns the selected search scope if a search scope was selected. */
-ListKey CSearchOptionsPage::searchScope(){
+sword::ListKey CSearchOptionsPage::searchScope(){
   if (m_rangeChooserCombo->currentItem() > 1) { //neither "No Scope" nor "Last search result"
     CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
     QString scope = map[ m_rangeChooserCombo->currentText() ];
 //    qWarning(scope.latin1());
     if (!scope.isEmpty())
-      return VerseKey().ParseVerseList( scope.local8Bit(), "Genesis 1:1", true);
+      return sword::VerseKey().ParseVerseList( scope.local8Bit(), "Genesis 1:1", true);
   };
-  return ListKey();
+  return sword::ListKey();
 }
 
 /** Returns the selected scope type. */

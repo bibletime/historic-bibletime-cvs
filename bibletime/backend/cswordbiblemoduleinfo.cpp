@@ -25,9 +25,9 @@
 //Sword includes
 #include <versekey.h>
 
-static VerseKey staticKey;
+static sword::VerseKey staticKey;
 
-CSwordBibleModuleInfo::CSwordBibleModuleInfo( SWModule* module )
+CSwordBibleModuleInfo::CSwordBibleModuleInfo( sword::SWModule* module )
 	: CSwordModuleInfo(module), m_lowerBound(0), m_upperBound(0) {
 	m_bookList = 0;
 	m_cachedLocale = "unknown";
@@ -98,7 +98,7 @@ QStringList* CSwordBibleModuleInfo::books() {
     else
       m_upperBound.key("Revelation of John 22:21");
 
-		staticKey.setLocale(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
+		staticKey.setLocale(sword::LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 		for (int i = min; i <= max; ++i) {
 			for ( int j = 0; j < staticKey.BMAX[i]; ++j) {
 //			if (backend()->useICU())	
@@ -151,7 +151,7 @@ const unsigned int CSwordBibleModuleInfo::verseCount( const QString& book, const
 const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
 	unsigned int bookNumber = 0;
 	bool found = false;
-	staticKey.setLocale(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
+	staticKey.setLocale(sword::LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 	int min = 0;
 	int max = 1;	
 	//find out if we have ot and nt, only ot or only nt
@@ -191,8 +191,8 @@ const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
 const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament type ) {
   if (m_hasOT == -1 || m_hasNT == -1) {
     module()->setSkipConsecutiveLinks(true);
-		*module() = TOP; //position to first entry
-		VerseKey key( module()->KeyText() );
+		*module() = sword::TOP; //position to first entry
+		sword::VerseKey key( module()->KeyText() );
 		if (key.Testament() == 1) { // OT && NT
 			m_hasOT = 1;
 		}
@@ -200,7 +200,7 @@ const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament
 			m_hasOT = 0;
 		}
 		
-		*module() = BOTTOM;
+		*module() = sword::BOTTOM;
 		key = module()->KeyText();
 		if (key.Testament() == 1) { // only OT, no NT
 			m_hasNT = 0;

@@ -33,7 +33,7 @@
 //systems rebuild their caches
 #define CACHE_FORMAT "2"
 
-CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( SWModule* module) : CSwordModuleInfo(module) {
+CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( sword::SWModule* module) : CSwordModuleInfo(module) {
 	m_entryList = 0;
 }
 
@@ -85,7 +85,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 
     if (!read || !m_entryList->count()){
 //      module()->setSkipConsecutiveLinks(true);
-			(*module()) = TOP;
+			(*module()) = sword::TOP;
       snap(); //snap to top entry
   		do {
         if (isUnicode())
@@ -94,7 +94,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
           m_entryList->append(QString::fromLatin1(module()->KeyText()));
   			(*module())++;
   		} while ( !module()->Error() );
-			(*module()) = TOP;
+			(*module()) = sword::TOP;
 //      module()->setSkipConsecutiveLinks(false);
       
       if (m_entryList->count()) {

@@ -27,11 +27,11 @@
 #include <qregexp.h>
 #include <qstringlist.h>
 
-char BT_BASICFILTER::ProcessText (char *text, int maxlen, const SWKey *key, const SWModule *module){
+char BT_BASICFILTER::ProcessText (char *text, int maxlen, const sword::SWKey *key, const sword::SWModule *module){
 	m_module = module;
 	m_key = key;
 	updateSettings();
-	SWBasicFilter::ProcessText(text, maxlen, key, module);
+	sword::SWBasicFilter::ProcessText(text, maxlen, key, module);
 	
 	return 0;
 }
@@ -48,13 +48,13 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
   * without problems.
   *
   */
- 	VerseKey parseKey; 	
- 	SWModule* m = const_cast<SWModule*>(m_module);
+ 	sword::VerseKey parseKey; 	
+ 	sword::SWModule* m = const_cast<sword::SWModule*>(m_module);
  	const char* lang = m ? m->Lang() : "en";
  	parseKey.setLocale(lang); //we assume that the keys are in english or in the module's language
 
  	parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1"); //use the current key if there's any
- 	ListKey list;
+ 	sword::ListKey list;
   char* to = new char[5000];
 	char* ret = to;
 	
@@ -64,12 +64,12 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
 	 	list = parseKey.ParseVerseList((*it).local8Bit(), parseKey, true);
 		
 	 	const int count = list.Count();
-    SWKey* key = 0;
+    sword::SWKey* key = 0;
 	 	for(int i = 0; i < count; i++) {
 	 		key = list.GetElement(i);
       parseKey = *(list.GetElement(i));
   		pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/", standard_bible); 			
- 			if ( VerseKey* vk = dynamic_cast<VerseKey*>(key) ) {
+ 			if ( sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key) ) {
  				vk->setLocale(lang);
  				vk->LowerBound().setLocale(lang);
  				vk->UpperBound().setLocale(lang); 				

@@ -97,7 +97,7 @@ private:
 			QCheckBox* hebrewCantillation;
 			QCheckBox* greekAccents;
 			QCheckBox* textualVariants;
-		} sword;
+		} swords; // not: sword -> namespace error
 		
 		struct KeySettings {
 			struct WindowType {

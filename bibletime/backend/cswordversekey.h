@@ -49,7 +49,7 @@
 	*	@version $Id$
   *	@author The BibleTime team
   */
-class CSwordVerseKey : public CSwordKey,  public VerseKey  {
+class CSwordVerseKey : public CSwordKey,  public sword::VerseKey  {
 public:
 	enum JumpType {
 		UseBook,
@@ -72,7 +72,7 @@ public:
   /**
   * VerseKey based constructor.
   */
-  CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module );
+  CSwordVerseKey( const sword::VerseKey* k, CSwordModuleInfo* module );
   /**
   * Clones this object.
   */

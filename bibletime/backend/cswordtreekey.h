@@ -28,10 +28,10 @@
 /** BibleTime's implementation of Sword's TreeKeyIdx class.
   * @author The BibleTime team
   */
-class CSwordTreeKey : public CSwordKey, public TreeKeyIdx  {
+class CSwordTreeKey : public CSwordKey, public sword::TreeKeyIdx  {
 public:
 	CSwordTreeKey( const CSwordTreeKey& k );
-	CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module );
+	CSwordTreeKey( const sword::TreeKeyIdx *k, CSwordModuleInfo* module );
 	CSwordModuleInfo* const module( CSwordModuleInfo* const newModule );
 	virtual CSwordTreeKey* copy() const;
   /**

@@ -578,10 +578,10 @@ void CRangeChooserDialog::editRange(QListViewItem* item){
 void CRangeChooserDialog::parseRange(){
   m_resultList->clear();
   
-  VerseKey key;
-  ListKey verses = key.ParseVerseList((const char*)m_rangeEdit->text().local8Bit(), key, true);
+  sword::VerseKey key;
+  sword::ListKey verses = key.ParseVerseList((const char*)m_rangeEdit->text().local8Bit(), key, true);
 	for (int i = 0; i < verses.Count(); ++i) {
-		VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
+		sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
 		if (element)
       new KListViewItem(m_resultList,QString::fromLatin1("%1 - %2").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound())));
 		else
@@ -846,7 +846,7 @@ QColor CSearchAnalysis::getColor(int index){
 
 /** Returns the count of the book in the module */
 const unsigned int CSearchAnalysis::getCount( const QString book, CSwordModuleInfo* module ){
-	ListKey& result = module->searchResult();
+	sword::ListKey& result = module->searchResult();
 	const int length = book.length();	
 	unsigned int i = m_lastPosList[module];
 	unsigned int count = 0;

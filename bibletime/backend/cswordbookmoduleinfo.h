@@ -30,7 +30,7 @@
   */
 class CSwordBookModuleInfo : public CSwordModuleInfo  {
 public: 
-	CSwordBookModuleInfo( SWModule* module );
+	CSwordBookModuleInfo( sword::SWModule* module );
 	CSwordBookModuleInfo( const CSwordBookModuleInfo& m );	
 	~CSwordBookModuleInfo();
   /**
@@ -40,7 +40,7 @@ public:
   /**
   * Used for debugging
   */
-  void printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level = 1 );
+  void printTree(sword::TreeKeyIdx treeKey, sword::TreeKeyIdx* target, int level = 1 );
   /**
   * Returns the maximal depth of sections and subsections.
   */
@@ -48,10 +48,10 @@ public:
   /**
   * @return A treekey filled with the structure of this module. Don't delete the returned key because it's casted from the module object.
   */
-  TreeKeyIdx* const tree() const;
+  sword::TreeKeyIdx* const tree() const;
 
 private:
-  void computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, int level = 0 );	
+  void computeDepth(sword::TreeKeyIdx treeKey, sword::TreeKeyIdx* target, int level = 0 );	
 	int m_depth;
 };
 

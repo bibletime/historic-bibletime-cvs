@@ -123,15 +123,15 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 
 		if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
       text = QString::null;
-      ListKey verses = VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
+      sword::ListKey verses = sword::VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
 			
     	for (int i = 0; i < verses.Count(); ++i) {
-    		VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
+    		sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
     		if (element) {
-     			VerseKey lowerBound = element->LowerBound();
+     			sword::VerseKey lowerBound = element->LowerBound();
           lowerBound.Headings(false);
 
-					VerseKey upperBound = element->UpperBound();
+					sword::VerseKey upperBound = element->UpperBound();
           upperBound.Headings(false);
         	
          	while (lowerBound < upperBound) {
@@ -175,9 +175,9 @@ const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QStr
 	if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
 	  QString text = QString::null;
     qWarning("want to parse the key %s", keyName.latin1());
-    ListKey keys = VerseKey().ParseVerseList((const char*)keyName.local8Bit(),VerseKey("Genesis 1:1"), true);
+    sword::ListKey keys = sword::VerseKey().ParseVerseList((const char*)keyName.local8Bit(), sword::VerseKey("Genesis 1:1"), true);
     qWarning("parsed the key %s", keyName.latin1());
-	  if (VerseKey* element = dynamic_cast<VerseKey*>(keys.GetElement(0)))
+	  if (sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(keys.GetElement(0)))
 			text = QString::fromLatin1("%1-%2").arg((const char*)element->LowerBound()).arg((const char*)element->UpperBound());
 	  else
 	  	text = QString::fromLatin1("%1").arg((const char*)(*keys.GetElement(0)));

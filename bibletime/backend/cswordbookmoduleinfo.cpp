@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-CSwordBookModuleInfo::CSwordBookModuleInfo( SWModule* module )
+CSwordBookModuleInfo::CSwordBookModuleInfo( sword::SWModule* module )
 	: CSwordModuleInfo(module), m_depth(-1)
 {
 	//checking if it works as expected
@@ -48,7 +48,7 @@ CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordBookModuleInfo& module )
 CSwordBookModuleInfo::~CSwordBookModuleInfo(){
 }
 
-void CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level ){
+void CSwordBookModuleInfo::printTree(sword::TreeKeyIdx treeKey, sword::TreeKeyIdx* target, int level ){
 	if (!target)
 		target = &treeKey;
 
@@ -66,9 +66,9 @@ void CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int
 
 const int CSwordBookModuleInfo::depth() {
 	if (m_depth == -1) {
-  	TreeKeyIdx* treeKey = tree();
+  	sword::TreeKeyIdx* treeKey = tree();
   	if (treeKey) {
-    	TreeKeyIdx root = *treeKey;
+    	sword::TreeKeyIdx root = *treeKey;
     	root.root();
 			computeDepth(root, treeKey, 0);
 		}
@@ -76,7 +76,7 @@ const int CSwordBookModuleInfo::depth() {
 	return m_depth;
 }
 
-void CSwordBookModuleInfo::computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, int level ){
+void CSwordBookModuleInfo::computeDepth(sword::TreeKeyIdx treeKey, sword::TreeKeyIdx* target, int level ){
 	if (!target)
 		target = &treeKey;
 
@@ -93,8 +93,8 @@ void CSwordBookModuleInfo::computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, 
 }
 
 /** Returns a treekey filled with the structure of this module */
-TreeKeyIdx* const  CSwordBookModuleInfo::tree() const {
-	TreeKeyIdx* treeKey = dynamic_cast<TreeKeyIdx*>((SWKey*)*(module()));
+sword::TreeKeyIdx* const  CSwordBookModuleInfo::tree() const {
+	sword::TreeKeyIdx* treeKey = dynamic_cast<sword::TreeKeyIdx*>((sword::SWKey*)*(module()));
 	if (treeKey)
 		return treeKey;
 	return 0;

@@ -105,7 +105,7 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 	return true;
 };
 
-const bool CExportManager::saveKeyList(ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText) {
+const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText) {
   if (!list)
     return false;
   const QString filename = getSaveFileName(format);
@@ -121,7 +121,7 @@ const bool CExportManager::saveKeyList(ListKey* list, CSwordModuleInfo* module, 
 
  	QString text;
  	int index = 0;
- 	*list = TOP;
+ 	*list = sword::TOP;
  	while (!list->Error() && !progress.wasCancelled()) {
  		key->key((const char*)(*list));
  		if (!key)
@@ -184,7 +184,7 @@ const bool CExportManager::copyKey(CSwordKey* key, const Format format, const bo
 	return true;
 };
 
-const bool CExportManager::copyKeyList(ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText) {
+const bool CExportManager::copyKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText) {
   if (!list)
     return false;
 
@@ -197,7 +197,7 @@ const bool CExportManager::copyKeyList(ListKey* list, CSwordModuleInfo* module, 
 
  	QString text;
  	int index = 0;
- 	*list = TOP;
+ 	*list = sword::TOP;
  	while (!list->Error() && !progress.wasCancelled()) {
  		key->key((const char*)(*list));
  		if (!key)
@@ -221,7 +221,7 @@ const bool CExportManager::copyKeyList(ListKey* list, CSwordModuleInfo* module, 
 	return false;
 };
 
-const bool CExportManager::printKeyList(ListKey* list, CSwordModuleInfo* module) {
+const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* module) {
 	KProgressDialog progress( 0,"progress", m_caption, m_progressLabel, true );
   progress.progressBar()->setRange(0,list->Count()+1);
 //	progress.progressBar()->setProgress(0);
@@ -234,9 +234,9 @@ const bool CExportManager::printKeyList(ListKey* list, CSwordModuleInfo* module)
 	QPtrList<CPrintItem> itemList;
 	QString startKey, stopKey;
 
-	(*list) = TOP;
+	(*list) = sword::TOP;
 	while (!list->Error() && !progress.wasCancelled()) {
-		VerseKey* vk = dynamic_cast<VerseKey*>(list);
+		sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(list);
 		if (vk) {
 			startKey = QString::fromLocal8Bit((const char*)(vk->LowerBound()) );
 			stopKey = QString::fromLocal8Bit((const char*)(vk->UpperBound()) );
@@ -293,9 +293,9 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink ){
 
     //check if we have a range of entries or a single one
     if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
-      ListKey verses = VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
+     sword:: ListKey verses =sword:: VerseKey().ParseVerseList((const char*)keyName.local8Bit(), "Genesis 1:1", true);
     	for (int i = 0; i < verses.Count(); ++i) {
-    		VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
+    		sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
     		if (element)
         	CExportManager::printKey(module,QString::fromLocal8Bit((const char*)element->LowerBound()), QString::fromLocal8Bit((const char*)element->UpperBound()) );
     		else

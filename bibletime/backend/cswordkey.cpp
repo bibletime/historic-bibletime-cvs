@@ -49,7 +49,7 @@ const QString CSwordKey::renderedText() {
 //	qWarning("const QString CSwordKey::renderedText()");
   if (!m_module)
 		return QString::null;		
-	if (SWKey* k = dynamic_cast<SWKey*>(this)) {
+	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
     m_module->module()->SetKey(k);		
 	}
   if (key().isNull()) {
@@ -62,7 +62,7 @@ const QString CSwordKey::strippedText() {
 //	qWarning("const QString CSwordKey::strippedText()");	
   if (!m_module)
 		return QString::null;
-	if (SWKey* k = dynamic_cast<SWKey*>(this))
+	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this))
 		m_module->module()->SetKey(k);
 	return QString::fromUtf8(m_module->module()->StripText());	
 }
@@ -75,11 +75,11 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo* const module ){
 	switch( module->type() ){
 		case CSwordModuleInfo::Bible:
 		case CSwordModuleInfo::Commentary:
-			return new CSwordVerseKey( (VerseKey *) ( (SWKey *)(*module->module()) ), module );
+			return new CSwordVerseKey( (sword::VerseKey *) ( (sword::SWKey *)(*module->module()) ), module );
 		case CSwordModuleInfo::Lexicon:
-			return new CSwordLDKey( (SWKey *)(*module->module()), module);
+			return new CSwordLDKey( (sword::SWKey *)(*module->module()), module);
 		case CSwordModuleInfo::GenericBook:
-			return new CSwordTreeKey( (TreeKeyIdx*)((SWKey *)(*module->module())), module );
+			return new CSwordTreeKey( (sword::TreeKeyIdx*)((sword::SWKey *)(*module->module())), module );
 		default:
 			return 0;
 	}

@@ -260,7 +260,7 @@ void BibleTime::processCommandline(){
 
       KRandomSequence rs;
       int newIndex = rs.getLong(maxIndex);
-      vk.setPosition(TOP);
+      vk.setPosition(sword::TOP);
       vk.Index(newIndex);
       bibleKey = vk.key();
     }

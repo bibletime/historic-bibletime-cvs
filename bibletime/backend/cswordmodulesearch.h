@@ -95,7 +95,7 @@ public:
   /**
  	* Sets the search scope.
  	*/
-  void setSearchScope( ListKey scope );
+  void setSearchScope( sword::ListKey scope );
   /**
  	*	Calls with true if you want to use the last searchresult as search scope.
  	*/
@@ -130,14 +130,14 @@ public:
   /**
   * Returns a copy of the used search scope.
   */
-  ListKey& scope();
+  sword::ListKey& scope();
 	void connectPercentUpdate( QObject *receiver, const char *member );
 	void connectFinished( QObject *receiver, const char *member );
   void searchFinished();
 		
 protected:
 	QString m_searchedText;
-	ListKey m_searchScope;
+	sword::ListKey m_searchScope;
 	ListCSwordModuleInfo m_moduleList;
 
 	int m_searchOptions;

@@ -39,7 +39,7 @@
   *@author The BibleTime team
   */
 
-class CEntryDisplay : public SWDisplay, public CPointers  {
+class CEntryDisplay : public sword::SWDisplay, public CPointers  {
 public: // Public methods
   enum StyleType {
     Body = 0,

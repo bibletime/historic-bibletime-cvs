@@ -125,7 +125,7 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings){
 	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
 	
 	if (key()) {
-		VerseKey* vk = dynamic_cast<VerseKey*>(key());
+		sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key());
 		QString oldLang;
 		if (vk) {
 			 oldLang = QString::fromLatin1(vk->getLocale());	

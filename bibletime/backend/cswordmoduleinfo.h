@@ -32,7 +32,7 @@
 #include <listkey.h>
 #include <swversion.h>
 
-class SWModule;
+class sword::SWModule;
 class CSwordBackend;
 class CEntryDisplay;
 
@@ -95,7 +95,7 @@ public:
 	*/
 	const QString config( const ConfigEntry );
 	
-	CSwordModuleInfo( SWModule* module );
+	CSwordModuleInfo( sword::SWModule* module );
 	CSwordModuleInfo( const CSwordModuleInfo& m );	
   virtual CSwordModuleInfo* clone();	
 	virtual ~CSwordModuleInfo();	
@@ -103,7 +103,7 @@ public:
   /**
  	* Returns the module object so all objects can access the original Sword module.
  	*/
-  SWModule* const module() const;
+  sword::SWModule* const module() const;
   /**
  	* Sets the unlock key of the modules and writes the key into the cofig file.
 	* @return True if the unlock process was succesful, if the key was wrong, or if the config file was write protected return false.
@@ -138,12 +138,12 @@ public:
   * This function does start the Sword functions to search in the module and it does
   * overwrite the variable containing the last search result.
   */
-  virtual const bool search( const QString searchedText, const int searchOptions, ListKey scope, void (*percent)(char, void*));
+  virtual const bool search( const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percent)(char, void*));
   /**
   * Returns the last search result for this module.
   * The last result is cleared by @ref search
   */
-  virtual ListKey& searchResult( const ListKey* newResult = 0 );
+  virtual sword::ListKey& searchResult( const sword::ListKey* newResult = 0 );
   /**
   * This interupts the search if this module is being searched.
   */
@@ -162,7 +162,7 @@ public:
   * Returns the required Sword version for this module.
 	* Returns -1 if no special Sword version is required.
 	*/
-  const SWVersion minimumSwordVersion();
+  const sword::SWVersion minimumSwordVersion();
   /**
   * Returns the name of the module.
   */
@@ -184,8 +184,8 @@ public:
   virtual const CSwordModuleInfo::TextDirection textDirection();
 
 private:
-	SWModule*	m_module;
-	ListKey m_searchResult;
+	sword::SWModule*	m_module;
+	sword::ListKey m_searchResult;
 	struct {
 		QString name;
 		bool isUnicode;
@@ -198,7 +198,7 @@ inline const CSwordModuleInfo::ModuleType CSwordModuleInfo::type() const {
 	return CSwordModuleInfo::Unknown;
 }
 
-inline SWModule*const CSwordModuleInfo::module() const {
+inline sword::SWModule* const CSwordModuleInfo::module() const {
 	return m_module;
 }
 

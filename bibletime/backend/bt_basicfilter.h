@@ -20,16 +20,16 @@
 
 #include <swbasicfilter.h>
 
-class SWKey;
-class SWModule;
+class sword::SWKey;
+class sword::SWModule;
 
 /**
   * This is the base class for all filters in BT
   */
 
-class BT_BASICFILTER : public SWBasicFilter  {
+class BT_BASICFILTER : public sword::SWBasicFilter  {
 public:
-  virtual char ProcessText (char *text, int maxlen, const SWKey *, const SWModule * = 0);
+  virtual char ProcessText (char *text, int maxlen, const sword::SWKey *, const sword::SWModule * = 0);
 
 protected:
 	/**
@@ -63,8 +63,8 @@ protected:
 	
 	char standard_bible[100];
 
-	const SWKey *m_key;
-	const SWModule* m_module;
+	const sword::SWKey *m_key;
+	const sword::SWModule* m_module;
 };
 
 #endif
