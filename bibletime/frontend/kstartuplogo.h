@@ -19,6 +19,7 @@
 #define KSTARTUPLOGO_H
 
 #include <qwidget.h>
+#include <qlabel.h>
 
 /**
 	* This class provides a startuplogo.
@@ -27,6 +28,9 @@
 class KStartupLogo : public QWidget {
 public:
 	KStartupLogo();
+  void setText(const QString text);
+private:
+  QLabel* textLabel;
 };
 
 #endif

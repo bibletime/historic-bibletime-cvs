@@ -16,21 +16,38 @@
  ***************************************************************************/
 
 #include "kstartuplogo.h"
+
+#include <qlayout.h>
+
 #include <kapp.h>
 #include <kstddirs.h>
 #include <kimageio.h>
 
 KStartupLogo::KStartupLogo()
-	: QWidget(0,"startuplogo",WStyle_Customize | WStyle_NoBorder) {
-	
-  QPixmap pm;	
-  bool success = false;
+	: QWidget(0,"startuplogo"/*,WStyle_Customize | WStyle_NoBorder*/) {
 
-	success = pm.load(locate("BT_pic","startuplogo.jpg"));		
-  if ( !success )
+
+  QPixmap pm;	
+	if ( !pm.load(locate("BT_pic","startuplogo.jpg")) )
   	qWarning("Can't load startuplogo! Check your installation.");
-  	  	
+
   setBackgroundPixmap(pm);
-  setFixedSize(pm.width(), pm.height());
-  setGeometry( (KApplication::desktop()->width()-pm.width())/2,(KApplication::desktop()->height()-pm.height())/2, pm.width(), pm.height());
+
+  QLabel*  textLabel = new QLabel(this);	
+  textLabel->setGeometry(0,pm.height(),pm.width(),textLabel->sizeHint().height());
+
+  setFixedSize(pm.width(), pm.height()+textLabel->sizeHint().height());
+  setGeometry(
+    (KApplication::desktop()->width()-pm.width())/2,
+    (KApplication::desktop()->height()-pm.height()-textLabel->height())/2,
+    pm.width(),
+    pm.height()+textLabel->sizeHint().height());
+
+
+  //Does not display ??
+  textLabel->setText("BibleTime");
 }
+void KStartupLogo::setText(const QString text){
+  textLabel->setText( text );
+}
+
