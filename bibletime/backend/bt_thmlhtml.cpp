@@ -43,7 +43,7 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	addTokenSubstitute("/note", ")</span> ");
 
 	addTokenSubstitute("foreign lang=\"el\"", "<span lang=\"el\">");
-	addTokenSubstitute("foreign lang=\"he\"", "<span lang=\"he\">");
+	addTokenSubstitute("foreign lang=\"he\"", "<span lang=\"he\" dir=\"rtl\">");
 	addTokenSubstitute("/foreign",						"</span>");
 }
 

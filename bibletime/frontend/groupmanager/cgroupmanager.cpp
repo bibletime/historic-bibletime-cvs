@@ -104,7 +104,7 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModuleInfo *swordList, const bool useBookmarks, const bool saveSettings, const bool useDnD, const bool useExtendedMode, const bool useRMBMenu, const bool showHelpDialogs)
 	: KListView(parent, name),
 		m_swordList(swordList),		
-		m_config( new KSimpleConfig("bt-groupmanager", false/*, false*/ ) ),
+		m_config( new KConfig("bt-groupmanager", false, false ) ),
 	  m_menu(false),
 		m_searchDialog(0),		
 		m_pressedItem(0),		
@@ -115,11 +115,6 @@ CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModule
 		m_useRMBMenu(useRMBMenu),
 		m_showHelpDialogs(showHelpDialogs)
 {
-//	if (KGlobal::dirs()->addCustomized(m_config))
-//	 	m_config->reparseConfiguration();
-//	m_config->setGroup("test");
-// 	m_config->writeEntry("d", "test");
-//  m_config->sync();
 	initView();
 	initConnections();
 	readSettings();

@@ -225,7 +225,7 @@ const QString CHTMLEntryDisplay::formatString( const CHTMLEntryDisplay::StyleTyp
       text = QString::fromLatin1("a:link {text-decoration:none; color: %1}").arg(swordRefColor);
       break;
     case LinkHover:
-      text = QString::fromLatin1("a:hover {text-decoration:none; font-weight:bolder;}");
+      text = QString::fromLatin1("a:hover {text-decoration:none;}");
       break;
     case HighlightedText:
       text = QString::fromLatin1("#highlighted {color: %1;}")

@@ -57,14 +57,12 @@ protected:
   virtual void initConnections();
   virtual void initView();
   /**
-  * Reimplementation to handle the anchors.
-  */
-  virtual void lookup( CSwordKey* );
-  /**
   * Reimplementation.
   */
   virtual void setupPopupMenu();
-  /** Reimplemented. */
+  /**
+	* Reimplemented.
+	*/
   virtual void updatePopupMenu();
 
   struct {
