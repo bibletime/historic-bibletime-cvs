@@ -35,21 +35,50 @@ class CSwordModuleInfo;
   *@author The BibleTime team
   */
 class CExportManager : CPointers {
-public: // Public methods
-  //save functions
-  static const bool saveKey( CSwordKey* key, const bool withText = true,  const CSwordBackend::FilterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions = CBTConfig::getDisplayOptionDefaults() );
-  static const bool saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
-  static const bool saveKeyList( QPtrList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
+public:
+  enum Format {
+    HTML,
+    Text
+  };
+  
+  CExportManager(const QString& caption, const bool showProgress = true, const QString& progressLabel = QString::null, const CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults());
+  const bool saveKey(CSwordKey* key, const Format format, const bool addText);
+  const bool saveKeyList(ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);  
+      
+//  //save functions
+//  static const bool saveKey( CSwordKey* key, const Format format, const bool withText = true, CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults());
+//  static const bool saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
+//  static const bool saveKeyList( QPtrList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
+//
+//  //clipboard functions
+//  static const bool copyKey( CSwordKey* key, const bool withText = true, const CSwordBackend::FilterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions = CBTConfig::getDisplayOptionDefaults() );
+//  static const bool copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
+//
+//  //print function
+//  static const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopkey = QString::null, const QString& description = QString::null );
+//  static const bool printKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool showProgress = true );
+//  static void printKey( const QString& hyperlink );
 
-  //clipboard functions
-  static const bool copyKey( CSwordKey* key, const bool withText = true, const CSwordBackend::FilterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions = CBTConfig::getDisplayOptionDefaults() );
-  static const bool copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
+private:
+  QString m_caption;
+  QString m_progressLabel;
+  bool m_showProgress;
+  CSwordBackend::FilterOptions m_filterOptions;
+  CSwordBackend::DisplayOptions m_displayOptions;
 
-  //print function
-  static const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopkey = QString::null, const QString& description = QString::null );
-  static const bool printKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool showProgress = true );
-  static void printKey( const QString& hyperlink );
-
+protected: // Protected methods
+  /**
+  * Returns the string for the filedialogs to show the correct files.
+  */
+  const QString filterString( const Format format );
+  /**
+  * Returns a filename to save a file.
+  */
+  const QString getSaveFileName(const Format format);
+  /**
+  * Returns a string containing the linebreak for the current format.
+  */
+  const QString lineBreak( const Format format );
 };
 
 #endif

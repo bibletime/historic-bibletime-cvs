@@ -123,15 +123,15 @@ void CBibleReadWindow::initConnections(){
 }
 
 void CBibleReadWindow::initView(){
-	qWarning("CBibleReadWindow::initView");
+//	qWarning("CBibleReadWindow::initView");
  	CLexiconReadWindow::initView();
 	
-  qWarning("create the display settings button");
+//  qWarning("create the display settings button");
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(1,displaySettingsButton()->size().width(),displaySettingsButton());
 
 	if (backend()->useICU()){
-    qWarning("add the ICU button!");
+//    qWarning("add the ICU button!");
 	  m_transliterationButton = new CTransliterationButton(&filterOptions(), mainToolBar());
 		mainToolBar()->insertWidget(2,m_transliterationButton->size().width(),m_transliterationButton);
 	}
@@ -254,15 +254,15 @@ void CBibleReadWindow::copyChapter(){
   CSwordVerseKey dummy(*verseKey());
 
   dummy.Verse(1);
-  qWarning("copyChapter: lower bound is %s", (const char*)dummy);
+//  qWarning("copyChapter: lower bound is %s", (const char*)dummy);
   vk.LowerBound(dummy);
 
   CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
   dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
-  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
+//  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
   vk.UpperBound(dummy);
 
-  CExportManager::copyKey(&vk, true, filterOptions(), displayOptions());
+//  CExportManager::copyKey(&vk, true, filterOptions(), displayOptions());
 }
 
 /** Saves the chapter as valid HTML page. */
@@ -273,14 +273,14 @@ void CBibleReadWindow::saveChapter(){
   CSwordVerseKey dummy(*verseKey());
 
   dummy.Verse(1);
-  qWarning("copyChapter: lower bound is %s", (const char*)dummy);
+//  qWarning("copyChapter: lower bound is %s", (const char*)dummy);
   vk.LowerBound(dummy);
 
   CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
   dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
-  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
+//  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
   vk.UpperBound(dummy);
 
-  CExportManager::saveKey(&vk, true, filterOptions(), displayOptions());
+//  CExportManager::saveKey(&vk, true, filterOptions(), displayOptions());
 
 }

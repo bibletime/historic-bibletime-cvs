@@ -88,16 +88,16 @@ void CReadDisplay::print(const CDisplay::TextPart type){
     		CSwordVerseKey stopKey(*vk);
 				if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module))
 					stopKey.Verse( bible->verseCount( bible->bookNumber(startKey.book()), startKey.Chapter() ) );
-				CExportManager::printKey(module, startKey.key(), stopKey.key());
+//				CExportManager::printKey(module, startKey.key(), stopKey.key());
   		}
     	else if (module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary ) {
-    		CExportManager::printKey(module, key->key(), key->key());
+//    		CExportManager::printKey(module, key->key(), key->key());
       }
     };
 
     case AnchorWithText: {
-      if (hasActiveAnchor())
-				CExportManager::printKey( activeAnchor() );
+//      if (hasActiveAnchor())
+//				CExportManager::printKey( activeAnchor() );
     };
 
     default:

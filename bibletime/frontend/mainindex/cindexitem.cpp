@@ -375,7 +375,7 @@ const bool CBookmarkItem::enableAction(const MenuAction action){
 }
 
 void CBookmarkItem::print(){
-  CExportManager::printKey(module(), key(), key(), description());
+//  CExportManager::printKey(module(), key(), key(), description());
 }
 
 /** Changes this bookmark. */

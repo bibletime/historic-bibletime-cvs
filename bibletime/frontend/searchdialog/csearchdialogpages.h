@@ -139,7 +139,10 @@ private:
   CReadDisplay* m_previewDisplay;
   ListCSwordModuleInfo m_modules;
   QPushButton* m_analyseButton;
-
+  struct Actions {
+//    KAction*
+  } m_actions;
+  
 protected slots: // Protected slots
   /**
   * Update the preview of the selected key.
