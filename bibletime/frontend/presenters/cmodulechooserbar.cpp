@@ -20,7 +20,7 @@
 
 #include <qtimer.h>
 
-CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModuleInfo::type type, QWidget *parent, const char *name )
+CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModuleInfo::ModuleType type, QWidget *parent, const char *name )
 	: KToolBar(parent,name) {
 	qDebug("constructor of CModuleCHooserBar");
 

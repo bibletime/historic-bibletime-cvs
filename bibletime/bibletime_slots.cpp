@@ -97,7 +97,7 @@ void BibleTime::slotSettingsOptions(){
 void BibleTime::slotSettingsChanged(){
 
  		const QString language = CBTConfig::get(CBTConfig::language);
- 		m_backend->setBooknameLanguage(language);		
+ 		m_backend->booknameLanguage(language);		
  		//refresh the bookmark items in the groupmanager		
  		QListViewItemIterator it( m_groupmanager );
  		CGroupManagerItem* item = 0;
@@ -106,7 +106,7 @@ void BibleTime::slotSettingsChanged(){
  				if (item->type() == CGroupManagerItem::Bookmark) {
 						CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(item->getBookmarkKey());
 						if ( vKey ) {
-							vKey->setLocale( (const char*)m_backend->getCurrentBooknameLanguage().local8Bit());
+							vKey->setLocale( (const char*)m_backend->booknameLanguage().local8Bit());
 							item->update();
 						}
  				}

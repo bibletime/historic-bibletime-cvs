@@ -71,7 +71,7 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo *module ){
 	if (!module)
 		return 0;
 		
-	switch( module->getType() ){
+	switch( module->type() ){
 		case CSwordModuleInfo::Bible:
 		case CSwordModuleInfo::Commentary:
 			return new CSwordVerseKey( (VerseKey *) ( (SWKey *)(*module->module()) ), module );

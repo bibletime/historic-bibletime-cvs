@@ -26,3 +26,7 @@ CSwordCommentaryModuleInfo::~CSwordCommentaryModuleInfo(){
 
 }
 
+/** No descriptions */
+CSwordModuleInfo* CSwordCommentaryModuleInfo::clone(){
+	return new CSwordCommentaryModuleInfo(*this);
+}

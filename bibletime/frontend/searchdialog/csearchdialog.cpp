@@ -169,7 +169,7 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 		tableTotals = "<tr><td align=\"left\">" + i18n("Total Hits") + "</td>";
 		for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(),++moduleIndex) {
 				tableTitle += QString::fromLatin1("<th align=\"left\">") + moduleList->current()->name() + QString::fromLatin1("</th>");
-				m_searchResult = moduleList->current()->getSearchResult();
+				m_searchResult = moduleList->current()->searchResult();
 				countStr.setNum(m_searchResult.Count());
 	      tableTotals += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
 		}
@@ -290,12 +290,13 @@ void CSearchDialog::percentUpdate(){
  	const int newOverallPercentage = searcher->getPercent(CSwordModuleSearch::allModules); 	
  	const int newCurrentPercentage = searcher->getPercent(CSwordModuleSearch::currentModule);
 
- 	if (old_overallProgress != newOverallPercentage) {
+// 	if (old_overallProgress != newOverallPercentage) {
  		searchText->updateOverallProgress(newOverallPercentage);
  		old_overallProgress = newOverallPercentage;
- 	}
- 	if (old_currentProgress != newCurrentPercentage) {
+// 	}
+// 	if (old_currentProgress != newCurrentPercentage) {
  		searchText->updateCurrentProgress(newCurrentPercentage);
  		old_currentProgress = newCurrentPercentage;
- 	} 	
+// 	}
+	KApplication::kapp->processEvents();
 }

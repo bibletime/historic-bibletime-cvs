@@ -51,7 +51,7 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 }
 
 /** Returns the entries of the module. */
-QStringList* CSwordLexiconModuleInfo::getEntries(){
+QStringList* CSwordLexiconModuleInfo::entries(){
 	if (!m_entryList) {
 		if (!module()) {
 			return 0;
@@ -70,9 +70,9 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
   		
       if ( f1.open( IO_ReadOnly ) ){
         QDataStream s( &f1 );
-  			QString version;
-        s >> version;
-  			if (version == ( getVersion().isEmpty() ? QString::fromLatin1("0") : getVersion())) {
+  			QString v;
+        s >> v;
+  			if (v == ( version().isEmpty() ? QString::fromLatin1("0") : version())) {
   				s >> *m_entryList;
   				read = true;
   			}
@@ -97,7 +97,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
         QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );
         if (f2.open( IO_WriteOnly )){
           QDataStream s( &f2 );
-  				s << ( getVersion().isEmpty() ? QString::fromLatin1("0") : getVersion());
+  				s << ( version().isEmpty() ? QString::fromLatin1("0") : version());
   				s << *m_entryList;
   			  f2.close();
         }
@@ -111,4 +111,9 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 /** Jumps to the closest entry in the module.  */
 const bool CSwordLexiconModuleInfo::snap(){
 	module()->getRawEntry();
+}
+
+/** No descriptions */
+CSwordModuleInfo* CSwordLexiconModuleInfo::clone(){
+	return new CSwordLexiconModuleInfo(*this);
 }

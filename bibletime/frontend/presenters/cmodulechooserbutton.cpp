@@ -27,7 +27,7 @@
 #include <kpopupmenu.h>
 #include <klocale.h>
 
-CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::type type, const int id, QWidget *parent, const char *name )
+CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent, const char *name )
 	: QToolButton(parent,name) {
 	qDebug("CModuleChooserButton::CModuleCHooserButton");
 
@@ -50,9 +50,9 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
 	m_popup->insertItem(i18n("NONE"));
 	m_popup->insertSeparator();	
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));
-	ListCSwordModuleInfo* modules = backend()->getModuleList();
+	ListCSwordModuleInfo* modules = backend()->moduleList();
 	for (modules->first(); modules->current(); modules->next()) {
-		if (modules->current()->getType() == m_moduleType) {
+		if (modules->current()->type() == m_moduleType) {
 			m_popup->insertItem( modules->current()->name() );
 		}
 	}	

@@ -305,7 +305,7 @@ void BibleTime::initBackends(){
 
 	m_moduleList = 0;		
 	if ( errorCode == CSwordBackend::noError ) {	//no error
-		m_moduleList = m_backend->getModuleList();
+		m_moduleList = m_backend->moduleList();
 	} else {
 		//show error message that initBackend failed		
 		switch (errorCode) {
@@ -331,7 +331,7 @@ void BibleTime::initBackends(){
 
 	//initialize international bookname language
 	const QString language = CBTConfig::get(CBTConfig::language);
-	m_backend->setBooknameLanguage(language);
+	m_backend->booknameLanguage(language);
 	ASSERT(m_moduleList);
 }
 

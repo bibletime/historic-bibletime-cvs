@@ -34,7 +34,7 @@ public:
 	/**
 	* Default constructor
 	*/
-	CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModuleInfo::type type,  QWidget *parent=0, const char *name=0);
+	CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModuleInfo::ModuleType type,  QWidget *parent=0, const char *name=0);
   /**
   * Returns a list of selected modules.
   */
@@ -64,7 +64,7 @@ protected slots: // Protected slots
 
 private:
 	QList<CModuleChooserButton> m_buttonList;
-	CSwordModuleInfo::type m_moduleType;
+	CSwordModuleInfo::ModuleType m_moduleType;
 	int m_idCounter;
 	int m_deleteID;
 	int m_buttonLimit;

@@ -122,7 +122,7 @@ void CDisplaySettingsButton::setItemStatus( const int index, const bool checked 
 	const int ID = m_popup->idAt(index);
 	m_popup->setItemChecked(ID, checked);
 	const QString text = m_popup->text(ID);
-	qWarning("set %c to %i",text.local8Bit(), checked);
+	qWarning("set %c to %i",(const char*)text.local8Bit(), (int)checked);
 	
 	
 	if (m_dict[text])

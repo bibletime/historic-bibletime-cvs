@@ -544,11 +544,11 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	gridLayout->setRowStretch(8,5);							
 		
  	//fill the comboboxes with the right modules
- 	ListCSwordModuleInfo* modules = backend()->getModuleList();
+ 	ListCSwordModuleInfo* modules = backend()->moduleList();
 	QString modDescript;
   for ( modules->first(); modules->current(); modules->next() ) {
-		modDescript = modules->current()->getDescription();
- 		switch (modules->current()->getType()) {
+		modDescript = modules->current()->description();
+ 		switch (modules->current()->type()) {
  			case CSwordModuleInfo::Bible:
  				m_settings.sword.standardBible->insertItem(modDescript);
  				break;

@@ -37,7 +37,7 @@ public:
 		int vertical;	//the position of the vertical scrollbar
   };
 
-	CProfileWindow(CSwordModuleInfo::type type = CSwordModuleInfo::Unknown);
+	CProfileWindow(CSwordModuleInfo::ModuleType type = CSwordModuleInfo::Unknown);
 	~CProfileWindow();
   /**
   * Sets the modules.
@@ -46,11 +46,11 @@ public:
   /**
   * Returns the type of the managed window (bible window, commentary window or lexicon window).
   */
-  const CSwordModuleInfo::type type();
+  const CSwordModuleInfo::ModuleType type();
   /**
   * Sets the type of the used modules.
   */
-  void setType(CSwordModuleInfo::type type);
+  void setType(const CSwordModuleInfo::ModuleType type);
   /**
   * Sets the size of the window.
   */
@@ -97,7 +97,7 @@ public:
   const CProfileWindow::ScrollbarPos scrollbarPositions();
 
 private:
-	CSwordModuleInfo::type m_type;
+	CSwordModuleInfo::ModuleType m_type;
 	QRect m_windowGeometry;
 	QStringList m_moduleList;
 	QString m_key;

@@ -33,14 +33,12 @@ class CSwordCommentaryModuleInfo : public CSwordBibleModuleInfo  {
 public:
 	CSwordCommentaryModuleInfo( CSwordBackend* backend, SWModule* module );
 	~CSwordCommentaryModuleInfo();
-  /**
-  * No descriptions
-  */
-  virtual const CSwordModuleInfo::type getType() const;
+  virtual const CSwordModuleInfo::ModuleType type() const;
+  virtual CSwordModuleInfo* clone();
 };
 
 /** No descriptions */
-inline const CSwordModuleInfo::type CSwordCommentaryModuleInfo::getType() const{
+inline const CSwordModuleInfo::ModuleType CSwordCommentaryModuleInfo::type() const{
 	return CSwordModuleInfo::Commentary;
 }
 

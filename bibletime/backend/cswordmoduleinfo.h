@@ -20,6 +20,7 @@
 
 //BibleTime includes
 #include "cswordbackend.h"
+#include "../frontend/cpointers.h"
 
 //Qt includes
 #include <qstring.h>
@@ -42,13 +43,9 @@ class CHTMLEntryDisplay;
   * @author The BibleTime team
   * @version $Id$
   */
-class CSwordModuleInfo  {
+class CSwordModuleInfo : public CPointers  {
 public:
-	enum type { Bible, Commentary, Lexicon, GenericBook, Unknown };
-//	enum TextDirection {
-//		LTR = 0, /*LTR = Left to right*/		
-//		RTL /*RTL = Right To Left*/
-//	};
+	enum ModuleType { Bible, Commentary, Lexicon, GenericBook, Unknown };
   /**
  	* This enum is used to give
  	* back an error code after unlocking the module
@@ -65,7 +62,7 @@ public:
   /**
  	* Returns the backend used by thid module.
  	*/
-  CSwordBackend* backend() const;
+//  CSwordBackend* backend() const;
   /**
  	* Returns the module object so all objects can access the original Sword module.
  	*/
@@ -87,7 +84,7 @@ public:
 	* Returns the cipher key if the module is encrypted, if the key is not set return QString::empty,
  	* if the module is not encrypted retur QString::null.
  	*/
-  const QString getCipherKey() const;
+  const QString cipherKey() const;
   /**
  	* This function does return true if the data files of the module are encrypted by the module author
  	* (the on who made the module) no matter if it's locked or not.
@@ -102,12 +99,12 @@ public:
   /**
  	* Returns the path to this module.
  	*/
-  const QString getPath() const;
+  const QString path() const;
   /**
   * Returns the version number of this module. It does access the config file of this module to get
   * the version number.
   */
-  const QString getVersion() const;
+  const QString version() const;
   /**
   * @return true if this module has a version number and false if it doesn't have one.
   */
@@ -116,11 +113,11 @@ public:
   * Returns the about information of this module.
   * This function uses the config file to get the about information.
   */
-  const QString getAboutInformation() const;
+  const QString aboutInformation() const;
   /**
  	* Returns the description of the module (e.g. the "The World english Bible")
  	*/
-  const QString getDescription() const;
+  const QString description() const;
   /**
   * Returns true if something was found, otherwise return false.
   * This function does start the Sword functions to search in the module and it does
@@ -131,7 +128,7 @@ public:
   * Returns the last search result for this module.
   * The last result is cleared by @ref search
   */
-  virtual ListKey& getSearchResult();
+  virtual ListKey& searchResult( const ListKey* newResult = 0 );
   /**
   * This interupts the search if this module is being searched.
   */
@@ -151,7 +148,7 @@ public:
   /**
   * Returns the type of the module.
   */
-  virtual const CSwordModuleInfo::type getType() const;
+  virtual const CSwordModuleInfo::ModuleType type() const;
 //  /**
 //  * Returns the text direction used in this module.
 //  */
@@ -174,16 +171,16 @@ public:
   * not present in the data files.
   */
   virtual const bool snap() {return false;};
+  virtual CSwordModuleInfo* clone();
 	
 private:
 	SWModule*	m_module;
 	ListKey m_searchResult;
-	CSwordBackend* m_backend;	
 };
 
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
 
-inline const CSwordModuleInfo::type CSwordModuleInfo::getType() const {
+inline const CSwordModuleInfo::ModuleType CSwordModuleInfo::type() const {
 	return CSwordModuleInfo::Unknown;
 }
 

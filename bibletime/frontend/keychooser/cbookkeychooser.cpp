@@ -27,7 +27,7 @@ CBookKeyChooser::CBookKeyChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, Q
 	: CKeyChooser(module, key, parent,name), m_key(0)
 {
 	qWarning("CBookKeyChooser::CBookKeyChooser");
-	if ( module && (module->getType() == CSwordModuleInfo::GenericBook) ) {
+	if ( module && (module->type() == CSwordModuleInfo::GenericBook) ) {
 		m_module = dynamic_cast<CSwordBookModuleInfo*>(module);		
 	}
 	else {

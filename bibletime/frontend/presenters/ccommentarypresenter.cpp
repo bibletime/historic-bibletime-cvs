@@ -273,7 +273,7 @@ void CCommentaryPresenter::refresh( ){
 
 //	CSwordPresenter::refresh();	//refreshes the display settings button
 
-	m_key->setLocale((const char*)backend()->getCurrentBooknameLanguage().local8Bit());
+	m_key->setLocale((const char*)backend()->booknameLanguage().local8Bit());
 	m_keyChooser->refreshContent();
 	lookup(m_key);
 	m_htmlWidget->refresh();		

@@ -39,9 +39,9 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *paren
 	m_displayOptions( CBTConfig::getAllDisplayOptionDefaults() )
 
 {		
-	for (backend()->getModuleList()->first(); backend()->getModuleList()->current(); backend()->getModuleList()->next()) {
-		if (backend()->getModuleList()->current()->getType() == CSwordModuleInfo::Lexicon) {
-			m_lexiconPopup->insertItem( backend()->getModuleList()->current()->name() );
+	for (backend()->moduleList()->first(); backend()->moduleList()->current(); backend()->moduleList()->next()) {
+		if (backend()->moduleList()->current()->type() == CSwordModuleInfo::Lexicon) {
+			m_lexiconPopup->insertItem( backend()->moduleList()->current()->name() );
 		}
 	}	
 	connect(m_lexiconPopup, SIGNAL(activated(int)),this, SLOT(lookupWord(int)));
@@ -174,7 +174,7 @@ void CSwordPresenter::storeSettings( CProfileWindow* settings ){
 	settings->setGeometry(rect);
 		
 	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
-	settings->setType(m_moduleList.first()->getType());
+	settings->setType(m_moduleList.first()->type());
 	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
 	CSwordKey* key = getKeyChooser()->getKey();
 	if (key)

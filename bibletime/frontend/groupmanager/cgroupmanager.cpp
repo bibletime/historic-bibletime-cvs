@@ -189,7 +189,7 @@ void CGroupManager::setupStandardSwordTree() {
 		}
 		if ( moduleInfo && !alreadyCreated) {
 			CGroupManagerItem* itemParent = 0;
-			switch (moduleInfo->getType()) {
+			switch (moduleInfo->type()) {
 				case CSwordModuleInfo::Bible:
 					itemParent = bibleGroup;
 					break;
@@ -209,7 +209,7 @@ void CGroupManager::setupStandardSwordTree() {
 				(void)new CGroupManagerItem(itemParent, "",QString::null, moduleInfo,0, CGroupManagerItem::Module);
 		}
 	}
-
+	
 	// Now delete the groupes which have no child items
 	if (!bibleGroup->childCount()) {		
 		delete bibleGroup;
@@ -464,7 +464,7 @@ void CGroupManager::slotPopupAboutToShow(){
 			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, false);			
 			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);			
 
-			m_popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, true);
+			m_popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, false);
 						
 			m_popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, true);	
 			m_popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, moduleIsEncrypted);			
@@ -496,7 +496,7 @@ void CGroupManager::slotPopupAboutToShow(){
 												
 			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);							
 			
-			//enable importa and export only if a bookmark exists in this group
+			//enable import and export only if a bookmark exists in this group
 			bool foundBookmark = false;
 	    QListViewItem * myChild = m_pressedItem->firstChild();
 	    while( myChild && !foundBookmark) {
@@ -517,29 +517,29 @@ void CGroupManager::slotPopupAboutToShow(){
 		}		
 	}
 	else { //top level
-			m_popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, false);
+ 		m_popupMenu->setItemEnabled(ID_GM_PRESENTER_CREATE, false);
 						
-			m_popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, true);
-			m_popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, false);
+ 		m_popupMenu->setItemEnabled(ID_GM_GROUP_CREATE, true);
+ 		m_popupMenu->setItemEnabled(ID_GM_GROUP_CHANGE, false);
 			
-			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);				
+ 		m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_CHANGE, false);				
 			
-			bool foundBookmark = false;	
-	    QListViewItemIterator it( this );
-	    for ( ; it.current() && !foundBookmark; ++it ) {
-	    	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(it.current());
-				if (i && i->type() == CGroupManagerItem::Bookmark)
-					foundBookmark = true;
-			}			
-			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, true);
-			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, foundBookmark);
-			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);
+ 		bool foundBookmark = false;	
+     QListViewItemIterator it( this );
+     for ( ; it.current() && !foundBookmark; ++it ) {
+     	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(it.current());
+ 			if (i && i->type() == CGroupManagerItem::Bookmark)
+ 				foundBookmark = true;
+ 		}			
+ 		m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, true);
+ 		m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, foundBookmark);
+ 		m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);
 						
-			m_popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, false);
+ 		m_popupMenu->setItemEnabled(ID_GM_ITEMS_DELETE, false);
 						
-			m_popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, false);
-			m_popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, false);			
-			m_popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, false);			
+ 		m_popupMenu->setItemEnabled(ID_GM_MODULES_SEARCH, false);
+ 		m_popupMenu->setItemEnabled(ID_GM_MODULE_UNLOCK, false);			
+ 		m_popupMenu->setItemEnabled(ID_GM_MODULE_ABOUT, false);			
 	}
 }
 
@@ -553,11 +553,11 @@ void CGroupManager::slotShowAbout(){
   if (module->hasVersion())
     text += i18n("<b>%1:</b> %2<br>")
     	.arg(i18n("Version"))
-    	.arg(module->getVersion());
+    	.arg(module->version());
 
 	text += QString::fromLatin1("<b>%1:</b> %2<br><b>%3:</b> %4<br>")
 		.arg(i18n("Location"))
-		.arg(backend()->getModulePath(module->name()))
+		.arg(backend()->modulePath(module->name()))
 		.arg(i18n("Language"))
 		.arg(module->module()->Lang());
 
@@ -569,7 +569,7 @@ void CGroupManager::slotShowAbout(){
 	if ( module->isEncrypted() )
 		text += QString::fromLatin1("<b>%1:</b> %2<br>")
 							.arg(i18n("Unlock key"))
-							.arg(module->getCipherKey());	
+							.arg(module->cipherKey());	
 
 	if (module->isUnicode())
 		text += QString::fromLatin1("<b>%1:</b> %2<br>").arg(i18n("Encoding")).arg(i18n("Unicode"));
@@ -582,7 +582,7 @@ void CGroupManager::slotShowAbout(){
 		if (module->supportsFeature( (CSwordBackend::moduleOptions) opts)){
   		if (!options.isEmpty())
   			options += QString::fromLatin1(", ");
-  		options += CSwordBackend::getTranslatedOptionName( (CSwordBackend::moduleOptions) opts);
+  		options += CSwordBackend::translatedOptionName( (CSwordBackend::moduleOptions) opts);
 		}
 	}
 	if (!options.isEmpty())
@@ -592,9 +592,9 @@ void CGroupManager::slotShowAbout(){
 
 	text += QString::fromLatin1("<b>%1:</b><br> <font size=\"-1\">%2</font>")
 						.arg("About")
-						.arg(module->getAboutInformation());
+						.arg(module->aboutInformation());
 
-	KMessageBox::about(this, text, module->getDescription(), false);
+	KMessageBox::about(this, text, module->description(), false);
 }
 
 /**  */
@@ -1017,7 +1017,7 @@ CGroupManagerItem* CGroupManager::findParent( const int ID, CGroupManagerItem* p
 /** Opens a dialog to enter the key to unlock an encrypted module. */
 void CGroupManager::slotUnlockModule(){	
 	bool ok;
-	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the key to unlock the module!"), m_pressedItem->moduleInfo()->getCipherKey(), &ok, 0 );
+	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the key to unlock the module!"), m_pressedItem->moduleInfo()->cipherKey(), &ok, 0 );
 	if (ok) {
 		CSwordModuleInfo::unlockErrorCode ret = m_pressedItem->moduleInfo()->unlock( unlockKey );
 		if ( ret != CSwordModuleInfo::noError) {

@@ -32,7 +32,7 @@ class KPopupMenu;
 class CModuleChooserButton : public QToolButton, public CPointers  {
    Q_OBJECT
 public: 
-	CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::type type, const int id, QWidget *parent = 0, const char *name = 0 );
+	CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent = 0, const char *name = 0 );
   CSwordModuleInfo* getModule();
   /**
   * Returns the id used for this button.
@@ -45,7 +45,7 @@ public:
 	
 private:
 	bool m_hasModule;
-	CSwordModuleInfo::type m_moduleType;
+	CSwordModuleInfo::ModuleType m_moduleType;
 	CSwordModuleInfo* m_module;
 	int m_id;
 	KPopupMenu* m_popup;

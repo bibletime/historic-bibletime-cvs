@@ -57,28 +57,29 @@ public:
  	* @param chapter The chapter we should use
  	* @return The number of verses for the given book and chapter
  	*/
-  virtual const unsigned int getVerseCount( const unsigned int book, const unsigned int chapter ) const;
+  virtual const unsigned int verseCount( const unsigned int book, const unsigned int chapter ) const;
   /**
  	* @return The number of available chapters of the given book.
  	* @return The number of chapters for the given book
  	*/
-  virtual const unsigned int getChapterCount( const unsigned int book ) const;
+  virtual const unsigned int chapterCount( const unsigned int book ) const;
   /** Return all book of this module.
   * @return A QStringList containing the books which are available in this module.
   */
-  virtual QStringList* getBooks();
+  virtual QStringList* books();
   /**
   * Reimplementation, Returns the type
   */
-  virtual const CSwordModuleInfo::type getType() const;
+  virtual const CSwordModuleInfo::ModuleType type() const;
   /**
   * @return the book number, values starting with 1; 0 if not found
   */
-  const unsigned int getBookNumber(const QString &book);
+  const unsigned int bookNumber(const QString &book);
   /**
   * Returns true if his module has the text of desired type of testament
   */
   const bool hasTestament( CSwordBibleModuleInfo::Testament );
+  virtual CSwordModuleInfo* clone();
 
 private:
 	QStringList*	m_bookList;	//This booklist is cached
@@ -87,7 +88,7 @@ private:
 	short int m_hasNT;
 };
 
-inline const CSwordModuleInfo::type CSwordBibleModuleInfo::getType() const {
+inline const CSwordModuleInfo::ModuleType CSwordBibleModuleInfo::type() const {
 	return CSwordModuleInfo::Bible;
 }
 

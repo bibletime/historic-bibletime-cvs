@@ -52,7 +52,7 @@ CSwordKey* CSwordLDKey::copy() const {
 
 /** Sets the module of this key. */
 CSwordModuleInfo* CSwordLDKey::module(CSwordModuleInfo* newModule){	
-	if (newModule && newModule->getType() == CSwordModuleInfo::Lexicon) {
+	if (newModule && newModule->type() == CSwordModuleInfo::Lexicon) {
 		const QString oldKey = key();	
 		m_module = newModule;
 		key(oldKey);

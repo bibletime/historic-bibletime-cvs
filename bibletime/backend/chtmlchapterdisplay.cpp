@@ -62,7 +62,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 			m_htmlText.append( QString::fromLatin1("<font color=\"%1\"><a name=\"%2\" href=\"%3\"><b>%4</b></a></font> ")
 				.arg(m_swordRefColorName)
 				.arg(verse)
-				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key(), CReferenceManager::typeFromModule(module->getType()) ))
+				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key(), CReferenceManager::typeFromModule(module->type()) ))
 				.arg(verse)
 			);
 		if (verse == currentVerse)
@@ -137,7 +137,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		rowText = QString("<tr><td bgcolor=\"#f1f1f1\"><b><font color=\"%1\"><a name=\"%2\" href=\"%3\">%4</a></b></td>\n")
 			.arg(m_swordRefColorName)
 			.arg(currentVerse)
-			.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey, CReferenceManager::typeFromModule(d->getType()) ))
+			.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey, CReferenceManager::typeFromModule(d->type()) ))
 			.arg(currentVerse);
 					
 		while (m) {

@@ -98,10 +98,15 @@ const bool CSwordModuleSearch::startSearch() {
 	
 	bool foundItems = false;
 	
+	CSwordModuleInfo* m = 0;
 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		cms_module_current++;
-		if ( m_moduleList.current()->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) )
-			foundItems = true;
+		m = m_moduleList.first()->clone();
+		if ( m->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) ) {
+			m_moduleList.current()->searchResult( &(m->searchResult()) );
+			foundItems = true;			
+		}
+		delete m;
 	}
 	m_foundItems = foundItems;		
 	m_isSearching = false;

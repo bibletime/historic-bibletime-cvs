@@ -172,7 +172,7 @@ void CSearchDialogResult::updatePreview(const QString newText) {
 	html_widget->setText(
 		QString::fromLatin1("<HTML><HEAD></HEAD><BODY><FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3</BODY></HTML>")
 		 .arg(resultTree->currentText())
-		 .arg((resultModuleTree->getCurrentModule()) ? resultModuleTree->getCurrentModule()->getDescription() : QString::fromLatin1("<I>%1</I>").arg(i18n("<I>module not set</I>")) )
+		 .arg((resultModuleTree->getCurrentModule()) ? resultModuleTree->getCurrentModule()->description() : QString::fromLatin1("<I>%1</I>").arg(i18n("<I>module not set</I>")) )
 		 .arg(text)
 	);
 }

@@ -70,7 +70,7 @@ public:
   * Returns the preferred module name for the given type.
   */
   static const QString preferredModule( const Type type );
-  static CReferenceManager::Type typeFromModule( const CSwordModuleInfo::type type );
+  static CReferenceManager::Type typeFromModule( const CSwordModuleInfo::ModuleType type );
   /** Parses the given verse references using the given language and the module.
 	* @param ref The verse refernce
 	* @param lang The language of the verse reference

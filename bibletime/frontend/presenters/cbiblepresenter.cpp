@@ -214,7 +214,7 @@ void CBiblePresenter::refresh( ){
 
 	CSwordPresenter::refresh();	//refreshes the display settings button
 
-	m_key->setLocale((const char*)backend()->getCurrentBooknameLanguage().local8Bit());
+	m_key->setLocale((const char*)backend()->booknameLanguage().local8Bit());
 	m_keyChooser->refreshContent();
 	lookup(m_key);
 	m_htmlWidget->refresh();		
@@ -299,7 +299,7 @@ void CBiblePresenter::printChapter(){
 
 	CSwordBibleModuleInfo* b = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
 	if (b)
-		stopKey.Verse( b->getVerseCount(b->getBookNumber(startKey.book()),startKey.Chapter()) );
+		stopKey.Verse( b->verseCount(b->bookNumber(startKey.book()),startKey.Chapter()) );
 	printKey(startKey.key(), stopKey.key(), m_moduleList.first());
 }
 

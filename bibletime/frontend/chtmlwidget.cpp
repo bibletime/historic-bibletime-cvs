@@ -111,10 +111,10 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 		}		
 		m = backend()->findModuleByName(module);
 		if (m){
-			if (m->getType() == CSwordModuleInfo::Bible || m->getType() == CSwordModuleInfo::Commentary) {
+			if (m->type() == CSwordModuleInfo::Bible || m->type() == CSwordModuleInfo::Commentary) {
 				CSwordModuleInfo* module = htmlWidget->modules().first();
 				if (module) {
-					ref = CReferenceManager::parseVerseReference(ref, module->module()->Lang(), backend()->getCurrentBooknameLanguage() );
+					ref = CReferenceManager::parseVerseReference(ref, module->module()->Lang(), backend()->booknameLanguage() );
 				}
 			}
 			CSwordKey* key = CSwordKey::createInstance( m );			

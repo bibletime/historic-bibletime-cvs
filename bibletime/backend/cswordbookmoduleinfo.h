@@ -36,7 +36,7 @@ public:
   /**
   * Returns the type of the module.
   */
-  virtual const CSwordModuleInfo::type getType() const;
+  virtual const CSwordModuleInfo::ModuleType type() const;
   /**
   * Used for debugging
   */
@@ -48,14 +48,14 @@ public:
   /**
   * @return A treekey filled with the structure of this module. Don't delete the returned key because it's casted from the module object.
   */
-  TreeKeyIdx* getTree();
+  TreeKeyIdx* tree();
 
 private:
   void computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, int level = 0 );	
 	int m_depth;
 };
 
-inline const CSwordBookModuleInfo::type CSwordBookModuleInfo::getType() const {
+inline const CSwordBookModuleInfo::ModuleType CSwordBookModuleInfo::type() const {
 	return CSwordModuleInfo::GenericBook;
 }
 

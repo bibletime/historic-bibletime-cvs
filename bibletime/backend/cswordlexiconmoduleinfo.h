@@ -50,15 +50,16 @@ public:
  	* If this function is called for the first time the list is load from disk and stored in a list which cahes it.
  	* If the function is called again, the cached list is returned so we have a major speed improvement.
  	*/
-  QStringList* getEntries();
+  QStringList* entries();
   /**
   * Reimplementation.
   */
-  virtual const CSwordModuleInfo::type getType() const;
+  virtual const CSwordModuleInfo::ModuleType type() const;
   /**
   * Jumps to the closest entry in the module.
   */
   const bool snap();
+  virtual CSwordModuleInfo* clone();
 
 private:
 	/**
@@ -67,7 +68,7 @@ private:
 	QStringList* m_entryList;
 };
 
-inline const CSwordModuleInfo::type CSwordLexiconModuleInfo::getType() const {
+inline const CSwordModuleInfo::ModuleType CSwordLexiconModuleInfo::type() const {
 	return CSwordModuleInfo::Lexicon;
 }
 

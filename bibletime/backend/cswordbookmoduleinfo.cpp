@@ -67,7 +67,7 @@ void CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int
 
 const int CSwordBookModuleInfo::depth() {
 	if (m_depth == -1) {
-  	TreeKeyIdx* treeKey = getTree();
+  	TreeKeyIdx* treeKey = tree();
   	if (treeKey) {
     	TreeKeyIdx root = *treeKey;
     	root.root();
@@ -96,7 +96,7 @@ void CSwordBookModuleInfo::computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, 
 }
 
 /** Returns a treekey filled with the structure of this module */
-TreeKeyIdx* CSwordBookModuleInfo::getTree(){
+TreeKeyIdx* CSwordBookModuleInfo::tree(){
 	TreeKeyIdx* treeKey = (TreeKeyIdx*)((SWKey*)*(module()));
 	if (treeKey)
 		return treeKey;

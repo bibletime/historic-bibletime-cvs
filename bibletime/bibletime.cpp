@@ -153,7 +153,7 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 	kapp->setOverrideCursor( waitCursor );
 	
 	CSwordPresenter* presenter = 0;
-	switch (modules.first()->getType()) {
+	switch (modules.first()->type()) {
 		case CSwordModuleInfo::Bible:
 			presenter = new CBiblePresenter(modules,  m_mdi);
 			break;

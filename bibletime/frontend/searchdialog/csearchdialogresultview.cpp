@@ -76,7 +76,7 @@ void CSearchDialogResultModuleView::setupTree() {
 	QListViewItem	*module = 0;
 
 	for (moduleList->first(); moduleList->current(); moduleList->next()) {
-		moduleSearchResult = moduleList->current()->getSearchResult();
+		moduleSearchResult = moduleList->current()->searchResult();
 		module = new QListViewItem(this, QString("%1 [%2]").arg( moduleList->current()->name() ).arg( moduleSearchResult.Count() ));
 		module->setPixmap(0,CToolClass::getIconForModule(moduleList->current()) );
 	}	
@@ -149,7 +149,7 @@ void CSearchDialogResultModuleView::resizeEvent( QResizeEvent* e){
 
 /** Adds all items  of the search result of this module to the printing queue of BibleTime. */
 void CSearchDialogResultModuleView::printSearchResult(){
-	ListKey& searchResult = m_currentModule->getSearchResult();
+	ListKey& searchResult = m_currentModule->searchResult();
 		
 	QProgressDialog progress( "Printing search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);
@@ -157,7 +157,7 @@ void CSearchDialogResultModuleView::printSearchResult(){
 	
 	const int count = searchResult.Count();
 	QString text;
-	const CSwordModuleInfo::type type = m_currentModule->getType();
+	const CSwordModuleInfo::ModuleType type = m_currentModule->type();
 	CPrinter* p = printer();
 	SWKey* key = 0;
 	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);						
@@ -186,7 +186,7 @@ void CSearchDialogResultModuleView::slotCopySearchResult(){
 		}		
 	}
 
-	ListKey& searchResult = m_currentModule->getSearchResult();
+	ListKey& searchResult = m_currentModule->searchResult();
 	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
 	progress.setMinimumDuration(0);
@@ -225,7 +225,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResult(){
 	if (file.isEmpty())
 		return;
 	
-	ListKey& searchResult = m_currentModule->getSearchResult();
+	ListKey& searchResult = m_currentModule->searchResult();
 	QProgressDialog progress( "Saving search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.show();
 	progress.setProgress(0);	
@@ -261,7 +261,7 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 		}		
 	}
 
-	ListKey& searchResult = m_currentModule->getSearchResult();
+	ListKey& searchResult = m_currentModule->searchResult();
 	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
 	progress.setMinimumDuration(0);
@@ -303,7 +303,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));		
 	if (file.isEmpty())
 		return;
-	ListKey& searchResult = m_currentModule->getSearchResult();
+	ListKey& searchResult = m_currentModule->searchResult();
 	QProgressDialog progress( "Saving...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
 	progress.setMinimumDuration(0);
@@ -312,7 +312,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 
 	const int count = searchResult.Count();
-	const CSwordModuleInfo::type type = m_currentModule->getType();
+	const CSwordModuleInfo::ModuleType type = m_currentModule->type();
 
 	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
 	if (!newKey)
@@ -353,7 +353,7 @@ CSearchDialogResultView::~CSearchDialogResultView() {
 
 /** Initializes the tree of this ResultView */
 void CSearchDialogResultView::setupTree() {
-	ListKey& moduleSearchResult = m_module->getSearchResult();
+	ListKey& moduleSearchResult = m_module->searchResult();
 	clear();
 	const int count = moduleSearchResult.Count();
 	
@@ -538,12 +538,7 @@ void CSearchDialogResultView::slotSaveCurrentWithKeytext(){
 	QString text;
 	QString keyText, keyName;
 	for (list.first(); list.current(); list.next()) {
-		CSwordKey* key = 0;
-		if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary)
-			key = new	CSwordVerseKey(m_module);
-		else if (m_module->getType() == CSwordModuleInfo::Lexicon)
-			key = new CSwordLDKey(m_module);
-		
+		CSwordKey* key = CSwordKey::createInstance(m_module);
 		if (!key)
 			continue;
 			

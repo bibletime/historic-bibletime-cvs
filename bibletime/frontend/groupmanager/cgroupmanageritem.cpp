@@ -219,7 +219,7 @@ const QString CGroupManagerItem::getToolTip(){
 			if (!key)
 				return QString::null;				
 			QString bookmarkText = 	key ? key->renderedText() : QString();
-			if (bookmarkText.length() > 150 && (moduleInfo()->getType() != CSwordModuleInfo::Bible))
+			if (bookmarkText.length() > 150 && (moduleInfo()->type() != CSwordModuleInfo::Bible))
 				bookmarkText = bookmarkText.left(150) + "<BR>[...]";
 
 			//Module is Unicode-based
@@ -235,13 +235,13 @@ const QString CGroupManagerItem::getToolTip(){
 		case Module:
 		{
 			text = i18n("Module") + QString::fromLatin1(": <B>%1</B><HR>").arg( moduleInfo()->name() );
-			text += moduleInfo()->getDescription() + QString::fromLatin1("<HR>");
+			text += moduleInfo()->description() + QString::fromLatin1("<HR>");
 			text += i18n("Language")+ QString::fromLatin1(": %1<BR>").arg(moduleInfo()->module()->Lang());
 			if (moduleInfo()->isEncrypted())
 				text += i18n("Unlock key") + QString::fromLatin1(": %1<BR>")
-					.arg(!moduleInfo()->getCipherKey().isEmpty() ? moduleInfo()->getCipherKey() : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
+					.arg(!moduleInfo()->cipherKey().isEmpty() ? moduleInfo()->cipherKey() : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
 			if (moduleInfo()->hasVersion())
-				text += i18n("Version") + QString::fromLatin1(": %1<BR>").arg(moduleInfo()->getVersion());
+				text += i18n("Version") + QString::fromLatin1(": %1<BR>").arg(moduleInfo()->version());
      	     	
      	QString options;
      	unsigned int opts;
@@ -249,7 +249,7 @@ const QString CGroupManagerItem::getToolTip(){
      		if (moduleInfo()->supportsFeature( (CSwordBackend::moduleOptions) opts)){
        		if (!options.isEmpty())
        			options += QString::fromLatin1(", ");
-       		options += CSwordBackend::getTranslatedOptionName( (CSwordBackend::moduleOptions) opts);
+       		options += CSwordBackend::translatedOptionName( (CSwordBackend::moduleOptions) opts);
      		}
      	}
      	if (!options.isEmpty())

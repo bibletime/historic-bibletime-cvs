@@ -95,7 +95,7 @@ const QString& CPrintItem::getModuleText() {
 		CSwordKey* stopKey = CSwordKey::createInstance(m_module);	
 		stopKey->key(m_stopKey);
 		
-		if (m_module->getType() == CSwordModuleInfo::Bible  || m_module->getType() == CSwordModuleInfo::Commentary ) {
+		if (m_module->type() == CSwordModuleInfo::Bible  || m_module->type() == CSwordModuleInfo::Commentary ) {
 			const QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");		
 			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(startKey);
 			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(stopKey);						

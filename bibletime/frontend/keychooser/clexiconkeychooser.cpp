@@ -39,7 +39,7 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
 	//we use a layout because the key chooser should be resized to full size
  	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 	
-	m_widget = new CKeyChooserWidget(m_module->getEntries(), false, this);
+	m_widget = new CKeyChooserWidget(m_module->entries(), false, this);
 	m_widget->comboBox()->setMaximumWidth(300);
 	
 //  if (info && info->isUnicode()){
@@ -84,13 +84,13 @@ void CLexiconKeyChooser::activated(int index){
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
 //	m_layout->invalidate();	
-	m_widget->reset(m_module->getEntries(), 0, true);	
+	m_widget->reset(m_module->entries(), 0, true);	
 //	updateGeometry();	
 }
 
 /** Sets the module and refreshes the combo boxes */
 void CLexiconKeyChooser::setModule( CSwordModuleInfo* module) {
-	if (module && module != m_module && (dynamic_cast<CSwordModuleInfo*>(module))->getType() == CSwordLexiconModuleInfo::Lexicon) {
+	if (module && module != m_module && module->type() == CSwordLexiconModuleInfo::Lexicon) {
 		m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
 		refreshContent();
 	}

@@ -151,7 +151,7 @@ void CSearchDialogAnalysis::analyse(){
 void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
 	m_moduleList.clear();
 	for (modules->first(); modules->current(); modules->next())
-		if ( modules->current()->getType() == CSwordModuleInfo::Bible || modules->current()->getType() == CSwordModuleInfo::Commentary )//a Bible or an commentary
+		if ( modules->current()->type() == CSwordModuleInfo::Bible || modules->current()->type() == CSwordModuleInfo::Commentary )//a Bible or an commentary
 			m_moduleList.append(modules->current());
 
 	m_canvasItemList.clear();
@@ -215,7 +215,7 @@ QColor CSearchDialogAnalysis::getColor(int index){
 
 /** Returns the count of the book in the module */
 const unsigned int CSearchDialogAnalysis::getCount( const QString book, CSwordModuleInfo* module ){
-	ListKey& result = module->getSearchResult();
+	ListKey& result = module->searchResult();
 	const int length = book.length();	
 	unsigned int i = m_lastPosList[module];
 	unsigned int count = 0;

@@ -103,7 +103,7 @@ public:
   *	
   *	@return The list of modules managed by this backend
   */
-  virtual ListCSwordModuleInfo* getModuleList() const;
+  virtual ListCSwordModuleInfo* moduleList() const;
   /**
   * Initializes the Sword modules.
   *
@@ -123,9 +123,7 @@ public:
   * @param enable If this is true the option will be enabled, otherwise it will be disabled.
   */
   virtual void setOption( const CSwordBackend::moduleOptions type, bool enable);
-
   void setAllModuleOptions( const CSwordBackend::moduleOptionsBool options);
-
   void setAllDisplayOptions( const CSwordBackend::displayOptionsBool options);
   /**
   * Returns true if the given option is enabled.
@@ -138,13 +136,9 @@ public:
 	*/
 	virtual void Load();
   /**
- 	* Returns the current language of the international booknames.
- 	*/
-  virtual const QString getCurrentBooknameLanguage() const;
-  /**
   * Sets the language for the international booknames of Sword.
   */
-  const bool setBooknameLanguage( const QString& language );
+  const QString booknameLanguage( const QString& = QString::null );
   /**
   * This function searches for a module with the specified description
   * @param description The description of the desired module
@@ -172,20 +166,20 @@ public:
   * @return True if the config was found, false if not. If false is returned the moduleConfig object is in undefined/unknwon state.
   *
 	*/
-  const bool getModuleConfig(const QString& module, SWConfig& moduleConfig);
+  const bool moduleConfig(const QString& module, SWConfig& moduleConfig);
   /**
   * Returns the path of the module with the name "moduleName".	
 	* If no path is found return QString::null
 	*/
-  const QString getModulePath( const QString moduleName );
+  const QString modulePath( const QString moduleName );
   /**
   * Returns the text used for the option given as parameter.
   */
-  static const QString getOptionName( const CSwordBackend::moduleOptions option);
+  static const QString optionName( const CSwordBackend::moduleOptions option);
   /**
   * Returns the text used for the option given as parameter.
   */
-  static const QString getConfigOptionName( const CSwordBackend::moduleOptions option);
+  static const QString configOptionName( const CSwordBackend::moduleOptions option);
 //	/**
 //	*	Returns the used options.
 //	*/
@@ -193,7 +187,7 @@ public:
   /** 
 	* Returns the translated name of the option given as parameter.
 	*/
-  static const QString getTranslatedOptionName(const CSwordBackend :: moduleOptions option);
+  static const QString translatedOptionName(const CSwordBackend :: moduleOptions option);
 	
 
 	CHTMLChapterDisplay* 	m_chapterDisplay;	
@@ -218,24 +212,13 @@ private:
 };
 
 /**Returns The list of modules managed by this backend*/
-inline ListCSwordModuleInfo* CSwordBackend::getModuleList() const {
+inline ListCSwordModuleInfo* CSwordBackend::moduleList() const {
 	return m_moduleList;
 }
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
 inline SWConfig* CSwordBackend::getConfig() const {
 	return config;
-}
-
-/** Returns the current language of the international booknames. */
-inline const QString CSwordBackend::getCurrentBooknameLanguage() const {
-	return QString::fromLatin1(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());	
-}
-
-/** Sets the language for the international booknames of Sword. */
-inline const bool CSwordBackend::setBooknameLanguage( const QString& language ){
-	LocaleMgr::systemLocaleMgr.setDefaultLocaleName( language.local8Bit() );
-	return true;
 }
 
 #endif

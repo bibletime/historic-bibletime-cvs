@@ -69,13 +69,13 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	key->key( module->module()->KeyText() );
 		
 	CReferenceManager::Type refType = CReferenceManager::Unknown;
-	if (module->getType() == CSwordModuleInfo::Bible)
+	if (module->type() == CSwordModuleInfo::Bible)
 		refType = CReferenceManager::Bible;
-	else if (module->getType() == CSwordModuleInfo::Commentary)
+	else if (module->type() == CSwordModuleInfo::Commentary)
 		refType = CReferenceManager::Commentary;
-	else if (module->getType() == CSwordModuleInfo::Lexicon)
+	else if (module->type() == CSwordModuleInfo::Lexicon)
 		refType = CReferenceManager::Lexicon;
-	else if (module->getType() == CSwordModuleInfo::GenericBook)
+	else if (module->type() == CSwordModuleInfo::GenericBook)
 		refType = CReferenceManager::GenericBook;
 	
 	if (m_includeHeader) {
@@ -89,7 +89,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 		m_htmlText.append(QString::fromLatin1("<font color=\"%1\"><a href=\"%2\">%3: <b>%4</b></a></font><hr>%5")
 			.arg(m_highlightedVerseColorName)
  			.arg(CReferenceManager::encodeHyperlink(module->name(),key->key(), refType ))
-			.arg(module->getDescription())
+			.arg(module->description())
 			.arg(key->key())
 			.arg(key->renderedText()));
 
@@ -115,9 +115,9 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	updateSettings();
 
  	CSwordKey* key = 0;
- 	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible)
+ 	if (moduleList->first()->type() == CSwordModuleInfo::Commentary || moduleList->first()->type() == CSwordModuleInfo::Bible)
 		key = new CSwordVerseKey(moduleList->first());
-	else if (moduleList->first()->getType() == CSwordModuleInfo::Lexicon)
+	else if (moduleList->first()->type() == CSwordModuleInfo::Lexicon)
 		key = new CSwordLDKey(moduleList->first());
 	  	
 	SWModule* module = moduleList->first()->module();
@@ -125,7 +125,7 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	CSwordModuleInfo *d = 0;	
 	
 	SWModule *m= (d = moduleList->first()) ? d->module() : 0;		
-	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible) {
+	if (moduleList->first()->type() == CSwordModuleInfo::Commentary || moduleList->first()->type() == CSwordModuleInfo::Bible) {
 		VerseKey* vk = (VerseKey*)(SWKey*)(*module);
 //		vk->Persist(1);
 		

@@ -109,7 +109,7 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 			ref = ref.mid(5); //inclusive trailing slash
 		}		
 		// string up to next slash is the modulename
-#warning "Newds optimization!"
+#warning "Needs optimization!!"
 		while (true) {
 			const int pos = ref.find("/");
 			if (pos>0 && ref.at(pos-1) != '\\') { //found a slash which is not escaped
@@ -229,7 +229,7 @@ const QString CReferenceManager::preferredModule( const CReferenceManager::Type 
 }
 
 /** No descriptions */
-CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInfo::type type){
+CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInfo::ModuleType type){
 	switch (type) {
 		case CSwordModuleInfo::Bible:
 			return CReferenceManager::Bible;
@@ -246,8 +246,8 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 const QString CReferenceManager::parseVerseReference( const QString ref, const QString& lang, const QString& newLang){
 	CSwordVerseKey key(0);
 	key.key(ref);
-	key.setLocale( lang.local8Bit() );
-			
+	key.setLocale( lang.latin1() );
+//	key.key(ref);			
 	if (lang != newLang)
 		key.setLocale(newLang.latin1());
 	return key.key();//parsed result

@@ -116,7 +116,7 @@ QPixmap CToolClass::getIconForModule( CSwordModuleInfo* module_info ){
   if (!module_info)
   	return QPixmap(BIBLE_ICON_SMALL);
 	
- 	switch (module_info->getType()){
+ 	switch (module_info->type()){
  	  case CSwordModuleInfo::Bible:
  	    if (module_info->isLocked())
  	      return QPixmap(BIBLE_LOCKED_ICON_SMALL);

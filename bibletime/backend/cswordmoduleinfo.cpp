@@ -41,7 +41,7 @@
 //static CSwordBackend searchModulesMgr;
 	
 CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module )
-	: m_backend(backend), m_module(module) {
+	: m_module(module) {
 	
 	m_searchResult.ClearList();
 	
@@ -53,25 +53,24 @@ CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module )
 }
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {
-	m_backend = m.m_backend;
 	m_module = m.m_module;
 	m_searchResult = m.m_searchResult;
 }
 
 CSwordModuleInfo::~CSwordModuleInfo(){
 	m_searchResult.ClearList();
-	m_module = 0; //the real Sword modle is deleted by SWMgr::~SWMgr
+	m_module = 0; //the real Sword module is deleted by the backend
 }
 
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/
 const CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString& unlockKey ){
 	CSwordModuleInfo::unlockErrorCode	ret = CSwordModuleInfo::noError;
 	SWConfig moduleConfig("");
-	if ( m_backend->getModuleConfig(name(), moduleConfig) ) {
+	if ( backend()->moduleConfig(name(), moduleConfig) ) {
 		moduleConfig[name().latin1()]["CipherKey"] = unlockKey.local8Bit();	
-		m_backend->setCipherKey(name().latin1(), unlockKey.local8Bit());	
-		(*m_backend->getConfig()) += moduleConfig;
-		(*m_backend->getConfig())[name().latin1()]["CipherKey"] = moduleConfig[name().latin1()]["CipherKey"];
+		backend()->setCipherKey(name().latin1(), unlockKey.local8Bit());	
+		(*backend()->getConfig()) += moduleConfig;
+		(*backend()->getConfig())[name().latin1()]["CipherKey"] = moduleConfig[name().latin1()]["CipherKey"];
 		moduleConfig.Save();
 	}	
 	else
@@ -86,7 +85,7 @@ CHTMLEntryDisplay* CSwordModuleInfo::getDisplay() const {
 
 /** This function returns true if this module is locked, otherwise return false. */
 const bool CSwordModuleInfo::isLocked() {
-	if (isEncrypted() && getCipherKey().isEmpty())
+	if (isEncrypted() && cipherKey().isEmpty())
 		return true;
 	return false;
 }
@@ -97,7 +96,7 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	* If we have the CipherKey entry the module
 	* is encrypted but not necessary locked
 	*/		
-	ConfigEntMap config	= m_backend->getConfig()->Sections.find( name().latin1() )->second;
+	ConfigEntMap config	= backend()->getConfig()->Sections.find( name().latin1() )->second;
 	ConfigEntMap::iterator it = config.find("CipherKey");
 	if (it != config.end())
 		return true;
@@ -106,11 +105,11 @@ const bool CSwordModuleInfo::isEncrypted() const {
 
 
 /** Returns the cipher key if the module is encrypted, if the key is not set return QString::empty, if the module is not encrypted retur QString::null. */
-const QString CSwordModuleInfo::getCipherKey() const {
+const QString CSwordModuleInfo::cipherKey() const {
 	if (!isEncrypted())
 		return QString::null;
 		
-	const string key = (*m_backend->getConfig())[name().latin1()]["CipherKey"];		
+	const string key = (*backend()->getConfig())[name().latin1()]["CipherKey"];		
 	if (key.length())
 		return QString::fromLocal8Bit( key.c_str() );
 	else
@@ -118,13 +117,13 @@ const QString CSwordModuleInfo::getCipherKey() const {
 }
 
 /** Returns the description of the module */
-const QString CSwordModuleInfo::getDescription() const {
+const QString CSwordModuleInfo::description() const {
 	return QString::fromLocal8Bit( m_module->Description() );
 }
 
 /** Returns the about information of this module. */
-const QString CSwordModuleInfo::getAboutInformation() const {
-	const string about = (*m_backend->getConfig())[name().latin1()]["About"];
+const QString CSwordModuleInfo::aboutInformation() const {
+	const string about = (*backend()->getConfig())[name().latin1()]["About"];
 	
 	QString ret = QString::null;
 	if (strlen(about.c_str())) {	
@@ -140,22 +139,22 @@ const QString CSwordModuleInfo::getAboutInformation() const {
 }
 
 /** Returns the version number of this module. */
-const QString CSwordModuleInfo::getVersion() const{
-	const string version = (*m_backend->getConfig())[name().latin1()]["Version"];
+const QString CSwordModuleInfo::version() const{
+	const string version = (*backend()->getConfig())[name().latin1()]["Version"];
 	if (version.length())
 		return QString::fromLocal8Bit( version.c_str() );
 	return  QString::null;
 }
 
 const bool CSwordModuleInfo::hasVersion() const {
-	const string version = (*m_backend->getConfig())[name().latin1()]["Version"];
+	const string version = (*backend()->getConfig())[name().latin1()]["Version"];
 	return version.length();
 }
 
 
 /** Returns the path to this module. */
-const QString CSwordModuleInfo::getPath() const {
-	const string path = (*m_backend->getConfig())[name().latin1()]["DataPath"];
+const QString CSwordModuleInfo::path() const {
+	const string path = (*backend()->getConfig())[name().latin1()]["DataPath"];
 	if (strlen(path.c_str()))
 		return QString::fromLocal8Bit(path.c_str());
 	else
@@ -190,17 +189,19 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 	}
 	else if (searchOptions & CSwordModuleSearch::useScope) {
 		searchScope = &scope;		
-		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, (getType() != Lexicon) ? searchScope : 0, 0, percentUpdate);
+		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, (type() != Lexicon) ? searchScope : 0, 0, percentUpdate);
 	}
   else
   	m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
 
 //  qWarning("found for %s? %i", (const char*)searchedText.local8Bit(), m_searchResult.Count());
-	return m_searchResult.Count()>0;
+	return (m_searchResult.Count()>0);
 }
 
 /** Returns the last search result for this module. */
-ListKey& CSwordModuleInfo::getSearchResult() {
+ListKey& CSwordModuleInfo::searchResult(const ListKey* newResult) {
+	if (newResult)
+		m_searchResult.copyFrom( *newResult );	
 	return m_searchResult;
 }
 
@@ -217,11 +218,11 @@ void CSwordModuleInfo::interruptSearch(){
 
 /** Returns true if the given type i supported by this module. */
 const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions type){
-	ConfigEntMap config = m_backend->getConfig()->Sections.find( name().latin1() )->second;	
+	ConfigEntMap config = backend()->getConfig()->Sections.find( name().latin1() )->second;	
 	ConfigEntMap::iterator start 	= config.lower_bound("GlobalOptionFilter");
 	ConfigEntMap::iterator end 		= config.upper_bound("GlobalOptionFilter");		
 	
-	const QString text = m_backend->getConfigOptionName(type);
+	const QString text = backend()->configOptionName(type);
 	for (; start != end; start++) {
 		const QString option = QString::fromLatin1((*start).second.c_str());
 		if ( option.contains(text) )
@@ -231,14 +232,14 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 }
 
 /** Returns the backend. */
-CSwordBackend* CSwordModuleInfo::backend() const {
-	return m_backend;
-}
+//CSwordBackend* CSwordModuleInfo::backend() const {
+//	return backend();
+//}
 
 /** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
 const float CSwordModuleInfo::requiredSwordVersion(){
-	const string version = (*m_backend->getConfig())[name().latin1()]["MinimumVersion"];
-	if (!strlen(version.c_str()))	//no special version required
+	const string version = (*backend()->getConfig())[name().latin1()]["MinimumVersion"];
+	if (!version.length())	//no special version required
 		return -1;
 	const float swordVersion = QString::fromLatin1( version.c_str() ).toFloat();	
 //	qDebug("%f", swordVersion);
@@ -247,7 +248,7 @@ const float CSwordModuleInfo::requiredSwordVersion(){
 
 ///** Returns the text direction used in this module. */
 //const CSwordModuleInfo::TextDirection CSwordModuleInfo::getTextDirection(){
-//	const string dir = (*m_backend->getConfig())[name().latin1()]["Direction"];
+//	const string dir = (*backend()->getConfig())[name().latin1()]["Direction"];
 //	if (dir == "RTL")
 //		return CSwordModuleInfo::RTL;
 //	else
@@ -262,4 +263,9 @@ const QString CSwordModuleInfo::name() const {
 
 const bool CSwordModuleInfo::isUnicode(){
 	return (module()->isUnicode());
+}
+
+/** No descriptions */
+CSwordModuleInfo* CSwordModuleInfo::clone(){
+	return new CSwordModuleInfo(*this);
 }

@@ -34,7 +34,7 @@ CKeyChooser* CKeyChooser::createInstance(CSwordModuleInfo *module, CSwordKey *ke
 	ASSERT(key);
 	if (!module)
 		return 0;
- 	switch ( module->getType() ){
+ 	switch ( module->type() ){
  	  case CSwordModuleInfo::Commentary:	 //Bibles and commentaries uise the same key chooser
  	  case CSwordModuleInfo::Bible:
  	  	return new CBibleKeyChooser(module,key,parent);

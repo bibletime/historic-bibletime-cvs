@@ -124,7 +124,7 @@ const CSwordBackend::errorCode CSwordBackend::initModules() {
 		
 //module are now available, fill the static lists
 	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
-		moduleDescriptionMap.insert(m_moduleList->current()->getDescription(), m_moduleList->current()->name());
+		moduleDescriptionMap.insert(m_moduleList->current()->description(), m_moduleList->current()->name());
 	}
 
 	return m_errorCode;
@@ -189,14 +189,13 @@ const bool CSwordBackend::shutdownModules(){
 
 /** Returns true if the given option is enabled. */
 const bool CSwordBackend::isOptionEnabled( const CSwordBackend::moduleOptions type) {
-	const QString optionName = getOptionName(type);
-	return (getGlobalOption(optionName.latin1()) == "On");
+	return (getGlobalOption( optionName(type).latin1() ) == "On");
 }
 
 /** Sets the given options enabled or disabled depending on the second parameter. */
 void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bool enable){
-	const QString optionName = getOptionName(type);
-	setGlobalOption(optionName.latin1(), enable ? "On": "Off");
+// const QString optionName = ;
+	setGlobalOption(optionName(type).latin1(), enable ? "On": "Off");
 }
 
 //const CSwordBackend::moduleOptionsBool CSwordBackend::getAllModuleOptions(){
@@ -318,7 +317,7 @@ CSwordModuleInfo* CSwordBackend::findModuleByDescription(const QString& descript
 //  qDebug("CSwordBackend::findModuleByDescription(const QString&)");
   if (m_moduleList && m_moduleList->count())
     for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
-      if ( m_moduleList->current()->getDescription() == description )
+      if ( m_moduleList->current()->description() == description )
         return m_moduleList->current();
   return 0;
 }
@@ -348,7 +347,7 @@ CSwordModuleInfo* CSwordBackend::findModuleByName(const QString& name){
 }
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
-const bool CSwordBackend::getModuleConfig(const QString& module, SWConfig& moduleConfig) {
+const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleConfig) {
 	SectionMap::iterator section;
 	DIR *dir = opendir(configPath);
 	struct dirent *ent;
@@ -406,10 +405,10 @@ const bool CSwordBackend::getModuleConfig(const QString& module, SWConfig& modul
 }
 
 /** Returns the path of the module with the name "moduleName". If no path is found return QString::null */
-const QString CSwordBackend::getModulePath( const QString moduleName ){
+const QString CSwordBackend::modulePath( const QString moduleName ){
 	QString path = QString::null;
 	SWConfig c("");
-	if (getModuleConfig(moduleName, c)) {
+	if (moduleConfig(moduleName, c)) {
 		path = QString::fromLocal8Bit( c[moduleName.latin1()]["DataPath"].c_str() );		
 		//remove "./" fromt the beginning ...
 		if (path.left(2) == "./")
@@ -423,7 +422,7 @@ const QString CSwordBackend::getModulePath( const QString moduleName ){
 }
 
 /** Returns the text used for the option given as parameter. */
-const QString CSwordBackend::getOptionName( const CSwordBackend::moduleOptions option ){
+const QString CSwordBackend::optionName( const CSwordBackend::moduleOptions option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
 			return QString("Footnotes");
@@ -445,7 +444,7 @@ const QString CSwordBackend::getOptionName( const CSwordBackend::moduleOptions o
 	return QString::null;	
 }
 /** Returns the translated name of the option given as parameter. */
-const QString CSwordBackend::getTranslatedOptionName(const CSwordBackend :: moduleOptions option){
+const QString CSwordBackend::translatedOptionName(const CSwordBackend :: moduleOptions option){
 	switch (option) {
 		case CSwordBackend::footnotes:
 			return i18n("Footnotes");
@@ -469,7 +468,7 @@ const QString CSwordBackend::getTranslatedOptionName(const CSwordBackend :: modu
 }
 
 
-const QString CSwordBackend::getConfigOptionName( const CSwordBackend::moduleOptions option ){
+const QString CSwordBackend::configOptionName( const CSwordBackend::moduleOptions option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
 			return QString("Footnotes");
@@ -489,4 +488,11 @@ const QString CSwordBackend::getConfigOptionName( const CSwordBackend::moduleOpt
 			return QString("GreekAccents");
 	}
 	return QString::null;	
+}
+
+const QString CSwordBackend::booknameLanguage( const QString& language ) {
+	if (!language.isEmpty()) {
+		LocaleMgr::systemLocaleMgr.setDefaultLocaleName( language.local8Bit() );
+	}
+	return QString::fromLatin1(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 }
