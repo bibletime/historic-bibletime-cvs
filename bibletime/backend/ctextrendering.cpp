@@ -20,6 +20,9 @@
 
 #include "util/scoped_resource.h"
 
+//Sword includes
+#include <swkey.h>
+
 //Qt includes
 #include <qregexp.h>
 
@@ -98,7 +101,43 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 	return finishText(ret, tree);
 }
 
-const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo ) {
+const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo modules ) {
+	qWarning("renderKeyRange: %s - %s", start.latin1(), stop.latin1());
+	
+	CSwordModuleInfo* module = modules.first();
+	util::scoped_ptr<CSwordKey> lowerBound( CSwordKey::createInstance(module) );
+	lowerBound->key(start);
+	
+	util::scoped_ptr<CSwordKey> upperBound( CSwordKey::createInstance(module) );
+	upperBound->key(stop);
+
+	sword::SWKey* sw_start = dynamic_cast<sword::SWKey*>(lowerBound.get());
+	sword::SWKey* sw_stop = dynamic_cast<sword::SWKey*>(upperBound.get());
+	
+	Q_ASSERT(sw_start && sw_stop);
+	
+	if (*sw_start == *sw_stop) { //same key, render single key
+		return renderSingleKey(lowerBound->key(), modules);
+	}
+	else if (*sw_start < *sw_stop) { // Render range
+		KeyTree tree;
+		KeyTreeItem::Settings settings;
+		
+		CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(lowerBound.get());
+		CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(upperBound.get());
+		
+		Q_ASSERT(vk_start && vk_stop);
+		qWarning("render range: %s - %s", vk_start->key().latin1(), vk_stop->key().latin1());
+		
+		while ((*vk_start < *vk_stop) || (*vk_start == *vk_stop)) {
+			tree.append( KeyTreeItem(vk_start->key(), modules,settings) );
+			
+			vk_start->next(CSwordVerseKey::UseVerse);
+		}
+		
+		return renderKeyTree(tree);
+	}
+	
 	return QString::null;
 }
 

@@ -25,6 +25,7 @@ class CInfoDisplay : public QWidget
   Q_OBJECT
 public:
 	enum InfoType {
+		CrossReference,
 		Footnote,
 		Lemma,
 		Morph,
@@ -43,6 +44,7 @@ public:
 	void clearInfo();
 
 protected:
+  const QString decodeCrossReference( const QString& data );
   const QString decodeFootnote( const QString& data );
 	const QString decodeLemma( const QString& data );
 	const QString decodeMorph( const QString& data );

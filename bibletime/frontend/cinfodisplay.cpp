@@ -64,6 +64,9 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 			case Morph:
 				text += decodeMorph( (*it).second );
 				break;
+			case CrossReference:
+				text += decodeCrossReference( (*it).second );
+				break;
 			case Footnote:
 				text += decodeFootnote( (*it).second );
 				break;
@@ -81,6 +84,11 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 	m_htmlPart->begin();
 	m_htmlPart->write(text);
 	m_htmlPart->end();
+}
+
+
+const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
+	return data;
 }
 
 /*!

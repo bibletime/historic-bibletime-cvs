@@ -121,7 +121,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 					value += token[i];
       }
       
-			buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Greek/%s\">&lt;%s&gt;</a> ",
+			buf.appendFormatted(" <span strong=\"G%s\">%s</span> ",
 				value.c_str(),
         value.c_str()
       );
@@ -131,7 +131,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 					value += token[i];
       }
       
-			buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a> ",
+			buf.appendFormatted(" <span strong=\"H%s\">%s</span> ",
 				value.c_str(),
         value.c_str()
       );
@@ -141,7 +141,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 					value += token[i];
       }
 
-			buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Greek/%s\">(%s)</a> ",
+			buf.appendFormatted(" <span morph=\"G%s\">%s</span> ",
 				value.c_str(),
 				value.c_str()
       );
@@ -152,7 +152,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 					value += token[i];
       }
 
-			buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Hebrew/%s\">(%s)</a> ",
+			buf.appendFormatted(" <span morph=\"H%s\">%s</span> ",
 				value.c_str(),
 				value.c_str()
       );
@@ -174,7 +174,6 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 				myModule->Name(),
 				myUserData->key->getShortText(),
 				QString::number(myUserData->swordFootnote++).latin1()
-				//tag.getAttribute("swordFootnote")
 			);
 			userData->suspendTextPassThru = true;
 		}

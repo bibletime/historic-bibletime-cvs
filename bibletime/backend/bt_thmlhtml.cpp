@@ -93,7 +93,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "morph")) { // Morph
         const char* value = tag.getAttribute("value");
         if ( value ) {
-          buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Greek/%s\">(%s)</a> ",
+          buf.appendFormatted(" <span morph=\"G%s\">%s</span> ",
             value,
             value
           );
@@ -102,13 +102,13 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		  else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "Strongs")) { // Strongs
         const char* value = tag.getAttribute("value");
         if ( value && value[0] == 'H' ) { //hewbrew strong number
-          buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a> ",
+          buf.appendFormatted(" <span strong=\"H%s\">%s</span> ",
      				value+1, //skip the H
             value+1 //skip the H
           );
         }
         else if ( value && value[0] == 'G' ) { //hewbrew strong number
-          buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Greek/%s\">&lt;%s&gt;</a> ",
+          buf.appendFormatted(" <span strong=\"G%s\">%s</span> ",
       			value+1, //skip the G
             value+1 //skip the G
           );

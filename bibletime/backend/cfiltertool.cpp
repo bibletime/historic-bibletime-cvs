@@ -38,7 +38,7 @@ void CFilterTool::updateSettings(){
 }
 
 const sword::SWBuf CFilterTool::thmlRefEnd(){
-	return "</a></span>";
+	return "</a>";
 }
 
 char CFilterTool::ProcessRWPRefs(sword::SWBuf & buf, sword::SWModule* const module){
@@ -100,7 +100,7 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
     * If our own caption should not be inserted and we have more than one ref return so the original
     * ref and caption will be used.
     */
-    return sword::SWBuf("<span id=\"reference\"><a href=\"sword://Bible/") + moduleName + "/" + ref + "\">";
+    return sword::SWBuf("<a class=\"reference\" href=\"sword://Bible/") + moduleName + "/" + ref + "\">";
   }
 
 	for ( QStringList::Iterator it = refList.begin(); it != refList.end(); ++it, pos++ ) {
@@ -111,7 +111,7 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
 	 	for(int i = 0; i < count; i++) {
 	 		key = list.GetElement(i);
 //      qWarning("%s (%s) [%s] (%s)", key->getRangeText(), ref.c_str(), parseKey.getLocale(), module->Lang());
-  		ret += sword::SWBuf("<span id=\"reference\"><a href=\"sword://Bible/") + moduleName + "/";
+  		ret += sword::SWBuf("<a id=\"reference\" href=\"sword://Bible/") + moduleName + "/";
  			if ( sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key) ) {
  				vk->setLocale("en");
         ret += sword::SWBuf(vk->getRangeText()) + "\">";
@@ -130,7 +130,7 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
       */
       if (insertFullRef) { //HTML will only be valid if we hide only the end of one cross reference
         ret += sword::SWBuf( (const char*)(*it).utf8() ) + "</a>";
-  	 		(pos+1 < (int)refList.count()) ? ret.append("</span>, ") : ret.append("</span>");
+  	 		(pos+1 < (int)refList.count()) ? ret.append(", ") : ret.append("");
       }
 	 	}
 

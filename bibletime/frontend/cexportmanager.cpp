@@ -57,81 +57,46 @@ CExportManager::CExportManager(const QString& caption, const bool showProgress, 
 };
 
 const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bool addText) {
-  if (!key)
+
+	if (!key) {
+		return false;
+	}
+	if (!key->module()) {
+		return false;
+	}
+	const QString filename = getSaveFileName(format);
+  if (filename.isEmpty()) {
     return false;
+	}
+	
+	CHTMLExportRendering::Settings settings(addText);
+	util::scoped_ptr<CTextRendering> render(
+		(format == HTML)
+		? new CHTMLExportRendering(settings, m_displayOptions, m_filterOptions) 
+		: new CPlainTextExportRendering(settings, m_displayOptions, m_filterOptions)
+	);
 
-  const QString filename = getSaveFileName(format);
-  if (filename.isEmpty())
-    return false;
-
-  QString text = QString::null;
-  bool hasBounds = false;
-  if (addText) { //add the text of the key to the content of the file we save
-    CPointers::backend()->setFilterOptions(m_filterOptions);
-    CPointers::backend()->setDisplayOptions(m_displayOptions);
-
-    CSwordModuleInfo* module = key->module();
-  	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) { //we can have a boundary
-      if (vk->isBoundSet()) {//we have a valid boundary!
-        hasBounds = true;
-        CSwordVerseKey startKey(module);
-        CSwordVerseKey stopKey(module);
-
-    		startKey.key(vk->LowerBound());
-    		stopKey.key(vk->UpperBound());
-
-        QString entryText;
-
-				//add the heading
-        if (startKey < stopKey) { //we have a boundary
-          QString bound = QString::fromLatin1("%1 - %2").arg(startKey.key()).arg(stopKey.key());
-          text +=
-            (format == HTML)
-            ? QString::fromLatin1("<h3>%1</h3>").arg(bound)
-            : QString::fromLatin1("%1\n\n").arg(bound);
-
-         	while ( (startKey < stopKey) || (startKey == stopKey) ) {
-            entryText = (format == HTML) ? startKey.renderedText(CSwordKey::HTMLEscaped) : startKey.strippedText();
-
-         		text += ((bool)m_displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
-+ entryText + lineBreak(format);
-
-            startKey.next(CSwordVerseKey::UseVerse);
-          }
-        }
-        else {
-          hasBounds = false;
-        };
-      }
-  	}
-
-    if (!hasBounds) { //no verse key, so we can't have a boundary!
-    	if (format != HTML) {
-					text = QString::fromLatin1("%1 (%2)\n\n%3") //plain text
-            .arg(key->key())
-            .arg(module->name())
-            .arg(key->strippedText());
-			}
-      //we should only add the reference if the key has no bounds
-      text +=
-        lineBreak(format) +
-        QString::fromLatin1("(%1, %1)")
-            .arg(key->key())
-            .arg(module->name());
-    }
-
-    if (format == HTML) {
-			CDisplayTemplateMgr tMgr;
-			//text = tMgr.fillTemplate( CBTConfig::get(CBTConfig::displayStyle), QString::null, text, module->type() );
-    };
-  }
-  else { //don't add the text of the key
-    text = key ? key->key() : QString::null;
-  	return true;
-  }
-
-	CToolClass::savePlainFile(filename, text, false, (format==HTML) ? QTextStream::UnicodeUTF8 : QTextStream::Locale);
-	return true;
+	QString text;
+	QString startKey;
+	QString stopKey;
+	
+	ListCSwordModuleInfo modules;
+	modules.append(key->module());
+	
+	CSwordVerseKey *vk = dynamic_cast<CSwordVerseKey*>(key);
+	if (vk && vk->isBoundSet()) {
+		text = render->renderKeyRange( QString::fromLocal8Bit(vk->LowerBound()), QString::fromLocal8Bit(vk->UpperBound()), modules );
+	}
+	else { //no range supported
+		text = render->renderSingleKey(key->key(), modules);
+	}
+	
+  if (!progressWasCancelled()) {
+ 		CToolClass::savePlainFile(filename, text, false, (format==HTML) ? QTextStream::UnicodeUTF8 : QTextStream::Locale);
+ 		closeProgressDialog();
+ 		return true;
+ 	}
+  return false;
 };
 
 const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText) {
