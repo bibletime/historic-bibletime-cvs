@@ -276,7 +276,7 @@ protected slots:
 	/**
 	* Saves the current settings into the currently activatred profile.
 	*/
-	void editProfiles();
+ 	void deleteProfile(int ID);
 	/**
 	* Loads the profile with the menu id ID
 	*/
@@ -339,7 +339,7 @@ private:
 	KActionMenu*	m_windowSaveProfile_action;
  	KAction*	m_windowSaveToNewProfile_action;
 	KActionMenu*	m_windowLoadProfile_action;
-	KAction*	m_windowEditProfiles_action;
+ 	KActionMenu*	m_windowDeleteProfile_action;
 	KToggleAction*	m_windowFullscreen_action;
 
 	KHelpMenu* m_helpMenu;

@@ -84,7 +84,6 @@ COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel 
 	initStartup();
 	initFonts();
 	initDisplayStyle();
-	initProfiles();
 	initSword();
 	initAccelerators();
 }
@@ -110,10 +109,8 @@ void COptionsDialog::slotOk(){
 	saveFonts();
 	saveSword();
 	saveStartup();
-	saveProfiles();
 	
 	KDialogBase::slotOk();
-
   emit signalSettingsChanged( );
 }
 
@@ -124,58 +121,18 @@ void COptionsDialog::slotApply(){
 	saveFonts();
 	saveSword();
 	saveStartup();
-	saveProfiles();
 
 	KDialogBase::slotApply();
-
   emit signalSettingsChanged( );
 }
 
-/** Adds a new view profile to the list. */
-void COptionsDialog::addNewProfile(){
-	bool ok = false;
-	QString name = QInputDialog::getText(i18n("Create new session"), i18n("Please enter a name for the new session."), QLineEdit::Normal, QString::null, &ok);
-	if (ok && !name.isEmpty()) {
-		m_settings.profiles.mgr.create(name);
-		m_settings.profiles.profiles->insertItem(name);				
-		if (m_settings.profiles.profiles->count() == 1)
-			m_settings.profiles.profiles->setEnabled(true);		
-	}
-}
-
-/** No descriptions */
-void COptionsDialog::deleteProfile(){
-	const QString profile = m_settings.profiles.profiles->currentText();
-	m_settings.profiles.mgr.remove(profile);
-	m_settings.profiles.profiles->removeItem( m_settings.profiles.profiles->currentItem() );
-}
-
-/** Renames the currently selected profile. */
-void COptionsDialog::renameProfile(){
-	bool ok = false;
-	const QString currentProfile = m_settings.profiles.profiles->currentText();	
-	CProfile* profile = m_settings.profiles.mgr.profile(currentProfile);
-	if (!profile)
-		return;
-	const QString newName = QInputDialog::getText(i18n("Rename session"), i18n("Please enter a new name for the session."), QLineEdit::Normal, profile->name(), &ok);
-	if (ok && !newName.isEmpty()) {
-		profile->setName(newName);
-		m_settings.profiles.profiles->changeItem(newName, m_settings.profiles.profiles->currentItem());
-	}	
-}
-
 /** Opens the page which contaisn the given part ID. */
-const bool COptionsDialog::showPart( COptionsDialog::Parts ID ){
+const bool COptionsDialog::showPart( COptionsDialog::Parts /*ID*/ ){
 	bool ret = false;
-	switch (ID) {
-		case COptionsDialog::ViewProfiles:
-			if(showPage(pageIndex(
-					m_settings.profiles.profiles->parentWidget()) ))
-				ret = true;
-			break;
+/*	switch (ID) {
 		default:
 			break;
-	}
+	}*/
 	return ret;
 }
 
@@ -325,49 +282,6 @@ void COptionsDialog::initDisplayStyle(){
 	m_settings.displayStyle.styleChooser->setCurrentItem( i );
 	
 	updateStylePreview(); //render it
-}
-
-/** Init profiles section. */
-void COptionsDialog::initProfiles(){
-	QFrame* page = addPage(i18n("Sessions"),QString::null, DesktopIcon(CResMgr::settings::profiles::icon,32));
-	QGridLayout* gridLayout = new QGridLayout(page, 3,3,5,5);
-
-	gridLayout->addMultiCellWidget(
-		CToolClass::explanationLabel(page,
-			i18n("Manage sessions"),
-			i18n("Sessions define the appereance of your desk, \
-				for example which windows are open and which texts should displayed in these windows. \
-				New sessions only work after you've saved something into them.")
-		),
-		0,0,0,-1
-	);
-
-	m_settings.profiles.profiles = new QListBox(page);
-	gridLayout->addMultiCellWidget(m_settings.profiles.profiles, 1,1,0,-1);
-	gridLayout->setRowStretch(1,10);
-
-	m_settings.profiles.createProfile = new QPushButton(i18n("Create new session"), page);
-	connect(m_settings.profiles.createProfile, SIGNAL(clicked()), SLOT(addNewProfile()));
-  gridLayout->addWidget(m_settings.profiles.createProfile,2,0);
-
-	m_settings.profiles.deleteProfile = new QPushButton(i18n("Delete selected session"), page);
-	connect(m_settings.profiles.deleteProfile, SIGNAL(clicked()), SLOT(deleteProfile()));
-  gridLayout->addWidget(m_settings.profiles.deleteProfile,2,1);
-
-	m_settings.profiles.renameProfile = new QPushButton(i18n("Rename selected session"), page);
-	connect(m_settings.profiles.renameProfile, SIGNAL(clicked()), SLOT(renameProfile()));
-  gridLayout->addWidget(m_settings.profiles.renameProfile,2,2);
-
-  //fill the profile list box
-	QPtrList<CProfile> profiles = m_settings.profiles.mgr.profiles();
-	if (CProfile* p = profiles.first()) { //better than count
-		for (; p; p = profiles.next()) {
-			m_settings.profiles.profiles->insertItem(p->name());
-		}
-	}
-	else {
-		m_settings.profiles.profiles->setEnabled(false);
-	}
 }
 
 /** Init accel key section. */
@@ -876,8 +790,8 @@ void COptionsDialog::saveFonts(){
 }
 
 /** No descriptions */
-void COptionsDialog::saveProfiles(){
-}
+// void COptionsDialog::/*/*savePro*/*/files(){
+// }
 
 /** No descriptions */
 void COptionsDialog::saveStartup(){

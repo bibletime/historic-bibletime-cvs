@@ -139,8 +139,8 @@ void BibleTime::slotWindowMenuAboutToShow(){
 		m_windowSaveProfile_action->unplug(m_windowMenu);
 	if ( m_windowLoadProfile_action->isPlugged() )
 		m_windowLoadProfile_action->unplug(m_windowMenu);
-	if ( m_windowEditProfiles_action->isPlugged() )
-		m_windowEditProfiles_action->unplug(m_windowMenu);
+	if ( m_windowDeleteProfile_action->isPlugged() )
+		m_windowDeleteProfile_action->unplug(m_windowMenu);
 	if ( m_windowFullscreen_action->isPlugged() )
 		m_windowFullscreen_action->unplug(m_windowMenu);
 				
@@ -158,7 +158,7 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	m_windowSaveProfile_action->plug(m_windowMenu);	
 	m_windowSaveToNewProfile_action->plug(m_windowMenu);	
 	m_windowLoadProfile_action->plug(m_windowMenu);
-	m_windowEditProfiles_action->plug(m_windowMenu);	
+ 	m_windowDeleteProfile_action->plug(m_windowMenu);	
 	m_windowMenu->insertSeparator();
 	
 	m_windowFullscreen_action->plug(m_windowMenu);
@@ -490,13 +490,21 @@ void BibleTime::toggleFullscreen(){
 	m_mdi->triggerWindowUpdate();
 }
 
-void BibleTime::editProfiles(){
-	COptionsDialog *dlg = new COptionsDialog(this, "COptionsDialog", accel() );
-  connect(dlg, SIGNAL(signalSettingsChanged()), SLOT(slotSettingsChanged()) );
-	dlg->showPart(COptionsDialog::ViewProfiles);	
-	dlg->exec();
+void BibleTime::deleteProfile(int ID){
+	KPopupMenu* popup = m_windowDeleteProfile_action->popupMenu();
 
-	dlg->delayedDestruct();	
+	CProfile* profile = m_profileMgr.profile( popup->text(ID) );
+  if ( profile ) {
+	 	const QString profile = popup->text(ID);
+		m_profileMgr.remove(profile);
+		refreshProfileMenus();
+	}
+	
+/*
+ 	const QString profile = m_settings.profiles.profiles->currentText();
+	m_profileMgr.remove(profile);
+	m_profileMgr.refresh();
+*/
 }
 
 /** Saves current settings into a new profile. */
@@ -514,14 +522,20 @@ void BibleTime::saveToNewProfile(){
 void BibleTime::refreshProfileMenus(){
  	//refresh the load profile and save profile menus
 	m_profileMgr.refresh();
- 	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();
- 	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
- 	savePopup->clear();
- 	loadPopup->clear();
  	
+	KPopupMenu* savePopup 	= m_windowSaveProfile_action->popupMenu();
+ 	savePopup->clear();
+ 	
+	KPopupMenu* loadPopup 	= m_windowLoadProfile_action->popupMenu();
+ 	loadPopup->clear();
+	
+	KPopupMenu* deletePopup = m_windowDeleteProfile_action->popupMenu();
+	deletePopup->clear();
+
 	QPtrList<CProfile> profiles = m_profileMgr.profiles();
  	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
 		savePopup->insertItem(p->name());
 		loadPopup->insertItem(p->name());
+		deletePopup->insertItem(p->name());
  	}
 }

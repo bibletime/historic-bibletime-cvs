@@ -108,6 +108,8 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
     		if (m_entryList->first().stripWhiteSpace().isEmpty()) {
   	  		m_entryList->remove( m_entryList->begin() );
 				}
+				
+				m_entryList->sort(); //make sure the module is sorted by utf-8
       }
 
 			if (lexiconCache && m_entryList->count()){
@@ -127,14 +129,16 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 			}
 		}
 	}
+	
 	return m_entryList;
 }
 
 /** Jumps to the closest entry in the module.  */
 const bool CSwordLexiconModuleInfo::snap(){
-	if(module()->getRawEntry()){	//snap to the current entry
+	if(module()->getRawEntry()){ // Snap to the current entry
 		return true;
 	}
+	
 	return false;
 }
 

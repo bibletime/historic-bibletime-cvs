@@ -61,7 +61,7 @@ public:
 		Startup,
 		Font,
 		Color,
-		ViewProfiles,
+// 		ViewProfiles,
 		Sword,
 		accelerators
   };
@@ -124,21 +124,9 @@ private:
       //the pair os to check whether the standard font (bool == false) or whether an own font should be used (true)
       QMap<QString,CBTConfig::FontSettingsPair> fontMap;
 		} fonts;
-
-		struct ProfileSettings {
-			QListBox* profiles;
-			QPushButton* createProfile;
-			QPushButton* deleteProfile;
-			QPushButton* renameProfile;
-			CProfileMgr mgr;
-		} profiles;
   } m_settings;
 
 protected slots: // Protected slots
-  /**
-  * Adds a new view profile to the list.
-  */
-  void addNewProfile();
   /**
   * Called when a new font in the fonts page was selected.
   */
@@ -156,14 +144,6 @@ protected slots: // Protected slots
  	* commented out for the time being.  ck
  	*/
 	void slotApply();
-  /**
-  * Renames the currently selected profile.
-  */
-  void renameProfile();
-  /**
-  * Delete the selected profile.
-  */
-  void deleteProfile();
   /**
   * This slot is called when the "Use own font for language" bo was clicked.
   */
@@ -187,10 +167,6 @@ protected: // Protected methods
   */
   void initFonts();
   /**
-  * Init profiles section.
-  */
-  void initProfiles();
-  /**
   * Init color section.
   */
   void initDisplayStyle();
@@ -201,7 +177,6 @@ protected: // Protected methods
   void saveAccelerators();
 	void saveDisplayStyle();
 	void saveFonts();
- 	void saveProfiles();
  	void saveStartup();
  	void saveSword();
 

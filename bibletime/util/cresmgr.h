@@ -124,11 +124,10 @@ namespace CResMgr {
         extern const KShortcut accel;
         extern const char* actionName;
       }
-      namespace setupProfiles {
+      namespace deleteProfile {
         extern QString tooltip;
         extern QString whatsthis;
         extern const QString icon;
-        extern const KShortcut accel;
         extern const char* actionName;
       }
       namespace showFullscreen {

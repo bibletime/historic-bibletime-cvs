@@ -344,18 +344,28 @@ void BibleTime::initActions() {
   	m_windowLoadProfile_action->plugAccel( accel() );
   #endif
 
-
-	m_windowEditProfiles_action = new KAction(i18n("Co&nfigure sessions"),
-    CResMgr::mainMenu::window::setupProfiles::icon,
-    CResMgr::mainMenu::window::setupProfiles::accel,
-    this, SLOT(editProfiles()), actionCollection(),
-    CResMgr::mainMenu::window::setupProfiles::actionName
+	m_windowDeleteProfile_action = new KActionMenu(i18n("&Delete session"),
+    CResMgr::mainMenu::window::deleteProfile::icon,
+    actionCollection(),
+    CResMgr::mainMenu::window::deleteProfile::actionName
   );
-	m_windowEditProfiles_action->setToolTip( CResMgr::mainMenu::window::setupProfiles::tooltip );
-	m_windowEditProfiles_action->setWhatsThis( CResMgr::mainMenu::window::setupProfiles::whatsthis );
+	m_windowDeleteProfile_action->setToolTip( CResMgr::mainMenu::window::deleteProfile::tooltip );
+	m_windowDeleteProfile_action->setWhatsThis( CResMgr::mainMenu::window::deleteProfile::whatsthis );
   #if KDE_VERSION_MINOR < 1
-  	m_windowEditProfiles_action->plugAccel( accel() );
+  	m_windowDeleteProfile_action->plugAccel( accel() );
   #endif
+
+// 	m_windowEditProfiles_action = new KAction(i18n("Co&nfigure sessions"),
+//     CResMgr::mainMenu::window::setupProfiles::icon,
+//     CResMgr::mainMenu::window::setupProfiles::accel,
+//     this, SLOT(editProfiles()), actionCollection(),
+//     CResMgr::mainMenu::window::setupProfiles::actionName
+//   );
+// 	m_windowEditProfiles_action->setToolTip( CResMgr::mainMenu::window::setupProfiles::tooltip );
+// 	m_windowEditProfiles_action->setWhatsThis( CResMgr::mainMenu::window::setupProfiles::whatsthis );
+//   #if KDE_VERSION_MINOR < 1
+//   	m_windowEditProfiles_action->plugAccel( accel() );
+//   #endif
 
 
 	m_windowFullscreen_action = new KToggleAction(i18n("&Fullscreen mode"),
@@ -373,12 +383,18 @@ void BibleTime::initActions() {
 
 	QPtrList<CProfile> profiles = m_profileMgr.profiles();
 	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
-	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();
 	connect(loadPopup, SIGNAL(activated(int)), SLOT(loadProfile(int)));
+	
+	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();
 	connect(savePopup, SIGNAL(activated(int)), SLOT(saveProfile(int)));
+	
+	KPopupMenu* deletePopup = m_windowDeleteProfile_action->popupMenu();
+	connect(deletePopup, SIGNAL(activated(int)), SLOT(deleteProfile(int)));
+	
 	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
 		savePopup->insertItem(p->name());
 		loadPopup->insertItem(p->name());
+		deletePopup->insertItem(p->name());
 	}
 
 	if ( actionCollection()->action( KStdAction::stdName(KStdAction::HelpContents) )) {	 //delete help action if KDE created it

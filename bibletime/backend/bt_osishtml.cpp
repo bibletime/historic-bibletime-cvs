@@ -381,6 +381,11 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				buf.append("</span></span>");
 			}
 		}
+		else if (!strcmp(tag.getName(), "p")) {
+			if (tag.isEmpty()) {
+				buf.append("<p/>");
+			}
+		}
 		// <q> quote
 		else if (!strcmp(tag.getName(), "q")) {
 			SWBuf type = tag.getAttribute("type");

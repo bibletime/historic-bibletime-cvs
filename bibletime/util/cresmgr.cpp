@@ -128,12 +128,12 @@ namespace CResMgr {
         const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_S;
         const char* actionName    = "windowSaveToNewProfile_action";
       }
-      namespace setupProfiles {
+      namespace deleteProfile {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "view_sidetree";
-        const KShortcut accel     = Qt::Key_F5;
-        const char* actionName    = "windowEditProfiles_action";
+//         const KShortcut accel     = Qt::Key_F5;
+        const char* actionName    = "windowDeleteProfile_action";
       }
       namespace showFullscreen {
         QString tooltip;
@@ -867,9 +867,9 @@ namespace CResMgr {
             whatsthis   = makeWhatsThis(tooltip, i18n("Create and save a new session."));
           }
           {
-            using namespace setupProfiles;
-            tooltip     = makeToolTip(i18n("Edit sessions"));
-            whatsthis   = makeWhatsThis(tooltip, i18n("Create new, delete or rename existing sessions."));
+            using namespace deleteProfile;
+            tooltip     = makeToolTip(i18n("Delete session"));
+            whatsthis   = makeWhatsThis(tooltip, i18n("Delete a BibleTime sesison."));
           }
           {
             using namespace showFullscreen;
@@ -1285,7 +1285,7 @@ namespace CResMgr {
           whatsthis = makeWhatsThis( tooltip, i18n("The font selection below will apply to all texts in this language."));
         };
       };
-      {
+/*      {
         using namespace profiles;
         {
           using namespace list;
@@ -1307,7 +1307,7 @@ namespace CResMgr {
           tooltip   = makeToolTip( i18n("Rename session") );
           whatsthis = makeWhatsThis( tooltip, i18n("Rename the selected session."));
         };
-      };
+      };*/
       {
         using namespace settings::sword;
         {
