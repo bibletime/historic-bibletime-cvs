@@ -27,11 +27,11 @@ path_to_bin_program=bibletime
 [General]
 AMChanged=false
 author=The BibleTime team
-configure_args=--with-qt-dir=/usr/lib/qt2 --with-kdedir=/opt/kde2.1
+configure_args=--with-qt-dir=/usr/lib/qt2 --with-kdedir=/opt/kde2
 debug_args=--debug
 dir_where_make_will_be_called=./
 email=info@bibletime.de
-execute_args=--debug --crash
+execute_args=--debug
 kdevprj_version=1.3
 lfv_open_groups=
 make_options=\s-j2
@@ -42,7 +42,7 @@ project_type=normal_empty
 sgml_file=/home/joachim/BibleTime/bibletime-2/bibletime/docs/de/index.sgml
 short_info=
 sub_dir=bibletime/
-version=1.0
+version=1.0.1
 version_control=CVS
 workspace=1
 
