@@ -1,0 +1,78 @@
+<chapter id="devl"><title>Installation of the Development Version</title>
+<para>
+The current development version is available from the crosswire CVS
+repository.  It is also necessary to install the latest version of sword from
+the CVS repository.  On some systems it is also necessary to install
+the basic libraries of KDE 2 (the package is called kdelibs) and qt-2.2.2 or 2.2.3.
+It is recommended that an attempt be made to install
+bibletime and sword with the qt and kde packages that are present in your
+distribution before downloading the most current kde and qt sources.
+</para>
+
+<section id="dvel_CVS"><title>Content Versioning System (CVS)</title>
+<para>To download the CVS version of sword, do this:</para>
+<screen>
+[me@localhost $home]export CVSROOT=:pserver:anonymous@cvs.crosswire.org:/cvs/sword
+[me@localhost $home]cd /usr/src
+[me@localhost src]cvs login
+[me@localhost src]  password ******    #use "anonymous" for the password
+[me@localhost src]checkout -z3 checkout sword
+</screen>
+
+<para>Now down load the bibletime development files.</para>
+
+<screen>
+
+[me@localhost src]export CVSROOT=:pserver:anonymous@cvs.crosswire.org:/cvs/bibletime
+[me@localhost src]cvs login
+[me@localhost src]  password ******   #use "anonymous" for the password
+[me@localhost src]checkout -z3 checkout bibletime-2
+
+exit will close the cvs window.
+</screen>
+
+
+<para>Now you should have <filename>/usr/src/sword</filename> and
+<filename>/usr/src/bibletime-2</filename></para> </section>
+
+<section id="devl_compile">
+<title>Compiling bibletime and supporting programs</title>
+<para>This section describes how to compile bibletime and supporting programs
+from sources. If you have a KDE-2 distribution, then you should try to compile
+bibletime and sword without first installing the qt and kdelib updates.</para>
+</section>
+
+<section id="devl_qt"><title>Qt</title>
+<para>
+
+</para>
+</section>
+
+<section id="devl_kde2libs"><title>kdelibs</title>
+<para>
+
+</para>
+</section>
+
+<section id="devl_sword"><title>Sword</title>
+<para>
+
+</para>
+</section>
+
+<section id="devl_bibletime"><title>Bibletime</title>
+<para>
+</para>
+</section>
+
+<section id="devl_conf"><title>Configuration Files</title>
+<para>
+</para>
+</section>
+
+<section id="devl_modules"><title>Sword modules</title>
+<para>
+</para>
+
+</section>
+</chapter>

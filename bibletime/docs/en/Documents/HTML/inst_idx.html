@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Bibletime Installation Guide</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
+REL="HOME"
+TITLE="BibleTime Documentation Package"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Menubar"
+HREF="hdbk_bars_menubar.html"><LINK
+REL="NEXT"
+TITLE="Bibletime Binaries"
+HREF="inst_bin.html"><META
+NAME="KEYWORD"
+CONTENT="BibleTime"><META
+NAME="KEYWORD"
+CONTENT="Sword"><META
+NAME="KEYWORD"
+CONTENT="Crosswire"><META
+NAME="KEYWORD"
+CONTENT="installation"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="en"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-English"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"><META
+NAME="KEYWORDS"
+CONTENT="BibleTime, Sword, Crosswire, installation"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="The K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="BOOK"
+><A
+NAME="INST_IDX"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN232"
+>Bibletime Installation Guide</A
+></H1
+>Version <SPAN
+CLASS="RELEASEINFO"
+>0.32<BR></SPAN
+>Last updated: <SPAN
+CLASS="DATE"
+>02/20/2001<BR></SPAN
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN235"
+>Later Later</A
+></H3
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 1999, 2000 by <SPAN
+CLASS="HOLDER"
+>The team of BibleTime, info@bibletime.de</SPAN
+></P
+><DIV
+CLASS="LEGALNOTICE"
+><P
+>The bibletime installation guide is part of Bibletime.</P
+><P
+>Bibletime is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.</P
+><P
+>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</P
+><P
+>You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</P
+></DIV
+><DIV
+><DIV
+CLASS="ABSTRACT"
+><P
+><SPAN
+CLASS="APPLICATION"
+>BibleTime</SPAN
+> is an application to aid in study of the
+Bible.</P
+></DIV
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+>1. <A
+HREF="inst_bin.html"
+>Bibletime Binaries</A
+></DT
+><DT
+>2. <A
+HREF="inst_preq.html"
+>Bibletime Prerequisites</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="inst_preq.html#DEVL_10"
+>Requirements for
+Bibletime Version 1.0 Development Version</A
+></DT
+><DT
+>2.2. <A
+HREF="inst_preq_install.html"
+>Installation of prerequisite programs</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="inst_sources.html"
+>Installing Bibletime Sources</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="inst_sources.html#INST_SOURCES_SWORD"
+>Installation of SWORD and the Sword
+Modules</A
+></DT
+><DD
+><DL
+><DT
+>3.1.1. <A
+HREF="inst_sources.html#INST_SOURCES_SWORD_INSTALL"
+>Installation of SWORD 1.51a</A
+></DT
+><DT
+>3.1.2. <A
+HREF="inst_sources.html#INST_SOURCES_SWORD_MODULES"
+>Installation of modules</A
+></DT
+></DL
+></DD
+><DT
+>3.2. <A
+HREF="inst_sources_bibletime.html"
+>Installing the Bibletime Source</A
+></DT
+><DT
+>3.3. <A
+HREF="inst_sources_compiler_notes.html"
+>Compiler notes</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="inst_user.html"
+>Installation</A
+></DT
+><DT
+>5. <A
+HREF="inst_devl.html"
+>Getting Development Sources</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="inst_devl.html#INST_DEVL_GENERAL"
+>General Information</A
+></DT
+><DT
+>5.2. <A
+HREF="inst_devl_cvs.html"
+>Concurrent Versioning Software (CVS)</A
+></DT
+><DD
+><DL
+><DT
+>5.2.1. <A
+HREF="inst_devl_cvs.html#INST_DEVL_CVS_SWORD"
+>Sword CVS</A
+></DT
+><DT
+>5.2.2. <A
+HREF="inst_devl_cvs.html#INST_DEVL_CVS_BIBLETIME"
+>Bibletime CVS</A
+></DT
+></DL
+></DD
+><DT
+>5.3. <A
+HREF="inst_devl_cvs_commands.html"
+>CVS Commands</A
+></DT
+><DT
+>5.4. <A
+HREF="inst_devl_cvs_gui.html"
+>CVS GUI Interface</A
+></DT
+></DL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="LOT"
+><DL
+CLASS="LOT"
+><DT
+><B
+>List of Tables</B
+></DT
+><DT
+>2-1. <A
+HREF="inst_preq.html#AEN267"
+>Packages required for installation of Bibletime 1.0 and later.</A
+></DT
+><DT
+>3-1. <A
+HREF="inst_sources.html#AEN318"
+>Sword Makefile.cfg switches</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="hdbk_bars_menubar.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="inst_bin.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Menubar</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Bibletime Binaries</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

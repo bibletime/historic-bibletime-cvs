@@ -1,0 +1,349 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html">
+
+<title>Scripture References</title>
+<style>
+<!--
+ /* Style Definitions */
+h3
+	{ margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	font-size:14.0pt; }
+p.MsoFootnoteText, li.MsoFootnoteText, div.MsoFootnoteText
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt; }
+span.MsoFootnoteReference
+	{ vertical-align:super;}
+p.MsoList, li.MsoList, div.MsoList
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.25in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	font-size:12.0pt ;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+span.Default
+	{ ;}
+p.XML, li.XML, div.XML
+	{
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Courier New";
+	color:red; }
+p.P, li.P, div.P
+	{
+	margin:0in;
+	margin-bottom:.0001pt;
+	text-indent:.5in;
+	font-size:12.0pt;
+	
+	;}
+p.PContinue, li.PContinue, div.PContinue
+	{
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	text-indent:0.5in;
+	font-size:12.0pt; }
+p.PFirst, li.PFirst, div.PFirst
+	{
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	text-indent:0in;
+	font-size:12.0pt;
+	
+	;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h3 align=center style='text-align:center'>Scripture References</h3>
+
+<p class=PFirst>In theological texts, scripture passages may be cited, quoted,
+or explained. Citations refer to a passage, and they are represented in ThML
+with the <span style='font-size:11.0pt;font-family:"Courier New";
+color:red;'>&lt;scripRef&gt;</span>
+element. That element specifies that the enclosed text should be hot-linked to
+the scripture passage and that the scripture reference should be searchable,
+included in a scripture index, etc.
+Quoted scripture is marked with the <span style='font-size:11.0pt;
+font-family:"Courier New";color:red;
+'>&lt;scripture&gt;</span> element. Commentary on
+scripture, sermons or hymns based on scripture, and other material that would
+be useful to someone studying or preaching on a passage is marked with the <span
+style='font-size:11.0pt;font-family:"Courier New";
+color:red;'>&lt;scripCom&gt;</span> element. In
+addition, a <span style='font-size:11.0pt;font-family:"Courier New";mso-bidi-font-family:
+"Times New Roman";color:red;'>&lt;scripContext&gt;</span>
+element is available to set the default version, book, or chapter for
+succeeding references. All four elements take the attributes <span
+style='font-size:11.0pt;font-family:"Courier New";
+color:red;'>version</span>, <span style='font-size:
+11.0pt;font-family:"Courier New";
+color:red;'>passage</span>, and <span
+style='font-size:11.0pt;font-family:"Courier New";
+color:red;'>parsed</span>, containing the version of
+the references, the passage referred to, and a machine-friendly parsed version
+of the passage. </p>
+
+<p class=PContinue>Scripture citations that are marked with the <span style='font-size:
+11.0pt;font-family:"Courier New";
+color:red;'>&lt;scripRef&gt;</span> element become
+available for scripture reference searches or indexes.
+In addition, the scripture passage may be
+linked to the reference text or displayed in a separate window.
+A reference such as &quot;Romans viii.
+27,28; x. 8-13&quot; for the NIV could be marked in a number of ways.
+A full specification would appear as</p>
+
+<p class=PContinue><![if !supportEmptyParas]>&nbsp;<![endif]><o:p/></p>
+
+<p class=MsoList style='margin-left:.5in;text-indent:-.5in'><span
+class=Default><span style='font-size:11.0pt;font-family:"Courier New";
+color:red;'>&lt;scripRef
+version=&quot;NIV&quot; passage=&quot;Rom. viii. 27,28; x. 8-13&quot;
+parsed=&quot;NIV|Romans|8|27|8|28;NIV|Romans|10|8|10|13&quot;&gt;</span><span
+style=''>Romans viii. 27,28; x. 8-13</span></span><span
+class=Default><span style='font-size:11.0pt;font-family:"Courier New";
+color:red;'>&lt;/scripRef&gt;<o:p/></span></span></p>
+
+<p class=PContinue><span class=Default><span style='font-size:12.0pt;
+'>However, a number
+of shortcuts are possible. If a </span></span><span
+class=Default><span style='mso-ansi-font-size:11.0pt;mso-ascii-font-family:
+"Courier New";mso-hansi-font-family:"Courier New";'>parsed</span></span><span
+class=Default><span style='font-size:12.0pt;
+'> </span></span><span
+class=Default><span style='font-size:12.0pt;
+'>attribute is not used, processing software
+can attempt to parse the passage and add it. 
+The </span></span><span class=Default><span style='mso-ansi-font-size:
+11.0pt;mso-ascii-font-family:"Courier New";mso-hansi-font-family:"Courier New";
+'>version</span></span><span class=Default><span
+style='font-size:12.0pt;
+;'> </span></span><span class=Default><span
+style='font-size:12.0pt;
+'>can be inferred from the most recent </span></span><span
+class=Default><span style='mso-ansi-font-size:11.0pt;mso-ascii-font-family:
+"Courier New";mso-hansi-font-family:"Courier New";'>&lt;scripContext&gt;
+</span></span><span class=Default><span style='font-size:12.0pt;mso-bidi-font-size:
+11.0pt;'>element or left unspecified</span></span>.
+<span class=Default><span style='font-size:12.0pt;
+'>The passage attribute can even be omitted
+when the enclosed text is an unambiguous scripture references.
+So, the above passage could have been marked
+as</span></span> </p>
+
+<p class=PContinue><![if !supportEmptyParas]>&nbsp;<![endif]><o:p/></p>
+
+<p class=MsoList><span class=Default><span style='font-size:11.0pt;font-family:
+"Courier New";color:red;
+'>&lt;scripRef&gt;</span><span style=''>Romans
+viii. 27,28; x. 8-13</span></span><span class=Default><span style='font-size:
+11.0pt;font-family:"Courier New";
+color:red;'>&lt;/scripRef&gt;<o:p/></span></span></p>
+
+<p class=PContinue><![if !supportEmptyParas]>&nbsp;<![endif]><o:p/></p>
+
+<p class=PContinue>The passage attribute is a list of scripture references separated by
+commas or semicolons. Each reference
+may consist of a book name (or abbreviation), a chapter, and a verse. The
+chapter and verse are separated by a semicolon or period. If two references are
+separated by a dash, all of the intermediary verses are included as well. In
+the case of books with only one chapter, a reference consists of a book name or
+abbreviation and a verse. Book names
+should be as they appear in the version in use or a unique prefix of at least
+two letters of the name. Abbreviations that are not prefixes may also be
+accepted by programs that process ThML documents.<a style='mso-footnote-id:
+ftn1' href="#_ftn1" name="_ftnref1" title=""><span class=MsoFootnoteReference><span
+style='font-size:11.0pt'><span style='mso-special-character:footnote'><![if !supportFootnotes]>[1]<![endif]></span></span></span></a></p>
+
+<p class=PContinue>The parsed attribute consists of a number of references separated by
+semicolons. Each reference includes the version, book, from chapter, from
+verse, to chapter, and to verse separated by the vertical bar ('|')
+character. The version may be omitted.
+If the from chapter is zero, the whole book is identified.
+If the from verse is zero, the whole chapter
+is specified. If the to chapter and verse are zero, a single verse (from
+chapter:from verse) is specified. </p>
+
+<p class=PContinue>Note that different translations of the Bible use different
+versification schemes. For example, Psalm 9 in the King James Version is split
+into two‚Psalms 9 and 10‚in the Septuagint. In order to interpret a reference,
+the versification scheme used must be known. Scripture references will be
+assumed to be compatible with the versification scheme used by the KJV, ASV, NASB,
+NIV, and TLB unless otherwise specified. However, specifying that the scripture
+version for a passage is the Septuagint, for example, implies that the
+references is based on the Septuagint scheme. References to the Apocrypha
+without a version specified are interpreted according to the scheme used in the
+NRSVA (New Revised Standard Version with Apocrypha).</p>
+
+<p class=PContinue>Also, context is sometimes necessary in interpreting a
+reference. A passage may refer to
+Romans 8:28 at one point and later to verses 29 and 30 and chapter 10:8-13. It
+will be up to the editor to identify and mark scripture references, although
+software may be provided to identify possible scripture references and suggest
+an interpretation such as <span style='font-size:11.0pt;font-family:"Courier New";
+color:red;'>&lt;scripRef
+passage=&quot;Rom. 8:29,30&quot;&gt;</span>verses 29 and 30<span
+style='font-size:11.0pt;font-family:"Courier New";
+color:red;'>&lt;/scripRef&gt;</span>.
+The <span style='font-size:11.0pt;
+font-family:"Courier New";color:red'>&lt;scripContext
+version=&quot;NIV&quot; passage=&quot;Romans 8&quot; /&gt;</span> element may
+be used to set the default version, book, or chapter for upcoming references to
+the parser. </p>
+
+<p class=PContinue>Quotations of scripture are marked with the <span style='font-size:
+11.0pt;font-family:"Courier New";
+color:red'>&lt;scripture&gt;</span> element. A passage may be represented as in
+this example:</p>
+
+<p class=PContinue><![if !supportEmptyParas]>&nbsp;<![endif]><o:p/></p>
+
+<p class=MsoList style='margin-left:.5in;text-indent:-.5in'><span
+class=Default><span style='font-size:11.0pt;font-family:"Courier New";
+color:red;'>&lt;scripture
+passage=&quot;Mark 7:16&quot; version=&quot;NKJV&quot;&gt;</span><span
+style=''>If anyone has ears to hear, let them hear!</span></span><span
+class=Default><span style='font-size:11.0pt;font-family:"Courier New";
+color:red;'>&lt;/scripture&gt;</span></span></p>
+
+<p class=PFirst>This markup may also be used for a translation or version of a
+book or a whole Bible, perhaps as in the example below.
+Scripture marked in this way could be
+automatically retrieved by book, chapter, and verse with an appropriate
+program.</p>
+
+<p class=XML style='margin-left:1in; text-indent:-.5in'>&lt;scripContext
+version=&quot;Calvin's Translation, in English&quot; /&gt; ‚¶<o:p/></span></p>
+
+<p class=XML style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.5in'><span
+>&lt;scripContext passage=&quot;Romans 8&quot; /&gt; ‚¶<o:p/></span></p>
+
+<p class=XML style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.5in'><span
+>&lt;scripture passage=&quot;28&quot;&gt;</span><span
+class=Default><span style='font-size:12.0pt;
+'>We further know, that to those
+who love God all things co-operate for good, even to those who are called
+according to</span></span><span style=''> </span><span
+>&lt;I&gt;</span><span class=Default><span
+style='font-size:12.0pt;
+;'>his</span></span><span >&lt;/I&gt;</span><span
+style=''> </span><span class=Default><span
+style='font-size:12.0pt;
+;'>purpose:</span></span><span >&lt;/scripture&gt;<o:p/></span></p>
+
+<p class=XML style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;margin-bottom:.0001pt;text-indent:-.5in'><span
+>&lt;scripture passage=&quot;29&quot;&gt;</span><span
+class=Default><span style='font-size:12.0pt;
+'>for those whom he has
+foreknown, he has also predetermined to be conformed to the image of his Son,
+that he might be the first born among many brethren;</span></span>&lt;/scripture&gt;<o:p/></p>
+
+<p class=PContinue><![if !supportEmptyParas]>&nbsp;<![endif]><o:p/></p>
+
+<p class=PContinue>Explanation or commentary on a passage involves a semantic
+relationship between the explanation and the passage explained. This
+relationship should be represented in the text in order to be able to build an
+index of scripture commentary. For example, it would be useful to be able to
+see everything the early church fathers said or preached on a passage.
+Commentary or explanation of a passage will marked with a <span
+style='font-size:11.0pt;font-family:"Courier New";
+color:red'>&lt;<span class=Default><span style='mso-ansi-font-size:11.0pt;
+mso-ascii-font-family:"Courier New";mso-hansi-font-family:"Courier New"'>scripCom&gt;</span></span></span>
+element, as in this example:</p>
+
+<p class=PContinue><![if !supportEmptyParas]>&nbsp;<![endif]><o:p/></p>
+
+<p class=MsoList style='margin-left:.5in;text-indent:-.5in'><span
+class=Default><span style='font-size:11.0pt;font-family:"Courier New";
+color:red'>&lt;scripCom
+passage=&quot;Mark 7:16&quot;&gt;</span>Mark 7:16. This admonition seems to
+apply to most everyone . . .</span><span class=Default><span style='font-size:
+11.0pt;font-family:"Courier New";
+color:red'>&lt;/scripCom&gt;<o:p/></span></span></p>
+
+<p class=PContinue><span class=Default><span style='font-size:12.0pt;
+'>The </span></span><span
+class=Default><span style='mso-ansi-font-size:11.0pt;mso-ascii-font-family:
+"Courier New";mso-hansi-font-family:"Courier New";'>&lt;scripCom&gt;</span></span><span
+class=Default><span style='font-size:12.0pt;
+'> element also takes a </span></span><span
+class=Default><span style='mso-ansi-font-size:11.0pt;mso-ascii-font-family:
+"Courier New";mso-hansi-font-family:"Courier New";'>type</span></span><span
+class=Default><span style='font-size:12.0pt;
+'> </span></span><span
+class=Default><span style='font-size:12.0pt;
+'>attribute. The </span></span><span
+class=Default><span style='mso-ansi-font-size:11.0pt;mso-ascii-font-family:
+"Courier New";mso-hansi-font-family:"Courier New";'>type</span></span><span
+class=Default><span style='font-size:12.0pt;
+'> </span></span><span
+class=Default><span style='font-size:12.0pt;
+'>is used in the CCEL for classifying
+references into one of a number of fixed types, including Commentary,
+Treatises, Sermons, Hymns, Prayers, Drama, etc. These then appear in a
+classified list of references for the whole library.<o:p/></span></span></p>
+
+<p class=PContinue><![if !supportEmptyParas]>&nbsp;<![endif]><o:p/></p>
+
+</div>
+
+<div style='mso-element:footnote-list'><![if !supportFootnotes]><br clear=all>
+
+<hr align=left size=1 width="33%">
+
+<![endif]>
+
+<div style='mso-element:footnote' id=ftn1>
+
+<p class=MsoFootnoteText><a style='mso-footnote-id:ftn1' href="#_ftnref1"
+name="_ftn1" title=""><span class=MsoFootnoteReference><span style='mso-special-character:
+footnote'><![if !supportFootnotes]>[1]<![endif]></span></span></a> The section
+marking scripture references draws from the <i style='mso-bidi-font-style:normal'>STEP
+Programming Specification</i> and the <i style='mso-bidi-font-style:normal'>STEP
+Publishing Specification </i>(available at http://www.bsisg.com).</p>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
+<HR><CENTER><TABLE><TR><TD><A HREF='http://www.ccel.org'><IMG SRC='/pix/gem-icon2.gif' BORDER=0 ALT='CCEL'></A><TD><CENTER><I><FONT SIZE=-1>This document is from the <a href='http://www.ccel.org'>Christian Classics Ethereal Library</a><br> at <a href='http://www.calvin.edu'>Calvin College. </a>Last updated on February 18, 1999.<BR><A HREF='/info/email.html'>Contacting the CCEL.</A></FONT></I></CENTER><TD><A HREF='http://www.calvin.edu'><IMG SRC='/pix/seal.gif' BORDER=0 ALT='Calvin seal: I offer you my heart, O Lord, promptly and sincerely'></A></TR></TABLE></CENTER><!-- --></BODY></HTML>

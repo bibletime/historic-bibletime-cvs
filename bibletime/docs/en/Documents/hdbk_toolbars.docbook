@@ -1,0 +1,208 @@
+<chapter id="hdbk_bars"><title>Main toolbar and menubar</title>
+<para></para>
+
+<sect1 ID="hdbk_bars_toolbar"><title>Toolbar</title>
+<para>
+The main window toolbar is configurable.  Access this with the "Configure
+toolbars" entry under the "Settings" menubar entry. Each of the buttons has
+tooltips to tell what their function is. For buttons with no pixmap, the buttons
+could appear as blank, or just blank bars.
+</para>
+</sect1>
+
+<sect1 ID="hdbk_bars_menubar"><title>Menubar</title>
+<para></para>
+
+<sect2 ID="hdbk_bars_menubar_file"><title>File</title>
+<para>
+
+<variablelist>
+<varlistentry>
+<term>New window</term>
+<listitem>
+<para>opens another instance of BibleTime</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Close</term>
+<listitem>
+<para>closes the presenter that has focus</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Quit</term>
+<listitem>
+<para>Quits BibleTime</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect2>
+
+<sect2 ID="hdbk_bars_menubar_Window"><title>Window</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term>Cascade</term>
+<listitem><para>Cascades open presenters</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Tile</term>
+<listitem>
+<para>Tiles open presenters</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Auto Cascade</term>
+<listitem>
+<para>
+Automatically cascades newly opened presenters
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Auto Tile</term>
+<listitem>
+<para>ditto for tiling newly opened presenters</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Close all</term>
+<listitem>
+<para>Closes all open presenters</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>List of open modules</term>
+<listitem>
+<para>Do I have to explain?</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect2>
+
+<sect2 ID="hdbk_bars_menubar_settings"><title>Settings</title>
+<para>
+
+<variablelist>
+<varlistentry>
+<term>Show Toolbar</term>
+<listitem>
+<para>Show or hide the main toolbar, normally shown</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Configure Toolbar</term>
+<listitem>
+<para>show the Configure Toolbar dialog</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Preferences</term>
+<listitem>
+<para>show the Preferences dialog</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Show Strongs</term>
+<listitem>
+<para>
+display Strong's number is n the text (only certain modules use this
+function)
+</para> </listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Show Footnotes</term>
+<listitem>
+<para>
+display footnotes in the text (only certain modules use this function)
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Show Groupmanager</term>
+<listitem>
+<para>
+show or hide the module list window. Normally it is not hidden, unless you want
+maximum real estate for displaying modules. BTW, resizing the groupmanager
+window can accomplish the same thing, although to a lesser extent.
+</para>
+</listitem> </varlistentry>
+</variablelist>
+
+</para>
+</sect2>
+
+<sect2 ID="hdbk_bars_menubar_Help"><title>Help</title>
+<para>
+
+<variablelist>
+
+<varlistentry>
+<term>Contents</term>
+<listitem><para>
+Opens KDE's help browser with BibleTime's handbook
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>What's This</term>
+<listitem>
+<para>
+allows you to click on certain items for contextual help
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Bug Report</term>
+<listitem>
+<para>
+send a bug report to the program's maintainers to help development
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>About Bibletime</term>
+<listitem>
+<para>
+opens a window with general BibleTime information
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>About KDE</term>
+<listitem>
+<para>
+opens a window with general KDE information
+</para>
+</listitem>
+
+</varlistentry>
+
+</variablelist>
+
+</para>
+</sect2>
+
+</sect1>
+</chapter>
+

@@ -1,0 +1,112 @@
+<chapter ID="intro"><title>Introduction</title>
+<para>
+BibleTime is a powerful Bible study tool written for the KDE environment on the
+Linux operating system. It is based on the <ulink
+url="http://www.crosswire.org">Sword</ulink> library, which provide the back-end
+functionality for BibleTime, such as viewing Bible text, searching, bookmarking,
+etc. Sword is the flagship product of the <ulink
+url="http://www.crosswire.org">Crosswire Bible Society</ulink>. </para>
+
+<para>
+There are three types of modules that can be displayed:
+</para
+
+<para>
+<variablelist>
+<varlistentry>
+<term>Bibles</term>
+<listitem>
+<para>
+The full text, with optional Strong's Numbers and footnotes in the text
+</para>
+</listitem> </varlistentry>
+
+<varlistentry>
+<term>Commentaries</term>
+<listitem>
+<para>
+With a <quote>Personal</quote> commentary you can record your own personal
+notes to different parts of the Bible.
+</para> </listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Lexicons</term>
+<listitem>
+<para> For word definitions and Bible topics. You an choose a key in a list which will
+be displayed. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<sect1 ID="intro_changes"><title>Changes</title>
+<para>
+Please read the file Changelog of the sourcecode package if you are
+interested in more detailed changes.
+</para>
+</sect1>
+
+<sect1 ID="intro_ToDo"><title>ToDo</title>
+<para>
+Very much!
+</para>
+<para>
+We have lots to do. Because we are a very small team of active developers it's
+very hard to get reasonable results in a short time. If you are interested in
+BibleTime please contact us if you'd like to help. Otherwise BibleTime will
+develop very very slow and it will take a very long time until you get a
+full-featured Bible study tool.
+</para>
+</sect1>
+
+<sect1 ID="intro_support"><title>Support</title>
+<para>
+There are different ways to support BibleTime and it's developers.
+</para>
+
+<sect2 ID="intro_support_programming"><title>Help with programming</title>
+<para>
+</para>
+</sect2>
+
+<sect2 ID="intro_support_translation"><title>Help with translations</title>
+<para>
+</para>
+</sect2>
+
+<sect2 ID="intro_support_finacial"><title>Financial support</title>
+<para>
+</para>
+</sect2>
+
+</sect1>
+
+<sect1 ID="intro_motivation"><title>Motivation</title>
+<para>
+Our desire is to serve God, and to do our part to help others grow in their
+relationship with Him. We have found a gaping hole, in that there has been a
+total lack of user-friendly Bible-study software available for Linux-based
+computers. We have developed BibleTime to fill that void.
+We have striven to make this a powerful, quality program, and still make it
+simple and intuitive to operate. It is our desire that God be praised, as He is
+the Source of all good things.
+</para>
+<screen>
+<quote>
+Every good thing given and every perfect gift is from above,
+coming down from the Father of lights, with whom there is no
+variation or shifting shadow.
+</quote>
+-James 1:17, NASB
+</screen>
+<para>
+God bless you as you use this program, and may He be glorified by the work of
+our hands!
+</para>
+
+</sect1>
+
+</chapter>
+

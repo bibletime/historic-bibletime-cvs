@@ -1,0 +1,75 @@
+# $Log:
+
+Backend design
+~~~~~~~~~~~~~~
+
+Author:             Joachim Ansorg
+EMail:              jansorg@gmx.de
+Date started:       29-7-2000
+Date last updated:  12-9-2000
+
+
+This file contains guidelines how printing should be implemented in BibleTime
+version 1.0 and later.
+
+
+Important features:
+-------------------
+-Usage of formatting styles realised using the class CStyleFormat
+	o Background- and foreground colours
+	o Settings for an own frame realised with the class CStyleFormatFrame:
+		- Colour of border
+		- Pen style
+		- Thickness of border	
+	o Font and size
+
+A style is divided in three parts:
+	o A header containg the range of the printed verses
+	o A description (useful for printing bookmarks)
+	o The module text
+Each of these style parts has it's own CStyleFormat (everytime the same options)
+	
+-Possibilty to load and save styles to disk
+	o This is useful to share printing styles with other users of BibleTime
+	
+-Support of normal printing options
+	o Number of copies
+	o Page orientation
+	o Selection of printer
+	o Print to file
+	o paper format
+	o Range of pages you want to print	
+
+-Possibilty to control text which will be printed
+
+Important classes:
+------------------
+-CPrinterDialog:
+	This dialog is used to set the properties which will be used for printing.
+	It's like CPrinterDialog of BibleTime 0.2x.
+	
+-CPrinter
+	Class which inherit from QPrinter and which supports BibleTime special features
+	Things which should be handled by this class are (for example):
+		o margings (top, bottom, left, right, etc.)
+		o output to file
+		o Using preview mode
+		o ...
+	Generally all painting related thigs should be handled by CPrinter.
+	It's like the class "AdvancedPrinter" of BibleTime 0.2x.
+
+-CStyle
+	the class implementing the style ahndling. It has functions to retrive the
+different CStyleFormats objects for the different parts (header, description, module text).
+
+-CStyleFormat
+
+-CStyleEditorDialog
+
+-CStyleFormatFrame
+
+-CStyleList
+
+-CPrintItem
+
+-CPrintItemList

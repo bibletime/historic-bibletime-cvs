@@ -1,0 +1,102 @@
+<chapter id="inst_preq">
+<title>Bibletime Prerequisites
+</title>
+<para>Bibletime is still under development.  Versions 0.3 or 0.2
+are available and relatively stable.  The earlier versions use Qt 1.x
+and kde 1.x, so the required libraries will already be installed.</para>
+
+<section id="devl_10"> <title> Requirements for
+Bibletime Version 1.0 Development Version</title>
+
+<para>
+This document describes how to install BibleTime 1.0
+All of the packages required for Bibletime to compile are included in mandrake
+7.2 and SuSE 7.2.  It is also possible to compile Bibletime on most other
+distributions.  If you encounter compile errors, please read the messages, they
+should lead you to missing packages which you will probably find on your
+installation disks. </para> <para>The following table contains information of
+the two packages which are new additions to the package set which can be added
+to most distributions, and are required to enable Bibletime 1.0 to work.</para>
+
+
+<table>
+<title>
+Packages required for installation of Bibletime 1.0 and later.
+</title>
+<tgroup cols=2>
+<thead>
+
+<row>
+<entry>Package</entry>
+<entry>Location</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+QT 2.2x
+</entry>
+<entry>
+<ulink url="http://www.trolltech.com"> http://www.trolltech.com</ulink>
+</entry>
+</row>
+<row>
+<entry>
+KDE 2.0 (at least the libraries)
+</entry>
+<entry>
+<ulink url="http://www.kde.org"> http://www.kde.org</ulink>
+</entry>
+</row>
+<row>
+<entry>
+SWORD 1.51a
+</entry>
+<entry>
+<ulink url="http://www.crosswire.org">
+http://www.crosswire.org/Download Sword Modules and Source</ulink>
+</entry></row> </tbody>
+</tgroup>
+</table>
+</section>
+<section id="inst_preq_install">
+<title>Installation of prerequisite programs</title>
+<para>Now download the prerequisites and compile the libraries</para>
+
+<para>First you have to compile the QT 2.2.2 or QT 2.2.3 sources. I assume the
+user has his QT sources in <filename>/usr/lib/qt2</filename>, his KDE2 sources
+in <filename>/usr/src/kde2/kdelibs</filename> and his KDE2 directory is
+<filename>/usr/local/kde2</filename>, if you don't like it use your own settings
+for this.</para>
+
+<screen>
+export QTDIR=/usr/lib/qt-2.2.2
+cd $QTDIR
+./configure -sm -system-libpng -system-jpeg
+make
+</screen>
+
+<para>
+If you have enough RAM and a fast computer you can speedup the compile process
+by adding <command>"-j2"</command> to the make options. For example
+<command>"make -j2"</command>. If you have a slow computer with little RAM
+exit X windows and run make from a terminal to speed up the process.  After the
+compiling process is finished you have to compile your KDE2 stuff. Please do
+something like this:</para>
+
+<screen>
+export QTDIR=/usr/lib/qt-2.2.2
+export KDEDIR=/usr/local/kde2
+cd /usr/src/kde2/kdelibs
+./configure
+make
+make install
+</screen>
+
+<para>The compilation of QT and KDE should finish without problems or errors.
+It's possible to add <command>"-j2"</command> again to speed up the compiling
+process if you have enough RAM and a fast PC.</para>
+
+
+</section>
+</chapter>

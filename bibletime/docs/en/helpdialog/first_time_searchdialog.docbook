@@ -1,0 +1,75 @@
+<chapter id="first_time_search"><title>First time search dialog</title>
+
+<para>You opened the searchdialog for the first time!</para>
+<para>This page describes what the searchdialog is, how to use it and how to make efficient searches.</para>
+
+<qandaset>
+<qandaentry>
+<question>
+<para>
+What's the searchdialog?
+</para>
+</question>
+<answer>
+<para>
+The searchdialog is the dialog where you can search in the modules of Sword.
+You can enter text and search this text in the modules. The entries found will
+appear in a list where you can work with them.
+</para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para>
+How do I search for some text?
+</para>
+</question>
+<answer>
+<para>
+To search some text click on the first entry of the tab bar at the top of the dialog.
+Now enter some text in the search entry box at the top. If you don't want to do
+special things you can leave the settings untouched and click on the "Search"
+button and the bottom of the dialog. The progress of the search will be
+displayed in the two bars at the bottom. The first bar shows the progress for
+the current module, the second one does show the percentage of the whole search.
+It's possible to search more than one module so two bars are required. But
+if you want to do more things with the searchdialog we offer these settings to
+you:
+</para>
+<para>
+<emphasis>
+Multiple words
+</emphasis>
+</para>
+<para>
+The entered words can occur in another order as entered in the line, they can
+even be part of more than one word.
+</para>
+<para>
+<emphasis>
+Exact search
+</emphasis>
+</para>
+<para>
+The text is exactly searched as entered in the line, unless you enabled case
+sensitive search the search does case insensitive search.
+</para>
+<para>
+<emphasis>
+Regular expressions
+</emphasis>
+</para>
+<para>
+If you use this type of search GNU standard regular expressions are used
+</para>
+<para>
+Normally all searches are done with insensitive character matching, to use
+case sensitive search enable the box "Case sensitive". If you have problems
+with the search types, case (in)sensitive search or other search related things
+have a look into our handbook for more information.
+</para>
+</answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
