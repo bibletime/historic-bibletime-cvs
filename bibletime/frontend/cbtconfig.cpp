@@ -182,7 +182,7 @@ const QColor CBTConfig::getDefault( const CBTConfig::colors ID){
 		case footnotesColor: 					return QColor(QString::fromLatin1("#515151"));
 		case strongsColor: 						return QColor(Qt::darkBlue);
 		case morphsColor: 						return QColor(Qt::darkBlue);
-		case jesuswordsColor: 				return QColor(Qt::red);
+		case jesuswordsColor: 				return QColor(QString::fromLatin1("#ad0000"));
 		case swordRefColor: 					return QColor(Qt::blue);
 	}
 	return Qt::blue;
