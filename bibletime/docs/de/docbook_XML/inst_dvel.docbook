@@ -1,5 +1,5 @@
-<chapter id="inst_devl"><title>Getting Development Sources</title>
-<section id="inst_devl_anon"><TITLE>Anonymous CVS Access</TITLE>
+<chapter id="inst_devl"><title>Entwicklungs-Sourcecode</title>
+<section id="inst_devl_anon"><TITLE>Anonymer CVS Zugriff</TITLE>
 <Para>This project's SourceForge CVS repository can be checked out through
 anonymous (pserver) CVS with the following instruction set. The module you wish
 to check out must be specified as the <emphasis>modulename</emphasis>. When
@@ -8,14 +8,15 @@ Enter key. </Para>
 
 <screen>
 cvs -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime login
-cvs -z3 -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <emphasis>modulename</emphasis>
+cvs -z3 -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <emphasis>Modulname</emphasis>
 </screen>
 
-<para>Updates from within the module's directory do not need the -d
-parameter.</Para>
+<para>
+Updates innerhalb des Verzeichnisses des Modules benötgen den -d Parameter nicht.
+</para>
 </section>
 
-<section id="inst_devl_cvs"><TITLE>Developer CVS Access via SSH</TITLE>
+<section id="inst_devl_cvs"><TITLE>Entwickler CVS Zugriff mit SSH</TITLE>
 <Para>Only project developers can access the CVS tree via this method. SSH1
 must be installed on your client machine. Substitute
 <emphasis>modulename</emphasis> and <emphasis>developername</emphasis> with the

@@ -52,7 +52,11 @@ signals:
 	* is emitted if the @ref CKey was changed by the user
 	*/
 	void keyChanged(CKey* key);
-
+	/**
+	* Is emitted before the key is changed!
+	*/
+	void beforeKeyChange(const QString& key);
+	
 public slots:
 	/**
 	* sets the @ref CKey

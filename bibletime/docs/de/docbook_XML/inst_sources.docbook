@@ -1,6 +1,7 @@
-<chapter id="inst_sources"><title>Installing Bibletime Sources</title>
+<chapter id="inst_sources"><title>Installieren mittels BibleTime's Sourceocde</title>
 <para>
-This chapter describes how sources are compiled.  These steps apply for both the
+Dieses Kapitel beschreibt, wie der Quellcode compiliert wird.
+These steps apply for both the
 development version and the released version of bibletime and Sword. </para>
 <section id="inst_sources_sword"><title>Installation of Sword and the Sword
 Modules </title>

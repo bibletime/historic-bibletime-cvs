@@ -46,6 +46,7 @@ CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, CImp
 }
 
 CCommentaryPresenter::~CCommentaryPresenter(){
+	checkChanges(); //save text if it was changed after last save
 	delete m_key;
 }
 
@@ -115,10 +116,15 @@ void CCommentaryPresenter::initConnections(){
 		this, SLOT(saveText(const QString))); 	 	 	
 	connect(m_htmlWidget, SIGNAL(insertReference(const QString&)),
 		this, SLOT(insertReference(const QString&))); 	 	 			
+ 	
+ 	connect( m_keyChooser, SIGNAL(beforeKeyChange(const QString&)),
+ 		this, SLOT(beforeKeyChange(const QString&)));
  	connect( m_keyChooser, SIGNAL(keyChanged(CKey*)),
  		this, SLOT(lookup(CKey*)));		
+	
 	connect(m_popup,SIGNAL(aboutToShow()),
 		SLOT(popupAboutToShow()));
+	
 	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
 		SLOT( modulesChanged() ));		
 }
@@ -140,14 +146,13 @@ void CCommentaryPresenter::modulesChanged(){
 }
 
 /** renders text and set it to the HTML widget */
-void CCommentaryPresenter::lookup(CKey* key){
-	setUpdatesEnabled(false);	
-	
+void CCommentaryPresenter::lookup(CKey* key){	
+	setUpdatesEnabled(false);
 	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);
 	if (!vKey)
 		return;
   m_moduleList.first()->module()->SetKey(*vKey);
-		
+
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
 		if (m_htmlWidget->isReadOnly())	 {
 			if (m_moduleChooserBar->getModuleList().count()>1)  //we want to display more than one module
@@ -157,12 +162,13 @@ void CCommentaryPresenter::lookup(CKey* key){
 			m_htmlWidget->setText( m_moduleList.first()->getDisplay()->getHTML() );
 		}
 		else
-			m_htmlWidget->setText( QString::fromLocal8Bit(m_moduleList.first()->module()->getRawEntry()) );
+			m_htmlWidget->setText( QString::fromLocal8Bit( m_moduleList.first()->module()->getRawEntry() ) );
 	}
 	
 	if (m_key != vKey)
 		m_key->key(vKey->key());
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
+	m_htmlWidget->setModified(false);
 	setUpdatesEnabled(true);		
 	
 	setPlainCaption( caption() );	
@@ -171,25 +177,16 @@ void CCommentaryPresenter::lookup(CKey* key){
 /** No descriptions */
 void CCommentaryPresenter::popupAboutToShow(){
 	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
-
 	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());	
-//	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_ONLY_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());	
-//	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_KEY_TEXT,!m_htmlWidget->getCurrentAnchor().isEmpty());	
-//	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());			
-
-//	m_printPopup->setItemEnabled(ID_PRESENTER_PRINT_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());			
-//	m_savePopup->setItemEnabled(ID_PRESENTER_SAVE_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());		
 }
 
 /** Saves the given text in the module. */
 void CCommentaryPresenter::saveText(const QString text){
 	m_moduleList.first()->module()->SetKey(m_key);
 	if (!text.isEmpty())
-		*m_moduleList.first()->module() << (const char*)text.local8Bit();
+		*(m_moduleList.first()->module()) << (const char*)text.local8Bit();
 	else
 		m_moduleList.first()->module()->deleteEntry();		
-	
-//	lookup(m_key);	//update current key so the saved text will be displayed
 }
 
 /** Deletes the displayed and edited text. */
@@ -264,13 +261,14 @@ void CCommentaryPresenter::syncToggled(){
 
 /** Synchronizes to the given key if sync is enabled. */
 void CCommentaryPresenter::synchronize( CKey* syncKey ){
-	if (presenterSync_action->isChecked()) {
-		CSwordVerseKey* vk = (CSwordVerseKey*)syncKey;
-		if (!vk)
-			return;
-		m_key->key(vk->key());
-		m_keyChooser->setKey(m_key);
-	}
+	if (!presenterSync_action->isChecked())
+		return;
+	checkChanges();
+	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(syncKey);
+	if (!vk)
+		return;
+	m_key->key(vk->key());
+	m_keyChooser->setKey(m_key);
 }
 
 /** No descriptions */
@@ -333,4 +331,28 @@ void CCommentaryPresenter::printEntryAndText(){
 	key->key(currentAnchor);
 		
 	printKey(key, key, m_moduleList.first());
+}
+
+/** Checks for changes and saves the text. */
+void CCommentaryPresenter::checkChanges(){
+	qDebug("void CCommentaryPresenter::checkChanges()");
+	if (!m_htmlWidget->isReadOnly() && m_htmlWidget->isModified()) {//save
+		qDebug("save!");
+		saveText( m_htmlWidget->text() );
+		m_htmlWidget->setModified( false );
+	}
+}
+
+/** No descriptions */
+void CCommentaryPresenter::beforeKeyChange(const QString& key){
+	qWarning("check for %s", key.latin1());
+	if (!m_key)
+		return;
+		
+	const QString oldKey = m_key->key();
+	
+	m_key->key(key);
+	checkChanges();
+		
+	m_key->key(oldKey);	
 }

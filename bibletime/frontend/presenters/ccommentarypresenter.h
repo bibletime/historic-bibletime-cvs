@@ -82,6 +82,8 @@ protected slots: // Protected slots
 private:
   void initConnections();
   void initView();
+  /** Checks for changes and saves the text. */
+  void checkChanges();
 	KToggleAction *presenterEdit_action;
 	KToggleAction *presenterSync_action;
   CSwordVerseKey* m_key;
@@ -95,6 +97,7 @@ private slots:
   void copyEntryText();
   void copyEntryAndText();
   void printEntryAndText();
+  void beforeKeyChange(const QString&);
 };
 
 #endif

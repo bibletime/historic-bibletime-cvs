@@ -100,7 +100,7 @@ CKey *CBibleKeyChooser::getKey(){
 
 void CBibleKeyChooser::setKey(CKey* key){
 	qDebug("CBibleKeyChooser::setKey(CKey* key)");
-	if (!(m_key = (CSwordVerseKey*)key))
+	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
 		
 	const unsigned int bookIndex = m_info->getBookNumber( m_key->book() );
@@ -146,6 +146,8 @@ void CBibleKeyChooser::chapterNextRequested(void){
 		return;
 	
 	setUpdatesEnabled(false);	
+	if (m_key)
+		emit beforeKeyChange(m_key->key());	
 	if (m_key->NextChapter())	
 		setKey(m_key);
 	setUpdatesEnabled(true);	
@@ -157,6 +159,9 @@ void CBibleKeyChooser::chapterPrevRequested(void){
 		return;
 		
 	setUpdatesEnabled(false);		
+	if (m_key)
+		emit beforeKeyChange(m_key->key());
+	
 	if (m_key->PreviousChapter())
 		setKey(m_key);
 	setUpdatesEnabled(true);
@@ -168,6 +173,9 @@ void CBibleKeyChooser::verseNextRequested(void){
 		return;
 	
 	setUpdatesEnabled(false);
+	if (m_key)
+		emit beforeKeyChange(m_key->key());
+
 	if (m_key->NextVerse())	
 		setKey(m_key);
 	setUpdatesEnabled(true);		
@@ -179,6 +187,9 @@ void CBibleKeyChooser::versePrevRequested(void){
 		return;
 	
 	setUpdatesEnabled(false);	
+	if (m_key)
+		emit beforeKeyChange(m_key->key());
+	
 	if (m_key->PreviousVerse())
 		setKey(m_key);
 	setUpdatesEnabled(true);	
@@ -189,6 +200,9 @@ void CBibleKeyChooser::bookChanged(int /*i*/){
 	if (!isUpdatesEnabled())
 		return;
 	setUpdatesEnabled(false);	
+	if (m_key)
+		emit beforeKeyChange(m_key->key());
+	
 	if (m_key->book() != w_book->ComboBox->currentText()) {
 		m_key->Verse( 1 );
 		m_key->Chapter( 1 );		
@@ -204,6 +218,10 @@ void CBibleKeyChooser::chapterChanged(int /*i*/){
 		return;
 	
 	setUpdatesEnabled(false);		
+	if (m_key)
+		emit beforeKeyChange(m_key->key());
+	if (m_key)
+		emit beforeKeyChange(m_key->key());
 	
 	if (m_key->Chapter() != w_chapter->ComboBox->currentText().toInt()) {	
 		m_key->Verse( 1 );		
@@ -258,19 +276,13 @@ void CBibleKeyChooser::bookFocusOut(int index){
 	
 	m_key->book( w_book->ComboBox->currentText() );
 	const int chapterCount = m_info->getChapterCount( m_info->getBookNumber(m_key->book()));
-//	qWarning("%i", chapterCount);
-//	qDebug("chaptzers before: %i", m_key->Chapter()-1);	
 	if (m_key->Chapter() > chapterCount) //chapter is not available in the new book
 		m_key->Chapter( 1 );
-//	qDebug("%i", m_key->Chapter()-1);
 	w_chapter->reset( chapterCount, m_key->Chapter()-1, false);
 			
 	const int verseCount = m_info->getVerseCount(m_info->getBookNumber(m_key->book()),m_key->Chapter());
-//	qWarning("%i", verseCount);	
-//	qDebug("verse before: %i", m_key->Verse()-1);		
 	if (m_key->Verse() > verseCount) //verse is not available in the new book and chapter
 		m_key->Verse( 1 );
-//	qDebug("%i", m_key->Verse()-1);	
 	w_verse->reset(verseCount,m_key->Verse()-1,false);
 
 	m_key->AutoNormalize(oldNormalize);
