@@ -269,13 +269,13 @@ void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
   BTInstallMgr mgr;
 
   QString url;
-  sword::InstallSource is = BTInstallMgr::Tool::source(&mgr, sourceName) ;
+  sword::InstallSource is = BTInstallMgr::Tool::source(&mgr, sourceName);
   
   if (BTInstallMgr::Tool::isRemoteSource(&is)) {
-    url = QString::fromLatin1("ftp://%1%2").arg(is.source.c_str()).arg(is.directory.c_str());
+    url = QString::fromLatin1("ftp://%1/%2").arg(is.source.c_str()).arg(is.directory.c_str());
   }
   else {
-    url = QString::fromLatin1("%1").arg(is.directory.c_str());
+    url = QString::fromLatin1("file:/%1").arg(is.directory.c_str());
   }
   m_sourceLabel->setText( url );
 }
