@@ -31,6 +31,8 @@
 #include "../cprofile.h"
 #include "../cprofilewindow.h"
 
+#include <math.h>
+
 //Qt includes
 #include <qclipboard.h>
 #include <qlist.h>
@@ -370,3 +372,36 @@ void CBiblePresenter::previousVerse(){
 	m_keyChooser->setKey(m_key);
 }
 
+/** Stores some Bible window dpecific setttings in the profile. */
+void CBiblePresenter::storeSettings( CProfileWindow* settings ){
+	CSwordPresenter::storeSettings(settings);
+	/** store the state of the displaysetttings button in the profile
+	* we use a binary digit to store the state. The most right digit is 1 if the
+	* first button is set, 0 if it isn't. The second digit is for the second entry in the menu.
+	* etc
+	*/
+	const int count = m_displaySettingsButton->menuItemCount();
+	int result = 0;
+	//now check	every item
+	for (int i = 1; i<count; i++) { //first item is a title
+		if (m_displaySettingsButton->itemStatus(i)) //item is checked
+			result += (int)pow(2,i-1);//add 2^i (the i. digit in binary)
+	}
+	settings->setWindowSettings(result);
+}
+
+/** Applies some Bible window specific setttings. */
+void CBiblePresenter::applySettings( CProfileWindow* settings ){
+	CSwordPresenter::applySettings(settings);
+  int result = settings->windowSettings();
+	const int count = m_displaySettingsButton->menuItemCount();
+	for (int i = count-1; i>=1; i--) {
+		if (result-(int)pow(2,i-1)>= 0) { //2^i was added before, so item with index i is set
+			result -= (int)pow(2,i-1);
+			m_displaySettingsButton->setItemStatus(i,true);
+		}
+		else
+			m_displaySettingsButton->setItemStatus(i,false);			
+	}		
+	m_displaySettingsButton->setChanged();
+}

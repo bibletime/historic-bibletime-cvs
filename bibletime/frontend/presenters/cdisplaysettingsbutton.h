@@ -37,6 +37,14 @@ class CDisplaySettingsButton : public QToolButton  {
 public: 
 	CDisplaySettingsButton(CSwordBackend::displayOptionsBool *displaySettings, CSwordBackend::moduleOptionsBool *settings, ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
 	void reset(ListCSwordModuleInfo useModules);
+  /** Sets the item at position pos to the satet given as 2nd paramter. */
+  void setItemStatus( const int pos, const bool checked );
+  /** Returns the number of usable menu items in the setttings menu. */
+  const int menuItemCount();
+  /** Returns the status of the item at position "index" */
+  const bool itemStatus( const int index );
+  /** Sets the status to changed. The signal changed will be emitted. */
+  void setChanged();
 signals:
 	void sigChanged(void);
 

@@ -36,12 +36,13 @@ CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::displayOptionsBool
 
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionToggled(int)));
 
-	if (populateMenu() == 0)
+	if (!populateMenu())
 		hide();
 }
+
 void CDisplaySettingsButton::reset(ListCSwordModuleInfo useModules){
 	m_modules = useModules;
-	if (populateMenu() == 0)
+	if (!populateMenu())
 		hide();
 	else
 		show();
@@ -50,7 +51,8 @@ void CDisplaySettingsButton::reset(ListCSwordModuleInfo useModules){
 
 void CDisplaySettingsButton::optionToggled(int ID){
 	m_popup->setItemChecked( ID, !(m_popup->isItemChecked(ID)));
-  *(m_dict[m_popup->text(ID)]) =  m_popup->isItemChecked(ID);
+	if (!m_popup->text(ID).isEmpty())
+	  *(m_dict[m_popup->text(ID)]) =  m_popup->isItemChecked(ID);
 	emit sigChanged();
 }
 
@@ -91,7 +93,7 @@ int CDisplaySettingsButton::populateMenu(void){
 int CDisplaySettingsButton::addMenuEntry( QString name, bool* option, bool available){
 	if (available){
 		m_dict.insert( name, option);
-		m_popup->setItemChecked(   m_popup->insertItem( name ), *(m_dict[name]) );
+		m_popup->setItemChecked(m_popup->insertItem( name ), /**(m_dict[name])*/*option );
 		return 1;
 	}
 	return 0;
@@ -104,4 +106,30 @@ bool CDisplaySettingsButton::isOptionAvailable( CSwordBackend::moduleOptions opt
 	return ret;
 }
 
+/** Returns the number of usable menu items in the setttings menu. */
+const int CDisplaySettingsButton::menuItemCount(){
+	return m_popup->count();
+}
 
+/** Sets the item at position pos to the satet given as 2nd paramter. */
+void CDisplaySettingsButton::setItemStatus( const int index, const bool checked ){
+	qWarning("CDisplaySettingsButton::setItemStatus");
+	const int ID = m_popup->idAt(index);
+	m_popup->setItemChecked(ID, checked);
+	const QString text = m_popup->text(ID);
+	qWarning("set %c to %i",text.local8Bit(), checked);
+	
+	
+	if (m_dict[text])
+	  *(m_dict[text]) = checked;
+}
+
+/** Returns the status of the item at position "index" */
+const bool CDisplaySettingsButton::itemStatus( const int index ){
+	return m_popup->isItemChecked( m_popup->idAt(index) );
+}
+
+/** Sets the status to changed. The signal changed will be emitted. */
+void CDisplaySettingsButton::setChanged(){
+	emit sigChanged();	
+}

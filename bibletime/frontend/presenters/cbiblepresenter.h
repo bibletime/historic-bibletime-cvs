@@ -44,6 +44,10 @@ public:
   * Inserts the actions used by this window class into the given KAccel object.
   */
   static void insertKeyboardActions(KAccel* a);
+  /** Applies some Bible window specific setttings. */
+  virtual void applySettings( CProfileWindow* window );
+  /** Stores some Bible window dpecific setttings in the profile. */
+  virtual void storeSettings( CProfileWindow* setttings );
 
 protected:
   /**
