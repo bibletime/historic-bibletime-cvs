@@ -82,17 +82,10 @@ CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 	connect(w_verse,SIGNAL(next_requested())  ,SLOT(verseNextRequested()));
 	connect(w_verse,SIGNAL(prev_requested())  ,SLOT(versePrevRequested()));
 	connect(w_verse,SIGNAL(focusOut(int))     ,SLOT(verseFocusOut(int)));	
-	
-//	if (key)
-//		setKey(key);
 }
 
 CSwordKey *CBibleKeyChooser::key(){
-	const QString book = w_book->comboBox()->currentText();
-	qWarning("book == %s", book.latin1());
-	m_key->book(book);	
-	
-	qWarning("chapter == %s", w_chapter->comboBox()->currentText().latin1());		
+	m_key->book(w_book->comboBox()->currentText());	
 	m_key->Chapter(w_chapter->comboBox()->currentText().toInt());			
 	m_key->Verse(w_verse->comboBox()->currentText().toInt());			
 	

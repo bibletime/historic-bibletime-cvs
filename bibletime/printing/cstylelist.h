@@ -56,7 +56,7 @@ public:
   /**
  	*
  	*/
-  void openStyleEditor( CStyle* style );
+  void openStyleEditor( CStyle* const style );
   /**
  	* Appends the item to the list and m_items.
  	*/

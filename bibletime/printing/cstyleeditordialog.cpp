@@ -249,7 +249,7 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	
   m_styleNameEdit->setText( m_style->styleName());	
 	//setup alignement
-	switch(format->getAlignement()) {
+	switch(format->alignement()) {
 		case CStyleFormat::Left:
 			m_alignRadios.leftRB->setChecked(true);
 			break;
@@ -270,9 +270,10 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	m_setEnabledBox->setChecked(m_formatEnabled);
 	
 	//setup colors
-	m_colors.backgroundChooser->setColor( format->getBGColor() );
+	m_colors.backgroundChooser->setColor( format->color( CStyleFormat::Background ) );
 	m_colors.backgroundChooser->setEnabled(m_formatEnabled);		
-	m_colors.foregroundChooser->setColor( format->getFGColor() );
+	
+	m_colors.foregroundChooser->setColor( format->color( CStyleFormat::Foreground ) );
 	m_colors.foregroundChooser->setEnabled(m_formatEnabled);
 		
 	//setup fonts
@@ -281,15 +282,15 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 //	m_font.identation->setValue( format->getIdentation() );
 	
 	//setup frame part
-	CStyleFormatFrame* frame = format->getFrame();
-	m_frame.useFrame->setChecked( format->hasFrame() );
+	CStyleFormatFrame* frame = format->frame();
+	m_frame.useFrame->setChecked(frame);
 	m_frame.useFrame->setEnabled(m_formatEnabled);		
 	m_frame.groupbox->setEnabled(m_formatEnabled);		
 	useFrameClicked();
 	
-	m_frame.colorChooser->setColor( frame->getColor() );
-	m_frame.lineThicknessChooser->setValue( frame->getThickness() );	
-	m_frame.lineStyleChooser->setCurrentItem((int)(frame->getLineStyle())-1);	
+	m_frame.colorChooser->setColor( frame->color() );
+	m_frame.lineThicknessChooser->setValue( frame->thickness() );	
+	m_frame.lineStyleChooser->setCurrentItem((int)(frame->lineStyle())-1);	
 }
 
 /** Setups the font widgets using the parameter. */
@@ -343,19 +344,21 @@ void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
 //	}
 	
 	//apply color settings
-	format->setBGColor( m_colors.backgroundChooser->color() );
-	format->setFGColor( m_colors.foregroundChooser->color() );
+	format->setColor( CStyleFormat::Background, m_colors.backgroundChooser->color() );
+	format->setColor( CStyleFormat::Foreground, m_colors.foregroundChooser->color() );
 	
 	//apply font settings
 	format->setFont( m_font.font );
 	
 	//apply frame settings
-	CStyleFormatFrame* frame = format->getFrame();
-	frame->setColor( m_frame.colorChooser->color() );	
-	frame->setThickness( m_frame.lineThicknessChooser->value() );
-	//the position in the list equal to the position in Qt::PenStyle+1
-	frame->setLineStyle((Qt::PenStyle)(m_frame.lineStyleChooser->currentItem()+1));
-	qWarning("%i",m_frame.lineStyleChooser->currentItem()+1);
+	CStyleFormatFrame* frame = format->frame();
+	if (frame) {
+		frame->setColor( m_frame.colorChooser->color() );	
+		frame->setThickness( m_frame.lineThicknessChooser->value() );
+		//the position in the list equal to the position in Qt::PenStyle+1
+		frame->setLineStyle((Qt::PenStyle)(m_frame.lineStyleChooser->currentItem()+1));
+//		qWarning("%i",m_frame.lineStyleChooser->currentItem()+1);
+	}
 	
 	format->setFrame( m_frame.useFrame->isChecked(), frame );
 }

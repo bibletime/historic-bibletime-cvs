@@ -33,26 +33,20 @@ class CStyleFormatFrame;
 
 class CStyleFormat {
 public: 
-	enum alignement { Left, Center, Right, Justification};
+	enum Alignement { Left, Center, Right, Justification};
+	enum Color { Background, Foreground };
 	
 	CStyleFormat();
 	~CStyleFormat();
-  /**
- 	* Sets the foreground color of this format.
- 	*/
-  void setFGColor( const QColor& );
+
   /**
  	* Returns the foreground color of this format.
  	*/
-	const QColor& getFGColor() const;
+	const QColor& color( const Color type ) const;
   /**
  	* Sets the background color of this format.
  	*/
-  void setBGColor( const QColor& );
-  /**
- 	* Returns the background color of this format.
- 	*/
-	const QColor& getBGColor() const;
+  void setColor( const Color type,  const QColor& );
   /**
   * sets the font of this format.
   */
@@ -62,43 +56,31 @@ public:
   */
   const QFont& getFont() const;
   /**
- 	* sets the identation of this format.
- 	*/
-  void setIdentation( int ) ;
-  /**
- 	* Returns the ident of this format
- 	*/
-  const int getIdentation() const;
-  /**
  	* Sets the alignement flags of this style format.
  	*/
-  void setAlignement( CStyleFormat::alignement );
+  void setAlignement( const CStyleFormat::Alignement );
   /**
  	* Returns the alignement of this style format.
  	*/
-  const CStyleFormat::alignement& getAlignement() const;
+  const CStyleFormat::Alignement& alignement() const;
   /**
  	* Sets the frame of this style.
  	*/
-  void setFrame( bool hasFrame, CStyleFormatFrame* frame = 0);
+  void setFrame( const bool hasFrame, CStyleFormatFrame* frame = 0);
   /**
  	* Returns the frame if we have one. Otherwise we return 0.
  	*/
-  CStyleFormatFrame* getFrame();
-  /**
- 	* Returns true if this style has a frame for the given type.
- 	*/
-  const bool& hasFrame() const;
+  CStyleFormatFrame* const frame();
 
 private:
+  void clearData();
+  	
 	QFont m_font;
 	QColor m_FGColor;
 	QColor m_BGColor;
-	int m_ident;
 	bool m_hasFrame;
 	CStyleFormatFrame* m_frame;
-	CStyleFormat::alignement m_alignement;
-  void clearData();
+	CStyleFormat::Alignement m_alignement;
 };
 
 #endif

@@ -214,7 +214,12 @@ int main(int argc, char* argv[]) {
 	 		bibletime->restoreWorkspace();
 
 	  setSignalHandler(signalHandler);		
-  	return app.exec();
+		
+	  const int ret = app.exec();	
+//	  CPointers::deletePrinter();
+		CPointers::deleteBackend();
+
+  	return ret;
 	}
 }
 

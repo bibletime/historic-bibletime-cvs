@@ -23,11 +23,11 @@ CStyleFormatFrame::CStyleFormatFrame() {
 	m_lineStyle = Qt::DashLine;
 }
 
-CStyleFormatFrame::~CStyleFormatFrame(){
-}
+//CStyleFormatFrame::~CStyleFormatFrame(){
+//}
 
 /** Returns the thickness of this frame. */
-const unsigned short int CStyleFormatFrame::getThickness() const {
+const unsigned short int& CStyleFormatFrame::thickness() const {
 	return m_thickness;
 }
 
@@ -37,7 +37,7 @@ void CStyleFormatFrame::setThickness( const unsigned short int newThickness ) {
 }
 
 /** Returns the style how to paint the lines of this frame. */
-const Qt::PenStyle& CStyleFormatFrame::getLineStyle() const {
+const Qt::PenStyle& CStyleFormatFrame::lineStyle() const {
 	return m_lineStyle;
 }
 
@@ -47,7 +47,7 @@ void CStyleFormatFrame::setLineStyle( const Qt::PenStyle newLineStyle ){
 }
 
 /** Returns the color of this frame. */
-const QColor& CStyleFormatFrame::getColor() const {
+const QColor& CStyleFormatFrame::color() const {
 	return m_color;
 }
 

@@ -28,18 +28,21 @@ class CPrinter;
 class CPointers {
 protected:
 	friend class BibleTime; //BibleTime may initialize this object	
+	friend int main(int argc, char* argv[]);
 	static void setBackend(CSwordBackend*);
 	static void setPrinter(CPrinter*);
+	static void deleteBackend();
+	static void deletePrinter();
 
 public: // Public methods
   /**
   * Returns a pointer to the printer object.
   */
-  static CPrinter* printer();
+  static CPrinter* const printer();
   /**
   * Returns a pointer to the backend ...
   */
-  static CSwordBackend* backend();
+  static CSwordBackend* const backend();
 };
 
 #endif

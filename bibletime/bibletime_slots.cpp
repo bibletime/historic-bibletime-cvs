@@ -282,24 +282,23 @@ void BibleTime::slotSetPrintingStatus(){
 
 /** Printing was started */
 void BibleTime::slotPrintingStarted(){
-	m_progress = new QProgressDialog(i18n("Printing..."), i18n("Abort printing"),/*m_printer->getPrintQueue()->count()*/100,this, "progress", true);
+	m_progress = new QProgressDialog(i18n("Printing..."), i18n("Abort printing"),100,this, "progress", true);
 	connect(m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
 	m_progress->setProgress(0);
+	m_progress->setMinimumDuration(0);
 	m_progress->show();
 }
 
 /** Printing was finished */
 void BibleTime::slotPrintingFinished(){
-	if (m_progress)
-		delete m_progress;
+	delete m_progress;
 	m_progress = 0;	
 }
 
 /** No descriptions */
 void BibleTime::slotPrintedPercent( const int percent ){
-	if (m_progress) {
+	if (m_progress)
 		m_progress->setProgress(percent);
-	}	
 }
 
 /** Aborts the printing */

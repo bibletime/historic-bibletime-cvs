@@ -43,15 +43,10 @@
 CPrinter::CPrinter( QObject* parent ) : QObject(parent) {
 	m_config = new KConfig("bt-printing", false, true );
 
-//	m_queue = new PrintItemList;	
-	m_queue.setAutoDelete(true);	
-		
-//	m_styleList = new StyleItemList;
+	m_queue.setAutoDelete(true);			
 	m_styleList.setAutoDelete(true);		
-
 	m_cachedPage.initialized = false;
-	m_cachedPage.refresh = false;
-	
+	m_cachedPage.refresh = false;	
 	m_addedItem = false;
 	
 	{
@@ -67,26 +62,24 @@ CPrinter::CPrinter( QObject* parent ) : QObject(parent) {
 CPrinter::~CPrinter(){
 	saveSettings();
 	saveStyles();	
-	m_config->sync();		
+	m_config->sync();
+			
 	delete m_config;
-//	if (m_queue)
-//		delete m_queue;
-//	delete m_styleList;
 }
 
-const unsigned int CPrinter::rightMargin() const {
+const unsigned int& CPrinter::rightMargin() const {
 	return m_pageMargin.right;
 }
 
-const unsigned int CPrinter::leftMargin() const {
+const unsigned int& CPrinter::leftMargin() const {
 	return m_pageMargin.left;
 }
 
-const unsigned int CPrinter::upperMargin() const {
+const unsigned int& CPrinter::upperMargin() const {
 	return m_pageMargin.top;
 }
 
-const unsigned int CPrinter::lowerMargin() const {
+const unsigned int& CPrinter::lowerMargin() const {
 	return m_pageMargin.bottom;
 }
 
@@ -144,6 +137,7 @@ void CPrinter::print(){
 	const int count = m_queue.count();
 	const int copies = numCopies();
 	float copyFrac;
+	emit percentCompleted(0);
 	
 	for (int copy = 0; copy < copies && !aborted(); copy++) {	//make numCopies() copies of the pages
 		copyFrac = (float(copies))/ (float)(copy+1);
@@ -151,17 +145,14 @@ void CPrinter::print(){
 			KApplication::kApplication()->processEvents(5); //do not lock the GUI!
 			if (!aborted()) {
 				m_queue.current()->draw(&p,this);				
-				if ((int)((float)pos / (float)count *(float)100 * copyFrac) > lastPercent) {
+				if ((int)((float)pos / (float)count *(float)100 * copyFrac) > lastPercent)
 					emit percentCompleted(++lastPercent);
-				}
 			}
 		};
-		if (!aborted() && (copy+1 < copies) ) {
+		if (!aborted() && (copy+1 < copies) )
 			newPage();	//new pages seperate copies
-		}
 	}
-	emit printingFinished();
-	
+	emit printingFinished();	
 	clearQueue();//delete all items
 }
 
@@ -191,10 +182,9 @@ PrintItemList& CPrinter::printQueue() {
 
 /** Sets the printing queue to queue. */
 void CPrinter::setPrintQueue( PrintItemList& queue ){
-	if (m_queue != queue) { //delete old queue
+//	if (m_queue != queue) { //delete old queue
 		clearQueue();
-//		delete m_queue;
-	}
+//	}
 	m_queue = queue; //copy items
 }
 
@@ -242,15 +232,15 @@ void CPrinter::setupStyles(){
 			
 		for (int index = 0; index < 3; index++) {
 			m_config->setGroup(QString("%1__%2").arg(*it).arg(names[index]));
-			format[index]->setFGColor( m_config->readColorEntry("FGColor", &Qt::black) );
-			format[index]->setBGColor( m_config->readColorEntry("BGColor", &Qt::white) );
+			format[index]->setColor( CStyleFormat::Foreground, m_config->readColorEntry("FGColor", &Qt::black) );
+			format[index]->setColor( CStyleFormat::Background, m_config->readColorEntry("BGColor", &Qt::white) );
  			format[index]->setFont( m_config->readFontEntry("Font") );
-			format[index]->setIdentation( m_config->readNumEntry("Identation",0) );
-			format[index]->setAlignement( (CStyleFormat::alignement)m_config->readNumEntry("Alignement",CStyleFormat::Left));
+//			format[index]->setIdentation( m_config->readNumEntry("Identation",0) );
+			format[index]->setAlignement( (CStyleFormat::Alignement)m_config->readNumEntry("Alignement",CStyleFormat::Left));
 			dummyStyle->setFormatTypeEnabled( formatTypes[index], m_config->readBoolEntry("isEnabled", true) );
 			const bool hasFrame = m_config->readBoolEntry( "has frame", false );
 			
-			CStyleFormatFrame* frame = format[index]->getFrame();
+			CStyleFormatFrame* frame = format[index]->frame();
 			if (frame) {
 				m_config->setGroup(QString("%1__%2__FRAME").arg(*it).arg(names[index]));
 				frame->setColor( m_config->readColorEntry("Color", &Qt::black) );
@@ -307,20 +297,20 @@ void CPrinter::saveStyles(){
 			format[1] = current->formatForType( CStyle::Description );
 			format[2] = current->formatForType( CStyle::ModuleText );
 												
-			m_config->writeEntry( "FGColor", format[index]->getFGColor() );
-			m_config->writeEntry( "BGColor", format[index]->getBGColor() );
+			m_config->writeEntry( "FGColor", format[index]->color( CStyleFormat::Background ) );
+			m_config->writeEntry( "BGColor", format[index]->color( CStyleFormat::Foreground ) );
 			m_config->writeEntry( "Font", format[index]->getFont() );
-			m_config->writeEntry( "Identation", format[index]->getIdentation() );			
+//			m_config->writeEntry( "Identation", format[index]->getIdentation() );			
 			m_config->writeEntry( "isEnabled", current->hasFormatTypeEnabled( (index == 0) ? CStyle::Header : ( (index == 1) ? CStyle::Description : CStyle::ModuleText)) );
-			m_config->writeEntry( "Alignement", (int)(format[index]->getAlignement()) );
+			m_config->writeEntry( "Alignement", (int)(format[index]->alignement()) );
 			//save frame settings
-			m_config->writeEntry( "has frame", format[index]->hasFrame() );
+			m_config->writeEntry( "has frame", format[index]->frame() );
 			m_config->setGroup(QString("%1__%2__FRAME").arg(m_styleList.current()->styleName()).arg(names[index]) );
-			if (format[index]->hasFrame()) {	//save only if we have a frame
-				CStyleFormatFrame* frame = format[index]->getFrame();
-				m_config->writeEntry("Color", frame->getColor() );
-				m_config->writeEntry("Thickness", frame->getThickness());
-				m_config->writeEntry("Line style", (int)(frame->getLineStyle()));
+			CStyleFormatFrame* frame = format[index]->frame();
+			if (frame) {	//save only if we have a frame
+				m_config->writeEntry("Color", frame->color());
+				m_config->writeEntry("Thickness", frame->thickness());
+				m_config->writeEntry("Line style", (int)(frame->lineStyle()));
 			}
 		}
 	}	
@@ -390,7 +380,7 @@ const QRect CPrinter::contentSize() {
 }
 
 /** Returns the config used for this printer object. */
-KConfig* CPrinter::config() const {
+KConfig* const CPrinter::config() const {
 	return m_config;	
 }
 
@@ -429,6 +419,6 @@ void CPrinter::emitStylesChanged(){
 }
 
 /** Emits the signal that the styles changed. */
-CStyle* CPrinter::standardStyle() const {
+CStyle* const CPrinter::standardStyle() const {
 	return m_standardStyle;
 }

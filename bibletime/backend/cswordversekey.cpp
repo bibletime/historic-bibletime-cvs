@@ -62,14 +62,11 @@ CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 /** Returns the current book as Text, not as integer. */
 const QString CSwordVerseKey::book( const QString& newBook ) {
 	if (!newBook.isEmpty()) {
-		qWarning("CSwordVerseKey::book %s", newBook.latin1());	
 		int min = 0;
 		int max = 1;
 		bool finished = false;
 		for (int testament = min; testament <= max && !finished; ++testament) {
-			qWarning("first loop");
 			for (int book = 0; book < BMAX[testament] && !finished; ++book) {
-				qWarning("second loop");
 				if ( !strcmp((const char*)newBook.local8Bit(),books[testament][book].name ) ) {
 					Testament(testament+1);
 					Book(book+1);
@@ -78,7 +75,6 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 			}
 		}
 	}
-	qWarning("after loop");
 	if ( Testament() && Book() <= BMAX[Testament()-1] )
 		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
 	return QString::fromLocal8Bit(books[0][0].name); //return the first book, i.e. Genesis
@@ -95,10 +91,11 @@ const bool CSwordVerseKey::NextVerse(){
 
 /**  */
 const bool CSwordVerseKey::PreviousVerse(){
-	m_module->module()->SetKey(this);	//use this key as base for the next one!		
+	m_module->module()->SetKey(this);	//use this key as base for the next one!			
 	( *( m_module->module() ) )--;
 
-	key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+	if (!m_module->module()->Error())
+		key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
 	
 	return true;
 }
@@ -112,7 +109,7 @@ const bool CSwordVerseKey::NextChapter(){
 
 /**  */
 const bool CSwordVerseKey::PreviousChapter(){
-//This moves to the next chapter. Sword sets the Verse to 1, but this is ok here	
+//This moves to the next chapter. Sword sets the Verse to 1, but this is ok here		
 	Chapter(Chapter()-1);
 	return true;
 }

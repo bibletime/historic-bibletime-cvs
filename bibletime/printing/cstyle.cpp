@@ -148,8 +148,8 @@ void CStyle::updateListViewItem(){
 
 /** Deletes the list view item. */
 void CStyle::deleteListViewItem(){
-	if (m_listViewItem) {
+//	if (m_listViewItem) {
 		delete m_listViewItem;
-	}
+//	}
 	m_listViewItem = 0;
 }

@@ -1,3 +1,34 @@
+<release-date> Joachim Ansorg <jansorg@gmx.de>
+	* Differences between 1.0 and 1.1:
+		- Improved interface:
+			o Better optionsdialog: Better structure, more powerful settings
+			o Better menu structure: The documentation is now accessible from the Help menu, ...
+			o Keyaccelerators for each display window type
+			o much more
+		- General Book Support (GBS): Book like Josephus are supported now.
+			Operations like bookmarking, printing, copying or saving work just like with
+			Bibles or commentaries.
+		- Crossreference support
+			Crossreferences work now. For example you can click now on a strong number to open the
+			module for it which displayes the chosen number. The same for Bibles, morph tags etc.
+			Tooltips work for the links, too.
+		- Improved Unicode support
+			Unicode encoded modules are now supported in a better way. Choosing the font and
+			the displaying of the text works better. RTL support and better rendering is still
+			missing.
+		- Profile management. Profiles capture the current state of the working area
+			(opened display windows, scrollbar positions, set keys ...). Profiles can be loaded to
+			restore the old state and can be saved to store the current state for later. Automatically
+			restoring the windows after startup is possible, too.
+		- Better crash management. BibleTime tries now to save settings if a crash occured. Although we
+			implemented this, we don't know how to make BibleTime crash... It's just for your safety.
+		- Speed improvements. Printing is almost two times faster now. Searching in modules is also faster,
+			but this was improved in the Sword library.
+		- Improved display windows. Independent display settings for each window (footnotes, strongs ...)
+		- Fullscreen mode of the main application window
+		- Improved commentary editor: Ask if the text sgould be saved if the window or BibleTime should be closed
+			if the changed text was not saved before.
+		
 2001-11-24 Fred Saalbach <saalbach@sybercom.net>
 	*Moved documentation to bibletime-docs - includes .po files, handbook, etc.
 	*This will reduce the size of the main program and allow more flexibility

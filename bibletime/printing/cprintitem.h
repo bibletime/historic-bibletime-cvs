@@ -42,8 +42,8 @@ public:
   class ListViewItem : public QListViewItem {
 		public:
 			ListViewItem( QListView* parent, CPrintItem* printItem );
-			CPrintItem* printItem() const;		
-			CStyle* style() const;			
+			CPrintItem* const printItem() const;		
+			CStyle* const style() const;			
 		private:
 			CPrintItem* m_printItem;
   };
@@ -57,7 +57,7 @@ public:
   /**
 	* Sets the style for this item.
  	*/
-	CStyle* style() const;
+	CStyle* const style() const;
   /**
  	* Returns the listview item for this printitem.
  	*/
@@ -69,7 +69,7 @@ public:
   /**
 	* Returns the used ListView item.
 	*/
-  QListViewItem* listViewItem() const;
+  QListViewItem* const listViewItem() const;
   /**
  	* Deletes the list view item.
  	*/

@@ -35,8 +35,7 @@ CStyleList::CStyleList(CPrinter* printer, StyleItemList* items, QWidget *parent,
 
 CStyleList::~CStyleList(){
 	for (m_items->first(); m_items->current(); m_items->next()) {
-		if (m_items->current())
-			m_items->current()->deleteListViewItem();
+		m_items->current()->deleteListViewItem();
 	}
 }
 
@@ -110,7 +109,7 @@ void CStyleList::createNewStyle(){
 }
 
 /**  */
-void CStyleList::openStyleEditor( CStyle* style ){
+void CStyleList::openStyleEditor( CStyle* const style ){
 	CStyleEditorDialog* dlg = new CStyleEditorDialog(style, this);
 	dlg->exec();
 	

@@ -28,7 +28,7 @@
 class CStyleFormatFrame  {
 public: 
 	CStyleFormatFrame();
-	~CStyleFormatFrame();
+//	~CStyleFormatFrame();
   /**
   * Sets the color of this frame.
   */
@@ -36,7 +36,7 @@ public:
   /**
   * Returns the color of this frame.
   */
-  const QColor& getColor() const;
+  const QColor& color() const;
   /**
   * Sets the style how to paint the lines.
   */
@@ -44,7 +44,7 @@ public:
 	/**
   * Returns the style how to paint the lines of this frame.
   */
-  const Qt::PenStyle& getLineStyle() const;
+  const Qt::PenStyle& lineStyle() const;
   /**
   * Sets te thickness of this frame.
   */
@@ -52,7 +52,7 @@ public:
   /**
   * Returns the thickness of this frame.
   */
-  const unsigned short int getThickness() const;
+  const unsigned short int& thickness() const;
 
 protected:
 	QColor m_color;

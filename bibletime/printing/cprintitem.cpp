@@ -54,11 +54,11 @@ CPrintItem::ListViewItem::ListViewItem( QListView* parent, CPrintItem* printItem
 //
 //};
 
-CPrintItem* CPrintItem::ListViewItem::printItem() const {
+CPrintItem* const CPrintItem::ListViewItem::printItem() const {
 	return m_printItem;
 };
 
-CStyle* CPrintItem::ListViewItem::style() const {
+CStyle* const CPrintItem::ListViewItem::style() const {
 	return (m_printItem) ? m_printItem->style() : 0;
 };
 
@@ -124,7 +124,7 @@ void CPrintItem::setStyle( CStyle* newStyle ) {
 	m_style = newStyle;
 }
 
-CStyle* CPrintItem::style() const {
+CStyle*const CPrintItem::style() const {
 	return m_style;
 }
 
@@ -154,7 +154,7 @@ void CPrintItem::updateListViewItem(){
 }
 
 /**  */
-QListViewItem* CPrintItem::listViewItem() const {
+QListViewItem* const CPrintItem::listViewItem() const {
 	return m_listViewItem;
 }
 
@@ -179,8 +179,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	CStyleFormat* format = 0;
 	CStyleFormatFrame* frame = 0;
 	int frameThickness = 0;
-//	int identation = 0;
-	CStyleFormat::alignement alignement;	
+	CStyleFormat::Alignement alignement;	
 	CStyle::styleType type = CStyle::Unknown;
 	QString text;
 	
@@ -214,17 +213,17 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			continue;
 				
 		format 	= m_style->formatForType( type );
-		fgColor = format->getFGColor();
-		bgColor = format->getBGColor();	
+		fgColor = format->color( CStyleFormat::Foreground );
+		bgColor = format->color( CStyleFormat::Background );
 		pen.setColor(fgColor);
 		font = format->getFont();
 		if (isUnicode) { //enable unicode
 			font.setCharSet( QFont::Unicode );
 		}
 		
-		frame = format->hasFrame() ? format->getFrame() : 0;
-		frameThickness = frame ? frame->getThickness() : 0;		
-		alignement = format->getAlignement();
+		frame = /*format->hasFrame() ?*/ format->frame() /*: 0*/;
+		frameThickness = frame ? frame->thickness() : 0;		
+		alignement = format->alignement();
 //		identation = format->getIdentation();
 		if (type == CStyle::Header)
 			text = headerText();
@@ -300,8 +299,8 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			if (frame) {
 				framePen = pen;
 				framePen.setWidth( frameThickness );
-				framePen.setColor( frame->getColor() );
-				framePen.setStyle( frame->getLineStyle() );
+				framePen.setColor( frame->color() );
+				framePen.setStyle( frame->lineStyle() );
 				p->setPen( framePen );
 
 				p->drawRect( br );
@@ -362,8 +361,8 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 				
 					framePen = pen;
 					framePen.setWidth( frameThickness );
-					framePen.setColor( frame->getColor() );
-					framePen.setStyle( frame->getLineStyle() );									
+					framePen.setColor( frame->color() );
+					framePen.setStyle( frame->lineStyle() );									
 					p->setPen( framePen );
 
 					p->drawRect(br);

@@ -64,12 +64,12 @@ public:
 	 	unsigned int left;
 	};
 	
-	CPrinter( QObject* parent = 0 );
+	CPrinter( QObject* parent );
 	virtual ~CPrinter();
-  const unsigned int rightMargin() const;
-  const unsigned int leftMargin() const;
-  const unsigned int upperMargin() const;
-  const unsigned int lowerMargin() const;
+  const unsigned int& rightMargin() const;
+  const unsigned int& leftMargin()  const;
+  const unsigned int& upperMargin() const;
+  const unsigned int& lowerMargin() const;
   /**
   * Sets the vertical position of the printer's painter.
   */
@@ -113,7 +113,7 @@ public:
   /**
   * Appends the item o the queue.
   */
-  void appendItem( CPrintItem* newItem);
+  void appendItem( CPrintItem* newItem );
   /**
   * Sets the application wide style list to list.
   */
@@ -129,11 +129,11 @@ public:
   /**
   * Returns the config used for this printer object.
   */
-  KConfig* config() const;
+  KConfig* const config() const;
   /**
   * Returns the standard stlye of the printer
   */
-  CStyle* standardStyle() const;
+  CStyle* const standardStyle() const;
 
 public slots: // Public slots
   /**

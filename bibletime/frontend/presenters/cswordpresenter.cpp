@@ -217,16 +217,16 @@ void CSwordPresenter::polish(){
 void CSwordPresenter::focusInEvent( QFocusEvent* e ){
 //	qDebug("CSwordPresenter::focusInEvent( QFocusEvent* e )");
 	KMainWindow::focusInEvent(e);
-//	if (m_accel)
-//		m_accel->setEnabled(true);
+	if (m_accel)
+		m_accel->setEnabled(true);
 }
 
 /** Is called when this display window looses the focus. */
 void CSwordPresenter::focusOutEvent( QFocusEvent* e ){
 //	qDebug("CSwordPresenter::focusOutEvent( QFocusEvent* e )");	
 	KMainWindow::focusOutEvent(e);	
-//	if (m_accel)
-//		m_accel->setEnabled(false);
+	if (m_accel)
+		m_accel->setEnabled(false);
 }
 
 /** Is called when this display window looses the focus. */
