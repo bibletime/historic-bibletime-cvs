@@ -329,7 +329,7 @@ private:
 	/** WINDOW menu actions */
 	KAction*	m_windowCascade_action;
 	KAction*	m_windowTile_action;
-	KActionMenu* m_windowArrangementMenu;
+	KActionMenu* m_windowArrangementMode_action;
 	KToggleAction*	m_windowManualMode_action;
 	KToggleAction*	m_windowAutoCascade_action;
 	KToggleAction*	m_windowAutoTileVertical_action;

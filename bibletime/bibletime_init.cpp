@@ -191,7 +191,7 @@ void BibleTime::initActions() {
     action->plugAccel( accel() );
   #endif
 
-	m_windowArrangementMenu = new KActionMenu(
+	m_windowArrangementMode_action = new KActionMenu(
 		i18n("&Arrangement mode"),
     CResMgr::mainMenu::window::arrangementMode::icon,
     actionCollection(),
@@ -213,10 +213,10 @@ void BibleTime::initActions() {
   #if KDE_VERSION_MINOR < 1
   	m_windowManualMode_action->plugAccel( accel() );
   #endif
-	m_windowArrangementMenu->insert( m_windowManualMode_action );
+	m_windowArrangementMode_action->insert( m_windowManualMode_action );
 	
 	
-	m_windowAutoTileVertical_action = new KToggleAction(i18n("Tile (vertical)"),
+	m_windowAutoTileVertical_action = new KToggleAction(i18n("Tile vertical"),
     CResMgr::mainMenu::window::arrangementMode::autoTileVertical::icon,
 		CResMgr::mainMenu::window::arrangementMode::autoTileVertical::accel,
     this, SLOT(slotAutoTileVertical()), actionCollection(),
@@ -231,10 +231,10 @@ void BibleTime::initActions() {
   #if KDE_VERSION_MINOR < 1
   	m_windowAutoTileVertical_action->plugAccel( accel() );
   #endif
-	m_windowArrangementMenu->insert( m_windowAutoTileVertical_action );
+	m_windowArrangementMode_action->insert( m_windowAutoTileVertical_action );
 	
 
-	m_windowAutoTileHorizontal_action = new KToggleAction(i18n("Tile (horizontal)"),
+	m_windowAutoTileHorizontal_action = new KToggleAction(i18n("Tile horizontal"),
     CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::icon,
 		CResMgr::mainMenu::window::arrangementMode::autoTileHorizontal::accel,
     this, SLOT(slotAutoTileHorizontal()), actionCollection(),
@@ -249,7 +249,7 @@ void BibleTime::initActions() {
   #if KDE_VERSION_MINOR < 1
   	m_windowAutoTileHorizontal_action->plugAccel( accel() );
   #endif
-	m_windowArrangementMenu->insert( m_windowAutoTileHorizontal_action );
+	m_windowArrangementMode_action->insert( m_windowAutoTileHorizontal_action );
 	
 	
 	m_windowAutoCascade_action 	= new KToggleAction(i18n("&Cascade"),
@@ -267,7 +267,7 @@ void BibleTime::initActions() {
   #if KDE_VERSION_MINOR < 1
   	m_windowAutoCascade_action->plugAccel( accel() );
   #endif
-	m_windowArrangementMenu->insert( m_windowAutoCascade_action );
+	m_windowArrangementMode_action->insert( m_windowAutoCascade_action );
 	
   m_windowCascade_action = new KAction(i18n("&Cascade"),
     CResMgr::mainMenu::window::cascade::icon,

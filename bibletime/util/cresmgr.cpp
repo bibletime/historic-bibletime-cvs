@@ -929,17 +929,17 @@ namespace CResMgr {
 						{
 							using namespace arrangementMode;
 						
-//            	tooltip     = makeToolTip(i18n("Automatically tile windows"));
-//            	whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open display windows."));
+            	tooltip     = makeToolTip(i18n("Choose the window arrangement mode"));
+            	whatsthis   = makeWhatsThis(tooltip,i18n("Choose the way that is used to arrange the display windows."));
 						}
 						{
             	using namespace arrangementMode::autoTileVertical;
-            	tooltip     = makeToolTip(i18n("Automatically tile windows"));
+            	tooltip     = makeToolTip(i18n("Automatically tile windows vertical"));
             	whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open display windows."));
 						}
 						{
             	using namespace arrangementMode::autoTileHorizontal;
-            	tooltip     = makeToolTip(i18n("Automatically tile windows"));
+            	tooltip     = makeToolTip(i18n("Automatically tile windows horizontal"));
             	whatsthis   = makeWhatsThis(tooltip,i18n("Automatically tile the open display windows."));
 						}
 						{

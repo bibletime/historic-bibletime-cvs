@@ -148,8 +148,8 @@ void BibleTime::slotWindowMenuAboutToShow(){
 		m_windowCascade_action->unplug(m_windowMenu);
 	if ( m_windowTile_action->isPlugged() )
 		m_windowTile_action->unplug(m_windowMenu);
-	if ( m_windowArrangementMenu->isPlugged() )
-		m_windowArrangementMenu->unplug(m_windowMenu);
+	if ( m_windowArrangementMode_action->isPlugged() )
+		m_windowArrangementMode_action->unplug(m_windowMenu);
 	if ( m_windowCloseAll_action->isPlugged() )
 		m_windowCloseAll_action->unplug(m_windowMenu);
 
@@ -164,9 +164,9 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	m_windowFullscreen_action->plug(m_windowMenu);
 	m_windowMenu->insertSeparator();
 	
-	m_windowArrangementMenu->plug(m_windowMenu);
-	m_windowCascade_action->plug(m_windowMenu);
+	m_windowArrangementMode_action->plug(m_windowMenu);
 	m_windowTile_action->plug(m_windowMenu);
+	m_windowCascade_action->plug(m_windowMenu);
 	m_windowCloseAll_action->plug(m_windowMenu);	
 	
 	if ( m_mdi->windowList().isEmpty() ) {
