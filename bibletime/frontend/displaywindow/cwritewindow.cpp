@@ -169,7 +169,7 @@ void CWriteWindow::beforeKeyChange(const QString& key) {
 
 	//If the text changed and we'd do a lookup ask the user if the text should be saved
 	if (modules().first() && displayWidget()->isModified()) {
-		switch (KMessageBox::warningYesNo( this, i18n("Your edited the text of the current verse. Should we save it before displaying the new verse?")) ) {
+		switch (KMessageBox::warningYesNo( this, i18n("Save text before closing?")) ) {
 			case KMessageBox::Yes: { //save the changes
 	   		saveCurrentText();
 	     	break;
