@@ -9,108 +9,468 @@
 	</para>
 	</section>
 	<section id="hdbk-bars-toolbar-action"><title>Button Action</title>
-
 	<para>
+
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="hdbk-bars-toolbar-action-exit.png" format="PNG"/>
+	<imagedata fileref="./kde3-icons/hicolor/22x22/actions/view_sidetree.png" format="PNG"/>
 	</imageobject>
 	<textobject>
-	<phrase>Icon</phrase>
+	<phrase>view_sidetree.png</phrase>
 	</textobject>
-	</mediaobject>
-	Closes &bibletime;.
+	<caption>
+	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the
+	<guilabel>Manage Profiles</guilabel> dialog.  Here you can save a display for later recall.
 	</para>
+	</caption>
+	</mediaobject>
 
-	<para>
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="hdbk-bars-toolbar-action-print.png" format="PNG"/>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/apps/key_bindings.png" format="PNG"/>
 	</imageobject>
 	<textobject>
-	<phrase>Icon</phrase>
-	</textobject>
-	</mediaobject>
-	Prints items in the print queue.
+	<phrase>key_bindings.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the
+	<guilabel>Accelerator</guilabel> dialog.  Here you can customize the key bindings 
+	(keyboard shortcuts).
 	</para>
-
-	<para>
+	</caption>
+	</mediaobject>
+	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="hdbk-bars-toolbar-action-search.png" format="PNG"/>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/apps/kcmfontinst.png" format="PNG"/>
 	</imageobject>
 	<textobject>
-	<phrase>Icon</phrase>
-	</textobject>
-	</mediaobject>
-	Search in Selected Module(s).
+	<phrase>kcmfontinst.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the
+	<guilabel>Choose Fonts</guilabel> dialog.  Here you select the font used to display your sword modules.
 	</para>
+	</caption>
+	</mediaobject>
 
-	<para>
+
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="hdbk-bars-toolbar-action-cascade.png" format="PNG"/>
+	<imagedata fileref="./kde3-icons/hicolor/22x22/actions/window_fullscreen.png" format="PNG"/>
 	</imageobject>
 	<textobject>
-	<phrase>Icon</phrase>
-	</textobject>
-	</mediaobject>
-	Cascade Document Windows.
+	<phrase>window_fullscreen.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon expands &bibletime;
+	to use the entire viewing area of your monitor.
 	</para>
+	</caption>
+	</mediaobject>
 
-	<para>
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="hdbk-bars-toolbar-action-cascade-auto.png" format="PNG"/>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/apps/ktip.png" format="PNG"/>
 	</imageobject>
 	<textobject>
-	<phrase>Icon</phrase>
-	</textobject>
-	</mediaobject>
-	Autocascade Document Windows.
+	<phrase>ktip.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon opens the <guilabel>Daily Tip</guilabel>.
 	</para>
+	</caption>
+	</mediaobject>
 
-	<para>
+	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="hdbk-bars-toolbar-action-tile.png" format="PNG"/>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/configure.png" format="PNG"/>
 	</imageobject>
 	<textobject>
-	<phrase>Icon</phrase>
-	</textobject>
-	</mediaobject>
-	Tile Document Windows.
+	<phrase>configure.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon opens the
+	<guilabel>Configure &bibletime;</guilabel>dialog.
+	In the <guilabel>Tool Bar</guilabel> this icon opens the
+	<guilabel>Configure Toolbars</guilabel>dialog.
+	In the <guilabel>Tool Bar</guilabel> this icon opens the
+	<guilabel>Report A Bug</guilabel>dialog.
 	</para>
-
-	<para>
+	</caption>
+	</mediaobject>
+	
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="hdbk-bars-toolbar-action-tile-auto.png" format="PNG"/>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/contents.png" format="PNG"/>
 	</imageobject>
 	<textobject>
-	<phrase>Icon</phrase>
-	</textobject>
-	</mediaobject>
-	Auto tile Document Windows.
+	<phrase>contents.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon opens the
+	Handbook.
+	In the <guilabel>Tool Bar</guilabel> this icon opens the
+	Installation Instructions.
+	In the <guilabel>Tool Bar</guilabel> this icon opens the
+	Biblestudy HowTo.
 	</para>
+	</caption>
+	</mediaobject>
 
-
-	<para>
 	<mediaobject>
 	<imageobject>
-	<imagedata fileref="hdbk-bars-toolbar-close.png" format="PNG"/>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/exit.png" format="PNG"/>
 	</imageobject>
 	<textobject>
-	<phrase>Icon</phrase>
-	</textobject>
+	<phrase>exit.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon closes &bibletime;.
+	</para>
+	</caption>
 	</mediaobject>
-	Close All Document Windows.
+		
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/fileclose.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>fileclose.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon closes all open
+	<guilabel>Document Windows</guilabel>.
+	</para>
+	</caption>
+	</mediaobject>
+		
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/fileprint.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>fileprint.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon opens the
+	<guilabel>Print</guilabel> dialog.  Right clicking in an <guilabel>Active Document Window</guilabel>
+	and this symbol in a drop down menu sends the selected text to the print queue.
+	</para>
+	</caption>
+	</mediaobject>
+		
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/find.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>find.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Main Index</guilabel> or the <guilabel>Tool Bar</guilabel>
+	this icon opens the <guilabel>Search Dialog</guilabel>.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/start.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>start.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon resets the 
+	<guilabel>Main Index</guilabel> to display just the default groups.  
+	Be Careful, it also will delete all of your bookmarks.
+	</para>
+	</caption>
+	</mediaobject>
+
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_bible_add.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>bible_add.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Document Control Menu</guilabel> this icon opens the drop down menu that
+	allows selection of an additional Bible Text.
+	</para>
+	</caption>
+	</mediaobject>
+
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_bible.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>bible.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>main index</guilabel> this icon opens a Sword book module.  
+	This is used for modules that are not commentaries, lexicons or Bible texts.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_book_add.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>book_add.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Document Control Menu</guilabel> this icon opens the drop down menu that
+	allows selection of an additional Sword book module.This is used for modules that are not 
+	commentaries, lexicons or Bible texts.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_book.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>book.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>main index</guilabel> this icon opens a Bible Text.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_cascade_auto.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>cascade_auto.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon automatically cascades
+	displayed books as they are opened.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_cascade.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>cascade.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon cascades the displayed books now.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_commentary_add.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>commentary_add.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Document Control Menu</guilabel> this icon opens the drop down menu that
+	allows selection of an additional Lexicon.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_commentary.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>commentary.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>main index</guilabel> this icon opens a lexicon.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_displayconfig.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>displayconfig.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the <guilabel>Colors Dialog</guilabel>.
+	Here you can change the colors of the displayed text..
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_lexicon_add.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>lexicon_add.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Document Control Menu</guilabel> this icon opens the drop down menu that
+	allows selection of an additional Lexicon.
+	</para>
+	</caption>
+	</mediaobject>
+
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_lexicon.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>lexicon.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>main index</guilabel> this icon opens a lexicon.
+	</para>
+	</caption>
+	</mediaobject>
+
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_startconfig.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>startconfig.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the Startup Dialog.
+	Here you can turn on (off) the tip of the day and the startup logo.
+	</para>
+	</caption>
+	</mediaobject>
+
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_swordconfig.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>swordconfig.png</phrase>
+	</textobject><caption>
+	<para><guimenuitem>Configure Sword</guimenuitem>. This icon is used in the
+	<guilabel>Options Dialog</guilabel>.  Here you can configure features controlled by
+	the sword backend.  Like default books, language used for book names, and various 
+	text display features.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_sync.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>sync.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon links a commentary to 
+	the current open Bible.  Thereafter the Commentary and the Bible scroll together.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_tile_auto.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>tile_auto.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon automatically tiles
+	displayed books as they are opened.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-action-bt_tile.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>tile.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon tiles the displayed books now.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./bt-icons/32x32/hi32-app-bibletime.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>bibletime.png</phrase>
+	</textobject><caption>
+	<para>This icon is used with the desktop shortcut that launches &bibletime;.
+	In the <guilabel>Tool Bar</guilabel> this icon displays the &bibletime; version
+	information, license, and other interesting information.
+	</para>
+	</caption>
+	</mediaobject>
+
+
+
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/apps/go.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>go.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon displays the &kde; version
+	information, license, and other interesting information.
+	</para>
+	</caption>
+	</mediaobject>
+
+
+
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/editdelete.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>editdelete.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon will remove the previously
+	selected item in the <guilabel>Main Index</guilabel>.
+	</para>
+	</caption>
+	</mediaobject>
+
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./kde3-icons/hicolor/22x22/actions/pencil.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>pencil.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Personal Commentary</guilabel>
+	this icon will start the editor for the personal commentary.
+	</para>
+	</caption>
+	</mediaobject>
+	
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="./kde3-icons/hicolor/32x32/actions/queue.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>queue.png</phrase>
+	</textobject><caption>
+	<para>In the <guilabel>Tool Bar</guilabel> this icon will clear the print queue.
+	</para>
+	</caption>
+	</mediaobject>
+
+
 	</para>
 	</section>
+
+
+
 	
 	<section id="hdbk-bars-menubar"><title>Menubar</title>
 	<para></para>
 	</section>
+	
+	
+
+
+
+
+
 
 <section id="hdbk-bars-menubar-file"><title>File</title>
 <para>
@@ -390,3 +750,4 @@ Opens a window with general &kde; information.
 
 </chapter>
 
+ find /opt/kde3/share/ -name pencil
