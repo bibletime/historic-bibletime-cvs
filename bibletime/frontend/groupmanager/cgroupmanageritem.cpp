@@ -128,15 +128,15 @@ CGroupManager* CGroupManagerItem::listView(){
 
 /** Returns the key if it's a Bookmark, othwerwise return 0 */
 CKey* CGroupManagerItem::getBookmarkKey(){
-//	ASSERT(m_bookmarkKey);
 	return m_bookmarkKey;
 }
 
 /** Sets the key, which is only used if this item is a Bookmark */
 void CGroupManagerItem::setBookmarkKey( CKey* key ){
-//	qDebug("CGroupManagerItem::setBookmarkKey( CKey* key )");
-	ASSERT(key);
+	if (m_bookmarkKey && m_createdOwnKey)
+		delete m_bookmarkKey;		
 	m_bookmarkKey = key;
+	m_createdOwnKey = false;
 	update();
 }
 

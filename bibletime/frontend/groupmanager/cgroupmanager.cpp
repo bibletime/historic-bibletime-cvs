@@ -69,8 +69,6 @@ CGroupManager::ToolTip::ToolTip(QWidget* parent) : QToolTip(parent) {
 }
 
 void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
-	qDebug("CGroupManager::ToolTip::maybeTip(const QPoint& p)");
-	
 	if (!parentWidget()->inherits("CGroupManager"))
 		return;
 	
@@ -365,10 +363,8 @@ void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item
 
 /**  */
 void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* module, const QString ref){
-	if (!module) {
-		qDebug("module is invalid. Return.");
+	if (!module)
 		return;
-	}
 
 //	bool isOk = false;
 	CGroupManagerItem* myItem = 0;	
@@ -604,8 +600,6 @@ void CGroupManager::slotCreateNewPresenter(){
 		if (m_pressedItem->type() == CGroupManagerItem::Module || m_pressedItem->type() == CGroupManagerItem::Bookmark)
 			emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
 	}
-	else
-		qDebug("Probably module of item isn't valid");
 }
 
 /**  */
@@ -626,7 +620,6 @@ void CGroupManager::contentsDragEnterEvent( QDragEnterEvent* e){
   		m_dragType = TEXT;
   	else
   		m_dragType = "";
-//  	qDebug((const char*)m_dragType.local8Bit());
   }
   else {
   	e->ignore();
@@ -639,7 +632,7 @@ void CGroupManager::contentsDragMoveEvent( QDragMoveEvent* e){
   //open folders
   CGroupManagerItem* item = (CGroupManagerItem*)itemAt( contentsToViewport(e->pos()) );			
   e->accept(QTextDrag::canDecode(e));		
-	if (item && item->type() == CGroupManagerItem::Group)
+	if (item && item->type() == CGroupManagerItem::Group && !item->isOpen())
 		item->setOpen(true);
 
 	m_afterItemDrop = item;
@@ -662,7 +655,7 @@ void CGroupManager::contentsDragLeaveEvent( QDragLeaveEvent* e){
 	KListView::contentsDragLeaveEvent(e);	
 	cleanDropVisualizer();
 	
-	oldDragRect = QRect();	
+	oldDragRect = QRect();
 	m_dragType = "";
 }
 
@@ -701,7 +694,6 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
   QCString submime;
   if (QTextDrag::decode(e,str,submime=BOOKMARK)){
     //a bookmark was dragged
-    qDebug("bookmark decoded");
     if ( e->source() != viewport() ){
       return;
     }
@@ -722,14 +714,10 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
   }//Bookmark
   if (QTextDrag::decode(e,str,submime=GROUP)){
     //a group was dragged
-    if ( e->source() != this->viewport() ){
-      qDebug("erroneous drag");
+    if ( e->source() != this->viewport() )
       return;
-    }
-    if ( !(m_itemList) ){
-      qDebug("no item(s) to be dragged");
+    if ( !(m_itemList) )
       return;
-    }
     CGroupManagerItem* item = 0;
     CGroupManagerItem* parentItem = 0;
     //move around groups    	
@@ -749,7 +737,6 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
   }//module
   else if (QTextDrag::decode(e,str,submime=REFERENCE)){
     //a reference was dragged
-    qDebug("reference decoded");
 		QString ref;
     QString mod;
     CToolClass::decodeReference(str,mod,ref);
@@ -803,7 +790,6 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
 
 /**  */
 void CGroupManager::contentsMousePressEvent( QMouseEvent* e ) {
-	qDebug("CGroupManager::contentsMousePressEvent( QMouseEvent* e )");
 	m_pressedPos = e->pos();
   m_pressedItem = dynamic_cast<CGroupManagerItem*>(itemAt(contentsToViewport(m_pressedPos)));
   const bool open = m_pressedItem ? m_pressedItem->isOpen() : false;
@@ -847,7 +833,6 @@ void CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e){
 }
 
 void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
-	qDebug("CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e )");
 	KListView::contentsMouseReleaseEvent(e); 	
   if ( !(m_pressedItem=(CGroupManagerItem*)itemAt(contentsToViewport(e->pos()))) )
     return;	
@@ -862,10 +847,8 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 				QList<QListViewItem> items = selectedItems();
 				for (items.first(); items.current(); items.next()) {
 					CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(items.current());
-					if (i && i->type() == CGroupManagerItem::Module && i->moduleInfo()) {
-						qDebug("append");
+					if (i && i->type() == CGroupManagerItem::Module && i->moduleInfo())
 						modules.append(i->moduleInfo());
-					}
 				}
 				emit createSwordPresenter( modules, QString::null );				
 			}
@@ -885,7 +868,6 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 				emit createSwordPresenter( m_pressedItem->moduleInfo(), m_pressedItem->getKeyText() );
 		}
 	}
-	qDebug("finished");
 // 	m_menu = false;	
 }
 
@@ -1554,7 +1536,6 @@ QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem */*paren
   else if (!insertmarker.isValid()) {
   	cleanDropVisualizer();
   }
-
   return insertmarker;
 }
 
@@ -1563,7 +1544,7 @@ void CGroupManager::cleanDropVisualizer(){
   if ( oldDragRect.isValid() ) {
     QRect rect = oldDragRect;
     oldDragRect = QRect();
-    viewport()->repaint(rect, true);
+    viewport()->repaint(rect,true);
   }
 }
 
@@ -1607,6 +1588,8 @@ void CGroupManager::slotDeleteSearchdialog(){
 void CGroupManager::resizeEvent ( QResizeEvent* e )  {
 	KListView::resizeEvent(e);		
 	setColumnWidth(0, visibleWidth() );
+	triggerUpdate();
+	
 }
 
 /** Is called when the return key was pressed on a listview item. */

@@ -45,22 +45,21 @@ gibt die Erlaubnis zur Verbreitung als ein Swordmodul, oder wenn der Text in öff
 </para>
 
 <section ID="hdbk_op_module_tree_search"><title>Auf den Suchdialog zugreifen</title> <para>
-You can search in a module by  right-clicking on the module name in the module
-list and selecting "Search in module(s)". By shift-clicking on other module
-names you can select more than one.  Then follow the same procedure to open the
-search dialog. You will be searching in all of these documents. </para>
-<para>A complete description of the operation of the search features can be found
+Sie können in einem Modul suchen, indem Sie mit der rechten Maustas eauf den Modulnamen in der List der Module klicken und "Suche in Modul(en)..."
+auswählen.
+Durch gleichzeitiges drücken der SHIFT Taste und klicken auf andere Modulnamen können Sie mehr als eins auswählen.
+Folgen Sie der gleiche Prozedur um diese zu durchsuchen.
 </para>
+
 <screenshot>
-<screeninfo>Bookmark Selection</screeninfo>
+<screeninfo>Auswahl von Lesezeichen</screeninfo>
 <graphic fileref="common/hdbk_op_module_select_2.png" format="png">
 </graphic>
 </screenshot
 </section>
 
 
-<section ID="hdbk_op_module_tree_bookmark"><title>Accessing bookmark
-functions</title> <para>
+<section ID="hdbk_op_module_tree_bookmark"><title>Auf Lesezeichen Funktionen zugreifen</title> <para>
 <tip><para>Drag & Drop Works Here</para></tip>
 Right-click on an empty part of the module tree window and select "Create new
 group"  to create a new bookmark folder. You can use normal drag 'n' drop
