@@ -14,82 +14,82 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: index.docbook:20
+#: index.docbook:21
 #, no-c-format
 msgid "The BibleTime Handbook"
 msgstr ""
 
-#: index.docbook:23
+#: index.docbook:24
 #, no-c-format
 msgid "<firstname>Fred</firstname> <othername></othername> <surname>Saalbach</surname> <affiliation> <address><email>info@bibletime.de</email></address> </affiliation>"
 msgstr ""
 
-#: index.docbook:31
+#: index.docbook:32
 #, no-c-format
 msgid "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
 msgstr ""
 
-#: index.docbook:37
+#: index.docbook:38
 #, no-c-format
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
 
-#: index.docbook:43
+#: index.docbook:44
 #, no-c-format
 msgid "The team of BibleTime, info@bibletime.de"
 msgstr ""
 
-#: index.docbook:48
+#: index.docbook:49
 #, no-c-format
 msgid "The BibleTime helpdialog is part of BibleTime."
 msgstr ""
 
-#: index.docbook:51
+#: index.docbook:52
 #, no-c-format
 msgid "BibleTime is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
 msgstr ""
 
-#: index.docbook:58
+#: index.docbook:59
 #, no-c-format
 msgid "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details."
 msgstr ""
 
-#: index.docbook:65
+#: index.docbook:66
 #, no-c-format
 msgid "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 msgstr ""
 
-#: index.docbook:75
+#: index.docbook:76
 #, no-c-format
 msgid "&bibletime; is an application to aid in study of the Bible."
 msgstr ""
 
-#: index.docbook:82
+#: index.docbook:83
 #, no-c-format
 msgid "<keyword>KDE</keyword>"
 msgstr ""
 
-#: index.docbook:83
+#: index.docbook:84
 #, no-c-format
 msgid "bibletime"
 msgstr ""
 
-#: index.docbook:84
+#: index.docbook:85
 #, no-c-format
 msgid "Bibletime"
 msgstr ""
 
-#: index.docbook:85
+#: index.docbook:86
 #, no-c-format
 msgid "sword"
 msgstr ""
 
-#: index.docbook:86
+#: index.docbook:87
 #, no-c-format
 msgid "crosswire"
 msgstr ""
 
-#: index.docbook:87
+#: index.docbook:88
 #, no-c-format
 msgid "help dialog"
 msgstr ""

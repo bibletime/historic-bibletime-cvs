@@ -19,8 +19,9 @@ the applications group.
 &bibletime; can also be launched from a terminal command prompt.
 To launch &bibletime; open a terminal (any Xterminal inside a &kde;3 session) and type
 <command>&bibletime;</command>.
+</para>
 
-</para><section id="hdbk-start-otherwm"><title>Other Window Managers (not &kde;)</title>
+<section id="hdbk-start-otherwm"><title>Other Window Managers (not &kde;)</title>
 
 <para>
 &bibletime; can be launched from inside other window managers
@@ -39,11 +40,33 @@ export KDEDIR=/opt/kde3
 bibletime
 </screen>
 <para>
-&bibletime; will now open inside of a window of the current window manager.  
+&bibletime; will now open inside of a window of the current window manager.
 If you do not have &kde;3 installed in your copy of &Linux;, you should have tried the
 <ulink url="http://gnomesword.sourceforge.net/">Gnomesword application.</ulink>, or one 
 of the &kde;2 versions of &bibletime;.
+</para>
+</section>
+<section id="hdbk-start-custom"><title>Startup Customization</title>
+
+<para>
+From a terminal you can use &bibletime; to open a random verse in the default bible:</para>
+<para><command>
+<![CDATA[
+bibletime --open-default-bible "<random>"
+ ]]>
+</command></para>
+
+<para>
+To open at a given passage use:</para><para>
+<command>
+bibletime --open-default-bible "John 3:16"
+</command></para>
+
+
+<para>
+You can also use keys in your current bookname language.
 </para></section>
+
 
 <section id="hdbk-start-sequence"><title>Startup Sequence</title>
 <para>
