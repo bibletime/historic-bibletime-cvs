@@ -19,18 +19,20 @@
 /* $Header$ */
 /* $Revision$ */
 
+//standard includes
+#include <stdlib.h>
+#include <stdio.h>
+#include <signal.h>
+
 //own includes
 #include "ressource.h"
 #include "bibletime.h"
+#include "config.h"
+
+//frontend includes
 #include "frontend/kstartuplogo.h"
 #include "frontend/chtmldialog.h"
 #include "frontend/cbtconfig.h"
-#include "config.h"
-
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 
 //KDE includes
 #include <kcmdlineargs.h>
@@ -43,8 +45,7 @@
 #include <klocale.h>
 #include <kiconloader.h>
 
-#include <stdio.h>
-#include <stdlib.h>
+//Removed duplicate includes
 
 //Qt includes
 #include <qfont.h>
@@ -53,14 +54,14 @@ bool showDebugMessages = false;
 BibleTime* bibletime = 0;
 
 void myMessageOutput( QtMsgType type, const char *msg ) {	
-//we use this messagehandler to switch debugging off in final releases
+	//we use this messagehandler to switch debugging off in final releases
 	switch ( type ) {
 		case QtDebugMsg:
-		 	if (showDebugMessages)	//only show messages if they are enabled!
-		 		fprintf( stderr,"(BibleTime %s) Debug: %s\n",VERSION, msg );
+			if (showDebugMessages)	//only show messages if they are enabled!
+				fprintf( stderr,"(BibleTime %s) Debug: %s\n",VERSION, msg );
 			break;
 		case QtWarningMsg:
-			fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
+				fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
 			break;
 		case QtFatalMsg:
 			fprintf( stderr,"(BibleTime %s) _FATAL_: %s\nPlease contact info@bibletime.de and report this bug!",VERSION, msg );
@@ -69,42 +70,42 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 }
 
 extern "C" {
-  static void setSignalHandler(void (*handler)(int));
+	static void setSignalHandler(void (*handler)(int));
 
-  // Crash recovery signal handler
-  static void signalHandler(int sigId) {
-    setSignalHandler(SIG_DFL);
-    fprintf(stderr, "*** BibleTime got signal %d (Exiting)\n", sigId);
-    // try to cleanup all windows
-  	if (bibletime) {
-  		bibletime->saveSettings();
-  	  fprintf(stderr, "Saving seems to be succesful\n");		
-  	}
-    ::exit(-1); //
-  }
+	// Crash recovery signal handler
+	static void signalHandler(int sigId) {
+		setSignalHandler(SIG_DFL);
+		fprintf(stderr, "*** BibleTime got signal %d (Exiting)\n", sigId);
+		// try to cleanup all windows
+		if (bibletime) {
+			bibletime->saveSettings();
+			fprintf(stderr, "Saving seems to be succesful\n");		
+		}
+		::exit(-1); //
+	}
 
-  // Crash recovery signal handler
-  static void crashHandler(int sigId) {
-    setSignalHandler(SIG_DFL);
-    fprintf(stderr, "*** BibleTime got signal %d (Crashing). Trying to save settings.\n", sigId);
-  	if (bibletime) {
-  		bibletime->saveSettings();
-  	  fprintf(stderr, "Saving seemed to be succesful\n");		
-  	}
-    // Return to DrKonqi.
-  }
+	// Crash recovery signal handler
+	static void crashHandler(int sigId) {
+		setSignalHandler(SIG_DFL);
+		fprintf(stderr, "*** BibleTime got signal %d (Crashing). Trying to save settings.\n", sigId);
+		if (bibletime) {
+			bibletime->saveSettings();
+			fprintf(stderr, "Saving seemed to be succesful\n");		
+		}
+		// Return to DrKonqi.
+	}
 
-  static void setSignalHandler(void (*handler)(int)) {
-    signal(SIGKILL, handler);
-    signal(SIGTERM, handler);
-    signal(SIGHUP,  handler);
-    KCrash::setEmergencySaveFunction(crashHandler);
-  }
+	static void setSignalHandler(void (*handler)(int)) {
+		signal(SIGKILL, handler);
+		signal(SIGTERM, handler);
+		signal(SIGHUP,  handler);
+		KCrash::setEmergencySaveFunction(crashHandler);
+	}
 }
 
 int main(int argc, char* argv[]) {
 	qInstallMsgHandler( myMessageOutput );
-	
+
 	//create about data for this application
 	static KCmdLineOptions options[] =
 	{
@@ -124,6 +125,7 @@ int main(int argc, char* argv[]) {
 		"info@bibletime.de"
 	);
 	
+	//we could so change this to a file reading function (including commented out people
 	//coders
 	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator, frontend, backend"), "jansorg@gmx.de","");
 	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
@@ -134,7 +136,7 @@ int main(int argc, char* argv[]) {
 
 	//documentation
 	aboutData.addAuthor("Fred Saalbach", 	I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
-		
+	
 	//translators
 	aboutData.addAuthor("Silvio Bacchetta",		I18N_NOOP("Translation into Italian"), "sorgilazzaro@tiscalinet.it", "");							
 	aboutData.addAuthor("Nuno Bareto", 				I18N_NOOP("Translation into Portoguese"), "nbarr@clix.pt", "");	
@@ -150,7 +152,7 @@ int main(int argc, char* argv[]) {
 //	aboutData.addAuthor("Jonathan Jones",			I18N_NOOP("Translation into Brazilian Portoguese"), "jones@brfree.com.br", "");					
 //	aboutData.addAuthor("Walter Rodrigo de Sá Cruz",			I18N_NOOP("Translation into Portoguese"), "keytech@ig.com.br", "");		
 	aboutData.addAuthor("Kees van Veen", 			I18N_NOOP("Translation into Dutch"), "cvn@interchain.nl", "");	
-															
+														
 	//credits
 	aboutData.addCredit("Bob Harman", 	I18N_NOOP("Bible study HowTo"), "N_Cov_Church@compuserve.com", "");		
 //	aboutData.addCredit("Darwin Gregory", I18N_NOOP("Optionsdialog"), "darwin@ichristian.com", "");		
@@ -159,67 +161,64 @@ int main(int argc, char* argv[]) {
 //	aboutData.addCredit("Thomas Hagedorn", I18N_NOOP("Sponsor of www.bibletime.de"), "tom@delix.de", "");		
 //	aboutData.addCredit("Torsten Uhlmann", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
 //	aboutData.addCredit("Troy A. Griffits", I18N_NOOP("Leader of the SWORD project.\nLots of help with the SWORD API!"), "scribe@crosswire.org", "");	
- 		 	
- 	KCmdLineArgs::init(argc, argv, &aboutData); 	
- 	KCmdLineArgs::addCmdLineOptions ( options );
- 		
+	 	
+	KCmdLineArgs::init(argc, argv, &aboutData); 	
+	KCmdLineArgs::addCmdLineOptions ( options );
+	
 
- 	KApplication app;
- 	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics/");
+	KApplication app;
+	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics/");
 
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-	
+
 	// A binary option (on / off)
 	if (args->isSet("debug"))
 		showDebugMessages = true;
- 		
+
 	if (kapp->isRestored()){
-		int n = 1;
-		while (KMainWindow::canBeRestored(n)){
+		for(int n = 1; KMainWindow::canBeRestored(n), n++)
 			(new BibleTime)->restore(n);
-			n++;
-		}
  	}
- 	else {
- 		bool showIt = CBTConfig::get(CBTConfig::logo);	
-	
- 		if(showIt) {
- 			KStartupLogo::createSplash();
- 			KStartupLogo::showSplash();				
- 			KStartupLogo::setStatusMessage( i18n("Starting BibleTime") + QString::fromLatin1("...") );
- 		}
+	else {
+		bool showIt = CBTConfig::get(CBTConfig::logo);	
+
+		if(showIt) {
+			KStartupLogo::createSplash();
+			KStartupLogo::showSplash();				
+			KStartupLogo::setStatusMessage( i18n("Starting BibleTime") + QString::fromLatin1("...") );
+		}
 		
-	  bibletime = new BibleTime();
-	
-	  if (showIt) {
-	  	KStartupLogo::hideSplash();
-		  KStartupLogo::deleteSplash();	  		  	
+		bibletime = new BibleTime();
+
+		if (showIt) {
+			KStartupLogo::hideSplash();
+			KStartupLogo::deleteSplash();	  		  	
 		}
 
 		// a new BibleTime version was installed (maybe a completely new installation)
- 		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
- 			CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
- 			HTML_DIALOG(HELPDIALOG_FIRST_START);
- 			bibletime->slotSettingsOptions();
- 		}			
+		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
+			CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
+			HTML_DIALOG(HELPDIALOG_FIRST_START);
+			bibletime->slotSettingsOptions();
+		}			
 
 		//The tip of the day
 		if (CBTConfig::get(CBTConfig::tips))
-				bibletime->slotHelpTipOfDay();
+			bibletime->slotHelpTipOfDay();
 
 		bibletime->show();			
-				
-		// restore the workspace
-	 	if (CBTConfig::get(CBTConfig::restoreWorkspace))
-	 		bibletime->restoreWorkspace();
-
-	  setSignalHandler(signalHandler);		
 		
-	  const int ret = app.exec();	
-//	  CPointers::deletePrinter();
+		// restore the workspace
+		if (CBTConfig::get(CBTConfig::restoreWorkspace))
+			bibletime->restoreWorkspace();
+
+		setSignalHandler(signalHandler);		
+		
+		const int ret = app.exec();	
+//		CPointers::deletePrinter();
 		CPointers::deleteBackend();
 
-  	return ret;
+		return ret;
 	}
 }
 
