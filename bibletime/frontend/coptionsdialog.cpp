@@ -813,7 +813,15 @@ You can change the filter settings in each display window, of course.")) );
   QWhatsThis::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::whatsthis);  
  	layout->addWidget(m_settings.swords.strongNumbers);
 
- 	m_settings.swords.morphTags = new QCheckBox(currentTab);
+ 	m_settings.swords.scriptureReferences = new QCheckBox(currentTab);
+ 	m_settings.swords.scriptureReferences->setText(i18n("Show scripture cross-references"));
+ 	m_settings.swords.scriptureReferences->setChecked(CBTConfig::get(CBTConfig::hebrewCantillation));
+//Enable this in 1.4, because we're in message freeze for 1.3
+//  QToolTip::add(m_settings.swords.scriptureReferences, CResMgr::settings::sword::filters::crossReferences::tooltip);
+//  QWhatsThis::add(m_settings.swords.scriptureReferences, CResMgr::settings::sword::filters::crossReferences::whatsthis);
+ 	layout->addWidget(m_settings.swords.scriptureReferences);
+
+  m_settings.swords.morphTags = new QCheckBox(currentTab);
  	m_settings.swords.morphTags->setText(i18n("Show morphologic tags"));
  	m_settings.swords.morphTags->setChecked(CBTConfig::get(CBTConfig::morphTags));
   QToolTip::add(m_settings.swords.morphTags, CResMgr::settings::sword::filters::morphTags::tooltip);
@@ -827,6 +835,13 @@ You can change the filter settings in each display window, of course.")) );
   QWhatsThis::add(m_settings.swords.lemmas, CResMgr::settings::sword::filters::lemmas::whatsthis);
  	layout->addWidget(m_settings.swords.lemmas);
 		
+  m_settings.swords.greekAccents = new QCheckBox(currentTab);
+ 	m_settings.swords.greekAccents->setText(i18n("Show Greek accents"));
+ 	m_settings.swords.greekAccents->setChecked(CBTConfig::get(CBTConfig::greekAccents));
+  QToolTip::add(m_settings.swords.greekAccents, CResMgr::settings::sword::filters::greekAccents::tooltip);
+  QWhatsThis::add(m_settings.swords.greekAccents, CResMgr::settings::sword::filters::greekAccents::whatsthis);
+ 	layout->addWidget(m_settings.swords.greekAccents);
+
  	m_settings.swords.hebrewPoints = new QCheckBox(currentTab);
  	m_settings.swords.hebrewPoints->setText(i18n("Show Hebrew vowel points"));
  	m_settings.swords.hebrewPoints->setChecked(CBTConfig::get(CBTConfig::hebrewPoints));
@@ -840,13 +855,6 @@ You can change the filter settings in each display window, of course.")) );
   QToolTip::add(m_settings.swords.hebrewCantillation, CResMgr::settings::sword::filters::hebrewCantillation::tooltip);
   QWhatsThis::add(m_settings.swords.hebrewCantillation, CResMgr::settings::sword::filters::hebrewCantillation::whatsthis);
  	layout->addWidget(m_settings.swords.hebrewCantillation);
-
- 	m_settings.swords.greekAccents = new QCheckBox(currentTab);
- 	m_settings.swords.greekAccents->setText(i18n("Show Greek accents"));
- 	m_settings.swords.greekAccents->setChecked(CBTConfig::get(CBTConfig::greekAccents));		
-  QToolTip::add(m_settings.swords.greekAccents, CResMgr::settings::sword::filters::greekAccents::tooltip);
-  QWhatsThis::add(m_settings.swords.greekAccents, CResMgr::settings::sword::filters::greekAccents::whatsthis);
- 	layout->addWidget(m_settings.swords.greekAccents);
 
  	m_settings.swords.textualVariants = new QCheckBox(currentTab);
  	m_settings.swords.textualVariants->setText(i18n("Use textual variants"));
@@ -970,6 +978,7 @@ void COptionsDialog::saveSword(){
  	CBTConfig::set(CBTConfig::footnotes, m_settings.swords.footnotes->isChecked());
  	CBTConfig::set(CBTConfig::strongNumbers, m_settings.swords.strongNumbers->isChecked());
  	CBTConfig::set(CBTConfig::headings, m_settings.swords.headings->isChecked());
+ 	CBTConfig::set(CBTConfig::scriptureReferences, m_settings.swords.scriptureReferences->isChecked());
  	CBTConfig::set(CBTConfig::morphTags, m_settings.swords.morphTags->isChecked());
  	CBTConfig::set(CBTConfig::lemmas, m_settings.swords.lemmas->isChecked());
  	CBTConfig::set(CBTConfig::hebrewPoints, m_settings.swords.hebrewPoints->isChecked());

@@ -436,17 +436,17 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
     //display current level, we could also decide to display the available levels together
     return finishText( entryText(modules, key), modules, keyName );
   };
-  if ((displayLevel >1) && (displayLevel == possibleLevels)) { //fix not to diplay the whole module
+  if ((displayLevel > 2) && (displayLevel == possibleLevels)) { //fix not to diplay the whole module
     --displayLevel;
   }
 
   // at this point we're sure that we can display the required levels toogether
   // at the moment we're at the lowest level, so we only have to go up!
-    for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
-      if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
-        return finishText( entryText(modules, key), modules, keyName );
-      };
+  for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
+    if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
+      return finishText( entryText(modules, key), modules, keyName );
     };
+  };
 
   // no we can display all sub levels together! We checked before that this is possible!
   m_text = entryText(modules, key, 0, (key->key() == keyName));
