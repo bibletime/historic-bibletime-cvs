@@ -18,6 +18,7 @@
 #include "cfx_btn.h"
 
 #include <stdlib.h>
+#include <math.h>
 
 #include <qevent.h>
 #include <qapplication.h>
