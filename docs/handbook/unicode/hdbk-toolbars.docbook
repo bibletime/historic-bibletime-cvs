@@ -20,7 +20,7 @@
 	<phrase>view_sidetree.png</phrase>
 	</textobject>
 	<caption>
-	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the
+	<para>In the <guilabel>Preferences Dialog</guilabel>, this icon opens the
 	<guilabel>Manage sessions</guilabel> dialog.  Here you can save a display for later recall.
 	</para>
 	</caption>
@@ -33,7 +33,7 @@
 	<textobject>
 	<phrase>key_bindings.png</phrase>
 	</textobject><caption>
-	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the
+	<para>In the <guilabel>Preferences Dialog</guilabel>, this icon opens the
 	<guilabel>Accelerator</guilabel> dialog.  Here you can customize the key bindings 
 	(keyboard shortcuts).
 	</para>
@@ -47,7 +47,7 @@
 	<textobject>
 	<phrase>kcmfontinst.png</phrase>
 	</textobject><caption>
-	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the
+	<para>In the <guilabel>Preferences Dialog</guilabel>, this icon opens the
 	<guilabel>Choose Fonts</guilabel> dialog.  Here you select the font used to display your sword modules.
 	</para>
 	</caption>
@@ -289,7 +289,7 @@
 	<textobject>
 	<phrase>displayconfig.png</phrase>
 	</textobject><caption>
-	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the <guilabel>Colors Dialog</guilabel>.
+	<para>In the <guilabel>Preferences Dialog</guilabel>, this icon opens the <guilabel>Colors Dialog</guilabel>.
 	Here you can change the colors of the displayed text..
 	</para>
 	</caption>
@@ -327,7 +327,7 @@
 	<textobject>
 	<phrase>startconfig.png</phrase>
 	</textobject><caption>
-	<para>In the <guilabel>Options Dialog</guilabel>, this icon opens the Startup Dialog.
+	<para>In the <guilabel>Preferences Dialog</guilabel>, this icon opens the Startup Dialog.
 	Here you can turn on (off) the tip of the day and the startup logo.
 	</para>
 	</caption>
@@ -341,8 +341,8 @@
 	<phrase>swordconfig.png</phrase>
 	</textobject><caption>
 	<para><guimenuitem>Configure Sword</guimenuitem>. This icon is used in the
-	<guilabel>Options Dialog</guilabel>.  Here you can configure features controlled by
-	the sword backend.  Like default books, language used for book names, and various 
+	<guilabel>Preferences Dialog</guilabel>. Here you can configure features controlled by
+	the sword backend. Like default books, language used for book names, and various 
 	text display features.
 	</para>
 	</caption>
@@ -356,7 +356,7 @@
 	<phrase>sync.png</phrase>
 	</textobject><caption>
 	<para>In the <guilabel>Tool Bar</guilabel> this icon links a commentary to 
-	the current open Bible.  Thereafter the Commentary and the Bible scroll together.
+	the current open Bible. Thereafter the Commentary and the Bible scroll together.
 	</para>
 	</caption>
 	</mediaobject>
@@ -462,7 +462,6 @@
 	<section id="hdbk-bars-menubar"><title>Menubar</title>
 	<para>Various features of bibletime are accessed by way of 
 	drop down menus from the menubar.</para>
-
 	
 
 	<section id="hdbk-bars-menubar-file"><title>File</title>
@@ -502,7 +501,7 @@
 	<varlistentry>
 	<term>Show Toolbar</term>
 	<listitem>
-	<para>>If <guimenuitem>show toolbar</guimenuitem> is selected,
+	<para>If <guimenuitem>show toolbar</guimenuitem> is selected,
 	the toolbar is displayed.
 	If <guimenuitem>show toolbar</guimenuitem> is unselected then the
 	toolbar is hidden.</para>
@@ -575,7 +574,7 @@
 	<varlistentry>
 	<term>Configure sessions</term>
 	<listitem><para>This brings up the <guilabel>Sessions</guilabel> tab of the
-	<guilabel>Options dialog</guilabel>.
+	<guilabel>Preferences Dialog</guilabel>.
 	Here you create and manage Sessions.</para></listitem>
 	</varlistentry>
 
@@ -623,7 +622,7 @@
 	<varlistentry>
 	<term>List of open modules</term>
 	<listitem>
-	<para>shows a list of all of the currently open modules.  
+	<para>Shows a list of all of the currently open modules.  
 	Selecting a module in this list makes that open module the 
 	selected module in the display area.</para>
 	</listitem>
@@ -648,7 +647,7 @@
 	<varlistentry>
 	<term>Configure &bibletime;</term>
 	<listitem>
-	<para>Shows the <guilabel>Options dialog</guilabel>.
+	<para>Shows the <guilabel>Preferences Dialog</guilabel>.
 	From this dialog the startup mode, fonts, colors, sessions,
 	sword features, and accelerators are configurable. </para>
 	</listitem>

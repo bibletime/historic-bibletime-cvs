@@ -12,7 +12,6 @@ btsetupwizard_LDADD   = \
 ../bibletime/frontend/mainindex/libmainindex.a \
 ../bibletime/frontend/searchdialog/libsearchdialog.a \
 ../bibletime/frontend/libfrontend.a \
-../bibletime/util/libutil.a \
 ../bibletime/backend/libbackend.a \
 ../bibletime/util/libutil.a \
 -lXext \

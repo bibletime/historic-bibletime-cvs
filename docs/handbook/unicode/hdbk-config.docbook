@@ -88,8 +88,8 @@ to launch the options dialog.</para>
 			<section id="hdbk-config-bt-addfont"><title>Installing fonts</title>
 			<para>Detailed font installation instructions are outside the scope of this handbook.
 			If you need detailed font installation information, please read the
-			<ulink href="http://pegasus.rutgers.edu/~elflord/font_howto">Font-HOWTO</ulink>, and
-			<ulink href="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Unicode-HOWTO.html#toc4">
+			<ulink url="http://pegasus.rutgers.edu/~elflord/font_howto">Font-HOWTO</ulink>, and
+			<ulink url="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Unicode-HOWTO.html#toc4">
 			The Unicode HOWTO</ulink></para>
 
 			<tip><para>If your distribution includes a font installer use it, it makes
@@ -122,7 +122,7 @@ to launch the options dialog.</para>
 				<tgroup cols="2">
 				<tbody>
 				<row><entry>Clearlyu</entry>
-				<entry>Included in some distributions.  Contains European, Greek, Hebrew, Thai.
+				<entry>Included in some distributions. Contains European, Greek, Hebrew, Thai.
 				Does not contain Chinease pictographs, or Arabic</entry></row>
 
 				<row><entry><ulink url="ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS">ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS</ulink>.</entry>
@@ -219,7 +219,7 @@ to launch the options dialog.</para>
 		to be changed.  For example the King James Version can be displayed
 		with German book names.  If your language is not displayed and you would
 		like to create a sword locale for your language, please see the
-		crosswire bible society developers site for details.</para>
+		CrossWire Bible Society developers site for details.</para>
 		</section>
 
 
@@ -250,8 +250,8 @@ to launch the options dialog.</para>
 
 	<section id="hdbk-config-bt-Accelerators"><title>Accelerators</title>
 	<para>Accelerators are special key commands that can be used in the place of
-	the menu items and icons.  A number of &bibletime;'s commands have
-	predefined Accelerators.  All of &bibletime;'s commands can be assigned
+	the menu items and icons. A number of &bibletime;'s commands have
+	predefined Accelerators. All of &bibletime;'s commands can be assigned
 	accelerators here.</para>
 
 		<table>
