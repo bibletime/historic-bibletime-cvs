@@ -304,24 +304,26 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
-const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const QString& chosenKey ){
+const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const QString& chosenKey ) {
+
   CSwordVerseKey key(modules.first());
   QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr valign=\"top\">") : QString::null;
 
 	// Only insert the table stuff if we are displaying parallel.
   // Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
 
+
   //declarations out of the loop for optimization
   const QString colStyle = QString::fromLatin1("style=\"border-bottom:1px solid black; padding-bottom:2px; padding-top:2px;");
   QString tdStyle;
   QString entry;
   QString keyText;
-  
+
   QFont font;
   bool isRTL;
 
   const QString lineBreakString = ((modules.count() == 1) && m_displayOptions.lineBreaks) ? QString::fromLatin1("<br/>") : QString::fromLatin1(" ");
-  
+
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key.module(m);
     key.key(keyName);
@@ -329,12 +331,29 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
     isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
 
     tdStyle = colStyle + QString::fromLatin1("%1 %2\"")
-      .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:1px solid black;") : QString::null)
+      .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right: 1px solid black;") : QString::null)
       .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
 
     font = CBTConfig::get(m->language()).second;
-    
-    entry =
+
+		entry = QString::null;
+
+	//	m->module()->RenderText(); //force rendering of entry attributes
+		key.renderedText();
+		int pvHeading = 0;
+		do { //add sectiontitle before we add the versenumber
+			QString preverseHeading = QString::fromUtf8(
+m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeading++).latin1()].c_str());
+			if (!preverseHeading.isEmpty()) {
+				entry += QString::fromLatin1("<br/><div class=\"sectiontitle\">%1</div>")
+					.arg(preverseHeading);
+			}
+			else {
+				break;
+			}
+		} while (true);
+
+    entry +=
       QString::fromLatin1("<span %1 style=\"font-family:%2;font-size:%3pt;\" dir=\"%4\">%5%6</span>")
         .arg((keyText == chosenKey) ? QString::fromLatin1("class=\"highlighted\"") : QString::null)
         .arg(font.family())
@@ -347,13 +366,15 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
             : htmlReference(m, QString::null, QString::null, keyText) )
         .arg(key.renderedText() + lineBreakString);
 
-  	if (modules.count() == 1)
+  	if (modules.count() == 1) {
 			renderedText += entry;
-  	else
+		}
+  	else {
 	    renderedText += QString::fromLatin1("<td class=\"background1\" %1 dir=\"%2\" valign=\"top\">%3</td>")
                         .arg(tdStyle)
                         .arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
 											  .arg(entry);
+		}
   }
 
   if (modules.count() > 1){

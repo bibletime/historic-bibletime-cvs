@@ -56,21 +56,10 @@ CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module) {
 		 	qWarning("The module \"%s\" requires a newer Sword library. Please update to \"Sword %s\".", name().latin1(), (const char*)minimumSwordVersion());
 		}
 	}
-}
 
-//CSwordModuleInfo::CSwordModuleInfo(sword::SWModule* module, CSwordBackend* const usedBackend ) {
-//	m_module = module;
-//	m_searchResult.ClearList();
-//  m_backend = usedBackend;
-//	m_dataCache.name = module ? QString::fromLatin1(module->Name()) : QString();
-//	m_dataCache.isUnicode = module ? module->isUnicode() : false;
-//
-//	if (backend()) {
-//		if (hasVersion() && (minimumSwordVersion() > sword::SWVersion::currentVersion)) {
-//		 	qWarning("The module \"%s\" requires a newer Sword library. Please update to \"Sword %s\".", name().latin1(), (const char*)minimumSwordVersion());
-//		}
-//	}
-//}
+	//init Sword module attributes
+//	m_module->processEntryAttributes(true); //enable Entry Attributes
+}
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {
 	m_module = m.m_module;
