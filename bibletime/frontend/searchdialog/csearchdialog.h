@@ -78,7 +78,7 @@ public:
 	* This is used to refresh the progres bars
 	* and to switch to the resultpage if the search was finished.
 	*/
-  virtual void timerEvent(QTimerEvent *e);
+//  virtual void timerEvent(QTimerEvent *e);
   /**
  	* Returns the search text. If no text was enetered return QSTring::null.
  	*/
@@ -122,6 +122,8 @@ private slots: // Private slots
 	virtual void slotUser1();
 	virtual void slotUser2();
 	void slotSaveSearchAnalysis();
+  void searchFinished();
+  void percentUpdate();
 
 public slots: // Public slots
   /**

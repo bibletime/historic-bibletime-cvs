@@ -57,7 +57,9 @@ CSearchDialog::CSearchDialog( ListCSwordModuleInfo* modules, QWidget *parent, co
 	moduleList(0), old_currentProgress(0), old_overallProgress(0)			
 {
 	setIcon(MODULE_SEARCH_ICON_SMALL);
-	
+	searcher->connectPercentUpdate(this, SLOT(percentUpdate()));
+	searcher->connectFinished(this, SLOT(searchFinished()));
+		
 	initView();	
 	readSettings();	
 		
@@ -68,8 +70,7 @@ CSearchDialog::CSearchDialog( ListCSwordModuleInfo* modules, QWidget *parent, co
 
 CSearchDialog::~CSearchDialog(){
 	saveSettings();	
-	if (searcher)
-		delete searcher;
+	delete searcher;
 }
 
 /** Reads the settings from the configfile */
@@ -200,7 +201,7 @@ void CSearchDialog::slotUser1() {
 }
 
 void CSearchDialog::slotUser2() {
-	if (searcher->isSearching())
+//	if (searcher->isSearching())
 		searcher->interruptSearch();
 }
 
@@ -228,51 +229,9 @@ void CSearchDialog::startSearch(void) {
 	}
 	searcher->setSearchOptions(searchFlags);
 	searcher->startSearchThread();
-  startTimer(80);
 	
 	enableButton(User1,false);
 	enableButton(User2,true);
-}
-
-void CSearchDialog::timerEvent(QTimerEvent *e){
-	if (searcher->isSearching()) {	//st searching, so we have to wait
-		int newPercentage = searcher->getPercent(CSwordModuleSearch::currentModule);
-		if (old_currentProgress != newPercentage) {
-			searchText->updateCurrentProgress(newPercentage);
-			old_currentProgress = newPercentage;
-		}
-		newPercentage = searcher->getPercent(CSwordModuleSearch::allModules);
-		if (old_overallProgress != newPercentage) {
-			searchText->updateOverallProgress(newPercentage);
-			old_overallProgress = newPercentage;
-		}
-	}
-	else {	//searching finished!
-		killTimer( e->timerId() );
-		enableButton(User1,true);
-		enableButton(User2,false);
-		searchText->updateCurrentProgress(100);		
-		searchText->updateOverallProgress(100);					
-		searchAnalysis->reset();
-		
-		//test: call scope function
-		ListKey scope = searcher->scope();
-		
-		if ( searcher->foundItems() ){
-			searchResult->setModuleList(getModuleList());			
-			searchAnalysis->setModuleList(getModuleList());
-			searchAnalysisView->setContentsPos(0,0);
-			searchResult_page->setEnabled(true);
-			searchAnalysis_page->setEnabled(true);						
-			showPage(pageIndex(searchResult_page));	//the result page
-						
-			searchAnalysis->analyse();			
-		}
-		else {
-			searchResult->clearResult();
-			searchAnalysis->reset();
-		}
-	}
 }
 
 void CSearchDialog::setSearchText(const QString text){
@@ -299,4 +258,51 @@ void CSearchDialog::show(){
 		HTML_DIALOG(HELPDIALOG_FIRSTTIME_SEARCH)
 		CBTConfig::set(CBTConfig::firstSearchDialog, false);
 	}			
+}
+
+/** No descriptions */
+void CSearchDialog::searchFinished(){
+ 	enableButton(User1,true);
+ 	enableButton(User2,false);
+ 	searchText->updateCurrentProgress(100);		
+ 	searchText->updateOverallProgress(100);					
+ 	searchAnalysis->reset();
+		
+ 	//test: call scope function
+// 	ListKey scope = searcher->scope();
+		
+ 	if ( searcher->foundItems() ){
+ 		searchResult->setModuleList(getModuleList());			
+ 		searchAnalysis->setModuleList(getModuleList());
+ 		searchAnalysisView->setContentsPos(0,0);
+ 		searchResult_page->setEnabled(true);
+ 		searchAnalysis_page->setEnabled(true);						
+ 		showPage(pageIndex(searchResult_page));	//the result page
+						
+ 		searchAnalysis->analyse();			
+ 	}
+ 	else {
+ 		searchResult->clearResult();
+ 		searchAnalysis->reset();
+ 	}
+}
+
+/** No descriptions */
+void CSearchDialog::percentUpdate(){
+ 	int newPercentage = searcher->getPercent(CSwordModuleSearch::allModules); 	
+ 	if (newPercentage == 100) {
+ 		searchFinished();
+ 		return;
+ 	}
+ 		
+ 	if (old_overallProgress != newPercentage) {
+ 		searchText->updateOverallProgress(newPercentage);
+ 		old_overallProgress = newPercentage;
+ 	}
+ 	
+ 	newPercentage = searcher->getPercent(CSwordModuleSearch::currentModule);
+ 	if (old_currentProgress != newPercentage) {
+ 		searchText->updateCurrentProgress(newPercentage);
+ 		old_currentProgress = newPercentage;
+ 	} 	
 }

@@ -24,6 +24,8 @@
 //System includes
 #include <pthread.h>
 
+//#include <qdatetime.h>
+
 //Sword includes
 #include <swmodule.h>
 #include <swkey.h>
@@ -39,7 +41,7 @@ void* dummy(void *p){
 }
 
 void percentUpdateDummy(char percent, void *p) {
-	if (searcher) {
+	if (searcher) {	
 		searcher->percentUpdate(percent, p);
 	}
 };
@@ -63,6 +65,9 @@ void CSwordModuleSearch::percentUpdate(char percent, void *){
 	else
 	  cms_overallProgress = cms_currentProgress;
 	pthread_mutex_unlock(&percentage_mutex);
+	
+//	qWarning("percent: %i", cms_currentProgress);
+	m_updateSig.activate();
 }
 
 /** This function sets the modules which should be searched. */
@@ -77,16 +82,10 @@ void CSwordModuleSearch::setModules( ListCSwordModuleInfo* list ){
 
 	//copy items
 	*m_moduleList = *list;
-//	for (list->first(); list->current(); list->next() ) {
-//		m_moduleList->append( list->current() );
-//	}
 }
 
 /** Starts the search for the search text. */
 const bool CSwordModuleSearch::startSearch() {
-	//save old module options
-//	const CSwordBackend::moduleOptionsBool oldOptions = backend()->getAllModuleOptions();
-
 	backend()->setAllModuleOptions ( CBTConfig::getAllModuleOptionDefaults() );	
 			
 	pthread_mutex_lock(&percentage_mutex);
@@ -100,29 +99,18 @@ const bool CSwordModuleSearch::startSearch() {
 
 	bool foundItems = false;
 
+
 	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
 		cms_module_current++;
-//		CSwordModuleInfo* module = 0;
-//		if (m_moduleList->current()->getType() == CSwordModuleInfo::Bible)
-//			module = new CSwordBibleModuleInfo(m_moduleList->current());
-//		else if (m_moduleList->current()->getType() == CSwordModuleInfo::Commentary)
-//			module = new CSwordCommentaryModuleInfo(m_moduleList->current());
-//		else if (m_moduleList->current()->getType() == CSwordModuleInfo::Lexikon)
-//			module = new CSwordLexiconModuleInfo(m_moduleList->current());
-
 		if (m_moduleList->current()->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy))
-      foundItems = true;
-//    if (module)
-//    	delete module;
+			foundItems = true;
 	}
-
+	
 	pthread_mutex_lock(&percentage_mutex);
 	cms_currentProgress = 100;
 	cms_overallProgress = 100;
 	pthread_mutex_unlock(&percentage_mutex);
 
-//	backend()->setAllModuleOptions( oldOptions );
-	
 	m_foundItems = foundItems;
 	m_isSearching = false;
 	return true;
@@ -138,12 +126,15 @@ void CSwordModuleSearch::startSearchThread(void){
 	
 	pthread_attr_t attr;
 	pthread_attr_init(&attr);
+	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
 	
 	pthread_mutex_init(&percentage_mutex, NULL);	
 //	percentage_mutex = PTHREAD_MUTEX_INITIALIZER;
 	
 	const int i = pthread_create( &thread, &attr, &dummy, this );	
-
+	qWarning("finished!");
+//	while(m_isSearching);		
+//	m_finishedSig.activate();
   if (i == -1)	//an error occurred
 		qWarning("pthread_create failed");
 }
@@ -180,9 +171,9 @@ void CSwordModuleSearch::interruptSearch() {
 }
 
 /** Returns true if the search is still in progress, otherwise return false. */
-const bool CSwordModuleSearch::isSearching() {
-	return m_isSearching;
-}
+//const bool CSwordModuleSearch::isSearching() {
+//	return m_isSearching;
+//}
 
 /** Returns true if in the last search the searcher found items, if no items were found return false. */
 const bool CSwordModuleSearch::foundItems() {
@@ -223,3 +214,11 @@ ListKey CSwordModuleSearch::scope() {
 	
 	return m_searchScope;
 }
+
+void CSwordModuleSearch::connectPercentUpdate( QObject *receiver, const char *member ) {
+	m_updateSig.connect(receiver, member);
+};
+
+void CSwordModuleSearch::connectFinished( QObject *receiver, const char *member ) {
+	m_finishedSig.connect(receiver, member);
+};

@@ -26,6 +26,7 @@
 //Qt includes
 #include <qlist.h>
 #include <qstring.h>
+#include <qsignal.h>
 
 //System includes
 #include <pthread.h>
@@ -104,7 +105,7 @@ public:
   /**
  	* Returns true if the search is still in progress, otherwise return false.
  	*/
-  const bool isSearching();
+//  const bool isSearching();
   /**
  	* This functions starts the search: First it creates a new thread for the search and it calles the the
  	* function to start the search.
@@ -124,7 +125,9 @@ public:
   * Returns a copy of the used search scope.
   */
   ListKey scope();
-
+	void connectPercentUpdate( QObject *receiver, const char *member );
+	void connectFinished( QObject *receiver, const char *member );
+		
 protected:
 	QString m_searchedText;
 	ListKey m_searchScope;
@@ -144,6 +147,8 @@ protected:
 
 private:
 	pthread_mutex_t percentage_mutex;
+	QSignal m_updateSig;
+	QSignal m_finishedSig;
 };
 
 #endif
