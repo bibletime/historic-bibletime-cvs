@@ -35,7 +35,7 @@ CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo&
 		
 	if (m.m_entryList) {
 		m_entryList = new QStringList();
-		*m_entryList = *m.m_entryList;//copy entries
+		*m_entryList = *m.m_entryList;//copy list items
 	}
 }
 
@@ -53,6 +53,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 		module()->KeyText(" ");
 		do {
 			m_entryList->append(QString::fromLocal8Bit(module()->KeyText()));
+//			m_entryList->append(QString::fromUtf8(module()->KeyText()));
 			(*module())++;
 		} while (!module()->Error());
 		module()->KeyText(" ");
