@@ -30,6 +30,10 @@ class SWModule;
 class BT_BASICFILTER : public SWBasicFilter  {
 public:
   virtual char ProcessText (char *text, int maxlen, const SWKey *, const SWModule * = 0);
+  /**
+  * Parses the verse reference ref and returns it.
+  */
+  const char* parseRef(const char* ref);
 
 protected:
 	/**

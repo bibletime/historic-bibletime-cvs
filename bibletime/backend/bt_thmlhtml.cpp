@@ -16,14 +16,21 @@
 
 #include <stdlib.h>
 #include "bt_thmlhtml.h"
+#include "versekey.h"
 
 //Qt includes
-
+#include <qstring.h>
 
 BT_ThMLHTML::BT_ThMLHTML() {
 	setTokenStart("<");
 	setTokenEnd(">");
 
+//	setEscapeStart("&");
+//	setEscapeEnd(";");
+//  addEscapeStringSubstitute("auml", "ä");
+//  addEscapeStringSubstitute("uuml", "ü");
+//  addEscapeStringSubstitute("ouml", "ö");
+  		
 	setTokenCaseSensitive(true);
 
 	addTokenSubstitute("note", " <small>(");
@@ -37,7 +44,7 @@ BT_ThMLHTML::BT_ThMLHTML() {
 
 bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
 	unsigned long i;
-	if (!substituteToken(buf, token)) {
+	if (!substituteToken(buf, token) || !substituteEscapeString(buf, token)) {
 
 		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
 //			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em>&lt;");
@@ -92,7 +99,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					*(*buf)++ = token[i];		
 			pushString(buf, "&gt;</a></em></small></font> ");
 		}
-#warning not handled: token[27] == 'A')
+//#warning not handled: token[27] == 'A')
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
 			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Greek/");
 			for (i = 5; i < strlen(token)-1; i++)
@@ -120,7 +127,8 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
 			userData["inscriptRef"] = "true";
 			pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/", swordref_color);									
-			
+      char verse_str[500];
+						
 			if (!strncmp(token, "scripRef v", 10)) { //module given
 				for (i = 18; i < strlen(token)-1; i++)				
 					if(token[i] != '\"')
@@ -133,10 +141,50 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				for (i = 18; i < strlen(token)-1; i++)				
 					if(token[i] != '\"') 			
 						*(*buf)++ = token[i];						
+						//++(*verse_str) = token[i];
 					else
 						break;
+					//parse verse ref
+// 	VerseKey parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");
+// 	ListKey list = parseKey.ParseVerseList(verse_str, parseKey, true);
+//
+// 	//where do I now get a conat char* array from??
+// 	// char* to = new char[500]; doesn work
+// 	for(int i = 0; i < list.Count(); i++) {
+// 		SWKey* key = list.GetElement(i);
+// 		VerseKey* vk =  dynamic_cast<VerseKey*>(key);
+//
+// 		pushString(&to,"<font color=\"");
+// 		pushString(&to, swordref_color);
+// 		pushString(&to, "\">");								
+// 		pushString(&to, "<a href=\"sword://Bible/");
+// 		pushString(&to, standard_bible);
+// 		pushString(&to, "/");			
+//												
+// 		if (vk) {
+// 			pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
+// 			pushString(&to, "-");					
+// 			pushString(&to, QString::fromLocal8Bit(vk->UpperBound()).utf8() );
+// 			pushString(&to, "\">");
+// 			pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
+// 			pushString(&to, "-");
+// 			pushString(&to, QString::fromLocal8Bit(vk->UpperBound()).utf8() );
+// 			pushString(&to, "</a>");
+// 		}
+// 		else {
+// 			pushString(&to, QString::fromLocal8Bit((const char*)*key).utf8());
+// 			pushString(&to, "\">");
+// 			pushString(&to, QString::fromLocal8Bit((const char*)*key).utf8());
+// 			pushString(&to, "</a>");
+// 		}
+// 		pushString(&to, "</font>");
+// 		pushString(&to, ", ");
+// 	}
+					
+					
+					
 			}
-			if ( !strncmp(token+i+2, "passage", 7) ) { //passage after module part
+			if ( !strncmp(token+i+2, "passage=", 8) ) { //passage after module part
 				pushString(buf, "/");
 				i+=11;				
 				for (; i < strlen(token)-1; i++)	{
@@ -164,6 +212,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				pushString(buf, userData["lastTextNode"].c_str());
 				pushString(buf, "\">");
 				pushString(buf, userData["lastTextNode"].c_str());
+				
 				// let's let text resume to output again
 				userData["suspendTextPassThru"] = "false";	
 				pushString(buf, "</a></font>");
