@@ -1,39 +1,41 @@
 #ifndef SCOPED_RESOURCE_H_INCLUDED
 #define SCOPED_RESOURCE_H_INCLUDED
 
-//scoped_resource.h: defines a class template, scoped_resource, designed to
-//implement the Resource Acquisition Is Initialization (RAII) approach
-//to resource management. scoped_resource is designed to be used when
-//a resource is initialized at the beginning or middle of a scope,
-//and released at the end of the scope. The template argument
-//ReleasePolicy is a functor which takes an argument of the
-//type of the resource, and releases it.
-//
-//scoped_resource is a fairly simple class, and should only be used
-//in the scenario mentioned above. Some functors and derived classes
-//(in the absence of templated typedefs), are also supplied.
-//
-//Usage examples:
-//
-//for files:
-//
-//struct close_file { void operator(int fd) const {close(fd);} };
-//...
-//{
-//   scoped_resource<int,close_file> file(open("file.txt",O_RDONLY));
-//   read(file, buf, 1000);
-//} //file is automatically closed here
-//
-//for pointers to arrays:
-//
-//{
-//   scoped_array<char> ptr(new char[50]);
-//   ...use ptr as you would a normal char*...
-//} //ptr is automatically deleted here
-//
-//note that the syntax scoped_array<char> ptr = new char[50]; is illegal
-//and should not be used, scoped_array<char> ptr(new char[50]); is the
-//correct way to initialize
+/**
+* scoped_resource.h: defines a class template, scoped_resource, designed to
+* implement the Resource Acquisition Is Initialization (RAII) approach
+* to resource management. scoped_resource is designed to be used when
+* a resource is initialized at the beginning or middle of a scope,
+* and released at the end of the scope. The template argument
+* ReleasePolicy is a functor which takes an argument of the
+* type of the resource, and releases it.
+*
+* scoped_resource is a fairly simple class, and should only be used
+* in the scenario mentioned above. Some functors and derived classes
+* (in the absence of templated typedefs), are also supplied.
+*
+* Usage examples:
+*
+* for files:
+*
+* struct close_file { void operator(int fd) const {close(fd);} };
+* ...
+* {
+*    scoped_resource<int,close_file> file(open("file.txt",O_RDONLY));
+*    read(file, buf, 1000);
+* } // file is automatically closed here
+*
+* for pointers to arrays:
+*
+* {
+*    scoped_array<char> ptr(new char[50]);
+*    ...use ptr as you would a normal char*...
+* } // ptr is automatically deleted here
+*
+* note that the syntax scoped_array<char> ptr = new char[50]; is illegal
+* and should not be used, scoped_array<char> ptr(new char[50]); is the
+* correct way to initialize
+*/
 
 namespace util
 {
@@ -59,6 +61,8 @@ public:
 	}
 
 	operator resource_type() const { return resource; }
+
+  resource_type get() const { return resource; }
 
 	//only use this if resource_type is a pointer
 	resource_type operator->() const { return resource; }
