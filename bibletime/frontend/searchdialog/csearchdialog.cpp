@@ -21,7 +21,9 @@
 #include "csearchdialogresult.h"
 #include "csearchdialoganalysis.h"
 #include "csearchdialogscope.h"
+#include "../chtmldialog.h"
 #include "../../structdef.h"
+#include "../../ressource.h"
 #include "../../backend/sword_backend/cswordmodulesearch.h"
 #include "../../backend/sword_backend/cswordmoduleinfo.h"
 
@@ -47,14 +49,22 @@
 
 CSearchDialog::CSearchDialog(CImportantClasses* importantClasses, ListCSwordModuleInfo* modules, QWidget *parent, const char *name )
 	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null) {
-	m_important = importantClasses;
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver gs(config, "searchdialog");	
+	if (config->readBoolEntry("first time", true)) {
+		HTML_DIALOG(HELPDIALOG_FIRSTTIME_SEARCH)
+		config->writeEntry("first time", false);
+		config->sync();
+	}
+		
+	m_important = importantClasses;	
 	searcher = new CSwordModuleSearch();
 	moduleList = 0;
 	old_currentProgress = 0;
 	old_overallProgress = 0;
 	initView();	
 	readSettings();	
-	
+		
 	if (modules && modules->count())
 		showPage(pageIndex(searchText_page));	
 	setModuleList( modules );

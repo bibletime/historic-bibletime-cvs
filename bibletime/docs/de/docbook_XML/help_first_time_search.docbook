@@ -1,73 +1,74 @@
 <chapter id="help_first_time_search">
 <title>Erste Benutzung des Suchdialoges</title>
 
-<para>You opened the searchdialog for the first time!</para>
-<para>This page describes what the searchdialog is, how to use it and how to make efficient searches.</para>
+<para>Sie haben den Suchdialog zum ersten Mal geöffnet!</para>
+<para>Diese Seite beschreibt, was der Suchdialog ist, wie man ihn benutzt und wie man effiziente Suchen durchführt.</para>
 
 <qandaset>
 <qandaentry>
 <question>
 <para>
-What's the searchdialog?
+Was ist der Suchdialog?
 </para>
 </question>
 <answer>
 <para>
-The searchdialog is the where you can search the Sword documents (modules) installed in your copy of Bibletime.
-You can enter text and search this text in the documents. The entries found will
-appear in a list where you can work with them.
+Der Suchdialog ist der Dialog, in dem sie die installierten Sword Dokuments (Module) mit ihrer Kopie von BibleTime durchsuchen können.
+Sie können Text eingeben und diese Text in den Dokumenten suchen. Die gefundenen EInträge erscheinen
+in einer List, so dass Sie mit ihnen arbeiten können.
 </para>
 </answer>
 </qandaentry>
 <qandaentry>
 <question>
 <para>
-How do I search for some text?
+Wie suche ich nach Text?
 </para>
 </question>
 <answer>
 <para>
-To search some text click on the first entry of the tab bar at the top of the dialog.
-Now enter some text in the search entry box at the top. If you don't want to do
-special things you can leave the settings untouched and click on the "Search"
-button and the bottom of the dialog. The progress of the search will be
-displayed in the two bars at the bottom. The first bar shows the progress for
-the current module, the second one does show the percentage of the whole search.
-It's possible to search more than one module so two bars are required. But
-if you want to do more things with the searchdialog we offer these settings to
-you:
+Um Text zu suchen, klicken sie auf den ersten Eintrag der Karteikarten im obreren Bereich des Dialoges.
+Geben Sie nun etwas Text in der Eingabezeile am Beginn der Seite ein.
+Falls Sie keine besonderen Dine tun möchten lassen Sie die Einstellungen unberührt und klicken
+Sie auf den "Suchen" Knopf am unteren Ende des Dialoges.
+Der Fortschritt der Suche wird in den beiden Anzeigen unten angezeigt.
+Die erste Anzeige zeigt den Fortschritt für das aktuelle Modul, die zweite zeigt die
+Prozent der gesamten Suche.
+Es ist möglich in mehr als einem Modul zu suchen, daher werden zwei Anzeigen benötigt.
+Falls Sie jedoch mehr Dinge mit dem Suchdialog tun möchten bieten wir ihnen Einstellungen an:
+
 </para>
 <para>
 <emphasis>
-Multiple words
+Mehrere Wörter
 </emphasis>
 </para>
 <para>
-The entered words can occur in another order as entered in the line, they can
-even be part of more than one word.
+Die eingegebenen Worte dürfen in anderer Reihenfolge als eingegeben auftreten, sie dürfen sogar Teil
+von mehr als einem Wort sein.
 </para>
 <para>
 <emphasis>
-Exact search
+Genaue Suche
 </emphasis>
 </para>
 <para>
-The text is exactly searched as entered in the line, unless you enabled case
-sensitive search the search does case insensitive search.
+Der text wird genauso gesucht, wie er eingegeben wurde. Außer wenn Sie die GRO?/klein Unterscheidung anschalten,
+wird ohne deren Unterscheidung gesucht.
 </para>
 <para>
 <emphasis>
-Regular expressions
+Reguläre Ausdrücke
 </emphasis>
 </para>
 <para>
-If you use this type of search GNU standard regular expressions are used
+Falls Sie diesen Typ der Suche benutzen werden normalen GNU reguläre Ausdrücke benutzt.
 </para>
 <para>
-Normally all searches are done with insensitive character matching, to use
-case sensitive search enable the box "Case sensitive". If you have problems
-with the search types, case (in)sensitive search or other search related things
-have a look into our handbook for more information.
+Im Normalfall werden all Suchen ohne Unterscheidung von GROß/klein durchgeführt,
+um die Unterscheidung anzuschalten aktivieren Sie die Box "GROß/klein".
+Falls SIe Probleme mit den Suchtypen, der Unterscheidung von GROß/klein oder anderen
+Suche relevanten Dingen bekommen schauen Sie in unser Handbuch für mehr Informationen.
 </para>
 </answer>
 </qandaentry>

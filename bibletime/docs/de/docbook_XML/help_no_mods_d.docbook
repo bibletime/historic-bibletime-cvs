@@ -1,51 +1,51 @@
 <chapter id="help_no_mods_d">
 <title>Initialisierung des Modulverzeichnisses fehlgeschlagen!!</title>
 
-<para>There's no mods.d directory!</para>
+<para>Es gibt kein mods.d Verzeichnis!</para>
 
-<para>This page describes what the mods.d directory is and how to solve this problem! </para>
+<para>Diese Seite beschreibt, wass das mods.d Verzeichnis ist und wie man das Problem löst! </para>
 <qandaset>
 <qandaentry>
 <question>
 <para>
-What is the mods.d directory?
+Was ist das mods.d Verzeichnis?
 </para>
 </question>
 <answer>
 <para>
-The mods.d directory is the directory which should contain the config files of
-the modules!  You must have this directory, otherwise you can't use Bibletime
-and SWORD! Please read the installation instructions on our homepage!
+Das mods.d Verzeichnis ist das Verzeichnis, dass die Konfigurationsdateien
+der Module enthalten sollte!
+Sie müssen diese s Verzeichnis haben, ansonsten können Sie BibleTime und Sword nicht benuutzen.
+Bitte lesen Sie die Installationsanweisungen auf unserer Internetseite!
 </para>
 </answer>
 </qandaentry>
 <qandaentry>
 <question>
 <para>
-How do I solve this problem?
+Wie löse ich dieses problem?
 </para>
 </question>
 <answer>
 <para>
-The solution is to create a directory mods.d:
-Please go into your SWORD directory and type "mkdir mods.d" to create the directory.
-Now copy the config files of your modules into this package and remove (if they
-exist) the file mods.conf which isn't required any more.
-The mods.d directory replaced this file.
+Die Lösung ist es, ein mods.d Verzeichnis anzulegen.
+Bitte wechseln Sie in ihr Sword Verzeichnis und geben Sie "mkdir mods.d" ein um das Verzeichnis anzulegen.
+Nun kopieren Sie die Konfigurationsdateien in dieses Verzeichnis und löschen Sie (falls sie existiert)
+die Datei mods.con, da sie nicht mehr benötigt wird. Das mods.d Verzeichnis hat diese Datei ersetzt.
  </para>
 </answer>
 </qandaentry>
 <qandaentry>
 <question>
 <para>
-Can I start Bibletime without this directory?
+Kann ich BibleTime ohne dem mods.d Verzeichnis starten?
 </para>
 </question>
 <answer>
 <para>
-Yes, it's possible. But it's not very useful.
-There are no modules in the groupmanager. It's possible to test Bibletime this
-way, but it's not possible to work with it without modules.
+Ja, dies ist möglich! Aber es ist nicht sehr sinnvoll.
+Es gibt keine Module in den Hauptgruppe. Es ist möglich BibleTime mit dieser Art und Weise zu
+testen, aber es ist unmöglich damit ohne Module zu arbeiten.
 </para>
 </answer>
 </qandaentry>
