@@ -6944,6 +6944,7 @@ bibletime/pics/lowcolor/Makefile \
 bibletime/pics/lowcolor/16x16/Makefile \
 bibletime/pics/lowcolor/22x22/Makefile \
 bibletime/pics/lowcolor/32x32/Makefile \
+bibletime/pics/lowcolor/32x32.old/Makefile \
 bibletime/printing/Makefile \
 bibletime/xml/Makefile \
 po/Makefile \
@@ -7169,6 +7170,7 @@ bibletime/pics/lowcolor/Makefile \
 bibletime/pics/lowcolor/16x16/Makefile \
 bibletime/pics/lowcolor/22x22/Makefile \
 bibletime/pics/lowcolor/32x32/Makefile \
+bibletime/pics/lowcolor/32x32.old/Makefile \
 bibletime/printing/Makefile \
 bibletime/xml/Makefile \
 po/Makefile \

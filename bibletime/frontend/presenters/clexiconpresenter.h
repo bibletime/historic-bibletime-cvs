@@ -39,10 +39,6 @@ public:
 	*/
 	~CLexiconPresenter();
   /**
-  * Printes the displayed entry of the used module.
-  */
-  void printEntry();
-  /**
   * Reimplmentation.
   */
   virtual const QString caption() const;
@@ -61,6 +57,10 @@ private slots: // Protected slots
   * No descriptions
   */
   void lookup(CKey*);
+  /**
+  * Printes the displayed entry of the used module.
+  */
+  void printEntry();
 
 private: // Private methods
   /**

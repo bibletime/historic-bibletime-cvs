@@ -77,6 +77,10 @@ private slots: // Private slots
   * Printes the verse the user has chosen.
   */
   void printHighlightedVerse();
+  /**
+  * Printes the verse the user has chosen.
+  */
+  void copyHighlightedVerse();
 
 private:
 	CSwordVerseKey* m_key;

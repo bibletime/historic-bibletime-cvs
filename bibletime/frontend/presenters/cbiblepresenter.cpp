@@ -23,7 +23,11 @@
 #include "../../backend/sword_backend/cswordversekey.h"
 #include "../../backend/sword_backend/chtmlchapterdisplay.h"
 
+//Qt includes
+#include <qclipboard.h>
+
 //KDE includes
+#include <kapp.h>
 #include <ktoolbar.h>
 #include <klocale.h>
 
@@ -46,9 +50,6 @@ CBiblePresenter::~CBiblePresenter(){
 
 /** Initializes the view (central widget, toolbars etc) of this presenter */
 void CBiblePresenter::initView(){
-	qDebug("CBiblePresenter::initView()");
-	ASSERT(m_moduleList.first());
-	
 	m_mainToolBar = new KToolBar(this);
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
@@ -64,14 +65,14 @@ void CBiblePresenter::initView(){
 	m_popup->insertTitle(i18n("Bible window"));
 	m_popup->insertItem(i18n("Save chapter as HTML..."), m_htmlWidget, SLOT(slotSaveAsHTML()), 0,ID_PRESENTER_SAVE_AS_HTML);	
 	m_popup->insertItem(i18n("Save chapter as plain text..."), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_AS_TEXT);
+	m_popup->insertItem(i18n("Copy chapter into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);		
+	m_popup->insertSeparator();
+	m_popup->insertItem(i18n("Add verse to print queue"), this, SLOT(printHighlightedVerse()),0, ID_PRESENTER_PRINT_VERSE);			
+	m_popup->insertItem(i18n("Copy verse into clipboard"), this, SLOT(copyHighlightedVerse()),0, ID_PRESENTER_COPY_VERSE);
 	m_popup->insertSeparator();
 	m_popup->insertItem(i18n("Select all"), m_htmlWidget, SLOT(slotSelectAll()),0, ID_PRESENTER_SELECT_ALL);
 	m_popup->insertItem(i18n("Copy selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);	
-	m_popup->insertItem(i18n("Copy chapter into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);
-	m_popup->insertSeparator();		
-  m_popup->insertItem(i18n("Lookup word in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP );	
-	m_popup->insertSeparator();			
-	m_popup->insertItem(i18n("Add verse to print queue"), this, SLOT(printHighlightedVerse()),0, ID_PRESENTER_PRINT_VERSE);	
+  m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP );	
 	
 	m_htmlWidget->installPopup(m_popup);			
 	m_htmlWidget->installAnchorMenu( m_popup );
@@ -200,6 +201,19 @@ void CBiblePresenter::printHighlightedVerse(){
 	printKey(key, key, m_moduleList.first());
 }
 
+/** Printes the verse the user has chosen. */
+void CBiblePresenter::copyHighlightedVerse(){
+	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
+	key.setKey(m_key->getKey());
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	if (currentAnchor.left(8) == "sword://")
+		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
+	key.setKey(currentAnchor);
+	
+	const QString text = QString("%1\n%2").arg(key.getKey()).arg(key.getStrippedText());
+	QClipboard *cb = KApplication::clipboard();
+	cb->setText(text);
+}
 /** Reimplementation. */
 const QString CBiblePresenter::caption() const{
 	return m_key->getKey();

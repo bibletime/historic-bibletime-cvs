@@ -35,7 +35,7 @@ CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, CImportant
 	m_key->setKey("");
 	
 	initView();
-	show();		
+	show();
 	initConnections();		
 }
 
@@ -63,14 +63,12 @@ void CLexiconPresenter::initView(){
 	m_popup->insertTitle(i18n("Lexicon window"));
 	m_popup->insertItem(i18n("Save entry as HTML..."), m_htmlWidget, SLOT(slotSaveAsHTML()), 0,ID_PRESENTER_SAVE_AS_HTML);	
 	m_popup->insertItem(i18n("Save entry as plain text..."), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_AS_TEXT);
+	m_popup->insertItem(i18n("Add entry to print queue"), this, SLOT(printEntry()),0, ID_PRESENTER_PRINT_ENTRY);	
+	m_popup->insertItem(i18n("Copy entry into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);	
 	m_popup->insertSeparator();
 	m_popup->insertItem(i18n("Select all"), m_htmlWidget, SLOT(slotSelectAll()),0, ID_PRESENTER_SELECT_ALL);
 	m_popup->insertItem(i18n("Copy selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);	
-	m_popup->insertItem(i18n("Copy entry into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);
-	m_popup->insertSeparator();		
-  m_popup->insertItem(i18n("Lookup word in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP );	
-	m_popup->insertSeparator();			
-	m_popup->insertItem(i18n("Add entry to print queue"), this, SLOT(printEntry()),0, ID_PRESENTER_PRINT_ENTRY);	
+  m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP);
 	
 	m_htmlWidget->installPopup(m_popup);	
 	m_htmlWidget->installAnchorMenu(m_popup);
@@ -81,14 +79,10 @@ void CLexiconPresenter::initView(){
 
 /** No descriptions */
 void CLexiconPresenter::initConnections(){
-	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)),
-		this, SLOT(lookup(const QString&))); 	
- 	connect( m_keyChooser, SIGNAL(keyChanged(CKey*)),
- 		this, SLOT(lookup(CKey*)));
-	connect(m_popup, SIGNAL(aboutToShow()),
-		SLOT(popupAboutToShow()));
-	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
-		SLOT( moduleChanged() ));
+	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)), SLOT(lookup(const QString&))); 	
+ 	connect(m_keyChooser, SIGNAL(keyChanged(CKey*)), SLOT(lookup(CKey*)));
+	connect(m_popup, SIGNAL(aboutToShow()), SLOT(popupAboutToShow()));
+	connect(m_moduleChooserBar, SIGNAL(sigChanged()), SLOT(moduleChanged()));
 }
 
 /** No descriptions */
