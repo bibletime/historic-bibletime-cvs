@@ -830,7 +830,7 @@ sword::ListKey CSearchOptionsPage::searchScope(){
     CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
     QString scope = map[ m_rangeChooserCombo->currentText() ];
     if (!scope.isEmpty())
-      return sword::VerseKey().ParseVerseList( scope.local8Bit(), "Genesis 1:1", true);
+      return sword::VerseKey().ParseVerseList( scope.local8Bit(), "Genesis 1:1-Revelation 22:21", true);
   };
   return sword::ListKey();
 }
