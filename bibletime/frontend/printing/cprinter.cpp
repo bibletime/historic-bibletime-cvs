@@ -91,14 +91,13 @@ CPrinter::CPrinter(QObject *parent, CSwordBackend::DisplayOptions displayOptions
 	m_filterOptions.scriptureReferences = false;
 	m_filterOptions.strongNumbers = false;
 	m_filterOptions.morphTags = false;
-	
+	m_filterOptions.headings = false;
+
 	m_htmlPart->setJScriptEnabled(false);
 	m_htmlPart->setJavaEnabled(false);
 	m_htmlPart->setMetaRefreshEnabled(false);
 	m_htmlPart->setPluginsEnabled(false);
 	m_htmlPart->view()->resize(500,500);
-/*	m_htmlPart->view()->setMarginWidth(20);
-	m_htmlPart->view()->setMarginHeight(20);*/
 }
 
 CPrinter::~CPrinter()
@@ -127,27 +126,25 @@ const QString CPrinter::entryLink(const KeyTreeItem& item, CSwordModuleInfo* mod
 	return item.key();
 }
 
-const QString CPrinter::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
+const QString CPrinter::renderEntry( const KeyTreeItem& i, CSwordKey* ) {
 	const CPrinter::Item* printItem = dynamic_cast<const CPrinter::Item*>(&i);	
 	Q_ASSERT(printItem);
 	
-	if (printItem && printItem->hasAlternativeContent()) 
-	{
+	if (printItem && printItem->hasAlternativeContent()) {
 		QString ret = QString::fromLatin1("<div class=\"entry\"><div class=\"rangeheading\">%1</div>").arg(printItem->getAlternativeContent());
 		
 		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
-			//KeyTree::const_iterator end = tree->end();
 			
 			for ( KeyTreeItem* c = tree->first(); c; c = tree->next() ) {
-				ret += CDisplayRendering::renderEntry( *c );
+				ret.append( CDisplayRendering::renderEntry( *c ) );
 			}
 		}
 
-		ret += "</div>";
-		
+		ret.append("</div>");
 		return ret;
 	}
+	
 	return CDisplayRendering::renderEntry(i);
 }
 

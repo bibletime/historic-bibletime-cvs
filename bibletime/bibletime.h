@@ -249,14 +249,6 @@ protected slots:
 	*/
 	void slotToggleGroupManager();
 	/**
-	* Starts printing and opens the printerdialog at first.
-	*/
-	void slotFilePrint();
-	/**
- 	* Enables the "Clear printer queue" action
- 	*/
-	void slotSetPrintingStatus();
-	/**
 	* Saves to the profile with the menu id ID
 	*/
 	void saveProfile(int ID);
@@ -298,14 +290,6 @@ protected slots:
 	 * Called for search default bible
 	 **/
 	void slotSearchDefaultBible();
-	/**
-	 * Called when back button pressed
-	 **/
-//	void slotBack();
-	/**
-	 * Called when forward button pressed
-	 **/
-//	void slotForward();
   /**
    Saves current settings into a new profile.
   */
@@ -316,31 +300,9 @@ protected slots:
   void refreshProfileMenus();
 	
 
-private slots: // Private slots
-	/**
-	* No descriptions
-	*/
-	void slotPrintedPercent(const int index);
-	/**
-	* Printing was finished
-	*/
-	void slotPrintingFinished();
-	/**
-	* Aborts the printing
-	*/
-	void slotAbortPrinting();
-	/**
-	* Printing was started
-	*/
-	void slotPrintingStarted();
-
 private:
   QPopupMenu* m_windowMenu;
 	QPopupMenu* m_editMenu;
-
-	/** FILE menu actions */
-// 	KAction* m_fileClearQueue_action;
-// 	KAction* m_filePrint_action;
 
 	/** VIEW menu actions */
 	KToggleAction*	m_viewToolbar_action;

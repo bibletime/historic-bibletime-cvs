@@ -19,7 +19,7 @@
   </general>
   <kdevautoproject>
     <general>
-      <activetarget>src/BibleTime</activetarget>
+      <activetarget>bibletime/util/libutil.a</activetarget>
       <useconfiguration>default</useconfiguration>
     </general>
     <run>

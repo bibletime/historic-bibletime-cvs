@@ -37,8 +37,6 @@
 #include "frontend/displaywindow/cbiblereadwindow.h"
 #include "frontend/searchdialog/csearchdialog.h"
 
-#include "frontend/printing/cprinter.h"
-
 #include <errno.h>
 
 //QT includes
@@ -47,7 +45,6 @@
 #include <qwhatsthis.h>
 #include <qvaluelist.h>
 #include <qclipboard.h>
-//#include <qxembed.h>
 #include <qinputdialog.h>
 
 //KDE includes
@@ -107,34 +104,23 @@ void BibleTime::slotSwordSetupDialog(){
 
 /** Is called when settings in the sword setup dialog were changed (ok or apply) */
 void BibleTime::slotSwordSetupChanged(){
-//  qWarning("swordChanged: start");
   /*
     Refresh everything here what might have changed
     these are the mainindex, the searchdialog, the displaywindows
     But at first we have to reset the Sword backend to reload the modules
   */
-//  qWarning("swordChanged: reload bookmarks");
   m_mainIndex->saveBookmarks();
-//  qWarning("swordChanged: reload modules");
 
-//  m_backend->reloadModules();
 	CPointers::deleteBackend();
 	m_backend = new CSwordBackend();
 	CPointers::setBackend(m_backend);
-	/*const CSwordBackend::LoadError errorCode = */ m_backend->initModules();
+	m_backend->initModules();
 
-//  qWarning("swordChanged: reload sword");
   m_mainIndex->reloadSword();
 
 //  refresh display windows
-//  qWarning("swordChanged: reload windows");
   refreshDisplayWindows();
-
-
-//  refreshProfileMenus();
 }
-
-
 
 /** Shows the daily tip */
 void BibleTime::slotHelpTipOfDay(){
@@ -274,48 +260,6 @@ void BibleTime::slotSettingsToolbar(){
   }
 }
 
-/** Opens the print dialog. */
-void BibleTime::slotFilePrint(){
-//	m_printer->setup(this);	//opens the printer dialog
-}
-
-/** Enables the "Clear printer queue" action */
-void BibleTime::slotSetPrintingStatus(){
-/*	const bool enable = (m_printer->queue().count() > 0);
-	m_filePrint_action->setEnabled( enable );
-	m_fileClearQueue_action->setEnabled( enable );*/
-}
-
-/** Printing was started */
-void BibleTime::slotPrintingStarted(){
-/*	m_progress = new QProgressDialog(i18n("Printing..."), i18n("Abort printing"),100,this, "progress", true);
-	connect(m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
-	m_progress->setProgress(0);
-	m_progress->setMinimumDuration(0);
-  m_progress->setCaption("BibleTime");
-	m_progress->show();*/
-}
-
-/** Printing was finished */
-void BibleTime::slotPrintingFinished(){
-/*	delete m_progress;
-	m_progress = 0;	*/
-}
-
-/** No descriptions */
-void BibleTime::slotPrintedPercent( const int percent ){
-/*	if (m_progress)
-		m_progress->setProgress(percent);*/
-}
-
-/** Aborts the printing */
-void BibleTime::slotAbortPrinting(){
-/*	m_printer->abort();
-	if (m_progress)
-		slotPrintingFinished();*/
-}
-
-
 void BibleTime::slotSearchModules() {
   //get the modules of the open windows
   ListCSwordModuleInfo modules;
@@ -448,10 +392,10 @@ void BibleTime::loadProfile(CProfile* p){
 
 	m_mdi->setUpdatesEnabled(true);
 
-  if (focusWindow) {
+//   if (focusWindow) {
 //    focusWindow->parentWidget()->raise();
 //    focusWindow->setFocus();
-  }
+//   }
 }
 
 void BibleTime::toggleFullscreen(){
@@ -494,7 +438,8 @@ void BibleTime::refreshProfileMenus(){
  	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
  	savePopup->clear();
  	loadPopup->clear();
- 	QPtrList<CProfile> profiles = m_profileMgr.profiles();
+ 	
+	QPtrList<CProfile> profiles = m_profileMgr.profiles();
  	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
 		savePopup->insertItem(p->name());
 		loadPopup->insertItem(p->name());
