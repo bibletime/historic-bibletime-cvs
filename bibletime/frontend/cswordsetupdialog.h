@@ -149,6 +149,9 @@ signals: // Signals
 protected: // Protected methods
   /** Setup the path list box */
   void setupSwordPathListBox();
+protected slots: // Protected slots
+  /** No descriptions */
+  void slot_swordPathSelected();
 };
 
 #endif //CSWORDSETUPDIALOG_H

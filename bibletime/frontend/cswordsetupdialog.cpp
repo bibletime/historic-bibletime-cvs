@@ -35,48 +35,27 @@
 #include <qcombobox.h>
 #include <qwidgetstack.h>
 #include <qfileinfo.h>
-//#include <qvbox.h>
-//#include <qdict.h>
-//#include <qcheckbox.h>
 #include <qpushbutton.h>
-
 #include <klistview.h>
-
-//#include <qbuttongroup.h>
-//#include <qhbuttongroup.h>
-//#include <qradiobutton.h>
-//#include <qcolor.h>
-//#include <qtooltip.h>
-//#include <qwhatsthis.h>
-//#include <qstringlist.h>
-//#include <qinputdialog.h>
-//#include <qdir.h>
 
 
 //KDE includes
 #include <kapplication.h>
-#include <klocale.h>
-//#include <kglobal.h>
-#include <kstandarddirs.h>
-//#include <kkeydialog.h>
-#include <kiconloader.h>
-//#include <ktabctl.h>
-//#include <kapp.h>
-//#include <klistbox.h>
-//#include <kkeydialog.h>
-//#include <kaction.h>
-//#include <kconfigbase.h>
 #include <kconfig.h>
+#include <kdirselectdialog.h>
+#include <klocale.h>
+#include <kstandarddirs.h>
+#include <kiconloader.h>
 #include <kmessagebox.h>
 #include <kprogress.h>
+#include <kurl.h>
+
 
 //Sword includes
 #include <installmgr.h>
 #include <swmodule.h>
 #include <swversion.h>
 
-//using std::string;
-//using std::list;
 using std::cout;
 using std::cerr;
 using std::endl;
@@ -119,7 +98,9 @@ void CSwordSetupDialog::initSwordConfig(){
 	layout->addMultiCellWidget(confPathLabel, 1,1,0,3);
 
   m_swordPathListBox = new KListView(page);
+  m_swordPathListBox->setFullWidth(true);
   m_swordPathListBox->addColumn(i18n("Path to Sword modules"));
+  connect(m_swordPathListBox, SIGNAL(selectionChanged()), this, SLOT(slot_swordPathSelected()));
   layout->addMultiCellWidget(m_swordPathListBox, 2,5,0,1);
   
   m_swordEditPathButton = new QPushButton(i18n("Edit Entry"), page);
@@ -200,11 +181,8 @@ void CSwordSetupDialog::initInstall(){
   connect(m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
 	myHBox->addWidget(m_installContinueButton, 7, 1);
 
-//  m_installMgr = new BTInstallMgr();
-
   m_installBackButton->setEnabled(false);
 
-//	connect(backButton, SIGNAL(clicked() ), m_main, SLOT(slot_backtoMainPage()));
 	connect(m_sourceCombo, SIGNAL( highlighted(const QString&) ), SLOT( slot_sourceSelected( const QString&) ));
 	connect(m_targetCombo, SIGNAL( highlighted(const QString&) ), SLOT( slot_targetSelected( const QString&) ));
 	populateInstallCombos();
@@ -323,6 +301,8 @@ void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
     url = QString::fromLatin1("%1").arg(is.directory.c_str());
   }
   m_sourceLabel->setText( url );
+
+  m_refreshedRemoteSources = false;
 }
 
 /** No descriptions */
@@ -573,9 +553,9 @@ void CSwordSetupDialog::slot_connectToSource(){
 	QGridLayout* layout = new QGridLayout(m_installModuleListPage, 8, 2);
 	layout->setMargin(5);
 	layout->setSpacing(10);
-	layout->setRowStretch(6,5);
+//	layout->setColStretch(1);
 
-  QLabel* installLabel = CToolClass::explanationLabel(m_installSourcePage,
+  QLabel* installLabel = CToolClass::explanationLabel(m_installModuleListPage,
 		i18n("Install/update modules - Step 2"),
 		i18n("Please choose the modules which should be installed / updated and click the install button.")
   );
@@ -703,7 +683,6 @@ void CSwordSetupDialog::slot_installModules(){
 
 /** No descriptions */
 void CSwordSetupDialog::installCompleted( const int total, const int file ){
-//  qWarning("percent completed %i", total);
   if (m_progressDialog) {
     m_progressDialog->progressBar()->setProgress(total);
     m_progressDialog->setLabel( QString("[%1] %2% completed").arg(m_installingModule).arg(total) );
@@ -727,10 +706,20 @@ void CSwordSetupDialog::writeSwordConfig(){
 
 /** No descriptions */
 void CSwordSetupDialog::slot_swordEditClicked(){
+  if (QListViewItem* i = m_swordPathListBox->currentItem()) {
+    KURL url = KDirSelectDialog::selectDirectory(i->text(0), true);
+    if (url.isValid()) {
+      i->setText(0, url.path());
+    }
+  }
 }
 
 /** No descriptions */
 void CSwordSetupDialog::slot_swordAddClicked(){
+  KURL url = KDirSelectDialog::selectDirectory(QString::null, true);
+  if (url.isValid()) {
+    new KListViewItem(m_swordPathListBox, url.path());
+  }
 }
 
 /** No descriptions */
@@ -748,4 +737,10 @@ void CSwordSetupDialog::setupSwordPathListBox(){
   for (QStringList::iterator it = targets.begin(); it != targets.end(); ++it)  {
     new KListViewItem(m_swordPathListBox, *it);
   }
+  m_swordPathListBox->setCurrentItem( m_swordPathListBox->firstChild() );
+}
+
+/** No descriptions */
+void CSwordSetupDialog::slot_swordPathSelected(){
+  m_swordEditPathButton->setEnabled( m_swordPathListBox->currentItem() );
 }
