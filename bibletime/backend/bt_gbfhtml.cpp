@@ -26,6 +26,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+//Sword includes
+#include <utilxml.h>
+
 //Qt includes
 #include <qregexp.h>
 #include <qstring.h>
@@ -107,44 +110,46 @@ bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap
 		unsigned long i;
     sword::SWBuf value;
 
- 		if (!strncmp(token, "note ", 5)) {
-			// let's stop text from going to output
-			userData["suspendTextPassThru"] = "true";
-		}
-		else if (!strncmp(token, "/note", 5)) {
-			userData["suspendTextPassThru"] = "false";
-		}
-		else if (!strncmp(token, "w ", 2)) {
-			// OSIS Word (temporary until OSISRTF is done)
-			if (const char* const pos = strstr(token, "lemma=\"x-Strongs:")) {
-        // 18 instead of 17 to ignore first char of strong, it's the type (H|G)
-        for (const char* val = pos+18; ((*val) && (*val != '\"')); val++) { 
-					value += *val;
+    sword::XMLTag tag(token);
+ 		if (tag.getName() && !strcasecmp(tag.getName(), "note")) { //let's skip translator's notes in the KJV2003
+      if (tag.isEndTag()) {
+    		userData["suspendTextPassThru"] = "false";
+      }
+      else {
+  			// let's stop text from going to output
+  			userData["suspendTextPassThru"] = "true";
+  		}
+    }
+		else if (tag.getName() && !strcasecmp(tag.getName(), "w")) {    // OSIS Word (temporary until OSISRTF is done)
+      if (const char* value = tag.getAttribute("lemma")) {
+        if (!strncmp(value, "x-Strongs:", 10)) { //we have a String number
+          value += 10;
+          if (*value == 'H') { //hebrew strongs number
+  			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+  				    value+1,
+              value+1
+            );
+          }
+          else if (*value == 'G'){ //greek Strongs number
+  			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+  				    value+1, //skip the
+              value+1
+            );
+          }
+
+          
         }
-    
-        if ( (*pos) == 'H' ) { //hebrew strong number
-			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-				    value.c_str(),
-            value.c_str()
+      }
+      if (const char* value = tag.getAttribute("morph")) {
+        if (!strncmp(value, "x-Robinson:", 11)) {
+          value += 11;
+  				// normal robinsons tense
+          buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+		  		  value,
+            value
           );
-        }
-        else { //greek strong number
-    			buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-		    		value.c_str(),
-            value.c_str()
-          );
-        }
-			}
-			else if (const char* pos = strstr(token, "morph=\"x-Robinson:")) {
-				for (pos+=18; ((*pos) && (*pos != '\"')); pos++) {
-					value += *pos;
-        }
-				// normal robinsons tense
-        buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
-				  value.c_str(),
-          value.c_str()
-        );
-			}
+  			}
+      }
 		}
 		else if (!strncmp(token, "WG", 2)){ // strong's numbers greek
 			for (i = 2; i < tokenLength; i++) {
