@@ -291,12 +291,12 @@ const bool CExportManager::printKeyList( const PrintItemList& list, CSwordModule
   if (!list.count() || !module)
     return false;
   setProgressRange(list.count()+1);
-  KApplication::kApplication()->processEvents(); //do not lock the GUI!
+//  KApplication::kApplication()->processEvents(); //do not lock the GUI!
     
   PrintItemList::ConstIterator it;
   for ( it = list.begin(); (it != list.end()) && !progressWasCancelled(); ++it ) {
     printer()->appendItem( new CPrintItem(module,(*it).first,(*it).second, QString::null, m_displayOptions, m_filterOptions) );
-  	KApplication::kApplication()->processEvents(); //do not lock the GUI!    
+//  	KApplication::kApplication()->processEvents(); //do not lock the GUI!    
   }
   
   closeProgressDialog(); //to close the dialog
@@ -365,7 +365,7 @@ const QString CExportManager::getSaveFileName(const Format format){
 
 /** Returns a string containing the linebreak for the current format. */
 const QString CExportManager::lineBreak(const Format format){
-  if ((bool)m_displayOptions.lineBreaks)
+  if (static_cast<bool>(m_displayOptions.lineBreaks))
     return (format == HTML) ? QString::fromLatin1("<BR>\n") : QString::fromLatin1("\n");
   else
     return QString::null;
@@ -389,13 +389,12 @@ const QString CExportManager::htmlCSS(CSwordModuleInfo* module){
 
 /** No descriptions */
 void CExportManager::setProgressRange( const int items ){
-
-  if (progressDialog()) {
-    progressDialog()->setTotalSteps(items);
-    progressDialog()->setProgress(0);
-  	progressDialog()->setMinimumDuration(0);
-    progressDialog()->show();
-  	KApplication::kApplication()->processEvents(); //do not lock the GUI!    
+  if (QProgressDialog* dlg = progressDialog()) {
+    dlg->setTotalSteps(items);
+    dlg->setProgress(0);
+  	dlg->setMinimumDuration(0);
+    dlg->show();
+//  	KApplication::kApplication()->processEvents(); //do not lock the GUI!    
   }
 }
 
@@ -406,6 +405,7 @@ QProgressDialog* const CExportManager::progressDialog(){
   };
   if (!m_progressDialog) {
     m_progressDialog = new QProgressDialog( m_caption, m_progressLabel, 1, 0, "progress", true );
+    m_progressDialog->setCaption("BibleTime");
 //    m_progressDialog->setMinimumDuration(10);
 //    m_progressDialog->setAllowCancel(true);
 //    m_progressDialog->setAutoClose(true);
@@ -417,25 +417,24 @@ QProgressDialog* const CExportManager::progressDialog(){
 
 /** Increments the progress by one item. */
 void CExportManager::incProgress(){
-  if (progressDialog()) {
-    progressDialog()->setProgress( m_progressDialog->progress() + 1 );
-		KApplication::kApplication()->processEvents(); //do not lock the GUI!
+  if (QProgressDialog* dlg = progressDialog()) {
+    dlg->setProgress( dlg->progress() + 1 );
+//		KApplication::kApplication()->processEvents(); //do not lock the GUI!
   }
 }
 
 /** No descriptions */
 const bool CExportManager::progressWasCancelled(){
-  if (progressDialog()) {
-//		KApplication::kApplication()->processEvents(); //do not lock the GUI!    
-    return progressDialog()->wasCancelled();
+  if (QProgressDialog* dlg = progressDialog()) {
+    return dlg->wasCancelled();
   };
   return true;
 }
 
 /** Closes the progress dialog immediatly. */
 void CExportManager::closeProgressDialog(){
-  if (progressDialog()) {
-    progressDialog()->close();
-    progressDialog()->reset();
+  if (QProgressDialog* dlg = progressDialog()) {
+    dlg->close();
+    dlg->reset();
   }  
 }

@@ -95,7 +95,7 @@ private:
   /**
   * Increments the progress by one item.
   */
-  void incProgress();
+  inline void incProgress();
   const bool progressWasCancelled();
   /**
   * Closes the progress dialog immediatly.

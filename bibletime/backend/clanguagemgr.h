@@ -42,7 +42,7 @@ public:
     ~Language();
     const QString& abbrev() const;
     const QString& translatedName() const;
-    const QString& name() const;
+    inline const QString& name() const;
     const QStringList& alternativeAbbrevs() const;
     const QPixmap flag();
     /**
@@ -68,9 +68,9 @@ public:
   * Returns the languages which are available. The languages cover all available modules, but nothing more.
   */
   const CLanguageMgr::LangMap availableLanguages();
-  const CLanguageMgr::Language languageForAbbrev( const QString& abbrev );
-  const CLanguageMgr::Language languageForName( const QString& language );  
-  const CLanguageMgr::Language languageForTranslatedName( const QString& language );
+  const CLanguageMgr::Language& languageForAbbrev( const QString& abbrev );
+  const CLanguageMgr::Language& languageForName( const QString& language );  
+  const CLanguageMgr::Language& languageForTranslatedName( const QString& language );
   /** No descriptions */
   void debug();
     

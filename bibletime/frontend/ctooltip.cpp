@@ -51,11 +51,6 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
   setFilter(false);
 }
 
-/** Returns the widget this tooltip applies to. This tooltip widget is destroyed when he parent is deleted. */
-QWidget* const CToolTip::parentWidget() const{
-  return m_parentWidget;
-}
-
 /** This function shows a tip with the given text. The tip disappears if the mouse moves out of the rectangle rect. */
 void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   //m_tipRect must have global coordinates!

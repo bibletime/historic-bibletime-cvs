@@ -221,4 +221,15 @@ signals: // Signals
   void sigStylesChanged();
 };
 
+/** returns the vertical position of the printer's painter. */
+inline const int CPrinter::verticalPos() const {
+	return m_pagePosition.rect.y();
+}
+
+/** Emits the signal that the styles changed. */
+inline void CPrinter::emitStylesChanged(){
+	emit sigStylesChanged();
+}
+
 #endif
+

@@ -411,17 +411,18 @@ void CMainIndex::searchInModules(){
   ListCSwordModuleInfo modules;
   for (items.first(); items.current(); items.next()) {
     if (CModuleItem* i = dynamic_cast<CModuleItem*>(items.current())) {
-      modules.append(i->module());
+      if (i->module())
+        modules.append(i->module());
     }
   }
 
-  if (modules.isEmpty()) { //get a list of useful default modules for the search
+  if (modules.isEmpty()) { //get a list of useful default modules for the search if no modules were selected
     CSwordModuleInfo* m = CPointers::backend()->findModuleByDescription( CBTConfig::get(CBTConfig::standardBible ));
     if (m)
       modules.append(m);
   }
 
-  CSearchDialog::openDialog(modules);
+  CSearchDialog::openDialog(modules, QString::null);
 }
 
 /** Unlocks the current module. */

@@ -209,4 +209,18 @@ private:
 	QListViewItem*	m_listViewItem;
 };
 
+/** Set the printing of the header (true enables it). */
+inline const bool CStyle::hasFormatTypeEnabled( const CStyle::StyleType type) const {
+	switch (type) {
+		case Header:
+			return m_isHeaderFormatEnabled;
+		case Description:
+			return m_isDescriptionFormatEnabled;
+		case ModuleText:
+			return m_isModuleTextFormatEnabled;
+		default:
+			return false;
+	}
+}
+
 #endif

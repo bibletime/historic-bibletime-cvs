@@ -398,19 +398,9 @@ void CPrinter::setupStandardStyle(){
 	}
 }
 
-/** returns the vertical position of the printer's painter. */
-const int CPrinter::verticalPos() const {
-	return m_pagePosition.rect.y();
-}
-
 /** Sets the vertical position of the printer's painter. */
 void CPrinter::setVerticalPos( const int yPos ){
 	m_pagePosition.rect.setY(yPos);
-}
-
-/** Emits the signal that the styles changed. */
-void CPrinter::emitStylesChanged(){
-	emit sigStylesChanged();
 }
 
 /** Emits the signal that the styles changed. */

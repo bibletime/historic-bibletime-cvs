@@ -68,23 +68,29 @@ const int LEGEND_INNER_BORDER = 5;
 const int LEGEND_DELTAY = 4;
 const int LEGEND_WIDTH = 85;
 
-static CSearchDialog* m_staticDialog = 0;
+CSearchDialog* m_staticDialog = 0;
 
 void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString& searchText, QWidget* parentDialog) {
   if (!m_staticDialog) {
+    qWarning("create new dialog");
     m_staticDialog = new CSearchDialog(parentDialog);
+    qWarning("Finished: create new dialog");    
   };
+  Q_ASSERT(m_staticDialog);
+  qWarning("will resetted!");  
   m_staticDialog->reset();
+  qWarning("resetted!");  
   if (modules.count()) {
     m_staticDialog->setModules(modules);
   } else {
     m_staticDialog->showModulesSelector();
   }
-
+  qWarning("set text now");  
   m_staticDialog->setSearchText(searchText);
   if (m_staticDialog->isHidden()) {
     m_staticDialog->show();
   }
+  qWarning("raise now");    
   m_staticDialog->raise();
   if (modules.count() && !searchText.isEmpty())
     m_staticDialog->startSearch();
@@ -169,19 +175,28 @@ void CSearchDialog::setSearchText( const QString searchText ){
 
 /** Initializes this object. */
 void CSearchDialog::initView(){
+  qWarning("CSearchDialog::initView()");
   setButtonTip(User1, CResMgr::searchdialog::searchButton::tooltip);
   setButtonWhatsThis(User1, CResMgr::searchdialog::searchButton::whatsthis);
 
   setButtonTip(User2, CResMgr::searchdialog::cancelSearchButton::tooltip);
   setButtonWhatsThis(User2, CResMgr::searchdialog::cancelSearchButton::whatsthis);
-  
-  QHBox* box = addHBoxPage(i18n("Options"));
-  m_index.optionsPage = pageIndex(box);
-  m_searchOptionsPage = new CSearchOptionsPage(box);
 
+  qWarning("CSearchDialog::initView() create options page");    
+    
+  QHBox* box = addHBoxPage(i18n("Options"));
+  qWarning("CSearchDialog::initView() create options page 1");    
+  m_index.optionsPage = pageIndex(box);
+  qWarning("CSearchDialog::initView() create options page 2");      
+  m_searchOptionsPage = new CSearchOptionsPage(box);
+  qWarning("CSearchDialog::initView() create options page 3");      
+
+  qWarning("CSearchDialog::initView() create result page");      
+  
   box = addHBoxPage(i18n("Search result"));
   m_index.resultPage = pageIndex(box);
   m_searchResultPage = new CSearchResultPage(box);
+  qWarning("CSearchDialog::initView() finsihed");  
 }
 
 /** Updates the percentage bars. */
@@ -212,6 +227,7 @@ void CSearchDialog::showModulesSelector() {
 
 /** Initializes the signal slot connections */
 void CSearchDialog::initConnections(){
+  qWarning("CSearchDialog::initConnection()");
   connect(this, SIGNAL(user1Clicked()), SLOT(startSearch()));
   connect(this, SIGNAL(user2Clicked()), SLOT(interruptSearch()));
   connect(this, SIGNAL(closeClicked()), SLOT(slotDelayedDestruct()));  
@@ -248,6 +264,12 @@ void CSearchDialog::slotShowPage(QWidget* page){
   };
 }
 
+/** Reimplementation. */
+void CSearchDialog::slotClose(){
+  qWarning("delayed destruction");
+  delayedDestruct();
+  m_staticDialog = 0;
+}
 
 /****************************/
 /****************************/
@@ -1113,9 +1135,3 @@ void CSearchAnalysis::saveAsHTML(){
   
 }
 
-/** Reimplementation. */
-void CSearchDialog::slotClose(){
-  qWarning("delayed destruction");
-  m_staticDialog = 0;
-  delayedDestruct();
-}

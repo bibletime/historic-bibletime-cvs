@@ -18,6 +18,8 @@
 #ifndef CPOINTERS_H
 #define CPOINTERS_H
 
+//BibleTime includes
+#include "backend/clanguagemgr.h"
 
 class CSwordBackend;
 class CPrinter;
@@ -27,6 +29,12 @@ class CLanguageMgr;
   * @author The BibleTime team
   */
 class CPointers {
+private:
+//Our static pointers to store the backend, printer and langMgr pointers
+  static CSwordBackend* m_backend;
+  static CPrinter* m_printer;
+  static CLanguageMgr* m_langMgr;
+  
 protected:
 	friend class BibleTime; //BibleTime may initialize this object	
 	friend int main(int argc, char* argv[]);
@@ -46,5 +54,23 @@ public: // Public methods
   static CSwordBackend* const backend();
   static CLanguageMgr* const languageMgr();  
 };
+
+
+/** Returns a pointer to the backend ... */
+inline CSwordBackend* const CPointers::backend() {
+	return m_backend;
+}
+
+/** Returns a pointer to the backend ... */
+inline CLanguageMgr* const CPointers::languageMgr() {
+  if (!m_langMgr)
+    m_langMgr = new CLanguageMgr();
+	return m_langMgr;
+}
+
+/** Returns a pointer to the printer object. */
+inline CPrinter* const CPointers::printer() {
+	return m_printer;
+}
 
 #endif

@@ -199,8 +199,8 @@ void CModuleItem::dropped( QDropEvent* e ){
 /** Reimplementation. */
 const QString CModuleItem::toolTip(){
     QString text;
-		text = i18n("Module") + QString::fromLatin1(": <B>%1</B><HR>").arg( module()->name() );
-		text += module()->config(CSwordModuleInfo::Description) + QString::fromLatin1("<HR>");
+		text = QString::fromLatin1("<DIV STYLE=\"border-bottom:thin solid black;\">") + i18n("Module") + QString::fromLatin1(": <B>%1</B></DIV>").arg( module()->name() );
+		text += QString::fromLatin1("<DIV STYLE=\"border-bottom:thin solid black;\">") + module()->config(CSwordModuleInfo::Description) + QString::fromLatin1("</DIV>");
 		text += i18n("Language")+ QString::fromLatin1(": %1<BR>").arg(module()->language().translatedName());
 		if (module()->isEncrypted())
 			text += i18n("Unlock key") + QString::fromLatin1(": %1<BR>")

@@ -216,20 +216,6 @@ CStyle::Format* const CStyle::formatForType( const CStyle::StyleType type) {
 }
 
 /** Set the printing of the header (true enables it). */
-const bool CStyle::hasFormatTypeEnabled( const CStyle::StyleType type) const {	
-	switch (type) {
-		case Header:
-			return m_isHeaderFormatEnabled;
-		case Description:
-			return m_isDescriptionFormatEnabled;		
-		case ModuleText:
-			return m_isModuleTextFormatEnabled;			
-		default:
-			return false;
-	}
-}
-
-/** Set the printing of the header (true enables it). */
 void CStyle::setFormatTypeEnabled( const CStyle::StyleType type, const bool setEnabled) {
 	switch (type) {
 		case Header:

@@ -37,7 +37,7 @@ public:
   /**
   * Returns the widget this tooltip applies to. This tooltip widget is destroyed when he parent is deleted.
   */
-  QWidget* const parentWidget() const;
+  inline QWidget* const parentWidget() const;
 
 protected: // Protected methods
   /**
@@ -79,5 +79,10 @@ private:
 private slots: // Private slots
   void destroyObject();
 };
+
+/** Returns the widget this tooltip applies to. This tooltip widget is destroyed when he parent is deleted. */
+QWidget* const CToolTip::parentWidget() const{
+  return m_parentWidget;
+}
 
 #endif

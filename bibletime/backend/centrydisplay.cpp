@@ -85,9 +85,9 @@ const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, cons
 
     key->module(m);
     key->key(keyName);
+
     renderedText += QString::fromLatin1("<TD %1 valign=\"top\"><SPAN>%2</SPAN></TD>")
                       .arg(tdStyle)
-//                      .arg(m->isUnicode() ? "class=\"unicodetext\"" : "")
                       .arg(key->renderedText());
   }
   renderedText += QString::fromLatin1("</TR>");
@@ -105,16 +105,12 @@ const QColor CEntryDisplay::color( const CEntryDisplay::ColorType type ) {
       return CBTConfig::get(CBTConfig::highlightedVerseColor);
     case BackgroundColor:
       return CBTConfig::get(CBTConfig::backgroundColor);
-//    case BackgroundColor2:
-//      return CBTConfig::get(CBTConfig::background2Color);
     case FootnoteColor:
       return CBTConfig::get(CBTConfig::footnotesColor);
     case StrongsNumberColor:
       return CBTConfig::get(CBTConfig::strongsColor);
     case MorphCodeColor:
       return CBTConfig::get(CBTConfig::morphsColor);
-//    case LemmaColor:
-//      return CBTConfig::get(CBTConfig::lemmaColor);
     case JesusWordColor:
       return CBTConfig::get(CBTConfig::jesuswordsColor);
     default:
@@ -124,14 +120,6 @@ const QColor CEntryDisplay::color( const CEntryDisplay::ColorType type ) {
 
 /** Returns the font of the given type. */
 const QFont CEntryDisplay::font( const CLanguageMgr::Language& lang ) {
-//  switch (type) {
-//    case UnicodeFont:
-//      return CBTConfig::get(CBTConfig::unicode);
-//    case StandardFont:
-//      return CBTConfig::get(CBTConfig::standard);
-//    default:
-//      return QApplication::font();
-//  }
   return CBTConfig::get(lang);
 }
 

@@ -266,6 +266,7 @@ void BibleTime::slotPrintingStarted(){
 	connect(m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
 	m_progress->setProgress(0);
 	m_progress->setMinimumDuration(0);
+  m_progress->setCaption("BibleTime");
 	m_progress->show();
 }
 
@@ -294,8 +295,7 @@ void BibleTime::slotSearchModules() {
   ListCSwordModuleInfo modules;
   
 	QWidgetList windows = m_mdi->windowList();
-	int i;
-	for ( i = 0; i < int(windows.count()); ++i ) {
+	for ( int i = 0; i < static_cast<int>(windows.count()); ++i ) {
     if (CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.at(i))) {
       ListCSwordModuleInfo useModules = w->modules();
       for (CSwordModuleInfo* m = useModules.first(); m; m = useModules.next()) {

@@ -462,6 +462,8 @@ void CSearchResultPage::reset(){
   m_resultListBox->clear();
   m_previewDisplay->setText(QString::null);
   m_analyseButton->setEnabled(false);
+  m_modules.setAutoDelete(false); //make sure we don't delete modules accidentally
+  m_modules.clear();
 }
 
 
