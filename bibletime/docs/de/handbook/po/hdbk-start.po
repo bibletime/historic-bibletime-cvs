@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: 2001-11-10 07:24GMT\n"
+"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"Language-Team: Deutch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: index.docbook:1
+#, fuzzy
+msgid "Starting Bibletime"
+msgstr "BibleTime starten"
+
+#: index.docbook:2
+#, fuzzy
+msgid "Bibletime is a KDE program and is integrated with the KDE desktop. You should find an icon for launching Bibletime from the desktop."
+msgstr "BibleTime ist ein KDE Programm und ist in den KDE Arbeitsplatz integriert. Sie sollten ein Symbol für den Start von BibleTime auf dem Arbeitsplatz finden."
+
+#: index.docbook:2
+#, fuzzy
+msgid "A bunch of rectangles"
+msgstr "BibleTime kann aus anderen Fenstermanagern heraus aufgerufen werden (wie z.B. gnome) vorrausgesetzt, dass KDE installiert ist. Sie müssen ihr eigenes Symbol installieren um BibleTime zu starten. Lesen Sie die Hilfedateien ihres Fenstermanagers um zu wissen wie."
+
+#: index.docbook:15
+#, fuzzy
+msgid "Bibletime can be launched from inside other window managers (like gnome) providing KDE is installed. You will need to install your own icon to launch the program. See the window manager help files to see how."
+msgstr "BibleTime kann auch aus einer Terminal Eingabeaufforderung heraus aufgerufen werden. Um BibleTime aufzurufen öffnen Sie ein Terminal (jedes beliebige XTerminal) und geben sie folgendes ein: <command>bibletime</command>."
+
+#: index.docbook:21
+#, fuzzy
+msgid "Bibletime can also be launched from a terminal command prompt. To launch Bibletime open a terminal (any Xterminal) and type <command>bibletime</command>."
+msgstr "Startsequenz"
+
+#: index.docbook:26
+#, fuzzy
+msgid "Startup Sequence"
+msgstr "Wenn BibleTime gestartet wird, kann es vorkommen, dass Sie die folgenden Fenster sehen:"
+
+#: index.docbook:27
+#, fuzzy
+msgid "As Bibletime launches you may see some message screens:"
+msgstr "Sword:"
+
+#: index.docbook:29
+#, fuzzy
+msgid "No Modules Installed - This is shown if you have forgotten to install sword modules, or if the sword modules can not be found."
+msgstr "Crosswire Crosswire."
+
+#: index.docbook:29
+#, fuzzy
+msgid "First Time Startup - This is shown the first time Bibletime is launched."
+msgstr "Sword."
+
+#: index.docbook:29
+#, fuzzy
+msgid "Daily Tips - These show on every startup, unless you turn them off."
+msgstr "Teile des BibleTime Fensters"
+
+#: index.docbook:29
+#, fuzzy
+msgid "Daily tips"
+msgstr "Jetzt wird das BibleTime Fenster geöffnet. Dessen Funktion wird im nächsten Kapitel behandelt."
+
+#: index.docbook:59
+#, fuzzy
+msgid "Parts of the Bibletime Screen"
+msgstr "Das BibleTime Anwendugsfenster"
+
+#: index.docbook:60
+#, fuzzy
+msgid "Now the main Bibletime screen will open. It's operation is covered in the next chapter."
+msgstr "Sword."
+
+#: index.docbook:60
+#, fuzzy
+msgid "The Bibletime Application Window"
+msgstr "Sword"
+

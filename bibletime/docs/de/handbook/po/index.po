@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: 2001-11-10 07:24GMT\n"
+"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"Language-Team: Deutch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: index.docbook:50
+#, fuzzy
+msgid "The Bibletime Help Dialog"
+msgstr "BibleTime Hilfedialog"
+
+#: index.docbook:53
+#, fuzzy
+msgid "<firstname>Fred</firstname> <othername></othername> <surname>Saalbach</surname> <affiliation> <address><email>info@bibletime.de</email></address> </affiliation>"
+msgstr "<firstname>Fred</firstname> <surname>Saalbach</surname>"
+
+#: index.docbook:61
+#, fuzzy
+msgid "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
+msgstr "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
+
+#: index.docbook:67
+#, fuzzy
+msgid "ROLES_OF_TRANSLATORS"
+msgstr "ROLES_OF_TRANSLATORS"
+
+#: index.docbook:73
+#, fuzzy
+msgid "The team of BibleTime, info@bibletime.de"
+msgstr "Das BibleTime-Team, info@bibletime.de"
+
+#: index.docbook:80
+#, fuzzy
+msgid "The bibletime helpdialog is part of Bibletime."
+msgstr "Der BibleTime Hilfedialog ist ein Teil von BibleTime."
+
+#: index.docbook:83
+#, fuzzy
+msgid "Bibletime is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
+msgstr "Bibletime is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
+
+#: index.docbook:90
+#, fuzzy
+msgid "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details."
+msgstr "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details."
+
+#: index.docbook:97
+#, fuzzy
+msgid "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+
+#: index.docbook:116
+#, fuzzy
+msgid "&bibletime; is an application to aid in study of the Bible."
+msgstr "<title></title>"
+
+#: index.docbook:127
+#, fuzzy
+msgid "<keyword>KDE</keyword>"
+msgstr "<application></application>"
+
+#: index.docbook:128
+#, fuzzy
+msgid "bibletime"
+msgstr "BibleTime"
+
+#: index.docbook:129
+#, fuzzy
+msgid "Bibletime"
+msgstr "Sword"
+
+#: index.docbook:130
+#, fuzzy
+msgid "sword"
+msgstr "Crosswire"
+
+#: index.docbook:131
+#, fuzzy
+msgid "crosswire"
+msgstr "Hilfedialog"
+
+#: index.docbook:132
+msgid "help dialog"
+msgstr ""
+

@@ -1,0 +1,366 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: 2001-11-10 07:24GMT\n"
+"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"Language-Team: Deutch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: index.docbook:1
+msgid "Main toolbar and menubar"
+msgstr ""
+
+#: index.docbook:2 index.docbook:146
+#, fuzzy
+msgid "<para></para>"
+msgstr "<para></para>"
+
+#: index.docbook:4
+#, fuzzy
+msgid "Toolbar"
+msgstr "Werkzeugleiste"
+
+#: index.docbook:5
+#, fuzzy
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: index.docbook:6
+#, fuzzy
+msgid "The main window toolbar is configurable. Access this with the \"Configure tool bars\" entry under the \"Settings\" menubar entry."
+msgstr "Die Werkzeugleiste des Hauptfensters ist konfigurierbar. Greifen Sie darauf durch den Eintrag <quote>Konfiguriere Werkzeugleiste...</quote> im <quote>Einstellungen</quote> Menü zu."
+
+#: index.docbook:9 index.docbook:9
+#, fuzzy
+msgid "Toolbar Configuration Dialog Box"
+msgstr "Werkzeugleiste Konfiguration"
+
+#: index.docbook:13
+msgid "Each of the buttons has tooltips to tell what their function is. For buttons with no pixmap, the buttons could appear as blank, or just blank bars."
+msgstr ""
+
+#: index.docbook:17
+msgid "Button Action"
+msgstr ""
+
+#: index.docbook:19 index.docbook:31 index.docbook:43 index.docbook:55 index.docbook:67 index.docbook:79 index.docbook:91 index.docbook:103 index.docbook:115 index.docbook:128
+msgid "Icon"
+msgstr ""
+
+#: index.docbook:19
+#, fuzzy
+msgid "Closes Bibletime."
+msgstr "Sword."
+
+#: index.docbook:31
+msgid "Prints items in the print queue."
+msgstr ""
+
+#: index.docbook:43
+msgid "Show / Hide Strongs Numbers."
+msgstr ""
+
+#: index.docbook:55
+msgid "Show / Hide Footnotes."
+msgstr ""
+
+#: index.docbook:67
+msgid "Search in Selected Module(s)."
+msgstr ""
+
+#: index.docbook:79
+msgid "Cascade Document Windows."
+msgstr ""
+
+#: index.docbook:91
+msgid "Autocascade Document Windows."
+msgstr ""
+
+#: index.docbook:103
+msgid "Tile Document Windows."
+msgstr ""
+
+#: index.docbook:115
+msgid "Auto tile Document Windows."
+msgstr ""
+
+#: index.docbook:128
+msgid "Close All Document Windows."
+msgstr ""
+
+#: index.docbook:145
+msgid "Menubar"
+msgstr ""
+
+#: index.docbook:148
+msgid "File"
+msgstr ""
+
+#: index.docbook:149
+msgid "New window"
+msgstr ""
+
+#: index.docbook:149
+msgid "opens another instance of Bibletime"
+msgstr ""
+
+#: index.docbook:149
+msgid "Close"
+msgstr ""
+
+#: index.docbook:149
+msgid "closes the presenter that has focus"
+msgstr ""
+
+#: index.docbook:149 index.docbook:353
+msgid "Quit"
+msgstr ""
+
+#: index.docbook:149
+msgid "Quits Bibletime"
+msgstr ""
+
+#: index.docbook:177
+msgid "Window"
+msgstr ""
+
+#: index.docbook:178 index.docbook:353
+msgid "Cascade"
+msgstr ""
+
+#: index.docbook:178
+msgid "Cascades open presenters"
+msgstr ""
+
+#: index.docbook:178 index.docbook:353
+msgid "Tile"
+msgstr ""
+
+#: index.docbook:178
+msgid "Tiles open presenters"
+msgstr ""
+
+#: index.docbook:178 index.docbook:353
+msgid "Auto Cascade"
+msgstr ""
+
+#: index.docbook:178
+msgid "Automatically cascades newly opened presenters"
+msgstr ""
+
+#: index.docbook:178 index.docbook:353
+msgid "Auto Tile"
+msgstr ""
+
+#: index.docbook:178
+msgid "ditto for tiling newly opened presenters"
+msgstr ""
+
+#: index.docbook:178
+msgid "Close all"
+msgstr ""
+
+#: index.docbook:178
+msgid "Closes all open presenters"
+msgstr ""
+
+#: index.docbook:178
+msgid "List of open modules"
+msgstr ""
+
+#: index.docbook:178
+msgid "Do I have to explain?"
+msgstr ""
+
+#: index.docbook:227
+msgid "Settings"
+msgstr ""
+
+#: index.docbook:228
+msgid "Show Toolbar"
+msgstr ""
+
+#: index.docbook:228
+msgid "Show or hide the main toolbar, normally shown"
+msgstr ""
+
+#: index.docbook:228
+msgid "Configure Toolbar"
+msgstr ""
+
+#: index.docbook:228
+#, fuzzy
+msgid "show the Configure Toolbar dialog"
+msgstr "Werkzeugleiste"
+
+#: index.docbook:228 index.docbook:353
+msgid "Preferences"
+msgstr ""
+
+#: index.docbook:228
+msgid "show the Preferences dialog"
+msgstr ""
+
+#: index.docbook:228 index.docbook:353
+msgid "Show Strongs"
+msgstr ""
+
+#: index.docbook:228
+msgid "display Strong's number in the text (only certain modules use this function)"
+msgstr ""
+
+#: index.docbook:228 index.docbook:353
+msgid "Show Footnotes"
+msgstr ""
+
+#: index.docbook:228
+msgid "display footnotes in the text (only certain modules use this function)"
+msgstr ""
+
+#: index.docbook:228
+msgid "Show Main Index"
+msgstr ""
+
+#: index.docbook:228
+msgid "show or hide the module list window. Normally it is not hidden, unless you want maximum real estate for displaying modules. BTW, resizing the Main Index window can accomplish the same thing, although to a lesser extent."
+msgstr ""
+
+#: index.docbook:284
+msgid "Help"
+msgstr ""
+
+#: index.docbook:285
+msgid "Contents"
+msgstr ""
+
+#: index.docbook:285
+#, fuzzy
+msgid "Opens KDE's help browser with Bibletime's handbook"
+msgstr "Sword"
+
+#: index.docbook:285
+msgid "What's This"
+msgstr ""
+
+#: index.docbook:285
+msgid "allows you to click on certain items for contextual help"
+msgstr ""
+
+#: index.docbook:285
+msgid "Bug Report"
+msgstr ""
+
+#: index.docbook:285
+msgid "send a bug report to the program's maintainers to help development"
+msgstr ""
+
+#: index.docbook:285
+msgid "About Bibletime"
+msgstr ""
+
+#: index.docbook:285
+#, fuzzy
+msgid "opens a window with general Bibletime information"
+msgstr "Sword"
+
+#: index.docbook:285
+msgid "About KDE"
+msgstr ""
+
+#: index.docbook:285
+msgid "opens a window with general KDE information"
+msgstr ""
+
+#: index.docbook:339
+msgid "Hotkeys"
+msgstr ""
+
+#: index.docbook:340
+msgid "All of the hotkeys listed here can be changed in the Options Dialog."
+msgstr ""
+
+#: index.docbook:344
+msgid "Default Hotkeys"
+msgstr ""
+
+#: index.docbook:346
+#, fuzzy
+msgid "Action"
+msgstr "Aktion"
+
+#: index.docbook:346
+msgid "Default Hotkey"
+msgstr ""
+
+#: index.docbook:353
+msgid "Ctrl+Alt+T"
+msgstr ""
+
+#: index.docbook:353
+msgid "Ctrl+Alt+A"
+msgstr ""
+
+#: index.docbook:353
+msgid "Ctrl+A"
+msgstr ""
+
+#: index.docbook:353
+msgid "Close All"
+msgstr ""
+
+#: index.docbook:353
+msgid "Shift+Ctrl+A"
+msgstr ""
+
+#: index.docbook:353
+msgid "Configure Toolbars"
+msgstr ""
+
+#: index.docbook:353 index.docbook:353
+msgid "<entry></entry>"
+msgstr ""
+
+#: index.docbook:353
+msgid "Ctrl+Q"
+msgstr ""
+
+#: index.docbook:353
+msgid "Remove Selected Item(s)"
+msgstr ""
+
+#: index.docbook:353
+msgid "Ctrl+Alt+D"
+msgstr ""
+
+#: index.docbook:353
+msgid "Reset Main Index"
+msgstr ""
+
+#: index.docbook:353
+msgid "Ctrl+Alt+R"
+msgstr ""
+
+#: index.docbook:353
+msgid "Search in Selected Module(s)"
+msgstr ""
+
+#: index.docbook:353 index.docbook:353
+msgid "Ctrl+Alt+S"
+msgstr ""
+
+#: index.docbook:353
+msgid "Ctrl+Alt+F"
+msgstr ""
+
+#: index.docbook:353
+msgid "Ctrl+T"
+msgstr ""
+

@@ -1,0 +1,31 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: 2001-11-10 07:35GMT\n"
+"Last-Translator: \n"
+"Language-Team:  <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: index.docbook:1
+#, fuzzy
+msgid "Installation"
+msgstr "Instalación"
+
+#: index.docbook:2
+#, fuzzy
+msgid "<ulink url=\"http://www.bibletime.de/\">www.bibletime.de</ulink> has all the answers. Please look there. :-)"
+msgstr "<ulink url=\"http://www.bibletime.de/\">www.bibletime.de</ulink> hat alle Antworten. Bitte schauen Sie dort nach... :)"
+
+#: index.docbook:6
+#, fuzzy
+msgid "Don't forget to read the FAQ and the installation instructions on www.bibletime.de. If you downloaded the sourcecode please do also read the file README and INSTALL included in the sourcecode package."
+msgstr "Vergessen Sie nicht das FAQ und die Installationsanweisungen auf www.bibletime.de zu lesen. Falls Sie den Quellcode heruntergeladen haben, lesen Sie bitte auch die im Quellcode enthaltenen Dateien README und INSTALL."
+

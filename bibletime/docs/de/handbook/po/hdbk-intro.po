@@ -1,0 +1,128 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: 2001-11-10 07:23GMT\n"
+"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"Language-Team: Deutch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: index.docbook:1
+#, fuzzy
+msgid "Introduction"
+msgstr "Einleitung"
+
+#: index.docbook:2
+#, fuzzy
+msgid "Bibletime is a powerful Bible study tool written for the KDE environment on the Linux operating system. It is based on the <ulink url=\"http://www.crosswire.org\">Sword</ulink> library, which provide the back-end functionality for Bibletime, such as viewing Bible text, searching, bookmarking, etc. Sword is the flagship product of the <ulink url=\"http://www.crosswire.org\">Crosswire Bible Society</ulink>."
+msgstr "BibleTime ist ein mächtiges Bibelstudien-Werkzeug, geschrieben für die KDE Umgebung auf dem Linux Betriebssystem. Es basiert auf der <ulink url=\"http://www.crosswire.org\">Sword</ulink> Bibliothek, welche die Back-End Funktionalität für BibleTime zur Verfügung stellt, zum Beispiel Bibeltexte anschauen, Suchen, Lesezeichen anlegen usw. Sword ist das Hauptprodukt der <ulink url=\"http://www.crosswire.org\"> Crosswire Bibelgesellschaft</ulink>."
+
+#: index.docbook:10
+#, fuzzy
+msgid "There are three types of modules that can be displayed:"
+msgstr "Es gibt drei Typen Module, die angezeigt werden können:"
+
+#: index.docbook:14
+#, fuzzy
+msgid "Bibles"
+msgstr "Bibeln"
+
+#: index.docbook:14
+#, fuzzy
+msgid "The full text, with optional Strong's Numbers and footnotes in the text"
+msgstr "Der ganze Text, optional mit Strong-Nummern und Fußnoten im Text"
+
+#: index.docbook:14
+#, fuzzy
+msgid "Commentaries"
+msgstr "Kommentare"
+
+#: index.docbook:14
+#, fuzzy
+msgid "With a <quote>Personal</quote> commentary you can record your own personal notes to different parts of the Bible."
+msgstr "Mit einem <quote>Persönlichen</quote> Kommentar können Sie ihre eigenen persönlichen Notizen zu verschiedenen Bereichen der Bibel anlegen."
+
+#: index.docbook:14
+#, fuzzy
+msgid "Lexicons"
+msgstr "Lexika"
+
+#: index.docbook:14
+#, fuzzy
+msgid "For word definitions and Bible topics. You an choose a key in a list which will be displayed."
+msgstr "Für Wortdefinitionen und Bibelthemen. Sie können einen Schlüssel aus einer Liste auswählen, der dann angezeigt wird."
+
+#: index.docbook:45
+#, fuzzy
+msgid "Changes"
+msgstr "Änderungen"
+
+#: index.docbook:46
+#, fuzzy
+msgid "Please read the file Changelog of the sourcecode package if you are interested in more detailed changes."
+msgstr "Bitte lesen sie die Datei <filename>Changelog</filename> des Quellcode Paketes, falls Sie an detailierteren Änderungen interessiert sind."
+
+#: index.docbook:50
+#, fuzzy
+msgid "A listing of the features included in the current package can be found in the sourcecode at <ulink url=\"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bibletime/bibletime/ChangeLog\"> CVS log for <filename>bibletime/bibletime/ChangeLog</filename></ulink>"
+msgstr "Eine Auflistung der im aktuellen Paket enthaltenen Funktionen kann im Quellcode im <ulink url=\"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bibletime/bibletime/ChangeLog\"> CVS Log für <filename>bibletime/bibletime/ChangeLog</filename></ulink> gefunden werden."
+
+#: index.docbook:56
+#, fuzzy
+msgid "ToDo"
+msgstr "ToDo"
+
+#: index.docbook:57
+#, fuzzy
+msgid "Very much!"
+msgstr "Ziemlich viel!"
+
+#: index.docbook:60
+#, fuzzy
+msgid "We have lots to do. Because we are a very small team of active developers it's very hard to get reasonable results in a short time. If you are interested in helping the Bibletime team, please contact us at <ulink url=\"http://sourceforge.net/pm/?group_id=954\">Sourceforge bibletime home page</ulink>. Information can also be found at <ulink url=\"http://www.bibletime.de\">.</ulink>"
+msgstr "Wir haben viel zu tun. Da wir ein sehr kleines Team von aktiven Entwicklern sind, ist es sehr schwierig vern=FCnftige Ergebnisse in einer kurzen Zeit zu bekommen. Falls Sie daran interessiert sind dem BibleTime Team zu helfen, kontaktieren Sie uns bitte auf der <ulink url=\"http://sourceforge.net/pm/?group_id=954\">SourceForge BibleTime Hompage</ulink>. Informationen können auch auf <ulink url=\"http://www.bibletime.de\"> gefunden werden.</ulink>"
+
+#: index.docbook:67
+#, fuzzy
+msgid "The Bibletime project needs programmers / developers, reviewers, testers, and prayer warriors. If you can help with any of these tasks or think up another, please join us. Without your help, Bibletime will develop very very slow and it will take a very long time until you get a full-featured Bible study tool."
+msgstr "Das BibleTime Projekt benötigt Programmierer / Entwickler, Kritiker, Tester und eifrige Beter. Falls Sie bei einer dieser Aufgaben helfen können oder falls Sie an eine andere denken, treten Sie uns bitte bei. Ohne Ihre Hilfe wird BibleTime sehr sehr langsam weiterentwickelt und es dauert sehr lange, bis Sie ein voll funktionsfähiges Bibelstudien Werkzeug bekommen."
+
+#: index.docbook:74
+#, fuzzy
+msgid "Motivation"
+msgstr "Motivation"
+
+#: index.docbook:75
+#, fuzzy
+msgid "Our desire is to serve God, and to do our part to help others grow in their relationship with Him. We have found a gaping hole, in that there has been a total lack of user-friendly Bible-study software available for Linux-based computers. We have developed Bibletime to fill that void. We have striven to make this a powerful, quality program, and still make it simple and intuitive to operate. It is our desire that God be praised, as He is the Source of all good things."
+msgstr "Unser Verlangen ist es Gott zu dienen und unseren Teil dazu beizutragen, dass andere in ihrer Beziehung mit IHM wachsen. Wir haben eine klaffende Lücke gefunden: Es gab keine benutzerfreundliche Bibelstudiensoftware unter Linux. Wir haben BibleTime entwickelt um diese Lücke zu füllen. Wir haben uns bemüht dies zu einem mächtigen und qualitativen Programm zu machen, das jedoch gleichzeitig einfach und intuitiv zu bedienen ist. Es ist unser Verlangen, dass Gott gepriesen wird, da Er die Quelle aller guten Dinge ist."
+
+#: index.docbook:84
+#, fuzzy
+msgid ""
+"<quote>\n"
+"Every good thing given and every perfect gift is from above,\n"
+"coming down from the Father of lights, with whom there is no\n"
+"variation or shifting shadow.\n"
+"</quote>\n"
+"-James 1:17, NASB"
+msgstr ""
+"<quote>\n"
+"Alle gute Gabe und alle vollkommene Gabe kommt von obenherab,\n"
+"von dem Vater des Lichts, bei welchem ist keine Veränderung\n"
+"noch Wechsel des Lichtes und der Finsternis.\n"
+"</quote>\n"
+"-Jakobus 1:17, Luther Übersetzung"
+
+#: index.docbook:92
+#, fuzzy
+msgid "God bless you as you use this program, and may He be glorified by the work of our hands!"
+msgstr "Gott segne Sie, wenn Sie dieses Programm benutzen, und möge Er durch die Arbeit unserer Hände verherrlicht werden."
+

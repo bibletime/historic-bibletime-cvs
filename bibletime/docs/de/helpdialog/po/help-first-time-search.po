@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: 2001-11-10 07:25GMT\n"
+"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"Language-Team: Deutch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: index.docbook:2
+msgid "First time search dialog"
+msgstr ""
+
+#: index.docbook:4
+#, fuzzy
+msgid "You opened the searchdialog for the first time!"
+msgstr "Sie haben den Suchdialog zum ersten Mal geöffnet!"
+
+#: index.docbook:5
+#, fuzzy
+msgid "This page describes what the searchdialog is, how to use it and how to make efficient searches."
+msgstr "Diese Seite beschreibt, was der Suchdialog ist, wie man ihn benutzt und wie man effiziente Suchen durchführt."
+
+#: index.docbook:10
+#, fuzzy
+msgid "What's the searchdialog?"
+msgstr "Was ist der Suchdialog?"
+
+#: index.docbook:15
+#, fuzzy
+msgid "The searchdialog is the where you can search the Sword documents (modules) installed in your copy of Bibletime. You can enter text and search this text in the documents. The entries found will appear in a list where you can work with them."
+msgstr "Der Suchdialog ist der Dialog, in dem sie die installierten Sword Dokumente (Module) mit Ihrer Kopie von BibleTime durchsuchen können. Sie können Text eingeben und diese Text in den Dokumenten suchen. Die gefundenen EInträge erscheinen in einer List, so dass Sie mit ihnen arbeiten können."
+
+#: index.docbook:24
+#, fuzzy
+msgid "How do I search for some text?"
+msgstr "Wie suche ich nach einem Text?"
+
+#: index.docbook:29
+#, fuzzy
+msgid "To search some text click on the first entry of the tab bar at the top of the dialog. Now enter some text in the search entry box at the top. If you don't want to do special things you can leave the settings untouched and click on the \"Search\" button and the bottom of the dialog. The progress of the search will be displayed in the two bars at the bottom. The first bar shows the progress for the current module, the second one does show the percentage of the whole search. It's possible to search more than one module so two bars are required. But if you want to do more things with the searchdialog we offer these settings to you:"
+msgstr "Um einen Text zu suchen, klicken sie auf den ersten Eintrag der Karteikarten im oberen Bereich des Dialoges. Geben Sie nun Ihren Text in der Eingabezeile zu Beginn der Seite ein. Falls Sie keine besonderen Sucheigenschaften nutzen wollen, lassen Sie die Einstellungen unberührt und klicken Sie auf den Knopf \"Suchen\" am unteren Ende des Dialoges. Der Fortschritt der Suche wird in den beiden Anzeigen unten angezeigt. Die erste Anzeige zeigt den Fortschritt für das aktuelle Modul, die zweite zeigt die Prozent der gesamten Suche. Es ist möglich in mehr als einem Modul zu suchen, daher werden zwei Anzeigen benötigt. Falls Sie jedoch den Suchdialog erweitern möchten, bieten wir Ihnen folgende Einstellungen an:"
+
+#: index.docbook:40
+#, fuzzy
+msgid "Multiple words"
+msgstr "Mehrere Wörter"
+
+#: index.docbook:45
+#, fuzzy
+msgid "The entered words can occur in another order as entered in the line, they can even be part of more than one word."
+msgstr "Die eingegebenen Worte dürfen in anderer Reihenfolge als eingegeben auftreten, sie dürfen sogar Teil von mehr als einem Wort sein."
+
+#: index.docbook:49
+#, fuzzy
+msgid "Exact search"
+msgstr "Genaue Suche"
+
+#: index.docbook:54
+#, fuzzy
+msgid "The text is exactly searched as entered in the line, unless you enabled case sensitive search the search does case insensitive search."
+msgstr "Der Text wird genauso gesucht, wie er eingegeben wurde. Außer wenn Sie die GROSS/klein-Unterscheidung anschalten, wird ohne diese Unterscheidung gesucht."
+
+#: index.docbook:58
+#, fuzzy
+msgid "Regular expressions"
+msgstr "Reguläre Ausdrücke"
+
+#: index.docbook:63
+#, fuzzy
+msgid "If you use this type of search GNU standard regular expressions are used"
+msgstr "Falls Sie diesen Typ der Suche benutzen, werden normalen GNU reguläre Ausdrücke eingesetzt."
+
+#: index.docbook:66
+#, fuzzy
+msgid "Normally all searches are done with insensitive character matching, to use case sensitive search enable the box \"Case sensitive\". If you have problems with the search types, case (in)sensitive search or other search related things have a look into our handbook for more information."
+msgstr "Im Normalfall werden alle Suchen ohne die Unterscheidung von GROSS/klein durchgeführt. Um die Unterscheidung anzuschalten aktivieren Sie die Box \"GROSS/klein\". Falls SIe Probleme mit den Suchtypen, der Unterscheidung von GROSS/klein oder anderen für die Suche relevanten Dinge bekommen, finden Sie in unserem Handbuch mehr Informationen."
+
