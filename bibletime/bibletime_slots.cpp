@@ -356,8 +356,9 @@ void BibleTime::saveProfile(int ID){
 }
 
 void BibleTime::saveProfile(CProfile* profile){
-	if (!profile)
+	if (!profile) {
 		return;
+  }
 
 	//save mainwindow settings
 	storeProfileSettings(profile);
@@ -366,8 +367,9 @@ void BibleTime::saveProfile(CProfile* profile){
 	QPtrList<CProfileWindow> profileWindows;
 	for (QWidget* w = windows.first(); w; w = windows.next()) {
 		CDisplayWindow* displayWindow = dynamic_cast<CDisplayWindow*>(w);
-		if (!displayWindow)
+		if (!displayWindow) {
 			continue;
+    }
 
 		CProfileWindow* profileWindow = new CProfileWindow();
 		displayWindow->storeProfileSettings(profileWindow);
@@ -376,8 +378,8 @@ void BibleTime::saveProfile(CProfile* profile){
 	profile->save(profileWindows);
 
 //clean up memory - delete all created profile windows
-	profileWindows.setAutoDelete(true);
-	profileWindows.clear();
+//	profileWindows.setAutoDelete(true);
+//	profileWindows.clear();
 }
 
 void BibleTime::loadProfile(int ID){	

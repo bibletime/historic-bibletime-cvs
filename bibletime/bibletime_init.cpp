@@ -459,6 +459,9 @@ void BibleTime::applyProfileSettings( CProfile* p ){
 
 /** Stores the settings of the mainwindow in the profile p */
 void BibleTime::storeProfileSettings( CProfile* p ){
-	p->setFullscreen(m_windowFullscreen_action->isChecked());
-	p->setGeometry(geometry());
+  if (!p || !m_windowFullscreen_action) {
+    return;
+  }
+//  p->setFullscreen( m_windowFullscreen_action->isChecked() );
+//	p->setGeometry(geometry());
 }

@@ -257,7 +257,7 @@ void CBibleReadWindow::copyDisplayedText(){
 //  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
   vk.UpperBound(dummy);
 
-  CExportManager mgr(i18n("Copy chapter to clipboard ..."), false, i18n("Copying"), filterOptions(),displayOptions());
+  CExportManager mgr(i18n("Copy chapter to clipboard ..."), false, i18n("Copying"), filterOptions(), displayOptions());
   mgr.copyKey(&vk, CExportManager::Text, true);
 }
 
