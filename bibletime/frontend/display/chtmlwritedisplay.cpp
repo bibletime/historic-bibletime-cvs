@@ -78,7 +78,7 @@ void CHTMLWriteDisplay::alignLeft() {
 };
 
 void CHTMLWriteDisplay::alignCenter() {
-  setAlignment(Qt::AlignCenter);
+  setAlignment(Qt::AlignHCenter);
 };
 
 void CHTMLWriteDisplay::alignRight() {
@@ -101,7 +101,7 @@ void CHTMLWriteDisplay::slotAlignmentChanged( int a ){
   if (a & Qt::AlignLeft) {
     alignLeft = true;
   }
-  else if (a & Qt::AlignVCenter) {
+  else if ((a & Qt::AlignHCenter) || (a & Qt::AlignCenter)) {
     alignCenter = true;
   }
   else if (a & Qt::AlignRight) {
