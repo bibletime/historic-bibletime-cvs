@@ -1,10 +1,11 @@
-<chapter id="inst_devl"><title>Entwicklungs-Sourcecode</title>
+<chapter id="inst_devl"><title>Zugang zum Entwickler-Quellcode</title>
 <section id="inst_devl_anon"><TITLE>Anonymer CVS Zugriff</TITLE>
-<Para>This project's SourceForge CVS repository can be checked out through
-anonymous (pserver) CVS with the following instruction set. The module you wish
-to check out must be specified as the <emphasis>modulename</emphasis>. When
-prompted for a password for <emphasis>anonymous</emphasis>, simply press the
-Enter key. </Para>
+
+<Para>Das SourceForge CVS respository dieses Projekts kann man via anonymous
+(pserver) CVS auslesen, wenn man die folgenden Anweisungen befolgt.
+Das Modul, das Sie auslesen wollen, müssen Sie mit 
+<emphasis>Modulename</emphasis> angeben. Bei der Aufforderung, ein Passwort
+einzugeben, drücken Sie einfach Enter.</Para>
 
 <screen>
 cvs -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime login
@@ -12,16 +13,18 @@ cvs -z3 -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co
 </screen>
 
 <para>
-Updates innerhalb des Verzeichnisses des Modules benötgen den -d Parameter nicht.
+Updates innerhalb eines Verzeichnisses des Modules benötigen
+den -d Parameter nicht.
 </para>
 </section>
 
-<section id="inst_devl_cvs"><TITLE>Entwickler CVS Zugriff mit SSH</TITLE>
+<section id="inst_devl_cvs"><TITLE>CVS-Zugriff für Entwickler mit SSH</TITLE>
 <Para>
-Nur Entwickler des Projektes haben Zugriff auf den CVS Baum unter Benutzung dieser Methode.
-SSH1 muss auf ihrem Rechner installiert sein. Ersetzen Sie
-<emphasis>Modulname</emphasis> und <emphasis>Entwicklername</emphasis> mit den richtigen Werten.
-Geben Sie ihr Passwort ein, wenn Sie dazu aufgefordert werden.
+Nur Entwickler des Projektes haben mit dieser Methode Zugriff auf den
+CVS Baum.  SSH1 muss auf ihrem Rechner installiert sein. Ersetzen Sie
+<emphasis>Modulname</emphasis> und <emphasis>Entwicklername</emphasis>
+mit den richtigen Werten.
+Geben Sie Ihr Passwort ein, wenn Sie dazu aufgefordert werden.
 </Para>
 
 <para>Wie man eine frische Kopie von BibleTime bekommt</para>
@@ -32,24 +35,23 @@ export CVS_RSH=ssh      # Die Aktivierung von ssh ist nur einmal pro Sitzung erf
 cvs -z3 -d:ext:<emphasis>Entwicklernamename</emphasis>@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <emphasis>Modulename</emphasis>
 </screen>
 
-<para>Wie Sie ihre Kopie von BibleTime aktualisieren</para>
+<para>Wie Sie Ihre Kopie von BibleTime aktualisieren</para>
 <screen>
 cvs -z5 update -Pd
 </screen>
 
-<para>Wie Sie ihre Änderungen in das CVS Repository hochladen</para>
+<para>Wie Sie Ihre Änderungen in das CVS Repository hochladen</para>
 <screen>
 cvs -z5 commit -m "<emphasis>Kommentare für diesen Commit</emphasis>"
 </screen>
 
-<para>Wie man neue Dateien hinzufügt, die sie erzeugt haben</para>
+<para>Wie Sie neue Dateien hinzufügen, die Sie erzeugt haben</para>
 <screen>
 cvs -z5 add <emphasis>meine_neue_dateie</emphasis>
 </screen>
 </section>
 
 </chapter>
-
 
 
 
