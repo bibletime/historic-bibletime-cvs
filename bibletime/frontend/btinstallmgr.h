@@ -25,6 +25,7 @@
 
 //sword includes
 #include <installmgr.h>
+#include <ftptrans.h>
 
 //Qt includes
 #include <qobject.h>
@@ -39,7 +40,7 @@ typedef QPtrList<sword::InstallSource> InstallSourceList;
 /**Our own reimplementation to provide status bar updates.
   *@author The BibleTime team
   */  
-class BTInstallMgr : public QObject, public sword::InstallMgr {
+class BTInstallMgr : public QObject, public sword::InstallMgr, public sword::StatusReporter {
   Q_OBJECT
 public:
   class Tool {
@@ -83,8 +84,9 @@ public:
 	virtual ~BTInstallMgr();
 
 protected:
+	/* Reimplementations of method in StatusReporter */
   virtual void statusUpdate(double dltotal, double dlnow);
-	virtual void preDownloadStatus(long totalBytes, long completedBytes, const char *message);
+	virtual void preStatus(long totalBytes, long completedBytes, const char *message);
 
   long m_totalBytes;
   long m_completedBytes;

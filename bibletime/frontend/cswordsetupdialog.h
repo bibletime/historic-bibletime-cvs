@@ -33,7 +33,6 @@
 #include <klistview.h>
 
 
-//Sword includes
 class QWidget;
 class QLabel;
 class QComboBox;

@@ -259,14 +259,18 @@ CSwordBackend* BTInstallMgr::Tool::backend( sword::InstallSource* const is) {
 
 
 
-BTInstallMgr::BTInstallMgr() : InstallMgr(Tool::RemoteConfig::configPath().latin1()) {
+BTInstallMgr::BTInstallMgr() : InstallMgr(Tool::RemoteConfig::configPath().latin1(), this) { //use this class also as status reporter
 }
 
-BTInstallMgr::~BTInstallMgr(){
+BTInstallMgr::~BTInstallMgr() { 
+	terminate(); //make sure to close the connection
 }
 
 void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
-	//qWarning("total: %d; now: %d", dltotal, dlnow);
+	qWarning("total: %f; now: %f", dltotal, dlnow);
+	if (dlnow > dltotal)
+		dlnow = dltotal;
+		
   int totalPercent = (int)((float)(dlnow + m_completedBytes+1) / (float)(m_totalBytes) * 100);
 
 	if (totalPercent > 100) {
@@ -288,11 +292,13 @@ void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
   KApplication::kApplication()->processEvents();
 }
 
-void BTInstallMgr::preDownloadStatus(long totalBytes, long completedBytes, const char*) {
+void BTInstallMgr::preStatus(long totalBytes, long completedBytes, const char* message) {
   emit downloadStarted( "unkown filename" );
 
+	qWarning("sword: %s", message);
 	m_completedBytes = completedBytes;
-  m_totalBytes = totalBytes;
+  m_totalBytes = (totalBytes > 0) ? totalBytes : 1; //avoid division by zero
+	
   KApplication::kApplication()->processEvents();
 }
 

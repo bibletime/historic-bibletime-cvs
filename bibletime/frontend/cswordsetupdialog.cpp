@@ -1422,8 +1422,9 @@ void CSwordSetupDialog::slot_installProgressCancelClicked() {
 	//m_progressDialog->wasCancelled()
 
 	//cancel possible active module installation
+	Q_ASSERT(m_currentInstallMgr);
 	if (m_currentInstallMgr) {
-		m_currentInstallMgr->terminate = true;
+		m_currentInstallMgr->terminate();
 	}
 }
 
