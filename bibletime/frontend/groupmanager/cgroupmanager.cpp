@@ -134,15 +134,6 @@ void CGroupManager::setupSwordTree() {
 	setupStandardSwordTree();
 }
 
-void CGroupManager::setupSwordTree(ListCSwordModuleInfo* m_swordList){
-	ASSERT(m_swordList);
-
-	if (m_swordList) {
-		this->m_swordList = m_swordList;
-		setupSwordTree();	
-	};
-}
-
 /** Initializes the tree of this CGroupmanager */
 void CGroupManager::setupStandardSwordTree() {
 	if (!m_swordList)
@@ -164,7 +155,6 @@ void CGroupManager::setupStandardSwordTree() {
 		for ( ; it.current(); ++it ) { \
 			if ( it.current() ) { \
 				item = (CGroupManagerItem*)it.current(); \
-				ASSERT(item); \
 				if (item && (item->text(0) == name) ) { \
 					groupItem = item; \
 					break; \
@@ -186,10 +176,9 @@ void CGroupManager::setupStandardSwordTree() {
 	CGROUPMANAGER_GROUP(i18n("Lexicons"), lexiconGroup);
 		
 	#undef CGROUPMANAGER_GROUP
-
-	ASSERT(m_swordList);
+	
 	for(moduleInfo = m_swordList->first(); moduleInfo !=0; moduleInfo = m_swordList->next()) {
-		bool alreadyCreated = false;  	
+		bool alreadyCreated = false;
   	QListViewItemIterator it( this );
 		for ( ; it.current(); ++it ) {
 			CGroupManagerItem* item = dynamic_cast<CGroupManagerItem*>(it.current());
@@ -219,13 +208,9 @@ void CGroupManager::setupStandardSwordTree() {
 		delete lexiconGroup;
 	if (commentaryGroup->childCount() == 0)
 		delete commentaryGroup;
-}
-
-void CGroupManager::setupStandardSwordTree(ListCSwordModuleInfo* swordList){
-	if (swordList) {
-		m_swordList = swordList;
-		setupStandardSwordTree();	
-	};
+		
+	if (!initialized)
+		sort();
 }
 
 /** Initializes the connections of this class */
@@ -1588,7 +1573,6 @@ void CGroupManager::slotDeleteSearchdialog(){
 
 /** Reimplementation. */
 void CGroupManager::resizeEvent ( QResizeEvent* e )  {
-	KListView::resizeEvent(e);
-		
+	KListView::resizeEvent(e);		
 	setColumnWidth(0, visibleWidth() );
 }

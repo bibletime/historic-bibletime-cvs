@@ -36,30 +36,20 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 /** Returns the entries of the module. */
 QStringList* CSwordLexiconModuleInfo::getEntries(){
 	if (!m_entryList) {
-		m_entryList = new QStringList();
-		
+		m_entryList = new QStringList();		
 		if (!module())
 			return 0;
-		SWKey	old = (*(SWKey*)*module());
-		qDebug((const char*)old);
-		
-		int counter = 0;
-		QString currentKey;
-		module()->SetKey(" ");
+		module()->KeyText(" ");
 		do {
-			currentKey = QString::fromLocal8Bit(module()->KeyText());
+			m_entryList->append(QString::fromLocal8Bit(module()->KeyText()));
 			(*module())++;
-			if ((counter == 0) && (!currentKey.stripWhiteSpace().isEmpty())) {
-				m_entryList->append(currentKey);
-			}
-			if (currentKey == QString::fromLocal8Bit(module()->KeyText()) )
-				counter++;
-			else
-				counter = 0;
-				
-		} while (counter < 5 );
-		module()->SetKey(" ");
-	}
+		} while (!module()->Error());
+		module()->KeyText(" ");		
+		//if the first entry is empty remove it (empty entry means "About module")
+		if (m_entryList->first().stripWhiteSpace().isEmpty())
+			m_entryList->remove( m_entryList->begin() );
+			
+	}	
 	return m_entryList;
 }
 

@@ -70,7 +70,7 @@ void CLexiconKeyChooser::setKey(CKey* key){
 		return;		
 	m_widget->ComboBox->setCurrentItem(
 		m_widget->ComboBox->listBox()->index(
-			m_widget->ComboBox->listBox()->findItem( m_key->getKey()  )));
+			m_widget->ComboBox->listBox()->findItem( m_key->getKey() )));
 	m_widget->adjustSize();
 	emit keyChanged( m_key );
 }

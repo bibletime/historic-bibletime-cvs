@@ -28,9 +28,6 @@
 
 
 CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
-//	if ( !(m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module)) ) {
-//		throw EBadModule();
-//	}		
 	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
 }
 
@@ -39,10 +36,9 @@ CSwordLDKey::~CSwordLDKey(){
 
 /** Sets the key of this instance */
 bool CSwordLDKey::setKey( const QString key ){
-	SWKey::operator = ((const char*)key.local8Bit());	
-	
-	m_module->module()->SetKey(*this->clone());			
-	
+	SWKey::operator = ((const char*)key.local8Bit());		
+	m_module->module()->SetKey(*this->clone());
+	(const char*)*(m_module->module()); //snap to entry
 	SWKey::operator = (m_module->module()->KeyText());
 	
 	return !(bool)error;
@@ -59,11 +55,11 @@ void CSwordLDKey::NextEntry(){
 void CSwordLDKey::PreviousEntry(){
 	m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
 	( *( m_module->module() ) )--;
-	setKey(m_module->module()->KeyText());
+	setKey(getKey());
 }
 
 /** Sets the module of this key. */
-void CSwordLDKey::setModule( CSwordModuleInfo* module ){
+void CSwordLDKey::setModule(CSwordModuleInfo* module){
 	const QString oldKey = QString::fromLocal8Bit( (const char*)*this );
 	if (module && module->getType() == CSwordModuleInfo::Lexicon) {
 		m_module = module;	
@@ -72,8 +68,8 @@ void CSwordLDKey::setModule( CSwordModuleInfo* module ){
 }
 
 /** Returns the current key as a QString */
-const QString CSwordLDKey::getKey() const{
-	return QString::fromLocal8Bit( m_module->module()->KeyText() );
+const QString CSwordLDKey::getKey() const {
+	return QString::fromLocal8Bit(m_module->module()->KeyText());
 }
 
 /** Reimplementation of the cast operator to const char* */
@@ -84,11 +80,11 @@ CSwordLDKey::operator const char*(){
 /** Returns the rendered text of this entry. */
 const QString CSwordLDKey::getRenderedText() const{
 	m_module->module()->SetKey(*this->clone());
-	return QString::fromLocal8Bit( (const char*)*m_module->module() );
+	return QString::fromLocal8Bit((const char*)*m_module->module());
 }
 
 /** Returns the stripped down text of this entry. */
 const QString CSwordLDKey::getStrippedText() const{
 	m_module->module()->SetKey(*this->clone());
-	return QString::fromLocal8Bit( m_module->module()->StripText() );
+	return QString::fromLocal8Bit(m_module->module()->StripText());
 }

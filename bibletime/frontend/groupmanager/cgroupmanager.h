@@ -54,18 +54,10 @@ public:
  	* Initializes the tree of this CGroupmanager
  	*/
   void setupSwordTree();
- 	/**
-	*
-	*/
-  void setupSwordTree(ListCSwordModuleInfo*);
 	/**
 	*
 	*/
   void setupStandardSwordTree();
-	/**
-	*
-	*/
-  void setupStandardSwordTree(ListCSwordModuleInfo*);
   /**
   * Read settings from config
   */

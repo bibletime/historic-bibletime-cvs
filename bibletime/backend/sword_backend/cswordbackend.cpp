@@ -148,7 +148,7 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 
 	if (!stricmp(module->Name(), "RWP")) {
 		if (!m_rwpFilter)
-			m_rwpFilter = new GBFHTML();		
+			m_rwpFilter = new RWPHTML();		
 		module->AddRenderFilter(m_rwpFilter);
 		noDriver = false;
 	}
