@@ -35,9 +35,9 @@
 #include <qtooltip.h>
 #include <qrect.h>
 
-#define WIDTH 16
-#define ARROW_HEIGHT 10
-#define MOVER_HEIGHT 4
+const unsigned int WIDTH = 16;
+const unsigned int ARROW_HEIGHT = 12;
+const unsigned int MOVER_HEIGHT = 6;
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
   : QComboBox(rw,parent,name){

@@ -246,7 +246,12 @@ void COptionsDialog::initFonts(){
     m_settings.fonts.fontMap.insert(it.data().translatedName(), CBTConfig::get(it.data()) );
   }
  	for( QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
- 		m_settings.fonts.usage->insertItem(it.key());
+
+		if ( m_settings.fonts.fontMap[it.key()].first ) //show font icon
+	 		m_settings.fonts.usage->insertItem(SmallIcon("fonts"), it.key() );
+		else		//don't show
+	 		m_settings.fonts.usage->insertItem(it.key());
+
   }
   
   
@@ -960,12 +965,12 @@ void COptionsDialog::saveSword(){
 
 /** This slot is called when the "Use own font for language" bo was clicked. */
 void COptionsDialog::useOwnFontClicked( bool isOn){
-  if (isOn){ //use own font for the selected language
-    m_settings.fonts.fontChooser->setEnabled(true);
-    m_settings.fonts.fontMap[ m_settings.fonts.usage->currentText() ].first = true;
-  }
-  else {
-    m_settings.fonts.fontChooser->setEnabled(false);
-    m_settings.fonts.fontMap[ m_settings.fonts.usage->currentText() ].first = false;    
-  };
+
+  m_settings.fonts.fontChooser->setEnabled(isOn);
+  m_settings.fonts.fontMap[ m_settings.fonts.usage->currentText() ].first = isOn;
+
+  if (isOn) //show font icon
+	 		m_settings.fonts.usage->changeItem(SmallIcon("fonts"), m_settings.fonts.usage->currentText(), m_settings.fonts.usage->currentItem() );
+		else    //don't show
+	 		m_settings.fonts.usage->changeItem(m_settings.fonts.usage->currentText(), m_settings.fonts.usage->currentItem() );
 }
