@@ -44,10 +44,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	const int currentChapter = key.Chapter();
 	const int currentVerse = key.Verse();	
 	int verse = 0;
-	m_htmlText = m_htmlHeader
-//	+ QString("<QT text=\"%1\" link=\"%1\">").arg(m_textColor).arg(m_linkColor)	
-//	+ QString("<BODY text=\"%1\" link=\"%1\">").arg(m_textColor).arg(m_linkColor);
-	+ QString::fromLatin1("<BODY>");
+	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");
 	
   QString FontName = m_standardFontName;
   int FontSize = m_standardFontSize;
@@ -96,7 +93,6 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){	
 	ASSERT(moduleList);
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
-		qWarning("empty module list");
 		m_htmlText = QString::null;
 		return 0;
 	}
@@ -111,7 +107,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	const int width=(int)((double)97/(double)moduleList->count());
 	CSwordModuleInfo *d = 0;
 			
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");
+	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY><TABLE CELLPADDING=\"1\" CELLSPACING=\"0\">");
  	m_htmlText.append("<TR><TD BGCOLOR=\"#F1F1F1\"></TD>");
 	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;	
