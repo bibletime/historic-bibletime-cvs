@@ -1,11 +1,12 @@
 #!/usr/bin/perl
 
 use strict;
+use FindBin qw($RealBin);
 
 my %names;
 
 sub read_names() {
-	open(IN, "< names.conf");
+	open(IN, "< ".$RealBin."/names.conf");
 	
 	while (<IN>) {
 		my $line = $_;
@@ -46,6 +47,8 @@ sub extract_data {
 	return ($name, $html);
 }
 
+my $dir = $RealBin;
+print $dir."\n";
 &read_names;
 my $code = "";
 foreach my $f (@ARGV) {
