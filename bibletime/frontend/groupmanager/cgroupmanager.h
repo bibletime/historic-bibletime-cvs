@@ -47,7 +47,7 @@ public:
 	enum Action {Import, Export, Normal};
 
 	CGroupManager(QWidget *parent=0, const char *name=0, ListCSwordModuleInfo *moduleInfo_list = 0, const bool useBookmarks = true, const bool saveSettings = true, const bool useDnD=true, const bool useExtendedMode=true, const bool useRMBMenu = true, const bool showHelpDialogs = true);
-	~CGroupManager();
+	virtual ~CGroupManager();
   /**
  	* Initializes the tree of this CGroupmanager
  	*/

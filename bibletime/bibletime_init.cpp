@@ -63,16 +63,15 @@ void BibleTime::initView(){
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
 	
 	m_splitter = new QSplitter(this, "mainsplitter");
+	setCentralWidget(m_splitter);	
 	
-	m_groupmanager = new CGroupManager( m_splitter, "groupmanager", m_moduleList );
+	m_groupmanager = new CGroupManager( centralWidget(), "groupmanager", m_moduleList );
 	m_groupmanager->setFocusPolicy(ClickFocus);
 
-	m_mdi = new CMDIArea(m_splitter, "mdiarea" );
+	m_mdi = new CMDIArea(centralWidget(), "mdiarea" );
 	m_mdi->setFocusPolicy(ClickFocus);
 
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
-
-	setCentralWidget(m_splitter);	
 }
 
 

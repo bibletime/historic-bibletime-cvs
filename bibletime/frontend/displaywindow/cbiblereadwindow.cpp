@@ -54,6 +54,26 @@ void CBibleReadWindow::applyProfileSettings( CProfileWindow* const settings ) {
 	CLexiconReadWindow::applyProfileSettings(settings);
 
 	const int count = displaySettingsButton()->menuItemCount();
+	int result = settings->windowSettings();
+// 	qWarning("count == %i", count);
+	for (int i = count-1; i>=1; i--) {
+		if (result-(int)pow(2,i-1)>= 0) { //2^i was added before, so item with index i is set
+			result -= (int)pow(2,i-1);
+//   		qWarning("set item %i to true", i);
+			displaySettingsButton()->setItemStatus(i,true);
+		}
+		else {
+//   		qWarning("set item %i to false", i);
+			displaySettingsButton()->setItemStatus(i,false);			
+  	}
+	}		
+	displaySettingsButton()->setChanged();
+};
+
+void CBibleReadWindow::storeProfileSettings( CProfileWindow* const settings ) {
+	CLexiconReadWindow::storeProfileSettings(settings);
+
+	const int count = displaySettingsButton()->menuItemCount();
 	int result = 0;
 	//now check	every item
 	for (int i = 1; i < count; i++) { //first item is a title
@@ -61,22 +81,6 @@ void CBibleReadWindow::applyProfileSettings( CProfileWindow* const settings ) {
 			result += (int)pow(2,i-1);//add 2^i (the i. digit in binary)
 	}
 	settings->setWindowSettings(result);
-};
-
-void CBibleReadWindow::storeProfileSettings( CProfileWindow* const settings ) {
-	CLexiconReadWindow::storeProfileSettings(settings);
-
-  int result = settings->windowSettings();
-	const int count = displaySettingsButton()->menuItemCount();
-	for (int i = count-1; i>=1; i--) {
-		if (result-(int)pow(2,i-1)>= 0) { //2^i was added before, so item with index i is set
-			result -= (int)pow(2,i-1);
-			displaySettingsButton()->setItemStatus(i,true);
-		}
-		else
-			displaySettingsButton()->setItemStatus(i,false);			
-	}		
-	displaySettingsButton()->setChanged();
 };
 
 

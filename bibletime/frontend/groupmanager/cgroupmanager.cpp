@@ -104,7 +104,7 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModuleInfo *swordList, const bool useBookmarks, const bool saveSettings, const bool useDnD, const bool useExtendedMode, const bool useRMBMenu, const bool showHelpDialogs)
 	: KListView(parent, name),
 		m_swordList(swordList),		
-		m_config( new KConfig("bt-groupmanager", false, false ) ),
+		m_config( new KSimpleConfig("bt-groupmanager", false/*, false*/ ) ),
 	  m_menu(false),
 		m_searchDialog(0),		
 		m_pressedItem(0),		
@@ -126,7 +126,12 @@ CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModule
 }
 
 CGroupManager::~CGroupManager(){	
+	qWarning("### destructor of CGroupManager ###");
 	saveSettings();
+	if (!m_config->isDirty())
+		qWarning("CONFIG WILL NOT BE SVED!");
+	else
+		qWarning("CONFIG WILL _BE_ SaVED!");
 	m_config->sync();
 	delete m_config;
 	m_config = 0;
@@ -228,6 +233,8 @@ void CGroupManager::initConnections(){
 
 /**  */
 void CGroupManager::saveSettings(){	
+	qWarning("CGroupManager::saveSettings()");
+
 	KConfigGroupSaver groupSaver(m_config, "Groupmanager");
 	if (!m_saveSettings) {
 		return;

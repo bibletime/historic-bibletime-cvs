@@ -187,6 +187,7 @@ int main(int argc, char* argv[]) {
 		}
 		
 		bibletime = new BibleTime();
+		app.setMainWidget(bibletime);
 
 		if (showIt) {
 			KStartupLogo::hideSplash();
@@ -214,6 +215,7 @@ int main(int argc, char* argv[]) {
 		setSignalHandler(signalHandler);		
 		
 		const int ret = app.exec();
+		delete bibletime;
 		CPointers::deleteBackend();
 		return ret;
 	}

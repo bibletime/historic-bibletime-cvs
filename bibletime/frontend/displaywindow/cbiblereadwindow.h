@@ -42,11 +42,11 @@ public:
   /**
   * Store the settings of this window in the given CProfileWindow object.
   */
-  virtual void storeProfileSettings( CProfileWindow* const profileWindow );
+  virtual void storeProfileSettings( CProfileWindow* const settings );
   /**
   * Store the settings of this window in the given profile window.
   */
-  virtual void applyProfileSettings( CProfileWindow* const profileWindow );
+  virtual void applyProfileSettings( CProfileWindow* const settings );
   /**
   * Reimplementation.
   */

@@ -26,11 +26,6 @@
 #include "frontend/cmdiarea.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/displaywindow/creadwindow.h"
-//#include "frontend/presenters/cswordpresenter.h"
-//#include "frontend/presenters/cbiblepresenter.h"
-//#include "frontend/presenters/ccommentarypresenter.h"
-//#include "frontend/presenters/clexiconpresenter.h"
-//#include "frontend/presenters/cbookpresenter.h"
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cpointers.h"
@@ -61,13 +56,13 @@
 #include <kmenubar.h>
 #include <ktoolbar.h>
 
-BibleTime::BibleTime() : KMainWindow() {
+BibleTime::BibleTime() : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/) {
 	m_initialized = false;
 	m_moduleList  = 0;
 	m_progress = 0;
 	m_currentProfile = 0;
 	
-	m_keyAccel = new KAccel(this);
+	m_keyAccel = accel(); //new KAccel(this);
 
 	connect(KApplication::kApplication(), SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
 
@@ -88,6 +83,7 @@ BibleTime::BibleTime() : KMainWindow() {
 }
 
 BibleTime::~BibleTime() {
+	qWarning("### BibleTime::~BibleTime ###");
 	saveSettings();
 }
 
@@ -163,18 +159,6 @@ CDisplayWindow* BibleTime::createDisplayWindow(ListCSwordModuleInfo modules, con
   	displayWindow->init(key);
 		displayWindow->show();
 	}
-  //	if (presenter) {
-//		connect(presenter, SIGNAL(lookupInLexicon(const QString&, const QString&)),
-//			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
-//		connect(presenter, SIGNAL(lookupInModule(const QString&, const QString&)),
-//			m_mdi, SLOT(lookupInModule(const QString&, const QString&)));							
-//		if (presenter->isA("CBiblePresenter")) {
-//			connect(presenter->keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
-//				m_mdi, SLOT(syncCommentaries(CSwordKey*)));		
-//		}
-//		presenter->lookup(modules.first()->name(),key);		
-//	}
-
 	kapp->restoreOverrideCursor();	
 	return displayWindow;
 }
@@ -200,6 +184,9 @@ void BibleTime::refreshPresenters() {
 
 /** Called before quit. */
 bool BibleTime::queryExit(){
+	qWarning("BibleTime::queryExit()");
+	return true;
+
   if (!m_initialized)
   	return false;
 	saveSettings();
@@ -208,6 +195,9 @@ bool BibleTime::queryExit(){
 
 /** Called before a window is closed */
 bool BibleTime::queryClose(){
+	qWarning("BibleTime::queryClose()");
+	return true;
+
 	bool ret = true;
 	for ( unsigned int index = 0; index < m_mdi->windowList().count(); ++index) {
 		if (CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index)))
