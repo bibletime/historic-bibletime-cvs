@@ -1,6 +1,7 @@
 Source: bibletime
 Section: x11
-Build-Depends: debhelper, kdelibs-dev (>= 2.2.2-8), libsword-dev (>=1.5.3-0)
+Build-Depends: debhelper, kdelibs4-dev
+#, libsword-dev (>=1.5.3-0)
 Priority: optional
 Maintainer: Daniel Glassey <wdg@debian.org>
 Standards-Version: 3.5.6.0
@@ -12,8 +13,8 @@ Depends: ${shlibs:Depends}
 Recommends: sword-text, sword-dict, sword-comm
 Provides: sword-frontend
 Description: A bible study tool for KDE
- BibleTime 1.1 is a free and easy to use bible study tool for UNIX systems. 
- It requires a working KDE2 environment and SWORD 1.5.3 or later. 
- BibleTime provides easy handling of digitized texts (Bibles, commentaries 
- and lexicons) and powerful features to work with these texts (search in 
+ BibleTime is a free and easy to use bible study tool for UNIX systems.
+ It requires a working KDE environment and the SWORD library.
+ BibleTime provides easy handling of digitized texts (Bibles, commentaries
+ and lexicons) and powerful features to work with these texts (search in
  texts, write own notes, save, print etc.).
