@@ -6,11 +6,10 @@
     <projectmanagement>KDevAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <ignoreparts>
-      <part>KDevFileView</part>
       <part>KDevPerforce</part>
     </ignoreparts>
-    <version>1.4</version>
-    <description/>
+    <version>1.5pre</version>
+    <description></description>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <secondaryLanguages>
@@ -24,7 +23,7 @@
     </general>
     <run>
       <mainprogram>bibletime/bibletime</mainprogram>
-      <programargs/>
+      <programargs></programargs>
       <terminal>false</terminal>
       <autocompile>true</autocompile>
       <envvars/>
@@ -37,9 +36,11 @@
       <abortonerror>true</abortonerror>
       <numberofjobs>1</numberofjobs>
       <dontact>false</dontact>
-      <makebin/>
+      <makebin></makebin>
       <envvars>
+        <envvar value="2.5" name="WANT_AUTOCONF" />
         <envvar value="1" name="WANT_AUTOCONF_2_5" />
+        <envvar value="1.6" name="WANT_AUTOMAKE" />
         <envvar value="1" name="WANT_AUTOMAKE_1_6" />
       </envvars>
     </make>
@@ -47,15 +48,15 @@
   <kdevdebugger>
     <general>
       <dbgshell>libtool</dbgshell>
-      <programargs/>
-      <gdbpath/>
+      <programargs></programargs>
+      <gdbpath></gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -64,8 +65,8 @@
   </kdevdebugger>
   <kdevdoctreeview>
     <projectdoc>
-      <userdocDir/>
-      <apidocDir/>
+      <userdocDir></userdocDir>
+      <apidocDir></apidocDir>
     </projectdoc>
     <ignoreqt_xml/>
     <ignoredoxygen/>
