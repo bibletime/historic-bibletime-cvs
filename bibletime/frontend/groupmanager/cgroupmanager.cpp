@@ -1630,3 +1630,9 @@ void CGroupManager::slotReturnPressed( QListViewItem* i){
 			break;
 	}
 }
+
+
+/** Updates the content size of this list view. */
+void CGroupManager::resizeContents( int w, int h ){
+	KListView::resizeContents(w,h+25);
+}

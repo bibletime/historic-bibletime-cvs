@@ -120,7 +120,7 @@ void CSearchDialogAnalysis::analyse(){
 	bool ok = true;
 	while (ok && analysisItem) {
 		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
-//			KApplication::kApplication()->processEvents(10);
+			KApplication::kApplication()->processEvents(10);
 			if (!m_lastPosList.contains(m_moduleList.current()))
 				m_lastPosList.insert(m_moduleList.current(),0);
 			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.getBook(),m_moduleList.current())));
@@ -209,11 +209,11 @@ QColor CSearchDialogAnalysis::getColor(int index){
 const unsigned int CSearchDialogAnalysis::getCount( const QString book, CSwordModuleInfo* module ){
 	ListKey& result = module->getSearchResult();
 	const int length = book.length();	
-	int i = m_lastPosList[module];
+	unsigned int i = m_lastPosList[module];
 	unsigned int count = 0;
 	const unsigned int resultCount = result.Count();
 	while (i < resultCount) {
-		if ( strncmp(book.local8Bit(), (const char*)*result.GetElement(i), book.length()) )		
+		if ( strncmp(book.local8Bit(), (const char*)*result.GetElement(i), length) )		
 			break;
 		i++;
 		++count;		

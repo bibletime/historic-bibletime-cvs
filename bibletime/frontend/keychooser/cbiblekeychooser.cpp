@@ -273,7 +273,8 @@ void CBibleKeyChooser::chapterFocusOut(int index){
 //	
 //	w_verse->reset(newverses,verse-1,false);
 //	w_verse->adjustSize();
-	m_key->Verse(1);
+	if (index != m_key->Chapter())
+		m_key->Verse(1);
 	m_key->Chapter( w_chapter->ComboBox->currentText().toInt() );	
 	
 	w_verse->reset(m_info->getVerseCount(index+1,1), 0, false);		

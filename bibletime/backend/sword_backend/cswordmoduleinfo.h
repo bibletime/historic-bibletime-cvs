@@ -129,7 +129,7 @@ public:
   * Returns the last search result for this module.
   * The last result is cleared by @ref search
   */
-  virtual const ListKey& getSearchResult();
+  virtual ListKey& getSearchResult();
   /**
   * This interupts the search if this module is being searched.
   */

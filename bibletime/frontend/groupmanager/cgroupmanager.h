@@ -85,6 +85,11 @@ public slots: // Public slots
   * Resets the groupmanager. Recreates the original Bibles, Lexicons and Commentary groups.
   */
   void slotReset();
+  /**
+  * Resizes the content size of this list view.
+  */
+  virtual void resizeContents(int w, int h);
+
 
 signals: // Signals
   /**
@@ -198,9 +203,6 @@ private:
   * returns the parent of the item with the ID index
   */
   CGroupManagerItem* findParent( int ID, CGroupManagerItem* parentItem = 0 );
-  /**
-  *
-  */
   void createNewBookmark(CGroupManagerItem* parent, CModuleInfo* module, const QString ref);
   /**
   * Returns true if the item "item" is a child of item "parent".
@@ -236,6 +238,7 @@ private:
 	*	If group is 0 we create them a toplevel items.
 	*/	
   bool readGroups(KConfig* configFile, CGroupManagerItem* group);
+
   QGuardedPtr<KConfig> config;
   QGuardedPtr<KPopupMenu> popupMenu;
 	bool m_menu;

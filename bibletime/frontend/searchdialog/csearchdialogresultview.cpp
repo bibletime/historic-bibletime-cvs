@@ -137,21 +137,18 @@ void CSearchDialogResultModuleView::initView(){
 
 /** Returns the module belonging to the selected item. */
 CSwordModuleInfo* CSearchDialogResultModuleView::getCurrentModule() {
-	qDebug("CSearchDialogResultModuleView::getCurrentModule()");
 	return m_currentModule;
 }
 
 /** Reimplementation. Sets the cortrect QHeader width. */
 void CSearchDialogResultModuleView::resizeEvent( QResizeEvent* e){
-	qDebug("CSearchDialogResultModuleView::resizeEvent( QResizeEvent* e)");
-	QListView::resizeEvent(e);
-	
-	header()->resize( sizeHint().width(), header()->height() );
+	QListView::resizeEvent(e);	
+	header()->resize( visibleWidth(), header()->height() );
 }
 
 /** Adds all items  of the search result of this module to the printing queue of BibleTime. */
 void CSearchDialogResultModuleView::printSearchResult(){
-	ListKey searchResult = m_currentModule->getSearchResult();
+	ListKey& searchResult = m_currentModule->getSearchResult();
 		
 	QProgressDialog progress( "Printing search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);
@@ -257,12 +254,8 @@ void CSearchDialogResultModuleView::slotSaveSearchResult(){
 
 
 void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
-	qDebug("void CSearchDialogResultModuleView::slotCopySearchResult()");
-	ASSERT(m_currentModule);
-	
 	//get the searched text
 	QString searchedText;
-//	CSearchDialogText* textPart = 0;
 	for (QObject* w = parent(); w; w = w->parent()) {
 		if (w->isA("CSearchDialog")) {
 			CSearchDialog*	dlg = (CSearchDialog*)w;
@@ -302,7 +295,6 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 	//get the searched text
 	QString searchedText;
-//	CSearchDialogText* textPart = 0;
 	for (QObject* w = parent(); w; w = w->parent()) {
 		if (w->isA("CSearchDialog")) {
 			CSearchDialog*	dlg = (CSearchDialog*)w;
@@ -361,14 +353,18 @@ CSearchDialogResultView::~CSearchDialogResultView() {
 void CSearchDialogResultView::setupTree() {
 	ListKey& moduleSearchResult = m_module->getSearchResult();
 	clear();
-	for (int index = 0; index < moduleSearchResult.Count(); index++) {
+	const int count = moduleSearchResult.Count();
+	
+	setUpdatesEnabled(false);
+	for (int index = 0; index < count; index++) {
+//		KApplication::kApplication()->processEvents(10);
 		insertItem( QString::fromLocal8Bit((const char*)*moduleSearchResult.GetElement(index)), -1);
 	}
+	setUpdatesEnabled(true);	
 }
 
 /** Initializes the connections of this class */
 void CSearchDialogResultView::initConnections() {
-	qDebug("CSearchDialogResultView::initConnections()");
 	connect(m_popup, SIGNAL(aboutToShow()),
 		this, SLOT(popupAboutToShow()));
 	connect(this, SIGNAL(currentChanged(QListBoxItem*)),
@@ -393,7 +389,7 @@ void CSearchDialogResultView::initView(){
 	m_savePopup->insertItem(i18n("Key"), this, SLOT(slotSaveCurrent()));
 	m_savePopup->insertItem(i18n("Key with text"), this, SLOT(slotSaveCurrentWithKeytext()));
 	
-	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy inn clipboard..."), 	m_copyPopup);
+	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy into clipboard..."), 	m_copyPopup);
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Print..."), m_printPopup);
 	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup);
 		
@@ -435,8 +431,9 @@ void CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e){
 
 /**  */
 void CSearchDialogResultView::printItem() {
-	qDebug("CSearchDialogResultView::printItem( CModuleInfo* module, CKey* key, bool withKey)");
-	ASSERT( m_currentItem );	
+	if (currentText().isEmpty())
+		return;
+
 	CPrintItem*	printItem = new CPrintItem();
 	if ( dynamic_cast<CSwordBibleModuleInfo*>(m_module) ) {	//a bible or a commentary
 		CSwordVerseKey* verseKey = new CSwordVerseKey(m_module); 	//the key is deleted by the CPrintItem
@@ -456,13 +453,11 @@ void CSearchDialogResultView::printItem() {
 
 /** This slot is called when the current item changed. */
 void CSearchDialogResultView::itemChanged(QListBoxItem* item){
-	qDebug("CSearchDialogResultView::itemChanged(QListBoxItem* item)");
 	m_currentItem = item;
 }
 
 /** Opens the popup menu. */
 void CSearchDialogResultView::rightButtonPressed( QListBoxItem* item, const QPoint& p){
-	qDebug("CSearchDialogResultView::rightButtonPressed( QListBoxItem* item, const QPoint& p)");
 	m_currentItem = item;	
 	if (m_currentItem) {
 		QString text = QString::null;
@@ -484,14 +479,12 @@ void CSearchDialogResultView::rightButtonPressed( QListBoxItem* item, const QPoi
 
 /**  */
 void CSearchDialogResultView::mousePressed(QListBoxItem* item){
-	qDebug("CSearchDialogResultView::slotMousePressed(QListBoxItem*)");
 	m_currentItem = item;
 	if (!item)
 		return;
 	
 	QString text = QString::null;
 	if (dynamic_cast<CSwordBibleModuleInfo*>(m_module)) {
-		qDebug("current module is a bible or a commentary");
 		CSwordVerseKey key(m_module);
 		key.setKey(item->text());
 		text = key.getRenderedText();

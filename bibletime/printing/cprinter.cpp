@@ -190,25 +190,25 @@ bool CPrinter::getPreview(){
 }
 
 /** draws a header on the page. */
-void CPrinter::drawHeader(QPainter *paint, const int sx, const int width, const int y, const CPrinter::CHeaderType type, const CPrinter::CPageHeader header, const CPrinter::CPagePosition position){
+void CPrinter::drawHeader(QPainter */*paint*/, const int /*sx*/, const int /*width*/, const int /*y*/, const CPrinter::CHeaderType /*type*/, const CPrinter::CPageHeader /*header*/, const CPrinter::CPagePosition /*position*/){
 }
 
 /** Paints the header. */
-void CPrinter::printHeader( QPainter* painter){
+void CPrinter::printHeader( QPainter* /*painter*/ ){
 
 }
 
 /** Prints the footer. */
-void CPrinter::printFooter( QPainter* painter ){
+void CPrinter::printFooter( QPainter* /*painter*/ ){
 }
 
 /** Sets the status of the page header. */
-void CPrinter::setPageHeader( const bool enableHeader, CPageHeader header){
+void CPrinter::setPageHeader( const bool /*enableHeader*/, CPageHeader /*header*/){
 
 }
 
 /** Sets the status of the page header. */
-void CPrinter::setPageFooter( const bool enableFooter, CPageHeader footer){
+void CPrinter::setPageFooter( const bool /*enableFooter*/, CPageHeader /*footer*/){
 }
 
 /** Starts printing the items. */

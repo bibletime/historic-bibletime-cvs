@@ -78,7 +78,7 @@ private:
 	
 	ListCSwordModuleInfo m_moduleList;
  	QDict<CSearchDialogAnalysisItem> m_canvasItemList;
- 	QMap<CSwordModuleInfo*,int> m_lastPosList; 	
+ 	QMap<CSwordModuleInfo*,unsigned int> m_lastPosList; 	
   int m_maxCount;
   double m_scaleFactor;
   CSearchDialogAnalysisLegendItem* m_legend; 	

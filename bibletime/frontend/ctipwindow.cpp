@@ -91,11 +91,11 @@ CTipWindow::CTipWindow() : KDialog(0,0,true) {
   vbox->addWidget(ok);
   vbox->addSpacing(15);
 
-  prev = new QPushButton(i18n("&Previous"), this);
-  vbox->addWidget(prev);
-
   next = new QPushButton(i18n("&Next"), this);
   vbox->addWidget(next);
+
+  prev = new QPushButton(i18n("&Previous"), this);
+  vbox->addWidget(prev);
 
   vbox->addStretch(3);
   startup = new QCheckBox(i18n("Run on startup"), this);

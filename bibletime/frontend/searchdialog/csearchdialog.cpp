@@ -92,7 +92,7 @@ void CSearchDialog::initView() {
 	
 	searchAnalysis_page = addVBoxPage(i18n("Search Analysis"), i18n("Graphical analysis of your search result"));	
 	searchAnalysis = new CSearchDialogAnalysis(searchAnalysis_page);
-	CSearchDialogAnalysisView* analysisView =	new CSearchDialogAnalysisView(searchAnalysis, searchAnalysis_page);
+	searchAnalysisView =	new CSearchDialogAnalysisView(searchAnalysis, searchAnalysis_page);
 	searchAnalysis_page->setEnabled(false);	
 }
 
@@ -115,9 +115,6 @@ void CSearchDialog::setModuleList(ListCSwordModuleInfo *list) {
 	m_moduleChooser->blockSignals(false);	
 	
 	searchText_page->setEnabled(moduleList->count());	
-//	if (moduleList->count())
-//		showPage(pageIndex(searchText_page));		
-	
 	searchResult->clearResult();
 	searchAnalysis->reset();
 }
@@ -147,9 +144,7 @@ void CSearchDialog::startSearch(void) {
 	CSwordModuleSearch::scopeType scopeType = searchText->scopeChooser->getScopeType();
 	
 	if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
-		qWarning("CSearchDialog: use last result!");
 		searchFlags |= CSwordModuleSearch::useLastResult;
-//		searcher->setSearchScope( searchText->scopeChooser->getScope() );		
 	}
 	else if ( scopeType == CSwordModuleSearch::Scope_Bounds ) {
 		searchFlags |= CSwordModuleSearch::useScope;	
@@ -187,6 +182,7 @@ void CSearchDialog::timerEvent(QTimerEvent *e){
 		if ( searcher->foundItems() ){
 			searchResult->setModuleList(getModuleList());			
 			searchAnalysis->setModuleList(getModuleList());
+			searchAnalysisView->setContentsPos(0,0);
 			searchResult_page->setEnabled(true);
 			searchAnalysis_page->setEnabled(true);						
 			showPage(pageIndex(searchResult_page));	//the result page

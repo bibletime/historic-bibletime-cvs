@@ -336,8 +336,8 @@ const bool CSwordBackend::getModuleConfig(const QString& module, SWConfig& modul
 				modFile = configPath;
 				modFile += "/";
 				modFile += ent->d_name;
-				moduleConfig = SWConfig( modFile.latin1() );
-				section =	moduleConfig.Sections.find( module.latin1() );
+				moduleConfig = SWConfig( (const char*)modFile.local8Bit() );
+				section =	moduleConfig.Sections.find( (const char*)module.local8Bit() );
 				foundConfig = ( section != moduleConfig.Sections.end() );
 			}
 		}

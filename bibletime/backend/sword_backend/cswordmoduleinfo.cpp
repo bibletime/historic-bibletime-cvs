@@ -176,7 +176,7 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 }
 
 /** Returns the last search result for this module. */
-const ListKey& CSwordModuleInfo::getSearchResult() {
+ListKey& CSwordModuleInfo::getSearchResult() {
 	return m_searchResult;
 }
 

@@ -48,6 +48,24 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 	m_moduleIndex = new CGroupManager(importantClasses, this, "module index", importantClasses->swordBackend->getModuleList(), false, false, false, false, false, false);	
 	QWhatsThis::add(m_moduleIndex, WT_SD_MODULECHOOSER);
 	
+  QListViewItemIterator it( m_moduleIndex );
+  for ( ; it.current(); ++it )  {
+   	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(it.current());
+   	ASSERT(i);
+   	if (i) {
+   		if (i->type() == CGroupManagerItem::Group) {
+   			qWarning("not a group");
+   			if (!i->childCount()) {   				
+   				delete i;
+   				break;
+   			}
+   			else {
+   				i->setOpen(true);
+   			}
+   		}
+   	}
+  }
+	
 	m_moduleList = new QListBox(this);
 	QWhatsThis::add(m_moduleList, WT_SD_MC_MODULELIST);
 
@@ -122,11 +140,20 @@ ListCSwordModuleInfo CSearchDialogModuleChooser::getChosenModules(){
 /** Adds the selected item to the list */
 void CSearchDialogModuleChooser::addCurrentItem(){
 	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(m_moduleIndex->selectedItem());
+	QListViewItem* nextItem = 0;
+	if (i)
+		nextItem = i->itemBelow();
+	if (i && !nextItem)
+		nextItem = i->itemAbove();
+
 	if ( i && (i->type() == CGroupManagerItem::Module) && i->moduleInfo() ) {
 		m_moduleList->insertItem( CToolClass::getIconForModule(i->moduleInfo()), QString::fromLocal8Bit(i->moduleInfo()->module()->Name()),-1 );
 		QListViewItem* parentItem = i->parent();
 		m_itemsDict.insert(i, parentItem ? (const char*)parentItem->text(0).latin1() : "");//I don't know why .local8Bit() doesn't work
 		parentItem ? parentItem->takeItem(i) : m_moduleIndex->takeItem(i);			
+		
+		if (nextItem)
+			m_moduleIndex->setSelected(nextItem, true);
 	}
 	if (m_initialized)
 		emit chosenModulesChanged();
@@ -139,7 +166,16 @@ void CSearchDialogModuleChooser::removeCurrentItem(){
 	QString text = QString::null;
 	if (m_moduleList->currentItem() != -1) {
 		text = m_moduleList->text(m_moduleList->currentItem());
+		const int currentItem = m_moduleList->currentItem();
+		int newIndex = currentItem;
+		
+		if (currentItem+1 < (int)m_moduleList->count())
+			newIndex = currentItem+1;
+		else
+			newIndex = currentItem-1;		
 		m_moduleList->removeItem(m_moduleList->currentItem());
+		if (newIndex != -1)
+			m_moduleList->setSelected(newIndex, true);
 	}
 	else
 		return;
@@ -147,9 +183,7 @@ void CSearchDialogModuleChooser::removeCurrentItem(){
 	QPtrDictIterator<char> m_it( m_itemsDict ); // iterator for dict
 	while ( m_it.current() ) {
 		QString parentName = QString::fromLatin1(m_it.current());
-		qWarning(text.local8Bit());
 		CGroupManagerItem* item = (CGroupManagerItem*)m_it.currentKey();
-		ASSERT(item);
 		if (item && item->text(0) == text) {
 			CGroupManagerItem* folder = 0;
 	    QListViewItemIterator l_it( m_moduleIndex );

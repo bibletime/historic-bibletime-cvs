@@ -39,6 +39,7 @@ class	CSearchDialogText;
 class	CSearchDialogScopeEdit;
 class	CSearchDialogResult;
 class CSearchDialogAnalysis;
+class CSearchDialogAnalysisView;
 
 class CSwordModuleInfo;
 class CSwordModuleSearch;
@@ -109,6 +110,7 @@ private:
 	CSearchDialogText	*searchText;
 	CSearchDialogResult	*searchResult;
 	CSearchDialogAnalysis* searchAnalysis;
+	CSearchDialogAnalysisView* 	searchAnalysisView;
 	CSwordModuleSearch *searcher;
 	ListCSwordModuleInfo *moduleList;
 	CImportantClasses* m_important;			
