@@ -45,6 +45,9 @@ BT_ThMLHTML::BT_ThMLHTML() {
   if (tokenSubMap.find("note") != tokenSubMap.end()) { //remove note tag
 	  tokenSubMap.erase( tokenSubMap.find("note") );
   }
+  if (tokenSubMap.find("/note") != tokenSubMap.end()) { //remove note tag
+	  tokenSubMap.erase( tokenSubMap.find("/note") );
+  }
 }
 
 bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {  

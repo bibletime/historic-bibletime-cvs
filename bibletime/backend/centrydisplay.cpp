@@ -368,17 +368,19 @@ const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, CSwor
   * creating copies of the key object takes too long
   */
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
-  //const QFont font = CBTConfig::get(book->language()).second;
   const QString& keyName = key->getFullName();
+  const bool isRTL = (book->textDirection() == CSwordModuleInfo::RightToLeft);
 
-  return QString::fromLatin1("<%1 class=\"%2\"><span class\"entryname\">%3</span> <span %4>%5</span></%6>")
+  return QString::fromLatin1("<%1 %2 class=\"%3\" dir=\"%4\"><span class=\"entryname\" dir=\"%5\">%6</span> %7</%8>")
     .arg( m_displayOptions.lineBreaks  ? "div" : "span" )
-		.arg( activeKey ? "currententry" : "entry" )
-    .arg( htmlReference(book, keyName, key->getLocalName(), (!keyName.isEmpty() ? keyName : "/") ))
     .arg( book->language().isValid() 
 			? QString::fromLatin1("lang=\"%1\"").arg(book->language().abbrev()) 
 			: QString::null
 		)
+		.arg( activeKey ? "currententry" : "entry" )
+		.arg( isRTL ? "rtl" : "ltr")
+		.arg( isRTL ? "rtl" : "ltr")
+    .arg( htmlReference(book, keyName, key->getLocalName(), (!keyName.isEmpty() ? keyName : "/") ))
 		.arg( key->renderedText() )
 		.arg( m_displayOptions.lineBreaks ? "div" : "span" );
 }

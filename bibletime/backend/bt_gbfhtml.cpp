@@ -34,19 +34,23 @@
 #include <qstring.h>
 
 
-BT_GBFHTML::BT_GBFHTML(){
+BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
+
   setTokenStart("<");
 	setTokenEnd(">");
-	
 	setTokenCaseSensitive(true);
+	
+	setEscapeStringCaseSensitive(true);
+	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
 
+  
 	replaceTokenSubstitute("Rf", ")</span>");// end of footnote
 
-	replaceTokenSubstitute("FI", "<i>"); // italics begin
-	replaceTokenSubstitute("Fi", "</i>");
+	replaceTokenSubstitute("FI", "<span class=\"italic\">"); // italics begin
+	replaceTokenSubstitute("Fi", "</span>");
 
-	replaceTokenSubstitute("FB", "<b>"); // bold begin
-	replaceTokenSubstitute("Fb", "</b>");
+	replaceTokenSubstitute("FB", "<span class=\"bold\">"); // bold begin
+	replaceTokenSubstitute("Fb", "</span>");
 
 	replaceTokenSubstitute("FR", "<span class=\"jesuswords\">");
 	replaceTokenSubstitute("Fr", "</span>");
@@ -78,8 +82,8 @@ BT_GBFHTML::BT_GBFHTML(){
 	replaceTokenSubstitute("Pp", "</span>");
 
 	replaceTokenSubstitute("Fn", "</font>"); //  font  end
-	replaceTokenSubstitute("CL", "<br>"); //  new line
-	replaceTokenSubstitute("CM", "<!p><br>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
+	replaceTokenSubstitute("CL", "<br/>"); //  new line
+	replaceTokenSubstitute("CM", "<!p><br/>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
 
   replaceTokenSubstitute("CG", "&gt;"); // literal greater-than sign
 	replaceTokenSubstitute("CT", "&lt;"); // literal less-than sign

@@ -37,7 +37,6 @@ protected:
   class BT_UserData : public sword::GBFHTML::MyUserData {
   public:
     BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::GBFHTML::MyUserData(module, key) {}
-    bool hasFootnotePreTag;
   };
   virtual sword::BasicFilterUserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {
     return new BT_UserData(module, key);

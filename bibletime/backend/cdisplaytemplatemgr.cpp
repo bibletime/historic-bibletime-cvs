@@ -82,7 +82,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	t.replace("#LANG_ABBREV#", langAbbrev);
 	t.replace("#CONTENT#", content);
 	
-	//std::cout << t.latin1() << std::endl;
+//	std::cout << t.latin1() << std::endl;
 	
 	return t;
 }
