@@ -131,6 +131,11 @@ void CLexiconKeyChooser::refreshContent(){
 
     m_widget->reset(entries, 0, true);	
   }
+	//Make sure the entries are displayed correctly.
+	if ( m_modules.first()->isUnicode() )
+		m_widget->comboBox()->setFont( CBTConfig::get(CBTConfig::unicode) );
+	else
+		m_widget->comboBox()->setFont( CBTConfig::get(CBTConfig::standard) );
 }
 
 /** Sets the module and refreshes the combo boxes */

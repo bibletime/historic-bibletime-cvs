@@ -88,7 +88,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 			(*module()) = sword::TOP;
       snap(); //snap to top entry
   		do {
-        if (isUnicode())
+        if ( isUnicode() )
      			m_entryList->append(QString::fromUtf8(module()->KeyText()));
         else //latin1 is a lot faster than UTF8, use it because latin1 modules won't contain unicode keys
           m_entryList->append(QString::fromLatin1(module()->KeyText()));

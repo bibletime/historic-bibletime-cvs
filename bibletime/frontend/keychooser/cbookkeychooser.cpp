@@ -18,6 +18,7 @@
 #include "cbookkeychooser.h"
 #include "backend/cswordtreekey.h"
 #include "backend/cswordbookmoduleinfo.h"
+#include "frontend/cbtconfig.h"
 
 //Qt includes
 #include <qlayout.h>
@@ -84,7 +85,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 		m_key->root();
 	else
 		m_key->key(oldKey);
-	
+
 	if (emitSignal)
 		emit keyChanged(m_key);
 }
@@ -127,6 +128,15 @@ void CBookKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refres
 			w->show();
 		}
 		updateKey(m_key);		
+	}
+	//Make sure the entries are displayed correctly.
+	if ( m_modules.first()->isUnicode() ){
+		for ( CKeyChooserWidget* idx = m_chooserWidgets.first(); idx; idx = m_chooserWidgets.next() )
+			idx->comboBox()->setFont( CBTConfig::get(CBTConfig::unicode) );
+	}
+	else{
+		for ( CKeyChooserWidget* idx = m_chooserWidgets.first(); idx; idx = m_chooserWidgets.next() )
+			idx->comboBox()->setFont( CBTConfig::get(CBTConfig::standard) );
 	}
 }
 
