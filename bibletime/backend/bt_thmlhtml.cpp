@@ -130,7 +130,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 		  	userData["suspendTextPassThru"] = "true";
       }
 		}
-		else if (!strcasecmp(tag.getName(), "div")) {
+		else if (!strcasecmp(tag.getName(), "div")) {                                      
       if (tag.isEndTag()) {
         buf += "</div>";
       }

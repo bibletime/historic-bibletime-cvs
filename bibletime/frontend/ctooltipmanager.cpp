@@ -170,12 +170,19 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 
 /** Returns the text for the tooltip beginning. */
 const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QString& keyName ){
-  const QString defaultEnding = module ? QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name()) : i18n("Module not set!");
-  
-	if ((module->type() == CSwordModuleInfo::Bible) || (module->type() == CSwordModuleInfo::Commentary)) {
+  if (!module) {
+    return i18n("Module not set!");
+  }
+
+  const QString defaultEnding = QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name());
+
+  if ((module->type() == CSwordModuleInfo::Bible) || (module->type() == CSwordModuleInfo::Commentary)) {
     sword::ListKey keys = sword::VerseKey().ParseVerseList((const char*)keyName.local8Bit(), sword::VerseKey("Genesis 1:1"), true);
-    
-	  return QString::fromLocal8Bit(keys.GetElement(0)->getRangeText()) + defaultEnding;
+
+    if (keys.Count() >= 1)
+      return QString::fromLocal8Bit(keys.GetElement(0)->getRangeText()) + defaultEnding;
+    else
+      return defaultEnding;
   }
   else { //non-versekeys are not localized  
     util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );

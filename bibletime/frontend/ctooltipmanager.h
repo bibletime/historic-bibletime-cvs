@@ -25,10 +25,9 @@
 //Qt includes
 #include <qstring.h>
 
-/**Manages the tooltip texts for hyperlinks ad refereences.
-  *@author The BibleTime team
+/** Manages the tooltip texts for hyperlinks ad refereences.
+  * @author The BibleTime team
   */
-
 class CTooltipManager : public CPointers {
 public: 
   /**
@@ -41,7 +40,7 @@ protected: // Protected methods
   /**
   * Returns the text for the tooltip beginning.
   */
-  static const QString headingText(CSwordModuleInfo* const module, const QString& keyName );
+  static const QString headingText(CSwordModuleInfo* const module, const QString& keyName);
   /**
   * Returns the text for the given moduleName and key name.
   */
