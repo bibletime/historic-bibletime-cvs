@@ -28,6 +28,8 @@
 
 //KDE includes
 #include <kdialogbase.h>
+#include <kurl.h>
+#include <klistview.h>
 
 
 //Sword includes
@@ -37,7 +39,7 @@ class QComboBox;
 class QWidgetStack;
 class QButton;
 class KProgressDialog;
-class KListView;
+// class KListView;
 
 class CInstallSourcesMgrDialog : public KDialogBase, public CPointers  {
    Q_OBJECT
@@ -46,6 +48,16 @@ public:
 	CInstallSourcesMgrDialog(QWidget *parent=0, const char *name=0);
 
 protected:
+
+	class InstallSourceItem : public KListViewItem {
+		public:
+			InstallSourceItem( KListView* parent );
+			const KURL& url() const;
+
+		private:
+			KURL m_url;
+	};
+
 	void initView();
 	void initRemoteSourcesPage();
 	void initLocalSourcesPage();
@@ -53,6 +65,11 @@ protected:
 protected slots:
 	void slot_localAddSource();
 	void slot_localRemoveSource();
+
+	void slot_remoteAddSource();
+	void slot_remoteChangeSource();
+	void slot_remoteRemoveSource();
+	void slot_remoteSourceSelectionChanged();
 
 private:
 	QFrame* m_localSourcesPage;

@@ -63,6 +63,15 @@ using std::endl;
 
 using namespace sword;
 
+CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent ) : KListViewItem(parent){
+
+}
+
+const KURL& CInstallSourcesMgrDialog::InstallSourceItem::url() const {
+	return m_url;
+}
+
+
 CInstallSourcesMgrDialog::CInstallSourcesMgrDialog(QWidget *parent, const char *name )
 	: KDialogBase(IconList, i18n("Manage installation sources"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
@@ -110,26 +119,45 @@ void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
 	m_remoteSourcesPage = addPage(i18n("Remote sources"), QString::null, DesktopIcon("html",32));
  	m_remoteSourcesPage->setMinimumSize(500,400);
 
-	QGridLayout* grid = new QGridLayout(m_remoteSourcesPage, 4,4, 5,5);
+	QGridLayout* grid = new QGridLayout(m_remoteSourcesPage, 4,5, 5,5);
 
 	m_remoteSourcesList = new KListView( m_remoteSourcesPage );
 	m_remoteSourcesList->addColumn("Remote sources");
+	connect(m_remoteSourcesList, SIGNAL(selectioNChanged()), SLOT(slot_remoteSourceSelectionChanged()));
 
- QPushButton* addButton = new QPushButton(i18n("Add this source"), m_remoteSourcesPage);
+ 	QPushButton* addButton = new QPushButton(i18n("New"), m_remoteSourcesPage);
 	connect(addButton, SIGNAL(clicked()), SLOT(slot_remoteAddSource()));
 
-	QPushButton* removeButton = new QPushButton(i18n("Remove current source"), m_remoteSourcesPage);
+ 	QPushButton* editButton = new QPushButton(i18n("Edit"), m_remoteSourcesPage);
+	connect(editButton, SIGNAL(clicked()), SLOT(slot_remoteChangeSource()));
+
+	QPushButton* removeButton = new QPushButton(i18n("Remove"), m_remoteSourcesPage);
 	connect(removeButton, SIGNAL(clicked()), SLOT(slot_remoteRemoveSource()));
 
 	QGroupBox* box = new QGroupBox(m_remoteSourcesPage);
 
-	grid->addMultiCellWidget( m_remoteSourcesList, 0,2, 0,1 );
+	grid->addMultiCellWidget( m_remoteSourcesList, 0,2, 0,2 );
 	grid->addWidget( addButton, 3,0 );
-	grid->addWidget( removeButton, 3,1 );
+	grid->addWidget( editButton, 3,1 );
+	grid->addWidget( removeButton, 3,2 );
 
-	grid->addMultiCellWidget( box, 0,3, 2,3 );
+	grid->addMultiCellWidget( box, 0,3, 3,4 );
 }
 
+void CInstallSourcesMgrDialog::slot_remoteAddSource() {
+	(void)new CInstallSourcesMgrDialog::InstallSourceItem(m_remoteSourcesList);
+}
+
+void CInstallSourcesMgrDialog::slot_remoteChangeSource() {
+}
+
+void CInstallSourcesMgrDialog::slot_remoteRemoveSource() {
+	delete m_remoteSourcesList->currentItem();
+}
+
+void CInstallSourcesMgrDialog::slot_remoteSourceSelectionChanged() {
+	//Apply settings of new source to the edit widgets
+}
 
 /*******************************/
 /* 									New class												*/
