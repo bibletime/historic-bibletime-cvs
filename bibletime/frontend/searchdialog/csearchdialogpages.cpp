@@ -22,6 +22,7 @@
 #include "backend/centrydisplay.h"
 
 #include "frontend/cbtconfig.h"
+#include "frontend/cresmgr.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
@@ -41,6 +42,7 @@
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qsplitter.h>
+#include <qtooltip.h>
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
 #include <qwhatsthis.h>
@@ -420,12 +422,15 @@ void CSearchOptionsPage::setSearchText(const QString& text) {
 
 /** Initializes this page. */
 void CSearchOptionsPage::initView(){
+  
   QGridLayout* grid = new QGridLayout(this,11,3);
   grid->setSpacing(3);
 
   m_chooseModulesButton = new QPushButton(i18n("Choose modules..."), this);
   connect(m_chooseModulesButton, SIGNAL(clicked()),
 	  this, SLOT(chooseModules()));
+  QToolTip::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::tooltip);
+  QWhatsThis::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::whatsthis);
 
   m_modulesLabel = new QLabel(this);
   m_modulesLabel->setTextFormat(RichText);
@@ -445,8 +450,8 @@ void CSearchOptionsPage::initView(){
   connect( m_searchTextCombo, SIGNAL(activated( const QString& )),	m_searchTextCombo, SLOT( addToHistory( const QString& )));
   connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),m_searchTextCombo,  SLOT(addToHistory(const QString&)) );
 
-	QToolTip::add(m_searchTextCombo, TT_SD_SEARCH_TEXT_EDIT);
-	QWhatsThis::add(m_searchTextCombo, WT_SD_SEARCH_TEXT_EDIT);
+  QToolTip::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
+  QWhatsThis::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::whatsthis);
   
     
   QLabel* label = new QLabel(m_searchTextCombo, i18n("Searched text:"), this);
@@ -457,29 +462,44 @@ void CSearchOptionsPage::initView(){
 
   grid->addRowSpacing(3, 10);
 
+  
   QButtonGroup* group 
     = new QButtonGroup(4, Vertical,i18n("Search type"), this);
-
+    
   m_multipleWordsRadio = new QRadioButton(i18n("Multiple words (AND)"), group);
   m_multipleWordsRadio->setChecked( true );
-  m_multipleWordsORRadio =  new QRadioButton(i18n("Multiple words (OR)"), group);  
-  m_exactTextRadio = new QRadioButton(i18n("Exact"), group);
-  m_regexpRadio = new QRadioButton(i18n("Regular expression"), group);
+  QToolTip::add(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::tooltip);
+  QWhatsThis::add(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::whatsthis);
 
-//  grid->addMultiCellWidget(group,3,3,0,1 );
+  
+  m_multipleWordsORRadio =  new QRadioButton(i18n("Multiple words (OR)"), group);
+  QToolTip::add(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::tooltip);
+  QWhatsThis::add(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::whatsthis);
+  
+  m_exactTextRadio = new QRadioButton(i18n("Exact"), group);
+  QToolTip::add(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::tooltip);
+  QWhatsThis::add(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::whatsthis);
+  
+  m_regexpRadio = new QRadioButton(i18n("Regular expression"), group);
+  QToolTip::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::tooltip);
+  QWhatsThis::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::whatsthis);
+
   grid->addWidget(group, 4,0);
 
   group = new QButtonGroup(1,Vertical,i18n("Search options"), this);
   m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive search"), group);
+  QToolTip::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::tooltip);
+  QWhatsThis::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::whatsthis);
 
-//  grid->addMultiCellWidget(group,3,3,0,2 );
   grid->addWidget(group, 4,2);
   grid->addRowSpacing(5,10);
 
   m_rangeChooserCombo = new KComboBox(this);
-  refreshRanges();
+  QToolTip::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
+  QWhatsThis::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::whatsthis);
+  
+  refreshRanges();  
   label = new QLabel(m_rangeChooserCombo, i18n("Choose search scope:"),this);
-//  label->setAutoResize(true);
   
   m_chooseRangeButton = new QPushButton(i18n("Setup custom ranges..."), this);
   connect(m_chooseRangeButton, SIGNAL(clicked()),

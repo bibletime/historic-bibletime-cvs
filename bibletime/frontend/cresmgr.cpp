@@ -1,9 +1,9 @@
 /***************************************************************************
-                          chelpmgr.h  -  description
+                          cresmgr.cpp  -  description
                              -------------------
-    begin                : Mon Sep 16 2002
-    copyright            : (C) 2002 by The BibleTime team
-    email                : info@bibletime.de
+    begin                : Tue Jan 25 2000
+    copyright            : (C) 2000 by The BibleTime Team
+    email                : Info@bibletime.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -15,48 +15,30 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef CHELPMGR_H
-#define CHELPMGR_H
+//own includes
+#include "cresmgr.h"
 
-//Qt includes
-#include <qstring.h>
-#include <qkeysequence.h>
 
-//KDE includes
-#include <klocale.h>
-#include <kshortcut.h>
-
-/**Provides static functions to easily access the Tooltip and WhatsThis texts for all the frontend parts.
-  *@author The BibleTime team
-  */
-  
-namespace CHelpMgr {
-  inline const QString makeToolTip( const QString& text ) {
-    return text;
-  };
-  inline const QString makeWhatsThis( const QString& title, const QString& description )  {
-    return QString::fromLatin1("<center><B>%1</B></center><HR>%2").arg(title).arg(description);
-  };
-
+namespace CResMgr {
   namespace mainMenu { //Main menu
     namespace file { //Main menu->File
       namespace clearQueue {
-        const QString tooltip     = makeToolTip( i18n("Clear the printing queue") );
-        const QString whatsthis   = makeWhatsThis( tooltip, i18n("Clear the print queue of BibleTime. All items will be removed from the list and the print button will be disabled.") );
-        const QString icon        = QString::fromLatin1("queue");
-        const KShortcut accel     = KShortcut();
-        const char* actionName    = "fileClearQueue_action";
+        const QString tooltip    = CResMgr::makeToolTip( i18n("Clear the printing queue") );
+        const QString whatsthis  = CResMgr::makeWhatsThis( tooltip, i18n("Clear the print queue of BibleTime. All items will be removed from the list and the print button will be disabled.") );
+        const QString icon       = QString::fromLatin1("queue");
+        const KShortcut accel    = KShortcut();
+        const char* actionName   = "fileClearQueue_action";
       }
       namespace print { //a standard action
         const QString tooltip     = makeToolTip( i18n("Open the printerdialog") );
         const QString whatsthis   = makeWhatsThis( tooltip, i18n("Open the printer dialog of BibleTime.  Here you can edit the print queue and assign styles to the items.") );
-      }      
+      }
       namespace quit { //a standard action
         const QString tooltip     = makeToolTip( i18n("Close BibleTime") );
         const QString whatsthis   = makeWhatsThis( tooltip, i18n("Close BibleTime and save the settings.") );
       }
     }
-    
+
     namespace view { //Main menu->View
       namespace showMainIndex {
         const QString tooltip     = makeToolTip(i18n("Show main index"));
@@ -200,7 +182,7 @@ namespace CHelpMgr {
       namespace aboutKDE { // available as KStdAction
         const QString tooltip     = makeToolTip(i18n("About KDE"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Show detailed information about the KDE project."));
-      };      
+      };
     };
   }  //end of main menu
 
@@ -213,7 +195,7 @@ namespace CHelpMgr {
       const QString tooltip     = makeToolTip(i18n("Cancel searching"));
       const QString whatsthis   = makeWhatsThis(tooltip, i18n("Stops the active search."));
     };
-    
+
     namespace options {
       namespace moduleChooserDialog {
         const QString tooltip     = makeToolTip(i18n(""));
@@ -228,11 +210,11 @@ namespace CHelpMgr {
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Enter here the text you want to search in the chosen modules."));
       };
       namespace searchType {
-        namespace mulipleWords_and {
+        namespace multipleWords_and {
           const QString tooltip     = makeToolTip(i18n("Multiple words (AND)"));
           const QString whatsthis   = makeWhatsThis(tooltip, i18n("Treats the search text as multiple words. A text must contain all of the words to match! The order of the words is unimportant."));
         };
-        namespace mulipleWords_or {
+        namespace multipleWords_or {
           const QString tooltip     = makeToolTip(i18n("Multiple words (OR)"));
           const QString whatsthis   = makeWhatsThis(tooltip, i18n("Treats the search text as multiple words. A text must contain only one or more words of the search text. The order is unimportant."));
         };
@@ -243,9 +225,9 @@ namespace CHelpMgr {
         namespace regExp {
           const QString tooltip     = makeToolTip(i18n("Regular expression"));
           const QString whatsthis   = makeWhatsThis(tooltip, i18n("The search string is treated as a GNU regular expression. See the BibleTime handbook for an explanation of regular expressions."));
-        };        
+        };
       };
-      
+
       namespace searchOptions {
         namespace caseSensitive {
           const QString tooltip     = makeToolTip(i18n("Case sensitive matching"));
@@ -297,7 +279,7 @@ namespace CHelpMgr {
         const QString tooltip     = makeToolTip(i18n("Text preview"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("The text preview of the selected search result item."));
       };
-    };    
+    };
   };
 
   namespace workspace {
@@ -309,5 +291,3 @@ namespace CHelpMgr {
   namespace printing {
   };
 }
-
-#endif

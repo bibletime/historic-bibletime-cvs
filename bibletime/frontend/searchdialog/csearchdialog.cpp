@@ -25,6 +25,7 @@
 #include "backend/cswordversekey.h"
 
 #include "frontend/cbtconfig.h"
+#include "frontend/cresmgr.h"
 
 #include "util/ctoolclass.h"
 
@@ -146,6 +147,12 @@ void CSearchDialog::setSearchText( const QString searchText ){
 
 /** Initializes this object. */
 void CSearchDialog::initView(){
+  setButtonTip(User1, CResMgr::searchdialog::searchButton::tooltip);
+  setButtonWhatsThis(User1, CResMgr::searchdialog::searchButton::whatsthis);
+
+  setButtonTip(User2, CResMgr::searchdialog::cancelSearchButton::tooltip);
+  setButtonWhatsThis(User2, CResMgr::searchdialog::cancelSearchButton::whatsthis);
+  
   QHBox* box = addHBoxPage(i18n("Options"));
   m_index.optionsPage = pageIndex(box);
   m_searchOptionsPage = new CSearchOptionsPage(box);
