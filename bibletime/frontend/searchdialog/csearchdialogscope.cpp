@@ -145,6 +145,13 @@ const CSwordModuleSearch::scopeType CSearchDialogScopeChooser::getScopeType() co
   return CSwordModuleSearch::Scope_NoScope;
 }
 
+const QString CSearchDialogScopeChooser::getScopeTypeString() {
+  if (noScope->isChecked())         return noScope->text();
+  if (lastResultScope->isChecked()) return lastResultScope->text();
+  if (useScope->isChecked())        return useScope->text();
+
+  return noScope->text();
+}
 void CSearchDialogScopeChooser::editButtonClicked(){
   CSearchDialogScopeEdit *dialog = new CSearchDialogScopeEdit(this->config, this, "ranges dialog");
   dialog->exec();
