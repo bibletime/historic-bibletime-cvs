@@ -63,12 +63,12 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
     return false;
 
   QString text = QString::null;
-  if (addText) {
+  if (addText) { //add the text of the key to the content of the file we save
     CPointers::backend()->setFilterOptions(m_filterOptions);
     CPointers::backend()->setDisplayOptions(m_displayOptions);
 
     CSwordModuleInfo* module = key->module();    
-  	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) {
+  	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) { //we can have a boundary
       CSwordVerseKey startKey(module);
       CSwordVerseKey stopKey(module);
 
@@ -76,11 +76,20 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
   		stopKey.key(vk->UpperBound());
       QString entryText;
       if (format == HTML) {
-        text = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY>").arg(htmlCSS(module));
+        text = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY>")
+                .arg(htmlCSS(module));
+      };
+      //add the heading
+      if (startKey < stopKey) { //we have a boundary
+        QString bound = QString::fromLatin1("%1 - %2").arg(startKey.key()).arg(stopKey.key());
+        text +=
+          (format == HTML)
+          ? QString::fromLatin1("<H3>%1</H3><BR>").arg(bound)
+          : bound;
       };
       
   		while ( startKey < stopKey || startKey == stopKey ) {
-        entryText = (format == HTML) ? startKey.renderedText() : startKey.strippedText();
+        entryText = (format == HTML) ? startKey.renderedText(CSwordKey::HTMLEscaped) : startKey.strippedText();
       
   			text += ((bool)m_displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
 + entryText + lineBreak(format);
@@ -88,15 +97,31 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
         startKey.next(CSwordVerseKey::UseVerse);
   		}
   	}
-    else {
-      text = (format == HTML) ? key->renderedText() : key->strippedText();
+    else { //no verse key, so we can't have a boundary!
+      text =
+        (format == HTML) 
+        ? QString::fromLatin1("<HTML><HEAD><TITLE>%1</TITLE></HEAD><BODY><H3>%2 (%3)</H3><BR>%4") //HTML escaped text
+            .arg(key->key())
+            .arg(key->key())
+            .arg(module->name())            
+            .arg(key->renderedText(CSwordKey::HTMLEscaped))
+        : QString::fromLatin1("%1 (%2)\n\n%3") //plain text
+            .arg(key->key())
+            .arg(module->name())
+            .arg(key->strippedText());
+      //we should only add the reference if the key has no bounds
+      text +=
+        lineBreak(format) +
+        QString::fromLatin1("(%1, %1)")
+            .arg(key->key())
+            .arg(module->name());        
     }
-    text += "\n" + QString::fromLatin1("(%1, %1)").arg(key->key()).arg(module->name());
+
     if (format == HTML) {
       text += QString::fromLatin1("</BODY></HTML>");
     };    
   }
-  else { //don't add text
+  else { //don't add the text of the key, we
     text = key ? key->key() : QString::null;
   	return true;
   }
@@ -121,7 +146,7 @@ const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* m
  			break;
     key->key((const char*)(*list));
  		if (addText)
- 			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText() : key->strippedText() );
+ 			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText(CSwordKey::HTMLEscaped) : key->strippedText() );
  		else
  			text += key->key() + lineBreak(format);
     incProgress();
@@ -146,7 +171,7 @@ const bool CExportManager::saveKeyList(QPtrList<CSwordKey> list, const Format fo
   setProgressRange(list.count());
   for (CSwordKey* k = list.first(); k && !progressWasCancelled(); k = list.next()) {
  		if (addText)
- 			text += QString::fromLatin1("%1:%2\t%3\n").arg( k->key() ).arg(lineBreak(format)).arg( (format == HTML) ? k->renderedText() : k->strippedText() );
+ 			text += QString::fromLatin1("%1:%2\t%3\n").arg( k->key() ).arg(lineBreak(format)).arg( (format == HTML) ? k->renderedText(CSwordKey::HTMLEscaped) : k->strippedText() );
  		else
  			text += k->key() + lineBreak(format);
     incProgress();

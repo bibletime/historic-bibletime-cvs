@@ -165,9 +165,9 @@ void CBibleReadWindow::setupPopupMenu(){
  	m_actions.saveMenu = new KActionMenu(i18n("Save..."),ICON_FILE_SAVE);	
  	m_actions.save.referenceAndText = new KAction(i18n("Reference with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(saveAnchorWithText()), actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.referenceAndText);
-	m_actions.save.chapterAsPlain = new KAction(i18n("Chapter as plain text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(saveAsPlain()),actionCollection());
+	m_actions.save.chapterAsPlain = new KAction(i18n("Chapter as plain text"), KShortcut(0), this, SLOT(saveChapterPlain()),actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.chapterAsPlain);
- 	m_actions.save.chapterAsHTML = new KAction(i18n("Chapter as HTML"), KShortcut(0), this, SLOT(saveChapter()),actionCollection());
+ 	m_actions.save.chapterAsHTML = new KAction(i18n("Chapter as HTML"), KShortcut(0), this, SLOT(saveChapterHTML()),actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.chapterAsHTML);
  	m_actions.saveMenu->plug(popup());
 
@@ -269,23 +269,39 @@ void CBibleReadWindow::copyDisplayedText(){
 }
 
 /** Saves the chapter as valid HTML page. */
-void CBibleReadWindow::saveChapter(){
+void CBibleReadWindow::saveChapterHTML(){
   //saves the complete chapter to disk
 
   CSwordVerseKey vk(*verseKey());
   CSwordVerseKey dummy(*verseKey());
 
   dummy.Verse(1);
-//  qWarning("copyChapter: lower bound is %s", (const char*)dummy);
   vk.LowerBound(dummy);
 
   CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
   dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
-//  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
   vk.UpperBound(dummy);
 
   CExportManager mgr(i18n("Saving chapter ..."), true, i18n("Saving"), filterOptions(),displayOptions());
   mgr.saveKey(&vk, CExportManager::HTML, true);
+}
+
+/** Saves the chapter as valid HTML page. */
+void CBibleReadWindow::saveChapterPlain(){
+  //saves the complete chapter to disk
+
+  CSwordVerseKey vk(*verseKey());
+  CSwordVerseKey dummy(*verseKey());
+
+  dummy.Verse(1);
+  vk.LowerBound(dummy);
+
+  CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
+  dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
+  vk.UpperBound(dummy);
+
+  CExportManager mgr(i18n("Saving chapter ..."), true, i18n("Saving"), filterOptions(),displayOptions());
+  mgr.saveKey(&vk, CExportManager::Text, true);
 }
 
 void CBibleReadWindow::refresh(){

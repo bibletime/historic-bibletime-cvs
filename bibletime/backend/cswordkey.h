@@ -38,6 +38,12 @@ protected:
 	CSwordKey(const CSwordKey&); //copy constructor
 
 public:
+
+  enum TextRenderType {
+    Normal = 0,
+    HTMLEscaped
+  };
+
 	virtual ~CSwordKey() {};
 	
 	
@@ -50,7 +56,7 @@ public:
 	//implemented functions
 	virtual CSwordModuleInfo* const module(CSwordModuleInfo* const newModule = 0);
 	virtual const QString rawText();
-  virtual const QString renderedText();
+  virtual const QString renderedText( const CSwordKey::TextRenderType mode = CSwordKey::Normal );
 	virtual const QString strippedText();
   /**
   * This returns a new object of the right CSwordKey* implementation (e.g. CSwordVerseKey or CSwordLDKey)

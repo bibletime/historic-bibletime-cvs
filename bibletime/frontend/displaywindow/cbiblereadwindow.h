@@ -112,8 +112,14 @@ protected slots: // Protected slots
   * Copies the current chapter into the clipboard.
   */
   void copyDisplayedText();
-  /** Saves the chapter as valid HTML page. */
-  void saveChapter();
+  /**
+  * Saves the chapter as valid HTML page.
+  */
+  void saveChapterHTML();
+  /**
+  * Saves the chapter as valid HTML page.
+  */
+  void saveChapterPlain();
 
 private:
   friend class CCommentaryReadWindow;

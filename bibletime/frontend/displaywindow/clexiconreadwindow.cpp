@@ -23,6 +23,7 @@
 #include "backend/cswordldkey.h"
 
 #include "frontend/cbtconfig.h"
+#include "frontend/cexportmanager.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
 #include "frontend/keychooser/ckeychooser.h"
@@ -120,9 +121,9 @@ void CLexiconReadWindow::setupPopupMenu(){
  	m_actions.copyMenu->plug(popup());
 
  	m_actions.saveMenu = new KActionMenu(i18n("Save..."),ICON_FILE_SAVE);	
-	m_actions.save.entryAsPlain = new KAction(i18n("Entry as plain text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(saveAsPlain()),actionCollection());
+	m_actions.save.entryAsPlain = new KAction(i18n("Entry as plain text"), KShortcut(0), this, SLOT(saveAsPlain()),actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.entryAsPlain);
- 	m_actions.save.entryAsHTML = new KAction(i18n("Entry as HTML"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(saveAsHTML()),actionCollection());
+ 	m_actions.save.entryAsHTML = new KAction(i18n("Entry as HTML"), KShortcut(0), this, SLOT(saveAsHTML()),actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.entryAsHTML);
  	m_actions.saveMenu->plug(popup());
 
@@ -155,4 +156,16 @@ void CLexiconReadWindow::previousEntry(){
 /** Reimplementation to return the right key. */
 CSwordLDKey* CLexiconReadWindow::ldKey(){
   return dynamic_cast<CSwordLDKey*>(CDisplayWindow::key());
+}
+
+/** This function saves the entry as html using the CExportMgr class. */
+void CLexiconReadWindow::saveAsHTML(){
+  CExportManager mgr(i18n("Saving entry ..."), true, i18n("Saving"), filterOptions(), displayOptions());
+  mgr.saveKey(ldKey(), CExportManager::HTML, true);  
+}
+
+/** This function saves the entry as html using the CExportMgr class. */
+void CLexiconReadWindow::saveAsPlain(){
+  CExportManager mgr(i18n("Saving entry ..."), true, i18n("Saving"), filterOptions(), displayOptions());
+  mgr.saveKey(ldKey(), CExportManager::Text, true);
 }

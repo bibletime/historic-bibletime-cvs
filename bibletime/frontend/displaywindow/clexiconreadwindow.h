@@ -90,6 +90,14 @@ private:
 protected slots: // Protected slots
   void previousEntry();
   void nextEntry();
+  /**
+  * This function saves the entry as html using the CExportMgr class.
+  */
+  void saveAsHTML();
+  /**
+  * This function saves the entry as plain text using the CExportMgr class.
+  */
+  void saveAsPlain();
 };
 
 #endif
