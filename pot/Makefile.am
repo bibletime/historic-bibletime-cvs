@@ -2,16 +2,17 @@
 # the -x is for skipping messages already translated in kdelibs
 
 messages:
-	echo Preparing program messages file documentation.pot...
+	echo Preparing documentation files handbook.pot and howto.pot...
 	mkdir -p tmp/
 	for XML_FILE in `cd ..; find docs -name "*.docbook"`; do\
 		echo " creating temporary POT file tmp/$$XML_FILE.pot";\
 		(cd tmp; mkdir -p `dirname $$XML_FILE.pot`; xml2pot ../../$$XML_FILE > $$XML_FILE.pot;)\
 	done
 	echo merging POT files...
-	msgcat --force-po -o documentation.pot `find tmp -name "*.pot"`
+	msgcat --force-po -o handbook.pot `find tmp/docs/handbook -name "*.pot"`
+	msgcat --force-po -o howto.pot `find tmp/docs/howto/ -name "*.pot"`
 	rm -r ./tmp/
-	echo Finished creating documentation.pot.
+	echo Finished creating handbook.pot and howto.pot.
 	\
 	echo Preparing program messages file messages.pot...
 	perl ./extractrc ../bibletime/xml/*.rc > ../bibletime/rc-dummy.cpp
