@@ -61,7 +61,8 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			pushString(buf, "&gt;</a></em></small></font> ");
 		}
 		else if (!strncmp(token, "sync type=\"Morph\" value=\"", 25)) {
-			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://OT/");//OT or NT as default?
+#warning OT or NT as default???
+			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://OT/");
 			for (i = 5; i < strlen(token)-1; i++)				
 				if(token[i] != '\"') 			
 					*(*buf)++ = token[i];
