@@ -1,48 +1,46 @@
-<chapter ID="hdbk_term"><title>Starting Bibletime</title>
+<chapter ID="hdbk_term"><title>BibleTime starten</title>
 <para>
-Bibletime is a KDE program and is integrated with the KDE desktop.
-You should find an icon for launching Bibletime from the desktop.
+BibleTime ist ein KDE Programm und ist in den KDE Arbeitsplatz integriert.
+Sie sollten ein Symbol um BibleTime zu starten auf dem Arbeitsplatz finden.
 <graphic fileref="common/hdbk_start_bticon.png" format="png"></graphic>
 </para>
 <para>
-Bibletime can be launched from inside other window managers
-(like gnome) providing KDE is installed.  You will need to install
-your own icon to launch the program.  See the window manager help
-files to see how.
+BibleTime kann aus anderen Fenstermanagern heraus aufgerufen werden (wie z.B. gnome)
+vorrausgesetzt, dass KDE installiert ist.
+Sie müssen ihr eigenes Symbol installieren umd BibleTime zu starten.
+Lesen Sie die Fenstermanager Hilfedateien um zu wissen wie.
 </para>
 <para>
-Bibletime can also be launched from a terminal command prompt.
-To launch Bibletime open a terminal (any Xterminal) and type
-<command>bibletime</command>.
+BibleTime kann auch von einer Terminal Eingabeaufforderung aufgerufen werden.
+Um BibleTime aufzurufen öffnen Sie ein Terminal (jedes beliebige XTerminal)
+und geben sie folgendes ein: <command>bibletime</command>.
 </para>
-<section ID="hdbk_start_sequence"><title>Startup Sequence</title>
+<section ID="hdbk_start_sequence"><title>Startsequenz</title>
 <para>
-As Bibletime launches you may see the following screens:</para>
+Wenn BibleTime gestartet wird könnten Sie die folgenden Fenster sehen:</para>
 <itemizedlist>
-<listitem><para>No Modules Installed - This is shown if you
-have forgotten to install sword modules, or if the sword modules
-can not be found.
+<listitem><para>Keine Module installiert - Dies wird angezeigt, wenn Sie vergessen haben
+Sword Module zu installieren, oder wenn die Sword Module nicht gefunden werden konnten.
 <link linkend="help_no_modules">
-Click here to see the No Modules Installed help screen</link>
+Klicken Sie hier un die &quot;Keine Module installiert&quot; Seit zu sehen</link>
 </para></listitem>
-<listitem><para>First Time Startup - This is shown the first time
-Bibletime is launched.
+<listitem><para>Erster Start - Dies wird angezeigt, wenn BibleTime zum ersten Male
+aufgerufen wurde.
 <link linkend="help_first_startup">
-Click here to see the First Time Startup help screen</link>
+Klicken Sie hier um die &quot;Erster Start&quot; Seite zu sehen</link>
 </para></listitem>
-<listitem><para>Daily Tips - These show on every startup, unless
-you turn them off.
+<listitem><para>Tägliche Tipps - Sie werden bei jedem Start angezeigt, es sei denn Sie schalten sie ab.
 <graphic fileref="common/hdbk_start_sequence_tips.png" format="png"></graphic>
 </para></listitem>
 </itemizedlist>
 
 </section>
-<section ID="hdbk_start_screen"><title>Parts of the Bibletime Screen</title>
+<section ID="hdbk_start_screen"><title>Teile des BibleTime Fensters</title>
 <para>
-Now the main Bibletime screen will open.  It's operation is covered in the next chapter.
+Jetzt wird das BibleTime Fenster geöffnet. Dessen Funktion wird im nächsten Kapitel behandelt.
 </para>
 <screenshot>
-<screeninfo>The Bibletime Application Window</screeninfo>
+<screeninfo>Das BibleTime Anwendugsfenster</screeninfo>
 <graphic fileref="common/hdbk_start_screen_terms.png" format="png"></graphic>
 </screenshot>
 </section>

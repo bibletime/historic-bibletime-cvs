@@ -8,13 +8,13 @@
 <year>2000</year>
 <year>2001</year>
 <holder>
-The team of Bibletime, info@bibletime.de
+Das Team von BibleTime, info@bibletime.de
 </holder>
 </copyright>
 
 <legalnotice>
 <para>
-The Bibletime handbook is part of Bibletime.
+Das BibleTime Handbuch ist Teil von BibleTime
 </para>
 <para>
 Bibletime is free software; you can redistribute it and/or
@@ -53,11 +53,11 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 <releaseinfo>1.0</releaseinfo>
 
 <abstract>
-<title>Abstract</title>
+<title>Zusammenfassung</title>
 <para>
-<application>Bibletime</application> is a Bible study tool.  It provides an easy
-to use but powerful interface. This handbook gives you an overview of the
-functions and introduces you to their use.
+<application>Bibletime</application> ist ein Bibelstuium Werkzeug. Es stellt eine einfach
+zu benutzende jedoch gleichzeitig mächtige Benutzerschnittstelle zur Verfügung.
+Dieses Handbuch gibt einen Überblick der Funktionen und führt in ihre Benutzung ein.
 </para>
 </abstract>
 

@@ -35,6 +35,8 @@
 #include "printing/cprinter.h"
 #include "structdef.h"
 
+#include <pthread.h>
+
 //forward class declarations
 
 //KDE classes
@@ -305,13 +307,16 @@ private slots: // Private slots
   */
   void slotPrintingFinished();
   /**
+  * Aborts the printing
+  */
+  void slotAbortPrinting();
+  /**
   * Printing was started
   */
-  /** Aborts the printing */
-  void slotAbortPrinting();
   void slotPrintingStarted();
 
 private:
 	QProgressDialog* m_progress;
+	pthread_mutex_t progress_mutex;	
 };
 #endif

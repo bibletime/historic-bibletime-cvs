@@ -1,96 +1,98 @@
-<chapter ID="hdbk_intro"><title>Introduction</title>
+<chapter ID="hdbk_intro"><title>Einleitung</title>
 <para>
-Bibletime is a powerful Bible study tool written for the KDE environment on the
-Linux operating system. It is based on the <ulink
-url="http://www.crosswire.org">Sword</ulink> library, which provide the back-end
-functionality for Bibletime, such as viewing Bible text, searching, bookmarking,
-etc. Sword is the flagship product of the <ulink
-url="http://www.crosswire.org">Crosswire Bible Society</ulink>. </para>
+BibleTime ist ein mächtiges Bibelstudien Werkzeug, geschrieben für die KDE Umgebung auf dem Linux Betriebssystem.
+Es basiert auf der <ulink url="http://www.crosswire.org">Sword</ulink> Bibliothek, welche
+die Back-End Funktionalität für BibleTime zur Verfügung stellt, zum Beispiel Bibeltexte anschauen, Suchen, Lesezeichen anlegen
+usw.
+Sword ist das Flagschiffprodukt der <ulink url="http://www.crosswire.org">
+Crosswire Bibelgesellschaft</ulink>.
+</para>
 
 <para>
-There are three types of modules that can be displayed:
+Es gibt drei Typen von Modulen, die angezeigt werden können:
 </para
 
 <para>
 <variablelist>
 <varlistentry>
-<term>Bibles</term>
+<term>Bibeln</term>
 <listitem>
 <para>
-The full text, with optional Strong's Numbers and footnotes in the text
+Der ganze Text, mit optionalen Strong's Nummern und Fußnoten im Text
 </para>
 </listitem> </varlistentry>
 
 <varlistentry>
-<term>Commentaries</term>
+<term>Kommentare</term>
 <listitem>
 <para>
-With a <quote>Personal</quote> commentary you can record your own personal
-notes to different parts of the Bible.
+Mit einem <quote>Persönlichem</quote> Kommentar können Sie ihre eigenen persönlichen
+Notizen zu verschiedenen Bereichen der Bibel anlegen.
 </para> </listitem>
 </varlistentry>
 
 <varlistentry>
-<term>Lexicons</term>
+<term>Lexika</term>
 <listitem>
 <para>
-For word definitions and Bible topics. You an choose a key in a list which will
-be displayed. </para>
+Für Wortdefinitionen und Bibelthemen. Sie können einen Schlüssel aus einer Liste auswählen
+der dann angezeigt wird.
+</para>
 </listitem>
 </varlistentry>
 
 </variablelist>
 </para>
 
-<sect1 ID="hdbk_intro_changes"><title>Changes</title>
+<sect1 ID="hdbk_intro_changes"><title>Änderungen</title>
 <para>
-Please read the file Changelog of the sourcecode package if you are
-interested in more detailed changes. </para>
+Bitte lesen sie die Datei Changelog des Quellcode Paketes falls Sie an detailierteren
+Änderungen interessiert sind.
+</para>
 
-<para>A listing of the features included in the current package can be found
-in the sourcecode at
-<ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bibletime/bibletime/ChangeLog">
-CVS log for <filename>bibletime/bibletime/ChangeLog</filename></ulink></para>
+<para>Eine Auflistung der im aktuellen Paket enthaltenen Funktionen kann im Quellcode
+im <ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bibletime/bibletime/ChangeLog">
+CVS Log für <filename>bibletime/bibletime/ChangeLog</filename></ulink> gefunden werden.
+</para>
 </sect1>
 
 <sect1 ID="hdbk_intro_ToDo"><title>ToDo</title>
 <para>
-Very much!
+Ziemlich viel!
 </para>
 <para>
-We have lots to do. Because we are a very small team of active developers it's
-very hard to get reasonable results in a short time. If you are interested in
-helping the Bibletime team, please contact us at
-<ulink url="http://sourceforge.net/pm/?group_id=954">Sourceforge bibletime home page</ulink>.
-Information can also be found at <ulink url="http://www.bibletime.de">.</ulink></para>
+Wir haben viel zu tun. Da wir ein sehr kleines Team von aktiven Entwicklern sind
+ist es sehr schwierig vernünftige Ergebnisse in einer kurzen Zeit zu bekommen.
+Falls Sie daran interessiert sind dem BibleTime Team zu helfen, kontaktieren Sie uns bitte
+mit der <ulink url="http://sourceforge.net/pm/?group_id=954">SourceForge BibleTime Hompage</ulink>.
+Informationen können auch auf <ulink url="http://www.bibletime.de"> gefunden werden.</ulink></para>
 
-<para>The Bibletime project needs programmers / developers, reviewers, testers, and
-prayer warriors.  If you can help with any of these tasks or think up another, please join us.
-Without your help, Bibletime will develop very very slow and it will take a very long time until you get a
-full-featured Bible study tool.
+<para>Das BibleTime Projekt benötigt Programmierer / Entwickler, Kritiker, Tester und
+eifrige Betrer. Falls Sie mit einer dieser Aufgaben helfen können oder falls Sie an eine andere denken treten Sie und bitte bei.
+Ohne Ihre Hilfe wird BibleTime sehr sehr langsam weiterentwickelt werden und es dauert ein sehr lange
+Zeit bis Sie ein voll funktionsfähiges Bibelstudien Werkzeug bekommen.
 </para> </sect1>
 
 <sect1 ID="hdbk_intro_motivation"><title>Motivation</title>
 <para>
-Our desire is to serve God, and to do our part to help others grow in their
-relationship with Him. We have found a gaping hole, in that there has been a
-total lack of user-friendly Bible-study software available for Linux-based
-computers. We have developed Bibletime to fill that void.
-We have striven to make this a powerful, quality program, and still make it
-simple and intuitive to operate. It is our desire that God be praised, as He is
-the Source of all good things.
+Unser Verlangen ist es Gott zu dienen und unserer Teil dazu beizutragen, dass andere
+in ihrer Beziehung mit IHM wachsen. Wir haben ein klaffende Lücke gefunden, das es keine
+benutzerfreundliche Bibelstudiensoftware unter Linux gab.
+Wir haben BibleTime entwickelt um diese Lücke zu füllen.
+Wir haben uns bemüht dies ein mächtiges, qualitatives Programm zu machen, dass jedoch gleichzeitig einfach und intuitiv zu
+bedienen ist.
+Es ist unser Verlangen, dass Gott gepriesen wird, da Er die Quelle aller guten Dinge ist.
 </para>
 <screen>
 <quote>
-Every good thing given and every perfect gift is from above,
-coming down from the Father of lights, with whom there is no
-variation or shifting shadow.
+Alle gute Gabe und alle vollkommene Gabe kommt von obenherab,
+von dem Vater des Lichts, bei welchem ist keine Veränderung noch Wechsel des Lichtes und der Finsternis.
 </quote>
--James 1:17, NASB
+-Jakobus 1:17, Luther Übersetzung
 </screen>
 <para>
-God bless you as you use this program, and may He be glorified by the work of
-our hands!
+Gott segne dich wenn Sie dieses Programm benutzen und möge Er
+durch die Arbeit unserer Hände verherrlicht werden.
 </para>
 
 </sect1>

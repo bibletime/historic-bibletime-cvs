@@ -28,7 +28,7 @@
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
 	m_module = dynamic_cast<CSwordBibleModuleInfo*>(module);
-	Persist(0);
+//	Persist(0);
 }
 
 /** No descriptions */

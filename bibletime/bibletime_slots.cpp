@@ -27,6 +27,8 @@
 #include "backend/sword_backend/chtmlchapterdisplay.h"
 #include "config.h"
 
+#include <errno.h>
+
 //QT includes
 #include <qprogressdialog.h>
 #include <qwhatsthis.h>
@@ -58,7 +60,6 @@ void BibleTime::slotFileQuit(){
 	// This ensures that queryClose() is called on each window to ask for closing
 	
 #if KDE_VERSION >= 193
-	#warning You are using the latest KDE CVS!
 	KMainWindow* w;
 #else
 	#warning You are using a KDE Beta release!
@@ -115,7 +116,7 @@ void BibleTime::slotSettingsOptions(){
 			const QString language = m_config->readEntry("Language", "");
 			m_important->swordBackend->setBooknameLanguage(language);		
 		}
-		for ( int index = 0; index < m_mdi->windowList().count(); index++) {
+		for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
 			CSwordPresenter* myPresenter = (CSwordPresenter*)m_mdi->windowList().at(index);
 			ASSERT(myPresenter);
 			if (myPresenter) {
@@ -282,9 +283,8 @@ void BibleTime::slotToggleGroupManager() {
 /** Opens a toolbar editor */
 void BibleTime::slotSettingsToolbar(){	
 	KEditToolbar dlg(actionCollection());
-	if (dlg.exec()) {
+	if (dlg.exec())
 		createGUI();
-	}
 }
 
 /** The last window was closed! */
@@ -308,31 +308,58 @@ void BibleTime::slotSetPrintingStatus(){
 
 /** Printing was started */
 void BibleTime::slotPrintingStarted(){
-	m_progress = new QProgressDialog( i18n("Printing..."), i18n("Abort printing"),m_important->printer->getPrintQueue()->count(),this, "progress", true);
-	connect( m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
+	qDebug("slotPrintingStarted finished");	
+	pthread_mutex_init(&progress_mutex, 0);
+
+//	progress_mutex = PTHREAD_MUTEX_INITIALIZER;
+	
+	m_progress = new QProgressDialog(i18n("Printing..."), i18n("Abort printing"),m_important->printer->getPrintQueue()->count(),this, "progress", true);
+	connect(m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
+	m_progress->setProgress(0);		
 	m_progress->show();
-	m_progress->setProgress(0);	
 }
 
 /** Printing was finished */
 void BibleTime::slotPrintingFinished(){
-	if (!m_progress)
-		return;
-	delete m_progress;
-	m_progress = 0;
+	qDebug("BibleTime::slotPrintingFinished()");
+
+	qDebug("wanna lock in printingFinishes");	
+	if (pthread_mutex_trylock(&progress_mutex) == EBUSY) {
+		qDebug("already LOCKED!");
+		return;		
+	}
+	qDebug("locked in printingFinished");	
+	if (m_progress)
+		delete m_progress;
+	m_progress = 0;	
+	pthread_mutex_unlock(&progress_mutex);	
+	
+	pthread_mutex_destroy(&progress_mutex);
+	qDebug("slotPrintingFinished finished");	
 }
 
 /** No descriptions */
 void BibleTime::slotPrintedEntry( const QString& key, const int index){
-	if (!m_progress)
-		return;
-	m_progress->setProgress(index);
-	m_progress->setLabelText(i18n("Printing %1").arg(key));
+	qDebug("BibleTime::slotPrintedEntry( const QString& key, const int index)");
+	qDebug("wanna lock in slotPrintedEntry");
+	if (pthread_mutex_trylock(&progress_mutex) == EBUSY) {
+		qDebug("already LOCKED!");
+		return;		
+	}
+	qDebug("successfully lock in slotPrintedEntry");	
+	if (m_progress) {
+		m_progress->setProgress(index);
+		m_progress->setLabelText(i18n("Printing %1").arg(key));
+	}	
+	pthread_mutex_unlock(&progress_mutex);	
+	qDebug("slotPrintedEntry finished");	
 }
 
 /** Aborts the printing */
 void BibleTime::slotAbortPrinting(){
+	qDebug("BibleTime::slotAbortPrinting()");
 	m_important->printer->abort();
 	if (m_progress)
 		slotPrintingFinished();
+	qDebug("slotAbortPrinting finished");
 }

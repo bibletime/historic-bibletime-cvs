@@ -868,8 +868,9 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 	  	}
 			if (selectedItems().count() > 1) {
 				ListCSwordModuleInfo modules;
-				for (selectedItems().first(); selectedItems().current(); selectedItems().next()) {
-					CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(selectedItems().current());
+				QList<QListViewItem> items = selectedItems();
+				for (items.first(); items.current(); items.next()) {
+					CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(items.current());
 					if (i && i->type() == CGroupManagerItem::Module && i->moduleInfo()) {
 						qDebug("append");
 						modules.append(i->moduleInfo());

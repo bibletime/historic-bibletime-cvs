@@ -58,7 +58,8 @@ CPrinter::~CPrinter(){
 	saveSettings();	
 	config->sync();		
 	delete config;	
-	delete m_queue;
+	if (m_queue)
+		delete m_queue;
 	delete m_styleList;
 }
 
@@ -154,6 +155,10 @@ void CPrinter::setLowerMarginMM( const unsigned int margin ){
 
 /** Appends a new page where the next things will be painted. */
 const bool CPrinter::newPage(){
+	if (aborted()) {
+		qWarning("CPrinter::newPage: Printing was aborted!");
+		return false;
+	}
 	bool result = QPrinter::newPage();
 	if (result) {
 		m_pagePosition.curPage++;
@@ -213,54 +218,70 @@ void CPrinter::setPageFooter( const bool /*enableFooter*/, CPageHeader /*footer*
 
 /** Starts printing the items. */
 void CPrinter::printQueue(){
-	/** Go throgh the items of our print queue and print the items using the function printItem,
-		* which takes care for margings, styles etc.
-		*/
+	/**
+	* Go throgh the items of our print queue and print the items using the function printItem,
+	* which takes care for margings, styles etc.
+	*/
+	qDebug("CPrinbter::printQueue");
 	if ( getPreview() ){//print a preview
 		KRandomSequence r;
 		setOutputFileName( QString("/tmp/") + KApplication::randomString(8)+".ps" );
 	}
-
 	emit printingStarted();
-	QPainter *p = new QPainter();	
-	if (!p->begin(this)) {
-		clearQueue();
-		return;	
+	QPainter p;
+	if (!p.begin(this)) {
+		p.end();
+		qDebug("begin failed!");
+		return;
 	}
 	
 	m_pagePosition.rect = getPageSize();
-	for (int page = 1; page <= numCopies() && !aborted(); page++) {	//make numCopies() copies of the pages
+	for (int page = 1; page <= numCopies() && !aborted(); ++page) {	//make numCopies() copies of the pages
 		for (m_queue->first(); m_queue->current() && !aborted(); m_queue->next()) {
+			qDebug("print new item");
 			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
-			m_queue->current()->draw(p,this);
-
+			if (!aborted())
+				m_queue->current()->draw(&p,this);
+			qDebug("finished drawing the item");			
 			CKey* key = m_queue->current()->getStartKey();			
 			QString keyName = QString::null;			
 			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
 			if (vk)
 				keyName = vk->getKey();
-			else {			
+			else {
 				CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
 				keyName = lk->getKey();
 			}
-			emit printedOneItem(keyName, m_queue->at()+1);
-			
+			if (!aborted())
+				emit printedOneItem(keyName, m_queue->at()+1);
+			qDebug("finished printing");
 		};
-		if (page < numCopies())
+		if (!aborted() && (page < numCopies()) )
 			newPage();	//new pages seperate copies
 	}
-	if (!aborted())//correct ??
-		p->end();	//send away print job
+	qDebug("emit printingFinished");
+	emit printingFinished();	
+	if (!getPreview())
+		clearQueue();
 	
+	qDebug("preview??");
 	if ( !aborted() && getPreview() ) {
+		if (p.isActive()) {
+			qDebug("p.end()");
+			p.end();
+		}
 		KProcess process;
 		process << getPreviewApplication();
 		process << outputFileName();
 		process.start(KProcess::DontCare);
 	}	
-	if (!getPreview())
-		clearQueue();
-	emit printingFinished();
+	
+	if (p.isActive()) {
+		qDebug("painter still active -> p.end()");
+		cmd(QPaintDevice::PdcEnd,&p,0);
+		p.end();		
+	}
+	qDebug("finished print queue!");
 }
 
 /** Appends items to the printing queue. */
@@ -353,7 +374,7 @@ void CPrinter::setupStyles(){
 			frame->setColor( config->readColorEntry("Color", &Qt::black) );
 			frame->setThickness( config->readNumEntry("Thickness", 1) );
 			format[index]->setFrame( hasFrame, frame);
-#warning implement reading of line style
+//#warning implement reading of line style
 		}
 		
 		//set settings for Header
@@ -431,7 +452,7 @@ void CPrinter::saveStyles(){
 				CStyleFormatFrame* frame = format[index]->getFrame();
 				config->writeEntry("Color", frame->getColor() );
 				config->writeEntry("Thickness", frame->getThickness());
-#warning Implement saving of line style
+//#warning Implement saving of line style
 			}
 		}
 	}	

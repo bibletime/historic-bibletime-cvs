@@ -31,7 +31,7 @@ CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
 	qDebug("constructor of CSwordLDKey");
 	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
 	m_entryName = QString::null;
-	Persist(0);
+//	Persist(0);
 }
 
 /** No descriptions */
