@@ -125,7 +125,7 @@ int main(int argc, char* argv[]) {
 	{
 		{"debug", I18N_NOOP("Enable debug messages"),0},
 		{"ignore-startprofile", I18N_NOOP("Ignore the startup profile saved after the last BibleTime execution."),0},
-		{"open-default-bible <key>", I18N_NOOP("Opens the default bible with the given key. Use <random> to open ata random position."),0},
+		{"open-default-bible <key>", I18N_NOOP("Open the default bible with the given key. Use <random> to open at a random position."),0},
 		{0,0,0}
 	};	
 		

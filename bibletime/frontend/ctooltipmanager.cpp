@@ -78,7 +78,7 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
 
   	return QString::fromLatin1("<FONT COLOR=\"red\"><CENTER><B>%1</B></CENTER></FONT><HR>%2</FONT>")
       .arg(i18n("Configuration problem!"))
-      .arg(i18n("Please make sure the default module for the type <FONT COLOR=\"blue\"><I>%1</I></FONT> is set properly in the optionsdialog!")
+      .arg(i18n("Please make sure the default module for the type <FONT COLOR=\"blue\"><I>%1</I></FONT> is set properly in the options dialog!")
           .arg(typeName)
       );
   };
@@ -93,7 +93,7 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
   else {
     return QString::fromLatin1("<FONT COLOR=\"red\"><CENTER><B>%1</B></CENTER>%2</FONT><HR>")
             .arg(i18n("Configuration problem!"))
-            .arg(i18n("The module <FONT COLOR=\"blue\"><I>%1</I></FONT> was not found on your system! Install the module to make this tooltip working!")
+            .arg(i18n("The module <FONT COLOR=\"blue\"><I>%1</I></FONT> was not found on your system! Install the module to make this tooltip work!")
               .arg(moduleName)
            );
   }

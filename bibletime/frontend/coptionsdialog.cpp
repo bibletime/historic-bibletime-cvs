@@ -76,7 +76,7 @@ using std::string;
 using std::list;
 
 COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel )
-	: KDialogBase(IconList, i18n("Optionsdialog"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
+	: KDialogBase(IconList, i18n("Options dialog"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
 	m_settings.keys.application.accel = accel;
 	setIconListAllVisible(true);
@@ -258,7 +258,7 @@ void COptionsDialog::initColors(){
   gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(page,
   		i18n("Choose colors"),
-  		i18n("Choose the colors to change the look of the display windows to your own preferences. Some options like \"Words of Jesus\" do only apply to texts which support this special feature.")
+  		i18n("Choose the colors to alter the apperance of the display windows. Some options like \"Words of Jesus\" only apply to texts which support this special feature.")
   	),  	
   	0,0,0,-1
   );
@@ -507,15 +507,15 @@ void COptionsDialog::initSword(){
 
   QGridLayout* gridLayout = new QGridLayout(currentTab,7,2,5,5);
 	gridLayout->setResizeMode(QLayout::Minimum);
-	
+
   gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(currentTab, i18n("Use key cache for lexicons"),
-			i18n("BibleTime can create a key cache for lexicons, which speeds up opening large lexicon modules a lot. \
-However these files consume some disk space (usually not much), and reside in \
+			i18n("BibleTime can create a key cache for lexicons. This significantly increases the speed of opening large lexicon modules. \
+Note: These files consume some disk space (usually not much), and reside in \
 $KDEHOME/share/apps/bibletime/cache.")),
 		0,0,0,-1
   );
-	
+
 	m_settings.swords.lexiconCache = new QCheckBox(currentTab);
 	m_settings.swords.lexiconCache->setText(i18n("Use key cache for lexicons"));
 	QToolTip::add(m_settings.swords.lexiconCache, CResMgr::settings::sword::general::cacheKeys::tooltip);	
@@ -578,10 +578,10 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 	gridLayout->setResizeMode(QLayout::Minimum);
 
   gridLayout->addMultiCellWidget(
-  	CToolClass::explanationLabel(currentTab, i18n("Default modules"), i18n("Default modules are used, when no module is specified. This may happen with references into modules like Bibles or Lexicons.")),
+  	CToolClass::explanationLabel(currentTab, i18n("Default modules"), i18n("Default modules are used, when no module is specified, for example when a hyperlink is clicked into a Bible or Lexicon.")),
   	0,0,0,-1 /*fill the horizontal space*/
   );
- 	
+
  	m_settings.swords.standardBible = new QComboBox(currentTab);
   label = new QLabel(m_settings.swords.standardBible, i18n("Default Bible"), currentTab);
   label->setAutoResize(true);
@@ -737,7 +737,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
   tabCtl->addTab(currentTab, i18n("Filter settings"));
   QVBoxLayout* layout = new QVBoxLayout(currentTab,5);
 
-  layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"), i18n("Filters control the appereance of the text in the display windows. Here you can choose the default settings of the various filter settings. You can change the settings in each display window, too.")) );
+  layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"), i18n("Filters control the appereance of the text in the display windows. Here you can choose the settings of the default filter. You can also change the settings in each display window.")) );
   layout->addSpacing(5);
   		
  	m_settings.swords.lineBreaks = new QCheckBox(currentTab);

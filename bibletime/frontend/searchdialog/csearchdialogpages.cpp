@@ -157,7 +157,7 @@ void CSearchResultView::showPopup(KListView*, QListViewItem* i, const QPoint& po
 /** No descriptions */
 void CSearchResultView::printItems(){
   QPtrList<QListViewItem> items = selectedItems();
-  CExportManager mgr(i18n("Print search result ..."), true, i18n("Printing search result"));
+  CExportManager mgr(i18n("Print search result..."), true, i18n("Printing search result"));
 
   PrintItemList list;
   for (QListViewItem* k = items.first(); k; k = items.next()) {
@@ -168,7 +168,7 @@ void CSearchResultView::printItems(){
 
 /** No descriptions */
 void CSearchResultView::saveItems(){
-  CExportManager mgr(i18n("Save search result ..."), true, i18n("Saving search result"));
+  CExportManager mgr(i18n("Save search result..."), true, i18n("Saving search result"));
 
   CSwordModuleInfo* m = module();
   CSwordKey* k = 0;
@@ -187,7 +187,7 @@ void CSearchResultView::saveItems(){
 
 /** No descriptions */
 void CSearchResultView::saveItemsWithText(){
-  CExportManager mgr(i18n("Save search result ..."), true, i18n("Saving search result"));
+  CExportManager mgr(i18n("Save search result..."), true, i18n("Saving search result"));
 
   CSwordModuleInfo* m = module();
   CSwordKey* k = 0;
@@ -206,7 +206,7 @@ void CSearchResultView::saveItemsWithText(){
 
 /** No descriptions */
 void CSearchResultView::copyItems(){
-  CExportManager mgr(i18n("Copy search result ..."), true, i18n("Copying search result"));
+  CExportManager mgr(i18n("Copy search result..."), true, i18n("Copying search result"));
 
   CSwordModuleInfo* m = module();
   CSwordKey* k = 0;
@@ -226,7 +226,7 @@ void CSearchResultView::copyItems(){
 
 /** No descriptions */
 void CSearchResultView::copyItemsWithText(){
-  CExportManager mgr(i18n("Copy search result ..."), true, i18n("Copying search result"));
+  CExportManager mgr(i18n("Copy search result..."), true, i18n("Copying search result"));
 
   CSwordModuleInfo* m = module();
   CSwordKey* k = 0;
@@ -366,7 +366,7 @@ void CModuleResultView::showPopup(KListView*, QListViewItem* i, const QPoint& po
 void CModuleResultView::copyResult(){
   if (CSwordModuleInfo* m = activeModule()) {
     sword::ListKey result = m->searchResult();
-    CExportManager mgr(i18n("Copy search result ..."), true, i18n("Copying search result"));
+    CExportManager mgr(i18n("Copy search result..."), true, i18n("Copying search result"));
     mgr.copyKeyList(&result,m,CExportManager::Text,false);
   };  
 }
@@ -375,7 +375,7 @@ void CModuleResultView::copyResult(){
 void CModuleResultView::copyResultWithText(){
   if (CSwordModuleInfo* m = activeModule()) {
     sword::ListKey result = m->searchResult();
-    CExportManager mgr(i18n("Copy search result ..."), true, i18n("Copying search result"));
+    CExportManager mgr(i18n("Copy search result..."), true, i18n("Copying search result"));
     mgr.copyKeyList(&result,m,CExportManager::Text,true);
   };
 }
@@ -384,7 +384,7 @@ void CModuleResultView::copyResultWithText(){
 void CModuleResultView::saveResult(){
   if (CSwordModuleInfo* m = activeModule()) {
     sword::ListKey result = m->searchResult();
-    CExportManager mgr(i18n("Save search result ..."), true, i18n("Saving search result"));
+    CExportManager mgr(i18n("Save search result..."), true, i18n("Saving search result"));
     mgr.saveKeyList(&result,m,CExportManager::Text,false);
   };  
 }
@@ -393,7 +393,7 @@ void CModuleResultView::saveResult(){
 void CModuleResultView::saveResultWithText(){
   if (CSwordModuleInfo* m = activeModule()) {
     sword::ListKey result = m->searchResult();
-    CExportManager mgr(i18n("Save search result ..."), true, i18n("Saving search result"));
+    CExportManager mgr(i18n("Save search result..."), true, i18n("Saving search result"));
     mgr.saveKeyList(&result,m,CExportManager::Text,true);
   };
 }
@@ -402,7 +402,7 @@ void CModuleResultView::saveResultWithText(){
 void CModuleResultView::printResult(){
   if (CSwordModuleInfo* m = activeModule()) {
     sword::ListKey result = m->searchResult();
-    CExportManager mgr(i18n("Print search result ..."), true, i18n("Printing search result"));
+    CExportManager mgr(i18n("Print search result..."), true, i18n("Printing search result"));
     mgr.printKeyList(&result,m);
   };
 }

@@ -218,7 +218,7 @@ void BibleTime::initActions() {
 	m_windowSaveProfile_action->plugAccel( m_keyAccel );
 
 
-  m_windowSaveToNewProfile_action = new KAction(i18n("&Save to new profile"),
+  m_windowSaveToNewProfile_action = new KAction(i18n("&Save as a new profile"),
     CResMgr::mainMenu::window::saveToNewProfile::icon,
     CResMgr::mainMenu::window::saveToNewProfile::accel,    
     this, SLOT(saveToNewProfile()), actionCollection(),

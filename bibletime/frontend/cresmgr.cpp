@@ -33,7 +33,7 @@ namespace CResMgr {
       }
       namespace print { //a standard action
         const QString tooltip     = makeToolTip( i18n("Open the printerdialog") );
-        const QString whatsthis   = makeWhatsThis( tooltip, i18n("Open the printer dialog of BibleTime.  Here you can edit the print queue and assign styles to the items.") );
+        const QString whatsthis   = makeWhatsThis( tooltip, i18n("Open the printer dialog of BibleTime. Here you can edit the print queue and assign styles to the items.") );
       }
       namespace quit { //a standard action
         const QString tooltip     = makeToolTip( i18n("Close BibleTime") );
@@ -58,7 +58,7 @@ namespace CResMgr {
     namespace mainIndex { //Main menu->Settings
       namespace search {
         const QString tooltip     = makeToolTip(i18n("Search in open modules"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Opens the searchdialog to search in the currently opened modules."));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Opens the search dialog to search in the currently opened modules."));
         const QString icon        = "find";
         const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_M;
         const char* actionName    = "GMsearch_action";
@@ -79,15 +79,15 @@ namespace CResMgr {
         const char* actionName    = "windowSaveProfile_action";
       }
       namespace saveToNewProfile {
-        const QString tooltip     = makeToolTip(i18n("Save into a new profile"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Create a new profile and save the current settings into this new profile."));
+        const QString tooltip     = makeToolTip(i18n("Save as a new profile"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Save the current settings as a new profile."));
         const QString icon        = "view_sidetree";
         const KShortcut accel     = KShortcut();        
         const char* actionName    = "windowSaveToNewProfile_action";
       }
       namespace setupProfiles {
         const QString tooltip     = makeToolTip(i18n("Edit profiles"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Create new and delete or rename existing profiles."));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Create new, delete or rename existing profiles."));
         const QString icon        = "view_sidetree";
         const KShortcut accel     = Qt::CTRL + Qt::Key_A;
         const char* actionName    = "windowEditProfiles_action";
@@ -143,7 +143,7 @@ namespace CResMgr {
       }
       namespace optionsDialog { // available as KStdAction
         const QString tooltip     = makeToolTip(i18n("Options"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open BibleTime's optionsdialog where you can set most of the preferences."));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open BibleTime's options dialog where you can set most of the preferences."));
       };
     };
 
@@ -164,7 +164,7 @@ namespace CResMgr {
       };
       namespace bibleStudyHowTo {
         const QString tooltip     = makeToolTip(i18n("BibleTime's Bible study HowTo"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open KDE's helpbrowser with the Bible study HowTo included with BibleTime.<BR>This HowTo is an introduction how to study the Bible in an efficient way."));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open KDE's helpbrowser with the Bible study HowTo included with BibleTime.<BR>This HowTo is an introduction on how to study the Bible in an efficient way."));
         const QString icon        = "contents";
         const KShortcut accel     = KShortcut();
         const char* actionName    = "helpHowTo_action";
@@ -179,7 +179,7 @@ namespace CResMgr {
       };
       namespace dailyTip {
         const QString tooltip     = makeToolTip(i18n("Show daily tips at startup"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Show a daily tip.<BR>The tips contain important Bible quotations and helpful usage tips for BibleTime."));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Show a daily tip.<BR>The tips contain important Bible quotations and helpful tips for using BibleTime."));
         const QString icon        = "idea";
         const KShortcut accel     = KShortcut();
         const char* actionName    = "helpDailyTip_action";
@@ -221,11 +221,11 @@ namespace CResMgr {
       namespace searchType {
         namespace multipleWords_and {
           const QString tooltip     = makeToolTip(i18n("Multiple words (AND)"));
-          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Treats the search text as multiple words. A text must contain all of the words to match! The order of the words is unimportant."));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Treats the search text as multiple words. A text must contain all of the words to match. The order of the words is unimportant."));
         };
         namespace multipleWords_or {
           const QString tooltip     = makeToolTip(i18n("Multiple words (OR)"));
-          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Treats the search text as multiple words. A text must contain only one or more words of the search text. The order is unimportant."));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Treats the search text as multiple words. A text must contain one or more words of to match. The order is unimportant."));
         };
         namespace exactMatch {
           const QString tooltip     = makeToolTip(i18n("Exact match"));
@@ -240,7 +240,7 @@ namespace CResMgr {
       namespace searchOptions {
         namespace caseSensitive {
           const QString tooltip     = makeToolTip(i18n("Case sensitive matching"));
-          const QString whatsthis   = makeWhatsThis(tooltip, i18n("If you choose this option the search will decide between upper- and lowercase characters. Refer to BibleTime's handbook for more help on this option."));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("If you choose this option the search will distinguish between upper and lowercase characters. Refer to BibleTime's handbook for more help on this option."));
         };
       };
       namespace chooseScope {
@@ -266,7 +266,7 @@ namespace CResMgr {
         };
         namespace addNewRange {
           const QString tooltip     = makeToolTip(i18n("Add a new search scope"));
-          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Add a new search scope. At first enter a good name, then edit the search ranges."));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Add a new search scope. First enter an appropriate name, then edit the search ranges."));
         };
         namespace deleteCurrentRange {
           const QString tooltip     = makeToolTip(i18n("Delete current search scope"));
@@ -307,19 +307,19 @@ namespace CResMgr {
     namespace writewindow {
       namespace saveText {
         const QString tooltip   = makeToolTip( i18n("Save the current text") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("Save the curent text into the module. The old text will get lost.") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Save the curent text into the module. The old text will be lost.") );
         const QString icon      = "filesave";
         const KShortcut accel   = KShortcut();
       };
       namespace restoreText {
         const QString tooltip   = makeToolTip( i18n("Restore the old text") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("Loads the old text from the module and loads it into the edit area. The unsaved text will get lost.") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Loads the old text from the module and loads it into the edit area. The unsaved text will be lost.") );
         const QString icon      = "undo";
         const KShortcut accel   = KShortcut();
       };
       namespace deleteEntry {
         const QString tooltip   = makeToolTip( i18n("Delete the current entry") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("Deletes the current entry out of the module. The text will get lost.") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Deletes the current entry out of the module. The text will be lost.") );
         const QString icon      = "editdelete";
         const KShortcut accel   = KShortcut();
       };
@@ -341,7 +341,7 @@ namespace CResMgr {
       };
       namespace restoreWorkingArea {
         const QString tooltip   = makeToolTip( i18n("Restore the windows in the workspace on startup") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("Save the windows in the workspace if BibleTime is closed<BR>and restore them on the next startup."));
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Save the windows in the workspace when BibleTime is closed<BR>and restore them on the next startup."));
       };
     };
     namespace fonts {
@@ -377,7 +377,7 @@ namespace CResMgr {
       };
       namespace jesusWords {
         const QString tooltip   = makeToolTip( i18n("Jesus' words") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("All words Jesus spoke will appear in this color."));
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("All words spoken by Jesus will appear in this color."));
       };
       namespace morphTags {
         const QString tooltip = makeToolTip( i18n("Morphological tags") );
@@ -406,7 +406,7 @@ namespace CResMgr {
       namespace general {
         namespace cacheKeys {
           const QString tooltip   = makeToolTip( i18n("Use cache files for the lexicon entries") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n("Activate this to let BibleTime create index files for the lexicon entries. This will speed up opening the lexicons a lot, but consume some disk space. Recommended."));
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("Activate this to let BibleTime create index files for the lexicon entries. This significantly increases the speed of opening large lexicon modules, but does consume some disk space. Recommended."));
         };
         namespace scrolling {
           const QString tooltip   = makeToolTip( i18n("Use down arrow to scroll to next verse") );
@@ -420,15 +420,15 @@ namespace CResMgr {
       namespace modules {
         namespace bible {
           const QString tooltip   = makeToolTip( i18n("The default bible used in the workspace area") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default Bible is used when a hyperlink into a Bible was clicked"));
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default Bible is used when a hyperlink into a Bible is clicked"));
         };
         namespace commentary {
           const QString tooltip   = makeToolTip( i18n("The default commentary used in the workspace area") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default commentary is used when a hyperlink into a commentary was clicked"));
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default commentary is used when a hyperlink into a commentary is clicked"));
         };
         namespace lexicon {
           const QString tooltip   = makeToolTip( i18n("The default lexicon used in the workspace area") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default lexicon is used when a hyperlink into a lexicon was clicked"));
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default lexicon is used when a hyperlink into a lexicon is clicked"));
         };
         namespace dailyDevotional {
           const QString tooltip   = makeToolTip( i18n("") );
@@ -436,19 +436,19 @@ namespace CResMgr {
         };
         namespace hebrewStrongs {
           const QString tooltip   = makeToolTip( i18n("The default Hebrew lexicon used in the workspace area") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default Hebrew lexicon is used when a hyperlink into a Hebrew lexicon was clicked."));
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default Hebrew lexicon is used when a hyperlink into a Hebrew lexicon is clicked."));
         };
         namespace greekStrongs {
           const QString tooltip   = makeToolTip( i18n("The default Greek lexicon used in the workspace area") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default Greek lexicon is used when a hyperlink into a Greek lexicon was clicked."));
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default Greek lexicon is used when a hyperlink into a Greek lexicon is clicked."));
         };
         namespace hebrewMorph {
           const QString tooltip   = makeToolTip( i18n("The default Morphological lexicon for Hebrew texts used in the workspace area") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n("The standard morphological lexicon for Hebrew texts is used when a hyperlink of a morphological tag in a Hebrew text was clicked."));
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The standard morphological lexicon for Hebrew texts is used when a hyperlink of a morphological tag in a Hebrew text is clicked."));
         };
         namespace greekMorph {
           const QString tooltip   = makeToolTip( i18n("The default Morphological lexicon for Greek texts used in the workspace area") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n("The standard morphological lexicon for Greek texts is used when a hyperlink of a morphological tag in a Greek text was clicked."));
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The standard morphological lexicon for Greek texts is used when a hyperlink of a morphological tag in a Greek text is clicked."));
         };
       };
       namespace filters {
@@ -500,6 +500,6 @@ namespace CResMgr {
     };
     namespace keys {
     };
-  };  
+  };
 };
 

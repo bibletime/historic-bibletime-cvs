@@ -530,7 +530,7 @@ void CRangeChooserDialog::RangeItem::setCaption(const QString newCaption) {
 
 
 /**************************/
-CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(Plain, i18n("Edit search ranges ..."), Default | Ok | Cancel, Ok, parentDialog, "CRangeChooserDialog", false, true) {
+CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(Plain, i18n("Edit search ranges..."), Default | Ok | Cancel, Ok, parentDialog, "CRangeChooserDialog", false, true) {
   initView();
   initConnections();
   
