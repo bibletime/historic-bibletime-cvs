@@ -212,8 +212,7 @@ void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bo
 //							
 //	return options;
 //}
-//
-//
+
 void CSwordBackend::setAllModuleOptions( const CSwordBackend::moduleOptionsBool options){
   setOption( footnotes, 					options.footnotes );
   setOption( strongNumbers, 			options.strongNumbers );
@@ -412,6 +411,9 @@ const QString CSwordBackend::getModulePath( const QString moduleName ){
 	SWConfig c("");
 	if (getModuleConfig(moduleName, c)) {
 		path = QString::fromLocal8Bit( c[moduleName.latin1()]["DataPath"].c_str() );		
+		//remove "./" fromt the beginning ...
+		if (path.left(2) == "./")
+			path = path.mid(2);
 		if (QString::fromLatin1(c.filename.c_str()).left( QString("%1/.sword/").arg(getenv("HOME")).length() ) ==	QString("%1/.sword/").arg(getenv("HOME")) )
 			path = path.prepend( QString("%1/.sword/").arg(getenv("HOME")) );
 		else //global

@@ -71,7 +71,7 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 	}
 			
 	ret += newKey;
-	qWarning("hyperlink is %s", ret.latin1());
+//	qWarning("hyperlink is %s", ret.latin1());
 	return ret;
 }
 
@@ -244,16 +244,11 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 
 /** Parses the given verse references using the given language and the module.*/
 const QString CReferenceManager::parseVerseReference( const QString ref, const QString& lang, const QString& newLang){
-	//Please note that ref is in unicode!!
 	CSwordVerseKey key(0);
 	key.key(ref);
 	key.setLocale( lang.local8Bit() );
 			
-//	qWarning("ref is %s", ref.latin1());
-//	qWarning("key in language %s is %s", lang.latin1(), (const char*)key);
-				
 	if (lang != newLang)
 		key.setLocale(newLang.latin1());
-//	qWarning("new key in language %s is %s", newLang.latin1(), (const char*)key);	
-	return QString::fromLocal8Bit((const char*)key);//parsed result
+	return key.key();//parsed result
 }
