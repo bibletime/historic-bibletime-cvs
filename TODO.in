@@ -18,9 +18,9 @@ Important unimplemented things:
 
 Things which should be optimized:
 ---------------------------------
-	[partly] Search for mem leaks (I'm sure there are at least 100 :)
+	[partly] Search for mem leaks
 	[partly] Optmize memory usage
-	-Check BibleTime with a profiler and optimize the time consuming functions
+	[partly] Check BibleTime with a profiler and optimize the time consuming functions
 
 Features we are thinking about:
 ------------------------------

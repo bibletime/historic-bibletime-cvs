@@ -26,17 +26,19 @@
 #include <qstring.h>
 
 BT_ThMLHTML::BT_ThMLHTML() {
-	setTokenStart("<");
-	setTokenEnd(">");
-
+	setEscapeStringCaseSensitive(true);
+	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
 //	setEscapeStart("&");
-//	setEscapeEnd(";");
-//  addEscapeStringSubstitute("auml", "ä");
+//	setEscapeEnd(";");	
+//  addEscapeStringSubstitute("raquo", "»");
+//  addEscapeStringSubstitute("laquo", "«");
 //  addEscapeStringSubstitute("uuml", "ü");
 //  addEscapeStringSubstitute("ouml", "ö");
   		
+	
+	setTokenStart("<");
+	setTokenEnd(">");
 	setTokenCaseSensitive(true);
-
 	addTokenSubstitute("note", " <small>(");
 	addTokenSubstitute("/note", ")</small> ");
 

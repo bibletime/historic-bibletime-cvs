@@ -7,8 +7,8 @@ it's possible.
 
 BibleTime @VERSION@ requires:
 	-QT 2.2.x or later
-	-KDE 2.x (at least the libraries)
-	-SWORD 1.5.2 or later
+	-KDE 2.2.x (at least the libraries and the base package)
+	-SWORD 1.5.3
 	
 If you don't have the sources already please browse to www.bibletime.de to see
 a list of required packages with their download URLs.	
@@ -28,7 +28,6 @@ If something is missing in this file please post to jansorg@gmx.de, my peronal
 eMail adress.
 Please read README for a short description of BibleTime @VERSION@. The new handbook
 does contain better instructions how to install BibleTime from sources.
-Don't forget to read the new handbook of BibleTime, too.
 It has more information about BibleTime's features and installation.
 
 Joachim <jansorg@gmx.de>
