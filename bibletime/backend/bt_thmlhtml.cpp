@@ -153,9 +153,6 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
  		}
     else { // let unknown token pass thru
     	return sword::ThMLHTML::handleToken(buf, token, userData);
-//			buf += '<';
-//      buf += token;
-//      buf += '>';
     }
   }
 	return true;
