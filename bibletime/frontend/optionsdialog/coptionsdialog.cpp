@@ -74,7 +74,7 @@ COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *par
 
 	setTreeListAutoResize(true);	
 	setShowIconsInTreeList(true);
-	setInitialSize(/*sizeHint()*/QSize(400,400));	
+	setInitialSize(sizeHint()/*QSize(400,400)*/);	
 	adjustSize();
 		
 	initGeneral();		

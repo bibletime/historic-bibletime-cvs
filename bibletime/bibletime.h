@@ -185,7 +185,7 @@ protected: // Protected methods
   /**
   * Initializes the keyboard accelerators
   */
-  void initKeyAccels();
+//  void initKeyAccels();
   /**
   * Initializes the backend
   */
@@ -225,20 +225,20 @@ protected: // Protected methods
   /** FILE menu actions */
 	KAction* m_fileClearQueue_action;	
 	KAction* m_filePrint_action;	
-	KAction* m_fileQuit_action;
+//	KAction* m_fileQuit_action;
 
   /** Groupmanager menu actions */
-  KAction* m_GMReset_action;
-	KAction* m_GMSearchModules_action;
-	KAction* m_GMDeleteItems_action;		
+//  KAction* m_GMReset_action;
+//	KAction* m_GMSearchModules_action;
+//	KAction* m_GMDeleteItems_action;		
 
   /** VIEW menu actions */
 	KToggleAction*	m_viewToolbar_action;		
 	KToggleAction*	m_viewGroupManager_action;			
 	
 	/** SETTINGS menu actions */
-	KAction*	m_settingsOptions_action;		
-	KAction*	m_settingsToolbar_action;		
+//	KAction*	m_settingsOptions_action;		
+//	KAction*	m_settingsToolbar_action;		
 	
 	/** WINDOW menu actions */
 	KAction*	m_windowCascade_action;
@@ -253,14 +253,14 @@ protected: // Protected methods
 	KToggleAction*	m_windowFullscreen_action;		
 
 	/** HELP menu actions */	
-	KAction*	m_helpHandbook_action;
-	KAction*	m_helpInstall_action;
-	KAction*	m_helpHowto_action;
-	KAction*	m_helpWhatsThis_action;
-	KAction*	m_helpBugReport_action;	
-	KAction*	m_helpDailyTip_action;	
-	KAction*	m_helpAboutBibleTime_action;	
-	KAction*	m_helpAboutKDE_action;			
+//	KAction*	m_helpHandbook_action;
+//	KAction*	m_helpInstall_action;
+//	KAction*	m_helpHowto_action;
+//	KAction*	m_helpWhatsThis_action;
+//	KAction*	m_helpBugReport_action;	
+//	KAction*	m_helpDailyTip_action;	
+//	KAction*	m_helpAboutBibleTime_action;	
+//	KAction*	m_helpAboutKDE_action;
 		
 	KHelpMenu* m_helpMenu;
 		

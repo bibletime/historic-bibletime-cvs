@@ -54,6 +54,8 @@ BibleTime::BibleTime() : KMainWindow() {
 	m_progress = 0;
 	m_currentProfile = 0;
 
+	m_keyAccel = new KAccel(this);
+
 	connect(kapp, SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
 
 	m_important = new CImportantClasses();
@@ -64,7 +66,6 @@ BibleTime::BibleTime() : KMainWindow() {
 	setHelpMenuEnabled(false);
 	createGUI("bibletimeui.rc");
 	initMenubar();
-	initKeyAccels();
 	initConnections();
 	readSettings();
 
