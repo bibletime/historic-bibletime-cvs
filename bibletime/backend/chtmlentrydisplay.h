@@ -109,6 +109,9 @@ protected:
 	QString m_standardFontColorName;
 	QString m_swordRefColorName;
 
+	QString m_backgroundColorName;
+	QString m_background2ColorName;
+
   QString m_standardFontName;
 	QString m_unicodeFontName;
   int 		m_standardFontSize;

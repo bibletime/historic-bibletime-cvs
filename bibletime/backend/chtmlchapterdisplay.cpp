@@ -76,7 +76,6 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 
 /** Generates code to display the given modules side by side. */
 char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){	
-#warning make table colors configurable
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		m_htmlText = QString::null;
 		return 0;
@@ -102,15 +101,17 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 	m_htmlHeader = header();
   m_htmlText = m_htmlHeader;
   if (m_displayOptionsBool.verseNumbers)
-    m_htmlText += QString::fromLatin1("<body><table cellpadding=\"2\" cellspacing=\"0\"><tr><td bgcolor=\"#f1f1f1\"></td>");	
+    m_htmlText += QString::fromLatin1("<body><table cellpadding=\"2\" cellspacing=\"0\"><tr><td bgcolor=\"%1\"></td>")
+										.arg(m_background2ColorName);	
   else
     m_htmlText += QString::fromLatin1("<body><table cellpadding=\"2\" cellspacing=\"0\"><tr>");	
 
 	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
-    	m_htmlText.append(QString::fromLatin1("<td bgcolor=\"#f1f1f1\" width=\"%1%\">\
-						<span>%2</span></td>")
+    	m_htmlText.append(QString::fromLatin1("<td width=\"%1%\" bgcolor=\"%2\" >\
+						<span>%3</span></td>")
 				.arg(width)
+				.arg(m_background2ColorName)	
 				.arg(d->name()));
 			m = (d=moduleList->next()) ? d->module() : 0;
 	}
@@ -127,8 +128,9 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 		m = (d = moduleList->first()) ? d->module() : 0;
 		if (m_displayOptionsBool.verseNumbers) {
 
-  		 rowText = QString::fromLatin1("</tr><tr><td bgcolor=\"#f1f1f1\">\
-							<span id=\"reference\"><a name=\"%1\" href=\"%2\">%3</a></span></td>\n")
+  		 rowText = QString::fromLatin1("</tr><tr><td bgcolor=\"%1\">\
+							<span id=\"reference\"><a name=\"%2\" href=\"%3\">%4</a></span></td>\n")
+						.arg(m_background2ColorName)	
 						.arg(currentVerse)
 						.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey, CReferenceManager::typeFromModule(d->type()) ))
 						.arg(currentVerse);
@@ -145,7 +147,7 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 
  			rowText += QString::fromLatin1("<td %1 bgcolor=\"%2\" width=\"%3%\">")
  				.arg(d->textDirection() == CSwordModuleInfo::RightToLeft ? "dir=\"rtl\"" : "" )
-         .arg((currentVerse + currentRow)% 2 ? "white" : "#f1f1f1")
+         .arg((currentVerse + currentRow)% 2 ? m_backgroundColorName : m_background2ColorName)
          .arg(width);
 
 			qWarning("%d %d", currentVerse, currentRow);

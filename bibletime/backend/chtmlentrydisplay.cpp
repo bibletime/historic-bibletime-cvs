@@ -42,6 +42,10 @@ void CHTMLEntryDisplay::updateSettings(void){
 	m_standardFontColorName 		= CBTConfig::get(CBTConfig::textColor).name();
 	m_swordRefColorName 				= CBTConfig::get(CBTConfig::swordRefColor).name();
 
+	m_backgroundColorName  = CBTConfig::get(CBTConfig::backgroundColor).name();
+	m_background2ColorName = CBTConfig::get(CBTConfig::background2Color).name();
+
+
   m_standardFontName = CBTConfig::get(CBTConfig::standard).family();
   m_standardFontSize = /*CToolClass::makeLogicFontSize*/(CBTConfig::get(CBTConfig::standard).pointSize() );
 
@@ -136,8 +140,10 @@ char CHTMLEntryDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList) {
 	while (m) {
 		key->module(d);
     if (m){
-    	m_htmlText.append(QString("<td width=\"%1\" bgcolor=\"#f1f1f1\"><b><span>%2</span> ")
-				.arg(width).arg(d->name()));
+    	m_htmlText.append(QString("<td width=\"%1\" bgcolor=\"%2\"><b><span>%3</span> ")
+				.arg(width)
+				.arg(m_background2ColorName)
+				.arg(d->name()));
 
 			m_htmlText.append(QString("<span id=\"highlighted\"><span %1>(%2)</span></span></td>")
         .arg((d && d->isUnicode() ) ? "id=\"unicodetext\"" : "" )
