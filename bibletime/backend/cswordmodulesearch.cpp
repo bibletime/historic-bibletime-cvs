@@ -59,7 +59,7 @@ CSwordModuleSearch::~CSwordModuleSearch(){
 //	m_moduleList.clear();
 }
 
-void CSwordModuleSearch::percentUpdate(char percent, void *){	
+void CSwordModuleSearch::percentUpdate(char percent, void *){
 	cms_currentProgress = (int)percent;
 	if (cms_module_count > 1)
 	  cms_overallProgress = (int)((float)((cms_module_current - 1)*100+cms_currentProgress))/cms_module_count;
