@@ -380,7 +380,7 @@ const SWVersion CSwordBackend::Version() {
 
 /** Returns our transliterator object we use. Returns 0 if ICU is not used. */
 SWFilter* const CSwordBackend::transliterator() {
-  if (/*isICU &&*/ !m_filters.transliterator)
+  if (/*isICU && */ !m_filters.transliterator)
     m_filters.transliterator = new UTF8Transliterator();
   return m_filters.transliterator;
 }
