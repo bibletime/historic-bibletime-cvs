@@ -26,13 +26,14 @@
 
 //KDE includes
 #include <kapplication.h>
+#include <dom/html_element.h>
 
 CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Customize | WStyle_NoBorder | WStyle_Tool | WStyle_StaysOnTop | WX11BypassWM ),
   m_parentWidget( parent ), m_filter(false) {
 
   connect(m_parentWidget, SIGNAL(destroyed()), SLOT(destroyObject()));
 
-  QHBoxLayout* layout = new QHBoxLayout(this);
+  QHBoxLayout* layout = new QHBoxLayout(this,0,0);
   m_display = new KHTMLPart(this);
   layout->addWidget(m_display->view());
 
@@ -47,7 +48,6 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
 }
 
 CToolTip::~CToolTip(){
-  qWarning("destructopr of CToolTip");
 }
 
 /** Returns the widget this tooltip applies to. This tooltip widget is destroyed when he parent is deleted. */
@@ -62,38 +62,25 @@ void CToolTip::tip( const QRect& rect, const QString& text ){
   m_display->begin();
   m_display->write(text);
   m_display->end();
-  m_display->view()->layout();
 
   m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff);
-//  m_display->view()->setVScrollBarMode(QScrollView::AlwaysOff);
-
-  QSize hint = m_display->view()->sizeHint();
-  Q_ASSERT(hint.isValid());
-  if (hint.isValid()) {
-    setMinimumWidth(hint.width());
-  }
-//  m_display->view()->adjustSize();
-//  setMinimumHeight(m_display->view()->viewport()->height());
-
-//  setWidth( m_display->view()->viewport()->sizeHint().width() );
-//  setHeight( m_display->view()->viewport()->sizeHint().height() );
-//  m_display->view()->adjustSize();
-
-//  adjustSize();
+  qWarning("view size is %i x %i", m_display->view()->width(), m_display->view()->height());
 
   QPoint pos = parentWidget()->mapToGlobal( QPoint(rect.x()-2, rect.y()-2) );
-//  if (pos.x() + m_display->width() > KApplication::desktopWidget()->geometry().bottomRight().x()
-//    || pos.y() + m_display->height() > KApplication::desktopWidget()->geometry().bottomRight().y()) {
-//
-//
-//  }
+  QRect tipRect = QRect(pos.x(), pos.y(), width(), height());
+  if (!KApplication::desktop()->geometry().contains(tipRect, true)) {
+    qWarning("outside of the screen!");
+    QRect intersect = KApplication::desktop()->geometry().intersect(tipRect);
+    tipRect.moveBy(-(tipRect.width()-intersect.width()),-(tipRect.height()-intersect.height()));
+    pos = tipRect.topLeft();
+  }
   move(pos);
   show();
 }
 
 /** Reimplementation. */
 void CToolTip::timerEvent( QTimerEvent* e ) {
-  qWarning("CToolTip::timerEvent( QTimerEvent* e )");
+//  qWarning("CToolTip::timerEvent( QTimerEvent* e )");
 
   killTimers();
   if ( !isVisible() ) {

@@ -128,7 +128,7 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 }
 
 void CHTMLReadDisplay::setText( const QString& newText ) {
-//  qWarning("CHTMLReadDisplay::view()");
+  qWarning("CHTMLReadDisplay::view()");
   begin();
   write(newText);
   end();
@@ -157,7 +157,7 @@ void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
 }
 
 void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args){
-//  qWarning("CHTMLReadDisplay::urlSelected");
+  qWarning("CHTMLReadDisplay::urlSelected");
   KHTMLPart::urlSelected(url, button, state, _target, args);
   if (!url.isEmpty() && CReferenceManager::isHyperlink(url)) {
     QString module;
@@ -167,21 +167,30 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
     if (module.isEmpty())
       module = CReferenceManager::preferredModule( type );
 
+#warning Really bad bad work around! Otherwise the widget would scroll with the mouse moves afetr a link was clicked!
+    QMouseEvent me( QEvent::MouseButtonRelease, QPoint(0,0), QPoint(0,0), QMouseEvent::LeftButton, QMouseEvent::NoButton);
+    khtml::MouseReleaseEvent kme(&me, -1,-1, DOM::DOMString(), DOM::DOMString(), DOM::Node());
+    KApplication::sendEvent( this, &kme );
+
 		connectionsProxy()->emitReferenceClicked(module, key);
   }
 }
 
 /** Reimplementation. */
 void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event ){
-	m_dndData.mousePressed = false;
+//  qWarning("CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event )");
+  KHTMLPart::khtmlMouseReleaseEvent(event);	
+
+  m_dndData.mousePressed = false;
   m_dndData.isDragging = false;
   m_dndData.node = DOM::Node();
   m_dndData.anchor = DOM::DOMString();
-
-  KHTMLPart::khtmlMouseReleaseEvent(event);
 }
 
 void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
+//  qWarning("CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event )");	
+  KHTMLPart::khtmlMousePressEvent(event);
+
   m_dndData.node = DOM::Node();
   m_dndData.anchor = DOM::DOMString();
   m_dndData.mousePressed = false;
@@ -200,11 +209,11 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
       m_dndData.dragType = DNDData::Link;
     }
   }
-	KHTMLPart::khtmlMousePressEvent(event);
 }
 
 /** Reimplementation for our drag&drop system. */
 void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
+//  qWarning("CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e )");
   if( !(e->qmouseEvent()->state() && LeftButton)) { //left mouse button not pressed
     KHTMLPart::khtmlMouseMoveEvent(e);
     return;
@@ -265,9 +274,6 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
           QRect rect = linkNode.getRect();
           rect.setX( m_view->mapFromGlobal(QCursor::pos()).x() );
           rect.setY( m_view->mapFromGlobal(QCursor::pos()).y() );
-//          rect.setWidth( linkNode.getRect().width() );
-//          rect.setHeight( linkNode.getRect().height() );
-
 	        tip( rect, tooltipText );
         }
         break;
@@ -281,7 +287,6 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
 CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWidget* parent) : KHTMLView(displayWidget, parent) {
   m_display = displayWidget;
   viewport()->setAcceptDrops(true);
-
 };
 
 
