@@ -72,31 +72,24 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 	for (ListInfoData::const_iterator it = list.begin(); it != end; ++it) {
 	  switch ( (*it).first ) {
 			case Lemma:
-// 				qWarning("lemma");
 				text += decodeStrongs( (*it).second );
 				continue;
 			case Morph:
-// 				qWarning("morph");
 				text += decodeMorph( (*it).second );
 				continue;
 			case CrossReference:
-// 				qWarning("cross ref");
 				text += decodeCrossReference( (*it).second );
 				continue;
 			case Footnote:
-// 				qWarning("note");
 				text += decodeFootnote( (*it).second );
 				continue;
 			case WordTranslation:
-// 				qWarning("word");
 				text += getWordTranslation( (*it).second );
 				continue;
 			case WordGloss:
-// 				qWarning("word gloss");
 				//text += getWordTranslation( (*it).second );
 				continue;
 			default:
-// 				qWarning("default");
 				continue;
 		};
 	}
@@ -121,23 +114,27 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	dispOpts.verseNumbers = true;
 	
 	CSwordBackend::FilterOptions filterOpts;
-	filterOpts.headings 	= false;
-	filterOpts.strongNumbers = false;
-	filterOpts.morphTags 	= false;
-	filterOpts.lemmas 		= false;
-	filterOpts.footnotes	= false;
+	filterOpts.headings 			= false;
+	filterOpts.strongNumbers 	= false;
+	filterOpts.morphTags 			= false;
+	filterOpts.lemmas 				= false;
+	filterOpts.footnotes			= false;
 			
 	CrossRefRendering renderer(dispOpts, filterOpts);
 	CTextRendering::KeyTree tree;
 		
 	VerseKey vk;
 	ListKey refs = vk.ParseVerseList((const char*)data.utf8(), "Gen 1:1", true);
+	
 	for (int i = 0; i < refs.Count(); ++i) {
 		SWKey* key = refs.getElement(i);
 		Q_ASSERT(key);
 		VerseKey* vk = dynamic_cast<VerseKey*>(key);		
 		
-		CTextRendering::KeyTreeItem::Settings settings(false, CTextRendering::KeyTreeItem::Settings::CompleteShort);
+		CTextRendering::KeyTreeItem::Settings settings(
+			false, 
+			CTextRendering::KeyTreeItem::Settings::CompleteShort
+		);
 		
 		CTextRendering::KeyTreeItem* i = 0;
 		if (vk && vk->isBoundSet()) { //render a range of keys
@@ -150,6 +147,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 		}
 		else {
 			i = new CTextRendering::KeyTreeItem(
+				QString::fromUtf8(key->getText()),
 				QString::fromUtf8(key->getText()),
 				CBTConfig::get(CBTConfig::standardBible), 
 				settings

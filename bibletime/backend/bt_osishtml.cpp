@@ -236,7 +236,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			}
 			else { //if (tag.isEndTag()) {
         if (myUserData->noteType == BT_UserData::CrossReference) {
-          buf += "</span> ";
+          buf.append("</span> ");
 					myUserData->suspendTextPassThru = false;
         }
 
@@ -271,7 +271,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				myUserData->suspendTextPassThru = true;
 			}
 			else if (tag.isEndTag()) {
- 			//	buf += "</a>";
+ 			//	buf.append("</a>");
 // 				myUserData->suspendTextPassThru = false;
 			}
 			else {	// empty reference marker
@@ -282,14 +282,14 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		// <title>
 		else if (!strcmp(tag.getName(), "title")) {
 			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
-  			buf += "<div class=\"sectiontitle\">";
+  			buf.append("<div class=\"sectiontitle\">");
 			}
 			else if (tag.isEndTag()) {
-  			buf += "</div>";
+  			buf.append("</div>");
 			}
 			else {	// empty title marker
 				// what to do?  is this even valid?
-				buf += "<br/>";
+				buf.append("<br/>");
 			}
 		}	
 		// <hi> highlighted text
@@ -298,29 +298,29 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			
 			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
 				if (type == "bold") {
-					buf += "<span class=\"bold\">";
+					buf.append("<span class=\"bold\">");
 				}
 				else if (type == "illuminated") { 
-					buf += "<span class=\"illuminated\">";
+					buf.append("<span class=\"illuminated\">");
 				}
 				else if (type == "italic") { 
-					buf += "<span class=\"italic\">";
+					buf.append("<span class=\"italic\">");
 				}
 				else if (type == "line-through") {
-					buf += "<span class=\"line-through\">";
+					buf.append("<span class=\"line-through\">");
 				}
 				else if (type == "normal") { 
-					buf += "<span class=\"normal\">";
+					buf.append("<span class=\"normal\">");
 				}
 				else if (type == "small-caps") {
-					buf += "<span class=\"small-caps\">";
+					buf.append("<span class=\"small-caps\">");
 				}
 				else if (type == "underline") {
-					buf += "<span class=\"underline\">";
+					buf.append("<span class=\"underline\">");
 				}
 			}
 			else if (tag.isEndTag()) { //all hi replacements are html spans
-				buf += "</span>";
+				buf.append("</span>");
 			}
 		}
 		
@@ -330,26 +330,26 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
 				if (type == "geographic") {
-					buf += "<span class=\"name\"><span class=\"geographic\">";
+					buf.append("<span class=\"name\"><span class=\"geographic\">");
 				}
 				else if (type == "holiday") {
-					buf += "<span class=\"name\"><span class=\"holiday\">";
+					buf.append("<span class=\"name\"><span class=\"holiday\">");
 				}
 				else if (type == "nonhuman") {
-					buf += "<span class=\"name\"><span class=\"nonhuman\">";
+					buf.append("<span class=\"name\"><span class=\"nonhuman\">");
 				}
 				else if (type == "person") {
-					buf += "<span class=\"name\"><span class=\"person\">";
+					buf.append("<span class=\"name\"><span class=\"person\">");
 				}
 				else if (type == "ritual") {
-					buf += "<span class=\"name\"><span class=\"ritual\">";
+					buf.append("<span class=\"name\"><span class=\"ritual\">");
 				}
 				else{
-					buf += "<span class=\"name\"><span>";
+					buf.append("<span class=\"name\"><span>");
 				}
 			}
 			else if (tag.isEndTag()) { //all hi replacements are html spans
-				buf += "</span></span> ";
+				buf.append("</span></span> ");
 			}
 		}
 
@@ -364,26 +364,26 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					buf.appendFormatted("<span class=\"transchange\" title=\"%s\"><span class=\"added\">", (const char*)i18n("Added text").utf8());
 				}
 				else if (type == "amplified") {
-					buf += "<span class=\"transchange\"><span class=\"amplified\">";
+					buf.append("<span class=\"transchange\"><span class=\"amplified\">");
 				}
 				else if (type == "changed") {
-					buf += "<span class=\"transchange\"><span class=\"changed\">";
+					buf.append("<span class=\"transchange\"><span class=\"changed\">");
 				}
 				else if (type == "deleted") {
-					buf += "<span class=\"transchange\"><span class=\"deleted\">";
+					buf.append("<span class=\"transchange\"><span class=\"deleted\">");
 				}
 				else if (type == "moved") {
-					buf += "<span class=\"transchange\"><span class=\"moved\">";
+					buf.append("<span class=\"transchange\"><span class=\"moved\">");
 				}
 				else if (type == "tenseChange") {
-					buf += "<span class=\"transchange\"><span class=\"tenseChange\">";
+					buf.append("<span class=\"transchange\"><span class=\"tenseChange\">");
 				}
 				else {
-					buf += "<span class=\"transchange\"><span>";
+					buf.append("<span class=\"transchange\"><span>");
 				}
 			}
 			else if (tag.isEndTag()) { //all hi replacements are html spans
-				buf += "</span></span>";
+				buf.append("</span></span>");
 			}
 		}
 		// <q> quote
@@ -397,7 +397,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				myUserData->quote.who = who;
  				
 				if(osisQToTick) //alternate " and '
- 					buf += (level % 2) ? '\"' : '\'';
+ 					buf.append((level % 2) ? '\"' : '\'');
 
 				if (who == "Jesus") {
 					buf.append("<span class=\"jesuswords\">");
@@ -409,7 +409,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				}
         
  				if (osisQToTick) { //alternate " and '
- 					buf += (level % 2) ? '\"' : '\'';
+ 					buf.append((level % 2) ? '\"' : '\'');
  				}
 				
 				myUserData->quote.who = "";

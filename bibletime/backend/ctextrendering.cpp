@@ -65,8 +65,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem()
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const KeyTreeItem& i) 
-	:	
-		m_settings( i.m_settings ),
+	:	m_settings( i.m_settings ),
 		m_moduleList( i.m_moduleList ),
 		m_key( i.m_key ),
 		m_childList( 0 ),
@@ -134,8 +133,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString&
 /*!
     \fn CPrinter::Item::getAlternativeContent()
  */
-const QString& CTextRendering::KeyTreeItem::getAlternativeContent() const
-{
+const QString& CTextRendering::KeyTreeItem::getAlternativeContent() const {
 	return m_alternativeContent;
 }
 
