@@ -29,6 +29,9 @@
 #include "bibletime.h"
 #include "config.h"
 
+//util includes
+#include "util/scoped_resource.h"
+
 //frontend includes
 #include "frontend/kstartuplogo.h"
 #include "frontend/chtmldialog.h"
@@ -47,7 +50,7 @@
 #include <kmessagebox.h>
 
 bool showDebugMessages = false;
-BibleTime* bibletime = 0;
+BibleTime* bibletime_ptr = 0;
 
 void myMessageOutput( QtMsgType type, const char *msg ) {	
 	//we use this messagehandler to switch debugging off in final releases
@@ -81,8 +84,8 @@ extern "C" {
       //try to restore next time.
       CBTConfig::set(CBTConfig::crashedLastTime, true);
     }
-    if (bibletime) {
-      bibletime->saveSettings();
+    if (bibletime_ptr) {
+      bibletime_ptr->saveSettings();
 			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
 please use the option --ignore-startprofile\n");
 		}
@@ -101,8 +104,8 @@ please use the option --ignore-startprofile\n");
       //try to restore next time.
       CBTConfig::set(CBTConfig::crashedLastTime, true);
     }
-    if (bibletime) {
-			bibletime->saveSettings();
+    if (bibletime_ptr) {
+			bibletime_ptr->saveSettings();
 			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
 please use the option --ignore-startprofile\n");		
 		}
@@ -210,7 +213,8 @@ int main(int argc, char* argv[]) {
 
     setSignalHandler(signalHandler);
     
-		bibletime = new BibleTime();
+		util::scoped_ptr<BibleTime> bibletime( new BibleTime() );
+    bibletime_ptr = bibletime;
 		app.setMainWidget(bibletime);
 
 		if (showIt) {
@@ -237,7 +241,7 @@ int main(int argc, char* argv[]) {
 
     		
 		const int ret = app.exec();
-		delete bibletime;
+    delete bibletime;
 		CPointers::deleteBackend();
     //we can set this safely now because we close now (hopyfully without crash)
     CBTConfig::set(CBTConfig::crashedLastTime, false);

@@ -22,7 +22,7 @@
 
 CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModuleInfo::ModuleType type, QWidget *parent, const char *name )
 	: KToolBar(parent,name) {
-	qWarning("constructor of CModuleCHooserBar");
+//	qWarning("constructor of CModuleCHooserBar");
 
 	m_moduleType = type;
 	m_idCounter = 0;

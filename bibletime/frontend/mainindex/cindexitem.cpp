@@ -186,7 +186,7 @@ void CModuleItem::dropped( QDropEvent* e ){
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
     CDragDropMgr::Item item = dndItems.first();
     if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Text) { //open the searchdialog
-      qWarning("Text dropped!");
+//      qWarning("Text dropped!");
   		if ( module() ) {
         ListCSwordModuleInfo modules;
         modules.append(module());
@@ -195,18 +195,23 @@ void CModuleItem::dropped( QDropEvent* e ){
       }
     }
     else if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) { //open the module
-      qWarning("type is Bookmark!");    
+//      qWarning("type is Bookmark!");    
       CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
-      if (m && module()->type() == m->type()) { //it makes only sense to create a new window for a module with the same type
-        ListCSwordModuleInfo modules;
-        modules.append(module());
+      if (m) { //it makes only sense to create a new window for a module with the same type
+        if ((module()->type() == m->type()) ||
+            ((module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary)
+            && (m->type() == CSwordModuleInfo::Bible || m->type() == CSwordModuleInfo::Commentary)))
+        { //same base type of module
+          ListCSwordModuleInfo modules;
+          modules.append(module());
 
-        listView()->emitModulesChosen(modules, item.bookmarkKey());
+          listView()->emitModulesChosen(modules, item.bookmarkKey());
+        };
       }
     }
-    else {
-      qWarning("type is Unknown!");
-    };
+//    else {
+////      qWarning("type is Unknown!");
+//    };
   };
 }
 

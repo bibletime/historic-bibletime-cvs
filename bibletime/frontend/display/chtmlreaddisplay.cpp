@@ -51,8 +51,8 @@
 
 CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget), CReadDisplay(readWindow) {
 //	qWarning("constructor of CHTMLReadDisplay");
-  Q_ASSERT(readWindow);
-  Q_ASSERT(parentWidget);
+//  Q_ASSERT(readWindow);
+//  Q_ASSERT(parentWidget);
   setDNDEnabled(false);
   m_view->setDragAutoScroll(false);
 }
@@ -196,87 +196,6 @@ void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event )
 }
 
 void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
-
-//  if (hasSelection()) {
-//    DOM::Range r1 = selection();
-//    if (!r1.isNull()) {
-//      qWarning("get selection: %s", r1.toString().string().latin1());
-//      qWarning("set selection AGAIN");
-//
-//      DOM::Range r2 = htmlDocument().createRange();
-//      DOM::Range();
-//      //find first node which is CDATA_TEXT
-//
-//      r2.setStart(r1.startContainer(), r1.startOffset());
-//      r2.setEnd(r1.endContainer(), r1.endOffset());
-//      setSelection(r2);
-//
-//      view()->layout();
-//    }
-//  };
-
-    //set selection for first text node
-//    DOM::Node start = document().isHTMLDocument() ? htmlDocument().body() : document().firstChild();
-//    int counter = 0;
-//    while (!start.isNull()) {
-//      start = start.hasChildNodes() ? start.firstChild() : start.nextSibling();
-//      qWarning("loop");
-//      if (start.nodeType() == DOM::Node::TEXT_NODE) {
-//        qWarning("found text node!");
-//        qWarning(start.nodeValue().string().latin1());
-//        break;
-//      }
-//    };
-//
-//    DOM::Range range = htmlDocument().createRange(); DOM::Range();
-//    range.selectNode( start );
-//
-//    setSelection(range);
-//    view()->layout();
-//    
-
-    //try to select the word under the mouse cursor!
-//    DOM::Node node = event->innerNode();
-//
-//    if (event->target().isEmpty())
-//      qWarning("TARGET is EMPTY!");
-//    else
-//      qWarning("target: %s", event->target().string().latin1());
-//    qWarning("node: %s", event->innerNode().nodeName().string().latin1());
-//    qWarning("mouse node: %s",nodeUnderMouse().nodeName().string().latin1());
-//
-//    if (node.hasChildNodes()) {
-//      qWarning("print node tree");
-//      DOM::NodeList childs = node.childNodes();
-//      bool selected = false;
-//      for(int i = 0; !childs.item(i).isNull();++i) {
-//        DOM::Node node = childs.item(i);
-//        qWarning("type is %i", node.nodeType());
-//        if (!selected /*&& (node.nodeType() == DOM::Node::TEXT_NODE)*/ )  {
-//          DOM::Range range = document().createRange();
-//          range.selectNodeContents(node);
-//          range.collapse(true);
-//          qWarning("## SELECTED range of %s is %s or HTML %s", node.nodeName().string().latin1(),node.nodeValue().string().latin1(),range.toHTML().string().latin1());
-//          setSelection(range);
-//
-//          if (hasSelection()) {
-//            qWarning("HAVE SELECTION: %s", selectedText().latin1());
-//          }
-//          else
-//            qWarning("HAVE #no# SELECTION");
-//
-//          selected = true;
-//        }
-//        qWarning("%s: %s",childs.item(i).nodeName().string().latin1(),childs.item(i).nodeValue().string().latin1());
-//        QRect r = childs.item(i).getRect();
-//        qWarning("%i,%i with %i x %i", r.x(), r.y(), r.width(), r.height());
-//      }
-//    }    
-//    if (!range.isNull() && !node.isNull())
-//      setSelection(range);
-
-//  return;
-  
   m_dndData.node = DOM::Node();
   m_dndData.anchor = DOM::DOMString();
   m_dndData.mousePressed = false;
@@ -292,13 +211,6 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
     m_dndData.isDragging = false;
     m_dndData.startPos = QPoint(event->x(), event->y());
     m_dndData.selection = selectedText();
-
-//    if (hasSelection()) {
-//      m_dndData.dragType = DNDData::Text;
-//      qWarning("# Drag the selection! %s", m_dndData.selection.latin1());
-//      return;
-//    }
-//    else
 
     if (!m_dndData.node.isNull()) { //we drag a valid link
       m_dndData.dragType = DNDData::Link;
@@ -321,8 +233,8 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 
   if ( (newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < m_dndData.startPos.x()-delay ||
        newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < m_dndData.startPos.y()-delay) &&
-       !m_dndData.isDragging && m_dndData.mousePressed  ) {
-
+       !m_dndData.isDragging && m_dndData.mousePressed  )
+  {
     QDragObject* d = 0;
     if (!m_dndData.anchor.isEmpty() && m_dndData.dragType == DNDData::Link && !m_dndData.node.isNull() ) {
     // create a new bookmark drag!
@@ -331,22 +243,15 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
     	CReferenceManager::Type type;
     	if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) )
     		return;
-//    	d = new QTextDrag(CReferenceManager::encodeReference(module,key),KHTMLPart::view()->viewport());
-//      d->setSubtype(REFERENCE);
-//      d->setPixmap(REFERENCE_ICON_SMALL);
+
       CDragDropMgr::ItemList dndItems;
       dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); //no description!
       d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
     }
-    else if (m_dndData.dragType == DNDData::Text && !m_dndData.selection.isEmpty()) {
-    // create a new plain text drag!
+    else if (m_dndData.dragType == DNDData::Text && !m_dndData.selection.isEmpty()) {    // create a new plain text drag!
       CDragDropMgr::ItemList dndItems;
       dndItems.append( CDragDropMgr::Item(m_dndData.selection) ); //no description!
       d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
-
-//      qWarning("new QTextDrag");
-//    	d = new QTextDrag(m_dndData.selection, KHTMLPart::view()->viewport());
-//      d->setSubtype(TEXT);
     }
 
     if (d) {
@@ -354,6 +259,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
       m_dndData.mousePressed = false;
 
       d->drag();
+//      KHTMLPart::khtmlMouseMoveEvent(e);      
       return;
     }
   }

@@ -109,12 +109,7 @@ void CDisplayConnections::clear(){
 /*----------------------*/
 
 CReadDisplay* CDisplay::createReadInstance( CReadWindow* readWindow, QWidget* parent ) {
-	Q_ASSERT(readWindow);
-  Q_ASSERT(parent);
-// 	if (readWindow)
-	 	return new CHTMLReadDisplay(readWindow, parent);
-//  else
-//  	return 0;
+  return new CHTMLReadDisplay(readWindow, parent);
 }
 
 CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow, const CWriteDisplay::WriteDisplayType& type, QWidget* parent ) {
