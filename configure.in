@@ -94,6 +94,9 @@ bibletime/printing/Makefile \
 bibletime/util/Makefile \
 bibletime/xml/Makefile \
 docs/Makefile \
+docs/handbook/Makefile \
+docs/handbook/html/Makefile \
+docs/handbook/unicode/Makefile \
 docs/helpdialog/Makefile \
 docs/helpdialog/html/Makefile \
 docs/helpdialog/unicode/Makefile \
