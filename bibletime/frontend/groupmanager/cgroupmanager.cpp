@@ -565,8 +565,7 @@ void CGroupManager::slotShowAbout(){
 text += QString("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%5:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
-<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR>\
-<TR><TD COLSPAN=\"2\" HEIGHT=\"*\" BGCOLOR=\"#FFE9C8\"></TD></TR></TABLE>\
+<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR></TABLE>\
 </BODY></HTML>")
 	.arg(i18n("Footnotes"))	
 	.arg(hasFootnotes)

@@ -93,7 +93,7 @@ void BibleTime::slotSettingsOptions(){
 //			m_important->swordBackend->m_entryDisplay->m_textColor = tempColor.name();
 			
 			m_config->setGroup("Fonts");
-			QFont dummy =  m_config->readFontEntry("Display window");
+			QFont dummy =  m_config->readFontEntry(i18n("Display window"));
 			m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );			
 		}
 		if (m_important->swordBackend->m_chapterDisplay) {
@@ -106,7 +106,7 @@ void BibleTime::slotSettingsOptions(){
 //			m_important->swordBackend->m_chapterDisplay->m_textColor = tempColor.name();
 			
 			m_config->setGroup("Fonts");
-			QFont dummy =  m_config->readFontEntry("Display window");
+			QFont dummy =  m_config->readFontEntry(i18n("Display window"));
 			m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );			
 		}				
 		const int changedSettings = dlg->getChangedSettings();

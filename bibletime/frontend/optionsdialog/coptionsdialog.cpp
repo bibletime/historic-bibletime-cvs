@@ -140,7 +140,7 @@ void COptionsDialog::initColorsPage(){
 	label = new QLabel(i18n("Background"), colorGroup);
 	QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 	QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
-	backgroundButton = new KColorButton(config->readColorEntry("Background", &Qt::lightGray), colorGroup);
+	backgroundButton = new KColorButton(config->readColorEntry("Background", &Qt::white), colorGroup);
 	
 //colors for text and links are not yet supported!
 
@@ -191,13 +191,13 @@ void COptionsDialog::initGeneralPage(){
 		localeComboBox->insertItem( i18n("English") );
 		list <string> locales = LocaleMgr::systemLocaleMgr.getAvailableLocales();
 		for (list <string>::iterator it = locales.begin(); it != locales.end(); it++) {
-			localeComboBox->insertItem( LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription() );
+			localeComboBox->insertItem( i18n(LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription()) );
 		}
 
 		int current_item = -1;
 		for(int test_item = 0; test_item < localeComboBox->count(); test_item++) {
 			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale((const char*)config->readEntry("Language", QString::fromLatin1(getenv("LANG"))).local8Bit());
-			if (locale && localeComboBox->text(test_item).contains(locale->getDescription()) )
+			if (locale && localeComboBox->text(test_item).contains(i18n(locale->getDescription())) )
 				current_item = test_item;
 		}
 		if (current_item!=-1)
@@ -250,24 +250,25 @@ void COptionsDialog::saveGeneralOptions(){
 
 	//Now save localisation settings
 	{
-		KConfigGroupSaver groupSaver(config, "SWORD");
+		KConfigGroupSaver groupSaver(config, "SWORD");		
 		const QString currentText = localeComboBox->currentText();
-		const QString oldValue = config->readEntry("Language", QString::fromLatin1(getenv("LANG")));	//default nonexisting language
-		if (oldValue == QString::null || oldValue != currentText) {	//changed
-			if (m_changedSettings)
-				m_changedSettings |= CSwordPresenter::language;
-			else
-				m_changedSettings = CSwordPresenter::language;
-		}
-		
 		list <string> locales = LocaleMgr::systemLocaleMgr.getAvailableLocales();
 		QString localeName = QString::null;
 		for (list <string>::iterator it = locales.begin(); it != locales.end(); it++) {
-			if ( LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription() == currentText ) {
+			if ( i18n(LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription()) == currentText ) {
 				localeName = (*it).c_str();	//we found the abbrevation for the current language
 				break;
 			}
 		}
+
+		const QString oldValue = config->readEntry("Language", QString::fromLatin1(getenv("LANG")));	//default nonexisting language
+		if (oldValue == QString::null || oldValue != localeName) {	//changed
+			if (m_changedSettings)
+				m_changedSettings |= CSwordPresenter::language;
+			else
+				m_changedSettings = CSwordPresenter::language;
+		}				
+		
 		if (!localeName.isEmpty())
 			config->writeEntry("Language", localeName);
 		else

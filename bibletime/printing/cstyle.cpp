@@ -118,13 +118,13 @@ QListViewItem* CStyle::getListViewItem( CStyleList* list ){
 }
 /** Returns the style name */
 const QString& CStyle::getStyleName() const{
-	qDebug("QString& CStyle::getStyleName() const");
+//	qDebug("QString& CStyle::getStyleName() const");
 	return m_styleName;
 }
 
 /** Sets the name of the style. */
 void CStyle::setStyleName( const QString name ){
-	qDebug("CStyle::setStyleName( const QString name)");
+//	qDebug("CStyle::setStyleName( const QString name)");
 	m_styleName = name;
 }
 
