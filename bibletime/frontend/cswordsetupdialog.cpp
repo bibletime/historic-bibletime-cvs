@@ -402,7 +402,7 @@ void CInstallSourcesMgrDialog::slot_remotePathChanged( const QString& t) {
 }
 
 /*******************************/
-/* 									New class												*/
+/* 			New class							*/
 /******************************/
 
 
@@ -967,12 +967,12 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 	
 	m_installModuleListView->clear();
 
-	QListViewItem* categoryBible = new QListViewItem(m_installModuleListView, i18n("Bibles"));
-	QListViewItem* categoryCommentary = new QListViewItem(m_installModuleListView, i18n("Commentaries"));
-	QListViewItem* categoryLexicon = new QListViewItem(m_installModuleListView, i18n("Lexicons"));
-	QListViewItem* categoryBook = new QListViewItem(m_installModuleListView, i18n("Books"));
-	QListViewItem* categoryDevotionals = new QListViewItem(m_installModuleListView, i18n("Daily Devotionals"));
-	QListViewItem* categoryGlossaries = new QListViewItem(m_installModuleListView, i18n("Glossaries"));
+	QListViewItem* categoryBible = new QCheckListItem(m_installModuleListView, i18n("Bibles"), QCheckListItem::CheckBoxController);
+	QListViewItem* categoryCommentary = new QCheckListItem(m_installModuleListView, i18n("Commentaries"), QCheckListItem::CheckBoxController);
+	QListViewItem* categoryLexicon = new QCheckListItem(m_installModuleListView, i18n("Lexicons"), QCheckListItem::CheckBoxController);
+	QListViewItem* categoryBook = new QCheckListItem(m_installModuleListView, i18n("Books"), QCheckListItem::CheckBoxController);
+	QListViewItem* categoryDevotionals = new QCheckListItem(m_installModuleListView, i18n("Daily Devotionals"), QCheckListItem::CheckBoxController);
+	QListViewItem* categoryGlossaries = new QCheckListItem(m_installModuleListView, i18n("Glossaries"), QCheckListItem::CheckBoxController);
 
   categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
   categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
@@ -989,9 +989,7 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   categoryGlossaries->setOpen(true);
 
   BTInstallMgr iMgr;
-//	qWarning("trying to find source %s!", sourceName.latin1());
 	sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
-//	qWarning("found source %s with dir %s!", is.caption.c_str(), is.directory.c_str());
 
   if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
     if (!m_refreshedRemoteSources) {
@@ -1067,9 +1065,9 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 		}
 
 		if (!langFolder) { //not yet there
-			langFolder = new QListViewItem(parent, langName);
+			langFolder = new QCheckListItem(parent, langName, QCheckListItem::CheckBoxController);
 			langFolder->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
-			langFolder->setOpen(true);
+			langFolder->setOpen(false);
 		}
 
 		QListViewItem* newItem = 0;
@@ -1172,7 +1170,7 @@ void CSwordSetupDialog::slot_installModuleItemExecuted(QListViewItem* item) {
 	if (item && !checkItem) //no valid item for us
 		return;
 
-	if (checkItem && checkItem->isOn()) {
+	if (checkItem && checkItem->isOn() && (checkItem->type() == QCheckListItem::CheckBox)) {
 		m_installContinueButton->setEnabled(true);
 	}
 	else {
@@ -1205,7 +1203,7 @@ void CSwordSetupDialog::slot_installModules(){
 	QListViewItemIterator list_it( m_installModuleListView );
 	while ( list_it.current() ) {
 		QCheckListItem* i = dynamic_cast<QCheckListItem*>( list_it.current() );
-		if (i && i->isOn()) {
+		if (i && i->isOn() && (i->type() == QCheckListItem::CheckBox)) {
 			moduleList << list_it.current()->text(0);
 		}
 		++list_it;

@@ -6,7 +6,9 @@
     <projectmanagement>KDevAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <ignoreparts>
-      <part>KDevPerforce</part>
+      <part>Unterstützung für ClearCase (KDevelop)</part>
+      <part>Unterstützung für Perforce (KDevelop)</part>
+      <part>VisualBoy Advance (KDevelop)</part>
     </ignoreparts>
     <version>1.5pre</version>
     <description/>
@@ -43,7 +45,13 @@
         <envvar value="1.6" name="WANT_AUTOMAKE" />
         <envvar value="1" name="WANT_AUTOMAKE_1_6" />
       </envvars>
+      <prio>0</prio>
     </make>
+    <configurations>
+      <default>
+        <envvars/>
+      </default>
+    </configurations>
   </kdevautoproject>
   <kdevdebugger>
     <general>
@@ -61,6 +69,7 @@
     <display>
       <staticmembers>false</staticmembers>
       <demanglenames>true</demanglenames>
+      <outputradix>10</outputradix>
     </display>
   </kdevdebugger>
   <kdevdoctreeview>
@@ -136,4 +145,11 @@
     <filetypes/>
     <useglobaltypes/>
   </kdevfilecreate>
+  <kdevdocumentation>
+    <projectdoc>
+      <docsystem/>
+      <docurl/>
+      <usermanualurl/>
+    </projectdoc>
+  </kdevdocumentation>
 </kdevelop>
