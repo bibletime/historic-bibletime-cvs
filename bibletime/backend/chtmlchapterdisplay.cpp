@@ -70,7 +70,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 			.arg( key.renderedText() )
 			.arg( m_displayOptionsBool.lineBreaks ? "<br>" : "");
 	}
-	
+
 	m_htmlText += QString::fromLatin1("</body></html>");
 	return 1;	//no error	
 }
