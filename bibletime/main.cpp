@@ -65,24 +65,24 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	//create about data for this application
 	static KCmdLineOptions options[] = {
 		{ "debug", I18N_NOOP("Enable debug messages."), 0 }
-	};
-	
+	};	
 	qInstallMsgHandler( myMessageOutput );
+	
 	KAboutData aboutData(
 		PACKAGE,
 		"BibleTime",
 		VERSION,
-		I18N_NOOP("An easy to use but powerful Bible study tool"),
+		I18N_NOOP("Bible study tool for KDE 2"),
 		KAboutData::License_GPL_V2,
 		I18N_NOOP("(c)1999-2001, The BibleTime Team"),
-		I18N_NOOP(""),
+		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE 2.\n\nWe are look for new developers, translators and handbook authors. If you'd like to join use send an eMail to info@bibletime.de."),
 		"http://www.bibletime.de/",
 		"info@bibletime.de"
 	);
 	
 	//coders
-	aboutData.addAuthor("Torsten Uhlmann (not active)", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
-	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator, frontend, backend"), "jansorg@gmx.de","");	
+//	aboutData.addAuthor("Torsten Uhlmann (not active)", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
+	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator, frontend, backend"), "jansorg@gmx.de","");
 //	aboutData.addAuthor("Darwin Gregory (not active)", I18N_NOOP("optionsdialog"), "darwin@ichristian.com", "");	
 	aboutData.addAuthor("Martin Gruner", I18N_NOOP("frontend and misc things"), "mg.pub@gmx.net", "");
 //	aboutData.addAuthor("Keith Robertson (not active)", "", "kjrobert@uwaterloo.ca", "");
@@ -121,13 +121,12 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 	// A binary option (on / off)
-	if (args->isSet("debug")) {
+	if (args->isSet("debug"))
 		showDebugMessages = true;
-	}
+
  		
- 	if (app.isRestored()) {
-		RESTORE(BibleTime);
-	}
+ 	if (app.isRestored())
+		RESTORE(BibleTime)
   else {
 		KConfig *config = KGlobal::config();
 		KStartupLogo *start_logo = 0;		
@@ -163,9 +162,8 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 		
 		{ //The tip of the day
 			KConfigGroupSaver groupSaver(config, "Daily tip");
-			if (config->readBoolEntry("TipsOnStart", true)) {
+			if (config->readBoolEntry("TipsOnStart", true))
 				bibletime->slotHelpTipOfDay();
-			}			
 			bibletime->show();					
 		}		
   	return app.exec();
