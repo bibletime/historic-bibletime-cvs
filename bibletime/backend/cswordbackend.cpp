@@ -68,7 +68,7 @@ CSwordBackend::CSwordBackend()
 CSwordBackend::CSwordBackend(const QString& path)
 	: sword::SWMgr((!path.isEmpty() ? (const char*)path.local8Bit() : 0), false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
 {
-  qWarning("backend constructed with a path argument! %s", path.latin1());
+//  qWarning("backend constructed with a path argument! %s", path.latin1());
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
 	m_displays.book = 0;
@@ -231,7 +231,7 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
           --index;
         }
         value = it->c_str();
-				qWarning("setting transliteration to %s", value.c_str());
+				//qWarning("setting transliteration to %s", value.c_str());
       }
       break;
 
