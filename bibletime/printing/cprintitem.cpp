@@ -19,21 +19,33 @@
 #include "cprintitem.h"
 #include "cprintitemlist.h"
 #include "cstyle.h"
+#include "cstyleformat.h"
+#include "cstyleformatframe.h"
+#include "../frontend/thirdparty/qt3stuff/qt3stuff.h"
+#include "../frontend/thirdparty/qt3stuff/qrichtext_p.h"
+#include "../frontend/thirdparty/qt3stuff/qsimplerichtext.h"
 #include <../backend/cmoduleinfo.h>
 #include <../backend/sword_backend/cswordmoduleinfo.h>
 #include <../backend/ckey.h>
 #include <../backend/sword_backend/cswordversekey.h>
 #include <../backend/sword_backend/cswordldkey.h>
-//#include <../backend/cdata.h>
 
 //Qt includes
+//#include <qsimplerichtext.h>
 #include <qlistview.h>
 #include <qregexp.h>
+#include <qstylesheet.h>
 
 //Sword includes
 #include <swmodule.h>
 #include <swkey.h>
 #include <versekey.h>
+
+
+#define PARAGRAPH_SPACE 10 // Space between different paragraphs
+#define STYLE_PART_SPACE 1	//Space between the differnt parts (header, moduletext ...)
+#define BORDER_SPACE 5	//border between text and rectangle
+
 
 CPrintItem::CPrintItem() {
 	m_listViewItem = 0;
@@ -66,6 +78,8 @@ CKey* CPrintItem::getStartKey() const{
 
 /** Sets the startkey. */
 void CPrintItem::setStartKey(CKey* newKey) {
+	if (m_startKey)
+		delete m_startKey;
 	m_startKey = newKey;
 
 	if ( dynamic_cast<SWKey*>(m_startKey) ) {
@@ -86,6 +100,8 @@ void CPrintItem::setStartKey(CKey* newKey) {
 
 /** Sets the end key. */
 void CPrintItem::setStopKey( CKey* newKey ){
+	if (m_stopKey)
+		delete m_stopKey;	
 	m_stopKey = newKey;
 	
 	if ( dynamic_cast<SWKey*>(m_startKey) ) {
@@ -132,23 +148,16 @@ void CPrintItem::setDescription( const QString& newDescription ){
 /** Returns the moduletext used by this item. */
 const QString CPrintItem::getModuleText() const {
 	/** If a special text is set use the text.
-		* If the moduleText variable is empty use the CModuleInfo
-		* object to retrieve the text,
-		*/
+	* If the moduleText variable is empty use the CModuleInfo
+	* object to retrieve the text,
+	*/
 	if (!m_moduleText.isEmpty())
 		return m_moduleText;
 		
 	#warning Todo: This function is incomplete. Implement for range between startKey and stopKey
 	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
 	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);		
-	QString text = vk ? vk->getStrippedText() : (lk ? lk->getStrippedText() : QString());		
-	text.replace(QRegExp("<BR>\n",false),"##BR##");	
-	text.replace(QRegExp("<BR>",false),"##BR##");
-	text.replace(QRegExp("</p>",false),"##BR##");
-	text.replace(QRegExp("##BR##"),"\n");
-
-	text.replace(QRegExp("<[a-z\c\d\s#=]+>",false), "");
-	return text;
+	return vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString());
 }
 
 /** Sets the module text. */
@@ -229,3 +238,114 @@ void CPrintItem::deleteListViewItem(){
 		delete m_listViewItem;
 	m_listViewItem = 0;
 }
+
+/** Draws the content of this item on the page. */
+void CPrintItem::draw(QPainter* p, CPrinter* printer){
+	/**
+	* Print this item
+	* Steps to do for the printing:
+	*
+	*	1. Get the settings (font, colors, alignment etc.) and generate the correct richtext for this (correct alignment)
+	*	2. Apply the settings to the printer's painter object
+	*/
+	QFont font;
+	QColor fgColor;
+	QColor bgColor;
+	CStyleFormat* format = 0;
+	CStyleFormatFrame* frame = 0;
+	CStyleFormat::alignement alignement;
+	int identation = 0;
+	CStyle::styleType type = CStyle::Unknown;
+	QString text;
+	QColorGroup cg;
+	QPen pen;
+	QBrush brush;
+	
+	//print the header
+	for (int i = 0; i < 3; ++i) {
+		type = (CStyle::styleType)i;
+		format = m_style->getFormatForType( type );
+		fgColor = format->getFGColor();
+		bgColor = format->getBGColor();	
+		font = format->getFont();
+		font.setCharSet(QFont::Unicode);		
+		frame = format->hasFrame() ? format->getFrame() : 0;
+		alignement = format->getAlignement();
+		identation = format->getIdentation();
+		pen.setColor(fgColor);
+		if (type == CStyle::Header)
+			text = m_headerText;
+		else if (type == CStyle::Description)
+			text = m_description;
+		else
+			text = getModuleText();
+		
+		p->setFont(font);
+		p->setPen(pen);
+		cg.setColor(QColorGroup::Foreground, format->getFGColor());
+		cg.setColor(QColorGroup::Background, format->getBGColor());		
+		if (!m_style->hasFormatTypeEnabled(type))
+			continue;
+		int arguments = Qt::WordBreak;		
+			if (alignement == CStyleFormat::Left)
+				arguments |= Qt::AlignLeft;
+			else if (alignement == CStyleFormat::Center)
+				arguments |= Qt::AlignHCenter;
+			else if (alignement == CStyleFormat::Right)
+				arguments |= Qt::AlignRight;
+	
+		QRect boundingRect;
+		QRect br;
+		if ((type == CStyle::Header || type == CStyle::Description) && !text.isEmpty()) {
+			boundingRect = p->boundingRect( printer->leftMargin(), printer->getVerticalPos(),
+				printer->getPageSize().width(), printer->getPageSize().bottom()-printer->getVerticalPos(), arguments, text );
+			//check if the new text fits into page
+			if ( (printer->getVerticalPos() + boundingRect.height() + (frame ? 2*frame->getThickness() : 0) + STYLE_PART_SPACE ) > printer->getPageSize().height() ) {
+				//this part doesn't fit on the current page
+				printer->newPage();
+				boundingRect = p->boundingRect( printer->leftMargin(), printer->getVerticalPos(),
+					printer->getPageSize().width(), printer->getPageSize().bottom()-printer->getVerticalPos(), arguments, text );				
+			}
+			br = boundingRect;
+			br.setX(printer->leftMargin());
+			br.setWidth(printer->getPageSize().width());
+			p->fillRect( br, bgColor );			
+			p->setPen(pen);
+						
+			p->drawText(boundingRect, arguments, text);
+			printer->setVerticalPos( printer->getVerticalPos() + boundingRect.height() + (frame ? 2*frame->getThickness() : 0) + STYLE_PART_SPACE );
+
+			if (frame) {
+				QPen framePen = pen;
+				framePen.setWidth( frame->getThickness() );
+				framePen.setColor( frame->getColor() );
+				p->setPen( framePen );
+					
+				p->drawRect( br );
+			}						
+		}
+		else if (type == CStyle::ModuleText) {		
+			qDebug("draw the module text");
+			p->save();
+    	Qt3::QSimpleRichText richText( text, font, QString::null, Qt3::QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin());
+    	qDebug(QString::number(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin()).latin1());
+    	richText.setWidth( p, printer->getPageSize().width() );
+    	QRect view( printer->getPageSize() );
+    	do {
+        richText.draw(p,printer->leftMargin(),printer->getVerticalPos(),view,cg);   			
+   			printer->setVerticalPos(printer->getVerticalPos()+richText.height());		
+				const int movePixs = (richText.height() >= (printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height();
+		    view.moveBy( 0,movePixs);
+        p->translate( 0,-movePixs);
+				qDebug(QString::number(richText.height()).latin1());
+				qDebug(QString::number(richText.widthUsed()).latin1());				
+        if ( view.top() >= richText.height() )
+    			break;
+    		printer->newPage();
+    	} while (true);
+			p->restore();
+    }
+		printer->setVerticalPos(printer->getVerticalPos() + PARAGRAPH_SPACE);
+	}	
+}
+

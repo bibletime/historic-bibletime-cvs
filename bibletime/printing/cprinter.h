@@ -55,7 +55,7 @@ public:
 	struct CPagePosition {
 	  unsigned int curPage;
 	  QRect rect;
-	  time_t now;
+//	  time_t now;
 	};	
 	struct CPageMargin {
 	  unsigned int top;
@@ -89,38 +89,27 @@ public:
 
 	CPrinter( CImportantClasses* important, QObject* parent = 0 );
 	~CPrinter();
-  /**
- 	* Returns the right margin.
- 	*/
   const unsigned int rightMarginMM() const;
-  /**
- 	* Sets the right margin.
- 	*/
   void setRightMarginMM( const unsigned int margin );
-  /**
- 	* Returns the right margin.
- 	*/
   const unsigned int leftMarginMM() const;
-  /**
- 	* Sets the right margin.
- 	*/
   void setLeftMarginMM( const unsigned int margin );
-  /**
- 	* Returns the right margin.
- 	*/
   const unsigned int upperMarginMM() const;
-  /**
- 	* Sets the right margin.
- 	*/
   void setUpperMarginMM( const unsigned int margin );
-  /**
- 	* Returns the right margin.
- 	*/
   const unsigned int lowerMarginMM() const;
-  /**
- 	* Sets the right margin.
- 	*/
   void setLowerMarginMM( const unsigned int margin );
+
+  const unsigned int rightMargin() const;
+  const unsigned int leftMargin() const;
+  const unsigned int upperMargin() const;
+  const unsigned int lowerMargin() const;
+  /**
+  * Sets the vertical position of the printer's painter.
+  */
+  void setVerticalPos( const int yPos );
+  /**
+  * returns the vertical position of the printer's painter.
+  */
+  const int getVerticalPos() const;
   /**
  	* Sets te preview application.
  	*/
@@ -161,7 +150,7 @@ public:
  	* Print item at bottom of the current page.
  	* If there's no more space left on the current page create a new one.
  	*/
-  void printItem( QPainter* p, const CPrintItem* item);
+//  void printItem( QPainter* p, const CPrintItem* item);
   /**
  	* Returns true if we use the preview mechanism.
  	*/

@@ -26,6 +26,7 @@ class CStyle;
 class CKey;
 class CModuleInfo;
 class CPrintItemList;
+class CPrinter;
 
 class QListViewItem;
 class QListView;
@@ -37,7 +38,7 @@ typedef QList<CPrintItem> printItemList;
 	* The class which implements the printable items.
   * @author The BibleTime team
   */
-class CPrintItem /*: public QObject*/  {
+class CPrintItem {
 public: 
 	CPrintItem();
 	~CPrintItem();
@@ -113,6 +114,10 @@ public:
  	* Deletes the list view item.
  	*/
   void deleteListViewItem();
+  /**
+  * Draws the content of this item on the page.
+  */
+  void draw(QPainter* p, CPrinter* printer);
 
 private: // Protected attributes
   void clearData();

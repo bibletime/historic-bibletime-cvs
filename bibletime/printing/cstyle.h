@@ -38,7 +38,7 @@ typedef QList<CStyle> styleItemList;
   */
 class CStyle {
 public:
-	enum styleType { Header, ModuleText, Description, Unknown };
+	enum styleType { Header=0, ModuleText, Description, Unknown };
 	
 	CStyle();
 	~CStyle();

@@ -571,11 +571,11 @@ const bool CPrinterDialog::applySettingsToPrinter( const bool preview ){
 	m_printer->setPreview( preview );	
 	if (preview)
 		m_printer->setPreviewApplication(m_general.previewProgram->text());
-	else
-		m_printer->setPreviewApplication("");
+//	else
+//		m_printer->setPreviewApplication("");
 
-	m_printer->setFullPage(true);
-	m_printer->setCreator( i18n("BibleTime version %1").arg(VERSION) );
+//	m_printer->setFullPage(true);
+//	m_printer->setCreator( i18n("BibleTime version %1").arg(VERSION) );
 		
 	//apply general settings
 	if (!m_general.printerList->currentItem() )

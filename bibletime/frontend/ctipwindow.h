@@ -50,10 +50,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <qstringlist.h>
 #include <kdialog.h>
 
-
-namespace Qt3 {
-	class QTextView;
-};
+#include "thirdparty/qt3stuff/qtextview.h"
 
 class QCheckBox;
 class QPushButton;

@@ -38,11 +38,6 @@
 #include <qpaintdevice.h>
 #include <qpaintdevicemetrics.h>
 
-
-#define PARAGRAPH_SPACE 10 // Space between different paragraphs
-#define STYLE_PART_SPACE 1	//Space between the differnt parts (header, moduletext ...)
-#define BORDER_SPACE 5	//border between text and rectangle
-
 CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(parent) {
 	config = new KConfig("bt-printing", false, true );
 
@@ -85,6 +80,10 @@ const unsigned int CPrinter::rightMarginMM() const {
 	return (int)((float)m_pageMargin.right / r);
 }
 
+const unsigned int CPrinter::rightMargin() const {
+	return m_pageMargin.right;
+}
+
 /** Sets the right margin. */
 void CPrinter::setRightMarginMM( const unsigned int margin ){
 	QPaintDeviceMetrics m(this);
@@ -99,6 +98,10 @@ const unsigned int CPrinter::leftMarginMM() const {
 	const float r = (float)m.width() / m.widthMM();
 	
 	return (int)((float)m_pageMargin.left / r);
+}
+
+const unsigned int CPrinter::leftMargin() const {
+	return m_pageMargin.left;
 }
 
 /** Sets the left margin. */
@@ -117,6 +120,10 @@ const unsigned int CPrinter::upperMarginMM() const {
 	return (int)((float)m_pageMargin.top / r);
 }
 
+const unsigned int CPrinter::upperMargin() const {
+	return m_pageMargin.top;
+}
+
 /** Sets the right margin. */
 void CPrinter::setUpperMarginMM( const unsigned int margin ){
 	QPaintDeviceMetrics m(this);
@@ -133,6 +140,10 @@ const unsigned int CPrinter::lowerMarginMM() const {
 	return (int)((float)m_pageMargin.bottom / r);
 }
 
+const unsigned int CPrinter::lowerMargin() const {
+	return m_pageMargin.bottom;
+}
+
 /** Sets the right margin. */
 void CPrinter::setLowerMarginMM( const unsigned int margin ){
 	QPaintDeviceMetrics m(this);
@@ -144,9 +155,10 @@ void CPrinter::setLowerMarginMM( const unsigned int margin ){
 /** Appends a new page where the next things will be painted. */
 const bool CPrinter::newPage(){
 	bool result = QPrinter::newPage();
-	if (result)
+	if (result) {
 		m_pagePosition.curPage++;
-	m_pagePosition.rect = getPageSize();			
+	 	m_pagePosition.rect = getPageSize();			
+	}
 	return result;
 }
 
@@ -158,147 +170,6 @@ void CPrinter::setAllMargins( const CPageMargin margins ) {
 /** Returns the margins of the pages. */
 CPrinter::CPageMargin CPrinter::getPageMargins(){
 	return m_pageMargin;
-}
-
-/** Print item at bottom of the current page. If there's no more space left on the current page create a new one. */
-void CPrinter::printItem( QPainter* p, const CPrintItem* item){
-	/** Printing one item:
-		* Printing one item is done in the following way:
-		*		- Get style of the item
-		*		- See which style parts should be printer
-		*		- 3 different part of the function, in the parts we do:
-		*			1. Print the header if printing of headers is enabled in the style
-		*			2. Print the description if printing of descriptionss is enabled in the style
-		*			3. Print the moduletext if printing of the module text is enabled in the style
-		*		- In each of these parts we do the same
-		*			- Create correct QPen and QBrush objects (for frame of part, foregroundcolor, backgroundcolor ...)
-		*			- Calculate space and create new page if it doesn't fit on the current page.
-		*			- If the item is larger than one page split the part into more pages.
-		*			- print the part
-		*	While printing we have to manage the headers of the page.
-		*/
-
-//style variables
-	CStyle*	style = item->getStyle();
-	CStyle::styleType styleType = CStyle::Unknown;	
-	QString currentText = QString::null;	
-	ASSERT(style);
-	if (!style) {
-		qDebug("Style is 0. Won't print this item.");
-		return;
-	}
-	
-	QPen framePen;
-	QPen oldPen = p->pen();
-	QPen pen = oldPen;
-		
-//CStyleFormat relevant	
-	CStyleFormat* format = 0;
-	QFont	font;	
-	QColor bgColor, fgColor;
-	CStyleFormat::alignement alignement = CStyleFormat::Left;
-	unsigned int identation = 0;
-	int arguments = 0;	
-
-//CStyleFormatFrame relevant		
-	CStyleFormatFrame*	frame = 0;
-	QColor frameColor;
-	unsigned int frameThickness = 1;
-	
-	bool isEnabled = false;
-	bool createNewPage = false;
-	bool printed = false;
-	
-	for (unsigned short int index=1; index <= 3; index++ ) {
-		if (styleType == CStyle::Unknown)
-			styleType = CStyle::Header;
-		else if (styleType == CStyle::Header)
-			styleType = CStyle::Description;
-		else	if (styleType == CStyle::Description)
-			styleType = CStyle::ModuleText;
-		
-		//print the part if it's enabled
-		isEnabled = style->hasFormatTypeEnabled( styleType );
-		if (isEnabled) {
-			format = style->getFormatForType( styleType );
-			ASSERT(format);
-			if (styleType == CStyle::Header)
-				currentText = item->getHeader();
-			else if (styleType == CStyle::Description)
-				currentText = item->getDescription();
-			else	if (styleType == CStyle::ModuleText)
-				currentText = item->getModuleText();
-			else
-				currentText = QString::null;
-			
-		 	if (currentText.isEmpty())	//we don't want to print empty text
-				continue;
-				
-			font = format->getFont();
-			font.setCharSet(QFont::Unicode);
-			fgColor = format->getFGColor();
-			bgColor = format->getBGColor();
-			identation = format->getIdentation();
-			alignement = format->getAlignement();
-			pen = p->pen();
-		
-			if (format->hasFrame()) {
-				frame = format->getFrame();
-				ASSERT(frame);
-				frameColor =	frame->getColor();
-				frameThickness = frame->getThickness();
-			}		
-			
-			arguments = WordBreak;		
-			if (alignement == CStyleFormat::Left)
-				arguments |= AlignLeft;
-			else if (alignement == CStyleFormat::Center)
-				arguments |= AlignHCenter;
-			else if (alignement == CStyleFormat::Right)
-				arguments |= AlignRight;
-#warning TODO: Make use of justification type
-			
-			QRect r = getPageSize();
-			
-			pen.setColor( fgColor );
-			p->setPen( pen );		
-			p->setFont( font );		
-			
-			QRect boundingRect = p->boundingRect( m_pagePosition.rect.x()+BORDER_SPACE, m_pagePosition.rect.y(),
-				r.width()-BORDER_SPACE, r.height(), arguments, currentText );
-			
-			//check if the new text fits into page
-			if ( (m_pagePosition.rect.y() + boundingRect.height() + (format->hasFrame() ? 2*frameThickness : 0) + STYLE_PART_SPACE ) > r.height() ) {
-				//this part doesn't fit on the current page
-				newPage();
-				boundingRect = p->boundingRect( m_pagePosition.rect.x()+BORDER_SPACE,
-					m_pagePosition.rect.y(), r.width()-BORDER_SPACE,
-					r.height(), arguments, currentText );
-			}
-			
-			QRect brushRect = boundingRect;
-			brushRect.setX( m_pagePosition.rect.x() );
-			brushRect.setWidth(r.width());
-			p->fillRect( brushRect, bgColor );
-			
-			if (format->hasFrame()) {
-				framePen = p->pen();
-				framePen.setWidth( frameThickness );
-				framePen.setColor( frameColor );
-				p->setPen( framePen );
-				
-				p->drawRect( brushRect );
-			}
-			
-			p->setPen(pen);
-			p->drawText( boundingRect, arguments, currentText );
-			m_pagePosition.rect.setY( m_pagePosition.rect.y() + boundingRect.height() + (format->hasFrame() ? 2*frameThickness : 0) + STYLE_PART_SPACE );
-			
-			printed = true;			
-		}			
-	}	
-	if (printed)	//something was printed
-		m_pagePosition.rect.setY( m_pagePosition.rect.y() + PARAGRAPH_SPACE );
 }
 
 /** Setups the printer using CPrinterDialog. */
@@ -361,7 +232,8 @@ void CPrinter::printQueue(){
 	for (int page = 1; page <= numCopies(); page++) {	//make numCopies() copies of the pages
 		for (m_queue->first(); m_queue->current(); m_queue->next()) {
 			KApplication::kApplication()->processEvents(10); //do not lock the GUI!			
-			printItem( p, m_queue->current());
+//			printItem( p, m_queue->current());
+			m_queue->current()->draw(p,this);
 			CKey* key = m_queue->current()->getStartKey();
 			
 			QString keyName = QString::null;			
@@ -619,9 +491,9 @@ const QRect CPrinter::getPageSize() const {
   QPaintDeviceMetrics metric( this );
   QRect r;
 
-  CPageSize size;
-	size.width  = metric.width();
-  size.height = metric.height();
+//  CPageSize size;
+//	size.width  = metric.width();
+//  size.height = metric.height();
 
   r.setLeft( m_pageMargin.left );
   r.setTop( m_pageMargin.top );
@@ -659,4 +531,15 @@ void CPrinter::setupStandardStyle(){
 void CPrinter::previewFinished(KProcess*){
 	if (QFile::exists( outputFileName() ))
 		QFile::remove( outputFileName() );
+}
+/** returns the vertical position of the printer's painter. */
+const int CPrinter::getVerticalPos() const {
+	return m_pagePosition.rect.y();
+}
+
+/** Sets the vertical position of the printer's painter. */
+void CPrinter::setVerticalPos( const int yPos ){
+	m_pagePosition.rect.setY(yPos);
+	if (m_pagePosition.rect.y() >= getPageSize().height() )
+		newPage();
 }
