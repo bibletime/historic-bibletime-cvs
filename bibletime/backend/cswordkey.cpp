@@ -59,7 +59,7 @@ const QString CSwordKey::renderedText() {
 }
 
 const QString CSwordKey::strippedText() {
-	qWarning("const QString CSwordKey::strippedText()");	
+//	qWarning("const QString CSwordKey::strippedText()");	
   if (!m_module)
 		return QString::null;
 	if (SWKey* k = dynamic_cast<SWKey*>(this))

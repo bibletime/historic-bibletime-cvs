@@ -42,6 +42,7 @@
 #include <qsplitter.h>
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
+#include <qheader.h>
 
 //KDE includes
 #include <klocale.h>
@@ -130,7 +131,7 @@ void CModuleResultView::initView(){
   addColumn(i18n("Module"));
   addColumn(i18n("Found items"));
   
-  setFullWidth(true);
+//  setFullWidth(true);
   setSorting(0, true);
   setSorting(1, true);
   setAllColumnsShowFocus(true);
@@ -272,20 +273,26 @@ CSearchResultPage::~CSearchResultPage(){
 /** Initializes the view of this widget. */
 void CSearchResultPage::initView(){
   QVBoxLayout* mainLayout = new QVBoxLayout(this);
+
   QSplitter* splitter = new QSplitter(Vertical, this);
   mainLayout->addWidget(splitter);
 
-  QHBox* layoutBox = new QHBox(splitter);
-  layoutBox->setSpacing(3);
-  m_moduleListBox = new CModuleResultView(layoutBox);
-  layoutBox->setStretchFactor(m_moduleListBox, 0);
-  m_resultListBox = new CSearchResultView(layoutBox);
-  layoutBox->setStretchFactor(m_resultListBox, 5);  
+//  QHBox* layoutBox = new QHBox(splitter);
+//  layoutBox->setSpacing(3);
+  QSplitter* hSplitter = new QSplitter(Horizontal, splitter);
+  m_moduleListBox = new CModuleResultView(hSplitter);
+//  m_moduleListBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+//  layoutBox->setStretchFactor(m_moduleListBox, 0);
+  m_resultListBox = new CSearchResultView(hSplitter);
+  hSplitter->setResizeMode(m_moduleListBox, QSplitter::FollowSizeHint);
+  hSplitter->setResizeMode(m_resultListBox, QSplitter::Stretch);
+
+//  layoutBox->setStretchFactor(m_resultListBox, 5);  
 
   m_previewDisplay = CDisplay::createReadInstance(0, splitter);  
 
   m_moduleListBox->resize(m_moduleListBox->sizeHint());
-  splitter->setResizeMode(layoutBox, QSplitter::KeepSize);
+  splitter->setResizeMode(hSplitter, QSplitter::KeepSize);
   splitter->setResizeMode(m_previewDisplay->view(), QSplitter::Stretch);
   
   m_analyseButton = new QPushButton(i18n("Show search analysis")+QString::fromLatin1("..."), this);
@@ -300,7 +307,11 @@ void CSearchResultPage::setSearchResult(ListCSwordModuleInfo modules){
   m_modules = modules;
   reset();
   m_moduleListBox->setupTree(modules);
+  m_moduleListBox->setMinimumWidth(m_moduleListBox->sizeHint().width());
+  m_moduleListBox->adjustSize();
+  m_moduleListBox->parentWidget()->adjustSize();
 
+  
   //have a Bible or commentary in the modules?
   bool enable = false;
   for (modules.first(); !enable && modules.current(); modules.next()) {
@@ -588,7 +599,7 @@ ListKey CSearchOptionsPage::searchScope(){
   if (m_rangeChooserCombo->currentItem() > 1) { //neither "No Scope" nor "Last search result"
     CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
     QString scope = map[ m_rangeChooserCombo->currentText() ];
-    qWarning(scope.latin1());
+//    qWarning(scope.latin1());
     if (!scope.isEmpty())
       return VerseKey().ParseVerseList( scope.local8Bit(), "Genesis 1:1", true);
   };

@@ -64,7 +64,6 @@ void CLexiconReadWindow::insertKeyboardActions( KAccel* a ){
 void CLexiconReadWindow::initKeyboardActions() {
   CReadWindow::initKeyboardActions();
 
-
   CBTConfig::setupAccel(CBTConfig::lexiconWindow, accel());
   insertKeyboardActions(accel());
   accel()->readSettings();
@@ -157,8 +156,6 @@ void CLexiconReadWindow::previousEntry(){
 
 /** Reimplementation to return the right key. */
 CSwordLDKey* CLexiconReadWindow::ldKey(){
-  qWarning("CLexiconReadWindow::key()");
-	CSwordLDKey* k = dynamic_cast<CSwordLDKey*>(CDisplayWindow::key());
- 	Q_ASSERT(k);
-	return k;
+//  qWarning("CLexiconReadWindow::key()");
+  return dynamic_cast<CSwordLDKey*>(CDisplayWindow::key());
 }

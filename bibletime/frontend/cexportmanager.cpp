@@ -228,6 +228,8 @@ const bool CExportManager::printKeyList(ListKey* list, CSwordModuleInfo* module)
 	progress.setMinimumDuration(10);
 	progress.show();
 
+	KApplication::kApplication()->processEvents(); //do not lock the GUI!
+  
 	int index = 0;
 	QPtrList<CPrintItem> itemList;
 	QString startKey, stopKey;
@@ -243,11 +245,10 @@ const bool CExportManager::printKeyList(ListKey* list, CSwordModuleInfo* module)
 			startKey = QString::fromLocal8Bit((const char*)*list);
 			stopKey = QString::null;
 		}
-		itemList.append( new CPrintItem(module, startKey, stopKey) );
-
-  	progress.progressBar()->setProgress(0);
+  	progress.progressBar()->setProgress(index++);
 		KApplication::kApplication()->processEvents(); //do not lock the GUI!
 
+    itemList.append( new CPrintItem(module, startKey, stopKey) );
 		(*list)++;
 	}
 
@@ -259,7 +260,7 @@ const bool CExportManager::printKeyList(ListKey* list, CSwordModuleInfo* module)
 	}
 
   printer()->appendItems(itemList);
-	progress.progressBar()->setProgress(list->Count());
+	progress.progressBar()->setProgress(list->Count()+1);
 
 	return true;
 };

@@ -292,7 +292,7 @@ void BibleTime::slotAbortPrinting(){
 
 
 void BibleTime::slotSearchSelectedModules() {
-  qWarning("search in modules");
+//  qWarning("search in modules");
   m_mainIndex->searchInModules();
 }
 

@@ -40,6 +40,7 @@
 #include <qsizepolicy.h>
 #include <qpushbutton.h>
 #include <qheader.h>
+#include <qtoolbutton.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -210,9 +211,9 @@ void CSearchDialog::reset(){
 
 /** Is the slot which is called when a page will be shown. */
 void CSearchDialog::slotShowPage(QWidget* page){
-  qWarning("show a page");
+//  qWarning("show a page");
   if (pageIndex(page) == m_index.optionsPage) {
-    qWarning("show options page"),
+//    qWarning("show options page"),
     m_searchOptionsPage->aboutToShow();
   };
 }
@@ -256,7 +257,7 @@ void CModuleChooser::initView(){
   addColumn("Module Name");
   setRootIsDecorated(true);
 //  header()->hide();
-//  setFullWidth(true);
+  setFullWidth(true);
 }
 
 /** Initializes the tree of this widget. */
@@ -389,11 +390,13 @@ ListCSwordModuleInfo CModuleChooser::modules(){
 
 /** Sets the list of modules and updates the state of the checkbox items. */
 void CModuleChooser::setModules( ListCSwordModuleInfo modules ){
-  qWarning("CModuleChooser::setModules( ListCSwordModuleInfo modules )");
+//  qWarning("CModuleChooser::setModules( ListCSwordModuleInfo modules )");
   QListViewItemIterator it( this );
   for ( ; it.current(); ++it ) {
     if ( ModuleCheckBoxItem* i = dynamic_cast<ModuleCheckBoxItem*>(it.current()) ) {
       i->setOn(modules.contains(i->module()));
+      if (i->isOn())
+        ensureItemVisible(i);
     }
   };
 }
@@ -667,13 +670,23 @@ CSearchAnalysisDialog::~CSearchAnalysisDialog() {
 
 /** Initializes this dialog. */
 void CSearchAnalysisDialog::initView(){
-  QHBoxLayout* layout = new QHBoxLayout(plainPage());
+  QVBoxLayout* layout = new QVBoxLayout(plainPage());
+
+  QToolButton* button = new QToolButton(plainPage(), "toolbutton");
+  Q_ASSERT(button);
+  button->setIconSet(SmallIconSet("filesave"));
+  button->setTextLabel(i18n("Save search analysis")+"...");
+  button->setUsesTextLabel(true);
+  button->setFixedSize(button->sizeHint());
+  connect(button, SIGNAL(clicked()), m_analysis, SLOT(saveAsHTML()));
+  layout->addWidget(button,0);
+  
   m_analysis = new CSearchAnalysis(plainPage());
   m_analysisView = new CSearchAnalysisView(m_analysis, plainPage());
   m_analysisView->show();
   layout->addWidget(m_analysisView);
-
-  resize(600,400);
+  
+  resize(600,480);
 }
 
 /** Initializes the widgets SIGNAL and SLOT connections,. */
@@ -706,7 +719,7 @@ QDict<CSearchAnalysisItem>* CSearchAnalysis::getSearchAnalysisItemList(){
 
 /** Starts the analysis of the search result. This should be called only once because QCanvas handles the updates automatically. */
 void CSearchAnalysis::analyse(ListCSwordModuleInfo modules){
-	qDebug("void CSearchAnalysis::analyse()");
+//	qDebug("void CSearchAnalysis::analyse()");
   /**
 	* Steps of analysing our search result;
 	*	-Create the items for all available books ("Genesis" - "Revelation")
@@ -1055,3 +1068,7 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
   painter.restore();
 }
 
+/** No descriptions */
+void CSearchAnalysis::saveAsHTML(){
+  
+}

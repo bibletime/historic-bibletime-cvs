@@ -1066,7 +1066,7 @@ const bool CBookmarkFolder::saveBookmarks( const QString& filename ){
 
 /** Loads bookmarks from a file. */
 const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
-	qWarning("load bookmarks");
+//	qWarning("load bookmarks");
   QFile file(filename);	
 	if (!file.exists())
 		return false;
@@ -1110,6 +1110,6 @@ const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
     else
       break;
   }
-  qWarning("finished loading bookmarks");
+//  qWarning("finished loading bookmarks");
 }
 

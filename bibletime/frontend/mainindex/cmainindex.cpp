@@ -227,7 +227,7 @@ QDragObject* CMainIndex::dragObject() {
 
 /** Reimplementation from KListView. Returns true if the drag is acceptable for the listview. */
 bool CMainIndex::acceptDrag( QDropEvent* event ) const {
-  qWarning("CMainIndex::acceptDrag( QDropEvent* event )");
+//  qWarning("CMainIndex::acceptDrag( QDropEvent* event )");
   if (m_itemsMovable) {
     qWarning("return true");
     return true;
@@ -242,7 +242,7 @@ bool CMainIndex::acceptDrag( QDropEvent* event ) const {
 
 /** No descriptions */
 void CMainIndex::initTree(){
-  qWarning("CMainIndex::initTree()");
+//  qWarning("CMainIndex::initTree()");
   addGroup(CItemBase::BookmarkFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::BibleModuleFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::BookModuleFolder, QString::fromLatin1("*"));
@@ -250,7 +250,7 @@ void CMainIndex::initTree(){
   addGroup(CItemBase::DevotionalModuleFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::GlossaryModuleFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::LexiconModuleFolder, QString::fromLatin1("*"));
-  qWarning("CMainIndex::initTree() finshed");
+//  qWarning("CMainIndex::initTree() finshed");
 }
 
 /** No descriptions */

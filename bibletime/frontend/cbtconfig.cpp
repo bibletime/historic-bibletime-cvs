@@ -244,8 +244,8 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
   	  map.insert(i18n("Prophets"),              QString::fromLatin1("Isa - Mal"));
    	  map.insert(i18n("New testament"),         QString::fromLatin1("Mat - Rev"));
   	  map.insert(i18n("Gospels"), 		          QString::fromLatin1("Mat - Joh"));
-  	  map.insert(i18n("Letters/Epistels"), 	    QString::fromLatin1("Rom - Jude"));
-  	  map.insert(i18n("Paul's Epistels"), 	    QString::fromLatin1("Rom - Phile"));
+  	  map.insert(i18n("Letters/Epistles"), 	    QString::fromLatin1("Rom - Jude"));
+  	  map.insert(i18n("Paul's Epistles"), 	    QString::fromLatin1("Rom - Phile"));
 
       //make the list to the current bookname language!
       CBTConfig::StringMap::Iterator it;

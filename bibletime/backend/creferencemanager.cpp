@@ -220,7 +220,7 @@ const QString CReferenceManager::preferredModule( const CReferenceManager::Type 
 			description = CBTConfig::get( CBTConfig::standardGreekMorphLexicon );
 			break;			
 		default:
-			qWarning("unknwon type");
+//			qWarning("unknwon type");
 			description = QString::null;
 			break;			
 	}
