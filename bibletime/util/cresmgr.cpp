@@ -63,9 +63,9 @@ namespace CResMgr {
       namespace clearQueue {
         QString tooltip;
         QString whatsthis;
-        const QString icon       = QString::fromLatin1("queue");
+        const QString icon       = QString::fromLatin1("button_cancel");
         const KShortcut accel    = KKeySequence();
-        const char* actionName   = "fileClearQueue_action";
+        const char* actionName   = "file_clear_queue_action";
       }
       namespace print { //a standard action
         QString tooltip;
@@ -97,14 +97,14 @@ namespace CResMgr {
         QString whatsthis;
         const QString icon        = "find";
         const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_M;
-        const char* actionName    = "GMsearch_action";
+        const char* actionName    = "groupmanager_search_action";
       }
       namespace searchdefaultbible {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "find";
         const KShortcut accel     = Qt::CTRL + Qt::Key_F;
-        const char* actionName    = "GMsearchdefaultbible_action";
+        const char* actionName    = "groupmanager_searchdefaultbible_action";
       }
     };
 
