@@ -61,10 +61,10 @@ public:
 
 	
 	private:
+		Settings m_settings;
 		ListCSwordModuleInfo m_moduleList;
 		QString m_key;
 		mutable KeyTree* m_childList;
-		Settings m_settings;
 	};
 	
 	class KeyTree : public KeyTreeItemList {
@@ -97,7 +97,7 @@ public:
 	};
 	
 	CHTMLExportRendering(
-		Settings settings, 
+		const Settings& settings, 
 		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 
 		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
 	);
@@ -114,20 +114,30 @@ protected:
 	Settings m_settings;
 };
 
+class CPlainTextExportRendering : public CHTMLExportRendering {
+public:
+	CPlainTextExportRendering(
+		const Settings& settings, 
+		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 
+		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
+	);
+	virtual ~CPlainTextExportRendering();
+	
+protected:	
+	virtual const QString renderEntry( const KeyTreeItem& );
+	virtual const QString finishText( const QString&, KeyTree& tree );
+};
+
 class CDisplayRendering : public CHTMLExportRendering {
 public:
 	CDisplayRendering(
 		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 
 		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
 	);
-	//virtual ~CExportHTMLRendering();
-	
+
 protected:	
 	virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* module );
-
-//	virtual const QString renderEntry( const KeyTreeItem& );
 	virtual const QString finishText( const QString&, KeyTree& tree );
-//	virtual void initRendering();
 };
 
 #endif

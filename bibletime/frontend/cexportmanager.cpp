@@ -135,41 +135,46 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 };
 
 const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText) {
-  if (!list)
-    return false;
-  const QString filename = getSaveFileName(format);
-  if (filename.isEmpty())
+  if (!list->Count())
     return false;
 
+	const QString filename = getSaveFileName(format);
+  if (filename.isEmpty()) {
+    return false;
+	}
+
+	CHTMLExportRendering::Settings settings(addText);
+	util::scoped_ptr<CTextRendering> render(
+		(format == HTML) 
+		? new CHTMLExportRendering(settings, m_displayOptions, m_filterOptions) 
+		: new CPlainTextExportRendering(settings, m_displayOptions, m_filterOptions)
+	);
+	
+	CTextRendering::KeyTree tree;
+	
   setProgressRange(list->Count());
- 	util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
- 	QString text;
- 	(*list) = sword::TOP;
+	CTextRendering::KeyTreeItem::Settings itemSettings;
+	itemSettings.highlight = false;
+	
+ 	*list = sword::TOP;
  	while (!list->Error() && !progressWasCancelled()) {
- 		if (!key)
- 			break;
-    key->key((const char*)(*list));
-
-    if (addText) {
- 			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText(CSwordKey::HTMLEscaped) : key->strippedText() );
-    }
- 		else {
- 			text += key->key() + lineBreak(format);
-    }
-
+		tree += CTextRendering::KeyTreeItem(QString::fromLocal8Bit((const char*)(*list)), module, itemSettings);
     incProgress();
- 		(*list)++;
- 	}
+ 		
+		(*list)++;
+	}
+
+	const QString text = render->renderKeyTree(tree);	
 
   if (!progressWasCancelled()) {
- 		CToolClass::savePlainFile(filename, text);
+ 		CToolClass::savePlainFile(filename, text, false, (format==HTML) ? QTextStream::UnicodeUTF8 : QTextStream::Locale);
  		closeProgressDialog();
  		return true;
  	}
-	return false;
+  return false;
 };
 
-const bool CExportManager::saveKeyList(QPtrList<CSwordKey> list, const Format format, const bool addText ) {
+const bool CExportManager::saveKeyList(QPtrList<CSwordKey>& list, const Format format, const bool addText ) {
   if (!list.count())
     return false;
 
@@ -179,7 +184,12 @@ const bool CExportManager::saveKeyList(QPtrList<CSwordKey> list, const Format fo
 	}
 
 	CHTMLExportRendering::Settings settings(addText);
-	CHTMLExportRendering render(settings, m_displayOptions, m_filterOptions);
+	util::scoped_ptr<CTextRendering> render(
+		(format == HTML) 
+		? new CHTMLExportRendering(settings, m_displayOptions, m_filterOptions) 
+		: new CPlainTextExportRendering(settings, m_displayOptions, m_filterOptions)
+	);
+	
 	CTextRendering::KeyTree tree;
 	
   setProgressRange(list.count());
@@ -191,11 +201,10 @@ const bool CExportManager::saveKeyList(QPtrList<CSwordKey> list, const Format fo
     incProgress();
   };
 
-	const QString text = render.renderKeyTree(tree);	
-	
-	
+	const QString text = render->renderKeyTree(tree);	
+
   if (!progressWasCancelled()) {
- 		CToolClass::savePlainFile(filename, text, false, (format==HTML) ? QTextStream::UnicodeUTF8 : QTextStream::UnicodeUTF8);
+ 		CToolClass::savePlainFile(filename, text, false, (format==HTML) ? QTextStream::UnicodeUTF8 : QTextStream::Locale);
  		closeProgressDialog();
  		return true;
  	}
@@ -283,7 +292,7 @@ const bool CExportManager::copyKeyList(sword::ListKey* list, CSwordModuleInfo* m
 };
 
 
-const bool CExportManager::copyKeyList(QPtrList<CSwordKey> list, const Format format, const bool addText ) {
+const bool CExportManager::copyKeyList(QPtrList<CSwordKey>& list, const Format format, const bool addText ) {
   if (!list.count())
     return false;
 

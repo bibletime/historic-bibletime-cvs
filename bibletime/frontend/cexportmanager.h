@@ -49,11 +49,11 @@ public:
   CExportManager(const QString& caption, const bool showProgress = true, const QString& progressLabel = QString::null, const CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults());
   const bool saveKey(CSwordKey* key, const Format format, const bool addText);
   const bool saveKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);
-  const bool saveKeyList(QPtrList<CSwordKey> list, const Format format, const bool addText );
+  const bool saveKeyList(QPtrList<CSwordKey>& list, const Format format, const bool addText );
 
   const bool copyKey(CSwordKey* key, const Format format, const bool addText);
   const bool copyKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);
-  const bool copyKeyList(QPtrList<CSwordKey> list, const Format format, const bool addText );  
+  const bool copyKeyList(QPtrList<CSwordKey>& list, const Format format, const bool addText );  
 
   const bool printKey(CSwordKey* key, const QString& description = QString::null);
   const bool printByHyperlink(const QString& hyperlink);  
