@@ -57,13 +57,13 @@ BT_ThMLHTML::BT_ThMLHTML() {
 char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const sword::SWModule* module) {
 	ThMLHTML::processText(buf, key, module);
 	
- 	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
+	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
 	if (m && !(m->has(CSwordModuleInfo::lemmas) || m->has(CSwordModuleInfo::strongNumbers))) { //only parse if the module has strongs or lemmas
 		return 1;
 	}
 
 	QString result;
-	
+		
 	QString t = QString::fromUtf8(buf.c_str());
 	QRegExp tag("([.,;]?<sync[^>]+(type|value)=\"([^\"]+)\"[^>]+(type|value)=\"([^\"]+)\"([^<]*)>)+");
 	
@@ -88,7 +88,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 	tag = QRegExp("<sync[^>]+(type|value|class)=\"([^\"]+)\"[^>]+(type|value|class)=\"([^\"]+)\"[^>]+((type|value|class)=\"([^\"]+)\")*([^<]*)>");
 
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
-		QString e = *it;
+		QString e( *it );
 		
 		const bool textPresent = (e.stripWhiteSpace().remove(QRegExp("[.,;:]")).left(1) != "<");
 		if (!textPresent) {
@@ -101,8 +101,8 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 		
 		int pos = tag.search(e, 0);
 		bool insertedTag = false;
-		QString value = "";
-		QString valueClass = "";
+		QString value;
+		QString valueClass;
 		
 		while (pos != -1) {
 			bool isMorph = false;
@@ -126,9 +126,10 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 			}
 
 			// prepend the class qualifier to the value
-			if (!valueClass.isEmpty())
-				value = valueClass;
-				value.append(":").append(value);
+			if (!valueClass.isEmpty()) {
+				value = valueClass + ":" + value;
+// 				value.append(":").append(value);
+			}
 			
 			if (value.isEmpty()) {
 				break;

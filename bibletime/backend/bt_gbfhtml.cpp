@@ -90,6 +90,10 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const sword::SWModule * module){
 	GBFHTML::processText(buf, key, module);
 
+	if (!module->isProcessEntryAttributes()) {
+		return 1; //no processing should be done, may happen in a search
+	}
+	
  	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
 	if (m && !(m->has(CSwordModuleInfo::lemmas) || m->has(CSwordModuleInfo::morphTags) || m->has(CSwordModuleInfo::strongNumbers))) { //only parse if the module has strongs or lemmas
 		return 1; //WARNING: Return alread here

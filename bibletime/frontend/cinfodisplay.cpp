@@ -133,6 +133,7 @@ const QString CInfoDisplay::decodeAbbreviation( const QString& data ) {
 			
 	return ret;
 }
+
 const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	if (data.isEmpty()) {
 		return QString("<div class=\"crossrefinfo\"><h3>%1</h3></div>")
