@@ -91,7 +91,7 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 /**  */
 const bool CSwordVerseKey::NextVerse(){	
 //	if (m_module->getType() == CSwordModuleInfo::Commentary) {
-		qDebug("CSwordVerseKey::NextVerse()");
+//		qDebug("CSwordVerseKey::NextVerse()");
 		m_module->module()->SetKey(this);	//use this key as base for the next one!
 		( *( m_module->module() ) )++;
 		key(m_module->module()->KeyText());		
@@ -104,7 +104,7 @@ const bool CSwordVerseKey::NextVerse(){
 /**  */
 const bool CSwordVerseKey::PreviousVerse(){
 //	if (m_module->getType() == CSwordModuleInfo::Commentary) {		
-		qDebug("CSwordVerseKey::PreviousVerse()");		
+//		qDebug("CSwordVerseKey::PreviousVerse()");		
 		m_module->module()->SetKey(this);	//use this key as base for the next one!		
 		( *( m_module->module() ) )--;
 		key(m_module->module()->KeyText());		

@@ -189,8 +189,13 @@ void CBiblePresenter::refresh( const int events ){
 	
 	if ( (events & backgroundChanged) || (events & textColorChanged) || (events & verseNumberColorChanged) )
 		refreshHTMLWidget = true;
-	if ( (events & highlightedVerseColorChanged) || (events & fontChanged) )
+	if ( events & highlightedVerseColorChanged )
 		doLookup = true;
+		
+	if ( events & fontChanged ) {
+		doLookup = true;
+		refreshHTMLWidget = true;
+	}
 	
 	//check for footnotes
 	if (events & footnotesChanged) {

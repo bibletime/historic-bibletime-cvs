@@ -155,8 +155,10 @@ void CLexiconPresenter::refresh( const int events){
 	
 	if ( (events & backgroundChanged) || (events & textColorChanged) )
 		refreshHTMLWidget = true;
-	if ( events & fontChanged )
+	if ( events & fontChanged ) {
 		doLookup = true;
+		refreshHTMLWidget = true;
+	}
 	
 	//check for footnotes			
 	if (doLookup)
