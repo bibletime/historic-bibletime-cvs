@@ -20,7 +20,7 @@
 
 //BibleTime includes
 #include "creaddisplay.h"
-#include "frontend/ctooltip.h"
+//#include "frontend/ctooltip.h"
 
 //Qt includes
 #include <qstring.h>
@@ -104,17 +104,6 @@ class CHTMLReadDisplayView : public KHTMLView, public CPointers {
 protected: // Protected methods
 	friend class CHTMLReadDisplay;
 
-  class ToolTip : public CToolTip {
-  public:
-    ToolTip(CHTMLReadDisplayView* parent);
-  protected: // Protected methods
-    /**
-    * Decides whether a tooltip should be shown.
-    */
-    virtual void maybeTip( const QPoint& );
-  private:
-    CHTMLReadDisplayView* m_view;
-  };
 
   CHTMLReadDisplayView(CHTMLReadDisplay* display, QWidget* parent);
   /**

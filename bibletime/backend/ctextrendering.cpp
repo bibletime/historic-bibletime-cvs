@@ -239,6 +239,7 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 			)
 			.arg(langAttr)
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
+			
 
 		//entry += QString::fromLatin1("<span dir=\"%1\" class=\"entryname\">%2</span>")
 		entry += QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%2</span>") //keys should normally be left-to-right, but this doesn't apply in all cases
@@ -331,12 +332,15 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 		linkText = item.key();
 	}
 	
-  if (linkText.isEmpty()) {
-    return QString::fromLatin1("<a id=\"%1\" />").arg(item.key());
+  if (!linkText.isEmpty()) {
+    return QString::fromLatin1("<a id=\"%1\" name=\"%2\" />")
+			.arg( keyToHTMLAnchor(item.key()) )
+			.arg( keyToHTMLAnchor(item.key()) );
   }
   else {
-    return QString::fromLatin1("<a id=\"%1\" href=\"%2\">%3</a>")
-      .arg(item.key())
+    return QString::fromLatin1("<a id=\"%1\" name=\"%3\" href=\"%4\">%5</a>")
+      .arg( keyToHTMLAnchor(item.key()) )
+      .arg( keyToHTMLAnchor(item.key()) )
       .arg(
 				CReferenceManager::encodeHyperlink(
 					module->name(), 
@@ -350,6 +354,13 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 	return QString::null;
 }
 
+const QString CDisplayRendering::keyToHTMLAnchor(const QString& key) {
+	QString ret = key;
+	ret = ret.stripWhiteSpace().remove(QRegExp("[^A-Za-z0-9]+"));
+	ret = ret.remove(QRegExp("^\\d+|"));
+
+	return ret;
+}
 
 const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tree ) {
 	ListCSwordModuleInfo modules = tree.collectModules();

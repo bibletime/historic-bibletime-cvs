@@ -51,7 +51,8 @@
 #include <dom/html_element.h>
 #include <dom/dom2_traversal.h>
 
-CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget), CReadDisplay(readWindow) {
+CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget), CReadDisplay(readWindow) 
+{
   setDNDEnabled(false);
   m_view->setDragAutoScroll(false);
 }
@@ -154,8 +155,10 @@ void CHTMLReadDisplay::selectAll() {
 
 /** No descriptions */
 void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
-	qWarning("moving to anchor %s", anchor.latin1());
-	gotoAnchor(anchor);
+ 	qWarning("moving to anchor %s", anchor.latin1());
+	Q_ASSERT( gotoAnchor(anchor) );
+	nextAnchor();
+	prevAnchor();
 }
 
 void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args){
@@ -354,52 +357,52 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 	KHTMLPart::khtmlMouseMoveEvent(e);
 }
 /* -------------------------- */
-CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : CToolTip(view), m_view( view ) {
-};
-
-/** Decides whether a tooltip should be shown. */
-void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& /*p*/ ){
-  DOM::Node node = m_view->part()->nodeUnderMouse();
-  if (node.isNull()) { //WARNING: Return already here
-  	return;
-	}
-
-	QString tooltipText;
-  DOM::Node currentNode = node;
-  do {
-    if (!currentNode.isNull() && currentNode.nodeName().string().upper() == "A" && currentNode.hasAttributes()) { //found right node
-			DOM::Node hrefAttr = currentNode.attributes().getNamedItem("href");
-			if (!hrefAttr.isNull()) {
-				tooltipText = CTooltipManager::textForHyperlink(
-					hrefAttr.nodeValue().string() 
-				);
-				break;
-			}
-		}
-	} while ( !(currentNode = currentNode.parentNode()).isNull() );
-  
-	//if no link was under the mouse try to find a title attrivute
-	if (tooltipText.isEmpty()) {
-		currentNode = node;
-		do {
-			if (!currentNode.isNull() && currentNode.hasAttributes()) { //found right node
-				DOM::Node titleAttr = currentNode.attributes().getNamedItem("title");
-				if (!titleAttr.isNull()) {
-					tooltipText = titleAttr.nodeValue().string();
-					break;
-				}
-			}
-		} while ( !(currentNode = currentNode.parentNode()).isNull() );
-	}
-	
-	//display tooltip if the text is not empty
-	if (!tooltipText.isEmpty()) {
-		QRect rect = currentNode.getRect();
-		rect.setX( m_view->mapFromGlobal(QCursor::pos()).x() );
-		rect.setY( m_view->mapFromGlobal(QCursor::pos()).y() );
-		tip( m_view->mapFromGlobal(QCursor::pos()), rect, tooltipText );
-	}
-}
+// CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : CToolTip(view), m_view( view ) {
+// };
+// 
+// /** Decides whether a tooltip should be shown. */
+// void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& /*p*/ ){
+//   DOM::Node node = m_view->part()->nodeUnderMouse();
+//   if (node.isNull()) { //WARNING: Return already here
+//   	return;
+// 	}
+// 
+// 	QString tooltipText;
+//   DOM::Node currentNode = node;
+//   do {
+//     if (!currentNode.isNull() && currentNode.nodeName().string().upper() == "A" && currentNode.hasAttributes()) { //found right node
+// 			DOM::Node hrefAttr = currentNode.attributes().getNamedItem("href");
+// 			if (!hrefAttr.isNull()) {
+// 				tooltipText = CTooltipManager::textForHyperlink(
+// 					hrefAttr.nodeValue().string() 
+// 				);
+// 				break;
+// 			}
+// 		}
+// 	} while ( !(currentNode = currentNode.parentNode()).isNull() );
+//   
+// 	//if no link was under the mouse try to find a title attrivute
+// 	if (tooltipText.isEmpty()) {
+// 		currentNode = node;
+// 		do {
+// 			if (!currentNode.isNull() && currentNode.hasAttributes()) { //found right node
+// 				DOM::Node titleAttr = currentNode.attributes().getNamedItem("title");
+// 				if (!titleAttr.isNull()) {
+// 					tooltipText = titleAttr.nodeValue().string();
+// 					break;
+// 				}
+// 			}
+// 		} while ( !(currentNode = currentNode.parentNode()).isNull() );
+// 	}
+// 	
+// 	//display tooltip if the text is not empty
+// 	if (!tooltipText.isEmpty()) {
+// 		QRect rect = currentNode.getRect();
+// 		rect.setX( m_view->mapFromGlobal(QCursor::pos()).x() );
+// 		rect.setY( m_view->mapFromGlobal(QCursor::pos()).y() );
+// 		tip( m_view->mapFromGlobal(QCursor::pos()), rect, tooltipText );
+// 	}
+// }
 
 // ---------------------
 
@@ -426,8 +429,6 @@ void CHTMLReadDisplayView::polish(){
   KHTMLView::polish();
   connect( part(), SIGNAL(popupMenu(const QString&, const QPoint&)),
     this, SLOT(popupMenu(const QString&, const QPoint&)));
-
-//  (void)new ToolTip(this);
 }
 
 /** Reimplementatiob from QScrollView. */

@@ -77,7 +77,7 @@ void CReadWindow::lookup( CSwordKey* newKey ){
 		key()->key(newKey->key());
 	}
 
-  displayWidget()->moveToAnchor( key()->key() );
+  displayWidget()->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key()->key()) );
 	setCaption( windowCaption() );
 }
 

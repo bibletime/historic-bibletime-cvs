@@ -132,6 +132,8 @@ protected:
 
 class CDisplayRendering : public CHTMLExportRendering {
 public:
+	static const QString keyToHTMLAnchor(const QString& key);
+	
 	CDisplayRendering(
 		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 
 		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()

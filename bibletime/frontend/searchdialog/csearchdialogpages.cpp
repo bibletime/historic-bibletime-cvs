@@ -498,7 +498,7 @@ void CSearchResultPage::updatePreview(const QString& key){
       const QString text = highlightSearchedText(content, searchedText, searchFlags);
       
    		m_previewDisplay->setText( text );
-      m_previewDisplay->moveToAnchor( key );      
+      m_previewDisplay->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key) );      
   	}	
     else
       m_previewDisplay->setText(QString::null);
