@@ -68,7 +68,7 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 	  switch ( (*it).first ) {
 			case Lemma:
 // 				qWarning("lemma");
-				text += decodeLemma( (*it).second );
+				text += decodeStrongs( (*it).second );
 				continue;
 			case Morph:
 // 				qWarning("morph");
@@ -186,13 +186,13 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 		.arg(text);
 }
 
-const QString CInfoDisplay::decodeLemma( const QString& data ) {
-	QStringList lemmas = QStringList::split("|", data);
-// 	qWarning("%s, we have %i lemmas", data.latin1(), lemmas.count());
+const QString CInfoDisplay::decodeStrongs( const QString& data ) {
+	QStringList strongs = QStringList::split("|", data);
+// 	qWarning("%s, we have %i srongs", data.latin1(), strongss.count());
 	QString ret;
 	
-	QStringList::const_iterator end = lemmas.end();
-	for (QStringList::const_iterator it = lemmas.begin(); it != end; ++it) {
+	QStringList::const_iterator end = strongs.end();
+	for (QStringList::const_iterator it = strongs.begin(); it != end; ++it) {
 		QString strongModuleDesc = CBTConfig::get((*it).left(1) == "H" ? 
 			CBTConfig::standardHebrewStrongsLexicon : 
 			CBTConfig::standardGreekStrongsLexicon
@@ -207,8 +207,8 @@ const QString CInfoDisplay::decodeLemma( const QString& data ) {
 		}		
 		//if the module could not be found just display an empty lemma info
 				
-		ret += QString::fromLatin1("<div class=\"lemmainfo\"><h3>%1: %2</h3><p>%3</p></div>")
-			.arg(i18n("Lemma"))
+		ret += QString::fromLatin1("<div class=\"strongsinfo\"><h3>%1: %2</h3><p>%3</p></div>")
+			.arg(i18n("Strongs"))
 			.arg(*it)
 			.arg(text);
 	}

@@ -53,7 +53,7 @@ public:
 protected:
   const QString decodeCrossReference( const QString& data );
   const QString decodeFootnote( const QString& data );
-	const QString decodeLemma( const QString& data );
+	const QString decodeStrongs( const QString& data );
 	const QString decodeMorph( const QString& data );
 	const QString getWordTranslation( const QString& data );
  
