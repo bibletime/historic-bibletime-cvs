@@ -75,7 +75,15 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		}
 		if (verse == currentVerse)
 		  m_htmlText += QString::fromLatin1("<span id=\"highlighted\">");
+
+  	m_htmlText.append(QString::fromLatin1("<font face=\"%1\" size=\"%2\">")
+	  	.arg(module->isUnicode() ? m_unicodeFontName : m_standardFontName)
+		  .arg(module->isUnicode() ? m_unicodeFontSize : m_standardFontSize) );
+
 		m_htmlText += key.renderedText();
+
+		m_htmlText += "</font>";
+
 		if (verse == currentVerse)
 		  m_htmlText += QString::fromLatin1("</span>");
 		if (m_displayOptionsBool.lineBreaks)
