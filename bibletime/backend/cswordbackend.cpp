@@ -495,13 +495,15 @@ const bool CSwordBackend::useICU() const{
 
 /** Reload all Sword modules. */
 void CSwordBackend::reloadModules(){
+  shutdownModules();
+  
   //delete Sword's config to make Sword reload it!
   if (myconfig) { // force reload on config object because we may have changed the paths
     delete myconfig;
     config = myconfig = 0;
     loadConfigDir(configPath);
   }
-  else {
+  else if (config) {
     config->Load();
   }
   initModules();

@@ -73,7 +73,7 @@ public:
   };
 
   /** Opens the page which contaisn the given part ID. */
-  const bool showPart( CSwordSetupDialog::Parts ID );
+  const bool showPart( CSwordSetupDialog::Parts ID, const bool exclusive = false );
 
 private:
   void initSwordConfig();
@@ -91,6 +91,7 @@ private:
   
   QFrame* m_removePage;
 
+  QFrame* m_installPage;
 	QWidgetStack* m_installWidgetStack;
 
 	QString source;

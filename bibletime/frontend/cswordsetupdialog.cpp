@@ -120,7 +120,7 @@ void CSwordSetupDialog::initSwordConfig(){
 }
   
 void CSwordSetupDialog::initInstall(){
-	QFrame* newpage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("connect_create",32));
+	QFrame* newpage = m_installPage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("connect_create",32));
 
 	QVBoxLayout* vboxlayout = new QVBoxLayout(newpage);
 	QHBoxLayout* hboxlayout = new QHBoxLayout();
@@ -265,19 +265,42 @@ void CSwordSetupDialog::slotApply(){
 }
 
 /** Opens the page which contaisn the given part ID. */
-const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID ){
-//	bool ret = false;
-//	switch (ID) {
-//		case CSwordSetupDialog::ViewProfiles:
-//			if(showPage(pageIndex(
-//					m_settings.profiles.profiles->parentWidget()) ))
-//				ret = true;
-//			break;
-//		default:
-//			break;
-//	}
-//	return ret;
+const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool exclusive ){
+//  if (exlusive) {
+//    m_swordConfigPage->setEnabled(false);
+//    m_installPage->setEnabled(false)
+//    m_removePage->setEnabled(false)
+//  }
 
+  bool ret = false;
+	switch (ID) {
+		case CSwordSetupDialog::Sword:
+      showPage( pageIndex(m_swordConfigPage) );
+//      if (exlusive) {
+//        m_swordConfigPage->setEnabled(false);
+//        m_installPage->setEnabled(false)
+//        m_removePage->setEnabled(false)
+//      }
+			break;
+		case CSwordSetupDialog::Install:
+      showPage( pageIndex(m_installPage) );
+//      if (exlusive) {
+//        m_swordConfigPage->setEnabled(false);
+//        m_installPage->setEnabled(false)
+//        m_removePage->setEnabled(false)
+//      }
+			break;
+		case CSwordSetupDialog::Remove:
+      showPage( pageIndex(m_removePage) );
+//      if (exlusive) {
+//        m_swordConfigPage->setEnabled(false);
+//        m_installPage->setEnabled(false)
+//        m_removePage->setEnabled(false)
+//      }
+			break;
+		default:
+			break;
+	}
   return false;
 }
 

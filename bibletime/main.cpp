@@ -163,8 +163,8 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   // comitted search in default bible, opened modules, other smaller things
   aboutData.addAuthor("Gary Sims", I18N_NOOP("Frontend"), "gary@garysims.co.uk", "");  
 	// artwork
-	aboutData.addAuthor("Timothy R. Butler", I18N_NOOP("Icons, startlogo, webpage"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");		
-	aboutData.addAuthor("James Ots", I18N_NOOP("Crystal icons, crystal startlogo"), "me@jamesots.com", "www.jamesots.com");
+	aboutData.addAuthor("Timothy R. Butler", I18N_NOOP("Icons, startlogo, webpage"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");
+	aboutData.addAuthor("James Ots", I18N_NOOP("Crystal icons, crystal startlogo, webpage"), "me@jamesots.com", "www.jamesots.com");
   // documentation
 	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");		
 

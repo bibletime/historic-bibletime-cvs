@@ -22,6 +22,9 @@
 #include <qfileinfo.h>
 
 #include <kapplication.h>
+#include <kglobal.h>
+#include <kstandarddirs.h>
+#include <kprocess.h>
 
 #include <filemgr.h>
 #include <swconfig.h>
@@ -79,26 +82,40 @@ QStringList BTInstallMgr::Tool::LocalConfig::targetList() {
 
 void BTInstallMgr::Tool::LocalConfig::setTargetList( const QStringList& targets ) {
   //saves a new Sworc config using the provided target list
+  QString filename =  KGlobal::dirs()->saveLocation("data", "bibletime/") + "sword.conf";
+  bool directAccess = false;
+  
   QFileInfo i(LocalConfig::swordConfigFilename());
-  if (i.exists() && i.isWritable()) {
-    bool setDataPath = false;
+  if (i.exists() && i.isWritable()) { //we can write to the file ourself
+    filename = LocalConfig::swordConfigFilename();
+    directAccess = true;
+  }
+  
+  bool setDataPath = false;
+  SWConfig conf(filename.local8Bit());
+  conf.Sections.clear();
 
-    SWConfig conf(swordConfigFilename().local8Bit());
-    conf.Sections.clear();
-    
-    for (QStringList::const_iterator it = targets.begin(); it != targets.end(); ++it) {
-      QString t = *it;
-      if (t.contains( QString::fromLatin1("%1/.sword").arg(getenv("HOME")) )) {
-        //we don't want HOME/.sword in the config
-        continue;
-      }
-      else {
-        conf["Install"][!setDataPath ? "DataPath" : "AugmentPath"] = t.local8Bit();
-        setDataPath = true;
-      }
-      
+  for (QStringList::const_iterator it = targets.begin(); it != targets.end(); ++it) {
+    QString t = *it;
+    if (t.contains( QString::fromLatin1("%1/.sword").arg(getenv("HOME")) )) {
+      //we don't want HOME/.sword in the config
+      continue;
     }
-    conf.Save();
+    else {
+      conf["Install"][!setDataPath ? "DataPath" : "AugmentPath"] = t.local8Bit();
+      setDataPath = true;
+    }
+  }
+  conf.Save();
+
+
+  if (!directAccess) { //use kdesu to move the file to the right place
+   KProcess *proc = new KProcess;
+   *proc << "kdesu";
+   *proc << QString::fromLatin1("-c") << QString("mv %1 %2").arg(filename).arg(LocalConfig::swordConfigFilename());
+//   KApplication::connect(proc, SIGNAL(processExited(KProcess *)),
+//      this, SLOT(slot_swordConfigWritten(KProcess *)));
+   proc->start(KProcess::Block);
   }
 }
 

@@ -26,6 +26,8 @@
 #include "frontend/cprofile.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/kstartuplogo.h"
+#include "frontend/cswordsetupdialog.h"
+
 #include "backend/clanguagemgr.h"
 
 #include "printing/cprinter.h"
@@ -469,27 +471,35 @@ void BibleTime::initBackends(){
 			case CSwordBackend::NoSwordConfig: //mods.d or mods.conf missing
 			{
 				KStartupLogo::hideSplash();
-				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModuleConfigDir);
-				dlg.exec();
-				KStartupLogo::showSplash();
+        CSwordSetupDialog dlg;
+        dlg.exec();
+        dlg.showPart( CSwordSetupDialog::Sword );
+//				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModuleConfigDir);
+//				dlg.exec();
+//				KStartupLogo::showSplash();
 				break;
 	    }
 	
 			case CSwordBackend::NoModules: //no modules installed, but config exists
 			{
 				KStartupLogo::hideSplash();
-				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModules);
-				dlg.exec();
-				KStartupLogo::showSplash();				
+        CSwordSetupDialog dlg;
+        dlg.exec();
+        dlg.showPart( CSwordSetupDialog::Install );
+//				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModules);
+//				dlg.exec();
+//				KStartupLogo::showSplash();				
 				break;
 		  }
 		
 			default: //unknown error
 			{
 				KStartupLogo::hideSplash();
-				CHTMLDialog dlg(CResMgr::helpDialog::initBackendFailed);
-				dlg.exec();
-				KStartupLogo::showSplash();				
+        CSwordSetupDialog dlg;
+        dlg.showPart( CSwordSetupDialog::Remove );
+//				CHTMLDialog dlg(CResMgr::helpDialog::initBackendFailed);
+//				dlg.exec();
+//				KStartupLogo::showSplash();				
 				break;
 		  }
 		}
