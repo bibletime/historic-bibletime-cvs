@@ -1,5 +1,5 @@
 <chapter id="hdbk_bars">
-<title>Hlavní nástrojová li¹ta a menur</title>
+<title>Hlavní nástrojová li¹ta a menu</title>
 
 <section ID="hdbk_bars_toolbar">
 <title>Nástrojová li¹ta</title>
@@ -426,7 +426,7 @@ V¹echny vypsané zkratky mohou být zmìnìny pomocí volby "Nastavit: BibleTime" v m
 <row><entry>Vydlá¾dit</entry><entry>Ctrl+T</entry></row>
 <row><entry>Kaskádovat</entry><entry>Ctrl+A</entry></row>
 <row><entry>Zavøít v¹e</entry><entry>Ctrl+K</entry></row>
-<row><entry>Odstranti zvolenou polo¾ku</entry><entry>Ctrl+Alt+D</entry></row>
+<row><entry>Odstranit zvolenou polo¾ku</entry><entry>Ctrl+Alt+D</entry></row>
 <row><entry>Ukonèit</entry><entry>Ctrl+Q</entry></row>
 <row><entry>Reset hlavního seznamu</entry><entry>Ctrl+Alt+R</entry></row>
 <row><entry>Hledat v modulu</entry><entry>Ctrl+Alt+M</entry></row>
