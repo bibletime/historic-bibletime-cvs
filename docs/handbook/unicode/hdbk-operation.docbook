@@ -1,11 +1,11 @@
 <chapter id="hdbk-op"><title>Program Operation</title>
-
 <para>
 &bibletime; is mainly operated from the Module Tree (this tree is called the
 "Main Index"). The second important place to work with &bibletime; is the MDI
 area (MDI = Multiple Document Interface). </para>
 
-<section id="hdbk-op-module-tree"><title>Main Index</title>
+<section id="hdbk-op-module-tree">
+<title>Main Index</title>
 <para>
 This is the pane on the left side of the &bibletime; window.
 It contains the tree of installed documents (Sword Modules), as well as any bookmarks you enter.
@@ -18,9 +18,10 @@ It contains the tree of installed documents (Sword Modules), as well as any book
 </imageobject>
 </mediaobject>
 </screenshot>
-</section>
 
-<section id="hdbk-op-module-tree-select"><title>Selecting a document to
+
+<section id="hdbk-op-module-tree-select">
+<title>Selecting a document to
 view</title>
 <para>To select a document, &LMB; on the desired document group (Bibles, Commentaries, or
 Lexicons) to display the contents of a document group, &RMB; on the icon for
@@ -52,9 +53,10 @@ Society must encrypt modules unless either the copyright holder provides permiss
 distribution as a sword module, or the text has passed into the public domain
 (copyright has expired).  <ulink url="http://www.crosswire.org/sword/modules/aboutlocked.jsp">
 See information on locked modules on the Crosswire Bible Society web site.</ulink></para>
+</section>
 
-<section id="hdbk-op-module-tree-search"><title>Accessing the search
-dialog</title> <para>
+<section id="hdbk-op-module-tree-search">
+<title>Accessing the search dialog</title> <para>
 You can search in a module by &RMB; on the module name in the module
 list and selecting "Search in module(s)". By shift &RMB; on other module
 names you can select more than one.  Then follow the same procedure to open the
@@ -72,8 +74,8 @@ A complete description of the operation of the search features can be found.
 </section>
 
 
-<section id="hdbk-op-module-tree-bookmark"><title>Accessing bookmark
-functions</title> <para>
+<section id="hdbk-op-module-tree-bookmark">
+<title>Accessing bookmark functions</title> <para>
 <tip><para>Drag &amp; Drop Works Here</para></tip>
 &RMB; on an empty part of the module tree window and select <guimenuitem>"Create new
 group"</guimenuitem> to create a new bookmark folder. You can use normal drag 'n' drop
@@ -96,7 +98,9 @@ bookmarks. </para>
 </section>
 </section>
 
-<section id="hdbk-op-MDI-Window"><title>Multiple Document Interface (MDI) Window</title>
+
+<section id="hdbk-op-MDI-Window">
+<title>Multiple Document Interface (MDI) Window</title>
 <para>
 This is where the opened documents are displayed.
 documents are displayed in "Document Windows", that are specific to the three types of
@@ -126,8 +130,8 @@ it on another the second document will jump from it's current location to the lo
 of the verse or bookmark dragged.</para></tip>
 </section>
 
-<section id="hdbk-op-MDI-Window-Personal-commentary"><title>Editing
-your own commentary</title> <para>
+<section id="hdbk-op-MDI-Window-Personal-commentary">
+<title>Editing your own commentary</title> <para>
 The tool bar of commentary display windows has another button, with the picture of a
 pencil.
 <inlinemediaobject>
@@ -167,14 +171,18 @@ to write to it.</para></tip>
 <tip><para>Drag &amp; Drop Works Here, just like other
 commentaries and Bible texts.</para></tip>
 </section>
+
 </section>
 
-<section id="hdbk-op-search"><title>Searching in Documents</title>
+
+<section id="hdbk-op-search">
+<title>Searching in Documents</title>
 <para>Portions of the instructions for the use of GCC Regular Expression in
 Searching Documents is taken from the help files for the
 <trademark class="registered">Microsoft Windows</trademark> version of &sword;</para>
 
-<section id="hdbk-op-search-functions"><title>Accessing search functions</title>
+<section id="hdbk-op-search-functions">
+<title>Accessing search functions</title>
 <para>
 You can search in a document by &RMB; on the document name in the <guimenu>Main
 Index</guimenu> and selecting <guimenuitem>Search in module(s)</guimenuitem>.
@@ -183,39 +191,67 @@ Then follow the same procedure to open the search dialog.  You will be searching
 in all of these Documents. </para>
 </section>
 
-<section id="hdbk-op-search-dialog"><title>Using the Search Dialog</title>
 
-<section id="hdbk-op-search-choose-modules"><title>Using the Choose Modules Tab</title>
-<para>In the pane on the left side of the choose modules window is a list of all the
-Lexicons, Commentaries, and Bibles installed on your system and available to &bibletime;.
-In the right pane is a list of all of the modules that will be searched by the current search.
-To move a Lexicons, Commentaries, or Bible from the left (available) pane
-to the right (to be search) pane, &LMB; on an item to select it, then &LMB; on one of the
-<guibutton>arrow buttons</guibutton>.</para>
+
+<section id="hdbk-op-search-dialog">
+<title>Using the Search Dialog</title>
+<para>&bibletime; provides a well developed search facility based on
+<application>GCC Regular Expression</application>.  It allows you
+to create almost <link linkend="hdbk-op-search-dialog-text-regexp">any
+type of search you can imagine.</link></para>
+<para>To access the search feature, &RMB; in the Main Index now in 
+the drop down select the magnifying glass.  You can also
+customize &bibletime; to put the search icon 
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="find.png" format="PNG"/>
+</imageobject>
+</inlinemediaobject>
+in the toolbar if you would prefer.</para>
+
+
+<section id="hdbk-op-search-options">
+<title>The Options Tab - Setting up your search.</title>
+<para>Use the options tab to set up your search.</para>
 <screenshot>
-<screeninfo>Search Text Dialog Box</screeninfo>
+<screeninfo>Search Text Dialog Options Tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-crch-dia-choose.png" format="PNG"/>
+<imagedata fileref="hdbk-op-search-dialog-options.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+
+
+<section id="hdbk-op-search-choose-modules">
+<title>Using the Choose Modules Button</title>
+<para>At the top of the options tab you will find <guibutton>Choose Modules</guibutton> , with the already
+selected modules directly below.  If you would like to search additional modules, &LMB;
+<guibutton>Choose Modules</guibutton> and you will be offered a menu of all of the modules that can be searched.
+Select modules with a &LMB; in the checkbox, then &LMB; the <guibutton>Use Selected Modules</guibutton> button.
+</para>
+
+<screenshot>
+<screeninfo>Choose Modules Dialog Box</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-search-dialog-modsel.png" format="PNG"/>
 </imageobject>
 </mediaobject>
 </screenshot>
 </section>
-<section id="hdbk-op-search-dialog-text"><title>Using the Search Text Tab</title>
-<para>
-Search Text - In this pane enter the text string to be searched for, and set
-search properties. "Regular Expression" uses standard regexp syntax to refine
-the search. </para>
 
-<section id="hdbk-op-search-properties"><title>Search Properties</title>
-<!--Using the Search Text Input Field-->
-<para>The text box in the Search Properties field is where the phrase to be used
+<section id="hdbk-op-search-properties">
+<title>Searched Text - what you want to find.</title>
+
+<para>The text box labled Searched Text is where the phrase to be used
 as the search key is entered.  This phrase may be one or more words, or partial words,
-(separate words, or partials, with a space), a phrase, or pattern (Regular
-Expression).
+(separate words, or partials, with a space), a phrase, or pattern 
+<link linkend="hdbk-op-search-dialog-text-regexp">(Regular
+Expression).</link>
 
 You can use the radio buttons select to perform the search using
-the search key in multipule word, exact search, or regular expression mode.
+the search key in multiple word, exact search, or regular expression mode.
 A check box is provided to turn case sensitive search on or off.
 </para>
 
@@ -224,7 +260,7 @@ text box.  You can also copy and paste text into the text box.</para></tip>
 </section>
 
 <section id="hdbk-op-search-dialog-text-input-case">
-<title>Using the Search Text Case Sensitive Button</title>
+<title>Using the Search Text Case Sensitive checkbox</title>
 <para>&LMB; on the Case Sensitive check
 box to toggle case sensitivity on or off. If the box is marked a
 search will only find verse in which the found text also matches
@@ -237,9 +273,10 @@ unmarked.</para>
 </section>
 
 
+
 <section id="hdbk-op-search-dialog-text-input-multi">
 <title>Using the Search Text Multiple Word Button</title>
-<para>If Multiple Word is marked the search will locate all lines (or
+<para>If Multiple Words radio button is marked the search will locate all lines (or
 verses) that have all the words, (or partials), listed in the
 Input Field. The position and order of the words, (or partials),
 in the line is not a factor. If all the words, (or partials), are
@@ -253,8 +290,9 @@ word is considered found if a word containing it is found.</para>
 </section>
 
 
-<section id="hdbk-op-search-dialog-text-input-phrase"><title>Using the
-Exact Search</title> <para>If Exact Search is marked the
+<section id="hdbk-op-search-dialog-text-input-phrase">
+<title>Using the Exact Search</title>
+<para>If the Exact radio button is marked the
 search will locate all lines (or verses) that contain what was entered in the
 input field, exactly as entered, including any spaces. The phrase found does not
 have to start or end at a word boundary. A search for &quot;now how
@@ -263,62 +301,54 @@ mayest k<emphasis>now how thou ought</emphasis>est
 to behave...&quot; </para>
 </section>
 
-<section id="hdbk-op-search-dialog-text-input-search"><title>Using the Search Text Button</title>
-<para>&LMB;<guibutton>Search Button</guibutton> to start
-the search.</para>
 
-<screenshot>
-<screeninfo>Search Text Dialog Box</screeninfo>
-<mediaobject>
-<imageobject>
-<imagedata fileref="hdbk-op-search-dialog-searchtext.png" format="PNG"/>
-</imageobject>
-</mediaobject>
-</screenshot>
-</section>
-
-<section id="hd-op-sch-dia-txt-scope-options"><title>Search Scope Options</title>
-<para>Define the Scope of your search in the Search Scope Pane</para>
+<section id="hd-op-sch-dia-txt-scope-options">
+<title><guibutton>Choose Search</guibutton> Scope Options</title>
+<para>Define the Scope of your search by &LMB; on the <guibutton>Choose Scope</guibutton>
+button.  You will be presented a list of predefined scopes.</para>
 
 <itemizedlist>
 <listitem><para><guibutton>No Scope</guibutton> this turns off the search
 scope tab.  The entire document is searched.</para></listitem>
 <listitem><para><guibutton>Last Result</guibutton> The new search will only
 search within the verses found in the previous search.</para></listitem>
-<listitem><para><guibutton>Use Scope</guibutton> The new search will be
-performed within the range specified in the maintain custom ranges portion
-of the search scope tab.</para></listitem>
+<listitem><para><guibutton>Gospels</guibutton> The new search will be
+performed within the range Matthew 1:1 - John 21:25</para></listitem>
+<listitem><para><guibutton>History</guibutton> The new search will be
+performed within the range Joshua 1:1 - Esther 10:3;</para></listitem>
 </itemizedlist>
 
 <para>If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible module is
 done for the name, Jesus, 939 matches will result. Then if
-<guibutton>Last Result</guibutton>is checked and another search is done for the
+<guibutton>Last Result</guibutton> is checked and another search is done for the
 title, Christ, 257 matches from the first 939 matches will
 remain. Then if<guibutton>Last Result</guibutton> remains checked and another
 search is done for the title, Lord, 106 matches from the 257 will
 remain. All the remaining 106 matches will have the name, Jesus,
 and both the titles, Christ and Lord.</para>
 </section>
+
 <section id="hd-op-sch-dia-txt-scope-maintain"><title>Edit
-Ranges</title><para>Edit Ranges - You can enter upper and lower boundaries
-for the search by &LMB; <guibutton>edit ranges</guibutton> button.</para>
+Ranges</title><para>Setup Custom Ranges - You can enter upper and lower boundaries
+for the search by &LMB; <guibutton>Setup Custom Ranges</guibutton> button.</para>
 
 <mediaobject>
 <imageobject>
-<imagedata fileref="hdbk-op-change-range.png" format="PNG"/>
+<imagedata fileref="hdbk-op-search-dialog-range.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>Change Range Entry Box</phrase>
 </textobject>
 </mediaobject>
 
-<para>The preentered ranges show examples of the required syntax.
+<para>The predefined ranges show examples of the required syntax.
 </para>
 <para>
-If the add button is &LMB; a text box is displayed where the name for the range is
-entered, then &LMB; on <guibutton>OK</guibutton>.  Now enter the desired range
-and &LMB; on <guibutton>close</guibutton>.  Your range is now added to the list of custom
-ranges.</para>
+&LMB; the <guibutton>Add New Range</guibutton> enter the name for your range in the Name text entry box,
+and enter the range in the text entry box labled Edit the search range.  Your range is now added to
+the list of custom ranges.  If you are satisfied you can return to the Search Options tab by &LMB; on
+<guibutton>OK</guibutton>.
+</para>
 
 <para>A number of custom ranges have been provided.</para>
 
@@ -336,17 +366,49 @@ and both the titles, Christ and Lord.</para>
 <tip><para>Drag &amp; Drop Works Here; you can drop
 verse numbers, and bookmarks into the custom range entry field.
 You can also paste text into the entry field.</para></tip>
+<screenshot>
+<screeninfo>Search TextCustom Range Dialog Box</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-search-dialog-range.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+</section>
+
+<section id="hdbk-op-search-dialog-text-input-search">
+<title>Using the Search Text Button</title>
+<para>&LMB;<guibutton>Search Button</guibutton> to start
+the search.</para>
+<screenshot>
+<screeninfo>Search Text Dialog Box</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-search-dialog-options.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
 </section>
 </section>
 
-<section id="hdbk-op-search-dialog-text-result"><title>Using the Search Results Tab</title>
+<section id="hdbk-op-search-results">
+<title>The Search Results Tab</title>
+<para>Under the search results tab you will find the Expressionour search.</para>
+
+
+<section id="hdbk-op-search-dialog-text-result">
+<title>Using the Search Results Tab</title>
 <para>
 Search Result - This tells you first, by module, how many instances of the
-search string were found. Double-clicking on that document will open the list of
-references. Clicking on a reference opens that verse up in the window below.
+search string were found. In the Module Column, &LMB; on a document will open the list of
+references (&RMB; allows you to copy, save, or print the list of items found).
+Clicking on a reference (the found items list) opens that verse up in the window below.
 Drag the reference and drop it on a document in the main index to open the
-module to that verse in a new display window </para>
-<tip><para>Drag &amp; Drop Works Here</para></tip>
+module to that verse in a new display window, or look at the verse in the bottom pane
+of the search results tab.</para>
+
+<tip><para>Drag &amp; Drop Works Here in the text display area.</para></tip>
+
 <tip><para>Select verse numbers and drag them to the main index to create bookmarks.</para></tip>
 <tip><para>Select verse numbers and drop them on an unopened module in the main index
 to open the module and jump to the verse location (Bibles and commentaries only).</para></tip>
@@ -360,9 +422,13 @@ to the verse location (Bibles and commentaries only).</para></tip>
 <imagedata fileref="hdbk-op-search-dialog-searchresult.png" format="PNG"/>
 </imageobject>
 </mediaobject>
-</screenshot> </section>
+</screenshot>
+</section>
 
-<section id="hdbk-op-search-dialog-text-analysis"><title>Using the Search Analysis Tab</title>
+
+<section id="hdbk-op-search-dialog-text-analysis">
+<title>Using the Search Analysis Tab</title>
+<para>&LMB;<guibutton>Search Analsis</guibutton> to open the search analsis display.</para>
 <para>
 Search Analysis - This gives a graphic analysis of the number of instances the
 search string was found in each book. It can display results for all documents searched.
@@ -375,10 +441,13 @@ your hard drive. </para>
 <imagedata fileref="hdbk-op-search-dialog-searchanal.png" format="PNG"/>
 </imageobject>
 </mediaobject>
-</screenshot>
 
+</screenshot>
 </section>
 </section>
+</section>
+</section>
+
 <section id="hdbk-op-search-dialog-text-regexp">
 <title>Search Syntax using GCC Regular Expresession</title>
 
@@ -417,38 +486,40 @@ backslash in &quot;i. love\.&quot; means that the period
 following it is not to be considered a special character, but is
 an ordinary period. </para>
 
-<section id="hdbk-op-search-dialog-text-regexp-rules"><title>Rules for GCC Regular Expresession Search Requests</title>
+<section id="hdbk-op-search-dialog-text-regexp-rules">
+<title>Rules for GCC Regular Expresession Search Requests</title>
 <itemizedlist>
 <listitem><para>. The period matches any character. See <link
-        linkend="period">Details</link></para></listitem>
+	linkend="period">Details</link></para></listitem>
 <listitem><para>* The asterisk matches 0 or more characters of the
-        preceding: set, character or indicated character. See <link
-        linkend="asterisk">Details</link></para></listitem>
+	preceding: set, character or indicated character. See <link
+	linkend="asterisk">Details</link></para></listitem>
 <listitem><para>+ The plus sign matches 1 or more characters of the
-        preceding: set, character or indicated character. See <link
-        linkend="plus">Details</link></para></listitem>
+	preceding: set, character or indicated character. See <link
+	linkend="plus">Details</link></para></listitem>
 <listitem><para>? The question mark matches 0 or 1 character of the
-        preceding: set, character or indicated character. See <link
-        linkend="question">Details</link></para></listitem>
+	preceding: set, character or indicated character. See <link
+	linkend="question">Details</link></para></listitem>
 <listitem><para>[ ] Square brackets match any one of the characters
-        specified inside [ ]. See <link linkend="bracket">Details</link></para></listitem>
+	specified inside [ ]. See <link linkend="bracket">Details</link></para></listitem>
 <listitem><para>^ A caret as the first character inside [ ] means NOT. See
-        <link linkend="caret">Details</link></para></listitem>
+	<link linkend="caret">Details</link></para></listitem>
 <listitem><para>^ A caret beginning a pattern anchors the beginning of a
-        line. See <link linkend="caret">Details</link></para></listitem>
+	line. See <link linkend="caret">Details</link></para></listitem>
 <listitem><para>$ A dollar at the end of a pattern anchors the end of a
-        line. See <link linkend="dollar">Details</link></para></listitem>
+	line. See <link linkend="dollar">Details</link></para></listitem>
 <listitem><para>| A vertical bar means logical OR. See <link
-        linkend="bar">Details</link></para></listitem>
+	linkend="bar">Details</link></para></listitem>
 <listitem><para>( ) Parentheses enclose expressions for grouping.
-    <emphasis>Not supported!</emphasis></para></listitem>
+<emphasis>Not supported!</emphasis></para></listitem>
 <listitem><para>\ A backslash can be used prior to any special character
-        to match that character. See <link linkend="backslash">Details</link></para></listitem>
+	to match that character. See <link linkend="backslash">Details</link></para></listitem>
 <listitem><para>\ A backslash can be used prior to an ordinary character
-        to make it a special character. See <link linkend="backslash">Details</link></para></listitem>
+	to make it a special character. See <link linkend="backslash">Details</link></para></listitem>
 </itemizedlist>
 
-<section id="period"><title>The Period .</title>
+<section id="period">
+<title>The Period .</title>
 
 <para>The Period &quot;.&quot; will match any single character even
 a space or other non-alphabet character.
@@ -463,7 +534,8 @@ foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </emphasis
 </section>
 
 
-<section id="asterisk"><title>The Asterisk *</title>
+<section id="asterisk">
+<title>The Asterisk *</title>
 
 <para>The asterisk matches zero or more characters of the preceding:
 set, character or indicated character. Using
@@ -476,7 +548,8 @@ and She<emphasis>bn</emphasis>a.</para>
 </section>
 
 
-<section id="plus"><title>The Plus Sign +</title>
+<section id="plus">
+<title>The Plus Sign +</title>
 <para>The Plus Sign matches one or more characters of the preceding:
 set, character or indicated character. Using
 a period and plus sign combination &quot;.+&quot; after a
@@ -487,7 +560,8 @@ but not <emphasis>bn</emphasis>.</para>
 </section>
 
 
-<section id="question"><title>The Question Mark ?</title>
+<section id="question">
+<title>The Question Mark ?</title>
 <para>The Question Mark matches zero or one character of the
 preceding: set, character or indicated character.
 <emphasis>be?n</emphasis> matches <emphasis>ben</emphasis> and <emphasis>bn</emphasis>
@@ -496,7 +570,8 @@ but not <emphasis>been</emphasis>.
 </section>
 
 
-<section id="bracket"><title>The Square Brackets [ ]</title>
+<section id="bracket">
+<title>The Square Brackets [ ]</title>
 <para>The Square Brackets enclose a set of characters that can
 match. The period, asterisk, plus sign and question mark are not
 special inside the brackets. A minus sign can be used to indicate
@@ -518,14 +593,16 @@ seet, siet</emphasis>, etc.
 </section>
 
 
-<section id="caret"><title>The Caret first in Square Brackets [^xxx</title>
+<section id="caret">
+<title>The Caret first in Square Brackets [^xxx</title>
 <para>If the Caret is the first character after the left bracket it
 means NOT.
 <emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc.,
 but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</emphasis>o<emphasis>t</emphasis>.</para>
 </section>
 
-<section id="caret-s"><title>The Caret as Start of Line Anchor ^xxx</title>
+<section id="caret-s">
+<title>The Caret as Start of Line Anchor ^xxx</title>
 <para>If the Caret is the first character in a pattern it anchors
 the pattern to the start of a line. Any match must be at the
 beginning of a line. Because of unfiltered
@@ -538,7 +615,8 @@ start with &quot;<emphasis>In the beginning</emphasis>&quot;.
 </section>
 
 
-<section id="dollar"><title>The Dollar Sign as End of Line Anchor xxx$</title>
+<section id="dollar">
+<title>The Dollar Sign as End of Line Anchor xxx$</title>
 <para>If the Dollar Sign is the last character in a pattern it
 anchors the pattern to the end of a line. Any match must be at
 the end of a line. Because of unfiltered
@@ -552,7 +630,8 @@ Amen\....................$)</para>
 </section>
 
 
-<section id="bar"><title>The Vertical Bar |</title>
+<section id="bar">
+<title>The Vertical Bar |</title>
 <para>The Vertical Bar between patterns means OR.
 <emphasis>John|Peter</emphasis> matches <emphasis>John</emphasis> or <emphasis>Peter.
 John .*Peter|Peter .*John</emphasis> matches <emphasis>John</emphasis>
@@ -563,13 +642,15 @@ or <emphasis>suffering</emphasis>, or <emphasis>sorrow</emphasis>.</para>
 </section>
 
 
-<section id="parenth"><title>The Parentheses ( ) </title>
+<section id="parenth">
+<title>The Parentheses ( ) </title>
 <para><emphasis>The use of Parentheses ( ) is
 not supported!</emphasis></para>
 </section>
 
 
-<section id="backslash"><title>The Backslash Prior to a Special Character \*</title>
+<section id="backslash">
+<title>The Backslash Prior to a Special Character \*</title>
 <para>The Backslash prior to a special character indicates that the
 character is not being used in its special meaning, but is just
 to match itself.
@@ -577,7 +658,8 @@ to match itself.
 and will not locate firm<emphasis>amen</emphasis>t.</para>
 </section>
 
-<section id="backslash-o"><title>The Backslash Prior to an Ordinary Character \s</title>
+<section id="backslash-o">
+<title>The Backslash Prior to an Ordinary Character \s</title>
 
 <para>The Backslash prior to an ordinary character indicates that
 the character is not being used to match itself, but has special
@@ -599,32 +681,36 @@ righteous</emphasis>ness.</para></listitem>
 <listitem><para>\w means alphanumeric; same as [a-zA-Z0-9_].</para></listitem>
 <listitem><para>\W means not alphanumeric; same as [^a-zA-Z0-9_].</para></listitem>
 </itemizedlist>
-
-</section>
 </section>
 </section>
 </section>
 
-<section id="hdbk-op-output"><title>Exporting and Printing</title>
+<section id="hdbk-op-output">
+<title>Exporting and Printing</title>
 <para>Bible Window, Lexicon Window, Commentary Window</para>
 <para>By &RMB; on the index key number, verse number or text the
 Bible Window, Lexicon Window,or Commentary Window drop down box is
 displayed (depending on which kind of window is current),
 providing options to select all, look up text in lexicon,
 and the export options copy, add to printing queue, and save.</para>
-<section id="hdbk-op-select-all"><title>Select All</title>
+
+<section id="hdbk-op-select-all">
+<title>Select All</title>
 <para>A &LMB; here will select all of the text in the chapter displayed
 in the current window.
 </para>
 </section>
-<section id="hdbk-op-lookup"><title>Lookup Text in Lexicon</title>
+
+<section id="hdbk-op-lookup">
+<title>Lookup Text in Lexicon</title>
 <para>A &LMB; here will bring up a submenu with a list of all of the available
 lexicons.  A &LMB; on a lexicon will open that lexicon to the cross reference of
 the selected text in the current window.
 </para>
 </section>
 
-<section id="hdbk-op-copy"><title>Copy</title>
+<section id="hdbk-op-copy">
+<title>Copy</title>
 <para>A &LMB; here will bring up a sub menu offering to copy to the copy
 buffer using the current location of the cursor as the starting point.
 </para>
@@ -658,8 +744,8 @@ buffer using the current location of the cursor as the starting point.
 <para>
 This text can be copied into any application that can access the linux copy buffer.
 </para>
-
 </section>
+
 <section id="hdbk-op-print"><title>Add to Printing Queue</title>
 <para>A &LMB; here will bring up a submenu with the printing options:
 </para>
@@ -687,7 +773,8 @@ a utility.  If you are composing a document or presentation containing text from
 tools on your system to format your work.
 </para>
 </section>
-<section id="hdbk-op-save"><title>Save</title>
+<section id="hdbk-op-save">
+<title>Save</title>
 <para>A &LMB; here will bring up a submenu with save options:
 </para>
 <itemizedlist>
@@ -706,9 +793,8 @@ tools on your system to format your work.
 Once saved this text can be opened and edited by any text or HTML application.
 </para>
 </section>
-
-
 </section>
+
 </chapter>
 
 
