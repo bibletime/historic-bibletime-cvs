@@ -58,10 +58,13 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
 	ListCSwordModuleInfo& modules = backend()->moduleList();
 	for (modules.first(); modules.current(); modules.next()) {
 		if (modules.current()->type() == m_moduleType) {
-			if (languages.find( QString(modules.current()->module()->Lang())) == languages.end() ){
-				languages += QString(modules.current()->module()->Lang());
+			QString lang = QString(modules.current()->module()->Lang());
+			if (lang.isEmpty())
+				lang = QString("xx");
+			if (languages.find( lang ) == languages.end() ){
+				languages += lang;
 				KPopupMenu* menu = new KPopupMenu;
-				langdict.insert(QString(modules.current()->module()->Lang()), menu );
+				langdict.insert(lang, menu );
 				m_submenus.append(menu);
 				connect(menu, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));		
 			}
@@ -70,10 +73,13 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
 
 	for (modules.first(); modules.current(); modules.next()) {
 		if (modules.current()->type() == m_moduleType) {
-			int id = langdict[QString(modules.current()->module()->Lang())]->insertItem(
+			QString lang = QString(modules.current()->module()->Lang());
+			if (lang.isEmpty())
+				lang = QString("xx");
+			int id = langdict[lang]->insertItem(
 				modules.current()->name() );
 			if ( m_module && modules.current()->name() == m_module->name()) {
-				langdict[QString(modules.current()->module()->Lang())]->setItemChecked(id,true);
+				langdict[lang]->setItemChecked(id,true);
 			}
 		}
 	}	
