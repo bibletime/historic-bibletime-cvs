@@ -44,6 +44,8 @@
 #include <filemgr.h>
 #include <utilstr.h>
 
+using std::string;
+
 //static class-wide members
 static QMap<QString, QString> moduleDescriptionMap;
 

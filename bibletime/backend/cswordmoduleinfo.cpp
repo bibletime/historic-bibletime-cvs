@@ -40,6 +40,8 @@
 #include <swconfig.h>
 #include <rtfhtml.h>
 
+using std::string;
+
 CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module ) {
 	m_module = module;
 	m_searchResult.ClearList();

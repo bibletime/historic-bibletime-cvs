@@ -72,6 +72,9 @@
 //Sword includes
 #include <localemgr.h>
 
+using std::string;
+using std::list;
+
 COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel )
 	: KDialogBase(IconList, i18n("Optionsdialog"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
