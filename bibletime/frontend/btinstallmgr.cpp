@@ -41,8 +41,8 @@ const QString BTInstallMgr::Tool::LocalConfig::swordConfigFilename() {
 	//in Sword 1.5.7 we can use $HOME/.sword/sword.conf instead of the global ones
 //	qWarning(sword::SWVersion::currentVersion);
 
-	if (sword::SWVersion::currentVersion >= sword::SWVersion("1.5.7")) { // use sword.conf in HOME/.sword
-		const QString file = QString("%1/.sword/sword.conf").arg(getenv("HOME"));
+	if ((sword::SWVersion::currentVersion > sword::SWVersion("1.5.7")) || (sword::SWVersion::currentVersion == sword::SWVersion("1.5.7"))) { // use sword.conf in HOME/.sword
+		const QString file = QString::fromLatin1("%1/.sword/sword.conf").arg(getenv("HOME"));
 		//qWarning("file is %s", file.latin1());
 		return file;
 	}

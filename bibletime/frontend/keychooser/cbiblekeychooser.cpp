@@ -282,9 +282,9 @@ QSize CBibleKeyChooser::sizeHint(){
 
 /** Reimplementation. */
 void CBibleKeyChooser::refreshContent() {
-  if (!m_modules.count() || !!m_modules.first())
+  if (!m_modules.count() || !m_modules.first())
     return;
-    
+
   w_book->reset( m_modules.first()->books(), w_book->comboBox()->currentItem(), false);
 	setKey(m_key);
 }

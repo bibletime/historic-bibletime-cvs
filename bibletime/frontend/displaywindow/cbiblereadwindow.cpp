@@ -179,13 +179,13 @@ void CBibleReadWindow::setupPopupMenu(){
 void CBibleReadWindow::updatePopupMenu(){
 //	qWarning("CBibleReadWindow::updatePopupMenu()");
 
-  m_actions.copy.referenceOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
- 	m_actions.copy.referenceTextOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
+  m_actions.copy.referenceOnly->setEnabled( displayWidget()->hasActiveAnchor() );
+ 	m_actions.copy.referenceTextOnly->setEnabled( displayWidget()->hasActiveAnchor() );
  	m_actions.copy.referenceAndText->setEnabled( displayWidget()->hasActiveAnchor() );
 	m_actions.copy.selectedText->setEnabled( displayWidget()->hasSelection() );
 
  	m_actions.save.referenceAndText->setEnabled( displayWidget()->hasActiveAnchor() );
- 	
+
   m_actions.print.reference->setEnabled( displayWidget()->hasActiveAnchor() );
 }
 
@@ -309,7 +309,9 @@ void CBibleReadWindow::reload(){
   //refresh the book lists
   verseKey()->setLocale( backend()->booknameLanguage().latin1() );
   keyChooser()->refreshContent();
-  
+
+//	qWarning( backend()->booknameLanguage().latin1() );
+//	qWarning( CPointers::backend()->booknameLanguage().latin1() );
 //  lookup(key());
 }
 

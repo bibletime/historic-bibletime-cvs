@@ -68,7 +68,7 @@ CSwordBackend::CSwordBackend()
 CSwordBackend::CSwordBackend(const QString& path)
 	: sword::SWMgr(!path.isEmpty() ? path.local8Bit() : 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
 {
-  qWarning("backend constructed with a path argument! %s", path.latin1());
+//  qWarning("backend constructed with a path argument! %s", path.latin1());
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
 	m_displays.book = 0;
@@ -515,12 +515,12 @@ const QStringList CSwordBackend::swordDirList(){
   //return a list of used Sword dirs. Useful for the installer
   QString configPath = globalConfPath; //e.g. /etc/sword.conf, /usr/local/etc/sword.conf
 
-  
+
   QStringList configs = QStringList::split(":", configPath);
-  for (QStringList::iterator it = configs.begin(); it != configs.end(); ++it) {    
+  for (QStringList::iterator it = configs.begin(); it != configs.end(); ++it) {
     if (!QFileInfo(*it).exists())
       continue;
-            
+
     //get all DataPath and AugmentPath entries from the config file and add them to the list
     sword::SWConfig conf( (*it).latin1() );
 

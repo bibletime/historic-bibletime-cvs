@@ -253,12 +253,12 @@ void CDisplayWindow::modulesChanged(){
 		if (displaySettingsButton()) {
   		displaySettingsButton()->reset(modules());
 		}
-		qWarning("key before module change: %s", key()->key().latin1());
+//		qWarning("key before module change: %s", key()->key().latin1());
 	  key()->module(modules().first());
-		qWarning("key after module change: %s", key()->key().latin1());
+//		qWarning("key after module change: %s", key()->key().latin1());
 	  keyChooser()->setModules(modules());
 	  lookup(key());
-		qWarning("key after new lookup: %s", key()->key().latin1());
+//		qWarning("key after new lookup: %s", key()->key().latin1());
 	}
 }
 

@@ -640,9 +640,8 @@ const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool 
 /** No descriptions */
 void CSwordSetupDialog::populateInstallCombos(){
 	m_sourceCombo->clear();
-	m_targetCombo->clear();
 
-  BTInstallMgr::Tool::RemoteConfig::initConfig();
+	BTInstallMgr::Tool::RemoteConfig::initConfig();
   BTInstallMgr mgr;
 
   QStringList list = BTInstallMgr::Tool::RemoteConfig::sourceList(&mgr);
@@ -659,7 +658,22 @@ void CSwordSetupDialog::populateInstallCombos(){
 		}
   }
 
-  list = BTInstallMgr::Tool::LocalConfig::targetList();
+	//Fill in the targets in the targets combobox
+  //list = (m_targetCombo->count()) ? m_swordPathListBox : BTInstallMgr::Tool::LocalConfig::targetList();
+	if (m_targetCombo->count()) { //we already read in the list once, we have to use the Sword paths list items now because this list is newer
+		list.clear();
+		QListViewItemIterator it2( m_swordPathListBox );
+		while (it2.current()) {
+			list << it2.current()->text(0);
+
+			++it2;
+		}
+	}
+	else {
+		list = BTInstallMgr::Tool::LocalConfig::targetList();
+	}
+
+	m_targetCombo->clear();
   for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		QFileInfo fi(*it);
 		if (fi.isDir() && fi.isWritable()) {
