@@ -42,6 +42,7 @@ class QWidget;
 class QLabel;
 class QComboBox;
 class QWidgetStack;
+class QListView;
 //class QHBox;
 //class QCheckBox;
 //class QRadioButton;
@@ -70,6 +71,7 @@ public:
 
 private:
   void initInstall();
+	void initRemove();
   /** No descriptions */
   void loadSourceLocations();
   /** No descriptions */
@@ -78,6 +80,8 @@ private:
   void determineTargetLocations();
   /** No descriptions */
   void populateInstallCombos();
+
+  QFrame* m_removePage;
 
 	QWidgetStack* m_installWidgetStack;
 
@@ -92,12 +96,20 @@ private:
 	QMap<QString, QString> m_sourceMap;
 	QMap<QString, QString> m_targetMap;
 
+	QListView* m_removeModuleListView;
+	QLabel* m_populateListNotification;
+	QPushButton* m_removeBackButton;
+	QPushButton* m_removeRemoveButton;
+
+  void populateRemoveModuleListView();
 
 private slots:
   /** No descriptions */
   void slot_sourceSelected(const QString &sourceName);
   /** No descriptions */
   void slot_targetSelected(const QString &targetName);
+  /** No descriptions */
+  void slot_doRemoveModules();
 
 protected slots: // Protected slots
 	void slotOk();
