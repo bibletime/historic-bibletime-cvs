@@ -375,8 +375,12 @@ void CSearchDialogResultView::setupTree() {
 void CSearchDialogResultView::initConnections() {
 	connect(m_popup, SIGNAL(aboutToShow()),
 		this, SLOT(popupAboutToShow()));
-	connect(this, SIGNAL(pressed(QListBoxItem*)),
+//	connect(this, SIGNAL(pressed(QListBoxItem*)),
+//		this, SLOT(mousePressed(QListBoxItem*)));	
+		
+	connect(this, SIGNAL(currentChanged(QListBoxItem*)),
 		this, SLOT(mousePressed(QListBoxItem*)));	
+		
 	connect(this, SIGNAL(rightButtonPressed(QListBoxItem*, const QPoint&)),
 		this, SLOT(rightButtonPressed(QListBoxItem*, const QPoint&)));
 }

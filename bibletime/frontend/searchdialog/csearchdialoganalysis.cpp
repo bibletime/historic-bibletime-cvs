@@ -327,7 +327,7 @@ int CSearchDialogAnalysisItem::width(){
 
 /** Returns the tooltip for this item. */
 const QString CSearchDialogAnalysisItem::getToolTip(){
-	QString ret = i18n("<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>").arg(m_bookName);
+	QString ret = QString::fromLatin1("<CENTER><B>%1</B></CENTER><HR>").arg(m_bookName);
 	ret.append("<TABLE CELLPADDING=\"3\" WIDTH=\"100%\" ALIGN=\"center\">");
 	for (int i = 0; i < m_moduleCount; ++i) {
 		CSwordModuleInfo* info = m_moduleList->at(i);
