@@ -631,7 +631,19 @@ const QString CSearchOptionsPage::searchText() {
     regexp.replace( QRegExp("\\s+"), "|" ); //replace one or more white spaces with regexp's OR marker
     return regexp;
   }
-	
+	else if (searchFlags() && CSwordModuleSearch::entryAttribs) { //special treatment neccessary
+		QString textType = m_textTypeCombo->currentText();
+		if (textType == "Footnotes")
+			return QString("Footnote//body/") + m_searchTextCombo->currentText() + QString("/");
+		if (textType == "Headings")
+			return QString("Headings//Interverse/") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
+		if (textType == "Strong's numbers")
+			return QString("Word//Strongs/") + m_searchTextCombo->currentText() + QString("/"); // e.g. Word//Strongs/G1234/
+		if (textType == "Morph codes")
+			return QString("Word//Morph/") + m_searchTextCombo->currentText() + QString("/"); //TODO: FIX THIS!
+	}
+
+	//in all other cases:	
   return m_searchTextCombo->currentText();
 }
 
@@ -692,14 +704,14 @@ void CSearchOptionsPage::initView(){
   QToolTip::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
   QWhatsThis::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::whatsthis);
   
-  QButtonGroup* group  = new QButtonGroup(4, Vertical,i18n("Search type"), this);
+  QButtonGroup* group  = new QButtonGroup(5, Vertical,i18n("Search type"), this);
     
   m_multipleWordsRadio = new QRadioButton(i18n("Multiple words (AND)"), group);
   m_multipleWordsRadio->setChecked( true );
   QToolTip::add(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::tooltip);
   QWhatsThis::add(m_multipleWordsRadio, CResMgr::searchdialog::options::searchType::multipleWords_and::whatsthis);
-
-  
+  m_multipleWordsRadioID = group->id( m_multipleWordsRadio);
+	
   m_multipleWordsORRadio =  new QRadioButton(i18n("Multiple words (OR)"), group);
   QToolTip::add(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::tooltip);
   QWhatsThis::add(m_multipleWordsORRadio, CResMgr::searchdialog::options::searchType::multipleWords_or::whatsthis);
@@ -707,24 +719,38 @@ void CSearchOptionsPage::initView(){
   m_exactTextRadio = new QRadioButton(i18n("Exact"), group);
   QToolTip::add(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::tooltip);
   QWhatsThis::add(m_exactTextRadio, CResMgr::searchdialog::options::searchType::exactMatch::whatsthis);
-  
-  m_regexpRadio = new QRadioButton(i18n("Regular expression"), group);
+  m_exactTextRadioID = group->id( m_exactTextRadio);
+	
+	m_regexpRadio = new QRadioButton(i18n("Regular expression"), group);
   QToolTip::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::tooltip);
   QWhatsThis::add(m_regexpRadio, CResMgr::searchdialog::options::searchType::regExp::whatsthis);
 	m_regexpRadioID = group->id( m_regexpRadio );
 	
-//   grid->addWidget(group, 4,0);
   grid->addMultiCellWidget(group, 4,5,0,0);
 	
-	connect( group, SIGNAL( clicked(int) ), this, SLOT( editRegExp(int) ) );
+	connect( group, SIGNAL( clicked(int) ), this, SLOT( searchTypeSelected(int) ) );
 
-  group = new QButtonGroup(1,Vertical,i18n("Search options"), this);
-  m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive"), group);
+  QGroupBox* group2 = new QGroupBox(2, Qt::Vertical,i18n("Search options"), this);
+  
+	m_caseSensitiveBox = new QCheckBox(i18n("Case sensitive"), group2);
   QToolTip::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::tooltip);
   QWhatsThis::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::whatsthis);
 
+	QHBox* limitTextBox = new QHBox(group2);
+	limitTextBox->setSpacing(5);
+	new QLabel(i18n("Text type"), limitTextBox);
+	m_textTypeCombo = new KComboBox(limitTextBox);
+	m_textTypeCombo->setEditable(false);
+	m_textTypeCombo->insertItem(QString("Main text"));
+	m_textTypeCombo->insertItem(QString("Footnotes"));
+	m_textTypeCombo->insertItem(QString("Headings"));
+	m_textTypeCombo->insertItem(QString("Strong's numbers"));
+	m_textTypeCombo->insertItem(QString("Morph codes"));
+	
+	connect(m_textTypeCombo, SIGNAL( activated(int) ), this, SLOT( textTypeSelected() ) );
+	
 //   grid->addWidget(group, 4,2);
-  grid->addWidget(group, 4,2);
+  grid->addWidget(group2, 4,2);
 
 	QGroupBox* box2 = new QGroupBox(2, Qt::Vertical , i18n("Search scope"), this);
 //   grid->addMultiCellWidget(box2, 6,7,0,2);
@@ -808,12 +834,17 @@ void CSearchOptionsPage::setOverallProgress( const int progress ){
 /** Return the selected search type,. */
 const int CSearchOptionsPage::searchFlags() {
 	int ret = CSwordModuleSearch::multipleWords;	//"multiple words" is standard
+	
 	if (m_exactTextRadio->isChecked()) {
-		ret = CSwordModuleSearch::exactPhrase;
+		if (m_textTypeCombo->currentItem() == 0) //ok, only main Text selected > exactPhrase will work
+			ret = CSwordModuleSearch::exactPhrase;
+		else 																	//entry attribs needed!
+			ret = CSwordModuleSearch::entryAttribs;		
 	}
 	else if (m_regexpRadio->isChecked() || m_multipleWordsORRadio->isChecked()) {
 		ret = CSwordModuleSearch::regExp;
 	}
+	
 	if (m_caseSensitiveBox->isChecked())
 	  ret |= CSwordModuleSearch::caseSensitive;
 	return ret;
@@ -890,27 +921,35 @@ const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType(){
 	
   return CSwordModuleSearch::Scope_NoScope;
 }
-void CSearchOptionsPage::editRegExp(int buttonID){
-	if (buttonID != m_regexpRadioID) { //regular expression selected?
+void CSearchOptionsPage::searchTypeSelected(int buttonID){
+	if (buttonID == m_exactTextRadioID){
+		return; //do nothing
+	}
+	else if (buttonID == m_regexpRadioID){ //regular expression selected?
+		QDialog *editorDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor" );
+		
+		if ( editorDialog ) {
+			// kdeutils was installed, so the dialog was found fetch the editor interface
+			KRegExpEditorInterface *editor = static_cast<KRegExpEditorInterface *>( editorDialog->qt_cast( "KRegExpEditorInterface" ) );
+			Q_ASSERT( editor ); // This should not fail!
+	
+			// now use the editor.
+			editor->setRegExp( searchText() );
+			
+			// Finally exec the dialog
+			if (editorDialog->exec() == QDialog::Accepted){
+				m_searchTextCombo->setCurrentText( editor->regExp() );
+			}
+		}
+	}//else if
+	m_textTypeCombo->setCurrentItem(0); //only main text search supported;
+};
+
+void CSearchOptionsPage::textTypeSelected(){
+  if (m_textTypeCombo->currentItem() == 0) { //Main text selected; do nothing
 		return;
 	}
-		
-	QDialog *editorDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor" );
+	m_exactTextRadio->setChecked(true); //all other types only work with this setting
 	
-	if ( editorDialog ) {
-		// kdeutils was installed, so the dialog was found fetch the editor interface
-		KRegExpEditorInterface *editor = static_cast<KRegExpEditorInterface *>( editorDialog->qt_cast( "KRegExpEditorInterface" ) );
-		Q_ASSERT( editor ); // This should not fail!
-
-		// now use the editor.
-		editor->setRegExp( searchText() );
-		
-		// Finally exec the dialog
-		if (editorDialog->exec() == QDialog::Accepted){
-			m_searchTextCombo->setCurrentText( editor->regExp() );
-		}
-	}
-	
-	// else: Don't offer the dialog.
 };
 

@@ -288,11 +288,17 @@ private:
   KComboBox* m_rangeChooserCombo;
   QPushButton* m_chooseRangeButton;
   QRadioButton* m_multipleWordsRadio;
-  QRadioButton* m_exactTextRadio;
-  QRadioButton* m_regexpRadio;
-	int m_regexpRadioID;
   QRadioButton* m_multipleWordsORRadio;
-  QCheckBox* m_caseSensitiveBox;
+	QRadioButton* m_exactTextRadio;
+  QRadioButton* m_regexpRadio;
+	
+	int m_multipleWordsRadioID;
+	int m_exactTextRadioID;
+	int m_regexpRadioID;
+	
+	KComboBox* m_textTypeCombo;
+  
+	QCheckBox* m_caseSensitiveBox;
   KProgress* m_currentProgressBar;
   KProgress* m_overallProgressBar;
 
@@ -309,13 +315,6 @@ protected: // Protected methods
   * Reads the settings for the searchdialog from disk.
   */
   void saveSettings();
-
-protected slots:	
-  /**
-  * Launches RegExpEditor
-  */
-  void editRegExp(int buttonID);
-
 
 public slots: // Public slots
   /**
@@ -345,6 +344,12 @@ public slots: // Public slots
   
 protected slots: // Protected slots  
   void setupRanges();
+  /**
+  * Launches RegExpEditor
+  */
+  void searchTypeSelected(int buttonID);
+	
+	void textTypeSelected();
 	
 signals:
 	void sigSetSearchButtonStatus(bool);
