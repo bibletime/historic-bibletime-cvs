@@ -95,9 +95,8 @@ const QString CInputDialog::getText( const QString& caption, const QString& desc
 	const bool isOk = (dlg->exec() == CInputDialog::Accepted);
 	if (isOk)
 		ret = dlg->text();
-//	if (ok)
-//		*ok = isOk ? true : false;
-	qDebug("finished CInputDialog::getText");
+	if (ok)
+		*ok = isOk;
 	delete dlg;
 	return ret;
 }

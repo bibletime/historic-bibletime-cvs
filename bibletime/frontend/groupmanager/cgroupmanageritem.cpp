@@ -133,6 +133,7 @@ CKey* CGroupManagerItem::getBookmarkKey(){
 
 /** Sets the key, which is only used if this item is a Bookmark */
 void CGroupManagerItem::setBookmarkKey( CKey* key ){
+	qDebug("CGroupManagerItem::setBookmarkKey( CKey* key )");
 	if (m_bookmarkKey && m_createdOwnKey)
 		delete m_bookmarkKey;		
 	m_bookmarkKey = key;
@@ -142,6 +143,7 @@ void CGroupManagerItem::setBookmarkKey( CKey* key ){
 
 /** Updates this item (icons, captions, etc.) */
 void CGroupManagerItem::update(){
+	qDebug("CGroupManagerItem::update()");
 	if (m_type == Group) {
 		m_folderIcon = GROUP_ICON_SMALL;
 		m_openFolderIcon = GROUP_OPEN_ICON_SMALL;		
@@ -152,14 +154,14 @@ void CGroupManagerItem::update(){
 		QString title = QString::null;
 		setPixmap(0, BOOKMARK_ICON_SMALL);
 		if ( getBookmarkKey() ) {	//if we have a valid key
-			SWKey* swKey = (SWKey*)(getBookmarkKey());
+			SWKey* swKey = dynamic_cast<SWKey*>(getBookmarkKey());
 			if (swKey)	// a valid Sword key
 				title = QString::fromLocal8Bit((const char*)*swKey);
 		}
 		else if (!m_caption.isEmpty()){	//bookmark key is 0, we use now the m_caption member to create a valid key
 			if (m_moduleInfo &&  m_moduleInfo->getType() == CSwordModuleInfo::Bible || m_moduleInfo->getType() == CSwordModuleInfo::Commentary ) {	//a Bible or a commentary module
 				CSwordVerseKey* key = new CSwordVerseKey(m_moduleInfo);
-				m_createdOwnKey = true;				
+				m_createdOwnKey = true;
 				key->setKey(m_caption);
 				setBookmarkKey(key);
 				update();	// this won't lead to a infinite loop because we have now a valid key
@@ -204,15 +206,16 @@ void CGroupManagerItem::setModuleInfo( CModuleInfo* moduleInfo ){
 /** Returns a QString version of the key. */
 QString CGroupManagerItem::getKeyText(){
 	QString ret = QString::null;	
-	SWKey* skey = (SWKey*)m_bookmarkKey;	
-	if (skey)
-		ret = QString::fromLocal8Bit((const char*)*skey);
+	SWKey* key = dynamic_cast<SWKey*>(m_bookmarkKey);
+	if (key)
+		ret = QString::fromLocal8Bit((const char*)*key);
 	return ret;
 }
 
 /** Returns the tooltip for this ite, QString::null is returned if this item has no tooltip. */
 const QString CGroupManagerItem::getToolTip(){
-	QString text = QString::null;;
+	qDebug("const QString CGroupManagerItem::getToolTip()");
+	QString text = QString::null;
 	switch ( type() ) {
 		case Bookmark:
 		{
@@ -228,7 +231,7 @@ const QString CGroupManagerItem::getToolTip(){
 			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
 			CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
 					
-			QString bookmarkText = 	vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString());					
+			QString bookmarkText = 	vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString());
 			if (bookmarkText.length() > 150 && (moduleInfo()->getType() != CSwordModuleInfo::Bible))
 				bookmarkText = bookmarkText.left(150) + "...";
 						

@@ -366,7 +366,6 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 	
 	CGroupManagerItem* myItem = 0;	
 	const QString description = CInputDialog::getText(i18n("Bookmark description - BibleTime"), i18n("Please enter here the description:"), QString::null);
-	setFocus();
 
 	myItem = 0;
   if ( parent && (parent->type() == CGroupManagerItem::Group) ) {
@@ -377,6 +376,8 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 		myItem = new CGroupManagerItem(this,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark);
 		
 	CSwordModuleInfo* swordModule = dynamic_cast<CSwordModuleInfo*>(module);	
+	ASSERT(swordModule);
+	qDebug("set keys");
 	if (myItem && swordModule) {	//it's a Sword module
 		if (swordModule->getType() == CSwordModuleInfo::Bible || swordModule->getType() == CSwordModuleInfo::Commentary) {	//a bible or commentary
 			CSwordVerseKey* key = new CSwordVerseKey(swordModule);
@@ -389,8 +390,9 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 			myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
 		}			
 	}		
-  if (myItem)	//set the description
+  if (myItem)	//set the description		
 		myItem->setDescription(description);
+	setFocus();		
 }
 
 
