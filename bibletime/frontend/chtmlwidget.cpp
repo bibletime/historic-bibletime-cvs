@@ -285,6 +285,8 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
   }
   else if (m_popup && e->button() == RightButton){ //popup normal menu
     m_selectedWord = false;
+    QString selectedWord = QString::null;
+
    	drawCursor(false);
    	placeCursor(e->pos());    	
    	ensureCursorVisible();
@@ -298,13 +300,14 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
 	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
 	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
 	    *cursor = c2;
+	    selectedWord = selectedText();
 			emit cursorPositionChanged(cursor);		    	
 	   	ensureCursorVisible();			
 	    repaintChanged();
 	    m_selectedWord = true;
 	  }
 		m_popup->exec( e->globalPos() );		
-		if (m_selectedWord) {
+		if (m_selectedWord && (selectedWord == selectedText()) ) {
 			m_selectedWord = false;
 			selectAll(false);
 		}		
