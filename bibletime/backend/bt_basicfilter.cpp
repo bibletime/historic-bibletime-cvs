@@ -168,7 +168,8 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
 				from++;
 			}			
 			
-			const char* ref = parseSimpleRef(verse_str);
+//			cerr << verse_str << endl;
+			const char* ref = parseSimpleRef(verse_str);			
 		  pushString(&to,"%s ", ref);
 		  delete ref;//delete now because it's unused
 		

@@ -43,7 +43,6 @@ BT_ThMLHTML::BT_ThMLHTML() {
 }
 
 bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
-
 	unsigned long i;
 	const int tokenLength = strlen(token);	
 	if (!substituteToken(buf, token) || !substituteEscapeString(buf, token)) {
@@ -120,19 +119,15 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			else if (!strncmp(token, "scripRef p", 10)) { //passage without module
 				char verse_str[5000];
 				for (i = 18; i < tokenLength-1; i++) {
-					if(token[i] != '\"') {
+					if(token[i] != '\"')
 						verse_str[i-18] = token[i];
-					}
 					else
 						break;
 				}
 				verse_str[i-18] = 0;
-				
 				const char* ref = parseThMLRef(verse_str);
  			  pushString(buf, ref);
  			  delete ref;//delete now because it's unused
-				
-				userData["suspendTextPassThru"] = "true"; //we don't want the ref-text of the module
 			}
 			if ( !strncmp(token+i+2, "passage=", 8) ) { //passage after module part
 				char verse_str[5000];
@@ -144,10 +139,8 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					else
 						break;					
 				}
-				verse_str[idx] = '\0';				
-				const char* mod = userData["lastRefModule"].c_str();
-				cout << "Module is: " << mod << endl;
-				const char* ref = parseThMLRef(verse_str, mod);
+				verse_str[idx] = '\0';
+				const char* ref = parseThMLRef(verse_str, userData["lastRefModule"].c_str());
 				pushString(buf, ref);
 				delete ref;
 			}
@@ -167,6 +160,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			}			
 			else { // like "<scripRef>John 3:16</scripRef>"
 				const char* ref = parseSimpleRef(userData["lastTextNode"].c_str());
+				cerr << ref << endl;				
  			  pushString(buf, ref);
  			  delete ref;//delete now because it's unused
 				// let's let text resume to output again
