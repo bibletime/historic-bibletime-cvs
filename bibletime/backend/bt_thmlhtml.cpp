@@ -39,6 +39,7 @@ BT_ThMLHTML::BT_ThMLHTML() {
   setTokenStart("<");
 	setTokenEnd(">");
 	setTokenCaseSensitive(true);
+  
 	addTokenSubstitute("note", " <span class=\"footnote\">(");
 	addTokenSubstitute("/note", ")</span> ");
 	addTokenSubstitute("/foreign", "</span>");
@@ -76,34 +77,34 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
     }
     else if (!strcasecmp(tag.getName(), "sync")) { //lemmas, morph codes or strongs
       if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "lemma")) { // Lemma
-        sword::SWBuf value = tag.getAttribute("value");
-        if ( value.length() > 0 ) {
+        const char* value = tag.getAttribute("value");
+        if ( strlen(value) ) {
           buf.appendFormatted(" &lt;%s&gt; ",
-    				value.c_str()
+            value
           );
         };
       }
       else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "morph")) { // Morph
-        sword::SWBuf value = tag.getAttribute("value");
-        if ( value.length() > 0 ) {
+        const char* value = tag.getAttribute("value");
+        if ( strlen(value) ) {
           buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
-            value.c_str(),
-            value.c_str()
+            value,
+            value
           );
         };
   		}
 		  else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "Strongs")) { // Strongs
-        sword::SWBuf value = tag.getAttribute("value");
+        const char* value = tag.getAttribute("value");
         if ( value[0] == 'H' ) { //hewbrew strong number
           buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-     				value.c_str()+1, //skip the H
-            value.c_str()+1 //skip the H
+     				value+1, //skip the H
+            value+1 //skip the H
           );
         }
         else if ( value[0] == 'G' ) { //hewbrew strong number
           buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-      			value.c_str()+1, //skip the G
-            value.c_str()+1 //skip the G
+      			value+1, //skip the G
+            value+1 //skip the G
           );
         };
       };
@@ -132,24 +133,23 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 		else if (!strcasecmp(tag.getName(), "div")) {
       if (tag.isEndTag()) {
         buf += "</div>";
-  			userData["SecHead"] = "false";
-  			userData["Title"] = "false";
       }
       else if ( tag.getAttribute("class") && !strcasecmp(tag.getAttribute("class"),"sechead") ) {
-  			userData["SecHead"] = "true";
   			buf += "<div class=\"sectiontitle\">";
       }
   		else if (tag.getAttribute("class") && !strcasecmp(tag.getAttribute("class"), "title")) {
-        userData["Title"] = "true";
 		  	buf += "<div class=\"booktitle\">";
       }
     }
 		else if (!strcasecmp(tag.getName(), "img") && tag.getAttribute("src")) {
-      //we have to remove the trailing / still
+      char* value = tag.getAttribute("src");
+      if (value[0] == '/') {
+        value++; //strip the first /
+      }
       
-      buf.appendFormatted("<img src=\"file:%s/%s\" />", //we want to be XML compliant
+      buf.appendFormatted("<img src=\"file:%s/%s\" />",
         module->getConfigEntry("AbsoluteDataPath"),
-        tag.getAttribute("src")
+        value
       );
  		}
     else { // let unknown token pass thru

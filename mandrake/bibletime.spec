@@ -40,11 +40,11 @@
 # Nothing else should need to be changed.
 # Please do not edit below this line unless you know what you are doing.
 
-Summary:        BibleTime %{version} is an easy to use Bible study tool for KDE2.
-Name:			%{name}
+Summary:        BibleTime %{version} is an easy to use Bible study tool for KDE3.
+Name:		%{name}
 Version:        %{version}
 Release:        %{release}
-Icon:			bibletime.xpm
+Icon:		bibletime.xpm
 Copyright:      GPL
 Vendor:         The team of BibleTime <info@bibletime.info>
 Url:            http://www.bibletime.info/

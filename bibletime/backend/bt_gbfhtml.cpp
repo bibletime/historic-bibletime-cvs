@@ -122,26 +122,24 @@ bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap
     }
 		else if (tag.getName() && !strcasecmp(tag.getName(), "w")) {    // OSIS Word (temporary until OSISRTF is done)
       if (const char* value = tag.getAttribute("lemma")) {
-        if (!strncmp(value, "x-Strongs:", 10)) { //we have a String number
+        if (value && !strncmp(value, "x-Strongs:", 10)) { //we have a String number
           value += 10;
           if (*value == 'H') { //hebrew strongs number
   			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-  				    value+1,
+  				    value+1, //skip the H
               value+1
             );
           }
           else if (*value == 'G'){ //greek Strongs number
   			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-  				    value+1, //skip the
+  				    value+1, //skip the G
               value+1
             );
           }
-
-          
         }
       }
       if (const char* value = tag.getAttribute("morph")) {
-        if (!strncmp(value, "x-Robinson:", 11)) {
+        if (value && !strncmp(value, "x-Robinson:", 11)) {
           value += 11;
   				// normal robinsons tense
           buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
