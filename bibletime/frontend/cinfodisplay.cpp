@@ -112,16 +112,19 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	const QString keyname = list[1];
 	const QString swordFootnote = list[2];
 	
-	Q_ASSERT(!modulename.isEmpty());
-	Q_ASSERT(!keyname.isEmpty());
-	Q_ASSERT(!swordFootnote.isEmpty());
+//	Q_ASSERT(!modulename.isEmpty());
+//	Q_ASSERT(!keyname.isEmpty());
+//	Q_ASSERT(!swordFootnote.isEmpty());
 
 //	qWarning("data: %s, %s, %s", modulename.latin1(), keyname.latin1(), swordFootnote.latin1());
 	
 	CSwordModuleInfo* module = CPointers::backend()->findModuleByName(modulename);
 	Q_ASSERT(module);
-	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );	
+	if (!module) {
+		return QString::null;
+	}
 	
+	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );	
 	key->key(keyname);
 	key->renderedText(); //force entryAttributes
 	
@@ -139,67 +142,76 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 const QString CInfoDisplay::decodeLemma( const QString& data ) {
 	//qWarning("decode lemma: %s", data.latin1());
 	
-	QString strongModuleDesc = CBTConfig::get(data.left(1) == "H" ? 
-		CBTConfig::standardHebrewStrongsLexicon : 
-		CBTConfig::standardGreekStrongsLexicon
-	);
+	QStringList lemmas = QStringList::split("|", data);
+	QString ret;
+
+	for (QStringList::iterator it = lemmas.begin(); it != lemmas.end(); ++it) {
+		QString strongModuleDesc = CBTConfig::get((*it).left(1) == "H" ? 
+			CBTConfig::standardHebrewStrongsLexicon : 
+			CBTConfig::standardGreekStrongsLexicon
+		);
 	
-	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongModuleDesc );	
-	Q_ASSERT(module);	
-	if (!module) {
-		return QString::null;
+		CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongModuleDesc );	
+		if (!module) {
+			continue;
+		}
+		
+		
+		util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+		key->key( (*it).mid(1) ); //skip H or G (language sign), will have to change later if we have better modules
+		ret += QString::fromLatin1("<div class=\"lemmainfo\"><h3>%1: %2</h3><p>%3</p></div>")
+			.arg(i18n("Lemma"))
+			.arg(*it)
+			.arg(key->renderedText());
+
 	}
-	
-	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
-	key->key( data.mid(1) ); //skip H or G (language sign)
-	
-		QString ret = QString::fromLatin1("<div class=\"lemmainfo\"><h3>%1: %2</h3><p>%3</p></div>")
-		.arg(i18n("Lemma"))
-		.arg(data)
-		.arg(key->renderedText());
-	
+		
 	return ret;
-	
 }
 
 const QString CInfoDisplay::decodeMorph( const QString& data ) {
-	QString strongModuleDesc = CBTConfig::get(data.left(1) == "H" ? 
-		CBTConfig::standardHebrewMorphLexicon : 
-		CBTConfig::standardGreekMorphLexicon
-	);
+	QStringList morphs = QStringList::split("|", data);
+	QString ret;
+		
+	for (QStringList::iterator it = morphs.begin(); it != morphs.end(); ++it) {
+		QString strongModuleDesc = CBTConfig::get((*it).left(1) == "H" ? 
+			CBTConfig::standardHebrewMorphLexicon : 
+			CBTConfig::standardGreekMorphLexicon
+		);
+		
+		CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongModuleDesc );	
+		if (!module) {
+			continue;
+		}
+		
+		util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+		key->key( (*it).mid(1) ); //skip H or G (language sign)
 	
-	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongModuleDesc );	
-	Q_ASSERT(module);	
-	if (!module) {
-		return QString::null;
+		ret += QString::fromLatin1("<div class=\"morphinfo\"><h3>%1: %2</h3><p>%3</p></div>")
+			.arg(i18n("Morph number"))
+			.arg(*it)
+			.arg(key->renderedText());
 	}
 	
-	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
-	key->key( data.mid(1) ); //skip H or G (language sign)
-
-	QString ret = QString::fromLatin1("<div class=\"morphinfo\"><h3>%1: %2</h3><p>%3</p></div>")
-		.arg(i18n("Morph number"))
-		.arg(data)
-		.arg(key->renderedText());
-
 	return ret;	
 }
 
 const QString CInfoDisplay::getWordTranslation( const QString& data ) {
-	const QString lexiconName = CBTConfig::get(CBTConfig::standardLexicon);
-	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( lexiconName );
+	const QString lexiconDescr = CBTConfig::get(CBTConfig::standardLexicon);
 	
-	Q_ASSERT(module);
+	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( lexiconDescr );	
 	if (!module) {
-		return QString("module %1 not found").arg(lexiconName);
+		return QString::null;
 	}
 	
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
 	key->key( data );
-	module->snap();
+	if (key->key().upper() != data.upper()) { //key not present in the lexicon
+		return QString::null;
+	}
 	
 	QString ret = QString::fromLatin1("<div class=\"translationinfo\"><h3>%1: %2</h3><p>%3</p></div>")
-		.arg(i18n("Word translation"))
+		.arg(i18n("Word lookup"))
 		.arg(data)
 		.arg(key->renderedText());
 

@@ -40,9 +40,7 @@ CEntryDisplay::~CEntryDisplay(){
 */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions )
-{
-
+const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
 	CDisplayRendering render(displayOptions, filterOptions);
 	return render.renderSingleKey(keyName, modules);
 }
@@ -64,9 +62,9 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
   bool ok = true;
 
 	CTextRendering::KeyTree tree;
+	CTextRendering::KeyTreeItem::Settings settings;
 	
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse) && !key.Error() ) {
-		CTextRendering::KeyTreeItem::Settings settings;
 		settings.highlight = (key.key() == keyName);
 		tree +=  CTextRendering::KeyTreeItem( key.key(), modules, settings );
 	}
