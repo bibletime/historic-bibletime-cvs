@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "cbookreadwindow.h"
+#include "cmodulechooserbar.h"
 
 #include "backend/cswordtreekey.h"
+
 
 CBookReadWindow::CBookReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name) : CLexiconReadWindow(modules, parent, name){
 }
@@ -51,8 +53,10 @@ void CBookReadWindow::initConnections(){
 void CBookReadWindow::initView(){
 	qWarning("CBookReadWindow::initView()");	
 	CLexiconReadWindow::initView();
+	moduleChooserBar()->setButtonLimit(1);
 }
 
 /** Reimplementation. */
 void CBookReadWindow::setupPopupMenu(){
+	CLexiconReadWindow::setupPopupMenu();
 }

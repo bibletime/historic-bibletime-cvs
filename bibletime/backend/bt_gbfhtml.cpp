@@ -23,6 +23,9 @@
 
 #include "bt_gbfhtml.h"
 
+//Qt includes
+#include <qregexp.h>
+
 BT_GBFHTML::BT_GBFHTML(){
   setTokenStart("<");
 	setTokenEnd(">");
@@ -84,6 +87,13 @@ BT_GBFHTML::BT_GBFHTML(){
 char BT_GBFHTML::ProcessText(char * text, int maxlen, const SWKey * key, const SWModule * module){
 	BT_BASICFILTER::ProcessText(text, maxlen, key, module);
 	BT_BASICFILTER::ProcessRWPRefs(text, maxlen);
+
+	//substitute \n with <BR> and \n\n* with <P>
+//	QString t = QString::fromUtf8(text);
+//	t.replace(QRegExp("\n{1,1}"), "<BR>\n");
+//	t.replace(QRegExp("\n{2,}"), "<P>\n");
+//
+//	text = (const char*)t.utf8();
 }
 
 
@@ -164,9 +174,3 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 	return true;
 }
 
-/** Update the tokens which use changeable settings. */
-//void BT_GBFHTML::updateTokens(){
-//	replaceTokenSubstitute("TT", QString::fromLatin1(" <h1><font color=\"%1\">").arg(text_color).local8Bit());
-//	replaceTokenSubstitute("TS", QString::fromLatin1(" <H2><font color=\"%1\">").arg(text_color).local8Bit());
-//	replaceTokenSubstitute("FR", QString::fromLatin1("<font color=\"%1\">").arg(jesuswords_color).latin1());	
-//}

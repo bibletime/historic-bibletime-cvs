@@ -19,7 +19,9 @@
 #include "bt_basicfilter.h"
 #include "creferencemanager.h"
 #include "cswordversekey.h"
-#include "../frontend/cbtconfig.h"
+
+#include "frontend/cbtconfig.h"
+#include "frontend/cpointers.h"
 
 //Qt includes
 #include <qregexp.h>
@@ -76,6 +78,7 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
  			
  			if (vk) {
  				vk->setLocale(lang);
+//Workaround!
  				vk->LowerBound().setLocale(lang);
  				vk->UpperBound().setLocale(lang); 				
  			}
@@ -103,6 +106,11 @@ const char* BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
   char* to = new char[5000];
 	char* ret = to;
 	const char* module = (mod ? mod : standard_bible);	
+
+	CReferenceManager::Type type = CReferenceManager::Unknown;
+	if (CSwordModuleInfo* m = CPointers::backend()->findModuleByName(module))
+		type = CReferenceManager::typeFromModule(m->type());
+
 // 	VerseKey parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");	
 //	ListKey list = parseKey.ParseVerseList(ref, parseKey, false);		
 //  const int count = list.Count();
@@ -111,10 +119,8 @@ const char* BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
 //	 	SWKey* key = list.GetElement(i);
 //	 	VerseKey* vk =  dynamic_cast<VerseKey*>(key);
 // 		
-	 	pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/"
-      ,
-//	 		swordref_color,
-	 		module
+	 	pushString(&to,"<span id=\"reference\"><a href=\"%s\">",
+			(const char*)CReferenceManager::encodeHyperlink(QString::fromLatin1(module),QString::fromLocal8Bit(ref).utf8(), type).utf8()
 	 	);
 //	 	if (vk && vk->UpperBound() != vk->LowerBound()) {
 //	 		pushString(&to, "%s-%s\">",
@@ -123,9 +129,9 @@ const char* BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
 //	 		);
 //	 	}
 //	 	else {
-	 		pushString(&to, "%s\">",
-	 			(const char*)QString::fromLocal8Bit(ref).utf8()
-			);
+//	 		pushString(&to, "%s\">",
+//	 			(const char*)
+//			);
 //	 	}
 //	 	(i+1 < refList.count()) ? pushString(&to, "</font>, ") : pushString(&to, "</font>");	
 //	}

@@ -128,8 +128,8 @@ void CBibleReadWindow::lookup( CSwordKey* newKey ){
 	qWarning("CBibleReadWindow::lookup( CSwordKey* newKey )");
  	CLexiconReadWindow::lookup(newKey);
 
-  if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(newKey))
- 		displayWidget()->moveToAnchor( QString::number(vk->Verse()) );
+//  if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(newKey))
+// 		displayWidget()->moveToAnchor( QString::number(vk->Verse()) );
 }
 
 /** Reimplementation. */

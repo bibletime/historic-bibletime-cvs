@@ -126,12 +126,7 @@ CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModule
 }
 
 CGroupManager::~CGroupManager(){	
-	qWarning("### destructor of CGroupManager ###");
 	saveSettings();
-	if (!m_config->isDirty())
-		qWarning("CONFIG WILL NOT BE SVED!");
-	else
-		qWarning("CONFIG WILL _BE_ SaVED!");
 	m_config->sync();
 	delete m_config;
 	m_config = 0;

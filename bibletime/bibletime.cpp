@@ -83,7 +83,6 @@ BibleTime::BibleTime() : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/
 }
 
 BibleTime::~BibleTime() {
-	qWarning("### BibleTime::~BibleTime ###");
 	saveSettings();
 }
 

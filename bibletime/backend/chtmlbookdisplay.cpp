@@ -24,7 +24,7 @@
 char CHTMLBookDisplay::Display( CSwordModuleInfo* module ){
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(module);
 	util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
-	m_htmlText = QString::null;
+//	m_htmlText = QString::null;
 	
 	if (!module || !key) {		
 		return 0;
@@ -64,18 +64,26 @@ char CHTMLBookDisplay::Display( CSwordModuleInfo* module ){
 }
 
 void CHTMLBookDisplay::printTree(CSwordTreeKey treeKey, CSwordBookModuleInfo* module, const int levelPos){
-  m_htmlText += QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\">%3</A>: %4<BR>")
-  	.arg(treeKey.getLocalName())
-  	.arg(CReferenceManager::encodeHyperlink(module->name(), treeKey.getFullName(), CReferenceManager::GenericBook))
+	if (levelPos>0) {
+		m_htmlText += QString::fromLatin1("<DIV STYLE=\"padding-left: %1px;\">").arg(levelPos*10+10);
+	}
+
+  m_htmlText += QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\">%3</A>: %4")
   	.arg(treeKey.getFullName())
+  	.arg(CReferenceManager::encodeHyperlink(module->name(), treeKey.getFullName(), CReferenceManager::GenericBook))
+  	.arg(treeKey.getLocalName())
   	.arg(treeKey.renderedText());  	
-  	
+
   if (treeKey.hasChildren()) {
-    m_htmlText += QString::fromLatin1("<H3>%1</H3>").arg(treeKey.getFullName());
+//    m_htmlText += QString::fromLatin1("<H3>%1</H3>").arg(treeKey.getFullName());
     treeKey.firstChild();
     printTree(treeKey, module, levelPos+1);
     treeKey.parent();
   }
+
+	if (levelPos>0)
+		m_htmlText += QString::fromLatin1("</DIV>");
+
   if (treeKey.nextSibling())
 		printTree(treeKey, module, levelPos);
 }

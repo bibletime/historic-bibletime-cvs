@@ -57,7 +57,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		verse = key.Verse();
 		if (m_displayOptionsBool.verseNumbers) {
 			m_htmlText.append( QString::fromLatin1("<span id=\"reference\"><a name=\"%1\" href=\"%2\">%3</a></span>\n ")
-				.arg(verse)
+				.arg(key.key())
 				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key(), CReferenceManager::typeFromModule(module->type()) ))
 				.arg(verse)
 			);

@@ -88,6 +88,8 @@ void CReadWindow::lookup( CSwordKey* newKey ){
 		key()->key(newKey->key());
 		
 	setUpdatesEnabled(true);
+	displayWidget()->moveToAnchor( key()->key() );
+
 	setCaption( windowCaption() );
 }
 

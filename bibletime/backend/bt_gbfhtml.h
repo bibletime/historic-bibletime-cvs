@@ -36,9 +36,6 @@ public:
   BT_GBFHTML ();
   virtual bool handleToken(char **buf, const char *token, DualStringMap &userData);
   virtual char ProcessText(char * text, int maxlen, const SWKey *, const SWModule * = 0);
-
-protected: // Protected methods
-//  virtual void updateTokens();
 };
 
 #endif
