@@ -17,6 +17,7 @@
 
 //BibleTime includes
 #include "cswordbookmoduleinfo.h"
+#include "cswordtreekey.h"
 
 //Sword includes
 #include <treekeyidx.h>
@@ -97,7 +98,6 @@ void CSwordBookModuleInfo::computeDepth(sword::TreeKeyIdx treeKey, sword::TreeKe
 /** Returns a treekey filled with the structure of this module */
 sword::TreeKeyIdx* const  CSwordBookModuleInfo::tree() const {
 	sword::TreeKeyIdx* treeKey = dynamic_cast<sword::TreeKeyIdx*>((sword::SWKey*)*(module()));
-	if (treeKey)
-		return treeKey;
-	return 0;
+  Q_ASSERT(treeKey);
+	return treeKey;
 }

@@ -50,7 +50,7 @@ QWidget* CPlainWriteDisplay::view() {
   return this;
 };
 
-const QString CPlainWriteDisplay::text( const CDisplay::TextType format = CDisplay::HTMLText, const CDisplay::TextPart part = CDisplay::Document ) {
+const QString CPlainWriteDisplay::text( const CDisplay::TextType format, const CDisplay::TextPart part) {
   return QString::null;
 };
 
