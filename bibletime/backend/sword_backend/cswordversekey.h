@@ -70,12 +70,6 @@ public:
 	*/
 	~CSwordVerseKey();
   /**
-  * Get the data for the this object in the member variable m_data.
-  *
-  * You have to manually access the m_data variable to get the text.
-  */
-//  void getData();
-  /**
   * Sets the key we use to the parameter.
   *
   * This will also set the position of the module to the new key.

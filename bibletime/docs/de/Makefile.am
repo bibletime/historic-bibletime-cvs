@@ -1,6 +1,6 @@
-SUBDIRS = helpdialog 
+SUBDIRS = 
 
-EXTRA_DIST = tipdatabase index.sgml 
+EXTRA_DIST = 
 
 install-data-local:
 	$(mkinstalldirs) $(kde_htmldir)/de/bibletime/

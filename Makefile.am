@@ -7,6 +7,7 @@ po \
 .
 
 EXTRA_DIST = \
+admin \
 bibletime.kdevprj \
 AUTHORS \
 COPYING \
@@ -49,3 +50,5 @@ $(top_srcdir)/configure.files:
 
 install-data-local:
 	chmod 755 $(kde_datadir)/bibletime -R
+
+MAINTAINERCLEANFILES = configure.files subdirs 

@@ -18,7 +18,7 @@ SHELL = /bin/sh
 srcdir = .
 top_srcdir = ../../../..
 VPATH = .
-prefix = /opt/kde2.2
+prefix = /opt/kde2.1/
 exec_prefix = ${prefix}
 #>- 
 bindir = ${exec_prefix}/bin
@@ -63,22 +63,21 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_alias = i586-pc-linux-gnu
+build_alias = i586-pc-linux
 build_triplet = i586-pc-linux-gnu
-host_alias = i586-pc-linux-gnu
+host_alias = i586-pc-linux
 host_triplet = i586-pc-linux-gnu
-target_alias = i586-pc-linux-gnu
+target_alias = i586-pc-linux
 target_triplet = i586-pc-linux-gnu
-ARTSCCONFIG = /opt/kde2.2/bin/artsc-config
+ARTSCCONFIG = $(SHELL) $(kde_bindir)/artsc-config
 AS = @AS@
 AUTODIRS = 
 CC = gcc
-CONF_FILES =  $(top_srcdir)/configure.in.in
 CPP = gcc -E
 CXX = g++
 CXXCPP = g++ -E
-DCOPIDL = /opt/kde2.2/bin/dcopidl
-DCOPIDL2CPP = /opt/kde2.2/bin/dcopidl2cpp
+DCOPIDL = $(kde_bindir)/dcopidl
+DCOPIDL2CPP = $(kde_bindir)/dcopidl2cpp
 DCOP_DEPENDENCIES = $(DCOPIDL)
 DLLTOOL = @DLLTOOL@
 DPMSINC = @DPMSINC@
@@ -91,12 +90,11 @@ GLLIB = @GLLIB@
 GMSGFMT = /usr/bin/msgfmt
 IDL = @IDL@
 IDL_DEPENDENCIES = @IDL_DEPENDENCIES@
-KDB2HTML = /opt/kde2.2/bin/kdb2html
-KDECONFIG = /opt/kde2.2/bin/kde-config
+KDB2HTML = $(SHELL) $(kde_bindir)/kdb2html
 KDE_CXXFLAGS = 
 KDE_EXTRA_RPATH = 
-KDE_INCLUDES = -I/opt/kde2.2/include
-KDE_LDFLAGS = -L/opt/kde2.2/lib
+KDE_INCLUDES = -I/opt/kde2.1//include
+KDE_LDFLAGS = -L/opt/kde2.1//lib
 KDE_PLUGIN = -avoid-version -module -no-undefined
 KDE_RPATH = -R $(kde_libraries) -R $(qt_libraries) -R $(x_libraries)
 KDE_USE_CLOSURE_FALSE = #
@@ -137,12 +135,12 @@ LIB_SMB = -lsmb
 LIB_X11 = -lX11 $(LIBSOCKET)
 LN_S = ln -s
 MAKEINFO = makeinfo
-MCOPIDL = /opt/kde2.2/bin/mcopidl
+MCOPIDL = $(kde_bindir)/mcopidl
 MICO_INCLUDES = @MICO_INCLUDES@
 MICO_LDFLAGS = @MICO_LDFLAGS@
 MOC = /usr/lib/qt2/bin/moc
 MSGFMT = /usr/bin/msgfmt
-NOOPT_CXXFLAGS =  -fno-exceptions -fno-check-new -Wall -pedantic -W -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -Wno-long-long -Wnon-virtual-dtor -fno-builtin
+NOOPT_CXXFLAGS =  -fno-exceptions -fno-check-new -Wall -pedantic -W -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -Wno-long-long -fno-builtin
 NOREPO = -fno-repo
 OBJDUMP = @OBJDUMP@
 OBJEXT = o
@@ -152,7 +150,6 @@ PAMLIBPATHS = @PAMLIBPATHS@
 PAMLIBS = @PAMLIBS@
 PYTHONINC = @PYTHONINC@
 PYTHONLIB = @PYTHONLIB@
-PYTHONMODDIR = @PYTHONMODDIR@
 QT_INCLUDES = -I/usr/lib/qt2/include
 QT_LDFLAGS = -L/usr/lib/qt2/lib
 RANLIB = ranlib
@@ -173,8 +170,8 @@ X_EXTRA_LIBS =
 X_INCLUDES = -I/usr/X11R6/include
 X_LDFLAGS = -L/usr/X11R6/lib
 X_PRE_LIBS = 
-all_includes = -I/opt/kde2.2/include -I/usr/lib/qt2/include -I/usr/X11R6/include 
-all_libraries = -L/usr/X11R6/lib -L/usr/lib/qt2/lib -L/opt/kde2.2/lib  -L/usr/local/sword/lib
+all_includes = -I/opt/kde2.1//include -I/usr/lib/qt2/include -I/usr/X11R6/include 
+all_libraries = -L/usr/X11R6/lib -L/usr/lib/qt2/lib -L/opt/kde2.1//lib  -L/usr/local/sword/lib
 idldir = @idldir@
 kde_appsdir = ${prefix}/share/applnk
 kde_bindir = ${exec_prefix}/bin
@@ -182,13 +179,10 @@ kde_confdir = ${prefix}/share/config
 kde_datadir = ${prefix}/share/apps
 kde_htmldir = ${prefix}/share/doc/HTML
 kde_icondir = ${prefix}/share/icons
-kde_includes = /opt/kde2.2/include
-kde_libraries = /opt/kde2.2/lib
-kde_libs_htmldir = /opt/kde2.2/share/doc/HTML
-kde_libs_prefix = /opt/kde2.2
+kde_includes = /opt/kde2.1//include
+kde_libraries = /opt/kde2.1//lib
 kde_locale = ${prefix}/share/locale
 kde_mimedir = ${prefix}/share/mimelnk
-kde_moduledir = ${prefix}/lib/kde2
 kde_servicesdir = ${prefix}/share/services
 kde_servicetypesdir = ${prefix}/share/servicetypes
 kde_sounddir = ${prefix}/share/sounds
@@ -210,12 +204,7 @@ CONFIG_CLEAN_FILES =
 DIST_COMMON =  Makefile.am Makefile.in
 
 
-#>- DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
-#>+ 4
-KDE_DIST=initbackend_failed.html no_mods_d.html no_modules.html first_startup.html first_time_searchdialog.html first_startup_mod_fs.html module_encrypted.html 
-
-DISTFILES= $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
-
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
@@ -333,21 +322,10 @@ distdir: $(DISTFILES)
 	distdir=`cd $(distdir) && pwd`; \
 	cd $(top_srcdir) \
 	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --gnu bibletime/docs/en/helpdialog/Makefile
-#>- 	@for file in $(DISTFILES); do \
-#>- 	  d=$(srcdir); \
-#>- 	  if test -d $$d/$$file; then \
-#>- 	    cp -pr $$/$$file $(distdir)/$$file; \
-#>- 	  else \
-#>- 	    test -f $(distdir)/$$file \
-#>- 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
-#>- 	    || cp -p $$d/$$file $(distdir)/$$file || :; \
-#>- 	  fi; \
-#>- 	done
-#>+ 10
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
-	    cp -pr $$d/$$file $(distdir)/$$file; \
+	    cp -pr $$/$$file $(distdir)/$$file; \
 	  else \
 	    test -f $(distdir)/$$file \
 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \

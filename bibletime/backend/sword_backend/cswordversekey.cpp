@@ -27,9 +27,10 @@
 #include <swmodule.h>
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
-	if (!(m_module = dynamic_cast<CSwordBibleModuleInfo*>(module)) ) {	//bad module
-		throw EBadModule();
-	}
+//	if (!(m_module = dynamic_cast<CSwordBibleModuleInfo*>(module)) ) {	//bad module
+//		throw EBadModule();
+//	}
+	m_module = dynamic_cast<CSwordBibleModuleInfo*>(module);
 }
 
 CSwordVerseKey::~CSwordVerseKey(){

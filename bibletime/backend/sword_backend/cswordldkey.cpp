@@ -28,9 +28,10 @@
 
 
 CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
-	if ( !(m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module)) ) {
-		throw EBadModule();
-	}		
+//	if ( !(m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module)) ) {
+//		throw EBadModule();
+//	}		
+	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
 }
 
 CSwordLDKey::~CSwordLDKey(){

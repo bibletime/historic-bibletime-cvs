@@ -8,7 +8,6 @@ hi32-action-bt_footnotes.png \
 hi32-action-bt_strongs.png \
 hi32-action-bt_cascade.png \
 hi32-action-bt_cascade_auto.png \
-hi32-action-bt_daily_tip.png \
 hi32-action-bt_tile.png \
 hi32-action-bt_tile_auto.png \
 hi32-action-bt_search.png \

@@ -39,17 +39,6 @@ public:
 		*	the memory allocated by this object.
 		*/
 	virtual ~CKey() {};
-  /**
-  	* This function gets the data for the current key (e.g. current verse, current map etc.)
-  	*	and stores the data in the member m_data. m_data  has to be managed manually,
-  	*	since it has no base type (use dynamic_cast).
-  	*/
-//  virtual void getData() = 0;
-	/**
-		* Defintions for exception handling in the CKey based classes.
-		*/	
-	class EBadModule {}; //exception if a wring modle was given
-
 };
 
 #endif

@@ -12,11 +12,9 @@ lo16-action-bt_folder.png \
 lo16-action-bt_folder_change.png \
 lo16-action-bt_folder_open.png \
 lo16-action-bt_folder_new.png \
-lo16-action-bt_groupmanager.png \
 lo16-action-bt_lexicon.png \
 lo16-action-bt_lexicon_locked.png \
 lo16-action-bt_search.png \
-lo16-action-bt_unlock_module.png \
 lo16-action-bt_cascade.png \
 lo16-action-bt_tile.png \
 lo16-action-bt_cascade_auto.png \

@@ -64,10 +64,6 @@ public:
 	CSwordLDKey(  CSwordModuleInfo* module );
 	~CSwordLDKey();
   /**
-  	* Stores the data of this key in the member m_data.
-  	*/
-//  virtual void getData();
-  /**
   	* Sets the key for this key object. The variable m_data will be cleared.
   	* Use @ref getData() to fill the m_data variable again.
   	*/
