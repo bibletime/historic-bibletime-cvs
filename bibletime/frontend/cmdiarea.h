@@ -49,7 +49,7 @@ public:
 		Nothing
 	};	
 	CMDIArea(QWidget *parent=0, const char *name = 0 );
-	~CMDIArea();
+// 	~CMDIArea();
   /**
   */
   void readSettings();
@@ -65,7 +65,7 @@ public:
   * application caption on its on way. This confuses BibleTime - wrong captions are generated.
 	* This function returns the right caption (using the MDI child).
 	*/
-  const QString currentApplicationCaption() const;
+  inline const QString currentApplicationCaption() const;
 
 public slots:
   /**
@@ -87,7 +87,7 @@ public slots:
   /**
   * Emits the signal to create a new display window in the MDI area.
   */
-  void emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName );
+  inline void emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName );
 
 protected: // Protected methods
   /**
@@ -124,4 +124,16 @@ private:
   bool m_deleting;
 	QString m_appCaption;
 };
+
+/** This works around a problem/limitation in QWorkspace. QWorkspace sets every time the  application caption on its on way. This confuses BibleTime - wrong captions are generated. This function returns the right caption (using the MDI child). */
+inline const QString CMDIArea::currentApplicationCaption() const {
+	return m_appCaption;
+}
+
+/** Emits the signal to create a new display window in the MDI area. */
+inline void CMDIArea::emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName ) {
+  emit createReadDisplayWindow(modules, keyName);
+}
+
+
 #endif

@@ -33,7 +33,7 @@
 #include <qregexp.h>
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
+const QString CEntryDisplay::text( const ListCSwordModuleInfo& modules, const QString& keyName, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions ) {
 	CDisplayRendering render(displayOptions, filterOptions);
 	return render.renderSingleKey(keyName, modules);
 }
@@ -41,7 +41,7 @@ const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QSt
 /* ----------------------- new class: CChapterDisplay ------------------- */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
+const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const QString& keyName, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions ) {
   
   CSwordVerseKey key(0);
   key = keyName;
@@ -50,7 +50,7 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 
-  CSwordModuleInfo* module = modules.first();
+  CSwordModuleInfo* module = modules.getFirst();
   bool ok = true;
 
 	CTextRendering::KeyTree tree;
@@ -75,11 +75,11 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 /* ----------------------- new class: CBookDisplay ------------------- */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
+const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QString& keyName, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions ) {
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
-	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
+	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.getFirst());
 	CDisplayRendering render;
 	CDisplayRendering::KeyTree tree;
 	CDisplayRendering::KeyTreeItem::Settings itemSettings;
@@ -148,9 +148,6 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 }
 
 void CBookDisplay::setupRenderTree(CSwordTreeKey * swordTree, CTextRendering::KeyTree * renderTree, const QString& highlightKey) {
-//	Q_ASSERT( swordTree );
-//	Q_ASSERT( renderTree );
-	
 	const QString key = swordTree->getFullName();
   CTextRendering::KeyTreeItem::Settings settings;
 	settings.highlight = (key == highlightKey);

@@ -36,23 +36,6 @@ CDisplayTemplateMgr::CDisplayTemplateMgr() {
 CDisplayTemplateMgr::~CDisplayTemplateMgr() {
 }
 
-const QString CDisplayTemplateMgr::defaultTemplate() {
-	return i18n("Default");
-}
-
-/*!
-    \fn CDisplayTemplateMgr::availableTemplates()
- */
-const QStringList CDisplayTemplateMgr::availableTemplates() {
-	QStringList names = m_templateMap.keys();
-	/*QMap<QString, QString>::Iterator it;
-	for ( it = m_templateMap.begin(); it != m_templateMap.end(); ++it ) {
-		names << it.key();
-	}*/
-	
-	return names;
-}
-
 
 /*!
     \fn CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content )

@@ -20,7 +20,6 @@
 
 //BibleTime includes
 #include "cswordbackend.h"
-#include "cswordmoduleinfo.h"
 #include "cswordtreekey.h"
 #include "ctextrendering.h"
 
@@ -36,19 +35,20 @@
 #include <qcolor.h>
 #include <qptrlist.h>
 
-/**The reimplementation of SWDisplay to fir our needs.
+
+class CSwordModuleInfo;
+
+/**The reimplementation of SWDisplay to for our needs.
   *@author The BibleTime team
   */
-
+	
 class CEntryDisplay : public sword::SWDisplay, public CPointers  {
 public: // Public methods
-//  CEntryDisplay();
-//	virtual ~CEntryDisplay();
   /**
   * Returns the rendered text using the modules in the list and using the key parameter.
   *  The displayoptions and filter options are used, too.
   */
-  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+  virtual const QString text( const ListCSwordModuleInfo& modules, const QString& key, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions);
 };
 
 class CChapterDisplay : public CEntryDisplay  {
@@ -57,7 +57,7 @@ public: // Public methods
   * Returns the rendered text using the modules in the list and using the key parameter.
   *  The displayoptions and filter options are used, too.
   */
-  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+  virtual const QString text( const ListCSwordModuleInfo& modules, const QString& key, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions);
 };
 
 class CBookDisplay : public CEntryDisplay  {
@@ -66,7 +66,7 @@ public: // Public methods
   * Returns the rendered text using the modules in the list and using the key parameter.
   *  The displayoptions and filter options are used, too.
   */
-  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+  virtual const QString text( const ListCSwordModuleInfo& modules, const QString& key, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions);
 
 protected:
 	void setupRenderTree(CSwordTreeKey* swordTree, CTextRendering::KeyTree* renderTree, const QString& highlightKey);

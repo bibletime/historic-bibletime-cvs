@@ -18,7 +18,6 @@
 //BibleTime includes
 #include "cswordmoduleinfo.h"
 #include "cswordbackend.h"
-#include "centrydisplay.h"
 #include "cswordmodulesearch.h"
 #include "cswordkey.h"
 #include "clanguagemgr.h"
@@ -35,7 +34,6 @@
 
 //Sword includes
 #include <swbuf.h>
-#include <swmodule.h>
 #include <swkey.h>
 #include <listkey.h>
 #include <versekey.h>
@@ -90,11 +88,6 @@ const bool CSwordModuleInfo::unlock( const QString& unlockKey ){
   return false;
 }
 
-/** Returns the display object for this module. */
-CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
-	return dynamic_cast<CEntryDisplay*>(m_module->Disp());
-}
-
 /** This function returns true if this module is locked, otherwise return false. */
 const bool CSwordModuleInfo::isLocked() {
   //still works, but the cipherkey is stored in CBTConfig.
@@ -118,16 +111,8 @@ const bool CSwordModuleInfo::isEncrypted()/* const*/ {
 		return true;
 	}
 	
-//  if (!config(CipherKey).isEmpty()) {
-//    return true;
-//  };
 	return false;
 }
-
-const bool CSwordModuleInfo::hasVersion() const {
-	return m_dataCache.hasVersion;
-}
-
 
 /** Returns true if something was found, otherwise return false. */
 const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percentUpdate)(char, void*) ) {
@@ -190,16 +175,6 @@ void CSwordModuleInfo::interruptSearch(){
 /** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
 const sword::SWVersion CSwordModuleInfo::minimumSwordVersion(){
 	return sword::SWVersion( config(CSwordModuleInfo::MinimumSwordVersion).latin1() );
-}
-
-/** Returns the name of the module. */
-const QString CSwordModuleInfo::name() const {
-	return m_dataCache.name;
-}
-
-/** Returns true if this module is Unicode encoded. False if the charset is iso8859-1. */
-const bool CSwordModuleInfo::isUnicode(){
-	return m_dataCache.isUnicode;
 }
 
 const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entry) {
@@ -339,31 +314,6 @@ const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
     return true;
   };
 	
-  return false;
-}
-
-/** Returns the language of the module. */
-const CLanguageMgr::Language* const CSwordModuleInfo::language() {
-	if (!m_dataCache.language) {
-	  if (module()) {
-			if (category() == Glossary) {
-				//special handling for glossaries, we use the "from language" as language for the module
-				m_dataCache.language = languageMgr()->languageForAbbrev( config(GlossaryFrom) );
-			}
-			else {
-				m_dataCache.language = languageMgr()->languageForAbbrev( module()->Lang() );
-			}
-		}
-		else {
-			m_dataCache.language = languageMgr()->defaultLanguage(); //default language
-		}
-	}
-	
-	return m_dataCache.language;	
-}
-
-/** Returns true if this module may be written by the write display windows. */
-const bool CSwordModuleInfo::isWritable() {
   return false;
 }
 

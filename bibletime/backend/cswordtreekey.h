@@ -20,10 +20,11 @@
 
 //BibleTime includes
 #include "cswordkey.h"
-#include "cswordmoduleinfo.h"
 
 //Sword includes
 #include <treekeyidx.h>
+
+class CSwordModuleInfo;
 
 /** BibleTime's implementation of Sword's TreeKeyIdx class.
   * @author The BibleTime team
@@ -37,7 +38,7 @@ public:
   /**
   * Returns the current key
   */
-  virtual const QString key( );
+  virtual const QString key() const;
   /**
   * Set the key. If the parameter is empty or null, the key will be set to "/"
   */

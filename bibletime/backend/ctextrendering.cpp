@@ -89,9 +89,11 @@ CTextRendering::~CTextRendering() {
 const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 	initRendering();	
 	
+	KeyTree::const_iterator end = tree.constEnd();
+	
 	QString t;
-	for (KeyTree::const_iterator it = tree.begin(); it != tree.end(); ++it) {
-		t += renderEntry( *it );	
+	for (KeyTree::const_iterator it = tree.constBegin(); it != end; ++it) {
+		t.append( renderEntry(*it) );	
 	}
 	
 	return finishText(t, tree);
@@ -108,7 +110,7 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 	sword::SWKey* sw_start = dynamic_cast<sword::SWKey*>(lowerBound.get());
 	sword::SWKey* sw_stop = dynamic_cast<sword::SWKey*>(upperBound.get());
 	
-	Q_ASSERT(sw_start && sw_stop);
+// 	Q_ASSERT(sw_start && sw_stop);
 	
 	if (*sw_start == *sw_stop) { //same key, render single key
 		return renderSingleKey(lowerBound->key(), modules);
@@ -120,7 +122,7 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 		CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(lowerBound.get());
 		CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(upperBound.get());
 		
-		Q_ASSERT(vk_start && vk_stop);
+// 		Q_ASSERT(vk_start && vk_stop);
 //		qWarning("render range: %s - %s", vk_start->key().latin1(), vk_stop->key().latin1());
 		
 		while ((*vk_start < *vk_stop) || (*vk_start == *vk_stop)) {
@@ -278,7 +280,6 @@ const QString CHTMLExportRendering::finishText( const QString& text, KeyTree& tr
     \fn CHTMLExportRendering::entryLink( KeyTreeItem& item )
  */
 const QString CHTMLExportRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo* ) {
-//	Q_ASSERT(module);		
 	return item.key();
 }
 

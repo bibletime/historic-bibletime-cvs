@@ -108,7 +108,7 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 }
 
 /** Sets the key we use to the parameter. */
-const QString CSwordVerseKey::key(){	
+const QString CSwordVerseKey::key() const {	
 	return QString::fromLocal8Bit(getText()); //don't use fromUtf8 here!
 	
 //	return QString::fromLocal8Bit((const char*)*this); //don't use fromUtf8 here!

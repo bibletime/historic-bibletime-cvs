@@ -492,23 +492,6 @@ const QString CSwordBackend::booknameLanguage( const QString& language ) {
 	return QString::fromLatin1(sword::LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 }
 
-/** Returns the version of the Sword library. */
-const sword::SWVersion CSwordBackend::Version() {
-	return sword::SWVersion::currentVersion;
-}
-
-/** Returns our transliterator object we use. Returns 0 if ICU is not used. */
-sword::SWFilter* const CSwordBackend::transliterator() {
-  if (!useICU())
-    return 0;
-  
-	return  optionFilters["UTF8Transliterator"]; //either valid or null pointer
-}
-
-/** Returns true if ICU is being used. */
-const bool CSwordBackend::useICU() const{
-  return SWMgr::isICU;
-}
 
 /** Reload all Sword modules. */
 void CSwordBackend::reloadModules(){

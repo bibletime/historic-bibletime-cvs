@@ -195,15 +195,15 @@ public:
   /**
   * Returns the version of the Sword library.
   */
-  virtual const sword::SWVersion Version();
+  inline virtual const sword::SWVersion Version();
   /**
   * Returns our transliterator object we use. Returns 0 if ICU is not used.
   */
-  sword::SWFilter* const transliterator();
+  inline sword::SWFilter* const transliterator();
   /** 
 	* Returns true if ICU is being used. 
 	*/
-  const bool useICU() const;
+  inline const bool useICU() const;
   /**
   * Reload all Sword modules.
   */
@@ -246,6 +246,25 @@ inline ListCSwordModuleInfo& CSwordBackend::moduleList() {
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
 inline sword::SWConfig* const CSwordBackend::getConfig() const {
 	return config;
+}
+
+/** Returns the version of the Sword library. */
+inline const sword::SWVersion CSwordBackend::Version() {
+	return sword::SWVersion::currentVersion;
+}
+
+/** Returns our transliterator object we use. Returns 0 if ICU is not used. */
+inline sword::SWFilter* const CSwordBackend::transliterator() {
+  if (!useICU()) {
+    return 0;
+	}
+  
+	return optionFilters["UTF8Transliterator"]; //either valid or null pointer
+}
+
+/** Returns true if ICU is being used. */
+inline const bool CSwordBackend::useICU() const{
+  return SWMgr::isICU;
 }
 
 #endif

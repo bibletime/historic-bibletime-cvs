@@ -90,11 +90,11 @@ public:
   /**
   * Returns the key which represents the lower bound of this module.
   */
-  CSwordVerseKey lowerBound();
+  inline const CSwordVerseKey& lowerBound();
   /**
   * Returns the key which represents the upper bound of this module.
   */
-  CSwordVerseKey upperBound();
+  inline const CSwordVerseKey& upperBound();
 
 private:
 	void initBounds();
@@ -110,6 +110,18 @@ private:
 
 inline const CSwordModuleInfo::ModuleType CSwordBibleModuleInfo::type() const {
 	return CSwordModuleInfo::Bible;
+}
+
+/** Returns the key which represents the lower bound of this module. */
+inline const CSwordVerseKey& CSwordBibleModuleInfo::lowerBound() {
+	initBounds();
+  return m_lowerBound;
+}
+
+/** Returns the key which represents the lower bound of this module. */
+inline const CSwordVerseKey& CSwordBibleModuleInfo::upperBound() {
+	initBounds();
+  return m_upperBound;
 }
 
 

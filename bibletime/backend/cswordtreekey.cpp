@@ -31,7 +31,7 @@ CSwordTreeKey* CSwordTreeKey::copy() const {
 }
 
 /** Sets the key of this instance */
-const QString CSwordTreeKey::key( ){
+const QString CSwordTreeKey::key() const {
   return QString::fromLocal8Bit( getFullName() ); //don't use fromUtf8
 }
 

@@ -58,7 +58,7 @@ CSwordModuleInfo* const CSwordLDKey::module(CSwordModuleInfo* const newModule){
 }
 
 /** Sets the key of this instance */
-const QString CSwordLDKey::key(){
+const QString CSwordLDKey::key() const {
 // 	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8
  	return QString::fromUtf8((const char*)*this);
 }

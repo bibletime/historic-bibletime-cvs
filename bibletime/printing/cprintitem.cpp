@@ -138,10 +138,6 @@ void CPrintItem::setStyle( CStyle* newStyle ) {
 	m_style = newStyle;
 }
 
-CStyle* const CPrintItem::style() const {
-	return m_style;
-}
-
 /** Returns the listview item for this printitem. */
 QListViewItem* CPrintItem::listViewItem( CPrintItemList* list ) {
 	deleteListViewItem();
@@ -168,10 +164,6 @@ void CPrintItem::updateListViewItem(){
 }
 
 /**  */
-
-QListViewItem* const CPrintItem::listViewItem() const {
-	return m_listViewItem;
-}
 
 /** Deletes the list view item. */
 void CPrintItem::deleteListViewItem(){

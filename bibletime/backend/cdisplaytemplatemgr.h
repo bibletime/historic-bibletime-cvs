@@ -20,6 +20,9 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
+//KDE includes
+#include <klocale.h>
+
 /**
 Manages the display templates used in the filters and display classes.
 
@@ -43,14 +46,27 @@ public:
 		CDisplayTemplateMgr();
     ~CDisplayTemplateMgr();
 		
-    const QStringList availableTemplates();
+    inline const QStringList availableTemplates();
     const QString fillTemplate( const QString& name, const QString& content, Settings& settings);
     
-		static const QString defaultTemplate();
+		inline static const QString defaultTemplate();
 
 private:
     void init();
 		QMap<QString, QString> m_templateMap;
 };
+
+inline const QString CDisplayTemplateMgr::defaultTemplate() {
+	return i18n("Default");
+}
+
+/*!
+    \fn CDisplayTemplateMgr::availableTemplates()
+ */
+inline const QStringList CDisplayTemplateMgr::availableTemplates() {
+	return m_templateMap.keys();
+}
+
+
 
 #endif

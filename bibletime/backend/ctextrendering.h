@@ -14,7 +14,6 @@
 #define CTEXTRENDERING_H
 
 //BT includes
-#include "backend/cswordmoduleinfo.h"
 #include "backend/cswordbackend.h"
 
 #include "frontend/cbtconfig.h"
@@ -22,6 +21,8 @@
 //QT includes
 #include <qstring.h>
 #include <qvaluelist.h>
+
+class CSwordModuleInfo;
 
 /**
 This class is responsible for text rendering.

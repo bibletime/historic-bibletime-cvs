@@ -46,7 +46,7 @@ public:
 	virtual ~CSwordKey() {};
 	
 	//pure virtual functions		
-	virtual const QString key() = 0;
+	virtual const QString key() const = 0;
 	virtual void key(const QString&) = 0;
 	virtual void key(const char*) = 0;
 	virtual CSwordKey* copy() const = 0;	

@@ -59,7 +59,7 @@ public:
   /**
 	* Sets the style for this item.
  	*/
-	CStyle* const style() const;
+	inline CStyle* const style() const;
   /**
  	* Returns the listview item for this printitem.
  	*/
@@ -71,7 +71,7 @@ public:
   /**
 	* Returns the used ListView item.
 	*/
-  QListViewItem* const listViewItem() const;
+  inline QListViewItem* const listViewItem() const;
   /**
  	* Deletes the list view item.
  	*/
@@ -99,5 +99,13 @@ private: // Protected attributes
   CSwordBackend::DisplayOptions m_displayOptions;
   CSwordBackend::FilterOptions m_filterOptions;
 };
+
+inline CStyle* const CPrintItem::style() const {
+	return m_style;
+}
+
+inline QListViewItem* const CPrintItem::listViewItem() const {
+	return m_listViewItem;
+}
 
 #endif

@@ -69,14 +69,18 @@ void CSwordBibleModuleInfo::initBounds() {
 	if (m_hasNT == -1)
 		m_hasNT = hasTestament(NewTestament);
 
-	if (m_hasOT)
+	if (m_hasOT) {
 		m_lowerBound.key("Genesis 1:1");
-	else
+	}
+	else {
 		m_lowerBound.key("Matthew 1:1");
-	if (!m_hasNT)
+	}
+	if (!m_hasNT) {
 		m_upperBound.key("Malachi 4:6");
-	else
+	}
+	else {
 		m_upperBound.key("Revelation of John 22:21");
+	}
 }
 
 
@@ -239,14 +243,3 @@ const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament
 	}
 }
 
-/** Returns the key which represents the lower bound of this module. */
-CSwordVerseKey CSwordBibleModuleInfo::lowerBound() {
-	initBounds();
-  return m_lowerBound;
-}
-
-/** Returns the key which represents the lower bound of this module. */
-CSwordVerseKey CSwordBibleModuleInfo::upperBound() {
-	initBounds();
-  return m_upperBound;
-}

@@ -50,8 +50,8 @@ CMDIArea::CMDIArea(QWidget *parent, const char *name )
 //  setAcceptDrops(true);
 }
 
-CMDIArea::~CMDIArea(){
-}
+// CMDIArea::~CMDIArea(){
+// }
 
 /** Initializes the view of the MDI area */
 void CMDIArea::initView(){
@@ -223,15 +223,5 @@ void CMDIArea::myCascade(){
  	else {
     QWorkspace::cascade();
   }
-}
-
-/** This works around a problem/limitation in QWorkspace. QWorkspace sets every time the  application caption on its on way. This confuses BibleTime - wrong captions are generated. This function returns the right caption (using the MDI child). */
-const QString CMDIArea::currentApplicationCaption() const {
-	return m_appCaption;
-}
-
-/** Emits the signal to create a new display window in the MDI area. */
-void CMDIArea::emitCreateDisplayWindow( ListCSwordModuleInfo modules, const QString keyName ) {
-  emit createReadDisplayWindow(modules, keyName);
 }
 

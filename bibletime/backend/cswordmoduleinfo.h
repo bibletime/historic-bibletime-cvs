@@ -21,6 +21,7 @@
 //BibleTime includes
 #include "cswordbackend.h"
 #include "clanguagemgr.h"
+#include "centrydisplay.h"
 #include "util/cpointers.h"
 
 //Qt includes
@@ -28,14 +29,13 @@
 #include <qfont.h>
 #include <qmap.h>
 
-
 //Sword includes
 #include <listkey.h>
+#include <swmodule.h>
 #include <swversion.h>
+#include <swdisp.h>
 
-class sword::SWModule;
 class CSwordBackend;
-class CEntryDisplay;
 class CSwordKey;
 
 /**
@@ -104,7 +104,6 @@ public:
 	const QString config( const CSwordModuleInfo::ConfigEntry entry );
 	
 	CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
-//	CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const backend );
 	CSwordModuleInfo( const CSwordModuleInfo& m );	
   virtual CSwordModuleInfo* clone();	
 	virtual ~CSwordModuleInfo();	
@@ -112,7 +111,7 @@ public:
   /**
  	* Returns the module object so all objects can access the original Sword module.
  	*/
-  sword::SWModule* const module() const;
+  inline sword::SWModule* const module() const;
   /**
  	* Sets the unlock key of the modules and writes the key into the cofig file.
 	* @return True if the unlock process was succesful, if the key was wrong, or if the config file was write protected return false.
@@ -125,7 +124,7 @@ public:
  	* This function performs some casts to return the correct display. If it returns 0 there's no valid
  	* display object.
  	*/
-  CEntryDisplay* const getDisplay() const;
+  inline CEntryDisplay* const getDisplay() const;
   /**
  	* This function does return true if the data files of the module are encrypted by the module author
  	* (the on who made the module) no matter if it's locked or not.
@@ -141,7 +140,7 @@ public:
   /**
   * @return true if this module has a version number and false if it doesn't have one.
   */
-  const bool hasVersion() const;
+  inline const bool hasVersion() const;
   /**
   * Returns true if something was found, otherwise return false.
   * This function does start the Sword functions to search in the module and it does
@@ -175,7 +174,7 @@ public:
   /**
   * Returns the name of the module.
   */
-  const QString name() const;
+  inline const QString name() const;
   /**
   * Snaps to the closest entry in the module if the current key is
   * not present in the data files.
@@ -198,11 +197,11 @@ public:
   /**
   * Returns the language of the module.
   */
-  const CLanguageMgr::Language* const language();
+  inline const CLanguageMgr::Language* const language();
   /**
   * Returns true if this module may be written by the write display windows.
   */
-  virtual const bool isWritable();
+  inline virtual const bool isWritable();
   /**
   * Returns the category of this module. See CSwordModuleInfo::Category for possible values.
   */
@@ -215,7 +214,7 @@ protected:
   * Returns true if this module is Unicode encoded. False if the charset is iso8859-1.
 	* Protected because it should not be used outside of the CSword*ModuleInfo classes.
   */
-  const bool isUnicode();
+  inline const bool isUnicode();
 
   virtual inline CSwordBackend* backend() const {
     return m_backend;
@@ -249,5 +248,51 @@ inline const CSwordModuleInfo::ModuleType CSwordModuleInfo::type() const {
 inline sword::SWModule* const CSwordModuleInfo::module() const {
 	return m_module;
 }
+
+/** Returns the display object for this module. */
+inline CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
+ 	return dynamic_cast<CEntryDisplay*>(m_module->Disp());
+}
+
+inline const bool CSwordModuleInfo::hasVersion() const {
+	return m_dataCache.hasVersion;
+}
+
+
+/** Returns the name of the module. */
+inline const QString CSwordModuleInfo::name() const {
+	return m_dataCache.name;
+}
+
+/** Returns true if this module is Unicode encoded. False if the charset is iso8859-1. */
+inline const bool CSwordModuleInfo::isUnicode(){
+	return m_dataCache.isUnicode;
+}
+
+/** Returns true if this module may be written by the write display windows. */
+inline const bool CSwordModuleInfo::isWritable() {
+  return false;
+}
+
+/** Returns the language of the module. */
+inline const CLanguageMgr::Language* const CSwordModuleInfo::language() {
+	if (!m_dataCache.language) {
+	  if (module()) {
+			if (category() == Glossary) {
+				//special handling for glossaries, we use the "from language" as language for the module
+				m_dataCache.language = languageMgr()->languageForAbbrev( config(GlossaryFrom) );
+			}
+			else {
+				m_dataCache.language = languageMgr()->languageForAbbrev( module()->Lang() );
+			}
+		}
+		else {
+			m_dataCache.language = languageMgr()->defaultLanguage(); //default language
+		}
+	}
+	
+	return m_dataCache.language;	
+}
+
 
 #endif
