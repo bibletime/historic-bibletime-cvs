@@ -51,15 +51,6 @@ CSearchDialog::CSearchDialog(CImportantClasses* importantClasses, ListCSwordModu
 	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null) {
 	setIcon(MODULE_SEARCH_ICON_SMALL);
 	
-	
-	KConfig* config = KGlobal::config();
-	KConfigGroupSaver gs(config, "searchdialog");	
-	if (config->readBoolEntry("first time", true)) {
-		HTML_DIALOG(HELPDIALOG_FIRSTTIME_SEARCH)
-		config->writeEntry("first time", false);
-		config->sync();
-	}
-		
 	m_important = importantClasses;	
 	searcher = new CSwordModuleSearch();
 	moduleList = 0;
@@ -223,4 +214,17 @@ const QString CSearchDialog::getSearchedText() const {
 /** No descriptions */
 void CSearchDialog::chosenModulesChanged(){
 	setModuleList(getModuleList());
+}
+
+/** Reimplementation to show the "First time opened" dialog. */
+void CSearchDialog::show(){
+	KDialogBase::show();
+
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver gs(config, "searchdialog");	
+	if (config->readBoolEntry("first time", true)) {
+		HTML_DIALOG(HELPDIALOG_FIRSTTIME_SEARCH)
+		config->writeEntry("first time", false);
+		config->sync();
+	}			
 }

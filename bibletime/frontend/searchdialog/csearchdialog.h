@@ -121,6 +121,9 @@ private slots: // Private slots
   void chosenModulesChanged();
 	virtual void slotUser1();
 	virtual void slotUser2();
+public slots: // Public slots
+  /** Reimplementation to show the "First time opened" dialog. */
+  virtual void show();
 };
 
 #endif
