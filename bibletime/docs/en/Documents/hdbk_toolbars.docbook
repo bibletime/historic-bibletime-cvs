@@ -1,19 +1,163 @@
 <chapter id="hdbk_bars"><title>Main toolbar and menubar</title>
 <para></para>
 
-<sect1 ID="hdbk_bars_toolbar"><title>Toolbar</title>
+<section ID="hdbk_bars_toolbar"><title>Toolbar</title>
+<section ID="hdbk_bars_toolbar_config"><title>Configuration</title>
 <para>
 The main window toolbar is configurable.  Access this with the "Configure
-toolbars" entry under the "Settings" menubar entry. Each of the buttons has
-tooltips to tell what their function is. For buttons with no pixmap, the buttons
-could appear as blank, or just blank bars.
+toolbars" entry under the "Settings" menubar entry.</para>
+<screenshot><screeninfo>Toolbar Configuration Dialog Box</screeninfo>
+<graphic fileref="common/hdbk_bars_toolbar_Configtoolbar.png" format="png">
+Toolbar Configuration Dialog Box</graphic>
+</screenshot>
+<para> Each of the buttons has tooltips to tell what their function is.
+For buttons with no pixmap, the buttons could appear as blank, or just blank bars.
 </para>
-</sect1>
+</section>
+<section ID="hdbk_bars_toolbar_action"><title>Button Action</title>
 
-<sect1 ID="hdbk_bars_menubar"><title>Menubar</title>
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_exit.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Closes Bibletime.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_print.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Prints items in the print queue.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_strongs.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Show / Hide Strongs Numbers.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_footnotes.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Show / Hide Footnotes.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_noicon.png">
+</imageobject>
+<textobject>
+<phrase>Icon Picture Not Created Yet</phrase>
+</textobject>
+</inlinemediaobject>
+Show Toolbar.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_search.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Search in Selected Module(s).
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_cascade.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Cascade Documant Windows.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_cascade_auto.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Autocascade Documant Windows.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_tile.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Tile Documant Windows.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_tile_auto.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Auto tile Documant Windows.
+</para>
+
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_close.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Close All Document Windows.
+</para>
+
+
+
+
+</section>
+</section>
+<section ID="hdbk_bars_menubar"><title>Menubar</title>
 <para></para>
 
-<sect2 ID="hdbk_bars_menubar_file"><title>File</title>
+<section ID="hdbk_bars_menubar_file"><title>File</title>
 <para>
 
 <variablelist>
@@ -40,9 +184,9 @@ could appear as blank, or just blank bars.
 
 </variablelist>
 </para>
-</sect2>
+</section>
 
-<sect2 ID="hdbk_bars_menubar_Window"><title>Window</title>
+<section ID="hdbk_bars_menubar_Window"><title>Window</title>
 <para>
 <variablelist>
 
@@ -90,9 +234,9 @@ Automatically cascades newly opened presenters
 
 </variablelist>
 </para>
-</sect2>
+</section>
 
-<sect2 ID="hdbk_bars_menubar_settings"><title>Settings</title>
+<section ID="hdbk_bars_menubar_settings"><title>Settings</title>
 <para>
 
 <variablelist>
@@ -147,9 +291,9 @@ window can accomplish the same thing, although to a lesser extent.
 </variablelist>
 
 </para>
-</sect2>
+</section>
 
-<sect2 ID="hdbk_bars_menubar_Help"><title>Help</title>
+<section ID="hdbk_bars_menubar_Help"><title>Help</title>
 <para>
 
 <variablelist>
@@ -201,8 +345,43 @@ opens a window with general KDE information
 </variablelist>
 
 </para>
-</sect2>
+</section>
 
-</sect1>
+</section>
+<section ID="hdbk_term_hotkeys"><title>Hotkeys</title>
+<para>
+All of the hotkeys listed here can be changed in the Options Dialog.
+</para>
+<table>
+<title>Default Hotkeys</title>
+<tgroup cols=2>
+<thead>
+<row>
+<entry>Action</entry>
+ <entry>Default Hotkey</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>Auto Tile</entry><entry></entry></row>
+<row><entry>Auto Cascade </entry><entry>Ctrl+Alt+A </entry></row>
+
+<row><entry>Cascade </entry><entry>Ctrl+A </entry></row>
+<row><entry>Close All </entry><entry>Shift+Ctrl+A</entry></row>
+<row><entry>Configure Toolbars</entry><entry></entry></row>
+<row><entry>Delete Selected Item(s) </entry><entry>Ctrl+Alt+D</entry></row>
+<row><entry>Preferences </entry><entry>           </entry></row>
+<row><entry>Quit </entry><entry>Ctrl+Q</entry></row>
+<row><entry>Reset Groupmanager </entry><entry>Ctrl+Alt+R</entry></row>
+<row><entry>Search in Selected Module(s) </entry><entry>Ctrl+Alt+S</entry></row>
+<row><entry>Show Footnotes </entry><entry>Ctrl+Alt+F</entry></row>
+<row><entry>Show Strongs</entry><entry>Ctrl+Alt+S </entry></row>
+<row><entry>Tile </entry><entry>Ctrl+T </entry></row>
+</tbody>
+</tgroup>
+</table>
+</section>
+
 </chapter>
 

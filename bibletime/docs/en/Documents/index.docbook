@@ -1,7 +1,7 @@
 <!DOCTYPE Set PUBLIC "-//KDE//DTD DocBook V3.1-Based Variant V1.0//EN" [
 <!ENTITY hdbkidx SYSTEM "hdbk_idx.docbook">
 <!ENTITY hdbkchap1 SYSTEM "hdbk_intro.docbook">
-<!ENTITY hdbkchap2 SYSTEM "hdbk_term.docbook">
+<!ENTITY hdbkchap2 SYSTEM "hdbk_start.docbook">
 <!ENTITY hdbkchap3 SYSTEM "hdbk_operation.docbook">
 <!ENTITY hdbkchap4 SYSTEM "hdbk_toolbars.docbook">
 

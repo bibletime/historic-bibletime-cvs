@@ -130,6 +130,10 @@ open the search dialog.  You will be searching in all of these modules. </para>
 Search Text - In this pane enter the text string to be searched for, and set
 search properties. "Regular Expression" uses standard regexp syntax to refine
 the search. </para>
+<screenshot>
+<screeninfo>Search Text Dialog Box</screeninfo>
+<graphic fileref="common/hdbk_op_search_dialog_searchtext.png" format="png"></graphic>
+</screenshot>
 <para>
 Search Scope - This allows you to define search boundaries.
 You can have no boundaries, search within the results of the previous search,
@@ -137,17 +141,30 @@ or set your own boundaries within the modules to be searched.
 For each module listed as to be searched, you can enter and delete lower and
 upper boundaries. Remember to click "Add bound" before searching.
 </para>
+<screenshot>
+<screeninfo>Search Scope Dialog Box</screeninfo>
+<graphic fileref="common/hdbk_op_search_dialog_searchscope.png" format="png"></graphic>
+</screenshot>
 <para>
 Search Result - This tells you first, by module, how many instances of the
 search string were found. Double-clicking on that module will open the list of
 references. Clicking on a reference opens that verse up in the window below.
 Drag the reference and drop it on a module in the main module list to open the
 module to that verse in a new presenter </para>
+<screenshot>
+<screeninfo>Search Result Dialog Box</screeninfo>
+<graphic fileref="common/hdbk_op_search_dialog_searchresult.png" format="png"></graphic>
+</screenshot>
 <para>
 Search Analysis - This gives a graphic analysis of the number of instances the
 search string was found in each book. It can display results for more than one
 book at a time, and you have the option of saving the graph as an image file on
 your hard drive. </para>
+<screenshot>
+<screeninfo>Search Analysis Dialog Box</screeninfo>
+<graphic fileref="common/hdbk_op_search_dialog_searchanal.png" format="png"></graphic>
+</screenshot>
+
 </sect2>
 </sect1>
 </chapter>
