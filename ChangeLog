@@ -1,3 +1,9 @@
+2002-06-2002 Martin Gruner <mg.pub@gmx.net>
+	* Moved the english docs to bibletime/docs, and the pot file to bibletime/pot.
+	  Created a new package bibletime-i18n-de for German docs, with the folders docs/ and po/.
+	  Revised gen_am.sh file to suit the new arrangement, and it does at least run and create all the 
+	  necessary Makefile.am files for English and German.
+
 2002-05-03  Martin <mg.pub@gmx.net>
 
 	* Ported to KDE3: BibleTime 1.2. No new features. Text rendering works much better now
