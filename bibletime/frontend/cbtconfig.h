@@ -36,8 +36,8 @@ public:
 		standardBible,
 		standardCommentary,
 		standardLexicon,
-		standardHebrewLexicon,
-		standardGreekLexicon,
+		standardHebrewStrongsLexicon,
+		standardGreekStrongsLexicon,
 		standardHebrewMorphLexicon,
 		standardGreekMorphLexicon
 	};

@@ -246,6 +246,9 @@ void CCommentaryPresenter::lookup(const QString& key){
 
 /** No descriptions */
 void CCommentaryPresenter::refresh( ){
+
+//	CSwordPresenter::refresh();	//refreshes the display settings button
+
 	m_key->setLocale((const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
 	m_keyChooser->refreshContent();
 	lookup(m_key);

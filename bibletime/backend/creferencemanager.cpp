@@ -32,17 +32,17 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 		case Lexicon:
 			ret = QString::fromLatin1("sword://Lexicon/");
 			break;
-		case Morph_OT:				
-			ret = QString::fromLatin1("morph://OT/");		
+		case MorphHebrew:				
+			ret = QString::fromLatin1("morph://Hebrew/");		
 			break;
-		case Morph_NT:
-			ret = QString::fromLatin1("morph://NT/");				
+		case MorphGreek:
+			ret = QString::fromLatin1("morph://Greek/");				
 			break;
-		case Strongs_OT:				
-			ret = QString::fromLatin1("strongs://OT/");				
+		case StrongsHebrew:				
+			ret = QString::fromLatin1("strongs://Hebrew/");				
 			break;
-		case Strongs_NT:				
-			ret = QString::fromLatin1("strongs://NT/");					
+		case StrongsGreek:				
+			ret = QString::fromLatin1("strongs://Greek/");					
 			break;
 		default:
 			break;
@@ -108,29 +108,29 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 			ref = ref.mid(10);		
 			preType = IsStrongs;			
 		}
-		//part up to next slash is the testament
-//		qWarning("string before testament: %s", ref.latin1());
+		//part up to next slash is the language
+		//qWarning("string before testament: %s", ref.latin1());
 		const int pos = ref.find("/");
 		if (pos>0) { //found
-			const QString testament = ref.mid(0,pos); //pos or pos-1 ??
-			qWarning("testament is %s", testament.latin1());
-			if (testament == "OT") {
+			const QString language = ref.mid(0,pos); //pos or pos-1 ??
+			qWarning("language is %s", language.latin1());
+			if (language == "Hebrew") {
 				switch (preType) {
 					case IsMorph:
-						type = CReferenceManager::Morph_OT;
+						type = CReferenceManager::MorphHebrew;
 						break;
 					case IsStrongs:
-						type = CReferenceManager::Strongs_OT;
+						type = CReferenceManager::StrongsHebrew;
 						break;								
 				}			
 			}
-			else if (testament == "NT") {
+			else if (language == "Greek") {
 				switch (preType) {
 					case IsMorph:
-						type = CReferenceManager::Morph_NT;
+						type = CReferenceManager::MorphGreek;
 						break;
 					case IsStrongs:
-						type = CReferenceManager::Strongs_NT;
+						type = CReferenceManager::StrongsGreek;
 						break;								
 				}
 			}
@@ -186,8 +186,9 @@ void CReferenceManager::decodeReference(QString &dragreference, QString &module,
 
 /** Returns true if the parameter is a hyperlink. */
 const bool CReferenceManager::isHyperlink( const QString& hyperlink ){
-//	return ( (hyperlink.left(8) == "sword://") && hyperlink.mid(8).contains("/"));
-	return (hyperlink.left(8) == "sword://") || (hyperlink.left(10) == "strongs://") || (hyperlink.left(8) == "morph://");
+	return (hyperlink.left(8) == "sword://")
+					|| (hyperlink.left(10) == "strongs://")
+					|| (hyperlink.left(8) == "morph://");
 }
 
 /** Returns the preferred module name for the given type. */
@@ -203,16 +204,16 @@ const QString CReferenceManager::preferredModule( const CReferenceManager::Type 
 		case CReferenceManager::Lexicon:
 			description = CBTConfig::get( CBTConfig::standardLexicon );
 			break;			
-		case CReferenceManager::Strongs_OT:
-			description = CBTConfig::get( CBTConfig::standardHebrewLexicon );
+		case CReferenceManager::StrongsHebrew:
+			description = CBTConfig::get( CBTConfig::standardHebrewStrongsLexicon );
 			break;			
-		case CReferenceManager::Strongs_NT:
-			description = CBTConfig::get( CBTConfig::standardGreekLexicon );
+		case CReferenceManager::StrongsGreek:
+			description = CBTConfig::get( CBTConfig::standardGreekStrongsLexicon );
 			break;			
-		case CReferenceManager::Morph_OT:
+		case CReferenceManager::MorphHebrew:
 			description = CBTConfig::get( CBTConfig::standardHebrewMorphLexicon );
 			break;			
-		case CReferenceManager::Morph_NT:
+		case CReferenceManager::MorphGreek:
 			description = CBTConfig::get( CBTConfig::standardGreekMorphLexicon );
 			break;			
 		default:

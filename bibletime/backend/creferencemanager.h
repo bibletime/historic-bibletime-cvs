@@ -33,10 +33,10 @@ public:
 		Bible,
 		Commentary,
 		Lexicon,
-		Morph_OT,
-		Morph_NT,
-		Strongs_OT,
-		Strongs_NT,
+		MorphHebrew,
+		MorphGreek,
+		StrongsHebrew,
+		StrongsGreek,
 		Unknown
 	};
   /**

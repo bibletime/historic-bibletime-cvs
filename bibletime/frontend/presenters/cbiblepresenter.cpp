@@ -200,7 +200,10 @@ void CBiblePresenter::lookup(const QString& key){
 }
 
 /** Reimplementation. Refreshes the things which are described by the event integer. */
-void CBiblePresenter::refresh( ){	
+void CBiblePresenter::refresh( ){
+
+	CSwordPresenter::refresh();	//refreshes the display settings button
+
 	m_key->setLocale((const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
 	m_keyChooser->refreshContent();
 	lookup(m_key);

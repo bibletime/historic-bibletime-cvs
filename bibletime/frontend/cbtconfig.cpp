@@ -32,8 +32,8 @@ QString CBTConfig::getKey( CBTConfig::strings ID){
 		case standardBible: 				return "standardBible";
 		case standardCommentary: 		return "standardCommentary";
 		case standardLexicon: 			return "standardLexicon";
-		case standardHebrewLexicon: return "standardHebrewLexicon";
-		case standardGreekLexicon: 	return "standardGreekLexicon";
+		case standardHebrewStrongsLexicon: 	return "standardHebrewLexicon";
+		case standardGreekStrongsLexicon: 	return "standardGreekLexicon";
 		case standardHebrewMorphLexicon:	return "standardHebrewMorphLexicon";
 		case standardGreekMorphLexicon:		return "standardGreekMorphLexicon";
 	}
@@ -45,8 +45,8 @@ QString CBTConfig::getDefault( CBTConfig::strings ID){
 		case standardBible: 				return "NIV";  // no effect
 		case standardCommentary: 		return "MHC";
 		case standardLexicon: 			return "ISBE";
-		case standardHebrewLexicon: return "StrongsHebrew";
-		case standardGreekLexicon: 	return "StrongsGreek";
+		case standardHebrewStrongsLexicon: return "StrongsHebrew";
+		case standardGreekStrongsLexicon: 	return "StrongsGreek";
 		case standardHebrewMorphLexicon:	return "StrongsHebrew"; //warning this is wrong
 		case standardGreekMorphLexicon:		return "StrongsGreek";  //but imo has no effect
 	}

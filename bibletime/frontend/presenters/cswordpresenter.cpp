@@ -22,6 +22,7 @@
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
 #include "../cbtconfig.h"
+#include "cdisplaysettingsbutton.h"
 
 //Qt includes
 #include <qpopupmenu.h>
@@ -224,4 +225,12 @@ void CSwordPresenter::focusOutEvent( QFocusEvent* e ){
 	qDebug("CSwordPresenter::focusOutEvent( QFocusEvent* e )");	
 	KMainWindow::focusOutEvent(e);	
 	m_accel->setEnabled(false);
+}
+
+/** Is called when this display window looses the focus. */
+void CSwordPresenter::refresh(){
+	m_moduleOptions = CBTConfig::getAllModuleOptionDefaults();
+	m_displayOptions = CBTConfig::getAllDisplayOptionDefaults();
+
+	m_displaySettingsButton->reset(m_moduleList);
 }

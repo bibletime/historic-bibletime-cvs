@@ -56,7 +56,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 
 		else if (!strncmp(token, "sync type=\"morph\"", 17)) { //Morph
 			char** oldbuf = buf;
-			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://OT/");
+			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://Greek/");
 
 			for (unsigned int j = 17; j < strlen(token); j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
@@ -82,7 +82,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}
 		
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://OT/");
+			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Hebrew/");
 			for (i = 5; i < strlen(token)-1; i++)
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
@@ -94,7 +94,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}
 #warning not handled: token[27] == 'A')
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://NT/");
+			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Greek/");
 			for (i = 5; i < strlen(token)-1; i++)
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
@@ -106,7 +106,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}
 //		else if (!strncmp(token, "sync type=\"Morph\" value=\"", 25)) {
 //#warning OT or NT as default???
-//			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://OT/");
+//			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://Hebrew/");
 //			for (i = 5; i < strlen(token)-1; i++)				
 //				if(token[i] != '\"') 			
 //					*(*buf)++ = token[i];

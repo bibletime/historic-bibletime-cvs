@@ -154,6 +154,9 @@ void CLexiconPresenter::lookup(const QString& key){
 
 /** Refreshes all parts decsribed by the parameter. */
 void CLexiconPresenter::refresh( ){
+
+//	CSwordPresenter::refresh();	//refreshes the display settings button
+
 	lookup(m_key);
 	m_htmlWidget->refresh();
 }

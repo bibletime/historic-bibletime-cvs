@@ -25,7 +25,6 @@
 #include "../../whatsthisdef.h"
 #include "../../backend/cswordbackend.h"
 #include "../../backend/cswordmoduleinfo.h"
-#include "../../backend/cswordlexiconmoduleinfo.h"
 #include "../cbtconfig.h"
 
 #include <stdio.h>
@@ -167,7 +166,7 @@ void COptionsDialog::initGeneral() {
 		
 		hBox = new QHBoxLayout();
 		m_general.sword.standardHebrewStrong = new QComboBox(page);
-		label = new QLabel(m_general.sword.standardHebrewStrong, i18n("Default Hebrew Lexicon"), page);
+		label = new QLabel(m_general.sword.standardHebrewStrong, i18n("Default Hebrew Strong's Lexicon"), page);
 		QToolTip::add(m_general.sword.standardHebrewStrong, TT_OD_SWORD_STANDARD_HEBREW_STRONG);
 		QWhatsThis::add(m_general.sword.standardHebrewStrong, WT_OD_SWORD_STANDARD_HEBREW_STRONG);
 		hBox->addWidget(label);
@@ -176,7 +175,7 @@ void COptionsDialog::initGeneral() {
 		
 		hBox = new QHBoxLayout();
 		m_general.sword.standardGreekStrong = new QComboBox(page);
-		label = new QLabel(m_general.sword.standardGreekStrong, i18n("Default Greek Lexicon"), page);
+		label = new QLabel(m_general.sword.standardGreekStrong, i18n("Default Greek Strong's Lexicon"), page);
 		QToolTip::add(m_general.sword.standardGreekStrong, TT_OD_SWORD_STANDARD_GREEK_STRONG);
 		QWhatsThis::add(m_general.sword.standardGreekStrong, WT_OD_SWORD_STANDARD_GREEK_STRONG);
 		hBox->addWidget(label);
@@ -185,7 +184,7 @@ void COptionsDialog::initGeneral() {
 		
 		hBox = new QHBoxLayout();
 		m_general.sword.standardHebrewMorph = new QComboBox(page);
-		label = new QLabel(m_general.sword.standardHebrewMorph, i18n("Default OT Morphological Lexicon"), page);
+		label = new QLabel(m_general.sword.standardHebrewMorph, i18n("Default Hebrew Morphological Lexicon"), page);
 		QToolTip::add(m_general.sword.standardHebrewMorph, TT_OD_SWORD_STANDARD_HEBREW_MORPH);
 		QWhatsThis::add(m_general.sword.standardHebrewMorph, WT_OD_SWORD_STANDARD_HEBREW_MORPH);
 		hBox->addWidget(label);
@@ -194,7 +193,7 @@ void COptionsDialog::initGeneral() {
 
 		hBox = new QHBoxLayout();
 		m_general.sword.standardGreekMorph = new QComboBox(page);
-		label = new QLabel(m_general.sword.standardGreekMorph, i18n("Default NT Morphological Lexicon"), page);
+		label = new QLabel(m_general.sword.standardGreekMorph, i18n("Default Greek Morphological Lexicon"), page);
 		QToolTip::add(m_general.sword.standardGreekMorph, TT_OD_SWORD_STANDARD_GREEK_MORPH);
 		QWhatsThis::add(m_general.sword.standardGreekMorph, WT_OD_SWORD_STANDARD_GREEK_MORPH);
 		hBox->addWidget(label);
@@ -258,7 +257,7 @@ void COptionsDialog::initGeneral() {
 			}
 		}			
 		
-		const QString standardHebrewStrong = CBTConfig::get(CBTConfig::standardHebrewLexicon);
+		const QString standardHebrewStrong = CBTConfig::get(CBTConfig::standardHebrewStrongsLexicon);
 		count = m_general.sword.standardHebrewStrong->count();
 		for (int item=0; item < count; ++item) {
 			if (m_general.sword.standardHebrewStrong->text(item) == standardHebrewStrong) {
@@ -267,7 +266,7 @@ void COptionsDialog::initGeneral() {
 			}
 		}		
 		
-		const QString standardGreekStrong = CBTConfig::get(CBTConfig::standardGreekLexicon);
+		const QString standardGreekStrong = CBTConfig::get(CBTConfig::standardGreekStrongsLexicon);
 		count = m_general.sword.standardGreekStrong->count();
 		for(int item=0; item<count; ++item) {
 			if(m_general.sword.standardGreekStrong->text(item) == standardGreekStrong) {
@@ -336,8 +335,8 @@ void COptionsDialog::saveGeneral() {
   	CBTConfig::set(CBTConfig::standardBible, m_general.sword.standardBible->currentText());
   	CBTConfig::set(CBTConfig::standardCommentary, m_general.sword.standardCommentary->currentText());
   	CBTConfig::set(CBTConfig::standardLexicon, m_general.sword.standardLexicon->currentText());
-  	CBTConfig::set(CBTConfig::standardHebrewLexicon, m_general.sword.standardHebrewStrong->currentText());
-	 	CBTConfig::set(CBTConfig::standardGreekLexicon, m_general.sword.standardGreekStrong->currentText() );  	
+  	CBTConfig::set(CBTConfig::standardHebrewStrongsLexicon, m_general.sword.standardHebrewStrong->currentText());
+	 	CBTConfig::set(CBTConfig::standardGreekStrongsLexicon, m_general.sword.standardGreekStrong->currentText() );  	
   	CBTConfig::set(CBTConfig::standardHebrewMorphLexicon, m_general.sword.standardHebrewMorph->currentText());
 	 	CBTConfig::set(CBTConfig::standardGreekMorphLexicon, m_general.sword.standardGreekMorph->currentText() );  	
 	}

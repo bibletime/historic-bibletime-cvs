@@ -84,9 +84,9 @@ public:
   */
   int getFeatures();
   /**
-  * Refreshes the presenter depending on the events given as parameter.
+  * Refreshes the presenter.
   */
-  virtual void refresh( ) = 0;
+  virtual void refresh();
   /**
   * Returns the listof used modules.
   */

@@ -76,7 +76,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 			
 
 		if (!strncmp(token, "WG", 2)){ // strong's numbers greek
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://NT/");
+			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Greek/");
 			for (i = 2; i < strlen(token); i++)
 					*(*buf)++ = token[i];
 			pushString(buf, "\">&lt;");
@@ -86,7 +86,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 		}
 
 		if (!strncmp(token, "WH", 2)){ // strong's numbers hebrew
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://OT/");
+			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Hebrew/");
 			for (i = 2; i < strlen(token); i++)
 					*(*buf)++ = token[i];
 			pushString(buf, "\">&lt;");
@@ -96,7 +96,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 		}
 
 		else if (!strncmp(token, "WTG", 3)) { // strong's numbers tense greek
-			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://NT/");
+			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://Greek/");
 			for (i = 2; i < strlen(token); i++)				
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
@@ -108,7 +108,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 		}
 
 		else if (!strncmp(token, "WTH", 3)) { // strong's numbers tense hebrew
-			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://OT/");
+			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://Hebrew/");
 			for (i = 2; i < strlen(token); i++)				
 				if(token[i] != '\"')
 					*(*buf)++ = token[i];
