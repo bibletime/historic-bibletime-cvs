@@ -35,6 +35,10 @@
 #include <qtooltip.h>
 #include <qrect.h>
 
+#define WIDTH 16
+#define ARROW_HEIGHT 10
+#define MOVER_HEIGHT 4
+
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
   : QComboBox(rw,parent,name){
 	setFocusPolicy(QWidget::WheelFocus);
@@ -261,19 +265,21 @@ void CKeyChooserWidget::init( ){
 	btn_up = new QToolButton( this, "btn_up" );	
 	QIconSet iconSet = getUpIconSet();
 	btn_up->setIconSet( iconSet );
-	btn_up->setFixedSize(iconSet.pixmap().width(), iconSet.pixmap().height());
+	btn_up->setFixedSize(WIDTH, ARROW_HEIGHT);
 	btn_up->setFocusPolicy(QWidget::NoFocus);	
 	
 	btn_fx = new cfx_btn( this, "btn_fx" );
 	iconSet = getMoverIconSet();
-	btn_fx->setIconSet( iconSet );	
-	btn_fx->setFixedSize(iconSet.pixmap().width(), iconSet.pixmap().height());	
+//	btn_fx->setIconSet( iconSet );	
+	btn_fx->setFixedSize(WIDTH, MOVER_HEIGHT);
+//	btn_fx->setFixedSize(iconSet.pixmap().width(), iconSet.pixmap().height());	
 	btn_fx->setFocusPolicy(QWidget::NoFocus);	
 	
 	btn_down = new QToolButton( this, "btn_down" );	
 	iconSet = getDownIconSet();
 	btn_down->setIconSet( iconSet );
-	btn_down->setFixedSize(iconSet.pixmap().width(), iconSet.pixmap().height());	
+	btn_down->setFixedSize(WIDTH, ARROW_HEIGHT);
+//	btn_down->setFixedSize(iconSet.pixmap().width(), iconSet.pixmap().height());	
 	btn_down->setFocusPolicy(QWidget::NoFocus);	
 	
 	m_buttonLayout->addWidget( btn_up );	
@@ -344,41 +350,36 @@ void CKeyChooserWidget::slotComboChanged(int index){
 	setUpdatesEnabled(true);		
 }
 
-#define WIDTH 17
-#define ARROW_HEIGHT 10
-#define MOVER_HEIGHT 6
 
 /** Returns the icons set which contains the down button. */
 QIconSet CKeyChooserWidget::getUpIconSet(){
-  QPixmap pix(WIDTH,ARROW_HEIGHT);
+	const int x = WIDTH - 4;
+  const int y = ARROW_HEIGHT - 4;
+  QPixmap pix(x, y);
 	QPainter p(&pix);
-	p.fillRect(0,0, WIDTH-1, ARROW_HEIGHT-1, colorGroup().background());
-
-	style().drawPrimitive(QStyle::PE_ArrowUp, &p, QRect(1,1, WIDTH-2, ARROW_HEIGHT-2), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
-//	style().drawArrow(&p, Qt::UpArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_up ? btn_up->colorGroup() : colorGroup(), btn_up ? btn_up->isEnabled() : true);
-	
+	p.fillRect(0,0, x, y, colorGroup().background());
+	style().drawPrimitive(QStyle::PE_ArrowUp, &p, QRect(0,0, x, y), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
 	return QIconSet(pix);
 }
 
 /** Returns the icons set which contains the down button. */
 QIconSet CKeyChooserWidget::getDownIconSet(){
-  QPixmap pix(WIDTH,ARROW_HEIGHT);
-
+	const int x = WIDTH - 4;
+  const int y = ARROW_HEIGHT - 4;
+  QPixmap pix(x, y);
 	QPainter p(&pix);
-	p.fillRect(0,0, WIDTH-1, ARROW_HEIGHT-1, colorGroup().background());
-
-	style().drawPrimitive(QStyle::PE_ArrowDown, &p, QRect(1,1, WIDTH-2, ARROW_HEIGHT-2), btn_up->colorGroup(), btn_down->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default);
-//	style().drawArrow(&p, Qt::DownArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_down ? btn_down->colorGroup() : colorGroup(), btn_down ? btn_down->isEnabled() : true);
-	
+	p.fillRect(0,0, x, y, colorGroup().background());
+	style().drawPrimitive(QStyle::PE_ArrowDown, &p, QRect(0,0, x, y), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
 	return QIconSet(pix);
 }
-
 /** Returns the icons set for the button used to change the current item. */
 QIconSet CKeyChooserWidget::getMoverIconSet(){
-  QPixmap pix(WIDTH,MOVER_HEIGHT);
+  const int x = WIDTH - 2;
+  const int y = MOVER_HEIGHT - 2;
+  QPixmap pix(x, y);
 	QPainter p(&pix);
-	p.fillRect(0,0, WIDTH-1, MOVER_HEIGHT-1, colorGroup().background());
-	p.fillRect(2,2, WIDTH-3, MOVER_HEIGHT-3, colorGroup().foreground());		
+	p.fillRect(0,0, x-1, y-1, colorGroup().background());
+	p.fillRect(2,2, x-3, y-3, colorGroup().foreground());		
 	return QIconSet(pix);
 }
 #undef WIDTH
