@@ -6,45 +6,53 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2001-11-10 07:26GMT\n"
-"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
-"Language-Team: Deutch <de@li.org>\n"
+"PO-Revision-Date: 2001-11-13 20:14GMT\n"
+"Last-Translator: \n"
+"Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
 #: index.docbook:2
+#, fuzzy
 msgid "The module is encrypted"
-msgstr ""
+msgstr "Das Modul ist verschlsselt"
 
 #: index.docbook:3
+#, fuzzy
 msgid "The module you selected is encrypted!"
-msgstr ""
+msgstr "Das von Ihnen ausgew�lte Modul ist verschlsselt!"
 
 #: index.docbook:5
+#, fuzzy
 msgid "This page describes what encryption does mean for you."
-msgstr ""
+msgstr "Diese Seite beschreibt, was Verschlsselung fr Sie bedeutet."
 
 #: index.docbook:10
+#, fuzzy
 msgid "What is an encrypted module?"
-msgstr ""
+msgstr "Was ist ein verschlsseltes Modul?"
 
 #: index.docbook:16
+#, fuzzy
 msgid "An encrypted module (document) is a module which is locked with a key. Only a user that has the right key can unlock the module to read it."
-msgstr ""
+msgstr "Ein verschlsseltes Modul (Dokument) ist ein Modul, das mit einem Schlssel \"verschlossen\" ist. Nur der Benutzer mit dem passenden Schlssel kann es aufschlie�n und lesen."
 
 #: index.docbook:24
+#, fuzzy
 msgid "How do I unlock a module?"
-msgstr ""
+msgstr "Wie kann ich ein Modul aufschlie�n?"
 
 #: index.docbook:29
+#, fuzzy
 msgid "For normal users it's sadly not possible at this time to use encrypted modules. The problem is that the copyright owners of the modules do not want to release the stuff with SWORD. But If you have a key click with the right mousebutton on the module and select \"Unlock module ...\". A dialog appears, please enter here the key to unlock the encrypted module."
-msgstr ""
+msgstr "Fr normale Benutzer ist es traurigerweise zu diesem Zeitpunkt nicht mglich verschlsselte Module zu benutzen. Das Problem liegt darin, dass die Copyrightbesitzer der Module das Material nicht mit Sword verffentlichen mchten. Aber falls Sie den passenden Schlssel haben, klicken Sie mit der rechten Maustaste auf das Modul und w�len dann \"Modul aufschlie�n...\". Ein Dialog erscheint: geben Sie hier den Schlssel ein um das verschlsselte Modul aufzuschlie�n."
 
 #: index.docbook:40
+#, fuzzy
 msgid "Why are modules locked?"
-msgstr ""
+msgstr "Warum sind Module verschlossen?"
 
 #: index.docbook:45
 #, fuzzy

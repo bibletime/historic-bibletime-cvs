@@ -62,7 +62,7 @@ msgstr "You should have received a copy of the GNU General Public License along 
 #: index.docbook:119
 #, fuzzy
 msgid "&bibletime; is an application to aid in study of the Bible."
-msgstr "<title></title>"
+msgstr ""
 
 #: index.docbook:130
 #, fuzzy
@@ -77,19 +77,19 @@ msgstr "BibleTime"
 #: index.docbook:132
 #, fuzzy
 msgid "Bibletime"
-msgstr "Sword"
+msgstr "BibleTime"
 
 #: index.docbook:133
 #, fuzzy
 msgid "sword"
-msgstr "Crosswire"
+msgstr "Sword"
 
 #: index.docbook:134
 #, fuzzy
 msgid "crosswire"
-msgstr "Hilfedialog"
+msgstr "Crosswire"
 
 #: index.docbook:135
 msgid "help dialog"
-msgstr ""
+msgstr "Hilfedialog"
 
