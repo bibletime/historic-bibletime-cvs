@@ -34,6 +34,7 @@
 
 class CHTMLEntryDisplay;
 class CHTMLChapterDisplay;
+class CHTMLBookDisplay;
 
 class CSwordModuleInfo;
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
@@ -200,6 +201,7 @@ private:
 	ErrorCode m_errorCode;
 	CHTMLChapterDisplay* 	m_chapterDisplay;	
 	CHTMLEntryDisplay* 		m_entryDisplay;	
+	CHTMLBookDisplay* 		m_bookDisplay;	
 };
 
 /**Returns The list of modules managed by this backend*/

@@ -71,7 +71,8 @@ public:
 		DataPath,
 		Description,
 		ModuleVersion,
-		MinimumSwordVersion
+		MinimumSwordVersion,
+		DisplayLevel
 	};
 	enum Feature {
 		StrongsNumbers, /*Use for Bibles which have embedded strong numbers*/

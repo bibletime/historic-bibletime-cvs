@@ -37,7 +37,6 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	
 	CSwordVerseKey key(0);
 	key.key( module->module()->KeyText() );	
-//	key.setLocale(module->module()->Lang());
 	const int currentTestament = key.Testament();	
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
@@ -102,7 +101,6 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	VerseKey* vk = (VerseKey*)((SWKey*)(*module));
 	CSwordVerseKey key(0);
 	key.key((const char*)*vk);
-//	key.setLocale(module->Lang());	
 
 	const int currentTestament = key.Testament();	
 	const int currentBook = key.Book();
@@ -128,7 +126,6 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	m_htmlText.append("</tr>");
 		
 	CSwordVerseKey current(0);
-//	current.setLocale(module->Lang());
 	
 	QString rowText = QString::null;
 	int currentVerse = 0;

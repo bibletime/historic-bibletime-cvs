@@ -217,8 +217,14 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 			
 		case MinimumSwordVersion:
 		{
-			QString version = QString::fromLatin1(m_module->getConfigEntry("MinimumVersion"));
+			const QString version = QString::fromLatin1(m_module->getConfigEntry("MinimumVersion"));
 			return !version.isEmpty() ? version : QString::fromLatin1("0.0");
+		}
+
+		case DisplayLevel:
+		{
+			const QString level = QString::fromLatin1(m_module->getConfigEntry("DisplayLevel"));
+			return !level.isEmpty() ? level : QString::fromLatin1("0");
 		}
 			
 		default:

@@ -19,6 +19,7 @@
 #include "cswordbackend.h"
 #include "chtmlentrydisplay.h"
 #include "chtmlchapterdisplay.h"
+#include "chtmlbookdisplay.h"
 #include "cswordbiblemoduleinfo.h"
 #include "cswordcommentarymoduleinfo.h"
 #include "cswordlexiconmoduleinfo.h"
@@ -51,8 +52,9 @@ static QMap<QString, QString> moduleDescriptionMap;
 CSwordBackend::CSwordBackend()
 	: SWMgr(0,0,false,new EncodingFilterMgr( ENC_UTF8 )),
 	m_errorCode(noError),
-	m_entryDisplay(0),
+	m_entryDisplay(0),	
 	m_chapterDisplay(0),
+	m_bookDisplay(0),	
 	m_moduleList(0),
 	m_gbfFilter(0),
 	m_plainTextFilter(0),
@@ -67,6 +69,11 @@ CSwordBackend::~CSwordBackend(){
 	delete m_gbfFilter;
 	delete m_plainTextFilter;	
 	delete m_thmlFilter;	
+	
+	//delete display objects??
+//	delete m_entryDisplay;
+//	delete m_chapterDisplay;
+//	delete m_bookDisplay;
 }
 
 #define CHECK_HTML_CHAPTER_DISLPAY \
@@ -76,7 +83,11 @@ CSwordBackend::~CSwordBackend(){
 #define CHECK_HTML_ENTRY_DISLPAY \
 	if (!m_entryDisplay) \
 		m_entryDisplay = new CHTMLEntryDisplay();
-		
+
+#define CHECK_HTML_BOOK_DISLPAY \
+	if (!m_bookDisplay) \
+		m_bookDisplay = new CHTMLBookDisplay();
+				
 /** Initializes the Sword modules. */
 const CSwordBackend::ErrorCode CSwordBackend::initModules() {
 	ModMap::iterator it;
@@ -102,10 +113,10 @@ const CSwordBackend::ErrorCode CSwordBackend::initModules() {
 			newModule = new CSwordLexiconModuleInfo(curMod);
 			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
 			newModule->module()->Disp(m_entryDisplay);
-		} else if (!strcmp(curMod->Type(), "Generic Book")) {
+		} else if (!strcmp(curMod->Type(), "Generic Books")) {
 			newModule = new CSwordBookModuleInfo(curMod);
-			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
-			newModule->module()->Disp(m_entryDisplay);
+			CHECK_HTML_BOOK_DISLPAY	//a macro to check the book display			
+			newModule->module()->Disp(m_bookDisplay);
 		}
 
 		if (newModule)	//append the new modules to our list
@@ -123,6 +134,7 @@ const CSwordBackend::ErrorCode CSwordBackend::initModules() {
 }
 #undef CHECK_HTML_CHAPTER_DISPLAY
 #undef CHECK_HTML_ENTRY_DISPLAY
+#undef CHECK_HTML_BOOK_DISPLAY
 
 void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	string sourceformat;
