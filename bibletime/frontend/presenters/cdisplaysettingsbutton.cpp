@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "cdisplaysettingsbutton.h"
+#include "../../ressource.h"
 
 #include <qstring.h>
 #include <qtooltip.h>
@@ -30,22 +31,26 @@ CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::displayOptionsBool
 	m_moduleSettings = moduleSettings;
 	m_modules = useModules;
 
+	setPixmap( BIBLE_ICON_MC );
+
  	m_popup = new KPopupMenu(this);	
 	setPopup(m_popup);
 	setPopupDelay(0);
 
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionToggled(int)));
 
-	if (!populateMenu())
-		setEnabled(false);
+	populateMenu();
+//	if (!populateMenu())
+//		setEnabled(false);
 }
 
 void CDisplaySettingsButton::reset(ListCSwordModuleInfo useModules){
 	m_modules = useModules;
-	if (!populateMenu())
-		setEnabled(false);
-	else
-		setEnabled(true);
+	populateMenu();
+//	if (!populateMenu())
+//		setEnabled(false);
+//	else
+//		setEnabled(true);
 }
 
 
