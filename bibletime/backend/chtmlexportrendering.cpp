@@ -39,6 +39,7 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 }
 
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
+// 	qWarning("rendering %s", i.key().latin1());
 	if (i.hasAlternativeContent()) {
 		QString ret;
 		ret.setLatin1("<div class=\"entry\"><div class=\"rangeheading\">")
@@ -107,6 +108,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		}
 		
 		const QString key_renderedText = key->renderedText();
+// 		qWarning(key_renderedText.latin1());
 		
 		if (m_filterOptions.headings) {
 			AttributeValue::const_iterator it =

@@ -32,7 +32,7 @@ const QString CrossRefRendering::finishText( const QString& text, KeyTree& ) {
 
 const QString CrossRefRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
 	QString linkText;
-	
+
 	const bool isBible = module && (module->type() == CSwordModuleInfo::Bible);
 	CSwordVerseKey vk(module); //only valid for bible modules, i.e. isBible == true
 	if (isBible) {
@@ -72,7 +72,8 @@ const QString CrossRefRendering::entryLink( const KeyTreeItem& item, CSwordModul
 	}	
 	
   if (!linkText.isEmpty()) { //if we have a valid link text
-    return QString("<a href=\"%1\">%2</a>")
+//     qWarning("rendering");
+		return QString("<a href=\"%1\">%2</a>")
       .arg(
 				CReferenceManager::encodeHyperlink(
 					module->name(), 

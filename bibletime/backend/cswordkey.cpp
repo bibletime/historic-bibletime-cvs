@@ -79,7 +79,10 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
 			m_module->snap();
 			/* In lexicons make sure that our key (e.g. 123) was successfully set to the module, 
 			i.e. the module key contains this key (e.g. 0123 contains 123) */
-			if (!strstr(m_module->module()->getKey()->getText(), (const char*)key().utf8())) {
+			if ( strcasecmp(m_module->module()->getKey()->getText(), (const char*)key().utf8())
+				  && !strstr(m_module->module()->getKey()->getText(), (const char*)key().utf8())
+			) {
+				qWarning("return an empty key for %s", m_module->module()->getKey()->getText());
 				return QString::null;
 			}
 		}

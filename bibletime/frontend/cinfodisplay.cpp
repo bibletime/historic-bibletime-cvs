@@ -154,40 +154,64 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 			
 	CrossRefRendering renderer(dispOpts, filterOpts);
 	CTextRendering::KeyTree tree;
-		
-	VerseKey vk;
-	sword::ListKey refs = vk.ParseVerseList((const char*)data.utf8(), "Gen 1:1", true);
+
+// 	const bool isBible = true;
+	CSwordModuleInfo* module = CBTConfig::get(CBTConfig::standardBible);
 	
-	for (int i = 0; i < refs.Count(); ++i) {
-		SWKey* key = refs.getElement(i);
-		Q_ASSERT(key);
-		VerseKey* vk = dynamic_cast<VerseKey*>(key);		
-		
-		CTextRendering::KeyTreeItem::Settings settings (
-			false, 
-			CTextRendering::KeyTreeItem::Settings::CompleteShort
+	const int pos = data.find(":");
+	if (pos > 0) {
+		const QString moduleName = data.left(pos);
+// 		qWarning("found module %s", moduleName.latin1());
+		module = CPointers::backend()->findModuleByName(moduleName);
+		if (!module) {
+			module = CBTConfig::get(CBTConfig::standardBible);
+		}
+	}
+	
+	CTextRendering::KeyTreeItem::Settings settings (
+		false, 
+		CTextRendering::KeyTreeItem::Settings::CompleteShort
+	);
+	
+	if (module && (module->type() == CSwordModuleInfo::Bible)) {
+		VerseKey vk;
+		sword::ListKey refs = vk.ParseVerseList((const char*)data.utf8(), "Gen 1:1", true);
+
+		for (int i = 0; i < refs.Count(); ++i) {
+			SWKey* key = refs.getElement(i);
+			Q_ASSERT(key);
+			VerseKey* vk = dynamic_cast<VerseKey*>(key);
+			
+			CTextRendering::KeyTreeItem* i = 0;
+			if (vk && vk->isBoundSet()) { //render a range of keys
+				i = new CTextRendering::KeyTreeItem(
+					QString::fromUtf8(vk->LowerBound().getText()),
+					QString::fromUtf8(vk->UpperBound().getText()),
+					module,
+					settings
+				);
+			}
+			else {
+				i = new CTextRendering::KeyTreeItem(
+					QString::fromUtf8(key->getText()),
+					QString::fromUtf8(key->getText()),
+					module,
+					settings
+				);
+			}
+			
+			tree.append( i );
+		}	
+	}
+	else {
+		Q_ASSERT(module);
+		CTextRendering::KeyTreeItem* i = new CTextRendering::KeyTreeItem(
+			data.mid(pos+1),
+			module,
+			settings
 		);
-		
-		CTextRendering::KeyTreeItem* i = 0;
-		if (vk && vk->isBoundSet()) { //render a range of keys
-			i = new CTextRendering::KeyTreeItem(
-				QString::fromUtf8(vk->LowerBound().getText()),
-				QString::fromUtf8(vk->UpperBound().getText()),
-				CBTConfig::get(CBTConfig::standardBible), 
-				settings
-			);
-		}
-		else {
-			i = new CTextRendering::KeyTreeItem(
-				QString::fromUtf8(key->getText()),
-				QString::fromUtf8(key->getText()),
-				CBTConfig::get(CBTConfig::standardBible), 
-				settings
-			);
-		}
-		
 		tree.append( i );
-	}	
+	}
 	
 	return QString("<div class=\"crossrefinfo\"><h3>%1</h3><p>%2</p></div>")
 		.arg(i18n("Cross references"))
