@@ -1,6 +1,5 @@
 KDE_ICON = AUTO
 EXTRA_DIST=\
-hi32-action-bt_sync.png \
 hi32-action-bt_footnotes.png \
 hi32-action-bt_strongs.png \
 hi32-action-bt_cascade.png \
