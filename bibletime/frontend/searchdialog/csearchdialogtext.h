@@ -18,11 +18,10 @@
 #ifndef CSEARCHDIALOGTEXT_H
 #define CSEARCHDIALOGTEXT_H
 
-//BibleTime includes
-#include "../../structdef.h"
-
 //Qt includes
 #include <qwidget.h>
+
+class CImportantClasses;
 
 class QLineEdit;
 class QRadioButton;
@@ -30,19 +29,18 @@ class QCheckBox;
 class KProgress;
 class CSearchDialogScopeChooser;
 
+/** First tab page of the searchdialog.
+	* This class is the first tab pge of the searchdialog.
+	* It provides the interface to define the search text, the search scope and the modules to search in.
+	*/
 class CSearchDialogText : public QWidget
 {
     Q_OBJECT
-
 public:
   /**
   * The constructor of the search dialog search tab page.
   */
 	CSearchDialogText(CImportantClasses *IC, QWidget *parent = 0, const char *name = 0);
-  /**
-  * The destructor
-  */	
-	~CSearchDialogText();	
   /**
   * Returns the scopechooser
   */
@@ -50,45 +48,40 @@ public:
   /**
   * Returns the text the user want to search for
   */
-	QString getText();
+	const QString getText() const;
   /**
   * Sets the search text
   */
-	void setText(QString);
+	void setText(const QString);
   /**
   * Returns true if case sensitive search is enabled.
   */
-	bool isCaseSensitive();
+	const bool isCaseSensitive();
   /**
   * Returns the current type of search.
   */
-	int getSearchType();
+	const int getSearchType();
   /**
   * Updates the progress bar for the modulw which is searched at the moment
   */
-	void updateCurrentProgress(unsigned short int);
+	void updateCurrentProgress(const unsigned short int);
   /**
   * Updates the progres bar which gives the progress for the whole search
   */
-	void updateOverallProgress(unsigned short int);
+	void updateOverallProgress(const unsigned short int);
   /**
   * Resets the widgets.
   */
-  virtual void reset();
+  void reset();
 
-protected:
+private:
+	CImportantClasses* m_importantClasses;
 	QLineEdit 		*editSearchText;
 	QRadioButton	*radioMultipleWords;
 	QRadioButton	*radioExactSearch;
 	QRadioButton	*radioRegularExpression;
 	QCheckBox			*checkCaseSensitive;
-  /**
-  *
-  */	
 	KProgress			*currentProgressBar;
-  /**
-  *
-  */
 	KProgress			*overallProgressBar;
 };
 

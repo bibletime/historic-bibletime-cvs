@@ -44,20 +44,16 @@ void CSwordVerseKey::getData(){
 }
 
 /** Sets the key we use to the parameter. */
-bool CSwordVerseKey::setKey( QString key ){	
-	error = 0;
-	
-	VerseKey::operator = ((const char*)key.local8Bit());	
-//	m_module->module()->SetKey(*this->clone());
-	
+const bool CSwordVerseKey::setKey( QString key ){	
+	error = 0;	
+	VerseKey::operator = ((const char*)key.local8Bit());		
 	//clear data
-	m_data = QString::null;
-	
+	m_data = QString::null;	
 	return !(bool)error;
 }
 
 /**  */
-bool CSwordVerseKey::NextVerse(){	
+const bool CSwordVerseKey::NextVerse(){	
 	if (m_module->getType() == CSwordModuleInfo::Commentary) {
 		m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!
 		( *( m_module->module() ) )++;
@@ -70,7 +66,7 @@ bool CSwordVerseKey::NextVerse(){
 }
 
 /**  */
-bool CSwordVerseKey::PreviousVerse(){
+const bool CSwordVerseKey::PreviousVerse(){
 	if (m_module->getType() == CSwordModuleInfo::Commentary) {
 		
 		m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
@@ -84,8 +80,8 @@ bool CSwordVerseKey::PreviousVerse(){
 }
 
 /**  */
-bool CSwordVerseKey::NextChapter(){
-	//this is bad for commentary modules because they do not have all keys
+const bool CSwordVerseKey::NextChapter(){
+//this is bad for commentary modules because they do not have all keys
 //#warning Implement some special thing for commentaries	
 	Chapter(Chapter()+1);
 	
@@ -93,8 +89,8 @@ bool CSwordVerseKey::NextChapter(){
 }
 
 /**  */
-bool CSwordVerseKey::PreviousChapter(){
-	//this is bad for commentary modules because tey do not have all keys
+const bool CSwordVerseKey::PreviousChapter(){
+//this is bad for commentary modules because tey do not have all keys
 //#warning Implement some special thing for commentaries		
 	Chapter(Chapter()-1);
 	if (Chapter()<=0)
@@ -105,7 +101,7 @@ bool CSwordVerseKey::PreviousChapter(){
 }
 
 /**  */
-bool CSwordVerseKey::NextBook(){
+const bool CSwordVerseKey::NextBook(){
 	//this is bad for commentary modules because tey do not have all keys
 //#warning Implement some special thing for commentaries			
 	Book(Book()+1);
@@ -116,7 +112,7 @@ bool CSwordVerseKey::NextBook(){
 }
 
 /**  */
-bool CSwordVerseKey::PreviousBook(){
+const bool CSwordVerseKey::PreviousBook(){
 	//this is bad for commentary modules because tey do not have all keys
 //#warning Implement some special thing for commentaries		
 	if (Book()<=0)
@@ -128,7 +124,7 @@ bool CSwordVerseKey::PreviousBook(){
 }
 
 /** Returns the current book as Text, no as integer. */
-QString CSwordVerseKey::getBook() const {
+const QString CSwordVerseKey::getBook() const {
 	const int curBook = Book();
 	const int testament = Testament();
 

@@ -22,8 +22,10 @@
 #include "../../backend/sword_backend/cswordcommentarymoduleinfo.h"
 #include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
 #include "../../backend/sword_backend/cswordversekey.h"
+#include "../../backend/sword_backend/cswordbackend.h"
 #include "csearchdialog.h"
 #include "../ctoolclass.h"
+#include "../../structdef.h"
 
 //QT includes
 #include <qdatetime.h>
@@ -48,7 +50,10 @@
 #define LOWER_BORDER 10
 #define UPPER_BORDER 10
 
-#define BAR_WIDTH 9  //should be equal or bigger than the label font size
+#define ITEM_TEXT_SIZE 8
+#define LABEL_TEXT_SIZE 8
+
+#define BAR_WIDTH 12  //should be equal or bigger than the label font size
 //used for the shift between the bars
 #define BAR_DELTAX 4
 #define BAR_DELTAY 2
@@ -59,13 +64,10 @@
 #define LEGEND_DELTAY 5
 #define LEGEND_WIDTH 70
 
-#define ITEM_TEXT_SIZE 8
-#define LABEL_TEXT_SIZE 8
-
 CSearchDialogAnalysis::CSearchDialogAnalysis(QObject *parent, const char *name )
 	: QCanvas(parent,name) {
 
-  m_scaleFactor = 1.0;
+  m_scaleFactor = 0.0;
   m_legend = 0;
 	setBackgroundColor(Qt::white);
 	
@@ -73,7 +75,7 @@ CSearchDialogAnalysis::CSearchDialogAnalysis(QObject *parent, const char *name )
 	m_canvasItemList.setAutoDelete(true);
 	
 	connect(this, SIGNAL(resized()), SLOT(slotResized()));	
-//	resize(300,300);
+	resize(300,300);
 }
 
 CSearchDialogAnalysis::~CSearchDialogAnalysis(){
@@ -83,7 +85,6 @@ CSearchDialogAnalysis::~CSearchDialogAnalysis(){
 
 /** Starts the analysis of the search result. This should be called only once because QCanvas handles the updates automatically. */
 void CSearchDialogAnalysis::analyse(){
-	qDebug("void CSearchDialogAnalysis::analyse()");
   /**
 	* Steps of analysing our search result;
 	*	-Create the items for all available books ("Genesis" - "Revelation")
@@ -92,24 +93,22 @@ void CSearchDialogAnalysis::analyse(){
 	*			-Find out how many times we found the book
 	*			-Set the count to the items which belongs to the book
 	*/
-	QApplication::setOverrideCursor(Qt::waitCursor);
+	KApplication::setOverrideCursor(Qt::waitCursor);
 
-//temporary stuff
-  unsigned long int loops = 0;
-  QTime time = QTime::currentTime();
-	
-	
-	const unsigned int numberOfModules = m_moduleList.count();
-	unsigned int moduleIndex = 0;
+	const int numberOfModules = m_moduleList.count();
+	if (!numberOfModules)
+		return;
+		
+	int moduleIndex = 0;
 	
 	QString currentBook = QString::null;
 	QString oldBook     = QString::null;
 	
 	CSwordModuleInfo* currentModule = 0;
 	ListKey currentSearchResult;	
-  unsigned int itemsIndex = 0;
-  unsigned int itemsCount = 0;
-  unsigned int xPos = 0;
+  long int itemsIndex = 0;
+  int itemsCount = 0;
+  int xPos = 0;
 
 	CSearchDialogAnalysisItem* analysisItem = 0;	
 	QString dummyString = QString::null;
@@ -147,8 +146,9 @@ void CSearchDialogAnalysis::analyse(){
 	} while (currentBook != oldBook);
  	
  	currentBook = oldBook = QString::null;	
-	qWarning(QString("The initialization took from %1 until %2").arg(time.toString()).arg(QTime::currentTime().toString()).local8Bit());	
 	//now do the real analysis
+	m_scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(numberOfModules-1)*BAR_DELTAY)
+	                    /(double)m_maxCount);	
 	for (moduleIndex=0,currentModule = m_moduleList.first();currentModule;currentModule=m_moduleList.next(),++moduleIndex) {		
 		currentSearchResult = currentModule->getSearchResult();
 		if (!currentSearchResult.Count())
@@ -162,8 +162,6 @@ void CSearchDialogAnalysis::analyse(){
 		
 		while (itemsIndex < currentSearchResult.Count()) {
 			KApplication::kApplication()->processEvents(10);
-			++loops;
-			
 			currentKey.setKey(QString::fromLocal8Bit((const char*)*currentSearchResult.GetElement(itemsIndex)));
 			oldBook = currentBook;
 			currentBook = currentKey.getBook();
@@ -189,26 +187,15 @@ void CSearchDialogAnalysis::analyse(){
 				m_maxCount = (itemsCount > m_maxCount) ? itemsCount : m_maxCount;				
 			} //if
 		}	// if		
-		qWarning(QString("%1 loops").arg(loops).local8Bit());
-		QTime t = QTime::currentTime();
-		qWarning(time.toString().local8Bit());
-		qWarning(t.toString().local8Bit());
 	} // for
-
-	m_scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(numberOfModules-1)*BAR_DELTAY)
-	                    /(double)m_maxCount);
-	
 	resize( xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );
 	update();
-	QApplication::restoreOverrideCursor();	
-	
-	qWarning(QString("The whole analysis was done from %1 until %2").arg(time.toString()).arg(QTime::currentTime().toString()).local8Bit());
+	KApplication::restoreOverrideCursor();	
 }
 
 /** Sets te module list used for the analysis. */
 void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
-	m_moduleList.clear();
-	
+	m_moduleList.clear();	
 	for (modules->first(); modules->current(); modules->next())
 		if ( dynamic_cast<CSwordBibleModuleInfo*>(modules->current()) )//a Bible or an commentary
 			m_moduleList.append(modules->current());
@@ -216,9 +203,12 @@ void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
 
 /** Sets back the items and deletes things to cleanup */
 void CSearchDialogAnalysis::reset(){
+	m_scaleFactor = 0.0;
 	m_canvasItemList.clear();
 	delete m_legend;
-	m_legend = 0;
+	m_legend = 0;	
+	
+	
 	update();
 }
 
@@ -261,7 +251,7 @@ QColor CSearchDialogAnalysis::getColor(int index){
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const unsigned int moduleCount, const QString &bookname, double *scaleFactor)
+CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int moduleCount, const QString &bookname, double *scaleFactor)
 	: QCanvasRectangle(parent) {
 	
 	m_scaleFactor = scaleFactor;
@@ -269,13 +259,13 @@ CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const unsi
 	m_bookName = bookname;
 	
  	m_resultCountArray.resize(m_moduleCount);
- 	unsigned int index = 0;
+ 	int index = 0;
  	for (index = 0; index < m_moduleCount; index++)
  		m_resultCountArray[index] = 0;
 }
 
 /** Sets the resultcount of this item for the given module */
-void CSearchDialogAnalysisItem::setCountForModule( const unsigned int moduleIndex, const int count) {
+void CSearchDialogAnalysisItem::setCountForModule( const int moduleIndex, const int count) {
 	m_resultCountArray[moduleIndex] = count;
 }
 
@@ -291,9 +281,9 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
 	* We have to paint so many bars as we have modules available (we use m_moduleCount)
 	* We paint inside the area which is given by height and widt of this rectangle item
 	*/	
-	unsigned int index = 0;	
-	unsigned int drawn = 0;
-	unsigned int Value = 0;
+	int index = 0;	
+	int drawn = 0;
+	int Value = 0;
 	
 	//find out the biggest value
 	for (index=0;index < m_moduleCount; index++)
@@ -312,7 +302,6 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
     		painter.fillRect(r, QBrush(CSearchDialogAnalysis::getColor(index)) );
     		painter.drawRect(r);
     		drawn++;
-    		//break;
       }
     }
     //finds the next smaller value
@@ -322,15 +311,19 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
    	    newValue = m_resultCountArray[index];
    	Value = newValue;
 	}		
-	painter.save();
-	
+	painter.save();	
 	painter.translate(x(),height()+y()-BAR_LOWER_BORDER);
 	painter.rotate(90);
-	QPoint p(5,-(double)(width()-painter.fontMetrics().height())/(double)2 );
-	painter.drawText(p, m_bookName);
-		
-	painter.restore();
-	
+	QPoint p(5,-(double)(width()-painter.fontMetrics().height())/(double)2);
+	painter.drawText(p, m_bookName);		
+	painter.restore();	
+}
+
+/** Returns the width of this item. */
+int CSearchDialogAnalysisItem::width(){
+	const int w = m_moduleCount*(m_moduleCount >1 ? BAR_WIDTH - BAR_DELTAX : BAR_WIDTH);	
+//	qWarning(QString::number(w).local8Bit());
+	return w;
 }
 
 //------------------------------------------------------------------
@@ -364,8 +357,7 @@ CSearchDialogAnalysisLegendItem::CSearchDialogAnalysisLegendItem(QCanvas *parent
 }
 
 /** Reimplementation. Draws the content of this item. */
-void CSearchDialogAnalysisLegendItem::draw (QPainter& painter) {
-	
+void CSearchDialogAnalysisLegendItem::draw (QPainter& painter) {	
  	painter.save();
  		
 	setPen( QPen(black,2) );
@@ -391,12 +383,9 @@ void CSearchDialogAnalysisLegendItem::draw (QPainter& painter) {
  		painter.drawRect(r);
  		
  		QPoint p3( p2.x() + LEGEND_INNER_BORDER, p2.y() );
-  	painter.drawText(p3, (QString) m_moduleList->at(index)->module()->Name() );
+  	painter.drawText(p3, QString(m_moduleList->at(index)->module()->Name()) );
  	}
+
   painter.restore();
-
-
 }
-
-
 

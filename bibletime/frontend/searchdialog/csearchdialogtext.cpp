@@ -19,7 +19,7 @@
 //BibleTime includes
 #include "csearchdialogtext.h"
 #include "csearchdialogscope.h"
-
+#include "../../structdef.h"
 #include "../../backend/sword_backend/cswordmodulesearch.h"
 #include "../keychooser/ckeychooser.h"
 
@@ -42,9 +42,11 @@
 #include <klocale.h>
 
 
-CSearchDialogText::CSearchDialogText(CImportantClasses *IC, QWidget *parent, const char *name)
+CSearchDialogText::CSearchDialogText(CImportantClasses *importantClasses, QWidget *parent, const char *name)
 						: QWidget(parent, name, 48)
 {
+	m_importantClasses = importantClasses;
+	
 	/* the first main Group - search text, options etc.*/
 	QGroupBox *textBox = new QGroupBox(2,Qt::Vertical,i18n("Search properties"),this,"textBox");
 
@@ -86,7 +88,6 @@ CSearchDialogText::CSearchDialogText(CImportantClasses *IC, QWidget *parent, con
 	
   QGroupBox *scopeBox = new QGroupBox(2,Qt::Horizontal,i18n("Search scope"),this,"scopeBox");
   scopeChooser = new CSearchDialogScopeChooser( scopeBox, "scopeChooser");
-  ASSERT(scopeChooser);
 	
 	/*the third main groupbox - progress indication */
 	QGroupBox *progressBox = new QGroupBox(2,Qt::Horizontal,i18n("Search progress"),this,"progressBox");
@@ -94,8 +95,8 @@ CSearchDialogText::CSearchDialogText(CImportantClasses *IC, QWidget *parent, con
 	/* manages the 2 buttons (vertically)*/
 	QVBox *buttonBox = new QVBox(progressBox,"currentBox");
 
-	/*QLabel *currentProgressLabel =*/ (void)new QLabel(editSearchText,i18n("Current module:"),buttonBox);
-	/*QLabel *overallProgressLabel =*/(void)new QLabel(editSearchText,i18n("Overall:"),buttonBox);
+	(void)new QLabel(editSearchText,i18n("Current module:"),buttonBox);
+	(void)new QLabel(editSearchText,i18n("Overall:"),buttonBox);
 
 	/* manages the 2 bars (vertically) */
 	QVBox *barBox = new QVBox(progressBox,"overallBox");
@@ -103,7 +104,7 @@ CSearchDialogText::CSearchDialogText(CImportantClasses *IC, QWidget *parent, con
 	overallProgressBar = new KProgress(0,100,0,Horizontal,barBox, "overallProgressBar");
 
 	/* the main layout for the 3 groupboxes (vertical)*/
-	QVBoxLayout* layout_1 = new QVBoxLayout( this /*, QBoxLayout::TopToBottom, 5*/ );
+	QVBoxLayout* layout_1 = new QVBoxLayout( this );
 	layout_1->setAutoAdd(false);
 	
 	textBox->setFixedHeight( textBox->sizeHint().height() );	
@@ -116,23 +117,19 @@ CSearchDialogText::CSearchDialogText(CImportantClasses *IC, QWidget *parent, con
 	layout_1->addWidget( progressBox,1,Qt::AlignBottom );
 }
 
-CSearchDialogText::~CSearchDialogText()
-{
-}
-
-QString CSearchDialogText::getText() {
+const QString CSearchDialogText::getText() const {
 	return editSearchText->text();
 }
 
-void CSearchDialogText::setText(QString text){
-	editSearchText->QLineEdit::setText(text);
+void CSearchDialogText::setText(const QString text){
+	editSearchText->setText(text);
 }
 
-bool CSearchDialogText::isCaseSensitive() {
+const bool CSearchDialogText::isCaseSensitive() {
 	return checkCaseSensitive->isChecked();
 }
 
-int CSearchDialogText::getSearchType() {
+const int CSearchDialogText::getSearchType() {
 	int ret = CSwordModuleSearch::multipleWords;	//"multiple words" is standard
 	if (radioExactSearch->isChecked()) {
 		ret = CSwordModuleSearch::exactPhrase;
@@ -143,11 +140,11 @@ int CSearchDialogText::getSearchType() {
 	return ret;
 }
 
-void CSearchDialogText::updateCurrentProgress(unsigned short int percent){
+void CSearchDialogText::updateCurrentProgress(const unsigned short int percent){
 	currentProgressBar->setValue(percent);
 }
 
-void CSearchDialogText::updateOverallProgress(unsigned short int percent){
+void CSearchDialogText::updateOverallProgress(const unsigned short int percent){
 	overallProgressBar->setValue(percent);
 }
 

@@ -91,20 +91,18 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
 }
 
 ListKey CSearchDialogScopeChooser::getScope(){
-	qDebug("CSearchDialogScopeChooser::getScope()");
 	return VerseKey().ParseVerseList( config->readEntry( RangeChooser->currentText() ).local8Bit(), "Genesis 1:1", true);
 }
 
-CSwordModuleSearch::scopeType CSearchDialogScopeChooser::getScopeType(){
-  qDebug("CSwordModuleSearch::scopeType CSearchDialogScopeChooser::getScopeType()");
+const CSwordModuleSearch::scopeType CSearchDialogScopeChooser::getScopeType() const {
   if (noScope->isChecked())         return CSwordModuleSearch::Scope_NoScope;
   if (lastResultScope->isChecked()) return CSwordModuleSearch::Scope_LastSearch;
   if (useScope->isChecked())        return CSwordModuleSearch::Scope_Bounds;
+
   return CSwordModuleSearch::Scope_NoScope;
 }
 
 void CSearchDialogScopeChooser::editButtonClicked(){
-	qDebug("CSearchDialogScopeChooser::editButtonClicked()");
   CSearchDialogScopeEdit *dialog = new CSearchDialogScopeEdit(this->config, this, "ranges dialog");
   dialog->exec();
 
@@ -118,7 +116,6 @@ void CSearchDialogScopeChooser::editButtonClicked(){
 	  if (it.key() != QString::null)
 		  RangeChooser->insertItem( it.key() );
 	}
-
 }
 
 /** No descriptions */
@@ -136,8 +133,7 @@ void CSearchDialogScopeChooser::scopeChanged(){
 }
 
 
-CSearchDialogScopeChooser::~CSearchDialogScopeChooser(){	
-	qDebug("destructor of CSearchDialogScopeChooser");	
+CSearchDialogScopeChooser::~CSearchDialogScopeChooser(){
 	if (config) {
 		config->sync();
 		delete config;
@@ -150,7 +146,7 @@ CSearchDialogScopeEdit::~CSearchDialogScopeEdit(){
 
 CSearchDialogScopeEdit::CSearchDialogScopeEdit(KSimpleConfig *parentconfig, QWidget *parent, const char *name ) : QDialog(parent,name,/*modal*/true) {
 
-  QGridLayout*	Layout = new QGridLayout(this, 5, 5, /*border*/5, /*space*/0);
+  QGridLayout*	Layout = new QGridLayout(this, 5, 5, 5, 0);
 
   RangeChooser = new QComboBox(this);
   RangeChooser->setEnabled(false);
@@ -289,6 +285,7 @@ void CSearchDialogScopeEdit::DeleteButtonClicked(void){
 void CSearchDialogScopeEdit::RangeChooserActivated(int index){
 	QString value = config->readEntry(RangeChooser->text(index));
   RangeEdit->setText(value);
+
   //a workaround, maybe emitted twice, which is no problem
   emit RangeEditTextChanged(value);
 }
@@ -310,5 +307,6 @@ void CSearchDialogScopeEdit::RangeEditTextChanged(const QString &text){
 
 /** No descriptions */
 void CSearchDialogScopeEdit::closeButtonClicked(){
-  delete this;
+	//delete this //this is bad, delete this should be never used	- too many things could fail
+	close();
 }

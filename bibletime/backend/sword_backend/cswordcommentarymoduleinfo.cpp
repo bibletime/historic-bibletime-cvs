@@ -27,6 +27,6 @@ CSwordCommentaryModuleInfo::~CSwordCommentaryModuleInfo(){
 }
 
 /** No descriptions */
-CSwordModuleInfo::type CSwordCommentaryModuleInfo::getType(){
+const CSwordModuleInfo::type CSwordCommentaryModuleInfo::getType(){
 	return CSwordModuleInfo::Commentary;
 }

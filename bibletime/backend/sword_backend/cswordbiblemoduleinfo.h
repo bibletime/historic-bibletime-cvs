@@ -51,12 +51,12 @@ public:
  	* @param chapter The chapter we should use
  	* @return The number of verses for the given book and chapter
  	*/
-  virtual unsigned int getVerseCount( const unsigned int book, const unsigned int chapter ) const;
+  virtual const unsigned int getVerseCount( const unsigned int book, const unsigned int chapter ) const;
   /**
  	* @return The number of available chapters of the given book.
  	* @return The number of chapters for the given book
  	*/
-  virtual unsigned int getChapterCount( const unsigned int book ) const;
+  virtual const unsigned int getChapterCount( const unsigned int book ) const;
   /** Return all book of this module.
   * @return A QStringList containing the books which are available in this module.
   */
@@ -64,11 +64,11 @@ public:
   /**
   * Reimplementation, Returns the type
   */
-  virtual CSwordModuleInfo::type getType();
+  virtual const CSwordModuleInfo::type getType();
   /**
   * @return the book number, values starting with 1; 0 if not found
   */
-  unsigned int getBookNumber(const QString &book);
+  const unsigned int getBookNumber(const QString &book);
 
 private:
 	QStringList*	m_bookList;	//This booklist is cached

@@ -38,15 +38,12 @@
 #include <rtfhtml.h>
 
 CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module ){
-//	m_cache = 0;
 	m_backend = backend;
 	m_module = module;
 }
 
 CSwordModuleInfo::~CSwordModuleInfo(){
 	m_searchResult.ClearList();
-/*	if (m_cache)
-		delete m_cache;*/
 }
 
 /** Returns the module object so all objects can access the module. */
@@ -60,7 +57,7 @@ CSwordBackend* CSwordModuleInfo::backend(){
 }
 
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/
-CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString unlockKey ){
+const CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString unlockKey ){
 	CSwordModuleInfo::unlockErrorCode	ret = CSwordModuleInfo::noError;
   (*m_backend->localConfig())[m_module->Name()]["CipherKey"] = unlockKey.local8Bit();	
 	m_backend->setCipherKey( (const char*)m_module->Name(), unlockKey.local8Bit());
@@ -70,7 +67,7 @@ CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString unlock
 }
 
 /** Returns the display object for this module. */
-CHTMLEntryDisplay* CSwordModuleInfo::getDisplay(){
+CHTMLEntryDisplay* CSwordModuleInfo::getDisplay() {
 	CHTMLEntryDisplay* ret = 0;
 	if (m_module->Disp()) {
 		if (dynamic_cast<CHTMLEntryDisplay*>(m_module->Disp()))
@@ -82,14 +79,14 @@ CHTMLEntryDisplay* CSwordModuleInfo::getDisplay(){
 }
 
 /** This function returns true if this module is locked, otherwise return false. */
-bool CSwordModuleInfo::isLocked() {
+const bool CSwordModuleInfo::isLocked() {
 	if (isEncrypted() && getCipherKey().isEmpty())
 		return true;
 	return false;
 }
 
 /** This functions returns true if this module is encrypted (locked or unlocked). */
-bool CSwordModuleInfo::isEncrypted() const{
+const bool CSwordModuleInfo::isEncrypted() const {
 	/* if we have the CipherKey entry the module
 		* is encrypted but not necessary locked
 		*/		
@@ -102,7 +99,7 @@ bool CSwordModuleInfo::isEncrypted() const{
 
 
 /** Returns the cipher key if the module is encrypted, if the key is not set return QString::empty, if the module is not encrypted retur QString::null. */
-QString CSwordModuleInfo::getCipherKey() const {
+const QString CSwordModuleInfo::getCipherKey() const {
 	if (!isEncrypted())
 		return QString::null;
 		
@@ -117,12 +114,12 @@ QString CSwordModuleInfo::getCipherKey() const {
 }
 
 /** Returns the description of the module */
-QString CSwordModuleInfo::getDescription() const {
+const QString CSwordModuleInfo::getDescription() const {
 	return QString::fromLocal8Bit( m_module->Description() );
 }
 
 /** Returns the about information of this module. */
-QString CSwordModuleInfo::getAboutInformation() const {
+const QString CSwordModuleInfo::getAboutInformation() const {
 	const string about = (*m_backend->config)[m_module->Name()]["About"];
 	
 	QString ret = QString::null;
@@ -139,7 +136,7 @@ QString CSwordModuleInfo::getAboutInformation() const {
 }
 
 /** Returns the version number of this module. */
-QString CSwordModuleInfo::getVersion() const{
+const QString CSwordModuleInfo::getVersion() const{
 	const string version = (*m_backend->config)[m_module->Name()]["Version"];
 	if (strlen( version.c_str() ))
 		return QString::fromLocal8Bit( version.c_str() );
@@ -148,7 +145,7 @@ QString CSwordModuleInfo::getVersion() const{
 }
 
 /** Returns the path to this module. */
-QString CSwordModuleInfo::getPath() const {
+const QString CSwordModuleInfo::getPath() const {
 	const string path = (*m_backend->config)[m_module->Name()]["DataPath"];
 	if (strlen(path.c_str()))
 		return QString::fromLocal8Bit(path.c_str());
@@ -157,7 +154,7 @@ QString CSwordModuleInfo::getPath() const {
 }
 
 /** Returns true if something was found, otherwise return false. */
-bool CSwordModuleInfo::search( const QString searchedText, int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
+const bool CSwordModuleInfo::search( const QString searchedText, int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
 	int searchType = 0;
  	int searchFlags = REG_ICASE;
 	//setup variables required for Sword
@@ -196,7 +193,7 @@ bool CSwordModuleInfo::search( const QString searchedText, int searchOptions, Li
 }
 
 /** Returns the last search result for this module. */
-ListKey& CSwordModuleInfo::getSearchResult() {
+const ListKey& CSwordModuleInfo::getSearchResult() {
 	return m_searchResult;
 }
 
@@ -211,7 +208,7 @@ void CSwordModuleInfo::interruptSearch(){
 }
 
 /** Returns true if the given type i supported by this module. */
-bool CSwordModuleInfo::supportsFeature( CSwordBackend::moduleOptions type){
+const bool CSwordModuleInfo::supportsFeature( CSwordBackend::moduleOptions type){
 	bool ret = false;
 	
 	ConfigEntMap config = m_backend->config->Sections.find( m_module->Name() )->second;	
@@ -240,7 +237,7 @@ bool CSwordModuleInfo::supportsFeature( CSwordBackend::moduleOptions type){
 }
 
 /** Used to find out the module specific font */
-QFont CSwordModuleInfo::getFont(){
+const QFont CSwordModuleInfo::getFont(){
   const string familyString = (*m_backend->localConfig())[m_module->Name()]["Font"];
   const string sizeString = (*m_backend->localConfig())[m_module->Name()]["Font size"];
 	
@@ -265,7 +262,7 @@ void CSwordModuleInfo::setFont(const QFont &font){
 }
 
 /** Used to find out if the module has a specific font */
-bool CSwordModuleInfo::hasFont(){
+const bool CSwordModuleInfo::hasFont(){
 	const string font = (*m_backend->config)[m_module->Name()]["Font"];
 	if (strlen(font.c_str()))
 		return true;
@@ -273,6 +270,6 @@ bool CSwordModuleInfo::hasFont(){
 }
 
 /** Returns the type of the module. */
-CSwordModuleInfo::type CSwordModuleInfo::getType(){
+const CSwordModuleInfo::type CSwordModuleInfo::getType(){
 	return CSwordModuleInfo::Unknown;
 }

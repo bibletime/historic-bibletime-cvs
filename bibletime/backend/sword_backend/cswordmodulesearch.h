@@ -69,7 +69,7 @@ public:
   /**
  	* Starts the search for the search text.
  	*/
-  bool startSearch();
+  const bool startSearch();
   /**
  	* This function sets the modules which should be searched.
  	*/
@@ -93,11 +93,11 @@ public:
   /**
  	* @return "true" if in the last search the searcher found items, if no items were found return "false"
  	*/
-  bool foundItems();
+  const bool foundItems();
   /**
  	* Returns true if the search is still in progress, otherwise return false.
  	*/
-  bool isSearching();
+  const bool isSearching();
   /**
  	* This functions starts the search: First it creates a new thread for the search and it calles the the
  	* function to start the search.
@@ -111,7 +111,7 @@ public:
   /**
  	* Returns the percent for the given type.
  	*/
-  int getPercent( percentType type );
+  const int getPercent( percentType type );
 	void percentUpdate(char percent, void *p);
 
 protected:

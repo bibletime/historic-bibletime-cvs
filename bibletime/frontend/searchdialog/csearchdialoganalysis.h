@@ -20,6 +20,7 @@
 
 //BibleTime includes
 #include "../../backend/sword_backend/cswordmoduleinfo.h"
+#include "../../backend/sword_backend/cswordbackend.h"
 
 //Qt includes
 #include <qwidget.h>
@@ -32,89 +33,83 @@ class CSearchDialogAnalysisItem;
 class CSearchDialogAnalysisLegendItem;
 
 /**
-	* The widget which provides the graphical search analysis of the search results
+	* CSearchDialogAnaylsis shows the graphical analysis of the search result.
   * @author The BibleTime Team
   */
 class CSearchDialogAnalysis : public QCanvas {
    Q_OBJECT
-
 public:	
 	CSearchDialogAnalysis(QObject *parent=0, const char *name=0);
   ~CSearchDialogAnalysis();
   /**
-  	* Sets te module list used for the analysis.
-  	*/
-  void setModuleList(ListCSwordModuleInfo* modules);
+  * Sets te module list used for the analysis.
+  */
+  void setModuleList(ListCSwordModuleInfo*);
   /**
-  	* Starts the analysis of the search result.
-		* This should be called only once because
-		*	QCanvas handles the updates automatically.
-		*/
+  * Starts the analysis of the search result.
+	* This should be called only once because
+	*	QCanvas handles the updates automatically.
+	*/
   void analyse();
   /**
-  	* Sets back the items and deletes things to cleanup
-  	*/
+  * Sets back the items and deletes things to cleanup
+  */
   void reset();
-  /** This function returns a color for each module */
+  /**
+  * This function returns a color for each module
+  * @return The color at position index in the list
+  */
   static QColor getColor(int index);
+
+protected slots: // Protected slots
+  /**
+  * No descriptions
+  */
+  void slotResized();
+
 private:
 	ListCSwordModuleInfo m_moduleList;
  	QDict<CSearchDialogAnalysisItem> m_canvasItemList;
-//  int m_maxTextWidth;
   int m_maxCount;
   double m_scaleFactor;
-  CSearchDialogAnalysisLegendItem* m_legend;
- 	
-protected slots: // Protected slots
-  /** No descriptions */
-  void slotResized();
+  CSearchDialogAnalysisLegendItem* m_legend; 	
 };
 
 
-
 //----------------------------------------------------------
 //----------------------------------------------------------
 
+/** Paints the bars for one book for one or more modules
+	*
+	*/
 class CSearchDialogAnalysisItem : public QCanvasRectangle  {
 public:	
 	/**
-		*
-		*/
-	CSearchDialogAnalysisItem(QCanvas* parent, const unsigned int moduleCount, const QString& bookname, double *scaleFactor);
+	* Standard constructor.
+	*/
+	CSearchDialogAnalysisItem(QCanvas* parent, const int moduleCount, const QString& bookname, double *scaleFactor);
   /**
-  	* Sets the resultcount of this item
-  	*/
-  void setCountForModule( const unsigned int moduleIndex, const int count);
-  /**
-  	* Sets the scale factor we use to scale the height of
-  	* this item according to the set height.
-  	*/
-protected:
-  /**
-  	* Reimplementation.
-  	*	Draws the content of this item.
-  	*/
-  virtual void draw (QPainter & painter);
-	
+  * Sets the resultcount of this item
+  */
+  void setCountForModule( const int moduleIndex, const int count);
+  /** Returns thw width of this item. */
+  virtual int width();
+  	
 private:
+  virtual void draw (QPainter & painter);	
 	double *m_scaleFactor;
 	QString m_bookName;
- 	unsigned int m_moduleCount;
- 	QArray<unsigned int> m_resultCountArray;
+ 	int m_moduleCount;
+ 	QArray<int> m_resultCountArray;
 };
 
 class CSearchDialogAnalysisLegendItem : public QCanvasRectangle  {
+
 public:	
 	CSearchDialogAnalysisLegendItem(QCanvas* parent, ListCSwordModuleInfo* list );
 
-protected:
-  /**
- 	* Reimplementation.
- 	*	Draws the content of this item.
- 	*/
-  virtual void draw (QPainter & painter);
-
 private:
+  virtual void draw (QPainter & painter);
   ListCSwordModuleInfo* m_moduleList;
 };
 
@@ -124,17 +119,21 @@ class CSearchDialogAnalysisView : public QCanvasView  {
    Q_OBJECT
 public:
 	/**
-		*
-		*/
+	* Standard constructor
+	*/
 	CSearchDialogAnalysisView(QCanvas* canvas, QWidget* parent);
   /**
-  	* Returns the sizeHint for this view
-  	* We give back the size of the parent widgetas default.
-  	* This is a reimplementation from QCanvasView::sizeHint().
-  	*/
+  * Returns the sizeHint for this view
+  * We give back the size of the parent widgetas default.
+  * This is a reimplementation from QCanvasView::sizeHint().
+  */
   virtual QSize sizeHint();	
-  /** No descriptions */
-  virtual void resizeEvent( QResizeEvent* e);
+
+protected:
+  /**
+  * Reimplementation.
+  */
+  virtual void resizeEvent(QResizeEvent* e);
 };
 
 

@@ -80,55 +80,55 @@ public:
   *
   * This will also set the position of the module to the new key.
   */
-  bool setKey( QString key );
+  const bool setKey( QString key );
   /**
   * Gets the key with the next verse in comparision with the current verse and stores
   * the key in the parameter key.
   *
   * If this object and the parameter are the same we'll directly modify this key object.
   */
-  bool NextVerse();
+  const bool NextVerse();
   /**
   * Gets the key with the previous verse in comparision with the current verse and stores
   * the key in the parameter key.
   *
   * If this object and the parameter are the same we'll directly modify this key object.
   */
-  bool PreviousVerse();
+  const bool PreviousVerse();
   /**
   * Gets the key with the next chapter in comparision with the current chapter and stores
   * the key in the parameter key.
   *
   * If this object and the parameter are the same we'll directly modify this key object.
   */
-  bool NextChapter();
+  const bool NextChapter();
   /**
   * Gets the key with the previous chapter in comparision with the current chapter and stores
   * the key in the parameter key.
   * If this object and the parameter are the same we'll directly modify this key object.
   */
-  bool PreviousChapter();
+  const bool PreviousChapter();
   /**
   * Gets the key with the next book in comparision with the current book and stores
   * the key in the parameter key.
   *
   * If this object and the parameter are the same we'll directly modify this key object.
   */
-  bool NextBook();
+  const bool NextBook();
   /**
   * Gets the key with the previous chapter in comparision with the current book and stores
   * the key in the parameter key.
   *
   * If this object and the parameter are the same we'll directly modify this key object.
   */
-  bool PreviousBook();
+  const bool PreviousBook();
   /**
   * This functions returns the current book as localised text, not as book numer.
   *
   * Use "char Book()" to retrieve the book number of the current book.
   * @return The name of the current book
   */
-  QString getBook() const;
+  const QString getBook() const;
   /**
   * Sets the book for this key. It gets a text parameter, not a booknumber.
   *

@@ -22,8 +22,8 @@
 
 #include "../../backend/sword_backend/cswordmoduleinfo.h"
 #include "../chtmlwidget.h"
-#include "../../structdef.h"
 
+class CImportantClasses;
 class CSearchDialog;
 class CSearchDialogResultModuleView;
 class CSearchDialogResultView;
@@ -33,25 +33,32 @@ class CSearchDialogResult : public QWidget
 {
   Q_OBJECT
 	friend class CSearchDialog;
-
 public:
+	/**
+	* Standard constructor
+	*/
 	CSearchDialogResult(CImportantClasses* importantClasses, QWidget *parent = 0, const char *name = NULL);
-	~CSearchDialogResult();
-
+	/**
+	* Sets the module list and clears the result list.
+	*/
 	void setModuleList(ListCSwordModuleInfo* moduleList);
+	/**
+	* Removes the listed module items and the current search result from the lists
+	*/
 	void clearResult();
 
 public slots:
+	/**
+	* Updates the preview using the parameter as new key.
+	*/
 	void updatePreview(QString);
-
-protected:
-	CSearchDialogResultModuleView *resultModuleTree;
-	CSearchDialogResultView	*resultTree;
-	CHTMLWidget	*html_widget;
 
 private:
 	ListCSwordModuleInfo* moduleList;
-	CImportantClasses*	m_important;
+	CImportantClasses* m_important;
+	CSearchDialogResultModuleView *resultModuleTree;
+	CSearchDialogResultView	*resultTree;
+	CHTMLWidget	*html_widget;
 };
 
 

@@ -35,10 +35,6 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 
 /** Returns the entries of the module. */
 QStringList* CSwordLexiconModuleInfo::getEntries(){
-	qDebug("CSwordLexiconModuleInfo::getEntries()");
-	ASSERT(module());
-	ASSERT(m_entryList);
-	
 	if (!m_entryList) {
 		m_entryList = new QStringList();
 		
@@ -64,11 +60,10 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 		} while (counter < 5 );
 		module()->SetKey(" ");
 	}
-	ASSERT(m_entryList);
 	return m_entryList;
 }
 
 /** Reimplementation. */
-CSwordModuleInfo::type CSwordLexiconModuleInfo::getType(){
+const CSwordModuleInfo::type CSwordLexiconModuleInfo::getType(){
 	return CSwordModuleInfo::Lexicon;
 }

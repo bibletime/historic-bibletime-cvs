@@ -49,7 +49,7 @@ public:
   /**
   * Reimplementation.
   */
-  virtual CSwordModuleInfo::type getType();
+  virtual const CSwordModuleInfo::type getType();
 
 private:
 	/**

@@ -53,7 +53,7 @@ public:
 	CSearchDialogScopeChooser(QWidget *parent, const char *name=0);
 	~CSearchDialogScopeChooser();
   ListKey getScope();
-  CSwordModuleSearch::scopeType getScopeType();
+  const CSwordModuleSearch::scopeType getScopeType() const;
 
 private:
   QComboBox*  RangeChooser;
@@ -65,10 +65,8 @@ private:
   QPushButton *editButton;
   QLabel *RangeLabel;
 
-
 private slots:
   void editButtonClicked();
-  /** No descriptions */
   void scopeChanged();
 };
 
@@ -78,12 +76,6 @@ public:
 	CSearchDialogScopeEdit(KSimpleConfig *config, QWidget *parent, const char *name=0);
 	~CSearchDialogScopeEdit();
 
-public slots:
-  void NewButtonClicked(void);
-  void DeleteButtonClicked(void);
-  void RangeChooserActivated(int);
-  void RangeEditTextChanged(const QString &);
-
 private:
   QComboBox*  RangeChooser;
   QLineEdit*  RangeEdit;
@@ -92,10 +84,12 @@ private:
   QPushButton* newButton;
   QPushButton* deleteButton;
   QPushButton* closeButton;
+
 private slots: // Private slots
-  /**
-  * No descriptions
-  */
+  void NewButtonClicked(void);
+  void DeleteButtonClicked(void);
+  void RangeChooserActivated(int);
+  void RangeEditTextChanged(const QString &);
   void closeButtonClicked();
 };
 

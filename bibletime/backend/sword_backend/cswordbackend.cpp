@@ -62,8 +62,6 @@ CSwordBackend::CSwordBackend() : SWMgr(0,0,false) {
 }
 
 CSwordBackend::~CSwordBackend(){
-	qDebug("Destructor of CSwordBackend");
-		
 	//delete filters
 	if (m_gbfFilter)
 		delete m_gbfFilter;
@@ -91,7 +89,7 @@ CSwordBackend::~CSwordBackend(){
 		m_entryDisplay = new CHTMLEntryDisplay();
 		
 /** Initializes the Sword modules. */
-CSwordBackend::errorCode CSwordBackend::initModules() {
+const CSwordBackend::errorCode CSwordBackend::initModules() {
 	ModMap::iterator it;
 	SWModule*	curMod = 0;
 	CSwordModuleInfo* newModule = 0;
@@ -190,7 +188,7 @@ ListCSwordModuleInfo* CSwordBackend::getModuleList(){
 }
 
 /** This function deinitializes the modules and deletes them. */
-bool CSwordBackend::shutdownModules(){
+const bool CSwordBackend::shutdownModules(){
 	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
 		if (m_moduleList->current()) {
 			CSwordModuleInfo* current = m_moduleList->current();
@@ -204,7 +202,7 @@ bool CSwordBackend::shutdownModules(){
 }
 
 /** Returns true if the given option is enabled. */
-bool CSwordBackend::isOptionEnabled( CSwordBackend::moduleOptions type){
+const bool CSwordBackend::isOptionEnabled( CSwordBackend::moduleOptions type){
 	char *optionName = 0;
 	switch (type) {
 		case CSwordBackend::footnotes:
@@ -228,13 +226,6 @@ void CSwordBackend::setOption( CSwordBackend::moduleOptions type, bool enable){
 			optionName = (char*)"Strong's Numbers";
 			break;			
 	}	
-	//we have to clear the module cache of the modules which support the option
-	/*for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
-		if (m_moduleList->current()->supportsFeature(type)) {
-			m_moduleList->current()->clearCache();
-		}
-	}*/
-	
 	setGlobalOption(optionName, enable ? "On": "Off");
 }
 
@@ -312,14 +303,14 @@ void CSwordBackend::Load() {
 }
 
 /** Returns the current language of the international booknames. */
-QString CSwordBackend::getCurrentBooknameLanguage(){
+const QString CSwordBackend::getCurrentBooknameLanguage(){
 	if (LocaleMgr::systemLocaleMgr.getDefaultLocaleName())
 		return LocaleMgr::systemLocaleMgr.getDefaultLocaleName();	
 	return QString::null;;
 }
 
 /** Sets the language for the international booknames of Sword. */
-bool CSwordBackend::setBooknameLanguage( const QString language ){
+const bool CSwordBackend::setBooknameLanguage( const QString language ){
 	LocaleMgr::systemLocaleMgr.setDefaultLocaleName( language.local8Bit() );
 	return true;
 }

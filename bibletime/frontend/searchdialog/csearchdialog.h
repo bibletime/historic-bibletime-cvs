@@ -23,7 +23,6 @@
 
 //BibleTime includes
 #include "../../backend/sword_backend/cswordmoduleinfo.h"
-#include "../../structdef.h"
 
 //QT includes
 
@@ -42,6 +41,7 @@ class CSearchDialogAnalysis;
 
 class CSwordModuleInfo;
 class CSwordModuleSearch;
+struct CImportantClasses;
 
 
 /**
@@ -52,56 +52,51 @@ class CSearchDialog : public KDialogBase  {
    Q_OBJECT
 public:
 	/**
-		* The ocnstructor of the CSearchDialog class.
-		* @param importantClasses The pointer to the structure we use to store the printer and backend pointers
-		* @param parent The widget this dialog is centered on
-		* @param name The name of this Qt widget
-		*/
+	* The constructor of the CSearchDialog class.
+	* @param importantClasses The pointer to the structure we use to store the printer and backend pointers
+	* @param parent The widget this dialog is centered on
+	* @param name The name of this Qt widget
+	*/
 	CSearchDialog( CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0 );
-	/**
-		*
-		*/
 	~CSearchDialog();
 	/**
-		*
-		*/
+	*
+	*/
 	ListCSwordModuleInfo* getModuleList() const;
 	/**
-		* Sets the module list for this dialog.
-		* The module lsit contains the modules where we should search in
-		*/
+	* Sets the module list for this dialog.
+	* The module lsit contains the modules where we should search in
+	*/
 	void setModuleList(ListCSwordModuleInfo*);
 	/**
-		* Sets the text we should search in the modules
-		*/
+	* Sets the text we should search in the modules
+	*/
 	void setSearchText(const QString);
 	/**
-		* Reimplementation from Qt.
-		* This is used to refresh the progres bars
-		* and to switch to the resultpage if the search was finished.
-		*/
+	* Reimplementation from Qt.
+	* This is used to refresh the progres bars
+	* and to switch to the resultpage if the search was finished.
+	*/
   virtual void timerEvent(QTimerEvent *e);
   /**
-  	* Returns the search text. If no text was enetered return QSTring::null.
-  	*/
-  QString getSearchedText();
-
-public slots:
-	void	startSearch();
+ 	* Returns the search text. If no text was enetered return QSTring::null.
+ 	*/
+  const QString getSearchedText() const;
 
 protected: // Protected methods
   /**
-  	* Initializs the view
-  	*/
+ 	* Initializs the view
+ 	*/
   void initView();
   /**
-  	* Reads the settings from the configfile
-  	*/
+ 	* Reads the settings from the configfile
+ 	*/
   void readSettings();
 	/**
-		* Saves the settings of this widget to the config file
-		*/
+	* Saves the settings of this widget to the config file
+	*/
   void saveSettings();
+	void	startSearch();
 
 protected slots:
 	virtual void slotUser1();
@@ -113,16 +108,12 @@ private:
 	QVBox* searchText_page;
 	QHBox* searchResult_page;
 	QVBox* searchAnalysis_page;
-
 	CSearchDialogText		*searchText;
 	CSearchDialogResult	*searchResult;
 	CSearchDialogAnalysis* searchAnalysis;
-
 	CSwordModuleSearch *searcher;
-
 	ListCSwordModuleInfo *moduleList;
-	CImportantClasses*	m_important;		
-	
+	CImportantClasses* m_important;			
 	int old_overallProgress;
 	int old_currentProgress;
 };

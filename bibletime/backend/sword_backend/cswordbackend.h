@@ -87,13 +87,13 @@ public:
   *
   *	@return True if the initializiation was succesful, otherwise return false.
   */
-  virtual errorCode initModules();
+  virtual const errorCode initModules();
   /**
   * This function deinitializes the modules and deletes them.
   *
   *	@return True if it was succesful, otherwise return false
   */
-  virtual bool shutdownModules();
+  virtual const bool shutdownModules();
   /**
   * Sets the given options enabled or disabled depending on the second parameter.
   *
@@ -106,7 +106,7 @@ public:
   *
   * @return Returns true if the options given as aparameter is switched on at this time, otherwise return false.
   */
-  virtual bool isOptionEnabled( CSwordBackend::moduleOptions type);
+  virtual const bool isOptionEnabled( CSwordBackend::moduleOptions type);
 	/**
 	*
 	*/
@@ -114,11 +114,11 @@ public:
   /**
  	* Returns the current language of the international booknames.
  	*/
-  virtual QString getCurrentBooknameLanguage();
+  virtual const QString getCurrentBooknameLanguage();
   /**
   * Sets the language for the international booknames of Sword.
   */
-  bool setBooknameLanguage( const QString language );
+  const bool setBooknameLanguage( const QString language );
   /**
   * This function searches for a module with the specified description
   * @param description The description of the desired module

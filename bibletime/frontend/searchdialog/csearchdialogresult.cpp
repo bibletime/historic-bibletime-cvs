@@ -16,6 +16,15 @@
  ***************************************************************************/
 
 
+//BIbleTime includes
+#include "../../backend/sword_backend/cswordmodulesearch.h"
+#include "../../structdef.h"
+#include "csearchdialog.h"
+#include "csearchdialogtext.h"
+#include "csearchdialogresult.h"
+#include "csearchdialogresultview.h"
+
+//Qt includes
 #include <qpixmap.h>
 #include <qregexp.h>
 #include <qlayout.h>
@@ -24,17 +33,11 @@
 #include <qstringlist.h>
 #include <qwidget.h>
 
+// KDE includes
 #include <klocale.h>
 #include <kstringhandler.h>
 
-#include "../../backend/sword_backend/cswordmodulesearch.h"
-#include "csearchdialog.h"
-#include "csearchdialogtext.h"
-#include "csearchdialogresult.h"
-#include "csearchdialogresultview.h"
-
 CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QWidget *parent, const char *name) : QWidget(parent, name) {	
-	qDebug("constructor of CSearcgDialogResult");
 	m_important = importantClasses;
 	
 	QLabel *label1 = new QLabel(this, "label1");
@@ -42,18 +45,18 @@ CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QW
 	label1->setAutoResize(true);
 
 	QLabel* label2 = new QLabel(this, "label2");
-	label2->setText( i18n("Found entries:") );
+	label2->setText( i18n("Entries found:") );
 	label2->setAutoResize(true);
 
 	resultModuleTree = new CSearchDialogResultModuleView(m_important, this, "resultModuleTree");
 	resultTree = new CSearchDialogResultView(m_important, this, "resultTree");
 
 	QLabel* label3 = new QLabel(this, "label3");
-	label3->setText( i18n( "Verse Preview:" ) );
+	label3->setText( i18n("Preview:") );
 	label3->setAutoResize(true);
 
 	html_widget = new CHTMLWidget(this, "html_widget");
-	html_widget->setMinimumHeight(60);
+	html_widget->setMinimumHeight(75);
 	html_widget->setMaximumHeight(130);
 
 	connect(resultModuleTree, SIGNAL(moduleSelected(CModuleInfo*)), resultTree, SLOT(setModule(CModuleInfo*)));
@@ -81,12 +84,9 @@ CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QW
 
 }
 
-CSearchDialogResult::~CSearchDialogResult() {
-}
-
-void CSearchDialogResult::setModuleList(ListCSwordModuleInfo*	moduleList) {
-	ASSERT(moduleList);
-	this->moduleList = moduleList;
+void CSearchDialogResult::setModuleList(ListCSwordModuleInfo*	modules) {
+	ASSERT(modules);
+	moduleList = modules;
 	
 	resultModuleTree->setModuleList(moduleList);
 	resultModuleTree->clear();

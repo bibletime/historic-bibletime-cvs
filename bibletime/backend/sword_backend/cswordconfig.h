@@ -20,16 +20,18 @@
 
 #include <swconfig.h>
 
-/**This is a small extension to SWConfig, which updates the global config object if a key was updated locally.
-  *@author The BibleTime team
+/** This is a small extension to SWConfig, which updates the global config object if a key was updated locally.
+  * @author The BibleTime team
   */
-
 class CSwordConfig : public SWConfig  {
 public: 
 	CSwordConfig(const char* file, SWConfig* globalConfig);
 	~CSwordConfig();
-  /** A reimplementation of SWConfig. This does automatically merge the keys of this config with the global config. */
+  /**
+  * A reimplementation of SWConfig. This does automatically merge the keys of this config with the global config.
+  */
   virtual void Save();
+
 private:
 	SWConfig* m_globalConfig;
 };

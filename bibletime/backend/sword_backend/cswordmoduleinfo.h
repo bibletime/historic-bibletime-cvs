@@ -73,7 +73,7 @@ public:
   	* Sets the unlock key of the modules and writes the key into the cofig file.
 		* @return True if the unlock process was succesful, if the key was wrong, or if the config file was write protected return false.
 		*/
-  CSwordModuleInfo::unlockErrorCode unlock( const QString unlockKey );
+  const CSwordModuleInfo::unlockErrorCode unlock( const QString unlockKey );
   /**
   	* Returns the display object for this module. Normally every module should have a Display object.
   	* Please don't use module()->Display() because this function does return the Sword display and does
@@ -86,47 +86,47 @@ public:
 		* Returns the cipher key if the module is encrypted, if the key is not set return QString::empty,
   	* if the module is not encrypted retur QString::null.
   	*/
-  QString getCipherKey() const;
+  const QString getCipherKey() const;
   /**
   	* This function does return true if the data files of the module are encrypted by the module author
   	* (the on who made the module) no matter if it's locked or not.
   	*
   	*/
-  bool isEncrypted() const;
+  const bool isEncrypted() const;
   /**
   	* This function returns true if this module is locked (encrypted + correct cipher key),
   	* otherwise return false.
   	*/
-  bool isLocked();
+  const bool isLocked();
   /**
   	* Returns the path to this module.
   	*/
-  QString getPath() const;
+  const QString getPath() const;
   /**
   * Returns the version number of this module. It does access the config file of this module to get
   * the version number.
   */
-  QString getVersion() const;
+  const QString getVersion() const;
   /**
   * Returns the about information of this module.
   * This function uses the config file to get the about information.
   */
-  QString getAboutInformation() const;
+  const QString getAboutInformation() const;
   /**
   	* Returns the description of the module (e.g. the "The World english Bible")
   	*/
-  QString getDescription() const;
+  const QString getDescription() const;
   /**
   * Returns true if something was found, otherwise return false.
   * This function does start the Sword functions to search in the module and it does
   * overwrite the variable containing the last search result.
   */
-  virtual bool search( const QString searchedText, int searchOptions, ListKey scope, void (*percent)(char, void*));
+  virtual const bool search( const QString searchedText, int searchOptions, ListKey scope, void (*percent)(char, void*));
   /**
   * Returns the last search result for this module.
   * The last result is cleared by @ref search
   */
-  virtual ListKey& getSearchResult();
+  virtual const ListKey& getSearchResult();
   /**
   * This interupts the search if this module is being searched.
   */
@@ -142,19 +142,7 @@ public:
   *
   * @param type The type which should be checked
   */
-  virtual bool supportsFeature( CSwordBackend::moduleOptions type );
-  /**
-  * Returns the cached text for the key. If the key is not cached return QString::null
-  */
-//  virtual QString getCacheItem( const QString key );
-  /**
-  * This function adds an item to the cache.
-  */
-//  virtual void addCacheItem( const QString key, const QString cachedText);
-  /**
-  * Clears the cache of this module.
-  */
-//  void clearCache();
+  virtual const bool supportsFeature( CSwordBackend::moduleOptions type );
   /**
   * Used to set the module specific font
   */
@@ -162,21 +150,20 @@ public:
   /**
   * Used to find out the module specific font
   */
-  QFont getFont();
+  const QFont getFont();
   /**
   * Used to find out if the module has a specific font
   */
-  bool hasFont();
+  const bool hasFont();
   /**
   * Returns the type of the module.
   */
-  virtual CSwordModuleInfo::type getType();
+  virtual const CSwordModuleInfo::type getType();
 
 private:
 	SWModule*	m_module;
 	ListKey m_searchResult;
 	CSwordBackend* m_backend;
-//	QMap< QString, QString > *m_cache;	
 };
 
 #endif
