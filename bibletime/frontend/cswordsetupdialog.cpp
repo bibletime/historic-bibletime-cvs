@@ -412,6 +412,7 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name )
   m_progressDialog = 0;
 	setIconListAllVisible(true);
   m_refreshedRemoteSources = false;
+	m_installModuleListPage = 0;
 
   initSwordConfig();
 	initInstall();
@@ -539,9 +540,6 @@ void CSwordSetupDialog::initInstall(){
 	populateInstallCombos();
 
   slot_sourceSelected( m_sourceCombo->currentText() );
-
-	//init the other pointers
-	m_installModuleListPage = 0;
 }
 
 void CSwordSetupDialog::initRemove(){
@@ -762,8 +760,10 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 	QListViewItemIterator list_it( m_removeModuleListView );
 	while ( list_it.current() ) {
 		QCheckListItem* i = dynamic_cast<QCheckListItem*>( list_it.current() );
-		if (i && i->isOn())
+		if (i && i->isOn()) {
 			moduleList << list_it.current()->text(0);
+		}
+
 		++list_it;
 	}
 
@@ -790,7 +790,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
         }
 
 				sword::SWMgr* mgr = mgrDict[ prefixPath ];
-				if (!mgr) {
+				if (!mgr) { //create new mgr if it's not yet available
 					mgrDict.insert(prefixPath, new sword::SWMgr(prefixPath.local8Bit()));
 					mgr = mgrDict[ prefixPath ];
 				}
@@ -799,6 +799,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
       }
     }
 
+		CPointers::backend()->reloadModules();
     populateRemoveModuleListView(); //rebuild the tree
 
 		//delete all mgrs
