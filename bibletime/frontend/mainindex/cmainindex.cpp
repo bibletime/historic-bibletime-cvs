@@ -94,7 +94,8 @@ CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
 }
 
 CMainIndex::~CMainIndex(){
-  saveBookmarks();
+  qWarning("destructor of CMainIndex");
+	saveBookmarks();
 }
 
 /** Reimplementation. Adds the given group to the tree. */
@@ -643,17 +644,20 @@ void CMainIndex::reloadSword(){
 
 /** Saves the bookmarks to disk */
 void CMainIndex::saveBookmarks(){
+	qWarning("Saving bookmarks");
   //find the bookmark folder
   CItemBase* i = 0;
-  QListViewItemIterator it( this );
-  while ( it.current() != 0 ) {
+  
+	QListViewItemIterator it( this );
+  while ( it.current() ) {
     i = dynamic_cast<CItemBase*>( it.current() );
 		
-    if (i && i->type() == CItemBase::BookmarkFolder) { //found the bookmark folder
+    if (i && (i->type() == CItemBase::BookmarkFolder)) { //found the bookmark folder
       KStandardDirs stdDirs;
     	
 			const QString path = stdDirs.saveLocation("data", "bibletime/");
       if (!path.isEmpty()) {
+				qWarning("saving to %s", path.latin1());
         //save the bookmarks to the right file
         if (CBookmarkFolder* f = dynamic_cast<CBookmarkFolder*>(i)) {
           f->saveBookmarks( path + "bookmarks.xml" );
@@ -661,6 +665,7 @@ void CMainIndex::saveBookmarks(){
       }
       break;
     }
+		
     ++it;
   }
 }

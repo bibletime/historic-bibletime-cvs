@@ -82,13 +82,11 @@ void BibleTime::initView(){
 	QSplitter* mainIndexSplitter = new QSplitter(Qt::Vertical, m_splitter);
 
 	QVBox* vBox = new QVBox(mainIndexSplitter);
-	/*QLabel* l =*/ new QLabel( i18n("Library"), vBox );
-// 	vBox->addWidget(l);
+	new QLabel( i18n("Library"), vBox );
 	
 	m_mainIndex = new CMainIndex(vBox);
 	m_mainIndex->initTree();
 	m_mainIndex->setFocusPolicy(WheelFocus);
-// 	vBox->addWidget(m_mainIndex);
 
 	m_infoDisplay = new CInfoDisplay(mainIndexSplitter);
 	CPointers::setInfoDisplay(m_infoDisplay);

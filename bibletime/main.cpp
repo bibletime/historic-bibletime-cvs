@@ -255,6 +255,9 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 		}
 	}
 	
-	return app.exec();
+	const int ret = app.exec();
+	
+	delete bibletime_ptr;
+	return ret;
 }
 

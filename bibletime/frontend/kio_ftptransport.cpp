@@ -81,7 +81,7 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 	return 0;
 }
 
-void KIO_FTPTransport::slotTotalSize(KIO::Job *job, KIO::filesize_t size) {
+void KIO_FTPTransport::slotTotalSize(KIO::Job* /*job*/, KIO::filesize_t size) {
 	if (size > 0) {
 		m_totalSize = size;
 		statusReporter->statusUpdate(m_totalSize, 0); //emit that we just started
@@ -97,7 +97,7 @@ void KIO_FTPTransport::slotCopyResult(KIO::Job *job) {
 	}
 }
 
-void KIO_FTPTransport::slotCopyProgress(KIO::Job *job, KIO::filesize_t processedSize) {
+void KIO_FTPTransport::slotCopyProgress(KIO::Job* /*job*/, KIO::filesize_t processedSize) {
 	if (m_totalSize > 0) {
 		statusReporter->statusUpdate(m_totalSize, processedSize);
 	}

@@ -26,9 +26,9 @@ BibleTimeApp::BibleTimeApp(){
 }
 
 BibleTimeApp::~BibleTimeApp(){
-  	//we can set this safely now because we close now (hopyfully without crash)
-  	CBTConfig::set(CBTConfig::crashedLastTime, false);
-  	CBTConfig::set(CBTConfig::crashedTwoTimes, false);
+ 	//we can set this safely now because we close now (hopyfully without crash)
+ 	CBTConfig::set(CBTConfig::crashedLastTime, false);
+ 	CBTConfig::set(CBTConfig::crashedTwoTimes, false);
 	
 	deletePrinter();
 	deleteDisplayTemplateMgr();
