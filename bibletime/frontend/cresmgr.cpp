@@ -97,7 +97,7 @@ namespace CResMgr {
 
     namespace window { //Main menu->Window
       namespace loadProfile {
-        const QString tooltip     = makeToolTip( i18n("Load a new session") );
+        const QString tooltip     = makeToolTip( i18n("Load a session") );
         const QString whatsthis   = makeWhatsThis(tooltip,i18n("Restore a saved BibleTime session.") );
         const QString icon        = "view_sidetree";
         const char* actionName    = "windowLoadProfile_action";
@@ -169,7 +169,7 @@ namespace CResMgr {
     namespace settings { //Main menu->Settings
       namespace editToolBar { // available as KStdAction
         const QString tooltip     = makeToolTip(i18n("Edit toolbar"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open BibleTime's tool bar editor."));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open BibleTime's toolbar editor."));
       }
       namespace optionsDialog { // available as KStdAction
         const QString tooltip     = makeToolTip(i18n("Configure BibleTime"));

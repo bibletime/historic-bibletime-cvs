@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-02-07 15:18+0100\n"
+"POT-Creation-Date: 2003-02-08 16:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -943,7 +943,7 @@ msgid "Open the search dialog to search in the default bible."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:100
-msgid "Load a new session"
+msgid "Load a session"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:101
@@ -1027,7 +1027,7 @@ msgid "Edit toolbar"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:172
-msgid "Open BibleTime's tool bar editor."
+msgid "Open BibleTime's toolbar editor."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:175
