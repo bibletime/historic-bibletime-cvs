@@ -20,7 +20,7 @@
 
 #include "backend/creferencemanager.h"
 #include "backend/cswordkey.h"
-#include "backend/chtmlentrydisplay.h"
+#include "backend/centrydisplay.h"
 
 #include "util/scoped_resource.h"
 
@@ -82,9 +82,10 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
   };
 
   if (CSwordModuleInfo* m = backend()->findModuleByName(moduleName)) {
-    CHTMLEntryDisplay* display = m ? m->getDisplay() : 0;
-  	return QString::fromLatin1("<HEAD>%1</HEAD><B>%1</B><HR>%2")
-      .arg(display ? display->cssHeader(false) : QString::null)
+    CEntryDisplay* display = m ? m->getDisplay() : 0;
+#warning "Fix Me!"  	
+   return QString::fromLatin1("<HEAD>%1</HEAD><B>%1</B><HR>%2")
+      .arg(display ? QString::null /*display->cssHeader(false)*/ : QString::null)
       .arg(keyText(m ? m->type() : CSwordModuleInfo::Unknown, keyName)).arg(moduleText(moduleName, keyName));
   }
   else {
@@ -99,9 +100,10 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
 /** Returns the tooltip text for the given hyperlink. */
 const QString CTooltipManager::textForReference( const QString& moduleName, const QString& keyName, const QString& description){
 	CSwordModuleInfo* module = backend()->findModuleByName(moduleName);
-  CHTMLEntryDisplay* display = module ? module->getDisplay() : 0;
+  CEntryDisplay* display = module ? module->getDisplay() : 0;
+#warning "Fix Me"!
   return QString::fromLatin1("<HEAD>%1</HEAD><B>%1 %2</B>%3<HR>%4")
-    .arg(display ? display->cssHeader(false) : QString::null)
+    .arg(display ? QString::null/*display->cssHeader(false)*/ : QString::null)
   	.arg(i18n("Bookmark to"))
   	.arg(keyText(module ? module->type() : CSwordModuleInfo::Unknown, keyName))
    	.arg(!description.isEmpty() ? QString::fromLatin1("<FONT color=\"#800000\">(%1)</FONT><BR>").arg(description.stripWhiteSpace()) : QString::null )

@@ -255,7 +255,8 @@ void CGroupManager::readSettings(){
 /** Initializes this widget */
 void CGroupManager::initView(){
  	m_toolTip = new ToolTip(this);
- 	
+  setTooltipColumn(-1);
+   	
  	QWhatsThis::add(this, WT_GM_WIDGET );
  	m_singleClick = KGlobalSettings::singleClick();
  	 		

@@ -19,7 +19,7 @@
 #include "creadwindow.h"
 #include "resource.h"
 
-#include "backend/chtmlentrydisplay.h"
+#include "backend/centrydisplay.h"
 #include "backend/cswordkey.h"
 
 #include "frontend/cbtconfig.h"
@@ -67,35 +67,18 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
 
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ){
-	qWarning("CReadWindow::lookup");
-//	setUpdatesEnabled(false);	
-	
+	qWarning("CReadWindow::lookup");	
 	if (!newKey)
 		return;
-	SWKey* swKey = dynamic_cast<SWKey*>(newKey);
-  Q_ASSERT(swKey);
-	if (swKey && modules().first()->getDisplay()) {	//do we have a display object?
-    qWarning("have swKey");
-  	backend()->setFilterOptions( filterOptions() );
-  	backend()->setDisplayOptions( displayOptions() );
 
-    modules().first()->module()->SetKey(*swKey);
-		if (modules().count() > 1)  //we want to display more than one module
-			modules().first()->getDisplay()->Display( &modules() );
-		else
-			modules().first()->getDisplay()->Display( modules().first() );
-
-    qWarning("set text");
-		displayWidget()->setText(modules().first()->getDisplay()->getHTML());
+	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
+		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
 	}	
 	if (key() != newKey)
 		key()->key(newKey->key());
-		
-//	setUpdatesEnabled(true);
-	displayWidget()->moveToAnchor( key()->key() );
-
+	
+  displayWidget()->moveToAnchor( key()->key() );
 	setCaption( windowCaption() );
- qWarning("finished lookup");
 }
 
 /** Returns the installed popup menu. */

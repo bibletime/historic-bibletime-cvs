@@ -35,6 +35,8 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
 
   QHBoxLayout* layout = new QHBoxLayout(this,0,0);
   m_display = new KHTMLPart(this);
+  m_display->view()->setMarginWidth(4);
+  m_display->view()->setMarginHeight(4);
   layout->addWidget(m_display->view());
 
   setPalette( QToolTip::palette() );
@@ -43,8 +45,6 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
   hide();
 
   setFilter(true);
-//  KApplication::setGlobalMouseTracking(true);
-//  KApplication::kApplication()->installEventFilter(this);
 }
 
 CToolTip::~CToolTip(){
@@ -98,6 +98,12 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
   QMouseEvent* me = dynamic_cast<QMouseEvent*>(e);
 
   switch ( e->type() ) {
+      case QEvent::DragMove:
+      case QEvent::DragEnter:
+      case QEvent::DragLeave:
+      case QEvent::DragResponse:
+        break;
+
       case QEvent::MouseButtonPress:
       case QEvent::MouseButtonRelease:
         if (isVisible() && widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos()))
@@ -120,14 +126,14 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
           break;
 
         if (QMouseEvent* me = dynamic_cast<QMouseEvent*>(e)) {
+          if (me->stateAfter() != Qt::NoButton) //probaby dragging - show no tip
+            break;
           if (QWidget * w = KApplication::widgetAt( me->globalPos(), true )) {
-//            if (!parentWidget()->children()->contains(w))
-//              break;
             while ( w && w != parentWidget()) {
               w = w->parentWidget();
             }
             if (w == parentWidget()) {
-              startTimer(1000);
+              startTimer(1500);
             }
           }
         }

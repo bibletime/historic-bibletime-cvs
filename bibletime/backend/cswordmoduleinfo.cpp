@@ -18,7 +18,7 @@
 //BibleTime includes
 #include "cswordmoduleinfo.h"
 #include "cswordbackend.h"
-#include "chtmlentrydisplay.h"
+#include "centrydisplay.h"
 #include "cswordmodulesearch.h"
 #include "cswordkey.h"
 #include "util/scoped_resource.h"
@@ -85,8 +85,8 @@ const CSwordModuleInfo::UnlockErrorCode CSwordModuleInfo::unlock( const QString&
 }
 
 /** Returns the display object for this module. */
-CHTMLEntryDisplay* const CSwordModuleInfo::getDisplay() const {
-	return dynamic_cast<CHTMLEntryDisplay*>(m_module->Disp());
+CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
+	return dynamic_cast<CEntryDisplay*>(m_module->Disp());
 }
 
 /** This function returns true if this module is locked, otherwise return false. */

@@ -239,6 +239,8 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 			return CReferenceManager::Commentary;
 		case CSwordModuleInfo::Lexicon:
 			return CReferenceManager::Lexicon;
+    case CSwordModuleInfo::GenericBook:
+      return CReferenceManager::GenericBook;
 		default:
 			return CReferenceManager::Unknown;
 	}

@@ -22,7 +22,7 @@
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordversekey.h"
 #include "backend/cswordldkey.h"
-#include "backend/chtmlentrydisplay.h"
+//#include "backend/chtmlentrydisplay.h"
 #include "frontend/cbtconfig.h"
 #include "util/scoped_resource.h"
 
@@ -103,7 +103,7 @@ const QString& CPrintItem::moduleText() {
 		const QString format = QString::fromLatin1(" <FONT SIZE=\"-3\"><NOBR>%1</NOBR></FONT> ");
 		while ( (*startKey) < (*stopKey) || (*startKey) == (*stopKey) ) {
 			m_moduleText += (m_displayOptions.verseNumbers ? format.arg(startKey->Verse()) : QString::null)
-+ startKey->renderedText() + (m_displayOptions.lineBreaks ? "<BR>\n" : QString::null);
++ startKey->renderedText() + (/*m_displayOptions.lineBreaks ?*/ "<BR>\n"/* : QString::null*/);
 			startKey->next(CSwordVerseKey::UseVerse);
 		}
 	}		

@@ -113,6 +113,8 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 const QString CSwordVerseKey::key( const QString& newKey ){	
 	if (!newKey.isEmpty()) {
 		VerseKey::operator = ((const char*)newKey.local8Bit());
+//    module()->snap();
+//    VerseKey::operator = (module()->module()->KeyText());
 	}
 	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8 here!
 }
@@ -120,6 +122,8 @@ const QString CSwordVerseKey::key( const QString& newKey ){
 void CSwordVerseKey::key( const char* newKey ){
   if (newKey && strlen(newKey)>0) {
 		VerseKey::operator = (newKey);
+//    module()->snap();
+//    VerseKey::operator = (module()->module()->KeyText());
 	}
 }
 

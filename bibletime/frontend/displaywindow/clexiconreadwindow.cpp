@@ -21,7 +21,7 @@
 
 #include "backend/cswordkey.h"
 #include "backend/cswordldkey.h"
-#include "backend/chtmlentrydisplay.h"
+//#include "backend/chtmlentrydisplay.h"
 
 #include "frontend/ctoolclass.h"
 #include "frontend/cbtconfig.h"

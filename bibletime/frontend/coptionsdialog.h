@@ -86,7 +86,7 @@ private:
 			QComboBox* standardGreekMorph;
 			QComboBox* localeCombo;
 			QCheckBox* useDownArrow;
-			QCheckBox* lineBreaks;
+//			QCheckBox* lineBreaks;
 			QCheckBox* verseNumbers;
 			QCheckBox* footnotes;
   		QCheckBox* strongNumbers;

@@ -287,6 +287,8 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
 CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWidget* parent) : KHTMLView(displayWidget, parent) {
   m_display = displayWidget;
   viewport()->setAcceptDrops(true);
+  setMarginWidth(4);
+  setMarginHeight(4);
 };
 
 

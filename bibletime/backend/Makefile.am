@@ -6,9 +6,6 @@ INCLUDES = $(all_includes)
 
 libbackend_a_SOURCES = \
 cswordmodulesearch.cpp \
-chtmlchapterdisplay.cpp \
-chtmlentrydisplay.cpp \
-chtmlbookdisplay.cpp \
 cswordbackend.cpp \
 cswordkey.cpp \
 cswordldkey.cpp \
@@ -22,7 +19,8 @@ cswordtreekey.cpp \
 creferencemanager.cpp \
 bt_thmlhtml.cpp \
 bt_gbfhtml.cpp \
-bt_basicfilter.cpp 
+bt_basicfilter.cpp \
+centrydisplay.cpp
 
 all_headers = cswordbiblemoduleinfo.h \
 cswordcommentarymoduleinfo.h \
@@ -32,16 +30,14 @@ cswordversekey.h \
 cswordldkey.h \
 cswordbackend.h \
 cswordmoduleinfo.h \
-chtmlentrydisplay.h \
-chtmlchapterdisplay.h \
-chtmlbookdisplay.h \
 cswordmodulesearch.h \
 creferencemanager.h \
 cswordbookmoduleinfo.h \
 cswordtreekey.h \
 bt_thmlhtml.h \
 bt_gbfhtml.h \
-bt_basicfilter.h
+bt_basicfilter.h \
+centrydisplay.h
 
 EXTRA_DIST = $(libbackend_a_SOURCES) $(all_headers)
 

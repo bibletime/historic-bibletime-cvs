@@ -36,8 +36,8 @@
 #include "backend/cswordcommentarymoduleinfo.h"
 #include "backend/cswordlexiconmoduleinfo.h"
 #include "backend/cswordbookmoduleinfo.h"
-#include "backend/chtmlentrydisplay.h"
-#include "backend/chtmlchapterdisplay.h"
+//#include "backend/chtmlentrydisplay.h"
+//#include "backend/chtmlchapterdisplay.h"
 #include "backend/cswordversekey.h"
 #include "backend/cswordldkey.h"
 

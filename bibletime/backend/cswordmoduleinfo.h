@@ -35,7 +35,7 @@
 
 class SWModule;
 class CSwordBackend;
-class CHTMLEntryDisplay;
+class CEntryDisplay;
 
 /**
 	* Base class for Sword modules.
@@ -115,7 +115,7 @@ public:
  	* This function performs some casts to return the correct display. If it returns 0 there's no valid
  	* display object.
  	*/
-  CHTMLEntryDisplay* const getDisplay() const;
+  CEntryDisplay* const getDisplay() const;
   /**
  	* This function does return true if the data files of the module are encrypted by the module author
  	* (the on who made the module) no matter if it's locked or not.

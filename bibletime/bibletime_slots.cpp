@@ -32,8 +32,8 @@
 #include "frontend/coptionsdialog.h"
 #include "frontend/cbtconfig.h"
 #include "backend/cswordversekey.h"
-#include "backend/chtmlentrydisplay.h"
-#include "backend/chtmlchapterdisplay.h"
+//#include "backend/chtmlentrydisplay.h"
+//#include "backend/chtmlchapterdisplay.h"
 #include "printing/cprinter.h"
 
 #include <errno.h>

@@ -125,12 +125,8 @@ void CDisplayWindow::polish(){
 
 /** Refresh the settings of this window. */
 void CDisplayWindow::refresh() {
-//  qWarning("CDisplayWindow::refresh()");
- 	m_filterOptions = CBTConfig::getFilterOptionDefaults();
-	m_displayOptions = CBTConfig::getDisplayOptionDefaults();
-
-	if (displaySettingsButton())
-		displaySettingsButton()->reset(modules());
+  qWarning("CDisplayWindow::refresh()");
+  lookup();
 }
 
 /** Returns the filter options used by this window. */
@@ -233,7 +229,11 @@ const bool CDisplayWindow::init( const QString& keyName ){
   show();
  	initConnections();
   initKeyboardActions();
-  refresh();
+
+  m_filterOptions = CBTConfig::getFilterOptionDefaults();
+	m_displayOptions = CBTConfig::getDisplayOptionDefaults();
+	if (displaySettingsButton())
+		displaySettingsButton()->reset(modules());
 
   key()->key(keyName);
 

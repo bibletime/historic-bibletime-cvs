@@ -39,7 +39,7 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	setTokenStart("<");
 	setTokenEnd(">");
 	setTokenCaseSensitive(true);
-	addTokenSubstitute("note", " <span id=\"footnote\">(");
+	addTokenSubstitute("note", " <span class=\"footnote\">(");
 	addTokenSubstitute("/note", ")</span> ");
 
 	addTokenSubstitute("foreign lang=\"el\"", "<span lang=\"el\">");
@@ -54,7 +54,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
 
 		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
-			pushString(buf," <span id=\"lemma\">&lt;");
+			pushString(buf," <span class=\"lemma\">&lt;");
 
 			for (int j = 17; j < tokenLength; j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
@@ -79,7 +79,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					break;
 				}
 			}
-			pushString(buf," <a href=\"morph://Greek/%s\"><span id=\"morphcode\">(%s)</span></a> ",
+			pushString(buf," <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
 				num, num);
 		}
 		
@@ -90,7 +90,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					num[i-29] = token[i];
 			num[i-29] = 0;
 
-			pushString(buf," <a href=\"strongs://Hebrew/%s\"><span id=\"strongnumber\">&lt;%s&gt;</span></a> ",
+			pushString(buf," <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
 				num, num);
 		}
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
@@ -100,7 +100,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					num[i-29] = token[i];
 			num[i-29] = 0;
 
-			pushString(buf," <a href=\"strongs://Greek/%s\"><span id=\"strongnumber\">&lt;%s&gt;</span></a> ",
+			pushString(buf," <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
 				num, num);
 		}
 
@@ -171,11 +171,11 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 //headings should be processed by the ThMLHeadings filter		
 		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
 			userData["SecHead"] = "true";
-			pushString(buf, "<div id=\"sectiontitle\">"/*, text_color*/);
+			pushString(buf, "<div class=\"sectiontitle\">"/*, text_color*/);
 		}
 		else if (!strncmp(token, "div class=\"title\"", 19)) {
       userData["Title"] = "true";
-			pushString(buf, "<div id=\"booktitle\">");
+			pushString(buf, "<div class=\"booktitle\">");
 		}
 //		else if (!strncmp(token, "/div", 4)) {
 //			if (userData["SecHead"] == "true") {

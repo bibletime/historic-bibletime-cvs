@@ -33,9 +33,9 @@
 #include <swversion.h>
 #include <localemgr.h>
 
-class CHTMLEntryDisplay;
-class CHTMLChapterDisplay;
-class CHTMLBookDisplay;
+class CEntryDisplay;
+class CChapterDisplay;
+class CBookDisplay;
 
 class CSwordModuleInfo;
 typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
@@ -82,7 +82,7 @@ public:
     bool scriptureReferences;
 	};
 	struct DisplayOptionsBool {
-		bool lineBreaks;
+//		bool lineBreaks;
 		bool verseNumbers;
 	};
   enum LoadError { // the values exist to cast from the char return of SWMgr::Load
@@ -199,9 +199,9 @@ private:
 	ListCSwordModuleInfo m_moduleList;
 
 	struct {
-		CHTMLChapterDisplay* 	chapter;
-		CHTMLEntryDisplay* 		entry;
-		CHTMLBookDisplay* 		book;
+		CChapterDisplay* 	chapter;
+		CEntryDisplay* 		entry;
+		CBookDisplay* 		book;
 	} m_displays;
 };
 

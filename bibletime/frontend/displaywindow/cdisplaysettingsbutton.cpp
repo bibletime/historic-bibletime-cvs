@@ -65,7 +65,7 @@ int CDisplaySettingsButton::populateMenu(){
 	m_popup->insertTitle(i18n("Display options"));
 	m_popup->setCheckable(true);
 
-  ret += addMenuEntry(i18n("Use linebreaks"), &m_displaySettings->lineBreaks, true);
+//  ret += addMenuEntry(i18n("Use linebreaks"), &m_displaySettings->lineBreaks, true);
 	ret += addMenuEntry(i18n("Show versenumbers"), &m_displaySettings->verseNumbers, true);
 
 	ret += addMenuEntry(i18n("Show headings"),	&m_moduleSettings->headings,
@@ -88,7 +88,7 @@ int CDisplaySettingsButton::populateMenu(){
 	
   ret += addMenuEntry(i18n("Use alternative textual variant"), &m_moduleSettings->textualVariants,
 		isOptionAvailable(CSwordBackend::textualVariants ));
-  ret += addMenuEntry(i18n("Shows scripture cross-references"), &m_moduleSettings->scriptureReferences,
+  ret += addMenuEntry(i18n("Show scripture cross-references"), &m_moduleSettings->scriptureReferences,
 		isOptionAvailable(CSwordBackend::scriptureReferences ));
 
 	return ret;

@@ -53,7 +53,7 @@ void CSwordTreeKey::key( const char* newKey ){
 }
 
 CSwordModuleInfo* const CSwordTreeKey::module( CSwordModuleInfo* const newModule ){
-	if (newModule && newModule->type() == CSwordModuleInfo::GenericBook ) {
+	if (newModule && newModule != m_module && newModule->type() == CSwordModuleInfo::GenericBook ) {
 		CSwordBookModuleInfo* bookModule = dynamic_cast<CSwordBookModuleInfo*>(newModule);
 		m_module = newModule;
 		copyFrom(*(bookModule->tree()));

@@ -81,7 +81,7 @@ public:
 		greekAccents,
 		textualVariants,
 
-		lineBreaks,
+//		lineBreaks,
 		verseNumbers,
 		scroll,
 

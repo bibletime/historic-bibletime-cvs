@@ -41,7 +41,7 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("Fb", "</b>");
 	
 //	addTokenSubstitute("FR", QString::fromLatin1("<font color=\"%1\">").arg(jesuswords_color).latin1());		
-	addTokenSubstitute("FR", QString::fromLatin1("<span id=\"jesuswords\">").latin1());
+	addTokenSubstitute("FR", QString::fromLatin1("<span class=\"jesuswords\">").latin1());
 
 	addTokenSubstitute("Fr", "</font>");
 	addTokenSubstitute("FU", "<u>"); // underline begin
@@ -49,7 +49,7 @@ BT_GBFHTML::BT_GBFHTML(){
 
 //	addTokenSubstitute("FO", "<cite>"); //  Old Testament quote begin
 //	addTokenSubstitute("Fo", "</cite>");
-	addTokenSubstitute("FO", "<span id=\"quotation\">"); //  Old Testament quote begin
+	addTokenSubstitute("FO", "<span class=\"quotation\">"); //  Old Testament quote begin
 	addTokenSubstitute("Fo", "</span>");
 	
 
@@ -60,17 +60,17 @@ BT_GBFHTML::BT_GBFHTML(){
 
 //	addTokenSubstitute("TT", QString::fromLatin1(" <h1><font color=\"%1\">").arg(text_color).local8Bit());
 //	addTokenSubstitute("Tt", "</font></h1>");
-	addTokenSubstitute("TT", QString::fromLatin1("<div id=\"booktitle\">").local8Bit());
+	addTokenSubstitute("TT", QString::fromLatin1("<div class=\"booktitle\">").local8Bit());
 	addTokenSubstitute("Tt", "</div>");
 	
 //	addTokenSubstitute("Ts", "</font></h2>");
 //	addTokenSubstitute("TS", QString::fromLatin1(" <H2><font color=\"%1\">").arg(text_color).local8Bit());	
 	addTokenSubstitute("Ts", "</div>");
-	addTokenSubstitute("TS", QString::fromLatin1("<div id=\"sectiontitle\">").local8Bit());	
+	addTokenSubstitute("TS", QString::fromLatin1("<div class=\"sectiontitle\">").local8Bit());	
 			
 //	addTokenSubstitute("PP", "<cite>"); //  poetry  begin
 //	addTokenSubstitute("Pp", "</cite>");
-	addTokenSubstitute("PP", "<span id=\"poetry\">"); //  poetry  begin
+	addTokenSubstitute("PP", "<span class=\"poetry\">"); //  poetry  begin
 	addTokenSubstitute("Pp", "</span>");
 
 	addTokenSubstitute("Fn", "</font>"); //  font  end
@@ -109,7 +109,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-2] = token[i];
 			num[i-2]=0;
 
-			pushString(buf," <a href=\"strongs://Greek/%s\"><span id=\"strongnumber\">&lt;%s&gt;</span></a> ",
+			pushString(buf," <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
 				num, num);
 		}
 
@@ -119,7 +119,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-2] = token[i];
 			num[i-2]=0;
 
-			pushString(buf," <a href=\"strongs://Hebrew/%s\"><span id=\"strongnumber\">&lt;%s&gt;</span> </a>",
+			pushString(buf," <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span> </a>",
 				num, num);
 		}
 
@@ -129,7 +129,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-3] = token[i];
 			num[i-3]=0;
 
-			pushString(buf," <a href=\"morph://Greek/%s\"><span id=\"morphcode\">(%s)</span></a> ",
+			pushString(buf," <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
 				num, num);
 		}
 
@@ -140,12 +140,12 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-3] = token[i];
 			num[i-3]=0;
 
-			pushString(buf," <a href=\"morph://Hebrew/%s\"><span id=\"morphcode\">(%s)</span></a> ",
+			pushString(buf," <a href=\"morph://Hebrew/%s\"><span class=\"morphcode\">(%s)</span></a> ",
 				num, num);
 		}
 
 		else if (!strncmp(token, "RB", 2)) {
-			pushString(buf, "<span id=\"footnotepre\">");
+			pushString(buf, "<span class=\"footnotepre\">");
 			userData["hasFootnotePreTag"] = "true";
 		}
 
@@ -154,7 +154,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 				userData["hasFootnotePreTag"] = "false";
 				pushString(buf, "</span> ");
 			}
-			pushString(buf,"<span id=\"footnote\"> (");
+			pushString(buf,"<span class=\"footnote\"> (");
 		}
 
 		else if (!strncmp(token, "FN", 2)) {

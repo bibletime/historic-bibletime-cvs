@@ -17,9 +17,7 @@
 
 //BibleTime includes
 #include "cswordbackend.h"
-#include "chtmlentrydisplay.h"
-#include "chtmlchapterdisplay.h"
-#include "chtmlbookdisplay.h"
+#include "centrydisplay.h"
 #include "cswordbiblemoduleinfo.h"
 #include "cswordcommentarymoduleinfo.h"
 #include "cswordlexiconmoduleinfo.h"
@@ -85,16 +83,16 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 		curMod = (*it).second;
 		if (!strcmp(curMod->Type(), "Biblical Texts")) {
 			newModule = new CSwordBibleModuleInfo(curMod);
-			newModule->module()->Disp(m_displays.chapter ? m_displays.chapter : (m_displays.chapter = new CHTMLChapterDisplay));
+			newModule->module()->Disp(m_displays.chapter ? m_displays.chapter : (m_displays.chapter = new CChapterDisplay));
 		} else if (!strcmp(curMod->Type(), "Commentaries")) {
 			newModule = new CSwordCommentaryModuleInfo(curMod);
-			newModule->module()->Disp(m_displays.entry ? m_displays.entry : (m_displays.entry = new CHTMLEntryDisplay));
+			newModule->module()->Disp(m_displays.entry ? m_displays.entry : (m_displays.entry = new CEntryDisplay));
 		} else if (!strcmp(curMod->Type(), "Lexicons / Dictionaries")) {
 			newModule = new CSwordLexiconModuleInfo(curMod);
-			newModule->module()->Disp(m_displays.entry ? m_displays.entry : (m_displays.entry = new CHTMLEntryDisplay));
+			newModule->module()->Disp(m_displays.entry ? m_displays.entry : (m_displays.entry = new CEntryDisplay));
 		} else if (!strcmp(curMod->Type(), "Generic Books")) {
 			newModule = new CSwordBookModuleInfo(curMod);
-			newModule->module()->Disp(m_displays.book ? m_displays.book : (m_displays.book = new CHTMLBookDisplay));
+			newModule->module()->Disp(m_displays.book ? m_displays.book : (m_displays.book = new CBookDisplay));
 		}
 		if (newModule)	//append the new modules to our list
 			m_moduleList.append( newModule );
@@ -197,6 +195,8 @@ void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptionsBool o
 		m_displays.entry->setDisplayOptions(options);	
   if (m_displays.chapter)
 		m_displays.chapter->setDisplayOptions(options);	
+  if (m_displays.book)
+		m_displays.book->setDisplayOptions(options);
 }
 
 /** This function searches for a module with the specified description */
