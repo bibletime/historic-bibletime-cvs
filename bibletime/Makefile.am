@@ -1,5 +1,3 @@
-bin_PROGRAMS = bibletime
-
 bibletime_SOURCES = \
 bibletime_init.cpp \
 bibletime_slots.cpp \
