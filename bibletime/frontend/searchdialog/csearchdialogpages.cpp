@@ -601,20 +601,21 @@ const QString CSearchOptionsPage::searchText() {
 
 /** Sets the search text used in the page. */
 void CSearchOptionsPage::setSearchText(const QString& text) {
-	bool found = false;
+  bool found = false;
   int i = 0;
 	for (i = 0; !found && i < m_searchTextCombo->count(); ++i) {
-		if (m_searchTextCombo->text(i) == text)
+		if (m_searchTextCombo->text(i) == text) {
 			found = true;
+    }
 	}
 
 	if (!found) {
     i = 0;
-		m_searchTextCombo->insertItem(text,0);
+		m_searchTextCombo->insertItem( text,0 );
 	}
 
-  m_searchTextCombo->reset();
   m_searchTextCombo->setCurrentItem(i);
+  m_searchTextCombo->reset();
 	m_searchTextCombo->setFocus();	
 }
 
@@ -645,14 +646,17 @@ void CSearchOptionsPage::initView(){
   m_searchTextCombo->setMaxCount(25);
   m_searchTextCombo->setDuplicatesEnabled(false);
   m_searchTextCombo->setFocusPolicy(QWidget::WheelFocus);
-  connect( m_searchTextCombo, SIGNAL(activated( const QString& )),	m_searchTextCombo, SLOT( addToHistory( const QString& )));
-  connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),m_searchTextCombo,  SLOT(addToHistory(const QString&)) );
+  connect( m_searchTextCombo, SIGNAL(activated( const QString& )),
+    m_searchTextCombo, SLOT( addToHistory( const QString& ))
+  );
+  connect( m_searchTextCombo, SIGNAL(returnPressed ( const QString& )),
+    m_searchTextCombo, SLOT(addToHistory(const QString&))
+  );
 
   QToolTip::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
   QWhatsThis::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::whatsthis);
   
-  QButtonGroup* group 
-    = new QButtonGroup(4, Vertical,i18n("Search type"), this);
+  QButtonGroup* group  = new QButtonGroup(4, Vertical,i18n("Search type"), this);
     
   m_multipleWordsRadio = new QRadioButton(i18n("Multiple words (AND)"), group);
   m_multipleWordsRadio->setChecked( true );
@@ -778,26 +782,19 @@ const int CSearchOptionsPage::searchFlags() {
 void CSearchOptionsPage::reset(){
   m_multipleWordsRadio->setChecked(true);
   m_rangeChooserCombo->setCurrentItem(0); //no scope
-  m_searchTextCombo->clear();
+  m_searchTextCombo->clearEdit();
 }
 
 /** Reads the settings for the searchdialog from disk. */
 void CSearchOptionsPage::saveSettings(){
-	QStringList list = m_searchTextCombo->completionObject()->items();
-	CBTConfig::set(CBTConfig::searchCompletionTexts, list);
-
-	list = m_searchTextCombo->historyItems();
-	CBTConfig::set(CBTConfig::searchTexts, list);	
+	CBTConfig::set(CBTConfig::searchCompletionTexts, m_searchTextCombo->completionObject()->items());
+	CBTConfig::set(CBTConfig::searchTexts, m_searchTextCombo->historyItems());	
 }
 
 /** Reads the settings of the last searchdialog session. */
 void CSearchOptionsPage::readSettings(){
-	QStringList list = CBTConfig::get( CBTConfig::searchCompletionTexts );
-	m_searchTextCombo->completionObject()->setItems( list );
-
-	list = CBTConfig::get(CBTConfig::searchTexts);
-	m_searchTextCombo->setHistoryItems( list );
-//  m_searchTextCombo->insertItems( list );
+	m_searchTextCombo->completionObject()->setItems( CBTConfig::get(CBTConfig::searchCompletionTexts) );
+	m_searchTextCombo->setHistoryItems( CBTConfig::get(CBTConfig::searchTexts) );
 }
 
 void CSearchOptionsPage::aboutToShow(){

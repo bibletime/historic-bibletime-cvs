@@ -202,8 +202,10 @@ const QValueList<int> CBTConfig::getDefault( const CBTConfig::intLists ID){
 
 const QString CBTConfig::getKey( const CBTConfig::stringLists ID){
 	switch ( ID ){
-		case searchCompletionTexts: return QString::fromLatin1("searchCompletionTexts");
-		case searchTexts: return QString::fromLatin1("searchTexts");
+		case searchCompletionTexts:
+      return QString::fromLatin1("searchCompletionTexts");
+		case searchTexts:
+      return QString::fromLatin1("searchTexts");
 	}
 	return QString::null;
 }
