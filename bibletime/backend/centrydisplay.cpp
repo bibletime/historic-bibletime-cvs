@@ -314,9 +314,10 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
     key.module(m);
     key.key(keyName); //necessary?
 
-    const QString tdStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; %1 %2\"")
+    const QString tdStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; %1 %2 %3\"")
       .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
-      .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
+      .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null)
+      .arg((m->textDirection() == CSwordModuleInfo::RightToLeft) ? QString::fromLatin1("alignment:right") : QString::null);
 
 		const QString entry = QString::fromLatin1("<SPAN %1><SUP>%2</SUP> %3</SPAN>")
                       .arg(m->isUnicode() ? QString::fromLatin1("class=\"unicodetext\"") : QString::null)
