@@ -19,8 +19,10 @@
 
 #include <string>
 
-CSwordCommentaryModuleInfo::CSwordCommentaryModuleInfo( sword::SWModule* module)
-	:CSwordBibleModuleInfo(module) {	
+CSwordCommentaryModuleInfo::CSwordCommentaryModuleInfo( sword::SWModule* module, CSwordBackend* const usedBackend)
+	: CSwordBibleModuleInfo(module, usedBackend) 
+{	
+
 }
 
 CSwordCommentaryModuleInfo::~CSwordCommentaryModuleInfo(){

@@ -1305,11 +1305,13 @@ void CSwordSetupDialog::slot_swordEditClicked(){
 			const QFileInfo fi( url.path() );
 			if (fi.exists() && fi.isWritable()) {
 				i->setText(0, url.path());
+				populateInstallCombos(); //update target list bof on install page
 			}
 			else {
 				const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, so modules can not be installed here using BibleTime. Do you want to use this directory instead of the previous value?"));
 				if (result == KMessageBox::Yes) {
 					i->setText(0, url.path());
+					populateInstallCombos(); //update target list bof on install page
 				}
 			}
 		}
@@ -1323,11 +1325,13 @@ void CSwordSetupDialog::slot_swordAddClicked(){
 		const QFileInfo fi( url.path() );
 		if (fi.exists() && fi.isWritable()) {
 	    (void)new KListViewItem(m_swordPathListBox, url.path());
+			populateInstallCombos(); //update target list bof on install page
 		}
 		else {
 			const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, so modules can not be installed here using BibleTime. Do you want to add it to the list of module directories?"));
 			if (result == KMessageBox::Yes) {
 		    (void)new KListViewItem(m_swordPathListBox, url.path());
+				populateInstallCombos(); //update target list bof on install page
 			}
 		}
   }
@@ -1337,6 +1341,7 @@ void CSwordSetupDialog::slot_swordAddClicked(){
 void CSwordSetupDialog::slot_swordRemoveClicked(){
   if (QListViewItem* i = m_swordPathListBox->currentItem()) {
     delete i;
+		populateInstallCombos(); //update target list bof on install page
   }
 }
 
@@ -1346,9 +1351,9 @@ void CSwordSetupDialog::setupSwordPathListBox(){
   m_swordPathListBox->clear();
 
   for (QStringList::iterator it = targets.begin(); it != targets.end(); ++it)  {
-    if ((*it).isEmpty())
+    if ((*it).isEmpty()) {
       continue;
-
+		}
     new KListViewItem(m_swordPathListBox, *it);
   }
   m_swordPathListBox->setCurrentItem( m_swordPathListBox->firstChild() );

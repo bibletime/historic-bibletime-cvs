@@ -35,7 +35,7 @@ public:
 	* The standard constructor fot this object.
 	* A default constructor doesn't exist. Use this one.
 	*/
-	CSwordLexiconModuleInfo( sword::SWModule* module );
+	CSwordLexiconModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
 	/**
 	* The copy constructor
 	*/

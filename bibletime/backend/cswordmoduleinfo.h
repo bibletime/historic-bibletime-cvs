@@ -103,7 +103,7 @@ public:
 	*/
 	const QString config( const CSwordModuleInfo::ConfigEntry entry );
 	
-	CSwordModuleInfo( sword::SWModule* module );
+	CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
 //	CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const backend );
 	CSwordModuleInfo( const CSwordModuleInfo& m );	
   virtual CSwordModuleInfo* clone();	

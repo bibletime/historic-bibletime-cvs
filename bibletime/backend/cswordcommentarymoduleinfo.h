@@ -21,17 +21,13 @@
 //own includes
 #include "cswordbiblemoduleinfo.h"
 
-//Qt includes
-
-//Sword includes
-
 /**
   * @author The BibleTime team
   * @version $Id$
   */
 class CSwordCommentaryModuleInfo : public CSwordBibleModuleInfo  {
 public:
-	CSwordCommentaryModuleInfo( sword::SWModule* module );
+	CSwordCommentaryModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
 	~CSwordCommentaryModuleInfo();
   virtual const CSwordModuleInfo::ModuleType type() const;
   virtual CSwordModuleInfo* clone();

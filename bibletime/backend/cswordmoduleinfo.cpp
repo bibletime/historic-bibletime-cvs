@@ -44,10 +44,10 @@
 
 using std::string;
 
-CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module) {
+CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const usedBackend) {
 	m_module = module;
 	m_searchResult.ClearList();
-  m_backend = CPointers::backend();
+  m_backend = usedBackend;
 	m_dataCache.name = module ? QString::fromLatin1(module->Name()) : QString();
 	m_dataCache.isUnicode = module ? module->isUnicode() : false;
 

@@ -30,7 +30,7 @@
   */
 class CSwordBookModuleInfo : public CSwordModuleInfo  {
 public: 
-	CSwordBookModuleInfo( sword::SWModule* module );
+	CSwordBookModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend() );
 	CSwordBookModuleInfo( const CSwordBookModuleInfo& m );	
 	~CSwordBookModuleInfo();
   /**

@@ -66,9 +66,9 @@ CSwordBackend::CSwordBackend()
 }
 
 CSwordBackend::CSwordBackend(const QString& path)
-	: sword::SWMgr(!path.isEmpty() ? path.local8Bit() : 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
+	: sword::SWMgr((!path.isEmpty() ? path.local8Bit() : 0), false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
 {
-//  qWarning("backend constructed with a path argument! %s", path.latin1());
+  qWarning("backend constructed with a path argument! %s", path.latin1());
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
 	m_displays.book = 0;
@@ -96,43 +96,41 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 //  qWarning("globalSwordConfigPath is %s", globalConfPath);
 	LoadError ret = NoError;
 
-	sword::ModMap::iterator it;
-	sword::SWModule*	curMod = 0;
-	CSwordModuleInfo* newModule = 0;
-		 	
  	shutdownModules(); //remove previous modules
  	m_moduleList.clear();	
 
 	ret = LoadError( Load() );
-	
-	for (it = Modules.begin(); it != Modules.end(); it++) {
-		curMod = (*it).second;
+	for (sword::ModMap::iterator it = Modules.begin(); it != Modules.end(); it++) {
+		sword::SWModule* const curMod = (*it).second;
+		CSwordModuleInfo* newModule = 0;
+				
 		if (!strcmp(curMod->Type(), "Biblical Texts")) {
-			newModule = new CSwordBibleModuleInfo(curMod);
+			newModule = new CSwordBibleModuleInfo(curMod, this);
 			newModule->module()->Disp(m_displays.chapter ? m_displays.chapter : (m_displays.chapter = new CChapterDisplay));
 		} else if (!strcmp(curMod->Type(), "Commentaries")) {
-			newModule = new CSwordCommentaryModuleInfo(curMod);
+			newModule = new CSwordCommentaryModuleInfo(curMod, this);
 			newModule->module()->Disp(m_displays.entry ? m_displays.entry : (m_displays.entry = new CEntryDisplay));
 		} else if (!strcmp(curMod->Type(), "Lexicons / Dictionaries")) {
-			newModule = new CSwordLexiconModuleInfo(curMod);
+			newModule = new CSwordLexiconModuleInfo(curMod, this);
 			newModule->module()->Disp(m_displays.entry ? m_displays.entry : (m_displays.entry = new CEntryDisplay));
 		} else if (!strcmp(curMod->Type(), "Generic Books")) {
-			newModule = new CSwordBookModuleInfo(curMod);
+			newModule = new CSwordBookModuleInfo(curMod, this);
 			newModule->module()->Disp(m_displays.book ? m_displays.book : (m_displays.book = new CBookDisplay));
 		}
-		if (newModule)	//append the new modules to our list
+		
+		if (newModule) {	//append the new modules to our list
 			m_moduleList.append( newModule );
+		}
 	}
 
 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		moduleDescriptionMap.insert(m_moduleList.current()->config(CSwordModuleInfo::Description), m_moduleList.current()->name());
-    m_moduleList.current()->backend(this);
 	}
 
 	//unlock modules if keys are present
 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		if ( m_moduleList.current()->isEncrypted() ){
-			QString unlockKey = CBTConfig::getModuleEncryptionKey(m_moduleList.current()->name()).latin1();
+			const QString unlockKey = CBTConfig::getModuleEncryptionKey(m_moduleList.current()->name()).latin1();
 			if (!unlockKey.isNull()){
   			setCipherKey( m_moduleList.current()->name().latin1(), unlockKey.latin1() );
 			}

@@ -45,7 +45,7 @@ public:
 	/**
 	* The constructor of this class
 	*/
-	CSwordBibleModuleInfo( sword::SWModule* module  );
+	CSwordBibleModuleInfo( sword::SWModule* module, CSwordBackend* const = CPointers::backend()  );
 	CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m );
 	/**
 	* The destructor of this class

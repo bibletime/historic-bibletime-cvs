@@ -28,7 +28,10 @@
 using std::cout;
 using std::endl;
 
-CSwordBookModuleInfo::CSwordBookModuleInfo( sword::SWModule* module ) : CSwordModuleInfo(module), m_depth(-1) {
+CSwordBookModuleInfo::CSwordBookModuleInfo( sword::SWModule* module, CSwordBackend* const usedBackend ) 
+	: CSwordModuleInfo(module, usedBackend),
+		m_depth(-1) 
+{
 
 }
 

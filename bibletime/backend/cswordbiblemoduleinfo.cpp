@@ -27,8 +27,8 @@
 
 static sword::VerseKey staticKey;
 
-CSwordBibleModuleInfo::CSwordBibleModuleInfo( sword::SWModule* module )
-	: CSwordModuleInfo(module),
+CSwordBibleModuleInfo::CSwordBibleModuleInfo( sword::SWModule* module, CSwordBackend* const usedBackend )
+	: CSwordModuleInfo(module, usedBackend),
     m_lowerBound(0),
     m_upperBound(0),
 	  m_bookList(0),

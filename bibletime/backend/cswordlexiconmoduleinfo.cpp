@@ -33,7 +33,7 @@
 //systems rebuild their caches
 #define CACHE_FORMAT "2"
 
-CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( sword::SWModule* module) : CSwordModuleInfo(module) {
+CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( sword::SWModule* module, CSwordBackend* const backend ) : CSwordModuleInfo(module, backend) {
 	m_entryList = 0;
 }
 
