@@ -29,6 +29,7 @@
 #include <qtoolbutton.h>
 
 //KDE includes
+#include <kcombobox.h>
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kapp.h>
@@ -46,8 +47,9 @@ CHTMLDialog::CHTMLDialog(const QString& url, QWidget* parent, const char *name)
 	init();
 	QString file = CToolClass::locatehtml(url);
 	
-	m_textBrowser->mimeSourceFactory()->setFilePath(file);	
+	m_textBrowser->mimeSourceFactory()->setFilePath(file);
 	m_textBrowser->setSource(file);
+//	m_historyCombo->insertItem(file);
 }
 
 CHTMLDialog::~CHTMLDialog(){
@@ -60,9 +62,7 @@ void CHTMLDialog::setText(const QString& text){
 
 /** Initializes this widget. */
 void CHTMLDialog::init(const bool enableHistory){
-	qDebug("CHTMLDialog::init(const bool enableHistory)");
-	resize(600,400);
-		
+	resize(600,400);		
 	QVBoxLayout* layout = new QVBoxLayout(this, 5);
 		
 	m_textBrowser = new QTextBrowser(this);		
@@ -72,29 +72,65 @@ void CHTMLDialog::init(const bool enableHistory){
 		QToolButton *button = 0;		
 		button = new QToolButton(toolBar);
 		button->setIconSet(SmallIcon("back"));
-//		button->setTextLabel(i18n("Backward"));		
+		button->setTextLabel(i18n("Backward"));		
 		button->setEnabled(false);		
-//		button->setUsesTextLabel(true);
+		button->setUsesTextLabel(true);
 		button->setFixedSize(button->sizeHint());
 		connect(button, SIGNAL(clicked()), m_textBrowser, SLOT(backward()));
-		connect(m_textBrowser, SIGNAL(backwardAvailable(bool)),button, SLOT(setEnabled(bool)));		
+		connect(m_textBrowser, SIGNAL(backwardAvailable(bool)),
+			button, SLOT(setEnabled(bool)));		
+    connect( m_textBrowser, SIGNAL( textChanged() ),	
+	     this, SLOT( textChanged() ) );
 
+		m_historyCombo = new KComboBox(toolBar);
+		toolBar->setStretchFactor(m_historyCombo, 5);		
+    connect( m_historyCombo, SIGNAL( activated( const QString & ) ),
+	     this, SLOT( historyItemSelected( const QString & ) ) );
 		
-		QWidget* spacer = new QWidget(toolBar);
-		toolBar->setStretchFactor(spacer, 5);
-				
+	     				
 		button = new QToolButton(toolBar);		
 		button->setEnabled(false);
-//		button->setUsesTextLabel(true);		
+		button->setTextLabel(i18n("Forward"));		
+		button->setUsesTextLabel(true);		
 		button->setIconSet(SmallIcon("forward"));
-//		button->setTextLabel(i18n("Forward"));		
 		button->setFixedSize(button->sizeHint());
 		connect(button, SIGNAL(clicked()), m_textBrowser, SLOT(forward()));		
-		connect(m_textBrowser, SIGNAL(forwardAvailable(bool)),button, SLOT(setEnabled(bool)));
-		
-	
+		connect(m_textBrowser, SIGNAL(forwardAvailable(bool)),
+			button, SLOT(setEnabled(bool)));
+			
 		layout->addWidget(toolBar);		
 	}		
 	layout->addSpacing(5);	
 	layout->addWidget(m_textBrowser,5);
+}
+
+/** Is called when an item of the history combo was chosen. */
+void CHTMLDialog::historyItemSelected( const QString & file ){
+	m_textBrowser->setSource(file);
+}
+
+/** Called when the content of the textbrowser was changed. */
+void CHTMLDialog::textChanged(){
+	if ( m_textBrowser->documentTitle().isNull() )
+		setCaption( m_textBrowser->context() );
+	else
+		setCaption( m_textBrowser->documentTitle() ) ;
+
+	QString selectedURL = caption();
+	if ( !selectedURL.isEmpty() && m_historyCombo ) {
+		bool exists = false;
+		int i;
+		for ( i = 0; i < m_historyCombo->count(); ++i ) {
+			if ( m_historyCombo->text( i ) == selectedURL ) {
+				exists = true;
+				break;
+			}
+		}
+		if ( !exists ) {
+	    m_historyCombo->insertItem( selectedURL, -1 );
+	    m_historyCombo->setCurrentItem( 0 );
+		} else
+	    m_historyCombo->setCurrentItem( i );
+		selectedURL = QString::null;
+	}	
 }

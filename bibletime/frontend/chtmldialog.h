@@ -18,10 +18,13 @@
 #ifndef CHTMLDIALOG_H
 #define CHTMLDIALOG_H
 
+//Qt includes
 #include <qwidget.h>
 #include <qdialog.h>
 
+//forward declarations
 class QTextBrowser;
+class KComboBox;
 
 /** This is a general dialog to show long error messages or report and solutions
 	* (Perhaps from an FAQ file).
@@ -29,7 +32,8 @@ class QTextBrowser;
   */
 class CHTMLDialog : public QDialog  {
   Q_OBJECT
-public: 
+
+public:
 	CHTMLDialog(QWidget* parent=0, const char *name=0);
 	CHTMLDialog(const QString& url, QWidget* parent=0, const char *name=0);
 	~CHTMLDialog();
@@ -44,6 +48,19 @@ protected:
   * Initializes this widget.
   */
   void init(const bool enableHistory = true);
+
+protected slots: // Protected slots
+  /**
+  * Called when the content of the textbrowser was changed.
+  */
+  void textChanged();
+  /**
+  * Is called when an item of the history combo was chosen.
+  */
+  void historyItemSelected( const QString & );
+
+private:
+	KComboBox* m_historyCombo;
 };
 
 #define HTML_DIALOG(filename) \
