@@ -105,20 +105,20 @@ void CKCComboBox::wheelEvent( QWheelEvent* e ) {
 }
 
 ///** Returns the size this widget would like to have. */
-QSize CKCComboBox::sizeHint() const {
-	// IMHO Qt has a bug: The sizehint is not updated if the list is refreshed with other items
-	const QSize oldSize = QComboBox::sizeHint();
-	QRect contentsRect = style().querySubControlMetrics( QStyle::CC_ComboBox , this, QStyle::SC_ComboBoxArrow);
-//(0,0, oldSize.width(), oldSize.height());
-	const int buttonWidth = (oldSize.width() - contentsRect.width());
-
-	if (listBox())	{
-		return QSize( listBox()->sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());
-	}
-	else {
-		return QSize( QComboBox::sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());	
-	}
-}
+//QSize CKCComboBox::sizeHint() const {
+//	// IMHO Qt has a bug: The sizehint is not updated if the list is refreshed with other items
+//	const QSize oldSize = QComboBox::sizeHint();
+//	QRect contentsRect = style().querySubControlMetrics( QStyle::CC_ComboBox , this, QStyle::SC_ComboBoxArrow);
+////(0,0, oldSize.width(), oldSize.height());
+//	const int buttonWidth = (oldSize.width() - contentsRect.width());
+//
+//	if (listBox())	{
+//		return QSize( listBox()->sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());
+//	}
+//	else {
+//		return QSize( QComboBox::sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());	
+//	}
+//}
 
 
 //**********************************************************************************/
@@ -257,7 +257,7 @@ void CKeyChooserWidget::init( ){
 	m_comboBox->setFocusPolicy(QWidget::WheelFocus);	
 
   m_mainLayout->setResizeMode(QLayout::Minimum);			
-	m_mainLayout->addWidget( m_comboBox );
+	m_mainLayout->addWidget(m_comboBox);
 
 	QVBoxLayout *m_buttonLayout = new QVBoxLayout();	
 	m_buttonLayout->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);

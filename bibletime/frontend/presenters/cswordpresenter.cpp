@@ -53,6 +53,7 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *paren
 		}
 	}	
 	connect(m_lexiconPopup, SIGNAL(activated(int)),this, SLOT(lookupWord(int)));
+	setMinimumWidth(300);
 	resize(350,350);	
 	setCaption(windowCaption());	
 	

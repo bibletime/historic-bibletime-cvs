@@ -49,7 +49,7 @@ public:
   /**
   * Returns the size this widget would like to have.
   */
-  virtual QSize sizeHint() const;
+//  virtual QSize sizeHint() const;
 
 protected:
   /**
