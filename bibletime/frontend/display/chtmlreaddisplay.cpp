@@ -276,7 +276,7 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
           QRect rect = linkNode.getRect();
           rect.setX( m_view->mapFromGlobal(QCursor::pos()).x() );
           rect.setY( m_view->mapFromGlobal(QCursor::pos()).y() );
-	        tip( rect, tooltipText );
+	        tip( m_view->mapFromGlobal(QCursor::pos()), rect, tooltipText );
         }
         break;
       }

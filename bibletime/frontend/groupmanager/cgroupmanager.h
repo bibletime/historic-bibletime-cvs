@@ -181,9 +181,6 @@ private:
 		*/		
 		void maybeTip( const QPoint &pos);
 	};
-	/**
-	*
-	*/
 	ListCSwordModuleInfo *m_swordList;
   void initConnections();
   void contentsDragEnterEvent( QDragEnterEvent* e);

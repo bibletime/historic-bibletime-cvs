@@ -41,14 +41,17 @@ public:
 
 protected: // Protected methods
   /**
-  * This function shows a tip with the given text. The tip disappears if the mouse moves out of the rectangle rect.
+  * This function shows a tip with the given text.
+  * The tooltip will open at the position p on the screen. When the mouse moves out of
+  * the rectangle rect the tooltip will disappear.
+  * The point p must be in the rectangle rect, otherwise the behaviour of CToolTip will be incorrect!
   */
-  void tip( const QRect& rect, const QString& text );
+  void tip( const QPoint& p, const QRect& rect, const QString& text );
   /**
   * This function is called when a tooltip may be displayed at position p.
   * Reimplement this function to manage the appearance of tooltips.
   */
-  virtual void maybeTip( const QPoint& p) = 0;
+  virtual void maybeTip( const QPoint& p ) = 0;
 
 private:
   /**
@@ -63,15 +66,17 @@ private:
   * Reimplementation.
   */
   virtual bool eventFilter( QObject *, QEvent *e );
-  /** A helper function which returns true if the given widget contains the global pos p. */
+  /**
+  * A helper function which returns true if the given widget contains the global pos p.
+  */
   const bool widgetContainsPoint( QWidget* const w, const QPoint& p );
 
   bool m_filter;
   QWidget* m_parentWidget;
   KHTMLPart* m_display;
   QRect m_tipRect;
+
 private slots: // Private slots
-  /** No descriptions */
   void destroyObject();
 };
 

@@ -57,23 +57,27 @@ QWidget* const CToolTip::parentWidget() const{
 }
 
 /** This function shows a tip with the given text. The tip disappears if the mouse moves out of the rectangle rect. */
-void CToolTip::tip( const QRect& rect, const QString& text ){
+void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   qWarning("CToolTip::tip");
+
+  //m_tipRect must have global coordinates!
+  QPoint globalPos = parentWidget()->mapToGlobal(rect.topLeft());
+  qWarning("tooltip rect is %i|%i with size %i x %i", globalPos.x(), globalPos.y(), rect.width(), rect.height() );
+  m_tipRect = QRect(globalPos.x(), globalPos.y(), rect.width(), rect.height());
 
   m_display->begin();
   m_display->write(text);
   m_display->end();
 
   m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff);
-//  qWarning("view size is %i x %i", m_display->view()->width(), m_display->view()->height());
 
-  QPoint pos = parentWidget()->mapToGlobal( QPoint(rect.x()-2, rect.y()-2) );
-  QRect tipRect = QRect(pos.x(), pos.y(), width(), height());
-  if (!KApplication::desktop()->geometry().contains(tipRect, true)) {
+  QPoint pos = parentWidget()->mapToGlobal( QPoint(p.x()+5, p.y()+5) /*QPoint(rect.x()-2, rect.y()-2)*/ );
+  QRect widgetRect = QRect(pos.x(), pos.y(), width(), height());
+  if (!KApplication::desktop()->geometry().contains(widgetRect, true)) {
     qWarning("outside of the screen!");
-    QRect intersect = KApplication::desktop()->geometry().intersect(tipRect);
-    tipRect.moveBy(-(tipRect.width()-intersect.width()),-(tipRect.height()-intersect.height()));
-    pos = tipRect.topLeft();
+    QRect intersect = KApplication::desktop()->geometry().intersect(widgetRect);
+    widgetRect.moveBy(-(widgetRect.width()-intersect.width()),-(widgetRect.height()-intersect.height()));
+    pos = widgetRect.topLeft();
   }
   move(pos);
   m_display->view()->setContentsPos(0,0);
@@ -98,58 +102,65 @@ void CToolTip::timerEvent( QTimerEvent* e ) {
 /** Reimplementation. */
 bool CToolTip::eventFilter( QObject *o, QEvent *e ){
   QMouseEvent* me = dynamic_cast<QMouseEvent*>(e);
-
-
   if (o == m_parentWidget) {
-    if (e->type() == QEvent::Show)
+    if (e->type() == QEvent::Show) {
       setFilter(true);
+      return false;
+    }
   }
-  else {
-    switch ( e->type() ) {
-      case QEvent::DragMove:
-      case QEvent::DragEnter:
-      case QEvent::DragLeave:
-      case QEvent::DragResponse:
-        break;
 
-      case QEvent::MouseButtonPress:
-      case QEvent::MouseButtonRelease:
-        if (isVisible() && widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos()))
-          break;
-      case QEvent::KeyPress:
-      case QEvent::KeyRelease:
-      case QEvent::FocusIn:
-      case QEvent::FocusOut:
-        killTimers();
-//        setFilter( false );
+  switch ( e->type() ) {
+    case QEvent::DragMove:
+    case QEvent::DragEnter:
+    case QEvent::DragLeave:
+    case QEvent::DragResponse:
+      break;
+
+    case QEvent::MouseButtonPress:
+    case QEvent::MouseButtonRelease:
+      if (isVisible() && widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos()))
+        break;
+      else {
         hide();
         break;
+      }
+    case QEvent::KeyPress:
+    case QEvent::KeyRelease:
+    case QEvent::FocusIn:
+    case QEvent::FocusOut:
+      killTimers();
+      hide();
+      break;
 
-      case QEvent::MouseMove:
-      {
-        const bool validMousePos = widgetContainsPoint(this, me->globalPos());
-        if (isVisible() && !validMousePos)
-          hide();
-        if (isVisible() && validMousePos)
+    case QEvent::MouseMove:
+    {
+      bool validMousePos = widgetContainsPoint(this, me->globalPos());
+      validMousePos = validMousePos || m_tipRect.contains(me->globalPos());
+//        if (m_tipRect.contains(me->globalPos()))
+//          qWarning("m_tipRect contains %i | %i!", me->globalPos().x(), me->globalPos().y());
+//        else
+//          qWarning("m_tiprect DOESNT contain the mouse pos");
+      if (isVisible() && !validMousePos)
+        hide();
+      if (isVisible() && validMousePos)
+        break;
+
+      if (QMouseEvent* me = dynamic_cast<QMouseEvent*>(e)) {
+        if (me->stateAfter() != Qt::NoButton) //probaby dragging - show no tip
           break;
-
-        if (QMouseEvent* me = dynamic_cast<QMouseEvent*>(e)) {
-          if (me->stateAfter() != Qt::NoButton) //probaby dragging - show no tip
-            break;
-          if (QWidget * w = KApplication::widgetAt( me->globalPos(), true )) {
-            while ( w && w != parentWidget()) {
-              w = w->parentWidget();
-            }
-            if (w == parentWidget()) {
-              startTimer(1500);
-            }
+        if (QWidget * w = KApplication::widgetAt( me->globalPos(), true )) {
+          while ( w && w != parentWidget()) {
+            w = w->parentWidget();
+          }
+          if (w == parentWidget()) {
+            startTimer(1500);
           }
         }
-        break;
       }
-      default:
-        break;
+      break;
     }
+    default:
+      break;
   }
   return false;
 }
@@ -174,11 +185,9 @@ const bool CToolTip::widgetContainsPoint( QWidget* const w, const QPoint& p ){
   const QPoint origin = w->mapToGlobal(QPoint(0,0));
   if (p.x() >= origin.x() && p.x() <= w->mapToGlobal(QPoint(w->width(),w->height())).x() ) { //x is valid
     if (p.y() >= origin.y() && p.y() <= w->mapToGlobal(QPoint(w->width(),w->height())).y() ) { //x is valid
-//      qWarning("widget contains point!");
       return true;
     }
   }
-//  qWarning("widget doesn contain pos!");
   return false;
 }
 

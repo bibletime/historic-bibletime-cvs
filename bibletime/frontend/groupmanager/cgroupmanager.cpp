@@ -61,7 +61,6 @@
 #include <kapp.h>
 #include <kpopupmenu.h>
 #include <kglobalsettings.h>
-//#include <kdestyle.h>
 #include <kpassdlg.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
@@ -88,17 +87,8 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 	//get type of item and display correct text
 	const QString text = i->getToolTip();
 	if (!text.isEmpty()) {
-//		const QFont oldFont = font();				
-//		CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(i->moduleInfo());
-
-		//Module is Unicode-based. Only set font if a bookmark should be displayed
-//		if (i->getBookmarkKey() && m && m->isUnicode() )
-//			setFont(CBTConfig::get( CBTConfig::unicode ));
-    QPoint globalPoint = m->viewport()->mapToParent(r.topLeft());
-    r.setX(globalPoint.x());
-    r.setY(globalPoint.y());
-		tip(r, text);
-//		setFont(oldFont);
+    QPoint globalPoint = m->viewport()->mapTo(m, p);
+		tip(globalPoint, r, text);
 	}
 }
 
@@ -256,6 +246,7 @@ void CGroupManager::readSettings(){
 void CGroupManager::initView(){
  	m_toolTip = new ToolTip(this);
   setTooltipColumn(-1);
+  setShowToolTips(false);//to disable Qt's tooltips
    	
  	QWhatsThis::add(this, WT_GM_WIDGET );
  	m_singleClick = KGlobalSettings::singleClick();
