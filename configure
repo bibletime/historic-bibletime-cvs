@@ -6964,6 +6964,7 @@ fi
 if test "$USE_STATIC_LINKING" = "yes"; then
 	BT_LDFLAGS="-all-static -Wl,-Bstatic";
 	
+	CPPFLAGS="-DSTATIC_BUILD $CPPFLAGS";
 	ac_use_static="YES";
 else
 	ac_use_static="NO";
@@ -6996,7 +6997,7 @@ fi
 
 
 echo $ac_n "checking for Sword library files""... $ac_c" 1>&6
-echo "configure:7000: checking for Sword library files" >&5
+echo "configure:7001: checking for Sword library files" >&5
 
 ac_sword_library_dirs="$ac_sword_dir/lib /usr/lib /usr/lib/sword /usr/local/lib /usr/local/lib/sword /usr/local/sword/lib"
 
@@ -7012,7 +7013,7 @@ for i in $ac_sword_library_dirs;
 do
   for j in $SEARCH_LIBS;
   do
-    echo "configure: 7016: $i/$j" >&5
+    echo "configure: 7017: $i/$j" >&5
     if test -r "$i/$j"; then
       echo "taking that" >&5
       ac_sword_libdir=$i
@@ -7045,7 +7046,7 @@ echo "$ac_t""$MESSAGE" 1>&6
 
 
 echo $ac_n "checking for Sword include files""... $ac_c" 1>&6
-echo "configure:7049: checking for Sword include files" >&5
+echo "configure:7050: checking for Sword include files" >&5
 ac_sword_include_dirs="$ac_sword_dir/include/sword $ac_sword_dir/include /usr/include/sword /usr/include /usr/local/include/sword /usr/local/include /usr/local/sword/include /usr/local/sword/include/sword"
 
 ac_sword_incdir=NO
@@ -7053,7 +7054,7 @@ for i in $ac_sword_include_dirs;
 do
   for j in swmgr.h;
   do
-    echo "configure: 7057: $i/$j" >&5
+    echo "configure: 7058: $i/$j" >&5
     if test -r "$i/$j"; then
       echo "taking that" >&5
       ac_sword_incdir=$i
@@ -7077,7 +7078,7 @@ echo "$ac_t""$ac_sword_incdir" 1>&6
 
 
 echo $ac_n "checking if you have Sword 1.52 or later""... $ac_c" 1>&6
-echo "configure:7081: checking if you have Sword 1.52 or later" >&5
+echo "configure:7082: checking if you have Sword 1.52 or later" >&5
 
 
  ac_ext=C
@@ -7116,7 +7117,7 @@ int main() {
 EOF
 
 ac_link='$LIBTOOL_SHELL --silent --mode=link ${CXX-g++} -o conftest $CXXFLAGS $all_includes $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS 1>&5'
-if { (eval echo configure:7120: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
+if { (eval echo configure:7121: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
 	if test -x conftest; then
 		eval ac_installed_sword_version=`./conftest 2>&5`
 	fi
@@ -7125,7 +7126,7 @@ else
   cat conftest.$ac_ext >&5
 fi
 
-#rm -f conftest*
+rm -f conftest*
 CXXFLAGS="$ac_cxxflags_safe"
 LDFLAGS="$ac_ldflags_safe"
 LIBS="$ac_libs_safe"
@@ -7579,7 +7580,6 @@ for ac_file in .. $CONFIG_FILES; do if test "x$ac_file" != x..; then
 
   case "$ac_given_INSTALL" in
   [/$]*) INSTALL="$ac_given_INSTALL" ;;
-"") ;;
   *) INSTALL="$ac_dots$ac_given_INSTALL" ;;
   esac
 
@@ -7719,10 +7719,6 @@ test -z "$CONFIG_HEADERS" || echo timestamp > stamp-h
 
 exit 0
 EOF
-if test "x$with_fast_perl" = "xyes" ; then
-  perl -i.bak $ac_aux_dir/conf.change.pl $CONFIG_STATUS || mv $CONFIG_STATUS.bak $CONFIG_STATUS; 
-  rm -f $CONFIG_STATUS.bak;
-fi 
 chmod +x $CONFIG_STATUS
 rm -fr confdefs* $ac_clean_files
 test "$no_create" = yes || ${CONFIG_SHELL-/bin/sh} $CONFIG_STATUS || exit 1

@@ -120,7 +120,7 @@ void CBiblePresenter::lookup(CKey* key){
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
 	setUpdatesEnabled(true);		
 	
-	setPlainCaption( caption() );	
+	QWidget::setCaption( windowCaption() );	
 }
 
 /** This slot is called when the modules selected in the module chooserbar have changed. */

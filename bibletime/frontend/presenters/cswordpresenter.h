@@ -86,6 +86,10 @@ public:
   * Returns the listof used modules.
   */
   ListCSwordModuleInfo& getModuleList();
+  /**
+  * Returns the caption for this Sword display window.
+  */
+  const QString windowCaption();
 
 public slots: // Public slots
   /**
@@ -93,13 +97,13 @@ public slots: // Public slots
   */
   virtual void lookup(const QString&);
   /**
-  * Returns the caption for this Sword display window.
-  */
-  virtual QString caption();
-  /**
   * Returns the used keychooser object of this presenter.
   */
   CKeyChooser* getKeyChooser() const;
+  /**
+  * Sets the caption of this display window
+  */
+  virtual void setCaption(const QString&);
 
 protected: // Protected methods
   /**

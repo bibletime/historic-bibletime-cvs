@@ -92,10 +92,9 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 }
 
 CKey *CBibleKeyChooser::getKey(){
-	m_key->Verse(w_verse->ComboBox->currentText().toInt());		
-	m_key->Chapter(w_chapter->ComboBox->currentText().toInt());
+	m_key->Verse(w_verse->ComboBox->currentText().toInt());			
+	m_key->Chapter(w_chapter->ComboBox->currentText().toInt());		
 	m_key->book(w_book->ComboBox->currentText());
-	
 	return m_key;
 }
 
@@ -118,17 +117,19 @@ void CBibleKeyChooser::setKey(CKey* key){
 			break;
 		}
 	}
+	
 	if (bookIsValid) {	//we have a valid book
 		if (w_book->ComboBox->currentText() != m_key->book()) //necessary?
 			w_book->setItem( m_key->book() );
 		
 		w_chapter->reset(m_info->getChapterCount(bookIndex), chapter-1, false);
-		w_chapter->adjustSize();	
+		w_chapter->adjustSize();
 		
 		w_verse->reset(m_info->getVerseCount(bookIndex, chapter), verse-1, false);
 		w_verse->adjustSize();
 	}
 	else {
+		qWarning("book %s is invalid!", m_key->book().latin1());
 		w_book->ComboBox->setCurrentItem(0);
 		m_key->book(w_book->ComboBox->currentText());
 		

@@ -118,7 +118,7 @@ else
   cat conftest.$ac_ext >&AC_FD_CC
 fi
 
-#rm -f conftest*
+rm -f conftest*
 CXXFLAGS="$ac_cxxflags_safe"
 LDFLAGS="$ac_ldflags_safe"
 LIBS="$ac_libs_safe"

@@ -143,7 +143,7 @@ const QString CSwordVerseKey::key( const QString& newKey ){
 		qDebug(newKey.latin1());
 		VerseKey::operator = ((const char*)newKey.local8Bit());
 	}
-	qDebug("return %s\n", (const char*)*this);
+//	qDebug("return %s\n", (const char*)*this);
 	return QString::fromLocal8Bit((const char*)*this);
 }
 
@@ -152,6 +152,43 @@ void CSwordVerseKey::key( const char* newKey ){
 	if (newKey) {
 		qDebug(newKey);
 		VerseKey::operator = (newKey);
-		qDebug("key is now %s\n", (const char*)*this);		
+//		qDebug("CSwordVerseKey::key: key is now %s\n", (const char*)*this);		
 	}
+}
+
+
+/** Reimplementation to work around the problem that te verse is set to 1. */
+int CSwordVerseKey::Chapter(){
+	return VerseKey::Chapter();
+}
+
+/** Reimplementation to work around the problem that te verse is set to 1. */
+int CSwordVerseKey::Chapter( int newChapter ){
+	const int oldVerse = Verse();
+	
+	int retval = VerseKey::Chapter(newChapter);
+	
+	Verse(oldVerse);	
+	Normalize(1);
+	
+	return retval;
+}
+
+/** Reimplementation to work around the problem that te verse is set to 1. */
+char CSwordVerseKey::Book( char newBook ){
+	const int oldVerse = Verse();
+	const int oldChapter = Chapter();
+	
+	char retval = VerseKey::Book(newBook);
+	
+	Chapter(oldChapter);
+	Verse(oldVerse);
+	Normalize(1);	
+	
+	return retval;
+}
+
+/** Reimplementation to work around the problem that te verse is set to 1. */
+char CSwordVerseKey::Book(){
+	return VerseKey::Book();
 }

@@ -72,6 +72,7 @@ void CMDIArea::initConnections(){
 void CMDIArea::slotClientActivated(QWidget* client){
 	if (!client)
 		return;				
+//	qWarning(client->caption().latin1());
 	emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(client->caption().stripWhiteSpace()) );	
 	
 	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);

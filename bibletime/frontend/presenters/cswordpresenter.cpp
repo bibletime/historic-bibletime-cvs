@@ -43,7 +43,8 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClas
 		}
 	}	
 	connect(m_lexiconPopup, SIGNAL(activated(int)),this, SLOT(lookupWord(int)));
-		
+	
+	setCaption(windowCaption());
 	refreshFeatures();
 }
 
@@ -121,7 +122,7 @@ CKeyChooser* CSwordPresenter::getKeyChooser() const {
 }
 
 /** No descriptions */
-QString CSwordPresenter::caption() {
+const QString CSwordPresenter::windowCaption() {
 	QString ret;
 	if (!m_moduleList.count())  {
 		return QString::null;
@@ -133,4 +134,9 @@ QString CSwordPresenter::caption() {
 		}
 	}
 	return ret;
+}
+
+/** Sets the caption of this display window */
+void CSwordPresenter::setCaption(const QString&){
+	QWidget::setCaption( windowCaption() ); //set everytime our own caption
 }

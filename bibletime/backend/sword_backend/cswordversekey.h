@@ -136,6 +136,22 @@ public:
   * Clones this object.
   */
   virtual CSwordVerseKey* clone() const;
+  /**
+  * Reimplementation to work around the problem that te verse is set to 1.
+  */
+  virtual int Chapter( int newChapter );
+  /**
+  * Reimplementation to work around the problem that te chapter is set to 1 each time.
+  */
+  virtual char Book( char newBook );
+  /**
+  * Reimplementation to work around the problem that te verse is set to 1.
+  */
+  virtual int Chapter();
+  /**
+  * Reimplementation to work around the problem that te chapter is set to 1 each time.
+  */
+  virtual char Book();
 };
 
 #endif
