@@ -131,6 +131,8 @@ protected:
 	*/
   void initConnections();
   void viewportMouseMoveEvent(QMouseEvent *e);
+  /** Returns the selected items of this listbox. */
+  QList<QListBoxItem> selectedItems();
 
 public slots:
   /**

@@ -32,6 +32,7 @@
 #include "../../printing/cprinter.h"
 
 //QT includes
+#include <qlist.h>
 #include <qheader.h>
 #include <qevent.h>
 #include <qmessagebox.h>
@@ -367,7 +368,6 @@ void CSearchDialogResultView::setupTree() {
 	
 	setUpdatesEnabled(false);
 	for (int index = 0; index < count; index++) {
-//		KApplication::kApplication()->processEvents(10);
 		insertItem( QString::fromLocal8Bit((const char*)*moduleSearchResult.GetElement(index)), -1);
 	}
 	setUpdatesEnabled(true);	
@@ -386,6 +386,7 @@ void CSearchDialogResultView::initConnections() {
 /** Initializes this widget */
 void CSearchDialogResultView::initView(){
 	QWhatsThis::add(this, WT_SD_RESULT_RESULT_VIEW);
+	setSelectionMode(QListBox::Extended);
 	
 	m_popup = new KPopupMenu(this);		
 	m_copyPopup = new KPopupMenu(m_popup);	
@@ -414,50 +415,54 @@ void CSearchDialogResultView::popupAboutToShow(){
 /**  */
 void CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e){
   QListBox::viewportMouseMoveEvent(e);
-	if ( e->state() ){
+
+	if ( !(e->state() & QMouseEvent::LeftButton) )
+		return;
+		
 	//Is it time to start a drag?
-		if (abs(e->pos().x() - m_pressedPos.x()) > KGlobalSettings::dndEventDelay() ||
-			abs(e->pos().y() - m_pressedPos.y()) > KGlobalSettings::dndEventDelay() ){
-			qDebug("start a drag");
-			if (m_currentItem) {
-				QString mod;
-				QString ref;
-				ASSERT(m_currentItem);
+ 	if (abs(e->pos().x() - m_pressedPos.x()) > KGlobalSettings::dndEventDelay() ||
+ 		abs(e->pos().y() - m_pressedPos.y()) > KGlobalSettings::dndEventDelay() ){
+ 		qDebug("start a drag");
+ 		if (m_currentItem) {
+ 			QString mod;
+ 			QString ref;
+ 			ASSERT(m_currentItem);
 
-				mod = m_module->module()->Name();
-				ref = m_currentItem->text();
+ 			mod = m_module->module()->Name();
+ 			ref = m_currentItem->text();
 
-				QTextDrag *d = new QTextDrag(CToolClass::encodeReference(mod,ref),this->viewport());
-				if (d){
-					d->setSubtype(REFERENCE);
-					d->setPixmap( REFERENCE_ICON_SMALL );
-					d->drag();
-				}
-			}
-		}
-	}
+ 			QTextDrag *d = new QTextDrag(CToolClass::encodeReference(mod,ref),this->viewport());
+ 			if (d){
+ 				d->setSubtype(REFERENCE);
+ 				d->setPixmap( REFERENCE_ICON_SMALL );
+ 				d->drag();
+ 			}
+ 		}
+ 	}
 }
 
 /**  */
 void CSearchDialogResultView::printItem() {
 	if (currentText().isEmpty())
 		return;
-
-	CPrintItem*	printItem = new CPrintItem();
-	if ( dynamic_cast<CSwordBibleModuleInfo*>(m_module) ) {	//a bible or a commentary
-		CSwordVerseKey* verseKey = new CSwordVerseKey(m_module); 	//the key is deleted by the CPrintItem
-		verseKey->setKey(currentText());
-		printItem->setStartKey(verseKey);
-		printItem->setStopKey(verseKey);
+	QList<QListBoxItem> list = selectedItems();
+	for (list.first(); list.current(); list.next()) {
+		CPrintItem*	printItem = new CPrintItem();
+		if ( dynamic_cast<CSwordBibleModuleInfo*>(m_module) ) {	//a bible or a commentary
+			CSwordVerseKey* verseKey = new CSwordVerseKey(m_module); 	//the key is deleted by the CPrintItem
+			verseKey->setKey(currentText());
+			printItem->setStartKey(verseKey);
+			printItem->setStopKey(verseKey);
+		}
+		else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module)) {	//a lexicon
+			CSwordLDKey* ldKey = new CSwordLDKey(m_module);	//the key is deleted by the CPrintItem
+			ldKey->setKey(currentText());
+			printItem->setStartKey(ldKey);
+			printItem->setStopKey(ldKey);	
+		}	
+		printItem->setModule(m_module);		
+		m_important->printer->addItemToQueue( printItem );
 	}
-	else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module)) {	//a lexicon
-		CSwordLDKey* ldKey = new CSwordLDKey(m_module);	//the key is deleted by the CPrintItem
-		ldKey->setKey(currentText());
-		printItem->setStartKey(ldKey);
-		printItem->setStopKey(ldKey);	
-	}	
-	printItem->setModule(m_module);		
-	m_important->printer->addItemToQueue( printItem );
 }
 
 /** This slot is called when the current item changed. */
@@ -509,48 +514,96 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 
 /** This slot copies the current active item into the clipboard. */
 void CSearchDialogResultView::slotCopyCurrent(){
-	KApplication::clipboard()->setText(m_currentItem->text());
+	QString text;
+	QList<QListBoxItem> list = selectedItems();
+	for (list.first(); list.current(); list.next()) {
+		text += list.current()->text();
+	}
+	KApplication::clipboard()->setText(text);
 }
 
 /** This slot copies the current active item into the clipboard. */
 void CSearchDialogResultView::slotCopyCurrentWithKeytext(){
-	QString keyText = QString::null;
-	if (dynamic_cast<CSwordBibleModuleInfo*>(m_module)) {
-		CSwordVerseKey key(m_module);
-		key.setKey(m_currentItem->text());
-		keyText = key.getStrippedText();
+	QList<QListBoxItem> list = selectedItems();
+	QString text;
+	QString keyText, keyName;
+	for (list.first(); list.current(); list.next()) {
+		if (dynamic_cast<CSwordBibleModuleInfo*>(m_module)) {
+			CSwordVerseKey key(m_module);
+			key.setKey(list.current()->text());
+			keyName = key.getKey();
+			keyText += key.getStrippedText();
+		}
+		else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module) ) {
+			CSwordLDKey key(m_module);						
+			key.setKey(list.current()->text());
+			keyName = key.getKey();			
+			keyText += key.getStrippedText();
+		}
+		text += QString("%1\n%2\n\n").arg(keyName).arg(keyText);
 	}
-	else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module) ) {
-		CSwordLDKey key(m_module);						
-		key.setKey(m_currentItem->text());
-		keyText = key.getStrippedText();
-	}
-	KApplication::clipboard()->setText(QString("%1:\n%2").arg(m_currentItem->text()).arg(keyText));
+	
+	KApplication::clipboard()->setText(text);
 }
 
 /** This slot copies the current active item into the clipboard. */
 void CSearchDialogResultView::slotSaveCurrent(){
  	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save key ..."));	
 	if (!file.isNull()) {
-		CToolClass::savePlainFile( file, m_currentItem->text());
+		QList<QListBoxItem> list = selectedItems();
+		QString text;
+		for (list.first(); list.current(); list.next())
+			text += list.current()->text() += "\n";
+		CToolClass::savePlainFile(file, text);
 	}
 }
 
 /** This slot copies the current active item into the clipboard. */
 void CSearchDialogResultView::slotSaveCurrentWithKeytext(){
- 	QString keyText = QString::null;
-	if (dynamic_cast<CSwordBibleModuleInfo*>(m_module)) {
-		CSwordVerseKey key(m_module);
-		key.setKey(m_currentItem->text());
-		keyText = key.getStrippedText();
+// 	QString keyText = QString::null;
+//	if (dynamic_cast<CSwordBibleModuleInfo*>(m_module)) {
+//		CSwordVerseKey key(m_module);
+//		key.setKey(m_currentItem->text());
+//		keyText = key.getStrippedText();
+//	}
+//	else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module) ) {
+//		CSwordLDKey key(m_module);						
+//		key.setKey(m_currentItem->text());
+//		keyText = key.getStrippedText();
+//	}	 	
+	QList<QListBoxItem> list = selectedItems();
+	QString text;
+	QString keyText, keyName;
+	for (list.first(); list.current(); list.next()) {
+		if (dynamic_cast<CSwordBibleModuleInfo*>(m_module)) {
+			CSwordVerseKey key(m_module);
+			key.setKey(list.current()->text());
+			keyName = key.getKey();
+			keyText += key.getStrippedText();
+		}
+		else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module) ) {
+			CSwordLDKey key(m_module);						
+			key.setKey(list.current()->text());
+			keyName = key.getKey();			
+			keyText += key.getStrippedText();
+		}
+		text += QString("%1\n%2\n\n").arg(keyName).arg(keyText);
 	}
-	else if (dynamic_cast<CSwordLexiconModuleInfo*>(m_module) ) {
-		CSwordLDKey key(m_module);						
-		key.setKey(m_currentItem->text());
-		keyText = key.getStrippedText();
-	}	 	
+	
  	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save key ..."));	
 	if (!file.isNull()) {
-		CToolClass::savePlainFile( file, QString("%1:\n%2").arg(m_currentItem->text()).arg(keyText));
+		CToolClass::savePlainFile( file, text);
 	}
+}
+
+/** Returns the selected items of this listbox. */
+QList<QListBoxItem> CSearchDialogResultView::selectedItems(){
+	QList<QListBoxItem> list;
+	QListBoxItem* item = firstItem();
+	while (item) {
+		if (item->selected())
+			list.append(item);
+		item = item->next();
+	}
+	return list;
 }

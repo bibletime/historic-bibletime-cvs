@@ -20,7 +20,6 @@
 //QT includes
 #include <qwidget.h>
 #include <qlist.h>
-#include <qguardedptr.h>
 #include <qtooltip.h>
 
 //KDE includes
@@ -28,7 +27,6 @@
 #include <qlistview.h>
 #include <klistview.h>
 #undef private
-
 
 #include "../../backend/cmoduleinfo.h"
 #include "../../backend/sword_backend/cswordmoduleinfo.h"
@@ -239,8 +237,8 @@ private:
 	*/	
   bool readGroups(KConfig* configFile, CGroupManagerItem* group);
 
-  QGuardedPtr<KConfig> config;
-  QGuardedPtr<KPopupMenu> popupMenu;
+ 	KConfig* config;
+  KPopupMenu* popupMenu;
 	bool m_menu;
   QPoint m_pressedPos;
   QRect	oldDragRect;
@@ -248,7 +246,7 @@ private:
   CGroupManagerItem* m_parentItemDrop;
   CGroupManagerItem* m_afterItemDrop;
   QString m_dragType;	
-	QGuardedPtr<CSearchDialog> searchDialog;
+	CSearchDialog* searchDialog;
 	ToolTip* m_toolTip;	
 	CGroupManagerItem*	m_pressedItem;
   QList<CGroupManagerItem>*	m_itemList;	

@@ -22,21 +22,23 @@
 #include "cgroupmanager.h"
 #include "cgroupmanageritem.h"
 
-#include "../chtmldialog.h"
-#include "../../structdef.h"
-#include "../../whatsthisdef.h"
-#include "../../ressource.h"
-#include "../ctoolclass.h"
-#include "../searchdialog/csearchdialog.h"
-#include "../../printing/cprintitem.h"
-#include "../../printing/cprinter.h"
-
-#include "../../backend/ckey.h"
-#include "../../backend/sword_backend/cswordversekey.h"
-#include "../../backend/sword_backend/cswordldkey.h"
 #include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
 #include "../../backend/sword_backend/cswordcommentarymoduleinfo.h"
 #include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
+#include "../../backend/ckey.h"
+#include "../../backend/sword_backend/cswordversekey.h"
+#include "../../backend/sword_backend/cswordldkey.h"
+
+#include "../../printing/cprintitem.h"
+#include "../../printing/cprinter.h"
+
+#include "../chtmldialog.h"
+#include "../ctoolclass.h"
+#include "../searchdialog/csearchdialog.h"
+
+#include "../../structdef.h"
+#include "../../whatsthisdef.h"
+#include "../../ressource.h"
 
 //QT includes
 #include <qheader.h>
@@ -58,12 +60,9 @@
 #include <kglobalsettings.h>
 #include <kdestyle.h>
 #include <kpassdlg.h>
-#include <klineeditdlg.h>
+//#include <klineeditdlg.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
-
-//Sword includes
-#include <swmodule.h>
 
 
 CGroupManager::ToolTip::ToolTip(QWidget* parent) : QToolTip(parent) {
@@ -138,7 +137,6 @@ void CGroupManager::setupSwordTree() {
 void CGroupManager::setupStandardSwordTree() {
 	if (!m_swordList)
 		return;
-
 	const bool initialized = config->readBoolEntry("initialized", false);
 	
 	CSwordModuleInfo* moduleInfo = 0;
@@ -859,13 +857,6 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 	if (m_pressedItem && (e->button() == LeftButton)) {
 		if (m_pressedItem->type() == CGroupManagerItem::Module && m_pressedItem->moduleInfo()) {
 	  	//check if module is encrypted and show dialog if it wasn't opened before	  	
-	  	if (m_pressedItem->moduleInfo()->isEncrypted()) {
-  			KConfigGroupSaver groupSaver(config, "Groupmanager");
-	  		if (m_showHelpDialogs && !config->readBoolEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), false))
-	  			HTML_DIALOG(HELPDIALOG_MODULE_LOCKED);
-	  		if (m_showHelpDialogs)
-	  			config->writeEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
-	  	}
 			if (selectedItems().count() > 1) {
 				ListCSwordModuleInfo modules;
 				QList<QListViewItem> items = selectedItems();
@@ -880,6 +871,14 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 			}
 			else
 				emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
+					  	
+	  	if (m_pressedItem->moduleInfo()->isEncrypted()) {
+  			KConfigGroupSaver groupSaver(config, "Groupmanager");
+	  		if (m_showHelpDialogs && !config->readBoolEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), false))
+	  			HTML_DIALOG(HELPDIALOG_MODULE_LOCKED);
+	  		if (m_showHelpDialogs)
+	  			config->writeEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
+	  	}
 		}
 		else if  (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Bookmark) {
 			if (m_pressedItem->moduleInfo() && m_pressedItem->getBookmarkKey() )
