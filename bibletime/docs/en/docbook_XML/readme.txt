@@ -50,8 +50,8 @@ readme.txt
 Pictures
 All pictures are stored in the en/HTML/common folder. If you want to recompile
 these files (kdb2html dockbook.index) such as when translating them, please move
-the pictures to another location.  You wlll need to move them back after kdb2html finishes.
-The reason for this is that kdb2html discardes the contents of HTML and
+the pictures to another location.  You will need to move them back after kdb2html finishes.
+The reason for this is that kdb2html discards the contents of HTML and
 subdirectories every time it is run.  However the generated HTML always look for
 pictures in en/HTML/common.
 
@@ -71,7 +71,7 @@ hdbk_op_module_select_1.png
 hdbk_op_module_select_2.png
 hdbk_op_module_tree_1.png
 
-Please use *.png picture files in accordance with the recomendation of kde.org.
+Please use *.png picture files in accordance with the recommendation of kde.org.
 
 
 

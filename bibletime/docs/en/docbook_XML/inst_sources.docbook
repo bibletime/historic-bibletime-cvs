@@ -224,7 +224,7 @@ sources.
 </para>
 <screen>
 $ cd /tmp/bibletime         # Path of source code
-$ export QTDIR=/usr/lib/qt2   # QT 2.2.x directory (where QT 2.2 orlater is installed)
+$ export QTDIR=/usr/lib/qt2   # QT 2.2.x directory (where QT 2.2 or later is installed)
 $ export KDEDIR=/usr/local/kde2    # KDE2 directory (where KDE2 is installed)
 $ make -f Makefile.cvs             # only necessary for CVS version
 $ ./configure                      # create makefiles

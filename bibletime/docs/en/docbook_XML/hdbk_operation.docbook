@@ -125,7 +125,7 @@ on. </para> </section>
 <section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Editing
 your own commentary</title> <para>
 The tool bar of commentary presenters has another button, with the picture of a
-pencil.<graphic fileref="comon/hdbk_op_pencil.png"></graphic>
+pencil.<graphic fileref="common/hdbk_op_pencil.png"></graphic>
 For the "Personal" commentary module, click that button to be able to
 enter your own notes into the Personal commentary, or to edit notes you've
 already entered. When you're done, click on the "Save" (disk) button to save
@@ -223,7 +223,7 @@ the search.</para>
 </section>
 
 <section ID="hdbk_op_search_dialog_text_regexp">
-<title>Search Syntax using GCC Regular Expresession</title>
+<title>Search Syntax using GCC Regular Expression</title>
 
 <para>Regular expression searches provide a way to do simple or
 complex searches for strings that match a pattern or set of
@@ -263,7 +263,7 @@ an ordinary period. </para>
 
 
 
-<section ID="hdbk_op_search_dialog_text_regexp_rules"><title>Rules for GCC Regular Expresession Search Requests</title>
+<section ID="hdbk_op_search_dialog_text_regexp_rules"><title>Rules for GCC Regular Expression Search Requests</title>
 <itemizedlist>
 <listitem><para>. The period matches any character. See <link
         linkend="period">Details</link></para></listitem>
@@ -549,7 +549,7 @@ Context Menu Information Later
 
 <section ID="hdbk_op_print"><title>Printing</title>
 <para>The printing system has been changed, This section is under
-revusion</para> <para>Printing from Bibletime is rather basic and is intended as 
+revision</para> <para>Printing from Bibletime is rather basic and is intended as 
 a utility.  If you are composing a document or presentation containing text from
 Bibletime documents, we suggest that you use one of the presentation or editing
 tools on your system.  See the instructions on exporting. </para>
