@@ -36,12 +36,22 @@ using namespace sword;
 
 const QString BTInstallMgr::Tool::LocalConfig::swordConfigFilename() {
   Q_ASSERT( CPointers::backend()->sysconfig );
-  if (CPointers::backend()->globalConfPath) {
+
+	qWarning(CPointers::backend()->globalConfPath);
+
+	//in Sword 1.5.7 we can use $HOME/.sword/sword.conf instead of the global ones
+	if (sword::SWVersion::currentVersion >= sword::SWVersion("1.5.7")) { // use sword.conf in HOME/.sword
+		const QString file = QString("%1/.sword/sword.conf").arg(getenv("HOME"));
+		qWarning("file is %s", file.latin1());
+		return file;
+	}
+	else if (CPointers::backend()->globalConfPath) {
     QStringList paths = QStringList::split(":", CPointers::backend()->globalConfPath);
-    if (paths.count()) {
+    if (paths.count()) { // more than one path
       return paths.first();
     }
   }
+
   return QString("Unknown path");
 }
 
@@ -82,14 +92,20 @@ QStringList BTInstallMgr::Tool::LocalConfig::targetList() {
 
 void BTInstallMgr::Tool::LocalConfig::setTargetList( const QStringList& targets ) {
   //saves a new Sworc config using the provided target list
-  QString filename =  KGlobal::dirs()->saveLocation("data", "bibletime/") + "sword.conf";
+  QString filename =  KGlobal::dirs()->saveLocation("data", "bibletime/") + "sword.conf"; //default is to assume the real location isn't writable
   bool directAccess = false;
 
   QFileInfo i(LocalConfig::swordConfigFilename());
-  if (i.exists() && i.isWritable()) { //we can write to the file ourself
+	QFileInfo dirInfo(i.dirPath(true));
+
+  if ( i.exists() && i.isWritable() ) { //we can write to the file ourself
     filename = LocalConfig::swordConfigFilename();
     directAccess = true;
-  }
+ 	}
+	else if ( !i.exists() && dirInfo.isWritable() ) { // if the file doesn't exist but th eparent is writable for us, create it
+    filename = LocalConfig::swordConfigFilename();
+    directAccess = true;
+	}
 
   bool setDataPath = false;
   SWConfig conf(filename.local8Bit());
@@ -107,7 +123,6 @@ void BTInstallMgr::Tool::LocalConfig::setTargetList( const QStringList& targets 
     }
   }
   conf.Save();
-
 
   if (!directAccess) { //use kdesu to move the file to the right place
    KProcess *proc = new KProcess;
