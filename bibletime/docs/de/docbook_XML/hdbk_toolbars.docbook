@@ -1,0 +1,376 @@
+<chapter id="hdbk_bars"><title>Main toolbar and menubar</title>
+<para></para>
+
+<section ID="hdbk_bars_toolbar"><title>Toolbar</title>
+<section ID="hdbk_bars_toolbar_config"><title>Configuration</title>
+<para>
+The main window toolbar is configurable.  Access this with the "Configure
+tool bars" entry under the "Settings" menubar entry.</para>
+<screenshot><screeninfo>Toolbar Configuration Dialog Box</screeninfo>
+<graphic fileref="common/hdbk_bars_toolbar_Configtoolbar.png" format="png">
+Toolbar Configuration Dialog Box</graphic>
+</screenshot>
+<para> Each of the buttons has tooltips to tell what their function is.
+For buttons with no pixmap, the buttons could appear as blank, or just blank bars.
+</para>
+</section>
+<section ID="hdbk_bars_toolbar_action"><title>Button Action</title>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_exit.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Closes Bibletime.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_print.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Prints items in the print queue.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_strongs.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Show / Hide Strongs Numbers.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_footnotes.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Show / Hide Footnotes.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_search.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Search in Selected Module(s).
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_cascade.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Cascade Document Windows.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_cascade_auto.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Autocascade Document Windows.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_tile.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Tile Document Windows.
+</para>
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_action_tile_auto.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Auto tile Document Windows.
+</para>
+
+
+<para>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="common/hdbk_bars_toolbar_close.png">
+</imageobject>
+<textobject>
+<phrase>Icon</phrase>
+</textobject>
+</inlinemediaobject>
+Close All Document Windows.
+</para>
+
+
+
+
+</section>
+</section>
+<section ID="hdbk_bars_menubar"><title>Menubar</title>
+<para></para>
+
+<section ID="hdbk_bars_menubar_file"><title>File</title>
+<para>
+
+<variablelist>
+<varlistentry>
+<term>New window</term>
+<listitem>
+<para>opens another instance of Bibletime</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Close</term>
+<listitem>
+<para>closes the presenter that has focus</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Quit</term>
+<listitem>
+<para>Quits Bibletime</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</section>
+
+<section ID="hdbk_bars_menubar_Window"><title>Window</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term>Cascade</term>
+<listitem><para>Cascades open presenters</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Tile</term>
+<listitem>
+<para>Tiles open presenters</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Auto Cascade</term>
+<listitem>
+<para>
+Automatically cascades newly opened presenters
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Auto Tile</term>
+<listitem>
+<para>ditto for tiling newly opened presenters</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Close all</term>
+<listitem>
+<para>Closes all open presenters</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>List of open modules</term>
+<listitem>
+<para>Do I have to explain?</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</section>
+
+<section ID="hdbk_bars_menubar_settings"><title>Settings</title>
+<para>
+
+<variablelist>
+<varlistentry>
+<term>Show Toolbar</term>
+<listitem>
+<para>Show or hide the main toolbar, normally shown</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Configure Toolbar</term>
+<listitem>
+<para>show the Configure Toolbar dialog</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Preferences</term>
+<listitem>
+<para>show the Preferences dialog</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Show Strongs</term>
+<listitem>
+<para>
+display Strong's number in the text (only certain modules use this
+function)
+</para> </listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Show Footnotes</term>
+<listitem>
+<para>
+display footnotes in the text (only certain modules use this function)
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Show Main Index</term>
+<listitem>
+<para>
+show or hide the module list window. Normally it is not hidden, unless you want
+maximum real estate for displaying modules. BTW, resizing the Main Index
+window can accomplish the same thing, although to a lesser extent.
+</para>
+</listitem> </varlistentry>
+</variablelist>
+
+</para>
+</section>
+
+<section ID="hdbk_bars_menubar_Help"><title>Help</title>
+<para>
+
+<variablelist>
+
+<varlistentry>
+<term>Contents</term>
+<listitem><para>
+Opens KDE's help browser with Bibletime's handbook
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>What's This</term>
+<listitem>
+<para>
+allows you to click on certain items for contextual help
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Bug Report</term>
+<listitem>
+<para>
+send a bug report to the program's maintainers to help development
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>About Bibletime</term>
+<listitem>
+<para>
+opens a window with general Bibletime information
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>About KDE</term>
+<listitem>
+<para>
+opens a window with general KDE information
+</para>
+</listitem>
+
+</varlistentry>
+
+</variablelist>
+
+</para>
+</section>
+
+</section>
+<section ID="hdbk_term_hotkeys"><title>Hotkeys</title>
+<para>
+All of the hotkeys listed here can be changed in the Options Dialog.
+</para>
+<table>
+<title>Default Hotkeys</title>
+<tgroup cols=2>
+<thead>
+<row>
+<entry>Action</entry>
+ <entry>Default Hotkey</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>Auto Tile</entry><entry></entry></row>
+<row><entry>Auto Cascade </entry><entry>Ctrl+Alt+A </entry></row>
+
+<row><entry>Cascade </entry><entry>Ctrl+A </entry></row>
+<row><entry>Close All </entry><entry>Shift+Ctrl+A</entry></row>
+<row><entry>Configure Toolbars</entry><entry></entry></row>
+<row><entry>Delete Selected Item(s) </entry><entry>Ctrl+Alt+D</entry></row>
+<row><entry>Preferences </entry><entry>           </entry></row>
+<row><entry>Quit </entry><entry>Ctrl+Q</entry></row>
+<row><entry>Reset Main Index </entry><entry>Ctrl+Alt+R</entry></row>
+<row><entry>Search in Selected Module(s) </entry><entry>Ctrl+Alt+S</entry></row>
+<row><entry>Show Footnotes </entry><entry>Ctrl+Alt+F</entry></row>
+<row><entry>Show Strongs</entry><entry></entry></row>
+<row><entry>Tile</entry><entry>Ctrl+T </entry></row>
+<row><entry>Close active display window</entry><entry>Ctrl+F4</entry></row>
+</tbody>
+</tgroup>
+</table>
+</section>
+
+</chapter>
+
