@@ -319,7 +319,6 @@ const bool CStyle::load(const QString& filename){
   </HEADER>
  </BibleTimePrintingStyle>
 */
-	qWarning("CStyle::load: %s", filename.latin1());
 	QFile file(filename);
 	if (!file.exists()) {
 		qWarning("file doesn't exist");
@@ -356,25 +355,20 @@ const bool CStyle::load(const QString& filename){
 			type = ModuleText;
 		}
 		Format* p = formatForType(type);
-		qWarning("type = %i", (int)type);
 
 		if (!p || type == Unknown)
 			continue;
 		
 		if (elem.hasAttribute("enabled")) {
-			qWarning("has enabled!");
 			setFormatTypeEnabled(type, elem.attribute("enabled").toInt());
 		}
 		if (elem.hasAttribute("alignment")) {		
-			qWarning("has alignment!");		
 			const int align = elem.attribute("alignment").toInt();
-			qWarning("alignment is %i", align);
 			p->setAlignment( static_cast<Format::Alignment>(align) );
 		}
 		
 		QDomElement object = elem.namedItem("COLORS").toElement();
 		if (!object.isNull()) {
-			qWarning("has colors!");		
 			if (object.hasAttribute("bgcolor"))
 				p->setColor(Format::Background, QColor(object.attribute("bgcolor")));
 			if (object.hasAttribute("fgcolor"))
@@ -396,8 +390,7 @@ const bool CStyle::load(const QString& filename){
 		if (!object.isNull()) { //frame-section exists
 			const bool enabled = object.hasAttribute("enabled") ? object.attribute("enabled").toInt() : false;			
 			p->setFrameEnabled(enabled);
-			Format::Frame* frame = p->frame();
-			if (frame) {
+			if (Format::Frame* frame = p->frame()) {
 				const QColor color = object.hasAttribute("color") ? QColor(object.attribute("color")) : Qt::white;
 				Qt::PenStyle style = object.hasAttribute("style") ? static_cast<Qt::PenStyle>(object.attribute("style").toInt()) : Qt::SolidLine;
 				const int thickness = object.hasAttribute("thickness") ? object.attribute("thickness").toInt() : 1;			
@@ -407,7 +400,6 @@ const bool CStyle::load(const QString& filename){
 				frame->setThickness(thickness);
 			}
 		}
-//		setFormatForType(type, p);
 		elem = elem.nextSibling().toElement();	
 	}
 	return true;

@@ -56,8 +56,8 @@
 
 /**Initializes the view of this widget*/
 void BibleTime::initView(){
-	qDebug("BibleTime::initView");
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
+	
 	m_splitter = new QSplitter(this, "mainsplitter");
 	
 	m_groupmanager = new CGroupManager( m_splitter, "groupmanager", m_moduleList );
@@ -339,8 +339,7 @@ void BibleTime::initBackends(){
 /** Initializes the CPrinter object. */
 void BibleTime::initPrinter() {
 	KStartupLogo::setStatusMessage(i18n("Initializing printing system") + QString::fromLatin1("..."));
-	m_printer = new CPrinter(this);
-	CPointers::setPrinter(m_printer);
+	CPointers::setPrinter( (m_printer = new CPrinter(this)) );
 }
 
 /** Apply the settings given by the profile p*/
@@ -361,7 +360,6 @@ void BibleTime::applyProfileSettings( CProfile* p ){
 
 /** Stores the settings of the mainwindow in the profile p */
 void BibleTime::storeProfileSettings( CProfile* p ){
-	ASSERT(p);
 	p->setFullscreen(m_windowFullscreen_action->isChecked());
 	p->setGeometry(geometry());
 }

@@ -52,11 +52,11 @@
 
 //KDE includes
 #include <kaction.h>
+#include <kconfig.h>
 #include <klocale.h>
 #include <kaccel.h>
 #include <kmenubar.h>
 #include <ktoolbar.h>
-#include <kaccel.h>
 
 BibleTime::BibleTime() : KMainWindow() {
 	m_initialized = false;
@@ -77,9 +77,11 @@ BibleTime::BibleTime() : KMainWindow() {
 	createGUI("bibletimeui.rc");
 	initMenubar();
 	initConnections();
+	
 	readSettings();
 
 	setPlainCaption("BibleTime " VERSION);
+	setAutoSaveSettings(QString::fromLatin1("MainWindow"), false);
 }
 
 BibleTime::~BibleTime() {
@@ -88,7 +90,6 @@ BibleTime::~BibleTime() {
 
 /** Saves the properties of BibleTime to the application wide configfile  */
 void BibleTime::saveSettings(){
-	saveMainWindowSettings(KGlobal::config());
 	if (m_mdi)
 		m_mdi->saveSettings();	
 	if (m_keyAccel)
@@ -114,17 +115,14 @@ void BibleTime::saveSettings(){
  	}
 
 	if ( CBTConfig::get(CBTConfig::restoreWorkspace) ) {
-		CProfile* p = m_profileMgr.startupProfile();
-		if (p)
+		if (CProfile* p = m_profileMgr.startupProfile())
 			saveProfile(p);
 	}
 }
 
 /** Reads the settings from the configfile and sets the right properties. */
 void BibleTime::readSettings(){
-//	qDebug("BibleTime::readSettings()");
-	
-//	applyMainWindowSettings(m_config);
+	applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
 	
 	m_keyAccel->readSettings(KGlobal::config());
 
@@ -226,7 +224,6 @@ bool BibleTime::queryExit(){
 
 /** Called before a window is closed */
 bool BibleTime::queryClose(){
-//	qWarning("BibleTime::queryClose()");
 	bool ret = true;
 	for ( unsigned int index = 0; index < m_mdi->windowList().count(); ++index) {
 		if (CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index)))
@@ -255,8 +252,7 @@ void BibleTime::readProperties(KConfig* /*myConfig*/){
 
 /** Restores the workspace if the flag for this is set in the config. */
 void BibleTime::restoreWorkspace(){	
-	CProfile* p = m_profileMgr.startupProfile();
-	if (p)
+	if (CProfile* p = m_profileMgr.startupProfile())
 		loadProfile(p);
 }
 

@@ -402,17 +402,14 @@ void BibleTime::loadProfile(CProfile* p){
 				modules.append(m);
 		}
 		if (!modules.count()) //are the modules still installed?
-			continue;
+			continue;		
 		
-		CSwordPresenter* displayWindow = createNewSwordPresenter(modules, key);
-		if (displayWindow) {
-//			qDebug("BibleTime::loadProfile: apply settings");
+		if (CSwordPresenter* displayWindow = createNewSwordPresenter(modules, key)) {
 			displayWindow->applySettings(w);
 		}
 	}	
 	
 	m_mdi->setUpdatesEnabled(true);	
-//	qWarning("finished");
 }
 
 void BibleTime::toggleFullscreen(){

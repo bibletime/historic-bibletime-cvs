@@ -216,12 +216,12 @@ void COptionsDialog::initFonts(){
  	layout->addWidget(m_settings.fonts.usage);
 	 	
  	m_settings.fonts.fontMap.insert(i18n("Standard"), CBTConfig::get(CBTConfig::standard));
- 	m_settings.fonts.fontMap.insert(i18n("Unicode"), CBTConfig::get(CBTConfig::unicode));
+ 	m_settings.fonts.fontMap.insert(i18n("Unicode"),  CBTConfig::get(CBTConfig::unicode));
 
  	for( QMap<QString, QFont>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it )
  		m_settings.fonts.usage->insertItem(it.key());
 		
- 	m_settings.fonts.fontChooser = new KFontChooser(page, "fonts", false, QStringList(), true, 6);
+ 	m_settings.fonts.fontChooser = new KFontChooser(page, "fonts", false, QStringList(), true, 5);
  	m_settings.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog"));
  	layout->addWidget(m_settings.fonts.fontChooser);
 		
@@ -231,8 +231,6 @@ void COptionsDialog::initFonts(){
 		 	
  	m_settings.fonts.fontChooser->setFont( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()] );
  	m_settings.fonts.fontChooser->setMinimumSize(m_settings.fonts.fontChooser->sizeHint());		
- 	
-// 	page->setMinimumHeight(page->minimumSizeHint().height());
 }
 
 /** Init color section. */
@@ -734,11 +732,14 @@ void COptionsDialog::saveColors(){
 /** No descriptions */
 void COptionsDialog::saveFonts(){
 	for(QMap<QString, QFont>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ){
- 		if (it.key() == i18n("Standard"))
+ 		if (it.key() == i18n("Standard")) {
  			CBTConfig::set(CBTConfig::standard, it.data());
- 		else if (it.key() == i18n("Unicode"))
- 			it.data().setCharSet(QFont::Unicode);
- 			CBTConfig::set(CBTConfig::unicode, it.data());
+ 		}
+ 		else if (it.key() == i18n("Unicode")) {
+ 			QFont font = it.data();
+ 			font.setCharSet(QFont::Unicode); //try to set the unicode charset
+ 			CBTConfig::set(CBTConfig::unicode, font);
+ 		}
  	}
 }
 
