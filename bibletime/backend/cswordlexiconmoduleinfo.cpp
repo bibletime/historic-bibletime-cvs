@@ -19,6 +19,8 @@
 #include "cswordlexiconmoduleinfo.h"
 
 //Qt includes
+#include <qfile.h>
+#include <qdatastream.h>
 
 //Sword includes
 #include <swmodule.h>
@@ -48,20 +50,47 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 QStringList* CSwordLexiconModuleInfo::getEntries(){
 	if (!m_entryList) {
 		m_entryList = new QStringList();		
-		if (!module())
-			return 0;
+		if (!module()) return 0;
 		module()->KeyText(" ");
-		do {
-#warning check
-			if (encoding() == QFont::Unicode)
-  			m_entryList->append(QString::fromUtf8(module()->KeyText()));
-      else
-  			m_entryList->append(QString::fromLocal8Bit(module()->KeyText()));
-			(*module())++;
-		} while (!module()->Error());
+
+		QFile f1( QString("/tmp/%1").arg( name() ) );
+		bool read = false;
+    if ( f1.open( IO_ReadOnly ) ){
+      QDataStream s( &f1 );
+			QString version;
+      s >> version;
+			if (version == (getVersion()==QString::null?QString("0"):getVersion())){
+				qDebug("chache used");
+				s >> *m_entryList;
+				read = true;
+			}
+			f1.close();
+    }
+
+
+		if (!read){
+  		do {
+  			if (encoding() == QFont::Unicode)
+    			m_entryList->append(QString::fromUtf8(module()->KeyText()));
+        else
+    			m_entryList->append(QString::fromLocal8Bit(module()->KeyText()));
+  			(*module())++;
+  		} while (!module()->Error());
+  		if (m_entryList->first().stripWhiteSpace().isEmpty())
+	  		m_entryList->remove( m_entryList->begin() );			
+
+			// Open the file.
+      QFile f2( QString("/tmp/%1").arg( name() ) );
+      if (f2.open( IO_WriteOnly )){
+        QDataStream s( &f2 );
+				qDebug("cache created");
+				s << (getVersion()==QString::null?QString("0"):getVersion());
+				s << *m_entryList;
+			  f2.close();
+      }
+		}
+
 		module()->KeyText(" ");
-		if (m_entryList->first().stripWhiteSpace().isEmpty())
-			m_entryList->remove( m_entryList->begin() );			
 	}	
 	return m_entryList;
 }
