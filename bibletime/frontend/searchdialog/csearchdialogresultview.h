@@ -103,7 +103,11 @@ private:
   ListCSwordModuleInfo*	moduleList;
   QListViewItem*	m_currentItem;
   CSwordModuleInfo*	m_currentModule;
+
   KPopupMenu* m_popup;	
+	KPopupMenu* m_copyPopup;	
+	KPopupMenu* m_savePopup;	
+	KPopupMenu* m_printPopup;		
 };
 
 
@@ -174,6 +178,10 @@ protected slots: // Protected slots
 
 private:
   KPopupMenu	*m_popup;
+	KPopupMenu* m_copyPopup;	
+	KPopupMenu* m_savePopup;	
+	KPopupMenu* m_printPopup;		
+	
   CSwordModuleInfo*	m_module;
   QListBoxItem	*m_currentItem;
   QPoint m_pressedPos;

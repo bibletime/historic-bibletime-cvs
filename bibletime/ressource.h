@@ -163,6 +163,7 @@
 #define ICON_FILE_DELETE "editdelete"
 
 #define ICON_EDIT "pencil"
+#define ICON_EDIT_COPY "editcopy"
 #define ICON_EDIT_BOLD "text_bold"
 #define ICON_EDIT_ITALIC "text_italic"
 #define ICON_EDIT_UNDER "text_under"

@@ -255,6 +255,9 @@ void CBibleKeyChooser::bookFocusOut(int index){
 	m_key->Verse( 1 );
 	m_key->Chapter( 1 );	
 	m_key->setBook( w_book->ComboBox->currentText() );
+	
+	w_chapter->reset(m_info->getChapterCount(index+1), 0, false);
+	w_verse->reset(m_info->getVerseCount(index+1,1), 0, false);	
 //	setKey( m_key );		
 }
 
@@ -270,20 +273,24 @@ void CBibleKeyChooser::chapterFocusOut(int index){
 //	
 //	w_verse->reset(newverses,verse-1,false);
 //	w_verse->adjustSize();
-	m_key->Verse( 1 );
+	m_key->Verse(1);
 	m_key->Chapter( w_chapter->ComboBox->currentText().toInt() );	
+	
+	w_verse->reset(m_info->getVerseCount(index+1,1), 0, false);		
+	
 //	m_key->setBook( w_book->ComboBox->currentText() );
 //	setKey( m_key );		
 }
+
 /** called when the verse combo lost the focus with reason == tab @param the new verse */
 void CBibleKeyChooser::verseFocusOut(int index){
 	qWarning("verse focus out");
-  const QString book = w_book->ComboBox->currentText();
- 	const int chapter = w_chapter->ComboBox->currentText().toInt();
+//  const QString book = w_book->ComboBox->currentText();
+// 	const int chapter = w_chapter->ComboBox->currentText().toInt();
 
 //	m_key->setBook( book );	
 //	m_key->Chapter( chapter );	
 //	m_key->Verse( index + 1);
-	m_key->Verse( w_chapter->ComboBox->currentText().toInt() );
-	setKey( m_key );
+	m_key->Verse( w_verse->ComboBox->currentText().toInt() );
+	setKey( m_key );	
 }

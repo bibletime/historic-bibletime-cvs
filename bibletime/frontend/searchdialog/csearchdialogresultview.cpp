@@ -120,14 +120,21 @@ void CSearchDialogResultModuleView::initView(){
 	setSorting( -1 );
 	
 	m_popup = new KPopupMenu(this);
-	m_popup->insertTitle( i18n("Printing") );
-	m_popup->insertItem(i18n("Save search result..."), this, SLOT(slotSaveSearchResult()));
-	m_popup->insertItem(i18n("Save search result with text..."), this, SLOT(slotSaveSearchResultWithKeytext()));	
-	m_popup->insertSeparator();	
-	m_popup->insertItem(i18n("Copy search result into clipboard"), this, SLOT(slotCopySearchResult()));	
-	m_popup->insertItem(i18n("Copy search result with text into clipboard"), this, SLOT(slotCopySearchResultWithKeytext()));		
-	m_popup->insertSeparator();
-	m_popup->insertItem(i18n("Add search result to print queue"), this, SLOT(printSearchResult()));	
+	
+	m_copyPopup = new KPopupMenu(m_popup);	
+	m_copyPopup->insertItem(i18n("Search result"), this, SLOT(slotCopySearchResult()));	
+	m_copyPopup->insertItem(i18n("Search result with text"), this, SLOT(slotCopySearchResultWithKeytext()));
+	
+	m_printPopup = new KPopupMenu(m_popup);		
+	m_printPopup->insertItem(i18n("Search result"), this, SLOT(printSearchResult()));
+	
+	m_savePopup = new KPopupMenu(m_popup);		
+	m_savePopup->insertItem(i18n("Search result"), this, SLOT(slotSaveSearchResult()));
+	m_savePopup->insertItem(i18n("Sesult with text"), this, SLOT(slotSaveSearchResultWithKeytext()));
+	
+	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy into clipboard..."), 	m_copyPopup);
+	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Print..."), m_printPopup);
+	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup);
 }
 
 /** Returns the module belonging to the selected item. */
@@ -184,7 +191,7 @@ void CSearchDialogResultModuleView::printSearchResult(){
 void CSearchDialogResultModuleView::slotCopySearchResult(){
 	//get the searched text
 	QString searchedText;
-	CSearchDialogText* textPart = 0;
+//	CSearchDialogText* textPart = 0;
 	for (QObject* w = parent(); w; w = w->parent()) {
 		if (w->isA("CSearchDialog")) {
 			CSearchDialog*	dlg = (CSearchDialog*)w;
@@ -218,7 +225,7 @@ void CSearchDialogResultModuleView::slotCopySearchResult(){
 void CSearchDialogResultModuleView::slotSaveSearchResult(){
 	//get the searched text
 	QString searchedText;
-	CSearchDialogText* textPart = 0;
+//	CSearchDialogText* textPart = 0;
 	for (QObject* w = parent(); w; w = w->parent()) {
 		if (w->isA("CSearchDialog")) {
 			CSearchDialog*	dlg = (CSearchDialog*)w;
@@ -257,7 +264,7 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 	
 	//get the searched text
 	QString searchedText;
-	CSearchDialogText* textPart = 0;
+//	CSearchDialogText* textPart = 0;
 	for (QObject* w = parent(); w; w = w->parent()) {
 		if (w->isA("CSearchDialog")) {
 			CSearchDialog*	dlg = (CSearchDialog*)w;
@@ -297,7 +304,7 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 	//get the searched text
 	QString searchedText;
-	CSearchDialogText* textPart = 0;
+//	CSearchDialogText* textPart = 0;
 	for (QObject* w = parent(); w; w = w->parent()) {
 		if (w->isA("CSearchDialog")) {
 			CSearchDialog*	dlg = (CSearchDialog*)w;
@@ -376,16 +383,23 @@ void CSearchDialogResultView::initConnections() {
 void CSearchDialogResultView::initView(){
 	QWhatsThis::add(this, WT_SD_RESULT_RESULT_VIEW);
 	
-	m_popup = new KPopupMenu(this);	
-	m_popup->insertTitle(i18n("Search result"));	
-	m_popup->insertItem(i18n("Save key ..."), this, SLOT(slotSaveCurrent()));
-	m_popup->insertItem(i18n("Save key with text ..."), this, SLOT(slotSaveCurrentWithKeytext()));
-	m_popup->insertSeparator();	
-	m_popup->insertItem(i18n("Copy key into clipboard"), this, SLOT(slotCopyCurrent()));
-	m_popup->insertItem(i18n("Copy key with text into clipboard"), this, SLOT(slotCopyCurrentWithKeytext()));	
-	m_popup->insertSeparator();	
-	m_popup->insertItem(i18n("Add to print queue"), this, SLOT(printItem()));
+	m_popup = new KPopupMenu(this);		
+	m_copyPopup = new KPopupMenu(m_popup);	
+	m_copyPopup->insertItem(i18n("Key"), this, SLOT(slotCopyCurrent()));	
+	m_copyPopup->insertItem(i18n("Key with text"), this, SLOT(slotCopyCurrentWithKeytext()));
+	
+	m_printPopup = new KPopupMenu(m_popup);		
+	m_printPopup->insertItem(i18n("Key with text"), this, SLOT(printItem()));
+	
+	m_savePopup = new KPopupMenu(m_popup);		
+	m_savePopup->insertItem(i18n("Key"), this, SLOT(slotSaveCurrent()));
+	m_savePopup->insertItem(i18n("Key with text"), this, SLOT(slotSaveCurrentWithKeytext()));
+	
+	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy inn clipboard..."), 	m_copyPopup);
+	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Print..."), m_printPopup);
+	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup);
 		
+	
 	setFocusPolicy(QWidget::WheelFocus);
 }
 
