@@ -150,6 +150,7 @@
 #define WT_OD_SWORD_STANDARD_LEXICON WT(TT_OD_SWORD_STANDARD_LEXICON, i18n("The default lexicon is used as standard for example if a hyperlink into a lexicon was clicked"))
 #define WT_OD_SWORD_STANDARD_HEBREW_STRONG WT(TT_OD_SWORD_STANDARD_HEBREW_STRONG, i18n("The default Hebrew lexicon is used as standard for example if a hyperlink into a Hebrew lexicon was clicked"))
 #define WT_OD_SWORD_STANDARD_GREEK_STRONG WT(TT_OD_SWORD_STANDARD_GREEK_STRONG, i18n("The default Greek lexicon is used as standard for example if a hyperlink into a Greek lexicon was clicked"))
+#define WT_OD_SWORD_STANDARD_MORPH WT(TT_OD_SWORD_STANDARD_MORPH, i18n("The standard morphological text is used as default, for example if a hyperlink to a morphological text is clicked."))
 
 #define WT_OD_KEYS_CHOOSER WT(TT_OD_KEYS_CHOOSER, i18n("Select a action and change the key binding for the action."))
 #define WT_OD_FONTS_TYPE_CHOOSER WT(TT_OD_FONTS_TYPE_CHOOSER, i18n("Select in this box how the font is used and change the font in the font chooser."))

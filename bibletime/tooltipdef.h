@@ -141,6 +141,7 @@
 #define TT_OD_SWORD_STANDARD_LEXICON i18n("The standard lexicon used in the workspace area")
 #define TT_OD_SWORD_STANDARD_HEBREW_STRONG 	i18n("The standard Hebrew lexicon used in the workspace are")
 #define TT_OD_SWORD_STANDARD_GREEK_STRONG i18n("The standard Greek lexicon used in the workspace area")
+#define TT_OD_SWORD_STANDARD_MORPH i18n("The default Morphological text used in the workspace area")
 
 
 #define TT_OD_KEYS_CHOOSER i18n("Set keyboard accelerators")
