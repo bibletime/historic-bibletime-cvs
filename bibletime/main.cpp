@@ -89,7 +89,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	
 	//documentation
 	aboutData.addAuthor("Fred Saalbach", 	I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
-	aboutData.addAuthor("Jeffrey Hoyt", 	I18N_NOOP("handbook"), "jeffhoyt@earthlink.net", "http://jhoyt.faithweb.com");
+//	aboutData.addAuthor("Jeffrey Hoyt", 	I18N_NOOP("handbook"), "jeffhoyt@earthlink.net", "http://jhoyt.faithweb.com");
 		
 	//translators
 	aboutData.addAuthor("Benedykt P. Barszcz", I18N_NOOP("Translation to Polish"), "kb2qzv@box43.gnet.pl", "");		
@@ -112,9 +112,9 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 
 	
  	KApplication app;
- 	QFont f = app.font();
- 	f.setCharSet(QFont::AnyCharSet);
- 	app.setFont(f); 	
+// 	QFont f = app.font();
+// 	f.setCharSet(QFont::AnyCharSet);
+// 	app.setFont(f); 	
  	
  	KGlobal::dirs()->addResourceType("BT_pic", KStandardDirs::kde_default("data") + kapp->name() + "/pics/");
 

@@ -71,13 +71,11 @@ CSearchDialogAnalysis::CSearchDialogAnalysis(QObject *parent, const char *name )
 
   m_scaleFactor = 0.0;
   m_legend = 0;
-	setBackgroundColor(Qt::white);
-	
+	setBackgroundColor(Qt::white);	
 	m_canvasItemList.resize(67);
 	m_canvasItemList.setAutoDelete(true);
-	
+	resize(1,1);
 	connect(this, SIGNAL(resized()), SLOT(slotResized()));	
-	resize(300,300);
 }
 
 CSearchDialogAnalysis::~CSearchDialogAnalysis(){
@@ -95,61 +93,41 @@ void CSearchDialogAnalysis::analyse(){
 	*			-Find out how many times we found the book
 	*			-Set the count to the items which belongs to the book
 	*/
-	m_lastPosList.clear();	
 	KApplication::setOverrideCursor(Qt::waitCursor);
+	m_lastPosList.clear();		
 	const int numberOfModules = m_moduleList.count();
 	if (!numberOfModules)
-		return;
-
-	int moduleIndex = 0;	
-	CSwordModuleInfo* currentModule = 0;
-  int xPos = 0;
-	m_maxCount = 0;
-	
-	xPos = LEFT_BORDER;
+		return;	
 	m_legend = new CSearchDialogAnalysisLegendItem(this, &m_moduleList);	
-	m_legend->setX(xPos);
+	m_legend->setX(LEFT_BORDER);
 	m_legend->setY(UPPER_BORDER);
 	m_legend->setSize(LEGEND_WIDTH,
 	           LEGEND_INNER_BORDER*2 + ITEM_TEXT_SIZE*numberOfModules + LEGEND_DELTAY*(numberOfModules-1));
-  m_legend->show();
-  xPos += m_legend->width() + SPACE_BETWEEN_PARTS;
-			
-	//now create a CanvasItem for each book of the Bible
+  m_legend->show();	
+
+  int xPos = LEFT_BORDER + m_legend->width() + SPACE_BETWEEN_PARTS;			
+	int moduleIndex = 0;	
+	m_maxCount = 0;	
 	int count = 0;
 	CSwordVerseKey key(m_moduleList.first());	
 	key.setKey("Genesis 1:1");	
-	QString currentBook = key.getBook();
-	QString oldBook = QString::null;
-	CSearchDialogAnalysisItem* analysisItem = 0;	
-	do {
-  	analysisItem = new CSearchDialogAnalysisItem(this, numberOfModules, currentBook, &m_scaleFactor, &m_moduleList);
-		m_canvasItemList.insert(currentBook, analysisItem);		
-		for (moduleIndex = 0,currentModule = m_moduleList.first(); currentModule; currentModule = m_moduleList.next(),++moduleIndex) {
-			if (!m_lastPosList.contains(currentModule))
-				m_lastPosList.insert(currentModule,0);
-			analysisItem->setCountForModule(moduleIndex, (count = getCount(currentBook,currentModule)));
+	CSearchDialogAnalysisItem* analysisItem = m_canvasItemList[key.getBook()];
+	bool ok = true;
+	while (ok) {
+		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
+			if (!m_lastPosList.contains(m_moduleList.current()))
+				m_lastPosList.insert(m_moduleList.current(),0);
+			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.getBook(),m_moduleList.current())));
 			m_maxCount = (count > m_maxCount) ? count : m_maxCount;
 		}
 		analysisItem->setX(xPos);
 		analysisItem->setY(UPPER_BORDER);
-		xPos += (int)analysisItem->width() + SPACE_BETWEEN_PARTS;		
+		analysisItem->show();
 		
-		key.NextBook();		
-		oldBook = currentBook;
-		currentBook = key.getBook();
-//		analysisItem->show(); //the sizing stuff will be done in slotResized()		
-	} while (currentBook != oldBook);
-	
-//	QDictIterator<CSearchDialogAnalysisItem> it( m_canvasItemList );
-//	resizeContents(	it.last().x()+it.last.width(), height() );
-//	m_scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(m_moduleList.count()-1)*BAR_DELTAY)
-//	                                    /(double)m_maxCount);
-//	
-//	slotResized();
-//	update();	
-	m_scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(numberOfModules-1)*BAR_DELTAY)
-	                    /(double)m_maxCount);
+		xPos += (int)analysisItem->width() + SPACE_BETWEEN_PARTS;		
+		ok = key.NextBook();		
+   	analysisItem = m_canvasItemList[key.getBook()];
+	}	
 	resize(xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );	
 	slotResized();
 	KApplication::restoreOverrideCursor();	
@@ -161,32 +139,44 @@ void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
 	for (modules->first(); modules->current(); modules->next())
 		if ( modules->current()->getType() == CSwordModuleInfo::Bible || modules->current()->getType() == CSwordModuleInfo::Commentary )//a Bible or an commentary
 			m_moduleList.append(modules->current());
+
+	m_canvasItemList.clear();
+	CSwordVerseKey key(m_moduleList.first());	
+	key.setKey("Genesis 1:1");
+	CSearchDialogAnalysisItem* analysisItem = 0;
+	bool ok = true;
+	while (ok) {
+   	analysisItem = new CSearchDialogAnalysisItem(this, m_moduleList.count(), key.getBook(), &m_scaleFactor, &m_moduleList);
+   	analysisItem->hide();
+		m_canvasItemList.insert(key.getBook(), analysisItem);
+		ok = key.NextBook();
+	}							
+	update();
 }
 
 /** Sets back the items and deletes things to cleanup */
 void CSearchDialogAnalysis::reset(){
 	m_scaleFactor = 0.0;
-	m_canvasItemList.clear();
+  QDictIterator<CSearchDialogAnalysisItem> it( m_canvasItemList ); // iterator for dict
+	while ( it.current() ) {
+		it.current()->hide();
+		++it;
+	}	
 	m_lastPosList.clear();	
 	
 	delete m_legend;
 	m_legend = 0;	
-	
-	emit sigReset();	
 	update();
 }
-
 
 /** No descriptions */
 void CSearchDialogAnalysis::slotResized(){
 	m_scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(m_moduleList.count()-1)*BAR_DELTAY)
-	                                    /(double)m_maxCount);
+	                                    /(double)m_maxCount);	
 	QDictIterator<CSearchDialogAnalysisItem> it( m_canvasItemList );
 	while ( it.current() ) {
-		it.current()->hide();		
 		it.current()->setSize(BAR_WIDTH + (m_moduleList.count()-1)*BAR_DELTAX, height()-UPPER_BORDER-LOWER_BORDER);
 		it.current()->setY(UPPER_BORDER);
-		it.current()->show();
   	++it;
 	}
 	update();
@@ -246,7 +236,6 @@ CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int 
 
 /** Sets the resultcount of this item for the given module */
 void CSearchDialogAnalysisItem::setCountForModule( const int moduleIndex, const int count) {
-//	qWarning(QString::number(count).local8Bit());
 	m_resultCountArray[moduleIndex] = count;
 }
 
@@ -291,7 +280,6 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
    	    newValue = m_resultCountArray[index];
    	Value = newValue;
 	}		
-
 #warning ToDo: Add correct font drawing!!
 //	painter.save();	
 //	painter.translate(x(),height()+y()-BAR_LOWER_BORDER);
@@ -332,7 +320,6 @@ const QString CSearchDialogAnalysisItem::getToolTip(){
 
 CSearchDialogAnalysisView::CSearchDialogAnalysisView(QCanvas* canvas, QWidget* parent)
 	: QCanvasView(canvas, parent) {
-	connect(canvas, SIGNAL(sigReset()), SLOT(reset()));
 	setFocusPolicy(QWidget::WheelFocus);
 	m_toolTip = new ToolTip(this);	
 	resize(sizeHint());
@@ -385,10 +372,6 @@ CSearchDialogAnalysisItem* CSearchDialogAnalysisView::itemAt( const QPoint& p ){
 	if (!l.count())
 		return 0;
 	return dynamic_cast<CSearchDialogAnalysisItem*>(l.first());	
-}
-
-/** No descriptions */
-void CSearchDialogAnalysisView::reset(){
 }
 
 //------------------------------------------------------------------

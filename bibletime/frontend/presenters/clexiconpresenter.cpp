@@ -60,7 +60,7 @@ void CLexiconPresenter::initView(){
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
-	m_popup->insertTitle(i18n("Lexicon presenter"));
+	m_popup->insertTitle(i18n("Lexicon window"));
 	m_popup->insertItem(i18n("Save entry as HTML..."), m_htmlWidget, SLOT(slotSaveAsHTML()), 0,ID_PRESENTER_SAVE_AS_HTML);	
 	m_popup->insertItem(i18n("Save entry as plain text..."), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_AS_TEXT);
 	m_popup->insertSeparator();

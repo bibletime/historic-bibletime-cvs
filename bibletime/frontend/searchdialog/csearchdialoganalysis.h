@@ -80,9 +80,6 @@ private:
   int m_maxCount;
   double m_scaleFactor;
   CSearchDialogAnalysisLegendItem* m_legend; 	
-
-signals:
-	void sigReset();
 };
 
 
@@ -164,12 +161,6 @@ private:
 		virtual void maybeTip(const QPoint &pos);
 	};		
 	ToolTip* m_toolTip;
-		
-private slots: // Private slots
-  /**
-  * No descriptions
-  */
-  void reset();
 };
 
 

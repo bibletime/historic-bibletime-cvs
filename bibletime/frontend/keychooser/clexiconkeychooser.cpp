@@ -41,6 +41,8 @@ CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *pa
 		qWarning("Wrong module type! Return.");
 		return;
 	}	
+	m_key = 0;
+		
 	//we use a layout because the key chooser should be resized to full size
  	QHBoxLayout *m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 	
@@ -63,21 +65,17 @@ CKey* CLexiconKeyChooser::getKey(){
 	return m_key;
 }
 
-void CLexiconKeyChooser::setKey(CKey* key){
-	if (dynamic_cast<CSwordLDKey*>(key))
-		m_key = dynamic_cast<CSwordLDKey*>(key);
-	else {
-		qWarning("Wrong key type!");
-		m_key = 0;
+void CLexiconKeyChooser::setKey(CKey* key){	
+	const QString oldKey = m_key ? m_key->getKey() : QString();
+	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
 		return;
-	}
-
+		
 	m_widget->ComboBox->setCurrentItem(
 		m_widget->ComboBox->listBox()->index(
 			m_widget->ComboBox->listBox()->findItem( m_key->getKey()  )));
 	m_widget->adjustSize();
-	
-	emit keyChanged( m_key );
+	if (m_key->getKey() != oldKey && !oldKey.isEmpty())
+		emit keyChanged( m_key );
 }
 
 void CLexiconKeyChooser::activated(int index){

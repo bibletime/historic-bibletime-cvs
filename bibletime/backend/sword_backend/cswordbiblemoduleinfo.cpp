@@ -57,8 +57,7 @@ QStringList* CSwordBibleModuleInfo::getBooks() {
 
 /** Returns the number of chapters for the given book. */
 const unsigned int CSwordBibleModuleInfo::getChapterCount(const unsigned int book) const {
-	VerseKey key;
-	
+	VerseKey key;	
 	int result = 0;
 	if ( (book >= 1) && book <= (unsigned int)key.BMAX[0]) {		//Is the book in the old testament?
 		result = (key.books[0][book-1].chapmax);

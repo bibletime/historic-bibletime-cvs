@@ -6,13 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BibleTime 0.3\n"
 "POT-Creation-Date: 2001-04-01 21:28+0200\n"
-"PO-Revision-Date: 18.03.2001 19:52\n"
+"PO-Revision-Date: 2001-04-04 11:41GMT\n"
 "Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
-"Language-Team: German <de@li.org>\n"
+"Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.7.1\n"
+"X-Generator: KBabel 0.9alpha\n"
 
 #: bibletime/rc-dummy.cpp:2
 msgid "&Main index"
@@ -24,7 +24,7 @@ msgstr "Aktiviere Felermeldungen."
 
 #: bibletime/main.cpp:75
 msgid "An easy to use but powerful Bible study tool"
-msgstr "Ein einfach zu benutzendes jedoch mächtiges Bibelstudienprogramm"
+msgstr "Ein einfach zu benutzendes jedoch mächtiges Bibelprogramm"
 
 #: bibletime/main.cpp:77
 msgid "(c)1999-2001, The BibleTime Team"
@@ -39,18 +39,16 @@ msgid "Project coordinator, frontend, backend"
 msgstr "Projekt Koordinator, Oberfläche, Backend"
 
 #: bibletime/main.cpp:87
-#, fuzzy
 msgid "frontend and misc things"
-msgstr "Darg&Drop, verschiedene Dinge"
+msgstr "Oberfläche und diverse DInge"
 
 #: bibletime/main.cpp:91
 msgid "Handbook"
-msgstr ""
+msgstr "Handbuch"
 
 #: bibletime/main.cpp:92
-#, fuzzy
 msgid "handbook"
-msgstr "Verändere Lesezeichen"
+msgstr "Handbuch"
 
 #: bibletime/main.cpp:95
 msgid "Translation to Polish"
@@ -114,23 +112,20 @@ msgstr "Durchsuche gewählte(s) Modul(e)"
 
 #: bibletime/bibletime_init.cpp:100
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:321
-#, fuzzy
 msgid "Remove selected item(s)"
-msgstr "Lösche markierte Einträge"
+msgstr "Entferne ausgewählte Einträge"
 
 #: bibletime/bibletime_init.cpp:105
 msgid "&Show footnotes"
 msgstr "&Zeige Fußnoten"
 
 #: bibletime/bibletime_init.cpp:110
-#, fuzzy
 msgid "S&how Strong's numbers"
-msgstr "Dies zeigt oder versteckt die Strongnummern je nach aktuellem Zustand."
+msgstr "Zeige &Strongs Nmmern an"
 
 #: bibletime/bibletime_init.cpp:119
-#, fuzzy
 msgid "&Show main index"
-msgstr "Zeige täglichen Tipp"
+msgstr ""
 
 #: bibletime/bibletime_init.cpp:131
 msgid "&Cascade"
@@ -423,8 +418,7 @@ msgid "Configure BibleTime's key bindings"
 msgstr "Stelle BibleTime's Tastenkombinationen ein"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:79
-msgid ""
-"<B>Key chooser</B><BR><BR>Select a action and change the key for the action."
+msgid "<B>Key chooser</B><BR><BR>Select a action and change the key for the action."
 msgstr ""
 "<B>Testenauswahl</B><BR><BR>Wählen Sie eine Aktionund ändern Sie die "
 "zugehhörige Tastenkombination."
@@ -618,14 +612,12 @@ msgid "Groupmanager"
 msgstr "Gruppenmanager"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:302
-#, fuzzy
 msgid "Create new folder"
-msgstr "Erzeuge neue Gruppe"
+msgstr "Erzeuge neuen Ordner"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:305
-#, fuzzy
 msgid "Change this folder"
-msgstr "Ändere diese Gruppe"
+msgstr "Ändere diesen Ordner"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:309
 msgid "Change this bookmark"
@@ -644,7 +636,6 @@ msgid "Print bookmark"
 msgstr "Drucke Lesezeichen"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:324
-#, fuzzy
 msgid "Search in module(s)"
 msgstr "Suche in Modul(en)"
 
@@ -673,9 +664,8 @@ msgid "Please change the description of the item!"
 msgstr "Bitte ändern Sie die Beschreibung des Eintrags!"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:446
-#, fuzzy
 msgid "BibleTime - Change folder"
-msgstr "BibleTime - Gruppennamen ändern"
+msgstr "BibleTime - Ordnernamen ändern"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:446
 msgid "Please change the name of the group!"
@@ -687,40 +677,35 @@ msgstr "<I>Nicht notwendig</i>"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:589
 msgid "Datapath"
-msgstr ""
+msgstr "Datenpfad"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:591
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:593
-#, fuzzy
 msgid "Unlock key"
-msgstr "Setze Schlüssel"
+msgstr "Schlüssel"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:595
 msgid "Writable"
-msgstr ""
+msgstr "Schreibbar"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:597
-#, fuzzy
 msgid "Footnotes"
-msgstr "&Zeige Fußnoten"
+msgstr "Fußnoten"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:599
-#, fuzzy
 msgid "Strong's numbers"
-msgstr "Dies zeigt oder versteckt die Strongnummern je nach aktuellem Zustand."
+msgstr "Strongs Nummern"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:965
-#, fuzzy
 msgid "BibleTime - Enter name of folder"
-msgstr "BibleTime - Gruppennamen eingeben"
+msgstr "BibleTime - Ordnernamen eingeben"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:965
-#, fuzzy
 msgid "Please enter the name of the folder!"
-msgstr "Bitte geben Sie den Namen der Gruppe ein!"
+msgstr "Bitte geben Sie den Namen des Ordners ein!"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:1049
 msgid "BibleTime - Unlock module"
@@ -771,19 +756,16 @@ msgid "BibleTime - Reset groupmanager"
 msgstr "BibleTime - Gruppenmanager zurücksetzen"
 
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:63
-#, fuzzy
 msgid "Lexicon presenter"
-msgstr "Der Lexikonpresenter"
+msgstr ""
 
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:64
-#, fuzzy
 msgid "Save entry as HTML..."
-msgstr "Speichere Text als HTML Seite ..."
+msgstr "Speichere Eintrag als HTML..."
 
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:65
-#, fuzzy
 msgid "Save entry as plain text..."
-msgstr "Speichere Text als Text Datei ..."
+msgstr "Speichere Eintrag als Text..."
 
 #: bibletime/dummy.h:95 bibletime/frontend/presenters/cbiblepresenter.cpp:68
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:75
@@ -794,25 +776,22 @@ msgstr "Alles markieren"
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:69
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:76
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:68
-#, fuzzy
 msgid "Copy selected text"
-msgstr "Zentrieren"
+msgstr "Kpoiere ausgewählten Text"
 
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:69
-#, fuzzy
 msgid "Copy entry into clipboard"
-msgstr "In Zwischenablage kopieren"
+msgstr "Eintrag in Zwischenablage kopieren"
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:72
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:79
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:71
 msgid "Lookup word in lexicon"
-msgstr ""
+msgstr "Wort in Lexikon nachschlagen"
 
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:73
-#, fuzzy
 msgid "Add entry to print queue"
-msgstr "Füge zur Druckerschlange hinzu"
+msgstr "Füge zur Druckschlange hinzu"
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:64
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:71
@@ -822,27 +801,23 @@ msgstr "Der Bibelpresenter"
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:65
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:72
-#, fuzzy
 msgid "Save chapter as HTML..."
-msgstr "Speichere Text als HTML Seite ..."
+msgstr "Speichere Kapitel als HTML..."
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:66
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:73
-#, fuzzy
 msgid "Save chapter as plain text..."
-msgstr "Speichere Text als Text Datei ..."
+msgstr "Speichere Kapitel als Text..."
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:70
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:77
-#, fuzzy
 msgid "Copy chapter into clipboard"
-msgstr "In Zwischenablage kopieren"
+msgstr "Kopiere Kapitel in Zwischenablage"
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:74
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:81
-#, fuzzy
 msgid "Add verse to print queue"
-msgstr "Füge zur Druckerschlange hinzu"
+msgstr "Füge Vers zur Druck-Warteschlange hinzu"
 
 #: bibletime/frontend/presenters/cmodulechooserbutton.cpp:49
 msgid "Select additional modules"
@@ -856,25 +831,23 @@ msgstr "NICHTS"
 
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:56
 msgid "Synchronize..."
-msgstr ""
+msgstr "Synchronisieren..."
 
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:61
 msgid "Edit entry..."
-msgstr ""
+msgstr "Eintrag editieren..."
 
 #: bibletime/frontend/searchdialog/csearchdialogresult.cpp:44
 msgid "Modules:"
 msgstr "Module:"
 
 #: bibletime/frontend/searchdialog/csearchdialogresult.cpp:48
-#, fuzzy
 msgid "Entries found:"
-msgstr "Einträge"
+msgstr "Gefundene Einträge:"
 
 #: bibletime/frontend/searchdialog/csearchdialogresult.cpp:55
-#, fuzzy
 msgid "Preview:"
-msgstr "Vorschau"
+msgstr "Vorschau:"
 
 #: bibletime/frontend/searchdialog/csearchdialogresult.cpp:177
 #, ycp-format
@@ -930,14 +903,12 @@ msgid "Interrupt"
 msgstr "Unterbrechen"
 
 #: bibletime/frontend/searchdialog/csearchdialog.cpp:79
-#, fuzzy
 msgid "Choose modules"
-msgstr "Wähle Farben"
+msgstr "Module wählen"
 
 #: bibletime/frontend/searchdialog/csearchdialog.cpp:79
-#, fuzzy
 msgid "Choose the modules for the search"
-msgstr "Wählen sie den Teil des Stils:"
+msgstr "Wählen Sie die Module für die Suche"
 
 #: bibletime/frontend/searchdialog/csearchdialog.cpp:82
 msgid "Search Text"
@@ -987,16 +958,15 @@ msgstr "Bereich auswählen"
 
 #: bibletime/frontend/searchdialog/csearchdialogscope.cpp:80
 msgid "Old testament"
-msgstr ""
+msgstr "Altes Testament"
 
 #: bibletime/frontend/searchdialog/csearchdialogscope.cpp:81
-#, fuzzy
 msgid "New testament"
-msgstr "Neuer Presenter"
+msgstr "Neues Testament"
 
 #: bibletime/frontend/searchdialog/csearchdialogscope.cpp:82
 msgid "Gospels"
-msgstr ""
+msgstr "Evangelien"
 
 #: bibletime/frontend/searchdialog/csearchdialogscope.cpp:189
 msgid "Define range text"
@@ -1027,7 +997,6 @@ msgid "Save search result..."
 msgstr "Speichere Suchergebniss..."
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:125
-#, fuzzy
 msgid "Save search result with text..."
 msgstr "Speichere Suchergebnis mit Text..."
 
@@ -1036,7 +1005,6 @@ msgid "Copy search result into clipboard"
 msgstr "Kopiere Suchergebniss in Zwischenablage..."
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:128
-#, fuzzy
 msgid "Copy search result with text into clipboard"
 msgstr "Kopiere Suchergebnis mit Text in Zwischenablage"
 
@@ -1048,11 +1016,9 @@ msgstr "Füge Suchergebnis zu Druckschlange hinzu"
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:228
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:260
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:305
-#, fuzzy, ycp-format
+#, ycp-format
 msgid "Search result for \"%1\" in module \"%2\"\n"
-msgstr ""
-"Suchergebnis für \"%1\" im Module \"%2\"\n"
-"\n"
+msgstr "Suchergebniss für \"%1\" im Modul \"%2\"\n"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:222
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:300
@@ -1081,27 +1047,23 @@ msgid "Save key ..."
 msgstr "Speichere Schlüssel"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:371
-#, fuzzy
 msgid "Save key with text ..."
-msgstr "Mit Text Auf Festplatte speichern..."
+msgstr "Speichere Selle mit Text ..."
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:373
-#, fuzzy
 msgid "Copy key into clipboard"
-msgstr "In Zwischenablage kopieren"
+msgstr "Stelle iIn Zwischenablage kopieren"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:374
-#, fuzzy
 msgid "Copy key with text into clipboard"
-msgstr "Kopiere Suchergebnis mit Text in Zwischenablage"
+msgstr "Kopiere Stelle mit Text in Zwischenablage"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:376
 msgid "Add to print queue"
 msgstr "Füge zur Druckerschlange hinzu"
 
 #: bibletime/frontend/ctoolclass.cpp:89
-msgid ""
-"<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
+msgid "<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
 msgstr ""
 "<qt><B>Die Datei existiert bereits</B><BR>Möchten Sie sie "
 "überschreiben?</qt>"
@@ -1119,14 +1081,12 @@ msgid "Search in selected modules"
 msgstr "Durchsuche gewählte(s) Module(e)"
 
 #: bibletime/dummy.h:25
-#, fuzzy
 msgid "Remove selected items"
-msgstr "Lösche markierte Eintrage"
+msgstr "Entferne ausgewählte Einträge"
 
 #: bibletime/dummy.h:28
-#, fuzzy
 msgid "Show / hide main index"
-msgstr "Zeige /Verstecke &Gruppenmanager"
+msgstr ""
 
 #: bibletime/dummy.h:29
 msgid "Show / hide tooolbar"
@@ -1137,9 +1097,8 @@ msgid "Show / hide footnotes"
 msgstr "Zeige / verstecke Fußnoten"
 
 #: bibletime/dummy.h:31
-#, fuzzy
 msgid "Show / hide Strong's numbers"
-msgstr "Dies zeigt oder versteckt die Strongnummern je nach aktuellem Zustand."
+msgstr ""
 
 #: bibletime/dummy.h:33
 msgid "Tile windows"
@@ -1598,23 +1557,19 @@ msgstr ""
 #: bibletime/dummy.h:205
 #, fuzzy
 msgid "This will show or hide the main index depending on current state."
-msgstr ""
-"Dies zeigt oder versteckt Hauptwerkzeugleiste je nach aktuellem Zustand."
+msgstr "Dies zeigt oder versteckt Hauptwerkzeugleiste je nach aktuellem Zustand."
 
 #: bibletime/dummy.h:206
 msgid "This will show or hide the main toolbar depending on current state."
-msgstr ""
-"Dies zeigt oder versteckt Hauptwerkzeugleiste je nach aktuellem Zustand."
+msgstr "Dies zeigt oder versteckt Hauptwerkzeugleiste je nach aktuellem Zustand."
 
 #: bibletime/dummy.h:207
-msgid ""
-"This will show or hide the footnotes in texts depending on current state."
+msgid "This will show or hide the footnotes in texts depending on current state."
 msgstr "Dies zeigt oder versteckt die Fußnoten je nach aktuellem Zustand."
 
 #: bibletime/dummy.h:208
 #, fuzzy
-msgid ""
-"This will show or hide Strong's numbers in texts depending on current state."
+msgid "This will show or hide Strong's numbers in texts depending on current state."
 msgstr "Dies zeigt oder versteckt die Strongnummern je nach aktuellem Zustand."
 
 #: bibletime/dummy.h:210
@@ -1624,8 +1579,7 @@ msgstr "Dies ordnet die geöffneten Presentzer Fenster in einem Kachelmuster."
 
 #: bibletime/dummy.h:211
 #, fuzzy
-msgid ""
-"If this is enabled the opened display windows will automatically be tiled."
+msgid "If this is enabled the opened display windows will automatically be tiled."
 msgstr ""
 "Wenn dies ausgewählt ist werden alle geöffneten Presenter automatische "
 "gekachelt."
@@ -1633,8 +1587,7 @@ msgstr ""
 #: bibletime/dummy.h:212
 #, fuzzy
 msgid "This will arrange the opened display windows in a cascade pattern."
-msgstr ""
-"This ordnet die geöffneten Fenster der Presenter in einem Stapelmuster an."
+msgstr "This ordnet die geöffneten Fenster der Presenter in einem Stapelmuster an."
 
 #: bibletime/dummy.h:213
 #, fuzzy
@@ -1650,8 +1603,7 @@ msgstr "Dies schließt alle geöffneten Fenster der Presenter."
 
 #: bibletime/dummy.h:216
 #, fuzzy
-msgid ""
-"This will open a dialog where you can edit the main toolbar of BibleTime."
+msgid "This will open a dialog where you can edit the main toolbar of BibleTime."
 msgstr ""
 "Dies öffnet einen Dialog wo Sie die Werkzeugleiste von BibleTime ändern "
 "können."
@@ -1795,8 +1747,7 @@ msgstr ""
 msgid ""
 "This will show or highlight the next chapter depending on the type of t he "
 "display window."
-msgstr ""
-"Dies zeigt oder hebt das nächste Kapitel hervor je nach Typ des Presenters."
+msgstr "Dies zeigt oder hebt das nächste Kapitel hervor je nach Typ des Presenters."
 
 #: bibletime/dummy.h:248
 #, fuzzy
@@ -1817,13 +1768,11 @@ msgstr ""
 
 #: bibletime/dummy.h:251
 msgid "This list contains the books available in the current module."
-msgstr ""
-"Diese Liste enthält die Bücherm, die im aktuellen Modul verfügbar sind."
+msgstr "Diese Liste enthält die Bücherm, die im aktuellen Modul verfügbar sind."
 
 #: bibletime/dummy.h:252
 msgid "This list contains the chapters available in the current book."
-msgstr ""
-"Diese Liste enthält die Kapitel, die im aktuellen Buch verfügbar sind."
+msgstr "Diese Liste enthält die Kapitel, die im aktuellen Buch verfügbar sind."
 
 #: bibletime/dummy.h:253
 msgid "This list contains the verses available in the current verse."
@@ -1841,8 +1790,7 @@ msgid ""
 msgstr ""
 
 #: bibletime/dummy.h:256
-msgid ""
-"This button will toggle between edit and read mode of writebale modules."
+msgid "This button will toggle between edit and read mode of writebale modules."
 msgstr ""
 
 #: bibletime/dummy.h:257
@@ -1850,8 +1798,7 @@ msgid "This will save the current personal comment to disk."
 msgstr "Dies speichert den persönlichen Kommentar auf Festplatte."
 
 #: bibletime/dummy.h:258
-msgid ""
-"This will clear the currently enetered text but it will not save to disk."
+msgid "This will clear the currently enetered text but it will not save to disk."
 msgstr ""
 
 #: bibletime/dummy.h:259
@@ -2076,8 +2023,7 @@ msgid "The type of the paper on which you want to print."
 msgstr ""
 
 #: bibletime/dummy.h:320
-msgid ""
-"Select the paper size of your printer. The size will be used fo printing."
+msgid "Select the paper size of your printer. The size will be used fo printing."
 msgstr ""
 
 #: bibletime/dummy.h:322
@@ -2143,126 +2089,3 @@ msgstr "Dies ändert die Eigenschaften der ausgewählten Gruppe."
 msgid "Create a new style.<BR>The new style will be added to the list."
 msgstr ""
 
-#~ msgid "&Groupmanager"
-#~ msgstr "&Gruppenmanager"
-
-#~ msgid "optionsdialog"
-#~ msgstr "Optionendialog"
-
-#~ msgid "The handbook for BibleTime 1.0"
-#~ msgstr "Das Handbuch von BibleTime 1.0"
-
-#~ msgid "Almost whole Handbook"
-#~ msgstr "Beinahe das gesamte Handbuch"
-
-#~ msgid "First version of english handbook"
-#~ msgstr "Erste Version des englischen Handbuches"
-
-#~ msgid "Partial translation of the handbook to German"
-#~ msgstr "Teilweise Übersetzung des Handbuches ins Deutsche"
-
-#~ msgid "Clear printer queue"
-#~ msgstr "Leere die Druckerschlange"
-
-#~ msgid "Reset groupmanager"
-#~ msgstr "Gruppenmanager zurücksetzen"
-
-#~ msgid "S&how strongs"
-#~ msgstr "Zeige &Strong Nummern"
-
-#~ msgid "&Show groupmanager"
-#~ msgstr "Zeige &Gruppenmanager"
-
-#~ msgid "Create new group"
-#~ msgstr "Erzeuge neue Gruppe"
-
-#~ msgid "Show info"
-#~ msgstr "Zeige Information"
-
-#, fuzzy
-#~ msgid ""
-#~ "<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\" "
-#~ "WIDTH=\"95%\"><TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" "
-#~ "COLSPAN=\"2\"><H1>%1</H1></TD></TR><TR><TD "
-#~ "BGCOLOR=\"#0F86D0\"><B>Datapath:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%2</TD></TR><TR><TD "
-#~ "BGCOLOR=\"#0F86D0\"><B>Version:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%3</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Unlock "
-#~ "key:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR><TR><TD "
-#~ "BGCOLOR=\"#0F86D0\"><B>Writable:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%5</TD></TR><TR><TD "
-#~ "BGCOLOR=\"#0F86D0\"><B>Footnotes:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%6</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Strong "
-#~ "numbers:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR><TR><TD "
-#~ "BGCOLOR=\"#0F86D0\"><B>Description:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%8</TD></TR><TR><TD VALIGN=\"TOP\" "
-#~ "BGCOLOR=\"#0F86D0\"><B>About:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%9</TD></TR></TABLE></BODY></HTML>"
-#~ msgstr ""
-#~ "<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\" "
-#~ "WIDTH=\"100%\"><TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" "
-#~ "COLSPAN=\"2\"><H1>%1</H1></TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Pfad der "
-#~ "Daten:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR><TR><TD "
-#~ "BGCOLOR=\"#0F86D0\"><B>Version:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%3</TD></TR><TR><TD "
-#~ "BGCOLOR=\"#0F86D0\"><B>Schlüssel:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%4</TD></TR><TR><TD "
-#~ "BGCOLOR=\"#0F86D0\"><B>Schreibbar:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%5</TD></TR><TR><TD "
-#~ "BGCOLOR=\"#0F86D0\"><B>Fußnoten:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%6</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Strong "
-#~ "Nummern:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR><TR><TD "
-#~ "BGCOLOR=\"#0F86D0\"><B>Beschreibung:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%8</TD></TR><TR><TD VALIGN=\"TOP\" "
-#~ "BGCOLOR=\"#0F86D0\"><B>Über:</B></TD><TD "
-#~ "BGCOLOR=\"#FFE9C8\">%9</TD></TR></TABLE></BODY></HTML>"
-
-#~ msgid "Found entries:"
-#~ msgstr "Gefundene Einträge"
-
-#~ msgid "Verse Preview:"
-#~ msgstr "Versvorschau"
-
-#~ msgid "Copy into clipboard with keytext"
-#~ msgstr "Mit Text in Zwischenablage kopieren"
-
-#~ msgid "Save to disk..."
-#~ msgstr "Auf Festplatte speichern..."
-
-#~ msgid "The groupmanager"
-#~ msgstr "Der Gruppenmanager"
-
-#~ msgid "Change group"
-#~ msgstr "Verändere Gruppe"
-
-#~ msgid "Automatic scrolling"
-#~ msgstr "Automatisches Scrollen"
-
-#~ msgid "Delete personal comment"
-#~ msgstr "Lösche persönlichen Kommentar"
-
-#~ msgid "Verse preview"
-#~ msgstr "Versvorschau"
-
-#~ msgid "This will clear the printing queue of BibleTime."
-#~ msgstr "Dies leert dir Druckerschlange von BibleTime."
-
-#~ msgid "This will terminate BibleTime."
-#~ msgstr "Dies beendet BibleTime."
-
-#~ msgid "This will delete the selected items from the groupmanager."
-#~ msgstr "Dies löscht die gewählten Einträge aus dem Gruppenmanager."
-
-#~ msgid "This will show or hide the groupmanager depending on current state."
-#~ msgstr ""
-#~ "Dies zeigt oder versteckt den Gruppenmanager je nach aktuellem Zustand."
-
-#~ msgid ""
-#~ "This will create a new bookmark. The current key of the activated "
-#~ "presenter<BR>will be used to craete the bookmark."
-#~ msgstr ""
-#~ "This will create a new bookmark. The current key of the activated "
-#~ "presenter<BR>will be used to craete the bookmark."
-
-#~ msgid "This is the presenter where bibles are shown."
-#~ msgstr "Dies ist der Presenter in dem Bibeln dargestellt werden."

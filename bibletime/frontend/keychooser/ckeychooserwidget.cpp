@@ -96,13 +96,11 @@ void CKeyChooserWidget::changeCombo(int i){
 }
 
 void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
-	oldKey = QString::null;
-			
-	if (m_list.count() != (unsigned int)count) {	//same count, not necessary to regenerate
+	oldKey = QString::null;			
+	if (m_list.count() != (unsigned int)count) {	//equal->same count, not necessary to regenerate
 		m_list.clear();
-		for (int i=1; i <= count; i++) {
+		for (int i=1; i <= count; i++)
 			m_list.append( QString::number(i) );
-		}	
 	}
 	reset(&m_list,index,do_emit);
 }
@@ -114,10 +112,12 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	isResetting = true;
 	
 	oldKey = QString::null;
+	ComboBox->setUpdatesEnabled(false);
 	ComboBox->clear();
 	ComboBox->insertStringList(*list);
 	ComboBox->setCurrentItem(index);	
-		
+	ComboBox->setUpdatesEnabled(true);
+			
 	if (list && !list->count()) {
 		btn_up->setEnabled(false);
 		btn_fx->setEnabled(false);
@@ -132,9 +132,8 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		btn_up->setEnabled(true);
 		btn_fx->setEnabled(true);
 		btn_down->setEnabled(true);			
-	}
-	
-	isResetting = false;		
+	}	
+	isResetting = false;
 	if (do_emit)
 		emit changed(ComboBox->currentItem());		
 }
@@ -153,18 +152,14 @@ void CKeyChooserWidget::unlock(void){
 
 /** Initializes this widget. We need this function because we have more than one constructor. */
 void CKeyChooserWidget::init( ){
-//	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed) );	
-	
 	oldKey = QString::null;
 	btn_up = btn_down = btn_fx = 0;
-	
-		
+			
 	QHBoxLayout *m_mainLayout = new QHBoxLayout( this );	
 	QVBoxLayout *m_buttonLayout = new QVBoxLayout();	
 			
 	ComboBox = new CKCComboBox( true, this, "ComboBox" );
 	ComboBox->setAutoCompletion( true );
-//	ComboBox->setMaximumWidth( 150 );
 	ComboBox->setInsertionPolicy(QComboBox::NoInsertion);
 	ComboBox->insertStringList(m_list, 0);
 	

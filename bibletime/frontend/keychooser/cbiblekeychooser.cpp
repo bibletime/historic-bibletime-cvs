@@ -45,7 +45,7 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 		qWarning("CBibleKeyChooser: module is not a Bible or commentary!");
 		return;
 	}
-	
+	m_key = 0;	
 	QHBoxLayout *layout = new QHBoxLayout(this);
 	layout->setResizeMode(QLayout::Fixed);
 		
@@ -95,9 +95,10 @@ CKey *CBibleKeyChooser::getKey(){
 }
 
 void CBibleKeyChooser::setKey(CKey* key){
-	if (dynamic_cast<CSwordVerseKey*>(key))
-		m_key = dynamic_cast<CSwordVerseKey*>(key);
-	
+	qWarning("BibleCC::setKey");
+	if (!(m_key = dynamic_cast<CSwordVerseKey*>(key)))
+		return;
+		
 	const unsigned int bookIndex = m_info->getBookNumber( m_key->getBook() );
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
@@ -115,49 +116,67 @@ void CBibleKeyChooser::setKey(CKey* key){
 
 /**  */
 void CBibleKeyChooser::bookNextRequested(void){
+	if (!isUpdatesEnabled())
+		return;
+	
 	setUpdatesEnabled(false);		
-	m_key->NextBook();	
-	setKey(m_key);
+	if (m_key->NextBook())	
+		setKey(m_key);
 	setUpdatesEnabled(true);	
 }
 
 /**  */
 void CBibleKeyChooser::bookPrevRequested(void){
+	if (!isUpdatesEnabled())
+		return;
+	
 	setUpdatesEnabled(false);		
-	m_key->PreviousBook();	
-	setKey(m_key);
+	if (m_key->PreviousBook())
+		setKey(m_key);
 	setUpdatesEnabled(true);	
 }
 
 /**  */
 void CBibleKeyChooser::chapterNextRequested(void){
+	if (!isUpdatesEnabled())
+		return;
+	
 	setUpdatesEnabled(false);	
-	m_key->NextChapter();	
-	setKey(m_key);
+	if (m_key->NextChapter())	
+		setKey(m_key);
 	setUpdatesEnabled(true);	
 }
 
 /**  */
 void CBibleKeyChooser::chapterPrevRequested(void){
+	if (!isUpdatesEnabled())
+		return;
+	
 	setUpdatesEnabled(false);		
-	m_key->PreviousChapter();	
-	setKey(m_key);
-	setUpdatesEnabled(true);		
+	if (m_key->PreviousChapter())
+		setKey(m_key);
+	setUpdatesEnabled(true);
 }
 
 /**  */
 void CBibleKeyChooser::verseNextRequested(void){
+	if (!isUpdatesEnabled())
+		return;
+	
 	setUpdatesEnabled(false);
-	m_key->NextVerse();	
-	setKey(m_key);
+	if (m_key->NextVerse())	
+		setKey(m_key);
 	setUpdatesEnabled(true);		
 }
 
 /**  */
 void CBibleKeyChooser::versePrevRequested(void){
+	if (!isUpdatesEnabled())
+		return;
+	
 	setUpdatesEnabled(false);	
-	m_key->PreviousVerse();	
-	setKey(m_key);
+	if (m_key->PreviousVerse())
+		setKey(m_key);
 	setUpdatesEnabled(true);	
 }
 
@@ -165,13 +184,11 @@ void CBibleKeyChooser::bookChanged(int i){
 	if (!isUpdatesEnabled())
 		return;
 
-	setUpdatesEnabled(false);			
-	
+	setUpdatesEnabled(false);
 	m_key->Verse( 1 );
 	m_key->Chapter( 1 );	
 	m_key->setBook( w_book->ComboBox->currentText() );
-	setKey( m_key );	
-	
+	setKey( m_key );		
 	setUpdatesEnabled(true);		
 }
 
@@ -190,13 +207,11 @@ void CBibleKeyChooser::chapterChanged(int i){
 
 void CBibleKeyChooser::verseChanged(int i){
 	if (!isUpdatesEnabled())
-		return;
-	
-	setUpdatesEnabled(false);
-			
+		return;	
+	setUpdatesEnabled(false);			
 	m_key->Verse( w_verse->ComboBox->currentText().toInt() );
 	setKey( m_key );
-	setUpdatesEnabled(true);		
+	setUpdatesEnabled(true);
 }
 
 /** Reimplementation */
@@ -216,9 +231,7 @@ void CBibleKeyChooser::setModule(CModuleInfo* module){
 		refreshContent();
 	}
 }
-/** called when the book combo lost the focus
-with reason == tab
-@param the new book */
+/** called when the book combo lost the focus with reason == tab @param the new book */
 void CBibleKeyChooser::bookFocusOut(int index){
  	int chapter = m_key->Chapter();
 	int verse = m_key->Verse();
@@ -237,9 +250,8 @@ void CBibleKeyChooser::bookFocusOut(int index){
 	w_verse->reset(newverses, verse-1, false);
 	w_verse->adjustSize();		
 }
-/** called when the chapter combo lost the focus
-with reason == tab
-@param the new chapter */
+
+/** called when the chapter combo lost the focus with reason == tab @param the new chapter */
 void CBibleKeyChooser::chapterFocusOut(int index){
   int book = m_info->getBookNumber( w_book->ComboBox->currentText() );
 
@@ -251,9 +263,7 @@ void CBibleKeyChooser::chapterFocusOut(int index){
 	w_verse->reset(newverses,verse-1,false);
 	w_verse->adjustSize();
 }
-/** called when the verse combo lost the focus
-with reason == tab
-@param the new verse */
+/** called when the verse combo lost the focus with reason == tab @param the new verse */
 void CBibleKeyChooser::verseFocusOut(int index){
   const QString book = w_book->ComboBox->currentText();
  	const int chapter = w_chapter->ComboBox->currentText().toInt();

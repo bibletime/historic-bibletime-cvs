@@ -81,65 +81,54 @@ const bool CSwordVerseKey::PreviousVerse(){
 
 /**  */
 const bool CSwordVerseKey::NextChapter(){
-//this is bad for commentary modules because they do not have all keys
 //#warning Implement some special thing for commentaries	
-	if (Chapter()<0)
-		return false;		
+//	if (Chapter()<0)
+//		return false;		
 	Chapter(Chapter()+1);	
 	return true;
 }
 
 /**  */
 const bool CSwordVerseKey::PreviousChapter(){
-//this is bad for commentary modules because tey do not have all keys
 //#warning Implement some special thing for commentaries		
-	if (Chapter()<=0)
-		return false;	
+//	if (Chapter()<=0)
+//		return false;	
 	Chapter(Chapter()-1);
 	return true;
 }
 
 /**  */
 const bool CSwordVerseKey::NextBook(){
-	//this is bad for commentary modules because tey do not have all keys
 //#warning Implement some special thing for commentaries					
-	if (Book()<0)
-		return false;
-	Book(Book()+1);		
+	if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
+		return false;	
+	
+	Book(Book()+1);			
 	return true;
 }
 
 /**  */
 const bool CSwordVerseKey::PreviousBook(){
-	//this is bad for commentary modules because tey do not have all keys
 //#warning Implement some special thing for commentaries		
-	if (Book()<=0)
+	if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
 		return false;
-		
 	Book(Book()-1);
-
 	return true;
 }
 
 /** Returns the current book as Text, no as integer. */
 const QString CSwordVerseKey::getBook() const {
-	const int curBook = Book();
-	const int testament = Testament();
-
-	QString text = QString::null;
-	if ( testament > 0 && curBook <= BMAX[testament-1] ) {
-		text = QString::fromLocal8Bit( books[testament-1][curBook-1].name );
-	}
-	else {
-		text = QString::fromLocal8Bit(books[0][0].name);
-	}
-	return text;
+	QString book = QString::null;
+	if ( Testament() && Book() <= BMAX[Testament()-1] )
+		book = QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
+	else
+		book = QString::fromLocal8Bit(books[0][0].name);
+	return book;
 }
 
 /** Returns the current book as Text, no as integer. */
 void CSwordVerseKey::setBook( const QString newBook ) {
-	const QString newKey = QString("%1 %2:%3").arg(newBook).arg((int)Chapter()).arg((int)Verse());
-	if(!setKey(newKey))
+	if(!setKey(QString("%1 %2:%3").arg(newBook).arg((int)Chapter()).arg((int)Verse())))
 		qWarning("Invalid key!");
 }
 

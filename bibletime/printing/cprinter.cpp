@@ -218,6 +218,7 @@ void CPrinter::printItem( QPainter* p, CPrintItem* item){
 				continue;
 				
 			font = format->getFont();
+			font.setCharSet(QFont::Unicode);
 			fgColor = format->getFGColor();
 			bgColor = format->getBGColor();
 			identation = format->getIdentation();
@@ -358,8 +359,7 @@ void CPrinter::printQueue(){
 				CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
 				keyName = lk->getKey();
 			}
-			emit printedOneItem(keyName);
-			
+			emit printedOneItem(keyName);			
 		};
 		if (page < numCopies())
 			newPage();	//new pages seperate copies
