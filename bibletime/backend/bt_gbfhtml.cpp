@@ -89,19 +89,19 @@ BT_GBFHTML::BT_GBFHTML(){
 }
 
 /** No descriptions */
-char BT_GBFHTML::ProcessText(char * text, int maxlen, const sword::SWKey * key, const sword::SWModule * module){
-	BT_BASICFILTER::ProcessText(text, maxlen, key, module);
+char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const sword::SWModule * module){
+	BT_BASICFILTER::processText(buf, key, module);
 
   CSwordModuleInfo* const mod = CPointers::backend()->findModuleByPointer(m_module);
   if (!mod || (mod && (mod->type() != CSwordModuleInfo::Bible) && (mod->type() != CSwordModuleInfo::GenericBook))) {
-    BT_BASICFILTER::ProcessRWPRefs(text, maxlen);
+    BT_BASICFILTER::ProcessRWPRefs(buf);
   }
 
   return 1;
 }
 
 
-bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
+bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
 	if (!substituteToken(buf, token)) {  //more than a simple replace
   	const int tokenLength = strlen(token);
 		unsigned long i;
@@ -113,7 +113,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-2] = token[i];
 			num[i-2]=0;
 
-			pushString(buf," <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+			buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
 				num, num);
 		}
 
@@ -123,7 +123,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-2] = token[i];
 			num[i-2]=0;
 
-			pushString(buf," <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span> </a>",
+			buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span> </a>",
 				num, num);
 		}
 
@@ -133,7 +133,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-3] = token[i];
 			num[i-3]=0;
 
-			pushString(buf," <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+			buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
 				num, num);
 		}
 
@@ -144,32 +144,34 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 					num[i-3] = token[i];
 			num[i-3]=0;
 
-			pushString(buf," <a href=\"morph://Hebrew/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+			buf.appendFormatted(" <a href=\"morph://Hebrew/%s\"><span class=\"morphcode\">(%s)</span></a> ",
 				num, num);
 		}
 
 		else if (!strncmp(token, "RB", 2)) {
-			pushString(buf, "<span class=\"footnotepre\">");
+			buf += "<span class=\"footnotepre\">";
 			userData["hasFootnotePreTag"] = "true";
 		}
 
 		else if (!strncmp(token, "RF", 2)) {
 			if(userData["hasFootnotePreTag"] == "true") {
 				userData["hasFootnotePreTag"] = "false";
-				pushString(buf, "</span> ");
+				buf += "</span> ";
 			}
-			pushString(buf,"<span class=\"footnote\"> (");
+			buf += "<span class=\"footnote\"> (";
 		}
 
 		else if (!strncmp(token, "FN", 2)) {
-			pushString(buf, "<font face=\"");
-			for (i = 2; i < tokenLength; i++)				
-				if(token[i] != '\"')
-					*(*buf)++ = token[i];
-			pushString(buf,"\">");
+			buf += "<font face=\"";
+			for (i = 2; i < tokenLength; i++) {
+				if(token[i] != '\"') {
+					buf += token[i];
+        }
+      }
+			buf += "\">";
 		}
 		else if (!strncmp(token, "CA", 2)) {	// ASCII value
-			*(*buf)++ = (char)atoi(&token[2]);
+			buf += (char)atoi(&token[2]);
 		}		
 		else {
 			return false;

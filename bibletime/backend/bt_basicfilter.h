@@ -18,6 +18,7 @@
 #ifndef BT_BASICFILTER_H
 #define BT_BASICFILTER_H
 
+#include <swbuf.h>
 #include <swbasicfilter.h>
 
 #include <string>
@@ -34,7 +35,7 @@ using std::string;
 
 class BT_BASICFILTER : public sword::SWBasicFilter  {
 public:
-  virtual char ProcessText (char *text, int maxlen, const sword::SWKey *, const sword::SWModule * = 0);
+  virtual char processText(sword::SWBuf& buf, const sword::SWKey*, const sword::SWModule * = 0);
 
 protected:
 	/**
@@ -47,7 +48,7 @@ protected:
 	* This filter converts the RWP #Gen 1:1|
 	* style bible references to HTML
 	*/
-  char ProcessRWPRefs(char* text, int maxlen = -1);
+  char ProcessRWPRefs(sword::SWBuf& buf);
   /**
   * Parses the verse reference ref and returns it.
   */

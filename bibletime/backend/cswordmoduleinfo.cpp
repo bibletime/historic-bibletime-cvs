@@ -198,12 +198,13 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 			QString about = QString::fromLatin1(m_module->getConfigEntry("About"));
 			if (!about.isEmpty()) {	
 				sword::RTFHTML filter;
-				const int len = about.length()+600;
-				char dummy[len];
-				strcpy(dummy, about.local8Bit());
-		
-				filter.ProcessText(dummy,len,0);
-				about = QString::fromLocal8Bit(dummy);
+//				const int len = about.length()+600;
+//				char dummy[len];
+//				strcpy(dummy, about.local8Bit());
+
+        sword::SWBuf buf( about.local8Bit() );
+				filter.processText(buf, 0, 0);
+				about = QString::fromLocal8Bit(buf.c_str());
 			}			
 			return about;
 		}		

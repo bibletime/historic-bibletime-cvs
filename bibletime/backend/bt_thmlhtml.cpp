@@ -47,24 +47,24 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	addTokenSubstitute("/foreign",						"</span>");
 }
 
-bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
+bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
 	unsigned long i = 0;
 	const int tokenLength = strlen(token);
 	
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
 
 		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
-			pushString(buf," <span class=\"lemma\">&lt;");
+			buf += " <span class=\"lemma\">&lt;";
 
 			for (int j = 17; j < tokenLength; j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
 					j += 7;
 					for (;token[j] != '\"'; j++)
-						*(*buf)++ = token[j];
+						buf += token[j];
 					break;
 				}
 			}
-			pushString(buf, "&gt;</span> ");
+			buf += "&gt;</span> ";
 		}
 
 		else if (!strncmp(token, "sync type=\"morph\"", 17)) { //Morph
@@ -79,7 +79,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					break;
 				}
 			}
-			pushString(buf," <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+			buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
 				num, num);
 		}
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
@@ -89,7 +89,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					num[i-29] = token[i];
 			num[i-29] = 0;
 
-			pushString(buf," <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+			buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
 				num, num);
 		}
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
@@ -99,7 +99,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					num[i-29] = token[i];
 			num[i-29] = 0;
 
-			pushString(buf," <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+			buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
 				num, num);
 		}
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) { // a more complicated scripRef
@@ -125,7 +125,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 						break;
 				}
 				verse_str[i-18] = 0;
- 			  pushString(buf, parseThMLRef(verse_str).c_str());
+ 			  buf += parseThMLRef(verse_str).c_str();
 
 //        userData["suspendTextPassThru"] = "true";
       }
@@ -141,7 +141,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 						break;					
 				}
 				verse_str[idx] = '\0';
-				pushString(buf, parseThMLRef(verse_str, userData["lastRefModule"].c_str()).c_str());
+				buf += parseThMLRef(verse_str, userData["lastRefModule"].c_str()).c_str();
 			}
 		}
 		// we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
@@ -154,53 +154,59 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		else if (!strcmp(token, "/scripRef")) {
 			if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">See John 3:16</scripRef>"
 				userData["inscriptRef"] = "false";
-				pushString(buf, thmlRefEnd().c_str());
+				buf += thmlRefEnd().c_str();
 			}			
 			else { // like "<scripRef>John 3:16</scripRef>"
- 			  pushString(buf, parseSimpleRef( userData["lastTextNode"] ).c_str() );
+ 			  buf += parseSimpleRef( userData["lastTextNode"] ).c_str();
 				userData["suspendTextPassThru"] = "false";
 			}
 		}
 		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
 			userData["SecHead"] = "true";
-			pushString(buf, "<div class=\"sectiontitle\">"/*, text_color*/);
+			buf += "<div class=\"sectiontitle\">";
 		}
 		else if (!strncmp(token, "div class=\"title\"", 19)) {
       userData["Title"] = "true";
-			pushString(buf, "<div class=\"booktitle\">");
+			buf += "<div class=\"booktitle\">";
 		}
-		else if (!strncmp(token, "img ", 4)) {
-			const char *src = strstr(token, "src");
-			if (!src)		// assert we have a src attribute
-				return false;
-
-			*(*buf)++ = '<';
-			for (const char *c = token; *c; c++) {
-				if (c == src) {
-					for (;((*c) && (*c != '"')); c++)
-						*(*buf)++ = *c;
-
-					if (!*c) { c--; continue; }
-
-					*(*buf)++ = '"';
-					if (*(c+1) == '/') {
-						pushString(buf, "file:");
-						pushString(buf, module->getConfigEntry("AbsoluteDataPath"));
-						if (*(*buf-1) == '/')
-							c++;		// skip '/'
-					}
-					continue;
-				}
-				*(*buf)++ = *c;
-			}
-			*(*buf)++ = '>';
-		}		
+//		else if (!strncmp(token, "img ", 4)) {
+//			const char *src = strstr(token, "src");
+//			if (!src)	{	// assert we have a src attribute
+//				return false;
+//      }
+//
+//			buf += '<';
+//			for (const char *c = token; *c; c++) {
+//				if (c == src) {
+//					for (;((*c) && (*c != '"')); c++) {
+//						buf += *c;
+//          }
+//
+//					if (!*c) {
+//            c--;
+//            continue;
+//          }
+//
+//					buf += '"';
+//					if (*(c+1) == '/') {
+//						buf += "file:";
+//						buf += module->getConfigEntry("AbsoluteDataPath");
+//						if (*(*buf-1) == '/')
+//							c++;		// skip '/'
+//					}
+//					continue;
+//				}
+//				buf += *c;
+//			}
+//			buf += '>';
+//		}		
 		else { // let token pass thru
-			*(*buf)++ = '<';
-			for (i = 0; i < tokenLength; i++)
-				*(*buf)++ = token[i];
-				*(*buf)++ = '>';
-		}
-	}
+			buf += '<';
+			for (i = 0; i < tokenLength; i++) {
+				buf += token[i];
+      }
+			buf += '>';
+    }
+  }
 	return true;
 }

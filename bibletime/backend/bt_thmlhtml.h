@@ -28,7 +28,7 @@ class BT_ThMLHTML : public BT_BASICFILTER {
 
 public:
   BT_ThMLHTML ();
-  virtual bool handleToken(char **buf, const char *token, DualStringMap &userData);
+  virtual bool handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData);
 //  virtual char ProcessText (char *text, int maxlen = -1);
 };
 

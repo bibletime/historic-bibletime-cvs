@@ -307,7 +307,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
 	// Only insert the table stuff if we are displaying parallel.
   // Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
 
-  //declarations out of the lopp for optimization
+  //declarations out of the loop for optimization
   const QString colStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; padding-bottom:2px; padding-top:2px;");
   QString tdStyle;
   QString entry;

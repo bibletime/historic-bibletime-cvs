@@ -36,11 +36,11 @@ using std::cerr;
 using std::endl;
 //using std::string;
 
-char BT_BASICFILTER::ProcessText(char *text, int maxlen, const sword::SWKey *key, const sword::SWModule *module){
+char BT_BASICFILTER::processText(sword::SWBuf& buf, const sword::SWKey *key, const sword::SWModule *module){
 	m_module = module;
 	m_key = key;
 	updateSettings();
-	sword::SWBasicFilter::ProcessText(text, maxlen, key, module);
+	sword::SWBasicFilter::processText(buf, key, module);
 	
 	return 0;
 }
@@ -128,7 +128,7 @@ const string BT_BASICFILTER::thmlRefEnd() {
 }
 
 /** This filter converts the RWP #Gen 1:1| style bible references to HTML */
-char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
+char BT_BASICFILTER::ProcessRWPRefs(sword::SWBuf& buf){
   /** Markup verse refs which are marked by #ref1[,;]ref2|
   *
   * 1. Search start marker (#)
@@ -138,7 +138,7 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
 
   sword::SWModule* module = const_cast<sword::SWModule*>(m_module);
   
-  std::string target(text);
+  std::string target(buf.c_str());
   int idx_start = target.find_first_of("#",0); //find ref start
   int idx_end;
   
@@ -161,7 +161,7 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
     idx_start = target.find_first_of("#", idx_start); //find ref start
   };
 
-  strncpy(text, target.c_str(), maxlen); //copy new content back into text!
+  buf = target.c_str(); //copy new content back into text!
   return 0;
 }
 
