@@ -130,14 +130,22 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
   }
 
 	//setup variables required for Sword
-	if (searchOptions & CSwordModuleSearch::caseSensitive)
+	if (searchOptions & CSwordModuleSearch::caseSensitive) {
 		searchFlags = 0;
+	}
 
-	if (searchOptions & CSwordModuleSearch::entryAttribs) {
+	if (searchOptions & CSwordModuleSearch::cluceneIndex) {
+		searchType = -4; //clucene search
+  }
+	else if (searchOptions & CSwordModuleSearch::entryAttribs) {
 		searchType = -3; //Entry attributes
   }
 	else if (searchOptions & CSwordModuleSearch::multipleWords) {
 		searchType = -2; //multiple words
+		
+		if (m_module->isSearchOptimallySupported((const char*)searchedText.utf8(), searchType, searchFlags, 0)) {
+			searchType = -4;
+		}
   }
 	else if (searchOptions & CSwordModuleSearch::exactPhrase) {
 		searchType = -1; //exact phrase
