@@ -33,12 +33,12 @@
 
 CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(info, key, parent, name), m_key(0){
-		
+
 	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(info);
-		
+	
 	//we use a layout because the key chooser should be resized to full size
  	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
-	
+
 	m_widget = new CKeyChooserWidget(m_module->entries(), false, this);
 	m_widget->comboBox()->setMaximumWidth(300);
 	

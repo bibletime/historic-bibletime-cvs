@@ -39,7 +39,7 @@ CKeyChooser* CKeyChooser::createInstance(CSwordModuleInfo *module, CSwordKey *ke
  	  case CSwordModuleInfo::Bible:
  	  	return new CBibleKeyChooser(module,key,parent);
  	  case CSwordModuleInfo::Lexicon:
- 	  	return new CLexiconKeyChooser(module,key,parent);	
+			return new CLexiconKeyChooser(module,key,parent);	
  	  case CSwordModuleInfo::GenericBook:
  	  	return new CBookKeyChooser(module,key,parent);
  	  default:

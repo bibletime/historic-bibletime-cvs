@@ -48,6 +48,7 @@ CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, QWidget *p
 //	*m_key = TOP;
 
 	initView();
+
 	show();
 	initConnections();			
 	
@@ -63,7 +64,9 @@ void CLexiconPresenter::initView(){
 	qWarning("CLexiconPresenter::initView()");
 	
 	m_mainToolBar = new KToolBar(this);
+
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
+
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
 	m_mainToolBar->setItemAutoSized(0);
 	addToolBar(m_mainToolBar);
@@ -75,6 +78,7 @@ void CLexiconPresenter::initView(){
 	addToolBar(m_moduleChooserBar);
 	
 	m_htmlWidget = new CHTMLWidget(true, this);
+
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
