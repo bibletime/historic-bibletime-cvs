@@ -67,18 +67,6 @@ Show / Hide Footnotes.
 <para>
 <inlinemediaobject>
 <imageobject>
-<imagedata fileref="common/hdbk_bars_toolbar_action_noicon.png">
-</imageobject>
-<textobject>
-<phrase>Icon Picture Not Created Yet</phrase>
-</textobject>
-</inlinemediaobject>
-Show Toolbar.
-</para>
-
-<para>
-<inlinemediaobject>
-<imageobject>
 <imagedata fileref="common/hdbk_bars_toolbar_action_search.png">
 </imageobject>
 <textobject>

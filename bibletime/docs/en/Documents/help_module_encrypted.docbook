@@ -14,7 +14,7 @@ module?
 </question>
 <answer>
 <para>
-An encrypted module is a module which is locked with a key. Only a user that has
+An encrypted module (document) is a module which is locked with a key. Only a user that has
 the right key can unlock the module to read it.
 </para>
 </answer>
@@ -29,7 +29,7 @@ How do I unlock a module?
 <para>
 For normal users it's sadly not possible at this time to use encrypted modules.
 The problem is that the copyright owners of the modules do not want to release
-the stuff together with SWORD.  But If you have a key click with the right
+the stuff with SWORD.  But If you have a key click with the right
 mousebutton on the module and select "Unlock module ...".  A dialog appears,
 please enter here the key to unlock the encrypted module.
 </para>

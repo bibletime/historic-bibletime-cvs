@@ -1,6 +1,6 @@
 Docbook file conventions
 
-Fred Saalbach - Updated 25 Feb 2001
+Fred Saalbach - Updated 10 April 2001
 
 The dockbook files have the following convention
 

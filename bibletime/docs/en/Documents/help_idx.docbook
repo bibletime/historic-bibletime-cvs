@@ -1,4 +1,4 @@
-					       <book lang="en" id="help_idx">
+<book lang="en" id="help_idx">
 
 <bookinfo>
 
@@ -17,12 +17,13 @@
 </author>
 
 </authorgroup>
-<date>02/20/2001</date>
-<releaseinfo>draft for BT V1.0 CVS</releaseinfo>
+<date>10 April 2001</date>
+<releaseinfo>draft for BT V1.0pre</releaseinfo>
 
 <copyright>
 <year>1999</year>
 <year>2000</year>
+<year>2001</year>
 <holder>
 The team of BibleTime, info@bibletime.de
 </holder>

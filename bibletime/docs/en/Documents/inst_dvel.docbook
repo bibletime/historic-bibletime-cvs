@@ -14,6 +14,7 @@ Home Page</ulink></para>
 
 <para>
 Bibletime consists of sword, the sword modules, and bibletime.
+When Sword modules are displayed in bibletime we call them documents.</para><para>
 
 Sword is the backend (something like a librarian) that fetches sword modules and
 passes them to Bibletime for presentation.  All three of these must be installed
@@ -56,7 +57,7 @@ $ Password: anonymous
 $ cvs checkout sword
 </screen>
 <para>
-This will place a copy of the sword source code  into ./Develop/sword .
+This will place a copy of the Sword source code  into ./Develop/sword .
 </para>
 <para>
 To close the connection, type <command>exit</command>
@@ -87,7 +88,7 @@ Enter your password when requested.
 
 </screen>
 <para>
-This will place a copy of the sword source code  into ./Develop/bibletime .
+This will place a copy of the Sword source code  into ./Develop/bibletime .
 </para>
 <para>
 To close the connection, type <command>exit</command></para>

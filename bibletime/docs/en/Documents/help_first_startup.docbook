@@ -53,7 +53,7 @@ Presenter
 <entry>
 
 A presenter is a window inside the MDI area of BibleTime. A presenters presents
-the content of a SWORD module in a reasonable format (for example Bibles will be
+the content of a document (SWORD module) in a reasonable format (for example Bibles will be
 displayed as HTML text with hyperlinks to verse references).
 We use presenters to have a general approach for the future.
 Crosswire will extend SWORD as more material is made available for distribution.
@@ -71,12 +71,12 @@ Group manager
 </entry>
 <entry>
 
-The group manager is the tree on the left side of BibleTime's main window.  The
-group manager combines the bookmark management and module management of
-BibleTime 0.2x. To work with the Group manager use the right mouse button menu.
+The main index is the tree on the left side of BibleTime's application window.  The
+main index combines the bookmark management and module management of
+BibleTime 0.2x. To work with the main index use the right mouse button menu.
 
-The group manager is Drag 'n' Drop capable: You can drag verse references from a
-presenter into the group manager to create a bookmark, and you can move items in
+The main index is Drag 'n' Drop capable: You can drag verse references from a
+an open document into the main index to create a bookmark, and you can move items in
 the tree (e.g. move groups or bookmarks into another group).
 
 </entry>
@@ -105,9 +105,9 @@ Drag 'n' Drop
 </entry>
 <entry>
 
-Drag & Drop is an important part of BibleTime! You can drag modules, verse
-references, bookmarks, groups, search results etc. Places where you can drop
-them are the group manager, the presenters and the commentary editor.
+Drag & Drop is an important part of BibleTime! You can drag documents, verse
+references, bookmarks, document groups, search results etc. Places where you can drop
+them are the main index, the document windows, and the commentary editor.
 
 Simply play around a little to find out how our Drag & Drop system does work!
 We hope you like it.
