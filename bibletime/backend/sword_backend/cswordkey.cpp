@@ -34,13 +34,11 @@ CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {
 }
 
 const QString CSwordKey::renderedText() {
-//	qDebug("CSwordKey::renderedText");
 	if (!m_module)
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);
 	if (k) {
 		m_module->module()->SetKey(k);	
-//		(const char*)*(m_module->module());//snapp to entry
 	}
 		
 	switch (m_module->encoding()) {
@@ -56,11 +54,10 @@ const QString CSwordKey::strippedText() {
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);
 	if (k) {
-		m_module->module()->SetKey(k);	
-//		(const char*)*(m_module->module()); //snapp to entry
+		m_module->module()->SetKey(k);
 	}
 		
-	switch (m_module->encoding() == QFont::Unicode) {
+	switch (m_module->encoding()) {
 		case QFont::Unicode:
 			return QString::fromUtf8( m_module->module()->StripText() );
 		default:
