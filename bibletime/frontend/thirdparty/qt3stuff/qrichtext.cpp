@@ -2866,7 +2866,6 @@ void QTextDocument::updateFontAttributes( const QFont &f, const QFont &old )
 
 void QTextStringChar::setFormat( QTextFormat *f )
 {
-    qDebug("QTextStringChar::setFormat %p %s",f,f?f->key().latin1():"");
     if ( type == Regular ) {
 	d.format = f;
     } else {
@@ -3288,12 +3287,15 @@ formatAgain:
 	int dy = ( r.y() + r.height() ) - n->r.y();
 	QTextParag *s = n;
         bool makeInvalid = p && p->lastInFrame;
-	while ( s ) {
+        //qDebug("moving. previous's lastInFrame (=makeInvalid): %d",makeInvalid);
+	while ( s && dy ) {
 	    if ( !s->isFullWidth() )
 		makeInvalid = TRUE;
 	    if ( makeInvalid )
 		s->invalidate( 0 );
 	    s->move( dy );
+	    if ( s->lastInFrame )
+		makeInvalid = TRUE;
 	    s = s->n;
 	}
     }
