@@ -46,7 +46,7 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
 //  QFrame *page = addPage( i18n("Layout"), i18n("Layout specific settings") );
   QVBoxLayout *topLayout = new QVBoxLayout( this, 5, 5 );
   	
-  QButtonGroup *group = new QButtonGroup( i18n("Margins (in millimeter)"), this );
+  QButtonGroup *group = new QButtonGroup( i18n("Margins (mm)"), this );
   QWhatsThis::add(group, CResMgr::printing::printerSettings::margins::whatsthis);
   topLayout->addWidget( group, 0 );
 
@@ -103,7 +103,7 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
 //	QToolTip::add(m_styleList, TT_PD_LAYOUT_STYLE_LIST);
 //	QWhatsThis::add(m_styleList, WT_PD_LAYOUT_STYLE_LIST);
 
-  QLabel* label = new QLabel(m_styleList, i18n("List of style items:"), this);
+  QLabel* label = new QLabel(m_styleList, i18n("Available styles:"), this);
   styleLayout->addWidget(label,0);
 	styleLayout->addWidget( m_styleList, 3);
 
@@ -199,7 +199,7 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
 	QWhatsThis::add(m_styleComboBox, CResMgr::printing::itemPage::styleChooser::whatsthis);
   connect(m_styleComboBox, SIGNAL(activated(const QString&)), SLOT(slotListApplyStyle(const QString&)));
 
-  label = new QLabel( m_styleComboBox, i18n("Choose a style"), this);
+  label = new QLabel( m_styleComboBox, i18n("Use style:"), this);
   QHBoxLayout*	hboxLayout = new QHBoxLayout( 0, 5, 5 );
   hboxLayout->addWidget( label );
   hboxLayout->addWidget( m_styleComboBox );
@@ -211,7 +211,7 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
 	QToolTip::add(m_printItemList, CResMgr::printing::itemPage::itemList::tooltip);
 	QWhatsThis::add(m_printItemList, CResMgr::printing::itemPage::itemList::whatsthis);
 
-  label = new QLabel(m_printItemList, i18n("Entries which should be printed:"), this);
+  label = new QLabel(m_printItemList, i18n("Entries to print:"), this);
   entryLayout->addWidget(label);
   entryLayout->addWidget( m_printItemList );
   hboxLayout->addLayout(entryLayout);

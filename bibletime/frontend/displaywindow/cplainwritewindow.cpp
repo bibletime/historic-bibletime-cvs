@@ -50,7 +50,7 @@ void CPlainWriteWindow::initView(){
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
  	mainToolBar()->setFullSize(false);
 
- 	m_actions.saveText = new KAction(i18n("Save the text"),
+ 	m_actions.saveText = new KAction(i18n("Save text"),
     CResMgr::displaywindows::writeWindow::saveText::icon,
     CResMgr::displaywindows::writeWindow::saveText::accel,
     this, SLOT(saveCurrentText()),
@@ -61,7 +61,7 @@ void CPlainWriteWindow::initView(){
   m_actions.saveText->plug(mainToolBar());
 
 
- 	m_actions.deleteEntry = new KAction(i18n("Delete the current entry"),
+ 	m_actions.deleteEntry = new KAction(i18n("Delete current entry"),
     CResMgr::displaywindows::writeWindow::deleteEntry::icon,
     CResMgr::displaywindows::writeWindow::deleteEntry::accel,
     this, SLOT(deleteEntry()),

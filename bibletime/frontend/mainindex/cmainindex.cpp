@@ -474,7 +474,7 @@ void CMainIndex::searchInModules(){
 void CMainIndex::unlockModule(){
   if (CModuleItem* i = dynamic_cast<CModuleItem*>(currentItem())) {
   	bool ok;
-  	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the key to unlock the module!"),QLineEdit::Normal, i->module()->config(CSwordModuleInfo::CipherKey), &ok);
+  	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the unlock key for this module."),QLineEdit::Normal, i->module()->config(CSwordModuleInfo::CipherKey), &ok);
   	if (ok) {
   		/*const bool ret =*/ i->module()->unlock( unlockKey );
 //  		if ( !ret ) { // an error occured

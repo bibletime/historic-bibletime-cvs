@@ -22,7 +22,7 @@
 #include "../frontend/cbtconfig.h"
 
 //System includes
-#include <pthread.h>
+//#include <pthread.h>
 
 //Sword includes
 #include <swmodule.h>

@@ -81,21 +81,21 @@ void CSearchResultView::initView(){
 //	m_popup->insertTitle(i18n("Bible window"));
 
  	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::searchdialog::result::foundItems::copyMenu::icon);
- 	m_actions.copy.result = new KAction(i18n("Search result"), KShortcut(0), this, SLOT(copyItems()), this);
+ 	m_actions.copy.result = new KAction(i18n("Reference only"), KShortcut(0), this, SLOT(copyItems()), this);
  	m_actions.copyMenu->insert(m_actions.copy.result);
- 	m_actions.copy.resultWithText = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(copyItemsWithText()), this);
+ 	m_actions.copy.resultWithText = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(copyItemsWithText()), this);
  	m_actions.copyMenu->insert(m_actions.copy.resultWithText);
  	m_actions.copyMenu->plug(m_popup);
 
  	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::searchdialog::result::foundItems::saveMenu::icon);
- 	m_actions.save.result = new KAction(i18n("Search result"), KShortcut(0), this, SLOT(saveItems()), this);
+ 	m_actions.save.result = new KAction(i18n("Reference only"), KShortcut(0), this, SLOT(saveItems()), this);
  	m_actions.saveMenu->insert(m_actions.save.result);
- 	m_actions.save.resultWithText = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(saveItemsWithText()), this);
+ 	m_actions.save.resultWithText = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(saveItemsWithText()), this);
  	m_actions.saveMenu->insert(m_actions.save.resultWithText);
  	m_actions.saveMenu->plug(m_popup);
 
  	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::searchdialog::result::foundItems::printMenu::icon);
- 	m_actions.print.result = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(printItems()), this);
+ 	m_actions.print.result = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(printItems()), this);
  	m_actions.printMenu->insert(m_actions.print.result);
   m_actions.printMenu->plug(m_popup);  
 }
@@ -289,21 +289,21 @@ void CModuleResultView::initView(){
 //	m_popup->insertTitle(i18n("Bible window"));
 
  	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::searchdialog::result::moduleList::copyMenu::icon);
- 	m_actions.copy.result = new KAction(i18n("Search result"), KShortcut(0), this, SLOT(copyResult()), this);
+ 	m_actions.copy.result = new KAction(i18n("Reference only"), KShortcut(0), this, SLOT(copyResult()), this);
  	m_actions.copyMenu->insert(m_actions.copy.result);
- 	m_actions.copy.resultWithText = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(copyResultWithText()), this);
+ 	m_actions.copy.resultWithText = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(copyResultWithText()), this);
  	m_actions.copyMenu->insert(m_actions.copy.resultWithText);
  	m_actions.copyMenu->plug(m_popup);
 
  	m_actions.saveMenu = new KActionMenu(i18n("Save..."),CResMgr::searchdialog::result::moduleList::saveMenu::icon);
- 	m_actions.save.result = new KAction(i18n("Search result"), KShortcut(0), this, SLOT(saveResult()), this);
+ 	m_actions.save.result = new KAction(i18n("Reference only"), KShortcut(0), this, SLOT(saveResult()), this);
  	m_actions.saveMenu->insert(m_actions.save.result);
- 	m_actions.save.resultWithText = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(saveResultWithText()), this);
+ 	m_actions.save.resultWithText = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(saveResultWithText()), this);
  	m_actions.saveMenu->insert(m_actions.save.resultWithText);
  	m_actions.saveMenu->plug(m_popup);
 
  	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::searchdialog::result::moduleList::printMenu::icon);
- 	m_actions.print.result = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(printResult()), this);
+ 	m_actions.print.result = new KAction(i18n("Reference with text"), KShortcut(0), this, SLOT(printResult()), this);
  	m_actions.printMenu->insert(m_actions.print.result);
 
 
@@ -442,7 +442,7 @@ void CSearchResultPage::initView(){
   splitter->setResizeMode(hSplitter, QSplitter::KeepSize);
   splitter->setResizeMode(m_previewDisplay->view(), QSplitter::Stretch);
   
-  m_analyseButton = new QPushButton(i18n("Show search analysis")+QString::fromLatin1("..."), this);
+  m_analyseButton = new QPushButton(i18n("Show search analysis"), this);
   connect(m_analyseButton, SIGNAL(clicked()),
     this, SLOT(showAnalysis()));
   mainLayout->addSpacing(5);
@@ -643,14 +643,14 @@ void CSearchOptionsPage::initView(){
   m_modulesLabel->setTextFormat(Qt::RichText);
   m_modulesLabel->setAlignment( AlignLeft | WordBreak );
 
-  m_chooseModulesButton = new QPushButton(i18n("Choose modules..."), box1);
+  m_chooseModulesButton = new QPushButton(i18n("Choose modules"), box1);
   connect(m_chooseModulesButton, SIGNAL(clicked()),
 	  this, SLOT(chooseModules()));
   QToolTip::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::tooltip);
   QWhatsThis::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::whatsthis);
 
   QLabel* label = new QLabel(box1);
-  label->setText(i18n("Searched text:"));
+  label->setText(i18n("Search text:"));
   m_searchTextCombo = new KHistoryCombo(box1);
   label->setAutoResize(true);
 
@@ -694,7 +694,7 @@ void CSearchOptionsPage::initView(){
 
   grid->addWidget(group, 4,2);
 
-	QGroupBox* box2 = new QGroupBox(2, Qt::Horizontal , i18n("Choose search scope:"), this);
+	QGroupBox* box2 = new QGroupBox(2, Qt::Horizontal , i18n("Search scope"), this);
   grid->addMultiCellWidget(box2, 6,7,0,2);
 
   m_rangeChooserCombo = new KComboBox(box2);
@@ -702,7 +702,7 @@ void CSearchOptionsPage::initView(){
   QWhatsThis::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::whatsthis);
 
   refreshRanges();  
-  m_chooseRangeButton = new QPushButton(i18n("Setup custom ranges..."), box2);
+  m_chooseRangeButton = new QPushButton(i18n("Setup custom ranges"), box2);
   connect(m_chooseRangeButton, SIGNAL(clicked()),
     this, SLOT(setupRanges()));
   

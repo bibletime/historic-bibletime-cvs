@@ -145,7 +145,7 @@ bool CWriteWindow::queryClose(){
 //  qWarning("queryClose called!");
 	//save the text if it has changed
 	if (m_writeDisplay->isModified()) {
-		switch (KMessageBox::warningYesNoCancel( this, i18n("Something changed after you saved the last time the text.\nWrite changed text into the module?")) ) {
+		switch (KMessageBox::warningYesNoCancel( this, i18n("Save text before closing?")) ) {
 			case KMessageBox::Yes: { //save and close
 	   		saveCurrentText();
 	   		m_writeDisplay->setModified( false );

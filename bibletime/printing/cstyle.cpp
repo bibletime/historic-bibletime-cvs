@@ -184,7 +184,7 @@ CStyle::CStyle() :
 	m_listViewItem = 0;
 	m_isHeaderFormatEnabled = m_isDescriptionFormatEnabled = m_isModuleTextFormatEnabled = true;
 
-	setStyleName( i18n("unknown name") );
+	setStyleName( i18n("Unknown") );
 };
 
 CStyle::CStyle( const QString text ) :

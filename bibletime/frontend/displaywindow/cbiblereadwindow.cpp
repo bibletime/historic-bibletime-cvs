@@ -152,7 +152,7 @@ void CBibleReadWindow::setupPopupMenu(){
   (new KActionSeparator())->plug( popup() );
 
  	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::bibleWindow::copyMenu::icon);
- 	m_actions.copy.referenceOnly = new KAction(i18n("Reference"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
+ 	m_actions.copy.referenceOnly = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.referenceOnly);
 	m_actions.copy.referenceTextOnly = new KAction(i18n("Text of reference"), KShortcut(0),displayWidget()->connectionsProxy(), SLOT(copyAnchorTextOnly()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.referenceTextOnly);
@@ -267,7 +267,7 @@ void CBibleReadWindow::copyDisplayedText(){
 //  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
   vk.UpperBound(dummy);
 
-  CExportManager mgr(i18n("Copy chapter into clipboard ..."), false, i18n("Copying"), filterOptions(),displayOptions());
+  CExportManager mgr(i18n("Copy chapter to clipboard ..."), false, i18n("Copying"), filterOptions(),displayOptions());
   mgr.copyKey(&vk, CExportManager::Text, true);
 }
 

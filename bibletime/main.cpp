@@ -127,7 +127,7 @@ int main(int argc, char* argv[]) {
 	static KCmdLineOptions options[] =
 	{
 		{"debug", I18N_NOOP("Enable debug messages"),0},
-		{"ignore-startprofile", I18N_NOOP("Ignore the startup profile saved after the last BibleTime execution."),0},
+		{"ignore-startprofile", I18N_NOOP("Ignore the startup profile saved when BibleTime was closed the last time."),0},
 		{"open-default-bible <key>", I18N_NOOP("Open the default bible with the given key. Use <random> to open at a random position."),0},
 		{0,0,0}
 	};	
@@ -139,7 +139,9 @@ int main(int argc, char* argv[]) {
 		I18N_NOOP("Bible study tool for KDE"),
 		KAboutData::License_GPL_V2,
 		I18N_NOOP("(c)1999-2003, The BibleTime Team"),
-		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE.\n\nWe are looking for developers and translators.\nIf you'd like to join use send an eMail to info@bibletime.info."),
+		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE.\n\n\
+We are looking for developers and translators.\n\
+If you'd like to join our team, please send an email to info@bibletime.info."),
 		"http://www.bibletime.info/",
 		"info@bibletime.info"
 	);
@@ -172,9 +174,9 @@ int main(int argc, char* argv[]) {
   // Bible study HowTo
 
   //Sponsored many years the www.bibletime.de domain!
-  aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Spnsored many years our internet domain"), "tom@theta-consulting.de", "");  
+  aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Spnsored our internet domain for many years"), "tom@theta-consulting.de", "");  
 
-  aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible study HowTo"), "ncc@ncchampton.org", "");
+  aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible Study HowTo"), "ncc@ncchampton.org", "");
 
   // Language codes iso639-1, iso639-2 and SIL language codes
   aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");

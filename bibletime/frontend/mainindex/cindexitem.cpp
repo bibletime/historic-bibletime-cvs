@@ -424,7 +424,7 @@ void CBookmarkItem::print(){
 /** Changes this bookmark. */
 void CBookmarkItem::rename(){
   bool ok  = false;
-  QString newDescription = CInputDialog::getText(i18n("Change description ..."),i18n("Enter a new description for the chosen bookmark!"), description(), &ok, listView(), true);
+  QString newDescription = CInputDialog::getText(i18n("Change description ..."),i18n("Enter a new description for the chosen bookmark."), description(), &ok, listView(), true);
   if (ok) {
     m_description = newDescription;
     update();
@@ -613,7 +613,7 @@ void CTreeFolder::init(){
         setText(0,i18n("Commentaries"));
         break;
       case LexiconModuleFolder:
-        setText(0,i18n("Lexicon"));
+        setText(0,i18n("Lexicons"));
         break;
       case BookModuleFolder:
         setText(0,i18n("Books"));
@@ -625,7 +625,7 @@ void CTreeFolder::init(){
         setText(0,i18n("Glossaries"));
         break;
       case BookmarkFolder:
-        setText(0,i18n("Bookmark"));
+        setText(0,i18n("Bookmarks"));
         break;
       case OldBookmarkFolder:
         setText(0,i18n("Old bookmarks"));
@@ -638,7 +638,7 @@ void CTreeFolder::init(){
   else {
     CLanguageMgr::Language lang = languageMgr()->languageForAbbrev( language() );
     
-    setText(0, !language().isEmpty() ? ( lang.isValid() ? lang.translatedName() : language()) : i18n("unknown language"));
+    setText(0, !language().isEmpty() ? ( lang.isValid() ? lang.translatedName() : language()) : i18n("Unknown language"));
   }
   initTree();
   update();

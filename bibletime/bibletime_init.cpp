@@ -89,7 +89,7 @@ void BibleTime::initActions() {
 	KAction* action = 0;
 
   
-	m_fileClearQueue_action = new KAction(i18n("Clear printing queue"),
+	m_fileClearQueue_action = new KAction(i18n("Clear print queue"),
     CResMgr::mainMenu::file::clearQueue::icon,
     CResMgr::mainMenu::file::clearQueue::accel,
     m_printer, SLOT(clearQueue()), actionCollection(),
@@ -224,7 +224,7 @@ void BibleTime::initActions() {
 	m_windowSaveProfile_action->plugAccel( m_keyAccel );
 
 
-  m_windowSaveToNewProfile_action = new KAction(i18n("&Save as a new profile"),
+  m_windowSaveToNewProfile_action = new KAction(i18n("&Save as new profile"),
     CResMgr::mainMenu::window::saveToNewProfile::icon,
     CResMgr::mainMenu::window::saveToNewProfile::accel,    
     this, SLOT(saveToNewProfile()), actionCollection(),
@@ -433,7 +433,7 @@ void BibleTime::initBackends(){
 
 /** Initializes the CPrinter object. */
 void BibleTime::initPrinter() {
-	KStartupLogo::setStatusMessage(i18n("Initializing printing system") + QString::fromLatin1("..."));
+	KStartupLogo::setStatusMessage(i18n("Initializing print system") + QString::fromLatin1("..."));
 	CPointers::setPrinter( (m_printer = new CPrinter(this)) );
 }
 

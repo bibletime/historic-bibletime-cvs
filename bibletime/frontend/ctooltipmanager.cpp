@@ -58,19 +58,19 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
         typeName = i18n("Lexicon");
         break;
       case CReferenceManager::GenericBook:
-        typeName = i18n("Generic Book");
+        typeName = i18n("Book");
         break;
   		case CReferenceManager::MorphHebrew:
-        typeName = i18n("Hebrew Morphological lexicon");
+        typeName = i18n("Hebrew morphological lexicon");
         break;
   		case CReferenceManager::MorphGreek:
-        typeName = i18n("Greek Morphological lexicon");
+        typeName = i18n("Greek morphological lexicon");
         break;
   		case CReferenceManager::StrongsHebrew:
-        typeName = i18n("Hebrew Strong's Lexicon");
+        typeName = i18n("Hebrew Strong's lexicon");
         break;
   		case CReferenceManager::StrongsGreek:
-        typeName = i18n("Greek Strong's Lexicon");
+        typeName = i18n("Greek Strong's lexicon");
         break;
   		default:
         break;
@@ -78,7 +78,7 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
 
   	return QString::fromLatin1("<FONT COLOR=\"red\"><CENTER><B>%1</B></CENTER></FONT><HR>%2</FONT>")
       .arg(i18n("Configuration problem!"))
-      .arg(i18n("Please make sure the default module for the type <FONT COLOR=\"blue\"><I>%1</I></FONT> is set properly in the options dialog!")
+      .arg(i18n("Please make sure the default module for the type <FONT COLOR=\"blue\"><I>%1</I></FONT> is properly configured in the options dialog.")
           .arg(typeName)
       );
   };
@@ -93,7 +93,7 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
   else {
     return QString::fromLatin1("<FONT COLOR=\"red\"><CENTER><B>%1</B></CENTER>%2</FONT><HR>")
             .arg(i18n("Configuration problem!"))
-            .arg(i18n("The module <FONT COLOR=\"blue\"><I>%1</I></FONT> was not found on your system! Install the module to make this tooltip work!")
+            .arg(i18n("The module <FONT COLOR=\"blue\"><I>%1</I></FONT> was not found on your system. Install the module to make this tooltip work.")
               .arg(moduleName)
            );
   }
@@ -170,7 +170,7 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 
 /** Returns the text for the tooltip beginning. */
 const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QString& keyName ){
-  const QString defaultEnding = module ? QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name()) : i18n("module not set!");
+  const QString defaultEnding = module ? QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name()) : i18n("Module not set!");
 	if ((module->type() == CSwordModuleInfo::Bible) || (module->type() == CSwordModuleInfo::Commentary)) {
     sword::ListKey keys = sword::VerseKey().ParseVerseList((const char*)keyName.local8Bit(), sword::VerseKey("Genesis 1:1"), true);
 	  return QString::fromLatin1(keys.GetElement(0)->getRangeText()) + defaultEnding;

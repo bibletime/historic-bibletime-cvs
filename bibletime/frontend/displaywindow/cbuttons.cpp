@@ -140,7 +140,7 @@ int CDisplaySettingsButton::populateMenu(){
 		isOptionAvailable(CSwordBackend::headings));	
 	ret += addMenuEntry(i18n("Show footnotes"), &m_moduleSettings->footnotes,
 		isOptionAvailable(CSwordBackend::footnotes ));
-	ret += addMenuEntry(i18n("Show Jesus' words in red"), &m_moduleSettings->redLetterWords,
+	ret += addMenuEntry(i18n("Highlight words of Jesus"), &m_moduleSettings->redLetterWords,
 		isOptionAvailable(CSwordBackend::redLetterWords ));
 	ret += addMenuEntry(i18n("Show Strong's Numbers"), &m_moduleSettings->strongNumbers,
 		isOptionAvailable(CSwordBackend::strongNumbers ));

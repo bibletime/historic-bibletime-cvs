@@ -130,7 +130,7 @@ void COptionsDialog::slotApply(){
 /** Adds a new view profile to the list. */
 void COptionsDialog::addNewProfile(){
 	bool ok = false;
-	QString name = QInputDialog::getText(i18n("Create new profile"), i18n("Please enter the name of the new profile"), QLineEdit::Normal, QString::null, &ok);
+	QString name = QInputDialog::getText(i18n("Create new profile"), i18n("Please enter the name of the new profile."), QLineEdit::Normal, QString::null, &ok);
 	if (ok && !name.isEmpty()) {
 		m_settings.profiles.mgr.create(name);
 		m_settings.profiles.profiles->insertItem(name);				
@@ -153,7 +153,7 @@ void COptionsDialog::renameProfile(){
 	CProfile* profile = m_settings.profiles.mgr.profile(currentProfile);
 	if (!profile)
 		return;
-	const QString newName = QInputDialog::getText(i18n("Rename profile"), i18n("Please enter the new name of the profile"), QLineEdit::Normal, profile->name(), &ok);
+	const QString newName = QInputDialog::getText(i18n("Rename profile"), i18n("Please enter a new name for the profile."), QLineEdit::Normal, profile->name(), &ok);
 	if (ok && !newName.isEmpty()) {
 		profile->setName(newName);
 		m_settings.profiles.profiles->changeItem(newName, m_settings.profiles.profiles->currentItem());
@@ -200,7 +200,7 @@ void COptionsDialog::initStartup(){
 	layout->addWidget(m_settings.startup.showLogo);
 	{ //workspace
 		m_settings.startup.restoreWorkspace = new QCheckBox(page);
-		m_settings.startup.restoreWorkspace->setText(i18n("Restore windows in workspace area"));
+		m_settings.startup.restoreWorkspace->setText(i18n("Restore windows from the last BibleTime session"));
 		QToolTip::add(m_settings.startup.restoreWorkspace, CResMgr::settings::startup::restoreWorkingArea::tooltip);		
 		QWhatsThis::add(m_settings.startup.restoreWorkspace, CResMgr::settings::startup::restoreWorkingArea::whatsthis);
 
@@ -219,8 +219,10 @@ void COptionsDialog::initFonts(){
  	layout->addWidget(
     CToolClass::explanationLabel(
       page,
-      i18n("Choose fonts for modules"),
-      i18n("The drop down box lists all languages of the installed modules. First choose a language and decide if the modules of this language need another font as the application's default font. Then choose the font for the selected language.")
+      i18n("Select custom fonts per-language"),
+      i18n("Here you find a list of all languages of the installed modules. \
+You can specify a custom font for each language that needs a special font \
+to be displayed correctly.")
     )
   );
   layout->addSpacing(5);
@@ -251,7 +253,7 @@ void COptionsDialog::initFonts(){
   }
 
 
-  m_settings.fonts.useOwnFontBox = new QCheckBox(i18n("Use own font settings"), page, "font checkbox");
+  m_settings.fonts.useOwnFontBox = new QCheckBox(i18n("Use custom font"), page, "font checkbox");
   connect(m_settings.fonts.useOwnFontBox, SIGNAL(toggled(bool)), SLOT(useOwnFontClicked(bool)));
  	hLayout->addWidget(m_settings.fonts.useOwnFontBox);
 
@@ -260,7 +262,7 @@ void COptionsDialog::initFonts(){
 #warning TODO: remember the last selected font and jump there.
 
  	m_settings.fonts.fontChooser = new KFontChooser(page, "fonts", false, QStringList(), true, 5);
- 	m_settings.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog"));
+ 	m_settings.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog."));
  	layout->addWidget(m_settings.fonts.fontChooser);
 
   connect(m_settings.fonts.fontChooser, SIGNAL(fontSelected(const QFont&)), SLOT(newDisplayWindowFontSelected(const QFont&)));
@@ -282,7 +284,8 @@ void COptionsDialog::initColors(){
   gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(page,
   		i18n("Choose colors"),
-  		i18n("Choose the colors to alter the apperance of the display windows. Some options like \"Words of Jesus\" only apply to texts which support this special feature.")
+  		i18n("Choose custom colors to alter the apperance of the display windows. \
+Some options like \"Words of Jesus\" only apply to texts which offer special features.")
   	),
   	0,0,0,-1
   );
@@ -395,7 +398,7 @@ void COptionsDialog::initProfiles(){
 			i18n("Manage your profiles"),
 			i18n("Profiles define the appereance of the work area, \
 for example which windows are open and which texts should displayed in these windows. \
-Don't forget that new profiles only work after you've saved something in them.")
+New profiles only work after you've saved something into them.")
 		),
 		0,0,0,-1
 	);
@@ -437,7 +440,7 @@ void COptionsDialog::initAccelerators(){
 // ----- new tab: All display windows ------ //
   QFrame* currentTab = new QVBox(tabCtl);
 	currentTab->setMargin(3);
-  tabCtl->addTab(currentTab, i18n("Application wide"));
+  tabCtl->addTab(currentTab, i18n("Application-wide"));
 
 	CBTConfig::setupAccel( CBTConfig::application, m_settings.keys.application.accel  );
 //	CSwordPresenter::insertKeyboardActions( m_settings.keys.application.accel );
@@ -534,7 +537,8 @@ void COptionsDialog::initSword(){
 
   gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(currentTab, i18n("Use key cache for lexicons"),
-			i18n("BibleTime can create a key cache for lexicons. This significantly increases the speed of opening large lexicon modules. \
+			i18n("BibleTime can create a key cache for lexicons. \
+This increases the speed of opening large lexicon modules significantly. \
 Note: These files consume some disk space (usually not much), and reside in \
 $KDEHOME/share/apps/bibletime/cache.")),
 		0,0,0,-1
@@ -565,13 +569,13 @@ if you want it to move to the <i>previous</i> verse.")),
   gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(currentTab, i18n("Specify a language for biblical booknames"),
 			i18n("Sword has a number of locales available which can be used to internationalize the \
-booknames of the bible. You can specify which locale to choose. If you want to \
+booknames of the bible. You can specify which locale to use. If you want to \
 create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 		4,4,0,-1
   );
 		
  	m_settings.swords.localeCombo = new QComboBox(currentTab);
- 	QLabel* label = new QLabel(m_settings.swords.localeCombo, i18n("Language for booknames"), currentTab); 	
+ 	QLabel* label = new QLabel(m_settings.swords.localeCombo, i18n("Language for biblical booknames"), currentTab); 	
  	QToolTip::add(m_settings.swords.localeCombo, CResMgr::settings::sword::general::language::tooltip);				
  	QWhatsThis::add(m_settings.swords.localeCombo, CResMgr::settings::sword::general::language::whatsthis);
  	gridLayout->addWidget(label, 5,0);
@@ -602,7 +606,9 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 	gridLayout->setResizeMode(QLayout::Minimum);
 
   gridLayout->addMultiCellWidget(
-  	CToolClass::explanationLabel(currentTab, i18n("Default modules"), i18n("Default modules are used, when no module is specified, for example when a hyperlink is clicked into a Bible or Lexicon.")),
+  	CToolClass::explanationLabel(currentTab, i18n("Default modules"),
+			i18n("Default modules are used when no module is specified, \
+for example when a hyperlink into a Bible or Lexicon was clicked .")),
   	0,0,0,-1 /*fill the horizontal space*/
   );
 
@@ -761,11 +767,15 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
   tabCtl->addTab(currentTab, i18n("Filter settings"));
   QVBoxLayout* layout = new QVBoxLayout(currentTab,5);
 
-  layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"), i18n("Filters control the appereance of the text in the display windows. Here you can choose the settings of the default filter. You can also change the settings in each display window.")) );
+  layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"),
+		i18n("Filters control the appereance of the text in the display windows. \
+Here you can specify default settings for all filters. \
+You can change the filter settings in each display window, of course.")) );
+
   layout->addSpacing(5);
   		
  	m_settings.swords.lineBreaks = new QCheckBox(currentTab);
- 	m_settings.swords.lineBreaks->setText(i18n("Show line break after each verse"));
+ 	m_settings.swords.lineBreaks->setText(i18n("Insert line break after each verse"));
  	m_settings.swords.lineBreaks->setChecked(CBTConfig::get(CBTConfig::lineBreaks));
   QToolTip::add(m_settings.swords.lineBreaks, CResMgr::settings::sword::filters::lineBreaks::tooltip);
   QWhatsThis::add(m_settings.swords.lineBreaks, CResMgr::settings::sword::filters::lineBreaks::whatsthis);  
@@ -786,7 +796,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	layout->addWidget(m_settings.swords.footnotes);
 
  	m_settings.swords.strongNumbers = new QCheckBox(currentTab);
- 	m_settings.swords.strongNumbers->setText(i18n("Show Strong's Numbers"));
+ 	m_settings.swords.strongNumbers->setText(i18n("Show Strong's numbers"));
  	m_settings.swords.strongNumbers->setChecked(CBTConfig::get(CBTConfig::strongNumbers));
   QToolTip::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::tooltip);
   QWhatsThis::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::whatsthis);  
@@ -800,7 +810,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	layout->addWidget(m_settings.swords.morphTags);
 
  	m_settings.swords.headings = new QCheckBox(currentTab);
- 	m_settings.swords.headings->setText(i18n("Show headings"));
+ 	m_settings.swords.headings->setText(i18n("Show section headings"));
  	m_settings.swords.headings->setChecked(CBTConfig::get(CBTConfig::headings));
   QToolTip::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::tooltip);
   QWhatsThis::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::whatsthis);  

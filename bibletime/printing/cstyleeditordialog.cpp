@@ -37,7 +37,7 @@
 #include <qspinbox.h>
 
 CStyleEditorDialog::CStyleEditorDialog(CStyle* style, QWidget *parent, const char *name )
-	: KDialogBase(parent,name, true, i18n("style editor")) {
+	: KDialogBase(parent,name, true, i18n("Style editor")) {
 	m_style = style;
 	m_formatEnabled =  false;
 	
@@ -60,7 +60,7 @@ void CStyleEditorDialog::initView(){
 	
 	QHBoxLayout *hboxLayout = new QHBoxLayout(0, 5, 5);
   m_styleNameEdit = new QLineEdit( mainWidget );
-	label = new QLabel(m_styleNameEdit, i18n("Name of style:"), this);
+	label = new QLabel(m_styleNameEdit, i18n("Name:"), this);
 	hboxLayout->addWidget(label);
 	hboxLayout->addWidget(m_styleNameEdit);	
 
@@ -68,7 +68,7 @@ void CStyleEditorDialog::initView(){
 
 	hboxLayout = new QHBoxLayout(0, 5, 5);	
   m_styleTypeChooser = new KComboBox( mainWidget, "styleTypeChooser" );
-  label = new QLabel( m_styleTypeChooser, i18n("Choose the part of the style:"), mainWidget );
+  label = new QLabel( m_styleTypeChooser, i18n("Choose a part of the style:"), mainWidget );
   hboxLayout->addWidget(label);
   m_styleTypeChooser->insertItem( i18n("Header") );
   m_styleTypeChooser->insertItem( i18n("Description") );
@@ -151,7 +151,7 @@ void CStyleEditorDialog::initView(){
   m_frame.lineThicknessChooser = new QSpinBox( m_frame.groupbox );
   m_frame.lineThicknessChooser->setMinValue(1);
   label = new QLabel(m_frame.lineThicknessChooser, "label", m_frame.groupbox);
-  label->setText( i18n("Line thickness (in point):") );
+  label->setText( i18n("Line thickness (pt):") );
   hboxLayout->addWidget(label);
 	hboxLayout->addWidget(m_frame.lineThicknessChooser);	
 	boxLayout->addLayout(hboxLayout);

@@ -109,7 +109,7 @@ void CLexiconReadWindow::setupPopupMenu(){
 
  	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::lexiconWindow::copyMenu::icon);	
  	
-  m_actions.copy.reference = new KAction(i18n("Reference"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
+  m_actions.copy.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.reference);
   m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.entry);
@@ -126,7 +126,7 @@ void CLexiconReadWindow::setupPopupMenu(){
  	m_actions.saveMenu->plug(popup());
 
  	m_actions.printMenu = new KActionMenu(i18n("Print..."),CResMgr::displaywindows::lexiconWindow::printMenu::icon);	
- 	m_actions.print.reference = new KAction(i18n("Reference"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection());
+ 	m_actions.print.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAnchorWithText()), actionCollection());
  	m_actions.printMenu->insert(m_actions.print.reference); 	 	
   m_actions.print.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(printAll()), actionCollection());
  	m_actions.printMenu->insert(m_actions.print.entry); 	

@@ -60,7 +60,7 @@ void CHTMLWriteWindow::initView() {
 
 
   //setip the toolbar
- 	m_actions.saveText = new KAction( i18n("Save the text"),
+ 	m_actions.saveText = new KAction( i18n("Save text"),
     CResMgr::displaywindows::writeWindow::saveText::icon,
     CResMgr::displaywindows::writeWindow::saveText::accel,
     this, SLOT( saveCurrentText()  ),
@@ -70,7 +70,7 @@ void CHTMLWriteWindow::initView() {
   m_actions.saveText->setWhatsThis( CResMgr::displaywindows::writeWindow::saveText::whatsthis );
   m_actions.saveText->plug(mainToolBar());  
 
- 	m_actions.deleteEntry = new KAction(i18n("Delete the current entry"),
+ 	m_actions.deleteEntry = new KAction(i18n("Delete current entry"),
     CResMgr::displaywindows::writeWindow::deleteEntry::icon,
     CResMgr::displaywindows::writeWindow::deleteEntry::accel,
     this, SLOT(deleteEntry()),

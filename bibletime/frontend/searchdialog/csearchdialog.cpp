@@ -208,7 +208,7 @@ void CSearchDialog::initView(){
   setButtonTip(User2, CResMgr::searchdialog::cancelSearchButton::tooltip);
   setButtonWhatsThis(User2, CResMgr::searchdialog::cancelSearchButton::whatsthis);
 
-  QHBox* box = addHBoxPage(i18n("Options"));
+  QHBox* box = addHBoxPage(i18n("Search options"));
   m_index.optionsPage = pageIndex(box);
   m_searchOptionsPage = new CSearchOptionsPage(box);
   
@@ -492,7 +492,7 @@ void CModuleChooser::setModules( ListCSwordModuleInfo modules ){
 
 /****************************/
 
-CModuleChooserDialog::CModuleChooserDialog( QWidget* parentDialog, ListCSwordModuleInfo modules ) : KDialogBase(Plain, i18n("Choose modules ..."), Ok, Ok, parentDialog, "CModuleChooser", false, true) {
+CModuleChooserDialog::CModuleChooserDialog( QWidget* parentDialog, ListCSwordModuleInfo modules ) : KDialogBase(Plain, i18n("Choose modules"), Ok, Ok, parentDialog, "CModuleChooser", false, true) {
   initView();
   initConnections();
 
@@ -554,7 +554,7 @@ void CRangeChooserDialog::RangeItem::setCaption(const QString newCaption) {
 
 
 /**************************/
-CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(Plain, i18n("Edit search ranges..."), Default | Ok | Cancel, Ok, parentDialog, "CRangeChooserDialog", false, true) {
+CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(Plain, i18n("Search range editor"), Default | Ok | Cancel, Ok, parentDialog, "CRangeChooserDialog", false, true) {
   initView();
   initConnections();
   
@@ -603,7 +603,7 @@ void CRangeChooserDialog::initView(){
   grid->addWidget(label,0,3);
   grid->addWidget(m_nameEdit,0,4);
 
-  label = new QLabel(i18n("Edit the search range:"), plainPage());
+  label = new QLabel(i18n("Edit current search range:"), plainPage());
   label->setFixedSize(label->sizeHint());
   m_rangeEdit = new QTextEdit(plainPage());
   grid->addMultiCellWidget(label,1,1,3,4);
@@ -771,7 +771,7 @@ void CSearchAnalysisDialog::initView(){
 
   QPushButton* button = new QPushButton(plainPage(), "button");
   button->setIconSet(SmallIconSet("filesave"));
-  button->setText(i18n("Save search analysis as HTML")+"...");
+  button->setText(i18n("Save search analysis as HTML"));
   button->setFixedSize(button->sizeHint());
   layout->addWidget(button);
   layout->addSpacing(10);
@@ -1202,13 +1202,13 @@ void CSearchAnalysis::saveAsHTML(){
  	CSearchAnalysisItem* analysisItem = m_canvasItemList.find( key.book() );
 
   QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n";
- 	text += "<table>\n<tr><th>" + i18n("Search Text :") + "</th><th>" + CSearchDialog::getSearchDialog()->searchText() + "</th></tr>\n";
- 	text += "<tr><th>" + i18n("Search Type :") + "</th><th>" + /*m_searchText->getSearchTypeString() +*/ "</th></tr>\n";
- 	text += "<tr><th>" + i18n("Search Scope:") + "</th><th>" + ((CSearchDialog::getSearchDialog()->searchScopeType() != CSwordModuleSearch::Scope_NoScope) ? VerseRange : i18n("No search scope")) + "</th></tr>\n</table>\n<br>\n";
+ 	text += "<table>\n<tr><th>" + i18n("Search text :") + "</th><th>" + CSearchDialog::getSearchDialog()->searchText() + "</th></tr>\n";
+ 	text += "<tr><th>" + i18n("Search type :") + "</th><th>" + /*m_searchText->getSearchTypeString() +*/ "</th></tr>\n";
+ 	text += "<tr><th>" + i18n("Search scope:") + "</th><th>" + ((CSearchDialog::getSearchDialog()->searchScopeType() != CSwordModuleSearch::Scope_NoScope) ? VerseRange : i18n("No search scope")) + "</th></tr>\n</table>\n<br>\n";
 
 
   tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";
- 	tableTotals = "<tr><td align=\"left\">" + i18n("Total Hits") + "</td>";
+ 	tableTotals = "<tr><td align=\"left\">" + i18n("Total hits") + "</td>";
  	for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
  			tableTitle += QString::fromLatin1("<th align=\"left\">") + m_moduleList.current()->name() + QString::fromLatin1("</th>");
  			searchResult = m_moduleList.current()->searchResult();

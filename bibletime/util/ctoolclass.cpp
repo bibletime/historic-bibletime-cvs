@@ -81,7 +81,7 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 	if (saveFile.exists()) {
 		if (KMessageBox::warningYesNo(0,
 				QString::fromLatin1("<qt><B>%1</B><BR>%2</qt>")
-					.arg( i18n("The file already exists!") )
+					.arg( i18n("The file already exists.") )
 					.arg( i18n("Do you want to overwrite it?")))
 				== KMessageBox::No
 			)
@@ -98,8 +98,8 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 	}
 	else {
 		KMessageBox::error(0, QString::fromLatin1("<qt>%1<BR><B>%2</B></qt>")
-			.arg( i18n("Sorry! But the file couldn't be saved!") )
-			.arg( i18n("Please check permissions etc. !")));
+			.arg( i18n("The file couldn't be saved.") )
+			.arg( i18n("Please check permissions etc.")));
 		saveFile.close();
 		ret = false;		
 	}	
