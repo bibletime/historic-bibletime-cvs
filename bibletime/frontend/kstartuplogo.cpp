@@ -53,6 +53,7 @@ KStartupLogo::KStartupLogo()
     pm.width(),
     pm.height()+textLabel->height());
 }
+
 void KStartupLogo::setText(const QString text){
   textLabel->setText( text );
   KApplication::kApplication()->processEvents();

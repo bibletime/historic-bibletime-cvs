@@ -122,12 +122,6 @@ void CKeyChooserWidget::changeCombo(int i){
 
 void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
 //	qDebug("CKeyChooserWidget::reset(const int count, int index, bool do_emit)");
-//	if (m_list.count() == count) {
-//		ComboBox->setCurrentItem(index);
-//		if (do_emit)
-//			emit(changed(ComboBox->currentItem()));
-//		return;
-//	}
 	m_list.clear();
 	for (int i=1; i <= count; i++)
 		m_list.append( QString::number(i) );
@@ -140,13 +134,15 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	if (isResetting || !isUpdatesEnabled())
 		return;
 	setUpdatesEnabled(false);
+	qWarning("sizeHint: %i", layout()->sizeHint());	
 	ComboBox->setUpdatesEnabled(false);
 			
 	isResetting = true;
 	
 	oldKey = QString::null;
-	ComboBox->clear();
+	ComboBox->clear();	
 	ComboBox->insertStringList(*list);
+	ComboBox->resize(ComboBox->sizeHint());
 	ComboBox->setCurrentItem(index);	
 			
 	const bool enableButtons = list && (list->count()>=1);
@@ -160,6 +156,7 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	isResetting = false;
 	setUpdatesEnabled(true);
 	ComboBox->setUpdatesEnabled(true);
+	qWarning("sizeHint2: %i", layout()->sizeHint());		
 }
 
 void CKeyChooserWidget::lock(void){

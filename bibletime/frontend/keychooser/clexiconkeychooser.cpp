@@ -32,18 +32,16 @@
 #include <kglobal.h>
 
 CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, QWidget *parent, const char *name )
-	: CKeyChooser(info, key, parent, name){
+	: CKeyChooser(info, key, parent, name), m_key(0){
 		
 	m_info = dynamic_cast<CSwordLexiconModuleInfo*>(info);
-	ASSERT(m_info);			
-	m_key = 0;
 		
 	//we use a layout because the key chooser should be resized to full size
  	QHBoxLayout *m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 	
 	m_widget = new CKeyChooserWidget(m_info->getEntries(), false, this);
-
 	m_widget->ComboBox->setMaximumWidth(200);
+	
   if (info && info->encoding() == QFont::Unicode){
 #warning implement reaction to font change in the optionsdialog here
     KConfig* config = KGlobal::config();
@@ -69,12 +67,12 @@ CSwordKey* CLexiconKeyChooser::getKey(){
 }
 
 void CLexiconKeyChooser::setKey(CSwordKey* key){	
-	if (!(m_key = (CSwordLDKey*)key))
+	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
 		return;		
 	m_widget->ComboBox->setCurrentItem(
 		m_widget->ComboBox->listBox()->index(
 			m_widget->ComboBox->listBox()->findItem( m_key->key() )));
-	m_widget->adjustSize();
+//	m_widget->adjustSize();
 	emit keyChanged( m_key );
 }
 
@@ -86,18 +84,6 @@ void CLexiconKeyChooser::activated(int index){
 	 	setKey(m_key);
 	}
 }
-//
-///**  */
-//void CLexiconKeyChooser::prevRequested(void){
-//	m_key->PreviousEntry();
-//	setKey(m_key);
-//}
-//
-///**  */
-//void CLexiconKeyChooser::nextRequested(void){
-//	m_key->NextEntry();
-//	setKey(m_key);
-//}
 
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
@@ -106,8 +92,8 @@ void CLexiconKeyChooser::refreshContent(){
 
 /** Sets the module and refreshes the combo boxes */
 void CLexiconKeyChooser::setModule( CSwordModuleInfo* module){
-	if (module && module != m_info && ((CSwordModuleInfo*)module)->getType()==CSwordLexiconModuleInfo::Lexicon) {
-		m_info = (CSwordLexiconModuleInfo*)module;
+	if (module && module != m_info && (dynamic_cast<CSwordModuleInfo*>(module))->getType() == CSwordLexiconModuleInfo::Lexicon) {
+		m_info = dynamic_cast<CSwordLexiconModuleInfo*>(module);
 		refreshContent();
 	}
 }

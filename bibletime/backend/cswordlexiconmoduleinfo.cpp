@@ -53,8 +53,9 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 /** Returns the entries of the module. */
 QStringList* CSwordLexiconModuleInfo::getEntries(){
 	if (!m_entryList) {
-		m_entryList = new QStringList();		
-		if (!module()) return 0;
+		if (!module())
+			return 0;
+		m_entryList = new QStringList();
 		module()->KeyText(" ");
 
 		KConfig* m_config = KGlobal::config();
@@ -63,14 +64,17 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 		bool read = false;
 
 		if (lexiconCache){
-  		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
-  		QFile f1( QString("%1/%2").arg(dir).arg( name() ) );
+  		QFile f1(
+  			QString::fromLatin1("%1/%2")
+  				.arg(KGlobal::dirs()->saveLocation("data", "bibletime/cache/"))
+  				.arg( name() )
+  		);
   		
       if ( f1.open( IO_ReadOnly ) ){
         QDataStream s( &f1 );
   			QString version;
         s >> version;
-  			if (version == (getVersion()==QString::null?QString("0"):getVersion())){
+  			if (version == ( (getVersion() == QString::null) ? QString("0") : getVersion())) {
   				qDebug("chache used");
   				s >> *m_entryList;
   				read = true;

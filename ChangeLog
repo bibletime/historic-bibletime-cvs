@@ -1,8 +1,8 @@
 2001-09-22 Fred Saalbach <saalbach@sybercom.net>
-        * Fixed problem with sgml tag <graphic> by replacing it with the <InLineMediaObject> in the english handbook.
-        * This only is a problem with systems running kde 2 and document
-        * text descripter  "-//KDE//DTD DocBook V3.1-Based Variant V1.0//EN"
-        * kdb2html finishes without errors now.
+	* Fixed problem with sgml tag <graphic> by replacing it with the <InLineMediaObject> in the english handbook.
+	* This only is a problem with systems running kde 2 and document
+	* text descripter  "-//KDE//DTD DocBook V3.1-Based Variant V1.0//EN"
+	* kdb2html finishes without errors now.
 
 2001-08-30 Joachim Ansorg <jansorg@gmx.de>
 	* Added $(DESTDIR) to Makefile.am files

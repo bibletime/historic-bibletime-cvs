@@ -77,33 +77,33 @@ private:
 			QCheckBox* showTips;
 			QCheckBox* showLogo;
 			QCheckBox* restoreWorkspace;
-		}startup;
+		} startup;
 		struct SwordSettings {
 			QCheckBox* lexiconCache;
-		}sword;
+		} sword;
 		struct KeySettings {
 			KKeyChooser* keyChooser;
 			KKeyEntryMap dict;			
 			KAccel* accel;
-		}keys;
-	}m_general;	
+		} keys;
+	} m_general;	
 
 	struct DisplayWindowSettings {
 		struct GeneralSettings {
 			QCheckBox* useDownArrow;
 			QComboBox* localeCombo;
-		}general;
+		} general;
 		
 		struct ColorSettings {
 			KColorButton* background;
 			KColorButton* highlightedVerse;			
-		}colors;
+		} colors;
 		
 		struct FontSettings {		
 			KFontChooser* fontChooser;
 			QComboBox* usage;
 			QMap<QString,QFont> fontMap;			
-		}fonts;
+		} fonts;
 		
 		struct ViewProfileSettings {
 			QListBox* profiles;
@@ -111,7 +111,7 @@ private:
 			QPushButton* deleteProfile;
 			QPushButton* renameProfile;
 			CProfileMgr mgr;
-		}profiles;
+		} profiles;
 		
 		struct KeySettings {
 			struct WindowType{
@@ -119,12 +119,12 @@ private:
 				KKeyEntryMap dict;			
 				KAccel* accel;		
 			};
-		WindowType general;
-		WindowType bible;
-		WindowType commentary;
-		WindowType lexicon;
-		}keys;		
-	}m_displayWindows;
+			WindowType general;
+			WindowType bible;
+			WindowType commentary;
+			WindowType lexicon;
+		} keys;		
+	} m_displayWindows;
 
 protected slots: // Protected slots
   /**
@@ -139,22 +139,10 @@ protected slots: // Protected slots
   * Called when the combobox contents is changed
   */
   void newDisplayWindowFontAreaSelected(const QString&);
-
-//  /**
-// 	* Is called when a new font was selected in the
-//	* foreign font manager dialog.
-//	*/
-//  void newForeignFontSelected( const QFont& );
-//  /**
-// 	* Is called when the user select a new module in te foreign font management dialog.
-// 	*/
-//  void foreignFontModuleChanged( QListBoxItem* );
-	
 	/**
 	* Called if the OK button was clicked
 	*/
   void slotOk();
-
   /**
  	* Called if the Apply button was clicked
  	* commented out for the time being.  ck
@@ -164,12 +152,9 @@ protected slots: // Protected slots
   * Renames the currently selected profile.
   */
   void renameProfile();
-  /**
-   No descriptions
-  */
   void deleteProfile();
+
 signals: // Signals
-  /** No descriptions */
   void signalSettingsChanged(const int changedSettings);
 };
 
