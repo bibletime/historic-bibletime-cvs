@@ -1212,9 +1212,6 @@ bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerItem* gro
 		qWarning("no sword modules, return false.");
 		return false;
 	}
-	ASSERT(configFile);
-	ASSERT(group);
-	
 	//read and create group entries
 	CGroupManagerItem* 	parentItem = 0;	
 	

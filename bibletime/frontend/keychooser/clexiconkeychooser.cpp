@@ -76,11 +76,12 @@ void CLexiconKeyChooser::setKey(CKey* key){
 }
 
 void CLexiconKeyChooser::activated(int index){
-	QString text = m_widget->ComboBox->text(index);	
+	const QString text = m_widget->ComboBox->text(index);	
 	/*to prevent from eternal loop, because activated()is emitted again*/
- 	if (m_key->getKey() != text)
+ 	if (m_key->getKey() != text) {
 		m_key->setKey(text); 	
- 	setKey(m_key);
+	 	setKey(m_key);
+	}
 }
 
 /**  */
