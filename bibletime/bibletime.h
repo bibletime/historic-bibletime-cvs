@@ -23,16 +23,8 @@
 #include <kaction.h>
 
 //QT includes
-//#include <qsplitter.h>
-//#include <qguardedptr.h>
 
 //own includes
-//#include "frontend/groupmanager/cgroupmanager.h"
-//#include "frontend/cmdiarea.h"
-//#include "frontend/presenters/cswordpresenter.h"
-//#include "backend/cmoduleinfo.h"
-//#include "backend/sword_backend/cswordbackend.h"
-//#include "printing/cprinter.h"
 #include "structdef.h"
 
 #include <pthread.h>

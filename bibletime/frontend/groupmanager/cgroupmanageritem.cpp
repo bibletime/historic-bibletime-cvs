@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "cgroupmanageritem.h"
+#include "cgroupmanager.h"
 #include "../../backend/cmoduleinfo.h"
 #include "../../backend/sword_backend/cswordversekey.h"
 #include "../../backend/sword_backend/cswordldkey.h"

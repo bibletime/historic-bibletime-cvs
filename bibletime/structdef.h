@@ -20,16 +20,12 @@
 #define STRUCTDEF_H
 
 #include <qlist.h>
-#include <qstring.h>
-#include <qfont.h>
-#include <qguardedptr.h>
 
-class QListViewItem;
-class CModuleInfo;
 class CPrintItem;
-class CStyle;
 class CSwordBackend;
 class CPrinter;
+class CStyle;
+class CPrintItem;
 
 typedef QList<CPrintItem> printItemList;
 typedef QList<CStyle> styleList;

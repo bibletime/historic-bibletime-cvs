@@ -17,9 +17,11 @@
 #ifndef CGROUPMANAGERITEM_H
 #define CGROUPMANAGERITEM_H
 
-//#include "../../backend/cbackenddefs.h"
+//Own includes
 #include "../../structdef.h"
-//#include "cgroupmanager.h"
+
+//Qt includes
+#include <qstring.h>
 
 //KDE includes
 #include <qpixmap.h>
@@ -29,6 +31,8 @@
 class CGroupManager;
 class CKey;
 class CSwordModuleInfo;
+class CModuleInfo;
+class QListViewItem;
 
 /**
 	* An item which implements functions to get the module of this item.
