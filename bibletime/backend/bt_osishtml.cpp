@@ -32,6 +32,9 @@
 #include <swbuf.h>
 #include <utilxml.h>
 
+//KDE includes
+#include <klocale.h>
+
 //Qt includes
 #include <qstring.h>
 
@@ -41,11 +44,30 @@ using sword::XMLTag;
 BT_OSISHTML::BT_OSISHTML() {
 	setTokenStart("<");
 	setTokenEnd(">");
-
+	
+	addTokenSubstitute("inscription", "<span class=\"inscription\">");
+	addTokenSubstitute("/mentioned", "</span>");
+	
+	addTokenSubstitute("mentioned", "<span class=\"mentioned\">");
+	addTokenSubstitute("/mentioned", "</span>");
+	
+	addTokenSubstitute("devineName", "<span class=\"name\"><span class=\"devine\">");
+	addTokenSubstitute("/devineName", "</span></span>");
+//	addTokenSubstitute("lg", "<br />");
+//	addTokenSubstitute("/lg", "<br />");
+	
 	setEscapeStart("&");
 	setEscapeEnd(";");
-
 	setEscapeStringCaseSensitive(true);
+	
+//	addEscapeStringSubstitute("amp", "&");
+//	addEscapeStringSubstitute("apos", "'");
+//	addEscapeStringSubstitute("lt", "<");
+//	addEscapeStringSubstitute("gt", ">");
+//	addEscapeStringSubstitute("quot", "\"");
+
+	
+	
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes
 
 	setTokenCaseSensitive(true);
@@ -217,8 +239,92 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				// what to do?  is this even valid?
 				buf += "<br />";
 			}
+		}	
+		// <hi> highlighted text
+		else if (!strcmp(tag.getName(), "hi")) {
+			const SWBuf type = tag.getAttribute("type");
+			
+			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
+				if (type == "bold") {
+					buf += "<span class=\"bold\">";
+				}
+				else if (type == "illuminated") {  // all other types
+					buf += "<span class=\"illuminated\">";
+				}
+				else if (type == "italic") {  // all other types
+					buf += "<span class=\"italic\">";
+				}
+				else if (type == "line-through") {  // all other types
+					buf += "<span class=\"line-through\">";
+				}
+				else if (type == "normal") {  // all other types
+					buf += "<span class=\"normal\">";
+				}
+				else if (type == "small-caps") {  // all other types
+					buf += "<span class=\"small-caps\">";
+				}
+				else if (type == "underline") {  // all other types
+					buf += "<span class=\"underline\">";
+				}
+			}
+			else if (tag.isEndTag()) { //all hi replacements are html spans
+				buf += "</span>";
+			}
 		}
-		// <hi> is handled by OSISHTMLHRef
+		
+		//name
+		else if (!strcmp(tag.getName(), "name")) {
+			const SWBuf type = tag.getAttribute("type");
+
+			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
+				if (type == "geographic") {
+					buf += "<span class=\"name\"><span class=\"geographic\">";
+				}
+				if (type == "holiday") {
+					buf += "<span class=\"name\"><span class=\"holiday\">";
+				}
+				if (type == "nonhuman") {
+					buf += "<span class=\"name\"><span class=\"nonhuman\">";
+				}
+				if (type == "person") {
+					buf += "<span class=\"name\"><span class=\"person\">";
+				}
+				if (type == "ritual") {
+					buf += "<span class=\"name\"><span class=\"ritual\">";
+				}
+			}
+			else if (tag.isEndTag()) { //all hi replacements are html spans
+				buf += "</span></span>";
+			}
+		}
+
+		else if (!strcmp(tag.getName(), "transChange")) {
+			const SWBuf type = tag.getAttribute("type");
+
+			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
+				if (type == "added") {
+					buf.appendFormatted("<span class=\"transchange\" title=\"%s\"><span class=\"added\">", "Added text");
+				}
+				if (type == "amplified") {
+					buf += "<span class=\"transchange\"><span class=\"amplified\">";
+				}
+				if (type == "changed") {
+					buf += "<span class=\"transchange\"><span class=\"changed\">";
+				}
+				if (type == "deleted") {
+					buf += "<span class=\"transchange\"><span class=\"deleted\">";
+				}
+				if (type == "moved") {
+					buf += "<span class=\"transchange\"><span class=\"moved\">";
+				}
+				if (type == "tenseChange") {
+					buf += "<span class=\"transchange\"><span class=\"tenseChange\">";
+				}
+			}
+			else if (tag.isEndTag()) { //all hi replacements are html spans
+				buf += "</span></span>";
+			}
+		}
 		// <q> quote
 		else if (!strcmp(tag.getName(), "q")) {
 			SWBuf type = tag.getAttribute("type");
