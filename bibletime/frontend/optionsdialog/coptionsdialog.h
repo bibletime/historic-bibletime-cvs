@@ -121,6 +121,7 @@ private:
 			KColorButton* text;
 			KColorButton* background;
 			KColorButton* highlightedVerse;
+			KColorButton* swordrefs;
 			KColorButton* footnotes;
 			KColorButton* strongs;
 			KColorButton* morph;

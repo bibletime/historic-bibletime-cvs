@@ -140,6 +140,7 @@ QString CBTConfig::getKey( CBTConfig::colors ID){
 		case strongsColor: 						return "strongsColor";
 		case morphsColor: 						return "morphsColor";
 		case jesuswordsColor: 				return "jesuswordsColor";
+		case swordRefColor: 					return "swordRefColor";
 	}
 }
 QColor CBTConfig::getDefault( CBTConfig::colors ID){
@@ -151,6 +152,7 @@ QColor CBTConfig::getDefault( CBTConfig::colors ID){
 		case strongsColor: 						return QColor(Qt::green);
 		case morphsColor: 						return QColor(Qt::green);
 		case jesuswordsColor: 				return QColor(Qt::red);
+		case swordRefColor: 					return QColor(Qt::blue);
 	}
 }
 QString CBTConfig::getKey( CBTConfig::intLists ID){

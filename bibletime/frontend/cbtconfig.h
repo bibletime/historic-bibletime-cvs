@@ -52,7 +52,8 @@ public:
 		footnotesColor,
 		strongsColor,
 		morphsColor,
-		jesuswordsColor
+		jesuswordsColor,
+		swordRefColor  //SWORD hyperlink
 	};
 	enum bools{
 		firstStartUp,

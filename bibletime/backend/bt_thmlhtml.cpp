@@ -16,9 +16,6 @@
 
 #include <stdlib.h>
 
-#warning remove -- only for testing
-#include <qstring.h>
-
 #include "bt_thmlhtml.h"
 
 BT_ThMLHTML::BT_ThMLHTML() {
@@ -41,7 +38,8 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 	if (!substituteToken(buf, token)) {
 
 		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em>&lt;");
+//			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em>&lt;");
+			pushString(buf," <small><em>&lt;");
 
 			for (unsigned int j = 17; j < strlen(token); j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
@@ -51,7 +49,8 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					break;
 				}
 			}
-			pushString(buf, "&gt;</em></small></font> ");
+//			pushString(buf, "&gt;</em></small></font> ");
+			pushString(buf, "&gt;</em></small> ");
 		}
 
 		else if (!strncmp(token, "sync type=\"morph\"", 17)) { //Morph
@@ -78,7 +77,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				}
 			}
 			pushString(buf, ")</a></em></small></font> ");
-//			qWarning(*oldbuf);
 		}
 		
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
@@ -120,7 +118,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
 			userData["inscriptRef"] = "true";
 #warning make color customizable
-			pushString(buf, "<a href=\"sword://Bible/");
+			pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/", swordref_color);
 			for (i = 9; i < strlen(token)-1; i++)				
 				if(token[i] != '\"') 			
 					*(*buf)++ = token[i];
@@ -138,17 +136,17 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		else if (!strcmp(token, "/scripRef")) {
 			if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">John 3:16</scripRef>"
 				userData["inscriptRef"] = "false";
-				pushString(buf, "</a>");
+				pushString(buf, "</a></font>");
 			}
 			
 			else { // like "<scripRef>John 3:16</scripRef>"
-				pushString(buf, "<a href=\"sword://Bible/");
+				pushString(buf, "<font color\"%s\"><a href=\"sword://Bible/", swordref_color);
 				pushString(buf, userData["lastTextNode"].c_str());
 				pushString(buf, "\">");
 				pushString(buf, userData["lastTextNode"].c_str());
 				// let's let text resume to output again
 				userData["suspendTextPassThru"] = "false";	
-				pushString(buf, "</a>");
+				pushString(buf, "</a></font>");
 			}
 		}
 			

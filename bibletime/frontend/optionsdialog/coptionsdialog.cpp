@@ -459,6 +459,11 @@ void COptionsDialog::initDisplayWindow() {
 		QWhatsThis::add(label, WT_OD_COLORS_CURRENT_VERSE );
 		m_displayWindows.colors.highlightedVerse = new KColorButton(CBTConfig::get(CBTConfig::highlightedVerseColor), group);
 
+		label = new QLabel(i18n("SWORD hyperlinks"), group);		
+//		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
+//		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
+		m_displayWindows.colors.swordrefs = new KColorButton(CBTConfig::get(CBTConfig::swordRefColor), group);		
+
 		label = new QLabel(i18n("Footnotes"), group);		
 //		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 //		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
@@ -620,6 +625,7 @@ void COptionsDialog::saveDisplayWindow() {
 		CBTConfig::set(CBTConfig::textColor, m_displayWindows.colors.text->color().name());	
 		CBTConfig::set(CBTConfig::backgroundColor, m_displayWindows.colors.background->color().name());	
 		CBTConfig::set(CBTConfig::highlightedVerseColor, m_displayWindows.colors.highlightedVerse->color().name());		
+		CBTConfig::set(CBTConfig::swordRefColor, m_displayWindows.colors.swordrefs->color().name());		
 		CBTConfig::set(CBTConfig::footnotesColor, m_displayWindows.colors.footnotes->color().name());		
 		CBTConfig::set(CBTConfig::strongsColor, m_displayWindows.colors.strongs->color().name());		
 		CBTConfig::set(CBTConfig::morphsColor, m_displayWindows.colors.morph->color().name());		

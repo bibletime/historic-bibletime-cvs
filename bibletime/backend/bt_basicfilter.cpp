@@ -33,6 +33,7 @@ void BT_BASICFILTER::updateSettings(void){
 	strcpy(strongs_color,		CBTConfig::get(CBTConfig::strongsColor		).name().utf8());
 	strcpy(morph_color,			CBTConfig::get(CBTConfig::morphsColor			).name().utf8());
 	strcpy(jesuswords_color,CBTConfig::get(CBTConfig::jesuswordsColor	).name().utf8());
+	strcpy(swordref_color,	CBTConfig::get(CBTConfig::swordRefColor		).name().utf8());
 	strcpy(text_color, 			CBTConfig::get(CBTConfig::textColor				).name().utf8());	
 	strcpy(standard_bible,	/*CBTConfig::get(CBTConfig::standardBible		).utf8()*/CReferenceManager::preferredModule(CReferenceManager::Bible).utf8());
 }
@@ -80,7 +81,11 @@ char BT_BASICFILTER::ProcessRWPRefs(char * text, int maxlen){
 				verse_str[i + 1] = '\0';
 				from++;
 			}
-			strcpy(to,"<a href=\"sword://Bible/");
+			strcpy(to, "<font color=\"");
+			to += strlen(to);
+			strcpy(to, swordref_color);
+			to += strlen(to);
+			strcpy(to,"\"><a href=\"sword://Bible/");
 			to += strlen(to);
 
 			strcpy(to, standard_bible);
@@ -96,7 +101,7 @@ char BT_BASICFILTER::ProcessRWPRefs(char * text, int maxlen){
 			strcpy(to, verse_str);
 			to += strlen(to);
 
-			strcpy(to,"</a>");
+			strcpy(to,"</a></font>");
 			to += strlen(to);
 
 			continue;
