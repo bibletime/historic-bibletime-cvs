@@ -72,8 +72,10 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 	for (modules->first(); modules->current(); modules->next()) {
 		if (modules->current()->hasFont()) {
 			QFont font = modules->current()->getFont();
-			if (!document()->charsetMap->contains(font.family()))
+			if (!document()->charsetMap->contains(font.family())) {
 				document()->charsetMap->insert(font.family(), QFont::AnyCharSet);
+				qWarning("inserted %s", font.family().latin1());
+			}
 		}
 	}
 
@@ -126,12 +128,18 @@ void CHTMLWidget::initColors(){
 
 /** Initializes the fonts of the HTML-widget */
 void CHTMLWidget::initFonts(){
-  QFont f = font();
-  f.setCharSet( QFont::AnyCharSet );
-  setFont( f );
-//this doesn't work at the moment
-//	KConfigGroupSaver groupSaver(m_config, "Fonts");		
-//	document()->setDefaultFont(m_config->readFontEntry("Presenter"));
+	KConfigGroupSaver groupSaver(m_config, "Fonts");		
+	QFont font = m_config->readFontEntry(i18n("Display window"));	
+//BAD BAD HACK!	
+	if (document()->charsetMap->contains(font.family())) { //remove old standard font
+		document()->charsetMap->remove(font.family());
+	}
+
+	qWarning(font.family().latin1());
+	document()->setDefaultFont( font );
+	setFont(font);
+	
+	document()->charsetMap->insert(font.family(), font.charSet());
 }
 
 /**  */
