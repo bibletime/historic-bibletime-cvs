@@ -57,12 +57,18 @@ CSwordModuleInfo* const CSwordTreeKey::module( CSwordModuleInfo* const newModule
 	if (newModule && (newModule != m_module) && (newModule->type() == CSwordModuleInfo::GenericBook) ) {
 		m_module = newModule;
 
-		const QString oldKey = key();
+ 		const QString oldKey = key();
+		
 		CSwordBookModuleInfo* newBook = dynamic_cast<CSwordBookModuleInfo*>(newModule);
-		copyFrom(*(newBook->tree()));
+		copyFrom( *(newBook->tree()) );
 
-		key(oldKey); //try to restore our old key
+ 		key(oldKey); //try to restore our old key
+		
+		//set the key to the root node
+ 		root();
+		firstChild();
 	}
+	
 	return m_module;
 }
 

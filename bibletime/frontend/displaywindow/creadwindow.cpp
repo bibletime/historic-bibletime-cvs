@@ -66,9 +66,11 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ) {
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ) {
 	using namespace Rendering;
+// 	qWarning("lookup: %s", newKey->key().latin1());
 
-	if (!newKey || !modules().first())
+	if (!newKey || !modules().first()) {
 		return;
+	}
 
 	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
 		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
@@ -79,6 +81,8 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 
 	setCaption( windowCaption() );
 	displayWidget()->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key()->key()) );
+	
+// 	qWarning("lookup: key is now %s", newKey->key().latin1());
 }
 
 /** Reimplementation to use the popup menu. */

@@ -26,7 +26,7 @@ namespace Rendering {
 const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QString& keyName, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions ) {
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.getFirst());
 	Q_ASSERT(book);
-	
+		
 	CDisplayRendering render(displayOptions, filterOptions);
 	CDisplayRendering::KeyTree tree;
 	CDisplayRendering::KeyTreeItem::Settings itemSettings;
@@ -38,14 +38,18 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
 		dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) )
 	);
   key->key(keyName); //set the key to position we'd like to get
+	
+	const unsigned long offset = key->getOffset();
 
   // standard of DisplayLevel, display nothing together
   // if the current key is the root entry don't display anything together!
   if ((displayLevel <= 1) || (key->key().isEmpty() || (key->key() == "/") )) {
 		tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
-  	key->key(keyName); //restore before we return so make sure it doesn't break anything
-    
-		return render.renderKeyTree(tree);
+  	//key->key(keyName); //restore before we return so make sure it doesn't break anything
+		
+		const QString renderedText = render.renderKeyTree(tree);
+		key->setOffset( offset );
+ 	  return renderedText;
   };
 
   /**
@@ -58,17 +62,22 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
   while( key->parent() && (key->key() != "/") && !key->key().isEmpty() ) {//add parents
     ++possibleLevels;
   };
-  key->key(keyName); //set the key to the start position
-  while( key->firstChild( )) { //add childs
+//   key->key(keyName); //set the key to the start position
+	
+	key->setOffset( offset );
+	while( key->firstChild( )) { //add childs
     ++possibleLevels;
   };
 
   if (possibleLevels < displayLevel) { //too few levels available!
     //display current level, we could also decide to display the available levels together
  		tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
-    return render.renderKeyTree(tree);
-
+		
+		const QString renderedText = render.renderKeyTree(tree);
+		key->setOffset( offset );
+		return renderedText;
 	};
+	
   if ((displayLevel > 2) && (displayLevel == possibleLevels)) { //fix not to diplay the whole module
     --displayLevel;
   }
@@ -76,9 +85,12 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
   // at this point we're sure that we can display the required levels toogether
   // at the moment we're at the lowest level, so we only have to go up!
   for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
-    if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
+    if ( !key->parent() ) { //something went wrong although we checked before! Be safe and return entry's text
 			tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
-  	  return render.renderKeyTree(tree);
+			
+			const QString renderedText = render.renderKeyTree(tree);
+			key->setOffset( offset );
+  	  return renderedText;
     };
   };
 
@@ -90,26 +102,33 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
   key->firstChild(); //go to the first sibling on the same level
   setupRenderTree(key.get(), &tree, keyName);
 	
-	key->key(keyName); //restore key
-	return render.renderKeyTree( tree );
+// 	key->key(keyName); //restore key
+	const QString renderedText = render.renderKeyTree(tree);
+	key->setOffset( offset );
+  return renderedText;
 }
 
 void CBookDisplay::setupRenderTree(CSwordTreeKey * swordTree, CTextRendering::KeyTree * renderTree, const QString& highlightKey) {
 	const QString key = swordTree->getFullName();
+	const unsigned long offset = swordTree->getOffset();
+	
   CTextRendering::KeyTreeItem::Settings settings;
 	settings.highlight = (key == highlightKey);
-	CTextRendering::KeyTreeItem* item = new CTextRendering::KeyTreeItem(key , swordTree->module(0), settings );
+	
+	CTextRendering::KeyTreeItem* item = new CTextRendering::KeyTreeItem(key, swordTree->module(0), settings );
 	renderTree->append( item );
 
   if (swordTree->hasChildren()) { //print tree for the child items
     swordTree->firstChild();
     setupRenderTree(swordTree, item->childList(), highlightKey);
-    swordTree->key(key); //go back where we came from
+//     swordTree->key(key); //go back where we came from
+		swordTree->setOffset( offset );
   }
 
   if (swordTree->nextSibling()) { //print tree for next entry on the same depth
 		setupRenderTree(swordTree, renderTree, highlightKey);
-    swordTree->key(key); //return to the value we had at the beginning of this block!
+//     swordTree->key(key); //return to the value we had at the beginning of this block!
+		swordTree->setOffset( offset );
   }
 }
 

@@ -67,6 +67,9 @@ void CBookReadWindow::insertKeyboardActions( KAccel* ){
 /** No descriptions */
 void CBookReadWindow::initConnections(){
 	CLexiconReadWindow::initConnections();
+  	disconnect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
+  		this, SLOT(lookup(CSwordKey*)));
+
  	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));
  	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
@@ -108,16 +111,18 @@ void CBookReadWindow::initView(){
 
 /** Is called when the action was executed to toggle the tree view. */
 void CBookReadWindow::treeToggled(){
-	if (m_treeAction->isChecked())
+	if (m_treeAction->isChecked()) {
 		m_treeChooser->show();
-	else
+	}
+	else {
 		m_treeChooser->hide();
+	}
 }
 
 /** Reimplementation to take care of the tree chooser. */
 void CBookReadWindow::modulesChanged(){
-  CLexiconReadWindow::modulesChanged();
-  m_treeChooser->setModules(modules());
+	CLexiconReadWindow::modulesChanged();
+	m_treeChooser->setModules(modules());
 }
 
 

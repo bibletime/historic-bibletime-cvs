@@ -80,10 +80,6 @@ public slots: // Public slots
 
 protected: // Protected methods
   /**
-  * Set up the tree with the current level of key.
-  */
-  void setupTree( QListViewItem* parent,QListViewItem* after, CSwordTreeKey* key );
-  /**
   * Creates the first level of the tree structure.
   */
   void setupTree();
