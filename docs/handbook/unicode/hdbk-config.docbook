@@ -1,0 +1,298 @@
+<chapter id="hdbk-config"><title>Configuring Bibletime</title>
+<para>The &bibletime; user interface can be customized in many ways
+depending on your needs.  To access the configuration dialogs, in the
+main toolbar select <guimenu>settings</guimenu>.  From here select
+<guimenuitem>configure toolbars</guimenuitem> to launch the dialog
+configure toolbars dialog, or select <guimenuitem>configure &bibletime;</guimenuitem>
+to launch the options dialog.</para>
+
+	<section id="hdbk-config-toolbar"><title>Configure Toolbars Dialog</title>
+	<para>The Configure Toolbars dialog allowes adding and removing actions from
+	the main toolbar of &bibletime;.  The order of actions in the main toolbar
+	can also be changed.</para>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="hdbk-config-toolbar.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		<phrase>Toolbar Configuration Dialog</phrase>
+		</textobject>
+		<caption>
+		<para>The Toolbar Configuration dialog.</para>
+		</caption>
+	</mediaobject>
+	</section>
+
+	<section id="hdbk-config-bt"><title>Options Dialog</title>
+	<para>The options dialog allows many &bibletime; and Sword
+	features to be customized.</para>
+
+		<section id="hdbk-config-bt-startup"><title>Startup</title>
+		<para>The startup behavior can be customized.
+		Select from the following options:</para>
+		<simplelist>
+		<member>Show tip of the day.</member>
+		<member>Show startup Logo.</member>
+		<member>Restore windows in workspace area.</member>
+		</simplelist>
+		<mediaobject>
+		<imageobject>
+		<imagedata fileref="hdbk-conf-optdialog-start.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		<phrase>Options Dialog</phrase>
+		</textobject>
+		<caption>
+		<para>The Options dialog - Startup.</para>
+		</caption>
+		</mediaobject>
+		</section>
+		<section id="hdbk-config-bt-fonts"><title>Fonts</title>
+		<para>The display font used for text can be changed as desired.  If you have a
+		module that requires a special font, check here to see if the font is available to
+		&bibletime;.
+		</para>
+		<mediaobject>
+		<imageobject>
+		<imagedata fileref="hdbk-conf-optdialog-fonts.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		<phrase>Options Dialog - fonts</phrase>
+		</textobject>
+		<caption>
+		<para>The Options dialog - Fonts.</para>
+		</caption>
+		</mediaobject>
+
+			<section id="hdbk-config-bt-Unicode"><title>Unicode Fonts (ISO10646)</title>
+			<para>Sword modules are provided with either iso-8859-1 (Latin-1) or iso-10646 (Unicode) encoding.
+			You can tell how a module is encoded by &RMB; on the main index and selecting <guimenuitem>about
+			this module</guimenuitem>.</para>
+			<mediaobject>
+			<imageobject>
+			<imagedata fileref="hdbk-conf-font-about.png" format="PNG"/>
+			</imageobject>
+			<textobject>
+			<phrase>About this module</phrase>
+			</textobject>
+			<caption>
+			<para>The 'About this module' window shows what kind of encoding is used.</para>
+			</caption>
+			</mediaobject>
+			<para>As long as the modules you are interested in display correctly nothing needs to be done here.
+			If a module you are interested in displays as a series of question marks (???????????????????) the font
+			available to &bibletime; does not contain the used in characters in your document.</para>
+
+			<para>In the options dialog, choose <guilabel>fonts select</guilabel> in the <guilabel>Unicode area of application</guilabel>.  You will need to choose
+			a font that has a iso-10646-1 character set.  Try clearlyu as a first step (it is included with most distributions).
+			If your module still does not display, you will need to use a more appropriate font.</para>
+
+			<tip><para>If you use a small Unicode font like clearlyu (about 22kb) &bibletime; will run faster than if a large font like
+			Bitstream Cyberbit (about 12Mb) is used.</para></tip>
+
+			<section id="hdbk-config-bt-addfont"><title>Font Installation</title>
+			<para>Installing fonts consists of three steps</para>
+
+			<orderedlist numeration="lowerroman">
+			<listitem>
+			<para><link linkend="hdbk-config-bt-ob-font">Obtaining Unicode fonts</link></para>
+			</listitem>
+			<listitem>
+			<para><link linkend="hdbk-config-bt-ob-font-X">Installing fonts to the XFree86 &X-Server;</link></para>
+			</listitem>
+			<listitem>
+			<para><link linkend="hdbk-config-bt-ob-font-print">Installing the font for printing (does not work yet).</link></para>
+			</listitem>
+			</orderedlist>
+			</section>
+
+
+			<section id="hdbk-config-bt-ob-font"><title>Obtaining Fonts</title>
+			<para>There are a number of fonts that support Unicode encoding, some of these are
+			available at no charge.  Few of the fonts available include all of range of symbols
+			defined in the Unicode standard.</para>
+			<para>Here is a listing of some of the fonts available:</para>
+				<table>
+				<title>Unicode Fonts</title>
+				<tgroup cols="2">
+				<tbody>
+				<row><entry>Clearlyu</entry>
+				<entry>Included in some distributions.  Contains European, Greek, Hebrew, Thai.
+				Does not contain Chinease pictographs, or Arabic</entry></row>
+
+				<row><entry><ulink url="ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS">ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS</ulink>.</entry>
+				<entry>Several fonts available from the Crosswire Bible Society ftp site.</entry></row>
+
+				<row><entry><ulink url="ftp://ftp.netscape.com/pub/communicator/extras/fonts/windows/">Bitstream CyberBit</ulink></entry>
+				<entry>Covers almost the entire range of Unicode.</entry></row>
+
+				<row><entry><ulink url="http://bibliofile.mc.duke.edu/gww/fonts/Unicode.html">Caslon, Monospace, Cupola, Caliban</ulink></entry>
+				<entry>Partial coverage, see information on linked site.</entry></row>
+
+
+				</tbody>
+				</tgroup>
+				</table>
+			<para>The most complete listing of Unicode fonts that we are aware of is<ulink url="http://www.ccss.de/slovo/unifonts.htm">
+			Christoph Singer's  "Multilingual Unicode TrueType Fonts in the Internet"</ulink> with 24 fonts listed.</para>
+			<para>Another Unicode font list can be found at:
+			<ulink url="http://www.hclrss.demon.co.uk/unicode/fontsbyrange.html">Unicode Font List</ulink>
+			</para>
+			</section>
+
+			<section id="hdbk-config-bt-ob-font-X"><title>Installing your font to XFree86 (your &X-Server;)</title>
+			<para>
+			If your distribution includes a font installer (&Linux-Mandrake; supplies Drake Font) try to use the installer.
+			If the font installer does not work, or your distribution does not include one,
+			you will have to install the font manually.  Instructions for installing fonts can be found in
+			<ulink url="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Unicode-HOWTO.html#toc4">
+			The Unicode HOWTO</ulink>.  This was tested and works on &Linux-Mandrake; 7.1</para>
+
+			</section>
+
+			<section id="hdbk-config-bt-ob-font-print"><title>Installing the font for printing.</title>
+			<para>There is a known issue with Qt that prevents
+			printing characters outside the range of the Latin-1 character set.  This is expected to be
+			fixed with the release of Qt3 and KDE 3.  If you want to try anyway, the
+			<ulink url="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Font-HOWTO.html">
+			Font HowTo</ulink> explains the process for installing fonts to the printing system.</para>
+			</section>
+
+		</section>
+	</section>
+
+	<section id="hdbk-config-bt-Colors"><title>Colors</title>
+	<para>The colors of the objects in display windows can be customized.
+	Objects that can be customized are:</para>
+	<simplelist>
+	<member>Text</member>
+	<member>Highlighted verse</member>
+	<member>Footnotes</member>
+	<member>Morphological Tags</member>
+	<member>Background</member>
+	<member>Hyperlinks</member>
+	<member>Strong's Numbers</member>
+	<member>Words of Jesus</member>
+	</simplelist>
+
+	<para>Some options like "Words of Jesus" only apply to texts which
+	support this special feature.</para>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="hdbk-conf-optdialog-color.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>Options Dialog - Color</phrase>
+	</textobject>
+	<caption>
+	<para>The Options dialog - Color.</para>
+	</caption>
+	</mediaobject>
+
+	</section>
+
+	<section id="hdbk-config-bt-profiles"><title>Profiles</title>
+	<para>Profiles define the appearance of the work area, for example which
+	windows are open and which texts should be displayed in these windows.
+	Once a profile is created, use the menu item <guimenu>window</guimenu> ->
+	<guimenuitem>save profile</guimenuitem> to save a current session into a
+	profile. Use <guimenu>window</guimenu> -> <guimenuitem>load profile</guimenuitem> to
+	load a previously saved profile into &bibletime;.</para>
+	</section>
+
+	<section id="hdbk-config-bt-sword"><title>Sword</title>
+	<para>Many features provided by the Sword backend can now be customized in
+	&bibletime;'</para>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="hdbk-conf-optdialog-sword.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>Options Dialog - Sword</phrase>
+	</textobject>
+	<caption>
+	<para>The Options dialog - Sword.</para>
+	</caption>
+	</mediaobject>
+
+		<section id="hdbk-config-bt-sword-gen"><title>Sword General</title>
+		<para>Key Catch for Lexicons</para>
+		<para>Bibletime can create a key catch for lexicons.  This speeds up
+		opening large lexicon modules.  The catch file does use some disc space,
+		so if your computer has only a small amount of free space, you might want
+		to disable this feature.</para>
+
+		<para>Scrolling Behavior</para>
+		<para>The default is that a down arrow moves the current position in a text to
+		the next verse.  This option allows the down arrow to move the current
+		position in a text to the previous verse.</para>
+
+		<para>Specify a language for biblical book names</para>
+		<para>This feature allows the language used to displayed book names
+		to be changed.  For example the King James Version can be displayed
+		with German book names.  If your language is not displayed and you would
+		like to create a sword locale for your language, please see the
+		crosswire bible society developers site for details.</para>
+		</section>
+
+
+		<section id="hdbk-config-bt-sword-mod"><title>Sword Default Modules</title>
+		<para>Default modules are specified here.</para>
+		</section>
+		<section id="hdbk-config-bt-sword-filter"><title>Sword filter settings</title>
+		<para>Filters control the appearance of text in the display windows.
+		Here you can chose the default settings for the various filters.</para>
+		<para>The items controlled by filters are:</para>
+
+			<itemizedlist>
+			<listitem><para>Show line brake after each verse</para></listitem>
+			<listitem><para>Show verse numbers</para></listitem>
+			<listitem><para>Show footnotes</para></listitem>
+			<listitem><para>Show Strong's numbers</para></listitem>
+			<listitem><para>Show headings</para></listitem>
+			<listitem><para>Show morphologic tags</para></listitem>
+			<listitem><para>Show lemmas</para></listitem>
+			<listitem><para>Show Hebrew vowel points</para></listitem>
+			<listitem><para>Show Hebrew cantillation marks</para></listitem>
+			<listitem><para>Show Greek accents</para></listitem>
+			</itemizedlist>
+
+		</section>
+
+	</section>
+
+	<section id="hdbk-config-bt-Accelerators"><title>Accelerators</title>
+	<para>Accelerators are special key commands that can be used in the place of
+	the menu items and icons.  A number of &bibletime;'s commands have
+	predefined Accelerators.  All of &bibletime;'s commands can be assigned
+	accelerators here.</para>
+
+		<table>
+		<title>Default accelerators</title>
+		<tgroup cols="2">
+		<thead>
+		<row>
+		<entry>Action</entry>
+		<entry>Key combination</entry>
+		</row>
+		</thead>
+
+		<tbody>
+		<row>
+		<entry>Auto Tile</entry><entry>Ctrl+Alt+T</entry></row>
+		<row><entry>Auto Cascade </entry><entry>Ctrl+Alt+A </entry></row>
+		<row><entry>Cascade </entry><entry>Ctrl+A </entry></row>
+		<row><entry>Close All </entry><entry>Shift+Ctrl+A</entry></row>
+		<row><entry>Configure Toolbars</entry><entry></entry></row>
+		<row><entry>Preferences </entry><entry></entry></row>
+		<row><entry>Quit </entry><entry>Ctrl+Q</entry></row>
+		<row><entry>Remove Selected Item(s)</entry><entry>Ctrl+Alt+D</entry></row>
+		<row><entry>Reset Main Index </entry><entry>Ctrl+Alt+R</entry></row>
+		<row><entry>Search in Selected Module(s) </entry><entry>Ctrl+Alt+S</entry></row>
+		<row><entry>Tile </entry><entry>Ctrl+T </entry></row>
+		</tbody>
+		</tgroup>
+		</table>
+	</section>
+</section>
+</chapter>

@@ -1,0 +1,74 @@
+<chapter id="hdbk-term"><title>Starting &bibletime;</title>
+<para>
+&bibletime; is a &kde; program and is integrated with the &kde; desktop.
+You can launch &bibletime; from the &kde; <guimenu>start menu</guimenu> in
+the applications group.
+
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-start-bticon.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A bunch of rectangles</phrase> </textobject>
+</mediaobject>
+
+</para>
+<para>
+&bibletime; can be launched from inside other window managers
+(like gnome) providing &kde; is installed.  You will need to install
+your own icon to launch the program.  See the window manager help
+files to see how.
+</para>
+<para>
+&bibletime; can also be launched from a terminal command prompt.
+To launch &bibletime; open a terminal (any Xterminal) and type
+<command>&bibletime;</command>.
+</para>
+<section id="hdbk-start-sequence"><title>Startup Sequence</title>
+<para>
+As &bibletime; launches you may see some message screens:</para>
+<itemizedlist>
+<listitem>
+<para>
+<interface>No Modules Installed</interface> - This is shown if you
+have forgotten to install sword modules, or if the sword modules
+can not be found.
+</para>
+</listitem>
+<listitem>
+<para>
+<interface>First Time Startup</interface> - This is shown the first time
+&bibletime; is launched.
+</para>
+</listitem>
+<listitem>
+<para>
+<interface>Daily Tips</interface> - These show on every startup, unless
+you turn them off.
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-start-sequence-tips.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>Daily tips</phrase> </textobject>
+</mediaobject>
+</para>
+</listitem>
+</itemizedlist>
+
+</section>
+<section id="hdbk-start-screen"><title>Parts of the &bibletime; Window</title>
+<para>
+Now the main &bibletime; window will open.  It's operation is covered in the next chapter.
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-start-screen-terms.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The &bibletime; Application Window</phrase> </textobject>
+</mediaobject>
+</para>
+</section>
+</chapter>
+
+

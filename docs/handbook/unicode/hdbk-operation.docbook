@@ -1,0 +1,715 @@
+<chapter id="hdbk-op"><title>Program Operation</title>
+<para>
+&bibletime; is mainly operated from the Module Tree (this tree is called the
+"Main Index"). The second important place to work with &bibletime; is the MDI
+area (MDI = Multiple Document Interface). </para>
+
+<section id="hdbk-op-module-tree"><title>Main Index</title>
+<para>
+This is the pane on the left side of the &bibletime; window.
+It contains the tree of installed documents (Sword Modules), as well as any bookmarks you enter.
+</para>
+<screenshot>
+<screeninfo>Module Tree</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-module-tree-1.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+</section>
+
+<section id="hdbk-op-module-tree-select"><title>Selecting a document to
+view</title>
+<para>To select a document, &LMB; on the desired document group (Bibles, Commentaries, or
+Lexicons) to display the contents of a document group, &RMB; on the icon for
+the desired group.  To open a document, &LMB; on it's icon.
+</para>
+<screenshot>
+<screeninfo>Document Selection</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-module-select-1.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+<tip><para>Drag &amp; Drop Works Here</para></tip>
+<para>
+A document can be opened from an already opened document.
+Simply &LMB; on the verse number (pointer changes to hand) and drag it to the
+module list. Drop it on the name of the module you want to open, and it will
+open that module to the verse you dragged over. If you drag a verse number to an
+already open module, it will automatically jump that module to the verse dragged
+over. This works for Bibles and Commentaries only. </para>
+<para>
+There are two other functions accessible through &RMB; on
+the document name. "About This Module" opens a window with information about copyright and
+other pertinent things about the selected document. "Unlock This Module" opens a small
+dialog for encrypted documents. This allows those with the key to
+enter it to decrypt the document and make it human-readable.  Crosswire Bible
+Society must encrypt modules unless either the copyright holder provides permission for
+distribution as a sword module, or the text has passed into the public domain
+(copyright has expired).  <ulink url="http://www.crosswire.org/sword/modules/aboutlocked.jsp">
+See information on locked modules on the Crosswire Bible Society web site.</ulink></para>
+
+<section id="hdbk-op-module-tree-search"><title>Accessing the search
+dialog</title> <para>
+You can search in a module by &RMB; on the module name in the module
+list and selecting "Search in module(s)". By shift &RMB; on other module
+names you can select more than one.  Then follow the same procedure to open the
+search dialog. You will be searching in all of these documents.
+A complete description of the operation of the search features can be found.
+</para>
+<screenshot>
+<screeninfo>Bookmark Selection</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-module-select-2.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+</section>
+
+
+<section id="hdbk-op-module-tree-bookmark"><title>Accessing bookmark
+functions</title> <para>
+<tip><para>Drag &amp; Drop Works Here</para></tip>
+&RMB; on an empty part of the module tree window and select <guimenuitem>"Create new
+group"</guimenuitem> to create a new bookmark folder. You can use normal drag 'n' drop
+functions to drag verse numbers from search dialog results to the bookmark folder,
+and to rearrange bookmarks between folders.  There is an import/export function
+for bookmarks also.  From the <guimenu>right-mouse-button menu</guimenu>, select "Export
+bookmarks". This will bring up a dialog box for you to save the bookmark
+collection.  They can be shared with other &bibletime; users, archived, etc.  They
+can be imported in the same way. You can also &RMB; to change folder names
+and bookmark descriptions, and delete folders and
+bookmarks. </para>
+<screenshot>
+<screeninfo>Bookmark Selection</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-module-tree-bookmark-bookmarkandfolder.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+</section>
+</section>
+
+<section id="hdbk-op-MDI-Window"><title>Multiple Document Interface (MDI) Window</title>
+<para>
+This is where the opened documents are displayed.
+documents are displayed in "Document Windows", that are specific to the three types of
+documents. Crosswire Bible Society may release other document types for sword in the
+future. When they are released, &bibletime; will support them as well. </para>
+
+<section id="hdbk-op-MDI-Window-control-modules">
+<title>Controlling Open Documents</title> <para>
+Document Windows can be controlled and manipulated with normal &kde; window/title bar functions.
+In addition to this, you can tile and cascade open Document Windows. Use the appropriate tool
+bar buttons, or menu functions under <guimenu>"Window"</guimenu> in the main menubar. Document
+Windows can be set to automatically cascade or tile also. </para>
+</section>
+
+<section id="hdbk-op-MDI-Window-module-navigation">
+<title>Navigating in Open Documents</title> <para>
+Navigation within a document is accomplished with the Document Key
+Control Menu, and the scroll bar.
+</para>
+<tip><para>To move to a specific location use the Document Key Control.</para></tip>
+<tip><para>To move within a section of a document use the scroll bar.</para></tip>
+<tip><para>For Bible texts the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
+<tip><para>For commentaries the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
+<tip><para>For lexicons the index key is <emphasis>Keyword</emphasis></para></tip>
+<tip><para>Drag &amp; Drop Works Here; if you drag a verse from one open document or a bookmark and drop
+it on another the second document will jump from it's current location to the location
+of the verse or bookmark dragged.</para></tip>
+</section>
+
+<section id="hdbk-op-MDI-Window-Personal-commentary"><title>Editing
+your own commentary</title> <para>
+The tool bar of commentary display windows has another button, with the picture of a
+pencil.
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-pencil.png"/>
+</imageobject>
+<textobject>
+<phrase>Enter your notes</phrase>
+</textobject>
+</inlinemediaobject>
+For the "Personal" commentary module, &LMB; the <guibutton>button with the picture
+of a pencil</guibutton> to enter your own notes, or to edit notes you've already
+entered. When you're done, &LMB; on the <guibutton>"Save" (disk) button</guibutton>
+to save your notes. To delete notes for a selected verse, &LMB; the
+<guibutton>delete verse button</guibutton>
+<inlinemediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-delete-verse.png"/>
+</imageobject>
+<textobject>
+<phrase>Delete Verse Symbol</phrase>
+</textobject>
+</inlinemediaobject>.
+</para>
+<!-- This is a feature not yet finished.
+You can also set the endpoint of your notes, if for example you want
+to use the same notes to comment on a range of verses. Click the "Edit" button
+again to return to normal commentary browsing mode.
+-->
+
+<tip><para>The personal commentary is a sword module.  If you do not find it in the
+main index, get it from  the <ulink url="http://www.crosswire.org">
+Crosswire Bible Society</ulink>.</para></tip>
+<tip><para>If you can not write to the personal commentary your permissions for the
+personal commentary module are wrong.  Reset the permissions to allow your user
+to write to it.</para></tip>
+<tip><para>Drag &amp; Drop Works Here, just like other
+commentaries and Bible texts.</para></tip>
+</section>
+</section>
+
+<section id="hdbk-op-search"><title>Searching in Documents</title>
+<para>Portions of the instructions for the use of GCC Regular Expression in
+Searching Documents is taken from the help files for the
+<trademark class="registered">Microsoft Windows</trademark> version of &sword;</para>
+
+<section id="hdbk-op-search-functions"><title>Accessing search functions</title>
+<para>
+You can search in a document by &RMB; on the document name in the <guimenu>Main
+Index</guimenu> and selecting <guimenuitem>Search in module(s)</guimenuitem>.
+By shift- or ctrl-&RMB; on other module names you can select more than one.
+Then follow the same procedure to open the search dialog.  You will be searching
+in all of these Documents. </para>
+</section>
+
+<section id="hdbk-op-search-dialog"><title>Using the Search Dialog</title>
+
+<section id="hdbk-op-search-choose-modules"><title>Using the Choose Modules Tab</title>
+<para>In the pane on the left side of the choose modules window is a list of all the
+Lexicons, Commentaries, and Bibles installed on your system and available to &bibletime;.
+In the right pane is a list of all of the modules that will be searched by the current search.
+To move a Lexicons, Commentaries, or Bible from the left (available) pane
+to the right (to be search) pane, &LMB; on an item to select it, then &LMB; on one of the
+<guibutton>arrow buttons</guibutton>.</para>
+<screenshot>
+<screeninfo>Search Text Dialog Box</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-crch-dia-choose.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+</section>
+<section id="hdbk-op-search-dialog-text"><title>Using the Search Text Tab</title>
+<para>
+Search Text - In this pane enter the text string to be searched for, and set
+search properties. "Regular Expression" uses standard regexp syntax to refine
+the search. </para>
+
+<section id="hdbk-op-search-properties"><title>Search Properties</title>
+<!--Using the Search Text Input Field-->
+<para>The text box in the Search Properties field is where the phrase to be used
+as the search key is entered.  This phrase may be one or more words, or partial words,
+(separate words, or partials, with a space), a phrase, or pattern (Regular
+Expression).
+
+You can use the radio buttons select to perform the search using
+the search key in multipule word, exact search, or regular expression mode.
+A check box is provided to turn case sensitive search on or off.
+</para>
+
+<tip><para>Drag &amp; Drop Works Here, you can drop verses and bookmarks into the
+text box.  You can also copy and paste text into the text box.</para></tip>
+</section>
+
+<section id="hdbk-op-search-dialog-text-input-case">
+<title>Using the Search Text Case Sensitive Button</title>
+<para>&LMB; on the Case Sensitive check
+box to toggle case sensitivity on or off. If the box is marked a
+search will only find verse in which the found text also matches
+the case of the text in the input field. If the box is unmarked
+the search will match if the texts match but are different in
+case. To locate &quot;LORD&quot; but not &quot;Lord&quot; or
+&quot;lord&quot; mark the check box. To let &quot;LORD&quot; and
+&quot;Lord&quot; match &quot;lord&quot; leave the check box
+unmarked.</para>
+</section>
+
+
+<section id="hdbk-op-search-dialog-text-input-multi">
+<title>Using the Search Text Multiple Word Button</title>
+<para>If Multiple Word is marked the search will locate all lines (or
+verses) that have all the words, (or partials), listed in the
+Input Field. The position and order of the words, (or partials),
+in the line is not a factor. If all the words, (or partials), are
+in a line, in any order, even separated by other words, the line
+will be included in the list of found line. A search for
+&quot;prove cause&quot; will find Gen. 21:25, &quot;And Abraham
+re<emphasis>prove</emphasis>d Abimelech be
+<emphasis>cause</emphasis> of a well of
+water...&quot; This is because a word that is part of another
+word is considered found if a word containing it is found.</para>
+</section>
+
+
+<section id="hdbk-op-search-dialog-text-input-phrase"><title>Using the
+Exact Search</title> <para>If Exact Search is marked the
+search will locate all lines (or verses) that contain what was entered in the
+input field, exactly as entered, including any spaces. The phrase found does not
+have to start or end at a word boundary. A search for &quot;now how
+thou ought&quot; will find 1 Timothy 3:1, &quot;...that thou
+mayest k<emphasis>now how thou ought</emphasis>est
+to behave...&quot; </para>
+</section>
+
+<section id="hdbk-op-search-dialog-text-input-search"><title>Using the Search Text Button</title>
+<para>&LMB;<guibutton>Search Button</guibutton> to start
+the search.</para>
+
+<screenshot>
+<screeninfo>Search Text Dialog Box</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-search-dialog-searchtext.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+</section>
+
+<section id="hd-op-sch-dia-txt-scope-options"><title>Search Scope Options</title>
+<para>Define the Scope of your search in the Search Scope Pane</para>
+
+<itemizedlist>
+<listitem><para><guibutton>No Scope</guibutton> this turns off the search
+scope tab.  The entire document is searched.</para></listitem>
+<listitem><para><guibutton>Last Result</guibutton> The new search will only
+search within the verses found in the previous search.</para></listitem>
+<listitem><para><guibutton>Use Scope</guibutton> The new search will be
+performed within the range specified in the maintain custom ranges portion
+of the search scope tab.</para></listitem>
+</itemizedlist>
+
+<para>If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible module is
+done for the name, Jesus, 939 matches will result. Then if
+<guibutton>Last Result</guibutton>is checked and another search is done for the
+title, Christ, 257 matches from the first 939 matches will
+remain. Then if<guibutton>Last Result</guibutton> remains checked and another
+search is done for the title, Lord, 106 matches from the 257 will
+remain. All the remaining 106 matches will have the name, Jesus,
+and both the titles, Christ and Lord.</para>
+</section>
+<section id="hd-op-sch-dia-txt-scope-maintain"><title>Edit
+Ranges</title><para>Edit Ranges - You can enter upper and lower boundaries
+for the search by &LMB; <guibutton>edit ranges</guibutton> button.</para>
+
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-change-range.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>Change Range Entry Box</phrase>
+</textobject>
+</mediaobject>
+
+<para>The preentered ranges show examples of the required syntax.
+</para>
+<para>
+If the add button is &LMB; a text box is displayed where the name for the range is
+entered, then &LMB; on <guibutton>OK</guibutton>.  Now enter the desired range
+and &LMB; on <guibutton>close</guibutton>.  Your range is now added to the list of custom
+ranges.</para>
+
+<para>A number of custom ranges have been provided.</para>
+
+<para>The scope of a search can be set to the <emphasis>Entire
+Module</emphasis>or the <emphasis>Current Results. </emphasis>If
+Entire Module is checked and a search of the KJV Bible module is
+done for the name, Jesus, 939 matches will result. Then if
+Current Results is checked and another search is done for the
+title, Christ, 257 matches from the first 939 matches will
+remain. Then if Current Results remains checked and another
+search is done for the title, Lord, 106 matches from the 257 will
+remain. All the remaining 106 matches will have the name, Jesus,
+and both the titles, Christ and Lord.</para>
+
+<tip><para>Drag &amp; Drop Works Here; you can drop
+verse numbers, and bookmarks into the custom range entry field.
+You can also paste text into the entry field.</para></tip>
+</section>
+</section>
+
+<section id="hdbk-op-search-dialog-text-result"><title>Using the Search Results Tab</title>
+<para>
+Search Result - This tells you first, by module, how many instances of the
+search string were found. Double-clicking on that document will open the list of
+references. Clicking on a reference opens that verse up in the window below.
+Drag the reference and drop it on a document in the main index to open the
+module to that verse in a new display window </para>
+<tip><para>Drag &amp; Drop Works Here</para></tip>
+<tip><para>Select verse numbers and drag them to the main index to create bookmarks.</para></tip>
+<tip><para>Select verse numbers and drop them on an unopened module in the main index
+to open the module and jump to the verse location (Bibles and commentaries only).</para></tip>
+<tip><para>Select verse numbers and drag them to an open document and the document will jump
+to the verse location (Bibles and commentaries only).</para></tip>
+
+<screenshot>
+<screeninfo>Search Result Dialog Box</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-search-dialog-searchresult.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot> </section>
+
+<section id="hdbk-op-search-dialog-text-analysis"><title>Using the Search Analysis Tab</title>
+<para>
+Search Analysis - This gives a graphic analysis of the number of instances the
+search string was found in each book. It can display results for all documents searched.
+You have the option of saving the graph as an image file on
+your hard drive. </para>
+<screenshot>
+<screeninfo>Search Analysis Dialog Box</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="hdbk-op-search-dialog-searchanal.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+
+</section>
+</section>
+<section id="hdbk-op-search-dialog-text-regexp">
+<title>Search Syntax using GCC Regular Expresession</title>
+
+<para>Regular expression searches provide a way to do simple or
+complex searches for strings that match a pattern or set of
+patterns (branches) separated by vertical bars &quot;|&quot;.
+While a pattern can be built to look for a word or phrase, a
+simple pattern that consists of a word does not look for only
+that word but for any place the string of letters that make that
+word are found. A search for &quot;right&quot; will return verses
+that contain the word &quot;right&quot;, but also &quot;<emphasis>right</emphasis>eous&quot;,
+&quot;<emphasis>right</emphasis>eousness&quot;, &quot;un<emphasis>right</emphasis>eous&quot;,
+&quot;up<emphasis>right</emphasis>&quot; and even &quot;b<emphasis>right</emphasis>&quot;.
+A search for &quot;hall not&quot; is not a search for
+&quot;hall&quot; AND &quot;not&quot; but for the string
+&quot;hall not&quot; with a space between the second
+&quot;l&quot; and the &quot;n&quot;. The search for &quot;hall
+not&quot; will find occurrences of &quot;s<emphasis>hall not</emphasis>&quot;.</para>
+
+<para>The power of Regular Expressions is in the patterns (or
+templates) used to define a search. A pattern consists of
+ordinary characters and some special characters that are used and
+interpreted by a set of rules. Special characters include
+.\[^*$?+. Ordinary (or simple) characters are any characters that
+are not special. The backslash, &quot;\&quot;, is used to convert
+special characters to ordinary and ordinary characters to
+special. </para>
+
+<para>Example: the pattern &quot;<emphasis>i. love\.</emphasis>&quot;
+will find sentences that end with &quot;h<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot;
+or &quot;<emphasis>i</emphasis>n <emphasis>love</emphasis>&quot; or
+&quot;<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; followed by
+a period. The first period in &quot;i. love\.&quot; is a special
+character that means allow any character in this position. The
+backslash in &quot;i. love\.&quot; means that the period
+following it is not to be considered a special character, but is
+an ordinary period. </para>
+
+<section id="hdbk-op-search-dialog-text-regexp-rules"><title>Rules for GCC Regular Expresession Search Requests</title>
+<itemizedlist>
+<listitem><para>. The period matches any character. See <link
+        linkend="period">Details</link></para></listitem>
+<listitem><para>* The asterisk matches 0 or more characters of the
+        preceding: set, character or indicated character. See <link
+        linkend="asterisk">Details</link></para></listitem>
+<listitem><para>+ The plus sign matches 1 or more characters of the
+        preceding: set, character or indicated character. See <link
+        linkend="plus">Details</link></para></listitem>
+<listitem><para>? The question mark matches 0 or 1 character of the
+        preceding: set, character or indicated character. See <link
+        linkend="question">Details</link></para></listitem>
+<listitem><para>[ ] Square brackets match any one of the characters
+        specified inside [ ]. See <link linkend="bracket">Details</link></para></listitem>
+<listitem><para>^ A caret as the first character inside [ ] means NOT. See
+        <link linkend="caret">Details</link></para></listitem>
+<listitem><para>^ A caret beginning a pattern anchors the beginning of a
+        line. See <link linkend="caret">Details</link></para></listitem>
+<listitem><para>$ A dollar at the end of a pattern anchors the end of a
+        line. See <link linkend="dollar">Details</link></para></listitem>
+<listitem><para>| A vertical bar means logical OR. See <link
+        linkend="bar">Details</link></para></listitem>
+<listitem><para>( ) Parentheses enclose expressions for grouping.
+    <emphasis>Not supported!</emphasis></para></listitem>
+<listitem><para>\ A backslash can be used prior to any special character
+        to match that character. See <link linkend="backslash">Details</link></para></listitem>
+<listitem><para>\ A backslash can be used prior to an ordinary character
+        to make it a special character. See <link linkend="backslash">Details</link></para></listitem>
+</itemizedlist>
+
+<section id="period"><title>The Period .</title>
+
+<para>The Period &quot;.&quot; will match any single character even
+a space or other non-alphabet character.
+<emphasis>s.t</emphasis> matches <emphasis>s</emphasis>i<emphasis>t</emphasis>,
+<emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>,
+etc., which could be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting,
+compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</emphasis>o<emphasis>t</emphasis>tish
+<emphasis>b..t</emphasis> matches <emphasis>b</emphasis>oo<emphasis>t</emphasis>,
+<emphasis>b</emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t
+foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </emphasis>and
+<emphasis>foot tool</emphasis></para>
+</section>
+
+
+<section id="asterisk"><title>The Asterisk *</title>
+
+<para>The asterisk matches zero or more characters of the preceding:
+set, character or indicated character. Using
+a period asterisk combination &quot;.*&quot; after a commonly
+found pattern can cause the search to take a very long time,
+making the program seem to freeze.
+<emphasis>be*n</emphasis> matches<emphasis> beeen, been, ben</emphasis>,
+and <emphasis>bn</emphasis> which could locate Reu<emphasis>ben</emphasis>
+and She<emphasis>bn</emphasis>a.</para>
+</section>
+
+
+<section id="plus"><title>The Plus Sign +</title>
+<para>The Plus Sign matches one or more characters of the preceding:
+set, character or indicated character. Using
+a period and plus sign combination &quot;.+&quot; after a
+commonly found pattern can cause the search to take a very long
+time, making the program seem to freeze.
+<emphasis>be+n</emphasis> matches <emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>,
+but not <emphasis>bn</emphasis>.</para>
+</section>
+
+
+<section id="question"><title>The Question Mark ?</title>
+<para>The Question Mark matches zero or one character of the
+preceding: set, character or indicated character.
+<emphasis>be?n</emphasis> matches <emphasis>ben</emphasis> and <emphasis>bn</emphasis>
+but not <emphasis>been</emphasis>.
+<emphasis>trees?</emphasis> matches <emphasis>trees</emphasis> or <emphasis>tree</emphasis>.</para>
+</section>
+
+
+<section id="bracket"><title>The Square Brackets [ ]</title>
+<para>The Square Brackets enclose a set of characters that can
+match. The period, asterisk, plus sign and question mark are not
+special inside the brackets. A minus sign can be used to indicate
+a range. If you want a caret &quot;^&quot; to be part of the
+range do not place it first after the left bracket or it will be
+a special character. To include a &quot;]&quot; in the set make
+it the first (or second after a special &quot;^&quot;) character
+in the set. To include a minus sign in the set make it the first
+(or second after a special &quot;^&quot;) or last character in
+the set.
+<emphasis>s[eia]t</emphasis> matches <emphasis>set</emphasis>, <emphasis>sit</emphasis>,
+and <emphasis>sat</emphasis>, but not <emphasis>s</emphasis>o<emphasis>t</emphasis>.
+<emphasis>s[eia]+t </emphasis>matches as above but also, <emphasis>seat,
+seet, siet</emphasis>, etc.
+<emphasis>[a-d]</emphasis> matches <emphasis>a, b, c,</emphasis> or <emphasis>d</emphasis>.
+<emphasis>[A-Z]</emphasis> matches any uppercase letter.
+[.;:?!] matches ., ;, :, ?, or ! but not a comma.
+[ ]^-] matches ] or ^ or -</para>
+</section>
+
+
+<section id="caret"><title>The Caret first in Square Brackets [^xxx</title>
+<para>If the Caret is the first character after the left bracket it
+means NOT.
+<emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc.,
+but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</emphasis>o<emphasis>t</emphasis>.</para>
+</section>
+
+<section id="caret-s"><title>The Caret as Start of Line Anchor ^xxx</title>
+<para>If the Caret is the first character in a pattern it anchors
+the pattern to the start of a line. Any match must be at the
+beginning of a line. Because of unfiltered
+formatting characters in some texts, this feature does not always
+work, but may if a few periods are placed after the caret to
+account for the formatting characters.
+<emphasis>^In the beginning</emphasis> matches lines that
+start with &quot;<emphasis>In the beginning</emphasis>&quot;.
+(May need to use: <emphasis>^.....In the beginning</emphasis>)</para>
+</section>
+
+
+<section id="dollar"><title>The Dollar Sign as End of Line Anchor xxx$</title>
+<para>If the Dollar Sign is the last character in a pattern it
+anchors the pattern to the end of a line. Any match must be at
+the end of a line. Because of unfiltered
+formatting characters in some texts, this feature does not always
+work, but may if a few periods are placed before the dollar sign
+to account for the formatting characters.
+<emphasis>Amen\.$</emphasis> matches lines that end with
+&quot;<emphasis>Amen.</emphasis>&quot; (May
+need to use Amen\....$, Amen\..........$, or even
+Amen\....................$)</para>
+</section>
+
+
+<section id="bar"><title>The Vertical Bar |</title>
+<para>The Vertical Bar between patterns means OR.
+<emphasis>John|Peter</emphasis> matches <emphasis>John</emphasis> or <emphasis>Peter.
+John .*Peter|Peter .*John</emphasis> matches <emphasis>John</emphasis>
+... <emphasis>Peter</emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>.
+(.* slows a search)
+<emphasis>pain|suffering|sorrow</emphasis> matches <emphasis>pain</emphasis>,
+or <emphasis>suffering</emphasis>, or <emphasis>sorrow</emphasis>.</para>
+</section>
+
+
+<section id="parenth"><title>The Parentheses ( ) </title>
+<para><emphasis>The use of Parentheses ( ) is
+not supported!</emphasis></para>
+</section>
+
+
+<section id="backslash"><title>The Backslash Prior to a Special Character \*</title>
+<para>The Backslash prior to a special character indicates that the
+character is not being used in its special meaning, but is just
+to match itself.
+<emphasis>amen\.</emphasis> matches <emphasis>amen.</emphasis> but not <emphasis>amen</emphasis>t
+and will not locate firm<emphasis>amen</emphasis>t.</para>
+</section>
+
+<section id="backslash-o"><title>The Backslash Prior to an Ordinary Character \s</title>
+
+<para>The Backslash prior to an ordinary character indicates that
+the character is not being used to match itself, but has special
+meaning.</para>
+
+<itemizedlist>
+<listitem><para>
+\b if use outside [ ] means word boundary. If used inside [ ] means backspace.
+<emphasis>\brighteous\b</emphasis> matches <emphasis>righteous</emphasis> but
+not un<emphasis>righteous</emphasis> or <emphasis>righteous</emphasis>ness</para></listitem>
+<listitem><para>\B means non-word boundary.  <emphasis>\Brighteous\B</emphasis>
+matches un<emphasis>righteous</emphasis>ness and un<emphasis>righteous</emphasis>ly
+but not <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or <emphasis>
+righteous</emphasis>ness.</para></listitem>
+<listitem><para>\d means digit; same as [0-9].</para></listitem>
+<listitem><para>\D means non-digit, same as [^0-9].</para></listitem>
+<listitem><para>\s means space. </para></listitem>
+<listitem><para>\S means not a space. </para></listitem>
+<listitem><para>\w means alphanumeric; same as [a-zA-Z0-9_].</para></listitem>
+<listitem><para>\W means not alphanumeric; same as [^a-zA-Z0-9_].</para></listitem>
+</itemizedlist>
+
+</section>
+</section>
+</section>
+</section>
+
+<section id="hdbk-op-output"><title>Exporting and Printing</title>
+<para>Bible Window, Lexicon Window, Commentary Window</para>
+<para>By &RMB; on the index key number, verse number or text the
+Bible Window, Lexicon Window,or Commentary Window drop down box is
+displayed (depending on which kind of window is current),
+providing options to select all, look up text in lexicon,
+and the export options copy, add to printing queue, and save.</para>
+<section id="hdbk-op-select-all"><title>Select All</title>
+<para>A &LMB; here will select all of the text in the chapter displayed
+in the current window.
+</para>
+</section>
+<section id="hdbk-op-lookup"><title>Lookup Text in Lexicon</title>
+<para>A &LMB; here will bring up a submenu with a list of all of the available
+lexicons.  A &LMB; on a lexicon will open that lexicon to the cross reference of
+the selected text in the current window.
+</para>
+</section>
+
+<section id="hdbk-op-copy"><title>Copy</title>
+<para>A &LMB; here will bring up a sub menu offering to copy to the copy
+buffer using the current location of the cursor as the starting point.
+</para>
+<itemizedlist>
+<listitem>
+<para>
+<guimenuitem>Verse</guimenuitem> - The number of the current verse (such as Genesis 1:25)
+</para>
+</listitem>
+<listitem>
+<para>
+<guimenuitem>Text of Verse</guimenuitem> - The text of the current verse.
+</para>
+</listitem>
+<listitem>
+<para>
+<guimenuitem>Verse with Text</guimenuitem> - Both the text of the current verse, and the verse number
+</para>
+</listitem>
+<listitem>
+<para>
+<guimenuitem>Chapter</guimenuitem> -the entire chapter
+</para>
+</listitem>
+<listitem>
+<para>
+<guimenuitem>Selected Text</guimenuitem> - Only the selected (highlited) text
+</para>
+</listitem>
+</itemizedlist>
+<para>
+This text can be copied into any application that can access the linux copy buffer.
+</para>
+
+</section>
+<section id="hdbk-op-print"><title>Add to Printing Queue</title>
+<para>A &LMB; here will bring up a submenu with the printing options:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+<guimenuitem>verse with text</guimenuitem>
+</para>
+</listitem>
+<listitem>
+<para>
+<guimenuitem>chapter</guimenuitem>
+</para>
+</listitem>
+</itemizedlist>
+<para>
+Selecting these places text into the bibletime print queue, but it
+will not print yet.  When all of the items that you desire to print are
+copied to the print queue, select the print icon and the print dialog
+window is displayed.  Now you can select to either view or print the text.
+</para>
+<para>Printing from &bibletime; is rather basic and is intended as
+a utility.  If you are composing a document or presentation containing text from
+&bibletime; documents, we suggest that you use one of the presentation or editing
+tools on your system to format your work.
+</para>
+</section>
+<section id="hdbk-op-save"><title>Save</title>
+<para>A &LMB; here will bring up a submenu with save options:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+<guimenuitem>Chapter as plain text</guimenuitem> - a file is created in &UNIX; formated ASCII text
+</para>
+</listitem>
+<listitem>
+<para>
+<guimenuitem>Chapter as HTML</guimenuitem> - a file is created formated in HTML
+</para>
+</listitem>
+</itemizedlist>
+<para>
+Once saved this text can be opened and edited by any text or HTML application.
+</para>
+</section>
+
+
+</section>
+</chapter>
+
+
+
+
