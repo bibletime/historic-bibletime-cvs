@@ -7,7 +7,7 @@ EXTRA_DIST =h2-basics-approaches.html h2-basics-expository.html h2-basics-interp
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime;
 	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/en;
-	for file in *.html *.png; do \
+	for file in \*.html \*.png; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime && \
 	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/$$file;\
 	done;

@@ -127,8 +127,18 @@ public:
   * Saves the settings of this class
   */
   void saveSettings();
-  /** Restores the workspace if the flaf for this is set in the config. */
+  /**
+  * Restores the workspace if the flaf for this is set in the config.
+  */
   void restoreWorkspace();
+  /**
+  * Apply the settings given by the profile p
+  */
+  void applyProfileSettings( CProfile* p );
+  /**
+  * Stores the settings of the mainwindow in the profile p
+  */
+  void storeProfileSettings( CProfile* p );
 
 public slots:
   /**
@@ -149,6 +159,14 @@ public slots:
 	* otherwise the standard KDE helpsystem will be opened.
 	*/
   void openOnlineHelp();
+  /**
+  * Sets the plain caption of the main window
+  */
+  virtual void setPlainCaption( const QString& );
+  /**
+  * Sets the caption of the mainwindow
+  */
+  virtual void setCaption(const QString&);
 
 protected: // Protected methods
   /**

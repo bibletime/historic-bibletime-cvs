@@ -62,8 +62,15 @@ public:
   * Chnages the name of this profile.
   */
   void setName( const QString& );
-	
-	
+  /** Set the parameter to true if the main window coveres the full screen size. */
+  void setFullscreen( const bool fullscreen );
+  /** Returns true if the main window was in fullscreen mode as the profile was saved. */
+  const bool fullscreen() const;
+  /** Stes the geoemtry of the main window */
+  void setGeometry( const QRect rect );
+  /** Returns the geometry of the main window */
+  const QRect geometry();
+		
 private:
   /**
   * Loads the basic settings requires for proper operation.
@@ -73,6 +80,8 @@ private:
 	QList<CProfileWindow> m_profileWindows;
 	QString m_name;
 	QString m_filename;
+	bool m_fullscreen;
+	QRect m_geometry;
 };
 
 #endif

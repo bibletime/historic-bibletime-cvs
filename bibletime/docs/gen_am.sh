@@ -107,7 +107,7 @@ for I1 in `ls -d [a-z][a-z]`; do
         echo 'install-data-local:'
         echo '	mkdir -p $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime;'
         echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1';'
-        echo '	for file in *.html *.png; do \'
+        echo '	for file in \*.html \*.png; do \'
         echo '	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime && \'
         echo '	  chmod a+r $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/$$file;\'
         echo '	done;'

@@ -116,7 +116,7 @@ public slots: // Public slots
   /**
   * Sets the caption of this display window
   */
-  virtual void setCaption(const QString& = QString::null);
+  virtual void setCaption(const QString&);
   /**
   * Inserts the action used by this display window in the given KAccel object.
   */

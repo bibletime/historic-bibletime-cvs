@@ -58,9 +58,14 @@ public:
   */
   void saveSettings();
   /**
-   * Enable / disable autoCascading
-   */
+  * Enable / disable autoCascading
+  */
   void setGUIOption( mdiOption );
+  /** This works around a problem/limitation in QWorkspace. QWorkspace sets every time the 	
+  * application caption on its on way. This confuses BibleTime - wrong captions are generated.
+	* This function returns the right caption (using the MDI child).
+	*/
+  const QString currentApplicationCaption() const;
 
 public slots:
   /**
@@ -128,7 +133,8 @@ private:
 	CImportantClasses*	m_important;
 	bool m_childEvent;
 	CSwordPresenter* m_currentPresenter;
-	
+	QString m_appCaption;
+		
 private slots: // Private slots
   /**
   * Delete the presenter.

@@ -36,7 +36,6 @@ public:
 		int horizontal; 	//the position of the horizontal scrollbar
 		int vertical;	//the position of the vertical scrollbar
   };
-	
 
 	CProfileWindow(CSwordModuleInfo::type type = CSwordModuleInfo::Unknown);
 	~CProfileWindow();
@@ -80,9 +79,13 @@ public:
   * Sets the windows maximized state to true or false.
   */
   void setMaximized( const bool maximized );
-  /** Sets the window specific settings. */
+  /**
+  * Sets the window specific settings.
+  */
   void setWindowSettings( const int settings );
-  /** Returns an integer with the window specific settings */
+  /**
+  * Returns an integer with the window specific settings
+  */
   const int windowSettings();
   /**
   * Returns true if the window is maximized.

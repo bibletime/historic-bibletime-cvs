@@ -39,7 +39,6 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClas
 	m_displayOptions( CBTConfig::getAllDisplayOptionDefaults() )
 
 {		
-
 	for (m_important->swordBackend->getModuleList()->first(); m_important->swordBackend->getModuleList()->current(); m_important->swordBackend->getModuleList()->next()) {
 		if (m_important->swordBackend->getModuleList()->current()->getType() == CSwordModuleInfo::Lexicon) {
 			m_lexiconPopup->insertItem( m_important->swordBackend->getModuleList()->current()->name() );
@@ -47,6 +46,7 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClas
 	}	
 	connect(m_lexiconPopup, SIGNAL(activated(int)),this, SLOT(lookupWord(int)));
 	resize(350,350);	
+	setCaption(windowCaption());	
 }
 
 
@@ -138,7 +138,9 @@ const QString CSwordPresenter::windowCaption() {
 
 /** Sets the caption of this display window */
 void CSwordPresenter::setCaption(const QString&){
+	qWarning("CSwordPresenter::setCaption");
 	QWidget::setCaption( windowCaption() ); //set everytime our own caption
+	qWarning(caption().local8Bit());
 }
 
 /** Applies the settings given in the parameter to the window. */
@@ -205,7 +207,7 @@ void CSwordPresenter::polish(){
 	KMainWindow::polish();	
 	
 //	refreshFeatures();
-	setCaption(windowCaption());
+
 				
 	initAccels();
 }

@@ -8,8 +8,8 @@ main.cpp
 
 bibletime_LDADD   = \
 ./printing/libprinting.a \
-./frontend/optionsdialog/liboptionsdialog.a \
 ./frontend/presenters/libpresenters.a \
+./frontend/optionsdialog/liboptionsdialog.a \
 ./frontend/keychooser/libkeychooser.a \
 ./frontend/groupmanager/libgroupmanager.a \
 ./frontend/searchdialog/libsearchdialog.a \

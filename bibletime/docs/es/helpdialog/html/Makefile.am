@@ -7,7 +7,7 @@ EXTRA_DIST =
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/es/bibletime;
 	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/es;
-	for file in *.html *.png; do \
+	for file in \*.html \*.png; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/es/bibletime && \
 	  chmod a+r $(DESTDIR)$(kde_htmldir)/es/bibletime/$$file;\
 	done;

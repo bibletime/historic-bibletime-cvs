@@ -40,13 +40,14 @@
 #include <qwhatsthis.h>
 
 CMDIArea::CMDIArea(CImportantClasses* importantClasses, QWidget *parent, const char *name )
-	: QWorkspace(parent, name) {
+	: QWorkspace(parent, name) {			
 	m_important = importantClasses;
-	m_childEvent = false;	
-	config = KGlobal::config();	
+	m_childEvent = false;
+	config = KGlobal::config();
 	m_currentPresenter = 0;
-		
 	guiOption = Nothing;
+	m_appCaption = QString::null;
+	
 	initView();
 	initConnections();
 	readSettings();
@@ -71,7 +72,8 @@ void CMDIArea::slotClientActivated(QWidget* client){
 	if (!client)
 		return;				
 //	qWarning(client->caption().latin1());
-	emit sigSetToplevelCaption( /*client->caption()*/ KApplication::kApplication()->makeStdCaption(client->caption().stripWhiteSpace()) );	
+	m_appCaption = client->caption().stripWhiteSpace();	
+	emit sigSetToplevelCaption( m_appCaption );	
 	
 	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
 	if (p)
@@ -82,13 +84,13 @@ void CMDIArea::slotClientActivated(QWidget* client){
 void CMDIArea::childEvent ( QChildEvent * e ){
 	if (m_childEvent)
 		return;	
-	QWorkspace::childEvent(e);	
-	
+	QWorkspace::childEvent(e);		
 	m_childEvent = true;
 	
 	if (!windowList().count()) {
+		m_appCaption = QString::null;
+		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(m_appCaption) );		
 		emit sigLastPresenterClosed();
-		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(QString::null) );
 	}	
 	if (!e) {
 		m_childEvent = false;
@@ -110,20 +112,6 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 		}
 	}
 
-//	qWarning("CMDIArea: switch e->type()");
-//	qWarning("%i", e->type());	
-//	switch ( e->type() ) {
-//		 case QEvent::ShowNormal:
-//		 case QEvent::ShowMaximized:
-//			if (e->child() && (e->child()->inherits("CPresenter") || e->child()->inherits("QWorkspaceChild"))) {
-//				QWidget* w = dynamic_cast<QWidget*>(e->child());
-//				qWarning("set top level caption in eventFilter!");
-//				if (w)
-//					emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(w->caption()) );	
-//			}
-//		 	break;
-//	}		
-		
 	m_childEvent = false;
 }
 
@@ -163,7 +151,7 @@ void CMDIArea::deleteAll(){
 		w->setUpdatesEnabled(false);
 		delete w;
 	}
-	setUpdatesEnabled(true);	
+	setUpdatesEnabled(true);		
 }
 
 /** Enable / disable autoCascading */
@@ -186,8 +174,10 @@ void CMDIArea::setGUIOption( mdiOption new_GUIOption){
 void CMDIArea::tile(){
 	if (!isUpdatesEnabled() || !windowList().count() )	
 		return;
-	if (windowList().count() == 1 /*&& !windowList().at(0)->isHidden() && !windowList().at(0)->isMinimized()*/)
+	if (windowList().count() == 1 /*&& !windowList().at(0)->isHidden() && !windowList().at(0)->isMinimized()*/) {
+		m_appCaption = windowList().at(0)->caption();
 		windowList().at(0)->showMaximized();
+	}
 	else
 		QWorkspace::tile();
 }
@@ -196,8 +186,10 @@ void CMDIArea::tile(){
 void CMDIArea::cascade(){
 	if (!isUpdatesEnabled() || !windowList().count() )
 		return;		
-	if (windowList().count() == 1 /*&& !windowList().at(0)->isHidden() && !windowList().at(0)->isMinimized()*/)
+	if (windowList().count() == 1 /*&& !windowList().at(0)->isHidden() && !windowList().at(0)->isMinimized()*/) {
+		m_appCaption = windowList().at(0)->caption();		
 		windowList().at(0)->showMaximized();
+	}
  	else
 		QWorkspace::cascade();
 }
@@ -257,4 +249,12 @@ void CMDIArea::deleteCurrentPresenter(){
 		m_currentPresenter = 0;
 	}
 	setUpdatesEnabled(true);
+	slotClientActivated(activeWindow());
+	if (activeWindow())
+		m_appCaption = activeWindow()->caption();
+}
+
+/** This works around a problem/limitation in QWorkspace. QWorkspace sets every time the  application caption on its on way. This confuses BibleTime - wrong captions are generated. This function returns the right caption (using the MDI child). */
+const QString CMDIArea::currentApplicationCaption() const {
+	return m_appCaption;
 }

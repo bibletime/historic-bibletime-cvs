@@ -7,7 +7,7 @@ EXTRA_DIST =hdbk-bars-menubar.html hdbk-bars-toolbar-Configtoolbar.png hdbk-bars
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime;
 	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/en;
-	for file in *.html *.png; do \
+	for file in \*.html \*.png; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime && \
 	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/$$file;\
 	done;

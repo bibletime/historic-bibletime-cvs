@@ -31,6 +31,7 @@
 #include <qpixmap.h>
 #include <qapplication.h>
 #include <qwhatsthis.h>
+//#include <qwheelevent.h>
 #include <qtooltip.h>
 
 //KDE includes
@@ -76,6 +77,20 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
   return QComboBox::eventFilter(o,e);	
 }
 
+/** Scrolls in the list if the wheel of the mouse was used. */
+void CKCComboBox::wheelEvent( QWheelEvent* e ) {
+	const signed int change = (int)((float)e->delta()/(float)120);
+	int current = currentItem();
+	
+	if ((current+change >= 0) && (current+change<count()) ) {
+		setCurrentItem(current+change);
+		e->accept();
+		emit activated( currentItem() );
+	}
+	else {
+		e->ignore();
+	}
+}
 
 //**********************************************************************************/
 
@@ -391,3 +406,4 @@ void CKeyChooserWidget::previous(){
 		emit changed(ComboBox->currentItem());
 	}
 }
+

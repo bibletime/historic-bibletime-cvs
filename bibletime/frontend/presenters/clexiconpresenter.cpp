@@ -109,7 +109,6 @@ void CLexiconPresenter::initConnections(){
 	connect(m_popup, SIGNAL(aboutToShow()), SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL(sigChanged()), SLOT(modulesChanged()));
 //	connect(m_displaySettingsButton, SIGNAL( sigChanged() ),SLOT(optionsChanged() ));
-
 }
 
 /** No descriptions */
@@ -136,7 +135,7 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 		m_key->key(ldKey->key());
 		
 	setUpdatesEnabled(true);
-	CSwordPresenter::setCaption( windowCaption() );
+	setCaption( windowCaption() );
 }
 
 /** No descriptions */

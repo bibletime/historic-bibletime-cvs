@@ -370,7 +370,10 @@ void BibleTime::saveProfile(int ID){
 void BibleTime::saveProfile(CProfile* profile){
 	if (!profile)
 		return;
-		
+
+	//save mainwindow settings
+	storeProfileSettings(profile);
+			
 	QWidgetList windows = m_mdi->windowList();
 	QList<CProfileWindow> profileWindows;
 	for (QWidget* w = windows.first(); w; w = windows.next()) {
@@ -405,7 +408,10 @@ void BibleTime::loadProfile(CProfile* p){
 	if (!p)
 		return;		
 	QList<CProfileWindow> windows = p->load();
-	
+
+	//load mainwindow setttings
+	applyProfileSettings(p);
+		
 	for (CProfileWindow* w = windows.first(); w; w = windows.next()) {
 		const QString key = w->key();		
 		QStringList usedModules = w->modules();

@@ -32,6 +32,7 @@ class QToolButton;
 class QStringList;
 class QPoint;
 class QMouseEvent;
+class QWheelEvent;
 
 /*
 * We use this class to contol the focus move in the combobox
@@ -47,6 +48,8 @@ protected:
   * Reimplementation.
   */
   virtual bool eventFilter( QObject *o, QEvent *e );
+  /** Scrolls in the list if the wheel of the mouse was used. */
+  virtual void wheelEvent( QWheelEvent* e);
 
 signals:
   /**

@@ -362,3 +362,23 @@ void BibleTime::initPrinter(){
 	m_important->printer = new CPrinter(m_important, this);
 }
 
+/** Apply the settings given by the profile p*/
+void BibleTime::applyProfileSettings( CProfile* p ){
+	ASSERT(p);
+	if (p->fullscreen()) { //we can set only fullscreen OR geometry
+		m_windowFullscreen_action->setChecked( true );
+		toggleFullscreen();
+	}
+	else {
+		setGeometry( p->geometry() );
+		m_windowFullscreen_action->setChecked( false );
+		toggleFullscreen();		
+	}
+}
+
+/** Stores the settings of the mainwindow in the profile p */
+void BibleTime::storeProfileSettings( CProfile* p ){
+	ASSERT(p);
+	p->setFullscreen(m_windowFullscreen_action->isChecked());
+	p->setGeometry(geometry());
+}

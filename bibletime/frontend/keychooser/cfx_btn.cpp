@@ -85,25 +85,15 @@ void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
 
 /** If the wheel of the mouse is used while the mouse stays over our scrollbutton the content is  scrolled like the mouse was pressed and moved. */
 void cfx_btn::wheelEvent( QWheelEvent* e ){
-	e->ignore();
-	return;
-	
-//not working properly at the moment	
-	const int wheelDelta = 120;
+	/**
+	* The problem is, that wheel events do everytime have the delta value 120
+	*/
 	KConfig* config = KGlobal::config();	
 	KConfigGroupSaver gs(config, "General"); 	
  	const short signed int scrollDirection = config->readBoolEntry("Scroll") ? -1 : 1;	
  	
-	QPoint lockPoint = get_lock_Point();
-	int vchange = int((float)(e->delta()*scrollDirection)/(float)120);
-	if (abs(vchange) < 2)
-     vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3));
-	else if (abs(vchange) < 4)
-     vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.6));
-	else
-     vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 1.4));
-
-	if (vchange) {//not emit 0	
+	const int vchange = scrollDirection * ((e->delta() > 0) ? (1) : (-1));
+	if (vchange!=0) {//do not emit a change with value 0	
 		emit change_requested( vchange );
 		e->accept();			
 	}

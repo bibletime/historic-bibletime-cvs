@@ -30,7 +30,7 @@
 #define CURRENT_SYNTAX_VERSION 1
 
 CProfile::CProfile( const QString& file, const QString& name )
-	: m_filename(file), m_name(name.isEmpty() ? i18n("unknown") : name) {
+	: m_filename(file), m_name(name.isEmpty() ? i18n("unknown") : name), m_fullscreen(false), m_geometry(0,0,800,600) {
 	
 	m_profileWindows.setAutoDelete(true);
 	if (!m_filename.isEmpty() && name.isEmpty()) {
@@ -72,7 +72,45 @@ QList<CProfileWindow> CProfile::load(){
 	if (document.hasAttribute("name")) {
 		m_name = document.attribute("name");	
 	}
+
 	
+	//load settings of the main window
+	{
+		// see if there's a section with the name MAINWINDOW
+		QDomElement elem = document.firstChild().toElement();		
+		QDomElement mainWindow;
+		while (!elem.isNull()) {
+			if (elem.tagName() == "MAINWINDOW") {
+				mainWindow = elem;
+				break; //found the element
+			}
+			elem = elem.nextSibling().toElement();				
+		}		
+		if (!mainWindow.isNull()) { //was found
+			setFullscreen( (bool)mainWindow.attribute("fullscreen").toInt());
+			QDomElement object = mainWindow.namedItem("GEOMETRY").toElement();
+			QRect rect;
+      if(!object.isNull()) {
+				if (object.hasAttribute("x")) {
+					rect.setX(object.attribute("x").toInt());
+				}
+				if (object.hasAttribute("y")) {
+					rect.setY(object.attribute("y").toInt());
+				}
+				if (object.hasAttribute("width")) {
+					rect.setWidth(object.attribute("width").toInt());
+				}
+				if (object.hasAttribute("height")) {
+					rect.setHeight(object.attribute("height").toInt());
+				}
+//				if (object.hasAttribute("isMaximized")) {
+//					p->setMaximized( static_cast<bool>(object.attribute("isMaximized").toInt()) );
+//				}				
+			}
+			setGeometry(rect);			
+		}
+	}
+		
 	m_profileWindows.clear();
 	QDomElement elem = document.firstChild().toElement();
 	while (!elem.isNull()) {
@@ -161,6 +199,23 @@ const bool CProfile::save(QList<CProfileWindow> windows){
   content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
   content.setAttribute("name", name());
   doc.appendChild(content);
+
+  //save mainwindow settings
+	{
+	 	QDomElement mainWindow = doc.createElement("MAINWINDOW");
+  	mainWindow.setAttribute("fullscreen", fullscreen());
+  	
+  	QDomElement geometry = doc.createElement("GEOMETRY");
+  	mainWindow.appendChild(geometry);
+  	QRect r = this->geometry();
+  	geometry.setAttribute("x",r.x());
+  	geometry.setAttribute("y",r.y());		
+  	geometry.setAttribute("width",r.width());		
+  	geometry.setAttribute("height",r.height());		
+//  	geometry.setAttribute("isMaximized",static_cast<int>(maximized()));
+
+		content.appendChild(mainWindow);
+	}
 
 	for (CProfileWindow* p = windows.first(); p; p = windows.next()) {
 		QDomElement window;
@@ -257,4 +312,24 @@ void CProfile::loadBasics(){
 		m_name = document.attribute("name");	
 
 	file.close();	
+}
+
+/** Returns true if the main window was in fullscreen mode as the profile was saved. */
+const bool CProfile::fullscreen() const {
+	return m_fullscreen;
+}
+
+/** Set the parameter to true if the main window coveres the full screen size. */
+void CProfile::setFullscreen( const bool fullscreen ){
+	m_fullscreen = fullscreen;
+}
+
+/** Returns the geometry of the main window */
+const QRect CProfile::geometry(){
+	return m_geometry;
+}
+
+/** Stes the geoemtry of the main window */
+void CProfile::setGeometry( const QRect rect ){
+	m_geometry = rect;
 }

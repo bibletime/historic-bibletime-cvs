@@ -85,11 +85,7 @@ void BibleTime::saveSettings(){
 		m_keyAccel->writeSettings();
 
 	KConfigGroupSaver groupSaver(m_config,"General");	
-// 	m_config->writeEntry("showFootnotes", m_viewFootnotes_action->isChecked());
-// 	m_config->writeEntry("showStrongs", m_viewStrongs_action->isChecked());
-// 	m_config->writeEntry("showMorphTags", m_viewMorphTags_action->isChecked());
-// 	m_config->writeEntry("showHeadings", m_viewHeadings_action->isChecked());
-						
+ 	
  	m_config->writeEntry("show toolbar", m_viewToolbar_action->isChecked());
  	m_config->writeEntry("show main index", m_viewGroupManager_action->isChecked());
 
@@ -122,21 +118,10 @@ void BibleTime::saveSettings(){
 void BibleTime::readSettings(){
 	qDebug("BibleTime::readSettings()");
 	
-	applyMainWindowSettings(m_config);
+//	applyMainWindowSettings(m_config);
 	
 	m_keyAccel->readSettings(m_config);
 	KConfigGroupSaver groupsaver(m_config, "General");
-// 	m_viewFootnotes_action->setChecked(m_config->readBoolEntry("showFootnotes",true));
-// 	slotToggleFootnotes();
-//	
-// 	m_viewStrongs_action->setChecked(m_config->readBoolEntry("showStrongs",false));
-// 	slotToggleStrongs();
-//
-// 	m_viewHeadings_action->setChecked(m_config->readBoolEntry("showHeadings", true));
-// 	slotToggleHeadings();
-//
-// 	m_viewMorphTags_action->setChecked(m_config->readBoolEntry("showMorphTags", false));
-// 	slotToggleMorphTags();
 				
  	m_viewToolbar_action->setChecked(m_config->readBoolEntry("show toolbar", true));
  	slotToggleToolbar();
@@ -255,4 +240,14 @@ void BibleTime::restoreWorkspace(){
 	CProfile* p = m_profileMgr.startupProfile();
 	if (p)
 		loadProfile(p);
+}
+
+/** Sets the caption of the mainwindow */
+void BibleTime::setCaption( const QString& ){
+	KMainWindow::setPlainCaption( KApplication::kApplication()->makeStdCaption( m_mdi->currentApplicationCaption() ) );
+}
+
+/** Sets the plain caption of the main window */
+void BibleTime::setPlainCaption( const QString& ){
+	KMainWindow::setPlainCaption( KApplication::kApplication()->makeStdCaption( m_mdi->currentApplicationCaption() ) );
 }
