@@ -124,7 +124,7 @@ cp %{SwordPath}/locales.d/*.conf $RPM_BUILD_ROOT%{SwordPath}/locales.d/
 # Create Sword globals.conf for using bibletime without sword installed.
 cat << EOF >$RPM_BUILD_ROOT%{ModsPath}/globals.conf
  [Globals]
-EO
+EOF
 
 # For use with mandrake menu system 
 cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
@@ -271,3 +271,4 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Mar 14 2001 Brook Humphrey <bah@webmedic.net>
 
 - updated to use mandrake menu sysem
+
