@@ -33,6 +33,7 @@
 #include <qregexp.h>
 #include <qstring.h>
 
+using namespace Filters;
 
 BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 

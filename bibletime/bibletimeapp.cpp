@@ -26,7 +26,7 @@ BibleTimeApp::BibleTimeApp(){
 }
 
 BibleTimeApp::~BibleTimeApp(){
-  deleteBackend();
+//  deleteBackend();
 /*	deleteLanguageMgr();
 	deleteDisplayTemplateMgr();
 	deletePrinter();*/

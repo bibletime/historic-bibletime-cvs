@@ -356,95 +356,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-config.docbook:149
-#, no-c-format
-msgid "Colors"
-msgstr ""
-
-#. Tag: para
-#: hdbk-config.docbook:150
-#, no-c-format
-msgid ""
-"The colors of the objects in display windows can be customized. Objects that "
-"can be customized are:"
-msgstr ""
-
-#. Tag: member
-#: hdbk-config.docbook:153
-#, no-c-format
-msgid "Text"
-msgstr ""
-
-#. Tag: member
 #: hdbk-config.docbook:154
-#, no-c-format
-msgid "Highlighted verse"
-msgstr ""
-
-#. Tag: member
-#: hdbk-config.docbook:155
-#, no-c-format
-msgid "Footnotes"
-msgstr ""
-
-#. Tag: member
-#: hdbk-config.docbook:156
-#, no-c-format
-msgid "Morphological Tags"
-msgstr ""
-
-#. Tag: member
-#: hdbk-config.docbook:157
-#, no-c-format
-msgid "Background"
-msgstr ""
-
-#. Tag: member
-#: hdbk-config.docbook:158
-#, no-c-format
-msgid "Hyperlinks"
-msgstr ""
-
-#. Tag: member
-#: hdbk-config.docbook:159
-#, no-c-format
-msgid "Strong's Numbers"
-msgstr ""
-
-#. Tag: member
-#: hdbk-config.docbook:160
-#, no-c-format
-msgid "Words of Jesus"
-msgstr ""
-
-#. Tag: para
-#: hdbk-config.docbook:163
-#, no-c-format
-msgid ""
-"Some options like \"Words of Jesus\" only apply to texts which support this "
-"special feature."
-msgstr ""
-
-#. Tag: phrase
-#: hdbk-config.docbook:170
-#, no-c-format
-msgid "Options Dialog - Color"
-msgstr ""
-
-#. Tag: para
-#: hdbk-config.docbook:173
-#, no-c-format
-msgid "The Options dialog - Color."
-msgstr ""
-
-#. Tag: title
-#: hdbk-config.docbook:179
 #, no-c-format
 msgid "Sessions"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:180
+#: hdbk-config.docbook:155
 #, no-c-format
 msgid ""
 "Sessions define the appearance of the work area, for example which windows "
@@ -456,13 +374,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-config.docbook:188
+#: hdbk-config.docbook:163
 #, no-c-format
 msgid "Sword"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:189
+#: hdbk-config.docbook:164
 #, no-c-format
 msgid ""
 "Many features provided by the Sword backend can now be customized in "
@@ -470,31 +388,31 @@ msgid ""
 msgstr ""
 
 #. Tag: phrase
-#: hdbk-config.docbook:196
+#: hdbk-config.docbook:171
 #, no-c-format
 msgid "Options Dialog - Sword"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:199
+#: hdbk-config.docbook:174
 #, no-c-format
 msgid "The Options dialog - Sword."
 msgstr ""
 
 #. Tag: title
-#: hdbk-config.docbook:203
+#: hdbk-config.docbook:178
 #, no-c-format
 msgid "Sword General"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:204
+#: hdbk-config.docbook:179
 #, no-c-format
 msgid "Key Cache for Lexicons"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:205
+#: hdbk-config.docbook:180
 #, no-c-format
 msgid ""
 "&bibletime; can create a key cache for lexicons. This speeds up opening "
@@ -504,13 +422,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:210
+#: hdbk-config.docbook:185
 #, no-c-format
 msgid "Scrolling Behavior"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:211
+#: hdbk-config.docbook:186
 #, no-c-format
 msgid ""
 "The default is that a down arrow moves the current position in a text to the "
@@ -519,13 +437,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:215
+#: hdbk-config.docbook:190
 #, no-c-format
 msgid "Specify a language for biblical book names"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:216
+#: hdbk-config.docbook:191
 #, no-c-format
 msgid ""
 "This feature allows the language used to displayed book names to be changed. "
@@ -536,25 +454,25 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-config.docbook:224
+#: hdbk-config.docbook:199
 #, no-c-format
 msgid "Sword Default Modules"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:225
+#: hdbk-config.docbook:200
 #, no-c-format
 msgid "Default modules are specified here."
 msgstr ""
 
 #. Tag: title
-#: hdbk-config.docbook:227
+#: hdbk-config.docbook:202
 #, no-c-format
 msgid "Sword Filter Settings"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:228
+#: hdbk-config.docbook:203
 #, no-c-format
 msgid ""
 "Filters control the appearance of text in the display windows. Here you can "
@@ -562,79 +480,79 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:230
+#: hdbk-config.docbook:205
 #, no-c-format
 msgid "The items controlled by filters are:"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:233
+#: hdbk-config.docbook:208
 #, no-c-format
 msgid "Show line break after each verse"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:234
+#: hdbk-config.docbook:209
 #, no-c-format
 msgid "Show verse numbers"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:235
+#: hdbk-config.docbook:210
 #, no-c-format
 msgid "Show footnotes"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:236
+#: hdbk-config.docbook:211
 #, no-c-format
 msgid "Show Strong's numbers"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:237
+#: hdbk-config.docbook:212
 #, no-c-format
 msgid "Show headings"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:238
+#: hdbk-config.docbook:213
 #, no-c-format
 msgid "Show morphologic tags"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:239
+#: hdbk-config.docbook:214
 #, no-c-format
 msgid "Show lemmas"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:240
+#: hdbk-config.docbook:215
 #, no-c-format
 msgid "Show Hebrew vowel points"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:241
+#: hdbk-config.docbook:216
 #, no-c-format
 msgid "Show Hebrew cantillation marks"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:242
+#: hdbk-config.docbook:217
 #, no-c-format
 msgid "Show Greek accents"
 msgstr ""
 
 #. Tag: title
-#: hdbk-config.docbook:249
+#: hdbk-config.docbook:224
 #, no-c-format
 msgid "Accelerators"
 msgstr ""
 
 #. Tag: para
-#: hdbk-config.docbook:250
+#: hdbk-config.docbook:225
 #, no-c-format
 msgid ""
 "Accelerators are special key commands that can be used in the place of the "
@@ -644,19 +562,19 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: hdbk-config.docbook:256
+#: hdbk-config.docbook:231
 #, no-c-format
 msgid "Default accelerators"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:260
+#: hdbk-config.docbook:235
 #, no-c-format
 msgid "Action"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:261
+#: hdbk-config.docbook:236
 #, no-c-format
 msgid "Key combination"
 msgstr ""
@@ -665,13 +583,13 @@ msgstr ""
 #. Tag: entry
 #. #-#-#-#-#  hdbk-toolbars.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
 #. Tag: term
-#: hdbk-config.docbook:267 hdbk-toolbars.docbook:611
+#: hdbk-config.docbook:242 hdbk-toolbars.docbook:611
 #, no-c-format
 msgid "Auto Tile"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:267
+#: hdbk-config.docbook:242
 #, no-c-format
 msgid "Ctrl+Alt+T"
 msgstr ""
@@ -680,13 +598,13 @@ msgstr ""
 #. Tag: entry
 #. #-#-#-#-#  hdbk-toolbars.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
 #. Tag: term
-#: hdbk-config.docbook:268 hdbk-toolbars.docbook:604
+#: hdbk-config.docbook:243 hdbk-toolbars.docbook:604
 #, no-c-format
 msgid "Auto Cascade"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:268
+#: hdbk-config.docbook:243
 #, no-c-format
 msgid "Ctrl+Alt+A"
 msgstr ""
@@ -695,37 +613,37 @@ msgstr ""
 #. Tag: entry
 #. #-#-#-#-#  hdbk-toolbars.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
 #. Tag: term
-#: hdbk-config.docbook:269 hdbk-toolbars.docbook:592
+#: hdbk-config.docbook:244 hdbk-toolbars.docbook:592
 #, no-c-format
 msgid "Cascade"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:269
+#: hdbk-config.docbook:244
 #, no-c-format
 msgid "Ctrl+A"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:270
+#: hdbk-config.docbook:245
 #, no-c-format
 msgid "Close All"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:270
+#: hdbk-config.docbook:245
 #, no-c-format
 msgid "Shift+Ctrl+A"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:271
+#: hdbk-config.docbook:246
 #, no-c-format
 msgid "Configure Toolbars"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:272
+#: hdbk-config.docbook:247
 #, no-c-format
 msgid "Preferences"
 msgstr ""
@@ -734,49 +652,49 @@ msgstr ""
 #. Tag: entry
 #. #-#-#-#-#  hdbk-toolbars.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
 #. Tag: term
-#: hdbk-config.docbook:273 hdbk-toolbars.docbook:489
+#: hdbk-config.docbook:248 hdbk-toolbars.docbook:489
 #, no-c-format
 msgid "Quit"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:273
+#: hdbk-config.docbook:248
 #, no-c-format
 msgid "Ctrl+Q"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:274
+#: hdbk-config.docbook:249
 #, no-c-format
 msgid "Remove Selected Item(s)"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:274
+#: hdbk-config.docbook:249
 #, no-c-format
 msgid "Ctrl+Alt+D"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:275
+#: hdbk-config.docbook:250
 #, no-c-format
 msgid "Reset Main Index"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:275
+#: hdbk-config.docbook:250
 #, no-c-format
 msgid "Ctrl+Alt+R"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:276
+#: hdbk-config.docbook:251
 #, no-c-format
 msgid "Search in Selected Module(s)"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:276
+#: hdbk-config.docbook:251
 #, no-c-format
 msgid "Ctrl+Alt+S"
 msgstr ""
@@ -785,13 +703,13 @@ msgstr ""
 #. Tag: entry
 #. #-#-#-#-#  hdbk-toolbars.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
 #. Tag: term
-#: hdbk-config.docbook:277 hdbk-toolbars.docbook:597
+#: hdbk-config.docbook:252 hdbk-toolbars.docbook:597
 #, no-c-format
 msgid "Tile"
 msgstr ""
 
 #. Tag: entry
-#: hdbk-config.docbook:277
+#: hdbk-config.docbook:252
 #, no-c-format
 msgid "Ctrl+T"
 msgstr ""
@@ -845,10 +763,11 @@ msgstr ""
 #, no-c-format
 msgid ""
 "The full Bible text, with optional things like Strong's Numbers and "
-"footnotes in the text. The Strong Numbers hot link to the entry in Strong's "
-"Hebrew Bible Dictionary or Strong's Greek Bible Dictionary. Bibles are "
-"available in many languages, and include not only modern versions, but also "
-"Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint (Greek)."
+"footnotes in the text. The Strong's Numbers hot link to the entry in "
+"Strong's Hebrew Bible Dictionary or Strong's Greek Bible Dictionary. Bibles "
+"are available in many languages, and include not only modern versions, but "
+"also Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint "
+"(Greek)."
 msgstr ""
 
 #. Tag: term
@@ -861,10 +780,10 @@ msgstr ""
 #: hdbk-intro.docbook:39
 #, no-c-format
 msgid ""
-"Commentaries available include classics like John Wesley's Notes on the "
-"Bible, and Luther's Commentary on Galatians. With the <emphasis>Personal</"
-"emphasis> commentary you can record your own personal notes to different "
-"parts of the Bible."
+"Commentaries available include classics like John Wesley's \"Notes on the "
+"Bible,\" and Luther's \"Commentary on Galatians.\" With the "
+"<emphasis>Personal</emphasis> commentary you can record your own personal "
+"notes to different parts of the Bible."
 msgstr ""
 
 #. Tag: term
@@ -907,15 +826,15 @@ msgstr ""
 #, no-c-format
 msgid ""
 "Books available include &quot;Imitation of Christ&quot;, &quot;Enuma "
-"Elish&quot;, and &quot;Josephus, the complete works&quot;"
+"Elish&quot;, and &quot;Josephus: The Complete Works&quot;"
 msgstr ""
 
 #. Tag: para
 #: hdbk-intro.docbook:77
 #, no-c-format
 msgid ""
-"Additional documents are being added to the &sword; repository frequently, "
-"so visit often."
+"Additional documents are added to the &sword; repository frequently, so "
+"visit often."
 msgstr ""
 
 #. Tag: title
@@ -929,7 +848,7 @@ msgstr ""
 #, no-c-format
 msgid ""
 "Please read the file Changelog of the sourcecode package if you are "
-"interested in more detailed changes."
+"interested in a more detailed description of changes."
 msgstr ""
 
 #. Tag: para
@@ -946,7 +865,7 @@ msgstr ""
 #. Tag: title
 #: hdbk-intro.docbook:89
 #, no-c-format
-msgid "Changes for &bibletime; Release 1.3"
+msgid "Changes for &bibletime; Release 1.5"
 msgstr ""
 
 #. Tag: para

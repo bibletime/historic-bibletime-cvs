@@ -27,6 +27,8 @@
 /**
 * This filter converts ThML text to HTML text
 */
+namespace Filters {
+
 class BT_OSISHTML : public sword::OSISHTMLHREF/*, protected CFilterTool*/ {
 protected:
   class BT_UserData : public sword::OSISHTMLHREF::MyUserData {
@@ -60,5 +62,7 @@ public:
   BT_OSISHTML();
   virtual bool handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData);
 };
+
+} //end of Filters namespace
 
 #endif

@@ -20,6 +20,7 @@
 
 //BibleTime includes
 //#include "cswordmoduleinfo.h"
+//#include "centrydisplay.h"
 
 //Qt includes
 #include <qptrlist.h>
@@ -36,10 +37,11 @@
 #include <utilstr.h>
 
 using namespace sword;
-
-class CEntryDisplay;
-class CChapterDisplay;
-class CBookDisplay;
+namespace Rendering {
+	class CEntryDisplay;
+	class CChapterDisplay;
+	class CBookDisplay;
+}
 
 class CSwordModuleInfo;
 typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
@@ -247,8 +249,8 @@ protected:
 	virtual void AddRenderFilters(sword::SWModule *module, sword::ConfigEntMap &section);
 	
 private:
-	//filters
-	struct {
+	// Filters
+	struct Filters {
 		sword::SWFilter *gbf;
 		sword::SWFilter *plain;
 		sword::SWFilter *thml;
@@ -256,10 +258,10 @@ private:
 	} m_filters;
 	ListCSwordModuleInfo m_moduleList;
 
-	struct {
-		CChapterDisplay* 	chapter;
-		CEntryDisplay* 		entry;
-		CBookDisplay* 		book;
+	struct Displays {
+		Rendering::CChapterDisplay* 	chapter;
+		Rendering::CEntryDisplay* 		entry;
+		Rendering::CBookDisplay* 		book;
 	} m_displays;
 };
 

@@ -67,6 +67,8 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
 
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ){
+	using namespace Rendering;
+	
 	if (!newKey || !modules().first())
 		return;
 

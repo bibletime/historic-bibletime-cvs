@@ -31,6 +31,8 @@
 #include <klocale.h>
 #include <kurl.h>
 
+using namespace Rendering;
+
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo const * mod, const Settings settings ) 
 	: m_settings( settings ),
 		m_moduleList(),
@@ -463,3 +465,4 @@ const QString CPlainTextExportRendering::renderEntry( const KeyTreeItem& i ) {
 const QString CPlainTextExportRendering::finishText( const QString& oldText, KeyTree& ) {
 	return oldText;
 }
+

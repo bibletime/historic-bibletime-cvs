@@ -41,6 +41,8 @@
 using sword::SWBuf;
 using sword::XMLTag;
 
+using namespace Filters;
+
 BT_OSISHTML::BT_OSISHTML() {
 	setTokenStart("<");
 	setTokenEnd(">");

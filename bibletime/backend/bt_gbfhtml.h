@@ -22,8 +22,10 @@
 #ifndef BT_GBFHTML_H
 #define BT_GBFHTML_H
 
+//Backend
 #include "cfiltertool.h"
 
+//Sword includes
 #include <swkey.h>
 #include <swmodule.h>
 #include <swbasicfilter.h>
@@ -32,6 +34,8 @@
 /**
 * This filter converts GBF Text into HTML
 */
+namespace Filters {
+
 class BT_GBFHTML : public sword::GBFHTML/*, protected CFilterTool */{
 protected:
   class BT_UserData : public sword::GBFHTML::MyUserData {
@@ -47,9 +51,11 @@ protected:
   }
 
 public:
-  BT_GBFHTML ();
+  BT_GBFHTML();
   virtual bool handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData);
   virtual char processText(sword::SWBuf& buf, const sword::SWKey*, const sword::SWModule * = 0);
 };
+
+}
 
 #endif

@@ -60,7 +60,7 @@ protected:
 private:
 	CReadDisplay* m_htmlPart;
 	
-	class CrossRefRendering : public CHTMLExportRendering {
+	class CrossRefRendering : public Rendering::CHTMLExportRendering {
 	public:
 		CrossRefRendering( CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults() );
 		

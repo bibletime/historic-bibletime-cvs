@@ -32,6 +32,8 @@
 #include <qapplication.h>
 #include <qregexp.h>
 
+using namespace Rendering;
+
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
 const QString CEntryDisplay::text( const ListCSwordModuleInfo& modules, const QString& keyName, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions ) {
 	CDisplayRendering render(displayOptions, filterOptions);

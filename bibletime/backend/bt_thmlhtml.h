@@ -25,7 +25,8 @@
 #include <thmlhtml.h>
 
 using sword::SWBuf;
-//using sword::
+
+namespace Filters {
 
 /**
 * This filter converts ThML text to HTML text
@@ -51,8 +52,8 @@ public:
   BT_ThMLHTML ();
   virtual bool handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData);
   virtual char processText(sword::SWBuf& buf, const sword::SWKey*, const sword::SWModule * = 0);
-
-//  virtual char ProcessText (char *text, int maxlen = -1);
 };
+
+}
 
 #endif

@@ -38,10 +38,11 @@
 
 class CSwordModuleInfo;
 
+namespace Rendering {
+
 /**The reimplementation of SWDisplay to for our needs.
   *@author The BibleTime team
-  */
-	
+  */	
 class CEntryDisplay : public sword::SWDisplay, public CPointers  {
 public: // Public methods
   /**
@@ -71,4 +72,7 @@ public: // Public methods
 protected:
 	void setupRenderTree(CSwordTreeKey* swordTree, CTextRendering::KeyTree* renderTree, const QString& highlightKey);
 };
+
+}
+
 #endif

@@ -38,6 +38,7 @@
 //System includes
 #include <stdlib.h>
 
+using namespace Filters;
 
 BT_ThMLHTML::BT_ThMLHTML() {
 	setEscapeStringCaseSensitive(true);

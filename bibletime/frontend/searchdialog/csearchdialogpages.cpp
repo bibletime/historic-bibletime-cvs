@@ -481,6 +481,8 @@ void CSearchResultPage::reset(){
 
 /** Update the preview of the selected key. */
 void CSearchResultPage::updatePreview(const QString& key){
+	using namespace Rendering;
+	
   if ( CSwordModuleInfo* module = m_moduleListBox->activeModule() ) {
     const QString searchedText = CSearchDialog::getSearchDialog()->searchText();
     const int searchFlags = CSearchDialog::getSearchDialog()->searchFlags();            

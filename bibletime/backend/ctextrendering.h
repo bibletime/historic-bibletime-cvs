@@ -31,6 +31,8 @@ class CSwordKey;
  * This class is responsible for text rendering.
  * @author The BibleTime team
 */
+namespace Rendering {
+
 class CTextRendering {
 public:
 	class KeyTreeItem;
@@ -170,6 +172,8 @@ inline const bool CTextRendering::KeyTreeItem::hasChildItems() const {
 		return false;
 		
 	return m_childList->isEmpty();
+}
+ 
 }
 
 #endif

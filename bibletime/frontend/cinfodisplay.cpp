@@ -33,6 +33,9 @@
 //KDE includes
 #include <klocale.h>
 
+
+using namespace Rendering;
+
 CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
     : QWidget(parent, name)
 {

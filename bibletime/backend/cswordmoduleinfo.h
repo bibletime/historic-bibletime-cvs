@@ -19,9 +19,10 @@
 #define CSWORDMODULEINFO_H
 
 //BibleTime includes
-#include "cswordbackend.h"
-#include "clanguagemgr.h"
 #include "centrydisplay.h"
+// #include "cswordbackend.h"
+#include "clanguagemgr.h"
+
 #include "util/cpointers.h"
 
 //Qt includes
@@ -35,8 +36,11 @@
 #include <swversion.h>
 #include <swdisp.h>
 
+
 class CSwordBackend;
 class CSwordKey;
+
+// using namespace Rendering;
 
 /**
 	* Base class for Sword modules.
@@ -124,7 +128,7 @@ public:
  	* This function performs some casts to return the correct display. If it returns 0 there's no valid
  	* display object.
  	*/
-  inline CEntryDisplay* const getDisplay() const;
+  inline Rendering::CEntryDisplay* const getDisplay() const;
   /**
  	* This function does return true if the data files of the module are encrypted by the module author
  	* (the on who made the module) no matter if it's locked or not.
@@ -179,7 +183,7 @@ public:
   * Snaps to the closest entry in the module if the current key is
   * not present in the data files.
   */
-  virtual const bool snap() {return false;};
+  virtual const bool snap() { return false; };
   const bool has( const CSwordModuleInfo::Feature );
 	const bool has( const CSwordBackend::FilterTypes option )	;
   /**
@@ -250,8 +254,8 @@ inline sword::SWModule* const CSwordModuleInfo::module() const {
 }
 
 /** Returns the display object for this module. */
-inline CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
- 	return dynamic_cast<CEntryDisplay*>(m_module->Disp());
+inline Rendering::CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
+ 	return dynamic_cast<Rendering::CEntryDisplay*>(m_module->Disp());
 }
 
 inline const bool CSwordModuleInfo::hasVersion() const {

@@ -51,6 +51,8 @@
 #include <utilstr.h>
 
 using std::string;
+using namespace Filters;
+using namespace Rendering;
 
 char* BTStringMgr::upperUTF8(char* text, const unsigned int maxlen) {
 	const int max = (maxlen>0) ? maxlen : strlen(text);
@@ -61,7 +63,6 @@ char* BTStringMgr::upperUTF8(char* text, const unsigned int maxlen) {
 		return text;
 	}
 	else {
-// 		strncpy(text, (const char*)QString::fromLatin1(text).upper().latin1(), max);
 		char* ret = text;	
 		while (*text) {
 			*text = toupper(*text);
@@ -70,15 +71,13 @@ char* BTStringMgr::upperUTF8(char* text, const unsigned int maxlen) {
 		
 		return ret;
 	}
-	
-		
+
 	return text;
 }
 
 char* BTStringMgr::upperLatin1(char* text) {
-// 	strncpy(text, (const char*)QString::fromLatin1(text).upper().latin1(), strlen(text));
-
 	char* ret = text;	
+	
 	while (*text) {
 		*text++ = toupper(*text);
 	}

@@ -13,7 +13,7 @@
 #define CPRINTER_H
 
 //BibleTime backend
-#include "backend/cswordbackend.h"
+// #include "backend/cswordbackend.h"
 #include "backend/ctextrendering.h"
 
 //BibleTime frontend
@@ -23,7 +23,7 @@
 #include <qobject.h>
 
 //KDE includes
-#include <khtml_part.h>
+// #include <khtml_part.h>
 
 class KHTMLPart;
 
@@ -32,7 +32,7 @@ class KHTMLPart;
  *
  * @author The BibleTime team
 */
-class CPrinter : public QObject, public CDisplayRendering
+class CPrinter : public QObject, public Rendering::CDisplayRendering
 {
 	Q_OBJECT
 public:

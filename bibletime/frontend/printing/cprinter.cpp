@@ -17,6 +17,7 @@
 #include "backend/cswordversekey.h"
 
 //KDE includes
+#include <khtml_part.h>
 #include <khtmlview.h>
 
 CPrinter::Item::Item(const QString& key, CSwordModuleInfo* module, const Settings settings) 
