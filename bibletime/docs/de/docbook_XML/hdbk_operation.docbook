@@ -82,7 +82,7 @@ Ordnernamen und Beschreibungen von Lesezeichen zu ändern, und um Lesezeichen und
 <section ID="hdbk_op_MDI_Window"><title>Multiple Document Interface (MDI) Fenster</title>
 <para>
 Dies ist der Bereich, in dem die geöffneten Dokumente angezeigt werden.
-Dikumente werden in "Dokumentenfenstern" angezeigt, diese sind spezifisch zu den drei Typen von
+Dokumente werden in "Dokumentenfenstern" angezeigt, diese sind spezifisch zu den drei Typen von
 Dokumenten. (Die Crosswire Bibelgesellschaft kann in Zukunft andere Dokumententypen veröffentlichen.
 Sobald Sie veröffentlicht werden wird BibleTime sie genauso unterstützen.)
 </para>
@@ -95,7 +95,7 @@ Knöpfe in der Werkzeugleiste oder die Menüfunktionen im "Fenster" Untermenü der 
 
 <section ID="hdbk_op_MDI_Window_module_navigation"><title>In geöffneten Fenstern navigierens</title>
 <para>
-Die Navigation innerhalb eines Dikumentes ist durch das Schlüssel-Kntrollmenü und durch eine
+Die Navigation innerhalb eines Dokumentes ist durch das Schlüssel-Kontrollmenü und durch eine
 Scrollleiste verwirklicht.
 </para>
 <tip><para>Um zu einer bestimmter Stelle zu springen benutzen Sie die Schlüsselkontrolle.</para></tip>
@@ -109,54 +109,55 @@ zur Stelle des Verses oder des Lesezeichens springen.</para></tip>
 </section>
 
 <section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Bearbeiten Sie ihren eigenen Kommentary</title> <para>
-The tool bar of commentary presenters has another button, with the picture of a
-pencil.<graphic fileref="comon/hdbk_op_pencil.png"></graphic>
-For the "Personal" commentary module, click that button to be able to
-enter your own notes into the Personal commentary, or to edit notes you've
-already entered. When you're done, click on the "Save" (disk) button to save
-your notes. To delete notes for a selected verse, click the button with the
-trash can. You can also set the endpoint of your notes, if for example you want
-to use the same notes to comment on a range of verses. Click the "Edit" button
-again to return to normal commentary browsing mode. </para>
-<tip><para>The personal commentary is a sword module.  If you do not find it in the
-main index, get it from Crosswire Bible Society.</para></tip>
-<tip><para>If you can not write to the personal commentary your permissions for the
-personal commentary module are wrong.  Reset the permissions to allow your user
-to write to it.</para></tip>
-<tip><para>Drag & Drop Works Here, just like other
-commentaries and Bible texts.</para></tip>
+Die Werkzeugleiste des Kommentarfensters hat einen weiteren Knopf mit dem Symbol eines
+Bleistiftes. <graphic fileref="comon/hdbk_op_pencil.png"></graphic>
+Für das "Persönliche" Kommentar Modul klicken Sie diesen Knopf um es möglich zu machen eigene Notizen
+in den Persönlichen Kommentar einzugeben oder um bereits vorhandene zu bearbeiten.
+Wenn Sie fertig sind klicken Sie auf den "Speichern" Knopf (die Diskette) um ihre Anmerkungen zu speichern.
+Um die Notizen für einen bestimmten Vers zu löschen klicken Sie auf den Knopf mit der Mülltonne.
+Klicken Sie den "Bearbeiten" Knopf erneut, um in den Nur-Lesen Modues zurückzukehren.
+</para>
+<tip><para>Der persönliche Kommentar ist ein Sword Modul. Falls Sie ihn nicht in der Hauptgruppe finden, bekommen
+Sie ihn bei der Crosswire Bibelgesellschaft bekommen.</para></tip>
+<tip><para>Falls Sie nicht in das Persönliche Kommentarmodul schreiben können sind die Zugriffsrechte
+für den persönlichen Kommentar falsch. Setzen Sie die Zugrigffsrechte zurück, um ihrem Benutzer zu erlauben
+darein zu schreiben.</para></tip>
+<tip><para>Hier funktioniert Drag&Drop, wie bei anderen Kommentaren und Bibeltexten.
+</para></tip>
 </section>
 </section>
 
-<section ID="hdbk_op_search"><title>Searching in Documents</title>
-<para>Portions instructions for Searching Documents is taken from the help files
-for the MS Windows (R) version of Sword</para>
+<section ID="hdbk_op_search"><title>In Dokumenten suchen</title>
+<para>Teile der Einführung zum Suchen in Dokumenten wurde aus den Hilfedateien der MS Windows (R) Version von
+Sword entnommen.
+</para>
 
-<section ID="hdbk_op_search_functions"><title>Accessing search functions</title>
+<section ID="hdbk_op_search_functions"><title>Zugriff auf Suchfunktionen</title>
 <para>
-You can search in a document by right-clicking on the document name in the Main
-Index and selecting "Search in module(s)". By shift- or ctrl-clicking on other
-module names you can select more than one. Then follow the same procedure to
-open the search dialog.  You will be searching in all of these Documents. </para>
+Sie können in einem Dokument suchen indem Sie mit der rechten Maustaste auf den Dokumentennamen innerhalb der Hauptgruppe
+klicken und dann "Suche in Modul(en)" auswählen.
+Durch SHIFT- oder STRG-Klicken auf andere Modulenamen können Sie mehr als eines auswählen.
+Gehen Sie genauso vor um den Suchdialog zu öffnen. Sie suchen dann in jedem dieser Dokumente.</para>
 </section>
 
-<section ID="hdbk_op_search_dialog"><title>Using the Search dialog</title>
-<section ID="hdbk_op_search_dialog_text"><title>Using the Search Text Tab</title>
+<section ID="hdbk_op_search_dialog"><title>Benutzung des Suchdialoges</title>
+<section ID="hdbk_op_search_dialog_text"><title>Den "Text" Tabulator benutzen</title>
 <para>
-Search Text - In this pane enter the text string to be searched for, and set
-search properties. "Regular Expression" uses standard regexp syntax to refine
-the search. </para></section>
+Suche Text - In diesem Teil geben Sie den Tzu suchenden Text ein und Sie setzen Sucheinstellungen. "Reguläre Ausdrücke"
+benutzen standardmäßigen RegExp Syntax um die Suche zu verfeindern.
+</para></section>
 
-<section ID="hdbk_op_search_dialog_text_input"><title>Using the Search Text Input Field</title>
-<para>Enter one or more words, or partial words, (separate words, or
-partials, with a space), a phrase, or pattern (Regular
-Expression) to search for. How the data entered in the Input
-Field is used will depend on which button is marked for Mult,
-Phrase and Regular Expression, and also if Case Sensitive is
-marked.</para>
+<section ID="hdbk_op_search_dialog_text_input"><title>Benutzung des Text Eingabefeldes</title>
+<para>
+Geben Sie ein oder mehrere Wörter, einen Teil eines Wortes (Trennen Sie Wörter oder Wortteile durch Leerzeichen),
+einen Satz oder ein Muster (Regulärer Ausdruck) nachdem gesucht werden soll.
+Wie der im Eingabebereich eingegebene Text interpretiert wird, hängt davon ab welcher Knopf (Mehrere Wörter, Satz oder Reguöärer Ausdruck)
+ausgewählt wurde uch ob Unterscheidung für GROß/klein ausgewält wurde.
+</para>
 
-<tip><para>Drag & Drop Works Here, you can drop verses and bookmarks into the
-text entry box.  You can also copy and paste text into the entry box.</para></tip>
+<tip><para>Heir funktioniert Drag&Drop, Sie können Verse und Lesezeichen in die Text-Eingabebox ziehen. Sie können
+Text in die Zwischenablage kopieren und in die Eingabezeile einfügen.
+</para></tip>
 </section>
 
 <section ID="hdbk_op_search_dialog_text_input_case"><title>Using the Search Text Case Sensitive Button</title>

@@ -58,7 +58,7 @@ void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3));
 		else if (abs(vchange) < 30)
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.6));
-		else if (abs(vchange) < 50)
+		else if (abs(vchange) < 40)
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 1.2));
 		else
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 2.0));

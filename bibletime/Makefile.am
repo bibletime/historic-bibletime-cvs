@@ -74,6 +74,7 @@ messages:
 	$(XGETTEXT) -C -ki18n -x $(KDEDIR)/include/kde.pot `find . -name \*.h -o -name \*.cpp -o -name \*.cc` -o ../po/bibletime.pot
 
 install-data-local:
+	$(mkinstalldirs) $(kde_confdir)
 	$(INSTALL_DATA) bt-printing $(kde_confdir)/bt-printing
 
 uninstall-local:

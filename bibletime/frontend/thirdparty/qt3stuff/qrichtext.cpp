@@ -3072,7 +3072,7 @@ QTextParag::QTextParag( QTextDocument *d, QTextParag *pr, QTextParag *nx, bool u
 
 QTextParag::~QTextParag()
 {
-    //qDebug("QTextParag::~QTextParag id=%d",paragId());
+    //qDebug("QTextParag::~QTextParag %p id=%d",this,paragId());
     delete str;
     if ( doc && p == doc->minwParag ) {
 	doc->minwParag = 0;
@@ -3959,30 +3959,21 @@ void QTextParag::decDepth()
     flm = -1;
 }
 
-int QTextParag::nextTab( int x )
+int QTextParag::nextTab( int, int x )
 {
+    int *ta = tArray;
     if ( doc ) {
-#if 0
-	tArray = doc->tabArray();
-#endif
+	if ( !ta )
+	   ta = doc->tabArray();
 	tabStopWidth = doc->tabStopWidth();
     }
-    if ( tArray ) {
+    if ( ta ) {
 	int i = 0;
-	while ( tArray[ i ] ) {
-	    if ( tArray[ i ] >= x ) {
-#if 0
-		if ( doc )
-		    tArray = 0;
-#endif
+	while ( ta[ i ] ) {
+	    if ( ta[ i ] >= x )
 		return tArray[ i ];
-	    }
 	    ++i;
 	}
-#if 0
-	if ( doc )
-	    tArray = 0;
-#endif
 	return tArray[ 0 ];
     } else {
 	int d;
@@ -4558,7 +4549,7 @@ int QTextFormatterBreakInWords::format( QTextDocument *doc,QTextParag *parag,
 	if ( c->c.unicode() >= 32 || c->isCustom() ) {
 	    ww = parag->string()->width( i );
 	} else if ( c->c == '\t' ) {
-	    int nx = parag->nextTab( x );
+	    int nx = parag->nextTab( i, x );
 	    if ( nx < x )
 		ww = w - x;
 	    else
@@ -4701,7 +4692,7 @@ int QTextFormatterBreakWords::format( QTextDocument *doc, QTextParag *parag,
 	if ( c->c.unicode() >= 32 || c->isCustom() ) {
 	    ww = string->width( i );
 	} else if ( c->c == '\t' ) {
-	    int nx = parag->nextTab( x );
+	    int nx = parag->nextTab( i, x );
 	    if ( nx < x )
 		ww = w - x;
 	    else
@@ -4762,7 +4753,7 @@ int QTextFormatterBreakWords::format( QTextDocument *doc, QTextParag *parag,
 		x = doc ? doc->flow()->adjustLMargin( y + parag->rect().y(), parag->rect().height(), left, 4 ) : left;
 		w = dw - ( doc ? doc->flow()->adjustRMargin( y + parag->rect().y(), parag->rect().height(), rm, 4 ) : 0 );
 		if ( parag->isNewLinesAllowed() && c->c == '\t' ) {
-		    int nx = parag->nextTab( x );
+		    int nx = parag->nextTab( i, x );
 		    if ( nx < x )
 			ww = w - x;
 		    else
@@ -4789,7 +4780,7 @@ int QTextFormatterBreakWords::format( QTextDocument *doc, QTextParag *parag,
 		x = doc ? doc->flow()->adjustLMargin( y + parag->rect().y(), parag->rect().height(), left, 4 ) : left;
 		w = dw - ( doc ? doc->flow()->adjustRMargin( y + parag->rect().y(), parag->rect().height(), rm, 4 ) : 0 );
 		if ( parag->isNewLinesAllowed() && c->c == '\t' ) {
-		    int nx = parag->nextTab( x );
+		    int nx = parag->nextTab( i, x );
 		    if ( nx < x )
 			ww = w - x;
 		    else
@@ -6895,5 +6886,20 @@ void QTextFormat::removeRef()
 #endif
     if ( ref == 0 )
         collection->remove( this );
+}
+
+void QTextParag::setTabArray( int *a )
+{
+    if ( tArray )
+        delete [] tArray;
+    tArray = a;
+}
+ 
+void QTextParag::setTabStops( int tw )
+{
+    if ( doc )
+        doc->setTabStops( tw );
+    else
+        tabStopWidth = tw;
 }
 

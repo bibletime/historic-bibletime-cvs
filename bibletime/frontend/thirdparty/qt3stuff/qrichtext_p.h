@@ -1179,7 +1179,7 @@ public:
     QTextFormatter *formatter() const;
     int minimumWidth() const;
 
-    int nextTab( int x );
+    virtual int nextTab( int i, int x );
     void setTabArray( int *a );
     void setTabStops( int tw );
     int *tabArray() const { return tArray; }
@@ -2340,24 +2340,6 @@ inline void QTextParag::setFormatter( QTextFormatter *f )
 inline int QTextParag::minimumWidth() const
 {
     return doc ? doc->minimumWidth() : 0;
-}
-
-inline void QTextParag::setTabArray( int *a )
-{
-#if 0
-    if ( doc )
-	doc->setTabArray( a );
-    else
-#endif
-	tArray = a;
-}
-
-inline void QTextParag::setTabStops( int tw )
-{
-    if ( doc )
-	doc->setTabStops( tw );
-    else
-	tabStopWidth = tw;
 }
 
 inline void QTextParag::setExtraData( QTextParagData *data )
