@@ -20,7 +20,7 @@
 
 #include <qwidget.h>
 #include <qcombobox.h>
-#include <kconfig.h>
+//commented out until after 1.0  #include <kconfig.h>
 
 class cfx_btn;
 class CLexiconKeyChooser;
@@ -199,7 +199,7 @@ private:
 	friend class CLexiconKeyChooser;
 	QStringList	m_list;
 	bool m_useNextPrevSignals;
-	KConfig* config;
+	//commented out until after 1.0 	KConfig* config;
 	
 
 private slots: // Private slots

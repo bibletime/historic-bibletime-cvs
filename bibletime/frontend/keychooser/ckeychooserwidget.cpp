@@ -34,8 +34,8 @@
 #include <qtooltip.h>
 
 //KDE includes
-#include <kglobal.h>
-#include <kconfig.h>
+//commented out until after 1.0  #include <kglobal.h>
+//commented out until after 1.0  #include <kconfig.h>
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
   :QComboBox(rw,parent,name){
@@ -194,7 +194,7 @@ void CKeyChooserWidget::unlock(void){
 
 /** Initializes this widget. We need this function because we have more than one constructor. */
 void CKeyChooserWidget::init( ){
-        config = KGlobal::config();
+        //commented out until after 1.0 config = KGlobal::config();
 	oldKey = QString::null;
 	btn_up = btn_down = btn_fx = 0;
 
@@ -238,8 +238,8 @@ void CKeyChooserWidget::init( ){
 	setTabOrder(ComboBox, 0);
 		
 // signals and slots connections
-	config->setGroup("General");
-	if (config->readBoolEntry("Scroll")) {
+	/* commented out until after 1.0 	config->setGroup("General");
+ 	if (config->readBoolEntry("Scroll")) {
 	    if (m_useNextPrevSignals) {
 		connect(btn_up, SIGNAL(clicked()), SIGNAL(next_requested()) );	
 		connect(btn_down, SIGNAL(clicked()), SIGNAL(prev_requested()) );
@@ -249,7 +249,7 @@ void CKeyChooserWidget::init( ){
 		connect(btn_down, SIGNAL(clicked()), SLOT(previous()) );	
 	    }
 	  }
-	 else {
+	  else { */
 	   if (m_useNextPrevSignals) {
 		connect(btn_down, SIGNAL(clicked()), SIGNAL(next_requested()) );	
 		connect(btn_up, SIGNAL(clicked()), SIGNAL(prev_requested()) );
@@ -258,8 +258,8 @@ void CKeyChooserWidget::init( ){
 		connect(btn_down, SIGNAL(clicked()), SLOT(next()) );	
 		connect(btn_up, SIGNAL(clicked()), SLOT(previous()) );	
 	   }
-	 }
-	 config->setGroup("");
+	   // }
+	   //commented out until after 1.0  config->setGroup("");
 	connect(btn_fx, SIGNAL(lock()), SLOT(lock()) );
 	connect(btn_fx, SIGNAL(unlock()), SLOT(unlock()) );
 	connect(btn_fx, SIGNAL(change_requested(int)), SLOT(changeCombo(int)) );
