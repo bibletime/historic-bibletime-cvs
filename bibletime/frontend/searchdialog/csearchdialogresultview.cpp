@@ -131,7 +131,7 @@ void CSearchDialogResultModuleView::initView(){
 	m_savePopup->insertItem(i18n("Sesult with text"), this, SLOT(slotSaveSearchResultWithKeytext()));
 	
 	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy..."), 	m_copyPopup);
-	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Print..."), m_printPopup);
+	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup);
 	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup);
 }
 
@@ -389,10 +389,9 @@ void CSearchDialogResultView::initView(){
 	m_savePopup->insertItem(i18n("Key"), this, SLOT(slotSaveCurrent()));
 	m_savePopup->insertItem(i18n("Key with text"), this, SLOT(slotSaveCurrentWithKeytext()));
 	
-	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy..."), 	m_copyPopup);
-	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup);
-	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup);
-		
+	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy..."), m_copyPopup);
+	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT),i18n("Add to printing queue..."),m_printPopup);
+	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), m_savePopup);		
 	
 	setFocusPolicy(QWidget::WheelFocus);
 }

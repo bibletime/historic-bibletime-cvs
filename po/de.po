@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BibleTime 1.0\n"
-"POT-Creation-Date: 2001-04-24 18:26+0200\n"
+"POT-Creation-Date: 2001-04-25 22:48+0200\n"
 "PO-Revision-Date: 2001-04-23 22:13GMT\n"
 "Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -572,7 +572,7 @@ msgid "Save text as HTML page ..."
 msgstr "Speichere Text als HTML Seite ..."
 
 #: bibletime/frontend/chtmlwidget.cpp:207
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:305
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:300
 msgid ""
 "*.txt | Text file (*.txt)\n"
 "*.* | All files (*.*)"
@@ -858,6 +858,7 @@ msgstr ""
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:90
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:85
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:393
 #, fuzzy
 msgid "Add to printing queue..."
@@ -909,7 +910,7 @@ msgstr "Speichere Kapitel als Text..."
 msgid "Chapter as HTML"
 msgstr "Als HTML speichern"
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:305
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:300
 #, fuzzy
 msgid "Save verse with texrt as ..."
 msgstr "Speichere Selle mit Text ..."
@@ -1119,11 +1120,6 @@ msgstr "Speichere Suchergebnis mit Text..."
 msgid "Sesult with text"
 msgstr "Speichere Suchergebnis mit Text..."
 
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
-#, fuzzy
-msgid "Print..."
-msgstr "Drucke..."
-
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:202
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:238
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:270
@@ -1134,8 +1130,8 @@ msgstr "Suchergebniss für \"%1\" im Modul \"%2\"\n"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:306
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:524
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:543
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:523
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:542
 msgid ""
 "*.txt | Text files\n"
 " *.* | All files (*.*)"
@@ -1160,12 +1156,12 @@ msgstr ""
 msgid "Key with text"
 msgstr "Speichere Selle mit Text ..."
 
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:524
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:543
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:523
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:542
 msgid "Save key ..."
 msgstr "Speichere Schlüssel"
 
-#: bibletime/frontend/searchdialog/csearchdialoganalysis.cpp:317
+#: bibletime/frontend/searchdialog/csearchdialoganalysis.cpp:316
 #, ycp-format
 msgid "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
 msgstr "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
@@ -2315,3 +2311,7 @@ msgid ""
 "Create a new printing style.<BR>The new style will be added to the list."
 msgstr ""
 "Erzeuge einen neuen Stil.<BR>Der neue Druckstil wird zur Liste hinzugefügt."
+
+#, fuzzy
+#~ msgid "Print..."
+#~ msgstr "Drucke..."

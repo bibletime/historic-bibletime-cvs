@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-04-24 18:26+0200\n"
+"POT-Creation-Date: 2001-04-25 22:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -539,7 +539,7 @@ msgid "Save text as HTML page ..."
 msgstr ""
 
 #: bibletime/frontend/chtmlwidget.cpp:207
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:305
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:300
 msgid ""
 "*.txt | Text file (*.txt)\n"
 "*.* | All files (*.*)"
@@ -806,6 +806,7 @@ msgstr ""
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:90
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:85
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:393
 msgid "Add to printing queue..."
 msgstr ""
@@ -849,7 +850,7 @@ msgstr ""
 msgid "Chapter as HTML"
 msgstr ""
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:305
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:300
 msgid "Save verse with texrt as ..."
 msgstr ""
 
@@ -1056,10 +1057,6 @@ msgstr ""
 msgid "Sesult with text"
 msgstr ""
 
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
-msgid "Print..."
-msgstr ""
-
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:202
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:238
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:270
@@ -1070,8 +1067,8 @@ msgstr ""
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:306
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:524
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:543
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:523
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:542
 msgid ""
 "*.txt | Text files\n"
 " *.* | All files (*.*)"
@@ -1093,12 +1090,12 @@ msgstr ""
 msgid "Key with text"
 msgstr ""
 
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:524
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:543
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:523
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:542
 msgid "Save key ..."
 msgstr ""
 
-#: bibletime/frontend/searchdialog/csearchdialoganalysis.cpp:317
+#: bibletime/frontend/searchdialog/csearchdialoganalysis.cpp:316
 #, ycp-format
 msgid "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
 msgstr ""

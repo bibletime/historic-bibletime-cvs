@@ -195,7 +195,7 @@ void BibleTime::initMenubar(){
 /** Initializes the SIGNAL / SLOT connections */
 void BibleTime::initConnections(){
 	connect(m_mdi, SIGNAL(sigSetToplevelCaption(const QString&)),
-		this, SLOT(setCaption(const QString&)));
+		this, SLOT(setPlainCaption(const QString&)));
 	connect(m_mdi, SIGNAL(createNewSwordPresenter(CSwordModuleInfo*, const QString)),
 		this, SLOT(createNewSwordPresenter(CSwordModuleInfo*, const QString)));
 		

@@ -25,10 +25,9 @@
   * @author The team of KDevelop
   */
 class KStartupLogo : public QWidget  {
-   Q_OBJECT
+//   Q_OBJECT
 public: 
 	KStartupLogo();
-	~KStartupLogo();
 };
 
 #endif

@@ -195,12 +195,11 @@ QColor CSearchDialogAnalysis::getColor(int index){
     case  2: return Qt::blue;
     case  3: return Qt::cyan;
     case  4: return Qt::magenta;
-    case  5: return Qt::white;
-    case  6: return Qt::darkRed;
-    case  7: return Qt::darkGray;
-    case  8: return Qt::black;
-    case  9: return Qt::darkCyan;
-    case 10: return Qt::darkMagenta;
+    case  5: return Qt::darkRed;
+    case  6: return Qt::darkGray;
+    case  7: return Qt::black;
+    case  8: return Qt::darkCyan;
+    case  9: return Qt::darkMagenta;
     default: return Qt::red;
   }
 }
@@ -315,17 +314,18 @@ int CSearchDialogAnalysisItem::width(){
 /** Returns the tooltip for this item. */
 const QString CSearchDialogAnalysisItem::getToolTip(){
 	QString ret = i18n("<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>").arg(m_bookName);
+	ret.append("<TABLE CELLPADDING=\"3\" WIDTH=\"100%\" ALIGN=\"center\">");
 	for (int i = 0; i < m_moduleCount; ++i) {
 		CSwordModuleInfo* info = m_moduleList->at(i);
 		const QColor c = CSearchDialogAnalysis::getColor(i);
 		ret.append(
-			QString("<B><FONT COLOR=\"#%1\">%2</FONT></B>: %3%4")			
+			QString("<TR BGCOLOR=\"white\"><TD><B><FONT COLOR=\"#%1\">%2</FONT></B></TD><TD>%3</TD></TR>")			
 				.arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue()))
 				.arg(info ? QString::fromLocal8Bit(info->module()->Name()) : QString(""))
 				.arg(m_resultCountArray[i])
-				.arg(m_moduleCount>1 && i<(m_moduleCount-1) ? "<BR>" : "")
 		);
 	}
+	ret.append("</TABLE>");			
 	return ret;
 }
 

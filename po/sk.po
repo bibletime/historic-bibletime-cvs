@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.3beta1\n"
-"POT-Creation-Date: 2001-04-24 18:26+0200\n"
+"POT-Creation-Date: 2001-04-25 22:48+0200\n"
 "PO-Revision-Date: 2000-08-08 16:30+MET\n"
 "Last-Translator: Zdenko Podobný <zdpo@post.sk>Language-Team: Slovak "
 "<zdpo@post.sk>MIME-Version: 1.0\n"
@@ -573,7 +573,7 @@ msgid "Save text as HTML page ..."
 msgstr "Ulo¾ text ako HTML..."
 
 #: bibletime/frontend/chtmlwidget.cpp:207
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:305
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:300
 msgid ""
 "*.txt | Text file (*.txt)\n"
 "*.* | All files (*.*)"
@@ -865,6 +865,7 @@ msgstr ""
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:90
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:85
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:393
 msgid "Add to printing queue..."
 msgstr ""
@@ -912,7 +913,7 @@ msgstr ""
 msgid "Chapter as HTML"
 msgstr "Ulo¾ text ako HTML..."
 
-#: bibletime/frontend/presenters/cbiblepresenter.cpp:305
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:300
 #, fuzzy
 msgid "Save verse with texrt as ..."
 msgstr "Ulo¾ text ako HTML..."
@@ -1135,11 +1136,6 @@ msgstr "Výsledky hµadania"
 msgid "Sesult with text"
 msgstr ""
 
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
-#, fuzzy
-msgid "Print..."
-msgstr "Tlaèiareò"
-
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:202
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:238
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:270
@@ -1150,8 +1146,8 @@ msgstr ""
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:231
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:306
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:524
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:543
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:523
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:542
 msgid ""
 "*.txt | Text files\n"
 " *.* | All files (*.*)"
@@ -1174,13 +1170,13 @@ msgstr ""
 msgid "Key with text"
 msgstr ""
 
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:524
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:543
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:523
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:542
 #, fuzzy
 msgid "Save key ..."
 msgstr "Ulo¾ obrázok ako..."
 
-#: bibletime/frontend/searchdialog/csearchdialoganalysis.cpp:317
+#: bibletime/frontend/searchdialog/csearchdialoganalysis.cpp:316
 #, ycp-format
 msgid "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
 msgstr ""
@@ -2235,6 +2231,10 @@ msgstr ""
 msgid ""
 "Create a new printing style.<BR>The new style will be added to the list."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Print..."
+#~ msgstr "Tlaèiareò"
 
 #~ msgid "Tip of the Day"
 #~ msgstr "Tip dòa"

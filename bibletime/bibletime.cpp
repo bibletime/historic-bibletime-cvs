@@ -252,9 +252,8 @@ void BibleTime::refreshPresenters( int useFeatures ) {
 
 /** Called before quit. */
 bool BibleTime::queryExit(){
-  if (!m_initialized) {
+  if (!m_initialized)
   	return false;
-  }
 	saveSettings();
 	return true;
 }
