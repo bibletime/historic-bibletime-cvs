@@ -90,6 +90,15 @@ public:
 	* The items of the toolbar are already connected to the correct slots.
 	*/
   void createEditToolbar( KToolBar* bar );
+  /**
+  * Returns the document used by this widget
+  */
+  virtual Qt3::QTextDocument* getDocument() const;
+  /**
+  * Places the cursor at position pos
+  */
+  virtual void placeCursor( const QPoint &pos, Qt3::QTextCursor *c = 0);
+
   QPoint m_pressedPos;
 
 public slots: // Public slots

@@ -77,12 +77,10 @@ Images=*.jpg,*.gif,
 Others=*,
 Ressource files=*.rc,
 Sources=*.cpp,*.c,*.cc,*.C,*.cxx,*.ec,*.ecpp,*.lxx,*.l++,*.ll,*.l,
-Tips=*tipdatabase,
-Translations=*.po,
-groups=Tips,Ressource files,Icons,Images,Headers,Sources,Dialogs,Translations,GNU,Others
+groups=Ressource files,Icons,Images,Headers,Sources,Dialogs,GNU,Others
 
 [Makefile.am]
-files=bibletime.kdevprj,COPYING,ChangeLog,bibletime.spec.in,README.in,TODO.in,INSTALL.in,bibletime.lsm.in,bibletime.lsm,bibletime.spec,NEWS,README,TODO,INSTALL,configure.in.in,configure.in,am_edit,bibletime.desktop.in,NEWS.in,Makefile.cvs,bibletime.desktop
+files=bibletime.kdevprj,COPYING,ChangeLog,bibletime.spec.in,README.in,TODO.in,INSTALL.in,bibletime.lsm.in,bibletime.lsm,bibletime.spec,NEWS,README,TODO,INSTALL,configure.in.in,configure.in,am_edit,bibletime.desktop.in,NEWS.in,Makefile.cvs
 sub_dirs=bibletime,po,admin,doc,CVS,
 type=normal
 
@@ -567,7 +565,7 @@ sub_dirs=en,de,sk,development
 type=normal
 
 [bibletime/docs/de/Makefile.am]
-files=bibletime/docs/de/index-1.html,bibletime/docs/de/index-2.html,bibletime/docs/de/index-3.html,bibletime/docs/de/index-4.html,bibletime/docs/de/index-5.html,bibletime/docs/de/index.html,bibletime/docs/de/logotp3.png,bibletime/docs/de/index.sgml,bibletime/docs/de/tipdatabase
+files=bibletime/docs/de/index-1.html,bibletime/docs/de/index-2.html,bibletime/docs/de/index-3.html,bibletime/docs/de/index-4.html,bibletime/docs/de/index-5.html,bibletime/docs/de/index.html,bibletime/docs/de/logotp3.png,bibletime/docs/de/index.sgml
 sub_dirs=helpdialog,
 type=normal
 
@@ -630,19 +628,13 @@ install=true
 install_location=$$$$(kde_htmldir)/de/bibletime/logotp3.png
 type=DATA
 
-[bibletime/docs/de/tipdatabase]
-dist=true
-install=false
-install_location=
-type=DATA
-
 [bibletime/docs/development/Makefile.am]
 files=
 sub_dirs=
 type=normal
 
 [bibletime/docs/en/Makefile.am]
-files=bibletime/docs/en/index-1.html,bibletime/docs/en/index-2.html,bibletime/docs/en/index-3.html,bibletime/docs/en/index-4.html,bibletime/docs/en/index-5.html,bibletime/docs/en/index.html,bibletime/docs/en/logotp3.png,bibletime/docs/en/tipdatabase,bibletime/docs/en/index.sgml
+files=bibletime/docs/en/index-1.html,bibletime/docs/en/index-2.html,bibletime/docs/en/index-3.html,bibletime/docs/en/index-4.html,bibletime/docs/en/index-5.html,bibletime/docs/en/index.html,bibletime/docs/en/logotp3.png,bibletime/docs/en/index.sgml
 sub_dirs=helpdialog,handbook
 type=normal
 
@@ -749,12 +741,6 @@ type=DATA
 dist=true
 install=true
 install_location=$$$$(kde_htmldir)/en/bibletime/logotp3.png
-type=DATA
-
-[bibletime/docs/en/tipdatabase]
-dist=true
-install=true
-install_location=$$$$(kde_htmldir)/en/bibletime/tipdatabase
 type=DATA
 
 [bibletime/docs/sk/Makefile.am]
@@ -2017,66 +2003,6 @@ sub_dirs=
 type=normal
 
 [po/Makefile.am]
-files=po/de.po,po/cs.po,po/da.po,po/fr.po,po/hu.po,po/it.po,po/nl.po,po/pl.po,po/pt.po,po/sk.po
+files=
 sub_dirs=
 type=po
-
-[po/cs.po]
-dist=true
-install=false
-install_location=
-type=PO
-
-[po/da.po]
-dist=true
-install=false
-install_location=
-type=PO
-
-[po/de.po]
-dist=true
-install=false
-install_location=
-type=PO
-
-[po/fr.po]
-dist=true
-install=false
-install_location=
-type=PO
-
-[po/hu.po]
-dist=true
-install=false
-install_location=
-type=PO
-
-[po/it.po]
-dist=true
-install=false
-install_location=
-type=PO
-
-[po/nl.po]
-dist=true
-install=false
-install_location=
-type=PO
-
-[po/pl.po]
-dist=true
-install=false
-install_location=
-type=PO
-
-[po/pt.po]
-dist=false
-install=false
-install_location=
-type=PO
-
-[po/sk.po]
-dist=false
-install=false
-install_location=
-type=PO

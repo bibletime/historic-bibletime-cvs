@@ -75,7 +75,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 	if (!parentWidget()->inherits("CHTMLWidget"))
 		return;
 
-	const QRect r = QRect(p.x()-15,p.y()+15,p.x()+15, p.y()-15);
+//	const QRect r = QRect(p.x()-15,p.y()+15,p.x()+15, p.y()-15);
 
 	CHTMLWidget* htmlWidget = dynamic_cast<CHTMLWidget*>(parentWidget());	
 	QPoint p1 = htmlWidget->viewportToContents(p);
@@ -83,7 +83,8 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 	QString link = QString::null;
 	QString text = QString::null;
 
-	link = htmlWidget->anchorAt( p1 );
+//	link = htmlWidget->anchorAt( p1 );
+  link = htmlWidget->anchorAt(p1);
 	qWarning("TooLTip::maybeTip: %s", link.latin1());
 	if (link.isEmpty()) {
 //		qWarning("empty link - return");
@@ -91,6 +92,18 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 	}
 	
 	if (!link.isEmpty()) {
+	  Qt3::QTextCursor c( htmlWidget->getDocument() );
+	  htmlWidget->placeCursor( p1, &c );
+		QRect rect = c.parag()->rect();
+		//map rect coordinates to widget's ones
+    rect.setX( htmlWidget->contentsToViewport(rect.topLeft()).x() );
+    rect.setY( htmlWidget->contentsToViewport(rect.topLeft()).y() );
+    rect.setWidth( htmlWidget->contentsToViewport(rect.bottomRight()).x() - rect.x() );
+    rect.setHeight( htmlWidget->contentsToViewport(rect.bottomLeft()).y() - rect.y() );
+        				
+		//debug rect
+		qWarning("rect is %i - %i - %i - %i", rect.x(),rect.y(), rect.width(), rect.height());
+		
 		QString module = QString::null;
 		QString ref = QString::null;
 		CReferenceManager::Type type;		
@@ -140,7 +153,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 		if (!text.isEmpty())
 		{
 			text = QString::fromLatin1("<B>%1</B><HR>%2").arg(ref).arg(text);
-			tip(htmlWidget->viewport()->geometry(), text);
+			tip(rect, text);
 		}
 		setFont(oldFont);
 	}
@@ -759,4 +772,14 @@ void CHTMLWidget::setSource(const QString& name){
 void CHTMLWidget::emitHighlighted( const QString& s ){
 //	qWarning("%s was highlighted at %i|%i", s.latin1(), m_hoverPos.x(), m_hoverPos.y());
 
+}
+
+/** Returns the document used by this widget */
+Qt3::QTextDocument* CHTMLWidget::getDocument() const{
+	return QTextEdit::document();
+}
+
+/** Places the cursor at position pos */
+void CHTMLWidget::placeCursor( const QPoint &pos, Qt3::QTextCursor *c ){
+	QTextEdit::placeCursor(pos, c);
 }
