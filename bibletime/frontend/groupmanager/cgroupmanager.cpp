@@ -1489,7 +1489,8 @@ const QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem */
   	else
   		insertmarker.setLeft( treeStepSize()*(after->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin() - contentsX());
 #warning check
-  	style().drawPrimitive( QStyle::PE_FocusRect, p, insertmarker, colorGroup()/*, after->isSelected() ? &colorGroup().highlight() : &colorGroup().base(), after->isSelected() && !useParent */);
+  	style().drawPrimitive( QStyle::PE_FocusRect, p, insertmarker, colorGroup(), QStyle::Style_HasFocus
+    /*, after->isSelected() ? &colorGroup().highlight() : &colorGroup().base(), after->isSelected() && !useParent */);
   }
   else if (!insertmarker.isValid()) {
   	cleanDropVisualizer();

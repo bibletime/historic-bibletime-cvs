@@ -247,7 +247,7 @@ private:
 	ToolTip* m_toolTip;
 
 	bool m_readOnly;
-	bool m_selectedWord;
+//	bool m_selectedWord;
 	QString m_anchor;
 
 
@@ -269,10 +269,9 @@ private:
 	KFontSizeAction* m_fontSizeAction;
 	KFontAction* m_fontAction;
 	KColorButton* m_colorChooser;
-	QPoint m_hoverPos;
 	
 	ListCSwordModuleInfo* m_moduleList;
-			
+	
 signals: // Signals
   void sigDeleteDocument();
   void sigSaveDocument(const QString);

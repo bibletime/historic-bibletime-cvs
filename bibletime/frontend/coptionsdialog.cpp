@@ -698,7 +698,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 void COptionsDialog::saveAccelerators(){
 #warning check
 //	m_settings.keys.application.accel->setKeyDict( m_settings.keys.application.dict );	
- 	m_settings.keys.application.accel->writeSettings(); 	
+ 	m_settings.keys.application.accel->writeSettings();
 // 	
 // 	m_settings.keys.general.accel->setKeyDict( m_settings.keys.general.dict );			
 // 	m_settings.keys.general.accel->writeSettings();

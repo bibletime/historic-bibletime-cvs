@@ -136,7 +136,7 @@ CHTMLWidget::CHTMLWidget(const bool useColorsAndFonts,QWidget *parent, const cha
 	m_popup = 0;
 	m_anchor = QString::null;
 	m_anchorMenu = 0;
-	m_selectedWord = false;
+//	m_selectedWord = false;
 //	mousePressed = inDoubleClick = false;		
 	setTextFormat( Qt::RichText );
 	setReadOnly(true);
@@ -349,98 +349,54 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
 	viewport()->setCursor(anchorAt(e->pos()).isEmpty() ? arrowCursor : KCursor::handCursor() );
 	QTextEdit::contentsMousePressEvent(e);
 		
-#warning check
  	if (m_anchor.isEmpty() && (e->button() == RightButton) && m_anchorMenu) {	//popup installed menu 	
 		m_anchorMenu->exec( e->globalPos() );
   }
   else if (m_popup && e->button() == RightButton){ //popup normal menu
-//    m_selectedWord = false;
-//    QString selectedWord = QString::null;
-//
-//   	drawCursor(false);
-//   	placeCursor(e->pos());    	
-//   	ensureCursorVisible();
-//		emit cursorPositionChanged(cursor);
-//		
-//    if (selectedText().isEmpty()) {
-//    	Qt3::QTextCursor c1 = *cursor;
-//	    Qt3::QTextCursor c2 = *cursor;
-//	    c1.gotoWordLeft();
-//	    c2.gotoWordRight();
-//	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
-//	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
-//	    *cursor = c2;
-//	    selectedWord = selectedText();
-//			emit cursorPositionChanged(cursor);		    	
-//	   	ensureCursorVisible();			
-//	    repaintChanged();
-//	    m_selectedWord = true;
-//	  }
 		m_popup->exec( e->globalPos() );		
-//		if (m_selectedWord && (selectedWord == selectedText()) ) {
-//			m_selectedWord = false;
-//			selectAll(false);
-//		}		
   }	
 }
 
 /** Reimplementation.*/
 void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
-#warning check!
-//  if ( mousePressed ) {
-//		if ( mightStartDrag ) { //we might start a drag
-//	    dragStartTimer->stop();
-//	    if ( ( e->pos() - dragStartPos ).manhattanLength() > KApplication::startDragDistance() )
-//				startDrag();
-//	    if ( !isReadOnly() )
-//				viewport()->setCursor( ibeamCursor );
-//	    return;
-//		}
-//		else if (!m_anchor.isEmpty()/*!anchorAt(e->pos()).isEmpty() && !hasSelectedText()*/) {
-//			QString module = QString::null;
-//			QString key = QString::null;
-//			CReferenceManager::Type type;			
-//			const bool ok = CReferenceManager::decodeHyperlink(m_anchor, module, key, type);
-//			if (!ok)
-//				return;
-//			
-//			mousePressed = false;
-//			inDoubleClick = false;				 				
-//			mightStartDrag = false;
-//					
-//			QTextDrag *d = new QTextDrag(CReferenceManager::encodeReference(module,key),viewport());
-//	    d->setSubtype(REFERENCE);
-//	    d->setPixmap(REFERENCE_ICON_SMALL);
-//	    d->drag();
-//			return;
-//		}		
-//		mousePos = e->pos();
-//		doAutoScroll();
-//		oldMousePos = mousePos;
-//	}
-//
-//	if ( !isReadOnly() && !mousePressed ) {
-//		if ( doc->hasSelection( Qt3::QTextDocument::Standard ) && doc->inSelection( Qt3::QTextDocument::Standard, e->pos() ) )
-//	    viewport()->setCursor( arrowCursor );
-//		else
-//	    viewport()->setCursor( ibeamCursor );
-//	}
-//	if ( isReadOnly() && linksEnabled() ) {
-//		Qt3::QTextCursor c = *cursor;
-//		placeCursor( e->pos(), &c );
-//		if ( c.parag() && c.parag()->at( c.index() ) &&
-//	     !anchorAt(e->pos()).isEmpty() ) {
-//			viewport()->setCursor( pointingHandCursor );
-//	    onLink = c.parag()->at( c.index() )->format()->anchorHref();
-//	    QUrl u( doc->context(), onLink, true );
-//			m_hoverPos = e->pos();
-//	    emitHighlighted( u.toString( false, false ) );			
-//		} else {
-//	    viewport()->setCursor( isReadOnly() ? arrowCursor : ibeamCursor );
-//	    onLink = QString::null;
-//	    emitHighlighted( QString::null );
-//		}
-//	}
+	m_anchor = anchorAt( e->pos() );
+
+	if (e->state() == Qt::NoButton){ //No Button
+		viewport()->setCursor(m_anchor.isEmpty() ? arrowCursor : KCursor::handCursor() );
+	}
+
+	else{ //Some Button was pressed
+		if ((e->state() == Qt::LeftButton) &&
+  		 ( (e->pos() - m_pressedPos).manhattanLength() > KApplication::startDragDistance() ) ){
+
+//	  	if (m_anchor.isEmpty() && !selectedText().isEmpty()){ //Text Drag
+//				qWarning("TEXT DRAG");
+//  			QTextDrag *d = new QTextDrag( selectedText() );
+//  	    d->setSubtype(TEXT);
+////  	    d->setPixmap();
+//  	    d->drag();
+//  			return;
+//  		}
+			if (!m_anchor.isEmpty()){//Reference Drag
+//				qWarning("REFERENCE DRAG");
+  			QString module = QString::null;
+  			QString key = QString::null;
+  			CReferenceManager::Type type;			
+  			const bool ok = CReferenceManager::decodeHyperlink(m_anchor, module, key, type);
+  			if (!ok)
+  				return;
+
+  			QTextDrag *d = new QTextDrag(CReferenceManager::encodeReference(module,key),viewport());
+  	    d->setSubtype(REFERENCE);
+  	    d->setPixmap(REFERENCE_ICON_SMALL);
+  	    d->drag();
+  			return;
+			}
+		}
+//		qWarning("QT HANDLES IT");
+		// We didn handle it. Let Qt do. =)
+ 		QTextEdit::contentsMouseMoveEvent(e);
+	}
 }
 
 /** Installes a menu which will popup if the right mouse button was pressed on an anchor. */
