@@ -26,7 +26,7 @@ url="http://www.crosswire.org">Crosswire Bible Society</ulink>.   These include:
 <term>Bibles</term>
 <listitem>
 <para>
-The full Bible text, with optional things like Strong's Numbers and footnotes in the text.  The Strong
+The full Bible text, with optional things like Strong's Numbers and footnotes in the text.  The Strong's
 Numbers hot link to the entry in Strong's Hebrew Bible Dictionary or Strong's Greek Bible Dictionary.
 Bibles are available in many languages, and include not only modern versions, but also 
 Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint (Greek).
@@ -37,8 +37,8 @@ Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint (Greek).
 <term>Commentaries</term>
 <listitem>
 <para>
-Commentaries available include classics like John Wesley's Notes on the Bible,
-and Luther's Commentary on Galatians.
+Commentaries available include classics like John Wesley's "Notes on the Bible,"
+and Luther's "Commentary on Galatians."
 
 With the <emphasis>Personal</emphasis> commentary you can record your own personal
 notes to different parts of the Bible.
@@ -68,25 +68,25 @@ Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Top
 <varlistentry>
 <term>Books</term>
 <listitem>
-<para>Books available include &quot;Imitation of Christ&quot;, &quot;Enuma Elish&quot;, and &quot;Josephus, the complete works&quot;
+<para>Books available include &quot;Imitation of Christ&quot;, &quot;Enuma Elish&quot;, and &quot;Josephus: The Complete Works&quot;
 </para>
 </listitem>
 </varlistentry>
 </variablelist>
 </para>
-<para>Additional documents are being added to the &sword; repository frequently, so visit often.</para>
+<para>Additional documents are added to the &sword; repository frequently, so visit often.</para>
 
 <section id="hdbk-intro-changes"><title>Changes</title>
 <para>
 Please read the file Changelog of the sourcecode package if you are
-interested in more detailed changes. </para>
+interested in a more detailed description of changes. </para>
 
 <para>A listing of the features included in the current package can be found
 in the sourcecode at
 <ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/bibletime/bibletime/ChangeLog?rev=HEAD&amp;content-type=text/plain">
 CVS log for <filename>bibletime/bibletime/ChangeLog</filename></ulink></para>
 
-<section><title>Changes for &bibletime; Release 1.3</title>
+<section><title>Changes for &bibletime; Release 1.5</title>
 <para>&bibletime; version 1.3 provides a number of bugfixes and
 stability improvements.  You will also find a number of changes to
 the appearance of bibletime.  This is a partial list, for a more complete list, 
