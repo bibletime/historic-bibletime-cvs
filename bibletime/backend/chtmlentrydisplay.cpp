@@ -36,7 +36,6 @@
 
 CHTMLEntryDisplay::CHTMLEntryDisplay(){
 	m_htmlHeader = "<html><head></head>";
-	m_htmlBody = "</body></html>";
 	m_includeHeader = true;
 }
 
@@ -96,7 +95,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 			.arg(key->key())
 			.arg(key->renderedText()));
 
-		m_htmlText += QString::fromLatin1("</font>") + m_htmlBody;
+		m_htmlText += QString::fromLatin1("</font></body></html>");
 	}
 	else {
 		m_htmlText = key->renderedText();
@@ -171,7 +170,7 @@ char CHTMLEntryDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList) {
 				.arg(key->renderedText());
 		m = (d = moduleList->next()) ? d->module() : 0;		
 	}
-	m_htmlText += QString::fromLatin1("</font></tr></table>") + m_htmlBody;
+	m_htmlText += QString::fromLatin1("</font></tr></table></body></html>");
 
 	//clean up
 //	delete key;	

@@ -165,6 +165,10 @@ protected: // Protected attributes
  	*/
   virtual void contentsMouseMoveEvent(QMouseEvent* e);
   /**
+ 	* Reimplementation.
+ 	*/
+  virtual void contentsMouseReleaseEvent(QMouseEvent* e);
+  /**
   * Returns true if the links are enabled.
   */
   virtual bool linksEnabled() const;

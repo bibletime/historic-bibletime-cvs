@@ -74,7 +74,7 @@ protected:
 
 	QString m_htmlText;
 	QString m_htmlHeader;
-	QString m_htmlBody;
+//	QString m_htmlBody;
 
 	QString m_highlightedVerseColorName;
 	QString m_standardFontColorName;

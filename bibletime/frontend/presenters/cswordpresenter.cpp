@@ -177,7 +177,7 @@ void CSwordPresenter::closeEvent(QCloseEvent* e) {
 
 /** Inserts the action used by this display window in the given KAccel object. */
 void CSwordPresenter::insertKeyboardActions( KAccel* const a ){
-  qWarning("CSwordPresenter::insertKeyboardActions( KAccel* const a )");
+//  qWarning("CSwordPresenter::insertKeyboardActions( KAccel* const a )");
 }
 
 void CSwordPresenter::initAccels(){
@@ -223,9 +223,9 @@ void CSwordPresenter::setInitialized(){
 
 /** This function is called when the client was activated. */
 void CSwordPresenter::activated( const bool enable){
-  qWarning("CSwordPresenter::activated( const bool activated)");
+//  qWarning("CSwordPresenter::activated( const bool activated)");
   if (m_accel) {
-    qWarning("set enabled to %i", enable);
+//    qWarning("set enabled to %i", enable);
     m_accel->setEnabled(enable);
   }
 }

@@ -65,7 +65,7 @@ void CMDIArea::initConnections(){
 
 /** Called whan a client window was activated */
 void CMDIArea::slotClientActivated(QWidget* client){
-	qWarning("slotClientActivated(QWidget* client)");
+//	qWarning("slotClientActivated(QWidget* client)");
 	if (!client || !isUpdatesEnabled())
 		return;				
 	CSwordPresenter* sp = dynamic_cast<CSwordPresenter*>(client);	

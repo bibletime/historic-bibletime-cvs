@@ -341,6 +341,16 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 	}
 }
 
+void CHTMLWidget::contentsMouseReleaseEvent(QMouseEvent* e){
+	if (e->state() == LeftButton){
+		QString anchor( anchorAt( e->pos() ) );
+		if (!anchor.isEmpty())
+			emitLinkClicked(anchor);
+	}
+	QTextEdit::contentsMouseReleaseEvent(e);
+}
+
+
 
 /** Reimplementation. */
 void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {	
