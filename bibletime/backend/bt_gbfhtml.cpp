@@ -105,88 +105,87 @@ bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap
 	if (!substituteToken(buf, token)) {  //more than a simple replace
   	const int tokenLength = strlen(token);
 		unsigned long i;
+    sword::SWBuf value;
 
-//    char *valto;
-//	  const char *num;
-//    char val[128];
-	
  		if (!strncmp(token, "note ", 5)) {
 			// let's stop text from going to output
 			userData["suspendTextPassThru"] = "true";
 		}
-
 		else if (!strncmp(token, "/note", 5)) {
 			userData["suspendTextPassThru"] = "false";
 		}
-
-//		else if (!strncmp(token, "w", 1)) {
-//			// OSIS Word (temporary until OSISRTF is done)
-//			valto = val;
-//			num = strstr(token, "lemma=\"x-Strongs:");
-//			if (num) {
-//				for (num+=17; ((*num) && (*num != '\"')); num++)
-//					*valto++ = *num;
-//				*valto = 0;
-//				if (atoi((!isdigit(*val))?val+1:val) < 5627) {
-//					buf += " <small><em>&lt;";
-//					for (tok = (!isdigit(*val))?val+1:val; *tok; tok++)
-//							buf += *tok;
-//					buf += "&gt;</em></small> ";
-//				}
-//			}
-//			valto = val;
-//			num = strstr(token, "morph=\"x-Robinson:");
-//			if (num) {
-//				for (num+=18; ((*num) && (*num != '\"')); num++)
-//					*valto++ = *num;
-//				*valto = 0;
-//				// normal robinsons tense
-//				buf += " <small><em>(";
-//				for (tok = val; *tok; tok++)
-//						buf += *tok;
-//				buf += ")</em></small> ";
-//			}
-//		}
+		else if (!strncmp(token, "w ", 2)) {
+			// OSIS Word (temporary until OSISRTF is done)
+			if (const char* const pos = strstr(token, "lemma=\"x-Strongs:")) {
+        // 18 instead of 17 to ignore first char of strong, it's the type (H|G)
+        for (const char* val = pos+18; ((*val) && (*val != '\"')); val++) { 
+					value += *val;
+        }
     
-		if (!strncmp(token, "WG", 2)){ // strong's numbers greek
-			char num[6];
-			for (i = 2; i < tokenLength; i++)
-					num[i-2] = token[i];
-			num[i-2]=0;
-
+        if ( (*pos) == 'H' ) { //hebrew strong number
+			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+				    value.c_str(),
+            value.c_str()
+          );
+        }
+        else { //greek strong number
+    			buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+		    		value.c_str(),
+            value.c_str()
+          );
+        }
+			}
+			else if (const char* pos = strstr(token, "morph=\"x-Robinson:")) {
+				for (pos+=18; ((*pos) && (*pos != '\"')); pos++) {
+					value += *pos;
+        }
+				// normal robinsons tense
+        buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+				  value.c_str(),
+          value.c_str()
+        );
+			}
+		}
+		else if (!strncmp(token, "WG", 2)){ // strong's numbers greek
+			for (i = 2; i < tokenLength; i++) {
+					value += token[i];
+      }
+      
 			buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-				num, num);
+				value.c_str(),
+        value.c_str()
+      );
 		}
-
-		if (!strncmp(token, "WH", 2)){ // strong's numbers hebrew
-			char num[6];
-			for (i = 2; i < tokenLength; i++)
-					num[i-2] = token[i];
-			num[i-2]=0;
-
+		else if (!strncmp(token, "WH", 2)){ // strong's numbers hebrew
+			for (i = 2; i < tokenLength; i++) {
+					value += token[i];
+      }
+      
 			buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span> </a>",
-				num, num);
+				value.c_str(),
+        value.c_str()
+      );
 		}
-
 		else if (!strncmp(token, "WTG", 3)) { // strong's numbers tense greek
-			char num[16];
-			for (i = 3; i < tokenLength; i++)
-					num[i-3] = token[i];
-			num[i-3]=0;
+			for (i = 3; i < tokenLength; i++) {
+					value += token[i];
+      }
 
 			buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
-				num, num);
+				value.c_str(),
+				value.c_str()
+      );
 		}
 
 		else if (!strncmp(token, "WTH", 3)) { // strong's numbers tense hebrew
-
-			char num[6];
-			for (i = 3; i < tokenLength; i++)
-					num[i-3] = token[i];
-			num[i-3]=0;
+			for (i = 3; i < tokenLength; i++) {
+					value += token[i];
+      }
 
 			buf.appendFormatted(" <a href=\"morph://Hebrew/%s\"><span class=\"morphcode\">(%s)</span></a> ",
-				num, num);
+				value.c_str(),
+				value.c_str()
+      );
 		}
 
 		else if (!strncmp(token, "RB", 2)) {
