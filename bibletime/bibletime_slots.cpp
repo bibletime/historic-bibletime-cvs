@@ -159,7 +159,7 @@ void BibleTime::slotWindowMenuAboutToShow(){
 			
 	m_windowSaveProfile_action->plug(m_windowMenu);	
 	m_windowSaveToNewProfile_action->plug(m_windowMenu);	
-    m_windowLoadProfile_action->plug(m_windowMenu);
+	m_windowLoadProfile_action->plug(m_windowMenu);
 	m_windowEditProfiles_action->plug(m_windowMenu);	
 	m_windowMenu->insertSeparator();	
 	m_windowFullscreen_action->plug(m_windowMenu);				
@@ -199,7 +199,7 @@ void BibleTime::slotWindowMenuAboutToShow(){
       caption = windows.at(i)->caption();
 		}
 		
-		id = m_windowMenu->insertItem(QString::fromLatin1("&%1 ").arg(i+1) + caption /*+ windows.at()*/,
+		id = m_windowMenu->insertItem(QString::fromLatin1("&%1 ").arg(i+1) + caption,
 			this, SLOT(slotWindowMenuActivated( int )) );
 		m_windowMenu->setItemParameter( id, i );
 	  m_windowMenu->setItemChecked( id, m_mdi->activeWindow() == windows.at(i) );

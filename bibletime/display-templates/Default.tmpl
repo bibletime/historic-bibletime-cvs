@@ -16,7 +16,7 @@
 }
 
 #content {
-	background-color:white;
+	background-color:transparent;
 	margin:10px;
 }
 #content > table {
@@ -49,7 +49,7 @@ a:hover {
 /* Settings which apply to all entries in all modules */
 .entry {
 	padding: 4px;
-	vertical-align: top;
+	vertical-align: middle;
 	text-align: justify;
 }
 #printer .entry {
@@ -68,8 +68,8 @@ div.entry, td.entry {
 
 /* Keep the values the same as in .entry (take the border into account!) */
 .currententry {
-	padding:5px;
-	vertical-align:top;
+	padding:4px;
+	vertical-align:middle;
 	text-align:justify;
 }
 .currententry[dir=rtl] {
@@ -113,18 +113,18 @@ td.entry + td.entry {
 	vertical-align:top;
 }
 .entry[dir=rtl] .entryname, .currententry[dir=rtl] .entryname {
-	padding:0 0 0 2px;
-	font-size:70%;
-	vertical-align:top;
+	padding: 0 0 0 2px;
+	font-size: 70%;
+	vertical-align: top;
 }
 .entryname a, #printer .entryname  {
-	vertical-align: top;
+	vertical-align: middle
 	font-size: 80%;
 }
 
 #printer .entry  .entry, #printer .entry .sectiontitle , #printer .entry .booktitle {
-	padding-top:0.05em;
-	margin-left:10px;
+	padding-top: 0.05em;
+	margin-left: 10px;
 }
 
 .footnotepre {
@@ -133,16 +133,16 @@ td.entry + td.entry {
 	font-style: italic;
 }
 .footnote {
-	vertical-align:top;
-	font-weight:bold;
-	color:black;
-	color:blue;
-	font-size:80%;
+	vertical-align: top;
+	font-weight: bold;
+	color: black;
+	color: blue;
+	font-size: 80%;
 }
 .crossreference {
-	font-size:80%;
+	font-size: 80%;
 	/*vertical-align:middle;*/
-	color:blue;
+	color: blue;
 }
 
 .strongnumber {
@@ -265,15 +265,16 @@ td.entry + td.entry {
 }
 
 #infodisplay .footnoteinfo h3, #infodisplay .strongsinfo h3, #infodisplay .morphinfo h3, #infodisplay .translationinfo h3, #infodisplay .crossrefinfo h3 {
-	padding:4px 4px 4px 0;
+	padding:4px 4px 2px 0;
 	color:darkGrey;
 	font-weight:bold;
 	border-bottom:1px solid grey;
 	font-size:90%;
 }
 
-#infodisplay > p { /* We only format the first p child in a special way */
+#infodisplay > p, #infodisplay * > p { /* We only format the first p child in a special way */
 	font-size:80%;
+	text-align:justify;
 	color:black;
 	margin:0px;
 	padding:0px;

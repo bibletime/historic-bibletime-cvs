@@ -1035,7 +1035,7 @@ void COptionsDialog::updateStylePreview() {
 		return; //WARNING: return already here!
 	}
 		
- 	CTextRendering::KeyTreeItem::Settings settings;	
+ 	CTextRendering::KeyTreeItem::Settings settings;
 	
 	CTextRendering::KeyTree tree;
 	tree.append( new CTextRendering::KeyTreeItem("Gen 1:1", "Gen 1:3", module, settings) );
@@ -1051,6 +1051,7 @@ void COptionsDialog::updateStylePreview() {
 	CBTConfig::set(CBTConfig::displayStyle, styleName);
 	
 	m_settings.displayStyle.stylePreview->write( render.renderKeyTree(tree) );
+	
 	m_settings.displayStyle.stylePreview->end();
 
 	CBTConfig::set(CBTConfig::displayStyle, oldStyleName);

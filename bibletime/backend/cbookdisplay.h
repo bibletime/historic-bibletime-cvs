@@ -14,12 +14,11 @@
 
 #include "centrydisplay.h"
 
-class CTextRendering {
-	class KeyTree;
-};
 class CSwordTreeKey;
 
 namespace Rendering {
+
+class CTextRendering::KeyTree;
 
 /**
 @author The BibleTime team
