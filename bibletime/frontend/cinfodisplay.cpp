@@ -20,6 +20,8 @@
 #include "backend/cdisplaytemplatemgr.h"
 
 #include "frontend/cbtconfig.h"
+#include "frontend/crossrefrendering.h"
+
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
 
@@ -285,74 +287,3 @@ void CInfoDisplay::clearInfo() {
 	m_htmlPart->setText( tmgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, settings) );
 }
 
-
-/**
- * New class: CInfoDisplay::refRendering
- */
-CInfoDisplay::CrossRefRendering::CrossRefRendering( CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) 
-	: CHTMLExportRendering(Settings(), displayOptions, filterOptions)
-{
-	m_filterOptions.headings = false;
-	m_filterOptions.footnotes = false;
-	m_filterOptions.scriptureReferences = false;
-}
- 
-const QString CInfoDisplay::CrossRefRendering::finishText( const QString& text, KeyTree& ) {
-	return text;
-}
-
-const QString CInfoDisplay::CrossRefRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
-	QString linkText;
-	
-	const bool isBible = module && (module->type() == CSwordModuleInfo::Bible);
-	CSwordVerseKey vk(module); //only valid for bible modules, i.e. isBible == true
-	if (isBible) {
-		vk = item.key();
-	}
-		
-	switch (item.settings().keyRenderingFace) {
-		case KeyTreeItem::Settings::NoKey: {
-			linkText = QString::null;
-			break; //no key is valid for all modules
-		}
-		case KeyTreeItem::Settings::CompleteShort: {
-			if (isBible) {
-				linkText = QString::fromUtf8(vk.getShortText());
-				break;
-			}
-			//fall through for non-Bible modules
-		}
-		case KeyTreeItem::Settings::CompleteLong: {
-			if (isBible) {
-				linkText = vk.key();
-				break;
-			}
-			//fall through for non-Bible modules
-		}
-		case KeyTreeItem::Settings::SimpleKey: {
-			if (isBible) {
-				linkText = QString::number(vk.Verse());
-				break;
-			}
-			//fall through for non-Bible modules
-		}
-		default: { //default behaviour to return the passed key
-			linkText = item.key();
-			break;
-		}
-	}	
-	
-  if (!linkText.isEmpty()) { //if we have a valid link text
-    return QString::fromLatin1("<a href=\"%3\">%4</a>")
-      .arg(
-				CReferenceManager::encodeHyperlink(
-					module->name(), 
-					item.key(), 
-					CReferenceManager::typeFromModule(module->type())
-				)
-			)
-     .arg(linkText);
-  }
-	
-	return QString::null;
-}

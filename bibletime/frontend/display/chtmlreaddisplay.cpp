@@ -49,6 +49,8 @@
 #include <dom/html_element.h>
 #include <dom/dom2_traversal.h>
 
+using namespace InfoDisplay;
+
 CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) 
 	: KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget),
 	CReadDisplay(readWindow),

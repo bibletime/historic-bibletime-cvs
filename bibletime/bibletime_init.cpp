@@ -18,6 +18,7 @@
 //BibleTime includes
 #include "bibletime.h"
 
+#include "backend/btstringmgr.h"
 #include "backend/cswordbackend.h"
 
 #include "frontend/mainindex/cmainindex.h"
@@ -66,6 +67,7 @@
 //Sword includes
 #include <swlog.h>
 
+using namespace InfoDisplay;
 
 /**Initializes the view of this widget*/
 void BibleTime::initView(){

@@ -18,7 +18,7 @@
   </general>
   <kdevautoproject>
     <general>
-      <activetarget>bibletime/util/libutil.a</activetarget>
+      <activetarget>bibletime/backend/libbackend.a</activetarget>
       <useconfiguration>default</useconfiguration>
     </general>
     <run>

@@ -22,13 +22,14 @@
 #include "backend/clanguagemgr.h"
 
 class CSwordBackend;
+class CLanguageMgr;
+class CDisplayTemplateMgr;
 
 namespace Printing { class CPrinter; }
 using namespace Printing;
 
-class CLanguageMgr;
-class CInfoDisplay;
-class CDisplayTemplateMgr;
+namespace InfoDisplay { class CInfoDisplay; };
+using namespace InfoDisplay;
 
 /** Holds the pointers to important classes like modules, backend etc.
   * @author The BibleTime team

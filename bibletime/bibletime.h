@@ -34,7 +34,9 @@ class CMDIArea;
 class CProfile;
 class CDisplayWindow;
 class CMainIndex;
-class CInfoDisplay;
+
+namespace InfoDisplay{ class CInfoDisplay; }
+using namespace InfoDisplay;
 
 //KDE classes
 class KToggleAction;

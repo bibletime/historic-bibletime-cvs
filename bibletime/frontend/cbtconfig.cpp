@@ -83,6 +83,7 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 
 		case toolbar:							return "toolbar";
 		case mainIndex:						return "mainIndex";
+		case infoDisplay:					return "mainIndex";
 
 		case autoTile:						return "autoTile";
 		case autoCascade:					return "autoCascade";
