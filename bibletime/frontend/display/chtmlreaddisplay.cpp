@@ -167,10 +167,10 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
     if (module.isEmpty())
       module = CReferenceManager::preferredModule( type );
 
-//#warning Really bad bad work around! Otherwise the widget would scroll with the mouse moves afetr a link was clicked!
-    QMouseEvent me( QEvent::MouseButtonRelease, QPoint(0,0), QPoint(0,0), QMouseEvent::LeftButton, QMouseEvent::NoButton);
-    khtml::MouseReleaseEvent kme(&me, -1,-1, DOM::DOMString(), DOM::DOMString(), DOM::Node());
-    KApplication::sendEvent( this, &kme );
+//#warning Really bad bad work around! Otherwise the widget would scroll with the mouse moves after a link was clicked!
+//    QMouseEvent me( QEvent::MouseButtonRelease, QPoint(0,0), QPoint(0,0), QMouseEvent::LeftButton, QMouseEvent::NoButton);
+//    khtml::MouseReleaseEvent kme(&me, -1,-1, DOM::DOMString(), DOM::DOMString(), DOM::Node());
+//    KApplication::sendEvent( this, &kme );
 
 		connectionsProxy()->emitReferenceClicked(module, key);
   }

@@ -86,6 +86,20 @@ void CReadDisplay::print(const CDisplay::TextPart type){
     	else if (module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary ) {
     		mgr.printKey(module, key->key(), key->key());
       }
+      else if (module->type() == CSwordModuleInfo::GenericBook) {
+   			CSwordTreeKey* tree = dynamic_cast<CSwordTreeKey*>(key);
+
+        CSwordTreeKey startKey(*tree);
+//        while (startKey.previousSibling()) { // go to first sibling on this level!
+//        }
+
+    		CSwordTreeKey stopKey(*tree);
+//				if (CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(module)) {
+//          while ( stopKey.nextSibling() ) { //go to last displayed sibling!
+//          }
+//        }
+				mgr.printKey(module, startKey.key(), stopKey.key());
+      }
     };
 
     case AnchorWithText: {

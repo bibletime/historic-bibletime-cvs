@@ -22,6 +22,7 @@
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordversekey.h"
 #include "backend/cswordldkey.h"
+#include "backend/cswordtreekey.h"
 //#include "backend/chtmlentrydisplay.h"
 #include "frontend/cbtconfig.h"
 #include "util/scoped_resource.h"
@@ -106,7 +107,20 @@ const QString& CPrintItem::moduleText() {
 + startKey->renderedText() + (/*m_displayOptions.lineBreaks ?*/ "<BR>\n"/* : QString::null*/);
 			startKey->next(CSwordVerseKey::UseVerse);
 		}
-	}		
+	}
+//	else if (m_module->type() == CSwordModuleInfo::GenericBook ) {
+//		util::scoped_ptr<CSwordTreeKey> startKey(dynamic_cast<CSwordTreeKey*>(CSwordKey::createInstance(m_module)));
+//		util::scoped_ptr<CSwordTreeKey> stopKey(dynamic_cast<CSwordTreeKey*>(CSwordKey::createInstance(m_module)));
+//
+//		startKey->key(m_startKey);
+//		stopKey->key(m_stopKey);
+//
+//    while ( (startKey < stopKey) || (startKey == stopKey) ) {
+//      m_moduleText = startKey->renderedText();
+//      (*startKey)++;
+//      qWarning(startKey->key().latin1());
+//    }
+//  };
 	
 	m_moduleText.replace(QRegExp("$\n\n+"), "");
 	m_moduleText.replace(QRegExp("$<BR><BR>+"), "");	
@@ -118,7 +132,7 @@ void CPrintItem::setStyle( CStyle* newStyle ) {
 	m_style = newStyle;
 }
 
-CStyle*const CPrintItem::style() const {
+CStyle* const CPrintItem::style() const {
 	return m_style;
 }
 

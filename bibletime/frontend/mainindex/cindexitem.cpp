@@ -410,7 +410,7 @@ const bool CBookmarkItem::isMovable(){
 
 /** Reimplementation to handle  the menu entries of the main index. */
 const bool CBookmarkItem::enableAction(const MenuAction action){
-  if (action == ChangeBookmark || action == PrintBookmarks || action == DeleteEntries)
+  if (action == ChangeBookmark || (m_module && (action == PrintBookmarks)) || action == DeleteEntries)
     return true;
 
   return false;
