@@ -44,7 +44,7 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
     moduleName = CReferenceManager::preferredModule( type );
   }
 
-  qWarning("link was %s, key is %s", link.latin1(), keyName.latin1());
+//  qWarning("link was %s, key is %s", link.latin1(), keyName.latin1());
   if (moduleName.isEmpty()) {
     QString typeName = QString::null;
     switch (type) {

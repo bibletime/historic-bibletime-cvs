@@ -94,43 +94,39 @@ void CLexiconKeyChooser::refreshContent(){
 * 2. Use the modules with the fewest entries and go though all of these entries
 * 3. Is the entry in all other modules? Remove the entry from the list if it's not.
 */
-    typedef QMap<unsigned int, CSwordLexiconModuleInfo*> LexiconMap;
-    LexiconMap lexiconMap;
+    typedef QMap<unsigned int, CSwordLexiconModuleInfo*> EntryCountMap;
+    EntryCountMap entryCountMap;
     for (m_modules.first(); m_modules.current(); m_modules.next()) {
-      lexiconMap.insert(m_modules.current()->entries()->count(), m_modules.current(), false);
+      entryCountMap.insert(m_modules.current()->entries()->count(), m_modules.current(), false);
     }
-//    for ( LexiconMap::Iterator lex_it = lexiconMap.begin(); lex_it != lexiconMap.end(); ++lex_it ) {
-//      qWarning("%s has %i entries", lex_it.data()->name().latin1(), lex_it.key());
-//    }
 
-    CSwordLexiconModuleInfo* referenceModule = lexiconMap.begin().data();
-    QStringList entries = QStringList(*(referenceModule->entries()));
-
-//    qWarning("step 1");
-    if (lexiconMap.count() == 1) {
-//      qWarning("ONLY one module!");
-      m_widget->reset(entries, 0, true);	
-      return;
-    };
-
+    typedef QMap<CSwordLexiconModuleInfo*, QStringList*> LexiconMap;
+    LexiconMap entryMap;
+    for (m_modules.first(); m_modules.current(); m_modules.next()) {
+      entryMap.insert(m_modules.current(), m_modules.current()->entries(), false);
+    }
+    
+    CSwordLexiconModuleInfo* referenceModule = entryCountMap.begin().data();
+    QStringList* entries = referenceModule->entries(); //this is a pointer to a string list, only use it for comparision
+    QStringList goodEntries; //The string list which contains the entries which are in all modules
 
     //now see if the entries are in all other modules
-    QStringList::Iterator it = entries.begin();
-    LexiconMap::Iterator module;
-    while (it != entries.end()) {
-      for ( module = lexiconMap.begin(), ++module; module.data() != referenceModule && module != lexiconMap.end(); ++module ) {
-        if (!module.data()->entries()->contains(*it)) { //entry is not in the module
-//          qWarning((*it).latin1());
-          it = entries.remove(it);
-          break; //no need to look into the other modules because we already removed the entry
-        }
-        else {
-          ++it;
-        }
+    QStringList::Iterator it = entries->begin();
+    EntryCountMap::Iterator module;
+    bool inAllModules;
+    QStringList* moduleEntries = 0;
+    while (it != entries->end()) {
+      inAllModules = true;
+      for ( module = entryCountMap.begin(), ++module; inAllModules && (module.data() != referenceModule) && (module != entryCountMap.end()); ++module ) {
+        moduleEntries = entryMap[ module.data() ];
+        inAllModules = moduleEntries && inAllModules && moduleEntries->contains(*it);
       }
-    }
-
-    m_widget->reset(entries, 0, true);	
+      if (inAllModules) { //entry is available everywhere, insert it into the good entries list!
+        goodEntries.append( (*it) );
+      };
+      ++it; //next entry
+    }    
+    m_widget->reset(goodEntries, 0, true);
   }
 }
 

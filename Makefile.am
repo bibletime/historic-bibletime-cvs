@@ -1,4 +1,6 @@
-SUBDIRS = bibletime setupwizard pot docs .
+#SUBDIRS = bibletime setupwizard pot docs .
+SUBDIRS = bibletime pot docs .
+
 
 EXTRA_DIST = \
 bibletime.kdevprj \

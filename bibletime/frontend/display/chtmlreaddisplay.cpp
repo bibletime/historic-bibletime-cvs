@@ -76,7 +76,9 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 			if (!hasSelection())
    			return QString::null;
 
+      qWarning("get the selection!");
       DOM::Range range = selection();
+      qWarning("got the selection!");      
       if (range.isNull()) {
       	return QString::null;
       }
