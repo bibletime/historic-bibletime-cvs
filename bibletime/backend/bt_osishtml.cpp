@@ -108,10 +108,10 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 							show = false;
             }
 						else if (*val == 'H') {
-              buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ", val+1, val+1);
+              buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a> ", val+1, val+1);
             }
 						else if (*val == 'G') {
-              buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ", val+1, val+1);
+              buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Greek/%s\">&lt;%s&gt;</a> ", val+1, val+1);
             }
 					} while (++i < count);
 				}
@@ -125,13 +125,13 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						val = strchr(attrib, ':');
 						val = (val) ? (val + 1) : attrib;
  						if ((*val == 'T') && (val[1] == 'H')) {
-              buf.appendFormatted(" <a href=\"morph://Hebrew/%s\"><span class=\"morphcode\">(%s)</span></a> ", val+2, val+2);
+              buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Hebrew/%s\">(%s)</a> ", val+2, val+2);
             }
 						else if ((*val == 'T') && (val[1] == 'G')) {
-              buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ", val+2, val+2);
+              buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Greek/%s\">(%s)</a> ", val+2, val+2);
             }
             else if ((*val == 'T')) {
-              buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ", val+2, val+2);
+              buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Greek/%s\">(%s)</a> ", val+2, val+2);
             }
 					} while (++i < count);
 				}

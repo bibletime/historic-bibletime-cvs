@@ -45,7 +45,6 @@ BT_ThMLHTML::BT_ThMLHTML() {
   if (tokenSubMap.find("note") != tokenSubMap.end()) { //remove note tag
 	  tokenSubMap.erase( tokenSubMap.find("note") );
   }
-	replaceTokenSubstitute("/note", ")</span>");	
 }
 
 bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {  
@@ -64,18 +63,18 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           CBTConfig::FontSettingsPair fontSetting = CBTConfig::get(language);
           if (fontSetting.first) {
             const QFont f = fontSetting.second;
-            buf.appendFormatted("<span lang=\"%s\" style=\"font-family:%s;font-size:%ipt;\">",
+            buf.appendFormatted("<span class=\"foreign\" lang=\"%s\" style=\"font-family:%s;font-size:%ipt;\">",
               abbrev,
               f.family().latin1(),
               f.pointSize()
             );
           }
           else { //CBTConfig says: don't set a special font, so we just set the language flag
-            buf.appendFormatted("<span lang=\"%s\">", abbrev);
+            buf.appendFormatted("<span class=\"foreign\" lang=\"%s\">", abbrev);
           }
         }
         else { //invalid language, just set the HTML language attribute
-          buf.appendFormatted("<span lang=\"%s\">", abbrev);
+          buf.appendFormatted("<span class=\"foreign\" lang=\"%s\">", abbrev);
         }
       }
     }
@@ -83,7 +82,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "lemma")) { // Lemma
         const char* value = tag.getAttribute("value");
         if ( strlen(value) ) {
-          buf.appendFormatted(" &lt;%s&gt; ",
+          buf.appendFormatted(" <span class=\"lemma\">&lt;%s&gt;</span> ",
             value
           );
         };
@@ -91,7 +90,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "morph")) { // Morph
         const char* value = tag.getAttribute("value");
         if ( value ) {
-          buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+          buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Greek/%s\">(%s)</a> ",
             value,
             value
           );
@@ -100,13 +99,13 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		  else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "Strongs")) { // Strongs
         const char* value = tag.getAttribute("value");
         if ( value && value[0] == 'H' ) { //hewbrew strong number
-          buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+          buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a> ",
      				value+1, //skip the H
             value+1 //skip the H
           );
         }
         else if ( value && value[0] == 'G' ) { //hewbrew strong number
-          buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+          buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Greek/%s\">&lt;%s&gt;</a> ",
       			value+1, //skip the G
             value+1 //skip the G
           );
@@ -118,6 +117,9 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				//SWBuf type = tag.getAttribute("type");
 				//SWBuf footnoteNumber = tag.getAttribute("swordFootnote");
 				buf += "<span class=\"footnote\">(";
+			}
+			else if (tag.isEndTag() && !tag.isEmpty()) { //end tag
+				buf += ")</span>";
 			}
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a more complicated scripRef

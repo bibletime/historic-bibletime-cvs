@@ -46,7 +46,7 @@ CLanguageMgr::Language::~Language() {
 };
 
 /** Returns true if this language object is valid, i.e. has an abbrev and name. */
-const bool CLanguageMgr::Language::isValid(){
+const bool CLanguageMgr::Language::isValid() const {
   return (!abbrev().isEmpty() && !name().isEmpty());
 }
 

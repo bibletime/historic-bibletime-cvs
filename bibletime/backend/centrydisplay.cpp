@@ -141,11 +141,13 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 					.arg(100 / modules.count())
 					.arg(m->name());
 		}
-		text = "<table><tr>" + header + "</tr>" + text +"</table>";
+		text = "<table><tr>" + header + "</tr>" + text + "</table>";
 	}
 
+	QString langAbbrev = ((modules.count() == 1) && modules.first()->language().isValid()) ? modules.first()->language().abbrev() : "unknown";
+	
 	CDisplayTemplateMgr tMgr;
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text);
+	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text, langAbbrev);
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
@@ -161,8 +163,6 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
   //declarations out of the loop for optimization
   QString entry;
   QString keyText;
-
-  QFont font;
   bool isRTL;
 
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
@@ -170,7 +170,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
     key.key(keyName);
     keyText = key.key();
     isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
-    font = CBTConfig::get(m->language()).second;
+    //font = CBTConfig::get(m->language()).second;
 		entry = QString::null;
 
 		key.renderedText();
@@ -179,7 +179,11 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
 			QString preverseHeading = QString::fromUtf8(
 m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeading++).latin1()].c_str());
 			if (!preverseHeading.isEmpty()) {
-				entry += QString::fromLatin1("<div class=\"sectiontitle\">%1</div>")
+				entry += QString::fromLatin1("<div lang=\"%1\" class=\"sectiontitle\">%1</div>")
+					.arg(m->language().isValid() 
+						? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
+						: QString::null
+					)
 					.arg(preverseHeading);
 			}
 			else {
@@ -187,13 +191,15 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 			}
 		} while (true);
 
-   const QString fontStyle = QString::fromLatin1("font-family:%1; font-size:%2pt;").arg(font.family()).arg(font.pointSize());
-
-
-		entry += QString::fromLatin1("<%1 %2 style=\"%3\" dir=\"%4\">") //linebreaks = div, without = span
+		entry += QString::fromLatin1("<%1 %2 %3 dir=\"%4\">") //linebreaks = div, without = span
     	.arg(m_displayOptions.lineBreaks ? QString::fromLatin1("div") : QString::fromLatin1("span"))
-			.arg((modules.count() == 1) ? ((keyText == chosenKey) ? QString::fromLatin1("class=\"currentverse\"") : QString::fromLatin1("class=\"verse\"")) : "") //insert only the class if we're not in a td
-			.arg(fontStyle)
+			.arg((modules.count() == 1) 
+				? ((keyText == chosenKey) ? QString::fromLatin1("class=\"currentverse\"") : QString::fromLatin1("class=\"verse\"")) 
+				: "") //insert only the class if we're not in a td
+			.arg(m->language().isValid() 
+				? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
+				: QString::null
+			)
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
 
 		if (m_displayOptions.verseNumbers) { //if we shuld show the verse numbers
@@ -203,16 +209,22 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 			entry += htmlReference(0, QString::null, QString::null, keyText);  //insert only an anchor
 		}
 		
-		entry += QString::fromLatin1("<span>%1</span>").arg(key.renderedText());
-		entry += (m_displayOptions.lineBreaks ? QString::fromLatin1("</div>") : QString::fromLatin1("</span>"));
+		//entry += QString::fromLatin1("<span>%1</span>").arg(key.renderedText());
+		entry += key.renderedText();
+		entry +=  (m_displayOptions.lineBreaks 
+			? QString::fromLatin1("</div>") 
+			: QString::fromLatin1("</span>"));
 		
   	if (modules.count() == 1) {
 			renderedText += entry;
 		}
   	else {
-	    renderedText += QString::fromLatin1("<td class=\"%1\" style=\"%2\" dir=\"%3\">%4</td>")
+	    renderedText += QString::fromLatin1("<td class=\"%1\" %2 dir=\"%3\">%4</td>")
 				.arg((keyText == chosenKey) ? QString::fromLatin1("currentverse") : QString::fromLatin1("verse"))
-				.arg(fontStyle)
+				.arg(m->language().isValid() 
+					? QString::fromLatin1("lang=\"%1\"").arg(m->language().abbrev()) 
+					: QString::null
+				)
 				.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
 				.arg(entry);
 		}

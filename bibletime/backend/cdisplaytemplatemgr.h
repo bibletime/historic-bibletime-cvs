@@ -27,8 +27,9 @@ public:
     ~CDisplayTemplateMgr();
 		
     const QStringList availableTemplates();
-    const QString fillTemplate( const QString& name, const QString& title, const QString& content );
-		
+    const QString fillTemplate( const QString& name, const QString& title, const QString& content, const QString& langAbbrev = QString::null );
+    
+		static const QString defaultTemplate();
 
 private:
     void init();

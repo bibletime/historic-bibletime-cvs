@@ -17,7 +17,10 @@
 
 //BibleTime includes
 #include "cbtconfig.h"
+
 #include "backend/cswordmoduleinfo.h"
+#include "backend/cdisplaytemplatemgr.h"
+
 #include "util/cpointers.h"
 
 
@@ -42,33 +45,33 @@
 const QString CBTConfig::getKey( const CBTConfig::strings ID){
 	switch ( ID ){
 		case bibletimeVersion:			        return "bibletimeVersion";
-		case language: 							        	return "language";
-		case displayStyle: 							      return "displayStyle";
+		case language: 							        return "language";
+		case displayStyle: 							    return "displayStyle";
 		case standardBible: 				        return "standardBible";
-		case standardCommentary: 		return "standardCommentary";
-		case standardLexicon: 			      return "standardLexicon";
-		case standardDailyDevotional:	      			return "standardDailyDevotional";
+		case standardCommentary: 						return "standardCommentary";
+		case standardLexicon: 							return "standardLexicon";
+		case standardDailyDevotional:	     	return "standardDailyDevotional";
 		case standardHebrewStrongsLexicon: 	return "standardHebrewLexicon";
-		case standardGreekStrongsLexicon: 		return "standardGreekLexicon";
-		case standardHebrewMorphLexicon:	  	return "standardHebrewMorphLexicon";
-		case standardGreekMorphLexicon:		  	return "standardGreekMorphLexicon";
+		case standardGreekStrongsLexicon: 	return "standardGreekLexicon";
+		case standardHebrewMorphLexicon:	  return "standardHebrewMorphLexicon";
+		case standardGreekMorphLexicon:		  return "standardGreekMorphLexicon";
 	}
 	return QString::null;
 }
 
 const QString CBTConfig::getDefault( const CBTConfig::strings ID){
 	switch ( ID ){
-		case bibletimeVersion:		return "NOT YET INSTALLED"; // main() will realize this and set the value to VERSION
-		case language: 							return (KGlobal::locale()->language()).local8Bit();
-		case displayStyle: 					return "Default";
-		case standardBible: 			return "KJV";  // no effect
-		case standardCommentary: 		return "MHC";
-		case standardLexicon: 						return "ISBE";
+		case bibletimeVersion:							return "NOT YET INSTALLED"; // main() will realize this and set the value to VERSION
+		case language: 											return (KGlobal::locale()->language()).local8Bit();
+		case displayStyle: 									return CDisplayTemplateMgr::defaultTemplate();
+		case standardBible: 								return "KJV";  // no effect
+		case standardCommentary: 						return "MHC";
+		case standardLexicon: 							return "ISBE";
 		case standardDailyDevotional: 			return ""; //no default
 		case standardHebrewStrongsLexicon:  return "StrongsHebrew";
-		case standardGreekStrongsLexicon: 		return "StrongsGreek";
-		case standardHebrewMorphLexicon:	  	return "StrongsHebrew"; //warning this is wrong
-		case standardGreekMorphLexicon:		  	return "StrongsGreek";  //but imo has no effect
+		case standardGreekStrongsLexicon: 	return "StrongsGreek";
+		case standardHebrewMorphLexicon:	  return "StrongsHebrew"; //warning this is wrong
+		case standardGreekMorphLexicon:		  return "StrongsGreek";  //but imo has no effect
 	}
 	return QString::null;
 }

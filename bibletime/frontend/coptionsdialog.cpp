@@ -281,27 +281,26 @@ to be displayed correctly.")
 
 /** Init color section. */
 void COptionsDialog::initDisplayStyle(){
-	QFrame* page = addPage(i18n("Display style"), QString::null, DesktopIcon(CResMgr::settings::colors::icon,32));
+	QFrame* page = addPage(i18n("Display templates"), QString::null, DesktopIcon(CResMgr::settings::colors::icon,32));
 	QGridLayout* gridLayout = new QGridLayout(page,8,5,5,5);
   gridLayout->setResizeMode(QLayout::Minimum);
 
 	gridLayout->addMultiCellWidget(
 		CToolClass::explanationLabel(page,
-			i18n("Display styles"),
-			i18n("Display styles define how the text of modules is displayed. Please choose the style you want to use on your system.")
+			i18n("Display templates"),
+			i18n("Display templates define how the text of modules is displayed. Please choose a template you like.")
 		),
 		0,0,0,-1
 	);
 
 	m_settings.displayStyle.styleChooser = new QListBox(page);
 
-	QLabel* label = new QLabel(m_settings.displayStyle.styleChooser, i18n("Available styles"), page);
-	gridLayout->addWidget(label,1,0);
-	gridLayout->addWidget(m_settings.displayStyle.styleChooser,1,1);
+	QLabel* label = new QLabel(m_settings.displayStyle.styleChooser, i18n("Available display templates"), page);
+	gridLayout->addMultiCellWidget(label,1,1,0,-1);
+	gridLayout->addMultiCellWidget(m_settings.displayStyle.styleChooser,2,2,0,-1);
 
 	CDisplayTemplateMgr tMgr;
 	m_settings.displayStyle.styleChooser->insertStringList( tMgr.availableTemplates() );
-
 	QListBoxItem*  i = m_settings.displayStyle.styleChooser->findItem( CBTConfig::get(CBTConfig::displayStyle), Qt::CaseSensitive );
 	if ( i ) {
 		m_settings.displayStyle.styleChooser->setCurrentItem( i );

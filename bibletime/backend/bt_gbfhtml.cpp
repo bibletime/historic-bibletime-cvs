@@ -60,11 +60,11 @@ BT_GBFHTML::BT_GBFHTML(){
 	replaceTokenSubstitute("Fo", "</span>");
 
 
-  replaceTokenSubstitute("FS", "<sup>"); // Superscript begin// Subscript begin
-	replaceTokenSubstitute("Fs", "</sup>");
+  replaceTokenSubstitute("FS", "<span class-\"sup\">"); // Superscript begin// Subscript begin
+	replaceTokenSubstitute("Fs", "</span>");
 
-  replaceTokenSubstitute("FV", "<sub>"); // Subscript begin
-	replaceTokenSubstitute("Fv", "</sub>");
+  replaceTokenSubstitute("FV", "<span class=\"sub\">"); // Subscript begin
+	replaceTokenSubstitute("Fv", "</span>");
 
 //	replaceTokenSubstitute("TT", QString::fromLatin1(" <h1><font color=\"%1\">").arg(text_color).local8Bit());
 //	replaceTokenSubstitute("Tt", "</font></h1>");
@@ -84,8 +84,8 @@ BT_GBFHTML::BT_GBFHTML(){
   replaceTokenSubstitute("CG", "&gt;"); // literal greater-than sign
 	replaceTokenSubstitute("CT", "&lt;"); // literal less-than sign
 
-  replaceTokenSubstitute("JR", "<span align=\"right\">"); // right align begin
-	replaceTokenSubstitute("JC", "<span align=\"center\">"); // center align begin
+  replaceTokenSubstitute("JR", "<span class=\"right\">"); // right align begin
+	replaceTokenSubstitute("JC", "<span class=\"center\">"); // center align begin
 	replaceTokenSubstitute("JL", "</span>"); // align end
 }
 
@@ -113,7 +113,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 					value += token[i];
       }
       
-			buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+			buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Greek/%s\">&lt;%s&gt;</a> ",
 				value.c_str(),
         value.c_str()
       );
@@ -123,7 +123,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 					value += token[i];
       }
       
-			buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span> </a>",
+			buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a> ",
 				value.c_str(),
         value.c_str()
       );
@@ -133,7 +133,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 					value += token[i];
       }
 
-			buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+			buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Greek/%s\">(%s)</a> ",
 				value.c_str(),
 				value.c_str()
       );
@@ -144,7 +144,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 					value += token[i];
       }
 
-			buf.appendFormatted(" <a href=\"morph://Hebrew/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+			buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Hebrew/%s\">(%s)</a> ",
 				value.c_str(),
 				value.c_str()
       );

@@ -52,7 +52,7 @@ public:
     /**
     * Returns true if this language object is valid, i.e. has an abbrev and name.
     */
-    const bool isValid();
+    const bool isValid() const;
   private:
     QString m_abbrev;
     QString m_englishName;
