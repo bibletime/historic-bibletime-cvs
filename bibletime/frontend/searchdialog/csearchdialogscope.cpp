@@ -57,12 +57,10 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
   group->insert(noScope);
   group->insert(lastResultScope);
   group->insert(useScope);
-
-
   noScope->setChecked(true);
 
-  RangeLabel = new QLabel(i18n("Choose custom range"),this);
   RangeChooser = new QComboBox(this);
+  RangeLabel = new QLabel(RangeChooser,  i18n("Choose cutsom range"),this);
 	QToolTip::add(RangeChooser, TT_SD_SCOPE_CHOOSER);
   QWhatsThis::add(RangeChooser, WT_SD_SCOPE_CHOOSER);
 
@@ -83,7 +81,7 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
   QVBoxLayout*	VLayout_2 = new QVBoxLayout(HLayout);
   VLayout_2->addWidget(RangeLabel);
   VLayout_2->addWidget(RangeChooser);
-  VLayout_2->addWidget(editButton, Qt::AlignHCenter);
+  VLayout_2->addWidget(editButton);
 
   HLayout->addStretch();
 

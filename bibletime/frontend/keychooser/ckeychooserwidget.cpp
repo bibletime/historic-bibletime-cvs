@@ -154,7 +154,8 @@ void CKeyChooserWidget::unlock(void){
 void CKeyChooserWidget::init( ){
 	oldKey = QString::null;
 	btn_up = btn_down = btn_fx = 0;
-			
+
+	setFocusPolicy(QWidget::StrongFocus);			
 	QHBoxLayout *m_mainLayout = new QHBoxLayout( this );	
 	QVBoxLayout *m_buttonLayout = new QVBoxLayout();	
 			
@@ -162,7 +163,8 @@ void CKeyChooserWidget::init( ){
 	ComboBox->setAutoCompletion( true );
 	ComboBox->setInsertionPolicy(QComboBox::NoInsertion);
 	ComboBox->insertStringList(m_list, 0);
-	
+	ComboBox->setFocusPolicy(QWidget::StrongFocus);
+		
 	m_mainLayout->addWidget( ComboBox );
 	
 	btn_up = new QToolButton( this, "btn_up" );	
@@ -170,25 +172,28 @@ void CKeyChooserWidget::init( ){
 	btn_up->setIconSet( iconSet );
 	btn_up->setFixedHeight(iconSet.pixmap().height());
 	btn_up->setFixedWidth(iconSet.pixmap().width());
+	btn_up->setFocusPolicy(QWidget::NoFocus);	
 	
 	btn_fx = new cfx_btn( this, "btn_fx" );
 	iconSet = getMoverIconSet();
 	btn_fx->setIconSet( iconSet );	
 	btn_fx->setFixedHeight(iconSet.pixmap().height());
 	btn_fx->setFixedWidth(iconSet.pixmap().width());
-
+	btn_fx->setFocusPolicy(QWidget::NoFocus);	
+	
 	btn_down = new QToolButton( this, "btn_down" );	
 	iconSet = getDownIconSet();
 	btn_down->setIconSet( iconSet );
 	btn_down->setFixedHeight(iconSet.pixmap().height());
 	btn_down->setFixedWidth(iconSet.pixmap().width());
-
+	btn_down->setFocusPolicy(QWidget::NoFocus);	
+	
 	m_buttonLayout->addWidget( btn_up );	
 	m_buttonLayout->addWidget( btn_fx );	
 	m_buttonLayout->addWidget( btn_down );
 	
 	m_mainLayout->addLayout( m_buttonLayout );
-	m_mainLayout->addSpacing(3);
+	m_mainLayout->addSpacing(2);
 	
 // signals and slots connections
 	connect( btn_up, SIGNAL( clicked() ),SIGNAL( next_requested() ) );	
@@ -200,7 +205,6 @@ void CKeyChooserWidget::init( ){
 	connect( ComboBox, SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
 	connect( ComboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
 		
-//	adjustSize();	
 	isResetting = false;
 }
 

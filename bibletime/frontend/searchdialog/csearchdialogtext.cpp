@@ -58,13 +58,12 @@ CSearchDialogText::CSearchDialogText(CImportantClasses *importantClasses, QWidge
 
 	editSearchText = new QComboBox(textBox, "LineEdit_1");
 	editSearchText->setInsertionPolicy(QComboBox::AtTop);	
-	editSearchText->setMaxCount(10);		
+	editSearchText->setMaxCount(15);		
 	editSearchText->setEditable(true);			
 	editSearchText->setDuplicatesEnabled(false);				
 	editSearchText->setAutoCompletion(true);	
 	editSearchText->setFocusPolicy(QWidget::StrongFocus);
-//	editSearchText->setFrame( true );
-//	editSearchText->setAlignment( AlignLeft );
+	editSearchText->setFocus();
 	QToolTip::add(editSearchText, TT_SD_SEARCH_TEXT_EDIT);
 	QWhatsThis::add(editSearchText, WT_SD_SEARCH_TEXT_EDIT);
 	
@@ -159,6 +158,7 @@ void CSearchDialogText::setText(const QString text){
 		editSearchText->insertItem(text,0);
 		editSearchText->setCurrentItem(0);
 	}
+	editSearchText->setFocus();	
 }
 
 const bool CSearchDialogText::isCaseSensitive() {

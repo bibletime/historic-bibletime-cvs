@@ -50,20 +50,20 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 	layout->setResizeMode(QLayout::Fixed);
 		
 	w_book = new CKeyChooserWidget(m_info->getBooks(),this);	
-//w_book->ComboBox->setMaximumWidth(200);
 	w_book->setToolTips(TT_PRESENTER_BOOK_COMBO, TT_PRESENTER_NEXT_BOOK, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_BOOK);
 	w_book->setWhatsThis(WT_PRESENTER_BOOK_COMBO, WT_PRESENTER_NEXT_BOOK, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_BOOK);
 	
 	w_chapter = new CKeyChooserWidget( m_info->getChapterCount(1), this);		
-//w_chapter->ComboBox->setMaximumWidth(75);
 	w_chapter->setToolTips(TT_PRESENTER_CHAPTER_COMBO, TT_PRESENTER_NEXT_CHAPTER, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_CHAPTER);	
 	w_chapter->setWhatsThis(WT_PRESENTER_CHAPTER_COMBO, WT_PRESENTER_NEXT_CHAPTER, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_CHAPTER);		
 	
 	w_verse = new CKeyChooserWidget( m_info->getVerseCount(1,1),this);
-//w_verse->ComboBox->setMaximumWidth(75);	
 	w_verse->setToolTips(TT_PRESENTER_VERSE_COMBO, TT_PRESENTER_NEXT_VERSE, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_VERSE);
 	w_verse->setWhatsThis(WT_PRESENTER_VERSE_COMBO, WT_PRESENTER_NEXT_VERSE, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_VERSE);
 						
+	setTabOrder(w_book, w_chapter);
+	setTabOrder(w_chapter, w_verse);
+		
 	layout->addWidget(w_book);
 	layout->addWidget(w_chapter);
 	layout->addWidget(w_verse);	
@@ -244,8 +244,7 @@ void CBibleKeyChooser::bookFocusOut(int index){
 	  verse = 1;
 	
 	w_chapter->reset(newchapters, chapter-1,false);
-	w_chapter->adjustSize();
-	
+	w_chapter->adjustSize();	
 	w_verse->reset(newverses, verse-1, false);
 	w_verse->adjustSize();		
 }
