@@ -361,11 +361,11 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			else if (alignement == CStyleFormat::Right)		
 				text = QString("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
 			const QColor c = format->getBGColor();
-			text = QString("<QT BGCOLOR=\"%1\"><BODY>%1</BODY></QT>").arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue())).arg(text);				
+			text = QString("<qt bgcolor=\"#%1\">%2</qt>").arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue())).arg(text);
     	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin());
     	richText.setWidth( p, printer->getPageSize().width() );
     	QRect view( printer->getPageSize() );
-    	do {
+    	do {				
         richText.draw(p,printer->leftMargin(),printer->getVerticalPos(),view,cg);   			
 				const int movePixs = (richText.height() > (printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height();
    			printer->setVerticalPos(printer->getVerticalPos()+movePixs);		

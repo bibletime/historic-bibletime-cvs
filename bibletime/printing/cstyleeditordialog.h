@@ -51,7 +51,7 @@ protected: // Protected methods
 		QRadioButton*	leftRB;
 		QRadioButton*	centerRB;
 		QRadioButton*	rightRB;
-		QRadioButton*	justificationRB;
+//		QRadioButton*	justificationRB;
 		QVButtonGroup*	buttongroup;
 	};
 	struct colorButtons {
@@ -66,7 +66,7 @@ protected: // Protected methods
 	};
 	struct fontWidgets {
 		QFont font;
-		QSpinBox*	identation;
+//		QSpinBox*	identation;
 		QLabel*	fontDisplay;
 	};
 	

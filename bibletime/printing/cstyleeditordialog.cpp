@@ -103,7 +103,7 @@ void CStyleEditorDialog::initView(){
 	m_alignRadios.leftRB = new QRadioButton( i18n("Left"), m_alignRadios.buttongroup);
 	m_alignRadios.centerRB = new QRadioButton( i18n("Center"), m_alignRadios.buttongroup);
 	m_alignRadios.rightRB = new QRadioButton(i18n("Right"),m_alignRadios.buttongroup);
-	m_alignRadios.justificationRB = new QRadioButton(i18n("Justification"), m_alignRadios.buttongroup);
+//	m_alignRadios.justificationRB = new QRadioButton(i18n("Justification"), m_alignRadios.buttongroup);
 	m_alignRadios.buttongroup->setFixedHeight( m_alignRadios.buttongroup->sizeHint().height());
   hboxLayout->addWidget( m_alignRadios.buttongroup );
 
@@ -142,12 +142,12 @@ void CStyleEditorDialog::initView(){
   hboxLayout->addWidget(m_font.fontDisplay);
   hboxLayout->addWidget(button);
 
-  m_font.identation = new QSpinBox(mainWidget);
-  label = new QLabel(m_font.identation, "identation", mainWidget);
-  label->setText(i18n("Identation (in mm):"));
-  hboxLayout->addStretch(2);
-  hboxLayout->addWidget(label);
-  hboxLayout->addWidget(m_font.identation);
+//  m_font.identation = new QSpinBox(mainWidget);
+//  label = new QLabel(m_font.identation, "identation", mainWidget);
+//  label->setText(i18n("Identation (in mm):"));
+//  hboxLayout->addStretch(2);
+//  hboxLayout->addWidget(label);
+//  hboxLayout->addWidget(m_font.identation);
 
   topLayout->addLayout(hboxLayout);
 
@@ -247,9 +247,9 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 		case CStyleFormat::Right:
 			m_alignRadios.rightRB->setChecked(true);
 			break;
-		case CStyleFormat::Justification:
-			m_alignRadios.justificationRB->setChecked(true);
-			break;
+//		case CStyleFormat::Justification:
+//			m_alignRadios.justificationRB->setChecked(true);
+//			break;
 		default:
 			m_alignRadios.leftRB->setChecked(true);		
 			qDebug("CStyleEditorDialog::setupWithFormat: unknown alignement");
@@ -267,7 +267,7 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	//setup fonts
 	m_font.font = format->getFont();
 	setupFontWidgets( m_font.font );
-	m_font.identation->setValue( format->getIdentation() );
+//	m_font.identation->setValue( format->getIdentation() );
 	
 	//setup frame part
 	CStyleFormatFrame* frame = format->getFrame();
@@ -329,9 +329,9 @@ void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
 	else if (m_alignRadios.buttongroup->selected() == m_alignRadios.rightRB ) {
 		format->setAlignement( CStyleFormat::Right );
 	}
-	else if (m_alignRadios.buttongroup->selected() == m_alignRadios.justificationRB ) {
-		format->setAlignement( CStyleFormat::Justification );
-	}
+//	else if (m_alignRadios.buttongroup->selected() == m_alignRadios.justificationRB ) {
+//		format->setAlignement( CStyleFormat::Justification );
+//	}
 	else {
 		qDebug("Unknown alignement selected");			
 	}
@@ -346,7 +346,7 @@ void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
 	//apply font settings
 	qDebug("apply font settings");
 	format->setFont( m_font.font );
-	format->setIdentation( m_font.identation->value() );
+//	format->setIdentation( m_font.identation->value() );
 	
 	//apply frame settings
 	qDebug("setup frame stuff");

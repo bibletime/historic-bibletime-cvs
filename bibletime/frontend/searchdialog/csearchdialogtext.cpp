@@ -197,6 +197,7 @@ void CSearchDialogText::readSettings(){
 	KConfigGroupSaver gs(config, "searchdialog");	
 	QStringList items = config->readListEntry("searched text");	
 	editSearchText->clear();
+	editSearchText->insertItem("");	
 	editSearchText->insertStringList(items);
 }
 
@@ -206,7 +207,8 @@ void CSearchDialogText::saveSettings(){
 	
 	QStringList items;
 	for (int i = 0; i < editSearchText->count(); ++i) {
-		items.append(editSearchText->text(i));
+		if (!editSearchText->text(i).isEmpty())
+			items.append(editSearchText->text(i));
 	}		
 	config->writeEntry("searched text", items);
 }
