@@ -25,13 +25,17 @@ url="http://www.crosswire.org">Crosswire Bible Society</ulink>.  There are
 development versions of the sword modules available for some ongoing crosswire
 projects, these are not used by any version of Bibletime just now.  If you are
 interested in sword development modules please contact 
-<email>scribe@crosswire.org </email> </para> </section>
+<email>scribe@crosswire.org </email> </para>
+<para>The Bibletime development project is hosted on
+<ulink url="http://sourceforge.net">Sourceforge</ulink>.  Current development
+information and the latest CVS are available on Sourceforge.</para> </section>
 
 <section id="inst_devl_cvs"><title>Concurrent Versioning Software (CVS)</title>
 
 <para>
-The Sword and Bibletime development archives are maintained in CVS format on the
-crosswire server. To fetch the current CVS version you will need to login into
+The Sword and Bibletime development archives are maintained in CVS format.
+The Sword CVS is on the crosswire server and the Bibletime CVS is on the
+Sourceforge server.  To fetch the current CVS version you will need to login into
 the CVS repository as an anonymous user.
 </para>
 <para>
@@ -61,18 +65,29 @@ To close the connection, type <command>exit</command>
 </section>
 <section id="inst_devl_cvs_bibletime"><title>Bibletime CVS</title>
 <para>
-To download a copy of the current Bibletime CVS open a terminal and issue the
+The Bibletime CVS is posted on Sourceforge.  To download a copy of
+the current Bibletime CVS open a terminal and issue the
 following commands:
 </para>
 <screen>
 $ cd ./Develop
-$ export CVSROOT=:pserver:anonymous@cvs.crosswire.org:/cvs/bibletime
-$ cvs login
-$ Password: anonymous
-$ cvs -z5 checkout bibletime-2
+$ cvs -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime login
+  #simply press return at the password prompt
+$ cvs -z3 -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co bibletime
 </screen>
 <para>
-This will place a copy of the sword source code  into ./Develop/bibletime-2 .
+To fetch a copy of the Bibletime CVS from Sourceforge, use the
+commands in the following screenshot.
+</para>
+<screen>
+
+$ export CVS_RSH=ssh
+$ cvs -z3 -d:ext:<emphasis>developername</emphasis>@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co bibletime
+Enter your password when requested.
+
+</screen>
+<para>
+This will place a copy of the sword source code  into ./Develop/bibletime .
 </para>
 <para>
 To close the connection, type <command>exit</command></para>
@@ -81,6 +96,9 @@ To close the connection, type <command>exit</command></para>
 <section id="inst_devl_cvs_commands"><title>CVS Commands</title>
 <para>
 The following commands are used when working with CVS repositories.
+These instructions do not work on the Sourceforge CVS repository,
+<ulink url="http://sourceforge.net">please read the site
+documentation section on the Sourceforge CVS repository</ulink>.
 </para>
 <para>
 To update your source, log on to the CVS repository (if you used the anonymous
@@ -109,7 +127,7 @@ To remove a file:
 </section>
 <section id="inst_devl_cvs_gui"><title>CVS GUI Interface</title>
 <para>
-TkCVS can be used to access the sword and bibletime repositories.
+TkCVS can be used to access the sword repository.
 </para>
 <para>
 The current version of TkCVS (6.3) has a bug that makes it impossible to log on

@@ -5,7 +5,7 @@
 >Concurrent Versioning Software (CVS)</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.57"><LINK
 REL="HOME"
 TITLE="BibleTime Documentation Package"
 HREF="index.html"><LINK
@@ -103,8 +103,9 @@ NAME="INST_DEVL_CVS"
 >5.2. Concurrent Versioning Software (CVS)</A
 ></H1
 ><P
->The Sword and Bibletime development archives are maintained in CVS format on the
-crosswire server. To fetch the current CVS version you will need to login into
+>The Sword and Bibletime development archives are maintained in CVS format.
+The Sword CVS is on the crosswire server and the Bibletime CVS is on the
+Sourceforge server.  To fetch the current CVS version you will need to login into
 the CVS repository as an anonymous user.</P
 ><P
 >If you obtain a developers account, the instructions will be the same
@@ -154,7 +155,8 @@ NAME="INST_DEVL_CVS_BIBLETIME"
 >5.2.2. Bibletime CVS</A
 ></H2
 ><P
->To download a copy of the current Bibletime CVS open a terminal and issue the
+>The Bibletime CVS is posted on Sourceforge.  To download a copy of
+the current Bibletime CVS open a terminal and issue the
 following commands:</P
 ><TABLE
 BORDER="0"
@@ -165,15 +167,36 @@ WIDTH="100%"
 ><PRE
 CLASS="SCREEN"
 > $ cd ./Develop
- $ export CVSROOT=:pserver:anonymous@cvs.crosswire.org:/cvs/bibletime
- $ cvs login
- $ Password: anonymous
- $ cvs -z5 checkout bibletime-2</PRE
+ $ cvs -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime login
+   #simply press return at the password prompt
+ $ cvs -z3 -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co bibletime</PRE
 ></TD
 ></TR
 ></TABLE
 ><P
->This will place a copy of the sword source code  into ./Develop/bibletime-2 .</P
+>To fetch a copy of the Bibletime CVS from Sourceforge, use the
+commands in the following screenshot.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> 
+ $ export CVS_RSH=ssh
+ $ cvs -z3 -d:ext:<I
+CLASS="EMPHASIS"
+>developername</I
+>@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co bibletime
+ Enter your password when requested.
+ </PRE
+></TD
+></TR
+></TABLE
+><P
+>This will place a copy of the sword source code  into ./Develop/bibletime .</P
 ><P
 >To close the connection, type <B
 CLASS="COMMAND"

@@ -45,14 +45,28 @@ be displayed. </para>
 <sect1 ID="hdbk_intro_changes"><title>Changes</title>
 <para>
 Please read the file Changelog of the sourcecode package if you are
-interested in more detailed changes.
-</para> <para></para>
+interested in more detailed changes. </para>
+
+<para>A listing of the features included in the current package can be found
+in the sourcecode at <filename>/BibleTime/BibleTime/docs/development/FEATURES</filename>
+</para>
 </sect1>
 
 <sect1 ID="hdbk_intro_ToDo"><title>ToDo</title>
 <para>
-In our opinion Bibletime 1.0 provides the features which are required for serious Bible study.
-Some important features like ThML support are still missing, but this will be added later.
+Very much!
+</para>
+<para>
+We have lots to do. Because we are a very small team of active developers it's
+very hard to get reasonable results in a short time. If you are interested in
+helping the BibleTime team, please contact us at
+<ulink url="http://www.bibletime.de">BibleTime home page.</ulink>, or visit our development site on
+<ulink url="http://sourceforge.net">Sourceforge.</ulink></para>
+
+<para>The BibleTime project needs programmers / developers, reviewers, testers, and
+prayer warriors.  If you can help with any of these tasks or think up another, please join us.
+Without your help, BibleTime will develop very very slow and it will take a very long time until you get a
+full-featured Bible study tool.
 </para> </sect1>
 
 <sect1 ID="hdbk_intro_motivation"><title>Motivation</title>
