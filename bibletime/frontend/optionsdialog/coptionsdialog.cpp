@@ -159,8 +159,8 @@ void COptionsDialog::initGeneral() {
 		hBox = new QHBoxLayout();				
 		m_general.sword.standardLexicon = new QComboBox(page);
 		label = new QLabel(m_general.sword.standardLexicon, i18n("Default Lexicon"), page);
-		QToolTip::add(m_general.sword.standardCommentary, TT_OD_SWORD_STANDARD_LEXICON);	
-		QWhatsThis::add(m_general.sword.standardCommentary, WT_OD_SWORD_STANDARD_LEXICON);		
+		QToolTip::add(m_general.sword.standardLexicon, TT_OD_SWORD_STANDARD_LEXICON);	
+		QWhatsThis::add(m_general.sword.standardLexicon, WT_OD_SWORD_STANDARD_LEXICON);		
 		hBox->addWidget(label);
 		hBox->addWidget(m_general.sword.standardLexicon);
 		layout2->addLayout(hBox);
@@ -388,12 +388,12 @@ void COptionsDialog::initDisplayWindow() {
 		layout->addWidget(m_displayWindows.general.useDownArrow);
 
 		m_displayWindows.general.lineBreaks = new QCheckBox(page);
-  	m_displayWindows.general.lineBreaks->setText(i18n("Show linebreak after each verse"));
+  	m_displayWindows.general.lineBreaks->setText(i18n("Show line break after each verse"));
 		m_displayWindows.general.lineBreaks->setChecked(CBTConfig::get(CBTConfig::lineBreaks));		
 		layout->addWidget(m_displayWindows.general.lineBreaks);
 
 		m_displayWindows.general.verseNumbers = new QCheckBox(page);
-  	m_displayWindows.general.verseNumbers->setText(i18n("Show versenumbers"));
+  	m_displayWindows.general.verseNumbers->setText(i18n("Show verse numbers"));
 		m_displayWindows.general.verseNumbers->setChecked(CBTConfig::get(CBTConfig::verseNumbers));		
 		layout->addWidget(m_displayWindows.general.verseNumbers);
 

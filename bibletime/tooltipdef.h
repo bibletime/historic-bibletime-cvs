@@ -35,9 +35,9 @@
 #define TT_WINDOW_AUTO_CASCADE  i18n("Automatically cascade windows")
 #define TT_WINDOW_CLOSE_ALL  i18n("Close all windows")
 #define TT_WINDOW_SAVE_PROFILE  i18n("Save current profile")
-#define TT_WINDOW_EDIT_PROFILES  i18n("Edit profiles...")
-#define TT_WINDOW_LOAD_PROFILE  i18n("Load a new profiles")
-#define TT_WINDOW_FULLSCREEN  i18n("Switch between normal and fullscreen mode")
+#define TT_WINDOW_EDIT_PROFILES  i18n("Edit profiles")
+#define TT_WINDOW_LOAD_PROFILE  i18n("Load a new profile")
+#define TT_WINDOW_FULLSCREEN  i18n("Toggle fullscreen mode")
 
 #define TT_SETTINGS_EDIT_TOOLBAR i18n("Edit toolbar")
 #define TT_SETTINGS_OPTIONS i18n("Options")
@@ -45,7 +45,7 @@
 #define TT_HELP_CONTENT i18n("BibleTime's handbook")
 #define TT_HELP_WHATSTHIS i18n("Enter \"What's this?\" mode")
 #define TT_HELP_BUGREPORT i18n("Send bugreport")
-#define TT_HELP_DAILY_TIP i18n("Show a daily tip")
+#define TT_HELP_DAILY_TIP i18n("Show daily tips at startup")
 #define TT_HELP_ABOUT i18n("About BibleTime")
 #define TT_HELP_ABOUT_KDE i18n("About KDE")
 
@@ -70,12 +70,12 @@
 
 #define TT_PRESENTER_NEXT_ENTRY i18n("Show the next entry")
 #define TT_PRESENTER_PREVIOUS_ENTRY i18n("Show the previous entry")
-#define TT_PRESENTER_NEXT_VERSE i18n("Jump to next verse")
-#define TT_PRESENTER_PREVIOUS_VERSE i18n("Jump to previous verse")
-#define TT_PRESENTER_NEXT_CHAPTER i18n("Show next chapter")
-#define TT_PRESENTER_PREVIOUS_CHAPTER i18n("Show previous chapter")
-#define TT_PRESENTER_NEXT_BOOK i18n("Show next book")
-#define TT_PRESENTER_PREVIOUS_BOOK i18n("Show previous book")
+#define TT_PRESENTER_NEXT_VERSE i18n("Jump to the next verse")
+#define TT_PRESENTER_PREVIOUS_VERSE i18n("Jump to the previous verse")
+#define TT_PRESENTER_NEXT_CHAPTER i18n("Show the next chapter")
+#define TT_PRESENTER_PREVIOUS_CHAPTER i18n("Show the previous chapter")
+#define TT_PRESENTER_NEXT_BOOK i18n("Show the next book")
+#define TT_PRESENTER_PREVIOUS_BOOK i18n("Show the previous book")
 #define TT_PRESENTER_BOOK_COMBO i18n("List of books")
 #define TT_PRESENTER_CHAPTER_COMBO i18n("List of chapters")
 #define TT_PRESENTER_VERSE_COMBO i18n("List of verses")
@@ -100,12 +100,12 @@
 #define TT_HTML_COPY i18n("Copy to clipboard")
 
 //searchdialog related #defines, SD means searchdialog; mc==Module chooser
-#define TT_SD_MODULECHOOSER i18n("Choose the modules for the search")
+#define TT_SD_MODULECHOOSER i18n("Choose the modules to search in")
 #define TT_SD_MC_ADD_MODULE i18n("Add the selected module to the list")
 #define TT_SD_MC_REMOVE_MODULE i18n("Remove the selected module from the list")
 #define TT_SD_MC_MODULELIST i18n("List of modules used for the search")
 
-#define TT_SD_SEARCH_TEXT_EDIT i18n("Search this text")
+#define TT_SD_SEARCH_TEXT_EDIT i18n("Search for this text")
 #define TT_SD_SEARCH_MULTIPLE_WORDS i18n("Search multiple words")
 #define TT_SD_SEARCH_EXACT_MATCH i18n("Exact match")
 #define TT_SD_SEARCH_REGEXP i18n("Search with GNU regular expressions")
@@ -113,7 +113,7 @@
 
 #define TT_SD_SCOPE_NO_SCOPE i18n("No scope")
 #define TT_SD_SCOPE_LAST_RESULT i18n("Last search result")
-#define TT_SD_SCOPE_OWN_SCOPE i18n("Use own scope")
+#define TT_SD_SCOPE_OWN_SCOPE i18n("Use custom scope")
 #define TT_SD_SCOPE_NEW_SCOPE i18n("Add a new scope")
 #define TT_SD_SCOPE_DELETE_SCOPE i18n("Delete this search scope")
 #define TT_SD_SCOPE_EDIT_SCOPE_BUTTON i18n("Edit and define your search scopes")
@@ -124,23 +124,24 @@
 
 #define TT_SD_RESULT_MODULE_VIEW i18n("Used modules")
 #define TT_SD_RESULT_RESULT_VIEW i18n("Items found")
-#define TT_SD_RESULT_PREVIEW i18n("Preview")
+#define TT_SD_RESULT_PREVIEW 	i18n("Preview")
 
-#define TT_SD_ANALYSIS_VIEW i18n("Graphical analysis")
+#define TT_SD_ANALYSIS_VIEW i18n("Graphical Search Analysis")
+
 
 //#defines for the settings dialog, OD means Optionsdialog
 #define TT_OD_GENERAL_DAILY_TIP i18n("Show daily tip")
 #define TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES i18n("List of languages")
-#define TT_OD_GENERAL_SHOW_STARTUPLOGO i18n("Show startuplogo")
+#define TT_OD_GENERAL_SHOW_STARTUPLOGO i18n("Show start-up logo")
 #define TT_OD_GENERAL_SCROLL_PREVIOUS i18n("Use down arrow to scroll to next verse")
 #define TT_OD_GENERAL_RESTORE_WORKSPACE i18n("Restore the windows in the workspace on startup")
 
 #define TT_OD_SWORD_USE_LEXICON_CACHE i18n("Use cache files for the lexicon entries")
-#define TT_OD_SWORD_STANDARD_BIBLE i18n("The standard bible used in the workspace area")
-#define TT_OD_SWORD_STANDARD_COMMENTARY i18n("The standard commentary used in the workspace area")
-#define TT_OD_SWORD_STANDARD_LEXICON i18n("The standard lexicon used in the workspace area")
-#define TT_OD_SWORD_STANDARD_HEBREW_STRONG 	i18n("The standard Hebrew lexicon used in the workspace are")
-#define TT_OD_SWORD_STANDARD_GREEK_STRONG i18n("The standard Greek lexicon used in the workspace area")
+#define TT_OD_SWORD_STANDARD_BIBLE i18n("The default bible used in the workspace area")
+#define TT_OD_SWORD_STANDARD_COMMENTARY i18n("The default commentary used in the workspace area")
+#define TT_OD_SWORD_STANDARD_LEXICON i18n("The default lexicon used in the workspace area")
+#define TT_OD_SWORD_STANDARD_HEBREW_STRONG 	i18n("The default Hebrew lexicon used in the workspace are")
+#define TT_OD_SWORD_STANDARD_GREEK_STRONG i18n("The default Greek lexicon used in the workspace area")
 #define TT_OD_SWORD_STANDARD_HEBREW_MORPH i18n("The default Morphological lexicon for Hebrew texts used in the workspace area")
 #define TT_OD_SWORD_STANDARD_GREEK_MORPH i18n("The default Morphological lexicon for Greek texts used in the workspace area")
 
@@ -160,14 +161,14 @@
 
 //defines for the printing dialog; PI == Print Item; PD=Printer Dialog
 #define TT_PD_PRINT i18n("Start printing")
-#define TT_PD_PREVIEW i18n("Show a preview")
+#define TT_PD_PREVIEW i18n("Preview print job")
 #define TT_PD_CANCEL i18n("Cancel")
 #define TT_PD_HELP i18n("Open help")
 
 #define TT_PD_GENERAL_PRINTER_LIST i18n("The list of printers")
-#define TT_PD_GENERAL_PRINT_TO_FILE i18n("Print into a file")
+#define TT_PD_GENERAL_PRINT_TO_FILE i18n("Print to a file")
 #define TT_PD_GENERAL_BROWSE_FILE i18n("Browse for the file")
-#define TT_PD_GENERAL_COPIES i18n("Copies")
+#define TT_PD_GENERAL_COPIES i18n("Number of copies")
 #define TT_PD_GENERAL_ORIENTATION i18n("Orientation")
 #define TT_PD_GENERAL_ORIENTATION_PORTAIT i18n("Portrait")
 #define TT_PD_GENERAL_ORIENTATION_LANDSCAPE i18n("Landscape")
@@ -186,7 +187,7 @@
 #define TT_PD_LAYOUT_BORDER_RIGHT i18n("Right border")
 #define TT_PD_LAYOUT_BORDER_TOP i18n("Upper border")
 #define TT_PD_LAYOUT_BORDER_BOTTOM i18n("Lower border")
-#define TT_PD_LAYOUT_STYLE_LIST i18n("List of styles")
-#define TT_PD_LAYOUT_STYLE_DELETE i18n("Delete the chosen printing style")
-#define TT_PD_LAYOUT_STYLE_EDIT i18n("Edit the chosen printing style")
+#define TT_PD_LAYOUT_STYLE_LIST i18n("List of print styles")
+#define TT_PD_LAYOUT_STYLE_DELETE i18n("Delete the selected style")
+#define TT_PD_LAYOUT_STYLE_EDIT i18n("Edit the selected style")
 #define TT_PD_LAYOUT_STYLE_NEW i18n("Create a new printing style")
