@@ -291,7 +291,7 @@ CSwordModuleInfo* const CSwordBackend::findSwordModuleByPointer(const sword::SWM
 CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const CSwordModuleInfo* const module){
   if (module) {
     for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
-      if ( m_moduleList.current()->module() == module ) {
+      if ( m_moduleList.current() == module ) {
         return m_moduleList.current();
       }
     }
