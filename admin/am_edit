@@ -1263,6 +1263,7 @@ sub tag_ICON()
                'hi32' => 'hicolor/32x32',
                'hi48' => 'hicolor/48x48',
                'hi64' => 'hicolor/64x64',
+               'hi128' => 'hicolor/128x128',
                'hisc' => 'hicolor/scalable',
  	       'cr16' => 'crystalsvg/16x16',
                'cr22' => 'crystalsvg/22x22',
@@ -1616,7 +1617,7 @@ sub tag_DOCFILES ()
     {
         opendir (THISDIR, ".");
 	foreach $entry (readdir(THISDIR)) {
-	  next if ($entry eq "CVS" || $entry =~ /^\./  || $entry =~ /^Makefile/ || $entry =~ /~$/ || $entry =~ /^\#.*\#$/ || $entry eq "core");
+	  next if ($entry eq "CVS" || $entry =~ /^\./  || $entry =~ /^Makefile/ || $entry =~ /~$/ || $entry =~ /^\#.*\#$/ || $entry eq "core" || $entry eq "index.cache.bz2");
 	  next if (! -f $entry);
 	  $files .= "$entry ";
 	}
