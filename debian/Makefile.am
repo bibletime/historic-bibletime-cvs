@@ -1,4 +1,4 @@
-btdebdir = $(top_srcdir)/admin
+btdebdir = $(top_srcdir)/debian
 
 EXTRA_DIST += $(btdebdir)/bibletime.xpm
 EXTRA_DIST += $(btdebdir)/changelog

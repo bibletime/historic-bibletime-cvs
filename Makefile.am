@@ -14,9 +14,37 @@ NEWS.in NEWS \
 Makefile.cvs \
 bibletime.m4 sword.m4
 
+btadmindir = $(top_srcdir)/admin
+
+EXTRA_DIST += $(btadmindir)/ChangeLog
+EXTRA_DIST += $(btadmindir)/compile
+EXTRA_DIST += $(btadmindir)/config.guess
+EXTRA_DIST += $(btadmindir)/config.pl
+EXTRA_DIST += $(btadmindir)/config.sub
+EXTRA_DIST += $(btadmindir)/configure.in.bot.end
+EXTRA_DIST += $(btadmindir)/configure.in.min
+EXTRA_DIST += $(btadmindir)/cvs-clean.pl
+EXTRA_DIST += $(btadmindir)/install-sh
+EXTRA_DIST += $(btadmindir)/ltmain.sh
+EXTRA_DIST += $(btadmindir)/missing
+EXTRA_DIST += $(btadmindir)/mkinstalldirs
+EXTRA_DIST += $(btadmindir)/ylwrap
+EXTRA_DIST += $(btadmindir)/Makefile.common
+EXTRA_DIST += $(btadmindir)/acinclude.m4.in
+EXTRA_DIST += $(btadmindir)/am_edit
+EXTRA_DIST += $(btadmindir)/conf.change.pl
+EXTRA_DIST += $(btadmindir)/debianrules
+EXTRA_DIST += $(btadmindir)/depcomp
+EXTRA_DIST += $(btadmindir)/detect-autoconf.sh
+EXTRA_DIST += $(btadmindir)/libtool.m4.in
+EXTRA_DIST += $(btadmindir)/nmcheck
+EXTRA_DIST += $(btadmindir)/cvs.sh
+
+include debian/Makefile.am
+
 # not a GNU package. You can remove this line, if 
 # have all needed files, that a GNU package needs
-AUTOMAKE_OPTIONS = foreign dist-bzip2
+AUTOMAKE_OPTIONS = 1.6 foreign dist-bzip2
 
 datadir = $(kde_appsdir)/Applications
 data_DATA = bibletime.desktop
@@ -38,8 +66,7 @@ MAINTAINERCLEANFILES = configure.files subdirs
 dist-hook:	
 	rm -f $(distdir)/bibletime-*.tar.gz $(distdir)/bibletime-*.tar.bz2
 	rm -rf `find $(distdir) -name tags -o -name TAGS -o -name \*.xcf`
-	cp -R $(srcdir)/admin/ $(distdir)/
 	rm -f $(distdir)/admin/Changelog $(distdir)/make-messages.sh $(distdir)/extractrc $(distdir)/preparetips $(distdir)/bibletime.doxygen $(distdir)/bibletime.kdevses $(distdir)/bibletime.start $(distdir)/configure.files $(distdir)/bibletime/pics/gen_am.sh
 	cd $(distdir) && make -f Makefile.cvs
 	rm -rf $(distdir)/autom4te.cache
-	cp -Ra $(srcdir)/debian $(distdir)/debian
+
