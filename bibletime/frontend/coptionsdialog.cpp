@@ -380,6 +380,8 @@ void COptionsDialog::initAccelerators(){
 	m_settings.keys.application.accel->readSettings();
 
  	m_settings.keys.application.keyChooser = new KKeyChooser( m_settings.keys.application.accel, currentTab, false );
+	
+	
 // 	QToolTip::add(m_settings.keys.application.keyChooser, TT_OD_KEYS_CHOOSER);
 //	QWhatsThis::add(m_settings.keys.application.keyChooser, WT_OD_KEYS_CHOOSER);
 

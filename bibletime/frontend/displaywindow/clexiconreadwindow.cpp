@@ -94,6 +94,20 @@ void CLexiconReadWindow::initView(){
 	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
 	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
 
+  KAction* action = new KAction(i18n("Search"),
+    CResMgr::displaywindows::general::search::icon,
+    CResMgr::displaywindows::general::search::accel,
+    this, SLOT(slotSearchInModules()), actionCollection(),
+    CResMgr::displaywindows::general::search::actionName
+  );
+  action->setToolTip( CResMgr::displaywindows::general::search::tooltip );
+  action->setWhatsThis( CResMgr::displaywindows::general::search::whatsthis );
+//   #if KDE_VERSION_MINOR < 1
+//     action->plugAccel( accel() );
+//   #endif
+
+	action->plug(mainToolBar());
+	
 //  setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 //	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 

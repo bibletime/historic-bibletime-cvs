@@ -40,6 +40,8 @@
 #include "frontend/cprofilewindow.h"
 #include "frontend/cbtconfig.h"
 
+#include "frontend/searchdialog/csearchdialog.h"
+
 
 //Qt includes
 
@@ -425,4 +427,10 @@ void CDisplayWindow::closeEvent(QCloseEvent* e) {
 	else {
 		e->accept();
 	}
+}
+
+void CDisplayWindow::slotSearchInModules() {
+	qWarning("Opening search dialog");
+	
+	CSearchDialog::openDialog(modules());
 }

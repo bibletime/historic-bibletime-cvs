@@ -390,8 +390,15 @@ namespace CResMgr {
       namespace scrollButton {
         QString tooltip;
         QString whatsthis;
-
       };
+      
+			namespace search {
+        QString tooltip;
+        QString whatsthis;
+        const QString icon        = "find";
+        const KShortcut accel     = Qt::CTRL + Qt::Key_L;
+        const char* actionName    = "window_search_action";
+      }
     };
     namespace bibleWindow {
       namespace bookList {
@@ -1137,9 +1144,17 @@ namespace CResMgr {
       {
         using namespace general;
         {
-          using namespace scrollButton;
-          tooltip = makeToolTip( i18n("Scroll through the list") );
-          whatsthis = makeWhatsThis(tooltip, i18n("This button is useful to scroll through the entries of the list. Press the button and move the mouse to increase or decrease the item."));
+					{
+	          using namespace scrollButton;
+						tooltip = makeToolTip( i18n("Scroll through the list") );
+						whatsthis = makeWhatsThis(tooltip, i18n("This button is useful to scroll through the entries of the list. Press the button and move the mouse to increase or decrease the item."));
+					}
+					{
+	          using namespace search;
+						tooltip = makeToolTip( i18n("Search in modules") );
+						whatsthis = makeWhatsThis(tooltip, i18n("This button open the search dialog with the module of this window."));
+						
+					}
         };
         using namespace bibleWindow;
         {

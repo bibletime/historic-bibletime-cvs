@@ -391,6 +391,13 @@ namespace CResMgr {
         extern QString tooltip;
         extern QString whatsthis;
       };
+			namespace search {
+				extern QString tooltip;
+				extern QString whatsthis;
+				extern const QString icon;
+				extern const KShortcut accel;
+				extern const char* actionName;
+			}			
     };
 
     namespace bibleWindow {

@@ -58,7 +58,6 @@ void CHTMLWriteWindow::initView() {
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
  	mainToolBar()->setFullSize(false);
 
-
   //setip the toolbar
 	m_actions.syncWindow = new KToggleAction(i18n("Sync with active bible"),
 		CResMgr::displaywindows::commentaryWindow::syncWindow::icon,
@@ -90,9 +89,8 @@ void CHTMLWriteWindow::initView() {
   m_actions.deleteEntry->setToolTip( CResMgr::displaywindows::writeWindow::deleteEntry::tooltip );
   m_actions.deleteEntry->setWhatsThis( CResMgr::displaywindows::writeWindow::deleteEntry::whatsthis );
   m_actions.deleteEntry->plug(mainToolBar());
-
-
- 	m_actions.restoreText = new KAction(i18n("Restore original text"),
+ 	
+	m_actions.restoreText = new KAction(i18n("Restore original text"),
     CResMgr::displaywindows::writeWindow::restoreText::icon,
     CResMgr::displaywindows::writeWindow::restoreText::accel,
     this, SLOT(restoreText()), actionCollection(),
@@ -107,7 +105,7 @@ void CHTMLWriteWindow::initView() {
   bar->setFullSize(true);
 	addDockWindow(bar);
 
-  writeDisplay->setupToolbar( bar, actionCollection() );
+	writeDisplay->setupToolbar( bar, actionCollection() );
 };
 
 void CHTMLWriteWindow::initConnections() {

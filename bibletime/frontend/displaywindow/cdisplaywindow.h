@@ -240,6 +240,8 @@ protected slots:
   */
   virtual void polish();
   virtual void updatePopupMenu();
+	
+	void slotSearchInModules();
   
 private:
 	CMDIArea* m_mdi;
