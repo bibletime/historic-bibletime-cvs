@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2001-11-10 07:30GMT\n"
-"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"PO-Revision-Date: 2001-11-18 08:30GMT\n"
+"Last-Translator: Fred Saalbach\n"
 "Language-Team: Deutch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,7 +15,6 @@ msgstr ""
 "X-Generator: KBabel 0.9.5\n"
 
 #: index.docbook:51
-#, fuzzy
 msgid "Bibletime Installation Guide for Bibletime version 1.1"
 msgstr "Sword Installation Sword"
 
@@ -65,14 +64,12 @@ msgid "You should have received a copy of the GNU General Public License along w
 msgstr "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 
 #: index.docbook:118
-#, fuzzy
 msgid "&bibletime; is an application to aid in study of the Bible."
-msgstr "<title></title>"
+msgstr "&bibletime; ist eine in der Studie der Bibel zu helfende Anwendung."
 
 #: index.docbook:128
-#, fuzzy
 msgid "<keyword>KDE</keyword>"
-msgstr "<application></application>"
+msgstr "<application>KDE</application>"
 
 #: index.docbook:129
 #, fuzzy
@@ -80,21 +77,18 @@ msgid "bibletime"
 msgstr "BibleTime"
 
 #: index.docbook:130
-#, fuzzy
 msgid "Bibletime"
-msgstr "Sword"
+msgstr "Bibletime"
 
 #: index.docbook:131
-#, fuzzy
 msgid "sword"
-msgstr "Crosswire"
+msgstr "Sword"
 
 #: index.docbook:132
-#, fuzzy
 msgid "crosswire"
-msgstr "Hilfedialog"
+msgstr "crosswire"
 
 #: index.docbook:133
 msgid "help dialog"
-msgstr ""
+msgstr "Hilfedialog"
 

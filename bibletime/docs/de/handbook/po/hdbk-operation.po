@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2001-11-10 07:23GMT\n"
-"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"PO-Revision-Date: 2001-11-18 08:26GMT\n"
+"Last-Translator: Fred Saalbach\n"
 "Language-Team: Deutch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,535 +16,643 @@ msgstr ""
 
 #: index.docbook:1
 msgid "Program Operation"
-msgstr ""
+msgstr "Programm"
 
 #: index.docbook:2
 #, fuzzy
 msgid "Bibletime is mainly operated from the Module Tree (this tree is called the \"Main Index\"). The second important place to work with Bibletime is the MDI area (MDI = Multiple Document Interface)."
-msgstr "Sword Sword."
+msgstr "BibleTime wird hauptsächlich mit dem Modulbaum bedient (dieser wird \"Hauptgruppe\" genannt). Der zweite wichtige Ort zum Arbeiten in BibleTime ist der MDI Bereich (MDI = Multiple Document Interface)."
 
 #: index.docbook:7
+#, fuzzy
 msgid "Main Index"
-msgstr ""
+msgstr "Hauptgruppe"
 
 #: index.docbook:8
 #, fuzzy
 msgid "This is the pane on the left side of the Bibletime window. It contains the tree of installed documents (Sword Modules), as well as any bookmarks you enter."
-msgstr "Sword."
+msgstr "Dies ist der Bereich auf der linken Seite des BibleTime Fensters. Er enthält den Baum der installierten Dokumente (Sword Module) und alle von Ihnen angelegten Lesezeichen."
 
 #: index.docbook:12
+#, fuzzy
 msgid "Module Tree"
-msgstr ""
+msgstr "Modulbaum"
 
 #: index.docbook:22
+#, fuzzy
 msgid "Selecting a document to view"
-msgstr ""
+msgstr "Ein Modul zum Anschauen auswählen"
 
 #: index.docbook:24
 #, fuzzy
 msgid "To select a document, simply click on the desired document group (Bibles, Commentaries, or Lexicons) to display the contents of a document group, click on the icon for the desired group. To open a document, click on it's icon. To open another instance of the same document, right-click on the mouse and choose, \"New Presenter\"."
-msgstr "Bibeln Kommentare Lexika."
+msgstr "Wenn Sie Dokument auswählen wolllen, klicken Sie einfach auf die gewünschte Dokumentengruppe (Bibeln, Kommentare oder Lexika) um den Inhalt der Dokumentengruppe anzuzeigen. Um ein Dokument zu öffnen klicken Sie auf dessen Symbol. Um das Dokument noch einmal zu öffnen klicken Sie erneut auf das Symbol."
 
 #: index.docbook:30
+#, fuzzy
 msgid "Document Selection"
-msgstr ""
+msgstr "Auswahl eines Dokumentes"
 
 #: index.docbook:38 index.docbook:77 index.docbook:295
+#, fuzzy
 msgid "Drag &amp; Drop Works Here"
-msgstr ""
+msgstr "Hier funktioniert Drag&amp;Drop"
 
 #: index.docbook:39
 #, fuzzy
 msgid "A document can be opened from an already opened document. Simply click on the verse number (pointer changes to hand) and drag it to the module list. Drop it on the name of the module you want to open, and it will open that module to the verse you dragged over. If you drag a verse number to an already open module, it will automatically jump that module to the verse dragged over. This works for Bibles and Commentaries only."
-msgstr "Bibeln Kommentare."
+msgstr "Ein Dokument kann aus einem bereits geöffneten Dokument heraus geöffnet werden. Klicken Sie einfach auf eine Versnummer (Mauscursor ändert sich zu einer Hand) und ziehen Sie sie zu der Modulliste. Lassen Sie sie hier auf dem Namen des von Ihnen gewünschten Modules fallen und dieses Modul wird an der Stelle der Versnummer geöffnet. Wenn Sie eine Versnummer auf ein bereits geöffnetes Modul ziehen, wird dieses automatisch die gewünschte Stelle anzeigen. Dies funktioniert nur für Bibeln und Kommentare."
 
 #: index.docbook:46
 #, fuzzy
 msgid "There are two other functions accessible through right-clicking on the document name. \"Show info\" opens a window with information about copyright and other pertinent things about the selected document. \"Set unlock key\" opens a small dialog for encrypted documents. This allows those with the key to enter it to decrypt the document and make it human-readable. Crosswire Bible Society must encrypt modules unless either the copyright holder provides permission for distribution as a sword module, or the text has passed into the public domane (copyright has expired). <ulink url=\"http://www.crosswire.org\">See information on locked modules on the crosswire web site.</ulink>"
-msgstr "Bibel Crosswirehttp://www.crosswire.org Hilfedialog</ulink>"
+msgstr "Es gibt zwei weitere Funktionen, die durch Rechts-Klick auf den Modulnamen verfügbar sind. \"Zeige Information\" öffnet ein Fenster mit Informationen über Copyright und anderen sachdienlichen Hinweise zum gewählten Dokument. \"Entschlüssele Modul\" öffnet einen kleinen Dialog für verschlüsselte Module. Dies erlaubt denjenigen, die den Schlüssel haben, diesen einzugeben und das Dokument so für Menschen lesbar zu machen. Die Crosswire Bibelgesellschaft muss Module verschlüsseln, es sei denn der Besitzer des Copyrights gibt die Erlaubnis zur Verbreitung als Swordmodul oder der Text ist in öffentlichen Besitz übergegangen (das Copyright ist abgelaufen). <ulink url=\"http://www.crosswire.org\">Für Informationen zu den verschlüsselten Module sehen Sie bitte auf der Crosswire Webseite nach.</ulink>"
 
 #: index.docbook:57
+#, fuzzy
 msgid "Accessing the search dialog"
-msgstr ""
+msgstr "Auf den Suchdialog zugreifen"
 
 #: index.docbook:58
+#, fuzzy
 msgid "You can search in a module by right-clicking on the module name in the module list and selecting \"Search in module(s)\". By shift-clicking on other module names you can select more than one. Then follow the same procedure to open the search dialog. You will be searching in all of these documents. A complete description of the operation of the search features can be found."
-msgstr ""
+msgstr "Sie können in einem Modul suchen, indem Sie mit der rechten Maustaste auf den Modulnamen in der Liste der Module klicken und \"Suche in Modul(en)...\" auswählen. Durch gleichzeitiges drücken der SHIFT Taste und klicken auf andere Modulnamen können Sie mehr als eines auswählen. Folgen Sie der gleichen Prozedur um diese zu durchsuchen."
 
 #: index.docbook:65 index.docbook:89
+#, fuzzy
 msgid "Bookmark Selection"
-msgstr ""
+msgstr "Auswahl von Lesezeichen"
 
 #: index.docbook:76
+#, fuzzy
 msgid "Accessing bookmark functions"
-msgstr ""
+msgstr "Auf Lesezeichen zugreifen"
 
 #: index.docbook:77
 #, fuzzy
 msgid "Right-click on an empty part of the module tree window and select \"Create new group\" to create a new bookmark folder. You can use normal drag 'n' drop functions to drag verse numbers from search dialog results to the bookmark folder, and to rearrange bookmarks between folders. There is an import/export function for bookmarks also. From the right-mouse-button menu, select \"Export bookmarks\". This will bring up a dialog box for you to save the bookmark collection. They can be shared with other Bibletime users, archived, etc. They can be imported in the same way. You can also right-click to change folder names and bookmark descriptions (to be implemented later), and delete folders and bookmarks."
-msgstr "Sword."
+msgstr "Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Hauptgruppe und wählen Sie \"Erzeuge neuen Ordner\" um einen neuen Ordner anzulegen. Sie können normale Drag&amp;Drop Funktionen benutzen, um Verse aus den Suchdialogsergebnissen in den Lesezeichen Ordner zu ziehen und um Lesezeichen zwischen Ordnern neu auszurichten. Es gibt auch eine Import/Export Funktion für Lesezeichen. Wählen Sie \"Exportiere Lesezeichen\" im Menü der rechten Maustaste. Dies wird eine Dialogbox öffnen, in der Sie die Lesezeichen speichern können. Sie können mit anderen Benutzern von BibleTime ausgetauscht werden, archiviert werden usw. Sie können in der gleichen Art und Weise importiert werden. Sie können auch rechts-klicken um Ordnernamen und Beschreibungen von Lesezeichen zu ändern, und um Lesezeichen und Gruppen zu entfernen."
 
 #: index.docbook:100
+#, fuzzy
 msgid "Multiple Document Interface (MDI) Window"
-msgstr ""
+msgstr "Multiple Document Interface (MDI) Fenster"
 
 #: index.docbook:101
 #, fuzzy
 msgid "This is where the opened documents are displayed. documents are displayed in \"Document Windows\", that are specific to the three types of documents. (Crosswire Bible Society may release other document types for sword in the future. When they are released, Bibletime will support them as well."
-msgstr "Bibel Crosswire Sword."
+msgstr "Dies ist der Bereich, in dem die geöffneten Dokumente angezeigt werden. Dokumente werden in \"Dokumentenfenstern\" angezeigt, diese sind spezifisch zu den drei Typen von Dokumenten. (Die Crosswire Bibelgesellschaft kann in Zukunft andere Dokumententypen veröffentlichen. Sobald Sie veröffentlicht werden, wird BibleTime sie genauso unterstützen.)"
 
 #: index.docbook:107
+#, fuzzy
 msgid "Controlling open Documents"
-msgstr ""
+msgstr "Kontrolle geöffneter Fenster"
 
 #: index.docbook:108
+#, fuzzy
 msgid "Document Windows can be controlled and manipulated with normal KDE window/title bar functions. In addition to this, you can tile and cascade open Document Windows. Use the appropriate tool bar buttons, or menu functions under \"Window\" in the main menu bar. Document Windows can be set to automatically cascade or tile also."
-msgstr ""
+msgstr "Dokumentenfenster können mit Hilfe von üblichen KDE Fenster/Titelzeilen Funktionen kontrolliert und verändert werden. Als Erweiterung zu diesen können Sie geöffnete Dokumentenfenster kacheln und stapeln. Benutzen Sie die entsprechenden Knöpfe in der Werkzeugleiste oder die Menüfunktionen im \"Fenster\" Untermenü der Menüleiste."
 
 #: index.docbook:116
+#, fuzzy
 msgid "Navigating in open documents"
-msgstr ""
+msgstr "In geöffneten Fenstern navigieren"
 
 #: index.docbook:117
+#, fuzzy
 msgid "Navigation within a document is accomplished with the Document Key Control Menu, and the scroll bar."
-msgstr ""
+msgstr "Die Navigation innerhalb eines Dokumentes ist durch das Schlüssel-Kontrollmenü und durch eine Scrollleiste verwirklicht."
 
 #: index.docbook:121
+#, fuzzy
 msgid "To move to a specific location use the Document Key Control."
-msgstr ""
+msgstr "Um zu einer bestimmter Stelle zu springen benutzen Sie die Schlüsselkontrolle."
 
 #: index.docbook:122
+#, fuzzy
 msgid "To move within a section of a document use the scroll bar."
-msgstr ""
+msgstr "Um sich in dem Bereich des Dokumentes zu bewegen benutzen Sie die Scrollleiste."
 
 #: index.docbook:123
 #, fuzzy
 msgid "For Bible texts the index key is <emphasis>Book - Chapter - Verse</emphasis>"
-msgstr "Bibel<emphasis></emphasis>"
+msgstr "Für Bibeltexte ist die Indexreihenfolge <emphasis>Buch - Kapitel - Vers</emphasis>"
 
 #: index.docbook:124
+#, fuzzy
 msgid "For commentaries the index key is <emphasis>Book - Chapter - Verse</emphasis>"
-msgstr ""
+msgstr "Für Kommentare ist die Indexreihenfolge <emphasis>Buch - Kapitel - Vers</emphasis>"
 
 #: index.docbook:125
+#, fuzzy
 msgid "For lexicons the index key is <emphasis>Keyword</emphasis>"
-msgstr ""
+msgstr "Für Lexika ist der Index <emphasis>Schlüsselwort</emphasis>"
 
 #: index.docbook:126
+#, fuzzy
 msgid "Drag &amp; Drop Works Here; if you drag a verse from one open document or a bookmark and drop it on another the second document will jump from it's current location to the location of the verse or bookmark dragged."
-msgstr ""
+msgstr "Drag&amp;Drop funktioniert hier; Wenn Sie einen Vers eines geöffneten Fensters oder ein Lesezeichen ziehen und auf einem anderen Dokumentenfenster fallen lassen, wird dieses von der aktuell angezeigten Stelle zur Stelle des Verses oder des Lesezeichens springen."
 
 #: index.docbook:131
+#, fuzzy
 msgid "Editing your own commentary"
-msgstr ""
+msgstr "Bearbeiten Sie ihren eigenen Kommentar"
 
 #: index.docbook:132
+#, fuzzy
 msgid "The tool bar of commentary presenters has another button, with the picture of a pencil.<mediaobject> <imageobject> <imagedata fileref=\"hdbk-op-pencil.png\"/> </imageobject> </mediaobject> For the \"Personal\" commentary module, click that button to be able to enter your own notes into the Personal commentary, or to edit notes you've already entered. When you're done, click on the \"Save\" (disk) button to save your notes. To delete notes for a selected verse, click the button with the trash can. You can also set the endpoint of your notes, if for example you want to use the same notes to comment on a range of verses. Click the \"Edit\" button again to return to normal commentary browsing mode."
-msgstr ""
+msgstr "Die Werkzeugleiste des Kommentarfensters hat einen weiteren Knopf mit dem Symbol eines Bleistiftes. <mediaobject> <imageobject> <imagedata fileref=\"comon/hdbk-op-pencil.png\"/> </imageobject> </mediaobject> Für das \"Persönliche\" Kommentar Modul klicken Sie diesen Knopf um es möglich zu machen eigene Notizen in den Persönlichen Kommentar einzugeben oder um bereits vorhandene zu bearbeiten. Wenn Sie fertig sind, klicken Sie auf den Knopf \"Speichern\" (die Diskette) um ihre Anmerkungen zu sichern. Um die Notizen für einen bestimmten Vers zu löschen klicken Sie auf den Knopf mit der Mülltonne. Klicken Sie erneut den \"Bearbeiten\" Knopf um in den Nur-Lesen Modus zurückzukehren."
 
 #: index.docbook:146
 #, fuzzy
 msgid "The personal commentary is a sword module. If you do not find it in the main index, get it from Crosswire Bible Society."
-msgstr "Crosswire Bibel."
+msgstr "Der persönliche Kommentar ist ein Sword Modul. Falls Sie ihn nicht in der Hauptgruppe finden, können Sie ihn bei der Crosswire Bibelgesellschaft bekommen."
 
 #: index.docbook:148
+#, fuzzy
 msgid "If you can not write to the personal commentary your permissions for the personal commentary module are wrong. Reset the permissions to allow your user to write to it."
-msgstr ""
+msgstr "Falls Sie nicht in das Modul Persönlicher Kommentar schreiben können, sind die Zugriffsrechte für den persönlichen Kommentar falsch. Setzen Sie die Zugrigffsrechte zurück, um ihrem Benutzer zu erlauben hinein zu schreiben."
 
 #: index.docbook:151
 #, fuzzy
 msgid "Drag &amp; Drop Works Here, just like other commentaries and Bible texts."
-msgstr "&amp; Bibel."
+msgstr "Hier funktioniert Drag&amp;Drop, wie bei anderen Kommentaren und Bibeltexten."
 
 #: index.docbook:156
+#, fuzzy
 msgid "Searching in Documents"
-msgstr ""
+msgstr "In Dokumenten suchen"
 
 #: index.docbook:157
+#, fuzzy
 msgid "Portions instructions for Searching Documents is taken from the help files for the MS Windows (R) version of Sword"
-msgstr ""
+msgstr "Teile der Einführung zum Suchen in Dokumenten wurde aus den Hilfedateien der MS Windows (R) Version von Sword entnommen."
 
 #: index.docbook:160
+#, fuzzy
 msgid "Accessing search functions"
-msgstr ""
+msgstr "Zugriff auf Suchfunktionen"
 
 #: index.docbook:161
+#, fuzzy
 msgid "You can search in a document by right-clicking on the document name in the Main Index and selecting \"Search in module(s)\". By shift- or ctrl-clicking on other module names you can select more than one. Then follow the same procedure to open the search dialog. You will be searching in all of these Documents."
-msgstr ""
+msgstr "Sie können in einem Dokument suchen indem Sie mit der rechten Maustaste auf den Dokumentennamen innerhalb der Hauptgruppe klicken und dann \"Suche in Modul(en)\" auswählen. Durch SHIFT- oder STRG-Klicken auf andere Modulenamen können Sie mehr als eines auswählen. Gehen Sie genauso vor um den Suchdialog zu öffnen. Sie suchen dann in jedem dieser Dokumente."
 
 #: index.docbook:168
+#, fuzzy
 msgid "Using the Search dialog"
-msgstr ""
+msgstr "Benutzung des Suchdialoges"
 
 #: index.docbook:170
+#, fuzzy
 msgid "Using the Search Text Tab"
-msgstr ""
+msgstr "Den \"Text\" Tabulator benutzen"
 
 #: index.docbook:171
+#, fuzzy
 msgid "Search Text - In this pane enter the text string to be searched for, and set search properties. \"Regular Expression\" uses standard regexp syntax to refine the search."
-msgstr ""
+msgstr "Suche Text - In diesem Teil geben Sie den zu suchenden Text ein und Sie setzen Sucheinstellungen. \"Reguläre Ausdrücke\" benutzen standardmäßigen RegExp Syntax um die Suche zu verfeinern."
 
 #: index.docbook:176
+#, fuzzy
 msgid "Using the Search Text Input Field"
-msgstr ""
+msgstr "Benutzung des Text Eingabefeldes"
 
 #: index.docbook:177
+#, fuzzy
 msgid "Enter one or more words, or partial words, (separate words, or partials, with a space), a phrase, or pattern (Regular Expression) to search for. How the data entered in the Input Field is used will depend on which button is marked for Mult, Phrase and Regular Expression, and also if Case Sensitive is marked."
-msgstr ""
+msgstr "Geben Sie ein oder mehrere Wörter, einen Teil eines Wortes (Trennen Sie Wörter oder Wortteile durch Leerzeichen), einen Satz oder ein Muster (Regulärer Ausdruck) ein, nach dem gesucht werden soll. Wie der im Eingabebereich eingegebene Text interpretiert wird, hängt davon ab welcher Knopf (Mehrere Wörter, Satz oder Regulärer Ausdruck) ausgewählt wurde, auch ob Unterscheidung für GROSS/klein ausgewählt wurde."
 
 #: index.docbook:184
+#, fuzzy
 msgid "Drag &amp; Drop Works Here, you can drop verses and bookmarks into the text entry box. You can also copy and paste text into the entry box."
-msgstr ""
+msgstr "Hier funktioniert Drag&amp;Drop, Sie können Verse und Lesezeichen in die Text-Eingabebox ziehen. Sie können Text in die Zwischenablage kopieren und in die Eingabezeile einfügen."
 
 #: index.docbook:188
+#, fuzzy
 msgid "Using the Search Text Case Sensitive Button"
-msgstr ""
+msgstr "Benutzung des Knopfes für GROSS/klein Unterscheidung"
 
 #: index.docbook:189
 msgid "Click on the <guibutton>Case Sensitive</guibutton> check box to toggle case sensitivity on or off. If the box is marked a search will only find verse in which the found text also matches the case of the text in the input field. If the box is unmarked the search will match if the texts match but are different in case. To locate &quot;LORD&quot; but not &quot;Lord&quot; or &quot;lord&quot; mark the check box. To let &quot;LORD&quot; and &quot;Lord&quot; match &quot;lord&quot; leave the check box unmarked."
-msgstr ""
+msgstr "Klicken Sie auf die Auswahlbox <guibutton>GROSS/klein</guibutton> um die Unterscheidung zwischen GROSS und klein an- oder abzuschalten. Wenn die Box ausgewählt ist, werden nur die Verse gefunden, in denen der gefundene Text den Text der Eingabezeile enthält. Wenn die Box nicht ausgewählt wurde, wird die Suche etwas finden, wenn der Text ohne Beachtung von Groß- oder Kleinschreibung stimmt. Um &quot;HERR&quot; aber nicht um &quot;Herr&quot; oder &quot;herr&quot; zu finden wählen Sie die Box aus. Um &quot;HERR&quot;, &quot;Herr&quot; und &quot;herr&quot; zu finden lassen Sie die Box unausgewählt."
 
 #: index.docbook:201
+#, fuzzy
 msgid "Using the Search Text Mult Word Button"
-msgstr ""
+msgstr "Benutzung der Auswahlbox \"Mehrere Wörter\""
 
 #: index.docbook:202
+#, fuzzy
 msgid "If <guibutton>Mult Word</guibutton> is marked the search will locate all lines (or verses) that have all the words, (or partials), listed in the Input Field. The position and order of the words, (or partials), in the line is not a factor. If all the words, (or partials), are in a line, in any order, even separated by other words, the line will be included in the list of found line. A search for &quot;prove cause&quot; will find Gen. 21:25, &quot;And Abraham re<emphasis>prove</emphasis>d Abimelech be <emphasis>cause</emphasis> of a well of water...&quot; This is because a word that is part of another word is considered found if a word containing it is found."
-msgstr ""
+msgstr "Wenn der Knopf <guibutton>Mehrere Wörter</guibutton> ausgewählt ist, wird die Suche alle Zeilen (oder Verse) finden, die alle Wörter (oder Teile), die in der Eingabezeile stehen, enthalten. Die Position und Reihenfolge der Wörter in der Zeile ist nicht von Bedeutung. Wenn alle (egal in welcher Reihenfolge) Wörter im Text vorkommen, wird der Text in der Liste der gefundenen Einträge aufgelistet werden. Die Wörter dürfen sogar durch andere getrennt sein. Eine Suche nach &quot;Brunnen&quot; und &quot;Knecht;&quot; wird 1. Mose 21,25 finden, &quot; Und Abraham setzte Abimelech zur Rede um des Wasser<emphasis>brunnen</emphasis>s willen, den Abimelechs <emphasis>Knecht</emphasis>e hatten mit Gewalt genommen. &quot; Dies ist deshalb so, da ein Wort, welches Teil eines anderen ist, als gefunden gilt, wenn es in einem anderen Wort enthalten ist."
 
 #: index.docbook:216
+#, fuzzy
 msgid "Using the Exact Search"
-msgstr ""
+msgstr "Benutzung der Auswahlbox &quot;Genaue Suche&quot;"
 
 #: index.docbook:217
+#, fuzzy
 msgid "If <guibutton>Exact Search</guibutton> is marked the search will locate all lines (or verses) that contain what was entered in the input field, exactly as entered, including any spaces. The phrase found does not have to start or end at a word boundary. A search for &quot;now how thou ought&quot; will find 1 Timothy 3:1, &quot;...that thou mayest k<emphasis>now how thou ought</emphasis>est to behave...&quot;"
-msgstr ""
+msgstr "Wenn <guibutton>Genaue Suche</guibutton> ausgewählt wurde, wird die Suche alle Zeilen (oder Verse) finden, die genau den in der Eingabezeile eingegebenen Text unter Einbezug der Leerzeichen enthalten. Der gesuchte Satz muss nicht an einer Wortgrenze starten. Eine Suche nach &quot;amt begehrt&quot; wird 1. Thimotheus 3:1 finden: &quot;Das ist gewißlich wahr: So jemand ein Bischofs<emphasis>amt begehrt</emphasis>, der begehrt ein köstlich Werk.&quot;"
 
 #: index.docbook:226
+#, fuzzy
 msgid "Using the Search Text Button"
-msgstr ""
+msgstr "Benutzung des Knopfes &quot;Suche Text&quot;"
 
 #: index.docbook:227
+#, fuzzy
 msgid "Click the <guibutton>Search Button</guibutton> to start the search."
-msgstr ""
+msgstr "Klicken Sie den Knopf <guibutton>Suchen</guibutton> um die Suche zu starten."
 
 #: index.docbook:230
+#, fuzzy
 msgid "Search Text Dialog Box"
-msgstr ""
+msgstr "Dialogbox Textsuche"
 
 #: index.docbook:240
+#, fuzzy
 msgid "Search Scope Options"
-msgstr ""
+msgstr "Suchbereichs Optionen"
 
 #: index.docbook:241
 msgid "Define the Scope of your search in the Search Scope Pane"
-msgstr ""
+msgstr "Definieren Sie den Bereich Ihrer Suche in der Suchbereichscheibe"
 
 #: index.docbook:243
+#, fuzzy
 msgid "<guibutton>No Scope</guibutton> this turns off the search scope tab. The entire document is searched."
-msgstr ""
+msgstr "<guibutton>Kein Suchbereich</guibutton> Dies schaltet den Suchbereichsdialog ab. Das gesamte Dokument wird durchsucht."
 
 #: index.docbook:243
+#, fuzzy
 msgid "<guibutton>Last Result</guibutton> The new search will only search within the verses found in the previous search."
-msgstr ""
+msgstr "<guibutton>Letztes Suchergebnis</guibutton> Die neue Suche wird nur in den während der letzten Suche gefundenen Versen suchen."
 
 #: index.docbook:243
+#, fuzzy
 msgid "<guibutton>Use Scope</guibutton> The new search will be performed within the range specified in the maintain custom ranges portion of the search scope tab."
-msgstr ""
+msgstr "<guibutton>Benutze Suchbereiche</guibutton> Die neue Suche wird innerhalb des Bereichs durchgeführt, der in dem Verwaltungsdialog für Suchbereiche angegeben wurde."
 
 #: index.docbook:253
 #, fuzzy
 msgid "If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible module is done for the name, Jesus, 939 matches will result. Then if <guibutton>Last Result</guibutton>is checked and another search is done for the title, Christ, 257 matches from the first 939 matches will remain. Then if<guibutton>Last Result</guibutton> remains checked and another search is done for the title, Lord, 106 matches from the 257 will remain. All the remaining 106 matches will have the name, Jesus, and both the titles, Christ and Lord."
-msgstr "<guibutton></guibutton> Bibel<guibutton></guibutton><guibutton></guibutton>."
+msgstr "Wenn <guibutton>Kein Suchbereich</guibutton> ausgewählt wurde und das KJV Modul durchsucht wird, wird der Name Jesus 939 mal gefunden werden. Wenn dann <guibutton>Letztes Suchergebnis</guibutton> ausgewählt wird und nach dem Titel Christ gesucht wird, bleiben 257 von den 939 Treffern übrig. Wenn <guibutton>Letztes Suchergebnis</guibutton> ausgewählt bleibt und eine weitere Suche nach dem Titel Lord durchgeführt wird, bleiben 106 von den 257 Treffern übrig. Alle der verbleibenden 106 Treffern enthalten den Namen Jesus und die Titel Christ und Lord."
 
 #: index.docbook:262
+#, fuzzy
 msgid "Edit Custom Ranges"
-msgstr ""
+msgstr "Verwaltung eigener Suchbereiche"
 
 #: index.docbook:263
+#, fuzzy
 msgid "Edit Custom Ranges - For each document selected to be searched, you can enter and delete lower and upper boundaries. Then click <guibutton>Add </guibutton> and an entry box for the range name will pop up. After entering the name, your range is added to the list of custom ranges."
-msgstr ""
+msgstr "Verwalten Sie eigene Suchbereiche - Zu jedem für die Suche ausgewählte Dokument können Sie obere und untere Grenzen eingeben und löschen. Klicken Sie dann auf <guibutton>Hinzufügen</guibutton> und eine Box für den Bereichsnamen wird geöffnet. Nach dem Eingeben des Namens, wird ihr Suchbereich zu den eigenen Bereichen hinzugefügt werden."
 
 #: index.docbook:269
+#, fuzzy
 msgid "A number of custom ranges have been provided."
-msgstr ""
+msgstr "Der Bereich einer Suche kann entweder auf <emphasis>Gesamtes Modul</emphasis> oder auf <emphasis>Letztes Suchergebnis</emphasis> gesetzt werden. Wenn <emphasis>Gesamtes Modul</emphasis> ausgewählt wurde und eine Suche im KJV Modul nach dem Namen Jesus durchgeführt wird, werden 939 Treffer angezeigt. Wenn dann <emphasis>Letztes Suchergebnis</emphasis> ausgewählt wurde und eine weitere Suche nach dem Titel Christ durchgeführt wird, verbleiben 257 der ersten 939 Treffer. Wenn <emphasis>Letztes Suchergebnis</emphasis> ausgewählt bleibt und eine weitere Suche nach dem Titel Lord durchgeführt wird, verbleibemn 106 Treffer, die alle den Namen Jesus und die beiden Titel Christ und Lord enthalten."
 
 #: index.docbook:271
 #, fuzzy
 msgid "The scope of a search can be set to the <emphasis>Entire Module</emphasis>or the <emphasis>Current Results. </emphasis>If Entire Module is checked and a search of the KJV Bible module is done for the name, Jesus, 939 matches will result. Then if Current Results is checked and another search is done for the title, Christ, 257 matches from the first 939 matches will remain. Then if Current Results remains checked and another search is done for the title, Lord, 106 matches from the 257 will remain. All the remaining 106 matches will have the name, Jesus, and both the titles, Christ and Lord."
-msgstr "<emphasis></emphasis><emphasis></emphasis> Bibel."
+msgstr "Hier funktioniert Drag&amp;Drop; Sie können Versnummern und Lesezeichen in das Suchbereichs Feld ziehen. Sie könne auch Text in das Eintragsfeld einfügen."
 
 #: index.docbook:282
+#, fuzzy
 msgid "Drag &amp; Drop Works Here; you can drop verse numbers, and bookmarks into the custom range entry field. You can also paste text into the entry field."
-msgstr ""
+msgstr "Suchbereichs-Dialogbox"
 
 #: index.docbook:288
+#, fuzzy
 msgid "Using the Search Results Tab"
-msgstr ""
+msgstr "Benutzung des Suchergebnis Tabulators"
 
 #: index.docbook:289
+#, fuzzy
 msgid "Search Result - This tells you first, by module, how many instances of the search string were found. Double-clicking on that document will open the list of references. Clicking on a reference opens that verse up in the window below. Drag the reference and drop it on a document in the main index to open the module to that verse in a new presenter"
-msgstr ""
+msgstr "Suchergebnis - Dies zeigt Ihnen - nach Modulen geordnet - wie viele Treffer des gesuchten Textes gefunden wurden. Klicken auf das Dokument wird die Liste der Referenzen öffnen. Das Klicken auf eine Referenz öffnet diese im Fenster darunter. Ziehen Sie die Referenz und lassen Sie diese auf einem Dokument in der Hauptgruppe fallen, um dieses Modul an der gewünschten Stelle zu öffnen."
 
 #: index.docbook:296
+#, fuzzy
 msgid "Select verse numbers and drag them to the main index to create bookmarks."
-msgstr ""
+msgstr "Wählen Sie eine Versnummer und ziehen Sie diese in die Hauptgruppe um Lesezeichen anzulegen,"
 
 #: index.docbook:297
 #, fuzzy
 msgid "Select verse numbers and drop them on an unopened module in the main index to open the module and jump to the verse location (Bibles and commentaries only)."
-msgstr "Bibeln."
+msgstr "Wählen Sie einen Vers aus und ziehen Sie ihn auf ein ungeöffnetes Modul um diese zu öffnen und damit dieses die gewünschte Stelle anzeigt (Nur für Bibeln und Kommentare)."
 
 #: index.docbook:299
 #, fuzzy
 msgid "Select verse numbers and drag them to an open document and the document will jump to the verse location (Bibles and commentaries only)."
-msgstr "Bibeln."
+msgstr "Wählen Sie einen Vers aus und ziehen Sie diesen auf ein geöffnetes Dokument, um das Anzeigefenster an diese Stelle springen zu lassen."
 
 #: index.docbook:302
+#, fuzzy
 msgid "Search Result Dialog Box"
-msgstr ""
+msgstr "Suchergebnis Dialogbox"
 
 #: index.docbook:311
+#, fuzzy
 msgid "Using the Search Analysis Tab"
-msgstr ""
+msgstr "Benutzung des Suchanalyse Teils"
 
 #: index.docbook:312
+#, fuzzy
 msgid "Search Analysis - This gives a graphic analysis of the number of instances the search string was found in each book. It can display results for all documents searched. You have the option of saving the graph as an image file on your hard drive."
-msgstr ""
+msgstr "Suchanalyse - Dies zeigt eine grafische Analyse der Anzahl der Treffer in jedem Buch. Sie kann das Ergebnis aller Dokumente anzeigen. Sie können den Graphen auch als Bild auf Festplatte abspeichern."
 
 #: index.docbook:317
+#, fuzzy
 msgid "Search Analysis Dialog Box"
-msgstr ""
+msgstr "Suchanalyse Dialogbox"
 
 #: index.docbook:329
+#, fuzzy
 msgid "Search Syntax using GCC Regular Expresession"
-msgstr ""
+msgstr "Syntax der Suche bei Benutzung von GCC regulären Ausdrücken"
 
 #: index.docbook:331
+#, fuzzy
 msgid "Regular expression searches provide a way to do simple or complex searches for strings that match a pattern or set of patterns (branches) separated by vertical bars &quot;|&quot;. While a pattern can be built to look for a word or phrase, a simple pattern that consists of a word does not look for only that word but for any place the string of letters that make that word are found. A search for &quot;right&quot; will return verses that contain the word &quot;right&quot;, but also &quot;<emphasis>right</emphasis>eous&quot;, &quot;<emphasis>right</emphasis>eousness&quot;, &quot;un<emphasis>right</emphasis>eous&quot;, &quot;up<emphasis>right</emphasis>&quot; and even &quot;b<emphasis>right</emphasis>&quot;. A search for &quot;hall not&quot; is not a search for &quot;hall&quot; AND &quot;not&quot; but for the string &quot;hall not&quot; with a space between the second &quot;l&quot; and the &quot;n&quot;. The search for &quot;hall not&quot; will find occurrences of &quot;s<emphasis>hall not</emphasis>&quot;."
-msgstr ""
+msgstr "Eine Suche mit regulären Ausdrücken stellt eine Möglichkeit dar, einfache oder komplexe Suchen nach Zeichenketten durchzuführen, die einem Muster oder einer Menge von Mustern (Bereiche) entsprechen. Die einzelnen Muster einer Menge werden durch den horizontalen Strich &quot;|&quot; getrennt. Während es möglich ist, ein Muster zu bauen, dass nach einem Wort oder einem Satz sucht, sucht ein einfaches aus einem einzelnen Wort bestehendes Muster nicht nur nach diesem einen Wort, sondern auch nach jeder Zeichenkette die das gesuchte Wort enthält. Eine Suche nach &quot;gerecht&quot; wird Verse liefern, die das Wort &quot;gerecht&quot; enthalten. Es werden jedoch auch Verse zurückgeliefert, die &quot;<emphasis>Gerecht</emphasis>igkeit&quot;, &quot;Un<emphasis>gerecht</emphasis>igkeit&quot; oder &quot;<emphasis>gerecht</emphasis>er&quot; enthalten. Eine Suche nach &quot;hall not&quot; ist nicht eine Suche nach &quot;hall&quot; UND &quot;not&quot;, sondern nach der Zeichenkette &quot;hall not&quot; mit einem Leerzeichen zwischen dem zweiten &quot;l&quot; und dem &quot;n&quot;. Die Suche nach &quot;hall not&quot; wird Textstellen mit &quot;s<emphasis>hall not</emphasis>&quot; finden."
 
 #: index.docbook:347
+#, fuzzy
 msgid "The power of Regular Expressions is in the patterns (or templates) used to define a search. A pattern consists of ordinary characters and some special characters that are used and interpreted by a set of rules. Special characters include .\\[^*$?+. Ordinary (or simple) characters are any characters that are not special. The backslash, &quot;\\&quot;, is used to convert special characters to ordinary and ordinary characters to special."
-msgstr ""
+msgstr "Die Mächtigkeit der regulären Ausdrücke liegt in den Mustern (oder Vorlagen) die benutzt werden, um die Suche zu definieren. Ein Muster besteht aus normalen Zeichen und einigen besonderen Zeichen, die von einer bestimmten Menge von Regeln interpretiert und benutzt werden. Die besonderen Zeichen enthalten .\\[^*$?+. Normale (oder einfache) Zeichen, sind alle die, die keine besonderen Zeichen sind. Der Backslash, &quot;\\&quot;, wird benutzt um die besonderen Zeichen in normale und normale in besondere Zeichen umzuwandeln."
 
 #: index.docbook:356
+#, fuzzy
 msgid "Example: the pattern &quot;<emphasis>i. love\\.</emphasis>&quot; will find sentences that end with &quot;h<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; or &quot;<emphasis>i</emphasis>n <emphasis>love</emphasis>&quot; or &quot;<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; followed by a period. The first period in &quot;i. love\\.&quot; is a special character that means allow any character in this position. The backslash in &quot;i. love\\.&quot; means that the period following it is not to be considered a special character, but is an ordinary period."
-msgstr ""
+msgstr "Beispiel: Das Muster &quot;<emphasis>i. love\\.</emphasis>&quot; wird Sätze finden, die mit &quot;h<emphasis>i</emphasis>s <emphasis>love</emphasis> oder &quot;<emphasis>i</emphasis>n <emphasis>love</emphasis>&quot; oder &quot;<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; finden, jeweils gefolgt von einem Punkt. Der erste Punkt in &quot;i. love\\.&quot; ist ein Sonderzeichen, dass alle Zeichen an dieser Stelle erlaubt. Der Backslash in &quot;i. love\\.&quot; bedeutet, dass der Punkt danach nicht als besonderes, sondern als normales Zeichen behandelt werden soll"
 
 #: index.docbook:366
+#, fuzzy
 msgid "Rules for GCC Regular Expresession Search Requests"
-msgstr ""
+msgstr "Regeln für Suchabfragen mit GCC regulären Ausdrücken"
 
 #: index.docbook:367
+#, fuzzy
 msgid ". The period matches any character. See <link linkend=\"period\">Details</link>"
-msgstr ""
+msgstr ". Der Punkt passt auf jedes Zeichen. Siehe auch <link linkend=\"period\">Einzelheiten</link>"
 
 #: index.docbook:367
+#, fuzzy
 msgid "* The asterisk matches 0 or more characters of the preceding: set, character or indicated character. See <link linkend=\"asterisk\">Details</link>"
-msgstr ""
+msgstr "* Der Stern findet 0 oder mehr Zeichen des vorhergehenden Sets, des vorhergehenden Zeichens oder des vorhergehenden besonderern Zeichens. Siehe auch <link linkend=\"asterisk\">Einzelheiten</link>"
 
 #: index.docbook:367
+#, fuzzy
 msgid "+ The plus sign matches 1 or more characters of the preceding: set, character or indicated character. See <link linkend=\"plus\">Details</link>"
-msgstr ""
+msgstr "+ Das Pluszeichen findet 1 oder mehr Zeichen des vorhergehenden Sets, des vorhergehenden Zeichens oder des vorhergehenden besonderern Zeichens. Siehe auch <link linkend=\"plus\">Einzelheiten</link>."
 
 #: index.docbook:367
+#, fuzzy
 msgid "? The question mark matches 0 or 1 character of the preceding: set, character or indicated character. See <link linkend=\"question\">Details</link>"
-msgstr ""
+msgstr "? Das Fragezeichen passt auf 0 oder 1 Zeichen des vorhergehenden Sets, Zeichens oder besonderern Zeichens. Siehe auch <link linkend=\"question\">Einzelheiten</link>"
 
 #: index.docbook:367
+#, fuzzy
 msgid "[ ] Square brackets match any one of the characters specified inside [ ]. See <link linkend=\"bracket\">Details</link>"
-msgstr ""
+msgstr "[ ] Eckige Klammern finden ein Zeichens innerhalb der eckigen Klammern [ ]. Siehe auch <link linkend=\"bracket\">Einzelheiten</link>"
 
 #: index.docbook:367
+#, fuzzy
 msgid "^ A caret as the first character inside [ ] means NOT. See <link linkend=\"caret\">Details</link>"
-msgstr ""
+msgstr "^ Ein Hochzeichen als erstes Zeichen innerhalb von [ ] heißt NICHT. Siehe auch <link linkend=\"caret\">Einzelheiten</link>"
 
 #: index.docbook:367
+#, fuzzy
 msgid "^ A caret beginning a pattern anchors the beginning of a line. See <link linkend=\"caret\">Details</link>"
-msgstr ""
+msgstr "^ Ein Hochzeichen als Beginn eines Musters verankert an den Beginn der Zeile. Siehe auch <link linkend=\"caret\">Einzelheiten</link>"
 
 #: index.docbook:367
+#, fuzzy
 msgid "$ A dollar at the end of a pattern anchors the end of a line. See <link linkend=\"dollar\">Details</link>"
-msgstr ""
+msgstr "$ Ein Dollarzeichen am Beginn eines Musters verankert an das Ende einer Zeile. Siehe auch <link linkend=\"dollar\">Einzelheiten</link>"
 
 #: index.docbook:367
+#, fuzzy
 msgid "| A vertical bar means logical OR. See <link linkend=\"bar\">Details</link>"
-msgstr ""
+msgstr "| Ein vertikaler Strich hat die Bedeutung des logischen ODER. Siehe auch <link linkend=\"bar\">Einzelheiten</link>"
 
 #: index.docbook:367
+#, fuzzy
 msgid "( ) Parentheses enclose expressions for grouping. <emphasis>Not supported!</emphasis>"
-msgstr ""
+msgstr "( ) Runde Klammern gruppieren Ausdrücke. <emphasis>Wird nicht unterstützt!</emphasis>"
 
 #: index.docbook:367
+#, fuzzy
 msgid "\\ A backslash can be used prior to any special character to match that character. See <link linkend=\"backslash\">Details</link>"
-msgstr ""
+msgstr "\\ Ein Backslash kann vor jedem besonderem Zeichen benutzt werden, um dieses Zeichen zu finden. Siehe auch <link linkend=\"backslash\">Einzelheiten</link>"
 
 #: index.docbook:367
+#, fuzzy
 msgid "\\ A backslash can be used prior to an ordinary character to make it a special character. See <link linkend=\"backslash\">Details</link>"
-msgstr ""
+msgstr "\\ Ein Backslash kann vor jedem normalen Zeichen benutzt werden um es zu einem besonderen Zeichen zu machen. Siehe auch <link linkend=\"backslash\">Einzelheiten</link>"
 
 #: index.docbook:397
+#, fuzzy
 msgid "The Period ."
-msgstr ""
+msgstr "Der Punkt ."
 
 #: index.docbook:399
+#, fuzzy
 msgid "The Period &quot;.&quot; will match any single character even a space or other non-alphabet character. <emphasis>s.t</emphasis> matches <emphasis>s</emphasis>i<emphasis>t</emphasis>, <emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>, etc., which could be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting, compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</emphasis>o<emphasis>t</emphasis>tish <emphasis>b..t</emphasis> matches <emphasis>b</emphasis>oo<emphasis>t</emphasis>, <emphasis>b</emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </emphasis>and <emphasis>foot tool</emphasis>"
-msgstr ""
+msgstr "Der Punkt &quot;.&quot; steht für jedes einzelne Zeichen, sogar für ein Leerzeichen oder für ein Zeichen, dass nicht im Alphabet vorkommt. <emphasis>s.t</emphasis> findet <emphasis>s</emphasis>i<emphasis>t</emphasis>, <emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>, usw., welche in folgenden Zeichenketten vorkommen können <emphasis>s</emphasis>i<emphasis>t</emphasis>ting, compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</emphasis>o<emphasis>t</emphasis>tish <emphasis>b..t</emphasis> findet <emphasis>b</emphasis>oo<emphasis>t</emphasis>, <emphasis>b</emphasis>oa<emphasis>t</emphasis> und <emphasis>b</emphasis>ea<emphasis>t foot.tool </emphasis>findet <emphasis>foot</emphasis>s<emphasis>tool </emphasis>und <emphasis>foot tool</emphasis>"
 
 #: index.docbook:412
+#, fuzzy
 msgid "The Asterisk *"
-msgstr ""
+msgstr "Das Sternchen *"
 
 #: index.docbook:414
+#, fuzzy
 msgid "The asterisk matches zero or more characters of the preceding: set, character or indicated character. Using a period asterisk combination &quot;.*&quot; after a commonly found pattern can cause the search to take a very long time, making the program seem to freeze. <emphasis>be*n</emphasis> matches<emphasis> beeen, been, ben</emphasis>, and <emphasis>bn</emphasis> which could locate Reu<emphasis>ben</emphasis> and She<emphasis>bn</emphasis>a."
-msgstr ""
+msgstr "Das Sternchen findet null oder mehr Zeichen des vorhergehenden Sets, Zeichens oder besonderen Zeichens. Die Benutzung einer Punkt Sternchen Kombination &quot;.*&quot; nach einem häufig gefundenem Muster kann die Suche sehr lange dauern lassen und das Programm eingefroren wirken lassen. <emphasis>be*n</emphasis> findet<emphasis> beeen, been, ben</emphasis>, und <emphasis>bn</emphasis> was z.B. &quot;Reu<emphasis>ben</emphasis>&quot; und &quot;She<emphasis>bn</emphasis>a&quot; finden könnte."
 
 #: index.docbook:425
+#, fuzzy
 msgid "The Plus Sign +"
-msgstr ""
+msgstr "Das Pluszeichen +"
 
 #: index.docbook:426
+#, fuzzy
 msgid "The Plus Sign matches one or more characters of the preceding: set, character or indicated character. Using a period and plus sign combination &quot;.+&quot; after a commonly found pattern can cause the search to take a very long time, making the program seem to freeze. <emphasis>be+n</emphasis> matches <emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>, but not <emphasis>bn</emphasis>."
-msgstr ""
+msgstr "Das Pluszeichen findet ein oder mehr Zeichen des vorhergehenden Sets, Zeichens oder besonderen Zeichens. Die Benutzung einer Pluszeichen Sternchen Kombination &quot;+*&quot; nach einem häufig gefundenem Muster kann die Suche sehr lange dauern lassen und das Programm eingefroren wirken lassen. &quot;<emphasis>be+n</emphasis>&quot; findet &quot;<emphasis>beeen, been</emphasis>&quot; und &quot;<emphasis>ben</emphasis>&quot;, jedoch nicht &quot;<emphasis>bn</emphasis>&quot;."
 
 #: index.docbook:436
 #, fuzzy
 msgid "The Question Mark ?"
-msgstr "Frage?"
+msgstr "Das Fragezeichen ?"
 
 #: index.docbook:437
 #, fuzzy
 msgid "The Question Mark matches zero or one character of the preceding: set, character or indicated character. <emphasis>be?n</emphasis> matches <emphasis>ben</emphasis> and <emphasis>bn</emphasis> but not <emphasis>been</emphasis>. <emphasis>trees?</emphasis> matches <emphasis>trees</emphasis> or <emphasis>tree</emphasis>."
-msgstr "Frage<emphasis></emphasis><emphasis></emphasis><emphasis></emphasis><emphasis></emphasis><emphasis></emphasis><emphasis></emphasis><emphasis></emphasis>."
+msgstr "Das Fragezeichen findet 0 oder mehr Zeichen des vorhergehenden Sets, Zeichens oder besonderen Zeichens. <emphasis>be?n</emphasis> findet <emphasis>ben</emphasis> und <emphasis>bn</emphasis> jedoch nicht <emphasis>been</emphasis>. <emphasis>trees?</emphasis> findet <emphasis>trees</emphasis> oder <emphasis>tree</emphasis>."
 
 #: index.docbook:445
+#, fuzzy
 msgid "The Square Brackets [ ]"
-msgstr ""
+msgstr "Die eckigen Klammern [ ]"
 
 #: index.docbook:446
+#, fuzzy
 msgid "The Square Brackets enclose a set of characters that can match. The period, asterisk, plus sign and question mark are not special inside the brackets. A minus sign can be used to indicate a range. If you want a caret &quot;^&quot; to be part of the range do not place it first after the left bracket or it will be a special character. To include a &quot;]&quot; in the set make it the first (or second after a special &quot;^&quot;) character in the set. To include a minus sign in the set make it the first (or second after a special &quot;^&quot;) or last character in the set. <emphasis>s[eia]t</emphasis> matches <emphasis>set</emphasis>, <emphasis>sit</emphasis>, and <emphasis>sat</emphasis>, but not <emphasis>s</emphasis>o<emphasis>t</emphasis>. <emphasis>s[eia]+t </emphasis>matches as above but also, <emphasis>seat, seet, siet</emphasis>, etc. <emphasis>[a-d]</emphasis> matches <emphasis>a, b, c,</emphasis> or <emphasis>d</emphasis>. <emphasis>[A-Z]</emphasis> matches any uppercase letter. [.;:?!] matches ., ;, :, ?, or ! but not a comma. [ ]^-] matches ] or ^ or -"
-msgstr ""
+msgstr "Die eckigen Klammern schließen eine Menge von Zeichen ein, die Treffer erzielen können. Die Zeichen Punkt, Sternchen, Pluszeichen und Fragezeichen werden innerhalb der Klammern nicht als besondere Zeichen behandelt. Ein Minuszeichen kann benutzt werden, um einen Bereich anzugeben. Falls Sie möchten, dass ein Hochzeichen &quot;^&quot; Teil des Bereiches wird plazieren Sie es nicht direkt hinter die linke Klammer, oder es wird als besonderes Zeichen behandelt. Um den vertikalen Strich &quot;|&quot; in die Menge aufzunehmen, machen Sie ihn zum ersten Zeichen nach der linken eckigen Klammer (oder zweites nach dem besonderen Zeichen &quot;^&quot;). Um ein Minuszeichen in die Menge aufzunehmen machen Sie es zum ersten Zeichen nach der linken Klammer (oder zweites nach dem besonderen Zeichen &quot;^&quot;) oder auch zum letzten Zeichen der Menge. <emphasis>s[eia]t</emphasis> findet <emphasis>set</emphasis>, <emphasis>sit</emphasis>, und <emphasis>sat</emphasis>, jedoch nicht <emphasis>s</emphasis>o<emphasis>t</emphasis>. <emphasis>s[eia]+t </emphasis>findet so wie oben und<emphasis>seat, seet, siet</emphasis>, usw. <emphasis>[a-d]</emphasis> findet <emphasis>a, b, c,</emphasis> oder <emphasis>d</emphasis>. <emphasis>[A-Z]</emphasis> findet jeden Großbuchstaben. [.;:?!] findet ., ;, :, ?, oder ! jedoch kein Komma. [ ]^-] findet ] oder ^ oder -"
 
 #: index.docbook:467
+#, fuzzy
 msgid "The Caret first in Square Brackets [^xxx"
-msgstr ""
+msgstr "Das Hochzeichen zu Beginn in den eckigen Klammern [^xxx"
 
 #: index.docbook:468
+#, fuzzy
 msgid "If the Caret is the first character after the left bracket it means NOT. <emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc., but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</emphasis>o<emphasis>t</emphasis>."
-msgstr ""
+msgstr "Wenn das Hochzeichen das erste Zeichen nach der linken Klammer ist, hat es die Bedeutung von NICHT. <emphasis>s[^io]t</emphasis> findet <emphasis>set, sat</emphasis>, usw., jedoch nicht <emphasis>s</emphasis>i<emphasis>t</emphasis> und <emphasis>s</emphasis>o<emphasis>t</emphasis>."
 
 #: index.docbook:474
+#, fuzzy
 msgid "The Caret as Start of Line Anchor ^xxx"
-msgstr ""
+msgstr "Das Hochzeichen als Zeilenbeginn Anker ^xxx"
 
 #: index.docbook:475
+#, fuzzy
 msgid "If the Caret is the first character in a pattern it anchors the pattern to the start of a line. Any match must be at the beginning of a line. Because of unfiltered formatting characters in some texts, this feature does not always work, but may if a few periods are placed after the caret to account for the formatting characters. <emphasis>^In the beginning</emphasis> matches lines that start with &quot;<emphasis>In the beginning</emphasis>&quot;. (May need to use: <emphasis>^.....In the beginning</emphasis>)"
-msgstr ""
+msgstr "Wenn das Hochzeichen das erste Zeichen in einem Muster ist, verankert es diese an den Beginn der Zeile. Jeder Treffer muss am Beginn der Zeile liegen. Wegen ungefilterten Formatierungszeichen in einigen Texten funktioniert diese Funktion nicht immer. Sie könnte es jedoch, wenn einige Punkte nach dem Hochzeichen gesetzt werden, um die Formatierungszeichen zu umgehen. <emphasis>^Am Anfang</emphasis> findet Zeilen, die mit &quot;<emphasis>Amfang</emphasis>&quot;. beginnen (Vielleicht müssen Sie &quot;<emphasis>^.....Am Anfang</emphasis>&quot; benutzen)."
 
 #: index.docbook:487
+#, fuzzy
 msgid "The Dollar Sign as End of Line Anchor xxx$"
-msgstr ""
+msgstr "Das Dollarzeichen als Zeilenende Anker xxx$"
 
 #: index.docbook:488
+#, fuzzy
 msgid "If the Dollar Sign is the last character in a pattern it anchors the pattern to the end of a line. Any match must be at the end of a line. Because of unfiltered formatting characters in some texts, this feature does not always work, but may if a few periods are placed before the dollar sign to account for the formatting characters. <emphasis>Amen\\.$</emphasis> matches lines that end with &quot;<emphasis>Amen.</emphasis>&quot; (May need to use Amen\\....$, Amen\\..........$, or even Amen\\....................$)"
-msgstr ""
+msgstr "Wenn das Dollarzeichen das letzte des Musters ist, verankert es das Muster an das Ende der Zeile. Jeder Treffer muss am Ende der Zeile stattfinden. Wegen ungefilterten Formatierungszeichen in einigen Texten funktioniert diese Funktion nicht immer. Sie könnte es jedoch, wenn einige Punkte vor das Dollarzeichen gesetzt werden, um die Formatierungszeichen zu umgehen. <emphasis>Amen\\.$</emphasis> findet Zeilen, die mit &quot;<emphasis>Amen.</emphasis>&quot; enden (Vielleicht müssen Sie &quot;Amen\\....&quot;, &quot;Amen\\..........$&quot;, oder sogar &quot;Amen\\....................$&quot; benutzen)"
 
 #: index.docbook:501
+#, fuzzy
 msgid "The Vertical Bar |"
-msgstr ""
+msgstr "Der senkrechte Strich |"
 
 #: index.docbook:502
+#, fuzzy
 msgid "The Vertical Bar between patterns means OR. <emphasis>John|Peter</emphasis> matches <emphasis>John</emphasis> or <emphasis>Peter. John .*Peter|Peter .*John</emphasis> matches <emphasis>John</emphasis> ... <emphasis>Peter</emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>. (.* slows a search) <emphasis>pain|suffering|sorrow</emphasis> matches <emphasis>pain</emphasis>, or <emphasis>suffering</emphasis>, or <emphasis>sorrow</emphasis>."
-msgstr ""
+msgstr "Der senkrechte Strich zwischen verschiedenen Mustern hat die Bedeutung des logischen ODER. <emphasis>John|Peter</emphasis> findet <emphasis>John</emphasis> oder <emphasis>Peter</emphasis>. &quot;<emphasis>John .*Peter|Peter .*John</emphasis>&quot; findet <emphasis>John</emphasis> ... <emphasis>Peter</emphasis> oder <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>. (.* verlangsamt die Suche) <emphasis>pain|suffering|sorrow</emphasis> findet <emphasis>pain</emphasis>, oder <emphasis>suffering</emphasis>, oder <emphasis>sorrow</emphasis>."
 
 #: index.docbook:512
+#, fuzzy
 msgid "The Parentheses ( )"
-msgstr ""
+msgstr "Die runden Klammern ( )"
 
 #: index.docbook:513
+#, fuzzy
 msgid "The use of Parentheses ( ) is not supported!"
-msgstr ""
+msgstr "Die Benutzung der runden Klammern () wird nicht unterstützt."
 
 #: index.docbook:518
+#, fuzzy
 msgid "The Backslash Prior to a Special Character \\*"
-msgstr ""
+msgstr "Der Backslash vor einem besonderen Zeichen \\*"
 
 #: index.docbook:519
+#, fuzzy
 msgid "The Backslash prior to a special character indicates that the character is not being used in its special meaning, but is just to match itself. <emphasis>amen\\.</emphasis> matches <emphasis>amen.</emphasis> but not <emphasis>amen</emphasis>t and will not locate firm<emphasis>amen</emphasis>t."
-msgstr ""
+msgstr "Der Backslash vor einem besonderen Zeichen bedeutet, dass das Zeichen nicht in seiner besonderen Bedeutung behandelt werden soll, sondern dass es das Zeichen selbst sein soll. &quot;<emphasis>amen\\.</emphasis>&quot; findet &quot;<emphasis>amen.</emphasis>&quot;, jedoch nicht &quot;<emphasis>amen</emphasis>t&quot; und es wird nicht &quot;firm<emphasis>amen</emphasis>t&quot;."
 
 #: index.docbook:526
+#, fuzzy
 msgid "The Backslash Prior to an Ordinary Character \\s"
-msgstr ""
+msgstr "Der Backslash vor einem normalen Zeichen \\s"
 
 #: index.docbook:528
+#, fuzzy
 msgid "The Backslash prior to an ordinary character indicates that the character is not being used to match itself, but has special meaning."
-msgstr ""
+msgstr "Der Backslash vor einem normalen Zeichen bedeutet, dass dieses statt der normalen Bedeutung eine besondere haben soll."
 
 #: index.docbook:532
+#, fuzzy
 msgid "\\b if use outside [ ] means word boundary. If used inside [ ] means backspace. <emphasis>\\brighteous\\b</emphasis> matches <emphasis>righteous</emphasis> but not un<emphasis>righteous</emphasis> or <emphasis>righteous</emphasis>ness"
-msgstr ""
+msgstr "\\b ausßerhalb von [ ] benutzt, bedeutet es Wortgrenze. Innerhalb von [ ] hat die es die Bedeutung des Backspace. <emphasis>\\brighteous\\b</emphasis> findet <emphasis>righteous</emphasis>, aber nicht un<emphasis>righteous</emphasis> oder <emphasis>righteous</emphasis>ness"
 
 #: index.docbook:532
+#, fuzzy
 msgid "\\B means non-word boundary. <emphasis>\\Brighteous\\B</emphasis> matches un<emphasis>righteous</emphasis>ness and un<emphasis>righteous</emphasis>ly but not <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or <emphasis> righteous</emphasis>ness."
-msgstr ""
+msgstr "\\B steht für keine Wortgrenze. <emphasis>\\Brighteous\\B</emphasis> findet un<emphasis>righteous</emphasis>ness und un<emphasis>righteous</emphasis>ly, jedoch nicht <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> oder <emphasis> righteous</emphasis>ness."
 
 #: index.docbook:532
+#, fuzzy
 msgid "\\d means digit; same as [0-9]."
-msgstr ""
+msgstr "\\d steht für Zahlen; das Gleiche wie [0-9]."
 
 #: index.docbook:532
+#, fuzzy
 msgid "\\D means non-digit, same as [^0-9]."
-msgstr ""
+msgstr "\\D steht für nicht-Zahlen; das Gleiche wie [^0-9]."
 
 #: index.docbook:532
+#, fuzzy
 msgid "\\s means space."
-msgstr ""
+msgstr "\\s bedeutet Leerzeichen."
 
 #: index.docbook:532
+#, fuzzy
 msgid "\\S means not a space."
-msgstr ""
+msgstr "\\S steht für nicht-Leerzeichen."
 
 #: index.docbook:532
+#, fuzzy
 msgid "\\w means alphanumeric; same as [a-zA-Z0-9_]."
-msgstr ""
+msgstr "\\w bedeutet alphanumerisch; das Gleiche wie [a-zA-Z0-9_]."
 
 #: index.docbook:532
+#, fuzzy
 msgid "\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
-msgstr ""
+msgstr "\\W bedeutet nicht-alphanumerisch; das Gleiche wie [^a-zA-Z0-9_]."
 
 #: index.docbook:554
+#, fuzzy
 msgid "Output"
-msgstr ""
+msgstr "Ausgabe"
 
 #: index.docbook:555
+#, fuzzy
 msgid "Exporting"
-msgstr ""
+msgstr "Exportieren"
 
 #: index.docbook:556
+#, fuzzy
 msgid "To export text as HTML, text, or to the clipboard from an open document. Do a <mousebutton>right mouse click</mousebutton> in the document, and a drop down menu will appear. Select the desired option, A save text dialog box will appear for you to enter the desired file name."
-msgstr ""
+msgstr "Wie man Text als HTML bzw. Text exportieren oder in die Zwischenablage kopiert. Machen Sie einen <mousebutton>Mausklick mit der rechten Taste</mousebutton> in einem Dokument und ein Menü erscheint. Wählen Sie die gewünschte Aktion aus. Eine Box zum Abspeichern wird erscheinen, in der sie den gewünschten Dateinamen eingeben können."
 
 #: index.docbook:564 index.docbook:581
 #, fuzzy
 msgid "Context Menu Information Later"
-msgstr "Kontext"
+msgstr "Informationen zum Kontextmenü werden hier später hinzugefügt."
 
 #: index.docbook:569
+#, fuzzy
 msgid "Printing"
-msgstr ""
+msgstr "Drucken"
 
 #: index.docbook:570
+#, fuzzy
 msgid "The printing system has been changed, This section is under revusion"
-msgstr ""
+msgstr "Das Drucksystem wurde verändert. Dieser Abschnitt befindet sich in der Überarbeitung."
 
 #: index.docbook:571
 #, fuzzy
 msgid "Printing from Bibletime is rather basic and is intended as a utility. If you are composing a document or presentation containing text from Bibletime documents, we suggest that you use one of the presentation or editing tools on your system. See the instructions on exporting."
-msgstr "Sword Sword."
+msgstr "Drucken innerhalb von BibleTime ist ziemlich rudimentär und ist als Hilfe gedacht. Wenn Sie ein Dokument oder eine Präsentation mit Hilfe von Texten in BibleTime zusammenstellen, so empfehlen wir ihnen eines der Werkzeuge Ihres Systems dafür zu verwenden. Lesen Sie auch die Informationen über das Exportieren."
 
 #: index.docbook:575
+#, fuzzy
 msgid "To print, select an open document, then select <guiicon>print</guiicon>. The print dialog box will appear. You will have the option of sending your selection to the printer, or previewing it with kghostview."
-msgstr ""
+msgstr "Um zu drucken, wählen Sie ein geöffnetes Dokument aus und wählen anschließend <guiicon>Drucken</guiicon> aus. Der Druckerdialog erscheint. Sie haben die Wahl zwischen dem Drucken auf den Drucker oder der Vorschau mit einem Programm wie kghostview."
 

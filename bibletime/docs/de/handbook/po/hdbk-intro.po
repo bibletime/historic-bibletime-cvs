@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2001-11-10 07:23GMT\n"
-"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"PO-Revision-Date: 2001-11-18 08:26GMT\n"
+"Last-Translator: Fred Saalbach\n"
 "Language-Team: Deutch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,7 +15,6 @@ msgstr ""
 "X-Generator: KBabel 0.9.5\n"
 
 #: index.docbook:1
-#, fuzzy
 msgid "Introduction"
 msgstr "Einleitung"
 
@@ -87,7 +86,7 @@ msgstr "Ziemlich viel!"
 #: index.docbook:60
 #, fuzzy
 msgid "We have lots to do. Because we are a very small team of active developers it's very hard to get reasonable results in a short time. If you are interested in helping the Bibletime team, please contact us at <ulink url=\"http://sourceforge.net/pm/?group_id=954\">Sourceforge bibletime home page</ulink>. Information can also be found at <ulink url=\"http://www.bibletime.de\">.</ulink>"
-msgstr "Wir haben viel zu tun. Da wir ein sehr kleines Team von aktiven Entwicklern sind, ist es sehr schwierig vern=FCnftige Ergebnisse in einer kurzen Zeit zu bekommen. Falls Sie daran interessiert sind dem BibleTime Team zu helfen, kontaktieren Sie uns bitte auf der <ulink url=\"http://sourceforge.net/pm/?group_id=954\">SourceForge BibleTime Hompage</ulink>. Informationen können auch auf <ulink url=\"http://www.bibletime.de\"> gefunden werden.</ulink>"
+msgstr "Wir haben viel zu tun. Da wir ein sehr kleines Team von aktiven Entwicklern sind, ist es sehr schwierig vernünftige Ergebnisse in einer kurzen Zeit zu bekommen. Falls Sie daran interessiert sind dem BibleTime Team zu helfen, kontaktieren Sie uns bitte auf der <ulink url=\"http://sourceforge.net/pm/?group_id=954\">SourceForge BibleTime Hompage</ulink>. Informationen können auch auf <ulink url=\"http://www.bibletime.de\"> gefunden werden.</ulink>"
 
 #: index.docbook:67
 #, fuzzy

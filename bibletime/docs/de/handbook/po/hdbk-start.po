@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2001-11-10 07:24GMT\n"
-"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"PO-Revision-Date: 2001-11-18 08:27GMT\n"
+"Last-Translator: Fred Saalbach\n"
 "Language-Team: Deutch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,9 +15,8 @@ msgstr ""
 "X-Generator: KBabel 0.9.5\n"
 
 #: index.docbook:1
-#, fuzzy
 msgid "Starting Bibletime"
-msgstr "BibleTime starten"
+msgstr "Beginnen Bibletime"
 
 #: index.docbook:2
 #, fuzzy
@@ -47,17 +46,17 @@ msgstr "Wenn BibleTime gestartet wird, kann es vorkommen, dass Sie die folgenden
 #: index.docbook:27
 #, fuzzy
 msgid "As Bibletime launches you may see some message screens:"
-msgstr "Sword:"
+msgstr "Bibletime:"
 
 #: index.docbook:29
 #, fuzzy
 msgid "No Modules Installed - This is shown if you have forgotten to install sword modules, or if the sword modules can not be found."
-msgstr "Crosswire Crosswire."
+msgstr "Nein Informationen zu einzelnen Modulen Installierte ist bis Installieren Sword oder der/die Sword."
 
 #: index.docbook:29
 #, fuzzy
 msgid "First Time Startup - This is shown the first time Bibletime is launched."
-msgstr "Sword."
+msgstr "Erster Zeit Start des Programms ist der/die Zeit Bibletime ist."
 
 #: index.docbook:29
 #, fuzzy
@@ -77,10 +76,10 @@ msgstr "Das BibleTime Anwendugsfenster"
 #: index.docbook:60
 #, fuzzy
 msgid "Now the main Bibletime screen will open. It's operation is covered in the next chapter."
-msgstr "Sword."
+msgstr "der/die Bibletime s ist der/die."
 
 #: index.docbook:60
 #, fuzzy
 msgid "The Bibletime Application Window"
-msgstr "Sword"
+msgstr "Bibletime Programm"
 

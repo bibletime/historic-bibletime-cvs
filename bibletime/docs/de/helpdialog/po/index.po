@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2001-11-10 07:27GMT\n"
-"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"PO-Revision-Date: 2001-11-18 08:26GMT\n"
+"Last-Translator: Fred Saalbach\n"
 "Language-Team: Deutch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,9 +15,8 @@ msgstr ""
 "X-Generator: KBabel 0.9.5\n"
 
 #: index.docbook:53
-#, fuzzy
 msgid "The Bibletime Help Dialog"
-msgstr "BibleTime Hilfedialog"
+msgstr "Bibletime"
 
 #: index.docbook:56
 #, fuzzy
@@ -62,12 +61,12 @@ msgstr "You should have received a copy of the GNU General Public License along 
 #: index.docbook:119
 #, fuzzy
 msgid "&bibletime; is an application to aid in study of the Bible."
-msgstr ""
+msgstr "&bibletime; ist eine in der Studie der Bibel zu helfende Anwendung."
 
 #: index.docbook:130
 #, fuzzy
 msgid "<keyword>KDE</keyword>"
-msgstr "<application></application>"
+msgstr "<application>KDE</application>"
 
 #: index.docbook:131
 #, fuzzy
@@ -77,7 +76,7 @@ msgstr "BibleTime"
 #: index.docbook:132
 #, fuzzy
 msgid "Bibletime"
-msgstr "BibleTime"
+msgstr "Bibletime"
 
 #: index.docbook:133
 #, fuzzy
@@ -87,9 +86,10 @@ msgstr "Sword"
 #: index.docbook:134
 #, fuzzy
 msgid "crosswire"
-msgstr "Crosswire"
+msgstr "crosswire"
 
 #: index.docbook:135
+#, fuzzy
 msgid "help dialog"
 msgstr "Hilfedialog"
 

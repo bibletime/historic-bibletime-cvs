@@ -1,48 +1,60 @@
 <html>
 <head>
-<title>Chapter 3. Initialisierung von Hinter verlassen! </title>
+<title>CVS-Zugriff für Entwickler mit SSH</title>
 <link rel="stylesheet" href="common/kde-default.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.40">
 <meta name="keywords" content="BibleTime, Bibletime, Sword, crosswire, Hilfedialog">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <meta name="GENERATOR" content="KDE XSL Stylesheet V1.12 using libxslt">
-<link rel="home" href="index.html" title="Bibletime">
-<link rel="up" href="index.html" title="Bibletime">
-<link rel="previous" href="help-first-time-search.html" title="Chapter 2. Einst Suchdialog ">
-<link rel="next" href="help-module-encrypted.html" title="Chapter 4. Das Modul ist verschlüsselt">
+<link rel="home" href="index.html" title="Sword Installation Sword">
+<link rel="up" href="inst-devl.html" title="Chapter 5. Zugang zum Entwickler-Quellcode">
+<link rel="previous" href="inst-devl.html" title="Chapter 5. Zugang zum Entwickler-Quellcode">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
-<div id="headline" style="position : absolute;                 height : 85px;                 z-index : 100;                 background : transparent;                 text-align : center;   text-transform: smallcaps;                 width : 100%;                 top : 0px;                 left : 0px;                 width : 100%;                 color : #000000;"><h1>Initialisierung von Hinter verlassen! </h1></div>
+<div id="headline" style="position : absolute;                 height : 85px;                 z-index : 100;                 background : transparent;                 text-align : center;   text-transform: smallcaps;                 width : 100%;                 top : 0px;                 left : 0px;                 width : 100%;                 color : #000000;"><h1>CVS-Zugriff für Entwickler mit SSH</h1></div>
 <div id="navbackground" style="position : absolute;   width : 100%;   height : 124px;   background-image : url('common/doctop2.png');   z-index : 5;   left : 0px;   top : 0px;   padding : 0px;">
 <div id="bulb1" style="padding : 0px;   position : absolute;   z-index : 15;   width : 150px;   height : 85px;   top : 0px;   left : 0px;   background : url('common/doctop1.png') repeat;"></div>
 <div id="gradient" style="  position : absolute;   width : 275px;   height : 85px;   z-index : 19px;   top : 0px;   padding : 0px;   left : 150px;   background-image : url('common/doctop1a.png');   background-repeat : no-repeat;   background-color : transparent;   visibility : visible;"></div>
 <div id="bulb-bit" style="position : absolute;   width : 100%;   height : 25px;   top : 85px;   left : 0px;   background-image : url('common/doctop1b.png');   background-repeat : no-repeat;   background-color : transparent;   z-index : 5;"><table width="100%" id="navtable"><tbody><tr>
-<td align="left" class="left"><a accesskey="p" href="help-first-time-search.html">Prev</a></td>
-<td align="center" class="center"> </td>
-<td align="right" class="right"><a accesskey="n" href="help-module-encrypted.html">Next</a></td>
+<td align="left" class="left"><a accesskey="p" href="inst-devl.html">Prev</a></td>
+<td align="center" class="center">Zugang zum Entwickler-Quellcode</td>
+<td align="right" class="right"></td>
 </tr></tbody></table></div>
 </div>
-<div class="chapter">
-<div class="titlepage"><div><h2 class="title">
-<a name="help-initbackend-failed"></a>Chapter 3. Initialisierung von Hinter verlassen! </h2></div></div>
-<p>Die Initialisierung von BibleTime's backend ausgefallen! </p>
-<p>Wenn Sie diese Meldung erhalten, haben Sie einen Programmfehler freilegt, den wir kennen müssen über.</p>
-<p>Senden Sie bitte einen Programmfehler-Report mit etwas Informationen und zeigen Sie uns, wie man das Problem reproduziert. </p>
-<p> Email wir bei <a href="mailto:info@bibletime.de" target="_top">info@bibletime.de!</a>
-</p>
-<p>Vielen Dank für Ihre Hilfe!</p>
+<div class="section">
+<a name="inst-devl-cvs"></a><div class="titlepage"><div><h2 class="title" style="clear: both">
+<a name="inst-devl-cvs"></a>CVS-Zugriff für Entwickler mit SSH</h2></div></div>
+<p>Nur Entwickler des Projektes haben mit dieser Methode Zugriff auf den CVS Baum. SSH1 muss auf ihrem Rechner installiert sein. Ersetzen Sie <i>Modulname</i> und <i>Entwicklername</i> mit den richtigen Werten. Geben Sie Ihr Passwort ein, wenn Sie dazu aufgefordert werden. </p>
+<p>Wie man eine frische Kopie von BibleTime bekommt</p>
+<pre class="screen">
+cd $home/<i>ihr Enwicklungsverzeichnis</i>
+export CVS_RSH=ssh      # Die Aktivierung von ssh ist nur einmal pro Sitzung erforderlich
+cvs -z3 -d:ext:<i>Entwicklernamename</i>@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <i>Modulename</i>
+</pre>
+<p>Wie Sie Ihre Kopie von BibleTime aktualisieren</p>
+<pre class="screen">
+cvs -z5 update -Pd
+</pre>
+<p>Wie Sie Ihre Änderungen in das CVS Repository hochladen</p>
+<pre class="screen">
+cvs -z5 commit -m &quot;<i>Kommentare für diesen Commit</i>&quot;
+</pre>
+<p>Wie Sie neue Dateien hinzufügen, die Sie erzeugt haben</p>
+<pre class="screen">
+cvs -z5 add <i>meine_neue_dateien</i>
+</pre>
 </div>
 <div id="bottom-nav" style="position : relative;                 width : 100%;                 height : 185px;                 left : 0px;   right : 0px;                 top : 0px;   margin-top: 100px;                 background-image : url('common/bottom1.png');                 background-repeat : repeat-x;                 background-color : transparent;   margin-left: 0px;   margin-right: 0px;                 z-index : 25;">
 <img src="common/bottom2.png" align="right" height="59" width="227" alt="KDE Logo"><div id="navtable2" style="width : 100%;   margin-left: 0px;          margin-right: 0px;                      z-index : 15;                  background-color : transparent;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="position: absolute;         top: 70px;         left: 0px;">
 <tr>
-<td width="33%" align="left" valign="top"><a href="help-first-time-search.html">Prev</a></td>
+<td width="33%" align="left" valign="top"><a href="inst-devl.html">Prev</a></td>
 <td width="34%" align="center" valign="top"><a href="index.html">Home</a></td>
-<td width="33%" align="right" valign="top"><a href="help-module-encrypted.html">Next</a></td>
+<td width="33%" align="right" valign="top"></td>
 </tr>
 <tr>
-<td width="33%" align="left">Einst Suchdialog  </td>
-<td width="34%" align="center"><a href="index.html">Up</a></td>
-<td width="33%" align="right"> Das Modul ist verschlüsselt</td>
+<td width="33%" align="left">Zugang zum Entwickler-Quellcode </td>
+<td width="34%" align="center"><a href="inst-devl.html">Up</a></td>
+<td width="33%" align="right"> </td>
 </tr>
 </table></div>
 </div>

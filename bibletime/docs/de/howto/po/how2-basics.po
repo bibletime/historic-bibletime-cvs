@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2001-11-10 07:28GMT\n"
-"Last-Translator: Fred Saalbach <saalbach@sybercom.net>\n"
+"PO-Revision-Date: 2001-11-18 08:27GMT\n"
+"Last-Translator: Fred Saalbach\n"
 "Language-Team: Deutch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,9 +15,8 @@ msgstr ""
 "X-Generator: KBabel 0.9.5\n"
 
 #: index.docbook:1
-#, fuzzy
 msgid "Bible Study Basics"
-msgstr "Bibel Studieren"
+msgstr "Grundlagen des Bibelstudiums"
 
 #: index.docbook:4
 #, fuzzy

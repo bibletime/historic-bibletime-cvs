@@ -6,48 +6,47 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2001-11-13 20:14GMT\n"
-"Last-Translator: \n"
-"Language-Team:  <de@li.org>\n"
+"PO-Revision-Date: 2001-11-18 08:25GMT\n"
+"Last-Translator: Fred Saalbach\n"
+"Language-Team: Deutch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
 #: index.docbook:2
-#, fuzzy
 msgid "The module is encrypted"
-msgstr "Das Modul ist verschlsselt"
+msgstr "Das Modul ist verschlüsselt"
 
 #: index.docbook:3
 #, fuzzy
 msgid "The module you selected is encrypted!"
-msgstr "Das von Ihnen ausgew�lte Modul ist verschlsselt!"
+msgstr "Das von Ihnen ausgewählte Modul ist verschlüsselt!"
 
 #: index.docbook:5
 #, fuzzy
 msgid "This page describes what encryption does mean for you."
-msgstr "Diese Seite beschreibt, was Verschlsselung fr Sie bedeutet."
+msgstr "Diese Seite beschreibt, was Verschlüsselung für Sie bedeutet."
 
 #: index.docbook:10
 #, fuzzy
 msgid "What is an encrypted module?"
-msgstr "Was ist ein verschlsseltes Modul?"
+msgstr "Was ist ein verschlüsseltes Modul?"
 
 #: index.docbook:16
 #, fuzzy
 msgid "An encrypted module (document) is a module which is locked with a key. Only a user that has the right key can unlock the module to read it."
-msgstr "Ein verschlsseltes Modul (Dokument) ist ein Modul, das mit einem Schlssel \"verschlossen\" ist. Nur der Benutzer mit dem passenden Schlssel kann es aufschlie�n und lesen."
+msgstr "Ein verschlüsseltes Modul (Dokument) ist ein Modul, das mit einem Schlüssel \"verschlossen\" ist. Nur der Benutzer mit dem passenden Schlüssel kann es aufschließen und lesen."
 
 #: index.docbook:24
 #, fuzzy
 msgid "How do I unlock a module?"
-msgstr "Wie kann ich ein Modul aufschlie�n?"
+msgstr "Wie kann ich ein Modul aufschließen?"
 
 #: index.docbook:29
 #, fuzzy
 msgid "For normal users it's sadly not possible at this time to use encrypted modules. The problem is that the copyright owners of the modules do not want to release the stuff with SWORD. But If you have a key click with the right mousebutton on the module and select \"Unlock module ...\". A dialog appears, please enter here the key to unlock the encrypted module."
-msgstr "Fr normale Benutzer ist es traurigerweise zu diesem Zeitpunkt nicht mglich verschlsselte Module zu benutzen. Das Problem liegt darin, dass die Copyrightbesitzer der Module das Material nicht mit Sword verffentlichen mchten. Aber falls Sie den passenden Schlssel haben, klicken Sie mit der rechten Maustaste auf das Modul und w�len dann \"Modul aufschlie�n...\". Ein Dialog erscheint: geben Sie hier den Schlssel ein um das verschlsselte Modul aufzuschlie�n."
+msgstr "Für normale Benutzer ist es traurigerweise zu diesem Zeitpunkt nicht möglich verschlüsselte Module zu benutzen. Das Problem liegt darin, dass die Copyrightbesitzer der Module das Material nicht mit Sword veröffentlichen möchten. Aber falls Sie den passenden Schlüssel haben, klicken Sie mit der rechten Maustaste auf das Modul und wählen dann \"Modul aufschließen...\". Ein Dialog erscheint: geben Sie hier den Schlüssel ein um das verschlüsselte Modul aufzuschließen."
 
 #: index.docbook:40
 #, fuzzy
@@ -57,5 +56,5 @@ msgstr "Warum sind Module verschlossen?"
 #: index.docbook:45
 #, fuzzy
 msgid "Modules are locked because the copyright owners of the module do not want to release their texts through the SWORD project. Please contact the copyright owners and ask for the modules to be made available. If you want to pay for it please let them know, this is a thing they like. We know freely available module would be great, so try to get them! You can also visit <ulink url=\"http://www.crosswire.org/sword/copyright/\">Crosswire</ulink> and read the information on the effort to make copyrighted texts available through crosswire. This project needs your support. Thank you very much for your efforts!"
-msgstr "http://www.crosswire.org/sword/copyright/</ulink> Hilfedialog!"
+msgstr "Module sind verschlossen, weil die Copyrightinhaber der Module ihre Texte nicht durch das Sword Projekt veröffentlichen möchten. Bitte kontaktieren Sie die Copyrightinhaber und bitten Sie, die Module verfügbar zu machen. Falls Sie dafür bezahlen möchten, sagen Sie dies; dies ist etwas, die sie mögen. Wir wissen, dass freie Module toll wären; versuchen Sie deshalb diese zu bekommen. Sie können ebenfalls <ulink url=\"http://www.crosswire.org/sword/copyright/\">Crosswire</ulink> besuchen und die Informationen über die Anstrengungen lesen, die unternommen wurden die Texte durch Crosswire zu veröffentlichen. Vielen Dank für Ihre Mühen!"
 
