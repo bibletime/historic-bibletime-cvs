@@ -552,7 +552,7 @@ $KDEHOME/share/apps/bibletime/cache.")),
 	m_settings.swords.lexiconCache->setText(i18n("Use key cache for lexicons"));
 	QToolTip::add(m_settings.swords.lexiconCache, CResMgr::settings::sword::general::cacheKeys::tooltip);
 	QWhatsThis::add(m_settings.swords.lexiconCache, CResMgr::settings::sword::general::cacheKeys::whatsthis);
-		
+
 	m_settings.swords.lexiconCache->setChecked( CBTConfig::get(CBTConfig::lexiconCache) );
  	gridLayout->addMultiCellWidget(m_settings.swords.lexiconCache,1,1,0,-1);
 
@@ -562,10 +562,10 @@ $KDEHOME/share/apps/bibletime/cache.")),
 if you want it to move to the <i>previous</i> verse.")),
 		2,2,0,-1
   );
- 		
+
  	m_settings.swords.useDownArrow = new QCheckBox(currentTab);
  	m_settings.swords.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
- 	m_settings.swords.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));		
+ 	m_settings.swords.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));
  	QToolTip::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::tooltip);
  	QWhatsThis::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::whatsthis);
  	gridLayout->addMultiCellWidget(m_settings.swords.useDownArrow,3,3,0,-1);
@@ -577,22 +577,19 @@ booknames of the bible. You can specify which locale to use. If you want to \
 create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 		4,4,0,-1
   );
-		
+
  	m_settings.swords.localeCombo = new QComboBox(currentTab);
- 	QLabel* label = new QLabel(m_settings.swords.localeCombo, i18n("Language for biblical booknames"), currentTab); 	
+ 	QLabel* label = new QLabel(m_settings.swords.localeCombo, i18n("Language for biblical booknames"), currentTab);
  	QToolTip::add(m_settings.swords.localeCombo, CResMgr::settings::sword::general::language::tooltip);
  	QWhatsThis::add(m_settings.swords.localeCombo, CResMgr::settings::sword::general::language::whatsthis);
  	gridLayout->addWidget(label, 5,0);
  	gridLayout->addWidget(m_settings.swords.localeCombo, 5,1);
 
  	gridLayout->setRowStretch(6,5); //eat up remaining space :)
- 	 	 										
+
  	m_settings.swords.localeCombo->insertItem( i18n("English") );
  	const list<sword::SWBuf> locales = sword::LocaleMgr::systemLocaleMgr.getAvailableLocales();
  	for (list<sword::SWBuf>::const_iterator it = locales.begin(); it != locales.end(); it++) {
-		qWarning(sword::LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getName());
-		qWarning(sword::LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription());
-		qWarning("\n");
  		m_settings.swords.localeCombo->insertItem( i18n(sword::LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription()) );
  	}
 
@@ -931,15 +928,15 @@ void COptionsDialog::saveStartup(){
 void COptionsDialog::saveSword(){
   bool old_lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
   bool new_lexiconCache = m_settings.swords.lexiconCache->isChecked();
-   		
-  CBTConfig::set( CBTConfig::lexiconCache, new_lexiconCache );	
+
+  CBTConfig::set( CBTConfig::lexiconCache, new_lexiconCache );
 
   if (old_lexiconCache && !new_lexiconCache){  //delete cache files
   	QString dirname = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
   	QDir dir = QDir(dirname);
    	QStringList files = QStringList( dir.entryList() );
    	for (QStringList::Iterator it = files.begin(); it != files.end(); ++it)
-   		dir.remove((*it),false);			
+   		dir.remove((*it),false);
   }
 
   CBTConfig::set(CBTConfig::standardBible, m_settings.swords.standardBible->currentText());
@@ -964,7 +961,7 @@ void COptionsDialog::saveSword(){
  		CBTConfig::set(CBTConfig::language, localeName);
 	}
  	else {
- 		CBTConfig::set(CBTConfig::language, "en"); //fall back to english if something went wrong
+ 		CBTConfig::set(CBTConfig::language, currentText);
 	}
 
  	CBTConfig::set(CBTConfig::scroll, m_settings.swords.useDownArrow->isChecked());
@@ -978,7 +975,7 @@ void COptionsDialog::saveSword(){
  	CBTConfig::set(CBTConfig::hebrewPoints, m_settings.swords.hebrewPoints->isChecked());
  	CBTConfig::set(CBTConfig::hebrewCantillation, m_settings.swords.hebrewCantillation->isChecked());
  	CBTConfig::set(CBTConfig::greekAccents, m_settings.swords.greekAccents->isChecked());
- 	CBTConfig::set(CBTConfig::textualVariants, m_settings.swords.textualVariants->isChecked()); 		 	
+ 	CBTConfig::set(CBTConfig::textualVariants, m_settings.swords.textualVariants->isChecked());
 }
 
 /** This slot is called when the "Use own font for language" bo was clicked. */
