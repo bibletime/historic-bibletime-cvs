@@ -50,9 +50,9 @@ const QString CSwordTreeKey::key( const QString& newKey ){
  	return QString::fromLocal8Bit(m_module->module()->KeyText());//don't use fromUtf8
 }
 
-void CSwordVerseKey::key( const char* newKey ){
+void CSwordTreeKey::key( const char* newKey ){
 	if (newKey) {
-		VerseKey::operator = (newKey);
+		TreeKey::operator = (newKey);
 	}
 }
 
