@@ -49,12 +49,11 @@ const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QSt
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
 const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
-  QString text = QString::null;
-
+  
   CSwordVerseKey key(0);
   key = keyName;
 
-  const int currentTestament = key.Testament();
+	const int currentTestament = key.Testament();
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 
@@ -64,7 +63,14 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 	CTextRendering::KeyTree tree;
 	CTextRendering::KeyTreeItem::Settings settings;
 	
-	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse) && !key.Error() ) {
+	for (	key.Verse(1); 
+				(key.Testament() == currentTestament)
+				&& (key.Book() == currentBook)
+				&& (key.Chapter() == currentChapter)
+				&& ok 
+				&& !module->module()->Error(); 
+				ok = (key.next(CSwordVerseKey::UseVerse) && !key.Error()) ) 
+	{
 		settings.highlight = (key.key() == keyName);
 		tree +=  CTextRendering::KeyTreeItem( key.key(), modules, settings );
 	}

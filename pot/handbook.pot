@@ -11,15 +11,17 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: application/x-xml2pot; charset=utf-8\n"
+"Content-Type: application/x-xml2pot; charset=UTF-8\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: index.docbook:1
+#. Tag: title
+#: hdbk-config.docbook:1
 #, no-c-format
 msgid "Configuring &bibletime;"
 msgstr ""
 
-#: index.docbook:3
+#. Tag: para
+#: hdbk-config.docbook:3
 #, no-c-format
 msgid ""
 "The &bibletime; user interface can be customized in many ways depending on "
@@ -30,12 +32,14 @@ msgid ""
 "options dialog."
 msgstr ""
 
-#: index.docbook:10
+#. Tag: title
+#: hdbk-config.docbook:10
 #, no-c-format
 msgid "Configure Toolbars Dialog"
 msgstr ""
 
-#: index.docbook:11
+#. Tag: para
+#: hdbk-config.docbook:11
 #, no-c-format
 msgid ""
 "The Configure Toolbars dialog allows adding and removing actions from the "
@@ -43,70 +47,83 @@ msgid ""
 "also be changed."
 msgstr ""
 
-#: index.docbook:14
+#. Tag: phrase
+#: hdbk-config.docbook:19
 #, no-c-format
 msgid "Toolbar Configuration Dialog"
 msgstr ""
 
-#: index.docbook:14
+#. Tag: para
+#: hdbk-config.docbook:22
 #, no-c-format
 msgid "The Toolbar Configuration dialog."
 msgstr ""
 
-#: index.docbook:27
+#. Tag: title
+#: hdbk-config.docbook:27
 #, no-c-format
 msgid "Preferences - &bibletime; Dialog"
 msgstr ""
 
-#: index.docbook:28
+#. Tag: para
+#: hdbk-config.docbook:28
 #, no-c-format
 msgid ""
 "The preferences dialog allows many &bibletime; and &sword; features to be "
 "customized."
 msgstr ""
 
-#: index.docbook:31
+#. Tag: title
+#: hdbk-config.docbook:31
 #, no-c-format
 msgid "Startup"
 msgstr ""
 
-#: index.docbook:32
+#. Tag: para
+#: hdbk-config.docbook:32
 #, no-c-format
 msgid ""
 "The startup behavior can be customized. Select from the following options:"
 msgstr ""
 
-#: index.docbook:34
+#. Tag: member
+#: hdbk-config.docbook:35
 #, no-c-format
 msgid "Show tip of the day"
 msgstr ""
 
-#: index.docbook:34
+#. Tag: member
+#: hdbk-config.docbook:36
 #, no-c-format
 msgid "Show startup Logo"
 msgstr ""
 
-#: index.docbook:34
+#. Tag: member
+#: hdbk-config.docbook:37
 #, no-c-format
 msgid "Restore windows from the last &bibletime; session"
 msgstr ""
 
-#: index.docbook:39
+#. Tag: phrase
+#: hdbk-config.docbook:44
 #, no-c-format
 msgid "Preferences Dialog"
 msgstr ""
 
-#: index.docbook:39
+#. Tag: para
+#: hdbk-config.docbook:47
 #, no-c-format
 msgid "The Preferences dialog - Startup."
 msgstr ""
 
-#: index.docbook:51
+#. Tag: title
+#: hdbk-config.docbook:51
 #, no-c-format
 msgid "Fonts"
 msgstr ""
 
-#: index.docbook:52
+#. Tag: para
+#: hdbk-config.docbook:52
 #, no-c-format
 msgid ""
 "&bibletime; uses the &kde; general display font. The &kde; general display "
@@ -116,22 +133,26 @@ msgid ""
 "selections to specific languages."
 msgstr ""
 
-#: index.docbook:58
+#. Tag: phrase
+#: hdbk-config.docbook:63
 #, no-c-format
 msgid "Options Dialog - fonts"
 msgstr ""
 
-#: index.docbook:58
+#. Tag: para
+#: hdbk-config.docbook:66
 #, no-c-format
 msgid "The Options dialog - Fonts."
 msgstr ""
 
-#: index.docbook:70
+#. Tag: title
+#: hdbk-config.docbook:70
 #, no-c-format
 msgid "What kind of fonts can I use?"
 msgstr ""
 
-#: index.docbook:71
+#. Tag: para
+#: hdbk-config.docbook:71
 #, no-c-format
 msgid ""
 "&bibletime; can now use any system fonts. These may be Bitmap Fonts, "
@@ -141,7 +162,8 @@ msgid ""
 "distribution, or may be obtained separately."
 msgstr ""
 
-#: index.docbook:77
+#. Tag: para
+#: hdbk-config.docbook:77
 #, no-c-format
 msgid ""
 "As long as the modules you are interested in display correctly nothing needs "
@@ -150,7 +172,8 @@ msgid ""
 "&bibletime; does not contain the characters used in your document."
 msgstr ""
 
-#: index.docbook:82
+#. Tag: para
+#: hdbk-config.docbook:82
 #, no-c-format
 msgid ""
 "In the fonts options dialog, choose the desired language from the drop down "
@@ -160,12 +183,14 @@ msgid ""
 "&kde; localization package for that language."
 msgstr ""
 
-#: index.docbook:88
+#. Tag: title
+#: hdbk-config.docbook:88
 #, no-c-format
 msgid "Installing fonts"
 msgstr ""
 
-#: index.docbook:89
+#. Tag: para
+#: hdbk-config.docbook:89
 #, no-c-format
 msgid ""
 "Detailed font installation instructions are outside the scope of this "
@@ -176,14 +201,16 @@ msgid ""
 "ulink>"
 msgstr ""
 
-#: index.docbook:95
+#. Tag: para
+#: hdbk-config.docbook:95
 #, no-c-format
 msgid ""
 "If your distribution includes a font installer use it, it makes font "
 "installation much easier!"
 msgstr ""
 
-#: index.docbook:98
+#. Tag: para
+#: hdbk-config.docbook:98
 #, no-c-format
 msgid ""
 "If you use a small font like clearlyu (about 22kb) &bibletime; will run "
@@ -191,32 +218,38 @@ msgid ""
 "Cyberbit</trademark> (about 12Mb) is used."
 msgstr ""
 
-#: index.docbook:103
+#. Tag: title
+#: hdbk-config.docbook:103
 #, no-c-format
 msgid "Obtaining Fonts"
 msgstr ""
 
-#: index.docbook:104
+#. Tag: para
+#: hdbk-config.docbook:104
 #, no-c-format
 msgid "Fonts can be obtained from a number of sources."
 msgstr ""
 
-#: index.docbook:105
+#. Tag: para
+#: hdbk-config.docbook:106
 #, no-c-format
 msgid "Your distribution."
 msgstr ""
 
-#: index.docbook:105
+#. Tag: para
+#: hdbk-config.docbook:107
 #, no-c-format
 msgid "Your distribution's localization packages."
 msgstr ""
 
-#: index.docbook:105
+#. Tag: para
+#: hdbk-config.docbook:108
 #, no-c-format
 msgid "An existing &Microsoft; &Windows; installation on the same computer."
 msgstr ""
 
-#: index.docbook:105
+#. Tag: para
+#: hdbk-config.docbook:109
 #, no-c-format
 msgid ""
 "A font collection, such as are available from <trademark class=\"registered"
@@ -224,12 +257,14 @@ msgid ""
 "trademark>."
 msgstr ""
 
-#: index.docbook:105
+#. Tag: para
+#: hdbk-config.docbook:112
 #, no-c-format
 msgid "On line font collections."
 msgstr ""
 
-#: index.docbook:115
+#. Tag: para
+#: hdbk-config.docbook:115
 #, no-c-format
 msgid ""
 "Unicode fonts support more characters than other fonts, so are generally a "
@@ -238,61 +273,72 @@ msgid ""
 "Unicode standard, so you may try several before finding what you need"
 msgstr ""
 
-#: index.docbook:119
+#. Tag: para
+#: hdbk-config.docbook:119
 #, no-c-format
 msgid "Here is a listing of some of the fonts available:"
 msgstr ""
 
-#: index.docbook:120
+#. Tag: title
+#: hdbk-config.docbook:121
 #, no-c-format
 msgid "Unicode Fonts"
 msgstr ""
 
-#: index.docbook:120
+#. Tag: entry
+#: hdbk-config.docbook:124
 #, no-c-format
 msgid "Clearlyu"
 msgstr ""
 
-#: index.docbook:120
+#. Tag: entry
+#: hdbk-config.docbook:125
 #, no-c-format
 msgid ""
 "Included in some distributions. Contains European, Greek, Hebrew, Thai. Does "
 "not contain Chinease pictographs, or Arabic"
 msgstr ""
 
-#: index.docbook:120
+#. Tag: entry
+#: hdbk-config.docbook:128
 #, no-c-format
 msgid ""
 "<ulink url=\"ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS\">ftp://ftp."
 "crosswire.org/pub/sword/iso/latest/FONTS</ulink>."
 msgstr ""
 
-#: index.docbook:120
+#. Tag: entry
+#: hdbk-config.docbook:129
 #, no-c-format
 msgid "Several fonts available from the Crosswire Bible Society ftp site."
 msgstr ""
 
-#: index.docbook:120
+#. Tag: ulink
+#: hdbk-config.docbook:131
 #, no-c-format
 msgid "Bitstream CyberBit"
 msgstr ""
 
-#: index.docbook:120
+#. Tag: entry
+#: hdbk-config.docbook:132
 #, no-c-format
 msgid "Covers almost the entire range of Unicode."
 msgstr ""
 
-#: index.docbook:120
+#. Tag: ulink
+#: hdbk-config.docbook:134
 #, no-c-format
 msgid "Caslon, Monospace, Cupola, Caliban"
 msgstr ""
 
-#: index.docbook:120
+#. Tag: entry
+#: hdbk-config.docbook:135
 #, no-c-format
 msgid "Partial coverage, see information on linked site."
 msgstr ""
 
-#: index.docbook:140
+#. Tag: para
+#: hdbk-config.docbook:140
 #, no-c-format
 msgid ""
 "The most complete listing of Unicode fonts that we are aware of is <ulink "
@@ -301,88 +347,104 @@ msgid ""
 "fonts listed."
 msgstr ""
 
-#: index.docbook:143
+#. Tag: para
+#: hdbk-config.docbook:143
 #, no-c-format
 msgid ""
 "Another Unicode font list can be found at: <ulink url=\"http://www.hclrss."
 "demon.co.uk/unicode/fontsbyrange.html\"> Unicode Font List</ulink>."
 msgstr ""
 
-#: index.docbook:149
+#. Tag: title
+#: hdbk-config.docbook:149
 #, no-c-format
 msgid "Colors"
 msgstr ""
 
-#: index.docbook:150
+#. Tag: para
+#: hdbk-config.docbook:150
 #, no-c-format
 msgid ""
 "The colors of the objects in display windows can be customized. Objects that "
 "can be customized are:"
 msgstr ""
 
-#: index.docbook:152
+#. Tag: member
+#: hdbk-config.docbook:153
 #, no-c-format
 msgid "Text"
 msgstr ""
 
-#: index.docbook:152
+#. Tag: member
+#: hdbk-config.docbook:154
 #, no-c-format
 msgid "Highlighted verse"
 msgstr ""
 
-#: index.docbook:152
+#. Tag: member
+#: hdbk-config.docbook:155
 #, no-c-format
 msgid "Footnotes"
 msgstr ""
 
-#: index.docbook:152
+#. Tag: member
+#: hdbk-config.docbook:156
 #, no-c-format
 msgid "Morphological Tags"
 msgstr ""
 
-#: index.docbook:152
+#. Tag: member
+#: hdbk-config.docbook:157
 #, no-c-format
 msgid "Background"
 msgstr ""
 
-#: index.docbook:152
+#. Tag: member
+#: hdbk-config.docbook:158
 #, no-c-format
 msgid "Hyperlinks"
 msgstr ""
 
-#: index.docbook:152
+#. Tag: member
+#: hdbk-config.docbook:159
 #, no-c-format
 msgid "Strong's Numbers"
 msgstr ""
 
-#: index.docbook:152
+#. Tag: member
+#: hdbk-config.docbook:160
 #, no-c-format
 msgid "Words of Jesus"
 msgstr ""
 
-#: index.docbook:163
+#. Tag: para
+#: hdbk-config.docbook:163
 #, no-c-format
 msgid ""
 "Some options like \"Words of Jesus\" only apply to texts which support this "
 "special feature."
 msgstr ""
 
-#: index.docbook:165
+#. Tag: phrase
+#: hdbk-config.docbook:170
 #, no-c-format
 msgid "Options Dialog - Color"
 msgstr ""
 
-#: index.docbook:165
+#. Tag: para
+#: hdbk-config.docbook:173
 #, no-c-format
 msgid "The Options dialog - Color."
 msgstr ""
 
-#: index.docbook:179
+#. Tag: title
+#: hdbk-config.docbook:179
 #, no-c-format
 msgid "Sessions"
 msgstr ""
 
-#: index.docbook:180
+#. Tag: para
+#: hdbk-config.docbook:180
 #, no-c-format
 msgid ""
 "Sessions define the appearance of the work area, for example which windows "
@@ -393,39 +455,46 @@ msgid ""
 "guimenuitem> to load a previously saved session into &bibletime;."
 msgstr ""
 
-#: index.docbook:188
+#. Tag: title
+#: hdbk-config.docbook:188
 #, no-c-format
 msgid "Sword"
 msgstr ""
 
-#: index.docbook:189
+#. Tag: para
+#: hdbk-config.docbook:189
 #, no-c-format
 msgid ""
 "Many features provided by the Sword backend can now be customized in "
 "&bibletime;."
 msgstr ""
 
-#: index.docbook:191
+#. Tag: phrase
+#: hdbk-config.docbook:196
 #, no-c-format
 msgid "Options Dialog - Sword"
 msgstr ""
 
-#: index.docbook:191
+#. Tag: para
+#: hdbk-config.docbook:199
 #, no-c-format
 msgid "The Options dialog - Sword."
 msgstr ""
 
-#: index.docbook:203
+#. Tag: title
+#: hdbk-config.docbook:203
 #, no-c-format
 msgid "Sword General"
 msgstr ""
 
-#: index.docbook:204
+#. Tag: para
+#: hdbk-config.docbook:204
 #, no-c-format
 msgid "Key Cache for Lexicons"
 msgstr ""
 
-#: index.docbook:205
+#. Tag: para
+#: hdbk-config.docbook:205
 #, no-c-format
 msgid ""
 "&bibletime; can create a key cache for lexicons. This speeds up opening "
@@ -434,12 +503,14 @@ msgid ""
 "this feature."
 msgstr ""
 
-#: index.docbook:210
+#. Tag: para
+#: hdbk-config.docbook:210
 #, no-c-format
 msgid "Scrolling Behavior"
 msgstr ""
 
-#: index.docbook:211
+#. Tag: para
+#: hdbk-config.docbook:211
 #, no-c-format
 msgid ""
 "The default is that a down arrow moves the current position in a text to the "
@@ -447,12 +518,14 @@ msgid ""
 "in a text to the previous verse."
 msgstr ""
 
-#: index.docbook:215
+#. Tag: para
+#: hdbk-config.docbook:215
 #, no-c-format
 msgid "Specify a language for biblical book names"
 msgstr ""
 
-#: index.docbook:216
+#. Tag: para
+#: hdbk-config.docbook:216
 #, no-c-format
 msgid ""
 "This feature allows the language used to displayed book names to be changed. "
@@ -462,89 +535,106 @@ msgid ""
 "site for details."
 msgstr ""
 
-#: index.docbook:224
+#. Tag: title
+#: hdbk-config.docbook:224
 #, no-c-format
 msgid "Sword Default Modules"
 msgstr ""
 
-#: index.docbook:225
+#. Tag: para
+#: hdbk-config.docbook:225
 #, no-c-format
 msgid "Default modules are specified here."
 msgstr ""
 
-#: index.docbook:227
+#. Tag: title
+#: hdbk-config.docbook:227
 #, no-c-format
 msgid "Sword Filter Settings"
 msgstr ""
 
-#: index.docbook:228
+#. Tag: para
+#: hdbk-config.docbook:228
 #, no-c-format
 msgid ""
 "Filters control the appearance of text in the display windows. Here you can "
 "chose the default settings for the various filters."
 msgstr ""
 
-#: index.docbook:230
+#. Tag: para
+#: hdbk-config.docbook:230
 #, no-c-format
 msgid "The items controlled by filters are:"
 msgstr ""
 
-#: index.docbook:232
+#. Tag: para
+#: hdbk-config.docbook:233
 #, no-c-format
 msgid "Show line break after each verse"
 msgstr ""
 
-#: index.docbook:232
+#. Tag: para
+#: hdbk-config.docbook:234
 #, no-c-format
 msgid "Show verse numbers"
 msgstr ""
 
-#: index.docbook:232
+#. Tag: para
+#: hdbk-config.docbook:235
 #, no-c-format
 msgid "Show footnotes"
 msgstr ""
 
-#: index.docbook:232
+#. Tag: para
+#: hdbk-config.docbook:236
 #, no-c-format
 msgid "Show Strong's numbers"
 msgstr ""
 
-#: index.docbook:232
+#. Tag: para
+#: hdbk-config.docbook:237
 #, no-c-format
 msgid "Show headings"
 msgstr ""
 
-#: index.docbook:232
+#. Tag: para
+#: hdbk-config.docbook:238
 #, no-c-format
 msgid "Show morphologic tags"
 msgstr ""
 
-#: index.docbook:232
+#. Tag: para
+#: hdbk-config.docbook:239
 #, no-c-format
 msgid "Show lemmas"
 msgstr ""
 
-#: index.docbook:232
+#. Tag: para
+#: hdbk-config.docbook:240
 #, no-c-format
 msgid "Show Hebrew vowel points"
 msgstr ""
 
-#: index.docbook:232
+#. Tag: para
+#: hdbk-config.docbook:241
 #, no-c-format
 msgid "Show Hebrew cantillation marks"
 msgstr ""
 
-#: index.docbook:232
+#. Tag: para
+#: hdbk-config.docbook:242
 #, no-c-format
 msgid "Show Greek accents"
 msgstr ""
 
-#: index.docbook:249
+#. Tag: title
+#: hdbk-config.docbook:249
 #, no-c-format
 msgid "Accelerators"
 msgstr ""
 
-#: index.docbook:250
+#. Tag: para
+#: hdbk-config.docbook:250
 #, no-c-format
 msgid ""
 "Accelerators are special key commands that can be used in the place of the "
@@ -553,132 +643,167 @@ msgid ""
 "here."
 msgstr ""
 
-#: index.docbook:255
+#. Tag: title
+#: hdbk-config.docbook:256
 #, no-c-format
 msgid "Default accelerators"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:260
 #, no-c-format
 msgid "Action"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:261
 #, no-c-format
 msgid "Key combination"
 msgstr ""
 
-#: index.docbook:255 index.docbook:555
+#. #-#-#-#-#  hdbk-config.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: entry
+#. #-#-#-#-#  hdbk-toolbars.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: term
+#: hdbk-config.docbook:267 hdbk-toolbars.docbook:611
 #, no-c-format
 msgid "Auto Tile"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:267
 #, no-c-format
 msgid "Ctrl+Alt+T"
 msgstr ""
 
-#: index.docbook:255 index.docbook:555
+#. #-#-#-#-#  hdbk-config.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: entry
+#. #-#-#-#-#  hdbk-toolbars.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: term
+#: hdbk-config.docbook:268 hdbk-toolbars.docbook:604
 #, no-c-format
 msgid "Auto Cascade"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:268
 #, no-c-format
 msgid "Ctrl+Alt+A"
 msgstr ""
 
-#: index.docbook:255 index.docbook:555
+#. #-#-#-#-#  hdbk-config.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: entry
+#. #-#-#-#-#  hdbk-toolbars.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: term
+#: hdbk-config.docbook:269 hdbk-toolbars.docbook:592
 #, no-c-format
 msgid "Cascade"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:269
 #, no-c-format
 msgid "Ctrl+A"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:270
 #, no-c-format
 msgid "Close All"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:270
 #, no-c-format
 msgid "Shift+Ctrl+A"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:271
 #, no-c-format
 msgid "Configure Toolbars"
 msgstr ""
 
-#: index.docbook:255
-#, no-c-format
-msgid "<entry></entry>"
-msgstr ""
-
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:272
 #, no-c-format
 msgid "Preferences"
 msgstr ""
 
-#: index.docbook:255 index.docbook:470
+#. #-#-#-#-#  hdbk-config.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: entry
+#. #-#-#-#-#  hdbk-toolbars.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: term
+#: hdbk-config.docbook:273 hdbk-toolbars.docbook:489
 #, no-c-format
 msgid "Quit"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:273
 #, no-c-format
 msgid "Ctrl+Q"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:274
 #, no-c-format
 msgid "Remove Selected Item(s)"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:274
 #, no-c-format
 msgid "Ctrl+Alt+D"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:275
 #, no-c-format
 msgid "Reset Main Index"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:275
 #, no-c-format
 msgid "Ctrl+Alt+R"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:276
 #, no-c-format
 msgid "Search in Selected Module(s)"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:276
 #, no-c-format
 msgid "Ctrl+Alt+S"
 msgstr ""
 
-#: index.docbook:255 index.docbook:555
+#. #-#-#-#-#  hdbk-config.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: entry
+#. #-#-#-#-#  hdbk-toolbars.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: term
+#: hdbk-config.docbook:277 hdbk-toolbars.docbook:597
 #, no-c-format
 msgid "Tile"
 msgstr ""
 
-#: index.docbook:255
+#. Tag: entry
+#: hdbk-config.docbook:277
 #, no-c-format
 msgid "Ctrl+T"
 msgstr ""
 
-#: index.docbook:1
+#. Tag: title
+#: hdbk-intro.docbook:1
 #, no-c-format
 msgid "Introduction"
 msgstr ""
 
-#: index.docbook:3
+#. Tag: para
+#: hdbk-intro.docbook:3
 #, no-c-format
 msgid ""
 "&bibletime; is a powerful Bible study tool written for the &kde; environment "
@@ -689,7 +814,8 @@ msgid ""
 "www.crosswire.org\">Crosswire Bible Society</ulink>."
 msgstr ""
 
-#: index.docbook:11
+#. Tag: para
+#: hdbk-intro.docbook:11
 #, no-c-format
 msgid ""
 "&bibletime; is designed to be used with documents that have been encoded in "
@@ -700,19 +826,22 @@ msgid ""
 "section of the Sword Project, Crosswire Bible Society</ulink>."
 msgstr ""
 
-#: index.docbook:18
+#. Tag: para
+#: hdbk-intro.docbook:18
 #, no-c-format
 msgid ""
 "Over 200 documents in 50 languages are available from the <ulink url="
 "\"http://www.crosswire.org\">Crosswire Bible Society</ulink>. These include:"
 msgstr ""
 
-#: index.docbook:23
+#. Tag: term
+#: hdbk-intro.docbook:26
 #, no-c-format
 msgid "Bibles"
 msgstr ""
 
-#: index.docbook:23
+#. Tag: para
+#: hdbk-intro.docbook:28
 #, no-c-format
 msgid ""
 "The full Bible text, with optional things like Strong's Numbers and "
@@ -722,12 +851,14 @@ msgid ""
 "Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint (Greek)."
 msgstr ""
 
-#: index.docbook:23
+#. Tag: term
+#: hdbk-intro.docbook:37
 #, no-c-format
 msgid "Commentaries"
 msgstr ""
 
-#: index.docbook:23
+#. Tag: para
+#: hdbk-intro.docbook:39
 #, no-c-format
 msgid ""
 "Commentaries available include classics like John Wesley's Notes on the "
@@ -736,24 +867,28 @@ msgid ""
 "parts of the Bible."
 msgstr ""
 
-#: index.docbook:23
+#. Tag: term
+#: hdbk-intro.docbook:51
 #, no-c-format
 msgid "Lexicons"
 msgstr ""
 
-#: index.docbook:23
+#. Tag: para
+#: hdbk-intro.docbook:53
 #, no-c-format
 msgid ""
 "Lexicons available include: Robinson's Morphological Analysis Codes, Brown-"
 "Driver-Briggs Hebrew Lexicon, International Standard Bible Encyclopedia"
 msgstr ""
 
-#: index.docbook:23
+#. Tag: term
+#: hdbk-intro.docbook:60
 #, no-c-format
 msgid "Dictionaries"
 msgstr ""
 
-#: index.docbook:23
+#. Tag: para
+#: hdbk-intro.docbook:62
 #, no-c-format
 msgid ""
 "Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's "
@@ -761,38 +896,44 @@ msgid ""
 "English Language 1913, Nave's Topical Bible."
 msgstr ""
 
-#: index.docbook:23
+#. Tag: term
+#: hdbk-intro.docbook:69
 #, no-c-format
 msgid "Books"
 msgstr ""
 
-#: index.docbook:23
+#. Tag: para
+#: hdbk-intro.docbook:71
 #, no-c-format
 msgid ""
 "Books available include &quot;Imitation of Christ&quot;, &quot;Enuma "
 "Elish&quot;, and &quot;Josephus, the complete works&quot;"
 msgstr ""
 
-#: index.docbook:77
+#. Tag: para
+#: hdbk-intro.docbook:77
 #, no-c-format
 msgid ""
 "Additional documents are being added to the &sword; repository frequently, "
 "so visit often."
 msgstr ""
 
-#: index.docbook:79
+#. Tag: title
+#: hdbk-intro.docbook:79
 #, no-c-format
 msgid "Changes"
 msgstr ""
 
-#: index.docbook:80
+#. Tag: para
+#: hdbk-intro.docbook:80
 #, no-c-format
 msgid ""
 "Please read the file Changelog of the sourcecode package if you are "
 "interested in more detailed changes."
 msgstr ""
 
-#: index.docbook:84
+#. Tag: para
+#: hdbk-intro.docbook:84
 #, no-c-format
 msgid ""
 "A listing of the features included in the current package can be found in "
@@ -802,12 +943,14 @@ msgid ""
 "ulink>"
 msgstr ""
 
-#: index.docbook:89
+#. Tag: title
+#: hdbk-intro.docbook:89
 #, no-c-format
 msgid "Changes for &bibletime; Release 1.3"
 msgstr ""
 
-#: index.docbook:90
+#. Tag: para
+#: hdbk-intro.docbook:90
 #, no-c-format
 msgid ""
 "&bibletime; version 1.3 provides a number of bugfixes and stability "
@@ -816,19 +959,22 @@ msgid ""
 "changlog."
 msgstr ""
 
-#: index.docbook:95
+#. Tag: title
+#: hdbk-intro.docbook:95
 #, no-c-format
 msgid "Main window"
 msgstr ""
 
-#: index.docbook:96
+#. Tag: para
+#: hdbk-intro.docbook:96
 #, no-c-format
 msgid ""
 "Main index was reorganized, sorting the modules by type of module, then by "
 "language."
 msgstr ""
 
-#: index.docbook:99
+#. Tag: para
+#: hdbk-intro.docbook:99
 #, no-c-format
 msgid ""
 "Bookmarks are now stored in an XML file, but the old format can still be "
@@ -836,36 +982,42 @@ msgid ""
 "placed in the \"Old bookmarks\" subfolder."
 msgstr ""
 
-#: index.docbook:104
+#. Tag: para
+#: hdbk-intro.docbook:104
 #, no-c-format
 msgid "Drag&amp;Drop works now for more than one item."
 msgstr ""
 
-#: index.docbook:106
+#. Tag: para
+#: hdbk-intro.docbook:106
 #, no-c-format
 msgid ""
 "Search default Bible and search open modules options added in the search "
 "menu."
 msgstr ""
 
-#: index.docbook:110
+#. Tag: title
+#: hdbk-intro.docbook:110
 #, no-c-format
 msgid "Searchdialog"
 msgstr ""
 
-#: index.docbook:111
+#. Tag: para
+#: hdbk-intro.docbook:111
 #, no-c-format
 msgid ""
 "Major redesign of the user interface, reducing the number of tabs to two "
 "(search and result). Features have been moved to the appropriate tab."
 msgstr ""
 
-#: index.docbook:115
+#. Tag: title
+#: hdbk-intro.docbook:115
 #, no-c-format
 msgid "Display windows"
 msgstr ""
 
-#: index.docbook:116
+#. Tag: para
+#: hdbk-intro.docbook:116
 #, no-c-format
 msgid ""
 "Separated now in &quot;read only&quot; and &quot;write only&quot; windows. "
@@ -874,24 +1026,28 @@ msgid ""
 "RawFiles module)."
 msgstr ""
 
-#: index.docbook:120
+#. Tag: title
+#: hdbk-intro.docbook:120
 #, no-c-format
 msgid "Options dialog"
 msgstr ""
 
-#: index.docbook:121
+#. Tag: para
+#: hdbk-intro.docbook:121
 #, no-c-format
 msgid ""
 "A custom font can now be specified for each language. The default font is "
 "KDE's default font, and will work for most modules."
 msgstr ""
 
-#: index.docbook:128
+#. Tag: title
+#: hdbk-intro.docbook:128
 #, no-c-format
 msgid "ToDo"
 msgstr ""
 
-#: index.docbook:129
+#. Tag: para
+#: hdbk-intro.docbook:129
 #, no-c-format
 msgid ""
 "We have lots to do. Because we are a very small team of active developers "
@@ -902,7 +1058,8 @@ msgid ""
 "bibletime.info/\">the &bibletime; homepage</ulink>."
 msgstr ""
 
-#: index.docbook:137
+#. Tag: para
+#: hdbk-intro.docbook:137
 #, no-c-format
 msgid ""
 "The &bibletime; project needs programmers / developers, translators, "
@@ -912,12 +1069,14 @@ msgid ""
 "a full-featured Bible study tool."
 msgstr ""
 
-#: index.docbook:144
+#. Tag: title
+#: hdbk-intro.docbook:144
 #, no-c-format
 msgid "Motivation"
 msgstr ""
 
-#: index.docbook:145
+#. Tag: para
+#: hdbk-intro.docbook:145
 #, no-c-format
 msgid ""
 "Our desire is to serve God, and to do our part to help others grow in their "
@@ -929,7 +1088,14 @@ msgid ""
 "source of all good things."
 msgstr ""
 
-#: index.docbook:156
+#. Tag: attribution
+#: hdbk-intro.docbook:155
+#, no-c-format
+msgid "James 1:17, NASB"
+msgstr ""
+
+#. Tag: para
+#: hdbk-intro.docbook:156
 #, no-c-format
 msgid ""
 "Every good thing given and every perfect gift is from above, coming down "
@@ -937,19 +1103,22 @@ msgid ""
 "shadow."
 msgstr ""
 
-#: index.docbook:161
+#. Tag: para
+#: hdbk-intro.docbook:161
 #, no-c-format
 msgid ""
 "God bless you as you use this program, and may He be glorified by the work "
 "of our hands!"
 msgstr ""
 
-#: index.docbook:1
+#. Tag: title
+#: hdbk-operation.docbook:1
 #, no-c-format
 msgid "Program Operation"
 msgstr ""
 
-#: index.docbook:2
+#. Tag: para
+#: hdbk-operation.docbook:2
 #, no-c-format
 msgid ""
 "&bibletime; is mainly operated from the Module Tree (this tree is called the "
@@ -957,12 +1126,14 @@ msgid ""
 "MDI area (MDI = Multiple Document Interface)."
 msgstr ""
 
-#: index.docbook:8
+#. Tag: title
+#: hdbk-operation.docbook:8
 #, no-c-format
 msgid "Main Index"
 msgstr ""
 
-#: index.docbook:9
+#. Tag: para
+#: hdbk-operation.docbook:9
 #, no-c-format
 msgid ""
 "This is the pane on the left side of the &bibletime; window. It contains the "
@@ -970,17 +1141,20 @@ msgid ""
 "enter."
 msgstr ""
 
-#: index.docbook:14
+#. Tag: screeninfo
+#: hdbk-operation.docbook:15
 #, no-c-format
 msgid "Module Tree"
 msgstr ""
 
-#: index.docbook:25
+#. Tag: title
+#: hdbk-operation.docbook:25
 #, no-c-format
 msgid "Selecting a document to view"
 msgstr ""
 
-#: index.docbook:27
+#. Tag: para
+#: hdbk-operation.docbook:27
 #, no-c-format
 msgid ""
 "To select a document, click with the <mousebutton>left</mousebutton> mouse "
@@ -990,17 +1164,20 @@ msgid ""
 "the desired group. To open a document, click on it's icon."
 msgstr ""
 
-#: index.docbook:32
+#. Tag: screeninfo
+#: hdbk-operation.docbook:33
 #, no-c-format
 msgid "Document Selection"
 msgstr ""
 
-#: index.docbook:40 index.docbook:86
+#. Tag: para
+#: hdbk-operation.docbook:40 hdbk-operation.docbook:87
 #, no-c-format
 msgid "Drag &amp; Drop Works Here"
 msgstr ""
 
-#: index.docbook:41
+#. Tag: para
+#: hdbk-operation.docbook:41
 #, no-c-format
 msgid ""
 "A document can be opened from an already opened document. Simply click with "
@@ -1012,7 +1189,8 @@ msgid ""
 "that was dragged over. This works for Bibles and Commentaries only."
 msgstr ""
 
-#: index.docbook:48
+#. Tag: para
+#: hdbk-operation.docbook:48
 #, no-c-format
 msgid ""
 "There are two other functions accessible through clicking with the "
@@ -1028,12 +1206,14 @@ msgid ""
 "the Crosswire Bible Society web site.</ulink>"
 msgstr ""
 
-#: index.docbook:63
+#. Tag: title
+#: hdbk-operation.docbook:63
 #, no-c-format
 msgid "Accessing the search dialog"
 msgstr ""
 
-#: index.docbook:63
+#. Tag: para
+#: hdbk-operation.docbook:63
 #, no-c-format
 msgid ""
 "You can search in a module by clicking with the <mousebutton>right</"
@@ -1045,17 +1225,20 @@ msgid ""
 "<link linkend=\"hdbk-op-search\">here</link>."
 msgstr ""
 
-#: index.docbook:73 index.docbook:97
+#. Tag: screeninfo
+#: hdbk-operation.docbook:74 hdbk-operation.docbook:98
 #, no-c-format
 msgid "Bookmark Selection"
 msgstr ""
 
-#: index.docbook:85
+#. Tag: title
+#: hdbk-operation.docbook:85
 #, no-c-format
 msgid "Accessing bookmark functions"
 msgstr ""
 
-#: index.docbook:86
+#. Tag: para
+#: hdbk-operation.docbook:87
 #, no-c-format
 msgid ""
 "Click with the <mousebutton>right</mousebutton> mouse button on the bookmark "
@@ -1072,12 +1255,14 @@ msgid ""
 "bookmark descriptions, and delete folders and bookmarks."
 msgstr ""
 
-#: index.docbook:110
+#. Tag: title
+#: hdbk-operation.docbook:110
 #, no-c-format
 msgid "Multiple Document Interface (MDI) Window"
 msgstr ""
 
-#: index.docbook:111
+#. Tag: para
+#: hdbk-operation.docbook:111
 #, no-c-format
 msgid ""
 "This is where the opened documents are displayed. Documents are displayed in "
@@ -1086,12 +1271,14 @@ msgid ""
 "future. When they are released, &bibletime; will support them as well."
 msgstr ""
 
-#: index.docbook:118
+#. Tag: title
+#: hdbk-operation.docbook:118
 #, no-c-format
 msgid "Controlling Open Documents"
 msgstr ""
 
-#: index.docbook:118
+#. Tag: para
+#: hdbk-operation.docbook:118
 #, no-c-format
 msgid ""
 "Document Windows can be controlled and manipulated with normal &kde; window/"
@@ -1101,46 +1288,54 @@ msgid ""
 "Windows can be set to automatically cascade or tile also."
 msgstr ""
 
-#: index.docbook:126
+#. Tag: title
+#: hdbk-operation.docbook:126
 #, no-c-format
 msgid "Navigating in Open Documents"
 msgstr ""
 
-#: index.docbook:126
+#. Tag: para
+#: hdbk-operation.docbook:126
 #, no-c-format
 msgid ""
 "Navigation within a document is accomplished with the Document Key Control "
 "Menu, and the scroll bar."
 msgstr ""
 
-#: index.docbook:130
+#. Tag: para
+#: hdbk-operation.docbook:130
 #, no-c-format
 msgid "To move to a specific location use the Document Key Control."
 msgstr ""
 
-#: index.docbook:131
+#. Tag: para
+#: hdbk-operation.docbook:131
 #, no-c-format
 msgid "To move within a section of a document use the scroll bar."
 msgstr ""
 
-#: index.docbook:132
+#. Tag: para
+#: hdbk-operation.docbook:132
 #, no-c-format
 msgid ""
 "For Bible texts the index key is <emphasis>Book - Chapter - Verse</emphasis>"
 msgstr ""
 
-#: index.docbook:133
+#. Tag: para
+#: hdbk-operation.docbook:133
 #, no-c-format
 msgid ""
 "For commentaries the index key is <emphasis>Book - Chapter - Verse</emphasis>"
 msgstr ""
 
-#: index.docbook:134
+#. Tag: para
+#: hdbk-operation.docbook:134
 #, no-c-format
 msgid "For lexicons the index key is <emphasis>Keyword</emphasis>"
 msgstr ""
 
-#: index.docbook:135
+#. Tag: para
+#: hdbk-operation.docbook:135
 #, no-c-format
 msgid ""
 "Drag &amp; Drop Works Here; if you drag a verse from one open document or a "
@@ -1148,12 +1343,14 @@ msgid ""
 "current location to the location of the verse or bookmark dragged."
 msgstr ""
 
-#: index.docbook:141
+#. Tag: title
+#: hdbk-operation.docbook:141
 #, no-c-format
 msgid "Editing your own commentary"
 msgstr ""
 
-#: index.docbook:142
+#. Tag: para
+#: hdbk-operation.docbook:142
 #, no-c-format
 msgid ""
 "If the personal commentary is opened with a <mousebutton>left</mousebutton> "
@@ -1163,24 +1360,34 @@ msgid ""
 "<guimenuitem>plane text or the HTML editors</guimenuitem>."
 msgstr ""
 
-#: index.docbook:147
+#. Tag: para
+#: hdbk-operation.docbook:147
 #, no-c-format
 msgid ""
 "If the editor does not save an entry, please check that you have permission "
 "to write to the personal commentary."
 msgstr ""
 
-#: index.docbook:149
+#. Tag: para
+#: hdbk-operation.docbook:149
 #, no-c-format
 msgid "The pencil icon is shown for the commentary editor"
 msgstr ""
 
-#: index.docbook:150
+#. Tag: section
+#: hdbk-operation.docbook:149
+#, no-c-format
+msgid "<section>.</section>"
+msgstr ""
+
+#. Tag: phrase
+#: hdbk-operation.docbook:155
 #, no-c-format
 msgid "Enter your notes"
 msgstr ""
 
-#: index.docbook:158
+#. Tag: para
+#: hdbk-operation.docbook:158
 #, no-c-format
 msgid ""
 "The personal commentary editors are provided with a search key and save "
@@ -1189,7 +1396,8 @@ msgid ""
 "possibilities. As with all good modern editors What You See Is What You Get."
 msgstr ""
 
-#: index.docbook:163
+#. Tag: para
+#: hdbk-operation.docbook:163
 #, no-c-format
 msgid ""
 "To delete notes for a selected verse, click the <guibutton>delete verse "
@@ -1198,7 +1406,8 @@ msgid ""
 "Verse Symbol</phrase> </textobject> </inlinemediaobject>."
 msgstr ""
 
-#: index.docbook:181
+#. Tag: para
+#: hdbk-operation.docbook:181
 #, no-c-format
 msgid ""
 "The personal commentary is a sword module. If you do not find it in the main "
@@ -1206,7 +1415,8 @@ msgid ""
 "Bible Society</ulink>."
 msgstr ""
 
-#: index.docbook:184
+#. Tag: para
+#: hdbk-operation.docbook:184
 #, no-c-format
 msgid ""
 "If you can not write to the personal commentary your permissions for the "
@@ -1214,18 +1424,21 @@ msgid ""
 "user to write to it."
 msgstr ""
 
-#: index.docbook:187
+#. Tag: para
+#: hdbk-operation.docbook:187
 #, no-c-format
 msgid ""
 "Drag &amp; Drop Works Here, just like other commentaries and Bible texts."
 msgstr ""
 
-#: index.docbook:195
+#. Tag: title
+#: hdbk-operation.docbook:195
 #, no-c-format
 msgid "Searching in Documents"
 msgstr ""
 
-#: index.docbook:196
+#. Tag: para
+#: hdbk-operation.docbook:196
 #, no-c-format
 msgid ""
 "Portions of the instructions for the use of GCC Regular Expression in "
@@ -1233,12 +1446,14 @@ msgid ""
 "\"registered\">Microsoft Windows</trademark> version of &sword;."
 msgstr ""
 
-#: index.docbook:201
+#. Tag: title
+#: hdbk-operation.docbook:201
 #, no-c-format
 msgid "Accessing search functions"
 msgstr ""
 
-#: index.docbook:202
+#. Tag: para
+#: hdbk-operation.docbook:202
 #, no-c-format
 msgid ""
 "You can search in a document by clicking with the <mousebutton>right</"
@@ -1249,12 +1464,14 @@ msgid ""
 "will be searching in all of these Documents."
 msgstr ""
 
-#: index.docbook:213
+#. Tag: title
+#: hdbk-operation.docbook:213
 #, no-c-format
 msgid "Using the Search Dialog"
 msgstr ""
 
-#: index.docbook:214
+#. Tag: para
+#: hdbk-operation.docbook:214
 #, no-c-format
 msgid ""
 "&bibletime; provides a well developed search facility based on "
@@ -1263,7 +1480,8 @@ msgid ""
 "search you can imagine.</link>"
 msgstr ""
 
-#: index.docbook:218
+#. Tag: para
+#: hdbk-operation.docbook:218
 #, no-c-format
 msgid ""
 "To access the search feature, click with the <mousebutton>right</"
@@ -1274,27 +1492,32 @@ msgid ""
 "prefer."
 msgstr ""
 
-#: index.docbook:230
+#. Tag: title
+#: hdbk-operation.docbook:230
 #, no-c-format
 msgid "The Options Tab - Setting up your search."
 msgstr ""
 
-#: index.docbook:231
+#. Tag: para
+#: hdbk-operation.docbook:231
 #, no-c-format
 msgid "Use the options tab to set up your search."
 msgstr ""
 
-#: index.docbook:232
+#. Tag: screeninfo
+#: hdbk-operation.docbook:233
 #, no-c-format
 msgid "Search Text Dialog Options Tab"
 msgstr ""
 
-#: index.docbook:243
+#. Tag: title
+#: hdbk-operation.docbook:243
 #, no-c-format
 msgid "Using the Choose Modules Button"
 msgstr ""
 
-#: index.docbook:244
+#. Tag: para
+#: hdbk-operation.docbook:244
 #, no-c-format
 msgid ""
 "At the top of the options tab you will find <guibutton>Choose Modules</"
@@ -1305,17 +1528,20 @@ msgid ""
 "<guibutton>Use Selected Modules</guibutton> button."
 msgstr ""
 
-#: index.docbook:250
+#. Tag: screeninfo
+#: hdbk-operation.docbook:251
 #, no-c-format
 msgid "Choose Modules Dialog Box"
 msgstr ""
 
-#: index.docbook:261
+#. Tag: title
+#: hdbk-operation.docbook:261
 #, no-c-format
 msgid "Searched Text - what you want to find."
 msgstr ""
 
-#: index.docbook:263
+#. Tag: para
+#: hdbk-operation.docbook:263
 #, no-c-format
 msgid ""
 "The text box labled Searched Text is where the phrase to be used as the "
@@ -1327,19 +1553,22 @@ msgid ""
 "check box is provided to turn case sensitive search on or off."
 msgstr ""
 
-#: index.docbook:274
+#. Tag: para
+#: hdbk-operation.docbook:274
 #, no-c-format
 msgid ""
 "Drag &amp; Drop Works Here, you can drop verses and bookmarks into the text "
 "box. You can also copy and paste text into the text box."
 msgstr ""
 
-#: index.docbook:279
+#. Tag: title
+#: hdbk-operation.docbook:279
 #, no-c-format
 msgid "Using the Search Text Case Sensitive checkbox"
 msgstr ""
 
-#: index.docbook:280
+#. Tag: para
+#: hdbk-operation.docbook:280
 #, no-c-format
 msgid ""
 "Click on the Case Sensitive check box to toggle case sensitivity on or off. "
@@ -1351,12 +1580,14 @@ msgid ""
 "lord&quot; leave the check box unmarked."
 msgstr ""
 
-#: index.docbook:294
+#. Tag: title
+#: hdbk-operation.docbook:294
 #, no-c-format
 msgid "Using the Search Text Multiple Word (AND) Button"
 msgstr ""
 
-#: index.docbook:295
+#. Tag: para
+#: hdbk-operation.docbook:295
 #, no-c-format
 msgid ""
 "If Multiple Words (AND) radio button is marked the search will locate all "
@@ -1370,12 +1601,14 @@ msgid ""
 "found if a word containing it is found."
 msgstr ""
 
-#: index.docbook:308
+#. Tag: title
+#: hdbk-operation.docbook:308
 #, no-c-format
 msgid "Using the Search Text Multiple Word (OR) Button"
 msgstr ""
 
-#: index.docbook:309
+#. Tag: para
+#: hdbk-operation.docbook:309
 #, no-c-format
 msgid ""
 "If Multiple Words (OR) radio button is marked the search will locate all "
@@ -1385,12 +1618,14 @@ msgid ""
 "son.&quot;"
 msgstr ""
 
-#: index.docbook:317
+#. Tag: title
+#: hdbk-operation.docbook:317
 #, no-c-format
 msgid "Using the Exact Search"
 msgstr ""
 
-#: index.docbook:318
+#. Tag: para
+#: hdbk-operation.docbook:318
 #, no-c-format
 msgid ""
 "If the Exact radio button is marked the search will locate all lines (or "
@@ -1401,47 +1636,54 @@ msgid ""
 "emphasis>est to behave...&quot;"
 msgstr ""
 
-#: index.docbook:329
+#. Tag: title
+#: hdbk-operation.docbook:329
 #, no-c-format
 msgid "<guibutton>Choose Search</guibutton> Scope Options"
 msgstr ""
 
-#: index.docbook:330
+#. Tag: para
+#: hdbk-operation.docbook:330
 #, no-c-format
 msgid ""
 "Define the Scope of your search by clicking on the <guibutton>Choose Scope</"
 "guibutton> button. You will be presented a list of predefined scopes."
 msgstr ""
 
-#: index.docbook:333
+#. Tag: para
+#: hdbk-operation.docbook:334
 #, no-c-format
 msgid ""
 "<guibutton>No Scope</guibutton> this turns off the search scope tab. The "
 "entire document is searched."
 msgstr ""
 
-#: index.docbook:333
+#. Tag: para
+#: hdbk-operation.docbook:336
 #, no-c-format
 msgid ""
 "<guibutton>Last Result</guibutton> The new search will only search within "
 "the verses found in the previous search."
 msgstr ""
 
-#: index.docbook:333
+#. Tag: para
+#: hdbk-operation.docbook:338
 #, no-c-format
 msgid ""
 "<guibutton>Gospels</guibutton> The new search will be performed within the "
 "range Matthew 1:1 - John 21:25"
 msgstr ""
 
-#: index.docbook:333
+#. Tag: para
+#: hdbk-operation.docbook:340
 #, no-c-format
 msgid ""
 "<guibutton>History</guibutton> The new search will be performed within the "
 "range Joshua 1:1 - Esther 10:3;"
 msgstr ""
 
-#: index.docbook:344
+#. Tag: para
+#: hdbk-operation.docbook:344
 #, no-c-format
 msgid ""
 "If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible "
@@ -1454,29 +1696,34 @@ msgid ""
 "and Lord."
 msgstr ""
 
-#: index.docbook:354
+#. Tag: title
+#: hdbk-operation.docbook:354
 #, no-c-format
 msgid "Edit Ranges"
 msgstr ""
 
-#: index.docbook:355
+#. Tag: para
+#: hdbk-operation.docbook:355
 #, no-c-format
 msgid ""
 "Setup Custom Ranges - You can enter upper and lower boundaries for the "
 "search by clicking on the <guibutton>Setup Custom Ranges</guibutton> button."
 msgstr ""
 
-#: index.docbook:358
+#. Tag: phrase
+#: hdbk-operation.docbook:363
 #, no-c-format
 msgid "Change Range Entry Box"
 msgstr ""
 
-#: index.docbook:367
+#. Tag: para
+#: hdbk-operation.docbook:367
 #, no-c-format
 msgid "The predefined ranges show examples of the required syntax."
 msgstr ""
 
-#: index.docbook:369
+#. Tag: para
+#: hdbk-operation.docbook:369
 #, no-c-format
 msgid ""
 "Click on the <guibutton>Add New Range</guibutton> enter the name for your "
@@ -1486,12 +1733,14 @@ msgid ""
 "clicking on <guibutton>OK</guibutton>."
 msgstr ""
 
-#: index.docbook:376
+#. Tag: para
+#: hdbk-operation.docbook:376
 #, no-c-format
 msgid "A number of custom ranges have been provided."
 msgstr ""
 
-#: index.docbook:378
+#. Tag: para
+#: hdbk-operation.docbook:378
 #, no-c-format
 msgid ""
 "The scope of a search can be set to the <emphasis>Entire Module</emphasis> "
@@ -1504,42 +1753,50 @@ msgid ""
 "matches will have the name, Jesus, and both the titles, Christ and Lord."
 msgstr ""
 
-#: index.docbook:394
+#. Tag: screeninfo
+#: hdbk-operation.docbook:395
 #, no-c-format
 msgid "Search TextCustom Range Dialog Box"
 msgstr ""
 
-#: index.docbook:405
+#. Tag: title
+#: hdbk-operation.docbook:405
 #, no-c-format
 msgid "Using the Search Text Button"
 msgstr ""
 
-#: index.docbook:406
+#. Tag: para
+#: hdbk-operation.docbook:406
 #, no-c-format
 msgid "Click on the <guibutton>Search Button</guibutton> to start the search."
 msgstr ""
 
-#: index.docbook:408
+#. Tag: screeninfo
+#: hdbk-operation.docbook:409
 #, no-c-format
 msgid "Search Text Dialog Box"
 msgstr ""
 
-#: index.docbook:420
+#. Tag: title
+#: hdbk-operation.docbook:420
 #, no-c-format
 msgid "The Search Results Tab"
 msgstr ""
 
-#: index.docbook:421
+#. Tag: para
+#: hdbk-operation.docbook:421
 #, no-c-format
 msgid "Under the search results tab you will find the all of your search hits."
 msgstr ""
 
-#: index.docbook:425
+#. Tag: title
+#: hdbk-operation.docbook:425
 #, no-c-format
 msgid "Using the Search Results Tab"
 msgstr ""
 
-#: index.docbook:426
+#. Tag: para
+#: hdbk-operation.docbook:426
 #, no-c-format
 msgid ""
 "Search Result - This tells you first, by module, how many instances of the "
@@ -1552,18 +1809,21 @@ msgid ""
 "or look at the verse in the bottom pane of the search results tab."
 msgstr ""
 
-#: index.docbook:435
+#. Tag: para
+#: hdbk-operation.docbook:435
 #, no-c-format
 msgid "Drag &amp; Drop Works Here in the text display area."
 msgstr ""
 
-#: index.docbook:437
+#. Tag: para
+#: hdbk-operation.docbook:437
 #, no-c-format
 msgid ""
 "Select verse numbers and drag them to the main index to create bookmarks."
 msgstr ""
 
-#: index.docbook:438
+#. Tag: para
+#: hdbk-operation.docbook:438
 #, no-c-format
 msgid ""
 "Select verse numbers and drop them on an unopened module in the main index "
@@ -1571,31 +1831,36 @@ msgid ""
 "only)."
 msgstr ""
 
-#: index.docbook:440
+#. Tag: para
+#: hdbk-operation.docbook:440
 #, no-c-format
 msgid ""
 "Select verse numbers and drag them to an open document and the document will "
 "jump to the verse location (Bibles and commentaries only)."
 msgstr ""
 
-#: index.docbook:443
+#. Tag: screeninfo
+#: hdbk-operation.docbook:444
 #, no-c-format
 msgid "Search Result Dialog Box"
 msgstr ""
 
-#: index.docbook:455
+#. Tag: title
+#: hdbk-operation.docbook:455
 #, no-c-format
 msgid "Using the Search Analysis"
 msgstr ""
 
-#: index.docbook:456
+#. Tag: para
+#: hdbk-operation.docbook:456
 #, no-c-format
 msgid ""
 "Click on <guibutton>Search Analysis</guibutton> to open the search analysis "
 "display."
 msgstr ""
 
-#: index.docbook:457
+#. Tag: para
+#: hdbk-operation.docbook:457
 #, no-c-format
 msgid ""
 "<guibutton>Search Analysis</guibutton> - This gives a graphic analysis of "
@@ -1604,17 +1869,20 @@ msgid ""
 "the analysis as an html formated list on your hard drive."
 msgstr ""
 
-#: index.docbook:462
+#. Tag: screeninfo
+#: hdbk-operation.docbook:463
 #, no-c-format
 msgid "Search Analysis Dialog Box"
 msgstr ""
 
-#: index.docbook:477
+#. Tag: title
+#: hdbk-operation.docbook:477
 #, no-c-format
 msgid "Search Syntax using GCC Regular Expression"
 msgstr ""
 
-#: index.docbook:479
+#. Tag: para
+#: hdbk-operation.docbook:479
 #, no-c-format
 msgid ""
 "Regular expression searches provide a way to do simple or complex searches "
@@ -1633,7 +1901,8 @@ msgid ""
 "s<emphasis>hall not</emphasis>&quot;."
 msgstr ""
 
-#: index.docbook:495
+#. Tag: para
+#: hdbk-operation.docbook:495
 #, no-c-format
 msgid ""
 "The power of Regular Expressions is in the patterns (or templates) used to "
@@ -1644,7 +1913,8 @@ msgid ""
 "convert special characters to ordinary and ordinary characters to special."
 msgstr ""
 
-#: index.docbook:504
+#. Tag: para
+#: hdbk-operation.docbook:504
 #, no-c-format
 msgid ""
 "Example: the pattern &quot;<emphasis>i. love\\.</emphasis>&quot; will find "
@@ -1658,33 +1928,38 @@ msgid ""
 "period."
 msgstr ""
 
-#: index.docbook:515
+#. Tag: title
+#: hdbk-operation.docbook:515
 #, no-c-format
 msgid "Rules for GCC Regular Expression Search Requests"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:517
 #, no-c-format
 msgid ""
 ". The period matches any character. See <link linkend=\"period\">Details</"
 "link>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:519
 #, no-c-format
 msgid ""
 "* The asterisk matches 0 or more characters of the preceding: set, character "
 "or indicated character. See <link linkend=\"asterisk\">Details</link>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:522
 #, no-c-format
 msgid ""
 "+ The plus sign matches 1 or more characters of the preceding: set, "
 "character or indicated character. See <link linkend=\"plus\">Details</link>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:525
 #, no-c-format
 msgid ""
 "? The question mark matches 0 or 1 character of the preceding: set, "
@@ -1692,67 +1967,77 @@ msgid ""
 "link>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:528
 #, no-c-format
 msgid ""
 "[ ] Square brackets match any one of the characters specified inside [ ]. "
 "See <link linkend=\"bracket\">Details</link>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:530
 #, no-c-format
 msgid ""
 "^ A caret as the first character inside [ ] means NOT. See <link linkend="
 "\"caret\">Details</link>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:532
 #, no-c-format
 msgid ""
 "^ A caret beginning a pattern anchors the beginning of a line. See <link "
 "linkend=\"caret\">Details</link>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:534
 #, no-c-format
 msgid ""
 "$ A dollar at the end of a pattern anchors the end of a line. See <link "
 "linkend=\"dollar\">Details</link>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:536
 #, no-c-format
 msgid ""
 "| A vertical bar means logical OR. See <link linkend=\"bar\">Details</link>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:538
 #, no-c-format
 msgid ""
 "( ) Parentheses enclose expressions for grouping. <emphasis>Not supported!</"
 "emphasis>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:540
 #, no-c-format
 msgid ""
 "\\ A backslash can be used prior to any special character to match that "
 "character. See <link linkend=\"backslash\">Details</link>"
 msgstr ""
 
-#: index.docbook:516
+#. Tag: para
+#: hdbk-operation.docbook:542
 #, no-c-format
 msgid ""
 "\\ A backslash can be used prior to an ordinary character to make it a "
 "special character. See <link linkend=\"backslash\">Details</link>"
 msgstr ""
 
-#: index.docbook:547
+#. Tag: title
+#: hdbk-operation.docbook:547
 #, no-c-format
 msgid "The Period ."
 msgstr ""
 
-#: index.docbook:549
+#. Tag: para
+#: hdbk-operation.docbook:549
 #, no-c-format
 msgid ""
 "The Period &quot;.&quot; will match any single character even a space or "
@@ -1768,12 +2053,14 @@ msgid ""
 "emphasis>and <emphasis>foot tool</emphasis>"
 msgstr ""
 
-#: index.docbook:563
+#. Tag: title
+#: hdbk-operation.docbook:563
 #, no-c-format
 msgid "The Asterisk *"
 msgstr ""
 
-#: index.docbook:565
+#. Tag: para
+#: hdbk-operation.docbook:565
 #, no-c-format
 msgid ""
 "The asterisk matches zero or more characters of the preceding: set, "
@@ -1785,12 +2072,14 @@ msgid ""
 "emphasis>a."
 msgstr ""
 
-#: index.docbook:577
+#. Tag: title
+#: hdbk-operation.docbook:577
 #, no-c-format
 msgid "The Plus Sign +"
 msgstr ""
 
-#: index.docbook:578
+#. Tag: para
+#: hdbk-operation.docbook:578
 #, no-c-format
 msgid ""
 "The Plus Sign matches one or more characters of the preceding: set, "
@@ -1801,12 +2090,14 @@ msgid ""
 "not <emphasis>bn</emphasis>."
 msgstr ""
 
-#: index.docbook:589
+#. Tag: title
+#: hdbk-operation.docbook:589
 #, no-c-format
 msgid "The Question Mark ?"
 msgstr ""
 
-#: index.docbook:590
+#. Tag: para
+#: hdbk-operation.docbook:590
 #, no-c-format
 msgid ""
 "The Question Mark matches zero or one character of the preceding: set, "
@@ -1816,12 +2107,14 @@ msgid ""
 "<emphasis>tree</emphasis>."
 msgstr ""
 
-#: index.docbook:599
+#. Tag: title
+#: hdbk-operation.docbook:599
 #, no-c-format
 msgid "The Square Brackets [ ]"
 msgstr ""
 
-#: index.docbook:600
+#. Tag: para
+#: hdbk-operation.docbook:600
 #, no-c-format
 msgid ""
 "The Square Brackets enclose a set of characters that can match. The period, "
@@ -1841,12 +2134,14 @@ msgid ""
 "or ! but not a comma. [ ]^-] matches ] or ^ or -"
 msgstr ""
 
-#: index.docbook:622
+#. Tag: title
+#: hdbk-operation.docbook:622
 #, no-c-format
 msgid "The Caret first in Square Brackets [^xxx"
 msgstr ""
 
-#: index.docbook:623
+#. Tag: para
+#: hdbk-operation.docbook:623
 #, no-c-format
 msgid ""
 "If the Caret is the first character after the left bracket it means NOT. "
@@ -1855,12 +2150,14 @@ msgid ""
 "emphasis>o<emphasis>t</emphasis>."
 msgstr ""
 
-#: index.docbook:630
+#. Tag: title
+#: hdbk-operation.docbook:630
 #, no-c-format
 msgid "The Caret as Start of Line Anchor ^xxx"
 msgstr ""
 
-#: index.docbook:631
+#. Tag: para
+#: hdbk-operation.docbook:631
 #, no-c-format
 msgid ""
 "If the Caret is the first character in a pattern it anchors the pattern to "
@@ -1873,12 +2170,14 @@ msgid ""
 "emphasis>)"
 msgstr ""
 
-#: index.docbook:644
+#. Tag: title
+#: hdbk-operation.docbook:644
 #, no-c-format
 msgid "The Dollar Sign as End of Line Anchor xxx$"
 msgstr ""
 
-#: index.docbook:645
+#. Tag: para
+#: hdbk-operation.docbook:645
 #, no-c-format
 msgid ""
 "If the Dollar Sign is the last character in a pattern it anchors the pattern "
@@ -1890,12 +2189,14 @@ msgid ""
 "\\....$, Amen\\..........$, or even Amen\\....................$)"
 msgstr ""
 
-#: index.docbook:659
+#. Tag: title
+#: hdbk-operation.docbook:659
 #, no-c-format
 msgid "The Vertical Bar |"
 msgstr ""
 
-#: index.docbook:660
+#. Tag: para
+#: hdbk-operation.docbook:660
 #, no-c-format
 msgid ""
 "The Vertical Bar between patterns means OR. <emphasis>John|Peter</emphasis> "
@@ -1907,22 +2208,26 @@ msgid ""
 "<emphasis>sorrow</emphasis>."
 msgstr ""
 
-#: index.docbook:671
+#. Tag: title
+#: hdbk-operation.docbook:671
 #, no-c-format
 msgid "The Parentheses ( )"
 msgstr ""
 
-#: index.docbook:672
+#. Tag: emphasis
+#: hdbk-operation.docbook:672
 #, no-c-format
 msgid "The use of Parentheses ( ) is not supported!"
 msgstr ""
 
-#: index.docbook:678
+#. Tag: title
+#: hdbk-operation.docbook:678
 #, no-c-format
 msgid "The Backslash Prior to a Special Character \\*"
 msgstr ""
 
-#: index.docbook:679
+#. Tag: para
+#: hdbk-operation.docbook:679
 #, no-c-format
 msgid ""
 "The Backslash prior to a special character indicates that the character is "
@@ -1932,19 +2237,22 @@ msgid ""
 "emphasis>t."
 msgstr ""
 
-#: index.docbook:687
+#. Tag: title
+#: hdbk-operation.docbook:687
 #, no-c-format
 msgid "The Backslash Prior to an Ordinary Character \\s"
 msgstr ""
 
-#: index.docbook:689
+#. Tag: para
+#: hdbk-operation.docbook:689
 #, no-c-format
 msgid ""
 "The Backslash prior to an ordinary character indicates that the character is "
 "not being used to match itself, but has special meaning."
 msgstr ""
 
-#: index.docbook:693
+#. Tag: para
+#: hdbk-operation.docbook:694
 #, no-c-format
 msgid ""
 "\\b if use outside [ ] means word boundary. If used inside [ ] means "
@@ -1953,7 +2261,8 @@ msgid ""
 "emphasis>ness"
 msgstr ""
 
-#: index.docbook:693
+#. Tag: para
+#: hdbk-operation.docbook:698
 #, no-c-format
 msgid ""
 "\\B means non-word boundary. <emphasis>\\Brighteous\\B</emphasis> matches "
@@ -1962,47 +2271,56 @@ msgid ""
 "<emphasis> righteous</emphasis>ness."
 msgstr ""
 
-#: index.docbook:693
+#. Tag: para
+#: hdbk-operation.docbook:702
 #, no-c-format
 msgid "\\d means digit; same as [0-9]."
 msgstr ""
 
-#: index.docbook:693
+#. Tag: para
+#: hdbk-operation.docbook:703
 #, no-c-format
 msgid "\\D means non-digit, same as [^0-9]."
 msgstr ""
 
-#: index.docbook:693
+#. Tag: para
+#: hdbk-operation.docbook:704
 #, no-c-format
 msgid "\\s means space."
 msgstr ""
 
-#: index.docbook:693
+#. Tag: para
+#: hdbk-operation.docbook:705
 #, no-c-format
 msgid "\\S means not a space."
 msgstr ""
 
-#: index.docbook:693
+#. Tag: para
+#: hdbk-operation.docbook:706
 #, no-c-format
 msgid "\\w means alphanumeric; same as [a-zA-Z0-9_]."
 msgstr ""
 
-#: index.docbook:693
+#. Tag: para
+#: hdbk-operation.docbook:707
 #, no-c-format
 msgid "\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
 msgstr ""
 
-#: index.docbook:714
+#. Tag: title
+#: hdbk-operation.docbook:714
 #, no-c-format
 msgid "Exporting and Printing"
 msgstr ""
 
-#: index.docbook:715
+#. Tag: para
+#: hdbk-operation.docbook:715
 #, no-c-format
 msgid "Bible Window, Lexicon Window, Commentary Window, Book Window."
 msgstr ""
 
-#: index.docbook:716
+#. Tag: para
+#: hdbk-operation.docbook:716
 #, no-c-format
 msgid ""
 "By clicking with the <mousebutton>right</mousebutton> mouse button on the "
@@ -2012,75 +2330,87 @@ msgid ""
 "export options copy, add to printing queue, and save."
 msgstr ""
 
-#: index.docbook:723
+#. Tag: title
+#: hdbk-operation.docbook:723
 #, no-c-format
 msgid "Select All"
 msgstr ""
 
-#: index.docbook:724
+#. Tag: para
+#: hdbk-operation.docbook:724
 #, no-c-format
 msgid ""
 "A mouse click here will select all of the text in the chapter displayed in "
 "the current window."
 msgstr ""
 
-#: index.docbook:730
+#. Tag: title
+#: hdbk-operation.docbook:730
 #, no-c-format
 msgid "Copy"
 msgstr ""
 
-#: index.docbook:731
+#. Tag: para
+#: hdbk-operation.docbook:731
 #, no-c-format
 msgid ""
 "A mouse click here will bring up a sub menu offering to copy to the copy "
 "buffer using the current location of the cursor as the starting point."
 msgstr ""
 
-#: index.docbook:734
+#. Tag: para
+#: hdbk-operation.docbook:736
 #, no-c-format
 msgid ""
 "<guimenuitem>Reference only</guimenuitem> - The number of the current verse "
 "(such as Genesis 1:25)."
 msgstr ""
 
-#: index.docbook:734
+#. Tag: para
+#: hdbk-operation.docbook:741
 #, no-c-format
 msgid ""
 "<guimenuitem>Text of Reference</guimenuitem> - The text of the current verse."
 msgstr ""
 
-#: index.docbook:734
+#. Tag: para
+#: hdbk-operation.docbook:746
 #, no-c-format
 msgid ""
 "<guimenuitem>Reference with Text</guimenuitem> - Both the text of the "
 "current verse, and the verse number."
 msgstr ""
 
-#: index.docbook:734
+#. Tag: para
+#: hdbk-operation.docbook:751
 #, no-c-format
 msgid "<guimenuitem>Chapter</guimenuitem> - the entire chapter."
 msgstr ""
 
-#: index.docbook:734
+#. Tag: para
+#: hdbk-operation.docbook:756
 #, no-c-format
 msgid ""
 "<guimenuitem>Selected Text</guimenuitem> - Only the selected (highlighted) "
 "text."
 msgstr ""
 
-#: index.docbook:761
+#. Tag: para
+#: hdbk-operation.docbook:761
 #, no-c-format
 msgid ""
 "This text can be copied into any application that can access the linux copy "
 "buffer."
 msgstr ""
 
-#: index.docbook:766
+#. Tag: title
+#: hdbk-operation.docbook:766
 #, no-c-format
 msgid "Add to Printing Queue"
 msgstr ""
 
-#: index.docbook:767
+#. Tag: para
+#: hdbk-operation.docbook:768
 #, no-c-format
 msgid ""
 "Selecting print here puts your print output in the bibletime print buffer. "
@@ -2089,22 +2419,26 @@ msgid ""
 "<guilabel>menubar</guilabel>."
 msgstr ""
 
-#: index.docbook:775
+#. Tag: para
+#: hdbk-operation.docbook:775
 #, no-c-format
 msgid "A mouse click here will bring up a submenu with the printing options:"
 msgstr ""
 
-#: index.docbook:777
+#. Tag: guimenuitem
+#: hdbk-operation.docbook:780
 #, no-c-format
 msgid "reference with text"
 msgstr ""
 
-#: index.docbook:777
+#. Tag: guimenuitem
+#: hdbk-operation.docbook:785
 #, no-c-format
 msgid "chapter"
 msgstr ""
 
-#: index.docbook:789
+#. Tag: para
+#: hdbk-operation.docbook:789
 #, no-c-format
 msgid ""
 "Selecting these places text into the bibletime print queue, but it will not "
@@ -2113,7 +2447,8 @@ msgid ""
 "Now you can select to either view or print the text."
 msgstr ""
 
-#: index.docbook:795
+#. Tag: para
+#: hdbk-operation.docbook:795
 #, no-c-format
 msgid ""
 "Printing from &bibletime; is rather basic and is intended as a utility. If "
@@ -2122,50 +2457,58 @@ msgid ""
 "editing tools on your system to format your work."
 msgstr ""
 
-#: index.docbook:802
+#. Tag: title
+#: hdbk-operation.docbook:802
 #, no-c-format
 msgid "Save"
 msgstr ""
 
-#: index.docbook:803
+#. Tag: para
+#: hdbk-operation.docbook:803
 #, no-c-format
 msgid "A mouse click here will bring up a submenu with save options:"
 msgstr ""
 
-#: index.docbook:805
+#. Tag: para
+#: hdbk-operation.docbook:807
 #, no-c-format
 msgid ""
 "<guimenuitem>Verse with reference</guimenuitem> - a file is created in "
 "&UNIX; formated ASCII text."
 msgstr ""
 
-#: index.docbook:805
+#. Tag: para
+#: hdbk-operation.docbook:812
 #, no-c-format
 msgid ""
 "<guimenuitem>Chapter as plain text</guimenuitem> - a file is created in "
 "&UNIX; formated ASCII text."
 msgstr ""
 
-#: index.docbook:805
+#. Tag: para
+#: hdbk-operation.docbook:817
 #, no-c-format
 msgid ""
 "<guimenuitem>Chapter as HTML</guimenuitem> - a file is created formated in "
 "HTML."
 msgstr ""
 
-#: index.docbook:822
+#. Tag: para
+#: hdbk-operation.docbook:822
 #, no-c-format
 msgid ""
 "Once saved this text can be opened and edited by any text or HTML "
 "application."
 msgstr ""
 
-#: index.docbook:1
+#. Tag: title
+#: hdbk-start.docbook:1
 #, no-c-format
 msgid "Starting &bibletime;"
 msgstr ""
 
-#: index.docbook:3
+#. Tag: para
+#: hdbk-start.docbook:3
 #, no-c-format
 msgid ""
 "&bibletime; is a &kde; program and is integrated with the &kde; desktop. You "
@@ -2173,12 +2516,14 @@ msgid ""
 "applications group."
 msgstr ""
 
-#: index.docbook:3
+#. Tag: phrase
+#: hdbk-start.docbook:13
 #, no-c-format
 msgid "Icon used to start &bibletime;"
 msgstr ""
 
-#: index.docbook:18
+#. Tag: para
+#: hdbk-start.docbook:18
 #, no-c-format
 msgid ""
 "&bibletime; can also be launched from a terminal command prompt. To launch "
@@ -2186,12 +2531,14 @@ msgid ""
 "<command>bibletime</command>."
 msgstr ""
 
-#: index.docbook:24
+#. Tag: title
+#: hdbk-start.docbook:24
 #, no-c-format
 msgid "Other Window Managers (not &kde;)"
 msgstr ""
 
-#: index.docbook:26
+#. Tag: para
+#: hdbk-start.docbook:26
 #, no-c-format
 msgid ""
 "&bibletime; can be launched from inside other window managers (like gnome) "
@@ -2199,7 +2546,8 @@ msgid ""
 "launch the program. See the window manager help files to see how."
 msgstr ""
 
-#: index.docbook:33
+#. Tag: para
+#: hdbk-start.docbook:33
 #, no-c-format
 msgid ""
 "&bibletime; can be used with other window managers such as Gnome, BlackBox, "
@@ -2209,14 +2557,16 @@ msgid ""
 "terminal is:"
 msgstr ""
 
-#: index.docbook:38
+#. Tag: screen
+#: hdbk-start.docbook:38
 #, no-c-format
 msgid ""
 "export KDEDIR=/opt/kde3\n"
 "bibletime"
 msgstr ""
 
-#: index.docbook:42
+#. Tag: para
+#: hdbk-start.docbook:39
 #, no-c-format
 msgid ""
 "&bibletime; will now open inside of a window of the current window manager. "
@@ -2225,119 +2575,143 @@ msgid ""
 "application.</ulink>, or one of the &kde;2 versions of &bibletime;."
 msgstr ""
 
-#: index.docbook:48
+#. Tag: para
+#: hdbk-start.docbook:45
 #, no-c-format
 msgid ""
 "With &Linux-Mandrake; 9.0 and other other distributions where &kde; 3.x is "
 "installed in the normal location, simply type:"
 msgstr ""
 
-#: index.docbook:50 index.docbook:88
+#. #-#-#-#-#  hdbk-start.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: screen
+#. #-#-#-#-#  index.docbook.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Tag: keyword
+#: hdbk-start.docbook:47 index.docbook:88
 #, no-c-format
 msgid "bibletime"
 msgstr ""
 
-#: index.docbook:55
+#. Tag: section
+#: hdbk-start.docbook:47
+#, no-c-format
+msgid "in any terminal to launch &bibletime;."
+msgstr ""
+
+#. Tag: title
+#: hdbk-start.docbook:50
 #, no-c-format
 msgid "Startup Customization"
 msgstr ""
 
-#: index.docbook:57
+#. Tag: para
+#: hdbk-start.docbook:52
 #, no-c-format
 msgid ""
 "From a terminal you can use &bibletime; to open a random verse in the "
 "default bible:"
 msgstr ""
 
-#: index.docbook:59
+#. Tag: command
+#: hdbk-start.docbook:54
 #, no-c-format
 msgid "bibletime --open-default-bible \"&lt;random&gt;\""
 msgstr ""
 
-#: index.docbook:63
+#. Tag: para
+#: hdbk-start.docbook:58
 #, no-c-format
 msgid "To open at a given passage use:"
 msgstr ""
 
-#: index.docbook:64
+#. Tag: command
+#: hdbk-start.docbook:60
 #, no-c-format
 msgid "bibletime --open-default-bible \"John 3:16\""
 msgstr ""
 
-#: index.docbook:70
+#. Tag: para
+#: hdbk-start.docbook:65
 #, no-c-format
 msgid "You can also use keys in your current bookname language."
 msgstr ""
 
-#: index.docbook:75
+#. Tag: title
+#: hdbk-start.docbook:70
 #, no-c-format
 msgid "Startup Sequence"
 msgstr ""
 
-#: index.docbook:76
+#. Tag: para
+#: hdbk-start.docbook:71
 #, no-c-format
 msgid "As &bibletime; launches you may see some message screens:"
 msgstr ""
 
-#: index.docbook:78
+#. Tag: para
+#: hdbk-start.docbook:75
 #, no-c-format
 msgid ""
 "<interface>No Modules Installed</interface> - This is shown if you have "
 "forgotten to install sword modules, or if the sword modules can not be found."
 msgstr ""
 
-#: index.docbook:78
+#. Tag: para
+#: hdbk-start.docbook:82
 #, no-c-format
 msgid ""
 "<interface>First Time Startup</interface> - This is shown the first time "
 "&bibletime; is launched."
 msgstr ""
 
-#: index.docbook:78
+#. Tag: para
+#: hdbk-start.docbook:88
 #, no-c-format
 msgid ""
 "<interface>Daily Tips</interface> - These show on every startup, unless you "
 "turn them off."
 msgstr ""
 
-#: index.docbook:78
+#. Tag: phrase
+#: hdbk-start.docbook:96
 #, no-c-format
 msgid "Daily tips"
 msgstr ""
 
-#: index.docbook:108
+#. Tag: title
+#: hdbk-start.docbook:103
 #, no-c-format
 msgid "Parts of the &bibletime; Window"
 msgstr ""
 
-#: index.docbook:109
+#. Tag: para
+#: hdbk-start.docbook:104
 #, no-c-format
 msgid ""
 "Now the main &bibletime; window will open. It's operation is covered in the "
 "next chapter."
 msgstr ""
 
-#: index.docbook:109
+#. Tag: phrase
+#: hdbk-start.docbook:111
 #, no-c-format
 msgid "The &bibletime; Application Window"
 msgstr ""
 
-#: index.docbook:1
+#. Tag: title
+#: hdbk-toolbars.docbook:1
 #, no-c-format
 msgid "Main toolbar and menubar"
 msgstr ""
 
-#: index.docbook:2
-#, no-c-format
-msgid "<para></para>"
-msgstr ""
-
-#: index.docbook:5
+#. Tag: title
+#: hdbk-toolbars.docbook:5
 #, no-c-format
 msgid "Toolbar"
 msgstr ""
 
-#: index.docbook:7
+#. Tag: para
+#: hdbk-toolbars.docbook:7
 #, no-c-format
 msgid ""
 "The action of each button is described in the configuration dialog box. "
@@ -2345,17 +2719,20 @@ msgid ""
 "tooltip which describes that buttons action."
 msgstr ""
 
-#: index.docbook:12
+#. Tag: title
+#: hdbk-toolbars.docbook:12
 #, no-c-format
 msgid "Button Action"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:20
 #, no-c-format
 msgid "view_sidetree.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:23
 #, no-c-format
 msgid ""
 "In the <guilabel>Preferences Dialog</guilabel>, this icon opens the "
@@ -2363,12 +2740,14 @@ msgid ""
 "later recall."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:34
 #, no-c-format
 msgid "key_bindings.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:36
 #, no-c-format
 msgid ""
 "In the <guilabel>Preferences Dialog</guilabel>, this icon opens the "
@@ -2376,12 +2755,14 @@ msgid ""
 "bindings (keyboard shortcuts)."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:48
 #, no-c-format
 msgid "kcmfontinst.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:50
 #, no-c-format
 msgid ""
 "In the <guilabel>Preferences Dialog</guilabel>, this icon opens the "
@@ -2389,80 +2770,94 @@ msgid ""
 "display your sword modules."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:62
 #, no-c-format
 msgid "window_fullscreen.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:64
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon expands &bibletime; to use "
 "the entire viewing area of your monitor."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:75
 #, no-c-format
 msgid "ktip.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:77
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon opens the <guilabel>Daily "
 "Tip</guilabel>."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:88
 #, no-c-format
 msgid "configure.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:90
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon opens the <guilabel>Configure "
 "&bibletime;</guilabel> dialog."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:106
 #, no-c-format
 msgid "contents.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:108
 #, no-c-format
 msgid "In the <guilabel>Tool Bar</guilabel> this icon opens the Handbook."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:122
 #, no-c-format
 msgid "exit.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:124
 #, no-c-format
 msgid "In the <guilabel>Tool Bar</guilabel> this icon closes &bibletime;."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:134
 #, no-c-format
 msgid "fileclose.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:136
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon closes all open "
 "<guilabel>Document Windows</guilabel>."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:147
 #, no-c-format
 msgid "fileprint.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:149
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon opens the <guilabel>Print</"
@@ -2471,48 +2866,56 @@ msgid ""
 "print queue."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:161
 #, no-c-format
 msgid "find.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:163
 #, no-c-format
 msgid ""
 "In the <guilabel>Main Index</guilabel> or the <guilabel>Tool Bar</guilabel> "
 "this icon opens the <guilabel>Search Dialog</guilabel>."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:189
 #, no-c-format
 msgid "bible_add.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:191
 #, no-c-format
 msgid ""
 "In the <guilabel>Document Control Menu</guilabel> this icon opens the drop "
 "down menu that allows selection of an additional Bible Text."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:202
 #, no-c-format
 msgid "bible.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:204
 #, no-c-format
 msgid ""
 "In the <guilabel>main index</guilabel> this icon opens a Sword book module. "
 "This is used for modules that are not commentaries, lexicons or Bible texts."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:215
 #, no-c-format
 msgid "book_add.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:217
 #, no-c-format
 msgid ""
 "In the <guilabel>Document Control Menu</guilabel> this icon opens the drop "
@@ -2520,68 +2923,80 @@ msgid ""
 "used for modules that are not commentaries, lexicons or Bible texts."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:229
 #, no-c-format
 msgid "book.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:231
 #, no-c-format
 msgid "In the <guilabel>main index</guilabel> this icon opens a Bible Text."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:241
 #, no-c-format
 msgid "cascade_auto.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:243
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon automatically cascades "
 "displayed books as they are opened."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:254
 #, no-c-format
 msgid "cascade.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:256
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon cascades the displayed books "
 "now."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:266
 #, no-c-format
 msgid "commentary_add.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:268 hdbk-toolbars.docbook:306
 #, no-c-format
 msgid ""
 "In the <guilabel>Document Control Menu</guilabel> this icon opens the drop "
 "down menu that allows selection of an additional Lexicon."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:279
 #, no-c-format
 msgid "commentary.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:281 hdbk-toolbars.docbook:319
 #, no-c-format
 msgid "In the <guilabel>main index</guilabel> this icon opens a lexicon."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:291
 #, no-c-format
 msgid "displayconfig.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:293
 #, no-c-format
 msgid ""
 "In the <guilabel>Preferences Dialog</guilabel>, this icon opens the "
@@ -2589,34 +3004,40 @@ msgid ""
 "displayed text.."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:304
 #, no-c-format
 msgid "lexicon_add.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:317
 #, no-c-format
 msgid "lexicon.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:329
 #, no-c-format
 msgid "startconfig.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:331
 #, no-c-format
 msgid ""
 "In the <guilabel>Preferences Dialog</guilabel>, this icon opens the Startup "
 "Dialog. Here you can turn on (off) the tip of the day and the startup logo."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:342
 #, no-c-format
 msgid "swordconfig.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:344
 #, no-c-format
 msgid ""
 "<guimenuitem>Configure Sword</guimenuitem>. This icon is used in the "
@@ -2625,47 +3046,55 @@ msgid ""
 "names, and various text display features."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:357
 #, no-c-format
 msgid "sync.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:359
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon links a commentary to the "
 "current open Bible. Thereafter the Commentary and the Bible scroll together."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:370
 #, no-c-format
 msgid "tile_auto.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:372
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon automatically tiles displayed "
 "books as they are opened."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:383
 #, no-c-format
 msgid "tile.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:385
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon tiles the displayed books now."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:395
 #, no-c-format
 msgid "bibletime.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:397
 #, no-c-format
 msgid ""
 "This icon is used with the desktop shortcut that launches &bibletime;. In "
@@ -2673,86 +3102,101 @@ msgid ""
 "information, license, and other interesting information."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:411
 #, no-c-format
 msgid "go.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:413
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon displays the &kde; version "
 "information, license, and other interesting information."
 msgstr ""
 
-#: index.docbook:13
+#. Tag: phrase
+#: hdbk-toolbars.docbook:453
 #, no-c-format
 msgid "queue.png"
 msgstr ""
 
-#: index.docbook:13
+#. Tag: para
+#: hdbk-toolbars.docbook:455
 #, no-c-format
 msgid ""
 "In the <guilabel>Tool Bar</guilabel> this icon will clear the print queue."
 msgstr ""
 
-#: index.docbook:464
+#. Tag: title
+#: hdbk-toolbars.docbook:464
 #, no-c-format
 msgid "Menubar"
 msgstr ""
 
-#: index.docbook:465
+#. Tag: para
+#: hdbk-toolbars.docbook:465
 #, no-c-format
 msgid ""
 "Various features of bibletime are accessed by way of drop down menus from "
 "the menubar."
 msgstr ""
 
-#: index.docbook:469
+#. Tag: title
+#: hdbk-toolbars.docbook:469
 #, no-c-format
 msgid "File"
 msgstr ""
 
-#: index.docbook:470
+#. Tag: term
+#: hdbk-toolbars.docbook:474
 #, no-c-format
 msgid "Clear printing queue"
 msgstr ""
 
-#: index.docbook:470
+#. Tag: para
+#: hdbk-toolbars.docbook:476
 #, no-c-format
 msgid ""
 "Clears all items from the &bibletime; print queue. The &bibletime; printing "
 "queue does not clear automatically."
 msgstr ""
 
-#: index.docbook:470
+#. Tag: term
+#: hdbk-toolbars.docbook:481
 #, no-c-format
 msgid "Print"
 msgstr ""
 
-#: index.docbook:470
+#. Tag: para
+#: hdbk-toolbars.docbook:484
 #, no-c-format
 msgid ""
 "This menu item launches the <guilabel>printdialog</guilabel> box. From here "
 "you will select print or view as for any other &kde; application."
 msgstr ""
 
-#: index.docbook:470
+#. Tag: para
+#: hdbk-toolbars.docbook:492
 #, no-c-format
 msgid "Closes &bibletime;."
 msgstr ""
 
-#: index.docbook:499
+#. Tag: title
+#: hdbk-toolbars.docbook:499
 #, no-c-format
 msgid "View"
 msgstr ""
 
-#: index.docbook:500
+#. Tag: term
+#: hdbk-toolbars.docbook:504
 #, no-c-format
 msgid "Show Toolbar"
 msgstr ""
 
-#: index.docbook:500
+#. Tag: para
+#: hdbk-toolbars.docbook:506
 #, no-c-format
 msgid ""
 "If <guimenuitem>show toolbar</guimenuitem> is selected, the toolbar is "
@@ -2760,12 +3204,14 @@ msgid ""
 "toolbar is hidden."
 msgstr ""
 
-#: index.docbook:500
+#. Tag: term
+#: hdbk-toolbars.docbook:514
 #, no-c-format
 msgid "Show Main Index"
 msgstr ""
 
-#: index.docbook:500
+#. Tag: para
+#: hdbk-toolbars.docbook:517
 #, no-c-format
 msgid ""
 "If <guimenuitem>show main index</guimenuitem> is selected, the left pane "
@@ -2773,17 +3219,20 @@ msgid ""
 "main index</guimenuitem> is unselected then the left pane is hidden."
 msgstr ""
 
-#: index.docbook:527
+#. Tag: title
+#: hdbk-toolbars.docbook:527
 #, no-c-format
 msgid "Search"
 msgstr ""
 
-#: index.docbook:528
+#. Tag: term
+#: hdbk-toolbars.docbook:531
 #, no-c-format
 msgid "Search in default Bible"
 msgstr ""
 
-#: index.docbook:528
+#. Tag: para
+#: hdbk-toolbars.docbook:533
 #, no-c-format
 msgid ""
 "If <guimenuitem>Search in default Bible</guimenuitem> is selected, "
@@ -2791,12 +3240,14 @@ msgid ""
 "selected as the search parameter."
 msgstr ""
 
-#: index.docbook:528
+#. Tag: term
+#: hdbk-toolbars.docbook:540
 #, no-c-format
 msgid "Search in open module(s)"
 msgstr ""
 
-#: index.docbook:528
+#. Tag: para
+#: hdbk-toolbars.docbook:542
 #, no-c-format
 msgid ""
 "If <guimenuitem>Search in open module(s)</guimenuitem> is selected, "
@@ -2804,63 +3255,74 @@ msgid ""
 "selected as the search parameters."
 msgstr ""
 
-#: index.docbook:554
+#. Tag: title
+#: hdbk-toolbars.docbook:554
 #, no-c-format
 msgid "Window"
 msgstr ""
 
-#: index.docbook:555
+#. Tag: term
+#: hdbk-toolbars.docbook:559
 #, no-c-format
 msgid "Save session"
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:560
 #, no-c-format
 msgid "Saves the current configuration to a selected Session."
 msgstr ""
 
-#: index.docbook:555
+#. Tag: term
+#: hdbk-toolbars.docbook:565
 #, no-c-format
 msgid "Save as new session"
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:566
 #, no-c-format
 msgid ""
 "Saves the current configuration to a session, and allows the new session to "
 "be named."
 msgstr ""
 
-#: index.docbook:555
+#. Tag: term
+#: hdbk-toolbars.docbook:571
 #, no-c-format
 msgid "Load session"
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:572
 #, no-c-format
 msgid ""
 "Loads the contents of the named session to the current session of "
 "&bibletime;."
 msgstr ""
 
-#: index.docbook:555
+#. Tag: term
+#: hdbk-toolbars.docbook:577
 #, no-c-format
 msgid "Configure sessions"
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:578
 #, no-c-format
 msgid ""
 "This brings up the <guilabel>Sessions</guilabel> tab of the "
 "<guilabel>Preferences Dialog</guilabel>. Here you create and manage Sessions."
 msgstr ""
 
-#: index.docbook:555
+#. Tag: term
+#: hdbk-toolbars.docbook:585
 #, no-c-format
 msgid "Fullscreen Mode"
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:586
 #, no-c-format
 msgid ""
 "When <guimenuitem>Fullscreen Mode</guimenuitem> is selected, &bibletime; "
@@ -2868,69 +3330,82 @@ msgid ""
 "select <guimenuitem>Fullscreen Mode</guimenuitem>again."
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:593
 #, no-c-format
 msgid "Cascades open display windows."
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:599
 #, no-c-format
 msgid "Tiles open display windows."
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:606
 #, no-c-format
 msgid "Automatically cascades newly opened display windows."
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:613
 #, no-c-format
 msgid "Ditto for tiling newly opened display windows."
 msgstr ""
 
-#: index.docbook:555
+#. Tag: term
+#: hdbk-toolbars.docbook:618
 #, no-c-format
 msgid "Close all"
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:620
 #, no-c-format
 msgid "Closes all open display windows."
 msgstr ""
 
-#: index.docbook:555
+#. Tag: term
+#: hdbk-toolbars.docbook:625
 #, no-c-format
 msgid "List of open modules"
 msgstr ""
 
-#: index.docbook:555
+#. Tag: para
+#: hdbk-toolbars.docbook:627
 #, no-c-format
 msgid ""
 "Shows a list of all of the currently open modules. Selecting a module in "
 "this list makes that open module the selected module in the display area."
 msgstr ""
 
-#: index.docbook:637
+#. Tag: title
+#: hdbk-toolbars.docbook:637
 #, no-c-format
 msgid "Settings"
 msgstr ""
 
-#: index.docbook:638
+#. Tag: term
+#: hdbk-toolbars.docbook:643
 #, no-c-format
 msgid "Configure Toolbar"
 msgstr ""
 
-#: index.docbook:638
+#. Tag: para
+#: hdbk-toolbars.docbook:645
 #, no-c-format
 msgid "Show the <guilabel>Configure Toolbar</guilabel> dialog."
 msgstr ""
 
-#: index.docbook:638
+#. Tag: term
+#: hdbk-toolbars.docbook:650
 #, no-c-format
 msgid "Configure &bibletime;"
 msgstr ""
 
-#: index.docbook:638
+#. Tag: para
+#: hdbk-toolbars.docbook:652
 #, no-c-format
 msgid ""
 "Shows the <guilabel>Preferences Dialog</guilabel>. From this dialog the "
@@ -2938,51 +3413,60 @@ msgid ""
 "configurable."
 msgstr ""
 
-#: index.docbook:662
+#. Tag: title
+#: hdbk-toolbars.docbook:662
 #, no-c-format
 msgid "Help"
 msgstr ""
 
-#: index.docbook:663
+#. Tag: term
+#: hdbk-toolbars.docbook:668
 #, no-c-format
 msgid "Handbook"
 msgstr ""
 
-#: index.docbook:663
+#. Tag: para
+#: hdbk-toolbars.docbook:669
 #, no-c-format
 msgid ""
 "Select <guimenuitem>Handbook</guimenuitem> to access this document from the "
 "&kde; Help Center."
 msgstr ""
 
-#: index.docbook:663
+#. Tag: term
+#: hdbk-toolbars.docbook:675
 #, no-c-format
 msgid "Biblestudy HowTo"
 msgstr ""
 
-#: index.docbook:663
+#. Tag: para
+#: hdbk-toolbars.docbook:676
 #, no-c-format
 msgid ""
 "Select <guimenuitem>Biblestudy HowTo</guimenuitem> to access a good basic "
 "text with recommendations for studying the Bible."
 msgstr ""
 
-#: index.docbook:663
+#. Tag: term
+#: hdbk-toolbars.docbook:682
 #, no-c-format
 msgid "What's This"
 msgstr ""
 
-#: index.docbook:663
+#. Tag: para
+#: hdbk-toolbars.docbook:684
 #, no-c-format
 msgid "Allows you to click on certain items for contextual help."
 msgstr ""
 
-#: index.docbook:663
+#. Tag: term
+#: hdbk-toolbars.docbook:691
 #, no-c-format
 msgid "Bug Report"
 msgstr ""
 
-#: index.docbook:663
+#. Tag: para
+#: hdbk-toolbars.docbook:693
 #, no-c-format
 msgid ""
 "Send a bug report to the program's maintainers to help development. Before "
@@ -2991,68 +3475,85 @@ msgid ""
 "<guilabel>Submit A Bug Report</guilabel> dialog."
 msgstr ""
 
-#: index.docbook:663
+#. Tag: term
+#: hdbk-toolbars.docbook:703
 #, no-c-format
 msgid "Daily Tip"
 msgstr ""
 
-#: index.docbook:663
+#. Tag: para
+#: hdbk-toolbars.docbook:705
 #, no-c-format
 msgid "Launches the <guilabel>tip of the day</guilabel> dialog."
 msgstr ""
 
-#: index.docbook:663
+#. Tag: term
+#: hdbk-toolbars.docbook:710
 #, no-c-format
 msgid "About &bibletime;"
 msgstr ""
 
-#: index.docbook:663
+#. Tag: para
+#: hdbk-toolbars.docbook:712
 #, no-c-format
 msgid "Opens a window with general &bibletime; information."
 msgstr ""
 
-#: index.docbook:663
+#. Tag: term
+#: hdbk-toolbars.docbook:719
 #, no-c-format
 msgid "About &kde;"
 msgstr ""
 
-#: index.docbook:663
+#. Tag: para
+#: hdbk-toolbars.docbook:721
 #, no-c-format
 msgid "Opens a window with general &kde; information."
 msgstr ""
 
+#. Tag: title
 #: index.docbook:21
 #, no-c-format
 msgid "The &bibletime; Handbook"
 msgstr ""
 
+#. Tag: author
 #: index.docbook:25
 #, no-c-format
-msgid ""
-"<firstname>Fred</firstname> <surname>Saalbach</surname> <affiliation> "
-"<address><email>info@bibletime.info</email></address> </affiliation>"
+msgid "<firstname>Fred</firstname> <surname>Saalbach</surname>"
 msgstr ""
 
+#. Tag: email
+#: index.docbook:29
+#, no-c-format
+msgid "info@bibletime.info"
+msgstr ""
+
+#. Tag: author
 #: index.docbook:33
 #, no-c-format
 msgid "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
 msgstr ""
 
+#. Tag: trans_comment
 #: index.docbook:40
 #, no-c-format
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
 
+#. Tag: holder
 #: index.docbook:48
 #, no-c-format
 msgid "The team of &bibletime;, info@bibletime.info"
 msgstr ""
 
+#. Tag: para
 #: index.docbook:53
 #, no-c-format
 msgid "The &bibletime; handbook is part of &bibletime;."
 msgstr ""
 
+#. Tag: para
 #: index.docbook:56
 #, no-c-format
 msgid ""
@@ -3062,6 +3563,7 @@ msgid ""
 "any later version."
 msgstr ""
 
+#. Tag: para
 #: index.docbook:63
 #, no-c-format
 msgid ""
@@ -3071,6 +3573,7 @@ msgid ""
 "more details."
 msgstr ""
 
+#. Tag: para
 #: index.docbook:70
 #, no-c-format
 msgid ""
@@ -3079,31 +3582,37 @@ msgid ""
 "Ave, Cambridge, MA 02139, USA."
 msgstr ""
 
+#. Tag: para
 #: index.docbook:80
 #, no-c-format
 msgid "&bibletime; is an application to aid in study of the Bible."
 msgstr ""
 
+#. Tag: keyword
 #: index.docbook:87
 #, no-c-format
 msgid "<keyword>KDE</keyword>"
 msgstr ""
 
+#. Tag: keyword
 #: index.docbook:89
 #, no-c-format
 msgid "&bibletime;"
 msgstr ""
 
+#. Tag: keyword
 #: index.docbook:90
 #, no-c-format
 msgid "sword"
 msgstr ""
 
+#. Tag: keyword
 #: index.docbook:91
 #, no-c-format
 msgid "crosswire"
 msgstr ""
 
+#. Tag: keyword
 #: index.docbook:92
 #, no-c-format
 msgid "help dialog"

@@ -59,7 +59,7 @@ CTextRendering::KeyTreeItem::~KeyTreeItem() {
 	delete m_childList;
 }
 
-CTextRendering::KeyTree* CTextRendering::KeyTreeItem::childList() const {
+CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() const {
 	if (!m_childList) {
 		m_childList = new KeyTree();
 	}
@@ -153,9 +153,9 @@ const QString CTextRendering::renderSingleKey( const QString& key, ListCSwordMod
 
 
 CHTMLExportRendering::CHTMLExportRendering(const CHTMLExportRendering::Settings& settings, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) 
-	: m_settings(settings),
-		m_displayOptions(displayOptions),
-		m_filterOptions(filterOptions)
+	: m_displayOptions(displayOptions),
+		m_filterOptions(filterOptions),
+		m_settings(settings)
 {
 
 }

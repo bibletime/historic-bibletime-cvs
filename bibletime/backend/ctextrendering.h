@@ -37,9 +37,8 @@ public:
 	class KeyTreeItem {
 	public:
 		struct Settings {
-			Settings() {
-				highlight = false;
-			};
+			Settings() : highlight(false) {};
+			
 			bool highlight;
 		};
 		
@@ -54,12 +53,11 @@ public:
 		const QString& key() const {
 			return m_key;
 		};
-		Settings settings() const {
+		const Settings& settings() const {
 			return m_settings;
 		};
-		KeyTree* childList() const;
+		KeyTree* const childList() const;
 
-	
 	private:
 		Settings m_settings;
 		ListCSwordModuleInfo m_moduleList;

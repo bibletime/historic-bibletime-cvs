@@ -267,7 +267,7 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options
 	setOption( scriptureReferences,	options.scriptureReferences);	
 }
 
-void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptions options){
+void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptions ){
 /*  if (m_displays.entry) {
 		m_displays.entry->setDisplayOptions(options);	
 	}
