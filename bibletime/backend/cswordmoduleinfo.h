@@ -101,7 +101,7 @@ public:
 	/**
 	* Returns the config entry which is pecified by the parameter.
 	*/
-	const QString config( const ConfigEntry );
+	const QString config( const CSwordModuleInfo::ConfigEntry entry );
 	
 	CSwordModuleInfo( sword::SWModule* module );
 	CSwordModuleInfo( const CSwordModuleInfo& m );	
@@ -116,7 +116,7 @@ public:
  	* Sets the unlock key of the modules and writes the key into the cofig file.
 	* @return True if the unlock process was succesful, if the key was wrong, or if the config file was write protected return false.
 	*/
-  const CSwordModuleInfo::UnlockErrorCode unlock( const QString& unlockKey );
+  const bool unlock( const QString& unlockKey );
   /**
  	* Returns the display object for this module. Normally every module should have a Display object.
  	* Please don't use module()->Display() because this function does return the Sword display and does
@@ -130,7 +130,7 @@ public:
  	* (the on who made the module) no matter if it's locked or not.
  	*
  	*/
-  const bool isEncrypted() const;
+  const bool isEncrypted() /*const*/;
   /**
  	* This function returns true if this module is locked (encrypted + correct cipher key),
  	* otherwise return false.

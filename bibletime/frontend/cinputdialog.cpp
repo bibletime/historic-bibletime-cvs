@@ -21,7 +21,7 @@
 //Qt includes
 #include <qwidget.h>
 #include <qlabel.h>
-#include <qmultilineedit.h>
+#include <qtextedit.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 
@@ -39,8 +39,8 @@ CInputDialog::CInputDialog(const QString& caption, const QString& description, c
 	
 	topLayout->addSpacing(10);
 	
-	m_editWidget = new QMultiLineEdit(this, "edit widget");
-	m_editWidget->setWordWrap( QMultiLineEdit::WidgetWidth);
+	m_editWidget = new QTextEdit(this, "edit widget");
+	m_editWidget->setWordWrap( QTextEdit::WidgetWidth );
 	m_editWidget->setText(text);
 	if (!text.isEmpty())
 		m_editWidget->selectAll();
@@ -76,20 +76,16 @@ CInputDialog::CInputDialog(const QString& caption, const QString& description, c
 	m_editWidget->setFocus();
 }
 
-CInputDialog::~CInputDialog(){
-}
+//CInputDialog::~CInputDialog(){
+//}
 
 /** Returns the text entered at the moment. */
 const QString CInputDialog::text() {
-//	ASSERT(m_editWidget);
 	return m_editWidget->text();
 }
 
 /** A static function to get some using CInputDialog. */
 const QString CInputDialog::getText( const QString& caption, const QString& description, const QString& text, bool* ok, QWidget* parent, bool modal){
-//	qDebug("CInputDialog::getText( const QString& caption, const QString& description, const QString& text, bool* ok, QWidget* parent, bool modal)");
-//	ASSERT(ok);
-	
 	CInputDialog* dlg = new CInputDialog(caption, description, text, parent, "", modal);	
 	QString ret = QString::null;
 		

@@ -10,7 +10,7 @@ BibleTime @VERSION@ requires:
 	-KDE 3.x (at least the libraries (kdelibs) and the base package (kdebase))
 	-SWORD 1.5.3
 	
-If you don't have the sources already please browse to www.bibletime.de to see
+If you don't have the sources already please browse to www.bibletime.info to see
 a list of required packages with their download URLs.	
 		
 Compile BibleTime @VERSION@:
@@ -24,13 +24,13 @@ make -f Makefile.cvs
 make							  # compile BibleTime
 make install				# install BibleTime
 
-If something is missing in this file please post to jansorg@gmx.de, my peronal
+If something is missing in this file please post to joachim@ansorgs.de, my peronal
 eMail adress.
 Please read README for a short description of BibleTime @VERSION@. The new handbook
 does contain better instructions how to install BibleTime from sources.
 It has more information about BibleTime's features and installation.
 
-The BibleTime team <info@bibletime.de>
+The BibleTime team <info@bibletime.info>
 
 
 ______________________________________________________________________________

@@ -21,7 +21,7 @@
 //KDE includes
 #include <kdialog.h>
 
-class QMultiLineEdit;
+class QTextEdit;
 class QWidget;
 
 /** This is a small input dialog with
@@ -40,10 +40,10 @@ public:
  	* Returns the text entered at the moment.
  	*/
   const QString text();
-	~CInputDialog();
+//	~CInputDialog();
 
 private:
-	QMultiLineEdit* m_editWidget;
+	QTextEdit* m_editWidget;
 };
 
 #endif

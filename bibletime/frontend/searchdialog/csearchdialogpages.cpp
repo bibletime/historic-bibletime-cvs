@@ -461,7 +461,7 @@ void CSearchResultPage::setSearchResult(ListCSwordModuleInfo modules){
   m_moduleListBox->setupTree(modules);
   m_moduleListBox->setMinimumWidth(m_moduleListBox->sizeHint().width());
   m_moduleListBox->adjustSize();
-  m_moduleListBox->parentWidget()->adjustSize();
+//  m_moduleListBox->parentWidget()->adjustSize();
 
   
   //have a Bible or commentary in the modules?
@@ -598,16 +598,17 @@ const QString CSearchOptionsPage::searchText() {
   if (m_multipleWordsORRadio->isChecked()) {
     QString regexp(m_searchTextCombo->currentText());
 
-    regexp = regexp.stripWhiteSpace();
-    regexp = regexp.simplifyWhiteSpace();    
+//    regexp = regexp.stripWhiteSpace();
+    regexp = regexp.simplifyWhiteSpace();
+    regexp.replace( QRegExp("\\s"), "|" ); //replace white sace with OR marker
 
-    int idx = -1;
-    QChar orsymbol('|');
-    while ((idx = regexp.find(' ', idx+1)) != -1) {
-      // use insert as replace() API is pretty strange
-      regexp.insert(idx, orsymbol);
-      idx++;
-    }
+//    int idx = -1;
+//    QChar orsymbol('|');
+//    while ((idx = regexp.find(' ', idx+1)) != -1) {
+//      // use insert as replace() API is pretty strange
+//      regexp.insert(idx, orsymbol);
+//      idx++;
+//    }
 
     return regexp;
   }

@@ -54,6 +54,10 @@ CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module ) {
 		 	qWarning("The module \"%s\" requires a newer Sword library. Please update to \"Sword %s\".", name().latin1(), (const char*)minimumSwordVersion());
 		}
 	}
+
+  if (backend() && isLocked() && !isEncrypted()) { //locked module which has a key set
+//    backend()->setCipherKey(m_module->Name(), config(CipherKey).latin1() );
+  };
 }
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {
@@ -73,19 +77,15 @@ CSwordModuleInfo::~CSwordModuleInfo(){
 }
 
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/
-const CSwordModuleInfo::UnlockErrorCode CSwordModuleInfo::unlock( const QString& unlockKey ){
-	CSwordModuleInfo::UnlockErrorCode	ret = CSwordModuleInfo::noError;
-	sword::SWConfig moduleConfig("");
-	if ( backend()->moduleConfig(name(), moduleConfig) ) {
-		moduleConfig[name().latin1()]["CipherKey"] = unlockKey.local8Bit();	
-		backend()->setCipherKey(name().latin1(), unlockKey.local8Bit());	
-		(*backend()->getConfig()) += moduleConfig;
-		(*backend()->getConfig())[name().latin1()]["CipherKey"] = moduleConfig[name().latin1()]["CipherKey"];
-		moduleConfig.Save();
-	}	
-	else
-		ret = CSwordModuleInfo::wrongUnlockKey;
-	return ret;
+const bool CSwordModuleInfo::unlock( const QString& unlockKey ){
+  if (unlockKey.isEmpty()) {
+    return false;
+  };
+
+  CBTConfig::setModuleEncryptionKey( name(), unlockKey );
+  backend()->setCipherKey(m_module->Name(), unlockKey.latin1());
+      
+  return false;
 }
 
 /** Returns the display object for this module. */
@@ -101,15 +101,18 @@ const bool CSwordModuleInfo::isLocked() {
 }
 
 /** This functions returns true if this module is encrypted (locked or unlocked). */
-const bool CSwordModuleInfo::isEncrypted() const {
+const bool CSwordModuleInfo::isEncrypted()/* const*/ {
 	/**
 	* If we have the CipherKey entry the module
 	* is encrypted but not necessary locked
 	*/		
-	sword::ConfigEntMap config	= backend()->getConfig()->Sections.find( name().latin1() )->second;
-	sword::ConfigEntMap::iterator it = config.find("CipherKey");
-	if (it != config.end())
-		return true;
+//	sword::ConfigEntMap config	= backend()->getConfig()->Sections.find( name().latin1() )->second;
+//	sword::ConfigEntMap::iterator it = config.find("CipherKey");
+//	if (it != config.end())
+//		return true;
+  if (!config(CipherKey).isEmpty()) {
+    return true;
+  };
 	return false;
 }
 
@@ -202,7 +205,12 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 			return about;
 		}		
 		case CipherKey:
-			return QString::fromLatin1(m_module->getConfigEntry("CipherKey"));
+      if (CBTConfig::getModuleEncryptionKey(name()).isEmpty()) { //fall back!
+  			return QString::fromLatin1( m_module->getConfigEntry("CipherKey") );
+      }
+      else {
+        return CBTConfig::getModuleEncryptionKey(name());
+      };
 		case AbsoluteDataPath: {
 			QString path = QString::fromLatin1(m_module->getConfigEntry("AbsoluteDataPath"));
       path.replace(QRegExp("/./"), "/");
@@ -288,14 +296,8 @@ const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection(){
 /** Writes the new text at the given position into the module. This does only work for writabe modules. */
 void CSwordModuleInfo::write( CSwordKey* key, const QString& newText ){
   module()->KeyText( isUnicode() ? (const char*)(key->key().utf8()) : key->key().latin1() );
-//  if (tree() && key) {
-//    tree()->setText( isUnicode() ? (const char*)key->key().utf8() : key->key().latin1() );
-    const char* text = isUnicode() ? (const char*)newText.utf8() : newText.latin1();
-    module()->setEntry( text, strlen(text) );
-//  };
-  
-//  (*module()) << (isUnicode() ? (const char*)newText.utf8() : newText.latin1());
-
+  const char* text = isUnicode() ? (const char*)newText.utf8() : newText.latin1();
+  module()->setEntry( text, strlen(text) );
 }
 
 /** Deletes the current entry and removes it from the module. */
@@ -339,4 +341,3 @@ const CSwordModuleInfo::Category CSwordModuleInfo::category(){
   };
   return CSwordModuleInfo::UnknownCategory;  
 }
-

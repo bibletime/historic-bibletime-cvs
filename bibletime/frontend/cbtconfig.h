@@ -151,6 +151,9 @@ public:
   static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();
   static void setupAccel(const CBTConfig::keys type, KAccel* const accel);
 
+  static const QString getModuleEncryptionKey( const QString& name );
+  static void setModuleEncryptionKey( const QString& name, const QString& key );
+  
 private:
 	static const QString getKey( const CBTConfig::strings );
 	static const QString getKey( const CBTConfig::bools );

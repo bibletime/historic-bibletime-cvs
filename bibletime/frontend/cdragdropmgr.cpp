@@ -87,25 +87,25 @@ const CDragDropMgr::Item::Type& CDragDropMgr::Item::type() const {
 
 /** Returns the text which is used by this DragDrop Item, only valid if type() == Text */
 const QString& CDragDropMgr::Item::text() const {
-  Q_ASSERT(!m_text.isEmpty()); 
+//  Q_ASSERT(!m_text.isEmpty()); 
   return m_text;
 }
 
 /** Returns the key, ony valid if type() == Bookmark */
 const QString& CDragDropMgr::Item::bookmarkKey() const {
-  Q_ASSERT(!m_bookmarkKey.isEmpty());
+//  Q_ASSERT(!m_bookmarkKey.isEmpty());
   return m_bookmarkKey;
 }
 
 /** Returns the bookmark module, ony valid if type() == Bookmark */
 const QString& CDragDropMgr::Item::bookmarkModule() const {
-  Q_ASSERT(!m_bookmarkModuleName.isEmpty());
+//  Q_ASSERT(!m_bookmarkModuleName.isEmpty());
   return m_bookmarkModuleName;
 }
 
 /** Returns the bookmark description, ony valid if type() == Bookmark */
 const QString& CDragDropMgr::Item::bookmarkDescription() const {
-  Q_ASSERT(!m_bookmarkDescription.isEmpty());  
+//  Q_ASSERT(!m_bookmarkDescription.isEmpty());  
   return m_bookmarkDescription;
 }
 

@@ -76,7 +76,7 @@ using std::string;
 using std::list;
 
 COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel )
-	: KDialogBase(IconList, i18n("Options dialog"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
+	: KDialogBase(IconList, i18n("Preferences"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
 	m_settings.keys.application.accel = accel;
 	setIconListAllVisible(true);

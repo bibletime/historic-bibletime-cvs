@@ -470,3 +470,21 @@ void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
 		};
 	};
 }
+
+const QString CBTConfig::getModuleEncryptionKey( const QString& module ) {
+	KConfig* config = KGlobal::config();
+  KConfigGroupSaver groupSaver(config, "Module keys");
+
+  return config->readEntry(module, QString::null);
+}
+  
+void CBTConfig::setModuleEncryptionKey( const QString& module, const QString& key ) {
+  if (key.isEmpty()) { //if no key is set do nothing
+    return;
+  };
+  
+  KConfig* config = KGlobal::config();
+  KConfigGroupSaver groupSaver(config, "Module keys");
+
+  config->writeEntry(module, key);
+};

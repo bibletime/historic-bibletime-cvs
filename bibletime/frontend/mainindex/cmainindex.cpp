@@ -431,18 +431,21 @@ void CMainIndex::printBookmarks(){
 /** Deletes the selected entries. */
 void CMainIndex::deleteEntries(){
   QPtrList<QListViewItem> items = selectedItems();
-  QPtrList<QListViewItem> deleteItems;
+//  QPtrList<QListViewItem> deleteItems;
 
-  for (items.first(); items.current(); items.next()) {
+//we have to go backwards because otherwise deleting folders would delete their childs => crash  
+  
+  for (items.last(); items.current(); items.prev()) {
     if (CItemBase* i = dynamic_cast<CItemBase*>(items.current())) {
       if (i->enableAction(CItemBase::DeleteEntries)) {
-        deleteItems.append(i);
+//        deleteItems.append(i);
+        delete i;
       }
     }
   }
 
-  deleteItems.setAutoDelete(true);
-  deleteItems.clear();
+//  deleteItems.setAutoDelete(true);
+//  deleteItems.clear();
 }
 
 /** Opens the searchdialog for the selected modules. */
@@ -471,20 +474,10 @@ void CMainIndex::unlockModule(){
   	bool ok;
   	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the key to unlock the module!"),QLineEdit::Normal, i->module()->config(CSwordModuleInfo::CipherKey), &ok);
   	if (ok) {
-  		CSwordModuleInfo::UnlockErrorCode ret = i->module()->unlock( unlockKey );
-  		if ( ret != CSwordModuleInfo::noError) {
-  			//an error occured
-  			switch (ret) {
-  				case CSwordModuleInfo::noPermission:				
-  					break;
-  				case CSwordModuleInfo::wrongUnlockKey:				
-  					break;
-  				case CSwordModuleInfo::notLocked:
-  					break;
-  				default:
-  					break;
-  			}
-  		}
+  		/*const bool ret =*/ i->module()->unlock( unlockKey );
+//  		if ( !ret ) { // an error occured
+//
+//  		}
   	}
   }
 }

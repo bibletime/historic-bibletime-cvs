@@ -67,7 +67,7 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
       if (format == HTMLText)
         return document().toHTML();
       else {
-        qWarning(htmlDocument().body().innerText().string().latin1());
+//        qWarning(htmlDocument().body().innerText().string().latin1());
         return htmlDocument().body().innerText().string().latin1();
       }
 		}
@@ -76,17 +76,15 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 			if (!hasSelection())
    			return QString::null;
 
-//      qWarning("get the selection!");
-      DOM::Range range = selection();
-//      qWarning("got the selection!");      
-      if (range.isNull()) {
+      if (!hasSelection()) {
       	return QString::null;
       }
       else if (format == HTMLText) {
+        DOM::Range range = selection();
         return range.toHTML().string();
       }
-      else {
-        return range.toString().string();
+      else { //plain text requested
+        return selectedText();
       }
 		}
 

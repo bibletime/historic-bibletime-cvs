@@ -125,8 +125,7 @@ void CSearchDialog::startSearch(){
   int searchFlags = m_searchOptionsPage->searchFlags();	
   m_searchOptionsPage->prepareSearch();
 
-  const CSwordModuleSearch::scopeType scopeType 
-    = m_searchOptionsPage->scopeType();
+  const CSwordModuleSearch::scopeType scopeType = m_searchOptionsPage->scopeType();
   if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
     searchFlags |= CSwordModuleSearch::useLastResult;
   } else if ( scopeType == CSwordModuleSearch::Scope_Bounds ) {
@@ -429,7 +428,7 @@ void CModuleChooser::initTree(){
     QString language = QString::null;
     CLanguageMgr* langMgr = languageMgr();
     for ( QStringList::Iterator it = langs.begin(); it != langs.end(); ++it ) {
-      language = langMgr->languageForAbbrev(*it).name();
+      language = langMgr->languageForAbbrev(*it).translatedName();
 
       QListViewItem* langFolder = new QListViewItem(typeFolder,language);
       langFolder->setPixmap(0,GROUP_ICON_SMALL);

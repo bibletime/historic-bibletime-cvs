@@ -92,9 +92,7 @@ void CPlainWriteWindow::initConnections(){
 
 /** Saves the text for the current key. Directly writes the changed text into the module. */
 void CPlainWriteWindow::saveCurrentText(){
-  qWarning("CPlainWriteWindow::saveCurrentText()");
-  Q_ASSERT(modules().first());
-  Q_ASSERT(key());
+//  qWarning("CPlainWriteWindow::saveCurrentText()");
 
   QString t = displayWidget()->plainText();
   //since t is a complete HTML page at the moment, strip away headers and footers of a HTML page
