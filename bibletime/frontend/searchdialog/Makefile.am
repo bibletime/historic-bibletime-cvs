@@ -21,4 +21,4 @@ csearchdialogresult.cpp csearchdialogresult.h \
 csearchdialogresultview.cpp csearchdialogresultview.h \
 csearchdialoganalysis.cpp csearchdialoganalysis.h \
 csearchdialogmodulechooser.cpp csearchdialogmodulechooser.h \
-csearchdialog.cpp
+csearchdialog.cpp csearchdialog.h
