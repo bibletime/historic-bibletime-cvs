@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Guida all'installazione di Bibletime</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.64
+"><LINK
+REL="HOME"
+TITLE="Pacchetto di documentazione di BibleTime"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Regola 5 - Comprendi lo scopo delle parabole e la differenza tra una parabola e un'allegoria"
+HREF="h2_rules_parables.html"><LINK
+REL="NEXT"
+TITLE="Bibletime - distribuzioni binarie"
+HREF="inst_bin.html"><META
+NAME="KEYWORD"
+CONTENT="BibleTime"><META
+NAME="KEYWORD"
+CONTENT="Sword"><META
+NAME="KEYWORD"
+CONTENT="Crosswire"><META
+NAME="KEYWORD"
+CONTENT="installation"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="it"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-Italiano"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"><META
+NAME="KEYWORDS"
+CONTENT="BibleTime, Sword, Crosswire, installation"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/international/italy/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="L'ambiente di scrivania K"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="BOOK"
+><A
+NAME="INST_IDX"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN1172"
+>Guida all'installazione di Bibletime</A
+></H1
+>Version <SPAN
+CLASS="RELEASEINFO"
+>1.0<BR></SPAN
+>Last updated: <SPAN
+CLASS="DATE"
+>8 aprile 2001<BR></SPAN
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN1175"
+>Jeffrey Hoyt</A
+></H3
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN1178"
+>Joachim Ansorg</A
+></H3
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN1181"
+>Fred Saalbach</A
+></H3
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 1999, 2000, 2001  <SPAN
+CLASS="HOLDER"
+>Il team di BibleTime, info@bibletime.de</SPAN
+></P
+><DIV
+CLASS="LEGALNOTICE"
+><A
+NAME="AEN1191"
+></A
+><P
+>La guida all'installazione di BibleTime è parte di BibleTime.</P
+><P
+>Bibletime is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.</P
+><P
+>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</P
+><P
+>You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</P
+></DIV
+><DIV
+><DIV
+CLASS="ABSTRACT"
+><A
+NAME="AEN1196"
+></A
+><P
+><SPAN
+CLASS="APPLICATION"
+>BibleTime</SPAN
+> è un programma che aiuta nello studio
+della bibbia.</P
+></DIV
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+>1. <A
+HREF="inst_bin.html"
+>Bibletime - distribuzioni binarie</A
+></DT
+><DT
+>2. <A
+HREF="inst_preq.html"
+>Requisiti per Bibletime</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="inst_preq.html#DEVL_10"
+>Requisiti per BibleTime versione
+1.0</A
+></DT
+><DT
+>2.2. <A
+HREF="inst_preq_install.html"
+>Installazione dei programmi richiesti</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="inst_sources.html"
+>Installazione dei sorgenti di Bibletime</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="inst_sources.html#INST_SOURCES_SWORD"
+>L'installazione di Sword e dei moduli Sword</A
+></DT
+><DD
+><DL
+><DT
+>3.1.1. <A
+HREF="inst_sources.html#INST_SOURCES_SWORD_INSTALL"
+>Installazione di Sword 1.52</A
+></DT
+><DT
+>3.1.2. <A
+HREF="inst_sources.html#INST_SOURCES_SWORD_MODULES"
+>L'installazione dei moduli</A
+></DT
+></DL
+></DD
+><DT
+>3.2. <A
+HREF="inst_sources_bibletime.html"
+>Installazione dei sorgenti BibleTime</A
+></DT
+><DT
+>3.3. <A
+HREF="inst_sources_compiler_notes.html"
+>Note sulla compilazione</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="inst_user.html"
+>Installazione</A
+></DT
+><DT
+>5. <A
+HREF="inst_devl.html"
+>Ottenere i di sorgenti in sviluppo</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="inst_devl.html#INST_DEVL_ANON"
+>Accesso CVS anonimo</A
+></DT
+><DT
+>5.2. <A
+HREF="inst_devl_cvs.html"
+>Accesso CVS per sviluppatori
+tramite SSH</A
+></DT
+></DL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="LOT"
+><DL
+CLASS="LOT"
+><DT
+><B
+>Lista delle Tabelle</B
+></DT
+><DT
+>2-1. <A
+HREF="inst_preq.html#AEN1214"
+>Pacchetti richiesti per l'installazione di BibleTime 1.0 e superiori.</A
+></DT
+><DT
+>3-1. <A
+HREF="inst_sources.html#AEN1265"
+>Parti da cambiare in Sword Makefile.cfg</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="h2_rules_parables.html"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="inst_bin.html"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Regola 5 - Comprendi lo scopo delle parabole e la differenza tra una parabola e un'allegoria</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Bibletime - distribuzioni binarie</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
