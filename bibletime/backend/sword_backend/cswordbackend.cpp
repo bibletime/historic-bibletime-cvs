@@ -195,7 +195,7 @@ const bool CSwordBackend::isOptionEnabled( const CSwordBackend::moduleOptions ty
 		default:
 			break;
 	}
-	return (bool)getGlobalOption(optionName);
+	return (getGlobalOption(optionName) == "On");
 }
 
 /** Sets the given options enabled or disabled depending on the second parameter. */
@@ -373,6 +373,5 @@ const QString CSwordBackend::getModulePath( const QString moduleName ){
 		else //global
 			path.prepend(prefixPath);
 	}
-//	qWarning(path.local8Bit());
 	return path;
 }

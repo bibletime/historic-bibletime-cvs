@@ -52,7 +52,7 @@ protected:
 	*/
   void initConnections();
 
-protected slots: // Protected slots
+protected slots:
   void modulesChanged();
   void lookup( CKey* );
 

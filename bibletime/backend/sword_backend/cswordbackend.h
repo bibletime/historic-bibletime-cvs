@@ -51,10 +51,10 @@ public:
  	* It's used in @ref isOptionEnabled and @ref setOption
  	*/
   enum moduleOptions {
-  	footnotes	= 0x000000001,
+  	footnotes	= 		0x000000001,
   	strongNumbers	= 0x000000002,
-  	headings = 0x000000004,
-  	morphTags = 0x000000008
+  	headings = 			0x000000004,
+  	morphTags = 		0x000000008
 	};
   enum errorCode {
 		noError,

@@ -84,6 +84,18 @@ void CSwordPresenter::refreshFeatures(){
 			else
 				m_features = footnotes;
 		}
+		if (m_moduleList.current()->supportsFeature( CSwordBackend::headings )){
+			if (m_features != 0)
+				m_features |= headings;
+			else
+				m_features = headings;
+		}
+		if (m_moduleList.current()->supportsFeature( CSwordBackend::morphTags )){
+			if (m_features != 0)
+				m_features |= morphTags;
+			else
+				m_features = morphTags;
+		}		
 	}
 }
 

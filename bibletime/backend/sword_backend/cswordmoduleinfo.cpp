@@ -226,15 +226,19 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 			text = "Strongs";
 			break;			
 		case CSwordBackend::headings:
-			text = "Headings";
-			break;			
+//			text = "Headings"; //heading-support is not shown by a special config entry
+//			return (getType() == CSwordModuleInfo::Bible || getType() == CSwordModuleInfo::Commentary);
+			return true;
+			//break;			
 		case CSwordBackend::morphTags:
-			text = "Morphological Tags";
-			break;
+//			text = "Morphological Tags"; //heading-support is not shown by a special config entry
+			return true;
+//			return (getType() == CSwordModuleInfo::Bible);
+			//break;
 	}	
 	
 	for (; start != end; start++) {
-		QString option = (*start).second.c_str();
+		QString option = QString::fromLatin1((*start).second.c_str());
 		if ( option.contains(text) > 0 ) {
 			ret = true;
 			break;
