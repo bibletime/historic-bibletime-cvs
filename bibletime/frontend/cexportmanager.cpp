@@ -23,11 +23,10 @@
 #include "backend/cswordversekey.h"
 #include "backend/centrydisplay.h"
 
-#include "frontend/ctoolclass.h"
-
 #include "printing/cprintitem.h"
 #include "printing/cprinter.h"
 
+#include "util/ctoolclass.h"
 #include "util/scoped_resource.h"
 
 //Qt includes

@@ -67,6 +67,15 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   m_display->end();
   m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff);
 
+//make usre the tooltip won't grow to large
+  const QRect screenSize = KApplication::desktop()->geometry();
+  setMaximumSize(QSize(screenSize.width()*0.6, screenSize.height()*0.6));
+  resize((int)((float)screenSize.width()*0.6), 0);
+  show();
+//now resize to the correct size!
+  m_display->view()->layout();
+  resize(m_display->view()->sizeHint());    
+  
   const QPoint mp = (!m_display->view()->verticalScrollBar()->isHidden()) ? QPoint(p.x()-5, p.y()-5) : QPoint(p.x()+10, p.y()+10);
   QPoint pos = parentWidget()->mapToGlobal( mp );
   QRect widgetRect = QRect(pos.x(), pos.y(), width(), height());
@@ -79,14 +88,6 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   move(pos);
 
   m_display->view()->setContentsPos(0,0);
-
-  const QRect screenSize = KApplication::desktop()->geometry();
-  resize((int)((float)screenSize.width()*0.6), 0);
-  show();
-
-//now resize to the correct size!
-  m_display->view()->layout();
-  resize(m_display->view()->sizeHint());
 }
 
 /** Reimplementation. */

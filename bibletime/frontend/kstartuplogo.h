@@ -26,7 +26,7 @@ class QLabel;
 
 /**
 	* This class provides a startuplogo.
-  * @author The team of KDevelop
+  * @author The team of BibleTime
   */
 class KStartupLogo : public QWidget {
 public:
@@ -35,7 +35,7 @@ public:
 	static void hideSplash();
 	static void deleteSplash();		
 	static void setStatusMessage(const QString& message);
-	
+
 private:
 	KStartupLogo();
   void setText(const QString text);

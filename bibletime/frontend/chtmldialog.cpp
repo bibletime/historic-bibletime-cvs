@@ -17,7 +17,8 @@
 
 //own includes
 #include "chtmldialog.h"
-#include "ctoolclass.h"
+
+#include "util/ctoolclass.h"
 
 //QT includes
 #include <qlayout.h>

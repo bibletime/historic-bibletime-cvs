@@ -17,21 +17,20 @@
 
 #include "coptionsdialog.h"
 #include "cprofile.h"
-#include "ctoolclass.h"
+
+#include "backend/cswordbackend.h"
+#include "backend/cswordmoduleinfo.h"
+
 #include "frontend/displaywindow/cbiblereadwindow.h"
 #include "frontend/displaywindow/ccommentaryreadwindow.h"
 #include "frontend/displaywindow/clexiconreadwindow.h"
 #include "frontend/displaywindow/cbookreadwindow.h"
 #include "frontend/displaywindow/creadwindow.h"
-//#include "presenters/cswordpresenter.h"
-//#include "presenters/cbiblepresenter.h"
-//#include "presenters/ccommentarypresenter.h"
-//#include "presenters/clexiconpresenter.h"
-//#include "presenters/cbookpresenter.h"
+
+#include "util/ctoolclass.h"
+
 #include "resource.h"
 #include "whatsthisdef.h"
-#include "backend/cswordbackend.h"
-#include "backend/cswordmoduleinfo.h"
 #include "cbtconfig.h"
 
 #include <stdio.h>

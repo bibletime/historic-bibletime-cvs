@@ -19,7 +19,8 @@
 #include "install.h"
 #include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
-#include "frontend/ctoolclass.h"
+
+#include "util/ctoolclass.h"
 
 //Qt includes
 #include <qlabel.h>

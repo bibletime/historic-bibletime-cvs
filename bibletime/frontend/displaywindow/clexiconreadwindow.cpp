@@ -21,13 +21,13 @@
 
 #include "backend/cswordkey.h"
 #include "backend/cswordldkey.h"
-//#include "backend/chtmlentrydisplay.h"
 
-#include "frontend/ctoolclass.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
 #include "frontend/keychooser/ckeychooser.h"
+
+#include "util/ctoolclass.h"
 
 #include "resource.h"
 

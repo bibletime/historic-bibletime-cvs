@@ -19,7 +19,8 @@
 #include "chtmlreaddisplay.h"
 
 #include "backend/creferencemanager.h"
-#include "frontend/ctoolclass.h"
+
+#include "util/ctoolclass.h"
 
 
 //Qt includes

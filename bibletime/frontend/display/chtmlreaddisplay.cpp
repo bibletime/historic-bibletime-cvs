@@ -22,7 +22,8 @@
 #include "backend/creferencemanager.h"
 #include "backend/cswordkey.h"
 
-#include "frontend/ctoolclass.h"
+#include "util/ctoolclass.h"
+
 #include "frontend/cbtconfig.h"
 #include "frontend/ctooltipmanager.h"
 

@@ -4,7 +4,6 @@ noinst_LIBRARIES = libfrontend.a
 
 libfrontend_a_SOURCES = \
 chtmldialog.cpp \
-ctoolclass.cpp \
 cbtconfig.cpp \
 cinputdialog.cpp \
 coptionsdialog.cpp \
@@ -21,7 +20,6 @@ chelpmgr.cpp
 all_headers=cmdiarea.h \
 kstartuplogo.h \
 chtmldialog.h \
-ctoolclass.h \
 cbtconfig.h \
 cinputdialog.h \
 cprofilemgr.h \

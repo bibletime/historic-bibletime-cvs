@@ -22,7 +22,6 @@
 
 //frontend includes
 #include "frontend/chtmldialog.h"
-#include "frontend/ctoolclass.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/mainindex/cmainindex.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
@@ -30,6 +29,7 @@
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/cbtconfig.h"
 
+#include "util/ctoolclass.h"
 #include "util/cpointers.h"
 
 //backend includes

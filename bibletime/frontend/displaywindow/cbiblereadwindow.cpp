@@ -25,12 +25,13 @@
 #include "backend/cswordbiblemoduleinfo.h"
 
 #include "frontend/cprofilewindow.h"
-#include "frontend/ctoolclass.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/display/creaddisplay.h"
 #include "frontend/keychooser/ckeychooser.h"
+
+#include "util/ctoolclass.h"
 
 #include <math.h>
 

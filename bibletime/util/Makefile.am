@@ -3,10 +3,12 @@ libutil_a_METASOURCES = AUTO
 noinst_LIBRARIES = libutil.a
 
 libutil_a_SOURCES = \
-cpointers.cpp
+cpointers.cpp \
+ctoolclass.cpp
 
 all_headers = \
 scoped_resource.h \
-cpointers.h
+cpointers.h \
+ctoolclass.h
 
 EXTRA_DIST = $(libutil_a_SOURCES) $(all_headers)

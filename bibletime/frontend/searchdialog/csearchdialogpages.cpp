@@ -21,13 +21,13 @@
 
 #include "backend/centrydisplay.h"
 
-#include "frontend/ctoolclass.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
 
 #include "util/cpointers.h"
+#include "util/ctoolclass.h"
 
 #include "resource.h"
 #include "whatsthisdef.h"

@@ -23,12 +23,14 @@
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordversekey.h"
 
-#include "frontend/ctoolclass.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/ctooltipmanager.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cinputdialog.h"
 #include "frontend/cexportmanager.h"
+
+#include "util/ctoolclass.h"
+
 #include "resource.h"
 
 //Qt includes

@@ -22,7 +22,8 @@
 
 #include "backend/cswordversekey.h"
 
-#include "frontend/ctoolclass.h"
+#include "util/ctoolclass.h"
+
 #include "frontend/cmdiarea.h"
 #include "frontend/cprofilemgr.h"
 #include "frontend/cprofile.h"

@@ -24,8 +24,9 @@
 #include "backend/cswordkey.h"
 #include "backend/cswordversekey.h"
 
-#include "frontend/ctoolclass.h"
 #include "frontend/cbtconfig.h"
+
+#include "util/ctoolclass.h"
 
 //Qt includes
 #include <qhbox.h>
@@ -468,7 +469,7 @@ void CRangeChooserDialog::RangeItem::setCaption(const QString newCaption) {
 CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(Plain, i18n("Edit search ranges ..."), Default | Ok | Cancel, Ok, parentDialog, "CRangeChooserDialog", false, true) {
   initView();
   initConnections();
-
+  
   //add the existing scopes
   CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
   CBTConfig::StringMap::Iterator it;
@@ -477,7 +478,8 @@ CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(
   };
 
   editRange(0);
-  nameChanged(QString::null);
+  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem()))
+    nameChanged(i->caption());
 };
 
 CRangeChooserDialog::~CRangeChooserDialog() {
@@ -537,8 +539,6 @@ void CRangeChooserDialog::initView(){
 
 /** Initializes the connections of this widget. */
 void CRangeChooserDialog::initConnections(){
-//  connect(m_rangeList, SIGNAL(executed(QListViewItem*)),
-//    this, SLOT(editRange(QListViewItem*)));
   connect(m_rangeList, SIGNAL(selectionChanged(QListViewItem*)),
     this, SLOT(editRange(QListViewItem*)));
 
@@ -568,7 +568,7 @@ void CRangeChooserDialog::editRange(QListViewItem* item){
   m_resultList->setEnabled( dynamic_cast<RangeItem*>(item) );
   m_deleteRangeButton->setEnabled( dynamic_cast<RangeItem*>(item) );
   
-  if (RangeItem* i = dynamic_cast<RangeItem*>(item)) {   
+  if (RangeItem* i = dynamic_cast<RangeItem*>(item)) {
     m_nameEdit->setText(i->caption());
     m_rangeEdit->setText(i->range());
   }
@@ -657,7 +657,8 @@ void CRangeChooserDialog::slotDefault(){
   m_rangeList->setCurrentItem(0);  
   
   editRange(0);
-  nameChanged(QString::null);
+  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem()))
+    nameChanged(i->caption());
 
   KDialogBase::slotDefault();  
 }

@@ -72,12 +72,14 @@ public:
  	* Returns the icon used for the module given as aparameter.
  	*/
   static QPixmap getIconForModule( CSwordModuleInfo* );
-  /**
- 	* Returns the logical font size which should
- 	* be used for the absolute size s
- 	*/
-//  static int makeLogicFontSize( const int s );
+  /** Returns a label to explain difficult things of dialogs.
+  * This function returns a label with heading "heading" and explanation "text". This label should be used to
+  * explain difficult things of the GUI, e.g. in the optionsdialog.
+  */
   static QLabel* explanationLabel(QWidget* parent, const QString& heading, const QString& text );
+  /**
+  * Returns true if the character at position "pos" of text is inside an HTML tag. Returns false if it's not inside an HTML tag.
+  */
   static bool inHTMLTag(int pos, QString & text);
 };
 
