@@ -66,9 +66,10 @@ void BibleTime::initView(){
 	m_splitter = new QSplitter(this, "mainsplitter");
 	setCentralWidget(m_splitter);	
 	
-	m_mainIndex = new CMainIndex( centralWidget() );
-  m_mainIndex->initTree();
-	m_mainIndex->setFocusPolicy(WheelFocus);
+	m_mainIndex = new CMainIndex( centralWidget() );	
+	m_mainIndex->initTree();
+	m_mainIndex->setFocusPolicy(WheelFocus);       	
+	
 
 	m_mdi = new CMDIArea(centralWidget(), "mdiarea" );
 	m_mdi->setFocusPolicy(ClickFocus);
@@ -109,7 +110,7 @@ void BibleTime::initActions() {
 	
         action =  new KAction(i18n("Back"), 
 			      ICON_MAININDEX_BACK, 
-			      IDK_PRESENTER_PREVIOUS_CHAPTER,
+			      IDK_GM_MODULES_BACK,
 			      this, SLOT(slotBack()), 
 			      actionCollection(), "GMback_action");	
 	action->setToolTip(TT_GM_BACK_MODULES);
@@ -125,7 +126,7 @@ void BibleTime::initActions() {
 
 	action =  new KAction(i18n("Forward"), 
 			      ICON_MAININDEX_FORWARD, 
-			      IDK_PRESENTER_NEXT_CHAPTER,
+			      IDK_GM_MODULES_FORWARD,
 			      this, SLOT(slotForward()), 
 			      actionCollection(), "GMforward_action");	
 	action->setToolTip(TT_GM_FORWARD_MODULES);
@@ -292,10 +293,12 @@ void BibleTime::initConnections(){
 	}
 	else
 		qWarning("can't find window menu");
-		
- 	connect(m_mainIndex, SIGNAL(modulesChosen(ListCSwordModuleInfo, const QString&)),
-		this, SLOT(createDisplayWindow(ListCSwordModuleInfo,const QString&)));
+		 	
 	
+	connect(m_mainIndex, 
+		SIGNAL(modulesChosen(ListCSwordModuleInfo, const QString&)),
+		this, 
+		SLOT(createDisplayWindow(ListCSwordModuleInfo,const QString&)));
 	//connect to the signals of the printer object
 	connect(m_printer, SIGNAL(addedFirstQueueItem()),
 		this, SLOT(slotSetPrintingStatus()));
@@ -388,4 +391,8 @@ void BibleTime::applyProfileSettings( CProfile* p ){
 void BibleTime::storeProfileSettings( CProfile* p ){
 	p->setFullscreen(m_windowFullscreen_action->isChecked());
 	p->setGeometry(geometry());
+}
+
+void BibleTime::initDefaultModules(){
+  m_mainIndex->initDefaultModules();
 }

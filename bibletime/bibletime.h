@@ -194,6 +194,10 @@ protected: // Protected methods
 	*/
 	void initActions();
 	/**
+	 * Initialized default modules 
+	 */
+	void initDefaultModules();
+	/**
 	* Refreshes all presenter supporting at least in of the features given as parameter.
 	*/
 	void refreshPresenters();

@@ -56,9 +56,11 @@
 #define ID_PRESENTER_SAVE_POPUP			1052
 
 //Key bindings of BibleTime
-#define IDK_GM_RESET						CTRL+ALT+Key_R
+#define IDK_GM_RESET			        CTRL+ALT+Key_R
 #define IDK_GM_ITEMS_DELETE			CTRL+ALT+Key_D
-#define IDK_GM_MODULES_SEARCH		CTRL+ALT+Key_M
+#define IDK_GM_MODULES_SEARCH		        CTRL+ALT+Key_M
+#define IDK_GM_MODULES_BACK                     CTRL+Key_Left
+#define IDK_GM_MODULES_FORWARD                  CTRL+Key_Right
 
 //#define IDK_VIEW_FOOTNOTES			CTRL+ALT+Key_F
 //#define IDK_VIEW_STRONGS				CTRL+ALT+Key_S

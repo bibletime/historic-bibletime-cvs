@@ -74,12 +74,14 @@ BibleTime::BibleTime() : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/
 	setHelpMenuEnabled(false);
 	createGUI("bibletimeui.rc");
 	initMenubar();
-	initConnections();
+	initConnections();	
 	
 	readSettings();
 
 	setPlainCaption("BibleTime " VERSION);
 	setAutoSaveSettings(QString::fromLatin1("MainWindow"), false);
+
+	initDefaultModules();
 }
 
 BibleTime::~BibleTime() {

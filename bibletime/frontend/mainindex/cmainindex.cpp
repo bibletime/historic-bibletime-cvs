@@ -20,7 +20,9 @@
 #include "cindexitem.h"
 
 #include "backend/creferencemanager.h"
+#include "backend/cswordmoduleinfo.h"
 #include "frontend/searchdialog/csearchdialog.h"
+#include "frontend/cbtconfig.h"
 
 #include "resource.h"
 #include "tooltipdef.h"
@@ -73,7 +75,7 @@ CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
 {
 //  qWarning("constructor of CMainIndex!");
   initView();
-  initConnections();
+  initConnections();  
 //  qWarning("finished");
 }
 
@@ -429,6 +431,11 @@ void CMainIndex::searchInModules(){
       modules.append(i->module());
     }
   }
+
+  if (modules.isEmpty()) {
+    modules = m_defaultModules;
+  }
+
   openSearchDialog(modules, QString::null);
 }
 
@@ -544,4 +551,20 @@ const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
 /** Is called when items should be moved. */
 void CMainIndex::moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow){
 //  qWarning("moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)");
+}
+
+void CMainIndex::initDefaultModules() {
+  // make default Bible active
+  QString defaultBible(CBTConfig::get(CBTConfig::standardBible));
+  if (!defaultBible.isEmpty()) {
+    CSwordModuleInfo* m = 
+      CPointers::backend()->findModuleByDescription(defaultBible);
+    if (m) {
+      m_defaultModules.append(m);
+      emit modulesChosen(m_defaultModules, QString::null);
+    } else {
+      qWarning("default Bible \"%s\" is no longer available, review your settings",
+	       defaultBible.latin1());
+    }
+  }
 }
