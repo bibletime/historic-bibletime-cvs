@@ -164,7 +164,7 @@ void BibleTime::initActions() {
   m_windowCascade_action = new KAction(i18n("&Cascade"),
     CResMgr::mainMenu::window::cascade::icon,
     CResMgr::mainMenu::window::cascade::accel,
-		m_mdi, SLOT(cascade()), actionCollection(),
+		m_mdi, SLOT(myCascade()), actionCollection(),
     CResMgr::mainMenu::window::cascade::actionName
   );
 	m_windowCascade_action->setToolTip( CResMgr::mainMenu::window::cascade::tooltip );
@@ -175,7 +175,7 @@ void BibleTime::initActions() {
   m_windowTile_action = new KAction(i18n("&Tile"),
     CResMgr::mainMenu::window::tile::icon,
     CResMgr::mainMenu::window::tile::accel,
-    m_mdi, SLOT(tile()), actionCollection(),
+    m_mdi, SLOT(myTile()), actionCollection(),
     CResMgr::mainMenu::window::tile::actionName);
 	m_windowTile_action->setToolTip( CResMgr::mainMenu::window::tile::tooltip );
 	m_windowTile_action->setWhatsThis( CResMgr::mainMenu::window::tile::whatsthis );

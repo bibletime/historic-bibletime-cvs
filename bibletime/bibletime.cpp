@@ -287,7 +287,7 @@ void BibleTime::processCommandline(){
       bibleKey = vk.key();
     }
     createReadDisplayWindow(bible, bibleKey);
-    m_mdi->tile();//we are sure only one window is open, which should be displayed fullscreen in the working area
+    m_mdi->myTile();//we are sure only one window is open, which should be displayed fullscreen in the working area
   }
 }
 

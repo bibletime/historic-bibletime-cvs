@@ -76,7 +76,7 @@ public:
   /**
   * Returns the used modules as a QPtrList
   */
-  ListCSwordModuleInfo& modules();
+  ListCSwordModuleInfo modules() const;
   /**
   * Store the settings of this window in the given CProfileWindow object.
   */
@@ -92,11 +92,11 @@ public:
   /**
   * Sets the new filter options of this window.
   */
-  void setFilterOptions( CSwordBackend::FilterOptions filterOptions );
+  void setFilterOptions( CSwordBackend::FilterOptions& filterOptions );
   /**
   * Sets the new display options for this window.
   */
-  void setDisplayOptions( const CSwordBackend::DisplayOptions displayOptions );
+  void setDisplayOptions( const CSwordBackend::DisplayOptions& displayOptions );
   /**
   * Returns the display options used by this display window.
   */
@@ -108,7 +108,7 @@ public:
   /**
   * Set the ready status
   */
-  void setReady( const bool ready );
+  void setReady( const bool& ready );
   /**
   * Returns true if the widget is ready for use.
   */
@@ -120,7 +120,7 @@ public:
   /**
   * Returns the keychooser widget of this display window.
   */
-  CKeyChooser* const keyChooser();
+  CKeyChooser* const keyChooser() const;
   /**
   * Sets the new sword key.
   */
@@ -128,7 +128,7 @@ public:
   /**
   * Returns the key of this display window.
   */
-  CSwordKey* key();
+  CSwordKey* key() const;
   /**
   * Initialize the window. Call this method from the outside, because calling this in the constructor is not possible!
   */
@@ -153,7 +153,7 @@ public:
   /**
   * Returns the display widget used by this implementation of CDisplayWindow.
   */
-  virtual CDisplay* const displayWidget();
+  virtual CDisplay* const displayWidget() const;
   /**
   * Sets the display widget used by this display window.
   */
@@ -205,7 +205,7 @@ protected:
   /**
   * Sets the modules.
   */
-  void setModules( const ListCSwordModuleInfo modules );
+  void setModules( const ListCSwordModuleInfo& modules );
   /**
   * Initializes the signal / slot connections of this display window.
   */

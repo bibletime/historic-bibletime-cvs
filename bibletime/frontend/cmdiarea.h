@@ -43,7 +43,7 @@ public:
 	/**
 	* The options you can set for this widget.
 	*/
-	enum mdiOption {
+	enum MDIOption {
 		autoTile,
 		autoCascade,
 		Nothing
@@ -59,7 +59,7 @@ public:
   /**
   * Enable / disable autoCascading
   */
-  void setGUIOption( mdiOption );
+  void setGUIOption( const MDIOption& newOption );
   /**
   * This works around a problem/limitation in QWorkspace. QWorkspace sets every time the 	
   * application caption on its on way. This confuses BibleTime - wrong captions are generated.
@@ -76,14 +76,14 @@ public slots:
   * Deletes all the presenters in the MDI area.
   */
   void deleteAll();
-  /**
- 	*
+  /** Our own cascade version which, if only one window is left, shows this maximized.  
+ 	* Also necessary for autoCasacde feature
  	*/
-  void cascade();
-  /**
- 	*
+  void myCascade();
+  /** Our own cascade version which, if only one window is left, shows this maximized.
+ 	* Also necessary for autoTile feature
  	*/
-  void tile();
+  void myTile();
   /**
   * Emits the signal to create a new display window in the MDI area.
   */
@@ -119,7 +119,7 @@ signals: // Signals
   void createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& keyName);
 
 private:
-	mdiOption guiOption;
+	MDIOption m_guiOption;
 	bool m_childEvent;
   bool m_deleting;
 	QString m_appCaption;

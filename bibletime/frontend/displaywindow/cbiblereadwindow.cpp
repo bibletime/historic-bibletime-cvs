@@ -105,7 +105,7 @@ void CBibleReadWindow::initKeyboardActions() {
   insertKeyboardActions( accel() );
   CReadWindow::insertKeyboardActions(accel());
 
-  accel()->readSettings();
+  accel()->readSettings(); 
 
 	accel()->setSlot("Next book", this, SLOT(nextBook()));
   accel()->setSlot("Previous book", this, SLOT(previousBook()));

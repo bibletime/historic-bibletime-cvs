@@ -273,9 +273,9 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 }
 
 /** Reimplementation to show a popup menu if the right mouse butoon was clicked. */
-QPopupMenu* CHTMLWriteDisplay::createPopupMenu( const QPoint& pos ){
+QPopupMenu* CHTMLWriteDisplay::createPopupMenu( const QPoint& /*pos*/ ){
   if (!m_actions.selectAll) {
- 	  m_actions.selectAll  =new KAction(i18n("Select all"), KShortcut(0), this, SLOT(selectAll()), this);
+ 	  m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), this, SLOT(selectAll()), this);
   }
   
   KPopupMenu* popup = new KPopupMenu(this);

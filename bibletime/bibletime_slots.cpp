@@ -349,10 +349,11 @@ void BibleTime::openOnlineHelp_Howto() {
 /** Saves the current settings into the currently activatred profile. */
 void BibleTime::saveProfile(int ID){
 	m_mdi->setUpdatesEnabled(false);
-	KPopupMenu* popup = m_windowSaveProfile_action->popupMenu();
-	CProfile* p = m_profileMgr.profile( popup->text(ID) );
-	if (p)
+
+  KPopupMenu* popup = m_windowSaveProfile_action->popupMenu();
+	if (	CProfile* p = m_profileMgr.profile( popup->text(ID) ) ) {
 		saveProfile(p);
+  }
 
 	m_mdi->setUpdatesEnabled(true);	
 }
@@ -383,16 +384,14 @@ void BibleTime::saveProfile(CProfile* profile){
 }
 
 void BibleTime::loadProfile(int ID){
-	m_mdi->setUpdatesEnabled(false);
+//	m_mdi->setUpdatesEnabled(false);
 	m_mdi->deleteAll();
 	
-	m_mdi->setUpdatesEnabled(false);
-	KPopupMenu* popup = m_windowLoadProfile_action->popupMenu();
-	CProfile* p = m_profileMgr.profile( popup->text(ID) );
-	if (p)
-		loadProfile(p);
 
-	m_mdi->setUpdatesEnabled(true);	
+	KPopupMenu* popup = m_windowLoadProfile_action->popupMenu();
+	if (	CProfile* p = m_profileMgr.profile( popup->text(ID) ) ) {
+    loadProfile(p);
+  }
 }
 
 void BibleTime::loadProfile(CProfile* p){
@@ -402,15 +401,16 @@ void BibleTime::loadProfile(CProfile* p){
 
 	//load mainwindow setttings
 	applyProfileSettings(p);
-		
+
+	m_mdi->setUpdatesEnabled(false);//don't auto tile or auto cascade, this would mess up everything!!
 	for (CProfileWindow* w = windows.first(); w; w = windows.next()) {
 		const QString key = w->key();		
 		QStringList usedModules = w->modules();
 		ListCSwordModuleInfo modules;
 		for ( QStringList::Iterator it = usedModules.begin(); it != usedModules.end(); ++it ) {
-			CSwordModuleInfo* m = m_backend->findModuleByName(*it);
-			if (m)
+			if (CSwordModuleInfo* m = m_backend->findModuleByName(*it)) {
 				modules.append(m);
+      }
 		}
 		if (!modules.count()) //are the modules still installed?
 			continue;		
@@ -423,6 +423,7 @@ void BibleTime::loadProfile(CProfile* p){
     else { //create a read window
       displayWindow = createReadDisplayWindow(modules, key);
 		}
+    
     if (displayWindow) { //if a window was created initialize it.
       displayWindow->applyProfileSettings(w);
     };

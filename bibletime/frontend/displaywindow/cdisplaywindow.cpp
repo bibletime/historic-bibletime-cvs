@@ -75,18 +75,21 @@ CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, 
 }
 
 CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, const char *name )
-  : KMainWindow(parent,name,WDestructiveClose)
-{    
-	m_mdi = parent;
- 	m_modules = modules;
-  m_isReady = false;
-  m_moduleChooserBar = 0;
-  m_swordKey = 0;
-  m_keyChooser = 0;
-  m_mainToolBar = 0;
-  m_displaySettingsButton = 0;
-  m_popupMenu = 0;
-  m_displayWidget = 0;
+  : KMainWindow(parent,name,WDestructiveClose),  
+    m_mdi(parent),
+    m_modules(modules),
+    m_filterOptions(),
+    m_displayOptions(),
+    m_displaySettingsButton(0),    
+    m_keyChooser(0),
+    m_swordKey(0),    
+    m_isReady(false),    
+    m_moduleChooserBar(0),
+    m_mainToolBar(0),
+    m_popupMenu(0),
+    m_displayWidget(0)
+{
+
 }
 
 CDisplayWindow::~CDisplayWindow(){
@@ -94,7 +97,7 @@ CDisplayWindow::~CDisplayWindow(){
 }
 
 CMDIArea* const CDisplayWindow::mdi() {
-  Q_ASSERT(m_mdi);
+//  Q_ASSERT(m_mdi);
 	return m_mdi;
 }
 
@@ -114,9 +117,7 @@ const QString CDisplayWindow::windowCaption(){
 }
 
 /** Returns the used modules as a QPtrList */
-ListCSwordModuleInfo& CDisplayWindow::modules(){
-//  qWarning("CDisplayWindow::modules()");
-//  qWarning("count is %i", m_modules.count());
+ListCSwordModuleInfo CDisplayWindow::modules() const{
 	return m_modules;
 }
 
@@ -130,8 +131,9 @@ void CDisplayWindow::insertKeyboardActions( KAccel* const /*accel*/ ) {
 
 /** Is called when this window gets the focus or looses the focus. */
 void CDisplayWindow::windowActivated( const bool hasFocus ){
-	if (accel())
+	if (accel()) {
 		accel()->setEnabled(hasFocus);
+  }
 }
 
 /** Reimplementation from QWidget. Used to initialize things before the widget is shown. */
@@ -156,22 +158,22 @@ CSwordBackend::DisplayOptions& CDisplayWindow::displayOptions() {
 }
 
 /** Sets the new display options for this window. */
-void CDisplayWindow::setDisplayOptions( const CSwordBackend::DisplayOptions displayOptions ){
+void CDisplayWindow::setDisplayOptions( const CSwordBackend::DisplayOptions& displayOptions ){
 	m_displayOptions = displayOptions;
 }
 
 /** Sets the new filter options of this window. */
-void CDisplayWindow::setFilterOptions( CSwordBackend::FilterOptions filterOptions ){
+void CDisplayWindow::setFilterOptions( CSwordBackend::FilterOptions& filterOptions ){
   m_filterOptions = filterOptions;
 }
 
 /** Returns true if the widget is ready for use. */
-const bool CDisplayWindow::isReady() const{
+const bool CDisplayWindow::isReady() const {
 	return m_isReady;
 }
 
 /** Set the ready status */
-void CDisplayWindow::setReady( const bool ready ){
+void CDisplayWindow::setReady( const bool& ready ){
 	m_isReady = ready;
 }
 
@@ -181,7 +183,7 @@ bool CDisplayWindow::queryClose(){
 }
 
 /** Returns the keychooser widget of this display window. */
-CKeyChooser* const CDisplayWindow::keyChooser(){
+CKeyChooser* const CDisplayWindow::keyChooser() const {
 	return m_keyChooser;
 }
 
@@ -191,7 +193,7 @@ void CDisplayWindow::setKeyChooser( CKeyChooser* ck ){
 }
 
 /** Returns the key of this display window. */
-CSwordKey* CDisplayWindow::key() {
+CSwordKey* CDisplayWindow::key() const {
 	return m_swordKey;
 }
 
@@ -214,18 +216,20 @@ void CDisplayWindow::modulesChanged(){
 }
 
 /** Lookup the given key. */
-void CDisplayWindow::lookup( CSwordKey* key ){
+void CDisplayWindow::lookup( CSwordKey* /*key*/ ){
 }
 
 /** Returns the module chooser bar. */
-CModuleChooserBar* const CDisplayWindow::moduleChooserBar() const{
+CModuleChooserBar* const CDisplayWindow::moduleChooserBar() const {
 	return m_moduleChooserBar;
 }
 
 /** Sets the module chooser bar. */
 void CDisplayWindow::setModuleChooserBar( CModuleChooserBar* bar ){
-	if (m_moduleChooserBar)
+	if (m_moduleChooserBar) {
  		disconnect(m_moduleChooserBar, SIGNAL(sigChanged()), this, SLOT(modulesChanged()));
+  }
+  
 	if (bar) { //if a new bar should be set!
     m_moduleChooserBar = bar;
   	connect(bar, SIGNAL(sigChanged()), SLOT(modulesChanged()));
@@ -233,7 +237,7 @@ void CDisplayWindow::setModuleChooserBar( CModuleChooserBar* bar ){
 }
 
 /** Sets the modules. */
-void CDisplayWindow::setModules( const ListCSwordModuleInfo newModules ){
+void CDisplayWindow::setModules( const ListCSwordModuleInfo& newModules ){
 	m_modules = newModules;
 }
 
@@ -251,7 +255,7 @@ const bool CDisplayWindow::init( const QString& keyName ){
 	m_displayOptions = CBTConfig::getDisplayOptionDefaults();
 	if (displaySettingsButton())
 		displaySettingsButton()->reset(modules());
-  Q_ASSERT(key());
+//  Q_ASSERT(key());
   if (key())
     key()->key(keyName);
 
@@ -345,13 +349,13 @@ KPopupMenu* const CDisplayWindow::popup(){
 	  	displayWidget()->installPopup(m_popupMenu);
     }
 	  else
-	  	qWarning("CAN't INSTALL POPUP");
+	  	qWarning("CDisplayWindow:: can't instal popup menu");
   }
  	return m_popupMenu;
 }
 
 /** Returns the display widget used by this implementation of CDisplayWindow. */
-CDisplay* const CDisplayWindow::displayWidget(){
+CDisplay* const CDisplayWindow::displayWidget() const {
   return m_displayWidget;
 }
 

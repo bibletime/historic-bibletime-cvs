@@ -36,12 +36,12 @@
 #include <qwhatsthis.h>
 
 CMDIArea::CMDIArea(QWidget *parent, const char *name )
-	: QWorkspace(parent, name) {			
-	m_childEvent = false;
-  m_deleting = false;
-	guiOption = Nothing;
-	m_appCaption = QString::null;
-	
+	: QWorkspace(parent, name),
+    m_guiOption(Nothing),
+    m_childEvent(false),
+    m_deleting(false),
+    m_appCaption(QString::null)
+{			
 	initView();
 	initConnections();
 	readSettings();
@@ -64,36 +64,36 @@ void CMDIArea::initConnections(){
 
 /** Called whan a client window was activated */
 void CMDIArea::slotClientActivated(QWidget* client){
-//	qWarning("CMDIArea::slotClientActivated(QWidget* client)");
 	if (!client || !isUpdatesEnabled()) {
-//		qWarning("client Activated: return");
     return;
   }
 
 	CDisplayWindow* sp = dynamic_cast<CDisplayWindow*>(client);	
-	if (sp && !sp->isReady())
+	if (!sp || !sp->isReady())
 		return;
 
   QWidgetList windows = windowList();
-  for ( QWidget* w = windows.first(); w; w = windows.next() ) {		
+  for ( QWidget* w = windows.first(); w; w = windows.next() ) {
+
+//Don't use!! It would disable accel  enabling for the active window, see CDisplayWindow::windowActivated
+/*    if (w == client)
+        continue;
+*/
+
    	CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(w);	
 		window->windowActivated( (window == sp) ? true : false);
 	}	
 	
 	emit sigSetToplevelCaption( ( m_appCaption = client->caption().stripWhiteSpace() ) );	
-
-//#warning Check!
-//	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
-//	if (p && p->keyChooser())
-//		syncCommentaries( p->keyChooser()->key() );
 }
 
 /** Reimplementation. Used to make use of the fixedGUIOption part. */
 void CMDIArea::childEvent( QChildEvent * e ){
 	QWorkspace::childEvent(e);
 
-	if ( m_childEvent || !isUpdatesEnabled() || !e)
-		return;	
+	if ( m_childEvent || !isUpdatesEnabled() || !e) {
+		return;
+  }
 
 	m_childEvent = true;
 	
@@ -102,16 +102,14 @@ void CMDIArea::childEvent( QChildEvent * e ){
 		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(m_appCaption) );		
 		emit sigLastPresenterClosed();
 	}	
-	
-  if (!m_deleting && (e->inserted() || e->removed()) ) {
-		switch (guiOption) {
+
+  if (!m_deleting && isUpdatesEnabled() && (e->inserted() || e->removed()) ) {
+		switch (m_guiOption) {
 	 		case autoTile:
-				if (isUpdatesEnabled())
-					tile();
+				myTile();
 	 			break;
 	 		case autoCascade:
-				if (isUpdatesEnabled())
-					cascade();
+				myCascade();
 	 			break;
 	 		default:
 	 			break;
@@ -119,7 +117,8 @@ void CMDIArea::childEvent( QChildEvent * e ){
 	}
 
   m_childEvent = false;
-  if (!windowList().count()) { //already deleted all windows
+
+  if (children()->count() == 1) { //no childs any more!
     m_deleting = false;
   }
 }
@@ -127,14 +126,17 @@ void CMDIArea::childEvent( QChildEvent * e ){
 /** Reimplementation */
 void CMDIArea::resizeEvent(QResizeEvent* e){	
 	QWorkspace::resizeEvent(e);	
-	switch (guiOption) {
+
+  if (m_deleting || !isUpdatesEnabled()) {
+    return;
+  };
+  
+  switch (m_guiOption) {
  		case autoTile:
-			if (isUpdatesEnabled())
-				tile();
+			myTile();
  			break;
  		case autoCascade:
-			if (isUpdatesEnabled())
-				cascade();
+			myCascade();
  			break;
  		default:
  			break;
@@ -151,25 +153,30 @@ void CMDIArea::readSettings(){
 
 /** Deletes all the presenters in the MDI area. */
 void CMDIArea::deleteAll(){	
+  /*
+  will be set to false in childEvent, deleting windows is processed in the background, i.e.
+  control leaves this function
+  */
   m_deleting = true;
-  QWidgetList windows = windowList();
+
+  QWidgetList windows( windowList() ); //copy pointers
   windows.setAutoDelete(true);
   windows.clear();
 }
 
 /** Enable / disable autoCascading */
-void CMDIArea::setGUIOption( mdiOption new_GUIOption){
-	guiOption = new_GUIOption;
+void CMDIArea::setGUIOption( const MDIOption& newOption ){
+
 	//now do the initial action
  	
-	switch (guiOption) {
+	switch (( m_guiOption = newOption )) { //set new value and decide what to do
  		case autoTile:
 			if (isUpdatesEnabled())
-				tile();
+				myTile();
  			break;
  		case autoCascade:
 			if (isUpdatesEnabled())
-				cascade();
+				myCascade();
  			break;
  		default:
  			break;
@@ -177,30 +184,41 @@ void CMDIArea::setGUIOption( mdiOption new_GUIOption){
 }
 
 /**  */
-void CMDIArea::tile(){
-//  qWarning("CMDIArea::tile()");
-	if (!isUpdatesEnabled() || !windowList().count() )	
-		return;
+void CMDIArea::myTile(){
+//  qWarning("CMDIArea::myTile()");
+	if (m_deleting || !isUpdatesEnabled() || !windowList().count() )	{
+//    qWarning("\treturn, don't tile");
+    return;
+  }
 
 	if (windowList().count() == 1 && windowList().at(0)) {
+//    qWarning("\tmaximize");
 		m_appCaption = windowList().at(0)->caption();
 		windowList().at(0)->showMaximized();
 	}
-	else
+	else {
+//    qWarning("\tQWorkspace::tile");    
 		QWorkspace::tile();
+  }
 }
 
 /**  */
-void CMDIArea::cascade(){
-//  qWarning("CMDIArea::cascade()");
-	if (!isUpdatesEnabled() || !windowList().count() )
-		return;		
+void CMDIArea::myCascade(){
+//  qWarning("CMDIArea::myCascade()");
+	if (m_deleting || !isUpdatesEnabled() || !windowList().count() ) {
+//    qWarning("\treturn, don't cascade");
+		return;
+  }
+    
 	if (windowList().count() == 1 && windowList().at(0)) {	
-		m_appCaption = windowList().at(0)->caption();		
+//    qWarning("\tmaximize");    
+    m_appCaption = windowList().at(0)->caption();		
 		windowList().at(0)->showMaximized();
 	}
- 	else
-		QWorkspace::cascade();
+ 	else {
+//    qWarning("\tQWorkspace::cascade");
+    QWorkspace::cascade();
+  }
 }
 
 /** This works around a problem/limitation in QWorkspace. QWorkspace sets every time the  application caption on its on way. This confuses BibleTime - wrong captions are generated. This function returns the right caption (using the MDI child). */

@@ -1,3 +1,10 @@
+2003-01-16 Joachim Ansorg <joachim@ansorgs.de>
+  * Bugfixes:
+    -Loading of profiles switched of auto-cascading and auto-tiling
+    -Debugged CMDIArea, was old, buggy code. Should work now more robust.
+  * Code cleanups for CDisplayWindow
+  
+
 2003-01-14 Joachim Ansorg <joachim@ansorgs.de>
   * Last fixes for beta4:
     -Changes everything to use CResMgr instead of ugly #defined
