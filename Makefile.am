@@ -16,7 +16,7 @@ bibletime.m4 sword.m4
 
 btadmindir = $(top_srcdir)/admin
 
-EXTRA_DIST += $(btadmindir)/ChangeLog
+# EXTRA_DIST += $(btadmindir)/ChangeLog
 EXTRA_DIST += $(btadmindir)/compile
 EXTRA_DIST += $(btadmindir)/config.guess
 EXTRA_DIST += $(btadmindir)/config.pl

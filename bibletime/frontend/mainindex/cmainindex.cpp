@@ -75,7 +75,7 @@ CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
   m_searchDialog(0), m_toolTip(0), m_itemsMovable(false), m_autoOpenFolder(0), m_autoOpenTimer(this)
 {
   initView();
-  initConnections();  
+  initConnections();
 }
 
 CMainIndex::~CMainIndex(){
@@ -111,23 +111,22 @@ void CMainIndex::initView(){
  	header()->hide();
 
  	m_toolTip = new ToolTip(this);
-    setTooltipColumn(-1);
-    setShowToolTips(false);//to disable Qt's tooltips
- 	 		
-	setBackgroundMode(PaletteBase);
-//	setSorting(-1);
-  setFullWidth(true);
+	setTooltipColumn(-1);
+	setShowToolTips(false);//to disable Qt's tooltips
 
-  	setAcceptDrops( true );
-  	setDragEnabled( true );
+	setBackgroundMode(PaletteBase);
+	setFullWidth(true);
+
+	setAcceptDrops( true );
+	setDragEnabled( true );
 	setDropVisualizer( true );
-  	setDropHighlighter( true );
-  	setAutoOpen(true);
- 	viewport()->setAcceptDrops(true);
+ 	setDropHighlighter( true );
+  setAutoOpen(true);
+	viewport()->setAcceptDrops(true);
  	setRootIsDecorated(false);
  	setAllColumnsShowFocus(true);
-  	setItemsMovable(false);
-  	setSelectionModeExt(Extended);
+  setItemsMovable(false);
+  setSelectionModeExt(Extended);
 
   //setup the popup menu
   m_popup = new KPopupMenu(viewport());
@@ -146,7 +145,7 @@ void CMainIndex::initView(){
   m_actions.editModuleMenu = new KActionMenu(i18n("Edit this module"),CResMgr::mainIndex::editModuleMenu::icon, this);
   m_actions.editModulePlain = new KAction(i18n("Plain text"),CResMgr::mainIndex::editModulePlain::icon, 0, this, SLOT(editModulePlain()), this);
   m_actions.editModuleHTML = new KAction(i18n("HTML"),CResMgr::mainIndex::editModuleHTML::icon, 0, this, SLOT(editModuleHTML()), this);
-    
+
   m_actions.searchInModules = new KAction(i18n("Search in selected module(s)"),CResMgr::mainIndex::search::icon, 0, this, SLOT(searchInModules()), this);
   m_actions.unlockModule = new KAction(i18n("Unlock this module"),CResMgr::mainIndex::unlockModule::icon, 0, this, SLOT(unlockModule()), this);
   m_actions.aboutModule = new KAction(i18n("About this module"),CResMgr::mainIndex::aboutModule::icon, 0, this, SLOT(aboutModule()), this);
