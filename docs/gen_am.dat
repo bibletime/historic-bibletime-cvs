@@ -6,7 +6,7 @@
 # released under the GPL
 #
 # This script contains some basic variables for the
-# BibleTime-doc Makefile system generation
+# bibletime-i18n-?? Makefile system generation
 
 
 # This variable identifies which language's directories
@@ -15,9 +15,7 @@
 # If you want to exclude a language, just delete it
 # from the following variable.
 
-# NOTE: "en" MUST BE THE FIRST LANGUAGE!
-
-export FOREIGN_DOC_LANGUAGES="de"
+export FOREIGN_DOC_LANGUAGES="cs da de fi fr hu it nl no pl sk"
 
 # This variable identifies which parts of the documentation
 # are in use.
