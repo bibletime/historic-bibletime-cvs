@@ -91,10 +91,7 @@ const QString CSwordModuleInfo::getCipherKey() const {
 	if (!isEncrypted())
 		return QString::null;
 		
-	string key = (*m_backend->getConfig())[m_module->Name()]["CipherKey"];
-//	if (!strlen(key.c_str()))
-//		key = (*m_backend->config)[m_module->Name()]["CipherKey"];
-		
+	string key = (*m_backend->getConfig())[m_module->Name()]["CipherKey"];		
 	if (strlen(key.c_str()))
 		return QString::fromLocal8Bit( key.c_str() );
 	else
