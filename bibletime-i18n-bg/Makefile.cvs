@@ -1,0 +1,33 @@
+#
+# Makefile for the cvs repository of BibleTime
+# Modified by Martin Gruner
+#
+# Copyright: (c) 2000 The BibleTime team.
+#
+
+all:
+	@echo "This Makefile is only for the CVS repository"
+	@echo "This will be deleted before making the distribution"
+	@echo ""
+	@if test ! -e admin/Makefile.common; then \
+	   rm -r admin/; \
+		 echo "removed auto-created admin/ directory."; \
+	   if test -e ../admin/Makefile.common; then \
+		   ln -s ../admin ./admin;\
+			 echo "successfully linked admin to ../admin."; \
+		 elif test -e ../bibletime/admin/Makefile.common; then \
+		   ln -s ../bibletime/admin ./admin;\
+		   echo "successfully linked admin to ../../bibletime/admin.";\
+		 else \
+ 	     echo "If this is the BibleTime package itself: please recheckout this package," ;\
+ 	     echo "because the admin/ directory is missing. It is necessary to create the Makefiles." ;\
+       echo; \
+       echo "If this is another package, like the bibletime-i18n-xx packages," ;\
+       echo "you need to place it in the same directory as the bibletime package itself," ;\
+       echo "to make sure that I can (automatically) link to the admin/ dir of this package.";\
+       exit 1 ;\
+		 fi\
+	fi
+	$(MAKE) -f admin/Makefile.common cvs
+
+.SILENT:
