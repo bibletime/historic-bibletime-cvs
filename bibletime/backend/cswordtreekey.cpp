@@ -19,6 +19,7 @@
 #include "cswordbookmoduleinfo.h"
 
 CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(/*(const char*)*/k), CSwordKey(k) {
+
 }
 
 CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module )

@@ -409,34 +409,32 @@ void CCommentaryPresenter::beforeKeyChange(const QString& oldKey){
 }
 
 /** Inserts the actions used by this window class into the given KAccel object. */
-void CCommentaryPresenter::insertKeyboardActions(KAccel* a){	
-//	ASSERT(a);
-#warning Check!
-//	a->setConfigGroup("Commentary window");		
-//	a->insertItem(i18n("Next book"), "Next book", 0);
-//	a->insertItem(i18n("Previous book"), "Previous book", 0);	
-//	a->insertItem(i18n("Next chapter"), "Next chapter", 0);
-//	a->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
-//	a->insertItem(i18n("Next verse"), "Next verse", 0);
-//	a->insertItem(i18n("Previous verse"), "Previous verse", 0);	
-//	a->insertItem(i18n("Toggle synchronize button"), "Synchronize", 0);
+void CCommentaryPresenter::insertKeyboardActions(KAccel* a){
+	a->insert("Next book",        i18n("Next book"),         "",   IDK_PRESENTER_NEXT_BOOK,0,"");
+	a->insert("Previous book",    i18n("Previous book"),     "",   IDK_PRESENTER_PREVIOUS_BOOK, 0, "");
+	a->insert("Next chapter",     i18n("Next chapter"),      "",   IDK_PRESENTER_NEXT_CHAPTER, 0, "");
+	a->insert("Previous chapter", i18n("Previous chapter"),  "",   IDK_PRESENTER_PREVIOUS_CHAPTER, 0, "");	
+	a->insert("Next verse",       i18n("Next verse"),        "",   IDK_PRESENTER_NEXT_VERSE, 0, "");
+	a->insert("Previous verse",   i18n("Previous verse"),    "",   IDK_PRESENTER_PREVIOUS_VERSE, 0, "");	
+	a->insert("Toggle synchronize button", i18n("Synchronize"), "", 0, 0, "");
 }
 
 
 /** Initializes the accelerator object. */
 void CCommentaryPresenter::initAccels(){
 	CBTConfig::setupAccel( CBTConfig::commentaryWindow, m_accel );
-	
-	m_accel->setSlot("Next book", this, SLOT(nextBook()));	
-	m_accel->setSlot("Previous book", this, SLOT(previousBook()));
-	m_accel->setSlot("Next chapter", this, SLOT(nextChapter()));		
-	m_accel->setSlot("Previous chapter", this, SLOT(previousChapter()));	
-	m_accel->setSlot("Next verse", this, SLOT(nextVerse()));		
-	m_accel->setSlot("Previous verse", this, SLOT(previousVerse()));	
-	m_accel->setSlot("Synchronize", this, SLOT(toggleSynchronize()));	
-	
-	CSwordPresenter::initAccels();	
+	insertKeyboardActions(m_accel);
+   CSwordPresenter::initAccels();
 	m_accel->readSettings();
+	
+	m_accel->setSlot("Next book",       this, SLOT(nextBook()));	
+	m_accel->setSlot("Previous book",   this, SLOT(previousBook()));
+	m_accel->setSlot("Next chapter",    this, SLOT(nextChapter()));		
+	m_accel->setSlot("Previous chapter",this, SLOT(previousChapter()));	
+	m_accel->setSlot("Next verse",      this, SLOT(nextVerse()));		
+	m_accel->setSlot("Previous verse",  this, SLOT(previousVerse()));	
+	m_accel->setSlot("Synchronize",     this, SLOT(toggleSynchronize()));	
+	
 }
 
 /** Jumps to the next entry */

@@ -58,8 +58,16 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *paren
 	setCaption(windowCaption());	
 	
 	setFocusPolicy(QWidget::WheelFocus);
+//  if (parent)
+//    parent->installEventFilter(this);
+//  if (parent && parent->parentWidget())
+//    parent->parentWidget()->installEventFilter(this);
+//  installEventFilter(this);
 }
 
+CSwordPresenter::~CSwordPresenter() {
+//  m_accel->writeSettings();
+}
 
 /** Returns the features used by this presenter. */
 int CSwordPresenter::getFeatures(){
@@ -205,7 +213,7 @@ void CSwordPresenter::storeSettings( CProfileWindow* settings ){
 /** Is called when the presenter should be closed. To delete the presenter it emits "close(CPresenter*)".*/
 void CSwordPresenter::closeEvent(QCloseEvent* e) {
 	if (!queryClose()) {
-		e->ignore();		
+		e->ignore();
 	}	
 	else {
 		e->accept();
@@ -214,8 +222,8 @@ void CSwordPresenter::closeEvent(QCloseEvent* e) {
 }
 
 /** Inserts the action used by this display window in the given KAccel object. */
-void CSwordPresenter::insertKeyboardActions( KAccel* a ){
-//	a->setConfigGroup("General window");	
+void CSwordPresenter::insertKeyboardActions( KAccel* const a ){
+  qWarning("CSwordPresenter::insertKeyboardActions( KAccel* const a )");
 }
 
 void CSwordPresenter::initAccels(){
@@ -223,26 +231,27 @@ void CSwordPresenter::initAccels(){
 
 /** Initilizes widget before shown and after constructor. */
 void CSwordPresenter::polish(){
-	m_accel = new KAccel(this);	
-	initAccels();
-	
 	KMainWindow::polish();
+	m_accel = new KAccel(this);	
+  m_accel->setAutoUpdate(true);
+	initAccels();
 }
 
 /** Is called when this display window looses the focus. */
-void CSwordPresenter::focusInEvent( QFocusEvent* e ){
-	KMainWindow::focusInEvent(e);
-	if (m_accel)
-		m_accel->setEnabled(true);
-}
-
-/** Is called when this display window looses the focus. */
-void CSwordPresenter::focusOutEvent( QFocusEvent* e ){
-//	qDebug("CSwordPresenter::focusOutEvent( QFocusEvent* e )");	
-	KMainWindow::focusOutEvent(e);	
-	if (m_accel)
-		m_accel->setEnabled(false);
-}
+//void CSwordPresenter::focusInEvent( QFocusEvent* e ){
+//	qWarning("CSwordPresenter::focusInEvent( QFocusEvent* e )");	
+//	KMainWindow::focusInEvent(e);
+////	if (m_accel)
+////		m_accel->setEnabled(true);
+//}
+//
+///** Is called when this display window looses the focus. */
+//void CSwordPresenter::focusOutEvent( QFocusEvent* e ){
+//	qWarning("CSwordPresenter::focusOutEvent( QFocusEvent* e )");	
+//	KMainWindow::focusOutEvent(e);	
+////	if (m_accel)
+////		m_accel->setEnabled(false);
+//}
 
 /** Is called when this display window looses the focus. */
 void CSwordPresenter::refresh(){
@@ -272,4 +281,47 @@ const bool CSwordPresenter::initialized(){
 /** Sets the display window to the initialized state. */
 void CSwordPresenter::setInitialized(){
 	m_initialized = true;
+}
+
+/** Reimplementation from QWidget. Is used to set the right accel options if focus was got / lost. */
+//void CSwordPresenter::childEvent( QChildEvent* e ){
+//  qWarning("CSwordPresenter::childEvent( QChildEvent* e)");
+//  if (e->child() && e->type() == QEvent::FocusIn) {
+//  qWarning("focus in!");
+//    m_accel->setEnabled(true);
+//  }
+//  else if (e->child() && e->type() == QEvent::FocusOut) {
+//  qWarning("focus out!");
+//    m_accel->setEnabled(false);
+//  }
+//}
+
+/** No descriptions */
+//bool CSwordPresenter::eventFilter(QObject *o, QEvent *e){
+//  qWarning("CSwordPresenter::eventFilter(QObject *o, QEvent *e)");
+//  if (e->type() == QEvent::FocusIn) {
+//    qWarning("focus in event!");
+//    if (m_accel) {
+//      m_accel->setEnabled(true);
+//      return true;
+//    }
+//  }
+//  else if (e->type() == QEvent::FocusOut) {
+//    qWarning("focus out event!");
+//    if (m_accel)  {
+//      m_accel->setEnabled(true);
+//      return true;
+//    }
+//  }
+//  return KMainWindow::eventFilter( o, e );;
+//}
+//
+
+/** This function is called when the client was activated. */
+void CSwordPresenter::activated( const bool enable){
+  qWarning("CSwordPresenter::activated( const bool activated)");
+  if (m_accel) {
+    qWarning("set enabled to %i", enable);
+    m_accel->setEnabled(enable);
+  }
 }

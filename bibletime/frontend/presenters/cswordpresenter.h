@@ -55,6 +55,7 @@ public:
 	* Default constructor
 	*/
 	CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
+	~CSwordPresenter();
   /**
   * Returns the features used by this presenter.
   */
@@ -79,6 +80,10 @@ public:
   * Applies the settings given in the parameter to the window.
   */
   virtual void applySettings( CProfileWindow* settings );
+  /**
+  * Inserts the action used by this display window in the given KAccel object.
+  */
+  static void insertKeyboardActions( KAccel* const accel );
 
 public slots: // Public slots
   /**
@@ -97,16 +102,23 @@ public slots: // Public slots
 	* Is called when a reference was dropped on this window.
 	*/
   virtual void referenceDropped(const QString&);
-  /** Reimplementation from KMainWindow. */
-  virtual bool queryClose();
-  /** Returns true if the display window is fully initialized. */
-  const bool initialized();
   /**
-  * Inserts the action used by this display window in the given KAccel object.
+  * Reimplementation from KMainWindow.
   */
-  static void insertKeyboardActions( KAccel* accel );
+  virtual bool queryClose();
+  /** This function is called when the client was activated. */
+  void activated( const bool activated);
+  /**
+  * Returns true if the display window is fully initialized.
+  */
+  const bool initialized();
 
 protected: // Protected methods
+  /**
+  * Reimplementation from QWidget. Is used to set the right accel options if focus was got / lost.
+  */
+//  virtual void childEvent( QChildEvent* e );
+
   /**
   * Prints the key given as parameter.
   */
@@ -149,21 +161,23 @@ protected: // Protected methods
 
 	CSwordBackend::FilterOptionsBool m_moduleOptions;
 	CSwordBackend::DisplayOptionsBool m_displayOptions;
- 	 	  	
+
+//  virtual bool eventFilter( QObject *o, QEvent *e );
+    	 	  	
 protected slots: // Protected slots
   void lookupWord(int ID);
   /**
   * Initilizes widget before shown and after constructor.
   */
   virtual void polish();
-  /**
-  * Is called when this display window looses the focus.
-  */
-  virtual void focusInEvent( QFocusEvent* e );
-  /**
-  * Is called when this display window looses the focus.
-  */
-  virtual void focusOutEvent( QFocusEvent* e );
+//  /**
+//  * Is called when this display window looses the focus.
+//  */
+//  virtual void focusInEvent( QFocusEvent* e );
+//  /**
+//  * Is called when this display window looses the focus.
+//  */
+//  virtual void focusOutEvent( QFocusEvent* e );
   /**
   * Sets the display window to the initialized state.
   */

@@ -323,30 +323,35 @@ void CBiblePresenter::saveVerseAndText(){
 
 /** Inserts the actions used by this window class into the given KAccel object. */
 void CBiblePresenter::insertKeyboardActions(KAccel* const a){
-#warning Check!
-//	a->insert(i18n("Next book"), "Next book");
-//	a->insertItem(i18n("Previous book"), "Previous book", 0);		
-//	a->insertItem(i18n("Next chapter"), "Next chapter", 0);
-//	a->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
-//	a->insertItem(i18n("Next verse"), "Next verse", 0);
-//	a->insertItem(i18n("Previous verse"), "Previous verse", 0);	
+  qWarning("CBiblePresenter::insertKeyboardActions");
+  a->insert("Next book",        i18n("Next book"),        "", IDK_PRESENTER_NEXT_BOOK,        0, "");
+	a->insert("Previous book",    i18n("Previous book"),    "", IDK_PRESENTER_PREVIOUS_BOOK,    0, "");
+	a->insert("Next chapter",     i18n("Next chapter"),     "", IDK_PRESENTER_NEXT_CHAPTER,     0, "");
+	a->insert("Previous chapter", i18n("Previous chapter"), "", IDK_PRESENTER_PREVIOUS_CHAPTER, 0, "");	
+	a->insert("Next verse",       i18n("Next verse"),       "", IDK_PRESENTER_NEXT_VERSE,       0, "");
+	a->insert("Previous verse",   i18n("Previous verse"),   "", IDK_PRESENTER_PREVIOUS_VERSE,   0, "");	
+
+  CSwordPresenter::insertKeyboardActions(a);
 }
 
 /** Initializes the accelerator object. */
 void CBiblePresenter::initAccels(){
-//	ASSERT(m_accel);	
-	CBTConfig::setupAccel( CBTConfig::bibleWindow, m_accel );	
-	insertKeyboardActions( m_accel );
+  qWarning("CBiblePresenter::initAccels()");
+  CBTConfig::setupAccel( CBTConfig::bibleWindow, m_accel );	
+  insertKeyboardActions( m_accel );
+  if (m_accel->setSlot("Next book", this, SLOT(nextBook())))
+  qWarning("SET SLOT!");	
+  else
+   qWarning("NOT SET SLOT!");
 
-	m_accel->setSlot("Next book", this, SLOT(nextBook()));	
-	m_accel->setSlot("Previous book", this, SLOT(previousBook()));
-	m_accel->setSlot("Next chapter", this, SLOT(nextChapter()));		
-	m_accel->setSlot("Previous chapter", this, SLOT(previousChapter()));	
-	m_accel->setSlot("Next verse", this, SLOT(nextVerse()));		
-	m_accel->setSlot("Previous verse", this, SLOT(previousVerse()));	
+  CSwordPresenter::initAccels();
+  m_accel->readSettings();
 
-	m_accel->readSettings();
-	CSwordPresenter::initAccels();	
+  m_accel->setSlot("Previous book", this, SLOT(previousBook()));
+  m_accel->setSlot("Next chapter", this, SLOT(nextChapter()));		
+  m_accel->setSlot("Previous chapter", this, SLOT(previousChapter()));	
+  m_accel->setSlot("Next verse", this, SLOT(nextVerse()));		
+  m_accel->setSlot("Previous verse", this, SLOT(previousVerse()));	
 }
 
 /** Jumps to the next entry */
@@ -376,7 +381,7 @@ void CBiblePresenter::previousChapter(){
 
 /** Jumps to the next entry */
 void CBiblePresenter::nextVerse(){
-//	qWarning("CBiblePresenter::nextVerse()");
+	qWarning("CBiblePresenter::nextVerse()");
 	if (	m_key->next(CSwordVerseKey::UseVerse) )	
 		m_keyChooser->setKey(m_key);	
 }

@@ -162,6 +162,7 @@ int main(int argc, char* argv[]) {
 	KCmdLineArgs::init(argc, argv, &aboutData); 	
 	KCmdLineArgs::addCmdLineOptions ( options );
 	
+  KApplication::disableAutoDcopRegistration();
 
 	KApplication app;
 	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics/");
@@ -204,7 +205,7 @@ int main(int argc, char* argv[]) {
 		if (CBTConfig::get(CBTConfig::tips))
 			bibletime->slotHelpTipOfDay();
 
-		bibletime->show();			
+		bibletime->show();
 		
 		// restore the workspace
 		if (CBTConfig::get(CBTConfig::restoreWorkspace) && !args->isSet("ignore-startprofile"))

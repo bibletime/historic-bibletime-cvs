@@ -69,8 +69,8 @@ void CBookPresenter::initView(){
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);	
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
 	
-	m_treeAction =  new KToggleAction(i18n("Toggle tree..."), ICON_VIEW_BOOKTREE,
-															IDK_PRESENTER_TOGGLE_TREE, this, SLOT(treeToggled()), actionCollection(), "treeToggle_action");
+	m_treeAction = new KToggleAction(i18n("Toggle tree..."), ICON_VIEW_BOOKTREE,
+    IDK_PRESENTER_TOGGLE_TREE, this, SLOT(treeToggled()), actionCollection(), "treeToggle_action");
 //	m_treeAction->setWhatsThis( WT_PRESENTER_SYNC );
 	m_treeAction->plug(m_mainToolBar);
 
@@ -201,18 +201,15 @@ void CBookPresenter::lookup( const QString& module, const QString& key){
 void CBookPresenter::initAccels(){
 	CBTConfig::setupAccel( CBTConfig::bookWindow, m_accel );		
 	insertKeyboardActions(m_accel);
+   m_accel->readSettings();
+	CSwordPresenter::initAccels();
 	
 	m_treeAction->setShortcut(m_accel->shortcut("Toggle tree"));	
 	m_accel->setSlot("Toggle tree", this, SLOT(treeToggled()));
-	m_accel->setAutoUpdate(true);		
-
-	m_accel->readSettings();				
-	CSwordPresenter::initAccels();
 }
 
 void CBookPresenter::insertKeyboardActions(KAccel* a){
-//	a->setConfigGroup("Book window");	
-//	a->insert( "Toggle tree", i18n("Toggle tree")/*, i18n("Toggle the tree on the left side of the book window on or off.")*/);
+	a->insert( "Toggle tree", i18n("Toggle tree"), i18n("Toggle the tree on the left side of the book window on or off."), IDK_PRESENTER_TOGGLE_TREE, 0 , "");
 }
 
 /** No descriptions */

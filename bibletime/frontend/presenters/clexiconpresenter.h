@@ -35,7 +35,7 @@ public:
   /**
   * Inserts the used keyboard actions into the given KAccel object.
   */
-  static void insertKeyboardActions(KAccel* a);
+  static void insertKeyboardActions(KAccel* const a);
 	
 public slots: // Public slots
   /**

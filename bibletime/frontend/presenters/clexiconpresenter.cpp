@@ -41,6 +41,7 @@
 #include <kpopupmenu.h>
 #include <kfiledialog.h>
 #include <kaccel.h>
+//#include <kaccelaction.h>
 
 CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, parent,name),
@@ -63,8 +64,7 @@ CLexiconPresenter::~CLexiconPresenter(){
 }
 
 /** Initializes the view. */
-void CLexiconPresenter::initView(){
-	
+void CLexiconPresenter::initView(){	
 	m_mainToolBar = new KToolBar(this);
 
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
@@ -251,22 +251,23 @@ void CLexiconPresenter::printEntry(){
 }
 
 /** Inserts the used keyboard actions into the given KAccel object. */
-void CLexiconPresenter::insertKeyboardActions(KAccel* a){
+void CLexiconPresenter::insertKeyboardActions(KAccel* const a){
 #warning Check
 //	a->setConfigGroup("Lexicon window");	
-//	a->insertItem(i18n("Next entry"), "Next entry", 0);
-//	a->insertItem(i18n("Previous entry"), "Previous entry", 0);	
+	a->insert("Next entry",     i18n("Next entry"),     "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);
+	a->insert("Previous entry", i18n("Previous entry"), "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);	
+   CSwordPresenter::insertKeyboardActions(a);
 }
 
 /** Initializes keyboard accelerators. */
 void CLexiconPresenter::initAccels(){
-	CBTConfig::setupAccel(CBTConfig::lexiconWindow, m_accel);
-	
-	m_accel->setSlot("Next entry", this, SLOT(nextEntry()));
-	m_accel->setSlot("Previous entry", this, SLOT(previousEntry()));
-	
-	CSwordPresenter::initAccels();	
-	m_accel->readSettings();
+   CBTConfig::setupAccel(CBTConfig::lexiconWindow, m_accel);
+   insertKeyboardActions(m_accel);
+   m_accel->readSettings();
+   CSwordPresenter::initAccels();	
+
+   m_accel->setSlot("Next entry", this, SLOT(nextEntry()));
+   m_accel->setSlot("Previous entry",  this, SLOT(previousEntry()));
 }
 
 /** Jumps to the previous entry. */

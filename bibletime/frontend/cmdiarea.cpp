@@ -65,15 +65,20 @@ void CMDIArea::initConnections(){
 
 /** Called whan a client window was activated */
 void CMDIArea::slotClientActivated(QWidget* client){
-//	qWarning("slotClientActivated(QWidget* client)");
-	if (!client)
+	qWarning("slotClientActivated(QWidget* client)");
+	if (!client || !isUpdatesEnabled())
 		return;				
 	CSwordPresenter* sp = dynamic_cast<CSwordPresenter*>(client);	
 	if (sp && !sp->initialized())
 		return;
+
+  QWidgetList windows = windowList();
+  for ( QWidget* w = windows.first(); w; w = windows.next() ) {		
+   	CSwordPresenter* window = dynamic_cast<CSwordPresenter*>(w);	
+		window->activated( (window == sp) ? true : false);
+	}	
 	
 	m_appCaption = client->caption().stripWhiteSpace();	
-//	qWarning("caption is %s", m_appCaption.latin1());
 	emit sigSetToplevelCaption( m_appCaption );	
 
 	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
@@ -82,7 +87,7 @@ void CMDIArea::slotClientActivated(QWidget* client){
 }
 
 /** Reimplementation. Used to make use of the fixedGUIOption part. */
-void CMDIArea::childEvent ( QChildEvent * e ){
+void CMDIArea::childEvent( QChildEvent * e ){
 	if (m_childEvent)
 		return;	
 	QWorkspace::childEvent(e);		
@@ -146,7 +151,7 @@ void CMDIArea::deleteAll(){
 	
 	QWidgetList windows = windowList();
 	for ( QWidget* w = windows.first(); w; w = windows.next() ) {		
-		delete w;
+		w->deleteLater();
 		w = 0;
 	}	
 	

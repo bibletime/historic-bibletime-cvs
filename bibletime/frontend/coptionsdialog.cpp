@@ -340,7 +340,7 @@ Don't forget that new profiles only work after you've saved something in them.")
 
 /** Init accel key section. */
 void COptionsDialog::initAccelerators(){
-	QVBox* page = addVBoxPage(i18n("Accelerators"),QString::null, OD_ICON_KEY_BINDINGS);
+  QVBox* page = addVBoxPage(i18n("Accelerators"),QString::null, OD_ICON_KEY_BINDINGS);
 
   KTabCtl* tabCtl = new KTabCtl(page);
 
@@ -349,11 +349,9 @@ void COptionsDialog::initAccelerators(){
 	currentTab->setMargin(3);	
   tabCtl->addTab(currentTab, i18n("Application wide"));
 
-	m_settings.keys.application.accel = new KAccel(this); //delete in destructor
 	CBTConfig::setupAccel( CBTConfig::application, m_settings.keys.application.accel  );
 	CSwordPresenter::insertKeyboardActions( m_settings.keys.application.accel );	
-//	m_settings.keys.application.accel->setConfigGroup("Global shortcuts");	
-	m_settings.keys.application.accel->readSettings( /*KGlobal::config()*/ );		
+	m_settings.keys.application.accel->readSettings();		
 
  	m_settings.keys.application.keyChooser = new KKeyChooser( m_settings.keys.application.accel, currentTab, false );	
  	QToolTip::add(m_settings.keys.application.keyChooser, TT_OD_KEYS_CHOOSER);
@@ -380,10 +378,9 @@ void COptionsDialog::initAccelerators(){
 	m_settings.keys.bible.accel = new KAccel(this); //delete in destructor
 	CBTConfig::setupAccel( CBTConfig::bibleWindow, m_settings.keys.bible.accel  );	
 	CBiblePresenter::insertKeyboardActions( m_settings.keys.bible.accel );
-//	m_settings.keys.bible.accel->setConfigGroup("Bible shortcuts");	
-	m_settings.keys.bible.accel->readSettings( /*KGlobal::config()*/ );		
+	m_settings.keys.bible.accel->readSettings();
 
- 	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab, false );	
+ 	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab/*, false*/ );	
 	QToolTip::add(m_settings.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
 	QWhatsThis::add(m_settings.keys.bible.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
 
@@ -720,14 +717,13 @@ void COptionsDialog::saveAccelerators(){
 // 	m_settings.keys.application.keyChooser->save();
  	m_settings.keys.application.keyChooser->commitChanges();
 	m_settings.keys.application.accel->writeSettings(); 	
- 	
 
 // 	m_settings.keys.general.accel->writeSettings();
 //		
 // 	m_settings.keys.bible.accel->writeSettings();		
 // 	m_settings.keys.bible.keyChooser->save();
  	m_settings.keys.bible.keyChooser->commitChanges();
-	m_settings.keys.bible.accel->writeSettings(); 	
+	m_settings.keys.bible.accel->writeSettings();
 
 //		
 // 	m_settings.keys.commentary.accel->writeSettings();

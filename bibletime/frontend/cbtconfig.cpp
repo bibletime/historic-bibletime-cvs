@@ -384,8 +384,8 @@ void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
 			break;
 		};
 		case bibleWindow : {
-			accel->setConfigGroup("Bible shortcuts");				
-			break;		
+			accel->setConfigGroup("Bible shortcuts");
+			break;
 		};
 		case commentaryWindow : {
 			accel->setConfigGroup("Commentary shortcuts");				
@@ -393,11 +393,11 @@ void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
 		};
 		case lexiconWindow : {
 			accel->setConfigGroup("Lexicon shortcuts");					
-			break;					
+			break;
 		};
 		case application : {
 			accel->setConfigGroup("Application shortcuts");				
-			break;		
+			break;
 		};
 	};
 }
