@@ -230,7 +230,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
  			}		
 		}
 		
-		entry += QString::fromLatin1("<%1 %2 %3 dir=\"%4\">") //linebreaks = div, without = span
+		entry += QString::fromLatin1("<%1 %2 dir=\"%4\">") //linebreaks = div, without = span
     	.arg(m_displayOptions.lineBreaks ? QString::fromLatin1("div") : QString::fromLatin1("span"))
 			.arg((modules.count() == 1) //insert only the class if we're not in a td
 				? (i.settings().highlight 
@@ -238,7 +238,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 					: QString::fromLatin1("class=\"entry\"")) 
 				: QString::null
 			)
-			.arg(langAttr)
+// 			.arg(langAttr)
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
 			
 
@@ -249,7 +249,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 			);
 		
 		if (m_settings.addText) {
-			entry += key_renderedText;
+			entry.append( QString::fromLatin1("<span %1>%2</span>").arg(langAttr).arg(key_renderedText) );
 		}
 		
 		if (i.hasChildItems()) {
@@ -261,8 +261,8 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		}
 		
 		entry.append(m_displayOptions.lineBreaks
-			? QString::fromLatin1("</div>") 
-			: QString::fromLatin1("</span>")
+			? QString::fromLatin1("</div>\n") 
+			: QString::fromLatin1("</span>\n")
 		);
 		
   	if (modules.count() == 1) {
@@ -278,7 +278,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 	}
  	
 	if (modules.count() > 1) {
-		renderedText += QString::fromLatin1("</tr>");
+		renderedText += QString::fromLatin1("</tr>\n");
 	}
 	
   return renderedText;	

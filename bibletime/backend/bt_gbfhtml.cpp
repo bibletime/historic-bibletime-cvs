@@ -103,7 +103,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	QString result;
 	
 	QString t = QString::fromUtf8(buf.c_str());
-	QRegExp tag("(<W[HGT][^>]+>\\s+)+");
+	QRegExp tag("(<W[HGT][^>]+>\\s*)+");
 	
 	QStringList list;
 	int lastMatchEnd = 0;
@@ -135,6 +135,9 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 		
 		int pos = tag.search(e, 0); //try to find a strong number marker
 		bool insertedTag = false;
+		bool hasLemmaAttr = false;
+		bool hasMorphAttr = false;
+		
 		QString value = QString::null;
 		int tagAttributeStart = -1;
 		
@@ -153,7 +156,10 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 				
 				//skip blanks, commas, dots and stuff at the beginning, it doesn't belong to the morph code
 				QString rep = QString::fromLatin1("<span %1=\"%2\">").arg(isMorph ? "morph" : "lemma").arg(value);
-				
+		
+				hasMorphAttr = isMorph;
+				hasLemmaAttr = !isMorph;
+						
 				int startPos = 0;
 				QChar c = e[startPos];
 				while ((startPos < pos) && (c.isSpace() || c.isPunct())) {
@@ -169,13 +175,31 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 			else { //add the attribute to the existing tag
 				e.remove(pos, tag.matchedLength());
 				
-				if (tagAttributeStart >= 0) {
+				if (tagAttributeStart == -1) {
+					continue; //nothing valid found
+				}
+				
+				if ((!isMorph && hasLemmaAttr) || (isMorph && hasMorphAttr)) { //we append another attribute value, e.g. 3000 gets 3000|5000
+					//search the existing attribute start
+					QRegExp attrRegExp( isMorph ? "morph=\".+(?=\")" : "lemma=\".+(?=\")" );
+					attrRegExp.setMinimal(true);
+					const int foundPos = e.find(attrRegExp, tagAttributeStart);
+					
+					if (pos != -1) {
+						e.insert(foundPos + attrRegExp.matchedLength(), value.prepend("|"));
+						pos += value.length() + 1;
+						
+						hasLemmaAttr = !isMorph;
+						hasMorphAttr = isMorph;
+					}
+				}
+				else {
 					QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
 					e.insert(tagAttributeStart, attr);
-					
 					pos += attr.length();
-					//tagAttributeStart remains the same
-				}
+				}				
+					
+				//tagAttributeStart remains the same
 			}
 				
 			insertedTag = true;
