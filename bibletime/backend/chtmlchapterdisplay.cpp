@@ -94,7 +94,7 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 	//reload font settings
 	updateSettings();
 
-	SWModule* module = moduleList->first()->module();		
+	SWModule* module = moduleList->first()->module();
 		
 	VerseKey* vk = (VerseKey*)((SWKey*)(*module));
 	CSwordVerseKey key(0);
@@ -104,7 +104,7 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 	const int chosenVerse = key.Verse();
-	const int width = (int)((double)97/(double)moduleList->count()); //width in per cent!!
+	const int width = (int)((double)99/(double)moduleList->count()); //width in per cent!!
 	
 	CSwordModuleInfo *d = 0;
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
@@ -117,7 +117,7 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 
 	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
-    	m_htmlText.append(QString("<td width=\"%1\" bgcolor=\"#f1f1f1\">\
+    	m_htmlText.append(QString::fromLatin1("<td width=\"%1\" bgcolor=\"#f1f1f1\">\
 <font face=\"%2\" size=\"%3\" color=\"%4\"<b>%5</b></td>")
 				.arg(width)
 				.arg(m_standardFontName)
@@ -125,7 +125,7 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 				.arg(m_standardFontColorName)
 				.arg(d->name()));
 			m = (d=moduleList->next()) ? d->module() : 0;
-		}
+	}
 
 	CSwordVerseKey current(0);	
 	QString rowText = QString::null;
@@ -138,18 +138,23 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.next(CSwordVerseKey::UseVerse)) {
 		const QString currentKey = key.key();
 		currentVerse = key.Verse();
-		m = (d = moduleList->first()) ? d->module() : 0;		
-		rowText = text.arg(m_standardFontName)
+		m = (d = moduleList->first()) ? d->module() : 0;
+		if (m_displayOptionsBool.verseNumbers) {
+  		 rowText = text.arg(m_standardFontName)
 						.arg(m_standardFontSize)
 						.arg(m_swordRefColorName)
 						.arg(currentVerse)
 						.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey, CReferenceManager::typeFromModule(d->type()) ))
 						.arg(currentVerse);
+    }
+    else {
+       rowText = QString::fromLatin1("</tr><tr>\n>");
+    }
 		
-		current.key(currentKey);					
+		current.key(currentKey);	
 		while (m) {
 			current.module(d);
-			rowText += cell.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
+      rowText += cell.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
 
 			if (d->isUnicode())
 				rowText += QString::fromLatin1("<font face=\"%1\" size=\"%2\" color=\"%3\">")

@@ -99,7 +99,8 @@ const QString& CPrintItem::moduleText() {
 		startKey->key(m_startKey);
 		stopKey->key(m_stopKey);
 	
-		const QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");
+//		const QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");
+		const QString format = QString::fromLatin1(" <SUB><NOBR>%1</NOBR></SUB>");
 		while ( (*startKey) < (*stopKey) || (*startKey) == (*stopKey) ) {
 			m_moduleText += (m_displayOptions.verseNumbers ? format.arg(startKey->Verse()) : QString::null)
 + startKey->renderedText() + (m_displayOptions.lineBreaks ? "<BR>\n" : QString::null);
