@@ -116,20 +116,21 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 			for (; it != end; ++it) {
 				preverseHeading = QString::fromUtf8(it->second.c_str());
 				
+				//TODO: Take care of the heading type!
 				if (!preverseHeading.isEmpty()) {
-					entry.append("<div")
+					entry.append("<div ")
 						.append(langAttr)
-						.append("class=\"sectiontitle\">")
+						.append(" class=\"sectiontitle\">")
 						.append(preverseHeading) 
 						.append("</div>");
 				}		
 			}
 		}
 		
-		entry.setLatin1("<").append(m_displayOptions.lineBreaks  ? "div "  : "span ");
+		entry.append("<").append(m_displayOptions.lineBreaks  ? "div "  : "span ");
 		
 		if (modules.count() == 1) { //insert only the class if we're not in a td
-			entry.append( i.settings().highlight  ? "class=\"currententry\"" : "class=\"entry\"" );
+			entry.append( i.settings().highlight  ? "class=\"currententry\"" : " class=\"entry\"" );
 		}
 		
 		entry.append(langAttr).append(isRTL ? " dir=\"rtl\"" : " dir=\"ltr\"").append(">");
