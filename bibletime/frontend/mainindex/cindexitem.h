@@ -281,6 +281,16 @@ private:
 
 class CBookmarkFolder : public CTreeFolder {
 public:
+  class OldBookmarkImport {
+  public:
+    /**
+    * This function converts the old config based bookmarks into a valid 1.3 XML file, so importing is easy
+    */
+    const QString oldBookmarksXML( const QString& configFileName = QString::null );
+  private:
+  
+  };
+  
   class SubFolder : public CFolderBase {
   public:
     SubFolder(CFolderBase* parentItem, const QString& caption);
@@ -319,9 +329,14 @@ public:
   virtual const bool enableAction(const MenuAction action);
   virtual void exportBookmarks();
   virtual void importBookmarks();
+//  const bool importOldBookmarks( const QString& fileName = QString::null );
   virtual bool acceptDrop(const QMimeSource * src) const;
   virtual void dropped(QDropEvent *e);
 
+  /**
+  * Loads bookmarks from XML content
+  */
+  const bool loadBookmarksFromXML( const QString& xml );
   /**
   * Loads bookmarks from a file.
   */
@@ -333,6 +348,11 @@ public:
 
 protected: // Protected methods
   virtual void initTree();
+
+//private:
+//  CFolderBase* findParent( const int ID );
+//  const int parentId(CItemBase *item);
+//  const bool readOldBookmarkGroups(KConfig* configFile );  
 };
 
 class COldBookmarkFolder : public CBookmarkFolder {
@@ -349,10 +369,7 @@ public:
   */
   virtual void loadFromXML( QDomElement& element );
 
-private:
-  CFolderBase* findParent( const int ID );
-  const bool readGroups(KConfig* configFile );
-  const int parentId(CItemBase *item);
+
 };
 
 

@@ -417,10 +417,9 @@ void CModuleChooser::initTree(){
     CLanguageMgr* langMgr = languageMgr();
     for ( QStringList::Iterator it = langs.begin(); it != langs.end(); ++it ) {
       language = langMgr->languageForAbbrev(*it).name();
-      
+
       QListViewItem* langFolder = new QListViewItem(typeFolder,language);
       langFolder->setPixmap(0,GROUP_ICON_SMALL);
-//      const QString currentLang = (*it);
 
       //create the module items of this lang folder
       for (modsForType.first(); modsForType.current(); modsForType.next()) {

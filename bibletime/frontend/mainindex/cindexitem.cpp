@@ -48,6 +48,7 @@
 //KDE includes
 #include <kconfig.h>
 #include <klocale.h>
+#include <kfiledialog.h>
 #include <kstandarddirs.h>
 
 #define CURRENT_SYNTAX_VERSION 1
@@ -149,13 +150,18 @@ void CModuleItem::init(){
 
 /** Reimplementation to handle text drops on a module. In this case open the searchdialog. In the case of a referebnce open the module at the given position. */
 bool CModuleItem::acceptDrop( const QMimeSource* src ) const {
-//  qWarning("CModuleItem::acceptDrop( const QMimeSource* src )");
   if (CDragDropMgr::canDecode(src)) {
     if (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark) {
       CDragDropMgr::Item item = CDragDropMgr::decode(src).first();
       CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
-      Q_ASSERT(m);
       if (m && module()->type() == m->type()) { //it makes only sense
+        return true;
+      }
+      //but we also allow drops from bibles on commentaries and the other way from commentaries
+      else if (m && (module()->type() == CSwordModuleInfo::Bible) && (m->type() == CSwordModuleInfo::Commentary)) {
+        return true;
+      }
+      else if (m && (module()->type() == CSwordModuleInfo::Commentary) && (m->type() == CSwordModuleInfo::Bible)) {
         return true;
       }
     }
@@ -711,156 +717,13 @@ COldBookmarkFolder::~COldBookmarkFolder() {
 
 /** Reimplementation to handle special bookmark tree. */
 void COldBookmarkFolder::initTree(){
-//  qWarning("COldBookmarkFolder::initTree()");
   //import the bookmarks of the previous BibleTime versions
-  if (CBTConfig::get( CBTConfig::readOldBookmarks )) { //we already imported them, they'll be restored by our normal readFromXML
-    return;
+  if (!CBTConfig::get( CBTConfig::readOldBookmarks )) { //if we havn't yet loaded the old bookmarks
+    OldBookmarkImport import;
+    loadBookmarksFromXML( import.oldBookmarksXML() );
   }
-
-  KConfig* configFile = new KConfig("bt-groupmanager", false, false );
-	KConfigGroupSaver groupSaver(configFile, "Groupmanager");	
-  readGroups(configFile);
-
-  CFolderBase* parent = 0;
-	QStringList	groupList = configFile->readListEntry("Groups");
-
-	//read in all bookmarks
-	QStringList	bookmarkList 							= configFile->readListEntry("Bookmarks");
-	QStringList	bookmarkModulesList 			= configFile->readListEntry("Bookmark modules");
-	QStringList	bookmarkDescriptionsList 	= configFile->readListEntry("Bookmark descriptions");
-	QValueList<int>	parentList						= configFile->readIntListEntry("Bookmark parents");
-
-	QStringList::Iterator it_bookmarks 	= bookmarkList.begin();
-	QStringList::Iterator it_modules 		= bookmarkModulesList.begin();
-	QStringList::Iterator it_descriptions	= bookmarkDescriptionsList.begin();
-	QValueList<int>::Iterator it_parents = parentList.begin();
-
-	CSwordModuleInfo* moduleInfo = 0;
-	CItemBase *myItem = 0;	
-	CItemBase *oldItem = 0;
-
-	while ( it_bookmarks != bookmarkList.end() && it_parents != parentList.end()
-			 		&& it_modules != bookmarkModulesList.end() )
-  {
-		moduleInfo = backend()->findModuleByName((*it_modules));
-		if ( (*it_parents) == -1) {
- 			myItem = new CBookmarkItem(this, moduleInfo, (*it_bookmarks), (*it_descriptions));
-		}
-		else {
-			parent = findParent( (*it_parents) );
-			if (parent)
-				myItem = new CBookmarkItem(parent, moduleInfo, (*it_bookmarks), (*it_descriptions));
-			else
-				myItem = new CBookmarkItem(this, moduleInfo, (*it_bookmarks), (*it_descriptions));
-      myItem->init();
-		}
-		if (myItem && oldItem) {
-			myItem->moveAfter(oldItem);
-		}
-		oldItem = myItem;
-
-		++it_parents;
-		++it_modules;
-		++it_descriptions;
-		++it_bookmarks;
-	}
 }
 
-CFolderBase* COldBookmarkFolder::findParent( const int ID ){
-//	qWarning("CBookmarkItem::findParent( const int ID )");
-  CFolderBase* myItem = 0;
-	int index = 0;
-	
-	QListViewItemIterator it = QListViewItemIterator(this);
-
-  //traverse the tree and try to find the group with the id ID index using comparision
-  for( ; it.current(); it++ ) {
- 		myItem = dynamic_cast<CFolderBase*>( it.current() );
-    Q_ASSERT(myItem);
-		if (myItem != this && myItem && myItem->isFolder() ) {//group item
-			if (index == ID) {
-				return myItem;
-			}
-			else
-				index++;
-		}
-	}		
-	return 0;	// return 0 if parent wasn't found
-}
-
-const bool COldBookmarkFolder::readGroups(KConfig* configFile ) {
-//	qWarning("CBookmarkItem::readGroups(KConfig* configFile, CGroupManagerItem* group, const Action action)");
- //read and create group entries
-	CFolderBase* parent = 0;
-	bool groupExists = false;	
-	CFolderBase* oldItem = 0;
-	CFolderBase* newItem = 0;
-	
-	QStringList	groupList = configFile->readListEntry("Groups");
-	QValueList<int>	parentList = configFile->readIntListEntry("Group parents");	
-	QStringList::Iterator it_groups = groupList.begin();
-	QValueList<int>::Iterator it_parents = parentList.begin();
-	
-	while ( (it_groups != groupList.end()) && (it_parents != parentList.end()) ) {
-		groupExists = false;
-		if ( (*it_parents) == -1) { //no parent item saved
-			parent = this;
-		}
-		else {
-			parent = findParent( (*it_parents) );
-//		 	if (!parentItem)
-//				parentItem = this;
-		}
-		
-		if (!groupExists) {
-			newItem = new SubFolder(parent ? parent : this, (*it_groups));
-		  newItem->init();
-
-			if (newItem && oldItem ) {			
-				newItem->moveAfter( oldItem );
-			}
-			if (newItem) {
-				/* we can't move a topgroup behind a subgroup, so we use multiple
-				 parent calls
-				*/
-//				while (parentId(newItem) > (*it_parents) ) {
-//					if ( newItem && newItem->parent() )
-//						newItem = dynamic_cast<CItem*>(newItem->parent());
-//					else
-//						break;
-//				}
-				oldItem = newItem;
-			}					
-		}
-		
-		++it_parents;
-		++it_groups;
-	}	
-	return true;	
-};
-
-const int COldBookmarkFolder::parentId(CItemBase *item) {
-	int ret = -1; 	// the view and the parent item have id -1
-	int index = 0;
-	CItemBase* myItem = 0;
-	
-	if (item) {
-		if (item->parent()) {
-		  QListViewItemIterator it = QListViewItemIterator( this );
-		  	
-			while (it.current() && (it.current() != item->parent()) ) {
-				myItem = dynamic_cast<CItemBase*>(it.current());
-				if (myItem != this && myItem && myItem->isFolder()) {
-					index++;
-				}
-				it++;
-			}
-			if (it.current())
-				ret = index;
-		}
-	}
-	return ret;
-}
 
 QDomElement COldBookmarkFolder::saveToXML( QDomDocument& doc ) {
   QDomElement elem = doc.createElement("Folder");
@@ -878,6 +741,7 @@ QDomElement COldBookmarkFolder::saveToXML( QDomDocument& doc ) {
     i = dynamic_cast<CItemBase*>( i->nextSibling() );
   }
 
+  // save to config, that we imported the old bookmarks and that we have them on disk
   CBTConfig::set( CBTConfig::readOldBookmarks, true );
 
   return elem;
@@ -943,7 +807,7 @@ void CBookmarkFolder::SubFolder::dropped(QDropEvent * e) {
 }
 
 bool CBookmarkFolder::SubFolder::acceptDrop(const QMimeSource * src) const {
-  qWarning("CBookmarkFolder::SubFolder::acceptDrop(const QMimeSource * src)");
+//  qWarning("CBookmarkFolder::SubFolder::acceptDrop(const QMimeSource * src)");
   return CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
 }
 
@@ -952,8 +816,12 @@ const bool CBookmarkFolder::SubFolder::enableAction(const MenuAction action){
   if (action == ChangeFolder || action == NewFolder || action == DeleteEntries || action == ImportBookmarks )
     return true;
 
-  if (childCount() > 0 && action == ExportBookmarks)
-    return true;
+  if (action == ExportBookmarks || action == ImportBookmarks )
+    return false; //not yet implemented
+    
+    
+//  if (childCount() > 0 && action == ExportBookmarks)
+//    return true;
 
   return false;
 }
@@ -1011,6 +879,96 @@ void CBookmarkFolder::SubFolder::loadFromXML( QDomElement& elem ) {
 }
 
 
+/* --------------------------------------------------------------------------*/
+/* ---------- new class: CBookmarkFolder::OldBookmarkImport -----------------*/
+/* --------------------------------------------------------------------------*/
+
+
+const QString CBookmarkFolder::OldBookmarkImport::oldBookmarksXML( const QString& configFileName ) {
+  QString fileName = (configFileName.isEmpty()) ? "bt-groupmanager" : configFileName;
+  KConfig* config = new KSimpleConfig( fileName );
+
+  KConfigGroupSaver groupSaver(config, configFileName.isEmpty() ? "Groupmanager" : "Bookmarks");
+
+  QDomDocument doc("DOC");
+  doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
+
+  QDomElement content = doc.createElement("SwordBookmarks");
+  content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
+  doc.appendChild(content);
+
+  //first create the bookmark groups in the XML document, then add the bookmarks to each parent
+  QMap<int, QDomElement> parentMap; //maps parent ids to dom elements
+
+
+	QStringList	groupList = config->readListEntry("Groups");
+	QValueList<int>	parentList = config->readIntListEntry("Group parents");
+
+  QStringList::Iterator it_groups = groupList.begin();
+	QValueList<int>::Iterator it_parents = parentList.begin();
+
+  int parentIDCounter = 0;
+	while ( (it_groups != groupList.end()) && (it_parents != parentList.end()) ) {
+    QDomElement parentElement = (*it_parents == -1) ? content : parentMap[*it_parents];
+    if (parentElement.isNull()) {
+      qWarning("EMPTY PARENT FOUND!");
+      parentElement = content;
+    };
+
+    QDomElement elem = doc.createElement("Folder");
+    elem.setAttribute("caption", (*it_groups));
+    parentMap.insert(parentIDCounter, elem);
+
+    parentElement.appendChild( elem );
+
+
+		++it_parents;
+  	++it_groups;
+    ++parentIDCounter;
+  }
+
+  //groups are now read in, create now the bookmarks
+	parentList 	= config->readIntListEntry("Bookmark parents");
+  QStringList	bookmarkList 							= config->readListEntry("Bookmarks");
+	QStringList	bookmarkModulesList 			= config->readListEntry("Bookmark modules");
+	QStringList	bookmarkDescriptionsList 	= config->readListEntry("Bookmark descriptions");
+
+	it_parents  = parentList.begin();
+	QStringList::Iterator it_bookmarks 	  = bookmarkList.begin();
+	QStringList::Iterator it_modules 		  = bookmarkModulesList.begin();
+	QStringList::Iterator it_descriptions	= bookmarkDescriptionsList.begin();
+
+	while ( it_bookmarks != bookmarkList.end()
+          && it_parents != parentList.end()
+			 		&& it_modules != bookmarkModulesList.end()
+        )
+  {
+    QDomElement parentElement = ((*it_parents) == -1) ? content : parentMap[(*it_parents)];
+    if (parentElement.isNull()) {
+      qWarning("EMPTY PARENT FOUND!");
+      parentElement = content;
+    };
+    QDomElement elem = doc.createElement("Bookmark");
+
+    elem.setAttribute("key", *it_bookmarks);
+    elem.setAttribute("description", *it_descriptions);
+    elem.setAttribute("modulename", *it_modules);
+
+    CSwordModuleInfo* m = CPointers::backend()->findModuleByName( *it_modules );
+    elem.setAttribute("moduledescription", m ? m->config(CSwordModuleInfo::Description) : QString::null);
+
+    parentElement.appendChild( elem );
+
+
+		++it_parents;
+		++it_modules;
+		++it_descriptions;
+		++it_bookmarks;
+  };
+  qWarning(doc.toString().latin1());
+
+  return doc.toString();
+};
 /* --------------------------------------------------*/
 /* ---------- new class: CBookmarkFolder ------------*/
 /* --------------------------------------------------*/
@@ -1048,12 +1006,22 @@ const bool CBookmarkFolder::enableAction(const MenuAction action){
 
 
 void CBookmarkFolder::exportBookmarks(){
-//#warning implement!
+  QString fileName = KFileDialog::getSaveFileName(QString::null, i18n("*.btb | BibleTime bookmark files (*.btb)\n*.* | All files (*.*)"), 0, i18n("BibleTime - Export bookmarks"));
+  if (!fileName.isEmpty()) {
+    saveBookmarks( fileName );
+  };
 }
 
 
 void CBookmarkFolder::importBookmarks(){
-//#warning implement!  
+  QString fileName = KFileDialog::getOpenFileName(QString::null, i18n("*.btb | BibleTime bookmark files (*.btb)\n*.* | All files (*.*)"), 0, i18n("BibleTime - Import bookmarks"));
+  if (!fileName.isEmpty()) {
+    //we have to decide if we should load an old bookmark file from 1.2 or earlier or the new XML format of > 1.3    
+    if ( !loadBookmarks(fileName) ) { //if this fialed try to load it as old bookmark file
+      OldBookmarkImport import;
+      loadBookmarksFromXML( import.oldBookmarksXML( fileName ) );
+    };
+  };
 }
 
 bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
@@ -1112,23 +1080,12 @@ const bool CBookmarkFolder::saveBookmarks( const QString& filename ){
 	return ret;
 }
 
-/** Loads bookmarks from a file. */
-const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
-//	qWarning("load bookmarks");
-  QFile file(filename);	
-	if (!file.exists())
-		return false;
-	
-	QDomDocument doc;	
-	if (file.open(IO_ReadOnly)) {		
-		QTextStream t( &file );
-		t.setEncoding(QTextStream::UnicodeUTF8);
-		doc.setContent(t.read());
-		file.close();	
-	}
-
+const bool CBookmarkFolder::loadBookmarksFromXML( const QString& xml ){
+	QDomDocument doc;
+	doc.setContent(xml);
   QDomElement document = doc.documentElement();
   if( document.tagName() != "SwordBookmarks" ) {
+    qWarning("Not a BibleTime Bookmark XML file");
 		return false;
 	}
 
@@ -1161,6 +1118,24 @@ const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
   return true;
 }
 
+/** Loads bookmarks from a file. */
+const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
+//	qWarning("load bookmarks");
+  QFile file(filename);	
+	if (!file.exists())
+		return false;
+
+  QString xml;	
+	if (file.open(IO_ReadOnly)) {		
+		QTextStream t( &file );
+		t.setEncoding(QTextStream::UnicodeUTF8);
+    xml = t.read();
+		file.close();	
+	}
+
+  loadBookmarksFromXML( xml );
+}
+
 /* NEW CLASS */
 
 CGlossaryFolder::CGlossaryFolder(CMainIndex* mainIndex, const Type type, const QString& fromLanguage, const QString& toLanguage)
@@ -1181,7 +1156,7 @@ CGlossaryFolder::~CGlossaryFolder(){
 }
 
 void CGlossaryFolder::initTree(){
-  qWarning("CGlossaryFolder::initTree()");
+//  qWarning("CGlossaryFolder::initTree()");
   if (type() == Unknown)
     return;
 
@@ -1190,12 +1165,12 @@ void CGlossaryFolder::initTree(){
   ListCSwordModuleInfo usedModules;
   for (CSwordModuleInfo* m = allModules.first(); m; m = allModules.next()) {
     if (m->type() == CSwordModuleInfo::Lexicon) { //found a module, check if the type is correct (devotional etc.)
-      qWarning("found lexicon");
+//      qWarning("found lexicon");
       if ((type() == GlossaryModuleFolder) && (m->category() != CSwordModuleInfo::Glossary)) { //not a glossary
-        qWarning("found lexicon: not a glossary");
+//        qWarning("found lexicon: not a glossary");
         continue;
       }
-      qWarning("FOUND a glossary!");
+//      qWarning("FOUND a glossary!");
       //found a glossary
       if (language() == QString::fromLatin1("*")
           || (language() != QString::fromLatin1("*")
@@ -1204,7 +1179,7 @@ void CGlossaryFolder::initTree(){
              )
         )
       { //right type and language!
-        qWarning("append module %s", m->module()->Name());
+//        qWarning("append module %s", m->module()->Name());
         usedModules.append(m);
       }
     }
