@@ -52,11 +52,16 @@ a:hover {
 	padding:2px;
 	text-align:justify;
 }
+#printer .entry {
+	font-size:90%;
+	text-align:left;
+}
 .entry[dir=rtl] {
-	padding:2px;
 	text-align:right;
 }
-
+#printer .entry[dir=rtl] {
+	text-align:right;
+}
 div.entry, td.entry {
 	vertical-align:top;	
 }
@@ -67,8 +72,6 @@ div.entry, td.entry {
 	text-align:justify;
 }
 .currententry[dir=rtl] {
-	padding:3px;
-	vertical-align:top;
 	text-align:right;
 }
 div.currententry {
@@ -279,6 +282,12 @@ td.entry + td.entry {
 	padding-right:5px;
 	font-weight:bold;	
 	font-size:1.1em;
+}
+
+
+#printer .rangeheading {
+	border-bottom:1px solid black;
+	color:black;
 }
 
 #LANG_CSS#

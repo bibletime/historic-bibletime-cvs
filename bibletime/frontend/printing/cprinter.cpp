@@ -123,19 +123,17 @@ const QString CPrinter::entryLink(const KeyTreeItem& item, CSwordModuleInfo* mod
 }
 
 const QString CPrinter::renderEntry( const KeyTreeItem& i) {
-	CPrinter::KeyTreeItem* ti = const_cast<KeyTreeItem*>(&i);
-	Q_ASSERT(ti);
-	
-	CPrinter::Item* printItem = dynamic_cast<CPrinter::Item*>(ti);	
+	const CPrinter::Item* printItem = dynamic_cast<const CPrinter::Item*>(&i);	
 	Q_ASSERT(printItem);
 	if (printItem && printItem->hasAlternativeContent()) 
 	{
-		QString ret = QString::fromLatin1("<div class=\"entry\">%1").arg(printItem->getAlternativeContent());
+		QString ret = QString::fromLatin1("<div class=\"entry\"><div class=\"rangeheading\">%1</div>").arg(printItem->getAlternativeContent());
 		
-		if (i.childList() && (i.childList()->count() > 0)) {
+		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
+			KeyTree::const_iterator end = tree->end();
 			
-			for ( KeyTree::const_iterator it = tree->begin(); it != tree->end(); ++it ) {
+			for ( KeyTree::const_iterator it = tree->begin(); it != end; ++it ) {
 				ret += CDisplayRendering::renderEntry( **it );
 			}
 		}

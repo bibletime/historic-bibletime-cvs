@@ -52,25 +52,31 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, const ListCSwordMod
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem()
-	:	m_moduleList(),
+	:	m_settings(),
+		m_moduleList(),
 		m_key(QString::null),
-		m_childList( 0 )
+		m_childList(0)
 {
 // 	m_childList.setAutoDelete(true);
 }
 
-CTextRendering::KeyTreeItem::KeyTreeItem(const KeyTreeItem& i) {
-	m_childList = new KeyTree();
-	m_childList->setAutoDelete(true);
-	*m_childList = *(i.childList());
+CTextRendering::KeyTreeItem::KeyTreeItem(const KeyTreeItem& i) 
+	:	m_moduleList(i.m_moduleList),
+		m_key(i.m_key),
+		m_childList(0)
+{
+	if (i.hasChildItems()) {
+		m_childList = new KeyTree();
+	 	m_childList->setAutoDelete(true);
+		*m_childList = *(i.childList());
+	}
 	
-	m_key = i.key();
-	m_moduleList = i.m_moduleList;
 	m_settings = i.m_settings;
 }
 
 CTextRendering::KeyTreeItem::~KeyTreeItem() {
 	delete m_childList;
+	m_childList = 0;
 }
 
 ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
@@ -245,10 +251,11 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 			entry += key_renderedText;
 		}
 		
-		if (i.childList() && (i.childList()->count() > 0)) {
+		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
+			KeyTree::const_iterator end = tree->constEnd();
 			
-			for ( KeyTree::const_iterator it = tree->begin(); it != tree->end(); ++it ) {
+			for ( KeyTree::const_iterator it = tree->constBegin(); it != end; ++it ) {
 				entry += renderEntry( **it );
 			}
 		}

@@ -52,7 +52,7 @@ public:
 		inline const ListCSwordModuleInfo& modules() const {
 			return m_moduleList;
 		};
-		virtual inline const QString& key() const {
+		inline const QString& key() const {
 			return m_key;
 		};
 		inline const Settings& settings() const {
@@ -60,8 +60,8 @@ public:
 		};
 		
 		inline KeyTree* const childList() const;
+		inline const bool hasChildItems() const;
 
-//	private:
 	protected:
 		Settings m_settings;
 		ListCSwordModuleInfo m_moduleList;
@@ -77,9 +77,9 @@ public:
   CTextRendering();
   virtual ~CTextRendering();
 
-	virtual const QString renderKeyTree( KeyTree& );
-	virtual const QString renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo );
-	virtual const QString renderSingleKey( const QString& key, ListCSwordModuleInfo );
+	const QString renderKeyTree( KeyTree& );
+	const QString renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo );
+	const QString renderSingleKey( const QString& key, ListCSwordModuleInfo );
 	
 protected:
 	virtual const QString renderEntry( const KeyTreeItem& ) = 0;
@@ -150,5 +150,12 @@ inline CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() c
 		
 	return m_childList;
 };
+
+inline const bool CTextRendering::KeyTreeItem::hasChildItems() const {
+	if (!m_childList)
+		return false;
+		
+	return (m_childList->count() > 0);
+}
 
 #endif
