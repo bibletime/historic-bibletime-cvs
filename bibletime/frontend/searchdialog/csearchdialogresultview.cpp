@@ -209,7 +209,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 	CExportManager::saveKeyList(&m_currentModule->searchResult(), m_currentModule,i18n("Saving the search result..."), true, true);
 }
 
-//------------class CSearchDialofResultView-----------//
+//------------class CSearchDialogResultView-----------//
 CSearchDialogResultView::CSearchDialogResultView(QWidget *parent, const char *name)
 	: QListBox(parent,name),
 	m_currentItem(0),

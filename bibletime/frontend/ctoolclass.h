@@ -96,6 +96,8 @@ public:
 //  /** Creates a QLabel wchich contains an explanation. This functions returns everytime the same style so the explanation labels are the same in all places. */
 
   static QLabel* explanationLabel(QWidget* parent, const QString& heading, const QString& text );
+  /** No descriptions */
+  static bool inHTMLTag(int pos, QString & text);
 };
 
 #endif

@@ -184,3 +184,10 @@ QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, co
 
   return label;
 }
+/** No descriptions */
+bool CToolClass::inHTMLTag(int pos, QString & text){
+ if ( text.findRev("<",pos) > text.findRev(">",pos) &&
+      text.find(">",pos) < text.find("<",pos) )
+    return true;
+  return false;
+}

@@ -113,7 +113,7 @@ void CSearchDialogResult::updatePreview(const QString newText) {
 			int pos = 0;
 			while (i < count) {
 				pos = text.find(searchedText,pos,textPart->isCaseSensitive());
-				if (pos!=-1) {	//something was found
+				if (pos!=-1 && !CToolClass::inHTMLTag(pos, text)) {	//something was found
 					text.insert(pos + searchedText.length(),"</B></FONT>");			
 					text.insert(pos, "<B><FONT color=\"red\">");
 				}
@@ -137,7 +137,7 @@ void CSearchDialogResult::updatePreview(const QString newText) {
 				int i2 = 0;
 				while (i2 < count) {
 					pos = text.find(currentWord,pos?pos+1:0, textPart->isCaseSensitive());
-					if (pos!=-1) {	//something was found
+					if (pos!=-1 && !CToolClass::inHTMLTag(pos, text)) {	//something was found
 						text.insert(pos + currentWord.length(), "</B></FONT>");
 						
 						const QString part = "<FONT color=\"red\"><B>";
@@ -156,7 +156,7 @@ void CSearchDialogResult::updatePreview(const QString newText) {
 			int pos = 0;
 			while ( pos != -1 ) {
 				pos = regExp.match(text,pos,&matchLength);
-				if (pos!=-1 && matchLength > 0) {
+				if (pos!=-1 && matchLength > 0 && !CToolClass::inHTMLTag(pos, text)) {
 						text.insert(pos + matchLength, "</B></FONT>");
 						text.insert(pos, "<FONT color=\"red\"><B>");
 						pos += matchLength + QString::fromLatin1("</B></FONT>").length() + QString::fromLatin1("<FONT color=\"red\"><B>").length();
