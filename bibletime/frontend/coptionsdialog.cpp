@@ -976,7 +976,11 @@ void COptionsDialog::updateStylePreview() {
 	const QString styleName = m_settings.displayStyle.styleChooser->currentText();
 	
 	CSwordModuleInfo* module = backend()->findModuleByDescription( CBTConfig::get(CBTConfig::standardBible) );
-	
+
+	if (!module) {
+		return; //WARNING: return already here!
+	}
+		
  	CTextRendering::KeyTreeItem::Settings settings;	
 	
 	CTextRendering::KeyTree tree;

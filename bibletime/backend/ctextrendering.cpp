@@ -94,6 +94,10 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString&
 		m_alternativeContent( QString::null )
 {
 	Q_ASSERT(module);
+	if (!module) { //Warning: return already here!
+		return;
+	}
+	
 	m_moduleList.append(module);
 	
 	//use the start and stop key to ceate our child items
