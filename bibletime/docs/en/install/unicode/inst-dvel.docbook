@@ -1,0 +1,53 @@
+<chapter id="inst-devl"><title>Getting Development Sources</title>
+<section id="inst-devl-anon"><title>Anonymous CVS Access</title>
+<para>This project's SourceForge CVS repository can be checked out through
+anonymous (pserver) CVS with the following instruction set. The module you wish
+to check out must be specified as the <emphasis>modulename</emphasis>. When
+prompted for a password for <emphasis>anonymous</emphasis>, simply press the
+Enter key. </para>
+
+<screen>
+cvs -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime login
+cvs -z3 -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <emphasis>modulename</emphasis>
+</screen>
+
+<para>Updates from within the module's directory do not need the -d
+parameter.</para>
+</section>
+
+<section id="inst-devl-cvs"><title>Developer CVS Access via SSH</title>
+<para>Only project developers can access the CVS tree via this method. SSH1
+must be installed on your client machine. Substitute
+<emphasis>modulename</emphasis> and <emphasis>developername</emphasis> with the
+proper values. Enter your site password when prompted. </para>
+
+<para>To checkout a fresh copy of Bibletime</para>
+
+<screen>
+cd $home/<emphasis>your development directory</emphasis>
+export CVS_RSH=ssh      # Activation of ssh is needed only once per session
+cvs -z3 -d:ext:<emphasis>developername</emphasis>@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <emphasis>modulename</emphasis>
+</screen>
+
+<para>To update your copy of the Bibletime CVS</para>
+<screen>
+cvs -z5 update -Pd
+</screen>
+
+<para>To commit your changes to the CVS repository</para>
+<screen>
+cvs -z5 commit -m "<emphasis>comments for this commit</emphasis>"
+</screen>
+
+<para>To add new files that you have created</para>
+<screen>
+cvs -z5 add <emphasis>my_new_file</emphasis>
+</screen>
+</section>
+
+</chapter>
+
+
+
+
+
