@@ -82,7 +82,7 @@ void BibleTime::slotSettingsOptions(){
 /** Is called when settings in the optionsdialog were changed (ok or apply) */
 void BibleTime::slotSettingsChanged(){
  	const QString language = CBTConfig::get(CBTConfig::language);
- 	m_backend->booknameLanguage(language);		
+ 	m_backend->booknameLanguage(language);
 
  	QListViewItemIterator it( m_mainIndex );
  	CItemBase* item = 0;
@@ -107,21 +107,27 @@ void BibleTime::slotSwordSetupDialog(){
 
 /** Is called when settings in the sword setup dialog were changed (ok or apply) */
 void BibleTime::slotSwordSetupChanged(){
-  qWarning("swordChanged: start");
+//  qWarning("swordChanged: start");
   /*
     Refresh everything here what might have changed
     these are the mainindex, the searchdialog, the displaywindows
     But at first we have to reset the Sword backend to reload the modules
   */
-  qWarning("swordChanged: reload bookmarks");
+//  qWarning("swordChanged: reload bookmarks");
   m_mainIndex->saveBookmarks();
-  qWarning("swordChanged: reload modules");
-  m_backend->reloadModules();
-  qWarning("swordChanged: reload sword");
+//  qWarning("swordChanged: reload modules");
+
+//  m_backend->reloadModules();
+	CPointers::deleteBackend();
+	m_backend = new CSwordBackend();
+	CPointers::setBackend(m_backend);
+	/*const CSwordBackend::LoadError errorCode = */ m_backend->initModules();
+
+//  qWarning("swordChanged: reload sword");
   m_mainIndex->reloadSword();
-  
+
 //  refresh display windows
-  qWarning("swordChanged: reload windows");
+//  qWarning("swordChanged: reload windows");
   refreshDisplayWindows();
 
 
@@ -133,7 +139,7 @@ void BibleTime::slotSwordSetupChanged(){
 /** Shows the daily tip */
 void BibleTime::slotHelpTipOfDay(){
 	KTipDialog::setShowOnStart( CBTConfig::get(CBTConfig::tips) );
-	KTipDialog::showTip(this, "bibletime/tips", true);	
+	KTipDialog::showTip(this, "bibletime/tips", true);
 }
 
 /** Is called just before the window menu is ahown. */

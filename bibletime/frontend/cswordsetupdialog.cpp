@@ -1121,15 +1121,13 @@ void CSwordSetupDialog::slot_installModules(){
 
 	if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)){  //Yes was pressed.
     BTInstallMgr iMgr;
+		m_currentInstallMgr = &iMgr;
     sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, currentInstallSource());
 
 //		qWarning("installung from %s/%s", is.source.c_str(), is.directory.c_str());
     QString target = m_targetCombo->currentText();
-    /*if (target.contains("$HOME"))
-      target.replace("$HOME", getenv("HOME"));
-		*/
 
-    //make sure target/mods.d and target/modules exist
+		//make sure target/mods.d and target/modules exist
     QDir dir(target.latin1());
     if (!dir.exists()) {
       dir.mkdir(target, true);
@@ -1141,16 +1139,17 @@ void CSwordSetupDialog::slot_installModules(){
       dir.mkdir("mods.d");
     }
 
-//    qWarning("installing into target %s", target.latin1());
     sword::SWMgr lMgr( target.latin1() );
 
     //module are removed in this section of code
 		m_installedModuleCount = 0;
     m_progressDialog = new KProgressDialog(0,0,i18n("Module installation ..."), QString::null, true);
     m_progressDialog->progressBar()->setTotalSteps(100 * moduleList.count());
+		connect(m_progressDialog, SIGNAL(cancelClicked()), SLOT(slot_installProgressCancelClicked()));
+
     connect(&iMgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
 
-		for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it, ++m_installedModuleCount ) {
+		for ( QStringList::Iterator it = moduleList.begin(); (it != moduleList.end()) && !m_progressDialog->wasCancelled(); ++it, ++m_installedModuleCount ) {
 
 			m_installingModule = *it;
 
@@ -1172,11 +1171,10 @@ void CSwordSetupDialog::slot_installModules(){
         iMgr.removeModule(&mgr, m->name().latin1());
       }
 
-      if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
+      if (!m_progressDialog->wasCancelled() && BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
         iMgr.installModule(&lMgr, 0, (*it).latin1(), &is);
       }
-      else { //local source
-        //qWarning("install from local source");
+      else if (!m_progressDialog->wasCancelled()) { //local source
         iMgr.installModule(&lMgr, is.directory.c_str(), (*it).latin1());
       }
     }
@@ -1188,6 +1186,8 @@ void CSwordSetupDialog::slot_installModules(){
     populateInstallModuleListView( currentInstallSource() ); //rebuild the tree
     populateRemoveModuleListView();
   }
+
+	m_currentInstallMgr = 0;
 	m_installBackButton->setEnabled(true);
 	slot_installModuleItemExecuted(0);
 }
@@ -1265,4 +1265,14 @@ const QString CSwordSetupDialog::currentInstallSource() {
 	source = source.remove( i18n("[Remote]") + " " );
 
 	return source;
+}
+
+void CSwordSetupDialog::slot_installProgressCancelClicked() {
+	//the cancel button of the progress dialog was clicked.
+	//m_progressDialog->wasCancelled()
+
+	//cancel possible active module installation
+	if (m_currentInstallMgr) {
+		m_currentInstallMgr->terminate = true;
+	}
 }

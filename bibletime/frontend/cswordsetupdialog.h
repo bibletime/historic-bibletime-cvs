@@ -184,6 +184,8 @@ private:
   bool m_refreshedRemoteSources;
 	unsigned int m_installedModuleCount;
 
+	BTInstallMgr* m_currentInstallMgr; //pointer to the current installmgr object so we can access it in the cancel install slot
+
 private slots:
   void slot_sourceSelected(const QString &sourceName);
   void slot_targetSelected(const QString &targetName);
@@ -198,6 +200,7 @@ private slots:
 	void slot_installManageSources();
   void slot_installModules();
 	void slot_installModuleItemExecuted(QListViewItem*);
+	void slot_installProgressCancelClicked();
   void slot_showInstallSourcePage();
 
   void installCompleted( const int, const int );
