@@ -73,7 +73,6 @@ dnl perl am_edit
 KDE_CREATE_SUBDIRSLIST
 AC_OUTPUT( \
 ./Makefile \
-admin/Makefile \
 bibletime/Makefile \
 bibletime/backend/Makefile \
 bibletime/docs/Makefile \

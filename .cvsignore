@@ -9,3 +9,4 @@ bibletime.lsm
 configure
 aclocal.m4
 acinclude.m4
+configure.in

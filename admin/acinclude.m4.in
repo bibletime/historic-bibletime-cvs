@@ -2294,24 +2294,6 @@ LIBTOOL_SHELL="/bin/sh ./libtool"
 #  LIBTOOL="$LIBTOOL --silent"
 KDE_PLUGIN="-avoid-version -module -no-undefined \$(KDE_RPATH)"
 AC_SUBST(KDE_PLUGIN)
-
-  AC_ARG_ENABLE(objprelink, [  --enable-objprelink     prelink apps (experimental, needs objprelink in path)],
-	kde_use_objprelink=$enableval, kde_use_objprelink=no)
-  if test "x$kde_use_objprelink" = "xyes"; then 
-      echo Patching libtool to run objprelink.
-      mv libtool libtool.orig
-      cat > libtool <<\EOF
-#! /bin/sh
-for n ; do case $n in
-  *.o)  test -r $n && echo objprelink $n && objprelink $n ;;
-  *.lo) m=`basename $n .lo`".o" && test -r $m && echo objprelink $m && objprelink $m 
-        m=".libs/$m" && test -r $m && echo objprelink $m && objprelink $m ;;
-esac; done
-EOF
-      cat >> libtool libtool.orig
-      rm libtool.orig
-      chmod a+x libtool
-  fi
 ])
 
 AC_DEFUN(KDE_CHECK_TYPES,
@@ -2512,7 +2494,7 @@ AC_DEFUN(AM_LC_MESSAGES,
 dnl From Jim Meyering.
 dnl FIXME: migrate into libit.
 
-AC_DEFUN(AM_FUNC_OBSTACK,
+AC_DEFUN([AM_FUNC_OBSTACK],
 [AC_CACHE_CHECK([for obstacks], am_cv_func_obstack,
  [AC_TRY_LINK([#include "obstack.h"],
 	      [struct obstack *mem;obstack_free(mem,(char *) 0)],
@@ -2528,7 +2510,7 @@ AC_DEFUN(AM_FUNC_OBSTACK,
 dnl From Jim Meyering.  Use this if you use the GNU error.[ch].
 dnl FIXME: Migrate into libit
 
-AC_DEFUN(AM_FUNC_ERROR_AT_LINE,
+AC_DEFUN([AM_FUNC_ERROR_AT_LINE],
 [AC_CACHE_CHECK([for error_at_line], am_cv_lib_error_at_line,
  [AC_TRY_LINK([],[error_at_line(0, 0, "", 0, "");],
               am_cv_lib_error_at_line=yes,
