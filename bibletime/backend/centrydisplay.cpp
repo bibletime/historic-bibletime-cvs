@@ -41,28 +41,33 @@ const QString CEntryDisplay::text( const ListCSwordModuleInfo& modules, const QS
 /* ----------------------- new class: CChapterDisplay ------------------- */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const QString& keyName, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions ) {
-  
+const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const QString& keyName, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions ) {  
   CSwordVerseKey key(0);
   key = keyName;
-
+	
 	const int currentTestament = key.Testament();
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 
   CSwordModuleInfo* module = modules.getFirst();
   bool ok = true;
+	
+	if (modules.count() == 1) {
+		key.module(module);
+		module->module()->setSkipConsecutiveLinks( true ); //skip empty, linked verses
+	}
 
 	CTextRendering::KeyTree tree;
 	CTextRendering::KeyTreeItem::Settings settings;
 	
+
 	for (	key.Verse(1); 
-			(key.Testament() == currentTestament)
+			  (key.Testament() == currentTestament)
 				&& (key.Book() == currentBook)
 				&& (key.Chapter() == currentChapter)
 				&& ok 
 				&& !module->module()->Error(); 
-			ok = (key.next(CSwordVerseKey::UseVerse) && !key.Error()) ) 
+			  ok = key.next(CSwordVerseKey::UseVerse)/*, !key.Error())*/ ) 
 	{
 		settings.highlight = (key.key() == keyName);
 		tree +=  CTextRendering::KeyTreeItem( key.key(), modules, settings );

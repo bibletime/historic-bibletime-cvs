@@ -212,7 +212,9 @@ const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
 /** Returns true if his module has the text of desired type of testament */
 const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament type ) {
   if (m_hasOT == -1 || m_hasNT == -1) {
-    module()->setSkipConsecutiveLinks(true);
+    const bool oldStatus = module()->getSkipConsecutiveLinks();
+		module()->setSkipConsecutiveLinks(true);
+		
 		*module() = sword::TOP; //position to first entry
 		sword::VerseKey key( module()->KeyText() );
 		if (key.Testament() == 1) { // OT && NT
@@ -230,7 +232,8 @@ const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament
 		else if (key.Testament() == 2) { //has NT
 			m_hasNT = 1;
 		}
-    module()->setSkipConsecutiveLinks(false);
+    
+		module()->setSkipConsecutiveLinks(oldStatus);
 	}
 
 	switch (type) {

@@ -52,11 +52,9 @@ CSwordModuleInfo* const CSwordVerseKey::module( CSwordModuleInfo* const newModul
 		//check if the module contains the key we present
 		CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(newModule);
    	if (_compare(bible->lowerBound()) < 0) {
-			// qWarning("setting key to lower bound %s", bible->lowerBound().key().latin1());
       key( bible->lowerBound() );
     }
     if (_compare(bible->upperBound()) > 0) {
-			// qWarning("setting key to upper bound %s", bible->upperBound().key().latin1());
       key( bible->upperBound() );
     }
 	}
@@ -94,7 +92,7 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 		bool finished = false;
 		for (int testament = min; testament <= max && !finished; ++testament) {
 			for (int book = 0; book < BMAX[testament] && !finished; ++book) {
-				if ( !strcmp((const char*)newBook.utf8(),books[testament][book].name ) ) {
+				if ( !strcmp((const char*)newBook.utf8(), books[testament][book].name ) ) {
 					Testament(testament+1);
 					Book(book+1);
 					finished = true;
@@ -102,20 +100,17 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 			}
 		}
 	}
-	if ( Testament() >= min+1 && Testament() <= max+1 && Book() <= BMAX[min] )
+	
+	if ( Testament() >= min+1 && Testament() <= max+1 && Book() <= BMAX[min] ) {
 		return QString::fromUtf8( books[Testament()-1][Book()-1].name );
+	}
 	
 	return QString::fromUtf8( books[min][0].name ); //return the first book, i.e. Genesis
-// 		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-// 	return QString::fromLocal8Bit( books[min][0].name ); //return the first book, i.e. Genesis
 }
 
 /** Sets the key we use to the parameter. */
 const QString CSwordVerseKey::key() const {	
-	return QString::fromUtf8(getText()); //don't use fromUtf8 here!
-// 	return QString::fromLocal8Bit(getText()); //don't use fromUtf8 here!
-	
-//	return QString::fromLocal8Bit((const char*)*this); //don't use fromUtf8 here!
+	return QString::fromUtf8(getText());
 }
 
 void CSwordVerseKey::key( const QString& newKey ) {
@@ -162,14 +157,15 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 		}
 		case UseVerse: {
     	if (m_module && m_module->module()) {
-				//qWarning("module is %s", m_module->name().latin1());
     		m_module->module()->SetKey(this);	//use this key as base for the next one!
-        m_module->module()->setSkipConsecutiveLinks(true);
+        
+				const bool oldStatus = m_module->module()->getSkipConsecutiveLinks();
+ 				m_module->module()->setSkipConsecutiveLinks(true);
     		(*(m_module->module()) )++;
-        m_module->module()->setSkipConsecutiveLinks(false);
+         m_module->module()->setSkipConsecutiveLinks(oldStatus);
 
+				//qWarning("status: %i", m_module->module()->getSkipConsecutiveLinks());
     		if (!m_module->module()->Error()) {
-//     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
 					key( QString::fromUtf8(m_module->module()->KeyText()) );//don't use fromUtf8
         }
     		else {
@@ -225,14 +221,18 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 		case UseVerse: {
     	if (m_module && m_module->module()) {
     		m_module->module()->SetKey(this);	//use this key as base for the next one!
-        m_module->module()->setSkipConsecutiveLinks(true);
+        
+				const bool oldStatus = m_module->module()->getSkipConsecutiveLinks();
+				m_module->module()->setSkipConsecutiveLinks(true);
     		( *( m_module->module() ) )--;
-        m_module->module()->setSkipConsecutiveLinks(true);      
-    		if (!m_module->module()->Error())
-//     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
-					key( QString::fromUtf8(m_module->module()->KeyText()) );//don't use fromUtf8
-    		else
+        m_module->module()->setSkipConsecutiveLinks(oldStatus);
+    		
+				if (!m_module->module()->Error()) {
+					key( QString::fromUtf8(m_module->module()->KeyText()) );//don't use fromUtf8					
+				}
+    		else {
 	    	  Verse(Verse()-1);
+				}
     	}
     	else {
     		Verse(Verse()-1);
