@@ -99,7 +99,6 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 		key = new CSwordLDKey(moduleList->first());
 	  	
 	SWModule* module = moduleList->first()->module();		
-	QString usedKey;
 	CSwordModuleInfo *d = 0;	
 	SWModule *m= (d = moduleList->first()) ? d->module() : 0;	
 	
@@ -108,7 +107,6 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 		vk->Persist(1);
 		
 		key->key((const char*)*vk);
-		usedKey = key->key();
 		VerseKey k(*vk);
 		
 		m = (d = moduleList->first()) ? d->module() : 0;	
@@ -122,8 +120,7 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 		SWKey* lk = (SWKey*)*module;
 		lk->Persist(1);
 		key->key((const char*)*lk);
-		usedKey = key->key();
-				
+		
 		m = (d = moduleList->first()) ? d->module() : 0;	
 		while (m) {
 	    	m = (d=moduleList->next()) ? d->module() : 0;
@@ -166,7 +163,6 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 		}
 		key->module(d);
 //		(const char*)*m; //snap to entry
-		key->key(usedKey);
 		m_htmlText.append(
 			QString::fromLatin1("<TD width=\"%1%\"><FONT SIZE=\"%2\" FACE=\"%3\">%4</FONT></TD>")
 				.arg(width)
