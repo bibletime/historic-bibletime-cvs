@@ -667,9 +667,7 @@ void CRangeChooserDialog::editRange(QListViewItem* item){
   
   if (range) {
     m_nameEdit->setText(range->caption());
-//    qWarning("setting new range %s", (const char*)range->range().utf8());
     m_rangeEdit->setText(range->range());
-//    qWarning("after setting new range is %s", (const char*)m_rangeEdit->text().utf8());
   }
 }
 
@@ -1064,20 +1062,20 @@ int CSearchAnalysisItem::width(){
 
 /** Returns the tooltip for this item. */
 const QString CSearchAnalysisItem::getToolTip(){
-	QString ret = QString::fromLatin1("<CENTER><B>%1</B></CENTER><HR>").arg(m_bookName);
-	ret += "<TABLE CELLSPACING=\"0\" CELLPADDING=\"3\" WIDTH=\"100%\" HEIGHT=\"100%\" ALIGN=\"center\">";
+	QString ret = QString::fromLatin1("<center><b>%1</b></center><hr/>").arg(m_bookName);
+	ret += "<table cellspacing=\"0\" cellpadding=\"3\" width=\"100%\" height=\"100%\" align=\"center\">";
 	for (int i = 0; i < m_moduleCount; ++i) {
 		CSwordModuleInfo* info = m_moduleList->at(i);
 		const QColor c = CSearchAnalysis::getColor(i);
 		ret.append(
-			QString::fromLatin1("<TR BGCOLOR=\"white\"><TD><B><FONT COLOR=\"#%1\">%2</FONT></B></TD><TD>%3 (%4%)</TD></TR>")
+			QString::fromLatin1("<tr bgcolor=\"white\"><td><b><font color=\"#%1\">%2</font></b></td><td>%3 (%4%)</td></tr>")
 				.arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue()))
 				.arg(info ? info->name() : QString::null)
 				.arg(m_resultCountArray[i])
         .arg((info && m_resultCountArray[i])? ((double)m_resultCountArray[i] / (double)info->searchResult().Count())*(double)100 : 0.0, 0, 'g', 2)
 		);
 	}
-	ret += "</TABLE>";
+	ret += "</table>";
 	return ret;
 }
 

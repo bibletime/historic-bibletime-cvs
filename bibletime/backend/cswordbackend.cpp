@@ -49,20 +49,16 @@
 
 using std::string;
 
-char* BTStringMgr::upperUtf8(char* text, const unsigned int maxlen) {
-// 	qWarning("BTStringMgr::upperUtf8");
+char* BTStringMgr::upperUTF8(char* text, const unsigned int maxlen) {
 	const int max = (maxlen>0) ? maxlen : strlen(text);
-	QString t = QString::fromUtf8(text).upper();
-		
+	const QString t = QString::fromUtf8(text).upper();
 	strncpy(text, (const char*)t.utf8(), max);
 	
 	return text;
 }
 
 char* BTStringMgr::upperLatin1(char* text) {
-// 	qWarning("BTStringMgr::upperLatin1");
-	QString t = QString::fromLatin1(text).upper();
-
+	const QString t = QString::fromLatin1(text).upper();
 	strncpy(text, (const char*)t.latin1(), strlen(text));
 
 	return text;
