@@ -113,7 +113,7 @@ void CSearchDialogAnalysis::analyse(){
 	int moduleIndex = 0;	
 	m_maxCount = 0;	
 	int count = 0;
-	CSwordVerseKey key(m_moduleList.first());	
+	CSwordVerseKey key(0/*m_moduleList.first()*/);	
 	key.setKey("Genesis 1:1");	
 	
 	CSearchDialogAnalysisItem* analysisItem = m_canvasItemList[key.getBook()];

@@ -339,7 +339,7 @@ const bool CSwordBackend::getModuleConfig(const QString& module, SWConfig& modul
 		}
 		closedir(dir);
 	}
-	if (!foundConfig) { //search in $HOME/.sword/
+	if (!foundConfig && configType != 2) { //search in $HOME/.sword/
 		QString myPath = QString("%1/.sword/mods.d").arg(getenv("HOME"));
 		dir = opendir(myPath.latin1());
 		if (dir) {
@@ -358,4 +358,19 @@ const bool CSwordBackend::getModuleConfig(const QString& module, SWConfig& modul
 		}
 	}
 	return foundConfig;
+}
+
+/** Returns the path of the module with the name "moduleName". If no path is found return QString::null */
+const QString CSwordBackend::getModulePath( const QString moduleName ){
+	QString path = QString::null;
+	SWConfig c("");
+	if (getModuleConfig(moduleName, c)) {
+		path = QString::fromLocal8Bit( c[moduleName.latin1()]["DataPath"].c_str() );		
+		if (QString::fromLatin1(c.filename.c_str()).left( QString("%1/.sword/").arg(getenv("HOME")).length() ) ==	QString("%1/.sword/").arg(getenv("HOME")) )
+			path = path.prepend( QString("%1/.sword/").arg(getenv("HOME")) );
+		else //global
+			path.prepend(prefixPath);
+	}
+	qWarning(path.local8Bit());
+	return path;
 }

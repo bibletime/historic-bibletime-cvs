@@ -44,12 +44,6 @@ CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
 
 /** Reimplementation. */
 bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){		
-//	if (e->type() == QEvent::FocusIn) {
-//		if (o == lineEdit())
-//			return false;
-//		else if (o == listBox())
-//			return false;
-//	}
 	if (e->type() == QEvent::FocusOut) {
 		qWarning("focus out event");
 		QFocusEvent* f = (QFocusEvent*)e;
@@ -63,7 +57,6 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 	  }
 	  else if (o == lineEdit() && f->reason() == QFocusEvent::Popup) {
 	  	qWarning("focussed out of line edit caused by popup");
-//			emit activated(currentText());
 			return false;
 		}
 	  else if (o == lineEdit() && f->reason() == QFocusEvent::ActiveWindow) {
@@ -77,8 +70,7 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 			return true;
 		}		
 	  else if (o == listBox()) {
-	  	qWarning("foucess out of liost");
-//			emit activated(currentText());
+	  	qWarning("foucess out of list");
 			return false;
 		}
 	  else if (o == this) {
@@ -89,6 +81,7 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 		
 	}
   QComboBox::eventFilter(o,e);	
+	return false;
 }
 
 
@@ -328,3 +321,19 @@ void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextE
 	QWhatsThis::add(btn_down,previousEntryTip);
 }
 
+/** Sets the current item to the one with the given text */
+bool CKeyChooserWidget::setItem( const QString item ){
+	bool ret = false;
+	const int count = ComboBox->count();
+	for (int i = 0; i < count; ++i) {
+		if (ComboBox->text(i) == item) {
+			ComboBox->setCurrentItem(i);
+			ret = true;
+			break;
+		}
+	}
+	if (!ret) {
+		ComboBox->setCurrentItem(-1);
+	}
+	return ret;
+}

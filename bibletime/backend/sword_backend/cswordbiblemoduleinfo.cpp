@@ -19,6 +19,7 @@
 #include "cswordbiblemoduleinfo.h"
 
 //Qt includes
+#include <qfile.h>
 
 //Sword includes
 #include <versekey.h>
@@ -26,6 +27,9 @@
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( CSwordBackend* backend, SWModule* module ) : CSwordModuleInfo(backend, module) {
 	m_bookList = 0;
 	m_cachedLocale = "unknown";
+	
+	m_hasOT = QFile::exists(QString("%1/ot").arg(backend->getModulePath(QString::fromLocal8Bit(module->Name()))));
+	m_hasNT = QFile::exists(QString("%1/nt").arg(backend->getModulePath(QString::fromLocal8Bit(module->Name()))));
 }
 
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) : CSwordModuleInfo(m) {
@@ -53,8 +57,22 @@ QStringList* CSwordBibleModuleInfo::getBooks() {
 	if (!m_bookList) {
 		m_bookList = new QStringList();	
 		VerseKey key;
-		for ( int i = 0; i < 2; i++) {
-			for ( int j = 0; j < key.BMAX[i]; j++) {
+		int max = -1;
+		int min = -1;
+		//find out if we have ot and nt, only ot or only nt
+		if (m_hasOT && m_hasNT) {
+			min = 0;
+			max = 1;
+		}
+		else if (m_hasOT && !m_hasNT) {
+			min = 0;
+			max = 0;
+		} if (!m_hasOT && m_hasNT) {
+			min = 1;
+			max = 1;
+		}
+		for (int i = min; i <= max; ++i) {
+			for ( int j = 0; j < key.BMAX[i]; ++j) {
 				m_bookList->append( QString::fromLocal8Bit(key.books[i][j].name) );
 			}
 		}
@@ -89,4 +107,31 @@ const unsigned int CSwordBibleModuleInfo::getVerseCount( const unsigned int book
 			result = key.books[1][book-1-key.BMAX[0]].versemax[chapter-1];
 	}
 	return result;
+}
+
+const unsigned int CSwordBibleModuleInfo::getBookNumber(const QString &book){
+	unsigned int bookNumber = 0;
+	
+	VerseKey key;		
+	bool found = false;
+	for (int i = 0; i <= 1 && !found; ++i) {
+		for ( int j = 0; j < key.BMAX[i] && !found; ++j) {
+			++bookNumber;
+			if (book == QString::fromLocal8Bit(key.books[i][j].name))
+				found = true;
+		}
+	}		
+	return bookNumber;
+}
+
+/** Returns true if his module has the text of desired type of testament */
+const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament type ){
+	switch (type) {
+		case oldTestament:
+			return m_hasOT;
+		case newTestament:
+			return m_hasNT;		
+		default:
+			return false;
+	}
 }

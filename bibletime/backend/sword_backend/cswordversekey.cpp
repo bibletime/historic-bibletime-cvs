@@ -54,19 +54,26 @@ void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
 
 /** Returns the rendered text of this verse */
 const QString CSwordVerseKey::getRenderedText() const {
+	if (!m_module)
+		return QString::null;
+	
 	m_module->module()->SetKey(this);
 	return QString::fromLocal8Bit( (const char*)*m_module->module() );
 }
 
 /** Returns the stripped down text of this verse, */
 const QString CSwordVerseKey::getStrippedText() const{
+	if (!m_module)
+		return QString::null;
 	m_module->module()->SetKey(this);
 	return QString::fromLocal8Bit( m_module->module()->StripText() );
 }
 
 /** Returns the current book as Text, no as integer. */
 void CSwordVerseKey::setBook( const QString& newBook ) {
-	for (int testament = 0; testament < 2; ++testament) {
+	int min = 0;
+	int max = 1;
+	for (int testament = min; testament <= max; ++testament) {
 		for (int book = 0; book < BMAX[testament]; ++book) {
 			if ( !strcmp(newBook.local8Bit(),books[testament][book].name ) ) {
 				Testament(testament+1);

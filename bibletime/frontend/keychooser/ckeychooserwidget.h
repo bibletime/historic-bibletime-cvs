@@ -107,6 +107,8 @@ public:
   * Sets the tooltips for the given entries using the parameters as text.
   */
   void setToolTips( const QString comboTip, const QString nextEntry, const QString scrollButton, const QString previousEntry);
+  /** Sets the current item to the one with the given text */
+  bool setItem( const QString item);
 
 public slots:
 	/**

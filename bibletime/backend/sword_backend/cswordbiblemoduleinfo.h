@@ -36,6 +36,11 @@
   */
 class CSwordBibleModuleInfo : public CSwordModuleInfo  {
 public:	
+	enum Testament {
+		oldTestament,
+		newTestament
+	};
+		
 	/**
 	* The constructor of this class
 	*/
@@ -70,20 +75,20 @@ public:
   * @return the book number, values starting with 1; 0 if not found
   */
   const unsigned int getBookNumber(const QString &book);
+  /**
+  * Returns true if his module has the text of desired type of testament
+  */
+  const bool hasTestament( CSwordBibleModuleInfo::Testament );
 
 private:
 	QStringList*	m_bookList;	//This booklist is cached
 	QString m_cachedLocale;
+	bool m_hasOT;
+	bool m_hasNT;
 };
 
 inline const CSwordModuleInfo::type CSwordBibleModuleInfo::getType() const {
 	return CSwordModuleInfo::Bible;
-}
-
-inline const unsigned int CSwordBibleModuleInfo::getBookNumber(const QString &book){
-  if (!m_bookList)
-    getBooks();
-  return  (m_bookList->findIndex(book)+1);
 }
 
 

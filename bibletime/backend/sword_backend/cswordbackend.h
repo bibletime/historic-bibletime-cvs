@@ -141,6 +141,10 @@ public:
   *
 	*/
   const bool getModuleConfig(const QString& module, SWConfig& moduleConfig);
+  /** Returns the path of the module with the name "moduleName".
+
+If no path is found return QString::null */
+  const QString getModulePath( const QString moduleName );
   		
 	CHTMLChapterDisplay* m_chapterDisplay;	
 	CHTMLEntryDisplay* m_entryDisplay;
