@@ -36,53 +36,65 @@ CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::displayOptionsBool
 
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionToggled(int)));
 
-	populateMenu();
+	if (populateMenu() == 0)
+		hide();
 }
 void CDisplaySettingsButton::reset(ListCSwordModuleInfo useModules){
 	m_modules = useModules;
-	populateMenu();
+	if (populateMenu() == 0)
+		hide();
+	else
+		show();
 }
 
 
 void CDisplaySettingsButton::optionToggled(int ID){
 	m_popup->setItemChecked( ID, !(m_popup->isItemChecked(ID)));
   *(m_dict[m_popup->text(ID)]) =  m_popup->isItemChecked(ID);
+	emit sigChanged();
 }
 
 /** No descriptions */
-void CDisplaySettingsButton::populateMenu(void){
+int CDisplaySettingsButton::populateMenu(void){
+
+	int ret = 0;
 
 	m_popup->clear();
 	m_popup->insertTitle(i18n("Display options"));
 	m_popup->setCheckable(true);
 
-	addMenuEntry(i18n("Show headings"),	&(m_moduleSettings->headings),
+	ret += addMenuEntry(i18n("Show headings"),	&(m_moduleSettings->headings),
 		isOptionAvailable(CSwordBackend::headings));
-  addMenuEntry(i18n("Use linebreaks"), &(m_displaySettings->lineBreaks), true);
-	addMenuEntry(i18n("Show versenumbers"), &(m_displaySettings->verseNumbers), true);
+  ret += addMenuEntry(i18n("Use linebreaks"), &(m_displaySettings->lineBreaks), true);
+	ret += addMenuEntry(i18n("Show versenumbers"), &(m_displaySettings->verseNumbers), true);
 
-	addMenuEntry(i18n("Show footnotes"), &(m_moduleSettings->footnotes),
+	ret += addMenuEntry(i18n("Show footnotes"), &(m_moduleSettings->footnotes),
 		isOptionAvailable(CSwordBackend::footnotes ));
-	addMenuEntry(i18n("Show Strong's Numbers"), &(m_moduleSettings->strongNumbers),
+	ret += addMenuEntry(i18n("Show Strong's Numbers"), &(m_moduleSettings->strongNumbers),
 		isOptionAvailable(CSwordBackend::strongNumbers ));
 
-	addMenuEntry(i18n("Show morphologic tags"), &(m_moduleSettings->morphTags),
+	ret += addMenuEntry(i18n("Show morphologic tags"), &(m_moduleSettings->morphTags),
 		isOptionAvailable(CSwordBackend::morphTags ));
-	addMenuEntry(i18n("Show lemmas"), &(m_moduleSettings->lemmas),
+	ret += addMenuEntry(i18n("Show lemmas"), &(m_moduleSettings->lemmas),
 		isOptionAvailable(CSwordBackend::lemmas ));
-	addMenuEntry(i18n("Show Hebrew vowel points"), &(m_moduleSettings->hebrewPoints),
+	ret += addMenuEntry(i18n("Show Hebrew vowel points"), &(m_moduleSettings->hebrewPoints),
 		isOptionAvailable(CSwordBackend::hebrewPoints ));
-	addMenuEntry(i18n("Show Hebrew cantillation marks"), &(m_moduleSettings->hebrewCantillation),
+	ret += addMenuEntry(i18n("Show Hebrew cantillation marks"), &(m_moduleSettings->hebrewCantillation),
 		isOptionAvailable(CSwordBackend::hebrewCantillation ));
-	addMenuEntry(i18n("Show Greek accents"), &(m_moduleSettings->greekAccents),
+	ret += addMenuEntry(i18n("Show Greek accents"), &(m_moduleSettings->greekAccents),
 		isOptionAvailable(CSwordBackend::greekAccents ));
+
+	return ret;
 }
 
 /** No descriptions */
-void CDisplaySettingsButton::addMenuEntry( QString name, bool* option, bool available){
-	m_dict.insert( name, option);
-	if (available)
+int CDisplaySettingsButton::addMenuEntry( QString name, bool* option, bool available){
+	if (available){
+		m_dict.insert( name, option);
 		m_popup->setItemChecked(   m_popup->insertItem( name ), *(m_dict[name]) );
+		return 1;
+	}
+	return 0;
 }
 
 bool CDisplaySettingsButton::isOptionAvailable( CSwordBackend::moduleOptions option){

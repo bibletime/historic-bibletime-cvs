@@ -35,7 +35,10 @@ class KToolBar;
 
 class CKeyChooser;
 class CHTMLWidget;
+
 class CModuleChooserBar;
+class CDisplaySettingsButton;
+
 class CSwordKey;
 class KAccel;
 
@@ -152,7 +155,10 @@ protected: // Protected methods
 	QPopupMenu* m_lexiconPopup;
 	CKeyChooser* m_keyChooser;
 	CHTMLWidget* m_htmlWidget;	
+
   CModuleChooserBar* m_moduleChooserBar;
+	CDisplaySettingsButton* m_displaySettingsButton;
+
   ListCSwordModuleInfo m_moduleList;
  	CImportantClasses* m_important;
 

@@ -37,6 +37,8 @@ class CDisplaySettingsButton : public QToolButton  {
 public: 
 	CDisplaySettingsButton(CSwordBackend::displayOptionsBool *displaySettings, CSwordBackend::moduleOptionsBool *settings, ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
 	void reset(ListCSwordModuleInfo useModules);
+signals:
+	void sigChanged(void);
 
 protected slots:
 	void optionToggled(int ID);
@@ -51,9 +53,9 @@ protected:
 
 	KPopupMenu* m_popup;
 
-  void populateMenu(void);
+  int populateMenu(void);
 	bool isOptionAvailable( CSwordBackend::moduleOptions option);
-  void addMenuEntry( QString name, bool* option, bool available);
+  int addMenuEntry( QString name, bool* option, bool available);
 };
 
 #endif

@@ -79,6 +79,7 @@ protected slots: // Protected slots
   * Is called when the selected modules changed.
   */
   void modulesChanged();
+	void optionsChanged();
   /**
   * Deletes the displayed and edited text.
   */

@@ -37,6 +37,7 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClas
 	m_accel(new KAccel(this)),
 	m_moduleOptions( COptionsDialog::getAllModuleOptionDefaults() ),
 	m_displayOptions( COptionsDialog::getAllDisplayOptionDefaults() )
+
 {		
 
 	for (m_important->swordBackend->getModuleList()->first(); m_important->swordBackend->getModuleList()->current(); m_important->swordBackend->getModuleList()->next()) {

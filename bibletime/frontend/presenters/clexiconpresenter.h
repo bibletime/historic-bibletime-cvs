@@ -65,6 +65,7 @@ private slots:
   void copyEntryAndText();
   void printEntryAndText();
   void modulesChanged();
+	void optionsChanged();
   void popupAboutToShow();
   void lookup(CSwordKey*);
   void nextEntry();

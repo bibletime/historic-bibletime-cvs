@@ -17,6 +17,8 @@
 
 #include "clexiconpresenter.h"
 #include "cmodulechooserbar.h"
+#include "cdisplaysettingsbutton.h"
+
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
 #include "../../ressource.h"
@@ -59,6 +61,9 @@ void CLexiconPresenter::initView(){
 	m_mainToolBar->setItemAutoSized(0);
 	addToolBar(m_mainToolBar);
 	
+	m_displaySettingsButton = new CDisplaySettingsButton( &m_displayOptions, &m_moduleOptions, m_moduleList, m_mainToolBar);
+	m_mainToolBar->insertWidget(1,m_displaySettingsButton->sizeHint().width(),m_displaySettingsButton);
+
 	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Lexicon, this );
 	addToolBar(m_moduleChooserBar);
 	
@@ -103,6 +108,8 @@ void CLexiconPresenter::initConnections(){
  	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)), SLOT(lookup(CSwordKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()), SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL(sigChanged()), SLOT(modulesChanged()));
+	connect(m_displaySettingsButton, SIGNAL( sigChanged() ),SLOT(optionsChanged() ));
+
 }
 
 /** No descriptions */
@@ -171,11 +178,16 @@ void CLexiconPresenter::modulesChanged(){
   if (!m_moduleList.count())
   	close();
   else {
+		m_displaySettingsButton->reset(m_moduleList);
     refreshFeatures();
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
 	  lookup(m_key);
 	}
+}
+/**  */
+void CLexiconPresenter::optionsChanged(){
+	lookup(m_key);
 }
 
 /** Copies the highlighted text into clipboard. */

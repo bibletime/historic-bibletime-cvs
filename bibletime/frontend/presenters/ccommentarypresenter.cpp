@@ -17,6 +17,8 @@
 
 #include "ccommentarypresenter.h"
 #include "cmodulechooserbar.h"
+#include "cdisplaysettingsbutton.h"
+
 #include "../ctoolclass.h"
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
@@ -61,6 +63,9 @@ void CCommentaryPresenter::initView(){
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
 	addToolBar(m_mainToolBar);			
+
+	m_displaySettingsButton = new CDisplaySettingsButton( &m_displayOptions, &m_moduleOptions, m_moduleList, m_mainToolBar);
+	m_mainToolBar->insertWidget(1,m_displaySettingsButton->sizeHint().width(),m_displaySettingsButton);
 	
 	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Commentary, this );
 	addToolBar(m_moduleChooserBar);
@@ -132,7 +137,9 @@ void CCommentaryPresenter::initConnections(){
 		SLOT(popupAboutToShow()));
 	
 	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
-		SLOT( modulesChanged() ));		
+		SLOT( modulesChanged() ));	
+	connect(m_displaySettingsButton, SIGNAL( sigChanged() ),	
+		SLOT(optionsChanged() ));
 }
 
 /** Is called when the selected modules changed. */
@@ -143,12 +150,17 @@ void CCommentaryPresenter::modulesChanged(){
   	close();
   else {
 		presenterEdit_action->setEnabled( m_moduleList.first()->module()->isWritable() );
+		m_displaySettingsButton->reset(m_moduleList);
 	  refreshFeatures();	
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
 	
 	  lookup(m_key);
 	}
+}
+/**  */
+void CCommentaryPresenter::optionsChanged(){
+	lookup(m_key);
 }
 
 /** renders text and set it to the HTML widget */

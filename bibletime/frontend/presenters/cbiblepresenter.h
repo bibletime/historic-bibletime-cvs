@@ -62,6 +62,7 @@ protected:
 
 protected slots:
   void modulesChanged();
+	void optionsChanged();
   void lookup( CSwordKey* );
 	void nextBook();
 	void previousBook();

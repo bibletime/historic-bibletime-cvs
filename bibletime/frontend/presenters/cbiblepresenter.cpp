@@ -66,8 +66,8 @@ void CBiblePresenter::initView(){
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
 	m_mainToolBar->setItemAutoSized(0);
 
-	CDisplaySettingsButton* display = new CDisplaySettingsButton( &m_displayOptions, &m_moduleOptions, m_moduleList, m_mainToolBar);
-	m_mainToolBar->insertWidget(1,display->sizeHint().width(),display);
+	m_displaySettingsButton = new CDisplaySettingsButton( &m_displayOptions, &m_moduleOptions, m_moduleList, m_mainToolBar);
+	m_mainToolBar->insertWidget(1,m_displaySettingsButton->sizeHint().width(),m_displaySettingsButton);
 
 	addToolBar(m_mainToolBar);			
 	
@@ -146,6 +146,7 @@ void CBiblePresenter::modulesChanged(){
   	close();
   }
   else {
+		m_displaySettingsButton->reset(m_moduleList);
     refreshFeatures();
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
@@ -153,6 +154,11 @@ void CBiblePresenter::modulesChanged(){
 	  lookup(m_key);
 	}
 }
+/**  */
+void CBiblePresenter::optionsChanged(){
+	lookup(m_key);
+}
+
 
 /** Initializes the Signal / Slot connections */
 void CBiblePresenter::initConnections(){
@@ -164,6 +170,8 @@ void CBiblePresenter::initConnections(){
 		SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
 		SLOT(modulesChanged() ));
+	connect(m_displaySettingsButton, SIGNAL( sigChanged() ),	
+		SLOT(optionsChanged() ));
 }
 
 
