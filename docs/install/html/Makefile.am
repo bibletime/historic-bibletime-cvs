@@ -4,26 +4,19 @@
 
 EXTRA_DIST = instmgr.png 
 
+
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/install/;
 	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in  instmgr.png; do \
-	  if test -e $$file; then \
-	    $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/install; \
-	    chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/install/$$file; \
-	  else \
-	    ln -sf ../../../en/bibletime/install/$$file $(DESTDIR)$(kde_htmldir)/en/bibletime/install/$$file; \
-	  fi; \
+	for file in FILES; do \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/install; \
+	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/install/$$file; \
 	done;
-	if test -d $(DESTDIR)$(kde_htmldir)/en/bibletime/install/../../common; then \
-	  ln -sf ../../common $(DESTDIR)$(kde_htmldir)/en/bibletime/install/common;\
-	else \
-	  ln -sf ../../../en/common $(DESTDIR)$(kde_htmldir)/en/bibletime/install/common;\
-	fi;
+	ln -sf ../../common $(DESTDIR)$(kde_htmldir)/en/bibletime/install/common;\
 	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/en/bibletime
 
 uninstall-local:
-	for file in  instmgr.png; do \
+	for file in FILES; do \
 	  echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/install/$$file; \
 	  rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/install/$$file; \
 	done;

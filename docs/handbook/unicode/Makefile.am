@@ -4,26 +4,19 @@
 
 EXTRA_DIST = hdbk-config.docbook hdbk-intro.docbook hdbk-operation.docbook hdbk-start.docbook hdbk-toolbars.docbook index.docbook 
 
+
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/;
 	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in  hdbk-config.docbook hdbk-intro.docbook hdbk-operation.docbook hdbk-start.docbook hdbk-toolbars.docbook index.docbook; do \
-	  if test -e $$file; then \
-	    $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook; \
-	    chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
-	  else \
-	    ln -sf ../../../en/bibletime/handbook/$$file $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
-	  fi; \
+	for file in FILES; do \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook; \
+	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
 	done;
-	if test -d $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/../../common; then \
-	  ln -sf ../../common $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/common;\
-	else \
-	  ln -sf ../../../en/common $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/common;\
-	fi;
+	ln -sf ../../common $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/common;\
 	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/en/bibletime
 
 uninstall-local:
-	for file in  hdbk-config.docbook hdbk-intro.docbook hdbk-operation.docbook hdbk-start.docbook hdbk-toolbars.docbook index.docbook; do \
+	for file in FILES; do \
 	  echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
 	  rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
 	done;

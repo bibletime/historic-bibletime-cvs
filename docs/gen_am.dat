@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# gen_am.dat script
+#
+# (C) 2001 The BibleTime team
+# released under the GPL
+#
+# This script contains some basic variables for the
+# BibleTime-doc Makefile system generation
+
+
+# This variable identifies which language's directories
+# are to be included in the Makefile structure.
+#
+# If you want to exclude a language, just delete it
+# from the following variable.
+
+# NOTE: "en" MUST BE THE FIRST LANGUAGE!
+
+export FOREIGN_DOC_LANGUAGES="de"
+
+# This variable identifies which parts of the documentation
+# are in use.
+
+export DOC_PARTS="handbook helpdialog howto install"
+

@@ -4,26 +4,19 @@
 
 EXTRA_DIST = how2-basics.docbook how2-importance.docbook how2-interpretation.docbook index.docbook 
 
+
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/;
 	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in  how2-basics.docbook how2-importance.docbook how2-interpretation.docbook index.docbook; do \
-	  if test -e $$file; then \
-	    $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/howto; \
-	    chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
-	  else \
-	    ln -sf ../../../en/bibletime/howto/$$file $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
-	  fi; \
+	for file in FILES; do \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/howto; \
+	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
 	done;
-	if test -d $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/../../common; then \
-	  ln -sf ../../common $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/common;\
-	else \
-	  ln -sf ../../../en/common $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/common;\
-	fi;
+	ln -sf ../../common $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/common;\
 	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/en/bibletime
 
 uninstall-local:
-	for file in  how2-basics.docbook how2-importance.docbook how2-interpretation.docbook index.docbook; do \
+	for file in FILES; do \
 	  echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
 	  rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
 	done;

@@ -4,26 +4,19 @@
 
 EXTRA_DIST = help-first-startup.html help-first-time-search.html help-initbackend-failed.html help-module-encrypted.html help-no-mods-d.html help-no-modules.html help-sword-module-trouble.html index.html 
 
+
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/;
 	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in  help-first-startup.html help-first-time-search.html help-initbackend-failed.html help-module-encrypted.html help-no-mods-d.html help-no-modules.html help-sword-module-trouble.html index.html; do \
-	  if test -e $$file; then \
-	    $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog; \
-	    chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/$$file; \
-	  else \
-	    ln -sf ../../../en/bibletime/helpdialog/$$file $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/$$file; \
-	  fi; \
+	for file in FILES; do \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog; \
+	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/$$file; \
 	done;
-	if test -d $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/../../common; then \
-	  ln -sf ../../common $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/common;\
-	else \
-	  ln -sf ../../../en/common $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/common;\
-	fi;
+	ln -sf ../../common $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/common;\
 	chmod -R a+r+X $(DESTDIR)$(kde_htmldir)/en/bibletime
 
 uninstall-local:
-	for file in  help-first-startup.html help-first-time-search.html help-initbackend-failed.html help-module-encrypted.html help-no-mods-d.html help-no-modules.html help-sword-module-trouble.html index.html; do \
+	for file in FILES; do \
 	  echo Removing $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/$$file; \
 	  rm -f $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/$$file; \
 	done;

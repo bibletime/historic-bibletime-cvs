@@ -3,7 +3,6 @@
 
 
 SUBDIRS = html unicode 
-
 pot-files:
 	for f in `ls unicode/*.docbook`; do \
 		potfile=`echo $$f | sed s/\.docbook$$/\.pot/`; \
