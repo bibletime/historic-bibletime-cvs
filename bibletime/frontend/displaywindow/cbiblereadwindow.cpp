@@ -98,13 +98,9 @@ void CBibleReadWindow::insertKeyboardActions( KAccel* const a ){
 }
 
 void CBibleReadWindow::initKeyboardActions() {
-  CReadWindow::initKeyboardActions();
-
   CBTConfig::setupAccel( CBTConfig::bibleWindow, accel() );
   insertKeyboardActions( accel() );
-  CReadWindow::insertKeyboardActions(accel());
-
-  accel()->readSettings(); 
+  accel()->readSettings();
 
 	accel()->setSlot("Next book", this, SLOT(nextBook()));
   accel()->setSlot("Previous book", this, SLOT(previousBook()));
@@ -112,6 +108,9 @@ void CBibleReadWindow::initKeyboardActions() {
   accel()->setSlot("Previous chapter", this, SLOT(previousChapter()));
   accel()->setSlot("Next verse", this, SLOT(nextVerse()));
   accel()->setSlot("Previous verse", this, SLOT(previousVerse()));
+	
+	//now call the accel init from our parent class
+  CReadWindow::initKeyboardActions();
 }
 
 void CBibleReadWindow::initConnections(){
@@ -128,7 +127,6 @@ void CBibleReadWindow::initView(){
 
   parentWidget()->installEventFilter( this );  
 
-//  qWarning("initView: %i modules", modules().count());  
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 
@@ -140,7 +138,6 @@ void CBibleReadWindow::initView(){
 
 /** Reimplementation. */
 void CBibleReadWindow::setupPopupMenu(){
-//	qWarning("CBibleReadWindow::setupPopupMenu()");
 	popup()->insertTitle(CToolClass::getIconForModule(modules().first()), i18n("Bible window"));
 
  	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection());
@@ -274,19 +271,18 @@ void CBibleReadWindow::copyDisplayedText(){
 /** Saves the chapter as valid HTML page. */
 void CBibleReadWindow::saveChapterHTML(){
   //saves the complete chapter to disk
-
+  CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
+	Q_ASSERT(bible);
+	if (!bible) //shouldn't happen
+		return;
+	
 	CSwordVerseKey dummy(*verseKey());
   dummy.Verse(1);
-	qWarning("start saving from %s", dummy.key().latin1());
 
   CSwordVerseKey vk(*verseKey());
 	vk.LowerBound(dummy);
-	qWarning("vk's start is %s", dummy.key().latin1());
 
-  CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
-	qWarning("verseCount for %s, chapter %i is %i", (const char*)dummy.book().local8Bit(), dummy.Chapter(), bible->verseCount(dummy.book(), dummy.Chapter()));
 	dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
-
 	vk.UpperBound(dummy);
 
   CExportManager mgr(i18n("Saving chapter ..."), true, i18n("Saving"), filterOptions(), displayOptions());

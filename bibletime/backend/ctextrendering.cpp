@@ -173,11 +173,9 @@ CHTMLExportRendering::CHTMLExportRendering(const CHTMLExportRendering::Settings&
 		m_filterOptions(filterOptions),
 		m_settings(settings)
 {
-
 }
 
 CHTMLExportRendering::~CHTMLExportRendering() {
-
 }
 
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey* k) {

@@ -150,7 +150,7 @@ void CReadWindow::insertKeyboardActions( KAccel* const a ){
 
 void CReadWindow::initKeyboardActions() {
   CBTConfig::setupAccel( CBTConfig::readWindow, accel() );
-  insertKeyboardActions( accel() );
+  CReadWindow::insertKeyboardActions( accel() );
 
   accel()->readSettings();
 	accel()->setSlot("Copy", displayWidget()->connectionsProxy(), SLOT(copySelection()));
@@ -159,5 +159,5 @@ void CReadWindow::initKeyboardActions() {
 /** No descriptions */
 void CReadWindow::copyDisplayedText(){
   CExportManager mgr(QString::null);
-  mgr.copyKey(key(),CExportManager::Text,true);
+  mgr.copyKey(key(), CExportManager::Text, true);
 }

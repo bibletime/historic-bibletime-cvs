@@ -101,7 +101,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	GBFHTML::processText(buf, key, module);
 
  	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
-	if (m && !(m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
+	if (m && !(m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::morphTags) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
 		return 1;
 	}
 
@@ -115,6 +115,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	int lastMatchEnd = 0;
 	int pos = tag.search(t,0);
 	
+	//split the text into parts which end with the GBF tag marker for strongs/lemmas
 	while (pos != -1) {
 		list.append(t.mid(lastMatchEnd, pos+tag.matchedLength()-lastMatchEnd));
 	
@@ -126,33 +127,37 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 		list.append(t.right(t.length() - lastMatchEnd));
 	}
 
+	//now create the necessary HTML in list entries and concat them to the result
 	tag = QRegExp("<W(T?)([HG]\\d+)>");
 
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
-		QString e = *it;
+		QString e = *it; //current enty to process
 		
 		const bool textPresent = (e.stripWhiteSpace().remove(QRegExp("[.,;:]")).left(1) != "<");
 		if (!textPresent) {
 			continue;
 		}
 		
-		int pos = tag.search(e, 0);
+		int pos = tag.search(e, 0); //try to find a strong number marker
 		bool insertedTag = false;
-		while (pos != -1) {
+		QString value = QString::null;
+		int tagAttributeStart = -1;
+		
+		while (pos != -1) { //work on all strong/lemma tags in this sectio, should be between 1-3 loops
 			const bool isMorph = !tag.cap(1).isEmpty();
-			const QString value = tag.cap(2);
+			value = tag.cap(2);
 			
 			if (value.isEmpty()) {
 				break;
 			}
 			
 			//insert the span
-			if (!insertedTag) {
+			if (!insertedTag) { //we have to insert a new tag end and beginning, i.e. our first loop
 				e.replace(pos, tag.matchedLength(), "</span>");
  				pos += 7;
 				
 				//skip blanks, commas, dots and stuff at the beginning, it doesn't belong to the morph code
-				QString rep = QString("<span lemma=\"%1\">").arg(value);
+				QString rep = QString::fromLatin1("<span %1=\"%2\">").arg(isMorph ? "morph" : "lemma").arg(value);
 				
 				int startPos = 0;
 				QChar c = e[startPos];
@@ -163,17 +168,18 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 				}
 				
 				e.insert( startPos, rep );
+				tagAttributeStart = startPos + 6; //to point to the start of the attributes
 				pos += rep.length();
 			}
 			else { //add the attribute to the existing tag
 				e.remove(pos, tag.matchedLength());
 				
-				const int attrPos = e.find(QRegExp("morph=|lemma="),0);
-				if (attrPos >= 0) {
+				if (tagAttributeStart >= 0) {
 					QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
-					e.insert(attrPos, attr);
+					e.insert(tagAttributeStart, attr);
 					
 					pos += attr.length();
+					//tagAttributeStart remains the same
 				}
 			}
 				

@@ -87,7 +87,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 
 	tag = QRegExp("<sync[^>]+(type|value)=\"([^\"]+)\"[^>]+(type|value)=\"([^\"]+)\"([^<]*)>");
 
-	qWarning("splitted %s into %i parts", t.latin1(), list.count());
+// 	qWarning("splitted %s into %i parts", t.latin1(), list.count());
 	
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		QString e = *it;

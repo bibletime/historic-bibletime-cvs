@@ -47,7 +47,7 @@ public:
 				CompleteLong //means "Genesis 1:1"
 			};
 
-			Settings() : highlight(false), keyRenderingFace(SimpleKey) {
+			Settings(const bool highlight = false, KeyRenderingFace keyRendering = SimpleKey) : highlight(highlight), keyRenderingFace(keyRendering) {
 			};
 			
 			bool highlight;

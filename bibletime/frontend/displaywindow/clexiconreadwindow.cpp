@@ -63,16 +63,14 @@ void CLexiconReadWindow::insertKeyboardActions( KAccel* a ){
 }
 
 void CLexiconReadWindow::initKeyboardActions() {
-  CReadWindow::initKeyboardActions();
-
   CBTConfig::setupAccel(CBTConfig::lexiconWindow, accel());
   insertKeyboardActions(accel());
-  CReadWindow::insertKeyboardActions(accel());
-
   accel()->readSettings();
 
   accel()->setSlot("Next entry", this, SLOT(nextEntry()));
   accel()->setSlot("Previous entry",  this, SLOT(previousEntry()));
+
+  CReadWindow::initKeyboardActions();
 };
 
 /** No descriptions */

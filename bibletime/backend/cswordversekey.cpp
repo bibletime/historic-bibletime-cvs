@@ -157,7 +157,6 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 		}
 		case UseVerse: {
     	if (m_module && m_module->module()) {
-				qWarning("i am in %s, want to go to next verse", key().latin1());
     		m_module->module()->SetKey(this);	//use this key as base for the next one!
         
 				const bool oldStatus = m_module->module()->getSkipConsecutiveLinks();
@@ -167,11 +166,9 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 
 				//qWarning("status: %i", m_module->module()->getSkipConsecutiveLinks());
     		if (!m_module->module()->Error()) {
-					qWarning("no error, key is now %s",m_module->module()->KeyText());
 					key( QString::fromUtf8(m_module->module()->KeyText()) );
         }
     		else {
-					qWarning("error!");
 	    	  Verse(Verse()+1);
 					ret = false;
 	    	  break;
@@ -188,34 +185,16 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 
   if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
     if (_compare(bible->lowerBound()) < 0 ) {
-			qWarning("setting to lower bound");
       key( bible->lowerBound() );
       ret = false;
     }
     if (_compare(bible->upperBound()) > 0 ) {
-			qWarning("setting to upper bound");
       key( bible->upperBound() );
       ret = false;
     }
-		qWarning("return %i", ret);
 
     return ret;
   }
-/*    if (!ret || Error() || m_module->module()->Error()) {
-      ret = false;
-		}
-    else if (_compare(bible->lowerBound()) < 0) { //check if the key if out of the modules bounds
-			qWarning("resetting to lower bound");
-      key( bible->lowerBound() );
-      ret = false;
-    }
-    if (_compare(bible->upperBound()) > 0) {
-			qWarning("resetting to upper bound");
-			key( bible->upperBound() );
-      ret = false;
-    }
-    return ret;
-  }*/
   else if (Error()) { //we have no module, so take care of VerseKey::Error()
     return false;
 	}

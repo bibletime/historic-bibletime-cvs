@@ -90,10 +90,7 @@ void CCommentaryReadWindow::insertKeyboardActions( KAccel* const a ){
 }
 
 void CCommentaryReadWindow::initKeyboardActions() {
-  CReadWindow::initKeyboardActions();
-
   CBTConfig::setupAccel( CBTConfig::commentaryWindow, accel() );
-  CReadWindow::insertKeyboardActions(accel());  
   insertKeyboardActions( accel() );
 
   accel()->readSettings();
@@ -104,6 +101,8 @@ void CCommentaryReadWindow::initKeyboardActions() {
   accel()->setSlot("Previous chapter", this, SLOT(previousChapter()));
   accel()->setSlot("Next verse", this, SLOT(nextVerse()));
   accel()->setSlot("Previous verse", this, SLOT(previousVerse()));
+
+  CReadWindow::initKeyboardActions();
 }
 
 /** Moves to the next book. */

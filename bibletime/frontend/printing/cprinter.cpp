@@ -27,7 +27,7 @@ CPrinter::Item::Item(const QString& key, CSwordModuleInfo* module, const Setting
 	
 	//create this item with heading text and one child item which has the content
 	m_alternativeContent = QString::fromLatin1("%1 (%2)").arg(key).arg(module->name());
-	childList()->append( new KeyTreeItem(key, module, KeyTreeItem::Settings()) );
+	childList()->append( new KeyTreeItem(key, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
 }
 
 CPrinter::Item::Item(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module, const Settings settings)
@@ -45,19 +45,21 @@ CPrinter::Item::Item(const QString& startKey, const QString& stopKey, CSwordModu
 		CSwordVerseKey stop(module);
 		stop = stopKey;
 		
-		if (!key().isEmpty()  && !m_stopKey.isEmpty()) {
-			while ((start < stop) || (start == stop) ) {
-				childList()->append( new KeyTreeItem(start.key(), module, KeyTreeItem::Settings()) );
+		if (!key().isEmpty()  && !m_stopKey.isEmpty()) { //we have a range of keys
+			bool ok = true;
+			
+			while (ok && ((start < stop) || (start == stop)) ) { //range
+				childList()->append( new KeyTreeItem(start.key(), module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::SimpleKey)) );
 				
-				start.next(CSwordVerseKey::UseVerse);
+				ok = start.next(CSwordVerseKey::UseVerse);
 			}	
 		}
 	}
 	else if ((module->type() == CSwordModuleInfo::Lexicon) || (module->type() == CSwordModuleInfo::Commentary) ) {		
-		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings()) );
+		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
 	}
 	else if (module->type() == CSwordModuleInfo::GenericBook) {
-		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings()) );
+		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
 	}
 				
 	m_alternativeContent = QString::fromLatin1("%1 (%2)")
@@ -116,11 +118,26 @@ void CPrinter::printKeyTree( KeyTree& tree ) {
 const QString CPrinter::entryLink(const KeyTreeItem& item, CSwordModuleInfo* module)
 {
 	Q_ASSERT(module);
+	
 	if (module->type() == CSwordModuleInfo::Bible) {
 		CSwordVerseKey vk(module);
 		vk = item.key();
 		
-		return QString::number(vk.Verse());
+		switch (item.settings().keyRenderingFace) {
+			case Item::Settings::CompleteShort:
+				return QString::fromUtf8(vk.getShortText());
+			
+			case Item::Settings::CompleteLong:
+				return vk.key();
+			
+			case Item::Settings::NoKey:
+				return QString::null;
+			
+			case Item::Settings::SimpleKey: //fall through
+			default:
+				return QString::number(vk.Verse());
+		}
+		
 	}
 	
 	return item.key();
