@@ -21,14 +21,14 @@
 #include <qwidget.h>
 #include <qmap.h>
 
-#include <kcombobox.h>
+#include <qcombobox.h>
 
 class cfx_btn;
 class CLexiconKeyChooser;
 //class CMinMaxLayout;
 
 class QIconSet;
-class QComboBox;
+//class QComboBox;
 class QToolButton;
 class QStringList;
 class QPoint;
@@ -40,7 +40,7 @@ class QHBoxLayout;
 * We use this class to conrtol the focus move in the combobox
 * This class is used in the key chooser widgets
 */
-class CKCComboBox : public KComboBox {
+class CKCComboBox : public QComboBox {
   Q_OBJECT
 
 public:

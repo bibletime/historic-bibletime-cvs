@@ -35,10 +35,9 @@
 #include <qtooltip.h>
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
-  : KComboBox(rw,parent,name){
+  : QComboBox(rw,parent,name){
 	setFocusPolicy(QWidget::WheelFocus);
   if (lineEdit()) {
-//  	qWarning("CKCComboBox: installed event filter");
   	installEventFilter( lineEdit() );
   }
 }
@@ -47,8 +46,14 @@ CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
 bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){			
 //	qWarning("CKCComboBox::eventFilter( QObject *o, QEvent *e )");
 	if (e->type() == QEvent::FocusOut) {
-//		qWarning("FocusOut");
 		QFocusEvent* f = static_cast<QFocusEvent*>(e);
+//		qWarning("FocusOut: %d", f->reason());
+//		qWarning("Mouse: %d",(f->reason()==QFocusEvent::Mouse)?1:0);
+//    qWarning("lineedit: %d",(o == lineEdit())?1:0);
+//    qWarning("listbox: %d",(o == listBox())?1:0);
+//    qWarning("this: %d",(o == this)?1:0);
+
+		
 		if (o == lineEdit() && f->reason() == QFocusEvent::Tab) {
 	    int index = listBox()->index( listBox()->findItem(currentText()) );
 	    if (index == -1)
@@ -56,18 +61,18 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 	  	setCurrentItem( index );	
 	    emit focusOut( index );  	
 	  }
-	  else if (o == lineEdit() && f->reason() == QFocusEvent::Popup) {
+	  else if (/*o == lineEdit() &&*/ f->reason() == QFocusEvent::Popup) {
 			return false;
 		}
-	  else if (o == lineEdit() && f->reason() == QFocusEvent::ActiveWindow) {
+	  else if (/*o == lineEdit() && */f->reason() == QFocusEvent::ActiveWindow) {
 			emit activated(currentText());
 			return true;
 		}
-	  else if (o == lineEdit() && f->reason() == QFocusEvent::Mouse) {
+	  else if (/*o == lineEdit() &&*/ f->reason() == QFocusEvent::Mouse) {
 			emit activated(currentText());
 			return true;
 		}		
-	  else if (o == listBox()) {
+	  else if (o == listBox()) {  //???
 			return false;
 		}
 	  else if (o == this) {
@@ -76,7 +81,7 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 		}		
 	}
 //	qWarning("not handled!");
-  return KComboBox::eventFilter(o,e);	
+  return QComboBox::eventFilter(o,e);	
 }
 
 /** Scrolls in the list if the wheel of the mouse was used. */
@@ -305,6 +310,7 @@ void CKeyChooserWidget::init( ){
 	connect(btn_fx, SIGNAL(change_requested(int)), SLOT(changeCombo(int)) );
 	
 	connect(m_comboBox, SIGNAL(activated(int)), SLOT(slotComboChanged(int)));
+	connect(m_comboBox, SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
 	connect(m_comboBox, SIGNAL(returnPressed(const QString&)), SLOT(slotReturnPressed(const QString&)));
  	connect(m_comboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
 		
