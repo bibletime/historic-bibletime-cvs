@@ -68,9 +68,6 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 	: QTextEdit(parent, name) {	
 	m_important = importantClasses;
 
-//	QMap<QString, QFont::CharSet>* map = new QMap<QString, QFont::CharSet>;
-	ASSERT(document()->charsetMap);
-
 	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
 	for (modules->first(); modules->current(); modules->next()) {
 		if (modules->current()->hasFont()) {

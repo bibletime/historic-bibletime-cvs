@@ -82,10 +82,20 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 	if (!r.isValid())
 		return;
 	
-	//get tyope of item anddisplay correct text
+	//get tyope of item and display correct text
 	QString text = i->getToolTip();
 	if (!text.isEmpty()) {
-		tip(r, text);		
+		const QFont oldFont = font();
+//		const QFont::CharSet oldCharset = newFont.charSet();		
+				
+		CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(i->moduleInfo());
+		if (m) {
+			QFont newFont = font();
+			newFont.setCharSet(QFont::AnyCharSet);
+			setFont(newFont);
+		}
+		tip(r, text);
+		setFont(oldFont);
 	}
 }
 
@@ -156,7 +166,7 @@ void CGroupManager::setupStandardSwordTree() {
 			} \
 		}	\
 		if (!groupItem) \
-			groupItem = new CGroupManagerItem(this, name, QString::null, 0, 0, CGroupManagerItem::Group); \
+			groupItem = new CGroupManagerItem(this, name, QString::null, 0, 0, CGroupManagerItem::Group, m_important); \
 	}
 	CGroupManagerItem* bibleGroup = 0;
 	CGROUPMANAGER_GROUP(i18n("Bibles"), bibleGroup);
@@ -182,13 +192,13 @@ void CGroupManager::setupStandardSwordTree() {
 		}
 		if ( moduleInfo && !alreadyCreated) {
 			if (moduleInfo->getType() == CSwordModuleInfo::Commentary ) {	//a Commentary
-				(void) new CGroupManagerItem(commentaryGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module);
+				(void) new CGroupManagerItem(commentaryGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module, m_important);
 			}
 			else if (moduleInfo->getType() == CSwordModuleInfo::Bible ) {	//a Bible
-				(void)new CGroupManagerItem(bibleGroup, "",QString::null, moduleInfo, 0,CGroupManagerItem::Module);
+				(void)new CGroupManagerItem(bibleGroup, "",QString::null, moduleInfo, 0,CGroupManagerItem::Module, m_important);
 			}
 			else if (moduleInfo->getType() == CSwordModuleInfo::Lexicon ) {	//a Dictionary
-				(void) new CGroupManagerItem(lexiconGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module);
+				(void) new CGroupManagerItem(lexiconGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module, m_important);
 			}
 		}
 	}
@@ -369,7 +379,7 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 
 	myItem = 0;
   if ( parent && (parent->type() == CGroupManagerItem::Group) ) {
-   	myItem = new CGroupManagerItem(parent,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark);
+   	myItem = new CGroupManagerItem(parent,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark, m_important);
    	parent->setOpen(true);
   }
 	else
@@ -927,15 +937,15 @@ void CGroupManager::slotCreateNewGroup(){
 	
 	if (isOk) {
 		if (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) {
-			(void)new CGroupManagerItem(m_pressedItem, groupname, QString::null, 0,0, CGroupManagerItem::Group);
+			(void)new CGroupManagerItem(m_pressedItem, groupname, QString::null, 0,0, CGroupManagerItem::Group, m_important);
 			m_pressedItem->setOpen(true);
 		}
 		else if (m_pressedItem && m_pressedItem->parent() && m_pressedItem->parent()->type() == CGroupManagerItem::Group){
-			(void)new CGroupManagerItem(m_pressedItem->parent(), groupname, QString::null, 0,0, CGroupManagerItem::Group);
+			(void)new CGroupManagerItem(m_pressedItem->parent(), groupname, QString::null, 0,0, CGroupManagerItem::Group, m_important);
 			m_pressedItem->parent()->setOpen(true);
 		}
 		else {
-			(void)new CGroupManagerItem(this, groupname, QString::null, 0, 0,CGroupManagerItem::Group);
+			(void)new CGroupManagerItem(this, groupname, QString::null, 0, 0,CGroupManagerItem::Group, m_important);
 		}
 	}
 }
@@ -1063,18 +1073,18 @@ bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* g
 		}
 		if ( (*it_parents) == -1) {
 			if (group)
-				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), myModuleInfo, 0, CGroupManagerItem::Bookmark);
+				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), myModuleInfo, 0, CGroupManagerItem::Bookmark, m_important);
 			else
-				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), myModuleInfo, 0, CGroupManagerItem::Bookmark);
+				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), myModuleInfo, 0, CGroupManagerItem::Bookmark, m_important);
 		}
 		else {
 			parentItem = findParent( (*it_parents), group ? group : 0 );
 			if (parentItem)
-				myItem = new CGroupManagerItem(parentItem, (*it_bookmarks), (*it_modules), myModuleInfo,0, CGroupManagerItem::Bookmark);
+				myItem = new CGroupManagerItem(parentItem, (*it_bookmarks), (*it_modules), myModuleInfo,0, CGroupManagerItem::Bookmark, m_important);
 			else if (group)
-				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), myModuleInfo,0, CGroupManagerItem::Bookmark);
+				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), myModuleInfo,0, CGroupManagerItem::Bookmark, m_important);
 			else
-				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), myModuleInfo,0, CGroupManagerItem::Bookmark);
+				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), myModuleInfo,0, CGroupManagerItem::Bookmark, m_important);
 		}
 		if (myItem && it_descriptions != bookmarkDescriptionsList.end())
 			myItem->setDescription( *it_descriptions );
@@ -1248,18 +1258,18 @@ bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerItem* gro
 			
 		if ( (*it_parents) == -1) {
 		 	if (group)
-				myItem = new CGroupManagerItem(group, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module);
+				myItem = new CGroupManagerItem(group, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module, m_important);
 			else
-				myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module);
+				myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module, m_important);
 		}
 		else {
 			parentItem = findParent( (*it_parents), group ? group : 0  );
 			if (parentItem)
-				myItem = new CGroupManagerItem(parentItem, QString::null, QString::null, myModuleInfo, 0,CGroupManagerItem::Module);	
+				myItem = new CGroupManagerItem(parentItem, QString::null, QString::null, myModuleInfo, 0,CGroupManagerItem::Module, m_important);	
 			else if (group)
-				myItem = new CGroupManagerItem(group, QString::null, QString::null, myModuleInfo, 0, CGroupManagerItem::Module);
+				myItem = new CGroupManagerItem(group, QString::null, QString::null, myModuleInfo, 0, CGroupManagerItem::Module, m_important);
 			else				
-				myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo, 0, CGroupManagerItem::Module);
+				myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo, 0, CGroupManagerItem::Module, m_important);
 		}
 		if (myItem && oldItem)
 			myItem->moveToJustAfter(oldItem);
@@ -1328,18 +1338,18 @@ bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* group) {
 	while ( (it_groups != groupList.end()) && (it_parents != parentList.end()) ) {
 		if ( (*it_parents) == -1) {
 			if (group)
-				newItem = new CGroupManagerItem(group, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group);
+				newItem = new CGroupManagerItem(group, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group, m_important);
 			else
-				newItem = new CGroupManagerItem(this, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group);
+				newItem = new CGroupManagerItem(this, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group, m_important);
 		}
 		else {
 			parentItem = findParent( (*it_parents),group ? group : 0  );			
 			if (parentItem)
-				newItem = new CGroupManagerItem(parentItem, (*it_groups),QString::null,0,0, CGroupManagerItem::Group);
+				newItem = new CGroupManagerItem(parentItem, (*it_groups),QString::null,0,0, CGroupManagerItem::Group, m_important);
 			else if (group)
-				newItem = new CGroupManagerItem(group, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group);
+				newItem = new CGroupManagerItem(group, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group, m_important);
 			else
-				newItem = new CGroupManagerItem(this, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group);
+				newItem = new CGroupManagerItem(this, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group, m_important);
 		}
 		if ( newItem && oldItem ) {
 			if ( isChild(oldItem, newItem ) || (!newItem->parent() && !oldItem->parent()) || (newItem->parent() == oldItem->parent() )) {
