@@ -137,6 +137,9 @@ QPtrList<CProfileWindow> CProfile::load(){
 			if (elem.hasAttribute("windowSettings")) {
 				p->setWindowSettings( elem.attribute("windowSettings").toInt() );
 			}
+			if (elem.hasAttribute("isWriteWindow")) {
+				p->setIsWriteWindow( elem.attribute("isWriteWindow").toInt() );
+			}
 			
 			QRect rect;
 						
@@ -242,6 +245,7 @@ const bool CProfile::save(QPtrList<CProfileWindow> windows){
 		if (window.isNull())
 			break;
 		window.setAttribute("windowSettings", p->windowSettings());
+		window.setAttribute("isWriteWindow", p->isWriteWindow());    
 		
 		//save geomtery
 		const QRect r = p->geometry();

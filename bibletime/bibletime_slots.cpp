@@ -404,11 +404,18 @@ void BibleTime::loadProfile(CProfile* p){
 		if (!modules.count()) //are the modules still installed?
 			continue;		
 		
-		if (CDisplayWindow* displayWindow = createReadDisplayWindow(modules, key)) {
-			displayWindow->applyProfileSettings(w);
+    //is w->isWriteWindow is false we create a write window, otherwise a read window
+    CDisplayWindow* displayWindow = 0;
+    if (w->isWriteWindow()) { //create a write window
+      displayWindow = createWriteDisplayWindow(modules.first(), key);
 		}
-	}	
-	
+    else { //create a read window
+      displayWindow = createReadDisplayWindow(modules, key);
+		}
+    if (displayWindow) { //if a window was created initialize it.
+      displayWindow->applyProfileSettings(w);
+    };
+	}		
 	m_mdi->setUpdatesEnabled(true);	
 }
 

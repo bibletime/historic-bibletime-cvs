@@ -20,6 +20,7 @@
 #include "backend/cswordmoduleinfo.h"
 
 #include "frontend/keychooser/ckeychooser.h"
+#include "frontend/cprofilewindow.h"
 
 
 CWriteWindow::CWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
@@ -54,10 +55,55 @@ void CWriteWindow::initKeyboardActions() {
 
 void CWriteWindow::storeProfileSettings(CProfileWindow * const settings) {
 
+  settings->setIsWriteWindow(true);
+  
+	QRect rect;
+	rect.setX(parentWidget()->x());
+	rect.setY(parentWidget()->y());
+	rect.setWidth(width());
+	rect.setHeight(height());
+	settings->setGeometry(rect);
+
+//	settings->setScrollbarPositions( m_htmlWidget->view()->horizontalScrollBar()->value(), m_htmlWidget->view()->verticalScrollBar()->value() );
+	settings->setType(modules().first()->type());
+	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
+
+	if (key()) {
+		sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key());
+		QString oldLang;
+		if (vk) {
+			 oldLang = QString::fromLatin1(vk->getLocale());
+			vk->setLocale("en"); //save english locale names as default!
+		}
+		settings->setKey( key()->key() );
+		if (vk) {
+			vk->setLocale(oldLang.latin1());
+		}
+	}
+
+	QStringList mods;
+	for (CSwordModuleInfo* m = modules().first(); m; m = modules().next()) {
+		mods.append(m->name());
+	}
+	settings->setModules(mods);
 };
 
 void CWriteWindow::applyProfileSettings(CProfileWindow * const settings) {
+	setUpdatesEnabled(false);
 
+	if (settings->maximized()) {
+		showMaximized();
+	}
+	else {
+		const QRect rect = settings->geometry();
+		resize(rect.width(), rect.height());
+		parentWidget()->move(rect.x(), rect.y());
+		//setGeometry( settings->geometry() );
+	}
+//	displayWidget()->view()->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
+//	m_htmlWidget->view()->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );
+
+	setUpdatesEnabled(true);
 };
 
 /** Sets the write display-widget for this write display window. */

@@ -566,7 +566,7 @@ const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
 }
 
 /** Is called when items should be moved. */
-void CMainIndex::moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow){
+void CMainIndex::moved( QPtrList<QListViewItem>& /*items*/, QPtrList<QListViewItem>& /*afterFirst*/, QPtrList<QListViewItem>& /*afterNow*/){
 }
 
 /** Opens an editor window to edit the modules content. */

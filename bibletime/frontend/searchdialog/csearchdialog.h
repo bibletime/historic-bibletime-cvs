@@ -102,7 +102,7 @@ protected:
   /**
   * Returns the used search scope as a list key
   */
-  sword::ListKey CSearchDialog::searchScope();
+  sword::ListKey searchScope();
   /**
   * Returns true if the search used a scope, otherwise false.
   */
