@@ -174,6 +174,17 @@ const int CSearchDialogText::getSearchType() {
 	return ret;
 }
 
+const QString CSearchDialogText::getSearchTypeString() {
+	QString ret = radioMultipleWords->text();	//"multiple words" is standard
+	if (radioExactSearch->isChecked()) {
+		ret = radioExactSearch->text();
+	}
+	else if (radioRegularExpression->isChecked()) {
+		ret = radioRegularExpression->text();
+	}
+	return ret;
+
+}
 void CSearchDialogText::updateCurrentProgress(const unsigned short int percent){
 	currentProgressBar->setValue(percent);
 }
