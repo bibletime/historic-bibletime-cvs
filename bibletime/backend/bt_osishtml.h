@@ -16,17 +16,17 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef OSISHTML_H
-#define OSISHTML_H
+#ifndef BT_OSISHTML_H
+#define BT_OSISHTML_H
 
 #include "cfiltertool.h"
 
-#include "osishtmlhref.h"
+#include <osishtmlhref.h>
 
 /**
 * This filter converts ThML text to HTML text
 */
-class BT_OSISHTML : public sword::OSISHTMLHref, public CFilterTool {
+class BT_OSISHTML : public sword::OSISHTMLHref, protected CFilterTool {
 
 public:
   BT_OSISHTML();

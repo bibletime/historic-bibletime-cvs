@@ -19,23 +19,24 @@
 /* $Header$ */
 /* $Revision$ */
 
-#ifndef GBFHTML_H
-#define GBFHTML_H
+#ifndef BT_GBFHTML_H
+#define BT_GBFHTML_H
 
-#include "bt_basicfilter.h"
+#include "cfiltertool.h"
 
-class SWKey;
-class SWModule;
+#include <swkey.h>
+#include <swmodule.h>
+#include <swbasicfilter.h>
+#include <gbfhtml.h>
 
 /**
 * This filter converts GBF Text into HTML
 */
-class BT_GBFHTML : public BT_BASICFILTER{
-
+class BT_GBFHTML : public sword::GBFHTML, protected CFilterTool {
 public:
   BT_GBFHTML ();
   virtual bool handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData);
-  virtual char processText(sword::SWBuf& buf, const sword::SWKey *, const sword::SWModule * = 0);
+  virtual char processText(sword::SWBuf& buf, const sword::SWKey*, const sword::SWModule * = 0);
 };
 
 #endif

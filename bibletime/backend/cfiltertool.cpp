@@ -136,3 +136,19 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
 	}
  	return ret;
 }
+
+const sword::SWBuf CFilterTool::parseThMLRef(const sword::SWBuf& ref, const char* mod) {
+	const char* moduleName = (mod ? mod : m_standardBible.latin1());
+  sword::SWModule* module = 0;
+  if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(moduleName) ) {
+    module = m->module();
+  }
+  return parseRef( ref, module, false );
+}
+
+const sword::SWBuf CFilterTool::parseSimpleRef(const sword::SWBuf& ref) {
+  if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(m_standardBible.latin1()) ) {
+    return parseRef( ref, m->module(), 0 );
+  }
+  return sword::SWBuf();
+}

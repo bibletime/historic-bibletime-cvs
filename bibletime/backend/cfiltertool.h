@@ -53,6 +53,14 @@ protected: // Protected methods
   * Parses the verse reference ref and returns it.
   */
   const sword::SWBuf parseRef(const sword::SWBuf ref, sword::SWModule*, sword::SWKey*, const bool insertFullRef = true);
+  /**
+  * Parses the verse reference ref and returns it.
+  */
+  const sword::SWBuf parseThMLRef(const sword::SWBuf& ref, const char* mod = 0);
+  /**
+  * Parses the verse reference ref and returns it.
+  */
+  const sword::SWBuf parseSimpleRef(const sword::SWBuf& ref);
 
 private:
   QString m_standardBible;

@@ -16,15 +16,17 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef THMLHTML_H
-#define THMLHTML_H
+#ifndef BT_THMLHTML_H
+#define BT_THMLHTML_H
 
-#include "bt_basicfilter.h"
+#include "cfiltertool.h"
+
+#include <thmlhtml.h>
 
 /**
 * This filter converts ThML text to HTML text
 */
-class BT_ThMLHTML : public BT_BASICFILTER {
+class BT_ThMLHTML : public sword::ThMLHTML, protected CFilterTool {
 
 public:
   BT_ThMLHTML ();

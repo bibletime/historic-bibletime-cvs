@@ -40,9 +40,9 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	setTokenEnd(">");
 	setTokenCaseSensitive(true);
   
-	addTokenSubstitute("note", " <span class=\"footnote\">(");
-	addTokenSubstitute("/note", ")</span> ");
-	addTokenSubstitute("/foreign", "</span>");
+	replaceTokenSubstitute("note", " <span class=\"footnote\">(");
+	replaceTokenSubstitute("/note", ")</span> ");
+	replaceTokenSubstitute("/foreign", "</span>");
 }
 
 bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
@@ -152,9 +152,10 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
       );
  		}
     else { // let unknown token pass thru
-			buf += '<';
-      buf += token;
-      buf += '>';
+    	return sword::ThMLHTML::handleToken(buf, token, userData);
+//			buf += '<';
+//      buf += token;
+//      buf += '>';
     }
   }
 	return true;

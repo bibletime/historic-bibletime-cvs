@@ -40,64 +40,62 @@ BT_GBFHTML::BT_GBFHTML(){
 	
 	setTokenCaseSensitive(true);
 
-//	addTokenSubstitute("Rf", ")</small></font>");// end of footnote
-	addTokenSubstitute("Rf", ")</span>");// end of footnote
+	replaceTokenSubstitute("Rf", ")</span>");// end of footnote
 
-	addTokenSubstitute("FI", "<i>"); // italics begin
-	addTokenSubstitute("Fi", "</i>");
-  
-	addTokenSubstitute("FB", "<b>"); // bold begin
-	addTokenSubstitute("Fb", "</b>");
-	
-//	addTokenSubstitute("FR", QString::fromLatin1("<font color=\"%1\">").arg(jesuswords_color).latin1());		
-	addTokenSubstitute("FR", "<span class=\"jesuswords\">");
-	addTokenSubstitute("Fr", "</span>");
-  
-	addTokenSubstitute("FU", "<u>"); // underline begin
-	addTokenSubstitute("Fu", "</u>");
+	replaceTokenSubstitute("FI", "<i>"); // italics begin
+	replaceTokenSubstitute("Fi", "</i>");
 
-//	addTokenSubstitute("FO", "<cite>"); //  Old Testament quote begin
-//	addTokenSubstitute("Fo", "</cite>");
-	addTokenSubstitute("FO", "<span class=\"quotation\">"); //  Old Testament quote begin
-	addTokenSubstitute("Fo", "</span>");
-	
+	replaceTokenSubstitute("FB", "<b>"); // bold begin
+	replaceTokenSubstitute("Fb", "</b>");
 
-  addTokenSubstitute("FS", "<sup>"); // Superscript begin// Subscript begin
-	addTokenSubstitute("Fs", "</sup>");
+	replaceTokenSubstitute("FR", "<span class=\"jesuswords\">");
+	replaceTokenSubstitute("Fr", "</span>");
 
-  addTokenSubstitute("FV", "<sub>"); // Subscript begin
-	addTokenSubstitute("Fv", "</sub>");
+	replaceTokenSubstitute("FU", "<u>"); // underline begin
+	replaceTokenSubstitute("Fu", "</u>");
 
-//	addTokenSubstitute("TT", QString::fromLatin1(" <h1><font color=\"%1\">").arg(text_color).local8Bit());
-//	addTokenSubstitute("Tt", "</font></h1>");
-	addTokenSubstitute("TT", "<div class=\"booktitle\">");
-	addTokenSubstitute("Tt", "</div>");
-	
-	addTokenSubstitute("TS", "<div class=\"sectiontitle\">");
-	addTokenSubstitute("Ts", "</div>");
-			
-	addTokenSubstitute("PP", "<span class=\"poetry\">"); //  poetry  begin
-	addTokenSubstitute("Pp", "</span>");
+//	replaceTokenSubstitute("FO", "<cite>"); //  Old Testament quote begin
+//	replaceTokenSubstitute("Fo", "</cite>");
+	replaceTokenSubstitute("FO", "<span class=\"quotation\">"); //  Old Testament quote begin
+	replaceTokenSubstitute("Fo", "</span>");
 
-	addTokenSubstitute("Fn", "</font>"); //  font  end
-	addTokenSubstitute("CL", "<br>"); //  new line
-	addTokenSubstitute("CM", "<!p><br>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
 
-  addTokenSubstitute("CG", "&gt;"); // literal greater-than sign
-	addTokenSubstitute("CT", "&lt;"); // literal less-than sign
+  replaceTokenSubstitute("FS", "<sup>"); // Superscript begin// Subscript begin
+	replaceTokenSubstitute("Fs", "</sup>");
 
-  addTokenSubstitute("JR", "<span align=\"right\">"); // right align begin
-	addTokenSubstitute("JC", "<span align=\"center\">"); // center align begin
-	addTokenSubstitute("JL", "</span>"); // align end
+  replaceTokenSubstitute("FV", "<sub>"); // Subscript begin
+	replaceTokenSubstitute("Fv", "</sub>");
+
+//	replaceTokenSubstitute("TT", QString::fromLatin1(" <h1><font color=\"%1\">").arg(text_color).local8Bit());
+//	replaceTokenSubstitute("Tt", "</font></h1>");
+	replaceTokenSubstitute("TT", "<div class=\"booktitle\">");
+	replaceTokenSubstitute("Tt", "</div>");
+
+	replaceTokenSubstitute("TS", "<div class=\"sectiontitle\">");
+	replaceTokenSubstitute("Ts", "</div>");
+
+	replaceTokenSubstitute("PP", "<span class=\"poetry\">"); //  poetry  begin
+	replaceTokenSubstitute("Pp", "</span>");
+
+	replaceTokenSubstitute("Fn", "</font>"); //  font  end
+	replaceTokenSubstitute("CL", "<br>"); //  new line
+	replaceTokenSubstitute("CM", "<!p><br>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
+
+  replaceTokenSubstitute("CG", "&gt;"); // literal greater-than sign
+	replaceTokenSubstitute("CT", "&lt;"); // literal less-than sign
+
+  replaceTokenSubstitute("JR", "<span align=\"right\">"); // right align begin
+	replaceTokenSubstitute("JC", "<span align=\"center\">"); // center align begin
+	replaceTokenSubstitute("JL", "</span>"); // align end
 }
 
 /** No descriptions */
 char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const sword::SWModule * module){
-	BT_BASICFILTER::processText(buf, key, module);
+	GBFHTML::processText(buf, key, module);
 
-  CSwordModuleInfo* const mod = CPointers::backend()->findModuleByPointer(m_module);
+  CSwordModuleInfo* const mod = CPointers::backend()->findModuleByPointer(module);
   if (!mod || (mod && (mod->type() != CSwordModuleInfo::Bible) && (mod->type() != CSwordModuleInfo::GenericBook))) {
-    BT_BASICFILTER::ProcessRWPRefs(buf);
+    ProcessRWPRefs(buf, mod ? mod->module() : 0);
   }
 
   return 1;
@@ -110,46 +108,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap
 		unsigned long i;
     sword::SWBuf value;
 
-    sword::XMLTag tag(token);
- 		if (tag.getName() && !strcasecmp(tag.getName(), "note")) { //let's skip translator's notes in the KJV2003
-      if (tag.isEndTag()) {
-    		userData["suspendTextPassThru"] = "false";
-      }
-      else {
-  			// let's stop text from going to output
-  			userData["suspendTextPassThru"] = "true";
-  		}
-    }
-//		else if (tag.getName() && !strcasecmp(tag.getName(), "w")) {    // OSIS Word (temporary until OSISRTF is done)
-//      if (const char* value = tag.getAttribute("lemma")) {
-//        if (value && !strncmp(value, "x-Strongs:", 10)) { //we have a String number
-//          value += 10;
-//          if (*value == 'H') { //hebrew strongs number
-//  			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-//  				    value+1, //skip the H
-//              value+1
-//            );
-//          }
-//          else if (*value == 'G'){ //greek Strongs number
-//  			    buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-//  				    value+1, //skip the G
-//              value+1
-//            );
-//          }
-//        }
-//      }
-//      if (const char* value = tag.getAttribute("morph")) {
-//        if (value && !strncmp(value, "x-Robinson:", 11)) {
-//          value += 11;
-//  				// normal robinsons tense
-//          buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
-//		  		  value,
-//            value
-//          );
-//  			}
-//      }
-//		}
-		else if (!strncmp(token, "WG", 2)){ // strong's numbers greek
+    if (!strncmp(token, "WG", 2)){ // strong's numbers greek
 			for (i = 2; i < tokenLength; i++) {
 					value += token[i];
       }
@@ -217,7 +176,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap
 			buf += (char)atoi(&token[2]);
 		}		
 		else {
-			return false;
+			return GBFHTML::handleToken(buf, token, userData);
 		}
 	}
 	return true;
