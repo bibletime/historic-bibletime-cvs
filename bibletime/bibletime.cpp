@@ -218,9 +218,7 @@ void BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, const QString 
 	if (presenter) {
 		connect(presenter, SIGNAL(createSwordPresenter(CSwordModuleInfo*, const QString)),
 			this, SLOT(createNewSwordPresenter(CSwordModuleInfo*, const QString)));
-  	if (!key.isEmpty()){
-			presenter->lookup(key);
-		}
+		presenter->lookup(key);
 	}
 
 			

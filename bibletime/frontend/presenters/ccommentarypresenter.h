@@ -31,12 +31,26 @@ class KToolBar;
   */
 class CCommentaryPresenter : public CSwordPresenter  {
    Q_OBJECT
-public: 
+
+public:
 	/**
 	* Default constructor
 	*/
 	CCommentaryPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0);
 	~CCommentaryPresenter();
+
+	
+public slots: // Public slots
+  /**
+  * Saves the given text in the module.
+  */
+  void saveText(const QString);
+  /**
+  * Reimplementation.
+  */
+  virtual void lookup(const QString&);
+  /** No descriptions */
+  virtual void refresh( const int events);
 
 protected slots: // Protected slots
   /**
@@ -55,12 +69,6 @@ protected slots: // Protected slots
 	*
 	*/
 	void editComment();
-	
-public slots: // Public slots
-  /**
-  * Saves the given text in the module.
-  */
-  void saveText(const QString);
 
 private: // Private methods
   /**

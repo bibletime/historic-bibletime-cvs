@@ -54,7 +54,7 @@ public:
 	 	font = 0x000000800	
   };	
 	enum events {
-  	strongNukbersChanged = strongNumbers,
+  	strongNumbersChanged = strongNumbers,
   	footnotesChanged = footnotes,
   	languageChanged = language,
   	textColorChanged = textColor,

@@ -35,12 +35,8 @@ CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, CImportant
 	m_key->setKey("");
 	
 	initView();
-	initConnections();	
-	
-	
-	lookup(m_key);
-	
-	show();
+	show();		
+	initConnections();		
 }
 
 CLexiconPresenter::~CLexiconPresenter(){
@@ -107,6 +103,8 @@ void CLexiconPresenter::lookup(CKey* key){
 		m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
 		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());
 	}
+	
+	setPlainCaption( QString::fromLocal8Bit((const char*)*m_key) );
 }
 
 /** No descriptions */
@@ -138,8 +136,24 @@ void CLexiconPresenter::referenceClicked( const QString& ref){
 
 /** No descriptions */
 void CLexiconPresenter::lookup(const QString& key){
-	if (!key.isEmpty()) {
-		m_key->setKey(key);
+	if (!key.isEmpty())
+		m_key->setKey(key);		
+	m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
+}
+
+/** Refreshes all parts decsribed by the parameter. */
+void CLexiconPresenter::refresh( const int events){
+	bool doLookup = false;
+	bool refreshHTMLWidget = false;
+	
+	if ( (events & backgroundChanged) || (events & textColorChanged) )
+		refreshHTMLWidget = true;
+	if ( events & fontChanged )
+		doLookup = true;
+	
+	//check for footnotes			
+	if (doLookup)
 		lookup(m_key);
-	}
+	if (refreshHTMLWidget)
+		m_htmlWidget->refresh();
 }

@@ -8,30 +8,6 @@ Important unimplemented things:
 -------------------------------	
 	-searchdialog
 		o perhaps RegExp edit widget (later)
-	-Use snychronizing instead of autoscrolling
-		Bible presenter
-			-Bible presenter to Lexicon presenter
-				Shows the word in the lexicon presenter you chose in the Bible presenter
-				(e.g. double clicking or moving the mouse over the word)		
-				Another way to do this is to be able to drag words without
-				selecting them with the mouse. Drop the word on another presenter.
-			-Bible presenter to commentary presenter
-			-Bible presenter to Bible presenter
-		Commentary presenter
-			-Commentary presenter to lexicon presenter
-			-Commentary presenter to Bible presenter
-			-Commentary presenter to commentary presenter
-		Lexicon presenter
-			-Lexicon presenter to lexicon presenter
-	-Use HTML tables to display modules side by side
-		Add a possibility in a presenter to add another module
-		to read it side by side with the current module.
-		Possibilities of different combinations:
-			-Bibles and commentaries together
-			-Lexicons together
-		But it's not useful to display a lexicon within
-		a Bible or commentary presenter
-		To implement this we have to change our CHTMLEntry and CHTMLDisplay classes.
 	-ThML support for presenters		
 	
 

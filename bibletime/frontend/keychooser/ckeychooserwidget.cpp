@@ -141,7 +141,7 @@ void CKeyChooserWidget::init( QStringList* list ){
 		
 	ComboBox = new QComboBox( true, this, "ComboBox" );
 	ComboBox->setAutoCompletion( true );
-//	ComboBox->setMaximumWidth( 300 );
+	ComboBox->setMaximumWidth( 300 );
 	ComboBox->setInsertionPolicy(QComboBox::NoInsertion);
 	
 	m_mainLayout->addWidget( ComboBox );

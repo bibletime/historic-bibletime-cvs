@@ -36,11 +36,8 @@ CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, CImp
 	m_key->setKey("Genesis 1:1");
 	
 	initView();
-	show();
-		
-	initConnections();
-	
-	lookup(m_key);
+	show();		
+	initConnections();	
 }
 
 CCommentaryPresenter::~CCommentaryPresenter(){
@@ -147,7 +144,7 @@ void CCommentaryPresenter::lookup(CKey* key){
 		m_key->setKey(QString::fromLocal8Bit((const char*)*vKey));
 	}
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
-	setCaption( QString::fromLocal8Bit((const char*)*m_key) );
+	setPlainCaption( QString::fromLocal8Bit((const char*)*m_key) );
 	
 	setUpdatesEnabled(true);		
 }
@@ -197,4 +194,34 @@ void CCommentaryPresenter::editComment(){
 			
 	lookup( m_key );	
 	m_htmlWidget->setFocus();
+}
+
+/** Reimplementation. */
+void CCommentaryPresenter::lookup(const QString& key){
+	if (!key.isEmpty())
+		m_key->setKey(key);
+	m_keyChooser->setKey(m_key); //the key chooser send an update signal
+}
+
+/** No descriptions */
+void CCommentaryPresenter::refresh( const int events){
+	bool doLookup = false;
+	bool refreshHTMLWidget = false;
+	
+	if (events & languageChanged) {
+		m_key->setLocale((const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
+		m_keyChooser->refreshContent();
+		doLookup = true;
+	}
+	
+	if ( (events & backgroundChanged) || (events & textColorChanged) )
+		refreshHTMLWidget = true;
+	if ( events & fontChanged )
+		doLookup = true;
+	
+	//check for footnotes			
+	if (doLookup)
+		lookup(m_key);
+	if (refreshHTMLWidget)
+		m_htmlWidget->refresh();		
 }

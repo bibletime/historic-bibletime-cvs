@@ -117,10 +117,17 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 			if (bookmarkText.length() > 125)
 				bookmarkText = bookmarkText.left(122) + "...";
 			
-			text.append(bookmarkText);			
+			
+			if (i->moduleInfo() && i->moduleInfo()->hasFont()) {
+				QFont f = i->moduleInfo()->getFont();
+				text.append( QString("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(CToolClass::makeLogicFontSize(f.pointSize())).arg(bookmarkText) );			
+			}
+			else
+				text.append(bookmarkText);							
+			
 			tip(r, text);			
 			break;
-	}				
+	}
 }
 
 
@@ -324,10 +331,10 @@ void CGroupManager::initView(){
 	
 	popupMenu = new KPopupMenu(this);
 	popupMenu->insertTitle(i18n("Groupmanager"));
-	popupMenu->insertItem(PRESENTER_NEW_ICON_SMALL,i18n("New presenter"),
-		this, SLOT(slotCreateNewPresenter()),0,ID_GM_PRESENTER_CREATE);
-	popupMenu->setWhatsThis(ID_GM_PRESENTER_CREATE, WT_GM_NEW_PRESENTER);
-	popupMenu->insertSeparator();
+//	popupMenu->insertItem(PRESENTER_NEW_ICON_SMALL,i18n("New presenter"),
+//		this, SLOT(slotCreateNewPresenter()),0,ID_GM_PRESENTER_CREATE);
+//	popupMenu->setWhatsThis(ID_GM_PRESENTER_CREATE, WT_GM_NEW_PRESENTER);
+//	popupMenu->insertSeparator();
 	popupMenu->insertItem(GROUP_NEW_ICON_SMALL, i18n("Create new group"),
 		this, SLOT(slotCreateNewGroup()),0,ID_GM_GROUP_CREATE);
 	popupMenu->setWhatsThis(ID_GM_GROUP_CREATE, WT_GM_NEW_GROUP);	
@@ -868,7 +875,7 @@ void CGroupManager::contentsMousePressEvent ( QMouseEvent* e ) {
 	}
 	else if (e->button() == RightButton) {
 			m_menu = true;
-			popupMenu->popup( this->mapToGlobal(m_pressedPos) );
+			popupMenu->exec( mapToGlobal(m_pressedPos) );
 	}
 }
 

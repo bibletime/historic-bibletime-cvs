@@ -36,57 +36,59 @@ class QHBoxLayout;
 	*
   * @author The BibleTime team
   */
-
 class CLexiconKeyChooser : public CKeyChooser  {
    Q_OBJECT
 public:
 	/**
-	* the constructor
+	* The constructor
 	*
 	*	you should not need to use this, use @ref CKeyChooser::createInstance instead
 	*/
 	CLexiconKeyChooser(CModuleInfo *info=0, CKey *key=0, QWidget *parent=0, const char *name=0);
-	/** the destructor */
+	/**
+	* the destructor
+	*/
 	~CLexiconKeyChooser();
 
 public slots:
 	/**
-		* see @ref CKeyChooser::getKey
-		*/
+	* see @ref CKeyChooser::getKey
+	* @return Return the key object we use.
+	*/
 	virtual CKey*	getKey();
 	/**
-		* see @ref CKeyChooser::setKey
-		*/
+	* see @ref CKeyChooser::setKey
+	*/
 	virtual void	setKey(CKey* key);
-
 	/**
 	* used to react to changes in the @ref CKeyChooserWidget
 	*
 	* @param index not used
 	**/
 	virtual void activated(int index);	
-  /** Reimplementatuion. */
-  virtual void refreshContent();
-  /**  */
-  virtual void resizeEvent( QResizeEvent* e);
-  /** Sets the module and refreshes the combo boxes */
-  virtual void setModule( CModuleInfo* module);
-
   /**
-  	* used to react to a request from the book @ref CKeyChooserWidget
-  	*/
+  * Reimplementatuion.
+  */
+  virtual void refreshContent();
+  /**
+  * Sets the module and refreshes the combo boxes of this keychooser.
+  */
+  virtual void setModule( CModuleInfo* module);
+  /**
+ 	* Used to react to a request from the book @ref CKeyChooserWidget
+ 	*/
   void nextRequested(void);
   /**
-  	* see @ref nextRequested
-  	*/
+ 	* see @ref nextRequested
+ 	*/
   void prevRequested(void);
 
 protected:	
 	class CLexiconPresenter;	
 	friend class CLexiconPresenter;	
 	/**
-		* to represent the lexicon key
-		*/
+	* to represent the lexicon key
+	*/
 	CKeyChooserWidget *m_widget;
 	CSwordLDKey* m_key;
 	CSwordLexiconModuleInfo	*m_info;	

@@ -42,12 +42,11 @@ CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *pa
 		return;
 	}	
 	//we use a layout because the key chooser should be resized to full size
-	m_layout = new QHBoxLayout(this);
+	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 	m_widget = new CKeyChooserWidget(m_info->getEntries(), this);
-	m_widget->setMaximumWidth( 325 );
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,QString::null, QString::null, QString::null);
 	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,QString::null, QString::null, QString::null);
-	m_layout->addWidget(m_widget);
+	m_layout->addWidget(m_widget,0,Qt::AlignLeft);
 	
 	connect(m_widget,SIGNAL(changed(int)),this,SLOT(activated(int)));
 	connect(m_widget,SIGNAL(prev_requested()),this,SLOT(prevRequested()));
@@ -108,15 +107,6 @@ void CLexiconKeyChooser::nextRequested(void){
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
 	m_widget->reset(m_info->getEntries(), 0, true);		
-}
-
-/**  */
-void CLexiconKeyChooser::resizeEvent( QResizeEvent* e){
-	CKeyChooser::resizeEvent(e);
-//	qWarning("CLexiconKeyChooser::resizeEvent( QResizeEvent* e)");
-//	qWarning(QString::number(m_widget->ComboBox->sizeHint().width()));
-//	m_widget->ComboBox->setMaximumWidth(width());
-//	m_widget->m_mainLayout->invalidate();
 }
 
 /** Sets the module and refreshes the combo boxes */

@@ -38,7 +38,6 @@ CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClas
 	initView();
 	show();	
 	initConnections();	
-	lookup(m_key);
 }
 
 CBiblePresenter::~CBiblePresenter(){
@@ -104,7 +103,7 @@ void CBiblePresenter::lookup(CKey* key){
 
 
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
-	setCaption( QString::fromLocal8Bit((const char*)*m_key) );
+	setPlainCaption( QString::fromLocal8Bit((const char*)*m_key) );
 	
 	setUpdatesEnabled(true);		
 }
@@ -148,4 +147,53 @@ void CBiblePresenter::referenceClicked(const QString& ref){
 		m_key->setKey(ref);
 		m_keyChooser->setKey( m_key );
 	}
+}
+
+/** Reimplementation from CSwordPresenter. */
+void CBiblePresenter::lookup(const QString& key){
+	if (!key.isEmpty())
+		m_key->setKey(key);
+	m_keyChooser->setKey(m_key); //the key chooser send an update signal
+}
+
+/** Reimplementation. Refreshes the things which are described by the event integer. */
+void CBiblePresenter::refresh( const int events ){
+	bool doLookup = false;
+	bool refreshHTMLWidget = false;
+	
+	if (events & languageChanged) {
+		m_key->setLocale((const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
+		m_keyChooser->refreshContent();
+		doLookup = true;
+	}
+	
+	if ( (events & backgroundChanged) || (events & textColorChanged) || (events & verseNumberColorChanged) )
+		refreshHTMLWidget = true;
+	if ( (events & highlightedVerseColorChanged) || (events & fontChanged) )
+		doLookup = true;
+	
+	//check for footnotes
+	if (events & footnotesChanged) {
+		for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+			if ( m_moduleList.current()->supportsFeature(CSwordBackend::footnotes) ) {
+				doLookup = true;	
+				break;
+			}
+		}
+	}
+	
+	//check for strongs support
+	if (events & strongNumbersChanged) {
+		for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+			if ( m_moduleList.current()->supportsFeature(CSwordBackend::strongNumbers) ) {
+				doLookup = true;	
+				break;
+			}
+		}
+	}
+			
+	if (doLookup)
+		lookup(m_key);
+	if (refreshHTMLWidget)
+		m_htmlWidget->refresh();		
 }

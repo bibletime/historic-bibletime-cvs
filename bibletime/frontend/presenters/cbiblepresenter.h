@@ -29,9 +29,17 @@ class CSwordVerseKey;
   */
 class CBiblePresenter : public CSwordPresenter  {
    Q_OBJECT
-public: 
+
+public: 	
 	CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0);
 	~CBiblePresenter();
+  /**
+  * Reimplementation from CSwordPresenter.
+  */
+  virtual void lookup(const QString&);
+  /** Reimplementation.
+Refreshes the things which are described by the event integer. */
+  virtual void refresh( const int events );
 
 protected:
   /**

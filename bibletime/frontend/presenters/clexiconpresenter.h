@@ -70,6 +70,8 @@ private: // Private methods
 public slots: // Public slots
   /** No descriptions */
   virtual void lookup(const QString&);
+  /** Refreshes all parts decsribed by the parameter. */
+  virtual void refresh( const int events);
 };
 
 #endif
