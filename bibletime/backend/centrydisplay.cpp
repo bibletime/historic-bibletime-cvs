@@ -77,10 +77,13 @@ const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, cons
   key->key(keyName);
   QString renderedText = QString::null;
 
+  QFont moduleFont;
+  QString tdStyle;
+  
   renderedText = QString::fromLatin1("<TR valign=\"top\">");
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    const QFont moduleFont = CBTConfig::get( m->language() );
-    const QString tdStyle = QString::fromLatin1("style=\"%1 %2 font-family:%3; font-size:%4pt;\"")
+    moduleFont = CBTConfig::get( m->language() );
+    tdStyle = QString::fromLatin1("style=\"%1 %2 font-family:%3; font-size:%4pt;\"")
       .arg(((modules.at()+1) < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
       .arg(((modules.at()>0) && ((modules.at()+1) <= modules.count() )) ? QString::fromLatin1("padding-left:2mm;") : QString::null)
       .arg(moduleFont.family())
@@ -281,7 +284,6 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
   QString text = QString::null;
 
   CSwordVerseKey key(0);
-//  key.key(keyName);
   key = keyName;
 
   const int currentTestament = key.Testament();	
@@ -290,6 +292,7 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 	
   CSwordModuleInfo* module = modules.first();
   bool ok = true;
+  
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse)) {
     text += entryText(modules, key.key(), keyName);
 	}
@@ -299,33 +302,46 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
 const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const QString& chosenKey ){
   CSwordVerseKey key(modules.first());
-  QString renderedText = QString::null;
+  QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<TR valign=\"top\">") : QString::null;
 
-	//Only insert the table stuff if we are displaying parallel.
-  //Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
+	// Only insert the table stuff if we are displaying parallel.
+  // Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
 
-  if (modules.count() > 1){
-		renderedText = QString::fromLatin1("<TR valign=\"top\">");
-	}
+  //declarations out of the lopp for optimization
+  const QString colStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; padding-bottom:2px; padding-top:2px;");
+  QString tdStyle;
+  QString entry;
+  QString keyText;
+  
+  QFont font;
+  bool isRTL;
 
+  const QString lineBreakString = ((modules.count() == 1) && m_displayOptions.lineBreaks) ? QString::fromLatin1("<BR>") : QString::fromLatin1(" ");
+  
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key.module(m);
     key.key(keyName);
-    const bool isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
+    keyText = key.key();
+    isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
 
-    const QString tdStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; padding-bottom:2px; padding-top:2px; %1 %2\"")
+    tdStyle = colStyle + QString::fromLatin1("%1 %2\"")
       .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
       .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
 
-    const QString entry =
-      QString::fromLatin1("<SPAN %1 STYLE=\"font-family:%2; font-size:%3pt;\"><SPAN dir=\"%4\"><SPAN>%5</SPAN>%6%7</SPAN></SPAN>")
-        .arg((key.key() == chosenKey) ? QString::fromLatin1("class=\"highlighted\"") : QString::null)
-        .arg(CBTConfig::get(m->language()).family())
-        .arg(CBTConfig::get(m->language()).pointSize())
+    font = CBTConfig::get(m->language());
+    
+    entry =
+      QString::fromLatin1("<SPAN %1 STYLE=\"font-family:%2; font-size:%3pt;\"><SPAN dir=\"%4\">%5%6</SPAN></SPAN>")
+        .arg((keyText == chosenKey) ? QString::fromLatin1("class=\"highlighted\"") : QString::null)
+        .arg(font.family())
+        .arg(font.pointSize())
         .arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-        .arg(m_displayOptions.verseNumbers ? QString::fromLatin1("<SPAN STYLE=\"vertical-align:text-top; font-size:%1pt;\">%2</SPAN> ").arg(int(float(CBTConfig::get(m->language()).pointSize()) / 1.5)).arg(htmlReference(m, key.key(), QString::number(key.Verse()), key.key())) : htmlReference(m, QString::null, QString::null, key.key()) )
-        .arg(key.renderedText())
-        .arg((modules.count() == 1 && m_displayOptions.lineBreaks) ? QString::fromLatin1("<BR>") : QString::fromLatin1(" "));
+        .arg(m_displayOptions.verseNumbers //if we shuld show the verse numbers
+            ? QString::fromLatin1("<SPAN STYLE=\"vertical-align:text-top; font-size:%1pt;\">%2</SPAN> ")
+                .arg(int(float(font.pointSize()) / 1.5))
+                .arg(htmlReference(m, keyText, QString::number(key.Verse()), keyText))
+            : htmlReference(m, QString::null, QString::null, keyText) )
+        .arg(key.renderedText() + lineBreakString);
 
   	if (modules.count() == 1)
 			renderedText += entry;
@@ -386,8 +402,6 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
-
-//  QString text;
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
 
 // the number of levels which should be display together, 1 means display no entries together
@@ -402,7 +416,8 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
     return finishText( entryText(modules, keyName), modules, keyName );
   };
 
-  /** Check whether displaying displayLevel levels together is possible. For this count the childs and parents
+  /**
+  * Check whether displaying displayLevel levels together is possible. For this count the childs and parents
   * of the required position
   */
 
@@ -417,7 +432,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 
   if (possibleLevels < displayLevel) { //too few levels available!
     //display current level, we could also decide to display the available levels together
-    qWarning("too few levels available!");
+//    qWarning("too few levels available!");
     return finishText( entryText(modules, keyName), modules, keyName );
   };
 
@@ -431,7 +446,9 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 
   // no we can display all sub levels together! We checked before that this is possible!
   m_text = entryText(modules,key->key(),0, key->key() == keyName);
+
   const bool hasToplevelText = !key->strippedText().isEmpty();
+  
   key->firstChild(); //go to the first sibling on the same level
   m_chosenKey = keyName;
   printTree(*key, modules, hasToplevelText ? 1 : 0 ); //if the top level entry has text ident the other text
