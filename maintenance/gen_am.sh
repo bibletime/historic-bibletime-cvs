@@ -132,7 +132,7 @@ for PART in $DOC_PARTS; do
 				echo '	chmod -R a+r+X '$TARGET_ROOT
 				echo
 				echo 'uninstall-local:'
-				echo '	for file in 'FILES'; do \'
+				echo '	for file in '$FILES'; do \'
 				echo '	  echo Removing '$TARGET_DIR'/$$file; \'
 				echo '	  rm -f '$TARGET_DIR'/$$file; \'
 				echo '	done;'
