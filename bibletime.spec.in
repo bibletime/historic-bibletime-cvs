@@ -31,7 +31,8 @@
 
 # This for Mandrake menus if you have another system do not edit this line. it is for
 # compatability with those systems.
-%define		_menudir 	/usr/lib/menu
+%define		build_menus	1
+%define		_menudir 	/usr/lib/menu 
 # Nothing else should need to be changed.
 # Please do not edit below this line unless you know what you are doing.
 
@@ -49,10 +50,15 @@ BuildArch:      %{buildarch}
 Source0:        %{name}-%{version}.tar.bz2
 
 # For use with mandrake menu system. 
-#Source1:        bibletime_icons.tar.bz2
+%if %build_menus
+Source1:        bibletime_icons.tar.bz2
+%endif
+
+# This source comes from sword and will conflict woth sword if it is installed so we will make it a seperarte package.
+Source2:	locales.d.tar.bz2
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
-Provides:       sword-base
+Provides:       sword-base sword = %{libversion}
 Prefix: 	@RPM_PREFIX@
 
 
@@ -91,9 +97,12 @@ fi
 
 
 %setup -q
-#Icons for Mandrake menu system
+tar jxvf %{SOURCE2}
 if [ %{ostype} = "Mandrake" ] ; then
-#tar jxvf %{SOURCE1}
+ %if %build_menus
+  #Icons for Mandrake menu system
+  tar jxvf %{SOURCE1}
+ %endif
  export KDEDIR=/usr QTDIR=/usr/lib/qt2
 elif [%{ostype} = "SuSE"] ; then
  export KDEDIR=/opt/kde2 QTDIR=/usr/lib/qt2
@@ -119,7 +128,7 @@ make prefix=$RPM_BUILD_ROOT%{prefix} install
 
 # Copy Sword language.conf files to our install dir
 mkdir -p $RPM_BUILD_ROOT%{SwordPath}/locales.d
-cp %{SwordPath}/locales.d/*.conf $RPM_BUILD_ROOT%{SwordPath}/locales.d/
+cp locales.d/*.conf $RPM_BUILD_ROOT%{SwordPath}/locales.d/
 
 # Create Sword globals.conf for using bibletime without sword installed.
 cat << EOF >$RPM_BUILD_ROOT%{ModsPath}/globals.conf
@@ -135,15 +144,15 @@ EOF
 
 # For use with mandrake menu system 
 # icons: this is for the mandrake menu system
-if [ %{ostype} = "Mandrake" ] ; then
- mkdir -p $RPM_BUILD_ROOT%{_liconsdir}
- mkdir -p $RPM_BUILD_ROOT%{_iconsdir}
- mkdir -p $RPM_BUILD_ROOT%{_miconsdir}
- cd $RPM_BUILD_DIR/%{name}-%{version}
- install -m 644 %{name}_16.xpm $RPM_BUILD_ROOT%{_miconsdir}/%{name}.xpm
- install -m 644 %{name}_32.xpm $RPM_BUILD_ROOT%{_iconsdir}/%{name}.xpm
- install -m 644 %{name}_48.xpm $RPM_BUILD_ROOT%{_liconsdir}/%{name}.xpm
-fi
+%if %build_menus
+  mkdir -p $RPM_BUILD_ROOT%{_liconsdir}
+  mkdir -p $RPM_BUILD_ROOT%{_iconsdir}
+  mkdir -p $RPM_BUILD_ROOT%{_miconsdir}
+  cd $RPM_BUILD_DIR/%{name}-%{version}
+  install -m 644 %{name}_16.xpm $RPM_BUILD_ROOT%{_miconsdir}/%{name}.xpm
+  install -m 644 %{name}_32.xpm $RPM_BUILD_ROOT%{_iconsdir}/%{name}.xpm
+  install -m 644 %{name}_48.xpm $RPM_BUILD_ROOT%{_liconsdir}/%{name}.xpm
+%endif 
 
 %post
 # this is for creation of the sword.conf for systems that are using bibletime without Sword installed.
@@ -187,16 +196,47 @@ rm -rf $RPM_BUILD_ROOT
 %{prefix}/share/apps/bibletime/*
 %{prefix}/share/icons/*
 # For use with mandrake menu system
-#%{_menudir}/%{name}
-
+%if %build_menus
+%{_menudir}/%{name}
+%endif
 
 %changelog
+* Mon Apr 8 2002 Brook Humphrey <bah@webmedic.net> bibletime-1.1
+
+- Added to the spec to better handle mandrake menus during compile. Now should be compatable with all os's.
+
+- added locals.d source to build. This removes dependecy on sword being installed. Will make seperate package for this later.
+
+
 * Fri Mar 31 2002 Joachim Ansorg <jansorg@gmx.de>
+
 - Made including the book translations working finally.
+
 - Fixed SPEC files to work with SuSE
 
+
+* Thu Feb 7 2002 Brook Humphrey <bah@webmedic.net> bibletime-1.0.2
+
+- changed compile time options to mach bibletime spec included with source files
+
+- compiled on mandrake 8.2
+
+
 * Fri Sep 7 2001 Joachim Ansorg <jansorg@gmx.de>
+
 - Added the bookname files in the file list
+
+* Tue Jul 10 2001 Brook Humphrey <bah@webmedic.net> bibletime-1.0.1-Mandrake8.0.4mdk
+
+- Recompile because of dependecy problems.  
+
+* Tue Jul 10 2001 Brook Humphrey <bah@webmedic.net> bibletime-1.0.1-Mandrake8.0.1mdk
+
+- bug fix release bibletime-1.0.1
+
+- adda extra compile options to spec file.
+
+- Merged in suse changes for compileing on SuSE
 
 * Sun May 27 2001 Brook Humphrey <bah@webmedic.net>
 
