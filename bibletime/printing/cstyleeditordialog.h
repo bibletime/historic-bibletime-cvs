@@ -28,7 +28,7 @@
 /**The editor for the printing styles.
   *@author The BibleTime team
   */
-class KLineEdit;
+class QLineEdit;
 class KComboBox;
 class QRadioButton;
 class QSpinBox;
@@ -114,7 +114,7 @@ protected slots:
   void styleTypeChanged( const QString& );
 
 private:
-  KLineEdit*	m_styleNameEdit;
+  QLineEdit*	m_styleNameEdit;
   KComboBox*	m_styleTypeChooser;
 	CStyle*	m_style;
 	CStyleFormat* m_currentFormat;

@@ -80,6 +80,7 @@ void CPrinterDialog::initView(){
 	initLayoutPage();		
 	if (m_entryWidgets.styleComboBox)
 		m_layout.styleList->setStyleComboBox( m_entryWidgets.styleComboBox );
+	currentStyleChanged(m_layout.styleList->currentItem());		
 }
 
 /** Initializes the general printing page */
@@ -414,20 +415,20 @@ void CPrinterDialog::initLayoutPage(){
   gbox->activate();	
   group->setFixedHeight( group->sizeHint().height() );
   //set minimum borders
-  m_layout.marginSpin[0]->setRange( m_printer->upperMarginMM(), MAXINT );	//upper margin
-  m_layout.marginSpin[1]->setRange( m_printer->lowerMarginMM(), MAXINT );	//lower margin
-  m_layout.marginSpin[2]->setRange( m_printer->leftMarginMM(), MAXINT );	//left margin
-  m_layout.marginSpin[3]->setRange( m_printer->rightMarginMM(), MAXINT );	//right margin
+  m_layout.marginSpin[0]->setRange(0, MAXINT );	//upper margin
+  m_layout.marginSpin[1]->setRange(0, MAXINT );	//lower margin
+  m_layout.marginSpin[2]->setRange(0, MAXINT );	//left margin
+  m_layout.marginSpin[3]->setRange(0, MAXINT );	//right margin
 
   QHBoxLayout *entryLayout = new QHBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   QVBoxLayout *styleLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   QVBoxLayout *buttonLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   	
   m_layout.styleList = new CStyleList( m_printer->getStyleList(), page, "CStyleList1");
-	connect(m_layout.styleList, SIGNAL(selectionChanged(QListViewItem*)), SLOT(currentStyleChanged(QListViewItem*)));
+	connect(m_layout.styleList, SIGNAL(currentChanged(QListViewItem*)), SLOT(currentStyleChanged(QListViewItem*)));
 	QToolTip::add(m_layout.styleList, TT_PD_LAYOUT_STYLE_LIST);	
 	QWhatsThis::add(m_layout.styleList, WT_PD_LAYOUT_STYLE_LIST);
-
+	
   QLabel* label = new QLabel(m_layout.styleList, i18n("List of style items:"), page);
   styleLayout->addWidget(label,0);
 	styleLayout->addWidget( m_layout.styleList, 3);
@@ -620,7 +621,13 @@ void CPrinterDialog::slotListApplyStyle(const QString& styleName ){
 }
 
 /** No descriptions */
-void CPrinterDialog::currentStyleChanged( QListViewItem* item){
-	m_layout.deleteStyleButton->setEnabled( (bool)item );
-	m_layout.editStyleButton->setEnabled( (bool)item );
+void CPrinterDialog::currentStyleChanged( QListViewItem* item ){
+	if (item) {
+		m_layout.deleteStyleButton->setEnabled( item->text(0) != i18n("Standard") );
+		m_layout.editStyleButton->setEnabled( true );	
+	}
+	else {
+		m_layout.deleteStyleButton->setEnabled( false );
+		m_layout.editStyleButton->setEnabled( false );	
+	}
 }

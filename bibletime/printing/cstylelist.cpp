@@ -61,6 +61,11 @@ void CStyleList::setItems( styleItemList* itemList ){
 	if (m_items != itemList)
 		m_items->clear();
 	insertItems(m_items);	
+
+	QListViewItemIterator it( this );
+	if (it.current())
+		setCurrentItem(it.current());
+	emit currentChanged(it.current());
 }
 
 /** Appends the item to the list and m_items. */
@@ -115,18 +120,20 @@ void CStyleList::deleteCurrentStyle(){
 	QListViewItem* item = currentItem();
 	if (!item)
 		return;
-		
+	if (item->text(0) == i18n("Standard")) {
+		qWarning("Deleting the standardstyle is not possible");
+		return;
+	}
+	
 	//go through style items and find the right one
 	CStyle*	currentStyle = 0;
 	for (m_items->first(); m_items->current();m_items->next()) {
-		ASSERT(m_items->current());
 		if (m_items->current()->getListViewItem() == item) {
 			currentStyle = m_items->current();
 			m_items->remove(currentStyle);
 			currentStyle->deleteListViewItem();			
 			if (!m_items->autoDelete() && currentStyle) {
-				if (currentStyle)
-					delete currentStyle;			
+				delete currentStyle;			
 				currentStyle = 0;
 			}	
 			updateStyleCombo();					

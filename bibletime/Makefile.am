@@ -38,7 +38,8 @@ bibletime_slots.cpp \
 bibletime_init.cpp \
 structdef.h \
 whatsthisdef.h \
-tooltipdef.h
+tooltipdef.h \
+bt-printing
 
 # this 10 paths are KDE specific. Use them:
 # kde_htmldir       Where your docs should go to. (contains lang subdirs)
@@ -71,3 +72,11 @@ DISTCLEANFILES = $(bibletime_METASOURCES)
 # the -x is for skipping messages already translated in kdelibs
 messages:
 	$(XGETTEXT) -C -ki18n -x $(KDEDIR)/include/kde.pot `find . -name \*.h -o -name \*.cpp -o -name \*.cc` -o ../po/bibletime.pot
+
+install-data-local:
+	$(INSTALL_DATA) bt-printing $(kde_confdir)/bt-printing
+
+uninstall-local:
+	-rm -f $(kde_confdir)/bt-printing
+
+

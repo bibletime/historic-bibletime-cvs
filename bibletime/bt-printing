@@ -1,0 +1,32 @@
+[Standard__DESCRIPTION]
+Alignement=24
+BGColor=255,255,255
+FGColor=0,0,0
+Font=helvetica,10,5,0,0,0
+Identation=0
+has frame=false
+isEnabled=true
+[Standard__HEADER]
+Alignement=2
+BGColor=255,255,255
+FGColor=0,0,192
+Font=futura,16,5,0,75,0
+Identation=8
+has frame=true
+isEnabled=true
+[Standard__HEADER__FRAME]
+Color=0,0,0
+Thickness=1
+[Standard__MODULETEXT]
+Alignement=0
+BGColor=220,220,220
+FGColor=0,0,0
+Font=arial,14,5,0,0,0
+Identation=0
+has frame=true
+isEnabled=true
+[Standard__MODULETEXT__FRAME]
+Color=128,128,128
+Thickness=1
+[Styles]
+styles=Standard

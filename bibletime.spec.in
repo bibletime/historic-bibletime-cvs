@@ -43,3 +43,4 @@ rm -rf $RPM_BUILD_ROOT
 %{prefix}/share/apps/*
 %{prefix}/share/icons/*
 %{prefix}/share/locale/*
+%{prefix}/share/config/*

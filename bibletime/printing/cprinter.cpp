@@ -48,9 +48,9 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 
 	m_important = important;
 	m_backend = m_important->swordBackend;
-	
+		
 	m_queue = new printItemList;	
-	m_queue->setAutoDelete(true);
+	m_queue->setAutoDelete(true);	
 	
 	m_styleList = new styleItemList;
 	m_styleList->setAutoDelete(true);		
@@ -573,19 +573,19 @@ void CPrinter::readSettings(){
 	
 	m_pagePosition.curPage = 1;
 	m_pagePosition.rect = getPageSize();
-	
+
 	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();	
-	setLeftMarginMM( config->readNumEntry("left margin", (int)((float)margins().width()/r)) );
-	setRightMarginMM( config->readNumEntry("right margin", (int)((float)margins().width()/r)) );	
-	setUpperMarginMM( config->readNumEntry("upper margin", (int)((float)margins().height()/r)) );		
-	setLowerMarginMM( config->readNumEntry("lower margin", (int)((float)margins().height()/r)) );			
+	const float r = (float)m.width() / m.widthMM();		
+	m_pageMargin.left 	= config->readNumEntry("left margin", 15*r);
+	m_pageMargin.right 	= config->readNumEntry("right margin",15*r);
+	m_pageMargin.top 		= config->readNumEntry("upper margin",15*r);
+	m_pageMargin.bottom	= config->readNumEntry("lower margin",15*r);
 	
 	m_printIntoFile = config->readBoolEntry("Print to file", false);
 	m_filename = config->readEntry("Filename", QString::null);
 	setNumCopies(1);
-	setPageSize( (QPrinter::PageSize)config->readNumEntry("Paper size", 4) );	//default is A4
-			
+	setPageSize( (QPrinter::PageSize)config->readNumEntry("Paper size", 5) );	//default is A4
+	setPreviewApplication( config->readEntry("preview application", "kghostview") );
 	setupStyles();
 }
 
@@ -595,11 +595,10 @@ void CPrinter::saveSettings(){
 	config->writeEntry("Filename", m_filename);	
 	config->writeEntry("Paper size", (int)pageSize());
 	config->writeEntry("Printer", printerName());
-	config->writeEntry("upper margin", upperMarginMM());
-	config->writeEntry("lower margin", lowerMarginMM());	
-	config->writeEntry("left margin", leftMarginMM());
-	config->writeEntry("right margin", rightMarginMM());
-	
+	config->writeEntry("upper margin", m_pageMargin.top);
+	config->writeEntry("lower margin", m_pageMargin.bottom);	
+	config->writeEntry("left margin", m_pageMargin.left);
+	config->writeEntry("right margin", m_pageMargin.right);	
 	config->writeEntry("preview application", getPreviewApplication());
 	
 	saveStyles();

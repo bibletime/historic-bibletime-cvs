@@ -23,7 +23,7 @@
 
 class CImportantClasses;
 
-class QLineEdit;
+class QComboBox;
 class QRadioButton;
 class QCheckBox;
 class KProgress;
@@ -41,6 +41,7 @@ public:
   * The constructor of the search dialog search tab page.
   */
 	CSearchDialogText(CImportantClasses *IC, QWidget *parent = 0, const char *name = 0);
+	~CSearchDialogText();
   /**
   * Returns the scopechooser
   */
@@ -75,8 +76,11 @@ public:
   void reset();
 
 private:
+  void readSettings();
+  void saveSettings();
+    	
 	CImportantClasses* m_importantClasses;
-	QLineEdit 		*editSearchText;
+	QComboBox 		*editSearchText;
 	QRadioButton	*radioMultipleWords;
 	QRadioButton	*radioExactSearch;
 	QRadioButton	*radioRegularExpression;

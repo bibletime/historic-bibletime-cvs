@@ -136,6 +136,7 @@ void CSearchDialog::startSearch(void) {
 	// set the parameters
 	searchText->updateCurrentProgress(0);
 	searchText->updateOverallProgress(0);
+	searchText->setText( searchText->getText() );
 		
 	searcher->setModules( getModuleList() );
 	searcher->setSearchedText(searchText->getText());

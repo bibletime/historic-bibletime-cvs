@@ -17,12 +17,14 @@
 
 #include "cstyleeditordialog.h"
 
+//KDE includes
 #include <kcombobox.h>
-#include <klineedit.h>
 #include <klocale.h>
 #include <kcolorbutton.h>
 #include <kfontdialog.h>
 
+//Qt includes
+#include <qlineedit.h>
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qgroupbox.h>
@@ -67,14 +69,18 @@ void CStyleEditorDialog::initView(){
 
   QVBoxLayout *topLayout = new QVBoxLayout( mainWidget, OUTER_BORDER, INNER_BORDER );
 	
-  m_styleNameEdit = new KLineEdit( mainWidget );
-  topLayout->addWidget( m_styleNameEdit );
+	QHBoxLayout *hboxLayout = new QHBoxLayout(0, OUTER_BORDER, INNER_BORDER);
+  m_styleNameEdit = new QLineEdit( mainWidget );
+	label = new QLabel(m_styleNameEdit, i18n("Name of style:"), this);
+	hboxLayout->addWidget(label);
+	hboxLayout->addWidget(m_styleNameEdit);	
 
-	QHBoxLayout *hboxLayout = new QHBoxLayout(0, OUTER_BORDER, INNER_BORDER);	
+  topLayout->addLayout(hboxLayout);
+
+	hboxLayout = new QHBoxLayout(0, OUTER_BORDER, INNER_BORDER);	
   m_styleTypeChooser = new KComboBox( mainWidget );
-  label = new QLabel( m_styleTypeChooser, "label", mainWidget );
-  label->setText( i18n("Choose the part of the style:") );
-  hboxLayout->addWidget( label );
+  label = new QLabel( m_styleTypeChooser, i18n("Choose the part of the style:"), mainWidget );
+  hboxLayout->addWidget(label);
   m_styleTypeChooser->insertItem( i18n("Header") );
   m_styleTypeChooser->insertItem( i18n("Description") );
   m_styleTypeChooser->insertItem( i18n("Module text") );
@@ -245,6 +251,7 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 			m_alignRadios.justificationRB->setChecked(true);
 			break;
 		default:
+			m_alignRadios.leftRB->setChecked(true);		
 			qDebug("CStyleEditorDialog::setupWithFormat: unknown alignement");
 			break;
 	}

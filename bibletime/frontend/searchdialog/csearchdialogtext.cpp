@@ -36,11 +36,13 @@
 #include <qgroupbox.h>
 #include <qhbox.h>
 #include <qvbox.h>
-#include <qlineedit.h>
+#include <qcombobox.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 
 //KDE includes
+#include <kconfigbase.h>
+#include <kconfig.h>
 #include <kiconloader.h>
 #include <kprogress.h>
 #include <klocale.h>
@@ -49,15 +51,20 @@
 CSearchDialogText::CSearchDialogText(CImportantClasses *importantClasses, QWidget *parent, const char *name)
 						: QWidget(parent, name, 48)
 {
-	m_importantClasses = importantClasses;
+	m_importantClasses = importantClasses;	
 	
 	/* the first main Group - search text, options etc.*/
 	QGroupBox *textBox = new QGroupBox(2,Qt::Vertical,i18n("Search properties"),this,"textBox");
 
-	editSearchText = new QLineEdit(textBox, "LineEdit_1");
+	editSearchText = new QComboBox(textBox, "LineEdit_1");
+	editSearchText->setInsertionPolicy(QComboBox::AtTop);	
+	editSearchText->setMaxCount(10);		
+	editSearchText->setEditable(true);			
+	editSearchText->setDuplicatesEnabled(false);				
+	editSearchText->setAutoCompletion(true);	
 	editSearchText->setFocusPolicy(QWidget::StrongFocus);
-	editSearchText->setFrame( true );
-	editSearchText->setAlignment( AlignLeft );
+//	editSearchText->setFrame( true );
+//	editSearchText->setAlignment( AlignLeft );
 	QToolTip::add(editSearchText, TT_SD_SEARCH_TEXT_EDIT);
 	QWhatsThis::add(editSearchText, WT_SD_SEARCH_TEXT_EDIT);
 	
@@ -127,14 +134,31 @@ CSearchDialogText::CSearchDialogText(CImportantClasses *importantClasses, QWidge
 	
 	progressBox->setFixedHeight( progressBox->sizeHint().height() );	
 	layout_1->addWidget( progressBox,1,Qt::AlignBottom );
+	
+	
+	
+	readSettings();
 }
 
+CSearchDialogText::~CSearchDialogText() {
+	saveSettings();
+}
+	
 const QString CSearchDialogText::getText() const {
-	return editSearchText->text();
+	return editSearchText->currentText();
 }
 
 void CSearchDialogText::setText(const QString text){
-	editSearchText->setText(text);
+	//only insert the item to the list if it's not yet included
+	bool found = false;
+	for (int i = 0; !found && i < editSearchText->count(); ++i) {
+		if (editSearchText->text(i) == text)
+			found = true;
+	}
+	if (!found) {
+		editSearchText->insertItem(text,0);
+		editSearchText->setCurrentItem(0);
+	}
 }
 
 const bool CSearchDialogText::isCaseSensitive() {
@@ -165,4 +189,24 @@ void CSearchDialogText::reset(){
 	currentProgressBar->setValue(0);
 	overallProgressBar->setValue(0);
 	editSearchText->clear();
+}
+
+/** Reads settings to restore the last used state. */
+void CSearchDialogText::readSettings(){
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver gs(config, "searchdialog");	
+	QStringList items = config->readListEntry("searched text");	
+	editSearchText->clear();
+	editSearchText->insertStringList(items);
+}
+
+void CSearchDialogText::saveSettings(){
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver gs(config, "searchdialog");	
+	
+	QStringList items;
+	for (int i = 0; i < editSearchText->count(); ++i) {
+		items.append(editSearchText->text(i));
+	}		
+	config->writeEntry("searched text", items);
 }

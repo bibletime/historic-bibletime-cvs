@@ -110,5 +110,6 @@ void CStyleFormat::clearData(){
 	m_hasFrame = false;
 	m_font = QApplication::font();
 	m_ident = 0;
+	m_alignement = CStyleFormat::Left;
 }
 
