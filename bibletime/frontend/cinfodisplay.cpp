@@ -105,7 +105,10 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 }
 
 const QString CInfoDisplay::decodeStrongNumber( const QString& data ) {
-	QString strongDesc = CBTConfig::get(CBTConfig::standardGreekStrongsLexicon);
+	QString strongDesc = CBTConfig::get(data.left(1) == "H" ? 
+		CBTConfig::standardHebrewStrongsLexicon : 
+		CBTConfig::standardGreekStrongsLexicon
+	);
 	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongDesc );
 	
 	Q_ASSERT(module);
