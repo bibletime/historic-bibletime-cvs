@@ -44,9 +44,6 @@ BT_ThMLHTML::BT_ThMLHTML() {
 }
 
 bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
-//	unsigned long i = 0;
-//	const int tokenLength = strlen(token);
-	
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
     if ( !strncmp(token, "foreign ", 8) ) { // a text part in another language, we have to set the right font
       token += 8;
@@ -187,31 +184,30 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 			buf += "<div class=\"booktitle\">";
 		}
 		else if (!strncmp(token, "img ", 4)) {
-			const char *src = strstr(token, "src");
-			if (!src)		// assert we have a src attribute
-				return false;
+			const char *pos = strstr(token, "src=\"/");
+			if (!pos) {		// assert we have a src attribute
+        pos = strstr(token, "src=\""); //we don't have a leading /
+        if (pos) {
+          pos += 5;
+        }
+        else {
+  				return false;
+        }
+      }
+      else {
+        pos += 6;
+      }
+            
+      sword::SWBuf value;
+      for (const char* end = index(pos, '\"'); pos < end; pos++) {
+ 			  value += *pos;
+      }
 
-			buf += '<';
-			for (const char *c = token; *c; c++) {
-				if (c == src) {
-					for (;((*c) && (*c != '"')); c++)
-						buf += *c;
-
-					if (!*c) { c--; continue; }
-
-					buf += '"';
-					if (*(c+1) == '/') {
-						buf += "file:";
-						buf += module->getConfigEntry("AbsoluteDataPath");
-						if (buf[buf.length()-2] == '/')
-							c++;		// skip '/'
-					}
-					continue;
-				}
-				buf += *c;
-			}
-			buf += '>';
-		}
+      buf.appendFormatted("<img src=\"file:%s/%s\" />", //we want to be XML compliant
+        module->getConfigEntry("AbsoluteDataPath"),
+        value.c_str()
+      );
+ 		}
     else { // let unknown token pass thru
 			buf += '<';
       buf += token;

@@ -28,7 +28,6 @@
 #include <algorithm>
 #include <iterator>
 #include <map>
-//#include <ostream>
 
 //Qt includes
 #include <qcombobox.h>
@@ -72,12 +71,10 @@ CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *
 }
 
 CSwordKey* const CLexiconKeyChooser::key(){
-//  qWarning("CLexiconKeyChooser::key()");
 	return m_key;
 }
 
 void CLexiconKeyChooser::setKey(CSwordKey* key){	
-//	qWarning("CLexiconKeyChooser::setKey(CSwordKey* key)");
  	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
 		return;		
 
@@ -89,9 +86,9 @@ void CLexiconKeyChooser::setKey(CSwordKey* key){
 }
 
 void CLexiconKeyChooser::activated(int index){
-//  qWarning("CLexiconKeyChooser::activated(int index)");
 	const QString text = m_widget->comboBox()->text(index);	
-	/*to prevent from eternal loop, because activated()is emitted again*/
+
+  // To prevent from eternal loop, because activated() is emitted again
  	if (m_key && m_key->key() != text) {
 		m_key->key(text); 	
 	 	setKey(m_key);
@@ -99,8 +96,6 @@ void CLexiconKeyChooser::activated(int index){
 }
 
 inline const bool my_cmpEntries(const QString& a, const QString& b) {
-//  qWarning("ci_cmpEntries(%s, %s)", a.latin1(),b.latin1());
-//  return a.lower() < b.lower();
   return a < b;
 };
 
@@ -148,10 +143,6 @@ void CLexiconKeyChooser::refreshContent(){
 /** No descriptions */
 void CLexiconKeyChooser::adjustFont(){
 	//Make sure the entries are displayed correctly.
-//	if ( m_modules.first()->isUnicode() )
-//		m_widget->comboBox()->setFont( CBTConfig::get(CBTConfig::unicode) );
-//	else
-//		m_widget->comboBox()->setFont( CBTConfig::get(CBTConfig::standard) );
 		m_widget->comboBox()->setFont( CBTConfig::get( m_modules.first()->language() ).second );
 }
 
@@ -170,5 +161,5 @@ void CLexiconKeyChooser::setModules( ListCSwordModuleInfo modules, const bool re
 }
 
 /** No descriptions */
-void CLexiconKeyChooser::updateKey(CSwordKey* /*key*/){
+void CLexiconKeyChooser::updateKey(CSwordKey*){
 }

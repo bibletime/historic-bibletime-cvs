@@ -38,13 +38,15 @@ void KStartupLogo::createSplash() {
 }
 
 void KStartupLogo::showSplash() {
-	if (startupLogo)
+	if (startupLogo) {
 		startupLogo->show();
+  }
 }
 
 void KStartupLogo::hideSplash() {
-	if (startupLogo)	
+	if (startupLogo) {
 		startupLogo->hide();
+  }
 }
 
 void KStartupLogo::deleteSplash() {
@@ -54,18 +56,18 @@ void KStartupLogo::deleteSplash() {
 
 	
 void KStartupLogo::setStatusMessage(const QString& message) {
-	if (startupLogo)
+	if (startupLogo) {
 		startupLogo->setText(message);
+  }
 }
-
-
 
 KStartupLogo::KStartupLogo()
 	: QWidget(0, "startuplogo", WStyle_Customize | WStyle_NoBorder) {
 
   QPixmap pm;	
-	if ( !pm.load(locate("BT_pic","startuplogo.png")) )
+	if ( !pm.load(locate("BT_pic","startuplogo.png")) ) {
   	qWarning("Can't load startuplogo! Check your installation.");
+  }
 
   setBackgroundPixmap(pm);
 
@@ -85,7 +87,8 @@ KStartupLogo::KStartupLogo()
     (KApplication::desktop()->width()-pm.width())/2,
 		(KApplication::desktop()->height()-pm.height()-textLabel->height())/2,
     pm.width(),
-    pm.height()+textLabel->height());
+    pm.height()+textLabel->height()
+  );
 }
 
 void KStartupLogo::setText(const QString text){
@@ -93,4 +96,3 @@ void KStartupLogo::setText(const QString text){
   textLabel->setText( QString::fromLatin1(" %1").arg(text) );
   KApplication::kApplication()->processEvents();
 }
-
