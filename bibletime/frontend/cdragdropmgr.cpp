@@ -24,61 +24,41 @@
 CDragDropMgr::BTDrag::BTDrag( const QString& xml, QWidget* dragSource, const char* name)
   : QTextDrag(xml, dragSource, name)
 {
-//  qWarning("constructor of CDtragDropMgr::BTDrag called with %s", xml.latin1());
-
+  
 };
 
 //static function to see whether we can decode tje given mime type
 bool CDragDropMgr::BTDrag::canDecode( const QMimeSource * mime ) {
-//  qWarning("CDtragDropMgr::BTDrag::canDecode called!");  
   if ( mime->provides("BibleTime/DND") ) { //we can decode this type!
-//    qWarning("CDragDropMgr::BTDrag:canDecode returns true!!");
     return true;
   }
-/*  else {
-    qWarning("BTDrag::canDecode : return false;");
-    qWarning("BTDrag::canDecode : format supported: %s", mime->format(0));
-    qWarning("BTDrag::canDecode : format supported: %s", mime->format(1));    
-  };
-*/
   return false; //not yet implemented
 };
 
 bool CDragDropMgr::BTDrag::provides( const char* type ) const {
-//  qWarning("CDragDropMgr::BTDrag::provides called with type %s", type);
   return (type == "BibleTime/DND"); //return only true if the type is BibleTime/DND
 };
 
 const char* CDragDropMgr::BTDrag::format( int i ) const {
-//  qWarning("CDragDropMgr::BTDrag::format( %i ) called!", i);
   if ( i == 0) { //we support only one format!
     return "BibleTime/DND";
   };
   return 0;
 };
 
-//void CDragDropMgr::BTDrag::setText(const QString& text) {
-//  QTextDrag::setText(text);
-//};
-
 bool CDragDropMgr::BTDrag::decode(const QMimeSource* e, QString& str) {
-//  qWarning("CDragDropMgr::BTDrag::decode v.1");
   if (canDecode(e)) {
     str = QString( e->encodedData( "BibleTime/DND" ) );
     return true;
   }
   return false;  
-//  return QTextDrag::decode(e, str);
 };
 
 bool CDragDropMgr::BTDrag::decode(const QMimeSource* e, QString& str, QCString& subtype) {
-//  qWarning("CDragDropMgr::BTDrag::decode v.2");
   return decode(e, str);
-//  return QTextDrag::decode(e, str, subtype);
 };
 
 QByteArray CDragDropMgr::BTDrag::encodedData( const char* type ) const {
-//  qWarning("CDragDropMgr::BTDrag::encodeddata( %s )", type);
   return QTextDrag::encodedData("text/plain"); //hack because QTextDrag only accepts text/plainand not our BibleTime/DND type
 };
 
@@ -107,25 +87,27 @@ const CDragDropMgr::Item::Type& CDragDropMgr::Item::type() const {
 
 /** Returns the text which is used by this DragDrop Item, only valid if type() == Text */
 const QString& CDragDropMgr::Item::text() const {
+  Q_ASSERT(!m_text.isEmpty()); 
   return m_text;
 }
 
 /** Returns the key, ony valid if type() == Bookmark */
 const QString& CDragDropMgr::Item::bookmarkKey() const {
+  Q_ASSERT(!m_bookmarkKey.isEmpty());
   return m_bookmarkKey;
 }
 
 /** Returns the bookmark module, ony valid if type() == Bookmark */
 const QString& CDragDropMgr::Item::bookmarkModule() const {
+  Q_ASSERT(!m_bookmarkModuleName.isEmpty());
   return m_bookmarkModuleName;
 }
 
 /** Returns the bookmark description, ony valid if type() == Bookmark */
 const QString& CDragDropMgr::Item::bookmarkDescription() const {
+  Q_ASSERT(!m_bookmarkDescription.isEmpty());  
   return m_bookmarkDescription;
 }
-
-
 
 ////////////////////////////////// NEW CLASS //////////////////////////
 
@@ -138,7 +120,11 @@ CDragDropMgr::~CDragDropMgr(){
 const bool CDragDropMgr::canDecode( const QMimeSource* const mime ) {
   if (CDragDropMgr::BTDrag::canDecode(mime)) {
     return true;
-  };  
+  }
+  else if( QTextDrag::canDecode(mime) ) {
+//    qWarning("QTextDrag can decode this mime!");
+    return true;
+  };
   return false;
 };
 
@@ -173,14 +159,24 @@ QDragObject* const CDragDropMgr::dragObject( CDragDropMgr::ItemList& items, QWid
     }    
   
     BTDrag* dragObject = new BTDrag( doc.toString(), dragSource );
-    qWarning("DND data created: %s", doc.toString().latin1());
+//    qWarning("DND data created: %s", doc.toString().latin1());
     return dragObject;
   };
   return 0;
 };
 
 CDragDropMgr::ItemList CDragDropMgr::decode( const QMimeSource* const src ) {
-  if (!canDecode(src)) {
+  //if the drag was started by another widget which doesn't use CDragDropMgr (a drag created by QTextDrag)
+  if (canDecode(src) && QTextDrag::canDecode(src)) { //if we can decode but it's a QTextDrag and not a BTDrag object
+    QString text;
+    QTextDrag::decode(src, text);
+//    qWarning(text.latin1());
+    
+    CDragDropMgr::ItemList dndItems;
+    dndItems.append( Item(text) );
+    return dndItems;
+  }
+  else if (!canDecode(src)){ //if we can't decode it
     return CDragDropMgr::ItemList();
   };
 
@@ -188,7 +184,7 @@ CDragDropMgr::ItemList CDragDropMgr::decode( const QMimeSource* const src ) {
   BTDrag::decode(src, xmlData);
 
   if (xmlData.isEmpty()) { //something went wrong!
-    qWarning("CDragDropMgr::decode: empty xml data!");
+//    qWarning("CDragDropMgr::decode: empty xml data!");
     return CDragDropMgr::ItemList();    
   }
 
@@ -235,7 +231,7 @@ CDragDropMgr::Item::Type CDragDropMgr::dndType( const QMimeSource* e ){
   ItemList::Iterator it;
   Item::Type type = Item::Unknown;
   for( it = dndItems.begin(); it != dndItems.end(); ++it ) {
-    if( type == Item::Unknown) { //if Unknown is set this is the first loop
+    if( type == Item::Unknown) { //if Unknown is set this is the first loop, don't return Unknown
       type = (*it).type();      
     }
     else if (type != (*it).type() ) {//items have different type, return Item::Unknown

@@ -244,13 +244,13 @@ QDragObject* CMainIndex::dragObject() {
 /** Reimplementation from KListView. Returns true if the drag is acceptable for the listview. */
 bool CMainIndex::acceptDrag( QDropEvent* event ) const {
 //  qWarning("CMainIndex::acceptDrag( QDropEvent* event )");
-  if (m_itemsMovable) {
-//    qWarning("return true");
-    return true;
-  }
+//  if (m_itemsMovable) {
+////    qWarning("return true");
+//    return true;
+//  }
 
   QPoint pos = contentsToViewport(event->pos());
-  if (QListViewItem* i = itemAt(pos)) {
+  if (CItemBase* i = dynamic_cast<CItemBase*>(itemAt(pos))) {
     return i->acceptDrop(event);
   }
   return false;
@@ -503,7 +503,8 @@ void CMainIndex::startDrag(){
 /** Reimplementation to support the items dragEnter and dragLeave functions. */
 void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ){
   if ( CItemBase* i = dynamic_cast<CItemBase*>( itemAt( contentsToViewport(event->pos())) )) {
-  	if (i->acceptDrop(event) && i->isFolder() && i->allowAutoOpen(event) && !i->isOpen() && autoOpen()) {
+  	if (i->allowAutoOpen(event) ||
+(i->acceptDrop(event) && i->isFolder() && i->allowAutoOpen(event) && !i->isOpen() && autoOpen()) ) {
       if (m_autoOpenFolder != i)
         m_autoOpenTimer.stop();
       m_autoOpenFolder = i;
@@ -566,7 +567,6 @@ const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
 
 /** Is called when items should be moved. */
 void CMainIndex::moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow){
-//  qWarning("moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)");
 }
 
 /** Opens an editor window to edit the modules content. */

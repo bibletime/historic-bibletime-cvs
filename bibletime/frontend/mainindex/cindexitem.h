@@ -213,6 +213,14 @@ public:
   */
   void rename();
   virtual void newSubFolder();
+
+protected:
+  /**
+  * Reimplementation. Returns true if the auto opening of this folder is allowd
+  */
+  virtual const bool allowAutoOpen( const QMimeSource* src ) const;  
+  /** Reimplementation. Returns false because folders have no use for drops (except for the bookmark folders) */
+  bool acceptDrop(const QMimeSource * src);
 };
 
 /** The base class for all items in the tree. Subclasses for module folders, modules and bookmarks exist.
@@ -234,12 +242,6 @@ public:
 
   const QString language() const;
 
-protected:
-  /**
-  * Reimplementation. Returns true if the auto opening of this folder is allowd
-  */
-  virtual const bool allowAutoOpen( const QMimeSource* src ) const;
-  
 private:
   QString m_language;
 };

@@ -176,8 +176,11 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
 
 		connectionsProxy()->emitReferenceClicked(module, key);
   }
-  else if (url.left(1) == "#") { //anchor
+  else if (!url.isEmpty() && url.left(1) == "#") { //anchor
     moveToAnchor(url.mid(1));
+  }
+  else { //default behaviour
+    qWarning("link or anchor is empty");
   };
 }
 
@@ -428,8 +431,7 @@ void CHTMLReadDisplayView::polish(){
 
 /** Reimplementatiob from QScrollView. */
 void CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e ){
-//  qWarning("CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e )");
-  if (CDragDropMgr::canDecode(e)) {
+  if (CDragDropMgr::canDecode(e) && CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) {
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
     CDragDropMgr::Item item = dndItems.first();  
     e->acceptAction();
@@ -444,7 +446,7 @@ void CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e ){
 
 /** Reimplementation from QScrollView. */
 void CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e ){
-  if (CDragDropMgr::canDecode(e)) {
+  if (CDragDropMgr::canDecode(e) && CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) {
     e->acceptAction();
     return;
   }

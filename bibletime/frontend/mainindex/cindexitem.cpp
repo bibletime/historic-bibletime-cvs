@@ -149,10 +149,9 @@ void CModuleItem::init(){
 
 /** Reimplementation to handle text drops on a module. In this case open the searchdialog. In the case of a referebnce open the module at the given position. */
 bool CModuleItem::acceptDrop( const QMimeSource* src ) const {
-  qWarning("CModuleItem::acceptDrop( const QMimeSource* src )");
+//  qWarning("CModuleItem::acceptDrop( const QMimeSource* src )");
   if (CDragDropMgr::canDecode(src)) {
-    if (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark) { //open the module
-      qWarning("type is Bookmark!");
+    if (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark) {
       CDragDropMgr::Item item = CDragDropMgr::decode(src).first();
       CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
       Q_ASSERT(m);
@@ -160,15 +159,11 @@ bool CModuleItem::acceptDrop( const QMimeSource* src ) const {
         return true;
       }
     }
-    else {
-      return false;
+    else if(CDragDropMgr::dndType(src) == CDragDropMgr::Item::Text) { //text drop on a module
+      return true;
     };
   }
-
-//  if ( CDragDropMgr::canDecode(src) ) {
-//    return true;
-//  }
-  return false;
+  return false; //default return value
 }
 
 /** No descriptions */
@@ -185,7 +180,7 @@ void CModuleItem::dropped( QDropEvent* e ){
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
     CDragDropMgr::Item item = dndItems.first();
     if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Text) { //open the searchdialog
-      qWarning("type is Text!");
+      qWarning("Text dropped!");
   		if ( module() ) {
         ListCSwordModuleInfo modules;
         modules.append(module());
@@ -196,7 +191,6 @@ void CModuleItem::dropped( QDropEvent* e ){
     else if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) { //open the module
       qWarning("type is Bookmark!");    
       CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
-      Q_ASSERT(m);
       if (m && module()->type() == m->type()) { //it makes only sense to create a new window for a module with the same type
         ListCSwordModuleInfo modules;
         modules.append(module());
@@ -542,6 +536,16 @@ void CFolderBase::newSubFolder(){
   }
 }
 
+/** Reimplementation. Returns true if the drop is accepted. */
+const bool CFolderBase::allowAutoOpen( const QMimeSource* ) const{
+  return true;
+}
+
+/** Reimplementation. Returns false because folders have no use for drops (except for the bookmark folders) */
+bool CFolderBase::acceptDrop(const QMimeSource * src){
+  return false;
+}
+
 /****************************************/
 /*****  class: CTreeFolder  *************/
 /****************************************/
@@ -690,12 +694,6 @@ void CTreeFolder::initTree(){
 const QString CTreeFolder::language() const {
   return m_language;
 };
-
-/** Reimplementation. Returns true if the drop is accepted. */
-const bool CTreeFolder::allowAutoOpen( const QMimeSource* ) const{
-  return true;
-}
-
 
 /* ----------------------------------------------*/
 /* ---------- new class: COldBookmarkImportItem -*/
@@ -943,7 +941,7 @@ void CBookmarkFolder::SubFolder::dropped(QDropEvent * e) {
 
 bool CBookmarkFolder::SubFolder::acceptDrop(const QMimeSource * src) const {
   qWarning("CBookmarkFolder::SubFolder::acceptDrop(const QMimeSource * src)");
-  return CDragDropMgr::canDecode(src);
+  return CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
 }
 
 /** Reimplementation from  CItemBase. */
@@ -1056,12 +1054,12 @@ void CBookmarkFolder::importBookmarks(){
 }
 
 bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
-  qWarning("CBookmarkFolder::acceptDrop(const QMimeSource * src)");
-  return CDragDropMgr::canDecode(src);
+//  qWarning("CBookmarkFolder::acceptDrop(const QMimeSource * src)");
+  return (CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark));
 }
 
 void CBookmarkFolder::dropped(QDropEvent *e) {
-  qWarning("CBookmarkFolder::dropped(QDropEvent *e)");
+//  qWarning("CBookmarkFolder::dropped(QDropEvent *e)");
   if (acceptDrop(e)) {
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
     //until we implemented the rest in CDragDropMgr we copy the items!
