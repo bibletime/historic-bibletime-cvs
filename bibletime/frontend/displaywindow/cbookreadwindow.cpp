@@ -100,9 +100,9 @@ void CBookReadWindow::initView(){
 }
 
 /** Reimplementation. */
-void CBookReadWindow::setupPopupMenu(){
-	CLexiconReadWindow::setupPopupMenu();
-}
+//void CBookReadWindow::setupPopupMenu(){
+//	CLexiconReadWindow::setupPopupMenu();
+//}
 
 /** Is called when the action was executed to toggle the tree view. */
 void CBookReadWindow::treeToggled(){

@@ -129,7 +129,7 @@ CModuleResultView::~CModuleResultView() {
 void CModuleResultView::initView(){
   addColumn(i18n("Module"));
   addColumn(i18n("Found items"));
-  setFullWidth(true);
+//  setFullWidth(true);
   setSorting(0, true);
   setSorting(1, true);
   setAllColumnsShowFocus(true);
@@ -277,10 +277,13 @@ void CSearchResultPage::initView(){
   QHBox* layoutBox = new QHBox(splitter);
   layoutBox->setSpacing(3);
   m_moduleListBox = new CModuleResultView(layoutBox);
+  layoutBox->setStretchFactor(m_moduleListBox, 0);
   m_resultListBox = new CSearchResultView(layoutBox);
+  layoutBox->setStretchFactor(m_resultListBox, 5);  
 
   m_previewDisplay = CDisplay::createReadInstance(0, splitter);  
 
+  m_moduleListBox->resize(m_moduleListBox->sizeHint());
   splitter->setResizeMode(layoutBox, QSplitter::KeepSize);
   splitter->setResizeMode(m_previewDisplay->view(), QSplitter::Stretch);
   
@@ -289,12 +292,6 @@ void CSearchResultPage::initView(){
     this, SLOT(showAnalysis()));
   mainLayout->addSpacing(5);
   mainLayout->addWidget(m_analyseButton);
-
-//  m_popup = new KPopupMenu(this);
-//  m_actions.saveMenu = new KActionMenu(i18n("Save")+QString::fromLatin1("..."), this);
-//  m_saveMenu->plug(m_popup);
-
-//  m_actions.save.entries = new KAction(i18n("Search result"), QString::null, 0, this, SLOT(saveSearchResult()));
 }
 
 /** Sets the modules which contain the result of each. */
@@ -428,7 +425,7 @@ void CSearchOptionsPage::initView(){
   m_rangeChooserCombo = new KComboBox(this);
   refreshRanges();
   label = new QLabel(m_rangeChooserCombo, i18n("Choose search scope:"),this);
-  label->setAutoResize(true);
+//  label->setAutoResize(true);
   
   m_chooseRangeButton = new QPushButton(i18n("Setup custom ranges..."), this);
   connect(m_chooseRangeButton, SIGNAL(clicked()),
@@ -522,20 +519,20 @@ void CSearchOptionsPage::reset(){
 
 /** Reads the settings for the searchdialog from disk. */
 void CSearchOptionsPage::saveSettings(){
-	QStringList list = CBTConfig::get( CBTConfig::searchCompletionTexts );
-	m_searchTextCombo->completionObject()->setItems( list );
-
-	list = CBTConfig::get(CBTConfig::searchTexts);
-	m_searchTextCombo->setHistoryItems( list );
-}
-
-/** Reads the settings of the last searchdialog session. */
-void CSearchOptionsPage::readSettings(){
 	QStringList list = m_searchTextCombo->completionObject()->items();
 	CBTConfig::set(CBTConfig::searchCompletionTexts, list);
 
 	list = m_searchTextCombo->historyItems();
 	CBTConfig::set(CBTConfig::searchTexts, list);	
+}
+
+/** Reads the settings of the last searchdialog session. */
+void CSearchOptionsPage::readSettings(){
+	QStringList list = CBTConfig::get( CBTConfig::searchCompletionTexts );
+	m_searchTextCombo->completionObject()->setItems( list );
+
+	list = CBTConfig::get(CBTConfig::searchTexts);
+	m_searchTextCombo->setHistoryItems( list );
 }
 
 void CSearchOptionsPage::aboutToShow(){

@@ -23,6 +23,7 @@
 #include "backend/cswordkey.h"
 
 #include "frontend/cbtconfig.h"
+#include "frontend/cexportmanager.h"
 #include "frontend/cprofilewindow.h"
 #include "frontend/display/creaddisplay.h"
 #include "frontend/displaywindow/cmodulechooserbar.h"
@@ -171,4 +172,10 @@ void CReadWindow::initKeyboardActions() {
 
   accel()->readSettings();
 	accel()->setSlot("Copy", displayWidget()->connectionsProxy(), SLOT(copySelection()));
+}
+
+/** No descriptions */
+void CReadWindow::copyDisplayedText(){
+  CExportManager mgr(QString::null);
+  mgr.copyKey(key(),CExportManager::Text,true);
 }

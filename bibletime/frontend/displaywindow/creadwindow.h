@@ -78,7 +78,8 @@ protected slots:
   * Update the status of the popup menu entries.
   */
   virtual void updatePopupMenu();
-
+  virtual void copyDisplayedText();
+  
 private:
 	CReadDisplay* m_displayWidget;
  	KPopupMenu* m_popupMenu;

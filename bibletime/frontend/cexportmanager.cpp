@@ -31,11 +31,12 @@
 #include "util/scoped_resource.h"
 
 //Qt includes
-#include <qprogressdialog.h>
 #include <qclipboard.h>
 #include <qlist.h>
+#include <qprogressdialog.h>
 
 //KDE includes
+#include <kprogress.h>
 #include <kfiledialog.h>
 #include <klocale.h>
 #include <kapplication.h>
@@ -46,7 +47,7 @@
 
 
 CExportManager::CExportManager(const QString& caption, const bool showProgress, const QString& progressLabel, const CSwordBackend::FilterOptions filterOptions, const CSwordBackend::DisplayOptions displayOptions) {
-  m_caption = caption;
+  m_caption = !caption.isEmpty() ? caption : QString::fromLatin1("BibleTime");
   m_progressLabel = progressLabel;
   m_filterOptions = filterOptions;
   m_displayOptions = displayOptions;
@@ -178,7 +179,7 @@ const bool CExportManager::copyKey(CSwordKey* key, const Format format, const bo
     text = key ? key->key() : QString::null;
   	return true;
   }
-
+  qWarning("copy now");
   KApplication::clipboard()->setText(text);
 	return true;
 };
@@ -221,8 +222,9 @@ const bool CExportManager::copyKeyList(ListKey* list, CSwordModuleInfo* module, 
 };
 
 const bool CExportManager::printKeyList(ListKey* list, CSwordModuleInfo* module) {
-	QProgressDialog progress( m_progressLabel, i18n("Cancel"), list->Count(), 0,"progress", true );
-	progress.setProgress(0);
+	KProgressDialog progress( 0,"progress", m_caption, m_progressLabel, true );
+  progress.progressBar()->setRange(0,list->Count()+1);
+//	progress.progressBar()->setProgress(0);
 	progress.setMinimumDuration(10);
 	progress.show();
 
@@ -243,8 +245,8 @@ const bool CExportManager::printKeyList(ListKey* list, CSwordModuleInfo* module)
 		}
 		itemList.append( new CPrintItem(module, startKey, stopKey) );
 
-		progress.setProgress(index++);
-		KApplication::kApplication()->processEvents(10); //do not lock the GUI!
+  	progress.progressBar()->setProgress(0);
+		KApplication::kApplication()->processEvents(); //do not lock the GUI!
 
 		(*list)++;
 	}
@@ -257,7 +259,7 @@ const bool CExportManager::printKeyList(ListKey* list, CSwordModuleInfo* module)
 	}
 
   printer()->appendItems(itemList);
-	progress.setProgress(list->Count());
+	progress.progressBar()->setProgress(list->Count());
 
 	return true;
 };

@@ -50,7 +50,7 @@ protected:
 	virtual void initKeyboardActions();
   virtual void initConnections();
   virtual void initView();
-  virtual void setupPopupMenu();
+//  virtual void setupPopupMenu();
 
 private:
   KToggleAction* m_treeAction;
@@ -61,8 +61,11 @@ private slots: // Private slots
   * Is called when the action was executed to toggle the tree view.
   */
   void treeToggled();
+
 protected slots: // Protected slots
-  /** Reimplementation to take care of the tree chooser. */
+  /**
+  * Reimplementation to take care of the tree chooser.
+  */
   virtual void modulesChanged();
 };
 

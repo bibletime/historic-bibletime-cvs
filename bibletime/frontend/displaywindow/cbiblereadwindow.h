@@ -104,7 +104,7 @@ protected slots: // Protected slots
   /**
   * Copies the current chapter into the clipboard.
   */
-  void copyChapter();
+  void copyDisplayedText();
   /** Saves the chapter as valid HTML page. */
   void saveChapter();
 

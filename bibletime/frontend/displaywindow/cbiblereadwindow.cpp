@@ -154,7 +154,7 @@ void CBibleReadWindow::setupPopupMenu(){
  	m_actions.copyMenu->insert(m_actions.copy.referenceTextOnly);
  	m_actions.copy.referenceAndText = new KAction(i18n("Reference with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.referenceAndText); 	
- 	m_actions.copy.chapter = new KAction(i18n("Chapter"), KShortcut(0), this, SLOT(copyChapter()), actionCollection());
+ 	m_actions.copy.chapter = new KAction(i18n("Chapter"), KShortcut(0), this, SLOT(copyDisplayedText()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.chapter); 	
   m_actions.copyMenu->insert(new KActionSeparator());	
 	m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection());
@@ -249,7 +249,7 @@ void CBibleReadWindow::keyChanged(CSwordKey* key){
 }
 
 /** Copies the current chapter into the clipboard. */
-void CBibleReadWindow::copyChapter(){
+void CBibleReadWindow::copyDisplayedText(){
   CSwordVerseKey vk(*verseKey());
   CSwordVerseKey dummy(*verseKey());
 

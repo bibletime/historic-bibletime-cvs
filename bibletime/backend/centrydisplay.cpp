@@ -413,11 +413,11 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 	
 	if (moved <= 1) { //display entries together
     key->parent();
-    key->firstChild(); //go to the first sibling on the same level
-
-		m_text = QString::null;
+		m_text = entryText(modules,key->key(),0, key->key() == keyName);
+    
+    key->firstChild(); //go to the first sibling on the same level    
     m_chosenKey = keyName;
-    printTree(*key, modules);	
+    printTree(*key, modules, m_text.isEmpty() ? 0 : 1 ); //if the top level entry has text ident the other text
 	}
 	else { //do not display entries together
     return finishText( entryText(modules, keyName), modules, keyName );
