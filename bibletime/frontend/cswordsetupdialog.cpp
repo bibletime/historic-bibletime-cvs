@@ -28,7 +28,7 @@
 //#include <stdlib.h>
 
 //QT includes
-//#include <qhbox.h>
+#include <qdir.h>
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qcombobox.h>
@@ -83,6 +83,7 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* 
 
   m_progressDialog = 0;
 	setIconListAllVisible(true);
+  m_refreshedRemoteSources = false;
 
 	QFrame* page = addPage(i18n("Sword Path"), QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
 //	QVBoxLayout* layout = new QVBoxLayout(page,5);
@@ -106,11 +107,6 @@ void CSwordSetupDialog::initInstall(){
 
 	QWidget* page = new QWidget(0);
   m_installWidgetStack->addWidget(page);
-
-//Add step 1
-//	loadSourceLocations();
-//	saveSourceLocations();
-	determineTargetLocations();
 
 	page->setMinimumSize(500,400);
 
@@ -244,19 +240,22 @@ const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID ){
 
 /** No descriptions */
 void CSwordSetupDialog::populateInstallCombos(){
-  qWarning("CSwordSetupDialog::populateInstallCombos()");
 	m_sourceCombo->clear();
 	m_targetCombo->clear();
 
   BTInstallMgr mgr;
-  qWarning("add=source loop");
   BTInstallMgr::Tool::initConfig();
 
   QStringList list = BTInstallMgr::Tool::sourceList(&mgr);
   for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
-    qWarning("added source %s", (*it).latin1());
     m_sourceCombo->insertItem( *it );
   }
+
+  list = BTInstallMgr::Tool::targetList();
+  for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
+    m_targetCombo->insertItem( *it );
+  }
+
 }
 
 /** No descriptions */
@@ -271,14 +270,6 @@ void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
 void CSwordSetupDialog::slot_targetSelected(const QString &targetName){
 	m_targetLabel->setText( m_targetMap[targetName] );
   target = m_targetMap[targetName];
-}
-
-/** No descriptions */
-void CSwordSetupDialog::determineTargetLocations(){
-	m_targetMap.clear();
-#warning hack only for testing
-	m_targetMap["Global Sword path"]="file://usr/share/sword/";
-	m_targetMap["User's Sword directory"]="file://$HOME/.sword/";
 }
 
 /** No descriptions */
@@ -329,6 +320,14 @@ void CSwordSetupDialog::slot_doRemoveModules(){
        	qWarning("Removed module: [%s]" , m->name().latin1());
       }
     }
+
+    //remove checklist items of removed modules
+//   	for (item1 = m_removeModuleListView->firstChild(); item1; item1 = item1->nextSibling())
+//  		for (item2 = item1->firstChild(); item2; item2 = item2->nextSibling())
+//	  		if ( dynamic_cast<QCheckListItem*>(item2) && dynamic_cast<QCheckListItem*>(item2)->isOn() )
+//		  		delete item2;
+    populateRemoveModuleListView(); //rebuild the tree
+
   }
 //	this->activate();
 }
@@ -421,10 +420,19 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   BTInstallMgr iMgr;
   sword::InstallSource* is = BTInstallMgr::Tool::source(&iMgr, sourceName);
   Q_ASSERT(is);
+  if (!is) {
+    return;
+  }
     
-  iMgr.refreshRemoteSource( is );
+  if (!m_refreshedRemoteSources)
+    iMgr.refreshRemoteSource( is );
+  m_refreshedRemoteSources = true;
+   
   sword::SWMgr* mgr = is->getMgr();
   Q_ASSERT(mgr);
+  if (!mgr) {
+    return;
+  }
   
 
   QListViewItem* parent = 0;
@@ -471,12 +479,6 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 
 /** Connects to the chosen source. */
 void CSwordSetupDialog::slot_connectToSource(){
-//init config -- just for testing!
-
-//  qWarning(m_configPath.latin1());
-//  m_installMgr = new BTInstallMgr();
-
-  //at this point we have the remote module list
 	m_installModuleListPage = new QWidget(0);
   m_installWidgetStack->addWidget(m_installModuleListPage);
 	m_installModuleListPage->setMinimumSize(500,400);
@@ -498,7 +500,6 @@ void CSwordSetupDialog::slot_connectToSource(){
   populateInstallModuleListView( m_sourceCombo->currentText() );
   m_installContinueButton->setText(i18n("Install modules"));
   m_installContinueButton->setEnabled(true);
-
 }
 
 /** Installs chosen modules */
@@ -529,32 +530,50 @@ void CSwordSetupDialog::slot_installModules(){
 	else if ((KMessageBox::warningYesNo(0, message, "Warning") == KMessageBox::Yes)){  //Yes was pressed.
     qWarning("proceeding");
     
-    BTInstallMgr mgr;
-    sword::InstallSource* is = BTInstallMgr::Tool::source(&mgr, m_sourceCombo->currentText());
+    BTInstallMgr iMgr;
+    sword::InstallSource* is = BTInstallMgr::Tool::source(&iMgr, m_sourceCombo->currentText());
     Q_ASSERT(is);
+
+    QString target = m_targetCombo->currentText();
+    target.replace("$HOME", getenv("HOME"));
+
+    //make sure target/mods.d and target/modules exist
+    QDir dir(target.latin1());
+    if (!dir.exists())
+      dir.mkdir(target, true);
+    if (!dir.exists("modules"))
+      dir.mkdir("modules");
+    if (!dir.exists("mods.d"))
+      dir.mkdir("mods.d");
+        
+    qWarning("installing into target %s", target.latin1());
+    sword::SWMgr lMgr( target.latin1() );
 
     //module are removed in this section of code
   	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
       m_progressDialog = new KProgressDialog();
       m_installingModule = *it;
       m_progressDialog->progressBar()->setTotalSteps(100);
-      connect(&mgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
-     
-      qWarning("in install loop fo module %s", (*it).latin1());
-      mgr.installModule(backend(), 0, (*it).latin1(), is);
+      connect(&iMgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
+      
+      iMgr.installModule(&lMgr, 0, (*it).latin1(), is);
       qWarning("Installed module: [%s]" , (*it).latin1());
 
       delete m_progressDialog;
       m_progressDialog = 0;
     }
+    //reload our backend because modules may have changed
+    backend()->reloadModules();
+    populateInstallModuleListView( m_sourceCombo->currentText() ); //rebuild the tree
+    populateRemoveModuleListView();
   }
 }
 
 /** No descriptions */
 void CSwordSetupDialog::installCompleted( const int total, const int file ){
-  qWarning("percent completed %f", total);
+  qWarning("percent completed %i", total);
   if (m_progressDialog) {
     m_progressDialog->progressBar()->setProgress(total);
-    m_progressDialog->setLabel( QString("{%1}: %2% completed").arg(m_installingModule).arg(total) );  
+    m_progressDialog->setLabel( QString("[%1] %2% completed").arg(m_installingModule).arg(total) );  
   }
 }

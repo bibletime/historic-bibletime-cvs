@@ -363,9 +363,8 @@ const bool CModuleItem::enableAction( const MenuAction action ){
 
 CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, const QString& key, const QString& description)
   : CItemBase(parentItem),
-//    m_key(key),
     m_description(description),
-    m_module(module)
+    m_moduleName(module ? module->name() : QString::null)
 {
   if ((module && (module->type() == CSwordModuleInfo::Bible) || (module->type() == CSwordModuleInfo::Commentary))  ) {
     CSwordVerseKey vk(0);
@@ -384,7 +383,7 @@ CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, QDomElement& xml )
   : CItemBase(parentItem),
     m_key(QString::null),
     m_description(QString::null),
-    m_module(0)
+    m_moduleName(QString::null)
 {
   m_startupXML = xml;
 }
@@ -424,7 +423,10 @@ const QString CBookmarkItem::toolTip(){
 
 /** Returns the used module. */
 CSwordModuleInfo* const CBookmarkItem::module() {
-  return m_module;
+  CSwordModuleInfo* m = backend()->findModuleByName(m_moduleName);
+  Q_ASSERT(m);
+  
+  return m;
 }
 
 /** Returns the used key. */
@@ -458,13 +460,16 @@ const bool CBookmarkItem::isMovable(){
 
 /** Reimplementation to handle  the menu entries of the main index. */
 const bool CBookmarkItem::enableAction(const MenuAction action){
-  if (action == ChangeBookmark || (m_module && (action == PrintBookmarks)) || action == DeleteEntries)
+  if (action == ChangeBookmark || (module() && (action == PrintBookmarks)) || action == DeleteEntries)
     return true;
 
   return false;
 }
 
 void CBookmarkItem::print(){
+  if (!module())
+    return;
+    
   CExportManager mgr(i18n("Print bookmark"),false);
   mgr.printKey(module(), key(), key(), description());
 }
@@ -485,7 +490,7 @@ QDomElement CBookmarkItem::saveToXML( QDomDocument& doc ){
 
   elem.setAttribute("key", englishKey());
   elem.setAttribute("description", description());
-  elem.setAttribute("modulename", module() ? module()->name() : QString::null);
+  elem.setAttribute("modulename", m_moduleName);
   elem.setAttribute("moduledescription", module() ? module()->config(CSwordModuleInfo::Description) : QString::null);
 
   return elem;
@@ -497,8 +502,9 @@ void CBookmarkItem::loadFromXML( QDomElement& element ) {
 
   //find the right module
   if (element.hasAttribute("modulename") /* && element.hasAttribute("moduledescription")*/ ) {
-    m_module = backend()->findModuleByName(element.attribute("modulename"));
-    if (!m_module/*&& m_module->config(CSwordModuleInfo::Description) != element.attribute("moduledescription")*/) {
+    if (backend()->findModuleByName(element.attribute("modulename")))
+      m_moduleName = element.attribute("modulename");
+    else {
       qWarning("Can't find module with name %s and description %s", element.attribute("modulename").latin1(), element.attribute("moduledescription").latin1() );
     }
   }
@@ -1064,7 +1070,7 @@ const bool CBookmarkFolder::saveBookmarks( const QString& filename, const bool& 
   //append the XML nodes of all child items
   CItemBase* i = dynamic_cast<CItemBase*>( firstChild() );
   while( i ) {
-    if (i->parent() == this) { //only one level under this
+    if (i->parent() == this) { //only one level under this folder
       QDomElement newElem = i->saveToXML( doc ); // the cild creates it's own XML code
       if (!newElem.isNull()) {
         content.appendChild( newElem ); //append to this folder

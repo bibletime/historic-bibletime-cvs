@@ -198,7 +198,7 @@ public:
 private:
   QString m_key;
   QString m_description;
-  CSwordModuleInfo* m_module;
+  QString m_moduleName;
 
   QDomElement m_startupXML;
 

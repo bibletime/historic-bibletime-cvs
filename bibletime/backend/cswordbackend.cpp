@@ -175,11 +175,9 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 /** This function deinitializes the modules and deletes them. */
 const bool CSwordBackend::shutdownModules(){
 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-		if (m_moduleList.current()) {
-			CSwordModuleInfo* current = m_moduleList.current();
-			m_moduleList.take();
-			delete current;
-		}
+		CSwordModuleInfo* current = m_moduleList.current();
+    m_moduleList.removeRef(current);
+		delete current;
 	}
 	m_moduleList.clear();
 	return true;
@@ -476,6 +474,8 @@ const bool CSwordBackend::useICU() const{
 
 /** Reload all Sword modules. */
 void CSwordBackend::reloadModules(){
+  qWarning("CSwordBackend::reloadModules()");
   shutdownModules();
   initModules();
+  qWarning("finished CSwordBackend::reloadModules()");
 }

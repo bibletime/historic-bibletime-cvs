@@ -588,6 +588,7 @@ void CMainIndex::reloadSword(){
 /** Saves the bookmarks to disk */
 void CMainIndex::saveBookmarks(){
   //find the bookmark folder
+  qWarning("void CMainIndex::saveBookmarks(){");
   CItemBase* i = 0;
   QListViewItemIterator it( this );
   while ( it.current() != 0 ) {
@@ -597,8 +598,10 @@ void CMainIndex::saveBookmarks(){
     	const QString path = stdDirs.saveLocation("data", "bibletime/");
       if (!path.isEmpty()) {
         //save the bookmarks to the right file
-        if (CBookmarkFolder* f = dynamic_cast<CBookmarkFolder*>(i))
+        if (CBookmarkFolder* f = dynamic_cast<CBookmarkFolder*>(i)) {
+          qWarning("f->saveBookmarks");
           f->saveBookmarks( path + "bookmarks.xml" );
+        }
       }
       break;
     }

@@ -42,6 +42,7 @@ public:
     static const QString configFilename();
     
     static QStringList sourceList( sword::InstallMgr* );
+    static QStringList targetList();
     static sword::InstallSource* source( sword::InstallMgr*, const QString& name );
     static void addSource( sword::InstallSource* );
     static void removeSource( sword::InstallMgr*, sword::InstallSource* );

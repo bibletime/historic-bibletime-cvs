@@ -78,7 +78,6 @@ public:
 private:
   void initInstall();
 	void initRemove();
-  void determineTargetLocations();
   void populateInstallCombos();
 
   QFrame* m_removePage;
@@ -111,6 +110,7 @@ private:
 //  QString m_installSourceName;
   KProgressDialog* m_progressDialog;
   QString m_installingModule;
+  bool m_refreshedRemoteSources;
     
 private slots:
   void slot_sourceSelected(const QString &sourceName);

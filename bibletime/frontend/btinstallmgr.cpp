@@ -40,6 +40,15 @@ QStringList BTInstallMgr::Tool::sourceList( sword::InstallMgr* mgr ) {
   return names;
 }
 
+QStringList BTInstallMgr::Tool::targetList() {
+  QStringList names;
+
+  names.append("/usr/share/sword");
+  names.append("$HOME/.sword");
+  
+  return names;
+}
+
 sword::InstallSource* BTInstallMgr::Tool::source( sword::InstallMgr* mgr, const QString& name ) {
   Q_ASSERT(mgr);
 
