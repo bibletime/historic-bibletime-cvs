@@ -23,7 +23,6 @@
 
 //local includes
 #include "structdef.h"
-
 //Frontend includes
 #include "frontend/cprofilemgr.h"
 
@@ -356,7 +355,6 @@ private slots: // Private slots
 
 private:
 	QProgressDialog* m_progress;
-//	pthread_mutex_t progress_mutex;		
 	CProfileMgr m_profileMgr;	
 	CSwordBackend* m_backend;
 	CPrinter* m_printer;

@@ -37,6 +37,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	
 	CSwordVerseKey key(0);
 	key.key( module->module()->KeyText() );	
+//	key.setLocale(module->module()->Lang());
 	const int currentTestament = key.Testament();	
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
@@ -48,7 +49,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	if (module->isUnicode()) {
 		m_htmlHeader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>";
 	}
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<body>");//dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
+	m_htmlText = m_htmlHeader + QString::fromLatin1("<body>");
 	
 	//reload font settings
 	updateSettings();
@@ -93,15 +94,15 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		m_htmlText = QString::null;
 		return 0;
 	}
-
 	//reload font settings
 	updateSettings();
 
 	SWModule* module = moduleList->first()->module();		
 		
 	VerseKey* vk = (VerseKey*)((SWKey*)(*module));
-	CSwordVerseKey key(/*moduleList->first()*/0);
+	CSwordVerseKey key(0);
 	key.key((const char*)*vk);
+//	key.setLocale(module->Lang());	
 
 	const int currentTestament = key.Testament();	
 	const int currentBook = key.Book();
@@ -126,6 +127,9 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	}
 	m_htmlText.append("</tr>");
 		
+	CSwordVerseKey current(0);
+//	current.setLocale(module->Lang());
+	
 	QString rowText = QString::null;
 	int currentVerse = 0;
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.next(CSwordVerseKey::UseVerse)) {
@@ -138,10 +142,10 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 			.arg(currentVerse)
 			.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey, CReferenceManager::typeFromModule(d->type()) ))
 			.arg(currentVerse);
-					
+		
+		current.key(currentKey);					
 		while (m) {
-			CSwordVerseKey current(d);
-			current.key(currentKey);
+			current.module(d);
 			rowText += QString("<td width=\"%1%\" bgcolor=\"%2\">")
 				.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
 			if (d->isUnicode())

@@ -180,7 +180,7 @@ int main(int argc, char* argv[]) {
 			(new BibleTime)->restore(n);
  	}
 	else {
-		bool showIt = CBTConfig::get(CBTConfig::logo);	
+		const bool showIt = CBTConfig::get(CBTConfig::logo);	
 
 		if(showIt) {
 			KStartupLogo::createSplash();
@@ -214,8 +214,7 @@ int main(int argc, char* argv[]) {
 
 		setSignalHandler(signalHandler);		
 		
-		const int ret = app.exec();	
-//		CPointers::deletePrinter();
+		const int ret = app.exec();
 		CPointers::deleteBackend();
 
 		return ret;

@@ -26,6 +26,7 @@
 #include "../backend/cswordldkey.h"
 #include "../backend/chtmlentrydisplay.h"
 #include "../frontend/cbtconfig.h"
+#include "../util/scoped_resource.h"
 
 
 //Qt includes
@@ -88,30 +89,23 @@ const QString& CPrintItem::moduleText() {
 		return QString::null;
 
 	if (m_stopEmpty) {//only one key
-		CSwordKey* key = CSwordKey::createInstance(m_module);
+		util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(m_module));
 		key->key(m_startKey);
 		m_moduleText = key->renderedText();			
-		delete key;
+		//delete key;
 	}
-	else { //range from start to stop
-		CSwordKey* startKey = CSwordKey::createInstance(m_module);	
+	else if (m_module->type() == CSwordModuleInfo::Bible  || m_module->type() == CSwordModuleInfo::Commentary ) {
+		util::scoped_ptr<CSwordVerseKey> startKey(  dynamic_cast<CSwordVerseKey*>(CSwordKey::createInstance(m_module)) );
+		util::scoped_ptr<CSwordVerseKey> stopKey( dynamic_cast<CSwordVerseKey*>(CSwordKey::createInstance(m_module)) );
+		
 		startKey->key(m_startKey);		
-		CSwordKey* stopKey = CSwordKey::createInstance(m_module);	
-		stopKey->key(m_stopKey);
-		
-		if (m_module->type() == CSwordModuleInfo::Bible  || m_module->type() == CSwordModuleInfo::Commentary ) {
-			const QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");		
-			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(startKey);
-			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(stopKey);						
-			
-			while (*vk_start < *vk_stop) {
-				vk_start->next(CSwordVerseKey::UseVerse);
-				m_moduleText += format.arg(vk_start->Verse()) + vk_start->renderedText();
-			}
+		stopKey->key(m_stopKey);		
+	
+		const QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");					
+		while (*startKey < *stopKey) {
+			startKey->next(CSwordVerseKey::UseVerse);
+			m_moduleText += format.arg(startKey->Verse()) + startKey->renderedText();
 		}
-		
-		delete startKey;
-		delete stopKey;					
 	}		
 
 	m_moduleText.replace(QRegExp("$\n+"), "");

@@ -36,7 +36,6 @@ CSwordKey::CSwordKey(CSwordModuleInfo* module) : m_module(module) {
 }
 
 CSwordKey::CSwordKey(const CSwordKey& k) {
-//	qWarning("copy constructor of CSwordKey");
 	m_module = k.m_module;
 }
 

@@ -33,6 +33,8 @@
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
 
+#include "../../util/scoped_resource.h"
+
 //QT includes
 #include <qlist.h>
 #include <qheader.h>
@@ -66,7 +68,7 @@ CSearchDialogResultModuleView::CSearchDialogResultModuleView(QWidget *parent, co
 }
 
 CSearchDialogResultModuleView::~CSearchDialogResultModuleView() {
-	qWarning("CSearchDialogResultModuleView::~CSearchDialogResultModuleView()");
+	qDebug("CSearchDialogResultModuleView::~CSearchDialogResultModuleView()");
 }
 
 /** Initializes the tree of this ResultView */
@@ -220,7 +222,7 @@ CSearchDialogResultView::CSearchDialogResultView(QWidget *parent, const char *na
 }
 
 CSearchDialogResultView::~CSearchDialogResultView() {
-	qWarning("CSearchDialogResultView::~CSearchDialogResultView()");
+	qDebug("CSearchDialogResultView::~CSearchDialogResultView()");
 }
 
 /** Initializes the tree of this ResultView */
@@ -340,12 +342,11 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 	QString text = QString::null;
 	
 	//we have to set the standard module view options for the module!!	
-	CSwordKey* key= 0;
-	if (( key = CSwordKey::createInstance(m_module) )) {
+	util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(m_module));
+	if ( key ) {
 		backend()->setFilterOptions( CBTConfig::getFilterOptionDefaults() );				
 		key->key(item->text());
 		emit keySelected(key->renderedText());
-		delete key;		
 	}		
 }
 

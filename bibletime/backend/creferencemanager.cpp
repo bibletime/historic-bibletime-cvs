@@ -114,7 +114,6 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 			const int pos = ref.find("/");
 			if (pos>0 && ref.at(pos-1) != '\\') { //found a slash which is not escaped
 				module = ref.mid(0,pos);
-//				qWarning("found module %s", module.latin1());
 				ref = ref.mid(pos+1);			
 				break;
 			}
@@ -123,7 +122,6 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 		key = ref;
 		//replace \/ escapes with /
 		key.replace(QRegExp("\\\\/"), "/");
-		qWarning("GBS key is %s", ref.latin1());		
 	}
 	else if (ref.left(8) == "morph://" || ref.left(10) == "strongs://") { //strongs or morph URL have the same format
 		enum PreType {IsMorph, IsStrongs};
@@ -141,7 +139,6 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 		const int pos = ref.find("/");
 		if (pos>0) { //found
 			const QString language = ref.mid(0,pos);
-//			qWarning("language is %s", language.latin1());
 			if (language == "Hebrew") {
 				switch (preType) {
 					case IsMorph:
@@ -169,7 +166,6 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 		}
 	}
 
-  qWarning("decodeHyperlink: module %s key %s", module.latin1(), key.latin1());
   if (key.isEmpty() && module.isEmpty())
   	return false;
 	return true;
@@ -247,14 +243,13 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 
 /** Parses the given verse references using the given language and the module.*/
 const QString CReferenceManager::parseVerseReference( const QString ref, const QString& lang, const QString& newLang){
-	qWarning(lang.latin1());
-	qWarning(newLang.latin1());	
 	CSwordVerseKey key(0);
-	key.setLocale( lang.latin1() );
+	if (!lang.isEmpty())
+		key.setLocale( lang.latin1() );
+	
 	key.key(ref);
-	qWarning("ref in lang %s is %s", lang.latin1(), key.key().latin1());
-	if (lang != newLang)
+	
+	if (!lang.isEmpty() && lang != newLang)
 		key.setLocale(newLang.latin1());
-	qWarning("newref in new lang %s is %s", newLang.latin1(),key.key().latin1());		
-	return key.key();//parsed result
+	return key.key();
 }

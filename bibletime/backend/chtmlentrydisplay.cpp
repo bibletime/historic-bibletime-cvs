@@ -25,6 +25,8 @@
 #include "../frontend/ctoolclass.h"
 #include "../frontend/cbtconfig.h"
 
+#include "../util/scoped_resource.h"
+
 
 //Qt includes
 #include <qfont.h>
@@ -60,7 +62,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
   //refresh font settings
 	updateSettings();
 	
-	CSwordKey* key = CSwordKey::createInstance(module);
+	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
 	if (!key) {
 		m_htmlText = QString::null;
 		return 0;
@@ -99,7 +101,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	}
 
 //clean up
-	delete key;
+//	delete key;
 	return 1;
 }
 
@@ -113,10 +115,10 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	//reload font settings
 	updateSettings();
 
- 	CSwordKey* key = CSwordKey::createInstance(moduleList->first());
+ 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(moduleList->first()) );
 	  	
 	SWModule* module = moduleList->first()->module();
-	ASSERT(module);
+//	ASSERT(module);
 	QString usedKey = QString::null;
 	CSwordModuleInfo *d = 0;	
 	
@@ -172,6 +174,6 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	m_htmlText += QString::fromLatin1("</font></tr></table>") + m_htmlBody;
 
 	//clean up
-	delete key;	
+//	delete key;	
 	return 1;
 }

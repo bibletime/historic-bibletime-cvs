@@ -20,6 +20,7 @@
 #include "../backend/cswordmoduleinfo.h"
 #include "../printing/cprintitem.h"
 #include "../printing/cprinter.h"
+#include "../util/scoped_resource.h"
 #include "ctoolclass.h"
 
 //Qt includes
@@ -42,7 +43,7 @@ const bool CExportManager::saveKey( CSwordKey* key, const bool withText ) {
 
 /** Saves the key to disk. */
 const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
-	qWarning("CExportManager::saveKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
+	qDebug("CExportManager::saveKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
 	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
 	if (file.isEmpty())
 		return false;
@@ -52,8 +53,9 @@ const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module,
 	progress.setMinimumDuration(0);	
 	progress.show();
 	
-	QString text;
-	CSwordKey* key = CSwordKey::createInstance(module);
+	util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
+	
+	QString text;	
 	int index = 0;
 	*list = TOP;
 	while (!list->Error() && !progress.wasCancelled()) {
@@ -70,7 +72,7 @@ const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module,
 
 		(*list)++;
 	}
-	delete key;
+//	delete key;
 	
 	if (progress.wasCancelled())
 		return false;
@@ -82,7 +84,7 @@ const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module,
 }
 
 const bool CExportManager::saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
-	qWarning("CExportManager::saveKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
+	qDebug("CExportManager::saveKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
 	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
 	if (file.isEmpty())
 		return false;
@@ -118,7 +120,7 @@ const bool CExportManager::saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo
 
 ///////// copy functions
 const bool CExportManager::copyKey( CSwordKey* key, const bool withText ) {
-	qWarning("CExportManager::copyKey( CSwordKey* key, const bool withText )");
+	qDebug("CExportManager::copyKey( CSwordKey* key, const bool withText )");
 	ASSERT(key);	
 
 	QString text = (withText) ? QString::fromLatin1("%1:\n\t%2").arg(key->key()).arg(key->strippedText()) : key->key()+"\n";
@@ -127,7 +129,7 @@ const bool CExportManager::copyKey( CSwordKey* key, const bool withText ) {
 }
 
 const bool CExportManager::copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
-	qWarning("CExportManager::copyKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
+	qDebug("CExportManager::copyKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
 	
 	QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );	
 	progress.setProgress(0);	
@@ -136,7 +138,7 @@ const bool CExportManager::copyKeyList( ListKey* list, CSwordModuleInfo* module,
 	
 	QString text;	
 	int index = 0;	
-	CSwordKey* key = CSwordKey::createInstance(module); //delete later
+	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
 	*list = TOP;
 	while (!list->Error() && !progress.wasCancelled()) {
 		key->key((const char*)(*list));
@@ -148,8 +150,6 @@ const bool CExportManager::copyKeyList( ListKey* list, CSwordModuleInfo* module,
 		text += (withText) ? QString::fromLatin1("%1:\n\t%2\n").arg(key->key()).arg(key->strippedText()) : key->key()+"\n";
 		(*list)++;
 	}
-	delete key;
-	
 	if (progress.wasCancelled())
 		return false;
 		

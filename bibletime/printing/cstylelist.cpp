@@ -110,11 +110,10 @@ void CStyleList::createNewStyle(){
 
 /**  */
 void CStyleList::openStyleEditor( CStyle* const style ){
-	CStyleEditorDialog* dlg = new CStyleEditorDialog(style, this);
-	dlg->exec();
-	
-	delete dlg;	
-	
+	{
+		CStyleEditorDialog dlg(style, this);
+		dlg.exec();
+	}
 	updateStyleCombo();
 }
 

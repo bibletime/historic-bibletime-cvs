@@ -71,7 +71,7 @@ void CStyleEditorDialog::initView(){
   topLayout->addLayout(hboxLayout);
 
 	hboxLayout = new QHBoxLayout(0, OUTER_BORDER, INNER_BORDER);	
-  m_styleTypeChooser = new KComboBox( mainWidget );
+  m_styleTypeChooser = new KComboBox( mainWidget, "styleTypeChooser" );
   label = new QLabel( m_styleTypeChooser, i18n("Choose the part of the style:"), mainWidget );
   hboxLayout->addWidget(label);
   m_styleTypeChooser->insertItem( i18n("Header") );
@@ -180,23 +180,19 @@ void CStyleEditorDialog::initView(){
 	topLayout->addWidget(m_frame.groupbox);
 	topLayout->addStretch(3);
 	
-	QPainter* p = new QPainter();
+	QPainter p;
 	QPen pen(Qt::black, 2, Qt::SolidLine);
-	QBrush brush(Qt::white);
-		
+	QBrush brush(Qt::white);		
 	for (int i=1; i <= 5; i++) {  // from Qt::SolidLine to Qt::DashDotDotLine
 		QPixmap* pix = new QPixmap(/*m_frame.lineStyleChooser->width()*/150,15);
 		pen.setStyle((Qt::PenStyle)i);
-		p->begin(pix);
-		p->setPen(pen);
-		p->fillRect(0,0, pix->width(), pix->height(), brush);
-		p->drawLine(0,(int)((float)pix->height()/2),pix->width(),(int)((float)pix->height()/2));
-		p->end();
+		p.begin(pix);
+		p.setPen(pen);
+		p.fillRect(0,0, pix->width(), pix->height(), brush);
+		p.drawLine(0,(int)((float)pix->height()/2),pix->width(),(int)((float)pix->height()/2));
+		p.end();
 		m_frame.lineStyleChooser->insertItem(*pix);	
 	}
-	delete p;
-	
-	
 	
 	m_currentFormat = m_style->formatForType( CStyle::Header );	
 	setupWithFormat( m_currentFormat );
@@ -231,6 +227,7 @@ void CStyleEditorDialog::useFrameClicked(){
 
 /** Sets up the states of the child widgets using the styl format given as parameter. */
 void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
+	qDebug("CStyleEditorDialog::setupWithFormat( CStyleFormat* format)");
 	if (!format)
 		return;	
 
@@ -279,18 +276,20 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	//setup fonts
 	m_font.font = format->getFont();
 	setupFontWidgets( m_font.font );
-//	m_font.identation->setValue( format->getIdentation() );
 	
 	//setup frame part
 	CStyleFormatFrame* frame = format->frame();
-	m_frame.useFrame->setChecked(frame);
+	m_frame.useFrame->setChecked(frame != 0);
 	m_frame.useFrame->setEnabled(m_formatEnabled);		
 	m_frame.groupbox->setEnabled(m_formatEnabled);		
 	useFrameClicked();
 	
-	m_frame.colorChooser->setColor( frame->color() );
-	m_frame.lineThicknessChooser->setValue( frame->thickness() );	
-	m_frame.lineStyleChooser->setCurrentItem((int)(frame->lineStyle())-1);	
+	if (frame) {
+		m_frame.colorChooser->setColor( frame->color() );
+		m_frame.lineThicknessChooser->setValue( frame->thickness() );	
+		m_frame.lineStyleChooser->setCurrentItem((int)(frame->lineStyle())-1);	
+	}
+	qDebug("finished");
 }
 
 /** Setups the font widgets using the parameter. */
@@ -357,7 +356,7 @@ void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
 		frame->setThickness( m_frame.lineThicknessChooser->value() );
 		//the position in the list equal to the position in Qt::PenStyle+1
 		frame->setLineStyle((Qt::PenStyle)(m_frame.lineStyleChooser->currentItem()+1));
-//		qWarning("%i",m_frame.lineStyleChooser->currentItem()+1);
+//		qDebug("%i",m_frame.lineStyleChooser->currentItem()+1);
 	}
 	
 	format->setFrame( m_frame.useFrame->isChecked(), frame );
@@ -365,6 +364,7 @@ void CStyleEditorDialog::applySettingsToFormat( CStyleFormat* format ){
 
 /** Is called when the enablePart box was clicked. */
 void CStyleEditorDialog::enableBoxClicked() {
+	qDebug("CStyleEditorDialog::enableBoxClicked()");
 	//find the correct format type
 	CStyle::styleType styleType = CStyle::Unknown;	
 	if (m_currentFormat == m_style->formatForType(CStyle::Header))

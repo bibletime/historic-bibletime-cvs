@@ -30,6 +30,7 @@
 #include "../whatsthisdef.h"
 #include "cbtconfig.h"
 
+#include "../util/scoped_resource.h"
 
 #include <stdio.h>
 
@@ -71,7 +72,7 @@ CHTMLWidget::ToolTip::ToolTip(QWidget* parent)
 }
 
 void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
-	qWarning("void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) ");
+//	qWarning("void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) ");
 	if (!parentWidget()->inherits("CHTMLWidget"))
 		return;
 
@@ -85,7 +86,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 	if ( link.isEmpty() )
 		return;
 	else {
-		qWarning("link is valid");
+//		qWarning("link is valid");
 	  Qt3::QTextCursor c( htmlWidget->getDocument() );
 	  htmlWidget->placeCursor( p1, &c );
 		QRect rect = c.parag()->rect();
@@ -114,23 +115,21 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 			if (m->type() == CSwordModuleInfo::Bible || m->type() == CSwordModuleInfo::Commentary) {
 				CSwordModuleInfo* module = htmlWidget->modules().first();
 				if (module) {
-					ref = CReferenceManager::parseVerseReference(ref, module->module()->Lang(), backend()->booknameLanguage() );
+					ref = CReferenceManager::parseVerseReference(ref/*, module->module()->Lang(), backend()->booknameLanguage()*/ );
 				}
 			}
-			CSwordKey* key = CSwordKey::createInstance( m );			
+			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance( m ) );
 			if (key) {
 				backend()->setFilterOptions( CBTConfig::getFilterOptionDefaults() );				
 				
 				key->key(ref);
 				text = key->renderedText();
-				delete key;
 			}
 			if (m->isUnicode()) {
 				setFont( CBTConfig::get(CBTConfig::unicode) );
 			}
 		}
-		if (!text.isEmpty())
-		{
+		if (!text.isEmpty()) {
 			text = QString::fromLatin1("<B>%1</B><HR>%2").arg(ref).arg(text);
 			tip(rect, text);
 		}
@@ -162,9 +161,7 @@ CHTMLWidget::CHTMLWidget(const bool useColorsAndFonts,QWidget *parent, const cha
 }
 
 CHTMLWidget::~CHTMLWidget(){
-//	qDebug("CHTMLWidget::~CHTMLWidget()");
-	if (m_moduleList)
-		delete m_moduleList;
+	delete m_moduleList;
 	m_moduleList = 0;
 }
 

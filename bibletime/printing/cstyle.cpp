@@ -78,7 +78,8 @@ void CStyle::setFormatForType( const CStyle::styleType type, CStyleFormat* forma
 }
 
 /** Set the printing of the header (true enables it). */
-const bool CStyle::hasFormatTypeEnabled( const CStyle::styleType type) const {
+const bool CStyle::hasFormatTypeEnabled( const CStyle::styleType type) const {	
+//	qWarning("CStyle::hasFormatTypeEnabled( const CStyle::styleType type)");
 	switch (type) {
 		case Header:
 			return m_isHeaderFormatEnabled;
@@ -121,9 +122,9 @@ QListViewItem* CStyle::listViewItem( CStyleList* list ){
 	updateListViewItem();	
 	return m_listViewItem;
 }
+
 /** Returns the style name */
 const QString& CStyle::styleName() const{
-//	qDebug("QString& CStyle::getStyleName() const");
 	return m_styleName;
 }
 
