@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Installing bibletime</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.57"><LINK
+REL="HOME"
+TITLE="BibleTime Documentation Package"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation Information"
+HREF="program_installation.html"><LINK
+REL="PREVIOUS"
+TITLE="Supporting Programs"
+HREF="inst_a_2_support.html"><LINK
+REL="NEXT"
+TITLE="Working with sword modules using
+installmgr"
+HREF="sword_modules.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="en"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-English"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECTION"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="The K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>BibleTime Documentation Package</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="inst_a_2_support.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. Installation Information</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="sword_modules.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="INST_A_3_INSTALLATION"
+>1.3. Installing bibletime</A
+></H1
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="INST_A_3_1_BT_RPM"
+>1.3.1. Installing bibletime from RPM</A
+></H2
+><P
+>If you install your bibletime from an rpm, open your usual package
+manager and install the RPM.  If you have missed anything package manager
+will tell you.</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="INST_A_3_2_BT_RPM"
+>1.3.2. Installing bibletime from source.</A
+></H2
+><P
+>open a bash terminal, as a regular user, then do the following:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> cd unzipped_source_directory
+ #####################################
+ # Modify these as discussed in      #
+ # setting environment variables     #
+ # If the environment is already set,#
+ # this is not needed.               #
+ #####################################
+ export QTDIR=/usr/lib/qt2
+ export KDEDIR=/usr
+ export KDEDIRS=/usr
+ export PATH=$KDEDIRS/bin:$PATH
+ export PATH=$QTDIR:$PATH
+ export PATH=$KDEDIR:$PATH
+ #####################################
+ # For CVS users only                #
+ # make -f Makefile.cvs              #
+ # All other users skip to next line #
+ #####################################
+ ./configure
+ make
+ #####################################
+ # Switch to super user mode         #
+ #####################################
+ su
+ password ****
+ make install
+ 
+ #####################################
+ #Launch bibletime                   #
+ #####################################
+ bibletime</PRE
+></TD
+></TR
+></TABLE
+><P
+>The last command should launch bibletime.</P
+><P
+>bibletime installs fully integrated with KDE; however it may not operate
+correctly if the environment variables are not set up correctly.  You can add
+them to <TT
+CLASS="FILENAME"
+>/$home/bash_profile</TT
+>to set these environmental
+variables at startup</P
+><P
+>You will need to log out and log in for the kde
+integration to become effective.</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="INST_A_3_3_BT_CVS"
+>1.3.3. Installing bibletime from CVS</A
+></H2
+><P
+>Please see the instructions at <A
+HREF="http://sourceforge.net/projects/bibletime"
+TARGET="_top"
+>the sourceforge home page for
+bibletime.</A
+></P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="inst_a_2_support.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="sword_modules.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Supporting Programs</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="program_installation.html"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Working with sword modules using
+installmgr</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
