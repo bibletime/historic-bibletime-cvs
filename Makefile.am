@@ -27,7 +27,7 @@ Makefile.cvs
 # have all needed files, that a GNU package needs
 AUTOMAKE_OPTIONS = foreign 
 
-datadir = $(DESTDIR)$(kde_appsdir)/Applications
+datadir = $(kde_appsdir)/Applications
 data_DATA = bibletime.desktop
 
 $(top_srcdir)/acinclude.m4: $(top_srcdir)/admin/acinclude.m4.in $(top_srcdir)/admin/libtool.m4.in

@@ -1,11 +1,11 @@
-%define         name 		@package
-%define         version 	@version
+%define         name 			@PACKAGE@
+%define         version 	@VERSION@
 
 # This should not be changed but set this to static or dynamic.
 # Sword should always be set to static for these builds.
 %define		swordlibs 	static
 
-# This should be set to static or dynamic.
+# This should be set to "static" or "dynamic".
 # Most systems may not have all the libs to compile this staticly.
 %define		kdelibs 	dynamic
 
@@ -14,35 +14,36 @@
 %define		release 	1
 
 # This should be set to your os.
-# Possible values are  Mandrake, Red Hat, Turbolinux, Caldera, SuSE, etc.
-%define		ostype 		SuSE
+# Possible values are  Mandrake, Red Hat, Turbolinux, Caldera, SuSE, Debian, etc.
+%define		ostype 		@DISTRIBUTION@
 
-# This should be set to the version # of your os 6.0, 6.1, 6.2, 7.0, 7.1, 7.2, 8.0, etc.
-%define		osversion 	7.2
+# This should be set to the version of your OS (6.0, 6.1, 6.2, 7.0, 7.1, 7.2, 8.0, etc.)
+%define		osversion 	@DISTRIBUTION_VERSION@
 
 # This is your cpu i486, i586, i686, ppc, sparc, alfa, etc.
 %define		buildarch 	i586
 
 # This the RPM group on your system that this will installed into.
 # Graphical desktop/KDE, X11/apps, etc.
-%define		rpmgroup 	Graphical desktop/KDE
+%define		rpmgroup 	@RPM_GROUP@
 
 # this is were the sword modules will be installed on your system.
 # /usr/local/sword, /usr/share/sword, /opt/local/sword, etc.
-%define         SwordPath 	/usr/share/sword
-%define		ModsPath 	%{SwordPath}/mods.d
+# default is /usr/share/sword
+%define     SwordPath 	/usr/share/sword
+%define			ModsPath 		%{SwordPath}/mods.d
 
-# This for Mandrake menus if you have another system do not edit this line it is for.
-# compatability wit hthose systems.
+# This for Mandrake menus if you have another system do not edit this line. it is for
+# compatability with those systems.
 %define		_menudir 	/usr/lib/menu
 # Nothing else should need to be changed.
 # Please do not edit below this line unless you know what you are doing.
 
 Summary:        BibleTime %{version} is an easy to use Bible study tool for KDE2.
-Name:		%{name}
+Name:						%{name}
 Version:        %{version}
 Release:        %{release}
-#Icon:		bibletime.xpm
+#Icon:					bibletime.xpm
 Copyright:      GPL
 Vendor:         The team of BibleTime <info@bibletime.de>
 Url:            http://www.bibletime.de
@@ -59,7 +60,7 @@ Source0:        %{name}-%{version}.tar.bz2
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
 Provides:       sword-base
-#Prefix:         %{_prefix}
+Prefix: 	      @RPM_PREFIX@
 
 
 %description
@@ -73,12 +74,12 @@ default is %{_prefix}
 
 The SWORD Project is an effort to create an ever expanding software package for research and study of God and His Word.  The SWORD Bible Framework allows easy manipulation of Bible texts, commentaries, lexicons, dictionaries, etc.  Many frontends are build using this framework.  An installed module set may be shared between any frontend using the framework.
 
-This rpm was compiled on a %{ostype}  %{osversion} system for %{buildarch} class cpu's.
+This rpm was compiled on a %{ostype} %{osversion} system for %{buildarch} class cpu's.
 
 This RPM has these compiled options Sword is compiled %{swordlibs} and KDE/QT is compiled %{kdelibs}.
 
 Although this binary no longer requires sword to run the source.rpm will not build correctly
- without the sword-devel package installed.
+without the sword-devel package installed.
 
 %prep
 rm -rf $RPM_BUILD_ROOT
@@ -91,12 +92,8 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/config
 
 # generate directories for sword if building static
 if [ %{swordlibs} = "static" ] ; then
-mkdir -p $RPM_BUILD_ROOT%{SwordPath}
-mkdir -p $RPM_BUILD_ROOT%{ModsPath}
-# move the shared libs out of the way to make it static
-# this one is for the sword libs if only the sword-devel package is installed
-# this will not be necessary. But it is ok to leave it in.
-if [ -f /usr/lib/libsword.so ] ; then mv /usr/lib/libsword.so /usr/lib/libsword.bak ; fi
+ mkdir -p $RPM_BUILD_ROOT%{SwordPath}
+ mkdir -p $RPM_BUILD_ROOT%{ModsPath}
 fi
 
 
@@ -104,24 +101,27 @@ fi
 #Icons for Mandrake menu system
 if [ %{ostype} = "Mandrake" ] ; then
 #tar jxvf %{SOURCE1}
- export KDEDIR=/usr
+ export KDEDIR=/usr QTDIR=/usr/lib/qt2
 elif [%{ostype} = "SuSE"] ; then
  export KDEDIR=/opt/kde2 QTDIR=/usr/lib/qt2
+else
+	echo "Using $KDEDIR as KDE2 directory";
+	echo "Using $QTDIR as QT 2.2.x directory";
+	echo If the directories are not correct please set them using \"export KDEDIR=<KDE2 directory> QTDIR=<QT2.2 directory>\""
+	sleep 5
 fi
 
-echo Using $KDEDIR as KDE2 directory
-echo Using $QTDIR as QT 2.2.x directory.
-echo If the directories are not correct please set them using\
- "export KDEDIR=<KDE2 directory> QTDIR=<QT2.2 directory>"
-sleep 5
-echo "I'll start now"
 make -f Makefile.cvs
 
-if [ %{kdelibs} = "static" ] ; then
- CPPFLAGS="-DSTATIC_BUILD" ./configure --with-qt-libraries=$QTDIR/lib --with-qt-dir=$QTDIR --with-qt-includes=$QTDIR/include
-else
- ./configure
+if [ %{swordlibs} = "static" ] ; then
+	CONFIG_OPTIONS = "--enable-static-sword $CONFIG_OPTIONS";
 fi
+if [ %{kdelibs} = "static" ] ; then
+	CONFIG_OPTIONS = "--enable-static-linking --with-qt-libraries=$QTDIR/lib --with-qt-dir=$QTDIR --with-qt-includes=$QTDIR/include $CONFIG_OPTIONS";
+fi
+
+./configure $CONFIG_OPTIONS
+
 
 # Patch to bibletime make file to compile static and
 # moving shared libs out of the way to force linking with static libs
@@ -184,7 +184,7 @@ fi
 
 
 %post
-# this is for creation of the sword.conf for systems that are using bibletime withour sword installed.
+# this is for creation of the sword.conf for systems that are using bibletime without Sword installed.
 if [ -f /etc/sword.conf ] ; then
          echo "sword.conf already exists skiping sword.conf creation." ;
 else
@@ -216,10 +216,10 @@ fi
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-if [ %{swordlibs} = "static" ] ; then
+#if [ %{swordlibs} = "static" ] ; then
 # move the shared libs back to where they belong
- if [ -f /usr/lib/libsword.bak ] ; then mv /usr/lib/libsword.bak /usr/lib/libsword.so ; fi
-fi
+# if [ -f /usr/lib/libsword.bak ] ; then mv /usr/lib/libsword.bak /usr/lib/libsword.so ; fi
+#fi
 
 if [ %{kdelibs} = "static" ] ; then
  cp /usr/lib/qt2/bak/* /usr/lib/qt2/lib/
@@ -233,9 +233,10 @@ fi
 %files
 %defattr(-,root,root)
 %doc %{prefix}/share/doc/HTML/*/bibletime/*
-%{prefix}/share/doc/HTML/*/bibletime/common/*
 %config %{ModsPath}/globals.conf
+%{SwordPath}/locales.d/*.conf
 %config %{prefix}/share/config/bt-printing
+%{prefix}/share/doc/HTML/*/bibletime/common/*
 %{prefix}/bin/bibletime
 %{prefix}/bin/bibletime.bin
 %{prefix}/share/applnk/Applications/*
@@ -247,6 +248,9 @@ fi
 
 
 %changelog
+* Fri September 7 2001 Joachim Ansorg <jansorg@gmx.de>
+- Added the bookname files in the file list
+
 * Sun May 27 2001 Brook Humphrey <bah@webmedic.net>
 
 - Trying different variations of static compiles again.

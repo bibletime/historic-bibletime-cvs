@@ -3,7 +3,7 @@ POFILES = nl.po it.po cs.po de.po sk.po no.po es.po
 EXTRA_DIST = $POFILES
 GMOFILES = $(POFILES:.po=.gmo)
 
-localedir = $(kde_locale)
+localedir = $(DESTDIR)$(kde_locale)
 MAINTAINERCLEANFILES = $(GMOFILES)
 
 GMSGFMT = @GMSGFMT@
