@@ -221,7 +221,7 @@ configure.in
 
 #>- DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 #>+ 4
-KDE_DIST=configure.files libtool.m4.in make-messages.sh extractrc build messages bibletime.doxygen subdirs 
+KDE_DIST=configure.files libtool.m4.in make-messages.sh extractrc messages bibletime.doxygen subdirs 
 
 DISTFILES= $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
 

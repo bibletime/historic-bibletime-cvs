@@ -33,18 +33,24 @@ class CModuleChooserButton;
 class CModuleChooserBar : public KToolBar  {
    Q_OBJECT
 public: 
-	CModuleChooserBar(CImportantClasses* important, ListCSwordModuleInfo* useModule,CSwordModuleInfo::type type,  QWidget *parent=0, const char *name=0);
+	CModuleChooserBar(CImportantClasses* important, ListCSwordModuleInfo useModules,CSwordModuleInfo::type type,  QWidget *parent=0, const char *name=0);
 	~CModuleChooserBar();
   /**
   * Returns a list of selected modules.
   */
   ListCSwordModuleInfo getModuleList();
+  /**
+  * Sets the number of the maximum count of buttons.
+  */
+  void setButtonLimit( const int limit);
 	
 private:
 	CImportantClasses* m_important;
 	QList<CModuleChooserButton> m_buttonList;
 	CSwordModuleInfo::type m_moduleType;
 	int m_idCounter;
+	int m_deleteID;
+	int m_buttonLimit;
 
 protected slots: // Protected slots
   /**
@@ -55,6 +61,10 @@ protected slots: // Protected slots
 	* Removes a button from the toolbar
 	*/
 	void removeButton( const int ID );
+  /**
+  * No descriptions
+  */
+  void deleteButton();
 
 signals: // Signals
   /**

@@ -32,6 +32,7 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( CSwordBackend* backend, SWModule* 
 
 CSwordBibleModuleInfo::~CSwordBibleModuleInfo(){
 	qDebug("Destructor of CSwordBibleModuleInfo");
+	qDebug(module()->Name());
 	if (m_bookList)
 		delete m_bookList;
 }

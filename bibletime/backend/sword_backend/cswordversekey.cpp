@@ -27,7 +27,7 @@
 #include <swmodule.h>
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
-	m_data = QString::null;		
+	m_data = QString::null;
 	if (!(m_module = dynamic_cast<CSwordBibleModuleInfo*>(module)) ) {	//bad module
 		throw EBadModule();
 	}
@@ -39,7 +39,7 @@ CSwordVerseKey::~CSwordVerseKey(){
 
 /** Stores the data of this key in the member m_data */
 void CSwordVerseKey::getData(){
-	m_module->module()->SetKey(*this);
+	m_module->module()->SetKey(*this->clone());
 	m_data = QString::fromLocal8Bit( (const char*)*m_module->module() );
 }
 
@@ -48,8 +48,7 @@ bool CSwordVerseKey::setKey( QString key ){
 	error = false;
 	
 	VerseKey::operator = ((const char*)key.local8Bit());	
-	m_module->module()->SetKey(*this);
-	
+	m_module->module()->SetKey(*this->clone());
 	//clear data
 	m_data = QString::null;
 	
@@ -58,19 +57,28 @@ bool CSwordVerseKey::setKey( QString key ){
 
 /**  */
 bool CSwordVerseKey::NextVerse(){	
-	m_module->module()->SetKey(*this);	//use this key as base for the next one!		
-	( *( m_module->module() ) )++;
-	setKey(m_module->module()->KeyText());
-	
+	if (m_module->getType() == CSwordModuleInfo::Commentary) {
+		m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!
+		( *( m_module->module() ) )++;
+		setKey(m_module->module()->KeyText());		
+	}
+	else {
+		Verse(Verse()+1);
+	}	
 	return true;
 }
 
 /**  */
 bool CSwordVerseKey::PreviousVerse(){
-	m_module->module()->SetKey(*this);	//use this key as base for the next one!		
-	( *( m_module->module() ) )--;
-	setKey(m_module->module()->KeyText());
-	
+	if (m_module->getType() == CSwordModuleInfo::Commentary) {
+		
+		m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
+		( *( m_module->module() ) )--;
+		setKey(m_module->module()->KeyText());		
+	}
+	else {
+		Verse(Verse()-1);
+	}	
 	return true;
 }
 
@@ -127,9 +135,16 @@ QString CSwordVerseKey::getBook() const {
 
 /** Returns the current book as Text, no as integer. */
 void CSwordVerseKey::setBook( const QString newBook ) {
-	qDebug("CSwordVerseKey::setBook( const QString newBook )");
-	qDebug((const char*)newBook.local8Bit());
 	const QString newKey = QString("%1 %2:%3").arg(newBook).arg((int)Chapter()).arg((int)Verse());
 	if(!setKey(newKey))
 		qWarning("Invalid key!");
+}
+
+/** Sets the module for this key */
+void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
+	const QString oldKey = QString::fromLocal8Bit( (const char*)*this );
+	if (module && (module->getType() == CSwordModuleInfo::Bible || module->getType() == CSwordModuleInfo::Commentary) ) {	
+		m_module = module;
+		setKey(oldKey);
+	}
 }

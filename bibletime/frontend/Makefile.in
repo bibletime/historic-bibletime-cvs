@@ -246,7 +246,7 @@ DIST_COMMON =  Makefile.am Makefile.in
 
 #>- DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 #>+ 4
-KDE_DIST=libfrontend.a libbibletime_frontend_la_meta_unload.cpp ctoolclass.h libfrontend_a_meta_unload.cpp 
+KDE_DIST=libbibletime_frontend_la_meta_unload.cpp ctoolclass.h 
 
 DISTFILES= $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
 
@@ -668,7 +668,7 @@ clean-moc-classes:
 	-rm -f  libfrontend_a_meta_unload.cpp
 
 #>+ 11
-libfrontend_a.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/cmdiarea.cpp $(srcdir)/kstartuplogo.cpp $(srcdir)/chtmlwidget.cpp $(srcdir)/chtmldialog.cpp $(srcdir)/ctipwindow.cpp $(srcdir)/actions.cpp $(srcdir)/ctoolclass.cpp $(srcdir)/libfrontend_a_meta_unload.cpp  ctipwindow.moc.cpp chtmldialog.moc.cpp actions.moc.cpp chtmlwidget.moc.cpp cmdiarea.moc.cpp kstartuplogo.moc.cpp
+libfrontend_a.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/cmdiarea.cpp $(srcdir)/kstartuplogo.cpp $(srcdir)/chtmlwidget.cpp $(srcdir)/chtmldialog.cpp $(srcdir)/ctipwindow.cpp $(srcdir)/actions.cpp $(srcdir)/ctoolclass.cpp libfrontend_a_meta_unload.cpp  ctipwindow.moc.cpp chtmldialog.moc.cpp actions.moc.cpp chtmlwidget.moc.cpp cmdiarea.moc.cpp kstartuplogo.moc.cpp
 	@echo 'creating libfrontend_a.all_cpp.cpp ...'; \
 	rm -f libfrontend_a.all_cpp.files libfrontend_a.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libfrontend_a.all_cpp.final; \

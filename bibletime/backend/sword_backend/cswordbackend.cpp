@@ -335,12 +335,15 @@ CSwordModuleInfo* CSwordBackend::findModuleByDescription(QString description){
 
 /** This function searches for a module with the specified name */
 CSwordModuleInfo * CSwordBackend::findModuleByName(QString name){
+  qDebug("CSwordBackend::findModuleByName(QString name)");
   if (m_moduleList)
     for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
-      if ( (QString)m_moduleList->current()->module()->Name() == name )
+      if ( QString::fromLocal8Bit(m_moduleList->current()->module()->Name()) == name ) {
+        qDebug("findModuleByName: return");
         return m_moduleList->current();
+      }
+  qDebug("findModuleByName: return 0");
   return 0;
-
 }
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */

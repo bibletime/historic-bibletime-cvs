@@ -17,9 +17,7 @@
 
 #include "chtmlwidget.h"
 #include "ctoolclass.h"
-#include "presenters/cmodulepresenter.h"
 
-//hack
 #include "thirdparty/qt3stuff/qrichtext_p.h"
 #include "thirdparty/qt3stuff/qt3stuff.h"
 
@@ -255,14 +253,31 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
 //  	mightStartDrag = true;  	
 	viewport()->setCursor( anchorAt(e->pos()).isEmpty() ? arrowCursor : KCursor::handCursor() );
 	
- 	if (!onLink.isEmpty() && e->button() == RightButton
- 	&& m_anchorMenu) {	//popup installed menu 	
+ 	if (!onLink.isEmpty() && e->button() == RightButton && m_anchorMenu) {	//popup installed menu 	
 		m_anchorMenu->popup( e->globalPos() );
   }
   else if (m_popup && e->button() == RightButton){ //popup normal menu
-		m_popup->popup( e->globalPos() );
-  }
-	
+    bool selectedWord = false;
+    if (!hasSelectedText()) {
+    	placeCursor(e->pos());
+    	
+	    Qt3::QTextCursor c1 = *cursor;
+	    Qt3::QTextCursor c2 = *cursor;
+	    c1.gotoWordLeft();
+	    c2.gotoWordRight();
+	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
+	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
+	    *cursor = c2;
+	    repaintChanged();
+	    selectedWord = true;
+		}		
+		m_popup->exec( e->globalPos() );
+		
+		if (hasSelectedText() && selectedWord) {
+			document()->removeSelection( Qt3::QTextDocument::Standard);
+		}
+	  repaintChanged();		
+  }	
 	QTextEdit::contentsMousePressEvent(e);
 }
 
@@ -289,15 +304,16 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
 		if (ref.right(1) == "/") {
 			ref = ref.mid( 0, ref.length() - 1 );
 		}
+#warning HACK!		
 		QString Module = QString::null;
-		if ( parent() && parent()->inherits("CModulePresenter") ) {
-			if (static_cast<CSwordModuleInfo*>(((CModulePresenter *)this->parent())->getModuleInfo())) {
-				Module = static_cast<CSwordModuleInfo*>(((CModulePresenter *)this->parent())->getModuleInfo())->module()->Name();
-			}
-			else {
-				Module = "unknown";
-			}
-		}				
+//		if ( parent() && parent()->inherits("CSwordPresenter") ) {
+//			if (static_cast<CSwordModuleInfo*>(((CSwordPresenter *)this->parent())->getModuleInfo())) {
+//				Module = static_cast<CSwordModuleInfo*>(((CSwordPresenter *)this->parent())->getModuleInfo())->module()->Name();
+//			}
+//			else {
+//				Module = "unknown";
+//			}
+//		}				
 //		mousePressed = false;
 //		inDoubleClick = false;				 				
 //		mightStartDrag = false;
@@ -453,9 +469,8 @@ void CHTMLWidget::installPopup( QPopupMenu* popup ){
 
 /** No descriptions */
 void CHTMLWidget::slotCopyAll(){
-	selectAll(true);
-	copy();	
-	selectAll(false);
+	QClipboard *cb = KApplication::clipboard();
+	cb->setText( document()->text() );
 }
 
 /** Sets the HTML widget editable or not */
@@ -674,3 +689,11 @@ void CHTMLWidget::emitLinkClicked( const QString& s){
 	}
 }
 
+/** Copies the displayed document into the clipboard. */
+void CHTMLWidget::copyDocument(){
+	if (!document()->text().isEmpty()) {
+		QClipboard* cb = KApplication::clipboard();			
+		cb->setText(document()->text());
+	}
+	
+}

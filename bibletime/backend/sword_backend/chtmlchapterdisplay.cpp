@@ -43,12 +43,11 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	}
 				
 	SWModule* swordModule = module->module();
-	ASSERT(swordModule);
 	VerseKey& key = (*(VerseKey*)(SWKey*)*swordModule);
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 	const int currentVerse = key.Verse();	
-	int verse = 0;	
+	int verse = 0;
 	m_htmlText = m_htmlHeader;
 	
   QString FontName = m_standardFontName;
@@ -58,20 +57,13 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
     FontName = font.family();
     FontSize = CToolClass::makeLogicFontSize(font.pointSize());
   }
-  qDebug("USING FONT: "+FontName.local8Bit()+" "+QString("%1").arg(FontSize).local8Bit());
-	
 	QString verseText = QString::null;	
 	QString keyName = QString::null;
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !swordModule->Error(); (*swordModule)++) {
 		qDebug("Display loop");
-		verse = key.Verse();
-		
+		verse = key.Verse();		
 		keyName = QString::fromLocal8Bit( (const char*)key );
-//		verseText = module->getCacheItem( keyName );
-//		if (verseText.isEmpty()) {
 		verseText = QString::fromLocal8Bit((const char*)*swordModule);
-//			module->addCacheItem( keyName, verseText );
-//		}
 		
 		if (verse == currentVerse)
 			m_htmlText.append( QString("<A HREF=\"sword://%1\">%2</A><A NAME=\"%3\"><FONT COLOR=\"%4\" FACE=\"%5\" SIZE=\"%6\"> %7</FONT></A>")
@@ -92,14 +84,14 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 				.arg( FontSize )				
 				.arg( verseText )
 			);		
-		if (m_useLineBreak)
+//		if (m_useLineBreak)
+//			m_htmlText.append("<BR>\n");
+//		else
 			m_htmlText.append("<BR>\n");
-		else
-			m_htmlText.append("\n");
 	}
 	m_htmlText.append(m_htmlBody);	
 		
-	//clean up, key is the module key - don't delete it		
+	//clean up, key is the modules key - don't delete it		
 	return 0;	//no error	
 }
 
@@ -107,49 +99,21 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){	
 	qDebug("CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
 	ASSERT(moduleList);
-	/** We use HTML tables to put the entries side by side.
-	*	The format of the table is:
-	* | 1 | moduletext1 | moduletext2
-	*	| 2 | verse2/1    | verse2/2
-	*
-	* We work verse by verse, first we add the versenumber and then get each verse from
-	* the different modules and add the text
-	*/
-	qDebug("check module list");
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		qWarning("empty module list");
 		m_htmlText = QString::null;
 		return 0;
-	}	
-	
-	//These arrays contain font info for each module
-//	QString FontNames [moduleList->count()];
-//	int     FontSizes [moduleList->count()];
-	
-//	int i = 0;
-//	for (moduleList->first(); moduleList->current(); moduleList->next(), i++){
-//		if (moduleList->current()->hasFont()){
-//		  QFont font = moduleList->current()->getFont();
-//		  FontNames[i] = font.family();
-//		  FontSizes[i] = CToolClass::makeLogicFontSize( font.pointSize() );
-//		}
-//		else{
-//		  FontNames[i] = m_standardFontName;
-//		  FontSizes[i] = m_standardFontSize;
-//		}
-//	}	
-	
+	}		
 	SWModule* module = moduleList->first()->module();	
 	VerseKey* key = (VerseKey*)(SWKey*)*module;
 	key->Persist(1);
 
 	const int currentBook = key->Book();
 	const int currentChapter = key->Chapter();
-	const int width=(int)((double)98/(double)moduleList->count());
+	const int width=(int)((double)97/(double)moduleList->count());
 	CSwordModuleInfo *d = 0;
 			
 	m_htmlText = m_htmlHeader + QString::fromLocal8Bit("<TABLE cellpadding=\"1\" cellspacing=\"0\">");	
-  //create header with modulenames
  	m_htmlText.append("<TR><TD BGCOLOR=\"#F1F1F1\"></TD>");
 	
 	SWModule *m= (d = moduleList->first()) ? d->module() : 0;	
@@ -159,7 +123,6 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
 	m_htmlText.append("</TR>");
-
 		
 	VerseKey k = (const char*)*key;
 	k.Verse(1);
@@ -183,12 +146,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		m = (d = moduleList->first()) ? d->module() : 0;
 		while (m) {
 			m->SetKey(*key);
-				
-//			verseText = d->getCacheItem( keyName );
-//			if (verseText.isEmpty()) {
-				verseText = QString::fromLocal8Bit((const char*)*m);
-//				d->addCacheItem( keyName, verseText );
-//			}			
+			verseText = QString::fromLocal8Bit((const char*)*m);
 			if (d->hasFont())
 				rowText += QString("<TD width=\"%1%\" BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\">%5</FONT></TD>")
 					.arg(width)
@@ -209,5 +167,5 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	}
 	m_htmlText.append( QString("</TABLE>%1").arg(m_htmlBody) );
 	
-	return 0;
+	return 0;		
 }

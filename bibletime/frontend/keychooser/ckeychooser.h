@@ -37,41 +37,51 @@ class CKeyChooser : public QWidget {
 
 public:
   /**
-  	* Creates a proper Instance, either
-		*
-		* @ref CLexiconKeyChooser or
-		* @ref CBibleKeyChooser
-		* @param info the @ref CModuleInfo to be represented by the KeyChooser
-		* @param key if not NULL, the @ref CKey the KeyChooser should be set to
-		* @param parent the parent of the widget to create
-		*/
+  * Creates a proper Instance, either
+	*
+	 @ref CLexiconKeyChooser or
+	* @ref CBibleKeyChooser
+	* @param info the @ref CModuleInfo to be represented by the KeyChooser
+	* @param key if not NULL, the @ref CKey the KeyChooser should be set to
+	* @param parent the parent of the widget to create
+	*/
   static CKeyChooser* createInstance(CModuleInfo *info, CKey *key, QWidget *parent);
 	/**
-		* The destructor
-		*/
+	* The destructor
+	*/
 	~CKeyChooser();
 
 signals:
-	/** is emitted if the @ref CKey was changed by the user */
+	/**
+	* is emitted if the @ref CKey was changed by the user
+	*/
 	void keyChanged(CKey* key);
 
 public slots:
 	/**
-		* sets the @ref CKey
-		* @param key the key which the widget should be set to
-		*/
+	* sets the @ref CKey
+	* @param key the key which the widget should be set to
+	*/
 	virtual void	setKey(CKey* key) = 0;
 	/**
-		* gets the current @ref CKey
-		*
-		* @return the current @ref CKey
-		*/
+	* gets the current @ref CKey
+	*
+	* @return the current @ref CKey
+	*/
   virtual CKey*	getKey() = 0;	
-  /** Freshes the content of the different key chooser parts. */
+  /**
+  * Sets the module of this keychooser and refreshes the comboboxes
+  */
+  virtual void setModule( CModuleInfo* ) = 0;
+  /**
+  * Freshes the content of the different key chooser parts.
+  */
   virtual void refreshContent() = 0;
 
 protected:
-	/** the constructor - DO NOT USE! -- use @ref #createInstance */
+	/**
+	* the constructor - DO NOT USE! -- use @ref #createInstance
+	*/
 	CKeyChooser(CModuleInfo *info=0, CKey *key=0, QWidget *parent=0, const char *name=0);
 };
 

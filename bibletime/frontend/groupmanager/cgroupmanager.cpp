@@ -26,7 +26,6 @@
 #include "../../structdef.h"
 #include "../../whatsthisdef.h"
 #include "../../ressource.h"
-#include "../presenters/cmodulepresenter.h"
 #include "../ctoolclass.h"
 #include "../searchdialog/csearchdialog.h"
 #include "../../printing/cprintitem.h"
@@ -637,7 +636,7 @@ void CGroupManager::slotCreateNewPresenter(){
 	
 	if (m_pressedItem && m_pressedItem->moduleInfo()) {
 		if (m_pressedItem->type() == CGroupManagerItem::Module || m_pressedItem->type() == CGroupManagerItem::Bookmark)
-			emit createPresenter( m_pressedItem->moduleInfo(), false, QString::null );
+			emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
 	}
 	else
 		qDebug("Probably module of item isn't valid");
@@ -759,7 +758,7 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     // Bookmark dragged on module - open a presenter
     if ( (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Bookmark)
     		&& target && (target->type() == CGroupManagerItem::Module) ){
-      emit createPresenter(target->moduleInfo(),false, m_pressedItem->getKeyText() );
+      emit createSwordPresenter(target->moduleInfo(),m_pressedItem->getKeyText() );
     }
     //move around bookmarks
     else{    	
@@ -825,7 +824,7 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
 							// In bibles or commentaries, the reference is opened
 							if (dynamic_cast<CSwordModuleInfo*>(target->moduleInfo()) ) {
 								if (dynamic_cast<CSwordBibleModuleInfo*>(target->moduleInfo()) )
-									emit createPresenter( target->moduleInfo(), false, ref );
+									emit createSwordPresenter( target->moduleInfo(),ref );
 								else if  (dynamic_cast<CSwordLexiconModuleInfo*>(target->moduleInfo())) // in lexicons, the reference is searched
 									searchBookmarkedModule(ref,target);							
 							}
@@ -912,12 +911,12 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 	  			HTML_DIALOG(HELPDIALOG_MODULE_LOCKED);
 	  		config->writeEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
 	  	}
-			emit createPresenter( m_pressedItem->moduleInfo(), true, QString::null );
+			emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
 		}
 		else if  (m_pressedItem->type() == CGroupManagerItem::Bookmark) {
 			ASSERT(m_pressedItem->getBookmarkKey());
 			if (m_pressedItem->moduleInfo() && m_pressedItem->getBookmarkKey() ) {
-				emit createPresenter( m_pressedItem->moduleInfo(), true, m_pressedItem->getKeyText() );
+				emit createSwordPresenter( m_pressedItem->moduleInfo(), m_pressedItem->getKeyText() );
 			}			
 		}
 	}	

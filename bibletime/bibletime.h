@@ -30,7 +30,7 @@
 //own includes
 #include "frontend/groupmanager/cgroupmanager.h"
 #include "frontend/cmdiarea.h"
-#include "frontend/presenters/cmodulepresenter.h"
+#include "frontend/presenters/cswordpresenter.h"
 #include "backend/cmoduleinfo.h"
 #include "backend/sword_backend/cswordbackend.h"
 #include "printing/cprinter.h"
@@ -233,56 +233,60 @@ protected: // Protected methods
 
 protected slots:
   /**
-  	* Quit BibleTime
-  	*/
+ 	* Quit BibleTime
+ 	*/
   void slotFileQuit();
   /**
-  	* Creates a new presenter in the MDI area according to the type of the module.
-  	*/
-  void createNewPresenter(CModuleInfo*, bool, const QString);
+ 	* Creates a new presenter in the MDI area according to the type of the module.
+ 	*/
+  void createNewSwordPresenter(ListCSwordModuleInfo*,const QString);
   /**
-  	* Switches displaying of strong number on or off
-  	*/
+  * No descriptions
+  */
+  void createNewSwordPresenter(CSwordModuleInfo*, const QString );
+  /**
+ 	* Switches displaying of strong number on or off
+ 	*/
   void slotToggleStrongs();
   /**
-  	* Switches footnotes on or off
-  	*/
+ 	* Switches footnotes on or off
+ 	*/
   void slotToggleFootnotes();
   /**
-  	* Is called when the window menu is about to show ;-)
-  	*/
+ 	* Is called when the window menu is about to show ;-)
+ 	*/
   void slotWindowMenuAboutToShow();
   /**
-  	* This slot is connected with the windowAutoTile_action object
-  	*/
+ 	* This slot is connected with the windowAutoTile_action object
+ 	*/
   void slotAutoTile();
   /**
-  	* This slot is connected with the windowAutoCascade_action object
-  	*/
+ 	* This slot is connected with the windowAutoCascade_action object
+ 	*/
   void slotAutoCascade();
 	/**
-		* Is called when a client was selected in the window menu
-		*/
+	* Is called when a client was selected in the window menu
+	*/
 	void slotWindowMenuActivated( int );
   /**
-  	* Shows/hides the toolbar
-  	*/
+ 	* Shows/hides the toolbar
+ 	*/
   void slotToggleToolbar();
   /**
-   * Opens a toolbar editor
-   */
+  * Opens a toolbar editor
+  */
   void slotSettingsToolbar();
   /**
-   * Shows or hides the groupmanager.
-   */
+  * Shows or hides the groupmanager.
+  */
   void slotToggleGroupManager();
   /**
-   * Starts printing and opens the printerdialog at first.
-   */
+  * Starts printing and opens the printerdialog at first.
+  */
   void slotFilePrint();
   /**
-  	* Enables the "Clear printer queue" action
-  	*/
+ 	* Enables the "Clear printer queue" action
+ 	*/
   void slotSetClearQueueStatus();
 };
 #endif

@@ -106,7 +106,7 @@ signals: // Signals
   /**
   * Is emitted when a module in the tree was selected.
   */
-  void createPresenter(CModuleInfo*, bool, const QString);
+  void createSwordPresenter(CSwordModuleInfo*, const QString);
 
 protected slots: // Protected slots
   /**

@@ -6,16 +6,20 @@ noinst_LIBRARIES = libpresenters.a
 
 libpresenters_a_SOURCES = \
 cbiblepresenter.cpp \
-clexikonpresenter.cpp \
+clexiconpresenter.cpp \
 ccommentarypresenter.cpp \
-cmodulepresenter.cpp \
+cpresenter.cpp \
+cswordpresenter.cpp \
 cmodulechooserbar.cpp \
 cmodulechooserbutton.cpp
 
-EXTRA_DIST = cmodulepresenter.cpp cmodulepresenter.h ccommentarypresenter.cpp ccommentarypresenter.h clexikonpresenter.cpp clexikonpresenter.h cbiblepresenter.cpp cbiblepresenter.h \
-cmodulechooserbar.h \
-cmodulechooserbar.cpp \
-cmodulechooserbutton.h \
-cmodulechooserbutton.cpp
+EXTRA_DIST = \
+ccommentarypresenter.cpp ccommentarypresenter.h \
+clexiconpresenter.cpp clexiconpresenter.h \
+cbiblepresenter.cpp cbiblepresenter.h \
+cmodulechooserbar.h cmodulechooserbar.cpp \
+cmodulechooserbutton.h cmodulechooserbutton.cpp \
+cswordpresenter.h csowrdpresenter.cpp \
+cpresenter.h cpresenter.cpp
 
 KDE_CXXFLAGS=-fexceptions -frtti

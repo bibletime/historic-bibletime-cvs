@@ -112,11 +112,9 @@ int main(int argc, char* argv[]) {
 
 	
  	KApplication app;
-#warning MAJOR HACK! MAYBE BAD FOR LOCALES! 	
- 	//we chnage the font to work around a special KDE and Qt font problem with charsets
- 	QFont f = app.font();
- 	f.setCharSet(QFont::AnyCharSet);
- 	app.setFont(f); 	
+// 	QFont f = app.font();
+// 	f.setCharSet(QFont::AnyCharSet);
+// 	app.setFont(f); 	
  	KGlobal::dirs()->addResourceType("BT_pic", KStandardDirs::kde_default("data") + kapp->name() + "/pics/");
 
 

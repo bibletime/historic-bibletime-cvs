@@ -19,7 +19,7 @@
 #include "bibletime.h"
 #include "ressource.h"
 #include "frontend/optionsdialog/coptionsdialog.h"
-#include "frontend/presenters/cmodulepresenter.h"
+//#include "frontend/presenters/cpresenter.h"
 #include "frontend/ctoolclass.h"
 #include "printing/cprinterdialog.h"
 #include "frontend/ctipwindow.h"
@@ -102,13 +102,13 @@ void BibleTime::slotSettingsOptions(){
 			m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );			
 		}				
 		const int changedSettings = dlg->getChangedSettings();
-		if (changedSettings & CModulePresenter::language) {	//the language changed
+		if (changedSettings & CSwordPresenter::language) {	//the language changed
 			KConfigGroupSaver dummy(m_config, "SWORD");
 			const QString language = m_config->readEntry("Language", "");
 			m_important->swordBackend->setBooknameLanguage(language);		
 		}
 		for ( int index = 0; index < m_mdi->windowList().count(); index++) {
-			CModulePresenter* myPresenter = (CModulePresenter*)m_mdi->windowList().at(index);
+			CSwordPresenter* myPresenter = (CSwordPresenter*)m_mdi->windowList().at(index);
 			ASSERT(myPresenter);
 			if (myPresenter) {
 				myPresenter->refresh(changedSettings);
@@ -148,7 +148,7 @@ void BibleTime::slotToggleFootnotes(){
 	qDebug("BibleTime::slotToggleFootnotes");		
 	m_important->swordBackend->setOption(CSwordBackend::footnotes, m_viewFootnotes_action->isChecked() );
 	
-	refreshPresenters( CModulePresenter::footnotes );
+	refreshPresenters( CSwordPresenter::footnotes );
 }
 
 /** Switches displaying of strong number on or off */
@@ -156,7 +156,7 @@ void BibleTime::slotToggleStrongs(){
 	qDebug("BibleTime::slotToggleStrongs");
 	m_important->swordBackend->setOption(CSwordBackend::strongNumbers, m_viewStrongs_action->isChecked());	
 	
-	refreshPresenters( CModulePresenter::strongNumbers );
+	refreshPresenters( CSwordPresenter::strongNumbers );
 }
 
 /** Is called just before the window menu is ahown. */

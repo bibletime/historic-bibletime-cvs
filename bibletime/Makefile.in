@@ -277,7 +277,7 @@ DIST_COMMON =  Makefile.am Makefile.in
 
 #>- DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 #>+ 4
-KDE_DIST=bibletime_meta_unload.cpp DEADJOE BibleTime.kdoc 
+KDE_DIST=DEADJOE BibleTime.kdoc 
 
 DISTFILES= $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
 
@@ -698,7 +698,7 @@ clean-moc-classes:
 	-rm -f  bibletime_meta_unload.cpp
 
 #>+ 11
-bibletime.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/bibletime_init.cpp $(srcdir)/bibletime_slots.cpp $(srcdir)/bibletime.cpp $(srcdir)/main.cpp $(srcdir)/bibletime_meta_unload.cpp  bibletime.moc.cpp
+bibletime.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/bibletime_init.cpp $(srcdir)/bibletime_slots.cpp $(srcdir)/bibletime.cpp $(srcdir)/main.cpp bibletime_meta_unload.cpp  bibletime.moc.cpp
 	@echo 'creating bibletime.all_cpp.cpp ...'; \
 	rm -f bibletime.all_cpp.files bibletime.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> bibletime.all_cpp.final; \

@@ -136,6 +136,8 @@ public:
   	* @param newBook The QString object which contains the new book for this key.
   	*/
   void setBook(const QString newBook);
+  /** Sets the module for this key */
+  virtual void setModule( CSwordModuleInfo* module );
   /**
   	* This is our data member, which contains the data for this key.
   	*

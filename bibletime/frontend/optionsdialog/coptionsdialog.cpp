@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include "coptionsdialog.h"
-#include "../presenters/cmodulepresenter.h"
+#include "../presenters/cswordpresenter.h"
 #include "../../ressource.h"
 #include "../../whatsthisdef.h"
 #include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
@@ -290,9 +290,9 @@ void COptionsDialog::saveGeneralOptions(){
 		const QString oldValue = config->readEntry("Language", QString::null);	//default nonexisting language
 		if (oldValue == QString::null || oldValue != currentText) {	//changed
 			if (m_changedSettings)
-				m_changedSettings |= CModulePresenter::language;
+				m_changedSettings |= CSwordPresenter::language;
 			else
-				m_changedSettings = CModulePresenter::language;
+				m_changedSettings = CSwordPresenter::language;
 		}
 		
 		list <string> locales = LocaleMgr::systemLocaleMgr.getAvailableLocales();
@@ -316,14 +316,11 @@ void COptionsDialog::saveFontOptions(){
 	if (config->readFontEntry("Presenter").family() != currentFonts[0].family() || config->readFontEntry("Presenter").pointSize() != currentFonts[0].pointSize() )
 	{
 		if (m_changedSettings)
-			m_changedSettings |= CModulePresenter::font;
+			m_changedSettings |= CSwordPresenter::font;
 		else
-			m_changedSettings = CModulePresenter::font;
+			m_changedSettings = CSwordPresenter::font;
 	}
 	config->writeEntry("Presenter", currentFonts[0]);
-//	config->writeEntry("Presenter Fixed", currentFonts[2]);
- //	config->writeEntry("Printer", currentFonts[3]);
- //	config->writeEntry("Printer Fixed", currentFonts[4]);
 }
 /**  */
 void COptionsDialog::saveKeyOptions(){
@@ -337,33 +334,33 @@ void COptionsDialog::saveColorsOptions() {
 	KConfigGroupSaver groupSaver(config, "Colors");
 	if ( config->readColorEntry("Background") != backgroundButton->color() ) {
 		if (m_changedSettings)
-			m_changedSettings |= CModulePresenter::backgroundColor;
+			m_changedSettings |= CSwordPresenter::backgroundColor;
 		else
-			m_changedSettings = CModulePresenter::backgroundColor;
+			m_changedSettings = CSwordPresenter::backgroundColor;
 	}	
 	config->writeEntry("Background", backgroundButton->color().name());	
 	
 	if ( config->readColorEntry("Normal Text") != normalTextButton->color() ) {
 		if (m_changedSettings)
-			m_changedSettings |= CModulePresenter::textColor;
+			m_changedSettings |= CSwordPresenter::textColor;
 		else
-			m_changedSettings = CModulePresenter::textColor;
+			m_changedSettings = CSwordPresenter::textColor;
 	}		
 	config->writeEntry("Normal Text", normalTextButton->color().name());	
 	
 	if ( config->readColorEntry("Versenumber/URL") != URLLinkButton->color() ) {
 		if (m_changedSettings)
-			m_changedSettings |= CModulePresenter::verseNumberColor;
+			m_changedSettings |= CSwordPresenter::verseNumberColor;
 		else
-			m_changedSettings = CModulePresenter::verseNumberColor;
+			m_changedSettings = CSwordPresenter::verseNumberColor;
 	}	
 	config->writeEntry("Versenumber/URL", URLLinkButton->color().name());
 	
 	if ( config->readColorEntry("Highlighted Verse") != highlightedVerseButton->color() ) {
 		if (m_changedSettings)
-			m_changedSettings |= CModulePresenter::highlightedVerseColor;
+			m_changedSettings |= CSwordPresenter::highlightedVerseColor;
 		else
-			m_changedSettings = CModulePresenter::highlightedVerseColor;
+			m_changedSettings = CSwordPresenter::highlightedVerseColor;
 	}		
 	config->writeEntry("Highlighted Verse", highlightedVerseButton->color().name());
 }

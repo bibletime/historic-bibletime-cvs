@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "cmodulechooserbutton.h"
+#include "../../ressource.h"
 #include "../../backend/sword_backend/cswordbackend.h"
 
 //Qt includes
@@ -38,7 +39,8 @@ CModuleChooserButton::CModuleChooserButton(CImportantClasses* importantClasses, 
   else
     m_hasModule = true;
 	
-//	setPixmap( getIcon() );
+	setPixmap( getIcon() );
+	setPopupDelay(0);
 //	setDefaultPixmap( getIcon() );
 	
 	//create popup
@@ -81,26 +83,32 @@ QPixmap CModuleChooserButton::getIcon(){
 	if (!m_module) {
 		return QPixmap();
 	}
-	
+
 	switch (m_moduleType) {
 		case CSwordModuleInfo::Bible:
-			return QPixmap();
+			return BIBLE_ICON_SMALL;
 		case CSwordModuleInfo::Commentary:
-			return QPixmap();
+			return COMMENTARY_ICON_SMALL;
 		case CSwordModuleInfo::Lexicon:
-			return QPixmap();		
+			return LEXICON_ICON_SMALL;
 		default:		
-			return QPixmap();
+			return SmallIcon("plus", 16);
 	}
 }
 
 CSwordModuleInfo* CModuleChooserButton::getModule() {		
   qDebug("CSwordModuleInfo* CModuleChooserButton::getModule()");
 	for (int i = 0; i < m_popup->count(); i++) {
-	  qDebug("i");
+//	  qDebug("i");
 		if ( m_popup->isItemChecked(m_popup->idAt(i)) ){
-		  qDebug("return now");
-			return m_important->swordBackend->findModuleByName( m_popup->text(m_popup->idAt(i)) );
+			ASSERT(m_popup);
+			ASSERT(m_important);
+			ASSERT(m_important->swordBackend);			
+			qDebug( m_popup->text(m_popup->idAt(i)).local8Bit());
+			CSwordModuleInfo* m = m_important->swordBackend->findModuleByName( m_popup->text(m_popup->idAt(i)) );
+			ASSERT(m);
+		  qDebug("return now");			
+			return m;
 		}
 	}	
 	return 0; //"none" selected
@@ -121,13 +129,16 @@ void CModuleChooserButton::moduleChosen( int ID ){
 	m_popup->setItemChecked(ID, true);
 	
 	if (m_popup->text(ID) == i18n("NONE")) {
-		if (m_hasModule)
+		if (m_hasModule) {
   		emit sigRemoveButton(m_id);
+  		return;
+		}
 	}
 	else{
 	  if (!m_hasModule)
 	    emit sigAddButton();
-		m_hasModule = true;
+		m_hasModule = true;  	
+		setPixmap(getIcon());  	  	
   	emit sigChanged();
 	}
 }

@@ -1,9 +1,9 @@
 /***************************************************************************
                           cbiblepresenter.h  -  description
                              -------------------
-    begin                : Thu Jan 20 2000
-    copyright            : (C) 2000 by The BibleTime Team
-    email                : Info@bibletime.de
+    begin                : Sun Mar 18 2001
+    copyright            : (C) 2001 by The BibleTime team
+    email                : info@bibletime.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -18,111 +18,54 @@
 #ifndef CBIBLEPRESENTER_H
 #define CBIBLEPRESENTER_H
 
-//KDE includes
-#include "cmodulepresenter.h"
-#include "../../structdef.h"
+#include <qwidget.h>
+#include "cswordpresenter.h"
 
-//Qt includes
-#include <qguardedptr.h>
-
-class KComboBox;
-class CMDIArea;
-class CHTMLWidget;
-class KAction;
-class KToggleAction;
-class	KonqComboAction;
-
-class CKeyChooser;
-class CKey;
 class CSwordVerseKey;
-class CModuleChooserBar;
 
-class BibleTime;
-
-/** To present a bible module
-  * @author The BibleTime Team
+/**
+	* The presenter used for Sword Bibles.
+  * @author The BibleTime team
   */
-class CBiblePresenter : public CModulePresenter  {
-	friend class CMDIArea;
-	Q_OBJECT
-
-public:
-	CBiblePresenter(CImportantClasses* importantClasses, QWidget* parent, const char* name = 0, CModuleInfo* module = 0 );
-	virtual ~CBiblePresenter();
-	/**
-	*
-	*/
-  virtual void refresh(const int useFeatures);
-  /**
-  * Reimplementation
-  */
-  void copy();
-  /**
-  * Returns the caption for this presenter window.
-  */
-  virtual QString caption();
-	CKeyChooser* m_keyChooser;
-	
-public slots: // Public slots
-  /**
-  * Is called after a module was added/deleted from the popup menu.
-  */
-  void slotModuleChosen(int);
-  /**
-  *
-  */
-	virtual void lookup(CKey* key);
+class CBiblePresenter : public CSwordPresenter  {
+   Q_OBJECT
+public: 
+	CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0);
+	~CBiblePresenter();
 
 protected:
-	friend class BibleTime;	
   /**
-  *
+  * Initializes the view (central widget, toolbars etc) of this presenter
   */
-  void readSettings();
+  virtual void initView();
   /**
-  * Initialize the view
-  */
-  void initView();
-  /**
-  * Initializes SLOTs and SIGNALs
-  */
+  * Initializes the Signal / Slot connections
+	*/
   void initConnections();
-	
 
 protected slots: // Protected slots
   /**
-	*
-  */
-  void slotReferenceClicked( const QString& );
-  /**
-  * Prints the highlighted verse.
-  */
-  void slotPrintHighlightedVerse();
-  /**
-  * This slot is called, when the HTML widget send a word,
-	* on which the user clicked.
+  * This slot is called when the modules selected in
+	* the module chooserbar have changed.
 	*/
-  void slotWordClicked( const QString& );
+  void modulesChanged();
   /**
-  * Is called before the popup is shown.
+  * Displays the chapter using the aparameter.
   */
-  void slotPopupAboutToShow();
+  void lookup( CKey* );
+
+private slots: // Private slots
+  /**
+  * No descriptions
+  */
+  void referenceClicked(const QString&);
+  /**
+  ** No descriptions
+  */
+  void popupAboutToShow();
 
 private:
-	KPopupMenu* m_anchorPopup;
-	KPopupMenu* m_popup;
-//	KPopupMenu* m_moduleChooserPopup;
-	CModuleChooserBar* m_moduleChooserBar;
- 	KToolBar* m_mainToolbar;	
-  QString currentAnchor;
-  CSwordVerseKey* m_key;
-  CHTMLWidget* html_widget;
-
-  QList<CSwordModuleInfo> m_moduleList;
-private slots: // Private slots
-  /** called when the module chooser was modified */
-  void slotModulesChanged();
+	CSwordVerseKey* m_key;
 };
 
 #endif
-

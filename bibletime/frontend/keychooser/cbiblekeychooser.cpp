@@ -267,5 +267,13 @@ QSize CBibleKeyChooser::sizeHint(){
 /** Reimplementation. */
 void CBibleKeyChooser::refreshContent() {
 	const int currentBookIndex = w_book->ComboBox->currentItem();
-	w_book->reset( m_info->getBooks(), currentBookIndex, false);
+	w_book->reset( m_info->getBooks(), currentBookIndex, true);
+}
+
+/** Sets te module and refreshes the combos */
+void CBibleKeyChooser::setModule(CModuleInfo* module){
+	if (module != m_info && (CSwordBibleModuleInfo*)module) {
+		m_info = (CSwordBibleModuleInfo*)module;
+		refreshContent();
+	}
 }

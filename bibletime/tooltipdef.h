@@ -15,58 +15,151 @@
  *                                                                         *
  ***************************************************************************/
 
+//ToolTip entries for Mainwindow actions
 //QWhatsThis entries for Mainwindow actions
-
-#define WT_FILE_NEW	
-#define WT_FILE_CLOSE	
-#define WT_FILE_QUIT
+#define TT_FILE_CLEAR_QUEUE  i18n("Clear printing queue")
+#define TT_FILE_PRINT  i18n("Open the printerdialog")
+#define TT_FILE_QUIT  i18n("Quit")
 	
-#define WT_GM_SEARCH_ITEMS
-#define WT_GM_DELETE_ITEMS
-#define WT_GM_RESET
+#define TT_GM_SEARCH_MODULES i18n("Search in selected modules")
+#define TT_GM_DELETE_ITEMS i18n("Delete selected items")
+#define TT_GM_RESET	i18n("Reset groupmanager")
 
-#define WT_VIEW_GROUPMANAGER
-#define WT_VIEW_TOOLBAR
-#define WT_VIEW_FOOTNOTES
-#define WT_VIEW_STRONGS
+#define TT_VIEW_GROUPMANAGER i18n("Show / hide groupmanager")
+#define TT_VIEW_TOOLBAR i18n("Show / hide tooolbar")
+#define TT_VIEW_FOOTNOTES i18n("Show / hide footnotes")
+#define TT_VIEW_STRONGS i18n("Show / hide strong numbers")
 
-#define WT_WINDOW_TILE
-#define WT_WINDOW_AUTO_TILE
-#define WT_WINDOW_CASCADE
-#define WT_WINDOW_AUTO_CASCADE
+#define TT_WINDOW_TILE i18n("Tile windows")
+#define TT_WINDOW_AUTO_TILE  i18n("Automatically tile")
+#define TT_WINDOW_CASCADE  i18n("Cascade windows")
+#define TT_WINDOW_AUTO_CASCADE  i18n("Automatically cascade")
+#define TT_WINDOW_CLOSE_ALL  i18n("Close all windows")
 
-#define WT_SETTINGS_EDIT_TOOLBAR
-#define WT_SETTINGS_OPTIONS
+#define TT_SETTINGS_EDIT_TOOLBAR i18n("Edit main toolbar")
+#define TT_SETTINGS_OPTIONS i18n("Options")
 
-#define WT_HELP_CONTENT
-#define WT_HELP_WHATSTHIS
-#define WT_HELP_BUGREPORT
-#define WT_HELP_ABOUT
-#define WT_HELP_ABOUT_KDE
+#define TT_HELP_CONTENT i18n("Content")
+#define TT_HELP_WHATSTHIS i18n("Whats this")
+#define TT_HELP_BUGREPORT i18n("Send bugreport")
+#define TT_HELP_ABOUT i18n("About BibleTime")
+#define TT_HELP_ABOUT_KDE i18n("About KDE")
 
 
 //QWhatsThis defines for the groupmanager
-#define WT_GM_NEW_PRESENTER
-#define WT_GM_NEW_GROUP
-#define WT_GM_CHANGE_GROUP
-#define WT_GM_NEW_BOOKMARK
-#define WT_GM_CHANGE_BOOKMARK
-#define WT_GM_IMPORT_BOOKMARKS
-#define WT_GM_EXPORT_BOOKMARKS
-#define WT_GM_UNLOCK_MODULE
-#define WT_GM_ABOUT_MODULE
+#define TT_GM_WIDGET i18n("The groupmanager")
+#define TT_GM_NEW_PRESENTER i18n("New presenter")
+#define TT_GM_NEW_GROUP i18n("Create a new group")
+#define TT_GM_CHANGE_GROUP i18n("Change group")
+#define TT_GM_NEW_BOOKMARK i18n("New bookmark")
+#define TT_GM_CHANGE_BOOKMARK i18n("Change bookmark")
+#define TT_GM_IMPORT_BOOKMARKS i18n("Import bookmarks")
+#define TT_GM_EXPORT_BOOKMARKS i18n("Export bookmarks")
+#define TT_GM_PRINT_BOOKMARK i18n("Print bookmark")
+#define TT_GM_UNLOCK_MODULE i18n("Unlock module")
+#define TT_GM_ABOUT_MODULE i18n("About module")
 
 //QWhatsThis defines for the presenters
-#define WT_PRESENTER_NEXT_VERSE
-#define WT_PRESENTER_PREVIOUS_VERSE
-#define WT_PRESENTER_NEXT_CHAPTER
-#define WT_PRESENTER_PREVIOUS_CHAPTER
-#define WT_PRESENTER_BOOK_COMBO
-#define WT_PRESENTER_CHAPTER_COMBO
-#define WT_PRESENTER_VERSE_COMBO
-#define WT_PRESENTER_ENTRY_COMBO
+#define TT_MDI_AREA_WIDGET i18n("The working area")
+
+#define TT_PRESENTER_BIBLE_WIDGET i18n("The bible presenter")
+#define TT_PRESENTER_COMMENTARY_WIDGET i18n("The commentary presenter")
+#define TT_PRESENTER_LEXICON_WIDGET i18n("The lexicon presenter")
+
+#define TT_PRESENTER_NEXT_VERSE i18n("Next verse")
+#define TT_PRESENTER_PREVIOUS_VERSE i18n("Previous verse")
+#define TT_PRESENTER_NEXT_CHAPTER i18n("Next chapter")
+#define TT_PRESENTER_PREVIOUS_CHAPTER i18n("Previous chapter")
+#define TT_PRESENTER_BOOK_COMBO i18n("Book list")
+#define TT_PRESENTER_CHAPTER_COMBO i18n("Chapter list")
+#define TT_PRESENTER_VERSE_COMBO i18n("Verse list")
+#define TT_PRESENTER_ENTRY_COMBO i18n("Entry list")
+#define TT_PRESENTER_AUTO_SCROLL i18n("Automatic scrolling")
+#define TT_PRESENTER_EDIT i18n("Edit personal comment")
+#define TT_PRESENTER_EDIT_SAVE i18n("Save personal comment")
+#define TT_PRESENTER_EDIT_DELETE i18n("Delete personal comment")
+#define TT_PRESENTER_EDIT_COMMENT_UP_TO i18n("Comment up to")
+#define TT_PRESENTER_EDIT_SET_BOLD i18n("Set bold")
+#define TT_PRESENTER_EDIT_SET_ITALIC i18n("Set italic")
+#define TT_PRESENTER_EDIT_SET_UNDERLINED i18n("Set underlined")
+#define TT_PRESENTER_EDIT_SET_FONT i18n("Set font")
+#define TT_PRESENTER_EDIT_COLOR_CHOOSER i18n("Choose a color")
+#define TT_PRESENTER_EDIT_FONTSIZE_CHOOSER i18n("Choose a fontsize")
 
 //HTML widget related #defines
-#define WT_HTML_SAVE_AS
-#define WT_HTML_SELECT_ALL
-#define WT_HTML_COPY
+#define TT_HTML_SAVE_AS i18n("Save as HTML")
+#define TT_HTML_SELECT_ALL i18n("Select all")
+#define TT_HTML_COPY i18n("Copy to clipboard")
+
+//searchdialog related #defines, SD means searchdialog
+#define TT_SD_SEARCH_TEXT_EDIT i18n("Search this text")
+#define TT_SD_SEARCH_MULTIPLE_WORDS i18n("Search multiple words")
+#define TT_SD_SEARCH_EXACT_MATCH i18n("Exact match")
+#define TT_SD_SEARCH_REGEXP i18n("Search with GNU regexp")
+#define TT_SD_SEARCH_CASE_SENSITIVE i18n("Search case sensitive")
+
+#define TT_SD_SCOPE_NO_SCOPE i18n("No scope")
+#define TT_SD_SCOPE_LAST_RESULT i18n("Last search result")
+#define TT_SD_SCOPE_SET_BOUNDS i18n("Set bounds")
+#define TT_SD_SCOPE_LOWER_BOUND i18n("Lower bound")
+#define TT_SD_SCOPE_UPPER_BOUND i18n("Upper bound")
+#define TT_SD_SCOPE_ADD_SCOPE i18n("Add scope")
+#define TT_SD_SCOPE_DELETE_SCOPE i18n("Delete scope")
+
+#define TT_SD_RESULT_RESULT_VIEW i18n("Found items")
+#define TT_SD_RESULT_PREVIEW i18n("Verse preview")
+
+#define TT_SD_ANALYSIS_SAVE_AS_IMAGE i18n("Save as image")
+#define TT_SD_ANALYSIS_GRAPH_VIEW i18n("Graphical analysis")
+
+//#defines for the settings dialog, OD means Optionsdialog
+#define TT_OD_GENERAL_DAILY_TIP i18n("Show daily tip")
+#define TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES i18n("International booknames")
+#define TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES_LIST i18n("List of languages")
+#define TT_OD_GENERAL_SHOW_STARTUPLOGO i18n("Show startuplogo")
+
+#define TT_OD_FONTS_PRESENTER i18n("Font of presenter")
+#define TT_OD_FONTS_PRESENTER_FIXED i18n("Fixed font of presenters")
+#define TT_OD_FONTS_PRINTING i18n("Font for printing")
+#define TT_OD_FONTS_PRINTING_FIXED i18n("Fixed font for printing")
+
+//FFM does mean "Foreign font management"
+#define TT_OD_FFM_FONTS_LIST i18n("List of modules")
+
+#define TT_OD_COLORS_BACKGROUND i18n("Background color")
+#define TT_OD_COLORS_NORMAL_TEXT i18n("Normal text")
+#define TT_OD_COLORS_VERSENUMBER i18n("Versenumber")
+#define TT_OD_COLORS_CURRENT_VERSE i18n("Highlighted verse")
+
+//defines for the printing dialog; PI == Print Item; PD=Printer Dialog
+#define TT_PD_PRINT i18n("Start printing")
+#define TT_PD_PREVIEW i18n("Open preview")
+#define TT_PD_CANCEL i18n("Cancel")
+#define TT_PD_HELP i18n("Open help")
+
+#define TT_PD_GENERAL_PRINTER_LIST i18n("The list of printers")
+#define TT_PD_GENERAL_PRINT_TO_FILE i18n("Print into file")
+#define TT_PD_GENERAL_BROWSE_FILE i18n("Search file")
+#define TT_PD_GENERAL_COPIES i18n("Copies")
+#define TT_PD_GENERAL_ORIENTATION i18n("Orientation")
+#define TT_PD_GENERAL_ORIENTATION_PORTAIT i18n("Portrait")
+#define TT_PD_GENERAL_ORIENTATION_LANDSCAPE i18n("Landscape")
+#define TT_PD_GENERAL_PAPER_TYPE i18n("Paper type")
+#define TT_PD_GENERAL_PAPER_SIZE i18n("Paper size")
+
+#define TT_PD_ENTRIES_STYLE_COMBO i18n("Styles")
+#define TT_PD_ENTRIES_PI_LIST i18n("List of print items")
+#define TT_PD_ENTRIES_PI_MOVE_UP i18n("Move item up")
+#define TT_PD_ENTRIES_PI_MOVE_DOWN i18n("Move item down")
+#define TT_PD_ENTRIES_PI_DELETE i18n("Delete items")
+#define TT_PD_ENTRIES_PI_PAGE_BREAK i18n("Insert page break")
+
+#define TT_PD_LAYOUT_BORDER i18n("Page borders")
+#define TT_PD_LAYOUT_BORDER_LEFT i18n("Left border")
+#define TT_PD_LAYOUT_BORDER_RIGHT i18n("Right border")
+#define TT_PD_LAYOUT_BORDER_TOP i18n("Upper border")
+#define TT_PD_LAYOUT_BORDER_BOTTOM i18n("Lower border")
+#define TT_PD_LAYOUT_STYLE_LIST i18n("List of styles")
+#define TT_PD_LAYOUT_STYLE_DELETE i18n("Delete style")
+#define TT_PD_LAYOUT_STYLE_EDIT i18n("Edit style")
+#define TT_PD_LAYOUT_STYLE_NEW i18n("Create new style")

@@ -1,9 +1,9 @@
 /***************************************************************************
                           ccommentarypresenter.h  -  description
                              -------------------
-    begin                : Thu Jan 20 2000
-    copyright            : (C) 2000 by The BibleTime Team
-    email                : Info@bibletime.de
+    begin                : Sun Mar 18 2001
+    copyright            : (C) 2001 by The BibleTime team
+    email                : info@bibletime.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -18,119 +18,80 @@
 #ifndef CCOMMENTARYPRESENTER_H
 #define CCOMMENTARYPRESENTER_H
 
-#include "cmodulepresenter.h"
+#include <qwidget.h>
+#include "cswordpresenter.h"
 
-#include <qguardedptr.h>
-
-class KComboBox;
-class KonqLabelAction;
-class CMDIArea;
-class CHTMLWidget;
-class KAction;
-class KToggleAction;
-class	KonqComboAction;
-class CLineEditAction;
-class CColorComboAction;
-class CKeyChooser;
-class BibleTime;
-class CKey;
 class CSwordVerseKey;
 
-/**
-* The presenter for Commentary modules
-* @author The BibleTime Team
-*/
-class CCommentaryPresenter : public CModulePresenter  {
-	Q_OBJECT
-	
-public:
+class KToggleAction;
+class KToolBar;
+
+/** The presenter used for Sword commentaries.
+  * @author The BibleTime team
+  */
+class CCommentaryPresenter : public CSwordPresenter  {
+   Q_OBJECT
+public: 
 	/**
-	*	
+	* Default constructor
 	*/
-	CCommentaryPresenter( CImportantClasses* importantClasses, QWidget* parent, const char* name = 0, CModuleInfo* module =0 );
+	CCommentaryPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0);
+	~CCommentaryPresenter();
+
+protected slots: // Protected slots
+  /**
+  * renders text and set it to the HTML widget
+  */
+  void lookup(CKey*);
+  /**
+  * Is called when the selected modules changed.
+  */
+  void modulesChanged();
+  /**
+  * Deletes the displayed and edited text.
+  */
+  void deleteText();
 	/**
 	*
 	*/
-	~CCommentaryPresenter();
-  /**
-  * Reimplementation
-  */
-  void copy();
-  /**
-  * Reimplementation
-  */
-  void paste();
-  /**
-  * Reimplementation
-  */
-  void cut();
-  /**
-  * Returns the caption for this presenter window.
-  */
-  QString caption() const;	
-	CKeyChooser* m_keyChooser;	
+	void editComment();
 	
-public slots:
-  /**	
-  *
+public slots: // Public slots
+  /**
+  * Saves the given text in the module.
   */
-  void lookup(CKey*);
+  void saveText(const QString);
 
-protected:
-	friend class BibleTime;
+private: // Private methods
   /**
-  *
-  */
-  void refresh(const int useFeatures);
-  /**
-  *
-  */
-  void initView();
-  /**
-  *
+  * Initializes the connections
   */
   void initConnections();
   /**
-  * Initialize the action objects.
+  * Initializes our view.
   */
-  void initActions();
- 	
-
-protected slots:
+  void initView();
+	/**
+	*
+	*/
+	KToggleAction *presenterEdit_action;
+	/**
+	*
+	*/
+  CSwordVerseKey* m_key;
+	
+private slots: // Private slots
   /**
-  *
+  * No descriptions
   */
-  void slotReferenceClicked( const QString& );
+  void referenceClicked(const QString&);
   /**
-  *
+  * No descriptions
   */
-  void editComment();
-  /**
-  * Deletes the current entry in the module.
-  */
-  void deleteText();
-  /**
-  * Saves the document in the module.
-  */
-  void saveText(const QString);
-  /**
-  * This function appens the displayed verse to the printer queue.
-  */
-  void slotPrintCurrentVerse();
-  /**
-  * Is called before the popup menu is shown
-  */
-  void slotPopupAboutToShow();
+  void popupAboutToShow();
 
 private:
-	KPopupMenu* m_popup;
-	CSwordVerseKey*	m_key; 	
- 	CHTMLWidget* html_widget;
- 	KToolBar* m_mainToolbar;	
- 	KToolBar* m_editToolbar;	 	
-  bool isEditMode;
-  KToggleAction* presenterEdit_action;	
-  QString currentAnchor;		
+	KToolBar* m_editToolBar;
 };
 
 #endif

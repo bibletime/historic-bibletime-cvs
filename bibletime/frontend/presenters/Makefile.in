@@ -199,10 +199,10 @@ INCLUDES = $(all_includes)
 
 noinst_LIBRARIES = libpresenters.a
 
-libpresenters_a_SOURCES =  cbiblepresenter.cpp clexikonpresenter.cpp ccommentarypresenter.cpp cmodulepresenter.cpp cmodulechooserbar.cpp cmodulechooserbutton.cpp
+libpresenters_a_SOURCES =  cbiblepresenter.cpp clexiconpresenter.cpp ccommentarypresenter.cpp cpresenter.cpp cswordpresenter.cpp cmodulechooserbar.cpp cmodulechooserbutton.cpp
 
 
-EXTRA_DIST = cmodulepresenter.cpp cmodulepresenter.h ccommentarypresenter.cpp ccommentarypresenter.h clexikonpresenter.cpp clexikonpresenter.h cbiblepresenter.cpp cbiblepresenter.h cmodulechooserbar.h cmodulechooserbar.cpp cmodulechooserbutton.h cmodulechooserbutton.cpp
+EXTRA_DIST =  ccommentarypresenter.cpp ccommentarypresenter.h clexiconpresenter.cpp clexiconpresenter.h cbiblepresenter.cpp cbiblepresenter.h cmodulechooserbar.h cmodulechooserbar.cpp cmodulechooserbutton.h cmodulechooserbutton.cpp cswordpresenter.h csowrdpresenter.cpp cpresenter.h cpresenter.cpp
 
 
 KDE_CXXFLAGS = -fexceptions -frtti
@@ -218,16 +218,16 @@ LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 libpresenters_a_LIBADD = 
 #>- libpresenters_a_OBJECTS =  cbiblepresenter.$(OBJEXT) \
-#>- clexikonpresenter.$(OBJEXT) ccommentarypresenter.$(OBJEXT) \
-#>- cmodulepresenter.$(OBJEXT) cmodulechooserbar.$(OBJEXT) \
-#>- cmodulechooserbutton.$(OBJEXT)
+#>- clexiconpresenter.$(OBJEXT) ccommentarypresenter.$(OBJEXT) \
+#>- cpresenter.$(OBJEXT) cswordpresenter.$(OBJEXT) \
+#>- cmodulechooserbar.$(OBJEXT) cmodulechooserbutton.$(OBJEXT)
 #>+ 9
 libpresenters_a_final_OBJECTS = libpresenters_a.all_cpp.o 
 libpresenters_a_nofinal_OBJECTS = cbiblepresenter.$(OBJEXT) \
-clexikonpresenter.$(OBJEXT) ccommentarypresenter.$(OBJEXT) \
-cmodulepresenter.$(OBJEXT) cmodulechooserbar.$(OBJEXT) \
-cmodulechooserbutton.$(OBJEXT)\
-cmodulechooserbutton.moc.o cmodulepresenter.moc.o cmodulechooserbar.moc.o cbiblepresenter.moc.o ccommentarypresenter.moc.o clexikonpresenter.moc.o  \
+clexiconpresenter.$(OBJEXT) ccommentarypresenter.$(OBJEXT) \
+cpresenter.$(OBJEXT) cswordpresenter.$(OBJEXT) \
+cmodulechooserbar.$(OBJEXT) cmodulechooserbutton.$(OBJEXT)\
+cmodulechooserbutton.moc.o cmodulechooserbar.moc.o cbiblepresenter.moc.o cswordpresenter.moc.o ccommentarypresenter.moc.o cpresenter.moc.o clexiconpresenter.moc.o  \
 libpresenters_a_meta_unload.o 
 @KDE_USE_FINAL_FALSE@libpresenters_a_OBJECTS = $(libpresenters_a_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@libpresenters_a_OBJECTS = $(libpresenters_a_final_OBJECTS)
@@ -246,26 +246,21 @@ CXXLINK = $(LIBTOOL) --mode=link --tag=CXX $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $
 DIST_COMMON =  Makefile.am Makefile.in
 
 
-#>- DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
-#>+ 4
-KDE_DIST=libpresenters.a libpresenters_a_meta_unload.cpp 
-
-DISTFILES= $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
-
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
 #>- DEP_FILES =  .deps/cbiblepresenter.P .deps/ccommentarypresenter.P \
-#>- .deps/clexikonpresenter.P .deps/cmodulechooserbar.P \
-#>- .deps/cmodulechooserbutton.P .deps/cmodulepresenter.P
+#>- .deps/clexiconpresenter.P .deps/cmodulechooserbar.P \
+#>- .deps/cmodulechooserbutton.P .deps/cpresenter.P .deps/cswordpresenter.P
 #>+ 8
-@KDE_USE_FINAL_TRUE@DEP_FILES =  $(DEPDIR)/cmodulechooserbutton.moc.P $(DEPDIR)/cmodulepresenter.moc.P $(DEPDIR)/cmodulechooserbar.moc.P $(DEPDIR)/cbiblepresenter.moc.P $(DEPDIR)/ccommentarypresenter.moc.P $(DEPDIR)/clexikonpresenter.moc.P $(DEPDIR)/libpresenters_a_meta_unload.P  $(DEPDIR)/libpresenters_a.all_cpp.P \
+@KDE_USE_FINAL_TRUE@DEP_FILES =  $(DEPDIR)/cmodulechooserbutton.moc.P $(DEPDIR)/cmodulechooserbar.moc.P $(DEPDIR)/cbiblepresenter.moc.P $(DEPDIR)/cswordpresenter.moc.P $(DEPDIR)/ccommentarypresenter.moc.P $(DEPDIR)/cpresenter.moc.P $(DEPDIR)/clexiconpresenter.moc.P $(DEPDIR)/libpresenters_a_meta_unload.P  $(DEPDIR)/libpresenters_a.all_cpp.P \
 	  .deps/cbiblepresenter.P .deps/ccommentarypresenter.P \
-.deps/clexikonpresenter.P .deps/cmodulechooserbar.P \
-.deps/cmodulechooserbutton.P .deps/cmodulepresenter.P
-@KDE_USE_FINAL_FALSE@DEP_FILES =  $(DEPDIR)/cmodulechooserbutton.moc.P $(DEPDIR)/cmodulepresenter.moc.P $(DEPDIR)/cmodulechooserbar.moc.P $(DEPDIR)/cbiblepresenter.moc.P $(DEPDIR)/ccommentarypresenter.moc.P $(DEPDIR)/clexikonpresenter.moc.P $(DEPDIR)/libpresenters_a_meta_unload.P   .deps/cbiblepresenter.P .deps/ccommentarypresenter.P \
-.deps/clexikonpresenter.P .deps/cmodulechooserbar.P \
-.deps/cmodulechooserbutton.P .deps/cmodulepresenter.P
+.deps/clexiconpresenter.P .deps/cmodulechooserbar.P \
+.deps/cmodulechooserbutton.P .deps/cpresenter.P .deps/cswordpresenter.P
+@KDE_USE_FINAL_FALSE@DEP_FILES =  $(DEPDIR)/cmodulechooserbutton.moc.P $(DEPDIR)/cmodulechooserbar.moc.P $(DEPDIR)/cbiblepresenter.moc.P $(DEPDIR)/cswordpresenter.moc.P $(DEPDIR)/ccommentarypresenter.moc.P $(DEPDIR)/cpresenter.moc.P $(DEPDIR)/clexiconpresenter.moc.P $(DEPDIR)/libpresenters_a_meta_unload.P   .deps/cbiblepresenter.P .deps/ccommentarypresenter.P \
+.deps/clexiconpresenter.P .deps/cmodulechooserbar.P \
+.deps/cmodulechooserbutton.P .deps/cpresenter.P .deps/cswordpresenter.P
 
 SOURCES = $(libpresenters_a_SOURCES)
 OBJECTS = $(libpresenters_a_OBJECTS)
@@ -546,10 +541,6 @@ cmodulechooserbutton.moc.cpp: $(srcdir)/cmodulechooserbutton.h
 	$(MOC) $(srcdir)/cmodulechooserbutton.h -o cmodulechooserbutton.moc.cpp
 
 #>+ 3
-cmodulepresenter.moc.cpp: $(srcdir)/cmodulepresenter.h
-	$(MOC) $(srcdir)/cmodulepresenter.h -o cmodulepresenter.moc.cpp
-
-#>+ 3
 cmodulechooserbar.moc.cpp: $(srcdir)/cmodulechooserbar.h
 	$(MOC) $(srcdir)/cmodulechooserbar.h -o cmodulechooserbar.moc.cpp
 
@@ -558,16 +549,24 @@ cbiblepresenter.moc.cpp: $(srcdir)/cbiblepresenter.h
 	$(MOC) $(srcdir)/cbiblepresenter.h -o cbiblepresenter.moc.cpp
 
 #>+ 3
+cswordpresenter.moc.cpp: $(srcdir)/cswordpresenter.h
+	$(MOC) $(srcdir)/cswordpresenter.h -o cswordpresenter.moc.cpp
+
+#>+ 3
 ccommentarypresenter.moc.cpp: $(srcdir)/ccommentarypresenter.h
 	$(MOC) $(srcdir)/ccommentarypresenter.h -o ccommentarypresenter.moc.cpp
 
 #>+ 3
-clexikonpresenter.moc.cpp: $(srcdir)/clexikonpresenter.h
-	$(MOC) $(srcdir)/clexikonpresenter.h -o clexikonpresenter.moc.cpp
+cpresenter.moc.cpp: $(srcdir)/cpresenter.h
+	$(MOC) $(srcdir)/cpresenter.h -o cpresenter.moc.cpp
+
+#>+ 3
+clexiconpresenter.moc.cpp: $(srcdir)/clexiconpresenter.h
+	$(MOC) $(srcdir)/clexiconpresenter.h -o clexiconpresenter.moc.cpp
 
 #>+ 3
 clean-metasources:
-	-rm -f  cmodulechooserbutton.moc.cpp cmodulepresenter.moc.cpp cmodulechooserbar.moc.cpp cbiblepresenter.moc.cpp ccommentarypresenter.moc.cpp clexikonpresenter.moc.cpp
+	-rm -f  cmodulechooserbutton.moc.cpp cmodulechooserbar.moc.cpp cbiblepresenter.moc.cpp cswordpresenter.moc.cpp ccommentarypresenter.moc.cpp cpresenter.moc.cpp clexiconpresenter.moc.cpp
 
 #>+ 2
 docs-am:
@@ -579,11 +578,11 @@ force-reedit:
 
 
 #>+ 10
-libpresenters_a_meta_unload.cpp:  cmodulechooserbutton.moc.cpp cbiblepresenter.moc.cpp cmodulechooserbar.moc.cpp cmodulepresenter.moc.cpp ccommentarypresenter.moc.cpp clexikonpresenter.moc.cpp
+libpresenters_a_meta_unload.cpp:  cmodulechooserbutton.moc.cpp cbiblepresenter.moc.cpp cmodulechooserbar.moc.cpp ccommentarypresenter.moc.cpp cswordpresenter.moc.cpp cpresenter.moc.cpp clexiconpresenter.moc.cpp
 	@echo 'creating libpresenters_a_meta_unload.cpp'
 	-rm -f libpresenters_a_meta_unload.cpp
 	@echo 'static const char * _metalist_libpresenters_a[] = {' > libpresenters_a_meta_unload.cpp
-	cat  cmodulechooserbutton.moc.cpp cbiblepresenter.moc.cpp cmodulechooserbar.moc.cpp cmodulepresenter.moc.cpp ccommentarypresenter.moc.cpp clexikonpresenter.moc.cpp | grep 'char.*className' | sed -e 's/.*[^A-Za-z0-9_:]\([A-Za-z0-9_:]*\)::className.*$$/\"\1\",/' | sort | uniq >> libpresenters_a_meta_unload.cpp
+	cat  cmodulechooserbutton.moc.cpp cbiblepresenter.moc.cpp cmodulechooserbar.moc.cpp ccommentarypresenter.moc.cpp cswordpresenter.moc.cpp cpresenter.moc.cpp clexiconpresenter.moc.cpp | grep 'char.*className' | sed -e 's/.*[^A-Za-z0-9_:]\([A-Za-z0-9_:]*\)::className.*$$/\"\1\",/' | sort | uniq >> libpresenters_a_meta_unload.cpp
 	@echo '0};' >> libpresenters_a_meta_unload.cpp
 	@echo '#include <kunload.h>' >> libpresenters_a_meta_unload.cpp
 	@echo '_UNLOAD(libpresenters_a)' >> libpresenters_a_meta_unload.cpp
@@ -594,11 +593,11 @@ clean-moc-classes:
 	-rm -f  libpresenters_a_meta_unload.cpp
 
 #>+ 11
-libpresenters_a.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/cbiblepresenter.cpp $(srcdir)/clexikonpresenter.cpp $(srcdir)/ccommentarypresenter.cpp $(srcdir)/cmodulepresenter.cpp $(srcdir)/cmodulechooserbar.cpp $(srcdir)/cmodulechooserbutton.cpp $(srcdir)/libpresenters_a_meta_unload.cpp  cmodulechooserbutton.moc.cpp cmodulepresenter.moc.cpp cmodulechooserbar.moc.cpp cbiblepresenter.moc.cpp ccommentarypresenter.moc.cpp clexikonpresenter.moc.cpp
+libpresenters_a.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/cbiblepresenter.cpp $(srcdir)/clexiconpresenter.cpp $(srcdir)/ccommentarypresenter.cpp $(srcdir)/cpresenter.cpp $(srcdir)/cswordpresenter.cpp $(srcdir)/cmodulechooserbar.cpp $(srcdir)/cmodulechooserbutton.cpp libpresenters_a_meta_unload.cpp  cmodulechooserbutton.moc.cpp cmodulechooserbar.moc.cpp cbiblepresenter.moc.cpp cswordpresenter.moc.cpp ccommentarypresenter.moc.cpp cpresenter.moc.cpp clexiconpresenter.moc.cpp
 	@echo 'creating libpresenters_a.all_cpp.cpp ...'; \
 	rm -f libpresenters_a.all_cpp.files libpresenters_a.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libpresenters_a.all_cpp.final; \
-	for file in cbiblepresenter.cpp clexikonpresenter.cpp ccommentarypresenter.cpp cmodulepresenter.cpp cmodulechooserbar.cpp cmodulechooserbutton.cpp libpresenters_a_meta_unload.cpp  cmodulechooserbutton.moc.cpp cmodulepresenter.moc.cpp cmodulechooserbar.moc.cpp cbiblepresenter.moc.cpp ccommentarypresenter.moc.cpp clexikonpresenter.moc.cpp; do \
+	for file in cbiblepresenter.cpp clexiconpresenter.cpp ccommentarypresenter.cpp cpresenter.cpp cswordpresenter.cpp cmodulechooserbar.cpp cmodulechooserbutton.cpp libpresenters_a_meta_unload.cpp  cmodulechooserbutton.moc.cpp cmodulechooserbar.moc.cpp cbiblepresenter.moc.cpp cswordpresenter.moc.cpp ccommentarypresenter.moc.cpp cpresenter.moc.cpp clexiconpresenter.moc.cpp; do \
 	  echo "#include \"$$file\"" >> libpresenters_a.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libpresenters_a.all_cpp.final; \
 	done; \

@@ -31,7 +31,6 @@
 class KPopupMenu;
 class KConfig;
 class CBackEnd;
-class CModulePresenter;
 
 /** The MDI widget we use in BibleTime.
 	* Enhances QWorkspace.

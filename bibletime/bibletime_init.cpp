@@ -171,8 +171,10 @@ void BibleTime::initConnections(){
 	else
 		warning("can't find window menu");
 		
-	connect(m_groupmanager, SIGNAL(createPresenter(CModuleInfo*, bool, const QString)),
-		this, SLOT(createNewPresenter(CModuleInfo*, bool, const QString)));
+	connect(m_groupmanager, SIGNAL(createSwordPresenter(CSwordModuleInfo*, const QString)),
+		this, SLOT(createNewSwordPresenter(CSwordModuleInfo*,const QString)));
+	connect(m_groupmanager, SIGNAL(createSwordPresenter(ListCSwordModuleInfo*, const QString)),
+		this, SLOT(createNewSwordPresenter(ListCSwordModuleInfo*,const QString)));
 	
 	//connect to the signals of the printer object
 	connect(m_important->printer, SIGNAL(addedFirstQueueItem()),

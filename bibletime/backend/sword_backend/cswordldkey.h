@@ -80,6 +80,8 @@ public:
   	* Uses the parameter to returns the previous entry afer this key.
   	*/
   virtual void PreviousEntry( void );  	
+  /** Sets the module of this key. */
+  void setModule( CSwordModuleInfo* module );
   /**
   	* This is out data member, which contains the data for this key.
   	*/

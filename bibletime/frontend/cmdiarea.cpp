@@ -16,8 +16,8 @@
  ***************************************************************************/
 
 #include "cmdiarea.h"
-#include "presenters/cmodulepresenter.h"
-#include "presenters/cbiblepresenter.h"
+//#include "presenters/cmodulepresenter.h"
+//#include "presenters/cbiblepresenter.h"
 #include "../ressource.h"
 #include "../whatsthisdef.h"
 #include "../../config.h"

@@ -40,6 +40,10 @@ public:
   * Returns the id used for this button.
   */
   int getId() const;
+  /**
+  * Returns the icon used for the current status.
+  */
+  QPixmap getIcon();		
 	
 private:
 	bool m_hasModule;
@@ -48,10 +52,6 @@ private:
 	int m_id;
 	CImportantClasses* m_important;
 	KPopupMenu* m_popup;
-  /**
-  * Returns the icon used for the current status.
-  */
-  QPixmap getIcon();		
 
 private slots:
 	void moduleChosen(int ID );
@@ -59,8 +59,6 @@ private slots:
 signals:
 	void sigRemoveButton(const int ID);
 	void sigAddButton();
-signals: // Signals
-  /** No descriptions */
   void sigChanged();
 };
 #endif

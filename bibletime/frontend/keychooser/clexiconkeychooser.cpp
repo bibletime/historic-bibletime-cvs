@@ -34,12 +34,10 @@ CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *pa
 	else {
 		qWarning("Wrong module type! Return.");
 		return;
-	}
-	QStringList *list = m_info->getEntries();
-	
+	}	
 	//we use a layout because the key chooser should be resized to full size
 	m_layout = new QHBoxLayout(this);
-	m_widget = new CKeyChooserWidget(list, this);
+	m_widget = new CKeyChooserWidget(m_info->getEntries(), this);
 	m_layout->addWidget(m_widget);
 	
 	connect(m_widget,SIGNAL(changed(int)),this,SLOT(activated(int)));
@@ -100,17 +98,23 @@ void CLexiconKeyChooser::nextRequested(void){
 
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
-	/** A lexicon presenter does not depend on localisation,
-		* so content does not have to be refreshed if the locale
-		* language changed
-		*/
-	return;
+	m_widget->reset(m_info->getEntries(), 0, true);		
 }
 
 /**  */
 void CLexiconKeyChooser::resizeEvent( QResizeEvent* e){
+	CKeyChooser::resizeEvent(e);
 //	qWarning("CLexiconKeyChooser::resizeEvent( QResizeEvent* e)");
 //	qWarning(QString::number(m_widget->ComboBox->sizeHint().width()));
-	m_widget->ComboBox->setMaximumWidth(width());
-	m_widget->m_mainLayout->invalidate();
+//	m_widget->ComboBox->setMaximumWidth(width());
+//	m_widget->m_mainLayout->invalidate();
+}
+
+/** Sets the module and refreshes the combo boxes */
+void CLexiconKeyChooser::setModule( CModuleInfo* module){
+	if (module != m_info && (CSwordLexiconModuleInfo*)module)
+	{
+		m_info = (CSwordLexiconModuleInfo*)module;
+		refreshContent();
+	}
 }

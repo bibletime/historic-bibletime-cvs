@@ -51,14 +51,8 @@ interested in more detailed changes.
 
 <sect1 ID="hdbk_intro_ToDo"><title>ToDo</title>
 <para>
-Very much!
-</para>
-<para>
-We have lots to do. Because we are a very small team of active developers it's
-very hard to get reasonable results in a short time. If you are interested in
-BibleTime please contact us if you'd like to help. Otherwise BibleTime will
-develop very very slow and it will take a very long time until you get a
-full-featured Bible study tool.
+In our opinion Bibletime 1.0 provides the features which are required for serious Bible study.
+Some important features like ThML support are still missing, but this will be added later.
 </para> </sect1>
 
 <sect1 ID="hdbk_intro_motivation"><title>Motivation</title>

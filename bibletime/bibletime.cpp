@@ -30,10 +30,10 @@
 #include "backend/sword_backend/chtmlchapterdisplay.h"
 #include "backend/sword_backend/cswordversekey.h"
 #include "backend/sword_backend/cswordldkey.h"
+#include "frontend/presenters/cswordpresenter.h"
 #include "frontend/presenters/cbiblepresenter.h"
 #include "frontend/presenters/ccommentarypresenter.h"
-#include "frontend/presenters/clexikonpresenter.h"
-#include "frontend/presenters/cmodulepresenter.h"
+#include "frontend/presenters/clexiconpresenter.h"
 #include "frontend/keychooser/ckeychooser.h"
 
 //KDE includes
@@ -189,72 +189,72 @@ void BibleTime::readSettings(){
 }
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
-void BibleTime::createNewPresenter(CModuleInfo* module_info, bool useExisting, const QString key) {
-	ASSERT(module_info);
+void BibleTime::createNewSwordPresenter(ListCSwordModuleInfo* modules, const QString key) {
+
+}
+
+
+/** Creates a new presenter in the MDI area according to the type of the module. */
+void BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, const QString key) {
+	kapp->setOverrideCursor( waitCursor );		
 	
-	// check if that module is already displayed
-	QWidgetList wList = m_mdi->windowList();
-	CModulePresenter *presenter = 0;
-	wList.first();	
-	if (useExisting) {
-		while (wList.current()) {
-			presenter = (CModulePresenter*) wList.current();
-			if (presenter) {
-				if (presenter->getModuleInfo() == module_info)
-					break;
-				else
-					presenter = 0;
-			}
-			wList.next();
+	ListCSwordModuleInfo list;
+	list.append(module);
+	
+	CSwordPresenter* presenter = 0;
+	switch (module->getType()) {
+		case CSwordModuleInfo::Bible:
+			presenter = new CBiblePresenter(list, m_important, m_mdi);
+			break;
+		case CSwordModuleInfo::Commentary:
+			presenter = new CCommentaryPresenter(list, m_important, m_mdi);
+			break;
+		case CSwordModuleInfo::Lexicon:
+			presenter = new CLexiconPresenter(list, m_important, m_mdi);
+			break;
+		default:
+			qWarning("unknown module type");
+	}	
+	if (presenter) {
+		connect(presenter, SIGNAL(createSwordPresenter(CSwordModuleInfo*, const QString)),
+			this, SLOT(createNewSwordPresenter(CSwordModuleInfo*, const QString)));
+  	if (!key.isEmpty()){
+			presenter->lookup(key);
 		}
 	}
+
+			
+	kapp->restoreOverrideCursor();
 	
-	if (!presenter) {
-		// set wait cursor
-		kapp->setOverrideCursor( waitCursor );		
-		if ((CSwordModuleInfo*)(module_info)) { //it is a Sword module?
-			CSwordModuleInfo* dummy = (CSwordModuleInfo*)(module_info);
-			if ( dynamic_cast<CSwordCommentaryModuleInfo*>(dummy) )
-				presenter = new CCommentaryPresenter( m_important, m_mdi, dummy->module()->Name(), module_info);
-			else if ( dynamic_cast<CSwordBibleModuleInfo*>(dummy) )
-				presenter = new CBiblePresenter( m_important, m_mdi, dummy->module()->Name(), module_info);
-			else if ( dynamic_cast<CSwordLexiconModuleInfo*>(dummy) )
-				presenter = new CLexiconPresenter( m_important, m_mdi, dummy->module()->Name(), module_info);
-		}					
-		// reset wait cursor
-		kapp->restoreOverrideCursor();
-		if (!presenter->isVisible())
-			presenter->show();
-	}
-		
-	if (!key.isEmpty() && presenter) {	//set key to presenter
-		if ((CSwordModuleInfo*)(module_info)) { //it is a Sword module?
-			CSwordModuleInfo* dummy = (CSwordModuleInfo*)(module_info);
-			if (!dummy)
-				return;
-			if ( dynamic_cast<CSwordCommentaryModuleInfo*>(dummy)) {
-				CCommentaryPresenter* commentaryPresenter = dynamic_cast<CCommentaryPresenter*>(presenter);
-				ASSERT(commentaryPresenter);				
-				if (commentaryPresenter && commentaryPresenter->m_keyChooser) {
-					commentaryPresenter->m_key->setKey( key );
-					commentaryPresenter->m_keyChooser->setKey( commentaryPresenter->m_key ); //setting the key will also lookup
-				}
-			}
-			else if ( dynamic_cast<CSwordBibleModuleInfo*>(dummy)) {
-				CBiblePresenter* biblePresenter = dynamic_cast<CBiblePresenter*>(presenter);
-				ASSERT(biblePresenter);
-				if (biblePresenter && biblePresenter->m_keyChooser) {
-					biblePresenter->m_key->setKey( key );
-					biblePresenter->m_keyChooser->setKey( biblePresenter->m_key );	//setting the key will also lookup					
-				}
-			}			
-			else if ( dynamic_cast<CSwordLexiconModuleInfo*>(dummy)) {
-				CLexiconPresenter* lexiconPresenter = dynamic_cast<CLexiconPresenter*>(presenter);
-				lexiconPresenter->m_key->setKey( key );
-				lexiconPresenter->m_keyChooser->setKey( lexiconPresenter->m_key ); //setting the key will also lookup
-			}
-		}
-	}
+
+//	if (!key.isEmpty() && presenter) {	//set key to presenter
+//		if ((CSwordModuleInfo*)(module_info)) { //it is a Sword module?
+//			CSwordModuleInfo* dummy = (CSwordModuleInfo*)(module_info);
+//			if (!dummy)
+//				return;
+//			if ( dynamic_cast<CSwordCommentaryModuleInfo*>(dummy)) {
+//				CCommentaryPresenter* commentaryPresenter = dynamic_cast<CCommentaryPresenter*>(presenter);
+//				ASSERT(commentaryPresenter);				
+//				if (commentaryPresenter && commentaryPresenter->m_keyChooser) {
+//					commentaryPresenter->m_key->setKey( key );
+//					commentaryPresenter->m_keyChooser->setKey( commentaryPresenter->m_key ); //setting the key will also lookup
+//				}
+//			}
+//			else if ( dynamic_cast<CSwordBibleModuleInfo*>(dummy)) {
+//				CBiblePresenter* biblePresenter = dynamic_cast<CBiblePresenter*>(presenter);
+//				ASSERT(biblePresenter);
+//				if (biblePresenter && biblePresenter->m_keyChooser) {
+//					biblePresenter->m_key->setKey( key );
+//					biblePresenter->m_keyChooser->setKey( biblePresenter->m_key );	//setting the key will also lookup					
+//				}
+//			}			
+//			else if ( dynamic_cast<CSwordLexiconModuleInfo*>(dummy)) {
+//				CLexiconPresenter* lexiconPresenter = dynamic_cast<CLexiconPresenter*>(presenter);
+//				lexiconPresenter->m_key->setKey( key );
+//				lexiconPresenter->m_keyChooser->setKey( lexiconPresenter->m_key ); //setting the key will also lookup
+//			}
+//		}
+//	}
 	presenter->setFocus();
 }
 
@@ -266,7 +266,7 @@ void BibleTime::refreshPresenters( int useFeatures ) {
 	*/		
 	unsigned int index;				
 	for ( index = 0; index < m_mdi->windowList().count(); index++) {
-		CModulePresenter* myPresenter = (CModulePresenter*)m_mdi->windowList().at(index);
+		CSwordPresenter* myPresenter = (CSwordPresenter*)m_mdi->windowList().at(index);
 		ASSERT(myPresenter);
 		if (myPresenter)
      		myPresenter->refresh(useFeatures);
@@ -300,4 +300,3 @@ void BibleTime::show(){
 	//but not before this point.
 	m_initialized = true;
 }
-

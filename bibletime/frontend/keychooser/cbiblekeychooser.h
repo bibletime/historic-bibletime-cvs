@@ -42,85 +42,86 @@ class CBibleKeyChooser : public CKeyChooser  {
 
 public:
 	/**
-		* the constructor
-		*	you should not need to use this, use @ref CKeyChooser::createInstance instead
-		*/
+	* the constructor
+	*	you should not need to use this, use @ref CKeyChooser::createInstance instead
+	*/
 	CBibleKeyChooser(CModuleInfo *info=0, CKey *key=0, QWidget *parent=0, const char *name=0);
 	/**
-		* the destructor
-		*/
+	* the destructor
+	*/
 	~CBibleKeyChooser();
 
 public slots:
 	/**
-		* see @ref CKeyChooser::getKey
-		*/
+	* see @ref CKeyChooser::getKey
+	*/
 	CKey*	getKey();
 	/**
-		* see @ref CKeyChooser::setKey
-		*/
+	* see @ref CKeyChooser::setKey
+	*/
 	void setKey(CKey* key);
   /**
-  	* Reimplementation
-  	*/
+ 	* Reimplementation
+ 	*/
   virtual QSize sizeHint();
+  /** Sets te module and refreshes the combos */
+  virtual void setModule(CModuleInfo* module);
   /**
-  	* Reimplementation.
-  	*/
+ 	* Reimplementation.
+ 	*/
   void refreshContent();
 	/**
-		* used to react to changes in the 3 @ref CKeyChooserWidget 's
-		* @param index not used
-		*/
+	* used to react to changes in the 3 @ref CKeyChooserWidget 's
+	* @param index not used
+	*/
 	void bookChanged(int index);
 	/**
-		* used to react to changes in the 3 @ref CKeyChooserWidget 's
-		* @param index not used
-		*/
+	* used to react to changes in the 3 @ref CKeyChooserWidget 's
+	* @param index not used
+	*/
 	void chapterChanged(int index);
 	/**
-		* used to react to changes in the 3 @ref CKeyChooserWidget 's
-		* @param index not used
-		*/
-	void verseChanged(int index);
-	
+	* used to react to changes in the 3 @ref CKeyChooserWidget 's
+	* @param index not used
+	*/
+	void verseChanged(int index);	
   /**
-  	* used to react to a request from the book @ref CKeyChooserWidget
-  	*/
+ 	* used to react to a request from the book @ref CKeyChooserWidget
+ 	*/
   void bookPrevRequested(void);
   /**
-   	* see @ref bookPrevRequested
-   	*/
+ 	* see @ref bookPrevRequested
+ 	*/
   void bookNextRequested(void);
   /**
-  	* see @ref bookPrevRequested
-  	*/
+ 	* see @ref bookPrevRequested
+ 	*/
   void chapterPrevRequested(void);
   /**
-  	* see @ref bookPrevRequested
-  	*/
+ 	* see @ref bookPrevRequested
+ 	*/
   void chapterNextRequested(void);
   /**
-  	* see @ref bookPrevRequested
-  	*/
+ 	* see @ref bookPrevRequested
+ 	*/
   void versePrevRequested(void);
   /**
-  	* see @ref bookPrevRequested
-  	*/
+ 	* see @ref bookPrevRequested
+ 	*/
   void verseNextRequested(void);
 
 protected:
 	/**
-		* to represent the book part of the bible key
-		*/
+	* to represent the book part of the bible key
+	*/
 	CKeyChooserWidget* w_book;
 	/**
-		* to represent the chapter part of the bible key
-		*/
+	* to represent the chapter part of the bible key
+	*/
 	CKeyChooserWidget* w_chapter;
 	/**
-		* to represent the verse part of the bible key
-		*/
+	* to represent the verse part of the bible key
+	*/
 	CKeyChooserWidget* w_verse;
 
 	CSwordBibleModuleInfo	*m_info;

@@ -40,14 +40,14 @@ CSwordLDKey::~CSwordLDKey(){
 
 /** Stores the data of this key in the member m_data. */
 void CSwordLDKey::getData(){
-	m_module->module()->SetKey(*this);
+	m_module->module()->SetKey(*this->clone());
 	m_data = QString::fromLocal8Bit((const char*)*m_module->module());
 }
 
 /** Sets the key of this instance */
 bool CSwordLDKey::setKey( const QString key ){
 	SWKey::operator = ((const char*)key.local8Bit());	
-	m_module->module()->SetKey(*this);			
+	m_module->module()->SetKey(*this->clone());			
 	m_data = QString::null;
 	
 	return !(bool)error;
@@ -55,15 +55,23 @@ bool CSwordLDKey::setKey( const QString key ){
 
 /** Uses the parameter to returns the next entry afer this key. */
 void CSwordLDKey::NextEntry(){
-	m_module->module()->SetKey(*this);	//use this key as base for the next one!		
+	m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
 	( *( m_module->module() ) )++;
 	setKey(m_module->module()->KeyText());
 }
 
 /** Uses the parameter to returns the next entry afer this key. */
 void CSwordLDKey::PreviousEntry(){
-	m_module->module()->SetKey(*this);	//use this key as base for the next one!		
+	m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
 	( *( m_module->module() ) )--;
 	setKey(m_module->module()->KeyText());
 }
 
+/** Sets the module of this key. */
+void CSwordLDKey::setModule( CSwordModuleInfo* module ){
+	const QString oldKey = QString::fromLocal8Bit( (const char*)*this );
+	if (module && module->getType() == CSwordModuleInfo::Lexicon) {
+		m_module = module;	
+		setKey(oldKey);
+	}
+}

@@ -118,7 +118,7 @@ bool CSwordModuleInfo::isEncrypted() const{
 QString CSwordModuleInfo::getCipherKey() const {
 	qDebug("m_backend->localConfig()->Save()");
 	if (!isEncrypted())
-		return;
+		return QString::null;
 		
 	string key = (*m_backend->localConfig())[m_module->Name()]["CipherKey"];
 	if (!strlen(key.c_str()))

@@ -97,6 +97,8 @@ public slots: // Public slots
   * No descriptions
   */
   void slotCopyAll();
+  /** Copies the displayed document into the clipboard. */
+  void copyDocument();
 
 
 protected: // Protected attributes

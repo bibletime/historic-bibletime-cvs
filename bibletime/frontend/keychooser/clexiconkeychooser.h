@@ -69,6 +69,8 @@ public slots:
   virtual void refreshContent();
   /**  */
   virtual void resizeEvent( QResizeEvent* e);
+  /** Sets the module and refreshes the combo boxes */
+  virtual void setModule( CModuleInfo* module);
 
   /**
   	* used to react to a request from the book @ref CKeyChooserWidget
