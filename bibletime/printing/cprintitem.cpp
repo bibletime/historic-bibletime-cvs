@@ -318,8 +318,9 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		else if (type == CStyle::ModuleText) {		
 			p->save();
 			CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(m_module);
-			if (m && m->hasFont())
-				font = m->getFont();
+#warning todo: use UTF-8 specific font
+//			if (m && m->encoding() == QFont::Unicode )
+//				font = m->getFont();
 			if (alignement == CStyleFormat::Center)		
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);
 			else if (alignement == CStyleFormat::Right)		

@@ -229,12 +229,16 @@ void COptionsDialog::initDisplayWindow() {
 	 	QWhatsThis::add(m_displayWindows.fonts.usage, WT_OD_FONTS_TYPE_CHOOSER);	
 	 	
 		m_displayWindows.fonts.fontMap.insert(i18n("Display window"), m_config->readFontEntry( i18n("Display window") ));
+		m_displayWindows.fonts.fontMap.insert(i18n("Display window Unicode"), m_config->readFontEntry( i18n("Display window Unicode") ));
+
 		for( QMap<QString, QFont>::Iterator it = m_displayWindows.fonts.fontMap.begin(); it != m_displayWindows.fonts.fontMap.end(); ++it )
 			m_displayWindows.fonts.usage->insertItem(it.key());
 		
 		m_displayWindows.fonts.fontChooser = new KFontChooser(vbox_page, "fonts", false, QStringList(), true, 6);
 		m_displayWindows.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumped over the lazy dog"));
+
 	  connect(m_displayWindows.fonts.fontChooser, SIGNAL(fontSelected(const QFont&)), SLOT(newDisplayWindowFontSelected(const QFont&)));
+	  connect(m_displayWindows.fonts.usage, SIGNAL(activated(const QString&)), SLOT(newDisplayWindowFontAreaSelected(const QString&)));
 	 	QWhatsThis::add(m_displayWindows.fonts.fontChooser, WT_OD_FONTS_CHOOSER);
 		 	
 		m_displayWindows.fonts.fontChooser->setFont( m_displayWindows.fonts.fontMap[m_displayWindows.fonts.usage->currentText()] );
@@ -242,28 +246,28 @@ void COptionsDialog::initDisplayWindow() {
 	
 		
 	
-	items.clear();
-	items << i18n("Display windows") << i18n("Module fonts");		
-	vbox_page = addVBoxPage(items, i18n("Configure the fonts used for modules"), OD_ICON_FONTMANAGER);	
-	
-	m_displayWindows.module_fonts.modules = new KListBox(vbox_page);
- 	QWhatsThis::add(m_displayWindows.module_fonts.modules, WT_OD_FFM_FONTS_LIST );		
-	
-	m_displayWindows.module_fonts.fonts = new KFontChooser(vbox_page, "foreignFonts", false, QStringList(), true, 6);
- 	
-  connect(m_displayWindows.module_fonts.modules, SIGNAL(selectionChanged(QListBoxItem*)), SLOT(foreignFontModuleChanged(QListBoxItem*)));		
-  connect(m_displayWindows.module_fonts.fonts, SIGNAL(fontSelected(const QFont &)), SLOT(newForeignFontSelected(const QFont &)));	
-
-	vbox_page->setEnabled( true );
-	
-	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
-
-	//Build a list of modules with foreign fonts
-	for (modules->first(); modules->current(); modules->next())
-		if (modules->current()->hasFont())
-		  m_displayWindows.module_fonts.modules->insertItem( modules->current()->getDescription() );
-	if (m_displayWindows.module_fonts.modules->count() > 0)
-		m_displayWindows.module_fonts.modules->setCurrentItem(0);
+//	items.clear();
+//	items << i18n("Display windows") << i18n("Module fonts");		
+//	vbox_page = addVBoxPage(items, i18n("Configure the fonts used for modules"), OD_ICON_FONTMANAGER);	
+//	
+//	m_displayWindows.module_fonts.modules = new KListBox(vbox_page);
+// 	QWhatsThis::add(m_displayWindows.module_fonts.modules, WT_OD_FFM_FONTS_LIST );		
+//	
+//	m_displayWindows.module_fonts.fonts = new KFontChooser(vbox_page, "foreignFonts", false, QStringList(), true, 6);
+// 	
+//  connect(m_displayWindows.module_fonts.modules, SIGNAL(selectionChanged(QListBoxItem*)), SLOT(foreignFontModuleChanged(QListBoxItem*)));		
+//  connect(m_displayWindows.module_fonts.fonts, SIGNAL(fontSelected(const QFont &)), SLOT(newForeignFontSelected(const QFont &)));	
+//
+//	vbox_page->setEnabled( true );
+//	
+//	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
+//
+//	//Build a list of modules with foreign fonts
+//	for (modules->first(); modules->current(); modules->next())
+//		if (modules->current()->hasFont())
+//		  m_displayWindows.module_fonts.modules->insertItem( modules->current()->getDescription() );
+//	if (m_displayWindows.module_fonts.modules->count() > 0)
+//		m_displayWindows.module_fonts.modules->setCurrentItem(0);
 
 	items.clear();
 	items << i18n("Display windows") << i18n("Accelerators");
@@ -349,10 +353,11 @@ void COptionsDialog::saveDisplayWindow() {
 
 		const QString oldValue = m_config->readEntry("Language", KGlobal::locale()->language());
 		if (oldValue == QString::null || oldValue != localeName) {	//changed
-			if (m_changedSettings)
+#warning possible and simpler?
+//			if (m_changedSettings)
 				m_changedSettings |= CSwordPresenter::language;
-			else
-				m_changedSettings = CSwordPresenter::language;
+//			else
+//				m_changedSettings = CSwordPresenter::language;
 		}				
 		
 		if (!localeName.isEmpty())
@@ -368,14 +373,17 @@ void COptionsDialog::saveDisplayWindow() {
 	
 	{
 		KConfigGroupSaver groupSaver(m_config, "Fonts");
-		if (m_config->readFontEntry(i18n("Display window")).family() != m_displayWindows.fonts.fontMap[i18n("Display window")].family()
-		 || m_config->readFontEntry("Display window").pointSize() != m_displayWindows.fonts.fontMap[i18n("Display window")].pointSize() )
-		{				
-			if (m_changedSettings)
-				m_changedSettings |= CSwordPresenter::font;
-			else
-				m_changedSettings = CSwordPresenter::font;
-		}
+#warning possible? compare fonts directly
+//		if (m_config->readFontEntry(i18n("Display window")).family() != m_displayWindows.fonts.fontMap[i18n("Display window")].family()
+//		 || m_config->readFontEntry("Display window").pointSize() != m_displayWindows.fonts.fontMap[i18n("Display window")].pointSize() )
+		if (m_config->readFontEntry(i18n("Display window")) != m_displayWindows.fonts.fontMap[i18n("Display window")]
+      || m_config->readFontEntry(i18n("Display window Unicode")) != m_displayWindows.fonts.fontMap[i18n("Display window Unicode")] )
+
+#warning possible and simpler?
+//			if (m_changedSettings)
+		m_changedSettings |= CSwordPresenter::font;
+//			else
+//				m_changedSettings = CSwordPresenter::font;
 		for(QMap<QString, QFont>::Iterator it = m_displayWindows.fonts.fontMap.begin(); it != m_displayWindows.fonts.fontMap.end(); ++it )
 			m_config->writeEntry(it.key(), it.data());
 	}
@@ -383,18 +391,20 @@ void COptionsDialog::saveDisplayWindow() {
 	{ //save color options
 		KConfigGroupSaver groupSaver(m_config, "Colors");
 		if ( m_config->readColorEntry("Background") != m_displayWindows.colors.background->color() ) {
-			if (m_changedSettings)
-				m_changedSettings |= CSwordPresenter::backgroundColor;
-			else
-				m_changedSettings = CSwordPresenter::backgroundColor;
+#warning possible and simpler?
+//			if (m_changedSettings)
+		m_changedSettings |= CSwordPresenter::backgroundColor;
+//			else
+//				m_changedSettings = CSwordPresenter::backgroundColor;
 		}	
 		m_config->writeEntry("Background", m_displayWindows.colors.background->color().name());	
 	
 		if ( m_config->readColorEntry("Highlighted Verse") != m_displayWindows.colors.highlightedVerse->color() ) {
-			if (m_changedSettings)
+#warning possible and simpler?
+//			if (m_changedSettings)
 				m_changedSettings |= CSwordPresenter::highlightedVerseColor;
-			else
-				m_changedSettings = CSwordPresenter::highlightedVerseColor;
+//			else
+//				m_changedSettings = CSwordPresenter::highlightedVerseColor;
 		}		
 		m_config->writeEntry("Highlighted Verse", m_displayWindows.colors.highlightedVerse->color().name());		
 	}
@@ -419,6 +429,10 @@ void COptionsDialog::newDisplayWindowFontSelected(const QFont &newFont){
 	m_displayWindows.fonts.fontMap.replace(m_displayWindows.fonts.usage->currentText(), newFont);		
 }
 
+/** Called when the combobox contents is changed */
+void COptionsDialog::newDisplayWindowFontAreaSelected(const QString& usage){
+	m_displayWindows.fonts.fontChooser->setFont( m_displayWindows.fonts.fontMap[usage] );
+}
 
 /** Called if the OK button was clicked */
 void COptionsDialog::slotOk(){
@@ -441,21 +455,21 @@ void COptionsDialog::slotApply(){
 }
 
 
-/** Is called when a new font was selected in the  foreign font manager dialog. */
-void COptionsDialog::newForeignFontSelected( const QFont& font ){
-	CSwordModuleInfo* module = m_important->swordBackend->findModuleByDescription( m_displayWindows.module_fonts.modules->currentText() );	
-	if (module)
-		module->setFont(font);
-}
+///** Is called when a new font was selected in the  foreign font manager dialog. */
+//void COptionsDialog::newForeignFontSelected( const QFont& font ){
+//	CSwordModuleInfo* module = m_important->swordBackend->findModuleByDescription( m_displayWindows.module_fonts.modules->currentText() );	
+//	if (module)
+//		module->setFont(font);
+//}
 
-/** Is called when the user select a new module in te foreign font management dialog. */
-void COptionsDialog::foreignFontModuleChanged( QListBoxItem* item ) {
-	const QString selectedModule = item->text();	//selected modules
-
-	CSwordModuleInfo* module = m_important->swordBackend->findModuleByDescription( selectedModule );	
-	if (module)
-		m_displayWindows.module_fonts.fonts->setFont(module->getFont());
-}
+///** Is called when the user select a new module in te foreign font management dialog. */
+//void COptionsDialog::foreignFontModuleChanged( QListBoxItem* item ) {
+//	const QString selectedModule = item->text();	//selected modules
+//
+//	CSwordModuleInfo* module = m_important->swordBackend->findModuleByDescription( selectedModule );	
+//	if (module)
+//		m_displayWindows.module_fonts.fonts->setFont(module->getFont());
+//}
 
 
 /** Returns an integer with ORed feature enum entries of the changed settings. */
@@ -494,3 +508,4 @@ void COptionsDialog::renameProfile(){
 		m_displayWindows.profiles.profiles->changeItem(newName, m_displayWindows.profiles.profiles->currentItem());
 	}	
 }
+

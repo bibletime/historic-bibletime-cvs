@@ -45,10 +45,10 @@ class CHTMLEntryDisplay;
 class CSwordModuleInfo  {
 public:
 	enum type { Bible, Commentary, Lexicon, Unknown };
-	enum TextDirection {
-		LTR = 0, /*LTR = Left to right*/		
-		RTL /*RTL = Right To Left*/
-	};
+//	enum TextDirection {
+//		LTR = 0, /*LTR = Left to right*/		
+//		RTL /*RTL = Right To Left*/
+//	};
   /**
   	* This enum is used to give
   	* back an error code after unlocking the module
@@ -144,26 +144,26 @@ public:
   * @param type The type which should be checked
   */
   virtual const bool supportsFeature( const CSwordBackend::moduleOptions type );
-  /**
-  * Used to set the module specific font
-  */
-  void setFont(const QFont &font);
-  /**
-  * Used to find out the module specific font
-  */
-  const QFont getFont();
-  /**
-  * Used to find out if the module has a specific font
-  */
-  const bool hasFont();
+//  /**
+//  * Used to set the module specific font
+//  */
+//  void setFont(const QFont &font);
+//  /**
+//  * Used to find out the module specific font
+//  */
+//  const QFont getFont();
+//  /**
+//  * Used to find out if the module has a specific font
+//  */
+//  const bool hasFont();
   /**
   * Returns the type of the module.
   */
   virtual const CSwordModuleInfo::type getType() const;
-  /**
-  * Returns the text direction used in this module.
-  */
-  const CSwordModuleInfo::TextDirection getTextDirection();
+//  /**
+//  * Returns the text direction used in this module.
+//  */
+//  const CSwordModuleInfo::TextDirection getTextDirection();
   /**
   * Returns the required Sword version for this module.
 	* Returns -1 if no special Sword version is required.

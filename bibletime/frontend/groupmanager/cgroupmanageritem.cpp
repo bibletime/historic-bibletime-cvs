@@ -227,12 +227,13 @@ const QString CGroupManagerItem::getToolTip(){
 			QString bookmarkText = 	key ? key->renderedText() : QString();
 			if (bookmarkText.length() > 150 && (moduleInfo()->getType() != CSwordModuleInfo::Bible))
 				bookmarkText = bookmarkText.left(150) + "...";
-						
-			if (moduleInfo() && moduleInfo()->hasFont()) {
-				QFont f = moduleInfo()->getFont();
-				text.append( QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(CToolClass::makeLogicFontSize(f.pointSize())).arg(bookmarkText) );
-			}
-			else
+
+#warning todo: use UTF-8 specific font						
+//			if (moduleInfo() && moduleInfo()->encoding() == QFont::Unicode ) {
+//				QFont f = moduleInfo()->getFont();
+//				text.append( QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(CToolClass::makeLogicFontSize(f.pointSize())).arg(bookmarkText) );
+//			}
+//			else
 				text.append(bookmarkText);
 
       return text;				

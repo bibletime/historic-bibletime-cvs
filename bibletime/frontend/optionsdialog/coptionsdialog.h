@@ -108,11 +108,11 @@ private:
 		};
 		FontSettings fonts;
 		
-		struct ModuleFontSettings {
-			KListBox* modules;
-			KFontChooser* fonts;
-		};
-		ModuleFontSettings module_fonts;
+//		struct ModuleFontSettings {
+//			KListBox* modules;
+//			KFontChooser* fonts;
+//		};
+//		ModuleFontSettings module_fonts;
 		
 		struct ViewProfileSettings {
 			QListBox* profiles;
@@ -150,14 +150,19 @@ protected slots: // Protected slots
   */
   void newDisplayWindowFontSelected(const QFont &);
   /**
- 	* Is called when a new font was selected in the
-	* foreign font manager dialog.
-	*/
-  void newForeignFontSelected( const QFont& );
-  /**
- 	* Is called when the user select a new module in te foreign font management dialog.
- 	*/
-  void foreignFontModuleChanged( QListBoxItem* );
+  * Called when the combobox contents is changed
+  */
+  void newDisplayWindowFontAreaSelected(const QString&);
+
+//  /**
+// 	* Is called when a new font was selected in the
+//	* foreign font manager dialog.
+//	*/
+//  void newForeignFontSelected( const QFont& );
+//  /**
+// 	* Is called when the user select a new module in te foreign font management dialog.
+// 	*/
+//  void foreignFontModuleChanged( QListBoxItem* );
 	
 	/**
 	* Called if the OK button was clicked

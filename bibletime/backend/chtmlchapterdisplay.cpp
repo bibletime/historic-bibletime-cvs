@@ -50,15 +50,16 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	if (module->encoding() == QFont::Unicode) {
 		m_htmlHeader = "<HTML><HEAD><META HTTP-EQUIV=\"Content-Type\" content=\"text/html; charset=utf-8\"></HEAD>";
 	}
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
+	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");//dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
 	
   QString FontName = m_standardFontName;
   int FontSize = m_standardFontSize;
-  if (module->hasFont()){ //use custom font?
+#warning todo: use UTF-8 special font
+  /*if (module->hasFont()){ //use custom font?
     QFont font = module->getFont();
     FontName = font.family();
     FontSize = CToolClass::makeLogicFontSize(font.pointSize());
-  }
+  } */
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.NextVerse()) {
 		verse = key.Verse();
 		m_htmlText.append( QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\"><B>%3</B></A>")
@@ -106,8 +107,9 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
 	while (m) {
-		if (d && d->hasFont())
-			fontMap.insert(d, d->getFont());
+		if (d && d->encoding() == QFont::Unicode )
+#warning todo: use UTF-8 specific font
+			;//fontMap.insert(d, d->getFont());
     if (m)
 			m_htmlText +=
 				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%1</B></TD>").arg((int)((double)100/(double)moduleList->count())).arg(d->name());

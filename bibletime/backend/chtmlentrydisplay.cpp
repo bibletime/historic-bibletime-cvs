@@ -58,11 +58,12 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 		key = new CSwordLDKey(module);
 	key->key(module->module()->KeyText());
 	
-  if (module->hasFont()){ //use custom font
-    QFont font = module->getFont();
-    FontName = font.family();
-    FontSize = CToolClass::makeLogicFontSize(font.pointSize());
-  }
+#warning todo: use UTF-8 specific font
+//  if (module->encoding() == QFont::Unicode ){ //use custom font
+//    QFont font = module->getFont();
+//    FontName = font.family();
+//    FontSize = CToolClass::makeLogicFontSize(font.pointSize());
+//  }
 	if (m_includeHeader) {
 		m_htmlText =
 			m_htmlHeader + QString::fromLatin1("<BODY><FONT color=\"%1\">\
@@ -157,15 +158,16 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	m = (d = moduleList->first()) ? d->module() : 0;
 	m_htmlText.append(QString::fromLatin1("<TR>"));
 	while (m) {
-		if (d && d->hasFont()) { //use custom font
-			QFont font = d->getFont();
-			FontName = font.family();
-			FontSize = CToolClass::makeLogicFontSize(font.pointSize());
-		}
-		else {
+#warning todo: use UTF-8 specific font
+//		if (d && d->encoding() == QFont::Unicode ) { //use custom font
+//			QFont font = d->getFont();
+//			FontName = font.family();
+//			FontSize = CToolClass::makeLogicFontSize(font.pointSize());
+//		}
+//		else {
 			FontName = m_standardFontName;
 			FontSize = m_standardFontSize;
-		}
+//		}
 		key->module(d);
 		key->key(usedKey);
 		

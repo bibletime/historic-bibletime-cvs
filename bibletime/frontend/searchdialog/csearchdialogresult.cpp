@@ -162,10 +162,11 @@ void CSearchDialogResult::updatePreview(QString text) {
 			}			
 		}
 	}
-	if (resultModuleTree->getCurrentModule()->hasFont()) {
-		QFont f = resultModuleTree->getCurrentModule()->getFont();
-		text = QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(f.pointSize()).arg(text);
-	}
+#warning todo: use UTF8 specific font
+//	if (resultModuleTree->getCurrentModule()->encoding() == QFont::Unicode ) {
+//		QFont f = resultModuleTree->getCurrentModule()->getFont();
+//		text = QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(f.pointSize()).arg(text);
+//	}
 	html_widget->setText(
 		QString::fromLatin1("<HTML><HEAD></HEAD><BODY><FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3</BODY></HTML>")
 		 .arg(resultTree->currentText())

@@ -89,11 +89,12 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 	if (!text.isEmpty()) {
 		const QFont oldFont = font();				
 		CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(i->moduleInfo());
-		if (m && m->hasFont()) {
-			QFont newFont = font();
-			newFont.setCharSet(QFont::AnyCharSet);
-			setFont(newFont);
-		}
+#warning todo: use UTF-8 specific font
+//		if (m && m->encoding() == QFont::Unicode ) {
+//			QFont newFont = font();
+//			newFont.setCharSet(QFont::AnyCharSet);
+//			setFont(newFont);
+//		}
 		tip(r, text);
 		setFont(oldFont);
 	}
