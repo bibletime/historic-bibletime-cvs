@@ -225,6 +225,7 @@ void CGroupManager::setupStandardSwordTree() {
 
 /** Initializes the connections of this class */
 void CGroupManager::initConnections(){
+	connect(this, SIGNAL(returnPressed(QListViewItem*)), SLOT(slotReturnPressed(QListViewItem*)));
 	if (m_useRMBMenu)
 		connect(popupMenu, SIGNAL(aboutToShow()),
 			this, SLOT(slotPopupAboutToShow()));
@@ -312,7 +313,7 @@ void CGroupManager::initView(){
 		popupMenu->insertItem(MODULE_SEARCH_ICON_SMALL,i18n("Search in selected module(s)"),
 			this, SLOT(slotSearchSelectedModules()),0,ID_GM_MODULES_SEARCH);
 		popupMenu->insertSeparator();
-		popupMenu->insertItem(MODULE_UNLOCK_ICON_SMALL,i18n("Set unlock key"),
+		popupMenu->insertItem(MODULE_UNLOCK_ICON_SMALL,i18n("Unlock this module"),
 			this, SLOT(slotUnlockModule()),0,ID_GM_MODULE_UNLOCK);	
 		popupMenu->setWhatsThis(ID_GM_MODULE_UNLOCK, WT_GM_UNLOCK_MODULE);	
 		popupMenu->insertItem(MODULE_ABOUT_ICON_SMALL, i18n("About this module"),
@@ -551,29 +552,29 @@ void CGroupManager::slotShowAbout(){
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%4:</B></TD><TD BGCOLOR=\"#FFE9C8\">%5</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%6:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%8:</B></TD><TD BGCOLOR=\"#FFE9C8\">%9</TD></TR>")
-.arg(module->module()->Name())
-.arg(i18n("Datapath"))
-.arg(module->getPath())
-.arg(i18n("Version"))
-.arg(module->getVersion())
-.arg(i18n("Unlock key"))
-.arg(unlockKey)
-.arg(i18n("Writable"))
-.arg(isWritable);
+	.arg(module->module()->Name())
+	.arg(i18n("Datapath"))
+	.arg(module->getPath())
+	.arg(i18n("Version"))
+	.arg(module->getVersion())
+	.arg(i18n("Unlock key"))
+	.arg(unlockKey)
+	.arg(i18n("Writable"))
+	.arg(isWritable);
 
 text += QString("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%5:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
 <TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR></TABLE>\
 </BODY></HTML>")
-.arg(i18n("Footnotes"))	
-.arg(hasFootnotes)
-.arg(i18n("Strong's numbers"))	
-.arg(hasStrongNumbers)
-.arg(i18n("Description"))	
-.arg(module->getDescription())
-.arg(i18n("About"))
-.arg(module->getAboutInformation());
+	.arg(i18n("Footnotes"))	
+	.arg(hasFootnotes)
+	.arg(i18n("Strong's numbers"))	
+	.arg(hasStrongNumbers)
+	.arg(i18n("Description"))	
+	.arg(module->getDescription())
+	.arg(i18n("About"))
+	.arg(module->getAboutInformation());
 	
 	dlg->setText(text);
 	dlg->exec();
@@ -608,7 +609,7 @@ void CGroupManager::contentsDragEnterEvent( QDragEnterEvent* e){
   		m_dragType = TEXT;
   	else
   		m_dragType = "";
-  	qDebug((const char*)m_dragType.local8Bit());
+//  	qDebug((const char*)m_dragType.local8Bit());
   }
   else {
   	e->ignore();
@@ -780,13 +781,12 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
 #undef MOVE_ITEMS
 
 /**  */
-void CGroupManager::contentsMousePressEvent ( QMouseEvent* e ) {
+void CGroupManager::contentsMousePressEvent( QMouseEvent* e ) {
+	qDebug("CGroupManager::contentsMousePressEvent( QMouseEvent* e )");
 	m_pressedPos = e->pos();
-  m_pressedItem = (CGroupManagerItem*)itemAt(contentsToViewport(m_pressedPos));
-  bool open = false;	
-  if (m_pressedItem)
-  	open = m_pressedItem->isOpen();		
-	KListView::contentsMousePressEvent(e);
+  m_pressedItem = dynamic_cast<CGroupManagerItem*>(itemAt(contentsToViewport(m_pressedPos)));
+  const bool open = m_pressedItem ? m_pressedItem->isOpen() : false;
+	KListView::contentsMousePressEvent(e);	
 	
 	if ((e->state() & ControlButton) || (e->state() & ShiftButton))
 			return;
@@ -807,6 +807,7 @@ void CGroupManager::contentsMousePressEvent ( QMouseEvent* e ) {
 
 /** Reimplementation. */
 void CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e){
+	qWarning("CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e)");
   bool open = false;	
   if (m_pressedItem)
   	open = m_pressedItem->isOpen();
@@ -825,12 +826,12 @@ void CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e){
 }
 
 void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
-	KListView::contentsMouseReleaseEvent(e);		
- 	
+	qDebug("CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e )");
+	KListView::contentsMouseReleaseEvent(e); 	
+  if ( !(m_pressedItem=(CGroupManagerItem*)itemAt(contentsToViewport(e->pos()))) )
+    return;	
 	if ((e->state() & ControlButton) || (e->state() & ShiftButton))
 		return;
-  if ( !(m_pressedItem=(CGroupManagerItem*)itemAt(contentsToViewport(e->pos()))) )
-    return;
 
 	if (m_pressedItem && (e->button() == LeftButton)) {
 		if (m_pressedItem->type() == CGroupManagerItem::Module && m_pressedItem->moduleInfo()) {
@@ -842,26 +843,27 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 	  		if (m_showHelpDialogs)
 	  			config->writeEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
 	  	}
-			if (selectedItems().count()>1) {
+			if (selectedItems().count() > 1) {
 				ListCSwordModuleInfo modules;
 				for (selectedItems().first(); selectedItems().current(); selectedItems().next()) {
 					CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(selectedItems().current());
 					if (i && i->type() == CGroupManagerItem::Module && i->moduleInfo()) {
+						qDebug("append");
 						modules.append(i->moduleInfo());
 					}
 				}
-				emit createSwordPresenter( modules, QString::null );
+				emit createSwordPresenter( modules, QString::null );				
 			}
 			else
 				emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
 		}
-		else if  (m_pressedItem->type() == CGroupManagerItem::Bookmark) {
-			if (m_pressedItem->moduleInfo() && m_pressedItem->getBookmarkKey() ) {
+		else if  (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Bookmark) {
+			if (m_pressedItem->moduleInfo() && m_pressedItem->getBookmarkKey() )
 				emit createSwordPresenter( m_pressedItem->moduleInfo(), m_pressedItem->getKeyText() );
-			}			
 		}
-	}	
- 	m_menu = false;	
+	}
+	qDebug("finished");
+// 	m_menu = false;	
 }
 
 /** Reimplementation */
@@ -1582,4 +1584,26 @@ void CGroupManager::slotDeleteSearchdialog(){
 void CGroupManager::resizeEvent ( QResizeEvent* e )  {
 	KListView::resizeEvent(e);		
 	setColumnWidth(0, visibleWidth() );
+}
+
+/** Is called when the return key was pressed on a listview item. */
+void CGroupManager::slotReturnPressed( QListViewItem* i){
+	CGroupManagerItem* item = dynamic_cast<CGroupManagerItem*>(i);
+	if (!item)
+		return;	
+	switch (item->type())	 {
+		case CGroupManagerItem::Bookmark:
+			if (item->moduleInfo())				
+				emit createSwordPresenter(item->moduleInfo(),item->getKeyText() );			
+			break;
+		case CGroupManagerItem::Module:
+			if (item->moduleInfo())
+				emit createSwordPresenter(item->moduleInfo(), QString::null);			
+			break;
+		case CGroupManagerItem::Group:
+			item->setOpen( !item->isOpen() );
+			break;
+		default:
+			break;
+	}
 }

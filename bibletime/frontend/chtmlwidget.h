@@ -152,10 +152,6 @@ protected: // Protected attributes
   * Returns true if the links are enabled.
   */
   virtual bool linksEnabled() const;
-  /**
-  * Reimplementation of QTextEdit
-  */
-  virtual void contentsMouseReleaseEvent( QMouseEvent* e);
 
 protected slots: // Protected slots
   /**

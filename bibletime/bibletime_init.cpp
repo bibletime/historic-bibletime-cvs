@@ -51,20 +51,15 @@
 
 /**Initializes the view of this widget*/
 void BibleTime::initView(){
-	qDebug("BibleTime::initView");
-	ASSERT(m_moduleList);
-	ASSERT(m_important->swordBackend);
 	m_splitter = new QSplitter(this, "mainsplitter");
 	
 	m_groupmanager = new CGroupManager(m_important, m_splitter, "groupmanager", m_moduleList );
-//	QWhatsThis::add(m_groupmanager,WT_GM_WIDGET);
-	
+	m_groupmanager->setFocusPolicy( ClickFocus );
+		
 	m_mdi = new CMDIArea(m_important, m_splitter, "mdiarea" );
-//	QWhatsThis::add(m_groupmanager,WT_GM_WIDGET);	
-	m_mdi->setFocusPolicy( StrongFocus );
+	m_mdi->setFocusPolicy( ClickFocus );
 
-	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
-	
+	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());	
 	
 	setCentralWidget(m_splitter);	
 }

@@ -74,14 +74,6 @@ public:
 	*
 	*/
   void searchBookmarkedModule(QString, CGroupManagerItem *);
-	/**
-	*
-	*/
-	CGroupManagerItem*	m_pressedItem;
-	/**
-	*
-	*/
-  QList<CGroupManagerItem>*	m_itemList;
 
 public slots: // Public slots
   /**
@@ -182,7 +174,7 @@ private:
 	public:
 		ToolTip(QWidget* parent);
 		/**
-		* Displays a tooltip for position p
+		* Displays a tooltip for position p using the getToolTip() function of CGroupManagerItem
 		*/		
 		void maybeTip( const QPoint &pos);
 	};
@@ -190,37 +182,13 @@ private:
 	*
 	*/
 	ListCSwordModuleInfo *m_swordList;
-	/**
-	* Initializes the connections of this class
-	*/
   void initConnections();
-  /**
-  *
-  */
   void contentsDragEnterEvent( QDragEnterEvent* e);
-  /**
-  *
-  */
   void contentsDragMoveEvent( QDragMoveEvent* e);
-  /**
-  *
-  */
   void contentsDragLeaveEvent( QDragLeaveEvent* e);
-  /**
-  *
-  */
   void contentsDropEvent( QDropEvent* e);
-  /**
-  *
-  */
   void contentsMousePressEvent(QMouseEvent*);
-  /**
-  *
-  */
   void contentsMouseReleaseEvent(QMouseEvent*);
-  /**
-  * Reimplementation
-  */
   void contentsMouseMoveEvent ( QMouseEvent * ) ;
 	/**
 	* Find ID of parent item.
@@ -266,7 +234,7 @@ private:
   /**
   * Reads in bookmarks from config and creates them as subitems of group.
 	*	If group is 0 we create them a toplevel items.
-	*/
+	*/	
   bool readGroups(KConfig* configFile, CGroupManagerItem* group);
   QGuardedPtr<KConfig> config;
   QGuardedPtr<KPopupMenu> popupMenu;
@@ -279,13 +247,21 @@ private:
   QString m_dragType;	
 	QGuardedPtr<CSearchDialog> searchDialog;
 	ToolTip* m_toolTip;	
+	CGroupManagerItem*	m_pressedItem;
+  QList<CGroupManagerItem>*	m_itemList;	
 	bool m_singleClick;	
 	bool m_useBookmarks;
 	bool m_saveSettings;
 	bool m_useDragDrop;
 	bool m_useExtendedMode;
-	bool m_useRMBMenu;	
+	bool m_useRMBMenu;		
 	bool m_showHelpDialogs;
+	
+private slots: // Private slots
+  /**
+  * Is called when the return key was pressed on a listview item.
+  */
+  void slotReturnPressed( QListViewItem* );	
 };
 
 #endif

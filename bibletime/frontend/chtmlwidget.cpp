@@ -260,7 +260,7 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 		 		}
 		 	}
 		}
-		else if (QTextDrag::decode(e,str/*,submime="text/plain"*/) && !str.isEmpty())
+		else if (QTextDrag::decode(e,str) && !str.isEmpty())
 			text = str;
 
 		if (!text.isEmpty())
@@ -309,11 +309,6 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
 			selectAll(false);
 		}		
   }	
-}
-
-/** Reimplementation of QTextEdit */
-void CHTMLWidget::contentsMouseReleaseEvent( QMouseEvent* e){
-	QTextEdit::contentsMouseReleaseEvent( e );
 }
 
 /** Reimplementation.*/
