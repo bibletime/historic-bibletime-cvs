@@ -170,10 +170,6 @@ public:
   */
   const QString name() const;
   /**
-  * Returns true if this module is Unicode encoded. False if the charset is iso8859-1.
-  */
-  const bool isUnicode();
-  /**
   * Snaps to the closest entry in the module if the current key is
   * not present in the data files.
   */
@@ -196,6 +192,13 @@ public:
   * Returns the language of the module.
   */
   const CLanguageMgr::Language language();
+
+protected:
+  /**
+  * Returns true if this module is Unicode encoded. False if the charset is iso8859-1.
+	* Protected because it should not be used outside of the CSword*ModuleInfo classes.
+  */
+  const bool isUnicode();
 
 private:
 	sword::SWModule*	m_module;

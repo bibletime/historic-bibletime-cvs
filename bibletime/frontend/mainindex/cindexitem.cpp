@@ -254,7 +254,8 @@ const QString CModuleItem::aboutInfo(){
 		text += QString::fromLatin1("<b>%1:</b> %2<br>")
 							.arg(i18n("Unlock key"))
 							.arg(module()->config(CSwordModuleInfo::CipherKey));	
-	text += QString::fromLatin1("<b>%1:</b> %2<br>").arg(i18n("Encoding")).arg(module()->isUnicode() ? i18n("Unicode") : i18n("iso8859-1"));
+// Not necessary any more
+//	text += QString::fromLatin1("<b>%1:</b> %2<br>").arg(i18n("Encoding")).arg(module()->isUnicode() ? i18n("Unicode") : i18n("iso8859-1"));
 
 	QString options;
 	unsigned int opts;
