@@ -146,36 +146,11 @@ to launch the options dialog.</para>
 			</para>
 			</section>
 		</section>
-		<section id="hdbk-config-bt-Colors"><title>Colors</title>
-		<para>The colors of the objects in display windows can be customized.
-		Objects that can be customized are:</para>
-		<simplelist>
-		<member>Text</member>
-		<member>Highlighted verse</member>
-		<member>Footnotes</member>
-		<member>Morphological Tags</member>
-		<member>Background</member>
-		<member>Hyperlinks</member>
-		<member>Strong's Numbers</member>
-		<member>Words of Jesus</member>
-		</simplelist>
-
-		<para>Some options like "Words of Jesus" only apply to texts which
-		support this special feature.</para>
-		<mediaobject>
-		<imageobject>
-		<imagedata fileref="hdbk-conf-optdialog-color.png" format="PNG"/>
-		</imageobject>
-		<textobject>
-		<phrase>Options Dialog - Color</phrase>
-		</textobject>
-		<caption>
-		<para>The Options dialog - Color.</para>
-		</caption>
-		</mediaobject>
-
-		</section>
-
+		
+		
+		
+		
+		
 		<section id="hdbk-config-bt-profiles"><title>Sessions</title>
 		<para>Sessions define the appearance of the work area, for example which
 		windows are open and which texts should be displayed in these windows.
