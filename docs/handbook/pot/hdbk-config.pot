@@ -16,12 +16,12 @@ msgstr ""
 
 #: index.docbook:1
 #, no-c-format
-msgid "Configuring Bibletime"
+msgid "Configuring &bibletime;"
 msgstr ""
 
 #: index.docbook:3
 #, no-c-format
-msgid "The &bibletime; user interface can be customized in many ways depending on your needs. To access the configuration dialogs, in the main toolbar select <guimenu>settings</guimenu>. From here select <guimenuitem>configure toolbars</guimenuitem> to launch the dialog configure toolbars dialog, or select <guimenuitem>configure &bibletime;</guimenuitem> to launch the options dialog."
+msgid "The &bibletime; user interface can be customized in many ways depending on your needs. To access the configuration dialogs, in the main toolbar select <guimenu>settings</guimenu>. From here select <guimenuitem>configure toolbars</guimenuitem> to launch the dialog configure toolbars dialog, or select <guimenuitem>Configure &bibletime;</guimenuitem> to launch the options dialog."
 msgstr ""
 
 #: index.docbook:10
@@ -31,7 +31,7 @@ msgstr ""
 
 #: index.docbook:11
 #, no-c-format
-msgid "The Configure Toolbars dialog allowes adding and removing actions from the main toolbar of &bibletime;. The order of actions in the main toolbar can also be changed."
+msgid "The Configure Toolbars dialog allows adding and removing actions from the main toolbar of &bibletime;. The order of actions in the main toolbar can also be changed."
 msgstr ""
 
 #: index.docbook:14
@@ -46,12 +46,12 @@ msgstr ""
 
 #: index.docbook:27
 #, no-c-format
-msgid "Preferences - Bibletime Dialog"
+msgid "Preferences - &bibletime; Dialog"
 msgstr ""
 
 #: index.docbook:28
 #, no-c-format
-msgid "The preferences dialog allows many &bibletime; and Sword features to be customized."
+msgid "The preferences dialog allows many &bibletime; and &sword; features to be customized."
 msgstr ""
 
 #: index.docbook:31
@@ -66,27 +66,27 @@ msgstr ""
 
 #: index.docbook:34
 #, no-c-format
-msgid "Show tip of the day."
+msgid "Show tip of the day"
 msgstr ""
 
 #: index.docbook:34
 #, no-c-format
-msgid "Show startup Logo."
+msgid "Show startup Logo"
 msgstr ""
 
 #: index.docbook:34
 #, no-c-format
-msgid "Restore windows in workspace area."
+msgid "Restore windows from the last &bibletime; session"
 msgstr ""
 
 #: index.docbook:39
 #, no-c-format
-msgid "Options Dialog"
+msgid "Preferences Dialog"
 msgstr ""
 
 #: index.docbook:39
 #, no-c-format
-msgid "The Options dialog - Startup."
+msgid "The Preferences dialog - Startup."
 msgstr ""
 
 #: index.docbook:51
@@ -141,7 +141,7 @@ msgstr ""
 
 #: index.docbook:95
 #, no-c-format
-msgid "If your distribution includes a font installer use it, it makes font installation much easier!!"
+msgid "If your distribution includes a font installer use it, it makes font installation much easier!"
 msgstr ""
 
 #: index.docbook:98
@@ -321,7 +321,7 @@ msgstr ""
 
 #: index.docbook:180
 #, no-c-format
-msgid "Sessions define the appearance of the work area, for example which windows are open and which texts should be displayed in these windows. Once a session is created, use the menu item <guimenu>window</guimenu> -> <guimenuitem>save session</guimenuitem> to save a current session into a session file. Use <guimenu>window</guimenu> -> <guimenuitem>load session</guimenuitem> to load a previously saved session into &bibletime;."
+msgid "Sessions define the appearance of the work area, for example which windows are open and which texts should be displayed in these windows. Once a session is created, use the menu item <guimenu>Window</guimenu> -> <guimenuitem>Save session</guimenuitem> to save a current session into a session file. Use <guimenu>Window</guimenu> -> <guimenuitem>Load session</guimenuitem> to load a previously saved session into &bibletime;."
 msgstr ""
 
 #: index.docbook:188
@@ -356,7 +356,7 @@ msgstr ""
 
 #: index.docbook:205
 #, no-c-format
-msgid "Bibletime can create a key cache for lexicons. This speeds up opening large lexicon modules. The cache file does use some disc space, so if your computer has only a small amount of free space, you might want to disable this feature."
+msgid "&bibletime; can create a key cache for lexicons. This speeds up opening large lexicon modules. The cache file does use some disc space, so if your computer has only a small amount of free space, you might want to disable this feature."
 msgstr ""
 
 #: index.docbook:210
@@ -391,7 +391,7 @@ msgstr ""
 
 #: index.docbook:227
 #, no-c-format
-msgid "Sword filter settings"
+msgid "Sword Filter Settings"
 msgstr ""
 
 #: index.docbook:228
@@ -406,7 +406,7 @@ msgstr ""
 
 #: index.docbook:232
 #, no-c-format
-msgid "Show line brake after each verse"
+msgid "Show line break after each verse"
 msgstr ""
 
 #: index.docbook:232

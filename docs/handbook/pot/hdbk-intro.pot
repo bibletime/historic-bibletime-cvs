@@ -111,7 +111,7 @@ msgstr ""
 
 #: index.docbook:90
 #, no-c-format
-msgid "Bibletime version 1.3 provides a number of bugfixes and stability improvements. You will also find a number of changes to the appearance of bibletime. This is a partial list, for a more complete list, see the changlog."
+msgid "&bibletime; version 1.3 provides a number of bugfixes and stability improvements. You will also find a number of changes to the appearance of bibletime. This is a partial list, for a more complete list, see the changlog."
 msgstr ""
 
 #: index.docbook:95

@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: application/x-xml2pot; charset=utf-8\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
 #: index.docbook:1
@@ -49,142 +49,142 @@ msgstr ""
 msgid "preservation. F. F. Bruce in <emphasis>Are New Testament Documents Reliable?</emphasis> compares New Testament manuscripts with other ancient texts:"
 msgstr ""
 
-#: index.docbook:32
+#: index.docbook:31
 #, no-c-format
 msgid "Comparison of New Testament manuscripts with other ancient texts."
 msgstr ""
 
-#: index.docbook:34
+#: index.docbook:31
 #, no-c-format
 msgid "Work"
 msgstr ""
 
-#: index.docbook:34
+#: index.docbook:31
 #, no-c-format
 msgid "When Written"
 msgstr ""
 
-#: index.docbook:34
+#: index.docbook:31
 #, no-c-format
 msgid "Earliest Copy"
 msgstr ""
 
-#: index.docbook:34
+#: index.docbook:31
 #, no-c-format
 msgid "Time Lapse"
 msgstr ""
 
-#: index.docbook:34
+#: index.docbook:31
 #, no-c-format
 msgid "Number of Copies"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "Herodotus"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "448-428 B.C."
 msgstr ""
 
-#: index.docbook:41 index.docbook:41 index.docbook:41
+#: index.docbook:31 index.docbook:31 index.docbook:31
 #, no-c-format
 msgid "900 A.D."
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "1300 years"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "<entry>8 </entry>"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "Tacitus"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "100 A.D."
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "1100 A.D."
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "1000 years"
 msgstr ""
 
-#: index.docbook:41 index.docbook:41
+#: index.docbook:31 index.docbook:31
 #, no-c-format
 msgid "<entry>20 </entry>"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "Caesar's <emphasis>Gallic War</emphasis>"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "50-58 B.C."
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "950 years"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "<entry>10 </entry>"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "Livy's <emphasis>Roman History</emphasis>"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "59 B.C. - 17 A.D."
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "900 years"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "New Testament"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "40 A.D. - 100 A.D."
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "130 A.D. Partial manuscripts 350 A.D. Full manuscripts"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "30 - 310 years"
 msgstr ""
 
-#: index.docbook:41
+#: index.docbook:31
 #, no-c-format
 msgid "5000 Greek &amp; 10,000 Latin"
 msgstr ""
@@ -239,77 +239,77 @@ msgstr ""
 msgid "What will studying the Bible do for you? 1 Thess.2:13 says that the Bible \"<emphasis>performs its work in you who believe.</emphasis>\" Beside each scripture, write down the work the Word performs."
 msgstr ""
 
-#: index.docbook:126
+#: index.docbook:125
 #, no-c-format
 msgid "What does Bible study do for Christians?"
 msgstr ""
 
-#: index.docbook:128
+#: index.docbook:125
 #, no-c-format
 msgid "Reference"
 msgstr ""
 
-#: index.docbook:128
+#: index.docbook:125
 #, no-c-format
 msgid "Action"
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "Eph. 5:26"
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "cleanses -- \"...having cleansed her by the washing of water with the word.\""
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "Acts 20:32"
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "builds up -- \" ...the word of His grace, which is able to build you up and to give you the inheritance among all those who are sanctified. \""
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "Rom. 15:4"
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "encourages -- \"that through perseverance and the encouragement of the Scriptures we might have hope.\""
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "Rom. 10:17"
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "gives faith -- \"So faith comes from hearing, and hearing by the word of Christ.\""
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "1 Cor. 10:11"
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "instructs -- \"Now these things happened to them for an example, and they were written for our instruction\""
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "Mt. 4:4"
 msgstr ""
 
-#: index.docbook:134
+#: index.docbook:125
 #, no-c-format
 msgid "nourishment -- \"But He answered and said, 'It is written, Man shall not live on bread alone, but on every word that proceeds out of the mouth of God.'\""
 msgstr ""
@@ -364,47 +364,47 @@ msgstr ""
 msgid "Eph.6:10-18 is one picture of our spiritual armament."
 msgstr ""
 
-#: index.docbook:229
+#: index.docbook:228
 #, no-c-format
 msgid "Spiritual Armor"
 msgstr ""
 
-#: index.docbook:231
+#: index.docbook:228
 #, no-c-format
 msgid "Question"
 msgstr ""
 
-#: index.docbook:231
+#: index.docbook:228
 #, no-c-format
 msgid "Answer"
 msgstr ""
 
-#: index.docbook:236
+#: index.docbook:228
 #, no-c-format
 msgid "How many of the weapons listed here are defensive weapons?"
 msgstr ""
 
-#: index.docbook:236
+#: index.docbook:228
 #, no-c-format
 msgid "<entry>5</entry>"
 msgstr ""
 
-#: index.docbook:236
+#: index.docbook:228
 #, no-c-format
 msgid "How many are offensive?"
 msgstr ""
 
-#: index.docbook:236
+#: index.docbook:228
 #, no-c-format
 msgid "<entry>One</entry>"
 msgstr ""
 
-#: index.docbook:236
+#: index.docbook:228
 #, no-c-format
 msgid "Which one(s)?"
 msgstr ""
 
-#: index.docbook:236
+#: index.docbook:228
 #, no-c-format
 msgid "the word - <foreignphrase>rhema</foreignphrase>"
 msgstr ""

@@ -356,7 +356,7 @@ msgstr ""
 
 #: index.docbook:344
 #, no-c-format
-msgid "If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible module is done for the name, Jesus, 939 matches will result. Then if <guibutton>Last Result</guibutton> is checked and another search is done for the title, Christ, 257 matches from the first 939 matches will remain. Then if<guibutton>Last Result</guibutton> remains checked and another search is done for the title, Lord, 106 matches from the 257 will remain. All the remaining 106 matches will have the name, Jesus, and both the titles, Christ and Lord."
+msgid "If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible module is done for the name, Jesus, 939 matches will result. Then if <guibutton>Last Result</guibutton> is checked and another search is done for the title, Christ, 257 matches from the first 939 matches will remain. Then if <guibutton>Last Result</guibutton> remains checked and another search is done for the title, Lord, 106 matches from the 257 will remain. All the remaining 106 matches will have the name, Jesus, and both the titles, Christ and Lord."
 msgstr ""
 
 #: index.docbook:354
