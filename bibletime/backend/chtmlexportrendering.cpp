@@ -73,7 +73,6 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 	QString preverseHeading;
 	QString langAttr;
 	
-//   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
 	ListCSwordModuleInfo::const_iterator end_modItr = modules.end();
 	for (ListCSwordModuleInfo::const_iterator mod_Itr(modules.begin()); mod_Itr != end_modItr; ++mod_Itr) {
     key->module(*mod_Itr);
@@ -102,26 +101,37 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 				preverseHeading = QString::fromUtf8(it->second.c_str());
 				
 				if (!preverseHeading.isEmpty()) {
-					entry += QString::fromLatin1("<div %1 class=\"sectiontitle\">%1</div>")
-						.arg(langAttr)
-						.arg(preverseHeading);
+					entry.append(
+						QString::fromLatin1("<div %1 class=\"sectiontitle\">%1</div>")
+							.arg(langAttr)
+							.arg(preverseHeading)
+					);
 				}		
 			}
 		}
 		
-		entry += QString::fromLatin1("<%1 %2 %3 dir=\"%4\">") //linebreaks = div, without = span
-    	.arg(m_displayOptions.lineBreaks ? QString::fromLatin1("div") : QString::fromLatin1("span"))
-			.arg((modules.count() == 1) //insert only the class if we're not in a td
-				? (i.settings().highlight 
-					? QString::fromLatin1("class=\"currententry\"") 
-					: QString::fromLatin1("class=\"entry\"")) 
-				: QString::null
-			)
- 			.arg(langAttr)
-			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
-			
+// 		entry += QString::fromLatin1("<%1 %2 %3 dir=\"%4\">") //linebreaks = div, without = span
+		entry.append( 
+			QString::fromLatin1("<%1 %2 %3 %4>") //linebreaks = div, without = span
+				.arg(m_displayOptions.lineBreaks 
+						? QString::fromLatin1("div") 
+						: QString::fromLatin1("span")
+				)
+				.arg((modules.count() == 1) //insert only the class if we're not in a td
+						? (	i.settings().highlight 
+							? QString::fromLatin1("class=\"currententry\"") 
+							: QString::fromLatin1("class=\"entry\"")
+						)
+						: QString::null
+				)
+				.arg(langAttr)
+	// 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
+				.arg(isRTL ? QString::fromLatin1("dir=\"rtl\"") : QString::null) 
+		);
+
  		//keys should normally be left-to-right, but this doesn't apply in all cases
-		entry += QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>").arg(entryLink(i, *mod_Itr));
+// 		entry.append( QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>").arg(entryLink(i, *mod_Itr)) );
+		entry.append( QString::fromLatin1("<span class=\"entryname\">%1</span>").arg(entryLink(i, *mod_Itr)) );
 		
 		if (m_settings.addText) {
 			//entry.append( QString::fromLatin1("<span %1>%2</span>").arg(langAttr).arg(key_renderedText) );
@@ -145,11 +155,13 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 			renderedText.append( entry );
 		}
   	else {
-	    renderedText += QString::fromLatin1("<td class=\"%1\" %2 dir=\"%3\">%4</td>\n")
- 				.arg( i.settings().highlight ? QString::fromLatin1("currententry") : QString::fromLatin1("entry"))
-				.arg( langAttr )
-				.arg( isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr") )
-				.arg( entry );
+	    renderedText.append( 
+				QString::fromLatin1("<td class=\"%1\" %2 dir=\"%3\">%4</td>\n")
+					.arg( i.settings().highlight ? QString::fromLatin1("currententry") : QString::fromLatin1("entry"))
+					.arg( langAttr )
+					.arg( isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr") )
+					.arg( entry ) 
+			);
 		}
 	}
  	
@@ -187,4 +199,4 @@ const QString CHTMLExportRendering::entryLink( const KeyTreeItem& item, CSwordMo
 	return item.key();
 }
 
-};
+}; //end of namespace "Rendering"
