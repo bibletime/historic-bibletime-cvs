@@ -53,7 +53,7 @@
 #include <localemgr.h>
 
 COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *parent, const char *name, KAccel* accel )
-	: KDialogBase(IconList, i18n("Optionsdialog"), Ok | Apply | Cancel, Ok, parent, name, true, true,
+	: KDialogBase(IconList, i18n("Optionsdialog"), Ok | Cancel, Ok, parent, name, true, true,
 	QString::null, QString::null, QString::null) {
 
 	config = KGlobal::config();	
@@ -337,6 +337,7 @@ void COptionsDialog::saveColorsOptions() {
 }
 
 /**  */
+/*commenting this out until I can figure out why it doesn't work so hot...ck
 void COptionsDialog::slotApply(){
 	saveGeneralOptions();
 	saveFontOptions();
@@ -344,7 +345,7 @@ void COptionsDialog::slotApply(){
 	saveColorsOptions();
 	
 	KDialogBase::slotApply();
-}
+}*/
 
 /** Is called when a new font was selected in the  foreign font manager dialog. */
 void COptionsDialog::newForeignFontSelected( const QFont& font){

@@ -83,8 +83,9 @@ protected slots: // Protected slots
   void slotOk();
   /**
  	* Called if the Apply button was clicked
- 	*/
+ 	* commented out for the time being.  ck
   void slotApply();
+*/
   /**
  	* Is called when the user select a new module in te foreign font management dialog.
  	*/
