@@ -55,7 +55,7 @@ public:
   * The type is determined by the type of the module.
   * @see CSwordModuleInfo, CSwordBibleModuleInfo, CSwordCommentaryModuleInfo, CSwordLexiconModukleInfo
   */
-  static CSwordKey* createInstance(CSwordModuleInfo *module);
+  static CSwordKey* createInstance(CSwordModuleInfo * const module);
 
 protected:
 	CSwordModuleInfo* m_module; //module pointer used by all keys

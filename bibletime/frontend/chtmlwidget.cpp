@@ -70,12 +70,10 @@ CHTMLWidget::ToolTip::ToolTip(QWidget* parent)
 }
 
 void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
-//	qWarning("void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) ");
 	if (!parentWidget()->inherits("CHTMLWidget"))
 		return;
 
 	CHTMLWidget* htmlWidget = dynamic_cast<CHTMLWidget*>(parentWidget());	
-//	ASSERT(htmlWidget);
 	QPoint p1 = htmlWidget->viewportToContents(p);
 	QString link = QString::null;
 	QString text = QString::null;
@@ -84,7 +82,6 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 	if ( link.isEmpty() )
 		return;
 	else {
-//		qWarning("link is valid");
 		QRect rect = htmlWidget->paragraphRect( htmlWidget->paragraphAt(p1) );
 		
 		//map rect coordinates to widget's ones

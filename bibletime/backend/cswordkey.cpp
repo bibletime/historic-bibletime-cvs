@@ -64,7 +64,7 @@ const QString CSwordKey::strippedText() {
 }
 
 /** This will create a proper key object from a given module */
-CSwordKey* CSwordKey::createInstance( CSwordModuleInfo *module ){
+CSwordKey* CSwordKey::createInstance( CSwordModuleInfo* const module ){
 	if (!module)
 		return 0;
 		

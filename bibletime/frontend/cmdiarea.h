@@ -134,10 +134,10 @@ private:
 	QPtrList<CSwordPresenter> m_deleteWindows;
 	QString m_appCaption;
 		
-private slots: // Private slots
+//private slots: // Private slots
   /**
   * Delete the presenter.
   */
-  void deleteCurrentPresenter();
+//  void deleteCurrentPresenter();
 };
 #endif
