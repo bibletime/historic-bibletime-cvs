@@ -53,10 +53,10 @@
 #define ITEM_TEXT_SIZE 8
 #define LABEL_TEXT_SIZE 8
 
-#define BAR_WIDTH 12  //should be equal or bigger than the label font size
 //used for the shift between the bars
 #define BAR_DELTAX 4
 #define BAR_DELTAY 2
+#define BAR_WIDTH 2+2*BAR_DELTAX  //should be equal or bigger than the label font size
 //used for the text below the bars
 #define BAR_LOWER_BORDER 100
 
@@ -275,7 +275,7 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
 	f.setPointSize(ITEM_TEXT_SIZE);
 	painter.setFont(f);
 	
-	setPen( QPen(black,2) );
+	setPen(QPen(black,1));
 	setBrush(Qt::red);
   /**	
 	* We have to paint so many bars as we have modules available (we use m_moduleCount)
@@ -311,19 +311,23 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
    	    newValue = m_resultCountArray[index];
    	Value = newValue;
 	}		
-	painter.save();	
-	painter.translate(x(),height()+y()-BAR_LOWER_BORDER);
-	painter.rotate(90);
-	QPoint p(5,-(double)(width()-painter.fontMetrics().height())/(double)2);
-	painter.drawText(p, m_bookName);		
-	painter.restore();	
+
+#warning ToDo: Add correct font drawing!!
+//	painter.save();	
+//	painter.translate(x(),height()+y()-BAR_LOWER_BORDER);
+//	painter.rotate(90);
+//	QPoint p(5,-(double)(width()-painter.fontMetrics().height()-painter.fontMetrics().ascent()-painter.fontMetrics().descent())/(double)2);
+//	QRect clip = painter.clipRegion().boundingRect();
+//	clip.setWidth(2*clip.width());	
+//	clip.setX( clip.x() + clip.width() );
+//	clip.setY( p.y() );	
+//	painter.drawText(clip, Qt::AlignLeft, m_bookName);
+//	painter.restore();	
 }
 
 /** Returns the width of this item. */
 int CSearchDialogAnalysisItem::width(){
-	const int w = m_moduleCount*(m_moduleCount >1 ? BAR_WIDTH - BAR_DELTAX : BAR_WIDTH);	
-//	qWarning(QString::number(w).local8Bit());
-	return w;
+	return m_moduleCount*(m_moduleCount >1 ? BAR_WIDTH - BAR_DELTAX : BAR_WIDTH);	
 }
 
 //------------------------------------------------------------------
