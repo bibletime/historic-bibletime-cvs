@@ -110,7 +110,7 @@ void CBibleKeyChooser::setKey(CKey* key){
 	const int count = w_book->ComboBox->count();
 	const QString desiredBook = m_key->getBook();
 	bool bookIsValid = false;
-	for (int i = 0; i < w_book->ComboBox->count(); ++i) {
+	for (int i = 0; i < count; ++i) {
 		if (w_book->ComboBox->text(i) == desiredBook) {
 			bookIsValid = true;
 			break;
