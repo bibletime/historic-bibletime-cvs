@@ -78,11 +78,11 @@ public:
   /**
   * Uses the parameter to returns the next entry afer this key.
   */
-  void NextEntry( void );
+  CSwordLDKey* NextEntry( void );
   /**
   * Uses the parameter to returns the previous entry afer this key.
   */
-  void PreviousEntry( void );  	
+  CSwordLDKey* PreviousEntry( void );  	
   /**
   * Sets the module of this key.
   */

@@ -50,7 +50,7 @@ public slots:
 	* see @ref CKeyChooser::getKey
 	* @return Return the key object we use.
 	*/
-	virtual CSwordKey* key();
+	virtual CSwordKey*const key();
 	/**
 	* see @ref CKeyChooser::setKey
 	*/

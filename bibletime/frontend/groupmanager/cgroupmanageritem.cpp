@@ -40,14 +40,14 @@
 
 CGroupManagerItem::CGroupManagerItem(CGroupManager *parent, const QString& caption,
 	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type)
-	: QListViewItem((QListView*)parent) {	
+	: KListViewItem((QListView*)parent) {	
 	
 	init(caption, modulename, module_info, bookmarkKey, Type);
 }
 
 CGroupManagerItem::CGroupManagerItem(CGroupManagerItem *parent, const QString& caption,
 	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type)
-	: QListViewItem((QListViewItem*)parent) {
+	: KListViewItem((QListViewItem*)parent) {
 	
 	init(caption, modulename, module_info,bookmarkKey, Type);
 }

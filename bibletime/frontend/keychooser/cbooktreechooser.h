@@ -63,7 +63,7 @@ public:
   /**
   * Returns the key of this kechooser.
   */
-  virtual CSwordKey* key();
+  virtual CSwordKey* const key();
   /**
   * Sets a new key to this keychooser
   */

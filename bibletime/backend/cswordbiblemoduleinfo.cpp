@@ -153,7 +153,7 @@ const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament
 	if (m_hasOT == -1 || m_hasNT == -1) {
  		CSwordVerseKey key(this);
  		key.key("Genesis 1:1");
- 		key.NextVerse();
+ 		key.next(CSwordVerseKey::UseVerse);
 		if (key.Testament() >= 2 && !module()->Error()) { //2 == NT
  			m_hasOT = 0;
  			m_hasNT = 1;

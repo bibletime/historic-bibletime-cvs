@@ -50,7 +50,7 @@ public slots:
 	/**
 	* see @ref CKeyChooser::getKey
 	*/
-	CSwordKey* key();
+	CSwordKey*const key();
 	/**
 	* see @ref CKeyChooser::setKey
 	*/

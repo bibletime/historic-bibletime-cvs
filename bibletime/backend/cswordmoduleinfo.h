@@ -47,7 +47,13 @@ class CHTMLEntryDisplay;
   */
 class CSwordModuleInfo : public CPointers  {
 public:
-	enum ModuleType { Bible, Commentary, Lexicon, GenericBook, Unknown };
+	enum ModuleType {
+		Bible,
+		Commentary,
+		Lexicon,
+		GenericBook,
+		Unknown
+	};
   /**
  	* This enum is used to give
  	* back an error code after unlocking the module
@@ -66,6 +72,15 @@ public:
 		Description,
 		ModuleVersion,
 		MinimumSwordVersion
+	};
+	enum Feature {
+		StrongsNumbers,
+		GreekDef,
+		HebrewDef,
+		GreekParse,
+		HebrewParse,
+		DailyDevotion,
+		Glossary
 	};
 	
 	/**

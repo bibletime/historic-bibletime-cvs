@@ -50,7 +50,13 @@
   *	@author The BibleTime team
   */
 class CSwordVerseKey :  public VerseKey, public CSwordKey  {
-public: 
+public:
+	enum JumpType {
+		UseBook,
+		UseChapter,
+		UseVerse
+	};
+
 	/**
 	* Constructor of this class.
 	*
@@ -88,47 +94,15 @@ public:
   * the used key is returned. Otherwise the key is set and the new on ei returned.
   */
 	virtual void key( const char* key );
-  /**
-  * Gets the key with the next verse in comparision with the current verse and stores
-  * the key in the parameter key.
-  *
-  * If this object and the parameter are the same we'll directly modify this key object.
-  */
-  const bool NextVerse();
-  /**
-  * Gets the key with the previous verse in comparision with the current verse and stores
-  * the key in the parameter key.
-  *
-  * If this object and the parameter are the same we'll directly modify this key object.
-  */
-  const bool PreviousVerse();
-  /**
-  * Gets the key with the next chapter in comparision with the current chapter and stores
-  * the key in the parameter key.
-  *
-  * If this object and the parameter are the same we'll directly modify this key object.
-  */
-  const bool NextChapter();
-  /**
-  * Gets the key with the previous chapter in comparision with the current chapter and stores
-  * the key in the parameter key.
-  * If this object and the parameter are the same we'll directly modify this key object.
-  */
-  const bool PreviousChapter();
-  /**
-  * Gets the key with the next book in comparision with the current book and stores
-  * the key in the parameter key.
-  *
-  * If this object and the parameter are the same we'll directly modify this key object.
-  */
-  const bool NextBook();
-  /**
-  * Gets the key with the previous chapter in comparision with the current book and stores
-  * the key in the parameter key.
-  *
-  * If this object and the parameter are the same we'll directly modify this key object.
-  */
-  const bool PreviousBook();
+	
+	/**
+	* Jumps to the next entry of the given type
+	*/
+	const bool next( const JumpType type );
+	/**
+	* Jumps to the previous entry of the given type
+	*/
+	const bool previous ( const JumpType type );	
   /**
   * This functions returns the current book as localised text, not as book numer.
   *

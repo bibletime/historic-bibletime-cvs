@@ -72,18 +72,22 @@ const QString CSwordLDKey::key( const QString& newKey ){
 }
 
 /** Uses the parameter to returns the next entry afer this key. */
-void CSwordLDKey::NextEntry(){
+CSwordLDKey* CSwordLDKey::NextEntry(){
 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )++;
 	key(m_module->module()->KeyText());
 	SWKey::operator = (m_module->module()->KeyText());	
+	
+	return this;
 }
 
 /** Uses the parameter to returns the next entry afer this key. */
-void CSwordLDKey::PreviousEntry(){
+CSwordLDKey* CSwordLDKey::PreviousEntry(){
 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )--;
 	SWKey::operator = (m_module->module()->KeyText());	
+	
+	return this;
 }
 
 /** Sets the key of this instance */

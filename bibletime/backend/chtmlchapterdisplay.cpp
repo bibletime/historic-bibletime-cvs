@@ -59,7 +59,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		.arg(m_standardFontColorName)
 	);
 
-	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.NextVerse()) {
+	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.next(CSwordVerseKey::UseVerse)) {
 		verse = key.Verse();
 		if (m_displayOptionsBool.verseNumbers) {
 			m_htmlText.append( QString::fromLatin1("<font color=\"%1\"><a name=\"%2\" href=\"%3\"><b>%4</b></a></font> ")
@@ -128,7 +128,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		
 	QString rowText = QString::null;
 	int currentVerse = 0;
-	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.NextVerse()) {
+	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.next(CSwordVerseKey::UseVerse)) {
 		const QString currentKey = key.key();
 		currentVerse = key.Verse();
 		m = (d = moduleList->first()) ? d->module() : 0;

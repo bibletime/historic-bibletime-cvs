@@ -41,7 +41,7 @@ class QListViewItem;
   * An item which implements functions to get the module of this item. The constructor gets the required arguments to operate
   * @author Joachim Ansorg <jansorg@gmx.de>
   */
-class CGroupManagerItem : public QListViewItem, public CPointers  {
+class CGroupManagerItem : public KListViewItem, public CPointers  {
 	
 	friend class CGroupManager;
 

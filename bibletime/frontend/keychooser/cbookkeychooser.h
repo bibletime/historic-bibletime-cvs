@@ -58,7 +58,7 @@ public:
   /**
   * Returns the key of this kechooser.
   */
-  virtual CSwordKey* key();
+  virtual CSwordKey* const key();
   /**
   * Sets a new key to this keychooser
   */
@@ -68,11 +68,12 @@ public:
   */
   void setKey(CSwordKey*, const bool emitSignal);
 
-private:
-	QList<CKeyChooserWidget> m_chooserWidgets;	
-	CSwordBookModuleInfo	*m_module;
-	CSwordTreeKey *m_key;
-	QHBoxLayout* m_layout;
+
+public slots: // Public slots
+  /**
+  * Updates the keychoosers for the given key but emit no signal.
+  */
+  void updateKey(CSwordKey*);
 
 protected: // Protected methods
   /**
@@ -86,12 +87,15 @@ protected slots:
   * A keychooser changed. Update and emit a signal if necessary.
   */
   void keyChooserChanged(int);
+  //is called when a keychooser widget wants to jump to the next/previous key
+//  void nextEntry();
+//  void previousEntry();
 
-public slots: // Public slots
-  /**
-  * Updates the keychoosers for the given key but emit no signal.
-  */
-  void updateKey(CSwordKey*);
+private:
+	QList<CKeyChooserWidget> m_chooserWidgets;	
+	CSwordBookModuleInfo	*m_module;
+	CSwordTreeKey *m_key;
+	QHBoxLayout* m_layout;
 };
 
 #endif

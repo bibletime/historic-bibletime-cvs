@@ -451,39 +451,39 @@ void CCommentaryPresenter::initAccels(){
 
 /** Jumps to the next entry */
 void CCommentaryPresenter::nextBook(){
-	m_key->NextBook();
-	m_keyChooser->setKey(m_key);	
+	if (m_key->next(CSwordVerseKey::UseBook))
+		m_keyChooser->setKey(m_key);	
 }
 
 /** Jumps to the previous entry. */
 void CCommentaryPresenter::previousBook(){
-	m_key->PreviousBook();
-	m_keyChooser->setKey(m_key);
+	if (m_key->previous(CSwordVerseKey::UseBook))
+		m_keyChooser->setKey(m_key);
 }
 
 
 /** Jumps to the next entry */
 void CCommentaryPresenter::nextChapter(){
-	m_key->NextChapter();
-	m_keyChooser->setKey(m_key);	
+	if ( m_key->next(CSwordVerseKey::UseChapter) )
+		m_keyChooser->setKey(m_key);	
 }
 
 /** Jumps to the previous entry. */
 void CCommentaryPresenter::previousChapter(){
-	m_key->PreviousChapter();
-	m_keyChooser->setKey(m_key);
+	if (m_key->previous(CSwordVerseKey::UseChapter))
+		m_keyChooser->setKey(m_key);
 }
 
 /** Jumps to the next entry */
 void CCommentaryPresenter::nextVerse(){
-	m_key->NextVerse();
-	m_keyChooser->setKey(m_key);	
+	if ( m_key->next(CSwordVerseKey::UseVerse) )
+		m_keyChooser->setKey(m_key);	
 }
 
 /** Jumps to the previous entry. */
 void CCommentaryPresenter::previousVerse(){
-	m_key->PreviousVerse();
-	m_keyChooser->setKey(m_key);
+	if (m_key->previous(CSwordVerseKey::UseVerse))
+		m_keyChooser->setKey(m_key);
 }
 
 /** Toggles the synchronize button. */

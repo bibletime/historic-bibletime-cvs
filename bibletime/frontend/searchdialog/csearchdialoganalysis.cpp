@@ -141,7 +141,7 @@ void CSearchDialogAnalysis::analyse(){
 		analysisItem->show();
 		
 		xPos += (int)analysisItem->width() + SPACE_BETWEEN_PARTS;
-		ok = key.NextBook();		
+		ok = key.next(CSwordVerseKey::UseBook);		
    	analysisItem = m_canvasItemList[key.book()];
 	}
 	resize(xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );	
@@ -164,7 +164,7 @@ void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo& modules){
    	analysisItem = new CSearchDialogAnalysisItem(this, m_moduleList.count(), key.book(), &m_scaleFactor, &m_moduleList);
    	analysisItem->hide();
 		m_canvasItemList.insert(key.book(), analysisItem);
-	} while (key.NextBook());
+	} while (key.next(CSwordVerseKey::UseBook));
 	update();
 }
 

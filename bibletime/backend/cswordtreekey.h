@@ -30,6 +30,11 @@
   */
 class CSwordTreeKey : public TreeKeyIdx, public CSwordKey  {
 public:
+//	enum JumpType {
+//		NextEntry,
+//		PreviousEntry
+//	};
+	
 	CSwordTreeKey( const CSwordTreeKey& k );
 	CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module );
 	CSwordModuleInfo* module( CSwordModuleInfo* newModule );
@@ -44,6 +49,8 @@ public:
   * the used key is returned. Otherwise the key is set and the new on ei returned.
   */
 	virtual void key( const char* key );
+	
+//	const bool jumpTo( const JumpType type );
 };
 
 #endif

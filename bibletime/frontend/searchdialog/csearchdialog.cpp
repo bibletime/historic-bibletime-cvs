@@ -181,7 +181,7 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 				m_searchAnalysisHTML += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
 			}
 			m_searchAnalysisHTML += QString::fromLatin1("</tr>\n");
-			ok = key.NextBook();
+			ok = key.next(CSwordVerseKey::UseBook);
 		}
 		text += QString::fromLatin1("<table>\n") + tableTitle + tableTotals + m_searchAnalysisHTML + QString::fromLatin1("</table>\n");
 		text += QString::fromLatin1("<center>") + i18n("Created by") + QString::fromLatin1(" <a href=\"http://www.bibletime.de/\">BibleTime</a></center>");

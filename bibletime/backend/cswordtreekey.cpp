@@ -59,3 +59,24 @@ CSwordModuleInfo* CSwordTreeKey::module( CSwordModuleInfo* newModule ){
 	}
 	return m_module;
 }
+
+//const bool CSwordTreeKey::jumpTo(const JumpType type) {
+//	switch (type) {
+//		case NextEntry:
+//			if (Traversable()) {
+//				(*this)++;
+//				return !Error();
+//			}
+//			return false;
+//			
+//		case PreviousEntry:
+//			if (Traversable()) {
+//				(*this)++;
+//				return !Error();
+//			}
+//			return false;
+//			
+//		default:
+//			return false;
+//	};
+//}

@@ -58,7 +58,7 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
 //	setKey(key);
 }
 
-CSwordKey* CLexiconKeyChooser::key(){
+CSwordKey* const CLexiconKeyChooser::key(){
 	return m_key;
 }
 

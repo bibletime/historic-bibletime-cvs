@@ -105,7 +105,7 @@ const QString& CPrintItem::moduleText() {
 			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(stopKey);						
 			
 			while (*vk_start < *vk_stop) {
-				vk_start->NextVerse();
+				vk_start->next(CSwordVerseKey::UseVerse);
 				m_moduleText += format.arg(vk_start->Verse()) + vk_start->renderedText();
 			}
 		}

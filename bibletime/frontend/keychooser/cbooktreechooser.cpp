@@ -123,7 +123,7 @@ void CBookTreeChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 }
 
 /** Returns the key of this kechooser. */
-CSwordKey* CBookTreeChooser::key(){
+CSwordKey* const CBookTreeChooser::key(){
 	return m_key;
 }
 

@@ -95,66 +95,6 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 	return QString::fromLocal8Bit( books[min][0].name ); //return the first book, i.e. Genesis
 }
 
-/**  */
-const bool CSwordVerseKey::NextVerse(){	
-	if (m_module && m_module->module()) {
-		m_module->module()->SetKey(this);	//use this key as base for the next one!	
-		(*(m_module->module()) )++;
-		if (!m_module->module()->Error())		
-			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8		
-	}
-	else
-	  Verse(Verse()+1);
-	
-	return true;
-}
-
-/**  */
-const bool CSwordVerseKey::PreviousVerse(){
-	if (m_module && m_module->module()) {
-		m_module->module()->SetKey(this);	//use this key as base for the next one!			
-		( *( m_module->module() ) )--;
-		if (!m_module->module()->Error())
-			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
-	}
-	else
-		Verse(Verse()-1);
-	
-	return true;
-}
-
-/** Jump to the next chapter */
-const bool CSwordVerseKey::NextChapter(){
-//This moves to the next chapter. Sword sets the Verse to 1, but this is ok here
-	Chapter(Chapter()+1);	
-	return true;
-}
-
-/**  */
-const bool CSwordVerseKey::PreviousChapter(){
-//This moves to the next chapter. Sword sets the Verse to 1, but this is ok here		
-	Chapter(Chapter()-1);
-	return true;
-}
-
-/**  */
-const bool CSwordVerseKey::NextBook(){
-//This moves to the next chapter. Sword sets the chapter and verse to 1, but this is ok here	
-	if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
-		return false;		
-	Book(Book()+1);			
-	return true;
-}
-
-/**  */
-const bool CSwordVerseKey::PreviousBook(){
-//This moves to the next chapter. Sword sets the chapter and verse to 1, but this is ok here		
-	if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
-		return false;
-	Book(Book()-1);
-	return true;
-}
-
 /** Sets the key we use to the parameter. */
 const QString CSwordVerseKey::key( const QString& newKey ){	
 	if (!newKey.isEmpty()) {
@@ -168,3 +108,60 @@ void CSwordVerseKey::key( const char* newKey ){
 		VerseKey::operator = (newKey);
 	}
 }
+
+const bool CSwordVerseKey::next( const JumpType type ) {
+	switch (type) {
+		case UseBook: {
+			if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
+				return false;		
+			Book(Book()+1);
+			return true;
+		}
+		case UseChapter: {
+			Chapter(Chapter()+1);		
+			return true;
+		}
+		case UseVerse: {
+    	if (m_module && m_module->module()) {
+    		m_module->module()->SetKey(this);	//use this key as base for the next one!	
+    		(*(m_module->module()) )++;
+    		if (!m_module->module()->Error())		
+    			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8		
+    	}
+    	else
+    	  Verse(Verse()+1);
+    	return true;		
+		}
+		default:	
+			return false;
+	};
+};
+
+const bool CSwordVerseKey::previous( const JumpType type ) {
+	switch (type) {
+		case UseBook: {
+			if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
+				return false;
+			Book(Book()-1);
+			return true;
+		}
+		case UseChapter: {
+			Chapter(Chapter()-1);
+			return true;		
+		}
+		case UseVerse: {
+    	if (m_module && m_module->module()) {
+    		m_module->module()->SetKey(this);	//use this key as base for the next one!			
+    		( *( m_module->module() ) )--;
+    		if (!m_module->module()->Error())
+    			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+    	}
+    	else
+    		Verse(Verse()-1);
+    	
+    	return true;		
+		}
+		default:	
+			return false;
+	};
+};

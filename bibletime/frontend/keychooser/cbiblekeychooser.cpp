@@ -85,7 +85,7 @@ CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 	connect(w_verse,SIGNAL(focusOut(int))     ,SLOT(verseFocusOut(int)));	
 }
 
-CSwordKey *CBibleKeyChooser::key(){
+CSwordKey* const CBibleKeyChooser::key(){
 	if (m_key) {
 		m_key->book(w_book->comboBox()->currentText());	
 		m_key->Chapter(w_chapter->comboBox()->currentText().toInt());			
@@ -143,7 +143,7 @@ void CBibleKeyChooser::chapterNextRequested(void){
 	setUpdatesEnabled(false);	
 	if (m_key)
 		emit beforeKeyChange(m_key->key());	
-	if (m_key->NextChapter())	
+	if (m_key->next(CSwordVerseKey::UseChapter))	
 		setKey(m_key);
 	setUpdatesEnabled(true);	
 }
@@ -157,7 +157,7 @@ void CBibleKeyChooser::chapterPrevRequested(void){
 	if (m_key)
 		emit beforeKeyChange(m_key->key());
 	
-	if (m_key->PreviousChapter())
+	if (m_key->previous(CSwordVerseKey::UseChapter))
 		setKey(m_key);
 	setUpdatesEnabled(true);
 }
@@ -171,7 +171,7 @@ void CBibleKeyChooser::verseNextRequested(void){
 	if (m_key)
 		emit beforeKeyChange(m_key->key());
 
-	if (m_key->NextVerse())	
+	if (m_key->next(CSwordVerseKey::UseVerse))	
 		setKey(m_key);
 	setUpdatesEnabled(true);		
 }
@@ -185,7 +185,7 @@ void CBibleKeyChooser::versePrevRequested(void){
 	if (m_key)
 		emit beforeKeyChange(m_key->key());
 	
-	if (m_key->PreviousVerse())
+	if (m_key->previous(CSwordVerseKey::UseVerse))
 		setKey(m_key);
 	setUpdatesEnabled(true);	
 }
