@@ -65,14 +65,14 @@ public:
 		noPermission /* The key was not written to config because we have no permissions*/
 	};	
 	enum ConfigEntry {
-		AboutInformation,
-		AbsoluteDataPath,
-		CipherKey,
-		DataPath,
-		Description,
-		ModuleVersion,
-		MinimumSwordVersion,
-		DisplayLevel
+		AboutInformation, /* The about information of a module which is stored in the config file*/
+		AbsoluteDataPath, /* The absolute data path stored in the config object */
+		CipherKey, /* The cipher key which was used to unlock the module. Not necessarily set.*/
+		DataPath, /* The relative path. See AbsoluteDataPath*/
+		Description, /* The module decsription stored in the config file */
+		ModuleVersion, /* The module's version.*/
+		MinimumSwordVersion, /* The required Sword Version of this module. Otherwise some things may not work (compression etc.).*/
+		DisplayLevel /* Mostly used for books. Gives the level which should contain the connected entries.*/
 	};
 	enum Feature {
 		StrongsNumbers, /*Use for Bibles which have embedded strong numbers*/
@@ -110,7 +110,7 @@ public:
  	* This function performs some casts to return the correct display. If it returns 0 there's no valid
  	* display object.
  	*/
-  CHTMLEntryDisplay* getDisplay() const;
+  CHTMLEntryDisplay* const getDisplay() const;
   /**
  	* This function does return true if the data files of the module are encrypted by the module author
  	* (the on who made the module) no matter if it's locked or not.
@@ -176,6 +176,10 @@ public:
 private:
 	SWModule*	m_module;
 	ListKey m_searchResult;
+	struct {
+		QString name;
+		bool isUnicode;
+	} m_dataCache;	
 };
 
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;

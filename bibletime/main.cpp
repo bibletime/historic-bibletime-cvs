@@ -45,8 +45,6 @@
 #include <klocale.h>
 #include <kiconloader.h>
 
-//Removed duplicate includes
-
 //Qt includes
 #include <qfont.h>
 
@@ -79,9 +77,9 @@ extern "C" {
 		// try to cleanup all windows
 		if (bibletime) {
 			bibletime->saveSettings();
-			fprintf(stderr, "Saving seems to be succesful\n");		
+			fprintf(stderr, "Saving seemed to be succesful\n");		
 		}
-		::exit(-1); //
+		::exit(-1); //exit BibleTime
 	}
 
 	// Crash recovery signal handler
@@ -127,7 +125,7 @@ int main(int argc, char* argv[]) {
 	
 	//we could so change this to a file reading function (including commented out people
 	//coders
-	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator, frontend, backend"), "jansorg@gmx.de","");
+	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "jansorg@gmx.de","");
 	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
 	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com", "");
 //	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");

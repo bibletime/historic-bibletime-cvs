@@ -37,8 +37,8 @@ CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKe
 CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(*k),CSwordKey(module) {
 }
 
-CSwordVerseKey::~CSwordVerseKey(){
-}
+//CSwordVerseKey::~CSwordVerseKey(){
+//}
 
 /** Clones this object. */
 CSwordKey* CSwordVerseKey::copy() const {
@@ -58,7 +58,6 @@ CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 
 /** Returns the current book as Text, not as integer. */
 const QString CSwordVerseKey::book( const QString& newBook ) {
-//	qWarning("CSwordVerseKey::book( const QString& newBook )");
 	int min = 0;
 	int max = 1;
 	
@@ -124,16 +123,10 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 		case UseVerse: {
     	if (m_module && m_module->module()) {
     		const char* oldLang = 0;
-//    		if (m_module->module()->Lang() != getLocale()) {
-//	    		oldLang = m_module->module()->Lang();
-//	    		m_module->module()->Lang(getLocale());
-//    		}
     		m_module->module()->SetKey(this);	//use this key as base for the next one!	
     		(*(m_module->module()) )++;
     		if (!m_module->module()->Error())		
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
-//    		if (oldLang)
-//    			m_module->module()->Lang(oldLang);
     	}
     	else
     	  Verse(Verse()+1);
@@ -157,18 +150,11 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 			return true;		
 		}
 		case UseVerse: {
-//   		const char* oldLang = 0;
-//   		if (m_module->module()->Lang() != getLocale()) {
-//    		oldLang = m_module->module()->Lang();
-//    		m_module->module()->Lang(getLocale());
-//   		}
     	if (m_module && m_module->module()) {
     		m_module->module()->SetKey(this);	//use this key as base for the next one!			
     		( *( m_module->module() ) )--;
     		if (!m_module->module()->Error())
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
-//    		if (oldLang)
-//    			m_module->module()->Lang(oldLang);    			
     	}
     	else
     		Verse(Verse()-1);

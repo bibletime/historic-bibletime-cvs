@@ -83,8 +83,9 @@ const QString& CPrintItem::moduleText() {
 	* If the moduleText variable is empty use the CModuleInfo
 	* object to retrieve the text,
 	*/
-	if (!m_moduleText.isEmpty())
+	if (!m_moduleText.isEmpty()) //cached text
 		return m_moduleText;
+
 	if (m_startEmpty || !m_module)
 		return QString::null;
 
@@ -92,7 +93,6 @@ const QString& CPrintItem::moduleText() {
 		util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(m_module));
 		key->key(m_startKey);
 		m_moduleText = key->renderedText();			
-		//delete key;
 	}
 	else if (m_module->type() == CSwordModuleInfo::Bible  || m_module->type() == CSwordModuleInfo::Commentary ) {
 		util::scoped_ptr<CSwordVerseKey> startKey(  dynamic_cast<CSwordVerseKey*>(CSwordKey::createInstance(m_module)) );

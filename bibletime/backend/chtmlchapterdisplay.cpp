@@ -32,7 +32,7 @@
 char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	if (!module) {
 		m_htmlText = QString::null;
-		return -1; //error
+		return 0; //error
 	}
 	
 	CSwordVerseKey key(0);
@@ -52,7 +52,6 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	
 	//reload font settings
 	updateSettings();
-
 	m_htmlText.append(QString::fromLatin1("<font face=\"%1\" size=\"%2\" color=\"%3\">")
 		.arg(module->isUnicode() ? m_unicodeFontName : m_standardFontName)
 		.arg(module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
@@ -71,7 +70,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		}
 		if (verse == currentVerse)
 		  m_htmlText += QString::fromLatin1("<font color=\"") + m_highlightedVerseColorName + QString::fromLatin1("\">");
-		m_htmlText.append(key.renderedText());
+		m_htmlText += key.renderedText();
 		if (verse == currentVerse)
 		  m_htmlText += QString::fromLatin1("</font>");
 		if (m_displayOptionsBool.lineBreaks)
@@ -79,16 +78,14 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		else
 			m_htmlText += QString::fromLatin1(" \n");
 	}
-	m_htmlText.append("</font>");
-	m_htmlText.append(m_htmlBody);	
-
+	
+	m_htmlText += QString::fromLatin1("</font>") + m_htmlBody;
 	return 1;	//no error	
 }
 
 /** Generates code to display the given modules side by side. */
 char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){	
 #warning make table colors configurable
-//	qDebug("CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		m_htmlText = QString::null;
 		return 0;
@@ -113,58 +110,49 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	m_htmlText += m_htmlHeader + QString::fromLatin1("<body text=\"%1\">").arg(m_standardFontColorName);
 
 
-	m_htmlText +=
-		QString::fromLatin1("<table cellpadding=\"2\" cellspacing=\"0\"><td bgcolor=\"#f1f1f1\"></td>");	
+	m_htmlText += QString::fromLatin1("<table cellpadding=\"2\" cellspacing=\"0\"><td bgcolor=\"#f1f1f1\"></td>");	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
 
+	QString text = QString::fromLatin1("<td width=\"%1%\" bgcolor=\"#f1f1f1\"><b>%1</b></td>");
 	while (m) {
-    if (m)
-			m_htmlText +=
-				QString::fromLatin1("<td width=\"%1%\" bgcolor=\"#f1f1f1\"><b>%1</b></td>").arg(width).arg(d->name());
+		m_htmlText += text.arg(width).arg(d->name());
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
-	m_htmlText.append("</tr>");
+	m_htmlText += QString::fromLatin1("</tr>");
 		
-	CSwordVerseKey current(0);
-	
+	CSwordVerseKey current(0);	
 	QString rowText = QString::null;
 	int currentVerse = 0;
+	text = QString::fromLatin1("<tr><td bgcolor=\"#f1f1f1\"><b><font color=\"%1\"><a name=\"%2\" href=\"%3\">%4</a></b></td>\n");
+	const QString cell = QString::fromLatin1("<td width=\"%1%\" bgcolor=\"%2\">");
+	
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.next(CSwordVerseKey::UseVerse)) {
 		const QString currentKey = key.key();
 		currentVerse = key.Verse();
-		m = (d = moduleList->first()) ? d->module() : 0;
-		
-		rowText = QString("<tr><td bgcolor=\"#f1f1f1\"><b><font color=\"%1\"><a name=\"%2\" href=\"%3\">%4</a></b></td>\n")
-			.arg(m_swordRefColorName)
-			.arg(currentVerse)
-			.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey, CReferenceManager::typeFromModule(d->type()) ))
-			.arg(currentVerse);
+		m = (d = moduleList->first()) ? d->module() : 0;		
+		rowText = text.arg(m_swordRefColorName).arg(currentVerse).arg(CReferenceManager::encodeHyperlink( d->name(), currentKey, CReferenceManager::typeFromModule(d->type()) )).arg(currentVerse);
 		
 		current.key(currentKey);					
 		while (m) {
 			current.module(d);
-			rowText += QString("<td width=\"%1%\" bgcolor=\"%2\">")
-				.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
+			rowText += cell.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
 			if (d->isUnicode())
-				rowText += QString("<font face=\"%1\" size=\"%2\">")
-					.arg(m_unicodeFontName).arg(m_unicodeFontSize);
+				rowText +=
+					QString::fromLatin1("<font face=\"%1\" size=\"%2\">")
+						.arg(m_unicodeFontName)
+						.arg(m_unicodeFontSize);
 			if (currentVerse == chosenVerse)
-				rowText += QString("<font color=\"%1\">")
-					.arg(m_highlightedVerseColorName);
+				rowText += QString::fromLatin1("<font color=\"%1\">")
+											.arg(m_highlightedVerseColorName);
 
-			rowText += current.renderedText();
-
-			if (currentVerse == chosenVerse)
-				rowText += QString::fromLatin1("</font>");
-			if (d->isUnicode())
-				rowText += QString::fromLatin1("</font");
-
+			rowText += current.renderedText() + QString::fromLatin1("</font>");
 			m = (d = moduleList->next()) ? d->module() : 0;
 		}
-		m_htmlText.append(rowText + QString::fromLatin1("</tr>\n"));
+		m_htmlText += rowText + QString::fromLatin1("</tr>\n");
 	}
-	m_htmlText += QString::fromLatin1("</font></table>");	
-	m_htmlText += m_htmlBody + QString::fromLatin1("</qt>");
+	m_htmlText += QString::fromLatin1("</font></table>")
+								+ m_htmlBody
+								+ QString::fromLatin1("</qt>");
 	
 	//clean up
 	return 1;		

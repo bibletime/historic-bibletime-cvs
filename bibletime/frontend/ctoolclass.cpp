@@ -48,13 +48,6 @@ QString CToolClass::locatehtml(const QString &filename) {
     return path;
 }
 
-/** Parses a URL and gives back a key. */
-QString CToolClass::urlToKey(const QString& url) {
-	if (url.left(8) == "sword://")
-		return url.mid( 8, url.length()-9 );
-	return url;	
-}
-
 /** Converts HTML text to plain text */
 QString CToolClass::htmlToText(const QString& html) {
   QString newText = html;
@@ -83,7 +76,7 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 	if (saveFile.exists()) {
 		if (KMessageBox::warningYesNo(0,
 				QString::fromLatin1("<qt><B>%1</B><BR>%2</qt>")
-					.arg( i18n("The file does already exist!!") )
+					.arg( i18n("The file does already exist!") )
 					.arg( i18n("Do you want to overwrite it?")))
 				== KMessageBox::No
 			)
@@ -120,16 +113,25 @@ QPixmap CToolClass::getIconForModule( CSwordModuleInfo* module_info ){
  	      return QPixmap(BIBLE_LOCKED_ICON_SMALL);
  	    else
  	      return QPixmap(BIBLE_ICON_SMALL);
+ 	
  	  case CSwordModuleInfo::Lexicon:
  	    if (module_info->isLocked())
  	      return QPixmap(LEXICON_LOCKED_ICON_SMALL);
  	    else
  	      return QPixmap(LEXICON_ICON_SMALL);
+ 	
  	  case CSwordModuleInfo::Commentary:
  	    if (module_info->isLocked())
  	      return QPixmap(COMMENTARY_LOCKED_ICON_SMALL);
  	    else
  	      return QPixmap(COMMENTARY_ICON_SMALL);
+ 	
+ 	  case CSwordModuleInfo::GenericBook:
+ 	    if (module_info->isLocked())
+ 	      return QPixmap(BOOK_LOCKED_ICON_SMALL);
+ 	    else
+ 	      return QPixmap(BOOK_ICON_SMALL); 	
+ 	
  	  case CSwordModuleInfo::Unknown:
  	  default:
  	    return QPixmap(BIBLE_ICON_SMALL);
@@ -158,10 +160,6 @@ QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, co
   label->setAutoResize(true);
   label->setMargin(1);
   label->setFrameStyle(QFrame::Box | QFrame::Plain);
-
-//  label->setLineWidth(1);
-//  label->setMidLineWidth(1);
-
   return label;
 }
 /** No descriptions */
@@ -178,7 +176,7 @@ bool CToolClass::inHTMLTag(int pos, QString & text){
 	if ((i3>0) && (i4==-1))  //we're in the last html tag
 	  i4=i3+1;
 
-  qWarning("%d > %d && %d < %d",i1,i2,i3,i4);
+//  qWarning("%d > %d && %d < %d",i1,i2,i3,i4);
 
  if ( (i1>i2) && (i3<i4) )
     return true; //yes, we're in a tag

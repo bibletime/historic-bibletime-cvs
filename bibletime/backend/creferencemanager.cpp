@@ -58,20 +58,22 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 		ret += preferredModule(type) + QString::fromLatin1("/");
 	}	
 	
-	const QString s = (!key.isEmpty() ? key : QString::null);
-	QString newKey = QString::null;
-  //replace all / of the key (e.g. of a CSwordTreeKey) with
-  // the escape sequence \/ so we know it's a link divider!
-#warning "Needs optimization"
-	for(int i = 0; i < s.length(); ++i) {
-		if (s[i] == '/')
-			newKey += "\\/";
-		else
-			newKey += s[i];
+	if (type == GenericBook) {
+		const QString s = (!key.isEmpty() ? key : QString::null);
+		QString newKey = QString::null;	
+	  //replace all / of the key (e.g. of a CSwordTreeKey) with
+	  // the escape sequence \/ so we know it's a link divider!
+		for(int i = 0; i < s.length(); ++i) {
+			if (s[i] == '/')
+				newKey += "\\/";
+			else
+				newKey += s[i];
+		}
+		ret += newKey;		
 	}
-			
-	ret += newKey;
-//	qWarning("hyperlink is %s", ret.latin1());
+	else { //slashes do not appear in verses and dictionary entries
+		ret += key;
+	}
 	return ret;
 }
 
@@ -109,7 +111,6 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 			ref = ref.mid(5); //inclusive trailing slash
 		}		
 		// string up to next slash is the modulename
-#warning "Needs optimization!!"
 		while (true) {
 			const int pos = ref.find("/");
 			if (pos>0 && ref.at(pos-1) != '\\') { //found a slash which is not escaped

@@ -142,7 +142,6 @@ const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
 	for (int i = min; i <= max && !found; ++i) {
 		for ( int j = 0; j < staticKey.BMAX[i] && !found; ++j) {
 			++bookNumber;
-//#warning Use Unicode???
 			if (book == QString::fromLocal8Bit( staticKey.books[i][j].name) )
 				found = true;
 		}
@@ -156,14 +155,11 @@ const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament
  		CSwordVerseKey key(this);
  		key.key("Genesis 1:1");
  		key.next(CSwordVerseKey::UseVerse);
- 		qWarning("test key's now %s", key.key().latin1());
 		if (key.Testament() >= 2 && !module()->Error()) { //2 == NT
- 			qWarning("has no old testament");
  			m_hasOT = 0;
  			m_hasNT = 1;
  		}
  		else {
- 			qWarning("has old testament"); 		
  			m_hasOT = 1;
  			m_hasNT = 1;
  		}

@@ -23,9 +23,6 @@ CStyleFormatFrame::CStyleFormatFrame() {
 	m_lineStyle = Qt::DashLine;
 }
 
-//CStyleFormatFrame::~CStyleFormatFrame(){
-//}
-
 /** Returns the thickness of this frame. */
 const unsigned short int& CStyleFormatFrame::thickness() const {
 	return m_thickness;

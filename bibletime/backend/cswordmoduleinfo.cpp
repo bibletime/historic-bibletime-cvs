@@ -22,6 +22,9 @@
 #include "cswordmodulesearch.h"
 #include "cswordkey.h"
 
+#include "../util/scoped_resource.h"
+
+
 #include <sys/types.h>
 #include <unistd.h>
 #include <stddef.h>
@@ -41,6 +44,8 @@
 CSwordModuleInfo::CSwordModuleInfo( SWModule* module ) {
 	m_module = module;
 	m_searchResult.ClearList();
+	m_dataCache.name = QString::fromLatin1(module->Name());
+	m_dataCache.isUnicode = m_module->isUnicode();
 
 	if (backend()) {
 		if (hasVersion() && (minimumSwordVersion() > SWVersion::currentVersion)) {
@@ -62,7 +67,7 @@ CSwordModuleInfo* CSwordModuleInfo::clone(){
 
 CSwordModuleInfo::~CSwordModuleInfo(){
 	m_searchResult.ClearList();
-	m_module = 0; //the real Sword module is deleted by the backend
+	m_module = 0; //the Sword module object is deleted by the backend
 }
 
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/
@@ -82,7 +87,7 @@ const CSwordModuleInfo::UnlockErrorCode CSwordModuleInfo::unlock( const QString&
 }
 
 /** Returns the display object for this module. */
-CHTMLEntryDisplay* CSwordModuleInfo::getDisplay() const {
+CHTMLEntryDisplay* const CSwordModuleInfo::getDisplay() const {
 	return dynamic_cast<CHTMLEntryDisplay*>(m_module->Disp());
 }
 
@@ -118,31 +123,28 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
  	int searchFlags = REG_ICASE;
 	
 	//work around Swords thread insafety for Bibles and Commentaries
-	CSwordKey* key = CSwordKey::createInstance(this);
-	SWKey* s = dynamic_cast<SWKey*>(key);
-	m_module->SetKey(s);
-	delete key;
+	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(this) );
+	SWKey* s = dynamic_cast<SWKey*>(key.get());
+	if (s)
+		m_module->SetKey(*s);
 	
 	//setup variables required for Sword
 	if (searchOptions & CSwordModuleSearch::caseSensitive)
 		searchFlags = 0;
 
-	if (searchOptions & CSwordModuleSearch::exactPhrase)
+	if (searchOptions & CSwordModuleSearch::multipleWords)
+		searchType = -2; //multiple words	
+	else if (searchOptions & CSwordModuleSearch::exactPhrase)
 		searchType = -1; //exact phrase
-	else if (searchOptions & CSwordModuleSearch::multipleWords)
-		searchType = -2; //multiple words
 	else if (searchOptions & CSwordModuleSearch::regExp)
 		searchType = 0;	//regexp matching
-		
-	SWKey* searchScope = 0;
-	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
-		searchScope = m_searchResult.clone();
+
+	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {		
+		util::scoped_ptr<SWKey> searchScope( m_searchResult.clone() );
 		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, searchScope, 0, percentUpdate);
-		delete searchScope;
 	}
 	else if (searchOptions & CSwordModuleSearch::useScope) {
-		searchScope = &scope;		
-		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, (type() != Lexicon) ? searchScope : 0, 0, percentUpdate);
+		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, (type() != Lexicon && type() != GenericBook) ? &scope : 0, 0, percentUpdate);
 	}
   else
   	m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
@@ -173,12 +175,14 @@ const SWVersion CSwordModuleInfo::minimumSwordVersion(){
 
 /** Returns the name of the module. */
 const QString CSwordModuleInfo::name() const {
-	return QString::fromLatin1( module()->Name() );
+	return m_dataCache.name;
+//	return QString::fromLatin1( module()->Name() );
 }
-/** Returns true if this module is Unicode encoded. False if the charset is iso8859-1. */
 
+/** Returns true if this module is Unicode encoded. False if the charset is iso8859-1. */
 const bool CSwordModuleInfo::isUnicode(){
-	return (module()->isUnicode());
+	return m_dataCache.isUnicode;
+//	return (module()->isUnicode());
 }
 
 const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entry) {
@@ -196,37 +200,25 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 				about = QString::fromLocal8Bit(dummy);
 			}			
 			return about;
-		}
-		
-		case CipherKey: {
+		}		
+		case CipherKey:
 			return QString::fromLatin1(m_module->getConfigEntry("CipherKey"));
-		}
-			
-		case AbsoluteDataPath: {
+		case AbsoluteDataPath:
 			return QString::fromLatin1(m_module->getConfigEntry("AbsoluteDataPath"));
-		}
-		case DataPath: {
+		case DataPath:
 			return QString::fromLatin1(m_module->getConfigEntry("DataPath"));
-		}			
 		case Description:
-			return QString::fromLocal8Bit(m_module->Description());
-			
-		case ModuleVersion: {
+			return QString::fromLocal8Bit(m_module->Description());			
+		case ModuleVersion:
 			return QString::fromLatin1(m_module->getConfigEntry("Version"));
-		}
-			
-		case MinimumSwordVersion:
-		{
+		case MinimumSwordVersion: {
 			const QString version = QString::fromLatin1(m_module->getConfigEntry("MinimumVersion"));
 			return !version.isEmpty() ? version : QString::fromLatin1("0.0");
 		}
-
-		case DisplayLevel:
-		{
+		case DisplayLevel: {
 			const QString level = QString::fromLatin1(m_module->getConfigEntry("DisplayLevel"));
 			return !level.isEmpty() ? level : QString::fromLatin1("0");
 		}
-			
 		default:
 			return QString::null;
 	}
@@ -253,12 +245,14 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 }
 
 const bool CSwordModuleInfo::has( const CSwordBackend::FilterOptions option ){
-	//BAD workaround!
-	
+	//BAD workaround to see if the filter is GBF or ThML!	
  	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("GBF%1").arg(backend()->configOptionName(option)).latin1()))
  		return true;
  	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("ThML%1").arg(backend()->configOptionName(option)).latin1()))
  		return true;
+ 	if (m_module->getConfig().has("GlobalOptionFilter",backend()->configOptionName(option).latin1()))
+ 		return true;
+ 	
  	return false;
 }
 

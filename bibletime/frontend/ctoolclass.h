@@ -49,13 +49,6 @@ public:
   * @author Sandy Meier of the KDevelop team.
   */
   static QString locatehtml(const QString &filename);
- 	/**
-  * Parses a URL and gives back a SWORD key as QString.
-  * For example it gets "Genesis%201:1" and returns "Genesis 1:1".
-  * @return The key we got after parsing the URL
-  * @author Joachim Ansorg
-  */
- 	static QString urlToKey(const QString&);
 	/**
   * Converts HTML text to plain text.
  	* This function converts some HTML tags in text (e.g. <BR> to \n)
@@ -64,39 +57,27 @@ public:
  	*/
   static QString htmlToText(const QString&);
   /**
-   *Converts text to HTML converting some text commands into HTML tags (e.g. \n to <BR>)
-   * @return The HTML formatted text we got after changing \n to <BR>
-   * @author Joachim Ansorg
-   */
+  * Converts text to HTML converting some text commands into HTML tags (e.g. \n to <BR>)
+  * @return The HTML formatted text we got after changing \n to <BR>
+  * @author Joachim Ansorg
+  */
   static QString textToHTML(const QString&);
   /**
-   * Creates the file filename and put the text of parameter "text" into the file.
-   * @return True if saving was sucessful, otherwise false
-   * @author Joachim Ansorg
-	 */
+  * Creates the file filename and put the text of parameter "text" into the file.
+  * @return True if saving was sucessful, otherwise false
+  * @author Joachim Ansorg
+  */
   static bool savePlainFile( const QString& filename, const QString& text);
   /**
-  	* Returns the icon used for the module given as aparameter.
-  	*/
+ 	* Returns the icon used for the module given as aparameter.
+ 	*/
   static QPixmap getIconForModule( CSwordModuleInfo* );
   /**
-  	* Returns the logical font size which should
-  	* be used for the absolute size s
-  	*/
+ 	* Returns the logical font size which should
+ 	* be used for the absolute size s
+ 	*/
   static int makeLogicFontSize( const int s );
-
-//  /**
-//  * No descriptions
-//  */
-//  static const QString getSaveFileName( const QString& startDir = QString::null, const QString& filter = QString::null, QWidget* parent = 0, const QString& caption = QString::null);
-//  /**
-//  * No descriptions
-//  */
-//  static const QString getOpenFileName( const QString& startDir = QString::null, const QString& filter = QString::null, QWidget* parent = 0, const QString& caption = QString::null);
-//  /** Creates a QLabel wchich contains an explanation. This functions returns everytime the same style so the explanation labels are the same in all places. */
-
   static QLabel* explanationLabel(QWidget* parent, const QString& heading, const QString& text );
-  /** No descriptions */
   static bool inHTMLTag(int pos, QString & text);
 };
 

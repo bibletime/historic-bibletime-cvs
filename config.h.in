@@ -18,17 +18,11 @@
 /* Define if you have libpng */
 #undef HAVE_LIBPNG
 
-/* Define if you have a working libpthread (will enable threaded code) */
-#undef HAVE_LIBPTHREAD
-
 /* Define if you have libz */
 #undef HAVE_LIBZ
 
 /* Define if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
-
-/* Define if you have the <pthread/linuxthreads/pthread.h> header file. */
-#undef HAVE_PTHREAD_LINUXTHREADS_PTHREAD_H
 
 /* Define if you have the res_init function */
 #undef HAVE_RES_INIT

@@ -28,7 +28,6 @@
 class CStyleFormatFrame  {
 public: 
 	CStyleFormatFrame();
-//	~CStyleFormatFrame();
   /**
   * Sets the color of this frame.
   */
