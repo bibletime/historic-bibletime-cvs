@@ -30,7 +30,7 @@ void CPointers::setPrinter(CPrinter* const printer) {
 	m_printer = printer;
 }
 
-void CPointers::setBackend(CSwordBackend* backend) {
+void CPointers::setBackend(CSwordBackend* const backend) {
 	m_backend = backend;
 }
 

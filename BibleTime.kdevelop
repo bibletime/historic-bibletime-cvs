@@ -6,7 +6,6 @@
     <projectmanagement>KDevAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <ignoreparts>
-      <part>KDevDoxygen</part>
       <part>KDevFileView</part>
       <part>KDevPerforce</part>
     </ignoreparts>
@@ -87,7 +86,7 @@
     <groups/>
   </kdevfileview>
   <kdevcvs>
-    <cvsoptions>-f</cvsoptions>
+    <cvsoptions>-z3 -f</cvsoptions>
     <commitoptions></commitoptions>
     <updateoptions>-dP</updateoptions>
     <addoptions></addoptions>
@@ -102,7 +101,7 @@
       <includeGlobalFunctions>true</includeGlobalFunctions>
       <includeTypes>true</includeTypes>
       <includeEnums>true</includeEnums>
-      <includeTypedefs>false</includeTypedefs>
+      <includeTypedefs>true</includeTypedefs>
       <automaticCodeCompletion>true</automaticCodeCompletion>
       <automaticArgumentsHint>true</automaticArgumentsHint>
       <codeCompletionDelay>250</codeCompletionDelay>

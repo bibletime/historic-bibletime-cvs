@@ -72,7 +72,7 @@
 
 /** Opens the optionsdialog of BibleTime. */
 void BibleTime::slotSettingsOptions(){
-	COptionsDialog *dlg = new COptionsDialog(this, "COptionsDialog", m_keyAccel);
+	COptionsDialog *dlg = new COptionsDialog(this, "COptionsDialog", accel());
   connect(dlg, SIGNAL(signalSettingsChanged()), SLOT(slotSettingsChanged()) );
 	
 	dlg->exec();
@@ -228,7 +228,7 @@ void BibleTime::slotToggleGroupManager() {
 }
 
 /** Opens a toolbar editor */
-void BibleTime::slotSettingsToolbar(){	
+void BibleTime::slotSettingsToolbar(){
 	KEditToolbar dlg(actionCollection());
 	if (dlg.exec()) {
 		createGUI();
@@ -425,7 +425,7 @@ void BibleTime::toggleFullscreen(){
 }
 
 void BibleTime::editProfiles(){
-	COptionsDialog *dlg = new COptionsDialog(this, "COptionsDialog", m_keyAccel);
+	COptionsDialog *dlg = new COptionsDialog(this, "COptionsDialog", accel() );
   connect(dlg, SIGNAL(signalSettingsChanged()), SLOT(slotSettingsChanged()) );
 	dlg->showPart(COptionsDialog::ViewProfiles);	
 	dlg->exec();

@@ -36,7 +36,7 @@ using std::cerr;
 using std::endl;
 //using std::string;
 
-char BT_BASICFILTER::processText(sword::SWBuf& buf, const sword::SWKey *key, const sword::SWModule *module){
+char BT_BASICFILTER::processText(sword::SWBuf& buf, const sword::SWKey *key, const sword::SWModule *module) {
 	m_module = module;
 	m_key = key;
 	updateSettings();

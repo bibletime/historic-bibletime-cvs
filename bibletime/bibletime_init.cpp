@@ -93,7 +93,7 @@ void BibleTime::initActions() {
 	m_fileClearQueue_action->setEnabled(false);
 	m_fileClearQueue_action->setToolTip( CResMgr::mainMenu::file::clearQueue::tooltip );
 	m_fileClearQueue_action->setWhatsThis( CResMgr::mainMenu::file::clearQueue::whatsthis );
-	m_fileClearQueue_action->plugAccel( m_keyAccel );
+//	m_fileClearQueue_action->plugAccel( m_keyAccel );
 
 
   //work around KDE 3.1 error messages
@@ -104,7 +104,7 @@ void BibleTime::initActions() {
 	m_filePrint_action->setEnabled(false);
 	m_filePrint_action->setToolTip( CResMgr::mainMenu::file::print::tooltip );
 	m_filePrint_action->setWhatsThis( CResMgr::mainMenu::file::print::whatsthis );
-	m_filePrint_action->plugAccel( m_keyAccel );
+//	m_filePrint_action->plugAccel( m_keyAccel );
 
 
 //	if ( KAction* oldAction = actionCollection()->action( KStdAction::stdName( KStdAction::Quit ) ) ) {	 //delete quit action if KDE created it
@@ -113,7 +113,7 @@ void BibleTime::initActions() {
   action = KStdAction::quit(kapp, SLOT( quit() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::file::quit::tooltip );
 	action->setWhatsThis( CResMgr::mainMenu::file::quit::whatsthis );
-	action->plugAccel( m_keyAccel );
+//	action->plugAccel( m_keyAccel );
 
   action = new KAction(i18n("Search in open module(s)"),
     CResMgr::mainMenu::mainIndex::search::icon,
@@ -123,8 +123,8 @@ void BibleTime::initActions() {
   );
   action->setToolTip( CResMgr::mainMenu::mainIndex::search::tooltip );
   action->setWhatsThis( CResMgr::mainMenu::mainIndex::search::whatsthis );
-  action->plugAccel( m_keyAccel );
-  
+//  action->plugAccel( m_keyAccel );
+
   action = new KAction(i18n("Search in default bible"),
     CResMgr::mainMenu::mainIndex::searchdefaultbible::icon,
     CResMgr::mainMenu::mainIndex::searchdefaultbible::accel,
@@ -133,12 +133,12 @@ void BibleTime::initActions() {
   );
   action->setToolTip( CResMgr::mainMenu::mainIndex::searchdefaultbible::tooltip );
   action->setWhatsThis( CResMgr::mainMenu::mainIndex::searchdefaultbible::whatsthis );
-	action->plugAccel( m_keyAccel );
+//	action->plugAccel( m_keyAccel );
 
   m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
 	m_viewToolbar_action->setToolTip( CResMgr::mainMenu::view::showToolBar::tooltip );
 	m_viewToolbar_action->setWhatsThis( CResMgr::mainMenu::view::showToolBar::whatsthis );
-	m_viewToolbar_action->plugAccel( m_keyAccel );
+//	m_viewToolbar_action->plugAccel( m_keyAccel );
 
 
   m_viewMainIndex_action = new KToggleAction(i18n("&Show main index"),
@@ -148,19 +148,17 @@ void BibleTime::initActions() {
     CResMgr::mainMenu::view::showMainIndex::actionName);
 	m_viewMainIndex_action->setToolTip( CResMgr::mainMenu::view::showMainIndex::tooltip );
 	m_viewMainIndex_action->setWhatsThis( CResMgr::mainMenu::view::showMainIndex::whatsthis );
-  m_viewMainIndex_action->plugAccel( m_keyAccel );
+//  m_viewMainIndex_action->plugAccel( m_keyAccel );
 
   action = KStdAction::preferences(this, SLOT( slotSettingsOptions() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::settings::optionsDialog::tooltip );
 	action->setWhatsThis( CResMgr::mainMenu::settings::optionsDialog::whatsthis );
-	action->plugAccel( m_keyAccel );
-
+//	action->plugAccel( m_keyAccel );
 
   action = KStdAction::configureToolbars(this, SLOT( slotSettingsToolbar() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::settings::editToolBar::tooltip );
 	action->setWhatsThis( CResMgr::mainMenu::settings::editToolBar::whatsthis );
-  action->plugAccel( m_keyAccel );
-
+//  action->plugAccel( m_keyAccel );
 
   m_windowCascade_action = new KAction(i18n("&Cascade"),
     CResMgr::mainMenu::window::cascade::icon,
@@ -170,17 +168,18 @@ void BibleTime::initActions() {
   );
 	m_windowCascade_action->setToolTip( CResMgr::mainMenu::window::cascade::tooltip );
 	m_windowCascade_action->setWhatsThis( CResMgr::mainMenu::window::cascade::whatsthis );
-	m_windowCascade_action->plugAccel( m_keyAccel);
+//	m_windowCascade_action->plugAccel( m_keyAccel);
 
 
   m_windowTile_action = new KAction(i18n("&Tile"),
     CResMgr::mainMenu::window::tile::icon,
     CResMgr::mainMenu::window::tile::accel,
     m_mdi, SLOT(myTile()), actionCollection(),
-    CResMgr::mainMenu::window::tile::actionName);
+    CResMgr::mainMenu::window::tile::actionName
+	);
 	m_windowTile_action->setToolTip( CResMgr::mainMenu::window::tile::tooltip );
 	m_windowTile_action->setWhatsThis( CResMgr::mainMenu::window::tile::whatsthis );
-	m_windowTile_action->plugAccel( m_keyAccel );
+//	m_windowTile_action->plugAccel( m_keyAccel );
 
 
 	m_windowAutoCascade_action 	= new KToggleAction(i18n("&Auto cascade"),
@@ -191,7 +190,7 @@ void BibleTime::initActions() {
   );
 	m_windowAutoCascade_action->setToolTip( CResMgr::mainMenu::window::autoCascade::tooltip );
 	m_windowAutoCascade_action->setWhatsThis( CResMgr::mainMenu::window::autoCascade::whatsthis );
-	m_windowAutoCascade_action->plugAccel( m_keyAccel );
+//	m_windowAutoCascade_action->plugAccel( m_keyAccel );
 
 
 	m_windowAutoTile_action = new KToggleAction(i18n("A&uto Tile"),
@@ -202,7 +201,7 @@ void BibleTime::initActions() {
   );
 	m_windowAutoTile_action->setToolTip( CResMgr::mainMenu::window::autoTile::tooltip );
 	m_windowAutoTile_action->setWhatsThis( CResMgr::mainMenu::window::autoTile::whatsthis );
-	m_windowAutoTile_action->plugAccel( m_keyAccel );
+//	m_windowAutoTile_action->plugAccel( m_keyAccel );
 
 
   m_windowCloseAll_action = new KAction(i18n("&Close all"),
@@ -213,7 +212,7 @@ void BibleTime::initActions() {
   );
 	m_windowCloseAll_action->setToolTip( CResMgr::mainMenu::window::closeAll::tooltip );
 	m_windowCloseAll_action->setWhatsThis( CResMgr::mainMenu::window::closeAll::whatsthis );
-	m_windowCloseAll_action->plugAccel( m_keyAccel );
+//	m_windowCloseAll_action->plugAccel( m_keyAccel );
 
 
 	m_windowSaveProfile_action = new KActionMenu(i18n("&Save session"),
@@ -223,20 +222,20 @@ void BibleTime::initActions() {
   );
 	m_windowSaveProfile_action->setToolTip( CResMgr::mainMenu::window::saveProfile::tooltip );
 	m_windowSaveProfile_action->setWhatsThis( CResMgr::mainMenu::window::saveProfile::whatsthis );
-	m_windowSaveProfile_action->plugAccel( m_keyAccel );
+//	m_windowSaveProfile_action->plugAccel( m_keyAccel );
 
 
   m_windowSaveToNewProfile_action = new KAction(i18n("&Save as new session"),
     CResMgr::mainMenu::window::saveToNewProfile::icon,
-    CResMgr::mainMenu::window::saveToNewProfile::accel,    
+    CResMgr::mainMenu::window::saveToNewProfile::accel,
     this, SLOT(saveToNewProfile()), actionCollection(),
     CResMgr::mainMenu::window::saveToNewProfile::actionName
   );
 	m_windowSaveToNewProfile_action->setToolTip( CResMgr::mainMenu::window::saveToNewProfile::tooltip );
 	m_windowSaveToNewProfile_action->setWhatsThis( CResMgr::mainMenu::window::saveToNewProfile::whatsthis );
-	m_windowSaveToNewProfile_action->plugAccel( m_keyAccel );
-  
-  
+//	m_windowSaveToNewProfile_action->plugAccel( m_keyAccel );
+
+
 	m_windowLoadProfile_action = new KActionMenu(i18n("&Load session"),
     CResMgr::mainMenu::window::loadProfile::icon,
     actionCollection(),
@@ -244,7 +243,7 @@ void BibleTime::initActions() {
   );
 	m_windowLoadProfile_action->setToolTip( CResMgr::mainMenu::window::loadProfile::tooltip );
 	m_windowLoadProfile_action->setWhatsThis( CResMgr::mainMenu::window::loadProfile::whatsthis );
-	m_windowLoadProfile_action->plugAccel( m_keyAccel );
+//	m_windowLoadProfile_action->plugAccel( m_keyAccel );
 
 
 	m_windowEditProfiles_action = new KAction(i18n("&Configure sessions"),
@@ -255,7 +254,7 @@ void BibleTime::initActions() {
   );
 	m_windowEditProfiles_action->setToolTip( CResMgr::mainMenu::window::setupProfiles::tooltip );
 	m_windowEditProfiles_action->setWhatsThis( CResMgr::mainMenu::window::setupProfiles::whatsthis );
-	m_windowEditProfiles_action->plugAccel( m_keyAccel );
+//	m_windowEditProfiles_action->plugAccel( m_keyAccel );
 
 
 	m_windowFullscreen_action = new KToggleAction(i18n("&Fullscreen mode"),
@@ -266,7 +265,8 @@ void BibleTime::initActions() {
   );
 	m_windowFullscreen_action->setToolTip( CResMgr::mainMenu::window::showFullscreen::tooltip );
 	m_windowFullscreen_action->setWhatsThis( CResMgr::mainMenu::window::showFullscreen::whatsthis );
-	m_windowFullscreen_action->plugAccel( m_keyAccel );
+	m_windowFullscreen_action->setShortcutConfigurable(true);
+//	m_windowFullscreen_action->plugAccel( m_keyAccel );
 
 
 	QPtrList<CProfile> profiles = m_profileMgr.profiles();
@@ -291,7 +291,7 @@ void BibleTime::initActions() {
   );
   action->setToolTip( CResMgr::mainMenu::help::handbook::tooltip );
   action->setWhatsThis( CResMgr::mainMenu::help::handbook::whatsthis  );
-  action->plugAccel( m_keyAccel );
+//  action->plugAccel( m_keyAccel );
 
 	action = new KAction(i18n("&Bible Study Howto"),
     CResMgr::mainMenu::help::bibleStudyHowTo::icon,
@@ -301,17 +301,17 @@ void BibleTime::initActions() {
   );
   action->setToolTip( CResMgr::mainMenu::help::bibleStudyHowTo::tooltip );
   action->setWhatsThis( CResMgr::mainMenu::help::bibleStudyHowTo::whatsthis  );
-	action->plugAccel( m_keyAccel );
+//	action->plugAccel( m_keyAccel );
 
 	action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::whatsThis::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::whatsThis::whatsthis);
-	action->plugAccel( m_keyAccel );
-  
+//	action->plugAccel( m_keyAccel );
+
 	action = KStdAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());
 	action->setToolTip(CResMgr::mainMenu::help::bugreport::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::bugreport::whatsthis);
- 	action->plugAccel( m_keyAccel );
+// 	action->plugAccel( m_keyAccel );
 //	action->setIcon(ICON_BUG_REPORT);
 
 	action = new KAction(i18n("&Daily tip"),
@@ -322,7 +322,7 @@ void BibleTime::initActions() {
   );
 	action->setToolTip(CResMgr::mainMenu::help::dailyTip::tooltip);
 	action->setWhatsThis(CResMgr::mainMenu::help::dailyTip::whatsthis);
-	action->plugAccel( m_keyAccel );  
+//	action->plugAccel( m_keyAccel );
 
 	if ( actionCollection()->action( KStdAction::stdName( KStdAction::AboutApp ) ) ) {	 //delete About KDE action if KDE created it
 		actionCollection()->remove(actionCollection()->action(KStdAction::stdName( KStdAction::AboutApp )));
@@ -343,7 +343,7 @@ void BibleTime::initActions() {
 /** Initializes the menubar of BibleTime. */
 void BibleTime::initMenubar(){
 	//get the window and edit menus using the actions and their properties
-	m_windowMenu = dynamic_cast<QPopupMenu*>(m_windowTile_action->container(0));	
+	m_windowMenu = dynamic_cast<QPopupMenu*>(m_windowTile_action->container(0));
 }
 
 /** Initializes the SIGNAL / SLOT connections */
@@ -352,18 +352,18 @@ void BibleTime::initConnections(){
 		this, SLOT(setPlainCaption(const QString&)));
 	connect(m_mdi, SIGNAL(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)),
 		this, SLOT(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)));
-		
+
 	if (m_windowMenu) {
 		connect(m_windowMenu, SIGNAL(aboutToShow()),
 			this, SLOT(slotWindowMenuAboutToShow()));
 		connect(m_windowMenu, SIGNAL(activated(int)),
-			this, SLOT(slotWindowMenuActivated(int)));		
+			this, SLOT(slotWindowMenuActivated(int)));
 	}
 	else {
 		qWarning("Main window: can't find window menu");
   }
-		 	
-	
+
+
 	connect(m_mainIndex, SIGNAL(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)),
 		this, SLOT(createReadDisplayWindow(ListCSwordModuleInfo,const QString&)));
 	connect(m_mainIndex, SIGNAL(createWriteDisplayWindow(CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType&)),

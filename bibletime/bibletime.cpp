@@ -64,7 +64,7 @@ BibleTime::BibleTime()
 	  m_moduleList(0),
 	  m_progress(0),
 	  m_currentProfile(0),
-    m_keyAccel(accel()),
+    //m_keyAccel(accel()),
     m_splitter(0),
     m_mdi(0),
     m_profileMgr(),
@@ -97,9 +97,9 @@ void BibleTime::saveSettings(){
 		m_mdi->saveSettings();
   }
 
-  if (m_keyAccel) {
-		m_keyAccel->writeSettings();
-  }
+  //if (m_keyAccel) {
+		accel()->writeSettings();
+  //}
 
  	CBTConfig::set(CBTConfig::toolbar, m_viewToolbar_action->isChecked());
  	CBTConfig::set(CBTConfig::mainIndex, m_viewMainIndex_action->isChecked());
@@ -110,7 +110,7 @@ void BibleTime::saveSettings(){
 
  	if (m_windowAutoTile_action->isChecked())	{
  		CBTConfig::set(CBTConfig::autoTile, true);
- 		CBTConfig::set(CBTConfig::autoCascade, false);	
+ 		CBTConfig::set(CBTConfig::autoCascade, false);
  	}
  	else if ( m_windowAutoTile_action->isChecked() ) {
 		CBTConfig::set(CBTConfig::autoTile, false);
@@ -132,7 +132,7 @@ void BibleTime::saveSettings(){
 void BibleTime::readSettings(){
   applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
 	
-	m_keyAccel->readSettings(KGlobal::config());
+	accel()->readSettings(KGlobal::config());
 
  	m_viewToolbar_action->setChecked( CBTConfig::get(CBTConfig::toolbar) );
  	slotToggleToolbar();

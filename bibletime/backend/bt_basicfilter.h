@@ -69,7 +69,7 @@ protected:
   * Updates the token for this filter if settings changed.
   */
   virtual void updateTokens();
-	
+
 	char standard_bible[200];
 
 	sword::SWKey *m_key;

@@ -32,6 +32,7 @@ class CPointers {
 protected:
 	friend class BibleTime; //BibleTime may initialize this object	
 	friend int main(int argc, char* argv[]);
+	
 	static void setBackend(CSwordBackend* const);
 	static void setPrinter(CPrinter* const);
 	static void deleteBackend();

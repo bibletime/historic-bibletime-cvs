@@ -55,16 +55,16 @@ namespace CResMgr {
       const QString icon_unlocked  = "bt_book";
       const QString icon_locked    = "bt_book_locked";
       const QString icon_add       = "bt_book_add";
-    };    
+    };
   };
-  
+
   namespace mainMenu { //Main menu
     namespace file { //Main menu->File
       namespace clearQueue {
         QString tooltip;
         QString whatsthis;
         const QString icon       = QString::fromLatin1("queue");
-        const KShortcut accel    = KShortcut();
+        const KShortcut accel    = KKeySequence();
         const char* actionName   = "fileClearQueue_action";
       }
       namespace print { //a standard action
@@ -132,14 +132,14 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "view_sidetree";
-        const KShortcut accel     = KShortcut();
+        const KShortcut accel     = KKeySequence();
         const char* actionName    = "windowEditProfiles_action";
       }
       namespace showFullscreen {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "window_fullscreen";
-        const KShortcut accel     = KShortcut();
+        const KShortcut accel     = KKeySequence();//KKeySequence();
         const char* actionName    = "windowFullscreen_action";
       }
       namespace tile {
@@ -217,7 +217,7 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon        = "idea";
-        const KShortcut accel     = KShortcut();
+        const KShortcut accel     = KKeySequence();
         const char* actionName    = "helpDailyTip_action";
       };
       namespace aboutBibleTime { // available as KStdAction
@@ -425,7 +425,7 @@ namespace CResMgr {
          QString tooltip;
          QString whatsthis;
          const QString icon = "bt_sync";
-         const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::nextBook::accel;
+         const KShortcut accel = KKeySequence();//CResMgr::displaywindows::biblewindow::nextBook::accel;
        }
 
     };
@@ -437,12 +437,12 @@ namespace CResMgr {
       namespace nextEntry {
         QString tooltip;
         QString whatsthis;
-        const KShortcut accel = KShortcut();
+        const KShortcut accel = KKeySequence();
       }
       namespace previousEntry {
         QString tooltip;
         QString whatsthis;
-        const KShortcut accel = KShortcut();
+        const KShortcut accel = KKeySequence();
       }
 
       namespace copyMenu {
@@ -458,7 +458,7 @@ namespace CResMgr {
     namespace bookWindow {
       namespace toggleTree {
         const QString icon = "view_sidetree";
-        const KShortcut accel = KShortcut();
+        const KShortcut accel = KKeySequence();
       };
     };
 
@@ -467,19 +467,19 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "filesave";
-        const KShortcut accel   = KShortcut();
+        const KShortcut accel   = KKeySequence();
       };
       namespace restoreText {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "undo";
-        const KShortcut accel   = KShortcut();
+        const KShortcut accel   = KKeySequence();
       };
       namespace deleteEntry {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "editdelete";
-        const KShortcut accel   = KShortcut();
+        const KShortcut accel   = KKeySequence();
       };
 
       //formatting buttons
@@ -487,44 +487,44 @@ namespace CResMgr {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "text_bold";
-        const KShortcut accel   = KShortcut();
+        const KShortcut accel   = KKeySequence();
       };
       namespace italicText {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "text_italic";
-        const KShortcut accel   = KShortcut();
+        const KShortcut accel   = KKeySequence();
       };
       namespace underlinedText {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "text_under";
-        const KShortcut accel   = KShortcut();
+        const KShortcut accel   = KKeySequence();
       };
 
       namespace alignLeft {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "text_left";
-        const KShortcut accel   = KShortcut();
+        const KShortcut accel   = KKeySequence();
       };
       namespace alignCenter {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "text_center";
-        const KShortcut accel   = KShortcut();
+        const KShortcut accel   = KKeySequence();
       };
       namespace alignRight {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "rightjust";
-        const KShortcut accel   = KShortcut();
+        const KShortcut accel   = KKeySequence();
       };
       namespace alignJustify {
         QString tooltip;
         QString whatsthis;
         const QString icon      = "text_block";
-        const KShortcut accel   = KShortcut();
+        const KShortcut accel   = KKeySequence();
       };
 
       namespace fontFamily {

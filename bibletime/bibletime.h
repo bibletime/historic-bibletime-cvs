@@ -360,7 +360,7 @@ private:
 	QProgressDialog* m_progress;
 
   CProfile* m_currentProfile;
-	KAccel* m_keyAccel;
+	//KAccel* m_keyAccel;
 	QSplitter* m_splitter;
 	CMDIArea* m_mdi;
 
