@@ -491,7 +491,7 @@ void CGroupManager::slotPopupAboutToShow(){
 					foundBookmark = true;
 				myChild = myChild->nextSibling();
 	    }
-			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, foundBookmark);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, true);
 			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, foundBookmark);
 			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);
 				
@@ -517,7 +517,7 @@ void CGroupManager::slotPopupAboutToShow(){
 				if (i && i->type() == CGroupManagerItem::Bookmark)
 					foundBookmark = true;
 			}			
-			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, foundBookmark);
+			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_IMPORT, true);
 			m_popupMenu->setItemEnabled(ID_GM_BOOKMARKS_EXPORT, foundBookmark);
 			m_popupMenu->setItemEnabled(ID_GM_BOOKMARK_PRINT, false);
 						
