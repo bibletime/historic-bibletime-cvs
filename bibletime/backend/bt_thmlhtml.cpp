@@ -161,7 +161,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 					const int foundAttrPos = e.find(attrRegExp, pos);
 					
 					if (foundAttrPos != -1) {
-						e.insert(foundAttrPos + attrRegExp.matchedLength(), QString::fromLatin1("|").append(value));
+						e.insert(foundAttrPos + attrRegExp.matchedLength(), QString("|").append(value));
 						pos += value.length() + 1;
 						
 						hasLemmaAttr = !isMorph;
@@ -209,7 +209,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
         const char* abbrev = tag.getAttribute("lang");
         //const CLanguageMgr::Language* const language = CPointers::languageMgr()->languageForAbbrev( QString::fromLatin1(abbrev) );
 
-				buf.appendFormatted("<span class=\"foreign\" lang=\"");
+				buf.append("<span class=\"foreign\" lang=\"");
 				buf.append(abbrev);
 				buf.append("\">");
       }

@@ -39,7 +39,7 @@ CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent, QListViewItem* after
 	const unsigned long offset = m_key->getOffset();
   
 	m_key->key(m_keyName);
-  setText(0, QString::fromLatin1(m_key->getLocalName()) );	
+  setText(0, QString(m_key->getLocalName()) );	
 	
 	m_key->setOffset( offset );	
 };
@@ -52,7 +52,7 @@ CBookTreeChooser::TreeItem::TreeItem(QListViewItem* parent,CSwordTreeKey* key, c
  	const unsigned int offset = m_key->getOffset();
   
 	m_key->key(m_keyName);
-	setText(0, QString::fromLatin1(m_key->getLocalName()) );
+	setText(0, QString(m_key->getLocalName()) );
  	
 	m_key->setOffset( offset );	
 };
@@ -65,7 +65,7 @@ CBookTreeChooser::TreeItem::TreeItem(QListView* view, QListViewItem* after,CSwor
  	const unsigned int offset = m_key->getOffset();
 	
 	m_key->key(m_keyName);
-	setText(0, QString::fromLatin1(m_key->getLocalName()) );
+	setText(0, QString(m_key->getLocalName()) );
 	
  	m_key->setOffset( offset );
 };

@@ -433,8 +433,8 @@ void CModuleChooser::initTree(){
 //     for (modsForType.first(); modsForType.current(); modsForType.next()) {
 		ListCSwordModuleInfo::iterator end_it = modsForType.end();
 		for (ListCSwordModuleInfo::iterator it(modsForType.begin()); it != end_it; ++it) {
-      if ( !langs.contains(QString::fromLatin1( (*it)->module()->Lang() ))) {
-        langs.append(QString::fromLatin1( (*it)->module()->Lang() ));
+      if ( !langs.contains(QString( (*it)->module()->Lang() ))) {
+        langs.append( (*it)->module()->Lang() );
       }
     };
     langs.sort();
@@ -467,7 +467,7 @@ void CModuleChooser::initTree(){
 //       for (modsForType.first(); modsForType.current(); modsForType.next()) {
 			ListCSwordModuleInfo::iterator end_modItr = modsForType.end();
 			for (ListCSwordModuleInfo::iterator mod_Itr(modsForType.begin()); mod_Itr != end_modItr; ++mod_Itr) {
-        if (QString::fromLatin1( (*mod_Itr)->module()->Lang() ) == (*it) ) { //found correct language
+        if (QString( (*mod_Itr)->module()->Lang() ) == (*it) ) { //found correct language
           ModuleCheckBoxItem* i = new ModuleCheckBoxItem(langFolder, *mod_Itr);
           i->setPixmap(0, CToolClass::getIconForModule(*mod_Itr));
         };
@@ -1091,7 +1091,7 @@ int CSearchAnalysisItem::width(){
 
 /** Returns the tooltip for this item. */
 const QString CSearchAnalysisItem::getToolTip(){
-	QString ret = QString::fromLatin1("<center><b>%1</b></center><hr/>").arg(m_bookName);
+	QString ret = QString("<center><b>%1</b></center><hr/>").arg(m_bookName);
 	ret += "<table cellspacing=\"0\" cellpadding=\"3\" width=\"100%\" height=\"100%\" align=\"center\">";
 	
 	//ToDo: Fix that loop
@@ -1104,7 +1104,7 @@ const QString CSearchAnalysisItem::getToolTip(){
 		const QColor c = CSearchAnalysis::getColor(i);
 		
 		ret.append(
-			QString::fromLatin1("<tr bgcolor=\"white\"><td><b><font color=\"#%1\">%2</font></b></td><td>%3 (%4%)</td></tr>")
+			QString("<tr bgcolor=\"white\"><td><b><font color=\"#%1\">%2</font></b></td><td>%3 (%4%)</td></tr>")
 				.arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue()))
 				.arg(info ? info->name() : QString::null)
 				.arg( m_resultCountArray[i] )
@@ -1226,7 +1226,7 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
 
 /** No descriptions */
 void CSearchAnalysis::saveAsHTML(){
- 	const QString file = KFileDialog::getSaveFileName(QString::null, QString::fromLatin1("*.html | %1").arg(i18n("HTML files")), 0, i18n("Save Search Analysis"));
+ 	const QString file = KFileDialog::getSaveFileName(QString::null, QString("*.html | %1").arg(i18n("HTML files")), 0, i18n("Save Search Analysis"));
 	if (file.isNull()) {
     return;
   }
@@ -1238,8 +1238,8 @@ void CSearchAnalysis::saveAsHTML(){
  	QString tableTitle = "";
   QString tableTotals = "";
  	QString VerseRange = "";
- 	const QString txtCSS = QString::fromLatin1("<style type=\"text/css\">\ntd {border:1px solid black;}\nth {font-size: 130%; text-align:left; vertical-align:top;}\n</style>\n");
-	const QString metaEncoding = QString::fromLatin1("<META http-equiv=Content-Type content=\"text/html; charset=utf-8\">");
+ 	const QString txtCSS = QString("<style type=\"text/css\">\ntd {border:1px solid black;}\nth {font-size: 130%; text-align:left; vertical-align:top;}\n</style>\n");
+	const QString metaEncoding = QString("<META http-equiv=Content-Type content=\"text/html; charset=utf-8\">");
  	CSwordVerseKey key(0);
  	sword::ListKey searchResult;
 
@@ -1256,8 +1256,8 @@ void CSearchAnalysis::saveAsHTML(){
 
   QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + metaEncoding + "</head>\n<body>\n";
  	text += "<table>\n<tr><th>" + i18n("Search text :") + "</th><th>" + CSearchDialog::getSearchDialog()->searchText() + "</th></tr>\n";
- 	text += QString::fromLatin1("<tr><th>") + i18n("Search type :") + QString::fromLatin1("</th><th>") + /*m_searchText->getSearchTypeString() +*/ "</th></tr>\n";
- 	text += QString::fromLatin1("<tr><th>") + i18n("Search scope:") + "</th><th>" + ((CSearchDialog::getSearchDialog()->searchScopeType() !=  CSwordModuleSearch::Scope_NoScope) ? VerseRange : i18n("No search scope")) + "</th></tr>\n</table>\n<br>\n";
+ 	text += QString("<tr><th>") + i18n("Search type :") + QString("</th><th>") + /*m_searchText->getSearchTypeString() +*/ "</th></tr>\n";
+ 	text += QString("<tr><th>") + i18n("Search scope:") + "</th><th>" + ((CSearchDialog::getSearchDialog()->searchScopeType() !=  CSwordModuleSearch::Scope_NoScope) ? VerseRange : i18n("No search scope")) + "</th></tr>\n</table>\n<br>\n";
 
 
   tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";
@@ -1266,20 +1266,20 @@ void CSearchAnalysis::saveAsHTML(){
 	moduleIndex = 0;
 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
 	for (ListCSwordModuleInfo::iterator it(m_moduleList.begin()); it != end_it; ++it) {
- 		tableTitle += QString::fromLatin1("<th align=\"left\">") + (*it)->name() + QString::fromLatin1("</th>");
+ 		tableTitle += QString("<th align=\"left\">") + (*it)->name() + QString("</th>");
  		searchResult = (*it)->searchResult();
  		countStr.setNum(searchResult.Count());
 		
-		tableTotals += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
+		tableTotals += QString("<td align=\"right\">") + countStr + QString("</td>");
 		++moduleIndex;
  	}
- 	tableTitle += QString::fromLatin1("</tr>\n");
- 	tableTotals += QString::fromLatin1("</tr>\n");
+ 	tableTitle += QString("</tr>\n");
+ 	tableTotals += QString("</tr>\n");
 
  	m_searchAnalysisHTML = "";
  	bool ok = true;
  	while (ok) {
- 		m_searchAnalysisHTML += QString::fromLatin1("<tr><td>") + key.book() + QString::fromLatin1("</td>");
+ 		m_searchAnalysisHTML += QString("<tr><td>") + key.book() + QString("</td>");
  		analysisItem = m_canvasItemList.find( key.book() );
 		
 //  		for (moduleIndex = 0, m_moduleList.first(); m_moduleList.current(); m_moduleList.next(), ++moduleIndex) {
@@ -1288,17 +1288,17 @@ void CSearchAnalysis::saveAsHTML(){
 		for (ListCSwordModuleInfo::iterator it(m_moduleList.begin()); it != end_it; ++it) {
  			count = analysisItem->getCountForModule(moduleIndex);
  			countStr.setNum(count);
- 			m_searchAnalysisHTML += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
+ 			m_searchAnalysisHTML += QString("<td align=\"right\">") + countStr + QString("</td>");
 			
 			++moduleIndex;
  		}
- 		m_searchAnalysisHTML += QString::fromLatin1("</tr>\n");
+ 		m_searchAnalysisHTML += QString("</tr>\n");
  		ok = key.next(CSwordVerseKey::UseBook);
  	}
 	
- 	text += QString::fromLatin1("<table>\n") + tableTitle + tableTotals + m_searchAnalysisHTML + QString::fromLatin1("</table>\n");
- 	text += QString::fromLatin1("<center>") + i18n("Created by") + QString::fromLatin1(" <a href=\"http://www.bibletime.info/\">BibleTime</a></center>");
- 	text += QString::fromLatin1("</body></html>");
+ 	text += QString("<table>\n") + tableTitle + tableTotals + m_searchAnalysisHTML + QString("</table>\n");
+ 	text += QString("<center>") + i18n("Created by") + QString(" <a href=\"http://www.bibletime.info/\">BibleTime</a></center>");
+ 	text += QString("</body></html>");
 
 	CToolClass::savePlainFile(file, text, false, QTextStream::UnicodeUTF8);
 }

@@ -225,9 +225,8 @@ void CModuleChooserButton::populateMenu(){
 			}
 		}
 		
- 		const QString name = QString::fromLatin1("%1 %2")
-			.arg((*it)->name())
-			.arg((*it)->isLocked() ? i18n("[locked]") : QString::null);
+ 		QString name((*it)->name());
+		name.append(" ").append((*it)->isLocked() ? i18n("[locked]") : QString::null);
 			
  		const int id = langdict[lang]->insertItem( name );
  		if ( m_module && (*it)->name() == m_module->name()) {

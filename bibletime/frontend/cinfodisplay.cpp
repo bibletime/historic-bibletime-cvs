@@ -125,17 +125,16 @@ const QString CInfoDisplay::decodeAbbreviation( const QString& data ) {
 	QString text = data;
 				
 	ret.append( 
-		QString::fromLatin1("<div class=\"abbreviation\"><h3>%1: %2</h3><p>%3</p></div>")
+		QString("<div class=\"abbreviation\"><h3>%1: %2</h3><p>%3</p></div>")
 			.arg(i18n("Abbreviation"))
 			.arg("text")
-// 			.arg(*it)
 			.arg(text));
 			
 	return ret;
 }
 const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	if (data.isEmpty()) {
-		return QString::fromLatin1("<div class=\"crossrefinfo\"><h3>%1</h3></div>")
+		return QString("<div class=\"crossrefinfo\"><h3>%1</h3></div>")
 			.arg(i18n("Cross references"));
 	}
 
@@ -187,7 +186,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 		tree.append( i );
 	}	
 	
-	return QString::fromLatin1("<div class=\"crossrefinfo\"><h3>%1</h3><p>%2</p></div>")
+	return QString("<div class=\"crossrefinfo\"><h3>%1</h3><p>%2</p></div>")
 		.arg(i18n("Cross references"))
 		.arg(renderer.renderKeyTree(tree));
 }
@@ -217,14 +216,14 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	
 	const char* note = module->module()->getEntryAttributes()["Footnote"][swordFootnote.latin1()]["body"].c_str();
 	
-	QString text = module->isUnicode() ? QString::fromUtf8(note) : QString::fromLatin1(note);
+	QString text = module->isUnicode() ? QString::fromUtf8(note) : QString(note);
 	text = QString::fromUtf8(module->module()->RenderText( 
 			module->isUnicode() 
 		? (const char*)text.utf8() 
 		: (const char*)text.latin1()
 	));
 	
-	return QString::fromLatin1("<div class=\"footnoteinfo\"><h3>%1</h3><p>%2</p></div>")
+	return QString("<div class=\"footnoteinfo\"><h3>%1</h3><p>%2</p></div>")
 		.arg(i18n("Footnote"))
 		.arg(text);
 }
@@ -250,7 +249,7 @@ const QString CInfoDisplay::decodeStrongs( const QString& data ) {
 		//if the module could not be found just display an empty lemma info
 				
 		ret.append( 
-			QString::fromLatin1("<div class=\"strongsinfo\"><h3>%1: %2</h3><p>%3</p></div>")
+			QString("<div class=\"strongsinfo\"><h3>%1: %2</h3><p>%3</p></div>")
 				.arg(i18n("Strongs"))
 				.arg(*it)
 				.arg(text)
@@ -314,7 +313,7 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 		}
 		
 		//if the module wasn't found just display an empty morph info
-		ret.append( QString::fromLatin1("<div class=\"morphinfo\"><h3>%1: %2</h3><p>%3</p></div>")
+		ret.append( QString("<div class=\"morphinfo\"><h3>%1: %2</h3><p>%3</p></div>")
 			.arg(i18n("Morphology"))
 			.arg(value)
 			.arg(text)
@@ -336,7 +335,7 @@ const QString CInfoDisplay::getWordTranslation( const QString& data ) {
 		return QString::null;
 	}
 	
-	QString ret = QString::fromLatin1("<div class=\"translationinfo\"><h3>%1: %2</h3><p>%3</p></div>")
+	QString ret = QString("<div class=\"translationinfo\"><h3>%1: %2</h3><p>%3</p></div>")
 		.arg(i18n("Word lookup"))
 		.arg(data)
 		.arg(key->renderedText());

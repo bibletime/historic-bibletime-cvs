@@ -247,9 +247,9 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				else if (myUserData->noteType == BT_UserData::Alternative) {
 					buf.append(" <span class=\"alternative\" alternative=\"");
 					buf.append(myUserData->lastTextNode);
-					buf.append("\" ");
-					buf.appendFormatted("title=\"%s\"", (const char*)i18n("Alternative text").utf8());
-					buf.append(" />");
+					buf.append("\" title=\"");
+					buf.append((const char*)i18n("Alternative text").utf8());
+					buf.append("\" />");
 				}
 
         myUserData->noteType = BT_UserData::Unknown;
@@ -260,10 +260,11 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		else if (!strcmp(tag.getName(), "reference")) { // <reference> tag
 			if (!myUserData->inCrossrefNote && !tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
         const char* ref = tag.getAttribute("osisRef");
-        CSwordModuleInfo::ModuleType type = CSwordModuleInfo::Bible;
-				buf.appendFormatted("<span class=\"crossreference\" crossrefs=\"%s\">",
-					ref
-        );
+//         CSwordModuleInfo::ModuleType type = CSwordModuleInfo::Bible;
+				
+				buf.append("<span class=\"crossreference\" crossrefs=\"");
+				buf.append(ref);
+				buf.append("\">");
 			}
 			else if (!myUserData->inCrossrefNote && tag.isEndTag()) {
  				buf.append("</span>");
@@ -355,7 +356,9 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
 				if (type == "added") {
-					buf.appendFormatted("<span class=\"transchange\" title=\"%s\"><span class=\"added\">", (const char*)i18n("Added text").utf8());
+					buf.append("<span class=\"transchange\" title=\"");
+					buf.append((const char*)i18n("Added text").utf8());
+					buf.append("\"><span class=\"added\">");
 				}
 				else if (type == "amplified") {
 					buf.append("<span class=\"transchange\"><span class=\"amplified\">");

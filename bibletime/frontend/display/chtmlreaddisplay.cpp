@@ -135,10 +135,15 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 
 				CPointers::backend()->setFilterOptions(filterOptions);
 				
-      	return QString::fromLatin1("%1\n(%2, %3)")
-          .arg(key->strippedText())
+      	return QString(key->strippedText()).append("\n(")
+						.append(key->key())
+						.append(", ")
+						.append(key->module()->name())
+						.append(")");
+/*				("%1\n(%2, %3)")
+          .arg()
           .arg(key->key())
-          .arg(key->module()->name());
+          .arg(key->module()->name());*/
    		}
      	return QString::null;
     }

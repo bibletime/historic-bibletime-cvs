@@ -115,7 +115,8 @@ const QString CDisplayWindow::windowCaption(){
 //		}
 //	}
 // 	return m_modules.join(" | ").append(" (").append(key()->key()).append(")");
-	return QString::fromLatin1("%1 (%2)").arg(key()->key()).arg(m_modules.join(" | "));
+//	return QString::fromLatin1("%1 (%2)").arg(key()->key()).arg(m_modules.join(" | "));
+	return QString(key()->key()).append(" (").append(m_modules.join(" | ")).append(")");
 }
 
 /** Returns the used modules as a QPtrList */
@@ -430,7 +431,5 @@ void CDisplayWindow::closeEvent(QCloseEvent* e) {
 }
 
 void CDisplayWindow::slotSearchInModules() {
-	qWarning("Opening search dialog");
-	
 	CSearchDialog::openDialog(modules());
 }

@@ -214,7 +214,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 		if(showIt) {
 			KStartupLogo::createSplash();
 			KStartupLogo::showSplash();
-			KStartupLogo::setStatusMessage( i18n("Starting BibleTime") + QString::fromLatin1("...") );
+			KStartupLogo::setStatusMessage( i18n("Starting BibleTime") + QString("...") );
 		}
 
     setSignalHandler(signalHandler);

@@ -186,7 +186,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 					const int foundPos = e.find(attrRegExp, tagAttributeStart);
 					
 					if (foundPos != -1) {
-						e.insert(foundPos + attrRegExp.matchedLength(), QString::fromLatin1("|").append(value));
+						e.insert(foundPos + attrRegExp.matchedLength(), QString("|").append(value));
 						pos += value.length() + 1;
 						
 						hasLemmaAttr = !isMorph;

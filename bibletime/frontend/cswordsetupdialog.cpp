@@ -990,7 +990,7 @@ const bool CSwordSetupDialog::refreshRemoteModuleCache( const QString& sourceNam
 	m_progressDialog->setLabel( i18n("Downloading module information...") );
 	
 	if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
-		int errorCode = 0;
+// 		int errorCode = 0;
     if (!m_refreshedRemoteSources) {
       if (!iMgr.refreshRemoteSource( &is ) ){ //make sure the sources were updates sucessfully
 				m_refreshedRemoteSources = true;
@@ -1485,7 +1485,7 @@ void CSwordSetupDialog::slot_installProgressCancelClicked() {
 }
 
 void CSwordSetupDialog::slot_moduleRefreshProgressCancelClicked() {
-	qWarning("Cancelling module refresh");
+// 	qWarning("Cancelling module refresh");
 	Q_ASSERT(m_currentInstallMgr);
 	if (m_currentInstallMgr) {
 		m_currentInstallMgr->terminate();
@@ -1493,8 +1493,8 @@ void CSwordSetupDialog::slot_moduleRefreshProgressCancelClicked() {
 
 }
 
-void CSwordSetupDialog::slot_moduleRefreshCompleted(const int total, const int current) {
-	qWarning("progress %d", current);
+void CSwordSetupDialog::slot_moduleRefreshCompleted(const int /*total*/, const int current) {
+// 	qWarning("progress %d", current);
 	if (m_progressDialog) {
     m_progressDialog->progressBar()->setProgress(current);
 //     m_progressDialog->setLabel( i18n("Downloading module information...");

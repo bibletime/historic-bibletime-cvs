@@ -42,10 +42,9 @@
 
 #include <khtml_settings.h>
 
+//init statics
 QFont* CBTConfig::m_defaultFont = 0;
-
-typedef QMap<const CLanguageMgr::Language*, CBTConfig::FontSettingsPair> FontCache;
-static FontCache* fontConfigMap = 0;
+CBTConfig::FontCache* CBTConfig::fontConfigMap = 0;
 
 /* 	No constructor and destructor, because this class only contains static methods.
 		It won't be instantiated. */
@@ -207,9 +206,9 @@ const QValueList<int> CBTConfig::getDefault( const CBTConfig::intLists ID){
 const QString CBTConfig::getKey( const CBTConfig::stringLists ID){
 	switch ( ID ){
 		case searchCompletionTexts:
-      return QString::fromLatin1("searchCompletionTexts");
+      return QString("searchCompletionTexts");
 		case searchTexts:
-      return QString::fromLatin1("searchTexts");
+      return QString("searchTexts");
 	}
 	return QString::null;
 }
@@ -230,7 +229,7 @@ const QStringList CBTConfig::getDefault( const CBTConfig::stringLists ID){
 const QString CBTConfig::getKey( const CBTConfig::stringMaps ID) {
 	switch (ID) {
     case searchScopes:
-      return QString::fromLatin1("SearchScopes");
+      return QString("SearchScopes");
   };
 	return QString::null;
 }
@@ -239,14 +238,14 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
 	switch ( ID ){
     case searchScopes: {
       CBTConfig::StringMap map;
-      map.insert(i18n("Old testament"),         QString::fromLatin1("Gen - Mal"));
-  	  map.insert(i18n("Moses/Pentateuch/Torah"),QString::fromLatin1("Gen - Deut"));
-  	  map.insert(i18n("History"),               QString::fromLatin1("Jos - Est"));
-  	  map.insert(i18n("Prophets"),              QString::fromLatin1("Isa - Mal"));
-   	  map.insert(i18n("New testament"),         QString::fromLatin1("Mat - Rev"));
-  	  map.insert(i18n("Gospels"), 		          QString::fromLatin1("Mat - Joh"));
-  	  map.insert(i18n("Letters/Epistles"), 	    QString::fromLatin1("Rom - Jude"));
-  	  map.insert(i18n("Paul's Epistles"), 	    QString::fromLatin1("Rom - Phile"));
+      map.insert(i18n("Old testament"),         QString("Gen - Mal"));
+  	  map.insert(i18n("Moses/Pentateuch/Torah"),QString("Gen - Deut"));
+  	  map.insert(i18n("History"),               QString("Jos - Est"));
+  	  map.insert(i18n("Prophets"),              QString("Isa - Mal"));
+   	  map.insert(i18n("New testament"),         QString("Mat - Rev"));
+  	  map.insert(i18n("Gospels"), 		          QString("Mat - Joh"));
+  	  map.insert(i18n("Letters/Epistles"), 	    QString("Rom - Jude"));
+  	  map.insert(i18n("Paul's Epistles"), 	    QString("Rom - Phile"));
 
       //make the list to the current bookname language!
       CBTConfig::StringMap::Iterator it;

@@ -74,7 +74,7 @@ using namespace InfoDisplay;
 
 /**Initializes the view of this widget*/
 void BibleTime::initView(){
-	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
+	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString("..."));	
 
 	m_splitter = new QSplitter(this, "mainsplitter");
 	setCentralWidget(m_splitter);	
@@ -101,7 +101,7 @@ void BibleTime::initView(){
 
 /** Initializes the action objects of the GUI */
 void BibleTime::initActions() {
-	KStartupLogo::setStatusMessage(i18n("Initializing menu- and toolbars") + QString::fromLatin1("..."));
+	KStartupLogo::setStatusMessage(i18n("Initializing menu- and toolbars") + QString("..."));
 	KAction* action = 0;
 
   action = KStdAction::quit(kapp, SLOT( quit() ), actionCollection());
@@ -516,7 +516,7 @@ void BibleTime::initConnections(){
 
 /** Initializes the backend */
 void BibleTime::initBackends(){
-	KStartupLogo::setStatusMessage(i18n("Initializing Sword") + QString::fromLatin1("..."));
+	KStartupLogo::setStatusMessage(i18n("Initializing Sword") + QString("..."));
 
 //  qWarning("backend constructed with a path argument! %s", path.latin1());
 	StringMgr::setSystemStringMgr( new BTStringMgr() );
@@ -569,7 +569,7 @@ void BibleTime::initBackends(){
 
 /** Initializes the CPrinter object. */
 void BibleTime::initPrinter() {
-	KStartupLogo::setStatusMessage(i18n("Initializing print system") + QString::fromLatin1("..."));
+	KStartupLogo::setStatusMessage(i18n("Initializing print system") + QString("..."));
 	CPointers::setPrinter( (m_printer = new Printing::CPrinter(this)) );
 }
 

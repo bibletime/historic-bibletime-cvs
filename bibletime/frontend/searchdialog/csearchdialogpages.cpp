@@ -123,7 +123,7 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m){
 	}
 	m_module = m;
 
-  sword::ListKey result = m->searchResult();
+  sword::ListKey& result = m->searchResult();
 	const int count = result.Count();
   if (!count)
     return;
@@ -134,7 +134,7 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m){
   KListViewItem* item = 0;
   for (int index = 0; index < count; index++) {
     item = new KListViewItem(this, oldItem);
-    item->setText(0, QString::fromUtf8((const char*)*result.GetElement(index)));
+		item->setText(0, QString::fromUtf8(result.GetElement(index)->getText()));
     oldItem = item;
   }
 
@@ -541,8 +541,8 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
   int index = 0;
   int length = searchedText.length();
 
-  const QString rep1 = QString::fromLatin1("<span style=\"background-color:#FFFF66;\">");
-  const QString rep2 = QString::fromLatin1("</span>");
+  const QString rep1 = QString("<span style=\"background-color:#FFFF66;\">");
+  const QString rep2 = QString("</span>");
   const unsigned int repLength = rep1.length() + rep1.length();
 
   
