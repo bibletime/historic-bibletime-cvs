@@ -55,12 +55,11 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 	qDebug("CSwordLexiconModuleInfo::getEntries()");
 	if (!m_entryList) {
 		if (!module()) {
-		 	qDebug("return 0");
+//		 	qDebug("return 0");
 			return 0;
 		}
 		m_entryList = new QStringList();
-		qDebug("new list");
-		module()->KeyText(" ");
+		(*module()) = TOP;
 
     bool lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
 		bool read = false;
@@ -77,7 +76,6 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
   			QString version;
         s >> version;
   			if (version == ( (getVersion() == QString::null) ? QString("0") : getVersion())) {
-  				qDebug("chache used");
   				s >> *m_entryList;
   				read = true;
   			}
@@ -90,11 +88,9 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
   		do {
 #warning check!!
    			m_entryList->append(QString::fromUtf8(module()->KeyText()));
-  			qDebug("++module now!");
   			(*module())++;
-  			qDebug("entry is now %s", module()->KeyText());
   		} while (!module()->Error());
- 			qDebug("loop finished!");  		
+
   		if (m_entryList->first().stripWhiteSpace().isEmpty())
 	  		m_entryList->remove( m_entryList->begin() );			
 
@@ -104,7 +100,6 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
         QFile f2( QString("%1/%2").arg(dir).arg( name() ) );
         if (f2.open( IO_WriteOnly )){
           QDataStream s( &f2 );
-  				qDebug("cache created");
   				s << ( (getVersion() == QString::null) ? QString::fromLatin1("0") : getVersion());
   				s << *m_entryList;
   			  f2.close();
@@ -112,8 +107,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 			}
 		}
 
-		module()->KeyText(" ");
+		(*module()) = TOP;
 	}	
-	qDebug("return now!");
 	return m_entryList;
 }
