@@ -33,8 +33,7 @@ class KPopupMenu;
 class CDisplaySettingsButton : public QToolButton  {
    Q_OBJECT
 public: 
-	CDisplaySettingsButton(CSwordBackend::displayOptionsBool &displaySettings, CSwordBackend::moduleOptionsBool &settings, ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
-	~CDisplaySettingsButton();
+	CDisplaySettingsButton(CSwordBackend::displayOptionsBool *displaySettings, CSwordBackend::moduleOptionsBool *settings, ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
 
 protected slots:
 	void optionToggled(int ID);

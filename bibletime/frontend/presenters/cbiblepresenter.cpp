@@ -17,6 +17,8 @@
 
 #include "cbiblepresenter.h"
 #include "cmodulechooserbar.h"
+#include "cdisplaysettingsbutton.h"
+
 #include "../ctoolclass.h"
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
@@ -63,6 +65,10 @@ void CBiblePresenter::initView(){
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
 	m_mainToolBar->setItemAutoSized(0);
+
+	CDisplaySettingsButton* display = new CDisplaySettingsButton( &m_displayOptions, &m_moduleOptions, m_moduleList, m_mainToolBar);
+	m_mainToolBar->insertWidget(1,display->sizeHint().width(),display);
+
 	addToolBar(m_mainToolBar);			
 	
 	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Bible, this );
@@ -114,8 +120,8 @@ void CBiblePresenter::lookup(CSwordKey* key){
 		return;
   m_moduleList.first()->module()->SetKey(*vKey);
 
-	m_important->swordBackend->setAllModuleOptions( COptionsDialog::getAllModuleOptionDefaults() );
-	m_important->swordBackend->setAllDisplayOptions( COptionsDialog::getAllDisplayOptionDefaults() );
+	m_important->swordBackend->setAllModuleOptions( m_moduleOptions );
+	m_important->swordBackend->setAllDisplayOptions( m_displayOptions );
 		
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
 		if (m_moduleList.count()>1)

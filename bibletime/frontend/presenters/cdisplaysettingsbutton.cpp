@@ -24,11 +24,11 @@
 #include <kpopupmenu.h>
 #include <klocale.h>
 
-CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::displayOptionsBool &displaySettings, CSwordBackend::moduleOptionsBool &moduleSettings,
+CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::displayOptionsBool *displaySettings, CSwordBackend::moduleOptionsBool *moduleSettings,
 	ListCSwordModuleInfo useModules,QWidget *parent, const char *name ) : QToolButton(parent,name)
 {
-	m_displaySettings = &displaySettings;
-	m_moduleSettings = &moduleSettings;
+	m_displaySettings = displaySettings;
+	m_moduleSettings = moduleSettings;
 
 	m_dict.insert( i18n("Use linebreaks"), 		&(m_displaySettings->lineBreaks) );
 	m_dict.insert( i18n("Show versenumbers"), &(m_displaySettings->verseNumbers) );
@@ -43,10 +43,13 @@ CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::displayOptionsBool
 	m_dict.insert( i18n("Show Greek accents"), 							&(m_moduleSettings->greekAccents) );
 
  	m_popup = new KPopupMenu(this);	
+	setPopup(m_popup);
+	setPopupDelay(0);
+
 	m_popup->insertTitle(i18n("Display options"));
 	m_popup->setCheckable(true);
 
-	m_popup->insertSeparator();	
+//	m_popup->insertSeparator();	
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionToggled(int)));
 
 	QDictIterator<bool> it( m_dict ); // iterator for dict
@@ -59,9 +62,7 @@ CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::displayOptionsBool
 }
 
 void CDisplaySettingsButton::optionToggled(int ID){
+	m_popup->setItemChecked( ID, !(m_popup->isItemChecked(ID)));
   *(m_dict[m_popup->text(ID)]) =  m_popup->isItemChecked(ID);
 }
 
-
-CDisplaySettingsButton::~CDisplaySettingsButton(){
-}

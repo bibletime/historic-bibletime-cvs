@@ -21,6 +21,7 @@
 #include "../../backend/cswordkey.h"
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
+#include "../optionsdialog/coptionsdialog.h"
 
 //Qt includes
 #include <qpopupmenu.h>
@@ -33,7 +34,9 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClas
 	m_keyChooser(0), m_mainToolBar(0), m_moduleChooserBar(0), m_popup(0),m_savePopup(0),m_copyPopup(0),
 	m_printPopup(0), m_features(0),
 	m_lexiconPopup(new QPopupMenu(this)),
-	m_accel(new KAccel(this))
+	m_accel(new KAccel(this)),
+	m_moduleOptions( COptionsDialog::getAllModuleOptionDefaults() ),
+	m_displayOptions( COptionsDialog::getAllDisplayOptionDefaults() )
 {		
 
 	for (m_important->swordBackend->getModuleList()->first(); m_important->swordBackend->getModuleList()->current(); m_important->swordBackend->getModuleList()->next()) {

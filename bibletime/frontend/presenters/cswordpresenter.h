@@ -20,6 +20,7 @@
 
 //BibleTime includes
 #include "../../backend/cswordmoduleinfo.h"
+#include "../../backend/cswordbackend.h"
 #include "../../structdef.h"
 #include "../cprofilewindow.h"
 
@@ -158,6 +159,9 @@ protected: // Protected methods
  	QString m_highlightedVerse;
 
  	KAccel* m_accel;
+
+	CSwordBackend::moduleOptionsBool m_moduleOptions;
+	CSwordBackend::displayOptionsBool m_displayOptions;
  	 	  	
 protected slots: // Protected slots
   void lookupWord(int ID);
