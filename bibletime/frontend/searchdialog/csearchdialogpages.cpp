@@ -487,18 +487,29 @@ void CSearchResultPage::reset(){
 
 /** Update the preview of the selected key. */
 void CSearchResultPage::updatePreview(const QString& key){
-  qWarning("update preview");
   if ( CSwordModuleInfo* module = m_moduleListBox->activeModule() ) {
   	if (CEntryDisplay* display = module->getDisplay()) {	//do we have a display object?
       ListCSwordModuleInfo moduleList;
       moduleList.append(module);
-   		m_previewDisplay->setText( display->text( moduleList, key, CBTConfig::getDisplayOptionDefaults(), CBTConfig::getFilterOptionDefaults() ) );
-      m_previewDisplay->moveToAnchor( key );
+
+      //mark the searched text part
+      const QString searchedText = CSearchDialog::getSearchDialog()->searchText();
+      const int searchFlags = CSearchDialog::getSearchDialog()->searchFlags();            
+      const QString content = display->text( moduleList, key, CBTConfig::getDisplayOptionDefaults(), CBTConfig::getFilterOptionDefaults() );
+
+      const QString text = highlightSearchedText(content, searchedText, searchFlags);
+      
+   		m_previewDisplay->setText( text );
+      m_previewDisplay->moveToAnchor( key );      
   	}	
     else
       m_previewDisplay->setText(QString::null);
   }
 }
+
+const QString CSearchResultPage::highlightSearchedText(const QString& content, const QString& searchedText, const int searchFlags) {
+  return content; //not implemented yet
+};
 
 /** Initializes the signal slot conections of the child widgets, */
 void CSearchResultPage::initConnections(){
@@ -679,7 +690,7 @@ void CSearchOptionsPage::chooseModules(){
   CModuleChooserDialog* dlg = new CModuleChooserDialog(this, modules());
   connect(dlg, SIGNAL(modulesChanged(ListCSwordModuleInfo)),
     this, SLOT(setModules(ListCSwordModuleInfo)));
-  dlg->show();
+  dlg->exec();
 }
 
 /** Returns the list of used modules. */
@@ -706,7 +717,6 @@ void CSearchOptionsPage::setOverallProgress( const int progress ){
 
 /** Return the selected search type,. */
 const int CSearchOptionsPage::searchFlags() {
-//  qWarning("CSearchOptionsPage::searchType");
 	int ret = CSwordModuleSearch::multipleWords;	//"multiple words" is standard
 	if (m_exactTextRadio->isChecked()) {
 		ret = CSwordModuleSearch::exactPhrase;
@@ -776,7 +786,6 @@ sword::ListKey CSearchOptionsPage::searchScope(){
   if (m_rangeChooserCombo->currentItem() > 1) { //neither "No Scope" nor "Last search result"
     CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
     QString scope = map[ m_rangeChooserCombo->currentText() ];
-//    qWarning(scope.latin1());
     if (!scope.isEmpty())
       return sword::VerseKey().ParseVerseList( scope.local8Bit(), "Genesis 1:1", true);
   };

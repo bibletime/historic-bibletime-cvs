@@ -72,28 +72,28 @@ static CSearchDialog* m_staticDialog = 0;
 
 void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString& searchText, QWidget* parentDialog) {
   if (!m_staticDialog) {
-    qWarning("create new dialog");
     m_staticDialog = new CSearchDialog(parentDialog);
-    qWarning("Finished: create new dialog");    
   };
   Q_ASSERT(m_staticDialog);
-  qWarning("will resetted!");  
   m_staticDialog->reset();
-  qWarning("resetted!");  
   if (modules.count()) {
     m_staticDialog->setModules(modules);
   } else {
     m_staticDialog->showModulesSelector();
   }
-  qWarning("set text now");  
   m_staticDialog->setSearchText(searchText);
   if (m_staticDialog->isHidden()) {
     m_staticDialog->show();
   }
-  qWarning("raise now");    
+  
   m_staticDialog->raise();
   if (modules.count() && !searchText.isEmpty())
     m_staticDialog->startSearch();
+};
+
+CSearchDialog* const CSearchDialog::getSearchDialog() {
+  Q_ASSERT(m_staticDialog);
+  return m_staticDialog;
 };
 
 CSearchDialog::CSearchDialog(QWidget *parent)
@@ -112,7 +112,7 @@ CSearchDialog::~CSearchDialog(){
 
 /** Starts the search with the set modules and the set search text. */
 void CSearchDialog::startSearch(){
-  qWarning("CSearchDialog::startSearch()");
+//  qWarning("CSearchDialog::startSearch()");
   QString searchText(m_searchOptionsPage->searchText());
 
   if (searchText.isEmpty()) return;
@@ -168,6 +168,23 @@ const QString CSearchDialog::searchText(){
   return m_searchOptionsPage->searchText();
 }
 
+sword::ListKey CSearchDialog::searchScope(){
+  qWarning("CSearchDialog::searchScope()");
+  return m_searchOptionsPage->searchScope();
+};
+
+/** Returns true if the search used a scope, otherwise false. */
+const CSwordModuleSearch::scopeType CSearchDialog::searchScopeType() const {
+  qWarning("CSearchDialog::searchScopeType()");
+  return m_searchOptionsPage->scopeType();
+}
+
+/** Returns true if the search used a scope, otherwise false. */
+const int CSearchDialog::searchFlags() const {
+  qWarning("CSearchDialog::searchFlags()");
+  return m_searchOptionsPage->searchFlags();
+}
+  
 /** Returns the search text which is used for the search. */
 void CSearchDialog::setSearchText( const QString searchText ){
   m_searchOptionsPage->setSearchText(searchText);
@@ -218,7 +235,7 @@ void CSearchDialog::showModulesSelector() {
 
 /** Initializes the signal slot connections */
 void CSearchDialog::initConnections(){
-  qWarning("CSearchDialog::initConnection()");
+//  qWarning("CSearchDialog::initConnection()");
   connect(this, SIGNAL(user1Clicked()), SLOT(startSearch()));
   connect(this, SIGNAL(user2Clicked()), SLOT(interruptSearch()));
   connect(this, SIGNAL(closeClicked()), SLOT(slotDelayedDestruct()));  
@@ -257,7 +274,7 @@ void CSearchDialog::slotShowPage(QWidget* page){
 
 /** Reimplementation. */
 void CSearchDialog::slotClose(){
-  qWarning("delayed destruction");
+//  qWarning("delayed destruction");
   delayedDestruct();
   m_staticDialog = 0;
 }
@@ -1124,8 +1141,6 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
 
 /** No descriptions */
 void CSearchAnalysis::saveAsHTML(){
-  qWarning("save search analysis as HTML!");
-
  	const QString file = KFileDialog::getSaveFileName(QString::null, QString::fromLatin1("*.html | %1").arg(i18n("HTML files")), 0, i18n("Save Search Analysis"));
 	if (file.isNull()) {
     return;
@@ -1143,23 +1158,23 @@ void CSearchAnalysis::saveAsHTML(){
 
  	key.key("Genesis 1:1");
 
-// 	if (m_searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) {
-// 		sword::ListKey verses = m_searcher.scope();
-// 		for (int i = 0; i < verses.Count(); ++i) {
-// 			sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
-// 			if (element) {
-// 				VerseRange += QString("%1 - %2").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound())) + "<br>";
-// 			}
-// 		}
-// 	}
+ 	if (CSearchDialog::getSearchDialog()->searchScopeType() != CSwordModuleSearch::Scope_NoScope) { //a search scope was used
+ 		sword::ListKey verses = CSearchDialog::getSearchDialog()->searchScope();
+ 		for (int i = 0; i < verses.Count(); ++i) {
+ 			if ( sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i)) ) {
+ 				VerseRange += QString("%1 - %2")
+          .arg(QString::fromLocal8Bit((const char*)element->LowerBound()))
+          .arg(QString::fromLocal8Bit((const char*)element->UpperBound())) + "<br>";
+ 			}
+ 		}
+ 	}
 
-// 	QDict<CSearchDialogAnalysisItem>* searchAnalysisItems = m_canvasItemList;
  	CSearchAnalysisItem* analysisItem = m_canvasItemList.find( key.book() );
 
   QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n";
- 	text += "<table>\n<tr><th>" + i18n("Search Text :") + "</th><th>" + /*m_searchText->getText() +*/ "</th></tr>\n";
+ 	text += "<table>\n<tr><th>" + i18n("Search Text :") + "</th><th>" + CSearchDialog::getSearchDialog()->searchText() + "</th></tr>\n";
  	text += "<tr><th>" + i18n("Search Type :") + "</th><th>" + /*m_searchText->getSearchTypeString() +*/ "</th></tr>\n";
-// 	text += "<tr><th>" + i18n("Search Scope:") + "</th><th>" + ((m_searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) ? VerseRange : m_searchText->scopeChooser->getScopeTypeString()) + "</th></tr>\n</table>\n<br>\n";
+ 	text += "<tr><th>" + i18n("Search Scope:") + "</th><th>" + ((CSearchDialog::getSearchDialog()->searchScopeType() != CSwordModuleSearch::Scope_NoScope) ? VerseRange : "no") + "</th></tr>\n</table>\n<br>\n";
 
 
   tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";

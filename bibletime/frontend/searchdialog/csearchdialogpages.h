@@ -217,6 +217,10 @@ protected: // Protected methods
   * Initializes the signal slot conections of the child widgets
   */
   void initConnections();
+  /**
+  * This function highlights the searched text in the content using the search type given by search flags
+  */
+  const QString highlightSearchedText(const QString& content, const QString& searchedText, const int searchFlags);
 
 private:
   CModuleResultView* m_moduleListBox;

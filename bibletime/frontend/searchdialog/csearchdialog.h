@@ -61,6 +61,13 @@ public:
   static void openDialog(const ListCSwordModuleInfo modules, const QString& searchText = QString::null, QWidget* parentDialog = 0);
 
 protected:
+  friend class CSearchAnalysis;
+  friend class CSearchResultPage;  
+  /**
+  * Only interesting for the class members! Useful to get the searched text etc.
+  */
+  static CSearchDialog* const getSearchDialog();
+
   /**
   * The cinstructor of the dialog. It's protected because you should use the static public function openDialog.
   * The dialog destroys itself if it was closed.
@@ -92,6 +99,18 @@ protected:
   * Returns the search text which is set currently.
   */
   const QString searchText();
+  /**
+  * Returns the used search scope as a list key
+  */
+  sword::ListKey CSearchDialog::searchScope();
+  /**
+  * Returns true if the search used a scope, otherwise false.
+  */
+  const CSwordModuleSearch::scopeType searchScopeType() const;  
+  /**
+  * Returns they type of search which is set
+  */
+  const int searchFlags() const;
   /**
   * Resets the parts to the default.
   */
