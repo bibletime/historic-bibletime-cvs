@@ -61,6 +61,10 @@ public:
   * Sets a new key to this keychooser
   */
   virtual void setKey(CSwordKey*);
+  /**
+  * Sets a new key to this keychooser
+  */
+  void setKey(CSwordKey*, const bool emitSignal);
 
 private:
 	QList<CKeyChooserWidget> m_chooserWidgets;	
@@ -80,6 +84,9 @@ protected slots:
   */
   void keyChooserChanged(int);
 
+public slots: // Public slots
+  /** Updates the keychoosers for the given key but emit no signal. */
+  void updateKey(CSwordKey*);
 };
 
 #endif

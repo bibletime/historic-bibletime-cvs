@@ -95,3 +95,7 @@ void CLexiconKeyChooser::setModule( CSwordModuleInfo* module) {
 		refreshContent();
 	}
 }
+
+/** No descriptions */
+void CLexiconKeyChooser::updateKey(CSwordKey* key){
+}

@@ -80,6 +80,9 @@ protected:
 	CSwordLDKey* m_key;
 	CSwordLexiconModuleInfo	*m_module;	
 	QHBoxLayout *m_layout;
+public slots: // Public slots
+  /** No descriptions */
+  virtual void updateKey(CSwordKey* key);
 };
 
 #endif

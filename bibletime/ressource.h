@@ -132,6 +132,8 @@
 #define IDK_PRESENTER_EDIT_ITALIC				CTRL+Key_I
 #define IDK_PRESENTER_EDIT_UNDERLINE		CTRL+Key_U
 
+#define IDK_PRESENTER_TOGGLE_TREE				CTRL+Key_T
+
 #define IDK_WINDOW_CASCADE							CTRL+Key_A
 #define IDK_WINDOW_TILE									CTRL+Key_T
 #define IDK_WINDOW_AUTO_CASCADE					CTRL+ALT+Key_A
@@ -181,6 +183,8 @@
 #define ICON_EDIT_RIGHT "text_right"
 #define ICON_EDIT_JUST "text_block"
 
+#define ICON_VIEW_BOOKTREE "view_sidetree"
+
 #define ICON_MAININDEX_RESET "start"
 #define ICON_MAININDEX_SEARCH "find"
 #define ICON_MAININDEX_DELETE_ITEMS ICON_FILE_DELETE
@@ -218,6 +222,11 @@
 #define BIBLE_ICON_MC	LOAD_MC_ICON("bt_bible")
 #define BIBLE_LOCKED_ICON_SMALL	LOAD_SMALL_ICON("bt_bible_locked")
 #define BIBLE_ADD_ICON_MC	LOAD_MC_ICON("bt_bible_add")
+
+#define BOOK_ICON_SMALL	LOAD_SMALL_ICON("bt_bible")
+#define BOOK_ICON_MC	LOAD_MC_ICON("bt_bible")
+#define BOOK_LOCKED_ICON_SMALL	LOAD_SMALL_ICON("bt_bible_locked")
+#define BOOK_ADD_ICON_MC	LOAD_MC_ICON("bt_bible_add")
 
 #define COMMENTARY_ICON_SMALL	LOAD_SMALL_ICON("bt_commentary")
 #define COMMENTARY_ICON_MC LOAD_MC_ICON("bt_commentary")

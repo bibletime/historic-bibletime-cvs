@@ -285,3 +285,7 @@ void CBibleKeyChooser::verseFocusOut(int /*index*/){
 	m_key->Verse( w_verse->comboBox()->currentText().toInt() );
 	setKey( m_key );	
 }
+
+/** No descriptions */
+void CBibleKeyChooser::updateKey(CSwordKey* key){
+}

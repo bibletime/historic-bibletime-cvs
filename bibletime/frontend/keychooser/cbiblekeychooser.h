@@ -98,6 +98,8 @@ public slots:
  	* see @ref bookPrevRequested
  	*/
   void verseNextRequested(void);
+  /** No descriptions */
+  void updateKey(CSwordKey* key);
 
 private:
 	CKeyChooserWidget* w_book;

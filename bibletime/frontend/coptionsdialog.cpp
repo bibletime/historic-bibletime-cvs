@@ -22,6 +22,7 @@
 #include "presenters/cbiblepresenter.h"
 #include "presenters/ccommentarypresenter.h"
 #include "presenters/clexiconpresenter.h"
+#include "presenters/cbookpresenter.h"
 #include "../ressource.h"
 #include "../whatsthisdef.h"
 #include "../backend/cswordbackend.h"
@@ -398,7 +399,21 @@ void COptionsDialog::initAccelerators(){
  	m_settings.keys.lexicon.keyChooser = new KKeyChooser( &m_settings.keys.lexicon.dict, currentTab, false );	
  	QToolTip::add(m_settings.keys.lexicon.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 	QWhatsThis::add(m_settings.keys.lexicon.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
-					
+
+	
+// ----- new tab: Lexicon windows ------ //
+	currentTab = new QVBox(tabCtl);
+	currentTab->setMargin(3);	
+	tabCtl->addTab(currentTab, i18n("Book windows"));
+
+	m_settings.keys.book.accel = new KAccel(this); //delete in destructor
+	CBookPresenter::insertKeyboardActions( m_settings.keys.book.accel );		
+	m_settings.keys.book.accel->readSettings();	 	
+ 	m_settings.keys.book.dict = m_settings.keys.book.accel->keyDict(); 	
+ 	m_settings.keys.book.keyChooser = new KKeyChooser( &m_settings.keys.book.dict, currentTab, false );	
+// 	QToolTip::add(m_settings.keys.book.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
+//	QWhatsThis::add(m_settings.keys.book.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
+						
 }
 
 /** Init Sword section. */
@@ -690,6 +705,9 @@ void COptionsDialog::saveAccelerators(){
 		
  	m_settings.keys.lexicon.accel->setKeyDict( m_settings.keys.lexicon.dict );					
  	m_settings.keys.lexicon.accel->writeSettings();
+
+ 	m_settings.keys.book.accel->setKeyDict( m_settings.keys.book.dict );					
+ 	m_settings.keys.book.accel->writeSettings(); 	 	
 }
 
 /** No descriptions */

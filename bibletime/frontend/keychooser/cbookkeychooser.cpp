@@ -23,19 +23,16 @@
 #include <qlayout.h>
 
 CBookKeyChooser::CBookKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent, const char *name)
-	: CKeyChooser(module, key, parent,name)
-{
-	qWarning("CBookKeyChooser::CBookKeyChooser");
+	: CKeyChooser(module, key, parent,name) {
 	if ( module && (module->type() == CSwordModuleInfo::GenericBook) ) {
 		m_module = dynamic_cast<CSwordBookModuleInfo*>(module);		
-		m_key = dynamic_cast<CSwordTreeKey*>(/*CSwordKey::createInstance(m_module)*/key);
+		m_key = dynamic_cast<CSwordTreeKey*>(key);
 	}
 	else {
 		m_module = 0;
 		m_key = 0;
 	}		
-	ASSERT(m_key);
-	
+
 	//now setup the keychooser widgets
 	if (m_module && m_key) {
 		QHBoxLayout* layout = new QHBoxLayout(this);
@@ -52,36 +49,29 @@ CBookKeyChooser::CBookKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidg
 }
 
 CBookKeyChooser::~CBookKeyChooser(){
-//	delete m_key;
-//	m_key = 0;	
+}
+
+void CBookKeyChooser::setKey(CSwordKey* newKey){
+	setKey(newKey, true);
 }
 
 /** Sets a new key to this keychooser */
-void CBookKeyChooser::setKey(CSwordKey* newKey){
-	qWarning("CBookKeyChooser::setKey(CSwordKey* newKey)");
+void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 	if (m_key != newKey )
 		m_key = dynamic_cast<CSwordTreeKey*>(newKey);
-	ASSERT(m_key);
 	const QString oldKey = m_key->key();
-	qWarning("CBookKeyChooser::setKey: %s", oldKey.latin1());
-	
 	QStringList siblings;
 	if (m_key && !oldKey.isEmpty())
 		siblings = QStringList::split("/",oldKey,false);
-	
-	bool ok = true;
+
 	int depth = 0;
 	int index = 0;
 	
-	qWarning("CBookKeyChooser::setKey before setRoot");
 	m_key->root();
-	m_key->firstChild();
-	
-	qWarning("CBookKeyChooser::setKey: before loop");	
-	do {
+	while(m_key->firstChild() && (depth <= siblings.count())) {
 		const QString key = m_key->key();
 		index = 0;
-		QString sibling = siblings[depth];
+		const QString sibling = siblings[depth];
 		if (!sibling.isEmpty()) { //found it
 			bool found = false;			
 			do {
@@ -92,8 +82,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 				m_key->key( key );
 		}	
 		setupCombo(key, depth++, index);		
-	}	while(m_key->firstChild() && (depth-1 < siblings.count()));
-	qWarning("CBookKeyChooser::setKey: after loop");
+	}
 	
 	//clear the combos which were not filled
 	for (; depth < m_module->depth(); ++depth)  {
@@ -106,41 +95,35 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 		m_key->root();
 	else
 		m_key->key(oldKey);
-	qWarning("CBookKeyChooser::setKey:before emit");		
-	emit keyChanged(m_key);
-	qWarning("CBookKeyChooser::setKey: after emit");			
-
-	qWarning("CBookKeyChooser::setKey: finished!");					
+	
+	if (emitSignal)
+		emit keyChanged(m_key);
 }
 
 /** Returns the key of this kechooser. */
 CSwordKey* CBookKeyChooser::key(){
-	qWarning("CBookKeyChooser::key()");
 	return m_key;
 }
 
 /** Sets another module to this keychooser */
 void CBookKeyChooser::setModule(CSwordModuleInfo* module){
-	qWarning("CBookKeyChooser::setModule(CSwordModuleInfo* module)");
 }
 
 /** Refreshes the content. */
 void CBookKeyChooser::refreshContent(){
-	qWarning("CBookKeyChooser::refreshContent()");
 	if (m_key)
 		setKey( m_key ); //refresh with current key
 }
 
 void CBookKeyChooser::setupCombo(const QString key, const int depth, const int currentItem){
-	qWarning("CBookKeyChooser::setupCombo");
 	CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth);
-	ASSERT(chooserWidget);	
-	if (depth == 0 && chooserWidget && chooserWidget->comboBox()->count()) {
-//		CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth);
-//		ASSERT(chooserWidget);
-//		if (chooserWidget) {
-//			chooserWidget->setItem( chooserWidget->comboBox()->text(currentItem) );
-//		};
+	if (depth == 0 && chooserWidget && chooserWidget->comboBox()->count()) { //has already items
+		//set now the right item		
+		CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(depth);
+		ASSERT(chooserWidget);
+		if (chooserWidget) {
+			chooserWidget->setItem( chooserWidget->comboBox()->text(currentItem) );
+		}
 		return;
 	}
 	
@@ -154,22 +137,17 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 		items << QString::fromLocal8Bit(m_key->getLocalName());
 	}
 	while (m_key->nextSibling());
-	qWarning("setupCombo: finished while loop");
 		
 	if (chooserWidget) {
-		qWarning("setupCombo: reset chooserWidget");
 		chooserWidget->reset(items,currentItem,false);
 	}
 	
 	//restore old key
-	qWarning("setupCombo: restore old key!");
 	m_key->key(oldKey);	
-	qWarning("setupCombo: finished!");
 }
 
 /** A keychooser changed. Update and emit a signal if necessary. */
 void CBookKeyChooser::keyChooserChanged(int newIndex){
-	qWarning("CBookKeyChooser::keyChooserChanged(int newIndex)");
 	QStringList items;
 	CKeyChooserWidget* chooser;
 	const int count = m_chooserWidgets.count();
@@ -184,8 +162,11 @@ void CBookKeyChooser::keyChooserChanged(int newIndex){
 	if (newKey.length() > 1)
 		newKey.remove(newKey.length(),1); //remove the traling slash
 	
-	ASSERT(m_key);	
 	m_key->key(newKey);	
 	setKey(m_key);
-	qWarning("CBookKeyChooser::keyChooserChanged finished");	
+}
+
+/** Updates the keychoosers for the given key but emit no signal. */
+void CBookKeyChooser::updateKey(CSwordKey* key){
+	setKey(key, false);
 }

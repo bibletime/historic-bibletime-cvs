@@ -18,8 +18,13 @@
 #ifndef CBOOKTREECHOOSER_H
 #define CBOOKTREECHOOSER_H
 
+
+/** The treechooser implementation for books.
+  * @author The BibleTime team
+  */
 //BibleTime includes
 #include "ckeychooser.h"
+#include "ckeychooserwidget.h"
 
 //Sword includes
 
@@ -30,57 +35,65 @@
 #include <qlist.h>
 #include <qstringlist.h>
 
+//KDE includes
+#include <klistview.h>
+
 class CSwordKey;
 class CSwordBookModuleInfo;
 class CSwordTreeKey;
 
 class TreeKeyIdx;
 
-/** The keychooser implementation for books.
+/** The keychooser implementeation for books.
   * @author The BibleTime team
   */
 class CBookTreeChooser : public CKeyChooser  {
    Q_OBJECT
-public: 
+public:
 	CBookTreeChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 	~CBookTreeChooser();
-
-public slots:
-	/**
-	* see @ref CKeyChooser::getKey
-	*/
-	CSwordKey* key();
-	/**
-	* see @ref CKeyChooser::setKey
-	*/
-	void setKey(CSwordKey *key);
   /**
- 	* Reimplementation
- 	*/
-  virtual QSize sizeHint();
-  /**
-  * Sets te module and refreshes the combos
+  * Refreshes the content.
   */
-  virtual void setModule(CSwordModuleInfo* module);
+  virtual void refreshContent();
   /**
- 	* Reimplementation.
- 	*/
-  void refreshContent();
+  * Sets another module to this keychooser
+  */
+  virtual void setModule(CSwordModuleInfo*);
+  /**
+  * Returns the key of this kechooser.
+  */
+  virtual CSwordKey* key();
+  /**
+  * Sets a new key to this keychooser
+  */
+  virtual void setKey(CSwordKey*);
+  void setKey(CSwordKey*, const bool emitSinal);
 
 private:
-//	QList<CKeyChooserWidget> m_chooserWidgets;	
+	class TreeItem : public KListViewItem {
+		public:
+			TreeItem(QListViewItem* parent, QListViewItem* after, const QString caption, const QString key);
+			TreeItem(QListViewItem* parent, const QString caption, const QString key);			
+			TreeItem(QListView* view,QListViewItem* after, const QString caption, const QString key);						
+			const QString& key() const;
+		private:
+			QString m_key;
+	};
+
 	CSwordBookModuleInfo	*m_module;
 	CSwordTreeKey *m_key;
-	QStringList m_topElements;
+	KListView* m_treeView;
 
 protected: // Protected methods
-  /**
-  * Sets up the entries of the given key chooser.
-  */
-  void setupKeyChooser(const int number, TreeKeyIdx* tree);
-
+  /** Set up the tree with the current level of key. */
+  void setupTree( QListViewItem* parent,QListViewItem* after, CSwordTreeKey* key );
 protected slots: // Protected slots
-  void keyChooserChanged(int);
+  /** No descriptions */
+  void itemClicked( QListViewItem* item );
+public slots: // Public slots
+  /** No descriptions */
+  virtual void updateKey( CSwordKey* );
 };
 
 #endif

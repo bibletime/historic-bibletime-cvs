@@ -64,6 +64,11 @@ public slots:
 	*/
 	virtual void setKey(CSwordKey* key) = 0;
 	/**
+	* sets the @ref CKey
+	* @param key the key which the widget should be set to
+	*/
+	virtual void updateKey(CSwordKey* key) = 0;	
+	/**
 	* gets the current @ref CKey
 	*
 	* @return the current @ref CKey

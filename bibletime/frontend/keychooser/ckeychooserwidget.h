@@ -68,9 +68,6 @@ signals:
   * Emitted when the user moves the focus away from the combo by pressing tab
   */
 	void focusOut(int itemIndex);
-
-//private:
-//	QMap<int, unsigned long int> m_userDataMap;
 };
 
 /**

@@ -111,7 +111,7 @@ private:
 			WindowType bible;
 			WindowType commentary;
 			WindowType lexicon;
-						
+			WindowType book;
 		} keys;
 		
 		struct ColorSettings {

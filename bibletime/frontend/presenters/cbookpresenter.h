@@ -23,12 +23,15 @@
 
 
 class CSwordTreeKey;
+class KToggleAction;
 
 /**Creates a presenter object for generic book support.
   *@author The BibleTime team
   */
 
 class KAccel;
+
+class CBookTreeChooser;
 
 class CBookPresenter : public CSwordPresenter  {
    Q_OBJECT
@@ -59,13 +62,14 @@ protected: // Protected methods
 	
 protected slots:
 	void modulesChanged();
-  /**
-  * renders text and set it to the HTML widget
-  */
   void lookup(CSwordKey*);	
+  void treeToggled();
+  void printEntry();
 
 private:
 	CSwordTreeKey* m_key;
+	CBookTreeChooser* m_treeChooser;
+	KToggleAction* m_treeAction;
 };
 
 #endif
