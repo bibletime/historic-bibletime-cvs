@@ -3,6 +3,7 @@ libfrontend_a_METASOURCES = AUTO
 noinst_LIBRARIES = libfrontend.a
 
 libfrontend_a_SOURCES = \
+btinstallmgr.cpp \
 chtmldialog.cpp \
 cbtconfig.cpp \
 cinputdialog.cpp \
@@ -19,6 +20,7 @@ ctooltip.cpp \
 cdragdropmgr.cpp
 
 all_headers = cmdiarea.h \
+btinstallmgr.h \
 chtmldialog.h \
 cbtconfig.h \
 cinputdialog.h \

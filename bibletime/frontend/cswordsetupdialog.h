@@ -20,6 +20,8 @@
 
 #include "cbtconfig.h"
 #include "util/cpointers.h"
+#include "btinstallmgr.h"
+
 
 //QT includes
 //#include <qwidget.h>
@@ -40,7 +42,6 @@
 
 
 //Sword includes
-#include <installmgr.h>
 
 class QWidget;
 class QLabel;
@@ -53,7 +54,7 @@ class QButton;
 //class QRadioButton;
 //class KListBox;
 //class KKeyChooser;
-//class KTabCtl;
+class KProgressDialog;
 
 /**
 	* The Sword configuration dialog of BibleTime
@@ -77,8 +78,6 @@ public:
 private:
   void initInstall();
 	void initRemove();
-  void loadSourceLocations();
-  void saveSourceLocations();
   void determineTargetLocations();
   void populateInstallCombos();
 
@@ -94,7 +93,6 @@ private:
 	QComboBox* m_sourceCombo;
 	QComboBox* m_targetCombo;
 
-	QMap<QString, QString> m_sourceMap;
 	QMap<QString, QString> m_targetMap;
 
 	QListView* m_removeModuleListView;
@@ -110,19 +108,20 @@ private:
   QButton* m_installContinueButton;
  	QWidget* m_installModuleListPage;
  	QListView* m_installModuleListView;
-  sword::InstallMgr* m_installMgr;
-  QString m_installSourceName;
-  
+//  QString m_installSourceName;
+  KProgressDialog* m_progressDialog;
+    
 private slots:
   void slot_sourceSelected(const QString &sourceName);
   void slot_targetSelected(const QString &targetName);
   void slot_doRemoveModules();
-
-protected slots: // Protected slots
 	void slotOk();
 	void slotApply();
   void slot_connectToSource();
   void slot_installModules();
+
+  /** No descriptions */
+  void installCompleted( const int, const int );
 
 signals: // Signals
   void signalSwordSetupChanged();

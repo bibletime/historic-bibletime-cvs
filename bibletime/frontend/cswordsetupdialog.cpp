@@ -66,6 +66,7 @@
 //#include <kconfigbase.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
+#include <kprogress.h>
 
 //Sword includes
 #include <installmgr.h>
@@ -80,6 +81,7 @@ using std::endl;
 CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* accel )
 	: KDialogBase(IconList, i18n("Sword configuration"), Ok/* | Cancel | Apply*/, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
+  m_progressDialog = 0;
 	setIconListAllVisible(true);
 
 	QFrame* page = addPage(i18n("Sword Path"), QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
@@ -106,7 +108,7 @@ void CSwordSetupDialog::initInstall(){
   m_installWidgetStack->addWidget(page);
 
 //Add step 1
-	loadSourceLocations();
+//	loadSourceLocations();
 //	saveSourceLocations();
 	determineTargetLocations();
 
@@ -157,6 +159,8 @@ void CSwordSetupDialog::initInstall(){
   connect(m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
 	myHBox->addWidget(m_installContinueButton, 7, 1);
 
+//  m_installMgr = new BTInstallMgr();
+  
 //	connect(backButton, SIGNAL(clicked() ), m_main, SLOT(slot_backtoMainPage()));
 	connect(m_sourceCombo, SIGNAL( highlighted(const QString&) ), SLOT( slot_sourceSelected( const QString&) ));
 	connect(m_targetCombo, SIGNAL( highlighted(const QString&) ), SLOT( slot_targetSelected( const QString&) ));
@@ -240,64 +244,33 @@ const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID ){
 
 /** No descriptions */
 void CSwordSetupDialog::populateInstallCombos(){
-	QMap<QString, QString>::Iterator it;
+  qWarning("CSwordSetupDialog::populateInstallCombos()");
 	m_sourceCombo->clear();
 	m_targetCombo->clear();
 
-	for (it=m_sourceMap.begin(); it!=m_sourceMap.end(); it++)
-		m_sourceCombo->insertItem(it.key());
-	slot_sourceSelected(m_sourceCombo->currentText());
+  BTInstallMgr mgr;
+  qWarning("add=source loop");
+  BTInstallMgr::Tool::initConfig();
 
-	for (it=m_targetMap.begin(); it!=m_targetMap.end(); it++)
-		m_targetCombo->insertItem(it.key());
-	slot_targetSelected(m_targetCombo->currentText());
-}
-
-/** No descriptions */
-void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
-	m_sourceLabel->setText( m_sourceMap[sourceName] );
-  source = m_sourceMap[sourceName];
-}
-/** No descriptions */
-void CSwordSetupDialog::slot_targetSelected(const QString &targetName){
-	m_targetLabel->setText( m_targetMap[targetName] );
-  target = m_targetMap[targetName];
-}
-
-/** No descriptions */
-void CSwordSetupDialog::loadSourceLocations(){
-
-	KConfig config("bibletime-swordsetup");
-  QString sources = config.readEntry("sources");
-	m_sourceMap.clear();
-
-	if ( sources.isEmpty() ){ //default values
-		m_sourceMap["Crosswire ftp server"]="ftp://crosswire.org/pub/sword/";
-		m_sourceMap["Crosswire ftp server beta area"]="ftp://crosswire.org/pub/sword/betaraw/";
-		m_sourceMap["Sword CD"]="file://cdrom/";
-	}
-  else{ //insert saved values
-    QStringList sourceList = QStringList::split("||", sources, true /*allowEmptyEntries*/);
-		int count = sourceList.size();
-		if (count % 2) count--; //make count even, cutting off uneven entries
-		for (int i=0; i < count; i += 2){
-			m_sourceMap[ sourceList[i] ] = sourceList[i+1];
-//			qWarning("current items: %s %s",(const char*)sourceList[i].utf8(),(const char*)sourceList[i+1].utf8());
-		}
+  QStringList list = BTInstallMgr::Tool::sourceList(&mgr);
+  for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
+    qWarning("added source %s", (*it).latin1());
+    m_sourceCombo->insertItem( *it );
   }
 }
 
 /** No descriptions */
-void CSwordSetupDialog::saveSourceLocations(){
-	QMap<QString, QString>::Iterator it;
-	QString sources;
+void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
+  BTInstallMgr mgr;
 
-	for (it=m_sourceMap.begin(); it!=m_sourceMap.end(); it++)
-		sources += it.key() + "||" + it.data() + "||";
+  m_sourceLabel->setText( BTInstallMgr::Tool::source(&mgr, sourceName)->directory.c_str() );
+//  source = m_sourceMap[sourceName];
+}
 
-	KConfig config("bibletime-swordsetup");
-	config.writeEntry("sources", sources);
-//	qWarning("saveSources: %s", (const char*)sources.utf8());
+/** No descriptions */
+void CSwordSetupDialog::slot_targetSelected(const QString &targetName){
+	m_targetLabel->setText( m_targetMap[targetName] );
+  target = m_targetMap[targetName];
 }
 
 /** No descriptions */
@@ -445,11 +418,14 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   categoryLexicon->setOpen(true);
   categoryBook->setOpen(true);
   
-  sword::InstallSource* is = m_installMgr->sources.find(sourceName.latin1())->second;
+  BTInstallMgr iMgr;
+  sword::InstallSource* is = BTInstallMgr::Tool::source(&iMgr, sourceName);
   Q_ASSERT(is);
-//  m_installMgr->refreshRemoteSource( is );
+    
+  iMgr.refreshRemoteSource( is );
   sword::SWMgr* mgr = is->getMgr();
   Q_ASSERT(mgr);
+  
 
   QListViewItem* parent = 0;
   for (sword::ModMap::iterator it = mgr->Modules.begin(); it != mgr->Modules.end(); it++) {
@@ -496,22 +472,9 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 /** Connects to the chosen source. */
 void CSwordSetupDialog::slot_connectToSource(){
 //init config -- just for testing!
-  sword::InstallSource source("FTP");
-  source.caption = "Crosswire Public";
-  source.source = "ftp.crosswire.org";
-  source.directory = "/pub/sword/raw";
 
-  KStandardDirs stdDirs;
-  const QString configPath = stdDirs.saveLocation("data", "bibletime/InstallMgr/");
-
-  QString configFilePath = configPath + "InstallMgr.conf";
-  sword::SWConfig config(configFilePath.latin1());
-  config["General"]["PassiveFTP"] = "false";
-  config["Sources"]["FTPSource"] = source.getConfEnt();
-  config.Save();
-
-  qWarning(configPath.latin1());
-  m_installMgr = new sword::InstallMgr(configPath.latin1());
+//  qWarning(m_configPath.latin1());
+//  m_installMgr = new BTInstallMgr();
 
   //at this point we have the remote module list
 	m_installModuleListPage = new QWidget(0);
@@ -532,10 +495,8 @@ void CSwordSetupDialog::slot_connectToSource(){
   disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
   connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
 
-  populateInstallModuleListView("Crosswire Public");
-  m_installSourceName = "Crosswire Public";
+  populateInstallModuleListView( m_sourceCombo->currentText() );
   m_installContinueButton->setText(i18n("Install modules"));
-
   m_installContinueButton->setEnabled(true);
 
 }
@@ -568,17 +529,27 @@ void CSwordSetupDialog::slot_installModules(){
 	else if ((KMessageBox::warningYesNo(0, message, "Warning") == KMessageBox::Yes)){  //Yes was pressed.
     qWarning("proceeding");
     
-    sword::InstallSource* is = m_installMgr->sources.find(m_installSourceName.latin1())->second;
+    BTInstallMgr mgr;
+    sword::InstallSource* is = BTInstallMgr::Tool::source(&mgr, m_sourceCombo->currentText());
     Q_ASSERT(is);
-//    sword::SWMgr* mgr = is->getMgr();
-//    Q_ASSERT(mgr);
 
-//    sword::SWMgr lMgr("/usr/share/sword/");
+    m_progressDialog = new KProgressDialog();
+    m_progressDialog->progressBar()->setTotalSteps(100);
+    connect(&mgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
     //module are removed in this section of code
   	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
       qWarning("in install loop fo module %s", (*it).latin1());
-      m_installMgr->installModule(backend(), 0, (*it).latin1(), is);
+      mgr.installModule(backend(), 0, (*it).latin1(), is);
       qWarning("Installed module: [%s]" , (*it).latin1());
     }
+  }
+}
+
+/** No descriptions */
+void CSwordSetupDialog::installCompleted( const int total, const int file ){
+  qWarning("percent completed %f", total);
+  if (m_progressDialog) {
+    m_progressDialog->progressBar()->setProgress(total);
+    m_progressDialog->setLabel( QString("%1 file percent and %2 in total completed").arg(file).arg(total) );  
   }
 }
