@@ -28,10 +28,10 @@
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 
 <copyright>
-<year>2001</year><year>2002</year><year>2003</year>
+<year>2001</year><year>2002</year><year>2003</year><year>2004</year>
 <holder>The team of &bibletime;, info@bibletime.info</holder>
 </copyright><copyright>
-<year>2001</year><year>2002</year><year>2003</year>
+<year>2001</year><year>2002</year><year>2003</year><year>2004</year>
 <holder>Bob Harman</holder>
 </copyright>
 
@@ -39,13 +39,13 @@
 The copyright of this text is held by the author Bob Harman.  The text was adapted for
 publication with BibleTime by Fred Saalbach.</para>
 
-<para> Non exclusive serial rights for this distribution of
-this document with the &bibletime; Software have been made. Redistribution as part
+<para>Non exclusive serial rights for this distribution of
+this document with the &bibletime; software have been made. Redistribution as part
 of the Bibletime software without modification and limited reproduction
 as provided by the "fair use" provisions of the US copyright code are
 also permitted.</para>
 
-<para> For questions regarding the use of this
+<para>For questions regarding the use of this
 material contact Bob Harman c/o New Covenant Church 1079 Big Bethel Rd. Hampton
 VA 23666 USA <email>ncc@ncchampton.org</email>.</para>
 
@@ -53,8 +53,8 @@ VA 23666 USA <email>ncc@ncchampton.org</email>.</para>
 </legalnotice>
 
 
-<date>10/23/2001</date>
-<releaseinfo>1.01.00</releaseinfo>
+<date>06/16/2004</date>
+<releaseinfo>1.02.00</releaseinfo>
 
 
 <abstract>
