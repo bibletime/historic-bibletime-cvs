@@ -227,7 +227,7 @@ for DOC_PO_PART in handbook howto; do
 		echo -e $HEADER
 		echo
 		echo 'merge:'
-		echo '	for cat in *.po"; do \'
+		echo '	for cat in *.po; do \'
 		echo '	name=../../../bibletime/pot/'$DOC_PO_PART'.pot ; \'
 		echo '		echo $$cat $$name; \'
 		echo '		msgmerge $$cat $$name > $$cat.new; \'
