@@ -460,8 +460,9 @@
 
 
 	<section id="hdbk-bars-menubar"><title>Menubar</title>
-	<para>Later</para>
-	</section>
+	<para>Various features of bibletime are accessed by way of 
+	drop down menus from the menubar.</para>
+
 	
 
 	<section id="hdbk-bars-menubar-file"><title>File</title>
@@ -481,6 +482,13 @@
 	<listitem>
 	<para>This menu item launches the <guilabel>printdialog</guilabel> box.
 	From here you will select print or view as for any other &kde; application.</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>
+	Quit</term>
+	<listitem>
+	<para>Closes &bibletime;</para>
 	</listitem>
 	</varlistentry>
 	</variablelist>
@@ -515,37 +523,25 @@
 	</para>
 	</section>
 
-	<section id="hdbk-bars-menubar-mainindex"><title>Main Index</title>
+	<section id="hdbk-bars-menubar-mainindex"><title>View</title>
 	<para>
 
 	<variablelist>
-	<varlistentry><term>Search in module(s)</term>
+	<varlistentry><term>Search in default Bible</term>
 	<listitem>
 	<para>
-	If <guimenuitem>Search in module(s)</guimenuitem> is selected,
-	<guilabel>search dialog</guilabel> is displayed.  Any selected documents
-	from the left pane are preselected on the choose modules tab.
+	If <guimenuitem>Search in default Bible</guimenuitem> is selected,
+	<guilabel>search dialog</guilabel> is displayed with the default 
+	Bible selected as the search parameter.
 	</para>
 	</listitem>
 	</varlistentry>
-	<varlistentry><term>Reset Main Index</term>
+	<varlistentry><term>Search in open module(s)</term>
 	<listitem>
 	<para>
-	If <guimenuitem>Reset Main Index</guimenuitem> is selected,
-	the <guilabel>Main Index</guilabel> in the left pane will be rebuilt.
-	Any customization in the <guilabel>main index</guilabel> and bookmarks
-	will be deleted.
-	</para>
-	</listitem>
-	</varlistentry>
-	<varlistentry>
-	<term>Remove selected item</term>
-	<listitem>
-	<para>
-	If <guimenuitem>Remove selected item</guimenuitem> is selected,
-	any selected items in the <guilabel>Main Index</guilabel> in the left pane will be deleted.
-	This action can only be partly undone by the <guimenuitem>Reset Main Index</guimenuitem>.
-	Use this feature with caution.
+	If <guimenuitem>Search in open module(s)</guimenuitem> is selected,
+	<guilabel>search dialog</guilabel> is displayed with all of the 
+	open modules selected as the search parameters.
 	</para>
 	</listitem>
 	</varlistentry>
@@ -559,23 +555,28 @@
 	<variablelist>
 
 	<varlistentry>
-	<term>Save Profile</term>
+	<term>Save Session</term>
 	<listitem><para>Saves the current configuration to
-	a selected profile</para></listitem>
+	a selected Sessions</para></listitem>
 	</varlistentry>
 
+	<varlistentry>
+	<term>Save as Session</term>
+	<listitem><para>Saves the current configuration to
+	a Session, and allows the new profile to be named.</para></listitem>
+	</varlistentry>
 
 	<varlistentry>
-	<term>Load Profile</term>
-	<listitem><para>Loads the contents of the named profile to
+	<term>Load Session</term>
+	<listitem><para>Loads the contents of the named Session to
 	the current session of &bibletime;.</para></listitem>
 	</varlistentry>
 
 	<varlistentry>
-	<term>Configure Profile</term>
-	<listitem><para>This brings up the <guilabel>profiles</guilabel> tab of the
+	<term>Configure Sessions</term>
+	<listitem><para>This brings up the <guilabel>Sessions</guilabel> tab of the
 	<guilabel>Options dialog</guilabel>.
-	Here you create and manage profiles</para></listitem>
+	Here you create and manage Sessions</para></listitem>
 	</varlistentry>
 
 
@@ -624,7 +625,9 @@
 	<varlistentry>
 	<term>List of open modules</term>
 	<listitem>
-	<para>shows a list of all of the currently selected modules.</para>
+	<para>shows a list of all of the currently open modules.  
+	Selecting a module in this list makes that open module the 
+	selected module in the display area.</para>
 	</listitem>
 	</varlistentry>
 
@@ -710,8 +713,6 @@ on the <guilabel>Submit A Bug Report</guilabel> dialog.
 </listitem>
 </varlistentry>
 
-
-
 <varlistentry>
 <term>About &bibletime;</term>
 <listitem>
@@ -735,8 +736,6 @@ Opens a window with general &kde; information.
 
 </para>
 </section>
-
-
-
+</section>
 </chapter>
 

@@ -36,7 +36,7 @@ files to see how.
 &Linux-Mandrake; 8.x RPM's from a terminal using the mandrake RPM's KDE3 is installed
 in /opt, so the start up command in a terminal is:</para>
 <screen>
-export KDEDIR=/opt/kde3  
+export KDEDIR=/opt/kde3
 bibletime
 </screen>
 <para>
@@ -45,6 +45,12 @@ If you do not have &kde;3 installed in your copy of &Linux;, you should have tri
 <ulink url="http://gnomesword.sourceforge.net/">Gnomesword application.</ulink>, or one 
 of the &kde;2 versions of &bibletime;.
 </para>
+<para>With &Linux-Mandrake; 9.0 and other other distributions where &kde; 3.x is
+installed in the normal location, simply type:</para>
+<screen>
+bibletime
+</screen>
+in any terminal to launch &bibletime;.
 </section>
 <section id="hdbk-start-custom"><title>Startup Customization</title>
 

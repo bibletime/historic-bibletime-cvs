@@ -38,11 +38,11 @@ the desired group.  To open a document, click on it's icon.
 <tip><para>Drag &amp; Drop Works Here</para></tip>
 <para>
 A document can be opened from an already opened document.
-Simply lick with the left mouse button on the verse number (pointer changes to hand) and drag it to the
+Simply click with the left mouse button on the verse number (pointer changes to hand) and drag it to the
 module list. Drop it on the name of the module you want to open, and it will
 open that module to the verse you dragged over. If you drag a verse number to an
-already open module, it will automatically jump that module to the verse dragged
-over. This works for Bibles and Commentaries only. </para>
+already open module, it will automatically jump that module to the location of the verse 
+that was dragged over. This works for Bibles and Commentaries only. </para>
 <para>
 There are two other functions accessible through clicking with the right mouse button on
 the document name. "About This Module" opens a window with information about copyright and
@@ -57,11 +57,13 @@ See information on locked modules on the Crosswire Bible Society web site.</ulin
 
 <section id="hdbk-op-module-tree-search">
 <title>Accessing the search dialog</title> <para>
-You can search in a module by clicking with the right mouse button on the module name in the module
-list and selecting "Search in module(s)". By pressing shift and clicking on other module
+You can search in a module by clicking with the right mouse button on the 
+module name in the module list and selecting "Search in module(s)". By 
+pressing shift and clicking on other module
 names you can select more than one.  Then follow the same procedure to open the
 search dialog. You will be searching in all of these documents.
-A complete description of the operation of the search features can be found.
+A complete description of the operation of the search features can be
+found <link linkend="hdbk-op-search">here</link>.
 </para>
 <screenshot>
 <screeninfo>Bookmark Selection</screeninfo>
@@ -131,9 +133,15 @@ of the verse or bookmark dragged.</para></tip>
 </section>
 
 <section id="hdbk-op-MDI-Window-Personal-commentary">
-<title>Editing your own commentary</title> <para>
-The tool bar of commentary display windows has another button, with the picture of a
-pencil.
+<title>Editing your own commentary</title> 
+<para>If the personal commentary is opened with a right mouse button it opens
+in read only mode.  If you wish to make entries to the personal commentary, 
+<mousebutton>left mouse button</mousebutton> on the <menuchoice>personal
+commentary</menuchoice> brings up the choice of the <guimenuitem>plane
+text or the HTML editors</guimenuitem>.</para>
+<tip><para>If the editor does not save an entry, please check that you
+have permission to write to the personal commentary.</para></tip>
+<para>The pencil icon is shown for the commentary editor</para>.
 <inlinemediaobject>
 <imageobject>
 <imagedata fileref="hdbk-op-pencil.png"/>
@@ -142,10 +150,13 @@ pencil.
 <phrase>Enter your notes</phrase>
 </textobject>
 </inlinemediaobject>
-For the "Personal" commentary module, click with mouse on the <guibutton>button with the picture
-of a pencil</guibutton> to enter your own notes, or to edit notes you've already
-entered. When you're done, click on the <guibutton>"Save" (disk) button</guibutton>
-to save your notes. To delete notes for a selected verse, click the
+<para>The personnel commentary editors are provided with a search key and save button.
+The HTML editor is also provided with the basic functions font name, size, color, 
+italicize, underline and some paragraph formating possibilities.  As with all good
+modern editors What You See Is What You Get.
+</para>
+<para>
+To delete notes for a selected verse, click the
 <guibutton>delete verse button</guibutton>
 <inlinemediaobject>
 <imageobject>
@@ -449,7 +460,7 @@ your hard drive. </para>
 </section>
 
 <section id="hdbk-op-search-dialog-text-regexp">
-<title>Search Syntax using GCC Regular Expresession</title>
+<title>Search Syntax using GCC Regular Expression</title>
 
 <para>Regular expression searches provide a way to do simple or
 complex searches for strings that match a pattern or set of
@@ -487,7 +498,7 @@ following it is not to be considered a special character, but is
 an ordinary period. </para>
 
 <section id="hdbk-op-search-dialog-text-regexp-rules">
-<title>Rules for GCC Regular Expresession Search Requests</title>
+<title>Rules for GCC Regular Expression Search Requests</title>
 <itemizedlist>
 <listitem><para>. The period matches any character. See <link
 	linkend="period">Details</link></para></listitem>
@@ -688,24 +699,17 @@ righteous</emphasis>ness.</para></listitem>
 <section id="hdbk-op-output">
 <title>Exporting and Printing</title>
 <para>Bible Window, Lexicon Window, Commentary Window</para>
-<para>By clicking with the right mouse button on the index key number, verse number or text the
+<para>By clicking with the right mouse button on the index key number, 
+verse number or text the
 Bible Window, Lexicon Window,or Commentary Window drop down box is
 displayed (depending on which kind of window is current),
-providing options to select all, look up text in lexicon,
-and the export options copy, add to printing queue, and save.</para>
+providing options to select all, and the export options copy, 
+add to printing queue, and save.</para>
 
 <section id="hdbk-op-select-all">
 <title>Select All</title>
 <para>A mouse click here will select all of the text in the chapter displayed
 in the current window.
-</para>
-</section>
-
-<section id="hdbk-op-lookup">
-<title>Lookup Text in Lexicon</title>
-<para>A mouse click here will bring up a submenu with a list of all of the available
-lexicons.  A click on a lexicon will open that lexicon to the cross reference of
-the selected text in the current window.
 </para>
 </section>
 
@@ -717,17 +721,17 @@ buffer using the current location of the cursor as the starting point.
 <itemizedlist>
 <listitem>
 <para>
-<guimenuitem>Verse</guimenuitem> - The number of the current verse (such as Genesis 1:25)
+<guimenuitem>Reference only</guimenuitem> - The number of the current verse (such as Genesis 1:25)
 </para>
 </listitem>
 <listitem>
 <para>
-<guimenuitem>Text of Verse</guimenuitem> - The text of the current verse.
+<guimenuitem>Text of Reference</guimenuitem> - The text of the current verse.
 </para>
 </listitem>
 <listitem>
 <para>
-<guimenuitem>Verse with Text</guimenuitem> - Both the text of the current verse, and the verse number
+<guimenuitem>Reference with Text</guimenuitem> - Both the text of the current verse, and the verse number
 </para>
 </listitem>
 <listitem>
@@ -737,7 +741,7 @@ buffer using the current location of the cursor as the starting point.
 </listitem>
 <listitem>
 <para>
-<guimenuitem>Selected Text</guimenuitem> - Only the selected (highlited) text
+<guimenuitem>Selected Text</guimenuitem> - Only the selected (highlighted) text
 </para>
 </listitem>
 </itemizedlist>
@@ -747,12 +751,20 @@ This text can be copied into any application that can access the linux copy buff
 </section>
 
 <section id="hdbk-op-print"><title>Add to Printing Queue</title>
+<important>
+<para>
+Selecting print here puts your print output in the bibletime print buffer.  
+Inorder to send your job to the printer (lpr) via kprinter, you must
+select <guimenu>file</guimenu> <guimenuitem>print</guimenuitem> on the
+<guilabel>menubar</guilabel>.
+</para>
+</important>
 <para>A mouse click here will bring up a submenu with the printing options:
 </para>
 <itemizedlist>
 <listitem>
 <para>
-<guimenuitem>verse with text</guimenuitem>
+<guimenuitem>reference with text</guimenuitem>
 </para>
 </listitem>
 <listitem>
@@ -778,6 +790,11 @@ tools on your system to format your work.
 <para>A mouse click here will bring up a submenu with save options:
 </para>
 <itemizedlist>
+<listitem>
+<para>
+<guimenuitem>Verse with reference</guimenuitem> - a file is created in &UNIX; formated ASCII text
+</para>
+</listitem>
 <listitem>
 <para>
 <guimenuitem>Chapter as plain text</guimenuitem> - a file is created in &UNIX; formated ASCII text

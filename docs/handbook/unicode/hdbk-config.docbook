@@ -24,8 +24,8 @@ to launch the options dialog.</para>
 	</mediaobject>
 	</section>
 
-	<section id="hdbk-config-bt"><title>Options Dialog</title>
-	<para>The options dialog allows many &bibletime; and Sword
+	<section id="hdbk-config-bt"><title>Preferences - Bibletime Dialog</title>
+	<para>The preferences dialog allows many &bibletime; and Sword
 	features to be customized.</para>
 
 		<section id="hdbk-config-bt-startup"><title>Startup</title>
@@ -51,7 +51,8 @@ to launch the options dialog.</para>
 		<section id="hdbk-config-bt-fonts"><title>Fonts</title>
 		<para>The display font used for text can be changed as desired.  If you have a
 		module that requires a special font, check here to see if the font is available to
-		&bibletime;.
+		&bibletime;.  You can select to have all modules of any particular 
+		language use a selected font.
 		</para>
 		<mediaobject>
 		<imageobject>
@@ -66,30 +67,27 @@ to launch the options dialog.</para>
 		</mediaobject>
 
 			<section id="hdbk-config-bt-Unicode"><title>Unicode Fonts (ISO10646)</title>
-			<para>Sword modules are provided with either iso-8859-1 (Latin-1) or iso-10646 (Unicode) encoding.
-			You can tell how a module is encoded by clicking with the right mouse button on the main index and selecting <guimenuitem>about
-			this module</guimenuitem>.</para>
-			<mediaobject>
-			<imageobject>
-			<imagedata fileref="hdbk-conf-font-about.png" format="PNG"/>
-			</imageobject>
-			<textobject>
-			<phrase>About this module</phrase>
-			</textobject>
-			<caption>
-			<para>The 'About this module' window shows what kind of encoding is used.</para>
-			</caption>
-			</mediaobject>
-			<para>As long as the modules you are interested in display correctly nothing needs to be done here.
-			If a module you are interested in displays as a series of question marks (???????????????????) the font
-			available to &bibletime; does not contain the used in characters in your document.</para>
+			<para>Selection of unicode fonts is now automatic thanks to new features in 
+			the Sword back end.  You now no longer need to understand how iso-8859-1
+			(Latin-1) or iso-10646 (Unicode) encoding works.  If the font you need is not 
+			installed please consult the
+			<ulink href="http://pegasus.rutgers.edu/~elflord/font_howto">Font-HOWTO</ulink> 
+			or read further.</para>
 
-			<para>In the options dialog, choose <guilabel>fonts select</guilabel> in the <guilabel>Unicode area of application</guilabel>.  You will need to choose
-			a font that has a iso-10646-1 character set.  Try clearlyu as a first step (it is included with most distributions).
-			If your module still does not display, you will need to use a more appropriate font.</para>
+			<para>As long as the modules you are interested in display correctly nothing 
+			needs to be done here.  If a module you are interested in displays as a series 
+			of question marks (???????????????????) the font available to &bibletime; does 
+			not contain the used in characters in your document.</para>
 
-			<tip><para>If you use a small Unicode font like clearlyu (about 22kb) &bibletime; will run faster than if a large font like
-			Bitstream Cyberbit (about 12Mb) is used.</para></tip>
+			<para>In the options dialog, choose <guilabel>fonts select</guilabel> in the 
+			<guilabel>Unicode area of application</guilabel>.  You will need to choose
+			a font that has a iso-10646-1 character set.  Try clearlyu as a first step (
+			it is included with most distributions).  If your module still does not display, 
+			you will need to use a more appropriate font.</para>
+
+			<tip><para>If you use a small Unicode font like clearlyu (about 22kb) &bibletime; 
+			will run faster than if a large font like Bitstream Cyberbit (about 12Mb) 
+			is used.</para></tip>
 
 			<section id="hdbk-config-bt-addfont"><title>Font Installation</title>
 			<para>Installing fonts consists of three steps</para>
