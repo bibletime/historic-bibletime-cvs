@@ -351,10 +351,14 @@ void CGroupManager::slotSearchSelectedModules() {
 	}	
 	saveSettings();
 	m_config->sync();
-	if (!m_searchDialog)
-		m_searchDialog = new CSearchDialog(m_important,&searchList,0,0);
+
+	if (m_searchDialog) {
+		delete m_searchDialog;
+	}
+	m_searchDialog = new CSearchDialog(m_important,&searchList,0,0);		
 	connect(m_searchDialog, SIGNAL(finished()),
 		this, SLOT(slotDeleteSearchdialog()));
+
 	m_searchDialog->show();
 	m_searchDialog->raise();
 }	
