@@ -167,36 +167,11 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           );
         };
       }
-      else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "morph")) { // Morph
-				buf.append("<");
+      else if (tag.getAttribute("type") && (!strcasecmp(tag.getAttribute("type"), "morph") || !strcasecmp(tag.getAttribute("type"), "Strongs"))) { // Morph or Strong
+				buf.append('<');
 				buf.append(token);
-				buf.append(">");
-/*        const char* value = tag.getAttribute("value");
-        if ( value ) {
-          buf.appendFormatted(" <span morph=\"G%s\">%s</span> ",
-            value,
-            value
-          );
-        };*/
+				buf.append('>');
   		}
-		  else if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "Strongs")) { // Strongs
-				buf.append("<");
-				buf.append(token);
-				buf.append(">");
-/*        const char* value = tag.getAttribute("value");
-        if ( value && value[0] == 'H' ) { //hewbrew strong number
-          buf.appendFormatted(" <span strong=\"H%s\">%s</span> ",
-     				value+1, //skip the H
-            value+1 //skip the H
-          );
-        }
-        else if ( value && value[0] == 'G' ) { //hewbrew strong number
-          buf.appendFormatted(" <span strong=\"G%s\">%s</span> ",
-      			value+1, //skip the G
-            value+1 //skip the G
-          );
-        };*/
-      };
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "note")) { // <note> tag
 			if (!tag.isEndTag() && !tag.isEmpty()) {
