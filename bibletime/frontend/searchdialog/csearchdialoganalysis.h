@@ -45,7 +45,7 @@ public:
 	CSearchDialogAnalysis(QObject *parent=0, const char *name=0);
   ~CSearchDialogAnalysis();
   /**
-  * Sets te module list used for the analysis.
+  * Sets the module list used for the analysis.
   */
   void setModuleList(ListCSwordModuleInfo*);
   /**
@@ -103,7 +103,7 @@ public:
   */
   void setCountForModule( const int moduleIndex, const int count);
   /**
-  * Returns thw width of this item.
+  * Returns the width of this item.
   */
   virtual int width();
   /** Returns the tooltip for this item. */

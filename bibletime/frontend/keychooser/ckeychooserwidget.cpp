@@ -258,7 +258,7 @@ void CKeyChooserWidget::init( ){
 			connect(btn_up, SIGNAL(clicked()), SLOT(next()) );	
 			connect(btn_down, SIGNAL(clicked()), SLOT(previous()) );	
 		}
-  }
+ 	  }
         config->setGroup("");
 	connect(btn_fx, SIGNAL(lock()), SLOT(lock()) );
 	connect(btn_fx, SIGNAL(unlock()), SLOT(unlock()) );
@@ -349,17 +349,33 @@ void CKeyChooserWidget::adjustSize( ){
 /** Sets the tooltips for the given entries using the parameters as text. */
 void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
 	QToolTip::add(ComboBox,comboTip);
-	QToolTip::add(btn_up,  nextEntryTip);
 	QToolTip::add(btn_fx,  scrollButtonTip);
-	QToolTip::add(btn_down,previousEntryTip);
+	config->setGroup("General");
+ 	if (config->readBoolEntry("Scroll")) {
+		QToolTip::add(btn_down, nextEntryTip);
+		QToolTip::add(btn_up,	previousEntryTip);
+	}
+	else {
+		QToolTip::add(btn_up,   nextEntryTip);
+		QToolTip::add(btn_down, previousEntryTip);
+	}
+	config->setGroup("");
 }
 
 /** No descriptions */
 void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
 	QWhatsThis::add(ComboBox,comboTip);
-	QWhatsThis::add(btn_up,  nextEntryTip);
 	QWhatsThis::add(btn_fx,  scrollButtonTip);
-	QWhatsThis::add(btn_down,previousEntryTip);
+	config->setGroup("General");
+ 	if (config->readBoolEntry("Scroll")) {
+		QWhatsThis::add(btn_down, nextEntryTip);
+		QWhatsThis::add(btn_up,   previousEntryTip);
+	}
+	else {
+	QWhatsThis::add(btn_up,   nextEntryTip);
+	QWhatsThis::add(btn_down, previousEntryTip);
+	}
+	config->setGroup("");
 }
 
 /** Sets the current item to the one with the given text */

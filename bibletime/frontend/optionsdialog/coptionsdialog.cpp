@@ -221,7 +221,7 @@ void COptionsDialog::initGeneralPage(){
 		scrollCheckBox->setChecked(config->readBoolEntry("Scroll",true));
 		QWhatsThis::add(scrollCheckBox, WT_OD_GENERAL_SCROLL_PREVIOUS);
 		QToolTip::add(scrollCheckBox, TT_OD_GENERAL_SCROLL_PREVIOUS);
-		} 
+	} 
 	
 	main_layout->addWidget(tipCheckBox);
 	main_layout->addWidget(logoCheckBox);

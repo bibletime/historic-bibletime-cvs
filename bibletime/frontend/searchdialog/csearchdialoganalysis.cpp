@@ -49,6 +49,9 @@
 #include <swmodule.h>
 #include <versekey.h>
 
+//library includes
+#include <iostream.h>
+
 //our defines
 #define SPACE_BETWEEN_PARTS 5
 #define RIGHT_BORDER 15
@@ -125,7 +128,8 @@ void CSearchDialogAnalysis::analyse(){
 				m_lastPosList.insert(m_moduleList.current(),0);
 			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.book(),m_moduleList.current())));
 			m_maxCount = (count > m_maxCount) ? count : m_maxCount;
-		}
+
+	}
 		analysisItem->setX(xPos);
 		analysisItem->setY(UPPER_BORDER);
 		analysisItem->show();
