@@ -27,6 +27,7 @@ export HEADER=\
 ###########################
 # create Makefile.am in /bibletime/docs/ directory
 ###########################
+cd ../docs;
 
 echo generating Makefile.am
 ( # output to Makefile.am
@@ -143,6 +144,7 @@ for PART in $DOC_PARTS; do
 done
 
 #####################################################
+cd ../maintenance;
 
 for I1 in $FOREIGN_DOC_LANGUAGES; do
 
@@ -159,10 +161,25 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 		####
 		#This reads in the template of the Makefile.am for the po dirs
 		####
-		cat Makefile.am.po.skel
+		cat bibletime-i18n-skel/po/Makefile.am
 
 	) > ../../bibletime-i18n-$I1/po/Makefile.am
-	
+
+	echo generating ../../bibletime-i18n-$I1/configure.in.in
+	( # output to Makefile.am
+		echo -e $HEADER
+		#This reads in the template
+		cat bibletime-i18n-skel/configure.in.in.1
+		echo "AM_INIT_AUTOMAKE(bibletime-i18n-"$I1","$VERSION")"
+		echo
+		cat bibletime-i18n-skel/configure.in.in.2
+	) > ../../bibletime-i18n-$I1/configure.in.in
+
+	cp -v bibletime-i18n-skel/cvsignore ../../bibletime-i18n-$I1/.cvsignore
+	cp -v bibletime-i18n-skel/Makefile.am ../../bibletime-i18n-$I1/Makefile.am
+	cp -v ../Makefile.cvs ../../bibletime-i18n-$I1/Makefile.cvs
+	cp -v ../bibletime.m4 ../../bibletime-i18n-$I1/bibletime.m4
+
 	###########################
 	# create Makefile.am's in bibletime-i18n-??/docs directories
 	###########################
