@@ -142,6 +142,7 @@
 #define WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES WT(TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES, i18n("Contains the languages which can be used for the international booknames."))
 #define WT_OD_GENERAL_SHOW_STARTUPLOGO WT(TT_OD_GENERAL_SHOW_STARTUPLOGO, i18n("Activate this to see a startup logo on each startup of BibleTime."))
 #define WT_OD_GENERAL_SCROLL_PREVIOUS WT(TT_OD_GENERAL_SCROLL_PREVIOUS, i18n("Check this to use the down arrow to scroll to the next verse."))
+#define WT_OD_GENERAL_RESTORE_WORKSPACE WT(TT_OD_GENERAL_RESTORE_WORKSPACE, i18n("Save the windows of the workspace if BibleTime is closed<BR>and restore them on the next startup. "))
 
 #define WT_OD_KEYS_CHOOSER WT(TT_OD_KEYS_CHOOSER, i18n("Select a action and change the key binding for the action."))
 #define WT_OD_FONTS_TYPE_CHOOSER WT(TT_OD_FONTS_TYPE_CHOOSER, i18n("Select in this box how the font is used and change the font in the font chooser."))

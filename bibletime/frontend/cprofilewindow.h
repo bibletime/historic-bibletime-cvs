@@ -77,6 +77,18 @@ public:
   */
   void setScrollbarPositions(const int x, const int y);
   /**
+  * Sets the windows maximized state to true or false.
+  */
+  void setMaximized( const bool maximized );
+  /** Sets the window specific settings. */
+  void setWindowSettings( const int settings );
+  /** Returns an integer with the window specific settings */
+  const int windowSettings();
+  /**
+  * Returns true if the window is maximized.
+  */
+  const bool maximized();
+  /**
   * Returns tghe position of the scrollbars
   */
   const CProfileWindow::ScrollbarPos scrollbarPositions();
@@ -87,6 +99,8 @@ private:
 	QStringList m_moduleList;
 	QString m_key;
 	ScrollbarPos m_scrollbarPos;
+	bool m_maximized;
+	int m_windowSettings;
 };
 
 #endif

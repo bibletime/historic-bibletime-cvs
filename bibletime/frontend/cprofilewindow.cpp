@@ -18,7 +18,8 @@
 #include "cprofilewindow.h"
 
 CProfileWindow::CProfileWindow(CSwordModuleInfo::type type)
-	: m_type(type), m_windowGeometry(),m_moduleList(), m_key(QString::null) {
+	: m_type(type), m_windowGeometry(),m_moduleList(), m_key(QString::null),
+	m_maximized(false), m_windowSettings(0) {
 
 }
 
@@ -81,4 +82,24 @@ const CProfileWindow::ScrollbarPos CProfileWindow::scrollbarPositions(){
 /** Sets the type of the used modules. */
 void CProfileWindow::setType(CSwordModuleInfo::type type){
 	m_type = type;
+}
+
+/** Returns true if the window is maximized. */
+const bool CProfileWindow::maximized(){
+	return m_maximized;
+}
+
+/** Sets the windows maximized state to true or false. */
+void CProfileWindow::setMaximized( const bool maximized ){
+	m_maximized = maximized;
+}
+
+/** Returns an integer with the window specific settings */
+const int CProfileWindow::windowSettings(){
+	return m_windowSettings;
+}
+
+/** Sets the window specific settings. */
+void CProfileWindow::setWindowSettings( const int settings ){
+	m_windowSettings = settings;
 }

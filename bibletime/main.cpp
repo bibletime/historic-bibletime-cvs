@@ -65,20 +65,22 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 
 //saves data before the app closes after a crash
 void emergencySave(int)  {
-	qWarning("[emergencySave()] BibleTime crashed - trying to save data!");
-	if (bibletime)	
+	fprintf(stderr, "[emergencySave] BibleTime crashed - trying to save data!");
+	if (bibletime)
 		bibletime->saveSettings();
 }
 
 int main(int argc, char* argv[]) {
+	qInstallMsgHandler( myMessageOutput );
+	KCrash::setEmergencySaveFunction( emergencySave );
+	
 	//create about data for this application
 	static KCmdLineOptions options[] =
 	{
 		{"debug", I18N_NOOP("Enable debug messages"),0},
 		{0,0,0}
 	};	
-	qInstallMsgHandler( myMessageOutput );
-	
+		
 	KAboutData aboutData(
 		PACKAGE,
 		"BibleTime",
@@ -125,9 +127,7 @@ int main(int argc, char* argv[]) {
 	aboutData.addCredit("Thomas Hagedorn", I18N_NOOP("Sponsor of www.bibletime.de"), "tom@delix.de", "");		
 	aboutData.addCredit("Torsten Uhlmann", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
 	aboutData.addCredit("Troy A. Griffits", I18N_NOOP("Leader of the SWORD project.\nLots of help with the SWORD API!"), "scribe@crosswire.org", "");	
- 	
-	KCrash::setEmergencySaveFunction( emergencySave ); 	
-	 	
+ 		 	
  	KCmdLineArgs::init(argc, argv, &aboutData); 	
  	KCmdLineArgs::addCmdLineOptions ( options );
  		
@@ -175,13 +175,16 @@ int main(int argc, char* argv[]) {
 	  }
 		
 		//first startup of BibleTime?		
-	  bibletime = new BibleTime();
 		{
 			KConfigGroupSaver groupSaver(config, "General");
 			if (config->readBoolEntry(QString::fromLatin1("firstStartup %1").arg(VERSION), true)) {
 				config->writeEntry( QString::fromLatin1("firstStartup %1").arg(VERSION), false);
 				HTML_DIALOG(HELPDIALOG_FIRST_START);
 			}			
+		}	
+	  bibletime = new BibleTime();
+		{
+			KConfigGroupSaver groupSaver(config, "General");
 			if (!config->readBoolEntry(QString::fromLatin1("isConfigured %1").arg(VERSION), false)) {
 				config->writeEntry( QString::fromLatin1("isConfigured %1").arg(VERSION), true);
 				bibletime->slotSettingsOptions();
@@ -198,8 +201,8 @@ int main(int argc, char* argv[]) {
 			KConfigGroupSaver groupSaver(config, "Startup");
 			if (config->readBoolEntry("show tips", true))
 				bibletime->slotHelpTipOfDay();
-			bibletime->show();					
 		}
+		bibletime->show();							
 		
   	return app.exec();
 	}

@@ -76,9 +76,7 @@ QList<CProfileWindow> CProfile::load(){
 	m_profileWindows.clear();
 	QDomElement elem = document.firstChild().toElement();
 	while (!elem.isNull()) {
-		CProfileWindow* p = 0;
-		qWarning(elem.tagName().latin1());
-		
+		CProfileWindow* p = 0;		
 		if (elem.tagName() == "BIBLE") {
 			p = new CProfileWindow(CSwordModuleInfo::Bible);
 		}
@@ -90,7 +88,11 @@ QList<CProfileWindow> CProfile::load(){
 		}			
 		if (p) {
 			m_profileWindows.append(p);
-						
+			
+			if (elem.hasAttribute("windowSettings")) {
+				p->setWindowSettings( elem.attribute("windowSettings").toInt() );
+			}
+			
 			QRect rect;
 						
 			QDomElement object = elem.namedItem("GEOMETRY").toElement();
@@ -107,7 +109,10 @@ QList<CProfileWindow> CProfile::load(){
 				if (object.hasAttribute("height")) {
 					rect.setHeight(object.attribute("height").toInt());
 				}
-			}			
+				if (object.hasAttribute("isMaximized")) {
+					p->setMaximized( static_cast<bool>(object.attribute("isMaximized").toInt()) );
+				}				
+			}
 			p->setGeometry(rect);
 			
 			object = elem.namedItem("MODULES").toElement();
@@ -158,7 +163,6 @@ const bool CProfile::save(QList<CProfileWindow> windows){
   doc.appendChild(content);
 
 	for (CProfileWindow* p = windows.first(); p; p = windows.next()) {
-		ASSERT(p);
 		QDomElement window;
 		switch (p->type()) {
 			case CSwordModuleInfo::Bible:
@@ -173,6 +177,7 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 		}
 		if (window.isNull())
 			break;
+		window.setAttribute("windowSettings", p->windowSettings());
 		
 		//save geomtery
 		QRect r = p->geometry();
@@ -181,6 +186,7 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 		geometry.setAttribute("y",r.y());		
 		geometry.setAttribute("width",r.width());		
 		geometry.setAttribute("height",r.height());		
+		geometry.setAttribute("isMaximized",static_cast<int>(p->maximized()));
 		window.appendChild( geometry );
 
 		QDomElement modules = doc.createElement("MODULES");

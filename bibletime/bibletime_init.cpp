@@ -163,12 +163,11 @@ void BibleTime::initActions() {
 	m_windowCloseAll_action->setToolTip( TT_WINDOW_CLOSE_ALL );	
 	m_windowCloseAll_action->setWhatsThis( WT_WINDOW_CLOSE_ALL );
 	
-	m_windowSaveProfile_action = new KActionMenu(i18n("Save profile ..."),/* ICON_WINDOW_SAVE_PROFILE,
-																IDK_WINDOW_SAVE_PROFILE, this, SLOT(saveProfile()),*/ actionCollection(),"windowSaveProfile_action");
+	m_windowSaveProfile_action = new KActionMenu(i18n("Save profile"), actionCollection(),"windowSaveProfile_action");
 	m_windowSaveProfile_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
 	m_windowSaveProfile_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
 
-	m_windowLoadProfile_action = new KActionMenu(i18n("Load profile ..."), actionCollection(),"windowLoadProfile_action");
+	m_windowLoadProfile_action = new KActionMenu(i18n("Load profile"), actionCollection(),"windowLoadProfile_action");
 	m_windowLoadProfile_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
 	m_windowLoadProfile_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
 		

@@ -110,8 +110,8 @@ void COptionsDialog::initGeneral() {
 	{ //startup logo
 		m_general.startup.restoreWorkspace = new QCheckBox(page);
 		m_general.startup.restoreWorkspace->setText(i18n("Restore windows in workspace area"));
-//		QWhatsThis::add(m_general.startup.restoreWorkspace, WT_OD_GENERAL_RESTORE_WORKSPACE);
-//		QToolTip::add(m_general.startup.restoreWorkspace, TT_OD_GENERAL_RESTORE_WORKSPACE);
+		QToolTip::add(m_general.startup.restoreWorkspace, TT_OD_GENERAL_RESTORE_WORKSPACE);		
+		QWhatsThis::add(m_general.startup.restoreWorkspace, WT_OD_GENERAL_RESTORE_WORKSPACE);
 		
 		KConfigGroupSaver groupSaver(m_config, "Startup");
 		m_general.startup.restoreWorkspace->setChecked(m_config->readBoolEntry("restore workspace", false));			

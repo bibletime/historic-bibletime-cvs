@@ -35,11 +35,9 @@
 #include <kfiledialog.h>
 
 CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
-	: CSwordPresenter(useModules, importantClasses, parent,name)
+	: CSwordPresenter(useModules, importantClasses, parent,name),
+	m_key( new CSwordVerseKey(m_moduleList.first()) ), m_editToolBar(0)
 {
-	m_editToolBar = 0;	
-	m_key =  new CSwordVerseKey(m_moduleList.first());	
-	ASSERT(m_key);
 	m_key->key("Genesis 1:1");
 	
 	initView();	
@@ -154,7 +152,7 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
 	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);
 	if (!vKey)
 		return;
-	vKey->Persist(1);		
+//	vKey->Persist(1);
   m_moduleList.first()->module()->SetKey(*vKey);
 
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
@@ -175,7 +173,7 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
 	m_htmlWidget->setModified(false);
 	setUpdatesEnabled(true);
 	
-	setCaption( caption() );	
+	setCaption( windowCaption() );	
 }
 
 /** No descriptions */

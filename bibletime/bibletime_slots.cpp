@@ -379,17 +379,11 @@ void BibleTime::openOnlineHelp() {
 /** Saves the current settings into the currently activatred profile. */
 void BibleTime::saveProfile(int ID){
 	m_mdi->setUpdatesEnabled(false);
-	KPopupMenu* popup = m_windowLoadProfile_action->popupMenu();
-	const QString profileName = popup->text(ID);
+	KPopupMenu* popup = m_windowSaveProfile_action->popupMenu();
+	CProfile* p = m_profileMgr.profile( popup->text(ID) );
+	if (p)
+		saveProfile(p);
 
-	QList<CProfile> profiles = m_profileMgr.profiles();
-	CProfile* p	= 0;
-	for (p = profiles.first(); p; p = profiles.next()) {
-		if (p->name() == profileName) {
-			saveProfile(p);
-			break;
-		}
-	}
 	m_mdi->setUpdatesEnabled(true);	
 }
 
@@ -415,20 +409,16 @@ void BibleTime::saveProfile(CProfile* profile){
 }
 
 void BibleTime::loadProfile(int ID){
+	m_mdi->setUpdatesEnabled(false);
 	m_mdi->deleteAll();
 	
 	m_mdi->setUpdatesEnabled(false);
 	KPopupMenu* popup = m_windowLoadProfile_action->popupMenu();
-	const QString profileName = popup->text(ID);
+	CProfile* p = m_profileMgr.profile( popup->text(ID) );
+	if (p)
+		loadProfile(p);
 
-	QList<CProfile> profiles = m_profileMgr.profiles();
-	CProfile* p	= 0;
-	for (p = profiles.first(); p; p = profiles.next()) {
-		if (p->name() == profileName) {
-			loadProfile(p);
-			break;
-		}
-	}
+	m_mdi->setUpdatesEnabled(true);	
 }
 
 void BibleTime::loadProfile(CProfile* p){

@@ -107,19 +107,20 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 	CSwordLDKey* ldKey = dynamic_cast<CSwordLDKey*>(key);
 	if (!ldKey)
 		return;
-	m_moduleList.first()->module()->SetKey(ldKey);
+	m_moduleList.first()->module()->SetKey(*ldKey);
+	
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
 		if (m_moduleChooserBar->getModuleList().count()>1)  //we want to display more than one module
 			m_moduleList.first()->getDisplay()->Display( &m_moduleList );
 		else
 			m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
-		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());		
+		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());
 	}	
 	if (m_key != ldKey)
 		m_key->key(ldKey->key());
 		
 	setUpdatesEnabled(true);
-	setPlainCaption( caption() );
+	setCaption( windowCaption() );
 }
 
 /** No descriptions */
