@@ -18,6 +18,7 @@
 #include "cmdiarea.h"
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordversekey.h"
+
 #include "presenters/cbiblepresenter.h"
 #include "presenters/clexiconpresenter.h"
 #include "presenters/ccommentarypresenter.h"
@@ -40,6 +41,7 @@
 CMDIArea::CMDIArea(QWidget *parent, const char *name )
 	: QWorkspace(parent, name) {			
 	m_childEvent = false;
+  m_deleting = false;
 	guiOption = Nothing;
 	m_appCaption = QString::null;
 	
@@ -54,7 +56,7 @@ CMDIArea::~CMDIArea(){
 /** Initializes the view of the MDI area */
 void CMDIArea::initView(){
 	QWhatsThis::add(this, WT_MDI_AREA_WIDGET );
-//	setPaletteBackgroundColor( parentWidget()->paletteBackgroundColor() );	
+	setPaletteBackgroundColor( parentWidget()->paletteBackgroundColor() );	
 }
 
 /** Initilizes the connectiosn to SIGNALS */
@@ -65,9 +67,15 @@ void CMDIArea::initConnections(){
 
 /** Called whan a client window was activated */
 void CMDIArea::slotClientActivated(QWidget* client){
-//	qWarning("slotClientActivated(QWidget* client)");
-	if (!client || !isUpdatesEnabled())
-		return;				
+	qWarning("CMDIArea::slotClientActivated(QWidget* client)");
+  if (!isUpdatesEnabled())
+    qWarning("updates are NOT enabled!!");
+
+	if (!client || !isUpdatesEnabled()) {
+		qWarning("client Activated: return");
+    return;
+  }
+
 	CSwordPresenter* sp = dynamic_cast<CSwordPresenter*>(client);	
 	if (sp && !sp->initialized())
 		return;
@@ -78,8 +86,7 @@ void CMDIArea::slotClientActivated(QWidget* client){
 		window->activated( (window == sp) ? true : false);
 	}	
 	
-	m_appCaption = client->caption().stripWhiteSpace();	
-	emit sigSetToplevelCaption( m_appCaption );	
+	emit sigSetToplevelCaption( ( m_appCaption = client->caption().stripWhiteSpace() ) );	
 
 	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
 	if (p && p->keyChooser())
@@ -88,9 +95,11 @@ void CMDIArea::slotClientActivated(QWidget* client){
 
 /** Reimplementation. Used to make use of the fixedGUIOption part. */
 void CMDIArea::childEvent( QChildEvent * e ){
-	if (m_childEvent)
+	QWorkspace::childEvent(e);
+
+	if ( m_childEvent || !isUpdatesEnabled() || !e)
 		return;	
-	QWorkspace::childEvent(e);		
+
 	m_childEvent = true;
 	
 	if (!windowList().count()) {
@@ -98,12 +107,8 @@ void CMDIArea::childEvent( QChildEvent * e ){
 		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(m_appCaption) );		
 		emit sigLastPresenterClosed();
 	}	
-	if (!e) {
-		m_childEvent = false;
-		return;
-	}
 	
-	if (e->inserted() || e->removed()) {
+  if (!m_deleting && (e->inserted() || e->removed()) ) {
 		switch (guiOption) {
 	 		case autoTile:
 				if (isUpdatesEnabled())
@@ -117,7 +122,11 @@ void CMDIArea::childEvent( QChildEvent * e ){
 	 			break;
 		}
 	}
-	m_childEvent = false;
+
+  m_childEvent = false;
+  if (!windowList().count()) { //already deleted all windows
+    m_deleting = false;
+  }
 }
 
 /** Reimplementation */
@@ -147,15 +156,10 @@ void CMDIArea::readSettings(){
 
 /** Deletes all the presenters in the MDI area. */
 void CMDIArea::deleteAll(){	
-	setUpdatesEnabled(false);		
-	
-	QWidgetList windows = windowList();
-	for ( QWidget* w = windows.first(); w; w = windows.next() ) {		
-		w->deleteLater();
-		w = 0;
-	}	
-	
-	setUpdatesEnabled(true);		
+  m_deleting = true;
+  QWidgetList windows = windowList();
+  windows.setAutoDelete(true);
+  windows.clear();
 }
 
 /** Enable / disable autoCascading */
@@ -179,8 +183,10 @@ void CMDIArea::setGUIOption( mdiOption new_GUIOption){
 
 /**  */
 void CMDIArea::tile(){
+  qWarning("CMDIArea::tile()");
 	if (!isUpdatesEnabled() || !windowList().count() )	
 		return;
+
 	if (windowList().count() == 1 && windowList().at(0)) {
 		m_appCaption = windowList().at(0)->caption();
 		windowList().at(0)->showMaximized();
@@ -191,6 +197,7 @@ void CMDIArea::tile(){
 
 /**  */
 void CMDIArea::cascade(){
+  qWarning("CMDIArea::cascade()");
 	if (!isUpdatesEnabled() || !windowList().count() )
 		return;		
 	if (windowList().count() == 1 && windowList().at(0)) {	
@@ -260,33 +267,6 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 	else
 		p->lookup(module, key);
 }
-
-/** Closes and deletes the presenter given as argument. */
-//void CMDIArea::closePresenter(CSwordPresenter* p){
-//	qWarning("CMDIArea::closePresenter(CSwordPresenter* p)");
-//	if (!p)
-//		return;
-//	delete p;
-//	p = 0;	
-//	m_deleteWindows.append(p);
-//  QTimer::singleShot(5000, this, SLOT(deleteCurrentPresenter()) );	
-//}
-
-/** Delete the presenter. */
-//void CMDIArea::deleteCurrentPresenter(){
-//	qWarning("CMDIArea::deleteCurrentPresenter()");
-//	setUpdatesEnabled(false);
-//	
-//	CSwordPresenter* p = m_deleteWindows.first();
-//	m_deleteWindows.removeRef(p);
-//	delete p;	
-//	
-//	setUpdatesEnabled(true);
-//	if (activeWindow()) {
-//		slotClientActivated(activeWindow());		
-//		m_appCaption = activeWindow()->caption();
-//	}
-//}
 
 /** This works around a problem/limitation in QWorkspace. QWorkspace sets every time the  application caption on its on way. This confuses BibleTime - wrong captions are generated. This function returns the right caption (using the MDI child). */
 const QString CMDIArea::currentApplicationCaption() const {

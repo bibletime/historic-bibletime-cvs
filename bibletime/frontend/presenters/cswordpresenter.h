@@ -115,19 +115,6 @@ public slots: // Public slots
 
 protected: // Protected methods
   /**
-  * Reimplementation from QWidget. Is used to set the right accel options if focus was got / lost.
-  */
-//  virtual void childEvent( QChildEvent* e );
-
-  /**
-  * Prints the key given as parameter.
-  */
-//  void printKey(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module);
-  /**
-  * Refreshes the supported features.
-  */
-//  void refreshFeatures();
-  /**
   * Is called when the presenter should be closed. To delete the presenter it emits "close(CPresenter*)".
   */
   virtual void closeEvent(QCloseEvent*e);
@@ -161,8 +148,6 @@ protected: // Protected methods
 
 	CSwordBackend::FilterOptionsBool m_moduleOptions;
 	CSwordBackend::DisplayOptionsBool m_displayOptions;
-
-//  virtual bool eventFilter( QObject *o, QEvent *e );
     	 	  	
 protected slots: // Protected slots
   void lookupWord(int ID);
@@ -170,14 +155,6 @@ protected slots: // Protected slots
   * Initilizes widget before shown and after constructor.
   */
   virtual void polish();
-//  /**
-//  * Is called when this display window looses the focus.
-//  */
-//  virtual void focusInEvent( QFocusEvent* e );
-//  /**
-//  * Is called when this display window looses the focus.
-//  */
-//  virtual void focusOutEvent( QFocusEvent* e );
   /**
   * Sets the display window to the initialized state.
   */
@@ -191,8 +168,6 @@ private:
 signals: // Signals
   void lookupInLexicon(const QString& text, const QString& lexicon);
 	void lookupInModule(const QString& module, const QString& text);
-  void closePresenter(CSwordPresenter*);
-
 };
 
 #endif

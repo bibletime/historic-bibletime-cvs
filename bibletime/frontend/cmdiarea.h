@@ -20,10 +20,7 @@
 
 #include "cpointers.h"
 
-#define private protected
 #include <qworkspace.h>
-#undef private
-
 #include <qlist.h>
 #include <qstrlist.h>
 #include <qevent.h>
@@ -94,10 +91,6 @@ public slots:
   */
   void lookupInLexicon(const QString& text, const QString& module);
   void lookupInModule(const QString& module, const QString& key);
-  /**
-  * Closes and deletes the presenter given as argument.
-  */
-//  void closePresenter(CSwordPresenter* p);
 
 protected: // Protected methods
   /**
@@ -131,13 +124,8 @@ signals: // Signals
 private:
 	mdiOption guiOption;
 	bool m_childEvent;
+  bool m_deleting;
 	QPtrList<CSwordPresenter> m_deleteWindows;
 	QString m_appCaption;
-		
-//private slots: // Private slots
-  /**
-  * Delete the presenter.
-  */
-//  void deleteCurrentPresenter();
 };
 #endif

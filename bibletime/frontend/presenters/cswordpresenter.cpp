@@ -31,7 +31,7 @@
 #include <kaccel.h>
 
 CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
-	: KMainWindow(parent,name,0),
+	: KMainWindow(parent,name/*,0*/,WDestructiveClose),
 	m_mainToolBar(0),
 	m_popup(0), m_savePopup(0), m_copyPopup(0), m_printPopup(0),
 	m_lexiconPopup(new QPopupMenu(this)),	
@@ -171,7 +171,8 @@ void CSwordPresenter::closeEvent(QCloseEvent* e) {
 	}	
 	else {
 		e->accept();
-		emit(closePresenter(this));
+//    deleteLater();
+//		emit(closePresenter(this));
 	}
 }
 
