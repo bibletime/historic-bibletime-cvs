@@ -270,12 +270,24 @@ void CMainIndex::initTree(){
 }
 
 /** No descriptions */
-void CMainIndex::dropped( QDropEvent* e, QListViewItem* after){
-  qWarning("CMainIndex::dropped( QDropEvent* e, QListViewItem* after)");
-//  if (m_itemsMovable)
-//    KListView::dropped(e, after);
-  if (CItemBase* i = dynamic_cast<CItemBase*>(after))
+void CMainIndex::dropped( QDropEvent* e, QListViewItem* onItem){
+  if (m_itemsMovable && e->source() == viewport()) {
+    /* if the drag was started from the main index and should move items and if the destination is the bookmark
+    * folder or one of its subfolders
+    * we remove the current items because the new ones will be inserted soon.
+    */
+    if (dynamic_cast<CBookmarkFolder*>(onItem) || dynamic_cast<CBookmarkFolder::SubFolder*>(onItem)) { //re drop onto the bookmark folder or one subfolder
+      QPtrList<QListViewItem> items = selectedItems();
+      items.setAutoDelete(true);
+      items.clear(); //delete the current items
+    };
+  };
+
+  //finally do the drop.
+  if (CItemBase* i = dynamic_cast<CItemBase*>(onItem)) {
+    i->setOpen(true);
     i->dropped(e);
+  }
 }
 
 /** No descriptions */
@@ -484,7 +496,7 @@ void CMainIndex::startDrag(){
       m_itemsMovable = false;
     }
   }
-  qWarning("movable? %i", m_itemsMovable);
+//  qWarning("movable? %i", m_itemsMovable);
   KListView::startDrag();
 }
 
@@ -567,7 +579,6 @@ void CMainIndex::editModule(){
     }
   }
   if (modules.count() == 1) {
-    qWarning("CMainIndex: create WRITE window!");
     emit createWriteDisplayWindow(modules.first(), QString::null);
   };
 }

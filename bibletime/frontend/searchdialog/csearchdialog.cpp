@@ -42,10 +42,10 @@
 #include <qsizepolicy.h>
 #include <qpushbutton.h>
 #include <qheader.h>
-#include <qtoolbutton.h>
 
 //KDE includes
 #include <kapplication.h>
+#include <kfiledialog.h>
 #include <klocale.h>
 
 const int SPACE_BETWEEN_PARTS = 5;
@@ -175,28 +175,19 @@ void CSearchDialog::setSearchText( const QString searchText ){
 
 /** Initializes this object. */
 void CSearchDialog::initView(){
-  qWarning("CSearchDialog::initView()");
   setButtonTip(User1, CResMgr::searchdialog::searchButton::tooltip);
   setButtonWhatsThis(User1, CResMgr::searchdialog::searchButton::whatsthis);
 
   setButtonTip(User2, CResMgr::searchdialog::cancelSearchButton::tooltip);
   setButtonWhatsThis(User2, CResMgr::searchdialog::cancelSearchButton::whatsthis);
 
-  qWarning("CSearchDialog::initView() create options page");    
-    
   QHBox* box = addHBoxPage(i18n("Options"));
-  qWarning("CSearchDialog::initView() create options page 1");    
   m_index.optionsPage = pageIndex(box);
-  qWarning("CSearchDialog::initView() create options page 2");      
   m_searchOptionsPage = new CSearchOptionsPage(box);
-  qWarning("CSearchDialog::initView() create options page 3");      
-
-  qWarning("CSearchDialog::initView() create result page");      
   
   box = addHBoxPage(i18n("Search result"));
   m_index.resultPage = pageIndex(box);
   m_searchResultPage = new CSearchResultPage(box);
-  qWarning("CSearchDialog::initView() finsihed");  
 }
 
 /** Updates the percentage bars. */
@@ -394,7 +385,7 @@ void CModuleChooser::initTree(){
     };
     langs.sort();
 
-    //go though the list of languages and create subfolders for each language and the modules of the language
+    //go through the list of languages and create subfolders for each language and the modules of the language
     QListViewItem* typeFolder = 0;
     if (modsForType.count())
       typeFolder = new QListViewItem(this, typeFolder, typeFolderCaption);
@@ -721,6 +712,7 @@ CSearchAnalysisDialog::CSearchAnalysisDialog( ListCSwordModuleInfo modules, QWid
   initConnections();
   m_analysis->reset();
   m_analysis->analyse(modules);
+  showMaximized();  
 };
 
 CSearchAnalysisDialog::~CSearchAnalysisDialog() {
@@ -731,21 +723,19 @@ CSearchAnalysisDialog::~CSearchAnalysisDialog() {
 void CSearchAnalysisDialog::initView(){
   QVBoxLayout* layout = new QVBoxLayout(plainPage(),0);
 
-  QToolButton* button = new QToolButton(plainPage(), "button");
+  QPushButton* button = new QPushButton(plainPage(), "button");
   button->setIconSet(SmallIconSet("filesave"));
-  button->setTextLabel(i18n("Save search analysis")+"...");
-  button->setUsesTextLabel(true);
+  button->setText(i18n("Save search analysis as HTML")+"...");
   button->setFixedSize(button->sizeHint());
-//  connect(button, SIGNAL(clicked()), m_analysis, SLOT(saveAsHTML()));
   layout->addWidget(button);
   layout->addSpacing(10);
-  
+
   m_analysis = new CSearchAnalysis(plainPage());
   m_analysisView = new CSearchAnalysisView(m_analysis, plainPage());
   m_analysisView->show();
   layout->addWidget(m_analysisView);
 
-  showMaximized();
+  connect(button, SIGNAL(clicked()), m_analysis, SLOT(saveAsHTML()));  
 }
 
 /** Initializes the widgets SIGNAL and SLOT connections,. */
@@ -787,7 +777,9 @@ void CSearchAnalysis::analyse(ListCSwordModuleInfo modules){
 	*			-Find out how many times we found the book
 	*			-Set the count to the items which belongs to the book
 	*/
+  qWarning("CSearchAnalysis::analyse(ListCSwordModuleInfo with %i modules", modules.count());
   setModules(modules);
+  qWarning( "moules count: %i", m_moduleList.count() );
 
 	m_lastPosList.clear();		
 	const int numberOfModules = m_moduleList.count();
@@ -1022,7 +1014,7 @@ const QString CSearchAnalysisItem::getToolTip(){
 				.arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue()))
 				.arg(info ? info->name() : QString::null)
 				.arg(m_resultCountArray[i])
-        .arg(info ? ((double)m_resultCountArray[i] / (double)info->searchResult().Count())*(double)100 : 0.0, 0, 'g', 2)
+        .arg((info && m_resultCountArray[i])? ((double)m_resultCountArray[i] / (double)info->searchResult().Count())*(double)100 : 0.0, 0, 'g', 2)
 		);
 	}
 	ret += "</TABLE>";
@@ -1132,6 +1124,71 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
 
 /** No descriptions */
 void CSearchAnalysis::saveAsHTML(){
-  
+  qWarning("save search analysis as HTML!");
+
+ 	const QString file = KFileDialog::getSaveFileName(QString::null, QString::fromLatin1("*.html | %1").arg(i18n("HTML files")), 0, i18n("Save Search Analysis"));
+	if (file.isNull()) {
+    return;
+  }
+ 	int moduleIndex = 0;
+ 	int count = 0;
+ 	QString countStr = "";
+ 	QString m_searchAnalysisHTML = "";
+ 	QString tableTitle = "";
+  QString tableTotals = "";
+ 	QString VerseRange = "";
+ 	const QString txtCSS = QString::fromLatin1("<style type='text/css'>\nTD {border: thin solid black;}\nTH {font-size: 130%;text-align: left;vertical-align:top;}\n</style>\n");
+ 	CSwordVerseKey key(0);
+ 	sword::ListKey searchResult;
+
+ 	key.key("Genesis 1:1");
+
+// 	if (m_searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) {
+// 		sword::ListKey verses = m_searcher.scope();
+// 		for (int i = 0; i < verses.Count(); ++i) {
+// 			sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
+// 			if (element) {
+// 				VerseRange += QString("%1 - %2").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound())) + "<br>";
+// 			}
+// 		}
+// 	}
+
+// 	QDict<CSearchDialogAnalysisItem>* searchAnalysisItems = m_canvasItemList;
+ 	CSearchAnalysisItem* analysisItem = m_canvasItemList.find( key.book() );
+
+  QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n";
+ 	text += "<table>\n<tr><th>" + i18n("Search Text :") + "</th><th>" + /*m_searchText->getText() +*/ "</th></tr>\n";
+ 	text += "<tr><th>" + i18n("Search Type :") + "</th><th>" + /*m_searchText->getSearchTypeString() +*/ "</th></tr>\n";
+// 	text += "<tr><th>" + i18n("Search Scope:") + "</th><th>" + ((m_searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) ? VerseRange : m_searchText->scopeChooser->getScopeTypeString()) + "</th></tr>\n</table>\n<br>\n";
+
+
+  tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";
+ 	tableTotals = "<tr><td align=\"left\">" + i18n("Total Hits") + "</td>";
+ 	for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
+ 			tableTitle += QString::fromLatin1("<th align=\"left\">") + m_moduleList.current()->name() + QString::fromLatin1("</th>");
+ 			searchResult = m_moduleList.current()->searchResult();
+ 			countStr.setNum(searchResult.Count());
+      tableTotals += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
+ 	}
+ 	tableTitle += QString::fromLatin1("</tr>\n");
+ 	tableTotals += QString::fromLatin1("</tr>\n");
+
+ 	m_searchAnalysisHTML = "";
+ 	bool ok = true;
+ 	while (ok) {
+ 		m_searchAnalysisHTML += QString::fromLatin1("<tr><td>") + key.book() + QString::fromLatin1("</td>");
+ 		analysisItem = m_canvasItemList.find( key.book() );
+ 		for (moduleIndex = 0, m_moduleList.first(); m_moduleList.current(); m_moduleList.next(), ++moduleIndex) {
+ 			count = analysisItem->getCountForModule(moduleIndex);
+ 			countStr.setNum(count);
+ 			m_searchAnalysisHTML += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
+ 		}
+ 		m_searchAnalysisHTML += QString::fromLatin1("</tr>\n");
+ 		ok = key.next(CSwordVerseKey::UseBook);
+ 	}
+ 	text += QString::fromLatin1("<table>\n") + tableTitle + tableTotals + m_searchAnalysisHTML + QString::fromLatin1("</table>\n");
+ 	text += QString::fromLatin1("<center>") + i18n("Created by") + QString::fromLatin1(" <a href=\"http://www.bibletime.de/\">BibleTime</a></center>");
+ 	text += QString::fromLatin1("</body></html>");
+ 	CToolClass::savePlainFile(file, text);
 }
 

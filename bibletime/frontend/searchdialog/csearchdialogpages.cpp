@@ -454,8 +454,9 @@ void CSearchResultPage::initView(){
 
 /** Sets the modules which contain the result of each. */
 void CSearchResultPage::setSearchResult(ListCSwordModuleInfo modules){
+  reset(); //clear current modules
+  
   m_modules = modules;
-  reset();
   m_moduleListBox->setupTree(modules);
   m_moduleListBox->setMinimumWidth(m_moduleListBox->sizeHint().width());
   m_moduleListBox->adjustSize();
@@ -511,6 +512,7 @@ void CSearchResultPage::initConnections(){
 
 /** Shows a dialog with the search analysis of the current search. */
 void CSearchResultPage::showAnalysis(){
+  qWarning("void CSearchResultPage::showAnalysis(): %i modules", m_modules.count());
   CSearchAnalysisDialog dlg(m_modules, this);
   dlg.exec();
 }
@@ -518,11 +520,8 @@ void CSearchResultPage::showAnalysis(){
 /*************************/
 
 CSearchOptionsPage::CSearchOptionsPage(QWidget *parent, const char *name ) : QWidget(parent,name) {
-  qWarning("CSearchOptionsPage::CSearchOptionsPage 1");
   initView();
-  qWarning("CSearchOptionsPage::CSearchOptionsPage 2");  
   readSettings();
-  qWarning("CSearchOptionsPage::CSearchOptionsPage 3");    
 }
 
 CSearchOptionsPage::~CSearchOptionsPage() {

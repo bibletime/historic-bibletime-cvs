@@ -189,6 +189,10 @@ private: // Private methods
   * Only used internal of this class implementation.
   */
   const QString& englishKey();
+protected: // Protected methods
+  /** Reimplementation. Returns false everytime because a bookmarks 
+has not possible drops. */
+  virtual bool acceptDrop(const QMimeSource * src);
 };
 
 

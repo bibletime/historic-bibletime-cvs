@@ -127,7 +127,7 @@ const QString& CDragDropMgr::Item::bookmarkDescription() const {
 
 
 
-//////////////////////////////////
+////////////////////////////////// NEW CLASS //////////////////////////
 
 CDragDropMgr::CDragDropMgr(){
 }
@@ -139,7 +139,7 @@ const bool CDragDropMgr::canDecode( const QMimeSource* const mime ) {
   if (CDragDropMgr::BTDrag::canDecode(mime)) {
     return true;
   };  
-  return false; //not implemented yet
+  return false;
 };
 
 QDragObject* const CDragDropMgr::dragObject( CDragDropMgr::ItemList& items, QWidget* dragSource ) {

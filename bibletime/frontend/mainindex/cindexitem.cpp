@@ -472,12 +472,16 @@ void CBookmarkItem::loadFromXML( QDomElement& element ) {
 
   if (element.hasAttribute("description"))
     m_description = element.attribute("description");
-//  qWarning("finished");
 }
 
 /** Returns the english key. */
 const QString& CBookmarkItem::englishKey(){
   return m_key;
+}
+
+/** Reimplementation. Returns false everytime because a bookmarks  has not possible drops. */
+bool CBookmarkItem::acceptDrop(const QMimeSource * src){
+  return false;
 }
 
 /****************************************/
