@@ -278,7 +278,10 @@ private:
 signals: // Signals
   void sigDeleteDocument();
   void sigSaveDocument(const QString);
-  void referenceClicked(const QString&);
+	/**
+	* First parameter is the module, the second the key.
+	*/
+  void referenceClicked(const QString&, const QString&);
   void linkClicked(const QString&);
 	void insertReference(const QString& reference);
 };

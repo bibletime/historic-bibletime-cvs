@@ -35,7 +35,7 @@ public:
   /**
   * Reimplementation from CSwordPresenter.
   */
-  virtual void lookup(const QString&);
+  virtual void lookup(const QString&, const QString&);
   /**
   * Reimplementation.
 	*/

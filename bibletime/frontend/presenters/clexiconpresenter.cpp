@@ -108,7 +108,7 @@ void CLexiconPresenter::initView(){
 /** No descriptions */
 void CLexiconPresenter::initConnections(){
 	qWarning("CLexiconPresenter::initConnections()");
-	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)), SLOT(lookup(const QString&))); 	
+	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)), SLOT(lookup(const QString&, const QString&)));
  	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)), SLOT(lookup(CSwordKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()), SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL(sigChanged()), SLOT(modulesChanged()));
@@ -152,10 +152,20 @@ void CLexiconPresenter::popupAboutToShow(){
 }
 
 /** No descriptions */
-void CLexiconPresenter::lookup(const QString& key){
-	if (!key.isEmpty())
-		m_key->key(key);		
-	m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
+void CLexiconPresenter::lookup(const QString& module, const QString& key){
+	//displayed in this displa window?
+	bool found = false;
+	for (m_moduleList.first(); m_moduleList.current() && !found; m_moduleList.next()) {
+  	found = (m_moduleList.current()->name() == module); //found			
+	}
+	if (found) {
+		if (!key.isEmpty())
+			m_key->key(key);		
+		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
+	}
+	else {
+		emit lookupInModule(module, key);
+	}
 }
 
 /** Refreshes all parts decsribed by the parameter. */
@@ -228,9 +238,9 @@ void CLexiconPresenter::copyEntryAndText(){
 
 //print functions
 void CLexiconPresenter::printEntryAndText(){
-	CSwordLDKey *key = new CSwordLDKey(m_moduleList.first());	//this key is deleted by the printem
-	key->key(m_key->key());
-
+//	CSwordLDKey *key = new CSwordLDKey(m_moduleList.first()); //this key will be deleted by the printem
+//	key->key(m_key->key());
+	CSwordLDKey* key = m_key->clone(); // later deleted by the print entry
 	printKey(key, key, m_moduleList.first());
 }
 

@@ -326,7 +326,7 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 			QString ref = QString::null;
 			QString mod = QString::null;		
 	 		CReferenceManager::decodeReference(str,mod,ref);
-	 		emit referenceClicked(ref);
+	 		emit referenceClicked(mod, ref);
 		}
 		else
 			e->ignore();
@@ -659,13 +659,11 @@ bool CHTMLWidget::linksEnabled() const {
 
 /** Reimplementation from QTextView. */
 void CHTMLWidget::emitLinkClicked( const QString& link){
-//	qWarning("CHTMLWidget::emitLinkClicked( const QString& link)");
 	if (link.left(7) == QString::fromLatin1("mailto:")) {
 		qDebug("open mailer for %s", link.mid(7).latin1());
 		KApplication::kApplication()->invokeMailer(link.mid(7), QString::null);
 	}
 	else if (CReferenceManager::isHyperlink(link)) {
-//		qWarning("HYPERLINK!! ##");
 		QString ref;
 		QString module;
 		CReferenceManager::Type type;			
@@ -691,8 +689,7 @@ void CHTMLWidget::emitLinkClicked( const QString& link){
 				}
 			}
 		}
-//		qWarning("emit %s", ref.latin1());
-		emit referenceClicked(ref);
+		emit referenceClicked(module, ref);
 	}
 	else {
 		QString url = link;

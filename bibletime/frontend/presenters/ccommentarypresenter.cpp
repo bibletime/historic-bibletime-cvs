@@ -119,8 +119,8 @@ void CCommentaryPresenter::initView(){
 
 /** Initializes the connections */
 void CCommentaryPresenter::initConnections(){
-	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)),
-		this, SLOT(lookup(const QString&))); 	 	
+	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
+		this, SLOT(lookup(const QString&, const QString&))); 	 	
 	connect(m_htmlWidget, SIGNAL(sigDeleteDocument()),
 		this, SLOT(deleteText())); 	 	
 	connect(m_htmlWidget, SIGNAL(sigSaveDocument(const QString)),
@@ -239,10 +239,28 @@ void CCommentaryPresenter::editComment(){
 }
 
 /** Reimplementation. */
-void CCommentaryPresenter::lookup(const QString& key){
-	if (!key.isEmpty())
-		m_key->key(key);
-	m_keyChooser->setKey(m_key); //the key chooser send an update signal
+void CCommentaryPresenter::lookup(const QString& module, const QString& key){
+	bool found = false;
+	for (m_moduleList.first(); m_moduleList.current() && !found; m_moduleList.next()) {
+  	found = (m_moduleList.current()->name() == module); //found			
+	}
+	if (found) {
+		if (!key.isEmpty())
+			m_key->key(key);		
+		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
+	}
+	else {
+		emit lookupInModule(module, key);
+	}
+
+//	if (module == m_module->name()) {
+//		if (!key.isEmpty())
+//			m_key->key(key);
+//		m_keyChooser->setKey(m_key); //the key chooser send an update signal			
+//	}
+//	else {
+//		emit lookupInModule( module, key );
+//	}
 }
 
 /** No descriptions */

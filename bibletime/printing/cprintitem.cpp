@@ -207,14 +207,12 @@ void CPrintItem::clearData(){
 void CPrintItem::updateListViewItem(){
 	if (m_module)
 		m_listViewItem->setText(0, m_module->name() );
-
 	if (m_startKey)
 		m_listViewItem->setText(1,m_startKey->key());
 	if (m_stopKey)
 		m_listViewItem->setText(2,m_stopKey->key());
 	else if (m_startKey)
-		m_listViewItem->setText(2,m_startKey->key());
-		
+		m_listViewItem->setText(2,m_startKey->key());		
 	if (getStyle())
 		m_listViewItem->setText(3, getStyle()->getStyleName() );
 }

@@ -47,7 +47,7 @@ public slots: // Public slots
   /**
   * No descriptions
   */
-  virtual void lookup(const QString&);
+  virtual void lookup(const QString&, const QString&);
   /**
   * Refreshes all parts decsribed by the parameter.
   */

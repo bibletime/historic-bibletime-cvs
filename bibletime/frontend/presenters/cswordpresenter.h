@@ -83,7 +83,7 @@ public slots: // Public slots
   /**
   * Look up the key given as parameter.
   */
-  virtual void lookup(const QString&);
+  virtual void lookup(const QString&, const QString&);
   /**
   * Returns the used keychooser object of this presenter.
   */
@@ -164,9 +164,7 @@ private:
 
 signals: // Signals
   void lookupInLexicon(const QString& text, const QString& lexicon);
-  /**
-  * Is emitted when this presenter should be closed.
-  */
+	void lookupInModule(const QString& module, const QString& text);
   void closePresenter(CSwordPresenter*);
 
 };

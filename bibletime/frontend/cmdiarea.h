@@ -92,6 +92,7 @@ public slots:
   * of it opne use it, otherwise create a new one.
   */
   void lookupInLexicon(const QString& text, const QString& module);
+  void lookupInModule(const QString& module, const QString& key);
   /**
   * Closes and deletes the presenter given as argument.
   */

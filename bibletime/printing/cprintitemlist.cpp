@@ -53,9 +53,10 @@ void CPrintItemList::initView(){
 
 /** Inserts the items of the list into the tree. */
 void CPrintItemList::insertItems( printItemList* itemList ) {
-	qDebug("CPrintItemList::insertItems( printItemList* itemList )");
+//	qDebug("CPrintItemList::insertItems( printItemList* itemList )");
+	const bool sameList = (itemList == m_items);
 	for(itemList->last(); itemList->current(); itemList->prev() ) {
-		if (itemList != m_items)
+		if (!sameList)
 			m_items->append(itemList->current());
 		itemList->current()->getListViewItem(this);	//insert the QListViewItem into the list
 	}
@@ -67,7 +68,6 @@ void CPrintItemList::setItems( printItemList* itemList ){
 		if (m_items->current())
 			m_items->current()->deleteListViewItem();
 	}
-
 	insertItems( itemList );
 }
 

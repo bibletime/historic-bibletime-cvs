@@ -164,8 +164,8 @@ void CBiblePresenter::optionsChanged(){
 
 /** Initializes the Signal / Slot connections */
 void CBiblePresenter::initConnections(){
-	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)),
-		this, SLOT(lookup(const QString&))); 	
+	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
+		this, SLOT(lookup(const QString&, const QString&))); 	
  	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()),
@@ -195,10 +195,23 @@ void CBiblePresenter::popupAboutToShow() {
 }
 
 /** Reimplementation from CSwordPresenter. */
-void CBiblePresenter::lookup(const QString& key){
-	if (!key.isEmpty())
-		m_key->key(key);
-	m_keyChooser->setKey(m_key); //the key chooser send an update signal
+void CBiblePresenter::lookup(const QString& module, const QString& key){
+	bool found = false;
+	for (m_moduleList.first(); m_moduleList.current() && !found; m_moduleList.next()) {
+  	found = (m_moduleList.current()->name() == module); //found			
+	}
+	if (found) {
+		if (!key.isEmpty())
+			m_key->key(key);		
+		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
+	}
+	else {
+		emit lookupInModule(module, key);
+	}
+
+//	if (!key.isEmpty())
+//		m_key->key(key);
+//	m_keyChooser->setKey(m_key); //the key chooser send an update signal
 }
 
 /** Reimplementation. Refreshes the things which are described by the event integer. */
@@ -265,7 +278,7 @@ void CBiblePresenter::copyVerseAndText(){
 void CBiblePresenter::printVerseAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
-	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	const QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
@@ -277,11 +290,13 @@ void CBiblePresenter::printVerseAndText(){
 
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::printChapter(){
-	CSwordVerseKey *startKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
-	startKey->key(m_key->key());
+//	CSwordVerseKey *startKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
+//	startKey->key(m_key->key());
+	CSwordVerseKey* startKey = m_key->clone();
 		
-	CSwordVerseKey *stopKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem	
-	stopKey->key(m_key->key());
+//	CSwordVerseKey *stopKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem	
+//	stopKey->key(m_key->key());
+	CSwordVerseKey* stopKey = m_key->clone();
 	
 	CSwordBibleModuleInfo* b = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
 	if (b)

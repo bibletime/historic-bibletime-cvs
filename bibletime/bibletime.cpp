@@ -170,9 +170,11 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			break;
 	}	
 	if (presenter) {
-		presenter->lookup(key);
+		presenter->lookup(modules.first()->name(),key);
 		connect(presenter, SIGNAL(lookupInLexicon(const QString&, const QString&)),
 			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
+		connect(presenter, SIGNAL(lookupInModule(const QString&, const QString&)),
+			m_mdi, SLOT(lookupInModule(const QString&, const QString&)));							
 		connect(presenter, SIGNAL(closePresenter(CSwordPresenter*)),
 			m_mdi, SLOT(closePresenter(CSwordPresenter*)));							
 		if (presenter->isA("CBiblePresenter")) {

@@ -65,7 +65,7 @@ void CSwordPresenter::printKey(CSwordKey* start, CSwordKey* stop, CSwordModuleIn
 	CPrintItem* printItem = new CPrintItem();
 	printItem->setModule(module);
 	printItem->setStartKey(start);
-	if (start != stop)
+	if (stop &&start != stop)
 		printItem->setStopKey(stop);
 	m_important->printer->addItemToQueue(printItem);
 }
@@ -109,7 +109,7 @@ void CSwordPresenter::lookupWord(int moduleID){
 }
 
 /** Look up the key given as parameter. */
-void CSwordPresenter::lookup(const QString&){
+void CSwordPresenter::lookup(const QString&, const QString&){
 }
 
 /** Returns the listof used modules. */

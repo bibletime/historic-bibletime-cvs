@@ -309,9 +309,10 @@ void CPrinter::addItemToQueue(CPrintItem* newItem){
 	for (m_styleList->first(); m_styleList->current(); m_styleList->next()) {
 		if (m_styleList->current()->getStyleName() == i18n("Standard")) {
 			newItem->setStyle(m_styleList->current());
+			break;
 		}
 	}
-	m_queue->append( newItem );
+	m_queue->append(newItem );
 	if (m_queue->count() == 1)
 		emit addedFirstQueueItem();
 }

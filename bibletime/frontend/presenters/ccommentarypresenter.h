@@ -58,7 +58,7 @@ public slots: // Public slots
   /**
   * Reimplementation.
   */
-  virtual void lookup(const QString&);
+  virtual void lookup(const QString&, const QString&);
   /**
   * Reimplementation
   */

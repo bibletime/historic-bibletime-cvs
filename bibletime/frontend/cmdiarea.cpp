@@ -226,9 +226,35 @@ void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 	if (!found)
 		emit createNewSwordPresenter(m, text);
 	else
-		p->lookup(text);
+		p->lookup(module, text);
 }
 
+/** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
+void CMDIArea::lookupInModule(const QString& module, const QString& key){
+//	qWarning("CMDIArea::lookupInLexicon(const QString& text, const QString& module)");
+	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+	if (!m)
+		return;
+	CSwordPresenter* p = 0;
+
+	bool found = false;	
+//	QWidgetList windows = windowList();	
+//	if (!windows.count())
+//		return;
+//	bool found = false;
+//	for (windows.first(); windows.current(); windows.next()) {
+//		p = dynamic_cast<CLexiconPresenter*>(windows.current());
+//		if (p && (m == p->getModuleList().first())) {
+////			qWarning("found");
+//			found = true;
+//			break;
+//		}
+//	}
+	if (!found)
+		emit createNewSwordPresenter(m, key);
+//	else
+//		p->lookup(text);
+}
 /** Closes and deletes the presenter given as argument. */
 void CMDIArea::closePresenter(CSwordPresenter* p){
 	if (!p)

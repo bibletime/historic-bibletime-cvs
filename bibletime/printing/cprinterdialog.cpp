@@ -310,12 +310,12 @@ void CPrinterDialog::readSettings(){
 
 	const QString printerName = m_printer->printerName();
 	QListViewItemIterator it( m_general.printerList );
-    for ( ; it.current(); ++it ) {
-      if( it.current()->text(0) == printerName ) {
-      	m_general.printerList->setSelected(it.current(),true);
-      	break;
-      }
+	for ( ; it.current(); ++it ) {
+		if( it.current()->text(0) == printerName ) {
+			m_general.printerList->setSelected(it.current(),true);
+			break;
 		}
+	}
 
 	m_general.pageSpin->setValue( m_printer->numCopies() );
 	if (m_printer->orientation() == QPrinter::Portrait)
