@@ -9,6 +9,7 @@ bibletime_LDADD   = \
 ./frontend/displaywindow/libdisplaywindow.a \
 ./frontend/display/libdisplay.a \
 ./frontend/keychooser/libkeychooser.a \
+./frontend/mainindex/libmainindex.a \
 ./frontend/groupmanager/libgroupmanager.a \
 ./frontend/searchdialog/libsearchdialog.a \
 ./frontend/libfrontend.a \

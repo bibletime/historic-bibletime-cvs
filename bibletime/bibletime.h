@@ -33,6 +33,7 @@ class CGroupManager;
 class CMDIArea;
 class CProfile;
 class CDisplayWindow;
+class CMainIndex;
 
 //KDE classes
 class KToggleAction;
@@ -357,6 +358,8 @@ private:
 	CProfileMgr m_profileMgr;	
 	CSwordBackend* m_backend;
 	CPrinter* m_printer;
+
+  CMainIndex* m_mainIndex;
 };
 
 #endif

@@ -101,12 +101,9 @@
 /* e.g. bible/reference is expanded to text/bible/reference,
   like text/plain or text/html */
 
-#define REFERENCE				"bt_reference"    // text/bt_reference
-#define STRONGNUMBER		"bt_strongnumber" // text/bt_strongnumber
-#define BOOKMARK				"bt_bookmark"     // text/bt_bookmark (fake)
-#define MODULE					"bt_module"     	// text/bt_module
-#define GROUP						"bt_group"     		// text/bt_group
-#define TEXT						"plain"           // text/plain
+#define REFERENCE			"bt_reference"    // text/bt_reference
+#define BOOKMARK			"bt_bookmark"     // text/bt_bookmark (fake)
+#define TEXT					"plain"           // text/plain
 
 
 #define LOAD_SMALL_ICON(name)		SmallIcon(name, 16)

@@ -584,10 +584,10 @@ void CGroupManager::contentsDragEnterEvent( QDragEnterEvent* e){
   		m_dragType = BOOKMARK;
   	else if (QTextDrag::decode(e,str,submime=REFERENCE))
   		m_dragType = REFERENCE;  	
-  	else if (QTextDrag::decode(e,str,submime=MODULE))
-  		m_dragType = MODULE;  	
-  	else if (QTextDrag::decode(e,str,submime=GROUP))
-  		m_dragType = GROUP;  	  		
+//  	else if (QTextDrag::decode(e,str,submime=MODULE))
+//  		m_dragType = MODULE;  	
+//  	else if (QTextDrag::decode(e,str,submime=GROUP))
+//  		m_dragType = GROUP;  	  		
   	else if (QTextDrag::decode(e,str,submime=TEXT))
   		m_dragType = TEXT;
   	else
@@ -684,29 +684,29 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     	MOVE_ITEMS    	
     }//else
   }//Bookmark
-  else if (QTextDrag::decode(e,str,submime=GROUP)){
-    //a group was dragged
-    if ( e->source() != this->viewport() )
-      return;
-    if ( !(m_itemList) )
-      return;
-    CGroupManagerItem* item = 0;
-    CGroupManagerItem* parentItem = 0;
-    //move around groups    	
-    MOVE_ITEMS
-  }//group
-  else if (QTextDrag::decode(e,str,submime=MODULE)){
-    //a module was dragged
-    if ( e->source() != this->viewport() ){
-      return;
-    }
-    if ( !(m_itemList) ){
-      return;
-    }
-    CGroupManagerItem* item = 0;
-    CGroupManagerItem* parentItem = 0;
-    MOVE_ITEMS
-  }//module
+//  else if (QTextDrag::decode(e,str,submime=GROUP)){
+//    //a group was dragged
+//    if ( e->source() != this->viewport() )
+//      return;
+//    if ( !(m_itemList) )
+//      return;
+//    CGroupManagerItem* item = 0;
+//    CGroupManagerItem* parentItem = 0;
+//    //move around groups    	
+//    MOVE_ITEMS
+//  }//group
+//  else if (QTextDrag::decode(e,str,submime=MODULE)){
+//    //a module was dragged
+//    if ( e->source() != this->viewport() ){
+//      return;
+//    }
+//    if ( !(m_itemList) ){
+//      return;
+//    }
+//    CGroupManagerItem* item = 0;
+//    CGroupManagerItem* parentItem = 0;
+//    MOVE_ITEMS
+//  }//module
   else if (QTextDrag::decode(e,str,submime=REFERENCE)){
     //a reference was dragged
 		QString ref;
@@ -874,16 +874,16 @@ void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
 	        		m_dragType = BOOKMARK;
 					}
 					break;					
-				case (CGroupManagerItem::Module):
-					d = new QTextDrag( "" , viewport());
-					d->setSubtype(MODULE);
-					m_dragType = MODULE;
-					break;					
-				case (CGroupManagerItem::Group):
-					d = new QTextDrag( "" , viewport());
-					d->setSubtype(GROUP);
-					m_dragType = GROUP;
-					break;
+//				case (CGroupManagerItem::Module):
+//					d = new QTextDrag( "" , viewport());
+//					d->setSubtype(MODULE);
+//					m_dragType = MODULE;
+//					break;					
+//				case (CGroupManagerItem::Group):
+//					d = new QTextDrag( "" , viewport());
+//					d->setSubtype(GROUP);
+//					m_dragType = GROUP;
+//					break;
 			}
 			
 			if (d) {
@@ -1440,58 +1440,58 @@ const QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem */
 		else
 			insertmarker = QRect();
 	}
-	else if ( m_dragType == MODULE ) { 	//we are moving a reference
-		if ( after && after->type() == CGroupManagerItem::Group)
-			insertmarker = itemRect(after);
-		else if ( after && (after->type() == CGroupManagerItem::Module || after->type() == CGroupManagerItem::Bookmark) ) {
-			if (after->parent()) {
-				useParent = true;
-				insertmarker = itemRect(after->parent());
-			}
-			else
-				insertmarker = QRect(); 	//paint nothing			
-		}		
-		else if ( after && after->parent() && after->parent()->type() == CGroupManagerItem::Group ) {
-			useParent = true;
-			insertmarker = itemRect(after->parent());
-		}
-		else if (!after)
-			insertmarker = QRect();//this->visibleRect();
-		else
-			insertmarker = QRect();
-	}	
-	else if (m_dragType == TEXT) {
-		if ( after && after && after->type() == CGroupManagerItem::Module )			
-			insertmarker = QRect(itemRect(after));
-		else
-			insertmarker = QRect();
-	}
-	else if (m_pressedItem) {
-  	if ( m_pressedItem->type() == CGroupManagerItem::Group  ) {	//we are moving a group
-			if (after && after->type() == CGroupManagerItem::Group)
-				insertmarker = itemRect(after);
-			else if (after && after->parent() && after->parent()->type() == CGroupManagerItem::Group) {
-				useParent = true;
-				insertmarker = itemRect(after->parent());
-			}
-			else if (!after)
-				insertmarker = QRect();//this->visibleRect();
-		else
-			insertmarker = QRect();
-  	}
-  }
-
-  if ( p && insertmarker.isValid() )  {
-  	if (useParent)
-  		insertmarker.setLeft( treeStepSize()*(after->parent()->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin()- contentsX());
-  	else
-  		insertmarker.setLeft( treeStepSize()*(after->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin() - contentsX());
-  	style().drawPrimitive( QStyle::PE_FocusRect, p, insertmarker, colorGroup(), QStyle::Style_HasFocus);
-//  after->isSelected() ? &colorGroup().highlight() : &colorGroup().base(), after->isSelected() && !useParent
-  }
-  else if (!insertmarker.isValid()) {
-  	cleanDropVisualizer();
-  }
+//	else if ( m_dragType == MODULE ) { 	//we are moving a reference
+//		if ( after && after->type() == CGroupManagerItem::Group)
+//			insertmarker = itemRect(after);
+//		else if ( after && (after->type() == CGroupManagerItem::Module || after->type() == CGroupManagerItem::Bookmark) ) {
+//			if (after->parent()) {
+//				useParent = true;
+//				insertmarker = itemRect(after->parent());
+//			}
+//			else
+//				insertmarker = QRect(); 	//paint nothing			
+//		}		
+//		else if ( after && after->parent() && after->parent()->type() == CGroupManagerItem::Group ) {
+//			useParent = true;
+//			insertmarker = itemRect(after->parent());
+//		}
+//		else if (!after)
+//			insertmarker = QRect();//this->visibleRect();
+//		else
+//			insertmarker = QRect();
+//	}	
+//	else if (m_dragType == TEXT) {
+//		if ( after && after && after->type() == CGroupManagerItem::Module )			
+//			insertmarker = QRect(itemRect(after));
+//		else
+//			insertmarker = QRect();
+//	}
+//	else if (m_pressedItem) {
+//  	if ( m_pressedItem->type() == CGroupManagerItem::Group  ) {	//we are moving a group
+//			if (after && after->type() == CGroupManagerItem::Group)
+//				insertmarker = itemRect(after);
+//			else if (after && after->parent() && after->parent()->type() == CGroupManagerItem::Group) {
+//				useParent = true;
+//				insertmarker = itemRect(after->parent());
+//			}
+//			else if (!after)
+//				insertmarker = QRect();//this->visibleRect();
+//		else
+//			insertmarker = QRect();
+//  	}
+//  }
+//
+//  if ( p && insertmarker.isValid() )  {
+//  	if (useParent)
+//  		insertmarker.setLeft( treeStepSize()*(after->parent()->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin()- contentsX());
+//  	else
+//  		insertmarker.setLeft( treeStepSize()*(after->depth()+(rootIsDecorated() ? 1 :0 ))+itemMargin() - contentsX());
+//  	style().drawPrimitive( QStyle::PE_FocusRect, p, insertmarker, colorGroup(), QStyle::Style_HasFocus);
+////  after->isSelected() ? &colorGroup().highlight() : &colorGroup().base(), after->isSelected() && !useParent
+//  }
+//  else if (!insertmarker.isValid()) {
+//  	cleanDropVisualizer();
+//  }
   return insertmarker;
 }
 

@@ -126,6 +126,13 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
 
     case QEvent::MouseButtonPress:
     case QEvent::MouseButtonRelease:
+      if (QMouseEvent* me = dynamic_cast<QMouseEvent*>(e)) {
+        if (me->state() != Qt::NoButton || me->stateAfter() != Qt::NoButton) { //probaby dragging - show no tip
+          killTimers();
+          hide();
+          break;
+        }
+      }
       if (isVisible() && widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos()))
         break;
       else {
@@ -154,8 +161,11 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
         break;
 
       if (QMouseEvent* me = dynamic_cast<QMouseEvent*>(e)) {
-        if (me->stateAfter() != Qt::NoButton) //probaby dragging - show no tip
+        if (me->state() != Qt::NoButton || me->stateAfter() != Qt::NoButton) { //probaby dragging - show no tip
+          killTimers();
+          hide();
           break;
+        }
         if (QWidget * w = KApplication::widgetAt( me->globalPos(), true )) {
           while ( w && w != parentWidget()) {
             w = w->parentWidget();

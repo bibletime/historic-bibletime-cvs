@@ -270,7 +270,7 @@ const QString CGroupManagerItem::getToolTip(){
 }
 
 /** Moves this item after the item "item". */
-void CGroupManagerItem::moveAfter( CGroupManagerItem* item, const MoveType type ){
+void CGroupManagerItem::moveAfter( CGroupManagerItem* item, MoveType type ){
 	if (!item)
 		return;
 	

@@ -27,6 +27,7 @@
 #include "frontend/cmdiarea.h"
 #include "frontend/kstartuplogo.h"
 #include "frontend/groupmanager/cgroupmanager.h"
+#include "frontend/mainindex/cmainindex.h"
 
 #include "printing/cprinter.h"
 
@@ -67,6 +68,10 @@ void BibleTime::initView(){
 	
 	m_groupmanager = new CGroupManager( centralWidget(), "groupmanager", m_moduleList );
 	m_groupmanager->setFocusPolicy(ClickFocus);
+
+	m_mainIndex = new CMainIndex( centralWidget() );
+  m_mainIndex->initTree();
+	m_mainIndex->setFocusPolicy(WheelFocus);
 
 	m_mdi = new CMDIArea(centralWidget(), "mdiarea" );
 	m_mdi->setFocusPolicy(ClickFocus);
@@ -275,6 +280,9 @@ void BibleTime::initConnections(){
 	connect(m_groupmanager, SIGNAL(createDisplayWindow(CSwordModuleInfo*, const QString&)),
 		this, SLOT(createDisplayWindow(CSwordModuleInfo*,const QString&)));
 	connect(m_groupmanager, SIGNAL(createDisplayWindow(ListCSwordModuleInfo, const QString&)),
+		this, SLOT(createDisplayWindow(ListCSwordModuleInfo,const QString&)));
+
+ 	connect(m_mainIndex, SIGNAL(modulesChosen(ListCSwordModuleInfo, const QString&)),
 		this, SLOT(createDisplayWindow(ListCSwordModuleInfo,const QString&)));
 	
 	//connect to the signals of the printer object
