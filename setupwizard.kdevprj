@@ -19,7 +19,7 @@ execute_args=--start-bibletime
 kdevprj_version=1.3
 lfv_open_groups=
 make_options=\s-j1
-makefiles=Makefile.am,bibleinstaller/Makefile.am,bibleinstaller/docs/Makefile.am,bibleinstaller/docs/en/Makefile.am,setupwizard/Makefile.am
+makefiles=Makefile.am,bibleinstaller/Makefile.am,bibleinstaller/docs/Makefile.am,bibleinstaller/docs/en/Makefile.am,setupwizard/Makefile.am,bibleinstaller/setupwizard/Makefile.am
 modifyMakefiles=false
 project_name=SetupWizard
 project_type=normal_empty
@@ -48,7 +48,7 @@ install_location=
 type=DATA
 
 [bibleinstaller/Makefile.am]
-sub_dirs=
+sub_dirs=setupwizard
 type=prog_main
 
 [bibleinstaller/docs/Makefile.am]
@@ -59,8 +59,51 @@ type=normal
 sub_dirs=
 type=normal
 
+[bibleinstaller/setupwizard/Makefile.am]
+files=bibleinstaller/setupwizard/installer.cpp,bibleinstaller/setupwizard/installer.h,bibleinstaller/setupwizard/installpage_1.cpp,bibleinstaller/setupwizard/installpage_1.h,bibleinstaller/setupwizard/install.cpp,bibleinstaller/setupwizard/install.h
+sharedlib_LDFLAGS=-version-info 0:0:0
+sharedlib_rootname=setupwizard
+sub_dirs=
+type=static_library
+
+[bibleinstaller/setupwizard/install.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibleinstaller/setupwizard/install.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibleinstaller/setupwizard/installer.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibleinstaller/setupwizard/installer.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibleinstaller/setupwizard/installpage_1.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibleinstaller/setupwizard/installpage_1.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [setupwizard/Makefile.am]
-files=setupwizard/btsetupwizard.cpp,setupwizard/btsetupwizard.h,setupwizard/main.cpp
+files=setupwizard/btsetupwizard.cpp,setupwizard/btsetupwizard.h,setupwizard/main.cpp,setupwizard/install.h,setupwizard/install.cpp,setupwizard/remove.h,setupwizard/remove.cpp
 sharedlib_LDFLAGS=-version-info 0:0:0
 sharedlib_rootname=setupwizard
 sub_dirs=
@@ -78,8 +121,32 @@ install=false
 install_location=
 type=HEADER
 
+[setupwizard/install.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[setupwizard/install.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [setupwizard/main.cpp]
 dist=true
 install=false
 install_location=
 type=SOURCE
+
+[setupwizard/remove.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[setupwizard/remove.h]
+dist=true
+install=false
+install_location=
+type=HEADER
