@@ -617,6 +617,32 @@ bool CFolderBase::acceptDrop(const QMimeSource*){
   return false;
 }
 
+QPtrList<QListViewItem> CFolderBase::getChildList() {
+	QPtrList<QListViewItem> childs;
+	if (!childCount()) //no childs available
+		return childs;
+		
+	QListViewItem* i = firstChild();
+	while (i && (i->parent() == this)) {		
+		CItemBase* item = dynamic_cast<CItemBase*>(i);
+		if (item) { //we found a valid item
+			childs.append(item);
+			
+			CFolderBase* folder = dynamic_cast<CFolderBase*>(i);
+			if (folder) {
+				QPtrList<QListViewItem> subChilds = folder->getChildList();
+				for (QListViewItem* ci = subChilds.first(); ci; ci = subChilds.next()) {
+					childs.append(ci);
+				}
+			}
+		}
+		
+		do {
+			i = i->nextSibling();
+		} while (i && (i->parent() != this));
+	}	
+}
+
 /****************************************/
 /*****  class: CTreeFolder  *************/
 /****************************************/
@@ -931,11 +957,6 @@ namespace Bookmarks {
    setRenameEnabled(0,true);
  }
 
-// /** Is called when an item was dropped on this subfolder. */
-// bool SubFolder::acceptDrop(const QMimeSource * src) const {
-//   return CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
-// }
-
  /** Reimplementation from  CItemBase. */
  const bool SubFolder::enableAction(const MenuAction action){
    if (action == ChangeFolder || action == NewFolder || action == DeleteEntries || action == ImportBookmarks )
@@ -944,6 +965,9 @@ namespace Bookmarks {
    if (action == ExportBookmarks || action == ImportBookmarks )
      return true; //not yet implemented
 
+  if ((action == PrintBookmarks) && childCount())
+    return true;
+  
    return false;
  }
 
@@ -1025,13 +1049,16 @@ void CBookmarkFolder::initTree(){
 
 /** Reimplementation. */
 const bool CBookmarkFolder::enableAction(const MenuAction action){
-  if (action == NewFolder || action == ImportBookmarks)
+  if ((action == NewFolder) || (action == ImportBookmarks))
     return true;
 
-  if (action == ExportBookmarks && childCount())
+  if ((action == ExportBookmarks) && childCount())
     return true;
 
-  return false;
+  if ((action == PrintBookmarks) && childCount())
+    return true;
+  
+	return false;
 }
 
 

@@ -434,15 +434,25 @@ void CMainIndex::importBookmarks(){
 void CMainIndex::printBookmarks(){
 	CPrinter::KeyTree tree;
 	CPrinter::KeyTreeItem::Settings settings;
+	settings.keyRenderingFace = CPrinter::KeyTreeItem::Settings::CompleteShort;
 	
-  QPtrList<QListViewItem> items = selectedItems();
-  for (items.first(); items.current(); items.next()) {
+	QPtrList<QListViewItem> items;
+	CBookmarkFolder* bf = dynamic_cast<CBookmarkFolder*>(currentItem());
+	
+	if (bf) {
+	 items = bf->getChildList();
+	}
+	else {
+		items = selectedItems();	
+	}
+	
+	for (items.first(); items.current(); items.next()) {
 		CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(items.current());
-    if (i) {
+		if (i) {
 			tree.append( new CPrinter::KeyTreeItem( i->key(), i->module(), settings ) );
-    }
-  }
-	
+		}
+	}
+		
 	CPointers::printer()->printKeyTree(tree);
 }
 

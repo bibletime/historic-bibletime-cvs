@@ -242,12 +242,17 @@ public:
   void rename();
   virtual void newSubFolder();
 
+	QPtrList<QListViewItem> getChildList();
+	
 protected:
   /**
   * Reimplementation. Returns true if the auto opening of this folder is allowd
   */
   virtual const bool allowAutoOpen( const QMimeSource* src ) const;  
-  /** Reimplementation. Returns false because folders have no use for drops (except for the bookmark folders) */
+  /** 
+	* Reimplementation. Returns false because folders have no use for drops
+	* (except for the bookmark folders) 
+	*/
   bool acceptDrop(const QMimeSource * src);
 };
 

@@ -113,7 +113,7 @@ const QString CPrinter::finishText(const QString& text, KeyTree& tree)
 	Q_ASSERT(lang);
 	
 	CDisplayTemplateMgr::Settings settings;
-	settings.modules = modules;
+	//settings.modules = modules;
 	settings.pageCSS_ID = "printer";
 	settings.langAbbrev = (lang && (modules.count() == 1) && lang->isValid())
 		?	lang->abbrev() 
