@@ -83,14 +83,15 @@ void COptionsDialog::initFontPage(){
  	font_page = addVBoxPage(i18n("Fonts"), i18n("Select BibleTime fonts"), OD_ICON_FONTS); 	
 	KConfigGroupSaver groupSaver(config, "Fonts");
 
-  QFont dummy = QFont::defaultFont();
-  currentFonts[0] = config->readFontEntry("Presenter", &dummy );
+//  QFont dummy = QFont::defaultFont();
+	QFont dummy;
+  currentFonts[0] = config->readFontEntry("Presenter");
 //  currentFonts[2] = config->readFontEntry("Presenter Fixed");
 //  currentFonts[3] = config->readFontEntry("Printer");
 //  currentFonts[4] = config->readFontEntry("Printer Fixed");
 
- 	presenterFont = config->readFontEntry("Presenter");
-	fontButtonGroup	=	new QButtonGroup (2,Qt::Horizontal,i18n("Usage"), font_page, "fontGroup");
+ 	presenterFont = currentFonts[0];
+	fontButtonGroup	=	new QButtonGroup(2,Qt::Horizontal,i18n("Usage"), font_page, "fontGroup");
 	
 	font1vButton = new QRadioButton(i18n("Presenter"), fontButtonGroup);
 	QWhatsThis::add(font1vButton, WT_OD_FONTS_PRESENTER );

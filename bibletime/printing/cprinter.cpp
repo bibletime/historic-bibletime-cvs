@@ -191,15 +191,12 @@ void CPrinter::printItem( QPainter* p, CPrintItem* item){
 	bool printed = false;
 	
 	for (unsigned short int index=1; index <= 3; index++ ) {
-		if (styleType == CStyle::Unknown) {		
+		if (styleType == CStyle::Unknown)
 			styleType = CStyle::Header;
-		}
-		else if (styleType == CStyle::Header) {
+		else if (styleType == CStyle::Header)
 			styleType = CStyle::Description;
-		}
-		else	if (styleType == CStyle::Description) {
+		else	if (styleType == CStyle::Description)
 			styleType = CStyle::ModuleText;
-		}
 		
 		//print the part if it's enabled
 		isEnabled = style->hasFormatTypeEnabled( styleType );
