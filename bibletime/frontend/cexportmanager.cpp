@@ -131,13 +131,45 @@ const bool CExportManager::saveKeyList( QPtrList<CSwordKey>& list, CSwordModuleI
 
 
 ///////// copy functions
-const bool CExportManager::copyKey( CSwordKey* key, const bool withText ) {
-	bool ret = true;
-	QString text = (withText) ? QString::fromLatin1("%1:\n\t%2").arg(key->key()).arg(key->strippedText()) : key->key()+"\n";
+const bool CExportManager::copyKey( CSwordKey* key, const bool withText, const CSwordBackend::FilterOptions filterOptions, const CSwordBackend::DisplayOptions displayOptions) {
+  /*
+  * This function copies the text of key inton the clipboard. The keyname is appended in brackets.
+  */
+  if (!key)
+    return false;
 
+  if (!withText) {
+  	KApplication::clipboard()->setText(key->key());
+  	return true;
+  }
+
+  CPointers::backend()->setFilterOptions(filterOptions);
+  CPointers::backend()->setDisplayOptions(displayOptions);
+
+  QString text = QString::null;
+  CSwordModuleInfo* module = key->module();
+  Q_ASSERT(module);
+	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) {
+    CSwordVerseKey startKey(module);
+    CSwordVerseKey stopKey(module);
+
+		startKey.key(vk->LowerBound());
+		stopKey.key(vk->UpperBound());
+	
+		while ( startKey < stopKey || startKey == stopKey ) {
+			text += ((bool)displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
++ startKey.strippedText() + ((bool)displayOptions.lineBreaks ? QString::fromLatin1("\n") : QString::null);
+			
+      startKey.next(CSwordVerseKey::UseVerse);
+		}
+	}		
+  else {
+    text = key->strippedText();
+  }
+
+  text += "\n" + QString::fromLatin1("(%1, %1)").arg(key->key()).arg(module->name());
 	KApplication::clipboard()->setText(text);
-
-	return ret;
+	return true;
 }
 
 const bool CExportManager::copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){

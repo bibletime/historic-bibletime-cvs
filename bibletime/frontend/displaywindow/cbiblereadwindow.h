@@ -30,6 +30,9 @@
 //KDE includes
 #include <kaction.h>
 
+
+class CTransliterationButton;
+
 /**The read display window for Bibles.
   *@author The BibleTime team
   */
@@ -97,8 +100,13 @@ protected slots: // Protected slots
   void previousChapter();
   void nextVerse();
   void previousVerse();
-  /** Is called when the key of the keychooser changed. */
   void keyChanged(CSwordKey* key);
+  /**
+  * Copies the current chapter into the clipboard.
+  */
+  void copyChapter();
+  /** Saves the chapter as valid HTML page. */
+  void saveChapter();
 
 private:
   friend class CCommentaryReadWindow;
@@ -106,6 +114,8 @@ private:
   * Wrapper around key() to return the right type of key.
   */
   CSwordVerseKey* verseKey();
+
+  CTransliterationButton* m_transliterationButton;
 };
 
 #endif

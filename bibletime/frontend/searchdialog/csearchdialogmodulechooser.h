@@ -19,13 +19,15 @@
 #define CSEARCHDIALOGMODULECHOOSER_H
 
 #include "backend/cswordmoduleinfo.h"
+
+
 #include "frontend/cpointers.h"
+#include "frontend/mainindex/cmainindex.h"
 
 //Qt includes
 #include <qwidget.h>
 #include <qptrdict.h>
 
-class CGroupManager;
 class QListBox;
 
 /** A widget to select the modules in which you want to search.
@@ -46,11 +48,11 @@ public:
   ListCSwordModuleInfo getChosenModules();
 
 private:
-	CGroupManager* m_moduleIndex;
 	QListBox* m_moduleList;
 	QPtrDict<char> m_itemsDict;
 	bool m_initialized;
-	
+	CMainIndex* m_moduleIndex;
+
 private slots: // Private slots
   /**
   * Removes the selected item from the module list

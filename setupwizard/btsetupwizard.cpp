@@ -19,5 +19,6 @@
 
 BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(parent,name) {
 }
+
 BTSetupWizard::~BTSetupWizard(){
 }

@@ -58,7 +58,6 @@ CSwordBackend::CSwordBackend()
 	m_filters.gbf = 0;
 	m_filters.thml = 0;
 	m_filters.plain = 0;
-  m_filters.transliterator = 0;
 }
 
 CSwordBackend::~CSwordBackend(){
@@ -66,7 +65,7 @@ CSwordBackend::~CSwordBackend(){
 	delete m_filters.gbf;
 	delete m_filters.plain;	
 	delete m_filters.thml;	
-  delete m_filters.transliterator;
+//  delete m_filters.transliterator;
 }
 
 /** Initializes the Sword modules. */
@@ -162,26 +161,40 @@ const bool CSwordBackend::shutdownModules(){
 }
 
 /** Returns true if the given option is enabled. */
-const bool CSwordBackend::isOptionEnabled( const CSwordBackend::FilterOptions type) {
+const bool CSwordBackend::isOptionEnabled( const CSwordBackend::FilterTypes type) {
 	return (getGlobalOption( optionName(type).latin1() ) == "On");
 }
 
 /** Sets the given options enabled or disabled depending on the second parameter. */
-void CSwordBackend::setOption( const CSwordBackend::FilterOptions type, const bool enable){
-	string value;
+void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int state){
+  string value;
 	switch (type) {
 		case textualVariants:
-			value = enable ? "Secondary Reading" : "Primary Reading";
-			//if on, user alternative (secondary) reading
+      if (state == 0)
+        value = "Primary Reading";
+      else if (state == 1)
+        value = "Secondary Reading";
+      else
+        value = "All Readings";
 			break;
+    case transliteration:
+      if (useICU()) {
+        OptionsList options = transliterator()->getOptionValues();
+        OptionsList::iterator it = options.begin();
+        for (int index = state; index >0 && it != options.end(); ++it) {
+          --index;
+        }
+        value = it->c_str();
+      }
+      break;
 		default:		
-			value = enable ? "On": "Off";
+			value = state ? "On": "Off";
 			break;
 	};
 	setGlobalOption(optionName(type).latin1(), value.c_str());
 }
 
-void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptionsBool options){
+void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options){
   setOption( footnotes, 					options.footnotes );
   setOption( strongNumbers, 			options.strongNumbers );
   setOption( headings, 						options.headings );
@@ -189,12 +202,13 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptionsBool opt
 	setOption( lemmas, 							options.lemmas );
 	setOption( hebrewPoints, 				options.hebrewPoints );
 	setOption( hebrewCantillation, 	options.hebrewCantillation );
-	setOption( greekAccents, 				options.greekAccents);
-	setOption( textualVariants,			options.textualVariants);	
+	setOption( greekAccents, 				options.greekAccents );
+	setOption( textualVariants,			options.textualVariants );	
+	setOption( transliteration,			options.transliteration );	
 //	setOption( scriptureReferences,			options.scriptureReferences);	
 }
 
-void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptionsBool options){
+void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptions options){
   if (m_displays.entry)
 		m_displays.entry->setDisplayOptions(options);	
   if (m_displays.chapter)
@@ -286,7 +300,7 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 }
 
 /** Returns the text used for the option given as parameter. */
-const QString CSwordBackend::optionName( const CSwordBackend::FilterOptions option ){
+const QString CSwordBackend::optionName( const CSwordBackend::FilterTypes option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
 			return QString::fromLatin1("Footnotes");
@@ -308,12 +322,14 @@ const QString CSwordBackend::optionName( const CSwordBackend::FilterOptions opti
 			return QString::fromLatin1("Textual Variants");	
 		case CSwordBackend::scriptureReferences:
 			return QString::fromLatin1("Scripture References");
+		case CSwordBackend::transliteration:
+			return QString::fromLatin1("Transliteration");
 	}
 	return QString::null;	
 }
 
 /** Returns the translated name of the option given as parameter. */
-const QString CSwordBackend::translatedOptionName(const CSwordBackend::FilterOptions option){
+const QString CSwordBackend::translatedOptionName(const CSwordBackend::FilterTypes option){
 	switch (option) {
 		case CSwordBackend::footnotes:
 			return i18n("Footnotes");
@@ -335,13 +351,14 @@ const QString CSwordBackend::translatedOptionName(const CSwordBackend::FilterOpt
 			return i18n("Textual Variants");
 		case CSwordBackend::scriptureReferences:
 			return i18n("Scripture Cross-references");	
-
+		case CSwordBackend::transliteration:
+			return i18n("Transliteration between scripts");	
 	}
 	return QString::null;
 }
 
 
-const QString CSwordBackend::configOptionName( const CSwordBackend::FilterOptions option ){
+const QString CSwordBackend::configOptionName( const CSwordBackend::FilterTypes option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
 			return QString::fromLatin1("Footnotes");
@@ -380,7 +397,18 @@ const SWVersion CSwordBackend::Version() {
 
 /** Returns our transliterator object we use. Returns 0 if ICU is not used. */
 SWFilter* const CSwordBackend::transliterator() {
-  if (isICU && !m_filters.transliterator)
-    m_filters.transliterator = new UTF8Transliterator();
-  return m_filters.transliterator;
+  SWFilter* filter = optionFilters["UTF8Transliterator"];
+  Q_ASSERT(filter);
+  if (filter)
+    return filter;
+  return 0;
+
+//  if (useICU() && !m_filters.transliterator)
+//    m_filters.transliterator = new UTF8Transliterator();
+//  return m_filters.transliterator;
+}
+
+/** Returns true if ICU is being used. */
+const bool CSwordBackend::useICU() const{
+  return SWMgr::isICU;
 }

@@ -36,13 +36,13 @@
 #include <klocale.h>
 
 CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name ) : CDisplayWindow(modules,parent,name) {
-	qWarning("constructor of CReadWindow");
+//	qWarning("constructor of CReadWindow");
  	m_popupMenu = 0;
   m_displayWidget = 0;
 }
 
 CReadWindow::~CReadWindow(){
-	qWarning("destructor of CReadWindow");
+//	qWarning("destructor of CReadWindow");
 }
 
 /** Returns the display widget of this window. */
@@ -67,7 +67,7 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
 
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ){
-	qWarning("CReadWindow::lookup");	
+//	qWarning("CReadWindow::lookup");	
 	if (!newKey)
 		return;
 
@@ -83,7 +83,7 @@ void CReadWindow::lookup( CSwordKey* newKey ){
 
 /** Returns the installed popup menu. */
 KPopupMenu* const CReadWindow::popup(){
-	qWarning("CReadWindow::popup()");
+//	qWarning("CReadWindow::popup()");
 	if (!m_popupMenu) {
  		m_popupMenu = new KPopupMenu(this);
 		connect(m_popupMenu, SIGNAL(aboutToShow()), this, SLOT(updatePopupMenu()));
@@ -102,10 +102,8 @@ void CReadWindow::updatePopupMenu(){
 
 /** Reimplementation to use the popup menu. */
 const bool CReadWindow::init( const QString& keyName ){
-	qWarning("CReadWindow::init( const QString& keyName )");
   CDisplayWindow::init(keyName);
  	setupPopupMenu();
-//  qWarning("CReadWindw::init: key is %s and later %s", keyName.latin1(), key()->key().latin1());
   keyChooser()->setKey(key());
 	setReady(true);
 }

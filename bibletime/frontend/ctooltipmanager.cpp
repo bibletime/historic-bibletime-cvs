@@ -84,10 +84,8 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
   };
 
   if (CSwordModuleInfo* m = backend()->findModuleByName(moduleName)) {
-    CEntryDisplay* display = m ? m->getDisplay() : 0;
-#warning "Fix Me!"  	
-   return QString::fromLatin1("<HEAD>%1</HEAD><B>%1</B><HR>%2")
-      .arg(display ? QString::null /*display->cssHeader(false)*/ : QString::null)
+    return QString::fromLatin1("<HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><B>%1</B><HR>%2")
+      .arg(tooltipCSS(m))
       .arg(keyText(m ? m->type() : CSwordModuleInfo::Unknown, keyName)).arg(moduleText(moduleName, keyName));
   }
   else {
@@ -102,10 +100,8 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
 /** Returns the tooltip text for the given hyperlink. */
 const QString CTooltipManager::textForReference( const QString& moduleName, const QString& keyName, const QString& description){
 	CSwordModuleInfo* const module = backend()->findModuleByName(moduleName);
-  CEntryDisplay* display = module ? module->getDisplay() : 0;
-#warning "Fix Me"!
-  return QString::fromLatin1("<HEAD>%1</HEAD><B>%1 %2</B>%3<HR>%4")
-    .arg(display ? QString::null/*display->cssHeader(false)*/ : QString::null)
+  return QString::fromLatin1("<HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><B>%1 %2</B>%3<HR>%4")
+    .arg(tooltipCSS(module))
   	.arg(i18n("Bookmark to"))
   	.arg(keyText(module ? module->type() : CSwordModuleInfo::Unknown, keyName))
    	.arg(!description.isEmpty() ? QString::fromLatin1("<FONT color=\"#800000\">(%1)</FONT><BR>").arg(description.stripWhiteSpace()) : QString::null )
@@ -187,4 +183,21 @@ const QString CTooltipManager::keyText( const CSwordModuleInfo::ModuleType modul
 		return keyName;
   };
   return QString::null;
+}
+
+/** Returns the CSS data used for the tooltips. */
+const QString CTooltipManager::tooltipCSS(CSwordModuleInfo* module){
+  CEntryDisplay* display = module ? module->getDisplay() : 0;
+  Q_ASSERT(display);
+  if (!display)
+    return QString::null;
+
+  QString css = QString::null;
+  for (int i = CEntryDisplay::MinType; i <= CEntryDisplay::MaxType; ++i) {
+    CEntryDisplay::StyleType type = static_cast<CEntryDisplay::StyleType>(i);
+    if (type != CEntryDisplay::Body && type != CEntryDisplay::Background) {
+      css += display->cssString( type );
+    }
+  }
+  return css;
 }

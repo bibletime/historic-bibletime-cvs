@@ -82,7 +82,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			pushString(buf," <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
 				num, num);
 		}
-		
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
 			char num[12];
 			for (i = 29; i < tokenLength; i++)
@@ -103,7 +102,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			pushString(buf," <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
 				num, num);
 		}
-
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
 			userData["inscriptRef"] = "true";
 			if (!strncmp(token, "scripRef v", 10)) { //module given
@@ -166,9 +164,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
  			  delete [] ref;//delete now because it's unused
 				userData["suspendTextPassThru"] = "false";
 			}
-		}			
-		
-//headings should be processed by the ThMLHeadings filter		
+		}
 		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
 			userData["SecHead"] = "true";
 			pushString(buf, "<div class=\"sectiontitle\">"/*, text_color*/);

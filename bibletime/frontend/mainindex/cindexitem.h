@@ -142,7 +142,7 @@ public:
 	CBookmarkItem(CFolderBase* parentItem, QDomElement& xml);
 	~CBookmarkItem();
   CSwordModuleInfo* const module();
-  const QString& key();
+  const QString key();
   const QString& description();
   virtual const QString toolTip();
 
@@ -176,6 +176,13 @@ private:
   CSwordModuleInfo* m_module;
 
   QDomElement m_startupXML;
+
+private: // Private methods
+  /**
+  * Returns the english key.
+  * Only used internal of this class implementation.
+  */
+  const QString& englishKey();
 };
 
 

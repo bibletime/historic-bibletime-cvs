@@ -72,6 +72,15 @@ public:
 
 		lexiconCache,
 
+		lineBreaks,
+		verseNumbers,
+		scroll,
+
+		tips,
+		logo,
+		restoreWorkspace
+	};
+	enum ints {
   	footnotes,
   	strongNumbers,
   	headings,
@@ -81,16 +90,9 @@ public:
 		hebrewCantillation,
 		greekAccents,
 		textualVariants,
-
-		lineBreaks,
-		verseNumbers,
-		scroll,
-
-		tips,
-		logo,
-		restoreWorkspace
-	};
-	enum intLists {
+    transliteration
+  };
+  enum intLists {
 		splitterSizes
 	};
 	enum stringLists {
@@ -110,6 +112,7 @@ public:
   static const QString 		get( const CBTConfig::strings );
   static const QFont 			get( const CBTConfig::fonts );
   static const bool 			get( const CBTConfig::bools );
+  static const int   			get( const CBTConfig::ints );
   static const QColor 		get( const CBTConfig::colors );
   static const QValueList<int>	get( const CBTConfig::intLists );
   static const QStringList			get( const CBTConfig::stringLists );
@@ -119,13 +122,14 @@ public:
 	static void set( const CBTConfig::strings, 	const QString value );
 	static void set( const CBTConfig::fonts, 		const QFont value );
 	static void set( const CBTConfig::bools, 		const bool value );
+	static void set( const CBTConfig::ints, 		const int value );
 	static void set( const CBTConfig::colors, 	const QColor value );
 	static void set( const CBTConfig::intLists,	const QValueList<int> value );
   static void set( const CBTConfig::stringLists, const QStringList value);
 
 
-  static const CSwordBackend::FilterOptionsBool getFilterOptionDefaults();
-  static const CSwordBackend::DisplayOptionsBool getDisplayOptionDefaults();
+  static const CSwordBackend::FilterOptions getFilterOptionDefaults();
+  static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();
 
   static void setupAccel(const CBTConfig::keys type, KAccel* const accel);
 
@@ -133,6 +137,7 @@ private:
 	static const QString getKey( const CBTConfig::strings );
 	static const QString getKey( const CBTConfig::fonts );
 	static const QString getKey( const CBTConfig::bools );
+	static const QString getKey( const CBTConfig::ints );
 	static const QString getKey( const CBTConfig::colors );
 	static const QString getKey( const CBTConfig::intLists );
 	static const QString getKey( const CBTConfig::stringLists );
@@ -140,6 +145,7 @@ private:
 	static const QString 				 getDefault( const CBTConfig::strings );
 	static const QFont	 				 getDefault( const CBTConfig::fonts );
 	static const bool		 				 getDefault( const CBTConfig::bools );
+	static const int		 				 getDefault( const CBTConfig::ints );
 	static const QColor	 				 getDefault( const CBTConfig::colors );
 	static const QValueList<int> getDefault( const CBTConfig::intLists );
 	static const QStringList		 getDefault( const CBTConfig::stringLists );

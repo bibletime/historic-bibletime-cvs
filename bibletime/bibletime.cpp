@@ -94,9 +94,9 @@ void BibleTime::saveSettings(){
 		m_keyAccel->writeSettings();
 
  	CBTConfig::set(CBTConfig::toolbar, m_viewToolbar_action->isChecked());
- 	CBTConfig::set(CBTConfig::mainIndex, m_viewGroupManager_action->isChecked());
+ 	CBTConfig::set(CBTConfig::mainIndex, m_viewMainIndex_action->isChecked());
 
- 	if (m_viewGroupManager_action->isChecked())	//only save changes when the groupmanager is visible
+ 	if (m_viewMainIndex_action->isChecked())	//only save changes when the groupmanager is visible
  		CBTConfig::set(CBTConfig::splitterSizes, m_splitter->sizes());
 
  	if (m_windowAutoTile_action->isChecked())	{
@@ -127,7 +127,7 @@ void BibleTime::readSettings(){
  	m_viewToolbar_action->setChecked( CBTConfig::get(CBTConfig::toolbar) );
  	slotToggleToolbar();
 		
- 	m_viewGroupManager_action->setChecked( CBTConfig::get(CBTConfig::mainIndex) );
+ 	m_viewMainIndex_action->setChecked( CBTConfig::get(CBTConfig::mainIndex) );
  	slotToggleGroupManager();
 		
  	m_splitter->setSizes( CBTConfig::get(CBTConfig::splitterSizes) );		
@@ -151,7 +151,7 @@ void BibleTime::readSettings(){
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
 CDisplayWindow* BibleTime::createDisplayWindow(ListCSwordModuleInfo modules, const QString& key) {
-// qWarning("BibleTime::createDisplayWindow: key is %s", key.latin1());
+  qWarning("BibleTime::createDisplayWindow: key is %s", key.latin1());
   kapp->setOverrideCursor( waitCursor );
 
  	CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);	

@@ -20,9 +20,9 @@
 #include "csearchdialogmodulechooser.h"
 
 #include "backend/cswordbackend.h"
-#include "frontend/groupmanager/cgroupmanager.h"
-#include "frontend/groupmanager/cgroupmanageritem.h"
+
 #include "frontend/ctoolclass.h"
+
 #include "whatsthisdef.h"
 #include "tooltipdef.h"
 
@@ -52,7 +52,8 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(QWidget *parent, const ch
 
 	QHBoxLayout* chooserLayout = new QHBoxLayout();
 	  		
-	m_moduleIndex = new CGroupManager(this, "module index", &backend()->moduleList(), false, false, false, false, false, false);	
+	m_moduleIndex = new CMainIndex(this);
+  m_moduleIndex->initTree();
 	QWhatsThis::add(m_moduleIndex, WT_SD_MODULECHOOSER);
 	
 	m_moduleList = new QListBox(this);
@@ -87,24 +88,21 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(QWidget *parent, const ch
 
 	mainLayout->addLayout(chooserLayout);	
 	
-	QListViewItem* child = m_moduleIndex->firstChild();
-	while (child) {
-		QListViewItem* nextChild = child->nextSibling();
-		if (child->childCount())
- 			child->setOpen(true);
- 		else {
- 			CGroupManagerItem* i = (CGroupManagerItem*)child;
- 			if (i && (i->type() == CGroupManagerItem::Group)) {
-				if (m_moduleIndex->isChild(child, nextChild)) {						
-					delete child;
-					nextChild = m_moduleIndex->firstChild();
-				}
-				else
-					delete child;
- 			}
- 		}
-		child = nextChild;
-	}
+//	QListViewItem* child = m_moduleIndex->firstChild();
+//	while (child) {
+//		QListViewItem* nextChild = child->nextSibling();
+//		if (child->childCount())
+// 			child->setOpen(true);
+// 		else if ( CFolderBase* i = dynamic_cast<CFolderBase*>(child) ) {
+////			if (m_moduleIndex->isChild(child, nextChild)) {						
+////				delete child;
+////		nextChild = m_moduleIndex->firstChild();
+////			}
+////			else
+//  		delete child;
+//		}
+////		child = nextChild;
+//	}
 	m_initialized = true;
 }
 
@@ -120,14 +118,14 @@ void CSearchDialogModuleChooser::setChosenModules(ListCSwordModuleInfo& modules)
 		
 	m_moduleList->clear();
 	m_itemsDict.clear();	
-	m_moduleIndex->clear();
-	m_moduleIndex->readSettings();	
+//	m_moduleIndex->clear();
+//  moduleIndex->readSettings();	
 
 	for (modules.first(); modules.current(); modules.next()) {
-		const QString module = modules.current()->name();
 		QListViewItemIterator it( m_moduleIndex );
+    CModuleItem* item = 0;
 		for ( ; it.current(); ++it )
-			if (it.current()->text(0) == module) {
+			if ((item = dynamic_cast<CModuleItem*>(it.current())) && item->module() ==  modules.current()) {
 				m_moduleIndex->setCurrentItem(it.current());
 				m_moduleIndex->setSelected(it.current(), true);
 				addCurrentItem();
@@ -148,15 +146,15 @@ ListCSwordModuleInfo CSearchDialogModuleChooser::getChosenModules(){
 
 /** Adds the selected item to the list */
 void CSearchDialogModuleChooser::addCurrentItem(){
-	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(m_moduleIndex->selectedItem());
+	CModuleItem* i = dynamic_cast<CModuleItem*>(m_moduleIndex->selectedItem());
 	QListViewItem* nextItem = 0;
 	if (i)
 		nextItem = i->itemBelow();
 	if (i && !nextItem)
 		nextItem = i->itemAbove();
 
-	if ( i && (i->type() == CGroupManagerItem::Module) && i->moduleInfo() ) {
-		m_moduleList->insertItem( CToolClass::getIconForModule(i->moduleInfo()), i->moduleInfo()->name(),-1 );
+	if ( i && i->module() ) {
+		m_moduleList->insertItem( CToolClass::getIconForModule(i->module()), i->module()->name(),-1 );
 		QListViewItem* parentItem = i->parent();
 		m_itemsDict.insert(i, parentItem ? (const char*)parentItem->text(0).latin1() : "");//I don't know why .local8Bit() doesn't work
 		parentItem ? parentItem->takeItem(i) : m_moduleIndex->takeItem(i);			
@@ -192,12 +190,12 @@ void CSearchDialogModuleChooser::removeCurrentItem(){
 	QPtrDictIterator<char> m_it( m_itemsDict ); // iterator for dict
 	while ( m_it.current() ) {
 		QString parentName = QString::fromLatin1(m_it.current());
-		CGroupManagerItem* item = (CGroupManagerItem*)m_it.currentKey();
+		CItemBase* item = (CItemBase*)( m_it.currentKey() );
 		if (item && item->text(0) == text) {
-			CGroupManagerItem* folder = 0;
+			CFolderBase* folder = 0;
 	    QListViewItemIterator l_it( m_moduleIndex );
 			for ( ; l_it.current(); ++l_it ) {
-				folder = dynamic_cast<CGroupManagerItem*>(l_it.current());
+				folder = dynamic_cast<CFolderBase*>(l_it.current());
 				if (folder && folder->text(0) == parentName)
 					break;
 			}

@@ -54,7 +54,7 @@ public:
  	* These are the options which could be supported by modules and by this backend.
  	* It's used in @ref isOptionEnabled and @ref setOption
  	*/
-  enum FilterOptions {
+  enum FilterTypes {
   	footnotes,
   	strongNumbers,
   	headings,
@@ -65,25 +65,29 @@ public:
 		greekAccents,
     scriptureReferences,		
     textualVariants,
-		filterOptionsMIN = footnotes,
-		filterOptionsMAX = textualVariants
+		filterTypesMIN = footnotes,
+		filterTypesMAX = textualVariants,
+
+    /* The following are handled in a special way */
+    transliteration
 	};
 
-  struct FilterOptionsBool {
-  	bool footnotes;
-  	bool strongNumbers;
-  	bool headings;
-  	bool morphTags;
-		bool lemmas;
-		bool hebrewPoints;
-		bool hebrewCantillation;
-		bool greekAccents;
-		bool textualVariants;
-    bool scriptureReferences;
+  struct FilterOptions {
+  	int footnotes;
+  	int strongNumbers;
+  	int headings;
+  	int morphTags;
+		int lemmas;
+		int hebrewPoints;
+		int hebrewCantillation;
+		int greekAccents;
+		int textualVariants;
+    int scriptureReferences;
+    int transliteration;
 	};
-	struct DisplayOptionsBool {
-		bool lineBreaks;
-		bool verseNumbers;
+	struct DisplayOptions {
+		int lineBreaks;
+		int verseNumbers;
 	};
   enum LoadError { // the values exist to cast from the char return of SWMgr::Load
 		NoSwordConfig = -1,
@@ -125,15 +129,15 @@ public:
   * @param type This is the type this function should set enabled or disabled
   * @param enable If this is true the option will be enabled, otherwise it will be disabled.
   */
-  void setOption( const CSwordBackend::FilterOptions type, const bool enable);
-  void setFilterOptions( const CSwordBackend::FilterOptionsBool options);
-  void setDisplayOptions( const CSwordBackend::DisplayOptionsBool options);
+  void setOption( const CSwordBackend::FilterTypes type, const int state );
+  void setFilterOptions( const CSwordBackend::FilterOptions options );
+  void setDisplayOptions( const CSwordBackend::DisplayOptions options );
   /**
   * Returns true if the given option is enabled.
   *
   * @return Returns true if the options given as aparameter is switched on at this time, otherwise return false.
   */
-  virtual const bool isOptionEnabled( const CSwordBackend::FilterOptions type);
+  virtual const bool isOptionEnabled( const CSwordBackend::FilterTypes type);
   /**
   * Sets the language for the international booknames of Sword.
   */
@@ -168,15 +172,15 @@ public:
   /**
   * Returns the text used for the option given as parameter.
   */
-  static const QString optionName( const CSwordBackend::FilterOptions option);
+  static const QString optionName( const CSwordBackend::FilterTypes option);
   /**
   * Returns the text used for the option given as parameter.
   */
-  static const QString configOptionName( const CSwordBackend::FilterOptions option);
+  static const QString configOptionName( const CSwordBackend::FilterTypes option);
   /**
 	* Returns the translated name of the option given as parameter.
 	*/
-  static const QString translatedOptionName(const CSwordBackend::FilterOptions option);
+  static const QString translatedOptionName(const CSwordBackend::FilterTypes option);
   /**
   * Returns the version of the Sword library.
   */
@@ -185,6 +189,8 @@ public:
   * Returns our transliterator object we use. Returns 0 if ICU is not used.
   */
   SWFilter* const transliterator();
+  /** Returns true if ICU is being used. */
+  const bool useICU() const;
 	
 protected:
 	/**
@@ -199,7 +205,7 @@ private:
 		SWFilter *gbf;
 		SWFilter *plain;
 		SWFilter *thml;
-    SWFilter *transliterator;
+//    SWFilter *transliterator;
 	} m_filters;
 	ListCSwordModuleInfo m_moduleList;
 

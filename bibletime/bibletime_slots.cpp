@@ -20,20 +20,20 @@
 #include "resource.h"
 #include "config.h"
 
+#include "backend/cswordversekey.h"
+
 #include "frontend/ctoolclass.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/cprofilemgr.h"
 #include "frontend/cprofile.h"
 #include "frontend/cprofilewindow.h"
 #include "frontend/chtmldialog.h"
-#include "frontend/displaywindow/cdisplaywindow.h"
-//#include "frontend/presenters/cswordpresenter.h"
-#include "frontend/groupmanager/cgroupmanager.h"
 #include "frontend/coptionsdialog.h"
 #include "frontend/cbtconfig.h"
-#include "backend/cswordversekey.h"
-//#include "backend/chtmlentrydisplay.h"
-//#include "backend/chtmlchapterdisplay.h"
+#include "frontend/mainindex/cmainindex.h"
+#include "frontend/mainindex/cindexitem.h"
+#include "frontend/displaywindow/cdisplaywindow.h"
+
 #include "printing/cprinter.h"
 
 #include <errno.h>
@@ -86,20 +86,14 @@ void BibleTime::slotSettingsChanged(){
 
  	const QString language = CBTConfig::get(CBTConfig::language);
  	m_backend->booknameLanguage(language);		
- 	//refresh the bookmark items in the groupmanager		
- 	QListViewItemIterator it( m_groupmanager );
- 	CGroupManagerItem* item = 0;
+
+ 	QListViewItemIterator it( m_mainIndex );
+ 	CItemBase* item = 0;
  	for ( ; it.current(); ++it ) {
- 		if ( (item = dynamic_cast<CGroupManagerItem*>(it.current())) ) {
- 			if (item->type() == CGroupManagerItem::Bookmark) {
-					CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(item->getBookmarkKey());
-					if ( vKey ) {
-						vKey->setLocale( (const char*)m_backend->booknameLanguage().local8Bit());
-						item->update();
-					}
- 			}
+ 		if ( (item = dynamic_cast<CItemBase*>(it.current())) ) {
+      item->update();
  		}
- 	}			
+  }
 
  	for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
  		CDisplayWindow* displayWindow = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index));
@@ -238,10 +232,10 @@ void BibleTime::slotToggleToolbar(){
 
 /** Shows or hides the groupmanager. */
 void BibleTime::slotToggleGroupManager() {
-	if (m_viewGroupManager_action->isChecked())
-		m_groupmanager->show();
+	if (m_viewMainIndex_action->isChecked())
+		m_mainIndex->show();
 	else
-		m_groupmanager->hide();
+		m_mainIndex->hide();
 }
 
 /** Opens a toolbar editor */

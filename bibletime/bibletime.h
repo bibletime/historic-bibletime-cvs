@@ -29,7 +29,6 @@
 //forward class declarations
 
 //BT classes
-class CGroupManager;
 class CMDIArea;
 class CProfile;
 class CDisplayWindow;
@@ -228,7 +227,7 @@ protected: // Protected methods
 
 	/** VIEW menu actions */
 	KToggleAction*	m_viewToolbar_action;		
-	KToggleAction*	m_viewGroupManager_action;			
+	KToggleAction*	m_viewMainIndex_action;			
 	
 	/** WINDOW menu actions */
 	KAction*	m_windowCascade_action;
@@ -246,7 +245,6 @@ protected: // Protected methods
 		
 	KAccel* m_keyAccel;
 	QSplitter* m_splitter;
-	CGroupManager* m_groupmanager;
 	CMDIArea* m_mdi;
 	
 	/**
@@ -266,10 +264,6 @@ protected slots:
  	* Creates a new presenter in the MDI area according to the type of the module.
  	*/
 	CDisplayWindow* createDisplayWindow(ListCSwordModuleInfo, const QString&);
-	
-	/**
-	* No descriptions
-	*/
 	CDisplayWindow* createDisplayWindow(CSwordModuleInfo*, const QString&);
 	/** 	
  	* Is called when the window menu is about to show ;-)

@@ -21,12 +21,11 @@
 #include <qwidget.h>
 #include <kmainwindow.h>
 
-/**The main window of the application. Provides the possibilities to install/remove and download modules.
-  *@author The BibleTime team
+/** The main window of the application. Provides the possibilities to install/remove and download modules.
+  * @author The BibleTime team
   */
-
 class BTSetupWizard : public KMainWindow  {
-   Q_OBJECT
+  Q_OBJECT
 public: 
 	BTSetupWizard(QWidget *parent=0, const char *name=0);
 	~BTSetupWizard();

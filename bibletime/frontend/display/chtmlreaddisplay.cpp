@@ -47,7 +47,7 @@
 
 
 CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow), CReadDisplay(readWindow) {
-	qWarning("constructor of CHTMLReadDisplay");
+//	qWarning("constructor of CHTMLReadDisplay");
   Q_ASSERT(readWindow);
   Q_ASSERT(parentWidget);
   setDNDEnabled(false);
@@ -118,19 +118,19 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 				util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
     		key->key( keyName );
 
-      	return QString::fromLatin1("%1\n\t%2").arg(key->key()).arg(key->strippedText());
+      	return QString::fromLatin1("%1\n(%2, %3)")
+          .arg(key->strippedText())
+          .arg(key->key())
+          .arg(key->module()->name());
    		}
      	return QString::null;
     }
-
-
     default:
       return QString::null;
   }
 }
 
 void CHTMLReadDisplay::setText( const QString& newText ) {
-  qWarning("CHTMLReadDisplay::view()");
   begin();
   write(newText);
   end();
@@ -144,7 +144,6 @@ const bool CHTMLReadDisplay::hasSelection(){
 
 /** Reimplementation. */
 QWidget* CHTMLReadDisplay::view(){
-//  qWarning("CHTMLReadDisplay::view()");
   return KHTMLPart::view();
 }
 
@@ -159,7 +158,6 @@ void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
 }
 
 void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args){
-  qWarning("CHTMLReadDisplay::urlSelected");
   KHTMLPart::urlSelected(url, button, state, _target, args);
   if (!url.isEmpty() && CReferenceManager::isHyperlink(url)) {
     QString module;
@@ -190,7 +188,6 @@ void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event )
 }
 
 void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
-  qWarning("CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event )");	
   m_dndData.node = DOM::Node();
   m_dndData.anchor = DOM::DOMString();
   m_dndData.mousePressed = false;
@@ -286,7 +283,7 @@ CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : CToolTip(vi
 
 /** Decides whether a tooltip should be shown. */
 void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
-  qWarning("CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p )");
+//  qWarning("CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p )");
   DOM::Node node = m_view->part()->nodeUnderMouse();
   if (node.isNull())
   	return;
@@ -320,7 +317,7 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
 // ---------------------
 
 CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWidget* parent) : KHTMLView(displayWidget, parent), m_display(displayWidget) {
-  qWarning("constructor of CHTMLReadDisplayView");
+//  qWarning("constructor of CHTMLReadDisplayView");
   Q_ASSERT(parent);
   viewport()->setAcceptDrops(true);
   setMarginWidth(4);
@@ -356,11 +353,11 @@ void CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e ){
   if (QTextDrag::canDecode(e)) {
 //    if (e->provides(REFERENCE) || e->provides(BOOKMARK))
     {
-      qWarning("ACCEPT DROP EVENT!");
+//      qWarning("ACCEPT DROP EVENT!");
       QString str;
       QCString submime;
       const bool accept = QTextDrag::decode(e, str);
-      qWarning("DROP: %s", str.latin1());
+//      qWarning("DROP: %s", str.latin1());
 
       QString module;
       QString key;

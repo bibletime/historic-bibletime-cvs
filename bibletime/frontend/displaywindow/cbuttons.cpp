@@ -30,14 +30,16 @@
 #include <klocale.h>
 
 
-CTransliterationButton::CTransliterationButton(QWidget *parent, const char *name ) : KToolBarButton(DSB_ICON, 0,parent,name) {
- 	setToggle(true);
+CTransliterationButton::CTransliterationButton(CSwordBackend::FilterOptions* filterOptions, QWidget *parent, const char *name ) : KToolBarButton(DSB_ICON, 0,parent,name) {
+ 	m_filterOptions = filterOptions;
+  m_filterOptions->transliteration = 0;
+  setToggle(true);
 
   m_popup = new KPopupMenu(this);	
 	setDelayedPopup(m_popup);
 //	setPopupDelay(0);
 
-//	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionToggled(int)));
+	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionSelected(int)));
 	populateMenu();
 }
 
@@ -47,13 +49,18 @@ CTransliterationButton::~CTransliterationButton(){
 
 /** Resets the buttons with the list of used modules. */
 void CTransliterationButton::reset( ListCSwordModuleInfo& modules ){
-
+  m_popup->clear();
+//  popuplateMenu();
 }
 
 /** Setup the menu entries. */
 void CTransliterationButton::populateMenu(){
   m_popup->clear();
   m_popup->insertTitle(i18n("Transliteration"));
+
+  Q_ASSERT(CPointers::backend()->transliterator());
+  if (!CPointers::backend()->transliterator())
+    return;
 
   OptionsList options = CPointers::backend()->transliterator()->getOptionValues();
   OptionsList::iterator it;
@@ -62,11 +69,19 @@ void CTransliterationButton::populateMenu(){
   }
 }
 
+/** No descriptions */
+void CTransliterationButton::optionSelected(int ID){
+  const QString caption = m_popup->text(ID);
+  qWarning("selected text is %s", caption.latin1());
+  m_filterOptions->transliteration = m_popup->indexOf( ID )-1; //workaround
+  emit sigChanged();
+}
+
 /************************************************
- *********** CDisplaySettingsButton**************
+ *********** CDisplaySettingsButton *************
  ************************************************/
 
-CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptionsBool *displaySettings, CSwordBackend::FilterOptionsBool *moduleSettings, const ListCSwordModuleInfo& useModules,QWidget *parent, const char *name )
+CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptions *displaySettings, CSwordBackend::FilterOptions *moduleSettings, const ListCSwordModuleInfo& useModules,QWidget *parent, const char *name )
 	: KToolBarButton(DSB_ICON, 0, parent, name)
 {
 	m_displaySettings = displaySettings;
@@ -137,7 +152,7 @@ int CDisplaySettingsButton::populateMenu(){
 }
 
 /** No descriptions */
-int CDisplaySettingsButton::addMenuEntry( const QString name, const bool* option, const bool available){
+int CDisplaySettingsButton::addMenuEntry( const QString name, const int* option, const bool available){
 	if (available){
 		m_dict.insert( name, option);
 		m_popup->setItemChecked(m_popup->insertItem( name ), *option );
@@ -146,7 +161,7 @@ int CDisplaySettingsButton::addMenuEntry( const QString name, const bool* option
 	return 0;
 }
 
-bool CDisplaySettingsButton::isOptionAvailable( const CSwordBackend::FilterOptions option){
+bool CDisplaySettingsButton::isOptionAvailable( const CSwordBackend::FilterTypes option){
 	bool ret = false;
 	for (m_modules.first(); m_modules.current(); m_modules.next())
 		ret = ret || m_modules.current()->has(option);
@@ -176,4 +191,3 @@ const bool CDisplaySettingsButton::itemStatus( const int index ){
 void CDisplaySettingsButton::setChanged(){
 	emit sigChanged();	
 }
-

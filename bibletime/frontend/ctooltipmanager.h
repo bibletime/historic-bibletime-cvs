@@ -37,7 +37,6 @@ public:
   static const QString textForHyperlink( const QString& link );
 	static const QString textForReference( const QString& moduleName, const QString& keyName, const QString& description);
 
-
 protected: // Protected methods
   /**
   * Returns the text for the tooltip beginning.
@@ -47,6 +46,11 @@ protected: // Protected methods
   * Returns the text for the given moduleName and key name.
   */
   static const QString moduleText( const QString& moduleName, const QString& keyName);
+  /**
+  * Returns the CSS data used for the tooltips. The difference to the display CSS data is
+  * that the backgroundcolors etc. are not used.
+  */
+  static const QString tooltipCSS(CSwordModuleInfo* module);
 
 private:
 	CTooltipManager();

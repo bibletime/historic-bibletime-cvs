@@ -36,7 +36,6 @@ EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)
 
 SUBDIRS = \
 mainindex \
-groupmanager \
 keychooser \
 displaywindow \
 display \

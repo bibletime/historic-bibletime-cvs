@@ -26,6 +26,7 @@
 
 #include "frontend/cprofilewindow.h"
 #include "frontend/ctoolclass.h"
+#include "frontend/cexportmanager.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/display/creaddisplay.h"
@@ -114,7 +115,10 @@ void CBibleReadWindow::initKeyboardActions() {
 
 void CBibleReadWindow::initConnections(){
   CLexiconReadWindow::initConnections();
-  connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)), this, SLOT(keyChanged(CSwordKey*)));
+  connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
+    this, SLOT(keyChanged(CSwordKey*)));
+  connect(m_transliterationButton, SIGNAL(sigChanged()),
+    this, SLOT(refresh()));
 }
 
 void CBibleReadWindow::initView(){
@@ -124,9 +128,9 @@ void CBibleReadWindow::initView(){
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(1,displaySettingsButton()->size().width(),displaySettingsButton());
 
-	if (backend()->isICU){
-	  CTransliterationButton* trb = new CTransliterationButton(mainToolBar());
-		mainToolBar()->insertWidget(2,trb->size().width(),trb);
+	if (backend()->useICU()){
+	  m_transliterationButton = new CTransliterationButton(&filterOptions(), mainToolBar());
+		mainToolBar()->insertWidget(2,m_transliterationButton->size().width(),m_transliterationButton);
 	}
 }
 
@@ -147,7 +151,7 @@ void CBibleReadWindow::setupPopupMenu(){
  	m_actions.copyMenu->insert(m_actions.copy.referenceTextOnly);
  	m_actions.copy.referenceAndText = new KAction(i18n("Reference with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.referenceAndText); 	
- 	m_actions.copy.chapter = new KAction(i18n("Chapter"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAll()), actionCollection());
+ 	m_actions.copy.chapter = new KAction(i18n("Chapter"), KShortcut(0), this, SLOT(copyChapter()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.chapter); 	
   m_actions.copyMenu->insert(new KActionSeparator());	
 	m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection());
@@ -159,7 +163,7 @@ void CBibleReadWindow::setupPopupMenu(){
  	m_actions.saveMenu->insert(m_actions.save.referenceAndText);
 	m_actions.save.chapterAsPlain = new KAction(i18n("Chapter as plain text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(saveAsPlain()),actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.chapterAsPlain);
- 	m_actions.save.chapterAsHTML = new KAction(i18n("Chapter as HTML"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(saveAsHTML()),actionCollection());
+ 	m_actions.save.chapterAsHTML = new KAction(i18n("Chapter as HTML"), KShortcut(0), this, SLOT(saveChapter()),actionCollection());
  	m_actions.saveMenu->insert(m_actions.save.chapterAsHTML);
  	m_actions.saveMenu->plug(popup());
 
@@ -239,4 +243,25 @@ void CBibleReadWindow::keyChanged(CSwordKey* key){
 		if (CCommentaryReadWindow* p = dynamic_cast<CCommentaryReadWindow*>(windows.current()))
 			p->syncToKey(key);
 	}	
+}
+
+/** Copies the current chapter into the clipboard. */
+void CBibleReadWindow::copyChapter(){
+  CSwordVerseKey vk(*verseKey());
+  CSwordVerseKey dummy(*verseKey());
+
+  dummy.Verse(1);
+  qWarning("copyChapter: lower bound is %s", (const char*)dummy);
+  vk.LowerBound(dummy);
+
+  CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
+  dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
+  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
+  vk.UpperBound(dummy);
+
+  CExportManager::copyKey(&vk, true, filterOptions(), displayOptions());
+}
+
+/** Saves the chapter as valid HTML page. */
+void CBibleReadWindow::saveChapter(){
 }

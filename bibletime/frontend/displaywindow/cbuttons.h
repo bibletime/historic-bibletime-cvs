@@ -36,7 +36,7 @@ class KPopupMenu;
 class CTransliterationButton : public KToolBarButton  {
    Q_OBJECT
 public: 
-	CTransliterationButton(QWidget *parent=0, const char *name=0);
+	CTransliterationButton(CSwordBackend::FilterOptions* displayOptions, QWidget *parent, const char *name=0);
 	~CTransliterationButton();
   /**
   * Setup the menu entries.
@@ -47,8 +47,15 @@ public:
   */
   void reset( ListCSwordModuleInfo& modules );
 
+protected slots: // Protected slots
+  void optionSelected(int);
+
 private:
   KPopupMenu* m_popup;
+  CSwordBackend::FilterOptions* m_filterOptions;
+
+signals:
+  void sigChanged();
 };
 
 /** This class manages the display options of the selected modules.
@@ -57,7 +64,7 @@ private:
 class CDisplaySettingsButton : public KToolBarButton  {
    Q_OBJECT
 public:
-	CDisplaySettingsButton(CSwordBackend::DisplayOptionsBool *displaySettings, CSwordBackend::FilterOptionsBool *settings, const ListCSwordModuleInfo& useModules, QWidget *parent=0, const char *name=0);
+	CDisplaySettingsButton(CSwordBackend::DisplayOptions *displaySettings, CSwordBackend::FilterOptions *settings, const ListCSwordModuleInfo& useModules, QWidget *parent=0, const char *name=0);
 	void reset(const ListCSwordModuleInfo& useModules);
   /**
   * Sets the item at position pos to the satet given as 2nd paramter.
@@ -83,18 +90,18 @@ protected slots:
 	void optionToggled(int ID);
 
 protected:
-	CSwordBackend::FilterOptionsBool*  m_moduleSettings;
-	CSwordBackend::DisplayOptionsBool* m_displaySettings;
-	CSwordBackend::FilterOptionsBool m_available;
+	CSwordBackend::FilterOptions*  m_moduleSettings;
+	CSwordBackend::DisplayOptions* m_displaySettings;
+	CSwordBackend::FilterOptions m_available;
 	ListCSwordModuleInfo m_modules;
 
-	QDict<bool> m_dict;
+	QDict<int> m_dict;
 
 	KPopupMenu* m_popup;
 
   int populateMenu();
-	bool isOptionAvailable( const CSwordBackend::FilterOptions option);
-  int addMenuEntry( const QString name, const bool* option, const bool available);
+	bool isOptionAvailable( const CSwordBackend::FilterTypes option);
+  int addMenuEntry( const QString name, const int* option, const bool available);
 };
 
 #endif

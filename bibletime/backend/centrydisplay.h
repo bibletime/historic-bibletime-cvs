@@ -41,21 +41,6 @@
 
 class CEntryDisplay : public SWDisplay, public CPointers  {
 public: // Public methods
-  CEntryDisplay();
-	virtual ~CEntryDisplay();
-  /**
-  * Returns the rendered text using the modules in the list and using the key parameter.
-  *  The displayoptions and filter options are used, too.
-  */
-  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions);
-  /**
-  * Returns a preview for the given module and key.
-  * This is useful for the seatchdialog and perhaps the tooltips.
-  */
-  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key, const QString& headerText = QString::null,  CSwordBackend::DisplayOptionsBool displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptionsBool filterOptions = CBTConfig::getFilterOptionDefaults());
-  void setDisplayOptions(const CSwordBackend::DisplayOptionsBool options);
-
-protected: // Protected methods
   enum StyleType {
     Body = 0,
     Link,
@@ -103,6 +88,20 @@ protected: // Protected methods
     JesusWordColor
   };
 
+  CEntryDisplay();
+	virtual ~CEntryDisplay();
+  /**
+  * Returns the rendered text using the modules in the list and using the key parameter.
+  *  The displayoptions and filter options are used, too.
+  */
+  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
+  /**
+  * Returns a preview for the given module and key.
+  * This is useful for the seatchdialog and perhaps the tooltips.
+  */
+  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key, const QString& headerText = QString::null,  CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults());
+  void setDisplayOptions(const CSwordBackend::DisplayOptions options);
+
   /**
   * Returns the font of the given type.
   */
@@ -111,7 +110,10 @@ protected: // Protected methods
   * Returns the color of the given type.
   */
   const QColor color( const CEntryDisplay::ColorType type );
+  const QString cssString( const CEntryDisplay::StyleType type );
 
+
+protected:
   /**
   * Renders one entry using the given modules and the key.
   * This makes chapter rendering more easy.
@@ -125,9 +127,8 @@ protected: // Protected methods
   * Returns the right reference text which can be incluced in the HTML
   */
   const QString htmlReference( CSwordModuleInfo* module, const QString& keyName, const QString linkText, const QString& anchorText );
-  const QString cssString( const CEntryDisplay::StyleType type );
 
-  CSwordBackend::DisplayOptionsBool m_displayOptions;
+  CSwordBackend::DisplayOptions m_displayOptions;
 };
 
 class CChapterDisplay : public CEntryDisplay  {
@@ -136,12 +137,12 @@ public: // Public methods
   * Returns the rendered text using the modules in the list and using the key parameter.
   *  The displayoptions and filter options are used, too.
   */
-  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions);
+  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
   /**
   * Returns a preview for the given module and key.
   * This is useful for the seatchdialog and perhaps the tooltips.
   */
-//  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key,  const QString& headerText = QString::null,  CSwordBackend::DisplayOptionsBool displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptionsBool filterOptions = CBTConfig::getFilterOptionDefaults());
+//  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key,  const QString& headerText = QString::null,  CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults());
 
 protected:
   /**
@@ -161,12 +162,12 @@ public: // Public methods
   * Returns the rendered text using the modules in the list and using the key parameter.
   *  The displayoptions and filter options are used, too.
   */
-  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions);
+  virtual const QString text( QPtrList <CSwordModuleInfo> modules, const QString& key, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions);
   /**
   * Returns a preview for the given module and key.
   * This is useful for the seatchdialog and perhaps the tooltips.
   */
-//  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key,  const QString& headerText = QString::null,  CSwordBackend::DisplayOptionsBool displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptionsBool filterOptions = CBTConfig::getFilterOptionDefaults());
+//  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key,  const QString& headerText = QString::null,  CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults());
 
 protected:
   /**

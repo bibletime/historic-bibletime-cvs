@@ -199,11 +199,11 @@ const QString CModuleItem::toolTip(){
      	     	
    	QString options;
    	unsigned int opts;
-   	for (opts = CSwordBackend::filterOptionsMIN; opts <= CSwordBackend::filterOptionsMAX; ++opts){
-   		if (module()->has( (CSwordBackend::FilterOptions) opts )) {
+   	for (opts = CSwordBackend::filterTypesMIN; opts <= CSwordBackend::filterTypesMAX; ++opts){
+   		if (module()->has( static_cast<CSwordBackend::FilterTypes>(opts) )) {
      		if (!options.isEmpty())
      			options += QString::fromLatin1(", ");
-     		options += CSwordBackend::translatedOptionName( (CSwordBackend::FilterOptions) opts);
+     		options += CSwordBackend::translatedOptionName( static_cast<CSwordBackend::FilterTypes>(opts) );
    		}
    	}
    	if (!options.isEmpty())
@@ -247,11 +247,11 @@ const QString CModuleItem::aboutInfo(){
 
 	QString options;
 	unsigned int opts;
-	for (opts = CSwordBackend::filterOptionsMIN; opts <= CSwordBackend::filterOptionsMAX; ++opts){
-		if (module()->has( static_cast<CSwordBackend::FilterOptions>(opts) )){
+	for (opts = CSwordBackend::filterTypesMIN; opts <= CSwordBackend::filterTypesMAX; ++opts){
+		if (module()->has( static_cast<CSwordBackend::FilterTypes>(opts) )){
   		if (!options.isEmpty())
   			options += QString::fromLatin1(", ");
-  		options += CSwordBackend::translatedOptionName( static_cast<CSwordBackend::FilterOptions>(opts) );
+  		options += CSwordBackend::translatedOptionName( static_cast<CSwordBackend::FilterTypes>(opts) );
 		}
 	}
 	if (!options.isEmpty())
@@ -283,7 +283,9 @@ CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, 
   if (module && (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary)  ) {
     CSwordVerseKey vk(0);
     vk = key;
-    m_key = vk.key(); //now we're sure it's the key in the selected bookname language!
+    vk.setLocale("en");
+    qWarning("key is %s", vk.key().latin1());
+    m_key = vk.key(); //the m_key member is always the english key!
   }
   else
    m_key = key;
@@ -330,8 +332,16 @@ CSwordModuleInfo* const CBookmarkItem::module() {
 }
 
 /** Returns the used key. */
-const QString& CBookmarkItem::key(){
-  return m_key;
+const QString CBookmarkItem::key(){
+  qWarning("CBookmarkItem::key()");
+  QString keyName = englishKey();
+  if (module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary) {
+    CSwordVerseKey vk(0);
+    vk = keyName;
+    vk.setLocale(CPointers::backend()->booknameLanguage().latin1());
+    keyName = vk.key(); //now we're sure the key is in english! All bookname languages support english!
+  }
+  return keyName;
 }
 
 /** Returns the used description. */
@@ -405,6 +415,11 @@ void CBookmarkItem::loadFromXML( QDomElement& element ) {
 
   if (element.hasAttribute("description"))
     m_description = element.attribute("description");
+}
+
+/** Returns the english key. */
+const QString& CBookmarkItem::englishKey(){
+  return m_key;
 }
 
 /****************************************/
@@ -884,7 +899,7 @@ QDomElement CBookmarkFolder::SubFolder::saveToXML( QDomDocument& doc ) {
     }
     i = dynamic_cast<CItemBase*>( i->nextSibling() );
   }
-  qWarning("finished");
+//  qWarning("finished");
   return elem;
 }
 
@@ -1060,3 +1075,4 @@ const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
     child = child.nextSibling().toElement();
   }
 }
+

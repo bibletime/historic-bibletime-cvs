@@ -36,7 +36,7 @@ CEntryDisplay::~CEntryDisplay(){
 }
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions ) {
+const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
@@ -45,7 +45,7 @@ const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QSt
 }
 
 /** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
-const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QString& keyName, const QString& headerText, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions){
+const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QString& keyName, const QString& headerText, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions){
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
   key->key(keyName);
 
@@ -259,7 +259,7 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
   return QString::fromLatin1("\n\n%1\n\n").arg(text);
 }
 
-void CEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptionsBool options) {
+void CEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptions options) {
   m_displayOptions = options;
 }
 
@@ -277,7 +277,7 @@ const QString CEntryDisplay::htmlReference( CSwordModuleInfo* module, const QStr
 /* ----------------------- new class: CChapterDisplay ------------------- */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions ) {	
+const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {	
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
 
@@ -386,7 +386,7 @@ const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordM
 /* ----------------------- new class: CBookDisplay ------------------- */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions ) {
+const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
   qWarning("CBookDisplay::text: %s", keyName.latin1());
 
   backend()->setDisplayOptions( displayOptions );
@@ -428,7 +428,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 }
 
 /** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
-//const QString CBookDisplay::previewText( CSwordModuleInfo*  module, const QString& key,const QString& headerText, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions){
+//const QString CBookDisplay::previewText( CSwordModuleInfo*  module, const QString& key,const QString& headerText, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions){
 //  return QString::null;
 //}
 

@@ -125,29 +125,26 @@ void CDisplayWindow::polish(){
 
 /** Refresh the settings of this window. */
 void CDisplayWindow::refresh() {
-  qWarning("CDisplayWindow::refresh()");
   lookup();
 }
 
 /** Returns the filter options used by this window. */
-CSwordBackend::FilterOptionsBool& CDisplayWindow::filterOptions() {
-//  qWarning("CDisplayWindow::filterOptions()");
+CSwordBackend::FilterOptions& CDisplayWindow::filterOptions() {
 	return m_filterOptions;
 }
 
 /** Returns the display options used by this display window. */
-CSwordBackend::DisplayOptionsBool& CDisplayWindow::displayOptions() {
-//  qWarning("CDisplayWindow::displayOptions()");	
+CSwordBackend::DisplayOptions& CDisplayWindow::displayOptions() {
 	return m_displayOptions;
 }
 
 /** Sets the new display options for this window. */
-void CDisplayWindow::setDisplayOptions( const CSwordBackend::DisplayOptionsBool displayOptions ){
+void CDisplayWindow::setDisplayOptions( const CSwordBackend::DisplayOptions displayOptions ){
 	m_displayOptions = displayOptions;
 }
 
 /** Sets the new filter options of this window. */
-void CDisplayWindow::setFilterOptions( CSwordBackend::FilterOptionsBool filterOptions ){
+void CDisplayWindow::setFilterOptions( CSwordBackend::FilterOptions filterOptions ){
   m_filterOptions = filterOptions;
 }
 

@@ -26,7 +26,6 @@
 #include "frontend/cprofile.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/kstartuplogo.h"
-#include "frontend/groupmanager/cgroupmanager.h"
 #include "frontend/mainindex/cmainindex.h"
 
 #include "printing/cprinter.h"
@@ -66,9 +65,6 @@ void BibleTime::initView(){
 	m_splitter = new QSplitter(this, "mainsplitter");
 	setCentralWidget(m_splitter);	
 	
-	m_groupmanager = new CGroupManager( centralWidget(), "groupmanager", m_moduleList );
-	m_groupmanager->setFocusPolicy(ClickFocus);
-
 	m_mainIndex = new CMainIndex( centralWidget() );
   m_mainIndex->initTree();
 	m_mainIndex->setFocusPolicy(WheelFocus);
@@ -104,33 +100,33 @@ void BibleTime::initActions() {
 	action->setWhatsThis( WT_FILE_QUIT );
 	action->plugAccel( m_keyAccel );
 												
-	action =  new KAction(i18n("Reset main index"), ICON_MAININDEX_RESET, IDK_GM_RESET,
-		m_groupmanager, SLOT(slotReset()), actionCollection(), "GMreset_action");	
-	action->setToolTip( TT_GM_RESET );			
-	action->setWhatsThis( WT_GM_RESET );		
-	action->plugAccel( m_keyAccel );
+//	action =  new KAction(i18n("Reset main index"), ICON_MAININDEX_RESET, IDK_GM_RESET,
+//		m_groupmanager, SLOT(slotReset()), actionCollection(), "GMreset_action");	
+//	action->setToolTip( TT_GM_RESET );			
+//	action->setWhatsThis( WT_GM_RESET );		
+//	action->plugAccel( m_keyAccel );
 	
-	action =  new KAction(i18n("Search in module(s)"), ICON_MAININDEX_SEARCH, IDK_GM_MODULES_SEARCH,
-		m_groupmanager, SLOT(slotSearchSelectedModules()), actionCollection(), "GMsearch_action");	
-  action->setToolTip( TT_GM_SEARCH_MODULES );
-  action->setWhatsThis( WT_GM_SEARCH_MODULES );
-	action->plugAccel( m_keyAccel );
+//	action =  new KAction(i18n("Search in module(s)"), ICON_MAININDEX_SEARCH, IDK_GM_MODULES_SEARCH,
+//		m_groupmanager, SLOT(slotSearchSelectedModules()), actionCollection(), "GMsearch_action");	
+//  action->setToolTip( TT_GM_SEARCH_MODULES );
+//  action->setWhatsThis( WT_GM_SEARCH_MODULES );
+//	action->plugAccel( m_keyAccel );
 	
-	action =  new KAction(i18n("Remove selected item(s)"),ICON_MAININDEX_DELETE_ITEMS, IDK_GM_ITEMS_DELETE,
-		m_groupmanager, SLOT(slotDeleteSelectedItems()), actionCollection(), "GMdelete_action");	
-	action->setToolTip( TT_GM_DELETE_ITEMS );	
-	action->setWhatsThis( WT_GM_DELETE_ITEMS );
-	action->plugAccel( m_keyAccel );
+//	action =  new KAction(i18n("Remove selected item(s)"),ICON_MAININDEX_DELETE_ITEMS, IDK_GM_ITEMS_DELETE,
+//		m_groupmanager, SLOT(slotDeleteSelectedItems()), actionCollection(), "GMdelete_action");	
+//	action->setToolTip( TT_GM_DELETE_ITEMS );	
+//	action->setWhatsThis( WT_GM_DELETE_ITEMS );
+//	action->plugAccel( m_keyAccel );
 
 	m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
 	m_viewToolbar_action->setToolTip( TT_VIEW_TOOLBAR );	
 	m_viewToolbar_action->setWhatsThis( WT_VIEW_TOOLBAR );
 	m_viewToolbar_action->plugAccel( m_keyAccel );
 
-	m_viewGroupManager_action = new KToggleAction(i18n("&Show main index"), ICON_VIEW_MAININDEX, IDK_VIEW_GROUPMANAGER,
+	m_viewMainIndex_action = new KToggleAction(i18n("&Show main index"), ICON_VIEW_MAININDEX, IDK_VIEW_GROUPMANAGER,
 		this, SLOT(slotToggleGroupManager()), actionCollection(), "viewGroupManager_action");
-	m_viewGroupManager_action->setToolTip( TT_VIEW_GROUPMANAGER );	
-	m_viewGroupManager_action->setWhatsThis( WT_VIEW_GROUPMANAGER );
+	m_viewMainIndex_action->setToolTip( TT_VIEW_GROUPMANAGER );	
+	m_viewMainIndex_action->setWhatsThis( WT_VIEW_GROUPMANAGER );
 	
 	action = KStdAction::preferences(this, SLOT( slotSettingsOptions() ), actionCollection());
 	action->setToolTip( TT_SETTINGS_OPTIONS );
@@ -277,11 +273,6 @@ void BibleTime::initConnections(){
 	else
 		qWarning("can't find window menu");
 		
-	connect(m_groupmanager, SIGNAL(createDisplayWindow(CSwordModuleInfo*, const QString&)),
-		this, SLOT(createDisplayWindow(CSwordModuleInfo*,const QString&)));
-	connect(m_groupmanager, SIGNAL(createDisplayWindow(ListCSwordModuleInfo, const QString&)),
-		this, SLOT(createDisplayWindow(ListCSwordModuleInfo,const QString&)));
-
  	connect(m_mainIndex, SIGNAL(modulesChosen(ListCSwordModuleInfo, const QString&)),
 		this, SLOT(createDisplayWindow(ListCSwordModuleInfo,const QString&)));
 	

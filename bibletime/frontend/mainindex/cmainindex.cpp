@@ -199,7 +199,6 @@ void CMainIndex::slotExecuted( QListViewItem* i ){
     CSwordModuleInfo* mod = m->module();
     ListCSwordModuleInfo modules;
     modules.append(mod);
-
     emit modulesChosen(modules, QString::null);
   }
   else if (CBookmarkItem* b = dynamic_cast<CBookmarkItem*>(i) ) { //clicked on a bookmark

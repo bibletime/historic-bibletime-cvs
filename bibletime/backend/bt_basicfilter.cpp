@@ -44,12 +44,16 @@ void BT_BASICFILTER::updateSettings(){
 
 /** Parses the verse reference ref and returns it. */
 const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
+  /** This function should be able to parse references like "John 1:3; 3:1-10; Matthew 1:1-3:3"
+  * without problems.
+  *
+  */
  	VerseKey parseKey; 	
  	SWModule* m = const_cast<SWModule*>(m_module);
  	const char* lang = m ? m->Lang() : "en";
- 	parseKey.setLocale(lang);
+ 	parseKey.setLocale(lang); //we assume that the keys are in english or in the module's language
 
- 	parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");
+ 	parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1"); //use the current key if there's any
  	ListKey list;
   char* to = new char[5000];
 	char* ret = to;
@@ -60,24 +64,22 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
 	 	list = parseKey.ParseVerseList((*it).local8Bit(), parseKey, true);
 		
 	 	const int count = list.Count();
+    SWKey* key = 0;
 	 	for(int i = 0; i < count; i++) {
-	 		SWKey* key = list.GetElement(i);
-	 		VerseKey* vk = dynamic_cast<VerseKey*>(key);
- 		
-  		pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/", standard_bible);
- 			
- 			if (vk) {
+	 		key = list.GetElement(i);
+      parseKey = *(list.GetElement(i));
+  		pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/", standard_bible); 			
+ 			if ( VerseKey* vk = dynamic_cast<VerseKey*>(key) ) {
  				vk->setLocale(lang);
-//Workaround!
  				vk->LowerBound().setLocale(lang);
  				vk->UpperBound().setLocale(lang); 				
- 			}
- 			if (vk && (const char*)vk->UpperBound() != (const char*)vk->LowerBound()) { 				
-	 			pushString(&to, "%s-%s\">%s</a>",
-	 				(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
-	 				(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8(),
-	 				(const char*)(*it).utf8()
-	 			); 			
+   			if (vk && (const char*)vk->UpperBound() != (const char*)vk->LowerBound()) { 				
+  	 			pushString(&to, "%s-%s\">%s</a>",
+  	 				(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
+  	 				(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8(),
+  	 				(const char*)(*it).utf8()
+  	 			);
+        }
 	 		}
 	 		else {
 	 			pushString(&to, "%s\">%s</a>",
@@ -87,6 +89,7 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
 	 		}
 	 		(pos+1 < (int)refList.count()) ? pushString(&to, "</span>, ") : pushString(&to, "</span>");
 	 	}
+
 	}	
  	*to++ = '\0';
  	return ret;  //don't forget to delete it!

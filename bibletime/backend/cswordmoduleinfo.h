@@ -175,7 +175,7 @@ public:
   */
   virtual const bool snap() {return false;};
   const bool has( const CSwordModuleInfo::Feature );
-	const bool has( const CSwordBackend::FilterOptions option )	;
+	const bool has( const CSwordBackend::FilterTypes option )	;
   /**
   * Returns the text direction of the module's text.,
   */

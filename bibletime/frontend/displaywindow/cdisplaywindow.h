@@ -82,25 +82,21 @@ public:
   */
   virtual void setCaption( const QString& );
   /**
-  * Refresh the settings of this window.
-  */
-  virtual void refresh();
-  /**
   * Sets the new filter options of this window.
   */
-  void setFilterOptions( CSwordBackend::FilterOptionsBool filterOptions );
+  void setFilterOptions( CSwordBackend::FilterOptions filterOptions );
   /**
   * Sets the new display options for this window.
   */
-  void setDisplayOptions( const CSwordBackend::DisplayOptionsBool displayOptions );
+  void setDisplayOptions( const CSwordBackend::DisplayOptions displayOptions );
   /**
   * Returns the display options used by this display window.
   */
-  CSwordBackend::DisplayOptionsBool& displayOptions();
+  CSwordBackend::DisplayOptions& displayOptions();
   /**
   * Returns the filter options used by this window.
   */
-  CSwordBackend::FilterOptionsBool& filterOptions();
+  CSwordBackend::FilterOptions& filterOptions();
   /**
   * Set the ready status
   */
@@ -156,6 +152,10 @@ public slots:
   * Lookup the key in the chosen modules.
   */
   virtual void lookup( const QString& key );
+  /**
+  * Refresh the settings of this window.
+  */
+  virtual void refresh();
 
 protected:
 	friend class CMDIArea;
@@ -212,8 +212,8 @@ protected slots:
 private:
 	CMDIArea* m_mdi;
 	ListCSwordModuleInfo m_modules;
-  CSwordBackend::FilterOptionsBool m_filterOptions;
-	CSwordBackend::DisplayOptionsBool m_displayOptions;
+  CSwordBackend::FilterOptions m_filterOptions;
+	CSwordBackend::DisplayOptions m_displayOptions;
   CDisplaySettingsButton* m_displaySettingsButton;
   CKeyChooser* m_keyChooser;
   CSwordKey* m_swordKey;

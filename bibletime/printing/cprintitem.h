@@ -51,7 +51,7 @@ public:
 			CPrintItem* m_printItem;
   };
 	
-	CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null, const CSwordBackend::DisplayOptionsBool displayOptions = CBTConfig::getDisplayOptionDefaults(),const CSwordBackend::FilterOptionsBool filterOptions = CBTConfig::getFilterOptionDefaults() );
+	CPrintItem(CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null, const CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(),const CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults() );
   /**
 	* Sets the style for this item.
  	*/
@@ -96,8 +96,8 @@ private: // Protected attributes
   CSwordModuleInfo* m_module;
   QListViewItem* m_listViewItem;
 
-  CSwordBackend::DisplayOptionsBool m_displayOptions;
-  CSwordBackend::FilterOptionsBool m_filterOptions;
+  CSwordBackend::DisplayOptions m_displayOptions;
+  CSwordBackend::FilterOptions m_filterOptions;
 };
 
 #endif

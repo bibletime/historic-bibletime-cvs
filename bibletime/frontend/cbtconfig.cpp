@@ -159,16 +159,6 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 
 		case lexiconCache: 				return "lexicon_chache";
 
-		case footnotes: 					return "footnotes";
-		case strongNumbers:  			return "strongNumbers";
-  	case headings: 						return "headings";
-  	case morphTags: 					return "morphTags";
-		case lemmas: 							return "lemmas";
-		case hebrewPoints: 				return "hebrewPoints";
-		case hebrewCantillation: 	return "hebrewCantillation";
-		case greekAccents: 				return "greekAccents";
-		case textualVariants:			return "textualVariants";		
-
 		case lineBreaks: 					return "lineBreaks";
 		case verseNumbers: 				return "verseNumbers";
 		case scroll:			 				return "scroll";
@@ -178,6 +168,21 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 		case restoreWorkspace: 		return "restoreWorkspace";
 	}
 	return QString::null;	
+}
+
+const QString CBTConfig::getKey( const CBTConfig::ints ID){
+	switch ( ID ){
+		case footnotes: 					return "footnotes";
+		case strongNumbers:  			return "strongNumbers";
+  	case headings: 						return "headings";
+  	case morphTags: 					return "morphTags";
+		case lemmas: 							return "lemmas";
+		case hebrewPoints: 				return "hebrewPoints";
+		case hebrewCantillation: 	return "hebrewCantillation";
+		case greekAccents: 				return "greekAccents";
+		case textualVariants:			return "textualVariants";
+  }
+  return QString::null;
 }
 
 const bool CBTConfig::getDefault( const CBTConfig::bools ID){
@@ -193,16 +198,6 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 
 		case lexiconCache: 				return true;
 
-		case footnotes: 					return true;
-		case strongNumbers:  			return false;
-  	case headings: 						return true;
-  	case morphTags: 					return false;
-		case lemmas: 							return false;
-		case hebrewPoints: 				return false;
-		case hebrewCantillation: 	return false;
-		case greekAccents: 				return false;
-		case textualVariants:			return false;
-
 		case lineBreaks: 					return true;
 		case verseNumbers: 				return true;
 		case scroll:			 				return true;
@@ -212,6 +207,21 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 		case restoreWorkspace: 		return false;
 	}
 	return false;
+}
+
+const int CBTConfig::getDefault( const CBTConfig::ints ID){
+	switch ( ID ){
+		case footnotes: 					return true;
+		case strongNumbers:  			return false;
+  	case headings: 						return true;
+  	case morphTags: 					return false;
+		case lemmas: 							return false;
+		case hebrewPoints: 				return false;
+		case hebrewCantillation: 	return false;
+		case greekAccents: 				return false;
+		case textualVariants:			return false;
+    case transliteration:     return 0;
+  }
 }
 
 const QString CBTConfig::getKey( const CBTConfig::colors ID){
@@ -296,6 +306,13 @@ const bool CBTConfig::get( const CBTConfig::bools ID){
 	return config->readBoolEntry(getKey(ID),getDefault(ID));
 }
 
+const int CBTConfig::get( const CBTConfig::ints ID){
+	KConfig* config = KGlobal::config();	
+	KConfigGroupSaver groupSaver(config, "ints");		
+	return config->readBoolEntry(getKey(ID), getDefault(ID));
+}
+
+
 const QColor CBTConfig::get( const CBTConfig::colors ID){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "colors");
@@ -303,7 +320,7 @@ const QColor CBTConfig::get( const CBTConfig::colors ID){
 	return config->readColorEntry(getKey(ID),&defaultColor);
 }
 
-const QValueList<int>	CBTConfig::get( const CBTConfig::intLists ID ){
+const QValueList<int> CBTConfig::get( const CBTConfig::intLists ID ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "lists");
 	return config->readIntListEntry(getKey(ID));
@@ -334,6 +351,12 @@ void CBTConfig::set(const  CBTConfig::bools ID,const  bool value ){
 	config->writeEntry(getKey(ID), value);
 }
 
+void CBTConfig::set(const CBTConfig::ints ID, const int value ){
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver groupSaver(config, "ints");
+	config->writeEntry(getKey(ID), value);
+}
+
 void CBTConfig::set( const CBTConfig::colors ID, const QColor value ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "colors");
@@ -354,8 +377,8 @@ void CBTConfig::set( const CBTConfig::stringLists ID, const QStringList value ){
 
 
 
-const CSwordBackend::DisplayOptionsBool CBTConfig::getDisplayOptionDefaults(){
-  CSwordBackend::DisplayOptionsBool options;
+const CSwordBackend::DisplayOptions CBTConfig::getDisplayOptionDefaults(){
+  CSwordBackend::DisplayOptions options;
 
 	options.lineBreaks = 		get(CBTConfig::lineBreaks);
   options.verseNumbers = 	get(CBTConfig::verseNumbers);
@@ -363,9 +386,9 @@ const CSwordBackend::DisplayOptionsBool CBTConfig::getDisplayOptionDefaults(){
 	return options;
 }
 
-const CSwordBackend::FilterOptionsBool CBTConfig::getFilterOptionDefaults(){
+const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults(){
 
-  CSwordBackend::FilterOptionsBool options;
+  CSwordBackend::FilterOptions options;
 
   options.footnotes =						get(CBTConfig::footnotes);
   options.strongNumbers = 			get(CBTConfig::strongNumbers);
@@ -375,6 +398,10 @@ const CSwordBackend::FilterOptionsBool CBTConfig::getFilterOptionDefaults(){
   options.hebrewPoints = 				get(CBTConfig::hebrewPoints);
   options.hebrewCantillation = 	get(CBTConfig::hebrewCantillation);
   options.greekAccents = 				get(CBTConfig::greekAccents);
+
+//  options.textualVariants = 		get(CBTConfig::textualVariants);
+  options.textualVariants = 		get(CBTConfig::textualVariants);
+  options.transliteration = 		get(CBTConfig::transliteration);
 
 	return options;
 }

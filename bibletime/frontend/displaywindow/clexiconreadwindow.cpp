@@ -82,7 +82,6 @@ void CLexiconReadWindow::initConnections(){
 void CLexiconReadWindow::initView(){
 	qWarning("CLexiconReadWindow::initView()");
  	setMainToolBar( new KToolBar(this) );
- 	Q_ASSERT( mainToolBar() );
 	addDockWindow(mainToolBar());
 
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
