@@ -142,7 +142,9 @@ cd ../maintenance;
 echo generating ../../bibletime-i18n/po/Makefile.am
 ( # output to Makefile.am
 	echo -e $HEADER
-
+	echo
+	echo "SUBDIRS = handbook howto"
+	echo
 	echo -n "POFILES = "
 
 	for I1 in $FOREIGN_PO_LANGUAGES; do
