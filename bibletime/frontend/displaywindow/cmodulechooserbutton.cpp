@@ -96,7 +96,7 @@ int CModuleChooserButton::getId() const{
 	return m_id;
 }
 
-/** Ís called after a module was selected in the popup */
+/** Is called after a module was selected in the popup */
 void CModuleChooserButton::moduleChosen( int ID ){	
 	for ( KPopupMenu* popup = m_submenus.first(); popup; popup = m_submenus.next() ) {
    	for (unsigned int i = 0; i < popup->count(); i++){
@@ -142,10 +142,12 @@ void CModuleChooserButton::populateMenu(){
 	//create popup
 	m_popup = new KPopupMenu(this);	
 
-	if (m_module)
+	if (m_module) {
 	  m_titleId = m_popup->insertTitle(i18n("Select a module"));	
-	else
+	}
+	else {
 	  m_titleId = m_popup->insertTitle(i18n("Select an additional module"));	
+	}
 
 	m_popup->setCheckable(true);
 
@@ -173,7 +175,7 @@ void CModuleChooserButton::populateMenu(){
 	for (modules.first(); modules.current(); modules.next()) {
  		QString lang = modules.current()->language()->translatedName();
  		if (lang.isEmpty()) {
- 			lang = QString::fromLatin1("xx"); //unknown language -- not use English as default!!
+ 			lang = QString::fromLatin1("xx"); //unknown language -- do not use English as default!!
 		}
 		
  	 	if (languages.find( lang ) == languages.end() ){ //not yet added
