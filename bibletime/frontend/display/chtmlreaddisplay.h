@@ -74,9 +74,11 @@ protected:
    	bool isDragging;
     DOM::Node node;
     DOM::DOMString anchor;
+    QString selection;
     QPoint startPos;
     enum DragType {
-			Link
+			Link,
+      Text
     } dragType;
  	} m_dndData;
 

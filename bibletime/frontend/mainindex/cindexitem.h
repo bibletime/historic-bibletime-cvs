@@ -135,7 +135,6 @@ public:
 
   virtual void update();
   virtual void init();
-  /** No descriptions */
   virtual const bool isMovable();
 
 private:
@@ -156,7 +155,6 @@ public:
 
   virtual void update();
   virtual void init();
-
   virtual void setOpen( bool open );
 };
 

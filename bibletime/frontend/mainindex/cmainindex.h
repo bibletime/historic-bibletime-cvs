@@ -29,6 +29,7 @@
 
 //Qt includes
 #include <qwidget.h>
+#include <qtimer.h>
 
 //KDE includes
 #include <kaction.h>
@@ -83,8 +84,15 @@ protected: // Protected methods
   * Returns the correct KAction object for the given type of action.
   */
   KAction* action( const CItemBase::MenuAction type );
-  /** Reimplementation. Takes care of movable items. */
+  /**
+  * Reimplementation. Takes care of movable items.
+  */
   virtual void startDrag();
+  /**
+  * Reimplementation to support the items dragEnter and dragLeave functions.
+  */
+  virtual void contentsDragMoveEvent( QDragMoveEvent* event );
+  virtual void contentsDragLeaveEvent( QDragLeaveEvent* e );
 
 protected slots: // Protected slots
   /**
@@ -136,11 +144,14 @@ protected slots: // Protected slots
   * Unlocks the current module.
   */
   void unlockModule();
+  void autoOpenTimeout();
 
 private: // Private methods
   CSearchDialog* m_searchDialog;
   ToolTip* m_toolTip;
   bool m_itemsMovable;
+  QListViewItem* m_autoOpenFolder;
+  QTimer m_autoOpenTimer;
 
   /**
   * Initializes the view.

@@ -190,7 +190,7 @@ void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event )
 }
 
 void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
-//  qWarning("CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event )");	
+  qWarning("CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event )");	
   m_dndData.node = DOM::Node();
   m_dndData.anchor = DOM::DOMString();
   m_dndData.mousePressed = false;
@@ -220,6 +220,15 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
     m_dndData.mousePressed = true;
     m_dndData.isDragging = false;
     m_dndData.startPos = QPoint(event->x(), event->y());
+    m_dndData.selection = selectedText();
+
+//    if (hasSelection()) {
+//      m_dndData.dragType = DNDData::Text;
+//      qWarning("# Drag the selection! %s", m_dndData.selection.latin1());
+//      return;
+//    }
+//    else
+
     if (!m_dndData.node.isNull()) { //we drag a valid link
       m_dndData.dragType = DNDData::Link;
     }
@@ -239,25 +248,34 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
   const int delay = KGlobalSettings::dndEventDelay();
   QPoint newPos = QPoint(e->x(), e->y());
 
-  if(!m_dndData.anchor.isEmpty() &&
-     (newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < m_dndData.startPos.x()-delay ||
-     newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < m_dndData.startPos.y()-delay) &&
-     !m_dndData.isDragging && m_dndData.mousePressed && m_dndData.dragType == DNDData::Link &&
-     !m_dndData.node.isNull() /*&& !hasSelection()*/ )
-  {
-    QString module = QString::null;
-  	QString key = QString::null;
-  	CReferenceManager::Type type;
-  	if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) )
-  		return;
+  if ( (newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < m_dndData.startPos.x()-delay ||
+       newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < m_dndData.startPos.y()-delay) &&
+       !m_dndData.isDragging && m_dndData.mousePressed  ) {
 
-  	QTextDrag *d = new QTextDrag(CReferenceManager::encodeReference(module,key),KHTMLPart::view()->viewport());
-    d->setSubtype(REFERENCE);
-    d->setPixmap(REFERENCE_ICON_SMALL);
-    m_dndData.isDragging = true;
-    m_dndData.mousePressed = false;
-    d->drag();
-    return;
+    QTextDrag* d = 0;
+    if (!m_dndData.anchor.isEmpty() && m_dndData.dragType == DNDData::Link && !m_dndData.node.isNull() ) {
+      QString module = QString::null;
+    	QString key = QString::null;
+    	CReferenceManager::Type type;
+    	if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) )
+    		return;
+    	d = new QTextDrag(CReferenceManager::encodeReference(module,key),KHTMLPart::view()->viewport());
+      d->setSubtype(REFERENCE);
+      d->setPixmap(REFERENCE_ICON_SMALL);
+    }
+    else if (m_dndData.dragType == DNDData::Text && !m_dndData.selection.isEmpty()) {
+      qWarning("new QTextDrag");
+    	d = new QTextDrag(m_dndData.selection, KHTMLPart::view()->viewport());
+      d->setSubtype(TEXT);
+    }
+
+    if (d) {
+      m_dndData.isDragging = true;
+      m_dndData.mousePressed = false;
+
+      d->drag();
+      return;
+    }
   }
 
   KHTMLPart::khtmlMouseMoveEvent(e);

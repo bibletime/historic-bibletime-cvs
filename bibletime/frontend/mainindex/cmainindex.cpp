@@ -69,7 +69,7 @@ void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
 
 /*new class : CMainIndex*/
 CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
-  m_searchDialog(0), m_toolTip(0), m_itemsMovable(false)
+  m_searchDialog(0), m_toolTip(0), m_itemsMovable(false), m_autoOpenFolder(0), m_autoOpenTimer(this)
 {
   qWarning("constructor of CMainIndex!");
   initView();
@@ -123,7 +123,6 @@ void CMainIndex::initView(){
   m_popup = new KPopupMenu(this);
   m_popup->insertTitle(i18n("Main index"));
 
-
   m_actions.newFolder = new KAction(i18n("Create a new folder"),GROUP_NEW_ICON_SMALL, 0, this, SLOT(createNewFolder()), this);
   m_actions.changeFolder = new KAction(i18n("Change this folder"),GROUP_CHANGE_ICON_SMALL, 0, this, SLOT(changeFolder()), this);
 
@@ -162,6 +161,8 @@ void CMainIndex::initConnections(){
     SLOT(dropped(QDropEvent*, QListViewItem*)));
   connect(this, SIGNAL(contextMenu(KListView*, QListViewItem*, const QPoint&)),
     SLOT(contextMenu(KListView*, QListViewItem*, const QPoint&)));
+  connect(&m_autoOpenTimer, SIGNAL(timeout()),
+    this, SLOT(autoOpenTimeout()));
 }
 
 /** Is called when an item was clicked/double clicked. */
@@ -414,4 +415,36 @@ void CMainIndex::startDrag(){
     }
   }
   KListView::startDrag();
+}
+
+/** Reimplementation to support the items dragEnter and dragLeave functions. */
+void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ){
+  if ( CItemBase* i = dynamic_cast<CItemBase*>( itemAt( contentsToViewport(event->pos())) )) {
+  	if (i->isFolder() && !i->isOpen() && autoOpen()) {
+      if (m_autoOpenFolder != i)
+        m_autoOpenTimer.stop();
+      m_autoOpenFolder = i;
+      m_autoOpenTimer.start( 400, true );
+    }
+    else
+      m_autoOpenFolder = 0;
+  }
+  else
+    m_autoOpenFolder = 0;
+
+  KListView::contentsDragMoveEvent(event);
+}
+
+void CMainIndex::autoOpenTimeout(){
+  m_autoOpenTimer.stop();
+  if (m_autoOpenFolder && !m_autoOpenFolder->isOpen() && m_autoOpenFolder->childCount()) {
+    m_autoOpenFolder->setOpen(true);
+  }
+}
+
+/** No descriptions */
+void CMainIndex::contentsDragLeaveEvent( QDragLeaveEvent* e ){
+  m_autoOpenTimer.stop();
+
+  KListView::contentsDragLeaveEvent(e);
 }
