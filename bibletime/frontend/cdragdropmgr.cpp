@@ -17,6 +17,13 @@
 
 #include "cdragdropmgr.h"
 
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordversekey.h"
+#include "util/cpointers.h"
+
+//Sword includes
+#include "versekey.h"
+
 //Qt includes
 #include <qevent.h>
 #include <qdom.h>
@@ -65,15 +72,33 @@ QByteArray CDragDropMgr::BTDrag::encodedData( const char* type ) const {
 ///////////////////////////// new class //////////////////////
 
 CDragDropMgr::Item::Item( const QString& text )
-  : m_type(Text), m_bookmarkModuleName(QString::null), m_bookmarkKey(QString::null), m_bookmarkDescription(QString::null), m_text(text)
+  : m_type(Text),
+    m_bookmarkModuleName(QString::null),
+    m_bookmarkKey(QString::null),
+    m_bookmarkDescription(QString::null),
+    m_text(text)
 {
   
 }
 
 CDragDropMgr::Item::Item( const QString& moduleName, const QString& key, const QString& description  )
-  : m_type(Bookmark), m_bookmarkModuleName(moduleName), m_bookmarkKey(key), m_bookmarkDescription(description), m_text(QString::null)
+  : m_type(Bookmark),
+    m_bookmarkModuleName(moduleName),
+    m_bookmarkKey(key),
+    m_bookmarkDescription(description),
+    m_text(QString::null)
 {
-
+  //we have to make sure the key is saved in it's english representation, so we convert it
+  if (CSwordModuleInfo* mod = CPointers::backend()->findModuleByName( moduleName )) {
+    if (mod->type() == CSwordModuleInfo::Bible || mod->type() == CSwordModuleInfo::Commentary) {
+      CSwordVerseKey vk(0);
+      vk.key( key );
+      vk.setLocale("en");
+      
+      m_bookmarkKey = vk.key();
+//      qWarning("english key of %s is %s", key.latin1(), m_bookmarkKey.latin1());
+    }
+  }
 }
 
 CDragDropMgr::Item::~Item(){
@@ -159,7 +184,7 @@ QDragObject* const CDragDropMgr::dragObject( CDragDropMgr::ItemList& items, QWid
     }    
   
     BTDrag* dragObject = new BTDrag( doc.toString(), dragSource );
-//    qWarning("DND data created: %s", doc.toString().latin1());
+//    qWarning("DND data created: %s", (const char*)doc.toString().utf8());
     return dragObject;
   };
   return 0;

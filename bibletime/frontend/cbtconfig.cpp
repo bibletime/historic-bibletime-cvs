@@ -241,15 +241,15 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
 
       //make the list to the current bookname language!
       CBTConfig::StringMap::Iterator it;
+      sword::VerseKey vk;
+      vk.setLocale("en");
+      
       for (it = map.begin(); it != map.end(); ++it) {
-        //VerseKey key(it.data());
-        sword::ListKey list = sword::VerseKey().ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
+        sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
         QString data = QString::null;
         for (int i = 0; i < list.Count(); ++i) {
-//       	  if (sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(list.GetElement(i)))
-//       			data += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
-//       		else
-       			data += QString::fromLocal8Bit("%1;").arg( list.GetElement(i)->getRangeText() );
+          data += QString::fromLocal8Bit("%1;").arg( list.GetElement(i)->getRangeText() );
+          qWarning("added %s to list", (const char*)data.utf8());
      	  }
         map[it.key()] = data; //set the new data
       };      
@@ -313,8 +313,9 @@ const CBTConfig::StringMap CBTConfig::get( const CBTConfig::stringMaps ID ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, getKey(ID));
   CBTConfig::StringMap map = config->entryMap(getKey(ID));
-  if (config->hasGroup(getKey(ID)))
+  if (config->hasGroup(getKey(ID))) {
     return map;
+  }
   return getDefault(ID);
 }
 
@@ -381,17 +382,19 @@ void CBTConfig::set( const CBTConfig::stringMaps ID, const CBTConfig::StringMap 
   * will always work with each locale set.
   */
   CBTConfig::StringMap::ConstIterator it;
-  QString data = QString::null;  
+  QString data = QString::null;
+  sword::VerseKey vk;
+  vk.setLocale("en");
   for (it = value.begin(); it != value.end(); ++it) {
-    sword::ListKey list = sword::VerseKey().ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
+    sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
     data = QString::null;
     for (int i = 0; i < list.Count(); ++i) {
-   	  if (sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(list.GetElement(i))) {
-        element->setLocale("en");
-        element->LowerBound().setLocale("en");
-        element->UpperBound().setLocale("en");
+//   	  if (sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(list.GetElement(i))) {
+//        element->setLocale("en");
+//        element->LowerBound().setLocale("en");
+//        element->UpperBound().setLocale("en");
 //   			data += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
-      }
+//      }
 //   		else
    			data += QString::fromLocal8Bit("%1;").arg( list.GetElement(i)->getRangeText() );
  	  }

@@ -246,7 +246,7 @@ CSwordModuleInfo* const CSearchResultView::module(){
 }
 
 QDragObject* CSearchResultView::dragObject() {
-  //return a vlaid DragObject to make DnD possible!
+  //return a valid DragObject to make DnD possible!
 
   /*  
   * First get all selected items and fill with them the dndItems list. The return the QDragObject we got from CDRagDropMgr
@@ -256,7 +256,8 @@ QDragObject* CSearchResultView::dragObject() {
   QPtrList<QListViewItem> items = selectedItems();
   for (items.first(); items.current(); items.next()) {
     dndItems.append( CDragDropMgr::Item(m_module->name(), items.current()->text(0), QString::null) ); //no description
-  };    
+  };
+      
   return CDragDropMgr::dragObject(dndItems, viewport());
 };
 

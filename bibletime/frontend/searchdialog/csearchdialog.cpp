@@ -541,6 +541,7 @@ CRangeChooserDialog::RangeItem::~RangeItem() {
 };
 
 const QString& CRangeChooserDialog::RangeItem::range() {
+//  qWarning("ange is %s", (const char*)m_range.utf8());
   return m_range;
 };
 
@@ -553,7 +554,7 @@ const QString CRangeChooserDialog::RangeItem::caption() {
 };
 
 void CRangeChooserDialog::RangeItem::setCaption(const QString newCaption) {
-  setText(0,newCaption);
+  setText(0, newCaption);
 };
 
 
@@ -570,8 +571,9 @@ CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(
   };
 
   editRange(0);
-  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem()))
+  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())){
     nameChanged(i->caption());
+  }
 };
 
 CRangeChooserDialog::~CRangeChooserDialog() {
@@ -610,6 +612,7 @@ void CRangeChooserDialog::initView(){
   label = new QLabel(i18n("Edit current search range:"), plainPage());
   label->setFixedSize(label->sizeHint());
   m_rangeEdit = new QTextEdit(plainPage());
+  m_rangeEdit->setTextFormat(Qt::PlainText);
   grid->addMultiCellWidget(label,1,1,3,4);
   grid->addMultiCellWidget(m_rangeEdit,2,2,3,4);
 
@@ -655,14 +658,18 @@ void CRangeChooserDialog::addNewRange(){
 
 /** No descriptions */
 void CRangeChooserDialog::editRange(QListViewItem* item){
-  m_nameEdit->setEnabled( dynamic_cast<RangeItem*>(item) ); //ony if an item is selected enable the edit part
-  m_rangeEdit->setEnabled( dynamic_cast<RangeItem*>(item) );
-  m_resultList->setEnabled( dynamic_cast<RangeItem*>(item) );
-  m_deleteRangeButton->setEnabled( dynamic_cast<RangeItem*>(item) );
+  RangeItem* const range = dynamic_cast<RangeItem*>(item);
   
-  if (RangeItem* i = dynamic_cast<RangeItem*>(item)) {
-    m_nameEdit->setText(i->caption());
-    m_rangeEdit->setText(i->range());
+  m_nameEdit->setEnabled( range ); //only if an item is selected enable the edit part
+  m_rangeEdit->setEnabled( range );
+  m_resultList->setEnabled( range );
+  m_deleteRangeButton->setEnabled( range );
+  
+  if (range) {
+    m_nameEdit->setText(range->caption());
+    qWarning("setting new range %s", (const char*)range->range().utf8());
+    m_rangeEdit->setText(range->range());
+    qWarning("after setting new range is %s", (const char*)m_rangeEdit->text().utf8());
   }
 }
 
@@ -671,13 +678,9 @@ void CRangeChooserDialog::parseRange(){
   m_resultList->clear();
   
   sword::VerseKey key;
-  sword::ListKey verses = key.ParseVerseList((const char*)m_rangeEdit->text().local8Bit(), key, true);
+  sword::ListKey verses = key.ParseVerseList((const char*)m_rangeEdit->text().local8Bit(), "Genesis 1:1", true);
 	for (int i = 0; i < verses.Count(); ++i) {
-//		sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
-//		if (element)
-//      new KListViewItem(m_resultList,QString::fromLatin1("%1 - %2").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound())));
-//		else
-      new KListViewItem(m_resultList, QString::fromLocal8Bit(verses.GetElement(i)->getRangeText()));
+    new KListViewItem(m_resultList, QString::fromLocal8Bit(verses.GetElement(i)->getRangeText()));
 	}
 
 }
@@ -749,8 +752,9 @@ void CRangeChooserDialog::slotDefault(){
   m_rangeList->setCurrentItem(0);  
   
   editRange(0);
-  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem()))
+  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
     nameChanged(i->caption());
+  }
 
   KDialogBase::slotDefault();  
 }
