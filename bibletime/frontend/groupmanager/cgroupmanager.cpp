@@ -139,9 +139,7 @@ void CGroupManager::setupStandardSwordTree() {
 	if (!m_swordList)
 		return;
 
-	bool initialized = false;
-	if (config->readBoolEntry("initialized", false))
-		initialized = true;
+	const bool initialized = config->readBoolEntry("initialized", false);
 	
 	CSwordModuleInfo* moduleInfo = 0;
 		
@@ -202,15 +200,27 @@ void CGroupManager::setupStandardSwordTree() {
 	}
 
 	// Now delete the groupes which have no child items
-	if (bibleGroup->childCount() == 0)
+	if (!bibleGroup->childCount()) {		
 		delete bibleGroup;
-	if (lexiconGroup->childCount() == 0)
+		bibleGroup = 0;
+	}
+	if (!lexiconGroup->childCount()) {
 		delete lexiconGroup;
-	if (commentaryGroup->childCount() == 0)
+		lexiconGroup = 0;		
+	}
+	if (!commentaryGroup->childCount()) {
 		delete commentaryGroup;
+		commentaryGroup = 0;		
+	}
 		
-	if (!initialized)
-		sort();
+	if (!initialized) {
+		if (bibleGroup)
+			bibleGroup->sortChildItems(0,true);
+		if (lexiconGroup)
+			lexiconGroup->sortChildItems(0,true);
+		if (commentaryGroup)
+			commentaryGroup->sortChildItems(0,true);	
+	}
 }
 
 /** Initializes the connections of this class */
@@ -244,14 +254,11 @@ void CGroupManager::saveSettings(){
 /**  */
 void CGroupManager::readSettings(){
 	KConfigGroupSaver groupSaver(config, "Groupmanager");
-	if (config->readBoolEntry("initialized")) {
+	if (config->readBoolEntry("initialized"))
 		setupSwordTree();
-	}
-	else {
+	else
 		setupStandardSwordTree();
-	};
-
-	setColumnWidth(0, config->readNumEntry("First column", width()) );
+	setColumnWidth(0, config->readNumEntry("First column", visibleWidth()) );
 }
 
 /** Initializes this widget */
@@ -267,7 +274,7 @@ void CGroupManager::initView(){
  	if (m_useDragDrop)
 	 	viewport()->setAcceptDrops(true);
 	if (m_useExtendedMode)
-		setSelectionMode(QListView::Extended);
+		setSelectionModeExt(KListView::Extended);
  	setRootIsDecorated(false);
  	setAllColumnsShowFocus(true);
  			 	
@@ -283,11 +290,11 @@ void CGroupManager::initView(){
 		popupMenu->insertItem(GROUP_NEW_ICON_SMALL, i18n("Create a new folder"),
 			this, SLOT(slotCreateNewGroup()),0,ID_GM_GROUP_CREATE);
 		popupMenu->setWhatsThis(ID_GM_GROUP_CREATE, WT_GM_NEW_GROUP);	
-		popupMenu->insertItem(GROUP_CHANGE_ICON_SMALL, i18n("Change folder"),
+		popupMenu->insertItem(GROUP_CHANGE_ICON_SMALL, i18n("Change this folder"),
 			this, SLOT(slotChangeGroup()),0,ID_GM_GROUP_CHANGE);
 		popupMenu->setWhatsThis(ID_GM_GROUP_CHANGE, WT_GM_CHANGE_GROUP);		
 		popupMenu->insertSeparator();	
-		popupMenu->insertItem(BOOKMARK_CHANGE_ICON_SMALL,i18n("Change bookmark"),
+		popupMenu->insertItem(BOOKMARK_CHANGE_ICON_SMALL,i18n("Change this bookmark"),
 			this,SLOT(slotChangeBookmark()),0,ID_GM_BOOKMARK_CHANGE);
 		popupMenu->setWhatsThis(ID_GM_BOOKMARK_CHANGE, WT_GM_CHANGE_BOOKMARK);
 		popupMenu->insertItem(BOOKMARK_IMPORT_ICON_SMALL,i18n("Import bookmarks"),
@@ -302,13 +309,13 @@ void CGroupManager::initView(){
 		popupMenu->insertItem(ITEMS_DELETE_ICON_SMALL, i18n("Remove selected item(s)"),
 			this, SLOT(slotDeleteSelectedItems()),0,ID_GM_ITEMS_DELETE);
 		popupMenu->insertSeparator();
-		popupMenu->insertItem(MODULE_SEARCH_ICON_SMALL,i18n("Search in module(s)"),
+		popupMenu->insertItem(MODULE_SEARCH_ICON_SMALL,i18n("Search in selected module(s)"),
 			this, SLOT(slotSearchSelectedModules()),0,ID_GM_MODULES_SEARCH);
 		popupMenu->insertSeparator();
 		popupMenu->insertItem(MODULE_UNLOCK_ICON_SMALL,i18n("Set unlock key"),
 			this, SLOT(slotUnlockModule()),0,ID_GM_MODULE_UNLOCK);	
 		popupMenu->setWhatsThis(ID_GM_MODULE_UNLOCK, WT_GM_UNLOCK_MODULE);	
-		popupMenu->insertItem(MODULE_ABOUT_ICON_SMALL, i18n("About module"),
+		popupMenu->insertItem(MODULE_ABOUT_ICON_SMALL, i18n("About this module"),
 			this, SLOT(slotShowAbout()),0,ID_GM_MODULE_ABOUT);
 		popupMenu->setWhatsThis(ID_GM_MODULE_ABOUT, WT_GM_ABOUT_MODULE);
 	}

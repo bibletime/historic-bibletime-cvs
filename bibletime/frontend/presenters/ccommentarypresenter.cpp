@@ -65,7 +65,7 @@ void CCommentaryPresenter::initView(){
 	presenterEdit_action->setWhatsThis( WT_PRESENTER_EDIT );
 	presenterEdit_action->plug(m_mainToolBar);
 	
-	m_htmlWidget = new CHTMLWidget(m_important, this);
+	m_htmlWidget = new CHTMLWidget(m_important, true, this);
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
@@ -155,7 +155,7 @@ void CCommentaryPresenter::popupAboutToShow(){
 //	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
 	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());
 	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
-	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
+//	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
 }
 
 /** Saves the given text in the module. */

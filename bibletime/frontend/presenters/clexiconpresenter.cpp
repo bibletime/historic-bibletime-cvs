@@ -53,7 +53,7 @@ void CLexiconPresenter::initView(){
 //	m_moduleChooserBar->setButtonLimit(1);	
 	addToolBar(m_moduleChooserBar);
 	
-	m_htmlWidget = new CHTMLWidget(m_important, this);
+	m_htmlWidget = new CHTMLWidget(m_important, true, this);
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);

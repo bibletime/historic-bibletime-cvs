@@ -33,6 +33,7 @@
 #include <qheader.h>
 #include <qstringlist.h>
 #include <qwidget.h>
+#include <qsplitter.h>
 
 // KDE includes
 #include <klocale.h>
@@ -40,60 +41,56 @@
 
 CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QWidget *parent, const char *name) : QWidget(parent, name) {	
 	m_important = importantClasses;
-	QLabel *label1 = new QLabel(this, "label1");
+		
+	QHBoxLayout* l = new QHBoxLayout(this);
+	m_splitter = new QSplitter(Qt::Vertical, this, "result splitter");	
+	l->addWidget(m_splitter);
+	
+	QWidget* d = new QWidget(m_splitter);
+	QHBoxLayout* main_layout = new QHBoxLayout(d);	
+	QLabel *label1 = new QLabel(d, "label1");
 	label1->setText( i18n( "Modules:" ) );
 	label1->setAutoResize(true);
-
-	QLabel* label2 = new QLabel(this, "label2");
+	QLabel* label2 = new QLabel(d, "label2");
 	label2->setText( i18n("Entries found:") );
 	label2->setAutoResize(true);
 
-	resultModuleTree = new CSearchDialogResultModuleView(m_important, this, "resultModuleTree");
-	resultTree = new CSearchDialogResultView(m_important, this, "resultTree");
+	resultModuleTree = new CSearchDialogResultModuleView(m_important, d, "resultModuleTree");
+	resultTree = new CSearchDialogResultView(m_important, d, "resultTree");
+	
+//	QLabel* label3 = new QLabel(d, "label3");
+//	label3->setText( i18n("Preview:") );
+//	label3->setAutoResize(true);
 
-	QLabel* label3 = new QLabel(this, "label3");
-	label3->setText( i18n("Preview:") );
-	label3->setAutoResize(true);
-
-	html_widget = new CHTMLWidget(m_important, this, "html_widget");
-	html_widget->setMinimumHeight(75);
-	html_widget->setMaximumHeight(130);
+	html_widget = new CHTMLWidget(m_important, true, m_splitter, "html_widget");
+	html_widget->setMinimumHeight(80);
+//	html_widget->setMaximumHeight(130);
 
 	connect(resultModuleTree, SIGNAL(moduleSelected(CModuleInfo*)), resultTree, SLOT(setModule(CModuleInfo*)));
 	connect(resultTree, SIGNAL(keySelected(QString)), this, SLOT(updatePreview(QString)));
 
-	QVBoxLayout* layout_1 = new QVBoxLayout( this );
-	QVBoxLayout* layout_1_1 = new QVBoxLayout();
-	QVBoxLayout* layout_1_2 = new QVBoxLayout();
-	QHBoxLayout* layout_1_3 = new QHBoxLayout();
+	QVBoxLayout* layout_1 = new QVBoxLayout();
+	QVBoxLayout* layout_2 = new QVBoxLayout();	
 		
-	layout_1_1->addWidget(label1);
-	layout_1_1->addWidget(resultModuleTree);
+	layout_1->addWidget(label1);
+	layout_1->addWidget(resultModuleTree);
 	
-	layout_1_2->addWidget(label2);
-	layout_1_2->addWidget(resultTree, 5);
-	layout_1_2->setResizeMode( QLayout::Minimum );
+	layout_2->addWidget(label2);
+	layout_2->addWidget(resultTree, 5);
+//	layout_2->setResizeMode(QLayout::Minimum);
 	
-	layout_1_3->addLayout(layout_1_1);
-	layout_1_3->addSpacing(2);
-	layout_1_3->addLayout(layout_1_2);
-
-	layout_1->addLayout(layout_1_3);
-	layout_1->addWidget( label3, 0 );
-	layout_1->addWidget( html_widget, 2 );
-
+	main_layout->addLayout(layout_1);
+	main_layout->addSpacing(2);
+	main_layout->addLayout(layout_2);
 }
 
 void CSearchDialogResult::setModuleList(ListCSwordModuleInfo*	modules) {
-	ASSERT(modules);
 	moduleList = modules;
 	
 	resultModuleTree->setModuleList(moduleList);
 	resultModuleTree->clear();
 	resultModuleTree->setupTree();	
-	resultModuleTree->setMinimumSize( resultModuleTree->sizeHint() );	
 	
-	resultTree->setMinimumWidth( resultTree->sizeHint().width());
 	resultTree->clear();
 }
 
@@ -163,7 +160,7 @@ void CSearchDialogResult::updatePreview(QString text) {
 			int pos = 0;
 			while ( pos != -1 ) {
 				pos = regExp.match(text,pos,&matchLength);
-				qDebug( (const char*)QString("Matched: %1").arg(pos).local8Bit());
+				qDebug(QString("Matched: %1").arg(pos).local8Bit());
 				if (pos!=-1 && matchLength > 0) {
 						qDebug((const char*)QString("match at %1 with length %2").arg(pos).arg(matchLength).local8Bit());
 						text.insert(pos + matchLength, "</B></FONT>");

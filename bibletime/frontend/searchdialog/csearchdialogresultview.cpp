@@ -72,17 +72,15 @@ CSearchDialogResultModuleView::~CSearchDialogResultModuleView() {
 /** Initializes the tree of this ResultView */
 void CSearchDialogResultModuleView::setupTree() {
 	ListKey moduleSearchResult;
-	ASSERT(moduleList);
 	QListViewItem	*module = 0;
 
 	for (moduleList->first(); moduleList->current(); moduleList->next()) {
 		moduleSearchResult = moduleList->current()->getSearchResult();
 		module = new QListViewItem(this, QString("%1 [%2]").arg(QString::fromLocal8Bit(moduleList->current()->module()->Name())).arg( moduleSearchResult.Count() ));
 		module->setPixmap(0,CToolClass::getIconForModule(moduleList->current()) );
-	}
-	
+	}	
 	setFixedWidth( sizeHint().width() );
-	resize(sizeHint());
+//	resize(sizeHint());
 }
 
 void CSearchDialogResultModuleView::viewportMousePressEvent(QMouseEvent *e) {

@@ -58,7 +58,7 @@ void CBiblePresenter::initView(){
 	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Bible, this );
 	addToolBar(m_moduleChooserBar);
 	
-	m_htmlWidget = new CHTMLWidget(m_important, this);
+	m_htmlWidget = new CHTMLWidget(m_important, true, this);
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
@@ -66,14 +66,13 @@ void CBiblePresenter::initView(){
 	m_popup->insertItem(i18n("Save chapter as HTML..."), m_htmlWidget, SLOT(slotSaveAsHTML()), 0,ID_PRESENTER_SAVE_AS_HTML);	
 	m_popup->insertItem(i18n("Save chapter as plain text..."), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_AS_TEXT);
 	m_popup->insertItem(i18n("Copy chapter into clipboard"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_ALL);		
-	m_popup->insertSeparator();
-	m_popup->insertItem(i18n("Add verse to print queue"), this, SLOT(printHighlightedVerse()),0, ID_PRESENTER_PRINT_VERSE);			
-	m_popup->insertItem(i18n("Copy verse into clipboard"), this, SLOT(copyHighlightedVerse()),0, ID_PRESENTER_COPY_VERSE);
+	m_popup->insertItem(i18n("Copy verse into clipboard"), this, SLOT(copyHighlightedVerse()),0, ID_PRESENTER_COPY_VERSE);	
+	m_popup->insertItem(i18n("Add verse to print queue"), this, SLOT(printHighlightedVerse()),0, ID_PRESENTER_PRINT_VERSE);
 	m_popup->insertSeparator();
 	m_popup->insertItem(i18n("Select all"), m_htmlWidget, SLOT(slotSelectAll()),0, ID_PRESENTER_SELECT_ALL);
-	m_popup->insertItem(i18n("Copy selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);	
-  m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP );	
-	
+	m_popup->insertItem(i18n("Copy selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);
+  m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP);
+
 	m_htmlWidget->installPopup(m_popup);			
 	m_htmlWidget->installAnchorMenu( m_popup );
 		

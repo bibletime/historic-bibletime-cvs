@@ -87,10 +87,10 @@ void BibleTime::slotSettingsOptions(){
 			KConfigGroupSaver groupSaver(m_config, "Colors");
 			QColor tempColor = m_config->readColorEntry("Highlighted Verse");			
 			m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor = tempColor.name();
-			tempColor = tempColor = m_config->readColorEntry("Versenumber/URL");
-			m_important->swordBackend->m_entryDisplay->m_linkColor = tempColor.name();
-			tempColor = tempColor = m_config->readColorEntry("Normal Text");
-			m_important->swordBackend->m_entryDisplay->m_textColor = tempColor.name();
+//			tempColor = tempColor = m_config->readColorEntry("Versenumber/URL");
+//			m_important->swordBackend->m_entryDisplay->m_linkColor = tempColor.name();
+//			tempColor = tempColor = m_config->readColorEntry("Normal Text");
+//			m_important->swordBackend->m_entryDisplay->m_textColor = tempColor.name();
 			
 			m_config->setGroup("Fonts");
 			QFont dummy =  m_config->readFontEntry("Presenter");
@@ -100,10 +100,10 @@ void BibleTime::slotSettingsOptions(){
 			KConfigGroupSaver groupSaver(m_config, "Colors");
 			QColor tempColor = tempColor = m_config->readColorEntry("Highlighted Verse");
 			m_important->swordBackend->m_chapterDisplay->m_highlightedVerseColor = tempColor.name();
-			tempColor = tempColor = m_config->readColorEntry("Versenumber/URL");
-			m_important->swordBackend->m_chapterDisplay->m_linkColor = tempColor.name();
-			tempColor = tempColor = m_config->readColorEntry("Normal Text");
-			m_important->swordBackend->m_chapterDisplay->m_textColor = tempColor.name();
+//			tempColor = tempColor = m_config->readColorEntry("Versenumber/URL");
+//			m_important->swordBackend->m_chapterDisplay->m_linkColor = tempColor.name();
+//			tempColor = tempColor = m_config->readColorEntry("Normal Text");
+//			m_important->swordBackend->m_chapterDisplay->m_textColor = tempColor.name();
 			
 			m_config->setGroup("Fonts");
 			QFont dummy =  m_config->readFontEntry("Presenter");

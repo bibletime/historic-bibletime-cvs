@@ -50,7 +50,12 @@ class CHTMLWidget : public QTextEdit {
    friend class CHTMLDialog;
 
 public:
-	CHTMLWidget(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0);
+	/**
+	* The constructor of the CHTMLWidget class.
+	* @param importantClasses The pointre to the CImportantClasses pointer
+	* @param useColorsAndFonts Set this to false if you don't want to use the standard colorsa dnfonts defined in the optionsdialog of BibleTime
+	*/
+	CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts = true,QWidget *parent=0, const char *name=0);
 	virtual ~CHTMLWidget();
   /**
  	* Reinitialize the colors, fonts etc.

@@ -97,7 +97,8 @@ void CSearchDialogAnalysis::analyse(){
 	*			-Find out how many times we found the book
 	*			-Set the count to the items which belongs to the book
 	*/
-	KApplication::setOverrideCursor(Qt::waitCursor);
+//	KApplication::setOverrideCursor(Qt::waitCursor);
+//	setCursor(Qt::waitCursor);
 	m_lastPosList.clear();		
 	const int numberOfModules = m_moduleList.count();
 	if (!numberOfModules)
@@ -119,6 +120,7 @@ void CSearchDialogAnalysis::analyse(){
 	bool ok = true;
 	while (ok) {
 		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
+			KApplication::kApplication()->processEvents(10);
 			if (!m_lastPosList.contains(m_moduleList.current()))
 				m_lastPosList.insert(m_moduleList.current(),0);
 			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.getBook(),m_moduleList.current())));
@@ -134,7 +136,8 @@ void CSearchDialogAnalysis::analyse(){
 	}	
 	resize(xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );	
 	slotResized();
-	KApplication::restoreOverrideCursor();	
+
+//	setCursor(Qt::arowCursor);
 }
 
 /** Sets te module list used for the analysis. */
@@ -154,7 +157,7 @@ void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
    	analysisItem->hide();
 		m_canvasItemList.insert(key.getBook(), analysisItem);
 		ok = key.NextBook();
-	}							
+	}	
 	update();
 }
 

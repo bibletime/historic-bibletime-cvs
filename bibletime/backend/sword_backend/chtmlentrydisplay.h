@@ -75,8 +75,8 @@ public:
   */
   virtual char Display( QList<CSwordModuleInfo>* moduleList);
   QString m_highlightedVerseColor;
-	QString m_textColor;
-	QString m_linkColor;
+//	QString m_textColor;
+//	QString m_linkColor;
 		
 private:
 	friend class CHTMLChapterDisplay;	

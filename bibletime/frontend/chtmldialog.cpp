@@ -33,7 +33,7 @@
 CHTMLDialog::CHTMLDialog(QWidget* parent, const char *name )
 	: KDialogBase ( parent, name, true, i18n("BibleTime - Help window"), Ok, Ok, true)
 {
-	html_widget = new CHTMLWidget(0,this);
+	html_widget = new CHTMLWidget(0,false, this);
 	setMainWidget(html_widget);
 	resize(600,480);
 }
@@ -41,7 +41,7 @@ CHTMLDialog::CHTMLDialog(QWidget* parent, const char *name )
 CHTMLDialog::CHTMLDialog(const QString url, QWidget* parent, const char *name)
 	: KDialogBase ( parent, name, true, i18n("BibleTime - Help window"), Ok, Ok, true)
 {
-	html_widget = new CHTMLWidget(0,this);		
+	html_widget = new CHTMLWidget(0,false, this);		
 	html_widget->setHTMLSource( url );	
 	setMainWidget(html_widget);
 	resize(500,400);

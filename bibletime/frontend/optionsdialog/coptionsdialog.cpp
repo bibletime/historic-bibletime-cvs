@@ -146,21 +146,23 @@ void COptionsDialog::initColorsPage(){
 	
 	KConfigGroupSaver groupSaver(config, "Colors");
 	
-	QLabel* label;
+	QLabel* label = 0;
 	label = new QLabel(i18n("Background"), colorGroup);
 	QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 	QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
 	backgroundButton = new KColorButton(config->readColorEntry("Background", &Qt::lightGray), colorGroup);
 	
-	label = new QLabel(i18n("Normal Text"), colorGroup);
-	QToolTip::add(label, TT_OD_COLORS_NORMAL_TEXT );	
-	QWhatsThis::add(label, WT_OD_COLORS_NORMAL_TEXT );
-	normalTextButton = new KColorButton(config->readColorEntry("Normal Text", &Qt::black), colorGroup);
-	
-	label = new QLabel(i18n("Verse number / URL"), colorGroup);
-	QToolTip::add(label, TT_OD_COLORS_VERSENUMBER );	
-	QWhatsThis::add(label, WT_OD_COLORS_VERSENUMBER );
-	URLLinkButton = new KColorButton(config->readColorEntry("Versenumber/URL", &Qt::darkBlue), colorGroup);
+//colors for text and links are not yet supported!
+
+//	label = new QLabel(i18n("Normal Text"), colorGroup);
+//	QToolTip::add(label, TT_OD_COLORS_NORMAL_TEXT );	
+//	QWhatsThis::add(label, WT_OD_COLORS_NORMAL_TEXT );
+//	normalTextButton = new KColorButton(config->readColorEntry("Normal Text", &Qt::black), colorGroup);
+//	
+//	label = new QLabel(i18n("Verse number / URL"), colorGroup);
+//	QToolTip::add(label, TT_OD_COLORS_VERSENUMBER );	
+//	QWhatsThis::add(label, WT_OD_COLORS_VERSENUMBER );
+//	URLLinkButton = new KColorButton(config->readColorEntry("Versenumber/URL", &Qt::darkBlue), colorGroup);
 
 	label = new QLabel(i18n("Highlighted Verse"), colorGroup);
 	QToolTip::add(label, TT_OD_COLORS_CURRENT_VERSE );	
@@ -325,21 +327,23 @@ void COptionsDialog::saveColorsOptions() {
 	}	
 	config->writeEntry("Background", backgroundButton->color().name());	
 	
-	if ( config->readColorEntry("Normal Text") != normalTextButton->color() ) {
-		if (m_changedSettings)
-			m_changedSettings |= CSwordPresenter::textColor;
-		else
-			m_changedSettings = CSwordPresenter::textColor;
-	}		
-	config->writeEntry("Normal Text", normalTextButton->color().name());	
+//the colors for text and URLs are not supported by Qt3::QTextView at the moment!
+
+//	if ( config->readColorEntry("Normal Text") != normalTextButton->color() ) {
+//		if (m_changedSettings)
+//			m_changedSettings |= CSwordPresenter::textColor;
+//		else
+//			m_changedSettings = CSwordPresenter::textColor;
+//	}		
+//	config->writeEntry("Normal Text", normalTextButton->color().name());	
 	
-	if ( config->readColorEntry("Versenumber/URL") != URLLinkButton->color() ) {
-		if (m_changedSettings)
-			m_changedSettings |= CSwordPresenter::verseNumberColor;
-		else
-			m_changedSettings = CSwordPresenter::verseNumberColor;
-	}	
-	config->writeEntry("Versenumber/URL", URLLinkButton->color().name());
+//	if ( config->readColorEntry("Versenumber/URL") != URLLinkButton->color() ) {
+//		if (m_changedSettings)
+//			m_changedSettings |= CSwordPresenter::verseNumberColor;
+//		else
+//			m_changedSettings = CSwordPresenter::verseNumberColor;
+//	}	
+//	config->writeEntry("Versenumber/URL", URLLinkButton->color().name());
 	
 	if ( config->readColorEntry("Highlighted Verse") != highlightedVerseButton->color() ) {
 		if (m_changedSettings)

@@ -62,7 +62,7 @@
 //Sword includes
 #include <swmodule.h>
 
-CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, QWidget *parent, const char *name ) : QTextEdit(parent, name) {
+CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts,  QWidget *parent, const char *name ) : QTextEdit(parent, name) {
 	m_important = importantClasses;
 	m_config = KGlobal::config();
 	m_popup = 0;
@@ -75,8 +75,10 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, QWidget *parent, c
 	
 	initView();	
 	initConnections();
-	initColors();
-	initFonts();	
+	if (useColorsAndFonts) {
+		initColors();
+		initFonts();	
+	}
 }
 
 CHTMLWidget::~CHTMLWidget(){
@@ -86,19 +88,19 @@ CHTMLWidget::~CHTMLWidget(){
 /**  */
 void CHTMLWidget::initColors(){
 	qDebug("CHTMLWidget::initColors()");
-#warning ToDo: Implementation!
-	
+#warning ToDo: Implementation!	
 	KConfigGroupSaver groupSaver(m_config, "Colors");
-//	setLinkColor( m_config->readColorEntry("Versenumber/URL", &Qt::darkBlue) );	
+//	setLinkColor( m_config->readColorEntry("Versenumber/URL", &Qt::darkBlue) );		
+//	QColor textColor = m_config->readColorEntry("Normal Text", &Qt::red);	
+	const QColor bgColor = m_config->readColorEntry("Background", &Qt::lightGray);
+	setPaper(QBrush(bgColor));
 	
-	QColor textColor = m_config->readColorEntry("Normal Text", &Qt::black);
-	QColor bgColor = m_config->readColorEntry("Background", &Qt::lightGray);
-	
-	QPalette p = palette();
-	p.setBrush( QPalette::Active, QColorGroup::Base, QBrush(bgColor) );
-	
+//using a standard text color doesn't work at the moment!
+
+//	QPalette p = palette();
+//	p.setBrush( QPalette::Active, QColorGroup::Base, QBrush(bgColor) );	
 //	QColorGroup cg = p.active();
-	p.setColor(QPalette::Active, QColorGroup::Text, textColor);
+//	p.setColor(QPalette::Active, QColorGroup::Text, textColor);
 //	cg.setColor(QColorGroup::Base, bgColor);
 //	p.setActive(cg);	
 //	setPalette(p);		
@@ -107,6 +109,9 @@ void CHTMLWidget::initColors(){
 
 /** Initializes the fonts of the HTML-widget */
 void CHTMLWidget::initFonts(){
+//this doesn't work at the moment
+//	KConfigGroupSaver groupSaver(m_config, "Fonts");		
+//	document()->setDefaultFont(m_config->readFontEntry("Presenter"));
 }
 
 /**  */
@@ -587,8 +592,7 @@ void CHTMLWidget::copyDocument(){
 	if (!document()->text().isEmpty()) {
 		QClipboard* cb = KApplication::clipboard();			
 		cb->setText(document()->plainText());
-	}
-	
+	}	
 }
 
 /** Sets the source of this widget. */

@@ -29,6 +29,8 @@ class CSearchDialogResultModuleView;
 class CSearchDialogResultView;
 class CSearchResultItem;
 
+class QSplitter;
+
 class CSearchDialogResult : public QWidget
 {
   Q_OBJECT
@@ -59,6 +61,7 @@ private:
 	CSearchDialogResultModuleView *resultModuleTree;
 	CSearchDialogResultView	*resultTree;
 	CHTMLWidget	*html_widget;
+	QSplitter* m_splitter;
 };
 
 
