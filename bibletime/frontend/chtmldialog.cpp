@@ -72,9 +72,9 @@ void CHTMLDialog::init(const bool enableHistory){
 		QToolButton *button = 0;		
 		button = new QToolButton(toolBar);
 		button->setIconSet(SmallIcon("back"));
-		button->setTextLabel(i18n("Backward"));		
-		button->setEnabled(false);		
-		button->setUsesTextLabel(true);
+//		button->setTextLabel(i18n("Backward"));		
+		button->setEnabled(false);
+//		button->setUsesTextLabel(true);
 		button->setFixedSize(button->sizeHint());
 		connect(button, SIGNAL(clicked()), m_textBrowser, SLOT(backward()));
 		connect(m_textBrowser, SIGNAL(backwardAvailable(bool)),
@@ -90,8 +90,8 @@ void CHTMLDialog::init(const bool enableHistory){
 	     				
 		button = new QToolButton(toolBar);		
 		button->setEnabled(false);
-		button->setTextLabel(i18n("Forward"));		
-		button->setUsesTextLabel(true);		
+//		button->setTextLabel(i18n("Forward"));		
+//		button->setUsesTextLabel(true);		
 		button->setIconSet(SmallIcon("forward"));
 		button->setFixedSize(button->sizeHint());
 		connect(button, SIGNAL(clicked()), m_textBrowser, SLOT(forward()));		
