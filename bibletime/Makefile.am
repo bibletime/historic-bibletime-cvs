@@ -56,6 +56,7 @@ bt-printing
 
 # set the include path for X, qt and KDE
 INCLUDES= $(all_includes)
+
 # claim, which subdirectories you want to install
 # you can add here more. This one gets installed 
 bin_PROGRAMS = bibletime 
@@ -75,9 +76,9 @@ messages:
 
 install-data-local:
 	$(mkinstalldirs) $(kde_confdir)
-	$(INSTALL_DATA) bt-printing $(kde_confdir)/bt-printing
+	$(INSTALL_DATA) bt-printing $(DESTDIR)$(kde_confdir)/bt-printing
 
 uninstall-local:
-	-rm -f $(kde_confdir)/bt-printing
+	-rm -f $(DESTDIR)$(kde_confdir)/bt-printing
 
 

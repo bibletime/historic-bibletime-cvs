@@ -114,6 +114,7 @@ bibletime/docs/en/Makefile \
 bibletime/docs/en/HTML/Makefile \
 bibletime/docs/en/HTML/common/Makefile \
 bibletime/docs/en/docbook_XML/Makefile \
+bibletime/docs/es/Makefile \
 bibletime/docs/it/Makefile \
 bibletime/docs/it/HTML/Makefile \
 bibletime/docs/it/docbook_XML/Makefile \
@@ -132,6 +133,7 @@ bibletime/frontend/thirdparty/Makefile \
 bibletime/frontend/thirdparty/qt3stuff/Makefile \
 bibletime/pics/Makefile \
 bibletime/pics/highcolor/Makefile \
+bibletime/pics/highcolor/16x16/Makefile \
 bibletime/pics/highcolor/22x22/Makefile \
 bibletime/pics/highcolor/32x32/Makefile \
 bibletime/pics/highcolor/48x48/Makefile \
@@ -142,5 +144,5 @@ bibletime/pics/lowcolor/32x32/Makefile \
 bibletime/printing/Makefile \
 bibletime/xml/Makefile \
 po/Makefile \
-NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop
+NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop \
 )
