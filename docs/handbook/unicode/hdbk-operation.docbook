@@ -122,7 +122,7 @@ bar buttons, or menu functions under <guimenu>&quot;Window&quot;</guimenu> in th
 Windows can be set to automatically cascade or tile also. </para>
 </section>
 
-<section id="hdbk-op-MDI-Window-module-navigation">
+<section id="hdbk-op-MDI-window-navigation">
 <title>Navigating in Open Documents</title> <para>
 Navigation within a document is accomplished with the Document Key
 Control Menu, and the scroll bar.

@@ -1,27 +1,20 @@
 <chapter id="hdbk-reference">
 <title>Reference</title>
 
-<sect1 id="hdbk-reference-toolbar"><title>Toolbar</title>
+<sect1 id="hdbk-reference-menus"><title>Main menu reference</title>
 
-	<para>This section describes the most important toolbar actions. You can find a
-	comlete listing of available actions and descriptions of them by clicking
-	<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
-	toolbars</guimenuitem></menuchoice>. 
-	You can also <action>move the cursor over a button</action> to activate the button's tooltip 
-	with a short description.
-	</para>
-	
-	TODO: COMPLETE.
-</sect1>
-	
-<sect1 id="hdbk-reference-menus"><title>Main menu</title>
+	<para>In this section you can find detailed descriptions of all entries in the main menu
+	of &bibletime;. They are ordered in just the way they appear in &bibletime;, with
+	all the sub-items listed under the major menu item they belong to. You can also see
+	the hotkey of each item;a complete listing of all hotkeys can be found in
+	<link linkend="hdbk-reference-hotkeys">this section</link>.</para>
 	
 	<sect2 id="hdbk-reference-menus-file"><title><guimenu>File</guimenu></title>
 	
 	<para>
 	<variablelist>
 	
-	<varlistentry id="file-quit">
+	<varlistentry id="hdbk-reference-menus-file-quit">
 		<term><menuchoice>
 		<shortcut><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></shortcut>
 		<guimenu>	<inlinemediaobject><imageobject>
@@ -38,14 +31,14 @@
 	<sect2 id="hdbk-reference-menus-view"><title><guimenu>View</guimenu></title>
 	
 	<variablelist>
-		<varlistentry id="view-showtoolbar">
+		<varlistentry id="hdbk-reference-menus-view-showtoolbar">
 			<term><menuchoice>
 			<guimenu>View</guimenu> <guimenuitem>Show Toolbar</guimenuitem></menuchoice></term>
 			<listitem><para><action>Toggles Toolbar display.</action> Toggle this setting to turn the main toolbar
 			on or off.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="view-shomainindex">
+		<varlistentry id="hdbk-reference-menus-view-showmainindex">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul"><keycap>F9</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -55,7 +48,7 @@
 			main index on the left pane on or off.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="view-shominfodisp">
+		<varlistentry id="hdbk-reference-menus-view-showinfodisplay">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul"><keycap>F8</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -71,7 +64,7 @@
 	<sect2 id="hdbk-reference-menus-search"><title><guimenu>Search</guimenu></title>
 		<variablelist>
 
-		<varlistentry id="search-defaultbible">
+		<varlistentry id="hdbk-reference-menus-search-defaultbible">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -81,7 +74,7 @@
 			More modules can be added in the Search Dialog.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="search-openmodules">
+		<varlistentry id="hdbk-reference-menus-search-openmodules">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -98,7 +91,7 @@
 	<sect2 id="hdbk-reference-menus-window"><title><guimenu>Window</guimenu></title>
 		<variablelist>
 
-		<varlistentry id="window-savesession">
+		<varlistentry id="hdbk-reference-menus-window-savesession">
 			<term><menuchoice>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
@@ -108,7 +101,7 @@
 			It will be overwritten with your current session. See the next item on how to save to a new session.</para></listitem> 
 		</varlistentry>
 		
-		<varlistentry id="window-savenewsession">
+		<varlistentry id="hdbk-reference-menus-window-savenewsession">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul">&Alt;&Ctrl;<keycap>S</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -118,7 +111,7 @@
 			This will ask for a new name to save the session to.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="window-loadsession">
+		<varlistentry id="hdbk-reference-menus-window-loadsession">
 			<term><menuchoice>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
@@ -127,7 +120,7 @@
 			This will open a context menu where you can select an already saved session to load.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="window-configuresessions">
+		<varlistentry id="hdbk-reference-menus-window-configuresessions">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul"><keycap>F5</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -137,7 +130,7 @@
 			There you can manage your sessions easily.</para></listitem> 
 		</varlistentry>	
 
-		<varlistentry id="window-fullscreen">
+		<varlistentry id="hdbk-reference-menus-window-fullscreen">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>F</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -148,7 +141,7 @@
 			of your monitor screen, using as much space as possible.</para></listitem> 
 		</varlistentry>
 		
-		<varlistentry id="window-cascade">
+		<varlistentry id="hdbk-reference-menus-window-cascade">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -157,7 +150,7 @@
 			<listitem><para><action>Cascades all open display windows</action>.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="window-tile">
+		<varlistentry id="hdbk-reference-menus-window-tile">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul">&Ctrl;<keycap>T</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -166,7 +159,7 @@
 			<listitem><para><action>Tiles all open display windows</action>.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="window-autocascade">
+		<varlistentry id="hdbk-reference-menus-window-autocascade">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul">&Alt;&Ctrl;<keycap>A</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -176,7 +169,7 @@
 			If you enable this setting, &bibletime; will automatically cascade all display windows that you open.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="window-autotile">
+		<varlistentry id="hdbk-reference-menus-window-autotile">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul">&Alt;&Ctrl;<keycap>T</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -186,7 +179,7 @@
 			If you enable this setting, &bibletime; will automatically tile all display windows that you open.</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="window-closeall">
+		<varlistentry id="hdbk-reference-menus-window-closeall">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul">&Alt;&Ctrl;<keycap>W</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -202,28 +195,29 @@
 	<sect2 id="hdbk-reference-menus-settings"><title><guimenu>Settings</guimenu></title>
 		<variablelist>
 		
-		<varlistentry id="configure-toolbars">
+		<varlistentry id="hdbk-reference-menus-settings-toolbars">
 			<term><menuchoice>
 			<guimenu>	<inlinemediaobject><imageobject>
-			<imagedata fileref="i_configure.png"	format="PNG"/></imageobject></inlinemediaobject>
+			<imagedata fileref="i_configuretoolbars.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Settings</guimenu> <guimenuitem>Configure toolbars</guimenuitem></menuchoice></term>
 			<listitem><para><action>Opens a dialog where you can customize &bibletime;`s toolbar</action>.
 			Just try it out, you can move around the toolbar buttons and even add new ones. All entries available from
 			the main menu can be put on the toolbar as buttons. If you need a certain feature often, you might want to 
 			put a button on the main menu, so that you can access it with only one click.</para></listitem> 
 		</varlistentry>
-		<!-->WRONG ICON! TODO!<-->
 
-				<varlistentry id="configure-bibletime">
+		<varlistentry id="hdbk-reference-menus-settings-bibletime">
 			<term><menuchoice>
 			<guimenu>	<inlinemediaobject><imageobject>
 			<imagedata fileref="i_configure.png"	format="PNG"/></imageobject></inlinemediaobject>
 			Settings</guimenu> <guimenuitem>Configure &bibletime;</guimenuitem></menuchoice></term>
 			<listitem><para><action>Opens &bibletime;`s main configuration dialog</action>.
-			You can configure all kinds of nice settings there to adapt &bibletime; to your needs.</para></listitem> 
+			You can configure all kinds of nice settings there to adapt &bibletime; to your needs.
+			Please see <link linkend="hdbk-config-bt">this section</link> for details.
+			</para></listitem> 
 		</varlistentry>
 
-		<varlistentry id="configure-sword">
+		<varlistentry id="hdbk-reference-menus-settings-sword">
 			<term><menuchoice>
 			<shortcut><keycombo action="simul"><keycap>F4</keycap></keycombo></shortcut>
 			<guimenu>	<inlinemediaobject><imageobject>
@@ -231,7 +225,8 @@
 			Settings</guimenu> <guimenuitem>Configure Sword</guimenuitem></menuchoice></term>
 			<listitem><para><action>Opens a dialog where you can change your Sword configuration and
 			manage your Sword modules</action>.
-			Please see section TODO: link for details.</para></listitem> 
+			Please see <link linkend="hdbk-config-bt-sword">this section</link> for details.
+			</para></listitem> 
 		</varlistentry>
 
 		</variablelist>
@@ -244,376 +239,237 @@
 	</sect2>
 	
 </sect1>	
+
+
+
+
+
+
+
+	
+<sect1 id="hdbk-reference-toolbar"><title>Toolbar reference</title>
+
+	<para>Please review <link linkend="hdbk-reference-menus">the preceding section</link>
+	for an explanation of the buttons that you find on the toolbar. You can also 
+	<action>move the cursor over a button and wait a few seconds</action> to activate 
+	the button's tooltip 	with a short description.</para>
+	<para>You can adapt the toolbar to your needs. Please use the following entry in the main menu:
+	<variablelist>
+		<varlistentry>
+			<term><menuchoice>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="i_configuretoolbars.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Settings</guimenu> <guimenuitem>Configure toolbars</guimenuitem></menuchoice></term> 
+		</varlistentry>
+	</variablelist>
+	Please see 
+	<link linkend="hdbk-reference-menus-settings-toolbars">this section</link> for detailed
+	instructions.
+	</para>
 	
-<sect1 id="oldstuff"><title>OLD STUFF</title>
-
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_sidetree.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>view_sidetree.png</phrase>
-	</textobject>
-	<caption>
-	<para>In the <guilabel>Preferences Dialog</guilabel>, this icon opens the
-	<guilabel>Manage sessions</guilabel> dialog.  Here you can save a display for later recall.
-	</para>
-	</caption>
-	</mediaobject>
-
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_configureaccels.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>key_bindings.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Preferences Dialog</guilabel>, this icon opens the
-	<guilabel>Accelerator</guilabel> dialog.  Here you can customize the key bindings 
-	(keyboard shortcuts).
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_configurefonts.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>kcmfontinst.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Preferences Dialog</guilabel>, this icon opens the
-	<guilabel>Choose Fonts</guilabel> dialog.  Here you select the font used to display your sword modules.
-	</para>
-	</caption>
-	</mediaobject>
-
-
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_fullscreen.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>window_fullscreen.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon expands &bibletime;
-	to use the entire viewing area of your monitor.
-	</para>
-	</caption>
-	</mediaobject>
-
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_ktip.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>ktip.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon opens the <guilabel>Daily Tip</guilabel>.
-	</para>
-	</caption>
-	</mediaobject>
-
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_configure.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>configure.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon opens the
-	<guilabel>Configure &bibletime;</guilabel> dialog.
-<!--	In the <guilabel>Tool Bar</guilabel> this icon opens the
-	<guilabel>Configure Toolbars</guilabel> dialog.
-	In the <guilabel>Tool Bar</guilabel> this icon opens the
-	<guilabel>Report A Bug</guilabel> dialog.
--->
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_contents.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>contents.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon opens the
-	Handbook.
-<!--	In the <guilabel>Tool Bar</guilabel> this icon opens the
-	Biblestudy HowTo.
--->
-	</para>
-	</caption>
-	</mediaobject>
-
-
-		
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_fileclose.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>fileclose.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon closes all open
-	<guilabel>Document Windows</guilabel>.
-	</para>
-	</caption>
-	</mediaobject>
-		
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_fileprint.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>fileprint.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon opens the
-	<guilabel>Print</guilabel> dialog.  Right clicking in an <guilabel>Active Document Window</guilabel>
-	and this symbol in a drop down menu sends the selected text to the print queue.
-	</para>
-	</caption>
-	</mediaobject>
-
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_bible_add.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>bible_add.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Document Control Menu</guilabel> this icon opens the drop down menu that
-	allows selection of an additional Bible Text.
-	</para>
-	</caption>
-	</mediaobject>
-
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_bible.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>bible.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>main index</guilabel> this icon opens a Sword book module.  
-	This is used for modules that are not commentaries, lexicons or Bible texts.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_book_add.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>book_add.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Document Control Menu</guilabel> this icon opens the drop down menu that
-	allows selection of an additional Sword book module. This is used for modules that are not 
-	commentaries, lexicons or Bible texts.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_book.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>book.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>main index</guilabel> this icon opens a Bible Text.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_cascade_auto.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>cascade_auto.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon automatically cascades
-	displayed books as they are opened.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_cascade.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>cascade.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon cascades the displayed books now.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_commentary_add.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>commentary_add.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Document Control Menu</guilabel> this icon opens the drop down menu that
-	allows selection of an additional Lexicon.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_commentary.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>commentary.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>main index</guilabel> this icon opens a lexicon.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_configuredisplay.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>displayconfig.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Preferences Dialog</guilabel>, this icon opens the <guilabel>Colors Dialog</guilabel>.
-	Here you can change the colors of the displayed text..
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_lexicon_add.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>lexicon_add.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Document Control Menu</guilabel> this icon opens the drop down menu that
-	allows selection of an additional Lexicon.
-	</para>
-	</caption>
-	</mediaobject>
-
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_lexicon.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>lexicon.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>main index</guilabel> this icon opens a lexicon.
-	</para>
-	</caption>
-	</mediaobject>
-
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_configurestart.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>startconfig.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Preferences Dialog</guilabel>, this icon opens the Startup Dialog.
-	Here you can turn on (off) the tip of the day and the startup logo.
-	</para>
-	</caption>
-	</mediaobject>
-
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_configuresword.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>swordconfig.png</phrase>
-	</textobject><caption>
-	<para><guimenuitem>Configure Sword</guimenuitem>. This icon is used in the
-	<guilabel>Preferences Dialog</guilabel>. Here you can configure features controlled by
-	the sword backend. Like default books, language used for book names, and various 
-	text display features.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_sync.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>sync.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon links a commentary to 
-	the current open Bible. Thereafter the Commentary and the Bible scroll together.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_tile_auto.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>tile_auto.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon automatically tiles
-	displayed books as they are opened.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_tile.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>tile.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon tiles the displayed books now.
-	</para>
-	</caption>
-	</mediaobject>
-	
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_bibletime.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>bibletime.png</phrase>
-	</textobject><caption>
-	<para>This icon is used with the desktop shortcut that launches &bibletime;.
-	In the <guilabel>Tool Bar</guilabel> this icon displays the &bibletime; version
-	information, license, and other interesting information.
-	</para>
-	</caption>
-	</mediaobject>
+</sect1>
 
 
 
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="i_go.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>go.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon displays the &kde; version
-	information, license, and other interesting information.
-	</para>
-	</caption>
-	</mediaobject>
 
-	</sect1>
+
+
+
+
+
+<sect1 id="hdbk-reference-hotkeys">
+<title>HotKeys</title>
+
+<para>This is a reference to all hotkeys and their corresponding description in
+the handbook. The hotkeys are sorted (roughly) alphabetical. If you want to directly
+find out which hotkey a certain menu item has, you can either look at the entry itelf
+in &bibletime; (as it always shows the hotkey), or you can look it up in
+<link linkend="hdbk-reference-menus">the preceding section</link>.</para>
+
+<informaltable>
+<tgroup cols="2">
+<colspec colname="hotkey"/>
+<colspec colname="desc"/>
+<thead>
+<row>
+  <entry>Hotkey</entry>
+  <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry><keycombo action="simul">&Alt;&Ctrl;<keycap>A</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-window-autocascade"><menuchoice>
+	<guimenu>Window</guimenu>
+  <guimenuitem>Auto cascade</guimenuitem></menuchoice></link> equivalent; 
+	toggle automatic window cascading.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Alt;&Ctrl;<keycap>S</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-window-savenewsession"><menuchoice>
+	<guimenu>Window</guimenu>
+  <guimenuitem>Save as new session</guimenuitem></menuchoice></link> equivalent; 
+	saves current layout as new session.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Alt;&Ctrl;<keycap>T</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-window-autotile"><menuchoice>
+	<guimenu>Window</guimenu>
+  <guimenuitem>Auto tile</guimenuitem></menuchoice></link> equivalent; 
+	toggle automatic window tiling.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Alt;&Ctrl;<keycap>W</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-window-closeall"><menuchoice>
+	<guimenu>Window</guimenu>
+  <guimenuitem>Close all</guimenuitem></menuchoice></link> equivalent; 
+	closes all open windows.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul"><keycap>F1</keycap> </keycombo></entry>
+  <entry><menuchoice>
+	<guimenu>Help</guimenu>
+  <guimenuitem>Handbook</guimenuitem></menuchoice> equivalent; 
+	opens the handbook.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul"><keycap>F2</keycap> </keycombo></entry>
+  <entry><menuchoice>
+	<guimenu>Help</guimenu>
+  <guimenuitem>BibleStudy Howto</guimenuitem></menuchoice> equivalent; 
+	opens the BibleStudy Howto.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul"><keycap>F3</keycap> </keycombo></entry>
+  <entry><menuchoice>
+	<guimenu>Help</guimenu>
+  <guimenuitem>Daily tip</guimenuitem></menuchoice> equivalent; 
+	opens the tip of the day.</entry>
+</row>
+
+<row>
+  <entry><keycombo action="simul"><keycap>F4</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-settings-sword"><menuchoice>
+	<guimenu>Settings</guimenu>
+  <guimenuitem>Configure Sword</guimenuitem></menuchoice></link> equivalent; 
+	opens the Sword configuration dialog.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul"><keycap>F5</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-window-configuresessions"><menuchoice>
+	<guimenu>Window</guimenu>
+  <guimenuitem>Configure sessions</guimenuitem></menuchoice></link> equivalent; 
+	opens the main configuration dialog, where you can configure your sessions.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul"><keycap>F8</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-view-showmainindex"><menuchoice>
+	<guimenu>View</guimenu>
+  <guimenuitem>Show main index</guimenuitem></menuchoice></link> equivalent; 
+	toggles display of the main index.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul"><keycap>F9</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-view-showinfodisplay"><menuchoice>
+	<guimenu>View</guimenu>
+  <guimenuitem>Show info display</guimenuitem></menuchoice></link> equivalent; 
+	toggles display of the info display.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Shift;<keycap>F1</keycap> </keycombo></entry>
+  <entry><menuchoice>
+	<guimenu>Help</guimenu>
+  <guimenuitem>What`s this?</guimenuitem></menuchoice> equivalent; 
+	changes the mouse cursor to a help arrow. Click on any element that you
+	want more information about and a tooltip will appear.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;<keycap>A</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-window-cascade"><menuchoice>
+	<guimenu>Window</guimenu>
+  <guimenuitem>Cascade</guimenuitem></menuchoice></link> equivalent; 
+	cascades all open windows.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;<keycap>B</keycap> </keycombo></entry>
+  <entry>Moves a bible or commentary display window to the next book.
+	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
+	for detailed instructions.
+	</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;<keycap>C</keycap> </keycombo></entry>
+  <entry>Copies selected text.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;<keycap>F</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-search-defaultbible"><menuchoice>
+	<guimenu>Search</guimenu>
+  <guimenuitem>Search in default bible</guimenuitem></menuchoice></link> equivalent; 
+	opens the search dialog to search in the default bible.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;<keycap>G</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-search-openmodules"><menuchoice>
+	<guimenu>Search</guimenu>
+  <guimenuitem>Search in open module(s)</guimenuitem></menuchoice></link> equivalent; 
+	opens the search dialog to search in all currently opened modules.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;<keycap>H</keycap> </keycombo></entry>
+  <entry>Moves a bible or commentary display window to the next chapter.
+	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
+	for detailed instructions.
+	</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;<keycap>T</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-window-tile"><menuchoice>
+	<guimenu>Window</guimenu>
+  <guimenuitem>Tile</guimenuitem></menuchoice></link> equivalent; 
+	tiles all open windows.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;<keycap>V</keycap> </keycombo></entry>
+  <entry>Moves a display window to the next verse or entry.
+	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
+	for detailed instructions.
+	</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;&Shift;<keycap>B</keycap> </keycombo></entry>
+  <entry>Moves a bible or commentary display window to the previous book.
+	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
+	for detailed instructions.
+	</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;&Shift;<keycap>F</keycap> </keycombo></entry>
+  <entry><link linkend="hdbk-reference-menus-window-fullscreen"><menuchoice>
+	<guimenu>View</guimenu>
+  <guimenuitem>Fullscreen Mode</guimenuitem></menuchoice></link> equivalent; 
+	toggles fullscreen display mode.</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;&Shift;<keycap>H</keycap> </keycombo></entry>
+  <entry>Moves a bible or commentary display window to the previous chapter.
+	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
+	for detailed instructions.
+	</entry>
+</row>
+<row>
+  <entry><keycombo action="simul">&Ctrl;&Shift;<keycap>V</keycap> </keycombo></entry>
+  <entry>Moves a display window to the previous verse or entry.
+	Please see <link linkend="hdbk-op-MDI-window-navigation">this section</link> 
+	for detailed instructions.
+	</entry>
+</row>
+
+</tbody>
+</tgroup>
+</informaltable>
+
+</sect1>
 
 </chapter>
 

@@ -7,24 +7,7 @@ main toolbar select <guimenu>settings</guimenu>. From here select
 configure toolbars dialog, or select <guimenuitem>Configure &bibletime;</guimenuitem>
 to launch the options dialog.</para>
 
-	<section id="hdbk-config-toolbar"><title>Configure Toolbars Dialog</title>
-	<para>The Configure Toolbars dialog allows adding and removing actions from
-	the main toolbar of &bibletime;. The order of actions in the main toolbar
-	can also be changed.</para>
-	<mediaobject>
-		<imageobject>
-		<imagedata fileref="ss_configtoolbar.png" format="PNG"/>
-		</imageobject>
-		<textobject>
-		<phrase>Toolbar Configuration Dialog</phrase>
-		</textobject>
-		<caption>
-		<para>The Toolbar Configuration dialog.</para>
-		</caption>
-	</mediaobject>
-	</section>
-
-	<section id="hdbk-config-bt"><title>Preferences - &bibletime; Dialog</title>
+	<sect1 id="hdbk-config-bt"><title>Preferences - &bibletime; Dialog</title>
 	<para>The preferences dialog allows many &bibletime; and &sword;
 	features to be customized.</para>
 
@@ -219,9 +202,9 @@ to launch the options dialog.</para>
 
 		</section>
 		</section>
-	</section>
+	</sect1>
 
-	<section id="hdbk-config-bt-Accelerators"><title>Accelerators</title>
+	<sect1 id="hdbk-config-bt-Accelerators"><title>Accelerators</title>
 	<para>Accelerators are special key commands that can be used in the place of
 	the menu items and icons. A number of &bibletime;'s commands have
 	predefined Accelerators. All of &bibletime;'s commands can be assigned
@@ -253,6 +236,35 @@ to launch the options dialog.</para>
 		</tbody>
 		</tgroup>
 		</table>
-	</section>
+	</sect1>
+	
+	
+	
+	<sect1 id="hdbk-config-toolbar"><title>Toolbar configuration dialog</title>
+	<!-- THIS SECTION IS FINISHED -->
+	<para>You can adapt the toolbar to your needs. Please use the following entry in the main menu:
+	<variablelist>
+		<varlistentry>
+			<term><menuchoice>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="i_configuretoolbars.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Settings</guimenu> <guimenuitem>Configure toolbars</guimenuitem></menuchoice></term> 
+		</varlistentry>
+	</variablelist>
+	</para>
+	<para>You will see this dialog, which allows adding and removing buttons from
+	the main toolbar of &bibletime;. The order of the can also be changed.
+	</para>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="ss_configtoolbar.png" format="PNG"/>
+		</imageobject>
+		<textobject><phrase>Toolbar configuration dialog</phrase></textobject>
+		<caption>The Toolbar configuration dialog.</caption>
+	</mediaobject>
+	<para>Use the 4 buttons in the middle of the window to move buttons to the toolbar,
+	away from the toolbar or to sort them on the toolbar according to your preference.
+	</para>
+	</sect1>
 
 </chapter>
