@@ -9,7 +9,7 @@ cswordbackend.cpp \
 cswordkey.cpp cswordldkey.cpp cswordversekey.cpp \
 cswordmoduleinfo.cpp cswordlexiconmoduleinfo.cpp cswordcommentarymoduleinfo.cpp cswordbiblemoduleinfo.cpp \
 creferencemanager.cpp \
-bt_thmlhtml.cpp bt_gbfhtml.cpp bt_basicfilter.cpp
+bt_thmlhtml.cpp bt_gbfhtml.cpp bt_basicfilter.cpp bt_rwphtml.cpp
 
 INCLUDES = $(all_includes)
 
@@ -28,5 +28,6 @@ cswordmodulesearch.h \
 creferencemanager.h \
 bt_thmlhtml.h \
 bt_gbfhtml.h \
-bt_basicfilter.h
+bt_basicfilter.h \
+bt_rwphtml.h
 
