@@ -28,9 +28,11 @@ foreach my $dirname (@sizes) {
 
 	# Add KDE_ICON stuff
 	print OUT "\n\nKDE_ICON =";
+	my %inserted_icons;
 	foreach my $icon (@icons) {
 		$icon =~ s/^(?:hi|lo|cr)\d+-(?:action|app|mime|filesys)-(.+?)\.png/$1/;
-		print OUT " $icon";
+		print OUT " $icon" unless (exists $inserted_icons{$icon});
+		$inserted_icons{$icon} = 1;
 	}
 
 	close(OUT);
