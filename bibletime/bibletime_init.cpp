@@ -153,19 +153,34 @@ void BibleTime::initActions() {
 
 	if ( !(m_helpContents_action = actionCollection()->action("help_contents")) )	
 		m_helpContents_action = KStdAction::helpContents(m_helpMenu, SLOT(appHelpActivated()), actionCollection() );
+	m_helpContents_action->setToolTip(TT_HELP_CONTENT);
+	m_helpContents_action->setWhatsThis(WT_HELP_CONTENT);	
 	
 	if ( !(m_helpWhatsThis_action = actionCollection()->action("help_whats_this")) )		
 		m_helpWhatsThis_action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
+	m_helpWhatsThis_action->setToolTip(TT_HELP_WHATSTHIS);
+	m_helpWhatsThis_action->setWhatsThis(WT_HELP_WHATSTHIS);	
 	
 	if ( !(m_helpBugReport_action = actionCollection()->action("help_report_bug")) )		
 		m_helpBugReport_action = KStdAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());	
+	m_helpBugReport_action->setToolTip(TT_HELP_BUGREPORT);
+	m_helpBugReport_action->setWhatsThis(WT_HELP_BUGREPORT);	
 	
 	m_helpDailyTip_action = new KAction(i18n("&Daily tip"), ICON_HELP_DAILY_TIP, IDK_HELP_DAILY_TIP, this, SLOT(slotHelpTipOfDay()), actionCollection(), "helpDailyTip_action");
+	m_helpDailyTip_action->setToolTip(TT_HELP_DAILY_TIP);
+	m_helpDailyTip_action->setWhatsThis(WT_HELP_DAILY_TIP);	
+
+		
 	if ( !(m_helpAboutBibleTime_action = actionCollection()->action("help_about_app")) )		
 		m_helpAboutBibleTime_action = KStdAction::aboutApp(m_helpMenu, SLOT(aboutApplication()), actionCollection());	
+	m_helpAboutBibleTime_action->setToolTip(TT_HELP_ABOUT);
+	m_helpAboutBibleTime_action->setWhatsThis(WT_HELP_ABOUT);	
 	
 	if ( !(m_helpAboutKDE_action = actionCollection()->action("help_about_kde")) )
 		m_helpAboutKDE_action = KStdAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());	
+	m_helpAboutKDE_action->setToolTip(TT_HELP_ABOUT_KDE);
+	m_helpAboutKDE_action->setWhatsThis(WT_HELP_ABOUT_KDE);	
+		
 }
 
 /** Initializes the menubar of BibleTime. */

@@ -27,7 +27,7 @@
 //QWhatsThis entries for Mainwindow actions
 #define WT_FILE_CLEAR_QUEUE WT( TT_FILE_CLEAR_QUEUE, i18n("Clear the printing queue of BibleTime. All items will be removed from the list, the print button will be disabled."))
 #define WT_FILE_PRINT WT( TT_FILE_PRINT, i18n("Open the printerdialog of BibleTime where you can edit the printing queue and assign styles to the items."))
-#define WT_FILE_QUIT WT( TT_FILE_QUIT, i18n("Close BibleTime and save the settings to disk."))
+#define WT_FILE_QUIT WT( TT_FILE_QUIT, i18n("Close BibleTime and save the settings."))
 	
 #define WT_GM_SEARCH_MODULES WT(TT_GM_SEARCH_MODULES, i18n("Open the search dialog to search text in one or more modules."))
 #define WT_GM_DELETE_ITEMS WT(TT_GM_DELETE_ITEMS, i18n("Remove the selected items from the main index.<BR>If you remove a folder the subitems of it will be removed, too."))
@@ -50,6 +50,7 @@
 #define WT_HELP_CONTENT WT(TT_HELP_CONTENT, i18n("Open KDE's helpbrowser with BibleTime's handbook."))
 #define WT_HELP_WHATSTHIS WT(TT_HELP_WHATSTHIS, i18n("Switch into the <B>\"What's this?\"</B> mode.<BR>All important elements of BibleTime's GUI offer a \"What's this?\" help."))
 #define WT_HELP_BUGREPORT WT(TT_HELP_BUGREPORT, i18n("Send a bugreport to the developers of BibleTime!"))
+#define WT_HELP_DAILY_TIP WT(TT_HELP_DAILY_TIP, i18n("Show a daily tip.<BR>The tips contain important Bible quotations and helpful usage tips for BibleTime."))
 #define WT_HELP_ABOUT WT(TT_HELP_ABOUT, i18n("Show detailed information about BibleTime."))
 #define WT_HELP_ABOUT_KDE WT(TT_HELP_ABOUT_KDE, i18n("Show the general about dialog of KDE 2."))
 
@@ -74,15 +75,15 @@
 
 #define WT_PRESENTER_NEXT_ENTRY WT(TT_PRESENTER_NEXT_ENTRY, i18n("The next entry of the module will be shwon."))
 #define WT_PRESENTER_PREVIOUS_ENTRY WT(TT_PRESENTER_PREVIOUS_ENTRY, i18n("The previous entry of the module will be shown."))
-#define WT_PRESENTER_NEXT_VERSE WT(TT_PRESENTER_NEXT_VERSE, i18n("If you view the text of a Bible the next verse will be highlighted. If you read a commentary the next entry will be shown."))
+#define WT_PRESENTER_NEXT_VERSE WT(TT_PRESENTER_NEXT_VERSE, i18n("If you view the text of a Bible the next verse will be highlighted.<BR>If you read a commentary the next entry will be shown."))
 #define WT_PRESENTER_PREVIOUS_VERSE WT(TT_PRESENTER_PREVIOUS_VERSE, i18n("If you view the text of a Bible the previous verse will be highlighted. If you read a commentary the next entry will be shown."))
 #define WT_PRESENTER_NEXT_CHAPTER WT(TT_PRESENTER_NEXT_CHAPTER, i18n("Show the next chapter of the module. The verse will be set to \"1\"."))
 #define WT_PRESENTER_PREVIOUS_CHAPTER WT(TT_PRESENTER_PREVIOUS_CHAPTER, i18n("Show the previous chapter of the module. The verse will be set to \"1\""))
 #define WT_PRESENTER_NEXT_BOOK WT(TT_PRESENTER_NEXT_BOOK, i18n("Show the next book of this module. The chapter and the verse will be set to \"1\"."))
 #define WT_PRESENTER_PREVIOUS_BOOK WT(TT_PRESENTER_PREVIOUS_BOOK, i18n("Show the previous book of this module. The chapter and the verse will be set to \"1\"."))
 #define WT_PRESENTER_BOOK_COMBO WT(TT_PRESENTER_BOOK_COMBO, i18n("This list contains the book which are available in this module."))
-#define WT_PRESENTER_CHAPTER_COMBO WT(TT_PRESENTER_CHAPTER_COMBO, i18n("This list contains the chapters available in the current book."))
-#define WT_PRESENTER_VERSE_COMBO WT(TT_PRESENTER_VERSE_COMBO, i18n("This list contains the verses available in the current chapter."))
+#define WT_PRESENTER_CHAPTER_COMBO WT(TT_PRESENTER_CHAPTER_COMBO, i18n("This list contains the chapters which are available in the current book."))
+#define WT_PRESENTER_VERSE_COMBO WT(TT_PRESENTER_VERSE_COMBO, i18n("This list contains the verses which are available in the current chapter."))
 #define WT_PRESENTER_ENTRY_COMBO WT(TT_PRESENTER_ENTRY_COMBO, i18n("This list contains the entries of the current module."))
 #define WT_PRESENTER_SCROLL_BUTTON WT(TT_PRESENTER_SCROLL_BUTTON, i18n("This button is useful to scroll through the entries of the list. Press the button and move the mouse to increase or decrease the item."))
 #define WT_PRESENTER_EDIT WT(TT_PRESENTER_EDIT, i18n("Toggle between read-write and read-only mode of writebale modules."))
@@ -92,13 +93,13 @@
 #define WT_PRESENTER_EDIT_SET_ITALIC WT(TT_PRESENTER_EDIT_SET_ITALIC, i18n("Switch between italic and non-italic formatting of the selected text."))
 #define WT_PRESENTER_EDIT_SET_UNDERLINED WT(TT_PRESENTER_EDIT_SET_UNDERLINED, i18n("Switch between underlined and non-undelined formatting of the selected text."))
 #define WT_PRESENTER_EDIT_SET_FONT WT(TT_PRESENTER_EDIT_SET_FONT, i18n("Choose a new font for the selected text."))
-#define WT_PRESENTER_EDIT_COLOR_CHOOSER WT(TT_PRESENTER_EDIT_COLOR_CHOOSER, i18n("Choose a color for the selected text."))
-#define WT_PRESENTER_EDIT_FONTSIZE_CHOOSER WT(TT_PRESENTER_EDIT_FONTSIZE_CHOOSER, i18n("Choose a fontsize for the selected text."))
+#define WT_PRESENTER_EDIT_COLOR_CHOOSER WT(TT_PRESENTER_EDIT_COLOR_CHOOSER, i18n("Choose a new color for the selected text."))
+#define WT_PRESENTER_EDIT_FONTSIZE_CHOOSER WT(TT_PRESENTER_EDIT_FONTSIZE_CHOOSER, i18n("Choose a new fontsize for the selected text."))
 
-#define WT_PRESENTER_SYNC WT(TT_PRESENTER_SYNC, i18n("Synchronize the displayed text of this module with the active Bible window."))
+#define WT_PRESENTER_SYNC WT(TT_PRESENTER_SYNC, i18n("Synchronize the displayed verse of this module with the active Bible window."))
 
 //HTML widget related #defines
-#define WT_HTML_SAVE_AS WT(TT_HTML_SAVE_AS, i18n("Save the displayed chapter as a HTML file to disk."))
+#define WT_HTML_SAVE_AS WT(TT_HTML_SAVE_AS, i18n("Save the displayed chapter as a HTML file."))
 #define WT_HTML_SELECT_ALL WT(TT_HTML_SELECT_ALL, i18n("Select all text."))
 #define WT_HTML_COPY WT(TT_HTML_COPY, i18n("Copy the displayed text into the clipboard."))
 
@@ -116,20 +117,20 @@
 
 #define WT_SD_SCOPE_NO_SCOPE WT(TT_SD_SCOPE_NO_SCOPE, i18n("Select this if you want to search through alls parts of the module(s)."))
 #define WT_SD_SCOPE_LAST_RESULT WT(TT_SD_SCOPE_LAST_RESULT, i18n("Select this if you want to use the last search result of each module as search scope."))
-#define WT_SD_SCOPE_NEW_SCOPE WT(TT_SD_SCOPE_NEW_SCOPE, i18n("Create a new scope."))
-#define WT_SD_SCOPE_OWN_SCOPE WT(TT_SD_SCOPE_OWN_SCOPE, i18n("Use an own scope for the search.<BR>A standard set of scopes exists."))
-#define WT_SD_SCOPE_DELETE_SCOPE WT(TT_SD_SCOPE_DELETE_SCOPE, i18n("Use this button to delete the chosen scope."))
-#define WT_SD_SCOPE_EDIT_SCOPE_BUTTON WT(TT_SD_SCOPE_EDIT_SCOPE_BUTTON, i18n("Edit and define your scopes"))
-#define WT_SD_SCOPE_CHOOSER WT(TT_SD_SCOPE_CHOOSER,i18n("Choose a scope from the combo box"))
-#define WT_SD_SCOPE_EDIT_LINE WT(TT_SD_SCOPE_EDIT_LINE, i18n("Enter your own scope.<BR>To define a range use \"-\" (e.g. Genesis-Exodus),<BR>to seperate different ranges or keys use the semicolon (e.g. Genesis;Matthew)."))
+#define WT_SD_SCOPE_NEW_SCOPE WT(TT_SD_SCOPE_NEW_SCOPE, i18n("Create a new search scope."))
+#define WT_SD_SCOPE_OWN_SCOPE WT(TT_SD_SCOPE_OWN_SCOPE, i18n("Use an own scope for the search.<BR>A standard set of search scopes exists."))
+#define WT_SD_SCOPE_DELETE_SCOPE WT(TT_SD_SCOPE_DELETE_SCOPE, i18n("Use this button to delete the chosen search scope."))
+#define WT_SD_SCOPE_EDIT_SCOPE_BUTTON WT(TT_SD_SCOPE_EDIT_SCOPE_BUTTON, i18n("Edit and define your search scopes"))
+#define WT_SD_SCOPE_CHOOSER WT(TT_SD_SCOPE_CHOOSER,i18n("Choose a search scope from the combo box"))
+#define WT_SD_SCOPE_EDIT_LINE WT(TT_SD_SCOPE_EDIT_LINE, i18n("Enter your own search scope.<BR>To define a range use \"-\" (e.g. Genesis-Exodus),<BR>to seperate different ranges or keys use the semicolon (e.g. Genesis;Matthew)."))
 #define WT_SD_SCOPE_PARSED_LIST WT(TT_SD_SCOPE_PARSED_LIST, i18n("This list contains the parsed result of your entered scope. This result will be used for the search."))
-#define WT_SD_SCOPE_CLOSE WT(TT_SD_SCOPE_CLOSE, i18n("Close this dialog and save the changes to disk"))
+#define WT_SD_SCOPE_CLOSE WT(TT_SD_SCOPE_CLOSE, i18n("Close this dialog and save the changes."))
 
 #define WT_SD_RESULT_MODULE_VIEW WT(TT_SD_RESULT_MODULE_VIEW, i18n("List of modules used for the search.<BR>Click on a module to see the search result on the right side."))
 #define WT_SD_RESULT_RESULT_VIEW WT(TT_SD_RESULT_RESULT_VIEW, i18n("This contains the items found in the selected module."))
 #define WT_SD_RESULT_PREVIEW WT(TT_SD_RESULT_PREVIEW, i18n("This text box shows a preview of the chosen item."))
 
-#define WT_SD_ANALYSIS_VIEW WT(TT_SD_ANALYSIS_VIEW, i18n("Graphical analysis"))
+#define WT_SD_ANALYSIS_VIEW WT(TT_SD_ANALYSIS_VIEW, i18n("Graphical analysis of your search result.<BR>The bars show the number of items found in each book of the Bible or commentary."))
 
 //#defines for the settings dialog, OD means Optionsdialog
 #define WT_OD_GENERAL_DAILY_TIP WT(TT_OD_GENERAL_DAILY_TIP, i18n("Activate this box to see a daily tip on startup."))
@@ -153,7 +154,7 @@
 
 #define WT_PD_GENERAL_PRINTER_LIST WT(TT_PD_GENERAL_PRINTER_LIST, i18n("This is the list of available printers of your system.<BR>Please select the printer you want to use for printing."))
 #define WT_PD_GENERAL_PRINT_TO_FILE WT(TT_PD_GENERAL_PRINT_TO_FILE, i18n("Print into a postscript file on disk."))
-#define WT_PD_GENERAL_BROWSE_FILE WT(TT_PD_GENERAL_BROWSE_FILE, i18n("Browse for the file you want to print to."))
+#define WT_PD_GENERAL_BROWSE_FILE WT(TT_PD_GENERAL_BROWSE_FILE, i18n("Browse for the file you want to print into."))
 #define WT_PD_GENERAL_COPIES WT(TT_PD_GENERAL_COPIES, i18n("The number of copies used for printing."))
 #define WT_PD_GENERAL_ORIENTATION WT(TT_PD_GENERAL_ORIENTATION, i18n("Choose the orientation of the used paper."))
 #define WT_PD_GENERAL_ORIENTATION_PORTRAIT WT(TT_PD_GENERAL_ORIENTATION_PORTRAIT, i18n("Print on the paper using \"Portrait\" as orientation."))
@@ -166,7 +167,7 @@
 #define WT_PD_ENTRIES_PI_MOVE_UP WT(TT_PD_ENTRIES_PI_MOVE_UP, i18n("Move the selected item one item above."))
 #define WT_PD_ENTRIES_PI_MOVE_DOWN WT(TT_PD_ENTRIES_PI_MOVE_DOWN, i18n("Move the selected item one item below."))
 #define WT_PD_ENTRIES_PI_DELETE WT(TT_PD_ENTRIES_PI_DELETE, i18n("Delete the selected items."))
-#define WT_PD_ENTRIES_PI_PAGE_BREAK WT(TT_PD_ENTRIES_PI_PAGE_BREAK, i18n("Inserts a page break into the list.<BR>The printer will begin here a new page."))
+#define WT_PD_ENTRIES_PI_PAGE_BREAK WT(TT_PD_ENTRIES_PI_PAGE_BREAK, i18n("Inserts a page break into the list.<BR>The printer will start new page."))
 
 #define WT_PD_LAYOUT_BORDER WT(TT_PD_LAYOUT_BORDER, i18n("This group contains the page borders of the page measured in millimeters."))
 #define WT_PD_LAYOUT_BORDER_LEFT WT(TT_PD_LAYOUT_BORDER_LEFT, i18n("The size of the border on the left side of the paper sheet."))
@@ -174,9 +175,9 @@
 #define WT_PD_LAYOUT_BORDER_TOP WT(TT_PD_LAYOUT_BORDER_TOP, i18n("The size of the border on the top of the paper sheet."))
 #define WT_PD_LAYOUT_BORDER_BOTTOM WT(TT_PD_LAYOUT_BORDER_BOTTOM, i18n("The size of the border on the bottom of the paper sheet."))
 #define WT_PD_LAYOUT_STYLE_LIST WT(TT_PD_LAYOUT_STYLE_LIST, i18n("This list contains the available printing styles.<BR>Create your own one using the \"New style\" button."))
-#define WT_PD_LAYOUT_STYLE_DELETE WT(TT_PD_LAYOUT_STYLE_DELETE, i18n("Remove the selected style from the list."))
-#define WT_PD_LAYOUT_STYLE_EDIT WT(TT_PD_LAYOUT_STYLE_EDIT, i18n("Change the properties of the selected style."))
-#define WT_PD_LAYOUT_STYLE_NEW WT(TT_PD_LAYOUT_STYLE_NEW, i18n("Create a new style.<BR>The new printing style will be added to the list."))
+#define WT_PD_LAYOUT_STYLE_DELETE WT(TT_PD_LAYOUT_STYLE_DELETE, i18n("Remove the selected printing style from the list."))
+#define WT_PD_LAYOUT_STYLE_EDIT WT(TT_PD_LAYOUT_STYLE_EDIT, i18n("Change the properties of the selected printing style."))
+#define WT_PD_LAYOUT_STYLE_NEW WT(TT_PD_LAYOUT_STYLE_NEW, i18n("Create a new printing style.<BR>The new style will be added to the list."))
 
 #endif
 

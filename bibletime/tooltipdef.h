@@ -41,6 +41,7 @@
 #define TT_HELP_CONTENT i18n("BibleTime's handbook")
 #define TT_HELP_WHATSTHIS i18n("Enter \"What's this?\" mode")
 #define TT_HELP_BUGREPORT i18n("Send bugreport")
+#define TT_HELP_DAILY_TIP i18n("Show a daily tip")
 #define TT_HELP_ABOUT i18n("About BibleTime")
 #define TT_HELP_ABOUT_KDE i18n("About KDE")
 
