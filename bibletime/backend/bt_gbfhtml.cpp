@@ -39,17 +39,21 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("Fs", "</sup>");
 	addTokenSubstitute("FV", "<sub>"); // Subscript begin
 	addTokenSubstitute("Fv", "</sub>");
+	
 	addTokenSubstitute("TT", "<big>"); // Book title begin
 	addTokenSubstitute("Tt", "</big>");
+	addTokenSubstitute("TS", "<H2><FONT color=\"black\">"); // Section title begin
+	addTokenSubstitute("Ts", "</FONT></H2>");
+	
 	addTokenSubstitute("PP", "<cite>"); //  poetry  begin
 	addTokenSubstitute("Pp", "</cite>");
 	addTokenSubstitute("Fn", "</font>"); //  font  end
 	addTokenSubstitute("CL", "<br>"); //  new line
 	addTokenSubstitute("CM", "<!p><br>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
-	addTokenSubstitute("CG", ""); //  ???
-	addTokenSubstitute("CT", ""); // ???
+	addTokenSubstitute("CG", ">"); // literal greater-than sign
+	addTokenSubstitute("CT", "<"); // literal less-than sign
 	addTokenSubstitute("JR", "<div align=\"right\">"); // right align begin
-	addTokenSubstitute("JC", "<civ align=\"center\">"); // center align begin
+	addTokenSubstitute("JC", "<div align=\"center\">"); // center align begin
 	addTokenSubstitute("JL", "</div>"); // align end
 }
 

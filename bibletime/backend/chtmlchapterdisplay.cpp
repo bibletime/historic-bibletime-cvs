@@ -61,19 +61,19 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		verse = key.Verse();
 		if (m_displayOptionsBool.verseNumbers)
 #warning make color configurable
-			m_htmlText.append( QString::fromLatin1("<a name=\"%1\" href=\"%2\"><b>%3</b></a>")
+			m_htmlText.append( QString::fromLatin1("<a name=\"%1\" href=\"%2\"><b>%3</b></a> ")
 				.arg(verse)
 				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key() ))
 				.arg(verse)
 			);
 		if (verse == currentVerse)
-		  m_htmlText.append( QString("<font color=\"")+m_highlightedVerseColorName+QString("\">") );
+		  m_htmlText += QString::fromLatin1("<font color=\"") + m_highlightedVerseColorName + QString::fromLatin1("\">");
 		m_htmlText.append(key.renderedText());
 		if (verse == currentVerse)
-		  m_htmlText.append( QString("</font>") );
+		  m_htmlText += QString::fromLatin1("</font>");
 
 		if (m_displayOptionsBool.lineBreaks)
-			m_htmlText.append("<br>\n");
+			m_htmlText += QString::fromLatin1("<br>\n");
 	}
 	m_htmlText.append("</font>");
 	m_htmlText.append(m_htmlBody);	
@@ -105,13 +105,15 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	const int width=(int)((double)97/(double)moduleList->count()); //width in per cent!!
 	CSwordModuleInfo *d = 0;
 			
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<body>");
+	m_htmlText = QString::fromLatin1("<qt text=\"%1\">").arg(m_standardFontColorName); //for compatibility with Qt's rendering	
+	m_htmlText += m_htmlHeader + QString::fromLatin1("<body text=\"%1\">").arg(m_standardFontColorName);
+
 
 	m_htmlText +=
 		QString::fromLatin1("<table cellpadding=\"2\" cellspacing=\"0\"><td bgcolor=\"#f1f1f1\"></td>");
 
-	m_htmlText += QString::fromLatin1("<font face=\"%1\" size=\"%2\" color=\"%3\">")
-		.arg(m_standardFontName).arg(m_standardFontSize).arg(m_standardFontColorName);
+//	m_htmlText += QString::fromLatin1("<font face=\"%1\" size=\"%2\"")
+//		.arg(m_standardFontName).arg(m_standardFontSize);
 
 	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
@@ -129,9 +131,9 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.NextVerse()) {
 		const QString currentKey = key.key();
 		currentVerse = key.Verse();
-		rowText = QString("<tr><td bgcolor=\"#f1f1f1\"><b><a name=\"%1\" href=\"sword://%2\">%3</a></b></td>\n")
+		rowText = QString("<tr><td bgcolor=\"#f1f1f1\"><b><a name=\"%1\" href=\"%2\">%3</a></b></td>\n")
 			.arg(currentVerse)
-			.arg(currentKey)
+			.arg(CReferenceManager::encodeHyperlink( d->name(), currentKey ))
 			.arg(currentVerse);
 		m = (d = moduleList->first()) ? d->module() : 0;
 		while (m) {
@@ -139,7 +141,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 			current.key(currentKey);
 			rowText += QString("<td width=\"%1%\" bgcolor=\"%2\">")
 				.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
-			if (d->encoding()==QFont::Unicode)
+			if (d->encoding() == QFont::Unicode)
 				rowText += QString("<font face=\"%1\" size=\"%2\">")
 					.arg(m_unicodeFontName).arg(m_unicodeFontSize);
 			if (currentVerse == chosenVerse)
@@ -149,19 +151,17 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 			rowText += current.renderedText();
 
 			if (currentVerse == chosenVerse)
-				rowText += QString("</font>");
+				rowText += QString::fromLatin1("</font>");
 			if (d->encoding()==QFont::Unicode)
-				rowText += QString("</font");
+				rowText += QString::fromLatin1("</font");
 
 			m = (d = moduleList->next()) ? d->module() : 0;
 		}
 		m_htmlText.append(rowText + QString::fromLatin1("</tr>\n"));
 	}
-	m_htmlText.append(QString("</font>"));
-	m_htmlText.append(QString("</table>"));
-	m_htmlText.append(m_htmlBody);
-
-//	qWarning(m_htmlText.utf8());
+	m_htmlText += QString("</font>");	
+	m_htmlText += QString("</table>");	
+	m_htmlText += m_htmlBody + QString::fromLatin1("</qt>");
 	
 	//clean up
 	return 1;		
