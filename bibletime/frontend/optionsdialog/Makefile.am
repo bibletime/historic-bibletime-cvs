@@ -4,7 +4,7 @@ liboptionsdialog_a_METASOURCES = AUTO
 
 noinst_LIBRARIES = liboptionsdialog.a
 
-liboptionsdialog_a_SOURCES = coptionsdialog.cpp 
+liboptionsdialog_a_SOURCES = coptionsdialog.cpp cbtconfig.cpp
 
 EXTRA_DIST = $(liboptionsdialog_a_SOURCES) \
-coptionsdialog.h 
+coptionsdialog.h cbtconfig.h
