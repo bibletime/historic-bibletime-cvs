@@ -46,6 +46,11 @@ CSwordBackend::CSwordBackend() : SWMgr(0,0,false) {
 	m_chapterDisplay = 0;
 	m_moduleList = 0;
 	m_gbfFilter = m_rwpFilter = m_plainTextFilter = m_thmlFilter = 0;
+	
+	m_optionMap.insert(CSwordBackend::footnotes, "Footnotes");
+	m_optionMap.insert(CSwordBackend::strongNumbers, "Strong");
+	m_optionMap.insert(CSwordBackend::headings, "Headings");
+	m_optionMap.insert(CSwordBackend::morphTags, "Morph");	
 }
 
 CSwordBackend::~CSwordBackend(){
@@ -178,44 +183,14 @@ const bool CSwordBackend::shutdownModules(){
 
 /** Returns true if the given option is enabled. */
 const bool CSwordBackend::isOptionEnabled( const CSwordBackend::moduleOptions type) {
-	char *optionName = 0;
-	switch (type) {
-		case CSwordBackend::footnotes:
-			optionName = (char*)"Footnotes";
-			break;
-		case CSwordBackend::strongNumbers:
-			optionName = (char*)"Strong's Numbers";
-			break;
-		case CSwordBackend::headings:
-			optionName = (char*)"Headings";
-			break;
-		case CSwordBackend::morphTags:
-			optionName = (char*)"Morphological Tags";
-			break;
-		default:
-			break;
-	}
-	return (getGlobalOption(optionName) == "On");
+	const QString optionName = getOptionName(type);
+	return (getGlobalOption(optionName.latin1()) == "On");
 }
 
 /** Sets the given options enabled or disabled depending on the second parameter. */
 void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bool enable){
-	char *optionName = 0;
-	switch (type) {
-		case CSwordBackend::footnotes:
-			optionName = (char*)"Footnotes";
-			break;
-		case CSwordBackend::strongNumbers:
-			optionName = (char*)"Strong's Numbers";
-			break;
-		case CSwordBackend::headings:
-			optionName = (char*)"Headings";
-			break;			
-		case CSwordBackend::morphTags:
-			optionName = (char*)"Morphological Tags";
-			break;
-	}	
-	setGlobalOption(optionName, enable ? "On": "Off");
+	const QString optionName = getOptionName(type);
+	setGlobalOption(optionName.latin1(), enable ? "On": "Off");
 }
 
 /** I copied this method from swmgr.cpp of SWORD. This is just a workaround
@@ -389,4 +364,12 @@ const QString CSwordBackend::getModulePath( const QString moduleName ){
 			path.prepend(prefixPath);
 	}
 	return path;
+}
+
+/** Returns the text used for the option given as parameter. */
+const QString CSwordBackend::getOptionName( const CSwordBackend::moduleOptions option){
+	if (m_optionMap.contains(option))
+		return m_optionMap[option];
+	else
+		return QString::null;
 }

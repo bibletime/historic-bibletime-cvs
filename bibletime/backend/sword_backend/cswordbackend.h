@@ -23,6 +23,7 @@
 
 //Qt includes
 #include <qlist.h>
+#include <qmap.h>
 #include <qstring.h>
 
 //Sword includes
@@ -141,11 +142,16 @@ public:
   *
 	*/
   const bool getModuleConfig(const QString& module, SWConfig& moduleConfig);
-  /** Returns the path of the module with the name "moduleName".	
+  /**
+  * Returns the path of the module with the name "moduleName".	
 	* If no path is found return QString::null
 	*/
   const QString getModulePath( const QString moduleName );
-  		
+  /**
+  * Returns the text used for the option given as parameter.
+  */
+  const QString getOptionName( const CSwordBackend::moduleOptions option);
+
 	CHTMLChapterDisplay* m_chapterDisplay;	
 	CHTMLEntryDisplay* m_entryDisplay;
 
@@ -165,6 +171,7 @@ private:
 	
 	ListCSwordModuleInfo* m_moduleList;
 	errorCode m_errorCode;
+	QMap<CSwordBackend::moduleOptions, QString> m_optionMap;
 };
 
 /**Returns The list of modules managed by this backend*/

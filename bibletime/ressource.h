@@ -117,6 +117,8 @@
 
 #define IDK_VIEW_FOOTNOTES							CTRL+ALT+Key_F
 #define IDK_VIEW_STRONGS								CTRL+ALT+Key_S
+#define IDK_VIEW_HEADINGS               0
+#define IDK_VIEW_MORPH_TAGS             0
 #define IDK_VIEW_TOOLBAR								CTRL+Key_T
 #define IDK_VIEW_GROUPMANAGER						0
 

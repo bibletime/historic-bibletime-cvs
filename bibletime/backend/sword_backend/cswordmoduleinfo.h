@@ -177,7 +177,7 @@ public:
 private:
 	SWModule*	m_module;
 	ListKey m_searchResult;
-	CSwordBackend* m_backend;
+	CSwordBackend* m_backend;	
 };
 
 //class CSwordModuleInfo;

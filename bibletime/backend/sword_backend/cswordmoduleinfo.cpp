@@ -93,9 +93,10 @@ const bool CSwordModuleInfo::isLocked() {
 
 /** This functions returns true if this module is encrypted (locked or unlocked). */
 const bool CSwordModuleInfo::isEncrypted() const {
-	/* if we have the CipherKey entry the module
-		* is encrypted but not necessary locked
-		*/		
+	/**
+	* If we have the CipherKey entry the module
+	* is encrypted but not necessary locked
+	*/		
 	ConfigEntMap config	= m_backend->getConfig()->Sections.find( m_module->Name() )->second;
 	ConfigEntMap::iterator it = config.find("CipherKey");
 	if (it != config.end())
@@ -211,40 +212,17 @@ void CSwordModuleInfo::interruptSearch(){
 
 /** Returns true if the given type i supported by this module. */
 const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions type){
-	bool ret = false;
-	
 	ConfigEntMap config = m_backend->getConfig()->Sections.find( m_module->Name() )->second;	
 	ConfigEntMap::iterator start 	= config.lower_bound("GlobalOptionFilter");
 	ConfigEntMap::iterator end 		= config.upper_bound("GlobalOptionFilter");		
-	QString text = QString::null;
 	
-	switch (type) {
-		case CSwordBackend::footnotes:
-			text = "Footnotes";
-			break;
-		case CSwordBackend::strongNumbers:
-			text = "Strongs";
-			break;			
-		case CSwordBackend::headings:
-//			text = "Headings"; //heading-support is not shown by a special config entry
-//			return (getType() == CSwordModuleInfo::Bible || getType() == CSwordModuleInfo::Commentary);
-			return true;
-			//break;			
-		case CSwordBackend::morphTags:
-//			text = "Morphological Tags"; //heading-support is not shown by a special config entry
-			return true;
-//			return (getType() == CSwordModuleInfo::Bible);
-			//break;
-	}	
-	
+	const QString text = m_backend->getOptionName(type);
 	for (; start != end; start++) {
-		QString option = QString::fromLatin1((*start).second.c_str());
-		if ( option.contains(text) > 0 ) {
-			ret = true;
-			break;
-		}
+		const QString option = QString::fromLatin1((*start).second.c_str());
+		if ( option.contains(text) )
+			return true;
 	}	
-	return ret;
+	return false;
 }
 
 /** Used to find out the module specific font */
@@ -317,7 +295,7 @@ const float CSwordModuleInfo::requiredSwordVersion(){
 
 /** Returns the text direction used in this module. */
 const CSwordModuleInfo::TextDirection CSwordModuleInfo::getTextDirection(){
-	const string dir = (*m_backend->getConfig())[m_module->Name()]["Direction"];;
+	const string dir = (*m_backend->getConfig())[m_module->Name()]["Direction"];
 	if (dir == "RTL")
 		return CSwordModuleInfo::RTL;
 	else

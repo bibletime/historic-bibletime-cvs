@@ -19,7 +19,7 @@
 #define CHTMLDIALOG_H
 
 #include <qwidget.h>
-#include <kdialogbase.h>
+#include <qdialog.h>
 
 class QTextBrowser;
 
@@ -27,11 +27,11 @@ class QTextBrowser;
 	* (Perhaps from an FAQ file).
   * @author The BibleTime Team
   */
-class CHTMLDialog : public KDialogBase  {
+class CHTMLDialog : public QDialog  {
   Q_OBJECT
 public: 
 	CHTMLDialog(QWidget* parent=0, const char *name=0);
-	CHTMLDialog(const QString url, QWidget* parent=0, const char *name=0);
+	CHTMLDialog(const QString& url, QWidget* parent=0, const char *name=0);
 	~CHTMLDialog();
   /**
  	* Sets the content of the widget. Not URL is used.
@@ -40,15 +40,17 @@ public:
 
 protected:
 	QTextBrowser* m_textBrowser;
+  /**
+  * Initializes this widget.
+  */
+  void init(const bool enableHistory = true);
 };
 
 #define HTML_DIALOG(filename) \
 { \
 	CHTMLDialog *dlg = new CHTMLDialog( filename, 0, "HTML_DIALOG" ); \
 	dlg->exec(); \
-	ASSERT(dlg); \
-	if (dlg) \
-		delete dlg; \
+	delete dlg; \
 };
 
 #endif

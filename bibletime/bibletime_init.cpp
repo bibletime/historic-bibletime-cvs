@@ -110,12 +110,12 @@ void BibleTime::initActions() {
 	m_viewStrongs_action->setToolTip( TT_VIEW_STRONGS );	
 	m_viewStrongs_action->setWhatsThis( WT_VIEW_STRONGS );
 
-	m_viewHeadings_action = new KToggleAction(i18n("S&how headings"),ICON_VIEW_STRONGS, IDK_VIEW_STRONGS,
+	m_viewHeadings_action = new KToggleAction(i18n("S&how headings"),ICON_VIEW_STRONGS, IDK_VIEW_HEADINGS,
 		this, SLOT(slotToggleHeadings()), actionCollection(), "viewHeadings_action");	
 	m_viewHeadings_action->setToolTip( TT_VIEW_STRONGS );	
 	m_viewHeadings_action->setWhatsThis( WT_VIEW_STRONGS );
 
-	m_viewMorphTags_action = new KToggleAction(i18n("S&how morpholocic tags"),ICON_VIEW_STRONGS, IDK_VIEW_STRONGS,
+	m_viewMorphTags_action = new KToggleAction(i18n("S&how morpholocic tags"),ICON_VIEW_STRONGS, IDK_VIEW_MORPH_TAGS,
 		this, SLOT(slotToggleMorphTags()), actionCollection(), "viewMorphTags_action");	
 	m_viewMorphTags_action->setToolTip( TT_VIEW_STRONGS );	
 	m_viewMorphTags_action->setWhatsThis( WT_VIEW_STRONGS );
@@ -249,6 +249,8 @@ void BibleTime::initConnections(){
 void BibleTime::initKeyAccels(){
 	m_keyAccel = new KAccel(this);
 
+	m_fileClearQueue_action->plugAccel( m_keyAccel );	
+	m_filePrint_action->plugAccel( m_keyAccel );	
 	m_fileQuit_action->plugAccel( m_keyAccel );
 	
 	m_GMSearchModules_action->plugAccel( m_keyAccel );
@@ -257,7 +259,10 @@ void BibleTime::initKeyAccels(){
 	
 	m_viewFootnotes_action->plugAccel( m_keyAccel );
 	m_viewStrongs_action->plugAccel( m_keyAccel );	
-
+	m_viewHeadings_action->plugAccel( m_keyAccel );	
+	m_viewMorphTags_action->plugAccel( m_keyAccel );	
+	m_viewToolbar_action->plugAccel( m_keyAccel );
+	
 	m_settingsOptions_action->plugAccel( m_keyAccel );
 	m_settingsToolbar_action->plugAccel( m_keyAccel );
 	
@@ -297,9 +302,6 @@ void BibleTime::initBackends(){
 				break;
 		}
 	}
-	
-//	m_important->swordBackend->setOption(CSwordBackend::headings, true);
-//	m_important->swordBackend->setOption(CSwordBackend::morphTags, false);
 
 	//initialize international bookname language
 	KConfigGroupSaver dummy(m_config, "SWORD");
