@@ -560,7 +560,7 @@ sub_dirs=
 type=normal
 
 [bibletime/frontend/Makefile.am]
-files=bibletime/frontend/cmdiarea.cpp,bibletime/frontend/cmdiarea.h,bibletime/frontend/chtmldialog.cpp,bibletime/frontend/chtmldialog.h,bibletime/frontend/kstartuplogo.h,bibletime/frontend/kstartuplogo.cpp,bibletime/frontend/cinputdialog.cpp,bibletime/frontend/cinputdialog.h,bibletime/frontend/cprofilemgr.cpp,bibletime/frontend/cprofilemgr.h,bibletime/frontend/cprofile.cpp,bibletime/frontend/cprofile.h,bibletime/frontend/cprofilewindow.cpp,bibletime/frontend/cprofilewindow.h,bibletime/frontend/cbtconfig.cpp,bibletime/frontend/cbtconfig.h,bibletime/frontend/coptionsdialog.cpp,bibletime/frontend/coptionsdialog.h,bibletime/frontend/cpointers.h,bibletime/frontend/cexportmanager.cpp,bibletime/frontend/cexportmanager.h,bibletime/frontend/ctooltipmanager.cpp,bibletime/frontend/ctooltipmanager.h,bibletime/frontend/ctooltip.cpp,bibletime/frontend/ctooltip.h,bibletime/frontend/cresmgr.cpp,bibletime/frontend/cresmgr.h
+files=bibletime/frontend/cmdiarea.cpp,bibletime/frontend/cmdiarea.h,bibletime/frontend/chtmldialog.cpp,bibletime/frontend/chtmldialog.h,bibletime/frontend/kstartuplogo.h,bibletime/frontend/kstartuplogo.cpp,bibletime/frontend/cinputdialog.cpp,bibletime/frontend/cinputdialog.h,bibletime/frontend/cprofilemgr.cpp,bibletime/frontend/cprofilemgr.h,bibletime/frontend/cprofile.cpp,bibletime/frontend/cprofile.h,bibletime/frontend/cprofilewindow.cpp,bibletime/frontend/cprofilewindow.h,bibletime/frontend/cbtconfig.cpp,bibletime/frontend/cbtconfig.h,bibletime/frontend/coptionsdialog.cpp,bibletime/frontend/coptionsdialog.h,bibletime/frontend/cpointers.h,bibletime/frontend/cexportmanager.cpp,bibletime/frontend/cexportmanager.h,bibletime/frontend/ctooltipmanager.cpp,bibletime/frontend/ctooltipmanager.h,bibletime/frontend/ctooltip.cpp,bibletime/frontend/ctooltip.h,bibletime/frontend/cresmgr.cpp,bibletime/frontend/cresmgr.h,bibletime/frontend/clanguagemgr.cpp,bibletime/frontend/clanguagemgr.h
 sub_dirs=groupmanager,presenters,optionsdialog,searchdialog,keychooser,thirdparty,display,displaywindow,mainindex
 type=static_library
 
@@ -607,6 +607,18 @@ install_location=
 type=SOURCE
 
 [bibletime/frontend/cinputdialog.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/frontend/clanguagemgr.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/frontend/clanguagemgr.h]
 dist=true
 install=false
 install_location=

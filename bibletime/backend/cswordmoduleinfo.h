@@ -191,6 +191,8 @@ public:
   * Deletes the current entry and removes it from the module.
   */
   const bool deleteEntry( CSwordKey* const key );
+  /** Returns the language of the module. */
+  const QString language() const;
 
 private:
 	sword::SWModule*	m_module;

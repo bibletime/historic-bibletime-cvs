@@ -125,6 +125,7 @@ public:
   static const QValueList<int>	get( const CBTConfig::intLists );
   static const QStringList	get( const CBTConfig::stringLists );
   static const CBTConfig::StringMap	get( const CBTConfig::stringMaps );
+//  static const QFont 		get( CSwordModuleInfo* const );  
 	
 	static const QString 				 getDefault( const CBTConfig::strings );
 	static const QFont	 				 getDefault( const CBTConfig::fonts );
@@ -134,7 +135,8 @@ public:
 	static const QValueList<int> getDefault( const CBTConfig::intLists );
 	static const QStringList		 getDefault( const CBTConfig::stringLists );
 	static const CBTConfig::StringMap  		 getDefault( const CBTConfig::stringMaps );
-  
+//  static const QFont 		getDefault( CSwordModuleInfo* const );
+    
 	static void set( const CBTConfig::strings, 	const QString value );
 	static void set( const CBTConfig::fonts, 		const QFont value );
 	static void set( const CBTConfig::bools, 		const bool value );
@@ -143,6 +145,7 @@ public:
 	static void set( const CBTConfig::intLists,	const QValueList<int> value );
   static void set( const CBTConfig::stringLists, const QStringList value);
   static void set( const CBTConfig::stringMaps, const CBTConfig::StringMap value);
+//  static void	set( CSwordModuleInfo* const module, const QFont& font );    
 
   static const CSwordBackend::FilterOptions getFilterOptionDefaults();
   static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();
@@ -157,7 +160,8 @@ private:
 	static const QString getKey( const CBTConfig::colors );
 	static const QString getKey( const CBTConfig::intLists );
 	static const QString getKey( const CBTConfig::stringLists );
-	static const QString getKey( const CBTConfig::stringMaps );  
+	static const QString getKey( const CBTConfig::stringMaps );
+//	static const QString getKey( CSwordModuleInfo* const );    
 };
 
 

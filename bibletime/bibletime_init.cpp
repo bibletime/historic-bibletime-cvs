@@ -28,6 +28,7 @@
 #include "frontend/cmdiarea.h"
 #include "frontend/kstartuplogo.h"
 #include "frontend/cresmgr.h"
+#include "frontend/clanguagemgr.h"
 
 #include "printing/cprinter.h"
 
@@ -78,6 +79,9 @@ void BibleTime::initView(){
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
 	
 	m_selectDialog = 0;
+
+  CLanguageMgr mgr;
+  
 }
 
 

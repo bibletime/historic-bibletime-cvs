@@ -296,3 +296,10 @@ const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
   };
   return false;
 }
+
+/** Returns the language of the module. */
+const QString CSwordModuleInfo::language() const{
+  if (module())
+    return QString::fromLatin1( module()->Lang() );
+  return QString::null;
+}
