@@ -123,13 +123,17 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );	
 	
 	key->key(keyname);
-	key->renderedText(); //fotce entryAttributes
+	key->renderedText(); //force entryAttributes
 	
-	QString ret = QString::fromLatin1("<div class=\"footnoteinfo\"><h3>%1</h3><p>%2</p></div>")
+	QString text = module->module()->getEntryAttributes()["Footnote"][swordFootnote.latin1()]["body"].c_str();
+	
+	text = QString::fromUtf8( module->module()->RenderText( 
+		module->isUnicode() ? (const char*)text.utf8() : (const char*)text.latin1()
+	));
+	
+	return QString::fromLatin1("<div class=\"footnoteinfo\"><h3>%1</h3><p>%2</p></div>")
 		.arg(i18n("Footnote"))
-		.arg(QString::fromUtf8(module->module()->getEntryAttributes()["Footnote"][swordFootnote.latin1()]["body"].c_str()));
-	
-	return ret;
+		.arg(text);
 }
 
 const QString CInfoDisplay::decodeLemma( const QString& data ) {

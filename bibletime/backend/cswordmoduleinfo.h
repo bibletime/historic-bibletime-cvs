@@ -210,6 +210,7 @@ public:
 
 protected:
   friend class CSwordBackend;
+	friend class CInfoDisplay;
   /**
   * Returns true if this module is Unicode encoded. False if the charset is iso8859-1.
 	* Protected because it should not be used outside of the CSword*ModuleInfo classes.
