@@ -1,6 +1,4 @@
-#SUBDIRS = bibletime setupwizard pot docs .
 SUBDIRS = bibletime pot docs .
-
 
 EXTRA_DIST = \
 bibletime.kdevprj \
@@ -38,8 +36,9 @@ install-data-local:
 MAINTAINERCLEANFILES = configure.files subdirs 
 
 dist-hook:	
-	rm -f $(distdir)/bibletime-*.tar.gz
+	rm -f $(distdir)/bibletime-*.tar.gz $(distdir)/bibletime-*.tar.bz2
 	rm -rf `find $(distdir) -name tags -o -name TAGS -o -name \*.xcf`
+	cp -R $(srcdir)/admin/ $(distdir)/
 	rm -f $(distdir)/admin/Changelog $(distdir)/make-messages.sh $(distdir)/extractrc $(distdir)/preparetips $(distdir)/bibletime.doxygen $(distdir)/bibletime.kdevses $(distdir)/bibletime.start $(distdir)/configure.files $(distdir)/bibletime/pics/gen_am.sh
 	cd $(distdir) && make -f Makefile.cvs
 	rm -rf $(distdir)/autom4te.cache

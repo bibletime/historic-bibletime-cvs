@@ -1,190 +1,113 @@
 %define         name 		@PACKAGE@
 %define         version 	@VERSION@
 
-# This should not be changed but set this to static or dynamic.
-# Sword should always be set to static for these builds.
-%define		swordlibs 	static
-
-# this needs to be changed depending on build number 
-# and weather or not it is static
+# this needs to be changed depending on build number
 %define		release 	1
 
 # This should be set to your os.
 # Possible values are  Mandrake, Red Hat, Turbolinux, Caldera, SuSE, Debian, etc.
+# In bibletime.spec.in this is automatically filled in by configure
 %define		ostype 		@DISTRIBUTION@
 
 # This should be set to the version of your OS (6.0, 6.1, 6.2, 7.0, 7.1, 7.2, 8.0, etc.)
+# Done by configure in bibletime.spec.in
 %define		osversion 	@DISTRIBUTION_VERSION@
 
-# This is your cpu i486, i586, i686, ppc, sparc, alfa, etc.
+# This is your cpu i486, i586, i686, ppc, sparc, alpha, etc.
 %define		buildarch 	i586
 
 # This the RPM group on your system that this will installed into.
 # Graphical desktop/KDE, X11/apps, etc.
 %define		rpmgroup 	@RPM_GROUP@
 
-# this is were the sword modules will be installed on your system.
-# /usr/local/sword, /usr/share/sword, /opt/local/sword, etc.
-# default is /usr/share/sword
-%define     SwordPath 	/usr/share/sword
-%define	    ModsPath 	%{SwordPath}/mods.d
-
-# This for Mandrake menus if you have another system do not edit this line. it is for
-# compatability with those systems.
-%define		build_menus	0
-%define		_menudir 	/usr/lib/menu 
-# Nothing else should need to be changed.
-# Please do not edit below this line unless you know what you are doing.
-
 Summary:        BibleTime %{version} is an easy to use Bible study tool for KDE.
 Name:		%{name}
 Version:        %{version}
 Release:        %{release}
-#Icon:		bibletime.xpm
 Copyright:      GPL
-Vendor:         The team of BibleTime <info@bibletime.info>
-Url:            http://www.bibletime.info
+Vendor:         BibleTime's developer (info@bibletime.info)
+Url:            http://www.bibletime.info/
 Packager:       Brook Humphrey <bah@webmedic.net>, Joachim Ansorg <junkmail@joachim.ansorgs.de>
 Group:          %{rpmgroup}
 BuildArch:      %{buildarch}
 Source0:        %{name}-%{version}.tar.bz2
-
-# For use with mandrake menu system. 
-%if %build_menus
-Source1:        bibletime_icons.tar.bz2
-%endif
-
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
 Prefix: 	@RPM_PREFIX@
-
+Requires:	sword >= 1.5.6
+Distribution:	%{ostype} %{osversion}
 
 %description
 BibleTime %{version}-%{release} is a free and easy to use bible study tool for UNIX systems.
 
-BibleTime provides easy handling of digitalized texts (Bibles, commentaries and lexicons) and powerful features to work with these texts (search in texts, write own notes, save, print etc.). Bibletime is a frontend for the  SWORD Bible Framework.
+BibleTime provides easy handling of digitalized texts (Bibles, commentaries and lexicons) and powerful features to work with these texts (search in texts, write own notes, save, print etc.). BibleTime is a frontend for the  SWORD Bible Framework.
 
 This is  a relocatable package, you can install it on different target with
-rpm -Uvh bibletime-xxx.rpm --prefix /usr/local/opt/apps/noncommercial
+rpm -Uvh bibletime-%{version}-%{release}.rpm --prefix /usr/local/opt/apps/noncommercial
 default is %{_prefix}
 
 The SWORD Project is an effort to create an ever expanding software package for research and study of God and His Word.  The SWORD Bible Framework allows easy manipulation of Bible texts, commentaries, lexicons, dictionaries, etc.  Many frontends are build using this framework.  An installed module set may be shared between any frontend using the framework.
 
 This rpm was compiled on a %{ostype} %{osversion} system for %{buildarch} class cpu's.
 
-This RPM has these compiled options Sword is compiled %{swordlibs} and KDE/QT is compiled %{kdelibs}.
-
-Although this binary no longer requires sword to run the source.rpm will not build correctly
-without the sword-devel package installed.
 
 %prep
 rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_DIR/%{name}-%{version}
 
-# For use with mandrake menu system
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-
-mkdir -p $RPM_BUILD_ROOT/usr/share/config
-
-# generate directories for sword if building static
-if [ %{swordlibs} = "static" ] ; then
- mkdir -p $RPM_BUILD_ROOT%{SwordPath}
- mkdir -p $RPM_BUILD_ROOT%{ModsPath}
-fi
-
-
 %setup -q
-tar jxvf %{SOURCE2}
-if [ %{ostype} = "Mandrake" ] ; then
- %if %build_menus
-  #Icons for Mandrake menu system
-  tar jxvf %{SOURCE1}
- %endif
- export KDEDIR=/usr QTDIR=/usr/lib/qt3
-elif [ %{ostype} = "SuSE" ] ; then
- export KDEDIR=/opt/kde3 QTDIR=/usr/lib/qt3
-else
-	echo "Using $KDEDIR as KDE directory";
-	echo "Using $QTDIR as QT directory";
-	echo "If the directories are not correct please set them using \"export KDEDIR=<KDE directory> QTDIR=<QT directory>\""
-	sleep 5
-fi
-
 make -f Makefile.cvs
 
-if [ %{swordlibs} = "static" ] ; then
-        ./configure --enable-static-sword;
+# Look for common rpm-options:
+if [ -f /etc/opt/kde3/common_options ]; then
+  . /etc/opt/kde3/common_options
+  ./configure $configkde
 else
-        ./configure;
+  ./configure --prefix=${_prefix}
 fi
 
-make -j2
+# Setup for parallel builds
+numprocs=`egrep -c ^cpu[0-9]+ /proc/stat || :`
+if [ "$numprocs" = "0" ]; then
+ numprocs=1
+fi
+
+make -j$numprocs
 
 %install
-make prefix=$RPM_BUILD_ROOT%{prefix} install
+make DESTDIR=$RPM_BUILD_ROOT install
 
-# For use with mandrake menu system
-cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(bibletime):command="/usr/bin/bibletime" icon="bibletime.xpm" \
-                needs="X11" section="Applications/Bible Study/" title="Bibletime" \
-                longtitle="An easy to use Bible study tool."
-EOF
+#cd $RPM_BUILD_ROOT
+#find . -type d | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' > $RPM_BUILD_DIR/bt-files.list
+#find . -type f | sed 's,^\.,\%attr(-\,root\,root) ,' >>  $RPM_BUILD_DIR/bt-files.list
+#find . -type l | sed 's,^\.,\%attr(-\,root\,root) ,' >>  $RPM_BUILD_DIR/bt-files.list
 
-# For use with mandrake menu system
-# icons: this is for the mandrake menu system
-%if %build_menus
-  mkdir -p $RPM_BUILD_ROOT%{_liconsdir}
-  mkdir -p $RPM_BUILD_ROOT%{_iconsdir}
-  mkdir -p $RPM_BUILD_ROOT%{_miconsdir}
-  cd $RPM_BUILD_DIR/%{name}-%{version}
-  install -m 644 %{name}_16.xpm $RPM_BUILD_ROOT%{_miconsdir}/%{name}.xpm
-  install -m 644 %{name}_32.xpm $RPM_BUILD_ROOT%{_iconsdir}/%{name}.xpm
-  install -m 644 %{name}_48.xpm $RPM_BUILD_ROOT%{_liconsdir}/%{name}.xpm
-%endif
 
 %post
-# this is for creation of the sword.conf for systems that are using bibletime without Sword installed.
-if [ -f /etc/sword.conf ] ; then
-         echo "sword.conf already exists skiping sword.conf creation." ;
-else
-cat << EOF >/etc/sword.conf
-[Install]
-DataPath=%{SwordPath}
-EOF
-fi
-
 /sbin/ldconfig
 
-# For use with mandrake menu system
-if [ %{ostype} = "Mandrake" ] ; then
- %{update_menus}
-fi
-
 %postun
-
-# For use with mandrake menu system
-if [ %{ostype} = "Mandrake" ] ; then
- %{clean_menus}
-fi
-
 /sbin/ldconfig
 
 %clean
+#rm -f $RPM_BUILD_DIR/master.list
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-# global BibleTime config files
-%config %{prefix}/share/config/bt-printing
-%{prefix}/bin/bibletime
-%{prefix}/share/applnk/Applications/*
-%{prefix}/share/apps/bibletime/*
+%{prefix}/bin/*
+%{prefix}/share/applnk/Applications/bibletime.desktop
+%{prefix}/share/apps/bibletime/
+%{prefix}/share/doc/HTML/en/bibletime/
 %{prefix}/share/icons/*
-# For use with mandrake menu system
-%if %build_menus
-%{_menudir}/%{name}
-%endif
 
 %changelog
+* Sun Jun 22 2003 Joachim Ansorg <junkmail@joachim.ansorgs.de>
+
+-Cleanup. We require no an Sword RPM file to be installed.
+
+-Removed Mandrake menu stuff because there's an own SPEC file for this.
+
+
 * Fri Feb 14 2003 Joachim Ansorg <junkmail@joachim.ansorgs.de>
 
 -Removed locales.d source and management of Sword files because we require a Sword RPM now.

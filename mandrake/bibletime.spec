@@ -255,7 +255,6 @@ rm -rf $RPM_BUILD_DIR/%{name}-%{version}
 %endif
 
 # global BibleTime config files
-#%config %{prefix}/share/config/bt-printing
 
 #docs
 %doc %{prefix}/share/doc/HTML/*
