@@ -226,8 +226,10 @@ CModuleChooserBar* const CDisplayWindow::moduleChooserBar() const{
 void CDisplayWindow::setModuleChooserBar( CModuleChooserBar* bar ){
 	if (m_moduleChooserBar)
  		disconnect(m_moduleChooserBar, SIGNAL(sigChanged()), this, SLOT(modulesChanged()));
-	m_moduleChooserBar = bar;
-	connect(bar, SIGNAL(sigChanged()), SLOT(modulesChanged()));
+	if (bar) { //if a new bar should be set!
+    m_moduleChooserBar = bar;
+  	connect(bar, SIGNAL(sigChanged()), SLOT(modulesChanged()));
+  };
 }
 
 /** Sets the modules. */

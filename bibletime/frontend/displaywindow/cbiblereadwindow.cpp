@@ -119,8 +119,11 @@ void CBibleReadWindow::initConnections(){
   CLexiconReadWindow::initConnections();
   connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
     this, SLOT(keyChanged(CSwordKey*)));
-  connect(m_transliterationButton, SIGNAL(sigChanged()),
-    this, SLOT(refresh()));
+
+  if (m_transliterationButton) { //transliteration is not always available
+    connect(m_transliterationButton, SIGNAL(sigChanged()),
+      this, SLOT(refresh()));
+  }
 }
 
 void CBibleReadWindow::initView(){
