@@ -25,7 +25,7 @@ clanguagemgr.h \
 cfiltertool.h \
 cdisplaytemplatemgr.h \
 ctextrendering.h \
-btstringmhgr.h \
+btstringmgr.h \
 cbookdisplay.h \
 cchapterdisplay.h \
 chtmlexportrendering.h \
