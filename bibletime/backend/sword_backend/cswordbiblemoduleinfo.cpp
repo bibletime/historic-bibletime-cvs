@@ -28,8 +28,9 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( CSwordBackend* backend, SWModule* 
 	m_bookList = 0;
 	m_cachedLocale = "unknown";
 	
-	m_hasOT = QFile::exists(QString("%1/ot").arg(backend->getModulePath(QString::fromLocal8Bit(module->Name()))));
-	m_hasNT = QFile::exists(QString("%1/nt").arg(backend->getModulePath(QString::fromLocal8Bit(module->Name()))));
+	const QString modulePath = backend->getModulePath(QString::fromLocal8Bit(module->Name()));
+	m_hasOT = QFile::exists(QString("%1/ot").arg(modulePath));
+	m_hasNT = QFile::exists(QString("%1/nt").arg(modulePath));
 }
 
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) : CSwordModuleInfo(m) {

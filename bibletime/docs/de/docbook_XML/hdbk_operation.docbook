@@ -180,8 +180,7 @@ Wenn alle (egal in welcher Reihenfolge) Wörter im Text vorkommen wird der Text i
 Die Wörter dürfen sogar durch andere getrennt werden.
 Eine Suche nach &quot;Brunnen&quot; und &quot;Knecht;&quot; wird 1. Mose 21,25 finden,
 &quot;
-Und Abraham setzte Abimelech zur Rede um
-des Wasser<emphasis>brunnen</emphasis>s willen, den Abimelechs <emphasis>Knecht</emphasis>e hatten mit Gewalt genommen.&quot;
+Und Abraham setzte Abimelech zur Rede um des Wasser<emphasis>brunnen</emphasis>s willen, den Abimelechs <emphasis>Knecht</emphasis>e hatten mit Gewalt genommen.
 &quot;
 Dies ist deshalb so, da ein Wort, welches Teil eines anderen ist, als gefunden gilt wenn es in einem anderen Wort anthalten ist.
 </para>
@@ -191,190 +190,171 @@ Dies ist deshalb so, da ein Wort, welches Teil eines anderen ist, als gefunden g
 <section ID="hdbk_op_search_dialog_text_input_phrase"><title>Benutzung der &quot;Genaue Suche&quot;Auswahlbox</title>
 <para>Wenn <guibutton>Genaue Suche</guibutton> ausgewählt wurde wird die Suche alle Zeilen (oder Verse)
 finden, die genau den in der Eingabezeile eingegebenen Text unter Einbezug der Leerzeichen enthalten.
-Der gesuchte Satz muss nicht an einer Wortgrenze starten. Eine Suche nach &quot;ein Bischofsamt begehrt&quot;
-
-If <guibutton>Phrase</guibutton> is marked the search will locate all lines (or
-verses) that contain what was entered in the input field, exactly
-as entered, including any spaces. The phrase found does not have
-to start or end at a word boundary. A search for &quot;now how
-thou ought&quot; will find 1 Timothy 3:1, &quot;...that thou
-mayest k<emphasis>now how thou ought</emphasis>est
-to behave...&quot; </para>
+Der gesuchte Satz muss nicht an einer Wortgrenze starten. Eine Suche nach &quot;amt begehrt&quot; wird 1. Thimotheus 3:1 finden:
+&quot;Das ist gewißlich wahr: So jemand ein Bischofs<emphasis>amt begehrt</emphasis>, der begehrt ein köstlich Werk.&quot;</para>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_input_search"><title>Using the Search Text Button</title>
-<para>Click the <guibutton>Search Button</guibutton> to start
-the search.</para>
+<section ID="hdbk_op_search_dialog_text_input_search"><title>Benutzung des &quot;Suche Text&quot; Knopfes</title>
+<para>Klicken Sie den <guibutton>Suchen Knopf</guibutton> um die Suche zu starten.
+</para>
 
 <screenshot>
-<screeninfo>Search Text Dialog Box</screeninfo>
+<screeninfo>Textsuche Dialog Box</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchtext.png" format="png"></graphic>
 </screenshot>
 </section>
 
 <section ID="hdbk_op_search_dialog_text_regexp">
-<title>Search Syntax using GCC Regular Expresession</title>
+<title>Syntax der Suche bei Benutzung von GCC regulären Ausdrücken</title>
 
-<para>Regular expression searches provide a way to do simple or
-complex searches for strings that match a pattern or set of
-patterns (branches) separated by vertical bars &quot;|&quot;.
-While a pattern can be built to look for a word or phrase, a
-simple pattern that consists of a word does not look for only
-that word but for any place the string of letters that make that
-word are found. A search for &quot;right&quot; will return verses
-that contain the word &quot;right&quot;, but also &quot;<emphasis>right</emphasis>eous&quot;,
-&quot;<emphasis>right</emphasis>eousness&quot;, &quot;un<emphasis>right</emphasis>eous&quot;,
-&quot;up<emphasis>right</emphasis>&quot; and even &quot;b<emphasis>right</emphasis>&quot;.
-A search for &quot;hall not&quot; is not a search for
-&quot;hall&quot; AND &quot;not&quot; but for the string
-&quot;hall not&quot; with a space between the second
-&quot;l&quot; and the &quot;n&quot;. The search for &quot;hall
-not&quot; will find occurrences of &quot;s<emphasis>hall not</emphasis>&quot;.</para>
+<para>Eine Suche mit regulären Ausdrücke stellt eine Möglichkeit dar, einfache oder komplexe Suchen
+nach Zeichenketten durchzuführen, die einem Muster oder einer Menge von Mustern (Bereiche) entsprechen.
+Die einzelnen Muster einer Menge werden durch den horizontalen Strich &quot;|&quot; getrennt.
+Während es möglich ist, ein Muster zu bauen, dass nach einem Wort oder einem Satz sucht,
+sucht ein einfaches aus einem einzelnen Wort bestehendes Muster nicht nur nach diesem einen Wort,
+sondern auch nach jeder Zeichenkette die das gesuchte Wort enthält.
+Eine Suche nach &quot;gerecht&quot; wird Verse liefern, die das Wort &quot;gerecht&quot; enthalten. Es werden jedoch auch Verse zurückgeliefert,
+die &quot;<emphasis>Gerecht</emphasis>igkeit&quot;, &quot;Un<emphasis>gerecht</emphasis>igkeit&quot; oder
+&quot;<emphasis>gerecht</emphasis>er&quot; enthalten.
+Eine Suche nach &quot;hall not&quot; ist nicht eine Suche nach &quot;hall&quot; UND &quot;not&quot;, sondern nach der Zeichenkette
+&quot;hall not&quot; mit einem Leerzeichen zwischen dem zweiten &quot;l&quot; und dem &quot;n&quot;.
+Die Suche nach &quot;hall not&quot; wird Textstellen mit &quot;s<emphasis>hall not</emphasis>&quot; finden.</para>
 
-<para>The power of Regular Expressions is in the patterns (or
-templates) used to define a search. A pattern consists of
-ordinary characters and some special characters that are used and
-interpreted by a set of rules. Special characters include
-.\[^*$?+. Ordinary (or simple) characters are any characters that
-are not special. The backslash, &quot;\&quot;, is used to convert
-special characters to ordinary and ordinary characters to
-special. </para>
+<para>Die Mächtigkeit der regulären Ausdrücke liegt in den Mustern (oder Vorlagen) die benutzt werden, um die Suche zu definieren.
+Ein Muster besteht aus normalen Zeichen und einigen besonderen Zeichen, die von einer bestimmten Menge von Regeln interpretiert und benutzt werden.
+Die besonderen Zeichen enthalten .\[^*$?+. Normale (oder einfache) Zeichen, sind alle die, die keine besonderen Zeichen sind.
+Der Backslash, &quot;\&quot;, wird benutzt um die besonderen Zeichen in normale und normale in besondere Zeichen umzuwandeln.
+</para>
 
-<para>Example: the pattern &quot;<emphasis>i. love\.</emphasis>&quot;
-will find sentences that end with &quot;h<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot;
-or &quot;<emphasis>i</emphasis>n <emphasis>love</emphasis>&quot; or
-&quot;<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; followed by
-a period. The first period in &quot;i. love\.&quot; is a special
-character that means allow any character in this position. The
-backslash in &quot;i. love\.&quot; means that the period
-following it is not to be considered a special character, but is
-an ordinary period. </para>
+<para>Beispiel: Das Muster &quot;<emphasis>i. love\.</emphasis>&quot; wird Sätze finden, die mit
+&quot;h<emphasis>i</emphasis>s <emphasis>love</emphasis> oder &quot;<emphasis>i</emphasis>n <emphasis>love</emphasis>&quot; oder
+&quot;<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; finden, jeweils gefolgt von einem Punkt.
+Der erste Punkt in &quot;i. love\.&quot; ist ein Sonderzeichen, dass alle Zeichen an dieser Stelle erlaubt. Der Backslash in
+&quot;i. love\.&quot; bedeutet, dass der Punkt danach nicht als besonderes, sondern als normales Zeichen behandelt werden soll
+</para>
 </section>
 
 
-
-<section ID="hdbk_op_search_dialog_text_regexp_rules"><title>Rules for GCC Regular Expresession Search Requests</title>
+<section ID="hdbk_op_search_dialog_text_regexp_rules"><title>Regeln für Suchabfragen mit GCC regulären Ausdrücken</title>
 <itemizedlist>
-<listitem><para>. The period matches any character. See <link
-        linkend="period">Details</link></para></listitem>
-<listitem><para>* The asterisk matches 0 or more characters of the
-        preceding: set, character or indicated character. See <link
-        linkend="asterisk">Details</link></para></listitem>
-<listitem><para>+ The plus sign matches 1 or more characters of the
-        preceding: set, character or indicated character. See <link
-        linkend="plus">Details</link></para></listitem>
-<listitem><para>? The question mark matches 0 or 1 character of the
-        preceding: set, character or indicated character. See <link
-        linkend="question">Details</link></para></listitem>
-<listitem><para>[ ] Square brackets match any one of the characters
-        specified inside [ ]. See <link linkend="bracket">Details</link></para></listitem>
-<listitem><para>^ A caret as the first character inside [ ] means NOT. See
-        <link linkend="caret">Details</link></para></listitem>
-<listitem><para>^ A caret beginning a pattern anchors the beginning of a
-        line. See <link linkend="caret">Details</link></para></listitem>
-<listitem><para>$ A dollar at the end of a pattern anchors the end of a
-        line. See <link linkend="dollar">Details</link></para></listitem>
-<listitem><para>| A vertical bar means logical OR. See <link
-        linkend="bar">Details</link></para></listitem>
-<listitem><para>( ) Parentheses enclose expressions for grouping.
-    <emphasis>Not supported!</emphasis></para></listitem>
-<listitem><para>\ A backslash can be used prior to any special character
-        to match that character. See <link linkend="backslash">Details</link></para></listitem>
-<listitem><para>\ A backslash can be used prior to an ordinary character
-        to make it a special character. See <link linkend="backslash">Details</link></para></listitem>
+<listitem><para>. Der Punkt passt auf jedes Zeichen. Siehe auch <link linkend="period">Einzelheiten</link></para></listitem>
+<listitem><para>* Der Stern findet 0 oder mehr Zeichen des vorhergehenden Sets, des vorhergehenden Zeichens oder des vorhergehenden
+besonderern Zeichens.
+Siehe auch <link linkend="asterisk">Einzelheiten</link></para></listitem>
+<listitem><para>+ Das Pluszeichen findet 1 oder mehr Zeichen des vorhergehenden Sets, des vorhergehenden Zeichens oder des vorhergehenden
+besonderern Zeichens.
+Siehe auch <link
+        linkend="plus">Einzelheiten</link></para></listitem>
+<listitem><para>? Das Fragezeichen  passt auf 0 oder 1 Zeichen des vorhergehenden Sets, Zeichens oder besonderern Zeichens.
+Siehe auch <link linkend="question">Einzelheiten</link></para></listitem>
+<listitem><para>[ ] Eckige Klammern finden ein Zeichens innerhalb der eckigen Klammern  [ ].Siehe auch <link linkend="bracket">
+Einzelheiten</link></para></listitem>
+<listitem><para>^ Ein Hochzeichen als erstes Zeichen innerhalb von [ ] heißt NICHT. Siehe auch <link linkend="caret">
+Einzelheiten</link></para></listitem>
+<listitem><para>^ Ein Hochzeichen als Beginn eines Musters verankert an den Beginn der Zeile.
+Siehe auch <link linkend="caret">Einzelheiten</link></para></listitem>
+
+<listitem><para>$ Ein Dollarzeichen am Beginn eines Musters verankert an das Ende einer Zeile. Siehe auch
+				<link linkend="dollar">Einzelheiten</link></para></listitem>
+<listitem><para>| Ein vertikaler Strich hat die Bedeutung des logischen ODER. Siehe auch <link
+        linkend="bar">Einzelheiten</link></para></listitem>
+<listitem><para>( ) Runde Klammern gruppieren Ausdrücke.
+    <emphasis>Nicht unterstützt!</emphasis></para></listitem>
+<listitem><para>\ Ein Backslash kann vor jedem besonderem Zeichen benutzt werden, um dieses Zeichen zu finden
+Siehe auch <link linkend="backslash">Einzelheiten</link></para></listitem>
+<listitem><para>\ Ein Backslash kann vor jedem normalen Zeichen benutzt werden um es zu einem besonderen Zeichen zu machen
+Siehe auch <link linkend="backslash">Einzelheiten</link></para></listitem>
 </itemizedlist>
 
-<section ID="period"><title>The Period .</title>
+<section ID="period"><title>Der Punkt .</title>
 
-<para>The Period &quot;.&quot; will match any single character even
-a space or other non-alphabet character.
-<emphasis>s.t</emphasis> matches <emphasis>s</emphasis>i<emphasis>t</emphasis>,
+<para>Der Punkt &quot;.&quot; steht für jedes einzelne Zeichen,
+sogar für ein Leerzeichen oder für ein Zeichen, dass nicht im Alphabet vorkommt.
+<emphasis>s.t</emphasis> findet <emphasis>s</emphasis>i<emphasis>t</emphasis>,
 <emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>,
-etc., which could be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting,
+usw., welche in folgenden Zeichenketten vorkommen können <emphasis>s</emphasis>i<emphasis>t</emphasis>ting,
 compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</emphasis>o<emphasis>t</emphasis>tish
-<emphasis>b..t</emphasis> matches <emphasis>b</emphasis>oo<emphasis>t</emphasis>,
-<emphasis>b</emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t
-foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </emphasis>and
+<emphasis>b..t</emphasis> findet <emphasis>b</emphasis>oo<emphasis>t</emphasis>,
+<emphasis>b</emphasis>oa<emphasis>t</emphasis> und <emphasis>b</emphasis>ea<emphasis>t
+foot.tool </emphasis>findet <emphasis>foot</emphasis>s<emphasis>tool </emphasis>und
 <emphasis>foot tool</emphasis></para>
 </section>
 
 
-<section ID="asterisk"><title>The Asterisk *</title>
+<section ID="asterisk"><title>Das Sternchen *</title>
 
-<para>The asterisk matches zero or more characters of the preceding:
-set, character or indicated character. Using
-a period asterisk combination &quot;.*&quot; after a commonly
-found pattern can cause the search to take a very long time,
-making the program seem to freeze.
-<emphasis>be*n</emphasis> matches<emphasis> beeen, been, ben</emphasis>,
-and <emphasis>bn</emphasis> which could locate Reu<emphasis>ben</emphasis>
-and She<emphasis>bn</emphasis>a.</para>
+<para>Das Sternchen findet null oder mehr Zeichen des vorhergehenden
+Sets,Zeichens oder besonderen Zeichens.
+Die Benutzung einer Punkt Sternchen Kombination &quot;.*&quot; nach einem häufig gefundenem Muster
+kann die Suche sehr lange dauern lassen und das Programm eingefroren wirken lassen.
+<emphasis>be*n</emphasis> findet<emphasis> beeen, been, ben</emphasis>,
+und <emphasis>bn</emphasis> was z.B. &quot;Reu<emphasis>ben</emphasis>&quot;
+und &quot;She<emphasis>bn</emphasis>a&quot; finden könnte.</para>
 </section>
 
 
-<section ID="plus"><title>The Plus Sign +</title>
-<para>The Plus Sign matches one or more characters of the preceding:
-set, character or indicated character. Using
-a period and plus sign combination &quot;.+&quot; after a
-commonly found pattern can cause the search to take a very long
-time, making the program seem to freeze<.
-<emphasis>be+n</emphasis> matches <emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>,
-but not <emphasis>bn</emphasis>.</para>
+<section ID="plus"><title>Das Pluszeichen +</title>
+<para>Das Pluszeichen findet ein oder mehr Zeichen des vorhergehenden Sets, Zeichens oder
+besonderen Zeichens.
+Die Benutzung einer Pluszeichen Sternchen Kombination &quot;+*&quot; nach einem häufig gefundenem Muster
+kann die Suche sehr lange dauern lassen und das Programm eingefroren wirken lassen.
+&quot;<emphasis>be+n</emphasis>&quot; findet &quot;<emphasis>beeen, been</emphasis>&quot; und &quot;<emphasis>ben</emphasis>&quot;,
+jedoch nicht &quot;<emphasis>bn</emphasis>&quot;.</para>
 </section>
 
 
-<section ID="question"><title>The Question Mark ?</title>
-<para>The Question Mark matches zero or one character of the
-preceding: set, character or indicated character.
-<emphasis>be?n</emphasis> matches <emphasis>ben</emphasis> and <emphasis>bn</emphasis>
-but not <emphasis>been</emphasis>.
-<emphasis>trees?</emphasis> matches <emphasis>trees</emphasis> or <emphasis>tree</emphasis>.</para>
+<section ID="question"><title>Das Fragezeichen ?</title>
+<para>Das Fragezeichen findet 0 oder mehr Zeichen des vorhergehenden Sets, Zeichens oder besonderen
+Zeichens.
+<emphasis>be?n</emphasis> findet <emphasis>ben</emphasis> und <emphasis>bn</emphasis>
+jedoch nicht <emphasis>been</emphasis>.
+<emphasis>trees?</emphasis> findet <emphasis>trees</emphasis> oder <emphasis>tree</emphasis>.</para>
 </section>
 
 
-<section ID="bracket"><title>The Square Brackets [ ]</title>
-<para>The Square Brackets enclose a set of characters that can
-match. The period, asterisk, plus sign and question mark are not
-special inside the brackets. A minus sign can be used to indicate
-a range. If you want a caret &quot;^&quot; to be part of the
-range do not place it first after the left bracket or it will be
-a special character. To include a &quot;]&quot; in the set make
-it the first (or second after a special &quot;^&quot;) character
-in the set. To include a minus sign in the set make it the first
-(or second after a special &quot;^&quot;) or last character in
-the set.
-<emphasis>s[eia]t</emphasis> matches <emphasis>set</emphasis>, <emphasis>sit</emphasis>,
-and <emphasis>sat</emphasis>, but not <emphasis>s</emphasis>o<emphasis>t</emphasis>.
-<emphasis>s[eia]+t </emphasis>matches as above but also, <emphasis>seat,
-seet, siet</emphasis>, etc.
-<emphasis>[a-d]</emphasis> matches <emphasis>a, b, c,</emphasis> or <emphasis>d</emphasis>.
-<emphasis>[A-Z]</emphasis> matches any uppercase letter.
-[.;:?!] matches ., ;, :, ?, or ! but not a comma.
-[ ]^-] matches ] or ^ or -</para>
+<section ID="bracket"><title>Die eckigen Klammern [ ]</title>
+<para>Die eckigen Klammern schließen eine Menge von Zeichen ein, die Treffer
+erzielen können.
+Die Zeichen Punkt, Sternchen, Pluszeichen und Fragezeichen werden
+innerhalb der Klammern nicht als besondere Zeichen behandelt.
+Ein Minuszeichen kann benutzt werden, um einen Bereich anzugeben.
+Falls Sie möchten, dass ein Hochzeichen &quot;^&quot; Teil des Bereiches wird plazieren Sie es
+nicht direkt hinter die linke Klammer, oder es wird als besonderes Zeichen behandelt.
+Um den vertikalen Strich &quot;|&quot; in die Menge aufzunehmen, machen Sie ihn zum ersten Zeichen nach
+der linken eckigen Klammer (oder zweites nach dem besonderen Zeichen &quot;^&quot;).
+Um ein Minuszeichen in die Menge aufzunehmen machen Sie es zum ersten Zeichen nach der linken Klammer
+(oder zweites nach dem besonderen Zeichen &quot;^&quot;) oder auch zum letzten Zeichen der Menge.
+<emphasis>s[eia]t</emphasis> findet <emphasis>set</emphasis>, <emphasis>sit</emphasis>,
+und <emphasis>sat</emphasis>, jedoch nicht <emphasis>s</emphasis>o<emphasis>t</emphasis>.
+<emphasis>s[eia]+t </emphasis>findet so wie oben und<emphasis>seat,
+seet, siet</emphasis>, usw.
+<emphasis>[a-d]</emphasis> findet <emphasis>a, b, c,</emphasis> oder <emphasis>d</emphasis>.
+<emphasis>[A-Z]</emphasis> findet jeden Großbuchstaben.
+[.;:?!] findet ., ;, :, ?, oder ! jedoch kein Komma.
+[ ]^-] findet ] oder ^ oder -</para>
 </section>
 
 
-<section ID="caret"><title>The Caret first in Square Brackets [^xxx</title>
-<para>If the Caret is the first character after the left bracket it
-means NOT.
-<emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc.,
-but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</emphasis>o<emphasis>t</emphasis>.</para>
+<section ID="caret"><title>Das Hochzeichen zu Beginn in den eckigen Klammern [^xxx</title>
+<para>Wenn das Hochzeichen das erste Zeichen nach der linken Klammer ist, hat es die Bedeutung von NICHT.
+<emphasis>s[^io]t</emphasis> findet <emphasis>set, sat</emphasis>, usw.,
+jedoch nicht <emphasis>s</emphasis>i<emphasis>t</emphasis> und <emphasis>s</emphasis>o<emphasis>t</emphasis>.</para>
 </section>
 
-<section ID="caret_s"><title>The Caret as Start of Line Anchor ^xxx</title>
-<para>If the Caret is the first character in a pattern it anchors
-the pattern to the start of a line. Any match must be at the
-beginning of a line. Because of unfiltered
-formatting characters in some texts, this feature does not always
-work, but may if a few periods are placed after the caret to
-account for the formatting characters.
-<emphasis>^In the beginning</emphasis> matches lines that
-start with &quot;<emphasis>In the beginning</emphasis>&quot;.
-(May need to use: <emphasis>^.....In the beginning</emphasis>)</para>
+<section ID="caret_s"><title>Das Hochzeichen als Zeilenbeginn Anker ^xxx</title>
+<para>Wenn das Hochzeichen das erste Zeichen in einem Muster ist,
+verankert es diese an den Beginn der Zeile.
+Jeder Treffer muss am Beginn der Zeile liegen.
+Wegen ungefilterten Formatierungszeichen in einigen texten funktioniert diese Funktion nicht immer.
+Sie könnte es jedoch, wenn einige Punkte nach dem Hochzeichen gesetzt werden,
+um die Formatierungszeichen zu umgehen.
+<emphasis>^Am Anfang</emphasis> findet Zeilen, die mit
+&quot;<emphasis>Amfang</emphasis>&quot;. beginnen
+(Vielleicht müssen Sie &quot;<emphasis>^.....In the beginning</emphasis>&quot; benutzen).</para>
 </section>
 
 
-<section ID="dollar"><title>The Dollar Sign as End of Line Anchor xxx$</title>
+<section ID="dollar"><title>Das Dollarzeichen als Zeilenende Anker xxx$</title>
 <para>If the Dollar Sign is the last character in a pattern it
 anchors the pattern to the end of a line. Any match must be at
 the end of a line. Because of unfiltered

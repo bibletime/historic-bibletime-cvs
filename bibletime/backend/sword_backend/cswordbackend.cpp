@@ -371,6 +371,6 @@ const QString CSwordBackend::getModulePath( const QString moduleName ){
 		else //global
 			path.prepend(prefixPath);
 	}
-	qWarning(path.local8Bit());
+//	qWarning(path.local8Bit());
 	return path;
 }
