@@ -9,20 +9,40 @@ BibleTime @VERSION@ requires:
 	-QT 3.0.x or later
 	-KDE 3.x (at least the libraries (kdelibs) and the base package (kdebase))
 	-SWORD 1.5.3
-	
+
 If you don't have the sources already please browse to www.bibletime.info to see
 a list of required packages with their download URLs.	
+
+Text Modules are available from http://www.crosswire.org, which has good
+directions regarding their installation.  Install text modules after Sword 
+and BibleTime.
+
+Complete instructions for the installation of BibleTime, supporting programs,
+and text modules can be found in the project documentation
+at http://www.bibletime.info/documentation.
+
 		
 Compile BibleTime @VERSION@:
-----------------------------
+---------------------------
+cd ~/bibletime				#move to your source directory
+kde-config --prefix			#Finds your kde directory (optional)
 
 export QTDIR=<QT source directory>
 export KDEDIR=<KDE directory (where KDE is installed)>
 export PATH=$KDEDIR/bin:$PATH
 make -f Makefile.cvs
-./configure					# create makefiles
-make							  # compile BibleTime
+./configure				# create makefiles
+make					# compile BibleTime
+su					# change to "root user"
 make install				# install BibleTime
+---------------------------
+useful make options
+---------------------------
+make clean				#removes binaries from the directory
+					#where BibleTime was compiled, but not the source
+make uninstall				#removes BibleTime from your system
+
+
 
 If something is missing in this file please post to joachim@ansorgs.de, my peronal
 eMail adress.
