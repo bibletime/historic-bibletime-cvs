@@ -184,12 +184,21 @@ void COptionsDialog::initGeneral() {
 		layout2->addLayout(hBox);
 		
 		hBox = new QHBoxLayout();
-		m_general.sword.standardMorph = new QComboBox(page);
-		label = new QLabel(m_general.sword.standardMorph, i18n("Default Morphological Text"), page);
-		QToolTip::add(m_general.sword.standardMorph, TT_OD_SWORD_STANDARD_MORPH);
-		QWhatsThis::add(m_general.sword.standardMorph, WT_OD_SWORD_STANDARD_MORPH);
+		m_general.sword.standardHebrewMorph = new QComboBox(page);
+		label = new QLabel(m_general.sword.standardHebrewMorph, i18n("Default OT Morphological Lexicon"), page);
+		QToolTip::add(m_general.sword.standardHebrewMorph, TT_OD_SWORD_STANDARD_HEBREW_MORPH);
+		QWhatsThis::add(m_general.sword.standardHebrewMorph, WT_OD_SWORD_STANDARD_HEBREW_MORPH);
 		hBox->addWidget(label);
-		hBox->addWidget(m_general.sword.standardMorph);
+		hBox->addWidget(m_general.sword.standardHebrewMorph);
+		layout2->addLayout(hBox);
+
+		hBox = new QHBoxLayout();
+		m_general.sword.standardGreekMorph = new QComboBox(page);
+		label = new QLabel(m_general.sword.standardGreekMorph, i18n("Default NT Morphological Lexicon"), page);
+		QToolTip::add(m_general.sword.standardGreekMorph, TT_OD_SWORD_STANDARD_GREEK_MORPH);
+		QWhatsThis::add(m_general.sword.standardGreekMorph, WT_OD_SWORD_STANDARD_GREEK_MORPH);
+		hBox->addWidget(label);
+		hBox->addWidget(m_general.sword.standardGreekMorph);
 		layout2->addLayout(hBox);
 	
 						
@@ -212,8 +221,10 @@ void COptionsDialog::initGeneral() {
                   				m_general.sword.standardHebrewStrong->insertItem(modDescript);				
      				if (modDescript.contains("Greek", FALSE) )
      								m_general.sword.standardGreekStrong->insertItem(modDescript);
-     				if (modDescript.contains("Morph", FALSE) )
-     								m_general.sword.standardMorph->insertItem(modDescript);
+     				if (modDescript.contains("Morph", FALSE) ){
+     								m_general.sword.standardHebrewMorph->insertItem(modDescript);
+     								m_general.sword.standardGreekMorph->insertItem(modDescript);
+						}
 					break;
 				default://unknown type					
 					break;
@@ -265,11 +276,20 @@ void COptionsDialog::initGeneral() {
 			}
 		}
 		
-		const QString standardMorph = CBTConfig::get(CBTConfig::standardMorph);
-		count - m_general.sword.standardMorph->count();
+		const QString standardHebrewMorph = CBTConfig::get(CBTConfig::standardHebrewMorphLexicon);
+		count = m_general.sword.standardHebrewMorph->count();
 		for(int item=0; item<count; ++item) {
-			if(m_general.sword.standardMorph->text(item)==standardMorph) {
-				m_general.sword.standardMorph->setCurrentItem(item);
+			if(m_general.sword.standardHebrewMorph->text(item)==standardHebrewMorph) {
+				m_general.sword.standardHebrewMorph->setCurrentItem(item);
+				break;
+			}
+		}
+
+		const QString standardGreekMorph = CBTConfig::get(CBTConfig::standardGreekMorphLexicon);
+		count = m_general.sword.standardGreekMorph->count();
+		for(int item=0; item<count; ++item) {
+			if(m_general.sword.standardGreekMorph->text(item)==standardGreekMorph) {
+				m_general.sword.standardGreekMorph->setCurrentItem(item);
 				break;
 			}
 		}
@@ -318,6 +338,8 @@ void COptionsDialog::saveGeneral() {
   	CBTConfig::set(CBTConfig::standardLexicon, m_general.sword.standardLexicon->currentText());
   	CBTConfig::set(CBTConfig::standardHebrewLexicon, m_general.sword.standardHebrewStrong->currentText());
 	 	CBTConfig::set(CBTConfig::standardGreekLexicon, m_general.sword.standardGreekStrong->currentText() );  	
+  	CBTConfig::set(CBTConfig::standardHebrewMorphLexicon, m_general.sword.standardHebrewMorph->currentText());
+	 	CBTConfig::set(CBTConfig::standardGreekMorphLexicon, m_general.sword.standardGreekMorph->currentText() );  	
 	}
 }
 

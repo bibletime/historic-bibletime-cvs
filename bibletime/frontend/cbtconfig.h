@@ -38,8 +38,8 @@ public:
 		standardLexicon,
 		standardHebrewLexicon,
 		standardGreekLexicon,
-		standardMorph
-
+		standardHebrewMorphLexicon,
+		standardGreekMorphLexicon
 	};
 	enum fonts{
 		standard,

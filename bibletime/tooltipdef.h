@@ -141,15 +141,14 @@
 #define TT_OD_SWORD_STANDARD_LEXICON i18n("The standard lexicon used in the workspace area")
 #define TT_OD_SWORD_STANDARD_HEBREW_STRONG 	i18n("The standard Hebrew lexicon used in the workspace are")
 #define TT_OD_SWORD_STANDARD_GREEK_STRONG i18n("The standard Greek lexicon used in the workspace area")
-#define TT_OD_SWORD_STANDARD_MORPH i18n("The default Morphological text used in the workspace area")
+#define TT_OD_SWORD_STANDARD_HEBREW_MORPH i18n("The default Morphological lexicon for Hebrew texts used in the workspace area")
+#define TT_OD_SWORD_STANDARD_GREEK_MORPH i18n("The default Morphological lexicon for Greek texts used in the workspace area")
 
 
 #define TT_OD_KEYS_CHOOSER i18n("Set keyboard accelerators")
 
 #define TT_OD_FONTS_TYPE_CHOOSER i18n("Choose the area of application")
 #define TT_OD_FONTS_CHOOSER i18n("Choose a font")
-
-#define TT_OD_FFM_FONTS_LIST i18n("List of modules")
 
 #define TT_OD_COLORS_BACKGROUND i18n("Color of the background")
 #define TT_OD_COLORS_CURRENT_VERSE i18n("Color of the highlighted verse")

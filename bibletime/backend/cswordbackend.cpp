@@ -59,7 +59,7 @@ CSwordBackend::~CSwordBackend(){
 	if (m_thmlFilter)
 		delete m_thmlFilter;	
 	if (m_rwpFilter)
-		delete m_rwpFilter;			
+		delete m_rwp Filter;			
 }
 
 #define CHECK_HTML_CHAPTER_DISLPAY \
