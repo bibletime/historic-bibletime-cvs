@@ -67,6 +67,7 @@ protected: // Protected methods
   * Saves the given text as text of the given key. Use this function as backend in each write window implementation.
   */
   void setDisplayWidget( CWriteDisplay* display );
+  virtual const CDisplayWindow::WriteWindowType writeWindowType() = 0;
 
 private:
   CWriteDisplay* m_writeDisplay;  

@@ -76,6 +76,7 @@ void CProfileWindow::setScrollbarPositions(const int horizontal, const int verti
 	m_scrollbarPos.horizontal = horizontal;
 	m_scrollbarPos.vertical = vertical;
 }
+
 /** Returns tghe position of the scrollbars */
 const CProfileWindow::ScrollbarPos CProfileWindow::scrollbarPositions(){
 	return m_scrollbarPos;
@@ -107,7 +108,7 @@ void CProfileWindow::setWindowSettings( const int settings ){
 }
 
 /** Tells this profile window to represent a write window. */
-void CProfileWindow::setIsWriteWindow( const bool isWriteWindow ){
+void CProfileWindow::setIsWriteWindow( const int isWriteWindow ){
   m_isWriteWindow = isWriteWindow;
 }
 

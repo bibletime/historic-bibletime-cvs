@@ -20,6 +20,7 @@
 #include "ctoolclass.h"
 
 #include "resource.h"
+#include "frontend/cresmgr.h"
 #include "backend/cswordmoduleinfo.h"
 
 //QT includes
@@ -109,43 +110,53 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 /** Returns the icon used for the module given as aparameter. */
 QPixmap CToolClass::getIconForModule( CSwordModuleInfo* module_info ){
   if (!module_info)
-  	return QPixmap(BIBLE_ICON_SMALL);
-
-  QPixmap img = QPixmap(BIBLE_ICON_SMALL);
-  
- 	switch (module_info->type()){
- 	  case CSwordModuleInfo::Bible:
- 	    if (module_info->isLocked())
- 	      img = QPixmap(BIBLE_LOCKED_ICON_SMALL);
- 	    else
- 	      img = QPixmap(BIBLE_ICON_SMALL);
- 	
- 	  case CSwordModuleInfo::Lexicon:
- 	    if (module_info->isLocked())
- 	      img =  QPixmap(LEXICON_LOCKED_ICON_SMALL);
- 	    else
- 	      img= QPixmap(LEXICON_ICON_SMALL);
- 	
- 	  case CSwordModuleInfo::Commentary:
- 	    if (module_info->isLocked())
- 	      img = QPixmap(COMMENTARY_LOCKED_ICON_SMALL);
- 	    else
- 	      img = QPixmap(COMMENTARY_ICON_SMALL);
- 	
- 	  case CSwordModuleInfo::GenericBook:
- 	    if (module_info->isLocked())
- 	      img = QPixmap(BOOK_LOCKED_ICON_SMALL);
- 	    else
- 	      img = QPixmap(BOOK_ICON_SMALL); 	
- 	
- 	  case CSwordModuleInfo::Unknown: //fall though to default
- 	  default:
- 	    img = QPixmap(BIBLE_ICON_SMALL);
- 	}
+  	return SmallIcon(CResMgr::modules::book::icon_locked, 16);
 
   if (module_info->category() == CSwordModuleInfo::Cult) {
     return SmallIcon("stop.png", 16);
   };
+   
+   
+  QPixmap img;
+  
+ 	switch (module_info->type()){
+ 	  case CSwordModuleInfo::Bible:
+ 	    if (module_info->isLocked())
+ 	      img = SmallIcon(CResMgr::modules::bible::icon_locked, 16);
+ 	    else
+ 	      img = SmallIcon(CResMgr::modules::bible::icon_unlocked, 16);
+      break;
+  
+ 	  case CSwordModuleInfo::Lexicon:
+ 	    if (module_info->isLocked())
+ 	      img = SmallIcon(CResMgr::modules::lexicon::icon_locked, 16);
+ 	    else
+ 	      img = SmallIcon(CResMgr::modules::lexicon::icon_unlocked, 16);
+      break;
+ 	
+ 	  case CSwordModuleInfo::Commentary:
+ 	    if (module_info->isLocked())
+ 	      img = SmallIcon(CResMgr::modules::commentary::icon_locked, 16);
+ 	    else
+ 	      img = SmallIcon(CResMgr::modules::commentary::icon_unlocked, 16);
+      break;
+ 	
+ 	  case CSwordModuleInfo::GenericBook:
+ 	    if (module_info->isLocked())
+ 	      img = SmallIcon(CResMgr::modules::book::icon_locked, 16);
+ 	    else
+ 	      img = SmallIcon(CResMgr::modules::book::icon_unlocked, 16);
+      break;
+ 	
+ 	  case CSwordModuleInfo::Unknown: //fall though to default
+ 	  default:
+ 	    if (module_info->isLocked())
+ 	      img = SmallIcon(CResMgr::modules::book::icon_locked, 16);
+ 	    else
+ 	      img = SmallIcon(CResMgr::modules::book::icon_unlocked, 16);
+      break;
+ 	}
+
   
   return img;
 }
@@ -157,6 +168,7 @@ QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, co
   label->setFrameStyle(QFrame::Box | QFrame::Plain);
   return label;
 }
+
 /** No descriptions */
 bool CToolClass::inHTMLTag(int pos, QString & text){
  int i1=text.findRev("<",pos);

@@ -91,7 +91,11 @@ void CHTMLWriteWindow::initView() {
   m_actions.restoreText->plug(mainToolBar());
   
 
-  writeDisplay->setupToolbar( mainToolBar(), actionCollection() );
+  KToolBar* bar = new KToolBar(this);
+  bar->setFullSize(true);
+	addDockWindow(bar);
+
+  writeDisplay->setupToolbar( bar, actionCollection() );
 };
 
 void CHTMLWriteWindow::initConnections() {

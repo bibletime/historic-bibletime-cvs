@@ -95,10 +95,14 @@ public:
   * Returns tghe position of the scrollbars
   */
   const CProfileWindow::ScrollbarPos scrollbarPositions();
-  /** Returns whether this profile window represents a write window. */
+  /**
+  * Returns whether this profile window represents a write window.
+  */
   const bool isWriteWindow() const;
-  /** Tells this profile window to represent a write window. */
-  void setIsWriteWindow( const bool );
+  /**
+  * Tells this profile window to represent a write window.
+  */
+  void setIsWriteWindow( const int isWriteWindow );
 
 private:
 	CSwordModuleInfo::ModuleType m_type;
@@ -108,7 +112,7 @@ private:
 	ScrollbarPos m_scrollbarPos;
 	bool m_maximized;
 	int m_windowSettings;
-  bool m_isWriteWindow;
+  int m_isWriteWindow;
 };
 
 #endif

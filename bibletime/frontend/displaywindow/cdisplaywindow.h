@@ -57,8 +57,8 @@ class CDisplayWindow : public KMainWindow, public CPointers  {
    Q_OBJECT
 public:
   enum WriteWindowType {
-    HTMLWindow = 0,
-    PlainTextWindow
+    HTMLWindow = 1,
+    PlainTextWindow = 2
   };
 
   static CReadWindow* createReadInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name = 0);

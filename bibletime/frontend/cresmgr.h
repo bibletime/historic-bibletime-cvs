@@ -38,6 +38,30 @@ namespace CResMgr {
     return QString::fromLatin1("<center><B>%1</B></center><HR>%2").arg(title).arg(description);
   };
 
+
+  namespace modules {
+    namespace bible {
+      extern const QString icon_unlocked;
+      extern const QString icon_locked;
+      extern const QString icon_add;
+    };
+    namespace commentary {
+      extern const QString icon_unlocked;
+      extern const QString icon_locked;
+      extern const QString icon_add;
+    };
+    namespace lexicon {
+      extern const QString icon_unlocked;
+      extern const QString icon_locked;
+      extern const QString icon_add;
+    };
+    namespace book {
+      extern const QString icon_unlocked;
+      extern const QString icon_locked;
+      extern const QString icon_add;
+    };
+  };  
+  
   namespace mainMenu { //Main menu
     namespace file { //Main menu->File
       namespace clearQueue {
@@ -366,7 +390,32 @@ namespace CResMgr {
         extern const QString icon;
         extern const KShortcut accel;
       };
-      
+
+      namespace alignLeft {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+      };
+      namespace alignCenter {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+      };
+      namespace alignRight {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+      };
+      namespace alignJustify {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+      };
+            
     };
   };
   

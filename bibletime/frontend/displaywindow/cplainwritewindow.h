@@ -46,6 +46,9 @@ protected: // Protected methods
   */
   virtual void initView();
   virtual void initConnections();
+  virtual const CDisplayWindow::WriteWindowType writeWindowType() {
+    return CDisplayWindow::PlainTextWindow;
+  };
 
 private:
   struct {

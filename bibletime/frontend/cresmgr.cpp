@@ -22,6 +22,31 @@
 
 
 namespace CResMgr {
+
+  namespace modules {
+    namespace bible {
+      const QString icon_unlocked  = "bt_bible";
+      const QString icon_locked    = "bt_bible_locked";
+      const QString icon_add       = "bt_bible_add";
+    };
+    namespace commentary {
+      const QString icon_unlocked  = "bt_commentary";
+      const QString icon_locked    = "bt_commentary_locked";
+      const QString icon_add       = "bt_commentary_add";
+    };
+    namespace lexicon {
+      const QString icon_unlocked  = "bt_lexicon";
+      const QString icon_locked    = "bt_lexicon_locked";
+      const QString icon_add       = "bt_lexicon_add";
+    };
+    namespace book {
+      const QString icon_unlocked  = "bt_book";
+      const QString icon_locked    = "bt_book_locked";
+      const QString icon_add       = "bt_book_add";
+    };
+    
+  };
+  
   namespace mainMenu { //Main menu
     namespace file { //Main menu->File
       namespace clearQueue {
@@ -349,7 +374,33 @@ namespace CResMgr {
         const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggles the underline status of the selected text.") );
         const QString icon      = "text_under";
         const KShortcut accel   = KShortcut();
-      };            
+      };
+
+      namespace alignLeft {
+        const QString tooltip   = makeToolTip( i18n("Align left") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("The text will be aligned on the left side of the page.") );
+        const QString icon      = "text_left";
+        const KShortcut accel   = KShortcut();
+      };
+      namespace alignCenter {
+        const QString tooltip   = makeToolTip( i18n("Align center") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Centers the text horizontally.") );
+        const QString icon      = "text_center";
+        const KShortcut accel   = KShortcut();
+      };
+      namespace alignRight {
+        const QString tooltip   = makeToolTip( i18n("Align right") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Aligns the text on the right side of the page.") );
+        const QString icon      = "rightjust";
+        const KShortcut accel   = KShortcut();
+      };
+      namespace alignJustify {
+        const QString tooltip   = makeToolTip( i18n("Justification") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Justifies the text on the page.") );
+        const QString icon      = "text_block";
+        const KShortcut accel   = KShortcut();
+      };
+      
     };
   };
 

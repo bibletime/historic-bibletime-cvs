@@ -26,8 +26,12 @@
 #include <qtextedit.h>
 
 class CWriteWindow;
-class KAction;
-class KFontCombo;
+
+class KToggleAction;
+class KFontAction;
+class KFontSizeAction;
+
+class KColorButton;
 
 /** The WYSIWYG implementation of the write display interface.
   * @author The BibleTime team
@@ -87,19 +91,43 @@ protected:
 protected slots:
   void toggleBold();
   void toggleItalic();
-  void toggleUnderlined();
+  void toggleUnderline();
 
-  void selectedFontChanged( const QString& font );
-    
+  void alignLeft();  
+  void alignCenter();
+  void alignRight();
+//  void alignJustify();
+        
+  void slotFontChanged( const QFont& );  
+  /**
+  * The text's alignment changed. Enable the right buttons.
+  */
+  void slotAlignmentChanged( int );
+  /**
+  * Is called when a new color was selected.
+  */
+  void slotColorSelected( const QColor& );
+  /**
+  * Is called when a text with another color was selected.
+  */
+  void slotColorChanged( const QColor& );
+        
 private:
   struct {
     KAction* save;
 
-    KAction* bold;
-    KAction* italic;
-    KAction* underlined;    
+    KToggleAction* bold;
+    KToggleAction* italic;
+    KToggleAction* underline;
+
+    KToggleAction* alignLeft;
+	  KToggleAction* alignCenter;
+  	KToggleAction* alignRight;
+   
+    KFontAction* fontChooser;
+    KFontSizeAction* fontSizeChooser;  
   } m_actions;
-  KFontCombo* m_fontCombo;
+  KColorButton* m_colorButton;
 };
 
 #endif
