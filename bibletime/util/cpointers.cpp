@@ -52,8 +52,9 @@ CSwordBackend* const CPointers::backend() {
 
 /** Returns a pointer to the backend ... */
 CLanguageMgr* const CPointers::languageMgr() {
-  if (!m_langMgr)
+  if (!m_langMgr) {
     m_langMgr = new CLanguageMgr();
+  }
 	return m_langMgr;
 }
 
