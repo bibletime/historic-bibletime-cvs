@@ -54,14 +54,14 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
   QGridLayout *gbox = new QGridLayout( group, 4, 2, 5, 5 );
   gbox->addRowSpacing( 0, group->fontMetrics().height()-5 );
 
-  const QString name[4] = {i18n("&Top"),i18n("&Bottom"),i18n("&Left"), i18n("&Right") };
+  const QString designation[4] = {i18n("&Top"),i18n("&Bottom"),i18n("&Left"), i18n("&Right") };
   for( int i=0; i<4; i++ ) {
     m_marginSpin[i] = new QSpinBox( group );
     m_marginSpin[i]->setFixedHeight( m_marginSpin[i]->sizeHint().height() );
     m_marginSpin[i]->setMinimumWidth( m_marginSpin[i]->fontMetrics().width("M")*10 );
     m_marginSpin[i]->setSuffix(" mm");
 
-    QLabel *label = new QLabel( m_marginSpin[i], name[i], group );
+    QLabel *label = new QLabel( m_marginSpin[i], designation[i], group );
     label->setFixedHeight( m_marginSpin[i]->sizeHint().height() );
     label->setFixedWidth( label->sizeHint().width() );
 

@@ -56,7 +56,7 @@
   *	@version $Id$
   */
 
-class CSwordLDKey : public SWKey, public CSwordKey {
+class CSwordLDKey : public CSwordKey, public SWKey {
 public: 
 	/**
 	* Constructor of CSwordLDKey

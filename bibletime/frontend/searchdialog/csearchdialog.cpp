@@ -114,7 +114,7 @@ ListCSwordModuleInfo& CSearchDialog::getModuleList() {
 }
 
 void CSearchDialog::setModuleList(ListCSwordModuleInfo& list) {
-	if (m_moduleList != list)
+	if (!(m_moduleList == list))
 		m_moduleList = list; //copy the items of "list"
 	
 	m_moduleChooser->blockSignals(true);

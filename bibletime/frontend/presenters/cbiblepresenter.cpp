@@ -20,20 +20,18 @@
 #include "cdisplaysettingsbutton.h"
 
 #include "resource.h"
-
+#include "frontend/ctoolclass.h"
+#include "frontend/cexportmanager.h"
+#include "frontend/chtmlwidget.h"
+#include "frontend/keychooser/ckeychooser.h"
+#include "frontend/cprofile.h"
+#include "frontend/cprofilewindow.h"
+#include "frontend/cbtconfig.h"
 #include "backend/cswordbiblemoduleinfo.h"
 #include "backend/cswordversekey.h"
 #include "backend/chtmlchapterdisplay.h"
 #include "backend/cswordbackend.h"
 #include "backend/creferencemanager.h"
-
-#include "frontend/ctoolclass.h"
-#include "frontend/cexportmanager.h"
-#include "frontend/cdisplaywidget.h"
-#include "frontend/keychooser/ckeychooser.h"
-#include "frontend/cprofile.h"
-#include "frontend/cprofilewindow.h"
-#include "frontend/cbtconfig.h"
 
 #include <math.h>
 
@@ -87,7 +85,7 @@ void CBiblePresenter::initView(){
 	m_moduleChooserBar = new CModuleChooserBar(m_moduleList, CSwordModuleInfo::Bible, this );
 	addToolBar(m_moduleChooserBar);
 	
-  m_displayWidget = new CDisplayWidget(this);
+	m_htmlWidget = new CHTMLWidget(true, this);
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
@@ -97,9 +95,9 @@ void CBiblePresenter::initView(){
 	m_copyPopup->insertItem(i18n("Verse"), this, SLOT(copyVerse()),0,ID_PRESENTER_COPY_ONLY_KEY);
 	m_copyPopup->insertItem(i18n("Text of verse"), this, SLOT(copyVerseText()),0,ID_PRESENTER_COPY_KEY_TEXT);	
 	m_copyPopup->insertItem(i18n("Verse with text"), this, SLOT(copyVerseAndText()),0,ID_PRESENTER_COPY_KEY);
-	m_copyPopup->insertItem(i18n("Chapter"), m_displayWidget, SLOT(copyAll()),0,ID_PRESENTER_COPY_CHAPTER);
+	m_copyPopup->insertItem(i18n("Chapter"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_CHAPTER);
 	m_copyPopup->insertSeparator();
-	m_copyPopup->insertItem(i18n("Selected text"), m_displayWidget, SLOT(copySelection()),0,ID_PRESENTER_COPY_SELECTED);
+	m_copyPopup->insertItem(i18n("Selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);
 
 	m_printPopup = new KPopupMenu(m_popup);
 	m_printPopup->insertItem(i18n("Verse with text"), this, SLOT(printVerseAndText()),0,ID_PRESENTER_PRINT_KEY);
@@ -107,19 +105,21 @@ void CBiblePresenter::initView(){
 
 	m_savePopup = new KPopupMenu(m_popup);	
 	m_savePopup->insertItem(i18n("Verse with text"), this, SLOT(saveVerseAndText()),0,ID_PRESENTER_SAVE_KEY);
-	m_savePopup->insertItem(i18n("Chapter as plain text"), m_displayWidget, SLOT(saveAsPlain()),0,ID_PRESENTER_SAVE_CHAPTER);
-	m_savePopup->insertItem(i18n("Chapter as HTML"), m_displayWidget, SLOT(saveAsHTML()),0,ID_PRESENTER_SAVE_CHAPTER_HTML);	
+	m_savePopup->insertItem(i18n("Chapter as plain text"), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_CHAPTER);
+	m_savePopup->insertItem(i18n("Chapter as HTML"), m_htmlWidget, SLOT(slotSaveAsHTML()),0,ID_PRESENTER_SAVE_CHAPTER_HTML);	
 
-	m_popup->insertItem(i18n("Select all"), m_displayWidget, SLOT(selectAll()),0, ID_PRESENTER_SELECT_ALL);
+	m_popup->insertItem(i18n("Select all"), m_htmlWidget, SLOT(slotSelectAll()),0, ID_PRESENTER_SELECT_ALL);
   m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP);	
 	m_popup->insertSeparator();	
 	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY),i18n("Copy..."), 	m_copyPopup, ID_PRESENTER_COPY_POPUP);	
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup, ID_PRESENTER_PRINT_POPUP);	
 	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup,ID_PRESENTER_SAVE_POPUP);		
 
-	m_displayWidget->view()->installPopup(CDisplayWidgetView::Normal, m_popup);
-	m_displayWidget->view()->installPopup(CDisplayWidgetView::Anchor, m_popup );
-	setCentralWidget(m_displayWidget->view());	
+	m_htmlWidget->installPopup(m_popup);			
+	m_htmlWidget->installAnchorMenu( m_popup );
+	m_htmlWidget->setModules(m_moduleList);
+		
+	setCentralWidget(m_htmlWidget);	
 	setIcon( BIBLE_ICON_SMALL );	
 }
 
@@ -141,12 +141,12 @@ void CBiblePresenter::lookup(CSwordKey* key){
 			m_moduleList.first()->getDisplay()->Display( &m_moduleList );
 		else
 			m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
- 		m_displayWidget->setText( m_moduleList.first()->getDisplay()->getHTML() );
+ 		m_htmlWidget->setText( m_moduleList.first()->getDisplay()->getHTML() );
 	}
 	if (m_key != vKey)
 		m_key->key(vKey->key());
 		
-	m_displayWidget->gotoAnchor( QString::number(vKey->Verse()) );
+	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
 	setUpdatesEnabled(true);		
 	setCaption(windowCaption());	
 }
@@ -162,7 +162,7 @@ void CBiblePresenter::modulesChanged(){
 //    refreshFeatures()
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
-//		m_htmlWidget->setModules(m_moduleList);
+		m_htmlWidget->setModules(m_moduleList);
 	  	
 	  lookup(m_key);
 	}
@@ -175,10 +175,10 @@ void CBiblePresenter::optionsChanged(){
 
 /** Initializes the Signal / Slot connections */
 void CBiblePresenter::initConnections(){
-	connect(m_displayWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
+	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
 		this, SLOT(lookup(const QString&, const QString&))); 	
-	connect(m_displayWidget, SIGNAL(referenceDropped(const QString&, const QString&)),
-		this, SLOT(referenceDropped(const QString&, const QString&)));
+	connect(m_htmlWidget, SIGNAL(referenceDropped(const QString&)),
+		this, SLOT(referenceDropped(const QString&)));
 
  	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));
@@ -192,17 +192,16 @@ void CBiblePresenter::initConnections(){
 
 /** No descriptions */
 void CBiblePresenter::popupAboutToShow() {
-	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_displayWidget->hasSelection());
+	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
 
-	const bool hasNode = m_displayWidget->hasActiveURLNode();
-  m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_ONLY_KEY, hasNode);	
-	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_KEY_TEXT, hasNode);	
-	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_KEY, hasNode);
-	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_displayWidget->hasSelection());
+	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_ONLY_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());	
+	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_KEY_TEXT,!m_htmlWidget->getCurrentAnchor().isEmpty());	
+	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());			
+	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());
 	
-	m_printPopup->setItemEnabled(ID_PRESENTER_PRINT_KEY, hasNode);	
+	m_printPopup->setItemEnabled(ID_PRESENTER_PRINT_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());			
 
-	m_savePopup->setItemEnabled(ID_PRESENTER_SAVE_KEY, hasNode);
+	m_savePopup->setItemEnabled(ID_PRESENTER_SAVE_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());
 }
 
 /** Reimplementation from CSwordPresenter. */
@@ -226,7 +225,7 @@ void CBiblePresenter::refresh( ){
 	m_key->setLocale((const char*)backend()->booknameLanguage().local8Bit());
 	m_keyChooser->refreshContent();
 	lookup(m_key);
-//	m_htmlWidget->refresh();		
+	m_htmlWidget->refresh();		
 }
 
 
@@ -234,9 +233,8 @@ void CBiblePresenter::refresh( ){
 void CBiblePresenter::copyVerse(){
 	QString key = QString::null;
 	QString module = QString::null;
-	QString currentAnchor = m_displayWidget->activeURLNode();
-	
-  CReferenceManager::Type type;	
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	
@@ -251,7 +249,7 @@ void CBiblePresenter::copyVerse(){
 void CBiblePresenter::copyVerseText(){
 	QString key = QString::null;
 	QString module = QString::null;
-	QString currentAnchor = m_displayWidget->activeURLNode();
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = backend()->findModuleByName(module);		
@@ -266,7 +264,7 @@ void CBiblePresenter::copyVerseText(){
 void CBiblePresenter::copyVerseAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
-	QString currentAnchor = m_displayWidget->activeURLNode();	
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = backend()->findModuleByName(module);		
@@ -283,7 +281,7 @@ void CBiblePresenter::copyVerseAndText(){
 void CBiblePresenter::printVerseAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
-	const QString currentAnchor = m_displayWidget->activeURLNode();
+	const QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = backend()->findModuleByName(module);		
@@ -314,19 +312,18 @@ void CBiblePresenter::saveVerseAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
 	CReferenceManager::Type type;		
-	const QString currentAnchor = m_displayWidget->activeURLNode();
+	const QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	
-	if (!currentAnchor.isEmpty()) {
-    CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);
-    CSwordVerseKey vKey( backend()->findModuleByName(module) );
-  	vKey.key(key);
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);
+	CSwordVerseKey vKey( backend()->findModuleByName(module) );
+	vKey.key(key);
 	
-	  CExportManager::saveKey(&vKey, true);
-  }
+	CExportManager::saveKey(&vKey, true);
 }
 
 /** Inserts the actions used by this window class into the given KAccel object. */
 void CBiblePresenter::insertKeyboardActions(KAccel* const a){
+//  qWarning("CBiblePresenter::insertKeyboardActions");
   a->insert("Next book",        i18n("Next book"),        "", IDK_PRESENTER_NEXT_BOOK,        0, "");
 	a->insert("Previous book",    i18n("Previous book"),    "", IDK_PRESENTER_PREVIOUS_BOOK,    0, "");
 	a->insert("Next chapter",     i18n("Next chapter"),     "", IDK_PRESENTER_NEXT_CHAPTER,     0, "");
@@ -342,6 +339,11 @@ void CBiblePresenter::initAccels(){
 //  qWarning("CBiblePresenter::initAccels()");
   CBTConfig::setupAccel( CBTConfig::bibleWindow, m_accel );	
   insertKeyboardActions( m_accel );
+
+//  if (m_accel->setSlot("Next book", this, SLOT(nextBook())))
+//  qWarning("SET SLOT!");	
+//  else
+//   qWarning("NOT SET SLOT!");
 
   CSwordPresenter::initAccels();
   m_accel->readSettings();
@@ -406,7 +408,7 @@ void CBiblePresenter::storeSettings( CProfileWindow* settings ){
 	//now check	every item
 	for (int i = 1; i<count; i++) { //first item is a title
 		if (m_displaySettingsButton->itemStatus(i)) //item is checked
-			result += (int)pow(2,i-1);//add 2^i (the i. digit in binary)
+			result += (int)std::pow((double)2,i-1);//add 2^i (the i. digit in binary)
 	}
 	settings->setWindowSettings(result);
 }
@@ -417,8 +419,8 @@ void CBiblePresenter::applySettings( CProfileWindow* settings ){
   int result = settings->windowSettings();
 	const int count = m_displaySettingsButton->menuItemCount();
 	for (int i = count-1; i>=1; i--) {
-		if (result-(int)pow(2,i-1)>= 0) { //2^i was added before, so item with index i is set
-			result -= (int)pow(2,i-1);
+		if (result-(int)std::pow((double)2,i-1)>= 0) { //2^i was added before, so item with index i is set
+			result -= (int)std::pow((double)2,i-1);
 			m_displaySettingsButton->setItemStatus(i,true);
 		}
 		else
