@@ -260,7 +260,8 @@ void COptionsDialog::initFonts(){
  	hLayout->addWidget(m_settings.fonts.useOwnFontBox);
 
 
-  layout->addLayout(hLayout);    
+  layout->addLayout(hLayout);
+#warning TODO: remember the last selected font and jump there.    
     
  	m_settings.fonts.fontChooser = new KFontChooser(page, "fonts", false, QStringList(), true, 5);
  	m_settings.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog"));
@@ -271,6 +272,7 @@ void COptionsDialog::initFonts(){
 		 	
  	m_settings.fonts.fontChooser->setFont( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].second );
   useOwnFontClicked( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].first );
+	m_settings.fonts.useOwnFontBox->setChecked( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].first );
  	m_settings.fonts.fontChooser->setMinimumSize(m_settings.fonts.fontChooser->sizeHint());		
 }
 
