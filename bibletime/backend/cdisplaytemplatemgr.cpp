@@ -12,6 +12,7 @@
 
 //BibleTime includes
 #include "cdisplaytemplatemgr.h"
+#include "cswordmoduleinfo.h"
 #include "clanguagemgr.h"
 
 #include "frontend/cbtconfig.h"
@@ -56,18 +57,18 @@ const QStringList CDisplayTemplateMgr::availableTemplates() {
 /*!
     \fn CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content )
  */
-const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content, const CSwordModuleInfo::ModuleType type, const QString& langAbbrev ) {
-	if (!m_templateMap.contains(name))
+const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& content, Settings& settings ) {
+	if (!m_templateMap.contains(name)) {
 		return QString::null;
+	}
 
 	QString langCSS;
   CLanguageMgr::LangMap langMap = CPointers::languageMgr()->availableLanguages();
   CLanguageMgr::LangMap::Iterator it;
   for ( it = langMap.begin(); it != langMap.end(); ++it ) {
-    //const QString name = it.data().translatedName().isEmpty() ? it.data().abbrev() : it.data().translatedName();
-  	CLanguageMgr::Language lang = it.data();
+  	const CLanguageMgr::Language lang = it.data();
 		if (lang.isValid() && CBTConfig::get(lang).first) {
-			QFont f = CBTConfig::get(lang).second;
+			const QFont f = CBTConfig::get(lang).second;
 			langCSS += QString::fromLatin1("*[lang=%1] { font-family:%2; font-size:%3pt; font-weight:%3; font-style: %4;}\n")
 				.arg(lang.abbrev())
 				.arg(f.family()).arg(f.pointSize())
@@ -76,29 +77,43 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 		}
 	}
 	
-	QString displayType;
-	switch (type) {
-	case CSwordModuleInfo::Bible:
-	case CSwordModuleInfo::GenericBook:
-		displayType = "multiple";
-		break;
+	QString displayTypeString = "single";
+	if (settings.modules.count()) {
+		switch (settings.modules.first()->type()) {
+			case CSwordModuleInfo::Bible:
+				displayTypeString = "bible";
+				break;
+			case CSwordModuleInfo::GenericBook:
+				displayTypeString = "book";
+				break;
+			
+			case CSwordModuleInfo::Commentary:
+			case CSwordModuleInfo::Lexicon:
+			default:
+				displayTypeString = "singleentry";
+				break;
+		};
+	};
+	
+	QString newContent = content;
+	if (settings.modules.count() >= 2) {
+		//create header for the modules
+		QString header;
+		for (CSwordModuleInfo* m = settings.modules.first(); m; m = settings.modules.next()) {
+			header += QString::fromLatin1("<th>%1</th>").arg( m->name() );
+		}
 		
-	case CSwordModuleInfo::Commentary:
-	case CSwordModuleInfo::Lexicon:
-	default:
-	 displayType = "single";
-	 break;
+		newContent = QString::fromLatin1("<table><tr>%1</tr>%2</table>").arg(header).arg(content);
 	}
 	
-	
 	QString t = m_templateMap[ name ];
-	t.replace("#TITLE#", title);
+	t.replace("#TITLE#", settings.title);
 	t.replace("#LANG_CSS#", langCSS);
-	t.replace("#LANG_ABBREV#", langAbbrev);
- 	t.replace("#DISPLAY_TYPE#", displayType);
-	t.replace("#CONTENT#", content);
+	t.replace("#LANG_ABBREV#", settings.langAbbrev);
+ 	t.replace("#DISPLAYTYPE#", displayTypeString);
+	t.replace("#CONTENT#", newContent);
 	
-//	std::cout << t.latin1() << std::endl;
+	//std::cout << t.latin1() << std::endl;
 	
 	return t;
 }

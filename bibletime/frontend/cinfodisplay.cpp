@@ -31,7 +31,7 @@
 #include <klocale.h>
 
 CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
-    : QWidget(parent, name), m_freezeDisplay(false)
+    : QWidget(parent, name)
 {
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	QLabel* headingLabel = new QLabel(i18n("Info display"),this);
@@ -55,9 +55,6 @@ void CInfoDisplay::setInfo(const InfoType type, const QString& data) {
 
 
 void CInfoDisplay::setInfo(const ListInfoData& list) {
-	if (isFrozen())//do nothing, display is frozen
-		return; 
-		
 	QString text;
 	for (ListInfoData::const_iterator it = list.begin(); it != list.end(); ++it) {
 	  switch ( (*it).first ) {
@@ -179,9 +176,6 @@ const QString CInfoDisplay::getWordTranslation( const QString& data ) {
     \fn CInfoDisplay::clearInfo()
  */
 void CInfoDisplay::clearInfo() {
-	if (isFrozen())//do nothing, display is frozen
-		return; 
-
 	m_htmlPart->begin();
 	m_htmlPart->write(QString::null);
 	m_htmlPart->end();		

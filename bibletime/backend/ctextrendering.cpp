@@ -27,18 +27,19 @@
 #include <klocale.h>
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo const * mod, const Settings settings ) 
-	: m_key(key),
-		m_childList( 0 ),
-		m_settings(settings)
+	: m_settings(settings),
+		m_moduleList(),
+		m_key(key),
+		m_childList( 0 )
 {
 	m_moduleList.append( mod );
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, ListCSwordModuleInfo& mods, const Settings settings ) 
-	: m_key(key),
+	: m_settings(settings),
 		m_moduleList( mods ),
-		m_childList( 0 ),
-		m_settings(settings)
+		m_key(key),
+		m_childList( 0 )
 {
 	
 }
@@ -219,31 +220,20 @@ void CHTMLExportRendering::initRendering() {
   CPointers::backend()->setFilterOptions( m_filterOptions );
 }
 
-const QString CHTMLExportRendering::finishText( const QString& oldText, KeyTree& tree ) {
+const QString CHTMLExportRendering::finishText( const QString& text, KeyTree& tree ) {
 	ListCSwordModuleInfo modules = tree.collectModules();
 	
-	QString text;
-	if (modules.count() > 1) {
-		QString header;
-
-		for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-			header += QString::fromLatin1("<th width=\"%1%\">%2</th>")
-					.arg(100 / modules.count())
-					.arg(m->name());
-		}
-		text = "<table><tr>" + header + "</tr>" + oldText + "</table>";
-	}
-	else {
-		text = oldText;
-	}
-
-	QString langAbbrev = 
+	const QString langAbbrev = 
 		((modules.count() == 1) && modules.first()->language().isValid())
 		?	modules.first()->language().abbrev() 
 		: "unknown";
 	
 	CDisplayTemplateMgr tMgr;
-	return tMgr.fillTemplate(i18n("Export"), "title", text, CSwordModuleInfo::Bible, langAbbrev);
+	CDisplayTemplateMgr::Settings settings;
+	settings.modules = modules;
+	settings.langAbbrev = langAbbrev;
+	
+	return tMgr.fillTemplate(i18n("Export"), text, settings);
 }
 
 
@@ -257,7 +247,7 @@ const QString CHTMLExportRendering::entryLink( const KeyTreeItem& item, CSwordMo
 
 
 
-CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) 
+CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
 	: CHTMLExportRendering(CHTMLExportRendering::Settings(true), displayOptions, filterOptions) 
 {
 
@@ -334,13 +324,16 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	}
 */
 
-	QString langAbbrev = 
+	const QString langAbbrev = 
 		((modules.count() == 1) && modules.first()->language().isValid())
 		?	modules.first()->language().abbrev() 
-		: "unknown";
+		: QString::null;
 	
 	CDisplayTemplateMgr tMgr;
-	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), "title", text, CSwordModuleInfo::Bible, langAbbrev);
+	CDisplayTemplateMgr::Settings settings;
+	settings.modules = modules;
+	settings.langAbbrev = langAbbrev;
+	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
 }
 
 

@@ -42,13 +42,6 @@ public:
 	void setInfo(const ListInfoData&);
 	void clearInfo();
 
-	void freeze( const bool freezeDisplay ) {
-		m_freezeDisplay = freezeDisplay;
-	};
-	const bool isFrozen() const {
-		return m_freezeDisplay;
-	};
-
 protected:
   const QString decodeFootnote( const QString& data );
 	const QString decodeLemma( const QString& data );
@@ -57,7 +50,6 @@ protected:
  
 private:
 	KHTMLPart* m_htmlPart;
-	bool m_freezeDisplay;
 };
 
 #endif

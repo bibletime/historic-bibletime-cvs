@@ -27,11 +27,22 @@ Manages the display templates used in the filters and display classes.
 */
 class CDisplayTemplateMgr{
 public:
-    CDisplayTemplateMgr();
+    struct Settings {
+			Settings() {
+				title = QString::null;
+				langAbbrev = QString::null;
+			};
+			
+			ListCSwordModuleInfo modules;
+			QString title;
+			QString langAbbrev;
+		};
+		
+		CDisplayTemplateMgr();
     ~CDisplayTemplateMgr();
 		
     const QStringList availableTemplates();
-    const QString fillTemplate( const QString& name, const QString& title, const QString& content, const CSwordModuleInfo::ModuleType type, const QString& langAbbrev = QString::null );
+    const QString fillTemplate( const QString& name, const QString& content, Settings& settings);
     
 		static const QString defaultTemplate();
 

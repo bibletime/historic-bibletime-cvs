@@ -155,15 +155,10 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   *    Active developers (sorted by last name)   *
   ************************************************/
   // Project coordination
-	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"),"junkmail@joachim.ansorgs.de","joachim.ansorgs.de");
+	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "junkmail@joachim.ansorgs.de", "joachim.ansorgs.de");
   // Second main developer
 	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
-  // and / or search for multiple words, other fixes and improvements
-  aboutData.addAuthor("Nikolay Igotti", I18N_NOOP("Frontend"), "olonho@hotmail.com", "");
-  // comitted search in default bible, opened modules, other smaller things
-  aboutData.addAuthor("Gary Sims", I18N_NOOP("Frontend"), "gary@garysims.co.uk", "");
 	// artwork
-	aboutData.addAuthor("Timothy R. Butler", I18N_NOOP("Icons, startlogo, webpage"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");
 	aboutData.addAuthor("James Ots", I18N_NOOP("Crystal icons, crystal startlogo, webpage"), "me@jamesots.com", "www.jamesots.com");
   // documentation
 	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");
@@ -177,12 +172,18 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   /***********************************************
   *        Credits (sorted by last name)         *
   ************************************************/
+	//highcolor icons, startlogo for BT <= 1.4
+	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");
   //Sponsored many years the www.bibletime.de domain!
   aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Sponsored our internet domain for many years"), "tom@theta-consulting.de", "");
   //He provided us with the Bible Study HowTo
   aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible Study HowTo"), "ncc@ncchampton.org", "");
+  // and / or search for multiple words, other fixes and improvements
+  aboutData.addCredit("Nikolay Igotti", I18N_NOOP("Search dialog enhancements"), "olonho@hotmail.com", "");
   // Language codes iso639-1, iso639-2 and SIL language codes
   aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
+  // comitted search in default bible, opened modules, other smaller things
+  aboutData.addCredit("Gary Sims", I18N_NOOP("Search dialog enhancements"), "gary@garysims.co.uk", "");
 
 //special message so the translator get his credits in the about box, don't remove this!
   QString dummy = I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name

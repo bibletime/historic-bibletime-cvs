@@ -330,15 +330,9 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				}
 			}
 			
-			CPointers::infoDisplay()->setInfo(infoList);
-			const bool ctrlPressed = (e->qmouseEvent()->state() & Qt::ControlButton);
-			
-			if (!CPointers::infoDisplay()->isFrozen()) {
-				CPointers::infoDisplay()->freeze( ctrlPressed );
+			if ( !(e->qmouseEvent()->state() & Qt::ShiftButton) ) {
+				CPointers::infoDisplay()->setInfo(infoList);
 			}
-			//else if (ctrlPressed) {
-//				CPointers::infoDisplay()->freeze( false );
-	//		}
 		}
 	} 
 	KHTMLPart::khtmlMouseMoveEvent(e);

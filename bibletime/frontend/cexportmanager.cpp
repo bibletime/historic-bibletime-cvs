@@ -122,7 +122,7 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 
     if (format == HTML) {
 			CDisplayTemplateMgr tMgr;
-			text = tMgr.fillTemplate( CBTConfig::get(CBTConfig::displayStyle), QString::null, text, module->type() );
+			//text = tMgr.fillTemplate( CBTConfig::get(CBTConfig::displayStyle), QString::null, text, module->type() );
     };
   }
   else { //don't add the text of the key
