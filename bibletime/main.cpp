@@ -134,16 +134,16 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	}
   else {
 		KConfig *config = KGlobal::config();
-//		KStartupLogo *start_logo = 0;		
+		KStartupLogo *start_logo = 0;		
 		bool showIt = false;	
 	  {
   		KConfigGroupSaver groupSaver(config,"General");
 			showIt = config->readBoolEntry("Logo",true);	
 	
-//			if(showIt) {
-//		 		start_logo = new KStartupLogo();
-//		 		start_logo->show();
-//			};
+			if(showIt) {
+		 		start_logo = new KStartupLogo();
+		 		start_logo->show();
+			};
 	  }
 	  BibleTime* bibletime = new BibleTime();			
 		
@@ -160,11 +160,11 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 			}
 		}
 		
-//	  if (showIt) {
-//			start_logo->hide();			
-//			start_logo->close();
-//			delete start_logo;
-//		}
+	  if (showIt) {
+			start_logo->hide();			
+			start_logo->close();
+			delete start_logo;
+		}
 		
 		{ //The tip of the day
 			KConfigGroupSaver groupSaver(config, "Daily tip");

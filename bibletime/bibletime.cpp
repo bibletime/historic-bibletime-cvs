@@ -73,10 +73,10 @@ BibleTime::~BibleTime() {
 
 /** Saves the properties of BibleTime to the application wide configfile  */
 void BibleTime::saveSettings(){
-	ASSERT(m_groupmanager);	
-	ASSERT(m_mdi);
-	ASSERT(m_config);
-	ASSERT(m_keyAccel);
+//	ASSERT(m_groupmanager);	
+//	ASSERT(m_mdi);
+//	ASSERT(m_config);
+//	ASSERT(m_keyAccel);
 	
 	saveMainWindowSettings(m_config);
 //	if (groupmanager)
@@ -265,18 +265,8 @@ bool BibleTime::queryClose(){
 
 /** No descriptions */
 void BibleTime::show(){
-	KMainWindow::show();
-	
+	KMainWindow::show();	
 	//if we show BibleTime for the first time we are ready for processing
 	//but not before this point.
 	m_initialized = true;
 }
-
-///** Reimplementation from QWidget. Sets the correct plain caption. */
-//void BibleTime::setPlainCaption(const QString& c){
-////	qWarning(c.local8Bit());
-//	if (c.isEmpty())
-//		KMainWindow::setPlainCaption(QString("BibleTime %1").arg(VERSION));
-//	else
-//		KMainWindow::setPlainCaption(QString("%1 - BibleTime").arg(c));
-//}

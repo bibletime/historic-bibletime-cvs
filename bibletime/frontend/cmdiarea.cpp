@@ -80,10 +80,11 @@ void CMDIArea::slotClientActivated(QWidget* client){
 
 /** Reimplementation. Used to make use of the fixedGUIOption part. */
 void CMDIArea::childEvent ( QChildEvent * e ){
-	if (m_childEvent) {
-		return;
-	}	
+	if (m_childEvent)
+		return;	
 	QWorkspace::childEvent(e);	
+	if (!e)
+		return;
 	
 	m_childEvent = true;
 	
@@ -93,9 +94,9 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 	}	
 	
 	if (e->inserted() || e->removed()) {
-		QWidget* c = (QWidget*)e->child();
-		if (c)
-			emit sigSetToplevelCaption( c->caption() );	
+//		QWidget* c = (QWidget*)e->child();
+//		if (c)
+//			emit sigSetToplevelCaption( c->caption() );	
 		
 		switch (guiOption) {
 	 		case autoTile:
@@ -147,7 +148,7 @@ void CMDIArea::deleteAll(){
 	QWidgetList windows = windowList();
 
 	setUpdatesEnabled(false);			
-	int count = windows.count();
+	const int count = windows.count();
 	for ( int i = 0; i < count; ++i ) {
 		if ( windows.at(i) )
 			delete windows.at(i);

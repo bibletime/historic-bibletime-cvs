@@ -132,11 +132,6 @@ public slots:
   * The last window was closed!
   */
   void lastWindowClosed();
-  /**
- 	* Reimplementation from QWidget.
- 	* Sets the correct plain caption.
- 	*/
-//  virtual void setPlainCaption( const QString& );
 
 protected: // Protected methods
   /**
