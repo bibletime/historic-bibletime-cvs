@@ -168,8 +168,7 @@ echo generating ../../bibletime-i18n-$I1/po/Makefile.am
 
 ) > ../../bibletime-i18n/po/Makefile.am
 
-
-for I1 in $FOREIGN_DOC_LANGUAGES; do
+	
 	###########################
 	# create Makefile.am in bibletime-i18n/docs directory
 	###########################
@@ -178,9 +177,12 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 	( # output to Makefile.am
 		echo -e $HEADER
 
-		echo "SUBDIRS = $I1"
+		echo "SUBDIRS = $FOREIGN_DOC_LANGUAGES"
 		echo
 	) > ../../bibletime-i18n/docs/Makefile.am
+
+
+for I1 in $FOREIGN_DOC_LANGUAGES; do
 
 	###########################
 	# create Makefile.am's in bibletime-i18n/docs/?? directories
@@ -268,8 +270,8 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 			#####################################
 			for SECTION in html unicode; do
 
-				I2=../bibletime-i18n/docs/$I1/$PART/$SECTION
-				I2_EN=$PART/$SECTION
+				I2=../../bibletime-i18n/docs/$I1/$PART/$SECTION
+				I2_EN=../docs/$PART/$SECTION
 
 				if test -d $I2; then
 
