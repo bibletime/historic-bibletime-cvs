@@ -71,38 +71,34 @@ const int CSwordBookModuleInfo::depth() {
   	if (treeKey) {
     	TreeKeyIdx root = *treeKey;
     	root.root();		
-			computeDepth(root, treeKey, m_depth=0);
+    	int level = 0;
+			computeDepth(root, treeKey, 0);
 		}
 	}
 	return m_depth;
 }
 
-void CSwordBookModuleInfo::computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, int& level ){
+void CSwordBookModuleInfo::computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, int level ){
 	qWarning("CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level )");
 	if (!target)
 		target = &treeKey;
-	ASSERT(target);
+
+	if (level > m_depth)
+		m_depth = level;
 
   if (treeKey.firstChild()) {
-    int newLevel = level+1;
-    computeDepth(treeKey, target, newLevel);
-    if (newLevel > level)
-    	level = newLevel;
+    computeDepth(treeKey, target, level+1);
     treeKey.parent();
   }
-  if (treeKey.nextSibling()) {
-		int newLevel = level;
-		computeDepth(treeKey, target, newLevel);
-		if (newLevel > level)
-			level = newLevel;
-	}
+  if (treeKey.nextSibling())
+		computeDepth(treeKey, target, level);
+
 }
 
 /** Returns a treekey filled with the structure of this module */
 TreeKeyIdx* CSwordBookModuleInfo::getTree(){
 	TreeKeyIdx* treeKey = (TreeKeyIdx*)((SWKey*)*(module()));
-	if (treeKey) {
+	if (treeKey)
 		return treeKey;
-	}
 	return 0;
 }

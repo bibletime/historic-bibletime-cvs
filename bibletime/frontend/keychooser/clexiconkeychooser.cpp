@@ -40,11 +40,11 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
  	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 	
 	m_widget = new CKeyChooserWidget(m_module->getEntries(), false, this);
-	m_widget->ComboBox->setMaximumWidth(200);
+	m_widget->comboBox()->setMaximumWidth(200);
 	
   if (info && info->encoding() == QFont::Unicode){
 #warning implement reaction to font change in the optionsdialog here
-    /*m_widget->ComboBox->*/setFont( CBTConfig::get(CBTConfig::unicode) );
+    /*m_widget->comboBox()->*/setFont( CBTConfig::get(CBTConfig::unicode) );
   }
 
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,TT_PRESENTER_NEXT_ENTRY, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_ENTRY);
@@ -65,15 +65,15 @@ CSwordKey* CLexiconKeyChooser::getKey(){
 void CLexiconKeyChooser::setKey(CSwordKey* key){	
 	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
 		return;		
-	m_widget->ComboBox->setCurrentItem(
-		m_widget->ComboBox->listBox()->index(
-			m_widget->ComboBox->listBox()->findItem( m_key->key() )));
+	m_widget->comboBox()->setCurrentItem(
+		m_widget->comboBox()->listBox()->index(
+			m_widget->comboBox()->listBox()->findItem( m_key->key() )));
 //	m_widget->adjustSize();
 	emit keyChanged( m_key );
 }
 
 void CLexiconKeyChooser::activated(int index){
-	const QString text = m_widget->ComboBox->text(index);	
+	const QString text = m_widget->comboBox()->text(index);	
 	/*to prevent from eternal loop, because activated()is emitted again*/
  	if (m_key->key() != text) {
 		m_key->key(text); 	

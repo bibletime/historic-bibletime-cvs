@@ -37,8 +37,8 @@ class CSwordTreeKey;
 
 class TreeKeyIdx;
 
-/**The keychooser implementation for books.
-  *@author The BibleTime team
+/** The keychooser implementation for books.
+  * @author The BibleTime team
   */
 class CBookKeyChooser : public CKeyChooser  {
    Q_OBJECT
@@ -79,6 +79,9 @@ protected: // Protected methods
   * Sets up the entries of the given key chooser.
   */
   void setupKeyChooser(const int number, TreeKeyIdx* tree);
+
+protected slots: // Protected slots
+  void keyChooserChanged(int);
 };
 
 #endif

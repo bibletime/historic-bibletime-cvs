@@ -51,7 +51,7 @@ public:
   TreeKeyIdx* getTree();
 
 private:
-  void computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, int& level );	
+  void computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, int level = 0 );	
 	int m_depth;
 };
 

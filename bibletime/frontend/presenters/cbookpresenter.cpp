@@ -61,8 +61,8 @@ void CBookPresenter::initView(){
 void CBookPresenter::initConnections(){
 //	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)),
 //		this, SLOT(lookup(const QString&))); 	
-// 	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
-// 		this, SLOT(lookup(CSwordKey*)));
+ 	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
+ 		this, SLOT(lookup(CSwordKey*)));
 //	connect(m_popup, SIGNAL(aboutToShow()),
 //		SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
@@ -85,4 +85,8 @@ void CBookPresenter::modulesChanged(){
 	  	
 //	  lookup(m_key);
 	}
+}
+
+void CBookPresenter::lookup(CSwordKey*) {
+
 }

@@ -83,10 +83,6 @@ public:
 	*/
 	CKeyChooserWidget(int count=0, const bool useNextPrevSignals = false, QWidget *parent=0, const char *name=0);	
 	/**
-	*
-	*/
-	CKCComboBox* ComboBox;
-	/**
 	* This function does clear the combobox, then fill in
 	* the StringList, set the ComboBox' current item to index
 	* and if do_emit is true, it will emit @ref #changed
@@ -119,6 +115,10 @@ public:
   * Sets the current item to the one with the given text
   */
   bool setItem( const QString item);
+  /**
+  * Return the combobox of this key chooser widget.
+  */
+  QComboBox* comboBox();
 
 public slots:
 	/**
@@ -206,6 +206,10 @@ private:
 	friend class CLexiconKeyChooser;
 	QStringList	m_list;
 	bool m_useNextPrevSignals;
+	/**
+	* Members should never be public!!
+	*/
+	CKCComboBox* m_comboBox;
 
 private slots: // Private slots
   /**

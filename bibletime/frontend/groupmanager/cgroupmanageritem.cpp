@@ -227,7 +227,7 @@ const QString CGroupManagerItem::getToolTip(){
 				return QString::null;				
 			QString bookmarkText = 	key ? key->renderedText() : QString();
 			if (bookmarkText.length() > 150 && (moduleInfo()->getType() != CSwordModuleInfo::Bible))
-				bookmarkText = bookmarkText.left(150) + "...";
+				bookmarkText = bookmarkText.left(150) + "<BR>[...]";
 
 			//Module is Unicode-based
 			if (moduleInfo() && moduleInfo()->encoding() == QFont::Unicode ) {

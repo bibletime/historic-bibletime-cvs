@@ -46,6 +46,10 @@ protected: // Protected methods
 
 protected slots:
 	void modulesChanged();
+  /**
+  * renders text and set it to the HTML widget
+  */
+  void lookup(CSwordKey*);	
 };
 
 #endif

@@ -30,34 +30,38 @@ cfx_btn::cfx_btn(QWidget *parent, const char *name ) : QToolButton(parent,name) 
 	setFocusPolicy(QWidget::WheelFocus);
 	setCursor( splitVCursor );
 		
-	isLocked = false;
+	m_isLocked = false;
 	connect(this, SIGNAL(pressed() ), SLOT(was_pressed() ));
 	connect(this, SIGNAL(released()), SLOT(was_released()));
 }
 
-void cfx_btn::was_pressed( void ){
+const bool cfx_btn::isLocked( ) const {
+	return m_isLocked;
+}
+
+void cfx_btn::was_pressed( ){
 	QApplication::setOverrideCursor( BlankCursor );
-	isLocked = true;
+	m_isLocked = true;
 	lock_Point = get_lock_Point();
 	
 	emit lock();
 }
 
-void cfx_btn::was_released( void ){
+void cfx_btn::was_released( ){
 	QApplication::restoreOverrideCursor();
-	isLocked = false;
+	m_isLocked = false;
 	
 	emit unlock();
 }
 
-QPoint cfx_btn::get_lock_Point(void){
+const QPoint cfx_btn::get_lock_Point() const {
 	return mapToGlobal( QPoint( width()/2, height()/2 ) );
 }
 
 void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
  	const short signed int scrollDirection = CBTConfig::get(CBTConfig::scroll) ? -1 : 1;
 	
-	if (isLocked) {
+	if (m_isLocked) {
 		int vchange = (QCursor::pos().y() - lock_Point.y()) * scrollDirection;
 		if (abs(vchange) < 10)
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3));
