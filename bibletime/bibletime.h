@@ -157,7 +157,9 @@ public slots:
 	* If STATIC_BUILD is defined it opens an own dialog,
 	* otherwise the standard KDE helpsystem will be opened.
 	*/
-  void openOnlineHelp();
+  void openOnlineHelp_Handbook();
+  void openOnlineHelp_Install();
+  void openOnlineHelp_Howto();
   /**
   * Sets the plain caption of the main window
   */
@@ -251,7 +253,9 @@ protected: // Protected methods
 	KToggleAction*	m_windowFullscreen_action;		
 
 	/** HELP menu actions */	
-	KAction*	m_helpContents_action;
+	KAction*	m_helpHandbook_action;
+	KAction*	m_helpInstall_action;
+	KAction*	m_helpHowto_action;
 	KAction*	m_helpWhatsThis_action;
 	KAction*	m_helpBugReport_action;	
 	KAction*	m_helpDailyTip_action;	

@@ -178,13 +178,17 @@ void BibleTime::initActions() {
 	m_windowFullscreen_action->setToolTip( TT_WINDOW_FULLSCREEN );	
 	m_windowFullscreen_action->setWhatsThis( WT_WINDOW_FULLSCREEN );
 	
-	
-	if ( (m_helpContents_action = actionCollection()->action("help_contents")) )	
-		delete m_helpContents_action;
-	m_helpContents_action = KStdAction::helpContents(this, SLOT(openOnlineHelp()), actionCollection() );
-	m_helpContents_action->setToolTip(TT_HELP_CONTENT);
-	m_helpContents_action->setWhatsThis(WT_HELP_CONTENT);	
-	
+//	if ( !(m_helpHandbook_action = actionCollection()->action("help_handbook")) )	
+//		delete m_helpHandbook_action;
+// 	m_helpHandbook_action = KStdAction::helpContents(this, SLOT(openOnlineHelp_Handbook()), actionCollection() );
+//	m_helpHandbook_action->setToolTip(TT_HELP_CONTENT);
+//	m_helpHandbook_action->setWhatsThis(WT_HELP_CONTENT);	
+
+#warning check -- i don't really have an idea of this ;)
+	m_helpHandbook_action = new KAction(i18n("&Handbook"), ICON_HELP_CONTENTS, 0, this, SLOT(openOnlineHelp_Handbook()), actionCollection(), "help_handbook");
+	m_helpInstall_action = new KAction(i18n("&Installation"), ICON_HELP_CONTENTS, 0, this, SLOT(openOnlineHelp_Install()), actionCollection(), "help_install");
+	m_helpHowto_action = new KAction(i18n("&Bible study howto"), ICON_HELP_CONTENTS, 0, this, SLOT(openOnlineHelp_Howto()), actionCollection(), "help_howto");
+
 	if ( !(m_helpWhatsThis_action = actionCollection()->action("help_whats_this")) )		
 		m_helpWhatsThis_action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
 	m_helpWhatsThis_action->setToolTip(TT_HELP_WHATSTHIS);

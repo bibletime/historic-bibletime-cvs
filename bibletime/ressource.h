@@ -200,6 +200,7 @@
 #define ICON_WINDOW_FULLSCREEN "window_fullscreen"
 
 #define ICON_HELP_DAILY_TIP "bt_daily_tip"
+#define ICON_HELP_CONTENTS "contents"
 
 #define ICON_SYNC	"bt_sync"
 
