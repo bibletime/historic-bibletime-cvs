@@ -70,7 +70,7 @@ public:
   /**
   * Clones this object by copying the members.
   */
-  virtual SWKey* clone() const;	
+  virtual CSwordLDKey* clone() const;	
   /**
   * Sets the key for this key object. The variable m_data will be cleared.
   * Use @ref getData() to fill the m_data variable again.

@@ -156,12 +156,12 @@ const QString CPrintItem::getModuleText() {
 	if (!m_moduleText.isEmpty())
 		return m_moduleText;
 
-//	#warning Todo: This function is incomplete. Implement for range between startKey and stopKey
 	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
 	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);		
 	QString text = QString::null;
 	CSwordModuleInfo* sw = (CSwordModuleInfo*)m_module;
-	text = QString("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse())+ (vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString()));
+	text = vk ? QString("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString();
+	text += (vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString()));
 	if (sw && m_stopKey && m_stopKey != m_startKey) {
 		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
 			CSwordVerseKey dummyKey(sw);
@@ -175,8 +175,8 @@ const QString CPrintItem::getModuleText() {
 				text += QString("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.getRenderedText();
 			}			
 		}
-//		else if (sw->getType() == CSwordModuleInfo::Lexicon ) {
-//		}
+		else if (sw->getType() == CSwordModuleInfo::Lexicon ) {
+		}
 	}
 		
 	text.replace(QRegExp("$\n+"), "");
@@ -333,7 +333,6 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			br.setX(printer->leftMargin());
 			br.setWidth(printer->getPageSize().width());
 			p->fillRect( br, bgColor );	
-//			p->setPen(pen);
 						
 			p->drawText(boundingRect, arguments, text);
 			printer->setVerticalPos( printer->getVerticalPos() + boundingRect.height() + (frame ? 2*frame->getThickness() : 0) + STYLE_PART_SPACE );

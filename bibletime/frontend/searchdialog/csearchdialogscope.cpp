@@ -280,7 +280,10 @@ CSearchDialogScopeEdit::CSearchDialogScopeEdit(KSimpleConfig *parentconfig, QWid
 void CSearchDialogScopeEdit::NewButtonClicked(){
   bool ok = false;
   QString text = QInputDialog::getText( i18n( "Range name" ), i18n( "Please enter a name for the new range" ), QString::null, &ok, this );
-  if ( ok && !text.isEmpty() /*&& !config->hasKey( text )*/ )
+	if (!ok)
+		return;
+
+  if ( !text.isEmpty() /*&& !config->hasKey( text )*/ )
     config->writeEntry(text, QString::null);// user entered something and pressed ok
   //refresh the rangechooser
   RangeChooser->clear();

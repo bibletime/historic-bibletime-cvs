@@ -97,10 +97,18 @@ const bool CSwordModuleSearch::startSearch() {
 
 	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
 		cms_module_current++;
-// do not clear search result because it may be used by last search result as scope
-//		m_moduleList->current()->clearSearchResult();
-		if ( m_moduleList->current()->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) )
+		CSwordModuleInfo* module = 0;
+//		if (m_moduleList->current()->getType() == CSwordModuleInfo::Bible)
+//			module = new CSwordBibleModuleInfo(m_moduleList->current());
+//		else if (m_moduleList->current()->getType() == CSwordModuleInfo::Commentary)
+//			module = new CSwordCommentaryModuleInfo(m_moduleList->current());
+//		else if (m_moduleList->current()->getType() == CSwordModuleInfo::Lexikon)
+//			module = new CSwordLexiconModuleInfo(m_moduleList->current());
+
+		if (m_moduleList->current()->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy))
       foundItems = true;
+//    if (module)
+//    	delete module;
 	}
 
 	pthread_mutex_lock(&percentage_mutex);

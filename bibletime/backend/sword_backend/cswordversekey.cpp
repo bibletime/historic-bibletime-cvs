@@ -31,7 +31,7 @@ CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
 }
 
 /** No descriptions */
-CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(*this), CKey() {
+CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CKey() {
 	m_module = k.m_module;
 }
 
@@ -54,13 +54,13 @@ void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
 
 /** Returns the rendered text of this verse */
 const QString CSwordVerseKey::getRenderedText() const {
-	m_module->module()->SetKey(*this->clone());
+	m_module->module()->SetKey(*clone());
 	return QString::fromLocal8Bit( (const char*)*m_module->module() );
 }
 
 /** Returns the stripped down text of this verse, */
 const QString CSwordVerseKey::getStrippedText() const{
-	m_module->module()->SetKey(*this->clone());
+	m_module->module()->SetKey(*clone());
 	return QString::fromLocal8Bit( m_module->module()->StripText() );
 }
 

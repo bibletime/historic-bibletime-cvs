@@ -28,7 +28,7 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( CSwordBackend* backend, SWModule* 
 	m_cachedLocale = "unknown";
 }
 
-CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) : CSwordModuleInfo(*this) {
+CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) : CSwordModuleInfo(m) {
 	m_bookList = 0;
 	if (m.m_bookList) {
 		m_bookList = new QStringList();

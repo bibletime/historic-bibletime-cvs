@@ -25,14 +25,19 @@
 
 
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( CSwordBackend* backend, SWModule* module) : CSwordModuleInfo(backend, module) {
+	qDebug("constructor of CSwordLexiconModuleInfo");
 	m_entryList = 0;
 }
 
-CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo& m ) : CSwordModuleInfo(*this) {
-	m_entryList = 0;
+CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo& m ) : CSwordModuleInfo(m) {
+	qDebug("CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo& m ");
+	if (m_entryList)
+		delete m_entryList;
+	m_entryList = 0;	
+		
 	if (m.m_entryList) {
 		m_entryList = new QStringList();
-		*m_entryList = *m.m_entryList;
+		*m_entryList = *m.m_entryList;//copy entries
 	}
 }
 

@@ -411,7 +411,7 @@ files=
 sub_dirs=en,de,sk,development
 type=normal
 [bibletime/docs/de/Makefile.am]
-files=bibletime/docs/de/index-1.html,bibletime/docs/de/index-2.html,bibletime/docs/de/index-3.html,bibletime/docs/de/index-4.html,bibletime/docs/de/index-5.html,bibletime/docs/de/index.html,bibletime/docs/de/logotp3.png,bibletime/docs/de/index.sgml
+files=bibletime/docs/de/index-1.html,bibletime/docs/de/index-2.html,bibletime/docs/de/index-3.html,bibletime/docs/de/index-4.html,bibletime/docs/de/index-5.html,bibletime/docs/de/index.html,bibletime/docs/de/logotp3.png,bibletime/docs/de/index.sgml,bibletime/docs/de/tipdatabase
 sub_dirs=helpdialog,
 type=normal
 [bibletime/docs/de/helpdialog/Makefile.am]
@@ -462,6 +462,11 @@ type=DATA
 dist=true
 install=true
 install_location=$$$$(kde_htmldir)/de/bibletime/logotp3.png
+type=DATA
+[bibletime/docs/de/tipdatabase]
+dist=true
+install=false
+install_location=
 type=DATA
 [bibletime/docs/development/Makefile.am]
 files=

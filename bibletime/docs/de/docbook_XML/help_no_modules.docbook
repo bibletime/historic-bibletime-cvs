@@ -1,51 +1,52 @@
 <chapter id="help_no_modules">
-<title>No modules installed!</title>
+<title>Keine Module installiert!</title>
 
-<para>There are no installed Sword modules! </para>
-<para>This page describes what modules are and how to solve the problem </para>
+<para>Es gibt keine installierten Sword Module!</para>
+<para>Diese Seite beschreibt was Module sind und wie man das Problem löst.</para>
 
 <qandaset>
 <qandaentry>
 <question>
 <para>
-What is a module?
+Was ist ein Modul?
 </para>
 </question>
 <answer>
 <para>
-A SWORD module is the base of BibleTime. A module may be a Bible,
-a commentary or a lexicon. Later we will have maps and other interesting stuff.
-It's not possible to use with BibleTime if no modules are installed
-although it's possible to test BibleTime without installed modules.
-When modules are displayed in bibletime we call them documents.
+Ein Sword Module ist die Basis von BibleTime. Ein Modul kann eine Bibel, ein Kommentar
+oder ein Lexicon sein.
+Später werden wir Karten und andere interessante Dinge haben. Es ist nicht möglich mit BibleTime
+zu arbeiten wenn keine Module installiert sind, obwohl es möglich ist BibleTime ohne
+installiert Module zu testen. Wenn Module in BibleTime angezeigt werden nennen wir sie Dokumente.
 </para>
 </answer>
 </qandaentry>
 <qandaentry>
 <question>
 <para>
-How do I solve the problem?
+Wie löse ich das Problem?
 </para>
 </question>
 <answer>
-<para>Please download some modules and install them!  Get the modules at
-<ulink url="http://www.crosswire.org">www.crosswire.org</ulink>. Please read the installation instructions of our
-<ulink url="../handbook/HTML/index.html">handbook</ulink> and of our homepage.
+<para>Bitte laden sie ein paar Module herunter und installieren Sie sie. Sie können Module auf
+<ulink url="http://www.crosswire.org">www.crosswire.org</ulink> bekommen.
+Bitte lesen Sie die Installationsanweisungen in unserem
+<ulink url="../handbook/HTML/index.html">Handbuch</ulink> und auf unserer Homepage.
 </para>
 </answer>
 </qandaentry>
 <qandaentry>
 <question>
 <para>
-What should I do if it doesn't work?
+Was soll ich machen falls es nicht funktioniert?
 </para>
 </question>
 <answer>
 <para>
-Please read the documentation on <ulink url="http://www.bibletime.de">
-www.bibletime.de</ulink> and if you can't get it
-working please send an email to <ulink
-url="mailto:info@bbibletime.de">info@bibletime.de </ulink>. </para>
+Bitte lesen Sie die Dokumentation auf <ulink url="http://www.bibletime.de">
+www.bibletime.de</ulink> und falls sie es nicht zum arbeiten bekommen
+schicken Sie eine eMail an <ulink url="mailto:info@bbibletime.de">info@bibletime.de </ulink>.
+</para>
 </answer>
 </qandaentry>
 </qandaset>

@@ -22,13 +22,15 @@
 
 CModuleChooserBar::CModuleChooserBar(CImportantClasses* important, ListCSwordModuleInfo useModules, CSwordModuleInfo::type type, QWidget *parent, const char *name )
 	: KToolBar(parent,name) {
+	qDebug("constructor of CModuleCHooserBar");
+	
   m_important = important;	
 	m_moduleType = type;
 	m_idCounter = 0;
 	m_buttonLimit = -1; //-1 means no limit
   //insert buttons if useModules != 0
 	for (useModules.first(); useModules.current(); useModules.next())		 {
-		if (m_buttonLimit && (int)m_buttonLimit <= (int)m_buttonList.count())
+		if (m_buttonLimit && (unsigned int)m_buttonLimit <= m_buttonList.count())
 			break;
 			
 		CModuleChooserButton* b = new CModuleChooserButton(m_important,useModules.current(),m_moduleType,++m_idCounter,this);
@@ -39,7 +41,7 @@ CModuleChooserBar::CModuleChooserBar(CImportantClasses* important, ListCSwordMod
 		connect( b, SIGNAL(sigChanged()), SIGNAL(sigChanged()) );
 		b->show();
 	}
-  if (m_buttonLimit && (int)m_buttonLimit > (int)m_buttonList.count() )
+  if (m_buttonLimit && (unsigned int)m_buttonLimit > m_buttonList.count() )
 	  addButton();
 }
 
@@ -99,8 +101,8 @@ void CModuleChooserBar::deleteButton(){
 /** Sets the number of the maximum count of buttons. */
 void CModuleChooserBar::setButtonLimit(const int limit){
 	m_buttonLimit = limit;
-	if ((int)m_buttonList.count() > (int)m_buttonLimit ) {	//remove the last buttons
-		for (m_buttonList.last(); m_buttonList.current() && ((int)m_buttonList.count() > (int)m_buttonLimit); m_buttonList.prev() ) {
+	if (m_buttonList.count() > (unsigned int)m_buttonLimit ) {	//remove the last buttons
+		for (m_buttonList.last(); m_buttonList.current() && (m_buttonList.count() > (unsigned int)m_buttonLimit); m_buttonList.prev() ) {
 			CModuleChooserButton* b = m_buttonList.current();
 			m_buttonList.remove(b);
 			b->hide();

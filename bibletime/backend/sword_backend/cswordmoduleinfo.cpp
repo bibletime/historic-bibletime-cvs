@@ -149,7 +149,8 @@ const QString CSwordModuleInfo::getPath() const {
 /** Returns true if something was found, otherwise return false. */
 const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
 	//workaround for thread-insafety
-#warning WORKAROUND!
+	
+	
 	SWKey* k = module()->CreateKey();
 	module()->SetKey(*k);
 	delete k;
