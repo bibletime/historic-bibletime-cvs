@@ -755,26 +755,19 @@ void CSearchOptionsPage::setModules( ListCSwordModuleInfo modules ) {
   QString t = i18n("Searching in: ");
 
   m_modules.clear(); //remove old modules
-  // We make sure that a module is only one time in the list, e.g. if two display windows of the same module are opened
-/*  CSwordModuleInfo* current = modules.first();
-  while (current) {*/
 	ListCSwordModuleInfo::iterator end_it = modules.end();
+	
 	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
     //ToDo:  Check for containsRef compat
 		if ( !m_modules.contains(*it) ) {
       m_modules.append( *it );                     
-                         
       t.append( (*it)->name() );
-      //ToDo: fix that
-/*			if (it != it_end) {
-        t += QString::fromLatin1(", ");
-      }*/
+			if (*it != modules.last()) {
+        t += QString::fromLatin1(", "); // so that it will become a readable list (WLC, LXX, GerLut...)
+      }
     }
-//     current = modules.next(); //next modules
   };
-
   m_modulesLabel->setText(t);
-	
 	emit( sigSetSearchButtonStatus( (modules.count() != 0) ) );
 }
 
