@@ -138,7 +138,7 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 	QString searchAnalysisHTML = "";
 	QString tableTitle = "";
   QString tableTotals = "";
-	QString txtCSS = "<style type='text/css'>\nTD {border: thin solid;}\nTH {font-size: 130%;]\nH1 {font-size: 150%;}</style>\n";
+	QString txtCSS = "<style type='text/css'>\nTD {border: thin solid;}\nTH {font-size: 130%;]\n</style>\n";
 
 	CSwordVerseKey key(0/*m_moduleList.first()*/);	
 	key.key("Genesis 1:1");
@@ -148,7 +148,9 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 
  	const QString file = CToolClass::getSaveFileName (QString::null, i18n("*.html"), 0, i18n("Save Search Analysis"));	
 	if (!file.isNull()) {
-    QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n<h1>" + i18n("Search Text: ") + searchText->getText() + "</h1>\n";
+    QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n<h2>" + i18n("Search Text : ") + searchText->getText() + "</h2>\n";
+		text += "<h2>" + i18n("Search Type : ") + searchText->getSearchTypeString() + "</h2>\n";
+		text += "<h2>" + i18n("Search Scope: ") + searchText->scopeChooser->getScopeTypeString() + "</h2>\n";
 
 	  tableTitle = "<tr><th align='left'>" + i18n("Book") + "</th>";
 		tableTotals = "<tr><td align='left'>" + i18n("Total Hits") + "</td>";
