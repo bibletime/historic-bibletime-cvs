@@ -94,7 +94,7 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 		bool finished = false;
 		for (int testament = min; testament <= max && !finished; ++testament) {
 			for (int book = 0; book < BMAX[testament] && !finished; ++book) {
-				if ( !strcmp((const char*)newBook.local8Bit(),books[testament][book].name ) ) {
+				if ( !strcmp((const char*)newBook.utf8(),books[testament][book].name ) ) {
 					Testament(testament+1);
 					Book(book+1);
 					finished = true;
@@ -103,13 +103,17 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 		}
 	}
 	if ( Testament() >= min+1 && Testament() <= max+1 && Book() <= BMAX[min] )
-		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-	return QString::fromLocal8Bit( books[min][0].name ); //return the first book, i.e. Genesis
+		return QString::fromUtf8( books[Testament()-1][Book()-1].name );
+	
+	return QString::fromUtf8( books[min][0].name ); //return the first book, i.e. Genesis
+// 		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
+// 	return QString::fromLocal8Bit( books[min][0].name ); //return the first book, i.e. Genesis
 }
 
 /** Sets the key we use to the parameter. */
 const QString CSwordVerseKey::key() const {	
-	return QString::fromLocal8Bit(getText()); //don't use fromUtf8 here!
+	return QString::fromUtf8(getText()); //don't use fromUtf8 here!
+// 	return QString::fromLocal8Bit(getText()); //don't use fromUtf8 here!
 	
 //	return QString::fromLocal8Bit((const char*)*this); //don't use fromUtf8 here!
 }
@@ -118,11 +122,13 @@ void CSwordVerseKey::key( const QString& newKey ) {
 	if (newKey.isEmpty()) {
     CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module());
 		if ( bible ) {
-      VerseKey::operator = ((const char*)bible->lowerBound().key().local8Bit());
+//       VerseKey::operator = ((const char*)bible->lowerBound().key().local8Bit());
+			VerseKey::operator = ((const char*)bible->lowerBound().key().utf8());
     }
   }
   else {
-    VerseKey::operator = ((const char*)newKey.local8Bit());
+//     VerseKey::operator = ((const char*)newKey.local8Bit());
+				VerseKey::operator = ((const char*)newKey.utf8());
   }
 }
 
@@ -132,7 +138,8 @@ void CSwordVerseKey::key( const char* newKey ){
 	}
   else if (newKey && !strlen(newKey)) {
     if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
-      VerseKey::operator = ((const char*)bible->lowerBound().key().local8Bit());
+//       VerseKey::operator = ((const char*)bible->lowerBound().key().local8Bit());
+			VerseKey::operator = ((const char*)bible->lowerBound().key().utf8());
     }
   }
 }
@@ -162,7 +169,8 @@ const bool CSwordVerseKey::next( const JumpType type ) {
         m_module->module()->setSkipConsecutiveLinks(false);
 
     		if (!m_module->module()->Error()) {
-    			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+//     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+					key( QString::fromUtf8(m_module->module()->KeyText()) );//don't use fromUtf8
         }
     		else {
 					qWarning("VerseKey::next: module error");
@@ -221,7 +229,8 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
     		( *( m_module->module() ) )--;
         m_module->module()->setSkipConsecutiveLinks(true);      
     		if (!m_module->module()->Error())
-    			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+//     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+					key( QString::fromUtf8(m_module->module()->KeyText()) );//don't use fromUtf8
     		else
 	    	  Verse(Verse()-1);
     	}

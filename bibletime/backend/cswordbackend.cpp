@@ -49,6 +49,30 @@
 
 using std::string;
 
+char* BTStringMgr::upperUtf8(char* text, const unsigned int maxlen) {
+// 	qWarning("BTStringMgr::upperUtf8");
+	const int max = (maxlen>0) ? maxlen : strlen(text);
+	QString t = QString::fromUtf8(text).upper();
+		
+	strncpy(text, (const char*)t.utf8(), max);
+	
+	return text;
+}
+
+char* BTStringMgr::upperLatin1(char* text) {
+// 	qWarning("BTStringMgr::upperLatin1");
+	QString t = QString::fromLatin1(text).upper();
+
+	strncpy(text, (const char*)t.latin1(), strlen(text));
+
+	return text;
+}
+
+const bool BTStringMgr::supportsUnicode() const {
+	return true;
+}
+
+
 //static class-wide members
 static QMap<QString, QString> moduleDescriptionMap;
 
@@ -67,8 +91,7 @@ CSwordBackend::CSwordBackend()
 
 CSwordBackend::CSwordBackend(const QString& path)
 	: sword::SWMgr((!path.isEmpty() ? (const char*)path.local8Bit() : 0), false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
-{
-//  qWarning("backend constructed with a path argument! %s", path.latin1());
+{	
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
 	m_displays.book = 0;
@@ -488,8 +511,8 @@ const QString CSwordBackend::configOptionName( const CSwordBackend::FilterTypes 
 
 const QString CSwordBackend::booknameLanguage( const QString& language ) {
 	if (!language.isNull())
-		sword::LocaleMgr::systemLocaleMgr.setDefaultLocaleName( language.local8Bit() );
-	return QString::fromLatin1(sword::LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
+		sword::LocaleMgr::getSystemLocaleMgr()->setDefaultLocaleName( language.local8Bit() );
+	return QString::fromLatin1(sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName());
 }
 
 

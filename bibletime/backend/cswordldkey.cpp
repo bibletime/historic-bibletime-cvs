@@ -60,7 +60,9 @@ CSwordModuleInfo* const CSwordLDKey::module(CSwordModuleInfo* const newModule){
 /** Sets the key of this instance */
 const QString CSwordLDKey::key() const {
 // 	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8
- 	return QString::fromUtf8((const char*)*this);
+// 	return QString::fromUtf8((const char*)*this);
+// 	qWarning((const char*)*this);
+	return QString::fromUtf8((const char*)*this);
 }
 
 void CSwordLDKey::key( const QString& newKey ){
@@ -69,6 +71,18 @@ void CSwordLDKey::key( const QString& newKey ){
 	m_module->module()->SetKey(this);
 	m_module->snap();
 	SWKey::operator = (m_module->module()->KeyText());
+}
+
+
+/** Sets the key of this instance */
+void CSwordLDKey::key( const char* newKey ){
+	if (newKey) {
+		SWKey::operator = (newKey);
+
+		m_module->module()->SetKey(this);
+		m_module->snap();
+		SWKey::operator = (m_module->module()->KeyText());
+	}
 }
 
 /** Uses the parameter to returns the next entry afer this key. */
@@ -92,17 +106,6 @@ CSwordLDKey* CSwordLDKey::PreviousEntry(){
 	SWKey::operator = (m_module->module()->KeyText());	
 	
 	return this;
-}
-
-/** Sets the key of this instance */
-void CSwordLDKey::key( const char* newKey ){
-	if (newKey) {
-		SWKey::operator = (newKey);
-
-		m_module->module()->SetKey(this);
-		m_module->snap();
-		SWKey::operator = (m_module->module()->KeyText());
-	}
 }
 
 /** Assignment operator for more ease of use of this class. */

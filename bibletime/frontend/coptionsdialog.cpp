@@ -503,14 +503,14 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	gridLayout->setRowStretch(6,5); //eat up remaining space :)
 
  	m_settings.swords.localeCombo->insertItem( i18n("English") );
- 	const list<sword::SWBuf> locales = sword::LocaleMgr::systemLocaleMgr.getAvailableLocales();
+ 	const list<sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
  	for (list<sword::SWBuf>::const_iterator it = locales.begin(); it != locales.end(); it++) {
- 		m_settings.swords.localeCombo->insertItem( i18n(sword::LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription()) );
+ 		m_settings.swords.localeCombo->insertItem( i18n(sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getDescription()) );
  	}
 
  	int current_item = -1;
  	for(int test_item = 0; test_item < m_settings.swords.localeCombo->count(); test_item++) {
- 		sword::SWLocale* locale = sword::LocaleMgr::systemLocaleMgr.getLocale(CBTConfig::get(CBTConfig::language).local8Bit());
+ 		sword::SWLocale* locale = sword::LocaleMgr::LocaleMgr::getSystemLocaleMgr()->getLocale(CBTConfig::get(CBTConfig::language).local8Bit());
  		if (locale && (m_settings.swords.localeCombo->text(test_item) == i18n(locale->getDescription())) )
  			current_item = test_item;
  	}
@@ -869,10 +869,10 @@ void COptionsDialog::saveSword(){
   CBTConfig::set(CBTConfig::standardGreekMorphLexicon, m_settings.swords.standardGreekMorph->currentText() );
 
  	const QString currentText = m_settings.swords.localeCombo->currentText();
- 	list <sword::SWBuf> locales = sword::LocaleMgr::systemLocaleMgr.getAvailableLocales();
+ 	list <sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
  	QString localeName = QString::null;
  	for (list <sword::SWBuf>::iterator it = locales.begin(); it != locales.end(); it++) {
- 		if ( i18n(sword::LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription()) == currentText ) {
+ 		if ( i18n(sword::LocaleMgr::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getDescription()) == currentText ) {
  			localeName = (*it).c_str();	//we found the abbrevation for the current language
  			break;
  		}

@@ -116,13 +116,14 @@ QStringList* const CSwordBibleModuleInfo::books() {
 			max = -1;
 		}
 
-		staticKey.setLocale(sword::LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
+		staticKey.setLocale(sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName());
 		for (int i = min; i <= max; ++i) {
 			for ( int j = 0; j < staticKey.BMAX[i]; ++j) {
 //			if (backend()->useICU())
 //      	m_bookList->append( QString::fromUtf8(staticKey.books[i][j].name) );
 //      else
-        m_bookList->append( QString::fromLocal8Bit(staticKey.books[i][j].name) );
+//         m_bookList->append( QString::fromLocal8Bit(staticKey.books[i][j].name) );
+        m_bookList->append( QString::fromUtf8(staticKey.books[i][j].name) );
 			}
 		}
 		m_cachedLocale = backend()->booknameLanguage();
@@ -170,7 +171,7 @@ const unsigned int CSwordBibleModuleInfo::verseCount( const QString& book, const
 const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
 	unsigned int bookNumber = 0;
 	bool found = false;
-	staticKey.setLocale(sword::LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
+	staticKey.setLocale(sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName());
 	int min = 0;
 	int max = 1;
 
@@ -200,8 +201,8 @@ const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
 	for (int i = min; i <= max && !found; ++i) {
 		for ( int j = 0; j < staticKey.BMAX[i] && !found; ++j) {
 			++bookNumber;
-			if (book == QString::fromLocal8Bit( staticKey.books[i][j].name) )
-//			if (book == QString::fromUtf8( staticKey.books[i][j].name) )
+// 			if (book == QString::fromLocal8Bit( staticKey.books[i][j].name) )
+			if (book == QString::fromUtf8( staticKey.books[i][j].name) )
 				found = true;
 		}
 	}
