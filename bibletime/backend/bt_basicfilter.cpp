@@ -17,6 +17,7 @@
 #include <stdlib.h>
 
 #include "bt_basicfilter.h"
+#include "creferencemanager.h"
 #include "../frontend/cbtconfig.h"
 
 BT_BASICFILTER::BT_BASICFILTER(){
@@ -32,10 +33,11 @@ void BT_BASICFILTER::updateSettings(void){
 	strcpy(strongs_color,		CBTConfig::get(CBTConfig::strongsColor		).name().utf8());
 	strcpy(morph_color,			CBTConfig::get(CBTConfig::morphsColor			).name().utf8());
 	strcpy(jesuswords_color,CBTConfig::get(CBTConfig::jesuswordsColor	).name().utf8());
-	strcpy(standard_bible,	CBTConfig::get(CBTConfig::standardBible		).utf8());
+	strcpy(standard_bible,	/*CBTConfig::get(CBTConfig::standardBible		).utf8()*/CReferenceManager::preferredModule(CReferenceManager::Bible).utf8());
 }
-/** This filter converts the RWP #Gen 1:1| 
-style bible references to HTML */
+
+
+/** This filter converts the RWP #Gen 1:1| style bible references to HTML */
 char BT_BASICFILTER::ProcessRWPRefs(char * text, int maxlen){
 	char *to, *from, verse_str[500];
 	int len;
@@ -77,7 +79,7 @@ char BT_BASICFILTER::ProcessRWPRefs(char * text, int maxlen){
 				verse_str[i + 1] = '\0';
 				from++;
 			}
-			strcpy(to,"<a href=sword://Bible/");
+			strcpy(to,"<a href=\"sword://Bible/");
 			to += strlen(to);
 
 			strcpy(to, standard_bible);
@@ -87,6 +89,7 @@ char BT_BASICFILTER::ProcessRWPRefs(char * text, int maxlen){
 
 			strcpy(to, verse_str);
 			to += strlen(to);
+			*to++ = '\"';			
 			*to++ = '>';
 
 			strcpy(to, verse_str);

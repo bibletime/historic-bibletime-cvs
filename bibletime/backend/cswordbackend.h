@@ -148,7 +148,13 @@ public:
   * @param description The description of the desired module
   * @return pointer to the desired module; null if no module has the specified description
   */
-  CSwordModuleInfo* findModuleByDescription(const QString& description);
+  virtual CSwordModuleInfo* findModuleByDescription(const QString& description);
+  /**
+  * This function searches for a module with the specified description
+  * @param description The description of the desired module
+  * @return pointer to the desired module; null if no module has the specified description
+  */
+  static const QString findModuleNameByDescription(const QString& description);
   /**
   * This function searches for a module with the specified name
   * @param description The name of the desired module
@@ -194,6 +200,7 @@ private:
 	SWFilter *m_gbfFilter;
 	SWFilter *m_plainTextFilter;
 	SWFilter *m_thmlFilter;	
+	SWFilter *m_rwpFilter;
 	
 	ListCSwordModuleInfo* m_moduleList;
 	errorCode m_errorCode;

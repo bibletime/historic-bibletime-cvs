@@ -54,7 +54,7 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 		ret += key;
 	ret += QString::fromLatin1("/");
 	
-	qWarning(ret.local8Bit());
+//	qWarning(ret.local8Bit());
 	return ret;
 //	return QString::fromLatin1("sword://%1/%2/%3").arg(module/*.replace("/", "\\/")*/).arg(key/*.replace("/", "\\/")*/);
 }
@@ -109,7 +109,7 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 			preType = IsStrongs;			
 		}
 		//part up to next slash is the testament
-		qWarning("string before testament: %s", ref.latin1());
+//		qWarning("string before testament: %s", ref.latin1());
 		const int pos = ref.find("/");
 		if (pos>0) { //found
 			const QString testament = ref.mid(0,pos); //pos or pos-1 ??
@@ -139,7 +139,7 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 		}
 	}
 
-  qWarning("decodeHyperlink: module %s key %s", module.latin1(), key.latin1());
+//  qWarning("decodeHyperlink: module %s key %s", module.latin1(), key.latin1());
   if (key.isEmpty() && module.isEmpty())
   	return false;
 	return true;
@@ -150,43 +150,72 @@ const QString CReferenceManager::encodeReference(const QString &module, const QS
 }
 
 void CReferenceManager::decodeReference(QString &dragreference, QString &module, QString &reference){
-  if (dragreference.left(8) == "sword://") { //remove sword:// and trailing /
-		dragreference = dragreference.mid(8, dragreference.length()-8);
-  }
-  if (dragreference.right(1) == "/") {
-		dragreference = dragreference.mid(0, dragreference.length()-1);		
-  }
+  const int pos = dragreference.find(")");
+	const QString fallbackModule    = dragreference.mid( 1, pos - 1);
+  dragreference = dragreference.mid(pos+1);
 
-  reference= dragreference.right( dragreference.length() - dragreference.find(")") - 1 );
-  module   = dragreference.mid( 1, dragreference.find(")") - 1);
+//  if (dragreference.right(1) == "/") {
+//		dragreference = dragreference.left(dragreference.length()-1);		
+//  }
+
+//  if (dragreference.left(8) == "sword://") { //remove sword:// and trailing /
+//		dragreference = dragreference.mid(8);
+//  }
+//  else if (dragreference.left(10) == "strongs://") { //remove sword:// and trailing /
+//		dragreference = dragreference.mid(10);
+//  }
+//  else if (dragreference.left(8) == "morph://") { //remove sword:// and trailing /
+//		dragreference = dragreference.mid(8);
+//  }
+
+	Type type;
+//	QString mod;	
+  CReferenceManager::decodeHyperlink(dragreference, module, reference, type);
+  if (module.isEmpty())
+  	module = preferredModule(type);
+  if (module.isEmpty())
+  	module = fallbackModule;
+//  reference = dragreference.right( dragreference.length() - dragreference.find(")") - 1 );
 }
 
 /** Returns true if the parameter is a hyperlink. */
 const bool CReferenceManager::isHyperlink( const QString& hyperlink ){
-	return ( (hyperlink.left(8) == "sword://") && hyperlink.mid(8).contains("/"));
+//	return ( (hyperlink.left(8) == "sword://") && hyperlink.mid(8).contains("/"));
+	return (hyperlink.left(8) == "sword://") || (hyperlink.left(10) == "strongs://") || (hyperlink.left(8) == "morph://");
 }
 
 /** Returns the preferred module name for the given type. */
 const QString CReferenceManager::preferredModule( const CReferenceManager::Type type ){
+	QString description = QString::null;
 	switch (type) {
 		case CReferenceManager::Bible:
-			return CBTConfig::get( CBTConfig::standardBible );
+			description = CBTConfig::get( CBTConfig::standardBible );
+			break;
 		case CReferenceManager::Commentary:
-			return CBTConfig::get( CBTConfig::standardCommentary );
+			description = CBTConfig::get( CBTConfig::standardCommentary );
+			break;			
 		case CReferenceManager::Lexicon:
-			return CBTConfig::get( CBTConfig::standardLexicon );
+			description = CBTConfig::get( CBTConfig::standardLexicon );
+			break;			
 		case CReferenceManager::Morph_OT:
 		case CReferenceManager::Strongs_OT:
-			qWarning("typpe is OT");
-			return CBTConfig::get( CBTConfig::standardHebrewLexicon );
+//			qWarning("typpe is OT");
+			description = CBTConfig::get( CBTConfig::standardHebrewLexicon );
+			break;			
 		case CReferenceManager::Morph_NT:
 		case CReferenceManager::Strongs_NT:
-			qWarning("typpe is NT");		
-			return CBTConfig::get( CBTConfig::standardGreekLexicon );
+//			qWarning("typpe is NT");		
+			description = CBTConfig::get( CBTConfig::standardGreekLexicon );
+			break;			
 		default:
 			qWarning("unknwon type");
-			return QString::null;
+			description = QString::null;
+			break;			
 	}
+	if (!description.isEmpty())
+		return CSwordBackend::findModuleNameByDescription(description);
+	else
+		return QString::null;
 }
 
 /** No descriptions */

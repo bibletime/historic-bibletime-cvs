@@ -21,6 +21,7 @@
 #include "cswordkey.h"
 #include "cswordldkey.h"
 #include "cswordversekey.h"
+#include "creferencemanager.h"
 #include "../frontend/ctoolclass.h"
 #include "../frontend/cbtconfig.h"
 
@@ -72,9 +73,9 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
       .arg((module->encoding() == QFont::Unicode ) ? m_unicodeFontName : m_standardFontName)
 			.arg((module->encoding() == QFont::Unicode ) ? m_unicodeFontSize : m_standardFontSize));
 
-		m_htmlText.append(QString("<font color=\"%1\"><a href=\"sword://%2\">%3: <b>%4</b></a></font><hr>%5")
+		m_htmlText.append(QString("<font color=\"%1\"><a href=\"%2\">%3: <b>%4</b></a></font><hr>%5")
 			.arg(m_highlightedVerseColorName)
- 			.arg(key->key())
+ 			.arg(CReferenceManager::encodeHyperlink(module->name(),key->key(), CReferenceManager::Commentary))
 			.arg(module->getDescription())
 			.arg(key->key())
 			.arg(key->renderedText()));

@@ -25,6 +25,7 @@
 
 #include "bt_thmlhtml.h"
 #include "bt_gbfhtml.h"
+#include "bt_rwphtml.h"
 
 #include <dirent.h>
 #include <unistd.h>
@@ -40,9 +41,12 @@
 #include <filemgr.h>
 #include <utilstr.h>
 
+//static class-wide members
+static QMap<QString, QString> moduleDescriptionMap;
+
 CSwordBackend::CSwordBackend()
 	: SWEncodingMgr(0,0,false,ENC_UTF8), m_errorCode(noError), m_entryDisplay(0), m_chapterDisplay(0), m_moduleList(0),
-	m_gbfFilter(0), m_plainTextFilter(0), m_thmlFilter(0) {
+	m_gbfFilter(0), m_plainTextFilter(0), m_thmlFilter(0), m_rwpFilter(0) {
 }
 
 CSwordBackend::~CSwordBackend(){
@@ -54,6 +58,8 @@ CSwordBackend::~CSwordBackend(){
 		delete m_plainTextFilter;	
 	if (m_thmlFilter)
 		delete m_thmlFilter;	
+	if (m_rwpFilter)
+		delete m_rwpFilter;			
 }
 
 #define CHECK_HTML_CHAPTER_DISLPAY \
@@ -96,6 +102,12 @@ const CSwordBackend::errorCode CSwordBackend::initModules() {
 	}	
 	if (m_moduleList->count() == 0)
 		m_errorCode = noModulesAvailable;
+		
+//module are now available, fill the static lists
+	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
+		moduleDescriptionMap.insert(m_moduleList->current()->getDescription(), m_moduleList->current()->name());
+	}
+
 	return m_errorCode;
 }
 #undef CHECK_HTML_CHAPTER_DISPLAY
@@ -275,6 +287,20 @@ CSwordModuleInfo* CSwordBackend::findModuleByDescription(const QString& descript
       if ( m_moduleList->current()->getDescription() == description )
         return m_moduleList->current();
   return 0;
+}
+
+/** This function searches for a module with the specified description */
+const QString CSwordBackend::findModuleNameByDescription(const QString& description){
+	if (moduleDescriptionMap.contains(description)) {
+		qWarning("findModuleNameByDescription: found!!");
+		return moduleDescriptionMap[description];
+	}
+	qWarning("findModuleNameByDescription: NOT found!!");	
+//  if (m_moduleList && m_moduleList->count())
+//    for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
+//      if ( m_moduleList->current()->getDescription() == description )
+//        return m_moduleList->current();
+  return QString::null;
 }
 
 /** This function searches for a module with the specified name */
