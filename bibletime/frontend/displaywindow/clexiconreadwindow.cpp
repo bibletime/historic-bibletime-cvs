@@ -39,6 +39,7 @@
 #include <ktoolbar.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
+#include <kdeversion.h>
 
 CLexiconReadWindow::CLexiconReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name) : CReadWindow(moduleList, parent,name) {
 	setKey( CSwordKey::createInstance(moduleList.first()) );
@@ -102,9 +103,9 @@ void CLexiconReadWindow::initView(){
   );
   action->setToolTip( CResMgr::displaywindows::general::search::tooltip );
   action->setWhatsThis( CResMgr::displaywindows::general::search::whatsthis );
-//   #if KDE_VERSION_MINOR < 1
-//     action->plugAccel( accel() );
-//   #endif
+#if KDE_VERSION_MINOR < 1
+	action->plugAccel( accel() );
+#endif
 
 	action->plug(mainToolBar());
 	

@@ -34,6 +34,7 @@
 //KDE includes
 #include <kaction.h>
 #include <klocale.h>
+#include <kdeversion.h>
 
 CBookReadWindow::CBookReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name) : CLexiconReadWindow(modules, parent, name){
 }
@@ -107,6 +108,19 @@ void CBookReadWindow::initView(){
   splitter->setResizeMode(m_treeChooser, QSplitter::FollowSizeHint);
   setCentralWidget( splitter );
 	setIcon(CToolClass::getIconForModule(modules().first()));
+	
+  KAction* action = new KAction(i18n("Search"),
+    CResMgr::displaywindows::general::search::icon,
+    CResMgr::displaywindows::general::search::accel,
+    this, SLOT(slotSearchInModules()), actionCollection(),
+    CResMgr::displaywindows::general::search::actionName
+  );
+  action->setToolTip( CResMgr::displaywindows::general::search::tooltip );
+  action->setWhatsThis( CResMgr::displaywindows::general::search::whatsthis );
+	action->plug(mainToolBar());
+#if KDE_VERSION_MINOR < 1
+	action->plugAccel( accel() );
+#endif
 }
 
 /** Is called when the action was executed to toggle the tree view. */
