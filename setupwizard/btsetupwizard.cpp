@@ -29,6 +29,7 @@
 #include <qlistview.h>
 #include <qfileinfo.h>
 #include <qwidgetstack.h>
+#include <qcombobox.h>
 
 //KDE includes
 #include <kiconloader.h>
@@ -59,6 +60,7 @@ BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(p
   setCentralWidget(main);
   
 	addMainPage();
+	addInstall_1Page();
 	addRemovePage();
 
 	slot_backtoMainPage();  
@@ -87,7 +89,7 @@ void BTSetupWizard::addMainPage(void){
 	layout->addColSpacing(1,10);
 	layout->setColStretch(2,1);
 
-  QButton* installButton = new QPushButton(m_mainPage);
+  QPushButton* installButton = new QPushButton(m_mainPage);
 	installButton->setPixmap( BarIcon("connect_creating", KIcon::SizeMedium) );
 	layout->addWidget(installButton, 1, 0, Qt::AlignCenter);
 
@@ -96,7 +98,7 @@ void BTSetupWizard::addMainPage(void){
 		"asdf aösdljkfha sdfjha sdkfjhasd lkfjhasd lfkjhasldk fj") ;
 	layout->addWidget(installLabel, 1, 2);
 
-  QButton* removeButton = new QPushButton(m_mainPage);
+  QPushButton* removeButton = new QPushButton(m_mainPage);
 	removeButton->setPixmap( BarIcon("editdelete", KIcon::SizeMedium));
 	layout->addWidget(removeButton, 2, 0, Qt::AlignCenter);
 
@@ -105,7 +107,7 @@ void BTSetupWizard::addMainPage(void){
 		"asdkfjh asdfkjhadsjkfa galkdfj haösdlfkjasdölfkjas dfaölskdjf öa");
 	layout->addWidget(removeLabel, 2, 2);
 
-  QButton* exportButton = new QPushButton(m_mainPage);
+  QPushButton* exportButton = new QPushButton(m_mainPage);
 	exportButton->setEnabled(false);
 	exportButton->setPixmap( BarIcon("fileexport", KIcon::SizeMedium));
 	layout->addWidget(exportButton, 3, 0, Qt::AlignCenter);
@@ -115,7 +117,7 @@ void BTSetupWizard::addMainPage(void){
 		"not available yet");
 	layout->addWidget(exportLabel, 3, 2);
 
-  QButton* importButton = new QPushButton(m_mainPage);
+  QPushButton* importButton = new QPushButton(m_mainPage);
 	importButton->setEnabled(false);
 	importButton->setPixmap( BarIcon("fileimport", KIcon::SizeMedium ));
 	layout->addWidget(importButton, 4, 0, Qt::AlignCenter);
@@ -125,7 +127,7 @@ void BTSetupWizard::addMainPage(void){
 		"not available yet");
 	layout->addWidget(importLabel, 4, 2);
 
-  QButton* exitButton = new QPushButton(m_mainPage);
+  QPushButton* exitButton = new QPushButton(m_mainPage);
 	exitButton->setPixmap( BarIcon("exit", KIcon::SizeMedium));
 	layout->addWidget(exitButton, 5, 0, Qt::AlignCenter);
 
@@ -136,17 +138,57 @@ void BTSetupWizard::addMainPage(void){
  	m_startBibleTimeBox->setChecked( args->isSet("start-bibletime") );
   layout->addWidget(m_startBibleTimeBox, 5, 2);
 
-	connect(exitButton, SIGNAL(clicked()), this, SLOT(slot_exitRequested()));
+	connect(installButton, SIGNAL(clicked()), this, SLOT(slot_gotoInstall_1Page()));
 	connect(removeButton, SIGNAL(clicked()), this, SLOT(slot_gotoRemovePage()));
+	connect(exitButton, SIGNAL(clicked()), this, SLOT(slot_exitRequested()));
 }
 
 /** No descriptions */
-void BTSetupWizard::slot_exitRequested(){
-	if (m_startBibleTimeBox->isChecked())
-		KApplication::kApplication()->startServiceByDesktopName("konqueror");
-	KApplication::kApplication()->quit();    
-}
+void BTSetupWizard::addInstall_1Page(){
+  m_install_1Page = new QWidget(0);
+	m_widgetStack->addWidget(m_install_1Page);
 
+	m_mainPage->setMinimumSize(500,400);
+
+	QGridLayout* layout = new QGridLayout(m_install_1Page, 8, 2);
+	layout->setMargin(5);
+	layout->setSpacing(10);
+	layout->setRowStretch(6,5);
+
+	QLabel* installLabel = CToolClass::explanationLabel(m_install_1Page,
+		"Install/update modules - Step 1",
+		"asdf aösdljkfha sdfjha sdkfjhasd lkfjhasd lfkjhasldk fj") ;
+	layout->addMultiCellWidget(installLabel, 0,0,0,1);
+
+	QLabel* sourceHeadingLabel = new QLabel("<b>Select source location</b>",m_install_1Page);
+	layout->addMultiCellWidget(sourceHeadingLabel, 1,1,0,1);
+
+	QComboBox* sourceCombo = new QComboBox(m_install_1Page);
+	layout->addWidget(sourceCombo, 2, 0);
+
+	QPushButton* maintainSourcesButton = new QPushButton(m_install_1Page);
+	maintainSourcesButton->setText("Maintain");
+	layout->addWidget(maintainSourcesButton, 2, 1, Qt::AlignLeft);
+
+	m_installSourceLabel = new QLabel("ftp://crosswire.org/pub/sword",m_install_1Page);
+	layout->addMultiCellWidget(m_installSourceLabel, 3,3,0,1);
+
+	QLabel* targetHeadingLabel = new QLabel("<b>Select target location</b>",m_install_1Page);
+	layout->addMultiCellWidget(targetHeadingLabel, 4,4,0,1);
+
+	QComboBox* targetCombo = new QComboBox(m_install_1Page);
+	layout->addWidget(targetCombo, 5, 0);
+
+  QPushButton* backButton = new QPushButton(m_install_1Page);
+	backButton->setText( "Back");
+	layout->addWidget(backButton, 7, 0, Qt::AlignLeft);
+
+  QPushButton* continueButton = new QPushButton(m_install_1Page);
+	continueButton->setText( "Connect to source");
+	layout->addWidget(continueButton, 7, 1, Qt::AlignRight);
+
+	connect(backButton, SIGNAL(clicked()), this, SLOT(slot_backtoMainPage()));
+}
 
 /** No descriptions */
 void BTSetupWizard::addRemovePage(){
@@ -204,6 +246,8 @@ void BTSetupWizard::populateRemoveModuleListView(){
 	}
 	m_backend = new CSwordBackend();
 	m_backend->initModules();
+
+	m_removeModuleListView->clear();
 
 	QListViewItem* categoryBible = new QListViewItem(m_removeModuleListView, "Bibles");
 	QListViewItem* categoryCommentary = new QListViewItem(m_removeModuleListView, "Commentaries");
@@ -281,6 +325,7 @@ void BTSetupWizard::slot_doRemoveModules(){
 // Perform actual removal here.
 //
 	}
+	slot_gotoRemovePage();
 }
 
 /** No descriptions */
@@ -290,8 +335,21 @@ void BTSetupWizard::slot_backtoMainPage(){
 }
 
 /** No descriptions */
+void BTSetupWizard::slot_gotoInstall_1Page(){
+  m_widgetStack->raiseWidget(m_install_1Page);
+  m_install_1Page->show();
+}
+/** No descriptions */
 void BTSetupWizard::slot_gotoRemovePage(){
   m_widgetStack->raiseWidget(m_removePage);
   m_removePage->show();
 	populateRemoveModuleListView();
 }
+
+/** No descriptions */
+void BTSetupWizard::slot_exitRequested(){
+	if (m_startBibleTimeBox->isChecked())
+		KApplication::kApplication()->startServiceByDesktopName("konqueror");
+	KApplication::kApplication()->quit();
+}
+

@@ -44,10 +44,14 @@ private: // Private methods
   void addRemovePage();
   /** No descriptions */
   void populateRemoveModuleListView();
+  /** No descriptions */
+  void addInstall_1Page();
 
 	QWidgetStack* m_widgetStack;
 
 	QCheckBox* m_startBibleTimeBox;
+
+	QLabel* m_installSourceLabel;
 
 	QListView* m_removeModuleListView;
 	QLabel* m_populateListNotification;
@@ -57,12 +61,15 @@ private: // Private methods
 	CSwordBackend* m_backend;
 
 	QWidget* m_mainPage;
+	QWidget* m_install_1Page;
 	QWidget* m_removePage;
 
 private slots: // Private slots
   void slot_exitRequested();
   /** No descriptions */
   void slot_backtoMainPage();
+  /** No descriptions */
+  void slot_gotoInstall_1Page();
   /** No descriptions */
   void slot_gotoRemovePage();
   /** No descriptions */
