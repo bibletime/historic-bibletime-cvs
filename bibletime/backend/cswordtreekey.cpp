@@ -52,12 +52,15 @@ void CSwordTreeKey::key( const char* newKey ){
 	}
 }
 
-CSwordModuleInfo* const CSwordTreeKey::module( CSwordModuleInfo* const newModule ){
-	if (newModule && newModule != m_module && newModule->type() == CSwordModuleInfo::GenericBook ) {
-		CSwordBookModuleInfo* bookModule = dynamic_cast<CSwordBookModuleInfo*>(newModule);
+CSwordModuleInfo* const CSwordTreeKey::module( CSwordModuleInfo* const newModule ) {
+	if (newModule && (newModule != m_module) && (newModule->type() == CSwordModuleInfo::GenericBook) ) {
 		m_module = newModule;
-		copyFrom(*(bookModule->tree()));
-		root();
+
+		const QString oldKey = key();
+		CSwordBookModuleInfo* newBook = dynamic_cast<CSwordBookModuleInfo*>(newModule);
+		copyFrom(*(newBook->tree()));
+
+		key(oldKey); //try to restore our old key
 	}
 	return m_module;
 }

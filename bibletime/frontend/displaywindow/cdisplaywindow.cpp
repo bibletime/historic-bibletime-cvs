@@ -153,7 +153,7 @@ void CDisplayWindow::polish(){
 /** Refresh the settings of this window. */
 void CDisplayWindow::reload() {
   //first make sure all used Sword modules are still present
-  for (QStringList::iterator it = m_modules.begin(); it != m_modules.end(); ++it) {
+  for (QStringList::iterator it = m_modules.begin(); it != m_modules.end(); ++it){
     if (!backend()->findModuleByName(*it)) {
       it = m_modules.remove(it);
       if (it == m_modules.end()) {
@@ -232,7 +232,7 @@ void CDisplayWindow::modulesChanged(){
 		setModules( m_moduleChooserBar->getModuleList() );
 	}
 
-  if (!modules().count()) {
+	if (!modules().count()) {
   	close();
   }
   else {
@@ -241,6 +241,7 @@ void CDisplayWindow::modulesChanged(){
 		}
 	  key()->module(modules().first());
 	  keyChooser()->setModules(modules());
+
 	  lookup(key());
 	}
 }

@@ -43,9 +43,9 @@ CBookReadWindow::~CBookReadWindow(){
 
 void CBookReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
   CLexiconReadWindow::applyProfileSettings(profileWindow);
-  const bool enable = static_cast<bool>( profileWindow->windowSettings() );
-//	m_treeAction->setChecked( enable );
-  if (enable) {
+
+	const bool enable = static_cast<bool>( profileWindow->windowSettings() );
+	if (enable) {
     m_treeAction->activate();
   }
 };
@@ -67,7 +67,6 @@ void CBookReadWindow::insertKeyboardActions( KAccel* /*a*/ ){
 
 /** No descriptions */
 void CBookReadWindow::initConnections(){
-//	qWarning("CBookReadWindow::initView()");
 	CLexiconReadWindow::initConnections();
  	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));

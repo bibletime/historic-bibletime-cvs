@@ -430,17 +430,22 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   // the number of levels which should be display together, 1 means display no entries together
   int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
 
-  util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
+  util::scoped_ptr<CSwordTreeKey> key(
+		dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) )
+	);
   key->key(keyName); //set the key to position we'd like to get
 
   // standard of DisplayLevel, display nothing together
   // if the current key is the root entry don't display anything together!
-  if (displayLevel <= 1 || (key->key().isEmpty() || (key->key() == "/") )) {
-    return finishText( entryText(modules, key), modules, keyName );
+  if ((displayLevel <= 1) || (key->key().isEmpty() || (key->key() == "/") )) {
+		QString ret = finishText(entryText(modules, key) , modules, keyName );
+  	key->key(keyName); //restore before we return so make sure it doesn't break anything
+    return ret;
   };
 
   /**
-  * Check whether displaying displayLevel levels together is possible. For this count the childs and parents
+  * Check whether displaying displayLevel levels together is possible.
+	* For this count the childs and parents
   * of the required position
   */
 
@@ -478,8 +483,8 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   m_chosenKey = keyName;
 
   printTree(key, modules, hasToplevelText); //if the top level entry has text ident the other text
-  
-	key->key(keyName);
+
+	key->key(keyName); //restore key
   return finishText(m_text, modules, keyName);
 }
 
@@ -491,6 +496,7 @@ const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, CSwor
   * creating copies of the key object takes too long
   */
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
+	Q_ASSERT( book );
 
   const QFont font = CBTConfig::get(book->language()).second;
   const QString& keyName = key->getFullName();
@@ -510,10 +516,10 @@ void CBookDisplay::printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModule
   // make sure we don't change the value of the key!
 
   //static for performance reasons, static is faster because the
-  //initialization isn't executed more than one time  
+  //initialization isn't executed more than one time
   static QString fullKeyName;
   fullKeyName = treeKey->getFullName();
-  
+
   m_text += entryText(modules, treeKey, levelPos, (m_chosenKey == fullKeyName));
 
   if (treeKey->hasChildren()) { //print tree for the child items
@@ -528,9 +534,11 @@ void CBookDisplay::printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModule
   }
 }
 
-const QString CBookDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName){
+const QString CBookDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName) {
  	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
-  util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
+  util::scoped_ptr<CSwordTreeKey> key(
+		dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) )
+	);
   key->key(keyName);
 
   QString css = "table.maintable {width:100%;} td.tableheading {border-bottom: thin solid black;}";
@@ -546,12 +554,13 @@ const QString CBookDisplay::finishText( const QString text, QPtrList <CSwordModu
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key->module(m);
     const QString newKeyName = !key->key().isEmpty() ? key->key() : "/";
+
     pageStart += QString::fromLatin1("<td class=\"tableheading\" width=\"%1%\"><center><b>%2</b> %3</center></td>")
       .arg(columnWidth)
       .arg(m->name())
       .arg(!newKeyName.isEmpty() ? QString::fromLatin1("(%1)").arg(htmlReference(m, newKeyName, newKeyName, QString::null)) : QString::null);
   }
-  pageStart += QString::fromLatin1("</TR>");
+	pageStart += QString::fromLatin1("</tr>");
 
   const QString pageEnd = QString::fromLatin1("</table></body></html>");
 
