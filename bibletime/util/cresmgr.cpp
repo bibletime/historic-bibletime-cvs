@@ -726,52 +726,6 @@ namespace CResMgr {
           QString whatsthis;
         };
       };
-      namespace filters {
-        namespace lineBreaks {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace verseNumbers {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace footnotes {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace strongsNumbers {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace morphTags {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace headings {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace lemmas {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace hebrewVowelPoints {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace hebrewCantillation {
-           QString tooltip;
-          QString whatsthis;
-        };
-        namespace greekAccents {
-          QString tooltip;
-          QString whatsthis;
-        };
-        namespace textualVariants {
-          QString tooltip;
-          QString whatsthis;
-        };
-      };
     };
     namespace keys {
       const QString icon = "key_bindings";
@@ -1416,64 +1370,6 @@ namespace CResMgr {
             using namespace greekMorph;
             tooltip   = makeToolTip( i18n("The standard Morphological lexicon for Greek texts") );
             whatsthis = makeWhatsThis( tooltip, i18n("The standard morphological lexicon for Greek texts is used when a hyperlink of a morphological tag in a Greek text is clicked."));
-          };
-        };
-        {
-          using namespace filters;
-          {
-            using namespace lineBreaks;
-            tooltip   = makeToolTip( i18n("Line breaks") );
-            whatsthis = makeWhatsThis( tooltip, i18n("Insert line breaks after each verse."));
-          };
-          {
-            using namespace verseNumbers;
-            tooltip   = makeToolTip( i18n("Verse numbers") );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show the verse number before each verse in Bibles."));
-          };
-          {
-            using namespace footnotes;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::footnotes) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show footnotes embedded in the work's text."));
-          };
-          {
-            using namespace strongsNumbers;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::strongNumbers) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show Strong's Numbers embedded in the text of works which support this feature."));
-          };
-          {
-            using namespace morphTags;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::morphTags) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show tags providing morphological information in the text of works which support this feature."));
-          };
-          {
-            using namespace headings;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::headings) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show section headings in the text in the text of works which support this feature."));
-          };
-          {
-            using namespace lemmas;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::lemmas) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show root words."));
-          };
-          {
-            using namespace hebrewVowelPoints;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::hebrewPoints) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show hebrew vowel points in the text."));
-          };
-          {
-            using namespace hebrewCantillation;
-            tooltip  = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::hebrewCantillation) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show hebrew cantillation marks in the text."));
-          };
-          {
-            using namespace greekAccents;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::greekAccents) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Show greek accents in the text."));
-          };
-          {
-            using namespace textualVariants;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::textualVariants) );
-            whatsthis = makeWhatsThis( tooltip, i18n("Use different variants from the textual sources."));
           };
         };
       };

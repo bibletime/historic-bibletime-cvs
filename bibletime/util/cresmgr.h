@@ -695,52 +695,6 @@ namespace CResMgr {
           extern QString whatsthis;
         };
       };
-      namespace filters {
-        namespace lineBreaks {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace verseNumbers {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace footnotes {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace strongsNumbers {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace morphTags {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace headings {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace lemmas {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace hebrewVowelPoints {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace hebrewCantillation {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace greekAccents {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-        namespace textualVariants {
-          extern QString tooltip;
-          extern QString whatsthis;
-        };
-      };
     };
     namespace keys {
       extern const QString icon;
