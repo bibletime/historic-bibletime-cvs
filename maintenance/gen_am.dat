@@ -2,26 +2,30 @@
 #
 # gen_am.dat script
 #
-# (C) 2001 The BibleTime team
+# (C) 2001-2003 The BibleTime team
 # released under the GPL
 #
 # This script contains some basic variables for the
-# bibletime-i18n-?? Makefile system generation
-
-export VERSION=1.3
+# bibletime-i18n Makefile system generation by gen_am.sh
 
 # These variables identify which language's directories
 # are to be included in the Makefile structure.
-#
 # If you want to exclude a language, just delete it
 # from the following variables.
 
+# WARNING: for a release, only include the languages that are ready to go!!
 
-#export FOREIGN_PO_LANGUAGES="cs da de es fi fr hu it nl no pl sk"
+# RELEASE:
+#export FOREIGN_PO_LANGUAGES="de"
+# WORK:
 export FOREIGN_PO_LANGUAGES="bg cs de es fr it nl no ro sk"
 
-#export FOREIGN_DOC_LANGUAGES="cs da de es fi fr hu it nl no pl sk"
+# RELEASE:
+#export FOREIGN_DOC_LANGUAGES="de"
+# WORK:
 export FOREIGN_DOC_LANGUAGES="de fr"
+
+
 
 # This variable identifies which parts of the documentation
 # are in use. You should not need to change this unless you 
