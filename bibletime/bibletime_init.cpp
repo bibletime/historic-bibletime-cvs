@@ -291,16 +291,6 @@ void BibleTime::initActions() {
   action->setWhatsThis( CResMgr::mainMenu::help::handbook::whatsthis  );
   action->plugAccel( m_keyAccel );
 
-//	action = new KAction(i18n("&Installation"),
-//    CResMgr::mainMenu::help::installation::icon,
-//    CResMgr::mainMenu::help::installation::accel,
-//    this, SLOT(openOnlineHelp_Install()), actionCollection(),
-//    CResMgr::mainMenu::help::installation::actionName
-//  );
-//  action->setToolTip( CResMgr::mainMenu::help::installation::tooltip );
-//  action->setWhatsThis( CResMgr::mainMenu::help::installation::whatsthis  );
-//	action->plugAccel( m_keyAccel );
-
 	action = new KAction(i18n("&Bible Study Howto"),
     CResMgr::mainMenu::help::bibleStudyHowTo::icon,
     CResMgr::mainMenu::help::bibleStudyHowTo::accel,

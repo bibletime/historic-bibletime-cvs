@@ -130,7 +130,7 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 
 		case tips: 								return true;
 		case logo: 								return true;
-		case restoreWorkspace: 		return false;
+		case restoreWorkspace: 		return true;
 		case crashedLastTime: 		return false;
 		case crashedTwoTimes: 		return false;    
 	}
