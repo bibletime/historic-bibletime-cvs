@@ -26,6 +26,7 @@
 #include "../ctoolclass.h"
 
 //QT includes
+#include <qdatetime.h>
 #include <qlist.h>
 #include <qpicture.h>
 #include <qpainter.h>
@@ -93,6 +94,11 @@ void CSearchDialogAnalysis::analyse(){
 	*/
 	QApplication::setOverrideCursor(Qt::waitCursor);
 
+//temporary stuff
+  unsigned long int loops = 0;
+  QTime time = QTime::currentTime();
+	
+	
 	const unsigned int numberOfModules = m_moduleList->count();
 	unsigned int moduleIndex = 0;
 	
@@ -149,11 +155,11 @@ void CSearchDialogAnalysis::analyse(){
 		oldBook = currentBook;
 		currentBook = testKey.getBook();
 	} while (currentBook != oldBook);
- 	currentBook = oldBook = QString::null;
-	
+ 	
+ 	currentBook = oldBook = QString::null;	
+	qWarning(QString("The initialization took from %1 until %2").arg(time.toString()).arg(QTime::currentTime().toString()).local8Bit());	
 	//now do the real analysis
-	for (moduleIndex=0,currentModule = m_moduleList->first();currentModule;currentModule=m_moduleList->next(),moduleIndex++)
-  {
+	for (moduleIndex=0,currentModule = m_moduleList->first();currentModule;currentModule=m_moduleList->next(),++moduleIndex) {		
 		currentSearchResult = currentModule->getSearchResult();
 		if (!currentSearchResult.Count())
 			continue;
@@ -163,10 +169,12 @@ void CSearchDialogAnalysis::analyse(){
 		itemsIndex = 0;
 		itemsCount = 0;		
 		CSwordVerseKey currentKey(currentModule);						
+		
 		while (itemsIndex < currentSearchResult.Count()) {
 			KApplication::kApplication()->processEvents(10);
+			++loops;
 			
-			currentKey.setKey( QString::fromLocal8Bit((const char*)*currentSearchResult.GetElement(itemsIndex)) );
+			currentKey.setKey(QString::fromLocal8Bit((const char*)*currentSearchResult.GetElement(itemsIndex)));
 			oldBook = currentBook;
 			currentBook = currentKey.getBook();
 			
@@ -174,7 +182,6 @@ void CSearchDialogAnalysis::analyse(){
 				analysisItem = m_canvasItemList->find(oldBook);
 				if (analysisItem) {
 					analysisItem->setCountForModule(moduleIndex, itemsCount);
-//          qDebug(QString("ITEMSCOUNT %1").arg(itemsCount).local8Bit());
 					m_maxCount = (itemsCount > m_maxCount) ? itemsCount : m_maxCount;
 					itemsCount = 0;
 				}
@@ -189,10 +196,13 @@ void CSearchDialogAnalysis::analyse(){
 			analysisItem = m_canvasItemList->find(oldBook);
 			if (analysisItem) {
 				analysisItem->setCountForModule(moduleIndex, itemsCount);		
-//        qDebug(QString("ITEMSCOUNT %1").arg(itemsCount).local8Bit());
 				m_maxCount = (itemsCount > m_maxCount) ? itemsCount : m_maxCount;				
 			} //if
 		}	// if		
+		qWarning(QString("%1 loops").arg(loops).local8Bit());
+		QTime t = QTime::currentTime();
+		qWarning(time.toString().local8Bit());
+		qWarning(t.toString().local8Bit());
 	} // for
 
 	scaleFactor = (double)( (double)(height()-UPPER_BORDER-LOWER_BORDER-BAR_LOWER_BORDER-(numberOfModules-1)*BAR_DELTAY)
@@ -221,6 +231,8 @@ void CSearchDialogAnalysis::analyse(){
 	resize( xPos+m_canvasItemList->find(vk.getBook())->width()+RIGHT_BORDER, height() );
 	update();
 	QApplication::restoreOverrideCursor();	
+	
+	qWarning(QString("The whole analysis was done from %1 until %2").arg(time.toString()).arg(QTime::currentTime().toString()).local8Bit());
 }
 
 /** Sets te module list used for the analysis. */

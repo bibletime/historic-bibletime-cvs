@@ -48,7 +48,8 @@ bool CSwordVerseKey::setKey( QString key ){
 	error = false;
 	
 	VerseKey::operator = ((const char*)key.local8Bit());	
-	m_module->module()->SetKey(*this->clone());
+//	m_module->module()->SetKey(*this->clone());
+	
 	//clear data
 	m_data = QString::null;
 	
