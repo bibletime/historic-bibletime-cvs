@@ -40,7 +40,9 @@ for I1 in `ls -d [a-z][a-z]`; do
   ( # output to Makefile.am  
   echo -e $HEADER
 
-  echo -n "SUBDIRS = "
+  if test -d $I1/HTML || test -d $I1/docbook/XML; then
+    echo -n "SUBDIRS = "
+  fi
   if test -d $I1/HTML; then
     echo -n " HTML "
   fi

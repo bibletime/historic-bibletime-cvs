@@ -115,6 +115,7 @@ bibletime/docs/it/Makefile \
 bibletime/docs/it/HTML/Makefile \
 bibletime/docs/it/docbook_XML/Makefile \
 bibletime/docs/nl/Makefile \
+bibletime/docs/no/Makefile \
 bibletime/docs/sk/Makefile \
 bibletime/docs/sk/HTML/Makefile \
 bibletime/docs/sk/docbook_XML/Makefile \
