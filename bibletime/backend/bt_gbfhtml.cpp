@@ -104,7 +104,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	QString result;
 	
 	QString t = QString::fromUtf8(buf.c_str());
-	QRegExp tag("(<W[HGT][^>]+>\\s*)+");
+	QRegExp tag("([.,;]?<W[HGT][^>]+>\\s*)+");
 	
 	QStringList list;
 	int lastMatchEnd = 0;

@@ -69,7 +69,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 	QString result;
 	
 	QString t = QString::fromUtf8(buf.c_str());
-	QRegExp tag("(<sync[^>]+(type|value)=\"([^\"]+)\"[^>]+(type|value)=\"([^\"]+)\"([^<]*)>)+");
+	QRegExp tag("([.,;]?<sync[^>]+(type|value)=\"([^\"]+)\"[^>]+(type|value)=\"([^\"]+)\"([^<]*)>)+");
 	
 	QStringList list;
 	int lastMatchEnd = 0;
