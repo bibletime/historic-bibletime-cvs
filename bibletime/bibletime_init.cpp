@@ -254,23 +254,36 @@ void BibleTime::initActions() {
 		loadPopup->insertItem(p->name());
 	}
 	
-	if ( actionCollection()->action("help_contents") )	 //delete help action if KDE created it
-		actionCollection()->remove(actionCollection()->action("help_contents"));
+	if ( actionCollection()->action( KStdAction::stdName(KStdAction::HelpContents) )) {	 //delete help action if KDE created it
+		actionCollection()->remove(actionCollection()->action(KStdAction::stdName(KStdAction::HelpContents)) );
+  }
 		
-	action = new KAction(i18n("&Handbook"), ICON_HELP_CONTENTS, 0, this,
-		SLOT(openOnlineHelp_Handbook()), actionCollection(), "help_handbook");
+	action = new KAction(i18n("&Handbook"),
+    CHelpMgr::mainMenu::help::handbook::icon,
+    CHelpMgr::mainMenu::help::handbook::accel,
+    this, SLOT(openOnlineHelp_Handbook()), actionCollection(),
+    CHelpMgr::mainMenu::help::handbook::actionName
+  );
   action->setToolTip( CHelpMgr::mainMenu::help::handbook::tooltip );
   action->setWhatsThis( CHelpMgr::mainMenu::help::handbook::whatsthis  );
 	action->plugAccel( m_keyAccel );
 
-	action = new KAction(i18n("&Installation"), ICON_HELP_CONTENTS, 0, this,
-		SLOT(openOnlineHelp_Install()), actionCollection(), "help_install");
+	action = new KAction(i18n("&Installation"),
+    CHelpMgr::mainMenu::help::installation::icon,
+    CHelpMgr::mainMenu::help::installation::accel,
+    this, SLOT(openOnlineHelp_Install()), actionCollection(),
+    CHelpMgr::mainMenu::help::installation::actionName
+  );
   action->setToolTip( CHelpMgr::mainMenu::help::installation::tooltip );
   action->setWhatsThis( CHelpMgr::mainMenu::help::installation::whatsthis  );
 	action->plugAccel( m_keyAccel );
 
-	action = new KAction(i18n("&Bible Study Howto"), ICON_HELP_CONTENTS, 0, this,
-		SLOT(openOnlineHelp_Howto()), actionCollection(), "help_howto");
+	action = new KAction(i18n("&Bible Study Howto"),
+    CHelpMgr::mainMenu::help::bibleStudyHowTo::icon,
+    CHelpMgr::mainMenu::help::bibleStudyHowTo::accel,
+    this, SLOT(openOnlineHelp_Howto()), actionCollection(),
+    CHelpMgr::mainMenu::help::bibleStudyHowTo::actionName
+  );
   action->setToolTip( CHelpMgr::mainMenu::help::bibleStudyHowTo::tooltip );
   action->setWhatsThis( CHelpMgr::mainMenu::help::bibleStudyHowTo::whatsthis  );
 	action->plugAccel( m_keyAccel );
@@ -282,10 +295,14 @@ void BibleTime::initActions() {
 	action = KStdAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());	
 	action->setToolTip(CHelpMgr::mainMenu::help::bugreport::tooltip);
 	action->setWhatsThis(CHelpMgr::mainMenu::help::bugreport::whatsthis);
-	action->setIcon(ICON_BUG_REPORT);
+//	action->setIcon(ICON_BUG_REPORT);
 	
-	action = new KAction(i18n("&Daily tip"), ICON_HELP_DAILY_TIP, IDK_HELP_DAILY_TIP, this,
-		SLOT(slotHelpTipOfDay()), actionCollection(), "helpDailyTip_action");
+	action = new KAction(i18n("&Daily tip"),
+    CHelpMgr::mainMenu::help::dailyTip::icon,
+    CHelpMgr::mainMenu::help::dailyTip::accel,
+    this, SLOT(slotHelpTipOfDay()), actionCollection(),
+    CHelpMgr::mainMenu::help::dailyTip::actionName
+  );
 	action->setToolTip(CHelpMgr::mainMenu::help::dailyTip::tooltip);
 	action->setWhatsThis(CHelpMgr::mainMenu::help::dailyTip::whatsthis);	
 
@@ -294,8 +311,8 @@ void BibleTime::initActions() {
 	action->setWhatsThis(CHelpMgr::mainMenu::help::aboutBibleTime::whatsthis);	
 	
 	//delete About KDE action if KDE created it already
-	if ( actionCollection()->action("help_about_kde") )	 //delete About KDE action if KDE created it
-		actionCollection()->remove(actionCollection()->action("help_about_kde"));	
+	if ( actionCollection()->action( KStdAction::stdName( KStdAction::AboutKDE ) ) )	 //delete About KDE action if KDE created it
+		actionCollection()->remove(actionCollection()->action(KStdAction::stdName( KStdAction::AboutKDE )));
 	action = KStdAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());	
 	action->setToolTip(CHelpMgr::mainMenu::help::aboutKDE::tooltip);
 	action->setWhatsThis(CHelpMgr::mainMenu::help::aboutKDE::whatsthis);

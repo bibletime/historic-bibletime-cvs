@@ -1,4 +1,4 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="14">
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="15">
 <MenuBar>
  <Menu name="file" noMerge="1"><text>&amp;File</text>
   <Action name="fileClearQueue_action"/>
@@ -31,9 +31,9 @@
   <Separator/>
  </Menu>	
  <Menu name="help" noMerge="1"><Text>&amp;Help</Text>
-  <Action name="help_handbook"/>
-  <Action name="help_install"/>
-  <Action name="help_howto"/>
+  <Action name="helpHandbook_action"/>
+  <Action name="helpInstallation_action"/>
+  <Action name="helpHowTo_action"/>
   <Separator/>
   <Action name="help_whats_this"/>
   <Action name="help_report_bug"/>

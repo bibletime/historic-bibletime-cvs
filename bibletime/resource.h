@@ -88,7 +88,7 @@
 //#define IDK_WINDOW_EDIT_PROFILES  0
 //#define IDK_WINDOW_FULLSCREEN		0
 
-#define IDK_HELP_DAILY_TIP				0
+//#define IDK_HELP_DAILY_TIP				0
 
 /* The Bibletime Sub-Mimetypes */
 /* e.g. bible/reference is expanded to text/bible/reference,
@@ -143,9 +143,9 @@
 //#define ICON_WINDOW_EDIT_PROFILES		"view_sidetree"
 //#define ICON_WINDOW_FULLSCREEN			"window_fullscreen"
 
-#define ICON_HELP_DAILY_TIP				"idea"
-#define ICON_HELP_CONTENTS				"contents"
-#define ICON_BUG_REPORT					"configure"
+//#define ICON_HELP_DAILY_TIP				"idea"
+//#define ICON_HELP_CONTENTS				"contents"
+//#define ICON_BUG_REPORT					"configure"
 
 #define ICON_SYNC						"bt_sync"
 

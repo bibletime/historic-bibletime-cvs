@@ -101,7 +101,7 @@ namespace CHelpMgr {
         const KShortcut accel     = Qt::CTRL + Qt::Key_A;
         const char* actionName    = "windowEditProfiles_action";
       }
-      namespace showFullscreen {  //a standard action
+      namespace showFullscreen {
         const QString tooltip     = makeToolTip(i18n("Toggle fullscreen mode"));
         const QString whatsthis   = makeWhatsThis(tooltip,i18n("Toggle fullscreen mode"));
         const QString icon        = "window_fullscreen";
@@ -146,11 +146,11 @@ namespace CHelpMgr {
     }
 
     namespace settings { //Main menu->Settings
-      namespace editToolBar {
+      namespace editToolBar { // available as KStdAction
         const QString tooltip     = makeToolTip(i18n("Edit toolbar"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open the BibleTime tool bar editor."));
       }
-      namespace optionsDialog {
+      namespace optionsDialog { // available as KStdAction
         const QString tooltip     = makeToolTip(i18n("Options"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open BibleTime's optionsdialog where you can set most of the preferences."));
       };
@@ -160,53 +160,153 @@ namespace CHelpMgr {
       namespace handbook {
         const QString tooltip     = makeToolTip(i18n("BibleTime's handbook"));
         const QString whatsthis   = makeWhatsThis(tooltip,i18n("Open KDE's helpbrowser with BibleTime's handbook.<BR>The handbook explains how to use BibleTime in the best way."));
+        const QString icon        = "contents";
+        const KShortcut accel     = KShortcut();
+        const char* actionName    = "helpHandbook_action";
       };
       namespace installation {
         const QString tooltip     = makeToolTip(i18n("BibleTime's installation documentation"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open KDE's helpbrowser with BibleTime's installation instructions.<BR>The installation instructions explain how to set up BibleTime and the text modules."));
+        const QString icon        = "contents";
+        const KShortcut accel     = KShortcut();
+        const char* actionName    = "helpInstallation_action";
       };
       namespace bibleStudyHowTo {
         const QString tooltip     = makeToolTip(i18n("BibleTime's Bible study HowTo"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Open KDE's helpbrowser with the Bible study HowTo included with BibleTime.<BR>This HowTo is an introduction how to study the Bible in an efficient way."));
+        const QString icon        = "contents";
+        const KShortcut accel     = KShortcut();
+        const char* actionName    = "helpHowTo_action";
       };
-      namespace whatsThis {
+      namespace whatsThis { // available as KStdAction
         const QString tooltip     = makeToolTip(i18n("Enter \"What's this?\" mode"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Switch into the <B>\"What's this?\"</B> mode.<BR>All important elements of BibleTime's GUI offer a \"What's this?\" help message."));
       };
-      namespace bugreport {
+      namespace bugreport { // available as KStdAction
         const QString tooltip     = makeToolTip(i18n("Send bugreport"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Send a bugreport to the developers of BibleTime!"));
       };
       namespace dailyTip {
         const QString tooltip     = makeToolTip(i18n("Show daily tips at startup"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Show a daily tip.<BR>The tips contain important Bible quotations and helpful usage tips for BibleTime."));
+        const QString icon        = "idea";
+        const KShortcut accel     = KShortcut();
+        const char* actionName    = "helpDailyTip_action";
       };
-      namespace aboutBibleTime {
+      namespace aboutBibleTime { // available as KStdAction
         const QString tooltip     = makeToolTip(i18n("About BibleTime"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Show detailed information about BibleTime."));
       };
-      namespace aboutKDE {
+      namespace aboutKDE { // available as KStdAction
         const QString tooltip     = makeToolTip(i18n("About KDE"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Show the \"about\" dialog of KDE."));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Show detailed information about the KDE project."));
       };      
     };
   }  //end of main menu
 
   namespace searchdialog {
+    namespace searchButton {
+      const QString tooltip     = makeToolTip(i18n("Start the search"));
+      const QString whatsthis   = makeWhatsThis(tooltip, i18n("Starts to search the text in each of the chosen modules."));
+    };
+    namespace cancelSearchButton {
+      const QString tooltip     = makeToolTip(i18n("Cancel searching"));
+      const QString whatsthis   = makeWhatsThis(tooltip, i18n("Stops the active search."));
+    };
+    
+    namespace options {
+      namespace moduleChooserDialog {
+        const QString tooltip     = makeToolTip(i18n(""));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n(""));
+      };
+      namespace moduleChooserButton {
+        const QString tooltip     = makeToolTip(i18n("Choose modules"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Opens a dialog to choose modules for the search."));
+      };
+      namespace searchedText {
+        const QString tooltip     = makeToolTip(i18n("Search text"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Enter here the text you want to search in the chosen modules."));
+      };
+      namespace searchType {
+        namespace mulipleWords_and {
+          const QString tooltip     = makeToolTip(i18n("Multiple words (AND)"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Treats the search text as multiple words. A text must contain all of the words to match! The order of the words is unimportant."));
+        };
+        namespace mulipleWords_or {
+          const QString tooltip     = makeToolTip(i18n("Multiple words (OR)"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Treats the search text as multiple words. A text must contain only one or more words of the search text. The order is unimportant."));
+        };
+        namespace exactMatch {
+          const QString tooltip     = makeToolTip(i18n("Exact match"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("The search text will be exactly used as entered."));
+        };
+        namespace regExp {
+          const QString tooltip     = makeToolTip(i18n("Regular expression"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("The search string is treated as a GNU regular expression. See the BibleTime handbook for an explanation of regular expressions."));
+        };        
+      };
+      
+      namespace searchOptions {
+        namespace caseSensitive {
+          const QString tooltip     = makeToolTip(i18n("Case sensitive matching"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("If you choose this option the search will decide between upper- and lowercase characters. Refer to BibleTime's handbook for more help on this option."));
+        };
+      };
+      namespace chooseScope {
+        const QString tooltip     = makeToolTip(i18n("Choose a search scope"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Choose a scope from the list of available ones. Select the first item to use no scope, the second one is to use each module's last search result as search scope. The others are user defined search scopes."));
+      };
+      namespace scopeEditor {
+        namespace rangeList {
+          const QString tooltip     = makeToolTip(i18n("Available search scopes"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Select an item from the list to edit the search scope."));
+        };
+        namespace nameEdit {
+          const QString tooltip     = makeToolTip(i18n("Search scope name"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Change the name of the selected search scope."));
+        };
+        namespace editRange {
+          const QString tooltip     = makeToolTip(i18n("Edit search scope ranges"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Change the search ranges of the selected search scope item. Have a look at the predefined search scopes to see how search ranges are build."));
+        };
+        namespace parsedResult {
+          const QString tooltip     = makeToolTip(i18n("Parsed search ranges"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Contains the search ranges which will be used by BibleTime for the search."));
+        };
+        namespace addNewRange {
+          const QString tooltip     = makeToolTip(i18n("Add a new search scope"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Add a new search scope. At first enter a good name, then edit the search ranges."));
+        };
+        namespace deleteCurrentRange {
+          const QString tooltip     = makeToolTip(i18n("Delete current search scope"));
+          const QString whatsthis   = makeWhatsThis(tooltip, i18n("Deletes the selected search scope. If you close the dialog using Cancel the settings won't be saved."));
+        };
 
+      };
+    }
+    namespace result {
+      namespace moduleList {
+        const QString tooltip     = makeToolTip(i18n("Used modules"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("The list of modules chosen for the search."));
+      };
+      namespace foundItems {
+        const QString tooltip     = makeToolTip(i18n("Found items of selected module"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("This list contains the search result of the selected module."));
+      };
+      namespace textPreview {
+        const QString tooltip     = makeToolTip(i18n("Text preview"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("The text preview of the selected search result item."));
+      };
+    };    
   };
 
   namespace workspace {
-
   };
 
   namespace displaywindows {
-
-
   };
 
   namespace printing {
-
   };
 }
 
