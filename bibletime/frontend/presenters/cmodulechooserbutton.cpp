@@ -79,43 +79,44 @@ CModuleChooserButton::~CModuleChooserButton(){
 
 /** Returns the icon used for the current status. */
 QPixmap CModuleChooserButton::getIcon(){
-	qDebug("CModuleChooserButton::getIcon()");	
-	if (!m_hasModule) {
-		switch (m_moduleType) {
-			case CSwordModuleInfo::Bible:
-				return BIBLE_ADD_ICON_SMALL;
-			case CSwordModuleInfo::Commentary:
-				return COMMENTARY_ADD_ICON_SMALL;
-			case CSwordModuleInfo::Lexicon:
-				return LEXICON_ICON_SMALL;
-		}
+	switch (m_moduleType) {
+		case CSwordModuleInfo::Bible:
+			if (m_hasModule)
+				return BIBLE_ICON_MC;				
+			else
+				return BIBLE_ADD_ICON_MC;
+		case CSwordModuleInfo::Commentary:
+			if (m_hasModule)
+				return COMMENTARY_ICON_MC;
+			else
+				return COMMENTARY_ADD_ICON_MC;
+		case CSwordModuleInfo::Lexicon:
+			if (m_hasModule)
+				return LEXICON_ICON_MC;				
+			else
+				return LEXICON_ADD_ICON_MC;
+		default:
+			return PARALLEL_ICON_MC;
 	}
-	return PARALLEL_ICON_SMALL;
 }
 
 CSwordModuleInfo* CModuleChooserButton::getModule() {		
-  qDebug("CSwordModuleInfo* CModuleChooserButton::getModule()");
 	for (int i = 0; i < m_popup->count(); i++) {
-		if ( m_popup->isItemChecked(m_popup->idAt(i)) ){
-			CSwordModuleInfo* m = m_important->swordBackend->findModuleByName( m_popup->text(m_popup->idAt(i)) );
-			return m;
-		}
+		if ( m_popup->isItemChecked(m_popup->idAt(i)) )
+			return m_important->swordBackend->findModuleByName( m_popup->text(m_popup->idAt(i)) );
 	}	
 	return 0; //"none" selected
 }
 
 /** Returns the id used for this button. */
 int CModuleChooserButton::getId() const{
-	qDebug("CModuleChooserButton::getId()");
 	return m_id;
 }
 
 /** Ís called after a module was selected in the popup */
 void CModuleChooserButton::moduleChosen( int ID ){	
-	qDebug("CModuleChooserButton::moduleChosen( int ID )");
-	for (int i = 0; i < m_popup->count(); i++) {
+	for (int i = 0; i < m_popup->count(); i++)
 		m_popup->setItemChecked(m_popup->idAt(i),false);		
-	}	
 	m_popup->setItemChecked(ID, true);
 	
 	if (m_popup->text(ID) == i18n("NONE")) {
