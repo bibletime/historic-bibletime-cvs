@@ -40,7 +40,7 @@ for I1 in `ls -d [a-z][a-z]`; do
   ( # output to Makefile.am  
   echo -e $HEADER
 
-  if test -d $I1/HTML || test -d $I1/docbook/XML; then
+  if test -d $I1/HTML || test -d $I1/docbook_XML; then
     echo -n "SUBDIRS = "
   fi
   if test -d $I1/HTML; then
@@ -66,6 +66,18 @@ for I1 in `ls -d [a-z][a-z]`; do
   # create Makefile.am's in /bibletime/docs/??/HTML directories
   #
   if test -d $I1/HTML; then
+   #create HTML/common/Makefile.am
+    if test -d $I1/HTML/common; then
+	export I2=$I1"/HTML/common"
+	echo generating $I2/Makefile.am
+	( # output to Makefile.am
+	 echo -e $HEADER
+	 echo -n "EXTRA_DIST ="
+	 for I3 in `ls -d $I1/HTML/common/*.png` `ls -d $I1/HTML/common/*.css`; do
+		echo -n `basename $I3`" "
+	 done;
+	) > $I2/Makefile.am
+   fi;
 
     export I2=$I1"/HTML"
     
@@ -73,6 +85,10 @@ for I1 in `ls -d [a-z][a-z]`; do
     ( # output to Makefile.am
     echo -e $HEADER
 
+    if test -d $I2/common; then
+	echo -n "SUBDIRS = common"
+	echo
+    fi;
     echo -n "EXTRA_DIST ="
     for I3 in `ls -d $I1/HTML/*.html`; do
       echo -n `basename $I3`" "
