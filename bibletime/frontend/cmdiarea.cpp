@@ -47,7 +47,7 @@ CMDIArea::CMDIArea(QWidget *parent, const char *name )
 	initView();
 	initConnections();
 	readSettings();
-  setAcceptDrops(true);
+//  setAcceptDrops(true);
 }
 
 CMDIArea::~CMDIArea(){
@@ -134,7 +134,7 @@ void CMDIArea::childEvent( QChildEvent * e ){
 void CMDIArea::resizeEvent(QResizeEvent* e){
 	QWorkspace::resizeEvent(e);	
 
-  if (m_deleting || !isUpdatesEnabled()) {
+  if (m_deleting ||  !isUpdatesEnabled()) {
     return;
   };
   

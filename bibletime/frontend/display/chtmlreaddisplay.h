@@ -52,7 +52,7 @@ public:
   /**
   * Reimplementation.
   */
-  virtual QWidget* view();
+  virtual QScrollView* view();
   virtual void selectAll();
   virtual void moveToAnchor( const QString& anchor );
 
@@ -61,7 +61,7 @@ protected:
  	CHTMLReadDisplay( CReadWindow* readWindow, QWidget* parent = 0 );
 	virtual ~CHTMLReadDisplay();
 
-	void urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args);
+	virtual void urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args);
   /**
   * Reimplementation.
   */
@@ -84,6 +84,17 @@ protected:
 
 private:
 	CHTMLReadDisplayView* m_view;	
+ 	struct URLWorkaroundData {
+    bool doWorkaround;
+    QString url;
+    int button;
+    int state;
+    QString target;
+    KParts::URLArgs args;
+
+    QString module;
+    QString key;
+ 	} m_urlWorkaroundData;
 };
 
 class CHTMLReadDisplayView : public KHTMLView, public CPointers {

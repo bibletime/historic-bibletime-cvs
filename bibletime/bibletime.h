@@ -110,8 +110,8 @@ public:
 	*/
 	BibleTime();
 	
-	virtual void show();
-	/**
+  virtual void polish();
+  /**
 	* Reads the settings from the configfile and sets the right properties.
 	*/
 	void readSettings();

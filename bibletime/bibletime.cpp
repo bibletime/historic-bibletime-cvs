@@ -65,7 +65,6 @@ BibleTime::BibleTime()
 	  m_moduleList(0),
 	  m_progress(0),
 	  m_currentProfile(0),
-    //m_keyAccel(accel()),
     m_splitter(0),
     m_mdi(0),
     m_profileMgr(),
@@ -98,9 +97,7 @@ void BibleTime::saveSettings(){
 		m_mdi->saveSettings();
   }
 
-  //if (m_keyAccel) {
-		accel()->writeSettings();
-  //}
+  accel()->writeSettings();
 
  	CBTConfig::set(CBTConfig::toolbar, m_viewToolbar_action->isChecked());
  	CBTConfig::set(CBTConfig::mainIndex, m_viewMainIndex_action->isChecked());
@@ -229,17 +226,6 @@ bool BibleTime::queryClose(){
 	return ret;
 }
 
-/** No descriptions */
-void BibleTime::show(){
-  KMainWindow::show();
-	/*
-  * If we show BibleTime for the first time we are ready for processing
-	* but not before this point.
-  * This is a workaround for a bug which occured in KDE 2, not sure if it's fixed in KDE 3.x.
-  */
-	m_initialized = true;
-}
-
 /** Reimplementation used for sessions management. */
 void BibleTime::saveProperties(KConfig* /*myConfig*/){
 
@@ -271,7 +257,7 @@ void BibleTime::setPlainCaption( const QString& ){
 void BibleTime::processCommandline(){
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-  if (CBTConfig::get(CBTConfig::crashedLastTime) || CBTConfig::get(CBTConfig::restoreWorkspace)) {    
+  if (CBTConfig::get(CBTConfig::crashedLastTime) || CBTConfig::get(CBTConfig::restoreWorkspace)) {
     if (!CBTConfig::get(CBTConfig::crashedTwoTimes) && !args->isSet("ignore-session")) { //restore workspace if it crashed ony once
       restoreWorkspace();
     }
@@ -292,7 +278,12 @@ void BibleTime::processCommandline(){
       bibleKey = vk.key();
     }
     createReadDisplayWindow(bible, bibleKey);
-    m_mdi->myTile();//we are sure only one window is open, which should be displayed fullscreen in the working area
+//    if (isVisible())
+      m_mdi->myTile();//we are sure only one window is open, which should be displayed fullscreen in the working area
   }
 }
 
+void BibleTime::polish(){
+  m_initialized = true;
+  KMainWindow::polish();
+}

@@ -62,7 +62,7 @@ void KStartupLogo::setStatusMessage(const QString& message) {
 }
 
 KStartupLogo::KStartupLogo()
-	: QWidget(0, "startuplogo", WStyle_Customize | WStyle_NoBorder) {
+	: QWidget(0, "startuplogo", /*WStyle_Customize | WStyle_NoBorder*/ WStyle_Splash) {
 
   QPixmap pm;	
 	if ( !pm.load(locate("BT_pic","startuplogo.png")) ) {
@@ -109,6 +109,7 @@ void KStartupLogo::raiseSplash(){
 	if (startupLogo) {
     startupLogo->raise();
     startupLogo->setActiveWindow();
+    startupLogo->textLabel->show();
   }
 }
 

@@ -32,6 +32,7 @@
 
 //Qt includes
 #include <qcursor.h>
+#include <qscrollview.h>
 #include <qwidget.h>
 #include <qdragobject.h>
 #include <qpopupmenu.h>
@@ -140,7 +141,7 @@ const bool CHTMLReadDisplay::hasSelection(){
 
 
 /** Reimplementation. */
-QWidget* CHTMLReadDisplay::view(){
+QScrollView* CHTMLReadDisplay::view(){
   return KHTMLPart::view();
 }
 
@@ -154,39 +155,50 @@ void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
 }
 
 void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args){
+//  qWarning("CHTMLReadDisplay::urlSelected");
   KHTMLPart::urlSelected(url, button, state, _target, args);
+  m_urlWorkaroundData.doWorkaround = false;
+  
   if (!url.isEmpty() && CReferenceManager::isHyperlink(url)) {
     QString module;
     QString key;
     CReferenceManager::Type type;
-    /*const bool ok = */ CReferenceManager::decodeHyperlink(url, module, key, type);
+    CReferenceManager::decodeHyperlink(url, module, key, type);
     if (module.isEmpty())
       module = CReferenceManager::preferredModule( type );
 
-//#warning Really bad bad work around! Otherwise the widget would scroll with the mouse moves after a link was clicked!
-//    QMouseEvent me( QEvent::MouseButtonRelease, QPoint(0,0), QPoint(0,0), QMouseEvent::LeftButton, QMouseEvent::NoButton);
-//    khtml::MouseReleaseEvent kme(&me, -1,-1, DOM::DOMString(), DOM::DOMString(), DOM::Node());
-//    KApplication::sendEvent( this, &kme );
-
-		connectionsProxy()->emitReferenceClicked(module, key);
+      // we have to use this workaround, otherwise the widget would scroll because it was interrupted
+      // between mouseClick and mouseRelease (I guess)
+      m_urlWorkaroundData.doWorkaround = true;
+      m_urlWorkaroundData.url = url;
+      m_urlWorkaroundData.state =  state;
+      m_urlWorkaroundData.button = button;
+      m_urlWorkaroundData.target = _target;
+      m_urlWorkaroundData.args = args;
+      m_urlWorkaroundData.module = module;
+      m_urlWorkaroundData.key = key;
   }
   else if (!url.isEmpty() && url.left(1) == "#") { //anchor
     moveToAnchor(url.mid(1));
   }
   else { //default behaviour
-//    qWarning("link or anchor is empty");
+    qDebug("CHTMLReadDisplay: link or anchor is empty");
   };
 }
 
 /** Reimplementation. */
 void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event ){
-//  qWarning("CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event )");
   KHTMLPart::khtmlMouseReleaseEvent(event);	
 
   m_dndData.mousePressed = false;
   m_dndData.isDragging = false;
   m_dndData.node = DOM::Node();
   m_dndData.anchor = DOM::DOMString();
+
+  if (m_urlWorkaroundData.doWorkaround) {
+    m_urlWorkaroundData.doWorkaround = false;
+    connectionsProxy()->emitReferenceClicked(m_urlWorkaroundData.module, m_urlWorkaroundData.key);
+  }
 }
 
 void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
@@ -216,7 +228,7 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
 
 /** Reimplementation for our drag&drop system. */
 void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
-  if( !(e->qmouseEvent()->state() && LeftButton)) { //left mouse button not pressed
+  if( !(e->qmouseEvent()->state() & LeftButton)) { //left mouse button not pressed
     KHTMLPart::khtmlMouseMoveEvent(e);
     return;
   }
@@ -224,8 +236,8 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
   const int delay = KGlobalSettings::dndEventDelay();
   QPoint newPos = QPoint(e->x(), e->y());
 
-  if ( (newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < m_dndData.startPos.x()-delay ||
-       newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < m_dndData.startPos.y()-delay) &&
+  if ( (newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < (m_dndData.startPos.x()-delay) ||
+       newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < (m_dndData.startPos.y()-delay)) &&
        !m_dndData.isDragging && m_dndData.mousePressed  )
   {
     QDragObject* d = 0;
@@ -236,8 +248,6 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
     	CReferenceManager::Type type;
     	if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) )
     		return;
-
-//      qWarning("DnD: key is %s", key.latin1());
       
       CDragDropMgr::ItemList dndItems;
       dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); //no description!
@@ -253,10 +263,10 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
       m_dndData.isDragging = true;
       m_dndData.mousePressed = false;
 
-//      KHTMLPart::khtmlMouseMoveEvent(e);
+      //first make a virtual mouse click to end the selection, it it's in progress
+      QMouseEvent e(QEvent::MouseButtonRelease, QPoint(0,0), Qt::LeftButton, Qt::LeftButton);
+      KApplication::sendEvent(view()->viewport(), &e);
       d->drag();
-      //khtmlMouseMoveEvent would start it's own drag!
-//      return;
     }
   }
 

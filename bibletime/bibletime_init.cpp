@@ -414,8 +414,8 @@ void BibleTime::initBackends(){
 			{
 				KStartupLogo::hideSplash();
 				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModuleConfigDir);
-				dlg.exec();				
-				KStartupLogo::showSplash();				
+				dlg.exec();
+				KStartupLogo::showSplash();
 				break;
 	    }
 	

@@ -232,27 +232,33 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
             
 		util::scoped_ptr<BibleTime> bibletime( new BibleTime() );
 		bibletime_ptr = bibletime.get();
-    app.setMainWidget(bibletime);
+//    bibletime->hide();
 
 		// a new BibleTime version was installed (maybe a completely new installation)
 		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
-			CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
+      KStartupLogo::hideSplash();
+
+      CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
 			CHTMLDialog dlg(CResMgr::helpDialog::firstStart);
 			dlg.exec();
 			bibletime->slotSettingsOptions();
+
+//      KStartupLogo::showSplash();
 		}			
    
 		//The tip of the day
 		if (CBTConfig::get(CBTConfig::tips)) {
+      KStartupLogo::hideSplash();
+      
 			bibletime->slotHelpTipOfDay();
-      KStartupLogo::lowerSplash();
+
+//      KStartupLogo::showSplash();
     }
     
-    bibletime->show();
-    KStartupLogo::raiseSplash();
-
     // restore the workspace and process command line options
-    bibletime->processCommandline();
+    app.setMainWidget(bibletime);
+    bibletime->show();
+    bibletime->processCommandline(); //must be done after the bibletime window is visible
 
     if (showIt) {
 			KStartupLogo::hideSplash();

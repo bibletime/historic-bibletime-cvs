@@ -416,11 +416,14 @@ void BibleTime::loadProfile(CProfile* p){
 }
 
 void BibleTime::toggleFullscreen(){
+//  if (!isVisible())
+//    return;
+  
 	if (m_windowFullscreen_action->isChecked()) {
-		showFullScreen();
+ 		showFullScreen();
   }
-	else {
-		showNormal();
+	else if (isVisible()){
+    showNormal();
   }
 }
 
