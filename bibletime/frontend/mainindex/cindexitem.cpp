@@ -281,6 +281,7 @@ const bool CModuleItem::enableAction( const MenuAction action ){
 /* ----------------------------------------------*/
 
 CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, const QString& key, const QString& description) : CItemBase(parentItem), m_key(key), m_description(description), m_module(module) {
+  qWarning("constructor of CVBookamrkItem");
   if (module && (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary)  ) {
     CSwordVerseKey vk(0);
     vk = key;
@@ -294,6 +295,7 @@ CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, 
 }
 
 CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, QDomElement& xml ) : CItemBase(parentItem), m_key(QString::null), m_description(QString::null), m_module(0) {
+  qWarning("2nd constructor of CBookmarkItem");
   m_startupXML = xml;
 }
 
@@ -310,6 +312,7 @@ void CBookmarkItem::update(){
 }
 
 void CBookmarkItem::init(){
+  qWarning("CBookmarkItem::init()");
   if (!m_startupXML.isNull())
     loadFromXML(m_startupXML);
 
@@ -317,6 +320,9 @@ void CBookmarkItem::init(){
   update();
   setDropEnabled(false);
   setDragEnabled(false);
+
+//  if (!module())
+//    setSelectable(false);
 }
 
 /** Reimplementation. */
@@ -329,6 +335,7 @@ const QString CBookmarkItem::toolTip(){
 
 /** Returns the used module. */
 CSwordModuleInfo* const CBookmarkItem::module() {
+  Q_ASSERT(m_module);
   return m_module;
 }
 
@@ -336,6 +343,9 @@ CSwordModuleInfo* const CBookmarkItem::module() {
 const QString CBookmarkItem::key(){
   qWarning("CBookmarkItem::key()");
   QString keyName = englishKey();
+  if (!module())
+    return keyName;
+
   if (module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary) {
     CSwordVerseKey vk(0);
     vk = keyName;
@@ -378,26 +388,31 @@ QDomElement CBookmarkItem::saveToXML( QDomDocument& doc ){
   QDomElement elem = doc.createElement("Bookmark");
 
   QString keyName = key();
-  if (module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary) {
+  if (module() && (module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary)) {
     CSwordVerseKey vk(0);
     vk = keyName;
     vk.setLocale("en");
     keyName = vk.key(); //now we're sure the key is in english! All bookname languages support english!
   }
   elem.setAttribute("key", keyName);
-
   elem.setAttribute("description", description());
-  elem.setAttribute("modulename", module()->name());
-  elem.setAttribute("moduledescription", module()->config(CSwordModuleInfo::Description));
+  elem.setAttribute("modulename", module() ? module()->name() : QString::null);
+  elem.setAttribute("moduledescription", module() ? module()->config(CSwordModuleInfo::Description) : QString::null);
 
   return elem;
 }
 
 void CBookmarkItem::loadFromXML( QDomElement& element ) {
+  qWarning("CBookmarkItem::loadFromXML( QDomElement& element )");
+  Q_ASSERT(!element.isNull());
+  if (element.isNull())
+    return;
+
   //find the right module
   if (element.hasAttribute("modulename") && element.hasAttribute("moduledescription")) {
     m_module = backend()->findModuleByName(element.attribute("modulename"));
-    if (m_module->config(CSwordModuleInfo::Description) != element.attribute("moduledescription")) {
+    Q_ASSERT(m_module);
+    if (!m_module/*&& m_module->config(CSwordModuleInfo::Description) != element.attribute("moduledescription")*/) {
       qWarning("Can't find module with name %s and description %s",element.attribute("modulename").latin1(), element.attribute("moduledescription").latin1() );
     }
   }
@@ -416,6 +431,7 @@ void CBookmarkItem::loadFromXML( QDomElement& element ) {
 
   if (element.hasAttribute("description"))
     m_description = element.attribute("description");
+  qWarning("finished");
 }
 
 /** Returns the english key. */
@@ -585,12 +601,17 @@ void CTreeFolder::initTree(){
   ListCSwordModuleInfo usedModules;
   for (CSwordModuleInfo* m = allModules.first(); m; m = allModules.next()) {
     if (m->type() == moduleType) { //found a module, check if the type is correct (devotional etc.)
-      if (type() == GlossaryModuleFolder && !m->has(CSwordModuleInfo::Glossary)) {
+      if (type() == GlossaryModuleFolder && !m->has(CSwordModuleInfo::Glossary)) { //not a gglossary
         continue;
       }
-      if (type() == DevotionalModuleFolder && !m->has(CSwordModuleInfo::DailyDevotional)) {
+      if (type() == DevotionalModuleFolder && !m->has(CSwordModuleInfo::DailyDevotional)) {//not a devotional
         continue;
       }
+      if (type() == LexiconModuleFolder && (m->has(CSwordModuleInfo::DailyDevotional) || m->has(CSwordModuleInfo::Glossary))) {
+        //while looking for lexicons glossaries and devotionals shouldn't be used
+        continue;
+      }
+
       if (language() == QString::fromLatin1("*") || (language() != QString::fromLatin1("*") && QString::fromLatin1(m->module()->Lang()) == language()) )//right type and language!
         usedModules.append(m);
     }
@@ -641,6 +662,7 @@ COldBookmarkFolder::~COldBookmarkFolder() {
 
 /** Reimplementation to handle special bookmark tree. */
 void COldBookmarkFolder::initTree(){
+  qWarning("COldBookmarkFolder::initTree()");
   //import the bookmarks of the previous BibleTime versions
   if (CBTConfig::get( CBTConfig::readOldBookmarks )) { //we already imported them, they'll be restored by our normal readFromXML
     return;
@@ -947,8 +969,8 @@ CBookmarkFolder::~CBookmarkFolder() {
 }
 
 void CBookmarkFolder::initTree(){
+  qWarning("CBookmarkFolder::initTree()");
   addGroup(OldBookmarkFolder, "*");
-
 
   KStandardDirs stdDirs;
  	const QString path = stdDirs.saveLocation("data", "bibletime/");	
@@ -1040,7 +1062,8 @@ const bool CBookmarkFolder::saveBookmarks( const QString& filename ){
 
 /** Loads bookmarks from a file. */
 const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
-	QFile file(filename);	
+	qWarning("load bookmarks");
+  QFile file(filename);	
 	if (!file.exists())
 		return false;
 	
@@ -1068,11 +1091,20 @@ const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
     else if (child.tagName() == "Bookmark") {
       i = new CBookmarkItem(this, child);
     }
+    Q_ASSERT(i);
+    if (!i) {
+      break;
+    }
+
     i->init();
     if (oldItem)
       i->moveAfter(oldItem);
     oldItem = i;
 
-    child = child.nextSibling().toElement();
+    if (!child.nextSibling().isNull())
+      child = child.nextSibling().toElement();
+    else
+      break;
   }
+  qWarning("finished loading bookmarks");
 }

@@ -74,6 +74,7 @@ CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
   qWarning("constructor of CMainIndex!");
   initView();
   initConnections();
+  qWarning("finished");
 }
 
 CMainIndex::~CMainIndex(){
@@ -100,6 +101,7 @@ CMainIndex::~CMainIndex(){
 
 /** Reimplementation. Adds the given group to the tree. */
 void CMainIndex::addGroup(const CItemBase::Type type, const QString language){
+  qWarning("addGroup");
   CTreeFolder *i = 0;
   if (type == CItemBase::BookmarkFolder)
     i = new CBookmarkFolder(this);
@@ -107,7 +109,7 @@ void CMainIndex::addGroup(const CItemBase::Type type, const QString language){
     i = new CTreeFolder(this, type, language);
   i->init();
 
-  if (!i->childCount() && type != CItemBase::BookmarkFolder)
+  if (i->childCount() == 0 && type != CItemBase::BookmarkFolder)
     delete i;
 }
 
@@ -202,11 +204,11 @@ void CMainIndex::slotExecuted( QListViewItem* i ){
     emit modulesChosen(modules, QString::null);
   }
   else if (CBookmarkItem* b = dynamic_cast<CBookmarkItem*>(i) ) { //clicked on a bookmark
-    CSwordModuleInfo* mod = b->module();
-    ListCSwordModuleInfo modules;
-    modules.append(mod);
-
-    emit modulesChosen(modules, b->key());
+    if (CSwordModuleInfo* mod = b->module()) {
+      ListCSwordModuleInfo modules;
+      modules.append(mod);
+      emit modulesChosen(modules, b->key());
+    }
   }
 }
 
@@ -240,6 +242,7 @@ bool CMainIndex::acceptDrag( QDropEvent* event ) const {
 
 /** No descriptions */
 void CMainIndex::initTree(){
+  qWarning("CMainIndex::initTree()");
   addGroup(CItemBase::BookmarkFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::BibleModuleFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::BookModuleFolder, QString::fromLatin1("*"));
@@ -247,6 +250,7 @@ void CMainIndex::initTree(){
   addGroup(CItemBase::DevotionalModuleFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::GlossaryModuleFolder, QString::fromLatin1("*"));
   addGroup(CItemBase::LexiconModuleFolder, QString::fromLatin1("*"));
+  qWarning("CMainIndex::initTree() finshed");
 }
 
 /** No descriptions */

@@ -60,6 +60,7 @@
 
 /**Initializes the view of this widget*/
 void BibleTime::initView(){
+  qWarning("BibleTime::initView()");
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
 	
 	m_splitter = new QSplitter(this, "mainsplitter");

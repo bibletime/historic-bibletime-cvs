@@ -101,9 +101,9 @@ QStringList* CSwordBibleModuleInfo::books() {
 		staticKey.setLocale(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 		for (int i = min; i <= max; ++i) {
 			for ( int j = 0; j < staticKey.BMAX[i]; ++j) {
-			if (backend()->useICU())	
-      	m_bookList->append( QString::fromUtf8(staticKey.books[i][j].name) );			
-      else
+//			if (backend()->useICU())	
+//      	m_bookList->append( QString::fromUtf8(staticKey.books[i][j].name) );			
+//      else
         m_bookList->append( QString::fromLocal8Bit(staticKey.books[i][j].name) );
 			}
 		}
