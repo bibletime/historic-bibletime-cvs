@@ -111,10 +111,10 @@ const string BT_BASICFILTER::parseRef(const string ref, sword::SWModule* module,
 	 	}
 
 	}	
- 	return ret;  //don't forget to delete it!
+ 	return ret;
 }
 
-const string BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
+const string BT_BASICFILTER::parseThMLRef(const string& ref, const char* mod) {
 	const char* moduleName = (mod ? mod : standard_bible);
   sword::SWModule* module = 0;
   if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(moduleName) ) {

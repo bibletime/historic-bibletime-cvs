@@ -60,7 +60,7 @@ protected:
   /**
   * Parses the verse reference ref and returns it.
   */
-  const string parseThMLRef(const char* ref, const char* mod = 0);
+  const string parseThMLRef(const string& ref, const char* mod = 0);
 	const string thmlRefEnd();
   /**
   * Replaces the token in the substitute map.

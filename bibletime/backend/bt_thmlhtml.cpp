@@ -28,15 +28,8 @@
 BT_ThMLHTML::BT_ThMLHTML() {
 	setEscapeStringCaseSensitive(true);
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
-//	setEscapeStart("&");
-//	setEscapeEnd(";");	
-//  addEscapeStringSubstitute("raquo", QString::fromLatin1("»").utf8());
-//  addEscapeStringSubstitute("laquo", QString::fromLatin1("«").utf8());
-//  addEscapeStringSubstitute("uuml", QString::fromLatin1("ü").utf8());
-//  addEscapeStringSubstitute("ouml", QString::fromLatin1("ö").utf8());
-//  addEscapeStringSubstitute("auml", QString::fromLatin1("ä").utf8());
-	
-	setTokenStart("<");
+
+  setTokenStart("<");
 	setTokenEnd(">");
 	setTokenCaseSensitive(true);
 	addTokenSubstitute("note", " <span class=\"footnote\">(");
@@ -52,106 +45,94 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 	const int tokenLength = strlen(token);
 	
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
-
-		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
-			buf += " <span class=\"lemma\">&lt;";
-
-			for (int j = 17; j < tokenLength; j++) {
-				if (!strncmp(token+j, "value=\"", 7)) {
-					j += 7;
-					for (;token[j] != '\"'; j++)
-						buf += token[j];
-					break;
-				}
-			}
-			buf += "&gt;</span> ";
+		if (!strncasecmp(token, "sync type=\"lemma\" ", 18)) { //LEMMA
+      for (i = 18; i < tokenLength; ++i) {
+        if ( !strncasecmp(token+i, "value=\"", 7) ) {
+          sword::SWBuf value;
+    			for (i += 7; (i < tokenLength) && (token[i] != '\"'); ++i) {
+    				value += token[i];
+          }
+    			buf.appendFormatted(" &lt;%s&gt; ",
+    				value.c_str()
+          );
+          break;
+        };
+      };
+    }
+		else if (!strncasecmp(token, "sync type=\"morph\" ", 18)) { //Morph
+      for (i = 18; i < tokenLength; ++i) {
+        if ( !strncasecmp(token+i, "value=\"", 7) ) {
+          sword::SWBuf value;
+    			for (i += 7; (i < tokenLength) && (token[i] != '\"'); ++i) {
+    				value += token[i];
+          }
+    			buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+    				value.c_str(),
+            value.c_str()
+          );
+          break;
+        };
+      };
 		}
-
-		else if (!strncmp(token, "sync type=\"morph\"", 17)) { //Morph
-			char num[12];
-			for (int j = 17; j < tokenLength; j++) {
-				if (!strncmp(token+j, "value=\"", 7)) {
-					j += 7;
-					int idx=0;
-					for (;token[j] != '\"'; j++,idx++)
-						num[idx] = token[j];
-					num[idx] = 0;
-					break;
-				}
-			}
-			buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
-				num, num);
+		else if (!strncasecmp(token, "sync type=\"Strongs\" ", 20)) {
+      for (i = 20; i < tokenLength; ++i) {
+        if ( !strncasecmp(token+i, "value=\"H", 8) ) {
+          sword::SWBuf value;
+    			for (i += 8; (i < tokenLength) && (token[i] != '\"'); ++i) {
+    				value += token[i];
+          }
+    			buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+    				value.c_str(),
+            value.c_str()
+          );
+          break;
+        }
+        else if ( !strncasecmp(token+i, "value=\"G", 8) ) {
+          sword::SWBuf value;
+    			for (i += 8; (i < tokenLength) && (token[i] != '\"'); ++i) {
+    				value += token[i];
+          }
+    			buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+    				value.c_str(),
+            value.c_str()
+          );
+          break;
+        };
+      };
 		}
-		else if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
-			char num[12];
-			for (i = 29; i < tokenLength; i++)
-				if(token[i] != '\"')
-					num[i-29] = token[i];
-			num[i-29] = 0;
-
-			buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-				num, num);
-		}
-		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
-			char num[12];
-			for (i = 29; i < tokenLength; i++)
-				if(token[i] != '\"')
-					num[i-29] = token[i];
-			num[i-29] = 0;
-
-			buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-				num, num);
-		}
-		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) { // a more complicated scripRef
+		else if (!strncasecmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) { // a more complicated scripRef
 			userData["inscriptRef"] = "true";
-			if (!strncmp(token, "scripRef v", 10)) { //module given
-				char module_version[500];
-				for (i = 18; i < tokenLength-1; i++) {
-					if(token[i] != '\"')
-						module_version[i-18] = token[i];						
-					else
-						break;
+			if (!strncasecmp(token, "scripRef v", 10)) { //module given
+				sword::SWBuf module_version;
+				for (i = 18; (i < tokenLength-1) && (token[i] != '\"'); i++) {
+					module_version += token[i];
 				}
-				module_version[i-18] = 0;
-				//c contains the module
-				userData["lastRefModule"] = module_version;
+				userData["lastRefModule"] = module_version.c_str();
 			}
-			else if (!strncmp(token, "scripRef p", 10)) { //passage without module
-				char verse_str[5000];
-				for (i = 18; i < tokenLength-1; i++) {
-					if(token[i] != '\"')
-						verse_str[i-18] = token[i];
-					else
-						break;
+			else if (!strncasecmp(token, "scripRef p", 10)) { //passage without module
+        string verse_str;
+				for (i = 18; (i < tokenLength-1) && (token[i] != '\"'); i++) {
+          verse_str += token[i];
 				}
-				verse_str[i-18] = 0;
  			  buf += parseThMLRef(verse_str).c_str();
-
-//        userData["suspendTextPassThru"] = "true";
       }
-
-      if ( !strncmp(token+i+2, "passage=", 8) ) { //passage after module part
-				char verse_str[500];
-				i+=11;			
-				int idx = 0;	
-				for (; i < tokenLength-1; i++,idx++)	{
-					if(token[i] != '\"')
-						verse_str[idx] = token[i];
-					else
-						break;					
+      if ( !strncasecmp(token+i+2, "passage=", 8) ) { //passage after module part
+				string verse_str;
+				i += 11;			
+				for (; (i < tokenLength-1) && (token[i] != '\"'); i++)	{
+          verse_str += token[i];
 				}
-				verse_str[idx] = '\0';
 				buf += parseThMLRef(verse_str, userData["lastRefModule"].c_str()).c_str();
 			}
 		}
-		// we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
-		else if (!strcmp(token, "scripRef")) {
+    // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
+		else if (!strcasecmp(token, "scripRef")) {
 			userData["inscriptRef"] = "false";
 			// let's stop text from going to output
 			userData["suspendTextPassThru"] = "true";
 		}
 		// we've ended a scripRef
-		else if (!strcmp(token, "/scripRef")) {
+		else if (!strcasecmp(token, "/scripRef")) {
 			if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">See John 3:16</scripRef>"
 				userData["inscriptRef"] = "false";
 				buf += thmlRefEnd().c_str();
@@ -161,11 +142,11 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 				userData["suspendTextPassThru"] = "false";
 			}
 		}
-		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
+		else if (!strncasecmp(token, "div class=\"sechead\"", 19)) {
 			userData["SecHead"] = "true";
 			buf += "<div class=\"sectiontitle\">";
 		}
-		else if (!strncmp(token, "div class=\"title\"", 19)) {
+		else if (!strncasecmp(token, "div class=\"title\"", 19)) {
       userData["Title"] = "true";
 			buf += "<div class=\"booktitle\">";
 		}
@@ -200,7 +181,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 //			}
 //			buf += '>';
 //		}		
-		else { // let token pass thru
+		else { // let unknown token pass thru
 			buf += '<';
 			for (i = 0; i < tokenLength; i++) {
 				buf += token[i];
