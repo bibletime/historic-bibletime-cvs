@@ -24,7 +24,6 @@
 #include "cswordlexiconmoduleinfo.h"
 
 #include "bt_thmlhtml.h"
-#include "bt_rwphtml.h"
 #include "bt_gbfhtml.h"
 
 #include <dirent.h>
@@ -43,12 +42,7 @@
 
 CSwordBackend::CSwordBackend()
 	: SWEncodingMgr(0,0,false,ENC_UTF8), m_errorCode(noError), m_entryDisplay(0), m_chapterDisplay(0), m_moduleList(0),
-	m_gbfFilter(0),m_rwpFilter(0), m_plainTextFilter(0), m_thmlFilter(0) {
-		
-	m_rwpModules.append(QString::fromLatin1("RWP"));
-	m_rwpModules.append(QString::fromLatin1("TSK"));
-	m_rwpModules.append(QString::fromLatin1("Geneva"));
-	m_rwpModules.append(QString::fromLatin1("Wesley"));
+	m_gbfFilter(0), m_plainTextFilter(0), m_thmlFilter(0) {
 }
 
 CSwordBackend::~CSwordBackend(){
@@ -56,8 +50,6 @@ CSwordBackend::~CSwordBackend(){
 	//delete filters
 	if (m_gbfFilter)
 		delete m_gbfFilter;
-	if (m_rwpFilter)
-		delete m_rwpFilter;	
 	if (m_plainTextFilter)
 		delete m_plainTextFilter;	
 	if (m_thmlFilter)
@@ -138,14 +130,6 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 		if (!m_thmlFilter)
 			m_thmlFilter = new BT_ThMLHTML();
 		module->AddRenderFilter(m_thmlFilter);
-		noDriver = false;
-	}
-
-//	if (!stricmp(module->Name(), "RWP") || !stricmp(module->Name(), "TSK") || !stricmp(module->Name(), "Geneva")) {
-	if (m_rwpModules.contains(QString::fromLatin1(module->Name()))) {
-		if (!m_rwpFilter)
-			m_rwpFilter = new BT_RWPHTML();		
-		module->AddRenderFilter(m_rwpFilter);
 		noDriver = false;
 	}
 

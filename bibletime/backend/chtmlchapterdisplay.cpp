@@ -54,11 +54,8 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	}
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");//dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
 	
-  //automatically reloaded with every display() call
-	QString StandardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
-	QString UnicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
-  int StandardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );
-  int UnicodeFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::unicode).pointSize() );
+	//reload font settings
+	updateSettings();
 
  	QString FontName = StandardFontName;
  	int FontSize = StandardFontSize;
@@ -98,11 +95,8 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		return 0;
 	}
 
-  //automatically reloaded with every display() call
-	QString StandardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
-	QString UnicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
-  int StandardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );
-  int UnicodeFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::unicode).pointSize() );
+	//reload font settings
+	updateSettings();
 
  	QString FontName = StandardFontName;
  	int FontSize = StandardFontSize;

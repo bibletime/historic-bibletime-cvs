@@ -170,13 +170,11 @@ protected:
 private:
 	//filters
 	SWFilter *m_gbfFilter;
-	SWFilter *m_rwpFilter;
 	SWFilter *m_plainTextFilter;
 	SWFilter *m_thmlFilter;	
 	
 	ListCSwordModuleInfo* m_moduleList;
 	errorCode m_errorCode;
-	QStringList m_rwpModules;
 };
 
 /**Returns The list of modules managed by this backend*/

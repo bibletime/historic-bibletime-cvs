@@ -79,6 +79,14 @@ private:
 	QString m_htmlBody;
 
 	bool m_includeHeader;
+
+  QString StandardFontName;
+	QString UnicodeFontName;
+  int StandardFontSize;
+  int UnicodeFontSize;
+
+	void updateSettings(void);
+
 };
 
 /** Returns the generated HTML text. */

@@ -41,6 +41,13 @@ CHTMLEntryDisplay::CHTMLEntryDisplay(){
 CHTMLEntryDisplay::~CHTMLEntryDisplay(){
 }
 
+void CHTMLEntryDisplay::updateSettings(void){
+  StandardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
+	UnicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
+  StandardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );
+  UnicodeFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::unicode).pointSize() );
+}
+
 /** Displays the current entry of the module as HTML */
 char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	qDebug("CHTMLEntryDisplay::Display(CSwordModuleInfo* module)");
@@ -48,11 +55,8 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 		m_htmlText = QString::null;
 		return -1;
 	}
-  //automatically reloaded with every display() call
-	QString StandardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
-	QString UnicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
-  int StandardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );
-  int UnicodeFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::unicode).pointSize() );
+  //refresh font settings
+	updateSettings();
 
 	QString FontName = StandardFontName;
   int FontSize = StandardFontSize;
@@ -98,11 +102,8 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 		m_htmlText = QString::null;
 		return 0;
 	}
-#warning automatically reloaded with every display() call -> encapsulate in a separate function
-	QString StandardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
-	QString UnicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
-  int StandardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );
-  int UnicodeFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::unicode).pointSize() );
+	//reload font settings
+	updateSettings();
 
  	QString FontName = StandardFontName;
  	int FontSize = StandardFontSize;
