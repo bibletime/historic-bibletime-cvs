@@ -52,8 +52,8 @@ private: // Private methods
 	QListView* m_removeModuleListView;
 	CSwordBackend* m_backend;
 
-	QFrame* m_mainPage;
-	QFrame* m_removePage;
+	QWidget* m_mainPage;
+	QWidget* m_removePage;
 
 private slots: // Private slots
   void slot_exitRequested();

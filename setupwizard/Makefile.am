@@ -9,6 +9,7 @@ btsetupwizard_LDADD   = \
 ../bibletime/frontend/keychooser/libkeychooser.a \
 ../bibletime/frontend/mainindex/libmainindex.a \
 ../bibletime/frontend/searchdialog/libsearchdialog.a \
+../bibletime/frontend/libfrontend.a \
 ../bibletime/backend/libbackend.a \
 ../bibletime/util/libutil.a \
 -lXext \

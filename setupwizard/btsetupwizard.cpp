@@ -43,23 +43,24 @@ BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(p
 
 	setIcon(SmallIcon("wizard"));
 
-	QHBoxLayout* mainLayout = new QHBoxLayout(this);
-	QLabel* replaceWithImage = new QLabel(" reserved for image", this);
+  QWidget* main = new QWidget(this);
+  QHBoxLayout* mainLayout = new QHBoxLayout(main);
+
+  QLabel* replaceWithImage = new QLabel(" reserved for image", main);
 	replaceWithImage->setFixedSize(100,400);
 	replaceWithImage->setPaletteBackgroundColor(Qt::darkGray);
 
 	mainLayout->addWidget(replaceWithImage);
 
 	mainLayout->addSpacing(20);
-
-	m_mainWidget = new KJanusWidget(this, 0, KJanusWidget::Plain);
+	m_mainWidget = new KJanusWidget(main, 0, KJanusWidget::Swallow);
   mainLayout->addWidget(m_mainWidget);
-
+  setCentralWidget(main);
+  
 	addMainPage();
 	addRemovePage();
 
-	slot_backtoMainPage();
-
+	slot_backtoMainPage();  
 //	qWarning("adresses are %d %d %d %d", (int)m_mainPage, (int)m_removePage, m_mainWidget->pageIndex(m_mainPage) );
 }
 
@@ -70,7 +71,7 @@ BTSetupWizard::~BTSetupWizard(){
 /** No descriptions */
 void BTSetupWizard::addMainPage(void){
 
-  m_mainPage = m_mainWidget->addPage(QString("main page") );
+  m_mainPage = new QWidget(0);//m_mainWidget->addPage(QString("main page") );
 	m_mainPage->setMinimumSize(500,400);
 
 	QGridLayout* layout = new QGridLayout(m_mainPage, 6, 3);
@@ -125,7 +126,6 @@ void BTSetupWizard::addMainPage(void){
 	exitButton->setPixmap( BarIcon("exit", KIcon::SizeMedium));
 	layout->addWidget(exitButton, 5, 0, Qt::AlignCenter);
 
-
 	m_startBibleTimeBox = new QCheckBox(m_mainPage);
 	m_startBibleTimeBox->setText("Start BibleTime");
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
@@ -142,10 +142,12 @@ void BTSetupWizard::slot_exitRequested(){
 		KApplication::kApplication()->startServiceByDesktopName("konqueror");
 	KApplication::kApplication()->quit();    
 }
+
+
 /** No descriptions */
 void BTSetupWizard::addRemovePage(){
 
-  m_removePage = m_mainWidget->addPage(QString("remove page") );
+  m_removePage = new QWidget(0);//m_mainWidget->addPage(QString("remove page") );
 	m_removePage->setMinimumSize(500,400);
 
 	QGridLayout* layout = new QGridLayout(m_removePage, 4, 4);
@@ -161,7 +163,7 @@ void BTSetupWizard::addRemovePage(){
 		"blas dlkf asldhfkajgha sdlkfjaösldkfj asdlghaösldkfja sdflkajs dlfhasölg" );
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
-	QLabel* headingLabel= CToolClass::explanationLabel(m_removePage,
+	QLabel* headingLabel = CToolClass::explanationLabel(m_removePage,
 		"Select modules to be uninstalled", QString::null);
 	layout->addMultiCellWidget(headingLabel, 1, 1, 0, 3);
 
@@ -233,9 +235,15 @@ void BTSetupWizard::populateRemoveModuleListView(){
 }
 /** No descriptions */
 void BTSetupWizard::slot_backtoMainPage(){
+  qWarning("swallow main page");
 	m_mainWidget->setSwallowedWidget(m_mainPage);
+  m_mainWidget->show();
 }
+
 /** No descriptions */
 void BTSetupWizard::slot_gotoRemovePage(){
-	m_mainWidget->setSwallowedWidget(m_removePage);
+  qWarning("swallow remove page");  
+  Q_ASSERT(m_removePage);
+  m_mainWidget->setSwallowedWidget(m_removePage);
+  m_removePage->show();
 }
