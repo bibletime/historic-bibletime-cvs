@@ -109,17 +109,7 @@ void BibleTime::initActions() {
 		this, SLOT(slotToggleStrongs()), actionCollection(), "viewStrongs_action");	
 	m_viewStrongs_action->setToolTip( TT_VIEW_STRONGS );	
 	m_viewStrongs_action->setWhatsThis( WT_VIEW_STRONGS );
-
-	m_viewHeadings_action = new KToggleAction(i18n("S&how headings"),ICON_VIEW_STRONGS, IDK_VIEW_STRONGS,
-		this, SLOT(slotToggleHeadings()), actionCollection(), "viewHeadings_action");	
-	m_viewHeadings_action->setToolTip( TT_VIEW_STRONGS );	
-	m_viewHeadings_action->setWhatsThis( WT_VIEW_STRONGS );
-
-	m_viewMorphTags_action = new KToggleAction(i18n("S&how morpholocic tags"),ICON_VIEW_STRONGS, IDK_VIEW_STRONGS,
-		this, SLOT(slotToggleMorphTags()), actionCollection(), "viewMorphTags_action");	
-	m_viewMorphTags_action->setToolTip( TT_VIEW_STRONGS );	
-	m_viewMorphTags_action->setWhatsThis( WT_VIEW_STRONGS );
-		 	
+ 	
 	m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
 	m_viewToolbar_action->setToolTip( TT_VIEW_TOOLBAR );	
 	m_viewToolbar_action->setWhatsThis( WT_VIEW_TOOLBAR );
@@ -283,12 +273,14 @@ void BibleTime::initBackends(){
 			case CSwordBackend::noModulesAvailable:			
 				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULES);
 				break;
-//			case CSwordBackend::noSwordConfigFile:
-//				HTML_DIALOG(HELPDIALOG_NO_SWORD_CONFIG);
-//				break;
+// -- the following error pages are not yet available --
+/*			case CSwordBackend::noSwordConfigFile:
+				HTML_DIALOG(HELPDIALOG_NO_SWORD_CONFIG);
+				break;
 			case CSwordBackend::noSwordModuleDirectory:
 				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULES_DIR);
 				break;		
+*/
 			case CSwordBackend::noSwordModuleConfigDirectory:
 				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULE_CONFIG_DIR);				
 				break;						
@@ -298,8 +290,9 @@ void BibleTime::initBackends(){
 		}
 	}
 	
-//	m_important->swordBackend->setOption(CSwordBackend::headings, true);
-//	m_important->swordBackend->setOption(CSwordBackend::morphTags, false);
+//turn off/on newer Sword	options which are not yet supported
+	m_important->swordBackend->setOption(CSwordBackend::headings, true);
+	m_important->swordBackend->setOption(CSwordBackend::morphTags, false);
 
 	//initialize international bookname language
 	KConfigGroupSaver dummy(m_config, "SWORD");

@@ -2,8 +2,9 @@
 <para>
 Bibletime is a KDE program and is integrated with the KDE desktop.
 You should find an icon for launching Bibletime from the desktop.
-<graphic fileref="common/hdbk_start_bticon.png" format="png"></graphic>
 </para>
+<graphic fileref="common/hdbk_start_bticon.png" format="png"></graphic>
+
 <para>
 Bibletime can be launched from inside other window managers
 (like gnome) providing KDE is installed.  You will need to install
@@ -25,15 +26,23 @@ can not be found.
 <link linkend="help_no_modules">
 Click here to see the No Modules Installed help screen</link>
 </para></listitem>
-<listitem><para>First Time Startup - This is shown the first time
+
+<listitem>
+<para>
+First Time Startup - This is shown the first time
 Bibletime is launched.
 <link linkend="help_first_startup">
 Click here to see the First Time Startup help screen</link>
-</para></listitem>
-<listitem><para>Daily Tips - These show on every startup, unless
+</para>
+</listitem>
+
+<listitem>
+<para>Daily Tips - These show on every startup, unless
 you turn them off.
+</para>
 <graphic fileref="common/hdbk_start_sequence_tips.png" format="png"></graphic>
-</para></listitem>
+</listitem>
+
 </itemizedlist>
 
 </section>

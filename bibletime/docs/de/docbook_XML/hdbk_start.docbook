@@ -1,9 +1,9 @@
 <chapter ID="hdbk_term"><title>BibleTime starten</title>
 <para>
 BibleTime ist ein KDE Programm und ist in den KDE Arbeitsplatz integriert.
-Sie sollten ein Symbol für den Start von BibleTime auf dem Arbeitsplatz finden.
+Sie sollten ein Symbol für den Start von BibleTime auf dem Arbeitsplatz finden.</para>
 <graphic fileref="common/hdbk_start_bticon.png" format="png"></graphic>
-</para>
+
 <para>
 BibleTime kann aus anderen Fenstermanagern heraus aufgerufen
 werden (wie z.B. gnome) vorrausgesetzt, dass KDE installiert ist.  Sie
@@ -18,22 +18,36 @@ und geben sie folgendes ein: <command>bibletime</command>.
 </para>
 
 <section ID="hdbk_start_sequence"><title>Startsequenz</title>
-<para> Wenn BibleTime gestartet wird, kann es vorkommen, dass Sie die
+<para>
+Wenn BibleTime gestartet wird, kann es vorkommen, dass Sie die
 folgenden Fenster sehen:</para>
+
 <itemizedlist>
-<listitem><para>Keine Module installiert - Dies wird angezeigt, wenn
+
+<listitem>
+<para>
+Keine Module installiert - Dies wird angezeigt, wenn
 Sie vergessen haben Sword Module zu installieren, oder wenn die Sword
-Module nicht gefunden werden konnten.  <link
-linkend="help_no_modules"> Klicken Sie hier um die &quot;Keine Module
-installiert&quot; Seite zu sehen</link> </para></listitem>
-<listitem><para>Erster Start - Dies wird angezeigt, wenn BibleTime zum
-ersten Male aufgerufen wurde.  <link linkend="help_first_startup">
+Module nicht gefunden werden konnten.
+<link linkend="help_no_modules">Klicken Sie hier um die &quot;Keine Module
+installiert&quot; Seite zu sehen</link>
+</para>
+</listitem>
+
+<listitem>
+<para>Erster Start - Dies wird angezeigt, wenn BibleTime zum
+ersten Male aufgerufen wurde. <link linkend="help_first_startup">
 Klicken Sie hier um die &quot;Erster Start&quot; Seite zu sehen</link>
-</para></listitem>
-<listitem><para>Tägliche Tipps - Sie werden bei jedem Start angezeigt,
-es sei denn Sie schalten sie ab.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Tägliche Tipps - Sie werden bei jedem Start angezeigt,
+es sei denn Sie schalten sie ab.</para>
 <graphic fileref="common/hdbk_start_sequence_tips.png" format="png"></graphic>
-</para></listitem>
+</listitem>
+
 </itemizedlist>
 </section>
 
