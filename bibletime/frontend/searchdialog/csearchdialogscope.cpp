@@ -88,7 +88,8 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
   config = new KSimpleConfig("bt-custom_ranges", false);
   //we use this to use the global standard
   config->setGroup(QString("main"));
-  if (config->readBoolEntry("firstUsage", true)) {		
+  if (config->readBoolEntry("first usage", true)) {		
+  	config->writeEntry("first usage", false);
   	config->setGroup(QString("custom ranges"));
   	
 	  QMap<QString,QString> entryMap;
