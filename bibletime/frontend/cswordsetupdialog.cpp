@@ -90,14 +90,54 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* 
 	setIconListAllVisible(true);
   m_refreshedRemoteSources = false;
 
-	/*QFrame* page =*/ addPage(i18n("Sword Path"), QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
-//	QVBoxLayout* layout = new QVBoxLayout(page,5);
-
+  initSwordConfig();
 	initInstall();
 	initRemove();
 }
 
 
+void CSwordSetupDialog::initSwordConfig(){
+	QFrame* page = m_swordConfigPage = addPage(i18n("Sword Path"), QString::null, DesktopIcon("bt_sword",32));
+ 	page->setMinimumSize(500,400);
+
+	QGridLayout* layout = new QGridLayout(page, 6, 4);
+	layout->setMargin(5);
+
+	layout->setSpacing(10);
+	layout->setColStretch(0,1);
+	layout->setRowStretch(5,1);
+
+	QLabel* mainLabel = CToolClass::explanationLabel(page,
+		i18n("Configure Sword"),
+		i18n("The underlying Sword software uses an own configuration file. This page let you set up this file.")
+  );
+	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
+
+
+  QString swordConfPath = "/etc/sword.conf";
+	QLabel* confPathLabel = new QLabel(QString::fromLatin1("Your Sword configuration file is <b>%1</b>").arg(swordConfPath), page);
+	layout->addMultiCellWidget(confPathLabel, 1,1,0,3);
+
+  m_swordPathListBox = new KListView(page);
+  m_swordPathListBox->addColumn(i18n("Path to Sword modules"));
+  layout->addMultiCellWidget(m_swordPathListBox, 2,5,0,1);
+  
+  m_swordEditPathButton = new QPushButton(i18n("Edit Entry"), page);
+  connect(m_swordEditPathButton, SIGNAL(clicked()), this, SLOT(slot_swordEditClicked()));
+  layout->addWidget(m_swordEditPathButton, 2, 3);
+  
+  m_swordAddPathButton = new QPushButton(i18n("Add Entry"), page);
+  connect(m_swordAddPathButton, SIGNAL(clicked()), this, SLOT(slot_swordAddClicked()));
+  layout->addWidget(m_swordAddPathButton, 3,3);
+
+  m_swordRemovePathButton = new QPushButton(i18n("Remove Entry"), page);
+  connect(m_swordRemovePathButton, SIGNAL(clicked()), this, SLOT(slot_swordRemoveClicked()));
+  layout->addWidget(m_swordRemovePathButton, 4,3); 
+
+
+  setupSwordPathListBox();
+}
+  
 void CSwordSetupDialog::initInstall(){
 	QFrame* newpage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("connect_create",32));
 
@@ -152,7 +192,7 @@ void CSwordSetupDialog::initInstall(){
   vboxlayout->addLayout(myHBox);
   
   m_installBackButton = new QPushButton(newpage);
-	m_installBackButton->setText( "Back");
+	m_installBackButton->setText(i18n("Back"));
 	myHBox->addWidget(m_installBackButton, 7, 0);
 
   m_installContinueButton = new QPushButton(newpage);
@@ -190,7 +230,7 @@ void CSwordSetupDialog::initRemove(){
   );
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
-	QLabel* headingLabel = new QLabel("<b>Select modules to be uninstalled</b>", page);
+	QLabel* headingLabel = new QLabel(i18n("<b>Select modules to be uninstalled</b>"), page);
 	layout->addMultiCellWidget(headingLabel, 1, 1, 0, 3);
 
 	m_populateListNotification = new QLabel("", page);
@@ -198,8 +238,8 @@ void CSwordSetupDialog::initRemove(){
 
 	m_removeModuleListView = new KListView(page, "remove modules view");
 	layout->addMultiCellWidget( m_removeModuleListView, 2,2,0,3);
-	m_removeModuleListView->addColumn("Name");
-  m_removeModuleListView->addColumn("Location");
+	m_removeModuleListView->addColumn(i18n("Name"));
+  m_removeModuleListView->addColumn(i18n("Location"));
  	m_removeModuleListView->setAllColumnsShowFocus(true);
  	m_removeModuleListView->setFullWidth(true);
 
@@ -676,4 +716,34 @@ void CSwordSetupDialog::slot_showInstallSourcePage(){
   m_installBackButton->setEnabled(false);
   
   m_installWidgetStack->raiseWidget(m_installSourcePage);
+}
+
+/** This function writes the Sword configuration file to disk. */
+void CSwordSetupDialog::writeSwordConfig(){
+//  SWConfig conf()
+}
+
+/** No descriptions */
+void CSwordSetupDialog::slot_swordEditClicked(){
+}
+
+/** No descriptions */
+void CSwordSetupDialog::slot_swordAddClicked(){
+}
+
+/** No descriptions */
+void CSwordSetupDialog::slot_swordRemoveClicked(){
+  if (QListViewItem* i = m_swordPathListBox->currentItem()) {
+    delete i;
+  }
+}
+
+/** Setup the path list box */
+void CSwordSetupDialog::setupSwordPathListBox(){
+  QStringList targets = BTInstallMgr::Tool::targetList();
+  m_swordPathListBox->clear();
+
+  for (QStringList::iterator it = targets.begin(); it != targets.end(); ++it)  {
+    new KListViewItem(m_swordPathListBox, *it);
+  }
 }

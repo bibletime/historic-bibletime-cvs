@@ -76,10 +76,19 @@ public:
   const bool showPart( CSwordSetupDialog::Parts ID );
 
 private:
+  void initSwordConfig();
   void initInstall();
 	void initRemove();
+  
   void populateInstallCombos();
 
+  QFrame* m_swordConfigPage;
+  KListView* m_swordPathListBox;
+  QButton* m_swordEditPathButton;
+  QButton* m_swordAddPathButton;
+  QButton* m_swordRemovePathButton;
+  QStringList m_swordPathList;
+  
   QFrame* m_removePage;
 
 	QWidgetStack* m_installWidgetStack;
@@ -126,8 +135,20 @@ private slots:
 
   void installCompleted( const int, const int );
 
+  /** This function writes the Sword configuration file to disk. */
+  void writeSwordConfig();
+  /** No descriptions */
+  void slot_swordRemoveClicked();
+  /** No descriptions */
+  void slot_swordAddClicked();
+  /** No descriptions */
+  void slot_swordEditClicked();
+
 signals: // Signals
   void signalSwordSetupChanged();
+protected: // Protected methods
+  /** Setup the path list box */
+  void setupSwordPathListBox();
 };
 
 #endif //CSWORDSETUPDIALOG_H
