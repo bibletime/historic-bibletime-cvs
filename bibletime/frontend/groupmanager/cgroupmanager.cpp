@@ -568,7 +568,7 @@ void CGroupManager::slotShowAbout(){
 		
 	QString encoding = i18n("Unicode");
 	if (module->encoding() != QFont::Unicode)
-		encoding += i18n("iso8859-1");		
+		encoding = i18n("iso8859-1");		
 				
 	text = QString::fromLatin1("<HTML><HEAD></HEAD><BODY>\
 <TABLE border=\"0\" height=\"100%\" width=\"100%\" cellspacing=\"0\" cellpadding=\"2\">\
@@ -1616,7 +1616,6 @@ void CGroupManager::slotReturnPressed( QListViewItem* i){
 			break;
 	}
 }
-
 
 /** Updates the content size of this list view. */
 void CGroupManager::resizeContents( int w, int h ){

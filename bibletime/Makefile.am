@@ -25,6 +25,7 @@ $(LIB_KDECORE) \
 $(LIB_KDEUI) \
 $(LIB_KFILE) \
 $(LIB_X11) \
+$(LIB_SWORD) \
 $(LIBSOCKET)
 
 SUBDIRS = backend frontend docs xml printing pics
@@ -54,8 +55,9 @@ bt-printing
 # kde_toolbardir    Where general toolbar icons should go to.
 # kde_wallpaperdir  Where general wallpapers should go to.
 
-# set the include path for X, qt and KDE
-INCLUDES= $(all_includes)
+# set the include path for X, qt, KDE and Sword
+INCLUDES = $(all_includes)
+
 # claim, which subdirectories you want to install
 # you can add here more. This one gets installed 
 bin_PROGRAMS = bibletime 
@@ -63,7 +65,7 @@ bin_PROGRAMS = bibletime
 bibletime_METASOURCES = AUTO
 
 # the library search path. 
-bibletime_LDFLAGS = $(all_libraries) $(KDE_RPATH)
+bibletime_LDFLAGS = $(BT_LDFLAGS) $(all_libraries) $(KDE_RPATH)
 
 # them while "make clean", use CLEANFILES
 DISTCLEANFILES = $(bibletime_METASOURCES)

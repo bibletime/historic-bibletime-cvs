@@ -288,12 +288,14 @@ void BibleTime::initBackends(){
 			case CSwordBackend::noModulesAvailable:			
 				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULES);
 				break;
-//			case CSwordBackend::noSwordConfigFile:
-//				HTML_DIALOG(HELPDIALOG_NO_SWORD_CONFIG);
-//				break;
+// --- The following pages are not yet available ---
+/*			case CSwordBackend::noSwordConfigFile:
+				HTML_DIALOG(HELPDIALOG_NO_SWORD_CONFIG);
+				break;
 			case CSwordBackend::noSwordModuleDirectory:
 				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULES_DIR);
 				break;		
+*/
 			case CSwordBackend::noSwordModuleConfigDirectory:
 				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULE_CONFIG_DIR);				
 				break;						

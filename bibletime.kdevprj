@@ -307,7 +307,7 @@ install_location=
 type=DATA
 
 [bibletime/Makefile.am]
-files=bibletime/main.cpp,bibletime/bibletime.cpp,bibletime/bibletime.h,bibletime/ressource.h,bibletime/bibletime_slots.cpp,bibletime/bibletime_init.cpp,bibletime/structdef.h,bibletime/whatsthisdef.h,bibletime/tooltipdef.h,
+files=bibletime/main.cpp,bibletime/bibletime.cpp,bibletime/bibletime.h,bibletime/ressource.h,bibletime/bibletime_slots.cpp,bibletime/bibletime_init.cpp,bibletime/structdef.h,bibletime/whatsthisdef.h,bibletime/tooltipdef.h,bibletime/bibletime.in
 sub_dirs=backend,frontend,pics,docs,xml,printing,libhtmlparse,
 type=prog_main
 
@@ -482,6 +482,12 @@ dist=true
 install=false
 install_location=
 type=HEADER
+
+[bibletime/bibletime.in]
+dist=true
+install=false
+install_location=
+type=DATA
 
 [bibletime/bibletime_init.cpp]
 dist=true

@@ -92,7 +92,8 @@ void BibleTime::saveSettings(){
 		m_config->writeEntry("showHeadings", m_viewHeadings_action->isChecked());
 						
 		m_config->writeEntry("show toolbar", m_viewToolbar_action->isChecked());
-		m_config->writeEntry("show main index", m_viewGroupManager_action->isChecked());		
+		m_config->writeEntry("show main index", m_viewGroupManager_action->isChecked());
+
 		if (m_viewGroupManager_action->isChecked())	//only save changes when the groupmanager is visible
 			m_config->writeEntry("splitterSizes", m_splitter->sizes());
 	}
@@ -129,19 +130,19 @@ void BibleTime::readSettings(){
 	ASSERT(m_viewToolbar_action);	
 	{
 		KConfigGroupSaver groupsaver(m_config, "General");
-		m_viewFootnotes_action->setChecked( m_config->readBoolEntry("showFootnotes", true));
+		m_viewFootnotes_action->setChecked(m_config->readBoolEntry("showFootnotes",true));
 		slotToggleFootnotes();
 	
-		m_viewStrongs_action->setChecked( m_config->readBoolEntry("showStrongs", true));
+		m_viewStrongs_action->setChecked(m_config->readBoolEntry("showStrongs",false));
 		slotToggleStrongs();
 
-		m_viewStrongs_action->setChecked( m_config->readBoolEntry("showStrongs", true));
-		slotToggleStrongs();
+		m_viewHeadings_action->setChecked(m_config->readBoolEntry("showHeadings", true));
+		slotToggleHeadings();
 
-		m_viewMorphTags_action->setChecked( m_config->readBoolEntry("showMorphTags", true));
+		m_viewMorphTags_action->setChecked(m_config->readBoolEntry("showMorphTags", false));
 		slotToggleMorphTags();
 				
-		m_viewToolbar_action->setChecked( m_config->readBoolEntry("show toolbar", true) );
+		m_viewToolbar_action->setChecked(m_config->readBoolEntry("show toolbar", true));
 		slotToggleToolbar();
 		
 		m_viewGroupManager_action->setChecked( m_config->readBoolEntry("show main index", true) );
@@ -280,22 +281,11 @@ void BibleTime::show(){
 }
 
 /** Reimplementation used for sessions management. */
-void BibleTime::saveProperties(KConfig* myConfig){
+void BibleTime::saveProperties(KConfig* /*myConfig*/){
 
 }
 
 /** Reimplementation used for session management. */
-void BibleTime::readProperties(KConfig* myConfig){
+void BibleTime::readProperties(KConfig* /*myConfig*/){
 
 }
-
-///** crash emergency save function */
-//void BibleTime::emergencySave( int ){
-//	qWarning("!!! BibleTime crashed - trying to save data NOW !!!");
-//
-//	saveSettings();
-//	m_groupmanager->saveSettings();
-//	m_mdi->saveSettings();
-//
-//	m_config->sync();//save to disk
-//}
