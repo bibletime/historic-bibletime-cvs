@@ -99,6 +99,8 @@ public slots: // Public slots
   virtual void referenceDropped(const QString&);
   /** Reimplementation from KMainWindow. */
   virtual bool queryClose();
+  /** Returns true if the display window is fully initialized. */
+  const bool initialized();
   /**
   * Inserts the action used by this display window in the given KAccel object.
   */
@@ -162,10 +164,15 @@ protected slots: // Protected slots
   * Is called when this display window looses the focus.
   */
   virtual void focusOutEvent( QFocusEvent* e );
+  /**
+  * Sets the display window to the initialized state.
+  */
+  void setInitialized();
 
 
 private:
 	int m_features;
+	bool m_initialized;
 
 signals: // Signals
   void lookupInLexicon(const QString& text, const QString& lexicon);

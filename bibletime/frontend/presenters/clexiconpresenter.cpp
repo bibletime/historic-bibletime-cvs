@@ -44,10 +44,14 @@ CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, QWidget *p
 	m_key( new CSwordLDKey(m_moduleList.first()) )
 {
 	m_key->key("");
+//	m_key->SWKey::operator=( TOP );
+//	*m_key = TOP;
 
 	initView();
 	show();
 	initConnections();			
+	
+	setInitialized();
 }
 
 CLexiconPresenter::~CLexiconPresenter(){

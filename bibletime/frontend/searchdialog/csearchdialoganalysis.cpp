@@ -248,8 +248,8 @@ CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int 
 }
 
 CSearchDialogAnalysisItem::~CSearchDialogAnalysisItem() {
-	qWarning("CSearchDialogAnalysisItem::~CSearchDialogAnalysisItem()");
-	if (m_bufferPixmap)
+//	qWarning("CSearchDialogAnalysisItem::~CSearchDialogAnalysisItem()");
+//	if (m_bufferPixmap)
 		delete m_bufferPixmap;
 }
 

@@ -93,6 +93,11 @@ QPixmap CModuleChooserButton::icon(){
 				return LEXICON_ICON_MC;				
 			else
 				return LEXICON_ADD_ICON_MC;
+		case CSwordModuleInfo::GenericBook:
+			if (m_hasModule)
+				return BOOK_ICON_MC;				
+			else
+				return BOOK_ADD_ICON_MC;				
 		default:
 			return PARALLEL_ICON_MC;
 	}

@@ -142,7 +142,7 @@ CSearchDialogText::~CSearchDialogText() {
 }
 	
 const QString CSearchDialogText::getText() const {
-	qWarning("m_editCombo: %s", m_editCombo->currentText().latin1());
+//	qWarning("m_editCombo: %s", m_editCombo->currentText().latin1());
 	return m_editCombo->currentText();
 }
 

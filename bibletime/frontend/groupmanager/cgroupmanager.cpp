@@ -348,41 +348,48 @@ void CGroupManager::slotDeleteSelectedItems(){
 
 /** call the search dialog */
 void CGroupManager::slotSearchSelectedModules() {
-	ListCSwordModuleInfo searchList;	
-	CGroupManagerItem *item = 0;	
-	QListViewItemIterator it( this );
-	for (; it.current(); ++it ) {
-		if ( it.current()->isSelected()) {
-			item = dynamic_cast<CGroupManagerItem*>(it.current());
-			if (item && item->type() == CGroupManagerItem::Module)
-				searchList.append(item->moduleInfo());
-		}
-	}	
+	ListCSwordModuleInfo searchList;
+	CGroupManagerItem *item = 0;
+	
+	QList<QListViewItem> items = selectedItems();
+	for (items.first(); items.current(); items.next()) {
+ 		item = dynamic_cast<CGroupManagerItem*>(items.current());
+ 		if (item && item->type() == CGroupManagerItem::Module)
+ 			searchList.append(item->moduleInfo());
+	}
 	saveSettings();
 	m_config->sync();
 
-	if (m_searchDialog) {
-		delete m_searchDialog;
-	}
-	m_searchDialog = new CSearchDialog(&searchList,0,0);		
+	if (!m_searchDialog)
+		m_searchDialog = new CSearchDialog(searchList,0,0);
+	else
+		m_searchDialog->setModuleList(searchList);
 	connect(m_searchDialog, SIGNAL(finished()),
-		this, SLOT(slotDeleteSearchdialog()));
-
+		this, SLOT(slotDeleteSearchdialog()));	
+	m_searchDialog->setSearchText(QString::null);
 	m_searchDialog->show();
 	m_searchDialog->raise();
 }	
 
 void CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerItem* item) {	
+  qWarning("CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerItem* item)");
+  ASSERT(item);
   if (!item->moduleInfo())
   	return;
 	ListCSwordModuleInfo searchList;
 	searchList.append(item->moduleInfo());
 	
 	if (!m_searchDialog)
-		m_searchDialog = new CSearchDialog( 0,0);
-	m_searchDialog->setModuleList(searchList);
+		m_searchDialog = new CSearchDialog(searchList,0,0);
+	else
+		m_searchDialog->setModuleList(searchList);
+	connect(m_searchDialog, SIGNAL(finished()),
+		this, SLOT(slotDeleteSearchdialog()));	
+		
   m_searchDialog->setSearchText(text);
 	m_searchDialog->show();
+	m_searchDialog->raise();
+	m_searchDialog->startSearch();	
 }	
 
 /**  */
@@ -597,6 +604,7 @@ void CGroupManager::slotShowAbout(){
 
 /**  */
 void CGroupManager::slotCreateNewPresenter(){
+	qWarning("CGroupManager::slotCreateNewPresenter()");
 	if (m_pressedItem && m_pressedItem->moduleInfo()) {
 		if (m_pressedItem->type() == CGroupManagerItem::Module || m_pressedItem->type() == CGroupManagerItem::Bookmark)
 			emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
@@ -713,7 +721,7 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     	MOVE_ITEMS    	
     }//else
   }//Bookmark
-  if (QTextDrag::decode(e,str,submime=GROUP)){
+  else if (QTextDrag::decode(e,str,submime=GROUP)){
     //a group was dragged
     if ( e->source() != this->viewport() )
       return;
@@ -724,8 +732,8 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     //move around groups    	
     MOVE_ITEMS
   }//group
-  if (QTextDrag::decode(e,str,submime=MODULE)){
-    //a group was dragged
+  else if (QTextDrag::decode(e,str,submime=MODULE)){
+    //a module was dragged
     if ( e->source() != this->viewport() ){
       return;
     }
@@ -742,14 +750,13 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     QString mod;
     CReferenceManager::decodeReference(str,mod,ref);
 
-    CSwordModuleInfo* info = 0;
-    for (info = m_swordList->first(); info; info = m_swordList->next())
-      if (info->name() == mod)
-      	break;
-    if ( info && (info->name() == mod) ){
+    CSwordModuleInfo* info = backend()->findModuleByName(mod);
+//    for (info = m_swordList->first(); info; info = m_swordList->next())
+//      if (info->name() == mod)
+//      	break;
+    if ( info /*&& (info->name() == mod)*/ ){
 			if (!target){ //Reference was dragged on no item
-				if (info)
-					createNewBookmark( 0, info, ref); //CREATE A NEW BOOKMARK
+				createNewBookmark(0, info, ref); //CREATE A NEW BOOKMARK
 			}
 			else{
 				switch (target->type()){
@@ -769,12 +776,10 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
 							* In bibles or commentaries, the reference is opened
 							* in lexicons, the reference is searched
 							*/
-							if (dynamic_cast<CSwordModuleInfo*>(target->moduleInfo()) ) {
-								if (dynamic_cast<CSwordBibleModuleInfo*>(target->moduleInfo()) )
-									emit createSwordPresenter( target->moduleInfo(),ref );
-								else if (dynamic_cast<CSwordLexiconModuleInfo*>(target->moduleInfo()))
-									searchBookmarkedModule(ref,target);							
-							}
+							if (target->moduleInfo()->type() == CSwordModuleInfo::Bible || target->moduleInfo()->type() == CSwordModuleInfo::Commentary )
+								emit createSwordPresenter( target->moduleInfo(), ref );							
+							else
+								searchBookmarkedModule(ref,target);
 						}
 						break;
 				}//switch;
@@ -782,9 +787,9 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     }//(info)
   }//reference
   else if (QTextDrag::decode(e,str,submime=TEXT)){
-    //plain text was dragged -> open searchdialog
-    if ( (target) && (target->type()==CGroupManagerItem::Module) && (target->moduleInfo()) )
-      searchBookmarkedModule(str,target);
+		//plain text was dragged -> open searchdialog
+		if ( target && target->type()==CGroupManagerItem::Module && target->moduleInfo() )
+			searchBookmarkedModule(str,target);
   }
 	m_dragType = "";
 	cleanDropVisualizer();

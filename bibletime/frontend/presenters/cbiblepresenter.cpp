@@ -48,12 +48,18 @@
 CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
 	: CSwordPresenter(useModules,parent,name)
 {		
+	qWarning("CBiblePresenter::CBiblePresenter");
 	m_key = new CSwordVerseKey(m_moduleList.first());
 	m_key->key("Genesis 1:1");
 	
 	initView();
+	qWarning("CBiblePresenter::CBiblePresenter before show");		
 	show();	
+	qWarning("CBiblePresenter::CBiblePresenter before initConnections");			
 	initConnections();	
+	qWarning("CBiblePresenter::CBiblePresenter finished");	
+	
+	setInitialized();
 }
 
 CBiblePresenter::~CBiblePresenter(){
@@ -62,6 +68,7 @@ CBiblePresenter::~CBiblePresenter(){
 
 /** Initializes the view (central widget, toolbars etc) of this presenter */
 void CBiblePresenter::initView(){
+	qWarning("CBiblePresenter::initView");	
 	m_mainToolBar = new KToolBar(this);
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
@@ -111,6 +118,7 @@ void CBiblePresenter::initView(){
 		
 	setCentralWidget(m_htmlWidget);	
 	setIcon( BIBLE_ICON_SMALL );	
+	qWarning("CBiblePresenter::initView finished");		
 }
 
 /** Displays the chapter using the aparameter. */

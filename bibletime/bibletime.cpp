@@ -163,7 +163,7 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 	CSwordPresenter* presenter = 0;
 	switch (modules.first()->type()) {
 		case CSwordModuleInfo::Bible:
-			presenter = new CBiblePresenter(modules,  m_mdi);
+			presenter = new CBiblePresenter(modules, m_mdi);
 			break;
 		case CSwordModuleInfo::Commentary:
 			presenter = new CCommentaryPresenter(modules, m_mdi);
@@ -175,12 +175,12 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			presenter = new CBookPresenter(modules, m_mdi);
 			break;
 		default:
-			presenter = 0;
+//			presenter = 0;
 			qWarning("unknown module type");
 			break;
 	}	
 	if (presenter) {
-		presenter->lookup(modules.first()->name(),key);
+		qWarning("CREATE NEW PRESENTER: %s", key.latin1());
 		connect(presenter, SIGNAL(lookupInLexicon(const QString&, const QString&)),
 			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
 		connect(presenter, SIGNAL(lookupInModule(const QString&, const QString&)),
@@ -191,15 +191,17 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			connect(presenter->keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 				m_mdi, SLOT(syncCommentaries(CSwordKey*)));		
 		}
+		presenter->lookup(modules.first()->name(),key);		
 	}
 			
 	kapp->restoreOverrideCursor();
 	presenter->setFocus();
 	
-	if (presenter)
-		return dynamic_cast<CSwordPresenter*>(presenter);
-	else
-		return 0;
+	return presenter;
+//	if (presenter)
+//		return dynamic_cast<CSwordPresenter*>(presenter);
+//	else
+//		return 0;
 }
 
 

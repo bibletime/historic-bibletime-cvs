@@ -60,7 +60,7 @@ CBookTreeChooser::CBookTreeChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 
 	//now setup the keychooser widgets
 	QHBoxLayout* layout = new QHBoxLayout(this);
-	m_treeView = new KListView(this);	
+	m_treeView = new KListView(this);
 	layout->addWidget(m_treeView);
 	
 	connect( m_treeView, SIGNAL(executed(QListViewItem*)), SLOT(itemClicked(QListViewItem*)));
@@ -71,11 +71,7 @@ CBookTreeChooser::CBookTreeChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 	m_treeView->setSorting(-1);
 	m_treeView->setRootIsDecorated(true);
 	
-	if (m_key) {
-		m_key->root();
-		m_key->firstChild();
-		setupTree(0,0,m_key);
-	}	
+	setModule(module);
 }
 
 CBookTreeChooser::~CBookTreeChooser(){
@@ -133,17 +129,28 @@ CSwordKey* CBookTreeChooser::key(){
 
 /** Sets another module to this keychooser */
 void CBookTreeChooser::setModule(CSwordModuleInfo* module){
+	m_module = dynamic_cast<CSwordBookModuleInfo*>(module);
+	
+	if (m_module && m_key) {
+		m_treeView->clear();
+	
+		m_key->root();
+		m_key->firstChild();
+		setupTree(0,0,m_key);
+		
+		updateKey(m_key);
+	}
 }
 
 /** Refreshes the content. */
 void CBookTreeChooser::refreshContent(){
 	if (m_key)
-		setKey( m_key ); //refresh with current key
+		updateKey( m_key ); //refresh with current key
 }
 
 /** Set up the tree with the current level of key. */
 void CBookTreeChooser::setupTree( QListViewItem* parent, QListViewItem* after, CSwordTreeKey* key ){
-	ASSERT(key);
+//	ASSERT(key);
 	QListViewItem* item = 0;
 	if (parent)
 		item = new TreeItem(parent, after, key->getLocalName(), key->key());

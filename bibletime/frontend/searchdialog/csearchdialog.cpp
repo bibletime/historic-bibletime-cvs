@@ -51,10 +51,8 @@
 #include <qpushbutton.h>
 #include <qcanvas.h>
 
-CSearchDialog::CSearchDialog( ListCSwordModuleInfo* modules, QWidget *parent, const char *name )
-	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null),
-//	m_searcher(new CSwordModuleSearch()),
-	old_currentProgress(0), old_overallProgress(0)			
+CSearchDialog::CSearchDialog( ListCSwordModuleInfo& modules, QWidget *parent, const char *name )
+	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null)
 {
 	setIcon(MODULE_SEARCH_ICON_SMALL);
 	m_searcher.connectPercentUpdate(this, SLOT(percentUpdate()));
@@ -63,14 +61,13 @@ CSearchDialog::CSearchDialog( ListCSwordModuleInfo* modules, QWidget *parent, co
 	initView();	
 	readSettings();	
 		
-	if (modules && modules->count())
-		showPage(pageIndex(m_searchTextPage));	
-	setModuleList( *modules );
+	setModuleList( modules );
+	if (modules.count())
+		showPage(pageIndex(m_searchTextPage));		
 }
 
 CSearchDialog::~CSearchDialog(){
 	saveSettings();	
-//	delete m_searcher;
 }
 
 /** Reads the settings from the configfile */
@@ -115,9 +112,6 @@ ListCSwordModuleInfo& CSearchDialog::getModuleList() {
 }
 
 void CSearchDialog::setModuleList(ListCSwordModuleInfo& list) {
-//	if (!list)
-//		return;	
-		
 	if (m_moduleList != list)
 		m_moduleList = list; //copy the items of "list"
 	
@@ -125,7 +119,7 @@ void CSearchDialog::setModuleList(ListCSwordModuleInfo& list) {
 	m_moduleChooser->setChosenModules(m_moduleList);
 	m_moduleChooser->blockSignals(false);	
 	
-	m_searchTextPage->setEnabled(m_moduleList.count());	
+	m_searchTextPage->setEnabled(m_moduleList.count()>0);	
 	m_searchResult->clearResult();
 	m_searchAnalysis->reset();
 }
@@ -288,17 +282,10 @@ void CSearchDialog::searchFinished(){
 
 /** No descriptions */
 void CSearchDialog::percentUpdate(){
-	qWarning("CSearchDialog::percentUpdate()");
- 	const int newOverallPercentage = m_searcher.getPercent(CSwordModuleSearch::allModules); 	
- 	const int newCurrentPercentage = m_searcher.getPercent(CSwordModuleSearch::currentModule);
-
-// 	if (old_overallProgress != newOverallPercentage) {
- 		m_searchText->updateOverallProgress(newOverallPercentage);
- 		old_overallProgress = newOverallPercentage;
-// 	}
-// 	if (old_currentProgress != newCurrentPercentage) {
- 		m_searchText->updateCurrentProgress(newCurrentPercentage);
- 		old_currentProgress = newCurrentPercentage;
-// 	}
+//	old_overallProgress = m_searcher.getPercent(CSwordModuleSearch::currentModule);
+	m_searchText->updateOverallProgress(m_searcher.getPercent(CSwordModuleSearch::allModules));
+	
+//	old_currentProgress = m_searcher.getPercent(CSwordModuleSearch::currentModule);
+	m_searchText->updateCurrentProgress(m_searcher.getPercent(CSwordModuleSearch::currentModule));
 	KApplication::kapp->processEvents();
 }

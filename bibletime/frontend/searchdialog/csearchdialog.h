@@ -59,7 +59,7 @@ public:
 	* @param parent The widget this dialog is centered on
 	* @param name The name of this Qt widget
 	*/
-	CSearchDialog(ListCSwordModuleInfo* modules,QWidget *parent=0, const char *name=0 );
+	CSearchDialog(ListCSwordModuleInfo& modules,QWidget *parent=0, const char *name=0 );
 	~CSearchDialog();
 	/**
 	*
@@ -84,7 +84,8 @@ public:
  	* Returns the search text. If no text was enetered return QSTring::null.
  	*/
   const QString getSearchedText() const;
-
+	void startSearch();
+	
 protected: // Protected methods
   /**
  	* Initializs the view
@@ -98,7 +99,6 @@ protected: // Protected methods
 	* Saves the settings of this widget to the config file
 	*/
   void saveSettings();
-	void startSearch();
 
 private:
 	friend class CSearchDialogResult;
@@ -113,8 +113,8 @@ private:
 	CSearchDialogAnalysisView* 	m_searchAnalysisView;
 	CSwordModuleSearch m_searcher;
 	ListCSwordModuleInfo m_moduleList;
-	int old_overallProgress;
-	int old_currentProgress;
+//	int old_overallProgress;
+//	int old_currentProgress;
 
 	QPushButton* m_searchAnalysisSaveButton;
 

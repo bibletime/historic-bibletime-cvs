@@ -40,9 +40,9 @@ void* startSearchCallback(void *p){
 }
 
 void percentUpdateDummy(char percent, void *p) {
-	if (searcher) {	
+//	if (searcher) {	
 		searcher->percentUpdate(percent, p);
-	}
+//	}
 };
 
 CSwordModuleSearch::CSwordModuleSearch() :
@@ -54,35 +54,22 @@ CSwordModuleSearch::CSwordModuleSearch() :
 }
 
 CSwordModuleSearch::~CSwordModuleSearch(){
-	qWarning("CSwordModuleSearch::~CSwordModuleSearch()");
+//	qWarning("CSwordModuleSearch::~CSwordModuleSearch()");
 	searcher = 0;
 //	m_moduleList.clear();
 }
 
 void CSwordModuleSearch::percentUpdate(char percent, void *){	
-//	qWarning("CSwordModuleSearch::percentUpdate");
-//	pthread_mutex_lock(&percentage_mutex);		
 	cms_currentProgress = (int)percent;
 	if (cms_module_count > 1)
 	  cms_overallProgress = (int)((float)((cms_module_current - 1)*100+cms_currentProgress))/cms_module_count;
 	else
 	  cms_overallProgress = cms_currentProgress;
-//	qWarning("Overall percent: %i", cms_overallProgress);
-//	qWarning("module percent: %i",  cms_currentProgress);	
-//	pthread_mutex_unlock(&percentage_mutex);
-	
-//	m_finishedSig.block(true);		
-//	pthread_mutex_lock(&signal_mutex);			
 	m_updateSig.activate();	
-//	pthread_mutex_unlock(&signal_mutex);
-//	m_finishedSig.block(false);
 }
 
 /** This function sets the modules which should be searched. */
-void CSwordModuleSearch::setModules( ListCSwordModuleInfo& list ){
-//	if (!list.count())
-//		return;		
-//	m_moduleList.clear();
+void CSwordModuleSearch::setModules( ListCSwordModuleInfo& list ) {
 	m_moduleList = list;
 }
 
@@ -93,12 +80,10 @@ const bool CSwordModuleSearch::startSearch() {
 	m_terminateSearch = false;
 	m_isSearching 		= true;		
 		
-//	pthread_mutex_lock(&percentage_mutex);
 	cms_currentProgress = 0;
 	cms_overallProgress = 0;
 	cms_module_current = 0;
 	cms_module_count = m_moduleList.count();
-//	pthread_mutex_unlock(&percentage_mutex);
 	
 	bool foundItems = false;
 	
@@ -107,17 +92,9 @@ const bool CSwordModuleSearch::startSearch() {
 		cms_module_current++;
 		if ( m_moduleList.current()->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) )
 			foundItems = true;
-//		m = m_moduleList.current()->clone();
-//		if ( m->search(m_searchedText, m_searchOptions, m_searchScope, &percentUpdateDummy) ) {
-//			m_moduleList.current()->searchResult( &(m->searchResult()) );
-//			foundItems = true;			
-//		}
-//		delete m;
 	}
-//	pthread_mutex_lock(&percentage_mutex);
 	cms_currentProgress = 100;
 	cms_overallProgress = 100;
-//	pthread_mutex_unlock(&percentage_mutex);
 	
 	m_foundItems = foundItems;		
 	m_isSearching = false;
@@ -126,7 +103,6 @@ const bool CSwordModuleSearch::startSearch() {
 	m_finishedSig.activate();		
 	return true;
 }
-
 
 void CSwordModuleSearch::startSearchThread(void){
 //	pthread_t thread;
@@ -140,7 +116,7 @@ void CSwordModuleSearch::startSearchThread(void){
 
 //	percentage_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 	/*const int i =*/ //pthread_create( &thread, /*&attr*/NULL, &startSearchCallback, this );
-//	dummy(this);
+
 	startSearch();
 	
 //	pthread_cond_wait(&finish_cond, &dummy_mutex);
@@ -148,9 +124,6 @@ void CSwordModuleSearch::startSearchThread(void){
 //	pthread_mutex_lock(&signal_mutex);			
 //	m_finishedSig.activate();	
 //	pthread_mutex_unlock(&signal_mutex);				
-	
-//  if (i == -1)	//an error occurred
-//		qWarning("pthread_create failed");
 }
 
 /** Sets the text which should be search in the modules. */
@@ -188,19 +161,16 @@ void CSwordModuleSearch::setSearchOptions( int options ){
 
 /** Returns the percent for the given type. */
 const int CSwordModuleSearch::getPercent( percentType type ){
-//	qWarning("CSwordModuleSearch::getPercent");	
 	int ret = 0;	
-	if (type == currentModule) {
-//		pthread_mutex_lock(&percentage_mutex);	
-		ret = cms_currentProgress;
-//		pthread_mutex_unlock(&percentage_mutex);		
-	}
-	else if (type == allModules){
-//		pthread_mutex_lock(&percentage_mutex);		
-		ret = cms_overallProgress;
-//		pthread_mutex_unlock(&percentage_mutex);			
-	}
-	return ret;
+	switch (type) {
+		case currentModule:
+			return cms_currentProgress;
+		case allModules:
+			return cms_overallProgress;
+//		default:
+//			return 0;
+	};
+	return 0;
 }
 
 /** Returns a copy of the used search scope. */

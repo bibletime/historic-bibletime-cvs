@@ -19,24 +19,20 @@
 #include "cswordbookmoduleinfo.h"
 
 CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx((const char*)k), CSwordKey(k) {
-
 }
 
 CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module )
-	: TreeKeyIdx(*k), CSwordKey(module)
-{
-
-
+	: TreeKeyIdx(*k), CSwordKey(module) {
 }
 
 CSwordKey* CSwordTreeKey::copy() const {
-	qWarning("CSwordTreeKey* CSwordTreeKey::copy() const");
+//	qWarning("CSwordTreeKey* CSwordTreeKey::copy() const");
 	return new CSwordTreeKey(*this);
 }
 
-CSwordTreeKey::~CSwordTreeKey() {
-	qWarning("CSwordTreeKey::~CSwordTreeKey()");
-}
+//CSwordTreeKey::~CSwordTreeKey() {
+//	qWarning("CSwordTreeKey::~CSwordTreeKey()");
+//}
 
 /** Sets the key of this instance */
 const QString CSwordTreeKey::key( const QString& newKey ){
@@ -53,4 +49,14 @@ void CSwordTreeKey::key( const char* newKey ){
 	if (newKey) {
 		TreeKeyIdx::operator = (newKey);
 	}
+}
+
+CSwordModuleInfo* CSwordTreeKey::module( CSwordModuleInfo* newModule ){
+	if (newModule && newModule->type() == CSwordModuleInfo::GenericBook ) {
+		CSwordBookModuleInfo* bookModule = dynamic_cast<CSwordBookModuleInfo*>(newModule);
+		m_module = newModule;
+		copyFrom(*(bookModule->tree()));
+		root();
+	}
+	return m_module;
 }

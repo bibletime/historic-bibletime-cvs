@@ -65,13 +65,19 @@ void CMDIArea::initConnections(){
 
 /** Called whan a client window was activated */
 void CMDIArea::slotClientActivated(QWidget* client){
+//	qWarning("slotClientActivated(QWidget* client)");
 	if (!client)
 		return;				
-	m_appCaption = client->caption().stripWhiteSpace();	
-	emit sigSetToplevelCaption( m_appCaption );	
+	CSwordPresenter* sp = dynamic_cast<CSwordPresenter*>(client);	
+	if (sp && !sp->initialized())
+		return;
 	
+	m_appCaption = client->caption().stripWhiteSpace();	
+//	qWarning("caption is %s", m_appCaption.latin1());
+	emit sigSetToplevelCaption( m_appCaption );	
+
 	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
-	if (p)
+	if (p && p->keyChooser())
 		syncCommentaries( p->keyChooser()->key() );
 }
 
@@ -193,7 +199,7 @@ void CMDIArea::syncCommentaries(CSwordKey* syncKey){
 	QWidgetList windows = windowList();	
 	if (!windows.count())
 		return;	
-		
+	
 	for (windows.first(); windows.current(); windows.next()) {
 		CCommentaryPresenter* p = dynamic_cast<CCommentaryPresenter*>(windows.current());
 		if (p)
@@ -240,7 +246,6 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 	for (windows.first(); windows.current(); windows.next()) {
 		p = dynamic_cast<CSwordPresenter*>(windows.current());
 		if (p && (p->getModuleList().containsRef(m))) {
-			qWarning("lookupInModule: found");
 			found = true;
 			break;
 		}
@@ -253,28 +258,21 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 
 /** Closes and deletes the presenter given as argument. */
 void CMDIArea::closePresenter(CSwordPresenter* p){
-	qWarning("CMDIArea::closePresenter(CSwordPresenter* p)");
 	if (!p)
 		return;
-//	if (p && !p->close()) {
-//		qWarning("NOT CLOSED!!");
-//		return;
-//	}
-		
-//	m_currentPresenter = p;
+	
 	m_deleteWindows.append(p);
   QTimer::singleShot(5000, this, SLOT(deleteCurrentPresenter()) );	
 }
 
 /** Delete the presenter. */
 void CMDIArea::deleteCurrentPresenter(){
-	qWarning("CMDIArea::deleteCurrentPresenter()");
 	setUpdatesEnabled(false);
 	CSwordPresenter* p = m_deleteWindows.first();
-	if ( p ) {
+//	if ( p ) {
 		delete p;
 		m_deleteWindows.removeRef(p);
-	}
+//	}
 	setUpdatesEnabled(true);
 	slotClientActivated(activeWindow());
 	if (activeWindow())

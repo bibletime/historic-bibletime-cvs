@@ -88,9 +88,11 @@ private:
 protected: // Protected methods
   /** Set up the tree with the current level of key. */
   void setupTree( QListViewItem* parent,QListViewItem* after, CSwordTreeKey* key );
+
 protected slots: // Protected slots
   /** No descriptions */
   void itemClicked( QListViewItem* item );
+
 public slots: // Public slots
   /** No descriptions */
   virtual void updateKey( CSwordKey* );

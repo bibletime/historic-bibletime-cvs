@@ -55,7 +55,7 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
 	connect(m_widget,SIGNAL(changed(int)),SLOT(activated(int)));
 	connect(m_widget,SIGNAL(focusOut(int)),SLOT(activated(int)));
 
-	setKey(key);
+//	setKey(key);
 }
 
 CSwordKey* CLexiconKeyChooser::key(){

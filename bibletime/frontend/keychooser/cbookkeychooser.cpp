@@ -23,7 +23,7 @@
 #include <qlayout.h>
 
 CBookKeyChooser::CBookKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent, const char *name)
-	: CKeyChooser(module, key, parent,name) {
+	: CKeyChooser(module, key, parent,name), m_layout(0) {
 	if ( module && (module->type() == CSwordModuleInfo::GenericBook) ) {
 		m_module = dynamic_cast<CSwordBookModuleInfo*>(module);		
 		m_key = dynamic_cast<CSwordTreeKey*>(key);
@@ -31,21 +31,8 @@ CBookKeyChooser::CBookKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidg
 	else {
 		m_module = 0;
 		m_key = 0;
-	}		
-
-	//now setup the keychooser widgets
-	if (m_module && m_key) {
-		QHBoxLayout* layout = new QHBoxLayout(this);
-		for (int i = 0; i < m_module->depth(); ++i) {
-			CKeyChooserWidget* w = new CKeyChooserWidget(0, false, this); //empty keychooser
-			m_chooserWidgets.append( w );		
-			connect(w, SIGNAL(changed(int)), SLOT(keyChooserChanged(int)));			
-			layout->addWidget(w);
-		}
-		layout->addStretch(5);
-		
-		setKey(m_key);	
 	}
+	setModule(m_module);
 }
 
 CBookKeyChooser::~CBookKeyChooser(){
@@ -59,6 +46,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey){
 void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 	if (m_key != newKey )
 		m_key = dynamic_cast<CSwordTreeKey*>(newKey);
+	
 	const QString oldKey = m_key->key();
 	QStringList siblings;
 	if (m_key && !oldKey.isEmpty())
@@ -107,12 +95,32 @@ CSwordKey* CBookKeyChooser::key(){
 
 /** Sets another module to this keychooser */
 void CBookKeyChooser::setModule(CSwordModuleInfo* module){
+	m_module = dynamic_cast<CSwordBookModuleInfo*>(module);	
+	//refresh the number of combos
+	if (m_module && m_key) {
+		if (!m_layout)
+			m_layout = new QHBoxLayout(this);
+
+		//delete old widgets
+		m_chooserWidgets.setAutoDelete(true);
+		m_chooserWidgets.clear();
+		m_chooserWidgets.setAutoDelete(false);
+		
+		for (int i = 0; i < m_module->depth(); ++i) {			
+			CKeyChooserWidget* w = new CKeyChooserWidget(0, false, this); //empty keychooser
+			m_chooserWidgets.append( w );
+			w->show();			
+			connect(w, SIGNAL(changed(int)), SLOT(keyChooserChanged(int)));			
+			m_layout->addWidget(w);
+		}
+		updateKey(m_key);		
+	}
 }
 
 /** Refreshes the content. */
 void CBookKeyChooser::refreshContent(){
 	if (m_key)
-		setKey( m_key ); //refresh with current key
+		updateKey( m_key ); //refresh with current key
 }
 
 void CBookKeyChooser::setupCombo(const QString key, const int depth, const int currentItem){

@@ -44,12 +44,14 @@
 CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
 	: CSwordPresenter(useModules,parent,name)
 {
-	m_key = dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(useModules.first()) );	
+	m_key = dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(useModules.first()) );
 	m_key->root();
 	
 	initView();
 	show();
 	initConnections();
+	
+	setInitialized();
 }
 
 CBookPresenter::~CBookPresenter(){
@@ -60,15 +62,20 @@ CBookPresenter::~CBookPresenter(){
 /** Initializes the interface of this presenter. */
 void CBookPresenter::initView(){
 	m_mainToolBar = new KToolBar(this);
-	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
-	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);
-
+	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);	
+	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
+	
 	m_treeAction =  new KToggleAction(i18n("Toggle tree..."), ICON_VIEW_BOOKTREE,
 															IDK_PRESENTER_TOGGLE_TREE, this,	SLOT(treeToggled()), actionCollection(), "treeToggle_action");
 //	m_treeAction->setWhatsThis( WT_PRESENTER_SYNC );
 	m_treeAction->plug(m_mainToolBar);
-		
+
 	addToolBar(m_mainToolBar);			
+	
+	m_moduleChooserBar = new CModuleChooserBar(m_moduleList, CSwordModuleInfo::GenericBook, this );
+	m_moduleChooserBar->setButtonLimit(1);
+	addToolBar(m_moduleChooserBar);
+	
 
 	QSplitter* splitter = new QSplitter(this);	
 	m_treeChooser = new CBookTreeChooser(m_moduleList.first(), m_key, splitter);
@@ -132,48 +139,37 @@ void CBookPresenter::initConnections(){
 		
 //	connect(m_popup, SIGNAL(aboutToShow()),
 //		SLOT(popupAboutToShow()));
-//	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
-//		SLOT(modulesChanged() ));
+	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
+		SLOT(modulesChanged() ));
 //	connect(m_displaySettingsButton, SIGNAL( sigChanged() ),	
 //		SLOT(optionsChanged() ));
 }
 
 void CBookPresenter::modulesChanged(){
   m_moduleList = m_moduleChooserBar->getModuleList();
-  if (!m_moduleList.count()) {
+  if (!m_moduleList.count())
   	close();
-  }
   else {
-//		m_displaySettingsButton->reset(m_moduleList);
-//    refreshFeatures()
-//	  m_key->module(m_moduleList.first());
-//	  m_keyChooser->setModule(m_moduleList.first());	
+	  m_key->module(m_moduleList.first());
+	  m_keyChooser->setModule(m_moduleList.first());	
+	  m_treeChooser->setModule(m_moduleList.first());		
 		m_htmlWidget->setModules(m_moduleList);
 	  	
-//	  lookup(m_key);
+	  lookup(m_key);
 	}
 }
 
 void CBookPresenter::lookup(CSwordKey* key) {
 	qWarning("CBookPresenter::lookup(CSwordKey*)");
-	CSwordTreeKey* treeKey = dynamic_cast<CSwordTreeKey*>(key);
-//	ASSERT(treeKey);
-//  qWarning(treeKey->key().latin1());
 
 	setUpdatesEnabled(false);	
-
-//	m_moduleList.first()->module()->SetKey(*treeKey);
+	CSwordTreeKey* treeKey = dynamic_cast<CSwordTreeKey*>(key);	
 	CSwordModuleInfo* m = m_moduleList.first();
-	if (((SWKey*)*(m->module())) != treeKey) {
-		m->module()->SetKey(treeKey);
-//	  qWarning("CBookPresenter::lookup have set key!");
-	}
+	m->module()->SetKey(treeKey);
 	
 		
 	if (m->getDisplay()) {
 		m->getDisplay()->Display( m );
-//	  qWarning("CBookPresenter::lookup: Displayed!");
-//	  qWarning(m->getDisplay()->getHTML().latin1());
 		m_htmlWidget->setText(m->getDisplay()->getHTML());
 	}	
 	if (m_key != treeKey) {
@@ -185,16 +181,17 @@ void CBookPresenter::lookup(CSwordKey* key) {
 
 /** No descriptions */
 void CBookPresenter::lookup( const QString& module, const QString& key){
+	qWarning("key is %s", key.latin1());
 	CSwordModuleInfo* m = backend()->findModuleByName(module);
 	if (m && m_moduleList.containsRef(m)) {
 		if (!key.isEmpty())
 			m_key->key(key);
+		else
+			m_key->root();
 		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
-//		m_treeChooser->setKey(m_key);
 	}
-	else {
+	else
 		emit lookupInModule(module, key);
-	}
 }
 
 /** Initializes keyboard accelerators. */

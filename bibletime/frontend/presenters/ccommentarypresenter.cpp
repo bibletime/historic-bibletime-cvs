@@ -52,6 +52,8 @@ CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, QWid
 	initView();	
 	show();		
 	initConnections();		
+	
+	setInitialized();
 }
 
 CCommentaryPresenter::~CCommentaryPresenter(){

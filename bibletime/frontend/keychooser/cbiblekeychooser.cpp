@@ -36,7 +36,7 @@
 CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(module, key, parent, name), m_info(0), m_key(0), w_book(0), w_chapter(0), w_verse(0)
 {
-
+	qWarning("CBibleKeyChooser: constructor");
 	if (module && (module->type() == CSwordModuleInfo::Bible || (module->type() == CSwordModuleInfo::Commentary )) )
 		m_info = dynamic_cast<CSwordBibleModuleInfo*>(module);
 	else {
@@ -83,12 +83,16 @@ CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 	connect(w_verse,SIGNAL(prev_requested())  ,SLOT(versePrevRequested()));
 	connect(w_verse,SIGNAL(focusOut(int))     ,SLOT(verseFocusOut(int)));	
 	
-	if (key)
-		setKey(key);
+//	if (key)
+//		setKey(key);
 }
 
 CSwordKey *CBibleKeyChooser::key(){
-	m_key->book(w_book->comboBox()->currentText());	
+	const QString book = w_book->comboBox()->currentText();
+	qWarning("book == %s", book.latin1());
+	m_key->book(book);	
+	
+	qWarning("chapter == %s", w_chapter->comboBox()->currentText().latin1());		
 	m_key->Chapter(w_chapter->comboBox()->currentText().toInt());			
 	m_key->Verse(w_verse->comboBox()->currentText().toInt());			
 	
@@ -96,7 +100,7 @@ CSwordKey *CBibleKeyChooser::key(){
 }
 
 void CBibleKeyChooser::setKey(CSwordKey* key){
-//	qDebug("CBibleKeyChooser::setKey(CKey* key)");
+	qWarning("CBibleKeyChooser::setKey(CKey* key)");
 	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
 		

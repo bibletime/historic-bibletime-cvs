@@ -37,7 +37,8 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *paren
 	m_lexiconPopup(new QPopupMenu(this)),
 	m_moduleOptions( CBTConfig::getAllModuleOptionDefaults() ),
 	m_displayOptions( CBTConfig::getAllDisplayOptionDefaults() ),
-	m_displaySettingsButton(0)
+	m_displaySettingsButton(0),
+	m_initialized(false)
 
 {		
 	for (backend()->moduleList()->first(); backend()->moduleList()->current(); backend()->moduleList()->next()) {
@@ -138,9 +139,7 @@ const QString CSwordPresenter::windowCaption() {
 
 /** Sets the caption of this display window */
 void CSwordPresenter::setCaption(const QString&){
-//	qWarning("CSwordPresenter::setCaption");
 	QWidget::setCaption( windowCaption() ); //set everytime our own caption
-	qWarning(caption().local8Bit());
 }
 
 /** Applies the settings given in the parameter to the window. */
@@ -203,17 +202,14 @@ void CSwordPresenter::insertKeyboardActions( KAccel* a ){
 }
 
 void CSwordPresenter::initAccels(){
-	qWarning("CSwordPresenter::initAccels()");
+//	qWarning("CSwordPresenter::initAccels()");
 }
 
 /** Initilizes widget before shown and after constructor. */
 void CSwordPresenter::polish(){
-	qWarning("CSwordPresenter::polish()");
+//	qWarning("CSwordPresenter::polish()");
+	KMainWindow::polish();		
 	m_accel = new KAccel(this);	
-	
-	KMainWindow::polish();	
-	
-//	refreshFeatures();
 	initAccels();
 }
 
@@ -235,11 +231,10 @@ void CSwordPresenter::focusOutEvent( QFocusEvent* e ){
 
 /** Is called when this display window looses the focus. */
 void CSwordPresenter::refresh(){
-	qWarning("CSwordPresenter::refresh()");
+//	qWarning("CSwordPresenter::refresh()");
 	m_moduleOptions = CBTConfig::getAllModuleOptionDefaults();
 	m_displayOptions = CBTConfig::getAllDisplayOptionDefaults();
 
-	ASSERT(m_displaySettingsButton);
 	if (m_displaySettingsButton)
 		m_displaySettingsButton->reset(m_moduleList);
 }
@@ -252,4 +247,14 @@ void CSwordPresenter::referenceDropped(const QString& ref){
 /** Reimplementation from KMainWindow. */
 bool CSwordPresenter::queryClose(){
 	return true;
+}
+
+/** Returns true if the display window is fully initialized. */
+const bool CSwordPresenter::initialized(){
+	return m_initialized;
+}
+
+/** Sets the display window to the initialized state. */
+void CSwordPresenter::setInitialized(){
+	m_initialized = true;
 }

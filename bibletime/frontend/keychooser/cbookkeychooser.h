@@ -37,6 +37,8 @@ class CSwordTreeKey;
 
 class TreeKeyIdx;
 
+class QHBoxLayout;
+
 /** The keychooser implementation for books.
   * @author The BibleTime team
   */
@@ -70,6 +72,7 @@ private:
 	QList<CKeyChooserWidget> m_chooserWidgets;	
 	CSwordBookModuleInfo	*m_module;
 	CSwordTreeKey *m_key;
+	QHBoxLayout* m_layout;
 
 protected: // Protected methods
   /**
@@ -85,7 +88,9 @@ protected slots:
   void keyChooserChanged(int);
 
 public slots: // Public slots
-  /** Updates the keychoosers for the given key but emit no signal. */
+  /**
+  * Updates the keychoosers for the given key but emit no signal.
+  */
   void updateKey(CSwordKey*);
 };
 

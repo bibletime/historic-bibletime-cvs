@@ -32,7 +32,8 @@ class CSwordTreeKey : public TreeKeyIdx, public CSwordKey  {
 public:
 	CSwordTreeKey( const CSwordTreeKey& k );
 	CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module );
-	virtual ~CSwordTreeKey();	
+//	virtual ~CSwordTreeKey();	
+	CSwordModuleInfo* module( CSwordModuleInfo* newModule );
 	virtual CSwordKey* copy() const;
   /**
   * Set/get the key. If the parameter is not set (means equal to QString::null)
