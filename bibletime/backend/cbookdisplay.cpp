@@ -14,6 +14,7 @@
 #include "cbookdisplay.h"
 #include "cdisplayrendering.h"
 #include "cswordbookmoduleinfo.h"
+#include "cswordtreekey.h"
 
 //Util
 #include "util/scoped_resource.h"

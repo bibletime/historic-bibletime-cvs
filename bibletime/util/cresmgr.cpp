@@ -1581,47 +1581,47 @@ namespace CResMgr {
           };
           {
             using namespace footnotes;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::footnotes) );
+            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::footnotes) );
             whatsthis = makeWhatsThis( tooltip, i18n("Show footnotes embedded in the module's text."));
           };
           {
             using namespace strongsNumbers;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::strongNumbers) );
+            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::strongNumbers) );
             whatsthis = makeWhatsThis( tooltip, i18n("Show Strong's Numbers embedded in the text of modules which support this feature."));
           };
           {
             using namespace morphTags;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::morphTags) );
+            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::morphTags) );
             whatsthis = makeWhatsThis( tooltip, i18n("Show tags providing morphological information in the text of modules which support this feature."));
           };
           {
             using namespace headings;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::headings) );
+            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::headings) );
             whatsthis = makeWhatsThis( tooltip, i18n("Show section headings in the text in the text of modules which support this feature."));
           };
           {
             using namespace lemmas;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::lemmas) );
+            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::lemmas) );
             whatsthis = makeWhatsThis( tooltip, i18n("Show root words."));
           };
           {
             using namespace hebrewVowelPoints;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::hebrewPoints) );
+            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::hebrewPoints) );
             whatsthis = makeWhatsThis( tooltip, i18n("Show hebrew vowel points in the text."));
           };
           {
             using namespace hebrewCantillation;
-            tooltip  = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::hebrewCantillation) );
+            tooltip  = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::hebrewCantillation) );
             whatsthis = makeWhatsThis( tooltip, i18n("Show hebrew cantillation marks in the text."));
           };
           {
             using namespace greekAccents;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::greekAccents) );
+            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::greekAccents) );
             whatsthis = makeWhatsThis( tooltip, i18n("Show greek accents in the text."));
           };
           {
             using namespace textualVariants;
-            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::textualVariants) );
+            tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordModuleInfo::textualVariants) );
             whatsthis = makeWhatsThis( tooltip, i18n("Use different variants from the textual sources."));
           };
         };

@@ -62,7 +62,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 	ThMLHTML::processText(buf, key, module);
 	
  	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
-	if (m && !(m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
+	if (m && !(m->has(CSwordModuleInfo::lemmas) || m->has(CSwordModuleInfo::strongNumbers))) { //only parse if the module has strongs or lemmas
 		return 1;
 	}
 

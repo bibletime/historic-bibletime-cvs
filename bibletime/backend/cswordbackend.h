@@ -19,7 +19,7 @@
 #define CSWORDBACKEND_H
 
 //BibleTime includes
-//#include "cswordmoduleinfo.h"
+#include "cswordmoduleinfo.h"
 //#include "centrydisplay.h"
 
 //Qt includes
@@ -43,8 +43,8 @@ namespace Rendering {
 	class CBookDisplay;
 }
 
-class CSwordModuleInfo;
-typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
+//class CSwordModuleInfo;
+//typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
 
 
 /**
@@ -57,28 +57,6 @@ typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
   */
 class CSwordBackend : public sword::SWMgr {
 public:
-  /**
- 	* These are the options which could be supported by modules and by this backend.
- 	* It's used in @ref isOptionEnabled and @ref setOption
- 	*/
-  enum FilterTypes {
-  	footnotes,
-  	strongNumbers,
-  	headings,
-  	morphTags,
-		lemmas,
-		hebrewPoints,
-		hebrewCantillation,
-		greekAccents,
-    scriptureReferences,
-    redLetterWords,
-    textualVariants,
-		filterTypesMIN = footnotes,
-		filterTypesMAX = textualVariants,
-
-    /* The following are handled in a special way */
-    transliteration
-	};
 
   struct FilterOptions {
   	int footnotes;
@@ -140,7 +118,7 @@ public:
   * @param type This is the type this function should set enabled or disabled
   * @param enable If this is true the option will be enabled, otherwise it will be disabled.
   */
-  void setOption( const CSwordBackend::FilterTypes type, const int state );
+  void setOption( const CSwordModuleInfo::FilterTypes type, const int state );
   void setFilterOptions( const CSwordBackend::FilterOptions options );
   void setDisplayOptions( const CSwordBackend::DisplayOptions options );
   /**
@@ -148,7 +126,7 @@ public:
   *
   * @return Returns true if the options given as aparameter is switched on at this time, otherwise return false.
   */
-  virtual const bool isOptionEnabled( const CSwordBackend::FilterTypes type);
+  virtual const bool isOptionEnabled( const CSwordModuleInfo::FilterTypes type);
   /**
   * Sets the language for the international booknames of Sword.
   */
@@ -190,15 +168,15 @@ public:
   /**
   * Returns the text used for the option given as parameter.
   */
-  static const QString optionName( const CSwordBackend::FilterTypes option);
+  static const QString optionName( const CSwordModuleInfo::FilterTypes option);
   /**
   * Returns the text used for the option given as parameter.
   */
-  static const QString configOptionName( const CSwordBackend::FilterTypes option);
+  static const QString configOptionName( const CSwordModuleInfo::FilterTypes option);
   /**
 	* Returns the translated name of the option given as parameter.
 	*/
-  static const QString translatedOptionName(const CSwordBackend::FilterTypes option);
+  static const QString translatedOptionName(const CSwordModuleInfo::FilterTypes option);
   /**
   * Returns the version of the Sword library.
   */

@@ -96,7 +96,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	GBFHTML::processText(buf, key, module);
 
  	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
-	if (m && !(m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::morphTags) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
+	if (m && !(m->has(CSwordModuleInfo::lemmas) || m->has(CSwordModuleInfo::morphTags) || m->has(CSwordModuleInfo::strongNumbers))) { //only parse if the module has strongs or lemmas
 		return 1; //WARNING: Return alread here
 	}
 
@@ -110,7 +110,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	int lastMatchEnd = 0;
 	int pos = tag.search(t,0);
 	if (pos == -1) { //no strong or morph code found in this text
-		return 1; //WARNING: Return alread here
+		return 1; //WARNING: Return already here
 	}
 	
 	//split the text into parts which end with the GBF tag marker for strongs/lemmas

@@ -14,6 +14,11 @@
 
 #include "centrydisplay.h"
 
+class CTextRendering {
+	class KeyTree;
+};
+class CSwordTreeKey;
+
 namespace Rendering {
 
 /**

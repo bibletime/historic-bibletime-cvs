@@ -20,8 +20,11 @@
 #include "cswordbackend.h"
 #include "cswordmodulesearch.h"
 #include "cswordkey.h"
+#include "centrydisplay.h"
 #include "clanguagemgr.h"
+
 #include "util/scoped_resource.h"
+#include "frontend/cbtconfig.h"
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -275,7 +278,7 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 	return false;
 }
 
-const bool CSwordModuleInfo::has( const CSwordBackend::FilterTypes option ){
+const bool CSwordModuleInfo::has( const CSwordModuleInfo::FilterTypes option ){
 	//BAD workaround to see if the filter is GBF, OSIS or ThML!	
   const QString name = backend()->configOptionName(option);
  	if (m_module->getConfig().has("GlobalOptionFilter", QString::fromLatin1("OSIS%1").arg(name).latin1()))
@@ -337,4 +340,9 @@ const CSwordModuleInfo::Category CSwordModuleInfo::category() const {
 	}
 
 	return m_dataCache.category;
+}
+
+/** Returns the display object for this module. */
+Rendering::CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
+	return dynamic_cast<Rendering::CEntryDisplay*>(m_module->Disp());
 }

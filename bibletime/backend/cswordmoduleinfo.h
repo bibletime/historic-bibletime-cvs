@@ -19,7 +19,7 @@
 #define CSWORDMODULEINFO_H
 
 //BibleTime includes
-#include "centrydisplay.h"
+// #include "centrydisplay.h"
 // #include "cswordbackend.h"
 #include "clanguagemgr.h"
 
@@ -27,8 +27,6 @@
 
 //Qt includes
 #include <qstring.h>
-#include <qfont.h>
-#include <qmap.h>
 
 //Sword includes
 #include <listkey.h>
@@ -39,6 +37,8 @@
 
 class CSwordBackend;
 class CSwordKey;
+
+namespace Rendering { class CEntryDisplay; }
 
 // using namespace Rendering;
 
@@ -52,6 +52,29 @@ class CSwordKey;
   */
 class CSwordModuleInfo : public CPointers  {
 public:
+  /**
+ 	* These are the options which could be supported by modules and by this backend.
+ 	* It's used in @ref CSwordBackend::isOptionEnabled and @ref CSwordBackend::setOption
+ 	*/
+  enum FilterTypes {
+  	footnotes,
+  	strongNumbers,
+  	headings,
+  	morphTags,
+		lemmas,
+		hebrewPoints,
+		hebrewCantillation,
+		greekAccents,
+    scriptureReferences,
+    redLetterWords,
+    textualVariants,
+		filterTypesMIN = footnotes,
+		filterTypesMAX = textualVariants,
+
+    /* The following are handled in a special way */
+    transliteration
+	};
+
   enum TextDirection { /* The text direction of the modules's text */
     LeftToRight,
     RightToLeft
@@ -128,7 +151,7 @@ public:
  	* This function performs some casts to return the correct display. If it returns 0 there's no valid
  	* display object.
  	*/
-  inline Rendering::CEntryDisplay* const getDisplay() const;
+  Rendering::CEntryDisplay* const getDisplay() const;
   /**
  	* This function does return true if the data files of the module are encrypted by the module author
  	* (the on who made the module) no matter if it's locked or not.
@@ -185,7 +208,7 @@ public:
   */
   virtual const bool snap() { return false; };
   const bool has( const CSwordModuleInfo::Feature );
-	const bool has( const CSwordBackend::FilterTypes option )	;
+	const bool has( const CSwordModuleInfo::FilterTypes  );
   /**
   * Returns the text direction of the module's text.,
   */
@@ -251,11 +274,6 @@ inline const CSwordModuleInfo::ModuleType CSwordModuleInfo::type() const {
 
 inline sword::SWModule* const CSwordModuleInfo::module() const {
 	return m_module;
-}
-
-/** Returns the display object for this module. */
-inline Rendering::CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
- 	return dynamic_cast<Rendering::CEntryDisplay*>(m_module->Disp());
 }
 
 inline const bool CSwordModuleInfo::hasVersion() const {

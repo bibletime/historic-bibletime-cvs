@@ -19,22 +19,17 @@
 #define CENTRYDISPLAY_H
 
 //BibleTime includes
-#include "cswordbackend.h"
-#include "cswordtreekey.h"
 #include "ctextrendering.h"
+#include "cswordmoduleinfo.h"
+#include "cswordbackend.h"
 
 #include "util/cpointers.h"
-#include "frontend/cbtconfig.h"
 
 //Sword includes
 #include <swdisp.h>
 
 //Qt includes
 #include <qstring.h>
-#include <qfont.h>
-#include <qcolor.h>
-#include <qptrlist.h>
-
 
 class CSwordModuleInfo;
 

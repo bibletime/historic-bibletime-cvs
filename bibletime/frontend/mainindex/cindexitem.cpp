@@ -274,11 +274,11 @@ const QString CModuleItem::toolTip(){
      	     	
    	QString options;
    	unsigned int opts;
-   	for (opts = CSwordBackend::filterTypesMIN; opts <= CSwordBackend::filterTypesMAX; ++opts){
-   		if (module()->has( static_cast<CSwordBackend::FilterTypes>(opts) )) {
+   	for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts){
+   		if (module()->has( static_cast<CSwordModuleInfo::FilterTypes>(opts) )) {
      		if (!options.isEmpty())
      			options += QString::fromLatin1(", ");
-     		options += CSwordBackend::translatedOptionName( static_cast<CSwordBackend::FilterTypes>(opts) );
+     		options += CSwordBackend::translatedOptionName( static_cast<CSwordModuleInfo::FilterTypes>(opts) );
    		}
    	}
    	if (!options.isEmpty())
@@ -321,11 +321,11 @@ const QString CModuleItem::aboutInfo(){
 
 	QString options;
 	unsigned int opts;
-	for (opts = CSwordBackend::filterTypesMIN; opts <= CSwordBackend::filterTypesMAX; ++opts){
-		if (module()->has( static_cast<CSwordBackend::FilterTypes>(opts) )){
+	for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts){
+		if (module()->has( static_cast<CSwordModuleInfo::FilterTypes>(opts) )){
   		if (!options.isEmpty())
   			options += QString::fromLatin1(", ");
-  		options += CSwordBackend::translatedOptionName( static_cast<CSwordBackend::FilterTypes>(opts) );
+  		options += CSwordBackend::translatedOptionName( static_cast<CSwordModuleInfo::FilterTypes>(opts) );
 		}
 	}
 	if (!options.isEmpty())

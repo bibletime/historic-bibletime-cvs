@@ -14,6 +14,8 @@
 
 #include "ctextrendering.h"
 
+#include "frontend/cbtconfig.h"
+
 namespace Rendering {
 
 /**

@@ -100,7 +100,7 @@ protected:
 	KPopupMenu* m_popup;
 
   int populateMenu();
-	bool isOptionAvailable( const CSwordBackend::FilterTypes option);
+	bool isOptionAvailable( const CSwordModuleInfo::FilterTypes option);
   int addMenuEntry( const QString name, const int* option, const bool available);
 };
 

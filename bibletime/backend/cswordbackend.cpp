@@ -219,15 +219,15 @@ const bool CSwordBackend::shutdownModules(){
 }
 
 /** Returns true if the given option is enabled. */
-const bool CSwordBackend::isOptionEnabled( const CSwordBackend::FilterTypes type) {
+const bool CSwordBackend::isOptionEnabled( const CSwordModuleInfo::FilterTypes type) {
 	return (getGlobalOption( optionName(type).latin1() ) == "On");
 }
 
 /** Sets the given options enabled or disabled depending on the second parameter. */
-void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int state ){
+void CSwordBackend::setOption( const CSwordModuleInfo::FilterTypes type, const int state ){
   sword::SWBuf value;
 	switch (type) {
-		case textualVariants:
+		case CSwordModuleInfo::textualVariants:
       if (state == 0) {
         value = "Primary Reading";
 			}
@@ -239,7 +239,7 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
 			}
 			break;
 
-// 		case transliteration:
+// 		case CSwordModuleInfo::transliteration:
 //      if (useICU()) {
 //         sword::StringList options = transliterator()->getOptionValues();
 //         
@@ -262,18 +262,18 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
 }
 
 void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options){
-  setOption( footnotes, 					options.footnotes );
-  setOption( strongNumbers, 			options.strongNumbers );
-  setOption( headings, 						options.headings );
-  setOption( morphTags, 					options.morphTags );
-	setOption( lemmas, 							options.lemmas );
-	setOption( hebrewPoints, 				options.hebrewPoints );
-	setOption( hebrewCantillation, 	options.hebrewCantillation );
-	setOption( greekAccents, 				options.greekAccents );
-	setOption( redLetterWords,			options.redLetterWords );	
-  setOption( textualVariants,			options.textualVariants );	
-// 	setOption( transliteration,			options.transliteration );	
-	setOption( scriptureReferences,	options.scriptureReferences);	
+  setOption( CSwordModuleInfo::footnotes, 					options.footnotes );
+  setOption( CSwordModuleInfo::strongNumbers, 			options.strongNumbers );
+  setOption( CSwordModuleInfo::headings, 						options.headings );
+  setOption( CSwordModuleInfo::morphTags, 					options.morphTags );
+	setOption( CSwordModuleInfo::lemmas, 							options.lemmas );
+	setOption( CSwordModuleInfo::hebrewPoints, 				options.hebrewPoints );
+	setOption( CSwordModuleInfo::hebrewCantillation, 	options.hebrewCantillation );
+	setOption( CSwordModuleInfo::greekAccents, 				options.greekAccents );
+	setOption( CSwordModuleInfo::redLetterWords,			options.redLetterWords );	
+  setOption( CSwordModuleInfo::textualVariants,			options.textualVariants );	
+// 	setOption( CSwordModuleInfo::transliteration,			options.transliteration );	
+	setOption( CSwordModuleInfo::scriptureReferences,	options.scriptureReferences);	
 }
 
 void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptions ){
@@ -403,91 +403,91 @@ const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& m
 }
 
 /** Returns the text used for the option given as parameter. */
-const QString CSwordBackend::optionName( const CSwordBackend::FilterTypes option ){
+const QString CSwordBackend::optionName( const CSwordModuleInfo::FilterTypes option ){
 	switch (option) {
-		case CSwordBackend::footnotes:
+		case CSwordModuleInfo::footnotes:
 			return QString::fromLatin1("Footnotes");
-		case CSwordBackend::strongNumbers:
+		case CSwordModuleInfo::strongNumbers:
 			return QString::fromLatin1("Strong's Numbers");
-		case CSwordBackend::headings:
+		case CSwordModuleInfo::headings:
 			return QString::fromLatin1("Headings");
-		case CSwordBackend::morphTags:
+		case CSwordModuleInfo::morphTags:
 			return QString::fromLatin1("Morphological Tags");
-  	case CSwordBackend::lemmas:
+  	case CSwordModuleInfo::lemmas:
 			return QString::fromLatin1("Lemmas");
-		case CSwordBackend::hebrewPoints:
+		case CSwordModuleInfo::hebrewPoints:
 			return QString::fromLatin1("Hebrew Vowel Points");
-		case CSwordBackend::hebrewCantillation:
+		case CSwordModuleInfo::hebrewCantillation:
 			return QString::fromLatin1("Hebrew Cantillation");
-		case CSwordBackend::greekAccents:
+		case CSwordModuleInfo::greekAccents:
 			return QString::fromLatin1("Greek Accents");
-		case CSwordBackend::redLetterWords:
+		case CSwordModuleInfo::redLetterWords:
 			return QString::fromLatin1("Words of Christ in Red");
-    case CSwordBackend::textualVariants:
+    case CSwordModuleInfo::textualVariants:
 			return QString::fromLatin1("Textual Variants");	
-		case CSwordBackend::scriptureReferences:
+		case CSwordModuleInfo::scriptureReferences:
 			return QString::fromLatin1("Cross-references");
-		case CSwordBackend::transliteration:
+		case CSwordModuleInfo::transliteration:
 			return QString::fromLatin1("Transliteration");
 	}
 	return QString::null;	
 }
 
 /** Returns the translated name of the option given as parameter. */
-const QString CSwordBackend::translatedOptionName(const CSwordBackend::FilterTypes option){
+const QString CSwordBackend::translatedOptionName(const CSwordModuleInfo::FilterTypes option){
 	switch (option) {
-		case CSwordBackend::footnotes:
+		case CSwordModuleInfo::footnotes:
 			return i18n("Footnotes");
-		case CSwordBackend::strongNumbers:
+		case CSwordModuleInfo::strongNumbers:
 			return i18n("Strong's Numbers");
-		case CSwordBackend::headings:
+		case CSwordModuleInfo::headings:
 			return i18n("Headings");
-		case CSwordBackend::morphTags:
+		case CSwordModuleInfo::morphTags:
 			return i18n("Morphological Tags");
-  	case CSwordBackend::lemmas:
+  	case CSwordModuleInfo::lemmas:
 			return i18n("Lemmas");
-		case CSwordBackend::hebrewPoints:
+		case CSwordModuleInfo::hebrewPoints:
 			return i18n("Hebrew Vowel Points");
-		case CSwordBackend::hebrewCantillation:
+		case CSwordModuleInfo::hebrewCantillation:
 			return i18n("Hebrew Cantillation");
-		case CSwordBackend::greekAccents:
+		case CSwordModuleInfo::greekAccents:
 			return i18n("Greek Accents");
-		case CSwordBackend::redLetterWords:
+		case CSwordModuleInfo::redLetterWords:
 			return i18n("Red letter words");
-		case CSwordBackend::textualVariants:
+		case CSwordModuleInfo::textualVariants:
 			return i18n("Textual Variants");
-		case CSwordBackend::scriptureReferences:
+		case CSwordModuleInfo::scriptureReferences:
 			return i18n("Scripture Cross-references");	
-		case CSwordBackend::transliteration:
+		case CSwordModuleInfo::transliteration:
 			return i18n("Transliteration between scripts");	
 	}
 	return QString::null;
 }
 
 
-const QString CSwordBackend::configOptionName( const CSwordBackend::FilterTypes option ){
+const QString CSwordBackend::configOptionName( const CSwordModuleInfo::FilterTypes option ){
 	switch (option) {
-		case CSwordBackend::footnotes:
+		case CSwordModuleInfo::footnotes:
 			return QString::fromLatin1("Footnotes");         
-		case CSwordBackend::strongNumbers:
+		case CSwordModuleInfo::strongNumbers:
 			return QString::fromLatin1("Strongs");
-		case CSwordBackend::headings:
+		case CSwordModuleInfo::headings:
 			return QString::fromLatin1("Headings");
-		case CSwordBackend::morphTags:
+		case CSwordModuleInfo::morphTags:
 			return QString::fromLatin1("Morph");
-  	case CSwordBackend::lemmas:
+  	case CSwordModuleInfo::lemmas:
 			return QString::fromLatin1("Lemma");
-		case CSwordBackend::hebrewPoints:
+		case CSwordModuleInfo::hebrewPoints:
 			return QString::fromLatin1("HebrewPoints");
-		case CSwordBackend::hebrewCantillation:
+		case CSwordModuleInfo::hebrewCantillation:
 			return QString::fromLatin1("Cantillation");
-		case CSwordBackend::greekAccents:
+		case CSwordModuleInfo::greekAccents:
 			return QString::fromLatin1("GreekAccents");
-		case CSwordBackend::redLetterWords:
+		case CSwordModuleInfo::redLetterWords:
 			return QString::fromLatin1("RedLetterWords");
-		case CSwordBackend::textualVariants:
+		case CSwordModuleInfo::textualVariants:
 			return QString::fromLatin1("Variants");
-		case CSwordBackend::scriptureReferences:
+		case CSwordModuleInfo::scriptureReferences:
 			return QString::fromLatin1("Scripref");
     default:
       return QString::null;

@@ -76,7 +76,7 @@ const QString CBTConfig::getKey( const CBTConfig::modules ID){
 }
 
 const QString CBTConfig::getDefault( const CBTConfig::modules ID){
-	CSwordBackend* b = CPointers::backend();
+// 	CSwordBackend* b = CPointers::backend();
 	switch ( ID ){
 		case standardBible: 								return "KJV";
 		case standardCommentary: 						return "MHC";

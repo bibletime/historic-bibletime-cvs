@@ -140,11 +140,11 @@ int CDisplaySettingsButton::populateMenu(){
   ret += addMenuEntry(i18n("Show versenumbers"), &m_displaySettings->verseNumbers, (m_modules.first()->type() == CSwordModuleInfo::Bible));
 
 	ret += addMenuEntry(i18n("Show headings"),	&m_moduleSettings->headings,
-		isOptionAvailable(CSwordBackend::headings));	
+		isOptionAvailable(CSwordModuleInfo::headings));	
 /*	ret += addMenuEntry(i18n("Show footnotes"), &m_moduleSettings->footnotes,
 		isOptionAvailable(CSwordBackend::footnotes ));*/
 	ret += addMenuEntry(i18n("Highlight words of Jesus"), &m_moduleSettings->redLetterWords,
-		isOptionAvailable(CSwordBackend::redLetterWords ));
+		isOptionAvailable(CSwordModuleInfo::redLetterWords ));
 // 	ret += addMenuEntry(i18n("Show Strong's Numbers"), &m_moduleSettings->strongNumbers,
 // 		isOptionAvailable(CSwordBackend::strongNumbers ));
 
@@ -153,16 +153,16 @@ int CDisplaySettingsButton::populateMenu(){
 	ret += addMenuEntry(i18n("Show lemmas"),&m_moduleSettings->lemmas,
 		isOptionAvailable(CSwordBackend::lemmas ));*/
 	ret += addMenuEntry(i18n("Show Hebrew vowel points"), &m_moduleSettings->hebrewPoints,
-		isOptionAvailable(CSwordBackend::hebrewPoints ));
+		isOptionAvailable(CSwordModuleInfo::hebrewPoints ));
 	ret += addMenuEntry(i18n("Show Hebrew cantillation marks"), &m_moduleSettings->hebrewCantillation,
-		isOptionAvailable(CSwordBackend::hebrewCantillation ));
+		isOptionAvailable(CSwordModuleInfo::hebrewCantillation ));
 	ret += addMenuEntry(i18n("Show Greek accents"), &m_moduleSettings->greekAccents,
-		isOptionAvailable(CSwordBackend::greekAccents ));
+		isOptionAvailable(CSwordModuleInfo::greekAccents ));
 	
   ret += addMenuEntry(i18n("Use alternative textual variant"), &m_moduleSettings->textualVariants,
-		isOptionAvailable(CSwordBackend::textualVariants ));
+		isOptionAvailable(CSwordModuleInfo::textualVariants ));
   ret += addMenuEntry(i18n("Show scripture cross-references"), &m_moduleSettings->scriptureReferences,
-		isOptionAvailable(CSwordBackend::scriptureReferences ));
+		isOptionAvailable(CSwordModuleInfo::scriptureReferences ));
 
 	QToolTip::add(this, i18n("Display settings"));
 
@@ -179,7 +179,7 @@ int CDisplaySettingsButton::addMenuEntry( const QString name, const int* option,
 	return 0;
 }
 
-bool CDisplaySettingsButton::isOptionAvailable( const CSwordBackend::FilterTypes option ){
+bool CDisplaySettingsButton::isOptionAvailable( const CSwordModuleInfo::FilterTypes option ){
 	bool ret = false;
 	for (m_modules.first(); m_modules.current() && !ret; m_modules.next()) {
 		ret = ret || m_modules.current()->has(option);

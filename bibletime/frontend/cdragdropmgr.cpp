@@ -18,6 +18,7 @@
 #include "cdragdropmgr.h"
 
 #include "backend/cswordmoduleinfo.h"
+#include "backend/cswordbackend.h"
 #include "backend/cswordversekey.h"
 #include "util/cpointers.h"
 

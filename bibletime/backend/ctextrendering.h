@@ -14,15 +14,12 @@
 #define CTEXTRENDERING_H
 
 //BT includes
-#include "backend/cswordbackend.h"
-
-#include "frontend/cbtconfig.h"
+#include "backend/cswordmoduleinfo.h"
 
 #include "util/autoptrvector.h"
 
 //QT includes
 #include <qstring.h>
-// #include <qptrlist.h>
 
 class CSwordModuleInfo;
 class CSwordKey;
