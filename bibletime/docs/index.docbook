@@ -21,7 +21,7 @@
 as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
-<title>The BibletimeHandbook Handbook</title>
+<title>The Bibletime Documentation Package</title>
 
 <authorgroup>
 <author>
@@ -84,45 +84,51 @@ to your language.</para>
 
 <para>Czechoslovakian (cs) documentation.</para>
 <para><ulink url="./cs/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
-<para><ulink url="./cs/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
-<para><ulink url="./cs/handbook/html/index.html">The Bible study howto</ulink>.</para>
-<para><ulink url="./cs/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+<para><ulink url="./cs/helpdialog/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./cs/howto/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./cs/install/html/index.html">The Bibletime installation instructions</ulink>.</para>
 
 <para>German (de) documentation.</para>
 <para><ulink url="./de/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
-<para><ulink url="./de/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
-<para><ulink url="./de/handbook/html/index.html">The Bible study howto</ulink>.</para>
-<para><ulink url="./de/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+<para><ulink url="./de/helpdialog/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./de/howto/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./de/install/html/index.html">The Bibletime installation instructions</ulink>.</para>
 
 <para>English (en) documentation.</para>
 <para><ulink url="./en/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
-<para><ulink url="./en/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
-<para><ulink url="./en/handbook/html/index.html">The Bible study howto</ulink>.</para>
-<para><ulink url="./en/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+<para><ulink url="./en/helpdialog/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./en/howto/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./en/install/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
+<para>Spanish (es) documentation.</para>
+<para><ulink url="./es/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
+<para><ulink url="./es/helpdialog/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./es/howto/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./es/install/html/index.html">The Bibletime installation instructions</ulink>.</para>
 
 <para>Italian (it) documentation.</para>
 <para><ulink url="./it/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
-<para><ulink url="./it/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
-<para><ulink url="./it/handbook/html/index.html">The Bible study howto</ulink>.</para>
-<para><ulink url="./it/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+<para><ulink url="./it/helpdialog/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./it/howto/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./it/install/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
 
 <para>Dutch (nl) documentation.</para>
 <para><ulink url="./nl/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
-<para><ulink url="./nl/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
-<para><ulink url="./nl/handbook/html/index.html">The Bible study howto</ulink>.</para>
-<para><ulink url="./nl/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+<para><ulink url="./nl/helpdialog/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./nl/howto/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./nl/install/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
 
 <para>Norwegian (no) documentation.</para>
 <para><ulink url="./no/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
-<para><ulink url="./no/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
-<para><ulink url="./no/handbook/html/index.html">The Bible study howto</ulink>.</para>
-<para><ulink url="./no/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+<para><ulink url="./no/helpdialog/html/index.html">The Bibletime helpdialog</ulink>.</para>
+<para><ulink url="./no/howto/html/index.html">The Bible study howto</ulink>.</para>
+<para><ulink url="./no/install/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
 
 <para>Dutch (sk) documentation.</para>
-<para><ulink url="./sk/handbook/html/index.html">The Bibletime handbook</ulink>.</para>
-<para><ulink url="./sk/handbook/html/index.html">The Bibletime helpdialog</ulink>.</para>
-<para><ulink url="./sk/handbook/html/index.html">The Bible study howto</ulink>.</para>
-<para><ulink url="./sk/handbook/html/index.html">The Bibletime installation instructions</ulink>.</para>
+
 
 </chapter>
 
