@@ -84,9 +84,10 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 }
 
 void KIO_FTPTransport::slotTotalSize(KIO::Job *job, KIO::filesize_t size) {
-// 	qWarning("got total size of %d", (int)size);
-	if (size > 0)
+	if (size > 0) {
 		m_totalSize = size;
+		statusReporter->statusUpdate(m_totalSize, 0); //emit that we just started
+	}
 }
 
 void KIO_FTPTransport::slotCopyResult(KIO::Job *job) {
@@ -96,25 +97,50 @@ void KIO_FTPTransport::slotCopyResult(KIO::Job *job) {
 	if ( job->error() ) {
 //       job->showErrorDialog( 0 );
 	}
+	
 }
 
 void KIO_FTPTransport::slotCopyProgress(KIO::Job *job, KIO::filesize_t processedSize) {
-// 	qWarning("%d progressed size", (int)processedSize);
+//  	qWarning("%d progressed size", (int)processedSize);
 	if (m_totalSize > 0) {
 		statusReporter->statusUpdate(m_totalSize, processedSize);
 	}
 }
 
+void KIO_FTPTransport::slotDirListingCanceled() {
+// 	qWarning("++ Canceling listing...");
+	m_listingCancelled = true;
+}
+
 std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
-// 	qWarning("dirlist %s", dirURL);
+//  	qWarning("dirlist %s", dirURL);
+	std::vector< struct ftpparse > ret;
+	
+	if (term)	
+		return ret;
+
+	m_listingCancelled = false;
 	KDirLister lister;
+	connect(&lister, SIGNAL(canceled()), SLOT(slotDirListingCanceled()));
 	lister.openURL(KURL(dirURL));
-	while (!lister.isFinished()) {
+	
+	while (!lister.isFinished() && !m_listingCancelled) {
+//  		qWarning("waiting");
+		if (term) {
+// 			qWarning("stkopping");
+			lister.stop();
+			break;
+		}
+			
 		KApplication::kApplication()->processEvents(1);
 	}
 	
-	std::vector< struct ftpparse > ret;
 	
+	if (term) {
+// 		qWarning("returning empty list");
+		return ret;
+	}
+		
 	KFileItemList items = lister.itemsForDir(KURL(dirURL));
 	KFileItem* i = 0;
 	for ( i = items.first(); i; i = items.next() ) {
@@ -132,6 +158,8 @@ std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
 		
 		ret.push_back(s);	
 	}
+	
+// 	qWarning("dirlist finished");
 	
 	return ret;
 }

@@ -964,12 +964,74 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
     delete categoryGlossaries;
 }
 
+const bool CSwordSetupDialog::refreshRemoteModuleCache( const QString& sourceName ) {
+	if (m_refreshedRemoteSources) { //the module info is up-to-date
+		return true;
+	}
+
+  BTInstallMgr iMgr;
+	m_currentInstallMgr = &iMgr; //for the progress dialog
+	sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
+	bool success = false;
+
+	m_progressDialog = new KProgressDialog(0,0,i18n("Download"), QString::null, true);
+	
+	connect(
+		m_progressDialog, SIGNAL(cancelClicked()), 
+		SLOT(slot_moduleRefreshProgressCancelClicked())
+	);
+	connect(
+		&iMgr, SIGNAL(completed(const int, const int)), 
+		SLOT(slot_moduleRefreshCompleted(const int, const int))
+	);
+  
+	m_progressDialog->progressBar()->setTotalSteps(100);
+	m_progressDialog->setMinimumDuration(0); //sow immediately
+	m_progressDialog->setLabel( i18n("Downloading module information...") );
+	
+	if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
+		int errorCode = 0;
+    if (!m_refreshedRemoteSources) {
+      if (!iMgr.refreshRemoteSource( &is ) ){ //make sure the sources were updates sucessfully
+				m_refreshedRemoteSources = true;
+				success = true;
+				m_progressDialog->progressBar()->setProgress(100); //make sure the dialog closes
+			}
+			else { //an error occurres, the KIO library should display an error message
+				qWarning("InstallMgr: refreshRemoteSources returned an error.");
+				m_refreshedRemoteSources = false;
+				success = false;
+			}
+		}
+  }
+
+	delete m_progressDialog;
+	m_progressDialog = 0;
+	
+	return success;
+}
+
+
 /** No descriptions */
 void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName ){
   KApplication::kApplication()->processEvents();
 	if (!m_installModuleListView) { // it may be an update after removing modules, so the widgets we need do not have to exist
 		return;
 	}
+	
+  BTInstallMgr iMgr;
+	sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
+
+	if (!refreshRemoteModuleCache(sourceName)) {
+		return;
+	}
+
+  //kind of a hack to provide a pointer to mgr next line
+  util::scoped_ptr<CSwordBackend> backend( BTInstallMgr::Tool::backend(&is) );
+  if (!backend) {
+    return;
+	}
+
 	
 	m_installModuleListView->clear();
 
@@ -1004,22 +1066,7 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   categoryDevotionals->setOpen(true);
   categoryGlossaries->setOpen(true);
 
-  BTInstallMgr iMgr;
-	sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, sourceName);
-
-  if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) {
-    if (!m_refreshedRemoteSources) {
-      iMgr.refreshRemoteSource( &is );
-		}
-    m_refreshedRemoteSources = true;
-  }
-
-  //kind of a hack to provide a pointer to mgr next line
-  util::scoped_ptr<CSwordBackend> backend( BTInstallMgr::Tool::backend(&is) );
-  if (!backend) {
-    return;
-	}
-
+	
   QListViewItem* parent = 0;
   ListCSwordModuleInfo mods = backend->moduleList();
 //   for (CSwordModuleInfo* newModule = mods.first(); newModule; newModule = mods.next()) {
@@ -1260,12 +1307,21 @@ void CSwordSetupDialog::slot_installModules(){
 
     //module are removed in this section of code
 		m_installedModuleCount = 0;
-    m_progressDialog = new KProgressDialog(0,0,i18n("Module installation ..."), QString::null, true);
+    m_progressDialog = new KProgressDialog(0,0,i18n("Module download"), QString::null, true);
+		
+		connect(
+			m_progressDialog, SIGNAL(cancelClicked()), 
+			SLOT(slot_installProgressCancelClicked())
+		);
+    connect(
+			&iMgr, SIGNAL(completed(const int, const int)), 
+			SLOT(installCompleted(const int, const int))
+		);
+
     m_progressDialog->progressBar()->setTotalSteps(100 * moduleList.count());
-		connect(m_progressDialog, SIGNAL(cancelClicked()), SLOT(slot_installProgressCancelClicked()));
-
-    connect(&iMgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
-
+		m_progressDialog->setMinimumDuration(0); //sow immediately
+		
+		
 		for ( QStringList::Iterator it = moduleList.begin(); (it != moduleList.end()) && !m_progressDialog->wasCancelled(); ++it, ++m_installedModuleCount ) {
 
 			m_installingModule = *it;
@@ -1279,7 +1335,7 @@ void CSwordSetupDialog::slot_installModules(){
         }
 
         if (prefixPath.contains(dataPath)) {
-					prefixPath.remove( prefixPath.find(dataPath), dataPath.length() );	//compilcated to work with Qt 3.0
+					prefixPath.remove( prefixPath.find(dataPath), dataPath.length() );	//complicated to work with Qt 3.0
           //prefixPath = prefixPath.replace(dataPath, ""); //old code working with Qt 3.2
         }
         else {
@@ -1426,6 +1482,23 @@ void CSwordSetupDialog::slot_installProgressCancelClicked() {
 	if (m_currentInstallMgr) {
 		m_currentInstallMgr->terminate();
 	}
+}
+
+void CSwordSetupDialog::slot_moduleRefreshProgressCancelClicked() {
+	qWarning("Cancelling module refresh");
+	Q_ASSERT(m_currentInstallMgr);
+	if (m_currentInstallMgr) {
+		m_currentInstallMgr->terminate();
+	}
+
+}
+
+void CSwordSetupDialog::slot_moduleRefreshCompleted(const int total, const int current) {
+	qWarning("progress %d", current);
+	if (m_progressDialog) {
+    m_progressDialog->progressBar()->setProgress(current);
+//     m_progressDialog->setLabel( i18n("Downloading module information...");
+  }
 }
 
 }

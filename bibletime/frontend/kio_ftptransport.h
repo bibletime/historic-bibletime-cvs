@@ -49,10 +49,12 @@ protected slots:
 // 	void slotCopyPercent(KIO::Job*, unsigned long);
 	void slotTotalSize(KIO::Job *, KIO::filesize_t);
 	void slotCopyProgress(KIO::Job *, KIO::filesize_t);
+	void slotDirListingCanceled();
 	
 private:
 	QMap<int, int> m_copyResults;
 	QMap<int, std::vector< struct ftpparse > > m_dirListResults;
+	bool m_listingCancelled;
 	int m_totalSize; //size of currently downloaded file
 };
 

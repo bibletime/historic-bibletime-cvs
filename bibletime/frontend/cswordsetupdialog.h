@@ -170,6 +170,7 @@ private:
 	QLabel* m_populateListNotification;
 	QPushButton* m_removeRemoveButton;
 
+	const bool refreshRemoteModuleCache( const QString& sourceName );
   void populateRemoveModuleListView();
   void populateInstallModuleListView(const QString& sourceName);
 
@@ -199,6 +200,10 @@ private slots:
 	void slotApply();
   void slot_connectToSource();
 
+	void slot_moduleRefreshProgressCancelClicked();
+	void slot_moduleRefreshCompleted(const int, const int);
+	
+	
 	void slot_installManageSources();
   void slot_installModules();
 	void slot_installModuleItemExecuted(QListViewItem*);

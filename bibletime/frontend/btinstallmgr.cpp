@@ -301,15 +301,15 @@ void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
 //   KApplication::kApplication()->processEvents();
 }
 
-void BTInstallMgr::preStatus(long totalBytes, long completedBytes, const char* message) {
-// 	qWarning("pre Status: %i / %i", (int)totalBytes, (int)completedBytes);
+void BTInstallMgr::preStatus(long totalBytes, long completedBytes, const char* /*message*/) {
+ 	qWarning("pre Status: %i / %i", (int)totalBytes, (int)completedBytes);
 	emit downloadStarted( "unknown filename" );
 
 // 	qWarning("sword: %s", message);
 	m_completedBytes = completedBytes;
   m_totalBytes = (totalBytes > 0) ? totalBytes : 1; //avoid division by zero
 	
-  KApplication::kApplication()->processEvents();
+//   KApplication::kApplication()->processEvents();
 }
 
 FTPTransport *BTInstallMgr::createFTPTransport(const char *host, StatusReporter *statusReporter) {
