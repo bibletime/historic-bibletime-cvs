@@ -66,9 +66,9 @@ CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 	return m_module;
 }
 
-/** Returns the current book as Text, no as integer. */
+/** Returns the current book as Text, not as integer. */
 const QString CSwordVerseKey::book( const QString& newBook ) {
-	qDebug("const QString CSwordVerseKey::book( const QString& newBook )");
+//	qDebug("const QString CSwordVerseKey::book( const QString& newBook )");
 	if (!newBook.isEmpty()) {
 		int min = 0;
 		int max = 1;
@@ -85,12 +85,12 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 	}
 	if ( Testament() && Book() <= BMAX[Testament()-1] )
 		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-	return QString::fromLocal8Bit(books[0][0].name);
+	return QString::fromLocal8Bit(books[0][0].name); //return the first book, i.e. Genesis
 }
 
 /**  */
 const bool CSwordVerseKey::NextVerse(){	
-	qDebug("const bool CSwordVerseKey::NextVerse()");
+//	qDebug("const bool CSwordVerseKey::NextVerse()");
 	m_module->module()->SetKey(this);	//use this key as base for the next one!
 	( *( m_module->module() ) )++;
 	key(QString::fromLocal8Bit(m_module->module()->KeyText()));
@@ -108,20 +108,23 @@ const bool CSwordVerseKey::PreviousVerse(){
 	return true;
 }
 
-/**  */
+/** Jump to the next chapter */
 const bool CSwordVerseKey::NextChapter(){
+//This moves to the next chapter. Sword sets the Verse to 1, but this is ok here
 	Chapter(Chapter()+1);	
 	return true;
 }
 
 /**  */
 const bool CSwordVerseKey::PreviousChapter(){
+//This moves to the next chapter. Sword sets the Verse to 1, but this is ok here	
 	Chapter(Chapter()-1);
 	return true;
 }
 
 /**  */
 const bool CSwordVerseKey::NextBook(){
+//This moves to the next chapter. Sword sets the chapter and verse to 1, but this is ok here	
 	if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
 		return false;		
 	Book(Book()+1);			
@@ -130,6 +133,7 @@ const bool CSwordVerseKey::NextBook(){
 
 /**  */
 const bool CSwordVerseKey::PreviousBook(){
+//This moves to the next chapter. Sword sets the chapter and verse to 1, but this is ok here		
 	if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
 		return false;
 	Book(Book()-1);
@@ -138,9 +142,9 @@ const bool CSwordVerseKey::PreviousBook(){
 
 /** Sets the key we use to the parameter. */
 const QString CSwordVerseKey::key( const QString& newKey ){	
-	qDebug("const QString CSwordVerseKey::key( const QString& newKey )");
+//	qDebug("const QString CSwordVerseKey::key( const QString& newKey )");
 	if (!newKey.isNull()) {
-		qDebug(newKey.latin1());
+//		qDebug(newKey.latin1());
 		VerseKey::operator = ((const char*)newKey.local8Bit());
 	}
 //	qDebug("return %s\n", (const char*)*this);
@@ -148,9 +152,9 @@ const QString CSwordVerseKey::key( const QString& newKey ){
 }
 
 void CSwordVerseKey::key( const char* newKey ){
-	qDebug("const char* CSwordVerseKey::key( const char* newKey )");
+//	qDebug("const char* CSwordVerseKey::key( const char* newKey )");
 	if (newKey) {
-		qDebug(newKey);
+//		qDebug(newKey);
 		VerseKey::operator = (newKey);
 //		qDebug("CSwordVerseKey::key: key is now %s\n", (const char*)*this);		
 	}
@@ -164,28 +168,30 @@ int CSwordVerseKey::Chapter(){
 
 /** Reimplementation to work around the problem that te verse is set to 1. */
 int CSwordVerseKey::Chapter( int newChapter ){
-	const int oldVerse = Verse();
-	
-	int retval = VerseKey::Chapter(newChapter);
-	
-	Verse(oldVerse);	
-	Normalize(1);
-	
-	return retval;
+//	const int oldVerse = Verse();
+//	
+//	int retval = VerseKey::Chapter(newChapter);
+//	
+//	Verse(oldVerse);	
+//	Normalize(1);
+//	
+//	return retval;
+	return VerseKey::Chapter(newChapter);
 }
 
 /** Reimplementation to work around the problem that te verse is set to 1. */
 char CSwordVerseKey::Book( char newBook ){
-	const int oldVerse = Verse();
-	const int oldChapter = Chapter();
-	
-	char retval = VerseKey::Book(newBook);
-	
-	Chapter(oldChapter);
-	Verse(oldVerse);
-	Normalize(1);	
-	
-	return retval;
+//	const int oldVerse = Verse();
+//	const int oldChapter = Chapter();
+//	
+//	char retval = VerseKey::Book(newBook);
+//	
+//	Chapter(oldChapter);
+//	Verse(oldVerse);
+//	Normalize(1);	
+//	
+//	return retval;
+	return VerseKey::Book(newBook);
 }
 
 /** Reimplementation to work around the problem that te verse is set to 1. */

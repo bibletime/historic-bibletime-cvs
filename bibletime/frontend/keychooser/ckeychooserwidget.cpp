@@ -47,10 +47,10 @@ CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
 /** Reimplementation. */
 bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){			
 	if (e->type() == QEvent::FocusOut) {
-		qWarning("focus out event");
-		QFocusEvent* f = (QFocusEvent*)e;
+//		qWarning("focus out event");
+		QFocusEvent* f = dynamic_cast<QFocusEvent*>(e);
 		if (o == lineEdit() && f->reason() == QFocusEvent::Tab) {
-			qWarning("focusses out by TAB");
+//			qWarning("focusses out by TAB");
 	    int index = listBox()->index( listBox()->findItem(currentText()) );
 	    if (index == -1)
 				index = 0;// return 0 if not found
@@ -58,25 +58,25 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 	    emit focusOut( index );  	
 	  }
 	  else if (o == lineEdit() && f->reason() == QFocusEvent::Popup) {
-	  	qWarning("focussed out of line edit caused by popup");
+//	  	qWarning("focussed out of line edit caused by popup");
 			return false;
 		}
 	  else if (o == lineEdit() && f->reason() == QFocusEvent::ActiveWindow) {
-	  	qWarning("focussed out of line edit caused by active window");
+//	  	qWarning("focussed out of line edit caused by active window");
 			emit activated(currentText());
 			return true;
 		}
 	  else if (o == lineEdit() && f->reason() == QFocusEvent::Mouse) {
-	  	qWarning("focussed out of line edit caused by mouse");
+//	  	qWarning("focussed out of line edit caused by mouse");
 			emit activated(currentText());
 			return true;
 		}		
 	  else if (o == listBox()) {
-	  	qWarning("foucess out of list");
+//	  	qWarning("foucess out of list");
 			return false;
 		}
 	  else if (o == this) {
-	  	qWarning("foucess out of THIS");
+//	  	qWarning("foucess out of THIS");
 			emit activated(currentText());
 			return true;
 		}		

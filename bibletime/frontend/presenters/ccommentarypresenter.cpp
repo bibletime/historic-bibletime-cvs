@@ -337,24 +337,22 @@ void CCommentaryPresenter::printEntryAndText(){
 
 /** Checks for changes and saves the text. */
 void CCommentaryPresenter::checkChanges(){
-	qDebug("void CCommentaryPresenter::checkChanges()");
+//	qDebug("void CCommentaryPresenter::checkChanges()");
 	if (!m_htmlWidget->isReadOnly() && m_htmlWidget->isModified()) {//save
-		qDebug("save!");
+//		qDebug("save!");
 		saveText( m_htmlWidget->text() );
 		m_htmlWidget->setModified( false );
 	}
 }
 
 /** No descriptions */
-void CCommentaryPresenter::beforeKeyChange(const QString& key){
-	qWarning("check for %s", key.latin1());
+void CCommentaryPresenter::beforeKeyChange(const QString& oldKey){
+//	qWarning("check for %s", key.latin1());
 	if (!m_key)
 		return;
 		
-	const QString oldKey = m_key->key();
-	
-	m_key->key(key);
-	checkChanges();
-		
-	m_key->key(oldKey);	
+	const QString newKey = m_key->key();
+	m_key->key(oldKey);
+	checkChanges();		
+	m_key->key(newKey);	
 }

@@ -60,7 +60,7 @@ void CSwordPresenter::refresh( const int /*events*/ ){
 
 /** Prints the key given as parameter. */
 void CSwordPresenter::printKey(CSwordKey* start, CSwordKey* stop, CSwordModuleInfo* module) {
-	qDebug("CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module) ");
+//	qDebug("CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module) ");
 	CPrintItem* printItem = new CPrintItem();
 	printItem->setModule(module);
 	printItem->setStartKey(start);

@@ -36,10 +36,11 @@
 
 CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, importantClasses, parent,name) {
-	m_key = 0;
-	if (m_moduleList.first())
+//	m_key = 0;
+//	if (m_moduleList.first()) {
 		m_key = new CSwordVerseKey(m_moduleList.first());	
-	m_key->key("Genesis 1:1");
+		m_key->key("Genesis 1:1");
+//	}
 	
 	initView();
 	show();	
@@ -47,7 +48,7 @@ CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClas
 }
 
 CBiblePresenter::~CBiblePresenter(){
-	qDebug("destructor of CBiblePresenter");
+//	qDebug("destructor of CBiblePresenter");
 	delete m_key;
 }
 
@@ -287,7 +288,7 @@ void CBiblePresenter::copyVerseAndText(){
 //print functions
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::printVerseAndText(){
-	qDebug("CBiblePresenter::printVerseAndText()");
+//	qDebug("CBiblePresenter::printVerseAndText()");
 	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
 	key->key(m_key->key());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
