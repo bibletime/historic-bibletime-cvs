@@ -163,10 +163,6 @@ protected: // Protected methods
   */
   void initFonts();
   /**
-  * Init color section.
-  */
-  void initDisplayStyle();
-  /**
   * Initializes the startup section of the OD.
   */
   void initStartup();

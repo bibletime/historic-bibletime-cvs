@@ -616,9 +616,6 @@ namespace CResMgr {
 
       };
     };
-    namespace colors {
-      extern const QString icon;
-    };
     namespace profiles {
       extern const QString icon;
 
@@ -643,11 +640,8 @@ namespace CResMgr {
       extern const QString icon;
 
       namespace general {
-        namespace cacheKeys {
-          extern QString tooltip;
-
-        };
-        namespace language {
+        
+				namespace language {
           extern QString tooltip;
 
         };

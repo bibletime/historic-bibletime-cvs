@@ -7,6 +7,9 @@
     <primarylanguage>C++</primarylanguage>
     <ignoreparts>
       <part>Unterstützung für ClearCase (KDevelop)</part>
+      <part>KDevcopyto</part>
+      <part>Dateigruppen-Komponente (KDevelop)</part>
+      <part>Debugger (KDevelop)</part>
       <part>Unterstützung für Perforce (KDevelop)</part>
       <part>Schnellöffner-Komponente (KDevelop)</part>
       <part>Unterstützung für Subversion (KDevelop)</part>
@@ -157,9 +160,9 @@
   </kdevfilecreate>
   <kdevdocumentation>
     <projectdoc>
-      <docsystem></docsystem>
-      <docurl></docurl>
-      <usermanualurl></usermanualurl>
+      <docsystem/>
+      <docurl/>
+      <usermanualurl/>
     </projectdoc>
   </kdevdocumentation>
   <kdevcvsservice>

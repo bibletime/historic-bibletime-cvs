@@ -83,7 +83,6 @@ COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel 
 
 	initStartup();
 	initFonts();
-	initDisplayStyle();
 	initSword();
 	initAccelerators();
 }
@@ -138,8 +137,9 @@ const bool COptionsDialog::showPart( COptionsDialog::Parts /*ID*/ ){
 
 /** Initializes the startup section of the OD. */
 void COptionsDialog::initStartup(){
-	QFrame* page = addPage(i18n("General"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
+	QFrame* page = addPage(i18n("Display"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
 	QVBoxLayout* layout = new QVBoxLayout(page);
+	layout->setSpacing( 5 );
 
   {//daily tips
 		m_settings.startup.showTips = new QCheckBox(page);
@@ -162,7 +162,42 @@ void COptionsDialog::initStartup(){
 		layout->addWidget(m_settings.startup.showLogo);
 		layout->addSpacing(20);
 	}		
-	layout->addStretch(4);
+	
+	layout->addWidget(
+		CToolClass::explanationLabel(page, i18n("Display templates"),
+			i18n("Display templates define how text is displayed. Please choose a template you like.")
+		)
+	);
+	
+	layout->addSpacing( 5 );
+
+	QHBoxLayout* hboxlayout = new QHBoxLayout();
+
+	m_settings.displayStyle.styleChooser = new QComboBox( page ); //create first to enable buddy for label
+	connect( m_settings.displayStyle.styleChooser, SIGNAL( activated( int ) ), 
+		this, SLOT( updateStylePreview() ) );
+	
+	hboxlayout->addWidget(
+		new QLabel(m_settings.displayStyle.styleChooser, i18n("Available display styles:"), page)
+	);
+	hboxlayout->addWidget( m_settings.displayStyle.styleChooser );
+	hboxlayout->addStretch();
+	layout->addLayout( hboxlayout );
+
+	m_settings.displayStyle.stylePreview = new KHTMLPart(page);
+	layout->addWidget(
+		new QLabel(m_settings.displayStyle.stylePreview->view(), i18n("Style preview"), page)
+		);
+	layout->addWidget(m_settings.displayStyle.stylePreview->view());
+
+	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
+	m_settings.displayStyle.styleChooser->insertStringList( tMgr->availableTemplates() );
+	int i = m_settings.displayStyle.styleChooser->listBox()->index(
+		m_settings.displayStyle.styleChooser->listBox()->findItem( CBTConfig::get(CBTConfig::displayStyle), Qt::CaseSensitive )
+	);
+	m_settings.displayStyle.styleChooser->setCurrentItem( i );
+	
+	updateStylePreview(); //render it
 }
 
 /** Init fonts section. */
@@ -299,46 +334,6 @@ void COptionsDialog::initFonts(){
 	}
 }
 
-/** Init color section. */
-void COptionsDialog::initDisplayStyle(){
-	QFrame* page = addPage(i18n("Display templates"), QString::null, DesktopIcon(CResMgr::settings::colors::icon,32));
-	QVBoxLayout* mainLayout = new QVBoxLayout(page);
-	mainLayout->setSpacing( 5 );
-
-	mainLayout->addWidget(
-		CToolClass::explanationLabel(page, i18n("Display templates"),
-			i18n("Display templates define how text is displayed. Please choose a template you like.")
-		)
-	);
-
-	QHBoxLayout* hboxlayout = new QHBoxLayout();
-
-	m_settings.displayStyle.styleChooser = new QComboBox( page ); //create first to enable buddy for label
-	connect( m_settings.displayStyle.styleChooser, SIGNAL( activated( int ) ), 
-		this, SLOT( updateStylePreview() ) );
-	
-	hboxlayout->addWidget(
-		new QLabel(m_settings.displayStyle.styleChooser, i18n("Available display styles:"), page)
-	);
-	hboxlayout->addWidget( m_settings.displayStyle.styleChooser );
-	hboxlayout->addStretch();
-	mainLayout->addLayout( hboxlayout );
-
-	m_settings.displayStyle.stylePreview = new KHTMLPart(page);
-	mainLayout->addWidget(
-		new QLabel(m_settings.displayStyle.stylePreview->view(), i18n("Style preview"), page)
-		);
-	mainLayout->addWidget(m_settings.displayStyle.stylePreview->view());
-
-	CDisplayTemplateMgr* tMgr = CPointers::displayTemplateManager();
-	m_settings.displayStyle.styleChooser->insertStringList( tMgr->availableTemplates() );
-	int i = m_settings.displayStyle.styleChooser->listBox()->index(
-		m_settings.displayStyle.styleChooser->listBox()->findItem( CBTConfig::get(CBTConfig::displayStyle), Qt::CaseSensitive )
-	);
-	m_settings.displayStyle.styleChooser->setCurrentItem( i );
-	
-	updateStylePreview(); //render it
-}
 
 /** Init accel key section. */
 void COptionsDialog::initAccelerators(){
