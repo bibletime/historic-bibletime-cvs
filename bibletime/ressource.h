@@ -186,8 +186,6 @@
 #define ICON_MAININDEX_DELETE_ITEMS ICON_FILE_DELETE
 
 #define ICON_VIEW_MAININDEX "bt_mainindex"
-#define ICON_VIEW_FOOTNOTES "bt_footnotes"
-#define ICON_VIEW_STRONGS "bt_strongs"
 
 #define ICON_WINDOW_TILE "bt_tile"
 #define ICON_WINDOW_CASCADE "bt_cascade"
@@ -245,8 +243,6 @@
 
 //used for Drag&Drop
 #define REFERENCE_ICON_SMALL	LOAD_SMALL_ICON("bt_verseref")
-#define STRONGNUMBER_ICON_SMALL	LOAD_SMALL_ICON("bt_strongs")
-#define FOOTNOTES_ICON_SMALL	LOAD_SMALL_ICON("bt_footnotes")
 
 //Icons for the optionsdialog; OD == OptionsDialog
 #define OD_ICON_GENERAL	LOAD_OD_ICON("go")
