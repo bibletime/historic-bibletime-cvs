@@ -27,11 +27,7 @@
 
 char BT_BASICFILTER::ProcessText (char *text, int maxlen, const SWKey *key, const SWModule *module){
 	m_module = module;
-	ASSERT(m_module);
-	
 	m_key = key;
-	ASSERT(key);	
-	
 	updateSettings();
 	SWBasicFilter::ProcessText(text, maxlen, key, module);
 	
@@ -53,13 +49,9 @@ void BT_BASICFILTER::updateSettings(){
 
 /** Parses the verse reference ref and returns it. */
 const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
- 	qWarning("BT_BASICFILTER::parseSimpleRef(const char* ref)");
- 	qWarning(ref);
- 	VerseKey parseKey;
- 	
+ 	VerseKey parseKey; 	
  	SWModule* m = const_cast<SWModule*>(m_module);
  	const char* lang = m ? m->Lang() : "en";
- 	qWarning(lang);
  	parseKey.setLocale(lang);
 
  	parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");

@@ -61,6 +61,11 @@ QStringList* CSwordBibleModuleInfo::books() {
 	
 	if (!m_bookList) {
 		m_bookList = new QStringList();	
+		if (m_hasOT == -1)
+			m_hasOT = hasTestament(OldTestament);
+		if (m_hasNT == -1)
+			m_hasNT = hasTestament(NewTestament);
+			
 		int min = 0;				
 		int max = 1;
 		//find out if we have ot and nt, only ot or only nt
@@ -151,11 +156,14 @@ const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament
  		CSwordVerseKey key(this);
  		key.key("Genesis 1:1");
  		key.next(CSwordVerseKey::UseVerse);
+ 		qWarning("test key's now %s", key.key().latin1());
 		if (key.Testament() >= 2 && !module()->Error()) { //2 == NT
+ 			qWarning("has no old testament");
  			m_hasOT = 0;
  			m_hasNT = 1;
  		}
  		else {
+ 			qWarning("has old testament"); 		
  			m_hasOT = 1;
  			m_hasNT = 1;
  		}

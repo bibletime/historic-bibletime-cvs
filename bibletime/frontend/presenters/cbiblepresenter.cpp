@@ -54,7 +54,7 @@ CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, QWidget *paren
 	if (bible) {
 		if (bible->hasTestament(CSwordBibleModuleInfo::OldTestament))
 			m_key->key("Genesis 1:1");
-		else /*if (bible->hasTestament(CSwordBibleModuleInfo::NewTestament))*/
+		else
 			m_key->key("Matthew 1:1");
 	}
 	

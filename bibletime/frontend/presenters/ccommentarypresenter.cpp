@@ -29,6 +29,7 @@
 #include "../../backend/chtmlchapterdisplay.h"
 #include "../../backend/creferencemanager.h"
 #include "../../backend/cswordbackend.h"
+#include "../../backend/cswordcommentarymoduleinfo.h"
 
 
 //Qt includes
@@ -47,7 +48,13 @@ CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, QWid
 	: CSwordPresenter(useModules, parent,name),
 	m_key( new CSwordVerseKey(m_moduleList.first()) ), m_editToolBar(0)
 {
-	m_key->key("Genesis 1:1");
+	CSwordCommentaryModuleInfo* commentary = dynamic_cast<CSwordCommentaryModuleInfo*>(m_moduleList.first());
+	if (commentary) {
+		if (commentary->hasTestament(CSwordBibleModuleInfo::OldTestament))
+			m_key->key("Genesis 1:1");
+		else
+			m_key->key("Matthew 1:1");
+	}
 	
 	initView();	
 	show();		
@@ -57,7 +64,6 @@ CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, QWid
 }
 
 CCommentaryPresenter::~CCommentaryPresenter(){
-//	checkChanges(); //save text if it was changed after last save
 	delete m_key;
 }
 

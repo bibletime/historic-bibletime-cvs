@@ -18,8 +18,7 @@
 #include "cswordcommentarymoduleinfo.h"
 
 CSwordCommentaryModuleInfo::CSwordCommentaryModuleInfo( SWModule* module)
-	:CSwordBibleModuleInfo(module) {
-	
+	:CSwordBibleModuleInfo(module) {	
 }
 
 CSwordCommentaryModuleInfo::~CSwordCommentaryModuleInfo(){
