@@ -153,7 +153,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   *    Active developers (sorted by last name)   *
   ************************************************/
   // Project coordination
-	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"),"joachim@ansorgs.de","joachim.ansorgs.de");
+	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"),"junkmail@joachim.ansorgs.de","joachim.ansorgs.de");
   // Second main developer
 	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
   // and / or search for multiple words, other fixes and improvements

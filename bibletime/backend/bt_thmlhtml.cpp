@@ -120,7 +120,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
   			}
       }
       else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
-        userData["inscriptRef"] = "false";
+        userData["inscriptRef"] = "true";
         buf += parseThMLRef(tag.getAttribute("passage"), tag.getAttribute("version")).c_str();
       }
       else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
