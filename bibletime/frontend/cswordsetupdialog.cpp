@@ -43,6 +43,7 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kdirselectdialog.h>
+#include <keditlistbox.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kiconloader.h>
@@ -65,38 +66,70 @@ using namespace sword;
 CInstallSourcesMgrDialog::CInstallSourcesMgrDialog(QWidget *parent, const char *name )
 	: KDialogBase(IconList, i18n("Manage installation sources"), Ok, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
-	initView();
+	initLocalSourcesPage();
+	initRemoteSourcesPage();
 }
 
 void CInstallSourcesMgrDialog::initView() {
+
+}
+
+void CInstallSourcesMgrDialog::initLocalSourcesPage() {
 	m_localSourcesPage = addPage(i18n("Local sources"), QString::null, DesktopIcon("dir",32));
  	m_localSourcesPage->setMinimumSize(500,400);
-	initLocalSourceList();
 
+	QGridLayout* grid = new QGridLayout(m_localSourcesPage, 3,3);
+
+	m_localSourcesList = new KListView( m_localSourcesPage );
+	m_localSourcesList->addColumn("Local sources");
+	QPushButton* addButton = new QPushButton(i18n("Add new directory"), m_localSourcesPage);
+	connect(addButton, SIGNAL(clicked()), SLOT(slot_localAddSource()));
+
+	QPushButton* removeButton = new QPushButton(i18n("Remove directory"), m_localSourcesPage);
+	connect(removeButton, SIGNAL(clicked()), SLOT(slot_localRemoveSource()));
+
+	grid->addMultiCellWidget( m_localSourcesList, 0,2, 0,1 );
+	grid->addWidget( addButton, 0,2 );
+	grid->addWidget( removeButton, 1,2 );
+}
+
+void CInstallSourcesMgrDialog::slot_localAddSource() {
+	//Add a new dir to the list.
+  KURL url = KDirSelectDialog::selectDirectory(QString::null, true);
+  if (url.isValid()) {
+		new KListViewItem(m_localSourcesList, url.path());
+  }
+}
+
+void CInstallSourcesMgrDialog::slot_localRemoveSource() {
+	if (m_localSourcesList->currentItem())
+		delete m_localSourcesList->currentItem();
+}
+
+void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
 	m_remoteSourcesPage = addPage(i18n("Remote sources"), QString::null, DesktopIcon("html",32));
  	m_remoteSourcesPage->setMinimumSize(500,400);
-	initRemoteSourceList();
+
+	QGridLayout* grid = new QGridLayout(m_remoteSourcesPage, 4,4, 5,5);
+
+	m_remoteSourcesList = new KListView( m_remoteSourcesPage );
+	m_remoteSourcesList->addColumn("Remote sources");
+
+ QPushButton* addButton = new QPushButton(i18n("Add this source"), m_remoteSourcesPage);
+	connect(addButton, SIGNAL(clicked()), SLOT(slot_remoteAddSource()));
+
+	QPushButton* removeButton = new QPushButton(i18n("Remove current source"), m_remoteSourcesPage);
+	connect(removeButton, SIGNAL(clicked()), SLOT(slot_remoteRemoveSource()));
+
+	QGroupBox* box = new QGroupBox(m_remoteSourcesPage);
+
+	grid->addMultiCellWidget( m_remoteSourcesList, 0,2, 0,1 );
+	grid->addWidget( addButton, 3,0 );
+	grid->addWidget( removeButton, 3,1 );
+
+	grid->addMultiCellWidget( box, 0,3, 2,3 );
 }
 
-void CInstallSourcesMgrDialog::initLocalSourceList() {
-
-}
-
-void CInstallSourcesMgrDialog::initRemoteSourceList() {
-
-}
-
-void CInstallSourcesMgrDialog::addSource() {
-
-}
-
-void CInstallSourcesMgrDialog::removeSource() {
-
-}
-
-void CInstallSourcesMgrDialog::applyToSource() {
-
-}
 
 /*******************************/
 /* 									New class												*/

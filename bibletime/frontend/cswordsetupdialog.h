@@ -45,19 +45,21 @@ class CInstallSourcesMgrDialog : public KDialogBase, public CPointers  {
 public:
 	CInstallSourcesMgrDialog(QWidget *parent=0, const char *name=0);
 
-protected slots:
-	void addSource();
-	void removeSource();
-	void applyToSource();
-
 protected:
 	void initView();
-	void initRemoteSourceList();
-	void initLocalSourceList();
+	void initRemoteSourcesPage();
+	void initLocalSourcesPage();
+
+protected slots:
+	void slot_localAddSource();
+	void slot_localRemoveSource();
 
 private:
 	QFrame* m_localSourcesPage;
+	KListView* m_localSourcesList;
+
 	QFrame* m_remoteSourcesPage;
+	KListView* m_remoteSourcesList;
 };
 
 
