@@ -159,7 +159,9 @@ void BibleTime::readSettings(){
 CDisplayWindow* BibleTime::createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& key) {
   kapp->setOverrideCursor( waitCursor );
 
+  qWarning("will create now displayWindow (bibletime)");
   CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);
+  qWarning("created displayWindow (bibletime)");
   if ( displayWindow ) {
   	displayWindow->init(key);
 		displayWindow->show();

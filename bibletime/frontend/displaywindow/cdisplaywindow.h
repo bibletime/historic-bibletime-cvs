@@ -76,7 +76,7 @@ public:
   /**
   * Returns the used modules as a QPtrList
   */
-  ListCSwordModuleInfo modules() const;
+  ListCSwordModuleInfo modules();
   /**
   * Store the settings of this window in the given CProfileWindow object.
   */
@@ -205,7 +205,7 @@ protected:
   /**
   * Sets the modules.
   */
-  void setModules( const ListCSwordModuleInfo& modules );
+  void setModules( ListCSwordModuleInfo modules );
   /**
   * Initializes the signal / slot connections of this display window.
   */
@@ -234,7 +234,10 @@ protected slots:
   
 private:
 	CMDIArea* m_mdi;
-	ListCSwordModuleInfo m_modules;
+//	ListCSwordModuleInfo m_modules;
+  //we may only cache the module names bacause after a backend relaod the pointers are invalid!
+  QStringList m_modules;
+  
   CSwordBackend::FilterOptions m_filterOptions;
 	CSwordBackend::DisplayOptions m_displayOptions;
   CDisplaySettingsButton* m_displaySettingsButton;

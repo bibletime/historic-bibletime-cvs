@@ -77,42 +77,51 @@ void CModuleChooserBar::removeButton( const int ID ){
 
 /** Returns a list of selected modules. */
 ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
-	qWarning(": getMOduleList called");
+	qWarning("getModuleList called: %i buttons", m_buttonList.count());
   ListCSwordModuleInfo list;
-	list.setAutoDelete(false);
-	list.clear();
+//	list.setAutoDelete(false);
+//	list.clear();
 	
 	for (m_buttonList.first(); m_buttonList.current(); m_buttonList.next()) {	
 	  if ( CSwordModuleInfo* m = m_buttonList.current()->module() ) {
   		list.append( m );
+      qWarning("append module %s", m->name().latin1());
     }
 	}
-
-  qWarning("return");
 	return list;
 }
 
 /** Sets the number of the maximum count of buttons. */
 void CModuleChooserBar::setButtonLimit(const int limit){
 	m_buttonLimit = limit;
-	for (m_buttonList.last(); m_buttonList.current() && (m_buttonLimit != -1) && ((int)m_buttonList.count() > m_buttonLimit); m_buttonList.prev() ) {
-		CModuleChooserButton* b = m_buttonList.current();
+  if (limit == -1) //no need to delete buttons
+    return;
+
+  const int tooMuch = m_buttonList.count() - limit;
+  for (int i = 0; i < tooMuch; ++i) {
+		CModuleChooserButton* b = m_buttonList.last();
 		m_buttonList.remove(b);
 		b->hide();
 		delete b;
-	}
+  }
+  
+//	for (m_buttonList.last(); m_buttonList.current() && ((int)m_buttonList.count() > m_buttonLimit); m_buttonList.prev() ) {
+//	}
 }
 
 /** Sets the modules which are chosen in this module chooser bar. */
 void CModuleChooserBar::setModules( ListCSwordModuleInfo useModules ){
+  qWarning("at first %i buttons", m_buttonList.count());
 	setButtonLimit(0);	
 	setButtonLimit(-1);		//these two lines clear the bar
+  qWarning("in the middle %i buttons", m_buttonList.count());
 
   if (!useModules.count()) {
     qWarning("no modules available");
     return;
   }
-  
+
+  qWarning("chooserBar:setModule:  %i modules", useModules.count());
 	for (useModules.first(); useModules.current(); useModules.next())		 {
 		if ( (m_buttonLimit != -1) && (m_buttonLimit <= (int)m_buttonList.count()) ) {
 			break;
@@ -123,4 +132,5 @@ void CModuleChooserBar::setModules( ListCSwordModuleInfo useModules ){
   if ( (m_buttonLimit == -1) || (m_buttonLimit > (int)m_buttonList.count()) ) {
 	  addButton(0);//add button without module set
   }
+  qWarning("at the end %i buttons", m_buttonList.count());
 }

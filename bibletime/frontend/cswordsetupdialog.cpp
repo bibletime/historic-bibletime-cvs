@@ -24,7 +24,7 @@
 #include "util/ctoolclass.h"
 
 
-//#include <stdio.h>
+#include <iostream>
 //#include <stdlib.h>
 
 //QT includes
@@ -55,7 +55,7 @@
 #include <kapplication.h>
 #include <klocale.h>
 //#include <kglobal.h>
-//#include <kstandarddirs.h>
+#include <kstandarddirs.h>
 //#include <kkeydialog.h>
 #include <kiconloader.h>
 //#include <ktabctl.h>
@@ -69,9 +69,13 @@
 
 //Sword includes
 #include <installmgr.h>
+#include <swmodule.h>
 
 //using std::string;
 //using std::list;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* accel )
 	: KDialogBase(IconList, i18n("Sword configuration"), Ok/* | Cancel | Apply*/, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
@@ -87,21 +91,23 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* 
 
 
 void CSwordSetupDialog::initInstall(){
-
 	QFrame* newpage = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon("connect_create",32));
 
-	QHBoxLayout* hboxlayout = new QHBoxLayout( newpage );
+	QVBoxLayout* vboxlayout = new QVBoxLayout(newpage);
+	QHBoxLayout* hboxlayout = new QHBoxLayout();
   hboxlayout->setAutoAdd( true );
 
-	QWidgetStack* m_installWidgetStack = new QWidgetStack(newpage);
+  vboxlayout->addLayout(hboxlayout);  
+
+	m_installWidgetStack = new QWidgetStack(newpage);
+  hboxlayout->addWidget(m_installWidgetStack);
 
 	QWidget* page = new QWidget(0);
   m_installWidgetStack->addWidget(page);
 
 //Add step 1
 	loadSourceLocations();
-#warning test only
-	saveSourceLocations();
+//	saveSourceLocations();
 	determineTargetLocations();
 
 	page->setMinimumSize(500,400);
@@ -112,8 +118,9 @@ void CSwordSetupDialog::initInstall(){
 	layout->setRowStretch(6,5);
 
 	QLabel* installLabel = CToolClass::explanationLabel(page,
-		"Install/update modules - Step 1",
-		"asdf aösdljkfha sdfjha sdkfjhasd lkfjhasd lfkjhasldk fj") ;
+		i18n("Install/update modules - Step 1"),
+		i18n("Please choose a source and a destination")
+  );
 	layout->addMultiCellWidget(installLabel, 0,0,0,1);
 
 	QLabel* sourceHeadingLabel = new QLabel("<b>Select source location</b>",page);
@@ -138,13 +145,17 @@ void CSwordSetupDialog::initInstall(){
 	m_targetLabel = new QLabel(page);
 	layout->addMultiCellWidget(m_targetLabel, 6,6,0,1,Qt::AlignTop);
 
-  QPushButton* backButton = new QPushButton(page);
-	backButton->setText( "Back");
-	layout->addWidget(backButton, 7, 0, Qt::AlignLeft);
+  QHBoxLayout* myHBox = new QHBoxLayout();
+  vboxlayout->addLayout(myHBox);
+  
+  m_installBackButton = new QPushButton(newpage);
+	m_installBackButton->setText( "Back");
+	myHBox->addWidget(m_installBackButton, 7, 0);
 
-  QPushButton* continueButton = new QPushButton(page);
-	continueButton->setText( "Connect to source");
-	layout->addWidget(continueButton, 7, 1, Qt::AlignRight);
+  m_installContinueButton = new QPushButton(newpage);
+	m_installContinueButton->setText( i18n("Connect to source") );
+  connect(m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
+	myHBox->addWidget(m_installContinueButton, 7, 1);
 
 //	connect(backButton, SIGNAL(clicked() ), m_main, SLOT(slot_backtoMainPage()));
 	connect(m_sourceCombo, SIGNAL( highlighted(const QString&) ), SLOT( slot_sourceSelected( const QString&) ));
@@ -190,7 +201,7 @@ void CSwordSetupDialog::initRemove(){
   m_removeBackButton = new QPushButton(page);
 	m_removeBackButton->setText( "Back");
   m_removeBackButton->setEnabled(false);
-	layout->addWidget(m_removeBackButton, 3, 0, Qt::AlignLeft);
+	layout->addWidget(m_removeBackButton, 3, 0, Qt::AlignRight);
 
 //	connect(m_removeBackButton,   SIGNAL( clicked() ), m_main, SLOT( slot_backtoMainPage() ));
 	connect(m_removeRemoveButton, SIGNAL( clicked() ), this, SLOT( slot_doRemoveModules() ));
@@ -223,6 +234,8 @@ const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID ){
 //			break;
 //	}
 //	return ret;
+
+  return false;
 }
 
 /** No descriptions */
@@ -325,8 +338,22 @@ void CSwordSetupDialog::slot_doRemoveModules(){
     
   	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
       if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) { //module found?
-        	installMgr.removeModule(backend(), m->name().latin1());
-        	qWarning("Removed module: [%s]" , m->name().latin1());
+        QString prefixPath = m->config(CSwordModuleInfo::AbsoluteDataPath) + "/";
+        QString dataPath = m->config(CSwordModuleInfo::DataPath);
+        if (dataPath.left(2) == "./") {
+          dataPath = dataPath.mid(2);
+        }
+        if (prefixPath.contains(dataPath)) {
+          prefixPath = prefixPath.replace( dataPath, "");
+          qWarning("removing module in prefix %s with data path %s", prefixPath.latin1(), dataPath.latin1());
+        }
+        else {
+          prefixPath = QString::fromLatin1(backend()->prefixPath);
+        }
+
+        sword::SWMgr mgr(prefixPath.latin1());
+        installMgr.removeModule(&mgr, m->name().latin1());
+       	qWarning("Removed module: [%s]" , m->name().latin1());
       }
     }
   }
@@ -402,4 +429,156 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 	m_populateListNotification->setText("");
 	m_removeBackButton->setEnabled(true);
 	m_removeRemoveButton->setEnabled(true);
+}
+
+/** No descriptions */
+void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName ){
+  KApplication::kApplication()->processEvents();
+	m_installModuleListView->clear();
+
+	QListViewItem* categoryBible = new QListViewItem(m_installModuleListView, "Bibles");
+	QListViewItem* categoryCommentary = new QListViewItem(m_installModuleListView, "Commentaries");
+	QListViewItem* categoryLexicon = new QListViewItem(m_installModuleListView, "Lexicons");
+	QListViewItem* categoryBook = new QListViewItem(m_installModuleListView, "Books");
+	categoryBible->setOpen(true);
+  categoryCommentary->setOpen(true);
+  categoryLexicon->setOpen(true);
+  categoryBook->setOpen(true);
+  
+  sword::InstallSource* is = m_installMgr->sources.find(sourceName.latin1())->second;
+  Q_ASSERT(is);
+//  m_installMgr->refreshRemoteSource( is );
+  sword::SWMgr* mgr = is->getMgr();
+  Q_ASSERT(mgr);
+
+  QListViewItem* parent = 0;
+  for (sword::ModMap::iterator it = mgr->Modules.begin(); it != mgr->Modules.end(); it++) {
+    sword::SWModule* module = it->second;
+
+    if (CPointers::backend()->findModuleByName(module->Name())) //module already installed?
+      continue;
+    sword::SectionMap::iterator section = mgr->config->Sections.find(module->Name());
+    if ((section != mgr->config->Sections.end()) && (section->second.find("CipherKey") != section->second.end())) //module enciphered
+      continue;
+    
+    Q_ASSERT(module);
+    const char* type = module->Type();
+    qWarning("got module name %s (type %s)", module->Name(), type);
+
+    if (!strcmp(type, "Biblical Texts")) {
+      parent = categoryBible;
+    }
+    else if (!strcmp(type, "Commentaries")) {
+      parent = categoryCommentary;
+    }
+    else if (!strcmp(type, "Lexicons / Dictionaries")) {
+      parent = categoryLexicon;
+    }
+    else if (!strcmp(type, "Generic Books")) {
+      parent = categoryBook;
+    }
+    else {
+      parent = 0;
+    }
+
+		if (parent) {
+      QListViewItem* newItem = new QCheckListItem(parent, QString::fromLatin1(module->Name()), QCheckListItem::CheckBox);
+    }
+    else {
+      QListViewItem* newItem = new QCheckListItem(m_installModuleListView, QString::fromLatin1(module->Name()), QCheckListItem::CheckBox);
+    }
+  }
+//	m_populateListNotification->setText("");
+  m_installWidgetStack->raiseWidget(m_installModuleListPage);
+}
+
+
+/** Connects to the chosen source. */
+void CSwordSetupDialog::slot_connectToSource(){
+//init config -- just for testing!
+  sword::InstallSource source("FTP");
+  source.caption = "Crosswire Public";
+  source.source = "ftp.crosswire.org";
+  source.directory = "/pub/sword/raw";
+
+  KStandardDirs stdDirs;
+  const QString configPath = stdDirs.saveLocation("data", "bibletime/InstallMgr/");
+
+  QString configFilePath = configPath + "InstallMgr.conf";
+  sword::SWConfig config(configFilePath.latin1());
+  config["General"]["PassiveFTP"] = "false";
+  config["Sources"]["FTPSource"] = source.getConfEnt();
+  config.Save();
+
+  qWarning(configPath.latin1());
+  m_installMgr = new sword::InstallMgr(configPath.latin1());
+
+  //at this point we have the remote module list
+	m_installModuleListPage = new QWidget(0);
+  m_installWidgetStack->addWidget(m_installModuleListPage);
+	m_installModuleListPage->setMinimumSize(500,400);
+	QGridLayout* layout = new QGridLayout(m_installModuleListPage, 8, 2);
+	layout->setMargin(5);
+	layout->setSpacing(10);
+	layout->setRowStretch(6,5);
+
+  //insert a list box which contains all available remote modules
+	m_installModuleListView = new QListView(m_installModuleListPage, "install modules view");
+	layout->addMultiCellWidget( m_installModuleListView, 0,6,0,2);
+	m_installModuleListView->addColumn("Name");
+  m_installModuleListView->addColumn("Location");
+
+  m_installContinueButton->setEnabled(false);
+  disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
+  connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
+
+  populateInstallModuleListView("Crosswire Public");
+  m_installSourceName = "Crosswire Public";
+  m_installContinueButton->setText(i18n("Install modules"));
+
+  m_installContinueButton->setEnabled(true);
+
+}
+
+/** Installs chosen modules */
+void CSwordSetupDialog::slot_installModules(){
+  qWarning("install the modules");
+  //first get all chosen modules
+	QStringList moduleList;
+	QListViewItem* item1 = 0;
+	QListViewItem* item2 = 0;
+
+	for (item1 = m_installModuleListView->firstChild(); item1; item1 = item1->nextSibling())
+		for (item2 = item1->firstChild(); item2; item2 = item2->nextSibling())
+			if ( dynamic_cast<QCheckListItem*>(item2) && dynamic_cast<QCheckListItem*>(item2)->isOn() )
+				moduleList << item2->text(0);
+
+	QString catList;
+	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
+		if (!catList.isEmpty())
+			catList += ", ";
+     catList += *it;
+  }
+	QString message("You selected the following modules: %1.\n\n"
+		"Do you really want to install them on your system?");
+	message = message.arg(catList);
+	if (catList.isEmpty()){
+		KMessageBox::error(0, "No modules selected.", "Error") ;
+	}
+	else if ((KMessageBox::warningYesNo(0, message, "Warning") == KMessageBox::Yes)){  //Yes was pressed.
+    qWarning("proceeding");
+    
+    sword::InstallSource* is = m_installMgr->sources.find(m_installSourceName.latin1())->second;
+    Q_ASSERT(is);
+//    sword::SWMgr* mgr = is->getMgr();
+//    Q_ASSERT(mgr);
+
+//    sword::SWMgr lMgr("/usr/share/sword/");
+    //module are removed in this section of code
+  	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
+      qWarning("in install loop fo module %s", (*it).latin1());
+      m_installMgr->installModule(backend(), 0, (*it).latin1(), is);
+      qWarning("Installed module: [%s]" , (*it).latin1());
+    }
+  }
 }

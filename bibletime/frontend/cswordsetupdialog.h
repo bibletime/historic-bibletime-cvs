@@ -38,11 +38,16 @@
 //#include <kcolorbutton.h>
 //#include <kapp.h>
 
+
+//Sword includes
+#include <installmgr.h>
+
 class QWidget;
 class QLabel;
 class QComboBox;
 class QWidgetStack;
 class QListView;
+class QButton;
 //class QHBox;
 //class QCheckBox;
 //class QRadioButton;
@@ -72,13 +77,9 @@ public:
 private:
   void initInstall();
 	void initRemove();
-  /** No descriptions */
   void loadSourceLocations();
-  /** No descriptions */
   void saveSourceLocations();
-  /** No descriptions */
   void determineTargetLocations();
-  /** No descriptions */
   void populateInstallCombos();
 
   QFrame* m_removePage;
@@ -102,20 +103,26 @@ private:
 	QPushButton* m_removeRemoveButton;
 
   void populateRemoveModuleListView();
+  void populateInstallModuleListView(const QString& sourceName);
 
+//install module stuff
+  QButton* m_installBackButton;
+  QButton* m_installContinueButton;
+ 	QWidget* m_installModuleListPage;
+ 	QListView* m_installModuleListView;
+  sword::InstallMgr* m_installMgr;
+  QString m_installSourceName;
+  
 private slots:
-  /** No descriptions */
   void slot_sourceSelected(const QString &sourceName);
-  /** No descriptions */
   void slot_targetSelected(const QString &targetName);
-  /** No descriptions */
   void slot_doRemoveModules();
 
 protected slots: // Protected slots
 	void slotOk();
 	void slotApply();
-
-protected: // Protected methods
+  void slot_connectToSource();
+  void slot_installModules();
 
 signals: // Signals
   void signalSwordSetupChanged();

@@ -123,7 +123,8 @@ void CBibleReadWindow::initView(){
  	CLexiconReadWindow::initView();
 
   parentWidget()->installEventFilter( this );  
-  
+
+  qWarning("initView: %i modules", modules().count());  
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 

@@ -82,6 +82,8 @@ void CLexiconReadWindow::initConnections(){
 }
 
 void CLexiconReadWindow::initView(){
+
+  qWarning("Lexicon: %i modules", modules().count());
 	setDisplayWidget( CDisplay::createReadInstance(this) );
  	setCentralWidget( displayWidget()->view() );
 

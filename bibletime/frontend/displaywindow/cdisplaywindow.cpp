@@ -77,7 +77,7 @@ CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, 
 CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, const char *name )
   : KMainWindow(parent, name, WDestructiveClose),
     m_mdi(parent),
-    m_modules(modules),
+//    m_modules(modules),
     m_filterOptions(),
     m_displayOptions(),
     m_displaySettingsButton(0),    
@@ -89,6 +89,9 @@ CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, c
     m_popupMenu(0),
     m_displayWidget(0)
 {
+  qWarning("set modules now");
+  setModules(modules);
+  qWarning("modules setting done");
 }
 
 CDisplayWindow::~CDisplayWindow(){
@@ -103,18 +106,29 @@ const QString CDisplayWindow::windowCaption(){
  	if (!m_modules.count())
 		return QString::null;
 
-	QString ret = m_modules.first()->name();
-	if (m_modules.count() > 1) {
-		for (m_modules.next(); m_modules.current(); m_modules.next())	 {
-			ret += " | " + m_modules.current()->name();	
-		}
-	}
-	return ret;
+//	QString ret = m_modules.first()->name();
+//	if (m_modules.count() > 1) {
+//		for (m_modules.next(); m_modules.current(); m_modules.next())	 {
+//			ret += " | " + m_modules.current();
+//		}
+//	}
+	return m_modules.join(" | ");
 }
 
 /** Returns the used modules as a QPtrList */
-ListCSwordModuleInfo CDisplayWindow::modules() const{
-	return m_modules;
+ListCSwordModuleInfo CDisplayWindow::modules() {
+  ListCSwordModuleInfo mods;
+
+  for (QStringList::iterator it = m_modules.begin(); it != m_modules.end(); ++it) {
+    qWarning("modules: %s", (*it).latin1());
+    Q_ASSERT(backend()->findModuleByName(*it));
+    if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) {
+      mods.append(m);
+    }
+  }
+    qWarning("modules contains %i items", mods.count());
+  
+	return mods;
 }
 
 /** Set the window caption. */
@@ -142,24 +156,31 @@ void CDisplayWindow::polish(){
 void CDisplayWindow::reload() {
   qWarning("reload()");
   //first make sure all used Sword modules are still present
-  for (int i = 0; i < m_modules.count(); ++i) {
-    CSwordModuleInfo* m = m_modules.at(i);
-
-    Q_ASSERT(m);
-    if (!(m && backend()->findModuleByPointer(m))) {
-      qWarning("refresh(): remove uninstalled module");
-      m_modules.remove(m);
+  for (QStringList::iterator it = m_modules.begin(); it != m_modules.end(); ++it) {
+    qWarning("module loop");
+    if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) {
+      qWarning("module %s is valid", (*it).latin1());
     }
     else {
-      qWarning("module %s is valid", m->name().latin1());
+      qWarning("refresh(): remove uninstalled module %s", (*it).latin1());
+      it = m_modules.remove(it);
+      if (it == m_modules.end()) {
+        break;
+      }
+      qWarning("removed from list");
     }
   }
+  
+  qWarning("modules contain %i", m_modules.count());
 
   //call's moduleChanged so we don't need it
   qWarning("refresh(): set modules");
-  m_moduleChooserBar->setModules(m_modules);
+  m_moduleChooserBar->setModules(modules());
   qWarning("refresh(): modules changed");
+
+  qWarning("%i modules available", m_modules.count());
   modulesChanged();
+  qWarning("%i modules available", m_modules.count());
   
   if (m_modules.count() > 0) {
     qWarning("refresh(): we still have modules to lookup");
@@ -225,8 +246,11 @@ void CDisplayWindow::setKey( CSwordKey* key ){
 void CDisplayWindow::modulesChanged(){
   qWarning("CDisplayWindow::modulesChaneed");
   setModules( m_moduleChooserBar->getModuleList() );
-  if (!modules().count())
+  qWarning("now we have %i modules", modules().count());
+  
+  if (!modules().count()) {
   	close();
+  }
   else {
 		if (displaySettingsButton())
   		displaySettingsButton()->reset(modules());
@@ -258,8 +282,12 @@ void CDisplayWindow::setModuleChooserBar( CModuleChooserBar* bar ){
 }
 
 /** Sets the modules. */
-void CDisplayWindow::setModules( const ListCSwordModuleInfo& newModules ){
-	m_modules = newModules;
+void CDisplayWindow::setModules( ListCSwordModuleInfo newModules ){
+  m_modules.clear();
+  for (newModules.first(); newModules.current(); newModules.next()) {
+    qWarning("appended %s", newModules.current()->name().latin1());
+    m_modules.append(newModules.current()->name());
+  }
 }
 
 /** Initialize the window. Call this method from the outside, because calling this in the constructor is not possible! */
