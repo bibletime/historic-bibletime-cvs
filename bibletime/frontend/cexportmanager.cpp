@@ -23,7 +23,8 @@
 #include "backend/cswordversekey.h"
 #include "backend/centrydisplay.h"
 #include "backend/cdisplaytemplatemgr.h"
-#include "backend/ctextrendering.h"
+#include "backend/chtmlexportrendering.h"
+#include "backend/cplaintextexportrendering.h"
 
 #include "frontend/cprinter.h"
 

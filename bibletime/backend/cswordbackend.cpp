@@ -18,10 +18,13 @@
 //BibleTime includes
 #include "cswordbackend.h"
 #include "centrydisplay.h"
+#include "cbookdisplay.h"
+#include "cchapterdisplay.h"
 #include "cswordbiblemoduleinfo.h"
 #include "cswordcommentarymoduleinfo.h"
 #include "cswordlexiconmoduleinfo.h"
 #include "cswordbookmoduleinfo.h"
+
 #include "frontend/cbtconfig.h"
 
 #include "bt_thmlhtml.h"

@@ -21,8 +21,7 @@
 
 #include "backend/cswordversekey.h"
 #include "backend/cswordmoduleinfo.h"
-#include "backend/ctextrendering.h"
-// #include "backend/centrydisplay.h"
+#include "backend/cdisplayrendering.h"
 
 #include "frontend/cbtconfig.h"
 #include "frontend/cdragdropmgr.h"

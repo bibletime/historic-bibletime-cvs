@@ -189,7 +189,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
     if ( tag.getName() && !strcasecmp(tag.getName(), "foreign") ) { // a text part in another language, we have to set the right font
       if (tag.getAttribute("lang")) {
         const char* abbrev = tag.getAttribute("lang");
-        const CLanguageMgr::Language* const language = CPointers::languageMgr()->languageForAbbrev( QString::fromLatin1(abbrev) );
+        //const CLanguageMgr::Language* const language = CPointers::languageMgr()->languageForAbbrev( QString::fromLatin1(abbrev) );
 
 				buf.appendFormatted("<span class=\"foreign\" lang=\"");
 				buf.append(abbrev);

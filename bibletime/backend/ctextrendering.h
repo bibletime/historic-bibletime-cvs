@@ -102,63 +102,6 @@ protected:
 	virtual void initRendering() = 0;
 };
 
-
-class CHTMLExportRendering : public CTextRendering {
-public:
-	struct Settings {
-		Settings(const bool text = true) {
-			addText = text;
-		};
-		
-		bool addText;
-	};
-	
-	CHTMLExportRendering(
-		const Settings& settings, 
-		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 
-		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
-	);
-	virtual ~CHTMLExportRendering();
-	
-protected:	
-	virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 );
-	virtual const QString finishText( const QString&, KeyTree& tree );
-	virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* module );
-	virtual void initRendering();
-	
-	CSwordBackend::DisplayOptions m_displayOptions;
-	CSwordBackend::FilterOptions m_filterOptions;
-	Settings m_settings;
-};
-
-class CPlainTextExportRendering : public CHTMLExportRendering {
-public:
-	CPlainTextExportRendering(
-		const Settings& settings, 
-		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 
-		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
-	);
-	virtual ~CPlainTextExportRendering();
-	
-protected:	
-	virtual const QString renderEntry( const KeyTreeItem& );
-	virtual const QString finishText( const QString&, KeyTree& tree );
-};
-
-class CDisplayRendering : public CHTMLExportRendering {
-public:
-	static const QString keyToHTMLAnchor(const QString& key);
-	
-	CDisplayRendering(
-		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 
-		CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
-	);
-
-protected:	
-	virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* const module );
-	virtual const QString finishText( const QString&, KeyTree& tree );
-};
-
 inline CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() const {
 	if (!m_childList) {
 		m_childList = new KeyTree();
