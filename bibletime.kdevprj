@@ -42,7 +42,7 @@ project_type=normal_empty
 sgml_file=/home/joachim/BibleTime/bibletime-2/bibletime/docs/de/index.sgml
 short_info=
 sub_dir=bibletime/
-version=1.0
+version=1.1pre
 version_control=CVS
 workspace=1
 
