@@ -1,4 +1,20 @@
 <chapter id="hdbk-op"><title>Program Operation</title>
+
+<!-- TODO: rewrite!-->
+
+<section id="hdbk-start-screen"><title>Parts of the &bibletime; Window</title>
+<para>
+Now the main &bibletime; window will open.  It's operation is covered in the next chapter.
+<mediaobject>
+<imageobject>
+<imagedata fileref="ss_mainterms.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The &bibletime; Application Window</phrase> </textobject>
+</mediaobject>
+</para>
+</section>
+
 <para>
 &bibletime; is mainly operated from the Module Tree (this tree is called the
 "Main Index"). The second important place to work with &bibletime; is the MDI

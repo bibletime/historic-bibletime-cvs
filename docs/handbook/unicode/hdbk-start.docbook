@@ -1,122 +1,97 @@
 <chapter id="hdbk-term"><title>Starting &bibletime;</title>
 
-<para>
-&bibletime; is a &kde; program and is integrated with the &kde; desktop.
-You can launch &bibletime; from the &kde; <guimenu>start menu</guimenu> in
-the applications group.
+<sect1 id="hdbk-start"><title>How to Start BibleTime</title>
 
-<mediaobject>
-<imageobject>
-<imagedata fileref="i-bibletime.png" format="PNG"/>
-</imageobject>
-<textobject>
-<phrase>Icon used to start &bibletime;</phrase> </textobject>
-</mediaobject>
-
-</para>
-
-<para>
-&bibletime; can also be launched from a terminal command prompt.
-To launch &bibletime; open a terminal (any Xterminal inside a &kde;3 session) and type
-<command>bibletime</command>.
-</para>
-
-<section id="hdbk-start-otherwm"><title>Other Window Managers (not &kde;)</title>
-
-<para>
-&bibletime; can be launched from inside other window managers
-(like gnome) providing &kde; is installed.  You will need to install
-your own icon to launch the program.  See the window manager help
-files to see how.
-</para>
-
-<para>
-&bibletime; can be used with other window managers such as Gnome, BlackBox, Sawfish, providing
-&kde;3 is already installed on your computer.  If you installed &kde;3 using the
-&Linux-Mandrake; 8.x RPM's from a terminal using the mandrake RPM's KDE3 is installed
-in /opt, so the start up command in a terminal is:</para>
-<screen>
-export KDEDIR=/opt/kde3
-bibletime
-</screen>
-<para>
-&bibletime; will now open inside of a window of the current window manager.
-If you do not have &kde;3 installed in your copy of &Linux;, you should have tried the
-<ulink url="http://gnomesword.sourceforge.net/">Gnomesword application.</ulink>, or one 
-of the &kde;2 versions of &bibletime;.
-</para>
-<para>With &Linux-Mandrake; 9.0 and other other distributions where &kde; 3.x is
-installed in the normal location, simply type:</para>
+	<sect2 id="hdbk-start-kde"><title>Starting &bibletime; from KDE</title>
+	
+		<para>
+		&bibletime; is a &kde; program and is integrated with the &kde; desktop.
+		You can launch &bibletime; from the &kde; Start Menu in
+		the Applications group with this icon:
+		<mediaobject>
+		<imageobject><imagedata fileref="i_bibletime.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		<phrase>&bibletime; start icon</phrase> </textobject>
+		</mediaobject>
+		</para>
+		
+		<para>&bibletime; can also be launched from a terminal command prompt.
+		To launch &bibletime;, open a terminal window and type: 
 <screen>
 bibletime
 </screen>
-in any terminal to launch &bibletime;.
-</section>
-<section id="hdbk-start-custom"><title>Startup Customization</title>
-
-<para>
-From a terminal you can use &bibletime; to open a random verse in the default bible:</para>
-<para><command>
+		</para>
+	
+	</sect2>
+	
+	<sect2 id="hdbk-start-otherwm"><title>Other Window Managers</title>
+	
+		<para>&bibletime; can be used with other window managers such as Gnome, BlackBox or Sawfish, 
+		providing	&kde; is already installed on your computer. If your &kde; is installed 
+		in /opt/kde, then the start-up command in a terminal would be:</para>
+		
+<screen>
+export KDEDIR=/opt/kde  #your KDE directory
+bibletime
+</screen>
+			
+	</sect2>
+	
+	<sect2 id="hdbk-start-custom"><title>Startup Customization</title>
+		
+		<para>From a terminal you can use &bibletime; to open a random verse in the 
+		default bible:
+<screen>
 bibletime --open-default-bible "&lt;random&gt;"
-</command></para>
-
-<para>
-To open at a given passage use:</para><para>
-<command>
+</screen>
+		To open at a given passage use:
+<screen>
 bibletime --open-default-bible "John 3:16"
-</command></para>
+</screen>
+		You can also use keys in your current bookname language.
+		</para>
+		
+	</sect2>
 
+</sect1>
 
-<para>
-You can also use keys in your current bookname language.
-</para></section>
+<sect1 id="hdbk-startsequence"><title>Startup Sequence</title>
 
+	<para>As &bibletime; launches you may see the following screens before
+	the main &bibletime; window opens:</para>
+	
+	<variablelist>
+	
+		<varlistentry>
+			<term><interface>Sword configuration dialog</interface></term>
+			<listitem><para><action>Modifies your Sword installation.</action> This dialog
+			lets you modify your Sword library, add or delete modules from your system.
+			It will only be shown if no default Sword library can be found.</para></listitem> 
+			
+<!-- TODO: add link to SWORD CONFIG DIALOG HELP-->
+		</varlistentry>
+		
+		<varlistentry>
+			<term><interface>Preferences dialog</interface></term>
+			<listitem><para><action>Customizes &bibletime;.</action> This dialog lets you
+			adapt &bibletime; to your needs. Please see <link linkend="hdbk-config-bt">
+			the detailed description</link> of this dialog.</para></listitem> 
+		</varlistentry>
+		
+		<varlistentry>
+			<term><interface>Tip of the Day</interface></term>
+			<listitem><para>These nifty little tips give you helpful hints for working
+			more efficiently with &bibletime;, and also a few quotations from the Bible.
+			<mediaobject><imageobject><imagedata fileref="ss_starttips.png" format="PNG"/>
+			</imageobject><textobject><phrase>Tip of the Day</phrase> </textobject></mediaobject>
 
-<section id="hdbk-start-sequence"><title>Startup Sequence</title>
-<para>
-As &bibletime; launches you may see some message screens:</para>
-<itemizedlist>
-<listitem>
-<para>
-<interface>No Modules Installed</interface> - This is shown if you
-have forgotten to install sword modules, or if the sword modules
-can not be found.
-</para>
-</listitem>
-<listitem>
-<para>
-<interface>First Time Startup</interface> - This is shown the first time
-&bibletime; is launched.
-</para>
-</listitem>
-<listitem>
-<para>
-<interface>Daily Tips</interface> - These show on every startup, unless
-you turn them off.
-<mediaobject>
-<imageobject>
-<imagedata fileref="ss_starttips.png" format="PNG"/>
-</imageobject>
-<textobject>
-<phrase>Daily tips</phrase> </textobject>
-</mediaobject>
-</para>
-</listitem>
-</itemizedlist>
+			</para></listitem> 
+		</varlistentry>
+		
+	</variablelist>
 
-</section>
-<section id="hdbk-start-screen"><title>Parts of the &bibletime; Window</title>
-<para>
-Now the main &bibletime; window will open.  It's operation is covered in the next chapter.
-<mediaobject>
-<imageobject>
-<imagedata fileref="ss_mainterms.png" format="PNG"/>
-</imageobject>
-<textobject>
-<phrase>The &bibletime; Application Window</phrase> </textobject>
-</mediaobject>
-</para>
-</section>
+</sect1>
+
 </chapter>
-
 
