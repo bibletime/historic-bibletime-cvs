@@ -49,10 +49,10 @@ to launch the options dialog.</para>
 		</mediaobject>
 		</section>
 		<section id="hdbk-config-bt-fonts"><title>Fonts</title>
-		<para>The display font used for text can be changed as desired.  If you have a
-		module that requires a special font, check here to see if the font is available to
-		&bibletime;.  You can select to have all modules of any particular 
-		language use a selected font.
+		<para>&bibletime; uses a default display font that works for most modules.
+		If the module you are using does not display correctly with the default font,
+		use the fonts options dialog to select a different one.  &bibletime; now 
+		applies font selections to specific languages.
 		</para>
 		<mediaobject>
 		<imageobject>
@@ -66,50 +66,55 @@ to launch the options dialog.</para>
 		</caption>
 		</mediaobject>
 
-			<section id="hdbk-config-bt-Unicode"><title>Unicode Fonts (ISO10646)</title>
-			<para>Selection of unicode fonts is now automatic thanks to new features in 
-			the Sword back end.  You now no longer need to understand how iso-8859-1
-			(Latin-1) or iso-10646 (Unicode) encoding works.  If the font you need is not 
-			installed please consult the
-			<ulink href="http://pegasus.rutgers.edu/~elflord/font_howto">Font-HOWTO</ulink> 
-			or read further.</para>
+			<section id="hdbk-config-bt-fonts-what"><title>What kind of fonts can I use?</title>
+			<para>&bibletime; can now use any system fonts.  These may be Bitmap Fonts, 
+			<trademark class="registered">Adobe</trademark> Type1 Fonts, 
+			<trademark class="registered">Adobe</trademark> Type3 fonts, or 
+			<trademark class="registered">TrueType</trademark>.  These fonts may be supplied
+			with your distribution, or may be obtained separately.</para>
 
-			<para>As long as the modules you are interested in display correctly nothing 
+			<para>As long as the modules you are interested in display correctly nothing
 			needs to be done here.  If a module you are interested in displays as a series 
-			of question marks (???????????????????) the font available to &bibletime; does 
-			not contain the used in characters in your document.</para>
+			of question marks (???????????????????) or empty boxes the font available to 
+			&bibletime; does not contain the characters used in your document.</para>
 
-			<para>In the options dialog, choose <guilabel>fonts select</guilabel> in the 
-			<guilabel>Unicode area of application</guilabel>.  You will need to choose
-			a font that has a iso-10646-1 character set.  Try clearlyu as a first step (
-			it is included with most distributions).  If your module still does not display, 
-			you will need to use a more appropriate font.</para>
+			<para>In the fonts options dialog, choose the desired language from the drop down menu.
+			Select the use custom font checkbox.  Now select a font.  Clearlyu supports most 
+			languages so it is a good first try.  If no installed font can be found that 
+			displays the module you are interested in, try installing the &kde; localization
+			package for that language.</para></section>
+			
+			<section id="hdbk-config-bt-addfont"><title>Installing fonts</title>
+			<para>Detailed font installation instructions are outside the scope of this handbook.
+			If you need detailed font installation information, please read the
+			<ulink href="http://pegasus.rutgers.edu/~elflord/font_howto">Font-HOWTO</ulink>, and
+			<ulink href="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Unicode-HOWTO.html#toc4">
+			The Unicode HOWTO</ulink></para>
 
-			<tip><para>If you use a small Unicode font like clearlyu (about 22kb) &bibletime; 
-			will run faster than if a large font like Bitstream Cyberbit (about 12Mb)
-			is used.</para></tip>
+			<tip><para>If your distribution includes a font installer use it, it makes
+			font installation much easier!!</para></tip>
 
-			<section id="hdbk-config-bt-addfont"><title>Font Installation</title>
-			<para>Installing fonts consists of three steps.</para>
-
-			<orderedlist numeration="lowerroman">
-			<listitem>
-			<para><link linkend="hdbk-config-bt-ob-font">Obtaining Unicode fonts</link></para>
-			</listitem>
-			<listitem>
-			<para><link linkend="hdbk-config-bt-ob-font-X">Installing fonts to the XFree86 &X-Server;</link></para>
-			</listitem>
-			<listitem>
-			<para><link linkend="hdbk-config-bt-ob-font-print">Installing the font for printing (does not work yet).</link></para>
-			</listitem>
-			</orderedlist>
-			</section>
-
+			<tip><para>If you use a small font like clearlyu (about 22kb) &bibletime;
+			will run faster than if a large font like 
+			<trademark class="registered">Bitstream Cyberbit</trademark> (about 12Mb)
+			is used.</para></tip></section>
 
 			<section id="hdbk-config-bt-ob-font"><title>Obtaining Fonts</title>
-			<para>There are a number of fonts that support Unicode encoding, some of these are
+			<para>Fonts can be obtained from a number of sources.</para>
+			<itemizedlist>
+			<listitem><para>Your distribution.</para></listitem>
+			<listitem><para>Your distribution's localization packages.</para></listitem>
+			<listitem><para>An existing &Microsoft; &Windows; installation on the same computer.</para></listitem>
+			<listitem><para>A font collection, such as are available from 
+			<trademark class="registered">Adobe</trademark> or
+			<trademark class="registered">Bitstream</trademark>.</para></listitem>
+			<listitem><para>On line font collections.</para></listitem>
+			</itemizedlist>
+
+			<para>Unicode fonts support more characters than other fonts, so are
+			generally a better choice for &bibletime;, some of these are
 			available at no charge.  Few of the fonts available include all of range of symbols
-			defined in the Unicode standard.</para>
+			defined in the Unicode standard, so you may try several before finding what you need</para>
 			<para>Here is a listing of some of the fonts available:</para>
 				<table>
 				<title>Unicode Fonts</title>
@@ -127,36 +132,16 @@ to launch the options dialog.</para>
 
 				<row><entry><ulink url="http://bibliofile.mc.duke.edu/gww/fonts/Unicode.html">Caslon, Monospace, Cupola, Caliban</ulink></entry>
 				<entry>Partial coverage, see information on linked site.</entry></row>
-
-
 				</tbody>
 				</tgroup>
 				</table>
+				
 			<para>The most complete listing of Unicode fonts that we are aware of is<ulink url="http://www.ccss.de/slovo/unifonts.htm">
 			Christoph Singer's  "Multilingual Unicode TrueType Fonts in the Internet"</ulink> with 24 fonts listed.</para>
 			<para>Another Unicode font list can be found at:
 			<ulink url="http://www.hclrss.demon.co.uk/unicode/fontsbyrange.html">Unicode Font List</ulink>.
 			</para>
 			</section>
-
-			<section id="hdbk-config-bt-ob-font-X"><title>Installing your font to XFree86 (your &X-Server;)</title>
-			<para>
-			If your distribution includes a font installer (&Linux-Mandrake; supplies Drake Font) try to use the installer.
-			If the font installer does not work, or your distribution does not include one,
-			you will have to install the font manually.  Instructions for installing fonts can be found in
-			<ulink url="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Unicode-HOWTO.html#toc4">
-			The Unicode HOWTO</ulink>.  This was tested and works on &Linux-Mandrake; 7.1</para>
-
-			</section>
-
-			<section id="hdbk-config-bt-ob-font-print"><title>Installing the font for printing.</title>
-			<para>There is a known issue with Qt that prevents
-			printing characters outside the range of the Latin-1 character set.  This is expected to be
-			fixed with the release of Qt3 and KDE 3.  If you want to try anyway, the
-			<ulink url="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Font-HOWTO.html">
-			Font HowTo</ulink> explains the process for installing fonts to the printing system.</para>
-			</section>
-
 		</section>
 	</section>
 
@@ -293,5 +278,5 @@ to launch the options dialog.</para>
 		</tgroup>
 		</table>
 	</section>
-</section>
+
 </chapter>

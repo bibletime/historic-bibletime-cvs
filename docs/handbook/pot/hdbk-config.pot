@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: application/x-xml2pot; charset=utf-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
 #: index.docbook:1
@@ -96,7 +96,7 @@ msgstr ""
 
 #: index.docbook:52
 #, no-c-format
-msgid "The display font used for text can be changed as desired. If you have a module that requires a special font, check here to see if the font is available to &bibletime;. You can select to have all modules of any particular language use a selected font."
+msgid "&bibletime; uses a default display font that works for most modules. If the module you are using does not display correctly with the default font, use the fonts options dialog to select a different one. &bibletime; now applies font selections to specific languages."
 msgstr ""
 
 #: index.docbook:57
@@ -111,475 +111,475 @@ msgstr ""
 
 #: index.docbook:69
 #, no-c-format
-msgid "Unicode Fonts (ISO10646)"
+msgid "What kind of fonts can I use?"
 msgstr ""
 
 #: index.docbook:70
 #, no-c-format
-msgid "Selection of unicode fonts is now automatic thanks to new features in the Sword back end. You now no longer need to understand how iso-8859-1 (Latin-1) or iso-10646 (Unicode) encoding works. If the font you need is not installed please consult the <ulink href=\"http://pegasus.rutgers.edu/~elflord/font_howto\">Font-HOWTO</ulink> or read further."
+msgid "&bibletime; can now use any system fonts. These may be Bitmap Fonts, <trademark class=\"registered\">Adobe</trademark> Type1 Fonts, <trademark class=\"registered\">Adobe</trademark> Type3 fonts, or <trademark class=\"registered\">TrueType</trademark>. These fonts may be supplied with your distribution, or may be obtained separately."
 msgstr ""
 
-#: index.docbook:77
+#: index.docbook:76
 #, no-c-format
-msgid "As long as the modules you are interested in display correctly nothing needs to be done here. If a module you are interested in displays as a series of question marks (???????????????????) the font available to &bibletime; does not contain the used in characters in your document."
+msgid "As long as the modules you are interested in display correctly nothing needs to be done here. If a module you are interested in displays as a series of question marks (???????????????????) or empty boxes the font available to &bibletime; does not contain the characters used in your document."
 msgstr ""
 
-#: index.docbook:82
+#: index.docbook:81
 #, no-c-format
-msgid "In the options dialog, choose <guilabel>fonts select</guilabel> in the <guilabel>Unicode area of application</guilabel>. You will need to choose a font that has a iso-10646-1 character set. Try clearlyu as a first step ( it is included with most distributions). If your module still does not display, you will need to use a more appropriate font."
+msgid "In the fonts options dialog, choose the desired language from the drop down menu. Select the use custom font checkbox. Now select a font. Clearlyu supports most languages so it is a good first try. If no installed font can be found that displays the module you are interested in, try installing the &kde; localization package for that language."
+msgstr ""
+
+#: index.docbook:87
+#, no-c-format
+msgid "Installing fonts"
 msgstr ""
 
 #: index.docbook:88
 #, no-c-format
-msgid "If you use a small Unicode font like clearlyu (about 22kb) &bibletime; will run faster than if a large font like Bitstream Cyberbit (about 12Mb) is used."
+msgid "Detailed font installation instructions are outside the scope of this handbook. If you need detailed font installation information, please read the <ulink href=\"http://pegasus.rutgers.edu/~elflord/font_howto\">Font-HOWTO</ulink>, and <ulink href=\"http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Unicode-HOWTO.html#toc4\"> The Unicode HOWTO</ulink>"
 msgstr ""
 
-#: index.docbook:92
+#: index.docbook:94
 #, no-c-format
-msgid "Font Installation"
+msgid "If your distribution includes a font installer use it, it makes font installation much easier!!"
 msgstr ""
 
-#: index.docbook:93
+#: index.docbook:97
 #, no-c-format
-msgid "Installing fonts consists of three steps."
+msgid "If you use a small font like clearlyu (about 22kb) &bibletime; will run faster than if a large font like <trademark class=\"registered\">Bitstream Cyberbit</trademark> (about 12Mb) is used."
 msgstr ""
 
-#: index.docbook:95
-#, no-c-format
-msgid "Obtaining Unicode fonts"
-msgstr ""
-
-#: index.docbook:95
-#, no-c-format
-msgid "Installing fonts to the XFree86 &X-Server;"
-msgstr ""
-
-#: index.docbook:95
-#, no-c-format
-msgid "Installing the font for printing (does not work yet)."
-msgstr ""
-
-#: index.docbook:109
+#: index.docbook:102
 #, no-c-format
 msgid "Obtaining Fonts"
 msgstr ""
 
-#: index.docbook:110
+#: index.docbook:103
 #, no-c-format
-msgid "There are a number of fonts that support Unicode encoding, some of these are available at no charge. Few of the fonts available include all of range of symbols defined in the Unicode standard."
+msgid "Fonts can be obtained from a number of sources."
 msgstr ""
 
-#: index.docbook:113
+#: index.docbook:104
+#, no-c-format
+msgid "Your distribution."
+msgstr ""
+
+#: index.docbook:104
+#, no-c-format
+msgid "Your distribution's localization packages."
+msgstr ""
+
+#: index.docbook:104
+#, no-c-format
+msgid "An existing &Microsoft; &Windows; installation on the same computer."
+msgstr ""
+
+#: index.docbook:104
+#, no-c-format
+msgid "A font collection, such as are available from <trademark class=\"registered\">Adobe</trademark> or <trademark class=\"registered\">Bitstream</trademark>."
+msgstr ""
+
+#: index.docbook:104
+#, no-c-format
+msgid "On line font collections."
+msgstr ""
+
+#: index.docbook:114
+#, no-c-format
+msgid "Unicode fonts support more characters than other fonts, so are generally a better choice for &bibletime;, some of these are available at no charge. Few of the fonts available include all of range of symbols defined in the Unicode standard, so you may try several before finding what you need"
+msgstr ""
+
+#: index.docbook:118
 #, no-c-format
 msgid "Here is a listing of some of the fonts available:"
 msgstr ""
 
-#: index.docbook:114
+#: index.docbook:120
 #, no-c-format
 msgid "Unicode Fonts"
 msgstr ""
 
-#: index.docbook:114
+#: index.docbook:122
 #, no-c-format
 msgid "Clearlyu"
 msgstr ""
 
-#: index.docbook:114
+#: index.docbook:122
 #, no-c-format
 msgid "Included in some distributions. Contains European, Greek, Hebrew, Thai. Does not contain Chinease pictographs, or Arabic"
 msgstr ""
 
-#: index.docbook:114
+#: index.docbook:122
 #, no-c-format
 msgid "<ulink url=\"ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS\">ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS</ulink>."
 msgstr ""
 
-#: index.docbook:114
+#: index.docbook:122
 #, no-c-format
 msgid "Several fonts available from the Crosswire Bible Society ftp site."
 msgstr ""
 
-#: index.docbook:114
+#: index.docbook:122
 #, no-c-format
 msgid "Bitstream CyberBit"
 msgstr ""
 
-#: index.docbook:114
+#: index.docbook:122
 #, no-c-format
 msgid "Covers almost the entire range of Unicode."
 msgstr ""
 
-#: index.docbook:114
+#: index.docbook:122
 #, no-c-format
 msgid "Caslon, Monospace, Cupola, Caliban"
 msgstr ""
 
-#: index.docbook:114
+#: index.docbook:122
 #, no-c-format
 msgid "Partial coverage, see information on linked site."
 msgstr ""
 
-#: index.docbook:135
+#: index.docbook:139
 #, no-c-format
 msgid "The most complete listing of Unicode fonts that we are aware of is<ulink url=\"http://www.ccss.de/slovo/unifonts.htm\"> Christoph Singer's \"Multilingual Unicode TrueType Fonts in the Internet\"</ulink> with 24 fonts listed."
 msgstr ""
 
-#: index.docbook:137
+#: index.docbook:141
 #, no-c-format
 msgid "Another Unicode font list can be found at: <ulink url=\"http://www.hclrss.demon.co.uk/unicode/fontsbyrange.html\">Unicode Font List</ulink>."
 msgstr ""
 
-#: index.docbook:142
-#, no-c-format
-msgid "Installing your font to XFree86 (your &X-Server;)"
-msgstr ""
-
-#: index.docbook:143
-#, no-c-format
-msgid "If your distribution includes a font installer (&Linux-Mandrake; supplies Drake Font) try to use the installer. If the font installer does not work, or your distribution does not include one, you will have to install the font manually. Instructions for installing fonts can be found in <ulink url=\"http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Unicode-HOWTO.html#toc4\"> The Unicode HOWTO</ulink>. This was tested and works on &Linux-Mandrake; 7.1"
-msgstr ""
-
-#: index.docbook:152
-#, no-c-format
-msgid "Installing the font for printing."
-msgstr ""
-
-#: index.docbook:153
-#, no-c-format
-msgid "There is a known issue with Qt that prevents printing characters outside the range of the Latin-1 character set. This is expected to be fixed with the release of Qt3 and KDE 3. If you want to try anyway, the <ulink url=\"http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/Font-HOWTO.html\"> Font HowTo</ulink> explains the process for installing fonts to the printing system."
-msgstr ""
-
-#: index.docbook:163
+#: index.docbook:148
 #, no-c-format
 msgid "Colors"
 msgstr ""
 
-#: index.docbook:164
+#: index.docbook:149
 #, no-c-format
 msgid "The colors of the objects in display windows can be customized. Objects that can be customized are:"
 msgstr ""
 
-#: index.docbook:166
+#: index.docbook:151
 #, no-c-format
 msgid "Text"
 msgstr ""
 
-#: index.docbook:166
+#: index.docbook:151
 #, no-c-format
 msgid "Highlighted verse"
 msgstr ""
 
-#: index.docbook:166
+#: index.docbook:151
 #, no-c-format
 msgid "Footnotes"
 msgstr ""
 
-#: index.docbook:166
+#: index.docbook:151
 #, no-c-format
 msgid "Morphological Tags"
 msgstr ""
 
-#: index.docbook:166
+#: index.docbook:151
 #, no-c-format
 msgid "Background"
 msgstr ""
 
-#: index.docbook:166
+#: index.docbook:151
 #, no-c-format
 msgid "Hyperlinks"
 msgstr ""
 
-#: index.docbook:166
+#: index.docbook:151
 #, no-c-format
 msgid "Strong's Numbers"
 msgstr ""
 
-#: index.docbook:166
+#: index.docbook:151
 #, no-c-format
 msgid "Words of Jesus"
 msgstr ""
 
-#: index.docbook:177
+#: index.docbook:162
 #, no-c-format
 msgid "Some options like \"Words of Jesus\" only apply to texts which support this special feature."
 msgstr ""
 
-#: index.docbook:179
+#: index.docbook:164
 #, no-c-format
 msgid "Options Dialog - Color"
 msgstr ""
 
-#: index.docbook:179
+#: index.docbook:164
 #, no-c-format
 msgid "The Options dialog - Color."
 msgstr ""
 
-#: index.docbook:193
+#: index.docbook:178
 #, no-c-format
 msgid "Profiles"
 msgstr ""
 
-#: index.docbook:194
+#: index.docbook:179
 #, no-c-format
 msgid "Profiles define the appearance of the work area, for example which windows are open and which texts should be displayed in these windows. Once a profile is created, use the menu item <guimenu>window</guimenu> -> <guimenuitem>save profile</guimenuitem> to save a current session into a profile. Use <guimenu>window</guimenu> -> <guimenuitem>load profile</guimenuitem> to load a previously saved profile into &bibletime;."
 msgstr ""
 
-#: index.docbook:202
+#: index.docbook:187
 #, no-c-format
 msgid "Sword"
 msgstr ""
 
-#: index.docbook:203
+#: index.docbook:188
 #, no-c-format
 msgid "Many features provided by the Sword backend can now be customized in &bibletime;."
 msgstr ""
 
-#: index.docbook:205
+#: index.docbook:190
 #, no-c-format
 msgid "Options Dialog - Sword"
 msgstr ""
 
-#: index.docbook:205
+#: index.docbook:190
 #, no-c-format
 msgid "The Options dialog - Sword."
 msgstr ""
 
-#: index.docbook:217
+#: index.docbook:202
 #, no-c-format
 msgid "Sword General"
 msgstr ""
 
-#: index.docbook:218
+#: index.docbook:203
 #, no-c-format
 msgid "Key Catch for Lexicons"
 msgstr ""
 
-#: index.docbook:219
+#: index.docbook:204
 #, no-c-format
 msgid "Bibletime can create a key catch for lexicons. This speeds up opening large lexicon modules. The catch file does use some disc space, so if your computer has only a small amount of free space, you might want to disable this feature."
 msgstr ""
 
-#: index.docbook:224
+#: index.docbook:209
 #, no-c-format
 msgid "Scrolling Behavior"
 msgstr ""
 
-#: index.docbook:225
+#: index.docbook:210
 #, no-c-format
 msgid "The default is that a down arrow moves the current position in a text to the next verse. This option allows the down arrow to move the current position in a text to the previous verse."
 msgstr ""
 
-#: index.docbook:229
+#: index.docbook:214
 #, no-c-format
 msgid "Specify a language for biblical book names"
 msgstr ""
 
-#: index.docbook:230
+#: index.docbook:215
 #, no-c-format
 msgid "This feature allows the language used to displayed book names to be changed. For example the King James Version can be displayed with German book names. If your language is not displayed and you would like to create a sword locale for your language, please see the crosswire bible society developers site for details."
 msgstr ""
 
-#: index.docbook:238
+#: index.docbook:223
 #, no-c-format
 msgid "Sword Default Modules"
 msgstr ""
 
-#: index.docbook:239
+#: index.docbook:224
 #, no-c-format
 msgid "Default modules are specified here."
 msgstr ""
 
-#: index.docbook:241
+#: index.docbook:226
 #, no-c-format
 msgid "Sword filter settings"
 msgstr ""
 
-#: index.docbook:242
+#: index.docbook:227
 #, no-c-format
 msgid "Filters control the appearance of text in the display windows. Here you can chose the default settings for the various filters."
 msgstr ""
 
-#: index.docbook:244
+#: index.docbook:229
 #, no-c-format
 msgid "The items controlled by filters are:"
 msgstr ""
 
-#: index.docbook:246
+#: index.docbook:231
 #, no-c-format
 msgid "Show line brake after each verse"
 msgstr ""
 
-#: index.docbook:246
+#: index.docbook:231
 #, no-c-format
 msgid "Show verse numbers"
 msgstr ""
 
-#: index.docbook:246
+#: index.docbook:231
 #, no-c-format
 msgid "Show footnotes"
 msgstr ""
 
-#: index.docbook:246
+#: index.docbook:231
 #, no-c-format
 msgid "Show Strong's numbers"
 msgstr ""
 
-#: index.docbook:246
+#: index.docbook:231
 #, no-c-format
 msgid "Show headings"
 msgstr ""
 
-#: index.docbook:246
+#: index.docbook:231
 #, no-c-format
 msgid "Show morphologic tags"
 msgstr ""
 
-#: index.docbook:246
+#: index.docbook:231
 #, no-c-format
 msgid "Show lemmas"
 msgstr ""
 
-#: index.docbook:246
+#: index.docbook:231
 #, no-c-format
 msgid "Show Hebrew vowel points"
 msgstr ""
 
-#: index.docbook:246
+#: index.docbook:231
 #, no-c-format
 msgid "Show Hebrew cantillation marks"
 msgstr ""
 
-#: index.docbook:246
+#: index.docbook:231
 #, no-c-format
 msgid "Show Greek accents"
 msgstr ""
 
-#: index.docbook:263
+#: index.docbook:248
 #, no-c-format
 msgid "Accelerators"
 msgstr ""
 
-#: index.docbook:264
+#: index.docbook:249
 #, no-c-format
 msgid "Accelerators are special key commands that can be used in the place of the menu items and icons. A number of &bibletime;'s commands have predefined Accelerators. All of &bibletime;'s commands can be assigned accelerators here."
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:255
 #, no-c-format
 msgid "Default accelerators"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:257
 #, no-c-format
 msgid "Action"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:257
 #, no-c-format
 msgid "Key combination"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Auto Tile"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Ctrl+Alt+T"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Auto Cascade"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Ctrl+Alt+A"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Cascade"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Ctrl+A"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Close All"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Shift+Ctrl+A"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Configure Toolbars"
 msgstr ""
 
-#: index.docbook:269 index.docbook:269
+#: index.docbook:264 index.docbook:264
 #, no-c-format
 msgid "<entry></entry>"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Preferences"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Quit"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Ctrl+Q"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Remove Selected Item(s)"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Ctrl+Alt+D"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Reset Main Index"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Ctrl+Alt+R"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Search in Selected Module(s)"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Ctrl+Alt+S"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Tile"
 msgstr ""
 
-#: index.docbook:269
+#: index.docbook:264
 #, no-c-format
 msgid "Ctrl+T"
 msgstr ""
