@@ -556,7 +556,7 @@ void CSwordSetupDialog::slot_installModules(){
 
     //module are removed in this section of code
   	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
-      m_progressDialog = new KProgressDialog();
+      m_progressDialog = new KProgressDialog(0,0,i18n("Module Installastion ..."), QString::null, true);
       m_installingModule = *it;
       m_progressDialog->progressBar()->setTotalSteps(100);
       connect(&iMgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
