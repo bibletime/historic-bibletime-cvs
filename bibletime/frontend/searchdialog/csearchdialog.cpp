@@ -311,8 +311,21 @@ CModuleChooser::~CModuleChooser() {
 
 };
 
-/** Initializes this widget and the childs of it.
- */
+void CModuleChooser::show() {
+  KListView::show();
+
+  //open module items
+  QListViewItemIterator it( this );
+  for ( ; it.current(); ++it ) {
+    if ( ModuleCheckBoxItem* i = dynamic_cast<ModuleCheckBoxItem*>(it.current()) ) {
+      if (i->isOn()) {
+        ensureItemVisible(i);
+      };
+    }
+  }
+};
+
+/** Initializes this widget and the childs of it. */
 void CModuleChooser::initView(){
   addColumn("Module Name");
   setRootIsDecorated(true);
@@ -458,9 +471,11 @@ void CModuleChooser::setModules( ListCSwordModuleInfo modules ){
   QListViewItemIterator it( this );
   for ( ; it.current(); ++it ) {
     if ( ModuleCheckBoxItem* i = dynamic_cast<ModuleCheckBoxItem*>(it.current()) ) {
-      i->setOn(modules.contains(i->module()));
-      if (i->isOn())
-        ensureItemVisible(i);
+      i->setOn(modules.contains(i->module())); //set the status for the module checkbox item
+//      if (i->isOn()) { //if it's checked, show the item
+//        qWarning("show item!");
+//        ensureItemVisible(i);
+//      }
     }
   };
 }

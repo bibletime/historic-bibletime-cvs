@@ -52,7 +52,7 @@ const int CSwordBookModuleInfo::depth() {
 }
 
 void CSwordBookModuleInfo::computeDepth(sword::TreeKeyIdx* key, int level ){
-  static std::string savedKey; //faster because initialization is done only once!
+  std::string savedKey;
   savedKey = key->getFullName();
   if (level > m_depth) {
 		m_depth = level;
@@ -61,11 +61,11 @@ void CSwordBookModuleInfo::computeDepth(sword::TreeKeyIdx* key, int level ){
   if (key->hasChildren()) {
     key->firstChild();
     computeDepth(key, level+1);
+    
     key->setText( savedKey.c_str() );//return to the initial value    
   }
   if (key->nextSibling()) {
 		computeDepth(key, level);
-    key->setText( savedKey.c_str() );//return to the initial value
   }
 }
 

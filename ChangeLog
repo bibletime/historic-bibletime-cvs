@@ -1,4 +1,15 @@
-2002-06-2002 Martin Gruner <mg.pub@gmx.net>
+2003-01-07 Joachim Ansorg <joachim@ansorgs.de>
+  * Major speed improvements for displaying lexicons together
+
+2003-01-04 Martin Gruner <mg.pub@gmx.net>
+  * Release 1.3beta3 release
+  * Changes in comparision with 1.2.x:
+    - New main index with better module grouping (using language and type), better bookmark format (XML),
+      import for old bookmarks from 1.2.2
+    - Drag&Drop works now with multiple items (e.g. 200 search result items)
+    -
+
+2002-06-02 Martin Gruner <mg.pub@gmx.net>
 	* Moved the english docs to bibletime/docs, and the pot file to bibletime/pot.
 	  Created a new package bibletime-i18n-de for German docs, with the folders docs/ and po/.
 	  Revised gen_am.sh file to suit the new arrangement, and it does at least run and create all the 

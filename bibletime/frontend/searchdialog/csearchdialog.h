@@ -183,6 +183,13 @@ public:
   */
   ListCSwordModuleInfo modules();
 
+public slots:
+  /**
+  * Reimplemented to open the folders which contain checked module items
+  */
+  virtual void show();
+
+  
 protected: // Protected methods
   /**
   * Initializes this widget and the childs of it.

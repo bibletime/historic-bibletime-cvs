@@ -22,7 +22,7 @@ cflags=
 cppflags=
 cxxflags=\s-O2 -Wall
 ldadd=-lpthread -lkfile -lkdeui -lkdecore -lqt -lXext -lX11
-ldflags=\s            \s
+ldflags=\s             \s
 libtool_dir=
 path_to_bin_program=bibletime
 
@@ -32,7 +32,7 @@ author=The BibleTime team
 configure_args=\s--build=i386-linux --host=i386-linux --target=i386-linux --with-qt-dir=/usr/lib/qt2 --with-kdedir=/opt/kde2
 debug_args=--debug --nocrashhandler
 dir_where_make_will_be_called=./
-email=info@bibletime.de
+email=info@bibletime.info
 execute_args=--debug --ignore-startprofile
 kdevprj_version=1.3
 lfv_open_groups=
@@ -45,7 +45,7 @@ sgml_file=/home/joachim/BibleTime/bibletime-2/bibletime/docs/de/index.sgml
 short_info=
 showNonProjectFiles=true
 sub_dir=bibletime/
-version=1.3pre
+version=1.3
 version_control=CVS
 workspace=1
 
