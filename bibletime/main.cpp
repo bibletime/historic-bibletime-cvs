@@ -197,12 +197,16 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 		showDebugMessages = true;
   }
 
-	if (kapp->isRestored()){
-		for(int n = 1; KMainWindow::canBeRestored(n); n++) {
-			(new BibleTime)->restore(n);
-    }
- 	}
-	else {
+  //since we don't support session management at the moment we disable this. Only leads to troubles.
+
+//  if (kapp->isRestored()){
+//		for(int n = 1; KMainWindow::canBeRestored(n); n++) {
+//			(new BibleTime)->restore(n);
+//    }
+
+//    RESTORE( BibleTime )
+//  }
+//	else {
 		const bool showIt = CBTConfig::get(CBTConfig::logo);	
 
 		if(showIt) {
@@ -247,6 +251,6 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
     CBTConfig::set(CBTConfig::crashedLastTime, false);
     CBTConfig::set(CBTConfig::crashedTwoTimes, false);    
 		return ret;
-	}
+//	}
 }
 
