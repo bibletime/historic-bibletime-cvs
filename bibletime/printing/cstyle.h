@@ -41,7 +41,11 @@ typedef QList<CStyle> styleItemList;
   */
 class CStyle {
 public:
-	enum styleType { Header=0, ModuleText, Description, Unknown };
+	enum styleType { Header=0, /** The header displayed over each printed item */
+		Description=1 /** The description, used in bookmarks for example */,
+		ModuleText=2 /** The real text of the entry or the range of verses */,
+		Unknown /** Unknown for us, should not be used */
+	};
 	
 	CStyle();
 	~CStyle();

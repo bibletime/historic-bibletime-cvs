@@ -146,6 +146,7 @@ void CPrintItem::setDescription( const QString& newDescription ){
 
 /** Returns the moduletext used by this item. */
 const QString CPrintItem::getModuleText() {
+	qDebug("const QString CPrintItem::getModuleText()");
 	/**
 	* If a special text is set use the text.
 	* If the moduleText variable is empty use the CModuleInfo
@@ -154,31 +155,34 @@ const QString CPrintItem::getModuleText() {
 	if (!m_moduleText.isEmpty())
 		return m_moduleText;
 
-	CSwordVerseKey* vk = (CSwordVerseKey*)m_startKey;
-	CSwordLDKey* lk = (CSwordLDKey*)m_startKey;
+	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
+	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);
 	QString text = QString::null;
-	CSwordModuleInfo* sw = (CSwordModuleInfo*)m_module;
-	text = vk ? QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString();
-	text += (vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString()));
-	if (sw && m_stopKey && m_stopKey != m_startKey) {
+	CSwordModuleInfo* sw = dynamic_cast<CSwordModuleInfo*>(m_module);
+	text = vk ? QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString::null;
+	text += (vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString::null));
+	if (sw && m_stopKey && m_stopKey != m_startKey) { //reange of entries
+		qDebug("return text for a range of entries");
 		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
-			CSwordVerseKey dummyKey(sw);
-			CSwordVerseKey* vk_start = (CSwordVerseKey*)m_startKey;
-			CSwordVerseKey* vk_stop = (CSwordVerseKey*)m_stopKey;						
+			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(m_startKey);
+			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(m_stopKey);			
 			if (!vk_start && !vk_stop)
 				return text;
+			
+			CSwordVerseKey dummyKey(sw);				
 			dummyKey.setKey( vk_start->getKey() );
 			while (dummyKey < *vk_stop) {
 				dummyKey.NextVerse();
 				text += QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.getRenderedText();
-			}			
+			}
 		}
 		else if (sw->getType() == CSwordModuleInfo::Lexicon ) {
+			qWarning("implement for range of lexicon entries");
 		}
-	}
-		
+	}		
 	text.replace(QRegExp("$\n+"), "");
 	text.replace(QRegExp("$<BR>+"), "");	
+	qDebug("fisnihed getModuleText");
 	return text;
 }
 
@@ -286,8 +290,12 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	qDebug("draw: now go into loop");
 	for (int i = 0; i < 3; ++i) {
 		qDebug("%i",i);
-		type = (CStyle::styleType)i;
 		ASSERT(m_style);
+		ASSERT(printer);
+		
+		type = (CStyle::styleType)i;
+		qDebug("type == %i",(int)type);
+		
 		format = m_style->getFormatForType( type );
 		ASSERT(format);
 		fgColor = format->getFGColor();
@@ -304,7 +312,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			text = m_description;
 		else
 			text = getModuleText();
-		
+
 		p->setFont(font);
 		p->setPen(pen);
 		cg.setColor(QColorGroup::Text, format->getFGColor());

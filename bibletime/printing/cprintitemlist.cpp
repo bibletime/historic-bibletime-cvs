@@ -92,8 +92,8 @@ void CPrintItemList::deleteSelectedItems(){
 				if (!m_items->autoDelete()) {
 					delete dummyItem;			
 					dummyItem = 0;
-					break;
 				}
+				break;				
 			}
 		}	
 	}		

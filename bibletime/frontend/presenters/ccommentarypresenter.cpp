@@ -84,7 +84,7 @@ void CCommentaryPresenter::initView(){
 	m_copyPopup->insertItem(i18n("Selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);
 	
 	m_printPopup = new KPopupMenu(m_popup);
-	m_printPopup->insertItem(i18n("Entry with text"), this, SLOT(printEntryAndText()),0,ID_PRESENTER_PRINT_KEY);
+	m_printPopup->insertItem(i18n("Entry with text"), this, SLOT(printHighlightedVerse()),0,ID_PRESENTER_PRINT_KEY);
 
 	m_savePopup = new KPopupMenu(m_popup);	
 	m_savePopup->insertItem(i18n("Entry as plain text"), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_CHAPTER);
