@@ -39,11 +39,16 @@ CRefSelectDialog::CRefSelectDialog(QWidget *parent)
 {   
    m_page = new QWidget( this );
    m_placeholder = new QWidget( m_page);
-   m_layout = new QVBoxLayout( m_page, 0, spacingHint());
+   QVBoxLayout* layout = new QVBoxLayout( m_page, 0, spacingHint());
    m_lineedit = new QLineEdit( QString::null, m_page, "select" );
-   m_lineedit->setMinimumWidth(fontMetrics().maxWidth()*20);
-   m_layout->addWidget(m_lineedit);
-   m_layout->addWidget(m_placeholder);   
+   m_lineedit->setMinimumWidth(fontMetrics().maxWidth()*8);
+
+   QHBoxLayout* hlayout = new QHBoxLayout(m_page, 0, spacingHint());   
+   hlayout->addWidget(new QLabel(i18n("Verse key:"), m_page));
+   hlayout->addWidget(m_lineedit);
+   layout->addItem(hlayout);
+   layout->addWidget(m_placeholder);   
+
    m_chooser = NULL;
    m_oldParent = NULL;
    setMainWidget(m_page);
@@ -52,7 +57,8 @@ CRefSelectDialog::CRefSelectDialog(QWidget *parent)
    connect(this, SIGNAL(cancelClicked()), SLOT(slotPressedCancel()));
 }
 
-CRefSelectDialog::~CRefSelectDialog() {}
+CRefSelectDialog::~CRefSelectDialog() {
+}
 
 
 void CRefSelectDialog::setChooser(CKeyChooser* const chooser) {
@@ -72,13 +78,17 @@ void CRefSelectDialog::setChooser(CKeyChooser* const chooser) {
 }
 
 void CRefSelectDialog::slotPressedOk() {
+  // go to proper key
   CSwordKey* key = m_chooser->key();
   key->key(m_lineedit->text());
   m_chooser->setKey(key);
+
+  // restore parent of stolen widget
   restoreParent();
 }
 
 void CRefSelectDialog::slotPressedCancel() {
+  // restore parent of stolen widget
   restoreParent();
 }
 

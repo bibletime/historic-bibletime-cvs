@@ -85,7 +85,7 @@ BibleTime::BibleTime() : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/
 }
 
 BibleTime::~BibleTime() {
-	saveSettings();
+  saveSettings();
 }
 
 /** Saves the properties of BibleTime to the application wide configfile  */

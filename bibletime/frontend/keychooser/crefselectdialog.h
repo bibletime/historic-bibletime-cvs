@@ -20,7 +20,6 @@
 //Qt includes
 #include <qwidget.h>
 #include <qstring.h>
-class QVBoxLayout;
 class QLineEdit;
 
 //KDE includes
@@ -50,7 +49,6 @@ class CRefSelectDialog : public KDialogBase  {
  private:
   QWidget*     m_page;
   QWidget*     m_placeholder;
-  QVBoxLayout* m_layout;
   QWidget*     m_oldParent;
   CKeyChooser* m_chooser;
   QLineEdit*   m_lineedit;
