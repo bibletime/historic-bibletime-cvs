@@ -234,6 +234,8 @@ public:
   * Returns the category of this module. See CSwordModuleInfo::Category for possible values.
   */
   const CSwordModuleInfo::Category category() const;
+	
+	QString aboutText();
 
 protected:
   friend class CSwordBackend;

@@ -35,6 +35,9 @@
 //Qt includes
 #include <qregexp.h>
 
+//KDE includes
+#include <klocale.h>
+
 //Sword includes
 #include <swbuf.h>
 #include <swkey.h>
@@ -361,4 +364,54 @@ const CSwordModuleInfo::Category CSwordModuleInfo::category() const {
 /** Returns the display object for this module. */
 Rendering::CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
 	return dynamic_cast<Rendering::CEntryDisplay*>(m_module->Disp());
+}
+
+QString CSwordModuleInfo::aboutText(){
+
+	QString text;	
+
+  if ( hasVersion() )
+    text += QString( "<b>%1:</b> %2<br>" )
+    	.arg( i18n("Version") )
+    	.arg(config( CSwordModuleInfo::ModuleVersion ));
+
+	text += QString( "<b>%1:</b> %2<br><b>%3:</b> %4<br>" )
+		.arg( i18n("Location") )
+		.arg( config(CSwordModuleInfo::AbsoluteDataPath) )
+		.arg( i18n("Language") )
+		.arg( language()->translatedName() );
+
+	if ( isWritable() )
+		text += QString("<b>%1:</b> %2<br>")
+							.arg( i18n("Writable") )
+							.arg( i18n("yes") );
+
+	if ( isEncrypted() )
+		text += QString("<b>%1:</b> %2<br>")
+							.arg( i18n("Unlock key") )
+							.arg( config(CSwordModuleInfo::CipherKey) );	
+
+	QString options;
+	unsigned int opts;
+	for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts){
+		if (has( static_cast<CSwordModuleInfo::FilterTypes>(opts) )){
+  		if (!options.isEmpty())
+  			options += QString::fromLatin1(", ");
+  		options += CSwordBackend::translatedOptionName( static_cast<CSwordModuleInfo::FilterTypes>(opts) );
+		}
+	}
+	if (!options.isEmpty())
+		text += QString( "<b>%1:</b> %2<br>" )
+			.arg(i18n( "Features") )
+			.arg( options );
+
+  if ( category() == CSwordModuleInfo::Cult ) { //clearly say the module contains cult/questionable materials
+    text += QString( "<BR><B>%1</B><BR><BR>" )
+              .arg( i18n("Take care, this work contains cult / questionable material!") );
+  };
+
+	text += QString( "<b>%1:</b><br> <font size=\"-1\">%2</font>" )
+						.arg( i18n("About") )
+						.arg( config(CSwordModuleInfo::AboutInformation) );
+  return text;
 }

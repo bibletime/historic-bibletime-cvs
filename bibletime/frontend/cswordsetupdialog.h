@@ -30,7 +30,7 @@
 
 //KDE includes
 #include <kdialogbase.h>
-#include <klistview.h>
+// #include <klistview.h>
 
 
 class QWidget;
@@ -45,6 +45,8 @@ class KProgressDialog;
 
 namespace InstallationManager {
 
+class CSwordSetupModuleListView;
+
 class CInstallSourcesMgrDialog : public KDialogBase, public CPointers  {
    Q_OBJECT
 
@@ -53,10 +55,10 @@ public:
 
 protected:
 
-	class InstallSourceItem : public KListViewItem {
+	class InstallSourceItem : public QListViewItem {
 	public:
-		InstallSourceItem( KListView* parent );
-		InstallSourceItem( KListView* parent, sword::InstallSource );
+		InstallSourceItem( QListView* parent );
+		InstallSourceItem( QListView* parent, sword::InstallSource );
 
 		const QUrl& url() const;
 		void setURL(const QUrl& url);
@@ -102,10 +104,10 @@ protected slots:
 
 private:
 	QFrame* m_localSourcesPage;
-	KListView* m_localSourcesList;
+	QListView* m_localSourcesList;
 
 	QFrame* m_remoteSourcesPage;
-	KListView* m_remoteSourcesList;
+	QListView* m_remoteSourcesList;
 	QLineEdit* m_remoteCaptionEdit;
 	QLineEdit* m_remoteServerEdit;
 	QLineEdit* m_remotePathEdit;
@@ -130,22 +132,22 @@ public:
   };
 
   /** Opens the page which contaisn the given part ID. */
-  const bool showPart( CSwordSetupDialog::Parts ID, const bool exclusive = false );
+  const bool showPart( CSwordSetupDialog::Parts ID );
 
 private:
   void initSwordConfig();
   void initInstall();
 	void initRemove();
+	
+	void writeSwordConfig();
 
-  /** Setup the path list box */
 	void setupSwordPathListBox();
-
 	void populateInstallCombos();
 
 	const QString currentInstallSource();
 
   QFrame* m_swordConfigPage;
-  KListView* m_swordPathListBox;
+  QListView* m_swordPathListBox;
   QPushButton* m_swordEditPathButton;
   QPushButton* m_swordAddPathButton;
   QPushButton* m_swordRemovePathButton;
@@ -167,8 +169,7 @@ private:
 
 	QMap<QString, QString> m_targetMap;
 
-	KListView* m_removeModuleListView;
-	QLabel* m_populateListNotification;
+	CSwordSetupModuleListView* m_removeModuleListView;
 	QPushButton* m_removeRemoveButton;
 
 	const bool refreshRemoteModuleCache( const QString& sourceName );
@@ -182,7 +183,7 @@ private:
   QWidget* m_installModuleListPage;
   QWidget* m_installSourcePage;
 
- 	KListView* m_installModuleListView;
+ 	CSwordSetupModuleListView* m_installModuleListView;
   KProgressDialog* m_progressDialog;
   QString m_installingModule;
   bool m_refreshedRemoteSources;
@@ -195,15 +196,12 @@ private slots:
   void slot_targetSelected(const QString &targetName);
 
 	void slot_doRemoveModules();
-	void slot_removeModuleItemExecuted(QListViewItem*);
 
 	void slotOk();
-	void slotApply();
+		
   void slot_connectToSource();
-
 	void slot_moduleRefreshProgressCancelClicked();
 	void slot_moduleRefreshCompleted(const int, const int);
-	
 	
 	void slot_installManageSources();
   void slot_installModules();

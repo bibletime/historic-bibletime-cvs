@@ -144,10 +144,6 @@ public:
   virtual const bool enableAction( const MenuAction action );
   virtual void update();
   virtual void init();
-  /**
-  * Returns the about module info of the used module.
-  */
-  const QString aboutInfo();
 
 protected: // Protected methods
   /**

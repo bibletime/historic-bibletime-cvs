@@ -281,57 +281,6 @@ CSwordModuleInfo* const CModuleItem::module() const {
   return m_module;
 }
 
-/** Returns the about module info of the used module. */
-const QString CModuleItem::aboutInfo(){
-	QString text;	
-
-  if (module()->hasVersion())
-    text += QString::fromLatin1("<b>%1:</b> %2<br>")
-    	.arg(i18n("Version"))
-    	.arg(module()->config(CSwordModuleInfo::ModuleVersion));
-
-	text += QString::fromLatin1("<b>%1:</b> %2<br><b>%3:</b> %4<br>")
-		.arg(i18n("Location"))
-		.arg(module()->config(CSwordModuleInfo::AbsoluteDataPath))
-		.arg(i18n("Language"))
-		.arg(module()->language()->translatedName());
-
-	if (module()->isWritable())
-		text += QString::fromLatin1("<b>%1:</b> %2<br>")
-							.arg(i18n("Writable"))
-							.arg(i18n("yes"));
-
-	if ( module()->isEncrypted() )
-		text += QString::fromLatin1("<b>%1:</b> %2<br>")
-							.arg(i18n("Unlock key"))
-							.arg(module()->config(CSwordModuleInfo::CipherKey));	
-
-	QString options;
-	unsigned int opts;
-	for (opts = CSwordModuleInfo::filterTypesMIN; opts <= CSwordModuleInfo::filterTypesMAX; ++opts){
-		if (module()->has( static_cast<CSwordModuleInfo::FilterTypes>(opts) )){
-  		if (!options.isEmpty())
-  			options += QString::fromLatin1(", ");
-  		options += CSwordBackend::translatedOptionName( static_cast<CSwordModuleInfo::FilterTypes>(opts) );
-		}
-	}
-	if (!options.isEmpty())
-		text += QString("<b>%1:</b> %2<br>")
-			.arg(i18n("Features"))
-			.arg(options);
-
-  if (m_module->category() == CSwordModuleInfo::Cult) { //clearly say the module contains cult/questionable materials
-    text += QString::fromLatin1("<BR><B>%1</B><BR><BR>")
-              .arg(i18n("Take care, this work contains cult / questionable material!"));
-  };
-
-	text += QString::fromLatin1("<b>%1:</b><br> <font size=\"-1\">%2</font>")
-						.arg(i18n("About"))
-						.arg(module()->config(CSwordModuleInfo::AboutInformation));
-  return text;
-}
-
-
 /** Reimplementation from  CItemBase. */
 const bool CModuleItem::enableAction( const MenuAction action ){
   if (action == EditModule) {

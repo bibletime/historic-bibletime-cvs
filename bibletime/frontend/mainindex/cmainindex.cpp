@@ -568,7 +568,7 @@ void CMainIndex::unlockModule(){
 /** Shows information about the current module. */
 void CMainIndex::aboutModule(){
   if (CModuleItem* i = dynamic_cast<CModuleItem*>(currentItem())) {
-  	KMessageBox::about(this, i->aboutInfo(), i->module()->config(CSwordModuleInfo::Description), false);
+  	KMessageBox::about(this, i->module()->aboutText(), i->module()->config(CSwordModuleInfo::Description), false);
   }
 }
 
