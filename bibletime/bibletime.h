@@ -17,6 +17,8 @@
 #ifndef BIBLETIME_H
 #define BIBLETIME_H
 
+#include "frontend/cprofilemgr.h"
+
 //KDE includes
 #include <kapp.h>
 #include <ktmainwindow.h>
@@ -32,6 +34,8 @@ typedef QList<CSwordModuleInfo> ListCSwordModuleInfo;
 class CGroupManager;
 class CMDIArea;
 class CModuleInfo;
+class CProfile;
+class CSwordPresenter;
 
 //KDE classes
 class KConfig;
@@ -39,6 +43,7 @@ class KToggleAction;
 class KAccel;
 class KPopupMenu;
 class KAction;
+class KActionMenu;
 
 //QT classes
 class QPopupMenu;
@@ -226,6 +231,11 @@ protected: // Protected methods
 	KToggleAction*	m_windowAutoTile_action;
 	KAction*	m_windowCloseAll_action;
 
+	KAction*	m_windowSaveProfile_action;
+	KActionMenu*	m_windowLoadProfile_action;	
+	KAction*	m_windowEditProfiles_action;	
+	KAction*	m_windowFullscreen_action;		
+
 	/** HELP menu actions */	
 	KAction*	m_helpContents_action;
 	KAction*	m_helpWhatsThis_action;
@@ -246,7 +256,8 @@ protected: // Protected methods
   */
   ListCSwordModuleInfo* m_moduleList;
   CImportantClasses* m_important;
-
+	CProfile* m_currentProfile;
+	
   bool m_initialized;
 
 protected slots:
@@ -257,11 +268,11 @@ protected slots:
   /**
  	* Creates a new presenter in the MDI area according to the type of the module.
  	*/
-  void createNewSwordPresenter(ListCSwordModuleInfo,const QString);
+  CSwordPresenter* createNewSwordPresenter(ListCSwordModuleInfo,const QString);
   /**
   * No descriptions
   */
-  void createNewSwordPresenter(CSwordModuleInfo*, const QString );
+  CSwordPresenter* createNewSwordPresenter(CSwordModuleInfo*, const QString );
   /**
  	* Switches displaying of strong number on or off
  	*/
@@ -314,6 +325,23 @@ protected slots:
  	* Enables the "Clear printer queue" action
  	*/
   void slotSetPrintingStatus();
+  /**
+  * Saves the current settings into the currently activatred profile.
+  */
+  void saveProfile();
+  /**
+  * Saves the current settings into the currently activatred profile.
+  */
+  void editProfiles();
+  /**
+  * Loads the profile with the menu ID id
+  */
+  void loadProfile(int ID);
+  /**
+  * Toggles between normal and fullscreen mode.
+  */
+  void toggleFullscreen();
+
 
 private slots: // Private slots
   /**
@@ -336,6 +364,7 @@ private slots: // Private slots
 private:
 	QProgressDialog* m_progress;
 	pthread_mutex_t progress_mutex;		
+	CProfileMgr m_profileMgr;	
 };
 
 #endif

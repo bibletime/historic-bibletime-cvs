@@ -53,6 +53,7 @@ BibleTime::BibleTime() : KMainWindow() {
 	m_initialized = false;
 	m_moduleList  = 0;
 	m_progress = 0;
+	m_currentProfile = 0;
 
 	m_config = KGlobal::config();
 	connect(kapp, SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
@@ -203,7 +204,7 @@ void BibleTime::readSettings(){
 }
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
-void BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules, const QString key) {
+CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules, const QString key) {
 	kapp->setOverrideCursor( waitCursor );
 	
 	CSwordPresenter* presenter = 0;
@@ -234,15 +235,17 @@ void BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules, const QStr
 			
 	kapp->restoreOverrideCursor();
 	presenter->setFocus();
+	
+	return dynamic_cast<CSwordPresenter*>(presenter);
 }
 
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
-void BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, const QString key) {
+CSwordPresenter* BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, const QString key) {
 	ListCSwordModuleInfo list;
 	list.append(module);
 	
-	createNewSwordPresenter(list, key);		
+	return createNewSwordPresenter(list, key);		
 }
 
 /** Refreshes all presenter supporting at least in of the features given as parameter.*/
@@ -289,3 +292,4 @@ void BibleTime::saveProperties(KConfig* /*myConfig*/){
 void BibleTime::readProperties(KConfig* /*myConfig*/){
 
 }
+

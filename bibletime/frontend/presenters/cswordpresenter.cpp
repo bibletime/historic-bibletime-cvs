@@ -144,19 +144,20 @@ void CSwordPresenter::setCaption(const QString&){
 
 /** Applies the settings given in the parameter to the window. */
 void CSwordPresenter::applySettings( CProfileWindow* settings ){
+	setUpdatesEnabled(false);
+	
 	QRect r = settings->geometry();
 	resize(r.width(), r.height());
 	move(r.x(), r.y());
-  update();
+//  update();
 	
-	CSwordKey* key = dynamic_cast<CSwordKey*>(getKeyChooser()->getKey());
-	if (key) {
-		key->key( settings->key() );
-		getKeyChooser()->setKey(key);	
-	}
+//	CSwordKey* key = dynamic_cast<CSwordKey*>(getKeyChooser()->getKey());
+//	if (key) {
+//		key->key( settings->key() );
+//		getKeyChooser()->setKey(key);	
+//	}
 	m_htmlWidget->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
 	m_htmlWidget->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );
-	
 	
 //	QStringList modules = settings->modules();
 //	m_moduleList.clear();
@@ -164,10 +165,13 @@ void CSwordPresenter::applySettings( CProfileWindow* settings ){
 //		m_moduleList.append( m_important->swordBackend->findModuleByName(*it) );
 //		qWarning((*it).latin1());
 //	}		
+	setUpdatesEnabled(true);	
 }
 
 /** Stores the settings of this window in the CProfileWindow object given as parameter. */
 void CSwordPresenter::storeSettings( CProfileWindow* settings ){
+	qWarning("CSwordPresenter::storeSettings");
+	
 	settings->setGeometry(geometry());
 	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
 	settings->setType(m_moduleList.first()->getType());

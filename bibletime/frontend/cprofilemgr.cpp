@@ -36,17 +36,13 @@ CProfileMgr::CProfileMgr(){
 	QDir d( m_profilePath );
 	QStringList files = d.entryList("*.xml");
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-		CProfile* p =  new CProfile(*it);
-		m_profiles.append(p);		
+		CProfile* p = new CProfile(m_profilePath + *it);
+		m_profiles.append(p);
 	}
 }
 
 CProfileMgr::~CProfileMgr(){
-	//save all profiles
-	for (CProfile* p = m_profiles.first(); p; p = m_profiles.next()) {
-//		p->save();
-		delete p;
-	}
+	m_profiles.clear();
 }
 
 /** Returns a list of available profiles. */
@@ -56,7 +52,7 @@ const QList<CProfile> CProfileMgr::profiles(){
 
 /** Creates a new profile with the name "name" (first parameter).  @return The profile object */
 CProfile* CProfileMgr::create( const QString name ){
-	CProfile* p = new CProfile(name);
+	CProfile* p = new CProfile(QString::null, name);
 	m_profiles.append(p);
 	
 	return p;	
@@ -67,5 +63,14 @@ const bool CProfileMgr::remove( CProfile* p ){
 	QFile f( p->filename() );
 	if (f.exists())
 		f.remove();		
-	delete p;
+	m_profiles.remove(p); //auto delete is enabled
+}
+
+const bool CProfileMgr::remove( const QString& profile) {
+	for (CProfile* p = m_profiles.first(); p; p = m_profiles.next()) {
+		if (p->name() == profile) {
+			remove(p);
+			break;
+		}
+	}
 }

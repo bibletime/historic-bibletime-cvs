@@ -21,6 +21,9 @@
 #include "frontend/ctoolclass.h"
 #include "frontend/ctipwindow.h"
 #include "frontend/cmdiarea.h"
+#include "frontend/cprofilemgr.h"
+#include "frontend/cprofile.h"
+#include "frontend/cprofilewindow.h"
 #include "backend/sword_backend/cswordversekey.h"
 #include "backend/sword_backend/chtmlentrydisplay.h"
 #include "backend/sword_backend/chtmlchapterdisplay.h"
@@ -180,7 +183,16 @@ void BibleTime::slotToggleMorphTags(){
 void BibleTime::slotWindowMenuAboutToShow(){
 	if (!m_windowMenu)
 		return;
-		
+
+	if ( m_windowSaveProfile_action->isPlugged() )
+		m_windowSaveProfile_action->unplug(m_windowMenu);
+	if ( m_windowLoadProfile_action->isPlugged() )
+		m_windowLoadProfile_action->unplug(m_windowMenu);
+	if ( m_windowEditProfiles_action->isPlugged() )
+		m_windowEditProfiles_action->unplug(m_windowMenu);
+	if ( m_windowFullscreen_action->isPlugged() )
+		m_windowFullscreen_action->unplug(m_windowMenu);
+				
 	if ( m_windowCascade_action->isPlugged() )
 		m_windowCascade_action->unplug(m_windowMenu);
 	if ( m_windowTile_action->isPlugged() )
@@ -194,6 +206,12 @@ void BibleTime::slotWindowMenuAboutToShow(){
 
 	m_windowMenu->clear();
 			
+	m_windowSaveProfile_action->plug(m_windowMenu);	
+	m_windowLoadProfile_action->plug(m_windowMenu);	
+	m_windowEditProfiles_action->plug(m_windowMenu);	
+	m_windowMenu->insertSeparator();	
+	m_windowFullscreen_action->plug(m_windowMenu);				
+	m_windowMenu->insertSeparator();	
 	m_windowCascade_action->plug(m_windowMenu);
 	m_windowTile_action->plug(m_windowMenu);
 	m_windowAutoCascade_action->plug(m_windowMenu);
@@ -347,4 +365,76 @@ void BibleTime::openOnlineHelp() {
 	if (m_helpMenu)
 		m_helpMenu->appHelpActivated();
 #endif
+}
+
+/** Saves the current settings into the currently activatred profile. */
+void BibleTime::saveProfile(){
+	ASSERT(m_currentProfile);
+	if (!m_currentProfile)
+		return;
+	QWidgetList windows = m_mdi->windowList();
+	QList<CProfileWindow> profileWindows;
+	for (QWidget* w = windows.first(); w; w = windows.next())	 {
+		CSwordPresenter* displayWindow = dynamic_cast<CSwordPresenter*>(w);
+		if (!displayWindow)
+			continue;
+
+		CProfileWindow* profileWindow = new CProfileWindow();
+		displayWindow->storeSettings(profileWindow);
+		profileWindows.append(profileWindow);
+	}
+	qWarning("save %i window settings", profileWindows.count());
+	m_currentProfile->save(profileWindows);
+	qWarning("saved");
+//	profileWindows.setAutoDelete(true);
+//	profileWindows.clear();//clean up memory
+}
+
+void BibleTime::loadProfile(int ID){
+	m_mdi->deleteAll();
+	
+	m_mdi->setUpdatesEnabled(false);
+	KPopupMenu* popup = m_windowLoadProfile_action->popupMenu();
+	const QString profileName = popup->text(ID);
+
+	QList<CProfile> profiles = m_profileMgr.profiles();
+	CProfile* p	= 0;
+	for (p = profiles.first(); p; p = profiles.next()) {
+		if (p->name() == profileName) {
+			m_currentProfile = p;
+			break;
+		}
+	}
+
+	if (!p)
+		return;		
+	QList<CProfileWindow> windows = p->load();
+	qWarning("found %i window settings", windows.count());
+	
+	for (CProfileWindow* w = windows.first(); w; w = windows.next()) {
+		const QString key = w->key();		
+		QStringList usedModules = w->modules();
+		ListCSwordModuleInfo modules;
+		for ( QStringList::Iterator it = usedModules.begin(); it != usedModules.end(); ++it ) {
+			CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(*it);
+			if (m)
+				modules.append(m);
+		}
+		CSwordPresenter* displayWindow = createNewSwordPresenter(modules, key);
+		if (displayWindow) {
+			qWarning("apply settings");
+			displayWindow->applySettings(w);
+		}			
+	}	
+	
+	m_mdi->setUpdatesEnabled(true);	
+	qWarning("finished");
+}
+
+void BibleTime::toggleFullscreen(){
+
+}
+
+void BibleTime::editProfiles(){
+
 }

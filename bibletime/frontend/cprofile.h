@@ -54,6 +54,8 @@ public:
   * Returns the filename used for this profile.
   */
   const QString& filename();
+  /** Initializes the XML for the first time (use to create a new profile) */
+  void init(const QString);
 	
 	
 private:

@@ -155,7 +155,7 @@ void CSearchDialogScopeChooser::editButtonClicked(){
   QMap<QString,QString> entryMap = config->entryMap(QString("custom ranges"));
   QMap<QString,QString>::Iterator it;
   for ( it = entryMap.begin(); it != entryMap.end(); ++it) {
-	  debug(it.key().local8Bit());
+	  qDebug(it.key().local8Bit());
 	  if (it.key() != QString::null)
 		  RangeChooser->insertItem( it.key() );
 	}
@@ -264,7 +264,7 @@ CSearchDialogScopeEdit::CSearchDialogScopeEdit(KSimpleConfig *parentconfig, QWid
   QMap<QString,QString> entryMap = config->entryMap(QString("custom ranges"));
   QMap<QString,QString>::Iterator it;
 	for ( it = entryMap.begin(); it != entryMap.end(); ++it) {
-  	debug(it.key().local8Bit());
+  	qDebug(it.key().local8Bit());
 	  if (it.key() != QString::null)
 		  RangeChooser->insertItem( it.key() );
 	}
@@ -291,7 +291,7 @@ void CSearchDialogScopeEdit::NewButtonClicked(){
   QMap<QString,QString> entryMap = config->entryMap(QString("custom ranges"));
   QMap<QString,QString>::Iterator it;
   for ( it = entryMap.begin(); it != entryMap.end(); ++it) {
-	  debug(it.key().local8Bit());
+	  qDebug(it.key().local8Bit());
 	  if (it.key() != QString::null)
 		  RangeChooser->insertItem( it.key() );
 	}
@@ -317,7 +317,7 @@ void CSearchDialogScopeEdit::DeleteButtonClicked(void){
     QMap<QString,QString> entryMap = config->entryMap(QString("custom ranges"));
     QMap<QString,QString>::Iterator it;
     for ( it = entryMap.begin(); it != entryMap.end(); ++it) {
-  	  debug(it.key().local8Bit());
+  	  qDebug(it.key().local8Bit());
   	  if (it.key() != QString::null)
   		  RangeChooser->insertItem( it.key() );
   	}

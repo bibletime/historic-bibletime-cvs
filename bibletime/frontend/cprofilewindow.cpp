@@ -40,11 +40,6 @@ void CProfileWindow::setGeometry( const QRect rect ){
 const CSwordModuleInfo::type CProfileWindow::type(){
 	if (m_type != CSwordModuleInfo::Unknown)
 		return m_type;
-		
-//	CSwordModuleInfo* m = m_moduleList.first();
-//	if (!m)
-//		return CSwordModuleInfo::Unknown;
-//	return m->getType();
 }
 
 /** Sets the modules. */

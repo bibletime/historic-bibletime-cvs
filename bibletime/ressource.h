@@ -137,6 +137,11 @@
 #define IDK_WINDOW_AUTO_CASCADE					CTRL+ALT+Key_A
 #define IDK_WINDOW_AUTO_TILE						CTRL+ALT+Key_T
 #define IDK_WINDOW_CLOSE_ALL						CTRL+Key_K
+#define IDK_WINDOW_LOAD_PROFILE					0
+#define IDK_WINDOW_SAVE_PROFILE					0
+#define IDK_WINDOW_EDIT_PROFILES				0
+#define IDK_WINDOW_FULLSCREEN						0
+
 
 #define IDK_HELP_DAILY_TIP							0
 
@@ -189,6 +194,10 @@
 #define ICON_WINDOW_TILE_AUTO "bt_tile_auto"
 #define ICON_WINDOW_CASCADE_AUTO "bt_cascade_auto"
 #define ICON_WINDOW_CLOSE_ALL "fileclose"
+#define ICON_WINDOW_SAVE_PROFILE "bt_save_profile"
+#define ICON_WINDOW_LOAD_PROFILE "bt_load_profile"
+#define ICON_WINDOW_EDIT_PROFILES "bt_edit_profiles"
+#define ICON_WINDOW_FULLSCREEN "window_fullscreen"
 
 #define ICON_HELP_DAILY_TIP "bt_daily_tip"
 

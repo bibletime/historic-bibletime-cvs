@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "coptionsdialog.h"
+#include "../cprofile.h"
 #include "../presenters/cswordpresenter.h"
 #include "../../ressource.h"
 #include "../../whatsthisdef.h"
@@ -32,11 +33,13 @@
 #include <qdict.h>
 #include <qcheckbox.h>
 #include <qbuttongroup.h>
+#include <qhbuttongroup.h>
 #include <qradiobutton.h>
 #include <qcolor.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qstringlist.h>
+#include <qinputdialog.h>
 
 //KDE includes
 #include <kapp.h>
@@ -135,12 +138,10 @@ void COptionsDialog::initDisplayWindow() {
 	items << i18n("Display windows") << i18n("General");
 	setFolderIcon(i18n("Display windows"), SmallIcon("folder"));
 	
-	QFrame* page = addPage(items, i18n("General settings for display windows"));
-	QVBoxLayout* layout = new QVBoxLayout(page);
-	
+	QFrame* page = addPage(items, i18n("General settings for display windows"), OD_ICON_GENERAL);
+	QVBoxLayout* layout = new QVBoxLayout(page);	
 	QHBoxLayout* localeLayout = new QHBoxLayout();
-	{//bookname language
-		
+	{//bookname language		
 		KConfigGroupSaver groupSaver(m_config, "SWORD");
 				
 		m_displayWindows.general.localeCombo = new QComboBox(page);
@@ -248,10 +249,25 @@ void COptionsDialog::initDisplayWindow() {
 	if (m_displayWindows.module_fonts.modules->count() > 0)
 		m_displayWindows.module_fonts.modules->setCurrentItem(0);
 
-	
-	
+		
 	items.clear();
-	items << i18n("Display windows") << i18n("View profiles");		
+	items << i18n("Display windows") << i18n("View profiles");
+	vbox_page = addVBoxPage(items, i18n("View profiles of workspace area")/*, OD_ICON_PROFILE*/);		
+	m_displayWindows.profiles.profiles = new QListBox(vbox_page);
+	QList<CProfile> profiles = m_displayWindows.profiles.mgr.profiles();
+	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
+		m_displayWindows.profiles.profiles->insertItem(p->name());
+	}
+	
+	QHButtonGroup* buttonGroup = new QHButtonGroup(vbox_page);
+	m_displayWindows.profiles.createProfile = new QPushButton(i18n("Create new profile"), buttonGroup);
+	connect(m_displayWindows.profiles.createProfile, SIGNAL(clicked()), SLOT(addNewProfile()));
+	
+	m_displayWindows.profiles.deleteProfile = new QPushButton(i18n("Delete selected profile"), buttonGroup);	
+	connect(m_displayWindows.profiles.deleteProfile, SIGNAL(clicked()), SLOT(deleteProfile()));
+		
+	m_displayWindows.profiles.renameProfile = new QPushButton(i18n("Rename selected profile"), buttonGroup);		
+	connect(m_displayWindows.profiles.renameProfile, SIGNAL(clicked()), SLOT(renameProfile()));
 }
 
 void COptionsDialog::saveDisplayWindow() {
@@ -325,8 +341,8 @@ void COptionsDialog::newDisplayWindowFontSelected(const QFont &newFont){
 	m_displayWindows.fonts.fontMap.replace(m_displayWindows.fonts.usage->currentText(), newFont);		
 }
 
-//
-///** Called if the OK button was clicked */
+
+/** Called if the OK button was clicked */
 void COptionsDialog::slotOk(){
 	saveGeneral();
 	saveDisplayWindow();
@@ -345,17 +361,9 @@ void COptionsDialog::slotApply(){
 
 /** Is called when a new font was selected in the  foreign font manager dialog. */
 void COptionsDialog::newForeignFontSelected( const QFont& font ){
-//	const QString selectedModule = m_displayWindows.module_fonts.modules->currentText();
 	CSwordModuleInfo* module = m_important->swordBackend->findModuleByDescription( m_displayWindows.module_fonts.modules->currentText() );	
 	if (module)
 		module->setFont(font);
-
-//	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
-//
-//	//Build a list of modules with foreign fonts
-//	for (modules->first(); modules->current(); mainlist->next())
-//		if (modules->current()->getDescription() == selectedModule)
-//      modules->current()->setFont(font);
 }
 
 /** Is called when the user select a new module in te foreign font management dialog. */
@@ -365,17 +373,30 @@ void COptionsDialog::foreignFontModuleChanged( QListBoxItem* item ) {
 	CSwordModuleInfo* module = m_important->swordBackend->findModuleByDescription( selectedModule );	
 	if (module)
 		m_displayWindows.module_fonts.fonts->setFont(module->getFont());
-		
-//	ListCSwordModuleInfo* mainlist = m_important->swordBackend->getModuleList();
-//	//Build a list of modules with foreign fonts
-//	for (mainlist->first(); mainlist->current(); mainlist->next()) {
-//		if (mainlist->current()->getDescription() == selectedModule)
-//      foreignFonts->setFont(mainlist->current()->getFont());
-//	}
 }
 
 
 /** Returns an integer with ORed feature enum entries of the changed settings. */
 const int COptionsDialog::getChangedSettings() const {
 	return m_changedSettings;
+}
+
+/** Adds a new view profile to the list. */
+void COptionsDialog::addNewProfile(){
+	bool ok = false;
+	QString name = QInputDialog::getText(i18n("Create new profile"), i18n("Please enter the name of the new profile"), QString::null, &ok);
+	if (ok && !name.isEmpty()) {
+		m_displayWindows.profiles.mgr.create(name);
+		m_displayWindows.profiles.profiles->insertItem(name);				
+	}
+}
+
+/** No descriptions */
+void COptionsDialog::deleteProfile(){
+	const QString profile = m_displayWindows.profiles.profiles->currentText();
+	m_displayWindows.profiles.mgr.remove(profile);
+}
+
+/** Renames the currently selected profile. */
+void COptionsDialog::renameProfile(){
 }

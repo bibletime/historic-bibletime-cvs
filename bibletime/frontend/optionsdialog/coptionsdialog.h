@@ -19,6 +19,7 @@
 #define COPTIONSDIALOG_H
 
 #include "../../structdef.h"
+#include "../cprofilemgr.h"
 
 //QT includes
 #include <qwidget.h>
@@ -113,6 +114,11 @@ private:
 		ModuleFontSettings module_fonts;
 		
 		struct ViewProfileSettings {
+			QListBox* profiles;
+			QPushButton* createProfile;			
+			QPushButton* deleteProfile;
+			QPushButton* renameProfile;
+			CProfileMgr mgr;
 		};
 		ViewProfileSettings profiles;
 	};
@@ -121,6 +127,10 @@ private:
 	DisplayWindowSettings m_displayWindows;
 
 protected slots: // Protected slots
+  /**
+  * Adds a new view profile to the list.
+  */
+  void addNewProfile();
   /**
   * Called when a new font in the fonts page was selected.
   */
@@ -145,6 +155,10 @@ protected slots: // Protected slots
  	* commented out for the time being.  ck
  	*/
 	void slotApply();
+  /** Renames the currently selected profile. */
+  void renameProfile();
+  /** No descriptions */
+  void deleteProfile();
 };
 
 #endif

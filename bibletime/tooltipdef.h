@@ -34,6 +34,10 @@
 #define TT_WINDOW_CASCADE  i18n("Cascade windows")
 #define TT_WINDOW_AUTO_CASCADE  i18n("Automatically cascade windows")
 #define TT_WINDOW_CLOSE_ALL  i18n("Close all windows")
+#define TT_WINDOW_SAVE_PROFILE  i18n("Save current profile")
+#define TT_WINDOW_EDIT_PROFILES  i18n("Edit profiles...")
+#define TT_WINDOW_LOAD_PROFILE  i18n("Load a new profiles")
+#define TT_WINDOW_FULLSCREEN  i18n("Switch between normal and fullscreen mode")
 
 #define TT_SETTINGS_EDIT_TOOLBAR i18n("Edit toolbar")
 #define TT_SETTINGS_OPTIONS i18n("Options")

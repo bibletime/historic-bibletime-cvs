@@ -43,6 +43,11 @@
 #define WT_WINDOW_CASCADE WT( TT_WINDOW_CASCADE, i18n("Arrange the open display windows in a cascade pattern."))
 #define WT_WINDOW_AUTO_CASCADE WT( TT_WINDOW_AUTO_CASCADE, i18n("The open display windows will automatically arranged in a cascade pattern if it's necessary."))
 #define WT_WINDOW_CLOSE_ALL WT( TT_WINDOW_CLOSE_ALL, i18n("Close all open display windows."))
+#define WT_WINDOW_SAVE_PROFILE WT(TT_WINDOW_SAVE_PROFILE, i18n("Save current profile"))
+#define WT_WINDOW_EDIT_PROFILES WT(TT_WINDOW_EDIT_PROFILES, i18n("Edit profiles..."))
+#define WT_WINDOW_LOAD_PROFILE WT(TT_WINDOW_LOAD_PROFILE, i18n("Load a new profiles"))
+#define WT_WINDOW_FULLSCREEN WT(TT_WINDOW_FULLSCREEN, i18n("Switch between normal and fullscreen mode"))
+
 
 #define WT_SETTINGS_EDIT_TOOLBAR WT(TT_SETTINGS_EDIT_TOOLBAR, i18n("Open a dialog where you can edit the toolbar of BibleTime."))
 #define WT_SETTINGS_OPTIONS WT(TT_SETTINGS_OPTIONS, i18n("Open BibleTime's optionsdialog where you can set most of the preferences."))

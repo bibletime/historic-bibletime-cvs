@@ -45,6 +45,10 @@ public:
   * Removes the profile from the list and from the directory containg the profile files.
   */
   const bool remove( CProfile* p );
+  /**
+  * Removes the profile from the list and from the directory containg the profile files.
+  */
+  const bool remove( const QString& );
 
 protected:	
 	QList<CProfile> m_profiles;	

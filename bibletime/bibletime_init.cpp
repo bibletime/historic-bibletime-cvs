@@ -22,6 +22,8 @@
 #include "bibletime.h"
 #include "ressource.h"
 #include "frontend/chtmldialog.h"
+#include "frontend/cprofilemgr.h"
+#include "frontend/cprofile.h"
 #include "backend/sword_backend/cswordbackend.h"
 #include "ressource.h"
 #include "whatsthisdef.h"
@@ -161,7 +163,33 @@ void BibleTime::initActions() {
 	m_windowCloseAll_action->setToolTip( TT_WINDOW_CLOSE_ALL );	
 	m_windowCloseAll_action->setWhatsThis( WT_WINDOW_CLOSE_ALL );
 	
+	m_windowSaveProfile_action = new KAction(i18n("Save profile"), ICON_WINDOW_SAVE_PROFILE,
+																IDK_WINDOW_SAVE_PROFILE, this, SLOT(saveProfile()), actionCollection(),"windowSaveProfile_action");
+	m_windowSaveProfile_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
+	m_windowSaveProfile_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
 
+	m_windowLoadProfile_action = new KActionMenu(i18n("Load profile"), actionCollection(),"windowLoadProfile_action");
+	m_windowLoadProfile_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
+	m_windowLoadProfile_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
+	KPopupMenu* popup = m_windowLoadProfile_action->popupMenu();
+	connect(popup, SIGNAL(activated(int)), SLOT(loadProfile(int)));
+	CProfileMgr mgr;
+	QList<CProfile> profiles = mgr.profiles();
+	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
+		popup->insertItem(p->name());
+	}
+			
+	m_windowEditProfiles_action = new KAction(i18n("Configure profiles"), ICON_WINDOW_EDIT_PROFILES,
+																IDK_WINDOW_EDIT_PROFILES, this, SLOT(editProfiles()), actionCollection(),"windowEditProfiles_action");
+	m_windowEditProfiles_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
+	m_windowEditProfiles_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
+
+	m_windowFullscreen_action = new KToggleAction(i18n("Fullscreen mode"), ICON_WINDOW_FULLSCREEN,
+																IDK_WINDOW_FULLSCREEN, this, SLOT(toggleFullscreen()), actionCollection(),"windowFullscreen_action");
+	m_windowFullscreen_action->setToolTip( TT_WINDOW_FULLSCREEN );	
+	m_windowFullscreen_action->setWhatsThis( WT_WINDOW_FULLSCREEN );
+	
+	
 	if ( (m_helpContents_action = actionCollection()->action("help_contents")) )	
 		delete m_helpContents_action;
 	m_helpContents_action = KStdAction::helpContents(this, SLOT(openOnlineHelp()), actionCollection() );
@@ -270,7 +298,11 @@ void BibleTime::initKeyAccels(){
 	m_windowTile_action->plugAccel( m_keyAccel );	
 	m_windowAutoCascade_action->plugAccel( m_keyAccel );	
 	m_windowAutoTile_action->plugAccel( m_keyAccel );	
-	m_windowCloseAll_action->plugAccel( m_keyAccel );
+	m_windowCloseAll_action->plugAccel( m_keyAccel );	
+	m_windowSaveProfile_action->plugAccel( m_keyAccel );	
+	m_windowLoadProfile_action->plugAccel( m_keyAccel );
+	m_windowEditProfiles_action->plugAccel( m_keyAccel );	
+	m_windowFullscreen_action->plugAccel( m_keyAccel );			
 }
 
 /** Initializes the backend */

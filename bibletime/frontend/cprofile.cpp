@@ -23,12 +23,30 @@
 #include <qstring.h>
 #include <qtextstream.h>
 
+//KDE includes
+#include <kstddirs.h>
+#include <klocale.h>
+
 #define CURRENT_SYNTAX_VERSION 1
 
 CProfile::CProfile( const QString& file, const QString& name )
 	: m_filename(file), m_name(name) {
 	
 	m_profileWindows.setAutoDelete(true);
+	if (!m_filename.isEmpty() && name.isEmpty()) {
+		load();
+	}
+	else if (m_filename.isEmpty() && !name.isEmpty()) {
+		m_filename = name;
+		m_filename.replace(QRegExp("\\s=#."),"_");
+		KStandardDirs stdDirs;
+		const QString profilePath = stdDirs.saveLocation("data", "bibletime/profiles/");
+		m_filename = profilePath + m_filename + ".xml";
+		init(m_filename);
+	}
+	else {
+		qWarning("CProfile: empty file name!");
+	}
 }
 
 CProfile::~CProfile(){
@@ -37,22 +55,32 @@ CProfile::~CProfile(){
 
 /** Loads the profile from the file given in the constructor. */
 QList<CProfileWindow> CProfile::load(){
-	QFile file(m_filename);
-	ASSERT(file.exists());
+	qWarning("CProfile::load");
+		
+	QFile file(m_filename);	
+	if (!file.exists())
+		return QList<CProfileWindow>();
+
 	file.open(IO_ReadOnly);
 	
 	QDomDocument doc;
 	doc.setContent(&file);			
   QDomElement document = doc.documentElement();
   if(document.tagName() != "BibleTime") {
-		qWarning("CProfile::load: Missing DOC");
+		qWarning("CProfile::load: Missing BibleTime doc");
 		return m_profileWindows;
+	}
+	if (document.hasAttribute("name")) {
+		m_name = document.attribute("name");	
+//		qWarning("set name to %s", name().latin1());
 	}
 	
 	m_profileWindows.clear();
 	QDomElement elem = document.firstChild().toElement();
 	while (!elem.isNull()) {
 		CProfileWindow* p = 0;
+		qWarning(elem.tagName().latin1());
+		
 		if (elem.tagName() == "BIBLE") {
 			p = new CProfileWindow(CSwordModuleInfo::Bible);
 		}
@@ -62,12 +90,9 @@ QList<CProfileWindow> CProfile::load(){
 		else if (elem.tagName() == "LEXICON") {
 			p = new CProfileWindow(CSwordModuleInfo::Lexicon);
 		}			
-		qWarning(elem.tagName().latin1());
-		ASSERT(p);
 		if (p) {
 			m_profileWindows.append(p);
-			
-			
+						
 			QRect rect;
 						
 			QDomElement object = elem.namedItem("GEOMETRY").toElement();
@@ -112,13 +137,12 @@ QList<CProfileWindow> CProfile::load(){
 
 				p->setScrollbarPositions(horizontal, vertical);      	
       }				
-		}
-				
-		elem = doc.nextSibling().toElement();	
+		}				
+		elem = elem.nextSibling().toElement();	
 	}
 
 	file.close();	
-	qWarning("count before return %i", m_profileWindows.count());
+	qWarning("load finished");
 	return m_profileWindows;
 }
 
@@ -127,14 +151,20 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 	/** Save the settings using a XML file
 	*	Save the CProfileWindow objects using a XML file which name is in m_filename
 	*/
-
+	qWarning("CProfile::save(QList)");
   QDomDocument doc("DOC");
   doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
+
+  qWarning("middle");
+
   QDomElement content = doc.createElement("BibleTime");
   content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
+  content.setAttribute("name", name());
   doc.appendChild(content);
 
+  qWarning("before the loop");
 	for (CProfileWindow* p = windows.first(); p; p = windows.next()) {
+		ASSERT(p);
 		QDomElement window;
 		switch (p->type()) {
 			case CSwordModuleInfo::Bible:
@@ -197,5 +227,15 @@ const QString& CProfile::filename(){
 
 /** Returns the name of this profile. */
 const QString& CProfile::name(){
+	if (m_name.isEmpty())
+		m_name = i18n("unknown");
 	return m_name;
+}
+
+/** Initializes the XML for the first time (use to create a new profile) */
+void CProfile::init(const QString file){
+	const QString oldFile = m_filename;
+	m_filename = file;
+	save(QList<CProfileWindow>());
+	m_filename = oldFile;
 }
