@@ -43,6 +43,9 @@ CPPFLAGS="$CPPFLAGS -D_REENTRANT -DQT_NO_ASCII_CAST -DQT_NO_COMPAT"
 AC_CHECK_STATIC_LINKING(ac_use_static)
 AC_CHECK_SWORD(1.52, [$ac_use_static])
 
+dnl Chek for the used distribution
+AC_CHECK_DISTRIBUTION
+
 dnl add here all your Makefiles. They are created by configure
 dnl AC_OUTPUT(NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop)
 

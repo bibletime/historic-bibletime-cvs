@@ -7033,6 +7033,8 @@ else
 	LIB_SWORD="-lsword";
 fi
 
+SWORD_PATH="$ac_sword_libdir"
+
 
 all_libraries="$all_libraries -L$ac_sword_libdir"
 
@@ -7046,7 +7048,7 @@ echo "$ac_t""$MESSAGE" 1>&6
 
 
 echo $ac_n "checking for Sword include files""... $ac_c" 1>&6
-echo "configure:7050: checking for Sword include files" >&5
+echo "configure:7052: checking for Sword include files" >&5
 ac_sword_include_dirs="$ac_sword_dir/include/sword $ac_sword_dir/include /usr/include/sword /usr/include /usr/local/include/sword /usr/local/include /usr/local/sword/include /usr/local/sword/include/sword"
 
 ac_sword_incdir=NO
@@ -7054,7 +7056,7 @@ for i in $ac_sword_include_dirs;
 do
   for j in swmgr.h;
   do
-    echo "configure: 7058: $i/$j" >&5
+    echo "configure: 7060: $i/$j" >&5
     if test -r "$i/$j"; then
       echo "taking that" >&5
       ac_sword_incdir=$i
@@ -7078,7 +7080,7 @@ echo "$ac_t""$ac_sword_incdir" 1>&6
 
 
 echo $ac_n "checking if you have Sword 1.52 or later""... $ac_c" 1>&6
-echo "configure:7082: checking if you have Sword 1.52 or later" >&5
+echo "configure:7084: checking if you have Sword 1.52 or later" >&5
 
 
  ac_ext=C
@@ -7117,7 +7119,7 @@ int main() {
 EOF
 
 ac_link='$LIBTOOL_SHELL --silent --mode=link ${CXX-g++} -o conftest $CXXFLAGS $all_includes $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS 1>&5'
-if { (eval echo configure:7121: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
+if { (eval echo configure:7123: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
 	if test -x conftest; then
 		eval ac_installed_sword_version=`./conftest 2>&5`
 	fi
@@ -7144,6 +7146,91 @@ cross_compiling=$ac_cv_prog_cc_cross
 
 
 echo "$ac_t""$ac_installed_sword_version" 1>&6
+
+
+
+echo $ac_n "checking for the used Linux distribution""... $ac_c" 1>&6
+echo "configure:7154: checking for the used Linux distribution" >&5
+
+DISTRIBUTION="unknown"
+DISTRIBUTION_VERSION="unknown"
+
+PREFIX="/usr"
+
+RPM_GROUP="Graphical desktop/KDE";
+	
+if test -f "/etc/SuSE-release"; then
+	DISTRIBUTION="SuSE"
+	PREFIX="/opt/kde2"
+	DISTRIBUTION_VERSION=`grep "VERSION =" /etc/SuSE-release | sed 's/VERSION = //'`;
+elif test -f "/etc/mandrake-release"; then
+	DISTRIBUTION="Mandrake"
+	DISTRIBUTION_VERSION=`grep "Mandrake" /etc/mandrake-release | sed 's/[a-zA-Z()]*//g' | awk '{print }'`;
+elif test -f "/etc/redhat-release"; then
+	DISTRIBUTION="RedHat"
+fi
+	
+
+if test "$DIST_TYPE" != "unknown"; then
+	cat >> confdefs.h <<EOF
+#define DISTRIBUTION ${DISTRIBUTION}
+EOF
+
+fi
+
+
+if test "$DIST_VERSION" != "unknown"; then
+	cat >> confdefs.h <<EOF
+#define DISTRIBUTION_VERSION ${DISTRIBUTION_VERSION}
+EOF
+
+fi
+
+
+
+
+
+echo "$ac_t""$DISTRIBUTION $DISTRIBUTION_VERSION" 1>&6
+
+
+
+
+
+DO_NOT_COMPILE="$DO_NOT_COMPILE CVS debian bsd-port admin"
+
+if test ! -s $srcdir/subdirs; then
+    TOPSUBDIRS=""
+  files=`cd $srcdir && ls -1`
+  dirs=`for i in $files; do if test -d $i; then echo $i; fi; done`
+  for i in $dirs; do
+    echo $i >> $srcdir/subdirs
+  done
+fi
+
+if test -s $srcdir/inst-apps; then
+  ac_topsubdirs="`cat $srcdir/inst-apps`"
+else
+  ac_topsubdirs="`cat $srcdir/subdirs`"
+fi
+
+for i in $ac_topsubdirs; do
+  echo $ac_n "checking if $i should be compiled""... $ac_c" 1>&6
+echo "configure:7219: checking if $i should be compiled" >&5
+  if test -d $srcdir/$i; then
+    install_it="yes"
+    for j in $DO_NOT_COMPILE; do
+      if test $i = $j; then
+        install_it="no"
+      fi
+    done
+  else
+    install_it="no"
+  fi
+  echo "$ac_t""$install_it" 1>&6
+  if test $install_it = "yes"; then
+    TOPSUBDIRS="$TOPSUBDIRS $i"
+  fi
+done
 
 
 
@@ -7452,8 +7539,14 @@ s%@LIB_KPARTS@%$LIB_KPARTS%g
 s%@LIB_KWRITE@%$LIB_KWRITE%g
 s%@LIB_KFM@%$LIB_KFM%g
 s%@BT_LDFLAGS@%$BT_LDFLAGS%g
+s%@SWORD_LIBRARY_PATH@%$SWORD_LIBRARY_PATH%g
 s%@LIB_SWORD@%$LIB_SWORD%g
 s%@SWORD_INCLUDES@%$SWORD_INCLUDES%g
+s%@DISTRIBUTION@%$DISTRIBUTION%g
+s%@DISTRIBUTION_VERSION@%$DISTRIBUTION_VERSION%g
+s%@RPM_GROUP@%$RPM_GROUP%g
+s%@PREFIX@%$PREFIX%g
+s%@TOPSUBDIRS@%$TOPSUBDIRS%g
 
 CEOF
 EOF
@@ -7580,6 +7673,7 @@ for ac_file in .. $CONFIG_FILES; do if test "x$ac_file" != x..; then
 
   case "$ac_given_INSTALL" in
   [/$]*) INSTALL="$ac_given_INSTALL" ;;
+"") ;;
   *) INSTALL="$ac_dots$ac_given_INSTALL" ;;
   esac
 
@@ -7719,6 +7813,10 @@ test -z "$CONFIG_HEADERS" || echo timestamp > stamp-h
 
 exit 0
 EOF
+if test "x$with_fast_perl" = "xyes" ; then
+  perl -i.bak $ac_aux_dir/conf.change.pl $CONFIG_STATUS || mv $CONFIG_STATUS.bak $CONFIG_STATUS; 
+  rm -f $CONFIG_STATUS.bak;
+fi 
 chmod +x $CONFIG_STATUS
 rm -fr confdefs* $ac_clean_files
 test "$no_create" = yes || ${CONFIG_SHELL-/bin/sh} $CONFIG_STATUS || exit 1

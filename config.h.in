@@ -42,3 +42,9 @@
 /* Define if you have libjpeg */
 #undef HAVE_LIBJPEG
 
+/* The type of your distribution */
+#undef DISTRIBUTION
+
+/* The version of your distribution */
+#undef DISTRIBUTION_VERSION
+

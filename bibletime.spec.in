@@ -1,5 +1,5 @@
-%define         name 			@package
-%define         version 	@version
+%define         name 			@PACKAGE@
+%define         version 	@VERSION@
 
 # This should not be changed but set this to static or dynamic.
 # Sword should always be set to static for these builds.
@@ -15,20 +15,21 @@
 
 # This should be set to your os.
 # Possible values are  Mandrake, Red Hat, Turbolinux, Caldera, SuSE, etc.
-%define		ostype 		SuSE
+%define		ostype 		@DISTRIBUTION@
 
 # This should be set to the version of your OS (6.0, 6.1, 6.2, 7.0, 7.1, 7.2, 8.0, etc.)
-%define		osversion 	7.2
+%define		osversion 	@DISTRIBUTION_VERSION@
 
 # This is your cpu i486, i586, i686, ppc, sparc, alfa, etc.
 %define		buildarch 	i586
 
 # This the RPM group on your system that this will installed into.
 # Graphical desktop/KDE, X11/apps, etc.
-%define		rpmgroup 	Graphical desktop/KDE
+%define		rpmgroup 	@RPM_GROUP@
 
 # this is were the sword modules will be installed on your system.
 # /usr/local/sword, /usr/share/sword, /opt/local/sword, etc.
+# default is /usr/share/sword
 %define     SwordPath 	/usr/share/sword
 %define			ModsPath 		%{SwordPath}/mods.d
 
@@ -59,7 +60,7 @@ Source0:        %{name}-%{version}.tar.bz2
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
 Provides:       sword-base
-#Prefix:         %{_prefix}
+Prefix: 	      @PREFIX@
 
 
 %description
@@ -91,12 +92,8 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/config
 
 # generate directories for sword if building static
 if [ %{swordlibs} = "static" ] ; then
-mkdir -p $RPM_BUILD_ROOT%{SwordPath}
-mkdir -p $RPM_BUILD_ROOT%{ModsPath}
-# move the shared libs out of the way to make it static
-# this one is for the sword libs if only the sword-devel package is installed
-# this will not be necessary. But it is ok to leave it in.
-if [ -f /usr/lib/libsword.so ] ; then mv /usr/lib/libsword.so /usr/lib/libsword.bak ; fi
+ mkdir -p $RPM_BUILD_ROOT%{SwordPath}
+ mkdir -p $RPM_BUILD_ROOT%{ModsPath}
 fi
 
 
@@ -112,12 +109,11 @@ else
 	echo "Using $QTDIR as QT 2.2.x directory";
 	echo If the directories are not correct please set them using \"export KDEDIR=<KDE2 directory> QTDIR=<QT2.2 directory>\""
 	sleep 5
-	echo "I'll start now"
 fi
 
 make -f Makefile.cvs
 
-if [ %{kdelibs} = "static" ] ; then
+if [ %{swordlibs} = "static" ] ; then
 	CONFIG_OPTIONS = "--enable-static-sword $CONFIG_OPTIONS";
 fi
 if [ %{kdelibs} = "static" ] ; then

@@ -48,6 +48,8 @@ else
 	LIB_SWORD="-lsword";
 fi
 
+SWORD_PATH="$ac_sword_libdir"
+AC_SUBST(SWORD_LIBRARY_PATH)
 AC_SUBST(LIB_SWORD)
 all_libraries="$all_libraries -L$ac_sword_libdir"
 
