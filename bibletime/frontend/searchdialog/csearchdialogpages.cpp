@@ -428,17 +428,11 @@ void CSearchResultPage::initView(){
   QSplitter* splitter = new QSplitter(Vertical, this);
   mainLayout->addWidget(splitter);
 
-//  QHBox* layoutBox = new QHBox(splitter);
-//  layoutBox->setSpacing(3);
   QSplitter* hSplitter = new QSplitter(Horizontal, splitter);
   m_moduleListBox = new CModuleResultView(hSplitter);
-//  m_moduleListBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-//  layoutBox->setStretchFactor(m_moduleListBox, 0);
   m_resultListBox = new CSearchResultView(hSplitter);
   hSplitter->setResizeMode(m_moduleListBox, QSplitter::FollowSizeHint);
   hSplitter->setResizeMode(m_resultListBox, QSplitter::Stretch);
-
-//  layoutBox->setStretchFactor(m_resultListBox, 5);  
 
   m_previewDisplay = CDisplay::createReadInstance(0, splitter);  
 
@@ -447,8 +441,7 @@ void CSearchResultPage::initView(){
   splitter->setResizeMode(m_previewDisplay->view(), QSplitter::Stretch);
   
   m_analyseButton = new QPushButton(i18n("Show search analysis"), this);
-  connect(m_analyseButton, SIGNAL(clicked()),
-    this, SLOT(showAnalysis()));
+  connect(m_analyseButton, SIGNAL(clicked()), SLOT(showAnalysis()));
   mainLayout->addSpacing(5);
   mainLayout->addWidget(m_analyseButton);
 }
@@ -536,8 +529,8 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
   int index = 0;
   int length = searchedText.length();
 
-  const QString rep1 = QString::fromLatin1("<B STYLE=\"background-color:#FFFF66;\">");
-  const QString rep2 = QString::fromLatin1("</B>");
+  const QString rep1 = QString::fromLatin1("<span style=\"background-color:#FFFF66;\">");
+  const QString rep2 = QString::fromLatin1("</span>");
   const unsigned int repLength = rep1.length() + rep1.length();
 
   
@@ -871,6 +864,7 @@ const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType(){
   else {
     return CSwordModuleSearch::Scope_Bounds;
   };
+	
   return CSwordModuleSearch::Scope_NoScope;
 }
 

@@ -231,7 +231,12 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 		QString text;
 		if (module) {
 			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
-			key->key( (*it).mid(1) ); //skip H or G (language sign)
+			if ((key->key().at(0) == 'G') || (key->key().at(0) == 'H')) {
+				key->key( (*it).mid(1) ); //skip H or G (language sign)
+			}
+			else {
+				key->key( *it );
+			}
 			
 			text = key->renderedText();
 		}

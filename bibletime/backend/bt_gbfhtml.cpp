@@ -103,7 +103,7 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	QString result;
 	
 	QString t = QString::fromUtf8(buf.c_str());
-	QRegExp tag("(<W[T]?[HG]\\d+>)+");
+	QRegExp tag("(<W[HGT][^>]+>\\s+)+");
 	
 	QStringList list;
 	int lastMatchEnd = 0;
@@ -122,7 +122,8 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 	}
 
 	//now create the necessary HTML in list entries and concat them to the result
-	tag = QRegExp("<W(T?)([HG]\\d+)>");
+	tag = QRegExp("<W([HGT])([^>]+)>");
+	tag.setMinimal(true);
 
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		QString e = *it; //current enty to process
@@ -138,8 +139,8 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 		int tagAttributeStart = -1;
 		
 		while (pos != -1) { //work on all strong/lemma tags in this sectio, should be between 1-3 loops
-			const bool isMorph = !tag.cap(1).isEmpty();
-			value = tag.cap(2);
+			const bool isMorph = (tag.cap(1) == "T");
+			value = isMorph ? tag.cap(2) : tag.cap(2).prepend( tag.cap(1) );
 			
 			if (value.isEmpty()) {
 				break;
@@ -202,8 +203,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 
     if (	 !strncmp(token, "WG", 2) 
 				|| !strncmp(token, "WH", 2) 
-				|| !strncmp(token, "WTG", 3) 
-				|| !strncmp(token, "WTH", 3) )
+				|| !strncmp(token, "WT", 2) )
 		{
 			buf.append('<');
 			buf.append(token);
