@@ -40,7 +40,7 @@ sub extract_data {
 	close(INT);
 	
 	
-	print "Found $name\n";
+	print "Found $name\n" if ($name);
 	return ($name, $html);
 }
 
@@ -49,7 +49,9 @@ my $code = "";
 foreach my $f (@ARGV) {
 	my ($name, $html) = &extract_data( $f );
 	
-	$code .= "\tm_templateMap[ i18n(\"$name\") ] = \"$html\";\n"
+	if ($name) {
+		$code .= "\tm_templateMap[ i18n(\"$name\") ] = \"$html\";\n"
+	}
 }
 
 
