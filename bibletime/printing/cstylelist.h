@@ -49,9 +49,9 @@ public:
  	*/
   void setItems( styleItemList* itemList );
   /**
- 	*
+ 	* Returns true if the editor was closed with Ok and false if it was closed with another button.
  	*/
-  void openStyleEditor( CStyle* style );
+  const bool openStyleEditor( CStyle* style );
   /**
  	* Appends the item to the list and m_items.
  	*/

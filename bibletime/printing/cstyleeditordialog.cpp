@@ -51,7 +51,7 @@ CStyleEditorDialog::CStyleEditorDialog(CStyle* style, QWidget *parent, const cha
 }
 
 CStyleEditorDialog::~CStyleEditorDialog(){
-	saveSettings();
+//	saveSettings(); //now done in slotOK
 }
 
 /** Initializes te view. */
@@ -341,4 +341,9 @@ void CStyleEditorDialog::enableBoxClicked() {
 	m_style->setFormatTypeEnabled(styleType, m_setEnabledBox->isChecked());	
 	applySettingsToFormat(m_style->getFormatForType(styleType));
 	setupWithFormat( m_currentFormat );
+}
+
+/** Is called after the OK was pressed, */
+void CStyleEditorDialog::slotOK(){
+	saveSettings();
 }

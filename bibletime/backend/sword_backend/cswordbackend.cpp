@@ -195,7 +195,7 @@ const bool CSwordBackend::isOptionEnabled( const CSwordBackend::moduleOptions ty
 		default:
 			break;
 	}
-	return (getGlobalOption(optionName) == "On");
+	return (bool)getGlobalOption(optionName);
 }
 
 /** Sets the given options enabled or disabled depending on the second parameter. */
@@ -368,8 +368,9 @@ const QString CSwordBackend::getModulePath( const QString moduleName ){
 	SWConfig c("");
 	if (getModuleConfig(moduleName, c)) {
 		path = QString::fromLocal8Bit( c[moduleName.latin1()]["DataPath"].c_str() );		
-		if (QString::fromLatin1(c.filename.c_str()).left( QString("%1/.sword/").arg(getenv("HOME")).length() ) ==	QString("%1/.sword/").arg(getenv("HOME")) )
-			path = path.prepend( QString("%1/.sword/").arg(getenv("HOME")) );
+		if (path.left(1) == "/"); //module is in $HOME -> do nothing, path is OK
+		else if (QString::fromLatin1(c.filename.c_str()).left( QString("%1/.sword/").arg(getenv("HOME") ).length() ) ==	QString("%1/.sword/").arg(getenv("HOME")) )
+			path = path.prepend( QString("%1/.sword/").arg(getenv("HOME")) ); //module is in $HOME/.sword/
 		else //global
 			path.prepend(prefixPath);
 	}

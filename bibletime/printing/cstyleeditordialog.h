@@ -112,6 +112,8 @@ protected slots:
   * Called when the type was changed in the combobox.
   */
   void styleTypeChanged( const QString& );
+  /** Is called after the OK was pressed, */
+  virtual void slotOK();
 
 private:
   QLineEdit*	m_styleNameEdit;

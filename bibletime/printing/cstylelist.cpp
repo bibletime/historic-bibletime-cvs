@@ -105,21 +105,23 @@ void CStyleList::editCurrentStyle(){
 /** Creates a new style item. */
 void CStyleList::createNewStyle(){
 	CStyle*	style = new CStyle();	
-	insertItem( style );
-	
-	openStyleEditor( style );
-	
-	style->updateListViewItem();
+	if !openStyleEditor( style );
+		delete style;
+	else {
+		insertItem( style );		
+		style->updateListViewItem();
+	}
 }
 
 /**  */
-void CStyleList::openStyleEditor( CStyle* style ){
+const bool CStyleList::openStyleEditor( CStyle* style ){
 	CStyleEditorDialog* dlg = new CStyleEditorDialog(style, this);
-	dlg->exec();
-	
+	const int result = dlg->exec();
 	delete dlg;	
-	
+		
 	updateStyleCombo();
+	
+	return (result == CStyleEditorDialog::Ok);
 }
 
 /** Deletes the current style item. */
@@ -162,10 +164,8 @@ void CStyleList::updateStyleCombo(){
 		return;
 		
 	m_styleCombo->clear();
-	ASSERT(m_items);
 	for (m_items->first(); m_items->current(); m_items->next()) {
 		//insert name of style into combobox
-		ASSERT(m_items);
 		if (m_items->current())
 			m_styleCombo->insertItem( m_items->current()->getStyleName() );	
 	};
