@@ -33,7 +33,7 @@ char BT_BASICFILTER::ProcessText (char *text, int maxlen, const SWKey *key, cons
 	ASSERT(key);	
 	
 	updateSettings();
-	SWBasicFilter::ProcessText(text, maxlen, key);
+	SWBasicFilter::ProcessText(text, maxlen, key, module);
 	
 	return 0;
 }

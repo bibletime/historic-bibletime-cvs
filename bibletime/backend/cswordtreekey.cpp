@@ -25,14 +25,9 @@ CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module )
 	: TreeKeyIdx(*k), CSwordKey(module) {
 }
 
-CSwordKey* CSwordTreeKey::copy() const {
-//	qWarning("CSwordTreeKey* CSwordTreeKey::copy() const");
+CSwordTreeKey* CSwordTreeKey::copy() const {
 	return new CSwordTreeKey(*this);
 }
-
-//CSwordTreeKey::~CSwordTreeKey() {
-//	qWarning("CSwordTreeKey::~CSwordTreeKey()");
-//}
 
 /** Sets the key of this instance */
 const QString CSwordTreeKey::key( const QString& newKey ){
@@ -42,6 +37,10 @@ const QString CSwordTreeKey::key( const QString& newKey ){
 		else
 			TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!
 	}
+	if (Error()) {
+		root();
+		return QString::null;
+	}		
  	return QString::fromLocal8Bit( getFullName() ); //don't use fromUtf8
 }
 

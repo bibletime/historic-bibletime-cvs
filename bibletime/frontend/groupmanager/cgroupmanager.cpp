@@ -558,11 +558,12 @@ void CGroupManager::slotShowAbout(){
   if (module->hasVersion())
     text += QString::fromLatin1("<b>%1:</b> %2<br>")
     	.arg(i18n("Version"))
-    	.arg(module->version());
+    	.arg(module->config(CSwordModuleInfo::ModuleVersion));
 
 	text += QString::fromLatin1("<b>%1:</b> %2<br><b>%3:</b> %4<br>")
 		.arg(i18n("Location"))
-		.arg(backend()->modulePath(module->name()))
+//		.arg(backend()->modulePath(module->name()))
+		.arg(module->config(CSwordModuleInfo::AbsoluteDataPath))
 		.arg(i18n("Language"))
 		.arg(module->module()->Lang());
 
@@ -574,12 +575,8 @@ void CGroupManager::slotShowAbout(){
 	if ( module->isEncrypted() )
 		text += QString::fromLatin1("<b>%1:</b> %2<br>")
 							.arg(i18n("Unlock key"))
-							.arg(module->cipherKey());	
-
-	if (module->isUnicode())
-		text += QString::fromLatin1("<b>%1:</b> %2<br>").arg(i18n("Encoding")).arg(i18n("Unicode"));
-	else
-		text += QString::fromLatin1("<b>%1:</b> %2<br>").arg(i18n("Encoding")).arg(i18n("iso8859-1"));
+							.arg(module->config(CSwordModuleInfo::CipherKey));	
+	text += QString::fromLatin1("<b>%1:</b> %2<br>").arg(i18n("Encoding")).arg(module->isUnicode() ? i18n("Unicode") : i18n("iso8859-1"));
 
 	QString options;
 	unsigned int opts;
@@ -597,9 +594,9 @@ void CGroupManager::slotShowAbout(){
 
 	text += QString::fromLatin1("<b>%1:</b><br> <font size=\"-1\">%2</font>")
 						.arg("About")
-						.arg(module->aboutInformation());
+						.arg(module->config(CSwordModuleInfo::AboutInformation));
 
-	KMessageBox::about(this, text, module->description(), false);
+	KMessageBox::about(this, text, module->config(CSwordModuleInfo::Description), false);
 }
 
 /**  */
@@ -1020,7 +1017,7 @@ CGroupManagerItem* CGroupManager::findParent( const int ID, CGroupManagerItem* p
 /** Opens a dialog to enter the key to unlock an encrypted module. */
 void CGroupManager::slotUnlockModule(){	
 	bool ok;
-	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the key to unlock the module!"), m_pressedItem->moduleInfo()->cipherKey(), &ok, 0 );
+	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the key to unlock the module!"), m_pressedItem->moduleInfo()->config(CSwordModuleInfo::CipherKey), &ok, 0 );
 	if (ok) {
 		CSwordModuleInfo::UnlockErrorCode ret = m_pressedItem->moduleInfo()->unlock( unlockKey );
 		if ( ret != CSwordModuleInfo::noError) {

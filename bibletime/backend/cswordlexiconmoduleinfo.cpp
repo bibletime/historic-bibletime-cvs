@@ -72,7 +72,7 @@ QStringList* CSwordLexiconModuleInfo::entries(){
         QDataStream s( &f1 );
   			QString v;
         s >> v;
-  			if (v == ( version().isEmpty() ? QString::fromLatin1("0") : version())) {
+  			if (v == config(ModuleVersion) ) {
   				s >> *m_entryList;
   				read = true;
   			}
@@ -97,7 +97,7 @@ QStringList* CSwordLexiconModuleInfo::entries(){
         QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );
         if (f2.open( IO_WriteOnly )){
           QDataStream s( &f2 );
-  				s << ( version().isEmpty() ? QString::fromLatin1("0") : version());
+  				s << config(CSwordModuleInfo::ModuleVersion);
   				s << *m_entryList;
   			  f2.close();
         }

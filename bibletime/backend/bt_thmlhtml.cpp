@@ -14,9 +14,13 @@
  *                                                                         *
  ***************************************************************************/
 
+//BibleTime includes
 #include <stdlib.h>
 #include "bt_thmlhtml.h"
 #include "versekey.h"
+
+//Sword includes
+#include <swmodule.h>
 
 //Qt includes
 #include <qstring.h>
@@ -185,6 +189,32 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		else if(!strncmp(token, "note", 4)) {
 			pushString(buf, "<small>(");
 		}
+		else if (!strncmp(token, "img ", 4)) {
+			const char *src = strstr(token, "src");
+			if (!src)		// assert we have a src attribute
+				return false;
+
+			*(*buf)++ = '<';
+			for (const char *c = token; *c; c++) {
+				if (c == src) {
+					for (;((*c) && (*c != '"')); c++)
+						*(*buf)++ = *c;
+
+					if (!*c) { c--; continue; }
+
+					*(*buf)++ = '"';
+					if (*(c+1) == '/') {
+						pushString(buf, "file:");
+						pushString(buf, module->getConfigEntry("AbsoluteDataPath"));
+						if (*(*buf-1) == '/')
+							c++;		// skip '/'
+					}
+					continue;
+				}
+				*(*buf)++ = *c;
+			}
+			*(*buf)++ = '>';
+		}		
 		else { // let token pass thru
 			*(*buf)++ = '<';
 			for (i = 0; i < tokenLength; i++)

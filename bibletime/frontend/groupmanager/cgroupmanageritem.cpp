@@ -235,13 +235,13 @@ const QString CGroupManagerItem::getToolTip(){
 		case Module:
 		{
 			text = i18n("Module") + QString::fromLatin1(": <B>%1</B><HR>").arg( moduleInfo()->name() );
-			text += moduleInfo()->description() + QString::fromLatin1("<HR>");
+			text += moduleInfo()->config(CSwordModuleInfo::Description) + QString::fromLatin1("<HR>");
 			text += i18n("Language")+ QString::fromLatin1(": %1<BR>").arg(moduleInfo()->module()->Lang());
 			if (moduleInfo()->isEncrypted())
 				text += i18n("Unlock key") + QString::fromLatin1(": %1<BR>")
-					.arg(!moduleInfo()->cipherKey().isEmpty() ? moduleInfo()->cipherKey() : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
+					.arg(!moduleInfo()->config(CSwordModuleInfo::CipherKey).isEmpty() ? moduleInfo()->config(CSwordModuleInfo::CipherKey) : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
 			if (moduleInfo()->hasVersion())
-				text += i18n("Version") + QString::fromLatin1(": %1<BR>").arg(moduleInfo()->version());
+				text += i18n("Version") + QString::fromLatin1(": %1<BR>").arg(moduleInfo()->config(CSwordModuleInfo::ModuleVersion));
      	     	
      	QString options;
      	unsigned int opts;

@@ -43,23 +43,17 @@
 	
 CSwordModuleInfo::CSwordModuleInfo( SWModule* module ) {
 	m_module = module;
-	m_clonedModule = false;	
-//	if (module)
-//		m_module = module->clone();
 	m_searchResult.ClearList();
 
-//	qWarning((const char*)SWVersion::currentVersion);
-//	ASSERT(backend());	
 	if (backend()) {
-		if (hasVersion() && (requiredSwordVersion() > SWVersion::currentVersion)) {
-		 	qWarning("The module \"%s\" requires a newer Sword library. Please update to \"Sword %s\".", name().latin1(), (const char*)requiredSwordVersion());
+		if (hasVersion() && (minimumSwordVersion() > SWVersion::currentVersion)) {
+		 	qWarning("The module \"%s\" requires a newer Sword library. Please update to \"Sword %s\".", name().latin1(), (const char*)minimumSwordVersion());
 		}
 	}
 }
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {
-	m_module = m.m_module; //clone Sword module, don't forget to delete it later
-	m_clonedModule = false;
+	m_module = m.m_module;
 	m_searchResult = m.m_searchResult;
 }
 
@@ -71,10 +65,6 @@ CSwordModuleInfo* CSwordModuleInfo::clone(){
 
 CSwordModuleInfo::~CSwordModuleInfo(){
 	m_searchResult.ClearList();
-	if (m_clonedModule) {
-		qWarning("delete cloned module");
-		delete m_module;
-	}
 	m_module = 0; //the real Sword module is deleted by the backend
 }
 
@@ -101,7 +91,7 @@ CHTMLEntryDisplay* CSwordModuleInfo::getDisplay() const {
 
 /** This function returns true if this module is locked, otherwise return false. */
 const bool CSwordModuleInfo::isLocked() {
-	if (isEncrypted() && cipherKey().isEmpty())
+	if (isEncrypted() && config(CipherKey).isEmpty())
 		return true;
 	return false;
 }
@@ -119,63 +109,11 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	return false;
 }
 
-
-/** Returns the cipher key if the module is encrypted, if the key is not set return QString::empty, if the module is not encrypted retur QString::null. */
-const QString CSwordModuleInfo::cipherKey() const {
-	if (!isEncrypted())
-		return QString::null;
-		
-	const string key = (*backend()->getConfig())[name().latin1()]["CipherKey"];		
-	if (key.length())
-		return QString::fromLocal8Bit( key.c_str() );
-	else
-		return QString::null;
-}
-
-/** Returns the description of the module */
-const QString CSwordModuleInfo::description() const {
-	return QString::fromLocal8Bit( m_module->Description() );
-}
-
-/** Returns the about information of this module. */
-const QString CSwordModuleInfo::aboutInformation() const {
-	const string about = (*backend()->getConfig())[name().latin1()]["About"];
-	
-	QString ret = QString::null;
-	if (strlen(about.c_str())) {	
-		RTFHTML filter;
-		const int len = about.length()+600;
-		char dummy[len];
-		strcpy(dummy, about.c_str());
-		
-		filter.ProcessText(dummy,len,0);
-		ret = QString::fromLocal8Bit(dummy);
-	}
-	return ret;
-}
-
-/** Returns the version number of this module. */
-const QString CSwordModuleInfo::version() const{
-	const string version = (*backend()->getConfig())[name().latin1()]["Version"];
-	if (version.length())
-		return QString::fromLocal8Bit( version.c_str() );
-	return  QString::null;
-}
-
 const bool CSwordModuleInfo::hasVersion() const {
 	const string version = (*backend()->getConfig())[name().latin1()]["Version"];
 	return version.length();
 }
 
-
-/** Returns the path to this module. */
-const QString CSwordModuleInfo::path() const {
-	const string path = (*backend()->getConfig())[name().latin1()]["DataPath"];
-	if (strlen(path.c_str()))
-		return QString::fromLocal8Bit(path.c_str());
-	else
-		return QString::null;
-}
 
 /** Returns true if something was found, otherwise return false. */
 const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
@@ -183,7 +121,6 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
  	int searchFlags = REG_ICASE;
 	
 	//work around Swords thread insafety for Bibles and Commentaries
-//	if (type() == CSwordModuleInfo::Bible || type() == CSwordModuleInfo::Commentary )
 	CSwordKey* key = CSwordKey::createInstance(this);
 	SWKey* s = dynamic_cast<SWKey*>(key);
 	m_module->SetKey(s);
@@ -249,13 +186,8 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 }
 
 /** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
-const SWVersion CSwordModuleInfo::requiredSwordVersion(){
-	const string version = (*backend()->getConfig())[name().latin1()]["MinimumVersion"];	
-	if (!version.length())	//no special version required
-		return SWVersion("0.0"); //version not set
-	return SWVersion(version.c_str());
-//	const float swordVersion = QString::fromLatin1( version.c_str() ).toFloat();	
-//	return swordVersion;
+const SWVersion CSwordModuleInfo::minimumSwordVersion(){
+	return SWVersion( config(CSwordModuleInfo::MinimumSwordVersion).latin1() );
 }
 
 /** Returns the name of the module. */
@@ -266,4 +198,83 @@ const QString CSwordModuleInfo::name() const {
 
 const bool CSwordModuleInfo::isUnicode(){
 	return (module()->isUnicode());
+}
+
+const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entry) {
+//	qWarning("CSwordModuleInfo::config called");
+	
+	switch (entry) {
+		case AboutInformation:
+		{
+//			qWarning("--About");
+			QString about = configEntry("About");	
+			if (!about.isEmpty()) {	
+				RTFHTML filter;
+				const int len = about.length()+600;
+				char dummy[len];
+				strcpy(dummy, about.local8Bit());
+		
+				filter.ProcessText(dummy,len,0);
+				about = QString::fromLocal8Bit(dummy);
+			}			
+			return about;
+		}
+		
+		case CipherKey: {
+//			qWarning("--Cipher key");		
+			return configEntry("CipherKey");
+//			const char* key = m_module->getConfigEntry("CipherKey");
+//			return strlen(key) ? QString::fromLocal8Bit(key) : QString::null;
+		}
+			
+		case AbsoluteDataPath: {
+//			qWarning("--DataPath");
+			return configEntry("AbsoluteDataPath");
+//			const char* path = m_module->getConfigEntry("DataPath");
+//			return strlen(path) ? QString::fromLocal8Bit(path) : QString::null;	
+		}
+		case DataPath: {
+//			qWarning("--DataPath");
+			return configEntry("DataPath");
+//			const char* path = m_module->getConfigEntry("DataPath");
+//			return strlen(path) ? QString::fromLocal8Bit(path) : QString::null;	
+		}			
+		case Description:
+//			qWarning("--Description");			
+			return QString::fromLocal8Bit(m_module->Description());
+			
+		case ModuleVersion: {
+//			qWarning("--Module version");
+			return configEntry("Version");
+		}
+			
+		case MinimumSwordVersion:
+		{
+//			qWarning("--Minimum Sword version");
+			QString version = configEntry("MinimumVersion");
+			return !version.isEmpty() ? version : QString::fromLatin1("0.0");
+		}
+			
+		default:
+//			qWarning("--default");
+			return QString::null;
+	}
+}
+
+/** No descriptions */
+const QString CSwordModuleInfo::configEntry(const QString& entry){
+//	qWarning("CSwordModuleInfo::configEntry");
+//	qWarning(name().latin1());
+//	qWarning(entry.latin1());
+//	if (!m_module)
+//		return QString::null;
+//	SWConfig config("");
+//	if (!backend()->moduleConfig(name(), config))
+//		return QString::null;
+//	const string data = (config)[m_module->Name()][(const char*)entry.local8Bit()];
+//	return data.length() ? QString::fromLocal8Bit(data.c_str()) : QString::null;
+//	const char* data = m_module->getConfigEntry((const char*)entry.latin1());
+//	qWarning("return now!");
+//	return data ? QString::fromLatin1(data) : QString::null;
+	return QString::fromLatin1( m_module->getConfigEntry(entry.latin1()) );
 }

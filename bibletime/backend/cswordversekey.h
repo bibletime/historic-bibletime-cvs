@@ -67,6 +67,10 @@ public:
   * VerseKey based constructor.
   */
   CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module );
+  /**
+  * Clones this object.
+  */
+  virtual CSwordKey* copy() const;
 	/**
 	* Destructor of this class.
 	*
@@ -136,10 +140,7 @@ public:
   * Sets the module for this key
   */
   virtual CSwordModuleInfo* module( CSwordModuleInfo* newModule = 0 );
-  /**
-  * Clones this object.
-  */
-  virtual CSwordKey* copy() const;
+
 };
 
 #endif

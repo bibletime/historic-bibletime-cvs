@@ -58,14 +58,25 @@ public:
 		notLocked, /* The module was not locked so it can't be unlocked */
 		noPermission /* The key was not written to config because we have no permissions*/
 	};	
+	enum ConfigEntry {
+		AboutInformation,
+		AbsoluteDataPath,
+		CipherKey,
+		DataPath,
+		Description,
+		ModuleVersion,
+		MinimumSwordVersion
+	};
+	
+	/**
+	* Returns the config entry which is pecified by the parameter.
+	*/
+	const QString config( const ConfigEntry );
 	
 	CSwordModuleInfo( SWModule* module );
 	CSwordModuleInfo( const CSwordModuleInfo& m );	
 	virtual ~CSwordModuleInfo();	
-  /**
- 	* Returns the backend used by thid module.
- 	*/
-//  CSwordBackend* backend() const;
+
   /**
  	* Returns the module object so all objects can access the original Sword module.
  	*/
@@ -84,11 +95,6 @@ public:
  	*/
   CHTMLEntryDisplay* getDisplay() const;
   /**
-	* Returns the cipher key if the module is encrypted, if the key is not set return QString::empty,
- 	* if the module is not encrypted retur QString::null.
- 	*/
-  const QString cipherKey() const;
-  /**
  	* This function does return true if the data files of the module are encrypted by the module author
  	* (the on who made the module) no matter if it's locked or not.
  	*
@@ -99,28 +105,11 @@ public:
  	* otherwise return false.
  	*/
   const bool isLocked();
-  /**
- 	* Returns the path to this module.
- 	*/
-  const QString path() const;
-  /**
-  * Returns the version number of this module. It does access the config file of this module to get
-  * the version number.
-  */
-  const QString version() const;
+
   /**
   * @return true if this module has a version number and false if it doesn't have one.
   */
   const bool hasVersion() const;
-  /**
-  * Returns the about information of this module.
-  * This function uses the config file to get the about information.
-  */
-  const QString aboutInformation() const;
-  /**
- 	* Returns the description of the module (e.g. the "The World english Bible")
- 	*/
-  const QString description() const;
   /**
   * Returns true if something was found, otherwise return false.
   * This function does start the Sword functions to search in the module and it does
@@ -152,15 +141,11 @@ public:
   * Returns the type of the module.
   */
   virtual const CSwordModuleInfo::ModuleType type() const;
-//  /**
-//  * Returns the text direction used in this module.
-//  */
-//  const CSwordModuleInfo::TextDirection getTextDirection();
   /**
   * Returns the required Sword version for this module.
 	* Returns -1 if no special Sword version is required.
 	*/
-  const SWVersion requiredSwordVersion();
+  const SWVersion minimumSwordVersion();
   /**
   * Returns the name of the module.
   */
@@ -179,7 +164,9 @@ public:
 private:
 	SWModule*	m_module;
 	ListKey m_searchResult;
-	bool m_clonedModule;
+protected: // Protected methods
+  /** No descriptions */
+  const QString configEntry(const QString& entry);
 };
 
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;

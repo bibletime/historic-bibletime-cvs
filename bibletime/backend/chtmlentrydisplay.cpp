@@ -89,7 +89,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 		m_htmlText.append(QString::fromLatin1("<font color=\"%1\"><a href=\"%2\">%3: <b>%4</b></a></font><hr>%5")
 			.arg(m_highlightedVerseColorName)
  			.arg(CReferenceManager::encodeHyperlink(module->name(),key->key(), refType ))
-			.arg(module->description())
+			.arg(module->config(CSwordModuleInfo::Description))
 			.arg(key->key())
 			.arg(key->renderedText()));
 

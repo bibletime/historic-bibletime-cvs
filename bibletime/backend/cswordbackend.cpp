@@ -124,7 +124,7 @@ const CSwordBackend::errorCode CSwordBackend::initModules() {
 		
 //module are now available, fill the static lists
 	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
-		moduleDescriptionMap.insert(m_moduleList->current()->description(), m_moduleList->current()->name());
+		moduleDescriptionMap.insert(m_moduleList->current()->config(CSwordModuleInfo::Description), m_moduleList->current()->name());
 	}
 
 	return m_errorCode;
@@ -243,8 +243,7 @@ void CSwordBackend::Load() {
 		if (configPath) {
 			if (configType)
 				loadConfigDir(configPath);
-			else	
-				config = myconfig = new SWConfig(configPath);
+			else	config = myconfig = new SWConfig(configPath);
 		}
 	}
 
@@ -263,8 +262,7 @@ void CSwordBackend::Load() {
 			config = myconfig = 0;
 			loadConfigDir(configPath);
 		}
-		else	
-			config->Load();
+		else	config->Load();
 
 		CreateMods();
 
@@ -295,12 +293,12 @@ void CSwordBackend::Load() {
 					stdstr(&configPath, saveConfigPath);
 					delete []saveConfigPath;
 					(*saveConfig) += *config;
-					delete myconfig;
+					homeConfig = myconfig;
 					config = myconfig = saveConfig;
 				}
 			}
 // -------------------------------------------------------------------------
-	}
+  }
 	else {
 		if (!configPath)
 			m_errorCode = noSwordModuleConfigDirectory;
@@ -317,7 +315,7 @@ CSwordModuleInfo* CSwordBackend::findModuleByDescription(const QString& descript
 //  qDebug("CSwordBackend::findModuleByDescription(const QString&)");
   if (m_moduleList && m_moduleList->count())
     for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
-      if ( m_moduleList->current()->description() == description )
+      if ( m_moduleList->current()->config(CSwordModuleInfo::Description) == description )
         return m_moduleList->current();
   return 0;
 }
@@ -348,6 +346,8 @@ CSwordModuleInfo* CSwordBackend::findModuleByName(const QString& name){
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
 const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleConfig) {
+//	qWarning("const bool CSwordBackend::moduleConfig");
+//	qWarning("searching module %s", module.latin1());
 	SectionMap::iterator section;
 	DIR *dir = opendir(configPath);
 	struct dirent *ent;
@@ -358,9 +358,10 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 		rewinddir(dir);
 		while ((ent = readdir(dir)) && !foundConfig) {
 			if ((strcmp(ent->d_name, ".")) && (strcmp(ent->d_name, ".."))) {								
-				modFile = configPath;
-				modFile += "/";
-				modFile += ent->d_name;
+				modFile = QString::fromLocal8Bit(configPath);
+				modFile += QString::fromLatin1("/");
+				modFile += QString::fromLocal8Bit(ent->d_name);
+//				qWarning(modFile.latin1());
 				moduleConfig = SWConfig( (const char*)modFile.local8Bit() );
 				section =	moduleConfig.Sections.find( (const char*)module.local8Bit() );
 				foundConfig = ( section != moduleConfig.Sections.end() );
@@ -382,7 +383,6 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 		}			
 	}
 	
-	
 	if (!foundConfig && configType != 2) { //search in $HOME/.sword/
 		QString myPath = QString::fromLatin1("%1/.sword/mods.d").arg(getenv("HOME"));
 		dir = opendir(myPath.latin1());
@@ -401,25 +401,41 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 			closedir(dir);
 		}
 	}
+//	ASSERT(foundConfig);
 	return foundConfig;
 }
 
 /** Returns the path of the module with the name "moduleName". If no path is found return QString::null */
-const QString CSwordBackend::modulePath( const QString moduleName ){
-	QString path = QString::null;
-	SWConfig c("");
-	if (moduleConfig(moduleName, c)) {
-		path = QString::fromLocal8Bit( c[moduleName.latin1()]["DataPath"].c_str() );		
-		//remove "./" fromt the beginning ...
-		if (path.left(2) == "./")
-			path = path.mid(2);
-		if (QString::fromLatin1(c.filename.c_str()).left( QString("%1/.sword/").arg(getenv("HOME")).length() ) ==	QString("%1/.sword/").arg(getenv("HOME")) )
-			path = path.prepend( QString("%1/.sword/").arg(getenv("HOME")) );
-		else //global
-			path.prepend(prefixPath);
-	}
-	return path;
-}
+//const QString CSwordBackend::modulePath( const QString moduleName ){
+//	QString path = QString::null;
+//	SWConfig c("");
+//	if (moduleConfig(moduleName, c)) {
+//		path = QString::fromLocal8Bit( c[moduleName.latin1()]["DataPath"].c_str() );		
+//		//remove "./" fromt the beginning ...
+//		if (path.left(2) == "./")
+//			path = path.mid(2);
+//		if (QString::fromLatin1(c.filename.c_str()).left( QString("%1/.sword/").arg(getenv("HOME")).length() ) ==	QString("%1/.sword/").arg(getenv("HOME")) )
+//			path = path.prepend( QString("%1/.sword/").arg(getenv("HOME")) );
+//		else //global
+//			path.prepend(prefixPath);
+//	}
+//	//if it's a lexicon or book module remove last part
+//	CSwordModuleInfo* module = findModuleByName(moduleName);
+//	if (module && (module->type() == CSwordModuleInfo::GenericBook || module->type() == CSwordModuleInfo::Lexicon)) {
+//		//find last slash
+//		const int n = path.contains("/");
+//		int pos = 0;
+//		int i = 1;
+//		while (i < n) {
+//			pos = path.find("/", pos+1);
+//			i++;
+//		}
+//		if (n)
+//			pos = path.find("/", pos);
+//		path = path.mid(0,pos);
+//	}
+//	return path;
+//}
 
 /** Returns the text used for the option given as parameter. */
 const QString CSwordBackend::optionName( const CSwordBackend::moduleOptions option ){

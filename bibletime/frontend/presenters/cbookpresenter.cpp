@@ -182,6 +182,7 @@ void CBookPresenter::lookup(CSwordKey* key) {
 /** No descriptions */
 void CBookPresenter::lookup( const QString& module, const QString& key){
 	qWarning("key is %s", key.latin1());
+
 	CSwordModuleInfo* m = backend()->findModuleByName(module);
 	if (m && m_moduleList.containsRef(m)) {
 		if (!key.isEmpty())

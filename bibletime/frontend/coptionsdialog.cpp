@@ -562,7 +562,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	ListCSwordModuleInfo* modules = backend()->moduleList();
 	QString modDescript;
   for ( modules->first(); modules->current(); modules->next() ) {
-		modDescript = modules->current()->description();
+		modDescript = modules->current()->config(CSwordModuleInfo::Description);
  		switch (modules->current()->type()) {
  			case CSwordModuleInfo::Bible:
  				m_settings.sword.standardBible->insertItem(modDescript);

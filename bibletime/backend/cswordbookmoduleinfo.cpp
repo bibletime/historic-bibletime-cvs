@@ -26,6 +26,7 @@ CSwordBookModuleInfo::CSwordBookModuleInfo( SWModule* module )
 	: CSwordModuleInfo(module),m_depth(-1)
 {
 	//checking if it works as expected
+//	qWarning("Book module: %s", module->Name());
 //	TreeKeyIdx* treeKey = tree();
 //	if (treeKey) {
 //		TreeKeyIdx root = *treeKey;

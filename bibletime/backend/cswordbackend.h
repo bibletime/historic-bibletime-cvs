@@ -172,7 +172,7 @@ public:
   * Returns the path of the module with the name "moduleName".	
 	* If no path is found return QString::null
 	*/
-  const QString modulePath( const QString moduleName );
+//  const QString modulePath( const QString moduleName );
   /**
   * Returns the text used for the option given as parameter.
   */
