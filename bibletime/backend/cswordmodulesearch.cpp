@@ -114,7 +114,6 @@ void CSwordModuleSearch::startSearchThread(void){
 	startSearch();
 	
 //	pthread_cond_wait(&finish_cond, &dummy_mutex);
-//	qWarning("finished!!");
 //	pthread_mutex_lock(&signal_mutex);			
 //	m_finishedSig.activate();	
 //	pthread_mutex_unlock(&signal_mutex);				

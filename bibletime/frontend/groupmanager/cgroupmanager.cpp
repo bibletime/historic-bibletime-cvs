@@ -344,7 +344,7 @@ void CGroupManager::slotSearchSelectedModules() {
 }	
 
 void CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerItem* item) {	
-  qWarning("CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerItem* item)");
+//  qWarning("CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerItem* item)");
 //  ASSERT(item);
   if (!item->moduleInfo())
   	return;
@@ -366,7 +366,6 @@ void CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerIte
 
 /**  */
 void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CSwordModuleInfo* module, const QString& ref){
-	qWarning("createNewBookmark: ref is %s", ref.latin1());
 	CSwordModuleInfo* swordModule = dynamic_cast<CSwordModuleInfo*>(module);		
 	if (!swordModule)
 		return;
@@ -573,7 +572,6 @@ void CGroupManager::slotShowAbout(){
 
 /**  */
 void CGroupManager::slotCreateNewPresenter(){
-	qWarning("CGroupManager::slotCreateNewPresenter()");
 	if (m_pressedItem && m_pressedItem->moduleInfo()) {
 		if (m_pressedItem->type() == CGroupManagerItem::Module || m_pressedItem->type() == CGroupManagerItem::Bookmark)
 			emit createSwordPresenter( m_pressedItem->moduleInfo(), QString::null );
@@ -1143,7 +1141,6 @@ const bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerI
 
 /** Impoorts bookmarks */
 void CGroupManager::slotImportBookmarks(){
-	qWarning("void CGroupManager::slotImportBookmarks()");
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) ) {
 		QString file = KFileDialog::getOpenFileName(QString::null, "*.btb | *.btb", 0, i18n("Import bookmarks ..."));	
 		if (!file.isNull()) {
@@ -1294,7 +1291,6 @@ const bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* gro
 			if (action == Import) { //try to find existing group
 				if (CGroupManagerItem* existingGroup = findGroup(*it_groups, group, *it_parents))
 					groupExists = true;
-					qWarning("Import: group %s exists!", (*it_groups).latin1());
 			}
 			else
 				parentItem = group;

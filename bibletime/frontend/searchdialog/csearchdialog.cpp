@@ -237,7 +237,6 @@ void CSearchDialog::setSearchText(const QString text){
 
 /** Returns the search text. If no text was entered return QString::null. */
 const QString CSearchDialog::getSearchedText() const {
-	qWarning("searchedText: %s", m_searchText->getText().latin1());
 	return m_searchText->getText();
 }
 

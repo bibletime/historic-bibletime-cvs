@@ -83,12 +83,10 @@ const bool CProfileMgr::remove( const QString& profile) {
 /** Returns the profile with the desired name. If there's no such profile 0 is returned. */
 CProfile* CProfileMgr::profile(const QString& name) {
 	for (m_profiles.first(); m_profiles.current(); m_profiles.next()) {
-		qWarning("%s == %s ??", m_profiles.current()->name().latin1(), name.latin1());		
 		if (m_profiles.current()->name() == name) {
 			return m_profiles.current();	
 		}
 	}
-	qWarning("return 0");
 	return 0;
 }
 

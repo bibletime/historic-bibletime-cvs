@@ -172,7 +172,6 @@ void CBookTreeChooser::itemClicked( QListViewItem* item ){
 		return;
 
 	const QString key = i->key();
-	qWarning(key.latin1());
 	m_key->key(key);
 	
 	emit keyChanged(m_key);

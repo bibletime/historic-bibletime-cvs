@@ -87,7 +87,7 @@ CSearchDialogAnalysis::CSearchDialogAnalysis(QObject *parent, const char *name )
 }
 
 CSearchDialogAnalysis::~CSearchDialogAnalysis(){
-  qWarning("CSearchDialogAnalysis::~CSearchDialogAnalysis()");
+//  qWarning("CSearchDialogAnalysis::~CSearchDialogAnalysis()");
   reset(); // deletes the legend and the items
 }
 

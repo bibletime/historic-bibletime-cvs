@@ -48,7 +48,6 @@
 CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
 	: CSwordPresenter(useModules,parent,name)
 {		
-	qWarning("CBiblePresenter::CBiblePresenter");
 	m_key = new CSwordVerseKey(m_moduleList.first());
 	CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
 	if (bible) {
@@ -336,7 +335,6 @@ void CBiblePresenter::insertKeyboardActions(KAccel* a){
 
 /** Initializes the accelerator object. */
 void CBiblePresenter::initAccels(){
-	qWarning("CBiblePresenter::initAccels()");
 	ASSERT(m_accel);
 	m_accel->setConfigGroup("Bible window");
 	

@@ -318,7 +318,6 @@ void CKeyChooserWidget::init( ){
 
 /** Is called when the return key was presed in the combobox. */
 void CKeyChooserWidget::slotReturnPressed( const QString& text){
-	qWarning("Return was pressed!!");
 	for (int index=0; index < comboBox()->count(); index++) {
 		if (comboBox()->text(index) == text) {
 			if (/*!oldKey.isNull() &&*/ text != oldKey)	//if the key has changed

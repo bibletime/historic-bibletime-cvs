@@ -136,7 +136,6 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 			preType = IsStrongs;			
 		}
 		//part up to next slash is the language
-		//qWarning("string before testament: %s", ref.latin1());
 		const int pos = ref.find("/");
 		if (pos>0) { //found
 			const QString language = ref.mid(0,pos);

@@ -96,6 +96,4 @@ void cfx_btn::wheelEvent( QWheelEvent* e ){
 	}
 	else
 		e->ignore();
-
-	qWarning("%i",vchange);	
 }

@@ -320,7 +320,6 @@ void CPrinter::setupStandardStyle(){
 
 /** returns the vertical position of the printer's painter. */
 const int CPrinter::verticalPos() const {
-	qWarning("vertical pos is %i", m_pagePosition.rect.y());
 	return m_pagePosition.rect.y();
 }
 

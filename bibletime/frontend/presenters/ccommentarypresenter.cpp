@@ -387,7 +387,6 @@ void CCommentaryPresenter::checkChanges(){
 
 /** No descriptions */
 void CCommentaryPresenter::beforeKeyChange(const QString& oldKey){
-	qWarning("CCommentaryPresenter::beforeKeyChange");
 	if (!m_htmlWidget->isReadOnly()) {
 		switch (KMessageBox::warningYesNo( this, i18n("The text was not saved to the module. Save the changes now?")) ) {
 			case KMessageBox::Yes:
@@ -425,7 +424,6 @@ void CCommentaryPresenter::insertKeyboardActions(KAccel* a){
 
 /** Initializes the accelerator object. */
 void CCommentaryPresenter::initAccels(){
-	qWarning("CCommentaryPresenter::initAccels()");
 	CSwordPresenter::initAccels();
 	m_accel->setConfigGroup("Commentary window");
 	
@@ -511,17 +509,14 @@ bool CCommentaryPresenter::queryClose(){
 		switch (KMessageBox::warningYesNoCancel( this, i18n("Save changes to module?")) ) {
 			case KMessageBox::Yes:
 			{
-				qWarning("YES");
 	    	//save
 	   		saveText( m_htmlWidget->text() );
 	   		m_htmlWidget->setModified( false );
 	     	return true;
 			}
 	   	case KMessageBox::No :
-				qWarning("No");
 	     	return true;
 	   	default: // cancel
-				qWarning("CANCEL");	   	
 	     	return false;	
 		}
 	}

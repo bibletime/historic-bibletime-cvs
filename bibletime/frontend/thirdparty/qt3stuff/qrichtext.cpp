@@ -184,7 +184,7 @@ QTextCursor *QTextDeleteCommand::execute( QTextCursor *c )
 {
     QTextParag *s = doc ? doc->paragAt( id ) : parag;
     if ( !s ) {
-	qWarning( "can't locate parag at %d, last parag: %d", id, doc->lastParag()->paragId() );
+//	qWarning( "can't locate parag at %d, last parag: %d", id, doc->lastParag()->paragId() );
 	return 0;
     }
 
@@ -212,7 +212,7 @@ QTextCursor *QTextDeleteCommand::unexecute( QTextCursor *c )
 {
     QTextParag *s = doc ? doc->paragAt( id ) : parag;
     if ( !s ) {
-	qWarning( "can't locate parag at %d, last parag: %d", id, doc->lastParag()->paragId() );
+//	qWarning( "can't locate parag at %d, last parag: %d", id, doc->lastParag()->paragId() );
 	return 0;
     }
 
@@ -1248,7 +1248,7 @@ void QTextDocument::init()
 //ANY_CHARSET_BEGIN
 	m_assignedFontMap = false;	
 	charsetMap = new QMap<QString, QFont::CharSet>;	
-	ASSERT(m_charsetMap);
+//	ASSERT(m_charsetMap);
 	
 	if (!m_charsetMap) {
 		m_assignedFontMap = true;
@@ -3418,7 +3418,7 @@ int QTextParag::lineHeightOfChar( int i, int *bl, int *y ) const
 	--it;
     }
 
-    qWarning( "QTextParag::lineHeightOfChar: couldn't find lh for %d", i );
+//    qWarning( "QTextParag::lineHeightOfChar: couldn't find lh for %d", i );
     return 15;
 }
 
@@ -3444,7 +3444,7 @@ QTextStringChar *QTextParag::lineStartOfChar( int i, int *index, int *line ) con
 	--l;
     }
 
-    qWarning( "QTextParag::lineStartOfChar: couldn't find %d", i );
+//    qWarning( "QTextParag::lineStartOfChar: couldn't find %d", i );
     return 0;
 }
 
@@ -3471,7 +3471,7 @@ QTextStringChar *QTextParag::lineStartOfLine( int line, int *index ) const
 	return &str->at( i );
     }
 
-    qWarning( "QTextParag::lineStartOfLine: couldn't find %d", line );
+//    qWarning( "QTextParag::lineStartOfLine: couldn't find %d", line );
     return 0;
 }
 
@@ -5603,11 +5603,11 @@ QTextImage::QTextImage( QTextDocument *p, const QMap<QString, QString> &attr, co
 	    const QMimeSource* m =
 		factory.data( imageName, context );
 	    if ( !m ) {
-		qWarning("QTextImage: no mimesource for %s", imageName.latin1() );
+//		qWarning("QTextImage: no mimesource for %s", imageName.latin1() );
 	    }
 	    else {
 		if ( !QImageDrag::decode( m, img ) ) {
-		    qWarning("QTextImage: cannot decode %s", imageName.latin1() );
+//		    qWarning("QTextImage: cannot decode %s", imageName.latin1() );
 		}
 	    }
 

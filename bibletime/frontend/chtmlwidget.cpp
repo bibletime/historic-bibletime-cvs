@@ -244,7 +244,6 @@ void CHTMLWidget::refresh(){
 
 /** Loads a HTML file in the widget. */
 void CHTMLWidget::setHTMLSource(const QString& url){
-	qWarning(url.local8Bit());
 	if (url.left(1) != "/") {	//a filename without path
 		QString myFile = CToolClass::locatehtml( url );
 		if (QFile::exists(myFile)) {
@@ -678,7 +677,6 @@ void CHTMLWidget::copyDocument(){
 
 /** Sets the source of this widget. */
 void CHTMLWidget::setSource(const QString& name){
-	qWarning(name.latin1());	
 	if ( isVisible() )
 		qApp->setOverrideCursor( waitCursor );
 	QString source = name;
@@ -692,7 +690,6 @@ void CHTMLWidget::setSource(const QString& name){
 		source = source.mid(6);
 
 	QString url = mimeSourceFactory()->makeAbsolute( source, context() );
-	qWarning(url.latin1());
 	QString txt;
 	bool dosettext = false;
 

@@ -95,7 +95,6 @@ CSwordKey* const CBibleKeyChooser::key(){
 }
 
 void CBibleKeyChooser::setKey(CSwordKey* key){
-	qWarning("CBibleKeyChooser::setKey(CKey* key)");
 	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
 		
@@ -103,8 +102,6 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
 
-	qWarning("%i %i:%i", bookIndex, chapter, verse);
-	
 	//reset the keychooser parts only if we found a valid book
 	const int count = w_book->comboBox()->count();
 	const QString desiredBook = m_key->book();
@@ -260,7 +257,6 @@ void CBibleKeyChooser::setModule(CSwordModuleInfo* module){
 
 /** called when the book combo lost the focus with reason == tab @param the new book */
 void CBibleKeyChooser::bookFocusOut(int index){
-	qWarning("CBibleKeyChooser::bookFocusOut(int index)");
 	if (!isUpdatesEnabled())
 		return;
 		

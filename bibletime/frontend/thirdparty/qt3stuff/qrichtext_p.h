@@ -2106,8 +2106,8 @@ inline void QTextParag::setParagId( int i )
 
 inline int QTextParag::paragId() const
 {
-    if ( id == -1 )
-	qWarning( "invalid parag id!!!!!!!! (%p)", (void*)this );
+//    if ( id == -1 )
+//	qWarning( "invalid parag id!!!!!!!! (%p)", (void*)this );
     return id;
 }
 
@@ -2129,7 +2129,7 @@ inline QMap<int, QTextParagLineStart*> &QTextParag::lineStartList()
 inline int QTextParag::lineY( int l ) const
 {
     if ( l > (int)lineStarts.count() - 1 ) {
-	qWarning( "QTextParag::lineY: line %d out of range!", l );
+//	qWarning( "QTextParag::lineY: line %d out of range!", l );
 	return 0;
     }
 
@@ -2145,7 +2145,7 @@ inline int QTextParag::lineY( int l ) const
 inline int QTextParag::lineBaseLine( int l ) const
 {
     if ( l > (int)lineStarts.count() - 1 ) {
-	qWarning( "QTextParag::lineBaseLine: line %d out of range!", l );
+//	qWarning( "QTextParag::lineBaseLine: line %d out of range!", l );
 	return 10;
     }
 
@@ -2161,7 +2161,7 @@ inline int QTextParag::lineBaseLine( int l ) const
 inline int QTextParag::lineHeight( int l ) const
 {
     if ( l > (int)lineStarts.count() - 1 ) {
-	qWarning( "QTextParag::lineHeight: line %d out of range!", l );
+//	qWarning( "QTextParag::lineHeight: line %d out of range!", l );
 	return 15;
     }
 
@@ -2177,7 +2177,7 @@ inline int QTextParag::lineHeight( int l ) const
 inline void QTextParag::lineInfo( int l, int &y, int &h, int &bl ) const
 {
     if ( l > (int)lineStarts.count() - 1 ) {
-	qWarning( "QTextParag::lineInfo: line %d out of range!", l );
+//	qWarning( "QTextParag::lineInfo: line %d out of range!", l );
 	qDebug( "%d %d", lineStarts.count() - 1, l );
 	y = 0;
 	h = 15;
