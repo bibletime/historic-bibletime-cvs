@@ -309,7 +309,7 @@ AC_DEFUN(AC_PATH_QT_MOC_UIC,
        UIC=$UIC_PATH
 
        if test $kde_qtver = 3; then
-         KDE_CHECK_UIC_FLAG(L,[/nonexistant],ac_uic_supports_libpath=yes,ac_uic_supports_libpath=no)
+         KDE_CHECK_UIC_FLAG(L,[/nonexistent],ac_uic_supports_libpath=yes,ac_uic_supports_libpath=no)
          KDE_CHECK_UIC_FLAG(nounload,,ac_uic_supports_nounload=yes,ac_uic_supports_nounload=no)
 
          if test x$ac_uic_supports_libpath = xyes; then
@@ -472,7 +472,7 @@ if test "$1" = "default"; then
     kde_widgetdir='\${libdir}/kde3/plugins/designer'
   fi
   if test -z "$xdg_appsdir"; then
-    xdg_appsdir='\${datadir}/applications'
+    xdg_appsdir='\${datadir}/applications/kde'
   fi
   if test -z "$xdg_directorydir"; then
     xdg_directorydir='\${datadir}/desktop-directories'
@@ -1960,7 +1960,7 @@ AC_DEFUN(KDE_CHECK_KIMGIO,
    AC_REQUIRE([AC_FIND_JASPER])
    AC_REQUIRE([KDE_CREATE_LIBS_ALIASES])
 
-   if test "$1" = "existance"; then
+   if test "$1" = "existence"; then
      AC_LANG_SAVE
      AC_LANG_CPLUSPLUS
      kde_save_LIBS="$LIBS"
@@ -4657,7 +4657,7 @@ AC_DEFUN(KDE_SET_PREFIX,
     prefix=$ac_default_prefix
     ac_configure_args="$ac_configure_args --prefix=$prefix"
   fi
-  # And delete superflous '/' to make compares easier
+  # And delete superfluous '/' to make compares easier
   prefix=`echo "$prefix" | sed 's,//*,/,g' | sed -e 's,/$,,'`
   exec_prefix=`echo "$exec_prefix" | sed 's,//*,/,g' | sed -e 's,/$,,'`
   KDE_FAST_CONFIGURE

@@ -111,11 +111,12 @@ while (defined ($ARGV[0]))
     {
         $verbose = 1;       # Oh is there a problem...?
     }
-    elsif (/^-p(.+)$|^--path=(.+)$/)
+    elsif (/^(?:-p|--path=)(.+)$/)
     {
-        $thisProg = "$1/".basename($thisProg)." -p".$1 if($1);
-        $thisProg = "$2/".basename($thisProg)." --path=$2" if($2);
+        my $p = $1;
+        $thisProg = $p . "/". basename($thisProg);
         warn ("$thisProg doesn't exist\n")      if (!(-f $thisProg));
+        $thisProg .= " -p".$p;
         $pathoption=1;
     }
     elsif (/^--help$|^-h$/)
