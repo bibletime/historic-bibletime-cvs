@@ -7,6 +7,7 @@ chtmldialog.cpp \
 cbtconfig.cpp \
 cinputdialog.cpp \
 coptionsdialog.cpp \
+cswordsetupdialog.cpp \
 cprofilemgr.cpp \
 cprofile.cpp \
 cprofilewindow.cpp \
@@ -18,14 +19,17 @@ ctooltip.cpp \
 cdragdropmgr.cpp
 
 all_headers = cmdiarea.h \
-kstartuplogo.h \
 chtmldialog.h \
 cbtconfig.h \
 cinputdialog.h \
+coptionsdialog.h \
+cswordsetupdialog.h \
 cprofilemgr.h \
 cprofile.h \
 cprofilewindow.h \
 cexportmanager.h \
+cmdiarea.h \
+kstartuplogo.h \
 ctooltipmanager.h \
 ctooltip.h \
 cdragdropmgr.h
