@@ -494,7 +494,7 @@ void CSwordSetupDialog::initInstall(){
   );
 	layout->addMultiCellWidget(installLabel, 0,0,0,1);
 
-	QLabel* sourceHeadingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg("Select source location"), m_installSourcePage);
+	QLabel* sourceHeadingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select source location")), m_installSourcePage);
 	layout->addMultiCellWidget(sourceHeadingLabel, 1,1,0,1);
 
 	m_sourceCombo = new QComboBox(m_installSourcePage);
@@ -560,7 +560,7 @@ void CSwordSetupDialog::initRemove(){
   );
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
-	QLabel* headingLabel = new QLabel(i18n("<b>Select modules to be uninstalled</b>"), page);
+	QLabel* headingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select modules to be uninstalled")), page);
 	layout->addMultiCellWidget(headingLabel, 1, 1, 0, 3);
 
 	m_populateListNotification = new QLabel("", page);
