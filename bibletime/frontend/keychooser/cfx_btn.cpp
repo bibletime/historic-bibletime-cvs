@@ -17,6 +17,8 @@
 
 #include "cfx_btn.h"
 
+#include <math.h>
+
 #include <qevent.h>
 #include <qapplication.h>
 #include <qcursor.h>
@@ -53,8 +55,14 @@ QPoint cfx_btn::get_lock_Point(void){
 void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
 	if (isLocked) {
 		int vchange = QCursor::pos().y() - lock_Point.y();
+//		qWarning("%i",vchange);		
 		//invert the vchange
-		vchange = (vchange * vchange) * (vchange < 0 ? 1 :-1);
+//		qWarning(QString::number(pow((double)vchange,1.9)).latin1());
+		double d = pow((double)vchange,2.0);
+//		qWarning("%d",d);
+//		if (/*d == nan ||*/ !d)
+//			d = 1;
+		vchange = (int)(d * (vchange < 0 ? 1 :-1));
 		emit change_requested(vchange);
 		
 		QCursor::setPos( lock_Point );
