@@ -1,3 +1,7 @@
+2004-07-16 Martin Gruner <mg.pub@gmx.net>
+  * Added invocation of KDE's graphical regular expression editor.
+    -invoke simply by selecting "regular expression" as search type.
+
 2004-01-29 Joachim Ansorg <junkmail@joachim.ansorgs.de>
   * BibleTime 1.4.1 release
     -Bugfixes, especially in the Sword setup dialog part
