@@ -191,10 +191,12 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
 			value = state ? "On": "Off";
 			break;
 	};
-	setGlobalOption(optionName(type).latin1(), value.c_str());
+	if (value.length())
+    setGlobalOption(optionName(type).latin1(), value.c_str());
 }
 
 void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options){
+  qWarning("CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options)");
   setOption( footnotes, 					options.footnotes );
   setOption( strongNumbers, 			options.strongNumbers );
   setOption( headings, 						options.headings );
@@ -397,15 +399,13 @@ const SWVersion CSwordBackend::Version() {
 
 /** Returns our transliterator object we use. Returns 0 if ICU is not used. */
 SWFilter* const CSwordBackend::transliterator() {
+  if (!useICU())
+    return 0;
   SWFilter* filter = optionFilters["UTF8Transliterator"];
   Q_ASSERT(filter);
   if (filter)
     return filter;
   return 0;
-
-//  if (useICU() && !m_filters.transliterator)
-//    m_filters.transliterator = new UTF8Transliterator();
-//  return m_filters.transliterator;
 }
 
 /** Returns true if ICU is being used. */

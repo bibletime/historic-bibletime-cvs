@@ -67,14 +67,13 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
 
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ){
-	qWarning("CReadWindow::lookup");	
+//	qWarning("CReadWindow::lookup");	
 	if (!newKey)
 		return;
 
 	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
-		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
+ 		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
 	}	
-  qWarning("set the key");
 	if (key() != newKey)
 		key()->key(newKey->key());
 	
@@ -90,8 +89,8 @@ KPopupMenu* const CReadWindow::popup(){
 		connect(m_popupMenu, SIGNAL(aboutToShow()), this, SLOT(updatePopupMenu()));
 	  if (displayWidget())
 	  	displayWidget()->installPopup(m_popupMenu);
-	  else
-	  	qWarning("CAN't INSTALL POPUP");
+//	  else
+//	  	qWarning("CAN't INSTALL POPUP");
   }
  	return m_popupMenu;
 }
@@ -103,6 +102,7 @@ void CReadWindow::updatePopupMenu(){
 
 /** Reimplementation to use the popup menu. */
 const bool CReadWindow::init( const QString& keyName ){
+  qWarning("CReadWindow::init( const QString& keyName )");
   CDisplayWindow::init(keyName);
  	setupPopupMenu();
   keyChooser()->setKey(key());

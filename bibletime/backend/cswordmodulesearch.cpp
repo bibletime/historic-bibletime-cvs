@@ -24,8 +24,6 @@
 //System includes
 #include <pthread.h>
 
-//#include <qdatetime.h>
-
 //Sword includes
 #include <swmodule.h>
 #include <swkey.h>
@@ -99,24 +97,7 @@ const bool CSwordModuleSearch::startSearch() {
 }
 
 void CSwordModuleSearch::startSearchThread(void){
-//	pthread_t thread;
-	
-//	pthread_attr_t attr;
-//	pthread_attr_init(&attr);
-//	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-	
-//	pthread_mutex_init(&percentage_mutex, NULL);
-//	pthread_mutex_init(&signal_mutex, NULL);			
-
-//	percentage_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
-	/*const int i =*/ //pthread_create( &thread, /*&attr*/NULL, &startSearchCallback, this );
-
 	startSearch();
-	
-//	pthread_cond_wait(&finish_cond, &dummy_mutex);
-//	pthread_mutex_lock(&signal_mutex);			
-//	m_finishedSig.activate();	
-//	pthread_mutex_unlock(&signal_mutex);				
 }
 
 /** Sets the text which should be search in the modules. */
@@ -180,10 +161,5 @@ void CSwordModuleSearch::connectFinished( QObject *receiver, const char *member 
 
 /** Should be called when the search finished. */
 void CSwordModuleSearch::searchFinished(){
-//	qWarning("CSwordModuleSearch::searchFinished!");
-//	m_updateSig.block(true);	
-//	pthread_mutex_lock(&signal_mutex);			
 	m_finishedSig.activate();	
-//	pthread_mutex_unlock(&signal_mutex);
-//	m_updateSig.block(false);
 }

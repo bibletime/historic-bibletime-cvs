@@ -58,6 +58,9 @@ void CTransliterationButton::populateMenu(){
   m_popup->clear();
   m_popup->insertTitle(i18n("Transliteration"));
 
+  if (!CPointers::backend()->useICU())
+    return;
+
   Q_ASSERT(CPointers::backend()->transliterator());
   if (!CPointers::backend()->transliterator())
     return;
@@ -84,6 +87,7 @@ void CTransliterationButton::optionSelected(int ID){
 CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptions *displaySettings, CSwordBackend::FilterOptions *moduleSettings, const ListCSwordModuleInfo& useModules,QWidget *parent, const char *name )
 	: KToolBarButton(DSB_ICON, 0, parent, name)
 {
+  qWarning("CDisplaySettingsButton::CDisplaySettingsButton");
 	m_displaySettings = displaySettings;
 	m_moduleSettings = moduleSettings;
 	m_modules = useModules;
@@ -115,7 +119,7 @@ void CDisplaySettingsButton::optionToggled(int ID){
 
 /** No descriptions */
 int CDisplaySettingsButton::populateMenu(){
-
+  qWarning("CDisplaySettingsButton::populateMenu");
 	int ret = 0;
 
 	m_popup->clear();

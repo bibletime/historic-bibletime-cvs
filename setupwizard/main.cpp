@@ -142,27 +142,24 @@ int main(int argc, char* argv[]) {
 			(new BTSetupWizard)->restore(n);
  	}
 	else {
-		const bool showIt = CBTConfig::get(CBTConfig::logo);	
-		if(showIt) {
-			KStartupLogo::createSplash();
-			KStartupLogo::showSplash();				
-			KStartupLogo::setStatusMessage( i18n("Starting BibleTime Setup Wizard") + QString::fromLatin1("...") );
-		}
+//		const bool showIt = CBTConfig::get(CBTConfig::logo);	
+//		if(showIt) {
+//			KStartupLogo::createSplash();
+//			KStartupLogo::showSplash();				
+//			KStartupLogo::setStatusMessage( i18n("Starting BibleTime Setup Wizard") + QString::fromLatin1("...") );
+//		}
 		
 		wizard = new BTSetupWizard();
 		app.setMainWidget(wizard);
-
-		if (showIt) {
-			KStartupLogo::hideSplash();
-			KStartupLogo::deleteSplash();	  		  	
-		}
-
+//		if (showIt) {
+//			KStartupLogo::hideSplash();
+//			KStartupLogo::deleteSplash();	  		  	
+//		}
 		wizard->show();
 		
 		setSignalHandler(signalHandler);		
 		
 		const int ret = app.exec();
-//		delete wizard;		
     return ret;
 	}
 }

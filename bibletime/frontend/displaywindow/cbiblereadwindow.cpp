@@ -43,10 +43,11 @@
 #include <kpopupmenu.h>
 
 CBibleReadWindow::CBibleReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name ) : CLexiconReadWindow(moduleList, parent,name) {
-	if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(moduleList.first())) {
-#warning Fix this hack!		
-//    key()->key(bible->LowerBound().key());	
- }
+  m_transliterationButton = 0;	
+//  if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(moduleList.first())) {
+//#warning Fix this hack!		
+////    key()->key(bible->LowerBound().key());	
+//  }
 }
 
 CBibleReadWindow::~CBibleReadWindow(){
@@ -122,13 +123,15 @@ void CBibleReadWindow::initConnections(){
 }
 
 void CBibleReadWindow::initView(){
-//	qWarning("CBibleWindow::initView");
+	qWarning("CBibleReadWindow::initView");
  	CLexiconReadWindow::initView();
 	
+  qWarning("create the display settings button");
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(1,displaySettingsButton()->size().width(),displaySettingsButton());
 
 	if (backend()->useICU()){
+    qWarning("add the ICU button!");
 	  m_transliterationButton = new CTransliterationButton(&filterOptions(), mainToolBar());
 		mainToolBar()->insertWidget(2,m_transliterationButton->size().width(),m_transliterationButton);
 	}

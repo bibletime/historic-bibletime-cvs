@@ -188,7 +188,7 @@ const QString CTooltipManager::keyText( const CSwordModuleInfo::ModuleType modul
 /** Returns the CSS data used for the tooltips. */
 const QString CTooltipManager::tooltipCSS(CSwordModuleInfo* module){
   CEntryDisplay* display = module ? module->getDisplay() : 0;
-  Q_ASSERT(display);
+//  Q_ASSERT(display);
   if (!display)
     return QString::null;
 
