@@ -78,7 +78,7 @@ install: build
 
 	#temporary fix to stop things from being executable that shouldn't be?
 	chmod 644 debian/tmp/usr/share/apps/bibletime/pics/*
-	chmod 644 debian/tmp/usr/share/apps/bibletime/printing/*
+	#chmod 644 debian/tmp/usr/share/apps/bibletime/printing/*
 	chmod 644 debian/tmp/usr/share/apps/bibletime/bibletimeui.rc
 
 # Build architecture-independent files here.
