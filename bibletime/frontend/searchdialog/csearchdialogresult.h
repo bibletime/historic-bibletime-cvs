@@ -23,7 +23,6 @@
 #include "../../backend/cswordmoduleinfo.h"
 #include "../chtmlwidget.h"
 
-class CImportantClasses;
 class CSearchDialog;
 class CSearchDialogResultModuleView;
 class CSearchDialogResultView;
@@ -39,7 +38,7 @@ public:
 	/**
 	* Standard constructor
 	*/
-	CSearchDialogResult(CImportantClasses* importantClasses, QWidget *parent = 0, const char *name = NULL);
+	CSearchDialogResult(QWidget *parent = 0, const char *name = 0);
 	/**
 	* Sets the module list and clears the result list.
 	*/
@@ -57,7 +56,6 @@ public slots:
 
 private:
 	ListCSwordModuleInfo* moduleList;
-	CImportantClasses* m_important;
 	CSearchDialogResultModuleView *resultModuleTree;
 	CSearchDialogResultView	*resultTree;
 	CHTMLWidget	*html_widget;

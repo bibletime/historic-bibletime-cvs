@@ -40,18 +40,20 @@
 #include <qpaintdevice.h>
 #include <qpaintdevicemetrics.h>
 
-CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(parent) {
+CPrinter::CPrinter( QObject* parent ) : QObject(parent) {
 	config = new KConfig("bt-printing", false, true );
 
-	m_important = important;
-	m_backend = m_important->swordBackend;
-		
 	m_queue = new printItemList;	
 	m_queue->setAutoDelete(true);	
 		
 	m_styleList = new styleItemList;
 	m_styleList->setAutoDelete(true);		
-			
+
+	m_cachedPage.initialized = false;
+	m_cachedPage.refresh = false;
+	
+	m_addedItem = false;
+	
 	{
 		KConfigGroupSaver gs(config, "Options");	
 		QMap<QString, QString> map = config->entryMap("Options");
@@ -104,6 +106,7 @@ const bool CPrinter::newPage(){
 
 /** Sets all the margins at one time. */
 void CPrinter::setAllMargins( const CPageMargin margins ) {
+	m_cachedPage.refresh = true;	
 	m_pageMargin = margins;
 }
 
@@ -129,32 +132,38 @@ void CPrinter::setup( QWidget* parent ){
 
 /** Starts printing the items. */
 void CPrinter::printQueue(){
-//	qDebug("CPrinter::printQueue()");
-	setCreator("BibleTime");
-
 	emit printingStarted();
 	QPainter p;
 	if (!p.begin(this)) {
 		p.end();
 		return;
 	}	
-
-	CSwordKey* key = 0;	
-	for (int copy = 0; copy < numCopies() && !aborted(); copy++) {	//make numCopies() copies of the pages
-		for (m_queue->first(); m_queue->current() && !aborted(); m_queue->next()) {
-			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
+	int lastPercent = 0;
+	int percent = 0;
+	int pos = 1;
+	const int count = m_queue->count();
+	const int copies = numCopies();
+	float copyFrac;
+	
+	for (int copy = 0; copy < copies && !aborted(); copy++) {	//make numCopies() copies of the pages
+		copyFrac = (float(copies))/ (float)(copy+1);
+		for (m_queue->first(), pos = 1; m_queue->current(); m_queue->next(), ++pos) {
+			KApplication::kApplication()->processEvents(5); //do not lock the GUI!
 			if (!aborted()) {
-				m_queue->current()->draw(&p,this);
-				emit printedOneItem(m_queue->at()+1);
+				m_queue->current()->draw(&p,this);				
+				if ((int)((float)pos / (float)count *(float)100 * copyFrac) > lastPercent) {
+					emit percentCompleted(++lastPercent);
+				}
 			}
 		};
-		if (!aborted() && (copy+1 < numCopies()) ) {
+		if (!aborted() && (copy+1 < copies) ) {
 			newPage();	//new pages seperate copies
 		}
 	}
 	emit printingFinished();
 	
-	clearQueue();
+	clearQueue();//delete all items
+	m_addedItem = false;//queue is empty
 }
 
 /** Appends items to the printing queue. */
@@ -189,11 +198,12 @@ void CPrinter::addItemToQueue(CPrintItem* newItem){
 	if (!newItem)
 		return;
 	newItem->setStyle(m_standardStyle);
-	m_queue->append(newItem );
-	if (m_queue->count() == 1)
+	m_queue->append(newItem);
+	if (!m_addedItem) {
+		m_addedItem = true;
 		emit addedFirstQueueItem();
+	}
 }
-
 
 /** Reads the style from config. */
 void CPrinter::setupStyles(){
@@ -202,11 +212,7 @@ void CPrinter::setupStyles(){
 	QStringList list = config->readListEntry("styles");
 	CStyle* dummyStyle = 0;
 	
-	const	QString names[3] = {
-		"HEADER",
-		"DESCRIPTION",
-		"MODULETEXT"
-	};
+	const	QString names[3] = { "HEADER", "DESCRIPTION", "MODULETEXT" };
 	const CStyle::styleType formatTypes[3] = {
 		CStyle::Header,
 		CStyle::Description,
@@ -222,10 +228,11 @@ void CPrinter::setupStyles(){
 			dummyStyle->setStyleName(*it);
 		
 
-		CStyleFormat* format[3];
-		format[0] = dummyStyle->getFormatForType( CStyle::Header );
-		format[1] = dummyStyle->getFormatForType( CStyle::Description );
-		format[2] = dummyStyle->getFormatForType( CStyle::ModuleText );
+		CStyleFormat* format[3] = {
+			dummyStyle->getFormatForType( CStyle::Header ),
+		 	dummyStyle->getFormatForType( CStyle::Description ),
+		 	dummyStyle->getFormatForType( CStyle::ModuleText )
+		};
 			
 		for (int index = 0; index < 3; index++) {
 			config->setGroup(QString("%1__%2").arg(*it).arg(names[index]));
@@ -280,10 +287,7 @@ void CPrinter::saveStyles(){
 
 	
 	//save settings for each style
-	QString names[3];
-	names[0] = "HEADER";
-	names[1] = "DESCRIPTION";
-	names[2] = "MODULETEXT";
+	const QString names[3] = {"HEADER", "DESCRIPTION", "MODULETEXT"};
 	
 	for (m_styleList->first(); m_styleList->current(); m_styleList->next()) {
 		config->setGroup(m_styleList->current()->getStyleName());
@@ -338,6 +342,8 @@ void CPrinter::readSettings(){
 		
 	m_pageMargin.bottom = (int)(r * config->readNumEntry("Bottom margin", 15));
 	setOption(leading+"lower_margin", QString::number(config->readNumEntry("Bottom margin", 15)));		
+	
+	m_cachedPage.refresh = true;	
 }
 
 /**  */
@@ -361,16 +367,20 @@ void CPrinter::setStyleList( styleItemList* list){
 }
 
 /** Returns the page size without headers. */
-const QRect CPrinter::getPageSize() const {
-  QPaintDeviceMetrics metric( this ); //note that metric's width nd height span the whole page
-  QRect r;
-
-  r.setLeft( m_pageMargin.left );
-  r.setTop( m_pageMargin.top );
-  r.setRight( metric.width() -  m_pageMargin.right );
-  r.setBottom( metric.height() - m_pageMargin.top - m_pageMargin.bottom );
-
-  return r;
+const QRect CPrinter::getPageSize() {
+  if 	(	m_cachedPage.refresh || !m_cachedPage.initialized || (m_cachedPage.initialized && (m_cachedPage.cachedPaper != pageSize())) )
+  { //refresh page size info
+		m_cachedPage.initialized = true;
+		m_cachedPage.refresh = false;
+		m_cachedPage.cachedPaper = pageSize();		
+		
+	  QPaintDeviceMetrics metric( this ); //note that metric's width and height span the whole page				
+	  m_cachedPage.size.setLeft( m_pageMargin.left );
+	  m_cachedPage.size.setTop( m_pageMargin.top );
+	  m_cachedPage.size.setRight( metric.width() -  m_pageMargin.right );
+	  m_cachedPage.size.setBottom( metric.height() - m_pageMargin.top - m_pageMargin.bottom );
+	}
+  return m_cachedPage.size;
 }
 
 /** Returns the config used for this printer object. */

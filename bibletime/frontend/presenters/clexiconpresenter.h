@@ -33,7 +33,7 @@ public:
 	/**
 	* constructor
 	*/
-	CLexiconPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0);
+	CLexiconPresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
 	/**
 	* destructor
 	*/

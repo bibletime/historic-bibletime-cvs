@@ -21,7 +21,8 @@
 //BibleTime includes
 #include "../../backend/cswordmoduleinfo.h"
 #include "../../backend/cswordbackend.h"
-#include "../../structdef.h"
+//#include "../../structdef.h"
+#include "../cpointers.h"
 #include "../cprofilewindow.h"
 
 //Qt includes
@@ -47,13 +48,13 @@ class KAccel;
 	*
   * @author The BibleTime team
   */
-class CSwordPresenter : public KMainWindow  {
+class CSwordPresenter : public KMainWindow, public CPointers  {
    Q_OBJECT
 public:
 	/**
 	* Default constructor
 	*/
-	CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0);
+	CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
   /**
   * Returns the features used by this presenter.
   */
@@ -138,8 +139,6 @@ protected: // Protected methods
 	CDisplaySettingsButton* m_displaySettingsButton;
 
   ListCSwordModuleInfo m_moduleList;
- 	CImportantClasses* m_important;
-
  	QString m_highlightedVerse;
 
  	KAccel* m_accel;

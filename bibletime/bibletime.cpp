@@ -39,6 +39,8 @@
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/cbtconfig.h"
 
+#include "frontend/cpointers.h"
+
 //Qt includes
 #include <qsplitter.h>
 
@@ -60,9 +62,10 @@ BibleTime::BibleTime() : KMainWindow() {
 
 	connect(kapp, SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
 
-	m_important = new CImportantClasses();
 	initBackends();
 	initPrinter();
+	CPointers* pointers = new CPointers(m_backend, m_printer);
+	
 	initView();
 	initActions();
 	setHelpMenuEnabled(false);
@@ -152,16 +155,16 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 	CSwordPresenter* presenter = 0;
 	switch (modules.first()->getType()) {
 		case CSwordModuleInfo::Bible:
-			presenter = new CBiblePresenter(modules, m_important, m_mdi);
+			presenter = new CBiblePresenter(modules,  m_mdi);
 			break;
 		case CSwordModuleInfo::Commentary:
-			presenter = new CCommentaryPresenter(modules, m_important, m_mdi);
+			presenter = new CCommentaryPresenter(modules, m_mdi);
 			break;
 		case CSwordModuleInfo::Lexicon:
-			presenter = new CLexiconPresenter(modules, m_important, m_mdi);
+			presenter = new CLexiconPresenter(modules, m_mdi);
 			break;
 		case CSwordModuleInfo::GenericBook:			
-			presenter = new CBookPresenter(modules, m_important, m_mdi);
+			presenter = new CBookPresenter(modules, m_mdi);
 			break;
 		default:
 			presenter = 0;

@@ -41,9 +41,8 @@
 #include <klocale.h>
 #include <kstringhandler.h>
 
-CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QWidget *parent, const char *name) : QWidget(parent, name) {	
-	m_important = importantClasses;
-		
+CSearchDialogResult::CSearchDialogResult(QWidget *parent, const char *name) : QWidget(parent, name) {	
+	
 	QHBoxLayout* l = new QHBoxLayout(this);
 	m_splitter = new QSplitter(Qt::Vertical, this, "result splitter");	
 	l->addWidget(m_splitter);
@@ -57,10 +56,10 @@ CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QW
 	label2->setText( i18n("Entries found:") );
 	label2->setAutoResize(true);
 
-	resultModuleTree = new CSearchDialogResultModuleView(m_important, d, "resultModuleTree");
-	resultTree = new CSearchDialogResultView(m_important, d, "resultTree");
+	resultModuleTree = new CSearchDialogResultModuleView(d, "resultModuleTree");
+	resultTree = new CSearchDialogResultView( d, "resultTree");
 
-	html_widget = new CHTMLWidget(m_important, true, m_splitter, "html_widget");
+	html_widget = new CHTMLWidget(true, m_splitter, "html_widget");
 	html_widget->setMinimumHeight(80);
 
 	connect(resultModuleTree, SIGNAL(moduleSelected(CSwordModuleInfo*)), resultTree, SLOT(setModule(CSwordModuleInfo*)));

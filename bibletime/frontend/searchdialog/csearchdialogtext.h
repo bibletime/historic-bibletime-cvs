@@ -21,8 +21,6 @@
 //Qt includes
 #include <qwidget.h>
 
-class CImportantClasses;
-
 class QComboBox;
 class QRadioButton;
 class QCheckBox;
@@ -40,7 +38,7 @@ public:
   /**
   * The constructor of the search dialog search tab page.
   */
-	CSearchDialogText(CImportantClasses *IC, QWidget *parent = 0, const char *name = 0);
+	CSearchDialogText(QWidget *parent = 0, const char *name = 0);
 	~CSearchDialogText();
   /**
   * Returns the scopechooser
@@ -82,8 +80,7 @@ public:
 private:
   void readSettings();
   void saveSettings();
-    	
-	CImportantClasses* m_importantClasses;
+
 	QComboBox 		*editSearchText;
 	QRadioButton	*radioMultipleWords;
 	QRadioButton	*radioExactSearch;

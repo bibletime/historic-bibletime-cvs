@@ -20,11 +20,10 @@
 
 #include <qtimer.h>
 
-CModuleChooserBar::CModuleChooserBar(CImportantClasses* important, ListCSwordModuleInfo useModules, CSwordModuleInfo::type type, QWidget *parent, const char *name )
+CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModuleInfo::type type, QWidget *parent, const char *name )
 	: KToolBar(parent,name) {
 	qDebug("constructor of CModuleCHooserBar");
-	
-  m_important = important;	
+
 	m_moduleType = type;
 	m_idCounter = 0;
 	m_buttonLimit = -1; //-1 means no limit
@@ -34,7 +33,7 @@ CModuleChooserBar::CModuleChooserBar(CImportantClasses* important, ListCSwordMod
 		if (m_buttonLimit && (unsigned int)m_buttonLimit <= m_buttonList.count())
 			break;
 			
-		CModuleChooserButton* b = new CModuleChooserButton(m_important,useModules.current(),m_moduleType,++m_idCounter,this);
+		CModuleChooserButton* b = new CModuleChooserButton(useModules.current(),m_moduleType,++m_idCounter,this);
 		m_buttonList.append(b);
 		insertWidget(m_idCounter, b->sizeHint().width(),b);
 		connect( b, SIGNAL(sigAddButton()), this, SLOT(addButton()) );
@@ -48,7 +47,7 @@ CModuleChooserBar::CModuleChooserBar(CImportantClasses* important, ListCSwordMod
 
 /** Adds a button to the toolbar */
 void CModuleChooserBar::addButton(){
-	CModuleChooserButton* b = new CModuleChooserButton(m_important, 0, m_moduleType, ++m_idCounter, this);
+	CModuleChooserButton* b = new CModuleChooserButton(0, m_moduleType, ++m_idCounter, this);
 	m_buttonList.append(b);	
 	insertWidget(m_idCounter, b->sizeHint().width(),b);			
 	
@@ -117,7 +116,7 @@ void CModuleChooserBar::setModules( ListCSwordModuleInfo useModules ){
 		if (m_buttonLimit && (unsigned int)m_buttonLimit <= m_buttonList.count())
 			break;
 			
-		CModuleChooserButton* b = new CModuleChooserButton(m_important,useModules.current(),m_moduleType,++m_idCounter,this);
+		CModuleChooserButton* b = new CModuleChooserButton(useModules.current(),m_moduleType,++m_idCounter,this);
 		m_buttonList.append(b);
 		insertWidget(m_idCounter, b->sizeHint().width(),b);
 		connect( b, SIGNAL(sigAddButton()), this, SLOT(addButton()) );

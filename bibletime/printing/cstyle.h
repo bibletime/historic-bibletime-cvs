@@ -60,11 +60,11 @@ public:
   /**
  	* Set the printing of the header (true enables it).
  	*/
-  void setFormatTypeEnabled( CStyle::styleType, const bool );
+  void setFormatTypeEnabled( const CStyle::styleType, const bool );
   /**
  	* Returns true if we have the given type enabled.
  	*/
-  const bool hasFormatTypeEnabled( CStyle::styleType ) const;
+  const bool hasFormatTypeEnabled( const CStyle::styleType ) const;
   /**
  	* Returns a QListViewItem for inserted in list.
  	*/

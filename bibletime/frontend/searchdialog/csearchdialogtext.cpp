@@ -46,11 +46,9 @@
 #include <klocale.h>
 
 
-CSearchDialogText::CSearchDialogText(CImportantClasses *importantClasses, QWidget *parent, const char *name)
+CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
 						: QWidget(parent, name, 48)
 {
-	m_importantClasses = importantClasses;	
-	
 	/* the first main Group - search text, options etc.*/
 	QGroupBox *textBox = new QGroupBox(2,Qt::Vertical,i18n("Search properties"),this,"textBox");
 

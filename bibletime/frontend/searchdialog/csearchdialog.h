@@ -23,6 +23,7 @@
 
 //BibleTime includes
 #include "../../backend/cswordmoduleinfo.h"
+#include "../cpointers.h"
 
 //QT includes
 
@@ -44,23 +45,20 @@ class CSearchDialogAnalysisView;
 
 class CSwordModuleInfo;
 class CSwordModuleSearch;
-struct CImportantClasses;
-
 
 /**
 	* The searchdialog of BibleTime
   * @author The BibleTime Team
   */
-class CSearchDialog : public KDialogBase  {
+class CSearchDialog : public KDialogBase, public CPointers  {
    Q_OBJECT
 public:
 	/**
 	* The constructor of the CSearchDialog class.
-	* @param importantClasses The pointer to the structure we use to store the printer and backend pointers
 	* @param parent The widget this dialog is centered on
 	* @param name The name of this Qt widget
 	*/
-	CSearchDialog( CImportantClasses* importantClasses, ListCSwordModuleInfo* modules,QWidget *parent=0, const char *name=0 );
+	CSearchDialog(ListCSwordModuleInfo* modules,QWidget *parent=0, const char *name=0 );
 	~CSearchDialog();
 	/**
 	*
@@ -114,7 +112,6 @@ private:
 	CSearchDialogAnalysisView* 	searchAnalysisView;
 	CSwordModuleSearch *searcher;
 	ListCSwordModuleInfo *moduleList;
-	CImportantClasses* m_important;			
 	int old_overallProgress;
 	int old_currentProgress;
 

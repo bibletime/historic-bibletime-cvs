@@ -19,7 +19,7 @@
 #define CPRINTER_H
 
 //BibleTime includes
-#include "../structdef.h"
+#include "../frontend/cpointers.h"
 #include "cprintitemlist.h"
 #include "cprintitem.h"
 #include "cstylelist.h"
@@ -46,7 +46,7 @@ class CSwordBackend;
 class KConfig;
 class KProcess;
 
-class CPrinter : public QObject, public KPrinter  {
+class CPrinter : public QObject, public KPrinter, public CPointers  {
 	Q_OBJECT
 public:	
 	struct CPageSize {
@@ -64,7 +64,7 @@ public:
 	 	unsigned int left;
 	};
 	
-	CPrinter( CImportantClasses* important, QObject* parent = 0 );
+	CPrinter( QObject* parent = 0 );
 	virtual ~CPrinter();
   const unsigned int rightMargin() const;
   const unsigned int leftMargin() const;
@@ -125,7 +125,7 @@ public:
   /**
   * Reimplementation. cReates a new page.
   */
-  const QRect getPageSize() const;
+  const QRect getPageSize();
   /**
   * Returns the config used for this printer object.
   */
@@ -169,17 +169,26 @@ private:
 	CPageMargin	m_pageMargin;
 	CPagePosition	m_pagePosition;
 	CSwordBackend*	m_backend;
-	CImportantClasses* m_important;
 	printItemList* m_queue;
 	styleItemList*	m_styleList;
 	CStyle* m_standardStyle;
 	KConfig* config;
 
+	struct PaperSizeCache {
+		bool initialized;
+		bool refresh;		
+		KPrinter::PageSize cachedPaper;
+		QRect size;
+	} m_cachedPage;
+	
+	bool m_addedItem;
+	
 signals: // Signals
   /**
  	* Is emitted everytime after an item was printed.
  	*/
-  void printedOneItem(/*const QString& key,*/ const int index);
+//  void printedOneItem(/*const QString& key,*/ const int index);
+	void percentCompleted(const int percent);
   /**
  	* Is emitted after all items were printed.
  	*/

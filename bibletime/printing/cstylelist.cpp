@@ -78,7 +78,7 @@ void CStyleList::setItems( styleItemList* itemList ){
 /** Appends the item to the list and m_items. */
 void CStyleList::insertItem( CStyle* item ){
 	m_items->append( item );
-	ASSERT(item->getListViewItem(this));
+	item->getListViewItem(this);
 }
 
 /** Opens the style editor dialog for he selected style. */

@@ -86,7 +86,7 @@ CSwordBackend::~CSwordBackend(){
 		
 /** Initializes the Sword modules. */
 const CSwordBackend::errorCode CSwordBackend::initModules() {
-	qDebug("CSwordBackend::initModules");
+//	qDebug("CSwordBackend::initModules");
 	ModMap::iterator it;
 	SWModule*	curMod = 0;
 	CSwordModuleInfo* newModule = 0;
@@ -141,8 +141,8 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	sourceformat = ((entry = section.find("SourceType")) != section.end()) ? (*entry).second : (string) "";
 	moduleDriver = ((entry = section.find("ModDrv")) != section.end()) ? (*entry).second : (string) "";
 
-	qDebug(moduleDriver.c_str());
-	qDebug(sourceformat.c_str());	
+//	qDebug(moduleDriver.c_str());
+//	qDebug(sourceformat.c_str());	
 	if (!stricmp(sourceformat.c_str(), "GBF")) {
 		if (!m_gbfFilter)
 			m_gbfFilter = new BT_GBFHTML();
@@ -237,7 +237,7 @@ void CSwordBackend::setAllDisplayOptions( const CSwordBackend::displayOptionsBoo
 	* mods.d wasn't found.
 	*/
 void CSwordBackend::Load() {
-	qDebug("CSwordBackend::Load");
+//	qDebug("CSwordBackend::Load");
 	if (!config) {	// If we weren't passed a config object at construction, find a config file
 		if (!configPath)	// If we weren't passed a config path at construction...
 			findConfig(&configType, &prefixPath, &configPath);

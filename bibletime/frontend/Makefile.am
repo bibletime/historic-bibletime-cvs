@@ -13,7 +13,8 @@ cinputdialog.cpp \
 coptionsdialog.cpp \
 cprofilemgr.cpp \
 cprofile.cpp \
-cprofilewindow.cpp
+cprofilewindow.cpp \
+cpointers.cpp
 
 all_headers=cmdiarea.h \
 kstartuplogo.h \
@@ -24,7 +25,8 @@ cbtconfig.h \
 cinputdialog.h \
 cprofilemgr.h \
 cprofile.h \
-cprofilewindow.h
+cprofilewindow.h \
+cpointers.h
 
 EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)
 

@@ -30,8 +30,8 @@
 //KDE includes
 #include <kaccel.h>
 
-CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
-	: KMainWindow(parent,name,0), m_moduleList(useModules), m_important(importantClasses), m_htmlWidget(0),
+CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
+	: KMainWindow(parent,name,0), m_moduleList(useModules), m_htmlWidget(0),
 	m_keyChooser(0), m_mainToolBar(0), m_moduleChooserBar(0), m_popup(0),m_savePopup(0),m_copyPopup(0),
 	m_printPopup(0), m_features(0), m_accel(0),
 	m_lexiconPopup(new QPopupMenu(this)),
@@ -39,9 +39,9 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClas
 	m_displayOptions( CBTConfig::getAllDisplayOptionDefaults() )
 
 {		
-	for (m_important->swordBackend->getModuleList()->first(); m_important->swordBackend->getModuleList()->current(); m_important->swordBackend->getModuleList()->next()) {
-		if (m_important->swordBackend->getModuleList()->current()->getType() == CSwordModuleInfo::Lexicon) {
-			m_lexiconPopup->insertItem( m_important->swordBackend->getModuleList()->current()->name() );
+	for (backend()->getModuleList()->first(); backend()->getModuleList()->current(); backend()->getModuleList()->next()) {
+		if (backend()->getModuleList()->current()->getType() == CSwordModuleInfo::Lexicon) {
+			m_lexiconPopup->insertItem( backend()->getModuleList()->current()->name() );
 		}
 	}	
 	connect(m_lexiconPopup, SIGNAL(activated(int)),this, SLOT(lookupWord(int)));
@@ -68,7 +68,7 @@ void CSwordPresenter::printKey(CSwordKey* start, CSwordKey* stop, CSwordModuleIn
 	printItem->setStartKey(start);
 	if (stop &&start != stop)
 		printItem->setStopKey(stop);
-	m_important->printer->addItemToQueue(printItem);
+	printer()->addItemToQueue(printItem);
 }
 
 /** Refreshes the supported features. */
@@ -216,7 +216,7 @@ void CSwordPresenter::polish(){
 
 /** Is called when this display window looses the focus. */
 void CSwordPresenter::focusInEvent( QFocusEvent* e ){
-	qDebug("CSwordPresenter::focusInEvent( QFocusEvent* e )");
+//	qDebug("CSwordPresenter::focusInEvent( QFocusEvent* e )");
 	KMainWindow::focusInEvent(e);
 //	if (m_accel)
 //		m_accel->setEnabled(true);
@@ -224,7 +224,7 @@ void CSwordPresenter::focusInEvent( QFocusEvent* e ){
 
 /** Is called when this display window looses the focus. */
 void CSwordPresenter::focusOutEvent( QFocusEvent* e ){
-	qDebug("CSwordPresenter::focusOutEvent( QFocusEvent* e )");	
+//	qDebug("CSwordPresenter::focusOutEvent( QFocusEvent* e )");	
 	KMainWindow::focusOutEvent(e);	
 //	if (m_accel)
 //		m_accel->setEnabled(false);

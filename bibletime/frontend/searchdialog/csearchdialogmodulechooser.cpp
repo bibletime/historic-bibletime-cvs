@@ -39,10 +39,9 @@
 #include <klocale.h>
 #include <kiconloader.h>
 
-CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* importantClasses, QWidget *parent, const char *name ) : QWidget(parent,name) {
+CSearchDialogModuleChooser::CSearchDialogModuleChooser(QWidget *parent, const char *name ) : QWidget(parent,name) {
 	m_initialized = false;
 	
-	m_importantClasses = importantClasses;
 	m_moduleList = 0;
 //	m_itemsDict.setAutoDelete(false);
 
@@ -53,7 +52,7 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 
 	QHBoxLayout* chooserLayout = new QHBoxLayout();
 	  		
-	m_moduleIndex = new CGroupManager(importantClasses, this, "module index", importantClasses->swordBackend->getModuleList(), false, false, false, false, false, false);	
+	m_moduleIndex = new CGroupManager(this, "module index", backend()->getModuleList(), false, false, false, false, false, false);	
 	QWhatsThis::add(m_moduleIndex, WT_SD_MODULECHOOSER);
 	
 	m_moduleList = new QListBox(this);
@@ -140,7 +139,7 @@ void CSearchDialogModuleChooser::setChosenModules(ListCSwordModuleInfo* modules)
 ListCSwordModuleInfo CSearchDialogModuleChooser::getChosenModules(){
 	ListCSwordModuleInfo modules;
 	for (unsigned int i=0; i < m_moduleList->count(); ++i) {
-		CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(m_moduleList->text(i));
+		CSwordModuleInfo* m = backend()->findModuleByName(m_moduleList->text(i));
 		if (m)
 			modules.append(m);
 	}	

@@ -20,7 +20,8 @@
 
 //BibleTime includes
 //#include "cswordmoduleinfo.h"
-#include "../structdef.h"
+//#include "../structdef.h"
+#include "../frontend/cpointers.h"
 
 //Qt includes
 #include <qlist.h>
@@ -43,7 +44,7 @@ typedef QList<CSwordModuleInfo> ListCSwordModuleInfo;
   * @author The BibleTime team
   * @version $Id$
   */
-class CSwordModuleSearch {
+class CSwordModuleSearch: public CPointers {
 public:
 	enum scopeType {
 		Scope_NoScope,
@@ -63,7 +64,7 @@ public:
 		allModules		= 0x000000002
 	};
 
-	CSwordModuleSearch(CImportantClasses* importantClasses);
+	CSwordModuleSearch();
 	/**
 	* The destructor of this class. It cleans uop memory before it's deleted.
 	*/
@@ -119,7 +120,9 @@ public:
  	*/
   const int getPercent( percentType type );
 	void percentUpdate(char percent, void *p);
-  /** Returns a copy of the used search scope. */
+  /**
+  * Returns a copy of the used search scope.
+  */
   ListKey scope();
 
 protected:
@@ -139,9 +142,6 @@ protected:
 	int cms_module_count;
 	int cms_module_current;
 
-	
-	CImportantClasses* m_important;
-	
 private:
 	pthread_mutex_t percentage_mutex;
 };

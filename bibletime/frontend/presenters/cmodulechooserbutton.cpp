@@ -27,11 +27,10 @@
 #include <kpopupmenu.h>
 #include <klocale.h>
 
-CModuleChooserButton::CModuleChooserButton(CImportantClasses* importantClasses, CSwordModuleInfo* useModule,CSwordModuleInfo::type type, const int id, QWidget *parent, const char *name )
+CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::type type, const int id, QWidget *parent, const char *name )
 	: QToolButton(parent,name) {
 	qDebug("CModuleChooserButton::CModuleCHooserButton");
-		
-	m_important = importantClasses;
+
 	m_id = id;
 	m_moduleType = type;	
 	m_module = useModule;
@@ -51,7 +50,7 @@ CModuleChooserButton::CModuleChooserButton(CImportantClasses* importantClasses, 
 	m_popup->insertItem(i18n("NONE"));
 	m_popup->insertSeparator();	
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));
-	ListCSwordModuleInfo* modules = importantClasses->swordBackend->getModuleList();
+	ListCSwordModuleInfo* modules = backend()->getModuleList();
 	for (modules->first(); modules->current(); modules->next()) {
 		if (modules->current()->getType() == m_moduleType) {
 			m_popup->insertItem( modules->current()->name() );
@@ -102,7 +101,7 @@ QPixmap CModuleChooserButton::getIcon(){
 CSwordModuleInfo* CModuleChooserButton::getModule() {		
 	for (unsigned int i = 0; i < m_popup->count(); i++) {
 		if ( m_popup->isItemChecked(m_popup->idAt(i)) )
-			return m_important->swordBackend->findModuleByName( m_popup->text(m_popup->idAt(i)) );
+			return backend()->findModuleByName( m_popup->text(m_popup->idAt(i)) );
 	}	
 	return 0; //"none" selected
 }

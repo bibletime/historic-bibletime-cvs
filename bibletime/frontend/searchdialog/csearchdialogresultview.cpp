@@ -58,8 +58,8 @@
 #include <listkey.h>
 #include <swmodule.h>
 
-CSearchDialogResultModuleView::CSearchDialogResultModuleView(CImportantClasses* importantClasses,QWidget *parent, const char *name)
-	: QListView ( parent, name ), m_important( importantClasses )
+CSearchDialogResultModuleView::CSearchDialogResultModuleView(QWidget *parent, const char *name)
+	: QListView ( parent, name )
 	
 {	
 	initView();
@@ -99,7 +99,7 @@ void CSearchDialogResultModuleView::viewportMousePressEvent(QMouseEvent *e) {
 	for (moduleList->first();moduleList->current();moduleList->next()){
 		QString modName = m_currentItem->text(0);
 		modName = modName.left( modName.find(" [") );
-		m_currentModule = m_important->swordBackend->findModuleByName(modName);
+		m_currentModule = backend()->findModuleByName(modName);
 		if (m_currentModule)
 			emit moduleSelected(m_currentModule);
 	}	
@@ -174,8 +174,9 @@ void CSearchDialogResultModuleView::printSearchResult(){
 		if (newKey) {
 			newKey->key(text);
 			printItem->setStartKey(newKey);		
+//			printItem->setStopKey(newKey);					
 		}
-		m_important->printer->addItemToQueue( printItem );
+		printer()->addItemToQueue( printItem );
 	}
 	progress.setProgress(searchResult.Count());		
 }
@@ -248,7 +249,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResult(){
 		SWKey* key = searchResult.GetElement(index);
 		if (!key)
 			break;
-		text += QString("%1\n").arg(QString::fromLocal8Bit( (const char*)*key ));
+		text += QString::fromLatin1("%1\n").arg(QString::fromLocal8Bit( (const char*)*key ));
 	}
 	progress.setProgress(searchResult.Count());	
 	CToolClass::savePlainFile( file, text);
@@ -345,9 +346,8 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 }
 
 //------------class CSearchDialofResultView-----------//
-CSearchDialogResultView::CSearchDialogResultView(CImportantClasses* importantClasses, QWidget *parent, const char *name)
+CSearchDialogResultView::CSearchDialogResultView(QWidget *parent, const char *name)
 	: QListBox(parent,name),
-	m_important(importantClasses),
 	m_currentItem(0),
 	m_module(0),
 	m_pressedPos()
@@ -458,7 +458,7 @@ void CSearchDialogResultView::printItem() {
 			printItem->setStopKey(key);			
 		}
 		printItem->setModule(m_module);		
-		m_important->printer->addItemToQueue( printItem );
+		printer()->addItemToQueue( printItem );
 	}
 }
 
@@ -488,14 +488,11 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 	
 	CSwordKey* key = CSwordKey::createInstance(m_module);	
 	if (key) {
-		//CSwordBackend::moduleOptionsBool oldOptions = m_important->swordBackend->getAllModuleOptions();
-		
-		m_important->swordBackend->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );
+		backend()->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );
 				
 		key->key(item->text());
 		text = key->renderedText();		
-		delete key;		
-//		m_important->swordBackend->setAllModuleOptions( oldOptions );
+		delete key;
 		
 	}
 	if (!text.isEmpty())

@@ -31,6 +31,7 @@
 #include "../../backend/cswordmoduleinfo.h"
 #include "../../structdef.h"
 #include "cgroupmanageritem.h"
+#include "../cpointers.h"
 
 class KPopupMenu;
 class KConfig;
@@ -41,11 +42,11 @@ class CSearchDialog;
 	* The groupmanager which handles all the modules and bookmarks
   * @author The BibleTime Team
   */
-class CGroupManager : public KListView  {
+class CGroupManager : public KListView, public CPointers  {
    Q_OBJECT
 
 public:
-	CGroupManager(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0, ListCSwordModuleInfo *moduleInfo_list = 0, const bool useBookmarks = true, const bool saveSettings = true, const bool useDnD=true, const bool useExtendedMode=true, const bool useRMBMenu = true, const bool showHelpDialogs = true);
+	CGroupManager(QWidget *parent=0, const char *name=0, ListCSwordModuleInfo *moduleInfo_list = 0, const bool useBookmarks = true, const bool saveSettings = true, const bool useDnD=true, const bool useExtendedMode=true, const bool useRMBMenu = true, const bool showHelpDialogs = true);
 	~CGroupManager();
   /**
  	* Initializes the tree of this CGroupmanager
@@ -241,7 +242,6 @@ private:
 	bool m_menu;
   QPoint m_pressedPos;
   QRect	m_oldDragRect;
-  CImportantClasses* m_important;
   CGroupManagerItem* m_parentItemDrop;
   CGroupManagerItem* m_afterItemDrop;
   QString m_dragType;	

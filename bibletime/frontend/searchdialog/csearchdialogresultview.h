@@ -20,7 +20,7 @@
 
 //BibleTime includes
 #include "../../backend/cswordmoduleinfo.h"
-#include "../../structdef.h"
+#include "../cpointers.h"
 
 //QT includes
 #include <qwidget.h>
@@ -37,10 +37,10 @@ class KAction;
 	*	Handles the search result
   *	@author The BibleTime Team
   */
-class CSearchDialogResultModuleView : public QListView {
+class CSearchDialogResultModuleView : public QListView, public CPointers {
 	Q_OBJECT
 public:
-	CSearchDialogResultModuleView(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0);
+	CSearchDialogResultModuleView(QWidget *parent=0, const char *name=0);
 	~CSearchDialogResultModuleView();
 	/**
 	*	Sets te modulelist displayed in this module tree.
@@ -96,7 +96,6 @@ signals: // Signals
   void moduleSelected(CSwordModuleInfo*);
 
 private:
-	CImportantClasses* m_important;
   ListCSwordModuleInfo*	moduleList;
   QListViewItem*	m_currentItem;
   CSwordModuleInfo*	m_currentModule;
@@ -108,10 +107,10 @@ private:
 };
 
 
-class CSearchDialogResultView : public QListBox  {
+class CSearchDialogResultView : public QListBox, public CPointers  {
    Q_OBJECT
 public:
-	CSearchDialogResultView(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0);
+	CSearchDialogResultView(QWidget *parent=0, const char *name=0);
 	~CSearchDialogResultView();
 	/**
 	* Initializes the tree of this CGroupmanager
@@ -145,7 +144,7 @@ public slots:
   /**
  	*
  	*/
-	void setModule(CSwordModuleInfo *module) { if (module) m_module = module; this->setupTree();};
+	void setModule(CSwordModuleInfo *module) { if (module) m_module = module; setupTree();};
 	
 protected slots: // Protected slots
 	/**
@@ -190,7 +189,6 @@ private:
   CSwordModuleInfo*	m_module;
   QListBoxItem	*m_currentItem;
   QPoint m_pressedPos;
-  CImportantClasses*	m_important;
   	
 signals: // Signals	
 	/**

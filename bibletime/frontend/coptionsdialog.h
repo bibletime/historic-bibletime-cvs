@@ -18,8 +18,9 @@
 #ifndef COPTIONSDIALOG_H
 #define COPTIONSDIALOG_H
 
-#include "../structdef.h"
+//#include "../structdef.h"
 #include "cprofilemgr.h"
+#include "cpointers.h"
 
 //QT includes
 #include <qwidget.h>
@@ -50,11 +51,11 @@ class CBackEnd;
 	* The optionsdialog of BibleTime
   * @author The BibleTime Team
   */
-class COptionsDialog : public KDialogBase  {
+class COptionsDialog : public KDialogBase, public CPointers  {
    Q_OBJECT
 
 public:
-	COptionsDialog(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0, KAccel* key_accel=0);
+	COptionsDialog(QWidget *parent=0, const char *name=0, KAccel* key_accel=0);
 
   enum Parts {
 		Startup,
@@ -69,8 +70,6 @@ public:
   const bool showPart( COptionsDialog::Parts ID );
 
 private:
-  CImportantClasses* m_important;
-
   struct settings {
 	 	struct StartupSettings {
 	 		QCheckBox* showTips;

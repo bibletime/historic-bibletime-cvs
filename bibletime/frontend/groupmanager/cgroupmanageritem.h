@@ -17,8 +17,9 @@
 #ifndef CGROUPMANAGERITEM_H
 #define CGROUPMANAGERITEM_H
 
-//Own includes
+//BibleTime includes
 #include "../../structdef.h"
+#include "../cpointers.h"
 
 //Qt includes
 #include <qstring.h>
@@ -40,7 +41,7 @@ class QListViewItem;
   * An item which implements functions to get the module of this item. The constructor gets the required arguments to operate
   * @author Joachim Ansorg <jansorg@gmx.de>
   */
-class CGroupManagerItem : public QListViewItem  {
+class CGroupManagerItem : public QListViewItem, public CPointers  {
 	
 	friend class CGroupManager;
 
@@ -55,7 +56,7 @@ public:
  	* @param module_info The CModuleInfo object we use for the item. May be zero because a group doesn't have a CModuleInfo.
  	* @param Type The type of the created item. May ba Module, Bookmark or Group. If you leave out the parameter it will be Module by default.
  	*/
-	CGroupManagerItem( CGroupManager *parent, const QString& caption,const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey = 0, CGroupManagerItem::itemType Type = CGroupManagerItem::Module, CImportantClasses* importantClasses = 0 );
+	CGroupManagerItem( CGroupManager *parent, const QString& caption,const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey = 0, CGroupManagerItem::itemType Type = CGroupManagerItem::Module );
 	/**
  	* The constructor. This constructor takes a CGroupManagerItem as parent. The created item will be on a child of the parent item
  	* @param parent The CGroupManagerItem which will be parent item of the new item
@@ -64,7 +65,7 @@ public:
  	* @param module_info The CModuleInfo object we use for the item. May be zero because a group doesn't have a CModuleInfo.
  	* @param Type The type of the created item. May ba Module, Bookmark or Group. If you leave out the parameter it will be Module by default.
  	*/	
-	CGroupManagerItem( CGroupManagerItem *parent, const QString& caption, const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey = 0, CGroupManagerItem::itemType Type = CGroupManagerItem::Module, CImportantClasses* importantClasses = 0 );
+	CGroupManagerItem( CGroupManagerItem *parent, const QString& caption, const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey = 0, CGroupManagerItem::itemType Type = CGroupManagerItem::Module);
 	/**
  	* The destructor. Cleans up memory.
  	*/
@@ -137,7 +138,7 @@ private:
  	* @param module_info	The CModuleInfo object for this item. May be NULL because groups have no moduleinfo.
  	* @param Type The type of the item (Group, Bookmark or Module)
  	*/
-  virtual void init( const QString& caption, const QString& modulename, CSwordModuleInfo *module_info,CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type,CImportantClasses* importantClasses);
+  virtual void init( const QString& caption, const QString& modulename, CSwordModuleInfo *module_info,CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type);
   /**
  	* The type of this entry
  	*/
@@ -177,8 +178,6 @@ private:
  	* The pixmap which belongs to opened folders
  	*/
 	QPixmap m_openFolderIcon;
-	
-	CImportantClasses* m_important;
 };
 
 #endif

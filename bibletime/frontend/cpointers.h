@@ -1,7 +1,7 @@
 /***************************************************************************
-                          cbookpresenter.h  -  description
+                          cpointers.h  -  description
                              -------------------
-    begin                : Thu Jan 24 2002
+    begin                : Sun Feb 17 2002
     copyright            : (C) 2002 by The BibleTime team
     email                : info@bibletime.de
  ***************************************************************************/
@@ -15,49 +15,28 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef CBOOKPRESENTER_H
-#define CBOOKPRESENTER_H
-
-#include <qwidget.h>
-#include "cswordpresenter.h"
+#ifndef CPOINTERS_H
+#define CPOINTERS_H
 
 
-class CSwordTreeKey;
-
-/**Creates a presenter object for generic book support.
+class CSwordBackend;
+class CPrinter;
+/**Holds the pointers to important classes like modules, backend etc.
   *@author The BibleTime team
   */
 
+class CPointers {
+protected:
+	friend class BibleTime; //BibleTime may initialize this object
+	CPointers(CSwordBackend* backend, CPrinter* printer);
+	~CPointers();
 
-
-class CBookPresenter : public CSwordPresenter  {
-   Q_OBJECT
-public: 
-	/**
-	* Constructor of the presenter for generic books.
-	*/
-	CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0 );
-	virtual ~CBookPresenter();
-
-protected: // Protected methods
-  /**
-  * Initializes the interface of this presenter.
-  */
-  virtual void initView();
-  /**
-  * Init the Signal Slot connections between childs and this widget.
-  */
-  virtual void initConnections();
-
-protected slots:
-	void modulesChanged();
-  /**
-  * renders text and set it to the HTML widget
-  */
-  void lookup(CSwordKey*);	
-
-private:
-	CSwordTreeKey* m_key;
+public: // Public methods
+	CPointers(); //default constructor
+  /** Returns a pointer to the printer object. */
+  CPrinter* printer() const;
+  /** Returns a pointer to the backend ... */
+  CSwordBackend* backend() const;
 };
 
 #endif

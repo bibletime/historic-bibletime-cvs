@@ -61,10 +61,10 @@ void BibleTime::initView(){
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
 	m_splitter = new QSplitter(this, "mainsplitter");
 	
-	m_groupmanager = new CGroupManager(m_important, m_splitter, "groupmanager", m_moduleList );
+	m_groupmanager = new CGroupManager( m_splitter, "groupmanager", m_moduleList );
 	m_groupmanager->setFocusPolicy(ClickFocus);
 
-	m_mdi = new CMDIArea(m_important, m_splitter, "mdiarea" );
+	m_mdi = new CMDIArea(m_splitter, "mdiarea" );
 	m_mdi->setFocusPolicy(ClickFocus);
 
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
@@ -80,7 +80,7 @@ void BibleTime::initActions() {
 	KAction* action = 0;
 		
 	m_fileClearQueue_action = new KAction(i18n("Clear printing queue"), ICON_FILE_CLEAR_QUEUE ,0,
-		m_important->printer, SLOT(clearQueue()), actionCollection(), "fileClearQueue_action");	
+		m_printer, SLOT(clearQueue()), actionCollection(), "fileClearQueue_action");	
 	m_fileClearQueue_action->setEnabled(false);	
 	m_fileClearQueue_action->setToolTip( TT_FILE_CLEAR_QUEUE );
 	m_fileClearQueue_action->setWhatsThis( WT_FILE_CLEAR_QUEUE );
@@ -277,35 +277,35 @@ void BibleTime::initConnections(){
 		this, SLOT(createNewSwordPresenter(ListCSwordModuleInfo,const QString&)));
 	
 	//connect to the signals of the printer object
-	connect(m_important->printer, SIGNAL(addedFirstQueueItem()),
+	connect(m_printer, SIGNAL(addedFirstQueueItem()),
 		this, SLOT(slotSetPrintingStatus()));
-	connect(m_important->printer, SIGNAL(printingStarted()),
+	connect(m_printer, SIGNAL(printingStarted()),
 		this, SLOT(slotPrintingStarted()));		
-	connect(m_important->printer, SIGNAL(printingFinished()),
+	connect(m_printer, SIGNAL(printingFinished()),
 		this, SLOT(slotSetPrintingStatus()));		
-	connect(m_important->printer, SIGNAL(printingFinished()),
+	connect(m_printer, SIGNAL(printingFinished()),
 		this, SLOT(slotPrintingFinished()));				
-	connect(m_important->printer, SIGNAL(printingInterrupted()),
+	connect(m_printer, SIGNAL(printingInterrupted()),
 		this, SLOT(slotSetPrintingStatus()));				
-	connect(m_important->printer, SIGNAL(printingInterrupted()),
+	connect(m_printer, SIGNAL(printingInterrupted()),
 		this, SLOT(slotPrintingFinished()));						
-	connect(m_important->printer, SIGNAL(queueCleared()),
+	connect(m_printer, SIGNAL(queueCleared()),
 		this, SLOT(slotSetPrintingStatus()));
-	connect(m_important->printer, SIGNAL(printedOneItem(/*const QString&,*/ const int)),
-		this, SLOT(slotPrintedEntry(/*const QString&,*/ const int)));		
+	connect(m_printer, SIGNAL(percentCompleted(const int)),
+		this, SLOT(slotPrintedPercent(const int)));		
 }
 
 /** Initializes the backend */
 void BibleTime::initBackends(){
 	KStartupLogo::setStatusMessage(i18n("Initializing Sword")+QString::fromLatin1("..."));
 	
-	m_important->swordBackend = new CSwordBackend();	
-	m_important->swordBackend->Load();
-	CSwordBackend::errorCode errorCode = m_important->swordBackend->initModules();
+	m_backend = new CSwordBackend();	
+	m_backend->Load();
+	CSwordBackend::errorCode errorCode = m_backend->initModules();
 
 	m_moduleList = 0;		
 	if ( errorCode == CSwordBackend::noError ) {	//no error
-		m_moduleList = m_important->swordBackend->getModuleList();
+		m_moduleList = m_backend->getModuleList();
 	} else {
 		//show error message that initBackend failed		
 		switch (errorCode) {
@@ -331,14 +331,14 @@ void BibleTime::initBackends(){
 
 	//initialize international bookname language
 	const QString language = CBTConfig::get(CBTConfig::language);
-	m_important->swordBackend->setBooknameLanguage(language);
+	m_backend->setBooknameLanguage(language);
 	ASSERT(m_moduleList);
 }
 
 /** Initializes the CPrinter object. */
-void BibleTime::initPrinter(){
+void BibleTime::initPrinter() {
 	KStartupLogo::setStatusMessage(i18n("Initializing printing system") + QString::fromLatin1("..."));
-	m_important->printer = new CPrinter(m_important, this);
+	m_printer = new CPrinter(this);
 }
 
 /** Apply the settings given by the profile p*/

@@ -44,8 +44,8 @@
 #include <kfiledialog.h>
 #include <kaccel.h>
 
-CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
-	: CSwordPresenter(useModules, importantClasses, parent,name),
+CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
+	: CSwordPresenter(useModules,parent,name),
 	m_key( new CSwordVerseKey(m_moduleList.first()) )
 {		
 	m_key->key("Genesis 1:1");
@@ -71,10 +71,10 @@ void CBiblePresenter::initView(){
 
 	addToolBar(m_mainToolBar);			
 	
-	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Bible, this );
+	m_moduleChooserBar = new CModuleChooserBar(m_moduleList, CSwordModuleInfo::Bible, this );
 	addToolBar(m_moduleChooserBar);
 	
-	m_htmlWidget = new CHTMLWidget(m_important, true, this);
+	m_htmlWidget = new CHTMLWidget(true, this);
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
@@ -121,8 +121,8 @@ void CBiblePresenter::lookup(CSwordKey* key){
 		return;
   m_moduleList.first()->module()->SetKey(*vKey);
 
-	m_important->swordBackend->setAllModuleOptions( m_moduleOptions );
-	m_important->swordBackend->setAllDisplayOptions( m_displayOptions );
+	backend()->setAllModuleOptions( m_moduleOptions );
+	backend()->setAllDisplayOptions( m_displayOptions );
 		
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
 		if (m_moduleList.count()>1)
@@ -198,7 +198,7 @@ void CBiblePresenter::popupAboutToShow() {
 
 /** Reimplementation from CSwordPresenter. */
 void CBiblePresenter::lookup(const QString& module, const QString& key){
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+	CSwordModuleInfo* m = backend()->findModuleByName(module);
 	if (m && m_moduleList.containsRef(m)) {
 		if (!key.isEmpty())
 			m_key->key(key);
@@ -214,7 +214,7 @@ void CBiblePresenter::refresh( ){
 
 	CSwordPresenter::refresh();	//refreshes the display settings button
 
-	m_key->setLocale((const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
+	m_key->setLocale((const char*)backend()->getCurrentBooknameLanguage().local8Bit());
 	m_keyChooser->refreshContent();
 	lookup(m_key);
 	m_htmlWidget->refresh();		
@@ -228,7 +228,7 @@ void CBiblePresenter::copyVerse(){
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	
 	CSwordVerseKey vKey(m);
 	vKey.key(key);
@@ -244,7 +244,7 @@ void CBiblePresenter::copyVerseText(){
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	
 	CSwordVerseKey vKey(m);
 	vKey.key(key);	
@@ -259,7 +259,7 @@ void CBiblePresenter::copyVerseAndText(){
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	CSwordVerseKey vKey(m);
 	vKey.key(key);
 	
@@ -276,7 +276,7 @@ void CBiblePresenter::printVerseAndText(){
 	const QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	
 	CSwordVerseKey* vKey = new CSwordVerseKey(m);//deleted by the print item
 	vKey->key(key);
@@ -306,7 +306,7 @@ void CBiblePresenter::saveVerseAndText(){
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	CSwordVerseKey vKey(m);
 	vKey.key(key);
 	

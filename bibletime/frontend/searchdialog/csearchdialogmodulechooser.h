@@ -19,24 +19,22 @@
 #define CSEARCHDIALOGMODULECHOOSER_H
 
 #include "../../backend/cswordmoduleinfo.h"
+#include "../cpointers.h"
 
 //Qt includes
 #include <qwidget.h>
 #include <qptrdict.h>
 
-
-class CImportantClasses;
 class CGroupManager;
-
 class QListBox;
 
 /** A widget to select the modules in which you want to search.
   * @author The BibleTime team
   */
-class CSearchDialogModuleChooser : public QWidget  {
+class CSearchDialogModuleChooser : public QWidget, public CPointers  {
    Q_OBJECT
 public: 
-	CSearchDialogModuleChooser(CImportantClasses* importantClasses, QWidget *parent, const char *name=0);
+	CSearchDialogModuleChooser(QWidget *parent, const char *name=0);
 	~CSearchDialogModuleChooser();
   /**
   * Sets the chosen modules for this object.
@@ -48,7 +46,6 @@ public:
   ListCSwordModuleInfo getChosenModules();
 
 private:
-	CImportantClasses* m_importantClasses;
 	CGroupManager* m_moduleIndex;
 	QListBox* m_moduleList;
 	QPtrDict<char> m_itemsDict;

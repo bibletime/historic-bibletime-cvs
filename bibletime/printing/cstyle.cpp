@@ -82,7 +82,7 @@ void CStyle::setFormatForType( const CStyle::styleType type, CStyleFormat* forma
 }
 
 /** Set the printing of the header (true enables it). */
-const bool CStyle::hasFormatTypeEnabled( CStyle::styleType type) const {
+const bool CStyle::hasFormatTypeEnabled( const CStyle::styleType type) const {
 	switch (type) {
 		case Header:
 			return m_isHeaderFormatEnabled;
@@ -96,7 +96,7 @@ const bool CStyle::hasFormatTypeEnabled( CStyle::styleType type) const {
 }
 
 /** Set the printing of the header (true enables it). */
-void CStyle::setFormatTypeEnabled( CStyle::styleType type, const bool setEnabled) {
+void CStyle::setFormatTypeEnabled( const CStyle::styleType type, const bool setEnabled) {
 	switch (type) {
 		case Header:
 			m_isHeaderFormatEnabled = setEnabled;
@@ -139,7 +139,7 @@ void CStyle::setStyleName( const QString name ){
 
 /** Clears all variables and sets them back */
 void CStyle::clearData(){
-	qDebug("CStyle::clearData()");
+//	qDebug("CStyle::clearData()");
 	deleteListViewItem();
 	m_styleName = QString::null;
 	m_isDescriptionFormatEnabled = m_isHeaderFormatEnabled = m_isModuleTextFormatEnabled = true;		

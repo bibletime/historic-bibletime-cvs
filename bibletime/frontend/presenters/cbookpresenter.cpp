@@ -33,8 +33,8 @@
 //#include "../cprofile.h"
 //#include "../cprofilewindow.h"
 
-CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0 )
-	: CSwordPresenter(useModules, importantClasses, parent, name)
+CBookPresenter::CBookPresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0 )
+	: CSwordPresenter(useModules,parent,name)
 {
 	m_key = dynamic_cast<CSwordTreeKey*>(CSwordKey::createInstance( useModules.first() ));
 	
@@ -61,7 +61,7 @@ void CBookPresenter::initView(){
 
 	addToolBar(m_mainToolBar);			
 	
-	m_htmlWidget = new CHTMLWidget(m_important, true, this);	
+	m_htmlWidget = new CHTMLWidget(true, this);	
 	setCentralWidget(m_htmlWidget);
 }
 
@@ -107,8 +107,8 @@ void CBookPresenter::lookup(CSwordKey* key) {
 
 	setUpdatesEnabled(false);	
 	
-//	m_important->swordBackend->setAllModuleOptions( m_moduleOptions );
-//	m_important->swordBackend->setAllDisplayOptions( m_displayOptions );
+//	backend()->setAllModuleOptions( m_moduleOptions );
+//	backend()->setAllDisplayOptions( m_displayOptions );
 
 	m_moduleList.first()->module()->SetKey(treeKey);//should we pointer or reference?
   qWarning("have set key!");

@@ -38,8 +38,8 @@
 #include <kapp.h>
 #include <kaccel.h>
 
-CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
-	: CSwordPresenter(useModules, importantClasses, parent,name),
+CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
+	: CSwordPresenter(useModules, parent,name),
 	m_key( new CSwordLDKey(m_moduleList.first()) )
 {
 	m_key->key("");
@@ -66,10 +66,10 @@ void CLexiconPresenter::initView(){
 //	m_displaySettingsButton = new CDisplaySettingsButton( &m_displayOptions, &m_moduleOptions, m_moduleList, m_mainToolBar);
 //	m_mainToolBar->insertWidget(1,m_displaySettingsButton->sizeHint().width(),m_displaySettingsButton);
 
-	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Lexicon, this );
+	m_moduleChooserBar = new CModuleChooserBar(m_moduleList, CSwordModuleInfo::Lexicon, this );
 	addToolBar(m_moduleChooserBar);
 	
-	m_htmlWidget = new CHTMLWidget(m_important, true, this);
+	m_htmlWidget = new CHTMLWidget(true, this);
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
@@ -131,8 +131,8 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 	if (!ldKey)
 		return;
 
-	m_important->swordBackend->setAllModuleOptions( m_moduleOptions );
-	m_important->swordBackend->setAllDisplayOptions( m_displayOptions );
+	backend()->setAllModuleOptions( m_moduleOptions );
+	backend()->setAllDisplayOptions( m_displayOptions );
 
 	m_moduleList.first()->module()->SetKey(*ldKey);
 	
@@ -160,7 +160,7 @@ void CLexiconPresenter::popupAboutToShow(){
 
 /** No descriptions */
 void CLexiconPresenter::lookup(const QString& module, const QString& key){
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+	CSwordModuleInfo* m = backend()->findModuleByName(module);
 	if (m && m_moduleList.containsRef(m)) {
 		if (!key.isEmpty())
 			m_key->key(key);

@@ -20,7 +20,7 @@
 
 #include "cmodulechooserbutton.h"
 #include "../../backend/cswordmoduleinfo.h"
-#include "../../structdef.h"
+#include "../cpointers.h"
 
 #include <qwidget.h>
 #include <ktoolbar.h>
@@ -34,7 +34,7 @@ public:
 	/**
 	* Default constructor
 	*/
-	CModuleChooserBar(CImportantClasses* important, ListCSwordModuleInfo useModules,CSwordModuleInfo::type type,  QWidget *parent=0, const char *name=0);
+	CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModuleInfo::type type,  QWidget *parent=0, const char *name=0);
   /**
   * Returns a list of selected modules.
   */
@@ -43,7 +43,9 @@ public:
   * Sets the number of the maximum count of buttons.
   */
   void setButtonLimit( const int limit);
-  /** Sets the modules which are chosen in this module chooser bar. */
+  /**
+  * Sets the modules which are chosen in this module chooser bar.
+  */
   void setModules( ListCSwordModuleInfo modules );
 	
 protected slots: // Protected slots
@@ -61,7 +63,6 @@ protected slots: // Protected slots
   void deleteButton();
 
 private:
-	CImportantClasses* m_important;
 	QList<CModuleChooserButton> m_buttonList;
 	CSwordModuleInfo::type m_moduleType;
 	int m_idCounter;

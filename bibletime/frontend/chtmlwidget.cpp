@@ -65,9 +65,8 @@
 //Sword includes
 #include <swmodule.h>
 
-CHTMLWidget::ToolTip::ToolTip(CImportantClasses* importantClasses, QWidget* parent)
-	: QToolTip(parent), m_important(importantClasses) {
-	ASSERT( m_important );
+CHTMLWidget::ToolTip::ToolTip(QWidget* parent)
+	: QToolTip(parent) {
 
 }
 
@@ -110,17 +109,17 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 		if (module.isEmpty() || module.isNull()) {
 			module = CReferenceManager::preferredModule( type );
 		}		
-		m = m_important->swordBackend->findModuleByName(module);
+		m = backend()->findModuleByName(module);
 		if (m){
 			if (m->getType() == CSwordModuleInfo::Bible || m->getType() == CSwordModuleInfo::Commentary) {
 				CSwordModuleInfo* module = htmlWidget->modules().first();
 				if (module) {
-					ref = CReferenceManager::parseVerseReference(ref, module->module()->Lang(), m_important->swordBackend->getCurrentBooknameLanguage() );
+					ref = CReferenceManager::parseVerseReference(ref, module->module()->Lang(), backend()->getCurrentBooknameLanguage() );
 				}
 			}
 			CSwordKey* key = CSwordKey::createInstance( m );			
 			if (key) {
-				m_important->swordBackend->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );				
+				backend()->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );				
 				
 				key->key(ref);
 				text = key->renderedText();
@@ -139,8 +138,8 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 	}
 }
 
-CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts,QWidget *parent, const char *name )
-	: QTextEdit(parent, name),m_important( importantClasses ), m_moduleList( new ListCSwordModuleInfo ) {
+CHTMLWidget::CHTMLWidget(const bool useColorsAndFonts,QWidget *parent, const char *name )
+	: QTextEdit(parent, name),m_moduleList( new ListCSwordModuleInfo ) {
 	
 	m_popup = 0;
 	m_anchor = QString::null;
@@ -163,7 +162,7 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 }
 
 CHTMLWidget::~CHTMLWidget(){
-	qDebug("CHTMLWidget::~CHTMLWidget()");
+//	qDebug("CHTMLWidget::~CHTMLWidget()");
 	if (m_moduleList)
 		delete m_moduleList;
 	m_moduleList = 0;
@@ -171,7 +170,7 @@ CHTMLWidget::~CHTMLWidget(){
 
 /**  */
 void CHTMLWidget::initColors(){
-	qDebug("CHTMLWidget::initColors()");
+//	qDebug("CHTMLWidget::initColors()");
 //	setLinkColor( m_config->readColorEntry("Versenumber/URL", &Qt::darkBlue) );		
 //	QColor textColor = m_config->readColorEntry("Normal Text", &Qt::red);	
 	const QColor bgColor = CBTConfig::get(CBTConfig::backgroundColor);
@@ -206,7 +205,7 @@ void CHTMLWidget::initFonts(){
 
 /**  */
 void CHTMLWidget::initView(){
-	m_toolTip = new ToolTip(m_important, this);
+	m_toolTip = new ToolTip(this);
 	disconnect(dragStartTimer, SIGNAL(timeout()),
 		this, SLOT(startDrag()));
 	
@@ -241,7 +240,7 @@ void CHTMLWidget::initConnections(){
 
 /** Reinitialize the colors, fonts etc. */
 void CHTMLWidget::refresh(){
-	qDebug("CHTMLWidget::refresh()");
+//	qDebug("CHTMLWidget::refresh()");
 	initColors();
 	initFonts();
 }
@@ -333,14 +332,12 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 			QString ref = QString::null;
 			QString mod = QString::null;
 	 		CReferenceManager::decodeReference(str,mod,ref);
-	 		if (m_important){
-	 			CSwordModuleInfo* module = m_important->swordBackend->findModuleByName(mod);
-		 		if (module) {		 			
-		 			CSwordKey* key = CSwordKey::createInstance(module);; 					
- 					key->key(ref);
- 					text = key->strippedText();
- 					delete key;
-		 		}
+			CSwordModuleInfo* module = backend()->findModuleByName(mod);
+	 		if (module) {		 			
+	 			CSwordKey* key = CSwordKey::createInstance(module);; 					
+				key->key(ref);
+				text = key->strippedText();
+				delete key;
 		 	}
 		}
 		else if (QTextDrag::decode(e,str) && !str.isEmpty())
@@ -445,8 +442,7 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
 	    onLink = c.parag()->at( c.index() )->format()->anchorHref();
 	    QUrl u( doc->context(), onLink, true );
 			m_hoverPos = e->pos();
-	    emitHighlighted( u.toString( false, false ) );
-			
+	    emitHighlighted( u.toString( false, false ) );			
 		} else {
 	    viewport()->setCursor( isReadOnly() ? arrowCursor : ibeamCursor );
 	    onLink = QString::null;
@@ -457,7 +453,7 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
 
 /** Installes a menu which will popup if the right mouse button was pressed on an anchor. */
 void CHTMLWidget::installAnchorMenu( QPopupMenu* anchorMenu ){
-	qDebug("CHTMLWidget::installAnchorMenu( QPopupMenu* anchorMenu )");
+//	qDebug("CHTMLWidget::installAnchorMenu( QPopupMenu* anchorMenu )");
 	ASSERT( anchorMenu );
 	m_anchorMenu = anchorMenu;
 }
@@ -650,7 +646,7 @@ bool CHTMLWidget::linksEnabled() const {
 /** Reimplementation from QTextView. */
 void CHTMLWidget::emitLinkClicked( const QString& link){
 	if (link.left(7) == QString::fromLatin1("mailto:")) {
-		qDebug("open mailer for %s", link.mid(7).latin1());
+//		qDebug("open mailer for %s", link.mid(7).latin1());
 		KApplication::kApplication()->invokeMailer(link.mid(7), QString::null);
 	}
 	else if (CReferenceManager::isHyperlink(link)) {
@@ -658,28 +654,12 @@ void CHTMLWidget::emitLinkClicked( const QString& link){
 		QString module;
 		CReferenceManager::Type type;			
 		CReferenceManager::decodeHyperlink(link, module, ref, type);
-		CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
-		if (m) {
-			switch (m->getType()) {
-				case CSwordModuleInfo::Lexicon:
-				{
-					CSwordLDKey key(m);
-					key.key(ref);
-					ref = key.key();
-					break;
-				}
-				case CSwordModuleInfo::Bible: //pass
-				case CSwordModuleInfo::Commentary://pass
-				default:
-				{
-					CSwordVerseKey key(m);
-					key.key(ref);
-					ref = key.key();
-					break;
-				}
-			}
+		CSwordModuleInfo* m = backend()->findModuleByName(module);
+		CSwordKey* key = CSwordKey::createInstance(m);
+		if (key) {
+			emit referenceClicked(module, key->key(ref));
+			delete key;			
 		}
-		emit referenceClicked(module, ref);
 	}
 	else {
 		QString url = link;

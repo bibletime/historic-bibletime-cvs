@@ -30,10 +30,10 @@ class CPrintItem;
 typedef QList<CPrintItem> printItemList;
 typedef QList<CStyle> styleList;
 
-struct CImportantClasses {
-	CSwordBackend* swordBackend;
- 	CPrinter* printer;
-};
+//struct CImportantClasses {
+//	CSwordBackend* swordBackend;
+// 	CPrinter* printer;
+//};
 
 /** This is used to show the selection in the searchscope dialog
  	*/

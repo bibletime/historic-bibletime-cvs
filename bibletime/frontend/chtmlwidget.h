@@ -20,6 +20,7 @@
 
 //BibleTime includes
 #include "../structdef.h"
+#include "cpointers.h"
 #include "../backend/cswordbackend.h"
 #define private public
 #include "thirdparty/qt3stuff/qtextedit.h"
@@ -47,17 +48,16 @@ class KColorButton;
 	* management and to support verse references and the like.
   * @author The BibleTime Team
   */
-class CHTMLWidget : public QTextEdit {
+class CHTMLWidget : public QTextEdit, public CPointers {
    Q_OBJECT
    friend class CHTMLDialog;
 
 public:
 	/**
 	* The constructor of the CHTMLWidget class.
-	* @param importantClasses The pointre to the CImportantClasses pointer
 	* @param useColorsAndFonts Set this to false if you don't want to use the standard colorsa dnfonts defined in the optionsdialog of BibleTime
 	*/
-	CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts = true, QWidget *parent=0, const char *name=0);
+	CHTMLWidget(const bool useColorsAndFonts = true, QWidget *parent=0, const char *name=0);
 	virtual ~CHTMLWidget();
   /**
  	* Reinitialize the colors, fonts etc.
@@ -238,16 +238,13 @@ private:
   virtual void emitLinkClicked( const QString& s);
   virtual void emitHighlighted( const QString& s);
 
-	class ToolTip : public QToolTip {
+	class ToolTip : public QToolTip, public CPointers {
 		public:
-			ToolTip(CImportantClasses* importantClasses, QWidget* parent);
+			ToolTip(QWidget* parent);
 			void maybeTip( const QPoint &pos);
-		private:
-			CImportantClasses* m_important;	
 	};
 	ToolTip* m_toolTip;
 
-	CImportantClasses* m_important;	
 	bool m_readOnly;
 	bool m_selectedWord;
 	QString m_anchor;

@@ -100,14 +100,13 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 }
 
 
-CGroupManager::CGroupManager(CImportantClasses* importantClasses, QWidget *parent, const char *name, ListCSwordModuleInfo *swordList, const bool useBookmarks, const bool saveSettings, const bool useDnD, const bool useExtendedMode, const bool useRMBMenu, const bool showHelpDialogs)
+CGroupManager::CGroupManager(QWidget *parent, const char *name, ListCSwordModuleInfo *swordList, const bool useBookmarks, const bool saveSettings, const bool useDnD, const bool useExtendedMode, const bool useRMBMenu, const bool showHelpDialogs)
 	: KListView(parent, name),
 		m_useBookmarks(useBookmarks), m_saveSettings(saveSettings),
 		m_useDragDrop(useDnD),
 		m_useExtendedMode(useExtendedMode), m_useRMBMenu(useRMBMenu),
 		m_showHelpDialogs(showHelpDialogs),
 		m_config( new KConfig("bt-groupmanager", false, false ) ),
-		m_important(importantClasses),
 	  m_menu(false),
 		m_searchDialog(0),
 		m_pressedItem(0),
@@ -162,7 +161,7 @@ void CGroupManager::setupStandardSwordTree() {
 			} \
 		}	\
 		if (!groupItem) \
-			groupItem = new CGroupManagerItem(this, name, QString::null, 0, 0, CGroupManagerItem::Group, m_important); \
+			groupItem = new CGroupManagerItem(this, name, QString::null, 0, 0, CGroupManagerItem::Group); \
 	}
 	CGroupManagerItem* bibleGroup = 0;
 	CGROUPMANAGER_GROUP(i18n("Bibles"), bibleGroup);
@@ -207,7 +206,7 @@ void CGroupManager::setupStandardSwordTree() {
 					break;
 			}
 			if (itemParent)
-				(void)new CGroupManagerItem(itemParent, "",QString::null, moduleInfo,0, CGroupManagerItem::Module, m_important);
+				(void)new CGroupManagerItem(itemParent, "",QString::null, moduleInfo,0, CGroupManagerItem::Module);
 		}
 	}
 
@@ -367,7 +366,7 @@ void CGroupManager::slotSearchSelectedModules() {
 	if (m_searchDialog) {
 		delete m_searchDialog;
 	}
-	m_searchDialog = new CSearchDialog(m_important,&searchList,0,0);		
+	m_searchDialog = new CSearchDialog(&searchList,0,0);		
 	connect(m_searchDialog, SIGNAL(finished()),
 		this, SLOT(slotDeleteSearchdialog()));
 
@@ -382,7 +381,7 @@ void CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerIte
 	searchList.append(item->moduleInfo());
 	
 	if (!m_searchDialog)
-		m_searchDialog = new CSearchDialog(m_important, 0,0);
+		m_searchDialog = new CSearchDialog( 0,0);
 	m_searchDialog->setModuleList(&searchList);
   m_searchDialog->setSearchText(text);
 	m_searchDialog->show();
@@ -403,7 +402,7 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CSwordModuleInf
 
 	myItem = 0;
   if ( parent && (parent->type() == CGroupManagerItem::Group) ) {
-   	myItem = new CGroupManagerItem(parent,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark, m_important);
+   	myItem = new CGroupManagerItem(parent,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark);
    	parent->setOpen(true);
   }
 	else
@@ -558,7 +557,7 @@ void CGroupManager::slotShowAbout(){
 
 	text += QString::fromLatin1("<b>%1:</b> %2<br><b>%3:</b> %4<br>")
 		.arg(i18n("Location"))
-		.arg(m_important->swordBackend->getModulePath(module->name()))
+		.arg(backend()->getModulePath(module->name()))
 		.arg(i18n("Language"))
 		.arg(module->module()->Lang());
 
@@ -820,7 +819,7 @@ void CGroupManager::contentsMousePressEvent( QMouseEvent* e ) {
 
 /** Reimplementation. */
 void CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e){
-	qDebug("CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e)");
+//	qDebug("CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e)");
   bool open = false;	
   if (m_pressedItem)
   	open = m_pressedItem->isOpen();
@@ -938,15 +937,15 @@ void CGroupManager::slotCreateNewGroup(){
 	
 	if (isOk) {
 		if (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) {
-			(void)new CGroupManagerItem(m_pressedItem, groupname, QString::null, 0,0, CGroupManagerItem::Group, m_important);
+			(void)new CGroupManagerItem(m_pressedItem, groupname, QString::null, 0,0, CGroupManagerItem::Group);
 			m_pressedItem->setOpen(true);
 		}
 		else if (m_pressedItem && m_pressedItem->parent() && m_pressedItem->parent()->type() == CGroupManagerItem::Group){
-			(void)new CGroupManagerItem(m_pressedItem->parent(), groupname, QString::null, 0,0, CGroupManagerItem::Group, m_important);
+			(void)new CGroupManagerItem(m_pressedItem->parent(), groupname, QString::null, 0,0, CGroupManagerItem::Group);
 			m_pressedItem->parent()->setOpen(true);
 		}
 		else {
-			(void)new CGroupManagerItem(this, groupname, QString::null, 0, 0,CGroupManagerItem::Group, m_important);
+			(void)new CGroupManagerItem(this, groupname, QString::null, 0, 0,CGroupManagerItem::Group);
 		}
 	}
 }
@@ -1040,7 +1039,7 @@ void CGroupManager::slotUnlockModule(){
 
 /** Reads in bookmarks from m_config and creates them as subitems of group. If group is 0 we create them a toplevel items. */
 const bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
-	qDebug("CGroupManager::read Sword bookmarks");
+//	qDebug("CGroupManager::read Sword bookmarks");
 	
 	//read and create group entries
 	CGroupManagerItem* 	parentItem = 0;	
@@ -1063,21 +1062,21 @@ const bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerI
 
 	while ( it_bookmarks != bookmarkList.end() && it_parents != parentList.end()
 			 		&& it_modules != bookmarkModulesList.end() ) {
-		moduleInfo = m_important->swordBackend->findModuleByName((*it_modules));
+		moduleInfo = backend()->findModuleByName((*it_modules));
 		if ( (*it_parents) == -1) {
 			if (group)
-				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), moduleInfo, 0, CGroupManagerItem::Bookmark, m_important);
+				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), moduleInfo, 0, CGroupManagerItem::Bookmark);
 			else
-				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), moduleInfo, 0, CGroupManagerItem::Bookmark, m_important);
+				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), moduleInfo, 0, CGroupManagerItem::Bookmark);
 		}
 		else {
 			parentItem = findParent( (*it_parents), group ? group : 0 );
 			if (parentItem)
-				myItem = new CGroupManagerItem(parentItem, (*it_bookmarks), (*it_modules), moduleInfo,0, CGroupManagerItem::Bookmark, m_important);
+				myItem = new CGroupManagerItem(parentItem, (*it_bookmarks), (*it_modules), moduleInfo,0, CGroupManagerItem::Bookmark);
 			else if (group)
-				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), moduleInfo,0, CGroupManagerItem::Bookmark, m_important);
+				myItem = new CGroupManagerItem(group, (*it_bookmarks), (*it_modules), moduleInfo,0, CGroupManagerItem::Bookmark);
 			else
-				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), moduleInfo,0, CGroupManagerItem::Bookmark, m_important);
+				myItem = new CGroupManagerItem(this, (*it_bookmarks), (*it_modules), moduleInfo,0, CGroupManagerItem::Bookmark);
 		}
 		if (myItem && it_descriptions != bookmarkDescriptionsList.end())
 			myItem->setDescription( *it_descriptions );
@@ -1236,7 +1235,7 @@ const bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerIte
 			continue;
 		}
 		
-		myModuleInfo = m_important->swordBackend->findModuleByName(*it_modules);
+		myModuleInfo = backend()->findModuleByName(*it_modules);
 		if (!myModuleInfo) {	//if the module was removed so we don't show it
 			++it_parents;
 			++it_modules;
@@ -1245,18 +1244,18 @@ const bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerIte
 			
 		if ( (*it_parents) == -1) {
 		 	if (group)
-				myItem = new CGroupManagerItem(group, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module, m_important);
+				myItem = new CGroupManagerItem(group, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module);
 			else
-				myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module, m_important);
+				myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module);
 		}
 		else {
 			parentItem = findParent( (*it_parents), group ? group : 0  );
 			if (parentItem)
-				myItem = new CGroupManagerItem(parentItem, QString::null, QString::null, myModuleInfo, 0,CGroupManagerItem::Module, m_important);	
+				myItem = new CGroupManagerItem(parentItem, QString::null, QString::null, myModuleInfo, 0,CGroupManagerItem::Module);	
 			else if (group)
-				myItem = new CGroupManagerItem(group, QString::null, QString::null, myModuleInfo, 0, CGroupManagerItem::Module, m_important);
+				myItem = new CGroupManagerItem(group, QString::null, QString::null, myModuleInfo, 0, CGroupManagerItem::Module);
 			else				
-				myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo, 0, CGroupManagerItem::Module, m_important);
+				myItem = new CGroupManagerItem(this, QString::null, QString::null, myModuleInfo, 0, CGroupManagerItem::Module);
 		}
 		if (myItem && oldItem)
 			myItem->moveToJustAfter(oldItem);
@@ -1325,18 +1324,18 @@ const bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* gro
 	while ( (it_groups != groupList.end()) && (it_parents != parentList.end()) ) {
 		if ( (*it_parents) == -1) {
 			if (group)
-				newItem = new CGroupManagerItem(group, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group, m_important);
+				newItem = new CGroupManagerItem(group, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group);
 			else
-				newItem = new CGroupManagerItem(this, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group, m_important);
+				newItem = new CGroupManagerItem(this, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group);
 		}
 		else {
 			parentItem = findParent( (*it_parents),group ? group : 0  );			
 			if (parentItem)
-				newItem = new CGroupManagerItem(parentItem, (*it_groups),QString::null,0,0, CGroupManagerItem::Group, m_important);
+				newItem = new CGroupManagerItem(parentItem, (*it_groups),QString::null,0,0, CGroupManagerItem::Group);
 			else if (group)
-				newItem = new CGroupManagerItem(group, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group, m_important);
+				newItem = new CGroupManagerItem(group, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group);
 			else
-				newItem = new CGroupManagerItem(this, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group, m_important);
+				newItem = new CGroupManagerItem(this, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group);
 		}
 		if ( newItem && oldItem ) {
 			if ( isChild(oldItem, newItem ) || (!newItem->parent() && !oldItem->parent()) || (newItem->parent() == oldItem->parent() )) {
@@ -1550,19 +1549,18 @@ void CGroupManager::slotReset(){
 void CGroupManager::slotPrintBookmark(){	
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() != CGroupManagerItem::Bookmark) )
 		return;
-	CPrinter*	printer = m_important->printer;	
 	qWarning("CGroupManager::slotPrintBookmark()");
 	
 	CPrintItem*	printItem = new CPrintItem();
 	printItem->setDescription( m_pressedItem->description() );
 	printItem->setModule(m_pressedItem->moduleInfo());	
 
-	CSwordKey* key = m_pressedItem->getBookmarkKey()->copy();
+	CSwordKey* key = m_pressedItem->getBookmarkKey()->copy();//deleted by CPrinter
 	if (key) {
    	key->key(m_pressedItem->getBookmarkKey()->key());
 		printItem->setStartKey( key );
   }
-	printer->addItemToQueue( printItem );
+	printer()->addItemToQueue( printItem );
 }
 
 /** Deletes the searchdialog. */

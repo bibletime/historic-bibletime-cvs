@@ -19,7 +19,7 @@
 #define CMODULECHOOSERBUTTON_H
 
 #include "../../backend/cswordmoduleinfo.h"
-#include "../../structdef.h"
+#include "../cpointers.h"
 
 #include <qtoolbutton.h>
 
@@ -29,10 +29,10 @@ class KPopupMenu;
   *@author The BibleTime team
   */
 
-class CModuleChooserButton : public QToolButton  {
+class CModuleChooserButton : public QToolButton, public CPointers  {
    Q_OBJECT
 public: 
-	CModuleChooserButton(CImportantClasses* importantClasses, CSwordModuleInfo* useModule,CSwordModuleInfo::type type, const int id, QWidget *parent = 0, const char *name = 0 );
+	CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::type type, const int id, QWidget *parent = 0, const char *name = 0 );
   CSwordModuleInfo* getModule();
   /**
   * Returns the id used for this button.
@@ -48,7 +48,6 @@ private:
 	CSwordModuleInfo::type m_moduleType;
 	CSwordModuleInfo* m_module;
 	int m_id;
-	CImportantClasses* m_important;
 	KPopupMenu* m_popup;
 
 private slots:

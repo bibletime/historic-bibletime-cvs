@@ -38,9 +38,8 @@
 #include <qevent.h>
 #include <qwhatsthis.h>
 
-CMDIArea::CMDIArea(CImportantClasses* importantClasses, QWidget *parent, const char *name )
+CMDIArea::CMDIArea(QWidget *parent, const char *name )
 	: QWorkspace(parent, name) {			
-	m_important = importantClasses;
 	m_childEvent = false;
 	m_currentPresenter = 0;
 	guiOption = Nothing;
@@ -206,7 +205,8 @@ void CMDIArea::syncCommentaries(CSwordKey* syncKey){
 /** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
 void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 //	qWarning("CMDIArea::lookupInLexicon(const QString& text, const QString& module)");
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+	CSwordModuleInfo* m = backend()->findModuleByName(module);
+	ASSERT(m);
 	if (!m)
 		return;
 	CLexiconPresenter* p = 0;
@@ -218,7 +218,6 @@ void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 	for (windows.first(); windows.current(); windows.next()) {
 		p = dynamic_cast<CLexiconPresenter*>(windows.current());
 		if (p && (m == p->getModuleList().first())) {
-//			qWarning("found");
 			found = true;
 			break;
 		}
@@ -232,7 +231,7 @@ void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 /** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
 void CMDIArea::lookupInModule(const QString& module, const QString& key){
 //	qWarning("CMDIArea::lookupInLexicon(const QString& text, const QString& module)");
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+	CSwordModuleInfo* m = backend()->findModuleByName(module);
 	if (!m)
 		return;
 	CSwordPresenter* p = 0;
@@ -244,7 +243,7 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 	for (windows.first(); windows.current(); windows.next()) {
 		p = dynamic_cast<CSwordPresenter*>(windows.current());
 		if (p && (p->getModuleList().containsRef(m))) {
-			qWarning("found");
+//			qWarning("found");
 			found = true;
 			break;
 		}
@@ -254,6 +253,7 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 	else
 		p->lookup(module, key);
 }
+
 /** Closes and deletes the presenter given as argument. */
 void CMDIArea::closePresenter(CSwordPresenter* p){
 	if (!p)

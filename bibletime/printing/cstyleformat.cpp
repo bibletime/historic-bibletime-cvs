@@ -22,7 +22,7 @@
 #include <qcolor.h>
 
 CStyleFormat::CStyleFormat() {
-	qDebug("constructor of CStyleFormat!");
+//	qDebug("constructor of CStyleFormat!");
 	m_frame = 0;
 	clearData();
 }

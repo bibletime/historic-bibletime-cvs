@@ -30,7 +30,7 @@ class CSwordVerseKey;
 class CBiblePresenter : public CSwordPresenter  {
    Q_OBJECT
 public: 	
-	CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0);
+	CBiblePresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
 	~CBiblePresenter();
   /**
   * Reimplementation from CSwordPresenter.

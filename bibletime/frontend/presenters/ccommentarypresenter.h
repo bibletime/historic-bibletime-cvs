@@ -36,7 +36,7 @@ public:
 	/**
 	* Default constructor
 	*/
-	CCommentaryPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0);
+	CCommentaryPresenter(ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
 	/**
 	* Default destructor
 	*/	

@@ -18,6 +18,8 @@
 #ifndef CMDIAREA_H
 #define CMDIAREA_H
 
+#include "cpointers.h"
+
 #define private protected
 #include <qworkspace.h>
 #undef private
@@ -27,7 +29,6 @@
 #include <qevent.h>
 
 class KPopupMenu;
-class CImportantClasses;
 class CSwordModuleInfo;
 class CSwordPresenter;
 class CSwordKey;
@@ -36,7 +37,7 @@ class CSwordKey;
 	* Enhances QWorkspace.
   * @author The BibleTime Team
   */
-class CMDIArea : public QWorkspace  {
+class CMDIArea : public QWorkspace, public CPointers  {
    Q_OBJECT
 
 public:
@@ -48,7 +49,7 @@ public:
 		autoCascade,
 		Nothing
 	};	
-	CMDIArea(CImportantClasses* importantClasses, QWidget *parent=0, const char *name = 0 );
+	CMDIArea(QWidget *parent=0, const char *name = 0 );
 	~CMDIArea();
   /**
   */
@@ -129,7 +130,6 @@ signals: // Signals
 
 private:
 	mdiOption guiOption;
-	CImportantClasses*	m_important;
 	bool m_childEvent;
 	CSwordPresenter* m_currentPresenter;
 	QString m_appCaption;

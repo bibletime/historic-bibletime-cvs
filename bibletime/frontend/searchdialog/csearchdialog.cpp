@@ -51,10 +51,9 @@
 #include <qpushbutton.h>
 #include <qcanvas.h>
 
-CSearchDialog::CSearchDialog(CImportantClasses* importantClasses, ListCSwordModuleInfo* modules, QWidget *parent, const char *name )
+CSearchDialog::CSearchDialog( ListCSwordModuleInfo* modules, QWidget *parent, const char *name )
 	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null),
-	m_important(importantClasses),
-	searcher(new CSwordModuleSearch(importantClasses)),
+	searcher(new CSwordModuleSearch()),
 	moduleList(0), old_currentProgress(0), old_overallProgress(0)			
 {
 	setIcon(MODULE_SEARCH_ICON_SMALL);
@@ -86,15 +85,15 @@ void CSearchDialog::initView() {
  	enableButton(User2,false);
 
 	moduleChooser_page 	= addVBoxPage(i18n("Choose modules"), i18n("Choose the modules for the search"));
-	m_moduleChooser			= new CSearchDialogModuleChooser(m_important, moduleChooser_page);
+	m_moduleChooser			= new CSearchDialogModuleChooser(moduleChooser_page);
 	connect(m_moduleChooser, SIGNAL(chosenModulesChanged()), SLOT(chosenModulesChanged()));
  	
 	searchText_page = addVBoxPage(i18n("Search Text"), i18n("Enter the text to search for"));
-	searchText			= new CSearchDialogText(m_important, searchText_page);
+	searchText			= new CSearchDialogText(searchText_page);
 	searchText_page->setEnabled(false);
 	
 	searchResult_page = addHBoxPage(i18n("Search Result"), i18n("The result of your search"));
-	searchResult = new CSearchDialogResult(m_important, searchResult_page);
+	searchResult = new CSearchDialogResult(searchResult_page);
 	searchResult_page->setEnabled(false);
 	
 	searchAnalysis_page = addVBoxPage(i18n("Search Analysis"), i18n("Graphical analysis of your search result"));	

@@ -41,8 +41,8 @@
 #include <kaccel.h>
 #include <kapp.h>
 
-CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
-	: CSwordPresenter(useModules, importantClasses, parent,name),
+CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
+	: CSwordPresenter(useModules, parent,name),
 	m_key( new CSwordVerseKey(m_moduleList.first()) ), m_editToolBar(0)
 {
 	m_key->key("Genesis 1:1");
@@ -67,7 +67,7 @@ void CCommentaryPresenter::initView(){
 //	m_displaySettingsButton = new CDisplaySettingsButton( &m_displayOptions, &m_moduleOptions, m_moduleList, m_mainToolBar);
 //	m_mainToolBar->insertWidget(1,m_displaySettingsButton->sizeHint().width(),m_displaySettingsButton);
 	
-	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Commentary, this );
+	m_moduleChooserBar = new CModuleChooserBar(m_moduleList, CSwordModuleInfo::Commentary, this );
 	addToolBar(m_moduleChooserBar);
 	
 	presenterSync_action =  new KToggleAction(i18n("Synchronize..."), ICON_SYNC,
@@ -81,7 +81,7 @@ void CCommentaryPresenter::initView(){
 	presenterEdit_action->setWhatsThis( WT_PRESENTER_EDIT );
 	presenterEdit_action->plug(m_mainToolBar);
 	
-	m_htmlWidget = new CHTMLWidget(m_important, true, this);
+	m_htmlWidget = new CHTMLWidget(true, this);
 	ASSERT(m_htmlWidget);
 	
 	//setup popup menu
@@ -175,8 +175,8 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
 		return;
 //	vKey->Persist(1);
 
-	m_important->swordBackend->setAllModuleOptions( m_moduleOptions );
-	m_important->swordBackend->setAllDisplayOptions( m_displayOptions );
+	backend()->setAllModuleOptions( m_moduleOptions );
+	backend()->setAllDisplayOptions( m_displayOptions );
 
   m_moduleList.first()->module()->SetKey(*vKey);
 
@@ -244,7 +244,7 @@ void CCommentaryPresenter::editComment(){
 
 /** Reimplementation. */
 void CCommentaryPresenter::lookup(const QString& module, const QString& key){
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+	CSwordModuleInfo* m = backend()->findModuleByName(module);
 	if (m && m_moduleList.containsRef(m)) {
 		if (!key.isEmpty())
 			m_key->key(key);
@@ -260,7 +260,7 @@ void CCommentaryPresenter::refresh( ){
 
 //	CSwordPresenter::refresh();	//refreshes the display settings button
 
-	m_key->setLocale((const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
+	m_key->setLocale((const char*)backend()->getCurrentBooknameLanguage().local8Bit());
 	m_keyChooser->refreshContent();
 	lookup(m_key);
 	m_htmlWidget->refresh();		
@@ -302,7 +302,7 @@ void CCommentaryPresenter::copyEntry(){
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	
 	CSwordVerseKey vKey(m);
 	vKey.key(key);
@@ -318,7 +318,7 @@ void CCommentaryPresenter::copyEntryText(){
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	
 	CSwordVerseKey vKey(m);
 	vKey.key(key);
@@ -334,12 +334,12 @@ void CCommentaryPresenter::copyEntryAndText(){
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	
 	CSwordVerseKey vKey(m);
 	vKey.key(key);
 	
-	const QString text = QString("%1\n%2").arg(vKey.key()).arg(vKey.strippedText());
+	const QString text = QString::fromLatin1("%1\n%2").arg(vKey.key()).arg(vKey.strippedText());
 	QClipboard *cb = KApplication::clipboard();
 	cb->setText(text);
 }
@@ -353,7 +353,7 @@ void CCommentaryPresenter::printEntryAndText(){
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
-	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	CSwordModuleInfo* m = backend()->findModuleByName(module);		
 	
 	CSwordVerseKey* vKey = new CSwordVerseKey(m);	//this key is deleted by the printem
 	vKey->key(key);

@@ -39,17 +39,17 @@
 
 
 CGroupManagerItem::CGroupManagerItem(CGroupManager *parent, const QString& caption,
-	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type, CImportantClasses* importantClasses )
+	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type)
 	: QListViewItem((QListView*)parent) {	
 	
-	init(caption, modulename, module_info, bookmarkKey, Type, importantClasses);
+	init(caption, modulename, module_info, bookmarkKey, Type);
 }
 
 CGroupManagerItem::CGroupManagerItem(CGroupManagerItem *parent, const QString& caption,
-	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type, CImportantClasses* importantClasses )
+	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type)
 	: QListViewItem((QListViewItem*)parent) {
 	
-	init(caption, modulename, module_info,bookmarkKey, Type, importantClasses);
+	init(caption, modulename, module_info,bookmarkKey, Type);
 }
 
 CGroupManagerItem::~CGroupManagerItem(){
@@ -81,8 +81,7 @@ void CGroupManagerItem::setOpen( bool open ){
 }
 
 /** Initializes the item Used by both constructors to share the double used source code */
-void CGroupManagerItem::init( const QString& caption, const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type, CImportantClasses* importantClasses ){
-	m_important = importantClasses;
+void CGroupManagerItem::init( const QString& caption, const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type ){
 	m_bookmarkKey = 0;
 	m_createdOwnKey = false;
 	m_moduleInfo = 0;

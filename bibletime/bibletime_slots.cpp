@@ -85,7 +85,7 @@ void BibleTime::slotFileQuit(){
 
 /** Opens the optionsdialog of BibleTime. */
 void BibleTime::slotSettingsOptions(){
-	COptionsDialog *dlg = new COptionsDialog(m_important, this, "COptionsDialog", m_keyAccel);
+	COptionsDialog *dlg = new COptionsDialog(this, "COptionsDialog", m_keyAccel);
   connect(dlg, SIGNAL(signalSettingsChanged()), SLOT(slotSettingsChanged()) );
 	
 	dlg->exec();
@@ -96,7 +96,7 @@ void BibleTime::slotSettingsOptions(){
 void BibleTime::slotSettingsChanged(){
 
  		const QString language = CBTConfig::get(CBTConfig::language);
- 		m_important->swordBackend->setBooknameLanguage(language);		
+ 		m_backend->setBooknameLanguage(language);		
  		//refresh the bookmark items in the groupmanager		
  		QListViewItemIterator it( m_groupmanager );
  		CGroupManagerItem* item = 0;
@@ -105,7 +105,7 @@ void BibleTime::slotSettingsChanged(){
  				if (item->type() == CGroupManagerItem::Bookmark) {
 						CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(item->getBookmarkKey());
 						if ( vKey ) {
-							vKey->setLocale( (const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
+							vKey->setLocale( (const char*)m_backend->getCurrentBooknameLanguage().local8Bit());
 							item->update();
 						}
  				}
@@ -269,22 +269,22 @@ void BibleTime::lastWindowClosed(){
 
 /** Opens the print dialog. */
 void BibleTime::slotFilePrint(){
-	m_important->printer->setup(this);	//opens the printer dialog
+	m_printer->setup(this);	//opens the printer dialog
 }
 
 /** Enables the "Clear printer queue" action */
 void BibleTime::slotSetPrintingStatus(){
-	m_filePrint_action->setEnabled( m_important->printer->getPrintQueue()->count()>0 );
-	m_fileClearQueue_action->setEnabled( m_important->printer->getPrintQueue()->count()>0 );
+	m_filePrint_action->setEnabled( m_printer->getPrintQueue()->count()>0 );
+	m_fileClearQueue_action->setEnabled( m_printer->getPrintQueue()->count()>0 );
 }
 
 /** Printing was started */
 void BibleTime::slotPrintingStarted(){
 	pthread_mutex_init(&progress_mutex, 0);
 
-	m_progress = new QProgressDialog(i18n("Printing..."), i18n("Abort printing"),m_important->printer->getPrintQueue()->count(),this, "progress", true);
+	m_progress = new QProgressDialog(i18n("Printing..."), i18n("Abort printing"),/*m_printer->getPrintQueue()->count()*/100,this, "progress", true);
 	connect(m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
-	m_progress->setProgress(0);		
+	m_progress->setProgress(0);
 	m_progress->show();
 }
 
@@ -302,11 +302,11 @@ void BibleTime::slotPrintingFinished(){
 }
 
 /** No descriptions */
-void BibleTime::slotPrintedEntry( /*const QString& key,*/ const int index){
+void BibleTime::slotPrintedPercent( const int percent ){
 	if (pthread_mutex_trylock(&progress_mutex) == EBUSY)
 		return;		
 	if (m_progress) {
-		m_progress->setProgress(index);
+		m_progress->setProgress(percent);
 //		m_progress->setLabelText(i18n("Printing %1").arg(key));
 	}	
 	pthread_mutex_unlock(&progress_mutex);	
@@ -314,7 +314,7 @@ void BibleTime::slotPrintedEntry( /*const QString& key,*/ const int index){
 
 /** Aborts the printing */
 void BibleTime::slotAbortPrinting(){
-	m_important->printer->abort();
+	m_printer->abort();
 	if (m_progress)
 		slotPrintingFinished();
 }
@@ -377,8 +377,9 @@ void BibleTime::saveProfile(CProfile* profile){
 	}
 	profile->save(profileWindows);
 
+//clean up memory - delete all created profile windows
 	profileWindows.setAutoDelete(true);
-	profileWindows.clear();//clean up memory
+	profileWindows.clear();
 }
 
 void BibleTime::loadProfile(int ID){
@@ -407,7 +408,7 @@ void BibleTime::loadProfile(CProfile* p){
 		QStringList usedModules = w->modules();
 		ListCSwordModuleInfo modules;
 		for ( QStringList::Iterator it = usedModules.begin(); it != usedModules.end(); ++it ) {
-			CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(*it);
+			CSwordModuleInfo* m = m_backend->findModuleByName(*it);
 			if (m)
 				modules.append(m);
 		}
@@ -416,7 +417,7 @@ void BibleTime::loadProfile(CProfile* p){
 		
 		CSwordPresenter* displayWindow = createNewSwordPresenter(modules, key);
 		if (displayWindow) {
-			qDebug("BibleTime::loadProfile: apply settings");
+//			qDebug("BibleTime::loadProfile: apply settings");
 			displayWindow->applySettings(w);
 		}
 	}	
@@ -433,7 +434,7 @@ void BibleTime::toggleFullscreen(){
 }
 
 void BibleTime::editProfiles(){
-	COptionsDialog *dlg = new COptionsDialog(m_important, this, "COptionsDialog", m_keyAccel);
+	COptionsDialog *dlg = new COptionsDialog(this, "COptionsDialog", m_keyAccel);
   connect(dlg, SIGNAL(signalSettingsChanged()), SLOT(slotSettingsChanged()) );
 	dlg->showPart(COptionsDialog::ViewProfiles);	
 	dlg->exec();

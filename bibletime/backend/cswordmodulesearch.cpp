@@ -44,12 +44,10 @@ void percentUpdateDummy(char percent, void *p) {
 	}
 };
 
-CSwordModuleSearch::CSwordModuleSearch(CImportantClasses* importantClasses) :
+CSwordModuleSearch::CSwordModuleSearch() :
 	m_isSearching(false),	m_foundItems(false),m_terminateSearch(false),
-	m_searchedText(QString::null), m_moduleList(0),	m_searchOptions(0),
-	m_important(importantClasses)
+	m_searchedText(QString::null), m_moduleList(0),	m_searchOptions(0)
 {
-	ASSERT(m_important);
 	searcher = this;
 }
 
@@ -87,9 +85,9 @@ void CSwordModuleSearch::setModules( ListCSwordModuleInfo* list ){
 /** Starts the search for the search text. */
 const bool CSwordModuleSearch::startSearch() {
 	//save old module options
-//	const CSwordBackend::moduleOptionsBool oldOptions = m_important->swordBackend->getAllModuleOptions();
+//	const CSwordBackend::moduleOptionsBool oldOptions = backend()->getAllModuleOptions();
 
-	m_important->swordBackend->setAllModuleOptions ( CBTConfig::getAllModuleOptionDefaults() );	
+	backend()->setAllModuleOptions ( CBTConfig::getAllModuleOptionDefaults() );	
 			
 	pthread_mutex_lock(&percentage_mutex);
 
@@ -123,7 +121,7 @@ const bool CSwordModuleSearch::startSearch() {
 	cms_overallProgress = 100;
 	pthread_mutex_unlock(&percentage_mutex);
 
-//	m_important->swordBackend->setAllModuleOptions( oldOptions );
+//	backend()->setAllModuleOptions( oldOptions );
 	
 	m_foundItems = foundItems;
 	m_isSearching = false;

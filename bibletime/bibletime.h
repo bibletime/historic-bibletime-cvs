@@ -249,7 +249,6 @@ protected: // Protected methods
   * The list of installed SWORD modules
   */
   ListCSwordModuleInfo* m_moduleList;
-  CImportantClasses* m_important;
 	CProfile* m_currentProfile;
 	
   bool m_initialized;
@@ -337,7 +336,7 @@ private slots: // Private slots
   /**
   * No descriptions
   */
-  void slotPrintedEntry( /*const QString& key,*/ const int index);
+  void slotPrintedPercent(const int index);
   /**
   * Printing was finished
   */
@@ -355,6 +354,8 @@ private:
 	QProgressDialog* m_progress;
 	pthread_mutex_t progress_mutex;		
 	CProfileMgr m_profileMgr;	
+	CSwordBackend* m_backend;
+	CPrinter* m_printer;
 };
 
 #endif

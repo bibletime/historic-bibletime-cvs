@@ -63,10 +63,9 @@
 //Sword includes
 #include <localemgr.h>
 
-COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *parent, const char *name, KAccel* accel )
+COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel )
 	: KDialogBase(IconList, i18n("Optionsdialog"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
-	m_important = importantClasses;
 	m_settings.keys.application.accel = accel;
 	setIconListAllVisible(true);
 
@@ -545,7 +544,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	gridLayout->setRowStretch(8,5);							
 		
  	//fill the comboboxes with the right modules
- 	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
+ 	ListCSwordModuleInfo* modules = backend()->getModuleList();
 	QString modDescript;
   for ( modules->first(); modules->current(); modules->next() ) {
 		modDescript = modules->current()->getDescription();
