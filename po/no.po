@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
-""
-"PO-Revision-Date: 2001-06-16 11:43+GMT\n"
-"Language-Team: Deutsch <de@li.org>\n"
+"PO-Revision-Date: 2001-06-16 19:22CET\n"
+"Language-Team: Norsk Bokmål <->\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.8\n"
+"Last-Translator: Espen Knut Trydal <etrydal@postkassa.no>\n"
 
 #: bibletime/rc-dummy.cpp:2
 msgid "&Main index"
@@ -186,7 +186,7 @@ msgstr "&Dagens tips"
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:95
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:282
 msgid "Display window"
-msgstr "Vis vindu"
+msgstr "Visnings vindu"
 
 #: bibletime/printing/cstyleeditordialog.cpp:43
 msgid "style editor"
@@ -290,7 +290,7 @@ msgstr "Forhåndsvis"
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:166
 #: bibletime/printing/cprinterdialog.cpp:90
 msgid "General"
-msgstr "Generell"
+msgstr "Generelt"
 
 #: bibletime/printing/cprinterdialog.cpp:90
 msgid "The general options for printing"
@@ -1150,7 +1150,7 @@ msgstr "Tøm utskriftskøen"
 
 #: bibletime/dummy.h:20
 msgid "Open the printerdialog"
-msgstr "Åpne utskriftsdialogen"
+msgstr "�ne utskriftsdialogen"
 
 #: bibletime/dummy.h:21
 msgid "Close BibleTime"
@@ -1478,7 +1478,7 @@ msgstr "Forhåndsvis"
 
 #: bibletime/dummy.h:146
 msgid "Open help"
-msgstr "Åpne hjelp"
+msgstr "�ne hjelp"
 
 #: bibletime/dummy.h:148
 msgid "The list of printers"
@@ -1543,7 +1543,7 @@ msgstr "Høyre ramme"
 
 #: bibletime/dummy.h:168
 msgid "Upper border"
-msgstr "Øvre ramme"
+msgstr "�re ramme"
 
 #: bibletime/dummy.h:169
 msgid "Lower border"
@@ -1580,7 +1580,7 @@ msgid ""
 "Open the printerdialog of BibleTime where you can edit the printing queue "
 "and assign styles to the items."
 msgstr ""
-"Åpne utskriftsdialogen til BibleTime hvor du kan redigere utskriftskøen og "
+"�ne utskriftsdialogen til BibleTime hvor du kan redigere utskriftskøen og "
 "velge stil for elementene."
 
 #: bibletime/dummy.h:203
@@ -1591,7 +1591,7 @@ msgstr "Lukk BibleTime og lagre innstillingene."
 # Should "search text" be just "search" or
 # "search after text"?
 msgid "Open the search dialog to search text in one or more modules."
-msgstr "Åpne søkedialogen for å søke etter tekst i en eller flere moduler."
+msgstr "�ne søkedialogen for å søke etter tekst i en eller flere moduler."
 
 #: bibletime/dummy.h:206
 # Should the comma in ", too" be erased?
@@ -1657,15 +1657,15 @@ msgstr "Lukk alle åpne vinduer"
 
 #: bibletime/dummy.h:220
 msgid "Open a dialog where you can edit the toolbar of BibleTime."
-msgstr "Åpne en dialog der du kan redigere verktøylinjen til BibleTime."
+msgstr "�ne en dialog der du kan redigere verktøylinjen til BibleTime."
 
 #: bibletime/dummy.h:221
 msgid "Open BibleTime's optionsdialog where you can set most of the preferences."
-msgstr "Åpne BibleTImes alternativdialog der du kan sette de fleste innstillingene."
+msgstr "�ne BibleTImes alternativdialog der du kan sette de fleste innstillingene."
 
 #: bibletime/dummy.h:223
 msgid "Open KDE's helpbrowser with BibleTime's handbook."
-msgstr "Åpne KDEs hjelpebehandler med BibleTimes håndbok."
+msgstr "�ne KDEs hjelpebehandler med BibleTimes håndbok."
 
 #: bibletime/dummy.h:224
 msgid ""
@@ -1740,11 +1740,11 @@ msgstr ""
 
 #: bibletime/dummy.h:239
 msgid "Open a small dialog where you can unlock the selected module."
-msgstr "Åpne en liten dialog hvor du kan låse opp den valgte modulen."
+msgstr "�ne en liten dialog hvor du kan låse opp den valgte modulen."
 
 #: bibletime/dummy.h:240
 msgid "Open a dialog to show information about the selected module."
-msgstr "Åpne en dialog som viser informasjon om den valgte modulen."
+msgstr "�ne en dialog som viser informasjon om den valgte modulen."
 
 #: bibletime/dummy.h:243
 # Grammar error? "This area contains is ..."
@@ -2084,7 +2084,7 @@ msgstr ""
 
 #: bibletime/dummy.h:326
 msgid "Open the online help of BibleTime."
-msgstr "Åpner hjelpefunksjonen til BibleTime."
+msgstr "�ner hjelpefunksjonen til BibleTime."
 
 #: bibletime/dummy.h:328
 msgid ""
