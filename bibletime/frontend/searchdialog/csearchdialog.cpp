@@ -68,7 +68,7 @@ const int LEGEND_INNER_BORDER = 5;
 const int LEGEND_DELTAY = 4;
 const int LEGEND_WIDTH = 85;
 
-CSearchDialog* m_staticDialog = 0;
+static CSearchDialog* m_staticDialog = 0;
 
 void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString& searchText, QWidget* parentDialog) {
   if (!m_staticDialog) {
