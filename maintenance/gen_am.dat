@@ -15,12 +15,12 @@
 # If you want to exclude a language, just delete it
 # from the following variable.
 
-export VERSION=1.3pre
+export VERSION=1.3
 
-#export FOREIGN_DOC_LANGUAGES="cs da de fi fr hu it nl no pl sk"
-export FOREIGN_DOC_LANGUAGES="de fr ro"
+#export FOREIGN_DOC_LANGUAGES="cs da de es fi fr hu it nl no pl sk"
+export FOREIGN_DOC_LANGUAGES="de"
 
 # This variable identifies which parts of the documentation
 # are in use.
 
-export DOC_PARTS="handbook helpdialog howto install"
+export DOC_PARTS="handbook helpdialog howto"

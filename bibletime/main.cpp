@@ -144,63 +144,57 @@ int main(int argc, char* argv[]) {
 		"info@bibletime.info"
 	);
 	
-	//we could so change this to a file reading function (including commented out people
-	//coders
-	// active developers (sorted by name)                                                                                     	
-	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "joachim@ansorgs.de", 		"joachim.ansorgs.de");
-	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend"), 	"mg.pub@gmx.net", 				"");
-  //and / or search for multiple words, other fixes and improvements
-  aboutData.addAuthor("Nikolay Igotti", I18N_NOOP("Frontend"),            "olonho@hotmail.com",     "");
-  //comitted search in default bible, opened modules, other smaller things
-  aboutData.addAuthor("Gary Sims",      I18N_NOOP("Frontend"),            "gary@garysims.co.uk",    "");
+  /***********************************************
+  *    Active developers (sorted by last name)   *
+  ************************************************/
+  // Project coordination
+	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"),"joachim@ansorgs.de","joachim.ansorgs.de");
+  // Second main developer
+	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
+  // and / or search for multiple words, other fixes and improvements
+  aboutData.addAuthor("Nikolay Igotti", I18N_NOOP("Frontend"), "olonho@hotmail.com", "");
+  // comitted search in default bible, opened modules, other smaller things
+  aboutData.addAuthor("Gary Sims", I18N_NOOP("Frontend"), "gary@garysims.co.uk", "");  
+	// artwork
+	aboutData.addAuthor("Timothy R. Butler", I18N_NOOP("Icons, startlogo, webpage"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");		
+  // documentation
+	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Documentation"), "saalbach@sybercom.net", "");		
+
+  //inactiv
 //	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), 				"mlybarge@insight.rr.com","");
 //	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
 //	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
-//	aboutData.addAuthor("Tim Brodie", 	I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
-
-	//artwork (sorted by name)
-	aboutData.addAuthor("Timothy R. Butler", I18N_NOOP("Icons, startlogo, webpage"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");
-		
-	//documentation (sorted by name)
-	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
+//	aboutData.addAuthor("Tim Brodie", 	  I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
 	
-	//translators (sorted by language)
-	aboutData.addAuthor("Michal Rovnanik",		I18N_NOOP("Translation into Czech"), 			"Michal.Rovnanik@seznam.cz", 	"");	
-	aboutData.addAuthor("Birger Langkjer", 		I18N_NOOP("Translation into Danish"), 		"birger.langkjer@image.dk", 	"");
-	aboutData.addAuthor("Kees van Veen", 			I18N_NOOP("Translation into Dutch"), 			"cvn@interchain.nl", 					"");
-//	aboutData.addAuthor("Mario Bertrand", 	  I18N_NOOP("Translation into French"), 		"mbert@tbrq.org", 						"");
-	aboutData.addAuthor("Mathias Bavay", 	  	I18N_NOOP("Translation into French"), 		"mathias.bavay@free.fr", 			"");
-	aboutData.addAuthor("Balint Sandor", 			I18N_NOOP("Translation into Hungarian"), 	"balintsa@freemail.hu", 			"");
-//	aboutData.addAuthor("Beda Szukics",				I18N_NOOP("Translation into Italian"), 		"bszukics@bluewin.ch", 				"");
-	aboutData.addAuthor("Silvio Bacchetta",		I18N_NOOP("Translation into Italian"), 		"sorgilazzaro@tiscalinet.it", "");
-	aboutData.addAuthor("Espen Trydal", 			I18N_NOOP("Translation into Norwegian"), 	"etrydal@postkassa.no", 			"");
-	aboutData.addAuthor("Benedykt P. Barszcz",I18N_NOOP("Translation into Polish"), 		"kb2qzv@box43.gnet.pl", 			"");	
-	aboutData.addAuthor("Nuno Bareto", 				I18N_NOOP("Translation into Portoguese"), "nbarr@oninet.pt", 						"");	
-//	aboutData.addAuthor("Yuriy Salimovskyy", 	I18N_NOOP("Translation into Russian"), 		"y2000@pisem.net",						"");	
-	aboutData.addAuthor("Zdeno Podobny", 			I18N_NOOP("Translation into Slovak"), 		"zdpo@post.sk", 							"");	
-	aboutData.addAuthor("Eduardo Sanchez", 		I18N_NOOP("Translation into Spanish"), 		"csanche2@calvin.edu", 				"");
+  /***********************************************
+  *        Credits (sorted by last name)         *
+  ************************************************/
+  // Bible study HowTo
+  aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible study HowTo"), "N_Cov_Church@compuserve.com", "");
+  // Language codes iso639-1, iso639-2 and SIL language codes
+  aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
 
-	//credits (sorted by name)
-	aboutData.addCredit("Bob Harman", I18N_NOOP("Bible study HowTo"), "N_Cov_Church@compuserve.com", "");
-	aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");  
-	 	
-	KCmdLineArgs::init(argc, argv, &aboutData); 	
-	KCmdLineArgs::addCmdLineOptions ( options );
+//special message so the translator get his credits in the about box, don't remove this!
+  I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name
+  I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"); //translators eMail
+
+	KCmdLineArgs::init(argc, argv, &aboutData);	
+	KCmdLineArgs::addCmdLineOptions( options );
 	
-  KApplication::disableAutoDcopRegistration();
-
 	KApplication app;
 	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics/");
 
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
 	// A binary option (on / off)
-	if (args->isSet("debug"))
+	if (args->isSet("debug")) {
 		showDebugMessages = true;
+  }
 
 	if (kapp->isRestored()){
-		for(int n = 1; KMainWindow::canBeRestored(n); n++)
+		for(int n = 1; KMainWindow::canBeRestored(n); n++) {
 			(new BibleTime)->restore(n);
+    }
  	}
 	else {
 		const bool showIt = CBTConfig::get(CBTConfig::logo);	
@@ -232,17 +226,17 @@ int main(int argc, char* argv[]) {
 
         
 		//The tip of the day
-		if (CBTConfig::get(CBTConfig::tips))
+		if (CBTConfig::get(CBTConfig::tips)) {
 			bibletime->slotHelpTipOfDay();
-		bibletime->show();		
+    };
+    bibletime->show();		
 
     // restore the workspace
     bibletime->processCommandline();
-
-    		
-		const int ret = app.exec();
+ 
+    const int ret = app.exec();
     delete bibletime;
-		CPointers::deleteBackend();
+    CPointers::deleteBackend();
     //we can set this safely now because we close now (hopyfully without crash)
     CBTConfig::set(CBTConfig::crashedLastTime, false);
     CBTConfig::set(CBTConfig::crashedTwoTimes, false);    

@@ -257,8 +257,9 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
       m_dndData.mousePressed = false;
 
       d->drag();
+      //khtmlMouseMoveEvent would start it's own drag!
 //      KHTMLPart::khtmlMouseMoveEvent(e);      
-      return;
+//      return;
     }
   }
 
@@ -304,8 +305,6 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& /*p*/ ){
 // ---------------------
 
 CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWidget* parent) : KHTMLView(displayWidget, parent), m_display(displayWidget) {
-//  qWarning("constructor of CHTMLReadDisplayView");
-  Q_ASSERT(parent);
   viewport()->setAcceptDrops(true);
   setMarginWidth(4);
   setMarginHeight(4);
