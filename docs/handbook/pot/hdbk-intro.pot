@@ -74,62 +74,72 @@ msgstr ""
 msgid "Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's Greek Bible Dictionary, Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Topical Bible."
 msgstr ""
 
-#: index.docbook:71
+#: index.docbook:23
+#, no-c-format
+msgid "Books"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid "Books available include Imitation of Christ, Enuma Elish, and Josephus, the complete works"
+msgstr ""
+
+#: index.docbook:77
 #, no-c-format
 msgid "Additional documents are being added to the &sword; repository frequently, so visit often."
 msgstr ""
 
-#: index.docbook:73
+#: index.docbook:79
 #, no-c-format
 msgid "Changes"
 msgstr ""
 
-#: index.docbook:74
+#: index.docbook:80
 #, no-c-format
 msgid "Please read the file Changelog of the sourcecode package if you are interested in more detailed changes."
 msgstr ""
 
-#: index.docbook:78
+#: index.docbook:84
 #, no-c-format
 msgid "A listing of the features included in the current package can be found in the sourcecode at <ulink url=\"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bibletime/bibletime/ChangeLog\"> CVS log for <filename>bibletime/bibletime/ChangeLog</filename></ulink>"
 msgstr ""
 
-#: index.docbook:84
+#: index.docbook:90
 #, no-c-format
 msgid "ToDo"
 msgstr ""
 
-#: index.docbook:85
+#: index.docbook:91
 #, no-c-format
 msgid "Very much!"
 msgstr ""
 
-#: index.docbook:88
+#: index.docbook:94
 #, no-c-format
 msgid "We have lots to do. Because we are a very small team of active developers it's very hard to get reasonable results in a short time. If you are interested in helping the &bibletime; team, please contact us at <ulink url=\"http://sourceforge.net/pm/?group_id=954\">Sourceforge &bibletime; home page</ulink>. Information can also be found at <ulink url=\"http://www.bibletime.de\">the &bibletime; homepage</ulink>."
 msgstr ""
 
-#: index.docbook:96
+#: index.docbook:102
 #, no-c-format
 msgid "The &bibletime; project needs programmers / developers, reviewers, testers, and prayer warriors. If you can help with any of these tasks or think up another, please join us. Without your help, &bibletime; will develop very very slow and it will take a very long time until you get a full-featured Bible study tool."
 msgstr ""
 
-#: index.docbook:103
+#: index.docbook:109
 #, no-c-format
 msgid "Motivation"
 msgstr ""
 
-#: index.docbook:104
+#: index.docbook:110
 #, no-c-format
 msgid "Our desire is to serve God, and to do our part to help others grow in their relationship with Him. We have found a gaping hole, in that there has been a total lack of user-friendly Bible-study software available for &Linux;-based computers. We have developed &bibletime; to fill that void. We have striven to make this a powerful, quality program, and still make it simple and intuitive to operate. It is our desire that God be praised, as He is the source of all good things."
 msgstr ""
 
-#: index.docbook:115
+#: index.docbook:121
 #, no-c-format
 msgid "Every good thing given and every perfect gift is from above, coming down from the Father of lights, with whom there is no variation or shifting shadow."
 msgstr ""
 
-#: index.docbook:120
+#: index.docbook:126
 #, no-c-format
 msgid "God bless you as you use this program, and may He be glorified by the work of our hands!"
 msgstr ""
