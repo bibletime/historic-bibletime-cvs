@@ -76,7 +76,6 @@ KDE_CREATE_SUBDIRSLIST
 AC_OUTPUT( \
 ./Makefile \
 admin/Makefile \
-bibleinstaller/Makefile \
 bibletime/Makefile \
 bibletime/backend/Makefile \
 bibletime/frontend/Makefile \

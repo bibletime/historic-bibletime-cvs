@@ -124,8 +124,10 @@ void CBibleReadWindow::initView(){
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(1,displaySettingsButton()->size().width(),displaySettingsButton());
 
-  CTransliterationButton* trb = new CTransliterationButton(mainToolBar());
-	mainToolBar()->insertWidget(2,trb->size().width(),trb);
+	if (backend()->isICU){
+	  CTransliterationButton* trb = new CTransliterationButton(mainToolBar());
+		mainToolBar()->insertWidget(2,trb->size().width(),trb);
+	}
 }
 
 /** Reimplementation. */
