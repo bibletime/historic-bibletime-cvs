@@ -195,6 +195,7 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 	/** Save the settings using a XML file
 	*	Save the CProfileWindow objects using a XML file which name is in m_filename
 	*/
+	bool ret = false;
   QDomDocument doc("DOC");
   doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
 
@@ -268,10 +269,13 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 	}		
 	
 	QFile file(m_filename);
-	file.open(IO_WriteOnly);
+	if(file.open(IO_WriteOnly))
+		ret = true;
 	QTextStream t( &file );        // use a text stream
 	t << doc.toString();
 	file.close();
+
+	return ret;
 }
 
 /** Saves the profile to the file given in the constructor. */

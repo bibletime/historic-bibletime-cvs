@@ -43,89 +43,95 @@ const bool CExportManager::saveKey( CSwordKey* key, const bool withText ) {
 
 /** Saves the key to disk. */
 const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
+	bool ret = false;
+	
 	qDebug("CExportManager::saveKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
 	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
-	if (file.isEmpty())
-		return false;
+	if (! file.isEmpty()) {
+		QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );	
+		progress.setProgress(0);	
+		progress.setMinimumDuration(0);	
+		progress.show();
 	
-	QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );	
-	progress.setProgress(0);	
-	progress.setMinimumDuration(0);	
-	progress.show();
+		util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
 	
-	util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
-	
-	QString text;	
-	int index = 0;
-	*list = TOP;
-	while (!list->Error() && !progress.wasCancelled()) {
-		key->key((const char*)(*list));
-		if (!key)
-			break;
-		progress.setProgress(index++);
-		KApplication::kApplication()->processEvents(10); //do not lock the GUI!																		
+		QString text;	
+		int index = 0;
+		*list = TOP;
+		while (!list->Error() && !progress.wasCancelled()) {
+			key->key((const char*)(*list));
+			if (!key)
+				break;
+			progress.setProgress(index++);
+			KApplication::kApplication()->processEvents(10); //do not lock the GUI!																		
 		
-		if (withText)
-			text += QString::fromLatin1("%1:\n\t%2\n").arg( key->key() ).arg( key->strippedText() );
-		else
-			text += key->key() + "\n";
+			if (withText)
+				text += QString::fromLatin1("%1:\n\t%2\n").arg( key->key() ).arg( key->strippedText() );
+			else
+				text += key->key() + "\n";
 
-		(*list)++;
+			(*list)++;
+			}
+		//	delete key;
+	
+		if (! progress.wasCancelled()) {
+			progress.setProgress(index);	
+			CToolClass::savePlainFile(file, text);
+			ret = true;
+		}
 	}
-//	delete key;
 	
-	if (progress.wasCancelled())
-		return false;
-		
-	progress.setProgress(index);	
-	CToolClass::savePlainFile(file, text);
-	
-	return true;
+		return ret;
 }
 
 const bool CExportManager::saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
+	bool ret = false;
 	qDebug("CExportManager::saveKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
 	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
-	if (file.isEmpty())
-		return false;
+	if (! file.isEmpty()){
 	
-	QProgressDialog progress( label, i18n("Cancel"), list.count(), 0,"progress", true );	
-	progress.setProgress(0);	
-	progress.setMinimumDuration(0);	
-	progress.show();
+		QProgressDialog progress( label, i18n("Cancel"), list.count(), 0,"progress", true );	
+		progress.setProgress(0);	
+		progress.setMinimumDuration(0);	
+		progress.show();
 
-	QString text;	
-	CSwordKey* key = 0;
-	for (list.first(); list.current(); list.next()) {
-		key = list.current();
-		if (!key)
-			break;
-		progress.setProgress(list.at());
-		KApplication::kApplication()->processEvents(10); //do not lock the GUI!																		
+		QString text;	
+		CSwordKey* key = 0;
+		for (list.first(); list.current(); list.next()) {
+			key = list.current();
+			if (!key)
+				break;
+			progress.setProgress(list.at());
+			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
+			
+			if (withText)
+				text += QString::fromLatin1("%1:\n\t%2\n").arg( key->key() ).arg( key->strippedText() );
+			else
+				text += key->key() + "\n";
+		}
 		
-		if (withText)
-			text += QString::fromLatin1("%1:\n\t%2\n").arg( key->key() ).arg( key->strippedText() );
-		else
-			text += key->key() + "\n";
+		if (!progress.wasCancelled()) {
+			progress.setProgress(list.count());	
+			CToolClass::savePlainFile(file, text);
+		}
 	}
-		
-	if (progress.wasCancelled())
-		return false;
-	progress.setProgress(list.count());	
-	CToolClass::savePlainFile(file, text);
 	
-	return true;
+	return ret;
 }
 
 
 ///////// copy functions
 const bool CExportManager::copyKey( CSwordKey* key, const bool withText ) {
+	bool ret = true;
+	
 	qDebug("CExportManager::copyKey( CSwordKey* key, const bool withText )");
 	ASSERT(key);	
 
 	QString text = (withText) ? QString::fromLatin1("%1:\n\t%2").arg(key->key()).arg(key->strippedText()) : key->key()+"\n";
-	
-	KApplication::clipboard()->setText(text);	
+
+	KApplication::clipboard()->setText(text);
+
+	return ret;
 }
 
 const bool CExportManager::copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
