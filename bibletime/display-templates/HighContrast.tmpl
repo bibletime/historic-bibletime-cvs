@@ -36,13 +36,16 @@
 a {
 	text-decoration:none;
 	font-weight:normal;
-	color: #0000FF;
+	/*color: #0000FF;*/
+	color: #F98100;
+	color:inherit;
 	padding:1px;
 }
 a:hover {
 	background-color:#F6FFF7;
 	color: #FF0000;
 	padding:1px;
+	text-decoration:underline;
 }
 
 /* Settings which apply to all entries in all modules */
@@ -67,8 +70,10 @@ div.entry, td.entry {
 	padding: 2px;
 	vertical-align: top;
 	text-align: justify;
-	font-weight: bold;
-	background-color:transparent;
+	/*font-weight: bolder;*/
+	/*background-color:transparent;*/
+	color:white;
+	background-color:black;
 }
 .currententry[dir=rtl] {
 	text-align: right;
@@ -105,11 +110,12 @@ td.entry + td.entry {
 	font-size:80%;
 	padding:0 1px 0 0;
 	/*vertical-align:top;*/
+	color: #F98100;
 }
 .entry[dir=rtl] .entryname, .currententry[dir=rtl] .entryname {
 	padding:0 0 0 1px;
 	font-size:60%;
-/* 	vertical-align:top; */
+	/*vertical-align:top; */
 }
 .entryname a, #printer .entryname  {
 	vertical-align: top;
@@ -129,14 +135,17 @@ td.entry + td.entry {
 .footnote {
 	vertical-align:top;
 	font-weight:bold;
-	color:black;
-	color:blue;
+	/*color:black;*/
+	/*color:blue;*/
+	/*color: #00B7FF;*/ /*This one is kind of blinding on white*/
+	color: #F98100;
 	font-size:80%;
 }
 .crossreference {
 	font-size: 80%;
 	/*vertical-align:middle;*/
-	color: blue;
+	/*color: blue;*/
+	color: #F98100;
 }
 
 .sectiontitle {
@@ -164,7 +173,11 @@ td.entry + td.entry {
 .foreign {
 }
 .jesuswords {
-	color:red;
+	/*color:red;*/
+	/*color: #7500AC;*/
+	color: #F98100;
+	/*font-style:italic;*/
+	font-weight: bold;
 	font-size:0.9em;
 }
 
