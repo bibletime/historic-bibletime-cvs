@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-04-23 19:22+0200\n"
+"POT-Creation-Date: 2001-04-23 21:53+0200\n"
 "PO-Revision-Date: Sonntag, 16. Juli 2000 00:00\n"
 "Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -45,7 +45,7 @@ msgstr "Coordinatore del progetto, frontend, backend"
 
 #: bibletime/main.cpp:85
 #, fuzzy
-msgid "frontend and misc things"
+msgid "Frontend, backend, misc things"
 msgstr "Drag&Drop, varie"
 
 #: bibletime/main.cpp:88
@@ -53,55 +53,57 @@ msgid "Handbook"
 msgstr ""
 
 #: bibletime/main.cpp:91
-msgid "Translation to Polish"
+msgid "Translation into Hungarian"
 msgstr ""
 
-#: bibletime/main.cpp:92
-msgid "Translation to French"
+#: bibletime/main.cpp:92 bibletime/main.cpp:101
+msgid "Translation into Italian"
+msgstr ""
+
+#: bibletime/main.cpp:93
+msgid "Translation into Polish"
 msgstr ""
 
 #: bibletime/main.cpp:94
-msgid "Translation to Danish"
+msgid "Translation into Danish"
 msgstr ""
 
 #: bibletime/main.cpp:95
-msgid "Translation to Czech"
+msgid "Translation into Norwegian"
 msgstr ""
 
 #: bibletime/main.cpp:96
-msgid "Translation to Hungarian"
+msgid "Translation into Brazilian Portoguese"
 msgstr ""
 
 #: bibletime/main.cpp:97
-msgid "Translation to Slovak"
+msgid "Translation into Dutch"
 msgstr ""
 
 #: bibletime/main.cpp:98
-msgid "Translation to Norwegian"
+msgid "Translation into French"
 msgstr ""
 
 #: bibletime/main.cpp:99
-msgid "Translation to Dutch"
+msgid "Translation into Czech"
 msgstr ""
 
-#: bibletime/main.cpp:102
-msgid ""
-"Leader of the SWORD project.\n"
-"Lots of help with the SWORD API!"
+#: bibletime/main.cpp:100 bibletime/main.cpp:102
+msgid "Translation into Portoguese"
 msgstr ""
 
 #: bibletime/main.cpp:103
-msgid "Sponsor of www.bibletime.de!"
+msgid "Translation into Slovak"
 msgstr ""
 
-#: bibletime/main.cpp:105
-#, fuzzy
-msgid "backend"
-msgstr "backend"
-
 #: bibletime/main.cpp:106
-msgid "optionsdialog"
-msgstr "opzioni"
+msgid "Bible study HowTo"
+msgstr ""
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:56
+#: bibletime/main.cpp:107
+msgid "Optionsdialog"
+msgstr "Opzioni"
 
 #: bibletime/main.cpp:108
 #, fuzzy
@@ -109,7 +111,23 @@ msgid "handbook"
 msgstr "Cambia questo segnalibro"
 
 #: bibletime/main.cpp:109
-msgid "Bible study HowTo"
+#, fuzzy
+msgid "Martin Luther startup logo"
+msgstr "Mostra logo iniziale"
+
+#: bibletime/main.cpp:110
+msgid "Sponsor of www.bibletime.de"
+msgstr ""
+
+#: bibletime/main.cpp:111
+#, fuzzy
+msgid "backend"
+msgstr "backend"
+
+#: bibletime/main.cpp:112
+msgid ""
+"Leader of the SWORD project.\n"
+"Lots of help with the SWORD API!"
 msgstr ""
 
 #: bibletime/bibletime_init.cpp:72
@@ -448,10 +466,6 @@ msgstr ""
 #: bibletime/frontend/chtmldialog.cpp:35 bibletime/frontend/chtmldialog.cpp:43
 msgid "BibleTime - Help window"
 msgstr ""
-
-#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:56
-msgid "Optionsdialog"
-msgstr "Opzioni"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:76
 msgid "Accelerators"
@@ -846,12 +860,13 @@ msgstr "Elimina oggetti selezionati"
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:84
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:133
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:392
-msgid "Copy into clipboard..."
+msgid "Copy..."
 msgstr ""
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:90
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:85
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:393
 msgid "Add to printing queue..."
 msgstr ""
 
@@ -1135,7 +1150,6 @@ msgid "Sesult with text"
 msgstr "Risultato della ricerca"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:393
 #, fuzzy
 msgid "Print..."
 msgstr "Stampante"
@@ -1454,7 +1468,7 @@ msgid "Save as HTML"
 msgstr "Salva il testo come HTML ..."
 
 #: bibletime/dummy.h:96
-msgid "Copy into clipboard"
+msgid "Copy to clipboard"
 msgstr ""
 
 #: bibletime/dummy.h:100
@@ -2007,7 +2021,7 @@ msgid "Select all text."
 msgstr "Chiudi tutto"
 
 #: bibletime/dummy.h:277
-msgid "Copy the displayed text into the clipboard."
+msgid "Copy the displayed text to the clipboard."
 msgstr ""
 
 #: bibletime/dummy.h:280
@@ -2297,6 +2311,9 @@ msgstr "Per favore, modifica il nome del gruppo!"
 msgid ""
 "Create a new printing style.<BR>The new style will be added to the list."
 msgstr ""
+
+#~ msgid "optionsdialog"
+#~ msgstr "opzioni"
 
 #, fuzzy
 #~ msgid "An easy to use but powerful Bible study tool"

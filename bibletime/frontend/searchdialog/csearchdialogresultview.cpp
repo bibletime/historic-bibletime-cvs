@@ -130,7 +130,7 @@ void CSearchDialogResultModuleView::initView(){
 	m_savePopup->insertItem(i18n("Search result"), this, SLOT(slotSaveSearchResult()));
 	m_savePopup->insertItem(i18n("Sesult with text"), this, SLOT(slotSaveSearchResultWithKeytext()));
 	
-	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy into clipboard..."), 	m_copyPopup);
+	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy..."), 	m_copyPopup);
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Print..."), m_printPopup);
 	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup);
 }
@@ -196,7 +196,7 @@ void CSearchDialogResultModuleView::slotCopySearchResult(){
 	}
 
 	ListKey searchResult = m_currentModule->getSearchResult();
-	QProgressDialog progress( "Copying search result into clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
+	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
 		
 	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( QString::fromLocal8Bit(m_currentModule->module()->Name()) );
@@ -265,7 +265,7 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 	}
 
 	ListKey searchResult = m_currentModule->getSearchResult();
-	QProgressDialog progress( "Copying search result into clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
+	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
 	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( QString::fromLocal8Bit(m_currentModule->module()->Name()) );
 	text.append( QString("Entries found: %1\n\n").arg(searchResult.Count()) );	
@@ -389,8 +389,8 @@ void CSearchDialogResultView::initView(){
 	m_savePopup->insertItem(i18n("Key"), this, SLOT(slotSaveCurrent()));
 	m_savePopup->insertItem(i18n("Key with text"), this, SLOT(slotSaveCurrentWithKeytext()));
 	
-	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy into clipboard..."), 	m_copyPopup);
-	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Print..."), m_printPopup);
+	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy..."), 	m_copyPopup);
+	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup);
 	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup);
 		
 	

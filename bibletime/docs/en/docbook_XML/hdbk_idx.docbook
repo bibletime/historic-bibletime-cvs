@@ -1,4 +1,3 @@
-
 <book lang="EN" ID="hdbk_idx">
 
 <bookinfo>
@@ -40,21 +39,18 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 <authorgroup>
 <author>
-<firstname>Jeffrey</firstname>
-<surname>Hoyt</surname>
-</author>
-<author>
-<firstname>Joachim</firstname>
-<surname>Ansorg</surname>
-</author>
-<author>
 <firstname>Fred</firstname>
 <surname>Saalbach</surname>
+</author>
+
+<author>
+<firstname>Jeffrey</firstname>
+<surname>Hoyt</surname>
 </author>
 </authorgroup>
 
 <date>14 April 2001</date>
-<releaseinfo>1.0 pre</releaseinfo>
+<releaseinfo>1.0</releaseinfo>
 
 <abstract>
 <title>Abstract</title>

@@ -93,7 +93,7 @@
 //HTML widget related #defines
 #define TT_HTML_SAVE_AS i18n("Save as HTML")
 #define TT_HTML_SELECT_ALL i18n("Select all")
-#define TT_HTML_COPY i18n("Copy into clipboard")
+#define TT_HTML_COPY i18n("Copy to clipboard")
 
 //searchdialog related #defines, SD means searchdialog; mc==Module chooser
 #define TT_SD_MODULECHOOSER i18n("Choose the modules for the search")

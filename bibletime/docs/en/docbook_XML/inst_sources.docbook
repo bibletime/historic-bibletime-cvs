@@ -1,18 +1,18 @@
 <chapter id="inst_sources"><title>Installing Bibletime Sources</title>
 <para>
 This chapter describes how sources are compiled.  These steps apply for both the
-development version and the released version of bibletime and sword. </para>
-<section id="inst_sources_sword"><title>Installation of SWORD and the Sword
+development version and the released version of bibletime and Sword. </para>
+<section id="inst_sources_sword"><title>Installation of Sword and the Sword
 Modules </title>
 <para>
 Sword and Sword modules are the "book library" for Bibletime.
 Please see the page download for further information about downloading BibleTime.
 </para>
 <para>
-Have a look at the requirements page to obtain SWORD 1.5. See page links to
-obtain SWORD's modules.</para>
+Have a look at the requirements page to obtain Sword 1.5. See page links to
+obtain Sword's modules.</para>
 
-<section id="inst_sources_sword_install"><title>Installation of SWORD 1.51a
+<section id="inst_sources_sword_install"><title>Installation of Sword 1.52
 </title>
 
 <para>
@@ -21,17 +21,17 @@ version, your sources will already be unpacked, so skip this step) to a
 temporary directory. Do something like this: </para> <screen>
 mkdir /tmp
 cd /tmp
-tar -xzf sword-1.5.1a.tar.gz
-cd /tmp/sword-1.5.1a
+tar -xzf sword-1.52.tar.gz
+cd /tmp/sword-1.52
 </screen>
 
 
 <para>
 (the tar file will have unpacked into a directory named something similar to
-sword-1.5.1a) </para>
+sword-1.52) </para>
 
 <para>
-Before you try to compile sword, you may need to modify
+Before you try to compile Sword, you may need to modify
 <filename> Makefile.cfg</filename> (it is located in the top directory of the
 unpacked sources).  The customized section of <filename>Makefile.cfg</filename>
 is marked, do not try to change parts of the file outside of the area marked
@@ -57,14 +57,12 @@ you will be using.</entry> </row>
 <row>
 <entry># shared library-</entry>
 <entry>Set to 'yes'.  this causes the shared library
-<filename>libsord.so</filename> to be generated.  An entry must be placed into
+<filename>libsword.so</filename> to be generated.  An entry must be placed into
 the file <filename>/etc/ld.so.conf</filename> that points to libsword.
-<filename>/usr/local/sword/lib</filename> is typical.  The shared
-library is necessary for bibletime to work, but sword will compile without
-errors if you don't do this.  Be careful here. </entry> </row>
+<filename>/usr/local/sword/lib</filename> is typical.</entry> </row>
 <row>
 <entry># VCL library-</entry>
-<entry>Use the default 'no' unless you are using the sword install
+<entry>Use the default 'no' unless you are using the Sword install
 manager, then use 'yes'.</entry> </row> <row>
 <entry># Debugging options etc...</entry>
 <entry>The defaults should work.</entry>
@@ -106,16 +104,16 @@ indicates that you are missing a package.  For example:</para>
 <screen>
 bash-2.03# make
 make just-pre nodeps=yes
-make[1]: Entering directory `/bible/sword-1.5.1a'
+make[1]: Entering directory `/tmp/sword-1.52'
 make -C src just-pre
 .
 .
 .
-make[1]: Entering directory `/bible/sword-1.5.1a/include'
+make[1]: Entering directory `/tmp/sword-1.52/include'
 make[1]: Nothing to be done for `just-targets'.
-make[1]: Leaving directory `/bible/sword-1.5.1a/include'
+make[1]: Leaving directory `/tmp/sword-1.52/include'
 make -C apps/X11/VCL just-targets
-make[1]: Entering directory `/bible/sword-1.5.1a/apps/X11/VCL'
+make[1]: Entering directory `/tmp/sword-1.52/apps/X11/VCL'
 gcc -I../../../include/ -D_GNU_SOURCE -I. `gtk-config --cflags` -static -pipe -Wall -Wno-format
 -fomit-frame-pointer -ggdb -O0 -m486 -c -o TWinControl.o TWinControl.cpp
 <Emphasis>/bin/sh: gtk-config: command not found </Emphasis>
@@ -127,7 +125,7 @@ TWinControl.h:281: syntax error before `*'
 TWinControl.h:284: parse error before `*'
 TWinControl.cpp:10: parse error before `*'
 make[1]: *** [TWinControl.o] Error 1
-make[1]: Leaving directory `/bible/sword-1.5.1a/apps/X11/VCL'
+make[1]: Leaving directory `/tmp/sword-1.52/apps/X11/VCL'
 make: *** [apps/X11/VCL/targets] Error 2
 bash-2.03#
 </screen>
@@ -139,7 +137,7 @@ allow make to run to completion without errors.  Often missing packages
 will be found on your installation disks, or on your distribution's website.
 Once <command>make</command> runs to completion without errors, then
 <command>make install</command>. If it still doesn't work, edit the
-file <filename>Makefile.cfg</filename> in the top directory of the SWORD sources
+file <filename>Makefile.cfg</filename> in the top directory of the Sword sources
 and change the line "<command>buildvcl := yes</command>" to "<command>buildvcl
 := no</command>" and try again.
 </para>
@@ -147,21 +145,20 @@ and change the line "<command>buildvcl := yes</command>" to "<command>buildvcl
 <section id="inst_sources_sword_modules">
 <title>Installation of modules</title>
 
-<section id="inst_sources_sword_modules_dir"><title>Choose a SWORD
-directory</title> <para>
-SWORD currently supports 3 types of modules: Bibles, dictionaries and
+<section id="inst_sources_sword_modules_dir"><title>Choose a Sword directory</title> <para>
+Sword currently supports 3 types of modules: Bibles, dictionaries and
 commentaries. You have to install the files of the modules their own directory.
-You must decide which directory will be your SWORD directory. If you installed
-the libs and includes in an extra directory use that directory as your SWORD
+You must decide which directory will be your Sword directory. If you installed
+the libs and includes in an extra directory use that directory as your Sword
 directory (e.g. <filename>/usr/local/sword/</filename>). If you installed the
 library and include files in a common place like
-<filename>/usr/local/</filename> please select another location for your SWORD
+<filename>/usr/local/</filename> please select another location for your Sword
 directory. </para>
 </section>
 <section id="inst_sources_sword_modules_upack"><title>
 Unpack the downloaded package</title>
 <para>
-First you have to unpack the downloaded package. On the download page of SWORD
+First you have to unpack the downloaded package. On the download page of Sword
 you can choose if you want to get a Windows or RAW package. If you have a "Linux
 only" box please get the RAW packages. But if you accidentally got a Windows
 self extracting executable try using WINE to extract the files. Perhaps you have
@@ -171,12 +168,12 @@ to change the filename of "_INSTALL.1" to "_install.1" to get the setup running.
 <section id="inst_sources_sword_modules_intig"><title>
 Integrating modules</title>
 <para>
-Create the directory <filename>mods.d</filename> inside of your SWORD directory. 
+Create the directory <filename>mods.d</filename> inside of your Sword directory.
 Please copy the file <filename>[modulename].conf</filename> into the
 <filename>mods.d</filename> directory. the <filename>.conf</filename> file is
 normally inside the unpacked module files. Now move the whole dir "modules"
-which contains your unpacked module data files to the SWORD directory.  In the
-example <filename>/usr/local/sword</filename> is the SWORD directory.</para>
+which contains your unpacked module data files to the Sword directory.  In the
+example <filename>/usr/local/sword</filename> is the Sword directory.</para>
 <para> Directory Structure looks like this:
 </para>
 <screen>
@@ -188,9 +185,9 @@ example <filename>/usr/local/sword</filename> is the SWORD directory.</para>
 </screen>
 </section>
 <section id="inst_sources_sword_modules_config">
-<title>The SWORD configuration file</title>
+<title>The Sword configuration file</title>
 <para>
-A SWORD based app has to know where the modules are located. You need a small
+A Sword based app has to know where the modules are located. You need a small
 configuration file in <filename>/etc</filename> to do this. Create the file
 <filename>/etc/sword.conf</filename>.The file has to contain only the two
 following lines: </para>
@@ -199,7 +196,7 @@ following lines: </para>
 DataPath=/usr/local/sword
 </screen>
 <para>If you select a location other than <filename>/usr/local/sword</filename>
-in the example above for your path to the SWORD directory, point the data path
+in the example above for your path to the Sword directory, point the data path
 to your selected Sword directory.</para>
 <para>Now start BibleTime and enjoy ;-)
 If you have problems with the installation of the modules please read the "FAQ
@@ -226,14 +223,14 @@ Now open a terminal and execute the following commands to compile the
 sources.
 </para>
 <screen>
-$ su
-$ password *****
-$ cd ./Develop/bibletime-2         # Path of source code
-$ export QTDIR=/usr/lib/qt-2.2.2   # QT 2.2.x source directory>
+$ cd /tmp/bibletime         # Path of source code
+$ export QTDIR=/usr/lib/qt2   # QT 2.2.x directory (where QT 2.2 orlater is installed)
 $ export KDEDIR=/usr/local/kde2    # KDE2 directory (where KDE2 is installed)
-$ make -f Makefile.cvs             # configure for CVS version
+$ make -f Makefile.cvs             # only necessary for CVS version
 $ ./configure                      # create makefiles
 $ make                             # compile BibleTime
+$ su
+$ password *****
 $ make install                     # install BibleTime
 </screen>
 <para>Path to QTDIR and KDE2 may be different on your computer.</para>

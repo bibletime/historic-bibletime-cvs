@@ -6,19 +6,20 @@
 
 <authorgroup>
 
+
+<author>
+<firstname>Fred</firstname>
+<surname>Saalbach</surname>
+</author>
+
 <author>
 <firstname>Jeffrey</firstname>
 <surname>Hoyt</surname>
 </author>
 
-<author>
-<firstname>Joachim</firstname>
-<surname>Ansorg</surname>
-</author>
-
 </authorgroup>
 <date>10 April 2001</date>
-<releaseinfo>draft for BT V1.0pre</releaseinfo>
+<releaseinfo>1.0</releaseinfo>
 
 <copyright>
 <year>1999</year>

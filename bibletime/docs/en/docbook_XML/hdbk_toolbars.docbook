@@ -365,7 +365,8 @@ All of the hotkeys listed here can be changed in the Options Dialog.
 <row><entry>Search in Selected Module(s) </entry><entry>Ctrl+Alt+S</entry></row>
 <row><entry>Show Footnotes </entry><entry>Ctrl+Alt+F</entry></row>
 <row><entry>Show Strongs</entry><entry></entry></row>
-<row><entry>Tile </entry><entry>Ctrl+T </entry></row>
+<row><entry>Tile</entry><entry>Ctrl+T </entry></row>
+<row><entry>Close active display window</entry><entry>Ctrl+F4</entry></row>
 </tbody>
 </tgroup>
 </table>

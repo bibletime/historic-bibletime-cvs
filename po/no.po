@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-04-23 19:22+0200\n"
+"POT-Creation-Date: 2001-04-23 21:53+0200\n"
 "PO-Revision-Date: 2000-12-17 15:52GMT\n"
 "Last-Translator: Espen Knut Trydal <etrydal@postkassa.no>\n"
 "Language-Team: Norwegian\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: bibletime/main.cpp:85
 #, fuzzy
-msgid "frontend and misc things"
+msgid "Frontend, backend, misc things"
 msgstr "Drag&Drop, forskjellige ting"
 
 #: bibletime/main.cpp:88
@@ -53,54 +53,68 @@ msgid "Handbook"
 msgstr ""
 
 #: bibletime/main.cpp:91
-msgid "Translation to Polish"
+#, fuzzy
+msgid "Translation into Hungarian"
+msgstr "Ungarsk oversettelse"
+
+#: bibletime/main.cpp:92 bibletime/main.cpp:101
+#, fuzzy
+msgid "Translation into Italian"
+msgstr "Ungarsk oversettelse"
+
+#: bibletime/main.cpp:93
+#, fuzzy
+msgid "Translation into Polish"
 msgstr "Polsk oversettelse"
 
-#: bibletime/main.cpp:92
-msgid "Translation to French"
-msgstr "Fransk oversettelse"
-
 #: bibletime/main.cpp:94
-msgid "Translation to Danish"
+#, fuzzy
+msgid "Translation into Danish"
 msgstr "Dansk oversettelse"
 
 #: bibletime/main.cpp:95
-msgid "Translation to Czech"
-msgstr "Tjekkisk oversettelse"
-
-#: bibletime/main.cpp:96
-msgid "Translation to Hungarian"
-msgstr "Ungarsk oversettelse"
-
-#: bibletime/main.cpp:97
-msgid "Translation to Slovak"
-msgstr "Slovakisk oversettelse"
-
-#: bibletime/main.cpp:98
-msgid "Translation to Norwegian"
+#, fuzzy
+msgid "Translation into Norwegian"
 msgstr "Norsk oversettelse"
 
-#: bibletime/main.cpp:99
-msgid "Translation to Dutch"
+#: bibletime/main.cpp:96
+#, fuzzy
+msgid "Translation into Brazilian Portoguese"
+msgstr "Polsk oversettelse"
+
+#: bibletime/main.cpp:97
+#, fuzzy
+msgid "Translation into Dutch"
 msgstr "Nederlandsk oversettelse"
 
-#: bibletime/main.cpp:102
-msgid ""
-"Leader of the SWORD project.\n"
-"Lots of help with the SWORD API!"
-msgstr ""
+#: bibletime/main.cpp:98
+#, fuzzy
+msgid "Translation into French"
+msgstr "Fransk oversettelse"
+
+#: bibletime/main.cpp:99
+#, fuzzy
+msgid "Translation into Czech"
+msgstr "Tjekkisk oversettelse"
+
+#: bibletime/main.cpp:100 bibletime/main.cpp:102
+#, fuzzy
+msgid "Translation into Portoguese"
+msgstr "Polsk oversettelse"
 
 #: bibletime/main.cpp:103
-msgid "Sponsor of www.bibletime.de!"
-msgstr "Sponsor av www.bibletime.de!"
-
-#: bibletime/main.cpp:105
-msgid "backend"
-msgstr ""
+#, fuzzy
+msgid "Translation into Slovak"
+msgstr "Slovakisk oversettelse"
 
 #: bibletime/main.cpp:106
-msgid "optionsdialog"
-msgstr "alternativer"
+msgid "Bible study HowTo"
+msgstr ""
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:56
+#: bibletime/main.cpp:107
+msgid "Optionsdialog"
+msgstr "Alternativsdialog"
 
 #: bibletime/main.cpp:108
 #, fuzzy
@@ -108,7 +122,23 @@ msgid "handbook"
 msgstr "Forandre bokmerke"
 
 #: bibletime/main.cpp:109
-msgid "Bible study HowTo"
+#, fuzzy
+msgid "Martin Luther startup logo"
+msgstr "En pen Martin Luther oppstarts logo"
+
+#: bibletime/main.cpp:110
+#, fuzzy
+msgid "Sponsor of www.bibletime.de"
+msgstr "Sponsor av www.bibletime.de!"
+
+#: bibletime/main.cpp:111
+msgid "backend"
+msgstr ""
+
+#: bibletime/main.cpp:112
+msgid ""
+"Leader of the SWORD project.\n"
+"Lots of help with the SWORD API!"
 msgstr ""
 
 #: bibletime/bibletime_init.cpp:72
@@ -433,10 +463,6 @@ msgstr "Stil"
 #: bibletime/frontend/chtmldialog.cpp:35 bibletime/frontend/chtmldialog.cpp:43
 msgid "BibleTime - Help window"
 msgstr "BibleTime - Hjelpevindu"
-
-#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:56
-msgid "Optionsdialog"
-msgstr "Alternativsdialog"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:76
 msgid "Accelerators"
@@ -843,13 +869,13 @@ msgstr "Fjern valgte elementer"
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:84
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:133
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:392
-#, fuzzy
-msgid "Copy into clipboard..."
-msgstr "Kopier til utklippstavle"
+msgid "Copy..."
+msgstr ""
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:90
 #: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:85
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:393
 #, fuzzy
 msgid "Add to printing queue..."
 msgstr "Legg til skriver kø"
@@ -1129,7 +1155,6 @@ msgid "Sesult with text"
 msgstr "Siste søkeresultat"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
-#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:393
 #, fuzzy
 msgid "Print..."
 msgstr "Skrivere"
@@ -1447,8 +1472,7 @@ msgid "Save as HTML"
 msgstr "Lagre som HTML"
 
 #: bibletime/dummy.h:96
-#, fuzzy
-msgid "Copy into clipboard"
+msgid "Copy to clipboard"
 msgstr "Kopier til utklippstavle"
 
 #: bibletime/dummy.h:100
@@ -2037,7 +2061,7 @@ msgstr "Merk alt"
 
 #: bibletime/dummy.h:277
 #, fuzzy
-msgid "Copy the displayed text into the clipboard."
+msgid "Copy the displayed text to the clipboard."
 msgstr "Dette vil kopiere den valgte teksten til utklippstavlen."
 
 #: bibletime/dummy.h:280
@@ -2344,13 +2368,20 @@ msgid ""
 "Create a new printing style.<BR>The new style will be added to the list."
 msgstr ""
 
+#~ msgid "optionsdialog"
+#~ msgstr "alternativer"
+
+#, fuzzy
+#~ msgid "Copy into clipboard..."
+#~ msgstr "Kopier til utklippstavle"
+
+#, fuzzy
+#~ msgid "Copy into clipboard"
+#~ msgstr "Kopier til utklippstavle"
+
 #, fuzzy
 #~ msgid "An easy to use but powerful Bible study tool"
 #~ msgstr "Et brukervennlig Bibelstudie-verktøy for KDE2"
-
-#, fuzzy
-#~ msgid "The Martin Luther startup logo"
-#~ msgstr "En pen Martin Luther oppstarts logo"
 
 #~ msgid "Justification"
 #~ msgstr "Justering"
@@ -2491,9 +2522,6 @@ msgstr ""
 
 #~ msgid "Choose a fontsize"
 #~ msgstr "Velg strrelsen på skrifttypen"
-
-#~ msgid "Copy to clipboard"
-#~ msgstr "Kopier til utklippstavle"
 
 #~ msgid "Set bounds"
 #~ msgstr "Sett grenser"

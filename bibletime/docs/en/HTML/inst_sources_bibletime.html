@@ -5,7 +5,7 @@
 >Installing the Bibletime Source</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.57"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
 REL="HOME"
 TITLE="BibleTime Documentation Package"
 HREF="index.html"><LINK
@@ -135,14 +135,14 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
-> $ su
- $ password *****
- $ cd ./Develop/bibletime-2         # Path of source code
- $ export QTDIR=/usr/lib/qt-2.2.2   # QT 2.2.x source directory&#62;
+> $ cd /tmp/bibletime         # Path of source code
+ $ export QTDIR=/usr/lib/qt2   # QT 2.2.x directory (where QT 2.2 orlater is installed)
  $ export KDEDIR=/usr/local/kde2    # KDE2 directory (where KDE2 is installed)
- $ make -f Makefile.cvs             # configure for CVS version
+ $ make -f Makefile.cvs             # only necessary for CVS version
  $ ./configure                      # create makefiles
  $ make                             # compile BibleTime
+ $ su
+ $ password *****
  $ make install                     # install BibleTime</PRE
 ></TD
 ></TR

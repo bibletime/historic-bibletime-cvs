@@ -5,7 +5,7 @@
 >Searching in Documents</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.57"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
 REL="HOME"
 TITLE="BibleTime Documentation Package"
 HREF="index.html"><LINK
@@ -198,9 +198,9 @@ box to toggle case sensitivity on or off. If the box is marked a
 search will only find verse in which the found text matches also
 the case of the text in the input field. If the box is unmarked
 the search will match if the texts match but are different in
-case. To locate "LORD" but not "Lord" or
-"lord" mark the check box. To let "LORD" and
-"Lord" match "lord" leave the check box
+case. To locate LORD but not Lord or
+lord mark the check box. To let LORD and
+Lord match lord leave the check box
 unmarked.</P
 ></DIV
 ><DIV
@@ -221,7 +221,7 @@ Input Field. The position and order of the words, (or partials),
 in the line is not a factor. If all the words, (or partials), are
 in a line, in any order, even separated by other words, the line
 will be included in the list of found line. A search for
-"prove cause" will find Gen. 21:25, "And Abraham
+prove cause will find Gen. 21:25, And Abraham
 re<I
 CLASS="EMPHASIS"
 >prove</I
@@ -230,7 +230,7 @@ CLASS="EMPHASIS"
 CLASS="EMPHASIS"
 >cause</I
 > of a well of
-water..." This is because a word that is part of another
+water... This is because a word that is part of another
 word is considered found if a word containing it is found.</P
 ></DIV
 ><DIV
@@ -248,13 +248,13 @@ CLASS="GUIBUTTON"
 > is marked the search will locate all lines (or
 verses) that contain what was entered in the input field, exactly
 as entered, including any spaces. The phrase found does not have
-to start or end at a word boundary. A search for "now how
-thou ought" will find 1 Timothy 3:1, "...that thou
+to start or end at a word boundary. A search for now how
+thou ought will find 1 Timothy 3:1, ...that thou
 mayest k<I
 CLASS="EMPHASIS"
 >now how thou ought</I
 >est
-to behave..." </P
+to behave... </P
 ></DIV
 ><DIV
 CLASS="SECTION"
@@ -285,75 +285,75 @@ NAME="HDBK_OP_SEARCH_DIALOG_TEXT_REGEXP"
 ><P
 >Regular expression searches provide a way to do simple or
 complex searches for strings that match a pattern or set of
-patterns (branches) separated by vertical bars "|".
+patterns (branches) separated by vertical bars |.
 While a pattern can be built to look for a word or phrase, a
 simple pattern that consists of a word does not look for only
 that word but for any place the string of letters that make that
-word are found. A search for "right" will return verses
-that contain the word "right", but also "<I
+word are found. A search for right will return verses
+that contain the word right, but also <I
 CLASS="EMPHASIS"
 >right</I
->eous",
-"<I
+>eous,
+<I
 CLASS="EMPHASIS"
 >right</I
->eousness", "un<I
+>eousness, un<I
 CLASS="EMPHASIS"
 >right</I
->eous",
-"up<I
+>eous,
+up<I
 CLASS="EMPHASIS"
 >right</I
->" and even "b<I
+> and even b<I
 CLASS="EMPHASIS"
 >right</I
->".
-A search for "hall not" is not a search for
-"hall" AND "not" but for the string
-"hall not" with a space between the second
-"l" and the "n". The search for "hall
-not" will find occurrences of "s<I
+>.
+A search for hall not is not a search for
+hall AND not but for the string
+hall not with a space between the second
+l and the n. The search for hall
+not will find occurrences of s<I
 CLASS="EMPHASIS"
 >hall not</I
->".</P
+>.</P
 ><P
 >The power of Regular Expressions is in the patterns (or
 templates) used to define a search. A pattern consists of
 ordinary characters and some special characters that are used and
 interpreted by a set of rules. Special characters include
 .\[^*$?+. Ordinary (or simple) characters are any characters that
-are not special. The backslash, "\", is used to convert
+are not special. The backslash, \, is used to convert
 special characters to ordinary and ordinary characters to
 special. </P
 ><P
->Example: the pattern "<I
+>Example: the pattern <I
 CLASS="EMPHASIS"
 >i. love\.</I
->"
-will find sentences that end with "h<I
+>
+will find sentences that end with h<I
 CLASS="EMPHASIS"
 >i</I
 >s <I
 CLASS="EMPHASIS"
 >love</I
->"
-or "<I
+>
+or <I
 CLASS="EMPHASIS"
 >i</I
 >n <I
 CLASS="EMPHASIS"
 >love</I
->" or
-"<I
+> or
+<I
 CLASS="EMPHASIS"
 >i</I
 >s <I
 CLASS="EMPHASIS"
 >love</I
->" followed by
-a period. The first period in "i. love\." is a special
+> followed by
+a period. The first period in i. love\. is a special
 character that means allow any character in this position. The
-backslash in "i. love\." means that the period
+backslash in i. love\. means that the period
 following it is not to be considered a special character, but is
 an ordinary period. </P
 ></DIV
@@ -470,7 +470,7 @@ NAME="PERIOD"
 >3.4.2.8.1. The Period .</A
 ></H4
 ><P
->The Period "." will match any single character even
+>The Period . will match any single character even
 a space or other non-alphabet character.
 <I
 CLASS="EMPHASIS"
@@ -561,7 +561,7 @@ NAME="ASTERISK"
 ><P
 >The asterisk matches zero or more characters of the preceding:
 set, character or indicated character. Using
-a period asterisk combination ".*" after a commonly
+a period asterisk combination .* after a commonly
 found pattern can cause the search to take a very long time,
 making the program seem to freeze.
 <I
@@ -594,7 +594,7 @@ NAME="PLUS"
 ><P
 >The Plus Sign matches one or more characters of the preceding:
 set, character or indicated character. Using
-a period and plus sign combination ".+" after a
+a period and plus sign combination .+ after a
 commonly found pattern can cause the search to take a very long
 time, making the program seem to freeze&#60;.
 <I
@@ -660,12 +660,12 @@ NAME="BRACKET"
 >The Square Brackets enclose a set of characters that can
 match. The period, asterisk, plus sign and question mark are not
 special inside the brackets. A minus sign can be used to indicate
-a range. If you want a caret "^" to be part of the
+a range. If you want a caret ^ to be part of the
 range do not place it first after the left bracket or it will be
-a special character. To include a "]" in the set make
-it the first (or second after a special "^") character
+a special character. To include a ] in the set make
+it the first (or second after a special ^) character
 in the set. To include a minus sign in the set make it the first
-(or second after a special "^") or last character in
+(or second after a special ^) or last character in
 the set.
 <I
 CLASS="EMPHASIS"
@@ -763,10 +763,10 @@ account for the formatting characters.
 CLASS="EMPHASIS"
 >^In the beginning</I
 > matches lines that
-start with "<I
+start with <I
 CLASS="EMPHASIS"
 >In the beginning</I
->".
+>.
 (May need to use: <I
 CLASS="EMPHASIS"
 >^.....In the beginning</I
@@ -791,10 +791,10 @@ to account for the formatting characters.
 CLASS="EMPHASIS"
 >Amen\.$</I
 > matches lines that end with
-"<I
+<I
 CLASS="EMPHASIS"
 >Amen.</I
->" (May
+> (May
 need to use Amen\....$, Amen\..........$, or even
 Amen\....................$)</P
 ></DIV

@@ -5,7 +5,7 @@
 >Installation of prerequisite programs</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.57"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
 REL="HOME"
 TITLE="BibleTime Documentation Package"
 HREF="index.html"><LINK
@@ -105,8 +105,8 @@ NAME="INST_PREQ_INSTALL"
 ><P
 >Now download the prerequisites and compile the libraries</P
 ><P
->First you have to compile the QT 2.2.2 or QT 2.2.3 sources. I assume the
-user has his QT sources in <TT
+>First you have to compile the QT 2 sources if QT 2.2 or later is not included on your installation disks.
+I assume the user has his QT sources in <TT
 CLASS="FILENAME"
 >/usr/lib/qt2</TT
 >, his KDE2 sources
@@ -127,7 +127,7 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
-> export QTDIR=/usr/lib/qt-2.2.2
+> export QTDIR=/usr/lib/qt2
  cd $QTDIR
  ./configure -sm -system-libpng -system-jpeg
  make</PRE
@@ -155,7 +155,7 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
-> export QTDIR=/usr/lib/qt-2.2.2
+> export QTDIR=/usr/lib/qt2
  export KDEDIR=/usr/local/kde2
  cd /usr/src/kde2/kdelibs
  ./configure

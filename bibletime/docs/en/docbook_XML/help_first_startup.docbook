@@ -47,17 +47,17 @@ presentation avoids confusing users with too many choices.
 <row>
 <entry>
 <emphasis>
-Presenter
+Display window
 </emphasis>
 </entry>
 <entry>
 
-A presenter is a window inside the MDI area of BibleTime. A presenters presents
+A display window is a window inside the MDI area of BibleTime. A display window presents
 the content of a document (SWORD module) in a reasonable format (for example Bibles will be
 displayed as HTML text with hyperlinks to verse references).
-We use presenters to have a general approach for the future.
+We use display windows to have a general approach for the future.
 Crosswire will extend SWORD as more material is made available for distribution.
-When new module types are created for Sword we will simply create additional presenters.
+When new module types are created for Sword we will simply create additional types of display windows.
 This approach makes BibleTime extensible in the future, and able to display any
 type of module that might be created in (for example maps or sound modules ...).
 
@@ -66,7 +66,7 @@ type of module that might be created in (for example maps or sound modules ...).
 <row>
 <entry>
 <emphasis>
-Group manager
+Main index
 </emphasis>
 </entry>
 <entry>
@@ -76,7 +76,7 @@ main index combines the bookmark management and module management of
 BibleTime 0.2x. To work with the main index use the right mouse button menu.
 
 The main index is Drag 'n' Drop capable: You can drag verse references from a
-an open document into the main index to create a bookmark, and you can move items in
+an open document or from the search dialog into the main index to create a bookmark, and you can move items in
 the tree (e.g. move groups or bookmarks into another group).
 
 </entry>
@@ -178,7 +178,7 @@ Bible text module library - and the library manager SWORD! You can down load the
 Bible text modules from this page. Most of the modules available from crosswire
 are either in the public domain or have been released to crosswire for distribution
 by the copyright holder. Modules that are not released for free distribution are
-locked. Please see the <ulink url="./module_encrypted.html">helpdialog on locked
+locked. Please see the <ulink url="module_encrypted.html">helpdialog on locked
 modules</ulink> before downloading locked modules.
 
 </entry>

@@ -101,7 +101,7 @@
 //HTML widget related #defines
 #define WT_HTML_SAVE_AS WT(TT_HTML_SAVE_AS, i18n("Save the displayed chapter as a HTML file."))
 #define WT_HTML_SELECT_ALL WT(TT_HTML_SELECT_ALL, i18n("Select all text."))
-#define WT_HTML_COPY WT(TT_HTML_COPY, i18n("Copy the displayed text into the clipboard."))
+#define WT_HTML_COPY WT(TT_HTML_COPY, i18n("Copy the displayed text to the clipboard."))
 
 //searchdialog related #defines, SD means searchdialog
 #define WT_SD_MODULECHOOSER WT(TT_SD_MODULECHOOSER, i18n("Choose the modules which will be used for the search.<BR>Use the two button on the right side to add or delete the modules to/from the list of used ones."))
