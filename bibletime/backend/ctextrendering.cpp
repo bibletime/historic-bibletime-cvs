@@ -192,7 +192,7 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
 	ListCSwordModuleInfo modules = i.modules();	
-	Q_ASSERT(modules.count() > 0);
+// 	Q_ASSERT(modules.count() > 0);
 	util::scoped_ptr<CSwordKey> scoped_key( !k ? CSwordKey::createInstance(modules.first()) : 0 );
 	
 	CSwordKey* key = k ? k : scoped_key;
@@ -254,7 +254,6 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
 			
 
-		//entry += QString::fromLatin1("<span dir=\"%1\" class=\"entryname\">%2</span>")
 		entry += QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>") //keys should normally be left-to-right, but this doesn't apply in all cases
 			.arg(m_displayOptions.verseNumbers
 				? entryLink(i, m)
@@ -270,23 +269,24 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 			const KeyTree::const_iterator end = tree->constEnd();
 			
 			for ( KeyTree::const_iterator it = tree->constBegin(); it != end; ++it ) {
-				entry += renderEntry( **it );
+				entry.append( renderEntry(**it) );
 			}
 		}
 		
-		entry += m_displayOptions.lineBreaks
+		entry.append(m_displayOptions.lineBreaks
 			? QString::fromLatin1("</div>") 
-			: QString::fromLatin1("</span>");
+			: QString::fromLatin1("</span>")
+		);
 		
   	if (modules.count() == 1) {
-			renderedText += entry;
+			renderedText.append( entry );
 		}
   	else {
 	    renderedText += QString::fromLatin1("<td class=\"%1\" %2 dir=\"%3\">%4</td>")
- 				.arg(i.settings().highlight ? QString::fromLatin1("currententry") : QString::fromLatin1("entry"))
-				.arg(langAttr)
-				.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-				.arg(entry);
+ 				.arg( i.settings().highlight ? QString::fromLatin1("currententry") : QString::fromLatin1("entry"))
+				.arg( langAttr )
+				.arg( isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr") )
+				.arg( entry );
 		}
 	}
  	

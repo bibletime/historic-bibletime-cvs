@@ -28,7 +28,6 @@
 #include <qlabel.h>
 #include <qstring.h>
 #include <qmap.h>
-#include <qcombobox.h>
 #include <qdict.h>
 #include <qmap.h>
 
@@ -41,6 +40,7 @@
 
 class QHBox;
 class QCheckBox;
+class QComboBox;
 class QRadioButton;
 class KListBox;
 class KKeyChooser;
@@ -90,11 +90,7 @@ private:
 			QCheckBox* useDownArrow;
 			QCheckBox* lineBreaks;
 			QCheckBox* verseNumbers;
-// 			QCheckBox* footnotes;
-//   		QCheckBox* strongNumbers;
   		QCheckBox* headings;
-//   		QCheckBox* morphTags;
-// 			QCheckBox* lemmas;
 			QCheckBox* hebrewPoints;
 			QCheckBox* hebrewCantillation;
 			QCheckBox* greekAccents;

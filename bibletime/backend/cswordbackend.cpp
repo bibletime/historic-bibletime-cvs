@@ -609,8 +609,9 @@ const QString CSwordBackend::configOptionName( const CSwordBackend::FilterTypes 
 }
 
 const QString CSwordBackend::booknameLanguage( const QString& language ) {
-	if (!language.isNull())
-		sword::LocaleMgr::getSystemLocaleMgr()->setDefaultLocaleName( language.local8Bit() );
+	if (!language.isEmpty())
+		sword::LocaleMgr::getSystemLocaleMgr()->setDefaultLocaleName( language.latin1() );
+		
 	return QString::fromLatin1(sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName());
 }
 

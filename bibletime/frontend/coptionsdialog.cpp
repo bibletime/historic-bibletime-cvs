@@ -40,6 +40,7 @@
 #include <qvbox.h>
 #include <qdict.h>
 #include <qcheckbox.h>
+#include <qcombobox.h>
 #include <qbuttongroup.h>
 #include <qhbuttongroup.h>
 #include <qradiobutton.h>
@@ -503,21 +504,56 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 
  	gridLayout->setRowStretch(6,5); //eat up remaining space :)
 
- 	m_settings.swords.localeCombo->insertItem( i18n("English") );
+	QStringList languageNames;
+	languageNames.append( i18n("English") );
+	
  	const list<sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
  	for (list<sword::SWBuf>::const_iterator it = locales.begin(); it != locales.end(); it++) {
- 		m_settings.swords.localeCombo->insertItem( i18n(sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getDescription()) );
+		const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev(
+			sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getName()
+		);
+		
+		if (l->isValid()) {
+			languageNames.append( l->translatedName() );
+		}
+		else {
+			languageNames.append(
+				sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getDescription() 
+			);
+		}
  	}
-
- 	int current_item = -1;
- 	for(int test_item = 0; test_item < m_settings.swords.localeCombo->count(); test_item++) {
- 		sword::SWLocale* locale = sword::LocaleMgr::LocaleMgr::getSystemLocaleMgr()->getLocale(CBTConfig::get(CBTConfig::language).local8Bit());
- 		if (locale && (m_settings.swords.localeCombo->text(test_item) == i18n(locale->getDescription())) )
- 			current_item = test_item;
- 	}
- 	if (current_item!=-1)
- 		m_settings.swords.localeCombo->setCurrentItem(current_item);
-
+	
+	languageNames.sort();
+	m_settings.swords.localeCombo->insertStringList( languageNames );
+	
+	const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev( 
+		CBTConfig::get(CBTConfig::language)
+	);
+	QString currentLanguageName;
+	if ( l->isValid() && languageNames.contains(l->translatedName()) ) { //tranlated language name is in the box
+		currentLanguageName = l->translatedName();
+	}
+	else { //a language like "German Abbrevs" might be the language to set
+		sword::SWLocale* locale = sword::LocaleMgr::LocaleMgr::getSystemLocaleMgr()->getLocale(
+			CBTConfig::get(CBTConfig::language).local8Bit()
+		);
+		if (locale) {
+			currentLanguageName = QString::fromLatin1(locale->getDescription());
+		}
+	}
+	
+	if (currentLanguageName.isEmpty()) { // set english as default if nothing was chosen
+		currentLanguageName = i18n("English");
+	}
+	
+	//now set the item with the right name as current item
+	for (int i = 0; i < m_settings.swords.localeCombo->count(); ++i) {
+		if (currentLanguageName == m_settings.swords.localeCombo->text(i)) {
+			m_settings.swords.localeCombo->setCurrentItem(i);
+			break; //item found, finish the loop
+		}
+	}
+	
 
 // ---------- new tab: Default modules -------- //
   currentTab = new QFrame(tabCtl);
@@ -871,31 +907,37 @@ void COptionsDialog::saveSword(){
   CBTConfig::set(CBTConfig::standardHebrewMorphLexicon, m_settings.swords.standardHebrewMorph->currentText());
   CBTConfig::set(CBTConfig::standardGreekMorphLexicon, m_settings.swords.standardGreekMorph->currentText() );
 
- 	const QString currentText = m_settings.swords.localeCombo->currentText();
- 	list <sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
- 	QString localeName = QString::null;
- 	for (list <sword::SWBuf>::iterator it = locales.begin(); it != locales.end(); it++) {
- 		if ( i18n(sword::LocaleMgr::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getDescription()) == currentText ) {
- 			localeName = (*it).c_str();	//we found the abbrevation for the current language
- 			break;
- 		}
+	QString languageAbbrev;
+ 	
+	const QString currentLanguageName = m_settings.swords.localeCombo->currentText();
+	const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForTranslatedName( currentLanguageName );
+	
+	if (l && l->isValid()) {
+		languageAbbrev = l->abbrev();
+	}
+	else { //it seems it's a description of a Sword locale	
+		list <sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
+		
+		for (list <sword::SWBuf>::iterator it = locales.begin(); it != locales.end(); it++) {
+			SWLocale* locale = LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str());
+			Q_ASSERT(locale);
+			
+			if ( locale && (QString::fromLatin1(locale->getDescription()) == currentLanguageName) ) {
+				languageAbbrev = QString::fromLatin1(locale->getName());	//we found the abbrevation for the current language
+				break;
+			}
+		}	
+	}
+	
+ 	if (!languageAbbrev.isEmpty()) {
+  	CBTConfig::set(CBTConfig::language, languageAbbrev);
  	}
- 	if (!localeName.isEmpty()) {
- 		CBTConfig::set(CBTConfig::language, localeName);
-	}
- 	else {
- 		CBTConfig::set(CBTConfig::language, currentText);
-	}
 
  	CBTConfig::set(CBTConfig::scroll, m_settings.swords.useDownArrow->isChecked());
  	CBTConfig::set(CBTConfig::lineBreaks, m_settings.swords.lineBreaks->isChecked());
  	CBTConfig::set(CBTConfig::verseNumbers, m_settings.swords.verseNumbers->isChecked());
-//  	CBTConfig::set(CBTConfig::footnotes, m_settings.swords.footnotes->isChecked());
-//  	CBTConfig::set(CBTConfig::strongNumbers, m_settings.swords.strongNumbers->isChecked());
  	CBTConfig::set(CBTConfig::headings, m_settings.swords.headings->isChecked());
  	CBTConfig::set(CBTConfig::scriptureReferences, m_settings.swords.scriptureReferences->isChecked());
-//  	CBTConfig::set(CBTConfig::morphTags, m_settings.swords.morphTags->isChecked());
-//  	CBTConfig::set(CBTConfig::lemmas, m_settings.swords.lemmas->isChecked());
  	CBTConfig::set(CBTConfig::hebrewPoints, m_settings.swords.hebrewPoints->isChecked());
  	CBTConfig::set(CBTConfig::hebrewCantillation, m_settings.swords.hebrewCantillation->isChecked());
  	CBTConfig::set(CBTConfig::greekAccents, m_settings.swords.greekAccents->isChecked());
