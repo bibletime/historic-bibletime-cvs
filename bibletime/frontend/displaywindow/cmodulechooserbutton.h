@@ -31,6 +31,7 @@
 #include <kpopupmenu.h>
 
 class KPopupMenu;
+class CModuleChooserBar;
 
 /** The CModuleChooserButton displays a list of submenus sorted by language which contain the possible modules
   * which can be displayed together with the first one.
@@ -39,12 +40,13 @@ class KPopupMenu;
 class CModuleChooserButton : public KToolBarButton, public CPointers  {
    Q_OBJECT
 public: 
-	CModuleChooserButton(CSwordModuleInfo* useModule, CSwordModuleInfo::ModuleType type, const int id, QWidget *parent = 0, const char *name = 0 );
+	CModuleChooserButton(CSwordModuleInfo* useModule, CSwordModuleInfo::ModuleType type, const int id, CModuleChooserBar *parent, const char *name = 0 );
   CSwordModuleInfo* module();
   /**
   * Returns the id used for this button.
   */
   int getId() const;
+    void updateMenuItems();
 
 protected: // Protected methods
   void populateMenu();
@@ -64,6 +66,9 @@ private:
 
 	KPopupMenu* m_popup;
 	QPtrList<KPopupMenu> m_submenus;
+
+	CModuleChooserBar* m_moduleChooserBar;
+	
 
 private slots:
 	void moduleChosen(int ID );

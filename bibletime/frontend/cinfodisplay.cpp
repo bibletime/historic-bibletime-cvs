@@ -40,7 +40,6 @@ CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
 	QLabel* headingLabel = new QLabel(i18n("Info display"),this);
 	
 	m_htmlPart = CDisplay::createReadInstance(0, this);
-	Q_ASSERT(m_htmlPart);
 	m_htmlPart->setMouseTracking(false); //we don't want strong/lemma/note mouse infos
 	
 	layout->addWidget(headingLabel);
@@ -276,10 +275,7 @@ void CInfoDisplay::clearInfo() {
 	CDisplayTemplateMgr::Settings settings;
 	settings.pageCSS_ID = "infodisplay";
 	
-// 	m_htmlPart->begin();
 	m_htmlPart->setText( tmgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, settings) );
-// 	m_htmlPart->end();
-//	m_htmlPart->setText(QString::null);
 }
 
 

@@ -192,21 +192,23 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					for (AttributeList::iterator list_it = notes.begin(); (list_it != notes.end()) && !foundNote; ++list_it ) {
 						for (AttributeValue::iterator val_it = list_it->second.begin(); (val_it != list_it->second.end()) && !foundNote; ++val_it ) {
 							if ((val_it->first == "osisID") && (val_it->second == id)) {
-								foundNote = true;
+								foundNote = true; //this break the loop
 								refList = list_it->second["refList"];
-							}							
+							}
 						}
 					}
 
-					buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">(",
-						refList.c_str()
-					);
-          myUserData->noteType = BT_UserData::CrossReference;
-//					myUserData->suspendTextPassThru = true;
+					if (refList.length()) {
+						buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\"> ",
+							refList.c_str()
+						);
+          	myUserData->noteType = BT_UserData::CrossReference;
+					}
+					else {
+						myUserData->noteType = BT_UserData::Unknown;
+					}
         }
         else if (type == "explanation") {
-//   				myUserData->suspendTextPassThru = true;
-//           myUserData->noteType = BT_UserData::StrongsMarkup;
         }
         else if (type == "strongsMarkup") {
   				myUserData->suspendTextPassThru = true;
@@ -223,13 +225,13 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					myUserData->suspendTextPassThru = true;
 				}
 			}
-			if (tag.isEndTag()) {
+			else { //if (tag.isEndTag()) {
         if (myUserData->noteType == BT_UserData::CrossReference) {
-          buf += ")</span> ";
+          buf += "</span> ";
 					myUserData->suspendTextPassThru = false;
         }
-        else if (myUserData->noteType == BT_UserData::Footnote) {
-        }
+//         else if (myUserData->noteType == BT_UserData::Footnote) {
+//         }
 
         myUserData->noteType = BT_UserData::Unknown;
 				myUserData->suspendTextPassThru = false;

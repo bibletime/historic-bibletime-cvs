@@ -56,7 +56,7 @@ public:
   void setModules( ListCSwordModuleInfo modules );
 	
 protected:
-  /**
+	/**
   * Adds a button to the toolbar
   */
   CModuleChooserButton* const addButton( CSwordModuleInfo* const module );
@@ -70,12 +70,13 @@ protected slots: // Protected slots
 	* Removes a button from the toolbar
 	*/
 	void removeButton( const int ID );
+  void updateMenuItems();
 
 private:
-	QPtrList<CModuleChooserButton> m_buttonList;
 	CSwordModuleInfo::ModuleType m_moduleType;
 	int m_idCounter;
 	int m_buttonLimit;
+	QPtrList<CModuleChooserButton> m_buttonList;
 
 signals: // Signals
   void sigChanged();

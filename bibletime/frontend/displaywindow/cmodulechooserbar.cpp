@@ -44,14 +44,19 @@ CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModu
 /** Adds a button to the toolbar */
 CModuleChooserButton* const CModuleChooserBar::addButton( CSwordModuleInfo* const module ) {
 	CModuleChooserButton* b = new CModuleChooserButton(module, m_moduleType, ++m_idCounter, this);
+	insertWidget( m_idCounter, b->size().width(), b );
 	m_buttonList.append(b);	
-	insertWidget( m_idCounter, b->size().width(),b );			
 	
  	connect( b, SIGNAL(sigAddButton()), this, SLOT(addButton()) );
- 	connect( b, SIGNAL(sigRemoveButton(const int)), this, SLOT(removeButton(const int)) );
- 	connect( b, SIGNAL(sigChanged()), SIGNAL(sigChanged()) );
+ 	
+	connect( b, SIGNAL(sigRemoveButton(const int)), this, SLOT(removeButton(const int)) );
+ 	
+	connect( b, SIGNAL(sigChanged()), SIGNAL(sigChanged()) );
+ 	connect( b, SIGNAL(sigChanged()), SLOT(updateMenuItems()) );
 	
 	b->show();
+
+ 	updateMenuItems(); //make sure the items are up to date with the newest module list
 
   return b;
 }
@@ -63,9 +68,10 @@ void CModuleChooserBar::addButton( ) {
 /** Removes a button from the toolbar */
 void CModuleChooserBar::removeButton( const int ID ){
 	for (m_buttonList.first(); m_buttonList.current(); m_buttonList.next()) {	
-		if (m_buttonList.current()->getId() == ID) {	//found the right button
-			CModuleChooserButton* b = m_buttonList.current();
-			m_buttonList.removeRef(b);
+		if (m_buttonList.current()->getId() == ID) {	//found the right button to remove
+			CModuleChooserButton* b = m_buttonList.current();			
+			m_buttonList.remove(b);
+			
 			b->hide();
       b->deleteLater();
 			break;
@@ -73,21 +79,24 @@ void CModuleChooserBar::removeButton( const int ID ){
 	}		
 	
 	emit sigChanged();
+	
+ 	updateMenuItems(); //make sure the items are up to date with the newest module list
 }
 
 /** Returns a list of selected modules. */
 ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
-//	qWarning("getModuleList called: %i buttons", m_buttonList.count());
-  ListCSwordModuleInfo list;
-//	list.setAutoDelete(false);
-//	list.clear();
+	const int currentItemIndex = m_buttonList.at(); //make sure we don't change the current list item
 	
-	CSwordModuleInfo* m;
+  ListCSwordModuleInfo list;
+	CSwordModuleInfo* m = 0;
 	for ( m_buttonList.first(); m_buttonList.current(); m_buttonList.next()) {	
-	  if ( (m = m_buttonList.current()->module()) ) {
+		m = m_buttonList.current()->module();
+	  if ( m ) {
   		list.append( m );
     }
 	}
+	
+	m_buttonList.at( currentItemIndex );
 	return list;
 }
 
@@ -99,29 +108,24 @@ void CModuleChooserBar::setButtonLimit(const int limit){
 
   const int tooMuch = m_buttonList.count() - limit;
   for (int i = 0; i < tooMuch; ++i) {
-		CModuleChooserButton* b = m_buttonList.last();
+		CModuleChooserButton* b = m_buttonList.getLast();
 		m_buttonList.remove(b);
 		b->hide();
 		delete b;
   }
   
-//	for (m_buttonList.last(); m_buttonList.current() && ((int)m_buttonList.count() > m_buttonLimit); m_buttonList.prev() ) {
-//	}
+	updateMenuItems();
 }
 
 /** Sets the modules which are chosen in this module chooser bar. */
 void CModuleChooserBar::setModules( ListCSwordModuleInfo useModules ){
-  qWarning("at first %i buttons", m_buttonList.count());
 	setButtonLimit(0);	
 	setButtonLimit(-1);		//these two lines clear the bar
-  qWarning("in the middle %i buttons", m_buttonList.count());
 
   if (!useModules.count()) {
-    qWarning("no modules available");
     return;
   }
 
-  qWarning("chooserBar:setModule:  %i modules", useModules.count());
 	for (useModules.first(); useModules.current(); useModules.next())		 {
 		if ( (m_buttonLimit != -1) && (m_buttonLimit <= (int)m_buttonList.count()) ) {
 			break;
@@ -132,5 +136,18 @@ void CModuleChooserBar::setModules( ListCSwordModuleInfo useModules ){
   if ( (m_buttonLimit == -1) || (m_buttonLimit > (int)m_buttonList.count()) ) {
 	  addButton(0);//add button without module set
   }
-  qWarning("at the end %i buttons", m_buttonList.count());
+
+	updateMenuItems();
+}
+
+
+/*!
+    \fn CModuleChooserBar::updateMenuItems()
+ */
+void CModuleChooserBar::updateMenuItems() {
+	QPtrList<CModuleChooserButton> buttons = m_buttonList ;
+
+	for (buttons.first(); buttons.current(); buttons.next()) {
+		buttons.current()->updateMenuItems();
+	}
 }

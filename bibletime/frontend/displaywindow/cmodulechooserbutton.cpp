@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "cmodulechooserbutton.h"
+#include "cmodulechooserbar.h"
 
 #include "backend/cswordbackend.h"
 
@@ -32,9 +33,10 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 
-CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent, const char *name )
-	: KToolBarButton(iconName(), id, parent,name), m_id(id), m_popup(0) {
-
+CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, CModuleChooserBar *parent, const char *name )
+	: KToolBarButton(iconName(), id, parent, name), 
+		m_id(id), m_popup(0), m_moduleChooserBar(parent)
+{
   m_moduleType = type;	
 	m_module = useModule;
 	if (!m_module) {
@@ -132,29 +134,29 @@ void CModuleChooserButton::moduleChosen( int ID ){
     }
  	}
 }
+
 /** No descriptions */
 void CModuleChooserButton::populateMenu(){
-	//if (m_popup)
-		delete m_popup;
-		
-	m_submenus.setAutoDelete(true);
+	delete m_popup;
+	m_submenus.setAutoDelete(true); //delete all submenus
 	m_submenus.clear();
 
-	//create popup
+	//create a new, empty popup
 	m_popup = new KPopupMenu(this);	
 
 	if (m_module) {
-	  m_titleId = m_popup->insertTitle(i18n("Select a module"));	
+	  m_titleId = m_popup->insertTitle( i18n("Select a module") );	
 	}
 	else {
-	  m_titleId = m_popup->insertTitle(i18n("Select an additional module"));	
+	  m_titleId = m_popup->insertTitle( i18n("Select an additional module") );
 	}
 
 	m_popup->setCheckable(true);
 
-	m_noneId =	m_popup->insertItem(i18n("NONE"));
-  if ( !m_module )
+	m_noneId = m_popup->insertItem(i18n("NONE"));
+  if ( !m_module ) {
 		m_popup->setItemChecked(m_noneId, true);
+	}
 
 	m_popup->insertSeparator();	
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));		
@@ -168,12 +170,14 @@ void CModuleChooserButton::populateMenu(){
   ListCSwordModuleInfo allMods = backend()->moduleList();
 
   for (allMods.first(); allMods.current(); allMods.next()) {
-    if (allMods.current()->type() != m_moduleType)
+    if (allMods.current()->type() != m_moduleType) {
       continue;
+		}
 
-    modules.append(allMods.current());
+    modules.append( allMods.current() );
   };
 
+	//iterate through all found modules of the type we support
 	for (modules.first(); modules.current(); modules.next()) {
  		QString lang = modules.current()->language()->translatedName();
  		if (lang.isEmpty()) {
@@ -184,7 +188,7 @@ void CModuleChooserButton::populateMenu(){
 			}
 		}
 		
- 	 	if (languages.find( lang ) == languages.end() ){ //not yet added
+ 	 	if (languages.find( lang ) == languages.end() ){ //this lang was not yet added
  			languages += lang;
 			
  			KPopupMenu* menu = new KPopupMenu;
@@ -194,6 +198,7 @@ void CModuleChooserButton::populateMenu(){
  		}
 	}	
 
+	
 	//Check the appropriate entry
 	for (modules.first(); modules.current(); modules.next()) {
  		QString lang = modules.current()->language()->translatedName();
@@ -204,7 +209,7 @@ void CModuleChooserButton::populateMenu(){
 			}
 		}
 		
- 		QString name = QString::fromLatin1("%1 %2")
+ 		const QString name = QString::fromLatin1("%1 %2")
 			.arg(modules.current()->name())
 			.arg(modules.current()->isLocked() ? i18n("[locked]") : QString::null);
 			
@@ -224,5 +229,31 @@ void CModuleChooserButton::populateMenu(){
 	}
 	else {
  		QToolTip::add(this, i18n("No module selected"));
+	}
+}
+
+
+/*!
+    \fn CModuleChooserButton::updateMenuItems()
+ */
+void CModuleChooserButton::updateMenuItems() {
+	QString moduleName;
+	CSwordModuleInfo* module = 0;	
+	ListCSwordModuleInfo chosenModules = m_moduleChooserBar->getModuleList();
+	
+	for ( KPopupMenu* popup = m_submenus.first(); popup; popup = m_submenus.next() ) {
+		
+   	for (unsigned int i = 0; i < popup->count(); i++) {
+			moduleName = popup->text(popup->idAt(i));
+  		module = backend()->findModuleByName( moduleName.left(moduleName.find(" ")) );
+			Q_ASSERT(module);
+
+			bool alreadyChosen = chosenModules.contains( module );
+			if (m_module) {
+				alreadyChosen = alreadyChosen && (m_module->name() != moduleName);
+			}
+			
+			popup->setItemEnabled(popup->idAt(i), !alreadyChosen); //grey it out, it was chosen already
+   	}	
 	}
 }
