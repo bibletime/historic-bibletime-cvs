@@ -120,15 +120,17 @@ void CPlainWriteWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
 };
 
 /** Saves the text for the current key. Directly writes the changed text into the module. */
-void CPlainWriteWindow::saveCurrentText(){
+void CPlainWriteWindow::saveCurrentText( const QString& key ) {
   QString t = displayWidget()->plainText();
   //since t is a complete HTML page at the moment, strip away headers and footers of a HTML page
-  QRegExp re("(?:<html.*>.+<body.*>)", false); //remove headers, match case insensitive
+  QRegExp re("(?:<html.*>.+<body.*>)", false); //remove headers, case insensitive
   re.setMinimal(true);
   t.replace(re, "");
   t.replace(QRegExp("</body></html>", false), "");//remove footer
 
-  modules().first()->write(key(), t );
+	const QString& oldKey = this->key()->key();
+  modules().first()->write(this->key(), t );
+	this->key()->key( oldKey );
 
   displayWidget()->setModified(false);
   textChanged();

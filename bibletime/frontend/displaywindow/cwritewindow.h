@@ -64,16 +64,22 @@ public slots:
 
 protected: // Protected methods
   /**
-  * Saves the given text as text of the given key. Use this function as backend in each write window implementation.
+  * Saves the given text as text of the given key. Use this function
+	* as backend in each write window implementation.
   */
   void setDisplayWidget( CWriteDisplay* display );
   virtual const CDisplayWindow::WriteWindowType writeWindowType() = 0;
   virtual bool queryClose();
+  virtual void saveCurrentText( const QString& key ) = 0;
 
 protected slots:
   /** Save text to the module
   */
-  virtual void saveCurrentText() = 0;
+  void saveCurrentText() {
+		if(key()) {
+			saveCurrentText(key()->key());
+		};
+	};
 	virtual void beforeKeyChange(const QString&);
 
 private:

@@ -107,8 +107,8 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	connect(w_chapter,SIGNAL(next_requested()),SLOT(chapterNextRequested()));
 	connect(w_chapter,SIGNAL(prev_requested()),SLOT(chapterPrevRequested()));
 	connect(w_chapter,SIGNAL(focusOut(int))   ,SLOT(chapterFocusOut(int)));
-	
-	
+
+
 	/* Verse Connections */
 	connect(w_verse,SIGNAL(changed(int))      ,SLOT(verseChanged(int)));
 	connect(w_verse,SIGNAL(next_requested())  ,SLOT(verseNextRequested()));
@@ -120,16 +120,18 @@ CSwordKey* const CBibleKeyChooser::key(){
 	if (m_key) {
     const int chapter =  w_chapter->comboBox()->currentText().toInt();
     const int verse = w_verse->comboBox()->currentText().toInt();
-		m_key->book(w_book->comboBox()->currentText());	
-		m_key->Chapter(chapter < 0 ? 0 : chapter);			
-		m_key->Verse(verse < 0 ? 0 : verse);			
+		m_key->book(w_book->comboBox()->currentText());
+		m_key->Chapter(chapter < 0 ? 0 : chapter);
+		m_key->Verse(verse < 0 ? 0 : verse);
 	}
 	return m_key;
 }
 
 void CBibleKeyChooser::setKey(CSwordKey* key){
- 	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
+	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
+
+	emit (beforeKeyChange(m_key->key())); //required to make direct setKey calls work from the outside
 
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
@@ -169,22 +171,24 @@ void CBibleKeyChooser::chapterNextRequested(void){
 		return;
 
 	setUpdatesEnabled(false);
-	if (m_key)
+	if (m_key) {
 		emit beforeKeyChange(m_key->key());
-	if (m_key->next(CSwordVerseKey::UseChapter))	
+	}
+	if (m_key->next(CSwordVerseKey::UseChapter)) {
 		setKey(m_key);
-	setUpdatesEnabled(true);	
+	}
+	setUpdatesEnabled(true);
 }
 
 /**  */
 void CBibleKeyChooser::chapterPrevRequested(void){
 	if (!isUpdatesEnabled())
 		return;
-		
-	setUpdatesEnabled(false);		
+
+	setUpdatesEnabled(false);
 	if (m_key)
 		emit beforeKeyChange(m_key->key());
-	
+
 	if (m_key->previous(CSwordVerseKey::UseChapter))
 		setKey(m_key);
 	setUpdatesEnabled(true);
@@ -199,9 +203,9 @@ void CBibleKeyChooser::verseNextRequested(void){
 	if (m_key)
 		emit beforeKeyChange(m_key->key());
 
-	if (m_key->next(CSwordVerseKey::UseVerse))	
+	if (m_key->next(CSwordVerseKey::UseVerse))
 		setKey(m_key);
-	setUpdatesEnabled(true);		
+	setUpdatesEnabled(true);
 }
 
 /**  */
@@ -212,10 +216,10 @@ void CBibleKeyChooser::versePrevRequested(void){
 	setUpdatesEnabled(false);	
 	if (m_key)
 		emit beforeKeyChange(m_key->key());
-	
+
 	if (m_key->previous(CSwordVerseKey::UseVerse))
 		setKey(m_key);
-	setUpdatesEnabled(true);	
+	setUpdatesEnabled(true);
 }
 
 void CBibleKeyChooser::bookChanged(int /*i*/){
@@ -225,15 +229,15 @@ void CBibleKeyChooser::bookChanged(int /*i*/){
 	if (!isUpdatesEnabled())
 		return;
 
-	setUpdatesEnabled(false);	
+	setUpdatesEnabled(false);
 	if (m_key)
 		emit beforeKeyChange(m_key->key());
-	
+
 	if (m_key->book() != w_book->comboBox()->currentText()) {
 		m_key->book( w_book->comboBox()->currentText() );
 		setKey( m_key );
-	}	
-	setUpdatesEnabled(true);		
+	}
+	setUpdatesEnabled(true);
 }
 
 void CBibleKeyChooser::chapterChanged(int /*i*/){
@@ -246,13 +250,13 @@ void CBibleKeyChooser::chapterChanged(int /*i*/){
 		emit beforeKeyChange(m_key->key());
 //	if (m_key)
 //		emit beforeKeyChange(m_key->key());
-	
-	if (m_key->Chapter() != w_chapter->comboBox()->currentText().toInt()) {	
+
+	if (m_key->Chapter() != w_chapter->comboBox()->currentText().toInt()) {
 		m_key->Chapter( w_chapter->comboBox()->currentText().toInt() );
-		setKey( m_key );	
+		setKey( m_key );
 	}
-	
-	setUpdatesEnabled(true);		
+
+	setUpdatesEnabled(true);
 }
 
 void CBibleKeyChooser::verseChanged(int /*i*/){

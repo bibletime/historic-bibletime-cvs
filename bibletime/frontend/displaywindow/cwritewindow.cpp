@@ -171,11 +171,13 @@ void CWriteWindow::beforeKeyChange(const QString& key) {
 	if (modules().first() && displayWidget()->isModified()) {
 		switch (KMessageBox::warningYesNo( this, i18n("Save changed text?")) ) {
 			case KMessageBox::Yes: { //save the changes
-	   		saveCurrentText();
+	   		saveCurrentText( key );
 	     	break;
 			}
-	    default: // do nothing
+	    default: {// set modified to false so it won't ask again
+				displayWidget()->setModified(false);
 	     	break;
+			}
 		}
 	}
 }

@@ -74,7 +74,7 @@ protected slots: // Protected slots
   /**
   * Saves the text for the current key. Directly writes the changed text into the module.
   */
-  virtual void saveCurrentText();
+  virtual void saveCurrentText( const QString& );
   /**
   * Is called when the current text was changed.
   */
