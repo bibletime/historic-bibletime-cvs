@@ -206,7 +206,7 @@ uninstall-local:
 	done
 
 merge:
-	for cat in find -name "*.po"`; do \
+	for cat in `find -name "*.po"`; do \
 		name=../../bibletime/pot/messages.pot ; \
 		echo $$cat $$name; \
 		msgmerge $$cat $$name > $$cat.new ; \
