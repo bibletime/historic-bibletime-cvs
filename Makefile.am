@@ -1,4 +1,4 @@
-##SUBDIRS = bibletime setupwizard pot docs .
+#SUBDIRS = bibletime setupwizard pot docs .
 SUBDIRS = bibletime pot docs .
 
 
