@@ -98,13 +98,13 @@ void CBibleReadWindow::insertKeyboardActions( KAccel* const a ){
 	a->insert("Previous verse",   i18n("Previous verse"),   "", IDK_PRESENTER_PREVIOUS_VERSE,   0, "");	
 }
 
-
 void CBibleReadWindow::initKeyboardActions() {
   CReadWindow::initKeyboardActions();
 
   CBTConfig::setupAccel( CBTConfig::bibleWindow, accel() );	
   insertKeyboardActions( accel() );
-
+  CReadWindow::insertKeyboardActions(accel());
+  
   accel()->readSettings();
 
 	accel()->setSlot("Next book", this, SLOT(nextBook()));

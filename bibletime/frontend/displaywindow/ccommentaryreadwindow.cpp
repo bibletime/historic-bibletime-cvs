@@ -21,6 +21,7 @@
 #include "resource.h"
 
 #include "frontend/cprofilewindow.h"
+#include "frontend/cbtconfig.h"
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
@@ -31,6 +32,7 @@
 
 //KDE includes
 #include <kaction.h>
+#include <kaccel.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
 
@@ -72,8 +74,72 @@ void CCommentaryReadWindow::refresh(){
 
 /** rapper around key() to return the right type of key. */
 CSwordVerseKey* CCommentaryReadWindow::verseKey(){
-//  qWarning("CBibleReadWindow::key()");
+//  qWarning("CCommentaryReadWindow::key()");
 	CSwordVerseKey* k = dynamic_cast<CSwordVerseKey*>(CDisplayWindow::key());
 // 	Q_ASSERT(k);
 	return k;
+}
+
+
+/** Reimplementation. */
+void CCommentaryReadWindow::insertKeyboardActions( KAccel* const a ){
+  a->insert("Next book",        i18n("Next book"),        "", IDK_PRESENTER_NEXT_BOOK,        0, "");
+	a->insert("Previous book",    i18n("Previous book"),    "", IDK_PRESENTER_PREVIOUS_BOOK,    0, "");
+	a->insert("Next chapter",     i18n("Next chapter"),     "", IDK_PRESENTER_NEXT_CHAPTER,     0, "");
+	a->insert("Previous chapter", i18n("Previous chapter"), "", IDK_PRESENTER_PREVIOUS_CHAPTER, 0, "");
+	a->insert("Next verse",       i18n("Next verse"),       "", IDK_PRESENTER_NEXT_VERSE,       0, "");
+	a->insert("Previous verse",   i18n("Previous verse"),   "", IDK_PRESENTER_PREVIOUS_VERSE,   0, "");
+}
+
+void CCommentaryReadWindow::initKeyboardActions() {
+  CReadWindow::initKeyboardActions();
+
+  CBTConfig::setupAccel( CBTConfig::bibleWindow, accel() );
+  CReadWindow::insertKeyboardActions(accel());  
+  insertKeyboardActions( accel() );
+
+  accel()->readSettings();
+
+	accel()->setSlot("Next book", this, SLOT(nextBook()));
+  accel()->setSlot("Previous book", this, SLOT(previousBook()));
+  accel()->setSlot("Next chapter", this, SLOT(nextChapter()));
+  accel()->setSlot("Previous chapter", this, SLOT(previousChapter()));
+  accel()->setSlot("Next verse", this, SLOT(nextVerse()));
+  accel()->setSlot("Previous verse", this, SLOT(previousVerse()));
+}
+
+/** Moves to the next book. */
+void CCommentaryReadWindow::nextBook(){
+	if (verseKey()->next(CSwordVerseKey::UseBook))
+		keyChooser()->setKey(key());
+}
+
+/** Moves one book behind. */
+void CCommentaryReadWindow::previousBook(){
+	if (verseKey()->previous(CSwordVerseKey::UseBook))
+		keyChooser()->setKey(key());
+}
+
+/** Moves to the next book. */
+void CCommentaryReadWindow::nextChapter(){
+	if (verseKey()->next(CSwordVerseKey::UseChapter))
+		keyChooser()->setKey(key());
+}
+
+/** Moves one book behind. */
+void CCommentaryReadWindow::previousChapter(){
+	if (verseKey()->previous(CSwordVerseKey::UseChapter))
+		keyChooser()->setKey(key());
+}
+
+/** Moves to the next book. */
+void CCommentaryReadWindow::nextVerse(){
+	if (verseKey()->next(CSwordVerseKey::UseVerse))
+		keyChooser()->setKey(key());
+}
+
+/** Moves one book behind. */
+void CCommentaryReadWindow::previousVerse(){
+	if (verseKey()->previous(CSwordVerseKey::UseVerse))
+		keyChooser()->setKey(key());
 }

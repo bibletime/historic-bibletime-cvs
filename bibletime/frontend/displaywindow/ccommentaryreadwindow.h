@@ -31,7 +31,13 @@
 class CCommentaryReadWindow : public CLexiconReadWindow  {
    Q_OBJECT
 public: 
-	CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
+  /**
+  * Reimplementation.
+  */
+  static void insertKeyboardActions( KAccel* const a );
+
+
+  CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name=0);
   /**
   * Store the settings of this window in the given CProfileWindow object.
   */
@@ -45,13 +51,21 @@ public:
   */
   void syncToKey( CSwordKey* const key);
 
+  
 public slots: // Public slots
+  void nextBook();
+  void previousBook();
+  void nextChapter();
+  void previousChapter();
+  void nextVerse();
+  void previousVerse();
   /**
   * Reimplementation to handle the keychooser refresh.
   */
   virtual void refresh();
 
 protected:
+	virtual void initKeyboardActions();
   virtual void initView();
 
 private:

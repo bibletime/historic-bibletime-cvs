@@ -124,7 +124,7 @@ void CLexiconKeyChooser::refreshContent(){
       inAllModules = true;
       for ( module = entryCountMap.begin(), ++module; inAllModules && (module.data() != referenceModule) && (module != entryCountMap.end()); ++module ) {
         moduleEntries = entryMap[ module.data() ];
-        inAllModules = moduleEntries && inAllModules && moduleEntries->contains(*it);
+        inAllModules = moduleEntries && inAllModules && (moduleEntries->contains(*it) || moduleEntries->contains( (*it).upper() ));
       }
       if (inAllModules) { //entry is available everywhere, insert it into the good entries list!
         goodEntries.append( (*it) );

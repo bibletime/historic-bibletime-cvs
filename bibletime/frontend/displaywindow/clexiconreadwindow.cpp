@@ -57,8 +57,6 @@ void CLexiconReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
 
 /** Reimplementation. */
 void CLexiconReadWindow::insertKeyboardActions( KAccel* a ){
-  CReadWindow::insertKeyboardActions(a);
-  
   a->insert("Next entry",     i18n("Next entry"),     "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);
 	a->insert("Previous entry", i18n("Previous entry"), "", IDK_PRESENTER_PREVIOUS_ENTRY, 0, "", true, true);	
 }
@@ -68,6 +66,8 @@ void CLexiconReadWindow::initKeyboardActions() {
 
   CBTConfig::setupAccel(CBTConfig::lexiconWindow, accel());
   insertKeyboardActions(accel());
+  CReadWindow::insertKeyboardActions(accel());
+
   accel()->readSettings();
 
   accel()->setSlot("Next entry", this, SLOT(nextEntry()));
