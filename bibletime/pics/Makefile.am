@@ -4,8 +4,8 @@ highcolor \
 .
 
 BIBLETIME_PICS = \
-startuplogo.png \
-cross.png 
+startuplogo.png
+
 
 EXTRA_DIST = $(BIBLETIME_PICS)
 
