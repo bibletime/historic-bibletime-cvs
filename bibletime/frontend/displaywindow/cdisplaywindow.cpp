@@ -242,13 +242,9 @@ void CDisplayWindow::modulesChanged(){
 	  key()->module(modules().first());
 	  keyChooser()->setModules(modules());
 
-	  lookup(key());
+	  //lookup(key()); //the keyChooser()->setModules() call already triggers this
 	}
 }
-
-/** Lookup the given key. */
-//void CDisplayWindow::lookup( CSwordKey* ){
-//}
 
 /** Returns the module chooser bar. */
 CModuleChooserBar* const CDisplayWindow::moduleChooserBar() const {
@@ -389,9 +385,9 @@ KPopupMenu* const CDisplayWindow::popup(){
 	  if (displayWidget()) {
 	  	displayWidget()->installPopup(m_popupMenu);
     }
-	  else {
+/*	  else {
 	  	qWarning("CDisplayWindow:: can't instal popup menu");
-    }
+    }*/
   }
  	return m_popupMenu;
 }
@@ -407,7 +403,6 @@ void CDisplayWindow::setDisplayWidget( CDisplay* newDisplay ){
 }
 
 void CDisplayWindow::closeEvent(QCloseEvent* e) {
-//  qWarning("CDisplayWindow::closeEvent(QCloseEvent* e)");
 	if (!queryClose()) {
 		e->ignore();
 	}

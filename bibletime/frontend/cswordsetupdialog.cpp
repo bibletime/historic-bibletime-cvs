@@ -63,6 +63,8 @@ using std::endl;
 
 using namespace sword;
 
+namespace InstallationManager {
+
 CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent ) :
 	KListViewItem(parent, QString::null)
 {
@@ -1400,4 +1402,6 @@ void CSwordSetupDialog::slot_installProgressCancelClicked() {
 	if (m_currentInstallMgr) {
 		m_currentInstallMgr->terminate = true;
 	}
+}
+
 }

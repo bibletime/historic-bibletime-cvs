@@ -47,6 +47,9 @@
 #include <qsplitter.h>
 #include <qguardedptr.h>
 #include <qlistview.h>
+#include <qlayout.h>
+#include <qlabel.h>
+#include <qvbox.h>
 
 //KDE includes
 #include <kaboutdata.h>
@@ -74,14 +77,18 @@ void BibleTime::initView(){
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
 
 	m_splitter = new QSplitter(this, "mainsplitter");
-//  m_splitter->setOpaqueResize( true );
 	setCentralWidget(m_splitter);	
 
 	QSplitter* mainIndexSplitter = new QSplitter(Qt::Vertical, m_splitter);
+
+	QVBox* vBox = new QVBox(mainIndexSplitter);
+	QLabel* l = new QLabel( i18n("Main index"), vBox );
+// 	vBox->addWidget(l);
 	
-	m_mainIndex = new CMainIndex(mainIndexSplitter);
+	m_mainIndex = new CMainIndex(vBox);
 	m_mainIndex->initTree();
-	m_mainIndex->setFocusPolicy(WheelFocus);       	
+	m_mainIndex->setFocusPolicy(WheelFocus);
+// 	vBox->addWidget(m_mainIndex);
 
 	m_infoDisplay = new CInfoDisplay(mainIndexSplitter);
 	CPointers::setInfoDisplay(m_infoDisplay);
@@ -473,8 +480,8 @@ void BibleTime::initBackends(){
 			case CSwordBackend::NoSwordConfig: //mods.d or mods.conf missing
 			{
 				KStartupLogo::hideSplash();
-        CSwordSetupDialog dlg;
-        dlg.showPart( CSwordSetupDialog::Sword );
+        InstallationManager::CSwordSetupDialog dlg;
+        dlg.showPart( InstallationManager::CSwordSetupDialog::Sword );
         dlg.exec();
 				break;
 	    }
@@ -482,8 +489,8 @@ void BibleTime::initBackends(){
 			case CSwordBackend::NoModules: //no modules installed, but config exists
 			{
 				KStartupLogo::hideSplash();
-        CSwordSetupDialog dlg;
-        dlg.showPart( CSwordSetupDialog::Install );
+        InstallationManager::CSwordSetupDialog dlg;
+        dlg.showPart( InstallationManager::CSwordSetupDialog::Install );
         dlg.exec();
 				break;
 		  }
@@ -491,8 +498,8 @@ void BibleTime::initBackends(){
 			default: //unknown error
 			{
 				KStartupLogo::hideSplash();
-        CSwordSetupDialog dlg;
-        dlg.showPart( CSwordSetupDialog::Sword );
+        InstallationManager::CSwordSetupDialog dlg;
+        dlg.showPart( InstallationManager::CSwordSetupDialog::Sword );
        	dlg.exec();
 				break;
 		  }

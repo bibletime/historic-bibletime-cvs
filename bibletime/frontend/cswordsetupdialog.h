@@ -43,7 +43,8 @@ class QPushButton;
 class QLineEdit;
 
 class KProgressDialog;
-// class KListView;
+
+namespace InstallationManager {
 
 class CInstallSourcesMgrDialog : public KDialogBase, public CPointers  {
    Q_OBJECT
@@ -214,5 +215,7 @@ private slots:
 signals: // Signals
   void signalSwordSetupChanged();
 };
+
+}
 
 #endif //CSWORDSETUPDIALOG_H

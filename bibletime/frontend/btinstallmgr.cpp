@@ -34,6 +34,8 @@
 
 using namespace sword;
 
+namespace InstallationManager {
+
 const QString BTInstallMgr::Tool::LocalConfig::swordConfigFilename() {
 //  Q_ASSERT( CPointers::backend()->sysconfig );
 	return QString::fromLatin1("%1/.sword/sword.conf").arg(getenv("HOME"));
@@ -292,4 +294,6 @@ void BTInstallMgr::preDownloadStatus(long totalBytes, long completedBytes, const
 	m_completedBytes = completedBytes;
   m_totalBytes = totalBytes;
   KApplication::kApplication()->processEvents();
+}
+
 }

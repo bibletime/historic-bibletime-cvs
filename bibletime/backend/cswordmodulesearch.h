@@ -18,7 +18,10 @@
 #ifndef CSWORDMODULESEARCH_H
 #define CSWORDMODULESEARCH_H
 
-//BibleTime includes
+//BibleTime - backend
+#include "cswordmoduleinfo.h"
+
+//BibleTime - utils
 #include "util/cpointers.h"
 
 //Qt includes
@@ -31,10 +34,6 @@
 
 //Sword includes
 #include <listkey.h>
-
-//class ListKey;
-class CSwordModuleInfo;
-typedef QPtrList<CSwordModuleInfo> ListCSwordModuleInfo;
 
 /**
 	* CSwordModuleSearch manages the search on Sword modules. It manages the thread(s)

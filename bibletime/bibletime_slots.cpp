@@ -96,7 +96,7 @@ void BibleTime::slotSettingsChanged(){
 
 /** Opens the sword setup dialog of BibleTime. */
 void BibleTime::slotSwordSetupDialog(){
-	CSwordSetupDialog *dlg = new CSwordSetupDialog(this, "CSwordSetupDialog");
+	InstallationManager::CSwordSetupDialog *dlg = new InstallationManager::CSwordSetupDialog(this, "CSwordSetupDialog");
   connect(dlg, SIGNAL(signalSwordSetupChanged()), SLOT(slotSwordSetupChanged()) );
 
 	dlg->exec();
@@ -191,10 +191,14 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	int i, id;
 	for ( i = 0; i < int(windows.count()); ++i ) {
     QString caption;
-    if (CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.at(i)))
-      caption = QString::fromLatin1("%1 (%2)").arg(w->caption()).arg(w->key()->key());
-    else
+		CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(windows.at(i));
+    if (window) {
+      caption = QString::fromLatin1("%1 (%2)").arg(window->caption()).arg(window->key()->key());
+		}
+    else {
       caption = windows.at(i)->caption();
+		}
+		
 		id = m_windowMenu->insertItem(QString::fromLatin1("&%1 ").arg(i+1) + caption /*+ windows.at()*/,
 			this, SLOT(slotWindowMenuActivated( int )) );
 		m_windowMenu->setItemParameter( id, i );
@@ -228,28 +232,30 @@ void BibleTime::slotWindowMenuActivated( int id ) {
   if (!m_windowMenu)
   	return;
   	
-//  QString dummy;
-  QWidget* w = m_mdi->windowList().at( id );
-  if ( w )
-		w->setFocus();
+  QWidget* const window = m_mdi->windowList().at( id );
+  if ( window ) {
+		window->setFocus();
+	}
 }
 
 
 /** Shows/hides the toolbar */
 void BibleTime::slotToggleToolbar(){
-	if (m_viewToolbar_action->isChecked())
+	if (m_viewToolbar_action->isChecked()) {
 		toolBar("mainToolBar")->show();
-	else
+	}
+	else {
 		toolBar("mainToolBar")->hide();
+	}
 }
 
 /** Shows or hides the groupmanager. */
 void BibleTime::slotToggleMainIndex() {
 	if (m_viewMainIndex_action->isChecked()) {
-		m_mainIndex->show();
+		m_mainIndex->parentWidget()->show();
   }
 	else {
-		m_mainIndex->hide();
+		m_mainIndex->parentWidget()->hide();
   }
 }
 
@@ -358,8 +364,9 @@ void BibleTime::loadProfile(int ID){
 }
 
 void BibleTime::loadProfile(CProfile* p){
-	if (!p)
+	if (!p) {
 		return;
+	}
     
   QPtrList<CProfileWindow> windows = p->load();
 
@@ -373,6 +380,7 @@ void BibleTime::loadProfile(CProfile* p){
   for (CProfileWindow* w = windows.first(); w; w = windows.next()) {
 		const QString key = w->key();
 		QStringList usedModules = w->modules();
+		
 		ListCSwordModuleInfo modules;
 		for ( QStringList::Iterator it = usedModules.begin(); it != usedModules.end(); ++it ) {
 			if (CSwordModuleInfo* m = m_backend->findModuleByName(*it)) {
@@ -397,23 +405,14 @@ void BibleTime::loadProfile(CProfile* p){
         focusWindow = displayWindow;
       }
 
-//      displayWindow->parentWidget()->lower();
       displayWindow->applyProfileSettings(w);
     };
 	}
 
 	m_mdi->setUpdatesEnabled(true);
-
-//   if (focusWindow) {
-//    focusWindow->parentWidget()->raise();
-//    focusWindow->setFocus();
-//   }
 }
 
 void BibleTime::toggleFullscreen(){
-//  if (!isVisible())
-//    return;
-  
 	if (m_windowFullscreen_action->isChecked()) {
  		showFullScreen();
   }

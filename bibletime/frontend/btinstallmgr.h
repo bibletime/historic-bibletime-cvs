@@ -32,6 +32,8 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
+namespace InstallationManager {
+
 typedef QPtrList<sword::InstallSource> InstallSourceList;
 
 /**Our own reimplementation to provide status bar updates.
@@ -94,5 +96,7 @@ signals: // Signals
   */
   void downloadStarted( const QString& );
 };
+
+}
 
 #endif
