@@ -37,6 +37,7 @@
 #include <qdragobject.h>
 #include <qpopupmenu.h>
 #include <qlayout.h>
+#include <qtimer.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -158,37 +159,38 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
 //  qWarning("CHTMLReadDisplay::urlSelected");
   KHTMLPart::urlSelected(url, button, state, _target, args);
   m_urlWorkaroundData.doWorkaround = false;
-  
+
   if (!url.isEmpty() && CReferenceManager::isHyperlink(url)) {
     QString module;
     QString key;
     CReferenceManager::Type type;
     CReferenceManager::decodeHyperlink(url, module, key, type);
-    if (module.isEmpty())
+    if (module.isEmpty()) {
       module = CReferenceManager::preferredModule( type );
+		}
 
       // we have to use this workaround, otherwise the widget would scroll because it was interrupted
       // between mouseClick and mouseRelease (I guess)
-      m_urlWorkaroundData.doWorkaround = true;
-      m_urlWorkaroundData.url = url;
-      m_urlWorkaroundData.state =  state;
-      m_urlWorkaroundData.button = button;
-      m_urlWorkaroundData.target = _target;
-      m_urlWorkaroundData.args = args;
-      m_urlWorkaroundData.module = module;
-      m_urlWorkaroundData.key = key;
+    m_urlWorkaroundData.doWorkaround = true;
+    m_urlWorkaroundData.url = url;
+    m_urlWorkaroundData.state =  state;
+		m_urlWorkaroundData.button = button;
+		m_urlWorkaroundData.target = _target;
+		m_urlWorkaroundData.args = args;
+		m_urlWorkaroundData.module = module;
+		m_urlWorkaroundData.key = key;
   }
   else if (!url.isEmpty() && url.left(1) == "#") { //anchor
     moveToAnchor(url.mid(1));
   }
-  else { //default behaviour
-    qDebug("CHTMLReadDisplay: link or anchor is empty");
-  };
+  //else { //default behaviour
+    //qDebug("CHTMLReadDisplay: link or anchor is empty");
+  //};
 }
 
 /** Reimplementation. */
 void CHTMLReadDisplay::khtmlMouseReleaseEvent( khtml::MouseReleaseEvent* event ){
-  KHTMLPart::khtmlMouseReleaseEvent(event);	
+  KHTMLPart::khtmlMouseReleaseEvent(event);
 
   m_dndData.mousePressed = false;
   m_dndData.isDragging = false;

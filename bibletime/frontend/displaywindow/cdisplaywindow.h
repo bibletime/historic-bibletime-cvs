@@ -206,7 +206,7 @@ protected:
   /**
   * Lookup the given key.
   */
-  virtual void lookup( CSwordKey* );
+  virtual void lookup( CSwordKey* ) = 0;
   /**
   * Sets the module chooser bar.
   */

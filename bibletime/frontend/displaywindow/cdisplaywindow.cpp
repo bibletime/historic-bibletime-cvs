@@ -247,8 +247,8 @@ void CDisplayWindow::modulesChanged(){
 }
 
 /** Lookup the given key. */
-void CDisplayWindow::lookup( CSwordKey* ){
-}
+//void CDisplayWindow::lookup( CSwordKey* ){
+//}
 
 /** Returns the module chooser bar. */
 CModuleChooserBar* const CDisplayWindow::moduleChooserBar() const {
@@ -323,7 +323,7 @@ void CDisplayWindow::setDisplaySettingsButton( CDisplaySettingsButton* button ){
   if (m_displaySettingsButton)
 		disconnect(m_displaySettingsButton, SIGNAL( sigChanged() ),this,	SLOT(lookup() ));
 
-  m_displaySettingsButton = button;	
+  m_displaySettingsButton = button;
  	connect(m_displaySettingsButton, SIGNAL(sigChanged()),this, SLOT(lookup()));
 }
 

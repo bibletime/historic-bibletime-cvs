@@ -124,6 +124,8 @@ protected slots: // Protected slots
   * Saves the chapter as valid HTML page.
   */
   void saveChapterPlain();
+	virtual void lookup( CSwordKey* newKey );
+	void syncWindows();
 
 private:
   friend class CCommentaryReadWindow;

@@ -140,11 +140,11 @@ public slots:
   virtual void selectAll();
 	void emitReferenceClicked( const QString& module, const QString& key);
 	void emitReferenceDropped( const QString& key );
-	void emitTextChanged();  
+	void emitTextChanged();
 
   //stuff which works in every CDisplay
   void saveAsPlain();
-  void saveAsHTML();		
+  void saveAsHTML();
   void saveAnchorWithText();
 
   void printAll();
@@ -165,6 +165,11 @@ signals:
 
 private:
   CDisplay* m_display;
+
+	struct {
+		QString module;
+		QString key;
+	} m_referenceClickedCache;
 };
 
 #endif

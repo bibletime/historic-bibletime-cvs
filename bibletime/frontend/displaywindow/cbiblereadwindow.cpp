@@ -37,6 +37,7 @@
 
 //Qt includes
 #include <qwidgetlist.h>
+#include <qtimer.h>
 
 //KDE includes
 #include <kaccel.h>
@@ -109,8 +110,8 @@ void CBibleReadWindow::initKeyboardActions() {
 }
 
 void CBibleReadWindow::initConnections(){
+//  connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)), SLOT(keyChanged(CSwordKey*)));
   CLexiconReadWindow::initConnections();
-  connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)), SLOT(keyChanged(CSwordKey*)));
 
   if (m_transliterationButton) { // Transliteration is not always available
     connect(m_transliterationButton, SIGNAL(sigChanged()), SLOT(lookup()));
@@ -233,7 +234,7 @@ CSwordVerseKey* CBibleReadWindow::verseKey(){
 
 /** Is called when the key of the keychooser changed. */
 void CBibleReadWindow::keyChanged(CSwordKey* key){
-	QWidgetList windows = mdi()->windowList();
+/*	QWidgetList windows = mdi()->windowList();
 	if (!windows.count()) {
 		return;
 	}
@@ -243,7 +244,7 @@ void CBibleReadWindow::keyChanged(CSwordKey* key){
 		if (w && w->syncAllowed()) {
 			w->lookup( key->key() );
 		}
-	}
+	}*/
 }
 
 /** Copies the current chapter into the clipboard. */
@@ -315,14 +316,39 @@ void CBibleReadWindow::reload(){
 
 /** No descriptions */
 bool CBibleReadWindow::eventFilter( QObject* o, QEvent* e) {
-  if (e && (e->type() == QEvent::FocusIn)) { //sync other windows to this active window now
-  	QWidgetList windows = mdi()->windowList();
-   	for (windows.first(); windows.current(); windows.next()) {
-			CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.current());
-   		if (w && w->syncAllowed()) {
-   			w->lookup( key()->key() );
-			}
-   	}
-  }
-  return CLexiconReadWindow::eventFilter(o,e);
+  const bool ret = CLexiconReadWindow::eventFilter(o,e);
+  if (e && (e->type() == QEvent::FocusIn)) { //sync other windows to this active
+
+		/* This is a hack to work around a KHTML problem (similair to the Drag&Drop problem we had):
+		* If new HTML content is loaded from inside a  kHTML event handler
+		* the widget's state will be confused, i.e. it's scrolling without having
+		* the mousebutton clicked.
+		*
+		* This is not really in a KHTML event handler but works anyway.
+		* Sometime KDE/Qt is hard to use ...
+		*/
+		QTimer::singleShot(0, this, SLOT(syncWindows()));
+	}
+
+	return ret;
+}
+
+void CBibleReadWindow::lookup( CSwordKey* newKey ) {
+	CLexiconReadWindow::lookup(newKey);
+
+	syncWindows();
+}
+
+void CBibleReadWindow::syncWindows() {
+	QWidgetList windows = mdi()->windowList();
+	if (!windows.count()) {
+		return;
+	}
+
+	for (windows.first(); windows.current(); windows.next()) {
+		CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.current());
+		if (w && w->syncAllowed()) {
+			w->lookup( key()->key() );
+		}
+	}
 }

@@ -82,8 +82,6 @@ void CLexiconReadWindow::initConnections(){
 }
 
 void CLexiconReadWindow::initView(){
-
-  qWarning("Lexicon: %i modules", modules().count());
 	setDisplayWidget( CDisplay::createReadInstance(this) );
  	setCentralWidget( displayWidget()->view() );
 
@@ -96,8 +94,8 @@ void CLexiconReadWindow::initView(){
  	mainToolBar()->setFullSize(false);
 
 	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
-	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());	  
-  
+	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
+
 //  setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 //	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 
@@ -112,13 +110,13 @@ void CLexiconReadWindow::setupPopupMenu(){
 
   (new KActionSeparator())->plug( popup() );
 
- 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::lexiconWindow::copyMenu::icon);	
- 	
+ 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), CResMgr::displaywindows::lexiconWindow::copyMenu::icon);
+
   m_actions.copy.reference = new KAction(i18n("Reference only"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.reference);
   m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.entry);
-  m_actions.copyMenu->insert(new KActionSeparator());	
+  m_actions.copyMenu->insert(new KActionSeparator());
 	m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.selectedText);
  	m_actions.copyMenu->plug(popup());

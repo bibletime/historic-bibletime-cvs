@@ -28,6 +28,7 @@
 //Qt includes
 #include <qclipboard.h>
 #include <qpopupmenu.h>
+#include <qtimer.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -52,19 +53,16 @@ void CDisplayConnections::saveAsPlain() {
 
 /** Emits the signal. */
 void CDisplayConnections::emitReferenceClicked( const QString& module, const QString& key){
-//	qWarning("CDisplayConnections::emitReferenceClicked( const QString& module, const QString& key)");
- 	emit referenceClicked(module, key);
+	emit referenceClicked( module, key );
 }
 
 /** Emits the signal. */
 void CDisplayConnections::emitReferenceDropped( const QString& key){
-//	qWarning("CDisplayConnections::emitReferenceDropped( const QString& module, const QString& key)");	
  	emit referenceDropped(key);
 }
 
 /** Emits the signal. */
 void CDisplayConnections::emitTextChanged(){
-//	qWarning("CDisplayConnections::emitTextChanged");
  	emit textChanged();
 }
 

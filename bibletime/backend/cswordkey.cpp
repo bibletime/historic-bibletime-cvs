@@ -46,9 +46,10 @@ CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
 }
 
 const QString CSwordKey::rawText() {
-	qWarning("const QString CSwordKey::rawText()");
-  if (!m_module)
+  if (!m_module) {
 		return QString::null;
+	}
+
 	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
     m_module->module()->SetKey(k);
 	}
@@ -64,7 +65,7 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
 		return QString::null;
 
 	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
-    m_module->module()->SetKey(k);		
+    m_module->module()->SetKey(k);
 	}
   if (!key().isNull()) {
     //we have valid text
@@ -89,24 +90,24 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode) {
       return text;
     }
   }
-  return QString::null;  
+  return QString::null;
 }
 
 const QString CSwordKey::strippedText() {
-//	qWarning("const QString CSwordKey::strippedText()");	
+//	qWarning("const QString CSwordKey::strippedText()");
   if (!m_module)
 		return QString::null;
 	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
 		m_module->module()->SetKey(k);
   }
-	return QString::fromUtf8(m_module->module()->StripText());	
+	return QString::fromUtf8(m_module->module()->StripText());
 }
 
 /** This will create a proper key object from a given module */
 CSwordKey* CSwordKey::createInstance( CSwordModuleInfo* const module ){
 	if (!module)
 		return 0;
-		
+
 	switch( module->type() ){
 		case CSwordModuleInfo::Bible://fall through
 		case CSwordModuleInfo::Commentary:
