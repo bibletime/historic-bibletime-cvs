@@ -161,21 +161,7 @@ const QString CPrintItem::getModuleText() {
 	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);		
 	QString text = QString::null;
 	CSwordModuleInfo* sw = (CSwordModuleInfo*)m_module;
-//	if (sw && sw->hasFont()) {
-//		CHTMLEntryDisplay d;
-//		d.setIncludeHeader(false);
-//		d.setStandardFont(sw->getFont().family(), sw->getFont().pointSize());
-//		if (vk)
-//			sw->module()->SetKey(*vk);
-//		else if (lk)
-//			sw->module()->SetKey(*lk);
-//		else
-//			return QString::null;
-//		d.Display(sw);
-//		text = d.getHTML();
-//	}
-//	else
-	text = vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString());
+	text = QString("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse())+ (vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString()));
 	if (sw && m_stopKey && m_stopKey != m_startKey) {
 		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
 			CSwordVerseKey dummyKey(sw);
@@ -186,11 +172,11 @@ const QString CPrintItem::getModuleText() {
 			dummyKey.setKey( vk_start->getKey() );
 			while (dummyKey < *vk_stop) {
 				dummyKey.NextVerse();
-				text += QString("<BR>") + dummyKey.getRenderedText();
+				text += QString("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.getRenderedText();
 			}			
 		}
-		else if (sw->getType() == CSwordModuleInfo::Lexicon ) {
-		}
+//		else if (sw->getType() == CSwordModuleInfo::Lexicon ) {
+//		}
 	}
 		
 	text.replace(QRegExp("$\n+"), "");
@@ -377,11 +363,15 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
     	int translated = 0;
     	do {				
     		if ((printer->getVerticalPos() + richText.height()) < (printer->getPageSize().height()+printer->upperMargin()) )
-    			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), richText.height());
+    			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), richText.height());    		
+//    		else if ( (printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin()+translated) > richText.height() ) {
+//    			br = QRect(printer->leftMargin(), printer->upperMargin(), printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin()+translated- richText.height() );
+//    		}
     		else { //fill to bottom of the page
     			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin());
     			br.moveBy(0, translated);
     		}
+   			
     		p->setClipRect(printer->getPageSize());
    			p->fillRect(br,QBrush(bgColor));
 				if (frame) {
