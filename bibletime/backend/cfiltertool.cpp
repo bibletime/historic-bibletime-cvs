@@ -138,15 +138,19 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
 }
 
 const sword::SWBuf CFilterTool::parseThMLRef(const sword::SWBuf& ref, const char* mod) {
-	const char* moduleName = (mod ? mod : m_standardBible.latin1());
+  updateSettings();
+
+  const char* moduleName = (mod ? mod : m_standardBible.latin1());
   sword::SWModule* module = 0;
   if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(moduleName) ) {
     module = m->module();
   }
-  return parseRef( ref, module, false );
+  return parseRef( ref, module, 0, false );
 }
 
 const sword::SWBuf CFilterTool::parseSimpleRef(const sword::SWBuf& ref) {
+  updateSettings();
+
   if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(m_standardBible.latin1()) ) {
     return parseRef( ref, m->module(), 0 );
   }

@@ -133,18 +133,26 @@ const bool CReferenceManager::decodeHyperlink( const QString& hyperlink, QString
 			ref = ref.mid(5); //inclusive trailing slash
 		}		
 		// string up to next slash is the modulename
-		while (true) {
-			const int pos = ref.find("/");
-			if (pos>0 && ref.at(pos-1) != '\\') { //found a slash which is not escaped
-				module = ref.mid(0,pos);
-				ref = ref.mid(pos+1);			
-				break;
-			}
-		}
-		// the rest is the key
-		key = ref;
-		//replace \/ escapes with /
-		key.replace(QRegExp("\\\\/"), "/");
+		if (ref.at(0) != '/' ) { //we have a module given
+      while (true) {
+  			const int pos = ref.find("/");
+  			if (pos>0 && ref.at(pos-1) != '\\') { //found a slash which is not escaped
+  				module = ref.mid(0,pos);
+  				ref = ref.mid(pos+1);
+  				break;
+  			}
+        else if (pos == -1) {
+          break;
+        }
+  		}
+  		// the rest is the key
+   		key = ref;
+    }
+    else {
+      key = ref.mid(1);
+    }
+ 		//replace \/ escapes with /
+ 		key.replace(QRegExp("\\\\/"), "/");
 	}
 	else if (ref.left(8) == "morph://" || ref.left(10) == "strongs://") { //strongs or morph URL have the same format
 		enum PreType {IsMorph, IsStrongs};
