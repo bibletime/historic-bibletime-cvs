@@ -6557,8 +6557,8 @@ bibletime/backend/sword_backend/Makefile \
 bibletime/docs/Makefile \
 bibletime/docs/de/docbook_XML/Makefile \
 bibletime/docs/en/Makefile \
-bibletime/docs/en/HTML/Makefile \
 bibletime/docs/en/docbook_XML/Makefile \
+bibletime/docs/en/HTML/Makefile \
 bibletime/frontend/Makefile \
 bibletime/frontend/groupmanager/Makefile \
 bibletime/frontend/keychooser/Makefile \
@@ -6778,8 +6778,8 @@ bibletime/backend/sword_backend/Makefile \
 bibletime/docs/Makefile \
 bibletime/docs/de/docbook_XML/Makefile \
 bibletime/docs/en/Makefile \
-bibletime/docs/en/HTML/Makefile \
 bibletime/docs/en/docbook_XML/Makefile \
+bibletime/docs/en/HTML/Makefile \
 bibletime/frontend/Makefile \
 bibletime/frontend/groupmanager/Makefile \
 bibletime/frontend/keychooser/Makefile \
