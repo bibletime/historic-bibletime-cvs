@@ -268,8 +268,16 @@ void CSwordSetupDialog::populateInstallCombos(){
 void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
   BTInstallMgr mgr;
 
-  m_sourceLabel->setText( BTInstallMgr::Tool::source(&mgr, sourceName).directory.c_str() );
-//  source = m_sourceMap[sourceName];
+  QString url;
+  sword::InstallSource is = BTInstallMgr::Tool::source(&mgr, sourceName) ;
+  
+  if (BTInstallMgr::Tool::isRemoteSource(&is)) {
+    url = QString::fromLatin1("ftp://%1%2").arg(is.source.c_str()).arg(is.directory.c_str());
+  }
+  else {
+    url = QString::fromLatin1("%1").arg(is.directory.c_str());
+  }
+  m_sourceLabel->setText( url );
 }
 
 /** No descriptions */
@@ -441,14 +449,10 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
     return;
 
   QListViewItem* parent = 0;
-  ListCSwordModuleInfo mods = backend->moduleList();  
+  ListCSwordModuleInfo mods = backend->moduleList();
   for (CSwordModuleInfo* newModule = mods.first(); newModule; newModule = mods.next()) {
     bool isUpdate = false;
-    Q_ASSERT(newModule);
-    
-//    qWarning("found module %s", newModule->name().latin1());
-
-    CSwordModuleInfo* installedModule = CPointers::backend()->findModuleByName(newModule->name());
+    CSwordModuleInfo* const installedModule = CPointers::backend()->findModuleByName(newModule->name());
     if (installedModule) { //module already installed?
       //check whether it's an uodated module or just the same
       const SWVersion installedVersion( installedModule->config(CSwordModuleInfo::ModuleVersion).latin1() );
@@ -487,12 +491,10 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
       newItem = new QCheckListItem(m_installModuleListView, newModule->name(), QCheckListItem::CheckBox);
     }
     
-    Q_ASSERT(newItem);
-    const QString installedVersion = installedModule ? installedModule->config(CSwordModuleInfo::ModuleVersion) : "";
-    newItem->setText(1, installedVersion);
-    newItem->setText(2, newModule->config(CSwordModuleInfo::ModuleVersion));
-    newItem->setText(3, isUpdate ? i18n("Update") : i18n("New"));
     newItem->setPixmap(0, CToolClass::getIconForModule(newModule));
+    newItem->setText(1, installedModule ? installedModule->config(CSwordModuleInfo::ModuleVersion) : "");
+    newItem->setText(2, newModule->config(CSwordModuleInfo::ModuleVersion));
+    newItem->setText(3, isUpdate ? i18n("Updated") : i18n("New"));
   }
 
   //clean up groups

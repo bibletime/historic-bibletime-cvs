@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "btinstallmgr.h"
+#include "util/cpointers.h"
 
 #include <qfile.h>
 
@@ -61,10 +62,10 @@ QStringList BTInstallMgr::Tool::sourceList( sword::InstallMgr* mgr ) {
 }
 
 QStringList BTInstallMgr::Tool::targetList() {
-  QStringList names;
-
-  names.append("/usr/share/sword");
-  names.append("$HOME/.sword");
+  QStringList names = CPointers::backend()->swordDirList();
+//
+//  names.append("/usr/share/sword");
+//  names.append("$HOME/.sword");
   
   return names;
 }

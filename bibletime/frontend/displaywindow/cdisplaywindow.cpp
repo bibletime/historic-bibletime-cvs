@@ -120,13 +120,11 @@ ListCSwordModuleInfo CDisplayWindow::modules() {
   ListCSwordModuleInfo mods;
 
   for (QStringList::iterator it = m_modules.begin(); it != m_modules.end(); ++it) {
-    qWarning("modules: %s", (*it).latin1());
     Q_ASSERT(backend()->findModuleByName(*it));
     if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) {
       mods.append(m);
     }
   }
-    qWarning("modules contains %i items", mods.count());
   
 	return mods;
 }

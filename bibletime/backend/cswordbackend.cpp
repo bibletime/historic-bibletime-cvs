@@ -32,6 +32,7 @@
 
 //Qt includes
 #include <qdir.h>
+#include <qfileinfo.h>
 
 //KDE includes
 #include <klocale.h>
@@ -92,6 +93,7 @@ CSwordBackend::~CSwordBackend(){
 
 /** Initializes the Sword modules. */
 const CSwordBackend::LoadError CSwordBackend::initModules() {
+//  qWarning("globalSwordConfigPath is %s", globalConfPath);
 	LoadError ret = NoError;
 
 	sword::ModMap::iterator it;
@@ -491,4 +493,37 @@ const bool CSwordBackend::useICU() const{
 void CSwordBackend::reloadModules(){
   shutdownModules();
   initModules();
+}
+
+const QStringList CSwordBackend::swordDirList(){
+  QStringList ret;
+
+  //return a list of used Sword dirs. Useful for the installer
+  QString configPath = globalConfPath; //e.g. /etc/sword.conf, /usr/local/etc/sword.conf
+
+  
+  QStringList configs = QStringList::split(":", configPath);
+  for (QStringList::iterator it = configs.begin(); it != configs.end(); ++it) {    
+    if (!QFileInfo(*it).exists())
+      continue;
+            
+    //get all DataPath and AugmentPath entries from the config file and add them to the list
+    sword::SWConfig conf( (*it).latin1() );
+
+    ret << conf["Install"]["DataPath"].c_str();
+    sword::ConfigEntMap group = conf["Install"];
+    sword::ConfigEntMap::iterator start = group.equal_range("AugmentPath").first;
+    sword::ConfigEntMap::iterator end = group.equal_range("AugmentPath").second;
+
+    for (sword::ConfigEntMap::iterator it = start; it != end; ++it) {
+      ret << it->second.c_str(); //added augment path
+    }
+  }
+
+  const QString home = getenv("HOME");
+  if (!home.isEmpty()) {
+    ret << home + "/.sword/";
+  }
+
+  return ret;
 }

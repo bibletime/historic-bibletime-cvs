@@ -202,8 +202,15 @@ public:
   sword::SWFilter* const transliterator();
   /** Returns true if ICU is being used. */
   const bool useICU() const;
-  /** Reload all Sword modules. */
+  /**
+  * Reload all Sword modules.
+  */
   void reloadModules();
+
+  /**
+  * Reload all Sword modules.
+  */
+  const QStringList swordDirList();
 	
 protected:
 	/**
