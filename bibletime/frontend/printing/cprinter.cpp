@@ -127,9 +127,10 @@ const QString CPrinter::entryLink(const KeyTreeItem& item, CSwordModuleInfo* mod
 	return item.key();
 }
 
-const QString CPrinter::renderEntry( const KeyTreeItem& i) {
+const QString CPrinter::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
 	const CPrinter::Item* printItem = dynamic_cast<const CPrinter::Item*>(&i);	
 	Q_ASSERT(printItem);
+	
 	if (printItem && printItem->hasAlternativeContent()) 
 	{
 		QString ret = QString::fromLatin1("<div class=\"entry\"><div class=\"rangeheading\">%1</div>").arg(printItem->getAlternativeContent());

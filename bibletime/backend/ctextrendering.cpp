@@ -108,11 +108,24 @@ CTextRendering::~CTextRendering() {
 const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 	initRendering();	
 	
-	KeyTree::const_iterator end = tree.constEnd();
+	ListCSwordModuleInfo modules = tree.collectModules();	
+	QString t = QString::null;
 	
-	QString t;
+	const KeyTree::const_iterator end = tree.constEnd();
+	
+	//opimization for entries with the same key
+	util::scoped_ptr<CSwordKey> key( 
+		(modules.count() == 1) ? CSwordKey::createInstance(modules.first()) : 0 
+	);
+	
 	for (KeyTree::const_iterator it = tree.constBegin(); it != end; ++it) {
-		t.append( renderEntry(**it) );	
+		if (modules.count() == 1) { //this optimizes the rendering, only one key created for all items
+			key->key( (**it).key() );
+			t.append( renderEntry(**it, key) );
+		}
+		else {
+			t.append( renderEntry(**it) );	
+		}
 	}
 	
 	return finishText(t, tree);
@@ -177,14 +190,15 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 
 }
 
-const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
+const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
 	ListCSwordModuleInfo modules = i.modules();	
 	Q_ASSERT(modules.count() > 0);
-	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
+	util::scoped_ptr<CSwordKey> scoped_key( !k ? CSwordKey::createInstance(modules.first()) : 0 );
+	
+	CSwordKey* key = k ? k : scoped_key;
   
 	QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr>") : QString::null;
 
-//	qWarning("renderEntry  %s", i.key().latin1());
 	// Only insert the table stuff if we are displaying parallel.
   // Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
 
@@ -213,8 +227,11 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
 				.arg(m->module()->Lang());
 		
 		const QString key_renderedText = key->renderedText();
+		
 		AttributeValue::const_iterator it =  m->module()->getEntryAttributes()["Heading"]["Preverse"].begin();
-		AttributeValue::const_iterator end = m->module()->getEntryAttributes()["Heading"]["Preverse"].end();
+		
+		const AttributeValue::const_iterator end = m->module()->getEntryAttributes()["Heading"]["Preverse"].end();
+		
 		for (; it != end; ++it) {
 			preverseHeading = QString::fromUtf8(it->second.c_str());
  			

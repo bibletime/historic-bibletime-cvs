@@ -23,6 +23,7 @@
 #include <qptrlist.h>
 
 class CSwordModuleInfo;
+class CSwordKey;
 
 /**
 This class is responsible for text rendering.
@@ -82,7 +83,7 @@ public:
 	const QString renderSingleKey( const QString& key, ListCSwordModuleInfo );
 	
 protected:
-	virtual const QString renderEntry( const KeyTreeItem& ) = 0;
+	virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 ) = 0;
 	virtual const QString finishText( const QString&, KeyTree& tree ) = 0;
 	virtual void initRendering() = 0;
 };
@@ -106,7 +107,7 @@ public:
 	virtual ~CHTMLExportRendering();
 	
 protected:	
-	virtual const QString renderEntry( const KeyTreeItem& );
+	virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 );
 	virtual const QString finishText( const QString&, KeyTree& tree );
 	virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* module );
 	virtual void initRendering();

@@ -63,7 +63,7 @@ public:
 
 protected:
 	virtual const QString entryLink(const KeyTreeItem& item, CSwordModuleInfo* const module);
-	virtual const QString renderEntry( const KeyTreeItem& );
+	virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 );
 	virtual const QString finishText(const QString& arg1, KeyTree& tree);
 
 // 	virtual const QString renderKeyTree( KeyTree& );
