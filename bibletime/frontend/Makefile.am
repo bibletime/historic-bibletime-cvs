@@ -11,7 +11,7 @@ ctipwindow.cpp \
 actions.cpp \
 ctoolclass.cpp \
 cinputdialog.cpp \
-cprofilemgr.cpp cprofile.cpp cprofilewindow.cpp
+cprofilemgr.cpp cprofile.cpp cprofilewindow.cpp cprofiledialog.cpp
 
 SUBDIRS = \
 groupmanager \
@@ -32,7 +32,8 @@ actions.cpp actions.h \
 cinputdialog.cpp cinputdialog.h \
 cprofilemgr.cpp cprofilemgr.h \
 cprofile.cpp cprofile.h \
-cprofilewindow.cpp cprofilewindow.h
+cprofilewindow.cpp cprofilewindow.h \
+cprofiledialog.cpp cprofiledialog.h
 
 
 
