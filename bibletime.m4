@@ -43,11 +43,15 @@ if test -f "/etc/SuSE-release"; then
 	DISTRIBUTION="SuSE"
 	PREFIX="/opt/kde2"
 	DISTRIBUTION_VERSION=[`grep "VERSION =" /etc/SuSE-release | sed 's/VERSION = //'`];
-elif test -f "/etc/mandrake-release"; then
+elif test -f "/etc/mandrake-release"; then #Mandrake
 	DISTRIBUTION="Mandrake"
 	DISTRIBUTION_VERSION=[`grep "Mandrake" /etc/mandrake-release | sed 's/[a-zA-Z()]*//g' | awk '{print $1}'`];
-elif test -f "/etc/redhat-release"; then
-	DISTRIBUTION="RedHat"
+elif test -f "/etc/redhat-release"; then #Red Hat
+	DISTRIBUTION="Red Hat"
+	DISTRIBUTION_VERSION=[`grep "Red Hat" /etc/redhat-release | sed 's/[a-zA-Z()]*//g' | awk '{print $1}'`];
+elif test -f "/etc/debian_version"; then #Debian
+	DISTRIBUTION="Debian"
+	DISTRIBUTION_VERSION=[`cat /etc/debian_version`];
 fi
 	
 
