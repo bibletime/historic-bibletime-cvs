@@ -88,14 +88,15 @@ const QString CReferenceManager::encodeHyperlink( const QString& moduleName, con
         vk = key;
         //vk.setLocale("en");
 
-        ret += vk.key(); //we add the english key, so drag and drop will work in all cases
+        ret.append( vk.key() ); //we add the english key, so drag and drop will work in all cases
         break;
       }
       default:
-        ret += key; //use the standard key, no parsing required
+        ret.append( key ); //use the standard key, no parsing required
         break;
     }
 	}
+	
 	return ret;
 }
 

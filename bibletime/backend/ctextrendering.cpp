@@ -131,7 +131,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString&
 	if (startKey != stopKey) {
 		m_alternativeContent.append(" - ").append(stopKey);
 	}
-	m_alternativeContent.append("(").append(module->name()).append(")");
+	m_alternativeContent.append(" (").append(module->name()).append(")");
 }
 
 /*!
