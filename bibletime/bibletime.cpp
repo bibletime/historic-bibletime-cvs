@@ -22,6 +22,7 @@
 //frontend includes
 #include "frontend/chtmldialog.h"
 #include "frontend/cmdiarea.h"
+#include "frontend/kstartuplogo.h"
 #include "frontend/mainindex/cmainindex.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/displaywindow/creadwindow.h"
@@ -230,7 +231,7 @@ bool BibleTime::queryClose(){
 
 /** No descriptions */
 void BibleTime::show(){
-	KMainWindow::show();	
+  KMainWindow::show();
 	/*
   * If we show BibleTime for the first time we are ready for processing
 	* but not before this point.
@@ -268,16 +269,15 @@ void BibleTime::setPlainCaption( const QString& ){
 
 /** Processes the commandline options given to BibleTime. */
 void BibleTime::processCommandline(){
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+  KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
   if (CBTConfig::get(CBTConfig::crashedLastTime) || CBTConfig::get(CBTConfig::restoreWorkspace)) {    
     if (!CBTConfig::get(CBTConfig::crashedTwoTimes) && !args->isSet("ignore-session")) { //restore workspace if it crashed ony once
       restoreWorkspace();
     }
   }
-//  else
 
-//open every time a module if the command line option was set.
+  //open every time a module if the command line option was set.
   if ( args->isSet("open-default-bible") && !CBTConfig::get(CBTConfig::crashedLastTime) && !CBTConfig::get(CBTConfig::crashedTwoTimes)) { //restore workspace if it crashed ony once
     QString bibleKey = args->getOption("open-default-bible");    
     CSwordModuleInfo* bible = CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible));

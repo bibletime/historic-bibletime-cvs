@@ -73,8 +73,15 @@ KStartupLogo::KStartupLogo()
 
   //Please not change the margin
   textLabel = new QLabel(this);
-  textLabel->setGeometry(0,pm.height(),pm.width(),textLabel->sizeHint().height());
-  textLabel->setBackgroundColor( Qt::black );
+  textLabel->setGeometry(0,pm.height(),pm.width(),textLabel->sizeHint().height()+10);
+  textLabel->setBackgroundColor( QColor("#0d6de9") );
+  textLabel->setFrameStyle(QFrame::Panel | QFrame::Plain);
+  textLabel->setLineWidth(1);
+  textLabel->setScaledContents( true );
+
+  QFont f;
+  f.setBold( true );
+  textLabel->setFont( f );
 
 	QPalette p = palette();
   p.setColor( QPalette::Inactive, QColorGroup::Text, Qt::white );
@@ -95,4 +102,19 @@ void KStartupLogo::setText(const QString text){
 	//Please not make the text bold & let the first character be blank
   textLabel->setText( QString::fromLatin1(" %1").arg(text) );
   KApplication::kApplication()->processEvents();
+}
+
+/** Makes the splashscreen the toplevel window. */
+void KStartupLogo::raiseSplash(){
+	if (startupLogo) {
+    startupLogo->raise();
+    startupLogo->setActiveWindow();
+  }
+}
+
+/** Lowers the splash screen one window down, so it's possible to make it not to hide tip windows or other startup stuff. */
+void KStartupLogo::lowerSplash(){
+	if (startupLogo) {
+    startupLogo->lower();
+  }
 }

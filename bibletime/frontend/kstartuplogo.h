@@ -35,6 +35,10 @@ public:
 	static void hideSplash();
 	static void deleteSplash();		
 	static void setStatusMessage(const QString& message);
+  /** Makes the splashscreen the toplevel window. */
+  static void raiseSplash();
+  /** Lowers the splash screen one window down, so it's possible to make it not to hide tip windows or other startup stuff. */
+  static void lowerSplash();
 
 private:
 	KStartupLogo();

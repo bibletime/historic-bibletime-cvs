@@ -407,14 +407,14 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
 
   // the number of levels which should be display together, 1 means display no entries together
-  const int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
+  int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
 
   util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
   key->key(keyName); //set the key to position we'd like to get
 
   // standard of DisplayLevel, display nothing together
   // if the current key is the root entry don't display anything together!
-  if (displayLevel <= 1 || (key->key().isEmpty() || key->key() == "/")) {
+  if (displayLevel <= 1 || (key->key().isEmpty() || (key->key() == "/") )) {
     return finishText( entryText(modules, key), modules, keyName );
   };
 
@@ -424,7 +424,7 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
   */
 
   int possibleLevels = 1; //we start with the default value of displayLevel, which means no entries together
-  while( key->parent() && key->key() != "/" && !key->key().isEmpty() ) {//add parents
+  while( key->parent() && (key->key() != "/") && !key->key().isEmpty() ) {//add parents
     ++possibleLevels;
   };
   key->key(keyName); //set the key to the start position
@@ -436,23 +436,27 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
     //display current level, we could also decide to display the available levels together
     return finishText( entryText(modules, key), modules, keyName );
   };
+  if ((displayLevel >1) && (displayLevel == possibleLevels)) { //fix not to diplay the whole module
+    --displayLevel;
+  }
 
   // at this point we're sure that we can display the required levels toogether
   // at the moment we're at the lowest level, so we only have to go up!
-  for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
-    if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
-      return finishText( entryText(modules, key), modules, keyName );
+    for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
+      if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
+        return finishText( entryText(modules, key), modules, keyName );
+      };
     };
-  };
 
   // no we can display all sub levels together! We checked before that this is possible!
-  m_text = entryText(modules, key, 0, key->key() == keyName);
+  m_text = entryText(modules, key, 0, (key->key() == keyName));
 
   const bool hasToplevelText = !key->strippedText().isEmpty();
-  
+
   key->firstChild(); //go to the first sibling on the same level
   m_chosenKey = keyName;
-  printTree(key, modules, hasToplevelText ? 1 : 0 ); //if the top level entry has text ident the other text
+
+  printTree(key, modules, hasToplevelText); //if the top level entry has text ident the other text
   
 	key->key(keyName);
   return finishText(m_text, modules, keyName);
@@ -469,7 +473,8 @@ const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, CSwor
 
   const QFont font = CBTConfig::get(book->language()).second;
   const QString& keyName = key->getFullName();
-  return QString::fromLatin1("<tr><td style=\"padding-left:%1px;\"><SUP>%2</SUP> %3</td></tr>")
+
+  return QString::fromLatin1("<tr><td style=\"padding-left:%1px;\"><sup>%2</sup> %3</td></tr>")
     .arg( level*30 )
     .arg( htmlReference(book, keyName, key->getLocalName(), !keyName.isEmpty() ? keyName : "/" ) )
     .arg( QString::fromLatin1("<span %1 style=\"font-family:%2; font-size:%3pt;\">%4</span>")

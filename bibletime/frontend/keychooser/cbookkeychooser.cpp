@@ -195,6 +195,7 @@ void CBookKeyChooser::keyChooserChanged(int /*newIndex*/){
 	}
 
 	QString newKey = QString::fromLatin1("/") + items.join("/");
+  qWarning("newkey is %s", newKey.latin1());
 	if (newKey.length() > 1)
 		newKey.remove(newKey.length(),1); //remove the traling slash
 	

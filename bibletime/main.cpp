@@ -234,11 +234,6 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 		bibletime_ptr = bibletime.get();
     app.setMainWidget(bibletime);
 
-    if (showIt) {
-			KStartupLogo::hideSplash();
-			KStartupLogo::deleteSplash();
-		}
-
 		// a new BibleTime version was installed (maybe a completely new installation)
 		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
 			CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
@@ -250,14 +245,21 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 		//The tip of the day
 		if (CBTConfig::get(CBTConfig::tips)) {
 			bibletime->slotHelpTipOfDay();
+      KStartupLogo::lowerSplash();
     }
-
+    
     bibletime->show();
+    KStartupLogo::raiseSplash();
 
     // restore the workspace and process command line options
     bibletime->processCommandline();
- 
-    return app.exec();    
+
+    if (showIt) {
+			KStartupLogo::hideSplash();
+			KStartupLogo::deleteSplash();
+		}
+
+    return app.exec();
 //	}
 }
 
