@@ -362,6 +362,20 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink ){
   return true;
 }
 
+const bool CExportManager::printKeyList(const QStringList& list,CSwordModuleInfo* module) {
+	CPrinter::Item::Settings settings;	
+	CPrinter::KeyTree tree;
+		
+	QStringList::const_iterator end = list.constEnd();
+	
+	for (QStringList::const_iterator it = list.constBegin(); it != end; ++it) {
+		tree.append( new CPrinter::Item(*it, module, settings) );
+	}
+	
+	printer()->printKeyTree(tree);	
+	return true;
+}
+
 /** Returns the string for the filedialogs to show the correct files. */
 const QString CExportManager::filterString( const Format format ){
   switch (format) {

@@ -157,11 +157,11 @@ void CSearchResultView::printItems(){
   QPtrList<QListViewItem> items = selectedItems();
   CExportManager mgr(i18n("Print search result..."), true, i18n("Printing search result"));
 
-/*  PrintItemList list;
+  QStringList list;
   for (QListViewItem* k = items.first(); k; k = items.next()) {
-    list.append( QStringPair(k->text(0), QString::null) );
+    list.append( k->text(0) );
   };
-  mgr.printKeyList( list, module() );*/
+  mgr.printKeyList( list, module() );
 }
 
 /** No descriptions */
