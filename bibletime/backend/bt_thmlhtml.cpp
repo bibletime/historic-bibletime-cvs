@@ -19,6 +19,12 @@
 #include "bt_thmlhtml.h"
 #include "versekey.h"
 
+#include "clanguagemgr.h"
+#include "frontend/cbtconfig.h"
+#include "util/cpointers.h"
+
+#include <iostream>
+
 //Sword includes
 #include <swmodule.h>
 
@@ -35,8 +41,8 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	addTokenSubstitute("note", " <span class=\"footnote\">(");
 	addTokenSubstitute("/note", ")</span> ");
 
-	addTokenSubstitute("foreign lang=\"el\"", "<span lang=\"el\">");
-	addTokenSubstitute("foreign lang=\"he\"", "<span lang=\"he\" dir=\"rtl\">");
+//	addTokenSubstitute("foreign lang=\"el\"", "<span lang=\"el\">");
+//	addTokenSubstitute("foreign lang=\"he\"", "<span lang=\"he\" dir=\"rtl\">");
 	addTokenSubstitute("/foreign",						"</span>");
 }
 
@@ -45,85 +51,118 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 	const int tokenLength = strlen(token);
 	
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
-		if (!strncasecmp(token, "sync type=\"lemma\" ", 18)) { //LEMMA
-      for (i = 18; i < tokenLength; ++i) {
-        if ( !strncasecmp(token+i, "value=\"", 7) ) {
-          sword::SWBuf value;
-    			for (i += 7; (i < tokenLength) && (token[i] != '\"'); ++i) {
-    				value += token[i];
+    if ( !strncmp(token, "foreign ", 8) ) { // a text part in another language, we have to set the right font
+      token += 8;
+      if ( const char* pos = strstr(token, "lang=\"") ) {
+        pos+=6;
+        sword::SWBuf abbrev;
+        for (const char* end = index(pos, '\"'); pos < end; pos++) {
+  				abbrev += *pos;
+        }
+
+        CLanguageMgr* langMgr = CPointers::languageMgr();
+        CLanguageMgr::Language language = langMgr->languageForAbbrev( QString::fromLatin1(abbrev.c_str()) );
+
+        if (language.isValid()) {
+          CBTConfig::FontSettingsPair fontSetting = CBTConfig::get(language);
+          if (fontSetting.first) {
+            QFont f = fontSetting.second;
+            buf.appendFormatted("<span lang=\"%s\" style=\"font-family:%s;font-size:%ipt;\">",
+              abbrev.c_str(),
+              f.family().latin1(),
+              f.pointSize()
+            );
           }
-    			buf.appendFormatted(" &lt;%s&gt; ",
+          else { //CBTConfig says: don't set a special font, so we just set the language flag
+            buf.appendFormatted("<span lang=\"%s\">", abbrev.c_str());
+          }
+        }
+        else { //invalid language, just set the HTML language attribute
+          buf.appendFormatted("<span lang=\"%s\">", abbrev.c_str());
+        }
+      }
+    }
+    else if (!strncmp(token, "sync ", 5) ) { //lemmas, morph codes or strongs
+      token += 5;
+      if (strstr(token, "type=\"lemma\" ")) { // Lemma
+        if ( const char* pos = strstr(token, "value=\"") ) {
+          pos+=7;
+
+          sword::SWBuf value;
+          for (const char* end = index(pos, '\"'); pos < end; pos++) {
+    				value += *pos;
+          }
+
+          buf.appendFormatted(" &lt;%s&gt; ",
     				value.c_str()
           );
-          break;
         };
-      };
-    }
-		else if (!strncasecmp(token, "sync type=\"morph\" ", 18)) { //Morph
-      for (i = 18; i < tokenLength; ++i) {
-        if ( !strncasecmp(token+i, "value=\"", 7) ) {
-          sword::SWBuf value;
-    			for (i += 7; (i < tokenLength) && (token[i] != '\"'); ++i) {
-    				value += token[i];
-          }
-    			buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
-    				value.c_str(),
-            value.c_str()
-          );
-          break;
-        };
-      };
-		}
-		else if (!strncasecmp(token, "sync type=\"Strongs\" ", 20)) {
-      for (i = 20; i < tokenLength; ++i) {
-        if ( !strncasecmp(token+i, "value=\"H", 8) ) {
-          sword::SWBuf value;
-    			for (i += 8; (i < tokenLength) && (token[i] != '\"'); ++i) {
-    				value += token[i];
-          }
-    			buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-    				value.c_str(),
-            value.c_str()
-          );
-          break;
-        }
-        else if ( !strncasecmp(token+i, "value=\"G", 8) ) {
-          sword::SWBuf value;
-    			for (i += 8; (i < tokenLength) && (token[i] != '\"'); ++i) {
-    				value += token[i];
-          }
-    			buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
-    				value.c_str(),
-            value.c_str()
-          );
-          break;
-        };
-      };
-		}
-		else if (!strncasecmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) { // a more complicated scripRef
-			userData["inscriptRef"] = "true";
-			if (!strncasecmp(token, "scripRef v", 10)) { //module given
-				sword::SWBuf module_version;
-				for (i = 18; (i < tokenLength-1) && (token[i] != '\"'); i++) {
-					module_version += token[i];
-				}
-				userData["lastRefModule"] = module_version.c_str();
-			}
-			else if (!strncasecmp(token, "scripRef p", 10)) { //passage without module
-        string verse_str;
-				for (i = 18; (i < tokenLength-1) && (token[i] != '\"'); i++) {
-          verse_str += token[i];
-				}
- 			  buf += parseThMLRef(verse_str).c_str();
       }
-      if ( !strncasecmp(token+i+2, "passage=", 8) ) { //passage after module part
-				string verse_str;
-				i += 11;			
-				for (; (i < tokenLength-1) && (token[i] != '\"'); i++)	{
-          verse_str += token[i];
-				}
-				buf += parseThMLRef(verse_str, userData["lastRefModule"].c_str()).c_str();
-			}
+      else if (strstr(token, "type=\"morph\" ")) { // Morph
+        if ( const char* pos = strstr(token, "value=\"") ) {
+          pos+=7;
+
+          sword::SWBuf value;
+          for (const char* end = index(pos, '\"'); pos < end; pos++) {
+    				value += *pos;
+          }
+
+          buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ",
+            value.c_str(),
+            value.c_str()
+          );
+        };
+  		}
+		  else if (strstr(token, "type=\"Strongs\" ")) { // Strongs
+        if ( const char* pos = strstr(token, "value=\"H") ) { //hewbrew strong number
+          pos+=8;
+
+          sword::SWBuf value;
+          for (const char* end = index(pos, '\"'); pos < end; pos++) {
+    				value += *pos;
+          }
+
+          buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+     				value.c_str(),
+            value.c_str()
+          );
+        }
+        else if ( const char* pos = strstr(token, "value=\"G") ) { //hewbrew strong number
+          pos+=8;
+
+          sword::SWBuf value;
+          for (const char* end = index(pos, '\"'); pos < end; pos++) {
+    				value += *pos;
+          }
+
+          buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
+      			value.c_str(),
+            value.c_str()
+          );
+        };
+      };
+		}
+		else if (!strncmp(token, "scripRef ", 9) /*|| !strncmp(token, "scripRef v", 10) */) { // a more complicated scripRef
+			userData["inscriptRef"] = "true";
+      token += 9;
+      sword::SWBuf module = "";
+      
+      if ( const char* pos = strstr(token, "version=\"") ) { //a module is given in the scripRef tag!
+        pos += 9;
+        for (const char* end = index(pos, '\"'); pos < end; pos++ ) {
+          module += *pos;
+        };
+      }
+
+      if ( const char* pos = strstr(token, "passage=\"") ) { //the passage which was given in the scripRef tag
+        pos += 9;
+        sword::SWBuf passage;
+        for (const char* end = index(pos, '\"'); pos < end; pos++ ) {
+          passage += *pos;
+        }
+
+        buf += parseThMLRef(passage.c_str(), module.c_str()).c_str();
+      }
 		}
     // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
 		else if (!strcasecmp(token, "scripRef")) {

@@ -64,13 +64,13 @@ const string BT_BASICFILTER::parseRef(const string ref, sword::SWModule* module,
   * This function should be able to parse references like "John 1:3; 3:1-10; Matthew 1:1-3:3"
   * without problems.
   */
- 	sword::VerseKey parseKey; 	
- 	const string lang = module ? module->Lang() : "en";
- 	parseKey.setLocale( lang.c_str() ); //we assume that the keys are in english or in the module's language
-
   const string moduleName = string( module ? module->Name() : standard_bible );
+
+  sword::VerseKey parseKey;
+ 	const char* lang = module ? module->Lang() : "en";
+ 	parseKey.setLocale( lang ); //we assume that the keys are in english or in the module's language
   
- 	parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1"); //use the current key if there's any
+ 	parseKey = m_key ? (const char*)*m_key : "Genesis 1:1"; //use the current key if there's any
  	sword::ListKey list;
   string ret;
   	
@@ -92,19 +92,30 @@ const string BT_BASICFILTER::parseRef(const string ref, sword::SWModule* module,
     sword::SWKey* key = 0;
 	 	for(int i = 0; i < count; i++) {
 	 		key = list.GetElement(i);
-      parseKey = *key;
   		ret += string("<span id=\"reference\"><a href=\"sword://Bible/") + moduleName + "/"; 
  			if ( sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key) ) {
- 				vk->setLocale(lang.c_str());
- 				vk->LowerBound().setLocale(lang.c_str());
- 				vk->UpperBound().setLocale(lang.c_str());
-	 		}
- 			ret += string(key->getRangeText()) + "\">";
-      /* This is kind of a hack. This will only work if we process simple refs whivh won't get splitted.
-      * But since insertFullRef is true by default, the end markers will be left out only in special cases like ThML refd
+ 				vk->setLocale("en");
+ 				vk->LowerBound().setLocale("en");
+ 				vk->UpperBound().setLocale("en");
+
+        ret += string(vk->getRangeText()) + "\">";
+        parseKey = *vk;
+      }
+      else {
+        sword::VerseKey vk = key->getText();
+ 				vk.setLocale("en");
+ 				vk.LowerBound().setLocale("en");
+ 				vk.UpperBound().setLocale("en");
+     
+        ret += string(vk.getRangeText()) + "\">";
+        parseKey = vk;
+      }
+      
+      /* This is kind of a hack. This will only work if we process simple refs which won't get splitted.
+      * But since insertFullRef is true by default, the end markers will be left out only in special cases like ThML refs
       * with own caption.
       */
-      if (insertFullRef) { //HTML will only be valid if we hide only the end of one cross refrernce
+      if (insertFullRef) { //HTML will only be valid if we hide only the end of one cross reference
         ret += string( (const char*)(*it).utf8() ) + "</a>";
   	 		(pos+1 < (int)refList.count()) ? ret.append("</span>, ") : ret.append("</span>");
       }
