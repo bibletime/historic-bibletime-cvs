@@ -479,8 +479,8 @@ const QString CSwordBackend::optionName( const CSwordModuleInfo::FilterTypes opt
 			return QString("Textual Variants");	
 		case CSwordModuleInfo::scriptureReferences:
 			return QString("Cross-references");
-		case CSwordModuleInfo::transliteration:
-			return QString("Transliteration");
+// 		case CSwordModuleInfo::transliteration:
+// 			return QString("Transliteration");
 	}
 	return QString::null;
 }
@@ -510,8 +510,8 @@ const QString CSwordBackend::translatedOptionName(const CSwordModuleInfo::Filter
 			return i18n("Textual Variants");
 		case CSwordModuleInfo::scriptureReferences:
 			return i18n("Scripture Cross-references");	
-		case CSwordModuleInfo::transliteration:
-			return i18n("Transliteration between scripts");	
+// 		case CSwordModuleInfo::transliteration:
+// 			return i18n("Transliteration between scripts");	
 	}
 	return QString::null;
 }

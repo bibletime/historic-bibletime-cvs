@@ -56,7 +56,7 @@ CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module, CSwordBackend* cons
 	m_dataCache.isUnicode = module ? module->isUnicode() : false;
 	m_dataCache.category = UnknownCategory;
 	m_dataCache.language = 0;
-	m_dataCache.hasVersion = (*m_backend->getConfig())[name().latin1()]["Version"].length();
+	m_dataCache.hasVersion = !QString( (*m_backend->getConfig())[name().latin1()]["Version"] ).isEmpty();
 
 	if (backend()) {
 		if (hasVersion() && (minimumSwordVersion() > sword::SWVersion::currentVersion)) {
@@ -274,6 +274,11 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
       const QString lang(m_module->getConfigEntry("GlossaryTo"));
 			return !lang.isEmpty() ? lang : QString::null;
     }
+		case Markup: {
+			const QString markup(m_module->getConfigEntry("SourceType"));
+			return !markup.isEmpty() ? markup : QString("Unknown");
+		}		
+
 		default:
 			return QString::null;
 	}
@@ -369,27 +374,46 @@ Rendering::CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
 QString CSwordModuleInfo::aboutText(){
 
 	QString text;	
-
-  if ( hasVersion() )
-    text += QString( "<b>%1:</b> %2<br>" )
+	
+	text += ("<table>");
+	
+	if ( hasVersion() )
+    text += QString( "<tr><td><b>%1</b></td><td>%2</td><tr>" )
     	.arg( i18n("Version") )
-    	.arg(config( CSwordModuleInfo::ModuleVersion ));
+    	.arg( config( CSwordModuleInfo::ModuleVersion ));
 
-	text += QString( "<b>%1:</b> %2<br><b>%3:</b> %4<br>" )
+	if ( !QString( m_module->getConfigEntry("SourceType") ).isEmpty() )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Markup") )
+			.arg( m_module->getConfigEntry("SourceType") );
+
+	text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
 		.arg( i18n("Location") )
-		.arg( config(CSwordModuleInfo::AbsoluteDataPath) )
+		.arg( config(CSwordModuleInfo::AbsoluteDataPath) );
+		
+	text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
 		.arg( i18n("Language") )
 		.arg( language()->translatedName() );
 
+	if ( m_module->getConfigEntry("Category") )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Category") )
+			.arg( m_module->getConfigEntry("Category") );
+	
+	if ( m_module->getConfigEntry("LCSH") )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("LCSH") )
+			.arg( m_module->getConfigEntry("LCSH") );
+
 	if ( isWritable() )
-		text += QString("<b>%1:</b> %2<br>")
-							.arg( i18n("Writable") )
-							.arg( i18n("yes") );
+		text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
+			.arg( i18n("Writable") )
+			.arg( i18n("yes") );
 
 	if ( isEncrypted() )
-		text += QString("<b>%1:</b> %2<br>")
-							.arg( i18n("Unlock key") )
-							.arg( config(CSwordModuleInfo::CipherKey) );	
+		text += QString("<tr><td><b>%1</b></td><td>%2</td></tr>")
+			.arg( i18n("Unlock key") )
+			.arg( config(CSwordModuleInfo::CipherKey) );	
 
 	QString options;
 	unsigned int opts;
@@ -401,17 +425,77 @@ QString CSwordModuleInfo::aboutText(){
 		}
 	}
 	if (!options.isEmpty())
-		text += QString( "<b>%1:</b> %2<br>" )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
 			.arg(i18n( "Features") )
 			.arg( options );
+	
+	text += ("</table><hr>");
 
-  if ( category() == CSwordModuleInfo::Cult ) { //clearly say the module contains cult/questionable materials
+  if ( category() == CSwordModuleInfo::Cult ) //clearly say the module contains cult/questionable materials
     text += QString( "<BR><B>%1</B><BR><BR>" )
               .arg( i18n("Take care, this work contains cult / questionable material!") );
-  };
 
 	text += QString( "<b>%1:</b><br> <font size=\"-1\">%2</font>" )
 						.arg( i18n("About") )
 						.arg( config(CSwordModuleInfo::AboutInformation) );
+						
+	text += ("<hr> <table>");
+	
+	if ( !QString( m_module->getConfigEntry("DistributionLicense") ).isEmpty() )
+		text += QString( "<tr><td><b>%1</b></td><td><b>%2</b></td></tr>" )
+			.arg( i18n("Distribution license") )
+			.arg( m_module->getConfigEntry("DistributionLicense") );
+	
+	if ( !QString( m_module->getConfigEntry("DistributionSource") ).isEmpty() )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Distribution source") )
+			.arg( m_module->getConfigEntry("DistributionSource") );
+
+	if ( !QString( m_module->getConfigEntry("TextSource") ).isEmpty() )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Text source") )
+			.arg( m_module->getConfigEntry("TextSource") );
+	
+	if ( !QString( m_module->getConfigEntry("DistributionNotes") ).isEmpty() )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Distribution notes") )
+			.arg( m_module->getConfigEntry("DistributionNotes") );
+	
+	if ( !QString( m_module->getConfigEntry("CopyrightNotes") ).isEmpty() )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Copyright notes") )
+			.arg( m_module->getConfigEntry("CopyrightNotes") );
+
+	if ( !QString( m_module->getConfigEntry("CopyrightHolder") ).isEmpty() )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Copyright holder") )
+			.arg( m_module->getConfigEntry("CopyrightHolder") );
+
+	if ( !QString( m_module->getConfigEntry("CopyrightDate") ).isEmpty() )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Copyright date") )
+			.arg( m_module->getConfigEntry("CopyrightDate") );
+
+	if ( !QString( m_module->getConfigEntry("CopyrightContactName") ).isEmpty() )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Copyright contact name") )
+			.arg( m_module->getConfigEntry("CopyrightContactName") );
+	
+	if ( !QString( m_module->getConfigEntry("CopyrightContactAddress") ).isEmpty() ){
+		sword::SWBuf RTF_Buffer = SWBuf(m_module->getConfigEntry("CopyrightContactAddress"));
+		sword::RTFHTML RTF_Filter;
+		RTF_Filter.processText(RTF_Buffer, 0, 0);
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Copyright contact address") )
+			.arg( RTF_Buffer.c_str() );
+	}
+	
+	if ( !QString( m_module->getConfigEntry("CopyrightContactEmail") ).isEmpty() )
+		text += QString( "<tr><td><b>%1</b></td><td>%2</td></tr>" )
+			.arg( i18n("Copyright contact email") )
+			.arg( m_module->getConfigEntry("CopyrightContactEmail") );
+
+	text += "</table>";
+	
   return text;
 }

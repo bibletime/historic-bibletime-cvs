@@ -5,11 +5,13 @@
 #include <qcombobox.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
-#include <qfiledialog.h>
+// #include <qfiledialog.h>
 #include <qmessagebox.h>
+#include <qfileinfo.h>
 
 
 #include <klocale.h>
+#include <kdirselectdialog.h>
 
 #define PROTO_FILE i18n("Local")
 #define PROTO_FTP  i18n("Remote")
@@ -51,7 +53,7 @@ CSwordSetupInstallSourcesDialog::CSwordSetupInstallSourcesDialog(/*QWidget *pare
 	
 	m_serverEdit = new QLineEdit( this );
 	layout->addWidget( m_serverEdit, 1, 1 );
-	m_serverEdit->setText("www.crosswire.org");
+	m_serverEdit->setText("crosswire.org");
 
 	m_pathEdit = new QLineEdit( this );
 	layout->addWidget( m_pathEdit, 1, 2 );
@@ -80,8 +82,8 @@ void CSwordSetupInstallSourcesDialog::slotOk(){
 	BTInstallMgr iMgr;
 	sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source( &iMgr, m_captionEdit->text() );
 	if ( (QString)is.caption.c_str() == m_captionEdit->text() ) { //source already exists
-		QMessageBox::information( this, i18n( "Error" ), i18n("A source with this caption already exists.<br>\
-			Please provide a different caption."), QMessageBox::Retry);
+		QMessageBox::information( this, i18n( "Error" ), 
+			i18n("A source with this caption already exists.<br>Please provide a different caption."), QMessageBox::Retry);
 		return;
 	}
 	
@@ -90,8 +92,9 @@ void CSwordSetupInstallSourcesDialog::slotOk(){
 		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a server name."), QMessageBox::Retry);
 		return;
 	}
-	if ( m_pathEdit->text().stripWhiteSpace().isEmpty() ){ //no path
-		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a valid path."), QMessageBox::Retry);
+	const QFileInfo fi( m_pathEdit->text() );
+	if (!fi.exists() || !fi.isReadable()){ //no valid and readable path
+		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a valid, readable path."), QMessageBox::Retry);
 		return;
 	}
 	accept(); //only if nothing else failed
@@ -105,7 +108,10 @@ void CSwordSetupInstallSourcesDialog::slotProtocolChanged(){
 	else{ //LOCAL, no server needed
 		m_serverLabel->hide();
 		m_serverEdit->hide();
-		m_pathEdit->setText( QFileDialog::getExistingDirectory() );
+		
+		KURL url = KDirSelectDialog::selectDirectory(QString::null, true);
+  	if (url.isValid())
+			m_pathEdit->setText( url.path() );
 	}
 	
 }

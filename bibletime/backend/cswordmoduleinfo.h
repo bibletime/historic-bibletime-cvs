@@ -70,10 +70,10 @@ public:
     redLetterWords,
     textualVariants,
 		filterTypesMIN = footnotes,
-		filterTypesMAX = textualVariants,
+		filterTypesMAX = textualVariants /*,*/
 
-    /* The following are handled in a special way */
-    transliteration
+//     /* The following are handled in a special way */
+//     transliteration
 	};
 
   enum TextDirection { /* The text direction of the modules's text */
@@ -108,7 +108,8 @@ public:
 	  TextDir, /* The text direction */	
     DisplayLevel, /* Mostly used for books. Gives the level which should contain the connected entries.*/
     GlossaryFrom, /* lamguage from which the Glosaary tramslates */
-    GlossaryTo /* lamguages to which the glossary maps to */
+    GlossaryTo, /* lamguages to which the glossary maps to */
+		Markup		/* The markup of this module */
 	};
 	enum Feature {
 		StrongsNumbers, /*Use for Bibles which have embedded strong numbers*/
@@ -286,7 +287,7 @@ inline sword::SWModule* const CSwordModuleInfo::module() const {
 }
 
 inline const bool CSwordModuleInfo::hasVersion() const {
-	return m_dataCache.hasVersion;
+ 	return m_dataCache.hasVersion;
 }
 
 

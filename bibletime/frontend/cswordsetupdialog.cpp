@@ -76,7 +76,7 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name )
 }
 
 void CSwordSetupDialog::initSwordConfig(){
-	QFrame* page = m_swordConfigPage = addPage(i18n("Bookshelf path(s)"), QString::null, DesktopIcon("bt_swordconfig",32));
+	QFrame* page = m_swordConfigPage = addPage(i18n("Bookshelf path(s)"), QString::null, SmallIcon("bt_swordconfig",32));
  	page->setMinimumSize(500,400);
 
 	QGridLayout* layout = new QGridLayout(page, 6, 4);
@@ -104,17 +104,17 @@ void CSwordSetupDialog::initSwordConfig(){
   layout->addMultiCellWidget(m_swordPathListBox, 2,5,0,1);
 
   m_swordEditPathButton = new QPushButton(i18n("Edit Entry"), page);
-  m_swordEditPathButton->setIconSet(DesktopIcon("edit", 16));
+  m_swordEditPathButton->setIconSet(SmallIcon("edit", 16));
   connect(m_swordEditPathButton, SIGNAL(clicked()), this, SLOT(slot_swordEditClicked()));
   layout->addWidget(m_swordEditPathButton, 2, 3);
 
   m_swordAddPathButton = new QPushButton(i18n("Add Entry"), page);
-  m_swordAddPathButton->setIconSet(DesktopIcon("edit_add", 16));
+  m_swordAddPathButton->setIconSet(SmallIcon("edit_add", 16));
   connect(m_swordAddPathButton, SIGNAL(clicked()), this, SLOT(slot_swordAddClicked()));
   layout->addWidget(m_swordAddPathButton, 3,3);
 
   m_swordRemovePathButton = new QPushButton(i18n("Remove Entry"), page);
-  m_swordRemovePathButton->setIconSet(DesktopIcon("editdelete", 16));
+  m_swordRemovePathButton->setIconSet(SmallIcon("editdelete", 16));
   connect(m_swordRemovePathButton, SIGNAL(clicked()), this, SLOT(slot_swordRemoveClicked()));
   layout->addWidget(m_swordRemovePathButton, 4,3);
 
@@ -122,7 +122,7 @@ void CSwordSetupDialog::initSwordConfig(){
 }
 
 void CSwordSetupDialog::initInstall(){
-	m_installPage = addPage(i18n("Install/Update works"), QString::null, DesktopIcon("bt_bible",32));
+	m_installPage = addPage(i18n("Install/Update works"), QString::null, SmallIcon("bt_bible",32));
 
 	QVBoxLayout* vboxlayout = new QVBoxLayout(m_installPage);
 	QHBoxLayout* hboxlayout = new QHBoxLayout();
@@ -159,12 +159,12 @@ void CSwordSetupDialog::initInstall(){
 	layout->addWidget(m_sourceCombo, 2, 0);
 
 	QPushButton* addSourceButton = new QPushButton(i18n("Add library"), m_installSourcePage);
-	addSourceButton->setIconSet(DesktopIcon("add", 16));
+	addSourceButton->setIconSet(SmallIcon("folder_new", 16));
 	connect(addSourceButton, SIGNAL(clicked()), SLOT(slot_installAddSource()));
 	layout->addWidget(addSourceButton, 2, 1, Qt::AlignLeft);
 
 	QPushButton* deleteSourceButton = new QPushButton(i18n("Delete library"), m_installSourcePage);
-	deleteSourceButton->setIconSet(DesktopIcon("delete", 16));
+	deleteSourceButton->setIconSet(SmallIcon("remove", 16));
 	connect(deleteSourceButton, SIGNAL(clicked()), SLOT(slot_installDeleteSource()));
 	layout->addWidget(deleteSourceButton, 2, 2, Qt::AlignLeft);
 	
@@ -185,14 +185,14 @@ void CSwordSetupDialog::initInstall(){
   vboxlayout->addLayout(myHBox);
 
   m_installBackButton = new QPushButton(i18n("Back"), m_installPage);
-	m_installBackButton->setIconSet(DesktopIcon("back",16));
+	m_installBackButton->setIconSet(SmallIcon("back",16));
 	myHBox->addWidget(m_installBackButton);
 
 	myHBox->addSpacing(10);
 	myHBox->addStretch(5);
 
   m_installContinueButton = new QPushButton(i18n("Connect to library"), m_installPage);
-	m_installContinueButton->setIconSet(DesktopIcon("forward",16));
+	m_installContinueButton->setIconSet(SmallIcon("forward",16));
   connect(m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
 	myHBox->addWidget(m_installContinueButton);
 
@@ -206,7 +206,7 @@ void CSwordSetupDialog::initInstall(){
 }
 
 void CSwordSetupDialog::initRemove(){
-	QFrame* page = m_removePage = addPage(i18n("Remove works"), QString::null, DesktopIcon("edittrash",32));
+	QFrame* page = m_removePage = addPage(i18n("Remove works"), QString::null, SmallIcon("edittrash",32));
 
 	page->setMinimumSize(500,400);
 
@@ -230,7 +230,7 @@ void CSwordSetupDialog::initRemove(){
 	layout->addMultiCellWidget( m_removeModuleListView, 2,2,0,3);
 
   m_removeRemoveButton = new QPushButton(i18n("Remove selected work(s)"), page);
-	m_removeRemoveButton->setIconSet( DesktopIcon("edittrash", 16) );
+	m_removeRemoveButton->setIconSet( SmallIcon("edittrash", 16) );
 	layout->addWidget(m_removeRemoveButton, 3, 3, Qt::AlignRight);
 
 	connect(m_removeRemoveButton, SIGNAL(clicked()),
