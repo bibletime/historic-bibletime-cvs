@@ -2,11 +2,7 @@
 <title>First Startup</title>
 
 <table>
-<title>
-
-The first startup of BibleTime!  This table describes the features of BibleTime!
-
-</title>
+<title>The first startup of BibleTime!  This table describes the features of BibleTime!</title>
 <tgroup cols="2">
 <thead>
 <row>
@@ -25,14 +21,10 @@ Description
 <tbody>
 <row>
 <entry>
-<emphasis>
-
-MDI
-
-</emphasis>
+<emphasis>MDI</emphasis>
 </entry>
-<entry>
 
+<entry>
 MDI is the abbreviation for <emphasis>Multiple Document Interface.</emphasis>
 With the help of MDI it's possible to have more than one presenter opened at the
 same time! You may view two different bibles side by side and compare their
@@ -41,17 +33,15 @@ menu <emphasis>Window</emphasis> is used to work with the MDI interface.
 
 The MDI area will only contain presenters, nothing else. This clean
 presentation avoids confusing users with too many choices.
-
 </entry>
+
 </row>
 <row>
 <entry>
-<emphasis>
-Display window
-</emphasis>
+<emphasis>Display window</emphasis>
 </entry>
-<entry>
 
+<entry>
 A display window is a window inside the MDI area of BibleTime. A display window presents
 the content of a document (SWORD module) in a reasonable format (for example Bibles will be
 displayed as HTML text with hyperlinks to verse references).
@@ -60,8 +50,8 @@ Crosswire will extend SWORD as more material is made available for distribution.
 When new module types are created for Sword we will simply create additional types of display windows.
 This approach makes BibleTime extensible in the future, and able to display any
 type of module that might be created in (for example maps or sound modules ...).
-
 </entry>
+
 </row>
 <row>
 <entry>
@@ -69,8 +59,8 @@ type of module that might be created in (for example maps or sound modules ...).
 Main index
 </emphasis>
 </entry>
-<entry>
 
+<entry>
 The main index is the tree on the left side of BibleTime's application window.  The
 main index combines the bookmark management and module management of
 BibleTime 0.2x. To work with the main index use the right mouse button menu.
@@ -78,14 +68,12 @@ BibleTime 0.2x. To work with the main index use the right mouse button menu.
 The main index is Drag 'n' Drop capable: You can drag verse references from a
 an open document or from the search dialog into the main index to create a bookmark, and you can move items in
 the tree (e.g. move groups or bookmarks into another group).
-
 </entry>
+
 </row>
 <row>
 <entry>
-<emphasis>
-Search interface
-</emphasis>
+<emphasis>Search interface</emphasis>
 </entry>
 <entry>
 
@@ -99,9 +87,7 @@ through the found items. The last tab shows the graphical search analysis .
 </row>
 <row>
 <entry>
-<emphasis>
-Drag 'n' Drop
-</emphasis>
+<emphasis>Drag 'n' Drop</emphasis>
 </entry>
 <entry>
 
@@ -119,69 +105,50 @@ We hope you like it.
 </table>
 
 <table>
-<title>
-
-Here's a short list of useful URLS with more information about BibleTime!
-
-</title>
+<title>Here's a short list of useful URLS with more information about BibleTime!</title>
 <tgroup cols="2">
 <thead>
 <row>
+
 <entry>
-<emphasis>
-
-URL
-
-</emphasis>
+<emphasis>URL</emphasis>
 </entry>
+
 <entry>
-<emphasis>
-
-Description
-
-</emphasis>
+<emphasis>Description</emphasis>
 </entry>
+
 </row>
 </thead>
 <tbody>
 <row>
+
 <entry>
-<emphasis>
-
-<ulink url="http://www.bibletime.de/">www.bibletime.de
-
-</ulink>
-</emphasis>
+<emphasis><ulink url="http://www.bibletime.de/">www.bibletime.de</ulink></emphasis>
 </entry>
-<entry>
 
+<entry>
 This is the homepage of BibleTime! Browse to this page to read documentation
 pages. Don't forget to read the FAQ on <ulink url="http://www.bibletime.de">
 www.bibletime.de</ulink>, it contains answers to questions you'll probably have.
-
 </entry>
 </row>
 
 <row>
 <entry>
-<emphasis>
-
-<ulink url="http://www.crosswire.or</emphasis>g/">www.crosswire.org
-
-</ulink>
-</emphasis>
+<emphasis><ulink url="http://www.crosswire.org">www.crosswire.org</ulink></emphasis>
 </entry>
-<entry>
 
+<entry>
 This is the home of Crosswire! Crosswire is the Bible society which produces the
 Bible text module library - and the library manager SWORD! You can down load the
 Bible text modules from this page. Most of the modules available from crosswire
 are either in the public domain or have been released to crosswire for distribution
 by the copyright holder. Modules that are not released for free distribution are
-locked. Please see the <ulink url="module_encrypted.html">helpdialog on locked
-modules</ulink> before downloading locked modules.
-
+locked. Please see the <link linkend="help_module_encrypted">helpdialog on locked
+modules</link> before downloading locked modules.
 </entry>
+
 </row>
 </tbody>
 </tgroup>

@@ -130,12 +130,12 @@ const QString& CPrintItem::getModuleText() {
 		return QString::null;
 	
 	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
-///	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);
-
+	CSwordKey* key = dynamic_cast<CSwordKey*>(m_startKey);
 	CSwordModuleInfo* sw = dynamic_cast<CSwordModuleInfo*>(m_module);
+	
 	m_moduleText = vk ? QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString::null;
-	m_moduleText += vk->renderedText();
-	if (sw && m_stopKey && m_stopKey != m_startKey) { //reange of entries
+	m_moduleText += key ? key->renderedText() : QString::null;
+	if (sw && m_stopKey && m_stopKey != m_startKey) { //range of entries
 		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
 			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(m_startKey);
 			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(m_stopKey);			
@@ -331,7 +331,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);
 			else if (alignement == CStyleFormat::Right)		
 				text = QString::fromLatin1("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
-			text = QString("%1").arg(text);
+//			text = QString("%1").arg(text);
     	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()-frameThickness+printer->upperMargin());
     	richText.setWidth( p, printer->getPageSize().width()-2*frameThickness-BORDER_SPACE );
     	QRect view( printer->getPageSize() );
@@ -355,13 +355,15 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 				}						   			
     		p->setClipping(false);
         richText.draw(p,printer->leftMargin()+frameThickness+(int)((float)BORDER_SPACE/2),printer->getVerticalPos(),view,cg);
-				const int movePixs = ((int)richText.height() > (int)(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height()+frameThickness;
-   			printer->setVerticalPos(printer->getVerticalPos()+movePixs);		
+				const int movePixs = ( ((int)richText.height()-translated) > (int)(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height()-translated+frameThickness;
+
+   			printer->setVerticalPos(printer->getVerticalPos()+movePixs);
 		    view.moveBy( 0,movePixs);		
         p->translate( 0,-movePixs);
         translated+=movePixs;
-        if ( view.top() >= richText.height() ) //bottom or top(defaut)
+        if ( view.top() >= richText.height() ) { //bottom or top(default)
     			break;
+    		}
     		printer->newPage();
     	} while (true);
 			p->restore();
@@ -373,14 +375,13 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 /** Updates and returns the header text. */
 const QString& CPrintItem::getHeaderText() {
 	if ( m_startKey ) {
-		CSwordVerseKey* k = dynamic_cast<CSwordVerseKey*>(m_startKey);
-		if (!k)
+		CSwordKey* start = dynamic_cast<CSwordKey*>(m_startKey);
+		if (!start)
 			return QString::null;
-		if ((m_startKey == m_stopKey) || !m_stopKey)
-			m_headerText = k->key();
+		if ((m_startKey == m_stopKey) || (m_startKey && !m_stopKey))
+			m_headerText = start->key();
 		else if (m_startKey && m_stopKey) {//start and stop key do exist and are different
-			CSwordVerseKey* start = dynamic_cast<CSwordVerseKey*>(m_startKey);
-			CSwordVerseKey* stop = dynamic_cast<CSwordVerseKey*>(m_stopKey);			
+			CSwordKey* stop = dynamic_cast<CSwordKey*>(m_stopKey);			
 			if (!start || !stop)
 				return QString::null;
 			m_headerText = QString::fromLatin1("%1 - %2").arg(start->key()).arg(stop->key());

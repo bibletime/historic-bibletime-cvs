@@ -14,8 +14,7 @@ chiamati documenti.  </para> </answer> </qandaentry> <qandaentry>
 <question> <para> Come risolvo il problema?  </para> </question>
 <answer> <para>Installa alcuni moduli. Puoi scaricarli su <ulink
 url="http://www.crosswire.org">www.crosswire.org</ulink>. Per
-cortesia, leggi le istruzioni di installazione del nostro <ulink
-url="../handbook/HTML/index.html">manuale</ulink> e la nostra home
+cortesia, leggi le istruzioni di installazione del nostro <link linkend="hdbk_idx">manuale</link> e la nostra home
 page.  </para> </answer> </qandaentry> <qandaentry> <question> <para>
 Cosa faccio se non funziona?  </para> </question> <answer> <para>
 Leggi la documentazione su <ulink url="http://www.bibletime.de">

@@ -2,37 +2,29 @@
 <title>Der erste Start</title>
 
 <table>
-<title>
-
-Der erste Start von BibleTime! Diese Tabelle beschreibt die Eigenschaften von BibleTime!
-
-</title>
+<title>Der erste Start von BibleTime! Diese Tabelle beschreibt die Eigenschaften von BibleTime!</title>
 <tgroup cols="2">
 <thead>
 <row>
+
 <entry>
-<emphasis>
-Eigenschaft
-</emphasis>
+<emphasis>Eigenschaft</emphasis>
 </entry>
+
 <entry>
-<emphasis>
-Beschreibung
-</emphasis>
+<emphasis>Beschreibung</emphasis>
 </entry>
+
 </row>
 </thead>
 <tbody>
 <row>
+
 <entry>
-<emphasis>
-
-MDI
-
-</emphasis>
+<emphasis>MDI</emphasis>
 </entry>
-<entry>
 
+<entry>
 MDI ist die Abkürzung für <emphasis>Multiple Document
 Interface</emphasis>.  Mit der Hilfe von MDI ist es möglich mehr als
 ein Anzeigefenster zur selben Zeit geöffnet zu haben!  Sie können zwei
@@ -49,13 +41,12 @@ Benutzern durch zu viele Möglichkeiten.
 </row>
 
 <row>
-<entry>
-<emphasis>
-Anzeigefenster
-</emphasis>
-</entry>
-<entry>
 
+<entry>
+<emphasis>Anzeigefenster</emphasis>
+</entry>
+
+<entry>
 Ein Anzeigefenster ist ein Fenster innerhalb des MDI Bereiches von
 BibleTime. Ein Anzeigefenster präsentiert den Inhalt eines Dokumentes
 (SWORD Modul) in einem vernünftigen Format (Bibeln werden zum Beispiel
@@ -68,14 +59,12 @@ wir einfach zusätzliche Typen von Anzeigefenstern hinzufügen.
 Dieser Ansatz macht BibleTime für die Zukunft erweiterbar und macht es
 möglich jede Art von Modulen anzuzeigen, die in Zukunft erzeugt werden
 können (zum Beispiel Karten oder Sound-Module).
-
 </entry>
+
 </row>
 <row>
 <entry>
-<emphasis>
-Hauptgruppe
-</emphasis>
+<emphasis>Hauptgruppe</emphasis>
 </entry>
 <entry>
 
@@ -93,10 +82,9 @@ Lesezeichen zu erzeugen, und sie können Einträge im Baum bewegen
 </row>
 <row>
 <entry>
-<emphasis>
-Suchschnittstelle
-</emphasis>
+<emphasis>Suchschnittstelle</emphasis>
 </entry>
+
 <entry>
 Die Suchfunktion befindet sich nun in einem eigenen Fenster. Klicken
 Sie mit der rechten Maustaste auf ein Modul und wählen Sie "Suche
@@ -105,6 +93,7 @@ in denen Suchbegriffe eingegeben, Suchbereiche gesetzt und in den
 gefundenen Einträgen navigiert werden kann. Die
 letzte Karteikarte zeigt die grafische Suchanalyse.
 </entry>
+
 </row>
 <row>
 <entry>
@@ -126,59 +115,37 @@ Drag&amp;Drop-System arbeitet!  Wir hoffen, dass es Ihnen gefällt!
 </table>
 
 <table>
-<title>
-
-Hier ist eine kurze Liste von URLs mit mehr Informationen über BibleTime!
-
-</title>
+<title>Hier ist eine kurze Liste von URLs mit mehr Informationen über BibleTime!</title>
 <tgroup cols="2">
 <thead>
 <row>
 <entry>
-<emphasis>
-
-URL
-
-</emphasis>
+<emphasis>URL</emphasis>
 </entry>
 <entry>
-<emphasis>
-
-Beschreibung
-
-</emphasis>
+<emphasis>Beschreibung</emphasis>
 </entry>
 </row>
 </thead>
 <tbody>
 <row>
 <entry>
-<emphasis>
-
-<ulink url="http://www.bibletime.de/">www.bibletime.de</ulink>
-</emphasis>
+<emphasis><ulink url="http://www.bibletime.de/">www.bibletime.de</ulink></emphasis>
 </entry>
 <entry>
-
 Dies ist die Homepage von BibleTime! Gehen Sie zu dieser Seite um
 Dokumentationsseiten zu lesen. Vergessen sie nicht das FAQ auf <ulink
 url="http://www.bibletime.de">www.bibletime.de</ulink> zu lesen, es
 enthält Antworten auf Fragen, die Sie wahrscheinlich haben.
-
 </entry>
 </row>
 
 <row>
 <entry>
-<emphasis>
-
-<ulink url="http://www.crosswire.or</emphasis>g/">www.crosswire.org
-
-</ulink>
-</emphasis>
+<emphasis><ulink url="http://www.crosswire.org">www.crosswire.org</ulink></emphasis>
 </entry>
-<entry>
 
+<entry>
 Dies ist das Heim von Crosswire! Crosswire ist die Bibelgesellschaft,
 welche die Textbibliothek und den Installationsmanager für Sword
 herstellt.  Sie können die Bibeltexte von dieser Seite
@@ -186,9 +153,8 @@ herunterladen. Die meisten der auf Crosswire erhältlichen Texte sind
 entweder Public Domain oder sind von dem Copyrighthalter für Crosswire
 zur Verteilung bereitgestellt worden.  Module, die nicht zur freien
 Verteilung herausgegeben wurden, sind verschlüsselt.  Bitte lesen Sie
-die Seite <ulink url="module_encrypted.html">Hilfedialog für
-verschlüsselte Module</ulink> vor dem Herunterladen von Modulen.
-
+die Seite <link linkend="help_module_encrypted">Hilfedialog für
+verschlüsselte Module</link> vor dem Herunterladen von Modulen.
 </entry>
 </row>
 </tbody>

@@ -2,37 +2,29 @@
 <title>První spu¹tìní</title>
 
 <table>
-<title>
+<title>Poprvé jste spustili program BibleTime. V následujicí tabulce naleznete popis hlavních vlastností programu.</title>
 
-Poprvé jste spustili program BibleTime. V následujicí tabulce naleznete popis hlavních vlastností programu.
-
-</title>
 <tgroup cols="2">
 <thead>
 <row>
+
 <entry>
-<emphasis>
-Vlastnost
-</emphasis>
+<emphasis>Vlastnost</emphasis>
 </entry>
+
 <entry>
-<emphasis>
-Popis
-</emphasis>
+<emphasis>Popis</emphasis>
 </entry>
+
 </row>
 </thead>
 <tbody>
 <row>
 <entry>
-<emphasis>
-
-MDI
-
-</emphasis>
+<emphasis>MDI</emphasis>
 </entry>
-<entry>
 
+<entry>
 MDI je zkratka ze slov <emphasis>Multiple Document Interface.</emphasis>
 (Pøelo¾eno asi jako "<emphasis>rozhraní k více dokumentùm</emphasis>".)
 S jeho pomocí mù¾ete mít otevøeno nìkolik "prohlí¾eèù" naráz.
@@ -42,14 +34,12 @@ Pro práci s okny slou¾í menu <emphasis>Okno</emphasis>.
 
 Oblast MDI mù¾e obsahovat pouze prohlí¾eèe.
 Toto øe¹ení zjednodu¹uje u¾ivateli orientaci.
-
 </entry>
+
 </row>
 <row>
 <entry>
-<emphasis>
-Okno prohlí¾eèe
-</emphasis>
+<emphasis>Okno prohlí¾eèe</emphasis>
 </entry>
 <entry>
 
@@ -63,9 +53,7 @@ Díky tomu bude mo¾né pracovat s libovolnými moduly (napø. mapy, zvukové nahrávky
 </row>
 <row>
 <entry>
-<emphasis>
-Hlavní seznam
-</emphasis>
+<emphasis>Hlavní seznam</emphasis>
 </entry>
 <entry>
 
@@ -80,9 +68,7 @@ Rovnì¾ mù¾ete pøesouvat jednotlivé polo¾ky v seznamu (napø. pøesunout skupinu ne
 </row>
 <row>
 <entry>
-<emphasis>
-Hledání
-</emphasis>
+<emphasis>Hledání</emphasis>
 </entry>
 <entry>
 
@@ -95,9 +81,7 @@ Na poslední tabuli naleznete grafickou analýzu výsledku hledání.
 </row>
 <row>
 <entry>
-<emphasis>
-Táhni a pus»
-</emphasis>
+<emphasis>Táhni a pus»</emphasis>
 </entry>
 <entry>
 
@@ -116,64 +100,47 @@ Doufáme, ¾e si tuto vlastnost oblíbíte.
 </table>
 
 <table>
-<title>
-
-Dal¹í informace o aplikaci BibleTime mù¾ete nalézt na následujicích odkazech:
-
-</title>
+<title>Dal¹í informace o aplikaci BibleTime mù¾ete nalézt na následujicích odkazech:</title>
 <tgroup cols="2">
 <thead>
 <row>
+
 <entry>
-<emphasis>
-
-URL
-
-</emphasis>
+<emphasis>URL</emphasis>
 </entry>
+
 <entry>
-<emphasis>
-
-Popis
-
-</emphasis>
+<emphasis>Popis</emphasis>
 </entry>
+
 </row>
 </thead>
 <tbody>
 <row>
+
 <entry>
-<emphasis>
-
-<ulink url="http://www.bibletime.de/">www.bibletime.de
-
-</ulink>
-</emphasis>
+<emphasis><ulink url="http://www.bibletime.de/">www.bibletime.de</ulink></emphasis>
 </entry>
-<entry>
 
+<entry>
 Toto je stránka projektu BibleTime.
 Naleznete zde dokumentaci (v angliètinì), odpovìdi na èasto kladené otázky (tzv. FAQ, v angliètinì) a dal¹í informace.
-
 </entry>
+
 </row>
 
 <row>
+
 <entry>
-<emphasis>
-
-<ulink url="http://www.crosswire.or</emphasis>g/">www.crosswire.org
-
-</ulink>
-</emphasis>
+<emphasis><ulink url="http://www.crosswire.org">www.crosswire.org</ulink></emphasis>
 </entry>
-<entry>
 
+<entry>
 Stránka spoleènosti Crosswire. Jedná se o biblickou spoleènost, která vytváøí knihovnu biblických textù a také nástroj pro práci s tìmi texty - SWORD.
 Z této stránky si mù¾ete stáhnout jednotlivé moduly, které chcete/potøebujete.
 Dostupné moduly jsou vìt¹inou volnì pou¾itelné nebo jsou spoleènosti Crosswire poskytnuty k bezplatnému ¹íøení od vlastníkù autorských práv.
 Moduly, které nejsou volnì ¹iøitelné jsou "uzamèeny" (locked).
-Pøed sta¾ením takového zamèeného modulu si prosím pøeètìte <ulink url="module_encrypted.html">nápovìdu k zamèeným modulùm</ulink>.
+Pøed sta¾ením takového zamèeného modulu si prosím pøeètìte <link linkend="help_module_encrypted">nápovìdu k zamèeným modulùm</link>.
 
 </entry>
 </row>

@@ -2,7 +2,7 @@
 <HTML
 ><HEAD
 ><TITLE
->Installieren mittels BibleTime's Sourceocde</TITLE
+>Installiation mit Hilfe des Quellcodes von BibleTime</TITLE
 ><META
 NAME="GENERATOR"
 CONTENT="Modular DocBook HTML Stylesheet Version 1.64
@@ -17,8 +17,8 @@ REL="PREVIOUS"
 TITLE="Installation der benötigten Programme"
 HREF="inst_preq_install.html"><LINK
 REL="NEXT"
-TITLE="Installation von BibleTimes Quellcode"
-HREF="inst_sources_bibletime.html"><META
+TITLE="Installation"
+HREF="inst_user.html"><META
 HTTP-EQUIV="Content-Style-Type"
 CONTENT="text/css"><LINK
 REL="stylesheet"
@@ -87,7 +87,7 @@ WIDTH="10%"
 ALIGN="right"
 VALIGN="bottom"
 ><A
-HREF="inst_sources_bibletime.html"
+HREF="inst_user.html"
 >Vor</A
 ></TD
 ></TR
@@ -100,12 +100,12 @@ CLASS="CHAPTER"
 ><H1
 ><A
 NAME="INST_SOURCES"
->Kapitel 3. Installieren mittels BibleTime's Sourceocde</A
+>Kapitel 3. Installiation mit Hilfe des Quellcodes von BibleTime</A
 ></H1
 ><P
 >Dieses Kapitel beschreibt, wie der Quellcode compiliert wird.
-Diese Schritte treffen sowohl auf die Entwicklungsversionen als auch auf die veröffentlichten Versionen von
-BibleTime und Sword zu.</P
+Diese Schritte treffen sowohl auf die Entwicklungsversionen als auch
+auf die veröffentlichten Versionen von BibleTime und Sword zu.</P
 ><DIV
 CLASS="SECTION"
 ><H1
@@ -116,10 +116,11 @@ NAME="INST_SOURCES_SWORD"
 ></H1
 ><P
 >Sword und die Sword Module sind die "Buchbibliothek" für BibleTime.
-Bitte lesen sie auch die Download-Seite für weitere Informationen über das Herunterladen von BibleTime.</P
+Bitte lesen sie auch die Download-Seite für weitere Informationen über
+das Herunterladen von BibleTime.</P
 ><P
->Lesen Sie die "Systemvorraussetzungen" Seite um Sword 1.5 zu bekommen. Lesen Sie die "Verweise" Seite
-um Swords Module zu bekommen.</P
+>Lesen Sie die Seite "Systemvoraussetzungen" um Sword 1.5 zu
+bekommen. Lesen Sie die Seite "Verweise"  um Swords Module zu bekommen.</P
 ><DIV
 CLASS="SECTION"
 ><H2
@@ -129,8 +130,9 @@ NAME="INST_SOURCES_SWORD_INSTALL"
 >3.1.1. Installation von Sword 1.52</A
 ></H2
 ><P
->Ale Erstes müssen Sie die heruntergeladene .tar.gz Datei (wenn Sie die CVS Version benutzen,
-dann sind ihre Sourcen bereits entpacken. Sie können diesen Schritt also auslassen) in ein temporäres Verzeichnis
+>Als Erstes müssen Sie die heruntergeladene .tar.gz Datei (wenn Sie die
+CVS Version benutzen, dann sind ihre Sourcen bereits entpackt. Sie
+können diesen Schritt also auslassen) in ein temporäres Verzeichnis
 entpacken. Machen Sie dies ungefähr folgendermaßen:</P
 ><TABLE
 BORDER="0"
@@ -148,21 +150,25 @@ CLASS="SCREEN"
 ></TR
 ></TABLE
 ><P
->(Die tar Datei wird in ein Verzeichnis ähnlich wie "sword-1.52" entpackt werden)</P
+>(Die tar Datei wird in ein Verzeichnis ähnlich wie "sword-1.52"
+entpackt werden)</P
 ><P
->Bovor Sie versuchen Sword zu kompileren, müssen Sie <TT
+>Bevor Sie versuchen Sword zu kompilieren, müssen Sie
+<TT
 CLASS="FILENAME"
-> Makefile.cfg</TT
-> abändern.
-(sie ist im obersten Verzeichnis des entpackten Quellcodes zu finden). Der änderbare Bereich ist gekennzeichnet,
-versuchen Sie nicht Bereiche der Datei zu verändern, die außerhalb des durch
-<I
+>Makefile.cfg</TT
+> abändern (diese Datei ist im
+obersten Verzeichnis des entpackten Quellcodes zu finden). Der
+änderbare Bereich ist gekennzeichnet, versuchen Sie nicht Bereiche der
+Datei zu verändern, die außerhalb des durch <I
 CLASS="EMPHASIS"
->##### Customizable stuff. Set it how you like it #####</I
-> Teiles liegen, außer wenn Sie
-wissen was sie machen.</P
+>#####
+Customizable stuff. Set it how you like it #####</I
+> Teiles
+liegen, außer wenn Sie wissen, was sie machen.</P
 ><P
->Für viele Installationen werden die Voreinstellungen passen,. Wenn diese nicht passen, können die folgenden
+>Für viele Installationen werden die Voreinstellungen passen.
+Wenn diese nicht passen, können die folgenden
 Schalter gesetzt werden.</P
 ><DIV
 CLASS="TABLE"
@@ -216,7 +222,8 @@ CLASS="FILENAME"
 Es muss ein Eintrag in <TT
 CLASS="FILENAME"
 >/etc/ld.so.conf</TT
-> hinzugefügt werden, der auf libsword zeigt.
+>
+hinzugefügt werden, der auf libsword zeigt.
 <TT
 CLASS="FILENAME"
 >/usr/local/sword/lib</TT
@@ -230,8 +237,8 @@ VALIGN="TOP"
 ><TD
 ALIGN="LEFT"
 VALIGN="TOP"
->Benutzen Sie die Voreinstellung 'no', außer wenn Sie den Sword Installationsmanager
-benutzen (benutzen Sie dann 'yes').</TD
+>Benutzen Sie die Voreinstellung 'no', außer wenn Sie den Sword
+Installationsmanager benutzen (benutzen Sie dann 'yes').</TD
 ></TR
 ><TR
 ><TD
@@ -272,24 +279,28 @@ VALIGN="TOP"
 ><TD
 ALIGN="LEFT"
 VALIGN="TOP"
->Die Voreinstellungen sollten ok sein, aber Sie können sie ändern, wenn Sie möchten.
-Wenn Sie den Installationsort der Bibliothek und der Include-Dateien ändern möchten, müssen Sie entscheiden,
-ob Sie sie in einem eigenen Verzeichnis wie <TT
+>Die Voreinstellungen sollten ok sein, aber Sie können sie
+ändern, wenn Sie möchten.  Wenn Sie den Installationsort der
+Bibliothek und der Include-Dateien ändern möchten, müssen Sie
+entscheiden, ob Sie sie in einem eigenen Verzeichnis wie
+<TT
 CLASS="FILENAME"
 >/usr/local/sword/</TT
->
-oder ob Sie sie in einen bekannten Ort wie <TT
+> oder ob Sie sie in einen
+bekannten Ort wie <TT
 CLASS="FILENAME"
 >/usr/local/</TT
-> installieren möchten.
-Wenn Sie die Bibliotheken in <TT
+> installieren
+möchten.  Wenn Sie die Bibliotheken in
+<TT
 CLASS="FILENAME"
 >/usr/local/lib</TT
->
-und die Include-Dateien in <TT
+> und die Include-Dateien in
+<TT
 CLASS="FILENAME"
 >/usr/local/include</TT
-> installieren möchten, wählen Siee <TT
+> installieren möchten, wählen
+Sie <TT
 CLASS="FILENAME"
 >/usr/local</TT
 >.</TD
@@ -301,14 +312,16 @@ CLASS="FILENAME"
 >Beginnen Sie nun durch das Eingeben von <B
 CLASS="COMMAND"
 >make</B
-> und warten Sie bis es zu Ende ist.
-Danach müssen Sie die Dateien installieren. Das ist einfach. Geben Sie einfach
-<B
+> und
+warten Sie bis es zu Ende ist.
+Danach müssen Sie die Dateien installieren. Das ist einfach. Geben Sie
+einfach <B
 CLASS="COMMAND"
 > make install </B
 > ein.</P
 ><P
->Wenn sich das make Kommando mit einem Fehler beendet, heißt das wahrscheinlich, dass ihnen ein Paket fehlt.
+>Wenn sich das make Kommando mit einem Fehler beendet, heißt das
+wahrscheinlich, dass ihnen ein Paket fehlt.
 Zum Beispiel:</P
 ><TABLE
 BORDER="0"
@@ -358,29 +371,34 @@ CLASS="EMPHASIS"
 ></TABLE
 ><P
 >Die kursiven Zeilen oben zeigen, dass eine GTK Anwendung fehlt.
-Eine Durchsicht der der vorhandenen Pakete zeigte, dass eines der mit SuSE geliferten Pakete gtkdev ist.
-Es stellte sich heraus, dass dieses das benötigte Paket ist, dass make gestattet ohne Fehler durchzulaufen.
-Oft fehlende Pakete können entweder auf den Installationsmedien oder auf den Internetseite ihres
-Distributors gefunden werden.
+Eine Durchsicht der der vorhandenen Pakete zeigte, dass eines der mit
+SuSE geliferten Pakete gtkdev ist.
+Es stellte sich heraus, dass dieses das benötigte Paket ist, das make
+gestattet ohne Fehler durchzulaufen.
+Oft können fehlende Pakete entweder auf den Installationsmedien oder
+auf den Internetseite ihres Distributors gefunden werden.
 Nachdem <B
 CLASS="COMMAND"
 >make</B
-> ohne Fehler durchgelaufen ist, starten Sie <B
+> ohne Fehler durchgelaufen ist, starten
+Sie <B
 CLASS="COMMAND"
 >make install</B
 >.
-Wenn es immernoch nicht funktioniert, öfnnen Sie die Datei <TT
+Wenn es immer noch nicht funktioniert, öffnen Sie die Datei
+<TT
 CLASS="FILENAME"
 >Makefile.cfg</TT
->
-im Hauptverzeichnis des Sword-Quelltextes und ändern sie die Zeile
-"<B
+> im Hauptverzeichnis des
+Sword-Quelltextes und ändern sie die Zeile "<B
 CLASS="COMMAND"
->buildvcl := yes</B
+>buildvcl :=
+yes</B
 >" zu "<B
 CLASS="COMMAND"
 >buildvcl := no</B
->" und probieren Sie es erneut.</P
+>" und probieren
+Sie es erneut.</P
 ></DIV
 ><DIV
 CLASS="SECTION"
@@ -399,16 +417,20 @@ NAME="INST_SOURCES_SWORD_MODULES_DIR"
 >3.1.2.1. Wählen Sie ein Sword-Verzeichnis</A
 ></H3
 ><P
->Sword unterstützt zur Zeit drei Arten von Modulen: Bibeln, Lexika und Kommentare.
+>Sword unterstützt zur Zeit drei Arten von Modulen: Bibeln, Lexika und
+Kommentare.
 Sie müssen die Dateien der Module in ihr eigenes Verzeichnis installieren.
 Sie müssen entscheiden, welches Verzeichnis ihr Sword Verzeichnis sein soll.
-Wenn Sie die Bibliotheken und Include-Dateien in ein eigenes Verzeichnis installiert haben benutzen Sie dieses
-als ihr Sword-Verzeichnis. Wenn Sie die Bibliotheken und Include-Dateien in einem bekannten
-Verzeichnis (z.B. <TT
+
+Wenn Sie die Bibliotheken und Include-Dateien in ein eigenes
+Verzeichnis installiert haben benutzen Sie dieses als Ihr
+Sword-Verzeichnis. Wenn Sie die Bibliotheken und Include-Dateien in
+einem bekannten Verzeichnis
+(z.B. <TT
 CLASS="FILENAME"
 >/usr/local/sword/</TT
->)
-installiert haben, so wählen Sie bitte einen anderen Ort für ihr Sword Verzeichnis.</P
+>) installiert haben, so
+wählen Sie bitte einen anderen Ort für ihr Sword Verzeichnis.</P
 ></DIV
 ><DIV
 CLASS="SECTION"
@@ -420,11 +442,14 @@ NAME="INST_SOURCES_SWORD_MODULES_UPACK"
 ></H3
 ><P
 >Als Erstes müssen Sie das heruntergeladenen Paket entpacken.
-Auf der Download-Seite von Sword können Sie zwischen einem Windows oder Raw Paket wählen.
-Wenn Sie einen "Nur Linux" Rechner benutzen so wählen Sie bitte das RAW Paket.
-Wenn Sie jedoch dummerweise ein selbstentpackende Programm für Windows heruntergeladen haben, so versuchen
-Sie bitte WINE zum Entpacken der Datei zu benutzen.
-Unter Umständen müssen die den Dateinamen von "_INSTALL.1" auf "_install.1" ändern, um das Setup zum Laufen zu bekommen.</P
+Auf der Download-Seite von Sword können Sie zwischen einem Windows
+oder Raw Paket wählen.
+Wenn Sie einen "Nur Linux" Rechner benutzen, so wählen Sie bitte das RAW Paket.
+Wenn Sie jedoch dummerweise ein selbstentpackende Programm für Windows
+heruntergeladen haben, so versuchen Sie bitte WINE zum Entpacken der
+Datei zu benutzen.
+Unter Umständen müssen Sie den Dateinamen von "_INSTALL.1" auf
+"_install.1" ändern, um das Setup zum Laufen zu bekommen.</P
 ></DIV
 ><DIV
 CLASS="SECTION"
@@ -438,25 +463,28 @@ NAME="INST_SOURCES_SWORD_MODULES_INTIG"
 >Legen Sie ein Verzeichnis <TT
 CLASS="FILENAME"
 >mods.d</TT
-> innerhalb des Sword Verzeichnisses an.
-Kopieren Sie bitte due Datei <TT
+> innerhalb des
+Sword Verzeichnisses an.
+Kopieren Sie bitte die Datei <TT
 CLASS="FILENAME"
 >[Modulname].conf</TT
-> in das <TT
+> in
+das <TT
 CLASS="FILENAME"
 >mods.d</TT
 > Verzeichnis.
 Die <TT
 CLASS="FILENAME"
 >.conf</TT
-> Datei ist
-normalerwiese in den Dateien des entpackten Modules enthalten. Verschieben Sie nun das Verzeichnis "modules" in ihr Sword Verzeichnis.
+> Datei ist normalerwiese in den Dateien
+des entpackten Modules enthalten. Verschieben Sie nun das Verzeichnis
+"modules" in Ihr Sword Verzeichnis.
 Das "modules" Verzeichnis enthält ihre entpackten Datein des Modules.
-
 Im Beispiel ist <TT
 CLASS="FILENAME"
 >/usr/local/sword</TT
-> das Sword Verzeichnis.</P
+> das Sword
+Verzeichnis.</P
 ><P
 > Die Verzeichnisstruktur sieht so aus:</P
 ><TABLE
@@ -485,16 +513,17 @@ NAME="INST_SOURCES_SWORD_MODULES_CONFIG"
 >3.1.2.4. Die Sword Konfigurationsdatei</A
 ></H3
 ><P
->Eine Sword basierte Anwendung muss wissen, wo die Module liegen. Sie benötigen eine
-kleine Konfigurationsdatei in <TT
+>Eine Sword basierte Anwendung muss wissen, wo die Module liegen. Sie
+benötigen eine kleine Konfigurationsdatei in <TT
 CLASS="FILENAME"
 >/etc</TT
-> um das zu erreichen-
-Legen Sie die Datei <TT
+>
+um das zu erreichen. Legen Sie die Datei
+<TT
 CLASS="FILENAME"
 >/etc/sword.conf</TT
-> an.
-Die Datei muss nur die beiden folgenden Zeilen enthalten:</P
+> an.  Die Datei muss nur die
+beiden folgenden Zeilen enthalten:</P
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -513,12 +542,14 @@ CLASS="SCREEN"
 CLASS="FILENAME"
 >/usr/local/sword</TT
 >
-im obigen Beispiel für oihr Sword Verzeichnis gewählt haben, so zeigen Sie mit
+im obigen Beispiel für Ihr Sword Verzeichnis gewählt haben, so zeigen Sie mit
 DataPath auf ihr Sword Verzeichnis.</P
 ><P
 >Starten Sie nun BibleTime und entspannen Sie sich ;-)
-Wenn Sie Probleme mit der Installation von Modulen haben, lesen Sie bitte die "FAQ" Seite.
-Wenn es dort keine Lösung für ihr Problem gibt, lesen Sie bitte auf der "Contacts" Seite wie man Hilfe bekommt.</P
+Wenn Sie Probleme mit der Installation von Modulen haben, lesen Sie
+bitte die "FAQ" Seite.
+Wenn es dort keine Lösung für Ihr Problem gibt, lesen Sie bitte auf
+der "Contacts" Seite wie man Hilfe bekommt.</P
 ></DIV
 ></DIV
 ></DIV
@@ -554,7 +585,7 @@ WIDTH="33%"
 ALIGN="right"
 VALIGN="top"
 ><A
-HREF="inst_sources_bibletime.html"
+HREF="inst_user.html"
 >Vor</A
 ></TD
 ></TR
@@ -576,7 +607,7 @@ HREF="inst_idx.html"
 WIDTH="33%"
 ALIGN="right"
 VALIGN="top"
->Installation von BibleTimes Quellcode</TD
+>Installation</TD
 ></TR
 ></TABLE
 ></DIV

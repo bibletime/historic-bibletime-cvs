@@ -1,31 +1,26 @@
 <chapter id="help_first_startup">
 <title>Prvé spustenie</title>
 <table>
-<title>
-Toto je va¹e prvé spustenie BibleTime! Táto tabuµka opisuje výhody BibleTime!
-</title>
+<title>Toto je va¹e prvé spustenie BibleTime! Táto tabuµka opisuje výhody BibleTime!</title>
 <tgroup cols="2">
 <thead>
 <row>
+
 <entry>
-<emphasis>
-Výhoda
-</emphasis>
+<emphasis>Výhoda</emphasis>
 </entry>
+
 <entry>
-<emphasis>
-Popis
-</emphasis>
+<emphasis>Popis</emphasis>
 </entry>
+
 </row>
 </thead>
 <tbody>
 <row>
-<entry>
-<emphasis>
-MDI
-</emphasis>
-</entry>
+
+<entry><emphasis>MDI</emphasis></entry>
+
 <entry>
 MDI je skratkou pre <emphasis>viacnásobný prístup k dokumentom
 (Multiple Document Interface).</emphasis> S pomocou MDI je mo¾né
@@ -40,11 +35,11 @@ mo¾ností.
 </entry>
 </row>
 <row>
+
 <entry>
-<emphasis>
-Okno zobrazenia.
-</emphasis>
+<emphasis>Okno zobrazenia.</emphasis>
 </entry>
+
 <entry>
 Okno zobrazenia je okno vo vnútri MDI oblasti. Zobrazuje obsah
 dokumentu (SWORD modulu) rozumným spôsobom (napr. Biblia bude
@@ -60,11 +55,11 @@ mapy alebo zvukové moduly...) pridaním nového typu zobrazenia.
 </entry>
 </row>
 <row>
+
 <entry>
-<emphasis>
-Hlavný index
-</emphasis>
+<emphasis>Hlavný index</emphasis>
 </entry>
+
 <entry>
 Hlavný index je strom v µavej èasti BibleTime. Kombinuje
 správu zálo¾iek a s modulov v BibleTime. Pri práci s hlavným
@@ -77,11 +72,11 @@ alebo zálo¾ky do inej skupiny).
 </entry>
 </row>
 <row>
+
 <entry>
-<emphasis>
-Vyhµadávanie
-</emphasis>
+<emphasis>Vyhµadávanie</emphasis>
 </entry>
+
 <entry>
 Vyhµadávanie je teraz vo vlastnom okne. Pre jeho spustenie
 kliknite s pravým tlaèítkom na modul a vyberte "Hµadaj
@@ -91,11 +86,11 @@ Tie¾ umo¾òuje zobrazi» grafickú analýzu hµadania.
 </entry>
 </row>
 <row>
+
 <entry>
-<emphasis>
-Tiahni a pus»
-</emphasis>
+<emphasis>Tiahni a pus»</emphasis>
 </entry>
+
 <entry>
 'Tiahni a pus»' je dôle¾itou súèas»ou BibleTime! Umo¾òuje vám
 »aha» dokumenty, ver¹e, odkazy, zálo¾ky, skupiny dokumentov,
@@ -110,33 +105,27 @@ ako funguje. Dúfame, ¾e sa vám bude páèi».
 </table>
 
 <table>
-<title>
-Tu je krátky zoznam u¾itoèných URLS, kde je viacej informácií o
-BibleTime!
-</title>
+<title>Tu je krátky zoznam u¾itoèných URLS, kde je viacej informácií o BibleTime!</title>
 <tgroup cols="2">
 <thead>
 <row>
 <entry>
-<emphasis>
-URL
-</emphasis>
+<emphasis>URL</emphasis>
 </entry>
+
 <entry>
-<emphasis>
-Popis
-</emphasis>
+<emphasis>Popis</emphasis>
 </entry>
+
 </row>
 </thead>
 <tbody>
 <row>
+
 <entry>
-<emphasis>
-<ulink url="http://www.bibletime.de/">www.bibletime.de
-</ulink>
-</emphasis>
+<emphasis><ulink url="http://www.bibletime.de/">www.bibletime.de</ulink></emphasis>
 </entry>
+
 <entry>
 Tu je domáca stránka BibleTime! Zobrazte si túto stránku, ak si
 chcete preèíta» dokumentáciu. Nezabudnite ani na FAQ (èasto
@@ -148,11 +137,9 @@ odpovede va¹e mo¾né otázky.
 
 <row>
 <entry>
-<emphasis>
-<ulink url="http://www.crosswire.org</emphasis>/">www.crosswire.org
-</ulink>
-</emphasis>
+<emphasis><ulink url="http://www.crosswire.org">www.crosswire.org</ulink></emphasis>
 </entry>
+
 <entry>
 Toto je domáca stránka Crosswire! Crosswire je biblická
 spoloènos», ktorá produkuje biblické texty ako moduly a ich
@@ -160,8 +147,8 @@ správcu - kni¾nicu SWORD! Z ich stránok si ju aj moduly mô¾ete
 stiahnu». Veµa modulov sú dostupné cez Crosswire ako publik
 domain (bez ochrany autorským právom) alebo boli uvoµnené
 vlastníkom autorských práv. Moduly, ktoré nie sú zadarmo, sú
-uzamknuté (lock). Pozrite si prosím
-<ulink url="module_encrypted.html"> pomoc o uzamknutých moduloch </ulink> skôr ne¾ by ste si ich stiahli.
+uzamknuté (lock).
+Pozrite si prosím <link linkend="help_module_encrypted">pomoc o uzamknutých moduloch</link> skôr ne¾ by ste si ich stiahli.
 </entry>
 </row>
 </tbody>

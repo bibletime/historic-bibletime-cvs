@@ -5,7 +5,8 @@
 >Vyhµadávanie v dokumentoch</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
+CONTENT="Modular DocBook HTML Stylesheet Version 1.64
+"><LINK
 REL="HOME"
 TITLE="Dokumentácia k Bibletime"
 HREF="index.html"><LINK
@@ -200,9 +201,9 @@ Keï je táto voµba za¹krtnutá, budú nájde iba tie ver¹e, kde text
 súhlasí aj podµa veµkosti písmen. Ak je táto voµba neza¹krtnutá,
 tak budú nájdené v¹etky ver¹e, ktoré obsahujú hµadaný text bez
 ohµadu na veµkos» pou¾itých písmen. Ak chcete nájs» napr.
-PÁN ale nie Pán alebo pán tak
+"PÁN" ale nie "Pán" alebo "pán" tak
 za¹krtnite túto voµbu. Ak v¹ak chcete nájs» v¹etky mo¾né variácie
-slova pán (teda aj napr. páN), tak nechajte túto
+slova pán (teda aj napr. "páN"), tak nechajte túto
 voµbu neza¹krtnutú.</P
 ></DIV
 ><DIV
@@ -222,15 +223,15 @@ tak budú vyhµadávané v¹etky riadky (alebo ver¹e), ktoré obsahujú
 v¹etky vlo¾ené slová (alebo sú èas»ou nájdených slov). Ak v¹etky
 slová alebo ich èasti sú aj v inom poradí alebo sú medzi nimi aj
 iné slová, ver¹ bude zaradený medzi nájdené polo¾ky. Napr. ak
-budete hµada» prove cause bude nájdený ver¹ Gen
-21:25, And Abraham re<I
+budete hµada» "prove cause" bude nájdený ver¹ Gen
+21:25, "And Abraham re<I
 CLASS="EMPHASIS"
 >prove</I
 >d Abimelech be
 <I
 CLASS="EMPHASIS"
 >cause</I
-> of a well of water...
+> of a well of water..."
 V tomto prípade je hµadané slovo (prove) súèas»ou iného slova
 (reproved) a preto je ver¹ súèas»ou nájdených polo¾iek.</P
 ></DIV
@@ -249,13 +250,13 @@ CLASS="GUIBUTTON"
 > oznaèené, tak
 budú hµadané v¹etky ver¹e, ktoré obsahujú text, presne tak, ako
 bol vlo¾ený vrátane medzier. Fráza pritom nemusí zaèína» alebo
-konèi» v rámci ohranièenia. Napr. hµadanie now how
-thou ought nájde 1 Tim 3:1, ...that thou
+konèi» v rámci ohranièenia. Napr. hµadanie "now how
+thou ought" nájde 1 Tim 3:1, "...that thou
 mayest k<I
 CLASS="EMPHASIS"
 >now how thou ought</I
 >est
-to behave... </P
+to behave..." </P
 ></DIV
 ><DIV
 CLASS="SECTION"
@@ -289,67 +290,67 @@ Expresession)</A
 >Vyhµadávanie pomocou regulárneho výrazu poskytuje jednoduchý
 mo¾nos» pre komplexné hµadanie re»azcov, ktoré obsahujú vzorky
 alebo skupiny vzoriek, ktoré sa oddeµujú pomocou vertikálnej
-èiary |.Kým vzorka mô¾e by» zostavená tak, aby
+èiary "|".Kým vzorka mô¾e by» zostavená tak, aby
 hµadala slovo alebo frázu, a jednoduché hµadanie nájde nielen
 slová, ktoré hµadáte, ale aj slová, ktoré obsahujú va¹u vzorku.
-Napr. pri hµadaní slova right budú tie¾ nájdené ver¹e,
-ktoré obsahujú nie len slovo right, ale aj slová <I
+Napr. pri hµadaní slova "right" budú tie¾ nájdené ver¹e,
+ktoré obsahujú nie len slovo "right", ale aj slová "<I
 CLASS="EMPHASIS"
 >right</I
->eous,
-<I
+>eous",
+"<I
 CLASS="EMPHASIS"
 >right</I
->eousness, un<I
+>eousness", "un<I
 CLASS="EMPHASIS"
 >right</I
->eous,
-up<I
+>eous",
+"up<I
 CLASS="EMPHASIS"
 >right</I
-> ako aj b<I
+>" ako aj "b<I
 CLASS="EMPHASIS"
 >right</I
->.
-A hµadanie spojenie hall not nebude hµada»
-hall A not ale bude hµadaný re»azec
-hall not s medzerou medzi druhým l a
-n. Hµadanie hall not nájde aj výskyty s<I
+>".
+A hµadanie spojenie "hall not" nebude hµada»
+"hall" A "not" ale bude hµadaný re»azec
+"hall not" s medzerou medzi druhým "l" a
+"n". Hµadanie "hall not" nájde aj výskyty "s<I
 CLASS="EMPHASIS"
 >hall not</I
->.</P
+>".</P
 ><P
 >Sila regulárnych výrazov je vo vzorkách, ktoré sa pou¾ívajú
 pre hµadanie. Vzorka pozostáva z be¾ných znakov a niektorých
 ¹peciálnych znakov, ktoré sú pou¾ité a interpretované pomocou
 stanovených pravidiel. ©peciálnymi znakmi sú napríklad .\[^*$?+..
-Opaèné lomítko, \, je pou¾ívané ku konverzii
+Opaèné lomítko, "\", je pou¾ívané ku konverzii
 ¹peciálnych znakov na obyèajné a naopak. </P
 ><P
->Príklad: vzorka <I
+>Príklad: vzorka "<I
 CLASS="EMPHASIS"
 >i. love\.</I
->
-nájde vety, ktoré konèia s h<I
+>"
+nájde vety, ktoré konèia s "h<I
 CLASS="EMPHASIS"
 >i</I
 >s <I
 CLASS="EMPHASIS"
 >love</I
->
+>"
 alebo <I
 CLASS="EMPHASIS"
 >love</I
-> alebo <I
+>" alebo "<I
 CLASS="EMPHASIS"
 >i</I
 >s <I
 CLASS="EMPHASIS"
 >love</I
->
-nasledované bodkou. Prvá bodka v i. love\. je
+>"
+nasledované bodkou. Prvá bodka v "i. love\." je
 ¹peciálny znak, ktorý povoµuje akýkoµvek znak na jeho pozícii.
-Opaèné lomítko v i. love\., za ktorým nasleduje
+Opaèné lomítko v "i. love\.", za ktorým nasleduje
 bodka, zabezpeèuje, ¾e bodka nie je pova¾ovaná za ¹peciálny znak,
 ale za obyèajnú bodku.</P
 ></DIV
@@ -473,7 +474,7 @@ NAME="PERIOD"
 >3.4.2.8.1. Bodka .</A
 ></H4
 ><P
->Bodka . nahrádza akýkoµvek znak vrátane medzery
+>Bodka "." nahrádza akýkoµvek znak vrátane medzery
 a neabecedných znakov
 <I
 CLASS="EMPHASIS"
@@ -563,7 +564,7 @@ NAME="ASTERISK"
 ></H4
 ><P
 >Nahrádza nula a viac znakov. Pou¾itie kombinácie bodky a
-hviezdièky .* v be¾ných vzorkách mô¾e spôsobi», ¾e
+hviezdièky ".*" v be¾ných vzorkách mô¾e spôsobi», ¾e
 vyhµadávanie bude veµmi dlho trva» a bude sa zda», ¾e program
 zamrzol.
 <I
@@ -595,7 +596,7 @@ NAME="PLUS"
 ></H4
 ><P
 >Znamienko plus nahrádza jeden alebo viacero znakov.
-Pou¾itie kombinácie bodky s plusom .+ v be¾ných
+Pou¾itie kombinácie bodky s plusom ".+" v be¾ných
 vzorkách mô¾e spôsobi», ¾e vyhµadávanie bude veµmi dlho trva»
 a bude sa zda», ¾e program zamrzol.
 <I
@@ -662,11 +663,11 @@ NAME="BRACKET"
 >Hranaté zátvorky ohranièujú skupinu znakov, ktoré mô¾u by»
 nájdené. Bodka, hviezdièka, znamienka plus a otáznik v hranatých
 zátvorkách nie sú ¹peciálnymi znakmi. Znamienko mínus mô¾e by»
-pou¾ité na vyjadrenie rozsahu. Ak chcete pou¾i» strie¹ku, ^
+pou¾ité na vyjadrenie rozsahu. Ak chcete pou¾i» strie¹ku, "^"
 neumiestnite ju na prvú pozíciu hneï za µavou hranatou zátvorkou,
 lebo bude chápaná ako ¹peciálny znak. Ak chcete pou¾i» vo vzorke
-] alebo znak mínus umiestnite ich na prvej pozícii (alebo na druhej, ak
-prvým znakom je ¹peciálny znak ^).
+"]" alebo znak mínus umiestnite ich na prvej pozícii (alebo na druhej, ak
+prvým znakom je ¹peciálny znak "^").
 <I
 CLASS="EMPHASIS"
 >s[eia]t</I
@@ -765,10 +766,10 @@ fungova».
 CLASS="EMPHASIS"
 >^Na poèiatku</I
 > nájde riadky (ver¹e), ktoré
-zaèínajú s <I
+zaèínajú s "<I
 CLASS="EMPHASIS"
 >Na poèiatku</I
->.
+>".
 (Mo¾no budete musie» pou¾i»: <I
 CLASS="EMPHASIS"
 >^.....Na poèiatku</I
@@ -791,10 +792,10 @@ znakom v niektorých textoch, budete musie» niekedy pou¾i» bodky.
 CLASS="EMPHASIS"
 >Amen\.$</I
 > nájde riadky (ver¹e), ktoré konèia
-s <I
+s "<I
 CLASS="EMPHASIS"
 >Amen.</I
-> (Mo¾no musíte pou¾i»
+>" (Mo¾no musíte pou¾i»
 Amen\....$, Amen\..........$, alebo aj Amen\....................$)</P
 ></DIV
 ><DIV

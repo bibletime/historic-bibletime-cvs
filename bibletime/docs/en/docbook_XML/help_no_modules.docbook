@@ -30,7 +30,7 @@ How do I solve the problem?
 <answer>
 <para>Please download some modules and install them!  Get the modules at
 <ulink url="http://www.crosswire.org">www.crosswire.org</ulink>. Please read the installation instructions of our
-<ulink url="../handbook/HTML/index.html">handbook</ulink> and of our homepage.
+<link linkend="hdbk_idx">handbook</link> and of our homepage.
 </para>
 </answer>
 </qandaentry>
