@@ -194,6 +194,11 @@ const bool CSwordBackend::isOptionEnabled( const CSwordBackend::moduleOptions ty
 		case CSwordBackend::headings:
 			optionName = (char*)"Headings";
 			break;
+		case CSwordBackend::morphTags:
+			optionName = (char*)"Morphological Tags";
+			break;
+		default:
+			break;
 	}
 	return (bool)getGlobalOption(optionName);
 }
@@ -211,6 +216,9 @@ void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bo
 		case CSwordBackend::headings:
 			optionName = (char*)"Headings";
 			break;			
+		case CSwordBackend::morphTags:
+			optionName = (char*)"Morphological Tags";
+			break;
 	}	
 	setGlobalOption(optionName, enable ? "On": "Off");
 }

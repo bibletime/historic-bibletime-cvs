@@ -54,7 +54,8 @@ public:
   enum moduleOptions {
   	footnotes	= 0x000000001,
   	strongNumbers	= 0x000000002,
-  	headings = 0x000000004
+  	headings = 0x000000004,
+  	morphTags = 0x000000008
 	};
   enum errorCode {
 		noError,

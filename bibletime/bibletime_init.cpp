@@ -285,6 +285,8 @@ void BibleTime::initBackends(){
 	}
 	
 	m_important->swordBackend->setOption(CSwordBackend::headings, true);
+	m_important->swordBackend->setOption(CSwordBackend::morphTags, false);
+
 	//initialize international bookname language
 	KConfigGroupSaver dummy(m_config, "SWORD");
 	const QString language = m_config->readEntry("Language", QString::fromLatin1(getenv("LANG")));

@@ -3,16 +3,16 @@
 </title>
 <para>BibleTime ist immer noch in der Entwicklung. Die Versionen 0.3 und 0.2
 sind verfügbar und relativ stabil. Die früheren Versionen benutzen Qt 1.x und KDE 1.x, die benötigten
-Bibliotheken sine schon installiert.
+Bibliotheken sind schon installiert.
 </para>
 
 <section id="devl_10"> <title> Anforderungen für Bibletime Version 1.0</title>
 <para>
 Dieses Dokument beschreibt, wie man BibleTime 1.0 installiert.
-alle der Pakete, die zum Kompilieren von BibleTime benötigt werden sind bereits auf Distributionen
-wie Mandrake 7.2 oder SuSE 7.1 enthalten.
+Alle Pakete, die zum Kompilieren von BibleTime benötigt werden, sind bereits auf Distributionen
+wie Mandrake 7.2 oder SuSE 7.2 enthalten.
 Es ist auch möglich, BibleTime auf den meisten der anderen Distributionen zu kompilieren.
-Wenn Sie auf Fehlermeldungen treffen, lesen Sie die meldungen. Sie sollten Sie zu
+Wenn Sie auf Fehlermeldungen treffen, lesen Sie die Meldungen. Sie sollten Sie zu
 den fehlenden Paketen führen, die Sie wahrscheinlich auf ihren Distributions-CDs finden werden.
 </para>
 <para>Die folgende Tabelle enthält Informationen über die beiden Pakete, die
@@ -54,8 +54,7 @@ KDE 2.x (mindestens die Bibliotheken)
 Sword 1.52
 </entry>
 <entry>
-<ulink url="ftp://ftp.crosswire/pub/sword/source">
-Verweis auf den Sword Quellcode</ulink>
+<ulink url="ftp://ftp.crosswire/pub/sword/source">Verweis auf den Sword Quellcode</ulink>
 </entry></row> </tbody>
 </tgroup>
 </table>
@@ -66,7 +65,7 @@ Verweis auf den Sword Quellcode</ulink>
 
 <para>Als aller Erstes müssen sie die QT 2 Quellcodes kompilieren, wenn QT 2.2 oder neuer nicht mit ihren
 Installationsmedien geliefert wurde.
-Wie nehmen an, dass der Benutzer den Quellcode von Qt in <filename>/usr/lib/qt2</filename> hat, und dass sein KDE2
+Wie nehmen an, dass der Benutzer den Quellcode von QT in <filename>/usr/lib/qt2</filename> hat, und dass sein KDE2
 Verzeichnis <filename>/usr/local/kde2</filename> ist. Wenn Sie die Werte nicht mögen benutzen Sie ihre eigenen.
 </para>
 
@@ -78,11 +77,12 @@ make
 </screen>
 
 <para>
-Wenn Sie genügend Arbeitsspeicher und einen schnellen Computer haben können Sie den Compilierungsprozess durch das
+Wenn Sie genügend Arbeitsspeicher und einen schnellen Computer haben können Sie den Kompilierungsvorgang durch das
 Hinzufügen von "-j2" zu den make Optionen beschleunigen. Zum Beispiel "make -j2".
-Wenn Sie einen langsamen Computer und wenig Arbeitsspeicher haben schließen Sie X Windows und starten Sie make
-von einem Terminal um den Prozess zu beschleunigen.
-Nachdem der Compilierungsprozess beendet ist, müssen Sie ihre KDE2 Sachen compileren. Machen Sie etwa folgendes:
+Wenn Sie einen langsamen Computer und wenig Arbeitsspeicher haben, schließen Sie X Windows und starten Sie make
+von einem Terminal um den Vorgang zu beschleunigen.
+Nachdem der Übersetzungsvorgang beendet ist, müssen Sie ihre KDE2 Quellcodes übersetzen.
+Machen Sie in etwa folgendes:
 </para>
 
 <screen>
