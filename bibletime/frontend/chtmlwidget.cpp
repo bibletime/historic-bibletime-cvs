@@ -171,7 +171,6 @@ void CHTMLWidget::setHTMLSource(const QString& url){
 				QTextStream t( &file );        // use a text stream
 				const QString text = t.read();
 				file.close();
-				qDebug("setText");
 				setText( text/*, kurl.directory()*/ );
 			}
 		}
@@ -180,7 +179,6 @@ void CHTMLWidget::setHTMLSource(const QString& url){
 	}
 	else {
 		if (QFile::exists(url)) {
-			qWarning("file exists!");
 			//read in the HTML file and use setText()
 			KURL kurl(url);
   		mimeSourceFactory()->addFilePath( kurl.directory() );			

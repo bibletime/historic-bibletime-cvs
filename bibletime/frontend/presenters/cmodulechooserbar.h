@@ -72,9 +72,6 @@ private:
 	int m_buttonLimit;
 
 signals: // Signals
-  /**
-  * This signal is send if the modules changed.
-  */
   void sigChanged();
 };
 

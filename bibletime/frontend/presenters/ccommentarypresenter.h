@@ -45,7 +45,6 @@ public:
   * Synchronizes to the given key if sync is enabled.
   */
   void synchronize( CKey* syncKey );
-
 	
 public slots: // Public slots
   /**
@@ -74,48 +73,27 @@ protected slots: // Protected slots
   * Deletes the displayed and edited text.
   */
   void deleteText();
-	/**
-	*
-	*/
 	void editComment();
 	/**
 	* Print the current item displayed in the presenter.
 	*/
 	void printHighlightedVerse();
 
-private: // Private methods
-  /**
-  * Initializes the connections
-  */
+private:
   void initConnections();
-  /**
-  * Initializes our view.
-  */
   void initView();
 	KToggleAction *presenterEdit_action;
 	KToggleAction *presenterSync_action;
   CSwordVerseKey* m_key;
 	KToolBar* m_editToolBar;
 		
-private slots: // Private slots
-  /**
-  * No descriptions
-  */
+private slots:
   void popupAboutToShow();
-  /**
-  * The sync button was pressed for synchronization.
-  */
   void syncToggled();
-  /**
-  * No descriptions
-  */
   void insertReference(const QString&);
-
-//copy slots
   void copyEntry();
   void copyEntryText();
   void copyEntryAndText();
-//print slots
   void printEntryAndText();
 };
 

@@ -42,15 +42,13 @@ CHTMLDialog::CHTMLDialog(QWidget* parent, const char *name )
 CHTMLDialog::CHTMLDialog(const QString url, QWidget* parent, const char *name)
 	: KDialogBase ( parent, name, true, i18n("BibleTime - Help window"), Ok, Ok, true)
 {
-	qDebug(url.latin1());
 	KURL path(CToolClass::locatehtml(url));
-	qDebug(path.path().latin1());
 	QMimeSourceFactory::defaultFactory()->addFilePath(path.path());
 	path.cd("..");
-	qDebug(path.path().latin1());		
+	
 	QMimeSourceFactory::defaultFactory()->addFilePath(path.path());
 	path.cd("..");
-	qDebug(path.path().latin1());		
+	
 	QMimeSourceFactory::defaultFactory()->addFilePath(path.path());
 	
 	m_textBrowser = new QTextBrowser(this);		

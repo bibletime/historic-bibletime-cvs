@@ -33,13 +33,11 @@ CPrintItemList::CPrintItemList( printItemList* items,  QWidget *parent, const ch
 }
 
 CPrintItemList::~CPrintItemList(){
-	qDebug("CPrintItemList::~CPrintItemList()");
 	clear();
 }
 
 /** Initializes the view. */
 void CPrintItemList::initView(){
-	qDebug("CPrintItemList::initView()");
 	setAllColumnsShowFocus(true);
 	addColumn(i18n("Module"),-1);
 	addColumn(i18n("From"), -1);
@@ -50,8 +48,7 @@ void CPrintItemList::initView(){
 }
 
 /** Inserts the items of the list into the tree. */
-void CPrintItemList::insertItems( printItemList* itemList ){
-	qDebug("CPrintItemList::insertItems( printItemList* itemList )");
+void CPrintItemList::insertItems( printItemList* itemList ) {
 	for(itemList->last(); itemList->current(); itemList->prev() ) {
 		ASSERT( itemList->current() );
 		if (itemList != m_items)
@@ -62,19 +59,16 @@ void CPrintItemList::insertItems( printItemList* itemList ){
 
 /** Sets the tree to contain the items of the list. Other items will be removed. */
 void CPrintItemList::setItems( printItemList* itemList ){
-	qDebug("CPrintItemList::setItems( printItemList* itemList )");
 	clear();
 	insertItems( itemList );
 }
 
 /** Inserts a page divider */
 void CPrintItemList::newPage(){
-	qDebug("CPrintItemList::newPage()");
 }
 
 /** Deletes the current item. */
 void CPrintItemList::deleteCurrentItem(){
-	qDebug("CPrintItemList::deleteCurrentItem()");	
 	if (!currentItem())
 		return;
 	
@@ -96,18 +90,13 @@ void CPrintItemList::deleteCurrentItem(){
 
 /** Moves the item one item up. */
 void CPrintItemList::moveUp(){
-	qDebug("CPrintItemList::moveUp()");
 	if (currentItem() && currentItem()->itemAbove() &&  currentItem()->itemAbove()->itemAbove()) {
 		currentItem()->moveItem( currentItem()->itemAbove()->itemAbove() );
 	}
-//	else {
-//		currentItem()->moveItem( 0 );
-//	}
 }
 
 /** Moves the selected entry one entry down. */
 void CPrintItemList::moveDown(){
-	qDebug("CPrintItemList::moveDown()");
 	if (currentItem() && currentItem()->itemBelow()) {
 		currentItem()->moveItem( currentItem()->itemBelow() );
 	}
@@ -115,7 +104,6 @@ void CPrintItemList::moveDown(){
 
 /** Applies the style to the selected items. */
 void CPrintItemList::applyStyleToSelected( CStyle* style){
-	qDebug("CPrintItemList::applyStyleToSelected( CStyle* )");
 	QListViewItemIterator it( this );
 	for ( ; it.current(); ++it) {
 		if (it.current()->isSelected()) {

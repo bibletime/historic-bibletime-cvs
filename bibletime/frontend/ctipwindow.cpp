@@ -65,7 +65,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "ctoolclass.h"
 
 CTipWindow::CTipWindow() : KDialog(0,0,true) {
-	qDebug("constructor of CTipWindow");
   setCaption(i18n("Useful tips for BibleTime"));
 
   QHBoxLayout *hbox = new QHBoxLayout(this, 4);
@@ -141,13 +140,9 @@ void CTipWindow::startupClicked() {
 
 
 bool CTipWindow::loadTips() {
-	qDebug("CTipWindow::loadTips");
-
   QString fname = CToolClass::locatehtml("bibletime/tipdatabase");
-  if (fname.isEmpty()) {
-    qDebug("return");
+  if (fname.isEmpty())
     return false;
-  }
   tips.clear();
 
   QFile f(fname);
@@ -179,13 +174,11 @@ bool CTipWindow::loadTips() {
     }
 		f.close();
 	}
-	qDebug("finished loadTips");
 	return true;
 }
 
 
 void CTipWindow::nextTip() {
-	qDebug("CTipWindow::nextTip()");
   current++;
   if (current >= tips.count())
     current = 0;
@@ -193,7 +186,6 @@ void CTipWindow::nextTip() {
 }
 
 void CTipWindow::prevTip() {
-	qDebug("CTipWindow::prevTip()");
   current--;
   if (current < 0)
     current = tips.count()-1;

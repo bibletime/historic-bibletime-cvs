@@ -57,14 +57,9 @@ CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QW
 
 	resultModuleTree = new CSearchDialogResultModuleView(m_important, d, "resultModuleTree");
 	resultTree = new CSearchDialogResultView(m_important, d, "resultTree");
-	
-//	QLabel* label3 = new QLabel(d, "label3");
-//	label3->setText( i18n("Preview:") );
-//	label3->setAutoResize(true);
 
 	html_widget = new CHTMLWidget(m_important, true, m_splitter, "html_widget");
 	html_widget->setMinimumHeight(80);
-//	html_widget->setMaximumHeight(130);
 
 	connect(resultModuleTree, SIGNAL(moduleSelected(CModuleInfo*)), resultTree, SLOT(setModule(CModuleInfo*)));
 	connect(resultTree, SIGNAL(keySelected(QString)), this, SLOT(updatePreview(QString)));
@@ -77,7 +72,6 @@ CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QW
 	
 	layout_2->addWidget(label2);
 	layout_2->addWidget(resultTree, 5);
-//	layout_2->setResizeMode(QLayout::Minimum);
 	
 	main_layout->addLayout(layout_1);
 	main_layout->addSpacing(2);
@@ -160,9 +154,7 @@ void CSearchDialogResult::updatePreview(QString text) {
 			int pos = 0;
 			while ( pos != -1 ) {
 				pos = regExp.match(text,pos,&matchLength);
-				qDebug(QString("Matched: %1").arg(pos).local8Bit());
 				if (pos!=-1 && matchLength > 0) {
-						qDebug((const char*)QString("match at %1 with length %2").arg(pos).arg(matchLength).local8Bit());
 						text.insert(pos + matchLength, "</B></FONT>");
 						text.insert(pos, "<FONT color=\"red\"><B>");
 						pos+=matchLength+QString("</B></FONT>").length()+QString("<FONT color=\"red\"><B>").length();

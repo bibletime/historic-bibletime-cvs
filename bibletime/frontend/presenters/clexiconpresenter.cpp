@@ -35,7 +35,6 @@
 
 CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, importantClasses, parent,name) {
-	qDebug("constructor of CLexiconPresenter");
 	m_key = new CSwordLDKey(m_moduleList.first());
 	m_key->setKey("");
 	initView();
@@ -55,7 +54,6 @@ void CLexiconPresenter::initView(){
 	addToolBar(m_mainToolBar);
 	
 	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Lexicon, this );
-//	m_moduleChooserBar->setButtonLimit(1);	
 	addToolBar(m_moduleChooserBar);
 	
 	m_htmlWidget = new CHTMLWidget(m_important, true, this);
@@ -141,10 +139,6 @@ void CLexiconPresenter::popupAboutToShow(){
 	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
 
 	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());	
-//	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());
-//	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
-//	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());
-//	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
 }
 
 /** No descriptions */

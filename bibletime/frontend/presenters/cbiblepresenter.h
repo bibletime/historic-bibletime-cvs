@@ -29,7 +29,6 @@ class CSwordVerseKey;
   */
 class CBiblePresenter : public CSwordPresenter  {
    Q_OBJECT
-
 public: 	
 	CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent=0, const char *name=0);
 	~CBiblePresenter();
@@ -54,49 +53,17 @@ protected:
   void initConnections();
 
 protected slots: // Protected slots
-  /**
-  * This slot is called when the modules selected in
-	* the module chooserbar have changed.
-	*/
   void modulesChanged();
-  /**
-  * Displays the chapter using the aparameter.
-  */
   void lookup( CKey* );
 
-private slots: // Private slots
-  /**
-  ** No descriptions
-  */
+private slots:
   void popupAboutToShow();
-
-//copy slots
-  /**
-  * Copies the highlighted text into clipboard.
-  */
   void copyVerse();
-	/**
-  * Copies the highlighted text into clipboard.
-  */
   void copyVerseText();
-	/**
-  * Copies the highlighted text into clipboard.
-  */
   void copyVerseAndText();
-
-//print slots
   void printVerseAndText();
-  /**
-  * Copies the highlighted text into clipboard.
-  */
   void printChapter();
-
-//save slots
-	/**
-  * Copies the highlighted text into clipboard.
-  */
   void saveVerseAndText();
-
 
 private:
 	CSwordVerseKey* m_key;

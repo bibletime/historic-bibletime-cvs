@@ -218,7 +218,6 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 	
 	for (; start != end; start++) {
 		QString option = (*start).second.c_str();
-		qDebug( (const char*)option.local8Bit() );
 		if ( option.contains(text) > 0 ) {
 			ret = true;
 			break;
@@ -239,7 +238,6 @@ const QFont CSwordModuleInfo::getFont(){
   if (strlen(sizeString.c_str()))
   	size = QString::fromLocal8Bit( sizeString.c_str() ).toInt();
   QFont f( family, size );
-//  f.setCharSet(QFont::AnyCharSet);
 
   return f;
 }

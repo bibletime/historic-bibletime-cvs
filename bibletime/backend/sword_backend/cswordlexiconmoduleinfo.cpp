@@ -25,12 +25,10 @@
 
 
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( CSwordBackend* backend, SWModule* module) : CSwordModuleInfo(backend, module) {
-	qDebug("constructor of CSwordLexiconModuleInfo");
 	m_entryList = 0;
 }
 
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo& m ) : CSwordModuleInfo(m) {
-	qDebug("CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo& m ");
 	if (m_entryList)
 		delete m_entryList;
 	m_entryList = 0;	
@@ -48,7 +46,6 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 
 /** Returns the entries of the module. */
 QStringList* CSwordLexiconModuleInfo::getEntries(){
-	qDebug("QStringList* CSwordLexiconModuleInfo::getEntries()");
 	if (!m_entryList) {
 		m_entryList = new QStringList();		
 		if (!module())
@@ -58,8 +55,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 			m_entryList->append(QString::fromLocal8Bit(module()->KeyText()));
 			(*module())++;
 		} while (!module()->Error());
-		module()->KeyText(" ");		
-		//if the first entry is empty remove it (empty entry means "About module")
+		module()->KeyText(" ");
 		if (m_entryList->first().stripWhiteSpace().isEmpty())
 			m_entryList->remove( m_entryList->begin() );			
 	}	

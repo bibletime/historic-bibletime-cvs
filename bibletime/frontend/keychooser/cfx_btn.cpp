@@ -53,7 +53,8 @@ QPoint cfx_btn::get_lock_Point(void){
 void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
 	if (isLocked) {
 		int vchange = QCursor::pos().y() - lock_Point.y();
-		vchange = ( abs(vchange)<10 ? -vchange : vchange*vchange*(vchange>0?-1:1) );
+//		vchange = ( abs(vchange)<10 ? -vchange : vchange*vchange*(vchange>0?-1:1) );
+		vchange = (vchange ? -1 : 1)*ceil(pow(vchange, 1.5));
 		emit change_requested( vchange );
 		QCursor::setPos( lock_Point );
 	}

@@ -69,8 +69,6 @@ void BibleTime::initView(){
 
 /** Initializes the action objects of the GUI */
 void BibleTime::initActions() {
-	qDebug("BibleTime::initActions()");
-
 	m_fileClearQueue_action = new KAction(i18n("Clear printing queue"), ICON_FILE_CLEAR_QUEUE ,0,
 		m_important->printer, SLOT(clearQueue()), actionCollection(), "fileClearQueue_action");	
 	m_fileClearQueue_action->setEnabled(false);	
@@ -202,14 +200,13 @@ void BibleTime::initConnections(){
 		this, SLOT(createNewSwordPresenter(CSwordModuleInfo*, const QString)));
 		
 	if (m_windowMenu) {
-		qDebug("window menu exists!");
 		connect(m_windowMenu, SIGNAL(aboutToShow()),
 			this, SLOT(slotWindowMenuAboutToShow()));
 		connect(m_windowMenu, SIGNAL(activated(int)),
 			this, SLOT(slotWindowMenuActivated(int)));		
 	}
 	else
-		qDebug("can't find window menu");
+		qWarning("can't find window menu");
 		
 	connect(m_groupmanager, SIGNAL(createSwordPresenter(CSwordModuleInfo*, const QString)),
 		this, SLOT(createNewSwordPresenter(CSwordModuleInfo*,const QString)));
@@ -294,7 +291,6 @@ void BibleTime::initBackends(){
 
 /** Initializes the CPrinter object. */
 void BibleTime::initPrinter(){
-	qDebug("BibleTime::initPrinter()");
 	m_important->printer = new CPrinter(m_important, this);
 }
 

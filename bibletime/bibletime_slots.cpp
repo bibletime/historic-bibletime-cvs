@@ -158,7 +158,6 @@ void BibleTime::slotHelpTipOfDay(){
 
 /** Switches footnotes on or off */
 void BibleTime::slotToggleFootnotes(){
-	qDebug("BibleTime::slotToggleFootnotes");		
 	m_important->swordBackend->setOption(CSwordBackend::footnotes, m_viewFootnotes_action->isChecked() );
 	
 	refreshPresenters( CSwordPresenter::footnotes );
@@ -166,7 +165,6 @@ void BibleTime::slotToggleFootnotes(){
 
 /** Switches displaying of strong number on or off */
 void BibleTime::slotToggleStrongs(){
-	qDebug("BibleTime::slotToggleStrongs");
 	m_important->swordBackend->setOption(CSwordBackend::strongNumbers, m_viewStrongs_action->isChecked());	
 	
 	refreshPresenters( CSwordPresenter::strongNumbers );
@@ -174,11 +172,8 @@ void BibleTime::slotToggleStrongs(){
 
 /** Is called just before the window menu is ahown. */
 void BibleTime::slotWindowMenuAboutToShow(){
-	if (!m_windowMenu) {
-		ASSERT(m_windowMenu);
-		qDebug("return");
+	if (!m_windowMenu)
 		return;
-	}
 		
 	if ( m_windowCascade_action->isPlugged() )
 		m_windowCascade_action->unplug(m_windowMenu);
@@ -217,7 +212,6 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	}
 	
 	QWidgetList windows = m_mdi->windowList();
-	qDebug("%d entries in list",windows.count());
 	int i, id;
 	for ( i = 0; i < int(windows.count()); ++i ) {
 		id = m_windowMenu->insertItem(QString("&%1 ").arg(i+1)+windows.at(i)->caption(),
@@ -229,7 +223,6 @@ void BibleTime::slotWindowMenuAboutToShow(){
 
 /** This slot is connected with the windowAutoTile_action object */
 void BibleTime::slotAutoTile(){
-	qDebug("BibleTime::slotAutoTile");
 	if (m_windowAutoTile_action->isChecked()) {
 		m_windowAutoCascade_action->setChecked(false);
 		m_mdi->setGUIOption( CMDIArea::autoTile );
@@ -240,7 +233,6 @@ void BibleTime::slotAutoTile(){
 
 /** This slot is connected with the windowAutoCascade_action object */
 void BibleTime::slotAutoCascade(){
-	qDebug("BibleTime::slotAutoCascade");
 	if (m_windowAutoCascade_action->isChecked()) {
 		m_windowAutoTile_action->setChecked(false);
 		m_mdi->setGUIOption( CMDIArea::autoCascade );
@@ -250,7 +242,6 @@ void BibleTime::slotAutoCascade(){
 }
 
 void BibleTime::slotWindowMenuActivated( int id ) {
-  qDebug("BibleTime::slotWindowMenuActivated( int id )");
   if (!m_windowMenu)
   	return;
   	
@@ -263,17 +254,10 @@ void BibleTime::slotWindowMenuActivated( int id ) {
 
 /** Shows/hides the toolbar */
 void BibleTime::slotToggleToolbar(){
-	qDebug("BibleTime::slotToggleToolbar");
-	
-	if (m_viewToolbar_action->isChecked()) {
+	if (m_viewToolbar_action->isChecked())
 		toolBar("mainToolBar")->show();
-		qDebug("show");
-		
-	}
-	else {
+	else
 		toolBar("mainToolBar")->hide();
-		qDebug("hide");
-	}
 }
 
 /** Shows or hides the groupmanager. */
@@ -293,14 +277,11 @@ void BibleTime::slotSettingsToolbar(){
 
 /** The last window was closed! */
 void BibleTime::lastWindowClosed(){
-	qDebug("BibleTime::lastWindowClosed()");
-	qDebug(m_initialized ? "true" : "false");
 }
 
 
 /** Opens the print dialog. */
 void BibleTime::slotFilePrint(){
-	qDebug("BibleTime::slotFilePrint()");
 	m_important->printer->setup(this);	//opens the printer dialog
 }
 
@@ -312,11 +293,8 @@ void BibleTime::slotSetPrintingStatus(){
 
 /** Printing was started */
 void BibleTime::slotPrintingStarted(){
-	qDebug("slotPrintingStarted finished");	
 	pthread_mutex_init(&progress_mutex, 0);
 
-//	progress_mutex = PTHREAD_MUTEX_INITIALIZER;
-	
 	m_progress = new QProgressDialog(i18n("Printing..."), i18n("Abort printing"),m_important->printer->getPrintQueue()->count(),this, "progress", true);
 	connect(m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
 	m_progress->setProgress(0);		
@@ -325,45 +303,31 @@ void BibleTime::slotPrintingStarted(){
 
 /** Printing was finished */
 void BibleTime::slotPrintingFinished(){
-	qDebug("BibleTime::slotPrintingFinished()");
-
-	qDebug("wanna lock in printingFinishes");	
-	if (pthread_mutex_trylock(&progress_mutex) == EBUSY) {
-		qDebug("already LOCKED!");
-		return;		
-	}
-	qDebug("locked in printingFinished");	
+	if (pthread_mutex_trylock(&progress_mutex) == EBUSY)
+		return;
+		
 	if (m_progress)
 		delete m_progress;
 	m_progress = 0;	
 	pthread_mutex_unlock(&progress_mutex);	
 	
 	pthread_mutex_destroy(&progress_mutex);
-	qDebug("slotPrintingFinished finished");	
 }
 
 /** No descriptions */
 void BibleTime::slotPrintedEntry( const QString& key, const int index){
-	qDebug("BibleTime::slotPrintedEntry( const QString& key, const int index)");
-	qDebug("wanna lock in slotPrintedEntry");
-	if (pthread_mutex_trylock(&progress_mutex) == EBUSY) {
-		qDebug("already LOCKED!");
+	if (pthread_mutex_trylock(&progress_mutex) == EBUSY)
 		return;		
-	}
-	qDebug("successfully lock in slotPrintedEntry");	
 	if (m_progress) {
 		m_progress->setProgress(index);
 		m_progress->setLabelText(i18n("Printing %1").arg(key));
 	}	
 	pthread_mutex_unlock(&progress_mutex);	
-	qDebug("slotPrintedEntry finished");	
 }
 
 /** Aborts the printing */
 void BibleTime::slotAbortPrinting(){
-	qDebug("BibleTime::slotAbortPrinting()");
 	m_important->printer->abort();
 	if (m_progress)
 		slotPrintingFinished();
-	qDebug("slotAbortPrinting finished");
 }

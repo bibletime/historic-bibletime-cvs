@@ -121,8 +121,10 @@ private:
 };
 
 class CSearchDialogAnalysisLegendItem : public QCanvasRectangle  {
+
 public:	
 	CSearchDialogAnalysisLegendItem(QCanvas* parent, ListCSwordModuleInfo* list );
+
 private:
   virtual void draw (QPainter & painter);
   ListCSwordModuleInfo* m_moduleList;
@@ -163,7 +165,7 @@ private:
 		* Displays a tooltip for position p
 		*/		
 		virtual void maybeTip(const QPoint &pos);
-	};		
+	};
 	ToolTip* m_toolTip;
 };
 

@@ -44,19 +44,9 @@ QString CToolClass::locatehtml(const QString &filename) {
 
 /** Parses a URL and gives back a key. */
 QString CToolClass::urlToKey(const QString& url) {
-	//this code has to be very efficient!	
-	QString ret;
-	
-	if (url.left(8) == "sword://") {
-		ret = url.mid( 8, url.length()-9 );
-//		ret = KURL::decode_string( dummy );
-//		ret.replace( QRegExp("%20+")," " );
-//		ret.replace( QRegExp("[\n\r/]+"),"");
-	}
-	else
-		ret = url;
-	
-	return ret;	
+	if (url.left(8) == "sword://")
+		return url.mid( 8, url.length()-9 );
+	return url;	
 }
 
 /** Converts HTML text to plain text */
@@ -118,7 +108,6 @@ void CToolClass::decodeReference(QString &dragreference, QString &module, QStrin
 
   reference= dragreference.right( dragreference.length() - dragreference.find(")") - 1 );
   module   = dragreference.mid( 1, dragreference.find(")") - 1);
-//  qDebug("decoded Reference "+dragreference+" to: "+module+" "+reference);
 }
 
 /** Returns the icon used for the module given as aparameter. */

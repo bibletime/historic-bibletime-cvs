@@ -129,11 +129,11 @@ protected: // Protected methods
 protected slots: // Protected slots
   void lookupWord(int ID);
 
-signals: // Signals
-  void lookupInLexicon(const QString& text, const QString& lexicon);
-
 private:
 	int m_features;
+
+signals: // Signals
+  void lookupInLexicon(const QString& text, const QString& lexicon);
 };
 
 #endif

@@ -169,13 +169,12 @@ inline ListCSwordModuleInfo* CSwordBackend::getModuleList() const {
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
 inline SWConfig* CSwordBackend::getConfig() const {
-	ASSERT(config);
 	return config;
 }
 
 /** Returns the current language of the international booknames. */
 inline const QString CSwordBackend::getCurrentBooknameLanguage() const {
-		return QString::fromLatin1(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());	
+	return QString::fromLatin1(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());	
 }
 
 /** Sets the language for the international booknames of Sword. */

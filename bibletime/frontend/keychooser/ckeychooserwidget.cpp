@@ -247,7 +247,6 @@ void CKeyChooserWidget::init( ){
 
 /** Is called when the return key was presed in the combobox. */
 void CKeyChooserWidget::slotReturnPressed( const QString& text){
-	qDebug("CKeyChooserWidget::slotReturnPressed( const QString& text)");
 	int index = 0;
 	
 	for (index=0; index < ComboBox->count(); index++) {

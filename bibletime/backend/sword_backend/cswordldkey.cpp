@@ -28,23 +28,19 @@
 
 
 CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
-	qDebug("constructor of CSwordLDKey");
 	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
 }
 
 /** No descriptions */
 CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey(k), CKey() {
-	qDebug("copy constructor of CSwordLDKey");
 	m_module = k.m_module;
 }
 
 CSwordLDKey::~CSwordLDKey(){
-	qDebug("destructor of CSwordLDKey");
 }
 
 /** Clones this object by copying the members. */
 CSwordLDKey* CSwordLDKey::clone() const {
-	qDebug("CSwordLDKey::clone");
 	return new CSwordLDKey(*this);
 }
 
@@ -73,10 +69,6 @@ const QString CSwordLDKey::getStrippedText() const{
 /** Sets the key of this instance */
 const bool CSwordLDKey::setKey( const QString key ){
 	SWKey::operator = ((const char*)key.local8Bit());		
-//	m_module->module()->SetKey(this);
-//	(const char*)*(m_module->module()); //snap to entry
-//	SWKey::operator = (m_module->module()->KeyText());
-	
 	return !(bool)error;
 }
 
@@ -97,8 +89,6 @@ void CSwordLDKey::PreviousEntry(){
 
 /** Returns the current key as a QString */
 const QString CSwordLDKey::getKey() {
-	qDebug("CSwordLDKey::getKey");
-	
 	m_module->module()->SetKey(this);
 	(const char*)*(m_module->module()); //snap to entry
 	SWKey::operator = (m_module->module()->KeyText());

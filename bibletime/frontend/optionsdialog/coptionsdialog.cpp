@@ -228,7 +228,6 @@ void COptionsDialog::newFontSelected(const QFont &newFont){
 
 /** Called if the OK button was clicked */
 void COptionsDialog::slotOk(){
-	qDebug("COptionsDialog::slotOk");
 	saveGeneralOptions();
 	saveFontOptions();
 	saveKeyOptions();
@@ -349,7 +348,6 @@ void COptionsDialog::slotApply(){
 
 /** Is called when a new font was selected in the  foreign font manager dialog. */
 void COptionsDialog::newForeignFontSelected( const QFont& font){
-	qDebug("COptionsDialog::newForeignFontSelected()");
 	QString selectedModule = fontModuleList->currentText();
 	
 	ListCSwordModuleInfo* mainlist = m_important->swordBackend->getModuleList();
@@ -362,7 +360,6 @@ void COptionsDialog::newForeignFontSelected( const QFont& font){
 
 /** Is called when the user select a new module in te foreign font management dialog. */
 void COptionsDialog::foreignFontModuleChanged( QListBoxItem* item) {
-//	qDebug("COptionsDialog::foreignFontModuleChaged()");
 	QString selectedModule = item->text();	//selected modules
 	
 	ListCSwordModuleInfo* mainlist = m_important->swordBackend->getModuleList();
@@ -375,7 +372,5 @@ void COptionsDialog::foreignFontModuleChanged( QListBoxItem* item) {
 
 /** Returns an integer with ORed feature enum entries of the changed settings. */
 int COptionsDialog::getChangedSettings() {
-//	qDebug("COptionsDialog::getChangedSettings() ");
-//	qDebug((const char*)QString::number(m_changedSettings).local8Bit());
 	return m_changedSettings;
 }

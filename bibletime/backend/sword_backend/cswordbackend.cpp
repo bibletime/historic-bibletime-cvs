@@ -44,7 +44,6 @@
 #include <utilstr.h>
 
 CSwordBackend::CSwordBackend() : SWMgr(0,0,false) {	
-	qDebug("constructorof CSwordBackend");
 	m_errorCode = noError;
 	
 	//set variables to NULL
@@ -108,8 +107,6 @@ const CSwordBackend::errorCode CSwordBackend::initModules() {
 		if (newModule)	//append the new modules to our list
 			m_moduleList->append( newModule );
 	}	
-	
-	qDebug("init modules finished");
 	if (m_moduleList->count() == 0)
 		m_errorCode = noModulesAvailable;
 	return m_errorCode;
@@ -118,8 +115,6 @@ const CSwordBackend::errorCode CSwordBackend::initModules() {
 #undef CHECK_HTML_ENTRY_DISPLAY
 
 void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
-	qDebug("CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section)");
-	qDebug(module->Name());
 	string sourceformat;
 	string moduleDriver;
 	ConfigEntMap::iterator entry;
@@ -131,7 +126,6 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	qDebug(moduleDriver.c_str());
 	qDebug(sourceformat.c_str());	
 	if (!stricmp(sourceformat.c_str(), "GBF")) {
-		qDebug("GBF");
 		if (!m_gbfFilter)
 			m_gbfFilter = new GBFHTML();
 		module->AddRenderFilter(m_gbfFilter);
@@ -139,7 +133,6 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	}
 
 	if (!stricmp(sourceformat.c_str(), "PLAIN")) {
-		qDebug("PLAIN");		
 		if (!m_plainTextFilter)
 			m_plainTextFilter = new PLAINHTML();	
 		module->AddRenderFilter(m_plainTextFilter);
@@ -147,7 +140,6 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	}
 
 	if (!stricmp(sourceformat.c_str(), "ThML")) {
-		qDebug("ThML");	
 		if (!m_thmlFilter)
 			m_thmlFilter = new ThMLHTML();
 		module->AddRenderFilter(m_thmlFilter);
@@ -155,7 +147,6 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	}
 
 	if (!stricmp(module->Name(), "RWP")) {
-		qDebug("RWP");	
 		if (!m_rwpFilter)
 			m_rwpFilter = new RWPHTML();		
 		module->AddRenderFilter(m_rwpFilter);
@@ -164,21 +155,18 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 
 	if (noDriver){
 		if (!stricmp(moduleDriver.c_str(), "RawCom")) {
-			qDebug("RawCom");		
 			if (!m_plainTextFilter)
 				m_plainTextFilter = new PLAINHTML();
 			module->AddRenderFilter(m_plainTextFilter);
 			noDriver = false;
 		}
 		if (!stricmp(moduleDriver.c_str(), "RawLD")) {
-			qDebug("rawLD");	
 			if (!m_plainTextFilter)
 				m_plainTextFilter = new PLAINHTML();
 			module->AddRenderFilter(m_plainTextFilter);
 			noDriver = false;
 		}
 	}
-	qDebug("finished");
 }
 
 
@@ -330,8 +318,7 @@ const bool CSwordBackend::getModuleConfig(const QString& module, SWConfig& modul
 	struct dirent *ent;
 	
 	bool foundConfig = false;	
-	QString modFile;
-	
+	QString modFile;	
 	if (dir) {    // find and update .conf file
 		rewinddir(dir);
 		while ((ent = readdir(dir)) && !foundConfig) {
@@ -345,6 +332,25 @@ const bool CSwordBackend::getModuleConfig(const QString& module, SWConfig& modul
 			}
 		}
 		closedir(dir);
+	}
+	if (!foundConfig) { //search in $HOME/.sword/
+		char* myPath("");
+		sprintf(myPath,"%s/.sword/mods.d", getenv("HOME"));
+		dir = opendir(myPath);
+		if (dir) {
+			rewinddir(dir);
+			while ((ent = readdir(dir)) && !foundConfig) {
+				if ((strcmp(ent->d_name, ".")) && (strcmp(ent->d_name, ".."))) {								
+					modFile = myPath;
+					modFile += "/";
+					modFile += ent->d_name;
+					moduleConfig = SWConfig( (const char*)modFile.local8Bit() );
+					section =	moduleConfig.Sections.find( (const char*)module.local8Bit() );
+					foundConfig = ( section != moduleConfig.Sections.end() );
+				}
+			}
+			closedir(dir);
+		}
 	}
 	return foundConfig;
 }

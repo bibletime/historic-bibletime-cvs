@@ -83,8 +83,7 @@ void CPrinter::setPreviewApplication( const QString& app){
 /** Returns the right margin. */
 const unsigned int CPrinter::rightMarginMM() const {
 	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();
-	
+	const float r = (float)m.width() / m.widthMM();	
 	return (int)((float)m_pageMargin.right / r);
 }
 
@@ -229,7 +228,6 @@ void CPrinter::printQueue(){
 	* Go throgh the items of our print queue and print the items using the function printItem,
 	* which takes care for margings, styles etc.
 	*/
-	qDebug("CPrinbter::printQueue");
 	if ( getPreview() ){//print a preview
 		KRandomSequence r;
 		const QString s = QString("/tmp/") + KApplication::randomString(8)+".ps";
@@ -240,18 +238,15 @@ void CPrinter::printQueue(){
 	QPainter p;
 	if (!p.begin(this)) {
 		p.end();
-//		qDebug("begin failed!");
 		return;
 	}
 	
 	m_pagePosition.rect = getPageSize();
 	for (int page = 1; page <= numCopies() && !aborted(); ++page) {	//make numCopies() copies of the pages
 		for (m_queue->first(); m_queue->current() && !aborted(); m_queue->next()) {
-//			qDebug("print new item");
 			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
 			if (!aborted())
 				m_queue->current()->draw(&p,this);
-//			qDebug("finished drawing the item");			
 			CKey* key = m_queue->current()->getStartKey();			
 			QString keyName = QString::null;			
 			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
@@ -263,20 +258,16 @@ void CPrinter::printQueue(){
 			}
 			if (!aborted())
 				emit printedOneItem(keyName, m_queue->at()+1);
-//			qDebug("finished printing");
 		};
 		if (!aborted() && (page < numCopies()) )
 			newPage();	//new pages seperate copies
 	}
-//	qDebug("emit printingFinished");
 	emit printingFinished();	
 	if (!getPreview())
 		clearQueue();
 	
-//	qDebug("preview??");
 	if ( !aborted() && getPreview() ) {
 		if (p.isActive()) {
-//			qDebug("p.end()");
 			p.end();
 		}
 		KProcess process;
@@ -286,16 +277,13 @@ void CPrinter::printQueue(){
 	}	
 	
 	if (p.isActive()) {
-//		qDebug("painter still active -> p.end()");
 		cmd(QPaintDevice::PdcEnd,&p,0);
 		p.end();		
 	}
-//	qDebug("finished print queue!");
 }
 
 /** Appends items to the printing queue. */
 void CPrinter::appendItemsToQueue( printItemList* items ){
-	qDebug("CPrinter::appendItemsToQueue( printItemList* items )");
 	for(items->first(); items->current(); items->next()) {
 		ASSERT( items->current() );
 		m_queue->append(items->current());
@@ -342,8 +330,7 @@ void CPrinter::addItemToQueue(CPrintItem* newItem){
 
 /** Reads the style from config. */
 void CPrinter::setupStyles(){
-	// See function saveStyles for format of config file
-	
+	// See function saveStyles for format of config file	
 	KConfigGroupSaver gs(config, "Styles");
 	QStringList list = config->readListEntry("styles");
 	CStyle* dummyStyle = 0;
@@ -383,9 +370,7 @@ void CPrinter::setupStyles(){
 			frame->setColor( config->readColorEntry("Color", &Qt::black) );
 			frame->setThickness( config->readNumEntry("Thickness", 1) );
 			format[index]->setFrame( hasFrame, frame);
-//#warning implement reading of line style
-		}
-		
+		}		
 		//set settings for Header
 		m_styleList->append(dummyStyle);
 	}
@@ -421,7 +406,6 @@ void CPrinter::saveStyles(){
 				strList.append(m_styleList->current()->getStyleName());
 		}	
 		config->writeEntry( "styles", strList);			
-		qDebug("wrote list of styles");
 	}
 
 	
@@ -432,21 +416,17 @@ void CPrinter::saveStyles(){
 	names[2] = "MODULETEXT";
 	
 	for (m_styleList->first(); m_styleList->current(); m_styleList->next()) {
-		qDebug("loop1");
 		ASSERT(m_styleList->current());
 		config->setGroup(m_styleList->current()->getStyleName());
 		CStyle*	current = m_styleList->current();
 				
 		for (short int index = 0; index < 3; index++) {
-			qDebug("loop2");
 			config->setGroup(QString("%1__%2").arg(current->getStyleName()).arg(names[index]));
 
 			CStyleFormat* format[3];
 			format[0] = current->getFormatForType( CStyle::Header );
 			format[1] = current->getFormatForType( CStyle::Description );
 			format[2] = current->getFormatForType( CStyle::ModuleText );
-
-			ASSERT(format[index]);
 												
 			config->writeEntry( "FGColor", format[index]->getFGColor() );
 			config->writeEntry( "BGColor", format[index]->getBGColor() );
@@ -461,7 +441,6 @@ void CPrinter::saveStyles(){
 				CStyleFormatFrame* frame = format[index]->getFrame();
 				config->writeEntry("Color", frame->getColor() );
 				config->writeEntry("Thickness", frame->getThickness());
-//#warning Implement saving of line style
 			}
 		}
 	}	
@@ -522,10 +501,6 @@ const QRect CPrinter::getPageSize() const {
   QPaintDeviceMetrics metric( this );
   QRect r;
 
-//  CPageSize size;
-//	size.width  = metric.width();
-//  size.height = metric.height();
-
   r.setLeft( m_pageMargin.left );
   r.setTop( m_pageMargin.top );
   r.setRight( metric.width() -  m_pageMargin.right );
@@ -536,7 +511,6 @@ const QRect CPrinter::getPageSize() const {
 
 /** Returns the config used for this printer object. */
 KConfig* CPrinter::getConfig() {
-	ASSERT(config);
 	return config;	
 }
 
@@ -571,6 +545,4 @@ const int CPrinter::getVerticalPos() const {
 /** Sets the vertical position of the printer's painter. */
 void CPrinter::setVerticalPos( const int yPos ){
 	m_pagePosition.rect.setY(yPos);
-//	if (m_pagePosition.rect.y() >= getPageSize().height() )
-//		newPage();
 }
