@@ -56,7 +56,11 @@ void CInfoDisplay::setInfo(const InfoType type, const QString& data) {
 			text = getWordTranslation(data);
 			break;
 		case StrongNumber:
+			text = decodeStrongNumber(data);
+			break;
 		case MorphCode:
+			text = decodeMorphCode(data);
+			break;
 		default:
 			text = "unknown tag";
 			break;
@@ -97,13 +101,23 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	
 	QString ret = QString::fromUtf8(module->module()->getEntryAttributes()["Footnote"][swordFootnote.latin1()]["body"].c_str());
 	
-//	qWarning("body is %s", ret.latin1());
-	
 	return ret;
 }
 
 const QString CInfoDisplay::decodeStrongNumber( const QString& data ) {
-	return QString::null;
+	QString strongDesc = CBTConfig::get(CBTConfig::standardGreekStrongsLexicon);
+	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongDesc );
+	
+	Q_ASSERT(module);
+	if (!module) {
+		return QString::null;
+	}
+	
+	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+	key->key( data.mid(1) ); //skip H or G (language sign)
+	
+	return key->renderedText();
+	
 }
 
 const QString CInfoDisplay::decodeMorphCode( const QString& data ) {

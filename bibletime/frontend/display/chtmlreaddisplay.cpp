@@ -274,12 +274,26 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 		//if no link was under the mouse try to find a title attrivute
 		if (!node.isNull()) {
 			DOM::Node currentNode = node;
+			DOM::Node attr;
 			do {
 				if (!currentNode.isNull() && currentNode.hasAttributes()) { //found right node
-					DOM::Node attr = currentNode.attributes().getNamedItem("class");
-					if (!attr.isNull() && (attr.nodeValue().string() == "footnote")) {
-						DOM::Node footnote = currentNode.attributes().getNamedItem("footnote");
-						CPointers::infoDisplay()->setInfo( CInfoDisplay::Footnote, footnote.nodeValue().string() );
+					attr = currentNode.attributes().getNamedItem("footnote");
+					if (!attr.isNull()) {
+						CPointers::infoDisplay()->setInfo( CInfoDisplay::Footnote, attr.nodeValue().string() );
+						setInfo = true;
+						break;
+					}
+				
+					attr = currentNode.attributes().getNamedItem("strongnumber");
+					if (!attr.isNull()) {
+						CPointers::infoDisplay()->setInfo( CInfoDisplay::StrongNumber, attr.nodeValue().string() );
+						setInfo = true;
+						break;
+					}
+					
+					attr = currentNode.attributes().getNamedItem("morphcode");
+					if (!attr.isNull()) {
+						CPointers::infoDisplay()->setInfo( CInfoDisplay::MorphCode, attr.nodeValue().string() );
 						setInfo = true;
 						break;
 					}
@@ -291,70 +305,6 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				if (node.hasChildNodes() && (node.childNodes().length() == 1) && (node.firstChild().nodeName() == "#text")) {
 					foundNode = node.firstChild();
 				}
-
-				/* 
-				QString pos = QString("x = %1->%2 ; y = %3->%4 ")
-					.arg(currentNode.getRect().topLeft().x())
- 					.arg(currentNode.getRect().bottomRight().x())
-					.arg(currentNode.getRect().topLeft().y())
-					.arg(currentNode.getRect().bottomRight().y());
-					
-				qWarning("text: %s.  mouse: (%i, %i). node: (%s)", 
-					//currentNode.nodeValue().string().left(15).latin1(), 
-					currentNode.toHTML().left(20).latin1(),
-					e->x(), e->y(), 
-					pos.latin1()
-				);
-
-				if ( currentNode.hasChildNodes() ) {
-					DOM::NodeList childs = currentNode.childNodes();
-					for (int i = 0; i < childs.length(); ++i) {
-						qWarning("     child %i, %s: %s",
-						i, 
-						childs.item(i).nodeName().string().latin1(),
-						childs.item(i).nodeValue().string().latin1());	
-						pos = QString("      x = %1->%2 ; y = %3->%4 ")
-							.arg(childs.item(i).getRect().topLeft().x())
-							.arg(childs.item(i).getRect().bottomRight().x())
-							.arg(childs.item(i).getRect().topLeft().y())
-							.arg(childs.item(i).getRect().bottomRight().y());
-						
-						qWarning("rect: %s", pos.latin1());
-					}
-				}*/
-				
-				
-/*				while(!currentNode.isNull()) {
-					const QPoint p(e->x(), e->y());
-					
-					const int marginWidth = currentNode.ownerDocument().view()->marginWidth();
-					const int marginHeight = currentNode.ownerDocument().view()->marginHeight();
-					
-					QString pos = QString("%1,%2 -> %3,%4 ")
-							.arg(currentNode.getRect().topLeft().x() + marginWidth)
- 							.arg(currentNode.getRect().bottomRight().x() + marginWidth)
-							.arg(currentNode.getRect().topLeft().y() + marginHeight )
-							.arg(currentNode.getRect().bottomRight().y() + marginHeight );
-					qWarning("%s, mouse: (%i, %i) (%s)", currentNode.nodeValue().string().left(15).latin1(), e->x(), e->y(), pos.latin1());
-					
-					if (currentNode.getRect().contains(p)) {
-						
-						if (currentNode.hasChildNodes()) {
-							childs = currentNode.childNodes();
-							i = -1;
-						}
-						else { //found deepest level with a noce containing this position
-							//if (node.nodeType() == DOM::Node::TEXT_NODE) 
-							{
-								foundNode = currentNode;
-								break;
-							}
-						}
-					}
-					
-					++i;					
-					currentNode = childs.item( i );
-				}*/
 				
 				if (!foundNode.isNull()) {
 					CPointers::infoDisplay()->setInfo(CInfoDisplay::WordTranslation, foundNode.nodeValue().string());

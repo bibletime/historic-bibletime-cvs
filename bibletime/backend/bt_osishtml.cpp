@@ -88,34 +88,18 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 		// <w> tag
 		if (!strcmp(tag.getName(), "w")) {
-
-			// start <w> tag
-			if ((!tag.isEmpty()) && (!tag.isEndTag())) {
-				myUserData->w = token;
-			}
-			// end or empty <w> tag
-			else {
-				bool endTag = tag.isEndTag();
-				SWBuf lastText;
-				bool show = true;	// to handle unplaced article in kjv2003-- temporary till combined
-
-				if (endTag) {
-					tag = myUserData->w.c_str();
-					lastText = myUserData->lastTextNode.c_str();
-				}
-				else lastText = "stuff";
-
+			if ((!tag.isEmpty()) && (!tag.isEndTag())) { //start tag
 				const char *attrib;
 				const char *val;
 				if ((attrib = tag.getAttribute("xlit"))) {
 					val = strchr(attrib, ':');
 					val = (val) ? (val + 1) : attrib;
-					buf.appendFormatted(" %s", val);
+					//buf.appendFormatted(" %s", val);
 				}
 				if ((attrib = tag.getAttribute("gloss"))) {
 					val = strchr(attrib, ':');
 					val = (val) ? (val + 1) : attrib;
-					buf.appendFormatted(" %s", val);
+					//buf.appendFormatted(" %s", val);
 				}
 				if ((attrib = tag.getAttribute("lemma"))) {
 					const int count = tag.getAttributePartCount("lemma");
@@ -127,18 +111,19 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						val = strchr(attrib, ':');
 						val = (val) ? (val + 1) : attrib;
 
-            if ((!strcmp(val+2, "3588")) && (lastText.length() < 1)) {
-							show = false;
-            }
-						else if (*val == 'H') {
-              buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a> ", val+1, val+1);
+//            if ((!strcmp(val+2, "3588")) && (lastText.length() < 1)) {
+//							show = false;
+//            }
+//						else 
+						if (*val == 'H') {
+              buf.appendFormatted(" <span strongnumber=\"%s\">", val);
             }
 						else if (*val == 'G') {
-              buf.appendFormatted(" <a class=\"strongnumber\" href=\"strongs://Greek/%s\">&lt;%s&gt;</a> ", val+1, val+1);
+              buf.appendFormatted(" <span strongnumber=\"%s\">", val);
             }
 					} while (++i < count);
 				}
-				if ((attrib = tag.getAttribute("morph")) && (show)) {
+				if ((attrib = tag.getAttribute("morph"))) {
 					const int count = tag.getAttributePartCount("morph");
 					int i = (count > 1) ? 0 : -1;		// -1 for whole value cuz it's faster, but does the same thing as 0
 					do {
@@ -148,21 +133,25 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						val = strchr(attrib, ':');
 						val = (val) ? (val + 1) : attrib;
  						if ((*val == 'T') && (val[1] == 'H')) {
-              buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Hebrew/%s\">(%s)</a> ", val+2, val+2);
+              buf.appendFormatted(" <a morphcode=\"%s\">", val+1);
             }
 						else if ((*val == 'T') && (val[1] == 'G')) {
-              buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Greek/%s\">(%s)</a> ", val+2, val+2);
+              buf.appendFormatted(" <span morphcode=\"%s\">", val+1);
             }
             else if ((*val == 'T')) {
-              buf.appendFormatted(" <a class=\"morphcode\" href=\"morph://Greek/%s\">(%s)</a> ", val+2, val+2);
+              buf.appendFormatted(" <span morphcode=\"%s\">", val+1);
             }
 					} while (++i < count);
 				}
 				if ((attrib = tag.getAttribute("POS"))) {
 					val = strchr(attrib, ':');
 					val = (val) ? (val + 1) : attrib;
-					buf.appendFormatted(" %s", val);
-				}
+					//buf.appendFormatted(" %s", val);
+				}				
+			}
+			// end or empty <w> tag
+			else if (tag.isEndTag()){
+				buf += "</span>";
 			}
 		}
 		// <note> tag
