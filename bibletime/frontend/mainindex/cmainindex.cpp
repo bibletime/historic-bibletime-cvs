@@ -23,6 +23,7 @@
 #include "backend/cswordmoduleinfo.h"
 #include "frontend/searchdialog/csearchdialog.h"
 #include "frontend/cbtconfig.h"
+#include "frontend/cdragdropmgr.h"
 
 #include "resource.h"
 #include "tooltipdef.h"
@@ -214,22 +215,37 @@ void CMainIndex::slotExecuted( QListViewItem* i ){
 
 /** Reimplementation. Returns the drag object for the current selection. */
 QDragObject* CMainIndex::dragObject() {
-  if (CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>(currentItem())) {
-    const QString ref = bookmark->key();
-    const QString mod = bookmark->module()->name();
-
-	  QTextDrag* d = new QTextDrag(CReferenceManager::encodeReference(mod,ref), viewport());
-    d->setSubtype(BOOKMARK);
-    return d;
+  if (!m_itemsMovable) {
+    return false;
+  };
+  
+  CDragDropMgr::ItemList dndItems;
+  
+  QPtrList<QListViewItem> items = selectedItems();
+  for (items.first(); items.current(); items.next()) {
+    if (CItemBase* i = dynamic_cast<CItemBase*>(items.current())) {
+      //we can move this item!
+      if (!i->isMovable()) { //we can only drag items which allow us to do it, e.g. which are movable
+        continue;
+      };
+      if (CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>( items.current() )) {
+        //take care of bookmarks which have no valid module any more, e.g. if it was uninstalled
+        const QString moduleName = bookmark->module() ? bookmark->module()->name() : QString::null;
+        dndItems.append( CDragDropMgr::Item(moduleName, bookmark->key(), bookmark->description()) );
+      }
+    }
   }
-  return 0;
+
+
+  QDragObject* d = CDragDropMgr::dragObject( dndItems, viewport() );
+  return d;
 }
 
 /** Reimplementation from KListView. Returns true if the drag is acceptable for the listview. */
 bool CMainIndex::acceptDrag( QDropEvent* event ) const {
 //  qWarning("CMainIndex::acceptDrag( QDropEvent* event )");
   if (m_itemsMovable) {
-    qWarning("return true");
+//    qWarning("return true");
     return true;
   }
 
@@ -475,7 +491,7 @@ void CMainIndex::startDrag(){
 /** Reimplementation to support the items dragEnter and dragLeave functions. */
 void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ){
   if ( CItemBase* i = dynamic_cast<CItemBase*>( itemAt( contentsToViewport(event->pos())) )) {
-  	if (i->acceptDrop(event) && i->isFolder() && !i->isOpen() && autoOpen()) {
+  	if (i->acceptDrop(event) && i->isFolder() && i->allowAutoOpen(event) && !i->isOpen() && autoOpen()) {
       if (m_autoOpenFolder != i)
         m_autoOpenTimer.stop();
       m_autoOpenFolder = i;

@@ -139,7 +139,8 @@ protected: // Protected methods
   */
   void initView();
   void initConnections();
-
+  virtual QDragObject* dragObject();
+  
 public slots: // Public slots
   void saveItems();
   /**

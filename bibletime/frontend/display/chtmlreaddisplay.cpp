@@ -26,6 +26,7 @@
 
 #include "frontend/cbtconfig.h"
 #include "frontend/ctooltipmanager.h"
+#include "frontend/cdragdropmgr.h"
 
 #include "util/scoped_resource.h"
 
@@ -319,21 +320,30 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
        newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < m_dndData.startPos.y()-delay) &&
        !m_dndData.isDragging && m_dndData.mousePressed  ) {
 
-    QTextDrag* d = 0;
+    QDragObject* d = 0;
     if (!m_dndData.anchor.isEmpty() && m_dndData.dragType == DNDData::Link && !m_dndData.node.isNull() ) {
+    // create a new bookmark drag!
       QString module = QString::null;
     	QString key = QString::null;
     	CReferenceManager::Type type;
     	if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) )
     		return;
-    	d = new QTextDrag(CReferenceManager::encodeReference(module,key),KHTMLPart::view()->viewport());
-      d->setSubtype(REFERENCE);
-      d->setPixmap(REFERENCE_ICON_SMALL);
+//    	d = new QTextDrag(CReferenceManager::encodeReference(module,key),KHTMLPart::view()->viewport());
+//      d->setSubtype(REFERENCE);
+//      d->setPixmap(REFERENCE_ICON_SMALL);
+      CDragDropMgr::ItemList dndItems;
+      dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); //no description!
+      d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
     }
     else if (m_dndData.dragType == DNDData::Text && !m_dndData.selection.isEmpty()) {
-      qWarning("new QTextDrag");
-    	d = new QTextDrag(m_dndData.selection, KHTMLPart::view()->viewport());
-      d->setSubtype(TEXT);
+    // create a new plain text drag!
+      CDragDropMgr::ItemList dndItems;
+      dndItems.append( CDragDropMgr::Item(m_dndData.selection) ); //no description!
+      d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
+
+//      qWarning("new QTextDrag");
+//    	d = new QTextDrag(m_dndData.selection, KHTMLPart::view()->viewport());
+//      d->setSubtype(TEXT);
     }
 
     if (d) {
@@ -419,41 +429,24 @@ void CHTMLReadDisplayView::polish(){
 /** Reimplementatiob from QScrollView. */
 void CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e ){
 //  qWarning("CHTMLReadDisplayView::contentsDropEvent( QDropEvent* e )");
-//  KHTMLView::contentsDropEvent(e);
-  if (QTextDrag::canDecode(e)) {
-//    if (e->provides(REFERENCE) || e->provides(BOOKMARK))
-    {
-//      qWarning("ACCEPT DROP EVENT!");
-      QString str;
-      QCString submime;
-      /*const bool accept =*/ QTextDrag::decode(e, str);
-//      qWarning("DROP: %s", str.latin1());
+  if (CDragDropMgr::canDecode(e)) {
+    CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
+    CDragDropMgr::Item item = dndItems.first();  
+    e->acceptAction();
+    m_display->connectionsProxy()->emitReferenceDropped(item.bookmarkKey());
+    return;
+  };
 
-      QString module;
-      QString key;
-      CReferenceManager::decodeReference(str, module, key );
-//      qWarning("dropped key: %s", key.latin1());
-
-      e->acceptAction();
-      m_display->connectionsProxy()->emitReferenceDropped(key);
-      return;
-    }
-  }
+  //don't accept the action!
   e->acceptAction(false);
   e->ignore();
 }
 
 /** Reimplementation from QScrollView. */
 void CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e ){
-//  qWarning("CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e )");
-//  KHTMLView::contentsDragEnterEvent(e);
-  if (QTextDrag::canDecode(e)) {
-//    if (e->provides(REFERENCE) || e->provides(BOOKMARK))
-    {
-//      qWarning("ACCEPT ENTER EVENT!");
-      e->acceptAction();
-      return;
-    }
+  if (CDragDropMgr::canDecode(e)) {
+    e->acceptAction();
+    return;
   }
   e->acceptAction(false);
   e->ignore();

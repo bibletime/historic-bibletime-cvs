@@ -104,6 +104,11 @@ public:
 protected:
   friend class CMainIndex;
   virtual void dropped( QDropEvent* e );
+  /**
+  * Reimplementation. Returns true if the auto opening of this folder is allowd
+  * The default return value is "false"
+  */
+  virtual const bool allowAutoOpen( const QMimeSource* src ) const;
 
 private:
   Type m_type;
@@ -225,6 +230,12 @@ public:
 
   const QString language() const;
 
+protected:
+  /**
+  * Reimplementation. Returns true if the auto opening of this folder is allowd
+  */
+  virtual const bool allowAutoOpen( const QMimeSource* src ) const;
+  
 private:
   QString m_language;
 };
@@ -267,10 +278,10 @@ public:
 	CBookmarkFolder(CFolderBase* parentItem, const Type type = BookmarkFolder);
 	virtual ~CBookmarkFolder();
   virtual const bool enableAction(const MenuAction action);
-  void exportBookmarks();
-  void importBookmarks();
-  bool acceptDrop(const QMimeSource * src) const;
-  void dropped(QDropEvent * e);
+  virtual void exportBookmarks();
+  virtual void importBookmarks();
+  virtual bool acceptDrop(const QMimeSource * src) const;
+  virtual void dropped(QDropEvent *e);
 
   /**
   * Loads bookmarks from a file.

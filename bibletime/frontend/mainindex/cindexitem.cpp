@@ -29,6 +29,7 @@
 #include "frontend/cbtconfig.h"
 #include "frontend/cinputdialog.h"
 #include "frontend/cexportmanager.h"
+#include "frontend/cdragdropmgr.h"
 #include "frontend/searchdialog/csearchdialog.h"
 
 #include "util/ctoolclass.h"
@@ -116,6 +117,10 @@ const bool CItemBase::isMovable(){
   return false;
 }
 
+const bool CItemBase::allowAutoOpen( const QMimeSource* ) const {
+  return false;
+};
+
 /* ---------------------------------------------- */
 /* ---------- new class: CModuleItem ------------ */
 /* ---------------------------------------------- */
@@ -145,54 +150,64 @@ void CModuleItem::init(){
 /** Reimplementation to handle text drops on a module. In this case open the searchdialog. In the case of a referebnce open the module at the given position. */
 bool CModuleItem::acceptDrop( const QMimeSource* src ) const {
   qWarning("CModuleItem::acceptDrop( const QMimeSource* src )");
-  if (src->provides("text/"REFERENCE) || src->provides("text/"BOOKMARK)) {
-    QString str;
-    QCString submime;
-    if (QTextDrag::canDecode(src) && (QTextDrag::decode(src,str,submime=REFERENCE) || QTextDrag::decode(src,str,submime=BOOKMARK)) ) {
-		  QString ref;
-      QString mod;
-      CReferenceManager::decodeReference(str,mod,ref);
-
-      CSwordModuleInfo* m = backend()->findModuleByName(mod);
-      if (m && module()->type() == m->type()) { //it makes only sense to create a new window for a module with the same type
+  if (CDragDropMgr::canDecode(src)) {
+    if (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark) { //open the module
+      qWarning("type is Bookmark!");
+      CDragDropMgr::Item item = CDragDropMgr::decode(src).first();
+      CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
+      Q_ASSERT(m);
+      if (m && module()->type() == m->type()) { //it makes only sense
         return true;
       }
-      else
-        return false;
     }
+    else {
+      return false;
+    };
   }
-  if (src->provides("text/"TEXT))
-    return true;
+
+//  if ( CDragDropMgr::canDecode(src) ) {
+//    return true;
+//  }
   return false;
 }
 
 /** No descriptions */
 void CModuleItem::dropped( QDropEvent* e ){
-  QString str;
-  QCString submime;
-  if (QTextDrag::canDecode(e) && (QTextDrag::decode(e,str,submime=REFERENCE) || QTextDrag::decode(e,str,submime=BOOKMARK)) ) {
-		QString ref;
-    QString mod;
-    CReferenceManager::decodeReference(str,mod,ref);
+  /* Something was dropped on a module item
+  *
+  * 1. If the drop type is plain text open the searchdialog for this text and start the search
+  * 2. If the type is Bookmark, open the module at the specified position
+  *
+  * We support only the first drop item, more is not useful
+  */
 
-    CSwordModuleInfo* m = backend()->findModuleByName(mod);
-    if (m && module()->type() == m->type()) { //it makes only sense to create a new window for a module with the same type
-      ListCSwordModuleInfo modules;
-      modules.append(module());
+  if (acceptDrop(e)) {
+    CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
+    CDragDropMgr::Item item = dndItems.first();
+    if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Text) { //open the searchdialog
+      qWarning("type is Text!");
+  		if ( module() ) {
+        ListCSwordModuleInfo modules;
+        modules.append(module());
 
-      listView()->emitModulesChosen(modules, ref);
+        CSearchDialog::openDialog(modules, item.text());
+      }
     }
-  }
-  else if (QTextDrag::canDecode(e) && QTextDrag::decode(e,str,submime=TEXT)){
-		//plain text was dragged -> open searchdialog
-		if ( module() ) {
-      ListCSwordModuleInfo modules;
-      modules.append(module());
+    else if (CDragDropMgr::dndType(e) == CDragDropMgr::Item::Bookmark) { //open the module
+      qWarning("type is Bookmark!");    
+      CSwordModuleInfo* m = backend()->findModuleByName( item.bookmarkModule() );
+      Q_ASSERT(m);
+      if (m && module()->type() == m->type()) { //it makes only sense to create a new window for a module with the same type
+        ListCSwordModuleInfo modules;
+        modules.append(module());
 
-      CSearchDialog::openDialog(modules, str);
+        listView()->emitModulesChosen(modules, item.bookmarkKey());
+      }
     }
-  }
-
+    else {
+      qWarning("type is Unknown!");
+    };
+  };
 }
 
 
@@ -672,6 +687,11 @@ const QString CTreeFolder::language() const {
   return m_language;
 };
 
+/** Reimplementation. Returns true if the drop is accepted. */
+const bool CTreeFolder::allowAutoOpen( const QMimeSource* ) const{
+  return true;
+}
+
 
 /* ----------------------------------------------*/
 /* ---------- new class: COldBookmarkImportItem -*/
@@ -889,28 +909,37 @@ void CBookmarkFolder::SubFolder::init() {
 
 /** Is called when an item was dropped on this subfolder. */
 void CBookmarkFolder::SubFolder::dropped(QDropEvent * e) {
-  QString str;
-  QCString submime;
+  if (acceptDrop(e)) {
+    CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
+    //until we implemented the rest in CDragDropMgr we copy the items!
+    CDragDropMgr::ItemList::Iterator it;
+    for( it = dndItems.begin(); it != dndItems.end(); ++it) {
+      CSwordModuleInfo* module = backend()->findModuleByName( (*it).bookmarkModule() );
+      CBookmarkItem* i = new CBookmarkItem(this, module, (*it).bookmarkKey(), (*it).bookmarkDescription());
+      i->init();
+    };
+  };
 
-  if (acceptDrop(e) && QTextDrag::decode(e,str,submime=REFERENCE) ) { //a drag object, we can handle
-    QString mod;
-    QString key;
-    CReferenceManager::decodeReference(str,mod,key);
-
-    CSwordModuleInfo* module = backend()->findModuleByName(mod);
-    CBookmarkItem* i = new CBookmarkItem(this, module, key, QString::null);
-    i->init();
-  }
-  else if (acceptDrop(e) && QTextDrag::decode(e,str,submime=BOOKMARK) ) { //a drag object, we can handle
-  }
+//  QString str;
+//  QCString submime;
+//
+//  if (acceptDrop(e) && QTextDrag::decode(e,str,submime=REFERENCE) ) { //a drag object, we can handle
+//    QString mod;
+//    QString key;
+//    CReferenceManager::decodeReference(str,mod,key);
+//
+//    CSwordModuleInfo* module = backend()->findModuleByName(mod);
+//    CBookmarkItem* i = new CBookmarkItem(this, module, key, QString::null);
+//    i->init();
+//  }
+//  else if (acceptDrop(e) && QTextDrag::decode(e,str,submime=BOOKMARK) ) { //a drag object, we can handle
+//    qWarning("move boommark items!");
+//  }
 }
 
 bool CBookmarkFolder::SubFolder::acceptDrop(const QMimeSource * src) const {
   qWarning("CBookmarkFolder::SubFolder::acceptDrop(const QMimeSource * src)");
-  if (src->provides("text/"REFERENCE) || src->provides("text/"BOOKMARK)) {
-    return true;
-  }
-  return false;
+  return CDragDropMgr::canDecode(src);
 }
 
 /** Reimplementation from  CItemBase. */
@@ -988,7 +1017,6 @@ CBookmarkFolder::CBookmarkFolder(CFolderBase* parentItem, const Type type) : CTr
 }
 
 CBookmarkFolder::~CBookmarkFolder() {
-
 }
 
 void CBookmarkFolder::initTree(){
@@ -1024,28 +1052,22 @@ void CBookmarkFolder::importBookmarks(){
 }
 
 bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
-//  qWarning("CBookmarkFolder::acceptDrop(const QMimeSource * src)");
-  if (src->provides("text/"REFERENCE) || src->provides("text/"BOOKMARK)) {
-    return true;
-  }
-  return false;
+  qWarning("CBookmarkFolder::acceptDrop(const QMimeSource * src)");
+  return CDragDropMgr::canDecode(src);
 }
 
-void CBookmarkFolder::dropped(QDropEvent * e) {
-  QString str;
-  QCString submime;
-
-  if (acceptDrop(e) && QTextDrag::decode(e,str,submime=REFERENCE) ) { //a drag object, we can handle
-    QString mod;
-    QString key;
-    CReferenceManager::decodeReference(str,mod,key);
-
-    CSwordModuleInfo* module = backend()->findModuleByName(mod);
-    CBookmarkItem* i = new CBookmarkItem(this, module, key, QString::null);
-    i->init();
-  }
-  else if (acceptDrop(e) && QTextDrag::decode(e,str,submime=BOOKMARK) ) { //a drag object, we can handle
-  }
+void CBookmarkFolder::dropped(QDropEvent *e) {
+  qWarning("CBookmarkFolder::dropped(QDropEvent *e)");
+  if (acceptDrop(e)) {
+    CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
+    //until we implemented the rest in CDragDropMgr we copy the items!
+    CDragDropMgr::ItemList::Iterator it;
+    for( it = dndItems.begin(); it != dndItems.end(); ++it) {
+      CSwordModuleInfo* module = backend()->findModuleByName( (*it).bookmarkModule() );
+      CBookmarkItem* i = new CBookmarkItem(this, module, (*it).bookmarkKey(), (*it).bookmarkDescription());
+      i->init();
+    };
+  };
 }
 
 /** Saves the bookmarks in a file. */
@@ -1131,6 +1153,6 @@ const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
     else
       break;
   }
-//  qWarning("finished loading bookmarks");
   return true;
 }
+

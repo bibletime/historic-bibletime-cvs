@@ -23,6 +23,7 @@
 
 #include "frontend/cbtconfig.h"
 #include "frontend/cresmgr.h"
+#include "frontend/cdragdropmgr.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
@@ -75,6 +76,7 @@ void CSearchResultView::initView(){
   addColumn(i18n("Found items"));
   setFullWidth(true);
   setSorting(-1);
+  setDragEnabled(true);  
   setSelectionModeExt(KListView::Extended);
 
   //setup the popup menu
@@ -245,6 +247,21 @@ void CSearchResultView::copyItemsWithText(){
 CSwordModuleInfo* const CSearchResultView::module(){
   return m_module;
 }
+
+QDragObject* CSearchResultView::dragObject() {
+  //return a vlaid DragObject to make DnD possible!
+
+  /*  
+  * First get all selected items and fill with them the dndItems list. The return the QDragObject we got from CDRagDropMgr
+  */
+  CDragDropMgr::ItemList dndItems;
+
+  QPtrList<QListViewItem> items = selectedItems();
+  for (items.first(); items.current(); items.next()) {
+    dndItems.append( CDragDropMgr::Item(m_module->name(), items.current()->text(0), QString::null) ); //no description
+  };    
+  return CDragDropMgr::dragObject(dndItems, viewport());
+};
 
 /********************************************
 ************  ModuleResultList **************
