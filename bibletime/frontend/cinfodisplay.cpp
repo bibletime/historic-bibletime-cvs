@@ -144,14 +144,14 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 			i = new CTextRendering::KeyTreeItem(
 				QString::fromUtf8(vk->LowerBound().getText()),
 				QString::fromUtf8(vk->UpperBound().getText()),
-				CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible)), 
+				CBTConfig::get(CBTConfig::standardBible), 
 				settings
 			);
 		}
 		else {
 			i = new CTextRendering::KeyTreeItem(
 				QString::fromUtf8(key->getText()),
-				CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible)), 
+				CBTConfig::get(CBTConfig::standardBible), 
 				settings
 			);
 		}
@@ -206,12 +206,12 @@ const QString CInfoDisplay::decodeStrongs( const QString& data ) {
 	
 	QStringList::const_iterator end = strongs.end();
 	for (QStringList::const_iterator it = strongs.begin(); it != end; ++it) {
-		QString strongModuleDesc = CBTConfig::get((*it).left(1) == "H" ? 
+		CSwordModuleInfo* const module = CBTConfig::get( 
+			(*it).left(1) == "H" ? 
 			CBTConfig::standardHebrewStrongsLexicon : 
 			CBTConfig::standardGreekStrongsLexicon
-		);
-	
-		CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongModuleDesc );	
+ 		);
+		
 		QString text;
 		if (module) { 
 			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
@@ -235,12 +235,12 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 	QString ret;
 		
 	for (QStringList::iterator it = morphs.begin(); it != morphs.end(); ++it) {
-		QString strongModuleDesc = CBTConfig::get((*it).left(1) == "H" ? 
+		CSwordModuleInfo* const module = CBTConfig::get(
+			(*it).left(1) == "H" ? 
 			CBTConfig::standardHebrewMorphLexicon : 
 			CBTConfig::standardGreekMorphLexicon
 		);
 		
-		CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongModuleDesc );	
 		QString text;
 		if (module) {
 			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
@@ -265,9 +265,7 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 }
 
 const QString CInfoDisplay::getWordTranslation( const QString& data ) {
-	const QString lexiconDescr = CBTConfig::get(CBTConfig::standardLexicon);
-	
-	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( lexiconDescr );	
+	CSwordModuleInfo* const module = CBTConfig::get(CBTConfig::standardLexicon);
 	if (!module) {
 		return QString::null;
 	}

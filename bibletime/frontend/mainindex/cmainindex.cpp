@@ -488,9 +488,10 @@ void CMainIndex::searchInModules(){
   }
 
   if (modules.isEmpty()) { //get a list of useful default modules for the search if no modules were selected
-    CSwordModuleInfo* m = CPointers::backend()->findModuleByDescription( CBTConfig::get(CBTConfig::standardBible ));
-    if (m)
+    CSwordModuleInfo* m = CBTConfig::get(CBTConfig::standardBible);
+    if (m) {
       modules.append(m);
+		}
   }
 
   CSearchDialog::openDialog(modules, QString::null);

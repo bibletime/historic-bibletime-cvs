@@ -122,7 +122,7 @@ void CPlainWriteWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
 };
 
 /** Saves the text for the current key. Directly writes the changed text into the module. */
-void CPlainWriteWindow::saveCurrentText( const QString& key ) {
+void CPlainWriteWindow::saveCurrentText( const QString& /*key*/ ) {
   QString t = displayWidget()->plainText();
   //since t is a complete HTML page at the moment, strip away headers and footers of a HTML page
   QRegExp re("(?:<html.*>.+<body.*>)", false); //remove headers, case insensitive

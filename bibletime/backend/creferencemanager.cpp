@@ -223,38 +223,37 @@ const bool CReferenceManager::isHyperlink( const QString& hyperlink ){
 
 /** Returns the preferred module name for the given type. */
 const QString CReferenceManager::preferredModule( const CReferenceManager::Type type ){
-	QString description = QString::null;
+	QString moduleName = QString::null;
+	CSwordModuleInfo* module = 0;
+	
 	switch (type) {
 		case CReferenceManager::Bible:
-			description = CBTConfig::get( CBTConfig::standardBible );
+			module = CBTConfig::get( CBTConfig::standardBible );
 			break;
 		case CReferenceManager::Commentary:
-			description = CBTConfig::get( CBTConfig::standardCommentary );
-			break;			
+			module = CBTConfig::get( CBTConfig::standardCommentary );
+			break;
 		case CReferenceManager::Lexicon:
-			description = CBTConfig::get( CBTConfig::standardLexicon );
-			break;			
+			module = CBTConfig::get( CBTConfig::standardLexicon );
+			break;
 		case CReferenceManager::StrongsHebrew:
-			description = CBTConfig::get( CBTConfig::standardHebrewStrongsLexicon );
-			break;			
+			module = CBTConfig::get( CBTConfig::standardHebrewStrongsLexicon );
+			break;
 		case CReferenceManager::StrongsGreek:
-			description = CBTConfig::get( CBTConfig::standardGreekStrongsLexicon );
-			break;			
+			module = CBTConfig::get( CBTConfig::standardGreekStrongsLexicon );
+			break;
 		case CReferenceManager::MorphHebrew:
-			description = CBTConfig::get( CBTConfig::standardHebrewMorphLexicon );
-			break;			
+			module = CBTConfig::get( CBTConfig::standardHebrewMorphLexicon );
+			break;
 		case CReferenceManager::MorphGreek:
-			description = CBTConfig::get( CBTConfig::standardGreekMorphLexicon );
-			break;			
+			module = CBTConfig::get( CBTConfig::standardGreekMorphLexicon );
+			break;
 		default:
-//			qWarning("unknwon type");
-			description = QString::null;
-			break;			
+			module = 0;
+			break;
 	}
-	if (!description.isEmpty())
-		return CSwordBackend::findModuleNameByDescription(description);
-	else
-		return QString::null;
+	
+	return module ? module->name() : QString::null;
 }
 
 /** No descriptions */

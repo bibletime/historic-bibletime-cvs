@@ -641,6 +641,8 @@ QPtrList<QListViewItem> CFolderBase::getChildList() {
 			i = i->nextSibling();
 		} while (i && (i->parent() != this));
 	}	
+	
+	return childs;
 }
 
 /****************************************/

@@ -22,7 +22,7 @@
 
 /* Class: CPrinter */
 
-CPrinter::CPrinter(QObject *parent, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
+CPrinter::CPrinter(QObject */*parent*/, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
  : 	QObject(/*parent*/0),
  		CDisplayRendering(displayOptions, filterOptions), 
 		m_htmlPart(new KHTMLPart(0, 0, this))

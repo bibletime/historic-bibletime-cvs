@@ -273,7 +273,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 	}
  	else if (getMouseTracking() && !(e->qmouseEvent()->state() & Qt::ShiftButton)) { //no mouse button pressed and tracking enabled
 	  DOM::Node node = e->innerNode();
-		bool setInfo = false;
+//		bool setInfo = false;
 
 		//if no link was under the mouse try to find a title attrivute
 		if (!node.isNull() && (m_previousEventNode != node) ) { //we want to avoid precessing the node again

@@ -293,9 +293,10 @@ void BibleTime::slotSearchModules() {
  */
 void BibleTime::slotSearchDefaultBible() {
   ListCSwordModuleInfo module;
-  CSwordModuleInfo* bible = CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible));
-  if(bible != 0)
+	CSwordModuleInfo* bible = CBTConfig::get(CBTConfig::standardBible);
+  if (bible) {
     module.append(bible);
+	}	
 
   CSearchDialog::openDialog(module, QString::null);
 }

@@ -268,7 +268,8 @@ void BibleTime::processCommandline(){
   //open every time a module if the command line option was set.
   if ( args->isSet("open-default-bible") && !CBTConfig::get(CBTConfig::crashedLastTime) && !CBTConfig::get(CBTConfig::crashedTwoTimes)) { //restore workspace if it crashed ony once
     QString bibleKey = args->getOption("open-default-bible");    
-    CSwordModuleInfo* bible = CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible));
+    CSwordModuleInfo* bible = CBTConfig::get(CBTConfig::standardBible);
+		
     if (bibleKey == "<random>") {
       CSwordVerseKey vk(0);
       const int maxIndex = 32400;

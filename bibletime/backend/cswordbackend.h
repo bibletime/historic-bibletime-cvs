@@ -47,7 +47,6 @@ class CSwordModuleInfo;
 typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
 
 
-
 /**
 	* This is the implementation of CBackend for Sword. It's additionally derived from SWMgr
 	*	to provide functions of Sword.	

@@ -30,7 +30,7 @@
 //#include <kimageio.h>
 
 //static objects
-static KStartupLogo* startupLogo = 0;
+KStartupLogo* KStartupLogo::startupLogo = 0;
 
 void KStartupLogo::createSplash() {
 	deleteSplash();
@@ -38,8 +38,8 @@ void KStartupLogo::createSplash() {
 }
 
 void KStartupLogo::showSplash() {
-	if (startupLogo) {
-		startupLogo->show();
+	if (KStartupLogo::startupLogo) {
+		KStartupLogo::startupLogo->show();
   }
 }
 

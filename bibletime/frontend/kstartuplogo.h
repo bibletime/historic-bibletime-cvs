@@ -44,6 +44,8 @@ private:
 	KStartupLogo();
   void setText(const QString text);
   QLabel* textLabel;
+	
+	static KStartupLogo* startupLogo;
 };
 
 #endif

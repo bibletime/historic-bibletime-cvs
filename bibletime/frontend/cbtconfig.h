@@ -40,6 +40,8 @@ public:
 		bibletimeVersion,
 		language,
 		displayStyle,
+	};
+	enum modules {
 		standardBible,
 		standardCommentary,
 		standardLexicon,
@@ -47,7 +49,8 @@ public:
 		standardHebrewStrongsLexicon,
 		standardGreekStrongsLexicon,
 		standardHebrewMorphLexicon,
-		standardGreekMorphLexicon
+		standardGreekMorphLexicon,
+		lastModuleType = standardGreekMorphLexicon
 	};
 	enum bools {
 		firstSearchDialog,
@@ -107,6 +110,7 @@ public:
   typedef std::pair<bool, QFont> FontSettingsPair;
   
   static const QString 		get( const CBTConfig::strings );
+  static CSwordModuleInfo* const get( const CBTConfig::modules );
   static const bool 			get( const CBTConfig::bools );
   static const int   			get( const CBTConfig::ints );
   static const QValueList<int>	get( const CBTConfig::intLists );
@@ -116,7 +120,8 @@ public:
   static const FontSettingsPair	get( const CLanguageMgr::Language* const );
 
 	static const QString	getDefault( const CBTConfig::strings );
-	static const bool		getDefault( const CBTConfig::bools );
+	static const QString getDefault( const CBTConfig::modules );
+	static const bool	getDefault( const CBTConfig::bools );
 	static const int	getDefault( const CBTConfig::ints );
 	static const QValueList<int> getDefault( const CBTConfig::intLists );
 	static const QStringList getDefault( const CBTConfig::stringLists );
@@ -124,6 +129,8 @@ public:
   static const QFont getDefault( const CLanguageMgr::Language* const );
 
 	static void set( const CBTConfig::strings, 	const QString value );
+	static void set( const CBTConfig::modules, CSwordModuleInfo* const module );
+	static void set( const CBTConfig::modules, const QString& moduleName );
 	static void set( const CBTConfig::bools, 		const bool value );
 	static void set( const CBTConfig::ints, 		const int value );
 	static void set( const CBTConfig::intLists,	const QValueList<int> value );
@@ -140,6 +147,7 @@ public:
   
 private:
 	static const QString getKey( const CBTConfig::strings );
+	static const QString getKey( const CBTConfig::modules );
 	static const QString getKey( const CBTConfig::bools );
 	static const QString getKey( const CBTConfig::ints );
 	static const QString getKey( const CBTConfig::intLists );

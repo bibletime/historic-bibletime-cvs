@@ -651,6 +651,7 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
 	QString modDescript;
   for ( modules.first(); modules.current(); modules.next() ) {
 		modDescript = modules.current()->config(CSwordModuleInfo::Description);
+		
  		switch (modules.current()->type()) {
  			case CSwordModuleInfo::Bible:
  				m_settings.swords.standardBible->insertItem(modDescript);
@@ -693,25 +694,47 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
 //using two lists and one loop is better than six loops with almost the same code :)
  	QPtrList<QComboBox> comboList;
  	comboList.setAutoDelete(false);//don't delete the combos accidentally
- 	comboList.append(m_settings.swords.standardBible);
- 	comboList.append(m_settings.swords.standardCommentary);
- 	comboList.append(m_settings.swords.standardLexicon);
- 	comboList.append(m_settings.swords.standardDailyDevotional);  
- 	comboList.append(m_settings.swords.standardHebrewStrong);
- 	comboList.append(m_settings.swords.standardGreekStrong);
- 	comboList.append(m_settings.swords.standardHebrewMorph);
- 	comboList.append(m_settings.swords.standardGreekMorph);
-
  	QStringList moduleList;
- 	moduleList
- 		<< CBTConfig::get(CBTConfig::standardBible)
-	 	<< CBTConfig::get(CBTConfig::standardCommentary)
-	 	<< CBTConfig::get(CBTConfig::standardLexicon)
-	 	<< CBTConfig::get(CBTConfig::standardDailyDevotional)    
-	 	<< CBTConfig::get(CBTConfig::standardHebrewStrongsLexicon)
-	 	<< CBTConfig::get(CBTConfig::standardGreekStrongsLexicon)
-	 	<< CBTConfig::get(CBTConfig::standardHebrewMorphLexicon)
-	 	<< CBTConfig::get(CBTConfig::standardGreekMorphLexicon);
+	
+	for (int i = 0; i < (int)CBTConfig::lastModuleType; ++i) {
+		//fill the combobox list in the right order (i.e. same order as the CBTConfig::module enum list)
+  	CBTConfig::modules moduleType = (CBTConfig::modules)(i);
+		switch (moduleType) {
+			case CBTConfig::standardBible:
+				comboList.append(m_settings.swords.standardBible);
+				break;
+			case CBTConfig::standardCommentary:
+				comboList.append(m_settings.swords.standardCommentary);
+				break;
+			case CBTConfig::standardLexicon:
+				comboList.append(m_settings.swords.standardLexicon);
+				break;
+			case CBTConfig::standardDailyDevotional:
+				comboList.append(m_settings.swords.standardDailyDevotional); 
+				break;
+			case CBTConfig::standardHebrewStrongsLexicon:
+				comboList.append(m_settings.swords.standardHebrewStrong);
+				break;
+			case CBTConfig::standardGreekStrongsLexicon:
+				comboList.append(m_settings.swords.standardGreekStrong);
+				break;
+			case CBTConfig::standardHebrewMorphLexicon:
+				comboList.append(m_settings.swords.standardHebrewMorph);
+				break;
+			case CBTConfig::standardGreekMorphLexicon:
+				comboList.append(m_settings.swords.standardGreekMorph);
+				break;
+		};
+		
+		//fill the module list
+		CSwordModuleInfo* const m = CBTConfig::get( (CBTConfig::modules)(i) );
+		if (m) {
+			moduleList << m->config(CSwordModuleInfo::Description);
+		}
+		else {
+			moduleList << QString::null;
+		}
+	}
 
  	QString module = QString::null;
  	int item = 0;
@@ -720,7 +743,8 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
 		module = moduleList[comboList.at()];
 		count = combo->count();
 	  combo->setMaximumWidth(300);
- 		for (item = 0; item < count; item++) {
+ 		
+		for (item = 0; item < count; item++) {
 	 		if (combo->text(item) == module ) {
 	 		  combo->setCurrentItem(item);
 	 		  break;
@@ -910,15 +934,42 @@ void COptionsDialog::saveSword(){
    		dir.remove((*it),false);
   }
 
-  CBTConfig::set(CBTConfig::standardBible, m_settings.swords.standardBible->currentText());
-  CBTConfig::set(CBTConfig::standardCommentary, m_settings.swords.standardCommentary->currentText());
-  CBTConfig::set(CBTConfig::standardLexicon, m_settings.swords.standardLexicon->currentText());
-  CBTConfig::set(CBTConfig::standardDailyDevotional, m_settings.swords.standardDailyDevotional->currentText());
-  CBTConfig::set(CBTConfig::standardHebrewStrongsLexicon, m_settings.swords.standardHebrewStrong->currentText());
-  CBTConfig::set(CBTConfig::standardGreekStrongsLexicon, m_settings.swords.standardGreekStrong->currentText() );
-  CBTConfig::set(CBTConfig::standardHebrewMorphLexicon, m_settings.swords.standardHebrewMorph->currentText());
-  CBTConfig::set(CBTConfig::standardGreekMorphLexicon, m_settings.swords.standardGreekMorph->currentText() );
+	for (int i = 0; i < (int)CBTConfig::lastModuleType; ++i) {
+		QString moduleDescription = QString::null;
+  	
+		CBTConfig::modules moduleType = (CBTConfig::modules)(i);
+		switch (moduleType) {
+			case CBTConfig::standardBible:
+				moduleDescription = m_settings.swords.standardBible->currentText();
+				break;
+			case CBTConfig::standardCommentary:
+				moduleDescription = m_settings.swords.standardCommentary->currentText();
+				break;
+			case CBTConfig::standardLexicon:
+				moduleDescription = m_settings.swords.standardLexicon->currentText();
+				break;
+			case CBTConfig::standardDailyDevotional:
+				moduleDescription = m_settings.swords.standardDailyDevotional->currentText();
+				break;
+			case CBTConfig::standardHebrewStrongsLexicon:
+				moduleDescription = m_settings.swords.standardHebrewStrong->currentText();
+				break;
+			case CBTConfig::standardGreekStrongsLexicon:
+				moduleDescription = m_settings.swords.standardGreekStrong->currentText();
+				break;
+			case CBTConfig::standardHebrewMorphLexicon:
+				moduleDescription = m_settings.swords.standardHebrewMorph->currentText();
+				break;
+			case CBTConfig::standardGreekMorphLexicon:
+				moduleDescription = m_settings.swords.standardGreekMorph->currentText();
+				break;
+		};
+		
+		CSwordModuleInfo* const module = backend()->findModuleByDescription(moduleDescription);
+		CBTConfig::set(moduleType, module);
+	}
 
+	
 	QString languageAbbrev;
  	
 	const QString currentLanguageName = m_settings.swords.localeCombo->currentText();
@@ -975,8 +1026,7 @@ void COptionsDialog::updateStylePreview() {
 	
 	const QString styleName = m_settings.displayStyle.styleChooser->currentText();
 	
-	CSwordModuleInfo* module = backend()->findModuleByDescription( CBTConfig::get(CBTConfig::standardBible) );
-
+	CSwordModuleInfo* const module = CBTConfig::get(CBTConfig::standardBible);
 	if (!module) {
 		return; //WARNING: return already here!
 	}
