@@ -80,7 +80,7 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 		}
   }
 
-	if (!newBook.isEmpty()) {  				
+	if (!newBook.isEmpty()) {
 		bool finished = false;
 		for (int testament = min; testament <= max && !finished; ++testament) {
 			for (int book = 0; book < BMAX[testament] && !finished; ++book) {
@@ -99,7 +99,8 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 
 /** Sets the key we use to the parameter. */
 const QString CSwordVerseKey::key(){	
-	return QString::fromLocal8Bit((const char*)*this); //don't use fromUtf8 here!
+	return QString::fromLocal8Bit(getText()); //don't use fromUtf8 here!
+//	return QString::fromLocal8Bit((const char*)*this); //don't use fromUtf8 here!
 }
 
 void CSwordVerseKey::key( const QString& newKey ) {
@@ -108,8 +109,9 @@ void CSwordVerseKey::key( const QString& newKey ) {
       VerseKey::operator = ((const char*)bible->lowerBound().key().local8Bit());
     }
   }
-  else
+  else {
     VerseKey::operator = ((const char*)newKey.local8Bit());
+  }
 }
 
 void CSwordVerseKey::key( const char* newKey ){

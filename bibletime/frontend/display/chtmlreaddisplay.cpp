@@ -236,6 +236,8 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
     	if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) )
     		return;
 
+//      qWarning("DnD: key is %s", key.latin1());
+      
       CDragDropMgr::ItemList dndItems;
       dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); //no description!
       d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
@@ -282,7 +284,7 @@ void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& /*p*/ ){
             break;
           }
         }
-
+        qWarning("looking up tooltip for %s", (const char*)link.local8Bit());
         const QString tooltipText = CTooltipManager::textForHyperlink( link );
         if (!tooltipText.isEmpty()) {
           QRect rect = linkNode.getRect();

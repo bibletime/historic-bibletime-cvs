@@ -87,7 +87,6 @@ void BibleTime::slotSettingsOptions(){
 
 /** Is called when settings in the optionsdialog have been changed (ok or apply) */
 void BibleTime::slotSettingsChanged(){
-
  	const QString language = CBTConfig::get(CBTConfig::language);
  	m_backend->booknameLanguage(language);		
 

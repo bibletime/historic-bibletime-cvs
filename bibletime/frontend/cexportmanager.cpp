@@ -81,16 +81,16 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
         QString entryText;
         if (format == HTML) {
           text = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY>")
-                  .arg(htmlCSS(module));
+                   .arg(htmlCSS(module));
         };
-        //add the heading
 
+        //add the heading
         if (startKey < stopKey) { //we have a boundary
           QString bound = QString::fromLatin1("%1 - %2").arg(startKey.key()).arg(stopKey.key());
           text +=
             (format == HTML)
             ? QString::fromLatin1("<H3>%1</H3><BR>").arg(bound)
-            : bound;
+            : QString::fromLatin1("%1\n\n").arg(bound);
 
          	while ( startKey < stopKey || startKey == stopKey ) {
             entryText = (format == HTML) ? startKey.renderedText(CSwordKey::HTMLEscaped) : startKey.strippedText();
@@ -155,10 +155,14 @@ const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* m
  		if (!key)
  			break;
     key->key((const char*)(*list));
- 		if (addText)
+
+    if (addText) {
  			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText(CSwordKey::HTMLEscaped) : key->strippedText() );
- 		else
+    }
+ 		else {
  			text += key->key() + lineBreak(format);
+    }
+    
     incProgress();
  		(*list)++;
  	}

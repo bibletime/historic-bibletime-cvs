@@ -266,13 +266,15 @@ void CEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptions option
 
 /** Returns the right reference text which can be incluced in the HTML */
 const QString CEntryDisplay::htmlReference( CSwordModuleInfo* module, const QString& keyName, const QString linkText, const QString& anchorText ) {
-  if (linkText.isEmpty())
+  if (linkText.isEmpty()) {
     return QString::fromLatin1("<A NAME=\"%1\"></A>").arg(anchorText);
-  else
+  }
+  else {
     return QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\">%3</A>")
       .arg(anchorText)
       .arg(CReferenceManager::encodeHyperlink(module->name(), keyName, CReferenceManager::typeFromModule(module->type()) ))
       .arg(linkText);
+  }
 }
 
 /* ----------------------- new class: CChapterDisplay ------------------- */

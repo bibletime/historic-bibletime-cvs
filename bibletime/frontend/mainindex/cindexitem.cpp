@@ -336,7 +336,7 @@ const QString CModuleItem::aboutInfo(){
   };
 
 	text += QString::fromLatin1("<b>%1:</b><br> <font size=\"-1\">%2</font>")
-						.arg("About")
+						.arg(i18n("About"))
 						.arg(module()->config(CSwordModuleInfo::AboutInformation));
   return text;
 }
@@ -361,22 +361,31 @@ const bool CModuleItem::enableAction( const MenuAction action ){
 /* ---------- new class: CBookmarkItem ------------*/
 /* ----------------------------------------------*/
 
-CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, const QString& key, const QString& description) : CItemBase(parentItem), m_key(key), m_description(description), m_module(module) {
-//  qWarning("constructor of CVBookamrkItem");
-  if (module && (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary)  ) {
+CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, const QString& key, const QString& description)
+  : CItemBase(parentItem),
+//    m_key(key),
+    m_description(description),
+    m_module(module)
+{
+  if ((module && (module->type() == CSwordModuleInfo::Bible) || (module->type() == CSwordModuleInfo::Commentary))  ) {
     CSwordVerseKey vk(0);
     vk = key;
     vk.setLocale("en");
-//    qWarning("key is %s", vk.key().latin1());
     m_key = vk.key(); //the m_key member is always the english key!
   }
-  else
-   m_key = key;
+  else {
+    m_key = key;
+  };
+  
   m_startupXML = QDomElement();
 }
 
-CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, QDomElement& xml ) : CItemBase(parentItem), m_key(QString::null), m_description(QString::null), m_module(0) {
-//  qWarning("2nd constructor of CBookmarkItem");
+CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, QDomElement& xml )
+  : CItemBase(parentItem),
+    m_key(QString::null),
+    m_description(QString::null),
+    m_module(0)
+{
   m_startupXML = xml;
 }
 
@@ -386,18 +395,16 @@ CBookmarkItem::~CBookmarkItem() {
 
 /** No descriptions */
 void CBookmarkItem::update(){
-//  CItemBase::update();
   const QString title = QString::fromLatin1("%1 (%2)").arg(key()).arg(module() ? module()->name() : i18n("unknown"));
   setText(0, title);
   setPixmap(0,SmallIcon(CResMgr::mainIndex::bookmark::icon,16));
 }
 
 void CBookmarkItem::init(){
-//  qWarning("CBookmarkItem::init()");
-  if (!m_startupXML.isNull())
+  if (!m_startupXML.isNull()) {
     loadFromXML(m_startupXML);
+  }
 
-//  CItemBase::init();
   update();
   setDropEnabled(false);
   setDragEnabled(false);
@@ -408,37 +415,40 @@ void CBookmarkItem::init(){
 
 /** Reimplementation. */
 const QString CBookmarkItem::toolTip(){
-  if (!module())
+  if (!module()) {
     return QString::null;
+  }
 
   return CTooltipManager::textForReference(module()->name(), key(), description());
 }
 
 /** Returns the used module. */
 CSwordModuleInfo* const CBookmarkItem::module() {
-//  Q_ASSERT(m_module);
   return m_module;
 }
 
 /** Returns the used key. */
 const QString CBookmarkItem::key(){
-//  qWarning("CBookmarkItem::key()");
-  QString keyName = englishKey();
-  if (!module())
-    return keyName;
-
-  if (module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary) {
-    CSwordVerseKey vk(0);
-    vk = keyName;
-    vk.setLocale(CPointers::backend()->booknameLanguage().latin1());
-    keyName = vk.key(); //now we're sure the key is in english! All bookname languages support english!
+  const QString englishKeyName = englishKey();
+  if (!module()) {
+    return englishKeyName;
   }
-  return keyName;
+
+  QString returnKeyName = englishKeyName;
+  if ((module()->type() == CSwordModuleInfo::Bible) || (module()->type() == CSwordModuleInfo::Commentary)) {
+    CSwordVerseKey vk(0);
+    vk = englishKeyName;
+    vk.setLocale( backend()->booknameLanguage().latin1() );
+
+    returnKeyName = vk.key(); //the returned key is always in the currently set bookname language
+  }
+
+  return returnKeyName;
 }
 
 /** Returns the used description. */
 const QString& CBookmarkItem::description(){
-   return m_description;
+  return m_description;
 }
 
 /** No descriptions */
@@ -471,17 +481,9 @@ void CBookmarkItem::rename(){
 
 /** Reimplementation of CItemBase::saveToXML. */
 QDomElement CBookmarkItem::saveToXML( QDomDocument& doc ){
-//  qWarning("CBookmarkItem::saveToXML( QDomDocument& doc )");
   QDomElement elem = doc.createElement("Bookmark");
 
-  QString keyName = key();
-  if (module() && (module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary)) {
-    CSwordVerseKey vk(0);
-    vk = keyName;
-    vk.setLocale("en");
-    keyName = vk.key(); //now we're sure the key is in english! All bookname languages support english!
-  }
-  elem.setAttribute("key", keyName);
+  elem.setAttribute("key", englishKey());
   elem.setAttribute("description", description());
   elem.setAttribute("modulename", module() ? module()->name() : QString::null);
   elem.setAttribute("moduledescription", module() ? module()->config(CSwordModuleInfo::Description) : QString::null);
@@ -490,34 +492,24 @@ QDomElement CBookmarkItem::saveToXML( QDomDocument& doc ){
 }
 
 void CBookmarkItem::loadFromXML( QDomElement& element ) {
-//  qWarning("CBookmarkItem::loadFromXML( QDomElement& element )");
-  Q_ASSERT(!element.isNull());
   if (element.isNull())
     return;
 
   //find the right module
   if (element.hasAttribute("modulename") && element.hasAttribute("moduledescription")) {
     m_module = backend()->findModuleByName(element.attribute("modulename"));
-//    Q_ASSERT(m_module);
     if (!m_module/*&& m_module->config(CSwordModuleInfo::Description) != element.attribute("moduledescription")*/) {
-      qWarning("Can't find module with name %s and description %s",element.attribute("modulename").latin1(), element.attribute("moduledescription").latin1() );
+      qWarning("Can't find module with name %s and description %s", element.attribute("modulename").latin1(), element.attribute("moduledescription").latin1() );
     }
   }
 
   if (element.hasAttribute("key")) {
-    QString key = element.attribute("key");
-
-    if (module() && (module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary)  ) {
-      CSwordVerseKey vk(0);
-      vk = key;
-      m_key = vk.key(); //now we're sure it's the key in the selected bookname language!
-    }
-    else
-     m_key = key;
+    m_key = element.attribute("key");
   }
 
-  if (element.hasAttribute("description"))
+  if (element.hasAttribute("description")) {
     m_description = element.attribute("description");
+  }
 }
 
 /** Returns the english key. */
@@ -529,11 +521,6 @@ const QString& CBookmarkItem::englishKey(){
 bool CBookmarkItem::acceptDrop(const QMimeSource* /*src*/){
   return false;
 }
-
-/** Compares this item to another one. Used for sorting. */
-//int CBookmarkItem::compare( QListViewItem*, int col, bool) const{
-//
-//}
 
 /****************************************/
 /*****  class: CItemFolder  *************/
@@ -1110,14 +1097,17 @@ const bool CBookmarkFolder::loadBookmarksFromXML( const QString& xml ){
     }
 
     i->init();
-    if (oldItem)
+    if (oldItem) {
       i->moveAfter(oldItem);
+    }
     oldItem = i;
 
-    if (!child.nextSibling().isNull())
+    if (!child.nextSibling().isNull()) {
       child = child.nextSibling().toElement();
-    else
+    }
+    else {
       break;
+    }
   }
   return true;
 }

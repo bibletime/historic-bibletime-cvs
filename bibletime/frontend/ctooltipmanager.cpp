@@ -171,9 +171,11 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 /** Returns the text for the tooltip beginning. */
 const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QString& keyName ){
   const QString defaultEnding = module ? QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name()) : i18n("Module not set!");
+  
 	if ((module->type() == CSwordModuleInfo::Bible) || (module->type() == CSwordModuleInfo::Commentary)) {
     sword::ListKey keys = sword::VerseKey().ParseVerseList((const char*)keyName.local8Bit(), sword::VerseKey("Genesis 1:1"), true);
-	  return QString::fromLatin1(keys.GetElement(0)->getRangeText()) + defaultEnding;
+    
+	  return QString::fromLocal8Bit(keys.GetElement(0)->getRangeText()) + defaultEnding;
   }
   else { //non-versekeys are not localized  
   	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
@@ -185,8 +187,7 @@ const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QStr
 
 /** Returns the CSS data used for the tooltips. */
 const QString CTooltipManager::tooltipCSS(CSwordModuleInfo* module){
-  CEntryDisplay* display = module ? module->getDisplay() : 0;
-//  Q_ASSERT(display);
+  CEntryDisplay* const display = module ? module->getDisplay() : 0;
   if (!display)
     return QString::null;
 

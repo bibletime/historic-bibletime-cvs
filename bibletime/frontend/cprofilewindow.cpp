@@ -52,11 +52,6 @@ void CProfileWindow::setModules( QStringList modules ){
 
 /** Returns a list of module names which are chosen in the managed window profile. */
 const QStringList CProfileWindow::modules(){
-//	QStringList modules;
-//	for (CSwordModuleInfo* m = m_moduleList.first(); m; m = m_moduleList.next()) {
-//		modules.append(m->getName());
-//	}
-//	return modules;
 	return m_moduleList;
 }
 

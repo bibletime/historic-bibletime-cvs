@@ -102,7 +102,7 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings){
 		sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key());
 		QString oldLang;
 		if (vk) {
-			 oldLang = QString::fromLatin1(vk->getLocale());	
+		  oldLang = QString::fromLatin1(vk->getLocale());	
 			vk->setLocale("en"); //save english locale names as default!		
 		}
 		settings->setKey( key()->key() );
@@ -112,7 +112,8 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings){
 	}
 		
 	QStringList mods;
-	for (CSwordModuleInfo* m = modules().first(); m; m = modules().next()) {
+  ListCSwordModuleInfo allMods = modules();
+	for (CSwordModuleInfo* m = allMods.first(); m; m = allMods.next()) {
 		mods.append(m->name());
 	}	
 	settings->setModules(mods);

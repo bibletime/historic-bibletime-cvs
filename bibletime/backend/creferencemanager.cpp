@@ -55,8 +55,9 @@ const QString CReferenceManager::encodeHyperlink( const QString& moduleName, con
 			break;
 	}
 
-	if (!moduleName.isEmpty())
+	if (!moduleName.isEmpty()) {
 		ret += moduleName + QString::fromLatin1("/");
+  }
 	else { //if module is empty use fallback module
 		ret += preferredModule(type) + QString::fromLatin1("/");
 	}	
@@ -80,7 +81,20 @@ const QString CReferenceManager::encodeHyperlink( const QString& moduleName, con
 		ret += newKey;		
 	}
 	else { //slashes do not appear in verses and dictionary entries
-		ret += key;
+   	switch (type) {
+      case Bible: //bibles or commentary keys need parsing
+  		case Commentary: {
+        CSwordVerseKey vk(0);
+        vk = key;
+        vk.setLocale("en");
+
+        ret += vk.key(); //we add the english key, so drag and drop will work in all cases
+        break;
+      }
+      default:
+        ret += key; //use the standard key, no pasring required
+        break;
+    }
 	}
 	return ret;
 }
@@ -254,12 +268,14 @@ CReferenceManager::Type CReferenceManager::typeFromModule( const CSwordModuleInf
 /** Parses the given verse references using the given language and the module.*/
 const QString CReferenceManager::parseVerseReference( const QString ref, const QString& lang, const QString& newLang){
 	CSwordVerseKey key(0);
-	if (!lang.isEmpty())
+	if (!lang.isEmpty()) {
 		key.setLocale( lang.latin1() );
+  }
 	
 	key.key(ref);
 	
-	if (!lang.isEmpty() && lang != newLang)
+	if (!lang.isEmpty() && lang != newLang) {
 		key.setLocale(newLang.latin1());
+  }
 	return key.key();
 }
