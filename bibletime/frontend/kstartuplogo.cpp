@@ -15,17 +15,20 @@
  *                                                                         *
  ***************************************************************************/
 
+//Own includes
 #include "kstartuplogo.h"
 
+//Qt includes
 #include <qlayout.h>
+#include <qapp.h>
 
+//KDE includes
 #include <kapp.h>
 #include <kstddirs.h>
 #include <kimageio.h>
 
 KStartupLogo::KStartupLogo()
-	: QWidget(0,"startuplogo",WStyle_Customize | WStyle_NoBorder) {
-
+	: QWidget(0, "startuplogo", WStyle_Customize | WStyle_NoBorder) {
 
   QPixmap pm;	
 	if ( !pm.load(locate("BT_pic","startuplogo.jpg")) )
@@ -33,22 +36,29 @@ KStartupLogo::KStartupLogo()
 
   setBackgroundPixmap(pm);
 
-  textLabel = new QLabel(this);	
-  textLabel->setGeometry(0,pm.height(),pm.width(),textLabel->sizeHint().height());
+  textLabel = new QLabel("BibleTime 3 is cool", this);
+  textLabel->setGeometry(5,pm.height(),pm.width()-5,textLabel->sizeHint().height()+5);
   textLabel->setBackgroundColor( Qt::black );
 
-  setFixedSize(pm.width(), pm.height()+textLabel->sizeHint().height());
-  setGeometry(
+	QPalette p = palette();
+  p.setColor( QPalette::Inactive, QColorGroup::Text, Qt::white );
+  p.setColor( QPalette::Inactive, QColorGroup::Foreground, Qt::white );
+  p.setColor( QPalette::Normal, QColorGroup::Text, Qt::white );
+  p.setColor( QPalette::Normal, QColorGroup::Foreground, Qt::white );
+  setPalette( p );
+
+//  setFixedSize(pm.width(), pm.height()+textLabel->sizeHint().height());
+  setGeometry (
     (KApplication::desktop()->width()-pm.width())/2,
-    (KApplication::desktop()->height()-pm.height()-textLabel->height())/2,
+		(KApplication::desktop()->height()-pm.height()-textLabel->height())/2,
     pm.width(),
-    pm.height()+textLabel->sizeHint().height());
-
-
-  //Does not display ?? -- only for testing...
-  textLabel->setText("BibleTime");
+    pm.height()+textLabel->height());
 }
 void KStartupLogo::setText(const QString text){
+//  qWarning("KStartupLogo::setText");
   textLabel->setText( text );
+  KApplication::kApplication()->processEvents();
+//  textLabel->update();
+//  update();
 }
 

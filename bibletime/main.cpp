@@ -63,12 +63,14 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	}
 }
 
-//saves data before the app closes after a crash
-void emergencySave(int)  {
-	fprintf(stderr, "[emergencySave] BibleTime crashed - trying to save data!");
-	if (bibletime)
-		bibletime->saveSettings();
-}
+//extern C {
+	//saves data before the app closes after a crash
+	void emergencySave(int)  {
+		fprintf(stderr, "[emergencySave] BibleTime crashed - trying to save data!");
+		if (bibletime)
+			bibletime->saveSettings();
+	}
+//}
 
 int main(int argc, char* argv[]) {
 	qInstallMsgHandler( myMessageOutput );
@@ -151,7 +153,6 @@ int main(int argc, char* argv[]) {
 	
  	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics/");
 
-
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 	// A binary option (on / off)
 	if (args->isSet("debug"))
@@ -171,6 +172,7 @@ int main(int argc, char* argv[]) {
 			if(showIt) {
 		 		start_logo = new KStartupLogo();
 		 		start_logo->show();
+		 		start_logo->setText("Starting BibleTime...");
 			};
 	  }
 		
