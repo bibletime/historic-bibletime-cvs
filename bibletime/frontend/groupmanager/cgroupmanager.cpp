@@ -81,8 +81,8 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 	if (!r.isValid())
 		return;
 	
-	//get tyope of item and display correct text
-	QString text = i->getToolTip();
+	//get type of item and display correct text
+	const QString text = i->getToolTip();
 	if (!text.isEmpty()) {
 		const QFont oldFont = font();				
 		CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(i->moduleInfo());
@@ -97,24 +97,19 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 }
 
 
-CGroupManager::CGroupManager(CImportantClasses* importantClasses, QWidget *parent, const char *name, ListCSwordModuleInfo *swordList, bool useBookmarks, bool saveSettings, bool useDnD, bool useExtendedMode, bool useRMBMenu, bool showHelpDialogs)
-	: KListView(parent, name) {
-
-	m_useBookmarks = useBookmarks;	
-	m_saveSettings = saveSettings;
-	m_useDragDrop = useDnD;
-	m_useExtendedMode = useExtendedMode;
-	m_useRMBMenu = useRMBMenu;
-	m_showHelpDialogs = showHelpDialogs;
-	
-	m_config = new KConfig("bt-groupmanager", false, false );
-
-	m_important = importantClasses;
-  m_menu = false;
-	m_searchDialog = 0;
-	m_pressedItem = 0;
-
-	m_swordList = swordList;
+CGroupManager::CGroupManager(CImportantClasses* importantClasses, QWidget *parent, const char *name, ListCSwordModuleInfo *swordList, const bool useBookmarks, const bool saveSettings, const bool useDnD, const bool useExtendedMode, const bool useRMBMenu, const bool showHelpDialogs)
+	: KListView(parent, name),
+		m_useBookmarks(useBookmarks), m_saveSettings(saveSettings),
+		m_useDragDrop(useDnD),
+		m_useExtendedMode(useExtendedMode), m_useRMBMenu(useRMBMenu),
+		m_showHelpDialogs(showHelpDialogs),
+		m_config( new KConfig("bt-groupmanager", false, false ) ),
+		m_important(importantClasses),
+	  m_menu(false),
+		m_searchDialog(0),
+		m_pressedItem(0),
+		m_swordList(swordList)
+{
 	initView();
 	initConnections();
 	readSettings();
@@ -142,10 +137,9 @@ void CGroupManager::setupStandardSwordTree() {
 		qWarning("CGroupManager::setupStandardSwordTree: m_swordList is empty or qual to NULL. return now.");
 		return;
 	}
+	
 	const bool initialized = m_config->readBoolEntry("initialized", false);
-
 	CSwordModuleInfo* moduleInfo = 0;
-
 	CGroupManagerItem* item = 0;
 	QListViewItemIterator it( this );
 	
@@ -183,22 +177,28 @@ void CGroupManager::setupStandardSwordTree() {
   	QListViewItemIterator it( this );
 		for ( ; it.current(); ++it ) {
 			CGroupManagerItem* item = dynamic_cast<CGroupManagerItem*>(it.current());
-			if (item) {
-				if (item->moduleInfo() && item->moduleInfo() == moduleInfo) { //we have it already
-					alreadyCreated = true;
-				}
+			if (item && item->moduleInfo() == moduleInfo) { //already there
+				alreadyCreated = true;
+				break;
 			}
 		}
 		if ( moduleInfo && !alreadyCreated) {
-			if (moduleInfo->getType() == CSwordModuleInfo::Commentary ) {	//a Commentary
-				(void)new CGroupManagerItem(commentaryGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module, m_important);
+			CGroupManagerItem* itemParent = 0;
+			switch (moduleInfo->getType()) {
+				case CSwordModuleInfo::Bible:
+					itemParent = bibleGroup;
+					break;
+				case CSwordModuleInfo::Commentary:
+					itemParent = commentaryGroup;
+					break;
+				case CSwordModuleInfo::Lexicon:
+					itemParent = lexiconGroup;
+					break;
+				default:
+					break;
 			}
-			else if (moduleInfo->getType() == CSwordModuleInfo::Bible ) {	//a Bible
-				(void)new CGroupManagerItem(bibleGroup, "",QString::null, moduleInfo, 0,CGroupManagerItem::Module, m_important);
-			}
-			else if (moduleInfo->getType() == CSwordModuleInfo::Lexicon ) {	//a Dictionary
-				(void) new CGroupManagerItem(lexiconGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module, m_important);
-			}
+			if (itemParent)
+				(void)new CGroupManagerItem(itemParent, "",QString::null, moduleInfo,0, CGroupManagerItem::Module, m_important);
 		}
 	}
 
@@ -209,13 +209,13 @@ void CGroupManager::setupStandardSwordTree() {
 	}
 	if (!lexiconGroup->childCount()) {
 		delete lexiconGroup;
-		lexiconGroup = 0;		
+		lexiconGroup = 0;
 	}
 	if (!commentaryGroup->childCount()) {
 		delete commentaryGroup;
-		commentaryGroup = 0;		
+		commentaryGroup = 0;
 	}
-		
+
 	if (!initialized) {
 		if (bibleGroup)
 			bibleGroup->sortChildItems(0,true);
@@ -355,7 +355,7 @@ void CGroupManager::slotSearchSelectedModules() {
 	m_searchDialog->show();
 }	
 
-void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item) {	
+void CGroupManager::searchBookmarkedModule(const QString& text, CGroupManagerItem* item) {	
   if (!item->moduleInfo())
   	return;
 	ListCSwordModuleInfo searchList;
@@ -369,7 +369,7 @@ void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item
 }	
 
 /**  */
-void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CSwordModuleInfo* module, const QString ref){
+void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CSwordModuleInfo* module, const QString& ref){
 	if (!module)
 		return;
 	
@@ -961,7 +961,7 @@ void CGroupManager::slotCreateNewGroup(){
 	}
 }
 
-int CGroupManager::parentId(CGroupManagerItem *item, CGroupManagerItem* parentItem)
+const int CGroupManager::parentId(CGroupManagerItem *item, CGroupManagerItem* parentItem)
 {
 	// search parent of item and return the id of the parent
 	int ret = -1; 	// the view and the parent item have id -1
@@ -998,7 +998,7 @@ int CGroupManager::parentId(CGroupManagerItem *item, CGroupManagerItem* parentIt
 }
 
 /** returns the parent of the item with the id ID */
-CGroupManagerItem* CGroupManager::findParent( int ID, CGroupManagerItem* parentItem){
+CGroupManagerItem* CGroupManager::findParent( const int ID, CGroupManagerItem* parentItem){
 	CGroupManagerItem* myItem = 0;
 	int index = 0;
 	
@@ -1049,10 +1049,9 @@ void CGroupManager::slotUnlockModule(){
 }
 
 /** Reads in bookmarks from m_config and creates them as subitems of group. If group is 0 we create them a toplevel items. */
-bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
+const bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
 	qDebug("CGroupManager::read Sword bookmarks");
-	ASSERT(m_swordList);
-
+	
 	//read and create group entries
 	CGroupManagerItem* 	parentItem = 0;	
 	QStringList				groupList 	= configFile->readListEntry("Groups");
@@ -1106,7 +1105,7 @@ bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* g
 }
 
 /** Save items of group to m_config. If grou is 0 we save all items. The  path to the group-item itself is saved, too. */
-bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
+const bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
 	int parentID = 0;
 	CGroupManagerItem* myItem = 0;
 	QStringList groupList;
@@ -1216,7 +1215,7 @@ void CGroupManager::slotExportBookmarks(){
 }
 
 
-bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerItem* group) {
+const bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerItem* group) {
 	if (!m_swordList) {
 		qWarning("no sword modules, return false.");
 		return false;
@@ -1240,23 +1239,17 @@ bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerItem* gro
 	CGroupManagerItem *oldItem = 0;
 	
 	while ( it_modules != moduleList.end() && it_parents != parentList.end() ) {		
-		myModuleInfo = 0;
-		
+		myModuleInfo = 0;		
 		if ((*it_modules).isEmpty()) {
 			++it_parents;
 			++it_modules;
 			continue;
 		}
 		
-		for(m_swordList->first(); m_swordList->current(); m_swordList->next()) {
-			if ( m_swordList->current()->module()->Name() == (*it_modules) ) {
-				myModuleInfo = m_swordList->current();
-				break;
-			}
-		}
-		if (!myModuleInfo) {	//if the module was removed do not show it
+		myModuleInfo = m_important->swordBackend->findModuleByName(*it_modules);
+		if (!myModuleInfo) {	//if the module was removed so we don't show it
 			++it_parents;
-			++it_modules;			
+			++it_modules;
 			continue;
 		}
 			
@@ -1285,7 +1278,7 @@ bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerItem* gro
 	return true;
 };
 
-bool CGroupManager::saveSwordModules(KConfig* configFile, CGroupManagerItem* group) {
+const bool CGroupManager::saveSwordModules(KConfig* configFile, CGroupManagerItem* group) {
 	int parentID = 0;
 	CGroupManagerItem* myItem = 0;
 	QValueList<int> parentList;
@@ -1327,7 +1320,7 @@ bool CGroupManager::saveSwordModules(KConfig* configFile, CGroupManagerItem* gro
 	return true;
 }
 
-bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* group) {
+const bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* group) {
 	//read and create group entries
 	CGroupManagerItem* 	parentItem = 0;
 	CGroupManagerItem*	oldItem = 0;
@@ -1376,7 +1369,7 @@ bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* group) {
 	return true;	
 };
 
-bool CGroupManager::saveGroups(KConfig* configFile, CGroupManagerItem* group) {
+const bool CGroupManager::saveGroups(KConfig* configFile, CGroupManagerItem* group) {
 	int parentID = 0;
 	CGroupManagerItem* myItem = 0;
 	QStringList groupList;
@@ -1412,7 +1405,7 @@ bool CGroupManager::saveGroups(KConfig* configFile, CGroupManagerItem* group) {
 }
 
 /** Returns true if the item "item" is a child of item "parent". */
-bool CGroupManager::isChild(QListViewItem* parent, QListViewItem* child){
+const bool CGroupManager::isChild(QListViewItem* parent, QListViewItem* child){
 	QListViewItem *myParent = child;
 	while (myParent && myParent != parent )
 		myParent = myParent->parent();		
@@ -1420,7 +1413,7 @@ bool CGroupManager::isChild(QListViewItem* parent, QListViewItem* child){
 }
 
 /** Reimplementatuiion. */
-void CGroupManager::viewportPaintEvent (QPaintEvent* e) {
+void CGroupManager::viewportPaintEvent(QPaintEvent* e) {
   KListView::viewportPaintEvent(e);
 
   if (m_oldDragRect.isValid())
@@ -1438,7 +1431,7 @@ void CGroupManager::viewportPaintEvent (QPaintEvent* e) {
 }
 
 /** Reimplementation with different parameters */
-QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem */*parent*/, CGroupManagerItem *after, const QString /*type*/){
+const QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem */*parent*/, CGroupManagerItem *after, const QString& /*type*/){
   QRect insertmarker;
   bool useParent = false;
 		
@@ -1459,10 +1452,10 @@ QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem */*paren
 			useParent = true;
 			insertmarker = itemRect(after->parent());				
 		}
-		else if (!after)
+		else //if (!after)
 			insertmarker = QRect(); //this->visibleRect();		
-		else
-			insertmarker = QRect();
+//		else
+//			insertmarker = QRect();
 	}
 	else if ( m_dragType == REFERENCE ) { 	//we are moving a reference
 		if ( after && after->type() == CGroupManagerItem::Group)
@@ -1587,7 +1580,7 @@ void CGroupManager::slotDeleteSearchdialog(){
 }
 
 /** Reimplementation. */
-void CGroupManager::resizeEvent ( QResizeEvent* e )  {
+void CGroupManager::resizeEvent( QResizeEvent* e )  {
 	KListView::resizeEvent(e);		
 	setColumnWidth(0, visibleWidth() );
 	triggerUpdate();

@@ -120,7 +120,7 @@ signals: // Signals
   * Is emitted when the last presenter was closed.
   */
   void sigLastPresenterClosed();
-  void createNewSwordPresenter(CSwordModuleInfo*, const QString);
+  void createNewSwordPresenter(CSwordModuleInfo*, const QString&);
 
 private:
 	mdiOption guiOption;

@@ -74,7 +74,7 @@ public:
 	/**
 	* The destrctor of this backend. This function shuts the modules down using @ref shutdownModules.
 	*/
-	~CSwordBackend();
+	virtual ~CSwordBackend();
   /**
   * This function returns the list of available modules managed by this backend.
   *	You have to call initModules() first;

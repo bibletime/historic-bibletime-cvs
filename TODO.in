@@ -2,37 +2,33 @@ ToDo file for BibleTime @VERSION@
 
 Help wanted
 -----------
-WE NEED YOUR HELP!
 
-The team of active developers is very small, often only 1 person.
-We are desperately looking for people who are
-	a) willing to learn
-	b) willing to contribute over a longer period of time
-	c) are not perfect ;)
 We do especially need developers, but there are also other jobs like
 documentation writing, translating, artwork etc.
 For further information, see www.bibletime.de
 and www.sourceforge.net/projects/bibletime.
 
-WE DO REALLY NEED YOU!
-
 Important unimplemented things:
 -------------------------------
 	-searchdialog
+		o Better interface so it's more easy to use (thanks to Dre for the suggestions)
 		o perhaps RegExp edit widget (later)
 	-Installmanager
+	-Morphological analysis (maybe in 2.0 :)
 
 Things which should be optimized:
 ---------------------------------
 	[partly] Search for mem leaks (I'm sure there are at least 100 :)
 	[partly] Optmize memory usage
-	[exp.] Thread safety (We should implement and use CModuleInfo's copy constructor)
 	-Check BibleTime with a profiler and optimize the time consuming functions
 
 Features we are thinking about:
 ------------------------------
-	-A sermon backend to make it easier to write full featured sermons
-	-Dialog to install SWORD mdules
-		(automatically Download, automatic installation and problem checking)
 	-Commandline options: Implement commandline options to control BibleTime
 	  (e.g. open presenters, lookup verses and exit, import bookmarks and exit etc.	)
+
+	
+For a more up-to-date list of task please have a look at www.sourceforge.net/projects/bibletime/!
+
+
+Thank you!

@@ -31,8 +31,9 @@ class CSwordModuleInfo;
  * @author The BibleTime team
  * @version $Id$
  */
-class CSwordKey  {
+class CSwordKey {
 public:
+	virtual ~CSwordKey() {};
 	//pure virtual functions
 	virtual const QString key(const QString& = QString::null) {return QString::null;};
 	virtual void key(const char*) {};

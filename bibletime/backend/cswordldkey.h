@@ -66,7 +66,7 @@ public:
 	* Copy constructor for this key class.
 	*/
 	CSwordLDKey( const CSwordLDKey &k );
-	~CSwordLDKey();
+	virtual ~CSwordLDKey();
   /**
   * Clones this object by copying the members.
   */
@@ -74,11 +74,11 @@ public:
   /**
   * Uses the parameter to returns the next entry afer this key.
   */
-  virtual void NextEntry( void );
+  void NextEntry( void );
   /**
   * Uses the parameter to returns the previous entry afer this key.
   */
-  virtual void PreviousEntry( void );  	
+  void PreviousEntry( void );  	
   /**
   * Sets the module of this key.
   */

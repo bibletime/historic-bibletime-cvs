@@ -45,7 +45,7 @@ class CGroupManager : public KListView  {
    Q_OBJECT
 
 public:
-	CGroupManager(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0, ListCSwordModuleInfo *moduleInfo_list = 0, bool useBookmarks = true, bool saveSettings = true, bool useDnD=true, bool useExtendedMode=true, bool useRMBMenu = true, bool showHelpDialogs = true);
+	CGroupManager(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0, ListCSwordModuleInfo *moduleInfo_list = 0, const bool useBookmarks = true, const bool saveSettings = true, const bool useDnD=true, const bool useExtendedMode=true, const bool useRMBMenu = true, const bool showHelpDialogs = true);
 	~CGroupManager();
   /**
  	* Initializes the tree of this CGroupmanager
@@ -70,11 +70,11 @@ public:
 	/**
 	*
 	*/
-  void searchBookmarkedModule(QString, CGroupManagerItem *);
+  void searchBookmarkedModule(const QString&, CGroupManagerItem *);
   /**
   * Returns true if the item "item" is a child of item "parent".
   */
-  bool isChild(QListViewItem* parent, QListViewItem* child);
+  const bool isChild(QListViewItem* parent, QListViewItem* child);
 
 public slots: // Public slots
   /**
@@ -96,11 +96,11 @@ signals: // Signals
   /**
   * Is emitted when a module in the tree was selected.
   */
-  void createSwordPresenter(CSwordModuleInfo*, const QString);
+  void createSwordPresenter(CSwordModuleInfo*, const QString&);
   /**
   * Is emitted when more than one module are selected
   */
-  void createSwordPresenter(ListCSwordModuleInfo, const QString);
+  void createSwordPresenter(ListCSwordModuleInfo, const QString&);
 
 protected slots: // Protected slots
   /**
@@ -146,7 +146,7 @@ protected slots: // Protected slots
   /**
   * Reimplementation with different parameters
   */
-  QRect drawDropVisualizer (QPainter *p, CGroupManagerItem *parent, CGroupManagerItem *after, const QString type);
+  const QRect drawDropVisualizer (QPainter *p, CGroupManagerItem *parent, CGroupManagerItem *after, const QString& type);
   /**
   * Reimplementation.
   */
@@ -199,42 +199,42 @@ private:
 	/**
 	* Find ID of parent item.
 	*/
-	int parentId(CGroupManagerItem *item, CGroupManagerItem* parentItem = 0);
+	const int parentId(CGroupManagerItem *item, CGroupManagerItem* parentItem = 0);
   /**
   * returns the parent of the item with the ID index
   */
-  CGroupManagerItem* findParent( int ID, CGroupManagerItem* parentItem = 0 );
-  void createNewBookmark(CGroupManagerItem* parent, CSwordModuleInfo* module, const QString ref);
+  CGroupManagerItem* findParent( const int ID, CGroupManagerItem* parentItem = 0 );
+  void createNewBookmark(CGroupManagerItem* parent, CSwordModuleInfo* module, const QString& ref);
   /**
   * Save items of group to config. If grou is 0 we save all items.
   * The  path to the group-item itself is saved, too.
   */
-  bool saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group);
+  const bool saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* group);
   /**
   * Reads in bookmarks from config and creates them as subitems of group.
 	*	If group is 0 we create them a toplevel items.
 	*/
-  bool readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group);
+  const bool readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group);
   /**
   * Save items of group to config. If grou is 0 we save all items.
   * The  path to the group-item itself is saved, too.
   */
-  bool saveSwordModules(KConfig* configFile, CGroupManagerItem* group);
+  const bool saveSwordModules(KConfig* configFile, CGroupManagerItem* group);
   /**
   * Reads in bookmarks from config and creates them as subitems of group.
 	*	If group is 0 we create them a toplevel items.
 	*/
-  bool readSwordModules(KConfig* configFile, CGroupManagerItem* group);
+  const bool readSwordModules(KConfig* configFile, CGroupManagerItem* group);
   /**
   * Save items of group to config. If grou is 0 we save all items.
   * The  path to the group-item itself is saved, too.
   */
-  bool saveGroups(KConfig* configFile, CGroupManagerItem* group);
+  const bool saveGroups(KConfig* configFile, CGroupManagerItem* group);
   /**
   * Reads in bookmarks from config and creates them as subitems of group.
 	*	If group is 0 we create them a toplevel items.
 	*/	
-  bool readGroups(KConfig* configFile, CGroupManagerItem* group);
+  const bool readGroups(KConfig* configFile, CGroupManagerItem* group);
 
  	KConfig* m_config;
   KPopupMenu* m_popupMenu;

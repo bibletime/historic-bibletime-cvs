@@ -243,8 +243,8 @@ void BibleTime::initMenubar(){
 void BibleTime::initConnections(){
 	connect(m_mdi, SIGNAL(sigSetToplevelCaption(const QString&)),
 		this, SLOT(setPlainCaption(const QString&)));
-	connect(m_mdi, SIGNAL(createNewSwordPresenter(CSwordModuleInfo*, const QString)),
-		this, SLOT(createNewSwordPresenter(CSwordModuleInfo*, const QString)));
+	connect(m_mdi, SIGNAL(createNewSwordPresenter(CSwordModuleInfo*, const QString&)),
+		this, SLOT(createNewSwordPresenter(CSwordModuleInfo*, const QString&)));
 		
 	if (m_windowMenu) {
 		connect(m_windowMenu, SIGNAL(aboutToShow()),
@@ -255,10 +255,10 @@ void BibleTime::initConnections(){
 	else
 		qWarning("can't find window menu");
 		
-	connect(m_groupmanager, SIGNAL(createSwordPresenter(CSwordModuleInfo*, const QString)),
-		this, SLOT(createNewSwordPresenter(CSwordModuleInfo*,const QString)));
-	connect(m_groupmanager, SIGNAL(createSwordPresenter(ListCSwordModuleInfo, const QString)),
-		this, SLOT(createNewSwordPresenter(ListCSwordModuleInfo,const QString)));
+	connect(m_groupmanager, SIGNAL(createSwordPresenter(CSwordModuleInfo*, const QString&)),
+		this, SLOT(createNewSwordPresenter(CSwordModuleInfo*,const QString&)));
+	connect(m_groupmanager, SIGNAL(createSwordPresenter(ListCSwordModuleInfo, const QString&)),
+		this, SLOT(createNewSwordPresenter(ListCSwordModuleInfo,const QString&)));
 	
 	//connect to the signals of the printer object
 	connect(m_important->printer, SIGNAL(addedFirstQueueItem()),

@@ -221,7 +221,7 @@ void BibleTime::readSettings(){
 }
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
-CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules, const QString key) {
+CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules, const QString& key) {
 	kapp->setOverrideCursor( waitCursor );
 	
 	CSwordPresenter* presenter = 0;
@@ -239,6 +239,7 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			qWarning("unknown module type");
 	}	
 	if (presenter) {
+		presenter->lookup(key);
 		connect(presenter, SIGNAL(lookupInLexicon(const QString&, const QString&)),
 			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
 		connect(presenter, SIGNAL(closePresenter(CSwordPresenter*)),
@@ -247,7 +248,6 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			connect(presenter->getKeyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 				m_mdi, SLOT(syncCommentaries(CSwordKey*)));		
 		}
-		presenter->lookup(key);		
 	}
 			
 	kapp->restoreOverrideCursor();
@@ -258,7 +258,7 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
-CSwordPresenter* BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, const QString key) {
+CSwordPresenter* BibleTime::createNewSwordPresenter(CSwordModuleInfo* module, const QString& key) {
 	ListCSwordModuleInfo list;
 	list.append(module);
 	
@@ -273,7 +273,7 @@ void BibleTime::refreshPresenters( int useFeatures ) {
 	*/		
 	unsigned int index;				
 	for ( index = 0; index < m_mdi->windowList().count(); index++) {
-		CSwordPresenter* myPresenter = (CSwordPresenter*)m_mdi->windowList().at(index);
+		CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index));
 		if (myPresenter)
    		myPresenter->refresh(useFeatures);
 	}

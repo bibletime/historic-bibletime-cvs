@@ -74,7 +74,7 @@ public:
  	* Sets the unlock key of the modules and writes the key into the cofig file.
 	* @return True if the unlock process was succesful, if the key was wrong, or if the config file was write protected return false.
 	*/
-  const CSwordModuleInfo::unlockErrorCode unlock( const QString unlockKey );
+  const CSwordModuleInfo::unlockErrorCode unlock( const QString& unlockKey );
   /**
  	* Returns the display object for this module. Normally every module should have a Display object.
  	* Please don't use module()->Display() because this function does return the Sword display and does
@@ -164,7 +164,8 @@ public:
   * Returns the text direction used in this module.
   */
   const CSwordModuleInfo::TextDirection getTextDirection();
-  /**  Returns the required Sword version for this module.
+  /**
+  * Returns the required Sword version for this module.
 	* Returns -1 if no special Sword version is required.
 	*/
   const float requiredSwordVersion();
