@@ -182,7 +182,7 @@ void CTipWindow::nextTip() {
   current++;
   if (current >= tips.count())
     current = 0;
-  text->setText(QString("<html>%1</html>").arg(tips[current]));
+  text->setText(QString::fromLatin1("<html>%1</html>").arg(tips[current]));
 }
 
 void CTipWindow::prevTip() {
@@ -191,5 +191,5 @@ void CTipWindow::prevTip() {
     current = tips.count()-1;
   if (current < 0)	//are we still in negative numbers?
   	current = 0;
-  text->setText(QString("<html>%1</html>").arg(tips[current]));
+  text->setText(QString::fromLatin1("<html>%1</html>").arg(tips[current]));
 }

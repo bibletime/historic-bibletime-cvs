@@ -319,9 +319,9 @@ const QString CSearchDialogAnalysisItem::getToolTip(){
 		CSwordModuleInfo* info = m_moduleList->at(i);
 		const QColor c = CSearchDialogAnalysis::getColor(i);
 		ret.append(
-			QString("<TR BGCOLOR=\"white\"><TD><B><FONT COLOR=\"#%1\">%2</FONT></B></TD><TD>%3</TD></TR>")			
+			QString::fromLatin1("<TR BGCOLOR=\"white\"><TD><B><FONT COLOR=\"#%1\">%2</FONT></B></TD><TD>%3</TD></TR>")
 				.arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue()))
-				.arg(info ? QString::fromLocal8Bit(info->module()->Name()) : QString(""))
+				.arg(info ? QString::fromLocal8Bit(info->module()->Name()) : QString::null)
 				.arg(m_resultCountArray[i])
 		);
 	}

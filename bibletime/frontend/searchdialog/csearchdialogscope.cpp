@@ -87,10 +87,10 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
 
   config = new KSimpleConfig("bt-custom_ranges", false);
   //we use this to use the global standard
-  config->setGroup(QString("main"));
+  config->setGroup(QString::fromLatin1("main"));
   if (config->readBoolEntry("first usage", true)) {		
   	config->writeEntry("first usage", false);
-  	config->setGroup(QString("custom ranges"));
+  	config->setGroup(QString::fromLatin1("custom ranges"));
   	
 	  QMap<QString,QString> entryMap;
 	  entryMap.insert(i18n("Old testament"),          QString("Gen - Mal"));
@@ -113,7 +113,7 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
 						text.append(";");											
 					VerseKey* element = dynamic_cast<VerseKey*>(lk.GetElement(i));
 					if (element) 	
-						text +=	QString("%1 - %2")
+						text +=	QString::fromLatin1("%1 - %2")
 							.arg( QString::fromLocal8Bit((const char*)element->LowerBound()) )
 							.arg( QString::fromLocal8Bit((const char*)element->UpperBound()) );
 					else

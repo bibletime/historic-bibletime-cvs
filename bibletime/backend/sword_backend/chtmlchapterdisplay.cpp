@@ -36,9 +36,9 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	qDebug("CHTMLChapterDisplay::Display( module )");	
 	if (!module) {
 		m_htmlText = QString::null;
-		return 1;
+		return -1; //error
 	}
-				
+
 	SWModule* swordModule = module->module();
 	VerseKey& key = (*(VerseKey*)(SWKey*)*swordModule);
 	const int currentBook = key.Book();
@@ -56,13 +56,13 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
   }
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !swordModule->Error(); (*swordModule)++) {
 		verse = key.Verse();		
-		m_htmlText.append( QString("<A NAME=\"%1\" HREF=\"sword://%2\"><B>%3</B></A>")
+		m_htmlText.append( QString::fromLatin1("<A NAME=\"%1\" HREF=\"sword://%2\"><B>%3</B></A>")
 			.arg( verse )
 			.arg( QString::fromLocal8Bit( (const char*)key ) )
 			.arg( verse )
 		);		
-		m_htmlText.append( QString("<FONT %1 FACE=\"%2\" SIZE=\"%3\"> %4</FONT>")
-			.arg( (verse == currentVerse) ? QString("COLOR=\"%1\"").arg(m_highlightedVerseColor) : QString() )
+		m_htmlText.append( QString::fromLatin1("<FONT %1 FACE=\"%2\" SIZE=\"%3\"> %4</FONT>")
+			.arg( (verse == currentVerse) ? QString::fromLatin1("COLOR=\"%1\"").arg(m_highlightedVerseColor) : QString() )
 			.arg( FontName )
 			.arg( FontSize )
 			.arg( QString::fromLocal8Bit((const char*)*swordModule) )
@@ -75,8 +75,8 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	}
 	m_htmlText.append(m_htmlBody);	
 		
-	//clean up, key is the modules key - don't delete it		
-	return 0;	//no error	
+	//clean up, key is the modules key - don't delete it
+	return 1;	//no error	
 }
 
 /** Generates code to display the given modules side by side. */
@@ -97,8 +97,8 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	const int width=(int)((double)97/(double)moduleList->count());
 	CSwordModuleInfo *d = 0;
 			
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY><TABLE CELLPADDING=\"1\" CELLSPACING=\"0\">");
- 	m_htmlText.append("<TR><TD BGCOLOR=\"#F1F1F1\"></TD>");
+	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY><TABLE CELLPADDING=\"2\" CELLSPACING=\"0\">");
+ 	m_htmlText.append(QString::fromLatin1("<TR><TD BGCOLOR=\"#F1F1F1\"></TD>"));
 	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;	
 	while (m) {
@@ -106,7 +106,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 			fontMap.insert(d, d->getFont());
     if (m)
 			m_htmlText.append(
-				QString("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2</B></TD>")
+				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2</B></TD>")
 					.arg(width)
 					.arg(QString::fromLocal8Bit(m->Name()))
 				);
@@ -127,25 +127,25 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	int currentVerse = 0;
 	for (key->Verse(1); key->Book() == currentBook && key->Chapter() == currentChapter && !module->Error(); (*module)++ ) {
 		currentVerse = key->Verse();
-		rowText = QString("<TR><TD bgcolor=\"#F1F1F1\"><B><A NAME=\"%1\" HREF=\"sword://%2\">%3</A></B></TD>\n")
+		rowText = QString::fromLatin1("<TR><TD bgcolor=\"#F1F1F1\"><B><A NAME=\"%1\" HREF=\"sword://%2\">%3</A></B></TD>\n")
 			.arg(key->Verse())
 			.arg(QString::fromLocal8Bit((const char*)*key))
 			.arg(currentVerse);					
 		m = (d = moduleList->first()) ? d->module() : 0;
 		while (m) {
 			m->SetKey(*key);
-			rowText += QString("<TD %1 BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\" %5>%6</FONT></TD>\n")
-				.arg(QString("width=\"%1%\"").arg(width))
+			rowText += QString::fromLatin1("<TD %1 BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\" %5>%6</FONT></TD>\n")
+				.arg(QString::fromLatin1("width=\"%1%\"").arg(width))
 				.arg(currentVerse % 2 ? "white" : "#F1F1F1")
 				.arg(fontMap.contains(d) ? fontMap[d].family() : m_standardFontName)
 				.arg(fontMap.contains(d) ? CToolClass::makeLogicFontSize(fontMap[d].pointSize()) : m_standardFontSize)
-				.arg(currentVerse == chosenVerse ? QString("color=\"%1\"").arg(m_highlightedVerseColor) : QString())
+				.arg(currentVerse == chosenVerse ? QString::fromLatin1("color=\"%1\"").arg(m_highlightedVerseColor) : QString())
 				.arg(QString::fromLocal8Bit((const char*)*m));
 			m = (d = moduleList->next()) ? d->module() : 0;
 		}
 		if (!rowText.isEmpty())
-			m_htmlText.append(rowText + "</TR>\n");		
+			m_htmlText.append(rowText + QString::fromLatin1("</TR>\n"));
 	}
-	m_htmlText.append( QString("</TABLE>%1").arg(m_htmlBody) );	
+	m_htmlText.append( QString::fromLatin1("</TABLE>%1").arg(m_htmlBody) );	
 	return 0;		
 }

@@ -291,11 +291,11 @@ void CBiblePresenter::saveVerseAndText(){
 	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
 	key.setKey(m_key->getKey());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
+	if (currentAnchor.left(8) == QString::fromLatin1("sword://"))
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
 	key.setKey(currentAnchor);
 	
-	const QString text = QString("%1\n%2").arg(key.getKey()).arg(key.getStrippedText());
+	const QString text = QString::fromLatin1("%1\n%2").arg(key.getKey()).arg(key.getStrippedText());
 	
 	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save verse with text as ..."));
 	if (!file.isNull())

@@ -151,12 +151,12 @@ int main(int argc, char* argv[]) {
 	  BibleTime* bibletime = new BibleTime();							
 		{
 			KConfigGroupSaver groupSaver(config, "General");
-			if (config->readBoolEntry(QString("firstStartup %1").arg(VERSION), true)) {
-				config->writeEntry( QString("firstStartup %1").arg(VERSION), false);
+			if (config->readBoolEntry(QString::fromLatin1("firstStartup %1").arg(VERSION), true)) {
+				config->writeEntry( QString::fromLatin1("firstStartup %1").arg(VERSION), false);
 				HTML_DIALOG(HELPDIALOG_FIRST_START);
 			}			
-			if (!config->readBoolEntry(QString("isConfigured %1").arg(VERSION), false)) {
-				config->writeEntry( QString("isConfigured %1").arg(VERSION), true);
+			if (!config->readBoolEntry(QString::fromLatin1("isConfigured %1").arg(VERSION), false)) {
+				config->writeEntry( QString::fromLatin1("isConfigured %1").arg(VERSION), true);
 				bibletime->slotSettingsOptions();
 			}
 		}

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-05-18 17:31+0200\n"
+"POT-Creation-Date: 2001-05-20 14:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -183,7 +183,7 @@ msgid "&Daily tip"
 msgstr ""
 
 #: bibletime/bibletime.cpp:175 bibletime/bibletime.cpp:190
-#: bibletime/bibletime_slots.cpp:102 bibletime/bibletime_slots.cpp:115
+#: bibletime/bibletime_slots.cpp:98 bibletime/bibletime_slots.cpp:107
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:95
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:282
 msgid "Display window"
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Header"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:586
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:582
 #: bibletime/printing/cstyleeditordialog.cpp:78
 #: bibletime/printing/cstyleeditordialog.cpp:283
 msgid "Description"
@@ -221,17 +221,17 @@ msgstr ""
 msgid "Enable this part"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:479
+#: bibletime/frontend/chtmlwidget.cpp:471
 #: bibletime/printing/cstyleeditordialog.cpp:96
 msgid "Left"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:481
+#: bibletime/frontend/chtmlwidget.cpp:473
 #: bibletime/printing/cstyleeditordialog.cpp:97
 msgid "Center"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:483
+#: bibletime/frontend/chtmlwidget.cpp:475
 #: bibletime/printing/cstyleeditordialog.cpp:98
 msgid "Right"
 msgstr ""
@@ -264,15 +264,15 @@ msgstr ""
 msgid "Frame color:"
 msgstr ""
 
-#: bibletime/printing/cprinter.cpp:321 bibletime/printing/cprinter.cpp:352
-#: bibletime/printing/cprinter.cpp:527 bibletime/printing/cprinter.cpp:535
+#: bibletime/printing/cprinter.cpp:333 bibletime/printing/cprinter.cpp:364
+#: bibletime/printing/cprinter.cpp:539 bibletime/printing/cprinter.cpp:547
 #: bibletime/printing/cprinterdialog.cpp:618
 #: bibletime/printing/cstyleeditordialog.cpp:182
-#: bibletime/printing/cstylelist.cpp:122
+#: bibletime/printing/cstylelist.cpp:130
 msgid "Standard"
 msgstr ""
 
-#: bibletime/printing/cstylelist.cpp:43
+#: bibletime/printing/cstylelist.cpp:46
 msgid "Name:"
 msgstr ""
 
@@ -423,20 +423,20 @@ msgstr ""
 msgid "Size: %1mm x %2mm"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:262
-#: bibletime/printing/cprintitemlist.cpp:44
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:253
+#: bibletime/printing/cprintitemlist.cpp:48
 msgid "Module"
 msgstr ""
 
-#: bibletime/printing/cprintitemlist.cpp:45
+#: bibletime/printing/cprintitemlist.cpp:49
 msgid "From"
 msgstr ""
 
-#: bibletime/printing/cprintitemlist.cpp:46
+#: bibletime/printing/cprintitemlist.cpp:50
 msgid "To"
 msgstr ""
 
-#: bibletime/printing/cprintitemlist.cpp:47
+#: bibletime/printing/cprintitemlist.cpp:51
 msgid "Style"
 msgstr ""
 
@@ -531,71 +531,72 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:209
+#: bibletime/frontend/chtmlwidget.cpp:201
 #, ycp-format
 msgid "Unable to find the page %1!"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:229
+#: bibletime/frontend/chtmlwidget.cpp:221
 msgid ""
 "*.html *.htm *.shtml *.shtm | HTML files\n"
 " *.* | All files (*.*)"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:229
+#: bibletime/frontend/chtmlwidget.cpp:221
 msgid "Save text as HTML page ..."
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:236
+#: bibletime/frontend/chtmlwidget.cpp:228
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:300
 msgid ""
 "*.txt | Text file (*.txt)\n"
 "*.* | All files (*.*)"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:236
+#: bibletime/frontend/chtmlwidget.cpp:228
 msgid "Save text as plain text ..."
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:464
+#: bibletime/frontend/chtmlwidget.cpp:456
 msgid "Choose a font:"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:468
+#: bibletime/frontend/chtmlwidget.cpp:460
 msgid "Choose font size"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:472
+#: bibletime/frontend/chtmlwidget.cpp:464
 msgid "Bold"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:476
+#: bibletime/frontend/chtmlwidget.cpp:468
 msgid "Underlined"
 msgstr ""
 
-#: bibletime/frontend/chtmlwidget.cpp:485
+#: bibletime/frontend/chtmlwidget.cpp:477
 msgid "Justify"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:195
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:179
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:190
 msgid "unknown"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:235
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:226
 msgid "Bookmark to"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:264
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:255
 #, ycp-format
 msgid "Foonotes: %1<BR>"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:265
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:256
 #, ycp-format
 msgid "Strong's numbers: %1<BR>"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:267
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:258
 msgid "not set"
 msgstr ""
 
@@ -655,79 +656,79 @@ msgstr ""
 msgid "About this module"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:369
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:368
 msgid "Bookmark description - BibleTime"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:369
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:368
 msgid "Please enter here the description:"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:406
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:402
 msgid "Change bookmark description - BibleTime"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:406
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:402
 msgid "Please change the description of the item!"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:417
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:413
 msgid "Change folder - BibleTime"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:417
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:413
 msgid "Please change the name of the group!"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:556
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:552
 msgid "<I>Not necessary!</I>"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:568
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:564
 msgid "Datapath"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:570
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:566
 msgid "Version"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:572
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:568
 msgid "Unlock key"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:574
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:570
 msgid "Writable"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:582
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:578
 msgid "Footnotes"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:584
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:580
 msgid "Strong's numbers"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:930
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:926
 msgid "Enter name of folder - BibleTime"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:930
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:926
 msgid "Please enter the name of the folder!"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1014
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1010
 msgid "BibleTime - Unlock module"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1014
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1010
 msgid "Enter the key to unlock the module!"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1172
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1167
 msgid "Import bookmarks ..."
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1180
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1175
 msgid ""
 "<qt>A problem occurred while importing bookmarks!<BR>The bookmarks format of "
 "the imported file is newer<BR>than the bookmarks format version of this "
@@ -735,22 +736,22 @@ msgid ""
 "correctly!</B><BR>Do you want to continue?</qt>"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1183
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1178
 msgid "Import of bookmarks"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1197
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1192
 msgid "Export bookmarks ..."
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1547
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1542
 msgid ""
 "<qt>This function will reset the main index!<BR>This will recreate the "
 "original groups and delete all other items!<BR>Be sure no important "
 "bookmarks will be deleted!<BR>Do you want to continue?</qt>"
 msgstr ""
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1547
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1542
 msgid "BibleTime - Reset main index"
 msgstr ""
 
@@ -890,11 +891,6 @@ msgstr ""
 
 #: bibletime/frontend/searchdialog/csearchdialogresult.cpp:55
 msgid "Entries found:"
-msgstr ""
-
-#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:170
-#, ycp-format
-msgid "<FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3"
 msgstr ""
 
 #: bibletime/frontend/searchdialog/csearchdialogresult.cpp:172
@@ -1117,15 +1113,15 @@ msgstr ""
 msgid "BibleTime - Save file as ..."
 msgstr ""
 
-#: bibletime/bibletime_slots.cpp:299
+#: bibletime/bibletime_slots.cpp:288
 msgid "Printing..."
 msgstr ""
 
-#: bibletime/bibletime_slots.cpp:299
+#: bibletime/bibletime_slots.cpp:288
 msgid "Abort printing"
 msgstr ""
 
-#: bibletime/bibletime_slots.cpp:324
+#: bibletime/bibletime_slots.cpp:313
 #, c-format, ycp-format
 msgid "Printing %1"
 msgstr ""
@@ -1884,7 +1880,7 @@ msgid "Activate this to use case sensitive search."
 msgstr ""
 
 #: bibletime/dummy.h:291
-msgid "Select this if you want to search through alls parts of the module(s)."
+msgid "Select this if you want to search through all parts of the module(s)."
 msgstr ""
 
 #: bibletime/dummy.h:292

@@ -232,7 +232,7 @@ void CPrinter::printQueue(){
 	*/
 	if ( getPreview() ){//print a preview
 		KRandomSequence r;
-		const QString s = QString("/tmp/") + KApplication::randomString(8)+".ps";
+		const QString s = QString::fromLatin1("/tmp/") + KApplication::randomString(8) + QString::fromLatin1(".ps");
 		qDebug("CPrinter: set filename for preview");
 		setOutputFileName( s );
 		m_createdFiles.append(s);

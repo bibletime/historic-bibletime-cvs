@@ -95,7 +95,7 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 }
 
 QString CToolClass::encodeReference(QString &module, QString &reference){
-	return QString("(%1)%2").arg(module).arg(reference);
+	return QString::fromLatin1("(%1)%2").arg(module).arg(reference);
 }
 
 void CToolClass::decodeReference(QString &dragreference, QString &module, QString &reference){

@@ -337,7 +337,7 @@ const bool CSwordBackend::getModuleConfig(const QString& module, SWConfig& modul
 		closedir(dir);
 	}
 	if (!foundConfig && configType != 2) { //search in $HOME/.sword/
-		QString myPath = QString("%1/.sword/mods.d").arg(getenv("HOME"));
+		QString myPath = QString::fromLatin1("%1/.sword/mods.d").arg(getenv("HOME"));
 		dir = opendir(myPath.latin1());
 		if (dir) {
 			rewinddir(dir);

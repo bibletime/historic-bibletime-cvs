@@ -22,7 +22,7 @@
 #define WHATSTHISDEF_H
 
 //the general format of QWhatsThis help texts
-#define WT(title, description) QString("<center><B>%1</B></center><HR>%2").arg(title).arg(description)
+#define WT(title, description) QString::fromLatin1("<center><B>%1</B></center><HR>%2").arg(title).arg(description)
 
 //QWhatsThis entries for Mainwindow actions
 #define WT_FILE_CLEAR_QUEUE WT( TT_FILE_CLEAR_QUEUE, i18n("Clear the printing queue of BibleTime. All items will be removed from the list, the print button will be disabled."))
@@ -115,7 +115,7 @@
 #define WT_SD_SEARCH_REGEXP WT(TT_SD_SEARCH_REGEXP, i18n("Select this to search using standard GNU regular expressions.<BR>Read the handbook for a explanation how to use them."))
 #define WT_SD_SEARCH_CASE_SENSITIVE WT(TT_SD_SEARCH_CASE_SENSITIVE, i18n("Activate this to use case sensitive search."))
 
-#define WT_SD_SCOPE_NO_SCOPE WT(TT_SD_SCOPE_NO_SCOPE, i18n("Select this if you want to search through alls parts of the module(s)."))
+#define WT_SD_SCOPE_NO_SCOPE WT(TT_SD_SCOPE_NO_SCOPE, i18n("Select this if you want to search through all parts of the module(s)."))
 #define WT_SD_SCOPE_LAST_RESULT WT(TT_SD_SCOPE_LAST_RESULT, i18n("Select this if you want to use the last search result of each module as search scope."))
 #define WT_SD_SCOPE_NEW_SCOPE WT(TT_SD_SCOPE_NEW_SCOPE, i18n("Create a new search scope."))
 #define WT_SD_SCOPE_OWN_SCOPE WT(TT_SD_SCOPE_OWN_SCOPE, i18n("Use an own scope for the search.<BR>A standard set of search scopes exists."))

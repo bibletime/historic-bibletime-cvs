@@ -204,7 +204,7 @@ void BibleTime::slotWindowMenuAboutToShow(){
 	QWidgetList windows = m_mdi->windowList();
 	int i, id;
 	for ( i = 0; i < int(windows.count()); ++i ) {
-		id = m_windowMenu->insertItem(QString("&%1 ").arg(i+1)+windows.at(i)->caption(),
+		id = m_windowMenu->insertItem(QString::fromLatin1("&%1 ").arg(i+1)+windows.at(i)->caption(),
 			this, SLOT( slotWindowMenuActivated( int ) ) );
 		m_windowMenu->setItemParameter( id, i );
 	  m_windowMenu->setItemChecked( id, m_mdi->activeWindow() == windows.at(i) );

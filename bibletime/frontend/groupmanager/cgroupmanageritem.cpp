@@ -174,9 +174,9 @@ void CGroupManagerItem::update(){
 		}		
 		if (!title.isEmpty()) {
 			if (m_moduleInfo && m_moduleInfo->module())
-				title = QString("%1 (%2)").arg(title).arg(m_moduleInfo->module()->Name());
+				title = QString::fromLatin1("%1 (%2)").arg(title).arg(m_moduleInfo->module()->Name());
 			else
-				title = QString("%1 (unknown)").arg(title);
+				title = QString::fromLatin1("%1 (%2)").arg(title).arg(i18n("unknown"));
 			setText(0,title);
 		}
 	}
@@ -223,11 +223,11 @@ const QString CGroupManagerItem::getToolTip(){
 	switch ( type() ) {
 		case Bookmark:
 		{
-			text = i18n("Bookmark to" ) + QString(" ");
-			text.append(QString("<B>") + getKeyText() + "</B><BR>");
+			text = i18n("Bookmark to" ) + QString::fromLatin1(" ");
+			text.append(QString::fromLatin1("<B>") + getKeyText() + QString::fromLatin1("</B><BR>"));
 			if (!description().stripWhiteSpace().isEmpty())
-				text.append("<FONT color=\"#800000\">(" + description().stripWhiteSpace() + ")</FONT><BR>");
-			text.append("<HR>");			
+				text.append(QString::fromLatin1("<FONT color=\"#800000\">(") + description().stripWhiteSpace() + QString::fromLatin1(")</FONT><BR>"));
+			text.append(QString::fromLatin1("<HR>"));			
 				
 			CKey* key = getBookmarkKey();			
 			if (!key)
@@ -241,7 +241,7 @@ const QString CGroupManagerItem::getToolTip(){
 						
 			if (moduleInfo() && moduleInfo()->hasFont()) {
 				QFont f = moduleInfo()->getFont();
-				text.append( QString("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(CToolClass::makeLogicFontSize(f.pointSize())).arg(bookmarkText) );
+				text.append( QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(CToolClass::makeLogicFontSize(f.pointSize())).arg(bookmarkText) );
 			}
 			else
 				text.append(bookmarkText);
@@ -250,7 +250,7 @@ const QString CGroupManagerItem::getToolTip(){
 		}
 		case Module:
 		{
-			text = i18n("Module") + QString(": <B>%1</B><HR>").arg(QString::fromLocal8Bit(moduleInfo()->module()->Name()));
+			text = i18n("Module") + QString::fromLatin1(": <B>%1</B><HR>").arg(QString::fromLocal8Bit(moduleInfo()->module()->Name()));
 			text += QString("%1<HR>").arg(moduleInfo()->getDescription());
 			text += i18n("Foonotes: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::strongNumbers) ? i18n("Yes") : i18n("No"));
 			text += i18n("Strong's numbers: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::footnotes) ? i18n("Yes") : i18n("No"));
@@ -260,7 +260,7 @@ const QString CGroupManagerItem::getToolTip(){
 				text += QString("Version: %1<BR>").arg(moduleInfo()->getVersion());
 			if (moduleInfo()->hasFont())
 				text += QString("Font: %1<BR>").arg(moduleInfo()->getFont().family());
-			if (text.right(4) == "<BR>")
+			if (text.right(4) == QString::fromLatin1("<BR>"))
 				text = text.left(text.length()-4);
 			return text;
 		}

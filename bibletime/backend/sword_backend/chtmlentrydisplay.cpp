@@ -49,8 +49,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
   }
 	if (m_includeHeader) {
 		m_htmlText =
-			m_htmlHeader + QString::fromLatin1("<BODY>") +
-				QString("<FONT color=\"%1\">\
+			m_htmlHeader + QString::fromLatin1("<BODY><FONT color=\"%1\">\
 <A HREF=\"sword://%2\">%3: <B>%4</B></A></FONT>\
 <HR><FONT face=\"%5\" size=\"%6\">%7</FONT>")
 				.arg(m_highlightedVerseColor)
@@ -108,20 +107,20 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	}
 
 	const int width=(int)((double)100/(double)moduleList->count());
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<TABLE cellpadding=\"1\" cellspacing=\"0\"><TR>"); 	
+	m_htmlText = m_htmlHeader + QString::fromLatin1("<TABLE cellpadding=\"2\" cellspacing=\"0\"><TR>"); 	
 	m = (d = moduleList->first()) ? d->module() : 0;	
 	
 	while (m) {
     if (m)
-			m_htmlText.append(QString("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2</B></TD>")
+			m_htmlText.append(QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2</B></TD>")
 				.arg(width)
 				.arg(QString::fromLocal8Bit(m->Name())));
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
-	m_htmlText.append("</TR>");
+	m_htmlText.append(QString::fromLatin1("</TR>"));
 			
 	m = (d = moduleList->first()) ? d->module() : 0;
-	m_htmlText.append("<TR>");
+	m_htmlText.append(QString::fromLatin1("<TR>"));
 	while (m) {
 	  if (d && d->hasFont()){ //use custom font
 	    QFont font = d->getFont();
@@ -133,7 +132,7 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 			FontSize = m_standardFontSize;
 	  }
 		m_htmlText.append(
-			QString("<TD width=\"%1%\"><FONT SIZE=\"%2\" FACE=\"%3\">%4</FONT></TD>")
+			QString::fromLatin1("<TD width=\"%1%\"><FONT SIZE=\"%2\" FACE=\"%3\">%4</FONT></TD>")
 				.arg(width)
 				.arg(FontSize)
 				.arg(FontName)
@@ -142,7 +141,7 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 			);
 		m = (d = moduleList->next()) ? d->module() : 0;		
 	}
-	m_htmlText.append( QString("</TR></TABLE>%1").arg(m_htmlBody) );	
+	m_htmlText.append( QString::fromLatin1("</TR></TABLE>%1").arg(m_htmlBody) );	
 
 	//don't delete the key because it's the module's one!	
 	return 0;

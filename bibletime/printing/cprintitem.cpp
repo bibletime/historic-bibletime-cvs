@@ -87,7 +87,7 @@ void CPrintItem::setStartKey(CKey* newKey) {
 		if (m_startKey == m_stopKey || !m_stopKey)
 			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );		
 		else if (stopKey) { //start and stop key do exist and are different
-			m_headerText = QString("%1 - %2")
+			m_headerText = QString::fromLatin1("%1 - %2")
 				.arg(QString::fromLocal8Bit((const char*)*startKey))
 				.arg(QString::fromLocal8Bit((const char*)*stopKey));
 		}
@@ -108,7 +108,7 @@ void CPrintItem::setStopKey( CKey* newKey ){
 		if (m_startKey == m_stopKey || !m_stopKey)
 			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );		
 		else if (stopKey) { //start and stop key do exist and are different
-			m_headerText = QString("%1 - %2")
+			m_headerText = QString::fromLatin1("%1 - %2")
 				.arg(QString::fromLocal8Bit((const char*)*startKey))
 				.arg(QString::fromLocal8Bit((const char*)*stopKey));
 		}
@@ -156,7 +156,7 @@ const QString CPrintItem::getModuleText() {
 	CSwordLDKey* lk = (CSwordLDKey*)m_startKey;
 	QString text = QString::null;
 	CSwordModuleInfo* sw = (CSwordModuleInfo*)m_module;
-	text = vk ? QString("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString();
+	text = vk ? QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString();
 	text += (vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString()));
 	if (sw && m_stopKey && m_stopKey != m_startKey) {
 		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
@@ -168,7 +168,7 @@ const QString CPrintItem::getModuleText() {
 			dummyKey.setKey( vk_start->getKey() );
 			while (dummyKey < *vk_stop) {
 				dummyKey.NextVerse();
-				text += QString("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.getRenderedText();
+				text += QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.getRenderedText();
 			}			
 		}
 		else if (sw->getType() == CSwordModuleInfo::Lexicon ) {
@@ -342,9 +342,9 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			if (m && m->hasFont())
 				font = m->getFont();
 			if (alignement == CStyleFormat::Center)		
-				text = QString("<CENTER>%1</CENTER>").arg(text);
+				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);
 			else if (alignement == CStyleFormat::Right)		
-				text = QString("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
+				text = QString::fromLatin1("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
 			text = QString("%1").arg(text);
     	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()-frame->getThickness()+printer->upperMargin());
     	richText.setWidth( p, printer->getPageSize().width()-2*frame->getThickness()-BORDER_SPACE );

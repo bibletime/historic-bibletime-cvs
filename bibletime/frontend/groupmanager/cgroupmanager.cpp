@@ -553,7 +553,7 @@ void CGroupManager::slotShowAbout(){
 	if ( module->isEncrypted() )
 		unlockKey = module->getCipherKey();	
 				
-	text = QString("<HTML><HEAD></HEAD><BODY>\
+	text = QString::fromLatin1("<HTML><HEAD></HEAD><BODY>\
 <TABLE border=\"0\" height=\"100%\" width=\"100%\" cellspacing=\"0\" cellpadding=\"2\">\
 <TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"center\" COLSPAN=\"2\"><H2>%1</H2></TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%2:</B></TD><TD BGCOLOR=\"#FFE9C8\">%3</TD></TR>\
@@ -570,7 +570,7 @@ void CGroupManager::slotShowAbout(){
 	.arg(i18n("Writable"))
 	.arg(isWritable);
 
-text += QString("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
+text += QString::fromLatin1("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%5:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
 <TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR></TABLE>\
@@ -852,10 +852,10 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 					  	
 	  	if (m_pressedItem->moduleInfo()->isEncrypted()) {
   			KConfigGroupSaver groupSaver(m_config, "Groupmanager");
-	  		if (m_showHelpDialogs && !m_config->readBoolEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), false))
+	  		if (m_showHelpDialogs && !m_config->readBoolEntry(QString::fromLatin1("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), false))
 	  			HTML_DIALOG(HELPDIALOG_MODULE_LOCKED);
 	  		if (m_showHelpDialogs)
-	  			m_config->writeEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
+	  			m_config->writeEntry(QString::fromLatin1("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
 	  	}
 		}
 		else if  (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Bookmark) {
