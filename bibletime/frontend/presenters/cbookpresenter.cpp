@@ -160,8 +160,6 @@ void CBookPresenter::modulesChanged(){
 }
 
 void CBookPresenter::lookup(CSwordKey* key) {
-	qWarning("CBookPresenter::lookup(CSwordKey*)");
-
 	setUpdatesEnabled(false);	
 	CSwordTreeKey* treeKey = dynamic_cast<CSwordTreeKey*>(key);	
 	CSwordModuleInfo* m = m_moduleList.first();
@@ -177,12 +175,12 @@ void CBookPresenter::lookup(CSwordKey* key) {
 	}
 	setUpdatesEnabled(true);
 	setCaption( windowCaption() );
+	
+	m_htmlWidget->scrollToAnchor( QString::fromLocal8Bit(treeKey->getLocalName()) );	
 }
 
 /** No descriptions */
 void CBookPresenter::lookup( const QString& module, const QString& key){
-	qWarning("key is %s", key.latin1());
-
 	CSwordModuleInfo* m = backend()->findModuleByName(module);
 	if (m && m_moduleList.containsRef(m)) {
 		if (!key.isEmpty())
@@ -192,7 +190,7 @@ void CBookPresenter::lookup( const QString& module, const QString& key){
 		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
 	}
 	else
-		emit lookupInModule(module, key);
+		emit lookupInModule(module, key);	
 }
 
 /** Initializes keyboard accelerators. */

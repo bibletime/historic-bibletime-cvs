@@ -33,36 +33,46 @@ char CHTMLBookDisplay::Display( CSwordModuleInfo* module ){
 	key->key(book->module()->KeyText());		
 	updateSettings();	
 	if (!displayLevel) {
+	 	m_htmlText = key->renderedText();
+	 	return 0;
+	}	
+	const QString oldKey = key->key();			
+
+	int moved = 0;
+	while (key->firstChild())
+		++moved; //down
+		
+	for (int i = 1; i < displayLevel; i++) {
+		if (!key->parent() || key->key() == "/" || key->key().isEmpty()) {
+			break;		
+		}
+		--moved; //up
+	};
+	
+	if (moved <= 1) {
+		while(key->previousSibling()); //first entry of it's parent		
+		printTree(*key, book);	
+		key->key(oldKey);
+		return 1;	
+	}
+	else {
+		key->key(oldKey.isNull() ? "/" : oldKey);
 		m_htmlText = key->renderedText();
 		return 1;
-	}
-	
-	bool ok = true;
-	const QString oldKey = key->key();		
-	while (key->firstChild()); //last entry
-	for (int i = 1; i < displayLevel && ok; i++) {
-		if (!key->parent())
-			ok = false;
-	};
-	if (!ok) {
-		return 0;
-	}
-	while(key->previousSibling());
-	printTree(*key, book);
-	return 1;
+	}	
 }
 
-void CHTMLBookDisplay::printTree(CSwordTreeKey treeKey, CSwordBookModuleInfo* module){
-  m_htmlText += QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\">%3</A>: %4")
+void CHTMLBookDisplay::printTree(CSwordTreeKey treeKey, CSwordBookModuleInfo* module, const int levelPos){
+  m_htmlText += QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\">%3</A>: %4<BR>")
   	.arg(treeKey.getLocalName())
   	.arg(CReferenceManager::encodeHyperlink(module->name(), treeKey.getFullName(), CReferenceManager::GenericBook))
   	.arg(treeKey.getLocalName())
   	.arg(treeKey.renderedText());  	
   	
   if (treeKey.firstChild()) {
-    printTree(treeKey, module);
+    printTree(treeKey, module, levelPos+1);
     treeKey.parent();
   }
   if (treeKey.nextSibling())
-		printTree(treeKey, module);
+		printTree(treeKey, module, levelPos);
 }

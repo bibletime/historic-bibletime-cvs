@@ -38,7 +38,7 @@ public:
   virtual char Display(CSwordModuleInfo* module);
 
 private:
-  void printTree(CSwordTreeKey treeKey, CSwordBookModuleInfo* module);
+	void printTree(CSwordTreeKey treeKey, CSwordBookModuleInfo* module, const int levelPos = 0);
 };
 
 #endif

@@ -27,12 +27,12 @@ CSwordBookModuleInfo::CSwordBookModuleInfo( SWModule* module )
 {
 	//checking if it works as expected
 //	qWarning("Book module: %s", module->Name());
-//	TreeKeyIdx* treeKey = tree();
-//	if (treeKey) {
-//		TreeKeyIdx root = *treeKey;
-//  	root.root();
-//		printTree(root, treeKey, 0);
-//	}
+	TreeKeyIdx* treeKey = tree();
+	if (treeKey) {
+		TreeKeyIdx root = *treeKey;
+  	root.root();
+		printTree(root, treeKey, 0);
+	}
 //	else
 //		qWarning("treeKey not valid");
 //	qWarning("depth: %i\n\n", depth());

@@ -33,14 +33,15 @@ CSwordTreeKey* CSwordTreeKey::copy() const {
 const QString CSwordTreeKey::key( const QString& newKey ){
 	if (!newKey.isNull()) {
 		if (newKey.isEmpty())
-			root();
+			root();	
 		else
 			TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!
+	
+		if (Error()) {
+			root();
+			return QString::null;
+		}		
 	}
-	if (Error()) {
-		root();
-		return QString::null;
-	}		
  	return QString::fromLocal8Bit( getFullName() ); //don't use fromUtf8
 }
 
