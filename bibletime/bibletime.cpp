@@ -172,7 +172,7 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			break;
 		default:
 			presenter = 0;
-			qWarning("unknown module type");
+			qDebug("unknown module type");
 			break;
 	}	
 	if (presenter) {

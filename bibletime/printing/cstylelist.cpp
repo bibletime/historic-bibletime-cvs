@@ -121,7 +121,7 @@ void CStyleList::deleteCurrentStyle(){
 	if (!item)
 		return;
 	if (item == printer()->standardStyle()->listViewItem()) {
-		qWarning("Deleting the standardstyle is not possible");
+//		qWarning("Deleting the standardstyle is not possible");
 		return;
 	}
 	

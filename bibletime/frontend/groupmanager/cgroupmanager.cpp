@@ -541,7 +541,7 @@ void CGroupManager::slotShowAbout(){
 		.arg(i18n("Language"))
 		.arg(module->module()->Lang());
 
-	if (module->module()->isWritable())
+	if (module->isWritable())
 		text += QString::fromLatin1("<b>%1:</b> %2<br>")
 							.arg(i18n("Writable"))
 							.arg(i18n("yes"));

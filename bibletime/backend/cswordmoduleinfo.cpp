@@ -259,3 +259,7 @@ const bool CSwordModuleInfo::has( const CSwordBackend::FilterOptions option ){
 }
 
 
+/** Return true if this module is writable for the frontend users. */
+const bool CSwordModuleInfo::isWritable(){
+  return false;
+}

@@ -38,6 +38,10 @@ public:
 	~CSwordCommentaryModuleInfo();
   virtual const CSwordModuleInfo::ModuleType type() const;
   virtual CSwordModuleInfo* clone();
+  /**
+  * Reimplementation from CModuleInfo.
+  */
+  virtual const bool isWritable();
 };
 
 /** No descriptions */

@@ -7,7 +7,7 @@
 
 # this needs to be changed depending on build number 
 # and weather or not it is static
-%define		release 	1
+%define		release 	1mdk9.0
 
 # This should be set to your os.
 # Possible values are  Mandrake, Red Hat, Turbolinux, Caldera, SuSE, Debian, etc.
@@ -31,12 +31,12 @@
 
 # This for Mandrake menus if you have another system do not edit this line. it is for
 # compatability with those systems.
-%define		build_menus	0
+%define		build_menus	1
 %define		_menudir 	/usr/lib/menu 
 # Nothing else should need to be changed.
 # Please do not edit below this line unless you know what you are doing.
 
-Summary:        BibleTime %{version} is an easy to use Bible study tool for KDE.
+Summary:        BibleTime %{version} is an easy to use Bible study tool for KDE2.
 Name:		%{name}
 Version:        %{version}
 Release:        %{release}
@@ -44,7 +44,7 @@ Release:        %{release}
 Copyright:      GPL
 Vendor:         The team of BibleTime <info@bibletime.de>
 Url:            http://www.bibletime.de
-Packager:       Brook Humphrey <bah@webmedic.net>, Joachim Ansorg <jansorg@gmx.de>
+Packager:       Brook Humphrey <bah@webmedic.net>, Joachim Ansorg <joachim@ansorgs.de>
 Group:          %{rpmgroup}
 BuildArch:      %{buildarch}
 Source0:        %{name}-%{version}.tar.bz2
@@ -54,13 +54,12 @@ Source0:        %{name}-%{version}.tar.bz2
 Source1:        bibletime_icons.tar.bz2
 %endif
 
-# This source comes from sword and will conflict woth sword if it is installed so we will make it a seperarte package.
+# This source comes from sword and will conflict woth sword if it is installed so we will make it a seperate package.
 Source2:	locales.d.tar.bz2
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
 Provides:       sword-base sword = %{libversion}
 Prefix: 	@RPM_PREFIX@
-
 
 %description
 BibleTime %{version}-%{release} is a free and easy to use bible study tool for UNIX systems.
@@ -104,19 +103,19 @@ if [ %{ostype} = "Mandrake" ] ; then
   tar jxvf %{SOURCE1}
  %endif
  export KDEDIR=/usr QTDIR=/usr/lib/qt3
-elif [%{ostype} = "SuSE"] ; then
+elif [ %{ostype} = "SuSE" ] ; then
  export KDEDIR=/opt/kde3 QTDIR=/usr/lib/qt3
 else
-	echo "Using $KDEDIR as KDE directory";
-	echo "Using $QTDIR as QT directory";
-	echo "If the directories are not correct please set them using \"export KDEDIR=<KDE directory> QTDIR=<QT directory>\""
+	echo "Using $KDEDIR as KDE 3 directory";
+	echo "Using $QTDIR as QT 3.x directory";
+	echo "If the directories are not correct please set them using \"export KDEDIR=<KDE3 directory> QTDIR=<QT3.x directory>\""
 	sleep 5
 fi
 
 make -f Makefile.cvs
 
 if [ %{swordlibs} = "static" ] ; then
-        ./configure --enable-static-sword;
+        ./configure --enable-static-sword; #--enable-static-linking;
 else
         ./configure;
 fi
@@ -135,24 +134,31 @@ cat << EOF >$RPM_BUILD_ROOT%{ModsPath}/globals.conf
  [Globals]
 EOF
 
-# For use with mandrake menu system
+# For use with mandrake menu system 
 cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(bibletime):command="/usr/bin/bibletime" icon="bibletime.xpm" \
+?package(bibletime):command="/usr/bin/bibletime" icon="bibletime.png" \
                 needs="X11" section="Applications/Bible Study/" title="Bibletime" \
                 longtitle="An easy to use Bible study tool."
 EOF
 
-# For use with mandrake menu system
+# For use with mandrake menu system 
+cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}-setupwizard
+?package(bibletime):command="/usr/bin/btsetupwizard" icon="bibletime.png" \
+                needs="X11" section="Applications/Bible Study/" title="Bibletime Setup Wizard" \
+                longtitle="A setup tool for the easy to use Bible study tool."
+EOF
+
+# For use with mandrake menu system 
 # icons: this is for the mandrake menu system
 %if %build_menus
   mkdir -p $RPM_BUILD_ROOT%{_liconsdir}
   mkdir -p $RPM_BUILD_ROOT%{_iconsdir}
   mkdir -p $RPM_BUILD_ROOT%{_miconsdir}
   cd $RPM_BUILD_DIR/%{name}-%{version}
-  install -m 644 %{name}_16.xpm $RPM_BUILD_ROOT%{_miconsdir}/%{name}.xpm
-  install -m 644 %{name}_32.xpm $RPM_BUILD_ROOT%{_iconsdir}/%{name}.xpm
-  install -m 644 %{name}_48.xpm $RPM_BUILD_ROOT%{_liconsdir}/%{name}.xpm
-%endif
+  install -m 644 hi16-app-%{name}.png $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
+  install -m 644 hi32-app-%{name}.png $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
+  install -m 644 hi48-app-%{name}.png $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
+%endif 
 
 %post
 # this is for creation of the sword.conf for systems that are using bibletime without Sword installed.
@@ -189,18 +195,41 @@ rm -rf $RPM_BUILD_ROOT
 #Sword config files
 %config %{ModsPath}/globals.conf
 %config %{SwordPath}/locales.d/*.conf
+
 # global BibleTime config files
 %config %{prefix}/share/config/bt-printing
-%{prefix}/bin/bibletime
+%{prefix}/bin/*
 %{prefix}/share/applnk/Applications/*
 %{prefix}/share/apps/bibletime/*
 %{prefix}/share/icons/*
+
 # For use with mandrake menu system
 %if %build_menus
 %{_menudir}/%{name}
+%{_menudir}/%{name}-setupwizard
 %endif
 
 %changelog
+* Tue Oct 29 2002 Joachim Ansorg <joachim@ansorgs.de> bibleitme-1.2.2
+
+- Put this new version into BibleTime's current CVS (1.2.2 branch)
+
+- Adjusted defines for the automatic distribution detection.
+
+* Tue Oct 9 2002 Brook Humphrey <bah@webmedic.net> bibleitme-1.2.2-cvs-1mdk9.0
+
+- Build for mandrake 9.0/ Fixes for gcc 3.2 should allow it to build this time.
+
+- Changed files somewhat as the build droped some and added some.
+
+- Added mandrake menu for bibletime setup wizard.
+
+- Changed the icons to the new hicolor png's for the mandrake menues.
+
+* Fri Aug 2 2002 Brook Humphrey <bah@webmedic.net> bibleitme-1.2.1
+
+- Build for Mandrake 9.0
+
 * Mon Apr 8 2002 Brook Humphrey <bah@webmedic.net> bibletime-1.1
 
 - Added to the spec to better handle mandrake menus during compile. Now should be compatable with all os's.

@@ -6,14 +6,12 @@ COPYING \
 ChangeLog \
 bibletime.spec.in bibletime.spec \
 README.in README \
-TODO.in TODO \
 INSTALL.in INSTALL\
 bibletime.lsm.in bibletime.lsm \
 configure.in.in configure.in \
 bibletime.desktop.in bibletime.desktop \
-NEWS.in NEWS \
-Makefile.cvs \
-bibletime.m4 sword.m4
+Makefile.cvs bibletime.m4 sword.m4
+
 
 # not a GNU package. You can remove this line, if 
 # have all needed files, that a GNU package needs
@@ -32,10 +30,14 @@ $(top_srcdir)/configure.files:
 	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common configure.files
 
 install-data-local:
-	chmod 755 $(DESTDIR)$(kde_datadir)/bibletime -R
+	chmod -R 755 $(DESTDIR)$(kde_datadir)/bibletime
 
 MAINTAINERCLEANFILES = configure.files subdirs 
 
-dist-hook:	
+dist-hook:
+	rm -f $(distdir)/bibletime-*.tar.gz
+	rm -rf `find $(distdir) -name tags -o -name TAGS -o -name \*.xcf`
+	rm -f $(distdir)/admin/Changelog $(distdir)/make-messages.sh $(distdir)/extractrc $(distdir)/preparetips $(distdir)/bibletime.doxygen $(distdir)/bibletime.kdevses $(distdir)/bibletime.start $(distdir)/configure.files $(distdir)/bibletime/pics/gen_am.sh
 	cd $(distdir) && make -f Makefile.cvs
-
+	rm -rf $(distdir)/autom4te.cache
+	cp -Ra $(srcdir)/debian $(distdir)/debian

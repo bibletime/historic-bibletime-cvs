@@ -18,7 +18,6 @@ $(LIB_KDECORE) \
 $(LIB_KDEUI) \
 -lkdeprint \
 $(LIB_KFILE) \
-$(LIB_KHTML) \
 $(LIB_X11) \
 $(LIB_SWORD) \
 $(LIBSOCKET)
@@ -28,10 +27,9 @@ SUBDIRS = backend printing frontend xml pics util
 all_headers = bibletime.h \
 resource.h \
 whatsthisdef.h \
-tooltipdef.h \
-bt-printing
+tooltipdef.h 
 
-EXTRA_DIST = $(bibletime_SOURCES) $(all_headers)
+EXTRA_DIST = $(bibletime_SOURCES) $(all_headers) bt-printing
 
 # this 10 paths are KDE specific. Use them:
 # kde_htmldir       Where your docs should go to. (contains lang subdirs)
@@ -72,8 +70,6 @@ install-data-local:
 
 uninstall-local:
 	-rm -f $(DESTDIR)$(kde_confdir)/bt-printing
-
-rpm: dist
 	
 
 

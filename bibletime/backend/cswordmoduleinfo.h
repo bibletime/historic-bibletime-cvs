@@ -175,6 +175,10 @@ public:
   virtual const bool snap() {return false;};
   const bool has( const CSwordModuleInfo::Feature );
 	const bool has( const CSwordBackend::FilterOptions option )	;
+  /**
+  * Return true if this module is writable for the frontend users.
+  */
+  virtual const bool isWritable();
 
 private:
 	SWModule*	m_module;

@@ -283,7 +283,7 @@ void CStyle::clearData(){
 
 /** Updates the Listview items */
 void CStyle::updateListViewItem(){
-//	qWarning("CStyle::updateListViewItem() for %s", m_name.latin1());
+//	qDebug("CStyle::updateListViewItem() for %s", m_name.latin1());
 	m_listViewItem->setText(0, styleName() );
 }
 
@@ -297,7 +297,7 @@ void CStyle::deleteListViewItem(){
 const bool CStyle::load(const QString& filename){
 /**
 * The XML file should look like this:
-* 	
+*
  <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE DOC >
  <BibleTimePrintingStyle syntaxVersion="1" name="Standard" translate="1">
   <HEADER enabled="1" alignment="center">
@@ -309,7 +309,7 @@ const bool CStyle::load(const QString& filename){
 */
 	QFile file(filename);
 	if (!file.exists()) {
-		qWarning("file doesn't exist");
+		qDebug("file doesn't exist");
 		return false;
 	}
 	
@@ -321,13 +321,13 @@ const bool CStyle::load(const QString& filename){
 		file.close();	
 	}
 	else {
-		qWarning("CStyle::load: unable to open file %s", filename.latin1());
+		qDebug("CStyle::load: unable to open file %s", filename.latin1());
 		return false;
 	};
 	
   QDomElement document = doc.documentElement();
   if(document.tagName() != "BibleTimePrintingStyle") {
-		qWarning("CProfile::load: Missing BibleTime doc");
+		qDebug("CProfile::load: Missing BibleTimePrintingStyle");
 		return false;
 	}
 	if (document.hasAttribute("name")) { //name of the printing style

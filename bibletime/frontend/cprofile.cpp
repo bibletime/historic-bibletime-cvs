@@ -49,7 +49,7 @@ CProfile::CProfile( const QString& file, const QString& name ):
 		init(m_filename);
 	}
 	else
-		qWarning("CProfile: empty file name!");
+		qDebug("CProfile: empty file name!");
 }
 
 CProfile::~CProfile(){
@@ -72,7 +72,7 @@ QPtrList<CProfileWindow> CProfile::load(){
 	
   QDomElement document = doc.documentElement();
   if(document.tagName() != "BibleTime") {
-		qWarning("CProfile::load: Missing BibleTime doc");
+		qDebug("CProfile::load: Missing BibleTime doc");
 		return m_profileWindows;
 	}
 	if (document.hasAttribute("name")) {

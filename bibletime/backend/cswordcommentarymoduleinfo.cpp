@@ -17,6 +17,8 @@
 
 #include "cswordcommentarymoduleinfo.h"
 
+#include <string>
+
 CSwordCommentaryModuleInfo::CSwordCommentaryModuleInfo( SWModule* module)
 	:CSwordBibleModuleInfo(module) {	
 }
@@ -28,4 +30,9 @@ CSwordCommentaryModuleInfo::~CSwordCommentaryModuleInfo(){
 /** No descriptions */
 CSwordModuleInfo* CSwordCommentaryModuleInfo::clone(){
 	return new CSwordCommentaryModuleInfo(*this);
+}
+
+/** Reimplementation from CModuleInfo. */
+const bool CSwordCommentaryModuleInfo::isWritable(){
+  return ((module()->getConfigEntry("ModDrv") == std::string("RawFiles")) && module()->isWritable());
 }
