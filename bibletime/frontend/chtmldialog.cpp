@@ -27,6 +27,7 @@
 #include <qtextbrowser.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
+#include <qpushbutton.h>
 
 //KDE includes
 #include <kcombobox.h>
@@ -49,7 +50,6 @@ CHTMLDialog::CHTMLDialog(const QString& url, QWidget* parent, const char *name)
 	
 	m_textBrowser->mimeSourceFactory()->setFilePath(file);
 	m_textBrowser->setSource(file);
-//	m_historyCombo->insertItem(file);
 }
 
 CHTMLDialog::~CHTMLDialog(){
@@ -102,6 +102,15 @@ void CHTMLDialog::init(const bool enableHistory){
 	}		
 	layout->addSpacing(5);	
 	layout->addWidget(m_textBrowser,5);
+	
+	QHBoxLayout* hBox = new QHBoxLayout();
+	QPushButton* closeButton = new QPushButton(this);
+	closeButton->setText(i18n("Close"));
+	connect(closeButton, SIGNAL(pressed()), this, SLOT(close()));
+	hBox->addStretch(5);
+	hBox->addWidget(closeButton,1);
+	
+	layout->addLayout(hBox);
 }
 
 /** Is called when an item of the history combo was chosen. */

@@ -40,6 +40,8 @@ QString CToolClass::locatehtml(const QString &filename) {
     QString path = locate("html", KGlobal::locale()->language() + '/' + filename);
     if (path.isNull())
        path = locate("html", "default/" + filename);
+    if (path.isNull())
+       path = locate("html", "en/" + filename);
     return path;
 }
 
