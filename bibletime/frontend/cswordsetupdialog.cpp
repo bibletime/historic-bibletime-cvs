@@ -105,42 +105,42 @@ void CSwordSetupDialog::initInstall(){
 	m_installWidgetStack = new QWidgetStack(newpage);
   hboxlayout->addWidget(m_installWidgetStack);
 
-	QWidget* page = new QWidget(0);
-  m_installWidgetStack->addWidget(page);
+	m_installSourcePage = new QWidget(0);
+  m_installWidgetStack->addWidget(m_installSourcePage);
 
-	page->setMinimumSize(500,400);
+	m_installSourcePage->setMinimumSize(500,400);
 
-	QGridLayout* layout = new QGridLayout(page, 8, 2);
+	QGridLayout* layout = new QGridLayout(m_installSourcePage, 8, 2);
 	layout->setMargin(5);
 	layout->setSpacing(10);
 	layout->setRowStretch(6,5);
 
-	QLabel* installLabel = CToolClass::explanationLabel(page,
+	QLabel* installLabel = CToolClass::explanationLabel(m_installSourcePage,
 		i18n("Install/update modules - Step 1"),
 		i18n("Please choose a source and a destination")
   );
 	layout->addMultiCellWidget(installLabel, 0,0,0,1);
 
-	QLabel* sourceHeadingLabel = new QLabel("<b>Select source location</b>",page);
+	QLabel* sourceHeadingLabel = new QLabel("<b>Select source location</b>",m_installSourcePage);
 	layout->addMultiCellWidget(sourceHeadingLabel, 1,1,0,1);
 
-	m_sourceCombo = new QComboBox(page);
+	m_sourceCombo = new QComboBox(m_installSourcePage);
 	layout->addWidget(m_sourceCombo, 2, 0);
 
-	QPushButton* maintainSourcesButton = new QPushButton(page);
+	QPushButton* maintainSourcesButton = new QPushButton(m_installSourcePage);
 	maintainSourcesButton->setText("Maintain");
 	layout->addWidget(maintainSourcesButton, 2, 1, Qt::AlignLeft);
 
-	m_sourceLabel = new QLabel(page);
+	m_sourceLabel = new QLabel(m_installSourcePage);
 	layout->addMultiCellWidget(m_sourceLabel, 3,3,0,1);
 
-	QLabel* targetHeadingLabel = new QLabel("<b>Select target location</b>",page);
+	QLabel* targetHeadingLabel = new QLabel("<b>Select target location</b>",m_installSourcePage);
 	layout->addMultiCellWidget(targetHeadingLabel, 4,4,0,1);
 
-	m_targetCombo = new QComboBox(page);
+	m_targetCombo = new QComboBox(m_installSourcePage);
 	layout->addWidget(m_targetCombo, 5, 0);
 
-	m_targetLabel = new QLabel(page);
+	m_targetLabel = new QLabel(m_installSourcePage);
 	layout->addMultiCellWidget(m_targetLabel, 6,6,0,1,Qt::AlignTop);
 
   QHBoxLayout* myHBox = new QHBoxLayout();
@@ -156,7 +156,9 @@ void CSwordSetupDialog::initInstall(){
 	myHBox->addWidget(m_installContinueButton, 7, 1);
 
 //  m_installMgr = new BTInstallMgr();
-  
+
+  m_installBackButton->setEnabled(false);
+
 //	connect(backButton, SIGNAL(clicked() ), m_main, SLOT(slot_backtoMainPage()));
 	connect(m_sourceCombo, SIGNAL( highlighted(const QString&) ), SLOT( slot_sourceSelected( const QString&) ));
 	connect(m_targetCombo, SIGNAL( highlighted(const QString&) ), SLOT( slot_targetSelected( const QString&) ));
@@ -262,7 +264,7 @@ void CSwordSetupDialog::populateInstallCombos(){
 void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
   BTInstallMgr mgr;
 
-  m_sourceLabel->setText( BTInstallMgr::Tool::source(&mgr, sourceName)->directory.c_str() );
+  m_sourceLabel->setText( BTInstallMgr::Tool::source(&mgr, sourceName).directory.c_str() );
 //  source = m_sourceMap[sourceName];
 }
 
@@ -418,31 +420,24 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   categoryBook->setOpen(true);
   
   BTInstallMgr iMgr;
-  sword::InstallSource* is = BTInstallMgr::Tool::source(&iMgr, sourceName);
-  Q_ASSERT(is);
-  if (!is) {
-    return;
+  sword::InstallSource is = BTInstallMgr::Tool::source(&iMgr, sourceName);
+
+  if (BTInstallMgr::Tool::isRemoteSource(&is)) {        
+    if (!m_refreshedRemoteSources)
+      iMgr.refreshRemoteSource( &is );
+    m_refreshedRemoteSources = true;
   }
-    
-  if (!m_refreshedRemoteSources)
-    iMgr.refreshRemoteSource( is );
-  m_refreshedRemoteSources = true;
-   
-  sword::SWMgr* mgr = is->getMgr();
-  Q_ASSERT(mgr);
-  if (!mgr) {
-    return;
-  }
-  
+
+  sword::SWMgr mgr = BTInstallMgr::Tool::isRemoteSource(&is) ? *(is.getMgr()) : sword::SWMgr(is.directory.c_str());
 
   QListViewItem* parent = 0;
-  for (sword::ModMap::iterator it = mgr->Modules.begin(); it != mgr->Modules.end(); it++) {
+  for (sword::ModMap::iterator it = mgr.Modules.begin(); it != mgr.Modules.end(); it++) {
     sword::SWModule* module = it->second;
 
     if (CPointers::backend()->findModuleByName(module->Name())) //module already installed?
       continue;
-    sword::SectionMap::iterator section = mgr->config->Sections.find(module->Name());
-    if ((section != mgr->config->Sections.end()) && (section->second.find("CipherKey") != section->second.end())) //module enciphered
+    sword::SectionMap::iterator section = mgr.config->Sections.find(module->Name());
+    if ((section != mgr.config->Sections.end()) && (section->second.find("CipherKey") != section->second.end())) //module enciphered
       continue;
     
     Q_ASSERT(module);
@@ -472,7 +467,6 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
       QListViewItem* newItem = new QCheckListItem(m_installModuleListView, QString::fromLatin1(module->Name()), QCheckListItem::CheckBox);
     }
   }
-//	m_populateListNotification->setText("");
   m_installWidgetStack->raiseWidget(m_installModuleListPage);
 }
 
@@ -493,6 +487,10 @@ void CSwordSetupDialog::slot_connectToSource(){
 	m_installModuleListView->addColumn("Name");
   m_installModuleListView->addColumn("Location");
 
+
+  connect( m_installBackButton, SIGNAL(clicked()), this, SLOT(slot_showInstallSourcePage()));
+  m_installBackButton->setEnabled(true);
+
   m_installContinueButton->setEnabled(false);
   disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
   connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
@@ -500,6 +498,7 @@ void CSwordSetupDialog::slot_connectToSource(){
   populateInstallModuleListView( m_sourceCombo->currentText() );
   m_installContinueButton->setText(i18n("Install modules"));
   m_installContinueButton->setEnabled(true);
+
 }
 
 /** Installs chosen modules */
@@ -531,20 +530,24 @@ void CSwordSetupDialog::slot_installModules(){
     qWarning("proceeding");
     
     BTInstallMgr iMgr;
-    sword::InstallSource* is = BTInstallMgr::Tool::source(&iMgr, m_sourceCombo->currentText());
-    Q_ASSERT(is);
+    sword::InstallSource is = BTInstallMgr::Tool::source(&iMgr, m_sourceCombo->currentText());
+
+//    Q_ASSERT(is);
 
     QString target = m_targetCombo->currentText();
     target.replace("$HOME", getenv("HOME"));
 
     //make sure target/mods.d and target/modules exist
     QDir dir(target.latin1());
-    if (!dir.exists())
+    if (!dir.exists()) {
       dir.mkdir(target, true);
-    if (!dir.exists("modules"))
+    }
+    if (!dir.exists("modules")) {
       dir.mkdir("modules");
-    if (!dir.exists("mods.d"))
+    }
+    if (!dir.exists("mods.d")) {
       dir.mkdir("mods.d");
+    }
         
     qWarning("installing into target %s", target.latin1());
     sword::SWMgr lMgr( target.latin1() );
@@ -556,8 +559,13 @@ void CSwordSetupDialog::slot_installModules(){
       m_progressDialog->progressBar()->setTotalSteps(100);
       connect(&iMgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
       
-      iMgr.installModule(&lMgr, 0, (*it).latin1(), is);
-      qWarning("Installed module: [%s]" , (*it).latin1());
+      if (BTInstallMgr::Tool::isRemoteSource(&is)) {
+        iMgr.installModule(&lMgr, 0, (*it).latin1(), &is);
+      }
+      else { //local source
+        qWarning("install from local source");
+        iMgr.installModule(&lMgr, is.directory.c_str(), (*it).latin1());
+      }
 
       delete m_progressDialog;
       m_progressDialog = 0;
@@ -571,9 +579,14 @@ void CSwordSetupDialog::slot_installModules(){
 
 /** No descriptions */
 void CSwordSetupDialog::installCompleted( const int total, const int file ){
-  qWarning("percent completed %i", total);
+//  qWarning("percent completed %i", total);
   if (m_progressDialog) {
     m_progressDialog->progressBar()->setProgress(total);
     m_progressDialog->setLabel( QString("[%1] %2% completed").arg(m_installingModule).arg(total) );  
   }
+}
+
+/** No descriptions */
+void CSwordSetupDialog::slot_showInstallSourcePage(){
+  m_installWidgetStack->raiseWidget(m_installSourcePage);
 }
