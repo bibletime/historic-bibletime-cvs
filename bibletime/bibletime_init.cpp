@@ -455,51 +455,51 @@ void BibleTime::initConnections(){
 /** Initializes the backend */
 void BibleTime::initBackends(){
 	KStartupLogo::setStatusMessage(i18n("Initializing Sword") + QString::fromLatin1("..."));
-	
-	m_backend = new CSwordBackend();	
+
+	m_backend = new CSwordBackend();
 	CPointers::setBackend(m_backend);
 	const CSwordBackend::LoadError errorCode = m_backend->initModules();
 
-	m_moduleList = 0;		
+	m_moduleList = 0;
 	if ( errorCode == CSwordBackend::NoError ) {	//no error
 		m_moduleList = &(m_backend->moduleList());
 	} else {
 		m_moduleList = 0;
-		//show error message that initBackend failed		
+		//show error message that initBackend failed
 		switch (errorCode) {
 			case CSwordBackend::NoSwordConfig: //mods.d or mods.conf missing
 			{
 				KStartupLogo::hideSplash();
-            	CSwordSetupDialog dlg;
-        		dlg.showPart( CSwordSetupDialog::Sword );
-        		dlg.exec();
+        CSwordSetupDialog dlg;
+        dlg.showPart( CSwordSetupDialog::Sword );
+        dlg.exec();
 //				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModuleConfigDir);
 //				dlg.exec();
 //				KStartupLogo::showSplash();
 				break;
 	    }
-	
+
 			case CSwordBackend::NoModules: //no modules installed, but config exists
 			{
 				KStartupLogo::hideSplash();
-        		CSwordSetupDialog dlg;
-        		dlg.showPart( CSwordSetupDialog::Install );
-        		dlg.exec();
+        CSwordSetupDialog dlg;
+        dlg.showPart( CSwordSetupDialog::Install );
+        dlg.exec();
 //				CHTMLDialog dlg(CResMgr::helpDialog::noSwordModules);
 //				dlg.exec();
-//				KStartupLogo::showSplash();				
+//				KStartupLogo::showSplash();
 				break;
 		  }
-		
+
 			default: //unknown error
 			{
 				KStartupLogo::hideSplash();
-        		CSwordSetupDialog dlg;
-        		dlg.showPart( CSwordSetupDialog::Sword );
-       	 		dlg.exec();
+        CSwordSetupDialog dlg;
+        dlg.showPart( CSwordSetupDialog::Sword );
+       	dlg.exec();
 //				CHTMLDialog dlg(CResMgr::helpDialog::initBackendFailed);
 //				dlg.exec();
-//				KStartupLogo::showSplash();				
+//				KStartupLogo::showSplash();
 				break;
 		  }
 		}
