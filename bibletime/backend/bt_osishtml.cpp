@@ -176,7 +176,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		// <reference> tag
 		else if (!strcmp(tag.getName(), "reference")) {
 			if (!tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
-        char* ref = tag.getAttribute("osisRef");
+        const char* ref = tag.getAttribute("osisRef");
 
         SWBuf typeName = "Bible";        
         CSwordModuleInfo::ModuleType type = CSwordModuleInfo::Bible;
