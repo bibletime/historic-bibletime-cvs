@@ -176,8 +176,7 @@ void CSwordBackend::setOption( const CSwordBackend::FilterOptions type, const bo
 			value = enable ? "On": "Off";
 			break;
 	};
-//	qWarning("CSwordBackend::setOption: %s to %s",optionName(type).latin1(),value.c_str() );
-//	setGlobalOption(optionName(type).latin1(), value.c_str());
+	setGlobalOption(optionName(type).latin1(), value.c_str());
 	
 	//debug option values
 //	OptionsList options = getGlobalOptionValues("Footnotes");
