@@ -41,8 +41,8 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("FV", "<sub>"); // Subscript begin
 	addTokenSubstitute("Fv", "</sub>");
 
-	addTokenSubstitute("Tt", "</FONT></H1>");
-	addTokenSubstitute("Ts", "</FONT></H2>");
+	addTokenSubstitute("Tt", "</font></h1>");
+	addTokenSubstitute("Ts", "</font></h2>");
 		
 	addTokenSubstitute("PP", "<cite>"); //  poetry  begin
 	addTokenSubstitute("Pp", "</cite>");
@@ -67,71 +67,58 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 	if (!substituteToken(buf, token)) {  //more than a simple replace
   	const int tokenLength = strlen(token);
 		unsigned long i;
+		unsigned long len = strlen(token);
 		
 		if (!strncmp(token, "TT", 2)){ // heading title start
-			pushString(buf," <H1><font color=\"%s%s",text_color,"\">");
+			pushString(buf," <h1><font color=\"%s\">",text_color);
 		}
 		if (!strncmp(token, "TS", 2)){ // section title start
-			pushString(buf," <H2><font color=\"%s%s",text_color,"\">");
+			pushString(buf," <H2><font color=\"%s\">",text_color);
 		}
-			
 
 		if (!strncmp(token, "WG", 2)){ // strong's numbers greek
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Greek/");
+
+			char num[6];
 			for (i = 2; i < tokenLength; i++)
-					*(*buf)++ = token[i];
-			pushString(buf, "\">&lt;");
-			for (i = 2; i < tokenLength; i++)
-					*(*buf)++ = token[i];
-			pushString(buf, "&gt;</A></em></small></font> " );
+					num[i-2] = token[i];
+			num[i-2]=0;
+
+			pushString(buf," <font color=\"%s\"><small><em><a href=\"strongs://Greek/%s\">&lt;%s&gt;</a></em></small></font> ",
+				strongs_color, num, num);
 		}
 
 		if (!strncmp(token, "WH", 2)){ // strong's numbers hebrew
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Hebrew/");
+
+			char num[6];
 			for (i = 2; i < tokenLength; i++)
-					*(*buf)++ = token[i];
-			pushString(buf, "\">&lt;");
-			for (i = 2; i < tokenLength; i++)
-					*(*buf)++ = token[i];
-			pushString(buf, "&gt;</A></em></small></font> ");
+					num[i-2] = token[i];
+			num[i-2]=0;
+
+			pushString(buf," <font color=\"%s\"><small><em><a href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a></em></small></font> ",
+				strongs_color, num, num);
 		}
 
 		else if (!strncmp(token, "WTG", 3)) { // strong's numbers tense greek
-			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://Greek/");
-			for (i = 2; i < tokenLength; i++)				
-				if(token[i] != '\"')
-					*(*buf)++ = token[i];
-			pushString(buf, "\">(");
+
+			char num[16];
 			for (i = 3; i < tokenLength; i++)
-				if(token[i] != '\"') 			
-					*(*buf)++ = token[i];
-			pushString(buf, ")</a></em></small></font>");
+					num[i-3] = token[i];
+			num[i-3]=0;
+
+			pushString(buf," <font color=\"%s\"><small><em><a href=\"morph://Greek/%s\">(%s)</a></em></small></font> ",
+				strongs_color, num, num);
 		}
 
 		else if (!strncmp(token, "WTH", 3)) { // strong's numbers tense hebrew
-			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://Hebrew/");
-			for (i = 2; i < tokenLength; i++)				
-				if(token[i] != '\"')
-					*(*buf)++ = token[i];
-			pushString(buf, "\">(");
-			for (i = 3; i < tokenLength; i++)
-				if(token[i] != '\"') 			
-					*(*buf)++ = token[i];
-			pushString(buf, ")</a></em></small></font>");
-		}
 
-//		else if (!strncmp(token, "WT", 2)) { // morph tags
-//			pushString(buf, " <small><em>(<a href=\"sword://morph_/" ERROR);
-//			for (i = 2; i < tokenLength; i++)				
-//				if(token[i] != '\"')
-//					*(*buf)++ = token[i];
-//			*(*buf)++ = '\"';
-//			*(*buf)++ = '>';
-//			for (i = 2; i < tokenLength; i++)
-//				if(token[i] != '\"') 			
-//					*(*buf)++ = token[i];
-//			pushString(buf, "</A>)</EM></SMALL>");
-//		}
+			char num[6];
+			for (i = 3; i < tokenLength; i++)
+					num[i-3] = token[i];
+			num[i-3]=0;
+
+			pushString(buf," <font color=\"%s\"><small><em><a href=\"morph://Hebrew/%s\">(%s)</a></em></small></font> ",
+				strongs_color, num, num);
+		}
 
 		else if (!strncmp(token, "RB", 2)) {
 			pushString(buf, "<i>");
@@ -143,7 +130,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 				userData["hasFootnotePreTag"] = "false";
 				pushString(buf, "</i> ");
 			}
-			pushString(buf,"<font color=\"%s%s",footnote_color,"\"><small> (");
+			pushString(buf,"<font color=\"%s\"><small> (",footnote_color);
 		}
 
 		else if (!strncmp(token, "FN", 2)) {

@@ -43,13 +43,12 @@ BT_ThMLHTML::BT_ThMLHTML() {
 }
 
 bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
+
 	unsigned long i;
 	const int tokenLength = strlen(token);	
-	
 	if (!substituteToken(buf, token) || !substituteEscapeString(buf, token)) {
 
 		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
-//			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em>&lt;");
 			pushString(buf," <small><em>&lt;");
 
 			for (unsigned int j = 17; j < tokenLength; j++) {
@@ -60,122 +59,97 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					break;
 				}
 			}
-//			pushString(buf, "&gt;</em></small></font> ");
 			pushString(buf, "&gt;</em></small> ");
 		}
 
 		else if (!strncmp(token, "sync type=\"morph\"", 17)) { //Morph
-			char** oldbuf = buf;
-			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://Greek/");
 
+			char num[12];
 			for (unsigned int j = 17; j < tokenLength; j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
 					j += 7;
-					for (;token[j] != '\"'; j++)
-						*(*buf)++ = token[j];
+					int idx=0;
+					for (;token[j] != '\"'; j++,idx++)
+						num[idx] = token[j];
+					num[idx] = 0;
 					break;
 				}
 			}
-			*(*buf)++ = '"';
-			*(*buf)++ = '>';
-			*(*buf)++ = '(';
-			for (unsigned int j = 17; j < tokenLength; j++) {
-				if (!strncmp(token+j, "value=\"", 7)) {
-					j += 7;
-					for (;token[j] != '\"'; j++)
-						*(*buf)++ = token[j];
-					break;
-				}
-			}
-			pushString(buf, ")</a></em></small></font> ");
+			pushString(buf," <font color=\"%s\"><small><em><a href=\"morph://Greek/%s\">(%s)</a></em></small></font> ",
+				morph_color, num, num);
 		}
 		
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Hebrew/");
-			for (i = 5; i < tokenLength-1; i++)
+
+			char num[12];
+			for (i = 29; i < tokenLength; i++)
 				if(token[i] != '\"')
-					*(*buf)++ = token[i];
-			pushString(buf, "\">&lt;");
-			for (i = 28; i < tokenLength-2; i++)				
-				if(token[i] != '\"') 			
-					*(*buf)++ = token[i];		
-			pushString(buf, "&gt;</a></em></small></font> ");
+					num[i-29] = token[i];
+			num[i-29] = 0;
+
+			pushString(buf," <font color=\"%s\"><small><em><a href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a></em></small></font> ",
+				strongs_color, num, num);
 		}
 //#warning not handled: token[27] == 'A')
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
-			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://Greek/");
-			for (i = 5; i < tokenLength-1; i++)
+			char num[12];
+			for (i = 29; i < tokenLength; i++)
 				if(token[i] != '\"')
-					*(*buf)++ = token[i];
-			pushString(buf, "\">&lt;");
-			for (i = 28; i < tokenLength-2; i++)				
-				if(token[i] != '\"') 			
-					*(*buf)++ = token[i];		
-			pushString(buf, "&gt;</a></em></small></font> ");
+					num[i-29] = token[i];
+			num[i-29] = 0;
+
+			pushString(buf," <font color=\"%s\"><small><em><a href=\"strongs://Greek/%s\">&lt;%s&gt;</a></em></small></font> ",
+				strongs_color, num, num);
 		}
-//		else if (!strncmp(token, "sync type=\"Morph\" value=\"", 25)) {
-//#warning OT or NT as default???
-//			pushString(buf," <font color=\"%s%s",morph_color,"\"><small><em><a href=\"morph://Hebrew/");
-//			for (i = 5; i < strlen(token)-1; i++)				
-//				if(token[i] != '\"') 			
-//					*(*buf)++ = token[i];
-//			pushString(buf, "\">(");
-//			for (i = 28; i < strlen(token)-2; i++)				
-//				if(token[i] != '\"') 			
-//					*(*buf)++ = token[i];
-//			pushString(buf, ")</a></em></small></font>");
-//		}
 
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
 			userData["inscriptRef"] = "true";
 			if (!strncmp(token, "scripRef v", 10)) { //module given
-				char* module_version =  new char[5000];
-				char* c = module_version;						
+
+				char module_version[5000];
 				for (i = 18; i < tokenLength-1; i++) {
 					if(token[i] != '\"')
-						*c++ = token[i];						
+						module_version[i-18] = token[i];						
 					else
 						break;
 				}
-				*c++ = '\0';
+				module_version[i-18] = 0;
 				//c contains the module
 				userData["lastRefModule"] = module_version;
-			  delete module_version;
 			}
 			else if (!strncmp(token, "scripRef p", 10)) { //passage without module
-				char* verse_str =  new char[5000];
-				char* c = verse_str;							
+				char verse_str[5000];
 				for (i = 18; i < tokenLength-1; i++) {
 					if(token[i] != '\"') {
-						*c++ = token[i];
+						verse_str[i-18] = token[i];
 					}
 					else
 						break;
 				}
-				*c++ = '\0';
+				verse_str[i-18] = 0;
 				
 				const char* ref = parseThMLRef(verse_str);
  			  pushString(buf, ref);
- 			  delete ref;
- 			  delete verse_str;
+ 			  delete ref;//delete now because it's unused
+				
+				userData["suspendTextPassThru"] = "true"; //we don't want the ref-text of the module
 			}
 			if ( !strncmp(token+i+2, "passage=", 8) ) { //passage after module part
-				char* verse_str =  new char[5000];
-				char* c = verse_str;							
-				i+=11;				
-				for (; i < tokenLength-1; i++)	{
+				char verse_str[5000];
+				i+=11;			
+				int idx = 0;	
+				for (; i < tokenLength-1; i++,idx++)	{
 					if(token[i] != '\"')
-						*c++ = token[i];
+						verse_str[idx] = token[i];
 					else
 						break;					
 				}
-				*c++ = '\0';				
+				verse_str[idx] = '\0';				
 				const char* mod = userData["lastRefModule"].c_str();
 				cout << "Module is: " << mod << endl;
 				const char* ref = parseThMLRef(verse_str, mod);
 				pushString(buf, ref);
 				delete ref;
-				delete verse_str;
 			}
 		}
 		// we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
@@ -194,7 +168,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			else { // like "<scripRef>John 3:16</scripRef>"
 				const char* ref = parseSimpleRef(userData["lastTextNode"].c_str());
  			  pushString(buf, ref);
- 			  delete ref;
+ 			  delete ref;//delete now because it's unused
 				// let's let text resume to output again
 				userData["suspendTextPassThru"] = "false";
 			}
