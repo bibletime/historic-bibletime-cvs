@@ -49,8 +49,9 @@ to launch the options dialog.</para>
 		</mediaobject>
 		</section>
 		<section id="hdbk-config-bt-fonts"><title>Fonts</title>
-		<para>&bibletime; uses a default display font that works for most modules.
-		If the module you are using does not display correctly with the default font,
+		<para>&bibletime; uses the &kde; general display font.
+		The &kde; general display font can be changed from the &kcontrolcenter;.
+		If the module you are using does not display correctly with the general display font,
 		use the fonts options dialog to select a different one.  &bibletime; now 
 		applies font selections to specific languages.
 		</para>
@@ -112,7 +113,7 @@ to launch the options dialog.</para>
 			</itemizedlist>
 
 			<para>Unicode fonts support more characters than other fonts, so are
-			generally a better choice for &bibletime;, some of these are
+			generally a good choice for &bibletime;, some of these fonts are
 			available at no charge.  Few of the fonts available include all of range of symbols
 			defined in the Unicode standard, so you may try several before finding what you need</para>
 			<para>Here is a listing of some of the fonts available:</para>
@@ -136,10 +137,12 @@ to launch the options dialog.</para>
 				</tgroup>
 				</table>
 				
-			<para>The most complete listing of Unicode fonts that we are aware of is<ulink url="http://www.ccss.de/slovo/unifonts.htm">
+			<para>The most complete listing of Unicode fonts that we are aware of is
+			<ulink url="http://www.ccss.de/slovo/unifonts.htm">
 			Christoph Singer's  "Multilingual Unicode TrueType Fonts in the Internet"</ulink> with 24 fonts listed.</para>
 			<para>Another Unicode font list can be found at:
-			<ulink url="http://www.hclrss.demon.co.uk/unicode/fontsbyrange.html">Unicode Font List</ulink>.
+			<ulink url="http://www.hclrss.demon.co.uk/unicode/fontsbyrange.html">
+			Unicode Font List</ulink>.
 			</para>
 			</section>
 		</section>
