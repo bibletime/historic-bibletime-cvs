@@ -30,7 +30,7 @@ AC_MSG_CHECKING([for Sword library files])
 AC_REQUIRE([AC_FIND_ZLIB])
 ac_sword_library_dirs="$ac_sword_dir/lib /usr/lib /usr/lib/sword /usr/local/lib /usr/local/lib/sword /usr/local/sword/lib"
 
-if test "$ac_static_sword" = "YES"; then
+if test "x$ac_static_sword" = "xYES"; then
 	SEARCH_LIBS="libsword.a";
 else
 	SEARCH_LIBS="libsword.a libsword.so";
@@ -39,11 +39,11 @@ fi
 
 AC_CACHE_VAL(ac_cv_sword_libdir, AC_FIND_FILE($SEARCH_LIBS, $ac_sword_library_dirs, ac_cv_sword_libdir))
 
-if test "$ac_cv_sword_libdir" = "NO"; then
+if test "x$ac_cv_sword_libdir" = "xNO"; then
   AC_MSG_ERROR(SWORD library not found. Try to use configure with --with-sword-dir=/your/SWORD/path!);
 fi
 
-if test "$ac_static_sword" = "YES"; then
+if test "x$ac_static_sword" = "xYES"; then
 	LIB_SWORD="$ac_cv_sword_libdir/libsword.a";
 else
 	LIB_SWORD="-lsword";
@@ -53,7 +53,7 @@ AC_SUBST(SWORD_LIBRARY_PATH)
 AC_SUBST(LIB_SWORD)
 all_libraries="$all_libraries -L$ac_cv_sword_libdir"
 
-if test "$ac_static_sword" = "YES"; then
+if test "x$ac_static_sword" = "xYES"; then
 	MESSAGE="static library $ac_cv_sword_libdir/libsword.a";
 else
 	MESSAGE="$ac_cv_sword_libdir";
@@ -66,7 +66,7 @@ ac_sword_include_dirs="$ac_sword_dir/include/sword $ac_sword_dir/include /usr/in
 
 AC_CACHE_VAL(ac_cv_sword_incdir, AC_FIND_FILE(swmgr.h, $ac_sword_include_dirs, ac_cv_sword_incdir))
 
-if test "$ac_cv_sword_incdir" = "NO"; then
+if test "x$ac_cv_sword_incdir" = "xNO"; then
 	AC_MSG_ERROR([The Sword include file files were not found.
 Please try to use configure with --with-sword-dir=/your/SWORD/path !
 ])
@@ -108,8 +108,9 @@ cat > conftest.$ac_ext <<EOF
 #include <iostream>
 #include <swversion.h>
 
-//make sure we don't run into trouble if Sword >= 1.5.4a is installed
-#define NO_SWORD_NAMESPACE 1
+#ifdef SWORD_NAMESPACE_START
+using namespace sword;
+#endif
 
 int main(int argc, char* argv[]) {
 	std::cout << SWVersion::currentVersion << std::endl;
@@ -143,8 +144,9 @@ AC_LANG_RESTORE
 AC_MSG_RESULT([$ac_cv_installed_sword_version])
 
 
-dnl *** Now check if the installed version is recent enough
 
+
+dnl *** Now check if the installed version is recent enough
 AC_MSG_CHECKING([whether your Sword installation is recent enough])
 
 AC_CACHE_VAL(ac_cv_sword_recent_version,
@@ -169,8 +171,10 @@ cat > conftest.$ac_ext <<EOF
 #include <iostream>
 #include <swversion.h>
 
-//make sure we don't run into trouble if Sword >= 1.5.4a is installed
-#define NO_SWORD_NAMESPACE 1
+#ifdef SWORD_NAMESPACE_START
+using namespace sword;
+#endif
+
 
 int main(int argc, char* argv[[]]) {
 	if (argc == 2) { //compare required with installed Sword version
@@ -211,9 +215,9 @@ export LIBRARY_PATH
 AC_LANG_RESTORE
 ])
 
-if test "$ac_cv_sword_recent_version" = "ok"; then
+if test "x$ac_cv_sword_recent_version" = "xok"; then
 	AC_MSG_RESULT([yes]);
-elif test "$ac_cv_sword_recent_version" = "not-ok"; then
+elif test "x$ac_cv_sword_recent_version" = "xnot-ok"; then
 	AC_MSG_RESULT([no]);
 	AC_MSG_ERROR([Your Sword installation is not recent enought! Please upgrade to version $1! Get the Sword library at www.crosswire.org.]);
 else
