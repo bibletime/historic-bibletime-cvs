@@ -77,7 +77,7 @@ QStringList BTInstallMgr::Tool::LocalConfig::targetList() {
 
 void BTInstallMgr::Tool::LocalConfig::setTargetList( const QStringList& targets ) {
   //saves a new Sworc config using the provided target list
-  QString filename =  KGlobal::dirs()->saveLocation("data", "bibletime/") + "sword.conf"; //default is to assume the real location isn't writable
+  QString filename = KGlobal::dirs()->saveLocation("data", "bibletime/") + "sword.conf"; //default is to assume the real location isn't writable
   bool directAccess = false;
 
   QFileInfo i(LocalConfig::swordConfigFilename());
@@ -103,7 +103,9 @@ void BTInstallMgr::Tool::LocalConfig::setTargetList( const QStringList& targets 
       continue;
     }
     else {
-      conf["Install"][!setDataPath ? "DataPath" : "AugmentPath"] = t.local8Bit();
+//      conf["Install"][!setDataPath ? "DataPath" : "AugmentPath"] = t.local8Bit();
+	    conf["Install"].insert( std::make_pair(!setDataPath ? "DataPath" : "AugmentPath", t.local8Bit()) );
+
       setDataPath = true;
     }
   }

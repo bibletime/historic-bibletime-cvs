@@ -41,6 +41,10 @@ protected:
       Footnote,
       StrongsMarkup
     } noteType;
+
+		struct {
+			sword::SWBuf who;
+		} quote;
   };
 
   virtual sword::BasicFilterUserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {

@@ -63,7 +63,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 				fprintf( stderr,"(BibleTime %s) Debug: %s\n",VERSION, msg );
 			break;
 		case QtWarningMsg:
-			//if (showDebugMessages)
+			if (showDebugMessages) //comment out for releases so users don't get our debug warnings
 				fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
 			break;
 		case QtFatalMsg:
@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
 		{"debug", I18N_NOOP("Enable debug messages"),0},
 		{"ignore-session", I18N_NOOP("Ignore the startup session that was saved when BibleTime was closed the last time."),0},
 		{"open-default-bible <key>", I18N_NOOP("Open the default bible with the given key. Use <random> to open at a random position."),0},
-		{"install-local <path>", I18N_NOOP("Open the SwordSetup dialog to install modules from <path>"),0},
+		//{"install-local <path>", I18N_NOOP("Open the SwordSetup dialog to install modules from <path>"),0},
 		{0,0,0}
 	};
 

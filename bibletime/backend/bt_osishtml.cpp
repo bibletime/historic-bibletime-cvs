@@ -62,7 +62,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
     if (!tag.getName()) {
       return false;
     }
-    
+
 		// <w> tag
 		if (!strcmp(tag.getName(), "w")) {
 
@@ -178,19 +178,19 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			if (!tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
         const char* ref = tag.getAttribute("osisRef");
 
-        SWBuf typeName = "Bible";        
+        SWBuf typeName = "Bible";
         CSwordModuleInfo::ModuleType type = CSwordModuleInfo::Bible;
         if (!strncmp(ref, "Bible:", 6)) {
           type = CSwordModuleInfo::Bible;
           typeName = "Bible";
           ref += 6;
-        }        
+        }
         else if (!strncmp(ref, "Commentary:", 11)) { //need to check with OSIS tags
           type = CSwordModuleInfo::Commentary;
           typeName = "Commentary";
           ref += 11;
         }
-        
+
 				buf.appendFormatted("<a class=\"reference\" href=\"sword://%s/%s/%s\">",
           typeName.c_str(),
           CReferenceManager::preferredModule( CReferenceManager::typeFromModule(type) ).latin1(),
@@ -229,6 +229,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
 				/*buf += "{";*/
 
+				myUserData->quote.who = who;
 				//alternate " and '
 				if(osisQToTick)
 					buf += (level % 2) ? '\"' : '\'';
@@ -238,10 +239,9 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				}
 			}
 			else if (tag.isEndTag()) {
-				//alternate " and '
-        if (who == "Jesus")
+        if (myUserData->quote.who == "Jesus")
           buf += "</span>";
-        else if (osisQToTick)
+        else if (osisQToTick) //alternate " and '
 					buf += (level % 2) ? '\"' : '\'';
 			}
 			else {	// empty quote marker

@@ -84,8 +84,8 @@ const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, cons
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     moduleFont = CBTConfig::get( m->language() ).second;
     tdStyle = QString::fromLatin1("style=\"%1 %2 font-family:%3; font-size:%4pt;\"")
-      .arg(((modules.at()+1) < modules.count()) ? QString::fromLatin1("padding-right:2mm; border-right:1px solid black;") : QString::null)
-      .arg(((modules.at()>0) && ((modules.at()+1) <= modules.count() )) ? QString::fromLatin1("padding-left:2mm;") : QString::null)
+      .arg(((modules.at()+1) < (int)modules.count()) ? QString::fromLatin1("padding-right:2mm; border-right:1px solid black;") : QString::null)
+      .arg(((modules.at()>0) && ((modules.at()+1) <= (int)modules.count() )) ? QString::fromLatin1("padding-left:2mm;") : QString::null)
       .arg(moduleFont.family())
       .arg(moduleFont.pointSize());
 
@@ -331,7 +331,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
     isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
 
     tdStyle = colStyle + QString::fromLatin1("%1 %2\"")
-      .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right: 1px solid black;") : QString::null)
+      .arg((modules.at()+1 < (int)modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right: 1px solid black;") : QString::null)
       .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
 
     font = CBTConfig::get(m->language()).second;

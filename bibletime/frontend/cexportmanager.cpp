@@ -70,7 +70,6 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 
     CSwordModuleInfo* module = key->module();
   	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) { //we can have a boundary
-			qWarning("vk->isBoundSet() returns %i", vk->isBoundSet());
       if (vk->isBoundSet()) {//we have a valid boundary!
         hasBounds = true;
         CSwordVerseKey startKey(module);
@@ -93,22 +92,16 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
             ? QString::fromLatin1("<h3>%1</h3><br/>").arg(bound)
             : QString::fromLatin1("%1\n\n").arg(bound);
 
-					qWarning("enter loop now");
          	while ( (startKey < stopKey) || (startKey == stopKey) ) {
-						qWarning(startKey.key().latin1());
-						qWarning(stopKey.key().latin1());
-
             entryText = (format == HTML) ? startKey.renderedText(CSwordKey::HTMLEscaped) : startKey.strippedText();
 
          		text += ((bool)m_displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
 + entryText + lineBreak(format);
 
             startKey.next(CSwordVerseKey::UseVerse);
-						qWarning("after next key is %s", startKey.key().latin1());
           }
         }
         else {
-					qWarning("start is larger thean bstop, resetting hasBounds value");
           hasBounds = false;
         };
       }
@@ -131,18 +124,18 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
         lineBreak(format) +
         QString::fromLatin1("(%1, %1)")
             .arg(key->key())
-            .arg(module->name());        
+            .arg(module->name());
     }
 
     if (format == HTML) {
       text += QString::fromLatin1("</body></html>");
-    };    
+    };
   }
   else { //don't add the text of the key, we
     text = key ? key->key() : QString::null;
   	return true;
   }
-  
+
 	CToolClass::savePlainFile(filename, text, false, (format==HTML) ? QTextStream::UnicodeUTF8 : QTextStream::Locale);
 	return true;
 };
@@ -169,14 +162,14 @@ const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* m
  		else {
  			text += key->key() + lineBreak(format);
     }
-    
+
     incProgress();
  		(*list)++;
  	}
 
   if (!progressWasCancelled()) {
  		CToolClass::savePlainFile(filename, text);
- 		closeProgressDialog();   
+ 		closeProgressDialog();
  		return true;
  	}
 	return false;

@@ -99,11 +99,7 @@ for PART in $DOC_PARTS; do
 
 			FILES=`ls -d $I2/*.png $I2/*.html $I2/*.docbook 2>/dev/null`;
 			if test $SECTION = "html"; then
-				if test $PART = "helpdialog"; then
-					FILES=`ls -d $I2/*.png $I2/*.html 2>/dev/null`;
-				else
-					FILES=`ls -d $I2/*.png 2>/dev/null`;
-				fi;
+				FILES=`ls -d $I2/*.png 2>/dev/null`;
 			fi;
 
 			HAS_FILES="NO"
@@ -281,11 +277,7 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 						echo -n "EXTRA_DIST = "
 						FILES=`ls -d $I2/*.png $I2/*.html $I2/*.docbook 2>/dev/null`;
 						if test $SECTION = "html"; then
-							if test $PART = "helpdialog"; then
-								FILES=`ls -d $I2/*.png $I2/*.html 2>/dev/null`;
-							else
-								FILES=`ls -d $I2/*.png 2>/dev/null`;
-							fi;
+							FILES=`ls -d $I2/*.png 2>/dev/null`;
 						fi;
 
 						for I3 in $FILES; do
@@ -299,17 +291,10 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 						EN_FILES=""
 						HAS_FILES="NO"
 
-						if  test $PART == helpdialog; then
-							for FILE in `ls -d $I2_EN/*.png $I2_EN/*.html $I2_EN/*.docbook 2>/dev/null`; do
-								EN_FILES="$EN_FILES `basename $FILE`";
-								HAS_FILES="YES"
-							done
-						else
-							for FILE in `ls -d $I2_EN/*.png $I2_EN/*.docbook 2>/dev/null`; do
-								EN_FILES="$EN_FILES `basename $FILE`";
-								HAS_FILES="YES"
-							done
-						fi
+						for FILE in `ls -d $I2_EN/*.png $I2_EN/*.docbook 2>/dev/null`; do
+							EN_FILES="$EN_FILES `basename $FILE`";
+							HAS_FILES="YES"
+						done
 
 						if test $HAS_FILES = YES; then
 							echo

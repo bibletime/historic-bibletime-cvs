@@ -1,9 +1,0 @@
-<chapter id="help-sword-module-trouble">
-<title>Sword module trouble.</title>
-<para>The sword module did not open.  This is usually caused by an out of date or damaged sword module.
-Please visit <ulink url="http://www.crosswire.org">Crosswire Bible Society</ulink> for an update of your module.</para>
-<note>
-<para>Currently sword does not trap this problem.  &bibletime; and sword will crash with no error message.
-</para>
-</note>
-</chapter>

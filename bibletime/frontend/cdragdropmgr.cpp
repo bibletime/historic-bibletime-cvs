@@ -195,8 +195,8 @@ CDragDropMgr::ItemList CDragDropMgr::decode( const QMimeSource* const  src) {
   if (canDecode(src) && QTextDrag::canDecode(src)) { //if we can decode but it's a QTextDrag and not a BTDrag object
     QString text;
     QTextDrag::decode(src, text);
-    qWarning(text.latin1());
-    
+//    qWarning(text.latin1());
+
     CDragDropMgr::ItemList dndItems;
     dndItems.append( Item(text) );
     return dndItems;

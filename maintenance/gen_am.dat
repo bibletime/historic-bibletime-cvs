@@ -29,4 +29,4 @@ export FOREIGN_PO_LANGUAGES="bg cs de en_GB es fr fi ko nl pl pt_br ro ru sk ua"
 # are in use. You should not need to change this unless you
 # know what you are doing. ;)
 
-export DOC_PARTS="handbook helpdialog howto"
+export DOC_PARTS="handbook howto"

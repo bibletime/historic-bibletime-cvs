@@ -453,7 +453,7 @@ void CSwordSetupDialog::initSwordConfig(){
   layout->addWidget(m_swordEditPathButton, 2, 3);
 
   m_swordAddPathButton = new QPushButton(i18n("Add Entry"), page);
-  m_swordAddPathButton->setIconSet(DesktopIcon("add", 16));
+  m_swordAddPathButton->setIconSet(DesktopIcon("edit_add", 16));
   connect(m_swordAddPathButton, SIGNAL(clicked()), this, SLOT(slot_swordAddClicked()));
   layout->addWidget(m_swordAddPathButton, 3,3);
 
@@ -619,7 +619,7 @@ void CSwordSetupDialog::slotApply(){
 }
 
 /** Opens the page which contaisn the given part ID. */
-const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool exclusive ) {
+const bool CSwordSetupDialog::showPart( CSwordSetupDialog::Parts ID, const bool /*exclusive*/ ) {
 //  if (exlusive) {
 //    m_swordConfigPage->setEnabled(false);
 //    m_installPage->setEnabled(false)
