@@ -42,8 +42,8 @@ CInfoDisplay::~CInfoDisplay() {
 /*!
     \fn CInfoDisplay::setText(const QString& text)
  */
-void CInfoDisplay::setText(const QString& text) {
+void CInfoDisplay::setInfo(InfoType, const QString& data) {
   m_htmlPart->begin();
-	m_htmlPart->write(text);
+	m_htmlPart->write(data);
 	m_htmlPart->end();
 }

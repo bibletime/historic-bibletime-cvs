@@ -67,7 +67,7 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   QPoint globalPos = parentWidget()->mapToGlobal(rect.topLeft());
   m_tipRect = QRect(globalPos.x(), globalPos.y(), rect.width(), rect.height());
 
-	CPointers::infoDisplay()->setText(text);
+//	CPointers::infoDisplay()->setText(text);
   
 	m_display->begin();
   m_display->write(text);

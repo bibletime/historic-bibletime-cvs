@@ -22,10 +22,13 @@ class CInfoDisplay : public QWidget
 {
   Q_OBJECT
 public:
+	enum InfoType {
+		Footnote = 0
+	};
+	
   CInfoDisplay(QWidget *parent = 0, const char *name = 0);
-
-  ~CInfoDisplay();
-    void setText(const QString& text);
+  virtual ~CInfoDisplay();
+  void setInfo(InfoType, const QString& data);
 		
 private:
 	KHTMLPart* m_htmlPart;

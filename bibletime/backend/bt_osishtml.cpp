@@ -77,7 +77,8 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
   // manually process if it wasn't a simple substitution
 	if (!substituteToken(buf, token)) {
     BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
-
+		sword::SWModule* myModule = const_cast<sword::SWModule*>(myUserData->module); //hack
+		
     XMLTag tag(token);
   	const	bool osisQToTick = ((!userData->module->getConfigEntry("OSISqToTick")) || (strcmp(userData->module->getConfigEntry("OSISqToTick"), "false")));
 
@@ -169,25 +170,29 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			if (!tag.isEndTag()) {
 				const SWBuf type = tag.getAttribute("type");
 
-				if (type == "crossReference") { //note containing cross references
-          buf += " <span class=\"footnote\">[";
-          myUserData->noteType = BT_UserData::CrossReference;
-        }
-        else if (type == "strongsMarkup") {
+				//if (type == "crossReference") { //note containing cross references
+        //  buf += " <span class=\"footnote\">[";
+        //  myUserData->noteType = BT_UserData::CrossReference;
+        //}
+        //else 
+				if (type == "strongsMarkup") {
   				myUserData->suspendTextPassThru = true;
           myUserData->noteType = BT_UserData::StrongsMarkup;
         }
         else {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
-          buf += " <span class=\"footnote\">(";
+					buf.appendFormatted(" <span class=\"footnote\" footnote=\"%s/%s/%s\">Note</span> ", 
+					myModule->Name(),
+					myUserData->key->getShortText(),
+					tag.getAttribute("swordFootnote"));
           myUserData->noteType = BT_UserData::Footnote;
 				}
 			}
 			if (tag.isEndTag()) {
         if (myUserData->noteType == BT_UserData::CrossReference) {
-          buf += "]</span> ";
+          //buf += "]</span> ";
         }
         else if (myUserData->noteType == BT_UserData::Footnote) {
-          buf += ")</span> ";
+          //buf += ")</span> ";
         }
 
         myUserData->noteType = BT_UserData::Unknown;
