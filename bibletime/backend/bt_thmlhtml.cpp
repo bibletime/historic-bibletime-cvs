@@ -102,10 +102,9 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			pushString(buf," <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ",
 				num, num);
 		}
-		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
+		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) { // a more complicated scripRef
 			userData["inscriptRef"] = "true";
 			if (!strncmp(token, "scripRef v", 10)) { //module given
-
 				char module_version[500];
 				for (i = 18; i < tokenLength-1; i++) {
 					if(token[i] != '\"')
@@ -126,12 +125,13 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 						break;
 				}
 				verse_str[i-18] = 0;
-				const char* ref = parseThMLRef(verse_str);
- 			  pushString(buf, ref);
- 			  delete [] ref;//delete now because it's unused
-			}
-			if ( !strncmp(token+i+2, "passage=", 8) ) { //passage after module part
-				char verse_str[5000];
+ 			  pushString(buf, parseThMLRef(verse_str).c_str());
+
+//        userData["suspendTextPassThru"] = "true";
+      }
+
+      if ( !strncmp(token+i+2, "passage=", 8) ) { //passage after module part
+				char verse_str[500];
 				i+=11;			
 				int idx = 0;	
 				for (; i < tokenLength-1; i++,idx++)	{
@@ -141,9 +141,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 						break;					
 				}
 				verse_str[idx] = '\0';
-				const char* ref = parseThMLRef(verse_str, userData["lastRefModule"].c_str());
-				pushString(buf, ref);
-				delete [] ref;
+				pushString(buf, parseThMLRef(verse_str, userData["lastRefModule"].c_str()).c_str());
 			}
 		}
 		// we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
@@ -154,14 +152,13 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}
 		// we've ended a scripRef
 		else if (!strcmp(token, "/scripRef")) {
-			if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">John 3:16</scripRef>"
+			if (userData["inscriptRef"] == "true") { // like  "<scripRef passage="John 3:16">See John 3:16</scripRef>"
 				userData["inscriptRef"] = "false";
-				pushString(buf, thmlRefEnd());
+//        userData["suspendTextPassThru"] = "false";
+				pushString(buf, thmlRefEnd().c_str());
 			}			
 			else { // like "<scripRef>John 3:16</scripRef>"
-				const char* ref = parseSimpleRef(userData["lastTextNode"].c_str());
- 			  pushString(buf, ref);
- 			  delete [] ref;//delete now because it's unused
+ 			  pushString(buf, parseSimpleRef( userData["lastTextNode"].c_str()).c_str() );
 				userData["suspendTextPassThru"] = "false";
 			}
 		}

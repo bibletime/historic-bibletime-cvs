@@ -39,6 +39,7 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
   QHBoxLayout* layout = new QHBoxLayout(this,0,0);
   layout->setResizeMode(QLayout::FreeResize);
 
+  hide();  
   m_display = new KHTMLPart(this);
   m_display->view()->setMarginWidth(4);
   m_display->view()->setMarginHeight(4);
@@ -53,7 +54,7 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
   setPalette( QToolTip::palette() );
   setMargin( 1 );
   setFrameStyle( QFrame::Plain | QFrame::Box );
-  hide();
+//  hide();
 
   m_parentWidget->installEventFilter(this);
   setFilter(false);

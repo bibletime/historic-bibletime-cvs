@@ -34,8 +34,9 @@
 using std::cout;
 using std::cerr;
 using std::endl;
+//using std::string;
 
-char BT_BASICFILTER::ProcessText (char *text, int maxlen, const sword::SWKey *key, const sword::SWModule *module){
+char BT_BASICFILTER::ProcessText(char *text, int maxlen, const sword::SWKey *key, const sword::SWModule *module){
 	m_module = module;
 	m_key = key;
 	updateSettings();
@@ -45,30 +46,44 @@ char BT_BASICFILTER::ProcessText (char *text, int maxlen, const sword::SWKey *ke
 }
 
 void BT_BASICFILTER::updateSettings(){
-	strcpy(standard_bible,	CReferenceManager::preferredModule(CReferenceManager::Bible).utf8());
+	strcpy(standard_bible, CReferenceManager::preferredModule(CReferenceManager::Bible).utf8());
 	updateTokens();
 }
 
+const string BT_BASICFILTER::parseSimpleRef(const char* ref) {
+  sword::SWModule* m = const_cast<sword::SWModule*>(m_module);
+  const string myRef( ref );
+
+  return parseRef( myRef, m );
+}
 
 /** Parses the verse reference ref and returns it. */
-const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
+const string BT_BASICFILTER::parseRef(const string ref, sword::SWModule* module, const bool insertFullRef) {
   /**
   * This function should be able to parse references like "John 1:3; 3:1-10; Matthew 1:1-3:3"
   * without problems.
   */
  	sword::VerseKey parseKey; 	
- 	sword::SWModule* m = const_cast<sword::SWModule*>(m_module);
- 	const char* lang = m ? m->Lang() : "en";
- 	parseKey.setLocale(lang); //we assume that the keys are in english or in the module's language
+ 	const string lang = module ? module->Lang() : "en";
+ 	parseKey.setLocale( lang.c_str() ); //we assume that the keys are in english or in the module's language
 
+  const string moduleName = string( module ? module->Name() : standard_bible );
+  
  	parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1"); //use the current key if there's any
  	sword::ListKey list;
-  char* to = new char[5000];
-	char* ret = to;
-	
-	QStringList refList = QStringList::split(QRegExp("[,.;]|(?:\\s(?=\\d?[A-Z]))", false), QString::fromLocal8Bit(ref));
-//	QStringList refList = QStringList::split(QRegExp("[,.;]", false), QString::fromLocal8Bit(ref));
+  string ret;
+  	
+  QStringList refList = QStringList::split(QRegExp("[,.;]|(?:\\s(?=\\d?[A-Z]))", false), QString::fromLocal8Bit(ref.c_str()));
 	int pos = 0;
+
+  if ( !insertFullRef && (refList.count() >= 1) ) {
+    /* We can't handle refs which defined their own caption if we would have to insert multiple refs
+    * If our own caption should not be inserted and we have more than one ref return so the original
+    * ref and caption will be used.
+    */
+    return "<span id=\"reference\"><a href=\"sword://Bible/" + moduleName + "/" + ref + "\">";
+  }
+  
 	for ( QStringList::Iterator it = refList.begin(); it != refList.end(); ++it, pos++ ) {    
 	 	list = parseKey.ParseVerseList((*it).local8Bit(), parseKey, true);
 		
@@ -77,60 +92,38 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
 	 	for(int i = 0; i < count; i++) {
 	 		key = list.GetElement(i);
       parseKey = *key;
-  		pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/", standard_bible); 
+  		ret += string("<span id=\"reference\"><a href=\"sword://Bible/") + moduleName + "/"; 
  			if ( sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key) ) {
- 				vk->setLocale(lang);
- 				vk->LowerBound().setLocale(lang);
- 				vk->UpperBound().setLocale(lang);
+ 				vk->setLocale(lang.c_str());
+ 				vk->LowerBound().setLocale(lang.c_str());
+ 				vk->UpperBound().setLocale(lang.c_str());
 	 		}
- 			pushString(&to, "%s\">%s</a>", key->getRangeText(), (const char*)(*it).utf8() );
-	 		(pos+1 < (int)refList.count()) ? pushString(&to, "</span>, ") : pushString(&to, "</span>");
+ 			ret += string(key->getRangeText()) + "\">";
+      /* This is kind of a hack. This will only work if we process simple refs whivh won't get splitted.
+      * But since insertFullRef is true by default, the end markers will be left out only in special cases like ThML refd
+      * with own caption.
+      */
+      if (insertFullRef) { //HTML will only be valid if we hide only the end of one cross refrernce
+        ret += string( (const char*)(*it).utf8() ) + "</a>";
+  	 		(pos+1 < (int)refList.count()) ? ret.append("</span>, ") : ret.append("</span>");
+      }
 	 	}
 
 	}	
- 	*to++ = '\0';
  	return ret;  //don't forget to delete it!
 }
 
-const char* BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
-  char* to = new char[5000];
-	char* ret = to;
-	const char* module = (mod ? mod : standard_bible);	
-
-	CReferenceManager::Type type = CReferenceManager::Unknown;
-	if (CSwordModuleInfo* m = CPointers::backend()->findModuleByName(module)) {
-		type = CReferenceManager::typeFromModule(m->type());
+const string BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
+//  char* to = new char[7000];
+	const char* moduleName = (mod ? mod : standard_bible);
+  sword::SWModule* module = 0;
+  if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(mod) ) {
+    module = m->module();
   }
-
-// 	VerseKey parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");	
-//	ListKey list = parseKey.ParseVerseList(ref, parseKey, false);		
-//  const int count = list.Count();
-
-//  for(int i = 0; i < count; i++) {
-//	 	SWKey* key = list.GetElement(i);
-//	 	VerseKey* vk =  dynamic_cast<VerseKey*>(key);
-// 		
-	 	pushString(&to,"<span id=\"reference\"><a href=\"%s\">",
-			(const char*)CReferenceManager::encodeHyperlink(QString::fromLatin1(module),QString::fromLocal8Bit(ref).utf8(), type).utf8()
-	 	);
-//	 	if (vk && vk->UpperBound() != vk->LowerBound()) {
-//	 		pushString(&to, "%s-%s\">",
-//	 			(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
-//	 			(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8()
-//	 		);
-//	 	}
-//	 	else {
-//	 		pushString(&to, "%s\">",
-//	 			(const char*)
-//			);
-//	 	}
-//	 	(i+1 < refList.count()) ? pushString(&to, "</font>, ") : pushString(&to, "</font>");	
-//	}
-	*to++ = '\0';
-	return ret;
+  return parseRef( ref, module, false );
 }
 
-const char* BT_BASICFILTER::thmlRefEnd() {
+const string BT_BASICFILTER::thmlRefEnd() {
 	return "</a></span>";
 }
 
@@ -143,6 +136,8 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
   * 3. Replace found ref by parsed result!
   */
 
+  sword::SWModule* module = const_cast<sword::SWModule*>(m_module);
+  
   std::string target(text);
   int idx_start = target.find_first_of("#",0); //find ref start
   int idx_end;
@@ -154,15 +149,13 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
       // Our length of the ref without markers is idx_end - (idx_start+1) = idx_end - idx_start - 1
       
       // Parse ref without start and end markers!
-      const char* ref = parseSimpleRef( target.substr(idx_start + 1, idx_end - idx_start - 1).c_str() );
+      const string ref = parseRef( target.substr(idx_start + 1, idx_end - idx_start - 1),  module );
 
       // Replace original ref sourrounded by # and | by the parsed ref in target!
       target.replace( idx_start, idx_end - idx_start + 1, ref ); //remove marker, too
 
       // Start searching for next ref start behind current one! It's faster!
-      idx_start += strlen( ref );
-
-		  delete [] ref; //delete now because it's unused, was created by parseSimpleRef!
+      idx_start += ref.length();
     }
 
     idx_start = target.find_first_of("#", idx_start); //find ref start

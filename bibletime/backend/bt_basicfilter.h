@@ -20,8 +20,13 @@
 
 #include <swbasicfilter.h>
 
+#include <string>
+
+
 class sword::SWKey;
 class sword::SWModule;
+
+using std::string;
 
 /**
   * This is the base class for all filters in BT
@@ -46,12 +51,16 @@ protected:
   /**
   * Parses the verse reference ref and returns it.
   */
-  const char* parseSimpleRef(const char* ref);
+  const string parseSimpleRef(const char* ref);
   /**
   * Parses the verse reference ref and returns it.
   */
-  const char* parseThMLRef(const char* ref, const char* mod = 0);
-	const char* thmlRefEnd();
+  const string parseRef(const string ref, sword::SWModule*, const bool insertCompleteRef = true);
+  /**
+  * Parses the verse reference ref and returns it.
+  */
+  const string parseThMLRef(const char* ref, const char* mod = 0);
+	const string thmlRefEnd();
   /**
   * Replaces the token in the substitute map.
   */
@@ -61,7 +70,7 @@ protected:
   */
   virtual void updateTokens();
 	
-	char standard_bible[100];
+	char standard_bible[200];
 
 	const sword::SWKey *m_key;
 	const sword::SWModule* m_module;

@@ -111,8 +111,7 @@ void CLexiconReadWindow::setupPopupMenu(){
  	
   m_actions.copy.reference = new KAction(i18n("Reference"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorOnly()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.reference);
-
-  m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), this, SLOT(copyDisplayedText()), actionCollection());
+  m_actions.copy.entry = new KAction(i18n("Entry with text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copyAnchorWithText()), actionCollection());
  	m_actions.copyMenu->insert(m_actions.copy.entry);
   m_actions.copyMenu->insert(new KActionSeparator());	
 	m_actions.copy.selectedText = new KAction(i18n("Selected text"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(copySelection()),actionCollection());
