@@ -167,8 +167,8 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 			searchAnalysisHTML += "</tr>\n";
 			ok = key.NextBook();
 		}
-		text += "<dir>" + "<table>\n" + tableTitle + searchAnalysisHTML + "</table>\n" + "</dir>\n";
-		text += "</body></html>";
+		text += QString("<dir><table>\n") + tableTitle + searchAnalysisHTML + QString("</table>\n</dir>\n");
+		text += QString("</body></html>");
 		CToolClass::savePlainFile(file, text);
 	}
 }
