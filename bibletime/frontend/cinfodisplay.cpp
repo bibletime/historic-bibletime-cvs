@@ -114,7 +114,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 		SWKey* key = refs.getElement(i);
 		Q_ASSERT(key);
 		
-		CTextRendering::KeyTreeItem i(
+		CTextRendering::KeyTreeItem* i = new CTextRendering::KeyTreeItem(
 			QString::fromUtf8(key->getText()),
 			CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible)), 
 			CTextRendering::KeyTreeItem::Settings()

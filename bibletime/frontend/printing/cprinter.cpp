@@ -24,6 +24,8 @@ CPrinter::Item::Item(const QString& key, CSwordModuleInfo* module, const Setting
 		m_stopKey(QString::null)
 {
 	//create this item with heading text and one child item which has the content
+	m_alternativeContent = QString::fromLatin1("%1").arg(key);
+	childList()->append( new KeyTreeItem(key, module, KeyTreeItem::Settings()) );
 }
 
 CPrinter::Item::Item(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module, const Settings settings)
@@ -31,30 +33,47 @@ CPrinter::Item::Item(const QString& startKey, const QString& stopKey, CSwordModu
 	 m_stopKey(stopKey)
 {
 	//use the start and stop key to ceate our child items
-	Q_ASSERT(childList());
+// 	Q_ASSERT(childList());
 	
-	CSwordVerseKey start(module);
-	start = startKey;
-	
-	CSwordVerseKey stop(module);
-	stop = stopKey;
-	
-	if (!key().isEmpty()  && !m_stopKey.isEmpty()) {
-		while ((start < stop) || (start == stop) ) {
-			KeyTreeItem i(start.key(), module, KeyTreeItem::Settings());
-			childList()->append( i );
-			
-			start.next(CSwordVerseKey::UseVerse);
-		}	
-	}	
+	if (module->type() == CSwordModuleInfo::Bible) {
+		CSwordVerseKey start(module);
+		start = startKey;
+		
+		CSwordVerseKey stop(module);
+		stop = stopKey;
+		
+		if (!key().isEmpty()  && !m_stopKey.isEmpty()) {
+			while ((start < stop) || (start == stop) ) {
+				childList()->append( new KeyTreeItem(start.key(), module, KeyTreeItem::Settings()) );
+				
+				start.next(CSwordVerseKey::UseVerse);
+			}	
+		}
+	}
+	else if ((module->type() == CSwordModuleInfo::Lexicon) || (module->type() == CSwordModuleInfo::Commentary) ) {		
+		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings()) );
+	}
+	else if (module->type() == CSwordModuleInfo::GenericBook) {
+		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings()) );
+	}
+				
+	m_alternativeContent = QString::fromLatin1("%1 - %2").arg(startKey).arg(stopKey);	
 }
 
 CPrinter::Item::Item(const CPrinter::Item& i) 
 	: KeyTreeItem(i) 
 {
 	m_stopKey = i.m_stopKey;
+	m_alternativeContent = i.m_alternativeContent;
 }
 
+/*!
+    \fn CPrinter::Item::getAlternativeContent()
+ */
+const QString& CPrinter::Item::getAlternativeContent() const
+{
+	return m_alternativeContent;
+}
 
 /* Class: CPrinter */
 
@@ -63,6 +82,18 @@ CPrinter::CPrinter(QObject *parent, CSwordBackend::DisplayOptions displayOptions
  		CDisplayRendering(displayOptions, filterOptions), 
 		m_htmlPart(new KHTMLPart(0, 0, this))
 {	
+	m_filterOptions.footnotes = false;
+	m_filterOptions.scriptureReferences = false;
+	m_filterOptions.strongNumbers = false;
+	m_filterOptions.morphTags = false;
+	
+	m_htmlPart->setJScriptEnabled(false);
+	m_htmlPart->setJavaEnabled(false);
+	m_htmlPart->setMetaRefreshEnabled(false);
+	m_htmlPart->setPluginsEnabled(false);
+	m_htmlPart->view()->resize(500,500);
+/*	m_htmlPart->view()->setMarginWidth(20);
+	m_htmlPart->view()->setMarginHeight(20);*/
 }
 
 CPrinter::~CPrinter()
@@ -74,17 +105,46 @@ void CPrinter::printKeyTree( KeyTree& tree ) {
 	m_htmlPart->begin();
 	m_htmlPart->write(renderKeyTree(tree));
 	m_htmlPart->end();
-	
+	m_htmlPart->view()->layout();
 	m_htmlPart->view()->print();
-}
-
-const QString CPrinter::renderKeyTree( KeyTree& tree ) {
-	return CDisplayRendering::renderKeyTree(tree);
 }
 
 const QString CPrinter::entryLink(const KeyTreeItem& item, CSwordModuleInfo* module)
 {
+	Q_ASSERT(module);
+	if (module->type() == CSwordModuleInfo::Bible) {
+		CSwordVerseKey vk(module);
+		vk = item.key();
+		
+		return QString::number(vk.Verse());
+	}
+	
 	return item.key();
+}
+
+const QString CPrinter::renderEntry( const KeyTreeItem& i) {
+	CPrinter::KeyTreeItem* ti = const_cast<KeyTreeItem*>(&i);
+	Q_ASSERT(ti);
+	
+	CPrinter::Item* printItem = dynamic_cast<CPrinter::Item*>(ti);	
+	Q_ASSERT(printItem);
+	if (printItem && printItem->hasAlternativeContent()) 
+	{
+		QString ret = QString::fromLatin1("<div class=\"entry\">%1").arg(printItem->getAlternativeContent());
+		
+		if (i.childList() && (i.childList()->count() > 0)) {
+			KeyTree const * tree = i.childList();
+			
+			for ( KeyTree::const_iterator it = tree->begin(); it != tree->end(); ++it ) {
+				ret += CDisplayRendering::renderEntry( **it );
+			}
+		}
+
+		ret += "</div>";
+		
+		return ret;
+	}
+	return CDisplayRendering::renderEntry(i);
 }
 
 const QString CPrinter::finishText(const QString& text, KeyTree& tree)
@@ -103,5 +163,3 @@ const QString CPrinter::finishText(const QString& text, KeyTree& tree)
 	CDisplayTemplateMgr tMgr;	
 	return tMgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
 }
-
-

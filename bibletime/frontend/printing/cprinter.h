@@ -41,9 +41,14 @@ public:
 		Item(const QString& key, CSwordModuleInfo* module, const Settings settings);
 		Item(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module, const Settings settings);
 		Item(const Item& i);
+    const QString& getAlternativeContent() const;
+		const bool hasAlternativeContent() const {
+			return !m_alternativeContent.isEmpty();
+		};
 		
 	private:
 		QString m_stopKey;
+		QString m_alternativeContent;
 	};
 
 	CPrinter(
@@ -58,9 +63,10 @@ public:
 
 protected:
 	virtual const QString entryLink(const KeyTreeItem& item, CSwordModuleInfo* const module);
+	virtual const QString renderEntry( const KeyTreeItem& );
 	virtual const QString finishText(const QString& arg1, KeyTree& tree);
 
-	virtual const QString renderKeyTree( KeyTree& );
+// 	virtual const QString renderKeyTree( KeyTree& );
 
 private:
 	KHTMLPart* m_htmlPart;

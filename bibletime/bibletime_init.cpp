@@ -436,30 +436,30 @@ void BibleTime::initConnections(){
 		this, SLOT(createWriteDisplayWindow(CSwordModuleInfo*,const QString&, const CDisplayWindow::WriteWindowType&)));
     
 
-  //connect to the signals of the printer object
-  connect(m_printer, SIGNAL(addedFirstQueueItem()),
-		this, SLOT(slotSetPrintingStatus()));
-	connect(m_printer, SIGNAL(printingFinished()),
-		this, SLOT(slotPrintingFinished()));
-	connect(m_printer, SIGNAL(queueCleared()),
-		this, SLOT(slotSetPrintingStatus()));
+//   //connect to the signals of the printer object
+//   connect(m_printer, SIGNAL(addedFirstQueueItem()),
+// 		this, SLOT(slotSetPrintingStatus()));
+// 	connect(m_printer, SIGNAL(printingFinished()),
+// 		this, SLOT(slotPrintingFinished()));
+// 	connect(m_printer, SIGNAL(queueCleared()),
+// 		this, SLOT(slotSetPrintingStatus()));
 
   //if we use KDE 3.1 we do not use our own printing status window, KDE >= 3.1 has a better one
-#ifdef KDE_VERSION_MINOR
-#if KDE_VERSION_MINOR < 1
-  connect(m_printer, SIGNAL(printingStarted()),
-		this, SLOT(slotPrintingStarted()));		
-	connect(m_printer, SIGNAL(printingFinished()),
-		this, SLOT(slotSetPrintingStatus()));		
-  connect(m_printer, SIGNAL(printingInterrupted()),
-		this, SLOT(slotPrintingFinished()));
-	connect(m_printer, SIGNAL(percentCompleted(const int)),
-		this, SLOT(slotPrintedPercent(const int)));
-#endif
-#endif
+// #ifdef KDE_VERSION_MINOR
+// #if KDE_VERSION_MINOR < 1
+//   connect(m_printer, SIGNAL(printingStarted()),
+// 		this, SLOT(slotPrintingStarted()));		
+// 	connect(m_printer, SIGNAL(printingFinished()),
+// 		this, SLOT(slotSetPrintingStatus()));		
+//   connect(m_printer, SIGNAL(printingInterrupted()),
+// 		this, SLOT(slotPrintingFinished()));
+// 	connect(m_printer, SIGNAL(percentCompleted(const int)),
+// 		this, SLOT(slotPrintedPercent(const int)));
+// #endif
+// #endif
 
-	connect(m_printer, SIGNAL(printingInterrupted()),
-		this, SLOT(slotSetPrintingStatus()));
+// 	connect(m_printer, SIGNAL(printingInterrupted()),
+// 		this, SLOT(slotSetPrintingStatus()));
 
 }
 

@@ -20,7 +20,7 @@
 
 //QT includes
 #include <qstring.h>
-#include <qvaluelist.h>
+#include <qptrlist.h>
 
 class CSwordModuleInfo;
 
@@ -33,7 +33,7 @@ class CTextRendering {
 public:
 	class KeyTreeItem;
 	class KeyTree;
-	typedef QValueList<KeyTreeItem> KeyTreeItemList;
+	typedef QPtrList<KeyTreeItem> KeyTreeItemList;
 	
 	class KeyTreeItem {
 	public:
@@ -145,6 +145,7 @@ protected:
 inline CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() const {
 	if (!m_childList) {
 		m_childList = new KeyTree();
+		m_childList->setAutoDelete(true);
 	}
 		
 	return m_childList;

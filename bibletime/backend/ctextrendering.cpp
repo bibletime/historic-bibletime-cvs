@@ -38,6 +38,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo co
 		m_childList( 0 )
 {
 	m_moduleList.append( mod );
+// 	m_childList.setAutoDelete(true);
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, const ListCSwordModuleInfo& mods, const Settings settings ) 
@@ -46,6 +47,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, const ListCSwordMod
 		m_key( key ),
 		m_childList( 0 )
 {
+// 	m_childList.setAutoDelete(true);
 	
 }
 
@@ -54,10 +56,12 @@ CTextRendering::KeyTreeItem::KeyTreeItem()
 		m_key(QString::null),
 		m_childList( 0 )
 {
+// 	m_childList.setAutoDelete(true);
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const KeyTreeItem& i) {
 	m_childList = new KeyTree();
+	m_childList->setAutoDelete(true);
 	*m_childList = *(i.childList());
 	
 	m_key = i.key();
@@ -72,10 +76,9 @@ CTextRendering::KeyTreeItem::~KeyTreeItem() {
 ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 	//collect all modules which are available and used by child items
 	ListCSwordModuleInfo modules;
-	KeyTree::const_iterator it;
-
-	for (it = constBegin(); it != constEnd(); ++it) {
-		ListCSwordModuleInfo childMods = (*it).modules();
+	 
+	for (KeyTree::const_iterator it = constBegin(); it != constEnd(); ++it) {
+		ListCSwordModuleInfo childMods = (*it)->modules();
 		
 		ListCSwordModuleInfo::const_iterator c_end = childMods.end();
 		for (ListCSwordModuleInfo::const_iterator c_it = childMods.constBegin(); c_it != c_end; ++c_it) {
@@ -103,7 +106,7 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 	
 	QString t;
 	for (KeyTree::const_iterator it = tree.constBegin(); it != end; ++it) {
-		t.append( renderEntry(*it) );	
+		t.append( renderEntry(**it) );	
 	}
 	
 	return finishText(t, tree);
@@ -136,7 +139,7 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 //		qWarning("render range: %s - %s", vk_start->key().latin1(), vk_stop->key().latin1());
 		
 		while ((*vk_start < *vk_stop) || (*vk_start == *vk_stop)) {
-			tree.append( KeyTreeItem(vk_start->key(), modules,settings) );
+			tree.append( new KeyTreeItem(vk_start->key(), modules,settings) );
 			
 			vk_start->next(CSwordVerseKey::UseVerse);
 		}
@@ -150,7 +153,7 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 const QString CTextRendering::renderSingleKey( const QString& key, ListCSwordModuleInfo moduleList ) {
 	KeyTree tree;
 	KeyTreeItem::Settings settings;
-	tree += KeyTreeItem(key, moduleList, settings);
+	tree.append( new KeyTreeItem(key, moduleList, settings) );
 	
 	return renderKeyTree(tree);
 }
@@ -246,7 +249,7 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 			KeyTree const * tree = i.childList();
 			
 			for ( KeyTree::const_iterator it = tree->begin(); it != tree->end(); ++it ) {
-				entry += renderEntry( *it );
+				entry += renderEntry( **it );
 			}
 		}
 		

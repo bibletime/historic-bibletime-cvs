@@ -124,7 +124,7 @@ const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* m
 	
  	*list = sword::TOP;
  	while (!list->Error() && !progressWasCancelled()) {
-		tree += CTextRendering::KeyTreeItem(QString::fromLocal8Bit((const char*)(*list)), module, itemSettings);
+		tree.append( new CTextRendering::KeyTreeItem(QString::fromLocal8Bit((const char*)(*list)) , module, itemSettings) );
     incProgress();
  		
 		(*list)++;
@@ -163,7 +163,7 @@ const bool CExportManager::saveKeyList(QPtrList<CSwordKey>& list, const Format f
 	itemSettings.highlight = false;
 	
   for (CSwordKey* k = list.first(); k && !progressWasCancelled(); k = list.next()) {
- 		tree += CTextRendering::KeyTreeItem(k->key(), k->module(), itemSettings);
+ 		tree.append( new CTextRendering::KeyTreeItem(k->key(), k->module(), itemSettings) );
     incProgress();
   };
 
@@ -294,11 +294,11 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 		if (vk) {
 			startKey = QString::fromUtf8((const char*)(vk->LowerBound()) );
 			stopKey = QString::fromUtf8((const char*)(vk->UpperBound()) );
-			tree.append( CPrinter::Item(startKey, stopKey, module, settings) );
+			tree.append( new CPrinter::Item(startKey, stopKey, module, settings) );
 		}
 		else {
 			startKey = QString::fromUtf8((const char*)*list);
-			tree.append( CPrinter::Item(startKey, module, settings) );
+			tree.append( new CPrinter::Item(startKey, module, settings) );
 	  }
 		
 		(*list)++;
@@ -310,24 +310,20 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 };
 
 const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description ){
-/*	printer()->appendItem( new CPrintItem(module, startKey, stopKey, description, m_displayOptions, m_filterOptions) );*/
-
 	CPrinter::Item::Settings settings;
 	
 	CPrinter::KeyTree tree;
-	tree += CPrinter::Item(startKey, stopKey, module, settings);
+	tree.append( new CPrinter::Item(startKey, stopKey, module, settings) );
 	
 	printer()->printKeyTree(tree);
 	return true;
 }
 
 const bool CExportManager::printKey( CSwordKey* key, const QString& description ){
-/*	printer()->appendItem( new CPrintItem(key->module(),key->key(), key->key(), description, m_displayOptions, m_filterOptions) );*/
-	
 	CPrinter::Item::Settings settings;
 	
 	CPrinter::KeyTree tree;
-	tree += CPrinter::Item(key->key(), key->module(), settings);
+	tree.append( new CPrinter::Item(key->key(), key->module(), settings) );
 	
 	printer()->printKeyTree(tree);
 	return true;

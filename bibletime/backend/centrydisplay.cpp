@@ -74,7 +74,7 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
 		qWarning("error: %d", key.Error());*/
 		
 		settings.highlight = (key.key() == keyName);
-		tree +=  CTextRendering::KeyTreeItem( key.key(), modules, settings );
+		tree.append( new CTextRendering::KeyTreeItem( key.key(), modules, settings ) );
 	}
 
 	CDisplayRendering render(displayOptions, filterOptions);
@@ -104,7 +104,7 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
   // standard of DisplayLevel, display nothing together
   // if the current key is the root entry don't display anything together!
   if ((displayLevel <= 1) || (key->key().isEmpty() || (key->key() == "/") )) {
-		tree += CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings );
+		tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
   	key->key(keyName); //restore before we return so make sure it doesn't break anything
     
 		return render.renderKeyTree(tree);
@@ -127,7 +127,7 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
 
   if (possibleLevels < displayLevel) { //too few levels available!
     //display current level, we could also decide to display the available levels together
- 		tree += CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings );
+ 		tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
     return render.renderKeyTree(tree);
 
 	};
@@ -139,14 +139,14 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
   // at the moment we're at the lowest level, so we only have to go up!
   for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
     if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
-			tree += CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings );
+			tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
   	  return render.renderKeyTree(tree);
     };
   };
 
   // no we can display all sub levels together! We checked before that this is possible!
 	itemSettings.highlight = (key->key() == keyName);
-	tree += CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings );
+	tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
 
   //const bool hasToplevelText = !key->strippedText().isEmpty();
   key->firstChild(); //go to the first sibling on the same level
@@ -160,12 +160,12 @@ void CBookDisplay::setupRenderTree(CSwordTreeKey * swordTree, CTextRendering::Ke
 	const QString key = swordTree->getFullName();
   CTextRendering::KeyTreeItem::Settings settings;
 	settings.highlight = (key == highlightKey);
-	CTextRendering::KeyTreeItem item(key , swordTree->module(0), settings );
+	CTextRendering::KeyTreeItem* item = new CTextRendering::KeyTreeItem(key , swordTree->module(0), settings );
 	renderTree->append( item );
 
   if (swordTree->hasChildren()) { //print tree for the child items
     swordTree->firstChild();
-    setupRenderTree(swordTree, item.childList(), highlightKey);
+    setupRenderTree(swordTree, item->childList(), highlightKey);
     swordTree->key(key); //go back where we came from
   }
 

@@ -15,11 +15,9 @@
 	background-color:inherit;
 }
 
-body {
-	margin:10px;
-}
 #content {
 	background-color:white;
+	margin:10px;
 }
 #content > table {
 	margin:0;
@@ -112,7 +110,7 @@ td.entry + td.entry {
 	vertical-align:top;
 }
 
-#printer .entry .entry {
+#printer .entry  .entry, #printer .entry .sectiontitle , #printer .entry .booktitle {
 	margin-left:15px;
 }
 
@@ -162,6 +160,10 @@ td.entry + td.entry {
 	font-weight: bold;
 	font-size: 120%;
 }
+#printer .sectiontitle {
+	font-weight: bold;
+	font-size: 100%;
+}
 * + .sectiontitle {
 	margin-top:15px;
 }
@@ -169,6 +171,11 @@ td.entry + td.entry {
 .booktitle {
 	font-weight: bold;
 	font-size: 140%;
+	font-variant: small-caps;
+}
+#printer .booktitle {
+	font-weight: bold;
+	font-size: 120%;
 	font-variant: small-caps;
 }
 .foreign {
