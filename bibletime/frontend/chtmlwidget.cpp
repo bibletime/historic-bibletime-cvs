@@ -20,6 +20,10 @@
 #include "presenters/cswordpresenter.h"
 #include "thirdparty/qt3stuff/qrichtext_p.h"
 #include "thirdparty/qt3stuff/qt3stuff.h"
+#include "../backend/sword_backend/cswordldkey.h"
+#include "../backend/sword_backend/cswordversekey.h"
+#include "../backend/sword_backend/cswordbackend.h"
+#include "../backend/sword_backend/cswordmoduleinfo.h"
 #include "../ressource.h"
 #include "../tooltipdef.h"
 #include "../whatsthisdef.h"
@@ -58,8 +62,8 @@
 //Sword includes
 #include <swmodule.h>
 
-CHTMLWidget::CHTMLWidget(QWidget *parent, const char *name ) : QTextEdit(parent, name) {
-	qDebug("constructor of CHTMLWidget");
+CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, QWidget *parent, const char *name ) : QTextEdit(parent, name) {
+	m_important = importantClasses;
 	m_config = KGlobal::config();
 	m_popup = 0;
 	m_anchor = QString::null;
@@ -205,11 +209,13 @@ void CHTMLWidget::slotSaveAsText(){
 
 //**  */
 void CHTMLWidget::contentsDragEnterEvent(QDragEnterEvent* e){
+	QTextEdit::contentsDragEnterEvent(e);
   e->accept(QTextDrag::canDecode(e));
 }
 
 /**  */
 void CHTMLWidget::contentsDragMoveEvent(QDragMoveEvent* e){
+	QTextEdit::contentsDragMoveEvent(e);
   e->accept(QTextDrag::canDecode(e));
 }
 
@@ -218,11 +224,46 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
  	QString str;
  	QCString submime;
 
- 	if ( ( QTextDrag::decode(e,str,submime=BOOKMARK) || QTextDrag::decode(e,str,submime=REFERENCE) ) && !str.isEmpty() ){
-		QString ref = QString::null;
-		QString mod = QString::null;		
- 		CToolClass::decodeReference(str,mod,ref);   		   		
- 		emit referenceClicked(ref);
+	if (isReadOnly()) {
+	 	if ( ( QTextDrag::decode(e,str,submime=BOOKMARK) || QTextDrag::decode(e,str,submime=REFERENCE) ) && !str.isEmpty() ){
+			QString ref = QString::null;
+			QString mod = QString::null;		
+	 		CToolClass::decodeReference(str,mod,ref);
+	 		emit referenceClicked(ref);
+		}
+		else
+			e->ignore();
+	}
+	else {
+		QString text = QString::null;
+	 	if ( ( QTextDrag::decode(e,str,submime=BOOKMARK) || QTextDrag::decode(e,str,submime=REFERENCE) ) && !str.isEmpty() ){
+			QString ref = QString::null;
+			QString mod = QString::null;
+	 		CToolClass::decodeReference(str,mod,ref);
+	 		if (m_important){
+	 			CSwordModuleInfo* module = m_important->swordBackend->findModuleByName(mod);
+		 		if (module) {
+	 				if (module->getType() == CSwordModuleInfo::Bible || module->getType() == CSwordModuleInfo::Commentary) {
+	 					CSwordVerseKey vk(module);
+	 					vk.setKey(ref);
+	 					text = vk.getStrippedText();
+	 				}
+	 				else if (module->getType() == CSwordModuleInfo::Lexicon) {
+	 					CSwordLDKey ld(module);
+	 					text = ld.getStrippedText();
+	 				}
+		 		}
+		 	}
+		}
+		else if (QTextDrag::decode(e,str/*,submime="text/plain"*/) && !str.isEmpty())
+			text = str;
+
+		if (!text.isEmpty())
+			insert(text);
+		else {
+			e->ignore();
+//			QTextEdit::contentsDropEvent(e);
+		}
 	}
 }
 
@@ -244,7 +285,7 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
    	ensureCursorVisible();
 		emit cursorPositionChanged(cursor);
 		
-    if (!selectedText().isEmpty()) {
+    if (selectedText().isEmpty()) {
     	Qt3::QTextCursor c1 = *cursor;
 	    Qt3::QTextCursor c2 = *cursor;
 	    c1.gotoWordLeft();
@@ -252,7 +293,8 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
 	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
 	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
 	    *cursor = c2;
-	    	
+			emit cursorPositionChanged(cursor);		    	
+	   	ensureCursorVisible();			
 	    repaintChanged();
 	    m_selectedWord = true;
 	  }

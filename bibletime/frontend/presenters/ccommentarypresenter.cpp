@@ -65,7 +65,7 @@ void CCommentaryPresenter::initView(){
 	presenterEdit_action->setWhatsThis( WT_PRESENTER_EDIT );
 	presenterEdit_action->plug(m_mainToolBar);
 	
-	m_htmlWidget = new CHTMLWidget(this);
+	m_htmlWidget = new CHTMLWidget(m_important, this);
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
@@ -94,6 +94,8 @@ void CCommentaryPresenter::initConnections(){
 		this, SLOT(deleteText())); 	 	
 	connect(m_htmlWidget, SIGNAL(sigSaveDocument(const QString)),
 		this, SLOT(saveText(const QString))); 	 	 	
+	connect(m_htmlWidget, SIGNAL(insertReference(const QString&)),
+		this, SLOT(insertReference(const QString&))); 	 	 			
  	connect( m_keyChooser, SIGNAL(keyChanged(CKey*)),
  		this, SLOT(lookup(CKey*)));		
 	connect(m_popup,SIGNAL(aboutToShow()),
@@ -248,4 +250,14 @@ void CCommentaryPresenter::synchronize( CKey* syncKey ){
 /** Reimplementation. */
 const QString CCommentaryPresenter::caption() const {
 	return m_key->getKey();
+}
+
+
+/** No descriptions */
+void CCommentaryPresenter::insertReference(const QString& reference){
+	if (m_htmlWidget->isReadOnly())
+		return;
+	CSwordVerseKey vk(m_moduleList.first());
+	vk.setKey(reference);
+	m_htmlWidget->insert(vk.getStrippedText());
 }

@@ -11,7 +11,7 @@ Torsten Uhlmann 	<tuhlmann@debis.com>		(inactive)
 Documentation:
 --------------
 Bob Boyken	<rboyken@bloomington.in.us> 	(inactive)
-Jeffrey Hoyt 	<jeff@jhoyt.faithweb.com>
+Jeffrey Hoyt 	<jeff@jhoyt.faithweb.com>		(inactive)
 Fred Saalbach <saalbach@sybercom.net>
 
 Translations:
@@ -19,8 +19,6 @@ Translations:
 Silvio Bacchetta <sorgilazzaro@tiscalinet.it>
 Benedykt P. Barszcz <kb2qzv@box43.gnet.pl>
 Mario Bertrand 	<mbert@tbrq.org>
-Simon Bockius		no email
-Bob Boyken			<rboyken@bloomington.in.us
 Birger Langkjer	<birger.langkjer@image.dk>
 Michal Rovnaník <Michal.Rovnanik@seznam.cz>
 Balint Sandor 	<balintsa@freemail.hu>
@@ -45,13 +43,9 @@ Troy	A. Griffits	<scribe@crosswire.org>
 BibleTime @VERSION@ contains code from:
 
 Konqueror (in kdebase)
-	Homepage: http://www.konqueror.org	
-	
+	Homepage: http://www.konqueror.org		
 KDevelop © 1998,1999, 2000 by The KDevelop Team
 	Homepage: http://www.kdevelop.org/
-
 KTip (in kdebase)
 	Homepage:	http://www.kde.org/
 	Author:Matthias Hoelzer-Kluepfel
-	
-libhtmlparse 0.1

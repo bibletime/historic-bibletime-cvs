@@ -558,30 +558,31 @@ void CGroupManager::slotShowAbout(){
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%2:</B></TD><TD BGCOLOR=\"#FFE9C8\">%3</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%4:</B></TD><TD BGCOLOR=\"#FFE9C8\">%5</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%6:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%8:</B></TD><TD BGCOLOR=\"#FFE9C8\">%9</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%10:</B></TD><TD BGCOLOR=\"#FFE9C8\">%11</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%12:</B></TD><TD BGCOLOR=\"#FFE9C8\">%13</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%14:</B></TD><TD BGCOLOR=\"#FFE9C8\">%15</TD></TR>\
-<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%16:</B></TD><TD BGCOLOR=\"#FFE9C8\">%17</TD></TR>\
-</TABLE>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%8:</B></TD><TD BGCOLOR=\"#FFE9C8\">%9</TD></TR>")
+.arg(module->module()->Name())
+.arg(i18n("Datapath"))
+.arg(module->getPath())
+.arg(i18n("Version"))
+.arg(module->getVersion())
+.arg(i18n("Unlock key"))
+.arg(unlockKey)
+.arg(i18n("Writable"))
+.arg(isWritable);
+
+text += QString("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%5:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
+<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR></TABLE>\
 </BODY></HTML>")
-		.arg(module->module()->Name())
-		.arg(i18n("Datapath"))
-		.arg(module->getPath())
-		.arg(i18n("Version"))
-		.arg(module->getVersion())
-		.arg(i18n("Unlock key"))	
-		.arg(unlockKey)
-		.arg(i18n("Writable"))	
-		.arg(isWritable)
-		.arg(i18n("Footnotes"))	
-		.arg(hasFootnotes)
-		.arg(i18n("Strong's numbers"))	
-		.arg(hasStrongNumbers)
-		.arg(i18n("Description"))	
-		.arg(module->getDescription())
-		.arg(i18n("About"))
-		.arg(module->getAboutInformation());	
+.arg(i18n("Footnotes"))	
+.arg(hasFootnotes)
+.arg(i18n("Strong's numbers"))	
+.arg(hasStrongNumbers)
+.arg(i18n("Description"))	
+.arg(module->getDescription())
+.arg(i18n("About"))
+.arg(module->getAboutInformation());
+	
 	dlg->setText(text);
 	dlg->exec();
 	delete dlg;	

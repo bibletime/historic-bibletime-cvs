@@ -54,6 +54,9 @@ CSearchDialog::CSearchDialog(CImportantClasses* importantClasses, ListCSwordModu
 	old_overallProgress = 0;
 	initView();	
 	readSettings();	
+	
+	if (modules && modules->count())
+		showPage(pageIndex(searchText_page));	
 	setModuleList( modules );
 }
 

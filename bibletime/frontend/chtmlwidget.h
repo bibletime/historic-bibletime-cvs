@@ -19,6 +19,7 @@
 #define CHTMLWIDGET_H
 
 //BibleTime includes
+#include "../structdef.h"
 #define private public
 #include "thirdparty/qt3stuff/qtextedit.h"
 #undef private
@@ -49,7 +50,7 @@ class CHTMLWidget : public QTextEdit {
    friend class CHTMLDialog;
 
 public:
-	CHTMLWidget(QWidget *parent=0, const char *name=0);
+	CHTMLWidget(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0);
 	virtual ~CHTMLWidget();
   /**
  	* Reinitialize the colors, fonts etc.
@@ -214,6 +215,8 @@ protected slots: // Protected slots
   void slotSelectAll();
 	
 private:
+	CImportantClasses* m_important;	
+
 	bool m_readOnly;
 	bool m_selectedWord;
 	QString m_anchor;
@@ -248,6 +251,7 @@ signals: // Signals
   void sigSaveDocument(const QString);
   void referenceClicked(const QString&);
   void linkClicked(const QString&);
+	void insertReference(const QString& reference);
 };
 
 

@@ -55,7 +55,7 @@ CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QW
 	label3->setText( i18n("Preview:") );
 	label3->setAutoResize(true);
 
-	html_widget = new CHTMLWidget(this, "html_widget");
+	html_widget = new CHTMLWidget(m_important, this, "html_widget");
 	html_widget->setMinimumHeight(75);
 	html_widget->setMaximumHeight(130);
 

@@ -33,29 +33,21 @@
 CHTMLDialog::CHTMLDialog(QWidget* parent, const char *name )
 	: KDialogBase ( parent, name, true, i18n("BibleTime - Help window"), Ok, Ok, true)
 {
-	qDebug("CHTMLDialog::CHTMLDialog constructor1");
-	qDebug("CHTMLDialog: create HTML widget");
-	html_widget = new CHTMLWidget(this);
+	html_widget = new CHTMLWidget(0,this);
 	setMainWidget(html_widget);
-	
-	qDebug("CHTMLDialog: resize");	
 	resize(600,480);
 }
 
 CHTMLDialog::CHTMLDialog(const QString url, QWidget* parent, const char *name)
 	: KDialogBase ( parent, name, true, i18n("BibleTime - Help window"), Ok, Ok, true)
 {
-	qDebug("CHTMLDialog::CHTMLDialog constructor 2");	
-	html_widget = new CHTMLWidget(this);
-		
-	setMainWidget(html_widget);
-	ASSERT(html_widget);	
+	html_widget = new CHTMLWidget(0,this);		
 	html_widget->setHTMLSource( url );	
+	setMainWidget(html_widget);
 	resize(500,400);
 }
 
 CHTMLDialog::~CHTMLDialog(){
-	qDebug("CHTMLDialog::~CHTMLDialog()");
 }
 
 /** Sets the content of the widget */

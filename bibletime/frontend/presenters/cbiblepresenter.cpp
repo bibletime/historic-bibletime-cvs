@@ -58,7 +58,7 @@ void CBiblePresenter::initView(){
 	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Bible, this );
 	addToolBar(m_moduleChooserBar);
 	
-	m_htmlWidget = new CHTMLWidget(this);
+	m_htmlWidget = new CHTMLWidget(m_important, this);
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);

@@ -110,6 +110,8 @@ private slots: // Private slots
   * The sync button was pressed for synchronization.
   */
   void syncToggled();
+  /** No descriptions */
+  void insertReference(const QString&);
 };
 
 #endif

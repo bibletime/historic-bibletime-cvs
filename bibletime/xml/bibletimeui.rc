@@ -45,12 +45,11 @@
 </MenuBar>
 <ToolBar name="mainToolBar" fullWidth="true" noMerge="1" newLine="1">
  <Action name="file_quit"/>		
- <Action name="file_print"/>		
- <Action name="file_clearQueue"/>		
+ <Action name="file_print"/>
+ <Action name="file_clearQueue"/>
  <Separator/>
  <Action name="viewStrongs_action"/>
  <Action name="viewFootnotes_action"/>
- <Action name="options_show_toolbar"/>	
  <Action name="viewGroupmanager_action"/>		
  <Separator/>
  <Action name="GMsearch_action"/>		
