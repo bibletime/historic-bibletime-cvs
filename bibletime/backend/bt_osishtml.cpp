@@ -88,69 +88,93 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 
 		// <w> tag
 		if (!strcmp(tag.getName(), "w")) {
+			//qWarning("%s", tag.toString());
 			if ((!tag.isEmpty()) && (!tag.isEndTag())) { //start tag
 				const char *attrib;
 				const char *val;
+				
+				XMLTag outTag;
+				SWBuf attrValue;
+				outTag = "<span>";
+				//outTag.setAttribute("text", "testvalue");
+				//qWarning("%s", outTag.toString());
+				
 				if ((attrib = tag.getAttribute("xlit"))) {
 					val = strchr(attrib, ':');
 					val = (val) ? (val + 1) : attrib;
-					//buf.appendFormatted(" %s", val);
+					outTag.setAttribute("xlit", val);
 				}
 				if ((attrib = tag.getAttribute("gloss"))) {
 					val = strchr(attrib, ':');
 					val = (val) ? (val + 1) : attrib;
-					//buf.appendFormatted(" %s", val);
+					outTag.setAttribute("gloss", val);
 				}
 				if ((attrib = tag.getAttribute("lemma"))) {
 					const int count = tag.getAttributePartCount("lemma");
 					int i = (count > 1) ? 0 : -1;		// -1 for whole value cuz it's faster, but does the same thing as 0
+					attrValue = "";
 					do {
+						if (attrValue.length()) {
+							attrValue += "|";
+						}
+						
 						attrib = tag.getAttribute("lemma", i);
-						if (i < 0) // to handle our -1 condition
+						if (i < 0) { // to handle our -1 condition
               i = 0;
+						}
 						val = strchr(attrib, ':');
 						val = (val) ? (val + 1) : attrib;
 
-//            if ((!strcmp(val+2, "3588")) && (lastText.length() < 1)) {
-//							show = false;
-//            }
-//						else 
-						if (*val == 'H') {
-              buf.appendFormatted(" <span strongnumber=\"%s\">", val);
-            }
-						else if (*val == 'G') {
-              buf.appendFormatted(" <span strongnumber=\"%s\">", val);
-            }
+						if ((*val == 'H') || (*val == 'G')) {
+            	attrValue.append(val);
+						}						
 					} while (++i < count);
+					
+					if (attrValue.length()) {						
+						outTag.setAttribute("lemma", attrValue.c_str());
+					}
 				}
 				if ((attrib = tag.getAttribute("morph"))) {
 					const int count = tag.getAttributePartCount("morph");
 					int i = (count > 1) ? 0 : -1;		// -1 for whole value cuz it's faster, but does the same thing as 0
+					attrValue = "";
 					do {
+						if (attrValue.length()) {
+							attrValue += "|";
+						}
+
 						attrib = tag.getAttribute("morph", i);
-						if (i < 0)
+						if (i < 0) {
               i = 0;	// to handle our -1 condition
+						}
 						val = strchr(attrib, ':');
 						val = (val) ? (val + 1) : attrib;
- 						if ((*val == 'T') && (val[1] == 'H')) {
-              buf.appendFormatted(" <a morphcode=\"%s\">", val+1);
-            }
-						else if ((*val == 'T') && (val[1] == 'G')) {
-              buf.appendFormatted(" <span morphcode=\"%s\">", val+1);
+ 						if (!strncmp(attrib, "x-Robinson",10)) { //robinson codes
+							attrValue.append(val);
+						}
+						else if ((*val == 'T') && ((val[1] == 'H') || (val[1] == 'H'))) {
+							attrValue.append(val+1);
             }
             else if ((*val == 'T')) {
-              buf.appendFormatted(" <span morphcode=\"%s\">", val+1);
+							attrValue.append(val);
             }
 					} while (++i < count);
+					
+					//qWarning("morph: %s", attrValue.c_str());
+					if (attrValue.length()) {
+						//qWarning("append morph");
+						outTag.setAttribute("morph", attrValue.c_str());
+					}
 				}
 				if ((attrib = tag.getAttribute("POS"))) {
 					val = strchr(attrib, ':');
 					val = (val) ? (val + 1) : attrib;
-					//buf.appendFormatted(" %s", val);
-				}				
+					outTag.setAttribute("pos", val);
+				}	
+				
+				buf += outTag.toString();
 			}
-			// end or empty <w> tag
-			else if (tag.isEndTag()){
+			else if (tag.isEndTag()){ // end or empty <w> tag
 				buf += "</span>";
 			}
 		}
@@ -169,7 +193,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           myUserData->noteType = BT_UserData::StrongsMarkup;
         }
         else {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
-					buf.appendFormatted(" <span class=\"footnote\" footnote=\"%s/%s/%s\">.</span> ", 
+					buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">.</span> ", 
 					myModule->Name(),
 					myUserData->key->getShortText(),
 					tag.getAttribute("swordFootnote"));
@@ -233,7 +257,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			}
 			else {	// empty title marker
 				// what to do?  is this even valid?
-				buf += "<br />";
+				buf += "<br/>";
 			}
 		}	
 		// <hi> highlighted text

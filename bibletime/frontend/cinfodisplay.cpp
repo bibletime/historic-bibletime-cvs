@@ -31,7 +31,7 @@
 #include <klocale.h>
 
 CInfoDisplay::CInfoDisplay(QWidget *parent, const char *name)
-    : QWidget(parent, name)
+    : QWidget(parent, name), m_freezeDisplay(false)
 {
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	QLabel* headingLabel = new QLabel(i18n("Info display"),this);
@@ -47,30 +47,44 @@ CInfoDisplay::~CInfoDisplay() {
 
 
 void CInfoDisplay::setInfo(const InfoType type, const QString& data) {
+	ListInfoData list;
+	list.append( qMakePair(type, data) );
+	
+	setInfo(list);
+}
+
+
+void CInfoDisplay::setInfo(const ListInfoData& list) {
+	if (isFrozen())//do nothing, display is frozen
+		return; 
+		
 	QString text;
-  switch (type) {
-		case Footnote:
-			text = decodeFootnote(data);
-			break;
-		case WordTranslation:
-			text = getWordTranslation(data);
-			break;
-		case StrongNumber:
-			text = decodeStrongNumber(data);
-			break;
-		case MorphCode:
-			text = decodeMorphCode(data);
-			break;
-		default:
-			text = "unknown tag";
-			break;
+	for (ListInfoData::const_iterator it = list.begin(); it != list.end(); ++it) {
+	  switch ( (*it).first ) {
+			case Lemma:
+				text += decodeLemma( (*it).second );
+				break;
+			case Morph:
+				text += decodeMorph( (*it).second );
+				break;
+			case Footnote:
+				text += decodeFootnote( (*it).second );
+				break;
+			case WordTranslation:
+				text += getWordTranslation( (*it).second );
+				break;
+			case WordGloss:
+				//text += getWordTranslation( (*it).second );
+				break;
+			default:
+				break;
+		};
 	}
 
 	m_htmlPart->begin();
 	m_htmlPart->write(text);
 	m_htmlPart->end();
 }
-
 
 /*!
     \fn CInfoDisplay::decodeFootnote( const QString& data )
@@ -104,14 +118,16 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	return ret;
 }
 
-const QString CInfoDisplay::decodeStrongNumber( const QString& data ) {
+const QString CInfoDisplay::decodeLemma( const QString& data ) {
+	//qWarning("decode lemma: %s", data.latin1());
+	
 	QString strongDesc = CBTConfig::get(data.left(1) == "H" ? 
 		CBTConfig::standardHebrewStrongsLexicon : 
 		CBTConfig::standardGreekStrongsLexicon
 	);
-	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongDesc );
 	
-	Q_ASSERT(module);
+	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongDesc );	
+	Q_ASSERT(module);	
 	if (!module) {
 		return QString::null;
 	}
@@ -123,8 +139,24 @@ const QString CInfoDisplay::decodeStrongNumber( const QString& data ) {
 	
 }
 
-const QString CInfoDisplay::decodeMorphCode( const QString& data ) {
-	return QString::null;
+const QString CInfoDisplay::decodeMorph( const QString& data ) {
+	//qWarning("decode morph: %s", data.latin1());
+	
+	QString strongDesc = CBTConfig::get(data.left(1) == "H" ? 
+		CBTConfig::standardHebrewMorphLexicon : 
+		CBTConfig::standardGreekMorphLexicon
+	);
+	
+	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongDesc );	
+	Q_ASSERT(module);	
+	if (!module) {
+		return QString::null;
+	}
+	
+	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+	key->key( data.mid(1) ); //skip H or G (language sign)
+	
+	return key->renderedText();	
 }
 
 const QString CInfoDisplay::getWordTranslation( const QString& data ) {
@@ -132,9 +164,9 @@ const QString CInfoDisplay::getWordTranslation( const QString& data ) {
 	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( lexiconName );
 	
 	Q_ASSERT(module);
-	if (!module)
+	if (!module) {
 		return QString("module %1 not found").arg(lexiconName);
-		
+	}
 	
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
 	key->key( data );
@@ -147,6 +179,9 @@ const QString CInfoDisplay::getWordTranslation( const QString& data ) {
     \fn CInfoDisplay::clearInfo()
  */
 void CInfoDisplay::clearInfo() {
+	if (isFrozen())//do nothing, display is frozen
+		return; 
+
 	m_htmlPart->begin();
 	m_htmlPart->write(QString::null);
 	m_htmlPart->end();		

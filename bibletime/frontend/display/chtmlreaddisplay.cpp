@@ -275,44 +275,70 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 		if (!node.isNull()) {
 			DOM::Node currentNode = node;
 			DOM::Node attr;
+			
+			CInfoDisplay::ListInfoData infoList;
 			do {
 				if (!currentNode.isNull() && currentNode.hasAttributes()) { //found right node
-					attr = currentNode.attributes().getNamedItem("footnote");
+					attr = currentNode.attributes().getNamedItem("note");
 					if (!attr.isNull()) {
-						CPointers::infoDisplay()->setInfo( CInfoDisplay::Footnote, attr.nodeValue().string() );
-						setInfo = true;
-						break;
+						infoList.append( qMakePair(CInfoDisplay::Footnote, attr.nodeValue().string()) );
 					}
 				
-					attr = currentNode.attributes().getNamedItem("strongnumber");
+					attr = currentNode.attributes().getNamedItem("lemma");
 					if (!attr.isNull()) {
-						CPointers::infoDisplay()->setInfo( CInfoDisplay::StrongNumber, attr.nodeValue().string() );
-						setInfo = true;
-						break;
+						infoList.append( qMakePair(CInfoDisplay::Lemma, attr.nodeValue().string()) );
 					}
 					
-					attr = currentNode.attributes().getNamedItem("morphcode");
+					attr = currentNode.attributes().getNamedItem("morph");
 					if (!attr.isNull()) {
-						CPointers::infoDisplay()->setInfo( CInfoDisplay::MorphCode, attr.nodeValue().string() );
-						setInfo = true;
+						infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
+					}
+					
+					attr = currentNode.attributes().getNamedItem("pos");
+					if (!attr.isNull()) {
+						//infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
+					}
+					
+					attr = currentNode.attributes().getNamedItem("gloss");
+					if (!attr.isNull()) {
+						infoList.append( qMakePair(CInfoDisplay::WordGloss, attr.nodeValue().string()) );
+					}
+				
+					attr = currentNode.attributes().getNamedItem("xlit");
+					if (!attr.isNull()) {
+						//infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
+					}
+				}
+
+				currentNode = currentNode.parentNode();
+				if (!currentNode.isNull() && currentNode.hasAttributes()) {
+					attr = currentNode.attributes().getNamedItem("class");
+					if (!attr.isNull() && (attr.nodeValue().string() == "entry") || (attr.nodeValue().string() == "currententry") ) {
 						break;
 					}
 				}
-			} while ( !(currentNode = currentNode.parentNode()).isNull() );
+			} while ( !currentNode.isNull() );
 			
-			if (!setInfo) { //translate the text under the mouse, find the lowest node containing the mouse
+			if (!infoList.count()) { //translate the text under the mouse, find the lowest node containing the mouse
 				DOM::Node foundNode;
 				if (node.hasChildNodes() && (node.childNodes().length() == 1) && (node.firstChild().nodeName() == "#text")) {
 					foundNode = node.firstChild();
 				}
 				
 				if (!foundNode.isNull()) {
-					CPointers::infoDisplay()->setInfo(CInfoDisplay::WordTranslation, foundNode.nodeValue().string());
-				}
-				else {
-					CPointers::infoDisplay()->clearInfo();
+					infoList.append( qMakePair(CInfoDisplay::WordTranslation, foundNode.nodeValue().string()));					
 				}
 			}
+			
+			CPointers::infoDisplay()->setInfo(infoList);
+			const bool ctrlPressed = (e->qmouseEvent()->state() & Qt::ControlButton);
+			
+			if (!CPointers::infoDisplay()->isFrozen()) {
+				CPointers::infoDisplay()->freeze( ctrlPressed );
+			}
+			//else if (ctrlPressed) {
+//				CPointers::infoDisplay()->freeze( false );
+	//		}
 		}
 	} 
 	KHTMLPart::khtmlMouseMoveEvent(e);

@@ -315,7 +315,7 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	
 	
 	QString text = oldText; 
-	QRegExp re("\\s([a-zA-Z0-9צהüßִײÜ]+)(?=[\\s,.?!)(])");
+/*	QRegExp re("\\s([a-zA-Z0-9צהüßִײÜ]+)(?=[\\s,.?!)(])");
 	re.setMinimal(true);
 	text.replace(re, " <span class\"word\">\\1</span>");
 	
@@ -332,6 +332,7 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 	else {
 		//text = oldText;
 	}
+*/
 
 	QString langAbbrev = 
 		((modules.count() == 1) && modules.first()->language().isValid())
