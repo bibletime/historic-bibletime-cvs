@@ -82,7 +82,7 @@ const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, cons
   
   renderedText = QString::fromLatin1("<TR valign=\"top\">");
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    moduleFont = CBTConfig::get( m->language() );
+    moduleFont = CBTConfig::get( m->language() ).second;
     tdStyle = QString::fromLatin1("style=\"%1 %2 font-family:%3; font-size:%4pt;\"")
       .arg(((modules.at()+1) < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
       .arg(((modules.at()>0) && ((modules.at()+1) <= modules.count() )) ? QString::fromLatin1("padding-left:2mm;") : QString::null)
@@ -126,7 +126,7 @@ const QColor CEntryDisplay::color( const CEntryDisplay::ColorType type ) {
 
 /** Returns the font of the given type. */
 const QFont CEntryDisplay::font( const CLanguageMgr::Language& lang ) {
-  return CBTConfig::get(lang);
+  return CBTConfig::get(lang).second;
 }
 
 /** Adds the right headers and footers to the page and returns them together. */
@@ -328,7 +328,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
       .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
       .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
 
-    font = CBTConfig::get(m->language());
+    font = CBTConfig::get(m->language()).second;
     
     entry =
       QString::fromLatin1("<SPAN %1 STYLE=\"font-family:%2; font-size:%3pt;\"><SPAN dir=\"%4\">%5%6</SPAN></SPAN>")
@@ -470,8 +470,8 @@ const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const
     .arg(
       QString::fromLatin1("<SPAN %1 STYLE=\"font-family:%2; font-size:%3pt;\">%4</SPAN>")
       .arg(activeKey ? "class=\"highlighted\"" : "")
-      .arg(CBTConfig::get(book->language()).family())
-      .arg(CBTConfig::get(book->language()).pointSize())
+      .arg(CBTConfig::get(book->language()).second.family())
+      .arg(CBTConfig::get(book->language()).second.pointSize())
       .arg(key->renderedText())
     );
 }

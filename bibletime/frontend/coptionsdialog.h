@@ -19,6 +19,7 @@
 #define COPTIONSDIALOG_H
 
 #include "cprofilemgr.h"
+#include "cbtconfig.h"
 #include "util/cpointers.h"
 
 //QT includes
@@ -125,10 +126,12 @@ private:
 			KColorButton* jesuswords;
 		} colors;
 		
-		struct FontSettings {		
+    struct FontSettings {		
 			KFontChooser* fontChooser;
 			QComboBox* usage;
-			QMap<QString,QFont> fontMap;			
+      QCheckBox* useOwnFontBox;
+      //the pair os to check whether the standard font (bool == false) or whether an own font should be used (true)
+      QMap<QString,CBTConfig::FontSettingsPair> fontMap;
 		} fonts;
 		
 		struct ProfileSettings {
@@ -170,6 +173,10 @@ protected slots: // Protected slots
   * Delete the selected profile.
   */
   void deleteProfile();
+  /**
+  * This slot is called when the "Use own font for language" bo was clicked.
+  */
+  void useOwnFontClicked(bool);
 
 protected: // Protected methods
   /**

@@ -125,7 +125,7 @@ void CDisplaySettingsButton::optionToggled(int ID){
 
 /** No descriptions */
 int CDisplaySettingsButton::populateMenu(){
-  qWarning("CDisplaySettingsButton::populateMenu");
+//  qWarning("CDisplaySettingsButton::populateMenu");
 	int ret = 0;
 
 	m_popup->clear();

@@ -25,6 +25,7 @@
 #include <qstringlist.h>
 
 //KDE includes
+#include <kapplication.h>
 #include <kconfig.h>
 #include <kcharsets.h>
 #include <kglobal.h>
@@ -37,16 +38,16 @@
 
 const QString CBTConfig::getKey( const CBTConfig::strings ID){
 	switch ( ID ){
-		case bibletimeVersion:			return "bibletimeVersion";
-		case language: 							return "language";
-		case standardBible: 				return "standardBible";
-		case standardCommentary: 		return "standardCommentary";
-		case standardLexicon: 			return "standardLexicon";
-		case standardDailyDevotional:	return "standardDailyDevotional";    
+		case bibletimeVersion:			        return "bibletimeVersion";
+		case language: 							        return "language";
+		case standardBible: 				        return "standardBible";
+		case standardCommentary: 		        return "standardCommentary";
+		case standardLexicon: 			        return "standardLexicon";
+		case standardDailyDevotional:	      return "standardDailyDevotional";    
 		case standardHebrewStrongsLexicon: 	return "standardHebrewLexicon";
 		case standardGreekStrongsLexicon: 	return "standardGreekLexicon";
-		case standardHebrewMorphLexicon:	return "standardHebrewMorphLexicon";
-		case standardGreekMorphLexicon:		return "standardGreekMorphLexicon";
+		case standardHebrewMorphLexicon:	  return "standardHebrewMorphLexicon";
+		case standardGreekMorphLexicon:		  return "standardGreekMorphLexicon";
 	}
 	return QString::null;
 }
@@ -54,16 +55,16 @@ const QString CBTConfig::getKey( const CBTConfig::strings ID){
 const QString CBTConfig::getDefault( const CBTConfig::strings ID){
 	switch ( ID ){
 		case bibletimeVersion:			return ( "NOT YET INSTALLED" );
-			// main() will realize this and set the value to VERSION
+		// main() will realize this and set the value to VERSION
 		case language: 							return (KGlobal::locale()->language()).local8Bit();
 		case standardBible: 				return "KJV";  // no effect
 		case standardCommentary: 		return "MHC";
 		case standardLexicon: 			return "ISBE";
 		case standardDailyDevotional: 			return ""; //no default
-		case standardHebrewStrongsLexicon: return "StrongsHebrew";
+		case standardHebrewStrongsLexicon:  return "StrongsHebrew";
 		case standardGreekStrongsLexicon: 	return "StrongsGreek";
-		case standardHebrewMorphLexicon:	return "StrongsHebrew"; //warning this is wrong
-		case standardGreekMorphLexicon:		return "StrongsGreek";  //but imo has no effect
+		case standardHebrewMorphLexicon:	  return "StrongsHebrew"; //warning this is wrong
+		case standardGreekMorphLexicon:		  return "StrongsGreek";  //but imo has no effect
 	}
 	return QString::null;
 }
@@ -265,7 +266,7 @@ const QString CBTConfig::getKey( const CLanguageMgr::Language& language ){
 
 const QFont CBTConfig::getDefault( const CLanguageMgr::Language& language ){
   //language specific lookup of the font name
-  return QFont();
+  return KApplication::font();
 }
 
 
@@ -317,24 +318,25 @@ const CBTConfig::StringMap CBTConfig::get( const CBTConfig::stringMaps ID ){
   return getDefault(ID);
 }
 
-const QFont	CBTConfig::get( const CLanguageMgr::Language& language ){
+const CBTConfig::FontSettingsPair	CBTConfig::get( const CLanguageMgr::Language& language ){
 	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, "fonts");
-	return config->readFontEntry(getKey(language));
-}
+	KConfigGroupSaver groupSaver(config, "font standard settings");
 
+  FontSettingsPair settings;
+  settings.first = config->readBoolEntry(getKey(language));
+
+  config->setGroup("fonts");
+ 
+  settings.second = !settings.first ? KApplication::font() : config->readFontEntry(getKey(language));
+
+  return settings;
+}
 
 void CBTConfig::set( const CBTConfig::strings ID, const QString value ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "strings");
 	config->writeEntry(getKey(ID), value);
 }
-
-//Del von KDevelop:void CBTConfig::set( const CBTConfig::fonts ID, const QFont value ){
-//Del von KDevelop:	KConfig* config = KGlobal::config();
-//Del von KDevelop:	KConfigGroupSaver groupSaver(config, "fonts");
-//Del von KDevelop:	config->writeEntry(getKey(ID), value);
-//Del von KDevelop:}
 
 void CBTConfig::set(const  CBTConfig::bools ID,const  bool value ){
 	KConfig* config = KGlobal::config();
@@ -398,10 +400,14 @@ void CBTConfig::set( const CBTConfig::stringMaps ID, const CBTConfig::StringMap 
 }
 
 
-void CBTConfig::set( const CLanguageMgr::Language& language, const QFont& value ){
+void CBTConfig::set( const CLanguageMgr::Language& language, const FontSettingsPair& value ){
 	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, "fonts");
-	config->writeEntry(getKey(language), value);
+
+  KConfigGroupSaver groupSaver(config, "fonts");
+	config->writeEntry(getKey(language), value.second);
+  
+  config->setGroup("font standard settings");  
+	config->writeEntry(getKey(language), value.first);
 }
 
 

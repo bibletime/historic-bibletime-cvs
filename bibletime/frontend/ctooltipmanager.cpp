@@ -159,10 +159,11 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 
 
 //    if (module->isUnicode()) {
+      const QFont font = CBTConfig::get(module->language()).second;
       text = QString::fromLatin1("<DIV %1 STYLE=\"font-family:%2; font-size:%3pt;\">")
               .arg(module->textDirection() == CSwordModuleInfo::RightToLeft ? "dir=\"rtl\"" : 0)
-              .arg(CBTConfig::get(module->language()).family())
-              .arg(CBTConfig::get(module->language()).pointSize())
+              .arg(font.family())
+              .arg(font.pointSize())
              + text + QString::fromLatin1("</DIV>");
 //    }
 	}

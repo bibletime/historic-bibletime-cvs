@@ -965,7 +965,8 @@ const QString CBookmarkFolder::OldBookmarkImport::oldBookmarksXML( const QString
 		++it_descriptions;
 		++it_bookmarks;
   };
-  qWarning(doc.toString().latin1());
+
+//  qWarning(doc.toString().latin1());
 
   return doc.toString();
 };

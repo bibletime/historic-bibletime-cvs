@@ -92,17 +92,6 @@ void CHTMLWriteDisplay::toggleUnderlined() {
 };
 
 void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions) {
- 	m_actions.save = new KAction( i18n("Save the text"),
-    CResMgr::displaywindows::writewindow::saveText::icon,
-    CResMgr::displaywindows::writewindow::saveText::accel,
-    parentWindow(), SLOT( saveCurrentText()  ),
-    actions
-  );
-  m_actions.save->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
-  m_actions.save->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
-  m_actions.save->plug(bar);
-
-
  	m_actions.bold = new KAction( i18n("Bold"),
     CResMgr::displaywindows::writewindow::saveText::icon,
     CResMgr::displaywindows::writewindow::saveText::accel,
@@ -124,7 +113,7 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
   m_actions.italic->plug(bar);
 
 
- 	m_actions.underlined = new KAction( i18n("Bold"),
+ 	m_actions.underlined = new KAction( i18n("Underline"),
     CResMgr::displaywindows::writewindow::saveText::icon,
     CResMgr::displaywindows::writewindow::saveText::accel,
     this, SLOT( toggleUnderlined()  ),

@@ -58,6 +58,18 @@ void CHTMLWriteWindow::initView() {
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
  	mainToolBar()->setFullSize(false);
 
+
+  //setip the toolbar
+ 	m_actions.save = new KAction( i18n("Save the text"),
+    CResMgr::displaywindows::writewindow::saveText::icon,
+    CResMgr::displaywindows::writewindow::saveText::accel,
+    this, SLOT( saveCurrentText()  ),
+    actionCollection()
+  );
+  m_actions.save->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
+  m_actions.save->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
+  m_actions.save->plug(mainToolBar());  
+  
   writeDisplay->setupToolbar( mainToolBar(), actionCollection() );
 };
 

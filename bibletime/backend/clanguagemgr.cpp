@@ -196,7 +196,7 @@ void CLanguageMgr::init() {
 
   m_langList.append( Language("el"  , "Greek, Modern (1453-)" , i18n("Greek, Modern (1453-)"), makeStringList("gre;ell")) );
   m_langList.append( Language("en"  , "English"     , i18n("English")) );
-  m_langList.append( Language("en_US"  , "American English"     , i18n("American English")) );
+  m_langList.append( Language("en_US",  "American English"     , i18n("American English")) );
   m_langList.append( Language("enm" , "English, Middle (1100-1500)"     , i18n("English, Middle (1100-1500)")) );
   m_langList.append( Language("eo"  , "Esperanto"   , i18n("Esperanto")) );
   m_langList.append( Language("es"  , "Spanish"     , i18n("Spanish")) );

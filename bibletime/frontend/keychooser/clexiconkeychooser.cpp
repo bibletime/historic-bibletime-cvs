@@ -142,7 +142,7 @@ void CLexiconKeyChooser::adjustFont(){
 //		m_widget->comboBox()->setFont( CBTConfig::get(CBTConfig::unicode) );
 //	else
 //		m_widget->comboBox()->setFont( CBTConfig::get(CBTConfig::standard) );
-		m_widget->comboBox()->setFont( CBTConfig::get( m_modules.first()->language() ) );
+		m_widget->comboBox()->setFont( CBTConfig::get( m_modules.first()->language() ).second );
 }
 
 /** Sets the module and refreshes the combo boxes */

@@ -307,7 +307,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		else if (type == CStyle::ModuleText) {		
 			p->save();
 			
-			font = CBTConfig::get( m_module->language() );
+			font = CBTConfig::get( m_module->language() ).second;
 
 			if (alignment == CStyle::Format::Center)		
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);

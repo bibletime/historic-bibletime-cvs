@@ -32,7 +32,7 @@
 
 #include "resource.h"
 #include "whatsthisdef.h"
-#include "cbtconfig.h"
+//#include "cbtconfig.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -91,12 +91,16 @@ COptionsDialog::COptionsDialog(QWidget *parent, const char *name, KAccel* accel 
 
 /**  */
 void COptionsDialog::newDisplayWindowFontSelected(const QFont &newFont){
-	m_settings.fonts.fontMap.replace(m_settings.fonts.usage->currentText(), newFont);		
+  CBTConfig::FontSettingsPair oldSettings = m_settings.fonts.fontMap[ m_settings.fonts.usage->currentText() ];
+	m_settings.fonts.fontMap.replace( m_settings.fonts.usage->currentText(), CBTConfig::FontSettingsPair(oldSettings.first, newFont) );		
 }
 
 /** Called when the combobox contents is changed */
 void COptionsDialog::newDisplayWindowFontAreaSelected(const QString& usage){
-	m_settings.fonts.fontChooser->setFont( m_settings.fonts.fontMap[usage] );
+  useOwnFontClicked( m_settings.fonts.fontMap[usage].first );
+  m_settings.fonts.useOwnFontBox->setChecked( m_settings.fonts.fontMap[usage].first );
+
+  m_settings.fonts.fontChooser->setFont( m_settings.fonts.fontMap[usage].second );
 }
 
 /** Called if the OK button was clicked */
@@ -219,32 +223,43 @@ void COptionsDialog::initFonts(){
  	layout->addWidget( CToolClass::explanationLabel(page, i18n("Choose fonts"), i18n("The fonts you can choose here are used in the display windows. Use the drop-down box below to choose the area of application. Then select a font for it. Make sure the font contains the characters of the modules you use!")) );
   layout->addSpacing(5);
  					
- 	m_settings.fonts.usage = new QComboBox(page);		
- 	QToolTip::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::tooltip);	
- 	QWhatsThis::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::whatsthis);	
- 	layout->addWidget(m_settings.fonts.usage);
-	 	
-// 	m_settings.fonts.fontMap.insert(i18n("Standard"), CBTConfig::get(CBTConfig::standard));
-// 	m_settings.fonts.fontMap.insert(i18n("Unicode"),  CBTConfig::get(CBTConfig::unicode));
+
+  //horizontal layout box to contain the chooser box and use own font checkbox
+  QHBoxLayout* hLayout = new QHBoxLayout();
+
+ 	m_settings.fonts.usage = new QComboBox(page);
+ 	QToolTip::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::tooltip);
+ 	QWhatsThis::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::whatsthis);
+
+  hLayout->addWidget(m_settings.fonts.usage);
 
   CLanguageMgr::LangMap langMap = languageMgr()->availableLanguages();
   CLanguageMgr::LangMap::Iterator it;
-  for ( it = langMap.begin(); it != langMap.end(); ++it ) {
-    m_settings.fonts.fontMap.insert(it.data().translatedName(), CBTConfig::get(it.data()));
-  }
 
- 	for( QMap<QString, QFont>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it )
+  for ( it = langMap.begin(); it != langMap.end(); ++it ) {
+    m_settings.fonts.fontMap.insert(it.data().translatedName(), CBTConfig::get(it.data()) );
+  }
+ 	for( QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
  		m_settings.fonts.usage->insertItem(it.key());
-    		
+  }
+  
+  
+  m_settings.fonts.useOwnFontBox = new QCheckBox(i18n("Use own font settings"), page, "font checkbox");
+  connect(m_settings.fonts.useOwnFontBox, SIGNAL(toggled(bool)), SLOT(useOwnFontClicked(bool)));
+ 	hLayout->addWidget(m_settings.fonts.useOwnFontBox);
+
+
+  layout->addLayout(hLayout);    
+    
  	m_settings.fonts.fontChooser = new KFontChooser(page, "fonts", false, QStringList(), true, 5);
  	m_settings.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog"));
  	layout->addWidget(m_settings.fonts.fontChooser);
-		
+    		
   connect(m_settings.fonts.fontChooser, SIGNAL(fontSelected(const QFont&)), SLOT(newDisplayWindowFontSelected(const QFont&)));
   connect(m_settings.fonts.usage, SIGNAL(activated(const QString&)), SLOT(newDisplayWindowFontAreaSelected(const QString&)));
-// 	QWhatsThis::add(m_settings.fonts.fontChooser, WT_OD_FONTS_CHOOSER);
 		 	
- 	m_settings.fonts.fontChooser->setFont( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()] );
+ 	m_settings.fonts.fontChooser->setFont( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].second );
+  useOwnFontClicked( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].first );
  	m_settings.fonts.fontChooser->setMinimumSize(m_settings.fonts.fontChooser->sizeHint());		
 }
 
@@ -866,15 +881,11 @@ void COptionsDialog::saveColors(){
 
 /** No descriptions */
 void COptionsDialog::saveFonts(){
-	for(QMap<QString, QFont>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
+	for(QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
     CLanguageMgr::Language lang = languageMgr()->languageForTranslatedName(it.key());
-    CBTConfig::set(lang, it.data());    
-// 		if (it.key() == i18n("Standard")) {
-// 			CBTConfig::set(CBTConfig::standard, it.data());
-// 		}
-// 		else if (it.key() == i18n("Unicode")) {
-// 			CBTConfig::set(CBTConfig::unicode, it.data());
-// 		}
+//    if (it.data().first) {//true == use own font settings
+      CBTConfig::set(lang, it.data());
+//    }
  	}
 }
 
@@ -939,4 +950,16 @@ void COptionsDialog::saveSword(){
  	CBTConfig::set(CBTConfig::hebrewCantillation, m_settings.swords.hebrewCantillation->isChecked());
  	CBTConfig::set(CBTConfig::greekAccents, m_settings.swords.greekAccents->isChecked());
  	CBTConfig::set(CBTConfig::textualVariants, m_settings.swords.textualVariants->isChecked()); 		 	
+}
+
+/** This slot is called when the "Use own font for language" bo was clicked. */
+void COptionsDialog::useOwnFontClicked( bool isOn){
+  if (isOn){ //use own font for the selected language
+    m_settings.fonts.fontChooser->setEnabled(true);
+    m_settings.fonts.fontMap[ m_settings.fonts.usage->currentText() ].first = true;
+  }
+  else {
+    m_settings.fonts.fontChooser->setEnabled(false);
+    m_settings.fonts.fontMap[ m_settings.fonts.usage->currentText() ].first = false;    
+  };
 }

@@ -117,7 +117,8 @@ public:
   enum stringMaps {
     searchScopes
   };
-
+  typedef std::pair<bool, QFont> FontSettingsPair;
+  
   static const QString 		get( const CBTConfig::strings );
   static const bool 			get( const CBTConfig::bools );
   static const int   			get( const CBTConfig::ints );
@@ -125,7 +126,8 @@ public:
   static const QValueList<int>	get( const CBTConfig::intLists );
   static const QStringList	get( const CBTConfig::stringLists );
   static const CBTConfig::StringMap	get( const CBTConfig::stringMaps );
-  static const QFont 		get( const CLanguageMgr::Language& );  
+
+  static const FontSettingsPair	get( const CLanguageMgr::Language& );
 	
 	static const QString 				 getDefault( const CBTConfig::strings );
 	static const bool		 				 getDefault( const CBTConfig::bools );
@@ -143,7 +145,7 @@ public:
 	static void set( const CBTConfig::intLists,	const QValueList<int> value );
   static void set( const CBTConfig::stringLists, const QStringList value);
   static void set( const CBTConfig::stringMaps, const CBTConfig::StringMap value);
-  static void	set( const CLanguageMgr::Language& language, const QFont& font );    
+  static void	set( const CLanguageMgr::Language& language, const FontSettingsPair& fontSettings );    
 
   static const CSwordBackend::FilterOptions getFilterOptionDefaults();
   static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();

@@ -144,7 +144,7 @@ int main(int argc, char* argv[]) {
 	//we could so change this to a file reading function (including commented out people
 	//coders
 	// active developers (sorted by name)                                                                                     	
-	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "joachim@ansorgs.de", 		"");
+	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "joachim@ansorgs.de", 		"joachim.ansorgs.de");
 	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend"), 	"mg.pub@gmx.net", 				"");
   //and / or search for multiple words, other fixes and improvements
   aboutData.addAuthor("Nikolay Igotti", I18N_NOOP("Frontend"),            "olonho@hotmail.com",     "");
@@ -156,7 +156,7 @@ int main(int argc, char* argv[]) {
 //	aboutData.addAuthor("Tim Brodie", 	I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
 
 	//artwork (sorted by name)
-	aboutData.addAuthor("Timothy R. Butler", I18N_NOOP("Icons, startlogo, banners"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");
+	aboutData.addAuthor("Timothy R. Butler", I18N_NOOP("Icons, startlogo, webpage"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");
 		
 	//documentation (sorted by name)
 	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
@@ -179,6 +179,7 @@ int main(int argc, char* argv[]) {
 
 	//credits (sorted by name)
 	aboutData.addCredit("Bob Harman", I18N_NOOP("Bible study HowTo"), "N_Cov_Church@compuserve.com", "");
+	aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");  
 	 	
 	KCmdLineArgs::init(argc, argv, &aboutData); 	
 	KCmdLineArgs::addCmdLineOptions ( options );

@@ -193,7 +193,7 @@ void CBookTreeChooser::setModules(ListCSwordModuleInfo modules, const bool refre
 void CBookTreeChooser::adjustFont(){
   //Make sure the entries are displayed correctly.
 //	if ( m_modules.first()->isUnicode() ){
-		m_treeView->setFont( CBTConfig::get(m_modules.first()->language()) );
+		m_treeView->setFont( CBTConfig::get(m_modules.first()->language()).second );
 //		qWarning("Unicode Book detected");
 //	}
 //	else{
