@@ -17,11 +17,10 @@
 
 #include "ckeychooser.h"
 #include "../../backend/cmoduleinfo.h"
-//#include "../../backend/ckey.h"
+#include "../../backend/sword_backend/cswordmoduleinfo.h"
 #include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
 #include "../../backend/sword_backend/cswordcommentarymoduleinfo.h"
 #include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
-//#include "../../backend/cbackenddefs.h"
 
 #include "clexiconkeychooser.h"
 #include "cbiblekeychooser.h"

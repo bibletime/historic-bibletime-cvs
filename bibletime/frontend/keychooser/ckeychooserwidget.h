@@ -19,6 +19,7 @@
 #define CKEYCHOOSERWIDGET_H
 
 #include <qwidget.h>
+#include <qcombobox.h>
 
 class cfx_btn;
 class CLexiconKeyChooser;
@@ -32,6 +33,14 @@ class QToolButton;
 class QStringList;
 class QPoint;
 class QMouseEvent;
+
+class CKCComboBox : public QComboBox {
+  Q_OBJECT
+public:
+  CKCComboBox(bool rw, QWidget * parent=0, const char * name=0 );
+protected:
+  void focusOutEvent( QFocusEvent*);
+};
 
 /**
 	* This class implements the KeyCooser Widget, which
@@ -58,7 +67,7 @@ public:
 	/**
 		*
 		*/
-	QComboBox* ComboBox;
+	CKCComboBox* ComboBox;
 	/**
 		*
 		*/
@@ -89,7 +98,7 @@ public:
  		* Initializes this widget. We need this function because
  		* we have more than one constructor.
  		*/
- 	virtual void init( QStringList* list );
+ 	virtual void init();
   /**  */
   virtual void adjustSize();
   /** No descriptions */
@@ -138,15 +147,15 @@ protected:
 	/**
  		* Returns the icons set which contains the UP button.
  		*/
-	QIconSet* getUpIconSet();
+	QIconSet getUpIconSet();
   /**
   	* Returns the icons set which contains the button used to change the current item.
   	*/
-  QIconSet* getMoverIconSet();
+  QIconSet getMoverIconSet();
   /**
   	*  Returns the icons set which contains the down button.
   	*/
-  QIconSet* getDownIconSet();
+  QIconSet getDownIconSet();
 	/**
 		*
 		*/
@@ -164,43 +173,11 @@ protected slots: // Protected slots
 
 private:
 	friend class CLexiconKeyChooser;
-	
+
 	/**
 		* This is only used and created when we use the int-constructor
 		*/
-	QStringList*	m_list;
-	/**
-		*
-		*/
-	QHBoxLayout* m_mainLayout;
-	/**
-		*
-		*/
-	QVBoxLayout* m_buttonLayout;
-	/**
-		*
-		*/
-	QIconSet*	m_upIconSet;
-	/**
-		*
-		*/
-	QPixmap*	m_upPixmap;
-	/**
-		*
-		*/
-	QIconSet*	m_moverIconSet;
-	/**
-		*
-		*/
-	QPixmap*	m_moverPixmap;
-	/**
-		*
-		*/
-	QIconSet*	m_downIconSet;
-	/**
-		*
-		*/
-	QPixmap*	m_downPixmap;
+	QStringList	m_list;
 };
 
 #endif
