@@ -19,6 +19,7 @@
 #include "cfx_btn.h"
 
 //Qt includes
+#include <qlineedit.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qlistbox.h>
@@ -36,19 +37,30 @@
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
   :QComboBox(rw,parent,name){
+
+//  setFocusPolicy(QWidget::StrongFocus);
+  installEventFilter( lineEdit() );
 }
 
-void CKCComboBox::focusOutEvent( QFocusEvent* e){
-  QComboBox::focusOutEvent(e);
-  if (e->reason() == QFocusEvent::Tab){
-    qDebug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+/** Reimplementation. */
+bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){		
+	if ((o == lineEdit()) && (e->type() == QEvent::FocusOut)) {
+		QFocusEvent* f = (QFocusEvent*)e;
+		if (f->reason() != QFocusEvent::Tab)
+			return false;
+			
     int index = listBox()->index( listBox()->findItem(currentText()) );
+//    if (index==-1)
+//    	return false;
+    emit focusOut( index );  	
   	setCurrentItem( index );
-    emit activated( index );
-    emit activated( currentText() );
-  }
+//    emit activated( currentText() );
+	}
+  QComboBox::eventFilter(o,e);	
 }
 
+
+//**********************************************************************************/
 
 CKeyChooserWidget::CKeyChooserWidget(int count, QWidget *parent, const char *name) : QWidget(parent,name) {
 	for (int index=1; index <= count; index++) {
@@ -174,8 +186,9 @@ void CKeyChooserWidget::init( ){
 	connect( btn_fx, SIGNAL( lock() ), this, SLOT( lock() ) );
 	connect( btn_fx, SIGNAL( unlock() ), this, SLOT( unlock() ) );
 	connect( btn_fx, SIGNAL( change_requested(int) ), this, SLOT( changeCombo(int) ) );
-	connect( ComboBox, SIGNAL( activated( int )), SLOT(slotComboChanged(int)));
-	connect( ComboBox, SIGNAL( activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
+	connect( ComboBox, SIGNAL(activated( int )), SLOT(slotComboChanged(int)));
+	connect( ComboBox, SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
+	connect( ComboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
 		
 //	adjustSize();	
 	isResetting = false;
@@ -262,3 +275,4 @@ void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextE
 	QWhatsThis::add(btn_fx,  scrollButtonTip);
 	QWhatsThis::add(btn_down,previousEntryTip);
 }
+

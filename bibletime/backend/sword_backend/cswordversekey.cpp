@@ -45,7 +45,7 @@ void CSwordVerseKey::getData(){
 
 /** Sets the key we use to the parameter. */
 bool CSwordVerseKey::setKey( QString key ){	
-	error = false;
+	error = 0;
 	
 	VerseKey::operator = ((const char*)key.local8Bit());	
 //	m_module->module()->SetKey(*this->clone());
@@ -97,6 +97,9 @@ bool CSwordVerseKey::PreviousChapter(){
 	//this is bad for commentary modules because tey do not have all keys
 //#warning Implement some special thing for commentaries		
 	Chapter(Chapter()-1);
+	if (Chapter()<=0)
+		return false;
+	
 	
 	return true;
 }
@@ -104,9 +107,11 @@ bool CSwordVerseKey::PreviousChapter(){
 /**  */
 bool CSwordVerseKey::NextBook(){
 	//this is bad for commentary modules because tey do not have all keys
-//#warning Implement some special thing for commentaries		
+//#warning Implement some special thing for commentaries			
 	Book(Book()+1);
 	
+	if (Book()<=0)
+		return false;	
 	return true;
 }
 
@@ -114,6 +119,9 @@ bool CSwordVerseKey::NextBook(){
 bool CSwordVerseKey::PreviousBook(){
 	//this is bad for commentary modules because tey do not have all keys
 //#warning Implement some special thing for commentaries		
+	if (Book()<=0)
+		return false;
+		
 	Book(Book()-1);
 
 	return true;

@@ -47,7 +47,11 @@ void CSwordLDKey::getData(){
 /** Sets the key of this instance */
 bool CSwordLDKey::setKey( const QString key ){
 	SWKey::operator = ((const char*)key.local8Bit());	
+	
 	m_module->module()->SetKey(*this->clone());			
+	
+	SWKey::operator = (m_module->module()->KeyText());
+	
 	m_data = QString::null;
 	
 	return !(bool)error;

@@ -36,10 +36,17 @@ class QMouseEvent;
 
 class CKCComboBox : public QComboBox {
   Q_OBJECT
+
 public:
   CKCComboBox(bool rw, QWidget * parent=0, const char * name=0 );
 protected:
-  void focusOutEvent( QFocusEvent*);
+  /**
+  * Reimplementation.
+  */
+  virtual bool eventFilter( QObject *o, QEvent *e );
+
+signals:
+	void focusOut(int itemIndex);
 };
 
 /**
@@ -61,24 +68,24 @@ public:
 		*/
 	CKeyChooserWidget(int count=0, QWidget *parent=0, const char *name=0);	
 	/**
-		* the destructor
-		*/
+	* the destructor
+	*/
 	~CKeyChooserWidget();
 	/**
-		*
-		*/
+	*
+	*/
 	CKCComboBox* ComboBox;
 	/**
-		*
-		*/
+	*
+	*/
 	QToolButton* btn_up;
 	/**
-		*
-		*/
+	*
+	*/
 	QToolButton* btn_down;
 	/**
-		*
-		*/
+	*
+	*/
 	cfx_btn* btn_fx;
 	/**
 	* This function does clear the combobox, then fill in
@@ -91,92 +98,101 @@ public:
 	*/	
 	void reset(const int count, int index, bool do_emit);
 	/**
-		*
-		*/	
+	*
+	*/	
 	void reset(QStringList *list, int index, bool do_emit);	
  	/**
- 		* Initializes this widget. We need this function because
- 		* we have more than one constructor.
- 		*/
+ 	* Initializes this widget. We need this function because
+ 	* we have more than one constructor.
+ 	*/
  	virtual void init();
-  /**  */
+  /**
+  *
+  */
   virtual void adjustSize();
-  /** No descriptions */
+  /**
+  * No descriptions
+  */
   void setWhatsThis(const QString comboTip, const QString nextEntry, const QString scrollButton, const QString previousEntry);
-  /** Sets the tooltips for the given entries using the parameters as text. */
+  /**
+  * Sets the tooltips for the given entries using the parameters as text.
+  */
   void setToolTips( const QString comboTip, const QString nextEntry, const QString scrollButton, const QString previousEntry);
 
 public slots:
 	/**
-		* is called to lock the combobox
-		*/
+	* is called to lock the combobox
+	*/
 	void lock();
 	/**
-		* is called to unlock the combobox
-		*/
+	* is called to unlock the combobox
+	*/
 	void unlock();
 	/**
-		* is called to move the combobox to a certain index
-		* @param index the index to jump to
-		*/
+	* is called to move the combobox to a certain index
+	* @param index the index to jump to
+	*/
 	void changeCombo(int index);
 
 signals:
 	/**
-		* is emittd to proceed to the next entry, which may
-		*	require changes in other widgets also
-		*/
+	* is emittd to proceed to the next entry, which may
+	*	require changes in other widgets also
+	*/
 	void next_requested(void);
 	/**
-		* see @ref #next_requested
-		*/
+	* see @ref #next_requested
+	*/
 	void prev_requested(void);
 	/**
-		* Is emitted if the widget changed, but
-		* only if it is not locked or being reset
-		*
-		* @param the current ComboBox index
-		*/
+	* Is emitted if the widget changed, but
+	* only if it is not locked or being reset
+	*
+	* @param the current ComboBox index
+	*/
 	void changed(int index);
+	/**
+	*
+	*/
+	void focusOut(int index);
 
 protected:
 	/**
-		* indicates wheter we are resetting at the moment
-		*/
+	* indicates wheter we are resetting at the moment
+	*/
 	bool isResetting;
 	/**
- 		* Returns the icons set which contains the UP button.
- 		*/
+ 	* Returns the icons set which contains the UP button.
+ 	*/
 	QIconSet getUpIconSet();
   /**
-  	* Returns the icons set which contains the button used to change the current item.
-  	*/
+  * Returns the icons set which contains the button used to change the current item.
+  */
   QIconSet getMoverIconSet();
   /**
-  	*  Returns the icons set which contains the down button.
-  	*/
+  *  Returns the icons set which contains the down button.
+  */
   QIconSet getDownIconSet();
 	/**
-		*
-		*/
+	*
+	*/
 	QString oldKey;
 	
 protected slots: // Protected slots
   /**
-  	* Is called when the return key was presed in the combobox.
-  	*/
+  * Is called when the return key was presed in the combobox.
+  */
   void slotReturnPressed( const QString& );
 	/**
-  	* Is called when the current item of the combo boy was changed.
-  	*/
+  * Is called when the current item of the combo boy was changed.
+  */
   void slotComboChanged(int);
 
 private:
 	friend class CLexiconKeyChooser;
-
 	/**
-		* This is only used and created when we use the int-constructor
-		*/
+	* This is only used and created when we use the int-constructor
+	*/
 	QStringList	m_list;
 };
 

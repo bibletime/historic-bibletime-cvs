@@ -78,6 +78,7 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 	
 	/*Verse Connections*/
 	connect(w_verse,SIGNAL(changed(int)),this,SLOT(verseChanged(int)));
+	connect(w_verse,SIGNAL(focusOut(int)),this,SLOT(verseChanged(int)));
 	connect(w_verse,SIGNAL(next_requested()),this,SLOT(verseNextRequested()));
 	connect(w_verse,SIGNAL(prev_requested()),this,SLOT(versePrevRequested()));
 	
