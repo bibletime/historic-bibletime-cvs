@@ -33,6 +33,7 @@
 #include <qapplication.h>
 #include <qwhatsthis.h>
 #include <qtooltip.h>
+#include <qrect.h>
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
   : QComboBox(rw,parent,name){
@@ -353,7 +354,7 @@ QIconSet CKeyChooserWidget::getUpIconSet(){
 	QPainter p(&pix);
 	p.fillRect(0,0, WIDTH-1, ARROW_HEIGHT-1, colorGroup().background());
 
-//	style().drawArrow(&p, Qt::UpArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_up ? btn_up->colorGroup() : colorGroup(), btn_up ? btn_up->isEnabled() : true);
+	style().drawPrimitive(QStyle::PE_ArrowUp, &p, QRect(1,1, WIDTH-2, ARROW_HEIGHT-2), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
 //	style().drawArrow(&p, Qt::UpArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_up ? btn_up->colorGroup() : colorGroup(), btn_up ? btn_up->isEnabled() : true);
 	
 	return QIconSet(pix);
@@ -364,6 +365,8 @@ QIconSet CKeyChooserWidget::getDownIconSet(){
   QPixmap pix(WIDTH,ARROW_HEIGHT);
 	QPainter p(&pix);
 	p.fillRect(0,0, WIDTH-1, ARROW_HEIGHT-1, colorGroup().background());
+
+	style().drawPrimitive(QStyle::PE_ArrowDown, &p, QRect(1,1, WIDTH-2, ARROW_HEIGHT-2), btn_up->colorGroup(), btn_down->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default);
 //	style().drawArrow(&p, Qt::DownArrow, false, 1,1, WIDTH-2, ARROW_HEIGHT-2, btn_down ? btn_down->colorGroup() : colorGroup(), btn_down ? btn_down->isEnabled() : true);
 	
 	return QIconSet(pix);

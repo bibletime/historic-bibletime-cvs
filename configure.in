@@ -75,7 +75,6 @@ dnl perl am_edit
 KDE_CREATE_SUBDIRSLIST
 AC_OUTPUT( \
 ./Makefile \
-admin/Makefile \
 bibletime/Makefile \
 bibletime/backend/Makefile \
 bibletime/frontend/Makefile \
@@ -83,8 +82,6 @@ bibletime/frontend/groupmanager/Makefile \
 bibletime/frontend/keychooser/Makefile \
 bibletime/frontend/presenters/Makefile \
 bibletime/frontend/searchdialog/Makefile \
-bibletime/frontend/thirdparty/Makefile \
-bibletime/frontend/thirdparty/qt3stuff/Makefile \
 bibletime/pics/Makefile \
 bibletime/pics/highcolor/Makefile \
 bibletime/pics/highcolor/16x16/Makefile \

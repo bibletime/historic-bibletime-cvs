@@ -140,9 +140,7 @@ void COptionsDialog::deleteProfile(){
 /** Renames the currently selected profile. */
 void COptionsDialog::renameProfile(){
 	bool ok = false;
-#warning check
-//	const QString currentProfile = m_settings.profiles.profiles->currentText();	
-	QString currentProfile("test");
+	const QString currentProfile = m_settings.profiles.profiles->currentText();	
 	CProfile* profile = m_settings.profiles.mgr.profile(currentProfile);
 	if (!profile)
 		return;
@@ -353,8 +351,8 @@ void COptionsDialog::initAccelerators(){
 #warning check
 //	m_settings.keys.application.dict = m_settings.keys.application.accel->keyDict();
 // 	m_settings.keys.application.keyChooser = new KKeyChooser( &m_settings.keys.application.dict, currentTab, false );	
- 	QToolTip::add(m_settings.keys.application.keyChooser, TT_OD_KEYS_CHOOSER);
-	QWhatsThis::add(m_settings.keys.application.keyChooser, WT_OD_KEYS_CHOOSER);	
+// 	QToolTip::add(m_settings.keys.application.keyChooser, TT_OD_KEYS_CHOOSER);
+//	QWhatsThis::add(m_settings.keys.application.keyChooser, WT_OD_KEYS_CHOOSER);	
 
 // ----- new tab: All display windows ------ //
 //	currentTab = new QVBox(tabCtl);
@@ -381,8 +379,8 @@ void COptionsDialog::initAccelerators(){
 // 	m_settings.keys.bible.dict = m_settings.keys.bible.accel->keyDict();
 #warning check
 // 	m_settings.keys.bible.keyChooser = new KKeyChooser( &m_settings.keys.bible.dict, currentTab, false );	
-	QToolTip::add(m_settings.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
-	QWhatsThis::add(m_settings.keys.bible.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
+//	QToolTip::add(m_settings.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
+//	QWhatsThis::add(m_settings.keys.bible.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
 
 // ----- new tab: Commentary windows ------ //
 	currentTab = new QVBox(tabCtl);
@@ -396,8 +394,8 @@ void COptionsDialog::initAccelerators(){
 //m_settings.keys.commentary.dict = m_settings.keys.commentary.accel->keyDict();
 #warning check
 // 	m_settings.keys.commentary.keyChooser = new KKeyChooser( &m_settings.keys.commentary.dict, currentTab, false );	
- 	QToolTip::add(m_settings.keys.commentary.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
-	QWhatsThis::add(m_settings.keys.commentary.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
+// 	QToolTip::add(m_settings.keys.commentary.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
+//	QWhatsThis::add(m_settings.keys.commentary.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
 
 // ----- new tab: Lexicon windows ------ //
 	currentTab = new QVBox(tabCtl);
@@ -411,8 +409,8 @@ void COptionsDialog::initAccelerators(){
 // 	m_settings.keys.lexicon.dict = m_settings.keys.lexicon.accel->keyDict(); 	
 #warning check
 // 	m_settings.keys.lexicon.keyChooser = new KKeyChooser( &m_settings.keys.lexicon.dict, currentTab, false );	
- 	QToolTip::add(m_settings.keys.lexicon.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
-	QWhatsThis::add(m_settings.keys.lexicon.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
+// 	QToolTip::add(m_settings.keys.lexicon.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
+//	QWhatsThis::add(m_settings.keys.lexicon.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
 
 	
 // ----- new tab: Lexicon windows ------ //
