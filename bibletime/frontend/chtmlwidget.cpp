@@ -248,36 +248,36 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {	
   m_pressedPos = e->pos();
   m_anchor = anchorAt(e->pos());
-//  if (!m_anchor.isEmpty())
-//  	mightStartDrag = true;  	
 	viewport()->setCursor( anchorAt(e->pos()).isEmpty() ? arrowCursor : KCursor::handCursor() );
-	
+	QTextEdit::contentsMousePressEvent(e);
+		
  	if (!onLink.isEmpty() && e->button() == RightButton && m_anchorMenu) {	//popup installed menu 	
 		m_anchorMenu->exec( e->globalPos() );
   }
   else if (m_popup && e->button() == RightButton){ //popup normal menu
     bool selectedWord = false;
-    if (!document()->hasSelection( Qt3::QTextDocument::Standard)) {
-    	placeCursor(e->pos());
+   	drawCursor(false);
+   	placeCursor(e->pos());    	
+   	ensureCursorVisible();
     	
-	    Qt3::QTextCursor c1 = *cursor;
-	    Qt3::QTextCursor c2 = *cursor;
-	    c1.gotoWordLeft();
-	    c2.gotoWordRight();
-	    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
-	    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
-	    *cursor = c2;
-//	    repaintChanged();
-	    selectedWord = true;
-		}		
+    Qt3::QTextCursor c1 = *cursor;
+    Qt3::QTextCursor c2 = *cursor;
+    c1.gotoWordLeft();
+    c2.gotoWordRight();
+    doc->setSelectionStart( Qt3::QTextDocument::Standard, &c1 );
+    doc->setSelectionEnd( Qt3::QTextDocument::Standard, &c2 );
+    *cursor = c2;
+
+    repaintChanged();
+    mousePressed = true;
+    selectedWord = true;
 		m_popup->exec( e->globalPos() );
 		
 		if (selectedWord) {
 			document()->removeSelection( Qt3::QTextDocument::Standard);
+		  repaintChanged();					
 		}
-//	  repaintChanged();		
   }	
-	QTextEdit::contentsMousePressEvent(e);
 }
 
 /** Reimplementation of QTextEdit */

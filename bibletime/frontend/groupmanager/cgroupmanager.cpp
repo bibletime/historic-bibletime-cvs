@@ -682,13 +682,10 @@ void CGroupManager::contentsDragEnterEvent( QDragEnterEvent* e){
 /**  */
 void CGroupManager::contentsDragMoveEvent( QDragMoveEvent* e){
   //open folders
-  CGroupManagerItem* item = (CGroupManagerItem*)itemAt( e->pos() );			
-	  e->accept(QTextDrag::canDecode(e));		
-	if ( item ) {
-		ASSERT(item);
-		if (item->type() == CGroupManagerItem::Group)
-			item->setOpen(true);
-	}
+  CGroupManagerItem* item = (CGroupManagerItem*)itemAt( contentsToViewport(e->pos()) );			
+  e->accept(QTextDrag::canDecode(e));		
+	if (item && item->type() == CGroupManagerItem::Group)
+		item->setOpen(true);
 
 	m_afterItemDrop = item;
 	if (item)
@@ -855,17 +852,14 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
 void CGroupManager::contentsMousePressEvent ( QMouseEvent* e ) {
 	qDebug("CGroupManager::cotentsMousePressEvent");	
 	m_pressedPos = e->pos();
-	m_menu = false;
-  m_pressedItem = (CGroupManagerItem*)itemAt(m_pressedPos);
-
+  m_pressedItem = (CGroupManagerItem*)itemAt(contentsToViewport(m_pressedPos));
   bool open = false;	
   if (m_pressedItem)
-  	open = m_pressedItem->isOpen();
-		
+  	open = m_pressedItem->isOpen();		
 	KListView::contentsMousePressEvent(e);
-
 	if ((e->state() & ControlButton) || (e->state() & ShiftButton))
 			return;
+			
 	if (e->button() == LeftButton) {
 		if (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group
 				&& m_singleClick && (m_pressedItem->isOpen() == open) ) {
@@ -875,8 +869,9 @@ void CGroupManager::contentsMousePressEvent ( QMouseEvent* e ) {
 	}
 	else if (e->button() == RightButton) {
 			m_menu = true;
-			popupMenu->exec( mapToGlobal(m_pressedPos) );
+			popupMenu->exec( viewport()->mapToGlobal( contentsToViewport(m_pressedPos) ));
 	}
+	m_menu = false;	
 }
 
 /** Reimplementation. */
@@ -901,12 +896,11 @@ void CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e){
 void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 	qDebug("CGroupManager::contentsMouseReleaseEvent");
 	KListView::contentsMouseReleaseEvent(e);		
- 	m_menu = false;
  	
 	if ((e->state() & ControlButton) || (e->state() & ShiftButton))
 		return;
 
-  if ( !(m_pressedItem=(CGroupManagerItem*)itemAt( e->pos() )) )
+  if ( !(m_pressedItem=(CGroupManagerItem*)itemAt(contentsToViewport(e->pos()))) )
     return;
 
 	if (m_pressedItem && (e->button() == LeftButton)) {
@@ -927,6 +921,7 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 			}			
 		}
 	}	
+ 	m_menu = false;	
 }
 
 /** Reimplementation */
@@ -961,30 +956,27 @@ void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
 	              	d = new QTextDrag(CToolClass::encodeReference(mod,ref), this->viewport());
 	              	d->setSubtype(BOOKMARK);
 	              	m_dragType = BOOKMARK;
-					}
-					break;
-					
-	          	case (CGroupManagerItem::Module):
+							}
+				break;					
+				case (CGroupManagerItem::Module):
 	            	d = new QTextDrag( "" , this->viewport());
 	            	d->setSubtype(MODULE);
 	            	m_dragType = MODULE;
-					break;
-					
+			  break;					
 				case (CGroupManagerItem::Group):
 	            	d = new QTextDrag( "" , this->viewport());
 	            	d->setSubtype(GROUP);
 	            	m_dragType = GROUP;
-					break;
+				break;
 			}
 			
 			if (d) {
 				d->setPixmap( *(dragItem->pixmap(0)) );
 				m_menu = false;
 				d->drag();
-			}
-			
+			}			
 		}
-   }
+	}
 }
 
 /** Creates a new group */
@@ -1524,7 +1516,7 @@ QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem *parent,
 		else if ( after && after && after->type() == CGroupManagerItem::Bookmark ) {
 			if (after->parent()) {
 				useParent = true;
-				insertmarker = itemRect(after->parent());	//paint nothing			
+				insertmarker = itemRect(after->parent());	//paint nothing
 			}
 			else
 				insertmarker = QRect();
@@ -1571,8 +1563,6 @@ QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem *parent,
 			else
 				insertmarker = QRect(); 	//paint nothing			
 		}		
-//		else if ( after && after->type() == CGroupManagerItem::Bookmark )
-//			insertmarker = QRect();
 		else if ( after && after->parent() && after->parent()->type() == CGroupManagerItem::Group ) {
 			useParent = true;
 			insertmarker = itemRect(after->parent());
@@ -1604,10 +1594,16 @@ QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem *parent,
   }
 
   if ( p && insertmarker.isValid() )  {
+  	int diff = 0;
+//  	if (useParent)
+//  		diff = after->parent()->depth()*treeStepSize() - contentsX();
+//  	else
+//  		diff = after->depth()*treeStepSize() - contentsX();
+  		
   	if (useParent)
-  		insertmarker.setLeft(after->parent()->depth()*treeStepSize());
+  		insertmarker.setLeft( after->parent()->depth()*treeStepSize() + diff);
   	else
-  		insertmarker.setLeft(after->depth()*treeStepSize());
+  		insertmarker.setLeft( after->depth()*treeStepSize() + diff);
   	style().drawFocusRect( p, insertmarker, colorGroup(), after->isSelected() ? &colorGroup().highlight() : &colorGroup().base(), after->isSelected() && !useParent );
   }
   else if (!insertmarker.isValid()) {

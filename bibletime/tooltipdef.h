@@ -55,7 +55,7 @@
 #define TT_GM_CHANGE_BOOKMARK i18n("Change bookmark")
 #define TT_GM_IMPORT_BOOKMARKS i18n("Import bookmarks")
 #define TT_GM_EXPORT_BOOKMARKS i18n("Export bookmarks")
-#define TT_GM_PRINT_BOOKMARK i18n("Print bookmark")
+#define TT_GM_PRINT_BOOKMARK i18n("Add bookmark to printqueue")
 #define TT_GM_UNLOCK_MODULE i18n("Unlock module")
 #define TT_GM_ABOUT_MODULE i18n("About module")
 
@@ -109,7 +109,7 @@
 #define TT_SD_SCOPE_DELETE_SCOPE i18n("Delete scope")
 
 #define TT_SD_RESULT_RESULT_VIEW i18n("Found items")
-#define TT_SD_RESULT_PREVIEW i18n("Verse preview")
+#define TT_SD_RESULT_PREVIEW i18n("Preview")
 
 #define TT_SD_ANALYSIS_SAVE_AS_IMAGE i18n("Save as image")
 #define TT_SD_ANALYSIS_GRAPH_VIEW i18n("Graphical analysis")
