@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BibleTime 1.0\n"
-"POT-Creation-Date: 2001-06-16 19:43+0200\n"
+"POT-Creation-Date: 2001-06-17 09:52+0200\n"
 "PO-Revision-Date: 2001-06-10 20:59+GMT\n"
 "Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -22,57 +22,57 @@ msgstr "&Hauptgruppe"
 msgid "&Window"
 msgstr "&Fenster"
 
-#: bibletime/bibletime_init.cpp:72
+#: bibletime/bibletime_init.cpp:73
 msgid "Clear printing queue"
 msgstr "Leere die Druckerschlange"
 
-#: bibletime/bibletime_init.cpp:87 bibletime/dummy.h:25
+#: bibletime/bibletime_init.cpp:88 bibletime/dummy.h:25
 #: bibletime/tooltipdef.h:25
 msgid "Reset main index"
 msgstr "Hauptgruppe zurücksetzen"
 
-#: bibletime/bibletime_init.cpp:92
+#: bibletime/bibletime_init.cpp:93
 msgid "Search in module(s)"
 msgstr "Suche in Modul(en)"
 
-#: bibletime/bibletime_init.cpp:97
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:312
+#: bibletime/bibletime_init.cpp:98
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:314
 msgid "Remove selected item(s)"
 msgstr "Entferne ausgewählte Einträge"
 
-#: bibletime/bibletime_init.cpp:102
+#: bibletime/bibletime_init.cpp:103
 msgid "&Show footnotes"
 msgstr "&Zeige Fußnoten"
 
-#: bibletime/bibletime_init.cpp:107
+#: bibletime/bibletime_init.cpp:108
 msgid "S&how Strong's numbers"
 msgstr "Zeige &Strongs Nummern"
 
-#: bibletime/bibletime_init.cpp:116
+#: bibletime/bibletime_init.cpp:117
 msgid "&Show main index"
 msgstr "&Zeige Hauptgruppe"
 
-#: bibletime/bibletime_init.cpp:128
+#: bibletime/bibletime_init.cpp:129
 msgid "&Cascade"
 msgstr "&Stapeln"
 
-#: bibletime/bibletime_init.cpp:133
+#: bibletime/bibletime_init.cpp:134
 msgid "&Tile"
 msgstr "&Kacheln"
 
-#: bibletime/bibletime_init.cpp:138
+#: bibletime/bibletime_init.cpp:139
 msgid "&Auto cascade"
 msgstr "&Automatisch Stapeln"
 
-#: bibletime/bibletime_init.cpp:143
+#: bibletime/bibletime_init.cpp:144
 msgid "A&uto Tile"
 msgstr "A&utomatisch Kacheln"
 
-#: bibletime/bibletime_init.cpp:148
+#: bibletime/bibletime_init.cpp:149
 msgid "&Close all"
 msgstr "&Schließe alle"
 
-#: bibletime/bibletime_init.cpp:170
+#: bibletime/bibletime_init.cpp:171
 msgid "&Daily tip"
 msgstr "&Täglicher Tipp"
 
@@ -222,7 +222,7 @@ msgstr "Standard"
 msgid "unknown name"
 msgstr "Unbekannter Name"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:244
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:248
 #: bibletime/printing/cprintitemlist.cpp:48
 msgid "Module"
 msgstr "Modul"
@@ -256,7 +256,7 @@ msgstr "Wählen sie den Teil des Stils:"
 msgid "Header"
 msgstr "Kopf"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:593
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:595
 #: bibletime/printing/cstyleeditordialog.cpp:78
 #: bibletime/printing/cstyleeditordialog.cpp:285
 msgid "Description"
@@ -956,177 +956,177 @@ msgstr "Unterstrichen"
 msgid "Justify"
 msgstr "Blocksatz"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:182
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:193
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:185
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:196
 msgid "unknown"
 msgstr "Unbekannt"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:220
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:224
 msgid "Bookmark to"
 msgstr "Lesezeichen zu"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:246
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:250
 #, ycp-format
 msgid "Foonotes: %1<BR>"
 msgstr "Fußnoten: %1<BR>"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:247
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:251
 #, ycp-format
 msgid "Strong's numbers: %1<BR>"
 msgstr "Strongs Nummer: %1<BR>"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:249
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:253
 msgid "Unlock key:"
 msgstr "Schlüssel:"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:249
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:253
 msgid "not set"
 msgstr "nicht gesetzt"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:251
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:255
 msgid "Version:"
 msgstr "Version:"
 
-#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:253
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:257
 msgid "Font:"
 msgstr "Schriftart:"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:170
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:172
 msgid "Bibles"
 msgstr "Bibeln"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:173
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:175
 msgid "Commentaries"
 msgstr "Kommentare"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:176
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:178
 msgid "Lexicons"
 msgstr "Lexika"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:284
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:286
 msgid "Caption"
 msgstr "Titel"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:292
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:294
 msgid "Main index"
 msgstr "Hauptgruppe"
 
-#: bibletime/dummy.h:51 bibletime/frontend/groupmanager/cgroupmanager.cpp:293
+#: bibletime/dummy.h:51 bibletime/frontend/groupmanager/cgroupmanager.cpp:295
 #: bibletime/tooltipdef.h:51
 msgid "Create a new folder"
 msgstr "Erzeuge einen neuen Ordner"
 
-#: bibletime/dummy.h:52 bibletime/frontend/groupmanager/cgroupmanager.cpp:296
+#: bibletime/dummy.h:52 bibletime/frontend/groupmanager/cgroupmanager.cpp:298
 #: bibletime/tooltipdef.h:52
 msgid "Change this folder"
 msgstr "Ändere diesen Ordner"
 
-#: bibletime/dummy.h:53 bibletime/frontend/groupmanager/cgroupmanager.cpp:300
+#: bibletime/dummy.h:53 bibletime/frontend/groupmanager/cgroupmanager.cpp:302
 #: bibletime/tooltipdef.h:53
 msgid "Change this bookmark"
 msgstr "Ändere dieses Lesezeichen"
 
-#: bibletime/dummy.h:54 bibletime/frontend/groupmanager/cgroupmanager.cpp:303
+#: bibletime/dummy.h:54 bibletime/frontend/groupmanager/cgroupmanager.cpp:305
 #: bibletime/tooltipdef.h:54
 msgid "Import bookmarks"
 msgstr "Importiere Lesezeichen"
 
-#: bibletime/dummy.h:55 bibletime/frontend/groupmanager/cgroupmanager.cpp:306
+#: bibletime/dummy.h:55 bibletime/frontend/groupmanager/cgroupmanager.cpp:308
 #: bibletime/tooltipdef.h:55
 msgid "Export bookmarks"
 msgstr "Exportiere Lesezeichen"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:309
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:311
 msgid "Print bookmark"
 msgstr "Drucke Lesezeichen"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:315
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:317
 msgid "Search in selected module(s)"
 msgstr "Durchsuche gewählte Module"
 
-#: bibletime/dummy.h:57 bibletime/frontend/groupmanager/cgroupmanager.cpp:318
+#: bibletime/dummy.h:57 bibletime/frontend/groupmanager/cgroupmanager.cpp:320
 #: bibletime/tooltipdef.h:57
 msgid "Unlock this module"
 msgstr "Dieses Modul entschlüsseln"
 
-#: bibletime/dummy.h:58 bibletime/frontend/groupmanager/cgroupmanager.cpp:321
+#: bibletime/dummy.h:58 bibletime/frontend/groupmanager/cgroupmanager.cpp:323
 #: bibletime/tooltipdef.h:58
 msgid "About this module"
 msgstr "Über dieses Modul"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:377
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:379
 msgid "Bookmark description - BibleTime"
 msgstr "Lesezeichen Beschreibung - BibleTime"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:377
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:379
 msgid "Please enter here the description:"
 msgstr "Bitte gegen Sie hier die Beschreibung ein:"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:415
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:417
 msgid "Change bookmark description - BibleTime"
 msgstr "Ändere Lesezeichen Beschreibung - BibleTime"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:415
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:417
 msgid "Please change the description of the item!"
 msgstr "Bitte ändern Sie die Beschreibung des Eintrags!"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:426
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:428
 msgid "Change folder - BibleTime"
 msgstr "Ändere Ordner - BibleTime"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:426
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:428
 msgid "Please change the name of the group!"
 msgstr "Bitte ändern Sie den Namen der Gruppe!"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:563
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:565
 msgid "<I>Not necessary!</I>"
 msgstr "<I>Nicht notwendig</i>"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:575
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:577
 msgid "Datapath"
 msgstr "Datenpfad"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:577
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:579
 msgid "Version"
 msgstr "Version"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:579
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:581
 msgid "Unlock key"
 msgstr "Schlüssel"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:581
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:583
 msgid "Writable"
 msgstr "Schreibbar"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:589
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:591
 msgid "Footnotes"
 msgstr "Fußnoten"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:591
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:593
 msgid "Strong's numbers"
 msgstr "Strongs Nummern"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:937
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:938
 msgid "Enter name of folder - BibleTime"
 msgstr "Ordnernamen eingeben - BibleTime"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:937
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:938
 msgid "Please enter the name of the folder!"
 msgstr "Bitte geben Sie den Namen des Ordners ein!"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1021
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1022
 msgid "BibleTime - Unlock module"
 msgstr "BibleTime - Modul aufschließen"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1021
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1022
 msgid "Enter the key to unlock the module!"
 msgstr "Geben Sie den Schlüssel ein, um das Modul freizuschalten!"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1178
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1172
 msgid "Import bookmarks ..."
 msgstr "Importiere Lesezeichen ..."
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1186
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1180
 msgid ""
 "<qt>A problem occurred while importing bookmarks!<BR>The bookmarks format of "
 "the imported file is newer<BR>than the bookmarks format version of this "
@@ -1138,15 +1138,15 @@ msgstr ""
 "dieser Version von BibleTime!<BR><B>Das Importieren der Lesezeichen könnte "
 "nicht ordnungsgemäß funktionieren!</B><BR>Möchten Sie fortfahren?</qt>"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1189
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1183
 msgid "Import of bookmarks"
 msgstr "Import von Lesezeichen"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1203
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1197
 msgid "Export bookmarks ..."
 msgstr "Exportiere Lesezeichen ..."
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1553
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1547
 msgid ""
 "<qt>This function will reset the main index!<BR>This will recreate the "
 "original groups and delete all other items!<BR>Be sure no important "
@@ -1157,7 +1157,7 @@ msgstr ""
 "Sie sicher,dass keine wichtigen Lesezeichen gelöscht werden!<BR>Möchten Sie "
 "fortfahren?</QT>"
 
-#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1553
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1547
 msgid "BibleTime - Reset main index"
 msgstr "BibleTime - Setze Hauptgruppe zurück"
 

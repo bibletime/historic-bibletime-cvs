@@ -247,8 +247,8 @@ const QString CGroupManagerItem::getToolTip(){
 		{
 			text = i18n("Module") + QString::fromLatin1(": <B>%1</B><HR>").arg(QString::fromLocal8Bit(moduleInfo()->module()->Name()));
 			text += QString("%1<HR>").arg(moduleInfo()->getDescription());
-			text += i18n("Foonotes: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::strongNumbers) ? i18n("Yes") : i18n("No"));
-			text += i18n("Strong's numbers: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::footnotes) ? i18n("Yes") : i18n("No"));
+			text += i18n("Foonotes: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::footnotes) ? i18n("Yes") : i18n("No"));
+			text += i18n("Strong's numbers: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::strongNumbers) ? i18n("Yes") : i18n("No"));
 			if (moduleInfo()->isEncrypted())
 				text += i18n("Unlock key:") + QString::fromLatin1(" %1<BR>").arg(!moduleInfo()->getCipherKey().isEmpty() ? moduleInfo()->getCipherKey() : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
 			if (!moduleInfo()->getVersion().isEmpty())
