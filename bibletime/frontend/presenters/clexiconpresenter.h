@@ -83,6 +83,9 @@ public slots: // Public slots
   * Refreshes all parts decsribed by the parameter.
   */
   virtual void refresh( const int events);
+public slots: // Public slots
+  /** Is called when the modules shown by this display window were changed. */
+  void modulesChanged();
 };
 
 #endif

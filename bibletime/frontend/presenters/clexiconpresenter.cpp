@@ -45,15 +45,13 @@ CLexiconPresenter::~CLexiconPresenter(){
 
 /** Initializes the view. */
 void CLexiconPresenter::initView(){
-	ASSERT(m_moduleList.first());
-	
 	m_mainToolBar = new KToolBar(this);
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
 	addToolBar(m_mainToolBar);
 	
 	m_moduleChooserBar = new CModuleChooserBar(m_important, m_moduleList, CSwordModuleInfo::Lexicon, this );
-	m_moduleChooserBar->setButtonLimit(1);	
+//	m_moduleChooserBar->setButtonLimit(1);	
 	addToolBar(m_moduleChooserBar);
 	
 	m_htmlWidget = new CHTMLWidget(this);
@@ -87,17 +85,26 @@ void CLexiconPresenter::initConnections(){
 
 /** No descriptions */
 void CLexiconPresenter::lookup(CKey* key){
-	if (!key)
+	setUpdatesEnabled(false);	
+	
+	CSwordLDKey* ldKey = dynamic_cast<CSwordLDKey*>(key);	
+	if (!ldKey)
 		return;
-	CSwordLDKey* ldKey = dynamic_cast<CSwordLDKey*>(key);
-	if (!ldKey || ldKey->getKey().isEmpty())
-		return;
-	m_moduleList.first()->module()->SetKey(*ldKey);
-	if (m_moduleList.first()->getDisplay()) {	//we have a valid display object
-		m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
-		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());
+//	if (!ldKey || ldKey->getKey().isEmpty())
+//		return;		
+  m_moduleList.first()->module()->SetKey(*ldKey);		
+	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
+		if (m_moduleChooserBar->getModuleList().count()>1)  //we want to display more than one module
+			m_moduleList.first()->getDisplay()->Display( &m_moduleList );
+		else
+			m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
+		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());		
 	}	
-	setPlainCaption( m_key->getKey() );
+	if (m_key != ldKey)
+		m_key->setKey(ldKey->getKey());
+		
+	setUpdatesEnabled(true);
+//	setPlainCaption( m_key->getKey() );
 }
 
 /** No descriptions */
@@ -155,4 +162,18 @@ void CLexiconPresenter::printEntry(){
 /** Reimplmentation. */
 const QString CLexiconPresenter::caption() const {
 	return m_key->getKey();
+}
+
+/** Is called when the modules shown by this display window were changed. */
+void CLexiconPresenter::modulesChanged(){
+  m_moduleList = m_moduleChooserBar->getModuleList();
+  if (!m_moduleList.count())
+  	close();
+  else {
+    refreshFeatures();
+	  m_key->setModule(m_moduleList.first());
+	  m_keyChooser->setModule(m_moduleList.first());	
+	
+	  lookup(m_key);
+	}
 }

@@ -65,11 +65,9 @@ CHTMLWidget::CHTMLWidget(QWidget *parent, const char *name ) : QTextEdit(parent,
 	m_anchor = QString::null;
 	m_anchorMenu = 0;
 	m_selectedWord = false;
-	mousePressed = inDoubleClick = false;
-		
+	mousePressed = inDoubleClick = false;		
 	setTextFormat( Qt::RichText );
 	setReadOnly(true);
-//	viewport()->setMouseTracking(true);
 	
 	initView();	
 	initConnections();
@@ -105,9 +103,6 @@ void CHTMLWidget::initColors(){
 
 /** Initializes the fonts of the HTML-widget */
 void CHTMLWidget::initFonts(){
-//	KConfigGroupSaver groupSaver(m_config,"Fonts");
-//	QFont dummy = m_config->readFontEntry("Presenter", QFont());
-//	setFont(dummy);	
 }
 
 /**  */
@@ -193,18 +188,14 @@ void CHTMLWidget::setHTMLSource(const QString& url){
 
 /** Saves the HTML page */
 void CHTMLWidget::slotSaveAsHTML(){
-	qDebug("CHTMLWidget::slotSaveAsHTML");	
 	QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.html *.htm *.shtml *.shtm | HTML files\n *.* | All files (*.*)"), 0, i18n("Save text as HTML page ..."));	
-	if (!file.isNull()) {
+	if (!file.isNull())
 		CToolClass::savePlainFile( file, text());
-	}
 }
 
 /** Saves the HTML page */
 void CHTMLWidget::slotSaveAsText(){
-	qDebug("CHTMLWidget::slotSaveAsText");
-	
-	QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save text as plain text ..."));
+	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save text as plain text ..."));
 
 	if (!file.isNull()) {
 		QString html = document()->plainText();
@@ -214,7 +205,6 @@ void CHTMLWidget::slotSaveAsText(){
 
 //**  */
 void CHTMLWidget::contentsDragEnterEvent(QDragEnterEvent* e){
-  qDebug("CHTMLWidget::contentsDragEnterEvent");
   e->accept(QTextDrag::canDecode(e));
 }
 
@@ -225,17 +215,13 @@ void CHTMLWidget::contentsDragMoveEvent(QDragMoveEvent* e){
 
 /**  */
 void CHTMLWidget::contentsDropEvent(QDropEvent* e){
-	qDebug("CHTMLWidget::contentsDropEvent");
  	QString str;
  	QCString submime;
 
  	if ( ( QTextDrag::decode(e,str,submime=BOOKMARK) || QTextDrag::decode(e,str,submime=REFERENCE) ) && !str.isEmpty() ){
 		QString ref = QString::null;
 		QString mod = QString::null;		
-//		qDebug((const char*)str.local8Bit());
-  		
  		CToolClass::decodeReference(str,mod,ref);   		   		
-// 		qDebug((const char*)ref.local8Bit());
  		emit referenceClicked(ref);
 	}
 }
@@ -372,8 +358,6 @@ void CHTMLWidget::installAnchorMenu( QPopupMenu* anchorMenu ){
 
 /** Returns the current anchor. */
 QString CHTMLWidget::getCurrentAnchor(){
-	qDebug("CHTMLWidget::getCurrentAnchor()");
-//	return pressedLink;
 	return anchorAt(m_pressedPos);
 }
 
@@ -381,12 +365,6 @@ QString CHTMLWidget::getCurrentAnchor(){
 void CHTMLWidget::installPopup( QPopupMenu* popup ){
 	ASSERT(popup);
 	m_popup = popup;
-}
-
-/** No descriptions */
-void CHTMLWidget::slotCopyAll(){
-	QClipboard *cb = KApplication::clipboard();
-	cb->setText( document()->text() );
 }
 
 /** Sets the HTML widget editable or not */
@@ -476,8 +454,6 @@ void CHTMLWidget::slotSetCurrentFontSize( int size ){
 }
 
 void CHTMLWidget::slotSetCurrentFont(const QString& font) {
-	qDebug("CHTMLWidget::fontChanged(const QString& font)");
-	
 	QFont newFont(font, pointSize());
 	newFont.setBold(bold());
 	newFont.setItalic(italic());
@@ -488,20 +464,12 @@ void CHTMLWidget::slotSetCurrentFont(const QString& font) {
 
 /** Is calledwhen a new color was selected. */
 void CHTMLWidget::slotSetCurrentColor( const QColor& color){
-	qDebug("CHTMLWidget::colorChanged( const QColor& )");
 	setColor(color);
 }
 
 /** No descriptions */
 void CHTMLWidget::slotCurrentFontChanged( const QFont& f){
 	m_fontAction->setFont( f.family() );	
-//	for (int index = 0; index < m_fontSizeCombo->count(); index++ ) {		
-//		if (m_fontSizeCombo->text(index).toInt() == f.pointSize()) {
-//			m_fontSizeCombo->setCurrentItem(index);	
-//			break;
-//		}
-//	}
-//	m_fontSizeCombo->setEditText( QString::number(f.pointSize()) );
 	m_fontSizeAction->setFontSize( f.pointSize() );	
 
 	m_boldAction->setChecked( f.bold() );
@@ -588,7 +556,7 @@ void CHTMLWidget::emitLinkClicked( const QString& s){
 void CHTMLWidget::copyDocument(){
 	if (!document()->text().isEmpty()) {
 		QClipboard* cb = KApplication::clipboard();			
-		cb->setText(document()->text());
+		cb->setText(document()->plainText());
 	}
 	
 }

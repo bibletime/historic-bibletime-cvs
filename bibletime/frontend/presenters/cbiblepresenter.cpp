@@ -101,7 +101,7 @@ void CBiblePresenter::lookup(CKey* key){
 		m_key->setKey(*vKey);
 		
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
-	setPlainCaption( caption() );
+//	setPlainCaption( caption() );
 	
 	setUpdatesEnabled(true);		
 }
@@ -138,6 +138,7 @@ void CBiblePresenter::popupAboutToShow(){
 	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());
 	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
 	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());
+	m_popup->setItemEnabled(ID_PRESENTER_COPY_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
 }
 
 /** Reimplementation from CSwordPresenter. */

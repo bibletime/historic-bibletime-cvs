@@ -102,8 +102,7 @@ void CLexiconKeyChooser::refreshContent(){
 
 /** Sets the module and refreshes the combo boxes */
 void CLexiconKeyChooser::setModule( CModuleInfo* module){
-	if (module && module != m_info && ((CSwordLexiconModuleInfo*)module)->getType()==CSwordLexiconModuleInfo::Lexicon)
-	{
+	if (module && module != m_info && ((CSwordModuleInfo*)module)->getType()==CSwordLexiconModuleInfo::Lexicon) {
 		m_info = (CSwordLexiconModuleInfo*)module;
 		refreshContent();
 	}

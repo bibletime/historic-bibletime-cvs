@@ -96,10 +96,6 @@ public slots: // Public slots
   */
   void slotSaveAsText();
   /**
-  * No descriptions
-  */
-  void slotCopyAll();
-  /**
   * Copies the displayed document into the clipboard.
   */
   void copyDocument();
