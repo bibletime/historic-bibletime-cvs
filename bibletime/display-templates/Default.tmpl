@@ -6,10 +6,12 @@
 	<meta name="GENERATOR" content="BibleTime " VERSION "" />
 	<meta name="AUTHOR" content="BibleTime " VERSION "" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
 	<style type="text/css">
 	/* <![CDATA[ */
+
 * { /* To work around a KDE 3.2 bug/problem */
-	background-color:inherit; 
+	background-color:inherit;
 }
 
 body {
@@ -18,14 +20,14 @@ body {
 #content {
 	background-color:white;
 }
-#content table {
+#content > table {
 	margin:0;
 	padding:0;
 	border-spacing:10px;
 	border-collapse: collapse;
-	vertical-align: top;
+	vertical-align:top;
 }
-#content table th {
+#content > table th {
 	padding: 0 0 2px 0;
 	text-align: center; 
 	font-weight: bold;
@@ -45,38 +47,49 @@ a:hover {
 	padding:2px;
 }
 
-td.entry, div.entry {
-	padding: 2px;
-	vertical-align: top;
+
+/* Settings which apply to all entries in all modules */
+.entry {
+	padding:2px;
+	text-align:justify;
 }
-span.entry {
-	padding: 2px;
+div.entry, td.entry {
+	vertical-align:top;
 }
 
-#multiple div.currententry, #multiple td.currententry, div.currententry {
-	padding: 5px;
-	border: 1px solid black;
-	background-color: #F6FFF7;
-	vertical-align: top;
+.currententry {
+	padding:5px;
+	vertical-align:top;
+	text-align:justify;
 }
-#multiple td.entry + td.entry, td.entry + td.entry { 
+div.currententry {
+}
+span.currententry {
+	background-color:#D4FFCB;
+}
+
+
+/*Space between the columns of modules displayed side by side*/
+td.entry + td.entry { 
 	margin-left: 2px;
 }
-#multiple span.currententry, #multiple span.currententry {
-	background-color: #C0F6C8;
-	vertical-align: middle;
-	padding: 2px;
+
+/* Secpial additional settings for display of modules*/
+#bible div.currententry, #bible td.currententry {
+	border:1px solid black;
+	background-color:#F6FFF7;
 }
-.entry, .currententry {
-	text-align: justify;
+#bible span.currententry {
+	background-color:#C8FFB6;
 }
 
-.versenum, .entryname {
-	padding: 0 2px 0 2px;
+
+.entryname {
+	padding:0 2px;
 }
-.versenum a, .entryname a  {
-	font-size: 70%;
-	vertical-align: top;
+.entryname a  {
+	font-size:70%;
+	vertical-align:top;
 }
 
 .footnotepre {
@@ -127,8 +140,8 @@ span.entry {
 .foreign {
 }
 .jesuswords {
-	color: #9C2323;
-	font-size: 0.9em;
+	color:#9C2323;
+	font-size:0.9em;
 }
 
 .quotation {

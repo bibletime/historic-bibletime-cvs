@@ -29,10 +29,11 @@ sub extract_data {
 	open(IN, "< $file");	
 	while( <IN> ) {
 		my $line = $_;
-		#chomp($line);
+		chomp($line);
+		
 		
 		$line =~ s/"/\\"/g;
-		$line =~ s/\n/ /g;
+		$line =~ s/\s{2,}|\t/ /g; #replace spaces and tabs by space
 		
 		$html .= $line;
 	}
