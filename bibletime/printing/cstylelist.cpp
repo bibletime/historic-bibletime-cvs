@@ -105,7 +105,7 @@ void CStyleList::editCurrentStyle(){
 /** Creates a new style item. */
 void CStyleList::createNewStyle(){
 	CStyle*	style = new CStyle();	
-	if !openStyleEditor( style );
+	if (!openStyleEditor( style ))
 		delete style;
 	else {
 		insertItem( style );		
