@@ -27,12 +27,13 @@
 #include <kconfig.h>
 #include <kprocess.h>
 #include <kconfigbase.h>
-#include <krandomsequence.h>
+#include <kstddirs.h>
 #include <klocale.h>
 #include <kapp.h>
 
 //Qt includes
 #include <qfile.h>
+#include <qdir.h>
 #include <qstringlist.h>
 #include <qpainter.h>
 #include <qpaintdevice.h>
@@ -52,6 +53,9 @@ CPrinter::CPrinter( QObject* parent ) : QObject(parent) {
 		QMap<QString, QString> map = m_config->entryMap("Options");
 		setOptions(map);
 	}
+	KStandardDirs stdDirs;
+	m_stylePath = stdDirs.saveLocation("data", "bibletime/printingstyles/");		
+	
 	readSettings();
 	setupStyles();
 	setupStandardStyle();		
@@ -64,22 +68,6 @@ CPrinter::~CPrinter(){
 			
 	delete m_config;
 }
-
-//const unsigned int& CPrinter::rightMargin() const {
-//	return m_pageMargin.right;
-//}
-//
-//const unsigned int& CPrinter::leftMargin() const {
-//	return m_pageMargin.left;
-//}
-//
-//const unsigned int& CPrinter::upperMargin() const {
-//	return m_pageMargin.top;
-//}
-//
-//const unsigned int& CPrinter::lowerMargin() const {
-//	return m_pageMargin.bottom;
-//}
 
 /** Appends a new page where the next things will be painted. */
 const bool CPrinter::newPage(){
@@ -194,114 +182,27 @@ void CPrinter::appendItem(CPrintItem* newItem){
 }
 
 /** Reads the style from config. */
-void CPrinter::setupStyles(){
-	// See function saveStyles for format of config file	
-	KConfigGroupSaver gs(m_config, "Styles");
-	QStringList list = m_config->readListEntry("styles");
-	CStyle* dummyStyle = 0;
-	
-	const	QString names[3] = { "HEADER", "DESCRIPTION", "MODULETEXT" };
-	const CStyle::styleType formatTypes[3] = {
-		CStyle::Header,
-		CStyle::Description,
-		CStyle::ModuleText
-	};
-							
-	
-	for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )	{
-		dummyStyle = new CStyle();
-		if (*it == "Standard")
-			dummyStyle->setStyleName(i18n("Standard"));		
-		else
-			dummyStyle->setStyleName(*it);
-		
-
-		CStyle::Format* format[3] = {
-			dummyStyle->formatForType( CStyle::Header ),
-		 	dummyStyle->formatForType( CStyle::Description ),
-		 	dummyStyle->formatForType( CStyle::ModuleText )
-		};
-			
-		for (int index = 0; index < 3; index++) {
-			m_config->setGroup(QString("%1__%2").arg(*it).arg(names[index]));
-			format[index]->setColor( CStyle::Format::Foreground, m_config->readColorEntry("FGColor", &Qt::black) );
-			format[index]->setColor( CStyle::Format::Background, m_config->readColorEntry("BGColor", &Qt::white) );
- 			format[index]->setFont( m_config->readFontEntry("Font") );
-			format[index]->setAlignement( (CStyle::Format::Alignement)m_config->readNumEntry("Alignement",CStyle::Format::Left));
-			dummyStyle->setFormatTypeEnabled( formatTypes[index], m_config->readBoolEntry("isEnabled", true) );
-			const bool hasFrame = m_config->readBoolEntry("has frame", false );
-
-			format[index]->setFrameEnabled( hasFrame );						
-			if ( CStyle::Format::Frame* frame = format[index]->frame() ) {
-				m_config->setGroup(QString::fromLatin1("%1__%2__FRAME").arg(*it).arg(names[index]));
-				frame->setColor( m_config->readColorEntry("Color", &Qt::black) );
-				frame->setThickness( m_config->readNumEntry("Thickness", 1) );
-				frame->setLineStyle( (Qt::PenStyle)(m_config->readNumEntry("Line style", (int)Qt::SolidLine)) );
-			}
-		}		
-		m_styleList.append(dummyStyle);
+void CPrinter::setupStyles(){	
+	QDir d( m_stylePath );
+	QStringList files = d.entryList("*.xml");
+	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
+		m_styleList.append( new CStyle(m_stylePath + *it) ); //automatically load from file		
 	}
 }
 
 /** Saves the styles to config file. */
 void CPrinter::saveStyles(){
-	/**
-		* Format of styles in config file:
-		*		[Styles]
-		*		styles=name1,name2
-		*	
-		*		[name 1__Description]
-		*		hasFrame=true
-		*
-		*		[name 1__HEADER]
-		*		hasFrame=true
-		*
-		*		...
-		*
-		*/
-	//save list of styles
-	{
-		KConfigGroupSaver gs( m_config, "Styles");	
-		QStringList strList;
-		for (m_styleList.first(); m_styleList.current(); m_styleList.next()) {
-			strList.append(m_styleList.current()->styleName());
-		}	
-		m_config->writeEntry( "styles", strList);			
+	QDir d(m_stylePath);	
+	QStringList files = d.entryList("*.xml");
+	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
+		d.remove(*it);
 	}
-
-	
-	//save settings for each style
-	const QString names[3] = {"HEADER", "DESCRIPTION", "MODULETEXT"};
 	
 	for (m_styleList.first(); m_styleList.current(); m_styleList.next()) {
-		m_config->setGroup(m_styleList.current()->styleName());
-		CStyle*	current = m_styleList.current();
-				
-		for (short int index = 0; index < 3; index++) {
-			m_config->setGroup(QString("%1__%2").arg(current->styleName()).arg(names[index]));
-
-			CStyle::Format* format[3];
-			format[0] = current->formatForType( CStyle::Header );
-			format[1] = current->formatForType( CStyle::Description );
-			format[2] = current->formatForType( CStyle::ModuleText );
-												
-			m_config->writeEntry( "FGColor", format[index]->color( CStyle::Format::Foreground ) );
-			m_config->writeEntry( "BGColor", format[index]->color( CStyle::Format::Background ) );
-			m_config->writeEntry( "Font", 	 format[index]->font() );
-			m_config->writeEntry( "isEnabled", 	current->hasFormatTypeEnabled( (index == 0) ? CStyle::Header : ( (index == 1) ? CStyle::Description : CStyle::ModuleText)) );
-			m_config->writeEntry( "Alignement", (int)(format[index]->alignement()) );
-			
-			//save frame settings
-			CStyle::Format::Frame* frame = format[index]->frame();			
-			m_config->writeEntry( "has frame", frame );
-			if (frame) {	//save only if we have a frame
-				m_config->setGroup(QString::fromLatin1("%1__%2__FRAME").arg(m_styleList.current()->styleName()).arg(names[index]) );			
-				m_config->writeEntry("Color", frame->color());
-				m_config->writeEntry("Thickness", frame->thickness());
-				m_config->writeEntry("Line style", (int)(frame->lineStyle()));
-			}
-		}
-	}	
+		QString file = m_stylePath  + m_styleList.current()->styleName() + ".xml";
+		file.replace(QRegExp("[ δόφί]"), "_");
+		m_styleList.current()->save( file );
+	}
 }
 
 /**  */

@@ -15,12 +15,12 @@
  *                                                                         *
  ***************************************************************************/
 
-//#include <qwidget.h>
-//#include <qobject.h>
+//BibleTime includes
+#include "cprinter.h"
+
+//Qt includes
 #include <qlistview.h>
 #include <qlist.h>
-
-#include "cprinter.h"
 
 
 #ifndef CSTYLE_H
@@ -40,6 +40,14 @@ typedef QList<CStyle> StyleItemList;
   */
 class CStyle {
 public:
+
+	enum StyleType {
+		Header=0, /** The header displayed over each printed item */
+		Description=1 /** The description, used in bookmarks for example */,
+		ModuleText=2 /** The real text of the entry or the range of verses */,
+		Unknown /** Unknown for us, should not be used */
+	};
+
 	/**	
   * A class which contains methods to support a format for the CStyle class.
   *	@author The BibleTime team
@@ -50,6 +58,7 @@ public:
     class Frame  {
     public:
     	Frame();
+			Frame(const Frame& f);
       /**
       * Sets the color of this frame.
       */
@@ -69,24 +78,25 @@ public:
       /**
       * Sets te thickness of this frame.
       */
-      void setThickness( const unsigned short int );
+      void setThickness( const int );
       /**
       * Returns the thickness of this frame.
       */
-      const unsigned short int& thickness() const;
+      const int& thickness() const;
 
-    protected:
+    private:
     	QColor m_color;
     	Qt::PenStyle m_lineStyle;
-    	unsigned short int m_thickness;	
+    	int m_thickness;	
     };
 
-  	enum Alignement { Left, Center, Right, Justification};
+  	enum Alignment { Left, Center, Right, Justification};
   	enum Color { Background, Foreground };
     	
-  	Format();
+  	Format(const CStyle::StyleType type = CStyle::Unknown);
+  	Format(const Format& f);
   	~Format();
-
+    const CStyle::StyleType type() const;
     /**
    	* Returns the foreground color of this format.
    	*/
@@ -106,11 +116,11 @@ public:
     /**
    	* Sets the alignement flags of this style format.
    	*/
-    void setAlignement( const CStyle::Format::Alignement );
+    void setAlignment( const CStyle::Format::Alignment );
     /**
    	* Returns the alignement of this style format.
    	*/
-    const CStyle::Format::Alignement& alignement() const;
+    const CStyle::Format::Alignment& alignment() const;
     /**
    	* Sets the frame of this style.
    	*/
@@ -128,41 +138,36 @@ public:
   	QColor m_BGColor;
   	bool m_hasFrame;
   	Frame* m_frame;
-  	CStyle::Format::Alignement m_alignement;
+  	Alignment m_alignment;
+   	CStyle::StyleType m_type;  	
   };
-
-	enum styleType { Header=0, /** The header displayed over each printed item */
-		Description=1 /** The description, used in bookmarks for example */,
-		ModuleText=2 /** The real text of the entry or the range of verses */,
-		Unknown /** Unknown for us, should not be used */
-	};
 	
-	CStyle();
+	CStyle(); //standard constructor, doesn't load from file
 	virtual ~CStyle();
   /**
  	* Returns the proper CStyleFormat for the given type.
  	*/
-  CStyle::Format* formatForType( const CStyle::styleType ) const;
+  CStyle::Format* const formatForType( const CStyle::StyleType );
   /**
  	* Sets the format for the given type.
  	*/
-  void setFormatForType( const CStyle::styleType type, CStyle::Format* format);
+//  void setFormatForType( const CStyle::StyleType type, const CStyle::Format* format);
   /**
  	* Set the printing of the header (true enables it).
  	*/
-  void setFormatTypeEnabled( const CStyle::styleType, const bool );
+  void setFormatTypeEnabled( const CStyle::StyleType, const bool );
   /**
  	* Returns true if we have the given type enabled.
  	*/
-  const bool hasFormatTypeEnabled( const CStyle::styleType ) const;
+  const bool hasFormatTypeEnabled( const CStyle::StyleType ) const;
   /**
  	* Returns a QListViewItem for inserted in list.
  	*/
-  QListViewItem* listViewItem( CStyleList* list = 0 );
+  QListViewItem* listViewItem( CStyleList* const list = 0 );
   /**
  	* Sets the name of the style.
  	*/
-  void setStyleName( const QString name);
+  void setStyleName( const QString name );
   /**
  	* Returns the style name
  	*/
@@ -175,6 +180,18 @@ public:
  	* Deletes the list view item.
  	*/
   void deleteListViewItem();
+  /**
+  * Loads the profile from a XML file.
+  */
+  const bool load(const QString& file);
+  /**
+  * Saves the style to the XML file.
+  */
+  const bool save( const QString& file );
+
+protected:
+	friend class CPrinter;
+	CStyle( const QString filename );
 
 private:
   /**
@@ -182,10 +199,12 @@ private:
  	*/
   void clearData();
 	
-	QString	m_styleName;
-	CStyle::Format*	m_headerFormat;
-	CStyle::Format*	m_moduleTextFormat;
-	CStyle::Format*	m_descriptionFormat;	
+	QString	m_name;
+//	QString m_filename;
+	
+	Format* m_headerFormat;
+	Format* m_descriptionFormat;		
+	Format* m_moduleTextFormat;
 	
 	bool m_isHeaderFormatEnabled;
 	bool m_isModuleTextFormatEnabled;

@@ -39,7 +39,6 @@
 CStyleEditorDialog::CStyleEditorDialog(CStyle* style, QWidget *parent, const char *name )
 	: KDialogBase(parent,name, true, i18n("style editor")) {
 	m_style = style;
-	m_currentFormat = 0;
 	m_formatEnabled =  false;
 	
 	initView();	
@@ -93,7 +92,6 @@ void CStyleEditorDialog::initView(){
 	m_alignRadios.leftRB = new QRadioButton( i18n("Left"), m_alignRadios.buttongroup);
 	m_alignRadios.centerRB = new QRadioButton( i18n("Center"), m_alignRadios.buttongroup);
 	m_alignRadios.rightRB = new QRadioButton(i18n("Right"),m_alignRadios.buttongroup);
-//	m_alignRadios.justificationRB = new QRadioButton(i18n("Justification"), m_alignRadios.buttongroup);
 	m_alignRadios.buttongroup->setFixedHeight( m_alignRadios.buttongroup->sizeHint().height());
   hboxLayout->addWidget( m_alignRadios.buttongroup );
 
@@ -206,6 +204,7 @@ void CStyleEditorDialog::readSettings(){
 /** Saves settings to config file. */
 void CStyleEditorDialog::saveSettings(){
 	applySettingsToFormat( m_currentFormat );
+//  m_style->setFormatForType(m_currentFormat.type(), m_currentFormat );
   m_style->setStyleName( m_styleNameEdit->text() );	
 }
 
@@ -223,26 +222,16 @@ void CStyleEditorDialog::useFrameClicked(){
 }
 
 /** Sets up the states of the child widgets using the styl format given as parameter. */
-void CStyleEditorDialog::setupWithFormat( CStyle::Format* format){
-	qDebug("CStyleEditorDialog::setupWithFormat( CStyleFormat* format)");
-	if (!format)
-		return;	
-
-	CStyle::styleType styleType = CStyle::Unknown;
-	if (m_currentFormat == m_style->formatForType(CStyle::Header))
-		styleType = CStyle::Header;
-	else if (m_currentFormat == m_style->formatForType(CStyle::Description))
-		styleType = CStyle::Description;
-	else if (m_currentFormat == m_style->formatForType(CStyle::ModuleText))
-		styleType = CStyle::ModuleText;
-	
-	if (styleType == CStyle::Unknown)
+void CStyleEditorDialog::setupWithFormat( CStyle::Format* const format ){
+	const CStyle::StyleType type = format->type();
+	if (type == CStyle::Unknown)
 		return;
-	m_formatEnabled = m_style->hasFormatTypeEnabled(styleType);
+//	qWarning("setupWithFormat: %i", (int)type);
+	m_formatEnabled = m_style->hasFormatTypeEnabled(type);
 	
   m_styleNameEdit->setText( m_style->styleName());	
 	//setup alignement
-	switch(format->alignement()) {
+	switch(format->alignment()) {
 		case CStyle::Format::Left:
 			m_alignRadios.leftRB->setChecked(true);
 			break;
@@ -286,22 +275,19 @@ void CStyleEditorDialog::setupWithFormat( CStyle::Format* format){
 
 /** Setups the font widgets using the parameter. */
 void CStyleEditorDialog::setupFontWidgets( QFont& font ){
-	qDebug("CStyleEditorDialog::setupFontWidgets( QFont& font )");
 	QFont dummy(font);
 	dummy.setPointSize(12);
 	m_font.fontDisplay->setFont( dummy );
 	m_font.fontDisplay->setText( QString::fromLatin1("%1 - %2").arg(m_font.font.family()).arg(m_font.font.pointSize()) );
 	m_font.fontDisplay->setEnabled(m_formatEnabled);	
 	m_font.fontButton->setEnabled(m_formatEnabled);
-	qDebug("finished");
 }
 
 /** Called when the type was changed in the combobox. */
 void CStyleEditorDialog::styleTypeChanged( const QString& name ){
 	applySettingsToFormat( m_currentFormat );
-	
 	if (name == i18n("Header")) {
-		m_currentFormat = m_style->formatForType( CStyle::Header );
+		m_currentFormat = m_style->formatForType(CStyle::Header );
 		m_formatEnabled = m_style->hasFormatTypeEnabled( CStyle::Header );
 	}
 	else 	if (name == i18n("Description")) {
@@ -309,27 +295,25 @@ void CStyleEditorDialog::styleTypeChanged( const QString& name ){
 		m_formatEnabled = m_style->hasFormatTypeEnabled( CStyle::Description );
 	}
 	else 	if (name == i18n("Module text")) {
-		m_currentFormat = m_style->formatForType( CStyle::ModuleText );	
+		m_currentFormat = m_style->formatForType(CStyle::ModuleText );	
 		m_formatEnabled = m_style->hasFormatTypeEnabled( CStyle::ModuleText );	
 	}
 	setupWithFormat( m_currentFormat );
 }
 
 /** Sets the properties of the cuzrrent format which are changed in the editor. */
-void CStyleEditorDialog::applySettingsToFormat( CStyle::Format* format ){
-	if (!format)
-		return;
+void CStyleEditorDialog::applySettingsToFormat( CStyle::Format* const format ){
 	m_style->setStyleName(m_styleNameEdit->text());
 	
 	//apply alignement settings
 	if (m_alignRadios.buttongroup->selected() == m_alignRadios.leftRB ) {
-		format->setAlignement( CStyle::Format::Left);
+		format->setAlignment( CStyle::Format::Left);
 	}
 	else if (m_alignRadios.buttongroup->selected() == m_alignRadios.centerRB) {
-		format->setAlignement( CStyle::Format::Center );
+		format->setAlignment( CStyle::Format::Center );
 	}
 	else if (m_alignRadios.buttongroup->selected() == m_alignRadios.rightRB ) {
-		format->setAlignement( CStyle::Format::Right );
+		format->setAlignment( CStyle::Format::Right );
 	}
 	
 	//apply color settings
@@ -346,22 +330,13 @@ void CStyleEditorDialog::applySettingsToFormat( CStyle::Format* format ){
 		frame->setThickness( m_frame.lineThicknessChooser->value() );
 		
 		//the position in the list equal to the position in Qt::PenStyle+1
-		frame->setLineStyle((Qt::PenStyle)(m_frame.lineStyleChooser->currentItem()+1));
+		frame->setLineStyle(static_cast<Qt::PenStyle>(m_frame.lineStyleChooser->currentItem()+1));
 	}
 }
 
 /** Is called when the enablePart box was clicked. */
 void CStyleEditorDialog::enableBoxClicked() {
-	qDebug("CStyleEditorDialog::enableBoxClicked()");
-	//find the correct format type
-	CStyle::styleType styleType = CStyle::Unknown;	
-	if (m_currentFormat == m_style->formatForType(CStyle::Header))
-		styleType = CStyle::Header;
-	else if (m_currentFormat == m_style->formatForType(CStyle::Description))
-		styleType = CStyle::Description;
-	else if (m_currentFormat == m_style->formatForType(CStyle::ModuleText))
-		styleType = CStyle::ModuleText;
-	
+	const CStyle::StyleType styleType = m_currentFormat->type();		
 	m_style->setFormatTypeEnabled(styleType, m_setEnabledBox->isChecked());	
 	applySettingsToFormat(m_style->formatForType(styleType));
 	setupWithFormat( m_currentFormat );

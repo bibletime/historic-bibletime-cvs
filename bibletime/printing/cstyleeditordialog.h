@@ -18,10 +18,16 @@
 #ifndef CSTYLEEDITORDIALOG_H
 #define CSTYLEEDITORDIALOG_H
 
-#include <qwidget.h>
-#include <kdialogbase.h>
-
+//BibleTime includes
 #include "cstyle.h"
+
+//QT includes
+#include <qwidget.h>
+
+//KDE inludes
+#include <kdialogbase.h>
+#include "cstyle.h"
+
 
 /**The editor for the printing styles.
   *@author The BibleTime team
@@ -74,11 +80,11 @@ protected slots:
   /**
   * Sets up the states of the child widgets using the styl format given as parameter.
   */
-  void applySettingsToFormat( CStyle::Format* );  	
+  void applySettingsToFormat( CStyle::Format* const format );  	
   /**
   * Sets the properties of the cuzrrent format which are changed in the editor.
   */
-  void setupWithFormat( CStyle::Format* format);
+  void setupWithFormat( CStyle::Format* const format );
   /**
   * Is called when the enablePart box was clicked.
   */
@@ -93,13 +99,14 @@ private:
 		QRadioButton*	leftRB;
 		QRadioButton*	centerRB;
 		QRadioButton*	rightRB;
-//		QRadioButton*	justificationRB;
 		QVButtonGroup*	buttongroup;
 	} m_alignRadios;
+	
 	struct colorButtons {
 		KColorButton*	foregroundChooser;
 		KColorButton*	backgroundChooser;
 	} m_colors;
+	
 	struct frameWidgets {
 		QCheckBox*	useFrame;
 		KColorButton*	colorChooser;
@@ -107,6 +114,7 @@ private:
 		QComboBox* lineStyleChooser;		
 		QGroupBox*	groupbox;
 	} m_frame;
+	
 	struct fontWidgets {
 		QFont font;
 		QPushButton* fontButton;

@@ -20,15 +20,35 @@
 
 
 //Qt includes
-#include <qlistview.h>
 #include <qapp.h>
+#include <qdom.h>
+#include <qfile.h>
+#include <qlistview.h>
+#include <qstring.h>
+#include <qtextstream.h>
 
 //KDE includes
 #include <klocale.h>
 
-CStyle::Format::Format() : m_frame(0) {
+#define CURRENT_SYNTAX_VERSION 1
+
+CStyle::Format::Format(const CStyle::StyleType type) : m_frame(0), m_type(type) {
 	clearData();
 }
+
+CStyle::Format::Format(const Format& f) {
+	m_BGColor = f.m_BGColor;
+	m_FGColor = f.m_FGColor;
+	m_alignment = f.m_alignment;
+	m_font = f.m_font;
+	m_hasFrame = f.m_hasFrame;			
+	m_frame = 0;
+	if (m_hasFrame) {
+		Frame* newFrame = frame();//create
+		*newFrame = *f.m_frame; //copy content
+	}
+	m_type = f.m_type;
+};
 
 CStyle::Format::~Format(){
 	delete m_frame;
@@ -84,13 +104,13 @@ void CStyle::Format::setFrameEnabled( const bool hasFrame ) {
 }
 
 /** Returns the alignement of this style format. */
-const CStyle::Format::Alignement& CStyle::Format::alignement() const {
-	return m_alignement;
+const CStyle::Format::Alignment& CStyle::Format::alignment() const {
+	return m_alignment;
 }
 
 /** Sets the alignement flags of this style format. */
-void CStyle::Format::setAlignement( const CStyle::Format::Alignement newAlignement) {
-	m_alignement = newAlignement;
+void CStyle::Format::setAlignment( const Alignment newAlignment) {
+	m_alignment = newAlignment;
 }
 
 /** Resets the data variables. */
@@ -101,23 +121,32 @@ void CStyle::Format::clearData(){
 	m_frame = 0;	
 	m_hasFrame = false;
 	m_font = QApplication::font();
-	m_alignement = CStyle::Format::Left;
+	m_alignment = Format::Left;
 }
 
+const CStyle::StyleType CStyle::Format::type() const {
+	return m_type;
+}
 
 CStyle::Format::Frame::Frame() {
 	m_thickness = 1;
 	m_color = Qt::black;
-	m_lineStyle = Qt::DashLine;
+	m_lineStyle = Qt::SolidLine;
+}
+
+CStyle::Format::Frame::Frame(const Frame& f) {
+	m_thickness = f.m_thickness;
+	m_color = f.m_color;
+	m_lineStyle = f.m_lineStyle;
 }
 
 /** Returns the thickness of this frame. */
-const unsigned short int& CStyle::Format::Frame::thickness() const {
+const int& CStyle::Format::Frame::thickness() const {
 	return m_thickness;
 }
 
 /** Sets te thickness of this frame. */
-void CStyle::Format::Frame::setThickness( const unsigned short int newThickness ) {
+void CStyle::Format::Frame::setThickness( const int newThickness ) {
 	m_thickness = newThickness;
 }
 
@@ -141,59 +170,64 @@ void CStyle::Format::Frame::setColor( const QColor& newColor ) {
 	m_color = newColor;
 }
 
-CStyle::CStyle() {
-	m_headerFormat = new Format();
-	m_moduleTextFormat = new Format();
-	m_descriptionFormat = new Format();
+CStyle::CStyle() :
+	m_headerFormat(new Format(CStyle::Header)),
+	m_descriptionFormat(new Format(CStyle::Description)),
+	m_moduleTextFormat(new Format(CStyle::ModuleText))
+{
+	m_listViewItem = 0;
+	m_isHeaderFormatEnabled = m_isDescriptionFormatEnabled = m_isModuleTextFormatEnabled = true;
+
+	setStyleName( i18n("unknown name") );
+};
+
+CStyle::CStyle( const QString filename ) :
+	m_headerFormat(new Format(CStyle::Header)),
+	m_descriptionFormat(new Format(CStyle::Description)),
+	m_moduleTextFormat(new Format(CStyle::ModuleText))
+{
 	m_listViewItem = 0;
 	m_isHeaderFormatEnabled = m_isDescriptionFormatEnabled = m_isModuleTextFormatEnabled = true;
 	
-	setStyleName( i18n("unknown name") );
+	load(filename);	
 }
 
 CStyle::~CStyle(){
-	if (m_headerFormat)
-		delete m_headerFormat;
-	if (m_moduleTextFormat)
-		delete m_moduleTextFormat;
-	if (m_descriptionFormat)		
-		delete m_descriptionFormat;
 }
 
 /** Returns the proper CStyleFormat for the given type. */
-CStyle::Format* CStyle::formatForType( const CStyle::styleType type) const {
+CStyle::Format* const CStyle::formatForType( const CStyle::StyleType type) {
 	switch (type) {
 		case Header:
 			return m_headerFormat;
-		case ModuleText:
-			return m_moduleTextFormat;
 		case Description:
-			return m_descriptionFormat;
+			return m_descriptionFormat;		
+		case ModuleText:
+			return m_moduleTextFormat;		
 		default:
 			return 0;
 	}
 }
 
 /** Sets the format for the given type. */
-void CStyle::setFormatForType( const CStyle::styleType type, CStyle::Format* format){
-	switch (type) {
-		case Header:
-			m_headerFormat = format;
-			break;
-		case ModuleText:
-			m_moduleTextFormat = format;
-			break;
-		case Description:
-			m_descriptionFormat = format;
-			break;
-		default:
-			break;
-	}
-}
+//void CStyle::setFormatForType( const CStyle::StyleType type, const CStyle::Format* format){
+//	switch (type) {
+//		case Header:
+//			m_headerFormat = format;
+//			break;
+//		case Description:
+//			m_descriptionFormat = format;			
+//			break;
+//		case ModuleText:
+//			m_moduleTextFormat = format;
+//			break;			
+//		default:
+//			break;
+//	}
+//}
 
 /** Set the printing of the header (true enables it). */
-const bool CStyle::hasFormatTypeEnabled( const CStyle::styleType type) const {	
-//	qWarning("CStyle::hasFormatTypeEnabled( const CStyle::styleType type)");
+const bool CStyle::hasFormatTypeEnabled( const CStyle::StyleType type) const {	
 	switch (type) {
 		case Header:
 			return m_isHeaderFormatEnabled;
@@ -207,7 +241,7 @@ const bool CStyle::hasFormatTypeEnabled( const CStyle::styleType type) const {
 }
 
 /** Set the printing of the header (true enables it). */
-void CStyle::setFormatTypeEnabled( const CStyle::styleType type, const bool setEnabled) {
+void CStyle::setFormatTypeEnabled( const CStyle::StyleType type, const bool setEnabled) {
 	switch (type) {
 		case Header:
 			m_isHeaderFormatEnabled = setEnabled;
@@ -224,7 +258,7 @@ void CStyle::setFormatTypeEnabled( const CStyle::styleType type, const bool setE
 }
 
 /** Returns a QListViewItem for inserted in list. */
-QListViewItem* CStyle::listViewItem( CStyleList* list ){
+QListViewItem* CStyle::listViewItem( CStyleList* const list ){
 	if (!list) {
 		if (!m_listViewItem)
 			return 0;
@@ -239,32 +273,236 @@ QListViewItem* CStyle::listViewItem( CStyleList* list ){
 
 /** Returns the style name */
 const QString& CStyle::styleName() const{
-	return m_styleName;
+	return m_name;
 }
 
 /** Sets the name of the style. */
 void CStyle::setStyleName( const QString name ){
 //	qDebug("CStyle::setStyleName( const QString name)");
-	m_styleName = name;
+	m_name = name;
+//	m_filename = name;
+//	m_filename.replace(QRegExp("[&#+*\\s]"), "_");
+//	m_filename.append(".xml");
 }
 
 /** Clears all variables and sets them back */
 void CStyle::clearData(){
 //	qDebug("CStyle::clearData()");
 	deleteListViewItem();
-	m_styleName = QString::null;
+	m_name = QString::null;
 	m_isDescriptionFormatEnabled = m_isHeaderFormatEnabled = m_isModuleTextFormatEnabled = true;		
 }
 
 /** Updates the Listview items */
 void CStyle::updateListViewItem(){
+	qWarning("CStyle::updateListViewItem() for %s", m_name.latin1());
 	m_listViewItem->setText(0, styleName() );
 }
 
 /** Deletes the list view item. */
 void CStyle::deleteListViewItem(){
-//	if (m_listViewItem) {
-		delete m_listViewItem;
-//	}
+	delete m_listViewItem;
 	m_listViewItem = 0;
+}
+
+/** Loads the profile from a XML file. */
+const bool CStyle::load(const QString& filename){
+/**
+* The XML file should look like this:
+* 	
+ <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE DOC >
+ <BibleTimePrintingStyle syntaxVersion="1" name="Standard" translate="1">
+  <HEADER enabled="1" alignment="center">
+    <COLORS bgcolor="black" fgcolor="white">
+    <FONT family="Arial" charset="2" pointsize="10" weight="1" italic="0">
+    <FRAME enabled="1" color="blue" style="1" thickness="2">
+  </HEADER>
+ </BibleTimePrintingStyle>
+*/
+	qWarning("CStyle::load: %s", filename.latin1());
+	QFile file(filename);
+	if (!file.exists()) {
+		qWarning("file doesn't exist");
+		return false;
+	}
+	
+	QDomDocument doc;		
+	file.open(IO_ReadOnly);	
+	doc.setContent(&file);
+	file.close();	
+	
+  QDomElement document = doc.documentElement();
+  if(document.tagName() != "BibleTimePrintingStyle") {
+		qWarning("CProfile::load: Missing BibleTime doc");
+		return false;
+	}
+	if (document.hasAttribute("name")) { //name of the printing style
+		setStyleName( document.attribute("name") );
+		if (document.hasAttribute("translate") && document.attribute("translate").toInt()) {
+			m_name = i18n(m_name.local8Bit()); //standard styles should be translated
+		}
+	}
+	
+	QDomElement elem = document.firstChild().toElement();
+	while (!elem.isNull()) {
+		StyleType type = Unknown;
+		if (elem.tagName() == "HEADER") {
+			type = Header;
+		}
+		else if (elem.tagName() == "DESCRIPTION") {
+			type = Description;
+		}
+		else if (elem.tagName() == "MODULETEXT") {
+			type = ModuleText;
+		}
+		Format* p = formatForType(type);
+		qWarning("type = %i", (int)type);
+
+		if (!p || type == Unknown)
+			continue;
+		
+		if (elem.hasAttribute("enabled")) {
+			qWarning("has enabled!");
+			setFormatTypeEnabled(type, elem.attribute("enabled").toInt());
+		}
+		if (elem.hasAttribute("alignment")) {		
+			qWarning("has alignment!");		
+			const int align = elem.attribute("alignment").toInt();
+			qWarning("alignment is %i", align);
+			p->setAlignment( static_cast<Format::Alignment>(align) );
+		}
+		
+		QDomElement object = elem.namedItem("COLORS").toElement();
+		if (!object.isNull()) {
+			qWarning("has colors!");		
+			if (object.hasAttribute("bgcolor"))
+				p->setColor(Format::Background, QColor(object.attribute("bgcolor")));
+			if (object.hasAttribute("fgcolor"))
+				p->setColor(Format::Foreground, QColor(object.attribute("fgcolor")));				
+		}
+
+		object = elem.namedItem("FONT").toElement();
+		if (!object.isNull()) {
+			const QString family = object.hasAttribute("family") ? object.attribute("family") : QString::null;
+			const unsigned int size = object.hasAttribute("pointsize") ? object.attribute("pointsize").toInt() : QApplication::font().pointSize();		
+			const int weight = object.hasAttribute("weight") ? object.attribute("weight").toInt() : QFont::Normal;
+			const bool italic = object.hasAttribute("italic") ? static_cast<bool>(object.attribute("italic").toInt()) : false;
+			const QFont::CharSet charset = object.hasAttribute("charset") ? static_cast<QFont::CharSet>(object.attribute("charset").toInt()) : QApplication::font().charSet();
+			
+			p->setFont( QFont(family, size, weight, italic, charset) );			
+		}	
+
+		object = elem.namedItem("FRAME").toElement();
+		if (!object.isNull()) { //frame-section exists
+			const bool enabled = object.hasAttribute("enabled") ? object.attribute("enabled").toInt() : false;			
+			p->setFrameEnabled(enabled);
+			Format::Frame* frame = p->frame();
+			if (frame) {
+				const QColor color = object.hasAttribute("color") ? QColor(object.attribute("color")) : Qt::white;
+				Qt::PenStyle style = object.hasAttribute("style") ? static_cast<Qt::PenStyle>(object.attribute("style").toInt()) : Qt::SolidLine;
+				const int thickness = object.hasAttribute("thickness") ? object.attribute("thickness").toInt() : 1;			
+				
+				frame->setColor(color);
+				frame->setLineStyle(style);
+				frame->setThickness(thickness);
+			}
+		}
+//		setFormatForType(type, p);
+		elem = elem.nextSibling().toElement();	
+	}
+	return true;
+}
+
+const bool CStyle::save( const QString& filename ){
+/* Saved file should look like this:
+
+ <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE DOC >
+ <BibleTimePrintingStyle syntaxVersion="1" name="Standard" translate="1">
+  <HEADER enabled="1" alignment="center">
+    <COLORS bgcolor="black" fgcolor="white">
+    <FONT family="Arial" charset="2" pointsize="10" weight="1" italic="0">
+    <FRAME enabled="1" color="blue" style="1" thickness="2">
+  </HEADER>
+  <DESCRIPTION enabled="1" alignment="left">
+    <COLORS bgcolor="black" fgcolor="white">
+    <FONT family="Arial" charset="1" pointsize="12" weight="1" italic="0">
+    <FRAME enabled="1" color="blue" style="1" thickness="2">
+  </DESCRIPTION>
+  <MODULETEXT enabled="1" alignment="right">
+    <COLORS bgcolor="black" fgcolor="white">
+    <FONT family="Arial" charset="1" pointsize="12" weight="1" italic="0">
+    <FRAME enabled="1" color="blue" style="1" thickness="2">
+  </MODULETEXT>
+ </BibleTimePrintingStyle>
+*/
+	bool ret = false;
+	
+  QDomDocument doc("DOC");
+  doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
+
+  QDomElement content = doc.createElement("BibleTimePrintingStyle");
+  content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
+  content.setAttribute("name", m_name);
+  doc.appendChild(content);
+
+  for (unsigned int i = Header; i <= ModuleText; ++i) {
+		QDomElement elem;
+			
+		const StyleType type = static_cast<StyleType>(i);
+		switch (type) {
+			case Header:
+				elem = doc.createElement("HEADER");
+				break;
+			case Description:
+				elem = doc.createElement("DESCRIPTION");			
+				break;
+			case ModuleText:
+				elem = doc.createElement("MODULETEXT");
+				break;
+			default:
+				break;
+		};		
+		if (elem.isNull()) //shouldn't happen
+			continue;
+		content.appendChild(elem);
+			
+		Format* format = formatForType(type);			
+		
+		elem.setAttribute("enabled", hasFormatTypeEnabled(type));
+		elem.setAttribute("alignment", static_cast<int>(format->alignment()));
+		
+		QDomElement object = doc.createElement("COLORS");
+		object.setAttribute("bgcolor", format->color(Format::Background).name());
+		object.setAttribute("fgcolor", format->color(Format::Foreground).name());
+		elem.appendChild(object);		
+				
+		QFont font = format->font();
+		object = doc.createElement("FONT");
+		object.setAttribute("family", font.family());
+		object.setAttribute("weight", font.weight());
+		object.setAttribute("italic", font.italic());
+		object.setAttribute("charset", (int)(font.charSet()));		
+		elem.appendChild(object);
+						
+		object = doc.createElement("FRAME");		
+		Format::Frame* frame = format->frame();
+		object.setAttribute("enabled", (bool)frame);
+		if (frame) {
+			object.setAttribute("color", frame->color().name());
+			object.setAttribute("thickness", frame->thickness());
+			object.setAttribute("style", (int)(frame->lineStyle()) );
+    }		
+		elem.appendChild(object);
+  };
+  ret = true;
+
+
+	QFile file(filename);
+	if (file.open(IO_WriteOnly))
+		ret = true;
+	QTextStream t( &file );        // use a text stream
+	t << doc.toString();
+	file.close();
+
+	return ret;
 }

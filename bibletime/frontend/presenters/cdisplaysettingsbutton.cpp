@@ -70,11 +70,11 @@ int CDisplaySettingsButton::populateMenu(void){
 	m_popup->insertTitle(i18n("Display options"));
 	m_popup->setCheckable(true);
 
-	ret += addMenuEntry(i18n("Show headings"),	&m_moduleSettings->headings,
-		isOptionAvailable(CSwordBackend::headings));
   ret += addMenuEntry(i18n("Use linebreaks"), &m_displaySettings->lineBreaks, true);
 	ret += addMenuEntry(i18n("Show versenumbers"), &m_displaySettings->verseNumbers, true);
 
+	ret += addMenuEntry(i18n("Show headings"),	&m_moduleSettings->headings,
+		isOptionAvailable(CSwordBackend::headings));	
 	ret += addMenuEntry(i18n("Show footnotes"), &m_moduleSettings->footnotes,
 		isOptionAvailable(CSwordBackend::footnotes ));
 	ret += addMenuEntry(i18n("Show Strong's Numbers"), &m_moduleSettings->strongNumbers,

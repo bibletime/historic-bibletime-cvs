@@ -51,7 +51,6 @@ void CPrintItemList::initView(){
 
 /** Inserts the items of the list into the tree. */
 void CPrintItemList::insertItems( ListCPrintItem* itemList ) {
-//	qDebug("CPrintItemList::insertItems( printItemList* itemList )");
 	const bool sameList = (itemList == m_items);
 	for(itemList->last(); itemList->current(); itemList->prev() ) {
 		if (!sameList)

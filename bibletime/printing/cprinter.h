@@ -66,10 +66,6 @@ public:
 	
 	CPrinter( QObject* parent );
 	virtual ~CPrinter();
-//  const unsigned int& rightMargin() const;
-//  const unsigned int& leftMargin()  const;
-//  const unsigned int& upperMargin() const;
-//  const unsigned int& lowerMargin() const;
   /**
   * Sets the vertical position of the printer's painter.
   */
@@ -183,6 +179,8 @@ private:
 	} m_cachedPage;
 	
 	bool m_addedItem;
+	
+	QString m_stylePath;
 	
 signals: // Signals
 	/**
