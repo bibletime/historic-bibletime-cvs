@@ -253,6 +253,8 @@ QSize CBibleKeyChooser::sizeHint(){
 
 /** Reimplementation. */
 void CBibleKeyChooser::refreshContent() {
+
+
 	w_book->reset( m_modules.first()->books(), w_book->comboBox()->currentItem(), false);
 	setKey(m_key);
 }

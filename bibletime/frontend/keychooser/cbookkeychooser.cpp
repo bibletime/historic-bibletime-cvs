@@ -30,6 +30,7 @@ CBookKeyChooser::CBookKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key, Q
   if (!m_modules.count()) {
 		m_key = 0;
 	}
+  setModules(modules, true);
 }
 
 CBookKeyChooser::~CBookKeyChooser(){
