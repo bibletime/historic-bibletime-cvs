@@ -29,15 +29,15 @@
 <p>This page describes what the <tt>mods.d</tt> directory is and how to solve this problem! </p>
 <div class="qandaset">
 <dl>
-<dt>6.1.  <a href="help-no-mods-d.html#id2820299">
+<dt>6.1.  <a href="help-no-mods-d.html#id2820378">
 What is the mods.d directory?
 </a>
 </dt>
-<dt>6.2.  <a href="help-no-mods-d.html#id2820336">
+<dt>6.2.  <a href="help-no-mods-d.html#id2820415">
 How do I solve this problem?
 </a>
 </dt>
-<dt>6.3.  <a href="help-no-mods-d.html#id2820415">
+<dt>6.3.  <a href="help-no-mods-d.html#id2752909">
 Can I start BibleTime without this directory?
 </a>
 </dt>
@@ -47,7 +47,7 @@ Can I start BibleTime without this directory?
 <tbody>
 <tr class="question">
 <td align="left" valign="top">
-<a name="id2820296"></a><a name="id2820299"></a><b>6.1. </b>
+<a name="id2820375"></a><a name="id2820378"></a><b>6.1. </b>
 </td>
 <td align="left" valign="top"><p>
 What is the <tt>mods.d</tt> directory?
@@ -63,7 +63,7 @@ and Sword! Please read the installation instructions on our homepage!
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="id2820333"></a><a name="id2820336"></a><b>6.2. </b>
+<a name="id2820412"></a><a name="id2820415"></a><b>6.2. </b>
 </td>
 <td align="left" valign="top"><p>
 How do I solve this problem?
@@ -80,17 +80,23 @@ exist) the file <tt>mods.conf</tt> which isn't required any more.
 The <tt>mods.d</tt> directory replaced this file.
  </p>
 <p>
- Your environment variable <span class="command"><b>SWORD_PATH</b></span> must be set to the location of your sword
- modules directory.  For example in mandrake you can add <pre class="programlisting">
-export SWORD_PATH=/usr/share/sword
-</pre> to <tt>~/.bash_profile</tt> or <tt>/etc/bashrc</tt>.  
-This replaces the former requirement for <tt>/etc/sword.conf</tt>.
+If you find <tt>mods.d</tt> exists, then the global configuration does not exist.
+The preferred method of installing the global configuration if you installed Sword from the cvs or a tarball
+is to cd to the directory containing your sword source, and <span class="command"><b>make install_config</b></span>.  
+The global configuration will be placed into <tt>/etc/sword.conf</tt>.
+
+If you have a nonstandard installation where <tt>/etc/sword.conf</tt> can not be set, then set
+<span class="command"><b>SWORD_PATH</b></span> to the location of your sword modules directory.  
+
+For example in Linux-Mandrake&#8482; adding the line <span class="command"><b>export SWORD_PATH=/usr/share/sword</b></span>
+to <tt>~/.bash_profile</tt> or <tt>/etc/bashrc</tt> is the
+same as <tt>/etc/sword.conf</tt> containing the line <span class="command"><b>/usr/share/sword</b></span>
 </p>
 </td>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="id2820412"></a><a name="id2820415"></a><b>6.3. </b>
+<a name="id2752906"></a><a name="id2752909"></a><b>6.3. </b>
 </td>
 <td align="left" valign="top"><p>
 Can I start BibleTime without this directory?

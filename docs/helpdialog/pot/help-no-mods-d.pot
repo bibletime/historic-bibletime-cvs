@@ -51,18 +51,15 @@ msgstr ""
 
 #: index.docbook:36
 #, no-c-format
-msgid ""
-      "Your environment variable <command>SWORD_PATH</command> must be set to the location of your sword modules directory. For example in mandrake you can add <programlisting>\n"
-      "<![CDATA[export SWORD_PATH=/usr/share/sword]]>\n"
-      "</programlisting> to <filename>~/.bash_profile</filename> or <filename>/etc/bashrc</filename>. This replaces the former requirement for <filename>/etc/sword.conf</filename>."
+msgid "If you find <filename>mods.d</filename> exists, then the global configuration does not exist. The preferred method of installing the global configuration if you installed &sword; from the cvs or a tarball is to cd to the directory containing your sword source, and <command>make install_config</command>. The global configuration will be placed into <filename>/etc/sword.conf</filename>. If you have a nonstandard installation where <filename>/etc/sword.conf</filename> can not be set, then set <command>SWORD_PATH</command> to the location of your sword modules directory. For example in &Linux-Mandrake; adding the line <command>export SWORD_PATH=/usr/share/sword</command> to <filename>~/.bash_profile</filename> or <filename>/etc/bashrc</filename> is the same as <filename>/etc/sword.conf</filename> containing the line <command>/usr/share/sword</command>"
 msgstr ""
 
-#: index.docbook:47
+#: index.docbook:53
 #, no-c-format
 msgid "Can I start &bibletime; without this directory?"
 msgstr ""
 
-#: index.docbook:52
+#: index.docbook:58
 #, no-c-format
 msgid "Yes, it's possible. But it's not very useful. There are no modules in the main index. It's possible to test &bibletime; this way, but it's not possible to work with it without modules."
 msgstr ""
