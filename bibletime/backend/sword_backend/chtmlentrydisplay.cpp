@@ -29,7 +29,8 @@
 CHTMLEntryDisplay::CHTMLEntryDisplay(){
 	m_highlightedVerseColor = "red";
 	m_textColor = "black";
-	m_htmlHeader = "<HTML><HEAD><TITLE></TITLE></HEAD><BODY>";
+	m_linkColor = "darkBlue";
+	m_htmlHeader = "<HTML><HEAD><TITLE></TITLE></HEAD>";
 	m_htmlBody = "</BODY></HTML>";
 	m_standardFontName = QFont::defaultFont().family();
 	m_standardFontSize = 4; //we use logical font sizes between 1 and 7

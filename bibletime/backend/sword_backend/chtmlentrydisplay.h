@@ -85,7 +85,13 @@ public:
 	* the textcolor formatted as HTML text (with a leading #)
 	*/
 	QString m_textColor;
-	
+	/**
+	* This QString variable does contain
+	* the textcolor formatted as HTML text (with a leading #)
+	*/
+	QString m_linkColor;
+
+		
 private:
 	/**
 	*
