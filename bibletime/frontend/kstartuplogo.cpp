@@ -21,7 +21,7 @@
 #include <kimageio.h>
 
 KStartupLogo::KStartupLogo()
-	: QWidget(0,"startuplogo",WStyle_Customize | WStyle_NoBorder) {
+	: QWidget(0,"startuplogo",WStyle_Customize | WStyle_NoBorder | WStyle_Tool) {
 	
   QPixmap pm;	
   bool success = false;

@@ -40,6 +40,7 @@ CHTMLDialog::CHTMLDialog(QWidget* parent, const char *name )
 	: QDialog ( parent, name, true, WStyle_MinMax | WStyle_DialogBorder | WStyle_Dialog )
 {
 	init(false);
+	raise();
 }
 
 CHTMLDialog::CHTMLDialog(const QString& url, QWidget* parent, const char *name)

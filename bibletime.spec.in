@@ -1,4 +1,4 @@
-%define         name 			@PACKAGE@
+%define         name 		@PACKAGE@
 %define         version 	@VERSION@
 
 # This should not be changed but set this to static or dynamic.

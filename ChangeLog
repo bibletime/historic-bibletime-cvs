@@ -1,6 +1,9 @@
+2001-11-01 Joachim Ansorg <jansorg@gmx.de>
+	* Fixed the behaviour of the splashscreen so it stays not any longer on top of the cofiguration windows
+
 2001-08-11 Joachim Ansorg <jansorg@gmx.de>
 	* Updated the admin folder from current KDE 2.2 CVS. The configure system of BibleTime
-works now with Autoconf 2.5x!
+		works now with Autoconf 2.5x!
 	* Updated CHTMLDialog to have a history list, removed captions of back/next buttons
 	* Added a close button in the class CHTMLDialog
 

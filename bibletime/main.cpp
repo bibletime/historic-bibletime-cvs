@@ -166,7 +166,13 @@ int main(int argc, char* argv[]) {
 	  }
 		
 		//first startup of BibleTime?		
-	  BibleTime* bibletime = new BibleTime();
+	  BibleTime* bibletime = new BibleTime();	
+	  if (showIt) {
+			start_logo->hide();
+			start_logo->close();
+			delete start_logo;
+		}
+		
 		{
 			KConfigGroupSaver groupSaver(config, "General");
 			if (config->readBoolEntry(QString::fromLatin1("firstStartup %1").arg(VERSION), true)) {
@@ -177,14 +183,7 @@ int main(int argc, char* argv[]) {
 				config->writeEntry( QString::fromLatin1("isConfigured %1").arg(VERSION), true);
 				bibletime->slotSettingsOptions();
 			}
-		}
-	
-	  if (showIt) {
-			start_logo->hide();			
-			start_logo->close();
-			delete start_logo;
-		}
-		
+		}		
 		{ //The tip of the day
 			KConfigGroupSaver groupSaver(config, "Daily tip");
 			if (config->readBoolEntry("TipsOnStart", true))
