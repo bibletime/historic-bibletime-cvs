@@ -64,12 +64,12 @@ using std::endl;
 using namespace sword;
 
 CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent ) :
-	QCheckListItem(parent, QString::null, QCheckListItem::CheckBoxController)
+	QCheckListItem(parent, QString::null, QCheckListItem::CheckBox)
 {
 
 }
 
-CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent, sword::InstallSource is ) : QCheckListItem(parent, QString::null, QCheckListItem::CheckBoxController)
+CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent, sword::InstallSource is ) : QCheckListItem(parent, QString::null, QCheckListItem::CheckBox)
 {
 	setCaption( QString::fromLatin1(is.caption.c_str()) );
 	m_url.setHost( QString::fromLatin1(is.source.c_str()) );
@@ -155,10 +155,6 @@ CInstallSourcesMgrDialog::CInstallSourcesMgrDialog(QWidget *parent, const char *
 	initRemoteSourcesPage();
 }
 
-void CInstallSourcesMgrDialog::initView() {
-
-}
-
 void CInstallSourcesMgrDialog::slotOk() {
 	//save local sources
 	BTInstallMgr::Tool::RemoteConfig::resetLocalSources(); //we want to overwrite old sources, not add to them
@@ -187,19 +183,19 @@ void CInstallSourcesMgrDialog::slotOk() {
 }
 
 void CInstallSourcesMgrDialog::initLocalSourcesPage() {
-	m_localSourcesPage = addPage(i18n("Local sources"), QString::null, DesktopIcon("dir",32));
+	m_localSourcesPage = addPage(i18n("Local sources"), QString::null, DesktopIcon("folder",32));
  	m_localSourcesPage->setMinimumSize(500,400);
 
 	QGridLayout* grid = new QGridLayout(m_localSourcesPage, 4,3, 5,5);
 
 	QLabel* mainLabel = CToolClass::explanationLabel(m_localSourcesPage,
 		i18n("Manage local sources"),
-		i18n("Here you can setup the local sources for module installation, e.g. the path to your CD-Rom to install from a Sword CD.<br>On many Linux distributions the path to your cdrom is either <i>/media/cdrom</i> or <i>/cdrom</i> Please make sure you mount the CD-Rom before you use BibleTime ti install from CD-Rom..")
+		i18n("Here you can setup the local sources for module installation, e.g. the path to your CD-Rom to install from a Sword CD.<br>On many Linux distributions the path to your cdrom is either <i>/media/cdrom</i> or <i>/cdrom</i> Please make sure you mounted the CD-Rom before you use BibleTime to install from CD-Rom.")
   );
 	grid->addMultiCellWidget(mainLabel, 0, 0, 0, 2);
 
 	m_localSourcesList = new KListView( m_localSourcesPage );
-	m_localSourcesList->addColumn("Local sources");
+	m_localSourcesList->addColumn(i18n("Local sources"));
 	m_localSourcesList->setFullWidth(true);
 
 	QPushButton* addButton = new QPushButton(i18n("Add new directory"), m_localSourcesPage);
@@ -229,7 +225,7 @@ void CInstallSourcesMgrDialog::initLocalSourcesPage() {
 			continue;
 		}
 
-		QListViewItem* i = new KListViewItem( m_localSourcesList, *it );
+		/*QListViewItem* i = */new KListViewItem( m_localSourcesList, *it );
 		//i->setText(0, *it);
 	}
 
@@ -255,7 +251,7 @@ void CInstallSourcesMgrDialog::slot_localRemoveSource() {
 }
 
 void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
-	m_remoteSourcesPage = addPage(i18n("Remote sources"), QString::null, DesktopIcon("html",32));
+	m_remoteSourcesPage = addPage(i18n("Remote sources"), QString::null, DesktopIcon("network",32));
  	m_remoteSourcesPage->setMinimumSize(500,400);
 
 	QGridLayout* grid = new QGridLayout(m_remoteSourcesPage, 5,5, 5,5);
@@ -268,16 +264,18 @@ void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
 
 	m_remoteSourcesList = new KListView( m_remoteSourcesPage );
 	m_remoteSourcesList->setAllColumnsShowFocus(true);
-	m_remoteSourcesList->addColumn("Name");
+	m_remoteSourcesList->addColumn(i18n("Name"));
 //  m_remoteSourcesList->addColumn("URL");
 	m_remoteSourcesList->setFullWidth(true);
 	connect(m_remoteSourcesList, SIGNAL(selectionChanged()),
 		SLOT(slot_remoteSourceSelectionChanged()));
 
  	QPushButton* addButton = new QPushButton(i18n("New"), m_remoteSourcesPage);
+	addButton->setIconSet(DesktopIcon("filenew", 16));
 	connect(addButton, SIGNAL(clicked()), SLOT(slot_remoteAddSource()));
 
 	QPushButton* removeButton = new QPushButton(i18n("Remove"), m_remoteSourcesPage);
+	removeButton->setIconSet(DesktopIcon("edittrash", 16));
 	connect(removeButton, SIGNAL(clicked()), SLOT(slot_remoteRemoveSource()));
 
 	grid->addMultiCellWidget( m_remoteSourcesList, 1,3, 0,2 );
@@ -334,10 +332,10 @@ void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
 		(void)new InstallSourceItem( m_remoteSourcesList, is );
 	}
 
-	if (m_remoteSourcesList->childCount() == 0) {
+	if (m_remoteSourcesList->childCount() == 0) { //setup with the default if no items were present
 		InstallSourceItem* i = new InstallSourceItem(m_remoteSourcesList);
 		i->setCaption("Crosswire");
-		i->setURL(QUrl("ftp://ftp.crosswire.org/pub/sword/raw/"));
+		i->setURL(QUrl("ftp://ftp.crosswire.org/pub/sword/raw"));
 	}
 }
 
@@ -424,7 +422,7 @@ void CSwordSetupDialog::initSwordConfig(){
 
 
   QString swordConfPath = BTInstallMgr::Tool::LocalConfig::swordConfigFilename();
-	QLabel* confPathLabel = new QLabel(QString::fromLatin1("Your Sword configuration file is <b>%1</b>").arg(swordConfPath), page);
+	QLabel* confPathLabel = new QLabel(i18n("Your Sword configuration file is <b>%1</b>").arg(swordConfPath), page);
 	layout->addMultiCellWidget(confPathLabel, 1,1,0,3);
 
   m_swordPathListBox = new KListView(page);
@@ -434,17 +432,19 @@ void CSwordSetupDialog::initSwordConfig(){
   layout->addMultiCellWidget(m_swordPathListBox, 2,5,0,1);
 
   m_swordEditPathButton = new QPushButton(i18n("Edit Entry"), page);
+  m_swordEditPathButton->setIconSet(DesktopIcon("edit", 16));
   connect(m_swordEditPathButton, SIGNAL(clicked()), this, SLOT(slot_swordEditClicked()));
   layout->addWidget(m_swordEditPathButton, 2, 3);
 
   m_swordAddPathButton = new QPushButton(i18n("Add Entry"), page);
+  m_swordAddPathButton->setIconSet(DesktopIcon("add", 16));
   connect(m_swordAddPathButton, SIGNAL(clicked()), this, SLOT(slot_swordAddClicked()));
   layout->addWidget(m_swordAddPathButton, 3,3);
 
   m_swordRemovePathButton = new QPushButton(i18n("Remove Entry"), page);
+  m_swordRemovePathButton->setIconSet(DesktopIcon("editdelete", 16));
   connect(m_swordRemovePathButton, SIGNAL(clicked()), this, SLOT(slot_swordRemoveClicked()));
   layout->addWidget(m_swordRemovePathButton, 4,3);
-
 
   setupSwordPathListBox();
 }
@@ -483,15 +483,15 @@ void CSwordSetupDialog::initInstall(){
 	m_sourceCombo = new QComboBox(m_installSourcePage);
 	layout->addWidget(m_sourceCombo, 2, 0);
 
-	QPushButton* maintainSourcesButton = new QPushButton(m_installSourcePage);
-	maintainSourcesButton->setText("Maintain sources");
+	QPushButton* maintainSourcesButton = new QPushButton(i18n("Maintain sources"), m_installSourcePage);
+	maintainSourcesButton->setIconSet(DesktopIcon("edit", 16));
 	connect(maintainSourcesButton, SIGNAL(clicked()), SLOT(slot_installManageSources()));
 	layout->addWidget(maintainSourcesButton, 2, 1, Qt::AlignLeft);
 
 	m_sourceLabel = new QLabel(m_installSourcePage);
 	layout->addMultiCellWidget(m_sourceLabel, 3,3,0,1);
 
-	QLabel* targetHeadingLabel = new QLabel("<b>Select target location</b>", m_installSourcePage);
+	QLabel* targetHeadingLabel = new QLabel(QString::fromLatin1("<b>%1</b>").arg(i18n("Select target location")), m_installSourcePage);
 	layout->addMultiCellWidget(targetHeadingLabel, 4,4,0,1);
 
 	m_targetCombo = new QComboBox(m_installSourcePage);
@@ -504,17 +504,15 @@ void CSwordSetupDialog::initInstall(){
 	QHBoxLayout* myHBox = new QHBoxLayout();
   vboxlayout->addLayout(myHBox);
 
-  m_installBackButton = new QPushButton(newpage);
-//	m_installBackButton->setPixmap(DesktopIcon("back",22));
-	m_installBackButton->setText(i18n("Back"));
+  m_installBackButton = new QPushButton(i18n("Back"), newpage);
+	m_installBackButton->setIconSet(DesktopIcon("back",16));
 	myHBox->addWidget(m_installBackButton);
 
 	myHBox->addSpacing(10);
 	myHBox->addStretch(5);
 
-  m_installContinueButton = new QPushButton(newpage);
-//	m_installContinueButton->setPixmap(DesktopIcon("forward",22));
-	m_installContinueButton->setText( i18n("Connect to source") );
+  m_installContinueButton = new QPushButton(i18n("Connect to source"), newpage);
+	m_installContinueButton->setIconSet(DesktopIcon("forward",16));
   connect(m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
 	myHBox->addWidget(m_installContinueButton);
 
@@ -557,18 +555,14 @@ void CSwordSetupDialog::initRemove(){
   m_removeModuleListView->addColumn(i18n("Location"));
  	m_removeModuleListView->setAllColumnsShowFocus(true);
  	m_removeModuleListView->setFullWidth(true);
+	connect(m_removeModuleListView, SIGNAL(executed(QListViewItem*)), SLOT(slot_removeModuleItemExecuted(QListViewItem*)));
 
-  m_removeRemoveButton = new QPushButton(page);
-	m_removeRemoveButton->setText( i18n("Remove selected module(s)") );
+  m_removeRemoveButton = new QPushButton(i18n("Remove selected module(s)"), page);
+	m_removeRemoveButton->setIconSet( DesktopIcon("edittrash", 16) );
 	layout->addWidget(m_removeRemoveButton, 3, 3, Qt::AlignRight);
 
-//  m_removeBackButton = new QPushButton(page);
-//	m_removeBackButton->setText( i18n("Back") );
-//  m_removeBackButton->setEnabled(false);
-//	layout->addWidget(m_removeBackButton, 3, 0, Qt::AlignRight);
-
-//	connect(m_removeBackButton,   SIGNAL( clicked() ), m_main, SLOT( slot_backtoMainPage() ));
-	connect(m_removeRemoveButton, SIGNAL( clicked() ), this, SLOT( slot_doRemoveModules() ));
+	connect(m_removeRemoveButton, SIGNAL(clicked()),
+		this, SLOT(slot_doRemoveModules()));
 
 	populateRemoveModuleListView();
 }
@@ -598,7 +592,7 @@ void CSwordSetupDialog::slotOk(){
 /*called if the apply button was clicked*/
 void CSwordSetupDialog::slotApply(){
 	KDialogBase::slotApply();
-  emit signalSwordSetupChanged( );
+  emit signalSwordSetupChanged();
 }
 
 /** Opens the page which contaisn the given part ID. */
@@ -706,25 +700,16 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 	QListViewItem* item1 = 0;
 	QListViewItem* item2 = 0;
 
-	for (item1 = m_removeModuleListView->firstChild(); item1; item1 = item1->nextSibling())
-		for (item2 = item1->firstChild(); item2; item2 = item2->nextSibling())
-			if ( dynamic_cast<QCheckListItem*>(item2) && dynamic_cast<QCheckListItem*>(item2)->isOn() )
-				moduleList << item2->text(0);
-
-	QString catList;
-
-	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
-		if (!catList.isEmpty())
-			catList += ", ";
-     catList += *it;
-  }
-	QString message("You selected the following modules: %1.\n\n"
-		"Do you really want to remove them from your system?");
-	message = message.arg(catList);
-	if (catList.isEmpty()){
-		KMessageBox::error(0, i18n("No modules selected."), i18n("Error")) ;
+	QListViewItemIterator list_it( m_installModuleListView, QListViewItemIterator::Checked );
+	while ( list_it.current() ) {
+		moduleList << list_it.current()->text(0);
+		++list_it;
 	}
-	else if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)){  //Yes was pressed.
+
+	const QString message = i18n("You selected the following modules: %1.\n\n"
+		"Do you really want to remove them from your system?").arg(moduleList.join(", "));
+
+	if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)){  //Yes was pressed.
     //module are removed in this section of code
     sword::InstallMgr installMgr;
 
@@ -737,7 +722,6 @@ void CSwordSetupDialog::slot_doRemoveModules(){
         }
         if (prefixPath.contains(dataPath)) {
           prefixPath = prefixPath.replace( dataPath, "");
-//          qWarning("removing module in prefix %s with data path %s", prefixPath.latin1(), dataPath.latin1());
         }
         else {
           prefixPath = QString::fromLatin1(backend()->prefixPath);
@@ -745,17 +729,34 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 
         sword::SWMgr mgr(prefixPath.latin1());
         installMgr.removeModule(&mgr, m->name().latin1());
-//       	qWarning("Removed module: [%s]" , m->name().latin1());
       }
     }
 
-    //remove checklist items of removed modules
-//   	for (item1 = m_removeModuleListView->firstChild(); item1; item1 = item1->nextSibling())
-//  		for (item2 = item1->firstChild(); item2; item2 = item2->nextSibling())
-//	  		if ( dynamic_cast<QCheckListItem*>(item2) && dynamic_cast<QCheckListItem*>(item2)->isOn() )
-//		  		delete item2;
     populateRemoveModuleListView(); //rebuild the tree
   }
+}
+
+void CSwordSetupDialog::slot_removeModuleItemExecuted(QListViewItem* item) {
+	// This function enabled the Install modules button if modules are chosen
+	// If an item was clicked to be not chosen look if there are other selected items
+	// If the item was clicked to be chosen enable the button without looking at the other items
+
+	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>(item);
+	if (item && !checkItem) //no valid item for us
+		return;
+
+	if (checkItem && checkItem->isOn()) {
+		m_removeRemoveButton->setEnabled(true);
+	}
+	else {
+		QListViewItemIterator it( m_removeModuleListView, QListViewItemIterator::Checked );
+		if ( it.current() ) { //a module is checked in the list
+			m_removeRemoveButton->setEnabled(true);
+    }
+		else {
+			m_removeRemoveButton->setEnabled(false);
+		}
+	}
 }
 
 /** No descriptions */
@@ -793,7 +794,7 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 
 	for ( list.first(), mod = 1; list.current(); list.next(), mod++ ){
 		if (mod % 20){
-			m_populateListNotification->setText(QString("Scanning your system: %1%").arg((mod*100)/modcount));
+			m_populateListNotification->setText(i18n("Scanning your modules: %1%").arg((mod*100)/modcount));
 			KApplication::kApplication()->processEvents();
 		}
 
@@ -824,7 +825,7 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 
 	m_populateListNotification->setText("");
 //	m_removeBackButton->setEnabled(true);
-	m_removeRemoveButton->setEnabled(true);
+//	m_removeRemoveButton->setEnabled(false);
 
   //clean up groups
   if (!categoryBible->childCount())
@@ -909,10 +910,10 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
         parent = 0;
         break;
     }
-    
+
 		QListViewItem* newItem = 0;
     if (parent) {
-       newItem = new QCheckListItem(parent, newModule->name(), QCheckListItem::CheckBox);      
+       newItem = new QCheckListItem(parent, newModule->name(), QCheckListItem::CheckBox);
     }
     else {
       newItem = new QCheckListItem(m_installModuleListView, newModule->name(), QCheckListItem::CheckBox);
@@ -956,15 +957,13 @@ void CSwordSetupDialog::slot_connectToSource(){
   //insert a list box which contains all available remote modules
 	m_installModuleListView = new KListView(m_installModuleListPage, "install modules view");
 	layout->addMultiCellWidget( m_installModuleListView, 1,6,0,1);
-	m_installModuleListView->addColumn("Name");
-  m_installModuleListView->addColumn("Installed version");
-  m_installModuleListView->addColumn("Remote version");
-  m_installModuleListView->addColumn("Status");
+	m_installModuleListView->addColumn(i18n("Name"));
+  m_installModuleListView->addColumn(i18n("Installed version"));
+  m_installModuleListView->addColumn(i18n("Remote version"));
+  m_installModuleListView->addColumn(i18n("Status"));
  	m_installModuleListView->setAllColumnsShowFocus(true);
  	m_installModuleListView->setFullWidth(true);
-
-  connect( m_installBackButton, SIGNAL(clicked()), this, SLOT(slot_showInstallSourcePage()));
-  m_installBackButton->setEnabled(true);
+	connect(m_installModuleListView, SIGNAL(executed(QListViewItem*)), SLOT(slot_installModuleItemExecuted(QListViewItem*)));
 
   m_installContinueButton->setEnabled(false);
   disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
@@ -972,9 +971,12 @@ void CSwordSetupDialog::slot_connectToSource(){
 
   populateInstallModuleListView( currentInstallSource() );
   m_installContinueButton->setText(i18n("Install modules"));
-  m_installContinueButton->setEnabled(true);
+  m_installContinueButton->setEnabled(false);
 
   m_installWidgetStack->raiseWidget(m_installModuleListPage);
+
+  connect( m_installBackButton, SIGNAL(clicked()), this, SLOT(slot_showInstallSourcePage()));
+  m_installBackButton->setEnabled(true);
 }
 
 /** Connects to the chosen source. */
@@ -985,39 +987,53 @@ void CSwordSetupDialog::slot_installManageSources() {
 	populateInstallCombos(); //make sure the items are updated
 }
 
+void CSwordSetupDialog::slot_installModuleItemExecuted(QListViewItem* item) {
+	// This function enabled the Install modules button if modules are chosen
+	// If an item was clicked to be not chosen look if there are other selected items
+	// If the item was clicked to be chosen enable the button without looking at the other items
+
+	QCheckListItem* checkItem = dynamic_cast<QCheckListItem*>(item);
+	if (item && !checkItem) //no valid item for us
+		return;
+
+	if (checkItem && checkItem->isOn()) {
+		m_installContinueButton->setEnabled(true);
+	}
+	else {
+		QListViewItemIterator it( m_installModuleListView, QListViewItemIterator::Checked );
+		if ( it.current() ) { //a module is checked in the list
+			m_installContinueButton->setEnabled(true);
+    }
+		else {
+			m_installContinueButton->setEnabled(false);
+		}
+	}
+}
+
 /** Installs chosen modules */
 void CSwordSetupDialog::slot_installModules(){
-//  qWarning("install the modules");
   //first get all chosen modules
 	QStringList moduleList;
 	QListViewItem* item1 = 0;
 	QListViewItem* item2 = 0;
 
-	for (item1 = m_installModuleListView->firstChild(); item1; item1 = item1->nextSibling())
-		for (item2 = item1->firstChild(); item2; item2 = item2->nextSibling())
-			if ( dynamic_cast<QCheckListItem*>(item2) && dynamic_cast<QCheckListItem*>(item2)->isOn() )
-				moduleList << item2->text(0);
-
-	QString catList;
-	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
-		if (!catList.isEmpty())
-			catList += ", ";
-     catList += *it;
-  }
-	const QString& message = QString::fromLatin1("You selected the following modules: %1.\n\nDo you really want to install them on your system?").arg(catList);
-
-	if (catList.isEmpty()){
-		KMessageBox::error(0, "No modules selected.", "Error") ;
+	QListViewItemIterator list_it( m_installModuleListView, QListViewItemIterator::Checked );
+	while ( list_it.current() ) {
+		moduleList << list_it.current()->text(0);
+		++list_it;
 	}
-	else if ((KMessageBox::warningYesNo(0, message, "Warning") == KMessageBox::Yes)){  //Yes was pressed.
+
+	const QString& message = i18n("You selected the following modules: %1.\n\nDo you really want to install them on your system?").arg(moduleList.join(", "));
+
+	if ((KMessageBox::warningYesNo(0, message, i18n("Warning")) == KMessageBox::Yes)){  //Yes was pressed.
     BTInstallMgr iMgr;
     sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&iMgr, currentInstallSource());
 
-		qWarning("installung from %s/%s", is.source.c_str(), is.directory.c_str());
-
+//		qWarning("installung from %s/%s", is.source.c_str(), is.directory.c_str());
     QString target = m_targetCombo->currentText();
-    if (target.contains("$HOME"))
+    /*if (target.contains("$HOME"))
       target.replace("$HOME", getenv("HOME"));
+		*/
 
     //make sure target/mods.d and target/modules exist
     QDir dir(target.latin1());
@@ -1031,7 +1047,7 @@ void CSwordSetupDialog::slot_installModules(){
       dir.mkdir("mods.d");
     }
 
-    qWarning("installing into target %s", target.latin1());
+//    qWarning("installing into target %s", target.latin1());
     sword::SWMgr lMgr( target.latin1() );
 
     //module are removed in this section of code
@@ -1077,6 +1093,7 @@ void CSwordSetupDialog::slot_installModules(){
     backend()->reloadModules();
     populateInstallModuleListView( currentInstallSource() ); //rebuild the tree
     populateRemoveModuleListView();
+		m_installContinueButton->setEnabled(false);
   }
 }
 
@@ -1092,8 +1109,10 @@ void CSwordSetupDialog::installCompleted( const int total, const int file ){
 void CSwordSetupDialog::slot_showInstallSourcePage(){
   connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
   disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
-  m_installContinueButton->setText(i18n("Connect"));
   m_installBackButton->setEnabled(false);
+
+	m_installContinueButton->setText(i18n("Connect to source"));
+  m_installContinueButton->setEnabled(true);
 
   m_installWidgetStack->raiseWidget(m_installSourcePage);
 }
@@ -1131,7 +1150,7 @@ void CSwordSetupDialog::setupSwordPathListBox(){
   for (QStringList::iterator it = targets.begin(); it != targets.end(); ++it)  {
     if ((*it).isEmpty())
       continue;
-    
+
     new KListViewItem(m_swordPathListBox, *it);
   }
   m_swordPathListBox->setCurrentItem( m_swordPathListBox->firstChild() );

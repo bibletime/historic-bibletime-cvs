@@ -39,6 +39,7 @@ class QLabel;
 class QComboBox;
 class QWidgetStack;
 class QButton;
+class QPushButton;
 class QLineEdit;
 
 class KProgressDialog;
@@ -81,7 +82,6 @@ protected:
 		QString m_caption;
 	};
 
-	void initView();
 	void initRemoteSourcesPage();
 	void initLocalSourcesPage();
 
@@ -136,17 +136,17 @@ private:
 	void initRemove();
 
   /** Setup the path list box */
-  void setupSwordPathListBox();
+	void setupSwordPathListBox();
 
-  void populateInstallCombos();
+	void populateInstallCombos();
 
- 	const QString currentInstallSource();
+	const QString currentInstallSource();
 
   QFrame* m_swordConfigPage;
   KListView* m_swordPathListBox;
-  QButton* m_swordEditPathButton;
-  QButton* m_swordAddPathButton;
-  QButton* m_swordRemovePathButton;
+  QPushButton* m_swordEditPathButton;
+  QPushButton* m_swordAddPathButton;
+  QPushButton* m_swordRemovePathButton;
   QStringList m_swordPathList;
 
   QFrame* m_removePage;
@@ -172,8 +172,8 @@ private:
   void populateInstallModuleListView(const QString& sourceName);
 
 //install module stuff
-  QButton* m_installBackButton;
-  QButton* m_installContinueButton;
+  QPushButton* m_installBackButton;
+  QPushButton* m_installContinueButton;
 
   QWidget* m_installModuleListPage;
   QWidget* m_installSourcePage;
@@ -187,12 +187,17 @@ private:
 private slots:
   void slot_sourceSelected(const QString &sourceName);
   void slot_targetSelected(const QString &targetName);
-  void slot_doRemoveModules();
+
+	void slot_doRemoveModules();
+	void slot_removeModuleItemExecuted(QListViewItem*);
+
 	void slotOk();
 	void slotApply();
   void slot_connectToSource();
-  void slot_installManageSources();
+
+	void slot_installManageSources();
   void slot_installModules();
+	void slot_installModuleItemExecuted(QListViewItem*);
   void slot_showInstallSourcePage();
 
   void installCompleted( const int, const int );
