@@ -23,6 +23,7 @@
 #include "frontend/display/cdisplay.h"
 #include "frontend/keychooser/cbooktreechooser.h"
 #include "frontend/ctoolclass.h"
+#include "frontend/cprofilewindow.h"
 
 #include "resource.h"
 
@@ -41,13 +42,18 @@ CBookReadWindow::~CBookReadWindow(){
 
 void CBookReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
   CLexiconReadWindow::applyProfileSettings(profileWindow);
+  const bool enable = static_cast<bool>( profileWindow->windowSettings() );
+//	m_treeAction->setChecked( enable );
+  if (enable) {
+    m_treeAction->activate();
+  }
 };
 
 void CBookReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
   CLexiconReadWindow::storeProfileSettings(profileWindow);
 
   //store information about our show tree structure button
-	settings->setWindowSettings();
+	profileWindow->setWindowSettings( static_cast<int>( m_treeAction->isChecked() ) );
 };
 
 void CBookReadWindow::initKeyboardActions() {
