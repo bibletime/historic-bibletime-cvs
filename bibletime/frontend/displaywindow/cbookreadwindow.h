@@ -50,7 +50,6 @@ protected:
 	virtual void initKeyboardActions();
   virtual void initConnections();
   virtual void initView();
-//  virtual void setupPopupMenu();
 
 private:
   KToggleAction* m_treeAction;

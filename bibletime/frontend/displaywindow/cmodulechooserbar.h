@@ -18,17 +18,24 @@
 #ifndef CMODULECHOOSERBAR_H
 #define CMODULECHOOSERBAR_H
 
+//BibleTime includes
 #include "cmodulechooserbutton.h"
+
 #include "backend/cswordmoduleinfo.h"
+
 #include "frontend/cpointers.h"
 
+//Qt includes
 #include <qwidget.h>
+#include <qhbox.h>
+
+//KDE includes
 #include <ktoolbar.h>
 
 /**
   * @author The BibleTime team
   */
-class CModuleChooserBar : public KToolBar  {
+class CModuleChooserBar : public QHBox  {
    Q_OBJECT
 public: 
 	/**

@@ -45,6 +45,9 @@ void CBookReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
 
 void CBookReadWindow::storeProfileSettings( CProfileWindow* profileWindow ) {
   CLexiconReadWindow::storeProfileSettings(profileWindow);
+
+  //store information about our show tree structure button
+	settings->setWindowSettings();
 };
 
 void CBookReadWindow::initKeyboardActions() {
@@ -69,21 +72,21 @@ void CBookReadWindow::initConnections(){
 
 /** Init the view */
 void CBookReadWindow::initView(){
-	qWarning("CBookReadWindow::initView()");	
-	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), this) );
-	moduleChooserBar()->setButtonLimit(1);
-  addDockWindow( moduleChooserBar() );
+//	qWarning("CBookReadWindow::initView()");	
 
+  QSplitter* splitter = new QSplitter(this);
 
   setMainToolBar( new KToolBar(this) );
 	addDockWindow(mainToolBar());
+
+  setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
+	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
+//	mainToolBar()->setItemAutoSized(0);
   
-  QSplitter* splitter = new QSplitter(this);
-
-	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
-	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());	
-	mainToolBar()->setItemAutoSized(0);
-
+  setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
+	moduleChooserBar()->setButtonLimit(1);
+	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());
+  
   m_treeAction = new KToggleAction(i18n("Toggle tree..."), ICON_VIEW_BOOKTREE, IDK_PRESENTER_TOGGLE_TREE, this, SLOT(treeToggled()), actionCollection(), "treeToggle_action");
 //	m_treeAction->setWhatsThis( WT_PRESENTER_SYNC );
 	m_treeAction->plug(mainToolBar());

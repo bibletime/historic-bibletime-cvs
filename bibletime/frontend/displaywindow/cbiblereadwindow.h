@@ -101,7 +101,9 @@ public slots:
   void previousChapter();
   void nextVerse();
   void previousVerse();
-  /** No descriptions */
+  /**
+  * Refreshes the content of this display window and the content of the keychooser.
+  */
   virtual void refresh();
      
 protected slots: // Protected slots 

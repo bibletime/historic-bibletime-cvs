@@ -28,21 +28,21 @@
 //KDE includes
 #include <klocale.h>
 #include <kglobal.h>
+#include <kiconloader.h>
 
 CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent, const char *name )
-	: KToolBarButton("", id, parent,name),m_popup(0) {
-//	qDebug("CModuleChooserButton::CModuleCHooserButton");
+	: QToolButton(parent,name), m_id(id), m_popup(0) {
 
-	m_id = id;
-	m_moduleType = type;	
+  m_moduleType = type;	
 	m_module = useModule;
 	if (!m_module)
   	m_hasModule = false;
   else
     m_hasModule = true;
 	
-	setIcon( iconName() );
+	setIconSet( BarIconSet(iconName()) );
 	setPopupDelay(0);
+//  setAutoRaise(true);
 
 	populateMenu();
 }	
@@ -113,7 +113,7 @@ void CModuleChooserButton::moduleChosen( int ID ){
  	    emit sigAddButton();
  		m_hasModule = true;  	
  		m_module = module();
- 		setIcon(iconName());
+  	setIconSet( BarIconSet(iconName()) );
    	emit sigChanged();
      	
    	QToolTip::remove(this);

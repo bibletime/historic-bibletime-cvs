@@ -79,25 +79,21 @@ void CLexiconReadWindow::initConnections(){
 }
 
 void CLexiconReadWindow::initView(){
-//	qWarning("CLexiconReadWindow::initView()");
-	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), this) );
- 	addDockWindow( moduleChooserBar() );
-//  moduleChooserBar()->enableMoving(false);
-//  moduleChooserBar()->setBarPos(KToolBar::Left);
 	setDisplayWidget( CDisplay::createReadInstance(this) );
  	setCentralWidget( displayWidget()->view() );
 
 
   setMainToolBar( new KToolBar(this) );
+  mainToolBar()->setFullSize(true);
 	addDockWindow(mainToolBar());
 
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());	
-	mainToolBar()->setItemAutoSized(0);
-// 	mainToolBar()->setFullSize(true);
-//  mainToolBar()->setVerticallyStretchable(true);
-//  mainToolBar()->setStretchableWidget(keyChooser());  
+//	mainToolBar()->setItemAutoSized(0);
 
+	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
+	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());	  
+  
 	setIcon(CToolClass::getIconForModule(modules().first()));
 }
 
@@ -156,6 +152,5 @@ void CLexiconReadWindow::previousEntry(){
 
 /** Reimplementation to return the right key. */
 CSwordLDKey* CLexiconReadWindow::ldKey(){
-//  qWarning("CLexiconReadWindow::key()");
   return dynamic_cast<CSwordLDKey*>(CDisplayWindow::key());
 }

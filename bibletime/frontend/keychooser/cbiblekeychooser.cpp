@@ -44,7 +44,8 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	}
 
 	QHBoxLayout* layout = new QHBoxLayout(this);
-	layout->setResizeMode(QLayout::Minimum);
+//	layout->setResizeMode(QLayout::Minimum);
+  layout->setDirection( QBoxLayout::LeftToRight );
 		
 	w_book = new CKeyChooserWidget(m_modules.first()->books(),false,this);	
 	w_book->setToolTips(TT_PRESENTER_BOOK_COMBO, TT_PRESENTER_NEXT_BOOK, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_BOOK);
@@ -64,9 +65,9 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	QWidget::setTabOrder(w_chapter, w_verse);
 	QWidget::setTabOrder(w_verse, 0);	
 		
-	layout->addWidget(w_book);
-	layout->addWidget(w_chapter);
-	layout->addWidget(w_verse);	
+	layout->addWidget(w_book,0);
+	layout->addWidget(w_chapter,0);
+	layout->addWidget(w_verse,0);	
 
 	/*Book connections*/
 	connect(w_book,SIGNAL(changed(int))       ,SLOT(bookChanged(int)));

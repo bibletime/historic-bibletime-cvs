@@ -18,11 +18,15 @@
 #ifndef CMODULECHOOSERBUTTON_H
 #define CMODULECHOOSERBUTTON_H
 
+//BibleTime includes
 #include "backend/cswordmoduleinfo.h"
 #include "frontend/cpointers.h"
 
+//Qt includes
 #include <qdict.h>
+#include <qtoolbutton.h>
 
+//KDE includes
 #include <ktoolbarbutton.h>
 #include <kpopupmenu.h>
 
@@ -32,7 +36,7 @@ class KPopupMenu;
   * which can be displayed together with the first one.
   * @author The BibleTime team
   */
-class CModuleChooserButton : public KToolBarButton, public CPointers  {
+class CModuleChooserButton : public QToolButton, public CPointers  {
    Q_OBJECT
 public: 
 	CModuleChooserButton(CSwordModuleInfo* useModule, CSwordModuleInfo::ModuleType type, const int id, QWidget *parent = 0, const char *name = 0 );
@@ -49,12 +53,12 @@ private:
   /**
   * Returns the icon used for the current status.
   */
-  const QString iconName();		
+  const QString iconName();
 	
 	bool m_hasModule;
+  int m_id;
 	CSwordModuleInfo::ModuleType m_moduleType;
 	CSwordModuleInfo* m_module;
-	int m_id;
 
 	KPopupMenu* m_popup;
 	QPtrList<KPopupMenu> m_submenus;

@@ -128,12 +128,12 @@ void CBibleReadWindow::initView(){
 	
 //  qWarning("create the display settings button");
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
-	mainToolBar()->insertWidget(1,displaySettingsButton()->size().width(),displaySettingsButton());
+	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 
 	if (backend()->useICU()){
 //    qWarning("add the ICU button!");
 	  m_transliterationButton = new CTransliterationButton(&filterOptions(), mainToolBar());
-		mainToolBar()->insertWidget(2,m_transliterationButton->size().width(),m_transliterationButton);
+		mainToolBar()->insertWidget(3,m_transliterationButton->size().width(),m_transliterationButton);
 	}
 }
 
@@ -288,7 +288,8 @@ void CBibleReadWindow::saveChapter(){
 
 void CBibleReadWindow::refresh(){
   //refresh the book lists
-  keyChooser()->refreshContent();
   verseKey()->setLocale( backend()->booknameLanguage().latin1() );
+  keyChooser()->refreshContent();
+  
   lookup(key());
 }

@@ -22,6 +22,7 @@
 
 #include "frontend/ctoolclass.h"
 #include "frontend/cprofilewindow.h"
+#include "frontend/keychooser/ckeychooser.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
 
@@ -35,9 +36,6 @@
 CCommentaryReadWindow::CCommentaryReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name) : CLexiconReadWindow(modules, parent,name) {
 }
 
-//CCommentaryReadWindow::~CCommentaryReadWindow(){
-//}
-
 void CCommentaryReadWindow::applyProfileSettings( CProfileWindow* profileWindow ) {
   CLexiconReadWindow::applyProfileSettings(profileWindow);
   if (profileWindow->windowSettings())
@@ -48,14 +46,6 @@ void CCommentaryReadWindow::storeProfileSettings( CProfileWindow* profileWindow 
   CLexiconReadWindow::storeProfileSettings(profileWindow);
   profileWindow->setWindowSettings( m_syncButton->isChecked() );
 };
-
-//void CCommentaryReadWindow::initKeyboardActions() {
-//	CLexiconReadWindow::initKeyboardActions();
-//};
-//
-//void CCommentaryReadWindow::initConnections(){
-//	CLexiconReadWindow::initConnections();
-//}
 
 void CCommentaryReadWindow::initView(){
 	CLexiconReadWindow::initView();
@@ -68,4 +58,21 @@ void CCommentaryReadWindow::syncToKey( CSwordKey* const newKey ){
   if (m_syncButton->isChecked()) {
     CDisplayWindow::lookup(newKey->key());
   }
+}
+
+/** Reimplementation to handle the keychooser refresh. */
+void CCommentaryReadWindow::refresh(){
+  //refresh the book lists
+  verseKey()->setLocale( backend()->booknameLanguage().latin1() );
+  keyChooser()->refreshContent();
+
+  lookup(key());
+}
+
+/** rapper around key() to return the right type of key. */
+CSwordVerseKey* CCommentaryReadWindow::verseKey(){
+//  qWarning("CBibleReadWindow::key()");
+	CSwordVerseKey* k = dynamic_cast<CSwordVerseKey*>(CDisplayWindow::key());
+// 	Q_ASSERT(k);
+	return k;
 }

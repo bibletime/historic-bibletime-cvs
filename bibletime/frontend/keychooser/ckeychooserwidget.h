@@ -170,15 +170,15 @@ protected:
 	/**
  	* Returns the icons set which contains the UP button.
  	*/
-	QIconSet getUpIconSet();
+//	QIconSet getUpIconSet();
   /**
   * Returns the icons set which contains the button used to change the current item.
   */
-  QIconSet getMoverIconSet();
+//  QIconSet getMoverIconSet();
   /**
   *  Returns the icons set which contains the down button.
   */
-  QIconSet getDownIconSet();
+//  QIconSet getDownIconSet();
 	/**
 	*
 	*/

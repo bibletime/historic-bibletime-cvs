@@ -87,7 +87,7 @@ void CTransliterationButton::optionSelected(int ID){
 CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptions *displaySettings, CSwordBackend::FilterOptions *moduleSettings, const ListCSwordModuleInfo& useModules,QWidget *parent, const char *name )
 	: KToolBarButton(DSB_ICON, 0, parent, name)
 {
-  qWarning("CDisplaySettingsButton::CDisplaySettingsButton");
+//  qWarning("CDisplaySettingsButton::CDisplaySettingsButton");
 	m_displaySettings = displaySettings;
 	m_moduleSettings = moduleSettings;
 	m_modules = useModules;

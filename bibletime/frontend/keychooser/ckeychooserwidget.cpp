@@ -198,7 +198,8 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 //	setUpdatesEnabled(false);
 //	m_comboBox->setUpdatesEnabled(false);
 
-//	m_mainLayout->setResizeMode(QLayout::FreeResize);
+//	m_mainLayout->setResizeMode(QLayout::Minimum);
+  m_mainLayout->setDirection(QBoxLayout::LeftToRight);
 	
 	oldKey = QString::null;
 	m_comboBox->clear();
@@ -230,8 +231,12 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	}
 
   qWarning("combo size hint: %i x %i", m_comboBox->sizeHint().width(), m_comboBox->sizeHint().height());
-  m_comboBox->adjustSize();
+//  m_mainLayout->setResizeMode(QLayout::FreeResize);
+//  m_comboBox->setMaximumWidth( m_comboBox->sizeHint().width() );
+//  m_comboBox->adjustSize();
+//  m_mainLayout->setResizeMode(QLayout::Minimum);    
   adjustSize();
+
 	isResetting = false;	
 }
 
@@ -263,33 +268,33 @@ void CKeyChooserWidget::init(){
 //	m_comboBox->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed));	  
 	
 	m_mainLayout = new QHBoxLayout( this );
-	m_mainLayout->setResizeMode(QLayout::Minimum);  
+//  m_mainLayout->setResizeMode(QLayout::FreeResize);  
 	m_mainLayout->addWidget(m_comboBox,5);
   
 
 	QVBoxLayout* m_buttonLayout = new QVBoxLayout();	
 	m_buttonLayout->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);
 		
-	btn_up = new QToolButton( this, "btn_up" );	
-	QIconSet iconSet = getUpIconSet();
-	btn_up->setIconSet( iconSet );
+	btn_up = new QToolButton( UpArrow, this, "btn_up" );	
+//	QIconSet iconSet = getUpIconSet();
+//	btn_up->setIconSet( iconSet );
 	btn_up->setFixedSize(WIDTH, ARROW_HEIGHT);
 	btn_up->setFocusPolicy(QWidget::NoFocus);	
 	
 	btn_fx = new cfx_btn( this, "btn_fx" );
-	iconSet = getMoverIconSet();
+//	QIconSet iconSet = getMoverIconSet();
 	btn_fx->setFixedSize(WIDTH, MOVER_HEIGHT);
 	btn_fx->setFocusPolicy(QWidget::NoFocus);	
 	
-	btn_down = new QToolButton( this, "btn_down" );	
-	iconSet = getDownIconSet();
-	btn_down->setIconSet( iconSet );
+	btn_down = new QToolButton( DownArrow, this, "btn_down" );	
+//	iconSet = getDownIconSet();
+//	btn_down->setIconSet( iconSet );
 	btn_down->setFixedSize(WIDTH, ARROW_HEIGHT);
 	btn_down->setFocusPolicy(QWidget::NoFocus);	
 	
-	m_buttonLayout->addWidget( btn_up );	
-	m_buttonLayout->addWidget( btn_fx );	
-	m_buttonLayout->addWidget( btn_down );
+	m_buttonLayout->addWidget( btn_up,0 );	
+	m_buttonLayout->addWidget( btn_fx,0 );	
+	m_buttonLayout->addWidget( btn_down,0 );
 	
 	m_mainLayout->addLayout( m_buttonLayout );
 	m_mainLayout->addSpacing(2);
@@ -356,49 +361,52 @@ void CKeyChooserWidget::slotComboChanged(int index){
 }
 
 
-/** Returns the icons set which contains the down button. */
-QIconSet CKeyChooserWidget::getUpIconSet(){
-	const int x = WIDTH - 4;
-  const int y = ARROW_HEIGHT - 4;
-  QPixmap pix(x, y);
-	QPainter p(&pix);
-	p.fillRect(0,0, x, y, colorGroup().background());
-	style().drawPrimitive(QStyle::PE_ArrowUp, &p, QRect(0,0, x, y), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
-	return QIconSet(pix);
-}
+///** Returns the icons set which contains the down button. */
+//QIconSet CKeyChooserWidget::getUpIconSet(){
+//	const int x = WIDTH - 4;
+//  const int y = ARROW_HEIGHT - 4;
+//  QPixmap pix(x, y);
+//	QPainter p(&pix);
+//	p.fillRect(0,0, x, y, colorGroup().background());
+//	style().drawPrimitive(QStyle::PE_ArrowUp, &p, QRect(0,0, x, y), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
+//	return QIconSet(pix);
+//}
 
 /** Returns the icons set which contains the down button. */
-QIconSet CKeyChooserWidget::getDownIconSet(){
-	const int x = WIDTH - 4;
-  const int y = ARROW_HEIGHT - 4;
-  QPixmap pix(x, y);
-	QPainter p(&pix);
-	p.fillRect(0,0, x, y, colorGroup().background());
-	style().drawPrimitive(QStyle::PE_ArrowDown, &p, QRect(0,0, x, y), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
-	return QIconSet(pix);
-}
+//QIconSet CKeyChooserWidget::getDownIconSet(){
+//	const int x = WIDTH - 4;
+//  const int y = ARROW_HEIGHT - 4;
+//  QPixmap pix(x, y);
+//	QPainter p(&pix);
+//	p.fillRect(0,0, x, y, colorGroup().background());
+//	style().drawPrimitive(QStyle::PE_ArrowDown, &p, QRect(0,0, x, y), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
+//	return QIconSet(pix);
+//}
 
 /** Returns the icons set for the button used to change the current item. */
-QIconSet CKeyChooserWidget::getMoverIconSet(){
-  const int x = WIDTH - 2;
-  const int y = MOVER_HEIGHT - 2;
-  QPixmap pix(x, y);
-	QPainter p(&pix);
-	p.fillRect(0,0, x-1, y-1, colorGroup().background());
-	p.fillRect(2,2, x-3, y-3, colorGroup().foreground());		
-	return QIconSet(pix);
-}
-#undef WIDTH
-#undef ARROW_HEIGHT
-#undef MOVER_HEIGHT
+//QIconSet CKeyChooserWidget::getMoverIconSet(){
+//  const int x = WIDTH - 2;
+//  const int y = MOVER_HEIGHT - 2;
+//  QPixmap pix(x, y);
+//	QPainter p(&pix);
+//	p.fillRect(0,0, x-1, y-1, colorGroup().background());
+//	p.fillRect(2,2, x-3, y-3, colorGroup().foreground());
+//	return QIconSet(pix);
+//}
+//#undef WIDTH
+//#undef ARROW_HEIGHT
+//#undef MOVER_HEIGHT
 
 /**  */
 void CKeyChooserWidget::adjustSize( ){
 //	setUpdatesEnabled(false);
-	QSize s = sizeHint();
-	if (s.width() > maximumWidth())
-		s.setWidth( maximumWidth() );
-	resize(s);
+
+  QWidget::adjustSize();
+
+//  QSize s = sizeHint();
+//	if (s.width() > maximumWidth())
+//		s.setWidth( maximumWidth() );
+//	resize(s);
 //	setUpdatesEnabled(true);	
 }
 
