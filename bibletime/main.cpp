@@ -171,6 +171,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   *        Credits (sorted by last name)         *
   ************************************************/
 	//highcolor icons, startlogo for BT <= 1.4
+	aboutData.addCredit("David Blue", I18N_NOOP("High contrast template"), "davidslists@gmx.net");
 	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
   //Sponsored many years the www.bibletime.de domain!
   aboutData.addCredit("Troy A. Griffits",   I18N_NOOP("Founded the Sword project together with many other volunteers."), "scribe@crosswire.org", "http://www.crosswire.org/");   //Started the Sword project
