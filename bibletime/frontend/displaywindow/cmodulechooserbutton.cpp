@@ -155,7 +155,7 @@ void CModuleChooserButton::populateMenu(){
 
 	m_popup->insertSeparator();	
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(moduleChosen(int)));		
-	setPopup(m_popup);
+	setPopup(m_popup, true);
 
 	QStringList languages;
 	QDict<KPopupMenu> langdict;
