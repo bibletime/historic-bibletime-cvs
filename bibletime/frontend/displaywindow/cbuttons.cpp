@@ -48,7 +48,7 @@ CTransliterationButton::~CTransliterationButton(){
 }
 
 /** Resets the buttons with the list of used modules. */
-void CTransliterationButton::reset( ListCSwordModuleInfo& modules ){
+void CTransliterationButton::reset( ListCSwordModuleInfo& /*modules*/ ){
   m_popup->clear();
 //  popuplateMenu();
 }

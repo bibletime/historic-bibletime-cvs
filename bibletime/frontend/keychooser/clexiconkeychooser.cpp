@@ -159,5 +159,5 @@ void CLexiconKeyChooser::setModules( ListCSwordModuleInfo modules, const bool re
 }
 
 /** No descriptions */
-void CLexiconKeyChooser::updateKey(CSwordKey* key){
+void CLexiconKeyChooser::updateKey(CSwordKey* /*key*/){
 }

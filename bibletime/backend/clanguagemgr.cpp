@@ -26,6 +26,8 @@
 
 static QValueList<CLanguageMgr::Language> m_langList;
 
+static CLanguageMgr::Language m_defaultLanguage;
+
 CLanguageMgr::Language::Language() {
   m_abbrev = QString::null;
   m_altAbbrevs = QStringList();
@@ -134,7 +136,7 @@ const CLanguageMgr::Language& CLanguageMgr::languageForAbbrev( const QString& ab
       return it.data();
     };
   }  
-  return Language(); //invalid language
+  return m_defaultLanguage; //invalid language
 };
 
 const CLanguageMgr::Language& CLanguageMgr::languageForName( const QString& name ) {
@@ -144,7 +146,7 @@ const CLanguageMgr::Language& CLanguageMgr::languageForName( const QString& name
       return it.data();
     };
   };
-  return Language();//invalid language
+  return m_defaultLanguage;//invalid language
 };
 
 const CLanguageMgr::Language& CLanguageMgr::languageForTranslatedName( const QString& name ) {
@@ -154,7 +156,7 @@ const CLanguageMgr::Language& CLanguageMgr::languageForTranslatedName( const QSt
       return it.data();
     };
   };
-  return Language();//invalid language
+  return m_defaultLanguage;//invalid language
 };
 
 void CLanguageMgr::init() {

@@ -29,6 +29,8 @@
 #include <kapplication.h>
 #include <dom/html_element.h>
 
+static QRect screenSize = QRect();
+
 CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Customize | WStyle_NoBorder | WStyle_Tool | WStyle_StaysOnTop | WX11BypassWM ),
   m_filter(false), m_parentWidget( parent ) {
 
@@ -41,6 +43,12 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
   m_display->view()->setMarginWidth(4);
   m_display->view()->setMarginHeight(4);
   layout->addWidget(m_display->view());
+
+  //set the size for the tooltip now only one time, and not everytime in tip()
+  screenSize = KApplication::desktop()->geometry();
+  setMaximumSize(QSize(screenSize.width()*0.6, screenSize.height()*0.6));
+  m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff); //never show a horizontal bar, only the vertcal one  
+//  resize(screenSize.width()*0.3,1);
 
   setPalette( QToolTip::palette() );
   setMargin( 1 );
@@ -60,17 +68,28 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   m_display->begin();
   m_display->write(text);
   m_display->end();
-  m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff);
 
-//make sure the tooltip won't grow to large
-  const QRect screenSize = KApplication::desktop()->geometry();
-  setMaximumSize(QSize(screenSize.width()*0.6, screenSize.height()*0.6));
-  resize((int)((float)screenSize.width()*0.6), 0);
+
+  //original code
+//  show();
+//  m_display->view()->layout(); //refresh painted text etc.
+//  resize(m_display->view()->sizeHint());
+
+  // the maximum size was set in our constructor, so we won't grow too large
+  // resize((int)((float)screenSize.width()*0.6), 0);
+  resize(screenSize.width()*0.50,1);
+
   show();
-//now resize to the correct size!
-  m_display->view()->layout();
-  resize(m_display->view()->sizeHint());    
+    
+  // resize to the size hint,
+  // we can't grow too large
+  // because maximumSize was set in the constructor
+  resize(m_display->view()->sizeHint());
+
   
+  // if the scrollbar is not visible position the tooltip
+  // that the tip will be hidden as soon as the mouse will be oved
+  // if the bar s visible position the tip under the mouse so moving the bar is still possible
   const QPoint mp = (!m_display->view()->verticalScrollBar()->isHidden()) ? QPoint(p.x()-5, p.y()-5) : QPoint(p.x()+10, p.y()+10);
   QPoint pos = parentWidget()->mapToGlobal( mp );
   QRect widgetRect = QRect(pos.x(), pos.y(), width(), height());
@@ -82,7 +101,7 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   }
   move(pos);
 
-  m_display->view()->setContentsPos(0,0);
+  m_display->view()->setContentsPos(0,0); //show from the bgeinning, reset any scrollbar position
 }
 
 /** Reimplementation. */
@@ -98,7 +117,6 @@ void CToolTip::timerEvent( QTimerEvent* e ) {
 
 /** Reimplementation. */
 bool CToolTip::eventFilter( QObject *o, QEvent *e ){
-  QMouseEvent* me = dynamic_cast<QMouseEvent*>(e);
   if (o == parentWidget()) {
     if (e->type() == QEvent::Show) {
       setFilter(true);
@@ -106,23 +124,18 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
     }
   }
 
+  QMouseEvent* me = dynamic_cast<QMouseEvent*>(e);  
   switch ( e->type() ) {
-    case QEvent::DragMove:
-    case QEvent::DragEnter:
-    case QEvent::DragLeave:
-    case QEvent::DragResponse:
-      break;
-
-    case QEvent::MouseButtonPress:
+    case QEvent::MouseButtonPress://fall through
+      //we have not yet shown the tip, but while the timer isrunning for this a drag was started
+      if (me && !isVisible() && (me->state() != NoButton || me->stateAfter() != Qt::NoButton)) {
+        killTimers();
+        hide();
+        break;
+      }            
     case QEvent::MouseButtonRelease:
-      if (QMouseEvent* me = dynamic_cast<QMouseEvent*>(e)) {
-        if (me->state() != Qt::NoButton || me->stateAfter() != Qt::NoButton) { //probaby dragging - show no tip
-          killTimers();
-          hide();
-          break;
-        }
-      }
-      if (isVisible() && widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos()))
+      //allow clicking on the scrollbar for reading the text
+      if (m_display->view()->verticalScrollBar()->isVisible() && widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos()))
         break;
       else {
         hide();
@@ -140,23 +153,23 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
     {
       bool validMousePos = widgetContainsPoint(this, me->globalPos());
       validMousePos = validMousePos || m_tipRect.contains(me->globalPos());
-      if (isVisible() && !validMousePos)
+      if (isVisible() && !validMousePos) //mouse moved outside the visible tooltip area!
         hide();
-      if (isVisible() && validMousePos)
+      if (isVisible() && validMousePos) //moving withing the tooltip area
         break;
 
-      if (QMouseEvent* me = dynamic_cast<QMouseEvent*>(e)) {
-        if (me->state() != Qt::NoButton || me->stateAfter() != Qt::NoButton) { //probaby dragging - show no tip
+      if (me) {
+        if (me->state() != Qt::NoButton || me->stateAfter() != Qt::NoButton) { //probaby dragging at the moment - show no tip
           killTimers();
           hide();
           break;
         }
 
-        if (QWidget * w = KApplication::widgetAt( me->globalPos(), true )) {
+        if (QWidget* w = KApplication::widgetAt( me->globalPos(), true )) {
           while ( w && w != parentWidget()) {
             w = w->parentWidget();
           }
-          if (w == parentWidget()) {
+          if (w == parentWidget()) { //if we processed the event of one of parentWidget()'s childs
             startTimer(1500);
           }
           else {
@@ -175,7 +188,7 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
 
 /** Sets the tooltip on or off. */
 void CToolTip::setFilter( const bool enable ){
-  if ( enable == m_filter ) return;
+  if ( enable == m_filter ) return;  //nothing changed
 
   if ( enable ) {
      KApplication::kApplication()->installEventFilter( this );
@@ -191,8 +204,8 @@ void CToolTip::setFilter( const bool enable ){
 /** A helper function which returns true if the given widget contains the global pos p. */
 const bool CToolTip::widgetContainsPoint( QWidget* const w, const QPoint& p ){
   const QPoint origin = w->mapToGlobal(QPoint(0,0));
-  if (p.x() >= origin.x() && p.x() <= w->mapToGlobal(QPoint(w->width(),w->height())).x() ) { //x is valid
-    if (p.y() >= origin.y() && p.y() <= w->mapToGlobal(QPoint(w->width(),w->height())).y() ) { //x is valid
+  if (p.x() >= origin.x() && p.x() <= w->mapToGlobal(QPoint(w->width(),w->height())).x() ) { //X is valid
+    if (p.y() >= origin.y() && p.y() <= w->mapToGlobal(QPoint(w->width(),w->height())).y() ) { //Y is valid
       return true;
     }
   }

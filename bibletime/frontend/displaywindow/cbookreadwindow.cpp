@@ -61,7 +61,7 @@ void CBookReadWindow::initKeyboardActions() {
   CReadWindow::initKeyboardActions();
 };
 
-void CBookReadWindow::insertKeyboardActions( KAccel* a ){
+void CBookReadWindow::insertKeyboardActions( KAccel* /*a*/ ){
 //  CReadWindow::insertKeyboardActions(a);
 };
 

@@ -21,9 +21,9 @@
 
 #include "printing/cprinter.h"
 
-static CSwordBackend* CPointers::m_backend = 0;
-static CPrinter* CPointers::m_printer = 0;
-static CLanguageMgr* CPointers::m_langMgr = 0;
+static CSwordBackend* m_backend = 0;
+static CPrinter*      m_printer = 0;
+static CLanguageMgr*  m_langMgr = 0;
 
 
 void CPointers::setPrinter(CPrinter* const printer) {
@@ -43,3 +43,22 @@ void CPointers::deleteBackend() {
 	delete m_backend;
 	m_backend = 0;
 }
+
+
+/** Returns a pointer to the backend ... */
+CSwordBackend* const CPointers::backend() {
+	return m_backend;
+}
+
+/** Returns a pointer to the backend ... */
+CLanguageMgr* const CPointers::languageMgr() {
+  if (!m_langMgr)
+    m_langMgr = new CLanguageMgr();
+	return m_langMgr;
+}
+
+/** Returns a pointer to the printer object. */
+CPrinter* const CPointers::printer() {
+	return m_printer;
+}
+

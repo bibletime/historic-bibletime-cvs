@@ -272,7 +272,8 @@ void CMainIndex::initTree(){
 /** No descriptions */
 void CMainIndex::dropped( QDropEvent* e, QListViewItem* onItem){
   if (m_itemsMovable && e->source() == viewport()) {
-    /* if the drag was started from the main index and should move items and if the destination is the bookmark
+    /*
+    * If the drag was started from the main index and should move items and if the destination is the bookmark
     * folder or one of its subfolders
     * we remove the current items because the new ones will be inserted soon.
     */
@@ -329,7 +330,7 @@ KAction* CMainIndex::action( const CItemBase::MenuAction type ){
 }
 
 /** Shows the context menu at the given position. */
-void CMainIndex::contextMenu(KListView* list, QListViewItem* i, const QPoint& p){
+void CMainIndex::contextMenu(KListView* /*list*/, QListViewItem* i, const QPoint& p){
   //setup menu entries depending on current selection
   QPtrList<QListViewItem> items = selectedItems();
 
@@ -496,15 +497,13 @@ void CMainIndex::startDrag(){
       m_itemsMovable = false;
     }
   }
-//  qWarning("movable? %i", m_itemsMovable);
   KListView::startDrag();
 }
 
 /** Reimplementation to support the items dragEnter and dragLeave functions. */
 void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ){
   if ( CItemBase* i = dynamic_cast<CItemBase*>( itemAt( contentsToViewport(event->pos())) )) {
-  	if (i->allowAutoOpen(event) ||
-(i->acceptDrop(event) && i->isFolder() && i->allowAutoOpen(event) && !i->isOpen() && autoOpen()) ) {
+  	if (i->allowAutoOpen(event) || (i->acceptDrop(event) && i->isFolder() && i->allowAutoOpen(event) && !i->isOpen() && autoOpen()) ) {
       if (m_autoOpenFolder != i)
         m_autoOpenTimer.stop();
       m_autoOpenFolder = i;

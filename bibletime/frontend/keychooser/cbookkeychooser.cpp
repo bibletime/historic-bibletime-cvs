@@ -59,7 +59,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 	int index = 0;
 	
 	m_key->root();
-	while(m_key->firstChild() && (depth <= siblings.count())) {
+	while( m_key->firstChild() && (depth <= int(siblings.count())) ) {
 		const QString key = m_key->key();
 		index = 0;
 		const QString sibling = siblings[depth];
@@ -182,8 +182,8 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 }
 
 /** A keychooser changed. Update and emit a signal if necessary. */
-void CBookKeyChooser::keyChooserChanged(int newIndex){
-  const int activeID = boxes[const_cast<QObject*>(sender())];
+void CBookKeyChooser::keyChooserChanged(int /*newIndex*/){
+  const int activeID = boxes[const_cast<QObject*>(sender())]; //no so good code!
 	
   QStringList items;
 	CKeyChooserWidget* chooser;

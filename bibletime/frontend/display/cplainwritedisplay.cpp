@@ -50,7 +50,7 @@ QWidget* CPlainWriteDisplay::view() {
   return this;
 };
 
-const QString CPlainWriteDisplay::text( const CDisplay::TextType format, const CDisplay::TextPart part) {
+const QString CPlainWriteDisplay::text( const CDisplay::TextType /*format*/, const CDisplay::TextPart /*part*/) {
   return QString::null;
 };
 
@@ -75,7 +75,7 @@ const QString CPlainWriteDisplay::plainText(){
 }
 
 /** Reimplementation from QTextEdit. Provides an popup menu for the given position. */
-QPopupMenu* CPlainWriteDisplay::createPopupMenu( const QPoint& pos ){
+QPopupMenu* CPlainWriteDisplay::createPopupMenu( const QPoint& /*pos*/ ){
   return installedPopup();
 }
 

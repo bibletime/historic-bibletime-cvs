@@ -31,7 +31,7 @@ CWriteWindow::~CWriteWindow(){
 }
 
 
-void CWriteWindow::insertKeyboardActions( KAccel* const a ) {
+void CWriteWindow::insertKeyboardActions( KAccel* const /*a*/ ) {
 
 };
 
@@ -121,7 +121,7 @@ void CWriteWindow::lookup( CSwordKey* newKey ){
 //	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
 // 		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
 //	}
-  if (CSwordModuleInfo* module = modules().first()) {
+  if (/*CSwordModuleInfo* module =*/ modules().first()) {
     displayWidget()->setText( newKey->rawText() );
   }
   

@@ -143,7 +143,7 @@ CStyleListPage::~CStyleListPage() {
 
 }
 
-void  CStyleListPage::getOptions (QMap<QString, QString>& opts, bool incldef) {
+void  CStyleListPage::getOptions (QMap<QString, QString>& opts, bool /*incldef*/) {
 	qWarning("CStyleListPage::getOptions (const QMap<QString,QString>& opts, bool)");
 
 	const QString leading = "kde-bibletime-";
@@ -168,7 +168,7 @@ void  CStyleListPage::setOptions (const QMap<QString,QString>& opts) {
 	m_marginSpin[3]->setValue( option.toInt() );
 }
 
-bool  CStyleListPage::isValid (QString& errorMessage) {
+bool  CStyleListPage::isValid(QString& /*errorMessage*/) {
 	return true;
 }
 
@@ -257,11 +257,11 @@ CPrintItemListPage::~CPrintItemListPage() {
 
 }
 
-void CPrintItemListPage::getOptions (QMap<QString, QString>& opts, bool incldef) {
+void CPrintItemListPage::getOptions (QMap<QString, QString>& /*opts*/, bool /*incldef*/) {
 
 }
 
-void CPrintItemListPage::setOptions (const QMap<QString,QString>& opts) {
+void CPrintItemListPage::setOptions (const QMap<QString,QString>& /*opts*/) {
 
 }
 

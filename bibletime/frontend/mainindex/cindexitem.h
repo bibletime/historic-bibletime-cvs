@@ -95,11 +95,11 @@ public:
   /**
   * Returns the XML code which represents the content of this folder.
   */
-  virtual QDomElement saveToXML( QDomDocument& document ) { return QDomElement(); };
+  virtual QDomElement saveToXML( QDomDocument& /*document*/ ) { return QDomElement(); };
   /**
   * Loads the content of this folder from the XML code passed as argument to this function.
   */
-  virtual void loadFromXML( QDomElement& element ) {};
+  virtual void loadFromXML( QDomElement& /*element*/ ) {};
 
 protected:
   friend class CMainIndex;

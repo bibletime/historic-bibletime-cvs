@@ -118,7 +118,7 @@ CBookTreeChooser::~CBookTreeChooser(){
 }
 
 /** Sets a new key to this keychooser */
-void CBookTreeChooser::setKey(CSwordKey* newKey){
+void CBookTreeChooser::setKey(CSwordKey* /*newKey*/){
 }
 
 /** Sets a new key to this keychooser */

@@ -46,6 +46,9 @@ const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QSt
 
 /** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
 const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QString& keyName, const QString& headerText, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions){
+  backend()->setDisplayOptions( displayOptions );
+  backend()->setFilterOptions( filterOptions );
+
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
   key->key(keyName);
 
@@ -248,7 +251,8 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
       text = QString::fromLatin1(".sectiontitle {font-size: larger; font-weight: bold; color: %1;}")
               .arg(textColor);
       break;
-    break;
+    default:      
+      break;
   };
   return QString::fromLatin1("\n\n%1\n\n").arg(text);
 }

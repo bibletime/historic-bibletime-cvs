@@ -103,13 +103,13 @@ void CItemBase::moveAfter( CItemBase* const item ){
 	}
 }
 
-void CItemBase::dropped( QDropEvent* e ) {
+void CItemBase::dropped( QDropEvent* /*e*/ ) {
 }
 
 
 /** Returns true if the given action should be enabled in the popup menu. */
-const bool CItemBase::enableAction( const MenuAction action ){
-  return false;
+const bool CItemBase::enableAction( const MenuAction /*action*/ ){
+  return false; //this base class has no valif actions
 }
 
 /** No descriptions */
@@ -474,7 +474,7 @@ const QString& CBookmarkItem::englishKey(){
 }
 
 /** Reimplementation. Returns false everytime because a bookmarks  has not possible drops. */
-bool CBookmarkItem::acceptDrop(const QMimeSource * src){
+bool CBookmarkItem::acceptDrop(const QMimeSource* /*src*/){
   return false;
 }
 
@@ -542,7 +542,7 @@ const bool CFolderBase::allowAutoOpen( const QMimeSource* ) const{
 }
 
 /** Reimplementation. Returns false because folders have no use for drops (except for the bookmark folders) */
-bool CFolderBase::acceptDrop(const QMimeSource * src){
+bool CFolderBase::acceptDrop(const QMimeSource* /*src*/){
   return false;
 }
 
@@ -880,8 +880,8 @@ QDomElement COldBookmarkFolder::saveToXML( QDomDocument& doc ) {
   return elem;
 }
 
-void COldBookmarkFolder::loadFromXML( QDomElement& element ) {
-
+void COldBookmarkFolder::loadFromXML( QDomElement& /*element*/ ) {
+  //this function is empty because the folder imports the old 1.2 bookmarks from the bt-groupmanager config file
 }
 
 /* --------------------------------------------------*/
@@ -1045,12 +1045,12 @@ const bool CBookmarkFolder::enableAction(const MenuAction action){
 
 
 void CBookmarkFolder::exportBookmarks(){
-#warning implement!
+//#warning implement!
 }
 
 
 void CBookmarkFolder::importBookmarks(){
-#warning implement!  
+//#warning implement!  
 }
 
 bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {

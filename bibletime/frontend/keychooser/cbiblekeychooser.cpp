@@ -272,7 +272,7 @@ void CBibleKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refre
 }
 
 /** called when the book combo lost the focus with reason == tab @param the new book */
-void CBibleKeyChooser::bookFocusOut(int index){
+void CBibleKeyChooser::bookFocusOut(int /*index*/){
 	if (!isUpdatesEnabled())
 		return;
 		
@@ -302,7 +302,7 @@ void CBibleKeyChooser::verseFocusOut(int /*index*/){
 }
 
 /** No descriptions */
-void CBibleKeyChooser::updateKey(CSwordKey* key){
+void CBibleKeyChooser::updateKey(CSwordKey* /*key*/){
 }
 
 /** No descriptions */

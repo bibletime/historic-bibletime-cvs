@@ -365,7 +365,7 @@ CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : CToolTip(vi
 };
 
 /** Decides whether a tooltip should be shown. */
-void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p ){
+void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& /*p*/ ){
 //  qWarning("CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& p )");
   DOM::Node node = m_view->part()->nodeUnderMouse();
   if (node.isNull())

@@ -45,7 +45,10 @@ void CPrintItemList::initView(){
 	addColumn(i18n("From"), -1);
 	addColumn(i18n("To"), -1);	
 	addColumn(i18n("Style"), -1);	
-	
+
+  //disable sorting for all columns
+  setSorting(-1);    
+  	
 	setSelectionMode( QListView::Extended );
 }
 

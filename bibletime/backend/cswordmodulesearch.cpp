@@ -32,7 +32,7 @@
 
 CSwordModuleSearch* searcher = 0;
 
-void startSearchCallback(void *p){
+void startSearchCallback(void* /*p*/){
 	if (searcher)
 		searcher->startSearch();
 }

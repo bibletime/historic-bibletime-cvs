@@ -48,13 +48,13 @@
 CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name) {
   switch (modules.first()->type()) {
 		case CSwordModuleInfo::Bible:
-			return new CBibleReadWindow(modules, parent);
+			return new CBibleReadWindow(modules, parent, name);
 		case CSwordModuleInfo::Commentary:
-			return new CCommentaryReadWindow(modules, parent);
+			return new CCommentaryReadWindow(modules, parent, name);
 		case CSwordModuleInfo::Lexicon:
-			return new CLexiconReadWindow(modules, parent);
+			return new CLexiconReadWindow(modules, parent, name);
 		case CSwordModuleInfo::GenericBook:			
-			return new CBookReadWindow(modules, parent);
+			return new CBookReadWindow(modules, parent, name);
 		default:
 			qWarning("unknown module type");
 			break;
@@ -64,7 +64,7 @@ CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CM
 
 
 CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name) {
-  return new CPlainWriteWindow(modules, parent);
+  return new CPlainWriteWindow(modules, parent, name);
 //  return 0;
 }
 
@@ -117,7 +117,7 @@ void CDisplayWindow::setCaption( const QString&  ){
 	QWidget::setCaption( windowCaption() );
 }
 
-void CDisplayWindow::insertKeyboardActions( KAccel* const accel ) {
+void CDisplayWindow::insertKeyboardActions( KAccel* const /*accel*/ ) {
 }
 
 /** Is called when this window gets the focus or looses the focus. */
