@@ -309,13 +309,17 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 						//infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
 					}
 					
-					attr = currentNode.attributes().getNamedItem("class");
-					if (!attr.isNull() && (attr.nodeValue().string() == "reference")) {
+					attr = currentNode.attributes().getNamedItem("crossrefs");
+					if (!attr.isNull()) {
+						infoList.append( qMakePair(CInfoDisplay::CrossReference, attr.nodeValue().string()) );
+					}
+/*					if (!attr.isNull() && (attr.nodeValue().string() == "reference")) {
 						attr = currentNode.attributes().getNamedItem("href");
 						if (!attr.isNull()) {
 							infoList.append( qMakePair(CInfoDisplay::CrossReference, attr.nodeValue().string()) );
 						}
 					}
+					*/
 				
 				}
 

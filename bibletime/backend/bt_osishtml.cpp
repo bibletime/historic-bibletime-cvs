@@ -182,8 +182,26 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				const SWBuf type = tag.getAttribute("type");
 
 				if (type == "crossReference") { //note containing cross references
-        //  buf += " <span class=\"footnote\">[";
+					//get the refList value of the right entry attribute
+					AttributeList notes = myModule->getEntryAttributes()["Footnote"];
+					bool foundNote = false;
+					
+					SWBuf id = tag.getAttribute("osisID");
+					SWBuf refList;
+					
+					for (AttributeList::iterator list_it = notes.begin(); (list_it != notes.end()) && !foundNote; ++list_it ) {
+						for (AttributeValue::iterator val_it = list_it->second.begin(); (val_it != list_it->second.end()) && !foundNote; ++val_it ) {
+							if ((val_it->first == "osisID") && (val_it->second == id)) {
+								foundNote = true;
+								refList = list_it->second["refList"];
+								//qWarning("found %s", refList.c_str());
+							}							
+						}
+					}
+
+          buf.appendFormatted(" <span class=\"crossreference\" crossrefs=\"%s\">-", refList.c_str());
           myUserData->noteType = BT_UserData::CrossReference;
+					myUserData->suspendTextPassThru = true;
         }
         else if (type == "explanation") {
 //   				myUserData->suspendTextPassThru = true;
@@ -205,7 +223,8 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			}
 			if (tag.isEndTag()) {
         if (myUserData->noteType == BT_UserData::CrossReference) {
-          //buf += "]</span> ";
+          buf += "</span> ";
+					myUserData->suspendTextPassThru = false;
         }
 /*        else if (myUserData->noteType == BT_UserData::Footnote) { //handle explanation value
           //buf += ")</span> ";
@@ -221,7 +240,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		// <p> paragraph tag is handled by OSISHTMLHref
 		// <reference> tag
 		else if (!strcmp(tag.getName(), "reference")) {
-			if (!tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
+/*			if (!tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
         const char* ref = tag.getAttribute("osisRef");
 
         SWBuf typeName = "Bible";
@@ -242,13 +261,16 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           CReferenceManager::preferredModule( CReferenceManager::typeFromModule(type) ).latin1(),
           ref
         );
+				
+				myUserData->suspendTextPassThru = true;
 			}
 			else if (tag.isEndTag()) {
-				buf += "</a>";
+ 			//	buf += "</a>";
+// 				myUserData->suspendTextPassThru = false;
 			}
 			else {	// empty reference marker
 				// -- what should we do?  nothing for now.
-			}
+			}*/
 		}
     // <l> is handled by OSISHTMLHref
 		// <title>
