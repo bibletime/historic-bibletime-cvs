@@ -46,6 +46,7 @@
 #include <qinputdialog.h>
 #include <qdir.h>
 
+
 //KDE includes
 #include <kapp.h>
 #include <klocale.h>
@@ -165,20 +166,45 @@ void COptionsDialog::initGeneral() {
 		hBox->addWidget(label);
 		hBox->addWidget(m_general.sword.standardLexicon);
 		layout2->addLayout(hBox);
+		
+		hBox = new QHBoxLayout();
+		m_general.sword.standardHebrewStrong = new QComboBox(page);
+		label = new QLabel(m_general.sword.standardHebrewStrong, i18n("Default Hebrew Lexicon"), page);
+		QToolTip::add(m_general.sword.standardHebrewStrong, TT_OD_SWORD_STANDARD_HEBREW_STRONG);
+		QWhatsThis::add(m_general.sword.standardHebrewStrong, WT_OD_SWORD_STANDARD_HEBREW_STRONG);
+		hBox->addWidget(label);
+		hBox->addWidget(m_general.sword.standardHebrewStrong);
+		layout2->addLayout(hBox);
+		
+		hBox = new QHBoxLayout();
+		m_general.sword.standardGreekStrong = new QComboBox(page);
+		label = new QLabel(m_general.sword.standardGreekStrong, i18n("Default Greek Lexicon"), page);
+		QToolTip::add(m_general.sword.standardGreekStrong, TT_OD_SWORD_STANDARD_GREEK_STRONG);
+		QWhatsThis::add(m_general.sword.standardGreekStrong, WT_OD_SWORD_STANDARD_GREEK_STRONG);
+		hBox->addWidget(label);
+		hBox->addWidget(m_general.sword.standardGreekStrong);
+		layout2->addLayout(hBox);
+	
 						
 		
 		//fill the comboboxes with the right modules
 		ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
     for ( modules->first();modules->current();modules->next() ) {
+  			QString modDescript = modules->current()->getDescription();
 			switch (modules->current()->getType()) {
 				case CSwordModuleInfo::Bible:
-					m_general.sword.standardBible->insertItem(modules->current()->getDescription());
+					m_general.sword.standardBible->insertItem(modDescript);
 					break;
 				case CSwordModuleInfo::Commentary:
-					m_general.sword.standardCommentary->insertItem(modules->current()->getDescription());				
+					m_general.sword.standardCommentary->insertItem(modDescript);				
 					break;
 				case CSwordModuleInfo::Lexicon:
-					m_general.sword.standardLexicon->insertItem(modules->current()->getDescription());				
+                 	m_general.sword.standardLexicon->insertItem(modDescript);
+					//place the Hebrew and Greek lexicons accordingly...
+					if (modDescript.contains("Hebrew", FALSE))
+                  				m_general.sword.standardHebrewStrong->insertItem(modDescript);				
+     				if (modDescript.contains("Greek", FALSE) )
+     								m_general.sword.standardGreekStrong->insertItem(modDescript);
 					break;
 				default://unknown type					
 					break;
@@ -212,13 +238,33 @@ void COptionsDialog::initGeneral() {
 				m_general.sword.standardLexicon->setCurrentItem(item);
 				break;
 			}
-		}				
+		}			
+		
+		const QString standardHebrewStrong =m_config->readEntry("standard hebrew lexicon");
+		count = m_general.sword.standardHebrewStrong->count();
+		for (int item=0; item < count; ++item) {
+			if (m_general.sword.standardHebrewStrong->text(item) == standardHebrewStrong) {
+				m_general.sword.standardHebrewStrong->setCurrentItem(item);
+				break ;
+			}
+		}		
+		
+		const QString standardGreekStrong = m_config->readEntry("standard greek lexicon");
+		count = m_general.sword.standardGreekStrong->count();
+		for(int item=0; item<count; ++item) {
+			if(m_general.sword.standardGreekStrong->text(item) == standardGreekStrong) {
+				m_general.sword.standardGreekStrong->setCurrentItem(item);
+				break;
+			}
+		}
+		
+			
 	}
   layout2->addStretch(4);
 	
 	items.clear();	
 	items << i18n("General") << i18n("Accelerators");	
-	page = addHBoxPage(items, i18n("Configure BibleTime's key bindings"), OD_ICON_KEY_BINDINGS);
+	page = addHBoxPage(items, i18n("Configure BibleTimes key bindings"), OD_ICON_KEY_BINDINGS);
 
  	m_general.keys.dict = m_general.keys.accel->keyDict();
 
@@ -256,7 +302,9 @@ void COptionsDialog::saveGeneral() {
   	
   	m_config->writeEntry("standard bible", m_general.sword.standardBible->currentText());
   	m_config->writeEntry("standard commentary", m_general.sword.standardCommentary->currentText());
-  	m_config->writeEntry("standard lexicon", m_general.sword.standardLexicon->currentText());  	  	
+  	m_config->writeEntry("standard lexicon", m_general.sword.standardLexicon->currentText());
+  	m_config->writeEntry("standard hebrew lexicon", m_general.sword.standardHebrewStrong->currentText());
+ 	m_config->writeEntry("standard greek lexicon", m_general.sword.standardGreekStrong->currentText() );  	
 	}
 }
 
@@ -606,7 +654,7 @@ void COptionsDialog::slotOk(){
   emit signalSettingsChanged( getChangedSettings() );
 }
 
-/*commenting this out until I can figure out why it doesn't work so hot...*/
+/*called if the apply button was clicked*/
 void COptionsDialog::slotApply(){
 	saveGeneral();
 	saveDisplayWindow();
