@@ -350,13 +350,12 @@ void COptionsDialog::initAccelerators(){
 		CBTConfig::application,
 		m_settings.keys.application.accelCollection
 	);
-// 	CBTConfig::setupAccel( CBTConfig::application, m_settings.keys.application.accelCollection->kaccel()  );
-// 	m_settings.keys.application.accelCollection->kaccel()->readSettings();
 
- 	m_settings.keys.application.keyChooser = new KKeyChooser( m_settings.keys.application.accelCollection, currentTab, false );
-	
-	
-// 	QToolTip::add(m_settings.keys.application.keyChooser, TT_OD_KEYS_CHOOSER);
+ 	m_settings.keys.application.keyChooser = new KKeyChooser(
+		m_settings.keys.application.accelCollection,
+		currentTab,
+		false
+	);
 
 // ----- new tab: All display windows ------ //
 	currentTab = new QVBox(tabCtl);
@@ -376,12 +375,21 @@ void COptionsDialog::initAccelerators(){
 	currentTab->setMargin(3);
 	tabCtl->addTab(currentTab, i18n("Bible windows"));
 
-	m_settings.keys.bible.accel = new KAccel(this); //delete in destructor
-	CBTConfig::setupAccel( CBTConfig::bibleWindow, m_settings.keys.bible.accel  );
-	CBibleReadWindow::insertKeyboardActions( m_settings.keys.bible.accel );
-	m_settings.keys.bible.accel->readSettings();
+	m_settings.keys.bible.accelCollection = new KActionCollection(this, "bibleActions", 0);
+	CBibleReadWindow::insertKeyboardActions( m_settings.keys.bible.accelCollection );
+	CBTConfig::setupAccelSettings(
+		CBTConfig::bibleWindow,
+		m_settings.keys.bible.accelCollection
+	);
+	m_settings.keys.application.keyChooser->insert(
+		m_settings.keys.bible.accelCollection,
+		i18n("Bible windows")
+	);
 
- 	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab/*, false*/ );
+// 	CBibleReadWindow::insertKeyboardActions( m_settings.keys.bible.accel );
+// 	m_settings.keys.bible.accel->readSettings();
+
+//  	m_settings.keys.bible.keyChooser = new KKeyChooser( m_settings.keys.bible.accel, currentTab/*, false*/ );
 //	QToolTip::add(m_settings.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
 
 // ----- new tab: Commentary windows ------ //
@@ -690,13 +698,22 @@ void COptionsDialog::saveAccelerators(){
 		CBTConfig::application,
 		m_settings.keys.application.accelCollection
 	);
+	CBTConfig::saveAccelSettings(
+		CBTConfig::application,
+		m_settings.keys.application.accelCollection
+	);
 
 // 	m_settings.keys.general.accel->writeSettings();
 //		
 // 	m_settings.keys.bible.accel->writeSettings();		
 // 	m_settings.keys.bible.keyChooser->save();
- 	m_settings.keys.bible.keyChooser->commitChanges();
-	m_settings.keys.bible.accel->writeSettings();
+//  	m_settings.keys.bible.keyChooser->commitChanges();
+// 	m_settings.keys.bible.accel->writeSettings();
+	CBTConfig::saveAccelSettings(
+		CBTConfig::bibleWindow,
+		m_settings.keys.bible.accelCollection
+	);
+// 	m_settings.keys.bible.accelCollection->
 
 //		
 // 	m_settings.keys.commentary.accel->writeSettings();

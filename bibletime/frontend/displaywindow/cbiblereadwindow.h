@@ -53,7 +53,7 @@ public:
   /**
   * Reimplementation.
   */
-  static void insertKeyboardActions( KAccel* const a );
+	static void insertKeyboardActions( KActionCollection* const a );
 
 protected:
 	virtual void initKeyboardActions();
@@ -109,7 +109,7 @@ public slots:
   * Refreshes the content of this display window and the content of the keychooser.
   */
   virtual void reload();
-     
+
 protected slots: // Protected slots 
   void keyChanged(CSwordKey* key);
   /**

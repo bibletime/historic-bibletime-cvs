@@ -106,7 +106,7 @@ private:
 			};
 			MainWindowType application;
 			WindowType general;
-			WindowType bible;
+			MainWindowType bible;
 			WindowType commentary;
 			WindowType lexicon;
 			WindowType book;
