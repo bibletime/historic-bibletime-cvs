@@ -1,3 +1,10 @@
+2001-07-17 Joachim Ansorg <jansorg@gmx.de>
+	* Workaround for a Sword problem. Switching more than one time between a commentary and a Bible window works
+		now without changes to the key.
+
+2001-07-10 Joachim Ansorg <jansorg@gmx.de>
+	* Added forward and back buttons in the CHTMLDialog widget
+
 2001-07-05 Joachim Ansorg <jansorg@gmx.de>
 	* Disabled the OT and NT workaround! It doesn't work very well because we don't know which extensions
 		all the different module types will have in future.

@@ -32,7 +32,7 @@ CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
 		return;
 	VerseKey* vk = (VerseKey*)(SWKey*)*(module->module());	
 	m_oldKey = QString::null;
-	if (vk && vk != this) {
+	if (vk) {
 		m_oldKey = QString::fromLocal8Bit((const char*)*vk);		
 		key(QString::fromLocal8Bit((const char*)*vk));
 	}
@@ -68,7 +68,7 @@ CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 
 /** Returns the current book as Text, no as integer. */
 const QString CSwordVerseKey::book( const QString& newBook ) {
-	qDebug("const QString CSwordVerseKey::book( const QString& newBook )");
+//	qDebug("const QString CSwordVerseKey::book( const QString& newBook )");
 	if (!newBook.isEmpty()) {
 		int min = 0;
 		int max = 1;
@@ -90,21 +90,27 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 
 /**  */
 const bool CSwordVerseKey::NextVerse(){	
-	qDebug("const bool CSwordVerseKey::NextVerse()");
-	m_module->module()->SetKey(this);	//use this key as base for the next one!
-	( *( m_module->module() ) )++;
-	key(QString::fromLocal8Bit(m_module->module()->KeyText()));
-	
+//	if (m_module->getType() == CSwordModuleInfo::Commentary) {
+//		qDebug("CSwordVerseKey::NextVerse()");
+		m_module->module()->SetKey(this);	//use this key as base for the next one!
+		( *( m_module->module() ) )++;
+		key(m_module->module()->KeyText());		
+//	}
+//	else
+//		Verse(Verse()+1);
 	return true;
 }
 
 /**  */
 const bool CSwordVerseKey::PreviousVerse(){
-	qDebug("const bool CSwordVerseKey::PreviousVerse()");	
-	m_module->module()->SetKey(this);	//use this key as base for the next one!		
-	( *( m_module->module() ) )--;
-	key(QString::fromLocal8Bit(m_module->module()->KeyText()));
-	
+//	if (m_module->getType() == CSwordModuleInfo::Commentary) {		
+//		qDebug("CSwordVerseKey::PreviousVerse()");		
+		m_module->module()->SetKey(this);	//use this key as base for the next one!		
+		( *( m_module->module() ) )--;
+		key(m_module->module()->KeyText());		
+//	}
+//	else
+//		Verse(Verse()-1);
 	return true;
 }
 
@@ -138,20 +144,56 @@ const bool CSwordVerseKey::PreviousBook(){
 
 /** Sets the key we use to the parameter. */
 const QString CSwordVerseKey::key( const QString& newKey ){	
-	qDebug("const QString CSwordVerseKey::key( const QString& newKey )");
+//	qDebug("const QString CSwordVerseKey::key( const QString& newKey )");
 	if (!newKey.isNull()) {
 		qDebug(newKey.latin1());
+		error = 0;
 		VerseKey::operator = ((const char*)newKey.local8Bit());
 	}
-	qDebug("return %s\n", (const char*)*this);
-	return QString::fromLocal8Bit((const char*)*this);
+	return QString::fromLocal8Bit(VerseKey::operator const char*());
 }
 
 void CSwordVerseKey::key( const char* newKey ){
-	qDebug("const char* CSwordVerseKey::key( const char* newKey )");
+//	qDebug("const char* CSwordVerseKey::key( const char* newKey )");
 	if (newKey) {
 		qDebug(newKey);
+		error = 0;
 		VerseKey::operator = (newKey);
-		qDebug("key is now %s\n", (const char*)*this);		
 	}
+}
+
+/** Reimplementation to work around the problem that te verse is set to 1. */
+int CSwordVerseKey::Chapter(){
+	return VerseKey::Chapter();
+}
+
+/** Reimplementation to work around the problem that te verse is set to 1. */
+int CSwordVerseKey::Chapter( int newChapter ){
+	const int oldVerse = Verse();
+	
+	int retval = VerseKey::Chapter(newChapter);
+	
+	Verse(oldVerse);	
+	Normalize(1);
+	
+	return retval;
+}
+
+/** Reimplementation to work around the problem that te verse is set to 1. */
+char CSwordVerseKey::Book( char newBook ){
+	const int oldVerse = Verse();
+	const int oldChapter = Chapter();
+	
+	char retval = VerseKey::Book(newBook);
+	
+	Chapter(oldChapter);
+	Verse(oldVerse);
+	Normalize(1);	
+	
+	return retval;
+}
+
+/** Reimplementation to work around the problem that te verse is set to 1. */
+char CSwordVerseKey::Book(){
+	return VerseKey::Book();
 }

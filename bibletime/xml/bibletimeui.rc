@@ -1,11 +1,10 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="7">
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd"><kpartgui name="BibleTime" version="8">
 <MenuBar>
  <Menu name="file" noMerge="1"><text>&amp;File</text>
   <Action name="fileClearQueue_action"/>
   <Action name="file_print"/>
   <Separator/>
   <Action name="file_quit"/>
-  <Separator/>
  </Menu>
  <Menu name="main index"><text>&amp;Main index</text>
   <Action name="GMsearch_action"/>
