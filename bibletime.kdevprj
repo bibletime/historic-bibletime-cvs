@@ -1089,7 +1089,7 @@ install_location=
 type=HEADER
 
 [bibletime/frontend/presenters/Makefile.am]
-files=bibletime/frontend/presenters/cmodulechooserbar.cpp,bibletime/frontend/presenters/cmodulechooserbar.h,bibletime/frontend/presenters/cmodulechooserbutton.cpp,bibletime/frontend/presenters/cmodulechooserbutton.h,bibletime/frontend/presenters/cbiblepresenter.cpp,bibletime/frontend/presenters/cbiblepresenter.h,bibletime/frontend/presenters/cswordpresenter.cpp,bibletime/frontend/presenters/ccommentarypresenter.cpp,bibletime/frontend/presenters/ccommentarypresenter.h,bibletime/frontend/presenters/clexiconpresenter.cpp,bibletime/frontend/presenters/clexiconpresenter.h,bibletime/frontend/presenters/cswordpresenter.h
+files=bibletime/frontend/presenters/cmodulechooserbar.cpp,bibletime/frontend/presenters/cmodulechooserbar.h,bibletime/frontend/presenters/cmodulechooserbutton.cpp,bibletime/frontend/presenters/cmodulechooserbutton.h,bibletime/frontend/presenters/cbiblepresenter.cpp,bibletime/frontend/presenters/cbiblepresenter.h,bibletime/frontend/presenters/cswordpresenter.cpp,bibletime/frontend/presenters/ccommentarypresenter.cpp,bibletime/frontend/presenters/ccommentarypresenter.h,bibletime/frontend/presenters/clexiconpresenter.cpp,bibletime/frontend/presenters/clexiconpresenter.h,bibletime/frontend/presenters/cswordpresenter.h,bibletime/frontend/presenters/cdisplaysettingsbutton.cpp,bibletime/frontend/presenters/cdisplaysettingsbutton.h
 sub_dirs=
 type=static_library
 
@@ -1112,6 +1112,18 @@ install_location=
 type=SOURCE
 
 [bibletime/frontend/presenters/ccommentarypresenter.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/frontend/presenters/cdisplaysettingsbutton.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/frontend/presenters/cdisplaysettingsbutton.h]
 dist=true
 install=false
 install_location=

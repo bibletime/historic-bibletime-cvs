@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "cdisplaysettingsbutton.h"
-#include "../../backend/cswordmoduleinfo.h"
 
 #include <qstring.h>
 #include <qtooltip.h>
@@ -29,40 +28,68 @@ CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::displayOptionsBool
 {
 	m_displaySettings = displaySettings;
 	m_moduleSettings = moduleSettings;
-
-	m_dict.insert( i18n("Use linebreaks"), 		&(m_displaySettings->lineBreaks) );
-	m_dict.insert( i18n("Show versenumbers"), &(m_displaySettings->verseNumbers) );
-
-	m_dict.insert( i18n("Show footnotes"), 									&(m_moduleSettings->footnotes) );
-	m_dict.insert( i18n("Show Strong's Numbers"), 					&(m_moduleSettings->strongNumbers) );
-	m_dict.insert( i18n("Show headings"), 									&(m_moduleSettings->headings) );
-
-	m_dict.insert( i18n("Show morphologic tags"), 					&(m_moduleSettings->morphTags) );
-	m_dict.insert( i18n("Show Hebrew vowel points"), 				&(m_moduleSettings->hebrewPoints) );
-	m_dict.insert( i18n("Show Hebrew cantillation marks,"), &(m_moduleSettings->hebrewCantillation) );
-	m_dict.insert( i18n("Show Greek accents"), 							&(m_moduleSettings->greekAccents) );
+	m_modules = useModules;
 
  	m_popup = new KPopupMenu(this);	
 	setPopup(m_popup);
 	setPopupDelay(0);
 
-	m_popup->insertTitle(i18n("Display options"));
-	m_popup->setCheckable(true);
-
-//	m_popup->insertSeparator();	
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionToggled(int)));
 
-	QDictIterator<bool> it( m_dict ); // iterator for dict
-	int ID;
-	while ( it.current() ) {
-		ID = m_popup->insertItem( it.currentKey() );
-		m_popup->setItemChecked( ID, *(m_dict[it.currentKey()]) );
-		++it;
-	}
+	populateMenu();
 }
+void CDisplaySettingsButton::reset(ListCSwordModuleInfo useModules){
+	m_modules = useModules;
+	populateMenu();
+}
+
 
 void CDisplaySettingsButton::optionToggled(int ID){
 	m_popup->setItemChecked( ID, !(m_popup->isItemChecked(ID)));
   *(m_dict[m_popup->text(ID)]) =  m_popup->isItemChecked(ID);
 }
+
+/** No descriptions */
+void CDisplaySettingsButton::populateMenu(void){
+
+	m_popup->clear();
+	m_popup->insertTitle(i18n("Display options"));
+	m_popup->setCheckable(true);
+
+	addMenuEntry(i18n("Show headings"),	&(m_moduleSettings->headings),
+		isOptionAvailable(CSwordBackend::headings));
+  addMenuEntry(i18n("Use linebreaks"), &(m_displaySettings->lineBreaks), true);
+	addMenuEntry(i18n("Show versenumbers"), &(m_displaySettings->verseNumbers), true);
+
+	addMenuEntry(i18n("Show footnotes"), &(m_moduleSettings->footnotes),
+		isOptionAvailable(CSwordBackend::footnotes ));
+	addMenuEntry(i18n("Show Strong's Numbers"), &(m_moduleSettings->strongNumbers),
+		isOptionAvailable(CSwordBackend::strongNumbers ));
+
+	addMenuEntry(i18n("Show morphologic tags"), &(m_moduleSettings->morphTags),
+		isOptionAvailable(CSwordBackend::morphTags ));
+	addMenuEntry(i18n("Show lemmas"), &(m_moduleSettings->lemmas),
+		isOptionAvailable(CSwordBackend::lemmas ));
+	addMenuEntry(i18n("Show Hebrew vowel points"), &(m_moduleSettings->hebrewPoints),
+		isOptionAvailable(CSwordBackend::hebrewPoints ));
+	addMenuEntry(i18n("Show Hebrew cantillation marks"), &(m_moduleSettings->hebrewCantillation),
+		isOptionAvailable(CSwordBackend::hebrewCantillation ));
+	addMenuEntry(i18n("Show Greek accents"), &(m_moduleSettings->greekAccents),
+		isOptionAvailable(CSwordBackend::greekAccents ));
+}
+
+/** No descriptions */
+void CDisplaySettingsButton::addMenuEntry( QString name, bool* option, bool available){
+	m_dict.insert( name, option);
+	if (available)
+		m_popup->setItemChecked(   m_popup->insertItem( name ), *(m_dict[name]) );
+}
+
+bool CDisplaySettingsButton::isOptionAvailable( CSwordBackend::moduleOptions option){
+	bool ret = false;
+	for (m_modules.first(); m_modules.current(); m_modules.next())
+		ret = ret || m_modules.current()->supportsFeature(option);
+	return ret;
+}
+
 

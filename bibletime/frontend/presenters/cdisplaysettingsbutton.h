@@ -19,6 +19,8 @@
 #define CDISPLAYSETTINGSBUTTON_H
 
 #include "../../backend/cswordbackend.h"
+#include "../../backend/cswordmoduleinfo.h"
+
 
 #include <qtoolbutton.h>
 #include <qdict.h>
@@ -34,6 +36,7 @@ class CDisplaySettingsButton : public QToolButton  {
    Q_OBJECT
 public: 
 	CDisplaySettingsButton(CSwordBackend::displayOptionsBool *displaySettings, CSwordBackend::moduleOptionsBool *settings, ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
+	void reset(ListCSwordModuleInfo useModules);
 
 protected slots:
 	void optionToggled(int ID);
@@ -42,11 +45,15 @@ protected:
 	CSwordBackend::moduleOptionsBool  *m_moduleSettings;
 	CSwordBackend::displayOptionsBool *m_displaySettings;
 	CSwordBackend::moduleOptionsBool m_available;
+	ListCSwordModuleInfo m_modules;
 
 	QDict<bool> m_dict;
 
 	KPopupMenu* m_popup;
 
+  void populateMenu(void);
+	bool isOptionAvailable( CSwordBackend::moduleOptions option);
+  void addMenuEntry( QString name, bool* option, bool available);
 };
 
 #endif
