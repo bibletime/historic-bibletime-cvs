@@ -26,7 +26,11 @@ for I1 in `ls -d ??x??`; do
   echo -e $HEADER
 
   echo "KDE_ICON = AUTO"
-  echo "EXTRA_DIST=\\"
+
+  echo
+  echo
+
+  echo -n "EXTRA_DIST = "
   for I2 in `ls -d $I1/*.png`; do
     echo -n `basename $I2`" "
   done
