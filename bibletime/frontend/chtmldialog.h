@@ -20,9 +20,9 @@
 
 //Qt includes
 #include <qwidget.h>
-#include <qdialog.h>
 
 //KDE includes
+#include <kdialogbase.h>
 #include <khtml_part.h>
 #include <kurl.h>
 #include <kparts/part.h>
@@ -35,7 +35,7 @@ class KComboBox;
 	* (Perhaps from an FAQ file).
   * @author The BibleTime Team
   */
-class CHTMLDialog : public QDialog  {
+class CHTMLDialog : public KDialogBase {
   Q_OBJECT
 
 public:
@@ -55,18 +55,7 @@ protected:
   void init(const bool enableHistory = true);
 
 protected slots: // Protected slots
-  /**
-  * Called when the content of the textbrowser was changed.
-  */
-  void textChanged();
-  /**
-  * Is called when an item of the history combo was chosen.
-  */
-  void historyItemSelected( const QString & );
   void openURL( const KURL&, const KParts::URLArgs&);
-
-private:
-	KComboBox* m_historyCombo;
 };
 
 #endif

@@ -129,7 +129,8 @@ CModuleResultView::~CModuleResultView() {
 void CModuleResultView::initView(){
   addColumn(i18n("Module"));
   addColumn(i18n("Found items"));
-//  setFullWidth(true);
+  
+  setFullWidth(true);
   setSorting(0, true);
   setSorting(1, true);
   setAllColumnsShowFocus(true);

@@ -195,7 +195,7 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	if (isResetting || !isUpdatesEnabled())
 		return;
 	isResetting = true;	
-	setUpdatesEnabled(false);
+//	setUpdatesEnabled(false);
 //	m_comboBox->setUpdatesEnabled(false);
 
 //	m_mainLayout->setResizeMode(QLayout::FreeResize);
@@ -204,10 +204,10 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	m_comboBox->clear();
 	if (list)
 		m_comboBox->insertStringList(*list);
-	m_comboBox->resize( m_comboBox->sizeHint() );
+//	m_comboBox->resize( m_comboBox->sizeHint() );
 //	m_comboBox->setUpdatesEnabled(true);			
 	
-//	m_mainLayout->setResizeMode(QLayout::Minimum);
+
 	
 	m_comboBox->setCurrentItem(index);	
 	if (!list || (list && !list->count())) { //nothing in the combobox
@@ -223,13 +223,15 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		btn_fx->setEnabled( enableButtons );
 		btn_down->setEnabled( list && (list->count()>1) );
 	}
-	setUpdatesEnabled(true);
+//	setUpdatesEnabled(true);
 	
 	if (do_emit) {
 		emit changed(m_comboBox->currentItem());				
 	}
 
+  qWarning("combo size hint: %i x %i", m_comboBox->sizeHint().width(), m_comboBox->sizeHint().height());
   m_comboBox->adjustSize();
+  adjustSize();
 	isResetting = false;	
 }
 
@@ -246,7 +248,9 @@ void CKeyChooserWidget::unlock(void){
 }
 
 /** Initializes this widget. We need this function because we have more than one constructor. */
-void CKeyChooserWidget::init( ){
+void CKeyChooserWidget::init(){
+//	setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
+    
 	oldKey = QString::null;
 	btn_up = btn_down = btn_fx = 0;
 
@@ -255,11 +259,13 @@ void CKeyChooserWidget::init( ){
 	m_comboBox = new CKCComboBox( true, this );
 	m_comboBox->setAutoCompletion( true );
 	m_comboBox->setInsertionPolicy(QComboBox::NoInsertion);
-	m_comboBox->setFocusPolicy(QWidget::WheelFocus);	
+	m_comboBox->setFocusPolicy(QWidget::WheelFocus);
+//	m_comboBox->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed));	  
 	
-	m_mainLayout = new QHBoxLayout( this );	
-//	m_mainLayout->setResizeMode(QLayout::Minimum);			
-	m_mainLayout->addWidget(m_comboBox);
+	m_mainLayout = new QHBoxLayout( this );
+	m_mainLayout->setResizeMode(QLayout::Minimum);  
+	m_mainLayout->addWidget(m_comboBox,5);
+  
 
 	QVBoxLayout* m_buttonLayout = new QVBoxLayout();	
 	m_buttonLayout->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);
@@ -272,16 +278,13 @@ void CKeyChooserWidget::init( ){
 	
 	btn_fx = new cfx_btn( this, "btn_fx" );
 	iconSet = getMoverIconSet();
-//	btn_fx->setIconSet( iconSet );	
 	btn_fx->setFixedSize(WIDTH, MOVER_HEIGHT);
-//	btn_fx->setFixedSize(iconSet.pixmap().width(), iconSet.pixmap().height());	
 	btn_fx->setFocusPolicy(QWidget::NoFocus);	
 	
 	btn_down = new QToolButton( this, "btn_down" );	
 	iconSet = getDownIconSet();
 	btn_down->setIconSet( iconSet );
 	btn_down->setFixedSize(WIDTH, ARROW_HEIGHT);
-//	btn_down->setFixedSize(iconSet.pixmap().width(), iconSet.pixmap().height());	
 	btn_down->setFocusPolicy(QWidget::NoFocus);	
 	
 	m_buttonLayout->addWidget( btn_up );	
@@ -391,13 +394,12 @@ QIconSet CKeyChooserWidget::getMoverIconSet(){
 
 /**  */
 void CKeyChooserWidget::adjustSize( ){
-	setUpdatesEnabled(false);
+//	setUpdatesEnabled(false);
 	QSize s = sizeHint();
 	if (s.width() > maximumWidth())
 		s.setWidth( maximumWidth() );
-	
 	resize(s);
-	setUpdatesEnabled(true);	
+//	setUpdatesEnabled(true);	
 }
 
 /** Sets the tooltips for the given entries using the parameters as text. */
@@ -432,7 +434,7 @@ void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextE
 
 /** Sets the current item to the one with the given text */
 bool CKeyChooserWidget::setItem( const QString item ){
-	qDebug("CKeyChooserWidget::setItem( const QString item )");
+//	qDebug("CKeyChooserWidget::setItem( const QString item )");
 	bool ret = false;
 	const int count = comboBox()->count();
 	for (int i = 0; i < count; ++i) {

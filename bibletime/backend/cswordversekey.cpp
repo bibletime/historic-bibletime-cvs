@@ -137,8 +137,10 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 		}
 		case UseVerse: {
     	if (m_module && m_module->module()) {
-    		m_module->module()->SetKey(this);	//use this key as base for the next one!	
+    		m_module->module()->SetKey(this);	//use this key as base for the next one!
+        m_module->module()->setSkipConsecutiveLinks(true);
     		(*(m_module->module()) )++;
+        m_module->module()->setSkipConsecutiveLinks(false);      
     		if (!m_module->module()->Error()) {
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
         }
@@ -189,8 +191,10 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 		}
 		case UseVerse: {
     	if (m_module && m_module->module()) {
-    		m_module->module()->SetKey(this);	//use this key as base for the next one!			
+    		m_module->module()->SetKey(this);	//use this key as base for the next one!
+        m_module->module()->setSkipConsecutiveLinks(true);      
     		( *( m_module->module() ) )--;
+        m_module->module()->setSkipConsecutiveLinks(true);      
     		if (!m_module->module()->Error())
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
     		else

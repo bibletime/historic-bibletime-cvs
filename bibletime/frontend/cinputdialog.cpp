@@ -87,7 +87,7 @@ const QString CInputDialog::text() {
 
 /** A static function to get some using CInputDialog. */
 const QString CInputDialog::getText( const QString& caption, const QString& description, const QString& text, bool* ok, QWidget* parent, bool modal){
-	qDebug("CInputDialog::getText( const QString& caption, const QString& description, const QString& text, bool* ok, QWidget* parent, bool modal)");
+//	qDebug("CInputDialog::getText( const QString& caption, const QString& description, const QString& text, bool* ok, QWidget* parent, bool modal)");
 //	ASSERT(ok);
 	
 	CInputDialog* dlg = new CInputDialog(caption, description, text, parent, "", modal);	

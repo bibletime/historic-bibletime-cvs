@@ -87,11 +87,17 @@ void CLexiconReadWindow::initView(){
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());	
 	mainToolBar()->setItemAutoSized(0);
+// 	mainToolBar()->setFullSize(true);
+//  mainToolBar()->setVerticallyStretchable(true);
+//  mainToolBar()->setStretchableWidget(keyChooser());  
 
 	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), this) );
  	addDockWindow( moduleChooserBar() );
-	setDisplayWidget( CDisplay::createReadInstance(this) ); 	
+//  moduleChooserBar()->enableMoving(false);
+//  moduleChooserBar()->setBarPos(KToolBar::Left);
+	setDisplayWidget( CDisplay::createReadInstance(this) );
  	setCentralWidget( displayWidget()->view() );
+
 
 	setIcon(CToolClass::getIconForModule(modules().first()));
 }

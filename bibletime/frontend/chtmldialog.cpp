@@ -21,7 +21,7 @@
 
 //QT includes
 #include <qlayout.h>
-#include <qhbox.h>
+#include <qvbox.h>
 #include <qfile.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
@@ -36,19 +36,17 @@
 
 
 CHTMLDialog::CHTMLDialog(QWidget* parent, const char *name )
-	: QDialog ( parent, name, true, WStyle_MinMax | WStyle_DialogBorder /*| WStyle_Dialog */)
+  : KDialogBase(parent, name, true, i18n("Help"), Close, Close)
 {
 	init(false);
 }
 
 CHTMLDialog::CHTMLDialog(const QString& url, QWidget* parent, const char *name)
-	: QDialog ( parent, name, true, WStyle_MinMax | WStyle_DialogBorder /*| WStyle_Dialog */)
+  : KDialogBase(parent, name, true, i18n("Help"), Close, Close)
 {
-	init();
+  init();
 	QString file = CToolClass::locatehtml(url);
-	
-//	m_htmlPart->mimeSourceFactory()->setFilePath(file);
-  KURL url =QString::fromLatin1("file:/") + file;
+  KURL url = QString::fromLatin1("file:/") + file;
 	m_htmlPart->openURL(url);
 }
 
@@ -64,98 +62,13 @@ void CHTMLDialog::setText(const QString& text){
 
 /** Initializes this widget. */
 void CHTMLDialog::init(const bool enableHistory){
-	resize(600,400);		
-	QVBoxLayout* layout = new QVBoxLayout(this, 5);
-		
-	m_htmlPart = new KHTMLPart(this);		
+  QVBox* page = makeVBoxMainWidget();
+	m_htmlPart = new KHTMLPart(page);
+  m_htmlPart->view()->setHScrollBarMode(QScrollView::AlwaysOff);
   connect(m_htmlPart->browserExtension(), SIGNAL(openURLRequest(const KURL&, const KParts::URLArgs&)),
     SLOT(openURL( const KURL&, const KParts::URLArgs&)));
-//	KURL url(CToolClass::locatehtml("bibletime/helpdialog/index.docbook"));	
-//	m_htmlPart->mimeSourceFactory()->addFilePath(url.directory());
-//	url.cd(QString::fromLatin1(".."));
-//	m_htmlPart->mimeSourceFactory()->addFilePath(url.directory());
-//	url.cd(QString::fromLatin1(".."));
-//	m_htmlPart->mimeSourceFactory()->addFilePath(url.directory());
-//	url.cd(QString::fromLatin1(".."));
-//	m_htmlPart->mimeSourceFactory()->addFilePath(url.directory());
-	
-	
-	if (enableHistory) {
-		QHBox* toolBar = new QHBox(this, "history toolbar");
-		
-		QToolButton *button = 0;		
-		button = new QToolButton(toolBar);
-		button->setIconSet(SmallIcon("back"));
-		button->setTextLabel(i18n("Backward"));		
-		button->setEnabled(false);		
-		button->setUsesTextLabel(true);
-		button->setFixedSize(button->sizeHint());
-		connect(button, SIGNAL(clicked()), m_htmlPart, SLOT(backward()));
-		connect(m_htmlPart, SIGNAL(backwardAvailable(bool)),
-			button, SLOT(setEnabled(bool)));		
-    connect( m_htmlPart, SIGNAL( textChanged() ),	
-	     this, SLOT( textChanged() ) );
 
-		m_historyCombo = new KComboBox(toolBar);
-		toolBar->setStretchFactor(m_historyCombo, 5);		
-//    connect( m_historyCombo, SIGNAL( activated( const QString & ) ),
-//	     this, SLOT( historyItemSelected( const QString & ) ) );
-		
-	     				
-		button = new QToolButton(toolBar);		
-		button->setEnabled(false);
-		button->setTextLabel(i18n("Forward"));		
-		button->setUsesTextLabel(true);		
-		button->setIconSet(SmallIcon("forward"));
-		button->setFixedSize(button->sizeHint());
-		connect(button, SIGNAL(clicked()), m_htmlPart, SLOT(forward()));		
-		connect(m_htmlPart, SIGNAL(forwardAvailable(bool)),
-			button, SLOT(setEnabled(bool)));
-			
-		layout->addWidget(toolBar);		
-	}		
-	layout->addSpacing(5);	
-	layout->addWidget(m_htmlPart->view(),5);
-	
-	QHBoxLayout* hBox = new QHBoxLayout();
-	QPushButton* closeButton = new QPushButton(this);
-	closeButton->setText(i18n("Close"));
-	connect(closeButton, SIGNAL(pressed()), this, SLOT(close()));
-	hBox->addStretch(5);
-	hBox->addWidget(closeButton,1);
-	
-	layout->addLayout(hBox);
-}
-
-/** Is called when an item of the history combo was chosen. */
-void CHTMLDialog::historyItemSelected( const QString & file ){
-//	m_htmlPart->setSource(file);
-}
-
-/** Called when the content of the textbrowser was changed. */
-void CHTMLDialog::textChanged(){
-//	if ( m_htmlPart->documentTitle().isNull() )
-//		setCaption( m_htmlPart->context() );
-//	else
-//		setCaption( m_htmlPart->documentTitle() ) ;
-//
-//	QString selectedURL = caption();
-//	if ( !selectedURL.isEmpty() && m_historyCombo ) {
-//		bool exists = false;
-//		int i;
-//		for ( i = 0; i < m_historyCombo->count(); ++i ) {
-//			if ( m_historyCombo->text( i ) == selectedURL ) {
-//				exists = true;
-//				break;
-//			}
-//		}
-//		if ( !exists ) {
-//	    m_historyCombo->insertItem( selectedURL, -1 );
-//	    m_historyCombo->setCurrentItem( 0 );
-//		} else
-//	    m_historyCombo->setCurrentItem( i );
-//		selectedURL = QString::null;
-//	}	
+	resize(600,400);
 }
 
 /** No descriptions */
