@@ -85,9 +85,7 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 	//get tyope of item and display correct text
 	QString text = i->getToolTip();
 	if (!text.isEmpty()) {
-		const QFont oldFont = font();
-//		const QFont::CharSet oldCharset = newFont.charSet();		
-				
+		const QFont oldFont = font();				
 		CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(i->moduleInfo());
 		if (m) {
 			QFont newFont = font();
@@ -375,7 +373,10 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 		return;
 	
 	CGroupManagerItem* myItem = 0;	
-	const QString description = CInputDialog::getText(i18n("Bookmark description - BibleTime"), i18n("Please enter here the description:"), QString::null);
+	bool ok = false;
+	const QString description = CInputDialog::getText(i18n("Bookmark description - BibleTime"), i18n("Please enter here the description:"), QString::null, &ok);
+	if (!ok)
+		return;
 
 	myItem = 0;
   if ( parent && (parent->type() == CGroupManagerItem::Group) ) {
