@@ -1072,9 +1072,21 @@ install_location=
 type=HEADER
 
 [bibletime/frontend/optionsdialog/Makefile.am]
-files=bibletime/frontend/optionsdialog/coptionsdialog.cpp,bibletime/frontend/optionsdialog/coptionsdialog.h,
+files=bibletime/frontend/optionsdialog/coptionsdialog.cpp,bibletime/frontend/optionsdialog/coptionsdialog.h,bibletime/frontend/optionsdialog/cbtconfig.cpp,bibletime/frontend/optionsdialog/cbtconfig.h
 sub_dirs=
 type=static_library
+
+[bibletime/frontend/optionsdialog/cbtconfig.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/frontend/optionsdialog/cbtconfig.h]
+dist=true
+install=false
+install_location=
+type=HEADER
 
 [bibletime/frontend/optionsdialog/coptionsdialog.cpp]
 dist=true

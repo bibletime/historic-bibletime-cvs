@@ -131,19 +131,6 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				*(*buf)++ = token[i];
 				*(*buf)++ = '>';
 		}
-#warning what is that?
-/*	else if (!strncmp(token, "sync type=\"Strongs\" value=\"T", 28)) {
-			pushString(buf, "<a href=\"");
-			for (i = 5; i < strlen(token)-1; i++)
-				if(token[i] != '\"') 			
-					*(*buf)++ = token[i];
-			*(*buf)++ = '\"';
-			*(*buf)++ = '>';
-			for (i = 29; i < strlen(token)-2; i++)				
-				if(token[i] != '\"') 			
-					*(*buf)++ = token[i];		
-			pushString(buf, "</a>");
-		}*/
 	}
 	return true;
 }
