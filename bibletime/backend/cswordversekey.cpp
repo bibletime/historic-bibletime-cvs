@@ -25,6 +25,7 @@
 
 //Sword includes
 #include <swmodule.h>
+#include <localemgr.h>
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* const module ) : CSwordKey(module) {
   if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module) ) {

@@ -528,8 +528,21 @@ const QString CSwordBackend::configOptionName( const CSwordModuleInfo::FilterTyp
 }
 
 const QString CSwordBackend::booknameLanguage( const QString& language ) {
-	if (!language.isEmpty())
+	if (!language.isEmpty()) {
 		sword::LocaleMgr::getSystemLocaleMgr()->setDefaultLocaleName( language.latin1() );
+		
+		//refresh the locale of all Bible and commentary modules!
+		ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+		for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
+      if ( (*it)->type() == CSwordModuleInfo::Bible ) {
+				//Create a new key, it will get the default bookname language
+        SWKey* k = (*it)->module()->CreateKey();
+				k->Persist(1);
+				(*it)->module()->setKey(k);
+      }
+    }
+		
+	}
 		
 	return QString::fromLatin1( sword::LocaleMgr::getSystemLocaleMgr()->getDefaultLocaleName() );
 }

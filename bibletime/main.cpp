@@ -110,7 +110,7 @@ please use the option --ignore-session\n");
     }
     if (bibletime_ptr) {
 			bibletime_ptr->saveSettings();
-			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
+			fprintf(stderr, "*** Saving seemed to be successful. If restoring does not work on next startup \
 please use the option --ignore-session\n");
 		}
 		// Return to DrKonqi.
@@ -143,7 +143,7 @@ int main(int argc, char* argv[]) {
 		VERSION,
 		I18N_NOOP("Bible study tool for KDE"),
 		KAboutData::License_GPL_V2,
-		I18N_NOOP("(c)1999-2004, The BibleTime Team"),
+		I18N_NOOP("(c)1999-2005, The BibleTime Team"),
 		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE.\n\n\
 We are looking for developers and translators.\n\
 If you'd like to join our team, please send an email to info@bibletime.info."),
@@ -155,11 +155,11 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   *    Active developers (sorted by last name)   *
   ************************************************/
   // Project coordination
-	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "junkmail@joachim.ansorgs.de", "joachim.ansorgs.de");
+	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "junkmail@joachim.ansorgs.de", "http://joachim.ansorgs.de");
   // Second main developer
 	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
 	// artwork
-	aboutData.addAuthor("James Ots", I18N_NOOP("Crystal icons, crystal startlogo, webpage"), "me@jamesots.com", "www.jamesots.com");
+	aboutData.addAuthor("James Ots", I18N_NOOP("Crystal icons, crystal startlogo, webpage"), "me@jamesots.com", "http://www.jamesots.com");
 
   //inactiv
 //	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), 				"mlybarge@insight.rr.com","");
@@ -171,7 +171,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   *        Credits (sorted by last name)         *
   ************************************************/
 	//highcolor icons, startlogo for BT <= 1.4
-	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "www.uninetsolutions.com");
+	aboutData.addCredit("Timothy R. Butler", I18N_NOOP("Icons, startlogo"), "tbutler@uninetsolutions.com", "http://www.uninetsolutions.com");
   //Sponsored many years the www.bibletime.de domain!
   aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Sponsored our internet domain for many years"), "tom@theta-consulting.de", "");
   //He provided us with the Bible Study HowTo
@@ -219,7 +219,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 
     setSignalHandler(signalHandler);
 
-    	// compatibility stuff for 1.3, needs to be moved to better place later
+    // compatibility stuff for 1.3, needs to be moved to better place later
 		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
       	KStandardDirs stdDirs;
       	QDir dir(stdDirs.saveLocation("data", "bibletime/"));

@@ -230,44 +230,49 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				buf.append( QString::number(myUserData->swordFootnote++).latin1() );
 				buf.append("\">*</span> ");
 				
-				userData->suspendTextPassThru = true;
+				myUserData->suspendTextPassThru = true;
+				myUserData->inFootnoteTag = true;
 			}
 			else if (tag.isEndTag() && !tag.isEmpty()) { //end tag
 				//buf += ")</span>";
-				userData->suspendTextPassThru = false;
+				myUserData->suspendTextPassThru = false;
+				myUserData->inFootnoteTag = false;
 			}
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a more complicated scripRef
-      if (tag.isEndTag()) {
-       	if (myUserData->inscriptRef) { // like "<scripRef passage="John 3:16">See John 3:16</scripRef>"
-					buf.append("</span>");
-  				
-					myUserData->inscriptRef = false;
-   				myUserData->suspendTextPassThru = false;
-  			}
-  			else { // like "<scripRef>John 3:16</scripRef>"
+			//scrip refs which are embeded in footnotes may not be displayed!
+			if (!myUserData->inFootnoteTag) {
+				if (tag.isEndTag()) {
+					if (myUserData->inscriptRef) { // like "<scripRef passage="John 3:16">See John 3:16</scripRef>"
+						buf.append("</span>");
+						
+						myUserData->inscriptRef = false;
+						myUserData->suspendTextPassThru = false;
+					}
+					else { // like "<scripRef>John 3:16</scripRef>"
+						buf.append("<span class=\"crossreference\" crossrefs=\"");
+						buf.append(myUserData->lastTextNode.c_str());
+						buf.append("\">");
+						buf.append(myUserData->lastTextNode.c_str());
+						buf.append("</span>");
+						
+						myUserData->suspendTextPassThru = false;
+					}
+				}		
+				else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
+					myUserData->inscriptRef = true;
+					myUserData->suspendTextPassThru = false;
 					buf.append("<span class=\"crossreference\" crossrefs=\"");
- 					buf.append(myUserData->lastTextNode.c_str());
+					buf.append(tag.getAttribute("passage"));
 					buf.append("\">");
-					buf.append(myUserData->lastTextNode.c_str());
-					buf.append("</span>");
+				}
+				else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
+					myUserData->inscriptRef = false;
 					
-   				myUserData->suspendTextPassThru = false;
-  			}
-      }		
-      else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
-        myUserData->inscriptRef = true;
-				myUserData->suspendTextPassThru = true;
-				buf.append("<span class=\"crossreference\" crossrefs=\"");
-				buf.append(tag.getAttribute("passage"));
-				buf.append("\">");
-      }
-      else if ( !tag.getAttribute("passage") ) { // we're starting a scripRef like "<scripRef>John 3:16</scripRef>"
-	  		myUserData->inscriptRef = false;
-  			
-				// let's stop text from going to output, the text get's added in the -tag handler
-		  	myUserData->suspendTextPassThru = true;
-      }
+					// let's stop text from going to output, the text get's added in the -tag handler
+					myUserData->suspendTextPassThru = true;
+				}
+			}
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "div")) {                                      
       if (tag.isEndTag()) {

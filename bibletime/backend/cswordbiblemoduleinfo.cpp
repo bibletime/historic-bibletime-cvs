@@ -39,8 +39,6 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( sword::SWModule* module, CSwordBac
 	  m_hasOT(-1),
     m_hasNT(-1)
 {
-
-
 }
 
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) :
@@ -56,6 +54,7 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) :
 	m_hasOT = m.m_hasOT;
 	m_hasNT = m.m_hasNT;
 	m_cachedLocale = m.m_cachedLocale;
+	
 }
 
 CSwordModuleInfo* CSwordBibleModuleInfo::clone(){

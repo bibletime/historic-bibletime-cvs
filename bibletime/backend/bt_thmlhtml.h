@@ -38,9 +38,11 @@ protected:
     BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::ThMLHTML::MyUserData(module, key) {
 			inscriptRef = false;
 			swordFootnote = 1;
+			inFootnoteTag = false;
 		}
     
     bool inscriptRef;
+		bool inFootnoteTag;
 		unsigned short int swordFootnote;
   };
   

@@ -523,6 +523,8 @@ void BibleTime::initBackends(){
 	SWLog::getSystemLog()->setLogLevel(0);
 	
 	m_backend = new CSwordBackend();
+	m_backend->booknameLanguage( CBTConfig::get(CBTConfig::language) );
+	
 	CPointers::setBackend(m_backend);
 	const CSwordBackend::LoadError errorCode = m_backend->initModules();
 
@@ -562,7 +564,7 @@ void BibleTime::initBackends(){
 		  }
 		}
 	}
-	m_backend->booknameLanguage( CBTConfig::get(CBTConfig::language) );
+/*	m_backend->booknameLanguage( CBTConfig::get(CBTConfig::language) );*/
 }
 
 /** Initializes the CPrinter object. */
