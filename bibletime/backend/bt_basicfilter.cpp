@@ -37,14 +37,7 @@ char BT_BASICFILTER::ProcessText (char *text, int maxlen, const SWKey *key, cons
 }
 
 void BT_BASICFILTER::updateSettings(){
-	strcpy(footnote_color,	CBTConfig::get(CBTConfig::footnotesColor	).name().utf8());
-	strcpy(strongs_color,		CBTConfig::get(CBTConfig::strongsColor		).name().utf8());
-	strcpy(morph_color,			CBTConfig::get(CBTConfig::morphsColor			).name().utf8());
-	strcpy(jesuswords_color,CBTConfig::get(CBTConfig::jesuswordsColor	).name().utf8());
-	strcpy(swordref_color,	CBTConfig::get(CBTConfig::swordRefColor		).name().utf8());
-	strcpy(text_color, 			CBTConfig::get(CBTConfig::textColor				).name().utf8());	
 	strcpy(standard_bible,	CReferenceManager::preferredModule(CReferenceManager::Bible).utf8());
-	
 	updateTokens();
 }
 
@@ -71,10 +64,7 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
 	 		SWKey* key = list.GetElement(i);
 	 		VerseKey* vk = dynamic_cast<VerseKey*>(key);
  		
-  		pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/",
-// 				swordref_color,
-	 			standard_bible
- 			);
+  		pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/", standard_bible);
  			
  			if (vk) {
  				vk->setLocale(lang);

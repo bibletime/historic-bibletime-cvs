@@ -80,7 +80,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				}
 			}
 			pushString(buf," <span id=\"morphcode\"><a href=\"morph://Greek/%s\">(%s)</a></span> ",
-				morph_color, num, num);
+				num, num);
 		}
 		
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
@@ -91,7 +91,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			num[i-29] = 0;
 
 			pushString(buf," <span id=\"strongnumber\"><a href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a></span> ",
-				strongs_color, num, num);
+				num, num);
 		}
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
 			char num[12];
@@ -101,7 +101,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			num[i-29] = 0;
 
 			pushString(buf," <span id=\"strongnumber\"><a href=\"strongs://Greek/%s\">&lt;%s&gt;</a></em></small></font> ",
-				strongs_color, num, num);
+				num, num);
 		}
 
 		else if (!strncmp(token, "scripRef p", 10) || !strncmp(token, "scripRef v", 10)) {
@@ -175,7 +175,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}
 		else if (!strncmp(token, "div class=\"title\"", 19)) {
       userData["Title"] = "true";
-			pushString(buf, "<div id=\"booktitle\">", text_color);
+			pushString(buf, "<div id=\"booktitle\">");
 		}
 //		else if (!strncmp(token, "/div", 4)) {
 //			if (userData["SecHead"] == "true") {

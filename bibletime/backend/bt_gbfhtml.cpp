@@ -154,7 +154,7 @@ bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userD
 				userData["hasFootnotePreTag"] = "false";
 				pushString(buf, "</span> ");
 			}
-			pushString(buf,"<span id=\"footnote\"> (",footnote_color);
+			pushString(buf,"<span id=\"footnote\"> (");
 		}
 
 		else if (!strncmp(token, "FN", 2)) {
