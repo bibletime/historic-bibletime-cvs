@@ -1,0 +1,219 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: index.docbook:1
+msgid "Installing Bibletime Sources"
+msgstr ""
+
+#: index.docbook:2
+msgid "This chapter describes how sources are compiled. These steps apply for both the development version and the released version of bibletime and sword."
+msgstr ""
+
+#: index.docbook:5
+msgid "Installation of SWORD and the Sword Modules"
+msgstr ""
+
+#: index.docbook:7
+msgid "Sword and Sword modules are the \"book library\" for Bibletime. Please see the page download for further information about downloading BibleTime."
+msgstr ""
+
+#: index.docbook:11
+msgid "Have a look at the requirements page to obtain SWORD. See page links to obtain SWORD's modules."
+msgstr ""
+
+#: index.docbook:15
+msgid "Installation of SWORD"
+msgstr ""
+
+#: index.docbook:17
+msgid "This page shows sword 1.5.1a. For other versions of sword, the file names will be different."
+msgstr ""
+
+#: index.docbook:21
+msgid "First you have to unpack the downloaded .tar.gz file (if you are using the CVS version, your sources will already be unpacked, so skip this step) to a temporary directory. Do something like this:"
+msgstr ""
+
+#: index.docbook:24
+msgid ""
+      "mkdir /tmp\n"
+      "cd /tmp\n"
+      "tar -xzf sword-1.5.1a.tar.gz\n"
+      "cd /tmp/sword-1.5.1a"
+msgstr ""
+
+#: index.docbook:32
+msgid "(the tar file will have unpacked into a directory named something similar to sword-1.5.1a)"
+msgstr ""
+
+#: index.docbook:36
+msgid "Before you try to compile sword, you may need to modify <filename> Makefile.cfg</filename> (it is located in the top directory of the unpacked sources). The customized section of <filename>Makefile.cfg</filename> is marked, do not try to change parts of the file outside of the area marked <emphasis>##### Customizable stuff. Set it how you like it #####</emphasis> unless you really know what you are doing."
+msgstr ""
+
+#: index.docbook:43
+msgid "For many installations the defaults will work. When the defaults don't work, these switches may be set."
+msgstr ""
+
+#: index.docbook:47
+msgid "Sword Makefile.cfg switches"
+msgstr ""
+
+#: index.docbook:49
+msgid "Switch"
+msgstr ""
+
+#: index.docbook:49
+msgid "Description"
+msgstr ""
+
+#: index.docbook:55
+msgid "# compiler"
+msgstr ""
+
+#: index.docbook:55
+msgid "If you have gcc leave this alone, otherwise enter the compiler you will be using."
+msgstr ""
+
+#: index.docbook:55
+msgid "# shared library-"
+msgstr ""
+
+#: index.docbook:55
+msgid "Set to 'yes'. this causes the shared library <filename>libsord.so</filename> to be generated. An entry must be placed into the file <filename>/etc/ld.so.conf</filename> that points to libsword. <filename>/usr/local/sword/lib</filename> is typical. The shared library is necessary for bibletime to work, but sword will compile without errors if you don't do this. Be careful here."
+msgstr ""
+
+#: index.docbook:55
+msgid "# VCL library-"
+msgstr ""
+
+#: index.docbook:55
+msgid "Use the default 'no' unless you are using the sword install manager, then use 'yes'."
+msgstr ""
+
+#: index.docbook:55
+msgid "# Debugging options etc..."
+msgstr ""
+
+#: index.docbook:55
+msgid "The defaults should work."
+msgstr ""
+
+#: index.docbook:55
+msgid "# endian, etc. support for other hardware"
+msgstr ""
+
+#: index.docbook:55
+msgid "Use the default if compiling on an Intel. If you have other hardware, select the correct entry."
+msgstr ""
+
+#: index.docbook:55
+msgid "# zLib support"
+msgstr ""
+
+#: index.docbook:55
+msgid "Use the default 'yes'"
+msgstr ""
+
+#: index.docbook:55
+msgid "# paths"
+msgstr ""
+
+#: index.docbook:55
+msgid "The defaults should be ok, but you can change them if you wish. If you wish to customize the install location of the library and the include files, you have to decide if you want to install them in an extra directory like <filename>/usr/local/sword/</filename> or at a common place like <filename>/usr/local/</filename>. Or you could install the libraries in <filename>/usr/local/lib</filename> and the include files in <filename>/usr/local/include</filename> choose <filename>/usr/local</filename>."
+msgstr ""
+
+#: index.docbook:101
+msgid "Now start compiling by typing <command>make</command> and wait until it's finished. After this you have to install the files. It's easy. Simply type <command> make install </command>."
+msgstr ""
+
+#: index.docbook:105
+msgid "In the event that make command reports an error on completion, it probably indicates that you are missing a package. For example:"
+msgstr ""
+
+#: index.docbook:109
+msgid ""
+      "bash-2.03# make\n"
+      "make just-pre nodeps=yes\n"
+      "make[1]: Entering directory `/bible/sword-1.5.1a'\n"
+      "make -C src just-pre\n"
+      ".\n"
+      ".\n"
+      ".\n"
+      "make[1]: Entering directory `/bible/sword-1.5.1a/include'\n"
+      "make[1]: Nothing to be done for `just-targets'.\n"
+      "make[1]: Leaving directory `/bible/sword-1.5.1a/include'\n"
+      "make -C apps/X11/VCL just-targets\n"
+      "make[1]: Entering directory `/bible/sword-1.5.1a/apps/X11/VCL'\n"
+      "gcc -I../../../include/ -D_GNU_SOURCE -I. `gtk-config --cflags` -static -pipe -Wall -Wno-format\n"
+      "-fomit-frame-pointer -ggdb -O0 -m486 -c -o TWinControl.o TWinControl.cpp\n"
+      "<emphasis>/bin/sh: gtk-config: command not found </emphasis>\n"
+      "In file included from TWinControl.cpp:1:\n"
+      "<emphasis>TWinControl.h:6: gtk/gtkwidget.h: No such file or directory</emphasis>\n"
+      "<emphasis>TWinControl.cpp:3: gtk/gtkwidget.h: No such file or directory </emphasis>\n"
+      "In file included from TWinControl.cpp:1:\n"
+      "TWinControl.h:281: syntax error before `*'\n"
+      "TWinControl.h:284: parse error before `*'\n"
+      "TWinControl.cpp:10: parse error before `*'\n"
+      "make[1]: *** [TWinControl.o] Error 1\n"
+      "make[1]: Leaving directory `/bible/sword-1.5.1a/apps/X11/VCL'\n"
+      "make: *** [apps/X11/VCL/targets] Error 2\n"
+      "bash-2.03#"
+msgstr ""
+
+#: index.docbook:138
+msgid "The italic lines above indicate that a gtk application was missing. A review of the available packages showed that one of the gtk packages supplied with SuSE is gtkdev. This turns out to be the application required to allow make to run to completion without errors. Often missing packages will be found on your installation disks, or on your distribution's website. Once <command>make</command> runs to completion without errors, then <command>make install</command>. If it still doesn't work, edit the file <filename>Makefile.cfg</filename> in the top directory of the SWORD sources and change the line \"<command>buildvcl := yes</command>\" to \"<command>buildvcl := no</command>\" and try again."
+msgstr ""
+
+#: index.docbook:152
+msgid "Installation of modules"
+msgstr ""
+
+#: index.docbook:153
+msgid "SWORD currently supports 3 types of modules: Bibles, dictionaries and commentaries. In order for sword and bibletime to be useful these modules must be installed."
+msgstr ""
+
+#: index.docbook:155
+msgid "Sword modules can be installed <link linkend=\"inst-sources-sword-manual\">manually</link> or with <link linkend=\"inst-sources-sword-installmgr\">installmgr</link>. Installmgr is provided as part of the sword package. The directions here will install the sword modules to the same location with either the manual method or the installmgr. However if you wish to customize the location of your sword module directory, you must use the manual method."
+msgstr ""
+
+#: index.docbook:166
+msgid "Unpack the downloaded package"
+msgstr ""
+
+#: index.docbook:168
+msgid "First you have to unpack the downloaded package. On the download page of SWORD you can choose if you want to get a Windows or RAW package. If you have a \"Linux only\" box please get the RAW packages. But if you accidentally got a Windows self extracting executable try using WINE to extract the files. Perhaps you have to change the filename of \"_INSTALL.1\" to \"_install.1\" to get the setup running."
+msgstr ""
+
+#: index.docbook:176
+msgid "Integrating modules"
+msgstr ""
+
+#: index.docbook:178
+msgid "Create the directory <filename>mods.d</filename> inside of your SWORD directory. Please copy the file <filename>[modulename].conf</filename> into the <filename>mods.d</filename> directory. the <filename>.conf</filename> file is normally inside the unpacked module files. Now move the whole dir \"modules\" which contains your unpacked module data files to the SWORD directory. In the example <filename>/usr/local/sword/share</filename> is the SWORD directory."
+msgstr ""
+
+#: index.docbook:185
+msgid "Directory Structure looks like this:"
+msgstr ""
+
+#: index.docbook:187
+msgid ""
+      "/usr/local/sword/share/ -|- mods.d/ -|- module_1_name.conf\n"
+      "                   |           |- module_2_name.conf\n"
+      "                   |\n"
+      "                   |- texts/rawtext/ -|-module_1_name/files\n"
+      "                                      |-module_2_name/files"
+msgstr ""
+

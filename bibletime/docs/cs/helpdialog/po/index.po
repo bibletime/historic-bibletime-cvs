@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: index.docbook:53
+msgid "The Bibletime Help Dialog"
+msgstr ""
+
+#: index.docbook:56
+msgid "<firstname>Fred</firstname> <othername></othername> <surname>Saalbach</surname> <affiliation> <address><email>info@bibletime.de</email></address> </affiliation>"
+msgstr ""
+
+#: index.docbook:64
+msgid "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
+msgstr ""
+
+#: index.docbook:70
+msgid "ROLES_OF_TRANSLATORS"
+msgstr ""
+
+#: index.docbook:76
+msgid "The team of BibleTime, info@bibletime.de"
+msgstr ""
+
+#: index.docbook:83
+msgid "The bibletime helpdialog is part of Bibletime."
+msgstr ""
+
+#: index.docbook:86
+msgid "Bibletime is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
+msgstr ""
+
+#: index.docbook:93
+msgid "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details."
+msgstr ""
+
+#: index.docbook:100
+msgid "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr ""
+
+#: index.docbook:119
+msgid "&bibletime; is an application to aid in study of the Bible."
+msgstr ""
+
+#: index.docbook:130
+msgid "<keyword>KDE</keyword>"
+msgstr ""
+
+#: index.docbook:131
+msgid "bibletime"
+msgstr ""
+
+#: index.docbook:132
+msgid "Bibletime"
+msgstr ""
+
+#: index.docbook:133
+msgid "sword"
+msgstr ""
+
+#: index.docbook:134
+msgid "crosswire"
+msgstr ""
+
+#: index.docbook:135
+msgid "help dialog"
+msgstr ""
+
