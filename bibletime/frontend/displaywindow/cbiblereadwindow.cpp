@@ -126,6 +126,7 @@ void CBibleReadWindow::initView(){
 
 /** Reimplementation. */
 void CBibleReadWindow::setupPopupMenu(){
+	qWarning("CBibleReadWindow::setupPopupMenu()");
 	popup()->insertTitle(CToolClass::getIconForModule(modules().first()), i18n("Bible window"));
 
  	m_actions.selectAll = new KAction(i18n("Select all"), KShortcut(0), displayWidget()->connectionsProxy(), SLOT(selectAll()), actionCollection());
@@ -166,7 +167,8 @@ void CBibleReadWindow::setupPopupMenu(){
 
 /** Reimplemented. */
 void CBibleReadWindow::updatePopupMenu(){
- 	
+	qWarning("CBibleReadWindow::updatePopupMenu()");
+
   m_actions.copy.referenceOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
  	m_actions.copy.referenceTextOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
  	m_actions.copy.referenceAndText->setEnabled( displayWidget()->hasActiveAnchor() );

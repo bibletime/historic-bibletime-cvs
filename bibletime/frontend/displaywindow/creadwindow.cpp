@@ -83,6 +83,7 @@ void CReadWindow::lookup( CSwordKey* newKey ){
 
 /** Returns the installed popup menu. */
 KPopupMenu* const CReadWindow::popup(){
+	qWarning("CReadWindow::popup()");
 	if (!m_popupMenu) {
  		m_popupMenu = new KPopupMenu(this);
 		connect(m_popupMenu, SIGNAL(aboutToShow()), this, SLOT(updatePopupMenu()));
@@ -101,6 +102,7 @@ void CReadWindow::updatePopupMenu(){
 
 /** Reimplementation to use the popup menu. */
 const bool CReadWindow::init( const QString& keyName ){
+	qWarning("CReadWindow::init( const QString& keyName )");
   CDisplayWindow::init(keyName);
  	setupPopupMenu();
   qWarning("CReadWindw::init: key is %s and later %s", keyName.latin1(), key()->key().latin1());

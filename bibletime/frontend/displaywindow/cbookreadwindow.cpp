@@ -103,6 +103,7 @@ void CBookReadWindow::initView(){
 
 /** Reimplementation. */
 void CBookReadWindow::setupPopupMenu(){
+	qWarning("CBookReadWindow::setupPopupMenu()");
 	CLexiconReadWindow::setupPopupMenu();
 }
 
