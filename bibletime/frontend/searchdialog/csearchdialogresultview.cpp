@@ -346,11 +346,12 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 
 //------------class CSearchDialofResultView-----------//
 CSearchDialogResultView::CSearchDialogResultView(CImportantClasses* importantClasses, QWidget *parent, const char *name)
-	: QListBox(parent,name) {
-	m_important = importantClasses;
-	m_currentItem = 0;
-	m_module = 0;
-	
+	: QListBox(parent,name),
+	m_important(importantClasses),
+	m_currentItem(0),
+	m_module(0),
+	m_pressedPos()
+{
 	initView();
 	initConnections();
 }
@@ -375,7 +376,7 @@ void CSearchDialogResultView::setupTree() {
 void CSearchDialogResultView::initConnections() {
 	connect(m_popup, SIGNAL(aboutToShow()),
 		this, SLOT(popupAboutToShow()));
-	connect(this, SIGNAL(currentChanged(QListBoxItem*)),
+	connect(this, SIGNAL(pressed(QListBoxItem*)),
 		this, SLOT(mousePressed(QListBoxItem*)));	
 	connect(this, SIGNAL(rightButtonPressed(QListBoxItem*, const QPoint&)),
 		this, SLOT(rightButtonPressed(QListBoxItem*, const QPoint&)));
@@ -412,30 +413,31 @@ void CSearchDialogResultView::popupAboutToShow(){
 
 /**  */
 void CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e){
-  QListBox::viewportMouseMoveEvent(e);
-
-	if ( !(e->state() & QMouseEvent::LeftButton) )
+	qDebug("CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e)");
+	if ( !(e->state() & QMouseEvent::LeftButton) ){
+	  QListBox::viewportMouseMoveEvent(e);
 		return;
+	}
 		
 	//Is it time to start a drag?
- 	if (abs(e->pos().x() - m_pressedPos.x()) > KGlobalSettings::dndEventDelay() ||
- 		abs(e->pos().y() - m_pressedPos.y()) > KGlobalSettings::dndEventDelay() ){
- 		qDebug("start a drag");
- 		if (m_currentItem) {
- 			QString mod;
- 			QString ref;
+ 	if (m_currentItem && (abs(e->pos().x() - m_pressedPos.x()) > KGlobalSettings::dndEventDelay() ||
+ 		abs(e->pos().y() - m_pressedPos.y()) > KGlobalSettings::dndEventDelay())
+ 	) {
+		QString mod;
+		QString ref;
+		mod = m_module->name();
+		ref = m_currentItem->text();
 
- 			mod = m_module->name();
- 			ref = m_currentItem->text();
-
- 			QTextDrag *d = new QTextDrag(CReferenceManager::encodeReference(mod,ref), viewport());
- 			if (d){
- 				d->setSubtype(REFERENCE);
- 				d->setPixmap(REFERENCE_ICON_SMALL);
- 				d->drag();
- 			}
- 		}
+		QTextDrag *d = new QTextDrag(CReferenceManager::encodeReference(mod,ref), viewport());
+		if (d){
+			d->setSubtype(REFERENCE);
+			d->setPixmap(REFERENCE_ICON_SMALL);
+			d->drag();
+			return;
+		}
  	}
+  else
+  	QListBox::viewportMouseMoveEvent(e);
 }
 
 /**  */
@@ -490,8 +492,8 @@ void CSearchDialogResultView::rightButtonPressed( QListBoxItem* item, const QPoi
 
 /**  */
 void CSearchDialogResultView::mousePressed(QListBoxItem* item){
-	m_currentItem = item;
-	if (!item)
+	qDebug("CSearchDialogResultView::mousePressed(QListBoxItem* item)");
+	if (!( m_currentItem = item ))
 		return;
 	
 	QString text = QString::null;
@@ -506,7 +508,7 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 		text = key.renderedText();
 	}
 	if (!text.isEmpty())
-		emit keySelected( text  );
+		emit keySelected(text);
 }
 
 /** This slot copies the current active item into the clipboard. */
@@ -598,4 +600,11 @@ QList<QListBoxItem> CSearchDialogResultView::selectedItems(){
 		item = item->next();
 	}
 	return list;
+}
+
+/** Reimplementation to make Drag&Drop work. */
+void CSearchDialogResultView::viewportMousePressEvent( QMouseEvent* e ){
+	qDebug("CSearchDialogResultView::viewportMousePressEvent( QMouseEvent* e )");
+	m_pressedPos = e->pos();	
+	QListBox::viewportMousePressEvent(e);
 }

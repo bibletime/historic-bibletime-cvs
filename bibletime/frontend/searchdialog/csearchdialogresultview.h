@@ -129,8 +129,14 @@ protected:
 	*/
   void initConnections();
   void viewportMouseMoveEvent(QMouseEvent *e);
-  /** Returns the selected items of this listbox. */
+  /**
+  * Returns the selected items of this listbox.
+  */
   QList<QListBoxItem> selectedItems();
+  /**
+   Reimplementation to make Drag&Drop work.
+  */
+  virtual void viewportMousePressEvent( QMouseEvent* e );
 
 public slots:
   /**
