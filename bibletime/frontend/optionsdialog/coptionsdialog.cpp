@@ -183,9 +183,9 @@ void COptionsDialog::initGeneral() {
 		hBox->addWidget(m_general.sword.standardGreekStrong);
 		layout2->addLayout(hBox);
 		
-		hBox - new QHBoxLayout();
+		hBox = new QHBoxLayout();
 		m_general.sword.standardMorph = new QComboBox(page);
-		label - new QLabel(m_general.sword.standardMorph, i18n("Default Morphological Text"), page);
+		label = new QLabel(m_general.sword.standardMorph, i18n("Default Morphological Text"), page);
 		QToolTip::add(m_general.sword.standardMorph, TT_OD_SWORD_STANDARD_MORPH);
 		QWhatsThis::add(m_general.sword.standardMorph, WT_OD_SWORD_STANDARD_MORPH);
 		hBox->addWidget(label);
