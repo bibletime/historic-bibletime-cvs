@@ -110,7 +110,16 @@ void CSwordPresenter::lookupWord(int moduleID){
 }
 
 /** Look up the key given as parameter. */
-void CSwordPresenter::lookup(const QString&, const QString&){
+void CSwordPresenter::lookup(const QString& module, const QString& key){
+//	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+//	if (m && m_moduleList.containsRef(m)) {
+//		if (!key.isEmpty())
+//			m_key->key(key);
+//		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
+//	}
+//	else {
+//		emit lookupInModule(module, key);
+//	}
 }
 
 /** Returns the listof used modules. */
@@ -236,4 +245,9 @@ void CSwordPresenter::refresh(){
 	m_displayOptions = CBTConfig::getAllDisplayOptionDefaults();
 
 	m_displaySettingsButton->reset(m_moduleList);
+}
+
+/** Is called when a reference was dropped on this window. */
+void CSwordPresenter::referenceDropped(const QString& ref){
+	lookup(m_moduleList.first()->name(), ref);
 }

@@ -121,6 +121,9 @@ void CCommentaryPresenter::initView(){
 void CCommentaryPresenter::initConnections(){
 	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
 		this, SLOT(lookup(const QString&, const QString&))); 	 	
+	connect(m_htmlWidget, SIGNAL(referenceDropped(const QString&)),
+		this, SLOT(referenceDropped(const QString&)));
+
 	connect(m_htmlWidget, SIGNAL(sigDeleteDocument()),
 		this, SLOT(deleteText())); 	 	
 	connect(m_htmlWidget, SIGNAL(sigSaveDocument(const QString)),
@@ -240,27 +243,15 @@ void CCommentaryPresenter::editComment(){
 
 /** Reimplementation. */
 void CCommentaryPresenter::lookup(const QString& module, const QString& key){
-	bool found = false;
-	for (m_moduleList.first(); m_moduleList.current() && !found; m_moduleList.next()) {
-  	found = (m_moduleList.current()->name() == module); //found			
-	}
-	if (found) {
+	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+	if (m && m_moduleList.containsRef(m)) {
 		if (!key.isEmpty())
-			m_key->key(key);		
+			m_key->key(key);
 		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
 	}
 	else {
 		emit lookupInModule(module, key);
 	}
-
-//	if (module == m_module->name()) {
-//		if (!key.isEmpty())
-//			m_key->key(key);
-//		m_keyChooser->setKey(m_key); //the key chooser send an update signal			
-//	}
-//	else {
-//		emit lookupInModule( module, key );
-//	}
 }
 
 /** No descriptions */
@@ -476,4 +467,16 @@ void CCommentaryPresenter::previousVerse(){
 /** Toggles the synchronize button. */
 void CCommentaryPresenter::toggleSynchronize(){
 	presenterSync_action->setChecked( !presenterSync_action->isChecked() );
+}
+
+/** Stores some Bible window dpecific setttings in the profile. */
+void CCommentaryPresenter::storeSettings( CProfileWindow* settings ){
+	CSwordPresenter::storeSettings(settings);
+	settings->setWindowSettings( presenterSync_action->isChecked() );	
+}
+
+/** Applies some Bible window specific setttings. */
+void CCommentaryPresenter::applySettings( CProfileWindow* settings ){
+	CSwordPresenter::applySettings(settings);
+	presenterSync_action->setChecked(settings->windowSettings() == 1);
 }

@@ -49,7 +49,9 @@ public:
   * Inserts the actions used by this display window type into the given KAccel object.
   */
   static void insertKeyboardActions(KAccel* a);
-	
+	void storeSettings( CProfileWindow* settings );
+	void applySettings( CProfileWindow* settings );
+
 public slots: // Public slots
   /**
   * Saves the given text in the module.

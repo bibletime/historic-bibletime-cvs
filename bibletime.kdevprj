@@ -1898,9 +1898,21 @@ sub_dirs=16*16,32*32,22*22,
 type=normal
 
 [bibletime/printing/Makefile.am]
-files=bibletime/printing/cprinterdialog.cpp,bibletime/printing/cprinterdialog.h,bibletime/printing/cprinter.cpp,bibletime/printing/cprinter.h,bibletime/printing/cstyleeditordialog.cpp,bibletime/printing/cstyleeditordialog.h,bibletime/printing/cstyle.cpp,bibletime/printing/cstyle.h,bibletime/printing/cprintitem.cpp,bibletime/printing/cprintitem.h,bibletime/printing/cprintitemlist.cpp,bibletime/printing/cprintitemlist.h,bibletime/printing/cstylelist.cpp,bibletime/printing/cstylelist.h,bibletime/printing/cstyleformat.cpp,bibletime/printing/cstyleformat.h,bibletime/printing/cstyleformatframe.cpp,bibletime/printing/cstyleformatframe.h,
+files=bibletime/printing/cprinter.cpp,bibletime/printing/cprinter.h,bibletime/printing/cstyleeditordialog.cpp,bibletime/printing/cstyleeditordialog.h,bibletime/printing/cstyle.cpp,bibletime/printing/cstyle.h,bibletime/printing/cprintitem.cpp,bibletime/printing/cprintitem.h,bibletime/printing/cprintitemlist.cpp,bibletime/printing/cprintitemlist.h,bibletime/printing/cstylelist.cpp,bibletime/printing/cstylelist.h,bibletime/printing/cstyleformat.cpp,bibletime/printing/cstyleformat.h,bibletime/printing/cstyleformatframe.cpp,bibletime/printing/cstyleformatframe.h,bibletime/printing/cprintdialogpages.cpp,bibletime/printing/cprintdialogpages.h
 sub_dirs=
 type=static_library
+
+[bibletime/printing/cprintdialogpages.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/printing/cprintdialogpages.h]
+dist=true
+install=false
+install_location=
+type=HEADER
 
 [bibletime/printing/cprinter.cpp]
 dist=true
@@ -1909,18 +1921,6 @@ install_location=
 type=SOURCE
 
 [bibletime/printing/cprinter.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[bibletime/printing/cprinterdialog.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[bibletime/printing/cprinterdialog.h]
 dist=true
 install=false
 install_location=

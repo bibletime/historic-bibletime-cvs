@@ -57,7 +57,7 @@ public:
 	* @param importantClasses The pointre to the CImportantClasses pointer
 	* @param useColorsAndFonts Set this to false if you don't want to use the standard colorsa dnfonts defined in the optionsdialog of BibleTime
 	*/
-	CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts = true,QWidget *parent=0, const char *name=0);
+	CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts = true, QWidget *parent=0, const char *name=0);
 	virtual ~CHTMLWidget();
   /**
  	* Reinitialize the colors, fonts etc.
@@ -281,7 +281,11 @@ signals: // Signals
 	/**
 	* First parameter is the module, the second the key.
 	*/
-  void referenceClicked(const QString&, const QString&);
+  void referenceClicked(const QString& module, const QString& key);
+	/**
+	* First parameter is the module, the second the key.
+	*/
+  void referenceDropped(const QString& key);
   void linkClicked(const QString&);
 	void insertReference(const QString& reference);
 };

@@ -26,12 +26,11 @@
 #include <kaction.h>
 #include <kiconloader.h>
 
-CStyleList::CStyleList(styleItemList* items, QWidget *parent, const char *name ) : KListView(parent,name) {
-	m_items = items;
-	m_styleCombo = 0;
-	initView();
-	
-	setItems(items);	
+CStyleList::CStyleList(CPrinter* printer, styleItemList* items, QWidget *parent, const char *name )
+	: KListView(parent,name), m_items(items), m_printer(printer)
+{
+	initView();	
+	setItems(m_items);	
 }
 
 CStyleList::~CStyleList(){
@@ -149,26 +148,10 @@ void CStyleList::deleteCurrentStyle(){
 	}
 }
 
-/** Sets the combo box which contains the style names. */
-void CStyleList::setStyleComboBox( QComboBox* combo ){
-	m_styleCombo = combo;
-	
-	updateStyleCombo();
-}
-
 /** Updates the style combo box. */
 void CStyleList::updateStyleCombo(){
-	if (!m_styleCombo)
-		return;
-		
-	m_styleCombo->clear();
-	ASSERT(m_items);
-	for (m_items->first(); m_items->current(); m_items->next()) {
-		//insert name of style into combobox
-		ASSERT(m_items);
-		if (m_items->current())
-			m_styleCombo->insertItem( m_items->current()->getStyleName() );	
-	};
+	if (m_printer)
+		m_printer->emitStylesChanged();
 }
 
 /** Returns a pointer to our list */

@@ -153,13 +153,14 @@ void CSearchDialogResultModuleView::printSearchResult(){
 		
 	QProgressDialog progress( "Printing search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);
+	progress.setMinimumDuration(0);
 	
 	const int count = searchResult.Count();
 	QString text;
 	const CSwordModuleInfo::type type = m_currentModule->getType();
 	for (int index = 0; index < count; ++index) {
 		progress.setProgress(index);
-		KApplication::kApplication()->processEvents(10); //do not lock the GUI!				
+		KApplication::kApplication()->processEvents(); //do not lock the GUI!				
 		if ( progress.wasCancelled() )
 			break;
 		SWKey* key = searchResult.GetElement(index);
@@ -169,15 +170,10 @@ void CSearchDialogResultModuleView::printSearchResult(){
 		
 		CPrintItem*	printItem = new CPrintItem();
 		printItem->setModule(m_currentModule);		
-		if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary ) {	//a bible or a commentary
-			CSwordVerseKey* verseKey = new CSwordVerseKey(m_currentModule); 	//the key is deleted by the CPrintItem
-			verseKey->key(text);
-			printItem->setStartKey(verseKey);
-		}
-		else if (type == CSwordModuleInfo::Lexicon) {	//a lexicon
-			CSwordLDKey* ldKey = new CSwordLDKey(m_currentModule);	//the key is deleted by the CPrintItem
-			ldKey->key(text);
-			printItem->setStartKey(ldKey);
+		CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
+		if (key) {
+			newKey->key(text);
+			printItem->setStartKey(newKey);		
 		}
 		m_important->printer->addItemToQueue( printItem );
 	}
@@ -199,7 +195,8 @@ void CSearchDialogResultModuleView::slotCopySearchResult(){
 	ListKey& searchResult = m_currentModule->getSearchResult();
 	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
-		
+	progress.setMinimumDuration(0);
+			
 	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
 	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 	
@@ -212,7 +209,7 @@ void CSearchDialogResultModuleView::slotCopySearchResult(){
 			return;
 		if (!key )
 			break;
-		text += QString("%1\n").arg(QString::fromLocal8Bit( (const char*)*key ));
+		text += QString::fromLatin1("%1\n").arg(QString::fromLocal8Bit( (const char*)*key ));
 	}
 	progress.setProgress(searchResult.Count());
 	KApplication::clipboard()->setText(text);	
@@ -237,6 +234,8 @@ void CSearchDialogResultModuleView::slotSaveSearchResult(){
 	QProgressDialog progress( "Saving search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.show();
 	progress.setProgress(0);	
+	progress.setMinimumDuration(0);
+	
 	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
 	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 	
@@ -270,10 +269,16 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 	ListKey& searchResult = m_currentModule->getSearchResult();
 	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
+	progress.setMinimumDuration(0);
+		
 	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
 	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 	const int count = searchResult.Count();
-	const CSwordModuleInfo::type type = m_currentModule->getType();
+	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
+	if (!newKey) {
+		qWarning("CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(): unknown module");
+		return;
+	}
 	for (int index = 0; index < count; index++) {		
 		progress.setProgress(index);
 		KApplication::kApplication()->processEvents(10); //do not lock the GUI!									
@@ -282,18 +287,11 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 		SWKey* key = searchResult.GetElement(index);
 		if (!key)
 			break;		
-			
-		if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary) {
-			CSwordVerseKey vKey(m_currentModule);
-			vKey.key(QString::fromLocal8Bit((const char*)*key));
-			text += QString("%1:\n\t%2\n").arg( vKey.key() ).arg( vKey.strippedText() );
-		}
-		else if (type == CSwordModuleInfo::Lexicon) {
-			CSwordLDKey ldKey(m_currentModule);
-			ldKey.key(QString::fromLocal8Bit((const char*)*key));
-			text += QString("%1:\n\t%2\n").arg( ldKey.key() ).arg( ldKey.strippedText() );
-		}		
+		newKey->key((const char*)*key);
+		text += QString::fromLatin1("%1:\n\t%2\n").arg( newKey->key() ).arg( newKey->strippedText() );
 	}
+	if (newKey)
+		delete newKey;
 	KApplication::clipboard()->setText(text);	
 }
 
@@ -315,12 +313,19 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 	ListKey& searchResult = m_currentModule->getSearchResult();
 	QProgressDialog progress( "Saving...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
+	progress.setMinimumDuration(0);
+		
 	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
 	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 
 	const int count = searchResult.Count();
 	const CSwordModuleInfo::type type = m_currentModule->getType();
-		
+
+	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);	//all keysof the result have the same type
+	if (!newKey) {
+		qWarning("CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext: unknown module");
+		return;
+	}
 	for (int index = 0; index < count; index++) {		
 		SWKey* key = searchResult.GetElement(index);
 		progress.setProgress(index);
@@ -329,17 +334,12 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 		KApplication::kApplication()->processEvents(10); //do not lock the GUI!							
 		if (!key)
 			break;
-		if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary) {
-			CSwordVerseKey vKey(m_currentModule);
-			vKey.key(QString::fromLocal8Bit((const char*)*key));
-			text += QString("%1:\n\t%2\n").arg( vKey.key() ).arg( vKey.strippedText() );			
-		}
-		else if (type == CSwordModuleInfo::Lexicon) {
-			CSwordLDKey ldKey(m_currentModule);
-			ldKey.key(QString::fromLocal8Bit((const char*)*key));
-			text += QString("%1:\n\t%2\n").arg( ldKey.key() ).arg( ldKey.strippedText() );
-		}		
+
+		newKey->key( (const char*)*key );
+		text += QString::fromLatin1("%1:\n\t%2\n").arg( newKey->key() ).arg( newKey->strippedText() );
 	}	
+	if (newKey)
+		delete newKey;	
 	progress.setProgress(searchResult.Count());
 	CToolClass::savePlainFile( file, text);
 }
@@ -417,7 +417,7 @@ void CSearchDialogResultView::popupAboutToShow(){
 
 /**  */
 void CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e){
-	qDebug("CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e)");
+//	qDebug("CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e)");
 	if ( !(e->state() & QMouseEvent::LeftButton) ){
 	  QListBox::viewportMouseMoveEvent(e);
 		return;
@@ -425,8 +425,8 @@ void CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e){
 		
 	//Is it time to start a drag?
  	if (m_currentItem && (abs(e->pos().x() - m_pressedPos.x()) > KGlobalSettings::dndEventDelay() ||
- 		abs(e->pos().y() - m_pressedPos.y()) > KGlobalSettings::dndEventDelay())
- 	) {
+ 		abs(e->pos().y() - m_pressedPos.y()) > KGlobalSettings::dndEventDelay()) )
+ 	{
 		QString mod;
 		QString ref;
 		mod = m_module->name();
@@ -450,19 +450,13 @@ void CSearchDialogResultView::printItem() {
 		return;
 	QList<QListBoxItem> list = selectedItems();
 	for (list.first(); list.current(); list.next()) {
-		CPrintItem*	printItem = new CPrintItem();
-		if ( m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {	//a bible or a commentary
-			CSwordVerseKey* verseKey = new CSwordVerseKey(m_module); 	//the key is deleted by the CPrintItem
-			verseKey->key( list.current()->text() );
-			printItem->setStartKey(verseKey);
-			printItem->setStopKey(verseKey);
+		CPrintItem*	printItem = new CPrintItem();		
+		CSwordKey* key = CSwordKey::createInstance(m_module); //deleted by the CPrintItem
+		if (key) {
+			key->key( list.current()->text() );
+			printItem->setStartKey(key);
+			printItem->setStopKey(key);			
 		}
-		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {	//a lexicon
-			CSwordLDKey* ldKey = new CSwordLDKey(m_module);	//the key is deleted by the CPrintItem
-			ldKey->key( list.current()->text() );
-			printItem->setStartKey(ldKey);
-			printItem->setStopKey(ldKey);	
-		}	
 		printItem->setModule(m_module);		
 		m_important->printer->addItemToQueue( printItem );
 	}
@@ -525,12 +519,7 @@ void CSearchDialogResultView::slotCopyCurrentWithKeytext(){
 	QString text;
 	QString keyText, keyName;
 	for (list.first(); list.current(); list.next()) {
-		CSwordKey* key = 0;
-		if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary)
-			key = new	CSwordVerseKey(m_module);
-		else if (m_module->getType() == CSwordModuleInfo::Lexicon)
-			key = new CSwordLDKey(m_module);
-		
+		CSwordKey* key = CSwordKey::createInstance(m_module);
 		if (!key)
 			continue;
 			

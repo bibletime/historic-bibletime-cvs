@@ -34,7 +34,7 @@ class QComboBox;
 class CStyleList : public KListView  {
    Q_OBJECT
 public:
-	CStyleList(styleItemList* items, QWidget *parent=0, const char *name=0);
+	CStyleList(CPrinter* printer, styleItemList* items, QWidget *parent=0, const char *name=0);
 	~CStyleList();
   /**
  	* Initilizes the view.
@@ -56,10 +56,6 @@ public:
  	* Appends the item to the list and m_items.
  	*/
   void insertItem( CStyle* item);
-  /**
- 	* Sets the combo box which contains the style names.
- 	*/
-  void setStyleComboBox( QComboBox* );
   /**
  	*
  	*/
@@ -83,7 +79,8 @@ private:
 	styleItemList* m_items;
 	QGuardedPtr<KAction> editStyle_action;
 	QGuardedPtr<KAction> deleteStyle_action;
-	QGuardedPtr<QComboBox>	m_styleCombo;	
+//	QGuardedPtr<QComboBox>	m_styleCombo;	
+	CPrinter* m_printer;
   /**
  	* Updates the combo box listing the styles being available.
  	*/

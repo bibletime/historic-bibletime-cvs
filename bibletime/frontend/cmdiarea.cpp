@@ -238,22 +238,21 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 	CSwordPresenter* p = 0;
 
 	bool found = false;	
-//	QWidgetList windows = windowList();	
+	QWidgetList windows = windowList();	
 //	if (!windows.count())
 //		return;
-//	bool found = false;
-//	for (windows.first(); windows.current(); windows.next()) {
-//		p = dynamic_cast<CLexiconPresenter*>(windows.current());
-//		if (p && (m == p->getModuleList().first())) {
-////			qWarning("found");
-//			found = true;
-//			break;
-//		}
-//	}
+	for (windows.first(); windows.current(); windows.next()) {
+		p = dynamic_cast<CSwordPresenter*>(windows.current());
+		if (p && (p->getModuleList().containsRef(m))) {
+			qWarning("found");
+			found = true;
+			break;
+		}
+	}
 	if (!found)
 		emit createNewSwordPresenter(m, key);
-//	else
-//		p->lookup(text);
+	else
+		p->lookup(module, key);
 }
 /** Closes and deletes the presenter given as argument. */
 void CMDIArea::closePresenter(CSwordPresenter* p){

@@ -46,7 +46,7 @@
 
 
 CPrintItem::CPrintItem() : 	
-	m_listViewItem(0), m_module(0),m_style(0),	m_startKey(0),m_stopKey(0),
+	m_listViewItem(0), m_module(0),m_style(0),m_startKey(0),m_stopKey(0),
 	m_headerText(QString::null),m_description(QString::null),m_moduleText(QString::null)
 {
 

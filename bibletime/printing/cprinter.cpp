@@ -16,10 +16,10 @@
  ***************************************************************************/
 
 #include "cprinter.h"
-#include "cprinterdialog.h"
 #include "cprintitem.h"
 #include "cstyleformat.h"
 #include "cstyleformatframe.h"
+#include "cprintdialogpages.h"
 
 #include "../backend/cswordbackend.h"
 #include "../backend/cswordversekey.h"
@@ -52,112 +52,40 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 	m_styleList = new styleItemList;
 	m_styleList->setAutoDelete(true);		
 			
+	{
+		KConfigGroupSaver gs(config, "Options");	
+		QMap<QString, QString> map = config->entryMap("Options");
+		setOptions(map);
+	}
 	readSettings();
 	setupStyles();
 	setupStandardStyle();		
 }
 
 CPrinter::~CPrinter(){
-	saveSettings();	
+	saveSettings();
+	saveStyles();	
 	config->sync();		
 	delete config;	
 	if (m_queue)
 		delete m_queue;
 	delete m_styleList;
-	
-	for ( QStringList::Iterator it = m_createdFiles.begin(); it != m_createdFiles.end(); ++it ) {
-		if (QFile::exists(*it))
-			QFile::remove(*it);
-	}
-}
-
-/** Returns the path to the preview application. */
-const QString& CPrinter::getPreviewApplication() const {
-	return m_previewApplication;
-}
-
-/**  */
-void CPrinter::setPreviewApplication( const QString& app){
-	m_previewApplication = app;
-}
-
-/** Returns the right margin. */
-const unsigned int CPrinter::rightMarginMM() const {
-	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();	
-	return (int)((float)m_pageMargin.right / r);
 }
 
 const unsigned int CPrinter::rightMargin() const {
 	return m_pageMargin.right;
 }
 
-/** Sets the right margin. */
-void CPrinter::setRightMarginMM( const unsigned int margin ){
-	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();
-	
-	m_pageMargin.right = (int)((float)margin*r);
-}
-
-/** Returns the left margin. */
-const unsigned int CPrinter::leftMarginMM() const {
-	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();
-	
-	return (int)((float)m_pageMargin.left / r);
-}
-
 const unsigned int CPrinter::leftMargin() const {
 	return m_pageMargin.left;
-}
-
-/** Sets the left margin. */
-void CPrinter::setLeftMarginMM( const unsigned int margin ){
-	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();
-	
-	m_pageMargin.left = (int)((float)margin*r);
-}
-
-/** Returns the right margin. */
-const unsigned int CPrinter::upperMarginMM() const {
-	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();
-	
-	return (int)((float)m_pageMargin.top / r);
 }
 
 const unsigned int CPrinter::upperMargin() const {
 	return m_pageMargin.top;
 }
 
-/** Sets the right margin. */
-void CPrinter::setUpperMarginMM( const unsigned int margin ){
-	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();
-	
-	m_pageMargin.top = (int)((float)margin*r);
-}
-
-/** Returns the right margin. */
-const unsigned int CPrinter::lowerMarginMM() const {
-	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();
-	
-	return (int)((float)m_pageMargin.bottom / r);
-}
-
 const unsigned int CPrinter::lowerMargin() const {
 	return m_pageMargin.bottom;
-}
-
-/** Sets the right margin. */
-void CPrinter::setLowerMarginMM( const unsigned int margin ){
-	QPaintDeviceMetrics m(this);
-	const float r = (float)m.width() / m.widthMM();
-	
-	m_pageMargin.bottom = (int)((float)margin*r);
 }
 
 /** Appends a new page where the next things will be painted. */
@@ -166,7 +94,7 @@ const bool CPrinter::newPage(){
 		qWarning("CPrinter::newPage: Printing was aborted!");
 		return false;
 	}
-	bool result = QPrinter::newPage();
+	const bool result = KPrinter::newPage();
 	if (result) {
 		m_pagePosition.curPage++;
 	 	m_pagePosition.rect = getPageSize();			
@@ -186,100 +114,54 @@ CPrinter::CPageMargin CPrinter::getPageMargins(){
 
 /** Setups the printer using CPrinterDialog. */
 void CPrinter::setup( QWidget* parent ){
-	CPrinterDialog* dlg = new CPrinterDialog( this, parent, "printerdialog");
-	dlg->exec();
-	delete dlg;
-}
+	CPrintItemListPage* printItemPage = new CPrintItemListPage(this);
+	KPrinter::addDialogPage(printItemPage);
 
-/** Set to true if you want to open the printed things in the preview application. */
-void CPrinter::setPreview( const bool usePreview ){
-	m_usePreview = usePreview;
-}
+	CStyleListPage* stylePage = new CStyleListPage(this);
+	KPrinter::addDialogPage(stylePage);
 
-/** Returns true if we use the preview mechanism. */
-bool CPrinter::getPreview(){
-	return m_usePreview;
-}
-
-/** draws a header on the page. */
-void CPrinter::drawHeader(QPainter */*paint*/, const int /*sx*/, const int /*width*/, const int /*y*/, const CPrinter::CHeaderType /*type*/, const CPrinter::CPageHeader /*header*/, const CPrinter::CPagePosition /*position*/){
-}
-
-/** Paints the header. */
-void CPrinter::printHeader( QPainter* /*painter*/ ){
-
-}
-
-/** Prints the footer. */
-void CPrinter::printFooter( QPainter* /*painter*/ ){
-}
-
-/** Sets the status of the page header. */
-void CPrinter::setPageHeader( const bool /*enableHeader*/, CPageHeader /*header*/){
-
-}
-
-/** Sets the status of the page header. */
-void CPrinter::setPageFooter( const bool /*enableFooter*/, CPageHeader /*footer*/){
+	if ( KPrinter::setup(parent) ) {
+		saveSettings();
+		readSettings();
+		printQueue();
+	}
 }
 
 /** Starts printing the items. */
 void CPrinter::printQueue(){
 	qDebug("CPrinter::printQueue()");
-	/**
-	* Go throgh the items of our print queue and print the items using the function printItem,
-	* which takes care for margings, styles etc.
-	*/
-	if ( getPreview() ){//print a preview
-		KRandomSequence r;
-		const QString s = QString::fromLatin1("/tmp/") + KApplication::randomString(8) + QString::fromLatin1(".ps");
-		setOutputFileName( s );
-		m_createdFiles.append(s);
-	}
-	
+
 	emit printingStarted();
 	QPainter p;
 	if (!p.begin(this)) {
 		p.end();
 		return;
 	}	
+
 	CSwordKey* key = 0;	
-	m_pagePosition.rect = getPageSize();
-	for (int page = 1; page <= numCopies() && !aborted(); ++page) {	//make numCopies() copies of the pages
+	for (int copy = 0; copy < numCopies() && !aborted(); copy++) {	//make numCopies() copies of the pages
 		for (m_queue->first(); m_queue->current() && !aborted(); m_queue->next()) {
-			KApplication::kApplication()->processEvents(2); //do not lock the GUI!
+			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
 			if (!aborted())
 				m_queue->current()->draw(&p,this);
-			key = m_queue->current()->getStartKey();
+//			key = m_queue->current()->getStartKey();
 			if (!aborted())
 				emit printedOneItem(key ? key->key() : QString::null, m_queue->at()+1);
 		};
-		if (!aborted() && (page < numCopies()) )
+		if (!aborted() && (copy+1 < numCopies()) ) {
 			newPage();	//new pages seperate copies
+		}
 	}
 	emit printingFinished();
 	
-	if (!getPreview()) //don't clear if preview was chosen
-		clearQueue();
-		
-	if ( !aborted() && getPreview() ) {
-		if (p.isActive())
-			p.end();
-		KProcess process;
-		process << getPreviewApplication();
-		process << outputFileName();
-		process.start(KProcess::DontCare);
-	}	
+	clearQueue();
 }
 
 /** Appends items to the printing queue. */
 void CPrinter::appendItemsToQueue( printItemList* items ){
 	for(items->first(); items->current(); items->next()) {
-		ASSERT( items->current() );
 		m_queue->append(items->current());
 	}
-	if (m_queue->count() == 1)
-		emit addedFirstQueueItem();	
 }
 
 /**  */
@@ -304,16 +186,9 @@ void CPrinter::setPrintQueue( printItemList* queue ){
 
 /** Appends the item o the queue. */
 void CPrinter::addItemToQueue(CPrintItem* newItem){
-	qDebug("CPrinter::addItemToQueue(CPrintItem* newItem)");
-	ASSERT(m_styleList);
 	if (!newItem)
 		return;
-	for (m_styleList->first(); m_styleList->current(); m_styleList->next()) {
-		if (m_styleList->current()->getStyleName() == i18n("Standard")) {
-			newItem->setStyle(m_styleList->current());
-			break;
-		}
-	}
+	newItem->setStyle(m_standardStyle);
 	m_queue->append(newItem );
 	if (m_queue->count() == 1)
 		emit addedFirstQueueItem();
@@ -327,15 +202,16 @@ void CPrinter::setupStyles(){
 	QStringList list = config->readListEntry("styles");
 	CStyle* dummyStyle = 0;
 	
-	QString names[3];
-	names[0] = "HEADER";
-	names[1] = "DESCRIPTION";
-	names[2] = "MODULETEXT";
-	
-	CStyle::styleType formatTypes[3];
-	formatTypes[0] = CStyle::Header;
-	formatTypes[1] = CStyle::Description;
-	formatTypes[2] = CStyle::ModuleText;
+	const	QString names[3] = {
+		"HEADER",
+		"DESCRIPTION",
+		"MODULETEXT"
+	};
+	const CStyle::styleType formatTypes[3] = {
+		CStyle::Header,
+		CStyle::Description,
+		CStyle::ModuleText
+	};
 							
 	
 	for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )	{
@@ -362,7 +238,7 @@ void CPrinter::setupStyles(){
 			const bool hasFrame = config->readBoolEntry( "has frame", false );
 			
 			CStyleFormatFrame* frame = format[index]->getFrame();
-			ASSERT(frame);
+//			ASSERT(frame);
 			if (frame) {
 				config->setGroup(QString("%1__%2__FRAME").arg(*it).arg(names[index]));
 				frame->setColor( config->readColorEntry("Color", &Qt::black) );
@@ -392,7 +268,7 @@ void CPrinter::saveStyles(){
 		*		...
 		*
 		*/
-	ASSERT(config);
+//	ASSERT(config);
 	
 	//save list of styles
 	{
@@ -416,7 +292,7 @@ void CPrinter::saveStyles(){
 	names[2] = "MODULETEXT";
 	
 	for (m_styleList->first(); m_styleList->current(); m_styleList->next()) {
-		ASSERT(m_styleList->current());
+//		ASSERT(m_styleList->current());
 		config->setGroup(m_styleList->current()->getStyleName());
 		CStyle*	current = m_styleList->current();
 				
@@ -449,43 +325,36 @@ void CPrinter::saveStyles(){
 
 /**  */
 void CPrinter::readSettings(){
-	KConfigGroupSaver gs(config, "Settings");	
+	KConfigGroupSaver gs(config, "Settings");
+	const QString leading = "kde-bibletime-";
+		
 	setFullPage(true);
-	
-	setPrinterName(config->readEntry("Printer", "lp"));		
-	
 	m_pagePosition.curPage = 1;
 	m_pagePosition.rect = getPageSize();
 
 	QPaintDeviceMetrics m(this);
 	const float r = (float)m.width() / m.widthMM();		
-	m_pageMargin.left 	= config->readNumEntry("left margin", 15*r);
-	m_pageMargin.right 	= config->readNumEntry("right margin",15*r);
-	m_pageMargin.top 		= config->readNumEntry("upper margin",15*r);
-	m_pageMargin.bottom	= config->readNumEntry("lower margin",15*r);
+	m_pageMargin.left 	= (int)(r * config->readNumEntry("Left margin", 15));
+	setOption(leading+"left_margin", QString::number(config->readNumEntry("Left margin", 15)));
 	
-	m_printIntoFile = config->readBoolEntry("Print to file", false);
-	m_filename = config->readEntry("Filename", QString::null);
-	
-	setNumCopies(1);
-	
-	setPageSize( (QPrinter::PageSize)config->readNumEntry("Paper size", 5) );	//default is A4
-	setPreviewApplication( config->readEntry("preview application", "kghostview") );
+	m_pageMargin.right 	= (int)(r * config->readNumEntry("Right margin", 15));
+	setOption(leading+"right_margin", QString::number(config->readNumEntry("Right margin", 15)));
+		
+	m_pageMargin.top 		= (int)(r * config->readNumEntry("Top margin", 15));
+ 	setOption(leading+"upper_margin", QString::number(config->readNumEntry("Top margin", 15)));
+		
+	m_pageMargin.bottom = (int)(r * config->readNumEntry("Bottom margin", 15));
+	setOption(leading+"lower_margin", QString::number(config->readNumEntry("Bottom margin", 15)));		
 }
 
 /**  */
-void CPrinter::saveSettings(){
-	config->setGroup("Settings");
-	config->writeEntry("Filename", m_filename);	
-	config->writeEntry("Paper size", (int)pageSize());
-	config->writeEntry("Printer", printerName());
-	config->writeEntry("upper margin", m_pageMargin.top);
-	config->writeEntry("lower margin", m_pageMargin.bottom);	
-	config->writeEntry("left margin", m_pageMargin.left);
-	config->writeEntry("right margin", m_pageMargin.right);	
-	config->writeEntry("preview application", getPreviewApplication());
-
-	saveStyles();
+void CPrinter::saveSettings(){	
+	const QString leading = "kde-bibletime-";
+	KConfigGroupSaver gs(config, "Settings");
+	config->writeEntry("Left margin", option(leading+"left_margin").toInt()/*m_pagePosition.left*/);
+	config->writeEntry("Right margin", option(leading+"right_margin").toInt() /*m_pagePosition.right*/);
+	config->writeEntry("Top margin", option(leading+"upper_margin").toInt()/*m_pagePosition.top*/);
+	config->writeEntry("Bottom margin", option(leading+"lower_margin").toInt()/*m_pagePosition.bottom*/);
 }
 
 /** Returns the list of styles. */
@@ -500,7 +369,7 @@ void CPrinter::setStyleList( styleItemList* list){
 
 /** Returns the page size without headers. */
 const QRect CPrinter::getPageSize() const {
-  QPaintDeviceMetrics metric( this );
+  QPaintDeviceMetrics metric( this ); //note that metric's width nd height span the whole page
   QRect r;
 
   r.setLeft( m_pageMargin.left );
@@ -523,22 +392,18 @@ void CPrinter::setupStandardStyle(){
 	for (m_styleList->first(); m_styleList->current(); m_styleList->next()) {
 		if (m_styleList->current()->getStyleName() == i18n("Standard")) {	//found the style
 			found = true;
+			m_standardStyle = m_styleList->current();
 			break;
 		}
 	}
-	
+		
 	if (!found) {
-		CStyle* standardStyle = new CStyle();		
-		standardStyle->setStyleName(i18n("Standard"));		
-		m_styleList->append( standardStyle );
+		m_standardStyle = new CStyle();		
+		m_standardStyle->setStyleName(i18n("Standard"));		
+		m_styleList->append( m_standardStyle );
 	}
 }
 
-/** Is called after the preview application was closed. */
-void CPrinter::previewFinished(KProcess*){
-	if (QFile::exists( outputFileName() ))
-		QFile::remove( outputFileName() );
-}
 /** returns the vertical position of the printer's painter. */
 const int CPrinter::getVerticalPos() const {
 	return m_pagePosition.rect.y();
@@ -547,4 +412,14 @@ const int CPrinter::getVerticalPos() const {
 /** Sets the vertical position of the printer's painter. */
 void CPrinter::setVerticalPos( const int yPos ){
 	m_pagePosition.rect.setY(yPos);
+}
+
+/** Emits the signal that the styles changed. */
+void CPrinter::emitStylesChanged(){
+	emit sigStylesChanged();
+}
+
+/** Emits the signal that the styles changed. */
+CStyle* CPrinter::standardStyle() const {
+	return m_standardStyle;
 }

@@ -93,6 +93,10 @@ public slots: // Public slots
   */
   virtual void setCaption(const QString&);
   /**
+	* Is called when a reference was dropped on this window.
+	*/
+  virtual void referenceDropped(const QString&);
+  /**
   * Inserts the action used by this display window in the given KAccel object.
   */
   static void insertKeyboardActions( KAccel* accel );

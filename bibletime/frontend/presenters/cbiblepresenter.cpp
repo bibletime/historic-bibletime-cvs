@@ -166,6 +166,9 @@ void CBiblePresenter::optionsChanged(){
 void CBiblePresenter::initConnections(){
 	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
 		this, SLOT(lookup(const QString&, const QString&))); 	
+	connect(m_htmlWidget, SIGNAL(referenceDropped(const QString&)),
+		this, SLOT(referenceDropped(const QString&)));
+
  	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()),
@@ -175,7 +178,6 @@ void CBiblePresenter::initConnections(){
 	connect(m_displaySettingsButton, SIGNAL( sigChanged() ),	
 		SLOT(optionsChanged() ));
 }
-
 
 /** No descriptions */
 void CBiblePresenter::popupAboutToShow() {
@@ -196,22 +198,15 @@ void CBiblePresenter::popupAboutToShow() {
 
 /** Reimplementation from CSwordPresenter. */
 void CBiblePresenter::lookup(const QString& module, const QString& key){
-	bool found = false;
-	for (m_moduleList.first(); m_moduleList.current() && !found; m_moduleList.next()) {
-  	found = (m_moduleList.current()->name() == module); //found			
-	}
-	if (found) {
+	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+	if (m && m_moduleList.containsRef(m)) {
 		if (!key.isEmpty())
-			m_key->key(key);		
+			m_key->key(key);
 		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
 	}
 	else {
 		emit lookupInModule(module, key);
 	}
-
-//	if (!key.isEmpty())
-//		m_key->key(key);
-//	m_keyChooser->setKey(m_key); //the key chooser send an update signal
 }
 
 /** Reimplementation. Refreshes the things which are described by the event integer. */

@@ -108,10 +108,17 @@ void CLexiconPresenter::initView(){
 /** No descriptions */
 void CLexiconPresenter::initConnections(){
 	qWarning("CLexiconPresenter::initConnections()");
-	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)), SLOT(lookup(const QString&, const QString&)));
- 	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)), SLOT(lookup(CSwordKey*)));
-	connect(m_popup, SIGNAL(aboutToShow()), SLOT(popupAboutToShow()));
-	connect(m_moduleChooserBar, SIGNAL(sigChanged()), SLOT(modulesChanged()));
+	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
+		this, SLOT(lookup(const QString&, const QString&)));
+	connect(m_htmlWidget, SIGNAL(referenceDropped(const QString&)),
+		this, SLOT(referenceDropped(const QString&)));
+
+ 	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
+		this, SLOT(lookup(CSwordKey*)));
+	connect(m_popup, SIGNAL(aboutToShow()),this,
+		SLOT(popupAboutToShow()));
+	connect(m_moduleChooserBar, SIGNAL(sigChanged()), this,
+		SLOT(modulesChanged()));
 //	connect(m_displaySettingsButton, SIGNAL( sigChanged() ),SLOT(optionsChanged() ));
 }
 
@@ -153,14 +160,10 @@ void CLexiconPresenter::popupAboutToShow(){
 
 /** No descriptions */
 void CLexiconPresenter::lookup(const QString& module, const QString& key){
-	//displayed in this display window?
-	bool found = false;
-	for (m_moduleList.first(); m_moduleList.current() && !found; m_moduleList.next()) {
-  	found = (m_moduleList.current()->name() == module); //found			
-	}
-	if (found) {
+	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+	if (m && m_moduleList.containsRef(m)) {
 		if (!key.isEmpty())
-			m_key->key(key);		
+			m_key->key(key);
 		m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
 	}
 	else {

@@ -25,8 +25,10 @@
 #include "cstylelist.h"
 #include "cstyle.h"
 
+//KDE includes
+#include <kprinter.h>
+
 //Qt includes
-#include <qprinter.h>
 #include <qobject.h>
 #include <qpainter.h>
 
@@ -44,7 +46,7 @@ class CSwordBackend;
 class KConfig;
 class KProcess;
 
-class CPrinter : public QObject, public QPrinter  {
+class CPrinter : public QObject, public KPrinter  {
 	Q_OBJECT
 public:	
 	struct CPageSize {
@@ -61,41 +63,9 @@ public:
 	  unsigned int bottom;
 	 	unsigned int left;
 	};
-	struct CPageHeader
-	{
-	  enum CHeaderString
-	  {
-	    NoString = 0,
-	    DateTime,
-	    PageNumber,
-	    FreeString
-	  };
-	  enum CHeaderLine
-	  {
-	    NoLine = 0,
-	    SingleLine,
-	    Rectangle
-	  };
-	  bool enable;
-	  CHeaderString pos[2]; // left, right
-	  CHeaderLine line;
-	};	
-	enum CHeaderType {
-		header = 0,
-		footer
-	};	
-
+	
 	CPrinter( CImportantClasses* important, QObject* parent = 0 );
-	~CPrinter();
-  const unsigned int rightMarginMM() const;
-  void setRightMarginMM( const unsigned int margin );
-  const unsigned int leftMarginMM() const;
-  void setLeftMarginMM( const unsigned int margin );
-  const unsigned int upperMarginMM() const;
-  void setUpperMarginMM( const unsigned int margin );
-  const unsigned int lowerMarginMM() const;
-  void setLowerMarginMM( const unsigned int margin );
-
+	virtual ~CPrinter();
   const unsigned int rightMargin() const;
   const unsigned int leftMargin() const;
   const unsigned int upperMargin() const;
@@ -108,22 +78,6 @@ public:
   * returns the vertical position of the printer's painter.
   */
   const int getVerticalPos() const;
-  /**
- 	* Sets te preview application.
- 	*/
-  void setPreviewApplication( const QString& );
-  /**
- 	* Returns the path to the preview application.
- 	*/
-  const QString& getPreviewApplication() const;
-  /**
- 	* Prints the footer.
- 	*/
-  void printFooter( QPainter* painter );
-  /**
- 	* Paints the header.
- 	*/
-  void printHeader( QPainter* painter);
 	/**
 	* Creates a new page and positions the painter at the beginning of it.
 	*/
@@ -133,10 +87,6 @@ public:
  	*/
   CPrinter::CPageMargin getPageMargins();
   /**
-  * draws a header on the page.
-  */
-  void drawHeader(QPainter *paint, int sx, int width, int y, CPrinter::CHeaderType type, const CPrinter::CPageHeader header, const CPrinter::CPagePosition position);
-  /**
  	* Sets all the margins at one time.
  	*/
   void setAllMargins( const CPageMargin margins );
@@ -144,22 +94,6 @@ public:
  	* Setups the printer using CPrinterDialog.
  	*/
   void setup( QWidget* parent );
-  /**
- 	* Returns true if we use the preview mechanism.
- 	*/
-  bool getPreview();
-  /**
- 	* Set to true if you want to open the printed things in the preview application.
- 	*/
-  void setPreview( const bool usePreview );
-  /**
- 	* Sets the status of the page header.
- 	*/
-  void setPageHeader( const bool enableHeader, const CPageHeader header);
-  /**
- 	* Sets the status of the page footer.
- 	*/
-  void setPageFooter( bool enableFooter, CPageHeader footer);
   /**
  	* Starts printing the items.
  	*/
@@ -196,12 +130,18 @@ public:
   * Returns the config used for this printer object.
   */
   KConfig* getConfig();
+  /**
+  * Returns the standard stlye of the printer
+  */
+  CStyle* standardStyle() const;
 
 public slots: // Public slots
   /**
   * Clears the printing queue.
   */
   void clearQueue();
+  /** Emits the signal that the styles changed. */
+  void emitStylesChanged();
 
 protected:
   /**
@@ -228,18 +168,12 @@ protected:
 private:
 	CPageMargin	m_pageMargin;
 	CPagePosition	m_pagePosition;
-	CPageHeader m_pageHeader;
-	CPageHeader m_pageFooter;
-	QString m_previewApplication;
-	QString m_filename;
-	bool m_printIntoFile;
-	bool m_usePreview;
 	CSwordBackend*	m_backend;
 	CImportantClasses* m_important;
 	printItemList* m_queue;
 	styleItemList*	m_styleList;
+	CStyle* m_standardStyle;
 	KConfig* config;
-	QStringList m_createdFiles;
 
 signals: // Signals
   /**
@@ -268,12 +202,10 @@ signals: // Signals
  	* Is emmitted when the printing queue was cleared.
  	*/
   void queueCleared();
-
-private slots: // Private slots
   /**
-  * Is called after the preview application was closed.
+  * The styles changed.
   */
-  void previewFinished(KProcess*);
+  void sigStylesChanged();
 };
 
 #endif

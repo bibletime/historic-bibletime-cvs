@@ -326,7 +326,7 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 			QString ref = QString::null;
 			QString mod = QString::null;		
 	 		CReferenceManager::decodeReference(str,mod,ref);
-	 		emit referenceClicked(mod, ref);
+	 		emit referenceDropped(/*mod,*/ ref);
 		}
 		else
 			e->ignore();
