@@ -51,11 +51,13 @@ CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 	w_book->setToolTips(TT_PRESENTER_BOOK_COMBO, TT_PRESENTER_NEXT_BOOK, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_BOOK);
 	w_book->setWhatsThis(WT_PRESENTER_BOOK_COMBO, WT_PRESENTER_NEXT_BOOK, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_BOOK);
 	
-	w_chapter = new CKeyChooserWidget( m_info->chapterCount(1),true,this);		
+	qWarning("Biblekey chooser: has %i chapters",m_info->chapterCount(w_book->comboBox()->currentText()));
+  w_chapter = new CKeyChooserWidget( m_info->chapterCount(w_book->comboBox()->currentText()),true,this);		
 	w_chapter->setToolTips(TT_PRESENTER_CHAPTER_COMBO, TT_PRESENTER_NEXT_CHAPTER, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_CHAPTER);	
 	w_chapter->setWhatsThis(WT_PRESENTER_CHAPTER_COMBO, WT_PRESENTER_NEXT_CHAPTER, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_CHAPTER);		
 	
-	w_verse = new CKeyChooserWidget( m_info->verseCount(1,1),true,this);
+	qWarning("Biblekey chooser: has %i verses",m_info->verseCount(w_book->comboBox()->currentText(),1));
+  w_verse = new CKeyChooserWidget( m_info->verseCount(w_book->comboBox()->currentText(),1),true,this);
 	w_verse->setToolTips(TT_PRESENTER_VERSE_COMBO, TT_PRESENTER_NEXT_VERSE, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_VERSE);
 	w_verse->setWhatsThis(WT_PRESENTER_VERSE_COMBO, WT_PRESENTER_NEXT_VERSE, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_VERSE);
 						
@@ -105,7 +107,7 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
 
-  qWarning("setkey: %i %i:%i", bookIndex, chapter, verse);
+  qWarning("setkey: %s: %i %i:%i", m_key->book().latin1(), bookIndex, chapter, verse);
 
 	//reset the keychooser parts only if we found a valid book
 	const int count = w_book->comboBox()->count();
@@ -122,10 +124,10 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 		if (w_book->comboBox()->currentText() != m_key->book()) //necessary?
 			w_book->setItem( m_key->book() );
 		
-		w_chapter->reset(m_info->chapterCount(bookIndex), chapter-1, false);
+		w_chapter->reset(m_info->chapterCount(m_key->book()), chapter-1, false);
 //		w_chapter->adjustSize();
 		
-		w_verse->reset(m_info->verseCount(bookIndex, chapter), verse-1, false);
+		w_verse->reset(m_info->verseCount(m_key->book(), chapter), verse-1, false);
 //		w_verse->adjustSize();
 	
 		emit keyChanged(m_key);					

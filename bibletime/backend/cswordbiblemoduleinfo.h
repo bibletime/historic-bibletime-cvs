@@ -58,11 +58,17 @@ public:
  	* @return The number of verses for the given book and chapter
  	*/
   virtual const unsigned int verseCount( const unsigned int book, const unsigned int chapter );
+  virtual const unsigned int verseCount( const QString& book, const unsigned int chapter );
   /**
  	* @return The number of available chapters of the given book.
  	* @return The number of chapters for the given book
  	*/
   virtual const unsigned int chapterCount( const unsigned int book );
+  /**
+ 	* @return The number of available chapters of the given book.
+ 	* @return The number of chapters for the given book
+ 	*/
+  virtual const unsigned int chapterCount( const QString& book );
   /** Return all book of this module.
   * @return A QStringList containing the books which are available in this module.
   */

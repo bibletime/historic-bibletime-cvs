@@ -263,10 +263,9 @@ const QString CEntryDisplay::htmlReference( CSwordModuleInfo* module, const QStr
   if (linkText.isEmpty())
     return QString::null;
   else
-    return QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\"><SPAN CLASS=\"reference\" %3>%4</SPAN></A>")
+    return QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\">%3</A>")
       .arg(anchorText)
       .arg(CReferenceManager::encodeHyperlink(module->name(), keyName, CReferenceManager::typeFromModule(module->type()) ))
-      .arg(module->textDirection() == CSwordModuleInfo::RightToLeft ? QString::fromLatin1("dir=\"rtl\"") : QString::null)
       .arg(linkText);
 }
 
@@ -293,11 +292,6 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
   return finishText(text, modules, QString::null);
 }
 
-/** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
-//const QString CChapterDisplay::previewText( CSwordModuleInfo*  module, const QString& key,const QString& headerText, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions){
-//  return QString::null;
-//}
-
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
 const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const QString& chosenKey ){
   CSwordVerseKey key(modules.first());
@@ -312,30 +306,29 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
 
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key.module(m);
-    key.key(keyName); //necessary?
+    key.key(keyName);
+    const bool isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
 
-    const QString tdStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; %1 %2 %3\"")
+    const QString tdStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; %1 %2\"")
       .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
-      .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null)
-      .arg((m->textDirection() == CSwordModuleInfo::RightToLeft) ? QString::fromLatin1("alignment:right") : QString::null);
+      .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
 
-		const QString entry = QString::fromLatin1("<SPAN %1><SUP>%2</SUP> %3</SPAN>")
-                      .arg(m->isUnicode() ? QString::fromLatin1("class=\"unicodetext\"") : QString::null)
-                      .arg(m_displayOptions.verseNumbers ? htmlReference(m, key.key(), QString::number(key.Verse()), key.key())  : QString::null)
-                      .arg(key.key() == chosenKey ? QString::fromLatin1("<SPAN class=\"highlighted\">%1</SPAN>").arg(key.renderedText()) : key.renderedText());
+    const QString entry =
+      QString::fromLatin1("<SPAN %1><SPAN class=\"%2\" dir=\"%3\"><SPAN>%4</SPAN>%5%6</SPAN></SPAN>")
+        .arg((key.key() == chosenKey) ? QString::fromLatin1("class=\"highlighted\"") : QString::null)
+        .arg(m->isUnicode() ? QString::fromLatin1("unicodetext") : QString::fromLatin1("standardtext"))
+        .arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
+        .arg(m_displayOptions.verseNumbers ? QString::fromLatin1("<SUP>%1</SUP>").arg(htmlReference(m, key.key(), QString::number(key.Verse()), key.key())) : QString::null)
+        .arg(key.renderedText())
+        .arg((modules.count() == 1 && m_displayOptions.lineBreaks) ? QString::fromLatin1("<BR>") : QString::fromLatin1(" "));
 
-  	if (modules.count() == 1){
+  	if (modules.count() == 1)
 			renderedText += entry;
-			if (m_displayOptions.lineBreaks)
-				renderedText += QString::fromLatin1("<BR>"); //Use linebreaks here
-		}
   	else
-	    renderedText += QString::fromLatin1("<TD class=\"%1\" %2 %3 valign=\"top\">%4</TD>")
-//                      .arg((modules.at() % 2) == 0 ? QString::fromLatin1("background1") : QString::fromLatin1("background2") )
-                      .arg(QString::fromLatin1("background1"))
-                      .arg((m->textDirection() == CSwordModuleInfo::RightToLeft) ? QString::fromLatin1("dir=\"rtl\"") : QString::null)
-                      .arg(tdStyle)
-											.arg(entry);
+	    renderedText += QString::fromLatin1("<TD class=\"background1\" %1 dir=\"%2\" valign=\"top\">%3</TD>")
+                        .arg(tdStyle)
+                        .arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
+											  .arg(entry);
   }
 
   if (modules.count() > 1){
@@ -347,7 +340,6 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
 
 const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName) {
   CSwordModuleInfo* module = modules.first();
-  Q_ASSERT(module); //shouldn't happen
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   key->key(keyName);
 
@@ -358,8 +350,9 @@ const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordM
 
   const int columnWidth = (int)((float)100 / (float)modules.count());
 
-  QString pageStart = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY><TABLE cellspacing=\"0\" class=\"maintable\"><TR>")
-    .arg(css);
+  QString pageStart = QString::fromLatin1("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"><HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY><TABLE cellspacing=\"0\" class=\"maintable\" %2><TR>")
+    .arg(css)
+    .arg(((modules.count() == 1) && (modules.first()->textDirection() == CSwordModuleInfo::RightToLeft)) ? "dir=\"rtl\"" : "");
 
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key->module(m);
@@ -375,8 +368,9 @@ const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordM
   QString pageEnd = QString::fromLatin1("</TABLE></BODY></HTML>");
 
 	if (modules.count() == 1) // render everything into one cell. entryText leaves out the table tags.
-		return pageStart + QString::fromLocal8Bit("<TR><TD>")+ text
-					    			 + QString::fromLocal8Bit("</TD></TR>") + pageEnd;
+		return pageStart  + QString::fromLocal8Bit("<TR><TD>")
+                      + text
+					    			  + QString::fromLocal8Bit("</TD></TR>") + pageEnd;
   else  // use many cells. entryText inserts the necessary table tags.
 	 	return pageStart + text + pageEnd;
 }
@@ -386,10 +380,6 @@ const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordM
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
 const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions ) {
   qWarning("CBookDisplay::text: %s", keyName.latin1());
-  if (keyName.isNull())
-    qWarning("null");
-  if (keyName.isEmpty())
-    qWarning("empty");
 
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
@@ -398,8 +388,6 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
   util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
 	key->key(keyName);
-
-  qWarning("used key is %s", key->key().latin1());
 
 	int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
   if (displayLevel <= 1) { //don't display entries together

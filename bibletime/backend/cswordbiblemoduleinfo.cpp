@@ -101,16 +101,29 @@ QStringList* CSwordBibleModuleInfo::books() {
 /** Returns the number of chapters for the given book. */
 const unsigned int CSwordBibleModuleInfo::chapterCount(const unsigned int book) {
 	int result = 0;
- 	if ( (book >= 1) && book <= (unsigned int)staticKey.BMAX[0] && hasTestament(OldTestament)) {		//Is the book in the old testament?
- 	  result = (staticKey.books[0][book-1].chapmax);
- 	}
- 	else if ((book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(NewTestament) ) {	//is the book in the new testament?
- 	 	result = (staticKey.books[1][book-1-staticKey.BMAX[0]].chapmax);
- 	}
+//  if (m_hasOT > 0 && m_hasNT > 0) { //hasboth NT and OT
+   	if ( (book >= 1) && book <= (unsigned int)staticKey.BMAX[0] && hasTestament(OldTestament)) {		//Is the book in the old testament?
+ 	    result = (staticKey.books[0][book-1].chapmax);
+   	}
+   	else if ((book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(NewTestament) ) {	//is the book in the new testament?
+   	 	result = (staticKey.books[1][book-1-staticKey.BMAX[0]].chapmax);
+   	}
+//  }
+//  else if (m_hasOT > 0 && !m_hasNT ) { //only OT
+//
+//  }
+//  else if (!m_hasOT && m_hasNT > 0) { //only NT
+//
+//  }
 	return result;
 }
 
+const unsigned int CSwordBibleModuleInfo::chapterCount(const QString& book) {
+  return chapterCount( bookNumber(book) );
+}
+
 /** Returns the number of verses  for the given chapter. */
+
 const unsigned int CSwordBibleModuleInfo::verseCount( const unsigned int book, const unsigned int chapter ) {
 	unsigned int result = 0;
  	if (book>=1 && (book <= (unsigned int)staticKey.BMAX[0]) && hasTestament(OldTestament) ) { //Is the book in the old testament?
@@ -122,6 +135,11 @@ const unsigned int CSwordBibleModuleInfo::verseCount( const unsigned int book, c
  			result = staticKey.books[1][book-1-staticKey.BMAX[0]].versemax[chapter-1];
  	}
 	return result;
+}
+
+const unsigned int CSwordBibleModuleInfo::verseCount( const QString& book, const unsigned int chapter ) {
+  qWarning("book is %s", book.latin1());
+  return verseCount( bookNumber(book), chapter );
 }
 
 const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){

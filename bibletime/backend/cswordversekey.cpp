@@ -29,9 +29,9 @@
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) : CSwordKey(module) {
   if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module) ) {
     if (!bible->hasTestament(CSwordBibleModuleInfo::OldTestament) && bible->hasTestament(CSwordBibleModuleInfo::NewTestament))//only NT
-      VerseKey::operator = ("Matthew 1:1");
+      key("Matthew 1:1");
     else
-      VerseKey::operator = ("Genesis 1:1");
+      key("Genesis 1:1");
   }
 }
 
@@ -40,13 +40,13 @@ CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKe
 }
 
 CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(*k),CSwordKey(module) {
-  if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module) ) {
-    if (!bible->hasTestament(CSwordBibleModuleInfo::OldTestament) && bible->hasTestament(CSwordBibleModuleInfo::NewTestament))  { //only NT
-      VerseKey::operator = ("Matthew 1:1");
-    }
-    else
-      VerseKey::operator = ("Genesis 1:1");
-  }
+//  if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module) ) {
+//    if (!bible->hasTestament(CSwordBibleModuleInfo::OldTestament) && bible->hasTestament(CSwordBibleModuleInfo::NewTestament))  { //only NT
+//      VerseKey::operator = ("Matthew 1:1");
+//    }
+//    else
+//      VerseKey::operator = ("Genesis 1:1");
+//  }
 }
 
 /** Clones this object. */
@@ -105,7 +105,7 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 	}
 	if ( Testament() >= min+1 && Testament() <= max+1 && Book() <= BMAX[min] )
 		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-  qWarning("return standard book: %s", books[min][0].name);
+//  qWarning("return standard book: %s", books[min][0].name);
 	return QString::fromLocal8Bit( books[min][0].name ); //return the first book, i.e. Genesis
 }
 

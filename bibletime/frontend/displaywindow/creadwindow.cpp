@@ -105,7 +105,7 @@ const bool CReadWindow::init( const QString& keyName ){
 	qWarning("CReadWindow::init( const QString& keyName )");
   CDisplayWindow::init(keyName);
  	setupPopupMenu();
-  qWarning("CReadWindw::init: key is %s and later %s", keyName.latin1(), key()->key().latin1());
+//  qWarning("CReadWindw::init: key is %s and later %s", keyName.latin1(), key()->key().latin1());
   keyChooser()->setKey(key());
 	setReady(true);
 }
