@@ -224,17 +224,20 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
         value = "All Readings";
 			}
 			break;
-    case transliteration:
+
+		case transliteration:
       if (useICU()) {
         sword::StringList options = transliterator()->getOptionValues();
         sword::StringList::iterator it = options.begin();
-        for (int index = state; (index>0) && (it != options.end()); ++it) {
+        for (int index = state; (index > 0) && (it != options.end()); ++it) {
           --index;
         }
         value = it->c_str();
+				qWarning("setting transliteration to %s", value.c_str());
       }
       break;
-		default:		
+
+		default:
 			value = state ? "On": "Off";
 			break;
 	};

@@ -35,7 +35,7 @@ dnl Perform program name transformation
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(bibletime, 1.4beta1) dnl searches for some needed programs
+AM_INIT_AUTOMAKE(bibletime, 1.4) dnl searches for some needed programs
 
 KDE_SET_PREFIX
 KDE_USE_QT(3.0)
@@ -63,7 +63,8 @@ dnl everything to compile and run a KDE program is already checked
 
 CPPFLAGS="$CPPFLAGS -DQT_NO_ASCII_CAST -DQT_NO_COMPAT -DQT_CLEAN_NAMESPACE -Wall -I\$(top_srcdir)/ -I\$(top_srcdir)/bibletime"
 AC_CHECK_STATIC_LINKING(ac_use_static)
-AC_CHECK_SWORD(1.5.6, [$ac_use_static])
+AC_CHECK_SWORD(1.5.7, [$ac_use_static])
+AC_CHECK_CURL()
 
 dnl Chek for the used distribution
 AC_CHECK_DISTRIBUTION

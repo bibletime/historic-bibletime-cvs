@@ -110,12 +110,10 @@ void CBibleReadWindow::initKeyboardActions() {
 
 void CBibleReadWindow::initConnections(){
   CLexiconReadWindow::initConnections();
-  connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
-    this, SLOT(keyChanged(CSwordKey*)));
+  connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)), SLOT(keyChanged(CSwordKey*)));
 
-  if (m_transliterationButton) { //transliteration is not always available
-    connect(m_transliterationButton, SIGNAL(sigChanged()),
-      this, SLOT(refresh()));
+  if (m_transliterationButton) { // Transliteration is not always available
+    connect(m_transliterationButton, SIGNAL(sigChanged()), SLOT(lookup()));
   }
 }
 
@@ -130,7 +128,7 @@ void CBibleReadWindow::initView(){
 
 	if (backend()->useICU()){
 	  m_transliterationButton = new CTransliterationButton(&filterOptions(), mainToolBar());
-		mainToolBar()->insertWidget(3,m_transliterationButton->size().width(),m_transliterationButton);
+		mainToolBar()->insertWidget( 3, m_transliterationButton->size().width(), m_transliterationButton );
 	}
 }
 

@@ -489,7 +489,7 @@ void CSwordSetupDialog::initInstall(){
 
 	QLabel* installLabel = CToolClass::explanationLabel(m_installSourcePage,
 		i18n("Install/update modules - Step 1"),
-		i18n("Please choose a source and a destination. After that step click on the connect button.")
+		i18n("Please choose a source and a destination. After that step click on the connect button.<br/><b>WARNING: If you live in a persecuted country and do not wish to risk detection you should NOT use the module remote installation feature!</b>")
   );
 	layout->addMultiCellWidget(installLabel, 0,0,0,1);
 
@@ -648,9 +648,26 @@ void CSwordSetupDialog::populateInstallCombos(){
 	m_sourceCombo->clear();
 
 	BTInstallMgr::Tool::RemoteConfig::initConfig();
-  BTInstallMgr mgr;
 
-  QStringList list = BTInstallMgr::Tool::RemoteConfig::sourceList(&mgr);
+  QStringList list;
+	{
+		BTInstallMgr mgr;
+		list = BTInstallMgr::Tool::RemoteConfig::sourceList(&mgr);
+	}
+	if (!list.count()) { //add Crosswire entry
+		InstallSource is("FTP");   //default return value
+		is.caption = "Crosswire";
+		is.source = "ftp.crosswire.org";
+		is.directory = "/pub/sword/raw";
+		BTInstallMgr::Tool::RemoteConfig::addSource(&is);
+
+		BTInstallMgr mgr; //make sure we're uptodate
+		list = BTInstallMgr::Tool::RemoteConfig::sourceList(&mgr);
+
+		Q_ASSERT( list.count() > 0 );
+	}
+
+  BTInstallMgr mgr;
   for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&mgr, *it);
 		if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource(&is)) { //remote source?
@@ -688,8 +705,10 @@ void CSwordSetupDialog::populateInstallCombos(){
   }
 
 //init widget states
-	m_targetCombo->setEnabled( (m_targetCombo->count() > 0) );
-	m_installContinueButton->setEnabled( (m_sourceCombo->count() > 0) && (m_targetCombo->count() > 0) );
+m_targetCombo->setEnabled( (m_targetCombo->count() > 0) );
+m_installContinueButton->setEnabled(
+	(m_sourceCombo->count() > 0) && (m_targetCombo->count() > 0)
+);
 
 	slot_sourceSelected( m_sourceCombo->currentText() );
 }

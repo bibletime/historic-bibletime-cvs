@@ -176,12 +176,12 @@ void CDisplayWindow::reload() {
   m_moduleChooserBar->setModules(modules());
 //  qWarning("refresh(): modules changed");
 
-  qWarning("%i modules available", m_modules.count());
+  //qWarning("%i modules available", m_modules.count());
   modulesChanged();
-  qWarning("%i modules available", m_modules.count());
-  
+  //qWarning("%i modules available", m_modules.count());
+
   if (m_modules.count() > 0) {
-    qWarning("refresh(): we still have modules to lookup");
+    //qWarning("refresh(): we still have modules to lookup");
     lookup();
   }
 }

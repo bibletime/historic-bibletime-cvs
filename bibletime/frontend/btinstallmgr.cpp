@@ -35,25 +35,8 @@
 using namespace sword;
 
 const QString BTInstallMgr::Tool::LocalConfig::swordConfigFilename() {
-  Q_ASSERT( CPointers::backend()->sysconfig );
-
-//	qWarning(CPointers::backend()->globalConfPath);
-	//in Sword 1.5.7 we can use $HOME/.sword/sword.conf instead of the global ones
-//	qWarning(sword::SWVersion::currentVersion);
-
-	if ((sword::SWVersion::currentVersion > sword::SWVersion("1.5.7")) || (sword::SWVersion::currentVersion == sword::SWVersion("1.5.7"))) { // use sword.conf in HOME/.sword
-		const QString file = QString::fromLatin1("%1/.sword/sword.conf").arg(getenv("HOME"));
-		//qWarning("file is %s", file.latin1());
-		return file;
-	}
-	else if (CPointers::backend()->globalConfPath) {
-    QStringList paths = QStringList::split(":", CPointers::backend()->globalConfPath);
-    if (paths.count()) { // more than one path
-      return paths.first();
-    }
-  }
-
-  return QString::null;
+//  Q_ASSERT( CPointers::backend()->sysconfig );
+	return QString::fromLatin1("%1/.sword/sword.conf").arg(getenv("HOME"));
 }
 
 QStringList BTInstallMgr::Tool::RemoteConfig::sourceList( sword::InstallMgr* mgr ) {
@@ -301,7 +284,7 @@ void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
   KApplication::kApplication()->processEvents();
 }
 
-void BTInstallMgr::preDownloadStatus(long totalBytes, long completedBytes, const char *message) {
+void BTInstallMgr::preDownloadStatus(long totalBytes, long completedBytes, const char*) {
   emit downloadStarted( "unkown filename" );
 
 	m_completedBytes = completedBytes;

@@ -34,6 +34,7 @@ Source0:        %{name}-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
 Prefix: 	@RPM_PREFIX@
 Requires:	sword >= 1.5.7
+Requires:	curl >= 7.10
 Distribution:	%{ostype} %{osversion}
 
 %description
@@ -101,6 +102,12 @@ rm -rf $RPM_BUILD_ROOT
 %{prefix}/share/icons/*
 
 %changelog
+* Sat Dec 27 2003 Joachim Ansorg <junkmail@joachim.ansorgs.de>
+
+-We require curl 7.10 or later now
+
+-Update to BibleTime 1.4 and Sword 1.5.7
+
 * Sun Jun 22 2003 Joachim Ansorg <junkmail@joachim.ansorgs.de>
 
 -Cleanup. We require no an Sword RPM file to be installed.
