@@ -54,35 +54,24 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
     FontName = font.family();
     FontSize = CToolClass::makeLogicFontSize(font.pointSize());
   }
-	QString verseText = QString::null;	
-	QString keyName = QString::null;
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !swordModule->Error(); (*swordModule)++) {
 		verse = key.Verse();		
-		keyName = QString::fromLocal8Bit( (const char*)key );
-		verseText = QString::fromLocal8Bit((const char*)*swordModule);		
-		if (verse == currentVerse)
-			m_htmlText.append( QString("<A NAME=\"%1\" HREF=\"sword://%2\">%3</A><FONT COLOR=\"%4\" FACE=\"%5\" SIZE=\"%6\"> %7</FONT>")
-				.arg( verse )				
-				.arg( keyName)
-				.arg( verse )
-				.arg( m_highlightedVerseColor )
-				.arg( FontName )
-				.arg( FontSize )
-				.arg( verseText )
-			);
-		else
-			m_htmlText.append( QString("<A NAME=\"%1\" HREF=\"sword://%2\"><B>%3</B></A><FONT FACE=\"%4\" SIZE=\"%5\" > %6</FONT>")
-				.arg( verse )				
-				.arg( keyName )
-				.arg( verse )
-				.arg( FontName )
-				.arg( FontSize )				
-				.arg( verseText )
-			);		
+		m_htmlText.append( QString("<A NAME=\"%1\" HREF=\"sword://%2\"><B>%3</B></A>")
+			.arg( verse )
+			.arg( QString::fromLocal8Bit( (const char*)key ) )
+			.arg( verse )
+		);		
+		m_htmlText.append( QString("<FONT %1 FACE=\"%2\" SIZE=\"%3\"> %4</FONT>")
+			.arg( (verse == currentVerse) ? QString("COLOR=\"%1\"").arg(m_highlightedVerseColor) : QString() )
+			.arg( FontName )
+			.arg( FontSize )
+			.arg( QString::fromLocal8Bit((const char*)*swordModule) )
+		);
+		
 		if (m_useLineBreak)
 			m_htmlText.append("<BR>\n");
-		else
-			m_htmlText.append("\n");
+//		else
+//			m_htmlText.append("\n");
 	}
 	m_htmlText.append(m_htmlBody);	
 		

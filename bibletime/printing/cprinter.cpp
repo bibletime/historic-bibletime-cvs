@@ -225,6 +225,7 @@ void CPrinter::setPageFooter( const bool /*enableFooter*/, CPageHeader /*footer*
 
 /** Starts printing the items. */
 void CPrinter::printQueue(){
+	qDebug("CPrinter::printQueue()");
 	/**
 	* Go throgh the items of our print queue and print the items using the function printItem,
 	* which takes care for margings, styles etc.
@@ -232,33 +233,42 @@ void CPrinter::printQueue(){
 	if ( getPreview() ){//print a preview
 		KRandomSequence r;
 		const QString s = QString("/tmp/") + KApplication::randomString(8)+".ps";
+		qDebug("CPrinter: set filename for preview");
 		setOutputFileName( s );
 		m_createdFiles.append(s);
 	}
+	qDebug("emit printingStarted");
 	emit printingStarted();
 	QPainter p;
 	if (!p.begin(this)) {
+		qDebug("begin failed");
 		p.end();
 		return;
 	}
 	
 	m_pagePosition.rect = getPageSize();
 	for (int page = 1; page <= numCopies() && !aborted(); ++page) {	//make numCopies() copies of the pages
+		qDebug("begin new page");
 		for (m_queue->first(); m_queue->current() && !aborted(); m_queue->next()) {
+			qDebug("inner loop");
 			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
+			ASSERT(!aborted());
 			if (!aborted())
 				m_queue->current()->draw(&p,this);
 			CKey* key = m_queue->current()->getStartKey();			
 			QString keyName = QString::null;			
-			CSwordVerseKey* vk = (CSwordVerseKey*)key;
+			CSwordVerseKey* vk = (CSwordVerseKey*)(key);
 			if (vk)
 				keyName = vk->getKey();
 			else {
-				CSwordLDKey* lk = (CSwordLDKey*)key;
+				CSwordLDKey* lk = (CSwordLDKey*)(key);
 				keyName = lk->getKey();
 			}
-			if (!aborted())
+			ASSERT(!aborted());
+			if (!aborted()) {
+				qDebug("emit printedOneItem");
 				emit printedOneItem(keyName, m_queue->at()+1);
+			}
 		};
 		if (!aborted() && (page < numCopies()) )
 			newPage();	//new pages seperate copies
@@ -280,6 +290,8 @@ void CPrinter::printQueue(){
 //		cmd(QPaintDevice::PdcEnd,&p,0);
 //		p.end();		
 //	}
+	p.end();
+	qDebug("finished");
 }
 
 /** Appends items to the printing queue. */
@@ -487,7 +499,7 @@ void CPrinter::saveSettings(){
 	config->writeEntry("left margin", m_pageMargin.left);
 	config->writeEntry("right margin", m_pageMargin.right);	
 	config->writeEntry("preview application", getPreviewApplication());
-	
+
 	saveStyles();
 }
 
