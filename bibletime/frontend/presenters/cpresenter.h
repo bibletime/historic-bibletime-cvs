@@ -33,10 +33,21 @@ public:
 	/**
 	* Default xonstructor
 	*/
-	CPresenter(QWidget *parent, const char *name=0, WFlags f=WDestructiveClose);
+	CPresenter(QWidget *parent, const char *name=0, WFlags f=0/*WDestructiveClose*/);
 
 protected:
 	KConfig* m_config;
+protected: // Protected methods
+  /**
+  * Is called when the presenter should be closed. To delete the presenter it emits "close(CPresenter*)".
+  */
+  virtual void closeEvent(QCloseEvent*e);
+
+signals: // Signals
+  /**
+  * Is emitted when this presenter should be closed.
+  */
+  void closePresenter(CPresenter*);
 };
 
 #endif

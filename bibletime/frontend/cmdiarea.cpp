@@ -19,6 +19,7 @@
 #include "../backend/ckey.h"
 #include "../backend/sword_backend/cswordmoduleinfo.h"
 #include "../backend/sword_backend/cswordversekey.h"
+#include "presenters/cpresenter.h"
 #include "presenters/cbiblepresenter.h"
 #include "presenters/clexiconpresenter.h"
 #include "presenters/ccommentarypresenter.h"
@@ -45,7 +46,8 @@ CMDIArea::CMDIArea(CImportantClasses* importantClasses, QWidget *parent, const c
 	m_important = importantClasses;
 	m_childEvent = false;	
 	config = KGlobal::config();	
-	
+	m_currentPresenter = 0;
+		
 	guiOption = Nothing;
 	initView();
 	initConnections();
@@ -220,4 +222,23 @@ void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 		emit createNewSwordPresenter(m, text);
 	else
 		p->lookup(text);
+}
+
+/** Closes and deletes the presenter given as argument. */
+void CMDIArea::closePresenter(CPresenter* p){
+	qDebug("CMDIArea::closePresenter(CPresenter* p)");
+	ASSERT(p);
+	if (!p)
+		return;
+	m_currentPresenter = p;
+  QTimer::singleShot( 5000, this, SLOT(deleteCurrentPresenter()) );	
+}
+
+/** Delete the presenter. */
+void CMDIArea::deleteCurrentPresenter(){
+	qDebug("CMDIArea::deletePresenter(CPresenter* p)");
+	if (m_currentPresenter) {
+		delete m_currentPresenter;
+		m_currentPresenter = 0;
+	}
 }

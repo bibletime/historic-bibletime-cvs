@@ -194,7 +194,7 @@ void CKeyChooserWidget::unlock(void){
 
 /** Initializes this widget. We need this function because we have more than one constructor. */
 void CKeyChooserWidget::init( ){
-        //commented out until after 1.0 config = KGlobal::config();
+   //commented out until after 1.0 config = KGlobal::config();
 	oldKey = QString::null;
 	btn_up = btn_down = btn_fx = 0;
 
@@ -250,14 +250,14 @@ void CKeyChooserWidget::init( ){
 	    }
 	  }
 	  else { */
-	   if (m_useNextPrevSignals) {
+//	   if (m_useNextPrevSignals) {
 		connect(btn_down, SIGNAL(clicked()), SIGNAL(next_requested()) );	
 		connect(btn_up, SIGNAL(clicked()), SIGNAL(prev_requested()) );
-	   }
-	   else {
-		connect(btn_down, SIGNAL(clicked()), SLOT(next()) );	
-		connect(btn_up, SIGNAL(clicked()), SLOT(previous()) );	
-	   }
+//	   }
+//	   else {
+//		connect(btn_down, SIGNAL(clicked()), SLOT(next()) );	
+//		connect(btn_up, SIGNAL(clicked()), SLOT(previous()) );	
+//	   }
 	   // }
 	   //commented out until after 1.0  config->setGroup("");
 	connect(btn_fx, SIGNAL(lock()), SLOT(lock()) );

@@ -605,7 +605,7 @@ msgstr "neznámý"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:220
 msgid "Bookmark to"
-msgstr "Záložka k"
+msgstr "Záložka na"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:246
 #, ycp-format
@@ -613,27 +613,24 @@ msgid "Foonotes: %1<BR>"
 msgstr "Poznámky: %1<BR>"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:247
-#, ycp-format
 msgid "Strong's numbers: %1<BR>"
 msgstr "Strongova čísla: %1<BR>"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:249
-#, fuzzy
 msgid "Unlock key:"
-msgstr "Odemykací klíč"
+msgstr "Odemykací klíč:"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:249
 msgid "not set"
 msgstr "není nastaveno"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:251
-#, fuzzy
 msgid "Version:"
-msgstr "Verze"
+msgstr "Verze:"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:253
 msgid "Font:"
-msgstr ""
+msgstr "Písmo:"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:170
 msgid "Bibles"

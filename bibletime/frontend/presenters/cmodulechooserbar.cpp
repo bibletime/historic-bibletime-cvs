@@ -64,7 +64,7 @@ void CModuleChooserBar::removeButton( const int ID ){
 		if (m_buttonList.current()->getId() == ID) {	//found the right button
 			CModuleChooserButton* b = m_buttonList.current();
 			m_buttonList.remove(b);
-			ASSERT(b);
+			//ASSERT(b);
 			b->hide();
 	 	  m_deleteID = ID;
 	 	  QTimer::singleShot( 5000, this, SLOT(deleteButton()) );

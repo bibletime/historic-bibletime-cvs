@@ -213,6 +213,8 @@ void BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules, const QStr
 	if (presenter) {
 		connect(presenter, SIGNAL(lookupInLexicon(const QString&, const QString&)),
 			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
+		connect(presenter, SIGNAL(closePresenter(CPresenter*)),
+			m_mdi, SLOT(closePresenter(CPresenter*)));							
 		if (presenter->isA("CBiblePresenter")) {
 			connect(presenter->getKeyChooser(), SIGNAL(keyChanged(CKey*)),
 				m_mdi, SLOT(syncCommentaries(CKey*)));		

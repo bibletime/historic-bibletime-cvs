@@ -47,6 +47,7 @@ CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClas
 }
 
 CBiblePresenter::~CBiblePresenter(){
+	qDebug("destructor of CBiblePresenter");
 	delete m_key;
 }
 
@@ -125,8 +126,10 @@ void CBiblePresenter::lookup(CKey* key){
 /** This slot is called when the modules selected in the module chooserbar have changed. */
 void CBiblePresenter::modulesChanged(){
   m_moduleList = m_moduleChooserBar->getModuleList();
-  if (!m_moduleList.count())
+  if (!m_moduleList.count()) {
+  	qDebug("close NOW!");
   	close();
+  }
   else {
     refreshFeatures();
 	  m_key->module(m_moduleList.first());

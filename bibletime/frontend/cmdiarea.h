@@ -32,6 +32,7 @@ class CBackEnd;
 class CImportantClasses;
 class CKey;
 class CSwordModuleInfo;
+class CPresenter;
 
 /** The MDI widget we use in BibleTime.
 	* Enhances QWorkspace.
@@ -63,27 +64,34 @@ public:
 
 public slots:
   /**
-   * Called whan a client window was activated
-   */
+  * Called whan a client window was activated
+  */
 	void slotClientActivated(QWidget* client);
   /**
-   * Deletes all the presenters in the MDI area.
-   */
+  * Deletes all the presenters in the MDI area.
+  */
   void deleteAll();
   /**
-  	*
-  	*/
+ 	*
+ 	*/
   void cascade();
   /**
-  	*
-  	*/
+ 	*
+ 	*/
   void tile();
   /**
   * Sync the commentaries to the given key.
   */
   void syncCommentaries(CKey* syncKey);
-  /** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
+  /**
+  * Look up the text in the module. If the module has already a display window
+  * of it opne use it, otherwise create a new one.
+  */
   void lookupInLexicon(const QString& text, const QString& module);
+  /**
+  * Closes and deletes the presenter given as argument.
+  */
+  void closePresenter(CPresenter* p);
 
 protected: // Protected methods
   /**
@@ -119,5 +127,12 @@ private:
 	KConfig* config;
 	CImportantClasses*	m_important;
 	bool m_childEvent;
+	CPresenter* m_currentPresenter;
+	
+private slots: // Private slots
+  /**
+  * Delete the presenter.
+  */
+  void deleteCurrentPresenter();
 };
 #endif

@@ -22,3 +22,9 @@ CPresenter::CPresenter(QWidget *parent, const char *name, WFlags f)
 		
 	resize(350,350);
 }
+
+/** Is called when the presenter should be closed. To delete the presenter it emits "close(CPresenter*)".*/
+void CPresenter::closeEvent(QCloseEvent* e) {
+	e->accept();
+	emit(closePresenter(this));
+}
