@@ -524,10 +524,6 @@ const QString& CBookmarkItem::englishKey() const {
 
 /** Reimplementation. Returns false everytime because a bookmarks  has not possible drops. */
 bool CBookmarkItem::acceptDrop(const QMimeSource* /*src*/) const {
- 	qWarning("CBookmarkItem::acceptDrop");
-// 	return CDragDropMgr::canDecode(src) 
-// 			&& (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
-
 	return false;
 }
 
@@ -596,7 +592,6 @@ const bool CFolderBase::allowAutoOpen( const QMimeSource* ) const{
 
 /** Reimplementation. Returns false because folders have no use for drops (except for the bookmark folders) */
 bool CFolderBase::acceptDrop(const QMimeSource*) const {
-//  qWarning("CFolderBase::acceptDrop");
   return false;
 }
 
