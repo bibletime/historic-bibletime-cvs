@@ -56,6 +56,8 @@ public:
   const QString& filename();
   /** Initializes the XML for the first time (use to create a new profile) */
   void init(const QString);
+  /** Chnages the name of this profile. */
+  void setName( const QString& );
 	
 	
 private:

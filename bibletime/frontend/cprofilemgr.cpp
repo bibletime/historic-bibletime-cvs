@@ -74,3 +74,12 @@ const bool CProfileMgr::remove( const QString& profile) {
 		}
 	}
 }
+
+/** Returns the profile with the desired name. If there's no such profile 0 is returned. */
+CProfile* CProfileMgr::profile(const QString& name) {
+	for (CProfile* p = m_profiles.first(); p ; p = m_profiles.next()) {
+		if (p->name() == name)
+			return p;	
+	}
+	return 0;
+}

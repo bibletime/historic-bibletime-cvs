@@ -239,3 +239,8 @@ void CProfile::init(const QString file){
 	save(QList<CProfileWindow>());
 	m_filename = oldFile;
 }
+
+/** Chnages the name of this profile. */
+void CProfile::setName( const QString& name ){
+	m_name = name;
+}

@@ -374,7 +374,7 @@ void BibleTime::saveProfile(){
 		return;
 	QWidgetList windows = m_mdi->windowList();
 	QList<CProfileWindow> profileWindows;
-	for (QWidget* w = windows.first(); w; w = windows.next())	 {
+	for (QWidget* w = windows.last(); w; w = windows.prev()) {
 		CSwordPresenter* displayWindow = dynamic_cast<CSwordPresenter*>(w);
 		if (!displayWindow)
 			continue;
@@ -386,8 +386,8 @@ void BibleTime::saveProfile(){
 	qWarning("save %i window settings", profileWindows.count());
 	m_currentProfile->save(profileWindows);
 	qWarning("saved");
-//	profileWindows.setAutoDelete(true);
-//	profileWindows.clear();//clean up memory
+	profileWindows.setAutoDelete(true);
+	profileWindows.clear();//clean up memory
 }
 
 void BibleTime::loadProfile(int ID){

@@ -395,8 +395,20 @@ void COptionsDialog::addNewProfile(){
 void COptionsDialog::deleteProfile(){
 	const QString profile = m_displayWindows.profiles.profiles->currentText();
 	m_displayWindows.profiles.mgr.remove(profile);
+	m_displayWindows.profiles.profiles->removeItem( m_displayWindows.profiles.profiles->currentItem() );
 }
 
 /** Renames the currently selected profile. */
 void COptionsDialog::renameProfile(){
+	bool ok = false;
+	const QString currentProfile = m_displayWindows.profiles.profiles->currentText();	
+	CProfile* profile = m_displayWindows.profiles.mgr.profile(currentProfile);
+	if (!profile)
+		return;
+		
+	const QString newName = QInputDialog::getText(i18n("Create new profile"), i18n("Please enter the new name of the profile"),profile->name(), &ok);
+	if (ok && !newName.isEmpty()) {
+		profile->setName(newName);
+		m_displayWindows.profiles.profiles->changeItem(newName, m_displayWindows.profiles.profiles->currentItem());
+	}	
 }
