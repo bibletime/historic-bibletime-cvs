@@ -59,23 +59,16 @@ CSwordBackend* CSwordModuleInfo::backend(){
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/
 const CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString unlockKey ){
 	CSwordModuleInfo::unlockErrorCode	ret = CSwordModuleInfo::noError;
-  (*m_backend->localConfig())[m_module->Name()]["CipherKey"] = unlockKey.local8Bit();	
+  (*m_backend->getConfig())[m_module->Name()]["CipherKey"] = unlockKey.local8Bit();	
 	m_backend->setCipherKey( (const char*)m_module->Name(), unlockKey.local8Bit());
 	
-	m_backend->localConfig()->Save();	
+	m_backend->getConfig()->Save();	
 	return ret;
 }
 
 /** Returns the display object for this module. */
 CHTMLEntryDisplay* CSwordModuleInfo::getDisplay() {
-	CHTMLEntryDisplay* ret = 0;
-	if (m_module->Disp()) {
-		if (dynamic_cast<CHTMLEntryDisplay*>(m_module->Disp()))
-			ret = dynamic_cast<CHTMLEntryDisplay*>(m_module->Disp());
-		else
-			ret = 0;
-	}
-	return ret;
+	return dynamic_cast<CHTMLEntryDisplay*>(m_module->Disp());
 }
 
 /** This function returns true if this module is locked, otherwise return false. */
@@ -90,7 +83,7 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	/* if we have the CipherKey entry the module
 		* is encrypted but not necessary locked
 		*/		
-	ConfigEntMap config	= m_backend->config->Sections.find( m_module->Name() )->second;;
+	ConfigEntMap config	= m_backend->getConfig()->Sections.find( m_module->Name() )->second;;
 	ConfigEntMap::iterator it = config.find("CipherKey");
 	if (it != config.end())
 		return true;
@@ -103,9 +96,9 @@ const QString CSwordModuleInfo::getCipherKey() const {
 	if (!isEncrypted())
 		return QString::null;
 		
-	string key = (*m_backend->localConfig())[m_module->Name()]["CipherKey"];
-	if (!strlen(key.c_str()))
-		key = (*m_backend->config)[m_module->Name()]["CipherKey"];
+	string key = (*m_backend->getConfig())[m_module->Name()]["CipherKey"];
+//	if (!strlen(key.c_str()))
+//		key = (*m_backend->config)[m_module->Name()]["CipherKey"];
 		
 	if (strlen(key.c_str()))
 		return QString::fromLocal8Bit( key.c_str() );
@@ -120,7 +113,7 @@ const QString CSwordModuleInfo::getDescription() const {
 
 /** Returns the about information of this module. */
 const QString CSwordModuleInfo::getAboutInformation() const {
-	const string about = (*m_backend->config)[m_module->Name()]["About"];
+	const string about = (*m_backend->getConfig())[m_module->Name()]["About"];
 	
 	QString ret = QString::null;
 	if (strlen(about.c_str())) {	
@@ -137,7 +130,7 @@ const QString CSwordModuleInfo::getAboutInformation() const {
 
 /** Returns the version number of this module. */
 const QString CSwordModuleInfo::getVersion() const{
-	const string version = (*m_backend->config)[m_module->Name()]["Version"];
+	const string version = (*m_backend->getConfig())[m_module->Name()]["Version"];
 	if (strlen( version.c_str() ))
 		return QString::fromLocal8Bit( version.c_str() );
 	else 	
@@ -146,7 +139,7 @@ const QString CSwordModuleInfo::getVersion() const{
 
 /** Returns the path to this module. */
 const QString CSwordModuleInfo::getPath() const {
-	const string path = (*m_backend->config)[m_module->Name()]["DataPath"];
+	const string path = (*m_backend->getConfig())[m_module->Name()]["DataPath"];
 	if (strlen(path.c_str()))
 		return QString::fromLocal8Bit(path.c_str());
 	else
@@ -202,7 +195,7 @@ void CSwordModuleInfo::interruptSearch(){
 const bool CSwordModuleInfo::supportsFeature( CSwordBackend::moduleOptions type){
 	bool ret = false;
 	
-	ConfigEntMap config = m_backend->config->Sections.find( m_module->Name() )->second;	
+	ConfigEntMap config = m_backend->getConfig()->Sections.find( m_module->Name() )->second;	
 	ConfigEntMap::iterator start 	= config.lower_bound("GlobalOptionFilter");
 	ConfigEntMap::iterator end 		= config.upper_bound("GlobalOptionFilter");		
 	QString text = QString::null;
@@ -229,8 +222,8 @@ const bool CSwordModuleInfo::supportsFeature( CSwordBackend::moduleOptions type)
 
 /** Used to find out the module specific font */
 const QFont CSwordModuleInfo::getFont(){
-  const string familyString = (*m_backend->localConfig())[m_module->Name()]["Font"];
-  const string sizeString = (*m_backend->localConfig())[m_module->Name()]["Font size"];
+  const string familyString = (*m_backend->getConfig())[m_module->Name()]["Font"];
+  const string sizeString = (*m_backend->getConfig())[m_module->Name()]["Font size"];
 	
   QString family = QString::null;
   int size = 12;
@@ -247,14 +240,14 @@ const QFont CSwordModuleInfo::getFont(){
 
 /** Used to set the module specific font */
 void CSwordModuleInfo::setFont(const QFont &font){
-	(*m_backend->localConfig())[m_module->Name()]["Font"] = font.family().local8Bit();
-	(*m_backend->localConfig())[m_module->Name()]["Font size"] = QString::number(font.pointSize()).local8Bit();
-	m_backend->localConfig()->Save();
+	(*m_backend->getConfig())[m_module->Name()]["Font"] = font.family().local8Bit();
+	(*m_backend->getConfig())[m_module->Name()]["Font size"] = QString::number(font.pointSize()).local8Bit();
+	m_backend->getConfig()->Save();
 }
 
 /** Used to find out if the module has a specific font */
 const bool CSwordModuleInfo::hasFont(){
-	const string font = (*m_backend->config)[m_module->Name()]["Font"];
+	const string font = (*m_backend->getConfig())[m_module->Name()]["Font"];
 	if (strlen(font.c_str()))
 		return true;
 	return false;

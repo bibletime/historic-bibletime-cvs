@@ -19,7 +19,6 @@
 #define CSWORDBACKEND_H
 
 //BibleTime includes
-#include "cswordconfig.h"
 #include "../cbackend.h"
 #include "../cmoduleinfo.h"
 
@@ -135,7 +134,7 @@ public:
   * Returns our local config object to store the cipher keys etc. locally for each user.
 	* The values of the config are merged with the global config.
 	*/
-  SWConfig* localConfig();
+  SWConfig* getConfig();
 		
 	CHTMLChapterDisplay* m_chapterDisplay;	
 	CHTMLEntryDisplay* m_entryDisplay;
@@ -153,9 +152,6 @@ private:
 	SWFilter *m_rwpFilter;
 	SWFilter *m_plainTextFilter;
 	SWFilter *m_thmlFilter;	
-	
-	//our config
-	CSwordConfig* m_localConfig;
 	
 	ListCSwordModuleInfo* m_moduleList;
 	errorCode m_errorCode;

@@ -200,7 +200,7 @@ void COptionsDialog::initGeneralPage(){
 
 		int current_item = -1;
 		for(int test_item = 0; test_item < localeComboBox->count(); test_item++) {
-			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale((const char*)config->readEntry("Language", QString::fromLatin1(getenv("HOME"))).local8Bit());
+			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale((const char*)config->readEntry("Language", QString::fromLatin1(getenv("LANG"))).local8Bit());
 			if (locale && localeComboBox->text(test_item).contains(locale->getDescription()) )
 				current_item = test_item;
 		}
@@ -266,10 +266,8 @@ void COptionsDialog::saveGeneralOptions(){
 	//Now save localisation settings
 	{
 		KConfigGroupSaver groupSaver(config, "SWORD");
-//		config->writeEntry("useLocalisation",localeCheckBox->isChecked());	
-	
 		const QString currentText = localeComboBox->currentText();
-		const QString oldValue = config->readEntry("Language", QString::null);	//default nonexisting language
+		const QString oldValue = config->readEntry("Language", QString::fromLatin1(getenv("LANG")));	//default nonexisting language
 		if (oldValue == QString::null || oldValue != currentText) {	//changed
 			if (m_changedSettings)
 				m_changedSettings |= CSwordPresenter::language;

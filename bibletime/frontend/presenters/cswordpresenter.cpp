@@ -102,7 +102,7 @@ void CSwordPresenter::lookup(const QString&){
 }
 
 /** Returns the listof used modules. */
-ListCSwordModuleInfo& CSwordPresenter::getModuleList() const {
+ListCSwordModuleInfo& CSwordPresenter::getModuleList() {
 	return m_moduleList;
 }
 

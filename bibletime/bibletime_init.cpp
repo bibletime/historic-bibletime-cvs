@@ -278,7 +278,7 @@ void BibleTime::initBackends(){
 	}
 	//initialize international bookname language
 	KConfigGroupSaver dummy(m_config, "SWORD");
-	const QString language = m_config->readEntry("Language", QString::fromLatin1(getenv("HOME")));
+	const QString language = m_config->readEntry("Language", QString::fromLatin1(getenv("LANG")));
 	m_important->swordBackend->setBooknameLanguage(language);
 }
 

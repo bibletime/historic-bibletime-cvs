@@ -13,8 +13,7 @@ cswordldkey.cpp \
 cswordversekey.cpp \
 cswordlexiconmoduleinfo.cpp \
 cswordcommentarymoduleinfo.cpp \
-cswordbiblemoduleinfo.cpp \
-cswordconfig.cpp
+cswordbiblemoduleinfo.cpp 
 
 INCLUDES = $(all_includes)
 
@@ -37,6 +36,4 @@ chtmlentrydisplay.h \
 chtmlchapterdisplay.cpp \
 chtmlchapterdisplay.h \
 cswordmodulesearch.cpp \
-cswordmodulesearch.h \
-cswordconfig.h \
-cswordconfig.cpp
+cswordmodulesearch.h

@@ -23,15 +23,10 @@
 #include "cswordbiblemoduleinfo.h"
 #include "cswordcommentarymoduleinfo.h"
 #include "cswordlexiconmoduleinfo.h"
-//#include "../../ctoolclass.h"
 
 //Qt includes
-//#include <qstring.h>
 
 //KDE includes
-//#include <kglobal.h>
-//#include <kconfig.h>
-//#include <klocale.h>
 
 //Sword includes
 #include <swdisp.h>
@@ -47,9 +42,6 @@
 
 CSwordBackend::CSwordBackend() : SWMgr(0,0,false) {	
 	m_errorCode = noError;
-	
-	m_localConfig = new CSwordConfig( QString("%1/.sword/localopts").
-		arg( getenv("HOME") ? QString::fromLocal8Bit(getenv("HOME")) : QString("~")).local8Bit(), config);
 	
 	//set variables to NULL
 	m_entryDisplay = 0;
@@ -71,11 +63,6 @@ CSwordBackend::~CSwordBackend(){
 		delete m_plainTextFilter;	
 	if (m_thmlFilter)
 		delete m_thmlFilter;	
-	
-	if (m_localConfig) {
-		m_localConfig->Save();
-		delete m_localConfig;	
-	}
 	
 	shutdownModules();	
 }
@@ -338,7 +325,7 @@ CSwordModuleInfo * CSwordBackend::findModuleByName(QString name){
 }
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
-SWConfig* CSwordBackend::localConfig(){
-	ASSERT(m_localConfig);
-	return m_localConfig;
+SWConfig* CSwordBackend::getConfig(){
+	ASSERT(config);
+	return config;
 }

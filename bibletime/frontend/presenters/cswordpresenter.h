@@ -84,7 +84,7 @@ public:
   /**
   * Returns the listof used modules.
   */
-  ListCSwordModuleInfo& getModuleList() const;
+  ListCSwordModuleInfo& getModuleList();
 
 public slots: // Public slots
   /**
