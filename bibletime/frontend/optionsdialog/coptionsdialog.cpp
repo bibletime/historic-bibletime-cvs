@@ -385,11 +385,7 @@ void COptionsDialog::saveDisplayWindow() {
 
 		const QString oldValue = m_config->readEntry("Language", KGlobal::locale()->language());
 		if (oldValue == QString::null || oldValue != localeName) {	//changed
-#warning possible and simpler?
-//			if (m_changedSettings)
 				m_changedSettings |= CSwordPresenter::language;
-//			else
-//				m_changedSettings = CSwordPresenter::language;
 		}				
 		
 		if (!localeName.isEmpty())
@@ -405,39 +401,24 @@ void COptionsDialog::saveDisplayWindow() {
 	
 	{
 		KConfigGroupSaver groupSaver(m_config, "Fonts");
-#warning possible? compare fonts directly
-//		if (m_config->readFontEntry(i18n("Display window")).family() != m_displayWindows.fonts.fontMap[i18n("Display window")].family()
-//		 || m_config->readFontEntry("Display window").pointSize() != m_displayWindows.fonts.fontMap[i18n("Display window")].pointSize() )
 		if (m_config->readFontEntry(i18n("Display window")) != m_displayWindows.fonts.fontMap[i18n("Display window")]
       || m_config->readFontEntry(i18n("Display window Unicode")) != m_displayWindows.fonts.fontMap[i18n("Display window Unicode")] )
-
-#warning possible and simpler?
-//			if (m_changedSettings)
 		m_changedSettings |= CSwordPresenter::font;
-//			else
-//				m_changedSettings = CSwordPresenter::font;
+
 		for(QMap<QString, QFont>::Iterator it = m_displayWindows.fonts.fontMap.begin(); it != m_displayWindows.fonts.fontMap.end(); ++it )
 			m_config->writeEntry(it.key(), it.data());
 	}
 	
 	{ //save color options
 		KConfigGroupSaver groupSaver(m_config, "Colors");
-		if ( m_config->readColorEntry("Background") != m_displayWindows.colors.background->color() ) {
-#warning possible and simpler?
-//			if (m_changedSettings)
+		if ( m_config->readColorEntry("Background") != m_displayWindows.colors.background->color() )
 		m_changedSettings |= CSwordPresenter::backgroundColor;
-//			else
-//				m_changedSettings = CSwordPresenter::backgroundColor;
-		}	
+
 		m_config->writeEntry("Background", m_displayWindows.colors.background->color().name());	
 	
-		if ( m_config->readColorEntry("Highlighted Verse") != m_displayWindows.colors.highlightedVerse->color() ) {
-#warning possible and simpler?
-//			if (m_changedSettings)
+		if ( m_config->readColorEntry("Highlighted Verse") != m_displayWindows.colors.highlightedVerse->color() )
 				m_changedSettings |= CSwordPresenter::highlightedVerseColor;
-//			else
-//				m_changedSettings = CSwordPresenter::highlightedVerseColor;
-		}		
+
 		m_config->writeEntry("Highlighted Verse", m_displayWindows.colors.highlightedVerse->color().name());		
 	}
 	
