@@ -188,6 +188,7 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptionsBool opt
 	setOption( hebrewCantillation, 	options.hebrewCantillation );
 	setOption( greekAccents, 				options.greekAccents);
 	setOption( textualVariants,			options.textualVariants);	
+//	setOption( scriptureReferences,			options.scriptureReferences);	
 }
 
 void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptionsBool options){
@@ -357,7 +358,7 @@ const QString CSwordBackend::configOptionName( const CSwordBackend::FilterOption
 			return QString::fromLatin1("GreekAccents");
 		case CSwordBackend::textualVariants:
 			return QString::fromLatin1("Variants");
-		case CSwordBackend::scriptureReferences:
+		case CSwordBackend::scriptureReferences: //scriprefs don't work yet
 			return QString::fromLatin1("Scripref");
 	}
 	return QString::null;	

@@ -22,7 +22,7 @@
 
 CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModuleInfo::ModuleType type, QWidget *parent, const char *name )
 	: KToolBar(parent,name) {
-	qDebug("constructor of CModuleCHooserBar");
+//	qDebug("constructor of CModuleCHooserBar");
 
 	m_moduleType = type;
 	m_idCounter = 0;
@@ -63,11 +63,9 @@ void CModuleChooserBar::removeButton( const int ID ){
 	for (m_buttonList.first(); m_buttonList.current(); m_buttonList.next()) {	
 		if (m_buttonList.current()->getId() == ID) {	//found the right button
 			CModuleChooserButton* b = m_buttonList.current();
-			m_buttonList.remove(b);
-			//ASSERT(b);
+			m_buttonList.removeRef(b);
 			b->hide();
-	 	  m_deleteID = ID;
-	 	  QTimer::singleShot( 5000, this, SLOT(deleteButton()) );
+      b->deleteLater();
 			break;
 		}
 	}		
@@ -87,11 +85,6 @@ ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
   		list.append( m );
 	}
 	return list;
-}
-
-/** No descriptions */
-void CModuleChooserBar::deleteButton(){
-	removeItem(m_deleteID);
 }
 
 /** Sets the number of the maximum count of buttons. */

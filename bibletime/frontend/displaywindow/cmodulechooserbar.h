@@ -57,16 +57,11 @@ protected slots: // Protected slots
 	* Removes a button from the toolbar
 	*/
 	void removeButton( const int ID );
-  /**
-  * No descriptions
-  */
-  void deleteButton();
 
 private:
 	QPtrList<CModuleChooserButton> m_buttonList;
 	CSwordModuleInfo::ModuleType m_moduleType;
 	int m_idCounter;
-	int m_deleteID;
 	int m_buttonLimit;
 
 signals: // Signals

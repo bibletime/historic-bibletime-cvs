@@ -104,7 +104,7 @@ if [ %{ostype} = "Mandrake" ] ; then
   tar jxvf %{SOURCE1}
  %endif
  export KDEDIR=/usr QTDIR=/usr/lib/qt3
-elif [%{ostype} = "SuSE"] ; then
+elif [ %{ostype} = "SuSE" ] ; then
  export KDEDIR=/opt/kde3 QTDIR=/usr/lib/qt3
 else
 	echo "Using $KDEDIR as KDE directory";

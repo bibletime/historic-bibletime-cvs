@@ -247,13 +247,14 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 
 const bool CSwordModuleInfo::has( const CSwordBackend::FilterOptions option ){
 	//BAD workaround to see if the filter is GBF or ThML!	
- 	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("GBF%1").arg(backend()->configOptionName(option)).latin1()))
+  const QString name = backend()->configOptionName(option);
+  if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("GBF%1").arg(name).latin1()))
  		return true;
- 	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("ThML%1").arg(backend()->configOptionName(option)).latin1()))
+ 	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("ThML%1").arg(name).latin1()))
  		return true;
- 	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("UTF8%1").arg(backend()->configOptionName(option)).latin1()))
+ 	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("UTF8%1").arg(name).latin1()))
  		return true; 		
- 	if (m_module->getConfig().has("GlobalOptionFilter",backend()->configOptionName(option).latin1()))
+ 	if (m_module->getConfig().has("GlobalOptionFilter",name.latin1()))
  		return true;
  	
  	return false;

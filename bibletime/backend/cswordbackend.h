@@ -63,10 +63,10 @@ public:
 		hebrewPoints,
 		hebrewCantillation,
 		greekAccents,
-		textualVariants,
-    scriptureReferences,
+    scriptureReferences,		
+    textualVariants,
 		filterOptionsMIN = footnotes,
-		filterOptionsMAX = scriptureReferences
+		filterOptionsMAX = textualVariants
 	};
 
   struct FilterOptionsBool {
