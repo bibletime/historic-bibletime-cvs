@@ -395,7 +395,7 @@ void COptionsDialog::initProfiles(){
 
 	gridLayout->addMultiCellWidget(
 		CToolClass::explanationLabel(page,
-			i18n("Manage your profiles"),
+			i18n("Manage profiles"),
 			i18n("Profiles define the appereance of the work area, \
 for example which windows are open and which texts should displayed in these windows. \
 New profiles only work after you've saved something into them.")

@@ -13,7 +13,7 @@ To read it choose the item "Handbook" in the "Help" menu of BibleTime.
 
 <tip category="BibleTime|General">
 <html>
-No one is allowed by God to add anything to or take anything away from the Word. (Revelation 22:18)
+No one is allowed by God to add anything to or take anything away from the Word. (Revelation 22:18-19)
 </html>
 </tip>
 
@@ -25,14 +25,8 @@ The Bible is like a mirror. (James 1:23)
 
 <tip category="BibleTime|General">
 <html>
-BibleTime does include a <B>Bible Study HowTo</B>! 
+BibleTime does include a <B>Bible Study HowTo</B>!
 It was written by Bob Harman and is a great introduction how to study the Bible.
-</html>
-</tip>
-
-<tip category="BibleTime|General">
-<html>
-The Bible has the power to "comfort the afflicted" and "afflict the comfortable". (Revelation 10:10)
 </html>
 </tip>
 
@@ -57,7 +51,7 @@ The search analysis shows you the number of verses of each book.
 
 <tip category="BibleTime|General">
 <html>
-That the Bible is truth. (John 17:17)
+The Bible is truth. (John 17:17)
 </html>
 </tip>
 
@@ -76,22 +70,10 @@ The scriptures give us the wisdom that leads to salvation. (2 Timothy 3:15)
 
 <tip category="BibleTime|General">
 <html>
-It's possible to insert the text of bookmarks and references to verses or lexicon entries into the personal commentary editor by dropping them there.
-</html>
-</tip>
-
-<tip category="BibleTime|General">
-<html>
-By studying the Bible you will have no reason to stand ashamed before God. (2 Timothy 2:15)
-</html>
-</tip>
-
-<tip category="BibleTime|General">
-<html>
 To lookup the meaning of the original hebrew or greek word in a Bible supporting Strong's numbers, switch them on and 
 click on the strong number. Now a new window showing the strong number with
 it's explanation is shown. If your favourite translation doesn't support Strong's numbers please refer to an alternate translation for the number of the corresponding word.
-Make sure you have set the default modules in the optionsdialog.
+Make sure you have set the default modules in the preferences.
 </html>
 </tip>
 
@@ -115,7 +97,7 @@ We will be judged on the last day by the words Jesus spoke. (John 12:48)
 
 <tip category="BibleTime|General">
 <html>
-If you want to find the full set of verses or entries on a area of content, you should use the regular expression "x | y | z" for searching, which is equivalent to "x OR y OR z", e.g. "pray | worship | supplicate".
+If you want to find the full set of verses or entries on a area of content, you should use the option "Multiple words (OR)" for searching.
 </html>
 </tip>
 
@@ -133,8 +115,7 @@ God's Word can be a lamp to your feet and a light to your path. (Psalm 119:105)
 <tip category="BibleTime|General">
 <html>
 If you want to search a word in a foreign module (e.g. greek or hebrew), open a display window and choose a chapter or an entry which contains this word.
-Now double click on it and drag the selected word on the foreign module in the main index.
-The search dialog will be opened with the word in the edit line.
+Select it and copy it to the clipboard. Now insert the copied word in the search text box of the searchdialog.
 </html>
 </tip>
 
@@ -146,14 +127,13 @@ The Word of God will not return to Him without accomplishing its purpose. (Isaia
 
 <tip category="BibleTime|General">
 <html>
-Foreign modules (e.g. greek or hebrew) do often require a special unicode font to read them.
-Many of the fonts are available on www.crosswire.org or on the Sword CD.
+Foreign modules do often require a special font to display correctly. You can set the font for each language in the preferences.
 </html>
 </tip>
 
 <tip category="BibleTime|General">
 <html>
-Did you know that the first book ever printed on a printing press was the Bible. (by Johann Gutenberg, in 1492)
+Did you know that the first book ever printed on a printing press was the Bible (by Johann Gutenberg, in 1492)?
 </html>
 </tip>
 

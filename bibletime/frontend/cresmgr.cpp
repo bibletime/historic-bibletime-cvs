@@ -103,7 +103,7 @@ namespace CResMgr {
         const char* actionName    = "windowLoadProfile_action";
       }
       namespace saveProfile {
-        const QString tooltip     = makeToolTip(i18n("Save current profile"));
+        const QString tooltip     = makeToolTip(i18n("Save current session"));
         const QString whatsthis   = makeWhatsThis(tooltip, i18n("Save current BibleTime session to a profile on disk so that it can be reused later."));
         const QString icon        = "view_sidetree";
         const char* actionName    = "windowSaveProfile_action";

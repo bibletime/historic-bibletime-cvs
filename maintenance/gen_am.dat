@@ -18,12 +18,12 @@
 # RELEASE:
 #export FOREIGN_PO_LANGUAGES="de"
 # WORK:
-export FOREIGN_PO_LANGUAGES="bg cs de es fr it nl no ro sk"
+export FOREIGN_PO_LANGUAGES="bg cs de es fr it nl no pl ro ru sk"
 
 # RELEASE:
 #export FOREIGN_DOC_LANGUAGES="de"
 # WORK:
-export FOREIGN_DOC_LANGUAGES="de fr"
+export FOREIGN_DOC_LANGUAGES="cs de fr it"
 
 
 

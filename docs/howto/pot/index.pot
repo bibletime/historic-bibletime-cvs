@@ -31,7 +31,7 @@ msgstr ""
 
 #: index.docbook:32
 #, no-c-format
-msgid "The team of BibleTime, info@bibletime.de"
+msgid "The team of &bibletime;, info@bibletime.info"
 msgstr ""
 
 #: index.docbook:35
@@ -41,17 +41,17 @@ msgstr ""
 
 #: index.docbook:38
 #, no-c-format
-msgid "This the copyright of this text is held by the author Bob Harman. The text was adapted for publication with Bibletime by Fred Saalbach."
+msgid "The copyright of this text is held by the author Bob Harman. The text was adapted for publication with BibleTime by Fred Saalbach."
 msgstr ""
 
 #: index.docbook:42
 #, no-c-format
-msgid "Non exclusive serial rights for this distribution of this document with the Bibletime Software have been made. Redistribution as part of the Bibletime software without modification and limited reproduction as provided by the \"fair use\" provisions of the US copyright code are also permitted."
+msgid "Non exclusive serial rights for this distribution of this document with the &bibletime; Software have been made. Redistribution as part of the Bibletime software without modification and limited reproduction as provided by the \"fair use\" provisions of the US copyright code are also permitted."
 msgstr ""
 
 #: index.docbook:48
 #, no-c-format
-msgid "For questions regarding the use of this material contact Bob Harman c/o New Covenant Church 1079 Big Bethel Rd. Hampton VA 23666 USA <email>N_Cov_Church@compuserve.com</email>"
+msgid "For questions regarding the use of this material contact Bob Harman c/o New Covenant Church 1079 Big Bethel Rd. Hampton VA 23666 USA <email>ncc@ncchampton.org</email>."
 msgstr ""
 
 #: index.docbook:52
@@ -71,7 +71,7 @@ msgstr ""
 
 #: index.docbook:65
 #, no-c-format
-msgid "It is the hope of the Bibletime team that this HowTo will provoke the readers to study the scriptures to see what they say. This particular study guide has been chosen as it takes care not to advocate any particular denominational doctrine. We expect you to read and study the scriptures to understand what they say. If you start with the attitude that you want to have the Lord sow his word in your heart He will not disappoint you."
+msgid "It is the hope of the &bibletime; team that this HowTo will provoke the readers to study the scriptures to see what they say. This particular study guide has been chosen as it takes care not to advocate any particular denominational doctrine. We expect you to read and study the scriptures to understand what they say. If you start with the attitude that you want to have the Lord sow his word in your heart He will not disappoint you."
 msgstr ""
 
 #: index.docbook:75
