@@ -107,7 +107,7 @@ void CPlainWriteWindow::saveCurrentText(){
   modules().first()->write(key(), t );
 
   displayWidget()->setModified(false);
-  qWarning("sucessfully wrote into the module");
+//  qWarning("sucessfully wrote into the module");
   textChanged();
 }
 
@@ -120,13 +120,13 @@ void CPlainWriteWindow::restoreText(){
 
 /** Is called when the current text was changed. */
 void CPlainWriteWindow::textChanged() {
-  qWarning("textChanged");
+//  qWarning("textChanged");
   Q_ASSERT(displayWidget());
   Q_ASSERT(m_actions.saveText);
   m_actions.saveText->setEnabled( displayWidget()->isModified() );
-  qWarning("textChanged-1");
+//  qWarning("textChanged-1");
   m_actions.restoreText->setEnabled( displayWidget()->isModified() );
-  qWarning("textChanged-2");
+//  qWarning("textChanged-2");
 }
 
 /** Deletes the module entry and clears the edit widget, */
