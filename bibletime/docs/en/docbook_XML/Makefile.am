@@ -4,9 +4,9 @@
 handbook: ;echo Creating handbook - please wait ...; \
 	$(KDB2HTML) index.docbook;\
 	test -d HTML/common || mkdir -p HTML/common; \
-	cp -f $HTM_D/Makefile* HTML;\
+	cp -f ../HTML/Makefile* HTML;\
 	test -d ../HTML/common && cp -R ../HTML/common/* HTML/common/;\
 	test -d ../HTML && test -d ../HTML/CVS && cp -Ra ../HTML/CVS HTML/;\
-	test -d ../HTML && rm -Rf $HTM_D;\
+	test -d ../HTML && rm -Rf ../HTML;\
 	test -d HTML && mv HTML ../HTML;\
 	echo Finished!;

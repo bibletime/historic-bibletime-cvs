@@ -4,6 +4,6 @@
 SUBDIRS = docbook_XML HTML
 EXTRA_DIST =  tipdatabase
  
-install-data-local: ; $(INSTALL_DATA) tipdatabase $(kde_htmldir)/en/bibletime/tipdatabase
+install-data-local: ; mkdir -p $(kde_htmldir)/en/bibletime/; chmod a+r+X -R $(kde_htmldir)/en; $(INSTALL_DATA) tipdatabase $(kde_htmldir)/en/bibletime/tipdatabase
 uninstall-local:    ; rm -f $(kde_htmldir)/en/bibletime/tipdatabase
  

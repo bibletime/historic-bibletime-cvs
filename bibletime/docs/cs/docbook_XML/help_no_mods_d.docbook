@@ -1,0 +1,52 @@
+<chapter id="help_no_mods_d">
+<title>Selhala initializace adresáøe s moduly!</title>
+
+<para>Adresáø mods.d neexistuje!</para>
+
+<para>Tato stránka popisuje, co je adresáø mods.d a jak vyøe¹it tento problém.</para>
+<qandaset>
+<qandaentry>
+<question>
+<para>
+Co je adresáø mods.d?
+</para>
+</question>
+<answer>
+<para>
+Tento adresáø by mìl obsahovat konfiguraèní soubory modulù.
+Bez tohoto adresáøe nebudete moci pou¾ívat ani BibleTime, ani SWORD.
+Popis instalace naleznete na na¹í domácí stránce.
+</para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para>
+Jak mám tento problém vyøe¹it?
+</para>
+</question>
+<answer>
+<para>
+Øe¹ením je vytvoøit adresáø mods.d:
+Pøejdìte do adresáøe SWORDu a zadejte pøíkaz "mkdir mods.d", èím¾ vytvoøíte po¾adovanı adresáø.
+Pak pøekopírujte konfiguraèní soubory va¹ich modulù do tohoto adresáøe a odstraòte (pokud existuje) soubor mods.conf, kterı u¾ není potøebnı.
+Adreáø mods.d jej nahrazuje.
+</para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para>
+Je mo¾né spustit BibleTime bez tohoto adresáøe?
+</para>
+</question>
+<answer>
+<para>
+Ano, je to mo¾né.
+Ale nemá to vıznam, proto¾e nebudete mít pøístup k ¾ádnému modulu.
+Dá se to vyu¾ít pro testovací úèely, ale pro normální práci se bez modulù neobejdete.
+</para>
+</answer>
+</qandaentry>
+</qandaset>
+</chapter>

@@ -1,0 +1,107 @@
+<book lang="cs" id="help_idx">
+
+<bookinfo>
+
+<title>Nápovìda k BibleTime</title>
+
+<authorgroup>
+
+
+<author>
+<firstname>Fred</firstname>
+<surname>Saalbach</surname>
+</author>
+
+<author>
+<firstname>Jeffrey</firstname>
+<surname>Hoyt</surname>
+</author>
+
+</authorgroup>
+<date>10. dubna 2001</date>
+<releaseinfo>1.0</releaseinfo>
+
+<copyright>
+<year>1999</year>
+<year>2000</year>
+<year>2001</year>
+<holder>
+The team of BibleTime, info@bibletime.de
+</holder>
+</copyright>
+
+<legalnotice>
+<para>
+Nápovìda k BibleTime je souèástí aplikace BibleTime.
+</para>
+
+<para>
+BibleTime je volné programové vybavení; mù¾ete jej ¹íøit a
+modifikovat podle ustanovení Obecné veøejné licence GNU, vydávané Free
+Software Foundation; a to buï verze 2 této licence anebo (podle va¹eho
+uvá¾ení) kterékoli pozdìj¹í verze.
+</para>
+
+<para>
+Tento program je roz¹iøován v nadìji, ¾e bude u¾iteèný, av¹ak BEZ
+JAKÉKOLI ZÁRUKY; neposkytují se ani odvozené záruky PRODEJNOSTI anebo
+VHODNOSTI PRO URÈITÝ ÚÈEL.
+Dal¹í podrobnosti hledejte v Obecné veøejné licenci GNU.
+</para>
+
+<para>
+Kopii Obecné veøejné licence GNU jste mìl obdr¾et spolu s tímto
+programem; pokud se tak nestalo, napi¹te o ni Free Software Foundation,
+Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+</para>
+
+<para>
+Pùvodní anglické znìní:
+</para>
+
+<para>
+Bibletime is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+</para>
+
+<para>
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+</para>
+
+<para>
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+</para>
+</legalnotice>
+
+<abstract>
+<para>
+<application>BibleTime</application> je aplikace pro studium Bible.</para>
+</abstract>
+
+<keywordset>
+<keyword>BibleTime</keyword>
+<keyword>Sword</keyword>
+<keyword>Crosswire</keyword>
+<keyword>help dialog</keyword>
+<keyword>nápovìda</keyword>
+</keywordset>
+
+</bookinfo>
+&hdchap1;
+&hdchap2;
+&hdchap3;
+&hdchap4;
+&hdchap5;
+&hdchap6
+
+</book>
+
+
+

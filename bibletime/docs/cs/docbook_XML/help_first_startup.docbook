@@ -1,0 +1,183 @@
+<chapter id="help_first_startup">
+<title>První spu¹tìní</title>
+
+<table>
+<title>
+
+Poprvé jste spustili program BibleTime. V následujicí tabulce naleznete popis hlavních vlastností programu.
+
+</title>
+<tgroup cols="2">
+<thead>
+<row>
+<entry>
+<emphasis>
+Vlastnost
+</emphasis>
+</entry>
+<entry>
+<emphasis>
+Popis
+</emphasis>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<emphasis>
+
+MDI
+
+</emphasis>
+</entry>
+<entry>
+
+MDI je zkratka ze slov <emphasis>Multiple Document Interface.</emphasis>
+(Pøelo¾eno asi jako "<emphasis>rozhraní k více dokumentùm</emphasis>".)
+S jeho pomocí mù¾ete mít otevøeno nìkolik "prohlí¾eèù" naráz.
+Mù¾ete proto mít dva rùzné pøeklady Bible vedle sebe a porovnávat jejich text.
+Ale je samozøejmì mo¾né otevøít pouze jedno okno (jako v BibleTime 0.2x).
+Pro práci s okny slou¾í menu <emphasis>Okno</emphasis>.
+
+Oblast MDI mù¾e obsahovat pouze prohlí¾eèe.
+Toto øe¹ení zjednodu¹uje u¾ivateli orientaci.
+
+</entry>
+</row>
+<row>
+<entry>
+<emphasis>
+Okno prohlí¾eèe
+</emphasis>
+</entry>
+<entry>
+
+Jedná se o okno v oblasti MDI programu BibleTime.
+Okno prohlí¾eèe reprezentuje obsah dokumentu (modul SWORDu) v pøimìøeném formátu (napø. Bible jsou zobrazeny jako HTML text s odkazy na èísla ver¹ù).
+Koncept prohlí¾eèù umo¾ní jednoduché pøizpùsobení v budoucnosti.
+A¾ se objeví nové typy modulù pro SWORD, jednodu¹e vytvoøíme dal¹í typ (nebo typy) prohlí¾eèù.
+Díky tomu bude mo¾né pracovat s libovolnými moduly (napø. mapy, zvukové nahrávky...).
+
+</entry>
+</row>
+<row>
+<entry>
+<emphasis>
+Hlavní seznam
+</emphasis>
+</entry>
+<entry>
+
+Hlavní seznam se nachází na levé stranì aplikace BibleTime.
+Kombinuje v sobì správu zálo¾ek a správu modulù z BibleTime 0.2x a pro jeho plné vyu¾ití pou¾ijte pravé tlaèítko my¹i.
+
+Seznam podporuje vlastnost "táhni a pus»" (drag & drop):
+Mù¾ete pøetáhnout odkaz na ver¹ z otevøeného dokumentu nebo z výsledku hledání do Hlavního seznamu a vytvoøit tak zálo¾ku.
+Rovnì¾ mù¾ete pøesouvat jednotlivé polo¾ky v seznamu (napø. pøesunout skupinu nebo zálo¾ky do jiné skupiny).
+
+</entry>
+</row>
+<row>
+<entry>
+<emphasis>
+Hledání
+</emphasis>
+</entry>
+<entry>
+
+Pro hledání se nyní otevírá samostatné okno.
+Kliknìte pravým tlaèítkem my¹i na modul a vyberte "Hledat ve vybraných modulech".
+Otevøe se okno, které je rozdìleno na "tabule", ve kterých mù¾ete zadat hledaný výraz, nastavit rozsah hledání a pracovat s nalezenými výsledky.
+Na poslední tabuli naleznete grafickou analýzu výsledku hledání.
+
+</entry>
+</row>
+<row>
+<entry>
+<emphasis>
+Táhni a pus»
+</emphasis>
+</entry>
+<entry>
+
+Jedná se o velmi dùle¾itou vlastnost aplikace.
+Mù¾ete pøetahovat dokumenty, odkazy na ver¹e, zálo¾ky, skupiny dokumentù, výsledky hledání atd.
+Pou¹tìt mù¾ete do Hlavního seznamu, prohlí¾eèù a do editoru osobního komentáøe.
+
+Jednodu¹e si trochu pohrejte.
+Tím nejlépe zjistíte, jak to celé funguje.
+Doufáme, ¾e si tuto vlastnost oblíbíte.
+
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>
+
+Dal¹í informace o aplikaci BibleTime mù¾ete nalézt na následujicích odkazech:
+
+</title>
+<tgroup cols="2">
+<thead>
+<row>
+<entry>
+<emphasis>
+
+URL
+
+</emphasis>
+</entry>
+<entry>
+<emphasis>
+
+Popis
+
+</emphasis>
+</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+<emphasis>
+
+<ulink url="http://www.bibletime.de/">www.bibletime.de
+
+</ulink>
+</emphasis>
+</entry>
+<entry>
+
+Toto je stránka projektu BibleTime.
+Naleznete zde dokumentaci (v angliètinì), odpovìdi na èasto kladené otázky (tzv. FAQ, v angliètinì) a dal¹í informace.
+
+</entry>
+</row>
+
+<row>
+<entry>
+<emphasis>
+
+<ulink url="http://www.crosswire.or</emphasis>g/">www.crosswire.org
+
+</ulink>
+</emphasis>
+</entry>
+<entry>
+
+Stránka spoleènosti Crosswire. Jedná se o biblickou spoleènost, která vytváøí knihovnu biblických textù a také nástroj pro práci s tìmi texty - SWORD.
+Z této stránky si mù¾ete stáhnout jednotlivé moduly, které chcete/potøebujete.
+Dostupné moduly jsou vìt¹inou volnì pou¾itelné nebo jsou spoleènosti Crosswire poskytnuty k bezplatnému ¹íøení od vlastníkù autorských práv.
+Moduly, které nejsou volnì ¹iøitelné jsou "uzamèeny" (locked).
+Pøed sta¾ením takového zamèeného modulu si prosím pøeètìte <ulink url="module_encrypted.html">nápovìdu k zamèeným modulùm</ulink>.
+
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</chapter>

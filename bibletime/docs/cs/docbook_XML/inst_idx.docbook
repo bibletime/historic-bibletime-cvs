@@ -1,0 +1,80 @@
+<book lang="en" id="inst_idx">
+
+<bookinfo>
+
+<title>Bibletime Installation Guide</title>
+
+
+<authorgroup>
+<author>
+<firstname>Jeffrey</firstname>
+<surname>Hoyt</surname>
+</author>
+<author>
+<firstname>Joachim</firstname>
+<surname>Ansorg</surname>
+</author>
+<author>
+<firstname>Fred</firstname>
+<surname>Saalbach</surname>
+</author>
+</authorgroup>
+<date>08 April 2001</date>
+<releaseinfo>1.0</releaseinfo>
+<copyright>
+<year>1999</year>
+<year>2000</year>
+<year>2001</year>
+
+
+<holder>
+The team of BibleTime, info@bibletime.de
+</holder>
+</copyright>
+
+<legalnotice>
+<para>The Bibletime installation guide is part of Bibletime.
+</para>
+
+<para>
+Bibletime is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+</para>
+
+<para>
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+</para>
+
+<para>
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+</para>
+</legalnotice>
+
+
+<abstract>
+<para>
+<application>BibleTime</application> is an application to aid in study of the
+Bible.</para>
+</abstract>
+
+<keywordset>
+<keyword>BibleTime</keyword>
+<keyword>Sword</keyword>
+<keyword>Crosswire</keyword>
+<keyword>installation</keyword>
+</keywordset>
+
+</bookinfo>
+&instchap1;
+&instchap2;
+&instchap3;
+&instchap4;
+&instchap5;
+</book>

@@ -35,8 +35,8 @@ for I1 in `ls -d [a-z][a-z]`; do
   echo "EXTRA_DIST =  tipdatabase"  >> $I1/Makefile.am
   echo " "                          >> $I1/Makefile.am
 
-  echo 'install-data-local: ; $(INSTALL_DATA) tipdatabase $(kde_htmldir)/'$I1"/bibletime/tipdatabase" >> $I1/Makefile.am
-  echo 'uninstall-local:    ; rm -f $(kde_htmldir)/'$I1"/bibletime/tipdatabase" >> $I1/Makefile.am
+  echo 'install-data-local: ; mkdir -p $(kde_htmldir)/'$I1'/bibletime/; chmod a+r+X -R $(kde_htmldir)/'$I1'; $(INSTALL_DATA) tipdatabase $(kde_htmldir)/'$I1'/bibletime/tipdatabase' >> $I1/Makefile.am
+  echo 'uninstall-local:    ; rm -f $(kde_htmldir)/'$I1'/bibletime/tipdatabase' >> $I1/Makefile.am
   echo " "                          >> $I1/Makefile.am
 
 ###########################
@@ -55,7 +55,7 @@ for I1 in `ls -d [a-z][a-z]`; do
   echo " " >> $I2/Makefile.am
 
   echo ' '                                                             >> $I2/Makefile.am
-  echo 'install-data-local: ; $(mkinstalldirs) $(kde_htmldir)/'$I1"/bibletime;"\\>> $I2/Makefile.am  
+  echo 'install-data-local: ; mkdir -p $(kde_htmldir)/'$I1'/bibletime; chmod a+r+X -R $(kde_htmldir)/'$I1';'\\>> $I2/Makefile.am
   echo '       for file in *.html; do '\\                              >> $I2/Makefile.am
   echo '         $(INSTALL_DATA) $$file $(kde_htmldir)/'$I1'/bibletime && '\\ >> $I2/Makefile.am
   echo '         chmod a+r $(kde_htmldir)/'$I1'/bibletime/$$file; '\\  >> $I2/Makefile.am
@@ -85,10 +85,10 @@ for I1 in `ls -d [a-z][a-z]`; do
   echo 'handbook: ;echo Creating handbook - please wait ...; '\\ >> $I2/Makefile.am
   echo '	$(KDB2HTML) '$IDX';'\\                            >> $I2/Makefile.am
   echo '	test -d HTML/common || mkdir -p HTML/common; '\\ >> $I2/Makefile.am
-  echo '	cp -f $HTM_D/Makefile* HTML;'\\                  >> $I2/Makefile.am
+  echo '	cp -f '$HTM_D'/Makefile* HTML;'\\                  >> $I2/Makefile.am
   echo '	test -d '$HTM_D'/common && cp -R '$HTM_D'/common/* HTML/common/;'\\       >> $I2/Makefile.am
   echo '	test -d '$HTM_D' && test -d '$HTM_D'/CVS && cp -Ra '$HTM_D'/CVS HTML/;'\\ >> $I2/Makefile.am
-  echo '	test -d '$HTM_D' && rm -Rf $HTM_D;'\\             >> $I2/Makefile.am
+  echo '	test -d '$HTM_D' && rm -Rf '$HTM_D';'\\             >> $I2/Makefile.am
   echo '	test -d HTML && mv HTML '$HTM_D';'\\               >> $I2/Makefile.am
   echo '	echo Finished!;'                                 >> $I2/Makefile.am
 
