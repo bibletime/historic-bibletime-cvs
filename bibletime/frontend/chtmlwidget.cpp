@@ -414,7 +414,7 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
 
 /** Installes a menu which will popup if the right mouse button was pressed on an anchor. */
 void CHTMLWidget::installAnchorMenu( QPopupMenu* anchorMenu ){
-	debug("CHTMLWidget::installAnchorMenu( QPopupMenu* anchorMenu )");
+	qDebug("CHTMLWidget::installAnchorMenu( QPopupMenu* anchorMenu )");
 	ASSERT( anchorMenu );
 	m_anchorMenu = anchorMenu;
 }
