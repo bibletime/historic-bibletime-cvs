@@ -81,7 +81,6 @@ void CSearchDialogResultModuleView::setupTree() {
 		module->setPixmap(0,CToolClass::getIconForModule(moduleList->current()) );
 	}	
 	setFixedWidth( sizeHint().width() );
-//	resize(sizeHint());
 }
 
 void CSearchDialogResultModuleView::viewportMousePressEvent(QMouseEvent *e) {
@@ -127,9 +126,9 @@ void CSearchDialogResultModuleView::initView(){
 	m_printPopup = new KPopupMenu(m_popup);		
 	m_printPopup->insertItem(i18n("Search result"), this, SLOT(printSearchResult()));
 	
-	m_savePopup = new KPopupMenu(m_popup);		
+	m_savePopup = new KPopupMenu(m_popup);
 	m_savePopup->insertItem(i18n("Search result"), this, SLOT(slotSaveSearchResult()));
-	m_savePopup->insertItem(i18n("Result with text"), this, SLOT(slotSaveSearchResultWithKeytext()));
+	m_savePopup->insertItem(i18n("Search result with text"), this, SLOT(slotSaveSearchResultWithKeytext()));
 	
 	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY), i18n("Copy..."), 	m_copyPopup);
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup);
@@ -201,7 +200,7 @@ void CSearchDialogResultModuleView::slotCopySearchResult(){
 	progress.setProgress(0);		
 		
 	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( QString::fromLocal8Bit(m_currentModule->module()->Name()) );
-	text.append( QString("Entries found: %1\n\n").arg(searchResult.Count()) );	
+	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());
 	
 	const int count = searchResult.Count();
 	for (int index = 0; index < count; index++) {
@@ -238,7 +237,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResult(){
 	progress.show();
 	progress.setProgress(0);	
 	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( QString::fromLocal8Bit(m_currentModule->module()->Name()) );
-	text.append( QString("Entries found: %1\n\n").arg(searchResult.Count()) );	
+	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 	
 	const int count = searchResult.Count();
 	for (int index = 0; index < count; index++) {
@@ -261,7 +260,7 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 	QString searchedText;
 	for (QObject* w = parent(); w; w = w->parent()) {
 		if (w->isA("CSearchDialog")) {
-			CSearchDialog*	dlg = (CSearchDialog*)w;
+			CSearchDialog* dlg = dynamic_cast<CSearchDialog*>(w);
 			searchedText = dlg->getSearchedText().stripWhiteSpace();
 			break;
 		}		
@@ -271,7 +270,7 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
 	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( QString::fromLocal8Bit(m_currentModule->module()->Name()) );
-	text.append( QString("Entries found: %1\n\n").arg(searchResult.Count()) );	
+	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 	const int count = searchResult.Count();
 	const CSwordModuleInfo::type type = m_currentModule->getType();
 	for (int index = 0; index < count; index++) {		
@@ -286,12 +285,12 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 		if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary) {
 			CSwordVerseKey vKey(m_currentModule);
 			vKey.key(QString::fromLocal8Bit((const char*)*key));
-			text += QString("%1:\n\t%2\n").arg( vKey.key() ).arg( vKey.renderedText() );
+			text += QString("%1:\n\t%2\n").arg( vKey.key() ).arg( vKey.strippedText() );
 		}
 		else if (type == CSwordModuleInfo::Lexicon) {
 			CSwordLDKey ldKey(m_currentModule);
 			ldKey.key(QString::fromLocal8Bit((const char*)*key));
-			text += QString("%1:\n\t%2\n").arg( ldKey.key() ).arg( ldKey.renderedText() );
+			text += QString("%1:\n\t%2\n").arg( ldKey.key() ).arg( ldKey.strippedText() );
 		}		
 	}
 	KApplication::clipboard()->setText(text);	
@@ -316,7 +315,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 	QProgressDialog progress( "Saving...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
 	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( QString::fromLocal8Bit(m_currentModule->module()->Name()) );
-	text.append( QString("Entries found: %1\n\n").arg(searchResult.Count()) );	
+	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 
 	const int count = searchResult.Count();
 	const CSwordModuleInfo::type type = m_currentModule->getType();
