@@ -437,7 +437,6 @@ CRangeChooserDialog::RangeItem::~RangeItem() {
 };
 
 const QString& CRangeChooserDialog::RangeItem::range() {
-//  return VerseKey().ParseVerseList((const char*)m_range.local8Bit(), "Genesis 1:1", true);
   return m_range;
 };
 
@@ -455,7 +454,7 @@ void CRangeChooserDialog::RangeItem::setCaption(const QString newCaption) {
 
 
 /**************************/
-CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(Plain, i18n("Edit search ranges ..."), Close, Close, parentDialog, "CRangeChooserDialog", false, true) {
+CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(Plain, i18n("Edit search ranges ..."), Default | Ok | Cancel, Ok, parentDialog, "CRangeChooserDialog", false, true) {
   initView();
   initConnections();
 
@@ -465,42 +464,52 @@ CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(
   for (it = map.begin(); it != map.end(); ++it) {
     new RangeItem(m_rangeList, 0, it.key(), it.data());
   };
+
+  editRange(0);
+  nameChanged(QString::null);
 };
 
 CRangeChooserDialog::~CRangeChooserDialog() {
-
 };
 
 /** Initializes the view of this object. */
 void CRangeChooserDialog::initView(){
-  QGridLayout* grid = new QGridLayout(plainPage(),6,4,0,3);
+//  setButtonOKText(i18n(""));
+  
+  QGridLayout* grid = new QGridLayout(plainPage(),6,5,0,3);
 
   m_rangeList = new KListView(plainPage());
   m_rangeList->addColumn(i18n("Search range"));
   m_rangeList->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
   m_rangeList->setFullWidth(true);
-  m_rangeList->setSorting(-1);
+  m_rangeList->setSorting(0, true);
   m_rangeList->header()->setClickEnabled(false);
   m_rangeList->header()->setMovingEnabled(false);
-  grid->addMultiCellWidget(m_rangeList,0,4,0,0);
+  grid->addMultiCellWidget(m_rangeList,0,4,0,1);
 
   QPushButton* newRange = new QPushButton(i18n("Add new range"),plainPage());
   connect(newRange, SIGNAL(clicked()), this, SLOT(addNewRange()));
   grid->addWidget(newRange,5,0);
-  
-  grid->addColSpacing(1, 5);
+
+  m_deleteRangeButton = new QPushButton(i18n("Delete current range"),plainPage());
+  connect(m_deleteRangeButton, SIGNAL(clicked()), this, SLOT(deleteCurrentRange()));
+  grid->addWidget(m_deleteRangeButton,5,1);
+    
+  grid->addColSpacing(2, 5);
   
   QLabel* label = new QLabel(i18n("Name:"), plainPage());
   m_nameEdit = new QLineEdit(plainPage());
-  grid->addWidget(label,0,2);
-  grid->addWidget(m_nameEdit,0,3);
+  grid->addWidget(label,0,3);
+  grid->addWidget(m_nameEdit,0,4);
 
   label = new QLabel(i18n("Edit the search range:"), plainPage());
   label->setFixedSize(label->sizeHint());
   m_rangeEdit = new QTextEdit(plainPage());
-  grid->addMultiCellWidget(label,1,1,2,3);
-  grid->addMultiCellWidget(m_rangeEdit,2,2,2,3);
+  grid->addMultiCellWidget(label,1,1,3,4);
+  grid->addMultiCellWidget(m_rangeEdit,2,2,3,4);
 
+  grid->addRowSpacing(3, 10);
+  
   m_resultList = new KListView(plainPage());
   m_resultList->addColumn(i18n("Parsed search range:"));
   m_resultList->setFullWidth(true);
@@ -510,9 +519,9 @@ void CRangeChooserDialog::initView(){
   m_resultList->header()->setMovingEnabled(false);
   m_resultList->setSelectionModeExt(KListView::NoSelection);
   
-  grid->addMultiCellWidget(m_resultList, 3,5,2,3);
+  grid->addMultiCellWidget(m_resultList, 4,5,3,4);
 
-  grid->setRowStretch(3,5);
+  grid->setRowStretch(4,5);
 }
 
 /** Initializes the connections of this widget. */
@@ -541,20 +550,15 @@ void CRangeChooserDialog::addNewRange(){
 
 /** No descriptions */
 void CRangeChooserDialog::editRange(QListViewItem* item){
-//  Q_ASSERT(item);
-  if (RangeItem* i = dynamic_cast<RangeItem*>(item)) {
+  m_nameEdit->setEnabled( dynamic_cast<RangeItem*>(item) ); //ony if an item is selected enable the edit part
+  m_rangeEdit->setEnabled( dynamic_cast<RangeItem*>(item) );
+  m_resultList->setEnabled( dynamic_cast<RangeItem*>(item) );
+  m_deleteRangeButton->setEnabled( dynamic_cast<RangeItem*>(item) );
+  
+  if (RangeItem* i = dynamic_cast<RangeItem*>(item)) {   
     m_nameEdit->setText(i->caption());
-
-//    QString text = QString::null;
-//    ListKey range = i->range();
-//    for (int i = 0; i < range.Count(); ++i) {
-//    	if (VerseKey* element = dynamic_cast<VerseKey*>(range.GetElement(i)))
-//  			text += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
-//  		else
-//  			text += QString::fromLocal8Bit((const char*)*range.GetElement(i));
-//  	}    
     m_rangeEdit->setText(i->range());
-  };
+  }
 }
 
 /** Parses the entered text and prints out the result in the list box below the edit area. */
@@ -576,16 +580,68 @@ void CRangeChooserDialog::parseRange(){
 /** No descriptions */
 void CRangeChooserDialog::rangeChanged(){
   if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
-    qWarning(m_rangeEdit->text().latin1());
     i->setRange(m_rangeEdit->text());
   };
 }
 
 /** No descriptions */
 void CRangeChooserDialog::nameChanged(const QString& newCaption){
-  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
-    i->setCaption(newCaption);
+  m_rangeEdit->setEnabled(!newCaption.isEmpty());
+  m_resultList->setEnabled(!newCaption.isEmpty());
+  m_resultList->header()->setEnabled(!newCaption.isEmpty());  
+
+  if (!newCaption.isEmpty()) {
+    if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
+      i->setCaption(newCaption);
+      m_rangeList->sort();
+    };
   };
+}
+
+/** Deletes the selected range. */
+void CRangeChooserDialog::deleteCurrentRange(){
+  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
+    if (QListViewItem* selection = i->itemBelow() ? i->itemBelow() : i->itemAbove()) {
+      m_rangeList->setSelected(selection, true);
+      m_rangeList->setCurrentItem(selection);
+    }
+    else {
+      m_rangeList->setSelected(m_rangeList->firstChild(), true);
+      m_rangeList->setCurrentItem(m_rangeList->firstChild());      
+    }
+    delete i;
+  }
+  editRange(m_rangeList->currentItem()); 
+}
+
+void CRangeChooserDialog::slotOk(){
+  //save the new map of search scopes
+  CBTConfig::StringMap map;
+  QListViewItemIterator it( m_rangeList );
+  for (;it.current(); ++it) {
+    if ( RangeItem* i = dynamic_cast<RangeItem*>(it.current()) ){
+      map[i->caption()] = i->range();
+    };
+  };
+  CBTConfig::set(CBTConfig::searchScopes, map);
+
+  KDialogBase::slotOk();
+}
+  
+void CRangeChooserDialog::slotDefault(){
+  m_rangeList->clear();
+  CBTConfig::StringMap map = CBTConfig::getDefault(CBTConfig::searchScopes);
+  CBTConfig::StringMap::Iterator it;
+  for (it = map.begin(); it != map.end(); ++it) {
+    new RangeItem(m_rangeList, 0, it.key(), it.data());
+  };
+  m_rangeList->setSelected(m_rangeList->selectedItem(), false);
+  m_rangeList->setCurrentItem(0);  
+  
+  editRange(0);
+  nameChanged(QString::null);
+
+  KDialogBase::slotDefault();  
 }
 
 /****************************/
@@ -990,3 +1046,4 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
  	}
   painter.restore();
 }
+

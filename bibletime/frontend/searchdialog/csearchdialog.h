@@ -254,12 +254,19 @@ protected slots: // Protected slots
   void parseRange();
   void nameChanged(const QString&);
   void rangeChanged();
+  /**
+  * Deletes the selected range.
+  */
+  void deleteCurrentRange();
+  virtual void slotDefault();
+  virtual void slotOk();  
 
 private:
   KListView* m_rangeList;
   KListView* m_resultList;
   QLineEdit* m_nameEdit;
   QTextEdit* m_rangeEdit;
+  QPushButton* m_deleteRangeButton;
 };
 
 /**

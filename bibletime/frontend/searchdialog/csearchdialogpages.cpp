@@ -193,8 +193,12 @@ void CSearchResultPage::initView(){
   layoutBox->setSpacing(3);
   m_moduleListBox = new CModuleListView(layoutBox);
   m_resultListBox = new CModuleResultView(layoutBox);
-  m_previewDisplay = CDisplay::createReadInstance(0, splitter);
 
+  m_previewDisplay = CDisplay::createReadInstance(0, splitter);  
+
+  splitter->setResizeMode(layoutBox, QSplitter::KeepSize);
+  splitter->setResizeMode(m_previewDisplay->view(), QSplitter::Stretch);
+  
   m_analyseButton = new QPushButton(i18n("Show search analysis")+QString::fromLatin1("..."), this);
   connect(m_analyseButton, SIGNAL(clicked()),
     this, SLOT(showAnalysis()));
@@ -209,11 +213,11 @@ void CSearchResultPage::setSearchResult(ListCSwordModuleInfo modules){
   m_moduleListBox->setupTree(modules);
 
   //have a Bible or commentary in the modules?
-  bool isOk = false;
-  for (modules.first(); !isOk && modules.current(); modules.next()) {
-    isOk = (modules.current()->type() == CSwordModuleInfo::Bible) || (modules.current()->type() == CSwordModuleInfo::Commentary);
+  bool isOk = true;
+  for (modules.first(); isOk && modules.current(); modules.next()) {
+    isOk = isOk && (modules.current()->type() == CSwordModuleInfo::Bible) || (modules.current()->type() == CSwordModuleInfo::Commentary);
   };
-  m_analyseButton->setEnabled(isOk);
+  m_analyseButton->setEnabled(!isOk);
 }
 
 
@@ -360,17 +364,16 @@ void CSearchOptionsPage::initView(){
 
 /** Sets the modules used by the search. */
 void CSearchOptionsPage::setModules( ListCSwordModuleInfo modules ) {
-  qWarning("CSearchOptionsPage::setModules");
+//  qWarning("CSearchOptionsPage::setModules");
   m_modules = modules;
   QString t = i18n("Searching in: ");
   CSwordModuleInfo* lastModule = modules.last();
   for (modules.first(); modules.current(); modules.next()) {
     t += modules.current()->name();
     if (modules.current() != lastModule)
-      t += QString::fromLatin1(" ");
+      t += QString::fromLatin1(",");
   }
   m_modulesLabel->setText(t);
-
 }
 
 /** Opens the modules chooser dialog. */
@@ -383,15 +386,12 @@ void CSearchOptionsPage::chooseModules(){
 
 /** Returns the list of used modules. */
 const ListCSwordModuleInfo CSearchOptionsPage::modules(){
-  qWarning("ListCSwordModuleInfo CSearchOptionsPage::modules");
-  qWarning("modules count: %i; fist: %s", m_modules.count(), m_modules.first()->name().latin1());
-
   return m_modules;
 }
 
 /** Prepares the stuff which is required for a search, e.g. setting back the percentage bars. */
 void CSearchOptionsPage::prepareSearch(){
-  qWarning("CSearchOptionsPage::prepareSearch");
+//  qWarning("CSearchOptionsPage::prepareSearch");
 	m_overallProgressBar->setProgress(0);
 	m_currentProgressBar->setProgress(0);
 }
@@ -408,7 +408,7 @@ void CSearchOptionsPage::setOverallProgress( const int progress ){
 
 /** Return the selected search type,. */
 const int CSearchOptionsPage::searchFlags() {
-  qWarning("CSearchOptionsPage::searchType");
+//  qWarning("CSearchOptionsPage::searchType");
 	int ret = CSwordModuleSearch::multipleWords;	//"multiple words" is standard
 	if (m_exactTextRadio->isChecked()) {
 		ret = CSwordModuleSearch::exactPhrase;
@@ -460,9 +460,9 @@ void CSearchOptionsPage::setupRanges(){
 /** refreshes the listof ranges and the range combobox. */
 void CSearchOptionsPage::refreshRanges(){
   //the first two options are fixed, the others can be edited using the "Setup ranges" button.
+  m_rangeChooserCombo->clear();
   m_rangeChooserCombo->insertItem(i18n("No search scope"));
   m_rangeChooserCombo->insertItem(i18n("Last search result"));
-//  m_rangeChooserCombo->insertItem(QString::null);
 
   //insert the user-defined ranges
   CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);

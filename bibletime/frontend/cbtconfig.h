@@ -123,7 +123,15 @@ public:
   static const QStringList	get( const CBTConfig::stringLists );
   static const CBTConfig::StringMap	get( const CBTConfig::stringMaps );
 	
-
+	static const QString 				 getDefault( const CBTConfig::strings );
+	static const QFont	 				 getDefault( const CBTConfig::fonts );
+	static const bool		 				 getDefault( const CBTConfig::bools );
+	static const int		 				 getDefault( const CBTConfig::ints );
+	static const QColor	 				 getDefault( const CBTConfig::colors );
+	static const QValueList<int> getDefault( const CBTConfig::intLists );
+	static const QStringList		 getDefault( const CBTConfig::stringLists );
+	static const CBTConfig::StringMap  		 getDefault( const CBTConfig::stringMaps );
+  
 	static void set( const CBTConfig::strings, 	const QString value );
 	static void set( const CBTConfig::fonts, 		const QFont value );
 	static void set( const CBTConfig::bools, 		const bool value );
@@ -147,15 +155,6 @@ private:
 	static const QString getKey( const CBTConfig::intLists );
 	static const QString getKey( const CBTConfig::stringLists );
 	static const QString getKey( const CBTConfig::stringMaps );  
-
-	static const QString 				 getDefault( const CBTConfig::strings );
-	static const QFont	 				 getDefault( const CBTConfig::fonts );
-	static const bool		 				 getDefault( const CBTConfig::bools );
-	static const int		 				 getDefault( const CBTConfig::ints );
-	static const QColor	 				 getDefault( const CBTConfig::colors );
-	static const QValueList<int> getDefault( const CBTConfig::intLists );
-	static const QStringList		 getDefault( const CBTConfig::stringLists );
-	static const CBTConfig::StringMap  		 getDefault( const CBTConfig::stringMaps );  
 };
 
 

@@ -84,6 +84,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 		}
 
     if (!read || !m_entryList->count()){
+//      module()->setSkipConsecutiveLinks(true);
 			(*module()) = TOP;
       snap(); //snap to top entry
   		do {
@@ -94,7 +95,8 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
   			(*module())++;
   		} while ( !module()->Error() );
 			(*module()) = TOP;
-
+//      module()->setSkipConsecutiveLinks(false);
+      
       if (m_entryList->count()) {
         m_entryList->first().simplifyWhiteSpace();
     		if (m_entryList->first().stripWhiteSpace().isEmpty())

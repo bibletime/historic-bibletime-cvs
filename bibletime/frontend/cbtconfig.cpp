@@ -248,16 +248,19 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
   	  map.insert(i18n("Paul's Epistels"), 	    QString::fromLatin1("Rom - Phile"));
 
       //make the list to the current bookname language!
-//    QString text = QString::null;
-//    ListKey range = i->range();
-//    for (int i = 0; i < range.Count(); ++i) {
-//    	if (VerseKey* element = dynamic_cast<VerseKey*>(range.GetElement(i)))
-//  			text += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
-//  		else
-//  			text += QString::fromLocal8Bit((const char*)*range.GetElement(i));
-//  	}
-
-      
+      CBTConfig::StringMap::Iterator it;
+      for (it = map.begin(); it != map.end(); ++it) {
+        //VerseKey key(it.data());
+        ListKey list = VerseKey().ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
+        QString data = QString::null;
+        for (int i = 0; i < list.Count(); ++i) {
+       	  if (VerseKey* element = dynamic_cast<VerseKey*>(list.GetElement(i)))
+       			data += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
+       		else
+       			data += QString::fromLocal8Bit("%1;").arg((const char*)*list.GetElement(i));
+     	  }
+        map[it.key()] = data; //set the new data
+      };      
       return map;
     };        
 	}
@@ -310,14 +313,13 @@ const QStringList	CBTConfig::get( const CBTConfig::stringLists ID ){
 	return config->readListEntry(getKey(ID));
 }
 
-const CBTConfig::StringMap	CBTConfig::get( const CBTConfig::stringMaps ID ){
+const CBTConfig::StringMap CBTConfig::get( const CBTConfig::stringMaps ID ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, getKey(ID));
   CBTConfig::StringMap map = config->entryMap(getKey(ID));
-  if (!map.isEmpty())
+  if (config->hasGroup(getKey(ID)))
     return map;
-  else
-    return getDefault(ID);
+  return getDefault(ID);
 }
 
 
@@ -366,21 +368,38 @@ void CBTConfig::set( const CBTConfig::stringLists ID, const QStringList value ){
 
 void CBTConfig::set( const CBTConfig::stringMaps ID, const CBTConfig::StringMap value ){
 	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, getKey(ID));
-
-  //save the list
+	KConfigGroupSaver groupSaver(config, getKey(ID));  
+  config->deleteGroup(getKey(ID)); //make sure we only save the new entries and don't use old ones
+  config->sync();  
+  config->setGroup(getKey(ID));
+  
+  /**
+  * We want to make sure that the search scopes are saved with english key names so loading them
+  * will always work with each locale set.
+  */
   CBTConfig::StringMap::ConstIterator it;
-  for ( it = value.begin(); it != value.end(); ++it ) {
-    config->writeEntry(it.key(), it.data());
+  QString data = QString::null;  
+  for (it = value.begin(); it != value.end(); ++it) {
+    ListKey list = VerseKey().ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
+    data = QString::null;
+    for (int i = 0; i < list.Count(); ++i) {
+   	  if (VerseKey* element = dynamic_cast<VerseKey*>(list.GetElement(i))) {
+        element->setLocale("en");
+        element->LowerBound().setLocale("en");
+        element->UpperBound().setLocale("en");
+   			data += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
+      }
+   		else
+   			data += QString::fromLocal8Bit("%1;").arg((const char*)*list.GetElement(i));
+ 	  }
+    config->writeEntry(it.key(), data);    
   };
 }
-
-
 
 const CSwordBackend::DisplayOptions CBTConfig::getDisplayOptionDefaults(){
   CSwordBackend::DisplayOptions options;
 
-	options.lineBreaks = 		get(CBTConfig::lineBreaks);
+	options.lineBreaks   = 	get(CBTConfig::lineBreaks);
   options.verseNumbers = 	get(CBTConfig::verseNumbers);
 
 	return options;
