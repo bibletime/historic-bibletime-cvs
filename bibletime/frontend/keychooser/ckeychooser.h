@@ -46,10 +46,6 @@ public:
 	* @param parent the parent of the widget to create
 	*/
   static CKeyChooser* createInstance(CModuleInfo *info, CKey *key, QWidget *parent);
-	/**
-	* The destructor
-	*/
-	~CKeyChooser();
 
 signals:
 	/**

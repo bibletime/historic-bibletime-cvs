@@ -31,9 +31,6 @@ cfx_btn::cfx_btn(QWidget *parent, const char *name ) : QToolButton(parent,name) 
 		this, SLOT(was_released()));
 }
 
-cfx_btn::~cfx_btn(){
-}
-
 void cfx_btn::was_pressed( void ){
 	QApplication::setOverrideCursor( BlankCursor );
 	isLocked = true;

@@ -51,10 +51,9 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 			
     int index = listBox()->index( listBox()->findItem(currentText()) );
     if (index==-1)
-    	index++;
+    	index++;// return 0 if not found
     emit focusOut( index );  	
   	setCurrentItem( index );
-//    emit activated( currentText() );
 	}
   QComboBox::eventFilter(o,e);	
 }
@@ -72,10 +71,6 @@ CKeyChooserWidget::CKeyChooserWidget(int count, QWidget *parent, const char *nam
 CKeyChooserWidget::CKeyChooserWidget(QStringList *list, QWidget *parent, const char *name ) : QWidget(parent,name) {
 	m_list = *list;
 	init();
-}
-
-
-CKeyChooserWidget::~CKeyChooserWidget(){
 }
 
 void CKeyChooserWidget::changeCombo(int i){

@@ -38,12 +38,11 @@
 
 CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(info, key, parent, name){
-	qDebug("CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const char *name )");
-	ASSERT(info);
-	if ((CSwordBibleModuleInfo*)info)
+	if (info && ( ((CSwordModuleInfo*)info)->getType()==CSwordModuleInfo::Bible
+	            ||((CSwordModuleInfo*)info)->getType()==CSwordModuleInfo::Commentary ) )
 		m_info = (CSwordBibleModuleInfo*)info;
 	else {
-		qWarning("CBibleKeyChooser: module is not a Bible! HELP!");
+		qWarning("CBibleKeyChooser: module is not a Bible!");
 		return;
 	}
 	
@@ -87,50 +86,28 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 }
 
 CKey *CBibleKeyChooser::getKey(){
-	ASSERT(m_key);
 	return m_key;
 }
 
 void CBibleKeyChooser::setKey(CKey* key){
-	qDebug("CBibleKeyChooser::setKey(CKey* key)");
 
 	if (dynamic_cast<CSwordVerseKey*>(key))
 		m_key = dynamic_cast<CSwordVerseKey*>(key);
 	
-	const QString book = m_key->getBook();
+	const unsigned int bookIndex = m_info->getBookNumber( m_key->getBook() );
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
 
-/**
-	* Unnecessary!
-	* This returns everytime the same list, which does cost speed and time
-	* BUT: m_info caches the booklist
-	*/	
-#warning Possible point to optimize!
-	QStringList* bookList = m_info->getBooks();
-	int bookIndex = 1;
-	for (QStringList::Iterator it = bookList->begin(); it != bookList->end(); it++, bookIndex++) {
-		if ((*it) == book)
-			break;
-	}
-		
 	//reset the keychooser parts only if we found a valid book
-	if (!book.isEmpty()) {	//we have a valid book
+	if (bookIndex != 0) {	//we have a valid book
 		w_book->ComboBox->setCurrentItem(bookIndex-1);
 
-		w_chapter->reset(
-			m_info->getChapterCount(bookIndex)
-			,chapter-1
-			,false);
+		w_chapter->reset(	m_info->getChapterCount(bookIndex), chapter-1, false);
 		w_chapter->adjustSize();
 	
-		w_verse->reset(
-			m_info->getVerseCount(bookIndex, chapter)
-			,verse-1
-			,false);
+		w_verse->reset(	m_info->getVerseCount(bookIndex, chapter), verse-1, false);
 		w_verse->adjustSize();		
 	}	
-	qDebug("emit the signal keyChanged");
 	emit keyChanged(m_key);
 }
 
@@ -227,8 +204,7 @@ QSize CBibleKeyChooser::sizeHint(){
 
 /** Reimplementation. */
 void CBibleKeyChooser::refreshContent() {
-	const int currentBookIndex = w_book->ComboBox->currentItem();
-	w_book->reset( m_info->getBooks(), currentBookIndex, true);
+	w_book->reset( m_info->getBooks(), w_book->ComboBox->currentItem(), true);
 }
 
 /** Sets te module and refreshes the combos */
@@ -272,7 +248,6 @@ void CBibleKeyChooser::chapterFocusOut(int index){
 	
 	w_verse->reset(newverses,verse-1,false);
 	w_verse->adjustSize();
-	qDebug(QString("B C V: %1 %2 %3").arg(book).arg(index+1).arg(verse).local8Bit());
 }
 /** called when the verse combo lost the focus
 with reason == tab

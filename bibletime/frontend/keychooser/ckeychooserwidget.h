@@ -23,17 +23,19 @@
 
 class cfx_btn;
 class CLexiconKeyChooser;
-class CMinMaxLayout;
+//class CMinMaxLayout;
 
 class QIconSet;
-class QVBoxLayout;
-class QHBoxLayout;
 class QComboBox;
 class QToolButton;
 class QStringList;
 class QPoint;
 class QMouseEvent;
 
+/*
+* We use this class to contol the focus move in the combobox
+* This class is used in the key chooser widgets
+*/
 class CKCComboBox : public QComboBox {
   Q_OBJECT
 
@@ -46,6 +48,9 @@ protected:
   virtual bool eventFilter( QObject *o, QEvent *e );
 
 signals:
+  /**
+  * Emitted when the user moves the focus away from the combo by pressing tab
+  */
 	void focusOut(int itemIndex);
 };
 
@@ -68,25 +73,9 @@ public:
 		*/
 	CKeyChooserWidget(int count=0, QWidget *parent=0, const char *name=0);	
 	/**
-	* the destructor
-	*/
-	~CKeyChooserWidget();
-	/**
 	*
 	*/
 	CKCComboBox* ComboBox;
-	/**
-	*
-	*/
-	QToolButton* btn_up;
-	/**
-	*
-	*/
-	QToolButton* btn_down;
-	/**
-	*
-	*/
-	cfx_btn* btn_fx;
 	/**
 	* This function does clear the combobox, then fill in
 	* the StringList, set the ComboBox' current item to index
@@ -177,6 +166,18 @@ protected:
 	*
 	*/
 	QString oldKey;
+  /**
+	*
+	*/
+	QToolButton* btn_up;
+	/**
+	*
+	*/
+	QToolButton* btn_down;
+	/**
+	*
+	*/
+	cfx_btn* btn_fx;
 	
 protected slots: // Protected slots
   /**

@@ -35,14 +35,14 @@
 CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(info, key, parent, name){
 	
-	if ((CSwordLexiconModuleInfo*)info)
+	if ((CSwordLexiconModuleInfo*)info && ((CSwordLexiconModuleInfo*)info)->getType()==CSwordModuleInfo::Lexicon)
 		m_info = (CSwordLexiconModuleInfo*)info;
 	else {
 		qWarning("Wrong module type! Return.");
 		return;
 	}	
 	//we use a layout because the key chooser should be resized to full size
-	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
+ 	QHBoxLayout *m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 	m_widget = new CKeyChooserWidget(m_info->getEntries(), this);
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,QString::null, QString::null, QString::null);
 	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,QString::null, QString::null, QString::null);
@@ -56,16 +56,11 @@ CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *pa
 	setKey(key);
 }
 
-CLexiconKeyChooser::~CLexiconKeyChooser(){
-}
-
 CKey* CLexiconKeyChooser::getKey(){
-	ASSERT(m_key);
 	return m_key;
 }
 
 void CLexiconKeyChooser::setKey(CKey* key){
-	qDebug("CLexiconKeyChooser::setKey(CKey* key)");
 	if (dynamic_cast<CSwordLDKey*>(key))
 		m_key = dynamic_cast<CSwordLDKey*>(key);
 	else {
@@ -84,10 +79,7 @@ void CLexiconKeyChooser::setKey(CKey* key){
 
 void CLexiconKeyChooser::activated(int index){
 	QString text =  m_widget->ComboBox->text(index);	
-	/*
-	* to prevent from eternal loop, because activated()
-	* is emitted again
-	*/
+	/*to prevent from eternal loop, because activated()is emitted again*/
  	if (QString::fromLocal8Bit((const char*)*m_key) != text)
 		m_key->setKey(text);
  	setKey(m_key);
@@ -112,7 +104,7 @@ void CLexiconKeyChooser::refreshContent(){
 
 /** Sets the module and refreshes the combo boxes */
 void CLexiconKeyChooser::setModule( CModuleInfo* module){
-	if (module != m_info && (CSwordLexiconModuleInfo*)module)
+	if (module && module != m_info && ((CSwordLexiconModuleInfo*)module)->getType()==CSwordLexiconModuleInfo::Lexicon)
 	{
 		m_info = (CSwordLexiconModuleInfo*)module;
 		refreshContent();

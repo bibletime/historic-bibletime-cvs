@@ -29,25 +29,13 @@ CKeyChooser::CKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const ch
 	: QWidget(parent, name){
 }
 
-CKeyChooser::~CKeyChooser(){
-	qDebug("Destructor of CKeyChooser");
-}
-
 CKeyChooser* CKeyChooser::createInstance(CModuleInfo *info, CKey *key, QWidget *parent){	
-	if (info && (CSwordModuleInfo*)info) {
-		CSwordModuleInfo* swordModule = (CSwordModuleInfo*)info;
-		if (dynamic_cast<CSwordBibleModuleInfo*>(swordModule)) {
-			qDebug("create Bible Key Chooser");			
-			return new CBibleKeyChooser(info,key,parent);
-		}
-		else if (dynamic_cast<CSwordLexiconModuleInfo*>(swordModule)) {
-			qDebug("create Lexicon Key Chooser");
-			return new CLexiconKeyChooser(info,key,parent);
-		}
-		else {
-			return 0;
-			qWarning("Can't find out module type");
-		}		
-	}
-	return 0;	
+	if (info && (CSwordModuleInfo*)info)
+  	switch ( ((CSwordModuleInfo*)info)->getType() ){
+  	  case CSwordModuleInfo::Commentary:	
+  	  case CSwordModuleInfo::Bible:	  return new CBibleKeyChooser(info,key,parent);
+  	  case CSwordModuleInfo::Lexicon:	return new CLexiconKeyChooser(info,key,parent);	
+  	  default: return 0;
+  	}
+  return 0;
 }

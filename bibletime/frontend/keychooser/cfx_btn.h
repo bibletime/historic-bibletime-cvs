@@ -34,10 +34,6 @@ public:
 		*/
 	cfx_btn(QWidget *parent=0, const char *name=0);
 	/**
-		* The destructor
-		*/
-	~cfx_btn();
-	/**
 		* indicates whether the button is in locked state or not
 		*/
   bool isLocked;

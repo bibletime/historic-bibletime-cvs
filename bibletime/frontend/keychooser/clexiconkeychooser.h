@@ -45,10 +45,6 @@ public:
 	*	you should not need to use this, use @ref CKeyChooser::createInstance instead
 	*/
 	CLexiconKeyChooser(CModuleInfo *info=0, CKey *key=0, QWidget *parent=0, const char *name=0);
-	/**
-	* the destructor
-	*/
-	~CLexiconKeyChooser();
 
 public slots:
 	/**
@@ -92,7 +88,6 @@ protected:
 	CKeyChooserWidget *m_widget;
 	CSwordLDKey* m_key;
 	CSwordLexiconModuleInfo	*m_info;	
- 	QHBoxLayout *m_layout;
 };
 
 #endif

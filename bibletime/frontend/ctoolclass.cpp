@@ -20,9 +20,6 @@
 #include "../ressource.h"
 #include "../backend/cmoduleinfo.h"
 #include "../backend/sword_backend/cswordmoduleinfo.h"
-#include "../backend/sword_backend/cswordcommentarymoduleinfo.h"
-#include "../backend/sword_backend/cswordbiblemoduleinfo.h"
-#include "../backend/sword_backend/cswordlexiconmoduleinfo.h"
 
 //QT includes
 #include <qfile.h>
@@ -128,35 +125,29 @@ void CToolClass::decodeReference(QString &dragreference, QString &module, QStrin
 
 /** Returns the icon used for the module given as aparameter. */
 QPixmap CToolClass::getIconForModule( CSwordModuleInfo* module_info ){
-  qDebug("CToolClass::getIconForModule( CSwordModuleInfo* module_info )");
-  QPixmap icon = BIBLE_ICON_SMALL;
-  ASSERT(module_info);
   if (!module_info)
-  	return icon;
-  		
-//	qDebug(module_info->getDescription());
-	if ( dynamic_cast<CSwordLexiconModuleInfo*>(module_info) ) {
-		qDebug("module is a lexikon");
-		if (module_info->isLocked())
-			icon = LEXICON_LOCKED_ICON_SMALL;
-		else
-			icon = LEXICON_ICON_SMALL;
-	}	
-	else if ( dynamic_cast<CSwordCommentaryModuleInfo*>(module_info) ) {
-		qDebug("module is a commentary");
-		if (module_info->isLocked())
-			icon = COMMENTARY_LOCKED_ICON_SMALL;
-		else
-			icon = COMMENTARY_ICON_SMALL;
-	}
-	else if ( dynamic_cast<CSwordBibleModuleInfo*>(module_info) ) {
-		qDebug("module is a bible");
-		if ( module_info->isLocked() )
-			icon = BIBLE_LOCKED_ICON_SMALL;
-		else
-			icon = BIBLE_ICON_SMALL;
-	}
-	return icon;
+  	return QPixmap(BIBLE_ICON_SMALL);
+	
+ 	switch (module_info->getType()){
+ 	  case CSwordModuleInfo::Bible:
+ 	    if (module_info->isLocked())
+ 	      return QPixmap(BIBLE_LOCKED_ICON_SMALL);
+ 	    else
+ 	      return QPixmap(BIBLE_ICON_SMALL);
+ 	  case CSwordModuleInfo::Lexicon:
+ 	    if (module_info->isLocked())
+ 	      return QPixmap(LEXICON_LOCKED_ICON_SMALL);
+ 	    else
+ 	      return QPixmap(LEXICON_ICON_SMALL);
+ 	  case CSwordModuleInfo::Commentary:
+ 	    if (module_info->isLocked())
+ 	      return QPixmap(COMMENTARY_LOCKED_ICON_SMALL);
+ 	    else
+ 	      return QPixmap(COMMENTARY_ICON_SMALL);
+ 	  case CSwordModuleInfo::Unknown:
+ 	  default:
+ 	    return QPixmap(BIBLE_ICON_SMALL);
+ 	}
 }
 
 int CToolClass::makeLogicFontSize( const int s ) {
