@@ -30,7 +30,6 @@ kde-config --prefix			#Finds your kde directory (optional)
 export QTDIR=<QT source directory>
 export KDEDIR=<KDE directory (where KDE is installed)>
 export PATH=$KDEDIR/bin:$PATH
-make -f Makefile.cvs
 ./configure				# create makefiles
 make					# compile BibleTime
 su					# change to "root user"

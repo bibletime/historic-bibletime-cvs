@@ -34,6 +34,8 @@
 #include <qtimer.h>
 #include <qevent.h>
 #include <qwhatsthis.h>
+#include <qtimer.h>
+
 
 CMDIArea::CMDIArea(QWidget *parent, const char *name )
 	: QWorkspace(parent, name),
@@ -76,7 +78,7 @@ void CMDIArea::slotClientActivated(QWidget* client){
   QWidgetList windows = windowList();
   for ( QWidget* w = windows.first(); w; w = windows.next() ) {
 
-//Don't use!! It would disable accel  enabling for the active window, see CDisplayWindow::windowActivated
+//Don't use!! It would disable accel enabling for the active window, see CDisplayWindow::windowActivated
 /*    if (w == client)
         continue;
 */
@@ -93,21 +95,24 @@ void CMDIArea::childEvent( QChildEvent * e ){
 	QWorkspace::childEvent(e);
 
 	if ( m_childEvent || !isUpdatesEnabled() || !e) {
+    if (windowList().count() == 0) {
+      m_deleting = false;
+    }
 		return;
   }
-
+  
 	m_childEvent = true;
 	
 	if (!windowList().count()) {
 		m_appCaption = QString::null;
-		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(m_appCaption) );		
+		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(m_appCaption) );
 		emit sigLastPresenterClosed();
 	}	
 
   if (!m_deleting && isUpdatesEnabled() && (e->inserted() || e->removed()) ) {
 		switch (m_guiOption) {
 	 		case autoTile:
-				myTile();
+				QTimer::singleShot(0, this, SLOT(myTile()));
 	 			break;
 	 		case autoCascade:
 				myCascade();
@@ -120,13 +125,13 @@ void CMDIArea::childEvent( QChildEvent * e ){
 
   m_childEvent = false;
 
-  if (children()->count() == 1) { //no childs any more!
+  if (windowList().count() == 0) {
     m_deleting = false;
   }
 }
 
 /** Reimplementation */
-void CMDIArea::resizeEvent(QResizeEvent* e){	
+void CMDIArea::resizeEvent(QResizeEvent* e){
 	QWorkspace::resizeEvent(e);	
 
   if (m_deleting || !isUpdatesEnabled()) {
@@ -162,23 +167,26 @@ void CMDIArea::deleteAll(){
   m_deleting = true;
 
   QWidgetList windows( windowList() ); //copy pointers
-  windows.setAutoDelete(true);
-  windows.clear();
+  windows.setAutoDelete( false );
+  const int count = windows.count();
+  for (int i = count-1; i >= 0; --i) {
+    QWidget* w = windows.at(i);
+    windows.remove(i);
+    delete w;
+  };
+
+//  m_deleting = false;
 }
 
 /** Enable / disable autoCascading */
 void CMDIArea::setGUIOption( const MDIOption& newOption ){
-
 	//now do the initial action
- 	
 	switch (( m_guiOption = newOption )) { //set new value and decide what to do
  		case autoTile:
-			if (isUpdatesEnabled())
-				myTile();
+			myTile();
  			break;
  		case autoCascade:
-			if (isUpdatesEnabled())
-				myCascade();
+			myCascade();
  			break;
  		default:
  			break;
@@ -187,38 +195,30 @@ void CMDIArea::setGUIOption( const MDIOption& newOption ){
 
 /**  */
 void CMDIArea::myTile(){
-//  qWarning("CMDIArea::myTile()");
 	if (m_deleting || !isUpdatesEnabled() || !windowList().count() )	{
-//    qWarning("\treturn, don't tile");
     return;
   }
 
-	if (windowList().count() == 1 && windowList().at(0)) {
-//    qWarning("\tmaximize");
+	if ((windowList().count() == 1) && windowList().at(0)) {
 		m_appCaption = windowList().at(0)->caption();
 		windowList().at(0)->showMaximized();
 	}
 	else {
-//    qWarning("\tQWorkspace::tile");    
-		QWorkspace::tile();
+	  tile();	
   }
 }
 
 /**  */
 void CMDIArea::myCascade(){
-//  qWarning("CMDIArea::myCascade()");
 	if (m_deleting || !isUpdatesEnabled() || !windowList().count() ) {
-//    qWarning("\treturn, don't cascade");
 		return;
   }
     
-	if (windowList().count() == 1 && windowList().at(0)) {	
-//    qWarning("\tmaximize");    
-    m_appCaption = windowList().at(0)->caption();		
+	if ((windowList().count() == 1) && windowList().at(0)) {
+    m_appCaption = windowList().at(0)->caption();
 		windowList().at(0)->showMaximized();
 	}
  	else {
-//    qWarning("\tQWorkspace::cascade");
     QWorkspace::cascade();
   }
 }

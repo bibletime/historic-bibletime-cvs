@@ -42,9 +42,9 @@ Version:        %{version}
 Release:        %{release}
 #Icon:		bibletime.xpm
 Copyright:      GPL
-Vendor:         The team of BibleTime <info@bibletime.de>
-Url:            http://www.bibletime.de
-Packager:       Brook Humphrey <bah@webmedic.net>, Joachim Ansorg <jansorg@gmx.de>
+Vendor:         The team of BibleTime <info@bibletime.info>
+Url:            http://www.bibletime.info
+Packager:       Brook Humphrey <bah@webmedic.net>, Joachim Ansorg <joachim@ansorgs.de>
 Group:          %{rpmgroup}
 BuildArch:      %{buildarch}
 Source0:        %{name}-%{version}.tar.bz2
@@ -54,11 +54,7 @@ Source0:        %{name}-%{version}.tar.bz2
 Source1:        bibletime_icons.tar.bz2
 %endif
 
-# This source comes from sword and will conflict woth sword if it is installed so we will make it a seperarte package.
-Source2:	locales.d.tar.bz2
-
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
-Provides:       sword-base sword = %{libversion}
 Prefix: 	@RPM_PREFIX@
 
 
@@ -126,15 +122,6 @@ make -j2
 %install
 make prefix=$RPM_BUILD_ROOT%{prefix} install
 
-# Copy Sword language.conf files to our install dir
-mkdir -p $RPM_BUILD_ROOT%{SwordPath}/locales.d
-cp locales.d/*.conf $RPM_BUILD_ROOT%{SwordPath}/locales.d/
-
-# Create Sword globals.conf for using bibletime without sword installed.
-cat << EOF >$RPM_BUILD_ROOT%{ModsPath}/globals.conf
- [Globals]
-EOF
-
 # For use with mandrake menu system
 cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
 ?package(bibletime):command="/usr/bin/bibletime" icon="bibletime.xpm" \
@@ -186,9 +173,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-#Sword config files
-%config %{ModsPath}/globals.conf
-%config %{SwordPath}/locales.d/*.conf
 # global BibleTime config files
 %config %{prefix}/share/config/bt-printing
 %{prefix}/bin/bibletime
@@ -201,6 +185,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Feb 14 2003 Joachim Ansorg <joachim@ansorgs.de>
+
+-Removed locales.d source and management of Sword files because we require a Sword RPM now.
+
+
 * Mon Apr 8 2002 Brook Humphrey <bah@webmedic.net> bibletime-1.1
 
 - Added to the spec to better handle mandrake menus during compile. Now should be compatable with all os's.

@@ -46,9 +46,9 @@ Version:        %{version}
 Release:        %{release}
 Icon:			bibletime.xpm
 Copyright:      GPL
-Vendor:         The team of BibleTime <info@bibletime.de>
-Url:            http://www.bibletime.de
-Packager:       Brook Humphrey <bah@webmedic.net>, Joachim Ansorg <jansorg@gmx.de>
+Vendor:         The team of BibleTime <info@bibletime.info>
+Url:            http://www.bibletime.info/
+Packager:       Brook Humphrey <bah@webmedic.net>, Joachim Ansorg <joachim@ansorgs.de>
 Group:          %{rpmgroup}
 BuildArch:      %{buildarch}
 Source0:        %{name}-%{version}.tar.bz2
