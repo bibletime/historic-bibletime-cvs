@@ -105,8 +105,49 @@ bool BT_GBFHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap
 	if (!substituteToken(buf, token)) {  //more than a simple replace
   	const int tokenLength = strlen(token);
 		unsigned long i;
-		unsigned long len = strlen(token);
 
+//    char *valto;
+//	  const char *num;
+//    char val[128];
+	
+ 		if (!strncmp(token, "note ", 5)) {
+			// let's stop text from going to output
+			userData["suspendTextPassThru"] = "true";
+		}
+
+		else if (!strncmp(token, "/note", 5)) {
+			userData["suspendTextPassThru"] = "false";
+		}
+
+//		else if (!strncmp(token, "w", 1)) {
+//			// OSIS Word (temporary until OSISRTF is done)
+//			valto = val;
+//			num = strstr(token, "lemma=\"x-Strongs:");
+//			if (num) {
+//				for (num+=17; ((*num) && (*num != '\"')); num++)
+//					*valto++ = *num;
+//				*valto = 0;
+//				if (atoi((!isdigit(*val))?val+1:val) < 5627) {
+//					buf += " <small><em>&lt;";
+//					for (tok = (!isdigit(*val))?val+1:val; *tok; tok++)
+//							buf += *tok;
+//					buf += "&gt;</em></small> ";
+//				}
+//			}
+//			valto = val;
+//			num = strstr(token, "morph=\"x-Robinson:");
+//			if (num) {
+//				for (num+=18; ((*num) && (*num != '\"')); num++)
+//					*valto++ = *num;
+//				*valto = 0;
+//				// normal robinsons tense
+//				buf += " <small><em>(";
+//				for (tok = val; *tok; tok++)
+//						buf += *tok;
+//				buf += ")</em></small> ";
+//			}
+//		}
+    
 		if (!strncmp(token, "WG", 2)){ // strong's numbers greek
 			char num[6];
 			for (i = 2; i < tokenLength; i++)
