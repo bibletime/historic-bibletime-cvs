@@ -20,7 +20,8 @@
 
 #include <qwidget.h>
 #include <qmap.h>
-#include <qcombobox.h>
+
+#include <kcombobox.h>
 
 class cfx_btn;
 class CLexiconKeyChooser;
@@ -39,15 +40,11 @@ class QHBoxLayout;
 * We use this class to conrtol the focus move in the combobox
 * This class is used in the key chooser widgets
 */
-class CKCComboBox : public QComboBox {
+class CKCComboBox : public KComboBox {
   Q_OBJECT
 
 public:
   CKCComboBox(bool rw, QWidget * parent=0, const char * name=0 );
-
-//	void insertItem ( const QString & text, int index=-1, unsigned long int userData = 0 );
-  /** Returns the user data for index. */
-//  const unsigned long int userData( const int index );
   /**
   * Returns the size this widget would like to have.
   */

@@ -45,8 +45,6 @@ QString CToolClass::locatehtml(const QString &filename) {
        path = locate("html", "default/" + filename);
     if (path.isNull())
        path = locate("html", "en/" + filename);
-//#warning remove
-//		qWarning( path.utf8() );
     return path;
 }
 
@@ -154,24 +152,6 @@ int CToolClass::makeLogicFontSize( const int s ) {
 		return 6;
 	return 7;
 }
-
-///** No descriptions */
-//const QString CToolClass::getSaveFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
-//#ifdef STATIC_BUILD
-//	return QFileDialog::getSaveFileName(startDir, filter,parent,"CToolClass::getSaveFileName",caption);
-//#else
-//	return KFileDialog::getSaveFileName(startDir, filter, parent, caption);
-//#endif
-//}
-//
-///** No descriptions */
-//const QString CToolClass::getOpenFileName( const QString& startDir, const QString& filter, QWidget* parent, const QString& caption){
-//#ifdef STATIC_BUILD
-//	return QFileDialog::getOpenFileName(startDir, filter, parent,"CToolClass::getOpenFileName",caption);
-//#else
-//	return KFileDialog::getOpenFileName(startDir, filter, parent, caption);
-//#endif
-//}
 
 QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, const QString& text ){
   QLabel* label = new QLabel( QString::fromLatin1("<B>%1</B><BR>%2").arg(heading).arg(text),parent );

@@ -188,7 +188,7 @@ void CSwordModuleSearch::connectFinished( QObject *receiver, const char *member 
 
 /** Should be called when the search finished. */
 void CSwordModuleSearch::searchFinished(){
-	qWarning("CSwordModuleSearch::searchFinished!");
+//	qWarning("CSwordModuleSearch::searchFinished!");
 //	m_updateSig.block(true);	
 //	pthread_mutex_lock(&signal_mutex);			
 	m_finishedSig.activate();	

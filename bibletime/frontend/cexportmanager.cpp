@@ -124,8 +124,8 @@ const bool CExportManager::saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo
 const bool CExportManager::copyKey( CSwordKey* key, const bool withText ) {
 	bool ret = true;
 	
-	qDebug("CExportManager::copyKey( CSwordKey* key, const bool withText )");
-	ASSERT(key);	
+//	qDebug("CExportManager::copyKey( CSwordKey* key, const bool withText )");
+//	ASSERT(key);	
 
 	QString text = (withText) ? QString::fromLatin1("%1:\n\t%2").arg(key->key()).arg(key->strippedText()) : key->key()+"\n";
 
@@ -135,7 +135,7 @@ const bool CExportManager::copyKey( CSwordKey* key, const bool withText ) {
 }
 
 const bool CExportManager::copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
-	qDebug("CExportManager::copyKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
+//	qDebug("CExportManager::copyKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
 	
 	QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );	
 	progress.setProgress(0);	

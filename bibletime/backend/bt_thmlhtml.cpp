@@ -28,13 +28,13 @@
 BT_ThMLHTML::BT_ThMLHTML() {
 	setEscapeStringCaseSensitive(true);
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
-//	setEscapeStart("&");
-//	setEscapeEnd(";");	
-//  addEscapeStringSubstitute("raquo", "»");
-//  addEscapeStringSubstitute("laquo", "«");
-//  addEscapeStringSubstitute("uuml", "ü");
-//  addEscapeStringSubstitute("ouml", "ö");
-  		
+	setEscapeStart("&");
+	setEscapeEnd(";");	
+  addEscapeStringSubstitute("raquo", QString::fromLatin1("»").utf8());
+  addEscapeStringSubstitute("laquo", QString::fromLatin1("«").utf8());
+//  addEscapeStringSubstitute("uuml", QString::fromLatin1("ü").utf8());
+//  addEscapeStringSubstitute("ouml", QString::fromLatin1("ö").utf8());
+//  addEscapeStringSubstitute("auml", QString::fromLatin1("ä").utf8());
 	
 	setTokenStart("<");
 	setTokenEnd(">");

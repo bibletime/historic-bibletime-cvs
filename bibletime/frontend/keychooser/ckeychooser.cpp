@@ -30,8 +30,8 @@ CKeyChooser::CKeyChooser(CSwordModuleInfo *, CSwordKey *, QWidget *parent, const
 }
 
 CKeyChooser* CKeyChooser::createInstance(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent){	
-	ASSERT(module);
-	ASSERT(key);
+//	ASSERT(module);
+//	ASSERT(key);
 	if (!module)
 		return 0;
  	switch ( module->type() ){

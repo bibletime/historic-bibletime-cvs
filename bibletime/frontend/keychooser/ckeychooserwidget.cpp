@@ -32,20 +32,23 @@
 #include <qpixmap.h>
 #include <qapplication.h>
 #include <qwhatsthis.h>
-//#include <qwheelevent.h>
 #include <qtooltip.h>
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
-  : QComboBox(rw,parent,name){
+  : KComboBox(rw,parent,name){
 	setFocusPolicy(QWidget::WheelFocus);
-  if (lineEdit())
+  if (lineEdit()) {
+//  	qWarning("CKCComboBox: installed event filter");
   	installEventFilter( lineEdit() );
+  }
 }
 
 /** Reimplementation. */
 bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){			
+//	qWarning("CKCComboBox::eventFilter( QObject *o, QEvent *e )");
 	if (e->type() == QEvent::FocusOut) {
-		QFocusEvent* f = dynamic_cast<QFocusEvent*>(e);
+//		qWarning("FocusOut");
+		QFocusEvent* f = static_cast<QFocusEvent*>(e);
 		if (o == lineEdit() && f->reason() == QFocusEvent::Tab) {
 	    int index = listBox()->index( listBox()->findItem(currentText()) );
 	    if (index == -1)
@@ -72,7 +75,8 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 			return true;
 		}		
 	}
-  return QComboBox::eventFilter(o,e);	
+//	qWarning("not handled!");
+  return KComboBox::eventFilter(o,e);	
 }
 
 /** Scrolls in the list if the wheel of the mouse was used. */
@@ -299,18 +303,20 @@ void CKeyChooserWidget::init( ){
 	connect(btn_fx, SIGNAL(lock()), SLOT(lock()) );
 	connect(btn_fx, SIGNAL(unlock()), SLOT(unlock()) );
 	connect(btn_fx, SIGNAL(change_requested(int)), SLOT(changeCombo(int)) );
-	connect(comboBox(), SIGNAL(activated(int)), SLOT(slotComboChanged(int)));
-	connect(comboBox(), SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
- 	connect(comboBox(), SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
+	
+	connect(m_comboBox, SIGNAL(activated(int)), SLOT(slotComboChanged(int)));
+	connect(m_comboBox, SIGNAL(returnPressed(const QString&)), SLOT(slotReturnPressed(const QString&)));
+ 	connect(m_comboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
 		
 	isResetting = false;
 }
 
 /** Is called when the return key was presed in the combobox. */
 void CKeyChooserWidget::slotReturnPressed( const QString& text){
+	qWarning("Return was pressed!!");
 	for (int index=0; index < comboBox()->count(); index++) {
 		if (comboBox()->text(index) == text) {
-			if (!oldKey.isNull() && text != oldKey)	//if the key has changed
+			if (/*!oldKey.isNull() &&*/ text != oldKey)	//if the key has changed
 				emit changed(index);
 			break;
 		}
@@ -319,7 +325,7 @@ void CKeyChooserWidget::slotReturnPressed( const QString& text){
 
 /** Is called when the current item of the combo box was changed. */
 void CKeyChooserWidget::slotComboChanged(int index){
-//	qDebug("CKeyChooserWidget::slotComboChanged(int index)");
+//	qWarning("CKeyChooserWidget::slotComboChanged(int index)");
 	if (!isUpdatesEnabled())
 		return;
 	setUpdatesEnabled(false);	
