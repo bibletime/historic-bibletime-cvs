@@ -181,6 +181,23 @@ void BTInstallMgr::Tool::removeSource( sword::InstallMgr* mgr, sword::InstallSou
 
 }
 
+CSwordBackend* BTInstallMgr::Tool::backend( sword::InstallSource* const is) {
+  if (!is)
+    return 0;
+
+  CSwordBackend* ret = 0;
+  if (isRemoteSource(is))
+    ret = new CSwordBackend( QString::fromLatin1(is->localShadow.c_str()) );
+  else
+    ret = new CSwordBackend( QString::fromLatin1(is->directory.c_str()) );
+  if (ret)
+    ret->initModules();
+
+  return ret;
+}
+
+
+
 BTInstallMgr::BTInstallMgr() : InstallMgr(Tool::configPath().latin1()) {
 }
 

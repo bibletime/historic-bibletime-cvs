@@ -104,6 +104,7 @@ public:
 	const QString config( const CSwordModuleInfo::ConfigEntry entry );
 	
 	CSwordModuleInfo( sword::SWModule* module );
+//	CSwordModuleInfo( sword::SWModule* module, CSwordBackend* const backend );
 	CSwordModuleInfo( const CSwordModuleInfo& m );	
   virtual CSwordModuleInfo* clone();	
 	virtual ~CSwordModuleInfo();	
@@ -208,11 +209,21 @@ public:
   const CSwordModuleInfo::Category category();
 
 protected:
+  friend class CSwordBackend;
   /**
   * Returns true if this module is Unicode encoded. False if the charset is iso8859-1.
 	* Protected because it should not be used outside of the CSword*ModuleInfo classes.
   */
   const bool isUnicode();
+
+  virtual inline CSwordBackend* backend() const {
+    return m_backend;
+  }
+  virtual inline void backend( CSwordBackend* newBackend ) {
+    if (newBackend) {
+      m_backend = newBackend;
+    }
+  }
 
 private:
 	sword::SWModule* m_module;
@@ -220,7 +231,9 @@ private:
 	struct {
 		QString name;
 		bool isUnicode;
-	} m_dataCache;	
+	} m_dataCache;
+
+  CSwordBackend* m_backend;
 };
 
 typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;

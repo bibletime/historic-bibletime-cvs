@@ -18,6 +18,11 @@
 #ifndef BTINSTALLMGR_H
 #define BTINSTALLMGR_H
 
+
+//BibleTIme includes
+#include "backend/cswordbackend.h"
+
+
 //sword includes
 #include <installmgr.h>
 
@@ -48,6 +53,8 @@ public:
     static const bool isRemoteSource( sword::InstallSource* is );
     static void addSource( sword::InstallSource* );
     static void removeSource( sword::InstallMgr*, sword::InstallSource* );
+
+    static CSwordBackend* backend( sword::InstallSource* const );
     
   private:
     Tool() {};

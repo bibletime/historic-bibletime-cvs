@@ -22,6 +22,7 @@
 
 #include "util/cresmgr.h"
 #include "util/ctoolclass.h"
+#include "util/scoped_resource.h"
 
 
 #include <iostream>
@@ -408,10 +409,18 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 	m_installModuleListView->clear();
 
 	QListViewItem* categoryBible = new QListViewItem(m_installModuleListView, "Bibles");
+  categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+  
 	QListViewItem* categoryCommentary = new QListViewItem(m_installModuleListView, "Commentaries");
+  categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+
 	QListViewItem* categoryLexicon = new QListViewItem(m_installModuleListView, "Lexicons");
-	QListViewItem* categoryBook = new QListViewItem(m_installModuleListView, "Books");
-	categoryBible->setOpen(true);
+  categoryLexicon->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+
+  QListViewItem* categoryBook = new QListViewItem(m_installModuleListView, "Books");
+  categoryBook->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+
+  categoryBible->setOpen(true);
   categoryCommentary->setOpen(true);
   categoryLexicon->setOpen(true);
   categoryBook->setOpen(true);
@@ -426,79 +435,76 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   }
 
   //kind of a hack to provide a pointer to mgr next line
-  sword::SWMgr lMgr( BTInstallMgr::Tool::isRemoteSource(&is) ? "" : is.directory.c_str());  
-  sword::SWMgr* mgr = BTInstallMgr::Tool::isRemoteSource(&is) ? is.getMgr() : &lMgr;
+  util::scoped_ptr<CSwordBackend> backend(BTInstallMgr::Tool::backend(&is) );
+  Q_ASSERT(backend);
+  if (!backend)
+    return;
 
   QListViewItem* parent = 0;
-  for (sword::ModMap::iterator it = mgr->Modules.begin(); it != mgr->Modules.end(); it++) {
+  ListCSwordModuleInfo mods = backend->moduleList();  
+  for (CSwordModuleInfo* newModule = mods.first(); newModule; newModule = mods.next()) {
     bool isUpdate = false;
-    sword::SWModule* module = it->second;
-    Q_ASSERT(module);
+    Q_ASSERT(newModule);
+    
+//    qWarning("found module %s", newModule->name().latin1());
 
-    CSwordModuleInfo* installedModule = CPointers::backend()->findModuleByName(module->Name());
+    CSwordModuleInfo* installedModule = CPointers::backend()->findModuleByName(newModule->name());
     if (installedModule) { //module already installed?
-      Q_ASSERT(installedModule);
-
       //check whether it's an uodated module or just the same
-      const char* installedVersionString = installedModule->module()->getConfigEntry("Version");
-      if (!installedVersionString || (installedVersionString && !strlen(installedVersionString)))
-        installedVersionString = "1.0";
-      
-      const char* versionString = module->getConfigEntry("Version");
-      if (!versionString)
-        versionString = "1.0";
-
-      qWarning("version for %s are %s / %s", module->Name(), installedVersionString, versionString);
-
-      SWVersion installedVersion( installedVersionString );
-      SWVersion newVersion( versionString );
+      const SWVersion installedVersion( installedModule->config(CSwordModuleInfo::ModuleVersion).latin1() );
+      const SWVersion newVersion( newModule->config(CSwordModuleInfo::ModuleVersion).latin1() );
       isUpdate = (newVersion > installedVersion);
       if (!isUpdate)
         continue;
     }
 
-    sword::SectionMap::iterator section = mgr->config->Sections.find(module->Name());
-    if ((section != mgr->config->Sections.end()) && (section->second.find("CipherKey") != section->second.end())) //module enciphered
+    if (newModule->isLocked() || newModule->isEncrypted()) //encrypted modules have no data files on the server
       continue;
     
-    Q_ASSERT(module);
-    const char* type = module->Type();
-    if (!strcmp(type, "Biblical Texts")) {
-      parent = categoryBible;
-    }
-    else if (!strcmp(type, "Commentaries")) {
-      parent = categoryCommentary;
-    }
-    else if (!strcmp(type, "Lexicons / Dictionaries")) {
-      parent = categoryLexicon;
-    }
-    else if (!strcmp(type, "Generic Books")) {
-      parent = categoryBook;
-    }
-    else {
-      parent = 0;
-    }
-
-		QListViewItem* newItem = 0;
-    if (parent) {
-       newItem = new QCheckListItem(parent, QString::fromLatin1(module->Name()), QCheckListItem::CheckBox);      
-    }
-    else {
-      newItem = new QCheckListItem(m_installModuleListView, QString::fromLatin1(module->Name()), QCheckListItem::CheckBox);
-    }
-    Q_ASSERT(newItem);
-    const char* installedVersion = installedModule ? installedModule->module()->getConfigEntry("Version") : "";
-    if (installedModule && !strlen(installedVersion)) {
-      installedVersion = "1.0";
+    switch (newModule->type()) {
+      case CSwordModuleInfo::Bible:
+        parent = categoryBible;
+        break;
+      case CSwordModuleInfo::Commentary:
+        parent = categoryCommentary;
+        break;
+      case CSwordModuleInfo::Lexicon:
+        parent = categoryLexicon;
+        break;
+      case CSwordModuleInfo::GenericBook:
+        parent = categoryBook;
+        break;
+      default:
+        parent = 0;
+        break;
     }
     
+		QListViewItem* newItem = 0;
+    if (parent) {
+       newItem = new QCheckListItem(parent, newModule->name(), QCheckListItem::CheckBox);      
+    }
+    else {
+      newItem = new QCheckListItem(m_installModuleListView, newModule->name(), QCheckListItem::CheckBox);
+    }
+    
+    Q_ASSERT(newItem);
+    const QString installedVersion = installedModule ? installedModule->config(CSwordModuleInfo::ModuleVersion) : "";
     newItem->setText(1, installedVersion);
-    newItem->setText(2, module->getConfigEntry("Version") ? module->getConfigEntry("Version") : "1.0");
+    newItem->setText(2, newModule->config(CSwordModuleInfo::ModuleVersion));
     newItem->setText(3, isUpdate ? i18n("Update") : i18n("New"));
+    newItem->setPixmap(0, CToolClass::getIconForModule(newModule));
   }
-  m_installWidgetStack->raiseWidget(m_installModuleListPage);
-}
 
+  //clean up groups
+  if (!categoryBible->childCount())
+    delete categoryBible;
+  if (!categoryCommentary->childCount())
+    delete categoryCommentary;
+  if (!categoryBook->childCount())
+    delete categoryBook;
+  if (!categoryLexicon->childCount())
+    delete categoryLexicon;
+}
 
 /** Connects to the chosen source. */
 void CSwordSetupDialog::slot_connectToSource(){
@@ -537,6 +543,7 @@ void CSwordSetupDialog::slot_connectToSource(){
   m_installContinueButton->setText(i18n("Install modules"));
   m_installContinueButton->setEnabled(true);
 
+  m_installWidgetStack->raiseWidget(m_installModuleListPage);
 }
 
 /** Installs chosen modules */

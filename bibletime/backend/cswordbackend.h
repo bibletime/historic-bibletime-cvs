@@ -102,6 +102,8 @@ public:
 	* filters for the module format.
 	*/
 	CSwordBackend();
+	CSwordBackend( const QString& path );
+  
 	/**
 	* The destrctor of this backend. This function shuts the modules down using @ref shutdownModules.
 	*/

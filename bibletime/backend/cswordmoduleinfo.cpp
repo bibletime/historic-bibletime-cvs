@@ -44,9 +44,10 @@
 
 using std::string;
 
-CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module ) {
+CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module) {
 	m_module = module;
 	m_searchResult.ClearList();
+  m_backend = CPointers::backend();
 	m_dataCache.name = module ? QString::fromLatin1(module->Name()) : QString();
 	m_dataCache.isUnicode = module ? module->isUnicode() : false;
 
@@ -57,8 +58,23 @@ CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module ) {
 	}
 }
 
+//CSwordModuleInfo::CSwordModuleInfo(sword::SWModule* module, CSwordBackend* const usedBackend ) {
+//	m_module = module;
+//	m_searchResult.ClearList();
+//  m_backend = usedBackend;
+//	m_dataCache.name = module ? QString::fromLatin1(module->Name()) : QString();
+//	m_dataCache.isUnicode = module ? module->isUnicode() : false;
+//
+//	if (backend()) {
+//		if (hasVersion() && (minimumSwordVersion() > sword::SWVersion::currentVersion)) {
+//		 	qWarning("The module \"%s\" requires a newer Sword library. Please update to \"Sword %s\".", name().latin1(), (const char*)minimumSwordVersion());
+//		}
+//	}
+//}
+
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {
 	m_module = m.m_module;
+	m_backend = m.m_backend;
 	m_searchResult = m.m_searchResult;
 }
 
@@ -222,11 +238,13 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 		case DataPath:
 			return QString::fromLatin1(m_module->getConfigEntry("DataPath"));
 		case Description:
-//			qWarning("Descrioptio!");
-//			Q_ASSERT(m_module);
 			return QString::fromLatin1(m_module->Description());
-		case ModuleVersion:
-			return QString::fromLatin1(m_module->getConfigEntry("Version"));
+		case ModuleVersion: {
+			QString version = QString::fromLatin1(m_module->getConfigEntry("Version"));
+      if (version.isEmpty())
+        version = "1.0";
+      return version;
+    }        
 		case MinimumSwordVersion: {
 			const QString version = QString::fromLatin1(m_module->getConfigEntry("MinimumVersion"));
 			return !version.isEmpty() ? version : QString::fromLatin1("0.0");

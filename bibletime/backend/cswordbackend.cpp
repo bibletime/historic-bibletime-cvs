@@ -52,8 +52,22 @@ using std::string;
 static QMap<QString, QString> moduleDescriptionMap;
 
 CSwordBackend::CSwordBackend()
-	: sword::SWMgr(0,0,false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
+	: sword::SWMgr(0, 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
 {	
+	m_displays.entry = 0;
+	m_displays.chapter = 0;
+	m_displays.book = 0;
+
+	m_filters.gbf = 0;
+	m_filters.thml = 0;
+	m_filters.osis = 0;
+	m_filters.plain = 0;
+}
+
+CSwordBackend::CSwordBackend(const QString& path)
+	: sword::SWMgr(!path.isEmpty() ? path.latin1() : 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
+{
+  qWarning("backend constructed with a path argument! %s", path.latin1());
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
 	m_displays.book = 0;
@@ -110,6 +124,7 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 
 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		moduleDescriptionMap.insert(m_moduleList.current()->config(CSwordModuleInfo::Description), m_moduleList.current()->name());
+    m_moduleList.current()->backend(this);
 	}
 
 	//unlock modules if keys are present
