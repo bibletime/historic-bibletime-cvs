@@ -103,7 +103,7 @@ void CToolTip::timerEvent( QTimerEvent* e ) {
 /** Reimplementation. */
 bool CToolTip::eventFilter( QObject *o, QEvent *e ){
   QMouseEvent* me = dynamic_cast<QMouseEvent*>(e);
-  if (o == m_parentWidget) {
+  if (o == parentWidget()) {
     if (e->type() == QEvent::Show) {
       setFilter(true);
       return false;
@@ -155,6 +155,7 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
           hide();
           break;
         }
+
         if (QWidget * w = KApplication::widgetAt( me->globalPos(), true )) {
           while ( w && w != parentWidget()) {
             w = w->parentWidget();
@@ -162,6 +163,10 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
           if (w == parentWidget()) {
             startTimer(1500);
           }
+          else {
+            killTimers();
+            break;
+          };
         }
       }
       break;

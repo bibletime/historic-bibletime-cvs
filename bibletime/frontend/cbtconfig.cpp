@@ -248,6 +248,14 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
   	  map.insert(i18n("Paul's Epistels"), 	    QString::fromLatin1("Rom - Phile"));
 
       //make the list to the current bookname language!
+//    QString text = QString::null;
+//    ListKey range = i->range();
+//    for (int i = 0; i < range.Count(); ++i) {
+//    	if (VerseKey* element = dynamic_cast<VerseKey*>(range.GetElement(i)))
+//  			text += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
+//  		else
+//  			text += QString::fromLocal8Bit((const char*)*range.GetElement(i));
+//  	}
 
       
       return map;

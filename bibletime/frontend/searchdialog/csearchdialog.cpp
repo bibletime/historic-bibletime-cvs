@@ -39,6 +39,7 @@
 #include <qlabel.h>
 #include <qsizepolicy.h>
 #include <qpushbutton.h>
+#include <qheader.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -426,7 +427,7 @@ void CModuleChooserDialog::slotOk(){
 }
 
 /****************************/
-CRangeChooserDialog::RangeItem::RangeItem(QListView* view, const QString caption, const QString range) : KListViewItem(view) {
+CRangeChooserDialog::RangeItem::RangeItem(QListView* view, QListViewItem* afterThis, const QString caption, const QString range) : KListViewItem(view, afterThis) {
   setCaption(caption);
   setRange(range);
 };
@@ -462,7 +463,7 @@ CRangeChooserDialog::CRangeChooserDialog( QWidget* parentDialog ) : KDialogBase(
   CBTConfig::StringMap map = CBTConfig::get(CBTConfig::searchScopes);
   CBTConfig::StringMap::Iterator it;
   for (it = map.begin(); it != map.end(); ++it) {
-    new RangeItem(m_rangeList, it.key(), it.data());
+    new RangeItem(m_rangeList, 0, it.key(), it.data());
   };
 };
 
@@ -472,36 +473,53 @@ CRangeChooserDialog::~CRangeChooserDialog() {
 
 /** Initializes the view of this object. */
 void CRangeChooserDialog::initView(){
-  QGridLayout* grid = new QGridLayout(plainPage(),4,4,0,3);
+  QGridLayout* grid = new QGridLayout(plainPage(),6,4,0,3);
 
   m_rangeList = new KListView(plainPage());
-  m_rangeList->addColumn(i18n("Name"));
+  m_rangeList->addColumn(i18n("Search range"));
   m_rangeList->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
-  grid->addMultiCellWidget(m_rangeList,0,2,0,0);
+  m_rangeList->setFullWidth(true);
+  m_rangeList->setSorting(-1);
+  m_rangeList->header()->setClickEnabled(false);
+  m_rangeList->header()->setMovingEnabled(false);
+  grid->addMultiCellWidget(m_rangeList,0,4,0,0);
 
   QPushButton* newRange = new QPushButton(i18n("Add new range"),plainPage());
   connect(newRange, SIGNAL(clicked()), this, SLOT(addNewRange()));
-  grid->addWidget(newRange,3,0);
+  grid->addWidget(newRange,5,0);
   
   grid->addColSpacing(1, 5);
   
   QLabel* label = new QLabel(i18n("Name:"), plainPage());
   m_nameEdit = new QLineEdit(plainPage());
   grid->addWidget(label,0,2);
-  grid->addMultiCellWidget(m_nameEdit,0,0,3,3);
+  grid->addWidget(m_nameEdit,0,3);
 
-//  grid->addRowSpacing(1,15);
+  label = new QLabel(i18n("Edit the search range:"), plainPage());
+  label->setFixedSize(label->sizeHint());
   m_rangeEdit = new QTextEdit(plainPage());
-  grid->addMultiCellWidget(m_rangeEdit,1,2,2,3);
+  grid->addMultiCellWidget(label,1,1,2,3);
+  grid->addMultiCellWidget(m_rangeEdit,2,2,2,3);
+
+  m_resultList = new KListView(plainPage());
+  m_resultList->addColumn(i18n("Parsed search range:"));
+  m_resultList->setFullWidth(true);
+  m_resultList->setSorting(-1);
+  m_resultList->setShowSortIndicator(false);  
+  m_resultList->header()->setClickEnabled(false);
+  m_resultList->header()->setMovingEnabled(false);
+  m_resultList->setSelectionModeExt(KListView::NoSelection);
   
-  m_resultList = new QListBox(plainPage());
-  grid->addMultiCellWidget(m_resultList, 2,3,2,3);  
+  grid->addMultiCellWidget(m_resultList, 3,5,2,3);
+
+  grid->setRowStretch(3,5);
 }
 
 /** Initializes the connections of this widget. */
 void CRangeChooserDialog::initConnections(){
   connect(m_rangeList, SIGNAL(executed(QListViewItem*)),
     this, SLOT(editRange(QListViewItem*)));
+
   connect(m_rangeEdit, SIGNAL(textChanged()),
     this, SLOT(parseRange()));
   connect(m_rangeEdit, SIGNAL(textChanged()),
@@ -513,15 +531,17 @@ void CRangeChooserDialog::initConnections(){
 
 /** Adds a new range to the list. */
 void CRangeChooserDialog::addNewRange(){
-  RangeItem* i = new RangeItem(m_rangeList, i18n("New range"));
+  RangeItem* i = new RangeItem(m_rangeList, m_rangeList->lastItem(), i18n("New range"));
   m_rangeList->setSelected(i, true);
   m_rangeList->setCurrentItem(i);  
   editRange(i);
+
+  m_nameEdit->setFocus();
 }
 
 /** No descriptions */
 void CRangeChooserDialog::editRange(QListViewItem* item){
-  Q_ASSERT(item);
+//  Q_ASSERT(item);
   if (RangeItem* i = dynamic_cast<RangeItem*>(item)) {
     m_nameEdit->setText(i->caption());
 
@@ -546,9 +566,9 @@ void CRangeChooserDialog::parseRange(){
 	for (int i = 0; i < verses.Count(); ++i) {
 		VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
 		if (element)
-			m_resultList->insertItem(QString("%1 - %2").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound())));
+      new KListViewItem(m_resultList,QString::fromLatin1("%1 - %2").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound())));
 		else
-			m_resultList->insertItem(QString::fromLocal8Bit((const char*)*verses.GetElement(i)));
+      new KListViewItem(m_resultList,QString::fromLocal8Bit((const char*)*verses.GetElement(i)));
 	}
 
 }

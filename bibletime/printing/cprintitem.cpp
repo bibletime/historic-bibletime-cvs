@@ -148,6 +148,7 @@ void CPrintItem::updateListViewItem(){
 }
 
 /**  */
+
 QListViewItem* const CPrintItem::listViewItem() const {
 	return m_listViewItem;
 }

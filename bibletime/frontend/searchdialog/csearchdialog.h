@@ -223,7 +223,7 @@ public:
 protected: // Protected methods
   class RangeItem : public KListViewItem {
   public:
-    RangeItem(QListView*, const QString caption = QString::null, const QString range = QString::null);
+    RangeItem(QListView*, QListViewItem* afterThis = 0, const QString caption = QString::null, const QString range = QString::null);
     ~RangeItem();
     const QString& range();
     const QString caption();
@@ -257,7 +257,7 @@ protected slots: // Protected slots
 
 private:
   KListView* m_rangeList;
-  QListBox* m_resultList;
+  KListView* m_resultList;
   QLineEdit* m_nameEdit;
   QTextEdit* m_rangeEdit;
 };
