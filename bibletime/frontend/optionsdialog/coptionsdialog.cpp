@@ -299,7 +299,7 @@ void COptionsDialog::initGeneral() {
 	
 	items.clear();	
 	items << i18n("General") << i18n("Accelerators");	
-	page = addHBoxPage(items, i18n("Configure BibleTimes key bindings"), OD_ICON_KEY_BINDINGS);
+	page = addHBoxPage(items, i18n("Configure BibleTime's key bindings"), OD_ICON_KEY_BINDINGS);
 
  	m_general.keys.dict = m_general.keys.accel->keyDict();
 

@@ -306,7 +306,7 @@ void CHTMLWidget::setHTMLSource(const QString& url){
 void CHTMLWidget::slotSaveAsHTML(){
 	QString file = CToolClass::getSaveFileName (QString::null, i18n("*.html *.htm *.shtml *.shtm | HTML files\n *.* | All files (*.*)"), 0, i18n("Save text as HTML page ..."));	
 	if (!file.isNull())
-		CToolClass::savePlainFile( file, text());
+		CToolClass::savePlainFile( file, text().utf8());
 }
 
 /** Saves the HTML page */

@@ -87,6 +87,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 		if (!read){
   		do {
 #warning check!!
+				qDebug(module()->KeyText());
    			m_entryList->append(QString::fromUtf8(module()->KeyText()));
   			(*module())++;
   		} while (!module()->Error());

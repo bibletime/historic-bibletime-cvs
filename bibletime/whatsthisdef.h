@@ -72,7 +72,7 @@
 #define WT_GM_ABOUT_MODULE WT(TT_GM_ABOUT_MODULE, i18n("Open a dialog to show information about the selected module."))
 
 //QWhatsThis defines for the presenters
-#define WT_MDI_AREA_WIDGET WT(TT_MDI_AREA_WIDGET, i18n("This area is the main works space of Bibletime.<BR>All display windows are opened in this window."))
+#define WT_MDI_AREA_WIDGET WT(TT_MDI_AREA_WIDGET, i18n("This area is the main workspace of Bibletime.<BR>All display windows are opened in this window."))
 
 #define WT_PRESENTER_BIBLE_WIDGET WT(TT_PRESENTER_BIBLE_WIDGET, i18n("This is the Bible display window"))
 #define WT_PRESENTER_COMMENTARY_WIDGET WT(TT_PRESENTER_COMMENTARY_WIDGET, i18n("This is the commentary display window."))

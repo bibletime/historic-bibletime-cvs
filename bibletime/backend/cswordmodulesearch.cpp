@@ -198,3 +198,8 @@ const int CSwordModuleSearch::getPercent( percentType type ){
 	pthread_mutex_unlock(&percentage_mutex);
 	return ret;
 }
+
+/** Returns a copy of the used search scope. */
+ListKey CSwordModuleSearch::scope() const {
+	return m_searchScope;
+}
