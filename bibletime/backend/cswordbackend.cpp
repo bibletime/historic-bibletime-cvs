@@ -58,22 +58,17 @@ CSwordBackend::CSwordBackend()
 	m_moduleList(0),
 	m_gbfFilter(0),
 	m_plainTextFilter(0),
-	m_thmlFilter(0)/*, m_rwpFilter(0)*/ {
-	
+	m_thmlFilter(0)
+{	
 
 }
 
 CSwordBackend::~CSwordBackend(){
 	shutdownModules();	
 	//delete filters
-	if (m_gbfFilter)
-		delete m_gbfFilter;
-	if (m_plainTextFilter)
-		delete m_plainTextFilter;	
-	if (m_thmlFilter)
-		delete m_thmlFilter;	
-//	if (m_rwpFilter)
-//		delete m_rwpFilter;			
+	delete m_gbfFilter;
+	delete m_plainTextFilter;	
+	delete m_thmlFilter;	
 }
 
 #define CHECK_HTML_CHAPTER_DISLPAY \
@@ -86,7 +81,6 @@ CSwordBackend::~CSwordBackend(){
 		
 /** Initializes the Sword modules. */
 const CSwordBackend::ErrorCode CSwordBackend::initModules() {
-//	qDebug("CSwordBackend::initModules");
 	ModMap::iterator it;
 	SWModule*	curMod = 0;
 	CSwordModuleInfo* newModule = 0;
@@ -141,8 +135,6 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	sourceformat = ((entry = section.find("SourceType")) != section.end()) ? (*entry).second : (string) "";
 	moduleDriver = ((entry = section.find("ModDrv")) != section.end()) ? (*entry).second : (string) "";
 
-//	qDebug(moduleDriver.c_str());
-//	qDebug(sourceformat.c_str());	
 	if (!stricmp(sourceformat.c_str(), "GBF")) {
 		if (!m_gbfFilter)
 			m_gbfFilter = new BT_GBFHTML();
@@ -222,7 +214,6 @@ void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptionsBool o
 	* mods.d wasn't found.
 	*/
 void CSwordBackend::Load() {
-//	qDebug("CSwordBackend::Load");
 	if (!config) {	// If we weren't passed a config object at construction, find a config file
 		if (!configPath)	// If we weren't passed a config path at construction...
 			findConfig(&configType, &prefixPath, &configPath);
@@ -297,8 +288,7 @@ void CSwordBackend::Load() {
 }
 
 /** This function searches for a module with the specified description */
-CSwordModuleInfo* CSwordBackend::findModuleByDescription(const QString& description){
-//  qDebug("CSwordBackend::findModuleByDescription(const QString&)");
+CSwordModuleInfo* const CSwordBackend::findModuleByDescription(const QString& description){
   if (m_moduleList && m_moduleList->count())
     for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
       if ( m_moduleList->current()->config(CSwordModuleInfo::Description) == description )
@@ -308,21 +298,13 @@ CSwordModuleInfo* CSwordBackend::findModuleByDescription(const QString& descript
 
 /** This function searches for a module with the specified description */
 const QString CSwordBackend::findModuleNameByDescription(const QString& description){
-	if (moduleDescriptionMap.contains(description)) {
-//		qWarning("findModuleNameByDescription: found!!");
+	if (moduleDescriptionMap.contains(description))
 		return moduleDescriptionMap[description];
-	}
-//	qWarning("findModuleNameByDescription: NOT found!!");	
-//  if (m_moduleList && m_moduleList->count())
-//    for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
-//      if ( m_moduleList->current()->getDescription() == description )
-//        return m_moduleList->current();
   return QString::null;
 }
 
 /** This function searches for a module with the specified name */
-CSwordModuleInfo* CSwordBackend::findModuleByName(const QString& name){
-//  qDebug("CSwordBackend::findModuleByName(const QString&)");
+CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name){
   if (m_moduleList && m_moduleList->count())
     for ( m_moduleList->first(); m_moduleList->current(); m_moduleList->next() )
       if ( m_moduleList->current()->name() == name )
@@ -332,8 +314,6 @@ CSwordModuleInfo* CSwordBackend::findModuleByName(const QString& name){
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
 const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleConfig) {
-//	qWarning("const bool CSwordBackend::moduleConfig");
-//	qWarning("searching module %s", module.latin1());
 	SectionMap::iterator section;
 	DIR *dir = opendir(configPath);
 	struct dirent *ent;
@@ -347,7 +327,6 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 				modFile = QString::fromLocal8Bit(configPath);
 				modFile += QString::fromLatin1("/");
 				modFile += QString::fromLocal8Bit(ent->d_name);
-//				qWarning(modFile.latin1());
 				moduleConfig = SWConfig( (const char*)modFile.local8Bit() );
 				section =	moduleConfig.Sections.find( (const char*)module.local8Bit() );
 				foundConfig = ( section != moduleConfig.Sections.end() );
@@ -387,7 +366,6 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 			closedir(dir);
 		}
 	}
-//	ASSERT(foundConfig);
 	return foundConfig;
 }
 
@@ -469,6 +447,6 @@ const QString CSwordBackend::booknameLanguage( const QString& language ) {
 
 /** Returns the version of the Sword library. */
 const SWVersion CSwordBackend::Version() {
-	qWarning("Current version: %s", SWVersion::currentVersion);
+//	qWarning("Current version: %s", SWVersion::currentVersion);
 	return	SWVersion::currentVersion;
 }

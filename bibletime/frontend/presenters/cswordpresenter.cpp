@@ -173,9 +173,20 @@ void CSwordPresenter::storeSettings( CProfileWindow* settings ){
 	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
 	settings->setType(m_moduleList.first()->type());
 	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
+	
 	CSwordKey* key = keyChooser()->key();
-	if (key)
+	if (key) {
+		VerseKey* vk = dynamic_cast<VerseKey*>(key);
+		QString oldLang;
+		if (vk) {
+			 oldLang = QString::fromLatin1(vk->getLocale());	
+			vk->setLocale("en"); //save english locale names as default!		
+		}
 		settings->setKey( key->key() );
+		if (vk) {
+			vk->setLocale(oldLang.latin1());
+		}
+	}
 		
 	QStringList modules;
 	for (CSwordModuleInfo* m = m_moduleList.first(); m; m = m_moduleList.next()) {
@@ -198,16 +209,13 @@ void CSwordPresenter::closeEvent(QCloseEvent* e) {
 /** Inserts the action used by this display window in the given KAccel object. */
 void CSwordPresenter::insertKeyboardActions( KAccel* a ){
 	a->setConfigGroup("General window");	
-//	ASSERT(a);
 }
 
 void CSwordPresenter::initAccels(){
-//	qWarning("CSwordPresenter::initAccels()");
 }
 
 /** Initilizes widget before shown and after constructor. */
 void CSwordPresenter::polish(){
-//	qWarning("CSwordPresenter::polish()");
 	KMainWindow::polish();		
 	m_accel = new KAccel(this);	
 	initAccels();
@@ -215,7 +223,6 @@ void CSwordPresenter::polish(){
 
 /** Is called when this display window looses the focus. */
 void CSwordPresenter::focusInEvent( QFocusEvent* e ){
-//	qDebug("CSwordPresenter::focusInEvent( QFocusEvent* e )");
 	KMainWindow::focusInEvent(e);
 	if (m_accel)
 		m_accel->setEnabled(true);

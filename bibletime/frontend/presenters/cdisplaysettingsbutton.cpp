@@ -107,7 +107,7 @@ int CDisplaySettingsButton::addMenuEntry( const QString name, const bool* option
 bool CDisplaySettingsButton::isOptionAvailable( const CSwordBackend::FilterOptions option){
 	bool ret = false;
 	for (m_modules.first(); m_modules.current(); m_modules.next())
-		ret = ret || m_modules.current()->supportsFeature(option);
+		ret = ret || m_modules.current()->has(option);
 	return ret;
 }
 

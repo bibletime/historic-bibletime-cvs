@@ -104,7 +104,7 @@ public:
   *	
   *	@return The list of modules managed by this backend
   */
-  virtual ListCSwordModuleInfo* moduleList() const;
+  virtual ListCSwordModuleInfo* const moduleList() const;
   /**
   * Initializes the Sword modules.
   *
@@ -145,7 +145,7 @@ public:
   * @param description The description of the desired module
   * @return pointer to the desired module; null if no module has the specified description
   */
-  virtual CSwordModuleInfo* findModuleByDescription(const QString& description);
+  virtual CSwordModuleInfo* const findModuleByDescription(const QString& description);
   /**
   * This function searches for a module with the specified description
   * @param description The description of the desired module
@@ -157,7 +157,7 @@ public:
   * @param description The name of the desired module
   * @return pointer to the desired module; null if no module has the specified name
   */
-  CSwordModuleInfo* findModuleByName(const QString& name);
+  CSwordModuleInfo* const findModuleByName(const QString& name);
   /**
   * @return Our global config object to store the cipher keys etc.
 	*/
@@ -203,7 +203,7 @@ private:
 };
 
 /**Returns The list of modules managed by this backend*/
-inline ListCSwordModuleInfo* CSwordBackend::moduleList() const {
+inline ListCSwordModuleInfo* const CSwordBackend::moduleList() const {
 	return m_moduleList;
 }
 

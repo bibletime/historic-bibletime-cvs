@@ -38,9 +38,6 @@
 #include <swconfig.h>
 #include <rtfhtml.h>
 
-//static class wide objects
-//static CSwordBackend searchModulesMgr;
-	
 CSwordModuleInfo::CSwordModuleInfo( SWModule* module ) {
 	m_module = module;
 	m_searchResult.ClearList();
@@ -166,23 +163,7 @@ void CSwordModuleInfo::clearSearchResult(){
 
 /** This interupts the search if this module is being searched. */
 void CSwordModuleInfo::interruptSearch(){
-//	searchModulesMgr.Modules[name()]->terminateSearch = true;
 	m_module->terminateSearch = true;
-}
-
-/** Returns true if the given type i supported by this module. */
-const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::FilterOptions type){
-	ConfigEntMap config = backend()->getConfig()->Sections.find( name().latin1() )->second;	
-	ConfigEntMap::iterator start 	= config.lower_bound("GlobalOptionFilter");
-	ConfigEntMap::iterator end 		= config.upper_bound("GlobalOptionFilter");		
-	
-	const QString text = backend()->configOptionName(type);
-	for (; start != end; start++) {
-		const QString option = QString::fromLatin1((*start).second.c_str());
-		if ( option.contains(text) )
-			return true;
-	}	
-	return false;
 }
 
 /** Returns the required Sword version for this module. Returns -1 if no special Sword version is required. */
@@ -201,13 +182,10 @@ const bool CSwordModuleInfo::isUnicode(){
 }
 
 const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entry) {
-//	qWarning("CSwordModuleInfo::config called");
-	
 	switch (entry) {
 		case AboutInformation:
 		{
-//			qWarning("--About");
-			QString about = configEntry("About");	
+			QString about = QString::fromLatin1(m_module->getConfigEntry("About"));
 			if (!about.isEmpty()) {	
 				RTFHTML filter;
 				const int len = about.length()+600;
@@ -221,60 +199,61 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 		}
 		
 		case CipherKey: {
-//			qWarning("--Cipher key");		
-			return configEntry("CipherKey");
-//			const char* key = m_module->getConfigEntry("CipherKey");
-//			return strlen(key) ? QString::fromLocal8Bit(key) : QString::null;
+			return QString::fromLatin1(m_module->getConfigEntry("CipherKey"));
 		}
 			
 		case AbsoluteDataPath: {
-//			qWarning("--DataPath");
-			return configEntry("AbsoluteDataPath");
-//			const char* path = m_module->getConfigEntry("DataPath");
-//			return strlen(path) ? QString::fromLocal8Bit(path) : QString::null;	
+			return QString::fromLatin1(m_module->getConfigEntry("AbsoluteDataPath"));
 		}
 		case DataPath: {
-//			qWarning("--DataPath");
-			return configEntry("DataPath");
-//			const char* path = m_module->getConfigEntry("DataPath");
-//			return strlen(path) ? QString::fromLocal8Bit(path) : QString::null;	
+			return QString::fromLatin1(m_module->getConfigEntry("DataPath"));
 		}			
 		case Description:
-//			qWarning("--Description");			
 			return QString::fromLocal8Bit(m_module->Description());
 			
 		case ModuleVersion: {
-//			qWarning("--Module version");
-			return configEntry("Version");
+			return QString::fromLatin1(m_module->getConfigEntry("Version"));
 		}
 			
 		case MinimumSwordVersion:
 		{
-//			qWarning("--Minimum Sword version");
-			QString version = configEntry("MinimumVersion");
+			QString version = QString::fromLatin1(m_module->getConfigEntry("MinimumVersion"));
 			return !version.isEmpty() ? version : QString::fromLatin1("0.0");
 		}
 			
 		default:
-//			qWarning("--default");
 			return QString::null;
 	}
 }
 
-/** No descriptions */
-const QString CSwordModuleInfo::configEntry(const QString& entry){
-//	qWarning("CSwordModuleInfo::configEntry");
-//	qWarning(name().latin1());
-//	qWarning(entry.latin1());
-//	if (!m_module)
-//		return QString::null;
-//	SWConfig config("");
-//	if (!backend()->moduleConfig(name(), config))
-//		return QString::null;
-//	const string data = (config)[m_module->Name()][(const char*)entry.local8Bit()];
-//	return data.length() ? QString::fromLocal8Bit(data.c_str()) : QString::null;
-//	const char* data = m_module->getConfigEntry((const char*)entry.latin1());
-//	qWarning("return now!");
-//	return data ? QString::fromLatin1(data) : QString::null;
-	return QString::fromLatin1( m_module->getConfigEntry(entry.latin1()) );
+/** Returns true if the module supports the feature given as parameter. */
+const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
+	switch (feature) {
+		case StrongsNumbers:
+			return m_module->getConfig().has("Feature", "StrongsNumber");
+		case GreekDef:
+			return m_module->getConfig().has("Feature", "GreekDef");		
+		case HebrewDef:
+			return m_module->getConfig().has("Feature", "HebrewDef");		
+		case GreekParse:
+			return m_module->getConfig().has("Feature", "GreekParse");		
+		case HebrewParse:
+			return m_module->getConfig().has("Feature", "HebrewParse");		
+		case DailyDevotion:
+			return m_module->getConfig().has("Feature", "DailyDevotion");		
+		case Glossary:
+			return m_module->getConfig().has("Feature", "Glossary");		
+	}
 }
+
+const bool CSwordModuleInfo::has( const CSwordBackend::FilterOptions option ){
+	//BAD workaround!
+	
+ 	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("GBF%1").arg(backend()->configOptionName(option)).latin1()))
+ 		return true;
+ 	if (m_module->getConfig().has("GlobalOptionFilter",QString::fromLatin1("ThML%1").arg(backend()->configOptionName(option)).latin1()))
+ 		return true;
+ 	return false;
+}
+
+

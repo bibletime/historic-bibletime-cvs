@@ -581,7 +581,7 @@ void CGroupManager::slotShowAbout(){
 	QString options;
 	unsigned int opts;
 	for (opts = CSwordBackend::filterOptionsMIN; opts <= CSwordBackend::filterOptionsMAX; ++opts){
-		if (module->supportsFeature( (CSwordBackend::FilterOptions)opts)){
+		if (module->has( (CSwordBackend::FilterOptions)opts)){
   		if (!options.isEmpty())
   			options += QString::fromLatin1(", ");
   		options += CSwordBackend::translatedOptionName( (CSwordBackend::FilterOptions)opts);
@@ -1126,20 +1126,28 @@ const bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerI
 			}
 		if (myItem && myItem->type() == CGroupManagerItem::Bookmark)  {
 			if (group) {
-				parentID = parentId( (CGroupManagerItem*)it.current(),m_pressedItem );	
+				parentID = parentId( dynamic_cast<CGroupManagerItem*>(it.current()),m_pressedItem );	
 			}
 			else {
-				parentID = parentId( (CGroupManagerItem*)it.current() );	
+				parentID = parentId( dynamic_cast<CGroupManagerItem*>(it.current()) );	
 			}
 			parentList.append( parentID );
-						
-			if (myItem->getBookmarkKey())	{ //has a
-				SWKey* key = dynamic_cast<SWKey*>(myItem->getBookmarkKey());			
-				if (key)
-					bookmarkList.append( QString::fromLocal8Bit((const char*)*key) );
+
+			CSwordKey* key = myItem->getBookmarkKey();									
+			if (key)	{
+				VerseKey* vk = dynamic_cast<VerseKey*>(key);
+				QString oldLocale;
+				if (vk) {
+					oldLocale = QString::fromLatin1(vk->getLocale());
+					vk->setLocale("en"); //save the english key names
+				}
+				bookmarkList.append( key->key() );
+				if (vk) {
+					vk->setLocale(oldLocale.latin1());
+				}
 			}
 			else
-				bookmarkList.append( "" );	//invalid key
+				bookmarkList.append("");	//invalid key
 				
 			if (myItem && !myItem->description().isEmpty())	//save description
 				bookmarkDescriptionList.append( myItem->description() );

@@ -46,12 +46,12 @@ CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo&
 }
 
 CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
-	if (m_entryList)
+//	if (m_entryList)
 		delete m_entryList;
 }
 
 /** Returns the entries of the module. */
-QStringList* CSwordLexiconModuleInfo::entries(){
+QStringList* const CSwordLexiconModuleInfo::entries(){
 	if (!m_entryList) {
 		if (!module()) {
 			return 0;

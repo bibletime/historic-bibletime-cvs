@@ -573,16 +573,17 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  			case CSwordModuleInfo::Lexicon:
  			{
 				m_settings.sword.standardLexicon->insertItem(modDescript);
- 				//place the Hebrew and Greek lexicons accordingly...
- 				if (modDescript.contains("Hebrew", false)) {
+ 				if (modules->current()->has(CSwordModuleInfo::HebrewDef)) {
 					m_settings.sword.standardHebrewStrong->insertItem(modDescript);				
  				}
-				else if (modDescript.contains("Greek", false) ) {
-					m_settings.sword.standardGreekStrong->insertItem(modDescript);
-				}
-				else if (modDescript.contains("Morph", false) ) {
- 					m_settings.sword.standardHebrewMorph->insertItem(modDescript);
- 					m_settings.sword.standardGreekMorph->insertItem(modDescript);
+ 				if (modules->current()->has(CSwordModuleInfo::GreekDef)) {
+					m_settings.sword.standardGreekStrong->insertItem(modDescript);				
+ 				}
+ 				if (modules->current()->has(CSwordModuleInfo::HebrewParse)) {
+					m_settings.sword.standardHebrewMorph->insertItem(modDescript);				
+ 				}
+ 				if (modules->current()->has(CSwordModuleInfo::GreekParse)) {
+					m_settings.sword.standardGreekMorph->insertItem(modDescript);				
  				}
  				break;
  			} 				

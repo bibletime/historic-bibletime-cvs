@@ -45,14 +45,11 @@ CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordBookModuleInfo& module )
 }	
 
 CSwordBookModuleInfo::~CSwordBookModuleInfo(){
-//	qWarning("destructor of CSwordBookModuleInfo");
 }
 
 void CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level ){
-//	qWarning("CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level )");
 	if (!target)
 		target = &treeKey;
-//	ASSERT(target);
 
   unsigned long currentOffset = target->getOffset();
   for (int i = 0; i < level; i++)
@@ -80,7 +77,6 @@ const int CSwordBookModuleInfo::depth() {
 }
 
 void CSwordBookModuleInfo::computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, int level ){
-//	qWarning("CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level )");
 	if (!target)
 		target = &treeKey;
 
@@ -97,7 +93,7 @@ void CSwordBookModuleInfo::computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, 
 }
 
 /** Returns a treekey filled with the structure of this module */
-TreeKeyIdx* CSwordBookModuleInfo::tree(){
+TreeKeyIdx* const  CSwordBookModuleInfo::tree() const {
 	TreeKeyIdx* treeKey = (TreeKeyIdx*)((SWKey*)*(module()));
 	if (treeKey)
 		return treeKey;

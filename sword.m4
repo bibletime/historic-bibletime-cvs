@@ -104,11 +104,26 @@ LIBRARY_PATH=
 export LIBRARY_PATH
 
 cat > conftest.$ac_ext <<EOF
-#include <stdio.h>
+#include <iostream.h>
 #include <swversion.h>
 
-int main() {
-	cout << SWVersion::currentVersion << endl;
+int main(int argc, char* argv[]) {
+	if (argc != 2) {
+		cout << SWVersion::currentVersion << endl;
+	}
+	else if (argc == 2) 
+	{
+		if (SWVersion(&argv[[1]]) < SWVersion::currentVersion || SWVersion(&argv[[1]]) == SWVersion::currentVersion)
+		{
+			cout << 0 << endl;
+			return 0;
+		}
+		else	
+		{
+			cout << 1 << endl;
+			return 1; //version not recent enough
+		}
+	}
 	return 0;
 }
 EOF
@@ -117,6 +132,7 @@ ac_link='$LIBTOOL_SHELL --silent --mode=link ${CXX-g++} -o conftest $CXXFLAGS $a
 if AC_TRY_EVAL(ac_link) && test -s conftest; then
 	if test -x conftest; then
 		eval ac_cv_installed_sword_version=`./conftest 2>&5`
+		eval sword_test_returncode=`./conftest $1 2>&5`;
 	fi
 else
   echo "configure: failed program was:" >&AC_FD_CC
@@ -135,5 +151,15 @@ export LIBRARY_PATH
 AC_LANG_RESTORE
 ])
 
+right_version="ok";
+if test $sword_test_returncode = 1;  then
+	right_version="wrong version";
+fi;
+	
 AC_MSG_RESULT([$ac_cv_installed_sword_version])
+if test $right_version != "ok"; then
+        AC_MSG_ERROR([Your Sword installation is not recent enoought! Please
+upgrade to version $1!]);
+fi;
+
 ])

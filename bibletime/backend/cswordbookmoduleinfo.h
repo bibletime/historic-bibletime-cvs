@@ -48,7 +48,7 @@ public:
   /**
   * @return A treekey filled with the structure of this module. Don't delete the returned key because it's casted from the module object.
   */
-  TreeKeyIdx* tree();
+  TreeKeyIdx* const tree() const;
 
 private:
   void computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, int level = 0 );	

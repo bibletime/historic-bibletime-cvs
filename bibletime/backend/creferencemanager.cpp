@@ -252,9 +252,9 @@ const QString CReferenceManager::parseVerseReference( const QString ref, const Q
 	CSwordVerseKey key(0);
 	key.setLocale( lang.latin1() );
 	key.key(ref);
-	qWarning("ref in lang is %s", key.key().latin1());
+	qWarning("ref in lang %s is %s", lang.latin1(), key.key().latin1());
 	if (lang != newLang)
 		key.setLocale(newLang.latin1());
-	qWarning("newref in new lang is %s", key.key().latin1());		
+	qWarning("newref in new lang %s is %s", newLang.latin1(),key.key().latin1());		
 	return key.key();//parsed result
 }

@@ -37,12 +37,10 @@ public:
 	*/
 	CSwordLexiconModuleInfo( SWModule* module );
 	/**
-	* Te copy constructor
+	* The copy constructor
 	*/
 	CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo& m );
-	/**
-	*
-	*/	
+  virtual CSwordModuleInfo* clone();
 	~CSwordLexiconModuleInfo();	
   /**
  	* Returns the entries of the module.
@@ -50,7 +48,7 @@ public:
  	* If this function is called for the first time the list is load from disk and stored in a list which cahes it.
  	* If the function is called again, the cached list is returned so we have a major speed improvement.
  	*/
-  QStringList* entries();
+  QStringList* const entries();
   /**
   * Reimplementation.
   */
@@ -59,7 +57,6 @@ public:
   * Jumps to the closest entry in the module.
   */
   const bool snap();
-  virtual CSwordModuleInfo* clone();
 
 private:
 	/**

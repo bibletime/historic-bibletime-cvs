@@ -56,7 +56,11 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
  	qWarning("BT_BASICFILTER::parseSimpleRef(const char* ref)");
  	qWarning(ref);
  	VerseKey parseKey;
-// 	parseKey.setLocale("en");
+ 	
+ 	SWModule* m = const_cast<SWModule*>(m_module);
+ 	const char* lang = m ? m->Lang() : "en";
+ 	qWarning(lang);
+ 	parseKey.setLocale(lang);
 
  	parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");
  	ListKey list;
@@ -66,19 +70,24 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
 	QStringList refList = QStringList::split(QRegExp("[,.;]", false), QString::fromLocal8Bit(ref));
 	int pos = 0;
 	for ( QStringList::Iterator it = refList.begin(); it != refList.end(); ++it, pos++ ) {
-	 	qWarning("loop");
 	 	list = parseKey.ParseVerseList((*it).local8Bit(), parseKey, true);
 		
 	 	const int count = list.Count();
 	 	for(int i = 0; i < count; i++) {
 	 		SWKey* key = list.GetElement(i);
-	 		VerseKey* vk =  dynamic_cast<VerseKey*>(key);
+	 		VerseKey* vk = dynamic_cast<VerseKey*>(key);
  		
   		pushString(&to,"<font color=\"%s\"><a href=\"sword://Bible/%s/",
  				swordref_color,
 	 			standard_bible
  			);
- 			if (vk && vk->UpperBound() != vk->LowerBound()) {
+ 			
+ 			if (vk) {
+ 				vk->setLocale(lang);
+ 				vk->LowerBound().setLocale(lang);
+ 				vk->UpperBound().setLocale(lang); 				
+ 			}
+ 			if (vk && vk->UpperBound() != vk->LowerBound()) { 				
 	 			pushString(&to, "%s-%s\">%s</a>",
 	 				(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
 	 				(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8(),

@@ -74,8 +74,8 @@ public:
 		MinimumSwordVersion
 	};
 	enum Feature {
-		StrongsNumbers,
-		GreekDef,
+		StrongsNumbers, /*Use for Bibles which have embedded strong numbers*/
+		GreekDef, /*Hebrew StringsNumbers definitions in a lexicon*/
 		HebrewDef,
 		GreekParse,
 		HebrewParse,
@@ -90,12 +90,13 @@ public:
 	
 	CSwordModuleInfo( SWModule* module );
 	CSwordModuleInfo( const CSwordModuleInfo& m );	
+  virtual CSwordModuleInfo* clone();	
 	virtual ~CSwordModuleInfo();	
 
   /**
  	* Returns the module object so all objects can access the original Sword module.
  	*/
-  SWModule* module() const;
+  SWModule* const module() const;
   /**
  	* Sets the unlock key of the modules and writes the key into the cofig file.
 	* @return True if the unlock process was succesful, if the key was wrong, or if the config file was write protected return false.
@@ -147,12 +148,6 @@ public:
   */
   void clearSearchResult();
   /**
-  * Returns true if the given type is supported by this module.
-  *
-  * @param type The type which should be checked
-  */
-  virtual const bool supportsFeature( const CSwordBackend::FilterOptions type );
-  /**
   * Returns the type of the module.
   */
   virtual const CSwordModuleInfo::ModuleType type() const;
@@ -174,14 +169,12 @@ public:
   * not present in the data files.
   */
   virtual const bool snap() {return false;};
-  virtual CSwordModuleInfo* clone();
-	
+  const bool has( const CSwordModuleInfo::Feature );
+	const bool has( const CSwordBackend::FilterOptions option )	;
+
 private:
 	SWModule*	m_module;
 	ListKey m_searchResult;
-protected: // Protected methods
-  /** No descriptions */
-  const QString configEntry(const QString& entry);
 };
 
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
@@ -190,7 +183,7 @@ inline const CSwordModuleInfo::ModuleType CSwordModuleInfo::type() const {
 	return CSwordModuleInfo::Unknown;
 }
 
-inline SWModule* CSwordModuleInfo::module() const {
+inline SWModule*const CSwordModuleInfo::module() const {
 	return m_module;
 }
 

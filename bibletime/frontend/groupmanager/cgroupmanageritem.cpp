@@ -246,7 +246,7 @@ const QString CGroupManagerItem::getToolTip(){
      	QString options;
      	unsigned int opts;
      	for (opts = CSwordBackend::filterOptionsMIN; opts <= CSwordBackend::filterOptionsMAX; ++opts){
-     		if (moduleInfo()->supportsFeature( (CSwordBackend::FilterOptions) opts)){
+     		if (moduleInfo()->has( (CSwordBackend::FilterOptions) opts )) {
        		if (!options.isEmpty())
        			options += QString::fromLatin1(", ");
        		options += CSwordBackend::translatedOptionName( (CSwordBackend::FilterOptions) opts);

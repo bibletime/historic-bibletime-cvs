@@ -32,12 +32,9 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( SWModule* module )
 	m_bookList = 0;
 	m_cachedLocale = "unknown";
 	m_hasOT = m_hasNT = -1;
-//	m_hasOT = hasTestament(OldTestament);
-//	m_hasNT = hasTestament(NewTestament);		
 }
 
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) : CSwordModuleInfo(m) {
-	m_bookList = 0;
 	if (m.m_bookList) {
 		m_bookList = new QStringList();
 		*m_bookList = *m.m_bookList;
