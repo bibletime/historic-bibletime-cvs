@@ -192,7 +192,6 @@ xx-???, including the AleWiesler module.
   m_langList.append( new Language("ang", "English, Old (ca.450-1100)", i18n("English, Old (ca.450-1100)")) );
   m_langList.append( new Language("ar"  , "Arabic"      , i18n("Arabic")) );
 //  m_langList.append( new Language("as"  , "Assamese"    , i18n("Assamese")) );
-//  m_langList.append( new Language("ay"  , "Aymara"      , i18n("Aymara")) );
   m_langList.append( new Language("az"  , "Azerbaijani" , i18n("Azerbaijani")) );
 
 //  m_langList.append( new Language("ba"  , "Bashkir"     , i18n("Bashkir")) );
@@ -222,7 +221,7 @@ xx-???, including the AleWiesler module.
 
   m_langList.append( new Language("el"  , "Greek, Modern (1453-)" , i18n("Greek, Modern (1453-)"), makeStringList("gre;ell")) );
   m_langList.append( new Language("en"  , "English"     , i18n("English")) );
-  m_langList.append( new Language("en_US",  "American English"     , i18n("American English")) );
+  m_langList.append( new Language("en_US","American English"     , i18n("American English")) );
   m_langList.append( new Language("enm" , "English, Middle (1100-1500)", i18n("English, Middle (1100-1500)")) );
   m_langList.append( new Language("eo"  , "Esperanto"   , i18n("Esperanto")) );
   m_langList.append( new Language("es"  , "Spanish"     , i18n("Spanish")) );
@@ -300,7 +299,7 @@ xx-???, including the AleWiesler module.
 //  m_langList.append( new Language("my"  , "Burmese"     , i18n("Burmese")) );
 
 //  m_langList.append( new Language("na"  , "Nauru"       , i18n("Nauru")) );
-//  m_langList.append( new Language("nb"  , "Norwegian Bokmål"       , i18n("Norwegian Bokmål")) );
+//  m_langList.append( new Language("nb"  , "Norwegian BokmÃ¥l"       , i18n("Norwegian BokmÃ¥l")) );
 //  m_langList.append( new Language("nd"  , "Ndebele, North" , i18n("Ndebele, North")) );
   m_langList.append( new Language("nds"  , "Low German; Low Saxon" , i18n("Low German; Low Saxon")) );
 //  m_langList.append( new Language("ne"  , "Nepali"      , i18n("Nepali")) );
@@ -312,7 +311,7 @@ xx-???, including the AleWiesler module.
 //  m_langList.append( new Language("nv"  , "Navajo"      , i18n("Navajo")) );
 //  m_langList.append( new Language("ny"  , "Chichewa; Nyanja"      , i18n("Chichewa; Nyanja")) );
 
-//  m_langList.append( new Language("oc"  , "Occitan (post 1500); Provençal"     , i18n("Occitan (post 1500); Provençal")) );
+//  m_langList.append( new Language("oc"  , "Occitan (post 1500); ProvenÃ§al"     , i18n("Occitan (post 1500); ProvenÃ§al")) );
 //  m_langList.append( new Language("om"  , "Oromo"       , i18n("Oromo")) );
 //  m_langList.append( new Language("or"  , "Oriya"       , i18n("Oriya")) );
 //  m_langList.append( new Language("os"  , "Ossetian; Ossetic"     , i18n("Ossetian; Ossetic")) );
@@ -373,7 +372,7 @@ xx-???, including the AleWiesler module.
 //  m_langList.append( new Language("uz"  , "Uzbek"       , i18n("Uzbek")) );
 
   m_langList.append( new Language("vi"  , "Vietnamese"  , i18n("Vietnamese")) );
-//  m_langList.append( new Language("vo"  , "Volapük"     , i18n("Volapük")) );
+//  m_langList.append( new Language("vo"  , "VolapÃ¼k"     , i18n("VolapÃ¼k")) );
 //
 //  m_langList.append( new Language("wo"  , "Wolof"       , i18n("Wolof")) );
 
@@ -382,9 +381,9 @@ xx-???, including the AleWiesler module.
   m_langList.append( new Language("x-E-BAR"  , "Bavarian"     , i18n("Bavarian")) );
   m_langList.append( new Language("x-E-GSW"  , "Alemannisch"  , i18n("Alemannisch")) );
   m_langList.append( new Language("x-E-HAT"  , "Haitian Creole French" , i18n("Haitian Creole French")) );
-  m_langList.append( new Language("x-E-ITZ"  , "Itzá"         , i18n("Itzá")) );  
+  m_langList.append( new Language("x-E-ITZ"  , QString::fromUtf8("ItzÃ¡")         , i18n("ItzÃ¡")) );  
   m_langList.append( new Language("x-E-JIV"  , "Shuar"        , i18n("Shuar")) );
-  m_langList.append( new Language("x-E-KEK"  , "Kekchí"       , i18n("Kekchí")) );
+  m_langList.append( new Language("x-E-KEK"  , QString::fromUtf8("KekchÃ­")       , i18n("KekchÃ­")) );
   m_langList.append( new Language("x-E-LMO"  , "Lombard"      , i18n("Lombard")) );  
   m_langList.append( new Language("x-E-MKJ"  , "Macedonian"   , i18n("Macedonian")) );
   m_langList.append( new Language("x-E-PDG"  , "Tok Pisin"    , i18n("Tok Pisin")) );

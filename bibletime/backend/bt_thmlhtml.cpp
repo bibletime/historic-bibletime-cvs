@@ -87,6 +87,8 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 
 	tag = QRegExp("<sync[^>]+(type|value)=\"([^\"]+)\"[^>]+(type|value)=\"([^\"]+)\"([^<]*)>");
 
+	qWarning("splitted %s into %i parts", t.latin1(), list.count());
+	
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		QString e = *it;
 		
@@ -131,7 +133,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 				
 				const int attrPos = e.find(QRegExp("morph=|lemma="),0);
 				if (attrPos >= 0) {
-					QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
+					const QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
 					e.insert(attrPos, attr);
 					
 					pos += attr.length();
@@ -173,7 +175,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
       }
     }
     else if (tag.getName() && !strcasecmp(tag.getName(), "sync")) { //lemmas, morph codes or strongs
-      if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "lemma")) { // Lemma
+/*      if (tag.getAttribute("type") && !strcasecmp(tag.getAttribute("type"), "lemma")) { // Lemma
         const char* value = tag.getAttribute("value");
         if ( strlen(value) ) {
           buf.appendFormatted(" <span class=\"lemma\">&lt;%s&gt;</span> ",
@@ -181,7 +183,8 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           );
         };
       }
-      else if (tag.getAttribute("type") && (!strcasecmp(tag.getAttribute("type"), "morph") || !strcasecmp(tag.getAttribute("type"), "Strongs"))) { // Morph or Strong
+      else */
+			if (tag.getAttribute("type") && (!strcasecmp(tag.getAttribute("type"), "morph") || !strcasecmp(tag.getAttribute("type"), "Strongs") || !strcasecmp(tag.getAttribute("type"), "lemma"))) { // Morph or Strong
 				buf.append('<');
 				buf.append(token);
 				buf.append('>');
