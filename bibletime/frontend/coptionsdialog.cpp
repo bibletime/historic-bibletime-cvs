@@ -138,7 +138,7 @@ const bool COptionsDialog::showPart( COptionsDialog::Parts /*ID*/ ){
 
 /** Initializes the startup section of the OD. */
 void COptionsDialog::initStartup(){
-	QFrame* page = addPage(i18n("Startup"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
+	QFrame* page = addPage(i18n("General"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
 	QVBoxLayout* layout = new QVBoxLayout(page);
 
   {//daily tips
@@ -160,13 +160,27 @@ void COptionsDialog::initStartup(){
 		m_settings.startup.showLogo->setChecked(CBTConfig::get(CBTConfig::logo));			
 	}		
 	layout->addWidget(m_settings.startup.showLogo);
+	layout->addSpacing(20);
+	
+	layout->addWidget(
+  	CToolClass::explanationLabel(page, i18n("Scrolling behaviour"),
+			i18n("The down arrow moves to the <i>next</i> verse by default. Uncheck this box \
+if you want it to move to the <i>previous</i> verse."))
+  );
+
+ 	m_settings.swords.useDownArrow = new QCheckBox(page);
+ 	m_settings.swords.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
+ 	m_settings.swords.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));
+ 	QToolTip::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::tooltip);
+ 	QWhatsThis::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::whatsthis);
+ 	layout->addWidget(m_settings.swords.useDownArrow);	
 
 	layout->addStretch(4);
 }
 
 /** Init fonts section. */
 void COptionsDialog::initFonts(){
-	QFrame* page = addPage(i18n("Fonts"), QString::null, DesktopIcon(CResMgr::settings::fonts::icon, 32));
+	QFrame* page = addPage(i18n("Languages"), QString::null, DesktopIcon(CResMgr::settings::fonts::icon, 32));
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
 	
 	layout->addWidget(
@@ -184,6 +198,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details."))
 	QHBoxLayout* hBoxLayout = new QHBoxLayout();
  	hBoxLayout->addWidget(label);
  	hBoxLayout->addWidget(m_settings.fonts.swordLocaleCombo);
+	hBoxLayout->addStretch();
 	layout->addLayout(hBoxLayout);
 
 	QStringList languageNames;
@@ -443,29 +458,8 @@ void COptionsDialog::initSword(){
 	QVBox* page = addVBoxPage(i18n("Desk"),QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
   KTabCtl* tabCtl = new KTabCtl(page);
   QFrame* currentTab = new QFrame(tabCtl);
-  tabCtl->addTab(currentTab, i18n("Navigation"));
-
-  QGridLayout* gridLayout = new QGridLayout(currentTab,7,2,5,5);
-	gridLayout->setResizeMode(QLayout::Minimum);
-
-  gridLayout->addMultiCellWidget(
-  	CToolClass::explanationLabel(currentTab, i18n("Scrolling behaviour"),
-			i18n("The down arrow moves to the <i>next</i> verse by default. Uncheck this box \
-if you want it to move to the <i>previous</i> verse.")),
-		2,2,0,-1
-  );
-
- 	m_settings.swords.useDownArrow = new QCheckBox(currentTab);
- 	m_settings.swords.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
- 	m_settings.swords.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));
- 	QToolTip::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::tooltip);
- 	QWhatsThis::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::whatsthis);
- 	gridLayout->addMultiCellWidget(m_settings.swords.useDownArrow,3,3,0,-1);	
-
-// ---------- new tab: Standard modules -------- //
-  currentTab = new QFrame(tabCtl);
   tabCtl->addTab(currentTab, i18n("Standard works"));
-	gridLayout = new QGridLayout(currentTab,10,2, 5,5); //the last row is for stretching available space
+	QGridLayout* gridLayout = new QGridLayout(currentTab,10,2, 5,5); //the last row is for stretching available space
 	gridLayout->setResizeMode(QLayout::Minimum);
 
   gridLayout->addMultiCellWidget(
