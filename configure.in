@@ -93,5 +93,18 @@ bibletime/printing/Makefile \
 bibletime/printing/style-data/Makefile \
 bibletime/util/Makefile \
 bibletime/xml/Makefile \
+docs/Makefile \
+docs/handbook/Makefile \
+docs/handbook/html/Makefile \
+docs/handbook/unicode/Makefile \
+docs/helpdialog/Makefile \
+docs/helpdialog/html/Makefile \
+docs/helpdialog/unicode/Makefile \
+docs/howto/Makefile \
+docs/howto/html/Makefile \
+docs/howto/unicode/Makefile \
+docs/install/Makefile \
+docs/install/html/Makefile \
+docs/install/unicode/Makefile \
 NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop \
 )

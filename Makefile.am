@@ -1,4 +1,4 @@
-SUBDIRS = bibletime admin .
+SUBDIRS = bibletime admin docs .
 
 EXTRA_DIST = \
 bibletime.kdevprj \
