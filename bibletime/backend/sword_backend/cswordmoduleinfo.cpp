@@ -38,26 +38,24 @@
 #include <rtfhtml.h>
 
 CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module ){
-	m_cache = 0;
+//	m_cache = 0;
 	m_backend = backend;
 	m_module = module;
 }
 
 CSwordModuleInfo::~CSwordModuleInfo(){
 	m_searchResult.ClearList();
-	if (m_cache)
-		delete m_cache;
+/*	if (m_cache)
+		delete m_cache;*/
 }
 
 /** Returns the module object so all objects can access the module. */
 SWModule* CSwordModuleInfo::module() {
-	ASSERT(m_module);
 	return m_module;
 }
 
 /** Returns the backend. */
 CSwordBackend* CSwordModuleInfo::backend(){
-	ASSERT(m_backend);
 	return m_backend;
 }
 
@@ -66,7 +64,6 @@ CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString unlock
 	CSwordModuleInfo::unlockErrorCode	ret = CSwordModuleInfo::noError;
   (*m_backend->localConfig())[m_module->Name()]["CipherKey"] = unlockKey.local8Bit();	
 	m_backend->setCipherKey( (const char*)m_module->Name(), unlockKey.local8Bit());
-	
 	
 	m_backend->localConfig()->Save();	
 	return ret;
@@ -86,37 +83,26 @@ CHTMLEntryDisplay* CSwordModuleInfo::getDisplay(){
 
 /** This function returns true if this module is locked, otherwise return false. */
 bool CSwordModuleInfo::isLocked() {
-	if (isEncrypted() && getCipherKey().isEmpty()) {
-		debug("module is locked");		
+	if (isEncrypted() && getCipherKey().isEmpty())
 		return true;
-	}
-	else {
-		debug("module is NOT locked");
-		return false;
-	}
+	return false;
 }
 
 /** This functions returns true if this module is encrypted (locked or unlocked). */
 bool CSwordModuleInfo::isEncrypted() const{
-	qDebug("CSwordModuleInfo::isEncrypted()");
 	/* if we have the CipherKey entry the module
 		* is encrypted but not necessary locked
 		*/		
 	ConfigEntMap config	= m_backend->config->Sections.find( m_module->Name() )->second;;
 	ConfigEntMap::iterator it = config.find("CipherKey");
-	bool ret = false;
-	if (it != config.end()) {
-		ret = true;
-	}
-	qDebug("return now");
-	
-	return ret;
+	if (it != config.end())
+		return true;
+	return false;
 }
 
 
 /** Returns the cipher key if the module is encrypted, if the key is not set return QString::empty, if the module is not encrypted retur QString::null. */
 QString CSwordModuleInfo::getCipherKey() const {
-	qDebug("m_backend->localConfig()->Save()");
 	if (!isEncrypted())
 		return QString::null;
 		
@@ -254,7 +240,7 @@ bool CSwordModuleInfo::supportsFeature( CSwordBackend::moduleOptions type){
 }
 
 /** This function adds an item to the cache. */
-void CSwordModuleInfo::addCacheItem( const QString key, const QString cachedText){
+/*void CSwordModuleInfo::addCacheItem( const QString key, const QString cachedText){
 	qDebug("CSwordModuleInfo::addCacheItem( const QString key, const QString cachedText)");
 	qDebug(key.local8Bit());
 	qDebug(cachedText.local8Bit());
@@ -265,10 +251,10 @@ void CSwordModuleInfo::addCacheItem( const QString key, const QString cachedText
 	if (!key.isEmpty() &&!cachedText.isEmpty()) {
 		m_cache->insert(key,cachedText);
 	}
-}
+} */
 
 /** Returns the cached text for the key. If the key is not cached return QString::null */
-QString CSwordModuleInfo::getCacheItem( const QString key ){
+/*QString CSwordModuleInfo::getCacheItem( const QString key ){
 	qDebug("CSwordModuleInfo::getCacheItem()");
 	ASSERT(m_cache);	
 	if (!m_cache) {
@@ -282,11 +268,10 @@ QString CSwordModuleInfo::getCacheItem( const QString key ){
   	else
   	  return QString::null;
 	}
-}
+} */
 
 /** Used to find out the module specific font */
 QFont CSwordModuleInfo::getFont(){
-  qDebug("CSwordModuleInfo::getFont()");
   const string familyString = (*m_backend->localConfig())[m_module->Name()]["Font"];
   const string sizeString = (*m_backend->localConfig())[m_module->Name()]["Font size"];
 	
@@ -306,10 +291,8 @@ QFont CSwordModuleInfo::getFont(){
 
 /** Used to set the module specific font */
 void CSwordModuleInfo::setFont(const QFont &font){
-  qDebug("CSwordModuleInfo::setFont()");	
 	(*m_backend->localConfig())[m_module->Name()]["Font"] = font.family().local8Bit();
 	(*m_backend->localConfig())[m_module->Name()]["Font size"] = QString::number(font.pointSize()).local8Bit();
-	
 	m_backend->localConfig()->Save();
 }
 
@@ -318,18 +301,17 @@ bool CSwordModuleInfo::hasFont(){
 	const string font = (*m_backend->config)[m_module->Name()]["Font"];
 	if (strlen(font.c_str()))
 		return true;
-	else
-		return false;
+	return false;
 }
 
 /** Clears the cache of this module. */
-void CSwordModuleInfo::clearCache(){
+/*void CSwordModuleInfo::clearCache(){
 	qDebug("CSwordModuleInfo::clearCache()");
 	if (!m_cache) {
 		m_cache = new QMap<QString, QString>();
 	}	
 	m_cache->clear();
-}
+} */
 
 
 /** Returns the type of the module. */

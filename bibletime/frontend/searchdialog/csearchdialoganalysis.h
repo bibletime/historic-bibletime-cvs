@@ -29,6 +29,7 @@
 
 class CSearchDialog;
 class CSearchDialogAnalysisItem;
+class CSearchDialogAnalysisLegendItem;
 
 /**
 	* The widget which provides the graphical search analysis of the search results
@@ -39,7 +40,7 @@ class CSearchDialogAnalysis : public QCanvas {
 
 public:	
 	CSearchDialogAnalysis(QObject *parent=0, const char *name=0);
-	~CSearchDialogAnalysis();
+  ~CSearchDialogAnalysis();
   /**
   	* Sets te module list used for the analysis.
   	*/
@@ -57,10 +58,12 @@ public:
   /** This function returns a color for each module */
   static QColor getColor(int index);
 private:
-	ListCSwordModuleInfo* m_moduleList;
- 	QDict<CSearchDialogAnalysisItem> *m_canvasItemList;
-  int m_maxTextWidth;
+	ListCSwordModuleInfo m_moduleList;
+ 	QDict<CSearchDialogAnalysisItem> m_canvasItemList;
+//  int m_maxTextWidth;
   int m_maxCount;
+  double m_scaleFactor;
+  CSearchDialogAnalysisLegendItem* m_legend;
  	
 protected slots: // Protected slots
   /** No descriptions */
@@ -77,11 +80,7 @@ public:
 	/**
 		*
 		*/
-	CSearchDialogAnalysisItem(QCanvas* parent, const unsigned int moduleCount );
-	/**
-		*
-		*/
-	~CSearchDialogAnalysisItem();
+	CSearchDialogAnalysisItem(QCanvas* parent, const unsigned int moduleCount, const QString& bookname, double *scaleFactor);
   /**
   	* Sets the resultcount of this item
   	*/
@@ -90,16 +89,6 @@ public:
   	* Sets the scale factor we use to scale the height of
   	* this item according to the set height.
   	*/
-  void setScaleFactor(const double factor);
-	/**
-		*
-		*/
-	void setBookname( const QString bookName );
-  /**
-  	* No descriptions
-  	*/
-  void reset( const int moduleCount);
-
 protected:
   /**
   	* Reimplementation.
@@ -108,33 +97,21 @@ protected:
   virtual void draw (QPainter & painter);
 	
 private:
-	double m_scaleFactor;
-//	int m_resultCount;
+	double *m_scaleFactor;
 	QString m_bookName;
  	unsigned int m_moduleCount;
-	 	
  	QArray<unsigned int> m_resultCountArray;
 };
 
 class CSearchDialogAnalysisLegendItem : public QCanvasRectangle  {
 public:	
-	/**
-		*
-		*/
 	CSearchDialogAnalysisLegendItem(QCanvas* parent, ListCSwordModuleInfo* list );
-	/**
-		*
-		*/
-	~CSearchDialogAnalysisLegendItem();
-  /**
-  	* Sets the resultcount of this item
-  	*/
 
 protected:
   /**
-  	* Reimplementation.
-  	*	Draws the content of this item.
-  	*/
+ 	* Reimplementation.
+ 	*	Draws the content of this item.
+ 	*/
   virtual void draw (QPainter & painter);
 
 private:
@@ -143,10 +120,6 @@ private:
 
 //----------------------------------------------------------
 //----------------------------------------------------------
-
-/**
-  * @author The BibleTime team
-  */
 class CSearchDialogAnalysisView : public QCanvasView  {
    Q_OBJECT
 public:
@@ -154,10 +127,6 @@ public:
 		*
 		*/
 	CSearchDialogAnalysisView(QCanvas* canvas, QWidget* parent);
-	/**
-		*
-		*/
-	~CSearchDialogAnalysisView();
   /**
   	* Returns the sizeHint for this view
   	* We give back the size of the parent widgetas default.

@@ -229,11 +229,11 @@ void CSwordBackend::setOption( CSwordBackend::moduleOptions type, bool enable){
 			break;			
 	}	
 	//we have to clear the module cache of the modules which support the option
-	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
+	/*for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
 		if (m_moduleList->current()->supportsFeature(type)) {
 			m_moduleList->current()->clearCache();
 		}
-	}
+	}*/
 	
 	setGlobalOption(optionName, enable ? "On": "Off");
 }

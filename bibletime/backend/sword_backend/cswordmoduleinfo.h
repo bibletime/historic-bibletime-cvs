@@ -146,15 +146,15 @@ public:
   /**
   * Returns the cached text for the key. If the key is not cached return QString::null
   */
-  virtual QString getCacheItem( const QString key );
+//  virtual QString getCacheItem( const QString key );
   /**
   * This function adds an item to the cache.
   */
-  virtual void addCacheItem( const QString key, const QString cachedText);
+//  virtual void addCacheItem( const QString key, const QString cachedText);
   /**
   * Clears the cache of this module.
   */
-  void clearCache();
+//  void clearCache();
   /**
   * Used to set the module specific font
   */
@@ -176,7 +176,7 @@ private:
 	SWModule*	m_module;
 	ListKey m_searchResult;
 	CSwordBackend* m_backend;
-	QMap< QString, QString > *m_cache;	
+//	QMap< QString, QString > *m_cache;	
 };
 
 #endif
