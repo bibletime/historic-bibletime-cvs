@@ -137,6 +137,7 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 	QString countStr = "";
 	QString searchAnalysisHTML = "";
 	QString tableTitle = "";
+  QString tableTotals = "";
 	QString txtCSS = "<style type='text/css'>\nTD {border: thin solid;}\nTH {font-size: 130%;]\nH1 {font-size: 150%;}</style>\n";
 
 	CSwordVerseKey key(0/*m_moduleList.first()*/);	
@@ -150,10 +151,16 @@ void CSearchDialog::slotSaveSearchAnalysis(){
     QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n<h1>" + i18n("Search Text: ") + searchText->getText() + "</h1>\n";
 
 	  tableTitle = "<tr><th align='left'>" + i18n("Book") + "</th>";
+		tableTotals = "<tr><td align='left'>" + i18n("Total Hits") + "</td>";
 		for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(),++moduleIndex) {
 				tableTitle += "<th align='left'>" + moduleList->current()->name() + "</th>";
+				ListKey& m_searchResult = moduleList->current()->getSearchResult();
+				countStr.setNum(m_searchResult.Count());
+	      tableTotals += QString("<td align='right'>") + countStr + "</td>";
+
 		}
 		tableTitle += "</tr>\n";
+		tableTotals += "</tr>\n";
 
 		searchAnalysisHTML = "";
 		bool ok = true;
@@ -163,12 +170,12 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 			for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(),++moduleIndex) {
 				count = analysisItem.getCountForModule(moduleIndex);
 				countStr.setNum(count);
-				searchAnalysisHTML += "<td>" + countStr + "</td>";
+				searchAnalysisHTML += "<td align='right'>" + countStr + "</td>";
 			}
 			searchAnalysisHTML += "</tr>\n";
 			ok = key.NextBook();
 		}
-		text += QString("<dir><table>\n") + tableTitle + searchAnalysisHTML + QString("</table>\n</dir>\n");
+		text += QString("<dir><table>\n") + tableTitle + tableTotals + searchAnalysisHTML + QString("</table>\n</dir>\n");
 		text += "<center>Created By <a href=\"http://bibletime.de\">Bibletime</a>";
 		text += QString("</body></html>");
 		CToolClass::savePlainFile(file, text);
