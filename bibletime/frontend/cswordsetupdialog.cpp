@@ -64,12 +64,12 @@ using std::endl;
 using namespace sword;
 
 CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent ) :
-	QCheckListItem(parent, QString::null, QCheckListItem::CheckBox)
+	KListViewItem(parent, QString::null)
 {
 
 }
 
-CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent, sword::InstallSource is ) : QCheckListItem(parent, QString::null, QCheckListItem::CheckBox)
+CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* parent, sword::InstallSource is ) : KListViewItem(parent, QString::null)
 {
 	setCaption( QString::fromLatin1(is.caption.c_str()) );
 	m_url.setHost( QString::fromLatin1(is.source.c_str()) );
@@ -82,7 +82,6 @@ CInstallSourcesMgrDialog::InstallSourceItem::InstallSourceItem( KListView* paren
 const QUrl& CInstallSourcesMgrDialog::InstallSourceItem::url() const {
 	return m_url;
 }
-
 
 void CInstallSourcesMgrDialog::InstallSourceItem::setURL(const QUrl& url) {
 	m_url = url;
@@ -125,14 +124,14 @@ void CInstallSourcesMgrDialog::InstallSourceItem::setPath( const QString& path )
 	updateItem();
 }
 
-const bool CInstallSourcesMgrDialog::InstallSourceItem::isEnabled() const {
+/*const bool CInstallSourcesMgrDialog::InstallSourceItem::isEnabled() const {
 	return isOn();
 }
 
 void CInstallSourcesMgrDialog::InstallSourceItem::setEnabled( const bool enabled ) {
 	setOn(enabled);
 	updateItem();
-}
+}*/
 
 void CInstallSourcesMgrDialog::InstallSourceItem::updateItem() {
 	setText(0, m_caption);
@@ -168,7 +167,7 @@ void CInstallSourcesMgrDialog::slotOk() {
 
 	//save remote sources
 	BTInstallMgr::Tool::RemoteConfig::resetRemoteSources(); //we wan't to overwrite old sources, not add to them
-	it = QListViewItemIterator(m_remoteSourcesList, QListViewItemIterator::Checked );
+	it = QListViewItemIterator(m_remoteSourcesList);
 	while (it.current()) {
 		InstallSourceItem* item = dynamic_cast<InstallSourceItem*>(it.current());
 		if (!item)
@@ -340,7 +339,13 @@ void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
 }
 
 void CInstallSourcesMgrDialog::slot_remoteAddSource() {
-	(void)new CInstallSourcesMgrDialog::InstallSourceItem(m_remoteSourcesList);
+	CInstallSourcesMgrDialog::InstallSourceItem* i = new CInstallSourcesMgrDialog::InstallSourceItem(m_remoteSourcesList);
+
+	m_remoteSourcesList->setCurrentItem( i );
+	m_remoteCaptionEdit->setText(i18n("New remote source"));
+	m_remoteServerEdit->setText("ftp.domain.org");
+	m_remotePathEdit->setText("/pub/sword/raw");
+	m_remoteCaptionEdit->setFocus();
 }
 
 void CInstallSourcesMgrDialog::slot_remoteChangeSource() {
@@ -1183,8 +1188,8 @@ void CSwordSetupDialog::slot_installModules(){
     populateInstallModuleListView( currentInstallSource() ); //rebuild the tree
     populateRemoveModuleListView();
   }
-	m_installContinueButton->setEnabled(false);
 	m_installBackButton->setEnabled(true);
+	slot_installModuleItemExecuted(0);
 }
 
 /** No descriptions */

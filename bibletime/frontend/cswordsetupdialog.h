@@ -53,7 +53,7 @@ public:
 
 protected:
 
-	class InstallSourceItem : public QCheckListItem {
+	class InstallSourceItem : public KListViewItem {
 	public:
 		InstallSourceItem( KListView* parent );
 		InstallSourceItem( KListView* parent, sword::InstallSource );
@@ -70,8 +70,8 @@ protected:
 		const QString& caption() const;
 		void setCaption( const QString& caption );
 
-		const bool isEnabled() const;
-		void setEnabled( const bool enabled );
+//		const bool isEnabled() const;
+//		void setEnabled( const bool enabled );
 
 		sword::InstallSource swordInstallSource();
 
