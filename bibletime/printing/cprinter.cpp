@@ -366,9 +366,8 @@ void CPrinter::printQueue(){
 			
 			QString keyName = QString::null;			
 			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
-			if (vk) {
+			if (vk)
 				keyName = vk->getKey();
-			}
 			else {			
 				CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
 				keyName = lk->getKey();
@@ -385,7 +384,6 @@ void CPrinter::printQueue(){
 		process << getPreviewApplication();
 		process << outputFileName();
 		process.start(KProcess::DontCare);
-//		connect(&process, SIGNAL(processExited(KProcess*)), SLOT(previewFinished(KProcess*)));		
 	}	
 	if (!getPreview())
 		clearQueue();

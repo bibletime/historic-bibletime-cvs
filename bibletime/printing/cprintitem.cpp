@@ -28,6 +28,7 @@
 
 //Qt includes
 #include <qlistview.h>
+#include <qregexp.h>
 
 //Sword includes
 #include <swmodule.h>
@@ -140,6 +141,10 @@ const QString CPrintItem::getModuleText() const {
 	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
 	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);		
 	QString text = vk ? vk->getStrippedText() : (lk ? lk->getStrippedText() : QString());		
+	text.replace(QRegExp("<BR>\n",false), "\n");	
+	text.replace(QRegExp("<BR>",false), "\n");
+	text.replace(QRegExp("</p>",false), "\n");
+	text.replace(QRegExp("<[a-z\c\d#=\"/\s^<^>]>",false), "");
 	return text;
 }
 
