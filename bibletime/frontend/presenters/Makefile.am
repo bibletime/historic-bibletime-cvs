@@ -19,7 +19,7 @@ clexiconpresenter.cpp clexiconpresenter.h \
 cbiblepresenter.cpp cbiblepresenter.h \
 cmodulechooserbar.h cmodulechooserbar.cpp \
 cmodulechooserbutton.h cmodulechooserbutton.cpp \
-cswordpresenter.h csowrdpresenter.cpp \
+cswordpresenter.h cswordpresenter.cpp \
 cpresenter.h cpresenter.cpp
 
 KDE_CXXFLAGS=-fexceptions -frtti

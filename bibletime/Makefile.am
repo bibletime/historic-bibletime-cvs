@@ -37,8 +37,6 @@ ressource.h \
 bibletime_slots.cpp \
 bibletime_init.cpp \
 structdef.h \
-ctoolclass.cpp \
-ctoolclass.h \
 whatsthisdef.h \
 tooltipdef.h
 

@@ -1,15 +1,13 @@
 In this file:
 -------------
 	* General introduction
-	* Requirements	
-	* Features
+	* Requirements
+	* Documentation
 	* The Sword CD
 
 General introduction:
 --------------------
-	This is BibleTime @VERSION@ for KDE 2. It at the moment in heavy development.
-It's the first release which uses KDE2, so some things may not work correctly.
-But we don't know bugs in @VERSION@ so things should work properly.
+	This is BibleTime @VERSION@ for KDE 2.
 If you find bugs please report them to info@bibletime.de or use our
 online bugreport form on www.bibletime.de.
 
@@ -20,12 +18,6 @@ Read the file INSTALL how to install and compile this version of BibleTime.
 The AUTHORS file contains a list of authors working on BibleTime.
 There's also a SPEC file to create RPMs, it's called bibletime.spec.
 
-Now our traditional call for developers and help:
-	We are a small team and we need some help
-	(especially coding, handbook, translations, graphics stuff etc. ).
-	If you think BibleTime is a program which fullfills your needs
-	please help us.
-
 This README file contains some very useful instructions and tips how to use BibleTime.
 But the handbook is made by Jeff, so it's better!
 
@@ -33,137 +25,23 @@ And sorry for all the spelling errors (grammatical and syntax).
 
 Requirements
 ------------
-	o QT 2.2 (please use 2.1.1 if it's possible, it has lots of bugfixes but 2.1 works, too)
-	o KDE 2 final
-	o SWORD 1.51a or later
+	o QT 2.2x or later
+	o KDE 2.x
+	o SWORD 1.52
 
-Features
---------
-	This is a short list of features so Jeff knows which features exist while writing
-	the handbook ;-)
-	If you don't know what a button or widget is supposed to do try to use
-	SHIFT+F1 and click on the widget. You'll get a short help if it exists.
-	If you run BibleTime .3 or later the first time you'll see a startup page
-	explaining what BibleTime is and how it works.
-	If there are problems with your module installation you'll also get some pages explaining it.
-	
-	A quick note: Every button and widget in BibleTime supports the "What's this?" feature.
-	Simply press SHIFT+F1 and click on a widget.
-	A short explanation will popup what this part of BibleTime is supposed to do.
-	
--Presenters
-	Presenters are the parts of BIbleTime which display content of modules.
-	Using this structure we have an open application and it's hopefully easy to use.
-	If new module types will be created we simply add a new presenter type.
-	Available presenter types are:
-	-Bible presenter:
-		This presenter shows the content of a Bible module in a suitable form.
-		It uses HTML to display the text. The verse numbers are formatted
-		as verse references, so you can drag the verse numbers onto the groupmanager to
-		create a new bookmark (no working at the moment because we're implementing
-		a new Drag&Drop system). You can also click on these references to highlight this verse.
-	-Commentary presenter:
-		The commentary presenter shows the content of a commentary module
-		in a suitable form. It shows only one commentary
-		at the same time (on verse), the bible preseter shows a whole chapter.
-		There're three comboboxes (book - chapter - verse) to select a key.
-		Use TAB to cycle from the first to the last. You can use autocompletion
-		in the book combobox (use the RMB menu).
-	-Lexicon presenter:
-		The lexicon presenter shows the lexicon modules in a suitable form.
-		It contains only one combobox and a HTML widget.
-		The combobox contains all entries of the lexicon, choose. Use the RMB
-		menu to change the autocompletion features of the combobox.
-		
--Groupmanager:
-	The groupmanager provides access to the modules, provides bookmark-managemen
-	and Drag&Drop functions.
-	Use the RMB menu to perform actions on modules, bookmarks or groups
-	Click on a module to open a presenter for this module, if there's
-	already a presenter for the module this presenter will be activated.
-	But you may choose RMB->"Create new presenter" to open an additional presenter
-	for the module.
-	o Bookmarks management
-		o Create bookmarks using the RMB menu
-			The current presenter is used
-		o Delete bookmarks using the RMB menu
-		o Export bookmarks to a file using the RMB menu
-			This is very useful to distribute your bookmarks
-		o Import bookmarks from a file using the RMB menu
-			This is very useful to import bookmarks created by other users
-			(Use the file they sent you created by exporting the bookmarks)
-		o Drag bookmarks around:
-			Drop them onto a group to move them (you may sekect more than one bookmark),
-			drop them onto a module to open a new presenter for the module showing the key of the bookmark.
-			If you drop bookmarks on a free area on the top of the groupmanager the bookmarks are moved
-			to the top.
-	o Module management
-		Modules are displayed as a little book in the tree of the groupmanager.
-		o You can unlock modules using the RMB menu (the item is only enabled for enciphered modules)
-			Locked modules have a special icon.
-		o You can search modules using the RMB menu.
-			You can select more than one module, all modules are searched.
-		o You can drag the modules around, their position will be saved so they are in the right group
-			on the next startup.
-	o Group management	
-		o Create new groups using the RMB menu
-		o Delete groups using the RMB menu
-		o Drag groups around:
-			Drag groups around and drop them onto other groups or on the top to move them
-	o Reseting the groupmanager
-		If you messed the items in the groupmanager you can use the item "Reset groupmanager"
-		in the context-menu to delete all current items in the tree and to restore
-		the default folders of BibleTime.
-		
--Noteseditor:
-	The noteseditor is not an own window, the editor is integrated in the commentary presenter.
-	If a presenter is writeable,
-	the "Toggle editmode" button is enabled. Press this button while having a writeable module opened and
-	a second toolbar with two buttons and a editline will appear.
-	The two buttons are used to save and delete the current comment, the editline contains upper bound of the current comment.
-	The lower bound is the cuurent key, you may change the upper bound.
-	For example: You are commenting Genesis 1:1 - Genesis 1:31, to do this switch to Genesis 1:1
-	and type Genesis 1:31 in the editline of the second toolbar.
-	Now save the comment and the key after Genesis 1:1 will be a link to the first key (Genesis 1:1).
-	You may use HTML tags while editing the text.
-	The editor supports some commands to help editing using HTML commands.
-	You may use these keys:
-		o	CTRL+B:	Switches bold on or off, depending on context.
-			If there's selcted text it will format the selected text bold (putting <B> and </B> around them).
-		o	CTRL+I:	Switches italic on or off, depending on context.
-			If there's selcted text it will format the selected text italic (putting <I> and </I> around them).
-		o CTRL+U: Underline text. Switches underline on or off, depending on context.
-			If there'sselcted text pressing these keys will underline the selcted text (putting <U> and </u> arounf the text)
-		o CTRL+H: Will format text as heading. This will be switched on or off, depending on context.
-			If there's selected text
-		o CTRL+R: By pressing these keys the selected text will be formatted as verse reference. For example:
-			Select "Genesis 3:5" and press CTRL+R and afetr saving you can view the reference as a link in the presenter.
-			Click on it an you'll see Genesis 3:5.
-			This is only a temporary solution, it'll will be there until we have a standard.
-
--Search dialog
-	The searchdialog is now in an own dialog, it supports the features of the searchdialog
-	of BibleTime 0.2x,but it looking a little bit weird and the grapgical analysis doesn't work yet.
-	The searchdialog is a little bit buggy (e.g. sometime "Use last search result" doesn't work correctly).
-	o You can drag the found items into the groupmanager so you can easily save the entries you like
-	them and use them later
-	o You can drag text in the verse preview to the groupmanager (to open a presenter etc.)
-	o You can drag verse references from the verse preview on a presenter to change
-		the current key of this presenter
-	o You can drag verse references from the verse preview on a module to open a new presenter
-		for the moduleshowing the key of the verse reference
-	o You can use the new improved search analysis. It's the last page of the dialog.
-		The number of found items of a is represented by small horizontal lines in the widget.
-		If you searched more than one module every module has it's line in a different color.
-
--Drag&Drop everywhere
-	-Martin is doing some great work on Drag'n'Drop.
-	You can start a drag almost everywhere. Please play around, you'll find out ;-)		
+Documentation:
+--------------
+	We do have a great and really useful handbook now!
+Fred did a great job with it and worked long on it. We hope that you like it. You can read the handbook in the 
+help browser of KDE2. It's in the Applications section.
 
 The Sword CD:
 -------------
-We, the team of BibleTime distribute the SWORD CD in Europe.
+The team of BibleTime distribute the SWORD CD in Europe.
 If you live in Europe and want to get one or more CDs please have a look at www.bibletime.de.
 If you don't live in Europe please have a look at www.crosswire.org.
 			
---Joachim <jansorg@gmx.de>
+
+Thank you!
+Joachim <jansorg@gmx.de>
+

@@ -6,7 +6,7 @@ It's sometimes a little bit tricky to get BIbletime and SWORD working, but
 it possible.
 
 BibleTime @VERSION@ requires:
-	-QT 2.2x
+	-QT 2.2.x or later
 	-KDE 2.x (at least the libraries)
 	-SWORD 1.52 or later
 	
@@ -18,13 +18,15 @@ Compile BibleTime @VERSION@:
 
 export QTDIR=<QT 2.2.x source directory>
 export KDEDIR=<KDE2 directory (where KDE2 is installed)>
+export PATH=$KDEDIR/bin:$PATH
 make -f Makefile.cvs
-./configure						# create makefiles
-make									# compile BibleTime
+./configure					# create makefiles
+make						# compile BibleTime
 make install					# install BibleTime
 
 If something is missing in this file please post to jansorg@gmx.de, my peronal
-eMail adress.Please read README for a short description of BibleTime @VERSION@.
+eMail adress.
+Please read README for a short description of BibleTime @VERSION@.
 Don't forget to read the new handbook of BibleTime, too.
 It has more information about BibleTime's features.
 
@@ -202,3 +204,4 @@ operates.
      script, and exit.
 
 `configure' also accepts some other, not widely useful, options.
+

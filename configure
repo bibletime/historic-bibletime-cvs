@@ -6923,6 +6923,8 @@ bibletime/docs/de/Makefile \
 bibletime/docs/de/helpdialog/Makefile \
 bibletime/docs/en/Makefile \
 bibletime/docs/en/Documents/Makefile \
+bibletime/docs/en/Documents/HTML/Makefile \
+bibletime/docs/en/Documents/HTML/common/Makefile \
 bibletime/docs/en/Documents/common/Makefile \
 bibletime/docs/en/helpdialog/Makefile \
 bibletime/docs/sk/Makefile \
@@ -7149,6 +7151,8 @@ bibletime/docs/de/Makefile \
 bibletime/docs/de/helpdialog/Makefile \
 bibletime/docs/en/Makefile \
 bibletime/docs/en/Documents/Makefile \
+bibletime/docs/en/Documents/HTML/Makefile \
+bibletime/docs/en/Documents/HTML/common/Makefile \
 bibletime/docs/en/Documents/common/Makefile \
 bibletime/docs/en/helpdialog/Makefile \
 bibletime/docs/sk/Makefile \

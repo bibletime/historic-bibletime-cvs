@@ -17,7 +17,8 @@ EXTRA_DIST = \
 csearchdialogmodulechooser.cpp csearchdialogmodulechooser.h \
 csearchdialogtext.cpp csearchdialogtext.h \
 csearchdialogscope.cpp csearchdialogscope.h \
-searchdialogresult.cpp csearchdialogresult.h \
+csearchdialogresult.cpp csearchdialogresult.h \
 csearchdialogresultview.cpp csearchdialogresultview.h \
 csearchdialoganalysis.cpp csearchdialoganalysis.h \
+csearchdialogmodulechooser.cpp csearchdialogmodulechooser.h \
 csearchdialog.cpp

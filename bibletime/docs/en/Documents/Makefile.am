@@ -1,12 +1,12 @@
-SUBDIRS = common
+SUBDIRS = common HTML
 LANG = en
 INDEX = index.docbook
 
 EXTRA_DIST = \
-Makefile.am \
 hdbk_idx.docbook \
 hdbk_intro.docbook \
 hdbk_operation.docbook \
+hdbk_start.docbook \
 hdbk_toolbars.docbook \
 help_first_startup.docbook \
 help_first_time_search.docbook \
@@ -23,6 +23,7 @@ inst_preq.docbook \
 inst_sources.docbook \
 inst_user.docbook \
 readme.txt
+
 
 install-data-local:
 	$(mkinstalldirs) $(kde_htmldir)/${LANG}/bibletime
