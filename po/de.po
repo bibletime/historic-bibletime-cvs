@@ -942,7 +942,7 @@ msgstr "Suchergebnis"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:125
 msgid "Search result with text"
-msgstr "Speichere Ergebnis mit Text"
+msgstr "Suchergebnis mit Text"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:132
 msgid "Result with text"
@@ -954,7 +954,7 @@ msgstr "Ergebnis mit Text"
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:318
 #, ycp-format
 msgid "Search result for \"%1\" in module \"%2\"\n"
-msgstr "Suchergebniss für \"%1\" im Modul \"%2\"\n"
+msgstr "Suchergebnis für \"%1\" im Modul \"%2\"\n"
 
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:232
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:312
