@@ -132,7 +132,7 @@ void CSearchDialogAnalysis::analyse(){
 	testKey.setKey("Genesis 1:1");
 	currentBook = testKey.getBook();
 	do {
-  	analysisItem = new CSearchDialogAnalysisItem(this, numberOfModules, currentBook, &m_scaleFactor);
+  	analysisItem = new CSearchDialogAnalysisItem(this, numberOfModules, currentBook, &m_scaleFactor, &m_moduleList);
 		m_canvasItemList.insert( currentBook, analysisItem);
 		
 		analysisItem->setX(xPos);
@@ -206,6 +206,8 @@ void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
 
 /** Sets back the items and deletes things to cleanup */
 void CSearchDialogAnalysis::reset(){
+	emit sigReset();
+	
 	m_scaleFactor = 0.0;
 	m_canvasItemList.clear();
 	delete m_legend;
@@ -238,13 +240,14 @@ QColor CSearchDialogAnalysis::getColor(int index){
     case  2: return Qt::blue;
     case  3: return Qt::cyan;
     case  4: return Qt::magenta;
-    case  5: return Qt::yellow;
+    case  5: return Qt::white;
     case  6: return Qt::darkRed;
-    case  7: return Qt::darkGreen;
+    case  7: return Qt::darkGray;
     case  8: return Qt::darkBlue;
     case  9: return Qt::darkCyan;
     case 10: return Qt::darkMagenta;
-    case 11: return Qt::darkYellow;
+//    case 11: return Qt::darkYellow;
+    case 11: return Qt::black;
     default: return Qt::red;
   }
 }
@@ -253,9 +256,10 @@ QColor CSearchDialogAnalysis::getColor(int index){
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int moduleCount, const QString &bookname, double *scaleFactor)
+CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int moduleCount, const QString &bookname, double *scaleFactor, ListCSwordModuleInfo* modules)
 	: QCanvasRectangle(parent) {
-	
+
+	m_moduleList = modules;	
 	m_scaleFactor = scaleFactor;
 	m_moduleCount = moduleCount;
 	m_bookName = bookname;
@@ -334,9 +338,17 @@ int CSearchDialogAnalysisItem::width(){
 
 /** Returns the tooltip for this item. */
 const QString CSearchDialogAnalysisItem::getToolTip(){
-	QString ret = i18n("Entries found for <B>%1</B><HR>").arg(m_bookName);
+	QString ret = i18n("<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>").arg(m_bookName);
 	for (int i = 0; i < m_moduleCount; ++i) {
-		ret.append( QString("%1%2").arg(m_resultCountArray[i]).arg(i>1 ? "<BR>": ""));
+		CSwordModuleInfo* info = m_moduleList->at(i);
+		const QColor c = CSearchDialogAnalysis::getColor(i);
+		ret.append(
+			QString("<B><FONT COLOR=\"#%1\">%2</FONT></B>: %3%4")			
+				.arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue()))
+				.arg(info ? QString::fromLocal8Bit(info->module()->Name()) : QString(""))
+				.arg(m_resultCountArray[i])
+				.arg(m_moduleCount>1 && i<(m_moduleCount-1) ? "<BR>" : "")
+		);
 	}
 	return ret;
 }
@@ -346,9 +358,9 @@ const QString CSearchDialogAnalysisItem::getToolTip(){
 
 CSearchDialogAnalysisView::CSearchDialogAnalysisView(QCanvas* canvas, QWidget* parent)
 	: QCanvasView(canvas, parent) {
+	connect(canvas, SIGNAL(sigReset()), SLOT(reset()));
 	setFocusPolicy(QWidget::WheelFocus);
-	ToolTip* t = new ToolTip(this);
-	
+	m_toolTip = new ToolTip(this);	
 	resize(sizeHint());
 }
 
@@ -376,8 +388,6 @@ void CSearchDialogAnalysisView::ToolTip::maybeTip(const QPoint& p) {
 		return;
 	QPoint point(p);
 	point = view->viewport()->mapFrom(view, point);
-//	point.setX( point.x() );
-//	point.setY( point.y() );	
 	CSearchDialogAnalysisItem* i = view->itemAt( view->viewportToContents(point) );
 	ASSERT(i);
 	if (!i)
@@ -388,12 +398,19 @@ void CSearchDialogAnalysisView::ToolTip::maybeTip(const QPoint& p) {
 	ASSERT(text.isEmpty());
 	if (text.isEmpty())
 		return;
+	
+	QPoint p1 = view->viewport()->mapTo(view, view->contentsToViewport(i->rect().topLeft()));
+	p1.setY(0);
+	
+	QPoint p2 = view->viewport()->mapTo(view, view->contentsToViewport(i->rect().bottomRight()));
+	p2.setY(view->height());
+	
+	QRect r = QRect( p1, p2 );	
+	if (r.contains(p))
+		tip(r, text);		
+	else
+		qWarning("p not in the rectangle r!!");		
 
-	qWarning("computing points");
-	QPoint p1 = view->contentsToViewport(i->rect().topLeft());
-	QPoint p2 = view->contentsToViewport(i->rect().bottomRight());	
-	QRect r = QRect( p1, p2 );
-	tip(r, text);
 }
 
 
@@ -404,6 +421,12 @@ CSearchDialogAnalysisItem* CSearchDialogAnalysisView::itemAt( const QPoint& p ){
 	if (!l.count())
 		return 0;
 	return dynamic_cast<CSearchDialogAnalysisItem*>(l.first());	
+}
+
+/** No descriptions */
+void CSearchDialogAnalysisView::reset(){
+//	m_toolTip->remove();	
+//	m_toolTip->clear();		
 }
 
 //------------------------------------------------------------------
@@ -445,3 +468,4 @@ void CSearchDialogAnalysisLegendItem::draw (QPainter& painter) {
  	}
   painter.restore();
 }
+

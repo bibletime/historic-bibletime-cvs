@@ -151,6 +151,24 @@
 #define LOAD_OD_ICON(name)	KGlobal::instance()->iconLoader()->loadIcon(name, KIcon::NoGroup, KIcon::SizeMedium)
 
 //ICONS
+#define ICON_FILE_CLEAR_QUEUE "bt_clear_queue"
+#define ICON_FILE_PRINT "bt_printer"
+
+#define ICON_MAININDEX_RESET "bt_reset"
+#define ICON_MAININDEX_SEARCH "bt_search"
+#define ICON_MAININDEX_DELETE_ITEMS "bt_delete_items"
+
+#define ICON_VIEW_MAININDEX "bt_mainindex"
+#define ICON_VIEW_FOOTNOTES "bt_footnotes"
+#define ICON_VIEW_STRONGS "bt_strongs"
+
+#define ICON_WINDOW_TILE "bt_tile"
+#define ICON_WINDOW_CASCADE "bt_cascade"
+#define ICON_WINDOW_TILE_AUTO "bt_tile_auto"
+#define ICON_WINDOW_CASCADE_AUTO "bt_cascade_auto"
+#define ICON_WINDOW_CLOSE_ALL "bt_close_all"
+
+#define ICON_HELP_DAILY_TIP "bt_tip"
 
 //CGroupManager icons
 #define GROUP_ICON_SMALL	LOAD_SMALL_ICON("bt_folder")
@@ -178,10 +196,10 @@
 #define BOOKMARK_PRINT_ICON_SMALL	LOAD_SMALL_ICON("bt_printer")
 #define PRESENTER_EDIT LOAD_SMALL_ICON("bt_presenter_edit")
 
-#define SHOW_GM_ICON_SMALL	LOAD_SMALL_ICON("bt_gm")
-#define RESET_GM_ICON_SMALL	LOAD_SMALL_ICON("bt_gm_reset")
+#define SHOW_GM_ICON_SMALL	LOAD_SMALL_ICON( ICON_MAININDEX )
+#define RESET_GM_ICON_SMALL	LOAD_SMALL_ICON( ICON_MAININDEX_RESET )
 
-#define MODULE_SEARCH_ICON_SMALL	LOAD_SMALL_ICON("bt_search")
+#define MODULE_SEARCH_ICON_SMALL	LOAD_SMALL_ICON( ICON_MAININDEX_SEARCH )
 #define MODULE_UNLOCK_ICON_SMALL	LOAD_SMALL_ICON("bt_module_unlock")
 #define MODULE_ABOUT_ICON_SMALL	LOAD_SMALL_ICON("bt_info")
 

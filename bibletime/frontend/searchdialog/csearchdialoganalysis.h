@@ -74,6 +74,8 @@ private:
   int m_maxCount;
   double m_scaleFactor;
   CSearchDialogAnalysisLegendItem* m_legend; 	
+signals:
+	void sigReset();
 };
 
 
@@ -88,7 +90,7 @@ public:
 	/**
 	* Standard constructor.
 	*/
-	CSearchDialogAnalysisItem(QCanvas* parent, const int moduleCount, const QString& bookname, double *scaleFactor);
+	CSearchDialogAnalysisItem(QCanvas* parent, const int moduleCount, const QString& bookname, double *scaleFactor, ListCSwordModuleInfo* modules);
   /**
   * Sets the resultcount of this item
   */
@@ -103,6 +105,7 @@ public:
 private:
   virtual void draw (QPainter & painter);	
 	
+	ListCSwordModuleInfo* m_moduleList;	
 	double *m_scaleFactor;
 	QString m_bookName;
  	int m_moduleCount;
@@ -143,6 +146,7 @@ protected:
   * Reimplementation.
   */
   virtual void resizeEvent(QResizeEvent* e);
+
 private:
 	class ToolTip : public QToolTip {
 	public:
@@ -151,7 +155,14 @@ private:
 		* Displays a tooltip for position p
 		*/		
 		virtual void maybeTip(const QPoint &pos);
-	};
+	};		
+	ToolTip* m_toolTip;
+		
+private slots: // Private slots
+  /**
+  * No descriptions
+  */
+  void reset();
 };
 
 

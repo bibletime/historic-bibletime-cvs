@@ -78,8 +78,14 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
   	
 	  QMap<QString,QString> entryMap;
 	  entryMap.insert(i18n("Old testament"), QString("Genesis - Maleachi"));
- 	  entryMap.insert(i18n("New testament"), QString("Matthew - Revelation of John"));
+	  entryMap.insert(i18n("Moses/Pentateuch/Torah"), QString("Genesis-Deuteronomium"));				
+	  entryMap.insert(i18n("History"), QString("Jos-Est"));		
+	  entryMap.insert(i18n("Prophets"), QString("Isa-Mal")); 	
+ 	  entryMap.insert(i18n("New testament"), QString("Matthew - Revel ation of John"));
 	  entryMap.insert(i18n("Gospels"), QString("Matthew - John"));
+	  entryMap.insert(i18n("Letters/Epistels"), QString("Rom-Jude"));
+	  entryMap.insert(i18n("Paul's Epistels"), QString("Rom-Phile;Lam"));
+
 	  QMap<QString,QString>::Iterator it;			
 				
 		for ( it = entryMap.begin(); it != entryMap.end(); ++it) {
