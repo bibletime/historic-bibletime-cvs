@@ -23,7 +23,6 @@
 #include "ressource.h"
 #include "bibletime.h"
 #include "frontend/kstartuplogo.h"
-//#include "frontend/ctipwindow.h"
 #include "frontend/chtmldialog.h"
 #include "config.h"
 

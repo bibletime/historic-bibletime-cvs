@@ -86,7 +86,7 @@ const bool CSwordModuleInfo::isEncrypted() const {
 	/* if we have the CipherKey entry the module
 		* is encrypted but not necessary locked
 		*/		
-	ConfigEntMap config	= m_backend->getConfig()->Sections.find( m_module->Name() )->second;;
+	ConfigEntMap config	= m_backend->getConfig()->Sections.find( m_module->Name() )->second;
 	ConfigEntMap::iterator it = config.find("CipherKey");
 	if (it != config.end())
 		return true;
@@ -174,12 +174,22 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
     m_searchResult = m_module->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, searchScope, 0, percentUpdate);
 	}
 	else if (searchOptions & CSwordModuleSearch::useScope) {
-		searchScope = &scope;  	
+//		VerseKey* vkScope = 0;
+//		if (scope.Count() == 2)
+//			vkScope = new VerseKey( (const char*)scope.GetElement(0), (const char*)scope.GetElement(1));			
+//		else
+		searchScope = &scope;		
+//  	if (vkScope) {
+//  		qWarning("using versekey as scope");
+//  		searchScope = vkScope;
+//  	}
   	m_searchResult = m_module->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, getType() != Lexicon ? searchScope : 0, 0, percentUpdate);
+//  	if (vkScope)//clean up
+//  		delete vkScope;
 	}
-  else  {
+  else
   	m_searchResult = m_module->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, 0, 0, percentUpdate);
-  }
+
 	return m_searchResult.Count();
 }
 

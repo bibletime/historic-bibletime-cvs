@@ -664,13 +664,13 @@ void CGroupManager::contentsDragLeaveEvent( QDragLeaveEvent* e){
 #define MOVE_ITEMS  \
 			for ( item = m_itemList->last(); item != 0; item = m_itemList->prev()){ \
 				if ( item && (item != target) ){ \
-					parentItem = (CGroupManagerItem*)item->parent(); \
+					parentItem = dynamic_cast<CGroupManagerItem*>(item->parent()); \
 					if ( isChild(item, target) ) \
 						continue; \
 					if (parentItem && parentItem != item) \
 						parentItem->takeItem(item); \
 					else \
-						this->takeItem(item); \
+						takeItem(item); \
 					if ( target && target!=item ) \
 						if (target->type()==CGroupManagerItem::Group) \
 							target->insertItem(item); \
@@ -813,7 +813,7 @@ void CGroupManager::contentsMousePressEvent( QMouseEvent* e ) {
 
 /** Reimplementation. */
 void CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e){
-	qWarning("CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e)");
+	qDebug("CGroupManager::contentsMouseDoubleClickEvent ( QMouseEvent * e)");
   bool open = false;	
   if (m_pressedItem)
   	open = m_pressedItem->isOpen();

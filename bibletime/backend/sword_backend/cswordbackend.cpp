@@ -44,16 +44,13 @@
 #include <utilstr.h>
 
 CSwordBackend::CSwordBackend() : SWMgr(0,0,false) {	
-	m_errorCode = noError;
-	
-	//set variables to NULL
+	m_errorCode = noError;	
 	m_entryDisplay = 0;
 	m_chapterDisplay = 0;
 	m_moduleList = 0;
 	m_gbfFilter = m_rwpFilter = m_plainTextFilter = m_thmlFilter = 0;
-		
-	//Load Sword modules
-	Load();	
+
+	Load();	//Load Sword modules
 }
 
 CSwordBackend::~CSwordBackend(){

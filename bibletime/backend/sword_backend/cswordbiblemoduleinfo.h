@@ -83,8 +83,8 @@ public:
 private:
 	QStringList*	m_bookList;	//This booklist is cached
 	QString m_cachedLocale;
-	bool m_hasOT;
-	bool m_hasNT;
+	short int m_hasOT;
+	short int m_hasNT;
 };
 
 inline const CSwordModuleInfo::type CSwordBibleModuleInfo::getType() const {
