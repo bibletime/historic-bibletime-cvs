@@ -66,7 +66,7 @@ CSwordBackend::CSwordBackend()
 }
 
 CSwordBackend::CSwordBackend(const QString& path)
-	: sword::SWMgr(!path.isEmpty() ? path.latin1() : 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
+	: sword::SWMgr(!path.isEmpty() ? path.local8Bit() : 0, false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
 {
   qWarning("backend constructed with a path argument! %s", path.latin1());
 	m_displays.entry = 0;

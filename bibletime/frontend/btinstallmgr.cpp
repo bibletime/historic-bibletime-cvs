@@ -41,8 +41,7 @@ const QString BTInstallMgr::Tool::LocalConfig::swordConfigFilename() {
 	//in Sword 1.5.7 we can use $HOME/.sword/sword.conf instead of the global ones
 //	qWarning(sword::SWVersion::currentVersion);
 
-	if ((sword::SWVersion::currentVersion == sword::SWVersion("1.5.7")) || (sword::SWVersion::currentVersion > sword::SWVersion("1.5.7")))
-	{ // use sword.conf in HOME/.sword
+	if (sword::SWVersion::currentVersion >= sword::SWVersion("1.5.7")) { // use sword.conf in HOME/.sword
 		const QString file = QString("%1/.sword/sword.conf").arg(getenv("HOME"));
 		//qWarning("file is %s", file.latin1());
 		return file;
@@ -209,36 +208,8 @@ void BTInstallMgr::Tool::RemoteConfig::initConfig() {
   QFile::remove(configFilename());
 
 //remote sources will be setup by the manage sources dialog
-/*
-  InstallSource is("FTP");
-  is.caption = "Crosswire";
-  is.source = "ftp.crosswire.org";
-  is.directory = "/pub/sword/raw";
-  Tool::RemoteConfig::addSource(&is);
 
-  is.type = "FTP";
-  is.caption = "Crosswire Beta";
-  is.source = "ftp.crosswire.org";
-  is.directory = "/pub/sword/betaraw";
-  Tool::RemoteConfig::addSource(&is);
-
-
-  //add default local sources
-  InstallSource is("DIR");
-	is.type = "DIR";
-  is.caption = "/cdrom";
-  is.source = "file://";
-  is.directory = "/cdrom/";
-  Tool::RemoteConfig::addSource(&is);
-
-  is.type = "DIR";
-  is.caption = "/cdrom1";
-  is.source = "file://";
-  is.directory = "/cdrom1/";
-  Tool::RemoteConfig::addSource(&is);
-*/
-
-  SWConfig config(Tool::RemoteConfig::configFilename().latin1());
+	SWConfig config(Tool::RemoteConfig::configFilename().latin1());
   config["General"]["PassiveFTP"] = "true";
 	config.Save();
 }

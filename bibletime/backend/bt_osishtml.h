@@ -21,7 +21,14 @@
 
 #include "cfiltertool.h"
 
+
+
 #include <osishtmlhref.h>
+
+#warning Hack to compile with Sword 1.5.6
+//#define OSISHTMLHREF OSISHTMLHref
+
+
 
 /**
 * This filter converts ThML text to HTML text
