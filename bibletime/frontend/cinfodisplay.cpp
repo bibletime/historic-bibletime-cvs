@@ -56,6 +56,7 @@ void CInfoDisplay::setInfo(const InfoType type, const QString& data) {
 
 
 void CInfoDisplay::setInfo(const ListInfoData& list) {
+	qWarning("setInfo");
 	QString text;
 	for (ListInfoData::const_iterator it = list.begin(); it != list.end(); ++it) {
 	  switch ( (*it).first ) {
@@ -140,7 +141,7 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 }
 
 const QString CInfoDisplay::decodeLemma( const QString& data ) {
-	//qWarning("decode lemma: %s", data.latin1());
+	qWarning("decode lemma: %s", data.latin1());
 	
 	QStringList lemmas = QStringList::split("|", data);
 	QString ret;
@@ -170,6 +171,7 @@ const QString CInfoDisplay::decodeLemma( const QString& data ) {
 }
 
 const QString CInfoDisplay::decodeMorph( const QString& data ) {
+	qWarning("decodeMorph");
 	QStringList morphs = QStringList::split("|", data);
 	QString ret;
 		
@@ -223,7 +225,11 @@ const QString CInfoDisplay::getWordTranslation( const QString& data ) {
     \fn CInfoDisplay::clearInfo()
  */
 void CInfoDisplay::clearInfo() {
+	CDisplayTemplateMgr tmgr;
+	CDisplayTemplateMgr::Settings settings;
+	settings.pageCSS_ID = "infodisplay";
+	
 	m_htmlPart->begin();
-	m_htmlPart->write(QString::null);
-	m_htmlPart->end();		
+	m_htmlPart->write( tmgr.fillTemplate(CBTConfig::get(CBTConfig::displayStyle), QString::null, settings) );
+	m_htmlPart->end();
 }

@@ -33,7 +33,7 @@ ac_sword_library_dirs="$ac_sword_dir/lib /usr/lib /usr/lib/sword /usr/local/lib 
 if test "x$ac_static_sword" = "xYES"; then
 	SEARCH_LIBS="libsword.a";
 else
-	SEARCH_LIBS="libsword.so libsword.a";
+	SEARCH_LIBS="libsword.so libsword.so.3 libsword.so.4 libsword.a";
 fi
 
 
