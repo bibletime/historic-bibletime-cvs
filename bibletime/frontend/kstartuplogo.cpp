@@ -69,7 +69,8 @@ KStartupLogo::KStartupLogo()
   setBackgroundPixmap(pm);
 
   textLabel = new QLabel(this);
-  textLabel->setGeometry(5,pm.height(),pm.width()-5,textLabel->sizeHint().height()+5);
+//  textLabel->setGeometry(5,pm.height(),pm.width()-5,textLabel->sizeHint().height()+5);
+  textLabel->setGeometry(0,pm.height(),pm.width(),textLabel->sizeHint().height());
   textLabel->setBackgroundColor( Qt::black );
 
 	QPalette p = palette();
