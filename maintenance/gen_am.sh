@@ -226,29 +226,17 @@ for DOC_PO_PART in handbook howto; do
 	echo generating ../../bibletime-i18n/po/$DOC_PO_PART/Makefile.am
 	( # output to Makefile.am
 		echo -e $HEADER
-
-		echo -n "FILES = "
-
-		for I1 in $FOREIGN_DOC_LANGUAGES; do
-			echo -n "$I1.po "
-		done
-
-		echo
 		echo
 		echo 'merge:'
-		echo '	@catalogs='"'\$(FILES)'"'; \'
-		echo '	for cat in $$catalogs; do \'
+		echo '	for cat in `find -name "*.po"`; do \'
 		echo '	name=../../../bibletime/pot/'$DOC_PO_PART'.pot ; \'
 		echo '		echo $$cat $$name; \'
-		echo '		if test -e $$cat; then\'
 		echo '			msgmerge $$cat $$name > $$cat.new; \'
 		echo '			if diff $$cat $$cat.new; then \'
 		echo '				rm $$cat.new;  \'
 		echo '			else  \'
 		echo '				mv $$cat.new $$cat ; \'
 		echo '			fi;\'
-		echo '		else echo File $$cat does not exist yet and will not be updated.;\'
-		echo '		fi; \'
 		echo '	done;'
 
 	) > ../../bibletime-i18n/po/$DOC_PO_PART/Makefile.am
