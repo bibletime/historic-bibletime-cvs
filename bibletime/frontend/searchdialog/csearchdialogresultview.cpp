@@ -101,13 +101,11 @@ void CSearchDialogResultModuleView::viewportMousePressEvent(QMouseEvent *e) {
 		QString modName = m_currentItem->text(0);
 		modName = modName.left( modName.find(" [") );
 		if (QString::fromLocal8Bit(moduleList->current()->module()->Name()) == modName) {
-			qDebug("emit now the signal!");
 			emit moduleSelected( moduleList->current() );
 			m_currentModule = moduleList->current();
 			break;
 		}
-	}
-	
+	}	
 	if (e->button() == RightButton)
 		m_popup->popup( mapToGlobal(e->pos()) );
 }
@@ -361,10 +359,11 @@ CSearchDialogResultView::~CSearchDialogResultView() {
 
 /** Initializes the tree of this ResultView */
 void CSearchDialogResultView::setupTree() {
+	qWarning(m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
+	
 	ListKey moduleSearchResult = m_module->getSearchResult();
 	clear();
-	int index = 0;
-	for (index = 0; index < moduleSearchResult.Count(); index++) {
+	for (int index = 0; index < moduleSearchResult.Count(); index++) {
 		insertItem( QString::fromLocal8Bit((const char*)*moduleSearchResult.GetElement(index)), -1);
 	}
 }
