@@ -239,7 +239,7 @@ const QFont CSwordModuleInfo::getFont(){
   if (strlen(sizeString.c_str()))
   	size = QString::fromLocal8Bit( sizeString.c_str() ).toInt();
   QFont f( family, size );
-  f.setCharSet(QFont::AnyCharSet);
+//  f.setCharSet(QFont::AnyCharSet);
 
   return f;
 }

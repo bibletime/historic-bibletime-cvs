@@ -102,7 +102,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	aboutData.addAuthor("Nuno Bareto", 				I18N_NOOP("Translation into Portoguese"), "nbarr@clix.pt", "");	
 	aboutData.addAuthor("Silvio Bacchetta",		I18N_NOOP("Translation into Italian"), "sorgilazzaro@tiscalinet.it", "");					
 	aboutData.addAuthor("Walter Rodrigo de Sá Cruz",			I18N_NOOP("Translation into Portoguese"), "keytech@ig.com.br", "");	
-	aboutData.addAuthor("Zdenko Podobny", 		I18N_NOOP("Translation into Slovak"), "zdpo@post.sk", "");
+	aboutData.addAuthor("Zdeno Podobny", 		I18N_NOOP("Translation into Slovak"), "zdpo@post.sk", "");
 													
 	//credits
 	aboutData.addCredit("Bob Harman", 	I18N_NOOP("Bible study HowTo"), "N_Cov_Church@compuserve.com", "");		
@@ -118,9 +118,10 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 
 	
  	KApplication app;
- 	QFont f = app.font();
- 	f.setCharSet(QFont::AnyCharSet);
- 	app.setFont(f); 	
+// 	QFont f = app.font();
+//// 	f.setCharSet(QFont::AnyCharSet);
+// 	f.setCharSet(QFont::Unicode);
+// 	app.setFont(f); 	
  	
  	KGlobal::dirs()->addResourceType("BT_pic", KStandardDirs::kde_default("data") + kapp->name() + "/pics/");
 

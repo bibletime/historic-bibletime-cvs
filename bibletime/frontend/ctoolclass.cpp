@@ -39,7 +39,6 @@ QString CToolClass::locatehtml(const QString &filename) {
     QString path = locate("html", KGlobal::locale()->language() + '/' + filename);
     if (path.isNull())
        path = locate("html", "default/" + filename);
-//		qDebug(path);
     return path;
 }
 
@@ -106,7 +105,6 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 }
 
 QString CToolClass::encodeReference(QString &module, QString &reference){
-//  	qDebug((QString)"encoded Reference: "+(QString)"("+module+(QString)")"+reference);
 	return QString("(%1)%2").arg(module).arg(reference);
 }
 
