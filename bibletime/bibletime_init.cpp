@@ -380,7 +380,7 @@ void BibleTime::initConnections(){
 
   //if we use KDE 3.1 we do not use our own printing status window, KDE >= 3.1 has a better one
 #ifdef KDE_VERSION_MINOR
-#if KDE_VERSION_MINOR >= 1
+#if KDE_VERSION_MINOR <= 1
   connect(m_printer, SIGNAL(printingStarted()),
 		this, SLOT(slotPrintingStarted()));		
 	connect(m_printer, SIGNAL(printingFinished()),

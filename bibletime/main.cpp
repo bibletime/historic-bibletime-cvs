@@ -25,17 +25,18 @@
 #include <signal.h>
 
 //own includes
+#include "bibletimeapp.h"
 #include "bibletime.h"
 #include "config.h"
 
 //util includes
 #include "util/scoped_resource.h"
+#include "util/cresmgr.h"
 
 //frontend includes
 #include "frontend/kstartuplogo.h"
 #include "frontend/chtmldialog.h"
 #include "frontend/cbtconfig.h"
-#include "util/cresmgr.h"
 
 //Qt includes
 #include <qdir.h>
@@ -64,7 +65,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 			break;
 		case QtWarningMsg:
 			//if (showDebugMessages)
-			//	fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
+				fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
 			break;
 		case QtFatalMsg:
 			fprintf( stderr,"(BibleTime %s) _FATAL_: %s\nPlease contact info@bibletime.de and report this bug!",VERSION, msg );
@@ -175,8 +176,6 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   /***********************************************
   *        Credits (sorted by last name)         *
   ************************************************/
-  // Bible study HowTo
-
   //Sponsored many years the www.bibletime.de domain!
   aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Spnsored our internet domain for many years"), "tom@theta-consulting.de", "");  
   //He provided us with the Bible Study HowTo
@@ -191,7 +190,7 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 	KCmdLineArgs::init(argc, argv, &aboutData);	
 	KCmdLineArgs::addCmdLineOptions( options );
 	
-	KApplication app;
+	BibleTimeApp app;
 	KGlobal::dirs()->addResourceType("BT_pic", "share/apps/bibletime/pics/");
 
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
@@ -201,18 +200,17 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 		showDebugMessages = true;
   }
 
-  CResMgr::init_i18n();
-  
   //since we don't support session management at the moment we disable this. Only leads to troubles.
+/*
+  if (kapp->isRestored()){
+		for(int n = 1; KMainWindow::canBeRestored(n); n++) {
+			(new BibleTime)->restore(n);
+    }
 
-//  if (kapp->isRestored()){
-//		for(int n = 1; KMainWindow::canBeRestored(n); n++) {
-//			(new BibleTime)->restore(n);
-//    }
-
-//    RESTORE( BibleTime )
-//  }
-//	else {
+    RESTORE( BibleTime )
+  }
+	else {
+*/
 		const bool showIt = CBTConfig::get(CBTConfig::logo);	
 
 		if(showIt) {
@@ -231,12 +229,12 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
         dir.rename("profiles", "sessions");
       }   
     }
-
             
 		util::scoped_ptr<BibleTime> bibletime( new BibleTime() );
 		bibletime_ptr = bibletime.get();
+    app.setMainWidget(bibletime);
 
-		if (showIt) {
+    if (showIt) {
 			KStartupLogo::hideSplash();
 			KStartupLogo::deleteSplash();
 		}
@@ -248,27 +246,18 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 			dlg.exec();
 			bibletime->slotSettingsOptions();
 		}			
-
-        
+   
 		//The tip of the day
 		if (CBTConfig::get(CBTConfig::tips)) {
 			bibletime->slotHelpTipOfDay();
-    };
-    bibletime->show();		
+    }
 
-    app.setMainWidget(bibletime);
+    bibletime->show();
 
     // restore the workspace and process command line options
     bibletime->processCommandline();
  
-    const int ret = app.exec();
-
-    //we can set this safely now because we close now (hopyfully without crash)
-    CBTConfig::set(CBTConfig::crashedLastTime, false);
-    CBTConfig::set(CBTConfig::crashedTwoTimes, false);
-
-		//at this point the bacend still exists, we need to find a better way to delete it
-		return ret;
+    return app.exec();    
 //	}
 }
 

@@ -32,7 +32,7 @@ class sword::SWModule;
   * This is the base class for all filters in BT
   */
 
-class BT_BASICFILTER : public sword::SWBasicFilter  {
+class BT_BASICFILTER : virtual public sword::SWBasicFilter  {
 public:
   virtual char processText(sword::SWBuf& buf, const sword::SWKey*, const sword::SWModule * = 0);
 
@@ -55,7 +55,7 @@ protected:
   /**
   * Parses the verse reference ref and returns it.
   */
-  const sword::SWBuf parseRef(const sword::SWBuf ref, sword::SWModule*, const bool insertCompleteRef = true);
+  const sword::SWBuf parseRef(const sword::SWBuf ref, sword::SWModule*, const bool insertFullRef = true);
   /**
   * Parses the verse reference ref and returns it.
   */

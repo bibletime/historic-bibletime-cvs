@@ -27,12 +27,14 @@
 
 //Sword includes
 #include <swmodule.h>
+#include <swbuf.h>
 #include <utilxml.h>
 
 //Qt includes
 #include <qstring.h>
 
 using sword::SWBuf;
+using sword::XMLTag;
 
 BT_OSISHTML::BT_OSISHTML() {
 	setTokenStart("<");
@@ -48,21 +50,21 @@ BT_OSISHTML::BT_OSISHTML() {
 }
 
 bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
+//  qWarning("OSISHTML::handleToken");
   // manually process if it wasn't a simple substitution
 	if (!substituteToken(buf, token)) {
-		sword::XMLTag tag(token);
-		const bool osisQToTick = ((!module->getConfigEntry("OSISqToTick")) || (strcmp(module->getConfigEntry("OSISqToTick"), "false")));
-
-
-    //<w> tag
-    if (!strcmp(tag.getName(), "w")) {
+    XMLTag tag(token);
+    if (!tag.getName()) {
+      return false;
+    }
+    
+		// <w> tag
+		if (!strcmp(tag.getName(), "w")) {
 
 			// start <w> tag
 			if ((!tag.isEmpty()) && (!tag.isEndTag())) {
-//				buf += "{";
 				userData["w"] = token;
 			}
-
 			// end or empty <w> tag
 			else {
 				bool endTag = tag.isEndTag();
@@ -80,67 +82,73 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 				if ((attrib = tag.getAttribute("xlit"))) {
 					val = strchr(attrib, ':');
 					val = (val) ? (val + 1) : attrib;
-					buf.appendFormatted(" &lt;%s&gt;", val);
+					buf.appendFormatted(" %s", val);
 				}
 				if ((attrib = tag.getAttribute("gloss"))) {
 					val = strchr(attrib, ':');
 					val = (val) ? (val + 1) : attrib;
-					buf.appendFormatted(" &lt;%s&gt;", val);
+					buf.appendFormatted(" %s", val);
 				}
 				if ((attrib = tag.getAttribute("lemma"))) {
-					int count = tag.getAttributePartCount("lemma");
+					const int count = tag.getAttributePartCount("lemma");
 					int i = (count > 1) ? 0 : -1;		// -1 for whole value cuz it's faster, but does the same thing as 0
 					do {
 						attrib = tag.getAttribute("lemma", i);
-						if (i < 0) i = 0;	// to handle our -1 condition
+						if (i < 0) // to handle our -1 condition
+              i = 0;
 						val = strchr(attrib, ':');
 						val = (val) ? (val + 1) : attrib;
-						if ((strchr("GH", *val)) && (isdigit(val[1])))
-							val++;
-						if ((!strcmp(val, "3588")) && (lastText.length() < 1))
+
+            if ((!strcmp(val+2, "3588")) && (lastText.length() < 1)) {
 							show = false;
-						else	buf.appendFormatted(" <a href=\"strongs:/Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a>", val, val);
+            }
+						else if (*val == 'H') {
+              buf.appendFormatted(" <a href=\"strongs://Hebrew/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ", val+1, val+1);
+            }
+						else if (*val == 'G') {
+              buf.appendFormatted(" <a href=\"strongs://Greek/%s\"><span class=\"strongnumber\">&lt;%s&gt;</span></a> ", val+1, val+1);
+            }
 					} while (++i < count);
 				}
 				if ((attrib = tag.getAttribute("morph")) && (show)) {
-					SWBuf savelemma = tag.getAttribute("savlm");
-					if ((strstr(savelemma.c_str(), "3588")) && (lastText.length() < 1))
-						show = false;
-					if (show) {
-						int count = tag.getAttributePartCount("morph");
-						int i = (count > 1) ? 0 : -1;		// -1 for whole value cuz it's faster, but does the same thing as 0
-						do {
-							attrib = tag.getAttribute("morph", i);
-							if (i < 0) i = 0;	// to handle our -1 condition
-							val = strchr(attrib, ':');
-							val = (val) ? (val + 1) : attrib;
-							if ((*val == 'T') && (strchr("GH", val[1])) && (isdigit(val[2])))
-								val+=2;
-							buf.appendFormatted(" (%s)", val);
-						} while (++i < count);
-					}
+					const int count = tag.getAttributePartCount("morph");
+					int i = (count > 1) ? 0 : -1;		// -1 for whole value cuz it's faster, but does the same thing as 0
+					do {
+						attrib = tag.getAttribute("morph", i);
+						if (i < 0)
+              i = 0;	// to handle our -1 condition
+						val = strchr(attrib, ':');
+						val = (val) ? (val + 1) : attrib;
+ 						if ((*val == 'T') && (val[1] == 'H')) {
+              buf.appendFormatted(" <a href=\"morph://Hebrew/%s\"><span class=\"morphcode\">(%s)</span></a> ", val+2, val+2);
+            }
+						else if ((*val == 'T') && (val[1] == 'G')) {
+              buf.appendFormatted(" <a href=\"morph://Greek/%s\"><span class=\"morphcode\">(%s)</span></a> ", val+2, val+2);
+            }
+					} while (++i < count);
 				}
 				if ((attrib = tag.getAttribute("POS"))) {
 					val = strchr(attrib, ':');
 					val = (val) ? (val + 1) : attrib;
-					buf.appendFormatted(" %lt;%s&gt;", val);
+					buf.appendFormatted(" %s", val);
 				}
-
-				if (endTag)
-					buf += "";
 			}
-    }
-    // <note> tag
+		}
+		// <note> tag
 		else if (!strcmp(tag.getName(), "note")) {
 			if (!tag.isEmpty() && !tag.isEndTag()) {
+				SWBuf footnoteNum = userData["fn"];
 				SWBuf type = tag.getAttribute("type");
 
 				if (type != "strongsMarkup") {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
-					SWBuf footnoteNumber = tag.getAttribute("swordFootnote");
-
-          // see if we have a VerseKey * or descendant
-//					if (sword::VerseKey *vkey = dynamic_cast<sword::VerseKey*>(key)) {
-//						buf.appendFormatted("<a href=\"\">*%c%i.%s</a> ", ((tag.getAttribute("type") && ((!strcmp(tag.getAttribute("type"), "crossReference")) || (!strcmp(tag.getAttribute("type"), "x-cross-ref")))) ? 'x':'n'), vkey->Verse(), footnoteNumber.c_str());
+//					int footnoteNumber = (footnoteNum.length()) ? atoi(footnoteNum.c_str()) : 1;
+					// see if we have a VerseKey * or descendant
+					//if (sword::VerseKey *vkey = dynamic_cast<sword::VerseKey*>(key)) {
+//						char ch = ((tag.getAttribute("type") && ((!strcmp(tag.getAttribute("type"), "crossReference")) || (!strcmp(tag.getAttribute("type"), "x-cross-ref")))) ? 'x':'n');
+						    //buf.appendFormatted(" ", vkey->getText(), ch, footnoteNumber, ch);
+//						SWBuf tmp;
+//						tmp.appendFormatted("%i", ++footnoteNumber);
+//						userData["fn"] = tmp.c_str();
 //					}
 				}
 				userData["suspendTextPassThru"] = "true";
@@ -149,8 +157,29 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 				userData["suspendTextPassThru"] = "false";
 			}
 		}
+		// <p> paragraph tag
+		else if (!strcmp(tag.getName(), "p")) {
+			if ((!tag.isEndTag()) && (!tag.isEmpty())) {	// non-empty start tag
+				buf += "<p>";
+			}
+			else if (tag.isEndTag()) {	// end tag
+				buf += "</p>";
+			}
+			else {					// empty paragraph break marker
+				buf += "<p/>";
+			}
+		}
 
-
+    else {
+      return sword::OSISHTMLHref::handleToken(buf, token, userData);
+    }
 	}
   return false;
+}
+
+/** No descriptions */
+char BT_OSISHTML::processText(sword::SWBuf& buf, const sword::SWKey * key , const sword::SWModule * module){
+  CFilterTool::module(const_cast<sword::SWModule*>(module));
+  CFilterTool::key(const_cast<sword::SWKey*>(key));
+  return sword::OSISHTMLHref::processText(buf, key, module);
 }

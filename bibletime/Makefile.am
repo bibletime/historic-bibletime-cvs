@@ -2,6 +2,7 @@ bibletime_SOURCES = \
 bibletime_init.cpp \
 bibletime_slots.cpp \
 bibletime.cpp \
+bibletimeapp.cpp \
 main.cpp
 
 bibletime_LDADD   = \
@@ -27,7 +28,7 @@ $(LIBSOCKET)
 
 SUBDIRS = backend printing frontend xml pics util
 
-all_headers = bibletime.h
+all_headers = bibletime.h bibletimeapp.h
 
 EXTRA_DIST = $(bibletime_SOURCES) $(all_headers)
 

@@ -1,10 +1,9 @@
 /***************************************************************************
-                          thmlhtml.h  -  description
+                          bibletimeapp.cpp  -  description
                              -------------------
-    begin                : 1999-10-28
-
-    copyright            : 1999 by Chris Little
-    email                : chrislit@chiasma.org
+    begin                : Sam Jul 12 2003
+    copyright            : (C) 2003 by The BibleTime team
+    email                : info@bibletime.info
  ***************************************************************************/
 
 /***************************************************************************
@@ -16,22 +15,23 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef OSISHTML_H
-#define OSISHTML_H
+#include "bibletimeapp.h"
 
-#include "cfiltertool.h"
+#include "frontend/cbtconfig.h"
 
-#include "osishtmlhref.h"
+#include "util/cresmgr.h"
 
-/**
-* This filter converts ThML text to HTML text
-*/
-class BT_OSISHTML : public sword::OSISHTMLHref, public CFilterTool {
+BibleTimeApp::BibleTimeApp(){
+  CResMgr::init_i18n();
+}
 
-public:
-  BT_OSISHTML();
-  virtual bool handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData);
-  virtual char processText(sword::SWBuf &, const sword::SWKey*, const sword::SWModule*);
-};
+BibleTimeApp::~BibleTimeApp(){
+  if (backend()) {
+//    qWarning("BibleTimeApp: delete the backend now");
+    deleteBackend();
+  }
 
-#endif
+  //we can set this safely now because we close now (hopyfully without crash)
+  CBTConfig::set(CBTConfig::crashedLastTime, false);
+  CBTConfig::set(CBTConfig::crashedTwoTimes, false);
+}

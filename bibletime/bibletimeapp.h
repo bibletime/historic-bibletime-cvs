@@ -1,10 +1,9 @@
 /***************************************************************************
-                          thmlhtml.h  -  description
+                          bibletimeapp.h  -  description
                              -------------------
-    begin                : 1999-10-28
-
-    copyright            : 1999 by Chris Little
-    email                : chrislit@chiasma.org
+    begin                : Sam Jul 12 2003
+    copyright            : (C) 2003 by The BibleTime team
+    email                : info@bibletime.info
  ***************************************************************************/
 
 /***************************************************************************
@@ -16,22 +15,22 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef OSISHTML_H
-#define OSISHTML_H
+#ifndef BIBLETIMEAPP_H
+#define BIBLETIMEAPP_H
 
-#include "cfiltertool.h"
+//BibleTime
+#include "util/cpointers.h"
 
-#include "osishtmlhref.h"
+//KDE
+#include <kapplication.h>
 
-/**
-* This filter converts ThML text to HTML text
-*/
-class BT_OSISHTML : public sword::OSISHTMLHref, public CFilterTool {
-
-public:
-  BT_OSISHTML();
-  virtual bool handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData);
-  virtual char processText(sword::SWBuf &, const sword::SWKey*, const sword::SWModule*);
+/** The BibleTimeApp class is used to clean up all instances of the backend and to delete all created module objects.
+  * @author The BibleTime team
+  */
+class BibleTimeApp : public KApplication, public CPointers {
+public: 
+	BibleTimeApp();
+	virtual ~BibleTimeApp();
 };
 
 #endif
