@@ -731,7 +731,7 @@ You can change the filter settings in each display window, of course.")) );
 
  	m_settings.swords.scriptureReferences = new QCheckBox(currentTab);
  	m_settings.swords.scriptureReferences->setText(i18n("Show scripture cross-references"));
- 	m_settings.swords.scriptureReferences->setChecked(CBTConfig::get(CBTConfig::hebrewCantillation));
+ 	m_settings.swords.scriptureReferences->setChecked(CBTConfig::get(CBTConfig::scriptureReferences));
 //Enable this in 1.4, because we're in message freeze for 1.3
 //   QToolTip::add(m_settings.swords.scriptureReferences, CResMgr::settings::sword::filters::crossReferences::tooltip);
 //   QWhatsThis::add(m_settings.swords.scriptureReferences, CResMgr::settings::sword::filters::crossReferences::whatsthis);
