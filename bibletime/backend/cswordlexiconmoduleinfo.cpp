@@ -106,7 +106,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
   	  		m_entryList->remove( m_entryList->begin() );
 				}
 				
-				m_entryList->sort(); //make sure the module is sorted by utf-8
+// 				m_entryList->sort(); //make sure the module is sorted by utf-8
       }
 
 			if (m_entryList->count()){

@@ -419,6 +419,7 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name )
   	m_refreshedRemoteSources(false)
 {
 	setIconListAllVisible(true);
+	m_swordSetupChanged = false;
 
   initSwordConfig();
 	initInstall();
@@ -600,7 +601,8 @@ void CSwordSetupDialog::initRemove(){
 /** Called if the OK button was clicked */
 void CSwordSetupDialog::slotOk(){
   //save the Sword path configuration here
-  if (m_swordPathListBox->childCount()) {
+	//Only save it to our configuration if the user changed something, otherwise the global path would not be used
+  if (m_swordSetupChanged && m_swordPathListBox->childCount()) {
     QStringList targets;
 
     QListViewItemIterator it( m_swordPathListBox );
@@ -1401,6 +1403,7 @@ void CSwordSetupDialog::slot_swordEditClicked(){
 			if (fi.exists() && fi.isWritable()) {
 				i->setText(0, url.path());
 				populateInstallCombos(); //update target list bof on install page
+				m_swordSetupChanged = true;
 			}
 			else {
 				const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, so works \
@@ -1409,6 +1412,7 @@ void CSwordSetupDialog::slot_swordEditClicked(){
 				if (result == KMessageBox::Yes) {
 					i->setText(0, url.path());
 					populateInstallCombos(); //update target list bof on install page
+					m_swordSetupChanged = true;
 				}
 			}
 		}
@@ -1423,6 +1427,7 @@ void CSwordSetupDialog::slot_swordAddClicked(){
 		if (fi.exists() && fi.isWritable()) {
 	    (void)new KListViewItem(m_swordPathListBox, url.path());
 			populateInstallCombos(); //update target list bof on install page
+			m_swordSetupChanged = true;
 		}
 		else {
 			const int result = KMessageBox::warningYesNo(this, i18n("This directory is not writable, \
@@ -1431,6 +1436,7 @@ void CSwordSetupDialog::slot_swordAddClicked(){
 			if (result == KMessageBox::Yes) {
 		    (void)new KListViewItem(m_swordPathListBox, url.path());
 				populateInstallCombos(); //update target list bof on install page
+				m_swordSetupChanged = true;
 			}
 		}
   }
@@ -1441,6 +1447,7 @@ void CSwordSetupDialog::slot_swordRemoveClicked(){
   if (QListViewItem* i = m_swordPathListBox->currentItem()) {
     delete i;
 		populateInstallCombos(); //update target list bof on install page
+		m_swordSetupChanged = true;
   }
 }
 

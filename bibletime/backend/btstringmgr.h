@@ -35,9 +35,10 @@ public:
 protected:
 	virtual const bool supportsUnicode() const;
 	
-	/** CODE TAKEN FROM KDELIBS 3.2
-	* This function checks whether a string is utf8 or not.
+	/** CODE TAKEN FROM KDELIBS 3.2. Licensed under the LGPL 2.
+	* This code was taken from KStringHandler
 	*
+	* This function checks whether a string is utf8 or not.
 	* It was taken from kdelibs so we do not depend on KDE 3.2.
 	*/
 	const bool isUtf8(const char *buf);

@@ -7,20 +7,18 @@
     <primarylanguage>C++</primarylanguage>
     <ignoreparts>
       <part>Unterstützung für ClearCase (KDevelop)</part>
-      <part>KDevcopyto</part>
       <part>Unterstützung für Perforce (KDevelop)</part>
       <part>Unterstützung für Subversion (KDevelop)</part>
-      <part>Unterstützung für CVSService (KDevelop)</part>
-      <part>Unterstützung für Doxygen (KDevelop)</part>
-      <part>Lesezeichen-Unterstützung (KDevelop)</part>
       <part>Unterstützung für Paketerstellung (KDevelop)</part>
       <part>VisualBoy Advance (KDevelop)</part>
     </ignoreparts>
     <version>1.5pre</version>
-    <description></description>
+    <description/>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
-    <secondaryLanguages/>
+    <secondaryLanguages>
+      <language>Perl</language>
+    </secondaryLanguages>
   </general>
   <kdevautoproject>
     <general>
@@ -60,15 +58,15 @@
   <kdevdebugger>
     <general>
       <dbgshell>libtool</dbgshell>
-      <programargs></programargs>
-      <gdbpath></gdbpath>
+      <programargs/>
+      <gdbpath/>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript></configGdbScript>
-      <runShellScript></runShellScript>
-      <runGdbScript></runGdbScript>
+      <configGdbScript/>
+      <runShellScript/>
+      <runGdbScript/>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -146,6 +144,7 @@
     <references>
       <pcs>Qt</pcs>
       <pcs>KDElibs</pcs>
+      <pcs>Sword</pcs>
     </references>
   </kdevcppsupport>
   <kdevfilecreate>

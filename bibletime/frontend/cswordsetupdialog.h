@@ -150,6 +150,7 @@ private:
   QPushButton* m_swordAddPathButton;
   QPushButton* m_swordRemovePathButton;
   QStringList m_swordPathList;
+	bool m_swordSetupChanged;
 
   QFrame* m_removePage;
 

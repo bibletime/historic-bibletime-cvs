@@ -570,14 +570,11 @@ void CSwordBackend::reloadModules(){
 
 const QStringList CSwordBackend::swordDirList(){
 	QStringList ret;
-	const QString home( getenv("HOME") );
+	const QString home = QString(getenv("HOME"));
 	
 	//return a list of used Sword dirs. Useful for the installer
-	QString configPath;
-	if (!home.isEmpty()) {
-		configPath = home + "/.sword/sword.conf";
-	}
-	else {
+	QString configPath = QString("%1/.sword/sword.conf").arg(home);
+	if (!QFile(configPath).exists()) {
 		configPath = globalConfPath; //e.g. /etc/sword.conf, /usr/local/etc/sword.conf
 	}
 	
@@ -596,6 +593,7 @@ const QStringList CSwordBackend::swordDirList(){
 		sword::SWConfig conf( (*it).latin1() );
 	
 		ret << conf["Install"]["DataPath"].c_str();
+		
 		sword::ConfigEntMap group = conf["Install"];
 		sword::ConfigEntMap::iterator start = group.equal_range("AugmentPath").first;
 		sword::ConfigEntMap::iterator end = group.equal_range("AugmentPath").second;

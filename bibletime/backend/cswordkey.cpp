@@ -122,7 +122,7 @@ const QString CSwordKey::strippedText() {
 		return QString::null;
 	}
 	
-	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
+	if (/*sword::SWKey* k =*/ dynamic_cast<sword::SWKey*>(this)) {
 // 		m_module->module()->SetKey(k);
 		m_module->module()->getKey()->setText( (const char*)key().utf8() );
   }

@@ -279,7 +279,7 @@ void CBibleKeyChooser::chapterChanged(int /*i*/){
 	setUpdatesEnabled(true);
 }
 
-void CBibleKeyChooser::verseChanged(int i){
+void CBibleKeyChooser::verseChanged(int/* i*/){
 // 	qWarning("CBibleKeyChooser::verseChanged(%d", i);
 	if (!isUpdatesEnabled())
 		return;	
