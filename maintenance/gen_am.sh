@@ -65,7 +65,7 @@ for PART in $DOC_PARTS; do
 	echo generating $I2/Makefile.am
 	( # output to Makefile.am
 		echo -e $HEADER
-		echo -n "SUBDIRS = html unicode "
+		echo -n "SUBDIRS = unicode "
 		echo
 		echo 'html-files:'
 		echo '	if test -e unicode/index.docbook; then \'
@@ -83,7 +83,7 @@ for PART in $DOC_PARTS; do
 	#create $PART/????/Makefile.am
 	#####################################
 
-	for SECTION in html unicode; do
+	for SECTION in unicode; do
 		I2=$PART/$SECTION
 		echo generating $I2/Makefile.am
 		( # output to Makefile.am
@@ -229,6 +229,8 @@ for DOC_PO_PART in handbook howto; do
 	( # output to Makefile.am
 		echo -e $HEADER
 		echo
+		echo 'KDE_OPTIONS = foreign'
+		echo
 		echo 'merge:'
 		echo '	for cat in *.po; do \'
 		echo '		name=../../../bibletime/pot/'$DOC_PO_PART'.pot ; \'
@@ -236,7 +238,7 @@ for DOC_PO_PART in handbook howto; do
 		echo '		echo $$cat $$lang $$name; \'
 		echo '		if test -d ../../../bibletime-website/$$lang; then \'
 		echo '			echo Trying to merge from the website po files; \'
-		echo '			msgcat --force-po -o $$cat.temp ../../../bibletime-website/$$lang/po/full.po $$cat; \'
+		echo '			msgcat --force-po --no-fuzzy-matching --no-wrap -o $$cat.temp ../../../bibletime-website/$$lang/po/full.po $$cat; \'
 		echo '			mv $$cat.temp $$cat; \'
 		echo '		else \'
 		echo '			echo No merging from the website files possible.; \'
@@ -306,9 +308,9 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 				echo -e $HEADER
 				echo -n "SUBDIRS = "
 
-				if test -d $I2/html; then
-					echo -n "html "
-				fi
+				#if test -d $I2/html; then
+				#	echo -n "html "
+				#fi
 				if test -d $I2/unicode; then
 					echo -n "unicode "
 				fi
@@ -335,7 +337,7 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 			#####################################
 			#create bibletime-i18n/docs/??/$PART/html/Makefile.am
 			#####################################
-			for SECTION in html unicode; do
+			for SECTION in unicode; do
 
 				I2=../../bibletime-i18n/docs/$I1/$PART/$SECTION
 				I2_EN=../docs/$PART/$SECTION
