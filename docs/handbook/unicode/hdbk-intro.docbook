@@ -1,166 +1,141 @@
 <chapter id="hdbk-intro"><title>Introduction</title>
 
-<para>
-&bibletime; is a powerful Bible study tool written for the &kde; environment on the
-Linux operating system. It is based on the <ulink
-url="http://www.crosswire.org/sword">Sword</ulink> library, which provides the back-end
-functionality for &bibletime;, such as viewing Bible text, searching, bookmarking,
-etc. Sword is the flagship product of the <ulink
-url="http://www.crosswire.org">Crosswire Bible Society</ulink>. </para>
-
-<para>&bibletime; is designed to be used with documents that have been encoded in
-Theological Markup Language (ThML) and General Bible Format (GBF).  These markup
-languages are focused on the requirements of religious texts.
-Complete information on the supported document formats can be found in the <ulink
-url="http://www.crosswire.org/sword/develop/index.jsp">
-developers section of the Sword Project, Crosswire Bible Society</ulink>.</para>
-
-<para>
-Over 200 documents in 50 languages are available from the <ulink
-url="http://www.crosswire.org">Crosswire Bible Society</ulink>.   These include:
-</para>
-
-<para>
-<variablelist>
-<varlistentry>
-<term>Bibles</term>
-<listitem>
-<para>
-The full Bible text, with optional things like Strong's Numbers and footnotes in the text.  The Strong's
-Numbers hot link to the entry in Strong's Hebrew Bible Dictionary or Strong's Greek Bible Dictionary.
-Bibles are available in many languages, and include not only modern versions, but also 
-Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint (Greek).
-</para>
-</listitem></varlistentry>
-
-<varlistentry>
-<term>Commentaries</term>
-<listitem>
-<para>
-Commentaries available include classics like John Wesley's "Notes on the Bible,"
-and Luther's "Commentary on Galatians."
-
-With the <emphasis>Personal</emphasis> commentary you can record your own personal
-notes to different parts of the Bible.
-
-</para> 
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Lexicons</term>
-<listitem>
-<para>
-Lexicons available include: Robinson's Morphological Analysis Codes,
-Brown-Driver-Briggs Hebrew Lexicon, International Standard Bible Encyclopedia
-</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>Dictionaries</term>
-<listitem>
-<para>
-Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's Greek Bible Dictionary,
-Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Topical Bible.
-</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>Books</term>
-<listitem>
-<para>Books available include &quot;Imitation of Christ&quot;, &quot;Enuma Elish&quot;, and &quot;Josephus: The Complete Works&quot;
-</para>
-</listitem>
-</varlistentry>
-</variablelist>
-</para>
-<para>Additional documents are added to the &sword; repository frequently, so visit often.</para>
-
-<section id="hdbk-intro-changes"><title>Changes</title>
-<para>
-Please read the file Changelog of the sourcecode package if you are
-interested in a more detailed description of changes. </para>
-
-<para>A listing of the features included in the current package can be found
-in the sourcecode at
-<ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/*checkout*/bibletime/bibletime/ChangeLog?rev=HEAD&amp;content-type=text/plain">
-CVS log for <filename>bibletime/bibletime/ChangeLog</filename></ulink></para>
-
-<section><title>Changes for &bibletime; Release 1.5</title>
-<para>&bibletime; version 1.3 provides a number of bugfixes and
-stability improvements.  You will also find a number of changes to
-the appearance of bibletime.  This is a partial list, for a more complete list, 
-see the changlog.</para>
-
-<section><title>Main window</title>
-<para>Main index was reorganized, sorting the modules by 
-type of module, then by language.</para>
-
-<para>Bookmarks are now stored in an XML file, but the
-old format can still be imported.  After upgrading an existing
-installation the old bookmarks are placed in the
-"Old bookmarks" subfolder.</para>
-
-<para>Drag&amp;Drop works now for more than one item.</para>
-
-<para>Search default Bible and search open modules options added
-in the search menu.</para>
-</section>
-
-<section><title>Searchdialog</title>
-<para>Major redesign of the user interface, reducing the number 
-of tabs to two (search and result).  Features have been
-moved to the appropriate tab.</para>
-</section>
-<section><title>Display windows</title>
-<para>Separated now in &quot;read only&quot; and &quot;write only&quot; windows. Write
-windows can be opened by <mousebutton>right</mousebutton> mouse button menu in the main index on the
-Personal Commentary module (or any other RawFiles module).</para>
-</section>
-<section><title>Options dialog</title>
-<para>A custom font can now be specified for each language.
-The default font is KDE's default font, and will work for most modules.</para>
-</section>
-</section>
+<section id="hdbk-intro-about"><title>About BibleTime</title>
+	<para>
+	&bibletime; is a powerful Bible study tool written for the &kde; environment on the
+	Linux operating system. It is based on the <ulink
+	url="http://www.crosswire.org/sword">Sword</ulink> library, which provides the back-end
+	functionality for &bibletime;, such as viewing Bible text, searching, bookmarking,
+	etc. Sword is the flagship product of the <ulink
+	url="http://www.crosswire.org">Crosswire Bible Society</ulink>. </para>
+	
+	<para>&bibletime; is designed to be used with documents that have been encoded in
+	Theological Markup Language (ThML) and General Bible Format (GBF).  These markup
+	languages are focused on the requirements of religious texts.
+	Complete information on the supported document formats can be found in the <ulink
+	url="http://www.crosswire.org/sword/develop/index.jsp">
+	developers section of the Sword Project, Crosswire Bible Society</ulink>.</para>
+	
+	<para>
+	Over 200 documents in 50 languages are available from the <ulink
+	url="http://www.crosswire.org">Crosswire Bible Society</ulink>.   These include:
+	</para>
+	
+	<para>
+	<variablelist>
+	<varlistentry>
+	<term>Bibles</term>
+	<listitem>
+	<para>
+	The full Bible text, with optional things like Strong's Numbers and footnotes in the text.  The Strong's
+	Numbers hot link to the entry in Strong's Hebrew Bible Dictionary or Strong's Greek Bible Dictionary.
+	Bibles are available in many languages, and include not only modern versions, but also 
+	Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint (Greek).
+	</para>
+	</listitem></varlistentry>
+	
+	<varlistentry>
+	<term>Commentaries</term>
+	<listitem>
+	<para>
+	Commentaries available include classics like John Wesley's "Notes on the Bible,"
+	and Luther's "Commentary on Galatians."
+	
+	With the <emphasis>Personal</emphasis> commentary you can record your own personal
+	notes to different parts of the Bible.
+	
+	</para> 
+	</listitem>
+	</varlistentry>
+	
+	<varlistentry>
+	<term>Lexicons</term>
+	<listitem>
+	<para>
+	Lexicons available include: Robinson's Morphological Analysis Codes,
+	Brown-Driver-Briggs Hebrew Lexicon, International Standard Bible Encyclopedia
+	</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>Dictionaries</term>
+	<listitem>
+	<para>
+	Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's Greek Bible Dictionary,
+	Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Topical Bible.
+	</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>Books</term>
+	<listitem>
+	<para>Books available include &quot;Imitation of Christ&quot;, &quot;Enuma Elish&quot;, and &quot;Josephus: The Complete Works&quot;
+	</para>
+	</listitem>
+	</varlistentry>
+	</variablelist>
+	</para>
+	<para>Additional documents are added to the &sword; repository frequently, so visit often.</para>
 </section>
 
 
-<section id="hdbk-intro-ToDo"><title>ToDo</title>
-<para>
-We have lots to do. Because we are a very small team of active developers it's
-very hard to get reasonable results in a short time. If you are interested in
-helping the &bibletime; team, please contact us at
-<ulink url="http://sourceforge.net/pm/?group_id=954">Sourceforge &bibletime; home page</ulink>.
-Information can also be found at <ulink url="http://www.bibletime.info/">the &bibletime;
-homepage</ulink>.</para>
-
-<para>The &bibletime; project needs programmers / developers, translators, reviewers, testers, and
-prayer warriors.  If you can help with any of these tasks or think up another, please join us.
-Without your help, &bibletime; will develop very very slow and it will take
-a very long time until you get a full-featured Bible study tool.
-</para>
+<section id="hdbk-intro-changes"><title>Changes for &bibletime; Release 1.5</title>
+	<para>&bibletime; version 1.3 provides a number of bugfixes and
+	stability improvements.  You will also find a number of changes to
+	the appearance of bibletime.  This is a partial list, for a more complete list, 
+	see the changlog.</para>
+	
+	<section><title>Main window</title>
+		<para>Main index was reorganized, sorting the modules by 
+		type of module, then by language.</para>
+		
+		<para>Bookmarks are now stored in an XML file, but the
+		old format can still be imported.  After upgrading an existing
+		installation the old bookmarks are placed in the
+		"Old bookmarks" subfolder.</para>
+		
+		<para>Drag&amp;Drop works now for more than one item.</para>
+		
+		<para>Search default Bible and search open modules options added
+		in the search menu.</para>
+	</section>
+	
+	<section><title>Searchdialog</title>
+		<para>Major redesign of the user interface, reducing the number 
+		of tabs to two (search and result).  Features have been
+		moved to the appropriate tab.</para>
+	</section>
+	
+	<section><title>Display windows</title>
+		<para>Separated now in &quot;read only&quot; and &quot;write only&quot; windows. Write
+		windows can be opened by <mousebutton>right</mousebutton> mouse button menu in the main index on the
+		Personal Commentary module (or any other RawFiles module).</para>
+	</section>
+	<section><title>Options dialog</title>
+		<para>A custom font can now be specified for each language.
+		The default font is KDE's default font, and will work for most modules.</para>
+	</section>
 </section>
+
 
 <section id="hdbk-intro-motivation"><title>Motivation</title>
-<para>
-Our desire is to serve God, and to do our part to help others grow in their
-relationship with Him. We have found a gaping hole, in that there has been a
-total lack of user-friendly Bible-study software available for &Linux;-based
-computers. We have developed &bibletime; to fill that void.
-We have striven to make this a powerful, quality program, and still make it
-simple and intuitive to operate. It is our desire that God be praised, as He is
-the source of all good things.
-</para>
-
-<blockquote><attribution>James 1:17, NASB</attribution>
-<para>Every good thing given and every perfect gift is from above,
-coming down from the Father of lights, with whom there is no
-variation or shifting shadow.</para>
-</blockquote>
-
-<para>
-God bless you as you use this program, and may He be glorified by the work of
-our hands!
-</para>
+	<para>
+	Our desire is to serve God, and to do our part to help others grow in their
+	relationship with Him. We have found a gaping hole, in that there has been a
+	total lack of user-friendly Bible-study software available for &Linux;-based
+	computers. &bibletime; is supposed to fill that void.
+	We have striven to make this a powerful, quality program, and still make it
+	simple and intuitive to operate. It is our desire that God be praised, as He is
+	the source of all good things.
+	</para>
+	<blockquote><attribution>James 1:17, NASB</attribution>
+	<para>Every good thing given and every perfect gift is from above,
+	coming down from the Father of lights, with whom there is no
+	variation or shifting shadow.</para>
+	</blockquote>
+	<para>
+	God bless you as you use this program.
+	</para>
 </section>
+
 </chapter>
