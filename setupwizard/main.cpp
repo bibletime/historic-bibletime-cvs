@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
 		{0,0,0}
 	};	
 		
-	KAboutData aboutData(
+	KAboutData aboutData (
 		"setupwizard",
 		"BibleTime SetupWizard",
 		VERSION,
@@ -120,8 +120,6 @@ int main(int argc, char* argv[]) {
 		"info@bibletime.de"
 	);
 	
-	//we could so change this to a file reading function (including commented out people
-	//coders
 	// active developers (sorted by name)                                                                                     	
 	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "jansorg@gmx.de",					"");
 	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Developer"), "mg.pub@gmx.net",					"");
@@ -139,20 +137,20 @@ int main(int argc, char* argv[]) {
 	if (args->isSet("debug"))
 		showDebugMessages = true;
 
-	if (kapp->isRestored()){
+	if (app.isRestored()) {
 		for(int n = 1; KMainWindow::canBeRestored(n); n++)
 			(new BTSetupWizard)->restore(n);
  	}
 	else {
 		const bool showIt = CBTConfig::get(CBTConfig::logo);	
-		if(showIt) {
+		if (showIt) {
 			KStartupLogo::createSplash();
 			KStartupLogo::showSplash();				
 			KStartupLogo::setStatusMessage( i18n("Starting BibleTime Setup Wizard") + QString::fromLatin1("...") );
 		}
 		
 		wizard = new BTSetupWizard();
-		app.setMainWidget(wizard);
+//		app.setMainWidget(wizard);
 		if (showIt) {
 			KStartupLogo::hideSplash();
 			KStartupLogo::deleteSplash();	  		  	
@@ -161,7 +159,6 @@ int main(int argc, char* argv[]) {
 		
 		setSignalHandler(signalHandler);		
 		
-		const int ret = app.exec();
-    return ret;
+		return app.exec();
 	}
 }

@@ -29,7 +29,8 @@
 #include "frontend/displaywindow/creadwindow.h"
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/cbtconfig.h"
-#include "frontend/cpointers.h"
+
+#include "util/cpointers.h"
 
 //backend includes
 #include "backend/cswordmoduleinfo.h"

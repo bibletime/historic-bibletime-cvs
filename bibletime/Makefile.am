@@ -13,6 +13,7 @@ bibletime_LDADD   = \
 ./frontend/searchdialog/libsearchdialog.a \
 ./frontend/libfrontend.a \
 ./backend/libbackend.a \
+./util/libutil.a \
 -lXext \
 $(LIB_QT) \
 $(LIB_KDECORE) \

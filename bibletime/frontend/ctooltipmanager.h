@@ -19,8 +19,8 @@
 #define CTOOLTIPMANAGER_H
 
 //BibleTime includes
-#include "cpointers.h"
 #include "backend/cswordmoduleinfo.h"
+#include "util/cpointers.h"
 
 //Qt includes
 #include <qstring.h>

@@ -22,10 +22,9 @@
 #include "cindexitem.h"
 
 #include "backend/cswordmoduleinfo.h"
-#include "frontend/cpointers.h"
 #include "frontend/ctooltip.h"
 
-
+#include "util/cpointers.h"
 
 //Qt includes
 #include <qwidget.h>

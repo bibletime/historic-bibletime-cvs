@@ -18,21 +18,23 @@
 #include "btsetupwizard.h"
 #include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
+#include "frontend/ctoolclass.h"
 
-#include "qlayout.h"
-#include "qlistview.h"
-#include "qdir.h"
-#include "qfileinfo.h"
+//Qt includes
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qcheckbox.h>
+#include <qpixmap.h>
+#include <qlayout.h>
+#include <qlistview.h>
+#include <qfileinfo.h>
 
-#include "kjanuswidget.h"
-#include "kiconloader.h"
-#include "kcmdlineargs.h"
-#include "kapplication.h"
+//KDE includes
+#include <kjanuswidget.h>
+#include <kiconloader.h>
+#include <kcmdlineargs.h>
+#include <kapplication.h>
 
-#include "qlabel.h"
-#include "qpushbutton.h"
-#include "qcheckbox.h"
-#include "qpixmap.h"
 
 BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(parent,name),
 	m_startBibleTimeBox(0), m_removeModuleListView(0), m_backend(0) {
@@ -58,19 +60,13 @@ BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(p
 
 	slot_backtoMainPage();
 
-	qWarning("adresses are %d %d %d %d", (int)m_mainPage, (int)m_removePage, m_mainWidget->pageIndex(m_mainPage) );
-}
-
-QLabel* BTSetupWizard::explanationLabel(QWidget* parent, const QString& heading, const QString& text ){
-  QLabel* label = new QLabel( QString::fromLatin1("<B>%1</B><BR>%2").arg(heading).arg(text),parent );
-//  label->setAutoResize(true);
-//  label->setMargin(1);
-//  label->setFrameStyle(QFrame::Box | QFrame::Plain);
-  return label;
+//	qWarning("adresses are %d %d %d %d", (int)m_mainPage, (int)m_removePage, m_mainWidget->pageIndex(m_mainPage) );
 }
 
 BTSetupWizard::~BTSetupWizard(){
 }
+
+
 /** No descriptions */
 void BTSetupWizard::addMainPage(void){
 
@@ -91,7 +87,7 @@ void BTSetupWizard::addMainPage(void){
 	installButton->setPixmap( BarIcon("connect_creating", KIcon::SizeMedium) );
 	layout->addWidget(installButton, 1, 0, Qt::AlignCenter);
 
-	QLabel* installLabel = explanationLabel(m_mainPage,
+	QLabel* installLabel = CToolClass::explanationLabel(m_mainPage,
 		"Install/update modules",
 		"asdf aösdljkfha sdfjha sdkfjhasd lkfjhasd lfkjhasldk fj") ;
 	layout->addWidget(installLabel, 1, 2);
@@ -100,7 +96,7 @@ void BTSetupWizard::addMainPage(void){
 	removeButton->setPixmap( BarIcon("editdelete", KIcon::SizeMedium));
 	layout->addWidget(removeButton, 2, 0, Qt::AlignCenter);
 
-	QLabel* removeLabel= explanationLabel(m_mainPage,
+	QLabel* removeLabel= CToolClass::explanationLabel(m_mainPage,
 		"remove installed modules from your system",
 		"asdkfjh asdfkjhadsjkfa galkdfj haösdlfkjasdölfkjas dfaölskdjf öa");
 	layout->addWidget(removeLabel, 2, 2);
@@ -110,7 +106,7 @@ void BTSetupWizard::addMainPage(void){
 	exportButton->setPixmap( BarIcon("fileexport", KIcon::SizeMedium));
 	layout->addWidget(exportButton, 3, 0, Qt::AlignCenter);
 
-	QLabel* exportLabel= explanationLabel(m_mainPage,
+	QLabel* exportLabel = CToolClass::explanationLabel(m_mainPage,
 		"export sword modules to other formats",
 		"not available yet");
 	layout->addWidget(exportLabel, 3, 2);
@@ -120,7 +116,7 @@ void BTSetupWizard::addMainPage(void){
 	importButton->setPixmap( BarIcon("fileimport", KIcon::SizeMedium ));
 	layout->addWidget(importButton, 4, 0, Qt::AlignCenter);
 
-	QLabel* importLabel= explanationLabel(m_mainPage,
+	QLabel* importLabel= CToolClass::explanationLabel(m_mainPage,
 		"import texts to sword format",
 		"not available yet");
 	layout->addWidget(importLabel, 4, 2);
@@ -134,18 +130,17 @@ void BTSetupWizard::addMainPage(void){
 	m_startBibleTimeBox->setText("Start BibleTime");
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 	// A binary option (on / off)
-  	m_startBibleTimeBox->setChecked( args->isSet("start-bibletime") );
+ 	m_startBibleTimeBox->setChecked( args->isSet("start-bibletime") );
   layout->addWidget(m_startBibleTimeBox, 5, 2);
 
-	connect(exitButton, SIGNAL(clicked()), this, SLOT(slot_exitRequested()));
 	connect(removeButton, SIGNAL(clicked()), this, SLOT(slot_gotoRemovePage()));
 }
+
 /** No descriptions */
 void BTSetupWizard::slot_exitRequested(){
-	KApplication app;
 	if (m_startBibleTimeBox->isChecked())
-		app.startServiceByDesktopName("konqueror");
-	app.exit();
+		KApplication::kApplication()->startServiceByDesktopName("konqueror");
+	KApplication::kApplication()->quit();    
 }
 /** No descriptions */
 void BTSetupWizard::addRemovePage(){
@@ -160,13 +155,13 @@ void BTSetupWizard::addRemovePage(){
 	layout->setColStretch(1,1);
 	layout->setRowStretch(2,1);
 
-	QLabel* mainLabel= explanationLabel(m_removePage,
+	QLabel* mainLabel= CToolClass::explanationLabel(m_removePage,
 		"Remove installed module(s)",
 		"This dialog lets you remove installed Sword modules from your system. Bla "
 		"blas dlkf asldhfkajgha sdlkfjaösldkfj asdlghaösldkfja sdflkajs dlfhasölg" );
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
-	QLabel* headingLabel= explanationLabel(m_removePage,
+	QLabel* headingLabel= CToolClass::explanationLabel(m_removePage,
 		"Select modules to be uninstalled", QString::null);
 	layout->addMultiCellWidget(headingLabel, 1, 1, 0, 3);
 

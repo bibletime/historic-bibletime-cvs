@@ -1,6 +1,12 @@
 INCLUDES = $(all_includes)
-all_headers = scoped_resource.h
-EXTRA_DIST = $(all_headers)
+libutil_a_METASOURCES = AUTO
+noinst_LIBRARIES = libutil.a
 
+libutil_a_SOURCES = \
+cpointers.cpp
 
+all_headers = \
+scoped_resource.h \
+cpointers.h
 
+EXTRA_DIST = $(libutil_a_SOURCES) $(all_headers)

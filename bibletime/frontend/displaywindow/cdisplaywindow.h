@@ -19,7 +19,8 @@
 #define CDISPLAYWINDOW_H
 
 //BibleTime includes
-#include "frontend/cpointers.h"
+#include "util/cpointers.h"
+
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordbackend.h"
 #include "backend/cswordkey.h"

@@ -39,11 +39,7 @@ public:
 	BTSetupWizard(QWidget *parent=0, const char *name=0);
 	~BTSetupWizard();
 
-  QLabel* explanationLabel(QWidget* parent, const QString& heading, const QString& text );
-
-
 private: // Private methods
-  /** No descriptions */
   void addMainPage(void);
   /** No descriptions */
   void addRemovePage();
@@ -59,9 +55,7 @@ private: // Private methods
 	QFrame* m_mainPage;
 	QFrame* m_removePage;
 
-
 private slots: // Private slots
-  /** No descriptions */
   void slot_exitRequested();
   /** No descriptions */
   void slot_backtoMainPage();

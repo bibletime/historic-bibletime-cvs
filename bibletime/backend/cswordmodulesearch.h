@@ -21,7 +21,7 @@
 //BibleTime includes
 //#include "cswordmoduleinfo.h"
 //#include "../structdef.h"
-#include "../frontend/cpointers.h"
+#include "util/cpointers.h"
 
 //Qt includes
 #include <qlist.h>

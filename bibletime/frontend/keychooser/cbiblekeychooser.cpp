@@ -103,7 +103,7 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
  	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
 			
-	const unsigned int bookIndex = m_modules.first()->bookNumber( m_key->book() );
+//	const unsigned int bookIndex = m_modules.first()->bookNumber( m_key->book() );
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
 

@@ -23,7 +23,7 @@
 #include "cswordmoduleinfo.h"
 #include "cswordtreekey.h"
 
-#include "frontend/cpointers.h"
+#include "util/cpointers.h"
 #include "frontend/cbtconfig.h"
 
 //Sword includes

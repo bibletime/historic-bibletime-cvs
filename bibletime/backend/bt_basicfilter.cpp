@@ -21,7 +21,7 @@
 #include "cswordversekey.h"
 
 #include "frontend/cbtconfig.h"
-#include "frontend/cpointers.h"
+#include "util/cpointers.h"
 
 //Qt includes
 #include <qregexp.h>

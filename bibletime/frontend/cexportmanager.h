@@ -19,8 +19,9 @@
 #define CEXPORTMANAGER_H
 
 //BibleTime includes
-#include "cpointers.h"
 #include "cbtconfig.h"
+
+#include "util/cpointers.h"
 
 //Qt includes
 #include <qstring.h>

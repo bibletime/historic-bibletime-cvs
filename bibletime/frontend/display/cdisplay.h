@@ -19,7 +19,7 @@
 #define CDISPLAY_H
 
 //BibleTime includes
-#include "frontend/cpointers.h"
+#include "util/cpointers.h"
 
 //Qt includes
 #include <qobject.h>

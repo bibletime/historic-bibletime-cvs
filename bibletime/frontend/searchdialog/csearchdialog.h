@@ -25,7 +25,7 @@
 #include "backend/cswordbackend.h"
 #include "backend/cswordmodulesearch.h"
 
-#include "frontend/cpointers.h"
+#include "util/cpointers.h"
 
 //Sword includes
 

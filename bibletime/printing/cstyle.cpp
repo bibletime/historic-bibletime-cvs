@@ -311,6 +311,7 @@ const bool CStyle::loadFromFile(const QString& filename){
 		qWarning("CStyle::load: unable to open file %s", filename.latin1());
 		return false;
 	};
+  return true;
 }
 
 const bool CStyle::loadFromText(const QString& text){

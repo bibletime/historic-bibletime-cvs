@@ -14,7 +14,6 @@ cprofilewindow.cpp \
 cexportmanager.cpp \
 cmdiarea.cpp \
 kstartuplogo.cpp \
-cpointers.cpp \
 ctooltipmanager.cpp \
 ctooltip.cpp \
 chelpmgr.cpp
@@ -28,7 +27,6 @@ cinputdialog.h \
 cprofilemgr.h \
 cprofile.h \
 cprofilewindow.h \
-cpointers.h \
 cexportmanager.h \
 ctooltipmanager.h \
 ctooltip.h \

@@ -19,7 +19,7 @@
 #define CPRINTER_H
 
 //BibleTime includes
-#include "frontend/cpointers.h"
+#include "util/cpointers.h"
 #include "cprintitemlist.h"
 #include "cprintitem.h"
 #include "cstylelist.h"

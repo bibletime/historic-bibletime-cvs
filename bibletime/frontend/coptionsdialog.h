@@ -19,7 +19,7 @@
 #define COPTIONSDIALOG_H
 
 #include "cprofilemgr.h"
-#include "cpointers.h"
+#include "util/cpointers.h"
 
 //QT includes
 #include <qwidget.h>
