@@ -669,11 +669,11 @@ void CRangeChooserDialog::parseRange(){
   sword::VerseKey key;
   sword::ListKey verses = key.ParseVerseList((const char*)m_rangeEdit->text().local8Bit(), key, true);
 	for (int i = 0; i < verses.Count(); ++i) {
-		sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
-		if (element)
-      new KListViewItem(m_resultList,QString::fromLatin1("%1 - %2").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound())));
-		else
-      new KListViewItem(m_resultList,QString::fromLocal8Bit((const char*)*verses.GetElement(i)));
+//		sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
+//		if (element)
+//      new KListViewItem(m_resultList,QString::fromLatin1("%1 - %2").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound())));
+//		else
+      new KListViewItem(m_resultList, QString::fromLocal8Bit(verses.GetElement(i)->getRangeText()));
 	}
 
 }
@@ -1181,7 +1181,7 @@ void CSearchAnalysis::saveAsHTML(){
  	QString tableTitle = "";
   QString tableTotals = "";
  	QString VerseRange = "";
- 	const QString txtCSS = QString::fromLatin1("<style type='text/css'>\nTD {border: thin solid black;}\nTH {font-size: 130%;text-align: left;vertical-align:top;}\n</style>\n");
+ 	const QString txtCSS = QString::fromLatin1("<style type=\"text/css\">\nTD {border: thin solid black;}\nTH {font-size: 130%;text-align: left;vertical-align:top;}\n</style>\n");
  	CSwordVerseKey key(0);
  	sword::ListKey searchResult;
 
@@ -1190,11 +1190,12 @@ void CSearchAnalysis::saveAsHTML(){
  	if (CSearchDialog::getSearchDialog()->searchScopeType() != CSwordModuleSearch::Scope_NoScope) { //a search scope was used
  		sword::ListKey verses = CSearchDialog::getSearchDialog()->searchScope();
  		for (int i = 0; i < verses.Count(); ++i) {
- 			if ( sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i)) ) {
- 				VerseRange += QString("%1 - %2")
-          .arg(QString::fromLocal8Bit((const char*)element->LowerBound()))
-          .arg(QString::fromLocal8Bit((const char*)element->UpperBound())) + "<br>";
- 			}
+// 			if ( sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i)) ) {
+// 				VerseRange += QString("%1 - %2")
+//          .arg(QString::fromLocal8Bit((const char*)element->LowerBound()))
+//          .arg(QString::fromLocal8Bit((const char*)element->UpperBound())) + "<br>";
+// 			}
+      VerseRange += QString::fromLatin1(verses.GetElement(i)->getRangeText()) + "<BR>";
  		}
  	}
 
@@ -1203,7 +1204,7 @@ void CSearchAnalysis::saveAsHTML(){
   QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n";
  	text += "<table>\n<tr><th>" + i18n("Search Text :") + "</th><th>" + CSearchDialog::getSearchDialog()->searchText() + "</th></tr>\n";
  	text += "<tr><th>" + i18n("Search Type :") + "</th><th>" + /*m_searchText->getSearchTypeString() +*/ "</th></tr>\n";
- 	text += "<tr><th>" + i18n("Search Scope:") + "</th><th>" + ((CSearchDialog::getSearchDialog()->searchScopeType() != CSwordModuleSearch::Scope_NoScope) ? VerseRange : "no") + "</th></tr>\n</table>\n<br>\n";
+ 	text += "<tr><th>" + i18n("Search Scope:") + "</th><th>" + ((CSearchDialog::getSearchDialog()->searchScopeType() != CSwordModuleSearch::Scope_NoScope) ? VerseRange : i18n("No search scope")) + "</th></tr>\n</table>\n<br>\n";
 
 
   tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";
@@ -1231,8 +1232,7 @@ void CSearchAnalysis::saveAsHTML(){
  		ok = key.next(CSwordVerseKey::UseBook);
  	}
  	text += QString::fromLatin1("<table>\n") + tableTitle + tableTotals + m_searchAnalysisHTML + QString::fromLatin1("</table>\n");
- 	text += QString::fromLatin1("<center>") + i18n("Created by") + QString::fromLatin1(" <a href=\"http://www.bibletime.de/\">BibleTime</a></center>");
+ 	text += QString::fromLatin1("<center>") + i18n("Created by") + QString::fromLatin1(" <a href=\"http://www.bibletime.info/\">BibleTime</a></center>");
  	text += QString::fromLatin1("</body></html>");
  	CToolClass::savePlainFile(file, text);
 }
-

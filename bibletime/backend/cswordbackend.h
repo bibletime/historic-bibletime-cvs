@@ -163,6 +163,12 @@ public:
   */
   CSwordModuleInfo* const findModuleByName(const QString& name);
   /**
+  * This function searches for a module with the specified sword module as module() object!
+  * @param pointer to a Sword module
+  * @return pointer to the desired module; null if no module has the specified name
+  */
+  CSwordModuleInfo* const findModuleByPointer(const sword::SWModule* const swmodule);
+  /**
   * @return Our global config object to store the cipher keys etc.
 	*/
   sword::SWConfig* const getConfig() const;

@@ -108,7 +108,7 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo* const module ){
 		return 0;
 		
 	switch( module->type() ){
-		case CSwordModuleInfo::Bible:
+		case CSwordModuleInfo::Bible://fall through
 		case CSwordModuleInfo::Commentary:
 			return new CSwordVerseKey( (sword::VerseKey *) ( (sword::SWKey *)(*module->module()) ), module );
 		case CSwordModuleInfo::Lexicon:

@@ -1,3 +1,6 @@
+2003-01-19 Joachim Ansorg <joachim@ansorgs.de>
+  * Fixed BT_BASICFILTER::ProcessRWPRefs, made simpled and more bug free
+
 2003-01-18 Joachim Ansorg <joachim@ansorgs.de>
   * Removed install instructions from CResMgr and the actions XML file
   * Fixed missing insertion of KAction objects into our KAccel object

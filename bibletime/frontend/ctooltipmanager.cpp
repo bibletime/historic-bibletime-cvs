@@ -127,7 +127,7 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 			
     	for (int i = 0; i < verses.Count(); ++i) {
     		sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
-    		if (element) {
+    		if (element && element->isBoundSet()) {
      			sword::VerseKey lowerBound = element->LowerBound();
           lowerBound.Headings(false);
 
@@ -158,29 +158,22 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 		}
 
 
-//    if (module->isUnicode()) {
-      const QFont font = CBTConfig::get(module->language()).second;
-      text = QString::fromLatin1("<DIV %1 STYLE=\"font-family:%2; font-size:%3pt;\">")
-              .arg(module->textDirection() == CSwordModuleInfo::RightToLeft ? "dir=\"rtl\"" : 0)
-              .arg(font.family())
-              .arg(font.pointSize())
-             + text + QString::fromLatin1("</DIV>");
-//    }
+    const QFont font = CBTConfig::get(module->language()).second;
+    text = QString::fromLatin1("<DIV %1 STYLE=\"font-family:%2; font-size:%3pt;\">")
+            .arg((module->textDirection() == CSwordModuleInfo::RightToLeft) ? "dir=\"rtl\"" : 0)
+            .arg(font.family())
+            .arg(font.pointSize())
+         + text + QString::fromLatin1("</DIV>");
 	}
  	return text;
 }
 
 /** Returns the text for the tooltip beginning. */
 const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QString& keyName ){
-  const QString defaultEnding = module ? QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name()) : i18n("module not set!");  
-	if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
-	  QString text = QString::null;
+  const QString defaultEnding = module ? QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name()) : i18n("module not set!");
+	if ((module->type() == CSwordModuleInfo::Bible) || (module->type() == CSwordModuleInfo::Commentary)) {
     sword::ListKey keys = sword::VerseKey().ParseVerseList((const char*)keyName.local8Bit(), sword::VerseKey("Genesis 1:1"), true);
-	  if (sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(keys.GetElement(0)))
-			text = QString::fromLatin1("%1-%2").arg((const char*)element->LowerBound()).arg((const char*)element->UpperBound());
-	  else
-	  	text = QString::fromLatin1("%1").arg((const char*)(*keys.GetElement(0)));
-	  return text + defaultEnding;
+	  return QString::fromLatin1(keys.GetElement(0)->getRangeText()) + defaultEnding;
   }
   else { //non-versekeys are not localized  
   	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );

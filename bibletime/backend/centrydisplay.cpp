@@ -257,7 +257,7 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
     default:      
       break;
   };
-  return QString::fromLatin1("\n\n%1\n\n").arg(text);
+  return QString::fromLatin1("%1\n").arg(text);
 }
 
 void CEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptions options) {

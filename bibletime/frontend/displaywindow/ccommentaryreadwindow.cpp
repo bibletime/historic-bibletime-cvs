@@ -55,7 +55,9 @@ void CCommentaryReadWindow::initView(){
   m_syncButton->setToolTip(CResMgr::displaywindows::commentaryWindow::syncWindow::tooltip);
   m_syncButton->setWhatsThis(CResMgr::displaywindows::commentaryWindow::syncWindow::whatsthis);
     
-  m_syncButton->plug(mainToolBar());	
+  m_syncButton->plug(mainToolBar());
+
+//  verseKey()->ClearBounds();
 }
 
 /** Jumps to the given key if syncronize is enabled for this display window. */
@@ -96,7 +98,7 @@ void CCommentaryReadWindow::insertKeyboardActions( KAccel* const a ){
 void CCommentaryReadWindow::initKeyboardActions() {
   CReadWindow::initKeyboardActions();
 
-  CBTConfig::setupAccel( CBTConfig::bibleWindow, accel() );
+  CBTConfig::setupAccel( CBTConfig::commentaryWindow, accel() );
   CReadWindow::insertKeyboardActions(accel());  
   insertKeyboardActions( accel() );
 

@@ -42,7 +42,7 @@ protected:
 	* This filter converts the RWP #Gen 1:1|
 	* style bible references to HTML
 	*/
-  char ProcessRWPRefs(char * text, int maxlen = -1);
+  char ProcessRWPRefs(char* text, int maxlen = -1);
   /**
   * Parses the verse reference ref and returns it.
   */

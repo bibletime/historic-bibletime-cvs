@@ -138,7 +138,7 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 		noDriver = false;
 	}
 
-	if (noDriver){
+	if (noDriver){ //no driver found
 		if (!sword::stricmp(moduleDriver.c_str(), "RawCom") || !sword::stricmp(moduleDriver.c_str(), "RawLD")) {
 			if (!m_filters.plain)
 				m_filters.plain = new sword::PLAINHTML();
@@ -232,19 +232,35 @@ CSwordModuleInfo* const CSwordBackend::findModuleByDescription(const QString& de
 
 /** This function searches for a module with the specified description */
 const QString CSwordBackend::findModuleNameByDescription(const QString& description){
-	if (moduleDescriptionMap.contains(description))
+	if (moduleDescriptionMap.contains(description)) {
 		return moduleDescriptionMap[description];
+  }
   return QString::null;
 }
 
 /** This function searches for a module with the specified name */
 CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name){
-  if (m_moduleList.count())
-    for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() )
-      if ( m_moduleList.current()->name() == name )
+  if (m_moduleList.count()) {
+    for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
+      if ( m_moduleList.current()->name() == name ) {
         return m_moduleList.current();
+      }
+    }
+  }
   return 0;
 }
+
+CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const sword::SWModule* const swmodule){
+  if (swmodule) {
+    for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
+      if ( m_moduleList.current()->module() == swmodule ) {
+        return m_moduleList.current();
+      }
+    }
+  }
+  return 0;
+}
+
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
 const bool CSwordBackend::moduleConfig(const QString& module, sword::SWConfig& moduleConfig) {

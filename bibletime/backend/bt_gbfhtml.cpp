@@ -16,15 +16,20 @@
  ***************************************************************************/
 
 //BibleTime includes
-#include <qstring.h>
-
-#include <stdlib.h>
-#include <stdio.h>
+#include "cswordmoduleinfo.h"
+#include "cswordbackend.h"
+#include "util/cpointers.h"
 
 #include "bt_gbfhtml.h"
 
+//sytsme includes
+#include <stdlib.h>
+#include <stdio.h>
+
 //Qt includes
 #include <qregexp.h>
+#include <qstring.h>
+
 
 BT_GBFHTML::BT_GBFHTML(){
   setTokenStart("<");
@@ -37,13 +42,14 @@ BT_GBFHTML::BT_GBFHTML(){
 
 	addTokenSubstitute("FI", "<i>"); // italics begin
 	addTokenSubstitute("Fi", "</i>");
+  
 	addTokenSubstitute("FB", "<b>"); // bold begin
 	addTokenSubstitute("Fb", "</b>");
 	
 //	addTokenSubstitute("FR", QString::fromLatin1("<font color=\"%1\">").arg(jesuswords_color).latin1());		
-	addTokenSubstitute("FR", QString::fromLatin1("<span class=\"jesuswords\">").latin1());
-
-	addTokenSubstitute("Fr", "</font>");
+	addTokenSubstitute("FR", "<span class=\"jesuswords\">");
+	addTokenSubstitute("Fr", "</span>");
+  
 	addTokenSubstitute("FU", "<u>"); // underline begin
 	addTokenSubstitute("Fu", "</u>");
 
@@ -53,32 +59,31 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("Fo", "</span>");
 	
 
- addTokenSubstitute("FS", "<sup>"); // Superscript begin// Subscript begin
+  addTokenSubstitute("FS", "<sup>"); // Superscript begin// Subscript begin
 	addTokenSubstitute("Fs", "</sup>");
-	addTokenSubstitute("FV", "<sub>"); // Subscript begin
+
+  addTokenSubstitute("FV", "<sub>"); // Subscript begin
 	addTokenSubstitute("Fv", "</sub>");
 
 //	addTokenSubstitute("TT", QString::fromLatin1(" <h1><font color=\"%1\">").arg(text_color).local8Bit());
 //	addTokenSubstitute("Tt", "</font></h1>");
-	addTokenSubstitute("TT", QString::fromLatin1("<div class=\"booktitle\">").local8Bit());
+	addTokenSubstitute("TT", "<div class=\"booktitle\">");
 	addTokenSubstitute("Tt", "</div>");
 	
-//	addTokenSubstitute("Ts", "</font></h2>");
-//	addTokenSubstitute("TS", QString::fromLatin1(" <H2><font color=\"%1\">").arg(text_color).local8Bit());	
+	addTokenSubstitute("TS", "<div class=\"sectiontitle\">");
 	addTokenSubstitute("Ts", "</div>");
-	addTokenSubstitute("TS", QString::fromLatin1("<div class=\"sectiontitle\">").local8Bit());	
 			
-//	addTokenSubstitute("PP", "<cite>"); //  poetry  begin
-//	addTokenSubstitute("Pp", "</cite>");
 	addTokenSubstitute("PP", "<span class=\"poetry\">"); //  poetry  begin
 	addTokenSubstitute("Pp", "</span>");
 
 	addTokenSubstitute("Fn", "</font>"); //  font  end
 	addTokenSubstitute("CL", "<br>"); //  new line
 	addTokenSubstitute("CM", "<!p><br>"); //  paragraph <!P> is a non showing comment that can be changed in the front end to <P> if desired
-	addTokenSubstitute("CG", ">"); // literal greater-than sign
-	addTokenSubstitute("CT", "<"); // literal less-than sign
-	addTokenSubstitute("JR", "<span align=\"right\">"); // right align begin
+
+  addTokenSubstitute("CG", "&gt;"); // literal greater-than sign
+	addTokenSubstitute("CT", "&lt;"); // literal less-than sign
+
+  addTokenSubstitute("JR", "<span align=\"right\">"); // right align begin
 	addTokenSubstitute("JC", "<span align=\"center\">"); // center align begin
 	addTokenSubstitute("JL", "</span>"); // align end
 }
@@ -86,14 +91,12 @@ BT_GBFHTML::BT_GBFHTML(){
 /** No descriptions */
 char BT_GBFHTML::ProcessText(char * text, int maxlen, const sword::SWKey * key, const sword::SWModule * module){
 	BT_BASICFILTER::ProcessText(text, maxlen, key, module);
-	BT_BASICFILTER::ProcessRWPRefs(text, maxlen);
 
-	//substitute \n with <BR> and \n\n* with <P>
-//	QString t = QString::fromUtf8(text);
-//	t.replace(QRegExp("\n{1,1}"), "<BR>\n");
-//	t.replace(QRegExp("\n{2,}"), "<P>\n");
-//
-//	text = (const char*)t.utf8();
+  CSwordModuleInfo* const mod = CPointers::backend()->findModuleByPointer(m_module);
+  if (!mod || (mod && (mod->type() != CSwordModuleInfo::Bible) && (mod->type() != CSwordModuleInfo::GenericBook))) {
+    BT_BASICFILTER::ProcessRWPRefs(text, maxlen);
+  }
+
   return 1;
 }
 

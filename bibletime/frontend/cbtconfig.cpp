@@ -246,10 +246,10 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
         sword::ListKey list = sword::VerseKey().ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
         QString data = QString::null;
         for (int i = 0; i < list.Count(); ++i) {
-       	  if (sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(list.GetElement(i)))
-       			data += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
-       		else
-       			data += QString::fromLocal8Bit("%1;").arg((const char*)*list.GetElement(i));
+//       	  if (sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(list.GetElement(i)))
+//       			data += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
+//       		else
+       			data += QString::fromLocal8Bit("%1;").arg( list.GetElement(i)->getRangeText() );
      	  }
         map[it.key()] = data; //set the new data
       };      
@@ -390,10 +390,10 @@ void CBTConfig::set( const CBTConfig::stringMaps ID, const CBTConfig::StringMap 
         element->setLocale("en");
         element->LowerBound().setLocale("en");
         element->UpperBound().setLocale("en");
-   			data += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
+//   			data += QString::fromLatin1("%1 - %2;").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound()));
       }
-   		else
-   			data += QString::fromLocal8Bit("%1;").arg((const char*)*list.GetElement(i));
+//   		else
+   			data += QString::fromLocal8Bit("%1;").arg( list.GetElement(i)->getRangeText() );
  	  }
     config->writeEntry(it.key(), data);    
   };

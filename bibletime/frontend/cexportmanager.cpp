@@ -58,46 +58,56 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
   if (!key)
     return false;
   
-  const QString filename = getSaveFileName(format);
+  const QString filename = getSaveFileName(format);  
   if (filename.isEmpty())
     return false;
 
   QString text = QString::null;
+  bool hasBounds = false;
   if (addText) { //add the text of the key to the content of the file we save
     CPointers::backend()->setFilterOptions(m_filterOptions);
     CPointers::backend()->setDisplayOptions(m_displayOptions);
 
     CSwordModuleInfo* module = key->module();    
   	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) { //we can have a boundary
-      CSwordVerseKey startKey(module);
-      CSwordVerseKey stopKey(module);
+      if (vk->isBoundSet()) {//we have a valid boundary!
+        hasBounds = true;
+        CSwordVerseKey startKey(module);
+        CSwordVerseKey stopKey(module);
 
-  		startKey.key(vk->LowerBound());
-  		stopKey.key(vk->UpperBound());
-      QString entryText;
-      if (format == HTML) {
-        text = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY>")
-                .arg(htmlCSS(module));
-      };
-      //add the heading
-      if (startKey < stopKey) { //we have a boundary
-        QString bound = QString::fromLatin1("%1 - %2").arg(startKey.key()).arg(stopKey.key());
-        text +=
-          (format == HTML)
-          ? QString::fromLatin1("<H3>%1</H3><BR>").arg(bound)
-          : bound;
-      };
+    		startKey.key(vk->LowerBound());
+    		stopKey.key(vk->UpperBound());
       
-  		while ( startKey < stopKey || startKey == stopKey ) {
-        entryText = (format == HTML) ? startKey.renderedText(CSwordKey::HTMLEscaped) : startKey.strippedText();
-      
-  			text += ((bool)m_displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
+        QString entryText;
+        if (format == HTML) {
+          text = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY>")
+                  .arg(htmlCSS(module));
+        };
+        //add the heading
+
+        if (startKey < stopKey) { //we have a boundary
+          QString bound = QString::fromLatin1("%1 - %2").arg(startKey.key()).arg(stopKey.key());
+          text +=
+            (format == HTML)
+            ? QString::fromLatin1("<H3>%1</H3><BR>").arg(bound)
+            : bound;
+
+         	while ( startKey < stopKey || startKey == stopKey ) {
+            entryText = (format == HTML) ? startKey.renderedText(CSwordKey::HTMLEscaped) : startKey.strippedText();
+
+         		text += ((bool)m_displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
 + entryText + lineBreak(format);
 
-        startKey.next(CSwordVerseKey::UseVerse);
-  		}
+            startKey.next(CSwordVerseKey::UseVerse);
+          }            
+        }
+        else {
+          hasBounds = false;
+        };
+      }
   	}
-    else { //no verse key, so we can't have a boundary!
+   
+    if (!hasBounds) { //no verse key, so we can't have a boundary!
       text =
         (format == HTML) 
         ? QString::fromLatin1("<HTML><HEAD><TITLE>%1</TITLE></HEAD><BODY><H3>%2 (%3)</H3><BR>%4") //HTML escaped text
@@ -399,8 +409,9 @@ const QString CExportManager::lineBreak(const Format format){
 /** Returns the CSS string used in HTML pages. */
 const QString CExportManager::htmlCSS(CSwordModuleInfo* module){
   CEntryDisplay* display = module ? module->getDisplay() : 0;
-  if (!display)
+  if (!display) {
     return QString::null;
+  }
 
   QString css = QString::null;
   for (int i = CEntryDisplay::MinType; i <= CEntryDisplay::MaxType; ++i) {

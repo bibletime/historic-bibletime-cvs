@@ -23,9 +23,17 @@
 #include "frontend/cbtconfig.h"
 #include "util/cpointers.h"
 
+//System includes
+#include <iostream>
+#include <string>
+
 //Qt includes
 #include <qregexp.h>
 #include <qstringlist.h>
+
+using std::cout;
+using std::cerr;
+using std::endl;
 
 char BT_BASICFILTER::ProcessText (char *text, int maxlen, const sword::SWKey *key, const sword::SWModule *module){
 	m_module = module;
@@ -44,9 +52,9 @@ void BT_BASICFILTER::updateSettings(){
 
 /** Parses the verse reference ref and returns it. */
 const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
-  /** This function should be able to parse references like "John 1:3; 3:1-10; Matthew 1:1-3:3"
+  /**
+  * This function should be able to parse references like "John 1:3; 3:1-10; Matthew 1:1-3:3"
   * without problems.
-  *
   */
  	sword::VerseKey parseKey; 	
  	sword::SWModule* m = const_cast<sword::SWModule*>(m_module);
@@ -58,35 +66,24 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
   char* to = new char[5000];
 	char* ret = to;
 	
-	QStringList refList = QStringList::split(QRegExp("[,.;]", false), QString::fromLocal8Bit(ref));
+	QStringList refList = QStringList::split(QRegExp("[,.;]|(?:\\s(?=\\d?[A-Z]))", false), QString::fromLocal8Bit(ref));
+//	QStringList refList = QStringList::split(QRegExp("[,.;]", false), QString::fromLocal8Bit(ref));
 	int pos = 0;
-	for ( QStringList::Iterator it = refList.begin(); it != refList.end(); ++it, pos++ ) {
+	for ( QStringList::Iterator it = refList.begin(); it != refList.end(); ++it, pos++ ) {    
 	 	list = parseKey.ParseVerseList((*it).local8Bit(), parseKey, true);
 		
 	 	const int count = list.Count();
     sword::SWKey* key = 0;
 	 	for(int i = 0; i < count; i++) {
 	 		key = list.GetElement(i);
-      parseKey = *(list.GetElement(i));
-  		pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/", standard_bible); 			
+      parseKey = *key;
+  		pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/", standard_bible); 
  			if ( sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key) ) {
  				vk->setLocale(lang);
  				vk->LowerBound().setLocale(lang);
- 				vk->UpperBound().setLocale(lang); 				
-   			if (vk && (const char*)vk->UpperBound() != (const char*)vk->LowerBound()) { 				
-  	 			pushString(&to, "%s-%s\">%s</a>",
-  	 				(const char*)QString::fromLocal8Bit(vk->LowerBound()).utf8(),
-  	 				(const char*)QString::fromLocal8Bit(vk->UpperBound()).utf8(),
-  	 				(const char*)(*it).utf8()
-  	 			);
-        }
+ 				vk->UpperBound().setLocale(lang);
 	 		}
-	 		else {
-	 			pushString(&to, "%s\">%s</a>",
-	 				(const char*)QString::fromLocal8Bit((const char*)*key).utf8(),
-					(const char*)(*it).utf8()
-				);
-	 		}
+ 			pushString(&to, "%s\">%s</a>", key->getRangeText(), (const char*)(*it).utf8() );
 	 		(pos+1 < (int)refList.count()) ? pushString(&to, "</span>, ") : pushString(&to, "</span>");
 	 	}
 
@@ -101,8 +98,9 @@ const char* BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
 	const char* module = (mod ? mod : standard_bible);	
 
 	CReferenceManager::Type type = CReferenceManager::Unknown;
-	if (CSwordModuleInfo* m = CPointers::backend()->findModuleByName(module))
+	if (CSwordModuleInfo* m = CPointers::backend()->findModuleByName(module)) {
 		type = CReferenceManager::typeFromModule(m->type());
+  }
 
 // 	VerseKey parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");	
 //	ListKey list = parseKey.ParseVerseList(ref, parseKey, false);		
@@ -138,57 +136,40 @@ const char* BT_BASICFILTER::thmlRefEnd() {
 
 /** This filter converts the RWP #Gen 1:1| style bible references to HTML */
 char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
-	char *to, *from, verse_str[500];
-	int len;
+  /** Markup verse refs which are marked by #ref1[,;]ref2|
+  *
+  * 1. Search start marker (#)
+  * 2. Search end marker (|)
+  * 3. Replace found ref by parsed result!
+  */
 
-	len = strlen(text) + 1;	// shift string to right of buffer
-	if (len < maxlen) {
-		memmove(&text[maxlen - len], text, len);
-		from = &text[maxlen - len];
-	}
-	else
-		from = text;	
+  std::string target(text);
+  int idx_start = target.find_first_of("#",0); //find ref start
+  int idx_end;
+  
+  while (idx_start != std::string::npos) {
+    idx_end = target.find_first_of("|", idx_start); //find end marker
 
-	for (to = text; *from; from++) {
-		if (*from == '#') {
-			int i=0;
-			bool is_verse = true;
-			
-			for ( i=0; i < 500 || from[i]=='|'; i++){
-				if ( from[i] == '|' )
-					break;  //We found a valid verse ref
-				if ( !isalnum(from[i])  && !isspace(from[i]) && from[i]!=':'
-							&& from[i]!=';' && from[i]!=',' && from[i]!='-' && from[i]!='#'){
-					is_verse = false;
-					break; // can't be a verseref
-				}
-			}
-			if ( i==500 || !is_verse ){
-				*to++ = *from;
-				continue;
-			}				
-			++from;
-			
-			i = 0;
-			verse_str[0] = '\0';
-			while (*from != '|' && i<500) { /* get the bible reference */
-				verse_str[i++] = *from;
-				verse_str[i + 1] = '\0';
-				from++;
-			}			
-			
-//			cerr << verse_str << endl;
-			const char* ref = parseSimpleRef(verse_str);			
-		  pushString(&to,"%s ", ref);
-		  delete [] ref;//delete now because it's unused
-		
-			continue;
-		}
-		*to++ = *from;
-	}
-	*to++ = 0;
-	*to = 0;
-	return 0;
+    if ((idx_end != std::string::npos) && (idx_end > idx_start+1)) { //found marker with content
+      // Our length of the ref without markers is idx_end - (idx_start+1) = idx_end - idx_start - 1
+      
+      // Parse ref without start and end markers!
+      const char* ref = parseSimpleRef( target.substr(idx_start + 1, idx_end - idx_start - 1).c_str() );
+
+      // Replace original ref sourrounded by # and | by the parsed ref in target!
+      target.replace( idx_start, idx_end - idx_start + 1, ref ); //remove marker, too
+
+      // Start searching for next ref start behind current one! It's faster!
+      idx_start += strlen( ref );
+
+		  delete [] ref; //delete now because it's unused, was created by parseSimpleRef!
+    }
+
+    idx_start = target.find_first_of("#", idx_start); //find ref start
+  };
+
+  strncpy(text, target.c_str(), maxlen); //copy new content back into text!
+  return 0;
 }
 
 /** Replaces the token in the substitute map. */
