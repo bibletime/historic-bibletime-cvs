@@ -6,13 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bibletime-1.0\n"
 "POT-Creation-Date: 2001-05-25 12:48+0200\n"
-"PO-Revision-Date: 2001-05-25 13:05GMT\n"
-"Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
-"Language-Team: Deutsch <de@li.org>\n"
+"PO-Revision-Date: 2001-06-04 10:38GMT+1\n"
+"Last-Translator: Michal Rovnaník <Michal.Rovnanik@seznam.cz>\n"
+"Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.1\n"
+"X-Generator: KBabel 0.8\n"
 
 #: bibletime/rc-dummy.cpp:2
 msgid "&Main index"
@@ -967,7 +967,7 @@ msgstr "Přerušit"
 
 #: bibletime/frontend/searchdialog/csearchdialog.cpp:94
 msgid "Choose modules"
-msgstr "Zvolte moduly"
+msgstr "Volba modulů"
 
 #: bibletime/dummy.h:99 bibletime/frontend/searchdialog/csearchdialog.cpp:94
 msgid "Choose the modules for the search"
