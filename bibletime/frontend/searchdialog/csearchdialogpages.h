@@ -32,18 +32,23 @@
 //forward declarations
 class QLabel;
 class QCheckBox;
-class KComboBox;
-class KHistoryCombo;
-class KProgress;
 class QPushButton;
 class QRadioButton;
+
+class KComboBox;
+class KActionMenu;
+class KAction;
+class KHistoryCombo;
+class KProgress;
+class KPopupMenu;
+
 class CReadDisplay;
 
-class CModuleListView : public KListView {
+class CModuleResultView : public KListView {
   Q_OBJECT
 public:
-  CModuleListView(QWidget* parent);
-  ~CModuleListView();
+  CModuleResultView(QWidget* parent);
+  ~CModuleResultView();
   /**
   * Setups the tree using the given list of modules.
   */
@@ -68,17 +73,63 @@ protected slots: // Protected slots
   * Is executed when an item was selected in the list.
   */
   void executed( QListViewItem* );
+  /**
+  * Copies the whole search result with the text into the clipboard.
+  */
+  void copyResultWithText();
+  /**
+  * Copies the whole search result into the clipboard.
+  */
+  void copyResult();
+  /**
+  * This slot opens the popup menu at the given position
+  */
+  void showPopup(KListView*, QListViewItem*, const QPoint&);
+  /**
+  * Appends the whole search result to the printer queue.
+  */
+  void printResult();
+  /**
+  * Saves the search result with it's text.
+  */
+  void saveResultWithText();
+  /**
+  * Saves the search result keys.
+  */
+  void saveResult();
 
 signals:
   void moduleSelected(CSwordModuleInfo*);
   void moduleChanged();
+
+private:
+  struct {
+    KActionMenu* saveMenu;
+    struct {
+      KAction* result;
+      KAction* resultWithText;
+    } save;
+    
+    KActionMenu* printMenu;
+    struct {
+      KAction* result;
+    } print;
+    
+    KActionMenu* copyMenu;
+    struct {
+      KAction* result;
+      KAction* resultWithText;
+    } copy;
+    
+  } m_actions;
+  KPopupMenu* m_popup;
 };
 
-class CModuleResultView  : public KListView {
+class CSearchResultView  : public KListView {
   Q_OBJECT
 public:
-  CModuleResultView(QWidget* parent);
-  ~CModuleResultView();
+  CSearchResultView(QWidget* parent);
+  ~CSearchResultView();
 
 protected: // Protected methods
   /**
@@ -100,7 +151,7 @@ protected slots: // Protected slots
   void executed(QListViewItem*);
 
 signals: // Signals
-  void keySelected(const QString&);
+  void keySelected(const QString&);  
 };
 
 
@@ -134,15 +185,36 @@ protected: // Protected methods
   void initConnections();
 
 private:
-  CModuleListView* m_moduleListBox;
-  CModuleResultView* m_resultListBox;
+  CModuleResultView* m_moduleListBox;
+  CSearchResultView* m_resultListBox;
   CReadDisplay* m_previewDisplay;
   ListCSwordModuleInfo m_modules;
   QPushButton* m_analyseButton;
-  struct Actions {
-//    KAction*
-  } m_actions;
-  
+
+//  KPopupMenu* m_popup;
+//  struct {
+//    KActionMenu* copyMenu;
+//  	struct {
+////			KAction* referenceOnly;
+////   		KAction* referenceTextOnly;
+////     	KAction* referenceAndText;
+////      KAction* chapter;
+////      KAction* selectedText;
+//   	} copy;
+//
+//    KActionMenu* saveMenu;
+//    struct {
+//      KAction* entries;
+//      KAction* entriesWithText;
+//    } save;
+//
+//    KActionMenu* printMenu;
+//    struct {
+////			KAction* reference;
+////			KAction* chapter;
+//		} print;
+//  } m_actions;
+
 protected slots: // Protected slots
   /**
   * Update the preview of the selected key.

@@ -74,7 +74,7 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
   		stopKey.key(vk->UpperBound());
       QString entryText;
   		while ( startKey < stopKey || startKey == stopKey ) {
-        entryText = (format == HTML) ? key->renderedText() : key->strippedText();
+        entryText = (format == HTML) ? startKey.renderedText() : startKey.strippedText();
       
   			text += ((bool)m_displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
 + entryText + lineBreak(format);
@@ -135,151 +135,125 @@ const bool CExportManager::saveKeyList(ListKey* list, CSwordModuleInfo* module, 
 	return false;
 };  
 
-///** Saves the key to disk. */
-//const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
-//	bool ret = false;
-//	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));
-//	if (!file.isEmpty()) {
-//		QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );
-//		progress.setProgress(0);
-//		progress.setMinimumDuration(10);
-//		progress.show();
-//
-//		util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
-//
-//		QString text;
-//		int index = 0;
-//		*list = TOP;
-//		while (!list->Error() && !progress.wasCancelled()) {
-//			key->key((const char*)(*list));
-//			if (!key)
-//				break;
-//			progress.setProgress(index++);
-//			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
-//
-//			if (withText)
-//				text += QString::fromLatin1("%1:\n\t%2\n").arg( key->key() ).arg( key->strippedText() );
-//			else
-//				text += key->key() + "\n";
-//
-//			(*list)++;
-//		}
-//		if (!progress.wasCancelled()) {
-//			progress.setProgress(index);
-//			CToolClass::savePlainFile(file, text);
-//			ret = true;
-//		}
-//	}
-//
-//	return ret;
-//}
-//
-//const bool CExportManager::saveKeyList( QPtrList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
-//	bool ret = false;
-//	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));
-//	if (!file.isEmpty()){
-//
-//		QProgressDialog progress( label, i18n("Cancel"), list.count(), 0,"progress", true );
-//		progress.setProgress(0);
-//		progress.setMinimumDuration(10);
-//		progress.show();
-//
-//		QString text;
-//		CSwordKey* key = 0;
-//		for (list.first(); list.current(); list.next()) {
-//			key = list.current();
-//			if (!key)
-//				break;
-//			progress.setProgress(list.at());
-//			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
-//
-//			if (withText)
-//				text += QString::fromLatin1("%1:\n\t%2\n").arg( key->key() ).arg( key->strippedText() );
-//			else
-//				text += key->key() + "\n";
-//		}
-//
-//		if (!progress.wasCancelled()) {
-//			progress.setProgress(list.count());
-//			CToolClass::savePlainFile(file, text);
-//		}
-//	}
-//
-//	return ret;
-//}
-//
-//
-/////////// copy functions
-//const bool CExportManager::copyKey( CSwordKey* key, const bool withText, const CSwordBackend::FilterOptions filterOptions, const CSwordBackend::DisplayOptions displayOptions) {
-//  /*
-//  * This function copies the text of key inton the clipboard. The keyname is appended in brackets.
-//  */
-//  if (!key)
-//    return false;
-//
-//  if (!withText) {
-//  	KApplication::clipboard()->setText(key->key());
-//  	return true;
-//  }
-//
-//  CPointers::backend()->setFilterOptions(filterOptions);
-//  CPointers::backend()->setDisplayOptions(displayOptions);
-//
-//  QString text = QString::null;
-//  CSwordModuleInfo* module = key->module();
-//  Q_ASSERT(module);
-//	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) {
-//    CSwordVerseKey startKey(module);
-//    CSwordVerseKey stopKey(module);
-//
-//		startKey.key(vk->LowerBound());
-//		stopKey.key(vk->UpperBound());
-//
-//		while ( startKey < stopKey || startKey == stopKey ) {
-//			text += ((bool)displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
-//+ startKey.strippedText() + ((bool)displayOptions.lineBreaks ? QString::fromLatin1("\n") : QString::null);
-//
-//      startKey.next(CSwordVerseKey::UseVerse);
-//		}
-//	}
-//  else {
-//    text = key->strippedText();
-//  }
-//
-//  text += "\n" + QString::fromLatin1("(%1, %1)").arg(key->key()).arg(module->name());
-//	KApplication::clipboard()->setText(text);
-//	return true;
-//}
-//
-//const bool CExportManager::copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
-//	QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );
-//	progress.setProgress(0);
-//	progress.setMinimumDuration(10);
-//	progress.show();
-//
-//	QString text;
-//	int index = 0;
-//	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
-//	*list = TOP;
-//	while (!list->Error() && !progress.wasCancelled()) {
-//		key->key((const char*)(*list));
-//		if (!key)
-//			break;
-//		progress.setProgress(index++);
-//		KApplication::kApplication()->processEvents(10); //do not lock the GUI!
-//
-//		text += (withText) ? QString::fromLatin1("%1:\n\t%2\n").arg(key->key()).arg(key->strippedText()) : key->key()+"\n";
-//		(*list)++;
-//	}
-//	if (progress.wasCancelled())
-//		return false;
-//
-//	progress.setProgress(index);
-//	KApplication::clipboard()->setText(text);
-//	return true;
-//}
-//
-//
+const bool CExportManager::copyKey(CSwordKey* key, const Format format, const bool addText) {
+  if (!key)
+    return false;
+
+  QString text = QString::null;
+  if (addText) {
+    CPointers::backend()->setFilterOptions(m_filterOptions);
+    CPointers::backend()->setDisplayOptions(m_displayOptions);
+
+    CSwordModuleInfo* module = key->module();
+  	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) {
+      CSwordVerseKey startKey(module);
+      CSwordVerseKey stopKey(module);
+
+  		startKey.key(vk->LowerBound());
+  		stopKey.key(vk->UpperBound());
+      QString entryText;
+  		while ( startKey < stopKey || startKey == stopKey ) {
+        entryText = (format == HTML) ? startKey.renderedText() : startKey.strippedText();
+
+  			text += ((bool)m_displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
++ entryText + lineBreak(format);
+
+        startKey.next(CSwordVerseKey::UseVerse);
+  		}
+  	}
+    else {
+      text = (format == HTML) ? key->renderedText() : key->strippedText();
+    }
+    text += "\n" + QString::fromLatin1("(%1, %1)").arg(key->key()).arg(module->name());
+  }
+  else { //don't add text
+    text = key ? key->key() : QString::null;
+  	return true;
+  }
+
+  KApplication::clipboard()->setText(text);
+	return true;
+};
+
+const bool CExportManager::copyKeyList(ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText) {
+  if (!list)
+    return false;
+
+  QProgressDialog progress( m_progressLabel, i18n("Cancel"), list->Count()+1, 0,"progress", true );
+ 	progress.setProgress(0);
+ 	progress.setMinimumDuration(10);
+ 	progress.show();
+
+ 	util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
+
+ 	QString text;
+ 	int index = 0;
+ 	*list = TOP;
+ 	while (!list->Error() && !progress.wasCancelled()) {
+ 		key->key((const char*)(*list));
+ 		if (!key)
+ 			break;
+ 		progress.setProgress(index++);
+ 		KApplication::kApplication()->processEvents(10); //do not lock the GUI!
+
+ 		if (addText)
+ 			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText() : key->strippedText() );
+ 		else
+ 			text += key->key() + lineBreak(format);
+
+ 		(*list)++;
+ 	}
+
+  if (!progress.wasCancelled()) {
+    KApplication::clipboard()->setText(text);
+ 		progress.setProgress(index+1);    
+   	return true;
+ 	}
+	return false;
+};
+
+const bool CExportManager::printKeyList(ListKey* list, CSwordModuleInfo* module) {
+	QProgressDialog progress( m_progressLabel, i18n("Cancel"), list->Count(), 0,"progress", true );
+	progress.setProgress(0);
+	progress.setMinimumDuration(10);
+	progress.show();
+
+	int index = 0;
+	QPtrList<CPrintItem> itemList;
+	QString startKey, stopKey;
+
+	(*list) = TOP;
+	while (!list->Error() && !progress.wasCancelled()) {
+		VerseKey* vk = dynamic_cast<VerseKey*>(list);
+		if (vk) {
+			startKey = QString::fromLocal8Bit((const char*)(vk->LowerBound()) );
+			stopKey = QString::fromLocal8Bit((const char*)(vk->UpperBound()) );
+		}
+		else {
+			startKey = QString::fromLocal8Bit((const char*)*list);
+			stopKey = QString::null;
+		}
+		itemList.append( new CPrintItem(module, startKey, stopKey) );
+
+		progress.setProgress(index++);
+		KApplication::kApplication()->processEvents(10); //do not lock the GUI!
+
+		(*list)++;
+	}
+
+	//add all items to the queue
+	if (progress.wasCancelled()) {
+		itemList.setAutoDelete(true);
+		itemList.clear();//delete all items
+		return false;
+	}
+
+  printer()->appendItems(itemList);
+	progress.setProgress(list->Count());
+
+	return true;
+};
+
 ////////// printing functions //////////
 //
 //const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description ){

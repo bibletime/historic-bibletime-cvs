@@ -99,13 +99,13 @@ private:
 			TreeItem(QListView* view,QListViewItem* after, CSwordTreeKey* key, const QString keyName);
 			const QString& key() const;
       void createChilds();
-
+      virtual void setOpen(bool);
+      
     protected:
       /**
       * Initializes this item with the correct caption.
       */
       virtual void setup();
-      virtual void setOpen(bool);
 		private:
 			CSwordTreeKey* m_key;
       QString m_keyName;

@@ -76,7 +76,7 @@ void CBookTreeChooser::TreeItem::createChilds() {
 
 void CBookTreeChooser::TreeItem::setOpen(bool o) {
   //setup the tree under this item
-  if (o && !childCount()) {
+  if ((!isOpen() && o) && childCount() == 0) {
     listView()->viewport()->setCursor(WaitCursor);
     createChilds();
     listView()->viewport()->unsetCursor();
@@ -143,7 +143,7 @@ void CBookTreeChooser::setKey(CSwordKey* newKey, const bool emitSignal){
   		if (!i || i->key() == key) {
   			break;
   		}
-  		i->createChilds();
+  		i->setOpen(true); //automatically creates childs
       child = i->firstChild();
   		currentSibling = siblings[++index];
   	}

@@ -44,7 +44,14 @@ public:
   CExportManager(const QString& caption, const bool showProgress = true, const QString& progressLabel = QString::null, const CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults());
   const bool saveKey(CSwordKey* key, const Format format, const bool addText);
   const bool saveKeyList(ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);  
-      
+
+  const bool copyKey(CSwordKey* key, const Format format, const bool addText);
+  const bool copyKeyList(ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText);
+
+  const bool printKey(CSwordKey* key);
+//  const bool printHyperlink(const QString& hyperlink);  
+  const bool printKeyList(ListKey* list, CSwordModuleInfo* module);
+                        
 //  //save functions
 //  static const bool saveKey( CSwordKey* key, const Format format, const bool withText = true, CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults(), const CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults());
 //  static const bool saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );

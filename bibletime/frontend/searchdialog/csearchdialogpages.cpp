@@ -24,8 +24,13 @@
 #include "frontend/ctoolclass.h"
 #include "frontend/cpointers.h"
 #include "frontend/cbtconfig.h"
+#include "frontend/cexportmanager.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
+
+#include "resource.h"
+#include "whatsthisdef.h"
+#include "tooltipdef.h"
 
 //Qt includes
 #include <qlayout.h>
@@ -40,45 +45,47 @@
 
 //KDE includes
 #include <klocale.h>
+#include <kaction.h>
 #include <klistview.h>
 #include <kcombobox.h>
 #include <kprogress.h>
+#include <kpopupmenu.h>
 #include <ksqueezedtextlabel.h>
 
 /********************************************
 ************  ModuleResultList **************
 ********************************************/
 
-CModuleResultView::CModuleResultView(QWidget* parent) : KListView(parent) {
+CSearchResultView::CSearchResultView(QWidget* parent) : KListView(parent) {
   initView();
   initConnections();
 };
 
-CModuleResultView::~CModuleResultView() {
+CSearchResultView::~CSearchResultView() {
 };
 
 /** Initializes the view of this widget. */
-void CModuleResultView::initView(){
+void CSearchResultView::initView(){
   addColumn(i18n("Found items"));
   setFullWidth(true);
   setSorting(-1);
 }
 
 /** No descriptions */
-void CModuleResultView::initConnections(){
+void CSearchResultView::initConnections(){
   connect(this, SIGNAL(executed(QListViewItem*)),
     SLOT(executed(QListViewItem*)));
 }
 
 /** Setups the list with the given module. */
-void CModuleResultView::setupTree(CSwordModuleInfo* m){
+void CSearchResultView::setupTree(CSwordModuleInfo* m){
   clear();
   Q_ASSERT(m);
   if (!m)
     return;
 
   ListKey result = m->searchResult();
-	const int count = result.Count();		
+	const int count = result.Count();
   if (!count)
     return;
 
@@ -90,7 +97,7 @@ void CModuleResultView::setupTree(CSwordModuleInfo* m){
     item = new KListViewItem(this, oldItem);
     item->setText(0,QString::fromLocal8Bit((const char*)*result.GetElement(index)));
     oldItem = item;
-	}	
+	}
 
   setUpdatesEnabled(true);
 
@@ -99,7 +106,7 @@ void CModuleResultView::setupTree(CSwordModuleInfo* m){
 }
 
 /** Is connected to the signal executed, which is emitted when a mew item was chosen. */
-void CModuleResultView::executed(QListViewItem* item){
+void CSearchResultView::executed(QListViewItem* item){
   Q_ASSERT(item);
   emit keySelected(item->text(0));
 }
@@ -109,33 +116,61 @@ void CModuleResultView::executed(QListViewItem* item){
 ************  ModuleResultList **************
 ********************************************/
 
-CModuleListView::CModuleListView(QWidget* parent) : KListView(parent) {
+CModuleResultView::CModuleResultView(QWidget* parent) : KListView(parent) {
   initView();
   initConnections();
 };
 
-CModuleListView::~CModuleListView() {
+CModuleResultView::~CModuleResultView() {
 
 };
 
 /** Initializes this widget. */
-void CModuleListView::initView(){
+void CModuleResultView::initView(){
   addColumn(i18n("Module"));
   addColumn(i18n("Found items"));
   setFullWidth(true);
   setSorting(0, true);
   setSorting(1, true);
   setAllColumnsShowFocus(true);
+
+
+  //setup the popup menu
+  m_popup = new KPopupMenu(this);
+//	m_popup->insertTitle(i18n("Bible window"));
+
+ 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), ICON_EDIT_COPY);
+ 	m_actions.copy.result = new KAction(i18n("Search result"), KShortcut(0), this, SLOT(copyResult()), this);
+ 	m_actions.copyMenu->insert(m_actions.copy.result);
+ 	m_actions.copy.resultWithText = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(copyResultWithText()), this);
+ 	m_actions.copyMenu->insert(m_actions.copy.resultWithText);
+ 	m_actions.copyMenu->plug(m_popup);
+
+ 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),ICON_FILE_SAVE);
+ 	m_actions.save.result = new KAction(i18n("Search result"), KShortcut(0), this, SLOT(saveResult()), this);
+ 	m_actions.saveMenu->insert(m_actions.save.result);
+ 	m_actions.save.resultWithText = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(saveResultWithText()), this);
+ 	m_actions.saveMenu->insert(m_actions.save.resultWithText);
+ 	m_actions.saveMenu->plug(m_popup);
+
+ 	m_actions.printMenu = new KActionMenu(i18n("Print..."),ICON_FILE_PRINT);
+ 	m_actions.print.result = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(printResult()), this);
+ 	m_actions.printMenu->insert(m_actions.print.result);
+
+
+  m_actions.printMenu->plug(m_popup);  
 }
 
 /** Initializes the connections of this widget, */
-void CModuleListView::initConnections(){
+void CModuleResultView::initConnections(){
   connect(this, SIGNAL(executed(QListViewItem*)),
     SLOT(executed(QListViewItem*)));
+  connect(this, SIGNAL(contextMenu(KListView*, QListViewItem*, const QPoint&)),
+    this, SLOT(showPopup(KListView*, QListViewItem*, const QPoint&)));
 }
 
 /** Setups the tree using the given list of modules. */
-void CModuleListView::setupTree( ListCSwordModuleInfo modules ){
+void CModuleResultView::setupTree( ListCSwordModuleInfo modules ){
   clear();
   QListViewItem* item = 0;
   QListViewItem* oldItem = 0;
@@ -153,7 +188,7 @@ void CModuleListView::setupTree( ListCSwordModuleInfo modules ){
 
 
 /** Is executed when an item was selected in the list. */
-void CModuleListView::executed( QListViewItem* i ){
+void CModuleResultView::executed( QListViewItem* i ){
   if (CSwordModuleInfo* m = CPointers::backend()->findModuleByName(i->text(0))) {
     emit moduleChanged();
     emit moduleSelected(m);
@@ -161,14 +196,64 @@ void CModuleListView::executed( QListViewItem* i ){
 }
 
 /** Returns the currently active module. */
-CSwordModuleInfo* const CModuleListView::activeModule(){
+CSwordModuleInfo* const CModuleResultView::activeModule(){
   Q_ASSERT(currentItem());
   if (currentItem())
     return CPointers::backend()->findModuleByName(currentItem()->text(0));
   return 0;
 }
 
+/** No descriptions */
+void CModuleResultView::showPopup(KListView*, QListViewItem* i, const QPoint& point){
+  //make sure that all entries have the correct status
 
+  m_popup->exec(point);
+}
+
+/** Copies the whole search result into the clipboard. */
+void CModuleResultView::copyResult(){
+  if (CSwordModuleInfo* m = activeModule()) {
+    ListKey result = m->searchResult();
+    CExportManager mgr(i18n("Copy search result ..."), true, i18n("Copying search result"));
+    mgr.copyKeyList(&result,m,CExportManager::Text,false);
+  };  
+}
+
+/** Copies the whole search result with the text into the clipboard. */
+void CModuleResultView::copyResultWithText(){
+  if (CSwordModuleInfo* m = activeModule()) {
+    ListKey result = m->searchResult();
+    CExportManager mgr(i18n("Copy search result ..."), true, i18n("Copying search result"));
+    mgr.copyKeyList(&result,m,CExportManager::Text,true);
+  };
+}
+
+/** Saves the search result keys. */
+void CModuleResultView::saveResult(){
+  if (CSwordModuleInfo* m = activeModule()) {
+    ListKey result = m->searchResult();
+    CExportManager mgr(i18n("Save search result ..."), true, i18n("Saving search result"));
+    mgr.saveKeyList(&result,m,CExportManager::Text,false);
+  };  
+}
+
+/** Saves the search result with it's text. */
+void CModuleResultView::saveResultWithText(){
+  if (CSwordModuleInfo* m = activeModule()) {
+    ListKey result = m->searchResult();
+    CExportManager mgr(i18n("Save search result ..."), true, i18n("Saving search result"));
+    mgr.saveKeyList(&result,m,CExportManager::Text,true);
+  };
+}
+
+/** Appends the whole search result to the printer queue. */
+void CModuleResultView::printResult(){
+  if (CSwordModuleInfo* m = activeModule()) {
+    ListKey result = m->searchResult();
+    CExportManager mgr(i18n("Print search result ..."), true, i18n("Printing search result"));
+    mgr.printKeyList(&result,m);
+  };
+}
 
 /********************************************
 **********  CSearchDialogResultPage *********
@@ -191,8 +276,8 @@ void CSearchResultPage::initView(){
 
   QHBox* layoutBox = new QHBox(splitter);
   layoutBox->setSpacing(3);
-  m_moduleListBox = new CModuleListView(layoutBox);
-  m_resultListBox = new CModuleResultView(layoutBox);
+  m_moduleListBox = new CModuleResultView(layoutBox);
+  m_resultListBox = new CSearchResultView(layoutBox);
 
   m_previewDisplay = CDisplay::createReadInstance(0, splitter);  
 
@@ -204,6 +289,12 @@ void CSearchResultPage::initView(){
     this, SLOT(showAnalysis()));
   mainLayout->addSpacing(5);
   mainLayout->addWidget(m_analyseButton);
+
+//  m_popup = new KPopupMenu(this);
+//  m_actions.saveMenu = new KActionMenu(i18n("Save")+QString::fromLatin1("..."), this);
+//  m_saveMenu->plug(m_popup);
+
+//  m_actions.save.entries = new KAction(i18n("Search result"), QString::null, 0, this, SLOT(saveSearchResult()));
 }
 
 /** Sets the modules which contain the result of each. */

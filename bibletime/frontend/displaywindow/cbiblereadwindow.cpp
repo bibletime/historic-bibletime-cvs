@@ -262,7 +262,8 @@ void CBibleReadWindow::copyChapter(){
 //  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
   vk.UpperBound(dummy);
 
-//  CExportManager::copyKey(&vk, true, filterOptions(), displayOptions());
+  CExportManager mgr(i18n("Copy chapter into clipboard ..."), false, i18n("Copying"), filterOptions(),displayOptions());
+  mgr.copyKey(&vk, CExportManager::Text, true);
 }
 
 /** Saves the chapter as valid HTML page. */
@@ -281,6 +282,6 @@ void CBibleReadWindow::saveChapter(){
 //  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
   vk.UpperBound(dummy);
 
-//  CExportManager::saveKey(&vk, true, filterOptions(), displayOptions());
-
+  CExportManager mgr(i18n("Saving chapter ..."), true, i18n("Saving"), filterOptions(),displayOptions());
+  mgr.saveKey(&vk, CExportManager::HTML, true);
 }
