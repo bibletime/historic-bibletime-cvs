@@ -177,9 +177,9 @@ CStyle::CStyle() :
 {
 
 	//dummy command to translate names of standard styles
-	i18n("Standard");
+//	i18n("Standard");
 //	i18n("Colored style for larger text portions");
-	i18n("Black&White for larger text portions");
+//18n("Black&White for larger text portions");
 	
 	m_listViewItem = 0;
 	m_isHeaderFormatEnabled = m_isDescriptionFormatEnabled = m_isModuleTextFormatEnabled = true;
@@ -187,7 +187,7 @@ CStyle::CStyle() :
 	setStyleName( i18n("unknown name") );
 };
 
-CStyle::CStyle( const QString filename ) :
+CStyle::CStyle( const QString text ) :
 	m_headerFormat(new Format(CStyle::Header)),
 	m_descriptionFormat(new Format(CStyle::Description)),
 	m_moduleTextFormat(new Format(CStyle::ModuleText))
@@ -195,7 +195,7 @@ CStyle::CStyle( const QString filename ) :
 	m_listViewItem = 0;
 	m_isHeaderFormatEnabled = m_isDescriptionFormatEnabled = m_isModuleTextFormatEnabled = true;
 	
-	load(filename);	
+	loadFromText(text);	
 }
 
 CStyle::~CStyle(){
@@ -294,7 +294,26 @@ void CStyle::deleteListViewItem(){
 }
 
 /** Loads the profile from a XML file. */
-const bool CStyle::load(const QString& filename){
+const bool CStyle::loadFromFile(const QString& filename){
+	QFile file(filename);
+	if (!file.exists()) {
+		qWarning("file doesn't exist");
+		return false;
+	}
+	
+	if (file.open(IO_ReadOnly)) {	
+		QTextStream t(&file);
+		t.setEncoding(QTextStream::UnicodeUTF8);		
+		loadFromText( t.read() );
+		file.close();	
+	}
+	else {
+		qWarning("CStyle::load: unable to open file %s", filename.latin1());
+		return false;
+	};
+}
+
+const bool CStyle::loadFromText(const QString& text){
 /**
 * The XML file should look like this:
 * 	
@@ -307,23 +326,8 @@ const bool CStyle::load(const QString& filename){
   </HEADER>
  </BibleTimePrintingStyle>
 */
-	QFile file(filename);
-	if (!file.exists()) {
-		qWarning("file doesn't exist");
-		return false;
-	}
-	
 	QDomDocument doc;		
-	if (file.open(IO_ReadOnly)) {	
-		QTextStream t(&file);
-		t.setEncoding(QTextStream::UnicodeUTF8);		
-		doc.setContent( t.read() );
-		file.close();	
-	}
-	else {
-		qWarning("CStyle::load: unable to open file %s", filename.latin1());
-		return false;
-	};
+  doc.setContent(text);
 	
   QDomElement document = doc.documentElement();
   if(document.tagName() != "BibleTimePrintingStyle") {
@@ -404,7 +408,7 @@ const bool CStyle::load(const QString& filename){
 	return true;
 }
 
-const bool CStyle::save( const QString& filename ){
+const bool CStyle::saveToFile( const QString& filename ){
 /* Saved file should look like this:
 
  <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE DOC >

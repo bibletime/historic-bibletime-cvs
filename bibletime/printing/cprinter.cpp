@@ -39,7 +39,47 @@
 #include <qpaintdevice.h>
 #include <qpaintdevicemetrics.h>
 
+
 CPrinter::CPrinter( QObject* parent ) : QObject(parent) {
+  m_styleData.standardStyle = QString::fromLatin1(\
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE DOC ><BibleTimePrintingStyle syntaxVersion=\"1\" name=\"%1\">\
+ <HEADER alignment=\"0\" enabled=\"1\" >\
+  <COLORS bgcolor=\"#ffffff\" fgcolor=\"#000000\" />\
+  <FONT family=\"\" weight=\"75\" pointsize=\"12\" italic=\"0\" />\
+  <FRAME enabled=\"0\" />\
+ </HEADER>\
+ <DESCRIPTION alignment=\"0\" enabled=\"1\" >\
+  <COLORS bgcolor=\"#ffffff\" fgcolor=\"#000000\" />\
+  <FONT family=\"\" weight=\"50\" pointsize=\"10\" italic=\"0\" />\
+  <FRAME enabled=\"0\" />\
+ </DESCRIPTION>\
+ <MODULETEXT alignment=\"0\" enabled=\"1\" >\
+  <COLORS bgcolor=\"#ffffff\" fgcolor=\"#000000\" /> \
+  <FONT family=\"\" weight=\"50\" pointsize=\"10\" italic=\"0\" />\
+  <FRAME enabled=\"0\" />\
+ </MODULETEXT>\
+</BibleTimePrintingStyle>").arg(i18n("Standard"));
+
+  m_styleData.bwStyle = QString::fromLatin1(\
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE DOC ><BibleTimePrintingStyle syntaxVersion=\"1\" name=\"%1\" >\
+ <HEADER alignment=\"1\" enabled=\"1\" >\
+  <COLORS bgcolor=\"#ffffff\" fgcolor=\"#000000\" />\
+  <FONT family=\"\" weight=\"75\" pointsize=\"12\" italic=\"0\" />\
+  <FRAME thickness=\"1\" style=\"1\" color=\"#000000\" enabled=\"1\" />\
+ </HEADER>\
+ <DESCRIPTION alignment=\"1\" enabled=\"1\" >\
+  <COLORS bgcolor=\"#ffffff\" fgcolor=\"#000000\" />\
+  <FONT family=\"\" weight=\"50\" pointsize=\"10\" italic=\"1\" />\
+  <FRAME enabled=\"0\" />\
+ </DESCRIPTION>\
+ <MODULETEXT alignment=\"0\" enabled=\"1\" >\
+  <COLORS bgcolor=\"#ffffff\" fgcolor=\"#000000\" />\
+  <FONT family=\"\" weight=\"50\" pointsize=\"10\" italic=\"0\" />\
+  <FRAME thickness=\"1\" style=\"1\" color=\"#000000\" enabled=\"1\" />\
+ </MODULETEXT>\
+</BibleTimePrintingStyle>").arg(i18n("Black&amp;White for larger text portions"));
+
+
 	m_config = new KConfig("bt-printing", false, true );
 
 	m_queue.setAutoDelete(true);			
@@ -189,10 +229,46 @@ void CPrinter::setupStyles(){
 //load local styles	
 	QDir d( m_styleSaveLocation );
 	QStringList files = d.entryList("*.xml");
+  CStyle* style = 0;
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-		m_styleList.append( new CStyle(m_styleSaveLocation + *it) ); //automatically load from file		
+		m_styleList.append( style = new CStyle() ); //automatically load from file		
+    style->loadFromFile(m_styleSaveLocation + *it);
 	}
 	
+//load styles included in this source file!
+  if (CStyle* newStyle = new CStyle(m_styleData.standardStyle)) {
+ 		bool found = false;				
+ 		for(m_styleList.first(); m_styleList.current() && !found; m_styleList.next()) {
+ 			if (newStyle->styleName() == m_styleList.current()->styleName()) {
+ 				found = true;
+ 			}
+ 		}		
+				
+ 		if (!found) {
+ 			m_styleList.append( newStyle );
+ 		}
+     else {
+       delete newStyle;
+     };
+  };
+
+  if (CStyle* newStyle = new CStyle(m_styleData.bwStyle)) {
+ 		bool found = false;				
+ 		for(m_styleList.first(); m_styleList.current() && !found; m_styleList.next()) {
+ 			if (newStyle->styleName() == m_styleList.current()->styleName()) {
+ 				found = true;
+ 			}
+ 		}		
+				
+ 		if (!found) {
+ 			m_styleList.append( newStyle );
+ 		}
+     else {
+       delete newStyle;
+     };
+  };
+
+
 //load systemwide styles, probably standard styles installed by BibleTime
 	KStandardDirs stdDirs;
 	QStringList globalPaths = stdDirs.findDirs("data", "bibletime/"+m_styleDir);
@@ -201,7 +277,8 @@ void CPrinter::setupStyles(){
 			d = QDir( *path );
 			QStringList files = d.entryList("*.xml");
 			for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-				CStyle* newStyle = new CStyle(*path + *it);
+				CStyle* newStyle = new CStyle();
+        newStyle->loadFromFile(*path + *it);
 				
 				bool found = false;				
 				for(m_styleList.first(); m_styleList.current() && !found; m_styleList.next()) {
@@ -213,6 +290,9 @@ void CPrinter::setupStyles(){
 				if (!found) {
 					m_styleList.append( newStyle );
 				}
+        else {
+          delete newStyle;
+        };
 			}		
 		}
 	}
@@ -227,7 +307,7 @@ void CPrinter::saveStyles(){
 	}
 	
 	for (m_styleList.first(); m_styleList.current(); m_styleList.next()) {
-		m_styleList.current()->save(  m_styleSaveLocation + QString::fromLatin1("printing-style-%1").arg(m_styleList.at()) + ".xml" );
+		m_styleList.current()->saveToFile(  m_styleSaveLocation + QString::fromLatin1("printing-style-%1").arg(m_styleList.at()) + ".xml" );
 	}
 }
 

@@ -179,7 +179,12 @@ private:
 	} m_cachedPage;
 	
 	bool m_addedItem;
-	
+
+  struct {
+    QString standardStyle;
+    QString bwStyle;
+  } m_styleData;
+	 	
 	QString m_styleSaveLocation;
 	QString m_styleDir;
 	

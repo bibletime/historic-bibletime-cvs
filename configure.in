@@ -90,7 +90,6 @@ bibletime/pics/22x22/Makefile \
 bibletime/pics/32x32/Makefile \
 bibletime/pics/48x48/Makefile \
 bibletime/printing/Makefile \
-bibletime/printing/style-data/Makefile \
 bibletime/util/Makefile \
 bibletime/xml/Makefile \
 docs/Makefile \

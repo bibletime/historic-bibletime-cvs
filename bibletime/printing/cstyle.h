@@ -179,11 +179,12 @@ public:
   /**
   * Loads the profile from a XML file.
   */
-  const bool load(const QString& file);
+  const bool loadFromText(const QString& text);
+  const bool loadFromFile(const QString& file);
   /**
   * Saves the style to the XML file.
   */
-  const bool save( const QString& file );
+  const bool saveToFile( const QString& file );
 
 protected:
 	friend class CPrinter;
@@ -197,7 +198,7 @@ private:
 	
 	QString	m_name;
 	
-	Format* m_headerFormat;
+  Format* m_headerFormat;
 	Format* m_descriptionFormat;		
 	Format* m_moduleTextFormat;
 	
