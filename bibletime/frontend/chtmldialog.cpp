@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 //own includes
-#include "chtmlwidget.h"
+//#include "chtmlwidget.h"
 #include "chtmldialog.h"
 #include "ctoolclass.h"
 
@@ -27,24 +27,36 @@
 #include <qfile.h>
 
 //KDE includes
+#include <ktextbrowser.h>
 #include <klocale.h>
 #include <kapp.h>
 
 CHTMLDialog::CHTMLDialog(QWidget* parent, const char *name )
 	: KDialogBase ( parent, name, true, i18n("BibleTime - Help window"), Ok, Ok, true)
 {
-	html_widget = new CHTMLWidget(0,false, this);
-	setMainWidget(html_widget);
+	m_textBrowser = new QTextBrowser(this);
+	setMainWidget(m_textBrowser);
 	resize(600,480);
 }
 
 CHTMLDialog::CHTMLDialog(const QString url, QWidget* parent, const char *name)
 	: KDialogBase ( parent, name, true, i18n("BibleTime - Help window"), Ok, Ok, true)
 {
-	html_widget = new CHTMLWidget(0,false, this);		
-	html_widget->setHTMLSource( url );	
-	setMainWidget(html_widget);
-	resize(500,400);
+	qDebug(url.latin1());
+	KURL path(CToolClass::locatehtml(url));
+	qDebug(path.path().latin1());
+	QMimeSourceFactory::defaultFactory()->addFilePath(path.path());
+	path.cd("..");
+	qDebug(path.path().latin1());		
+	QMimeSourceFactory::defaultFactory()->addFilePath(path.path());
+	path.cd("..");
+	qDebug(path.path().latin1());		
+	QMimeSourceFactory::defaultFactory()->addFilePath(path.path());
+	
+	m_textBrowser = new QTextBrowser(this);		
+	m_textBrowser->QTextBrowser::setSource( url );	
+	setMainWidget(m_textBrowser);
+	resize(600,480);	
 }
 
 CHTMLDialog::~CHTMLDialog(){
@@ -52,5 +64,5 @@ CHTMLDialog::~CHTMLDialog(){
 
 /** Sets the content of the widget */
 void CHTMLDialog::setText(const QString& text){
-	html_widget->setText(text);
+	m_textBrowser->setText(text);
 }

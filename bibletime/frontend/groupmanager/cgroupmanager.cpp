@@ -546,7 +546,7 @@ void CGroupManager::slotShowAbout(){
 		unlockKey = module->getCipherKey();	
 				
 	text = QString("<HTML><HEAD></HEAD><BODY>\
-<TABLE border=\"0\" width=\"100%\" cellspacing=\"0\" cellpadding=\"2\">\
+<TABLE border=\"0\" height=\"100%\" width=\"100%\" cellspacing=\"0\" cellpadding=\"2\">\
 <TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"center\" COLSPAN=\"2\"><H2>%1</H2></TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%2:</B></TD><TD BGCOLOR=\"#FFE9C8\">%3</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%4:</B></TD><TD BGCOLOR=\"#FFE9C8\">%5</TD></TR>\
@@ -565,7 +565,8 @@ void CGroupManager::slotShowAbout(){
 text += QString("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%5:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
-<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR></TABLE>\
+<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR>\
+<TR><TD COLSPAN=\"2\" HEIGHT=\"*\" BGCOLOR=\"#FFE9C8\"></TD></TR></TABLE>\
 </BODY></HTML>")
 	.arg(i18n("Footnotes"))	
 	.arg(hasFootnotes)
@@ -1432,7 +1433,7 @@ void CGroupManager::viewportPaintEvent (QPaintEvent* e) {
 }
 
 /** Reimplementation with different parameters */
-QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem *parent, CGroupManagerItem *after, const QString type){
+QRect CGroupManager::drawDropVisualizer (QPainter *p, CGroupManagerItem */*parent*/, CGroupManagerItem *after, const QString /*type*/){
   QRect insertmarker;
   bool useParent = false;
 		

@@ -134,8 +134,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	}
 	
 	QString rowText   = QString::null;
-	int currentVerse = 0;	
-	CSwordModuleInfo* lastModule = moduleList->getLast();
+	int currentVerse = 0;
 	for (key->Verse(1); key->Book() == currentBook && key->Chapter() == currentChapter && !module->Error(); (*module)++ ) {
 		currentVerse = key->Verse();
 		rowText = QString("<TR><TD bgcolor=\"#F1F1F1\"><B><A HREF=\"sword://%2\">%3</A></B></TD>\n")

@@ -56,7 +56,7 @@ CSwordModuleSearch::CSwordModuleSearch(){
 CSwordModuleSearch::~CSwordModuleSearch(){
 }
 
-void CSwordModuleSearch::percentUpdate(char percent, void *p){
+void CSwordModuleSearch::percentUpdate(char percent, void *){
 	pthread_mutex_lock(&percentage_mutex);
 	
 	cms_currentProgress = (int)percent;

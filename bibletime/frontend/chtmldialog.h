@@ -21,7 +21,7 @@
 #include <qwidget.h>
 #include <kdialogbase.h>
 
-class CHTMLWidget;
+class QTextBrowser;
 
 /** This is a general dialog to show long error messages or report and solutions
 	* (Perhaps from an FAQ file).
@@ -34,12 +34,22 @@ public:
 	CHTMLDialog(const QString url, QWidget* parent=0, const char *name=0);
 	~CHTMLDialog();
   /**
-  	* Sets the content of the widget
-  	*/
+ 	* Sets the content of the widget. Not URL is used.
+ 	*/
   virtual void setText(const QString&);
 
-protected: // Protected attributes
- 	CHTMLWidget* html_widget;
+protected:
+	QTextBrowser* m_textBrowser;
+};
+
+#define HTML_DIALOG(filename) \
+{ \
+	CHTMLDialog *dlg = new CHTMLDialog( filename, 0, "HTML_DIALOG" ); \
+	dlg->exec(); \
+	ASSERT(dlg); \
+	if (dlg) \
+		delete dlg; \
 };
 
 #endif
+

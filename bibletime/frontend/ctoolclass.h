@@ -18,7 +18,7 @@
  ***************************************************************************/
 
 //BibleTime includes
-#include "chtmldialog.h"
+
 
 //Qt includes
 #include <qstring.h>
@@ -28,17 +28,6 @@
 
 #ifndef CTOOLCLASS_H
 #define CTOOLCLASS_H
-
-//define some macros
-
-#define HTML_DIALOG(filename) \
-{ \
-	CHTMLDialog *dlg = new CHTMLDialog( filename, 0, "HTML_DIALOG" ); \
-	dlg->exec(); \
-	ASSERT(dlg); \
-	if (dlg) \
-		delete dlg; \
-};
 
 class CSwordModuleInfo;
 /**

@@ -39,7 +39,7 @@
 #include "bibletime.h"
 #include "frontend/kstartuplogo.h"
 #include "frontend/ctipwindow.h"
-#include "frontend/ctoolclass.h"
+//#include "frontend/ctoolclass.h"
 #include "frontend/chtmldialog.h"
 #include "config.h"
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BibleTime 0.3\n"
 "POT-Creation-Date: 2001-04-18 20:53+0200\n"
-"PO-Revision-Date: 2001-04-18 21:07GMT\n"
+"PO-Revision-Date: 2001-04-19 02:55GMT\n"
 "Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: bibletime/rc-dummy.cpp:2
 msgid "&Main index"
-msgstr ""
+msgstr "&Hauptgruppe"
 
 #: bibletime/main.cpp:67
 msgid "Enable debug messages."
@@ -122,7 +122,7 @@ msgstr "Leere die Druckerschlange"
 
 #: bibletime/bibletime_init.cpp:87 bibletime/dummy.h:25
 msgid "Reset main index"
-msgstr ""
+msgstr "Hauptgruppe zurücksetzen"
 
 #: bibletime/bibletime_init.cpp:92
 msgid "Search in module(s)"
@@ -143,7 +143,7 @@ msgstr "Zeige &Strongs Nmmern an"
 
 #: bibletime/bibletime_init.cpp:116
 msgid "&Show main index"
-msgstr ""
+msgstr "&Zeige Hauptgruppe"
 
 #: bibletime/bibletime_init.cpp:128
 msgid "&Cascade"
@@ -459,7 +459,7 @@ msgstr "Moduleschriftarten"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:109
 msgid "Configure the fonts used for modules"
-msgstr ""
+msgstr "Konfiguriere die für die Module benutzten Schriften"
 
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:134
 msgid "Colors"
@@ -615,7 +615,7 @@ msgstr "Titel"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:290
 msgid "Main index"
-msgstr ""
+msgstr "Hauptgruppe"
 
 #: bibletime/dummy.h:50 bibletime/frontend/groupmanager/cgroupmanager.cpp:291
 msgid "Create a new folder"
@@ -751,10 +751,13 @@ msgid ""
 "original groups and delete all other items!<BR>Be sure no important "
 "bookmarks will be deleted!<BR>Do you want to continue?</qt>"
 msgstr ""
+"<qt>Diese Funktion setzt die Hauptgruppe zurück!<BR>"
+"Dies erzeugt die ursprünglichen Ordner erneut und löscht alle anderen Einträge!<BR>Stellen Sie sicher,"
+"dass keine wichtigen Lesezeichen gelöscht werden!<BR>Möchten Sie fortfahren?</QT>"
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:1551
 msgid "BibleTime - Reset main index"
-msgstr ""
+msgstr "ibleTime - Setze Hauptgruppe zurück"
 
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:60
 msgid "Lexicon window"
@@ -1138,7 +1141,7 @@ msgstr "Entferne ausgewählte Einträge"
 
 #: bibletime/dummy.h:27
 msgid "Show main index"
-msgstr ""
+msgstr "Zeige Hauptgruppe"
 
 #: bibletime/dummy.h:28
 msgid "Show tooolbar"
@@ -1198,7 +1201,7 @@ msgstr "Über KDE"
 
 #: bibletime/dummy.h:49
 msgid "The main index"
-msgstr ""
+msgstr "Die Hauptgruppe"
 
 #: bibletime/dummy.h:55
 msgid "Add bookmark to printing queue"
@@ -1553,16 +1556,18 @@ msgid ""
 "Remove the selected items from the main index.<BR>If you remove a folder the "
 "subitems of it will be removed, too."
 msgstr ""
+"Entferne die ausgewählten Einträge aus der Hauprgruppe.<BR>Wenn Sie einen Ordner entfernen,"
+"werden dessen Untereinträge ebenfalls gelöscht."
 
 #: bibletime/dummy.h:204
 msgid ""
 "Reset the main index<BR>All bookmarks and folders will be deleted and the "
 "default folders will be restored."
-msgstr ""
+msgstr "Setze die Hauptgruppe zurück.<BR>Alle Lesezeichen und Ordner werden gelöscht und die ursprünglichen Ordner werden wiederhergestellt."
 
 #: bibletime/dummy.h:206
 msgid "Show or hide the main index depending on current state."
-msgstr ""
+msgstr "Zeige oder verstecke die Hauptgruppe je nach aktuellem Zustand."
 
 #: bibletime/dummy.h:207
 msgid "Show or hide the main toolbar depending on current state."
@@ -1637,6 +1642,8 @@ msgid ""
 "This is the main index of BibleTime.<BR>Use it to manage the installed "
 "modules, to work with bookmarks, to open display windows etc.."
 msgstr ""
+"Dies ist die hauptgruppe von BibleTime.<BR>Benutzen Sie sie, um die installierten Module zu verwalten,"
+"um mit Lesezeichen zu arbeiten, um Anzeigefenster zu öffnen usw."
 
 #: bibletime/dummy.h:229
 msgid ""
@@ -1644,6 +1651,9 @@ msgid ""
 "button on a folder the new folder will be a sub-item of it.<BR>Otherwise you "
 "will create a toplevel folder."
 msgstr ""
+"Erzeuge einen neuen Ordner in der Hauptgruppe.<BR>Wenn Sie die rechte Maustaste über einem"
+"Ordner gedrückt haben wird der neue Ordner dessen Untereintrag.<BR>Ansonsten erzeugen Sie "
+"einen Ordner auf oberster Ebene."
 
 #: bibletime/dummy.h:230
 msgid "Change the properties of the selected folder."

@@ -20,7 +20,7 @@
 #include "bibletime.h"
 #include "ressource.h"
 #include "frontend/chtmldialog.h"
-#include "frontend/ctoolclass.h"
+//#include "frontend/ctoolclass.h"
 #include "ressource.h"
 #include "whatsthisdef.h"
 #include "config.h"
