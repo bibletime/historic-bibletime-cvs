@@ -16,7 +16,8 @@ cmdiarea.cpp \
 kstartuplogo.cpp \
 ctooltipmanager.cpp \
 ctooltip.cpp \
-cdragdropmgr.cpp
+cdragdropmgr.cpp \
+cinfodisplay.cpp
 
 all_headers = cmdiarea.h \
 btinstallmgr.h \
@@ -32,7 +33,8 @@ cmdiarea.h \
 kstartuplogo.h \
 ctooltipmanager.h \
 ctooltip.h \
-cdragdropmgr.h
+cdragdropmgr.h \
+cinfodisplay.h
 
 EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)
 

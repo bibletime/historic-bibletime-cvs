@@ -17,6 +17,9 @@
 
 #include "ctooltip.h"
 
+#include "util/cpointers.h"
+#include "cinfodisplay.h"
+
 //Qt includes
 #include <qobject.h>
 #include <qobjectlist.h>
@@ -64,10 +67,11 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   QPoint globalPos = parentWidget()->mapToGlobal(rect.topLeft());
   m_tipRect = QRect(globalPos.x(), globalPos.y(), rect.width(), rect.height());
 
-  m_display->begin();
+	CPointers::infoDisplay()->setText(text);
+  
+	m_display->begin();
   m_display->write(text);
   m_display->end();
-
 
   //original code
 //  show();

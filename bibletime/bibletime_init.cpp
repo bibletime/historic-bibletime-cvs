@@ -33,6 +33,7 @@
 
 #include "config.h"
 #include "frontend/cbtconfig.h"
+#include "frontend/cinfodisplay.h"
 
 #include "util/cpointers.h"
 #include "util/cresmgr.h"
@@ -70,10 +71,15 @@ void BibleTime::initView(){
 //  m_splitter->setOpaqueResize( true );
 	setCentralWidget(m_splitter);	
 
-	m_mainIndex = new CMainIndex(m_splitter);
+	QSplitter* mainIndexSplitter = new QSplitter(Qt::Vertical, m_splitter);
+	
+	m_mainIndex = new CMainIndex(mainIndexSplitter);
 	m_mainIndex->initTree();
 	m_mainIndex->setFocusPolicy(WheelFocus);       	
 
+	m_infoDisplay = new CInfoDisplay(mainIndexSplitter);
+	CPointers::setInfoDisplay(m_infoDisplay);
+	
 	m_mdi = new CMDIArea(m_splitter, "mdiarea" );
 	m_mdi->setFocusPolicy(ClickFocus);
 

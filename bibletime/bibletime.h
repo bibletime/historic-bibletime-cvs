@@ -34,6 +34,7 @@ class CMDIArea;
 class CProfile;
 class CDisplayWindow;
 class CMainIndex;
+class CInfoDisplay;
 
 //KDE classes
 class KToggleAction;
@@ -379,6 +380,7 @@ private:
 
 	CMainIndex* m_mainIndex;
 
+	CInfoDisplay* m_infoDisplay;
 
 };
 

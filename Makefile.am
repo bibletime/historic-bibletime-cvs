@@ -75,3 +75,5 @@ dist-hook:
 #		$(distdir)/bibletime/pics/gen_am.sh
 	rm -rf $(distdir)/autom4te.cache
 
+_SOURCES =  cinfodisplay.h
+_SOURCES =  cinfodisplay.h cinfodisplay.cpp
