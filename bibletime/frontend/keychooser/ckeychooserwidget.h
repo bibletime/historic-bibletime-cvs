@@ -92,6 +92,10 @@ public:
  	virtual void init( QStringList* list );
   /**  */
   virtual void adjustSize();
+  /** No descriptions */
+  void setWhatsThis(const QString comboTip, const QString nextEntry, const QString scrollButton, const QString previousEntry);
+  /** Sets the tooltips for the given entries using the parameters as text. */
+  void setToolTips( const QString comboTip, const QString nextEntry, const QString scrollButton, const QString previousEntry);
 
 public slots:
 	/**

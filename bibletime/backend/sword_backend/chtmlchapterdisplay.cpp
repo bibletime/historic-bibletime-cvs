@@ -119,7 +119,11 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	SWModule *m= (d = moduleList->first()) ? d->module() : 0;	
 	while (m) {
     if (m)
-			m_htmlText.append(QString("<TD width=\"%1%\" bgcolor=\"#F1F1F1\"><B>%2</B></TD>").arg(width).arg(QString::fromLocal8Bit(m->Name())));
+			m_htmlText.append(
+				QString("<TD %1 bgcolor=\"#F1F1F1\"><B>%2</B></TD>")
+					.arg(/*d!=moduleList->getLast() ?*/ QString("width=\"%1%\"").arg(width) /*: QString()*/)
+					.arg(QString::fromLocal8Bit(m->Name()))
+				);
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
 	m_htmlText.append("</TR>");
@@ -148,18 +152,17 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 			m->SetKey(*key);
 			verseText = QString::fromLocal8Bit((const char*)*m);
 			if (d->hasFont())
-				rowText += QString("<TD width=\"%1%\" BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\">%5</FONT></TD>")
-					.arg(width)
+				rowText += QString("<TD %1 BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\">%5</FONT></TD>")
+					.arg( d!=moduleList->getLast() ? QString("width=\"%1%\"").arg(width) : QString("") )
 					.arg(key->Verse() % 2 ? "white" : "#F1F1F1")
 					.arg(d->getFont().family())
 					.arg(CToolClass::makeLogicFontSize(d->getFont().pointSize()))
-					.arg( verseText );			
+					.arg(verseText);
 			else
-				rowText += QString("<TD width=\"%1%\" BGCOLOR=\"%2\">%3</TD>")
-					.arg(width)
+				rowText += QString("<TD %1 BGCOLOR=\"%2\">%3</TD>")
+					.arg( (d!=moduleList->getLast()) ? QString("width=\"%1%\"").arg(width) : QString("") )
 					.arg(key->Verse() % 2 ? "white" : "#F1F1F1")
-					.arg(verseText );
-			
+					.arg(verseText);			
 			m = (d = moduleList->next()) ? d->module() : 0;
 		}
 		if (!rowText.isEmpty())

@@ -38,20 +38,6 @@ CHTMLEntryDisplay::CHTMLEntryDisplay(){
 
 CHTMLEntryDisplay::~CHTMLEntryDisplay(){
 	qDebug("CHTMLEntryDisplay::~CHTMLEntryDisplay()");	
-//	if (m_cache) {
-//		m_cache->clear();		
-//		delete m_cache;
-//	}
-//	if (m_asciiCacheList) {
-//		for(m_asciiCacheList->first(); m_asciiCacheList->current(); m_asciiCacheList->next()) {
-//			QMap<QString, QString>* current = m_asciiCacheList->current();
-//			m_asciiCacheList->removeRef(current);
-//			if (current)
-//				delete current;
-//		}
-//		m_asciiCacheList->clear();			
-//		delete m_asciiCacheList;		
-//	}
 }
 
 /** Displays the current entry of the module as HTML */
@@ -103,29 +89,73 @@ void CHTMLEntryDisplay::setIncludeHeader( const bool includeHeader ){
 }
 
 /** Generates code to display the given modules side by side. */
-char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList){	
+char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	ASSERT(moduleList);
-	CSwordModuleInfo* module = moduleList->first();
-	ASSERT(module);
-	if (m_includeHeader) {
-		m_htmlText =
-			m_htmlHeader +
-				QString("<FONT color=\"%1\">\
-					<A HREF=\"sword://%2\">%3: <B>%4</B></A></FONT>\
-					<HR><FONT color=\"%5\" face=\"%6\" size=\"%7\">%8</FONT")
-				.arg(m_highlightedVerseColor)
-				.arg(QString::fromLocal8Bit(module->module()->KeyText()))
-				.arg(QString::fromLocal8Bit(module->module()->Description()))	
-				.arg(QString::fromLocal8Bit(module->module()->KeyText()))
-				.arg(m_textColor)			
-				.arg(m_standardFontName)	
-				.arg(m_standardFontSize)	
-				.arg(QString::fromLocal8Bit((const char*)*(module->module())))
-			+ m_htmlBody;	
+	if (!moduleList || (moduleList && !moduleList->count()) ) {
+		m_htmlText = QString::null;
+		return 0;
+	}		
+	SWModule* module = moduleList->first()->module();	
+	VerseKey* key = (VerseKey*)(SWKey*)*module;
+	key->Persist(1);
+
+	const int width=(int)((double)100/(double)moduleList->count());
+	CSwordModuleInfo *d = 0;
+			
+	m_htmlText = m_htmlHeader + QString::fromLocal8Bit("<TABLE cellpadding=\"1\" cellspacing=\"0\">");
+ 	
+ 	m_htmlText.append("<TR>");
+	SWModule *m= (d = moduleList->first()) ? d->module() : 0;	
+	while (m) {
+    if (m)
+			m_htmlText.append(QString("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2</B></TD>")
+				.arg(width)
+				.arg(QString::fromLocal8Bit(m->Name())));
+		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
-	else {
-		m_htmlText = QString::fromLocal8Bit((const char*)*(module->module()) );
+	m_htmlText.append("</TR>");
+		
+	VerseKey k = (const char*)*key;
+	k.Verse(1);
+	m = (d = moduleList->first()) ? d->module() : 0;	
+	while (m) {
+    m = (d=moduleList->next()) ? d->module() : 0;
+    if (m)
+			m->SetKey( (const char*)k );
+	}	
+	
+	m = (d = moduleList->first()) ? d->module() : 0;
+	m_htmlText.append("<TR>");
+	while (m) {
+		m_htmlText.append(
+			QString("<TD width=\"%1%\">%2</TD>")
+				.arg( width )
+				.arg( QString::fromLocal8Bit((const char*)*m))
+			);
+		m = (d = moduleList->next()) ? d->module() : 0;		
 	}
+	m_htmlText.append( QString("</TR></TABLE>%1").arg(m_htmlBody) );	
+
+//	ASSERT(module);
+//	if (m_includeHeader) {
+//		m_htmlText =
+//			m_htmlHeader +
+//				QString("<FONT color=\"%1\">\
+//					<A HREF=\"sword://%2\">%3: <B>%4</B></A></FONT>\
+//					<HR><FONT color=\"%5\" face=\"%6\" size=\"%7\">%8</FONT")
+//				.arg(m_highlightedVerseColor)
+//				.arg(QString::fromLocal8Bit(module->module()->KeyText()))
+//				.arg(QString::fromLocal8Bit(module->module()->Description()))	
+//				.arg(QString::fromLocal8Bit(module->module()->KeyText()))
+//				.arg(m_textColor)			
+//				.arg(m_standardFontName)	
+//				.arg(m_standardFontSize)	
+//				.arg(QString::fromLocal8Bit((const char*)*(module->module())))
+//			+ m_htmlBody;	
+//	}
+//	else {
+//		m_htmlText = QString::fromLocal8Bit((const char*)*(module->module()) );
+//	}
 	//don't delete the key because it's the module's one!	
 	return 0;
 }

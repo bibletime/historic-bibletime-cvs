@@ -49,13 +49,11 @@ CMDIArea::CMDIArea(CImportantClasses* importantClasses, QWidget *parent, const c
 
 CMDIArea::~CMDIArea(){
 	qDebug("destructor of CMDIArea");
-//	saveSettings();
 }
 
 /** Initializes the view of the MDI area */
 void CMDIArea::initView(){
-//	qDebug("CMDIArea::initView");
-//QWhatsThis::add(this, WT_MDI_AREA_WIDGET );	
+	QWhatsThis::add(this, WT_MDI_AREA_WIDGET );	
 }
 
 /** Initilizes the connectiosn to SIGNALS */
@@ -79,7 +77,6 @@ void CMDIArea::slotClientActivated(QWidget* client){
 
 /** Reimplementation. Used to make use of the fixedGUIOption part. */
 void CMDIArea::childEvent ( QChildEvent * e ){
-	qDebug("CMDIARea::childEvent");	
 	if (m_childEvent) {
 		qDebug("already in child event, return");
 		return;
@@ -110,16 +107,12 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 
 /** Reimplementation */
 void CMDIArea::resizeEvent(QResizeEvent* e){	
-	qDebug("## CMDIARea::resizeEvent");	
 	QWorkspace::resizeEvent(e);	
-
 	switch (guiOption) {
  		case autoTile:
-//			tile();
  			QTimer::singleShot( 0, this, SLOT(tile()) );
  			break;
  		case autoCascade:
-//			cascade();	 			
  			QTimer::singleShot( 0, this, SLOT(cascade()) );
  			break;
  		case Nothing:
@@ -130,20 +123,17 @@ void CMDIArea::resizeEvent(QResizeEvent* e){
 /**  */
 void CMDIArea::saveSettings(){
 	KConfigGroupSaver groupSaver(config, "MDI");
-	qDebug("CMDIArea::saveSettings");
 }
 
 /**  */
 void CMDIArea::readSettings(){
 	KConfigGroupSaver groupSaver(config, "MDI");
-	qDebug("CMDIArea::readSettings");		
 }
 
 /** Deletes all the presenters in the MDI area. */
 void CMDIArea::deleteAll(){
 	qDebug("CMDIArea::deleteAll");
 	QWidgetList windows = windowList();
-	qDebug("%d entries in list",windows.count());	
 
 	this->setUpdatesEnabled(false);			
 	int count = windows.count();
@@ -169,34 +159,6 @@ void CMDIArea::setGUIOption( mdiOption new_GUIOption){
  			break;
 	}	
 }
-
-///** Scrolls all presenters which are able to do parallel scrolling to the given position. */
-//void CMDIArea::scrollPresentersTo(const QString& book, const int chapter, const int verse, CModulePresenter* caller){
-//	QWidgetList windows = windowList();
-//	
-//	if (windows.count() < 2) {
-//		return;
-//	}
-//	
-//	for ( int i = 0; i < int(windows.count()); ++i ) {
-//		if ( windows.at(i)->inherits("CModulePresenter") ) {
-//			CModulePresenter* myPresenter = (CModulePresenter*)windows.at(i);
-//			if (!myPresenter) {
-//				continue;
-//			}
-//			else if ( (myPresenter->getAvailableFeatures() & CModulePresenter::autoScrolling) == false ) {
-////				qDebug("CMDIArea::scrollPresentersTo: Presenter without set autoScrolling flag. Continue.");
-//				continue;
-//			}				
-//			else if (myPresenter == caller) {
-//				continue;
-//			}
-//			else if ( !myPresenter->hasFocus() ) {
-//				myPresenter->scrollToKey(book, chapter, verse);
-//			}
-//		}
-//	}
-//}
 
 /**  */
 void CMDIArea::tile(){

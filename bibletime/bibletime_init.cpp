@@ -55,12 +55,16 @@ void BibleTime::initView(){
 	m_splitter = new QSplitter(this, "mainsplitter");
 	
 	m_groupmanager = new CGroupManager(m_important, m_splitter, "groupmanager", m_moduleList );
+//	QWhatsThis::add(m_groupmanager,WT_GM_WIDGET);
+	
 	m_mdi = new CMDIArea(m_important, m_splitter, "mdiarea" );
+//	QWhatsThis::add(m_groupmanager,WT_GM_WIDGET);	
 	m_mdi->setFocusPolicy( StrongFocus );
 
-	setCentralWidget(m_splitter);	
-	
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
+	
+	
+	setCentralWidget(m_splitter);	
 }
 
 
@@ -71,35 +75,44 @@ void BibleTime::initActions() {
 	m_fileClearQueue_action = new KAction(i18n("Clear printer queue"), "clear",0,
 		m_important->printer, SLOT(clearQueue()), actionCollection(), "fileClearQueue_action");	
 	m_fileClearQueue_action->setEnabled(false);	
+	m_fileClearQueue_action->setToolTip( TT_FILE_CLEAR_QUEUE );
 	m_fileClearQueue_action->setWhatsThis( WT_FILE_CLEAR_QUEUE );
 	
 	m_filePrint_action = KStdAction::print(this, SLOT( slotFilePrint() ), actionCollection());
+	m_filePrint_action->setToolTip( TT_FILE_PRINT );	
 	m_filePrint_action->setWhatsThis( WT_FILE_PRINT );
 	
 	m_fileQuit_action = KStdAction::quit(this, SLOT( slotFileQuit() ), actionCollection());
+	m_fileQuit_action->setToolTip( TT_FILE_QUIT );	
 	m_fileQuit_action->setWhatsThis( WT_FILE_QUIT );
 												
 	m_GMReset_action =  new KAction(i18n("Reset groupmanager"), "stop", IDK_GM_RESET,
 		m_groupmanager, SLOT(slotReset()), actionCollection(), "GMreset_action");	
+	m_GMReset_action->setToolTip( TT_GM_RESET );			
 	m_GMReset_action->setWhatsThis( WT_GM_RESET );		
 	
 	m_GMSearchModules_action =  new KAction(i18n("Search in selected module(s)"), "viewmag", IDK_GM_MODULES_SEARCH,
 		m_groupmanager, SLOT(slotSearchSelectedModules()), actionCollection(), "GMsearch_action");	
+  m_GMSearchModules_action->setToolTip( TT_GM_SEARCH_MODULES );
   m_GMSearchModules_action->setWhatsThis( WT_GM_SEARCH_MODULES );
 	
 	m_GMDeleteItems_action =  new KAction(i18n("Delete selected item(s)"), "trash", IDK_GM_ITEMS_DELETE,
 		m_groupmanager, SLOT(slotDeleteSelectedItems()), actionCollection(), "GMdelete_action");	
+	m_GMDeleteItems_action->setToolTip( TT_GM_DELETE_ITEMS );	
 	m_GMDeleteItems_action->setWhatsThis( WT_GM_DELETE_ITEMS );
 
 	m_viewFootnotes_action = new KToggleAction(i18n("&Show footnotes"),"footnotes", IDK_VIEW_FOOTNOTES,
 		this, SLOT(slotToggleFootnotes()), actionCollection(), "viewFootnotes_action");
+	m_viewFootnotes_action->setToolTip( TT_VIEW_FOOTNOTES );	
 	m_viewFootnotes_action->setWhatsThis( WT_VIEW_FOOTNOTES );
 	
 	m_viewStrongs_action = new KToggleAction(i18n("S&how strongs"),"strongs", IDK_VIEW_STRONGS,
 		this, SLOT(slotToggleStrongs()), actionCollection(), "viewStrongs_action");	
+	m_viewStrongs_action->setToolTip( TT_VIEW_STRONGS );	
 	m_viewStrongs_action->setWhatsThis( WT_VIEW_STRONGS );
  	
 	m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
+	m_viewToolbar_action->setToolTip( TT_VIEW_TOOLBAR );	
 	m_viewToolbar_action->setWhatsThis( WT_VIEW_TOOLBAR );
 
 	m_viewGroupManager_action = new KToggleAction(i18n("&Show groupmanager"), "groupmanager", IDK_VIEW_GROUPMANAGER,
@@ -107,41 +120,52 @@ void BibleTime::initActions() {
 	m_viewGroupManager_action->setWhatsThis( WT_VIEW_GROUPMANAGER );
 	
 	m_settingsOptions_action = KStdAction::preferences(this, SLOT( slotSettingsOptions() ), actionCollection());
+	m_settingsOptions_action->setToolTip( TT_SETTINGS_OPTIONS );
 	m_settingsOptions_action->setWhatsThis( WT_SETTINGS_OPTIONS );
 
 	m_settingsToolbar_action = KStdAction::configureToolbars(this, SLOT( slotSettingsToolbar() ), actionCollection());
+	m_settingsToolbar_action->setToolTip( TT_SETTINGS_EDIT_TOOLBAR );	
 	m_settingsToolbar_action->setWhatsThis( WT_SETTINGS_EDIT_TOOLBAR );
 
 	m_windowCascade_action = new KAction(i18n("&Cascade"), "cascade",
 																IDK_WINDOW_CASCADE, m_mdi, SLOT(cascade()), actionCollection(), "windowCascade_action");
+	m_windowCascade_action->setToolTip( TT_WINDOW_CASCADE );	
 	m_windowCascade_action->setWhatsThis( WT_WINDOW_CASCADE );
 	
 	m_windowTile_action = new KAction(i18n("&Tile"), "tile",
 																IDK_WINDOW_TILE, m_mdi, SLOT(tile()), actionCollection(), "windowTile_action");
+	m_windowTile_action->setToolTip( TT_WINDOW_TILE );	
 	m_windowTile_action->setWhatsThis( WT_WINDOW_TILE );
 	
 	m_windowAutoCascade_action 	= new KToggleAction(i18n("&Auto cascade"), "cascade_auto",
 																IDK_WINDOW_AUTO_CASCADE, this, SLOT(slotAutoCascade()), actionCollection(), "windowAutoCascade_action");
+	m_windowAutoCascade_action->setToolTip( TT_WINDOW_AUTO_CASCADE );	
 	m_windowAutoCascade_action->setWhatsThis( WT_WINDOW_AUTO_CASCADE );
 																	
 	m_windowAutoTile_action = new KToggleAction(i18n("A&uto Tile"),"tile_auto",
 																IDK_WINDOW_AUTO_TILE, this, SLOT(slotAutoTile()), actionCollection(), "windowAutoTile_action");
+	m_windowAutoTile_action->setToolTip( TT_WINDOW_AUTO_TILE );	
 	m_windowAutoTile_action->setWhatsThis( WT_WINDOW_AUTO_TILE );
 	
 	m_windowCloseAll_action = new KAction(i18n("&Close all"), "fileclose",
 																IDK_WINDOW_CLOSE_ALL, m_mdi, SLOT(deleteAll()), actionCollection(),"windowCloseAll_action");
+	m_windowCloseAll_action->setToolTip( TT_WINDOW_CLOSE_ALL );	
 	m_windowCloseAll_action->setWhatsThis( WT_WINDOW_CLOSE_ALL );
 	
 
 	if ( !(m_helpContents_action = actionCollection()->action("help_contents")) )	
 		m_helpContents_action = KStdAction::helpContents(m_helpMenu, SLOT(appHelpActivated()), actionCollection() );
+	
 	if ( !(m_helpWhatsThis_action = actionCollection()->action("help_whats_this")) )		
 		m_helpWhatsThis_action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
+	
 	if ( !(m_helpBugReport_action = actionCollection()->action("help_report_bug")) )		
 		m_helpBugReport_action = KStdAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());	
+	
 	m_helpDailyTip_action = new KAction(i18n("&Daily tip"), "tip", IDK_HELP_DAILY_TIP, this, SLOT(slotHelpTipOfDay()), actionCollection(), "helpDailyTip_action");
 	if ( !(m_helpAboutBibleTime_action = actionCollection()->action("help_about_app")) )		
 		m_helpAboutBibleTime_action = KStdAction::aboutApp(m_helpMenu, SLOT(aboutApplication()), actionCollection());	
+	
 	if ( !(m_helpAboutKDE_action = actionCollection()->action("help_about_kde")) )
 		m_helpAboutKDE_action = KStdAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());	
 }

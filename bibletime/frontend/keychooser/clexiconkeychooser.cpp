@@ -18,12 +18,18 @@
 #include "clexiconkeychooser.h"
 #include "ckeychooserwidget.h"
 #include "cfx_btn.h"
+#include "../../tooltipdef.h"
+#include "../../whatsthisdef.h"
 #include "../../backend/cmoduleinfo.h"
 #include "../../backend/ckey.h"
 
+//Qt includes
 #include <qcombobox.h>
 #include <qlayout.h>
 #include <qlistbox.h>
+
+//KDE includes
+#include <klocale.h>
 
 CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(info, key, parent, name){
@@ -38,6 +44,9 @@ CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *pa
 	//we use a layout because the key chooser should be resized to full size
 	m_layout = new QHBoxLayout(this);
 	m_widget = new CKeyChooserWidget(m_info->getEntries(), this);
+	m_widget->setMaximumWidth( 325 );
+	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,QString::null, QString::null, QString::null);
+	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,QString::null, QString::null, QString::null);
 	m_layout->addWidget(m_widget);
 	
 	connect(m_widget,SIGNAL(changed(int)),this,SLOT(activated(int)));

@@ -80,8 +80,8 @@ CModuleChooserButton::~CModuleChooserButton(){
 /** Returns the icon used for the current status. */
 QPixmap CModuleChooserButton::getIcon(){
 	qDebug("CModuleChooserButton::getIcon()");	
-	if (!m_module) {
-		return QPixmap();
+	if (!m_hasModule) {
+		return SmallIcon("unknwon", 16);
 	}
 
 	switch (m_moduleType) {
@@ -99,15 +99,8 @@ QPixmap CModuleChooserButton::getIcon(){
 CSwordModuleInfo* CModuleChooserButton::getModule() {		
   qDebug("CSwordModuleInfo* CModuleChooserButton::getModule()");
 	for (int i = 0; i < m_popup->count(); i++) {
-//	  qDebug("i");
 		if ( m_popup->isItemChecked(m_popup->idAt(i)) ){
-			ASSERT(m_popup);
-			ASSERT(m_important);
-			ASSERT(m_important->swordBackend);			
-			qDebug( m_popup->text(m_popup->idAt(i)).local8Bit());
 			CSwordModuleInfo* m = m_important->swordBackend->findModuleByName( m_popup->text(m_popup->idAt(i)) );
-			ASSERT(m);
-		  qDebug("return now");			
 			return m;
 		}
 	}	
@@ -138,7 +131,9 @@ void CModuleChooserButton::moduleChosen( int ID ){
 	  if (!m_hasModule)
 	    emit sigAddButton();
 		m_hasModule = true;  	
-		setPixmap(getIcon());  	  	
+		m_module = getModule();
+		setPixmap(getIcon());
+		repaint();  	  	
   	emit sigChanged();
 	}
 }

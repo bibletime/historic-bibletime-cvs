@@ -17,10 +17,9 @@
 
 #include "chtmlwidget.h"
 #include "ctoolclass.h"
-
+#include "presenters/cswordpresenter.h"
 #include "thirdparty/qt3stuff/qrichtext_p.h"
 #include "thirdparty/qt3stuff/qt3stuff.h"
-
 #include "../ressource.h"
 
 #include <stdio.h>
@@ -304,27 +303,30 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
 		if (ref.right(1) == "/") {
 			ref = ref.mid( 0, ref.length() - 1 );
 		}
+
 #warning HACK!		
 		QString Module = QString::null;
-//		if ( parent() && parent()->inherits("CSwordPresenter") ) {
-//			if (static_cast<CSwordModuleInfo*>(((CSwordPresenter *)this->parent())->getModuleInfo())) {
-//				Module = static_cast<CSwordModuleInfo*>(((CSwordPresenter *)this->parent())->getModuleInfo())->module()->Name();
-//			}
-//			else {
-//				Module = "unknown";
-//			}
-//		}				
-//		mousePressed = false;
-//		inDoubleClick = false;				 				
-//		mightStartDrag = false;
-//				
-		mousePressed = FALSE;
-		inDoubleClick = FALSE;
+		if ( parent() && parent()->inherits("CSwordPresenter") ) {
+			if (static_cast<CSwordModuleInfo*>(((CSwordPresenter*)parent())->getModuleList().first())) {
+				Module = static_cast<CSwordModuleInfo*>(((CSwordPresenter*)parent())->getModuleList().first())->module()->Name();
+			}
+			else {
+				Module = "unknown";
+			}
+		}
+		else
+			return;
+		mousePressed = false;
+		inDoubleClick = false;				 				
+		mightStartDrag = false;
+				
+		mousePressed = false;
+		inDoubleClick = false;
 
 		QTextDrag *d = new QTextDrag(CToolClass::encodeReference(Module,ref),viewport());
-     d->setSubtype(REFERENCE);
-     d->setPixmap(REFERENCE_ICON_SMALL);
-     d->drag();
+    d->setSubtype(REFERENCE);
+    d->setPixmap(REFERENCE_ICON_SMALL);
+    d->drag();
 		return;
 	}
 	

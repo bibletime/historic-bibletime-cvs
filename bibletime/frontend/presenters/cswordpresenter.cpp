@@ -100,3 +100,8 @@ void CSwordPresenter::lookupWord(int ID){
 /** Look up the key given as parameter. */
 void CSwordPresenter::lookup(const QString&){
 }
+
+/** Returns the listof used modules. */
+ListCSwordModuleInfo& CSwordPresenter::getModuleList(){
+	return m_moduleList;
+}

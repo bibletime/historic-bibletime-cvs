@@ -29,6 +29,8 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qapplication.h>
+#include <qwhatsthis.h>
+#include <qtooltip.h>
 
 //KDE includes
 #include <kiconloader.h>
@@ -139,7 +141,7 @@ void CKeyChooserWidget::init( QStringList* list ){
 		
 	ComboBox = new QComboBox( true, this, "ComboBox" );
 	ComboBox->setAutoCompletion( true );
-	ComboBox->setMaximumWidth( 300 );
+//	ComboBox->setMaximumWidth( 300 );
 	ComboBox->setInsertionPolicy(QComboBox::NoInsertion);
 	
 	m_mainLayout->addWidget( ComboBox );
@@ -275,4 +277,27 @@ void CKeyChooserWidget::adjustSize( ){
 	
 	resize(s);
 //	setUpdatesEnabled(true);	
+}
+/** Sets the tooltips for the given entries using the parameters as text. */
+void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
+	if (ComboBox)
+		QToolTip::add(ComboBox, comboTip);
+	if (btn_up)
+		QToolTip::add(btn_up, nextEntryTip);
+	if (btn_fx)
+		QToolTip::add(btn_fx, scrollButtonTip);
+	if (btn_down)
+		QToolTip::add(btn_down, previousEntryTip);
+}
+
+/** No descriptions */
+void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
+	if (ComboBox)
+		QWhatsThis::add(ComboBox, comboTip);
+	if (btn_up)
+		QWhatsThis::add(btn_up, nextEntryTip);
+	if (btn_fx)
+		QWhatsThis::add(btn_fx, scrollButtonTip);
+	if (btn_down)
+		QWhatsThis::add(btn_down, previousEntryTip);
 }

@@ -83,6 +83,10 @@ public slots: // Public slots
   * Look up the key given as parameter.
   */
   virtual void lookup(const QString&);
+  /**
+  * Returns the listof used modules.
+  */
+  ListCSwordModuleInfo& getModuleList();
 
 protected: // Protected methods
   /**

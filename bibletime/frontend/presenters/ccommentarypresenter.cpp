@@ -114,6 +114,7 @@ void CCommentaryPresenter::modulesChanged(){
 	  refreshFeatures();	
 	  m_key->setModule(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
+	
 	  lookup(m_key);
 	}
 }
