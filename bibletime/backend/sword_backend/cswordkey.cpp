@@ -34,6 +34,7 @@ CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {
 }
 
 const QString CSwordKey::renderedText() {
+	qDebug("const QString CSwordKey::renderedText()");
 	if (!m_module)
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);
@@ -50,6 +51,7 @@ const QString CSwordKey::renderedText() {
 }
 
 const QString CSwordKey::strippedText() {
+	qDebug("const QString CSwordKey::strippedText() ");
 	if (!m_module)
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);

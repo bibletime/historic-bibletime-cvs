@@ -34,7 +34,6 @@ CHTMLChapterDisplay::CHTMLChapterDisplay(){
 
 /** Renders the text and puts the result into the member variable m_htmlText */
 char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
-//	qDebug("CHTMLChapterDisplay::Display( module )");	
 	if (!module) {
 		m_htmlText = QString::null;
 		return -1; //error
@@ -51,7 +50,6 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		m_htmlHeader = "<HTML><HEAD><META HTTP-EQUIV=\"Content-Type\" content=\"text/html; charset=utf-8\"></HEAD>";
 	}
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
-//	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");
 	
   QString FontName = m_standardFontName;
   int FontSize = m_standardFontSize;
@@ -60,7 +58,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
     FontName = font.family();
     FontSize = CToolClass::makeLogicFontSize(font.pointSize());
   }
-	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); /*(*swordModule)++*/key.NextVerse()) {
+	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); qDebug("jump now to next verse"), key.NextVerse()) {
 		verse = key.Verse();
 		m_htmlText.append( QString::fromLatin1("<A NAME=\"%1\" HREF=\"sword://%2\"><B>%3</B></A>")
 			.arg(verse)
@@ -94,7 +92,6 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		
 	VerseKey* vk = (VerseKey*)(SWKey*)*module;
 	CSwordVerseKey key(moduleList->first());
-//	key.Persist(1);
 	key.key((const char*)*vk);
 
 	const int currentBook = key.Book();

@@ -106,7 +106,9 @@ public:
   * Returns the width of this item.
   */
   virtual int width();
-  /** Returns the tooltip for this item. */
+  /**
+  * Returns the tooltip for this item.
+  */
   const QString getToolTip();
   	
 private:

@@ -43,9 +43,6 @@
 //Qt includes
 #include <qfont.h>
 
-
-//#define STATIC_BUILD
-
 bool showDebugMessages = false;
 
 void myMessageOutput( QtMsgType type, const char *msg ) {	
