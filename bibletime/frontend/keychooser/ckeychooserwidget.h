@@ -65,13 +65,13 @@ class CKeyChooserWidget : public QWidget  {
    Q_OBJECT
 public:
 	/**
-		* the constructor
-		*/
-	CKeyChooserWidget(QStringList *list=0, QWidget *parent=0, const char *name=0);
+	* the constructor
+	*/
+	CKeyChooserWidget(QStringList *list=0, const bool useNextPrevSignals = false, QWidget *parent=0, const char *name=0);
 	/**
-		* the constructor
-		*/
-	CKeyChooserWidget(int count=0, QWidget *parent=0, const char *name=0);	
+	* the constructor
+	*/
+	CKeyChooserWidget(int count=0, const bool useNextPrevSignals = false, QWidget *parent=0, const char *name=0);	
 	/**
 	*
 	*/
@@ -100,14 +100,16 @@ public:
   */
   virtual void adjustSize();
   /**
-  * No descriptions
+  * Sets the QWhatsThis help for the different parts.
   */
   void setWhatsThis(const QString comboTip, const QString nextEntry, const QString scrollButton, const QString previousEntry);
   /**
   * Sets the tooltips for the given entries using the parameters as text.
   */
   void setToolTips( const QString comboTip, const QString nextEntry, const QString scrollButton, const QString previousEntry);
-  /** Sets the current item to the one with the given text */
+  /**
+  * Sets the current item to the one with the given text
+  */
   bool setItem( const QString item);
 
 public slots:
@@ -142,6 +144,10 @@ signals:
 	* @param the current ComboBox index
 	*/
 	void changed(int index);
+	/**
+	* Is emitted if the widget was left with a focus out event.
+	* @param index The new index of the ComboBox
+	*/
 	void focusOut(int index);
 
 protected:
@@ -190,10 +196,19 @@ protected slots: // Protected slots
 
 private:
 	friend class CLexiconKeyChooser;
-	/**
-	* This is only used and created when we use the int-constructor
-	*/
 	QStringList	m_list;
+	bool m_useNextPrevSignals;
+	
+
+private slots: // Private slots
+  /**
+  * Jump to the previous entry.
+  */
+  void previous();
+  /**
+  * Jump to the next entry.
+  */
+  void next();
 };
 
 #endif

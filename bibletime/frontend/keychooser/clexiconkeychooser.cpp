@@ -34,19 +34,15 @@
 
 CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(info, key, parent, name){
-	
-	if ((CSwordLexiconModuleInfo*)info && ((CSwordLexiconModuleInfo*)info)->getType()==CSwordModuleInfo::Lexicon)
-		m_info = (CSwordLexiconModuleInfo*)info;
-	else {
-		qWarning("Wrong module type! Return.");
-		return;
-	}	
+		
+	m_info = dynamic_cast<CSwordLexiconModuleInfo*>(info);
+	ASSERT(m_info);			
 	m_key = 0;
 		
 	//we use a layout because the key chooser should be resized to full size
  	QHBoxLayout *m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 	
-	m_widget = new CKeyChooserWidget(m_info->getEntries(), this);
+	m_widget = new CKeyChooserWidget(m_info->getEntries(), false, this);
 	m_widget->ComboBox->setMaximumWidth(200);
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,TT_PRESENTER_NEXT_ENTRY, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_ENTRY);
 	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,WT_PRESENTER_NEXT_ENTRY, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_ENTRY);
@@ -55,8 +51,8 @@ CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *pa
 	
 	connect(m_widget,SIGNAL(changed(int)),SLOT(activated(int)));
 	connect(m_widget,SIGNAL(focusOut(int)),SLOT(activated(int)));
-	connect(m_widget,SIGNAL(prev_requested()),SLOT(prevRequested()));
-	connect(m_widget,SIGNAL(next_requested()),SLOT(nextRequested()));
+//	connect(m_widget,SIGNAL(prev_requested()),SLOT(prevRequested()));
+//	connect(m_widget,SIGNAL(next_requested()),SLOT(nextRequested()));
 
 	setKey(key);
 }
@@ -83,18 +79,18 @@ void CLexiconKeyChooser::activated(int index){
 	 	setKey(m_key);
 	}
 }
-
-/**  */
-void CLexiconKeyChooser::prevRequested(void){
-	m_key->PreviousEntry();
-	setKey(m_key);
-}
-
-/**  */
-void CLexiconKeyChooser::nextRequested(void){
-	m_key->NextEntry();
-	setKey(m_key);
-}
+//
+///**  */
+//void CLexiconKeyChooser::prevRequested(void){
+//	m_key->PreviousEntry();
+//	setKey(m_key);
+//}
+//
+///**  */
+//void CLexiconKeyChooser::nextRequested(void){
+//	m_key->NextEntry();
+//	setKey(m_key);
+//}
 
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){

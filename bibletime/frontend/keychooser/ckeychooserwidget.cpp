@@ -85,14 +85,16 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 
 //**********************************************************************************/
 
-CKeyChooserWidget::CKeyChooserWidget(int count, QWidget *parent, const char *name) : QWidget(parent,name) {
+CKeyChooserWidget::CKeyChooserWidget(int count, const bool useNextPrevSignals,  QWidget *parent, const char *name) : QWidget(parent,name) {
+	m_useNextPrevSignals = useNextPrevSignals;
 	for (int index=1; index <= count; index++)
 		m_list.append( QString::number(index) );
 	init();
 };
 
-CKeyChooserWidget::CKeyChooserWidget(QStringList *list, QWidget *parent, const char *name ) : QWidget(parent,name) {
-	m_list = *list;
+CKeyChooserWidget::CKeyChooserWidget(QStringList *list, const bool useNextPrevSignals, QWidget *parent, const char *name ) : QWidget(parent,name) {
+	m_useNextPrevSignals = useNextPrevSignals;		
+	m_list = *list;//copy the items of list
 	init();
 }
 
@@ -235,8 +237,14 @@ void CKeyChooserWidget::init( ){
 	setTabOrder(ComboBox, 0);
 		
 // signals and slots connections
-	connect(btn_up, SIGNAL(clicked()), SIGNAL(next_requested()) );	
-	connect(btn_down, SIGNAL(clicked()), SIGNAL(prev_requested()) );
+	if (m_useNextPrevSignals) {
+		connect(btn_up, SIGNAL(clicked()), SIGNAL(next_requested()) );	
+		connect(btn_down, SIGNAL(clicked()), SIGNAL(prev_requested()) );
+	}
+	else {
+		connect(btn_up, SIGNAL(clicked()), SLOT(next()) );	
+		connect(btn_down, SIGNAL(clicked()), SLOT(previous()) );	
+	}
 	connect(btn_fx, SIGNAL(lock()), SLOT(lock()) );
 	connect(btn_fx, SIGNAL(unlock()), SLOT(unlock()) );
 	connect(btn_fx, SIGNAL(change_requested(int)), SLOT(changeCombo(int)) );
@@ -351,8 +359,23 @@ bool CKeyChooserWidget::setItem( const QString item ){
 			break;
 		}
 	}
-	if (!ret) {
+	if (!ret)
 		ComboBox->setCurrentItem(-1);
-	}
 	return ret;
+}
+
+/** Jump to the next entry. */
+void CKeyChooserWidget::next(){
+	if (ComboBox->currentItem() != ComboBox->count()-1) {// not last entry
+		ComboBox->setCurrentItem( ComboBox->currentItem()+1 );
+		emit changed(ComboBox->currentItem());
+	}
+}
+
+/** Jump to the previous entry. */
+void CKeyChooserWidget::previous(){
+	if (ComboBox->currentItem() != 0) {// not last entry
+		ComboBox->setCurrentItem( ComboBox->currentItem()-1 );
+		emit changed(ComboBox->currentItem());
+	}
 }

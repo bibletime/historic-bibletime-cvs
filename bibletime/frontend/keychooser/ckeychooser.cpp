@@ -30,12 +30,16 @@ CKeyChooser::CKeyChooser(CModuleInfo */*info*/, CKey */*key*/, QWidget *parent, 
 }
 
 CKeyChooser* CKeyChooser::createInstance(CModuleInfo *info, CKey *key, QWidget *parent){	
-	if (info && (CSwordModuleInfo*)info)
-  	switch ( ((CSwordModuleInfo*)info)->getType() ){
-  	  case CSwordModuleInfo::Commentary:	
-  	  case CSwordModuleInfo::Bible:	  return new CBibleKeyChooser(info,key,parent);
-  	  case CSwordModuleInfo::Lexicon:	return new CLexiconKeyChooser(info,key,parent);	
-  	  default: return 0;
-  	}
-  return 0;
+	CSwordModuleInfo* module = dynamic_cast<CSwordModuleInfo*>(info);
+	if (!module)
+		return 0;
+ 	switch ( module->getType() ){
+ 	  case CSwordModuleInfo::Commentary:	 //Bibles and commentaries uise the same key chooser
+ 	  case CSwordModuleInfo::Bible:
+ 	  	return new CBibleKeyChooser(info,key,parent);
+ 	  case CSwordModuleInfo::Lexicon:
+ 	  	return new CLexiconKeyChooser(info,key,parent);	
+ 	  default:
+ 	  	return 0;
+ 	}
 }

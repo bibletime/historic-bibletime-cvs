@@ -55,7 +55,7 @@ public slots:
 	/**
 	* see @ref CKeyChooser::setKey
 	*/
-	virtual void	setKey(CKey* key);
+	virtual void setKey(CKey* key);
 	/**
 	* used to react to changes in the @ref CKeyChooserWidget
 	*
@@ -70,14 +70,14 @@ public slots:
   * Sets the module and refreshes the combo boxes of this keychooser.
   */
   virtual void setModule( CModuleInfo* module);
-  /**
- 	* Used to react to a request from the book @ref CKeyChooserWidget
- 	*/
-  void nextRequested(void);
-  /**
- 	* see @ref nextRequested
- 	*/
-  void prevRequested(void);
+//  /**
+// 	* Used to react to a request from the book @ref CKeyChooserWidget
+// 	*/
+//  void nextRequested(void);
+//  /**
+// 	* see @ref nextRequested
+// 	*/
+//  void prevRequested(void);
 
 protected:	
 	class CLexiconPresenter;	

@@ -59,7 +59,9 @@ public slots:
  	* Reimplementation
  	*/
   virtual QSize sizeHint();
-  /** Sets te module and refreshes the combos */
+  /**
+  * Sets te module and refreshes the combos
+  */
   virtual void setModule(CModuleInfo* module);
   /**
  	* Reimplementation.
@@ -81,14 +83,6 @@ public slots:
 	*/
 	void verseChanged(int index);	
   /**
- 	* used to react to a request from the book @ref CKeyChooserWidget
- 	*/
-  void bookPrevRequested(void);
-  /**
- 	* see @ref bookPrevRequested
- 	*/
-  void bookNextRequested(void);
-  /**
  	* see @ref bookPrevRequested
  	*/
   void chapterPrevRequested(void);
@@ -105,37 +99,28 @@ public slots:
  	*/
   void verseNextRequested(void);
 
-protected:
-	/**
-	* to represent the book part of the bible key
-	*/
+private:
 	CKeyChooserWidget* w_book;
-	/**
-	* to represent the chapter part of the bible key
-	*/
 	CKeyChooserWidget* w_chapter;
-	/**
-	* to represent the verse part of the bible key
-	*/
 	CKeyChooserWidget* w_verse;
-
 	CSwordBibleModuleInfo	*m_info;
-	CSwordVerseKey	*m_key;
+	CSwordVerseKey *m_key;
 
 private slots: // Private slots
-  /** called when the book combo lost the focus
-  with reason == tab
-  @param the new book */
+  /**
+  *	called when the book combo lost the focus with reason == tab
+  * @param the new book
+  */
   void bookFocusOut(int);
-
-  /** called when the chapter combo lost the focus
-  with reason == tab
-  @param the new chapter */
+  /**
+  * called when the chapter combo lost the focus with reason == tab
+  * @param the new chapter
+  */
   void chapterFocusOut(int);
-
   /** called when the verse combo lost the focus
   with reason == tab
-  @param the new verse */
+  @param the new verse
+  */
   void verseFocusOut(int);
 };
 

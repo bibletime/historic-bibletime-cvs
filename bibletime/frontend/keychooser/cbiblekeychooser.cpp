@@ -38,8 +38,9 @@
 
 CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(info, key, parent, name){
-	if (info && ( ((CSwordModuleInfo*)info)->getType()==CSwordModuleInfo::Bible
-	            ||((CSwordModuleInfo*)info)->getType()==CSwordModuleInfo::Commentary ) )
+	CSwordModuleInfo* module = dynamic_cast<CSwordModuleInfo*>(info);
+	if (module &&
+		(module->getType() == CSwordModuleInfo::Bible ||(module->getType() == CSwordModuleInfo::Commentary )) )
 		m_info = (CSwordBibleModuleInfo*)(info);
 	else {
 		qWarning("CBibleKeyChooser: module is not a Bible or commentary!");
@@ -49,15 +50,15 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 	QHBoxLayout *layout = new QHBoxLayout(this);
 	layout->setResizeMode(QLayout::Fixed);
 		
-	w_book = new CKeyChooserWidget(m_info->getBooks(),this);	
+	w_book = new CKeyChooserWidget(m_info->getBooks(),false,this);	
 	w_book->setToolTips(TT_PRESENTER_BOOK_COMBO, TT_PRESENTER_NEXT_BOOK, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_BOOK);
 	w_book->setWhatsThis(WT_PRESENTER_BOOK_COMBO, WT_PRESENTER_NEXT_BOOK, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_BOOK);
 	
-	w_chapter = new CKeyChooserWidget( m_info->getChapterCount(1), this);		
+	w_chapter = new CKeyChooserWidget( m_info->getChapterCount(1),true,this);		
 	w_chapter->setToolTips(TT_PRESENTER_CHAPTER_COMBO, TT_PRESENTER_NEXT_CHAPTER, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_CHAPTER);	
 	w_chapter->setWhatsThis(WT_PRESENTER_CHAPTER_COMBO, WT_PRESENTER_NEXT_CHAPTER, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_CHAPTER);		
 	
-	w_verse = new CKeyChooserWidget( m_info->getVerseCount(1,1),this);
+	w_verse = new CKeyChooserWidget( m_info->getVerseCount(1,1),true,this);
 	w_verse->setToolTips(TT_PRESENTER_VERSE_COMBO, TT_PRESENTER_NEXT_VERSE, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_VERSE);
 	w_verse->setWhatsThis(WT_PRESENTER_VERSE_COMBO, WT_PRESENTER_NEXT_VERSE, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_VERSE);
 						
@@ -71,8 +72,6 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 
 	/*Book connections*/
 	connect(w_book,SIGNAL(changed(int))       ,SLOT(bookChanged(int)));
-	connect(w_book,SIGNAL(next_requested())   ,SLOT(bookNextRequested()));
-	connect(w_book,SIGNAL(prev_requested())   ,SLOT(bookPrevRequested()));
 	connect(w_book,SIGNAL(focusOut(int))      ,SLOT(bookFocusOut(int)));	
 	
 	/*Chapter Connections*/
@@ -142,32 +141,6 @@ void CBibleKeyChooser::setKey(CKey* key){
 }
 
 /**  */
-void CBibleKeyChooser::bookNextRequested(void){
-	if (!isUpdatesEnabled())
-		return;
-	
-	setUpdatesEnabled(false);		
-	if (w_book->ComboBox->currentItem() < w_book->ComboBox->count()) {
-		m_key->setBook( w_book->ComboBox->text( w_book->ComboBox->currentItem()+1 ));
-		setKey(m_key);		
-	}
-	setUpdatesEnabled(true);	
-}
-
-/**  */
-void CBibleKeyChooser::bookPrevRequested(void){
-	if (!isUpdatesEnabled())
-		return;
-	
-	setUpdatesEnabled(false);		
-	if (w_book->ComboBox->currentItem() > 0) {
-		m_key->setBook( w_book->ComboBox->text( w_book->ComboBox->currentItem()-1 ));
-		setKey(m_key);				
-	}
-	setUpdatesEnabled(true);	
-}
-
-/**  */
 void CBibleKeyChooser::chapterNextRequested(void){
 	if (!isUpdatesEnabled())
 		return;
@@ -221,8 +194,7 @@ void CBibleKeyChooser::bookChanged(int /*i*/){
 		m_key->Chapter( 1 );		
 		m_key->setBook( w_book->ComboBox->currentText() );
 		setKey( m_key );
-	}
-	
+	}	
 	setUpdatesEnabled(true);		
 }
 
@@ -269,8 +241,8 @@ void CBibleKeyChooser::refreshContent() {
 
 /** Sets te module and refreshes the combos */
 void CBibleKeyChooser::setModule(CModuleInfo* module){
-	if (module != m_info && (CSwordBibleModuleInfo*)module) {
-		m_info = (CSwordBibleModuleInfo*)module;
+	if (module != m_info && dynamic_cast<CSwordBibleModuleInfo*>(module)) {
+		m_info = dynamic_cast<CSwordBibleModuleInfo*>(module);
 		refreshContent();
 	}
 }
@@ -281,14 +253,23 @@ void CBibleKeyChooser::bookFocusOut(int index){
 		return;
 		
 	setUpdatesEnabled(false);
+	const char oldNormalize = m_key->AutoNormalize();
+	m_key->AutoNormalize(false);
 	
-	m_key->Verse( 1 );
-	m_key->Chapter( 1 );	
 	m_key->setBook( w_book->ComboBox->currentText() );
-	
-	w_chapter->reset(m_info->getChapterCount(index+1), 0, false);
-	w_verse->reset(m_info->getVerseCount(index+1,1), 0, false);	
+	const int chapterCount = m_info->getChapterCount( m_info->getBookNumber(m_key->getBook()));
+	qWarning("%i", chapterCount);
+	if (m_key->Chapter() > chapterCount) //chapter is not available in the new book
+		m_key->Chapter( 1 );
+	w_chapter->reset( chapterCount, m_key->Chapter()-1, false);
+			
+	const int verseCount = m_info->getVerseCount(m_info->getBookNumber(m_key->getBook()),m_key->Chapter());
+	qWarning("%i", verseCount);	
+	if (m_key->Verse() > verseCount) //verse is not available in the new book and chapter
+		m_key->Verse( 1 );
+	w_verse->reset(verseCount,m_key->Verse()-1,false);
 
+	m_key->AutoNormalize(oldNormalize);
 	setUpdatesEnabled(true);
 }
 

@@ -377,17 +377,20 @@ void CPrinter::setupStyles(){
 		for (int index = 0; index < 3; index++) {
 			config->setGroup(QString("%1__%2").arg(*it).arg(names[index]));
 			format[index]->setFGColor( config->readColorEntry("FGColor", &Qt::black) );
-			format[index]->setBGColor( config->readColorEntry("BGColor", &Qt::white) );			
+			format[index]->setBGColor( config->readColorEntry("BGColor", &Qt::white) );
  			format[index]->setFont( config->readFontEntry("Font") );
 			format[index]->setIdentation( config->readNumEntry("Identation",0) );
 			format[index]->setAlignement( (CStyleFormat::alignement)config->readNumEntry("Alignement",0));
-			dummyStyle->setFormatTypeEnabled( formatTypes[index], config->readBoolEntry("isEnabled", true) );			
+			dummyStyle->setFormatTypeEnabled( formatTypes[index], config->readBoolEntry("isEnabled", true) );
 			const bool hasFrame = config->readBoolEntry( "has frame", false );
 			
-			CStyleFormatFrame* frame = format[index]->getFrame();			
-			config->setGroup(QString("%1__%2__FRAME").arg(*it).arg(names[index]));
-			frame->setColor( config->readColorEntry("Color", &Qt::black) );
-			frame->setThickness( config->readNumEntry("Thickness", 1) );
+			CStyleFormatFrame* frame = format[index]->getFrame();
+			ASSERT(frame);
+			if (frame) {
+				config->setGroup(QString("%1__%2__FRAME").arg(*it).arg(names[index]));
+				frame->setColor( config->readColorEntry("Color", &Qt::black) );
+				frame->setThickness( config->readNumEntry("Thickness", 1) );
+			}
 			format[index]->setFrame( hasFrame, frame);
 		}		
 		//set settings for Header
