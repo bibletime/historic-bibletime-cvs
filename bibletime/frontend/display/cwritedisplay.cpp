@@ -29,23 +29,3 @@ CWriteDisplay::CWriteDisplay( CWriteWindow* writeWindow ) : CDisplay(writeWindow
 CWriteDisplay::~CWriteDisplay(){
 }
 
-/** Saves settings */
-//bool CCommentaryPresenter::queryClose(){
-//	//save the text
-//	if (!m_htmlWidget->isReadOnly() && m_htmlWidget->isModified()) {
-//		switch (KMessageBox::warningYesNoCancel( this, i18n("Save changes to module?")) ) {
-//			case KMessageBox::Yes:
-//			{
-//	    	//save
-//	   		saveText( m_htmlWidget->text() );
-//	   		m_htmlWidget->setModified( false );
-//	     	return true;
-//			}
-//	   	case KMessageBox::No :
-//	     	return true;
-//	   	default: // cancel
-//	     	return false;
-//		}
-//	}
-//	return true;
-//}

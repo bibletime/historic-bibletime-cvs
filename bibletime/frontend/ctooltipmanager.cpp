@@ -83,7 +83,7 @@ const QString CTooltipManager::textForHyperlink( const QString& link ){
       );
   };
 
-  if (CSwordModuleInfo* m = backend()->findModuleByName(moduleName)) {
+  if (CSwordModuleInfo* m = backend()->findModuleByName(moduleName)) { //found a default module for the type
     return QString::fromLatin1("<HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><B>%1</B><HR>%2")
       .arg(tooltipCSS(m))
       .arg(headingText(m /*? m->type() : CSwordModuleInfo::Unknown*/, keyName))
@@ -172,20 +172,20 @@ const QString CTooltipManager::moduleText( const QString& moduleName, const QStr
 
 /** Returns the text for the tooltip beginning. */
 const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QString& keyName ){
-  const QString defaultEnding = module ? QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name()) : i18n("module not set!");
+  const QString defaultEnding = module ? QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name()) : i18n("module not set!");  
 	if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
 	  QString text = QString::null;
-    qWarning("want to parse the key %s", keyName.latin1());
     sword::ListKey keys = sword::VerseKey().ParseVerseList((const char*)keyName.local8Bit(), sword::VerseKey("Genesis 1:1"), true);
-    qWarning("parsed the key %s", keyName.latin1());
 	  if (sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(keys.GetElement(0)))
 			text = QString::fromLatin1("%1-%2").arg((const char*)element->LowerBound()).arg((const char*)element->UpperBound());
 	  else
 	  	text = QString::fromLatin1("%1").arg((const char*)(*keys.GetElement(0)));
 	  return text + defaultEnding;
   }
-  else { //non-versekeys are not localized
-		return keyName + defaultEnding;
+  else { //non-versekeys are not localized  
+  	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+
+		return key->key() + defaultEnding;
   };
   return QString::null;
 }

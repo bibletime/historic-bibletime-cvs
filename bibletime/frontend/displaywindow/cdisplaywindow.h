@@ -218,7 +218,8 @@ protected:
   * Returns the installed popup menu.
   */
   KPopupMenu* const popup();
-
+  virtual void closeEvent(QCloseEvent* e);
+  
 protected slots:
 	virtual void modulesChanged();
   /**

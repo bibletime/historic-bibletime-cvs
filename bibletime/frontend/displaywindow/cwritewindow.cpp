@@ -22,6 +22,9 @@
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/cprofilewindow.h"
 
+//KDE includes
+#include <kmessagebox.h>
+#include <klocale.h>
 
 CWriteWindow::CWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name )
   : CDisplayWindow(modules, parent,name), m_writeDisplay(0) {
@@ -135,4 +138,26 @@ void CWriteWindow::lookup( CSwordKey* newKey ){
 /** Returns the write display widget used by this window. */
 CWriteDisplay* const CWriteWindow::displayWidget(){
   return m_writeDisplay;
+}
+
+/** Saves settings */
+bool CWriteWindow::queryClose(){
+  qWarning("queryClose called!");
+	//save the text if it has changed
+	if (m_writeDisplay->isModified()) {
+		switch (KMessageBox::warningYesNoCancel( this, i18n("Something changed after you saved the last time the text.<BR>Write changed into the module?")) ) {
+			case KMessageBox::Yes:
+			{
+	    	//save
+	   		saveCurrentText();
+	   		m_writeDisplay->setModified( false );
+	     	return true;
+			}
+	   	case KMessageBox::No :
+	     	return true;
+	   	default: // cancel
+	     	return false;
+		}
+	}
+	return true;
 }

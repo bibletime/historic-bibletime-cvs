@@ -74,7 +74,9 @@ CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, 
   return 0;
 }
 
-CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, const char *name ) : KMainWindow(parent,name,WDestructiveClose) {
+CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, const char *name )
+  : KMainWindow(parent,name,WDestructiveClose)
+{    
 	m_mdi = parent;
  	m_modules = modules;
   m_isReady = false;
@@ -355,3 +357,14 @@ CDisplay* const CDisplayWindow::displayWidget(){
 void CDisplayWindow::setDisplayWidget( CDisplay* newDisplay ){
   m_displayWidget = newDisplay;
 }
+
+void CDisplayWindow::closeEvent(QCloseEvent* e) {
+  qWarning("CDisplayWindow::closeEvent(QCloseEvent* e)");
+	if (!queryClose()) {
+		e->ignore();
+	}
+	else {
+		e->accept();
+	}
+}
+

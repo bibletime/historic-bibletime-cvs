@@ -68,7 +68,13 @@ protected: // Protected methods
   */
   void setDisplayWidget( CWriteDisplay* display );
   virtual const CDisplayWindow::WriteWindowType writeWindowType() = 0;
+  virtual bool queryClose();
 
+protected slots:
+  /** Save text to the module
+  */
+  virtual void saveCurrentText() = 0;
+    
 private:
   CWriteDisplay* m_writeDisplay;  
 };

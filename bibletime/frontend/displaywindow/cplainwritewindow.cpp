@@ -20,6 +20,7 @@
 #include "frontend/cresmgr.h"
 
 //Qt includes
+#include <qregexp.h>
 
 //KDE includes
 #include <kaction.h>
@@ -94,7 +95,15 @@ void CPlainWriteWindow::saveCurrentText(){
   qWarning("CPlainWriteWindow::saveCurrentText()");
   Q_ASSERT(modules().first());
   Q_ASSERT(key());
-  modules().first()->write(key(), displayWidget()->plainText() );
+
+  QString t = displayWidget()->plainText();
+  //since t is a complete HTML page at the moment, strip away headers and footers of a HTML page
+  QRegExp re("(?:<html.*>.+<body.*>)", false); //remove headers, match case insensitive
+  re.setMinimal(true);  
+  t.replace(re, "");
+  t.replace(QRegExp("</BODY></HTML>", false), "");//remove footer
+  
+  modules().first()->write(key(), t );
 
   displayWidget()->setModified(false);
   textChanged();

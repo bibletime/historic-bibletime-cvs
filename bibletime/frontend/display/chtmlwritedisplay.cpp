@@ -19,16 +19,26 @@
 #include "frontend/displaywindow/cwritewindow.h"
 #include "frontend/cresmgr.h"
 
+//Qt includes
+#include <qpopupmenu.h>
+
 //KDE includes
 #include <kaction.h>
 #include <ktoolbar.h>
 #include <klocale.h>
 #include <kfontcombo.h>
 #include <kcolorbutton.h>
+#include <kpopupmenu.h>
 
 CHTMLWriteDisplay::CHTMLWriteDisplay(CWriteWindow* parentWindow, QWidget* parent)
   : CPlainWriteDisplay(parentWindow,parent)
 {
+  m_actions.bold = 0;
+  m_actions.italic = 0;
+  m_actions.underline = 0;
+  
+  m_actions.selectAll = 0;
+  
 //  qWarning("constructor of CHTMLWriteDisplay");
   setTextFormat(Qt::RichText);
 }
@@ -248,5 +258,24 @@ void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions
 
   connect(this, SIGNAL(currentFontChanged(const QFont&)), SLOT(slotFontChanged(const QFont&)));
   connect(this, SIGNAL(currentAlignmentChanged(int)), SLOT(slotAlignmentChanged(int)));
-  connect(this, SIGNAL(currentColorChanged(const QColor&)), SLOT(slotColorChanged(const QColor&)));          
+  connect(this, SIGNAL(currentColorChanged(const QColor&)), SLOT(slotColorChanged(const QColor&)));
+
+
+  //set initial values for toolbar items
+  slotFontChanged( font() );
+  slotAlignmentChanged( alignment() );
+  slotColorChanged( color() );
 }
+
+/** Reimplementation to show a popup menu if the right mouse butoon was clicked. */
+QPopupMenu* CHTMLWriteDisplay::createPopupMenu( const QPoint& pos ){
+  if (!m_actions.selectAll) {
+ 	  m_actions.selectAll  =new KAction(i18n("Select all"), KShortcut(0), this, SLOT(selectAll()), this);
+  }
+  
+  KPopupMenu* popup = new KPopupMenu(this);
+	popup->insertTitle(i18n("HTML editor window"));
+  m_actions.selectAll->plug(popup);  
+
+  return popup;
+};

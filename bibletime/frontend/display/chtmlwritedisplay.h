@@ -27,6 +27,8 @@
 
 class CWriteWindow;
 
+class QPopupMenu;
+
 class KToggleAction;
 class KFontAction;
 class KFontSizeAction;
@@ -79,6 +81,8 @@ protected:
 	friend class CDisplay;
 	CHTMLWriteDisplay(CWriteWindow* parentWindow, QWidget* parent);
 	~CHTMLWriteDisplay();  
+  /** Reimplementation to show a popup menu if the right mouse butoon was clicked. */
+  virtual QPopupMenu* createPopupMenu( const QPoint& pos );
 //  /**
 //  * Reimplementation from QTextEdit. Provides an popup menu for the given position.
 //  */
@@ -114,8 +118,6 @@ protected slots:
         
 private:
   struct {
-    KAction* save;
-
     KToggleAction* bold;
     KToggleAction* italic;
     KToggleAction* underline;
@@ -125,7 +127,11 @@ private:
   	KToggleAction* alignRight;
    
     KFontAction* fontChooser;
-    KFontSizeAction* fontSizeChooser;  
+    KFontSizeAction* fontSizeChooser;
+
+    //popup menu
+    KAction* selectAll;
+//    KAction* selectAll;
   } m_actions;
   KColorButton* m_colorButton;
 };
