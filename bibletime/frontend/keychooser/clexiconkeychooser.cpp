@@ -23,7 +23,13 @@
 #include "whatsthisdef.h"
 
 #include "backend/cswordlexiconmoduleinfo.h"
-#include "../cbtconfig.h"
+#include "frontend/cbtconfig.h"
+
+//STL headers
+#include <algorithm>
+#include <iterator>
+#include <map>
+//#include <ostream>
 
 //Qt includes
 #include <qcombobox.h>
@@ -83,55 +89,49 @@ void CLexiconKeyChooser::activated(int index){
 	}
 }
 
+inline const bool my_cmpEntries(const QString& a, const QString& b) {
+//  qWarning("ci_cmpEntries(%s, %s)", a.latin1(),b.latin1());
+//  return a.lower() < b.lower();
+  return a < b;
+};
+
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
-  if (m_modules.count() == 1) {
-//    qWarning("return entries of the single module");
+  if (m_modules.count() == 1) {                                                                              
     m_widget->reset(m_modules.first()->entries(), 0, true);	
   }
   else {
-/**
-* 1. Sort the modules by number of entries (raising)
-* 2. Use the modules with the fewest entries and go though all of these entries
-* 3. Is the entry in all other modules? Remove the entry from the list if it's not.
-*/
-    typedef QMap<unsigned int, CSwordLexiconModuleInfo*> EntryCountMap;
-    EntryCountMap entryCountMap;
+    typedef std::multimap<unsigned int, QStringList*> EntryMap;
+    EntryMap entryMap;
+    QStringList* entries = 0;
     for (m_modules.first(); m_modules.current(); m_modules.next()) {
-      entryCountMap.insert(m_modules.current()->entries()->count(), m_modules.current(), false);
+      entries = m_modules.current()->entries();
+      entryMap.insert( std::make_pair(entries->count(), entries) );
     }
 
-//    for ( EntryCountMap::Iterator count_it = entryCountMap.begin(); count_it != entryCountMap.end(); ++count_it) {
-//      qWarning("module %s has count %i", count_it.key(), (*count_it));
-//    };
-
-    typedef QMap<CSwordLexiconModuleInfo*, QStringList*> LexiconMap;
-    LexiconMap entryMap;
-    for (m_modules.first(); m_modules.current(); m_modules.next()) {
-      entryMap.insert(m_modules.current(), m_modules.current()->entries(), false);
-    }
+    QStringList goodEntries; //The string list which contains the entries which are available in all modules
     
-    CSwordLexiconModuleInfo* referenceModule = entryCountMap.begin().data();
-    QStringList* entries = referenceModule->entries(); //this is a pointer to a string list, only use it for comparision
-    QStringList goodEntries; //The string list which contains the entries which are in all modules
+    EntryMap::iterator it = entryMap.begin(); //iterator to go thoigh all selected modules    
+    QStringList* refEntries = it->second; //this is a pointer to a string list, only use it for comparision
+    QStringList* cmpEntries = ( ++it )->second; //list for comparision, starts with the second module in the map   
+    while(it != entryMap.end()) {
+      std::set_intersection(
+        refEntries->begin(), --(refEntries->end()), //--end() is the last valid entry
+        cmpEntries->begin(), --(cmpEntries->end()),
+        std::back_inserter(goodEntries), //append valid entries to the end of goodEntries
+        my_cmpEntries  //ci_cmpEntries is the comparision function
+      );
 
-    //now see if the entries are in all other modules
-    QStringList::ConstIterator it = entries->begin();
-    EntryCountMap::ConstIterator module;
-    bool inAllModules;
-    QStringList* moduleEntries = 0;
-    while (it != entries->end()) {
-      inAllModules = true;
-      for ( module = entryCountMap.begin(), ++module; inAllModules && (module.data() != referenceModule) && (module != entryCountMap.end()); ++module ) {
-        moduleEntries = entryMap[ module.data() ];
-        inAllModules = moduleEntries && inAllModules && (moduleEntries->contains(*it) || moduleEntries->contains( (*it).upper() ));
-      }
-      if (inAllModules) { //entry is available everywhere, insert it into the good entries list!
-        goodEntries.append( (*it) );
-      };
-      ++it; //next entry
-    } //end of while loop
-    m_widget->reset(goodEntries, 0, true);
+      cmpEntries = ( ++it )->second; //this is a pointer to a string list, only use it for comparision
+      
+      /*
+      * use the good entries for next comparision,
+      * because the final list can only have the entries of goodEntries as ms maxiumum
+      */
+      *refEntries = goodEntries;
+    };
+    
+    m_widget->reset(goodEntries, 0, true); //write down the entries
   } //end of ELSE
 }
 
