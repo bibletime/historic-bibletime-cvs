@@ -158,8 +158,9 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	key->key(keyname);
 	key->renderedText(); //force entryAttributes
 	
-	QString text = QString::fromUtf8(module->module()->getEntryAttributes()["Footnote"][swordFootnote.latin1()]["body"].c_str());
+	const char* note = module->module()->getEntryAttributes()["Footnote"][swordFootnote.latin1()]["body"].c_str();
 	
+	QString text = module->isUnicode() ? QString::fromUtf8(note) : QString::fromLatin1(note);
 	text = QString::fromUtf8( module->module()->RenderText( 
 		module->isUnicode() ? (const char*)text.utf8() : (const char*)text.latin1()
 	));

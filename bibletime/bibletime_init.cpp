@@ -63,6 +63,10 @@
 #include <kglobal.h>
 #include <kpopupmenu.h>
 
+//Sword includes
+#include <swlog.h>
+
+
 /**Initializes the view of this widget*/
 void BibleTime::initView(){
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
@@ -469,6 +473,7 @@ void BibleTime::initBackends(){
 
 //  qWarning("backend constructed with a path argument! %s", path.latin1());
 	StringMgr::setSystemStringMgr( new BTStringMgr() );
+	SWLog::getSystemLog()->setLogLevel(0);
 	
 	m_backend = new CSwordBackend();
 	CPointers::setBackend(m_backend);
