@@ -182,8 +182,8 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
   aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
 
 //special message so the translator get his credits in the about box, don't remove this!
-  I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name
-  I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"); //translators eMail
+  QString dummy = I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"); //translator's name
+  dummy = I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"); //translators eMail
 
 	KCmdLineArgs::init(argc, argv, &aboutData);	
 	KCmdLineArgs::addCmdLineOptions( options );

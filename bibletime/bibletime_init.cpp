@@ -62,12 +62,11 @@
 
 /**Initializes the view of this widget*/
 void BibleTime::initView(){
-//  qWarning("BibleTime::initView()");
 	KStartupLogo::setStatusMessage(i18n("Creating BibleTime's GUI") + QString::fromLatin1("..."));	
-	
+
 	m_splitter = new QSplitter(this, "mainsplitter");
 	setCentralWidget(m_splitter);	
-	
+
 	m_mainIndex = new CMainIndex(m_splitter);
 	m_mainIndex->initTree();
 	m_mainIndex->setFocusPolicy(WheelFocus);       	
@@ -82,13 +81,11 @@ void BibleTime::initView(){
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
 }
 
-
 /** Initializes the action objects of the GUI */
 void BibleTime::initActions() {
 	KStartupLogo::setStatusMessage(i18n("Initializing menu- and toolbars") + QString::fromLatin1("..."));
 	KAction* action = 0;
 
-  
 	m_fileClearQueue_action = new KAction(i18n("Clear print queue"),
     CResMgr::mainMenu::file::clearQueue::icon,
     CResMgr::mainMenu::file::clearQueue::accel,
@@ -442,15 +439,9 @@ void BibleTime::applyProfileSettings( CProfile* p ){
 	if (!p)
 		return;
 
-	if (p->fullscreen()) { //we can set only fullscreen OR geometry
-		m_windowFullscreen_action->setChecked( true );
-		toggleFullscreen();
-	}
-	else {
-		setGeometry( p->geometry() );
-		m_windowFullscreen_action->setChecked( false );
-		toggleFullscreen();		
-	}
+	setGeometry( p->geometry() );
+	m_windowFullscreen_action->setChecked( p->fullscreen() );  //set the fullscreen button state
+	toggleFullscreen();  
 }
 
 /** Stores the settings of the mainwindow in the profile p */

@@ -58,14 +58,19 @@
 #include <ktoolbar.h>
 #include <krandomsequence.h>
 
-BibleTime::BibleTime() : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/) {
-	m_initialized = false;
-	m_moduleList  = 0;
-	m_progress = 0;
-	m_currentProfile = 0;
-	
-	m_keyAccel = accel(); //new KAccel(this);
-
+BibleTime::BibleTime() : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/),
+	m_initialized(false),
+	m_moduleList(0),
+	m_progress(0),
+	m_currentProfile(0),
+  m_keyAccel(accel()),
+  m_splitter(0),
+  m_mdi(0),
+  m_profileMgr(),
+  m_backend(0),
+  m_printer(0),
+  m_mainIndex(0)  
+{
 	connect(KApplication::kApplication(), SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
 
 	initBackends();
@@ -81,9 +86,9 @@ BibleTime::BibleTime() : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/
 	readSettings();
 
 	setPlainCaption("BibleTime " VERSION);
-	setAutoSaveSettings(QString::fromLatin1("MainWindow"), false);
 
-  //m_mainIndex->initDefaultModules() is now called in processCommandline!
+  // we don't save the geometry, it's stored in the startup profile
+  setAutoSaveSettings(QString::fromLatin1("MainWindow"), false); 
 }
 
 BibleTime::~BibleTime() {
@@ -92,16 +97,20 @@ BibleTime::~BibleTime() {
 
 /** Saves the properties of BibleTime to the application wide configfile  */
 void BibleTime::saveSettings(){
-	if (m_mdi)
-		m_mdi->saveSettings();	
-	if (m_keyAccel)
+	if (m_mdi) {
+		m_mdi->saveSettings();
+  }
+
+  if (m_keyAccel) {
 		m_keyAccel->writeSettings();
+  }
 
  	CBTConfig::set(CBTConfig::toolbar, m_viewToolbar_action->isChecked());
  	CBTConfig::set(CBTConfig::mainIndex, m_viewMainIndex_action->isChecked());
-
- 	if (m_viewMainIndex_action->isChecked())	//only save changes when the groupmanager is visible
+  
+ 	if (m_viewMainIndex_action->isChecked()) {	//only save changes when the groupmanager is visible
  		CBTConfig::set(CBTConfig::splitterSizes, m_splitter->sizes());
+  }
 
  	if (m_windowAutoTile_action->isChecked())	{
  		CBTConfig::set(CBTConfig::autoTile, true);
@@ -117,14 +126,15 @@ void BibleTime::saveSettings(){
  	}
 
 	if ( CBTConfig::get(CBTConfig::restoreWorkspace) ) {
-		if (CProfile* p = m_profileMgr.startupProfile())
+		if (CProfile* p = m_profileMgr.startupProfile()) {
 			saveProfile(p);
+    }
 	}
 }
 
 /** Reads the settings from the configfile and sets the right properties. */
 void BibleTime::readSettings(){
-	applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
+  applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
 	
 	m_keyAccel->readSettings(KGlobal::config());
 
@@ -178,16 +188,14 @@ CDisplayWindow* BibleTime::createReadDisplayWindow(CSwordModuleInfo* module, con
 }
 
 CDisplayWindow* BibleTime::createWriteDisplayWindow(CSwordModuleInfo* module, const QString& key, const CDisplayWindow::WriteWindowType& type) {
-  qWarning("BibleTime::createWriteDisplayWindow: key is %s", key.latin1());
+//  qWarning("BibleTime::createWriteDisplayWindow: key is %s", key.latin1());
 
   kapp->setOverrideCursor( waitCursor );
 
 	ListCSwordModuleInfo modules;
 	modules.append(module);
   CDisplayWindow* displayWindow = CDisplayWindow::createWriteInstance(modules, m_mdi, type);
-  Q_ASSERT(displayWindow);
   if (displayWindow) {
-//    qWarning("init and show!");
   	displayWindow->init(key);
 		displayWindow->show();
 	}
@@ -209,7 +217,7 @@ void BibleTime::refreshDisplayWindows() {
 /** Called before quit. */
 bool BibleTime::queryExit(){
 //	qWarning("BibleTime::queryExit()");
-	return true;
+//	return true;
 
   if (!m_initialized)
   	return false;
@@ -220,12 +228,13 @@ bool BibleTime::queryExit(){
 /** Called before a window is closed */
 bool BibleTime::queryClose(){
 //	qWarning("BibleTime::queryClose()");
-	return true;
+//	return true;
 
 	bool ret = true;
 	for ( unsigned int index = 0; index < m_mdi->windowList().count(); ++index) {
-		if (CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index)))
-   		ret = window->queryClose() && ret;
+		if (CDisplayWindow* window = dynamic_cast<CDisplayWindow*>(m_mdi->windowList().at(index))) {
+   		ret = ret && window->queryClose();
+    }
 	}	
 	return ret;
 }

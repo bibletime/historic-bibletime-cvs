@@ -213,45 +213,7 @@ protected: // Protected methods
 	/**
 	* Reimplementation used for sessions management.
 	*/
-	void saveProperties(KConfig* myConfig);
-
-	QPopupMenu* m_windowMenu;
-	QPopupMenu* m_editMenu;
-
-	/** FILE menu actions */
-	KAction* m_fileClearQueue_action;	
-	KAction* m_filePrint_action;	
-
-	/** VIEW menu actions */
-	KToggleAction*	m_viewToolbar_action;		
-	KToggleAction*	m_viewMainIndex_action;			
-	
-	/** WINDOW menu actions */
-	KAction*	m_windowCascade_action;
-	KAction*	m_windowTile_action;	
-	KToggleAction*	m_windowAutoCascade_action;
-	KToggleAction*	m_windowAutoTile_action;
-	KAction*	m_windowCloseAll_action;
-
-	KActionMenu*	m_windowSaveProfile_action;
- 	KAction*	m_windowSaveToNewProfile_action;
-	KActionMenu*	m_windowLoadProfile_action;	
-	KAction*	m_windowEditProfiles_action;	
-	KToggleAction*	m_windowFullscreen_action;		
-		
-	KHelpMenu* m_helpMenu;
-		
-	KAccel* m_keyAccel;
-	QSplitter* m_splitter;
-	CMDIArea* m_mdi;
-	
-	/**
-	* The list of installed SWORD modules
-	*/
-	ListCSwordModuleInfo* m_moduleList;
-	CProfile* m_currentProfile;
-	
-	bool m_initialized;
+	void saveProperties(KConfig* myConfig);	
 
 protected slots:
 	/**
@@ -374,12 +336,52 @@ private slots: // Private slots
 	void slotPrintingStarted();
 
 private:
+  QPopupMenu* m_windowMenu;
+	QPopupMenu* m_editMenu;
+
+	/** FILE menu actions */
+	KAction* m_fileClearQueue_action;
+	KAction* m_filePrint_action;
+
+	/** VIEW menu actions */
+	KToggleAction*	m_viewToolbar_action;
+	KToggleAction*	m_viewMainIndex_action;
+
+	/** WINDOW menu actions */
+	KAction*	m_windowCascade_action;
+	KAction*	m_windowTile_action;
+	KToggleAction*	m_windowAutoCascade_action;
+	KToggleAction*	m_windowAutoTile_action;
+	KAction*	m_windowCloseAll_action;
+
+	KActionMenu*	m_windowSaveProfile_action;
+ 	KAction*	m_windowSaveToNewProfile_action;
+	KActionMenu*	m_windowLoadProfile_action;
+	KAction*	m_windowEditProfiles_action;
+	KToggleAction*	m_windowFullscreen_action;
+
+	KHelpMenu* m_helpMenu;
+
+
+	bool m_initialized;
+	/**
+	* The list of installed SWORD modules
+	*/
+  ListCSwordModuleInfo* m_moduleList;
 	QProgressDialog* m_progress;
-	CProfileMgr m_profileMgr;	
+
+  CProfile* m_currentProfile;
+	KAccel* m_keyAccel;
+	QSplitter* m_splitter;
+	CMDIArea* m_mdi;
+
+	CProfileMgr m_profileMgr;
 	CSwordBackend* m_backend;
 	CPrinter* m_printer;
 
 	CMainIndex* m_mainIndex;
+
+
 };
 
 #endif
