@@ -498,9 +498,9 @@ void CRangeChooserDialog::initView(){
   m_rangeList->header()->setMovingEnabled(false);
   grid->addMultiCellWidget(m_rangeList,0,4,0,1);
 
-  QPushButton* newRange = new QPushButton(i18n("Add new range"),plainPage());
-  connect(newRange, SIGNAL(clicked()), this, SLOT(addNewRange()));
-  grid->addWidget(newRange,5,0);
+  m_newRangeButton = new QPushButton(i18n("Add new range"),plainPage());
+  connect(m_newRangeButton, SIGNAL(clicked()), this, SLOT(addNewRange()));
+  grid->addWidget(m_newRangeButton,5,0);
 
   m_deleteRangeButton = new QPushButton(i18n("Delete current range"),plainPage());
   connect(m_deleteRangeButton, SIGNAL(clicked()), this, SLOT(deleteCurrentRange()));
@@ -537,7 +537,9 @@ void CRangeChooserDialog::initView(){
 
 /** Initializes the connections of this widget. */
 void CRangeChooserDialog::initConnections(){
-  connect(m_rangeList, SIGNAL(executed(QListViewItem*)),
+//  connect(m_rangeList, SIGNAL(executed(QListViewItem*)),
+//    this, SLOT(editRange(QListViewItem*)));
+  connect(m_rangeList, SIGNAL(selectionChanged(QListViewItem*)),
     this, SLOT(editRange(QListViewItem*)));
 
   connect(m_rangeEdit, SIGNAL(textChanged()),
@@ -601,10 +603,15 @@ void CRangeChooserDialog::nameChanged(const QString& newCaption){
   m_resultList->setEnabled(!newCaption.isEmpty());
   m_resultList->header()->setEnabled(!newCaption.isEmpty());  
 
-  if (!newCaption.isEmpty()) {
-    if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
-      i->setCaption(newCaption);
-      m_rangeList->sort();
+  if (RangeItem* i = dynamic_cast<RangeItem*>(m_rangeList->currentItem())) {
+    if (!newCaption.isEmpty()) {
+        m_newRangeButton->setEnabled(true);
+        i->setCaption(newCaption);        
+        m_rangeList->sort();
+    }
+    else { //invalid name
+      i->setCaption(i18n("<invalid name of search range>"));
+      m_newRangeButton->setEnabled(false);
     };
   };
 }

@@ -242,7 +242,7 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 		case Glossary:
 			return m_module->getConfig().has("Feature", "Glossary");		
 	}
-	return 0;
+	return false;
 }
 
 const bool CSwordModuleInfo::has( const CSwordBackend::FilterTypes option ){

@@ -174,7 +174,9 @@ const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QStr
   const QString defaultEnding = module ? QString::fromLatin1("  (<SMALL>%1 \"%2\"</SMALL>)").arg(i18n("Module")).arg(module->name()) : i18n("module not set!");
 	if (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) {
 	  QString text = QString::null;
-	 	ListKey keys = VerseKey().ParseVerseList((const char*)keyName.local8Bit(),"Genesis 1:1", true);
+    qWarning("want to parse the key %s", keyName.latin1());
+    ListKey keys = VerseKey().ParseVerseList((const char*)keyName.local8Bit(),VerseKey("Genesis 1:1"), true);
+    qWarning("parsed the key %s", keyName.latin1());
 	  if (VerseKey* element = dynamic_cast<VerseKey*>(keys.GetElement(0)))
 			text = QString::fromLatin1("%1-%2").arg((const char*)element->LowerBound()).arg((const char*)element->UpperBound());
 	  else

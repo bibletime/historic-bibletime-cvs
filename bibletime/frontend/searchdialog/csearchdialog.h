@@ -268,6 +268,7 @@ private:
   KListView* m_resultList;
   QLineEdit* m_nameEdit;
   QTextEdit* m_rangeEdit;
+  QPushButton* m_newRangeButton;
   QPushButton* m_deleteRangeButton;
 };
 

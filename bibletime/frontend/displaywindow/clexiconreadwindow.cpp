@@ -88,8 +88,8 @@ void CLexiconReadWindow::initView(){
 	addDockWindow(mainToolBar());
 
 	setKeyChooser( CKeyChooser::createInstance(modules(), key(), mainToolBar()) );
-	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());	
-//	mainToolBar()->setItemAutoSized(0);
+	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
+ 	mainToolBar()->setFullSize(false);
 
 	setModuleChooserBar( new CModuleChooserBar(modules(), modules().first()->type(), mainToolBar()) );
 	mainToolBar()->insertWidget(1,moduleChooserBar()->sizeHint().width(),moduleChooserBar());	  

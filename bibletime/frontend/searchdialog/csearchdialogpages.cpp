@@ -75,7 +75,7 @@ void CSearchResultView::initView(){
 
 /** No descriptions */
 void CSearchResultView::initConnections(){
-  connect(this, SIGNAL(executed(QListViewItem*)),
+  connect(this, SIGNAL(selectionChanged(QListViewItem*)),
 	  SLOT(executed(QListViewItem*)));  
 }
 

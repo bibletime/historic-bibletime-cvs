@@ -40,10 +40,10 @@ CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *
 	
  //we use a layout because the key chooser should be resized to full size
  	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
-  m_layout->setResizeMode(QLayout::Minimum);
+  m_layout->setResizeMode(QLayout::FreeResize);
 
 	m_widget = new CKeyChooserWidget(0, false, this);
-	m_widget->comboBox()->setMaximumWidth(450);	
+	m_widget->comboBox()->setMaximumWidth(450);
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,TT_PRESENTER_NEXT_ENTRY, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_ENTRY);
 	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,WT_PRESENTER_NEXT_ENTRY, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_ENTRY);
 	

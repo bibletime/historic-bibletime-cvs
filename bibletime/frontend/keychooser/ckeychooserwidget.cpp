@@ -104,23 +104,6 @@ void CKCComboBox::wheelEvent( QWheelEvent* e ) {
 	}
 }
 
-///** Returns the size this widget would like to have. */
-//QSize CKCComboBox::sizeHint() const {
-//	// IMHO Qt has a bug: The sizehint is not updated if the list is refreshed with other items
-//	const QSize oldSize = QComboBox::sizeHint();
-//	QRect contentsRect = style().querySubControlMetrics( QStyle::CC_ComboBox , this, QStyle::SC_ComboBoxArrow);
-////(0,0, oldSize.width(), oldSize.height());
-//	const int buttonWidth = (oldSize.width() - contentsRect.width());
-//
-//	if (listBox())	{
-//		return QSize( listBox()->sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());
-//	}
-//	else {
-//		return QSize( QComboBox::sizeHint().width()+buttonWidth, QComboBox::sizeHint().height());	
-//	}
-//}
-
-
 //**********************************************************************************/
 
 CKeyChooserWidget::CKeyChooserWidget(int count, const bool useNextPrevSignals,  QWidget *parent, const char *name) : QWidget(parent,name) {
@@ -170,7 +153,6 @@ void CKeyChooserWidget::changeCombo(int i){
 }
 
 void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
-//	qWarning("CKeyChooserWidget::reset(const int count, int index, bool do_emit)");
 	if (!isUpdatesEnabled())
 		return;
 
@@ -195,26 +177,21 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	if (isResetting || !isUpdatesEnabled())
 		return;
 	isResetting = true;	
-//	setUpdatesEnabled(false);
-//	m_comboBox->setUpdatesEnabled(false);
-
-//	m_mainLayout->setResizeMode(QLayout::Minimum);
-  m_mainLayout->setDirection(QBoxLayout::LeftToRight);
 	
 	oldKey = QString::null;
-	m_comboBox->clear();
-	if (list)
-		m_comboBox->insertStringList(*list);
-//	m_comboBox->resize( m_comboBox->sizeHint() );
-//	m_comboBox->setUpdatesEnabled(true);			
-	
 
-	
+  //DON'T REMOVE THE HIDE: Otherwise QComboBox's sizeHint() function won't work properly
+  m_comboBox->setUpdatesEnabled(false);
+  m_comboBox->hide();
+  m_comboBox->clear(); 
+	if (list) {
+		m_comboBox->insertStringList(*list);
+  }
 	m_comboBox->setCurrentItem(index);	
 	if (!list || (list && !list->count())) { //nothing in the combobox
 		btn_up->setEnabled( true );
 		btn_fx->setEnabled( true );
-		btn_down->setEnabled( true );		
+		btn_down->setEnabled( true );	
 		setEnabled(false);
 	}
 	else if (!isEnabled()) { //was disabled
@@ -224,18 +201,15 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		btn_fx->setEnabled( enableButtons );
 		btn_down->setEnabled( list && (list->count()>1) );
 	}
-//	setUpdatesEnabled(true);
 	
 	if (do_emit) {
 		emit changed(m_comboBox->currentItem());				
 	}
 
   qWarning("combo size hint: %i x %i", m_comboBox->sizeHint().width(), m_comboBox->sizeHint().height());
-//  m_mainLayout->setResizeMode(QLayout::FreeResize);
-//  m_comboBox->setMaximumWidth( m_comboBox->sizeHint().width() );
-//  m_comboBox->adjustSize();
-//  m_mainLayout->setResizeMode(QLayout::Minimum);    
-  adjustSize();
+  //DON'T REMOVE OR MOVE THE show()! Otherwise QComboBox's sizeHint() function won't work properly!
+  m_comboBox->show();
+  m_comboBox->setUpdatesEnabled(true);
 
 	isResetting = false;	
 }
@@ -254,8 +228,6 @@ void CKeyChooserWidget::unlock(void){
 
 /** Initializes this widget. We need this function because we have more than one constructor. */
 void CKeyChooserWidget::init(){
-//	setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
-    
 	oldKey = QString::null;
 	btn_up = btn_down = btn_fx = 0;
 
@@ -265,30 +237,22 @@ void CKeyChooserWidget::init(){
 	m_comboBox->setAutoCompletion( true );
 	m_comboBox->setInsertionPolicy(QComboBox::NoInsertion);
 	m_comboBox->setFocusPolicy(QWidget::WheelFocus);
-//	m_comboBox->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed));	  
 	
 	m_mainLayout = new QHBoxLayout( this );
-//  m_mainLayout->setResizeMode(QLayout::FreeResize);  
 	m_mainLayout->addWidget(m_comboBox,5);
   
-
 	QVBoxLayout* m_buttonLayout = new QVBoxLayout();	
 	m_buttonLayout->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);
-		
+
 	btn_up = new QToolButton( UpArrow, this, "btn_up" );	
-//	QIconSet iconSet = getUpIconSet();
-//	btn_up->setIconSet( iconSet );
 	btn_up->setFixedSize(WIDTH, ARROW_HEIGHT);
 	btn_up->setFocusPolicy(QWidget::NoFocus);	
 	
 	btn_fx = new cfx_btn( this, "btn_fx" );
-//	QIconSet iconSet = getMoverIconSet();
 	btn_fx->setFixedSize(WIDTH, MOVER_HEIGHT);
 	btn_fx->setFocusPolicy(QWidget::NoFocus);	
 	
 	btn_down = new QToolButton( DownArrow, this, "btn_down" );	
-//	iconSet = getDownIconSet();
-//	btn_down->setIconSet( iconSet );
 	btn_down->setFixedSize(WIDTH, ARROW_HEIGHT);
 	btn_down->setFocusPolicy(QWidget::NoFocus);	
 	
@@ -360,55 +324,18 @@ void CKeyChooserWidget::slotComboChanged(int index){
 	setUpdatesEnabled(true);		
 }
 
-
-///** Returns the icons set which contains the down button. */
-//QIconSet CKeyChooserWidget::getUpIconSet(){
-//	const int x = WIDTH - 4;
-//  const int y = ARROW_HEIGHT - 4;
-//  QPixmap pix(x, y);
-//	QPainter p(&pix);
-//	p.fillRect(0,0, x, y, colorGroup().background());
-//	style().drawPrimitive(QStyle::PE_ArrowUp, &p, QRect(0,0, x, y), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
-//	return QIconSet(pix);
-//}
-
-/** Returns the icons set which contains the down button. */
-//QIconSet CKeyChooserWidget::getDownIconSet(){
-//	const int x = WIDTH - 4;
-//  const int y = ARROW_HEIGHT - 4;
-//  QPixmap pix(x, y);
-//	QPainter p(&pix);
-//	p.fillRect(0,0, x, y, colorGroup().background());
-//	style().drawPrimitive(QStyle::PE_ArrowDown, &p, QRect(0,0, x, y), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
-//	return QIconSet(pix);
-//}
-
-/** Returns the icons set for the button used to change the current item. */
-//QIconSet CKeyChooserWidget::getMoverIconSet(){
-//  const int x = WIDTH - 2;
-//  const int y = MOVER_HEIGHT - 2;
-//  QPixmap pix(x, y);
-//	QPainter p(&pix);
-//	p.fillRect(0,0, x-1, y-1, colorGroup().background());
-//	p.fillRect(2,2, x-3, y-3, colorGroup().foreground());
-//	return QIconSet(pix);
-//}
-//#undef WIDTH
-//#undef ARROW_HEIGHT
-//#undef MOVER_HEIGHT
-
 /**  */
-void CKeyChooserWidget::adjustSize( ){
-//	setUpdatesEnabled(false);
-
-  QWidget::adjustSize();
-
-//  QSize s = sizeHint();
-//	if (s.width() > maximumWidth())
-//		s.setWidth( maximumWidth() );
-//	resize(s);
-//	setUpdatesEnabled(true);	
-}
+//void CKeyChooserWidget::adjustSize( ){
+////	setUpdatesEnabled(false);
+//
+//  QWidget::adjustSize();
+//
+////  QSize s = sizeHint();
+////	if (s.width() > maximumWidth())
+////		s.setWidth( maximumWidth() );
+////	resize(s);
+////	setUpdatesEnabled(true);
+//}
 
 /** Sets the tooltips for the given entries using the parameters as text. */
 void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){

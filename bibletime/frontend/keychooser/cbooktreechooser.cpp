@@ -100,7 +100,8 @@ CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	
   m_treeView = new KListView(this);
 	layout->addWidget(m_treeView);	
-	connect( m_treeView, SIGNAL(executed(QListViewItem*)), SLOT(itemClicked(QListViewItem*)));
+//	connect( m_treeView, SIGNAL(executed(QListViewItem*)), SLOT(itemClicked(QListViewItem*)));
+	connect( m_treeView, SIGNAL(selectionChanged(QListViewItem*)), SLOT(itemClicked(QListViewItem*)));  
 	m_treeView->addColumn("Tree");	
 	m_treeView->header()->resizeSection( 0,m_treeView->sizeHint().width());
 	m_treeView->header()->setResizeEnabled(-1);

@@ -106,7 +106,7 @@ public:
   /**
   *
   */
-  virtual void adjustSize();
+//  virtual void adjustSize();
   /**
   * Sets the QWhatsThis help for the different parts.
   */
