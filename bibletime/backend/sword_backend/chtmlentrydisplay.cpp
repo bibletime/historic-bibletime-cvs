@@ -89,17 +89,17 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 		m_htmlText = QString::null;
 		return 0;
 	}
-  QString FontName = m_standardFontName;
-  int FontSize = m_standardFontSize;
+  	QString FontName = m_standardFontName;
+  	int FontSize = m_standardFontSize;
 
-  CSwordKey* key = 0;
-  if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible)
+  	CSwordKey* key = 0;
+  	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible)
 		key = new CSwordVerseKey(moduleList->first());
-  else if (moduleList->first()->getType() == CSwordModuleInfo::Lexicon)
+	else if (moduleList->first()->getType() == CSwordModuleInfo::Lexicon)
 		key = new CSwordLDKey(moduleList->first());
-	
-  	
+	  	
 	SWModule* module = moduleList->first()->module();		
+	QString usedKey;
 	CSwordModuleInfo *d = 0;	
 	SWModule *m= (d = moduleList->first()) ? d->module() : 0;	
 	
@@ -108,41 +108,46 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 		vk->Persist(1);
 		
 		key->key((const char*)*vk);
+		usedKey = key->key();
 		VerseKey k(*vk);
 		
 		m = (d = moduleList->first()) ? d->module() : 0;	
 		while (m) {
-	    m = (d=moduleList->next()) ? d->module() : 0;
-	    if (m)
+	    	m = (d=moduleList->next()) ? d->module() : 0;
+	    	if (m)
 				m->SetKey( (const char*)k );
 		}	
 	}
 	else { //lexicon
 		SWKey* lk = (SWKey*)*module;
-		lk->Persist(1);		
-		
-		key->key((const char*)*lk);		
-		SWKey k = (const char*)*lk;
-		
+		lk->Persist(1);
+		key->key((const char*)*lk);
+		usedKey = key->key();
+				
 		m = (d = moduleList->first()) ? d->module() : 0;	
 		while (m) {
-	    m = (d=moduleList->next()) ? d->module() : 0;
-	    if (m)
-				m->SetKey( (const char*)k );
+	    	m = (d=moduleList->next()) ? d->module() : 0;
+	    	if (m){
+				m->SetKey( (const char*)lk );
+				(const char*)*m; //snap to entry
+			}
 		}		
 	}
-
-	key->key( module->KeyText() );
 	
 	const int width=(int)((double)100/(double)moduleList->count());
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<TABLE cellpadding=\"2\" cellspacing=\"0\"><TR>"); 	
-	m = (d = moduleList->first()) ? d->module() : 0;	
 	
+	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
-    if (m)
-			m_htmlText.append(QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2</B></TD>")
-				.arg(width)
-				.arg(QString::fromLocal8Bit(m->Name())));
+		key->module(d);
+	    if (m)
+			m_htmlText.append(
+				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2 (<FONT COLOR=\"%3\">%4</FONT>)</B></TD>")
+					.arg(width)
+					.arg(QString::fromLocal8Bit(m->Name()))
+					.arg(m_highlightedVerseColor)
+					.arg(key->key())
+			);
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
 	m_htmlText.append(QString::fromLatin1("</TR>"));
@@ -150,27 +155,28 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	m = (d = moduleList->first()) ? d->module() : 0;
 	m_htmlText.append(QString::fromLatin1("<TR>"));
 	while (m) {
-	  if (d && d->hasFont()){ //use custom font
-	    QFont font = d->getFont();
-	    FontName = font.family();
-	    FontSize = CToolClass::makeLogicFontSize(font.pointSize());
-	  }	
-	  else {
- 		 	FontName = m_standardFontName;
+		if (d && d->hasFont()) { //use custom font
+	    	QFont font = d->getFont();
+		    FontName = font.family();
+		    FontSize = CToolClass::makeLogicFontSize(font.pointSize());
+		}
+		else {
+			FontName = m_standardFontName;
 			FontSize = m_standardFontSize;
-	  }
-		key->module(d);	
+		}
+		key->module(d);
+//		(const char*)*m; //snap to entry
+		key->key(usedKey);
 		m_htmlText.append(
 			QString::fromLatin1("<TD width=\"%1%\"><FONT SIZE=\"%2\" FACE=\"%3\">%4</FONT></TD>")
 				.arg(width)
 				.arg(FontSize)
 				.arg(FontName)
-				.arg(/*QString::fromLocal8Bit((const char*)*m)*/key->renderedText())
-				
-			);
+				.arg(key->renderedText())					
+		);
 		m = (d = moduleList->next()) ? d->module() : 0;		
 	}
-	m_htmlText.append( QString::fromLatin1("</TR></TABLE>%1").arg(m_htmlBody) );	
+	m_htmlText + QString::fromLatin1("</TR></TABLE>") + m_htmlBody;	
 
 	delete key;
 	return 0;

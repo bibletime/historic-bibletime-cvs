@@ -38,8 +38,10 @@ const QString CSwordKey::renderedText() {
 	if (!m_module)
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);
-	if (k)
+	if (k) {
 		m_module->module()->SetKey(k);	
+//		(const char*)*(m_module->module());//snapp to entry
+	}
 		
 	switch (m_module->encoding()) {
 		case QFont::Unicode:
@@ -47,15 +49,16 @@ const QString CSwordKey::renderedText() {
 		default:
 			return QString::fromLocal8Bit( (const char*)*m_module->module() );		
 	}
-
 }
 
 const QString CSwordKey::strippedText() {
 	if (!m_module)
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);
-	if (k)
+	if (k) {
 		m_module->module()->SetKey(k);	
+//		(const char*)*(m_module->module()); //snapp to entry
+	}
 		
 	switch (m_module->encoding() == QFont::Unicode) {
 		case QFont::Unicode:

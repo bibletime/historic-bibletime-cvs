@@ -50,7 +50,7 @@ CSwordModuleInfo* CSwordLDKey::module(CSwordModuleInfo* newModule){
 	if (newModule && newModule->getType() == CSwordModuleInfo::Lexicon) {
 		m_module = newModule;
 		key(oldKey);
-	}
+	}	
 	return m_module;
 }
 

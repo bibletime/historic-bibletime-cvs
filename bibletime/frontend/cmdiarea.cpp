@@ -72,7 +72,7 @@ void CMDIArea::initConnections(){
 void CMDIArea::slotClientActivated(QWidget* client){
 	if (!client)
 		return;				
-	emit sigSetToplevelCaption( client->caption().stripWhiteSpace() );	
+	emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(client->caption().stripWhiteSpace()) );	
 	
 	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
 	if (p)
@@ -89,7 +89,7 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 	
 	if (!windowList().count()) {
 		emit sigLastPresenterClosed();
-		emit sigSetToplevelCaption( QString() );
+		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(QString()) );
 	}	
 	if (!e) {
 		m_childEvent = false;
@@ -241,4 +241,6 @@ void CMDIArea::deleteCurrentPresenter(){
 		delete m_currentPresenter;
 		m_currentPresenter = 0;
 	}
+	QString currentCaption = activeWindow() ? activeWindow()->caption() : QString::null;
+	emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(currentCaption) );	
 }
