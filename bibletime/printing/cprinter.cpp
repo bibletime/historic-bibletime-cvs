@@ -540,6 +540,6 @@ const int CPrinter::getVerticalPos() const {
 /** Sets the vertical position of the printer's painter. */
 void CPrinter::setVerticalPos( const int yPos ){
 	m_pagePosition.rect.setY(yPos);
-	if (m_pagePosition.rect.y() >= getPageSize().height() )
-		newPage();
+//	if (m_pagePosition.rect.y() >= getPageSize().height() )
+//		newPage();
 }

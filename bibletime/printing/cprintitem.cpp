@@ -326,26 +326,30 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		}
 		else if (type == CStyle::ModuleText) {		
 			qDebug("draw the module text");
+			qDebug("page heitgh == %i\nlower margin == %i", printer->getPageSize().height(), printer->lowerMargin());
 			p->save();
-    	Qt3::QSimpleRichText richText( text, font, QString::null, Qt3::QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin());
-    	qDebug(QString::number(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin()).latin1());
+    	Qt3::QSimpleRichText richText( text, font, QString::null, Qt3::QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()/*+printer->upperMargin()*/);
+    	qDebug("page break bborder == %i",printer->getPageSize().height()-printer->getVerticalPos()/*+printer->upperMargin()*/);
     	richText.setWidth( p, printer->getPageSize().width() );
+	    qDebug("richText.height() == %i", richText.height());   			    	
     	QRect view( printer->getPageSize() );
     	do {
         richText.draw(p,printer->leftMargin(),printer->getVerticalPos(),view,cg);   			
-   			printer->setVerticalPos(printer->getVerticalPos()+richText.height());		
-				const int movePixs = (richText.height() >= (printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height();
-		    view.moveBy( 0,movePixs);
+				const int movePixs = (richText.height() > (printer->getPageSize().height()-printer->getVerticalPos()/*+printer->upperMargin()*/)) ? ( printer->getPageSize().height()-printer->getVerticalPos()/*+printer->upperMargin()*/ ) : richText.height();
+		    qDebug("vertical pos %i", printer->getVerticalPos());
+   			printer->setVerticalPos(printer->getVerticalPos()+movePixs);		
+		    qDebug("view.y == %i", view.y());		
+		    view.moveBy( 0,movePixs);		
         p->translate( 0,-movePixs);
-				qDebug(QString::number(richText.height()).latin1());
-				qDebug(QString::number(richText.widthUsed()).latin1());				
+				qDebug("move pixs == %i", movePixs);
         if ( view.top() >= richText.height() )
     			break;
+    		qDebug("new page");
     		printer->newPage();
     	} while (true);
 			p->restore();
     }
-		printer->setVerticalPos(printer->getVerticalPos() + PARAGRAPH_SPACE);
 	}	
+	printer->setVerticalPos(printer->getVerticalPos() + PARAGRAPH_SPACE);	
 }
 
