@@ -788,10 +788,10 @@ CSwordBackend::displayOptionsBool COptionsDialog::getAllDisplayOptionDefaults( v
 }
 
 /** Opens the page which contaisn the given part ID. */
-const bool COptionsDialog::showPart( int ID ){
-	//add the necessary case statements
+const bool COptionsDialog::showPart(  COptionsDialog::Parts ID ){
+#warning add the necessary case statements
 	switch (ID) {
-		case DisplayWindows::ViewProfilesSettings:
+		case COptionsDialog::ViewProfiles:
 			showPage( pageIndex(m_displayWindows.profiles.profiles->parentWidget()) );
 			break;
 		default:

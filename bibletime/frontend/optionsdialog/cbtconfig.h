@@ -18,15 +18,29 @@
 #ifndef CBTCONFIG_H
 #define CBTCONFIG_H
 
+#include <qstring.h>
+#include <qfont.h>
 
 /**This class is the interface to the config object of BibleTime
   *@author The BibleTime team
   */
 
 class CBTConfig {
-public: 
-	CBTConfig();
-	~CBTConfig();
+public:
+
+	enum strings{
+	};
+	enum fonts{
+	};
+	enum colors{
+	};
+	enum bools{
+	};
+
+  /** No descriptions */
+  static QString get( CBTConfig::strings );
+  /** No descriptions */
+  static QFont get(CBTConfig::fonts );
 };
 
 #endif

@@ -17,7 +17,15 @@
 
 #include "cbtconfig.h"
 
-CBTConfig::CBTConfig(){
+#include <kconfig.h>
+
+/* 	No constructor and destructor, because this class only contains static methods.
+		It won't be instantiated. */
+
+
+/** No descriptions */
+QString CBTConfig::get( CBTConfig::strings ){
 }
-CBTConfig::~CBTConfig(){
+/** No descriptions */
+QFont CBTConfig::get(CBTConfig::fonts ){
 }

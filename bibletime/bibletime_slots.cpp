@@ -436,7 +436,7 @@ void BibleTime::toggleFullscreen(){
 void BibleTime::editProfiles(){
 	COptionsDialog *dlg = new COptionsDialog(m_important, this, "COptionsDialog", m_keyAccel);
   connect(dlg, SIGNAL(signalSettingsChanged(const int)), SLOT(slotSettingsChanged(const int)) );
-	dlg->showPart(COptionsDialog::DisplayWindows::ViewProfilesSettings);	
+	dlg->showPart(COptionsDialog::ViewProfiles);	
 	dlg->exec();
 
 	dlg->delayedDestruct();	
