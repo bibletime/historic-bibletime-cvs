@@ -214,6 +214,9 @@ const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions
 		case CSwordBackend::strongNumbers:
 			text = "Strongs";
 			break;			
+		case CSwordBackend::headings:
+			text = "Headings";
+			break;			
 	}	
 	
 	for (; start != end; start++) {
@@ -237,7 +240,6 @@ const QFont CSwordModuleInfo::getFont(){
   	family = QString::fromLocal8Bit( familyString.c_str() );
   if (strlen(sizeString.c_str()))
   	size = QString::fromLocal8Bit( sizeString.c_str() ).toInt();
-  //QFont f( family, size );
   QFont f;
   f.setCharSet(QFont::AnyCharSet);
   f.setFamily( family );

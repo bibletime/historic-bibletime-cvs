@@ -53,7 +53,8 @@ public:
  	*/
   enum moduleOptions {
   	footnotes	= 0x000000001,
-  	strongNumbers	= 0x000000002
+  	strongNumbers	= 0x000000002,
+  	headings = 0x000000004
 	};
   enum errorCode {
 		noError,

@@ -193,8 +193,11 @@ const bool CSwordBackend::isOptionEnabled( const CSwordBackend::moduleOptions ty
 			break;
 		case CSwordBackend::strongNumbers:
 			optionName = (char*)"Strong's Numbers";
-			break;			
-	}	
+			break;
+		case CSwordBackend::headings:
+			optionName = (char*)"Headings";
+			break;
+	}
 	return (bool)getGlobalOption(optionName);
 }
 
@@ -207,6 +210,9 @@ void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bo
 			break;
 		case CSwordBackend::strongNumbers:
 			optionName = (char*)"Strong's Numbers";
+			break;
+		case CSwordBackend::headings:
+			optionName = (char*)"Headings";
 			break;			
 	}	
 	setGlobalOption(optionName, enable ? "On": "Off");

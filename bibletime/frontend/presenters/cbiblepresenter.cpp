@@ -40,6 +40,7 @@ CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClas
 	if (m_moduleList.first())
 		m_key = new CSwordVerseKey(m_moduleList.first());	
 	m_key->setKey("Genesis 1:1");
+	m_key->Headings(1);
 	
 	initView();
 	show();	

@@ -63,7 +63,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	}
 }
 
-	int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) {
 	//create about data for this application
 	static KCmdLineOptions options[] = {
 		{ "debug", I18N_NOOP("Enable debug messages."), 0 }
