@@ -1,6 +1,6 @@
 #!/bin/sh
 myDir=/opt/kde3/include/
-target=../bibletime-doc
+target=../bibletime-doc-1.2
 
 current=$PWD
 
