@@ -214,6 +214,7 @@ int main(int argc, char* argv[]) {
 		setSignalHandler(signalHandler);		
 		
 		const int ret = app.exec();
+		delete bibletime;
 		CPointers::deleteBackend();
 		return ret;
 	}

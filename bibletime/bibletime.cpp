@@ -59,7 +59,7 @@
 #include <kmenubar.h>
 #include <ktoolbar.h>
 
-BibleTime::BibleTime() : KMainWindow() {
+BibleTime::BibleTime() : KMainWindow(0,0,WType_TopLevel) {
 	m_initialized = false;
 	m_moduleList  = 0;
 	m_progress = 0;
