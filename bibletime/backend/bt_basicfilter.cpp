@@ -60,7 +60,7 @@ const string BT_BASICFILTER::parseSimpleRef(const string& ref) {
 
 /** Parses the verse reference ref and returns it. */
 const string BT_BASICFILTER::parseRef(const string ref, sword::SWModule* module, const bool insertFullRef) {
-  qWarning("parsing %s", ref.c_str());
+  qWarning("parsing %s with %s", ref.c_str(), m_key ? m_key->getText() : "");
   /**
   * This function should be able to parse references like "John 1:3; 3:1-10; Matthew 1:1-3:3"
   * without problems.
@@ -68,10 +68,9 @@ const string BT_BASICFILTER::parseRef(const string ref, sword::SWModule* module,
   const string moduleName = string( module ? module->Name() : standard_bible );
 
   sword::VerseKey parseKey;
- 	const char* lang = module ? module->Lang() : "en";
- 	parseKey.setLocale( lang ); //we assume that the keys are in english or in the module's language
+ 	parseKey.setLocale( m_module ? m_module->Lang() : "en" ); //we assume that the keys are in english or in the module's language
   
- 	parseKey = m_key ? (const char*)*m_key : "Genesis 1:1"; //use the current key if there's any
+ 	parseKey = (m_key) ? (const char*)*m_key : "Genesis 1:1"; //use the current key if there's any
  	sword::ListKey list;
   string ret;
   	
@@ -93,11 +92,12 @@ const string BT_BASICFILTER::parseRef(const string ref, sword::SWModule* module,
     sword::SWKey* key = 0;
 	 	for(int i = 0; i < count; i++) {
 	 		key = list.GetElement(i);
+      qWarning(key->getText());
   		ret += string("<span id=\"reference\"><a href=\"sword://Bible/") + moduleName + "/"; 
  			if ( sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key) ) {
  				vk->setLocale("en");
- 				vk->LowerBound().setLocale("en");
- 				vk->UpperBound().setLocale("en");
+// 				vk->LowerBound().setLocale("en");
+// 				vk->UpperBound().setLocale("en");
 
         ret += string(vk->getRangeText()) + "\">";
         parseKey = *vk;
@@ -105,8 +105,8 @@ const string BT_BASICFILTER::parseRef(const string ref, sword::SWModule* module,
       else {
         sword::VerseKey vk = key->getText();
  				vk.setLocale("en");
- 				vk.LowerBound().setLocale("en");
- 				vk.UpperBound().setLocale("en");
+// 				vk.LowerBound().setLocale("en");
+// 				vk.UpperBound().setLocale("en");
      
         ret += string(vk.getRangeText()) + "\">";
         parseKey = vk;

@@ -73,8 +73,8 @@ protected:
 	
 	char standard_bible[200];
 
-	const sword::SWKey *m_key;
-	const sword::SWModule* m_module;
+	sword::SWKey *m_key;
+	sword::SWModule* m_module;
 };
 
 #endif

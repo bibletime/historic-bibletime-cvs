@@ -596,7 +596,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	int current_item = -1;
  	for(int test_item = 0; test_item < m_settings.swords.localeCombo->count(); test_item++) {
  		sword::SWLocale* locale = sword::LocaleMgr::systemLocaleMgr.getLocale(CBTConfig::get(CBTConfig::language).local8Bit());
- 		if (locale && m_settings.swords.localeCombo->text(test_item).contains(i18n(locale->getDescription())) )
+ 		if (locale && (m_settings.swords.localeCombo->text(test_item) == i18n(locale->getDescription())) )
  			current_item = test_item;
  	}
  	if (current_item!=-1)
