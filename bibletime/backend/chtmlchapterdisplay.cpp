@@ -28,10 +28,6 @@
 //Sword includes
 #include <versekey.h>
 
-#include <kconfig.h>
-#include <kglobal.h>
-#include <klocale.h>
-
 
 /** The constructor */
 CHTMLChapterDisplay::CHTMLChapterDisplay(){
@@ -57,12 +53,18 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	}
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");//dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
 	
-  QString FontName = m_standardFontName;
-  int FontSize = m_standardFontSize;
+  //automatically reloaded with every display() call
+	QString StandardFontName = CToolClass::getDisplayStandardFont().family();
+	QString UnicodeFontName = CToolClass::getDisplayUnicodeFont().family();
+  int StandardFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayStandardFont().pointSize() );
+  int UnicodeFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayUnicodeFont().pointSize() );
+
+ 	QString FontName = StandardFontName;
+ 	int FontSize = StandardFontSize;
 
   if (module->encoding() == QFont::Unicode){ //use custom font?
-    FontName = m_unicodeFontName;
-    FontSize = m_unicodeFontSize;
+    FontName = UnicodeFontName;
+    FontSize = UnicodeFontSize;
   }
 
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.NextVerse()) {
@@ -94,7 +96,17 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		return 0;
 	}
 
-	QMap<CSwordModuleInfo*, QFont> fontMap;	
+  //automatically reloaded with every display() call
+	QString StandardFontName = CToolClass::getDisplayStandardFont().family();
+	QString UnicodeFontName = CToolClass::getDisplayUnicodeFont().family();
+  int StandardFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayStandardFont().pointSize() );
+  int UnicodeFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayUnicodeFont().pointSize() );
+
+ 	QString FontName = StandardFontName;
+ 	int FontSize = StandardFontSize;
+
+
+//	QMap<CSwordModuleInfo*, QFont> fontMap;	
 	SWModule* module = moduleList->first()->module();		
 		
 	VerseKey* vk = (VerseKey*)(SWKey*)*module;
@@ -112,13 +124,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
 
-#warning change concept of the fontmap -- no longer per module
 	while (m) {
-		if (d && d->encoding() == QFont::Unicode ){
-      KConfig* config = KGlobal::config();
-      KConfigGroupSaver groupSaver(config,"Fonts");
-      fontMap.insert(d, config->readFontEntry( i18n("Display window Unicode") ).family() );
-    }
     if (m)
 			m_htmlText +=
 				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%1</B></TD>").arg((int)((double)100/(double)moduleList->count())).arg(d->name());
@@ -142,8 +148,8 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 			rowText += QString::fromLatin1("<TD %1 BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\" %5>%6</FONT></TD>\n")
 				.arg(QString::fromLatin1("width=\"%1%\"").arg(width))
 				.arg(currentVerse % 2 ? "white" : "#F1F1F1")
-				.arg(fontMap.contains(d) ? fontMap[d].family() : m_standardFontName)
-				.arg(fontMap.contains(d) ? CToolClass::makeLogicFontSize(fontMap[d].pointSize()) : m_standardFontSize)
+				.arg(d->encoding()==QFont::Unicode ? UnicodeFontName : StandardFontName)
+				.arg(d->encoding()==QFont::Unicode ? UnicodeFontSize : StandardFontSize)
 				.arg((currentVerse == chosenVerse) ? QString::fromLatin1("color=\"%1\"").arg(m_highlightedVerseColor) : QString::null)
 				.arg(current.renderedText());
 			m = (d = moduleList->next()) ? d->module() : 0;

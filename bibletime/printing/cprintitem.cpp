@@ -25,6 +25,7 @@
 #include "../backend/cswordversekey.h"
 #include "../backend/cswordldkey.h"
 #include "../backend/chtmlentrydisplay.h"
+#include "../frontend/ctoolclass.h"
 
 //Qt includes
 #include <qsimplerichtext.h>
@@ -318,9 +319,10 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		else if (type == CStyle::ModuleText) {		
 			p->save();
 			CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(m_module);
-#warning todo: use UTF-8 specific font
-//			if (m && m->encoding() == QFont::Unicode )
-//				font = m->getFont();
+
+			if (m && m->encoding() == QFont::Unicode )
+				font = CToolClass::getDisplayUnicodeFont();
+
 			if (alignement == CStyleFormat::Center)		
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);
 			else if (alignement == CStyleFormat::Right)		

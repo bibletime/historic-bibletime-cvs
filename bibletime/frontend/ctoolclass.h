@@ -90,6 +90,10 @@ public:
   * No descriptions
   */
   static const QString getOpenFileName( const QString& startDir = QString::null, const QString& filter = QString::null, QWidget* parent = 0, const QString& caption = QString::null);
+  /** No descriptions */
+  static const QFont getDisplayStandardFont();
+  /** No descriptions */
+  static const QFont getDisplayUnicodeFont();
 
 };
 

@@ -23,9 +23,6 @@
 //Qt includes
 #include <qstring.h>
 #include <qlist.h>
-#include <qdict.h>
-#include <qasciidict.h>
-#include <qmap.h>
 #include <qfont.h>
 
 //Sword includes
@@ -83,10 +80,6 @@ private:
 	QString m_htmlText;
 	QString m_htmlHeader;
 	QString m_htmlBody;
-	QString m_standardFontName;
-	QString m_unicodeFontName;
-	short int m_standardFontSize;	
-	short int m_unicodeFontSize;	
 
 	bool m_includeHeader;
 };
@@ -94,12 +87,6 @@ private:
 /** Returns the generated HTML text. */
 inline const QString CHTMLEntryDisplay::getHTML() const {
 	return m_htmlText;
-}
-
-/** Sets the standard font fot this display object. */
-inline void CHTMLEntryDisplay::setStandardFont( const QString& family, const short int logicalSize ) {
-	m_standardFontName = family;
-	m_standardFontSize = logicalSize;
 }
 
 /** Call this with false as argument to switch off the headers (module anme and current position) */

@@ -29,6 +29,7 @@
 //KDE includes
 #include <klocale.h>
 #include <kglobal.h>
+#include <kconfig.h>
 #include <kstddirs.h>
 #include <kmessagebox.h>
 #include <kurl.h>
@@ -158,4 +159,18 @@ const QString CToolClass::getOpenFileName( const QString& startDir, const QStrin
 #else
 	return KFileDialog::getOpenFileName(startDir, filter, parent, caption);
 #endif
+}
+/** No descriptions */
+const QFont CToolClass::getDisplayStandardFont(){
+  KConfig* config = KGlobal::config();
+  KConfigGroupSaver groupSaver(config,"Fonts");
+
+  return config->readFontEntry( i18n("Display window") );
+}
+/** No descriptions */
+const QFont CToolClass::getDisplayUnicodeFont(){
+  KConfig* config = KGlobal::config();
+  KConfigGroupSaver groupSaver(config,"Fonts");
+
+  return config->readFontEntry( i18n("Display window Unicode") );
 }

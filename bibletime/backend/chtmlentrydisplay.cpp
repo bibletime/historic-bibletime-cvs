@@ -29,24 +29,10 @@
 //Sword includes
 #include <versekey.h>
 
-#include <kconfig.h>
-#include <kglobal.h>
-#include <klocale.h>
-
 CHTMLEntryDisplay::CHTMLEntryDisplay(){
 	m_highlightedVerseColor = "red";
 	m_htmlHeader = "<HTML><HEAD></HEAD>";
 	m_htmlBody = "</BODY></HTML>";
-	m_standardFontName = QFont::defaultFont().family();
-  //we use logical font sizes between 1 and 7
-	m_standardFontSize = CToolClass::makeLogicFontSize( QFont::defaultFont().pointSize() );
-
-  KConfig* config = KGlobal::config();
-  KConfigGroupSaver groupSaver(config,"Fonts");
-
-  m_unicodeFontName = config->readFontEntry( i18n("Display window Unicode") ).family();
-  m_unicodeFontSize = CToolClass::makeLogicFontSize(
-    config->readFontEntry( i18n("Display window Unicode") ).pointSize() );
 
 	m_includeHeader = true;
 }
@@ -61,8 +47,14 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 		m_htmlText = QString::null;
 		return -1;
 	}
-	QString FontName = m_standardFontName;
-  int FontSize = m_standardFontSize;
+  //automatically reloaded with every display() call
+	QString StandardFontName = CToolClass::getDisplayStandardFont().family();
+	QString UnicodeFontName = CToolClass::getDisplayUnicodeFont().family();
+  int StandardFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayStandardFont().pointSize() );
+  int UnicodeFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayUnicodeFont().pointSize() );
+
+	QString FontName = StandardFontName;
+  int FontSize = StandardFontSize;
 	
   CSwordKey* key = 0;
   if (module->getType() == CSwordModuleInfo::Commentary || module->getType() == CSwordModuleInfo::Bible)
@@ -72,8 +64,8 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	key->key(module->module()->KeyText());
 	
   if (module->encoding() == QFont::Unicode ){ //use custom font
-    FontName = m_unicodeFontName;
-    FontSize = m_unicodeFontSize;
+    FontName = UnicodeFontName;
+    FontSize = UnicodeFontSize;
   }
 	if (m_includeHeader) {
 		m_htmlText =
@@ -105,8 +97,14 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 		m_htmlText = QString::null;
 		return 0;
 	}
- 	QString FontName = m_standardFontName;
- 	int FontSize = m_standardFontSize;
+  //automatically reloaded with every display() call
+	QString StandardFontName = CToolClass::getDisplayStandardFont().family();
+	QString UnicodeFontName = CToolClass::getDisplayUnicodeFont().family();
+  int StandardFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayStandardFont().pointSize() );
+  int UnicodeFontSize = CToolClass::makeLogicFontSize( CToolClass::getDisplayUnicodeFont().pointSize() );
+
+ 	QString FontName = StandardFontName;
+ 	int FontSize = StandardFontSize;
 
  	CSwordKey* key = 0;
  	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible)
@@ -157,12 +155,12 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	while (m) {
 		key->module(d);
 		if (d && d->encoding() == QFont::Unicode ) { //use custom font
-      FontName = m_unicodeFontName;
-      FontSize = m_unicodeFontSize;
+      FontName = UnicodeFontName;
+      FontSize = UnicodeFontSize;
 		}
 		else {
-			FontName = m_standardFontName;
-			FontSize = m_standardFontSize;
+			FontName = StandardFontName;
+			FontSize = StandardFontSize;
 		}
     if (m)
     	m_htmlText.append(
@@ -184,12 +182,12 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	while (m) {
 
 		if (d && d->encoding() == QFont::Unicode ) { //use custom font
-      FontName = m_unicodeFontName;
-      FontSize = m_unicodeFontSize;
+      FontName = UnicodeFontName;
+      FontSize = UnicodeFontSize;
 		}
 		else {
-			FontName = m_standardFontName;
-			FontSize = m_standardFontSize;
+			FontName = StandardFontName;
+			FontSize = StandardFontSize;
 		}
 		key->module(d);
 		key->key(usedKey);

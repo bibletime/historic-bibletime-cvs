@@ -103,18 +103,18 @@ void BibleTime::slotSettingsChanged(const int changedSettings){
  		QColor tempColor = m_config->readColorEntry("Highlighted Verse");			
  		m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor = tempColor.name();
 			
- 		m_config->setGroup("Fonts");
- 		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
- 		m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );			
+// 		m_config->setGroup("Fonts");
+// 		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
+// 		m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );			
  	}
  	if (m_important->swordBackend->m_chapterDisplay) {
  		KConfigGroupSaver groupSaver(m_config, "Colors");
  		QColor tempColor = tempColor = m_config->readColorEntry("Highlighted Verse");
  		m_important->swordBackend->m_chapterDisplay->m_highlightedVerseColor = tempColor.name();
 
- 		m_config->setGroup("Fonts");
- 		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
- 		m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );			
+// 		m_config->setGroup("Fonts");
+// 		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
+// 		m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );			
  	}				
 
  	if (changedSettings & CSwordPresenter::language) {	//the language changed

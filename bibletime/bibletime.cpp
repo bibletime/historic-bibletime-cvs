@@ -175,9 +175,9 @@ void BibleTime::readSettings(){
 		tempColor = m_config->readColorEntry("Highlighted Verse", &red);
 		m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor = tempColor.name();
 		
-		m_config->setGroup("Fonts");
-		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
-		m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );
+//		m_config->setGroup("Fonts");
+//		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
+//		m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );
 	}
 	
 	if (m_important->swordBackend->m_chapterDisplay) {
@@ -186,9 +186,9 @@ void BibleTime::readSettings(){
 		tempColor = m_config->readColorEntry("Highlighted Verse", &red);
 		m_important->swordBackend->m_chapterDisplay->m_highlightedVerseColor = tempColor.name();
 		
-		m_config->setGroup("Fonts");
-		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
-		m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ));
+//		m_config->setGroup("Fonts");
+//		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
+//		m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ));
 	}	
 
 }

@@ -122,12 +122,11 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 					break;
 				}
 			}
-#warning todo: use UFT-8 specific font
-//			if (m->encoding() == QFont::Unicode) {
+			if (m->encoding() == QFont::Unicode) {
 //				QFont newFont = font();
 //				newFont.setCharSet(QFont::AnyCharSet);
-//				setFont(newFont);
-//			}
+				setFont( CToolClass::getDisplayUnicodeFont() );
+			}
 		}
 //		qWarning("text is %s", text.latin1());
 		if (!text.isEmpty())
