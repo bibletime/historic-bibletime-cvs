@@ -1943,7 +1943,7 @@ irix5* | irix6* | nonstopux*)
 # This must be Linux ELF.
 linux*)
   case $host_cpu in
-  alpha* | hppa* | i*86 | ia64* | m68* | mips | mipsel | powerpc* | sparc* | s390* | sh*)
+  alpha* | hppa* | i*86 | ia64* | m68* | mips | mipsel | powerpc* | sparc* | s390* | sh* | x86_64* )
     lt_cv_deplibs_check_method=pass_all ;;
   *)
     # glibc up to 2.1.1 does not perform some relocations on ARM
@@ -2438,20 +2438,8 @@ case $host_os in
       exp_sym_flag='-Bexport'
       no_entry_flag=""
     else
-      aix_use_runtimelinking=no
-
-      # Test if we are trying to use run time linking or normal
-      # AIX style linking. If -brtl is somewhere in LDFLAGS, we
-      # need to do runtime linking.
-      case $host_os in aix4.[[23]]|aix4.[[23]].*|aix5*)
-	for ld_flag in $LDFLAGS; do
-	  if (test $ld_flag = "-brtl" || test $ld_flag = "-Wl,-brtl"); then
-	    aix_use_runtimelinking=yes
-	    break
-	  fi
-	done
-      esac
-
+      # KDE requires run time linking.  Make it the default.
+      aix_use_runtimelinking=yes
       exp_sym_flag='-bexport'
       no_entry_flag='-bnoentry'
     fi
@@ -2497,16 +2485,15 @@ case $host_os in
 	shared_flag='-G'
       else
 	if test "$aix_use_runtimelinking" = yes; then
-	  shared_flag='${wl}-G'
+	  shared_flag='-qmkshrobj ${wl}-G'
 	else
-	  shared_flag='${wl}-bM:SRE'
+	  shared_flag='-qmkshrobj'
 	fi
       fi
     fi
 
-    # It seems that -bexpall does not export symbols beginning with
-    # underscore (_), so it is better to generate a list of symbols to export.
-    _LT_AC_TAGVAR(always_export_symbols, $1)=yes
+    # Let the compiler handle the export list.
+    _LT_AC_TAGVAR(always_export_symbols, $1)=no
     if test "$aix_use_runtimelinking" = yes; then
       # Warning - without using the other runtime loading flags (-brtl),
       # -berok will link without error, but may produce a broken library.
@@ -2515,7 +2502,8 @@ case $host_os in
       _LT_AC_SYS_LIBPATH_AIX
       _LT_AC_TAGVAR(hardcode_libdir_flag_spec, $1)='${wl}-blibpath:$libdir:'"$aix_libpath"
 
-      _LT_AC_TAGVAR(archive_expsym_cmds, $1)="\$CC"' -o $output_objdir/$soname $libobjs $deplibs $compiler_flags `if test "x${allow_undefined_flag}" != "x"; then echo "${wl}${allow_undefined_flag}"; else :; fi` '"\${wl}$no_entry_flag \${wl}$exp_sym_flag:\$export_symbols $shared_flag"
+      _LT_AC_TAGVAR(archive_cmds, $1)="\$CC"' -o $output_objdir/$soname $libobjs $deplibs $compiler_flags `if test "x${allow_undefined_flag}" != "x"; then echo "${wl}${allow_undefined_flag}"; else :; fi` '" $shared_flag"
+      _LT_AC_TAGVAR(archive_expsym_cmds, $1)="\$CC"' -o $output_objdir/$soname $libobjs $deplibs $compiler_flags `if test "x${allow_undefined_flag}" != "x"; then echo "${wl}${allow_undefined_flag}"; else :; fi` '"\${wl}$exp_sym_flag:\$export_symbols $shared_flag"
      else
       if test "$host_cpu" = ia64; then
 	_LT_AC_TAGVAR(hardcode_libdir_flag_spec, $1)='${wl}-R $libdir:/usr/lib:/lib'
@@ -3074,7 +3062,7 @@ if AC_TRY_EVAL(ac_compile); then
        fi
        ;;
 
-    *.$objext)
+    *.$objext|*.$libext)
        # This assumes that the test object file only shows up
        # once in the compiler output.
        if test "$p" = "conftest.$objext"; then
@@ -4611,20 +4599,9 @@ EOF
 	else
 	  _LT_AC_TAGVAR(export_symbols_cmds, $1)='$NM -BCpg $libobjs $convenience | awk '\''{ if (((\[$]2 == "T") || (\[$]2 == "D") || (\[$]2 == "B")) && ([substr](\[$]3,1,1) != ".")) { print \[$]3 } }'\'' | sort -u > $export_symbols'
 	fi
-	aix_use_runtimelinking=no
 
-	# Test if we are trying to use run time linking or normal
-	# AIX style linking. If -brtl is somewhere in LDFLAGS, we
-	# need to do runtime linking.
-	case $host_os in aix4.[[23]]|aix4.[[23]].*|aix5*)
-	  for ld_flag in $LDFLAGS; do
-  	  if (test $ld_flag = "-brtl" || test $ld_flag = "-Wl,-brtl"); then
-  	    aix_use_runtimelinking=yes
-  	    break
-  	  fi
-	  done
-	esac
-
+	# KDE requires run time linking.  Make it the default.
+	aix_use_runtimelinking=yes
 	exp_sym_flag='-bexport'
 	no_entry_flag='-bnoentry'
       fi
@@ -4670,24 +4647,24 @@ EOF
 	  shared_flag='-G'
 	else
   	if test "$aix_use_runtimelinking" = yes; then
-	    shared_flag='${wl}-G'
+	    shared_flag='-qmkshrobj ${wl}-G'
 	  else
-	    shared_flag='${wl}-bM:SRE'
+	    shared_flag='-qmkshrobj'
   	fi
 	fi
       fi
 
-      # It seems that -bexpall does not export symbols beginning with
-      # underscore (_), so it is better to generate a list of symbols to export.
-      _LT_AC_TAGVAR(always_export_symbols, $1)=yes
+      # Let the compiler handle the export list.
+      _LT_AC_TAGVAR(always_export_symbols, $1)=no
       if test "$aix_use_runtimelinking" = yes; then
 	# Warning - without using the other runtime loading flags (-brtl),
 	# -berok will link without error, but may produce a broken library.
 	_LT_AC_TAGVAR(allow_undefined_flag, $1)='-berok'
        # Determine the default libpath from the value encoded in an empty executable.
-       _LT_AC_SYS_LIBPATH_AIX
-       _LT_AC_TAGVAR(hardcode_libdir_flag_spec, $1)='${wl}-blibpath:$libdir:'"$aix_libpath"
-	_LT_AC_TAGVAR(archive_expsym_cmds, $1)="\$CC"' -o $output_objdir/$soname $libobjs $deplibs $compiler_flags `if test "x${allow_undefined_flag}" != "x"; then echo "${wl}${allow_undefined_flag}"; else :; fi` '"\${wl}$no_entry_flag \${wl}$exp_sym_flag:\$export_symbols $shared_flag"
+	_LT_AC_SYS_LIBPATH_AIX
+	_LT_AC_TAGVAR(hardcode_libdir_flag_spec, $1)='${wl}-blibpath:$libdir:'"$aix_libpath"
+	_LT_AC_TAGVAR(archive_cmds, $1)="\$CC"' -o $output_objdir/$soname $libobjs $deplibs $compiler_flags `if test "x${allow_undefined_flag}" != "x"; then echo "${wl}${allow_undefined_flag}"; else :; fi` '" $shared_flag"
+	_LT_AC_TAGVAR(archive_expsym_cmds, $1)="\$CC"' -o $output_objdir/$soname $libobjs $deplibs $compiler_flags `if test "x${allow_undefined_flag}" != "x"; then echo "${wl}${allow_undefined_flag}"; else :; fi` '"\${wl}$exp_sym_flag:\$export_symbols $shared_flag"
        else
 	if test "$host_cpu" = ia64; then
 	  _LT_AC_TAGVAR(hardcode_libdir_flag_spec, $1)='${wl}-R $libdir:/usr/lib:/lib'

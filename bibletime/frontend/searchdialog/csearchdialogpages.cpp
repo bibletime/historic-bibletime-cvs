@@ -524,8 +524,7 @@ const int CSearchOptionsPage::searchFlags() {
 	if (m_exactTextRadio->isChecked()) {
 		ret = CSwordModuleSearch::exactPhrase;
 	}
-	else if (m_regexpRadio->isChecked() | 
-		 m_multipleWordsORRadio->isChecked()) {
+	else if (m_regexpRadio->isChecked() || m_multipleWordsORRadio->isChecked()) {
 		ret = CSwordModuleSearch::regExp;
 	}
 	if (m_caseSensitiveBox->isChecked())
