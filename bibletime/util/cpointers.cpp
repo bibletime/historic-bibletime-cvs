@@ -27,13 +27,6 @@ static CSwordBackend* m_backend = 0;
 static CPrinter* m_printer = 0;
 static CLanguageMgr* m_langMgr = 0;
 
-//CPointers::CPointers() {
-//  m_langMgr = 0;
-//};
-//
-//CPointers::~CPointers() {
-//};
-
 /** Returns a pointer to the backend ... */
 CSwordBackend* const CPointers::backend() {
 	return m_backend;

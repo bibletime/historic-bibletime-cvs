@@ -51,6 +51,7 @@ CExportManager::CExportManager(const QString& caption, const bool showProgress, 
   m_filterOptions = filterOptions;
   m_displayOptions = displayOptions;
   m_showProgress = showProgress;
+  m_progressDialog = 0;
 };
 
 const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bool addText) {
@@ -111,33 +112,25 @@ const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* m
   if (filename.isEmpty())
     return false;
 
- 	QProgressDialog progress( m_progressLabel, i18n("Cancel"), list->Count(), 0,"progress", true );
- 	progress.setProgress(0);
- 	progress.setMinimumDuration(10);
- 	progress.show();
-
+  setProgressRange(list->Count());
  	util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
-
  	QString text;
- 	int index = 0;
- 	*list = sword::TOP;
- 	while (!list->Error() && !progress.wasCancelled()) {
- 		key->key((const char*)(*list));
+ 	(*list) = sword::TOP;
+ 	while (!list->Error() && !progressWasCancelled()) {
  		if (!key)
  			break;
- 		progress.setProgress(index++);
- 		KApplication::kApplication()->processEvents(10); //do not lock the GUI!
-
+    key->key((const char*)(*list));
  		if (addText)
  			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText() : key->strippedText() );
  		else
  			text += key->key() + lineBreak(format);
-
+    incProgress();
  		(*list)++;
  	}
- 	if (!progress.wasCancelled()) {
- 		progress.setProgress(index);
+
+  if (!progressWasCancelled()) {
  		CToolClass::savePlainFile(filename, text);
+ 		closeProgressDialog();   
  		return true;
  	}
 	return false;
@@ -178,7 +171,7 @@ const bool CExportManager::copyKey(CSwordKey* key, const Format format, const bo
     text = key ? key->key() : QString::null;
   	return true;
   }
-  qWarning("copy now");
+//  qWarning("copy now");
   KApplication::clipboard()->setText(text);
 	return true;
 };
@@ -187,23 +180,16 @@ const bool CExportManager::copyKeyList(sword::ListKey* list, CSwordModuleInfo* m
   if (!list)
     return false;
 
-  QProgressDialog progress( m_progressLabel, i18n("Cancel"), list->Count()+1, 0,"progress", true );
- 	progress.setProgress(0);
- 	progress.setMinimumDuration(10);
- 	progress.show();
-
+  setProgressRange(list->Count()+1);
  	util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
 
  	QString text;
- 	int index = 0;
  	*list = sword::TOP;
- 	while (!list->Error() && !progress.wasCancelled()) {
+ 	while (!list->Error() && !progressWasCancelled()) {
  		key->key((const char*)(*list));
  		if (!key)
  			break;
- 		progress.setProgress(index++);
- 		KApplication::kApplication()->processEvents(10); //do not lock the GUI!
-
+    incProgress();
  		if (addText)
  			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText() : key->strippedText() );
  		else
@@ -212,29 +198,21 @@ const bool CExportManager::copyKeyList(sword::ListKey* list, CSwordModuleInfo* m
  		(*list)++;
  	}
 
-  if (!progress.wasCancelled()) {
+  if (!progressWasCancelled()) {
     KApplication::clipboard()->setText(text);
- 		progress.setProgress(index+1);    
+		closeProgressDialog();
    	return true;
  	}
 	return false;
 };
 
 const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* module) {
-	KProgressDialog progress( 0,"progress", m_caption, m_progressLabel, true );
-  progress.progressBar()->setRange(0,list->Count()+1);
-//	progress.progressBar()->setProgress(0);
-	progress.setMinimumDuration(10);
-	progress.show();
-
-	KApplication::kApplication()->processEvents(); //do not lock the GUI!
-  
-	int index = 0;
+  setProgressRange(list->Count()+1);  
 	QPtrList<CPrintItem> itemList;
 	QString startKey, stopKey;
 
 	(*list) = sword::TOP;
-	while (!list->Error() && !progress.wasCancelled()) {
+	while (!list->Error() && !progressWasCancelled()) {
 		sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(list);
 		if (vk) {
 			startKey = QString::fromLocal8Bit((const char*)(vk->LowerBound()) );
@@ -243,26 +221,40 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 		else {
 			startKey = QString::fromLocal8Bit((const char*)*list);
 			stopKey = QString::null;
-		}
-  	progress.progressBar()->setProgress(index++);
-		KApplication::kApplication()->processEvents(); //do not lock the GUI!
-
+		//add all items to the queue
+	  }
     itemList.append( new CPrintItem(module, startKey, stopKey) );
+    incProgress();    
 		(*list)++;
 	}
 
 	//add all items to the queue
-	if (progress.wasCancelled()) {
+	if (progressWasCancelled()) {
 		itemList.setAutoDelete(true);
 		itemList.clear();//delete all items
 		return false;
 	}
 
   printer()->appendItems(itemList);
-	progress.progressBar()->setProgress(list->Count()+1);
-
+  closeProgressDialog();    //close the dialog
 	return true;
 };
+
+const bool CExportManager::printKeyList( CSwordModuleInfo* module, const PrintItemList& list ){
+  if (!list.count() || !module)
+    return false;
+  setProgressRange(list.count()+1);
+  KApplication::kApplication()->processEvents(); //do not lock the GUI!
+    
+  PrintItemList::ConstIterator it;
+  for ( it = list.begin(); (it != list.end()) && !progressWasCancelled(); ++it ) {
+    printer()->appendItem( new CPrintItem(module,(*it).first,(*it).second, QString::null, m_displayOptions, m_filterOptions) );
+  	KApplication::kApplication()->processEvents(); //do not lock the GUI!    
+  }
+  
+  closeProgressDialog(); //to close the dialog
+	return true;
+}
 
 const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description ){
 	printer()->appendItem( new CPrintItem(module, startKey, stopKey, description, m_displayOptions, m_filterOptions) );
@@ -286,7 +278,6 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink ){
 	}
 
  	if (CSwordModuleInfo* module = backend()->findModuleByName(moduleName)) {
-//    qWarning(keyName.latin1());
     QString startKey = keyName;
     QString stopKey = keyName;
 
@@ -347,4 +338,57 @@ const QString CExportManager::htmlCSS(CSwordModuleInfo* module){
     }
   }
   return css;
+}
+
+/** No descriptions */
+void CExportManager::setProgressRange( const int items ){
+
+  if (progressDialog()) {
+    progressDialog()->setTotalSteps(items);
+    progressDialog()->setProgress(0);
+  	progressDialog()->setMinimumDuration(0);
+    progressDialog()->show();
+  	KApplication::kApplication()->processEvents(); //do not lock the GUI!    
+  }
+}
+
+/** Creates the progress dialog with the correct settings. */
+QProgressDialog* const CExportManager::progressDialog(){
+  if (!m_showProgress) {
+    return 0;
+  };
+  if (!m_progressDialog) {
+    m_progressDialog = new QProgressDialog( m_caption, m_progressLabel, 1, 0, "progress", true );
+//    m_progressDialog->setMinimumDuration(10);
+//    m_progressDialog->setAllowCancel(true);
+//    m_progressDialog->setAutoClose(true);
+//  	m_progressDialog->show();
+//  	KApplication::kApplication()->processEvents(); //do not lock the GUI!
+  };
+  return m_progressDialog;
+}
+
+/** Increments the progress by one item. */
+void CExportManager::incProgress(){
+  if (progressDialog()) {
+    progressDialog()->setProgress( m_progressDialog->progress() + 1 );
+		KApplication::kApplication()->processEvents(); //do not lock the GUI!
+  }
+}
+
+/** No descriptions */
+const bool CExportManager::progressWasCancelled(){
+  if (progressDialog()) {
+//		KApplication::kApplication()->processEvents(); //do not lock the GUI!    
+    return progressDialog()->wasCancelled();
+  };
+  return true;
+}
+
+/** Closes the progress dialog immediatly. */
+void CExportManager::closeProgressDialog(){
+  if (progressDialog()) {
+    progressDialog()->close();
+    progressDialog()->reset();
+  }  
 }

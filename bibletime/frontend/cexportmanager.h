@@ -30,7 +30,10 @@
 class ListKey;
 class CSwordKey;
 class CSwordModuleInfo;
+class QProgressDialog;
 
+typedef std::pair<QString, QString> QStringPair;
+typedef QValueList<QStringPair> PrintItemList;
 
 /**Contains the functions to export text to disk, clipboard or printer.
   *@author The BibleTime team
@@ -52,6 +55,7 @@ public:
   const bool printKey(CSwordKey* key, const QString& description = QString::null);
   const bool printByHyperlink(const QString& hyperlink);  
   const bool printKeyList(sword::ListKey* list, CSwordModuleInfo* module);
+  const bool printKeyList(CSwordModuleInfo* module, const PrintItemList& list);  
   const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description = QString::null );
 
 protected: // Protected methods
@@ -75,10 +79,26 @@ private:
   CSwordBackend::FilterOptions m_filterOptions;
   CSwordBackend::DisplayOptions m_displayOptions;
 
+  QProgressDialog* m_progressDialog;
+  
+  /**
+  * Creates the progress dialog with the correct settings.
+  */  
+  QProgressDialog* const progressDialog();
   /**
   * Returns the CSS string used in HTML pages.
   */
+  void setProgressRange( const int item );
   const QString htmlCSS(CSwordModuleInfo* module);
+  /**
+  * Increments the progress by one item.
+  */
+  void incProgress();
+  const bool progressWasCancelled();
+  /**
+  * Closes the progress dialog immediatly.
+  */
+  void closeProgressDialog();
 };
 
 #endif

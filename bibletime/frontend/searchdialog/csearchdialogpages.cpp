@@ -61,7 +61,7 @@
 ************  ModuleResultList **************
 ********************************************/
 
-CSearchResultView::CSearchResultView(QWidget* parent) : KListView(parent) {
+CSearchResultView::CSearchResultView(QWidget* parent) : KListView(parent), m_module(0) {
   initView();
   initConnections();
 };
@@ -73,21 +73,47 @@ CSearchResultView::~CSearchResultView() {
 void CSearchResultView::initView(){
   addColumn(i18n("Found items"));
   setFullWidth(true);
-  setSorting(-1);  
+  setSorting(-1);
+  setSelectionModeExt(KListView::Extended);
+
+  //setup the popup menu
+  m_popup = new KPopupMenu(this);
+//	m_popup->insertTitle(i18n("Bible window"));
+
+ 	m_actions.copyMenu = new KActionMenu(i18n("Copy..."), ICON_EDIT_COPY);
+ 	m_actions.copy.result = new KAction(i18n("Search result"), KShortcut(0), this, SLOT(copyItems()), this);
+ 	m_actions.copyMenu->insert(m_actions.copy.result);
+ 	m_actions.copy.resultWithText = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(copyItemsWithText()), this);
+ 	m_actions.copyMenu->insert(m_actions.copy.resultWithText);
+ 	m_actions.copyMenu->plug(m_popup);
+
+ 	m_actions.saveMenu = new KActionMenu(i18n("Save..."),ICON_FILE_SAVE);
+ 	m_actions.save.result = new KAction(i18n("Search result"), KShortcut(0), this, SLOT(saveItems()), this);
+ 	m_actions.saveMenu->insert(m_actions.save.result);
+ 	m_actions.save.resultWithText = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(saveItemsWithText()), this);
+ 	m_actions.saveMenu->insert(m_actions.save.resultWithText);
+ 	m_actions.saveMenu->plug(m_popup);
+
+ 	m_actions.printMenu = new KActionMenu(i18n("Print..."),ICON_FILE_PRINT);
+ 	m_actions.print.result = new KAction(i18n("Search result with text"), KShortcut(0), this, SLOT(printItems()), this);
+ 	m_actions.printMenu->insert(m_actions.print.result);
+  m_actions.printMenu->plug(m_popup);  
 }
 
 /** No descriptions */
 void CSearchResultView::initConnections(){
   connect(this, SIGNAL(selectionChanged(QListViewItem*)),
-	  SLOT(executed(QListViewItem*)));  
+	  SLOT(executed(QListViewItem*)));
+  connect(this, SIGNAL(contextMenu(KListView*, QListViewItem*, const QPoint&)),
+    this, SLOT(showPopup(KListView*, QListViewItem*, const QPoint&)));    
 }
 
 /** Setups the list with the given module. */
 void CSearchResultView::setupTree(CSwordModuleInfo* m){
   clear();
-//  Q_ASSERT(m);
   if (!m)
     return;
+  m_module = m;
 
   sword::ListKey result = m->searchResult();
 	const int count = result.Count();
@@ -112,10 +138,48 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m){
 
 /** Is connected to the signal executed, which is emitted when a mew item was chosen. */
 void CSearchResultView::executed(QListViewItem* item){
-  Q_ASSERT(item);
+//  Q_ASSERT(item);
   emit keySelected(item->text(0));
 }
 
+/** Reimplementation to show the popup menu. */
+void CSearchResultView::showPopup(KListView*, QListViewItem* i, const QPoint& point){
+  m_popup->exec(point);
+}
+
+/** No descriptions */
+void CSearchResultView::printItems(){
+  QPtrList<QListViewItem> items = selectedItems();
+  CExportManager mgr(i18n("Print search result ..."), true, i18n("Printing search result"));
+
+  PrintItemList list;
+  for (QListViewItem* k = items.first(); k; k = items.next()) {
+    list.append( QStringPair(k->text(0), QString::null) );
+  };
+  mgr.printKeyList( module(), list);
+}
+
+/** No descriptions */
+void CSearchResultView::saveItems(){
+}
+
+/** No descriptions */
+void CSearchResultView::saveItemsWithText(){
+}
+
+/** No descriptions */
+void CSearchResultView::copyItems(){
+
+}
+
+/** No descriptions */
+void CSearchResultView::copyItemsWithText(){
+}
+
+/** Returns the module which is currently used. */
+CSwordModuleInfo* const CSearchResultView::module(){
+  return m_module;
+}
 
 /********************************************
 ************  ModuleResultList **************
@@ -662,3 +726,4 @@ const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType(){
   };
   return CSwordModuleSearch::Scope_NoScope;
 }
+
