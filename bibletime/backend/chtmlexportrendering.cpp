@@ -38,6 +38,22 @@ CHTMLExportRendering::~CHTMLExportRendering() {
 }
 
 const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
+	if (i.hasAlternativeContent()) {
+		QString ret = QString::fromLatin1("<div class=\"entry\"><div class=\"rangeheading\">%1</div>").arg(i.getAlternativeContent());
+		
+		if (i.hasChildItems()) {
+			KeyTree const * tree = i.childList();
+			
+			for ( KeyTreeItem* c = tree->first(); c; c = tree->next() ) {
+				ret.append( renderEntry( *c ) );
+			}
+		}
+
+		ret.append("</div>");
+		return ret; //WARNING: Return already here!
+	}
+		
+		
 	ListCSwordModuleInfo modules = i.modules();	
 	util::scoped_ptr<CSwordKey> scoped_key( !k ? CSwordKey::createInstance(modules.first()) : 0 );
 	

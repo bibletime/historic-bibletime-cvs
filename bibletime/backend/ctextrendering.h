@@ -56,11 +56,17 @@ public:
 			KeyRenderingFace keyRenderingFace;
 		};
 		
-		KeyTreeItem();
-		KeyTreeItem(const KeyTreeItem& i);
 		KeyTreeItem(const QString& key, CSwordModuleInfo const * module, const Settings settings);
 		KeyTreeItem(const QString& key, const ListCSwordModuleInfo& modules, const Settings settings);
+		KeyTreeItem(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module, const Settings settings);
+		KeyTreeItem(const KeyTreeItem& i);
+		
 		virtual ~KeyTreeItem();
+		
+    const QString& getAlternativeContent() const;
+		const bool hasAlternativeContent() const {
+			return !m_alternativeContent.isEmpty();
+		};
 		
 		inline const ListCSwordModuleInfo& modules() const {
 			return m_moduleList;
@@ -76,10 +82,15 @@ public:
 		inline const bool hasChildItems() const;
 
 	protected:
+		KeyTreeItem();
+		
 		Settings m_settings;
 		ListCSwordModuleInfo m_moduleList;
 		QString m_key;
 		mutable KeyTree* m_childList;
+		
+		QString m_stopKey;
+		QString m_alternativeContent;
 	};
 	
 	class KeyTree : public KeyTreeItemList {

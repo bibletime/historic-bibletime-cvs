@@ -34,21 +34,6 @@ class CPrinter : public QObject, public Rendering::CDisplayRendering
 {
 	Q_OBJECT
 public:
-	class Item : public CDisplayRendering::KeyTreeItem {
-	public:
-		Item(const QString& key, CSwordModuleInfo* module, const Settings settings);
-		Item(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module, const Settings settings);
-		Item(const Item& i);
-    const QString& getAlternativeContent() const;
-		const bool hasAlternativeContent() const {
-			return !m_alternativeContent.isEmpty();
-		};
-		
-	private:
-		QString m_stopKey;
-		QString m_alternativeContent;
-	};
-
 	CPrinter(
 		QObject *parent,
 		CSwordBackend::DisplayOptions displayOptions = CBTConfig::getDisplayOptionDefaults(), 

@@ -20,69 +20,6 @@
 #include <khtml_part.h>
 #include <khtmlview.h>
 
-CPrinter::Item::Item(const QString& key, CSwordModuleInfo* module, const Settings settings) 
-	: CDisplayRendering::KeyTreeItem(key, module, settings),
-		m_stopKey(QString::null)
-{
-	Q_ASSERT(module);
-	
-	//create this item with heading text and one child item which has the content
-	m_alternativeContent = QString::fromLatin1("%1 (%2)").arg(key).arg(module->name());
-	childList()->append( new KeyTreeItem(key, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
-}
-
-CPrinter::Item::Item(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module, const Settings settings)
- : CDisplayRendering::KeyTreeItem(startKey, module, settings),
-	 m_stopKey(stopKey)
-{
-	Q_ASSERT(module);
-	
-	//use the start and stop key to ceate our child items
-	
-	if (module->type() == CSwordModuleInfo::Bible) {
-		CSwordVerseKey start(module);
-		start = startKey;
-		
-		CSwordVerseKey stop(module);
-		stop = stopKey;
-		
-		if (!key().isEmpty()  && !m_stopKey.isEmpty()) { //we have a range of keys
-			bool ok = true;
-			
-			while (ok && ((start < stop) || (start == stop)) ) { //range
-				childList()->append( new KeyTreeItem(start.key(), module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::SimpleKey)) );
-				
-				ok = start.next(CSwordVerseKey::UseVerse);
-			}	
-		}
-	}
-	else if ((module->type() == CSwordModuleInfo::Lexicon) || (module->type() == CSwordModuleInfo::Commentary) ) {		
-		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
-	}
-	else if (module->type() == CSwordModuleInfo::GenericBook) {
-		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
-	}
-				
-	m_alternativeContent = QString::fromLatin1("%1 (%2)")
-		.arg((startKey != stopKey) ? QString::fromLatin1("%1 - %2").arg(startKey).arg(stopKey) : startKey)
-		.arg(module->name());
-}
-
-CPrinter::Item::Item(const CPrinter::Item& i) 
-	: KeyTreeItem(i) 
-{
-	m_stopKey = i.m_stopKey;
-	m_alternativeContent = i.m_alternativeContent;
-}
-
-/*!
-    \fn CPrinter::Item::getAlternativeContent()
- */
-const QString& CPrinter::Item::getAlternativeContent() const
-{
-	return m_alternativeContent;
-}
-
 /* Class: CPrinter */
 
 CPrinter::CPrinter(QObject *parent, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
@@ -112,6 +49,7 @@ void CPrinter::printKeyTree( KeyTree& tree ) {
 	m_htmlPart->begin();
 	m_htmlPart->write(renderKeyTree(tree));
 	m_htmlPart->end();
+	
 	m_htmlPart->view()->layout();
 	m_htmlPart->view()->print();
 }
@@ -125,16 +63,16 @@ const QString CPrinter::entryLink(const KeyTreeItem& item, CSwordModuleInfo* mod
 		vk = item.key();
 		
 		switch (item.settings().keyRenderingFace) {
-			case Item::Settings::CompleteShort:
+			case KeyTreeItem::Settings::CompleteShort:
 				return QString::fromUtf8(vk.getShortText());
 			
-			case Item::Settings::CompleteLong:
+			case KeyTreeItem::Settings::CompleteLong:
 				return vk.key();
 			
-			case Item::Settings::NoKey:
+			case KeyTreeItem::Settings::NoKey:
 				return QString::null;
 			
-			case Item::Settings::SimpleKey: //fall through
+			case KeyTreeItem::Settings::SimpleKey: //fall through
 			default:
 				return QString::number(vk.Verse());
 		}
@@ -145,7 +83,7 @@ const QString CPrinter::entryLink(const KeyTreeItem& item, CSwordModuleInfo* mod
 }
 
 const QString CPrinter::renderEntry( const KeyTreeItem& i, CSwordKey* ) {
-	const CPrinter::Item* printItem = dynamic_cast<const CPrinter::Item*>(&i);	
+	const CPrinter::KeyTreeItem* printItem = dynamic_cast<const CPrinter::KeyTreeItem*>(&i);	
 	Q_ASSERT(printItem);
 	
 	if (printItem && printItem->hasAlternativeContent()) {
@@ -169,13 +107,15 @@ const QString CPrinter::renderEntry( const KeyTreeItem& i, CSwordKey* ) {
 const QString CPrinter::finishText(const QString& text, KeyTree& tree)
 {
 	ListCSwordModuleInfo modules = tree.collectModules();
+	Q_ASSERT(modules.count() > 0);
 	
 	const CLanguageMgr::Language* const lang = modules.first()->language();
+	Q_ASSERT(lang);
 	
 	CDisplayTemplateMgr::Settings settings;
 	settings.modules = modules;
 	settings.pageCSS_ID = "printer";
-	settings.langAbbrev = ((modules.count() == 1) && lang->isValid())
+	settings.langAbbrev = (lang && (modules.count() == 1) && lang->isValid())
 		?	lang->abbrev() 
 		: "unknown";
 

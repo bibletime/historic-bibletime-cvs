@@ -285,7 +285,7 @@ const bool CExportManager::copyKeyList(QPtrList<CSwordKey>& list, const Format f
 };
 
 const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* module) {
-	CPrinter::Item::Settings settings;	
+	CPrinter::KeyTreeItem::Settings settings;	
 	CPrinter::KeyTree tree;
 	
 	QString startKey, stopKey;
@@ -297,11 +297,11 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 		if (vk) {
 			startKey = QString::fromUtf8((const char*)(vk->LowerBound()) );
 			stopKey = QString::fromUtf8((const char*)(vk->UpperBound()) );
-			tree.append( new CPrinter::Item(startKey, stopKey, module, settings) );
+			tree.append( new CPrinter::KeyTreeItem(startKey, stopKey, module, settings) );
 		}
 		else {
 			startKey = QString::fromUtf8((const char*)*list);
-			tree.append( new CPrinter::Item(startKey, module, settings) );
+			tree.append( new CPrinter::KeyTreeItem(startKey, module, settings) );
 	  }
 		
 		(*list)++;
@@ -318,14 +318,14 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 };
 
 const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description ){
-	CPrinter::Item::Settings settings;
+	CPrinter::KeyTreeItem::Settings settings;
 	
 	CPrinter::KeyTree tree;
  	if (startKey != stopKey) {
-		tree.append( new CPrinter::Item(startKey, stopKey, module, settings) );
+		tree.append( new CPrinter::KeyTreeItem(startKey, stopKey, module, settings) );
  	}
  	else {
- 		tree.append( new CPrinter::Item(startKey, module, settings) );
+ 		tree.append( new CPrinter::KeyTreeItem(startKey, module, settings) );
  	}
 
 	printer()->printKeyTree(tree);
@@ -333,10 +333,10 @@ const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& st
 }
 
 const bool CExportManager::printKey( CSwordKey* key, const QString& description ){
-	CPrinter::Item::Settings settings;
+	CPrinter::KeyTreeItem::Settings settings;
 	
 	CPrinter::KeyTree tree;
-	tree.append( new CPrinter::Item(key->key(), key->module(), settings) );
+	tree.append( new CPrinter::KeyTreeItem(key->key(), key->module(), settings) );
 	
 	printer()->printKeyTree(tree);
 	return true;
@@ -370,17 +370,17 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink ){
 					const QString startKey = QString::fromUtf8(element->LowerBound().getText());
 					const QString stopKey =  QString::fromUtf8(element->UpperBound().getText());
 					
-					tree.append( new CPrinter::Item(startKey, stopKey, module, settings) );
+					tree.append( new CPrinter::KeyTreeItem(startKey, stopKey, module, settings) );
 				}
     		else if (verses.GetElement(i)){
 					const QString key =  QString::fromUtf8(verses.GetElement(i)->getText());
 					
-					tree.append( new CPrinter::Item(key, module, settings) );
+					tree.append( new CPrinter::KeyTreeItem(key, module, settings) );
 				}
     	}
 		}
   	else {
-			tree.append( new CPrinter::Item(keyName, module, settings) );
+			tree.append( new CPrinter::KeyTreeItem(keyName, module, settings) );
     }
 	}
 		
@@ -389,7 +389,7 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink ){
 }
 
 const bool CExportManager::printKeyList(const QStringList& list,CSwordModuleInfo* module) {
-	CPrinter::Item::Settings settings;	
+	CPrinter::KeyTreeItem::Settings settings;	
 	CPrinter::KeyTree tree;
 		
   setProgressRange(list.count());
@@ -397,7 +397,7 @@ const bool CExportManager::printKeyList(const QStringList& list,CSwordModuleInfo
 	const QStringList::const_iterator end = list.constEnd();
 	
 	for (QStringList::const_iterator it = list.constBegin(); (it != end) && !progressWasCancelled(); ++it) {
-		tree.append( new CPrinter::Item(*it, module, settings) );
+		tree.append( new CPrinter::KeyTreeItem(*it, module, settings) );
     
 		incProgress();
 	}

@@ -117,15 +117,15 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	}
 
 	CSwordBackend::DisplayOptions dispOpts;
-	dispOpts.lineBreaks = true;
+	dispOpts.lineBreaks 	= false;
 	dispOpts.verseNumbers = true;
 	
 	CSwordBackend::FilterOptions filterOpts;
-	filterOpts.headings = false;
+	filterOpts.headings 	= false;
 	filterOpts.strongNumbers = false;
-	filterOpts.morphTags = false;
-	filterOpts.lemmas = false;
-	filterOpts.footnotes = false;
+	filterOpts.morphTags 	= false;
+	filterOpts.lemmas 		= false;
+	filterOpts.footnotes	= false;
 			
 	CrossRefRendering renderer(dispOpts, filterOpts);
 	CTextRendering::KeyTree tree;
@@ -133,22 +133,33 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	VerseKey vk;
 	ListKey refs = vk.ParseVerseList((const char*)data.utf8(), "Gen 1:1", true);
 	for (int i = 0; i < refs.Count(); ++i) {
-		//TODO: check and render key ranges
 		SWKey* key = refs.getElement(i);
 		Q_ASSERT(key);
+		VerseKey* vk = dynamic_cast<VerseKey*>(key);		
 		
 		CTextRendering::KeyTreeItem::Settings settings(false, CTextRendering::KeyTreeItem::Settings::CompleteShort);
-
-		CTextRendering::KeyTreeItem* i = new CTextRendering::KeyTreeItem(
-			QString::fromUtf8(key->getText()),
-			CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible)), 
-			settings
-		);
+		
+		CTextRendering::KeyTreeItem* i = 0;
+		if (vk && vk->isBoundSet()) { //render a range of keys
+			i = new CTextRendering::KeyTreeItem(
+				QString::fromUtf8(vk->LowerBound().getText()),
+				QString::fromUtf8(vk->UpperBound().getText()),
+				CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible)), 
+				settings
+			);
+		}
+		else {
+			i = new CTextRendering::KeyTreeItem(
+				QString::fromUtf8(key->getText()),
+				CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible)), 
+				settings
+			);
+		}
 		
 		tree.append( i );
 	}	
 	
-	return QString::fromLatin1("<div class=\"crossrefinfo\"><h3>%1</h3>%2</div>")
+	return QString::fromLatin1("<div class=\"crossrefinfo\"><h3>%1</h3><p>%2</p></div>")
 		.arg(i18n("Cross references"))
 		.arg(renderer.renderKeyTree(tree));
 }

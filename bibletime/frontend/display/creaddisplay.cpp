@@ -85,8 +85,12 @@ void CReadDisplay::print(const CDisplay::TextPart type){
 				startKey.Verse(1);	
 				
     		CSwordVerseKey stopKey(*vk);
-				if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module))
+				
+				CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module);
+				if (bible) {
 					stopKey.Verse( bible->verseCount( bible->bookNumber(startKey.book()), startKey.Chapter() ) );
+				}
+				
 				mgr.printKey(module, startKey.key(), stopKey.key());
   		}
     	else if (module->type() == CSwordModuleInfo::Lexicon || module->type() == CSwordModuleInfo::Commentary ) {

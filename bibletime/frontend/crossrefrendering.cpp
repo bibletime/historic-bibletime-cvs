@@ -23,9 +23,6 @@ namespace InfoDisplay {
 CrossRefRendering::CrossRefRendering( CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions) 
 	: CHTMLExportRendering(Settings(), displayOptions, filterOptions)
 {
-	m_filterOptions.headings = false;
-	m_filterOptions.footnotes = false;
-	m_filterOptions.scriptureReferences = false;
 }
  
 const QString CrossRefRendering::finishText( const QString& text, KeyTree& ) {

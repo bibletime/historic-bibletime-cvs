@@ -26,7 +26,7 @@ namespace InfoDisplay {
 		    CSwordBackend::FilterOptions filterOptions = CBTConfig::getFilterOptionDefaults()
 		);
 
-		virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module );
+		virtual const QString entryLink( const KeyTreeItem& item, CSwordModuleInfo* module );
 		virtual const QString finishText( const QString&, KeyTree& tree );
 	};
 

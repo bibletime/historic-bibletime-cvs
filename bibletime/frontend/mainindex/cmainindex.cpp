@@ -433,12 +433,13 @@ void CMainIndex::importBookmarks(){
 /** Prints the selected bookmarks. */
 void CMainIndex::printBookmarks(){
 	CPrinter::KeyTree tree;
-	CPrinter::Item::Settings settings;
+	CPrinter::KeyTreeItem::Settings settings;
 	
   QPtrList<QListViewItem> items = selectedItems();
   for (items.first(); items.current(); items.next()) {
-    if (CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(items.current())) {
-			tree.append( new CPrinter::Item( i->key(), i->module(), settings ) );
+		CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(items.current());
+    if (i) {
+			tree.append( new CPrinter::KeyTreeItem( i->key(), i->module(), settings ) );
     }
   }
 	

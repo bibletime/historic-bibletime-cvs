@@ -36,49 +36,106 @@ using namespace Rendering;
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo const * mod, const Settings settings ) 
 	: m_settings( settings ),
 		m_moduleList(),
-		m_key(key),
-		m_childList( 0 )
+		m_key( key ),
+		m_childList( 0 ),
+		m_stopKey( QString::null ),
+		m_alternativeContent( QString::null )
 {
 	m_moduleList.append( mod );
-// 	m_childList.setAutoDelete(true);
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, const ListCSwordModuleInfo& mods, const Settings settings ) 
 	: m_settings( settings ),
 		m_moduleList( mods ),
 		m_key( key ),
-		m_childList( 0 )
+		m_childList( 0 ),
+		m_stopKey( QString::null ),
+		m_alternativeContent( QString::null )
 {
-// 	m_childList.setAutoDelete(true);
-	
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem()
 	:	m_settings(),
 		m_moduleList(),
 		m_key(QString::null),
-		m_childList(0)
+		m_childList(0),
+		m_stopKey(QString::null),
+		m_alternativeContent(QString::null)
 {
-// 	m_childList.setAutoDelete(true);
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const KeyTreeItem& i) 
-	:	m_moduleList(i.m_moduleList),
-		m_key(i.m_key),
-		m_childList(0)
+	:	
+		m_settings( i.m_settings ),
+		m_moduleList( i.m_moduleList ),
+		m_key( i.m_key ),
+		m_childList( 0 ),
+		m_stopKey( i.m_stopKey ),
+		m_alternativeContent( i.m_alternativeContent )
 {
 	if (i.hasChildItems()) {
 		m_childList = new KeyTree();
 		*m_childList = *(i.childList()); //deep copy
 	}
 	
-	m_settings = i.m_settings;
 }
 
 CTextRendering::KeyTreeItem::~KeyTreeItem() {
 	delete m_childList;
 	m_childList = 0;
 }
+
+CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module, const Settings settings)
+	:	m_settings( settings ),
+		m_moduleList(),
+		m_key( startKey ),
+		m_childList( 0 ),
+		m_stopKey( stopKey ),
+		m_alternativeContent( QString::null )
+{
+	Q_ASSERT(module);
+	m_moduleList.append(module);
+	
+	//use the start and stop key to ceate our child items
+	
+	if (module->type() == CSwordModuleInfo::Bible) {
+		CSwordVerseKey start(module);
+		start = startKey;
+		
+		CSwordVerseKey stop(module);
+		stop = stopKey;
+		
+		if (!key().isEmpty() && !m_stopKey.isEmpty()) { //we have a range of keys
+			bool ok = true;
+			
+			while (ok && ((start < stop) || (start == stop)) ) { //range
+				childList()->append( new KeyTreeItem(start.key(), module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::SimpleKey)) );
+				
+				ok = start.next(CSwordVerseKey::UseVerse);
+			}	
+		}
+	}
+	else if ((module->type() == CSwordModuleInfo::Lexicon) || (module->type() == CSwordModuleInfo::Commentary) ) {		
+		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
+	}
+	else if (module->type() == CSwordModuleInfo::GenericBook) {
+		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings(false, KeyTreeItem::Settings::NoKey)) );
+	}
+				
+	m_alternativeContent = QString::fromLatin1("%1 (%2)")
+		.arg((startKey != stopKey) ? QString::fromLatin1("%1 - %2").arg(startKey).arg(stopKey) : startKey)
+		.arg(module->name());
+}
+
+/*!
+    \fn CPrinter::Item::getAlternativeContent()
+ */
+const QString& CTextRendering::KeyTreeItem::getAlternativeContent() const
+{
+	return m_alternativeContent;
+}
+
+
 
 ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 	//collect all modules which are available and used by child items
