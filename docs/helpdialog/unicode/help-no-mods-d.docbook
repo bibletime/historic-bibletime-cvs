@@ -33,6 +33,13 @@ Now copy the config files of your modules into this package and remove (if they
 exist) the file <filename>mods.conf</filename> which isn't required any more.
 The <filename>mods.d</filename> directory replaced this file.
  </para>
+ <para>
+ Your environment variable <command>SWORD_PATH</command> must be set to the location of your sword
+ modules directory.  For example in mandrake you can add <programlisting>
+<![CDATA[export SWORD_PATH=/usr/share/sword]]>
+</programlisting> to <filename>~/.bash_profile</filename> or <filename>/etc/bashrc</filename>.  
+This replaces the former requirement for <filename>/etc/sword.conf</filename>.
+</para>
 </answer>
 </qandaentry>
 <qandaentry>

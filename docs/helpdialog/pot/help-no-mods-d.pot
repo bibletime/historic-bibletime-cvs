@@ -49,12 +49,20 @@ msgstr ""
 msgid "The solution is to create a directory <filename>mods.d</filename>: Please go into your &sword; directory and type \"<command>mkdir mods.d</command>\" to create the directory. Now copy the config files of your modules into this package and remove (if they exist) the file <filename>mods.conf</filename> which isn't required any more. The <filename>mods.d</filename> directory replaced this file."
 msgstr ""
 
-#: index.docbook:40
+#: index.docbook:36
+#, no-c-format
+msgid ""
+      "Your environment variable <command>SWORD_PATH</command> must be set to the location of your sword modules directory. For example in mandrake you can add <programlisting>\n"
+      "<![CDATA[export SWORD_PATH=/usr/share/sword]]>\n"
+      "</programlisting> to <filename>~/.bash_profile</filename> or <filename>/etc/bashrc</filename>. This replaces the former requirement for <filename>/etc/sword.conf</filename>."
+msgstr ""
+
+#: index.docbook:47
 #, no-c-format
 msgid "Can I start &bibletime; without this directory?"
 msgstr ""
 
-#: index.docbook:45
+#: index.docbook:52
 #, no-c-format
 msgid "Yes, it's possible. But it's not very useful. There are no modules in the main index. It's possible to test &bibletime; this way, but it's not possible to work with it without modules."
 msgstr ""
