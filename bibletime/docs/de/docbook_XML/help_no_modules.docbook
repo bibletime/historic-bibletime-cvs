@@ -2,8 +2,8 @@
 <title>Keine Module installiert!</title>
 
 <para>Es gibt keine installierten Sword Module!</para>
-<para>Diese Seite beschreibt was Module sind und wie man das Problem löst.</para>
-
+<para>Diese Seite beschreibt, was Module sind und wie man das Problem
+löst.</para>
 <qandaset>
 <qandaentry>
 <question>
@@ -13,11 +13,13 @@ Was ist ein Modul?
 </question>
 <answer>
 <para>
-Ein Sword Module ist die Basis von BibleTime. Ein Modul kann eine Bibel, ein Kommentar
-oder ein Lexicon sein.
-Später werden wir Karten und andere interessante Dinge haben. Es ist nicht möglich mit BibleTime
-zu arbeiten wenn keine Module installiert sind, obwohl es möglich ist BibleTime ohne
-installiert Module zu testen. Wenn Module in BibleTime angezeigt werden nennen wir sie Dokumente.
+Ein Sword Module ist die Basis von BibleTime. Ein Modul kann eine
+Bibel, ein Kommentar oder ein Lexicon sein.
+Später werden wir Karten und andere interessante Dinge haben. Es ist
+nicht möglich mit BibleTime zu arbeiten, wenn keine Module installiert
+sind, obwohl es möglich ist BibleTime ohne installiert Module zu
+testen. Wenn Module in BibleTime angezeigt werden, nennen wir sie
+Dokumente.
 </para>
 </answer>
 </qandaentry>
@@ -28,24 +30,28 @@ Wie löse ich das Problem?
 </para>
 </question>
 <answer>
-<para>Bitte laden sie ein paar Module herunter und installieren Sie sie. Sie können Module auf
-<ulink url="http://www.crosswire.org">www.crosswire.org</ulink> bekommen.
-Bitte lesen Sie die Installationsanweisungen in unserem
-<ulink url="../handbook/HTML/index.html">Handbuch</ulink> und auf unserer Homepage.
+<para>
+Bitte laden sie ein paar Module herunter und installieren Sie diese. Sie
+können Module auf <ulink
+url="http://www.crosswire.org">www.crosswire.org</ulink> bekommen.
+Bitte lesen Sie die Installationsanweisungen in unserem <ulink
+url="../handbook/HTML/index.html">Handbuch</ulink> und auf unserer
+Homepage.
 </para>
 </answer>
 </qandaentry>
 <qandaentry>
 <question>
 <para>
-Was soll ich machen falls es nicht funktioniert?
+Was soll ich machen, falls es nicht funktioniert?
 </para>
 </question>
 <answer>
 <para>
-Bitte lesen Sie die Dokumentation auf <ulink url="http://www.bibletime.de">
-www.bibletime.de</ulink> und falls sie es nicht zum arbeiten bekommen
-schicken Sie eine eMail an <ulink url="mailto:info@bbibletime.de">info@bibletime.de </ulink>.
+Bitte lesen Sie die Dokumentation auf <ulink
+url="http://www.bibletime.de"> www.bibletime.de</ulink> und falls Sie
+es nicht zu funktionieren bekommen, schicken Sie eine eMail an <ulink
+url="mailto:info@bbibletime.de">info@bibletime.de </ulink>.
 </para>
 </answer>
 </qandaentry>

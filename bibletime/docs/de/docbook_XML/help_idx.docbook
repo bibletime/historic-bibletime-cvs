@@ -26,7 +26,7 @@
 <year>2000</year>
 <year>2001</year>
 <holder>
-Das Team von BibleTime, info@bibletime.de
+Das BibleTime-Team, info@bibletime.de
 </holder>
 </copyright>
 
@@ -57,9 +57,9 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 <abstract>
 <para>
-<application>BibleTime</application> ist eine Anwendung um bei Studium der Bibel zu helfen.
-Bible.</para>
-</abstract>
+<application>BibleTime</application> ist eine Anwendung, die beim Studium
+der Bibel helfen soll.
+</para> </abstract>
 
 <keywordset>
 <keyword>BibleTime</keyword>
@@ -77,6 +77,3 @@ Bible.</para>
 &hdchap6;
 
 </book>
-
-
-

@@ -1,12 +1,12 @@
 <chapter id="help_initbackend_failed">
 <title>Initialisierung des Backends fehlgeschlagen!</title>
-<para>Die Initialisierung bon BibleTime's Backend ist fehlgeschlagen.</para>
+<para>Die Initialisierung des Backend von BibleTime ist fehlgeschlagen.</para>
 
 <para>Falls Sie diese Meldung bekommen, haben Sie einen Fehler aufgedeckt,
-von dem wir wissen müssen.</para>
+von dem wir etwas erfahren sollten.</para>
 
 <para>Bitte schicken Sie uns einen Fehlerbericht mit einigen Informationen
-wie das Problem reproduzierbar ist.</para>
+ darüber, wie das Problem reproduzierbar ist.</para>
 <para>Schicken Sie eine eMail an <ulink url="mailto:info@bibletime.de">info@bibletime.de!</ulink></para>
-<para>Vielen Dank für ihre Hilfe!</para>
+<para>Vielen Dank für Ihre Hilfe!</para>
 </chapter>

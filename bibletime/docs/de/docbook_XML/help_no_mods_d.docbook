@@ -2,8 +2,8 @@
 <title>Initialisierung des Modulverzeichnisses fehlgeschlagen!!</title>
 
 <para>Es gibt kein mods.d Verzeichnis!</para>
-
-<para>Diese Seite beschreibt, wass das mods.d Verzeichnis ist und wie man das Problem löst! </para>
+<para>Diese Seite beschreibt, wass das mods.d Verzeichnis ist und wie
+man das Problem löst! </para>
 <qandaset>
 <qandaentry>
 <question>
@@ -13,9 +13,10 @@ Was ist das mods.d Verzeichnis?
 </question>
 <answer>
 <para>
-Das mods.d Verzeichnis ist das Verzeichnis, dass die Konfigurationsdateien
+Das mods.d Verzeichnis ist das Verzeichnis, das die Konfigurationsdateien
 der Module enthalten sollte!
-Sie müssen diese s Verzeichnis haben, ansonsten können Sie BibleTime und Sword nicht benuutzen.
+Sie müssen dieses Verzeichnis haben, sonst können Sie BibleTime und
+Sword nicht benutzen.
 Bitte lesen Sie die Installationsanweisungen auf unserer Internetseite!
 </para>
 </answer>
@@ -23,16 +24,18 @@ Bitte lesen Sie die Installationsanweisungen auf unserer Internetseite!
 <qandaentry>
 <question>
 <para>
-Wie löse ich dieses problem?
+Wie löse ich dieses Problem?
 </para>
 </question>
 <answer>
 <para>
-Die Lösung ist es, ein mods.d Verzeichnis anzulegen.
-Bitte wechseln Sie in ihr Sword Verzeichnis und geben Sie "mkdir mods.d" ein um das Verzeichnis anzulegen.
-Nun kopieren Sie die Konfigurationsdateien in dieses Verzeichnis und löschen Sie (falls sie existiert)
-die Datei mods.con, da sie nicht mehr benötigt wird. Das mods.d Verzeichnis hat diese Datei ersetzt.
- </para>
+Die Lösung besteht darin ein mods.d Verzeichnis anzulegen.
+Bitte wechseln Sie in ihr Sword Verzeichnis und geben Sie "mkdir
+mods.d" ein um das Verzeichnis anzulegen.
+Nun kopieren Sie die Konfigurationsdateien in dieses Verzeichnis und
+löschen Sie (falls sie existiert) die Datei mods.conf, da sie nicht
+mehr benötigt wird. Das mods.d Verzeichnis hat diese Datei ersetzt.
+</para>
 </answer>
 </qandaentry>
 <qandaentry>
@@ -44,8 +47,9 @@ Kann ich BibleTime ohne dem mods.d Verzeichnis starten?
 <answer>
 <para>
 Ja, dies ist möglich! Aber es ist nicht sehr sinnvoll.
-Es gibt keine Module in den Hauptgruppe. Es ist möglich BibleTime mit dieser Art und Weise zu
-testen, aber es ist unmöglich damit ohne Module zu arbeiten.
+Es gibt keine Module in den Hauptgruppe. Es ist möglich BibleTime auf
+diese Art und Weise zu testen, aber es ist ohne Module unmöglich 
+damit zu arbeiten.
 </para>
 </answer>
 </qandaentry>

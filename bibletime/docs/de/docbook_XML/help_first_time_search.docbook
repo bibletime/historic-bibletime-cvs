@@ -2,7 +2,8 @@
 <title>Erste Benutzung des Suchdialoges</title>
 
 <para>Sie haben den Suchdialog zum ersten Mal geöffnet!</para>
-<para>Diese Seite beschreibt, was der Suchdialog ist, wie man ihn benutzt und wie man effiziente Suchen durchführt.</para>
+<para>Diese Seite beschreibt, was der Suchdialog ist, wie man ihn
+benutzt und wie man effiziente Suchen durchführt.</para>
 
 <qandaset>
 <qandaentry>
@@ -12,31 +13,36 @@ Was ist der Suchdialog?
 </para>
 </question>
 <answer>
-<para>
-Der Suchdialog ist der Dialog, in dem sie die installierten Sword Dokumente (Module) mit Ihrer Kopie von BibleTime durchsuchen können.
-Sie können Text eingeben und diese Text in den Dokumenten suchen. Die gefundenen EInträge erscheinen
-in einer List, so dass Sie mit ihnen arbeiten können.
+<para> Der Suchdialog ist der Dialog, in dem sie die installierten
+Sword Dokumente (Module) mit Ihrer Kopie von BibleTime durchsuchen
+können.  Sie können Text eingeben und diese Text in den Dokumenten
+suchen. Die gefundenen EInträge erscheinen in einer List, so dass Sie
+mit ihnen arbeiten können.
 </para>
 </answer>
 </qandaentry>
 <qandaentry>
 <question>
 <para>
-Wie suche ich nach Text?
+Wie suche ich nach einem Text?
 </para>
 </question>
 <answer>
-<para>
-Um Text zu suchen, klicken sie auf den ersten Eintrag der Karteikarten im oberen Bereich des Dialoges.
-Geben Sie nun etwas Text in der Eingabezeile am Beginn der Seite ein.
-Falls Sie keine besonderen Dinge tun möchten, lassen Sie die Einstellungen unberührt und klicken
-Sie auf den Knopf "Suchen" am unteren Ende des Dialoges.
-Der Fortschritt der Suche wird in den beiden Anzeigen unten angezeigt.
-Die erste Anzeige zeigt den Fortschritt für das aktuelle Modul, die zweite zeigt die
-Prozent der gesamten Suche.
-Es ist möglich in mehr als einem Modul zu suchen, daher werden zwei Anzeigen benötigt.
-Falls Sie jedoch mehr Dinge mit dem Suchdialog tun möchten, bieten wir Ihnen Einstellungen an:
 
+<para>
+Um einen Text zu suchen, klicken sie auf den ersten Eintrag der
+Karteikarten im oberen Bereich des Dialoges.
+Geben Sie nun Ihren Text in der Eingabezeile zu Beginn der Seite ein.
+Falls Sie keine besonderen Sucheigenschaften nutzen wollen, lassen Sie die
+Einstellungen unberührt und klicken Sie auf den Knopf "Suchen" am
+unteren Ende des Dialoges.
+Der Fortschritt der Suche wird in den beiden Anzeigen unten angezeigt.
+Die erste Anzeige zeigt den Fortschritt für das aktuelle Modul, die
+zweite zeigt die Prozent der gesamten Suche.
+Es ist möglich in mehr als einem Modul zu suchen, daher werden zwei
+Anzeigen benötigt.
+Falls Sie jedoch den Suchdialog erweitern möchten, bieten wir
+Ihnen folgende Einstellungen an:
 </para>
 <para>
 <emphasis>
@@ -44,8 +50,8 @@ Mehrere Wörter
 </emphasis>
 </para>
 <para>
-Die eingegebenen Worte dürfen in anderer Reihenfolge als eingegeben auftreten, sie dürfen sogar Teil
-von mehr als einem Wort sein.
+Die eingegebenen Worte dürfen in anderer Reihenfolge als eingegeben
+auftreten, sie dürfen sogar Teil von mehr als einem Wort sein.
 </para>
 <para>
 <emphasis>
@@ -53,8 +59,9 @@ Genaue Suche
 </emphasis>
 </para>
 <para>
-Der Text wird genauso gesucht, wie er eingegeben wurde. Außer wenn Sie die GROSS/klein Unterscheidung anschalten,
-wird ohne deren Unterscheidung gesucht.
+Der Text wird genauso gesucht, wie er eingegeben wurde. Außer wenn Sie
+die GROSS/klein-Unterscheidung anschalten, wird ohne diese
+Unterscheidung gesucht.
 </para>
 <para>
 <emphasis>
@@ -62,16 +69,18 @@ Reguläre Ausdrücke
 </emphasis>
 </para>
 <para>
-Falls Sie diesen Typ der Suche benutzen, werden normalen GNU reguläre Ausdrücke eingesetzt.
+Falls Sie diesen Typ der Suche benutzen, werden normalen GNU reguläre
+Ausdrücke eingesetzt.
 </para>
 <para>
-Im Normalfall werden alle Suchen ohne Unterscheidung von GROSS/klein durchgeführt,
-um die Unterscheidung anzuschalten aktivieren Sie die Box "GROSS/klein".
-Falls SIe Probleme mit den Suchtypen, der Unterscheidung von GROSS/klein oder anderen
-Suche relevanten Dingen bekommen schauen Sie in unser Handbuch für mehr Informationen.
+Im Normalfall werden alle Suchen ohne die Unterscheidung von
+GROSS/klein durchgeführt. Um die Unterscheidung anzuschalten
+aktivieren Sie die Box "GROSS/klein".  Falls SIe Probleme mit den
+Suchtypen, der Unterscheidung von GROSS/klein oder anderen für die Suche
+relevanten Dinge bekommen, finden Sie in unserem Handbuch mehr
+Informationen.
 </para>
 </answer>
 </qandaentry>
 </qandaset>
 </chapter>
-
