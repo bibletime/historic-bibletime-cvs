@@ -17,9 +17,6 @@
 
 #include "csearchdialog.h"
 
-#include "whatsthisdef.h"
-#include "tooltipdef.h"
-
 #include "backend/cswordkey.h"
 #include "backend/cswordversekey.h"
 
@@ -73,11 +70,6 @@ static CSearchDialog* m_staticDialog = 0;
 
 void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString& searchText, QWidget* parentDialog) {
   if (!m_staticDialog) {
-    //check whether the search dialog was shown before, if not show the searchdialog introduction
-		if (!CBTConfig::get(CBTConfig::firstSearchDialog)) {
-      CHTMLDialog dlg(CResMgr::helpDialog::firstTimeSearchDialog);
-      CBTConfig::set(CBTConfig::firstSearchDialog, true);
-    };
     m_staticDialog = new CSearchDialog(parentDialog);
   };
 //  Q_ASSERT(m_staticDialog);
@@ -114,6 +106,19 @@ CSearchDialog::CSearchDialog(QWidget *parent)
 }
 
 CSearchDialog::~CSearchDialog(){
+}
+
+/** Reimplemented to show the First time searchdialog page. */
+void CSearchDialog::show(){
+  KDialogBase::show();
+
+  qWarning("CSearchDialog::show");
+  if (CBTConfig::get(CBTConfig::firstSearchDialog)) { //is this the first time we show the dialog?
+    qWarning("show help dialog");
+    CHTMLDialog dlg(CResMgr::helpDialog::firstTimeSearchDialog);
+    dlg.exec();
+    CBTConfig::set(CBTConfig::firstSearchDialog, false);
+  };  
 }
 
 /** Starts the search with the set modules and the set search text. */

@@ -31,12 +31,12 @@
 
 #include "printing/cprinter.h"
 
-#include "whatsthisdef.h"
 #include "config.h"
 #include "frontend/cbtconfig.h"
 
 #include "util/cpointers.h"
 
+//system includes
 #include <stdlib.h>
 
 //QT includes

@@ -60,6 +60,12 @@ class CSearchDialog : public KDialogBase  {
 public:
   static void openDialog(const ListCSwordModuleInfo modules, const QString& searchText = QString::null, QWidget* parentDialog = 0);
 
+public slots: // Public slots
+  /**
+  * Reimplemented to show the First time searchdialog page.
+  */
+  virtual void show();
+  
 protected:
   friend class CSearchAnalysis;
   friend class CSearchResultPage;  

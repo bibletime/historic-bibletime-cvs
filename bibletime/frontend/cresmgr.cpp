@@ -316,7 +316,7 @@ namespace CResMgr {
           const QString icon = "editcopy";
         };
         namespace saveMenu {
-          const QString icon = "filesace";
+          const QString icon = "filesave";
         };
         namespace printMenu {
           const QString icon = "fileprint";
@@ -330,7 +330,7 @@ namespace CResMgr {
           const QString icon = "editcopy";
         };
         namespace saveMenu {
-          const QString icon = "filesace";
+          const QString icon = "filesave";
         };
         namespace printMenu {
           const QString icon = "fileprint";
@@ -353,100 +353,96 @@ namespace CResMgr {
     namespace displaySettings {
       const QString icon = "bt_displaytranslit";
     };
-    
-    namespace biblewindow {
-     namespace nextBook {
-        const QString tooltip = "";
-        const QString whatsthis = "";
+
+    namespace general {
+      namespace scrollButton {
+        const QString tooltip = makeToolTip( i18n("Scroll through the list") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("This button is useful to scroll through the entries of the list. Press the button and move the mouse to increase or decrease the item."));
+
+      };
+    };
+    namespace bibleWindow {
+      namespace bookList {
+        const QString tooltip = makeToolTip( i18n("List of books") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("This list contains the books which are available in this module."));
+      };      
+      namespace nextBook {
+        const QString tooltip = makeToolTip( i18n("Show the next book") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("Show the next book of this module. The chapter and the verse will be set to \"1\"."));
         const KShortcut accel = Qt::CTRL + Qt::Key_B;
-      }
+       }
       namespace previousBook {
-        const QString tooltip = "";
-        const QString whatsthis = "";
+        const QString tooltip = makeToolTip( i18n("Show the previous book") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("Show the previous book of this module. The chapter and the verse will be set to \"1\"."));
         const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_B;
       }
+
+
+      namespace chapterList {
+        const QString tooltip = makeToolTip( i18n("List of chapters") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("This list contains the chapters which are available in the current book."));
+      };
       namespace nextChapter {
-        const QString tooltip = "";
-        const QString whatsthis = "";
+        const QString tooltip = makeToolTip( i18n("Show the next chapter") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("Show the previous chapter of the module. The verse will be set to \"1\""));
         const KShortcut accel = Qt::CTRL + Qt::Key_H;
       }
       namespace previousChapter {
-        const QString tooltip = "";
-        const QString whatsthis = "";
+        const QString tooltip = makeToolTip( i18n("Show the previous chapter") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("Show the next chapter of the module. The verse will be set to \"1\"."));
         const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_H;
       }
+
+      namespace verseList {
+        const QString tooltip = makeToolTip( i18n("List of verses") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("This list contains the verses which are available in the current chapter."));
+      };
       namespace nextVerse {
-        const QString tooltip = "";
-        const QString whatsthis = "";
+        const QString tooltip = makeToolTip( i18n("Jump to the next verse") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("For Bible texts, the next verse will be highlighted.<BR>In commentaries, the next entry will be shown."));
         const KShortcut accel = Qt::CTRL + Qt::Key_V;
       }
       namespace previousVerse {
-        const QString tooltip = "";
-        const QString whatsthis = "";
+        const QString tooltip = makeToolTip( i18n("Jump to the previous verse") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("For Bible texts, the previous verse will be highlighted. In commentaries, the previous entry will be shown."));
         const KShortcut accel = Qt::CTRL + Qt::SHIFT + Qt::Key_V;
       }
+      
       namespace copyMenu {
-        const QString icon = "";//CResMgr::displaywindows::lexiconWindow::copyMenu::icon;
+        const QString icon = "editcopy";//CResMgr::displaywindows::lexiconWindow::copyMenu::icon;
       };
       namespace saveMenu {
-        const QString icon = "";//CResMgr::displaywindows::lexiconWindow::saveMenu::icon;
+        const QString icon = "filesave";//CResMgr::displaywindows::lexiconWindow::saveMenu::icon;
       }
       namespace printMenu {
-        const QString icon = "";//CResMgr::displaywindows::lexiconWindow::printMenu::icon;
+        const QString icon = "fileprint";//CResMgr::displaywindows::lexiconWindow::printMenu::icon;
       }
     };
     namespace commentaryWindow {
-     namespace nextBook {
-        const QString tooltip = "";
-        const QString whatsthis = "";
-        const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::nextBook::accel;
-      }
-      namespace previousBook {
-        const QString tooltip = "";
-        const QString whatsthis = "";
-        const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::previousBook::accel;
-      }
-      namespace nextChapter {
-        const QString tooltip = "";
-        const QString whatsthis = "";
-        const KShortcut accel = KShortcut(); //CResMgr::displaywindows::biblewindow::nextChapter::accel;
-      }
-      namespace previousChapter {
-        const QString tooltip = "";
-        const QString whatsthis = "";
-        const KShortcut accel = KShortcut();;//CResMgr::displaywindows::biblewindow::previousChapter::accel;
-      }
-      namespace nextVerse {
-        const QString tooltip = "";
-        const QString whatsthis = "";
-        const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::nextVerse::accel;
-      }
-      namespace previousVerse {
-        const QString tooltip = "";
-        const QString whatsthis = "";
-        const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::previousVerse::accel;
-      }
-
-     namespace syncWindow {
-        const QString icon = "bt_sync";
-        const QString tooltip = "";
-        const QString whatsthis = "";
-        const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::nextBook::accel;
-      }
-      
+      namespace syncWindow {
+         const QString tooltip = makeToolTip(i18n("Synchronize with Bible windows"));
+         const QString whatsthis = makeWhatsThis(tooltip, i18n("Synchronize the displayed verse of this module with the active Bible window."));
+         const QString icon = "bt_sync";         
+         const KShortcut accel = KShortcut();//CResMgr::displaywindows::biblewindow::nextBook::accel;
+       }
+       
     };
     namespace lexiconWindow {
+      namespace entryList {
+        const QString tooltip = makeToolTip( i18n("List of entries") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("This list contains the entries of the current module."));
+      };
       namespace nextEntry {
-        const QString tooltip = "";
-        const QString whatsthis = "";
+        const QString tooltip = makeToolTip( i18n("Show the next entry") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("The next entry of the module will be shown."));
         const KShortcut accel = KShortcut();
       }
       namespace previousEntry {
-        const QString tooltip = "";
-        const QString whatsthis = "";
+        const QString tooltip = makeToolTip( i18n("Show the previous entry") );
+        const QString whatsthis = makeWhatsThis(tooltip, i18n("The previous entry of the module will be shown."));
         const KShortcut accel = KShortcut();
       }
-            
+
       namespace copyMenu {
         const QString icon = "editcopy";
       };
@@ -458,13 +454,13 @@ namespace CResMgr {
       }
     };
     namespace bookWindow {
-      namespace toggleTree{
+      namespace toggleTree {
         const QString icon = "view_sidetree";
         const KShortcut accel = KShortcut();
       };
     };
     
-    namespace writewindow {
+    namespace writeWindow {
       namespace saveText {
         const QString tooltip   = makeToolTip( i18n("Save the current text") );
         const QString whatsthis = makeWhatsThis( tooltip, i18n("Save the curent text into the module. The old text will be lost.") );
@@ -487,22 +483,22 @@ namespace CResMgr {
       //formatting buttons
       namespace boldText {
         const QString tooltip   = makeToolTip( i18n("Bold text") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggles the bold status of the selected text.") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggle bold formatting of the selected text.") );
         const QString icon      = "text_bold";
         const KShortcut accel   = KShortcut();
       };
       namespace italicText {
         const QString tooltip   = makeToolTip( i18n("Italic text") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggles the italic status of the selected text.") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggle italic formatting of the selected text.") );
         const QString icon      = "text_italic";
         const KShortcut accel   = KShortcut();
       };
       namespace underlinedText {
         const QString tooltip   = makeToolTip( i18n("Underline text") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggles the underline status of the selected text.") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggle underlined formatting of the selected text.") );
         const QString icon      = "text_under";
         const KShortcut accel   = KShortcut();
-      };
+      };      
 
       namespace alignLeft {
         const QString tooltip   = makeToolTip( i18n("Align left") );
@@ -529,10 +525,49 @@ namespace CResMgr {
         const KShortcut accel   = KShortcut();
       };
 
+      namespace fontFamily {
+        const QString tooltip   = makeToolTip( i18n("Set the font") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Choose a new font for the selected text.") );
+      };
+      namespace fontSize {
+        const QString tooltip   = makeToolTip( i18n("Set the fontsize") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Choose a new fontsize for the selected text.") );
+      };
+      namespace fontColor {
+        const QString tooltip   = makeToolTip( i18n("Set the color") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Choose a new color for the selected text.") );
+      };
+
     };
   };
 
   namespace printing {
+    namespace itemPage {
+      namespace styleChooser {
+        const QString tooltip = makeToolTip(i18n("Styles"));
+        const QString whatsthis = makeWhatsThis(tooltip,i18n("This combo box contains the available print styles."));
+      };     
+      namespace itemList {
+        const QString tooltip = makeToolTip(i18n("List of print items"));
+        const QString whatsthis = makeWhatsThis(tooltip,i18n("This is the list which contains the available print items."));
+      };
+      namespace itemUp {
+        const QString icon = "up";
+        const QString tooltip = makeToolTip(i18n("Move item up"));
+        const QString whatsthis = makeWhatsThis(tooltip,i18n("Move the selected item up one item."));
+      };
+      namespace itemDown {
+        const QString icon = "down";
+        const QString tooltip = makeToolTip(i18n("Move item down"));
+        const QString whatsthis = makeWhatsThis(tooltip,i18n("Move the selected item down one item."));
+      };
+      namespace itemDelete {
+        const QString icon = "edittrash";
+        const QString tooltip = makeToolTip(i18n("Delete items"));
+        const QString whatsthis = makeWhatsThis(tooltip,i18n("Delete the selected items."));
+      };
+    };
+    
     namespace styleList {
       namespace newStyle {
         const QString tooltip = makeToolTip( i18n("New printing style") );
@@ -550,6 +585,28 @@ namespace CResMgr {
         const QString icon = "pencil";
       };
     };
+    namespace printerSettings {
+      namespace margins {
+        const QString whatsthis = makeWhatsThis( makeToolTip(i18n("Size of page borders")), i18n("This group contains the page borders of the page measured in millimeters.") );
+
+        namespace upper {
+          const QString tooltip = makeToolTip( i18n("Upper border") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The size of the border on the top of the paper.") );
+        };
+        namespace lower {
+          const QString tooltip = makeToolTip( i18n("Lower border") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The size of the border on the bottom of the paper.") );
+        };
+        namespace left {
+          const QString tooltip = makeToolTip( i18n("Left border") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The size of the border on the left side of the paper.") );
+        };
+        namespace right {
+          const QString tooltip = makeToolTip( i18n("Right border") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The size of the border on the right side of the paper.") );
+        };
+      };
+    };    
   };
   namespace settings {
     namespace startup {
@@ -662,8 +719,8 @@ namespace CResMgr {
           const QString whatsthis = makeWhatsThis( tooltip, i18n("The default lexicon is used when a hyperlink into a lexicon is clicked"));
         };
         namespace dailyDevotional {
-          const QString tooltip   = makeToolTip( i18n("") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+          const QString tooltip   = makeToolTip( i18n("The default daily devotional module") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default devotional will be used to display a short start up devotional."));
         };
         namespace hebrewStrongs {
           const QString tooltip   = makeToolTip( i18n("The default Hebrew lexicon used in the workspace area") );

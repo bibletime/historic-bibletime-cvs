@@ -30,9 +30,6 @@
 
 #include "util/ctoolclass.h"
 
-#include "whatsthisdef.h"
-//#include "cbtconfig.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -561,8 +558,8 @@ if you want it to move to the <i>previous</i> verse.")),
  	m_settings.swords.useDownArrow = new QCheckBox(currentTab);
  	m_settings.swords.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
  	m_settings.swords.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));		
- 	QWhatsThis::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::tooltip);
- 	QToolTip::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::whatsthis);
+ 	QToolTip::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::tooltip);
+ 	QWhatsThis::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::whatsthis);
  	gridLayout->addMultiCellWidget(m_settings.swords.useDownArrow,3,3,0,-1);
 
   gridLayout->addMultiCellWidget(

@@ -2,6 +2,8 @@
   * Last fixes for beta4:
     -Changes everything to use CResMgr instead of ugly #defined
     -Added support for new Red letter words strip filter
+    -Everything is now in CResMgr
+    -Many small bugfixes
 
 2003-01-11 Joachim Ansorg <joachim@ansorgs.de>
   * Searchdialog search result page highlights searched text

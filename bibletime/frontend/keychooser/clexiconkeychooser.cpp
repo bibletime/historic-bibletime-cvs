@@ -19,11 +19,9 @@
 #include "ckeychooserwidget.h"
 #include "cfx_btn.h"
 
-#include "tooltipdef.h"
-#include "whatsthisdef.h"
-
 #include "backend/cswordlexiconmoduleinfo.h"
 #include "frontend/cbtconfig.h"
+#include "frontend/cresmgr.h"
 
 //STL headers
 #include <algorithm>
@@ -50,9 +48,19 @@ CLexiconKeyChooser::CLexiconKeyChooser(ListCSwordModuleInfo modules, CSwordKey *
 
 	m_widget = new CKeyChooserWidget(0, false, this);
 	m_widget->comboBox()->setMaximumWidth(450);
-	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,TT_PRESENTER_NEXT_ENTRY, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_ENTRY);
-	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,WT_PRESENTER_NEXT_ENTRY, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_ENTRY);
-	
+	m_widget->setToolTips(
+    CResMgr::displaywindows::lexiconWindow::entryList::tooltip,
+    CResMgr::displaywindows::lexiconWindow::nextEntry::tooltip,
+    CResMgr::displaywindows::general::scrollButton::tooltip,
+    CResMgr::displaywindows::lexiconWindow::previousEntry::tooltip
+  );
+	m_widget->setWhatsThis(
+    CResMgr::displaywindows::lexiconWindow::entryList::whatsthis,
+    CResMgr::displaywindows::lexiconWindow::nextEntry::whatsthis,
+    CResMgr::displaywindows::general::scrollButton::whatsthis,
+    CResMgr::displaywindows::lexiconWindow::previousEntry::whatsthis
+  );
+
 	m_layout->addWidget(m_widget,0,Qt::AlignLeft);
 	
 	connect(m_widget,SIGNAL(changed(int)),SLOT(activated(int)));

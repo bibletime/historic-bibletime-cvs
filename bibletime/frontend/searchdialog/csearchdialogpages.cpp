@@ -31,9 +31,6 @@
 #include "util/cpointers.h"
 #include "util/ctoolclass.h"
 
-#include "whatsthisdef.h"
-#include "tooltipdef.h"
-
 //Qt includes
 #include <qlayout.h>
 #include <qhbox.h>

@@ -51,34 +51,34 @@ void CPlainWriteWindow::initView(){
  	mainToolBar()->setFullSize(false);
 
  	m_actions.saveText = new KAction(i18n("Save the text"),
-    CResMgr::displaywindows::writewindow::saveText::icon,
-    CResMgr::displaywindows::writewindow::saveText::accel,
+    CResMgr::displaywindows::writeWindow::saveText::icon,
+    CResMgr::displaywindows::writeWindow::saveText::accel,
     this, SLOT(saveCurrentText()),
     actionCollection()
   );
-  m_actions.saveText->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
-  m_actions.saveText->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
+  m_actions.saveText->setToolTip( CResMgr::displaywindows::writeWindow::saveText::tooltip );
+  m_actions.saveText->setWhatsThis( CResMgr::displaywindows::writeWindow::saveText::whatsthis );
   m_actions.saveText->plug(mainToolBar());
 
 
  	m_actions.deleteEntry = new KAction(i18n("Delete the current entry"),
-    CResMgr::displaywindows::writewindow::deleteEntry::icon,
-    CResMgr::displaywindows::writewindow::deleteEntry::accel,
+    CResMgr::displaywindows::writeWindow::deleteEntry::icon,
+    CResMgr::displaywindows::writeWindow::deleteEntry::accel,
     this, SLOT(deleteEntry()),
     actionCollection()
   );
-  m_actions.deleteEntry->setToolTip( CResMgr::displaywindows::writewindow::deleteEntry::tooltip );
-  m_actions.deleteEntry->setWhatsThis( CResMgr::displaywindows::writewindow::deleteEntry::whatsthis );
+  m_actions.deleteEntry->setToolTip( CResMgr::displaywindows::writeWindow::deleteEntry::tooltip );
+  m_actions.deleteEntry->setWhatsThis( CResMgr::displaywindows::writeWindow::deleteEntry::whatsthis );
   m_actions.deleteEntry->plug(mainToolBar());
 
 
  	m_actions.restoreText = new KAction(i18n("Restore original text"),
-    CResMgr::displaywindows::writewindow::restoreText::icon,
-    CResMgr::displaywindows::writewindow::restoreText::accel,
+    CResMgr::displaywindows::writeWindow::restoreText::icon,
+    CResMgr::displaywindows::writeWindow::restoreText::accel,
     this, SLOT(restoreText()), actionCollection()
   );
-  m_actions.restoreText->setToolTip( CResMgr::displaywindows::writewindow::restoreText::tooltip );
-  m_actions.restoreText->setWhatsThis( CResMgr::displaywindows::writewindow::restoreText::whatsthis );
+  m_actions.restoreText->setToolTip( CResMgr::displaywindows::writeWindow::restoreText::tooltip );
+  m_actions.restoreText->setWhatsThis( CResMgr::displaywindows::writeWindow::restoreText::whatsthis );
   m_actions.restoreText->plug(mainToolBar());
 }
 

@@ -27,7 +27,7 @@
 #include <klocale.h>
 
 CPlainWriteDisplay::CPlainWriteDisplay(CWriteWindow* parentWindow, QWidget* parent) : QTextEdit(parentWindow ? parentWindow : parent), CWriteDisplay(parentWindow) {
-  qWarning("constructor of CPlainWriteDisplay");
+//  qWarning("constructor of CPlainWriteDisplay");
   setTextFormat(Qt::PlainText);
 
   connect(this, SIGNAL(textChanged()),

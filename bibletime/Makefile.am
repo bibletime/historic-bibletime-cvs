@@ -27,9 +27,7 @@ $(LIBSOCKET)
 
 SUBDIRS = backend printing frontend xml pics util
 
-all_headers = bibletime.h \
-whatsthisdef.h \
-tooltipdef.h
+all_headers = bibletime.h
 
 EXTRA_DIST = $(bibletime_SOURCES) $(all_headers)
 

@@ -20,8 +20,6 @@
 #include "cprintdialogpages.h"
 #include "cprintitemlist.h"
 #include "cprintitem.h"
-#include "tooltipdef.h"
-#include "whatsthisdef.h"
 
 #include "frontend/cresmgr.h"
 
@@ -49,7 +47,7 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
   QVBoxLayout *topLayout = new QVBoxLayout( this, 5, 5 );
   	
   QButtonGroup *group = new QButtonGroup( i18n("Margins (in millimeter)"), this );
-  QWhatsThis::add(group, WT_PD_LAYOUT_BORDER);
+  QWhatsThis::add(group, CResMgr::printing::printerSettings::margins::whatsthis);
   topLayout->addWidget( group, 0 );
 
   QGridLayout *gbox = new QGridLayout( group, 4, 2, 5, 5 );
@@ -77,17 +75,18 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
       gbox->addWidget( m_marginSpin[i], i-1, 4, AlignLeft );
     }
   }
-  QWhatsThis::add(m_marginSpin[0], WT_PD_LAYOUT_BORDER_TOP);
-  QWhatsThis::add(m_marginSpin[1], WT_PD_LAYOUT_BORDER_BOTTOM);
-  QWhatsThis::add(m_marginSpin[2], WT_PD_LAYOUT_BORDER_LEFT);
-  QWhatsThis::add(m_marginSpin[3], WT_PD_LAYOUT_BORDER_RIGHT);
+  QToolTip::add(m_marginSpin[0], CResMgr::printing::printerSettings::margins::upper::tooltip);
+  QToolTip::add(m_marginSpin[1], CResMgr::printing::printerSettings::margins::lower::tooltip);
+  QToolTip::add(m_marginSpin[2], CResMgr::printing::printerSettings::margins::left::tooltip);
+  QToolTip::add(m_marginSpin[3], CResMgr::printing::printerSettings::margins::right::tooltip);
 
-  QToolTip::add(m_marginSpin[0], TT_PD_LAYOUT_BORDER_TOP);
-  QToolTip::add(m_marginSpin[1], TT_PD_LAYOUT_BORDER_BOTTOM);
-  QToolTip::add(m_marginSpin[2], TT_PD_LAYOUT_BORDER_LEFT);
-  QToolTip::add(m_marginSpin[3], TT_PD_LAYOUT_BORDER_RIGHT);
+  QWhatsThis::add(m_marginSpin[0], CResMgr::printing::printerSettings::margins::upper::whatsthis);
+  QWhatsThis::add(m_marginSpin[1], CResMgr::printing::printerSettings::margins::lower::whatsthis);
+  QWhatsThis::add(m_marginSpin[2], CResMgr::printing::printerSettings::margins::left::whatsthis);
+  QWhatsThis::add(m_marginSpin[3], CResMgr::printing::printerSettings::margins::right::whatsthis);
 
-  gbox->activate();	
+
+  gbox->activate();
   group->setFixedHeight( group->sizeHint().height() );
   //set minimum borders
   m_marginSpin[0]->setRange(0, 100);	//upper margin
@@ -98,32 +97,32 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
   QHBoxLayout *entryLayout = new QHBoxLayout( 0, 5, 5 );
   QVBoxLayout *styleLayout = new QVBoxLayout( 0, 5, 5 );
   QVBoxLayout *buttonLayout = new QVBoxLayout( 0, 5, 5 );
-  	
+
   m_styleList = new CStyleList( &(m_printer->styleList()), this, "CStyleList1");
 	connect(m_styleList, SIGNAL(currentChanged(QListViewItem*)), SLOT(currentStyleChanged(QListViewItem*)));
 //	QToolTip::add(m_styleList, TT_PD_LAYOUT_STYLE_LIST);
 //	QWhatsThis::add(m_styleList, WT_PD_LAYOUT_STYLE_LIST);
-	
+
   QLabel* label = new QLabel(m_styleList, i18n("List of style items:"), this);
   styleLayout->addWidget(label,0);
 	styleLayout->addWidget( m_styleList, 3);
-	
+
 	m_newStyleButton = new QToolButton( this, "newStyle Button");
 	m_newStyleButton->setIconSet( SmallIcon( CResMgr::printing::styleList::newStyle::icon ) );
-	QToolTip::add(m_newStyleButton, CResMgr::printing::styleList::newStyle::tooltip);	
-	QWhatsThis::add(m_newStyleButton, CResMgr::printing::styleList::newStyle::whatsthis);	
+	QToolTip::add(m_newStyleButton, CResMgr::printing::styleList::newStyle::tooltip);
+	QWhatsThis::add(m_newStyleButton, CResMgr::printing::styleList::newStyle::whatsthis);
 	connect( m_newStyleButton, SIGNAL(clicked()), m_styleList, SLOT(createNewStyle()));
-		
-	m_deleteStyleButton = new QToolButton( this, "deleteStyle Button");	
+
+	m_deleteStyleButton = new QToolButton( this, "deleteStyle Button");
 	m_deleteStyleButton->setIconSet( SmallIcon(CResMgr::printing::styleList::deleteStyle::icon));
-	QToolTip::add(m_deleteStyleButton, CResMgr::printing::styleList::deleteStyle::tooltip);	
-	QWhatsThis::add(m_deleteStyleButton, CResMgr::printing::styleList::deleteStyle::whatsthis);		
+	QToolTip::add(m_deleteStyleButton, CResMgr::printing::styleList::deleteStyle::tooltip);
+	QWhatsThis::add(m_deleteStyleButton, CResMgr::printing::styleList::deleteStyle::whatsthis);
 	connect( m_deleteStyleButton, SIGNAL(clicked()), m_styleList, SLOT(deleteCurrentStyle()));
 
 	m_editStyleButton = new QToolButton( this, "editStyle");
 	m_editStyleButton->setIconSet( SmallIcon(CResMgr::printing::styleList::editStyle::icon));
-	QToolTip::add(m_editStyleButton, CResMgr::printing::styleList::editStyle::tooltip);	
-	QWhatsThis::add(m_editStyleButton, CResMgr::printing::styleList::editStyle::whatsthis);		
+	QToolTip::add(m_editStyleButton, CResMgr::printing::styleList::editStyle::tooltip);
+	QWhatsThis::add(m_editStyleButton, CResMgr::printing::styleList::editStyle::whatsthis);
 	connect( m_editStyleButton, SIGNAL(clicked()), m_styleList, SLOT(editCurrentStyle()));
 		
 	buttonLayout->addWidget( m_newStyleButton );
@@ -196,8 +195,8 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
   QLabel*	label = 0;
 
   m_styleComboBox = new QComboBox( this, "styleComboBox" );
-	QToolTip::add(m_styleComboBox, TT_PD_ENTRIES_STYLE_COMBO);
-	QWhatsThis::add(m_styleComboBox, WT_PD_ENTRIES_STYLE_COMBO);
+	QToolTip::add(m_styleComboBox, CResMgr::printing::itemPage::styleChooser::tooltip);
+	QWhatsThis::add(m_styleComboBox, CResMgr::printing::itemPage::styleChooser::whatsthis);
   connect(m_styleComboBox, SIGNAL(activated(const QString&)), SLOT(slotListApplyStyle(const QString&)));
 
   label = new QLabel( m_styleComboBox, i18n("Choose a style"), this);
@@ -209,8 +208,8 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
   hboxLayout = new QHBoxLayout( 0, 5, 5 );
 
   m_printItemList = new CPrintItemList( &(m_printer->printQueue()), this, "CPrintItemList1");
-	QToolTip::add(m_printItemList, TT_PD_ENTRIES_PI_LIST);
-	QWhatsThis::add(m_printItemList, WT_PD_ENTRIES_PI_LIST);
+	QToolTip::add(m_printItemList, CResMgr::printing::itemPage::itemList::tooltip);
+	QWhatsThis::add(m_printItemList, CResMgr::printing::itemPage::itemList::whatsthis);
 
   label = new QLabel(m_printItemList, i18n("Entries which should be printed:"), this);
   entryLayout->addWidget(label);
@@ -219,24 +218,21 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
 
   QVBoxLayout *buttonLayout = new QVBoxLayout( 0, 5, 5 );
   m_moveUpButton = new QToolButton(this);
- 	m_moveUpButton->setIconSet( SmallIcon("up"));
-//	m_moveUpButton->setOffIconSet( SmallIcon("up"));	
-	QToolTip::add(m_moveUpButton, TT_PD_ENTRIES_PI_MOVE_UP);
-	QWhatsThis::add(m_moveUpButton, WT_PD_ENTRIES_PI_MOVE_UP);	
+ 	m_moveUpButton->setIconSet( SmallIcon(CResMgr::printing::itemPage::itemUp::icon));
+	QToolTip::add(m_moveUpButton, CResMgr::printing::itemPage::itemUp::tooltip);
+	QWhatsThis::add(m_moveUpButton, CResMgr::printing::itemPage::itemUp::whatsthis);	
 	connect(m_moveUpButton, SIGNAL(clicked()),m_printItemList, SLOT(moveUp()));
 	
   m_moveDownButton = new QToolButton(this);
- 	m_moveDownButton->setIconSet( SmallIcon("down"));
-//	m_moveDownButton->setOffIconSet( SmallIcon("down"));	
-	QToolTip::add(m_moveDownButton, TT_PD_ENTRIES_PI_MOVE_DOWN);
-	QWhatsThis::add(m_moveDownButton, WT_PD_ENTRIES_PI_MOVE_DOWN);
+ 	m_moveDownButton->setIconSet( SmallIcon(CResMgr::printing::itemPage::itemDown::icon));
+	QToolTip::add(m_moveDownButton, CResMgr::printing::itemPage::itemDown::tooltip);
+	QWhatsThis::add(m_moveDownButton, CResMgr::printing::itemPage::itemDown::whatsthis);
 	connect( m_moveDownButton, SIGNAL(clicked()),m_printItemList, SLOT(moveDown()));
 	
   m_deleteButton = new QToolButton(this);
-	m_deleteButton->setIconSet( SmallIcon("edittrash"));
-//	m_deleteButton->setOffIconSet( SmallIcon("edittrash"));	
-	QToolTip::add(m_deleteButton, TT_PD_ENTRIES_PI_DELETE);
-	QWhatsThis::add(m_deleteButton, WT_PD_ENTRIES_PI_DELETE);		
+	m_deleteButton->setIconSet( SmallIcon(CResMgr::printing::itemPage::itemDelete::icon));
+	QToolTip::add(m_deleteButton, CResMgr::printing::itemPage::itemDelete::tooltip);
+	QWhatsThis::add(m_deleteButton, CResMgr::printing::itemPage::itemDelete::whatsthis);		
 	connect( m_deleteButton, SIGNAL(clicked()),m_printItemList, SLOT(deleteSelectedItems()));
 
   buttonLayout->addWidget(m_moveUpButton);

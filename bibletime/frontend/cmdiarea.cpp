@@ -22,7 +22,6 @@
 #include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/keychooser/ckeychooser.h"
 
-#include "whatsthisdef.h"
 #include "config.h"
 
 //KDE includes
@@ -53,8 +52,8 @@ CMDIArea::~CMDIArea(){
 
 /** Initializes the view of the MDI area */
 void CMDIArea::initView(){
-	QWhatsThis::add(this, WT_MDI_AREA_WIDGET );
-	setPaletteBackgroundColor( parentWidget()->paletteBackgroundColor() );	
+//	QWhatsThis::add(this, WT_MDI_AREA_WIDGET );
+	setPaletteBackgroundColor( parentWidget()->paletteBackgroundColor() );	//work around a KDE bug (IMHO was in KDE 2.x)
 }
 
 /** Initilizes the connectiosn to SIGNALS */

@@ -370,8 +370,19 @@ namespace CResMgr {
     namespace displaySettings {
       extern const QString icon;
     };
+
+    namespace general {
+      namespace scrollButton{
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      };
+    };
     
-    namespace biblewindow {
+    namespace bibleWindow {
+      namespace bookList {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      }
       namespace nextBook {
         extern const QString tooltip;
         extern const QString whatsthis;
@@ -382,6 +393,11 @@ namespace CResMgr {
         extern const QString whatsthis;
         extern const KShortcut accel;
       }
+
+      namespace chapterList {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      }
       namespace nextChapter {
         extern const QString tooltip;
         extern const QString whatsthis;
@@ -391,6 +407,11 @@ namespace CResMgr {
         extern const QString tooltip;
         extern const QString whatsthis;
         extern const KShortcut accel;
+      }
+
+      namespace verseList {
+        extern const QString tooltip;
+        extern const QString whatsthis;
       }
       namespace nextVerse {
         extern const QString tooltip;
@@ -414,37 +435,6 @@ namespace CResMgr {
       }
     };
     namespace commentaryWindow {
-      namespace nextBook {
-        extern const QString tooltip;
-        extern const QString whatsthis;
-        extern const KShortcut accel;
-      }
-      namespace previousBook {
-        extern const QString tooltip;
-        extern const QString whatsthis;
-        extern const KShortcut accel;
-      }
-      namespace nextChapter {
-        extern const QString tooltip;
-        extern const QString whatsthis;
-        extern const KShortcut accel;
-      }
-      namespace previousChapter {
-        extern const QString tooltip;
-        extern const QString whatsthis;
-        extern const KShortcut accel;
-      }
-      namespace nextVerse {
-        extern const QString tooltip;
-        extern const QString whatsthis;
-        extern const KShortcut accel;
-      }
-      namespace previousVerse {
-        extern const QString tooltip;
-        extern const QString whatsthis;
-        extern const KShortcut accel;
-      }
-
       namespace syncWindow {
         extern const QString icon;
         extern const QString tooltip;
@@ -455,7 +445,11 @@ namespace CResMgr {
     };
 
     namespace lexiconWindow {
-       namespace nextEntry {
+      namespace entryList {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      }
+      namespace nextEntry {
         extern const QString tooltip;
         extern const QString whatsthis;
         extern const KShortcut accel;
@@ -484,7 +478,7 @@ namespace CResMgr {
     };
 
     
-    namespace writewindow {
+    namespace writeWindow {
       namespace saveText {
         extern const QString tooltip;
         extern const QString whatsthis;
@@ -548,11 +542,51 @@ namespace CResMgr {
         extern const QString icon;
         extern const KShortcut accel;
       };
+
+
+      namespace fontFamily {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      };
+      namespace fontSize {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      };
+      namespace fontColor {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      };
             
     };
   };
   
-  namespace printing {
+   namespace printing {
+    namespace itemPage {
+      namespace styleChooser {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      };
+      namespace itemList {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      };
+      namespace itemUp {
+        extern const QString icon;
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      };
+      namespace itemDown {
+        extern const QString icon;
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      };
+      namespace itemDelete {
+        extern const QString icon;
+        extern const QString tooltip;
+        extern const QString whatsthis;
+      };
+    };
+
     namespace styleList {
       namespace newStyle {
         extern const QString icon;
@@ -568,6 +602,28 @@ namespace CResMgr {
         extern const QString icon;
         extern const QString tooltip;
         extern const QString whatsthis;
+      };
+    };
+    namespace printerSettings {
+      namespace margins {
+        extern const QString whatsthis;
+
+        namespace upper {
+          extern const QString tooltip;
+          extern const QString whatsthis;          
+        };
+        namespace lower {
+          extern const QString tooltip;
+          extern const QString whatsthis;          
+        };
+        namespace left {
+          extern const QString tooltip;
+          extern const QString whatsthis;          
+        };
+        namespace right {
+          extern const QString tooltip;
+          extern const QString whatsthis;          
+        };
       };
     };
   };

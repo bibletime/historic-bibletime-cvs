@@ -27,9 +27,6 @@
 #include "frontend/cdragdropmgr.h"
 #include "frontend/cresmgr.h"
 
-#include "tooltipdef.h"
-#include "whatsthisdef.h"
-
 //Qt includes
 #include <qheader.h>
 #include <qwhatsthis.h>

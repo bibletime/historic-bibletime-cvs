@@ -279,7 +279,7 @@ const QString CBTConfig::get( const CBTConfig::strings ID){
 const bool CBTConfig::get( const CBTConfig::bools ID){
 	//special behaviour for the KTipDialog class
 	KConfig* config = KGlobal::config();	
-	KConfigGroupSaver groupSaver(config, (ID == CBTConfig::tips) ? "TipOfDay" : "bools");		
+	KConfigGroupSaver groupSaver(config, (ID == CBTConfig::tips) ? "TipOfDay" : "bools");
 	return config->readBoolEntry(getKey(ID),getDefault(ID));
 }
 

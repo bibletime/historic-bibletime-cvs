@@ -19,11 +19,12 @@
 #include "cbiblekeychooser.h"
 #include "ckeychooserwidget.h"
 #include "cfx_btn.h"
-#include "whatsthisdef.h"
-#include "tooltipdef.h"
+
 #include "backend/cswordversekey.h"
 #include "backend/cswordbiblemoduleinfo.h"
 #include "backend/cswordmoduleinfo.h"
+
+#include "frontend/cresmgr.h"
 
 //Qt includes
 #include <qcombobox.h>
@@ -49,16 +50,46 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
   layout->setDirection( QBoxLayout::LeftToRight );
 		
 	w_book = new CKeyChooserWidget(m_modules.first()->books(),false,this);	
-	w_book->setToolTips(TT_PRESENTER_BOOK_COMBO, TT_PRESENTER_NEXT_BOOK, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_BOOK);
-	w_book->setWhatsThis(WT_PRESENTER_BOOK_COMBO, WT_PRESENTER_NEXT_BOOK, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_BOOK);
+	w_book->setToolTips(
+    CResMgr::displaywindows::bibleWindow::bookList::tooltip,
+    CResMgr::displaywindows::bibleWindow::nextBook::tooltip,
+    CResMgr::displaywindows::general::scrollButton::tooltip,
+    CResMgr::displaywindows::bibleWindow::previousBook::tooltip
+  );
+	w_book->setWhatsThis(
+    CResMgr::displaywindows::bibleWindow::bookList::whatsthis,
+    CResMgr::displaywindows::bibleWindow::nextBook::whatsthis,
+    CResMgr::displaywindows::general::scrollButton::whatsthis,
+    CResMgr::displaywindows::bibleWindow::previousBook::whatsthis
+  );
 	
   w_chapter = new CKeyChooserWidget( m_modules.first()->chapterCount(w_book->comboBox()->currentText()),true,this);		
-	w_chapter->setToolTips(TT_PRESENTER_CHAPTER_COMBO, TT_PRESENTER_NEXT_CHAPTER, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_CHAPTER);	
-	w_chapter->setWhatsThis(WT_PRESENTER_CHAPTER_COMBO, WT_PRESENTER_NEXT_CHAPTER, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_CHAPTER);		
+	w_chapter->setToolTips(
+    CResMgr::displaywindows::bibleWindow::chapterList::tooltip,
+    CResMgr::displaywindows::bibleWindow::nextChapter::tooltip,
+    CResMgr::displaywindows::general::scrollButton::tooltip,
+    CResMgr::displaywindows::bibleWindow::previousChapter::tooltip
+  );
+	w_chapter->setWhatsThis(
+    CResMgr::displaywindows::bibleWindow::chapterList::whatsthis,
+    CResMgr::displaywindows::bibleWindow::nextChapter::whatsthis,
+    CResMgr::displaywindows::general::scrollButton::whatsthis,
+    CResMgr::displaywindows::bibleWindow::previousChapter::whatsthis
+  );
 	
   w_verse = new CKeyChooserWidget( m_modules.first()->verseCount(w_book->comboBox()->currentText(),1),true,this);
-	w_verse->setToolTips(TT_PRESENTER_VERSE_COMBO, TT_PRESENTER_NEXT_VERSE, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_VERSE);
-	w_verse->setWhatsThis(WT_PRESENTER_VERSE_COMBO, WT_PRESENTER_NEXT_VERSE, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_VERSE);
+	w_verse->setToolTips(
+    CResMgr::displaywindows::bibleWindow::verseList::tooltip,
+    CResMgr::displaywindows::bibleWindow::nextVerse::tooltip,
+    CResMgr::displaywindows::general::scrollButton::tooltip,
+    CResMgr::displaywindows::bibleWindow::previousVerse::tooltip
+  );
+	w_verse->setWhatsThis(
+    CResMgr::displaywindows::bibleWindow::verseList::whatsthis,
+    CResMgr::displaywindows::bibleWindow::nextVerse::whatsthis,
+    CResMgr::displaywindows::general::scrollButton::whatsthis,
+    CResMgr::displaywindows::bibleWindow::previousVerse::whatsthis
+  );
 
 	QWidget::setTabOrder(w_book, w_chapter);
 	QWidget::setTabOrder(w_chapter, w_verse);
