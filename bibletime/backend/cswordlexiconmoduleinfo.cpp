@@ -29,6 +29,9 @@
 #include <kglobal.h>
 #include <kstandarddirs.h>
 
+//Change it once the format changed to make all
+//systems rebuild their caches
+#define CACHE_FORMAT "2"
 
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( SWModule* module) : CSwordModuleInfo(module) {
 	m_entryList = 0;
@@ -71,9 +74,10 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
   		
       if ( f1.open( IO_ReadOnly ) ){
         QDataStream s( &f1 );
-  			QString v;
-        s >> v;
-  			if (v == config(ModuleVersion) ) {
+  			QString mod_ver, prog_ver;
+        s >> mod_ver;
+        s >> prog_ver;
+  			if (mod_ver == config(ModuleVersion) && prog_ver == CACHE_FORMAT) {
   				s >> *m_entryList;
   				read = true;
   			}
@@ -84,7 +88,9 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
     if (!read){
 			(*module()) = TOP;  		
   		do {
-   			m_entryList->append(QString::fromLocal8Bit(module()->KeyText())); //UTF8, Latin1 or Local8Bit??
+//   			m_entryList->append(QString::fromLocal8Bit(module()->KeyText())); //UTF8, Latin1 or Local8Bit??
+   			m_entryList->append(QString::fromUtf8(module()->KeyText()));
+//				qWarning(module()->KeyText());
   			(*module())++;
   		} while ( !module()->Error() );
 
@@ -92,12 +98,14 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 	  		m_entryList->remove( m_entryList->begin() );			
 
 			if (lexiconCache){
+				qWarning("(re-)creating module cache");
   			// create cache
 		 		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
         QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );
         if (f2.open( IO_WriteOnly )){
           QDataStream s( &f2 );
-  				s << config(CSwordModuleInfo::ModuleVersion);
+  				s << config(CSwordModuleInfo::ModuleVersion); //store module version
+					s << QString::fromLatin1(CACHE_FORMAT); //store BT version -- format may change
   				s << *m_entryList;
   			  f2.close();
         }

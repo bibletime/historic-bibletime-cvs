@@ -59,11 +59,13 @@ CSwordModuleInfo* const CSwordLDKey::module(CSwordModuleInfo* const newModule){
 
 /** Sets the key of this instance */
 const QString CSwordLDKey::key(){
- 	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8
+// 	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8
+ 	return QString::fromUtf8((const char*)*this);
 }
 
 void CSwordLDKey::key( const QString& newKey ){
-	SWKey::operator = ((const char*)newKey.local8Bit());		
+//	SWKey::operator = ((const char*)newKey.local8Bit());		
+	SWKey::operator = ((const char*)newKey.utf8());		
 	m_module->module()->SetKey(this);
 	m_module->snap();
 	SWKey::operator = (m_module->module()->KeyText());
