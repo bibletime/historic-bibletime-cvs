@@ -104,8 +104,9 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 //	aboutData.addCredit("Juho Vahakangas", I18N_NOOP("The Martin Luther startup logo"), "juhov@freenet.fi", "");
 	aboutData.addCredit("Torsten Uhlmann (not active)", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
 	aboutData.addCredit("Darwin Gregory (not active)", I18N_NOOP("optionsdialog"), "darwin@ichristian.com", "");	
-	aboutData.addCredit("Keith Robertson (not active)", "", "kjrobert@uwaterloo.ca", "");
+//	aboutData.addCredit("Keith Robertson (not active)", "", "kjrobert@uwaterloo.ca", "");
 	aboutData.addCredit("Jeffrey Hoyt (not active)", 	I18N_NOOP("handbook"), "jeffhoyt@earthlink.net", "http://jhoyt.faithweb.com");
+	aboutData.addCredit("Bob Harman", 	I18N_NOOP("Bible study HowTo"), "N_Cov_Church@compuserve.com", "");	
 
  	
  	KCmdLineArgs::init(argc, argv, &aboutData); 	
