@@ -105,9 +105,11 @@ private:
 //install module stuff
   QButton* m_installBackButton;
   QButton* m_installContinueButton;
- 	QWidget* m_installModuleListPage;
+
+  QWidget* m_installModuleListPage;
+  QWidget* m_installSourcePage;
+  
  	QListView* m_installModuleListView;
-//  QString m_installSourceName;
   KProgressDialog* m_progressDialog;
   QString m_installingModule;
   bool m_refreshedRemoteSources;
@@ -120,8 +122,8 @@ private slots:
 	void slotApply();
   void slot_connectToSource();
   void slot_installModules();
+  void slot_showInstallSourcePage();
 
-  /** No descriptions */
   void installCompleted( const int, const int );
 
 signals: // Signals

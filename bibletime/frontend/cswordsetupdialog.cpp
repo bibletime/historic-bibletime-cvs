@@ -588,5 +588,10 @@ void CSwordSetupDialog::installCompleted( const int total, const int file ){
 
 /** No descriptions */
 void CSwordSetupDialog::slot_showInstallSourcePage(){
+  connect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_connectToSource()));
+  disconnect( m_installContinueButton, SIGNAL(clicked()), this, SLOT(slot_installModules()));
+  m_installContinueButton->setText(i18n("Connect"));
+  m_installBackButton->setEnabled(false);
+  
   m_installWidgetStack->raiseWidget(m_installSourcePage);
 }
