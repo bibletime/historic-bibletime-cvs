@@ -110,6 +110,7 @@ private:
  	QListView* m_installModuleListView;
 //  QString m_installSourceName;
   KProgressDialog* m_progressDialog;
+  QString m_installingModule;
     
 private slots:
   void slot_sourceSelected(const QString &sourceName);

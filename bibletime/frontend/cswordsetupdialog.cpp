@@ -533,14 +533,19 @@ void CSwordSetupDialog::slot_installModules(){
     sword::InstallSource* is = BTInstallMgr::Tool::source(&mgr, m_sourceCombo->currentText());
     Q_ASSERT(is);
 
-    m_progressDialog = new KProgressDialog();
-    m_progressDialog->progressBar()->setTotalSteps(100);
-    connect(&mgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
     //module are removed in this section of code
   	for ( QStringList::Iterator it = moduleList.begin(); it != moduleList.end(); ++it ) {
+      m_progressDialog = new KProgressDialog();
+      m_installingModule = *it;
+      m_progressDialog->progressBar()->setTotalSteps(100);
+      connect(&mgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
+     
       qWarning("in install loop fo module %s", (*it).latin1());
       mgr.installModule(backend(), 0, (*it).latin1(), is);
       qWarning("Installed module: [%s]" , (*it).latin1());
+
+      delete m_progressDialog;
+      m_progressDialog = 0;
     }
   }
 }
@@ -550,6 +555,6 @@ void CSwordSetupDialog::installCompleted( const int total, const int file ){
   qWarning("percent completed %f", total);
   if (m_progressDialog) {
     m_progressDialog->progressBar()->setProgress(total);
-    m_progressDialog->setLabel( QString("%1 file percent and %2 in total completed").arg(file).arg(total) );  
+    m_progressDialog->setLabel( QString("{%1}: %2% completed").arg(m_installingModule).arg(total) );  
   }
 }
