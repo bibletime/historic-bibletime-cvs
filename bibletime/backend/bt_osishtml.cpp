@@ -44,29 +44,18 @@ using sword::XMLTag;
 using namespace Filters;
 
 BT_OSISHTML::BT_OSISHTML() : sword::OSISHTMLHREF() { //TODO: FIX INHERITANCE
-/*	setTokenStart("<");
-	setTokenEnd(">");
 	
-	addTokenSubstitute("inscription", "<span class=\"inscription\">");
-	addTokenSubstitute("/inscription","</span>");
-	
-	addTokenSubstitute("mentioned", "<span class=\"mentioned\">");
-	addTokenSubstitute("/mentioned", "</span>");
-	
-	addTokenSubstitute("divineName", "<span class=\"name\"><span class=\"divine\">");
-	addTokenSubstitute("/divineName", "</span></span>");*/
-	
- 	//Hack to make poetry work better
-//  	addTokenSubstitute("lg", "<p>");
-//  	addTokenSubstitute("/lg", "</p>");
-		
-	/*setEscapeStart("&");
-	setEscapeEnd(";");
-	setEscapeStringCaseSensitive(true);
-
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes
+
+	replaceTokenSubstitute("inscription", "<span class=\"inscription\">");
+	replaceTokenSubstitute("/inscription","</span>");
 	
-	setTokenCaseSensitive(true);*/
+	replaceTokenSubstitute("mentioned", "<span class=\"mentioned\">");
+	replaceTokenSubstitute("/mentioned", "</span>");
+	
+	replaceTokenSubstitute("divineName", "<span class=\"name\"><span class=\"divine\">");
+	replaceTokenSubstitute("/divineName", "</span></span>");
+	
 }
 
 bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {

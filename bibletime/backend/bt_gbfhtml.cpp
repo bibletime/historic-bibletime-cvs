@@ -37,10 +37,6 @@ using namespace Filters;
 
 BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 
-  setTokenStart("<");
-	setTokenEnd(">");
-	setTokenCaseSensitive(true);
-	
 	setEscapeStringCaseSensitive(true);
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
   
