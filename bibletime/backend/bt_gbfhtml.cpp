@@ -185,18 +185,24 @@ char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const 
 					attrRegExp.setMinimal(true);
 					const int foundPos = e.find(attrRegExp, tagAttributeStart);
 					
-					if (pos != -1) {
-						e.insert(foundPos + attrRegExp.matchedLength(), value.prepend("|"));
+					if (foundPos != -1) {
+						e.insert(foundPos + attrRegExp.matchedLength(), QString::fromLatin1("|").append(value));
 						pos += value.length() + 1;
 						
 						hasLemmaAttr = !isMorph;
 						hasMorphAttr = isMorph;
 					}
 				}
-				else {
-					QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
+				else { //attribute was not yet inserted
+					const QString attr = QString::fromLatin1("%1=\"%2\" ")
+						.arg(isMorph ? "morph" : "lemma")
+						.arg(value);
+						
 					e.insert(tagAttributeStart, attr);
 					pos += attr.length();
+					
+					hasMorphAttr = isMorph;
+					hasLemmaAttr = !isMorph;
 				}				
 					
 				//tagAttributeStart remains the same

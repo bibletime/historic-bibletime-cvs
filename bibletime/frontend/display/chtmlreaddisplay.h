@@ -97,6 +97,10 @@ private:
  	} m_urlWorkaroundData;
 	
 	DOM::Node m_previousEventNode;
+	QString m_currentAnchorCache;
+	
+protected slots:
+	void slotGoToAnchor();
 };
 
 class CHTMLReadDisplayView : public KHTMLView, public CPointers {

@@ -95,13 +95,17 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 			continue;
 		}
 		
+		
+		bool hasLemmaAttr = false;
+		bool hasMorphAttr = false;
+		
 		int pos = tag.search(e, 0);
 		bool insertedTag = false;
 		while (pos != -1) {
 			const bool isMorph = 
 				((tag.cap(1) == "type") ? tag.cap(2) : tag.cap(4)) == "morph";
 			const bool isStrongs = 
-				((tag.cap(1) == "type") ? tag.cap(2) : tag.cap(4)) == "Strongs";				
+				((tag.cap(1) == "type") ? tag.cap(2) : tag.cap(4)) == "Strongs";
 			const QString value = 
 				(tag.cap(1) == "value") ? tag.cap(2) : tag.cap(4);
 			
@@ -123,18 +127,40 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 					c = e[startPos];
 				}
 				
+				hasLemmaAttr = isStrongs;
+				hasMorphAttr = isMorph;
+				
 				e.insert( startPos, rep );
 				pos += rep.length();
 			}
 			else { //add the attribute to the existing tag
 				e.remove(pos, tag.matchedLength());
 				
-				const int attrPos = e.find(QRegExp("morph=|lemma="),0);
-				if (attrPos >= 0) {
-					const QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
-					e.insert(attrPos, attr);
+				if ((!isMorph && hasLemmaAttr) || (isMorph && hasMorphAttr)) { //we append another attribute value, e.g. 3000 gets 3000|5000
+					//search the existing attribute start
+					QRegExp attrRegExp( isMorph ? "morph=\".+(?=\")" : "lemma=\".+(?=\")" );
+					attrRegExp.setMinimal(true);
+					const int foundAttrPos = e.find(attrRegExp, pos);
 					
-					pos += attr.length();
+					if (foundAttrPos != -1) {
+						e.insert(foundAttrPos + attrRegExp.matchedLength(), QString::fromLatin1("|").append(value));
+						pos += value.length() + 1;
+						
+						hasLemmaAttr = !isMorph;
+						hasMorphAttr = isMorph;
+					}
+				}
+				else { //attribute was not yet inserted
+					const int attrPos = e.find(QRegExp("morph=|lemma="), 0);
+					if (attrPos >= 0) {
+						const QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
+						e.insert(attrPos, attr);
+						
+						hasMorphAttr = isMorph;
+						hasLemmaAttr = !isMorph;
+						
+						pos += attr.length();
+					}
 				}
 			}
 				

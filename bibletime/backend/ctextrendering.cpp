@@ -359,11 +359,17 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 	}	
 	
   if (linkText.isEmpty()) {
-    return QString::fromLatin1("<a id=\"%1\" name=\"%2\" />")
+    return QString::fromLatin1("<a id=\"%1\" name=\"%2\"></a>")
 			.arg( keyToHTMLAnchor(item.key()) )
 			.arg( keyToHTMLAnchor(item.key()) );
   }
   else {
+//     return QString::fromLatin1("<a id=\"%1\" name=\"%2\" href=\"%3\">%4</a>")
+//       .arg( keyToHTMLAnchor(item.key()) )
+//       .arg( keyToHTMLAnchor(item.key()) )
+// 			.arg( QString("#") + keyToHTMLAnchor(item.key()) )
+//       .arg(linkText);
+
     return QString::fromLatin1("<a id=\"%1\" name=\"%2\" href=\"%3\">%4</a>")
       .arg( keyToHTMLAnchor(item.key()) )
       .arg( keyToHTMLAnchor(item.key()) )

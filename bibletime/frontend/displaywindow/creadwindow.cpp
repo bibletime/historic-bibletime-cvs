@@ -76,9 +76,10 @@ void CReadWindow::lookup( CSwordKey* newKey ){
 	if (key() != newKey) {
 		key()->key(newKey->key());
 	}
+	
+	setCaption( windowCaption() );
 
   displayWidget()->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key()->key()) );
-	setCaption( windowCaption() );
 }
 
 /** Reimplementation to use the popup menu. */

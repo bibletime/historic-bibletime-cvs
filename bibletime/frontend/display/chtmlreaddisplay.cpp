@@ -49,7 +49,10 @@
 #include <dom/html_element.h>
 #include <dom/dom2_traversal.h>
 
-CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) : KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget), CReadDisplay(readWindow) 
+CHTMLReadDisplay::CHTMLReadDisplay(CReadWindow* readWindow, QWidget* parentWidget) 
+	: KHTMLPart((m_view = new CHTMLReadDisplayView(this, parentWidget ? parentWidget : readWindow)), readWindow ? readWindow : parentWidget),
+	CReadDisplay(readWindow),
+	m_currentAnchorCache(QString::null)
 {
   setDNDEnabled(false);
   m_view->setDragAutoScroll(false);
@@ -153,10 +156,8 @@ void CHTMLReadDisplay::selectAll() {
 
 /** No descriptions */
 void CHTMLReadDisplay::moveToAnchor( const QString& anchor ){
- 	qWarning("moving to anchor %s", anchor.latin1());
-	Q_ASSERT( gotoAnchor(anchor) );
-/*	nextAnchor();
-	prevAnchor();*/
+	m_currentAnchorCache = anchor;
+	QTimer::singleShot(0, this, SLOT(slotGoToAnchor()));
 }
 
 void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, const QString& _target, KParts::URLArgs args){
@@ -400,3 +401,12 @@ void CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e ){
   e->ignore();
 }
 
+/*!
+    \fn CHTMLReadDisplay::slotPageLoaded()
+ */
+void CHTMLReadDisplay::slotGoToAnchor() {
+ 	if (!m_currentAnchorCache.isEmpty()) {
+		gotoAnchor( m_currentAnchorCache );
+ 	}
+	m_currentAnchorCache = QString::null;
+}
