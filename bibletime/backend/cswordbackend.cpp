@@ -22,6 +22,7 @@
 #include "cswordcommentarymoduleinfo.h"
 #include "cswordlexiconmoduleinfo.h"
 #include "cswordbookmoduleinfo.h"
+#include "frontend/cbtconfig.h"
 
 #include "bt_thmlhtml.h"
 #include "bt_gbfhtml.h"
@@ -103,6 +104,16 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 
 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		moduleDescriptionMap.insert(m_moduleList.current()->config(CSwordModuleInfo::Description), m_moduleList.current()->name());
+	}
+
+	//unlock modules if keys are present
+	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+		if ( m_moduleList.current()->isEncrypted() ){
+			QString unlockKey = CBTConfig::getModuleEncryptionKey(m_moduleList.current()->name()).latin1();
+			if (!unlockKey.isEmpty()){
+  			setCipherKey( m_moduleList.current()->name().latin1(), unlockKey.latin1() );
+			}
+		}
 	}
 
 	return ret;

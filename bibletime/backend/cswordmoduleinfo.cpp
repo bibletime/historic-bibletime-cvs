@@ -95,6 +95,8 @@ CEntryDisplay* const CSwordModuleInfo::getDisplay() const {
 
 /** This function returns true if this module is locked, otherwise return false. */
 const bool CSwordModuleInfo::isLocked() {
+  //still works, but the cipherkey is stored in CBTConfig.
+	//Works because it is set in sword on program startup.
 	if (isEncrypted() && config(CipherKey).isEmpty())
 		return true;
 	return false;
@@ -105,14 +107,15 @@ const bool CSwordModuleInfo::isEncrypted()/* const*/ {
 	/**
 	* If we have the CipherKey entry the module
 	* is encrypted but not necessary locked
-	*/		
-//	sword::ConfigEntMap config	= backend()->getConfig()->Sections.find( name().latin1() )->second;
-//	sword::ConfigEntMap::iterator it = config.find("CipherKey");
-//	if (it != config.end())
-//		return true;
-  if (!config(CipherKey).isEmpty()) {
-    return true;
-  };
+	*/
+	//This code is still right, though we do no longer write to the module config files any more
+	sword::ConfigEntMap config	= backend()->getConfig()->Sections.find( name().latin1() )->second;
+	sword::ConfigEntMap::iterator it = config.find("CipherKey");
+	if (it != config.end())
+		return true;
+//  if (!config(CipherKey).isEmpty()) {
+//    return true;
+//  };
 	return false;
 }
 
