@@ -17,6 +17,7 @@ EXTRA_DIST = \
 qrichtext.cpp qrichtext_p.h \
 qstylesheet.cpp qstylesheet.h \
 qtextview.cpp  qtextview.h \
-qtextedit.cpp qtextedit.cpp \
+qtextedit.h qtextedit.cpp \
 qcomplextext.cpp qcomplextext_p.h \
-qt3stuff.h
+qt3stuff.h \
+qcleanuphandler.h

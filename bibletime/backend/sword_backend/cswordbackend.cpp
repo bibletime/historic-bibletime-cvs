@@ -25,6 +25,7 @@
 #include "cswordlexiconmoduleinfo.h"
 
 //Qt includes
+#include <qdir.h>
 
 //KDE includes
 

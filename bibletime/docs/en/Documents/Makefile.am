@@ -1,4 +1,4 @@
-SUBDIRS = common HTML
+SUBDIRS = HTML
 LANG = en
 INDEX = index.docbook
 

@@ -1,4 +1,5 @@
-POFILES = pl.po nl.po it.po hu.po fr.po da.po cs.po de.po no.po
+#POFILES = pl.po nl.po it.po hu.po fr.po da.po cs.po de.po no.po
+POFILES = de.po
 EXTRA_DIST = $POFILES
 GMOFILES = $(POFILES:.po=.gmo)
 

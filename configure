@@ -856,7 +856,7 @@ fi
 
 PACKAGE=bibletime
 
-VERSION=1.0
+VERSION=1.0beta1
 
 if test "`cd $srcdir && pwd`" != "`pwd`" && test -f $srcdir/config.status; then
   { echo "configure: error: source directory already configured; run "make distclean" there first" 1>&2; exit 1; }
@@ -6559,8 +6559,6 @@ bibletime/docs/en/Makefile \
 bibletime/docs/en/Documents/Makefile \
 bibletime/docs/en/Documents/HTML/Makefile \
 bibletime/docs/en/Documents/HTML/common/Makefile \
-bibletime/docs/en/Documents/common/Makefile \
-bibletime/docs/en/helpdialog/Makefile \
 bibletime/frontend/Makefile \
 bibletime/frontend/groupmanager/Makefile \
 bibletime/frontend/keychooser/Makefile \
@@ -6782,8 +6780,6 @@ bibletime/docs/en/Makefile \
 bibletime/docs/en/Documents/Makefile \
 bibletime/docs/en/Documents/HTML/Makefile \
 bibletime/docs/en/Documents/HTML/common/Makefile \
-bibletime/docs/en/Documents/common/Makefile \
-bibletime/docs/en/helpdialog/Makefile \
 bibletime/frontend/Makefile \
 bibletime/frontend/groupmanager/Makefile \
 bibletime/frontend/keychooser/Makefile \

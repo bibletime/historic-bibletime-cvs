@@ -13,7 +13,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(bibletime, 1.0) dnl searches for some needed programs
+AM_INIT_AUTOMAKE(bibletime, 1.0beta1) dnl searches for some needed programs
 
 KDE_SET_PREFIX
 
@@ -106,8 +106,6 @@ bibletime/docs/en/Makefile \
 bibletime/docs/en/Documents/Makefile \
 bibletime/docs/en/Documents/HTML/Makefile \
 bibletime/docs/en/Documents/HTML/common/Makefile \
-bibletime/docs/en/Documents/common/Makefile \
-bibletime/docs/en/helpdialog/Makefile \
 bibletime/frontend/Makefile \
 bibletime/frontend/groupmanager/Makefile \
 bibletime/frontend/keychooser/Makefile \
