@@ -127,8 +127,8 @@ void CBibleReadWindow::initView(){
 
   parentWidget()->installEventFilter( this );  
 
-  setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
-	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
+//   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
+// 	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 
 // 	verseKey()->Headings(1);
 /*	if (backend()->useICU()){

@@ -4,7 +4,7 @@
 // Description:
 //
 //
-// Author: %{AUTHOR} <%{EMAIL}>, (C) %{YEAR}
+// Author: The BibleTime developers info@bibletime.info, (C) 2005
 //
 // Copyright: See COPYING file that comes with this distribution
 //
@@ -39,8 +39,6 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 		false
 	);	
 	
-// 	statusReporter->statusUpdate(100.0, 0.0); //completed
-	
 	KIO::Job* job = KIO::copy(
 		KURL(QString::fromLocal8Bit(sourceURL)),
 		KURL(QString::fromLocal8Bit(destPath)),
@@ -66,9 +64,9 @@ char KIO_FTPTransport::getURL(const char *destPath, const char *sourceURL) {
 	while (!finishedDownload) {
 		KApplication::kApplication()->processEvents(1);
 		if (term) {
-			if (job)
-				job->kill(false);
-// 			break; //kill(false) emits an result signal
+			if (job) {
+				job->kill(false); //kill emits the result signal
+			}
 		}
 	}
 
@@ -95,29 +93,24 @@ void KIO_FTPTransport::slotCopyResult(KIO::Job *job) {
 	finishedDownload = true;
 	  
 	if ( job->error() ) {
-//       job->showErrorDialog( 0 );
-	}
 	
+	}
 }
 
 void KIO_FTPTransport::slotCopyProgress(KIO::Job *job, KIO::filesize_t processedSize) {
-//  	qWarning("%d progressed size", (int)processedSize);
 	if (m_totalSize > 0) {
 		statusReporter->statusUpdate(m_totalSize, processedSize);
 	}
 }
 
 void KIO_FTPTransport::slotDirListingCanceled() {
-// 	qWarning("++ Canceling listing...");
 	m_listingCancelled = true;
 }
 
 std::vector<struct ftpparse> KIO_FTPTransport::getDirList(const char *dirURL) {
-//  	qWarning("dirlist %s", dirURL);
 	std::vector< struct ftpparse > ret;
 	
 	if (term)	{
-// 		qWarning("returning");
 		return ret;
 	}
 
