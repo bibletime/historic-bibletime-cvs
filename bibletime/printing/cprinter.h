@@ -101,7 +101,7 @@ public:
   /**
  	* Returns the print queue object.
  	*/
-  ListCPrintItem& printQueue();
+  ListCPrintItem& queue();
   /**
  	* Appends items to the printing queue.
  	*/

@@ -72,14 +72,13 @@ BibleTime::BibleTime()
     m_printer(0),
     m_mainIndex(0)  
 {
-	connect(KApplication::kApplication(), SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
+	setHelpMenuEnabled(false);
 
-	initBackends();
+  initBackends();
 	initPrinter();
-	
 	initView();
 	initActions();
-	setHelpMenuEnabled(false);
+  
 	createGUI("bibletimeui.rc");
 	initMenubar();
 	initConnections();	
@@ -90,10 +89,6 @@ BibleTime::BibleTime()
 
   // we don't save the geometry, it's stored in the startup profile
   setAutoSaveSettings(QString::fromLatin1("MainWindow"), false); 
-}
-
-BibleTime::~BibleTime() {
-//  saveSettings();
 }
 
 /** Saves the properties of BibleTime to the application wide configfile  */

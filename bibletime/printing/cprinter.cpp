@@ -151,7 +151,8 @@ void CPrinter::setup( QWidget* parent ){
 
 /** Starts printing the items. */
 void CPrinter::print(){
-	emit printingStarted();
+  emit printingStarted();
+  
 	QPainter p;
 	if (!p.begin(this)) {
 		p.end();
@@ -166,6 +167,7 @@ void CPrinter::print(){
 	
 	for (int copy = 0; copy < copies && !aborted(); copy++) {	//make numCopies() copies of the pages
 		copyFrac = (float(copies)) / (float)(copy+1);
+    
 		for (m_queue.first(), pos = 1; m_queue.current(); m_queue.next(), ++pos) {
 			KApplication::kApplication()->processEvents(5); //do not lock the GUI!
 			if (!aborted()) {
@@ -179,7 +181,10 @@ void CPrinter::print(){
 			newPage();	//new pages seperate copies
     }
 	}
-	emit printingFinished();	
+
+  //clean up
+  p.end(); //send the data to the printer
+  emit printingFinished();
 	clearQueue();//delete all items
 }
 
@@ -203,7 +208,7 @@ void CPrinter::clearQueue(){
 }
 
 /** Returns the print queue object. */
-ListCPrintItem& CPrinter::printQueue() {
+ListCPrintItem& CPrinter::queue() {
 	return m_queue;
 }
 

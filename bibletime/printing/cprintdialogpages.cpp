@@ -207,7 +207,7 @@ CPrintItemListPage::CPrintItemListPage(CPrinter* printer, QWidget *parent, const
 
   hboxLayout = new QHBoxLayout( 0, 5, 5 );
 
-  m_printItemList = new CPrintItemList( &(m_printer->printQueue()), this, "CPrintItemList1");
+  m_printItemList = new CPrintItemList( &(m_printer->queue()), this, "CPrintItemList1");
 	QToolTip::add(m_printItemList, CResMgr::printing::itemPage::itemList::tooltip);
 	QWhatsThis::add(m_printItemList, CResMgr::printing::itemPage::itemList::whatsthis);
 

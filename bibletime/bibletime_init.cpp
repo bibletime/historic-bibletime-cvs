@@ -463,6 +463,6 @@ void BibleTime::storeProfileSettings( CProfile* p ){
   if (!p || !m_windowFullscreen_action) {
     return;
   }
-//  p->setFullscreen( m_windowFullscreen_action->isChecked() );
-//	p->setGeometry(geometry());
+  p->setFullscreen( m_windowFullscreen_action->isChecked() );
+	p->setGeometry(geometry());
 }

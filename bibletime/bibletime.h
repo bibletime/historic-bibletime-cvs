@@ -109,10 +109,6 @@ public:
 	* construtor of BibleTime
 	*/
 	BibleTime();
-	/**
-	* Destructor of BibleTime
-	*/
-	virtual ~BibleTime();
 	virtual void show();
 	/**
 	* Reads the settings from the configfile and sets the right properties.
@@ -144,10 +140,6 @@ public slots:
 	* Opens the optionsdialog of BibleTime.
 	*/
 	void slotSettingsOptions();
-	/**
-	* The last window was closed!
-	*/
-	void lastWindowClosed();
 	/**
 	* Opens the handbook.
 	*/

@@ -105,8 +105,9 @@ void BibleTime::slotHelpTipOfDay(){
 
 /** Is called just before the window menu is ahown. */
 void BibleTime::slotWindowMenuAboutToShow(){
-	if (!m_windowMenu)
+	if (!m_windowMenu) {
 		return;
+  }
 
 	if ( m_windowSaveProfile_action->isPlugged() )
 		m_windowSaveProfile_action->unplug(m_windowMenu);
@@ -218,23 +219,21 @@ void BibleTime::slotToggleToolbar(){
 
 /** Shows or hides the groupmanager. */
 void BibleTime::slotToggleGroupManager() {
-	if (m_viewMainIndex_action->isChecked())
+	if (m_viewMainIndex_action->isChecked()) {
 		m_mainIndex->show();
-	else
+  }
+	else {
 		m_mainIndex->hide();
+  }
 }
 
 /** Opens a toolbar editor */
 void BibleTime::slotSettingsToolbar(){	
 	KEditToolbar dlg(actionCollection());
-	if (dlg.exec())
+	if (dlg.exec()) {
 		createGUI();
+  }
 }
-
-/** The last window was closed! */
-void BibleTime::lastWindowClosed(){
-}
-
 
 /** Opens the print dialog. */
 void BibleTime::slotFilePrint(){
@@ -243,7 +242,7 @@ void BibleTime::slotFilePrint(){
 
 /** Enables the "Clear printer queue" action */
 void BibleTime::slotSetPrintingStatus(){
-	const bool enable = (m_printer->printQueue().count()>0);
+	const bool enable = (m_printer->queue().count() > 0);
 	m_filePrint_action->setEnabled( enable );
 	m_fileClearQueue_action->setEnabled( enable );
 }
@@ -307,29 +306,11 @@ void BibleTime::slotSearchDefaultBible() {
   CSearchDialog::openDialog(module, QString::null);
 }
 
-//void BibleTime::slotBack() {
-//  CBibleReadWindow* w =
-//    dynamic_cast<CBibleReadWindow*> (m_mdi->activeWindow());
-//  // no proper action target
-//  if (!w || !w->isReady()) return;
-//  w->previousChapter();
-//}
-
-//void BibleTime::slotForward() {
-//  CBibleReadWindow* w =
-//    dynamic_cast<CBibleReadWindow*> (m_mdi->activeWindow());
-//  // no proper action target
-//  if (!w || !w->isReady()) return;
-//  w->nextChapter();
-//}
-
 void BibleTime::openOnlineHelp_Handbook() {
-//	kapp->invokeHTMLHelp("bibletime/handbook/index.html");
    kapp->invokeHelp("", "bibletime/handbook");
 }
 
 void BibleTime::openOnlineHelp_Howto() {
-//	kapp->invokeHTMLHelp("bibletime/howto/index.html");
   kapp->invokeHelp("", "bibletime/howto");
 }
 
@@ -368,8 +349,8 @@ void BibleTime::saveProfile(CProfile* profile){
 	profile->save(profileWindows);
 
 //clean up memory - delete all created profile windows
-//	profileWindows.setAutoDelete(true);
-//	profileWindows.clear();
+	profileWindows.setAutoDelete(true);
+	profileWindows.clear();
 }
 
 void BibleTime::loadProfile(int ID){	
