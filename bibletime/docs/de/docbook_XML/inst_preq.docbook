@@ -61,14 +61,14 @@ Verweis auf den Sword Quellcode</ulink>
 </table>
 </section>
 <section id="inst_preq_install">
-<title>Installation der benötigten programme</title>
+<title>Installation der benötigten Programme</title>
 <para>Laden Sie nun die benötigten Pakete herunter und kompilieren Sie die Bibliotheken</para>
 
-<para>First you have to compile the QT 2 sources if QT 2.2 or later is not included on your installation disks.
-I assume the user has his QT sources in <filename>/usr/lib/qt2</filename>, his KDE2 sources
-in <filename>/usr/src/kde2/kdelibs</filename> and his KDE2 directory is
-<filename>/usr/local/kde2</filename>, if you don't like it use your own settings
-for this.</para>
+<para>Als aller Erstes müssen sie die QT 2 Quellcodes kompilieren, wenn QT 2.2 oder neuer nicht mit ihren
+Installationsmedien geliefert wurde.
+Wie nehmen an, dass der Benutzer den Quellcode von Qt in <filename>/usr/lib/qt2</filename> hat, und dass sein KDE2
+Verzeichnis <filename>/usr/local/kde2</filename> ist. Wenn Sie die Werte nicht mögen benutzen Sie ihre eigenen.
+</para>
 
 <screen>
 export QTDIR=/usr/lib/qt2
@@ -78,12 +78,12 @@ make
 </screen>
 
 <para>
-If you have enough RAM and a fast computer you can speedup the compile process
-by adding <command>"-j2"</command> to the make options. For example
-<command>"make -j2"</command>. If you have a slow computer with little RAM
-exit X windows and run make from a terminal to speed up the process.  After the
-compiling process is finished you have to compile your KDE2 stuff. Please do
-something like this:</para>
+Wenn Sie genügend Arbeitsspeicher und einen schnellen Computer haben können Sie den Compilierungsprozess durch das
+Hinzufügen von "-j2" zu den make Optionen beschleunigen. Zum Beispiel "make -j2".
+Wenn Sie einen langsamen Computer und wenig Arbeitsspeicher haben schließen Sie X Windows und starten Sie make
+von einem Terminal um den Prozess zu beschleunigen.
+Nachdem der Compilierungsprozess beendet ist, müssen Sie ihre KDE2 Sachen compileren. Machen Sie etwa folgendes:
+</para>
 
 <screen>
 export QTDIR=/usr/lib/qt2
@@ -94,9 +94,10 @@ make
 make install
 </screen>
 
-<para>The compilation of QT and KDE should finish without problems or errors.
-It's possible to add <command>"-j2"</command> again to speed up the compiling
-process if you have enough RAM and a fast PC.</para>
+<para>Die Compileirung von QT und KDE sollte ohne Fehler beendet werden.
+Es ist wieder möglich <command>"-j2"</command> zu benutzen um dem Compilierungsprozess zu beschleunigen, wenn
+Sie einen schnellen PC haben.
+</para>
 
 
 </section>

@@ -1,92 +1,90 @@
 <chapter id="inst_sources"><title>Installieren mittels BibleTime's Sourceocde</title>
 <para>
 Dieses Kapitel beschreibt, wie der Quellcode compiliert wird.
-These steps apply for both the
-development version and the released version of bibletime and Sword. </para>
-<section id="inst_sources_sword"><title>Installation of Sword and the Sword
-Modules </title>
+Diese Schritte treffen sowohl auf die Entwicklungsversion als auch auf die veröffentlichte Version von
+BibleTime und Sword zu.
+</para>
+<section id="inst_sources_sword"><title>Installation von Sword und der Sword
+Module</title>
 <para>
-Sword and Sword modules are the "book library" for Bibletime.
-Please see the page download for further information about downloading BibleTime.
+Sword und die Sword Module sind die "Buchbibliothek" für BibleTime.
+Bitte lesen sie auch die Download-Seite für weitere Informationen über das Herunterladen von BibleTime.
 </para>
 <para>
-Have a look at the requirements page to obtain Sword 1.5. See page links to
-obtain Sword's modules.</para>
+Lesen Sie die "Systemvorraussetzungen" Seite um Sword 1.5 zu bekommen. Lesen Sie die "Verweise" Seite
+um Sword's Module zu bekommen.
+</para>
 
-<section id="inst_sources_sword_install"><title>Installation of Sword 1.52
+<section id="inst_sources_sword_install"><title>Installation von Sword 1.52
 </title>
 
 <para>
-First you have to unpack the downloaded .tar.gz file (if you are using the CVS
-version, your sources will already be unpacked, so skip this step) to a
-temporary directory. Do something like this: </para> <screen>
+Ale Erstes müssen Sie die heruntergeladene .tar.gz Datei (wenn Sie die CVS Version benutzen,
+dann sind ihre Sourcen bereits entpacken. Sie können diesen Schritt also auslassen) in ein temporäres Verzeichnis
+entpacken. Machen Sie dies ungefähr folgendermaßen:</para>
+<screen>
 mkdir /tmp
 cd /tmp
 tar -xzf sword-1.52.tar.gz
 cd /tmp/sword-1.52
 </screen>
 
+<para>
+(Die tar Datei wird in ein Verzeichnis ähnlich wie "sword-1.52" entpackt werden)
+</para>
 
 <para>
-(the tar file will have unpacked into a directory named something similar to
-sword-1.52) </para>
-
+Bovor Sie versuchen Sword zu kompileren, müssen Sie <filename> Makefile.cfg</filename> abändern.
+(sie ist im obersten Verzeichnis des entpackten Quellcodes zu finden). Der änderbare Bereich ist gekennzeichnet,
+versuchen Sie nicht Bereiche der Datei zu verändern, die außerhalb des durch
+<emphasis>##### Customizable stuff. Set it how you like it #####</emphasis> Teiles liegen, außer wenn Sie
+wissen was sie machen.</para>
 <para>
-Before you try to compile Sword, you may need to modify
-<filename> Makefile.cfg</filename> (it is located in the top directory of the
-unpacked sources).  The customized section of <filename>Makefile.cfg</filename>
-is marked, do not try to change parts of the file outside of the area marked
-<emphasis>##### Customizable stuff. Set it how you like it #####</emphasis>
-unless you really know what you are doing. </para>
-<para>
-For many installations the defaults will work.  When the defaults don't work,
-these switches may be set.</para>
+Für viele Installationen werden die Voreinstellungen passen,. Wenn diese nicht passen, können die folgenden
+Schalter gesetzt werden.</para>
 <table>
-<title>Sword Makefile.cfg switches</title>
+<title>Sword Makefile.cfg Schalter</title>
 <tgroup cols="2">
 <thead>
 <row>
-<entry>Switch</entry>
-<entry>Description</entry>
+<entry>Schalter</entry>
+<entry>Beschreibung</entry>
 </row>
 </thead>
 <tbody>
 <row>
 <entry># compiler</entry>
-<entry>If you have gcc leave this alone, otherwise enter the compiler
-you will be using.</entry> </row>
+<entry>Wenn Sie gcc installiert haben lassen Sie es unberührt, ansonsten geben
+Sie den von ihnen benutzen Compiler ein.</entry> </row>
 <row>
 <entry># shared library-</entry>
-<entry>Set to 'yes'.  this causes the shared library
-<filename>libsword.so</filename> to be generated.  An entry must be placed into
-the file <filename>/etc/ld.so.conf</filename> that points to libsword.
-<filename>/usr/local/sword/lib</filename> is typical.</entry> </row>
+<entry>Setzen Sie es auf 'yes'. Dies führt dazu, dass das "shared library"
+<filename>libsword.so</filename> erzeugt wird.
+Es muss ein Eintrag in <filename>/etc/ld.so.conf</filename> hinzugefügt werden, der auf libsword zeigt.
+<filename>/usr/local/sword/lib</filename> ist typisch.</entry> </row>
 <row>
 <entry># VCL library-</entry>
-<entry>Use the default 'no' unless you are using the Sword install
-manager, then use 'yes'.</entry> </row> <row>
-<entry># Debugging options etc...</entry>
-<entry>The defaults should work.</entry>
+<entry>Benutzen Sie die Voreinstellung 'no', außer wenn Sie den Sword Installationsmanager
+benutzen (benutzen Sie dann 'yes').</entry> </row> <row>
+<entry># Debug Optionen usw. ...</entry>
+<entry>Die Voreinstellungen sollten funktionieren.</entry>
 </row>
 <row>
-<entry># endian, etc. support for other hardware</entry>
-<entry>Use the default if compiling on an Intel.  If you have other
-hardware, select the correct entry.</entry> </row>
+<entry># endian, usw. Unterstützung für andere Hardware</entry>
+<entry>Benutzen Sie die Voreinstellung, wenn Sie auf einen Intel-Rechner kompileren.
+Wenn Sie andere Hardware benutzen, wählen Sie den richtigen Eintrag aus.</entry> </row>
 <row>
 <entry># zLib support</entry>
-<entry>Use the default 'yes'</entry>
+<entry>Benutzen Sie die Voreinstellung 'yes'</entry>
 </row>
 <row>
 <entry># paths</entry>
-<entry>The defaults should be ok, but you can change them if you wish.  If you
-wish to customize the install location of the library and the include files, you
-have to decide if you want to install them in an extra directory like
-<filename>/usr/local/sword/</filename> or at a common place like
-<filename>/usr/local/</filename>.
-Or you could install the libraries in
-<filename>/usr/local/lib</filename> and the include files in
-<filename>/usr/local/include</filename> choose <filename>/usr/local</filename>.
-
+<entry>Die Voreinstellungen sollten ok sein, aber Sie können sie ändern, wenn Sie möchten.
+Wenn Sie den Installationsort der Bibliothek und der Include-Dateien ändern möchten, müssen Sie entscheiden,
+ob Sie sie in einem eigenen Verzeichnis wie <filename>/usr/local/sword/</filename>
+oder ob Sie sie in einen bekannten Ort wie <filename>/usr/local/</filename> installieren möchten.
+Wenn Sie die Bibliotheken in <filename>/usr/local/lib</filename>
+und die Include-Dateien in <filename>/usr/local/include</filename> installieren möchten, wählen Siee <filename>/usr/local</filename>.
 </entry>
 </row>
 </tbody>
@@ -94,13 +92,15 @@ Or you could install the libraries in
 </table>
 
 
-<para>Now start compiling by typing <command>make</command> and wait until it's
-finished. After this you have to install the files. It's easy. Simply type
-<command> make install </command>.
+<para>Beginnen Sie nun durch das Eingeben von <command>make</command> und warten
+sie bis es zu Ende ist.
+Danach müssen Sie die Dateien installieren. Das ist einfach. Geben Sie nur
+<command> make install </command> ein.
 </para>
+
 <para>
-In the event that make command reports an error on completion, it probably
-indicates that you are missing a package.  For example:</para>
+Wenn sich das make Kommando mit einem Fehler beendet, heisst das wahrscheinlich, dass ihnen ein Paket fehlt.
+Zum Beispiel:</para>
 
 <screen>
 bash-2.03# make
@@ -117,10 +117,10 @@ make -C apps/X11/VCL just-targets
 make[1]: Entering directory `/tmp/sword-1.52/apps/X11/VCL'
 gcc -I../../../include/ -D_GNU_SOURCE -I. `gtk-config --cflags` -static -pipe -Wall -Wno-format
 -fomit-frame-pointer -ggdb -O0 -m486 -c -o TWinControl.o TWinControl.cpp
-<Emphasis>/bin/sh: gtk-config: command not found </Emphasis>
+<Emphasis>/bin/sh: gtk-config: Befehl nicht gefunden </Emphasis>
 In file included from TWinControl.cpp:1:
-<Emphasis>TWinControl.h:6: gtk/gtkwidget.h: No such file or directory</Emphasis>
-<Emphasis>TWinControl.cpp:3: gtk/gtkwidget.h: No such file or directory </Emphasis>
+<Emphasis>TWinControl.h:6: gtk/gtkwidget.h: Datei oder Verzeichnis nicht gefunden</Emphasis>
+<Emphasis>TWinControl.cpp:3: gtk/gtkwidget.h: Datei oder Verzeichnis nicht gefunden</Emphasis>
 In file included from TWinControl.cpp:1:
 TWinControl.h:281: syntax error before `*'
 TWinControl.h:284: parse error before `*'
@@ -131,125 +131,132 @@ make: *** [apps/X11/VCL/targets] Error 2
 bash-2.03#
 </screen>
 
-<para>The italic lines above indicate that a gtk application was missing.  A
-review of the available packages showed that one of the gtk packages
-supplied with SuSE is gtkdev.  This turns out to be the application required to
-allow make to run to completion without errors.  Often missing packages
-will be found on your installation disks, or on your distribution's website.
-Once <command>make</command> runs to completion without errors, then
-<command>make install</command>. If it still doesn't work, edit the
-file <filename>Makefile.cfg</filename> in the top directory of the Sword sources
-and change the line "<command>buildvcl := yes</command>" to "<command>buildvcl
-:= no</command>" and try again.
+<para>Die kursiven Zeilen oben zeigen, dass eine GTK ANwendung fehlt.
+Eine Durchsicht der der vorhandenen Pakete zeigte, dass eines der mit SuSE geliferten Pakete gtkdev ist.
+Es stellte sich heraus, dass dieses das benötigte Paket ist, dass make gestattet ohne Fehler durchzulaufen.
+Oft fehlende Pakete können entweder auf den Installationsmedien oder auf den Internetseite ihres
+Distributors gefunden werden.
+Nachdem <command>make</command> ohne Fehler durchläuft, starten Sie <command>make install</command>.
+Wenn es immernoch nicht funktioniert, öfnnen Sie die Datei <filename>Makefile.cfg</filename>
+im obersten Verzeichnis des Sword-Quelltextes und ändern sie die Zeile
+"<command>buildvcl := yes</command>" zu "<command>buildvcl := no</command>" und probieren Sie es erneut.
 </para>
 </section>
-<section id="inst_sources_sword_modules">
-<title>Installation of modules</title>
 
-<section id="inst_sources_sword_modules_dir"><title>Choose a Sword directory</title> <para>
-Sword currently supports 3 types of modules: Bibles, dictionaries and
-commentaries. You have to install the files of the modules their own directory.
-You must decide which directory will be your Sword directory. If you installed
-the libs and includes in an extra directory use that directory as your Sword
-directory (e.g. <filename>/usr/local/sword/</filename>). If you installed the
-library and include files in a common place like
-<filename>/usr/local/</filename> please select another location for your Sword
-directory. </para>
+<section id="inst_sources_sword_modules">
+<title>Installation von Modulen</title>
+
+<section id="inst_sources_sword_modules_dir"><title>Wählen Sie ein Sword-Verzeichnis</title>
+<para>
+Sword unterstützt zur Zeit 3 Arten von Modulen: Bibeln, Lexika und Kommentare.
+Sie müssen die Dateien der Module in ihr eigenes Verzeichnis installieren.
+Sie müssen entscheiden, welches Verzeichnis ihr Sword Verzeichnis sein soll.
+Wenn Sie die Bibliotheken und Include-Dateien in ein eigenes Verzeichnis installiert haben benutzen Sie dieses
+als ihr Sword-Verzeichnis. Wenn Sie die Bibliotheken und Include-Dateien in einem bekannten Verzeichnis (z.B. <filename>/usr/local/sword/</filename>)
+installiert haben, so wählen Sie bitte einen anderen Ort für ihr Sword Verzeichnis.
+</para>
+
 </section>
 <section id="inst_sources_sword_modules_upack"><title>
-Unpack the downloaded package</title>
+Entpacken des heruntergeladenen Paketes</title>
 <para>
-First you have to unpack the downloaded package. On the download page of Sword
-you can choose if you want to get a Windows or RAW package. If you have a "Linux
-only" box please get the RAW packages. But if you accidentally got a Windows
-self extracting executable try using WINE to extract the files. Perhaps you have
-to change the filename of "_INSTALL.1" to "_install.1" to get the setup running.
+Als Erstes müssen Sie das heruntergeladenen Paket entpacken.
+Auf der Download-Seite von Sword können Sie zwischen einem Windows oder Raw Paket wählen.
+Wenn Sie einen "Nur Linux" Rechner benutzen so wählen Sie bitte das RAW Paket.
+Wenn Sie jedoch dummerweise ein selbstentpackende Programm für Windows heruntergeladen haben, so versuchen
+Sie bitte WINE zum Entpacken der Datei zu benutzen.
+Unter Umständen müssen die den Dateinamen von "_INSTALL.1" auf "_install.1" ändern, um das Setup zum Laufen zu bekommen.
 </para>
 </section>
-<section id="inst_sources_sword_modules_intig"><title>
-Integrating modules</title>
+
+<section id="inst_sources_sword_modules_intig"><title>Integration von Modulen</title>
 <para>
-Create the directory <filename>mods.d</filename> inside of your Sword directory.
-Please copy the file <filename>[modulename].conf</filename> into the
-<filename>mods.d</filename> directory. the <filename>.conf</filename> file is
-normally inside the unpacked module files. Now move the whole dir "modules"
-which contains your unpacked module data files to the Sword directory.  In the
-example <filename>/usr/local/sword</filename> is the Sword directory.</para>
-<para> Directory Structure looks like this:
+Legen Sie ein Verzeichnis <filename>mods.d</filename> innerhalb des Sword Verzeichnisses an.
+Kopieren Sie bitte due Datei <filename>[Modulname].conf</filename> in das <filename>mods.d</filename> Verzeichnis.
+Die <filename>.conf</filename> Datei ist
+normalerwiese in den Dateien des entpackten Modules enthalten. Verschieben Sie nun das Verzeichnis "modules" in ihr Sword Verzeichnis.
+Das "modules" Verzeichnis enthält ihre entpackten Datein des Modules.
+
+Im Beispiel ist <filename>/usr/local/sword</filename> das Sword Verzeichnis.</para>
+
+<para> Die Verzeichnisstruktur sieht so aus:
 </para>
 <screen>
-/usr/local/sword/ -|- mods.d/ -|- module_1_name.conf
-                   |           |- module_2_name.conf
+/usr/local/sword/ -|- mods.d/ -|- modul_1_name.conf
+                   |           |- modul_2_name.conf
                    |
-                   |- texts/rawtext/ -|-module_1_name/files
-                                      |-module_2_name/files
+                   |- texts/rawtext/ -|-modul_1_name/dateien
+                                      |-modul_2_name/dateien
 </screen>
 </section>
 <section id="inst_sources_sword_modules_config">
-<title>The Sword configuration file</title>
+<title>Die Sword Konfigurationsdatei</title>
 <para>
-A Sword based app has to know where the modules are located. You need a small
-configuration file in <filename>/etc</filename> to do this. Create the file
-<filename>/etc/sword.conf</filename>.The file has to contain only the two
-following lines: </para>
+Eine Sword basierte Anwendung muss wissen, wo die Module liegen. Sie benötigen eine
+kleine Konfigurationsdatei in <filename>/etc</filename> um das zu erreichen-
+Legen Sie die Datei <filename>/etc/sword.conf</filename> an.
+Die Datei muss nur die beiden folgenden Zeilen enthalten:
+</para>
 <screen>
 [Install]
 DataPath=/usr/local/sword
 </screen>
-<para>If you select a location other than <filename>/usr/local/sword</filename>
-in the example above for your path to the Sword directory, point the data path
-to your selected Sword directory.</para>
-<para>Now start BibleTime and enjoy ;-)
-If you have problems with the installation of the modules please read the "FAQ
-page. If there's no solution for your problem please see page "Contact" how to
-get help.</para> </section>
+<para>Wenn Sie einen anderen Ort als <filename>/usr/local/sword</filename>
+im obigen Beispiel für oihr Sword Verzeichnis gewählt haben, so zeigen Sie mit
+DataPath auf ihr Sword Verzeichnis.</para>
+<para>Starten Sie nun BibleTime und entspannen Sie sich ;-)
+Wenn Sie Probleme mit der Installation von Modulen haben, lesen Sie bitte die "FAQ" Seite.
+Wenn es dort keine Lösung für ihr Problem gibt, lesen Sie bitte auf der "Contacts" Seite wie man Hilfe bekommt.
+</para> </section>
 </section>
 </section>
+
 <section id="inst_sources_bibletime">
-<title>Installing the Bibletime Source</title>
+<title>Installation von BibleTimes Quellcode</title>
 <para>
-First you have to unpack the downloaded .tar.gz file (if you are using the CVS
-version, your sources will already be unpacked, so skip this step) to a
-temporary directory. Do something like this: </para> <screen>
+Als Erstes müssen Sie die heruntergeladene .tar.gz Datei in ein temporäres Verzeichnis entpacken (Wenn Sie die CVS Version benutzen, ist ihr
+Quellcode bereits entpackt, so dass Sie diesen Schritt auslassen können).
+Machen Sie ungefähr Folgendes:</para>
+<screen>
 mkdir /tmp
 cd /tmp
 tar -xzf bibletime.tar.gz
 cd /tmp/bibletime
 </screen>
 <para>
-(the tar file will have unpacked into a directory named something similar to
-bibletime) </para>
+(Die tar Datei wird in ein Verzeichnis ähnlich wie "bibletime" entpackt werden)</para>
 <para>
-Now open a terminal and execute the following commands to compile the
-sources.
+Öffnen Sie nun ein Terminal und geben Sie die folgenden Kommandos ein, um den Quelltext zu kompileren.
 </para>
 <screen>
-$ cd /tmp/bibletime         # Path of source code
-$ export QTDIR=/usr/lib/qt2   # QT 2.2.x directory (where QT 2.2 orlater is installed)
-$ export KDEDIR=/usr/local/kde2    # KDE2 directory (where KDE2 is installed)
-$ make -f Makefile.cvs             # only necessary for CVS version
-$ ./configure                      # create makefiles
-$ make                             # compile BibleTime
+$ cd /tmp/bibletime         # Pfad des Quelltextes
+$ export QTDIR=/usr/lib/qt2   # QT 2.2.x Verzeichnis (wo QT 2.2 oder neuer installiert ist)
+$ export KDEDIR=/usr/local/kde2    # KDE2 Verzeichnis (wo KDE2 installiert ist)
+$ make -f Makefile.cvs             # nur für die CVS Version benötigt
+$ ./configure                      # erzeuge die Makefiles
+$ make                             # kompilere BibleTime
 $ su
 $ password *****
-$ make install                     # install BibleTime
+$ make install                     # installiere BibleTime
 </screen>
-<para>Path to QTDIR and KDE2 may be different on your computer.</para>
-<para>Now open a terminal as a normal user and type bibletime.  Bibletime will
-start. </para>
+<para>Die Pfade für QT und KDE2 können auf ihrem Computer unterschiedlich sein.</para>
+<para>Öffnen Sie nun ein Termianl als normaler Benutzer und tippen Sie "bibletime" ein.
+BibleTime startet.
+</para>
 
 </section>
 <section id="inst_sources_compiler_notes">
-<title>Compiler notes</title>
+<title>Anmerkungen zum Compiler</title>
 <para>
-The time required to compile bibletime is dependent on your system speed and the
-amount of RAM installed.  If you have a system with lots of RAM compiling can be
-speeded up by using the make -j2 option.  -j allows make to launch two
-simultaneous jobs.</para>
-<para>If your computer is low on RAM and
-processor, then the best way to speed up compiling is to shut down X
-and run the compile from a terminal.  On a AMD 133 with 32MB ram this
-saves several hours of compile time.</para>
+Die zum kompilieren von BibleTime benötigte Zeit hängt von ihrer Systemgeschwindigkeit und der Menge des installierten
+Arbeitsspeichers ab.
+Wenn Sie ein System mit viel RAM haben, können Sie die Kompilierung durch Benutzung von
+"make -j2" beschleunigen. -j2 erlaubt es, dass zwei Prozesse zur gleichen Zeit gestartet werden.
+</para>
+<para>Wenn ihr Rechner wenig Ram und einen langsamen Prozessor hat, ist die beste Art die Kompilierung
+zu beschleunigen X herunterzufahren und den Compiler von einem Terminal zu starten. Auf einem AMD 133
+mit 32 MB Ram spart dies mehrere Stunden.
+</para>
 </section>
 </chapter>
 

@@ -104,18 +104,18 @@ NAME="INST_DEVL_CVS"
 >5.2. Entwickler CVS Zugriff mit SSH</A
 ></H1
 ><P
->Only project developers can access the CVS tree via this method. SSH1
-must be installed on your client machine. Substitute
+>Nur Entwickler des Projektes haben Zugriff auf den CVS Baum unter Benutzung dieser Methode.
+SSH1 muss auf ihrem Rechner installiert sein. Ersetzen Sie
 <I
 CLASS="EMPHASIS"
->modulename</I
-> and <I
+>Modulname</I
+> und <I
 CLASS="EMPHASIS"
->developername</I
-> with the
-proper values. Enter your site password when prompted. </P
+>Entwicklername</I
+> mit den richtigen Werten.
+Geben Sie ihr Passwort ein, wenn Sie dazu aufgefordert werden.</P
 ><P
->To checkout a fresh copy of Bibletime</P
+>Wie man eine frische Kopie von BibleTime bekommt</P
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -126,21 +126,21 @@ WIDTH="100%"
 CLASS="SCREEN"
 > cd $home/<I
 CLASS="EMPHASIS"
->your development directory</I
+>ihr Enwicklungsverzeichnis</I
 >
- export CVS_RSH=ssh      # Activation of ssh is needed only once per session
+ export CVS_RSH=ssh      # Die Aktivierung von ssh ist nur einmal pro Sitzung erfordelich
  cvs -z3 -d:ext:<I
 CLASS="EMPHASIS"
->developername</I
+>Entwicklernamename</I
 >@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <I
 CLASS="EMPHASIS"
->modulename</I
+>Modulename</I
 ></PRE
 ></TD
 ></TR
 ></TABLE
 ><P
->To update your copy of the Bibletime CVS</P
+>Wie Sie ihre Kopie von BibleTime aktualisieren</P
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -154,7 +154,7 @@ CLASS="SCREEN"
 ></TR
 ></TABLE
 ><P
->To commit your changes to the CVS repository</P
+>Wie Sie ihre Änderungen in das CVS Repository hochladen</P
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -165,13 +165,13 @@ WIDTH="100%"
 CLASS="SCREEN"
 > cvs -z5 commit -m "<I
 CLASS="EMPHASIS"
->comments for this commit</I
+>Kommentare für diesen Commit</I
 >"</PRE
 ></TD
 ></TR
 ></TABLE
 ><P
->To add new files that you have created</P
+>Wie man neue Dateien hinzufügt, die sie erzeugt haben</P
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -182,7 +182,7 @@ WIDTH="100%"
 CLASS="SCREEN"
 > cvs -z5 add <I
 CLASS="EMPHASIS"
->my_new_file</I
+>meine_neue_dateie</I
 ></PRE
 ></TD
 ></TR

@@ -17,32 +17,34 @@ Updates innerhalb des Verzeichnisses des Modules benötgen den -d Parameter nicht
 </section>
 
 <section id="inst_devl_cvs"><TITLE>Entwickler CVS Zugriff mit SSH</TITLE>
-<Para>Only project developers can access the CVS tree via this method. SSH1
-must be installed on your client machine. Substitute
-<emphasis>modulename</emphasis> and <emphasis>developername</emphasis> with the
-proper values. Enter your site password when prompted. </Para>
+<Para>
+Nur Entwickler des Projektes haben Zugriff auf den CVS Baum unter Benutzung dieser Methode.
+SSH1 muss auf ihrem Rechner installiert sein. Ersetzen Sie
+<emphasis>Modulname</emphasis> und <emphasis>Entwicklername</emphasis> mit den richtigen Werten.
+Geben Sie ihr Passwort ein, wenn Sie dazu aufgefordert werden.
+</Para>
 
-<para>To checkout a fresh copy of Bibletime</para>
+<para>Wie man eine frische Kopie von BibleTime bekommt</para>
 
 <screen>
-cd $home/<emphasis>your development directory</emphasis>
-export CVS_RSH=ssh      # Activation of ssh is needed only once per session
-cvs -z3 -d:ext:<emphasis>developername</emphasis>@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <emphasis>modulename</emphasis>
+cd $home/<emphasis>ihr Enwicklungsverzeichnis</emphasis>
+export CVS_RSH=ssh      # Die Aktivierung von ssh ist nur einmal pro Sitzung erfordelich
+cvs -z3 -d:ext:<emphasis>Entwicklernamename</emphasis>@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <emphasis>Modulename</emphasis>
 </screen>
 
-<para>To update your copy of the Bibletime CVS</para>
+<para>Wie Sie ihre Kopie von BibleTime aktualisieren</para>
 <screen>
 cvs -z5 update -Pd
 </screen>
 
-<para>To commit your changes to the CVS repository</para>
+<para>Wie Sie ihre Änderungen in das CVS Repository hochladen</para>
 <screen>
-cvs -z5 commit -m "<emphasis>comments for this commit</emphasis>"
+cvs -z5 commit -m "<emphasis>Kommentare für diesen Commit</emphasis>"
 </screen>
 
-<para>To add new files that you have created</para>
+<para>Wie man neue Dateien hinzufügt, die sie erzeugt haben</para>
 <screen>
-cvs -z5 add <emphasis>my_new_file</emphasis>
+cvs -z5 add <emphasis>meine_neue_dateie</emphasis>
 </screen>
 </section>
 

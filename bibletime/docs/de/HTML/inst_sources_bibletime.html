@@ -2,7 +2,7 @@
 <HTML
 ><HEAD
 ><TITLE
->Installing the Bibletime Source</TITLE
+>Installation von BibleTimes Quellcode</TITLE
 ><META
 NAME="GENERATOR"
 CONTENT="Modular DocBook HTML Stylesheet Version 1.64
@@ -17,7 +17,7 @@ REL="PREVIOUS"
 TITLE="Installieren mittels BibleTime's Sourceocde"
 HREF="inst_sources.html"><LINK
 REL="NEXT"
-TITLE="Compiler notes"
+TITLE="Anmerkungen zum Compiler"
 HREF="inst_sources_compiler_notes.html"><META
 HTTP-EQUIV="Content-Style-Type"
 CONTENT="text/css"><LINK
@@ -101,12 +101,12 @@ CLASS="SECTION"
 CLASS="SECTION"
 ><A
 NAME="INST_SOURCES_BIBLETIME"
->3.2. Installing the Bibletime Source</A
+>3.2. Installation von BibleTimes Quellcode</A
 ></H1
 ><P
->First you have to unpack the downloaded .tar.gz file (if you are using the CVS
-version, your sources will already be unpacked, so skip this step) to a
-temporary directory. Do something like this: </P
+>Als Erstes müssen Sie die heruntergeladene .tar.gz Datei in ein temporäres Verzeichnis entpacken (Wenn Sie die CVS Version benutzen, ist ihr
+Quellcode bereits entpackt, so dass Sie diesen Schritt auslassen können).
+Machen Sie ungefähr Folgendes:</P
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -123,11 +123,9 @@ CLASS="SCREEN"
 ></TR
 ></TABLE
 ><P
->(the tar file will have unpacked into a directory named something similar to
-bibletime) </P
+>(Die tar Datei wird in ein Verzeichnis ähnlich wie "bibletime" entpackt werden)</P
 ><P
->Now open a terminal and execute the following commands to compile the
-sources.</P
+>Öffnen Sie nun ein Terminal und geben Sie die folgenden Kommandos ein, um den Quelltext zu kompileren.</P
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -136,23 +134,23 @@ WIDTH="100%"
 ><TD
 ><PRE
 CLASS="SCREEN"
-> $ cd /tmp/bibletime         # Path of source code
- $ export QTDIR=/usr/lib/qt2   # QT 2.2.x directory (where QT 2.2 orlater is installed)
- $ export KDEDIR=/usr/local/kde2    # KDE2 directory (where KDE2 is installed)
- $ make -f Makefile.cvs             # only necessary for CVS version
- $ ./configure                      # create makefiles
- $ make                             # compile BibleTime
+> $ cd /tmp/bibletime         # Pfad des Quelltextes
+ $ export QTDIR=/usr/lib/qt2   # QT 2.2.x Verzeichnis (wo QT 2.2 oder neuer installiert ist)
+ $ export KDEDIR=/usr/local/kde2    # KDE2 Verzeichnis (wo KDE2 installiert ist)
+ $ make -f Makefile.cvs             # nur für die CVS Version benötigt
+ $ ./configure                      # erzeuge die Makefiles
+ $ make                             # kompilere BibleTime
  $ su
  $ password *****
- $ make install                     # install BibleTime</PRE
+ $ make install                     # installiere BibleTime</PRE
 ></TD
 ></TR
 ></TABLE
 ><P
->Path to QTDIR and KDE2 may be different on your computer.</P
+>Die Pfade für QT und KDE2 können auf ihrem Computer unterschiedlich sein.</P
 ><P
->Now open a terminal as a normal user and type bibletime.  Bibletime will
-start. </P
+>Öffnen Sie nun ein Termianl als normaler Benutzer und tippen Sie "bibletime" ein.
+BibleTime startet.</P
 ></DIV
 ><DIV
 CLASS="NAVFOOTER"
@@ -207,7 +205,7 @@ HREF="inst_sources.html"
 WIDTH="33%"
 ALIGN="right"
 VALIGN="top"
->Compiler notes</TD
+>Anmerkungen zum Compiler</TD
 ></TR
 ></TABLE
 ></DIV
