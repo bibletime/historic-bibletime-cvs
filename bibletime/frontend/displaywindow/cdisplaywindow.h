@@ -56,8 +56,13 @@ class KPopupMenu;
 class CDisplayWindow : public KMainWindow, public CPointers  {
    Q_OBJECT
 public:
-	static CReadWindow* createReadInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name = 0);
-	static CWriteWindow* createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name = 0);
+  enum WriteWindowType {
+    HTMLWindow = 0,
+    PlainTextWindow
+  };
+
+  static CReadWindow* createReadInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name = 0);
+	static CWriteWindow* createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const WriteWindowType& type = HTMLWindow, const char* name = 0);
   /**
   * Insert the keyboard accelerators of this window into the given KAccel object.
   */

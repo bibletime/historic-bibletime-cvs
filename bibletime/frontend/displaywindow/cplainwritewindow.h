@@ -58,19 +58,19 @@ protected slots: // Protected slots
   /**
   * Saves the text for the current key. Directly writes the changed text into the module.
   */
-  void saveCurrentText();
+  virtual void saveCurrentText();
   /**
   * Is called when the current text was changed.
   */
-  void textChanged();
+  virtual void textChanged();
   /**
   * Loads the original text from the module.
   */
-  void restoreText();
+  virtual void restoreText();
   /**
   * Deletes the module entry and clears the edit widget.
   */
-  void deleteEntry();
+  virtual void deleteEntry();
 };
 
 #endif

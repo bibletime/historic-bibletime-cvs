@@ -25,6 +25,7 @@
 
 #include "cwritewindow.h"
 #include "cplainwritewindow.h"
+#include "chtmlwritewindow.h"
 
 #include "cmodulechooserbar.h"
 #include "cbuttons.h"
@@ -63,9 +64,14 @@ CReadWindow* CDisplayWindow::createReadInstance(ListCSwordModuleInfo modules, CM
 }
 
 
-CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const char* name) {
-  return new CPlainWriteWindow(modules, parent, name);
-//  return 0;
+CWriteWindow* CDisplayWindow::createWriteInstance(ListCSwordModuleInfo modules, CMDIArea* parent, const CDisplayWindow::WriteWindowType& type,  const char* name) {
+  if (type == HTMLWindow) {
+    return new CHTMLWriteWindow(modules, parent, name);
+  }
+  else {
+    return new CPlainWriteWindow(modules, parent, name);
+  };
+  return 0;
 }
 
 CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, const char *name ) : KMainWindow(parent,name,WDestructiveClose) {

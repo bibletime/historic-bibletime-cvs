@@ -370,8 +370,8 @@ void BibleTime::initConnections(){
 	
 	connect(m_mainIndex, SIGNAL(createReadDisplayWindow(ListCSwordModuleInfo, const QString&)),
 		this, SLOT(createReadDisplayWindow(ListCSwordModuleInfo,const QString&)));
-	connect(m_mainIndex, SIGNAL(createWriteDisplayWindow(CSwordModuleInfo*, const QString&)),
-		this, SLOT(createWriteDisplayWindow(CSwordModuleInfo*,const QString&)));
+	connect(m_mainIndex, SIGNAL(createWriteDisplayWindow(CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType&)),
+		this, SLOT(createWriteDisplayWindow(CSwordModuleInfo*,const QString&, const CDisplayWindow::WriteWindowType&)));
     
 	//connect to the signals of the printer object
 	connect(m_printer, SIGNAL(addedFirstQueueItem()),

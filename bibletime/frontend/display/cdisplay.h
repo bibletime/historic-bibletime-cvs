@@ -42,8 +42,13 @@ class QPopupMenu;
   */
 class CDisplay : public CPointers {
 public:
+  enum WriteDisplayType {
+    HTMLDisplay = 0,
+    PlainTextDisplay
+  };
+
 	static CReadDisplay* createReadInstance(CReadWindow* readWindow, QWidget* parent = 0);
-	static CWriteDisplay* createWriteInstance( CWriteWindow* writeWindow, QWidget* parent = 0 );
+	static CWriteDisplay* createWriteInstance( CWriteWindow* writeWindow, const WriteDisplayType& type = PlainTextDisplay, QWidget* parent = 0 );
 
   enum TextType {
     HTMLText, /* Used for HTML markup */
@@ -91,7 +96,7 @@ public:
   /**
   * Returns the connections obect used for signas and slots.
   */
-  CDisplayConnections* const connectionsProxy() const;
+  virtual CDisplayConnections* const connectionsProxy() const;
   /**
   * Returns the parent window used for this display widget.
   */
@@ -132,14 +137,16 @@ public:
 	CDisplayConnections( CDisplay* parent );
 
 public slots:
-  /**
-  * Reimplementation from CDisplay.
-  */
   virtual void selectAll();
 	void emitReferenceClicked( const QString& module, const QString& key);
 	void emitReferenceDropped( const QString& key );
 	void emitTextChanged();  
 
+  //connections for the HTML write display
+  void emitToggleBold();
+
+
+  //stuff which works in every CDisplay
   void saveAsPlain();
   void saveAsHTML();		
   void saveAnchorWithText();
@@ -159,7 +166,9 @@ signals:
   void referenceClicked(const QString& module, const QString& key);
   void referenceDropped(const QString& key);
   void textChanged();
-  
+
+  //connections for the HTML editor stuff, the signals will be connected to the editor write control
+  void toggleBold();
 
 private:
   CDisplay* m_display;

@@ -178,17 +178,17 @@ CDisplayWindow* BibleTime::createReadDisplayWindow(CSwordModuleInfo* module, con
 	return createReadDisplayWindow(list, key);
 }
 
-CDisplayWindow* BibleTime::createWriteDisplayWindow(CSwordModuleInfo* module, const QString& key) {
+CDisplayWindow* BibleTime::createWriteDisplayWindow(CSwordModuleInfo* module, const QString& key, const CDisplayWindow::WriteWindowType& type) {
   qWarning("BibleTime::createWriteDisplayWindow: key is %s", key.latin1());
 
   kapp->setOverrideCursor( waitCursor );
 
 	ListCSwordModuleInfo modules;
 	modules.append(module);
-  CDisplayWindow* displayWindow = CDisplayWindow::createWriteInstance(modules, m_mdi);
+  CDisplayWindow* displayWindow = CDisplayWindow::createWriteInstance(modules, m_mdi, type);
   Q_ASSERT(displayWindow);
   if (displayWindow) {
-    qWarning("init and show!");
+//    qWarning("init and show!");
   	displayWindow->init(key);
 		displayWindow->show();
 	}

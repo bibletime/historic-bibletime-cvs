@@ -91,7 +91,9 @@ void CPlainWriteWindow::initConnections(){
 
 /** Saves the text for the current key. Directly writes the changed text into the module. */
 void CPlainWriteWindow::saveCurrentText(){
-  qWarning("CPlainWriteWindow::saveText()");
+  qWarning("CPlainWriteWindow::saveCurrentText()");
+  Q_ASSERT(modules().first());
+  Q_ASSERT(key());
   modules().first()->write(key(), displayWidget()->plainText() );
 
   displayWidget()->setModified(false);

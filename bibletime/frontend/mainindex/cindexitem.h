@@ -121,7 +121,9 @@ public:
   virtual CSwordModuleInfo* const module() const;
   virtual const QString toolTip();
 
-  /** Reimplementation from  CItemBase. */
+  /**
+  * Reimplementation from  CItemBase.
+  */
   virtual const bool enableAction( const MenuAction action );
   virtual void update();
   virtual void init();

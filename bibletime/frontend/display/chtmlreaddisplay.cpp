@@ -76,9 +76,9 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
 			if (!hasSelection())
    			return QString::null;
 
-      qWarning("get the selection!");
+//      qWarning("get the selection!");
       DOM::Range range = selection();
-      qWarning("got the selection!");      
+//      qWarning("got the selection!");      
       if (range.isNull()) {
       	return QString::null;
       }
@@ -182,7 +182,7 @@ void CHTMLReadDisplay::urlSelected( const QString& url, int button, int state, c
     moveToAnchor(url.mid(1));
   }
   else { //default behaviour
-    qWarning("link or anchor is empty");
+//    qWarning("link or anchor is empty");
   };
 }
 

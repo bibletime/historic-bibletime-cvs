@@ -25,10 +25,11 @@
 #include <qwidget.h>
 #include <qtextedit.h>
 
-/**The write display implementation for plain source code editing.
-  *@author The BibleTime team
-  */
+class CHTMLWriteDisplay; 
 
+/** The write display implementation for plain source code editing.
+  * @author The BibleTime team
+  */
 class CPlainWriteDisplay : public QTextEdit, public CWriteDisplay  {
 public: 
   /**
@@ -64,6 +65,8 @@ public:
   
 protected:
 	friend class CDisplay;
+ 	friend class CHTMLWriteDisplay;
+  
 	CPlainWriteDisplay(CWriteWindow* parentWindow, QWidget* parent);
 	virtual ~CPlainWriteDisplay();
   /**

@@ -84,7 +84,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 		}
 
     if (!read || !m_entryList->count()){
-//      module()->setSkipConsecutiveLinks(true);
+      module()->setSkipConsecutiveLinks(true);
 			(*module()) = sword::TOP;
       snap(); //snap to top entry
   		do {
@@ -92,10 +92,11 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
      			m_entryList->append(QString::fromUtf8(module()->KeyText()));
         else //latin1 is a lot faster than UTF8, use it because latin1 modules won't contain unicode keys
           m_entryList->append(QString::fromLatin1(module()->KeyText()));
+//        qWarning("new key added: %s ", module()->KeyText());
   			(*module())++;
   		} while ( !module()->Error() );
-			(*module()) = sword::TOP;
-//      module()->setSkipConsecutiveLinks(false);
+			(*module()) = sword::TOP; //back to the first entry
+      module()->setSkipConsecutiveLinks(false);
       
       if (m_entryList->count()) {
         m_entryList->first().simplifyWhiteSpace();
@@ -104,6 +105,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
       }
 
 			if (lexiconCache && m_entryList->count()){
+//        qWarning("return the entry cache");
   			//create cache
 		 		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
         QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );

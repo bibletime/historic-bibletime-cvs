@@ -292,10 +292,7 @@ const bool CModuleItem::enableAction( const MenuAction action ){
   if (action == EditModule) {
     if (!module())
       return false;
-    if ( module()->isWritable())
-      return true;
-    else
-      return false;
+    return module()->isWritable();
   }
 
   if (action == SearchInModules || action == AboutModule)

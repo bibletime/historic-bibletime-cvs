@@ -153,7 +153,10 @@ void CMainIndex::initView(){
 
   m_actions.deleteEntries = new KAction(i18n("Remove selected item(s)"),ITEMS_DELETE_ICON_SMALL, 0, this, SLOT(deleteEntries()), this);
 
-  m_actions.editModule = new KAction(i18n("Edit this module"),MODULE_SEARCH_ICON_SMALL, 0, this, SLOT(editModule()), this);
+  m_actions.editModuleMenu = new KActionMenu(i18n("Edit this module"),MODULE_SEARCH_ICON_SMALL, this);
+  m_actions.editModulePlain = new KAction(i18n("Plain text"),MODULE_SEARCH_ICON_SMALL, 0, this, SLOT(editModulePlain()), this);
+  m_actions.editModuleHTML = new KAction(i18n("HTML"),MODULE_SEARCH_ICON_SMALL, 0, this, SLOT(editModuleHTML()), this);
+    
   m_actions.searchInModules = new KAction(i18n("Search in selected module(s)"),MODULE_SEARCH_ICON_SMALL, 0, this, SLOT(searchInModules()), this);
   m_actions.unlockModule = new KAction(i18n("Unlock this module"),MODULE_UNLOCK_ICON_SMALL, 0, this, SLOT(unlockModule()), this);
   m_actions.aboutModule = new KAction(i18n("About this module"),MODULE_ABOUT_ICON_SMALL, 0, this, SLOT(aboutModule()), this);
@@ -169,7 +172,10 @@ void CMainIndex::initView(){
   (new KActionSeparator(this))->plug(m_popup);
   m_actions.deleteEntries->plug(m_popup);
   (new KActionSeparator(this))->plug(m_popup);
-  m_actions.editModule->plug(m_popup);
+  m_actions.editModuleMenu->plug(m_popup);
+  m_actions.editModuleMenu->insert(m_actions.editModulePlain); //sub item of edit module menu
+  m_actions.editModuleMenu->insert(m_actions.editModuleHTML);  //sub item of edit module menu
+  
   m_actions.searchInModules->plug(m_popup);
   m_actions.unlockModule->plug(m_popup);
   m_actions.aboutModule->plug(m_popup);
@@ -317,7 +323,7 @@ KAction* CMainIndex::action( const CItemBase::MenuAction type ){
       return m_actions.deleteEntries;
       
     case CItemBase::EditModule:
-      return m_actions.editModule;
+      return m_actions.editModuleMenu;
     case CItemBase::SearchInModules:
       return m_actions.searchInModules;
     case CItemBase::UnlockModule:
@@ -569,7 +575,7 @@ void CMainIndex::moved( QPtrList<QListViewItem>& /*items*/, QPtrList<QListViewIt
 }
 
 /** Opens an editor window to edit the modules content. */
-void CMainIndex::editModule(){
+void CMainIndex::editModulePlain(){
   QPtrList<QListViewItem> items = selectedItems();
   ListCSwordModuleInfo modules;
   for (items.first(); items.current(); items.next()) {
@@ -578,6 +584,21 @@ void CMainIndex::editModule(){
     }
   }
   if (modules.count() == 1) {
-    emit createWriteDisplayWindow(modules.first(), QString::null);
+    emit createWriteDisplayWindow(modules.first(), QString::null, CDisplayWindow::PlainTextWindow);
   };
 }
+
+/** Opens an editor window to edit the modules content. */
+void CMainIndex::editModuleHTML(){
+  QPtrList<QListViewItem> items = selectedItems();
+  ListCSwordModuleInfo modules;
+  for (items.first(); items.current(); items.next()) {
+    if (CModuleItem* i = dynamic_cast<CModuleItem*>(items.current())) {
+      modules.append(i->module());
+    }
+  }
+  if (modules.count() == 1) {
+    emit createWriteDisplayWindow(modules.first(), QString::null, CDisplayWindow::HTMLWindow);
+  };
+}
+

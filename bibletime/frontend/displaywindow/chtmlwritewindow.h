@@ -19,30 +19,47 @@
 #define CHTMLWRITEWINDOW_H
 
 //BibleTime includes
-#include "cwritewindow.h"
+#include "cplainwritewindow.h"
 
 //Qt includes
 #include <qwidget.h>
 
+class KAction;
+
 /** The WYSIWYG implementation of the editor.
   * @author The BibleTime team
   */
-class CHTMLWriteWindow : public CWriteWindow  {
+class CHTMLWriteWindow : public CPlainWriteWindow  {
    Q_OBJECT
 public: 
 	CHTMLWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name = 0);
 	~CHTMLWriteWindow();
-  /**
-  * Setups the popup menu of this display widget.
-  */
-  virtual void setupPopupMenu();
-
+//  /**
+//  * Setups the popup menu of this display widget.
+//  */
+//  virtual void setupPopupMenu();
+//
 protected: // Protected methods
   /**
   * Initialize the state of this widget.
   */
   virtual void initView();
-  virtual void initConnections();  
+  virtual void initConnections();
+  
+protected slots:
+  /**
+  * Is called when the current text was changed.
+  */
+  virtual void textChanged();
+
+private:
+  struct {
+    KAction* saveText;
+    KAction* deleteEntry;
+    KAction* restoreText;
+
+    KAction* boldText;
+  } m_actions;  
 };
 
 #endif

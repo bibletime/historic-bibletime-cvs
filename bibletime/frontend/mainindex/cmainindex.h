@@ -22,6 +22,7 @@
 #include "cindexitem.h"
 
 #include "backend/cswordmoduleinfo.h"
+#include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/ctooltip.h"
 
 #include "util/cpointers.h"
@@ -155,9 +156,13 @@ protected slots: // Protected slots
   */
   void moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow);
   /**
-  * Opens an editor window to edit the modules content.
+  * Opens a plain text editor window to edit the modules content.
   */
-  void editModule();
+  void editModulePlain();
+  /**
+  * Opens an HTML editor window to edit the modules content.
+  */
+  void editModuleHTML();
 
 private: // Private methods
   CSearchDialog* m_searchDialog;
@@ -187,7 +192,10 @@ private: // Private methods
 
     KAction* deleteEntries;
 
-    KAction* editModule;
+    KActionMenu* editModuleMenu;
+    KAction* editModulePlain;
+    KAction* editModuleHTML;
+    
     KAction* searchInModules;
     KAction* unlockModule;
     KAction* aboutModule;
@@ -199,7 +207,7 @@ signals: // Signals
   * Is emitted when a module should be opened,
   */
   void createReadDisplayWindow( ListCSwordModuleInfo, const QString& );
-  void createWriteDisplayWindow( CSwordModuleInfo*, const QString& );  
+  void createWriteDisplayWindow( CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType& );  
 };
 
 #endif

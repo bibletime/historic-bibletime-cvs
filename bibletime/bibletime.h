@@ -22,6 +22,7 @@
 
 //Frontend includes
 #include "frontend/cprofilemgr.h"
+#include "frontend/displaywindow/cdisplaywindow.h"
 
 //Backend includes
 #include "backend/cswordmoduleinfo.h"
@@ -266,7 +267,7 @@ protected slots:
  	*/
 	CDisplayWindow* createReadDisplayWindow(ListCSwordModuleInfo, const QString&);
 	CDisplayWindow* createReadDisplayWindow(CSwordModuleInfo*, const QString&);
-	CDisplayWindow* createWriteDisplayWindow(CSwordModuleInfo*, const QString&);  
+	CDisplayWindow* createWriteDisplayWindow(CSwordModuleInfo*, const QString&, const CDisplayWindow::WriteWindowType&);  
 	/** 	
  	* Is called when the window menu is about to show ;-)
  	*/

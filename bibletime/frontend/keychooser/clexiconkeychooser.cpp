@@ -86,6 +86,7 @@ void CLexiconKeyChooser::activated(int index){
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
   if (m_modules.count() == 1) {
+    qWarning("return entries of the single module");
     m_widget->reset(m_modules.first()->entries(), 0, true);	
   }
   else {
@@ -100,6 +101,10 @@ void CLexiconKeyChooser::refreshContent(){
       entryCountMap.insert(m_modules.current()->entries()->count(), m_modules.current(), false);
     }
 
+    for ( EntryCountMap::Iterator count_it = entryCountMap.begin(); count_it != entryCountMap.end(); ++count_it) {
+      qWarning("module %s has count %i", count_it.key(), (*count_it));
+    };
+
     typedef QMap<CSwordLexiconModuleInfo*, QStringList*> LexiconMap;
     LexiconMap entryMap;
     for (m_modules.first(); m_modules.current(); m_modules.next()) {
@@ -111,8 +116,8 @@ void CLexiconKeyChooser::refreshContent(){
     QStringList goodEntries; //The string list which contains the entries which are in all modules
 
     //now see if the entries are in all other modules
-    QStringList::Iterator it = entries->begin();
-    EntryCountMap::Iterator module;
+    QStringList::ConstIterator it = entries->begin();
+    EntryCountMap::ConstIterator module;
     bool inAllModules;
     QStringList* moduleEntries = 0;
     while (it != entries->end()) {
@@ -125,9 +130,9 @@ void CLexiconKeyChooser::refreshContent(){
         goodEntries.append( (*it) );
       };
       ++it; //next entry
-    }    
+    } //end of while loop
     m_widget->reset(goodEntries, 0, true);
-  }
+  } //end of ELSE
 }
 
 /** No descriptions */

@@ -18,6 +18,7 @@
 #include "cdisplay.h"
 #include "chtmlreaddisplay.h"
 #include "cplainwritedisplay.h"
+#include "chtmlwritedisplay.h"
 
 #include "backend/creferencemanager.h"
 
@@ -51,19 +52,19 @@ void CDisplayConnections::saveAsPlain() {
 
 /** Emits the signal. */
 void CDisplayConnections::emitReferenceClicked( const QString& module, const QString& key){
-	qWarning("CDisplayConnections::emitReferenceClicked( const QString& module, const QString& key)");
+//	qWarning("CDisplayConnections::emitReferenceClicked( const QString& module, const QString& key)");
  	emit referenceClicked(module, key);
 }
 
 /** Emits the signal. */
 void CDisplayConnections::emitReferenceDropped( const QString& key){
-	qWarning("CDisplayConnections::emitReferenceDropped( const QString& module, const QString& key)");	
+//	qWarning("CDisplayConnections::emitReferenceDropped( const QString& module, const QString& key)");	
  	emit referenceDropped(key);
 }
 
 /** Emits the signal. */
 void CDisplayConnections::emitTextChanged(){
-	qWarning("CDisplayConnections::emitTextChanged");
+//	qWarning("CDisplayConnections::emitTextChanged");
  	emit textChanged();
 }
 
@@ -105,6 +106,10 @@ void CDisplayConnections::clear(){
   m_display->setText(QString::null);
 }
 
+void CDisplayConnections::emitToggleBold(){
+  emit toggleBold();
+}
+
 /*----------------------*/
 
 CReadDisplay* CDisplay::createReadInstance( CReadWindow* readWindow, QWidget* parent ) {
@@ -116,13 +121,22 @@ CReadDisplay* CDisplay::createReadInstance( CReadWindow* readWindow, QWidget* pa
 //  	return 0;
 }
 
-CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow, QWidget* parent ) {
+CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow, const CWriteDisplay::WriteDisplayType& type, QWidget* parent ) {
   qWarning("CDisplay::createWriteInstance");
-  return new CPlainWriteDisplay(writeWindow, parent);
+  if (type == PlainTextDisplay) {
+    return new CPlainWriteDisplay(writeWindow, parent);
+  }
+  else {
+    return new CHTMLWriteDisplay(writeWindow, parent);
+  };
 }
 
 
-CDisplay::CDisplay(CDisplayWindow* parent) : m_parentWindow(parent), m_connections( new CDisplayConnections( this ) ), m_popup(0) {
+CDisplay::CDisplay(CDisplayWindow* parent) :
+  m_parentWindow(parent),
+  m_connections( new CDisplayConnections( this ) ),
+  m_popup(0)
+{
 //  qWarning("constructor of CDisplay");
 }
 
