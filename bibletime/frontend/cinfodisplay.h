@@ -23,17 +23,26 @@ class CInfoDisplay : public QWidget
   Q_OBJECT
 public:
 	enum InfoType {
-		Footnote = 0
+		Footnote,
+		StrongNumber,
+		MorphCode,
+		WordTranslation
 	};
 	
   CInfoDisplay(QWidget *parent = 0, const char *name = 0);
   virtual ~CInfoDisplay();
-  void setInfo(InfoType, const QString& data);
-		
+  
+	void setInfo(const InfoType, const QString& data);
+	void clearInfo();
+
+protected:
+  const QString decodeFootnote( const QString& data );
+	const QString decodeStrongNumber( const QString& data );
+	const QString decodeMorphCode( const QString& data );
+	const QString getWordTranslation( const QString& data );
+ 
 private:
 	KHTMLPart* m_htmlPart;
-protected:
-    const QString decodeFootnote( const QString& data );
 };
 
 #endif

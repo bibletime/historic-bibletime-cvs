@@ -16,6 +16,8 @@
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordkey.h"
 
+#include "frontend/cbtconfig.h"
+
 #include "util/scoped_resource.h"
 
 //Qt includes
@@ -44,14 +46,19 @@ CInfoDisplay::~CInfoDisplay() {
 }
 
 
-void CInfoDisplay::setInfo(InfoType type, const QString& data) {
+void CInfoDisplay::setInfo(const InfoType type, const QString& data) {
 	QString text;
   switch (type) {
 		case Footnote:
 			text = decodeFootnote(data);
 			break;
+		case WordTranslation:
+			text = getWordTranslation(data);
+			break;
+		case StrongNumber:
+		case MorphCode:
 		default:
-			text = "";
+			text = "unknown tag";
 			break;
 	}
 
@@ -68,7 +75,7 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	QStringList list = QStringList::split("/", data);
 	Q_ASSERT(list.count() >= 3);
 	if (!list.count()) {
-		return "list not valid";
+		return "List invalid";
 	}
 		
 	const QString modulename = list[0];
@@ -79,7 +86,7 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	Q_ASSERT(!keyname.isEmpty());
 	Q_ASSERT(!swordFootnote.isEmpty());
 
-	qWarning("data: %s, %s, %s", modulename.latin1(), keyname.latin1(), swordFootnote.latin1());
+//	qWarning("data: %s, %s, %s", modulename.latin1(), keyname.latin1(), swordFootnote.latin1());
 	
 	CSwordModuleInfo* module = CPointers::backend()->findModuleByName(modulename);
 	Q_ASSERT(module);
@@ -90,7 +97,40 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 	
 	QString ret = QString::fromUtf8(module->module()->getEntryAttributes()["Footnote"][swordFootnote.latin1()]["body"].c_str());
 	
-	qWarning("body is %s", ret.latin1());
+//	qWarning("body is %s", ret.latin1());
 	
 	return ret;
+}
+
+const QString CInfoDisplay::decodeStrongNumber( const QString& data ) {
+	return QString::null;
+}
+
+const QString CInfoDisplay::decodeMorphCode( const QString& data ) {
+	return QString::null;
+}
+
+const QString CInfoDisplay::getWordTranslation( const QString& data ) {
+	const QString lexiconName = CBTConfig::get(CBTConfig::standardLexicon);
+	CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( lexiconName );
+	
+	Q_ASSERT(module);
+	if (!module)
+		return QString("module %1 not found").arg(lexiconName);
+		
+	
+	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+	key->key( data );
+	
+	return data + "<br/>" + key->renderedText();
+}
+
+
+/*!
+    \fn CInfoDisplay::clearInfo()
+ */
+void CInfoDisplay::clearInfo() {
+	m_htmlPart->begin();
+	m_htmlPart->write(QString::null);
+	m_htmlPart->end();		
 }

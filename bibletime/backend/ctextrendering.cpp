@@ -310,7 +310,15 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tree ) {
 	ListCSwordModuleInfo modules = tree.collectModules();
 	
-	QString text;
+	
+	//mark all words by spans
+	
+	
+	QString text = oldText; 
+	QRegExp re("\\s([a-zA-Z0-9öäüßÄÖÜ]+)(?=[\\s,.?!)(])");
+	re.setMinimal(true);
+	text.replace(re, " <span class\"word\">\\1</span>");
+	
 	if (modules.count() > 1) {
 		QString header;
 
@@ -319,10 +327,10 @@ const QString CDisplayRendering::finishText( const QString& oldText, KeyTree& tr
 					.arg(100 / modules.count())
 					.arg(m->name());
 		}
-		text = "<table><tr>" + header + "</tr>" + oldText + "</table>";
+		text = "<table><tr>" + header + "</tr>" + text + "</table>";
 	}
 	else {
-		text = oldText;
+		//text = oldText;
 	}
 
 	QString langAbbrev = 
