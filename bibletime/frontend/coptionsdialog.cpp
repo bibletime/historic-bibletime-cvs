@@ -230,8 +230,12 @@ void COptionsDialog::initFonts(){
 
 /** Init color section. */
 void COptionsDialog::initColors(){
-	QFrame* page = addVBoxPage(i18n("Colors"), QString::null, OD_ICON_GENERAL);
-
+	QFrame* page = addPage(i18n("Colors"), QString::null, OD_ICON_GENERAL);
+	QVBoxLayout* layout = new QVBoxLayout(page);
+	
+  layout->addWidget( CToolClass::explanationLabel(page, i18n("Choose colors"), i18n("Choose the colors to change the look of the display windows to your own preferences. Some options like \"Words of Jesus\" do only apply to texts which support this special feature.")) );
+  layout->addSpacing(4);
+  	
   QButtonGroup* group =	new QButtonGroup(2,Qt::Horizontal,"", page, "colorGroup");
 	group->setLineWidth(0);
 	{
@@ -263,6 +267,8 @@ void COptionsDialog::initColors(){
 		label = new QLabel(i18n("Words of Jesus"), group);		
 		m_settings.colors.jesuswords = new KColorButton(CBTConfig::get(CBTConfig::jesuswordsColor), group);		
 	}	
+  layout->addWidget(group);
+  layout->addStretch(4);
 }
 
 /** Init profiles section. */
@@ -314,17 +320,17 @@ void COptionsDialog::initAccelerators(){
 	QWhatsThis::add(m_settings.keys.application.keyChooser, WT_OD_KEYS_CHOOSER);	
 
 // ----- new tab: All display windows ------ //
-	currentTab = new QVBox(tabCtl);
-	currentTab->setMargin(3);	
-	tabCtl->addTab(currentTab, i18n("All display windows"));
-	
-	m_settings.keys.general.accel = new KAccel(this); //delete in destructor
-	CSwordPresenter::insertKeyboardActions( m_settings.keys.general.accel );		
-	m_settings.keys.general.accel->readSettings();
- 	m_settings.keys.general.dict = m_settings.keys.general.accel->keyDict();
- 	m_settings.keys.general.keyChooser = new KKeyChooser( &m_settings.keys.general.dict, currentTab, false );	
- 	QToolTip::add(m_settings.keys.general.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
-	QWhatsThis::add(m_settings.keys.general.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
+//	currentTab = new QVBox(tabCtl);
+//	currentTab->setMargin(3);	
+//	tabCtl->addTab(currentTab, i18n("All display windows"));
+//	
+//	m_settings.keys.general.accel = new KAccel(this); //delete in destructor
+//	CSwordPresenter::insertKeyboardActions( m_settings.keys.general.accel );		
+//	m_settings.keys.general.accel->readSettings();
+// 	m_settings.keys.general.dict = m_settings.keys.general.accel->keyDict();
+// 	m_settings.keys.general.keyChooser = new KKeyChooser( &m_settings.keys.general.dict, currentTab, false );	
+// 	QToolTip::add(m_settings.keys.general.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
+//	QWhatsThis::add(m_settings.keys.general.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
 
 // ----- new tab: Bible windows ------ //
 	currentTab = new QVBox(tabCtl);
@@ -424,11 +430,10 @@ void COptionsDialog::initSword(){
   tabCtl->addTab(currentTab, i18n("Default modules"));
   layout = new QVBoxLayout(currentTab,5);
 
-	
-  layout->addSpacing(5);
   layout->addWidget(
   	CToolClass::explanationLabel(currentTab, i18n("Default modules"), i18n("Default modules are used, when no module is specified. This may happen with references into modules like Bibles or Lexicons."))
   );
+  layout->addSpacing(5);
 
  	QHBoxLayout* hBox = new QHBoxLayout();				
  	 	
@@ -497,8 +502,8 @@ void COptionsDialog::initSword(){
 		
  	//fill the comboboxes with the right modules
  	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
-   for ( modules->first();modules->current();modules->next() ) {
- 			QString modDescript = modules->current()->getDescription();
+  for ( modules->first(); modules->current(); modules->next() ) {
+		const QString& modDescript = modules->current()->getDescription();
  		switch (modules->current()->getType()) {
  			case CSwordModuleInfo::Bible:
  				m_settings.sword.standardBible->insertItem(modDescript);
@@ -507,84 +512,55 @@ void COptionsDialog::initSword(){
  				m_settings.sword.standardCommentary->insertItem(modDescript);				
  				break;
  			case CSwordModuleInfo::Lexicon:
-                	m_settings.sword.standardLexicon->insertItem(modDescript);
+ 			{
+				m_settings.sword.standardLexicon->insertItem(modDescript);
  				//place the Hebrew and Greek lexicons accordingly...
- 				if (modDescript.contains("Hebrew", FALSE))
-                 				m_settings.sword.standardHebrewStrong->insertItem(modDescript);				
-    				if (modDescript.contains("Greek", FALSE) )
-    								m_settings.sword.standardGreekStrong->insertItem(modDescript);
-    				if (modDescript.contains("Morph", FALSE) ){
-    								m_settings.sword.standardHebrewMorph->insertItem(modDescript);
-    								m_settings.sword.standardGreekMorph->insertItem(modDescript);
- 					}
+ 				if (modDescript.contains("Hebrew", false))
+					m_settings.sword.standardHebrewStrong->insertItem(modDescript);				
+				else if (modDescript.contains("Greek", false) )
+					m_settings.sword.standardGreekStrong->insertItem(modDescript);
+				else if (modDescript.contains("Morph", false) ) {
+ 					m_settings.sword.standardHebrewMorph->insertItem(modDescript);
+ 					m_settings.sword.standardGreekMorph->insertItem(modDescript);
+ 				}
  				break;
+ 			} 				
  			default://unknown type					
  				break;
  		}
-   }
-		
- 	const QString standardBible = CBTConfig::get(CBTConfig::standardBible);
- 	int count = m_settings.sword.standardBible->count();
- 	for (int item=0; item < count; ++item) {
- 		if (m_settings.sword.standardBible->text(item) == standardBible) {
- 			m_settings.sword.standardBible->setCurrentItem(item);
- 			break;
- 		}
- 	}
-		
- 	const QString standardCommentary = CBTConfig::get(CBTConfig::standardCommentary);
- 	count = m_settings.sword.standardCommentary->count();
- 	for (int item=0; item < count; ++item) {
- 		if (m_settings.sword.standardCommentary->text(item) == standardCommentary) {
- 			m_settings.sword.standardCommentary->setCurrentItem(item);
- 			break;
- 		}
- 	}
+  }
 
- 	const QString standardLexicon = CBTConfig::get(CBTConfig::standardLexicon);
- 	count = m_settings.sword.standardLexicon->count();
- 	for (int item=0; item < count; ++item) {
- 		if (m_settings.sword.standardLexicon->text(item) == standardLexicon) {
- 			m_settings.sword.standardLexicon->setCurrentItem(item);
- 			break;
- 		}
- 	}			
-		
- 	const QString standardHebrewStrong = CBTConfig::get(CBTConfig::standardHebrewStrongsLexicon);
- 	count = m_settings.sword.standardHebrewStrong->count();
- 	for (int item=0; item < count; ++item) {
- 		if (m_settings.sword.standardHebrewStrong->text(item) == standardHebrewStrong) {
- 			m_settings.sword.standardHebrewStrong->setCurrentItem(item);
- 			break ;
- 		}
- 	}		
-		
- 	const QString standardGreekStrong = CBTConfig::get(CBTConfig::standardGreekStrongsLexicon);
- 	count = m_settings.sword.standardGreekStrong->count();
- 	for(int item=0; item<count; ++item) {
- 		if(m_settings.sword.standardGreekStrong->text(item) == standardGreekStrong) {
- 			m_settings.sword.standardGreekStrong->setCurrentItem(item);
- 			break;
- 		}
- 	}
-		
- 	const QString standardHebrewMorph = CBTConfig::get(CBTConfig::standardHebrewMorphLexicon);
- 	count = m_settings.sword.standardHebrewMorph->count();
- 	for(int item=0; item<count; ++item) {
- 		if(m_settings.sword.standardHebrewMorph->text(item)==standardHebrewMorph) {
- 			m_settings.sword.standardHebrewMorph->setCurrentItem(item);
- 			break;
- 		}
- 	}
+//using two lists and one loop is better than six loops with almost the same code :)
+ 	QList<QComboBox> comboList;
+ 	comboList.setAutoDelete(false);
+ 	comboList.append(m_settings.sword.standardBible);
+ 	comboList.append(m_settings.sword.standardCommentary);
+ 	comboList.append(m_settings.sword.standardLexicon);
+ 	comboList.append(m_settings.sword.standardHebrewStrong);
+ 	comboList.append(m_settings.sword.standardGreekStrong);
+ 	comboList.append(m_settings.sword.standardHebrewMorph);
+ 	comboList.append(m_settings.sword.standardGreekMorph);
 
- 	const QString standardGreekMorph = CBTConfig::get(CBTConfig::standardGreekMorphLexicon);
- 	count = m_settings.sword.standardGreekMorph->count();
- 	for(int item=0; item<count; ++item) {
- 		if(m_settings.sword.standardGreekMorph->text(item)==standardGreekMorph) {
- 			m_settings.sword.standardGreekMorph->setCurrentItem(item);
- 			break;
- 		}
- 	}
+ 	QStringList moduleList;
+ 	moduleList.append(CBTConfig::get(CBTConfig::standardBible));
+ 	moduleList.append(CBTConfig::get(CBTConfig::standardCommentary));
+ 	moduleList.append(CBTConfig::get(CBTConfig::standardLexicon));
+ 	moduleList.append(CBTConfig::get(CBTConfig::standardHebrewStrongsLexicon));
+ 	moduleList.append(CBTConfig::get(CBTConfig::standardGreekStrongsLexicon));
+ 	moduleList.append(CBTConfig::get(CBTConfig::standardHebrewMorphLexicon));
+ 	moduleList.append(CBTConfig::get(CBTConfig::standardGreekMorphLexicon)); 	 	 	 	 	 	
+
+ 	for ( QComboBox* combo = comboList.first(); combo != 0; combo = comboList.next() ) {
+		const int count = combo->count();
+		const QString& module = moduleList[comboList.at()];
+ 		for (int item = 0; item < count; item++) {
+	 		if (combo->text(item) == module ) {
+	 		  combo->setCurrentItem(item);
+	 		  continue;
+	 		}
+	 	}
+	}
+ 	
  	layout->addStretch(4);
 
 
@@ -592,6 +568,9 @@ void COptionsDialog::initSword(){
   currentTab = new QFrame(tabCtl);
   tabCtl->addTab(currentTab, i18n("Filter settings"));
   layout = new QVBoxLayout(currentTab,5);
+
+  layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"), i18n("Filters control the appereance of the text in the display windows. Choose the default values of the various filter settings. You can change the locally for each window, too.")) );
+  layout->addSpacing(5);
   		
  	m_settings.sword.lineBreaks = new QCheckBox(currentTab);
  	m_settings.sword.lineBreaks->setText(i18n("Show line break after each verse"));
@@ -646,13 +625,12 @@ void COptionsDialog::initSword(){
 	layout->addStretch(4);	
 }
 
-/** No descriptions */
 void COptionsDialog::saveAccelerators(){
 	m_settings.keys.application.accel->setKeyDict( m_settings.keys.application.dict );	
  	m_settings.keys.application.accel->writeSettings(); 	
  	
- 	m_settings.keys.general.accel->setKeyDict( m_settings.keys.general.dict );			
- 	m_settings.keys.general.accel->writeSettings();
+// 	m_settings.keys.general.accel->setKeyDict( m_settings.keys.general.dict );			
+// 	m_settings.keys.general.accel->writeSettings();
 		
  	m_settings.keys.bible.accel->setKeyDict( m_settings.keys.bible.dict );					
  	m_settings.keys.bible.accel->writeSettings();		
@@ -744,6 +722,5 @@ void COptionsDialog::saveSword(){
  	CBTConfig::set(CBTConfig::lemmas, m_settings.sword.lemmas->isChecked());
  	CBTConfig::set(CBTConfig::hebrewPoints, m_settings.sword.hebrewPoints->isChecked());
  	CBTConfig::set(CBTConfig::hebrewCantillation, m_settings.sword.hebrewCantillation->isChecked());
- 	CBTConfig::set(CBTConfig::greekAccents, m_settings.sword.greekAccents->isChecked());
- 		
+ 	CBTConfig::set(CBTConfig::greekAccents, m_settings.sword.greekAccents->isChecked()); 		
 }

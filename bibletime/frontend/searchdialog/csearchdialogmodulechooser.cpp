@@ -1,3 +1,4 @@
+
 /***************************************************************************
                           csearchdialogmodulechooser.cpp  -  description
                              -------------------
@@ -26,6 +27,7 @@
 #include "../../tooltipdef.h"
 
 //Qt includes
+#include <qlabel.h>
 #include <qlayout.h>
 #include <qtoolbutton.h>
 #include <qlist.h>
@@ -44,7 +46,13 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 	m_moduleList = 0;
 //	m_itemsDict.setAutoDelete(false);
 
-	QHBoxLayout* mainLayout = new QHBoxLayout(this);
+	QVBoxLayout* mainLayout = new QVBoxLayout(this);
+	
+	mainLayout->addWidget(CToolClass::explanationLabel(this, i18n("Choose modules"), i18n("Choose the module you want to use for the search. The tree on the left contains all available modules, the tree on the right the modules for the search. Use the two arrow buttons to add or remove modules from the right tree.")));
+  mainLayout->addSpacing(5);
+
+	QHBoxLayout* chooserLayout = new QHBoxLayout();
+	  		
 	m_moduleIndex = new CGroupManager(importantClasses, this, "module index", importantClasses->swordBackend->getModuleList(), false, false, false, false, false, false);	
 	QWhatsThis::add(m_moduleIndex, WT_SD_MODULECHOOSER);
 	
@@ -74,10 +82,12 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 	buttonLayout->addWidget(removeButton,0);
 	buttonLayout->addStretch(5);
 		
-	mainLayout->addWidget(m_moduleIndex,2);
-	mainLayout->addLayout(buttonLayout,0);
-	mainLayout->addWidget(m_moduleList,2);
+	chooserLayout->addWidget(m_moduleIndex,2);
+	chooserLayout->addLayout(buttonLayout,0);
+	chooserLayout->addWidget(m_moduleList,2);
 
+	mainLayout->addLayout(chooserLayout);	
+	
 	QListViewItem* child = m_moduleIndex->firstChild();
 	while (child) {
 		QListViewItem* nextChild = child->nextSibling();
