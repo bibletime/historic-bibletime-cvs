@@ -258,24 +258,21 @@ void BibleTime::initKeyAccels(){
 
 /** Initializes the backend */
 void BibleTime::initBackends(){
-	qDebug("CBibleTime::initBackends()");
-	m_moduleList = 0;
-	
-	m_important->swordBackend = new CSwordBackend();
-	
+	m_moduleList = 0;	
+	m_important->swordBackend = new CSwordBackend();	
 	CSwordBackend::errorCode errorCode = m_important->swordBackend->initModules();
+	
 	if ( errorCode == CSwordBackend::noError ) {	//no error
 		m_moduleList = m_important->swordBackend->getModuleList();
-		ASSERT(m_moduleList);
 	} else {
 		//show error message that initBackend failed		
 		switch (errorCode) {
 			case CSwordBackend::noModulesAvailable:			
 				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULES);
 				break;
-			case CSwordBackend::noSwordConfigFile:
-				HTML_DIALOG(HELPDIALOG_NO_SWORD_CONFIG);
-				break;
+//			case CSwordBackend::noSwordConfigFile:
+//				HTML_DIALOG(HELPDIALOG_NO_SWORD_CONFIG);
+//				break;
 			case CSwordBackend::noSwordModuleDirectory:
 				HTML_DIALOG(HELPDIALOG_NO_SWORD_MODULES_DIR);
 				break;		

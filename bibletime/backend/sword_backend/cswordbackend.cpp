@@ -25,6 +25,7 @@
 #include "cswordlexiconmoduleinfo.h"
 
 #include <dirent.h>
+#include <unistd.h>
 
 //Qt includes
 #include <qdir.h>
@@ -80,7 +81,6 @@ CSwordBackend::~CSwordBackend(){
 		
 /** Initializes the Sword modules. */
 const CSwordBackend::errorCode CSwordBackend::initModules() {
-	qDebug("const CSwordBackend::errorCode CSwordBackend::initModules()");
 	ModMap::iterator it;
 	SWModule*	curMod = 0;
 	CSwordModuleInfo* newModule = 0;
@@ -89,25 +89,22 @@ const CSwordBackend::errorCode CSwordBackend::initModules() {
 		 	
  	shutdownModules(); //remove previous modules
  	m_moduleList->clear();	
- 	
+
 	for (it = Modules.begin(); it != Modules.end(); it++) {
 		curMod = (*it).second;
 		if (!strcmp(curMod->Type(), "Biblical Texts")) {
 			newModule = new CSwordBibleModuleInfo(this, curMod);
-			ASSERT(newModule);
 			CHECK_HTML_CHAPTER_DISLPAY	//a macro to check the chapter display			
 			newModule->module()->Disp(m_chapterDisplay);
 		} else if (!strcmp(curMod->Type(), "Commentaries")) {
 			newModule = new CSwordCommentaryModuleInfo(this, curMod);
-			ASSERT(newModule);
 			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display
 			newModule->module()->Disp(m_entryDisplay);
 		} else if (!strcmp(curMod->Type(), "Lexicons / Dictionaries")) {
 			newModule = new CSwordLexiconModuleInfo(this, curMod);
-			ASSERT(newModule);
 			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
 			newModule->module()->Disp(m_entryDisplay);
-		}	
+		}
 		if (newModule)	//append the new modules to our list
 			m_moduleList->append( newModule );
 	}	
@@ -238,7 +235,8 @@ void CSwordBackend::Load() {
 		if (configPath) {
 			if (configType)
 				loadConfigDir(configPath);
-			else	config = myconfig = new SWConfig(configPath);
+			else	
+				config = myconfig = new SWConfig(configPath);
 		}
 	}
 
@@ -257,7 +255,8 @@ void CSwordBackend::Load() {
 			config = myconfig = 0;
 			loadConfigDir(configPath);
 		}
-		else	config->Load();
+		else	
+			config->Load();
 
 		CreateMods();
 
@@ -296,75 +295,14 @@ void CSwordBackend::Load() {
 
 	}
 	else {
+		if (!configPath)
+			m_errorCode = noSwordModuleConfigDirectory;
+		else
+			m_errorCode = noModulesAvailable;	
 		SWLog::systemlog->LogError("SWMgr: Can't find 'mods.conf' or 'mods.d'.  Try setting:\n\tSWORD_PATH=<directory containing mods.conf>\n\tOr see the README file for a full description of setup options (%s)", (configPath) ? configPath : "<configPath is null>");
 	}
-	//	if (!config) {	// If we weren't passed a config object at construction, find a config file
-//		if (!configPath)	// If we weren't passed a config path at construction...
-//			findConfig(&configType, &prefixPath, &configPath);
-//		if (configPath) {
-//			if (configType)
-//				loadConfigDir(configPath);
-//			else	config = myconfig = new SWConfig(configPath);
-//		}
-//	}
-//
-//	if (config) {
-//		SectionMap::iterator Sectloop, Sectend;
-//		ConfigEntMap::iterator Entryloop, Entryend;
-//
-//		DeleteMods();
-//
-//		for (Sectloop = config->Sections.lower_bound("Globals"), Sectend = config->Sections.upper_bound("Globals"); Sectloop != Sectend; Sectloop++) {		// scan thru all 'Globals' sections
-//			for (Entryloop = (*Sectloop).second.lower_bound("AutoInstall"), Entryend = (*Sectloop).second.upper_bound("AutoInstall"); Entryloop != Entryend; Entryloop++)	// scan thru all AutoInstall entries
-//				InstallScan((*Entryloop).second.c_str());		// Scan AutoInstall entry directory for new modules and install
-//		}		
-//		if (configType) {	// force reload on config object because we may have installed new modules
-//			delete myconfig;
-//			config = myconfig = 0;
-//			loadConfigDir(configPath);
-//		}
-//		else	config->Load();
-//
-//		CreateMods();
-//
-////	augment config with ~/.sword/mods.d if it exists ---------------------
-//			char *envhomedir  = getenv ("HOME");
-//			if (envhomedir != NULL && configType != 2) { // 2 = user only
-//				string path = envhomedir;
-//				if ((envhomedir[strlen(envhomedir)-1] != '\\') && (envhomedir[strlen(envhomedir)-1] != '/'))
-//					path += "/";
-//				path += ".sword/";
-//				if (FileMgr::existsDir(path.c_str(), "mods.d")) {
-//					char *savePrefixPath = 0;
-//					char *saveConfigPath = 0;
-//					SWConfig *saveConfig = 0;
-//					stdstr(&savePrefixPath, prefixPath);
-//					stdstr(&prefixPath, path.c_str());
-//					path += "mods.d";
-//					stdstr(&saveConfigPath, configPath);
-//					stdstr(&configPath, path.c_str());
-//					saveConfig = config;
-//					config = myconfig = 0;
-//					loadConfigDir(configPath);
-//
-//					CreateMods();
-//
-//					stdstr(&prefixPath, savePrefixPath);
-//					delete []savePrefixPath;
-//					stdstr(&configPath, saveConfigPath);
-//					delete []saveConfigPath;
-//					(*saveConfig) += *config;
-//					delete myconfig;
-//					config = myconfig = saveConfig;
-//				}
-//			}
-//// -------------------------------------------------------------------------
-//
-//	}
-//	else {
-//		m_errorCode = noModulesAvailable;
-//	}
-
+	if (access("/etc/sword.conf",R_OK) == -1)
+		m_errorCode = noSwordConfigFile;	
 }
 
 /** This function searches for a module with the specified description */

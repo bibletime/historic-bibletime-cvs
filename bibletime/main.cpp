@@ -130,7 +130,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 
  		
  	if (app.isRestored()) {
-//		RESTORE(BibleTime)
+		RESTORE(BibleTime)
 	}
   else {
 		KConfig *config = KGlobal::config();
@@ -145,21 +145,21 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 		 		start_logo->show();
 			};
 	  }
-	  BibleTime* bibletime = new BibleTime();			
 		
-		//first startup of BibleTime?
+		//first startup of BibleTime?		
+	  BibleTime* bibletime = new BibleTime();							
 		{
 			KConfigGroupSaver groupSaver(config, "General");
 			if (config->readBoolEntry(QString("firstStartup %1").arg(VERSION), true)) {
 				config->writeEntry( QString("firstStartup %1").arg(VERSION), false);
 				HTML_DIALOG(HELPDIALOG_FIRST_START);
-			}
+			}			
 			if (!config->readBoolEntry(QString("isConfigured %1").arg(VERSION), false)) {
 				config->writeEntry( QString("isConfigured %1").arg(VERSION), true);
 				bibletime->slotSettingsOptions();
 			}
 		}
-		
+	
 	  if (showIt) {
 			start_logo->hide();			
 			start_logo->close();
