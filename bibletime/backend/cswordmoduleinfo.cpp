@@ -237,7 +237,7 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 			return m_module->getConfig().has("Feature", "GreekParse");		
 		case HebrewParse:
 			return m_module->getConfig().has("Feature", "HebrewParse");		
-		case DailyDevotion:
+		case DailyDevotional:
 			return m_module->getConfig().has("Feature", "DailyDevotion");		
 		case Glossary:
 			return m_module->getConfig().has("Feature", "Glossary");		

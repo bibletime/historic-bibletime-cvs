@@ -88,8 +88,10 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
     if (!read){
 			(*module()) = TOP;  		
   		do {
-//   			m_entryList->append(QString::fromLocal8Bit(module()->KeyText())); //UTF8, Latin1 or Local8Bit??
-   			m_entryList->append(QString::fromUtf8(module()->KeyText()));
+        if (isUnicode())
+     			m_entryList->append(QString::fromUtf8(module()->KeyText()));
+        else
+          m_entryList->append(QString::fromLatin1(module()->KeyText())); //latin1 is a lot faster than UTF8, we can use it because latin1 modules won't contain unicode keys
 //				qWarning(module()->KeyText());
   			(*module())++;
   		} while ( !module()->Error() );

@@ -85,7 +85,7 @@ public:
 		HebrewDef,
 		GreekParse,
 		HebrewParse,
-		DailyDevotion,
+		DailyDevotional,
 		Glossary
 	};
 	
