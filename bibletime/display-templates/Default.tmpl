@@ -106,15 +106,21 @@ td.entry + td.entry {
 
 
 .entryname {
-	padding:0 2px;
+	font-size:70%;
+	padding:0 3px 0 0;
+	vertical-align:top;
+}
+.entry[dir=rtl] .entryname {
+	padding:0 0 0 3px;
 }
 .entryname a, #printer .entryname  {
-	font-size:70%;
 	vertical-align:top;
+	font-size:80%;
 }
 
 #printer .entry  .entry, #printer .entry .sectiontitle , #printer .entry .booktitle {
-	margin-left:15px;
+	padding-top:0.25em;
+	margin-left:10px;
 }
 
 .footnotepre {

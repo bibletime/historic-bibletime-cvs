@@ -14,8 +14,6 @@ cprofilewindow.cpp \
 cexportmanager.cpp \
 cmdiarea.cpp \
 kstartuplogo.cpp \
-ctooltipmanager.cpp \
-ctooltip.cpp \
 cdragdropmgr.cpp \
 cinfodisplay.cpp
 
@@ -31,8 +29,6 @@ cprofilewindow.h \
 cexportmanager.h \
 cmdiarea.h \
 kstartuplogo.h \
-ctooltipmanager.h \
-ctooltip.h \
 cdragdropmgr.h \
 cinfodisplay.h
 

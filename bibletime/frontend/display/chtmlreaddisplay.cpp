@@ -22,13 +22,11 @@
 #include "backend/creferencemanager.h"
 #include "backend/cswordkey.h"
 
-#include "util/ctoolclass.h"
-
 #include "frontend/cbtconfig.h"
-#include "frontend/ctooltipmanager.h"
 #include "frontend/cdragdropmgr.h"
 #include "frontend/cinfodisplay.h"
 
+#include "util/ctoolclass.h"
 #include "util/cpointers.h"
 #include "util/scoped_resource.h"
 
@@ -317,14 +315,6 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 					if (!attr.isNull()) {
 						infoList.append( qMakePair(CInfoDisplay::CrossReference, attr.nodeValue().string()) );
 					}
-/*					if (!attr.isNull() && (attr.nodeValue().string() == "reference")) {
-						attr = currentNode.attributes().getNamedItem("href");
-						if (!attr.isNull()) {
-							infoList.append( qMakePair(CInfoDisplay::CrossReference, attr.nodeValue().string()) );
-						}
-					}
-					*/
-				
 				}
 
 				currentNode = currentNode.parentNode();
@@ -356,53 +346,6 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 	} 
 	KHTMLPart::khtmlMouseMoveEvent(e);
 }
-/* -------------------------- */
-// CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : CToolTip(view), m_view( view ) {
-// };
-// 
-// /** Decides whether a tooltip should be shown. */
-// void CHTMLReadDisplayView::ToolTip::maybeTip( const QPoint& /*p*/ ){
-//   DOM::Node node = m_view->part()->nodeUnderMouse();
-//   if (node.isNull()) { //WARNING: Return already here
-//   	return;
-// 	}
-// 
-// 	QString tooltipText;
-//   DOM::Node currentNode = node;
-//   do {
-//     if (!currentNode.isNull() && currentNode.nodeName().string().upper() == "A" && currentNode.hasAttributes()) { //found right node
-// 			DOM::Node hrefAttr = currentNode.attributes().getNamedItem("href");
-// 			if (!hrefAttr.isNull()) {
-// 				tooltipText = CTooltipManager::textForHyperlink(
-// 					hrefAttr.nodeValue().string() 
-// 				);
-// 				break;
-// 			}
-// 		}
-// 	} while ( !(currentNode = currentNode.parentNode()).isNull() );
-//   
-// 	//if no link was under the mouse try to find a title attrivute
-// 	if (tooltipText.isEmpty()) {
-// 		currentNode = node;
-// 		do {
-// 			if (!currentNode.isNull() && currentNode.hasAttributes()) { //found right node
-// 				DOM::Node titleAttr = currentNode.attributes().getNamedItem("title");
-// 				if (!titleAttr.isNull()) {
-// 					tooltipText = titleAttr.nodeValue().string();
-// 					break;
-// 				}
-// 			}
-// 		} while ( !(currentNode = currentNode.parentNode()).isNull() );
-// 	}
-// 	
-// 	//display tooltip if the text is not empty
-// 	if (!tooltipText.isEmpty()) {
-// 		QRect rect = currentNode.getRect();
-// 		rect.setX( m_view->mapFromGlobal(QCursor::pos()).x() );
-// 		rect.setY( m_view->mapFromGlobal(QCursor::pos()).y() );
-// 		tip( m_view->mapFromGlobal(QCursor::pos()), rect, tooltipText );
-// 	}
-// }
 
 // ---------------------
 

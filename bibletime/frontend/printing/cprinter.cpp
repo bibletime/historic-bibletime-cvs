@@ -23,8 +23,10 @@ CPrinter::Item::Item(const QString& key, CSwordModuleInfo* module, const Setting
 	: CDisplayRendering::KeyTreeItem(key, module, settings),
 		m_stopKey(QString::null)
 {
+	Q_ASSERT(module);
+	
 	//create this item with heading text and one child item which has the content
-	m_alternativeContent = QString::fromLatin1("%1").arg(key);
+	m_alternativeContent = QString::fromLatin1("%1 (%2)").arg(key).arg(module->name());
 	childList()->append( new KeyTreeItem(key, module, KeyTreeItem::Settings()) );
 }
 
@@ -32,8 +34,9 @@ CPrinter::Item::Item(const QString& startKey, const QString& stopKey, CSwordModu
  : CDisplayRendering::KeyTreeItem(startKey, module, settings),
 	 m_stopKey(stopKey)
 {
+	Q_ASSERT(module);
+	
 	//use the start and stop key to ceate our child items
-// 	Q_ASSERT(childList());
 	
 	if (module->type() == CSwordModuleInfo::Bible) {
 		CSwordVerseKey start(module);
@@ -57,7 +60,9 @@ CPrinter::Item::Item(const QString& startKey, const QString& stopKey, CSwordModu
 		childList()->append( new KeyTreeItem(startKey, module, KeyTreeItem::Settings()) );
 	}
 				
-	m_alternativeContent = QString::fromLatin1("%1 - %2").arg(startKey).arg(stopKey);	
+	m_alternativeContent = QString::fromLatin1("%1 (%2)")
+		.arg((startKey != stopKey) ? QString::fromLatin1("%1 - %2").arg(startKey).arg(stopKey) : startKey)
+		.arg(module->name());
 }
 
 CPrinter::Item::Item(const CPrinter::Item& i) 

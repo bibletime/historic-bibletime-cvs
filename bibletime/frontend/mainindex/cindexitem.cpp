@@ -21,6 +21,7 @@
 
 #include "backend/creferencemanager.h"
 #include "backend/cswordmoduleinfo.h"
+#include "backend/cswordkey.h"
 #include "backend/cswordversekey.h"
 #include "backend/clanguagemgr.h"
 
@@ -30,9 +31,10 @@
 #include "frontend/cinputdialog.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/cdragdropmgr.h"
-#include "frontend/ctooltipmanager.h"
+// #include "frontend/ctooltipmanager.h"
 
 #include "util/cresmgr.h"
+#include "util/scoped_resource.h"
 #include "util/ctoolclass.h"
 
 #include <string.h>
@@ -257,11 +259,13 @@ void CModuleItem::dropped( QDropEvent* e ){
 /** Reimplementation. */
 const QString CModuleItem::toolTip(){
     QString text;
-		text = i18n("Module")
-      + QString::fromLatin1(": <b>%1</b><br>").arg( module()->name() )
-      + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<b>%1</b><br>").arg(i18n("Take care, this module contains cult / questionable material!")) : QString::null);
-		text += module()->config(CSwordModuleInfo::Description) + QString::fromLatin1("<hr>");
+		text = QString::fromLatin1("<b>%1</b> ").arg( module()->name() )
+      + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<small><b>%1</b></small><br>").arg(i18n("Take care, this module contains cult / questionable material!")) : QString::null);
+		
+		text += QString::fromLatin1("<small>") + module()->config(CSwordModuleInfo::Description) + QString::fromLatin1("</small><hr>");
+		
 		text += i18n("Language")+ QString::fromLatin1(": %1<br>").arg(module()->language()->translatedName());
+		
 		if (module()->isEncrypted())
 			text += i18n("Unlock key") + QString::fromLatin1(": %1<br>")
 				.arg(!module()->config(CSwordModuleInfo::CipherKey).isEmpty() ? module()->config(CSwordModuleInfo::CipherKey) : QString("<font COLOR=\"red\">%1</font>").arg(i18n("not set")));
@@ -417,7 +421,17 @@ const QString CBookmarkItem::toolTip(){
     return QString::null;
   }
 
-  return CTooltipManager::textForReference(module()->name(), key(), description());
+	QString ret;
+	
+	util::scoped_ptr<CSwordKey> k( CSwordKey::createInstance(module()) );
+	if (k.get()) {		
+		ret = QString::fromLatin1("<b>%1 (%2)</b><hr>%3")
+			.arg(key())
+			.arg(module()->name())
+			.arg(k->renderedText());
+	}
+	
+	return ret;
 }
 
 /** Returns the used module. */
