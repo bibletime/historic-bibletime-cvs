@@ -60,20 +60,24 @@ CProfile* CProfileMgr::create( const QString name ){
 
 /** Removes the profile from the list and from the directory containg the profile files. */
 const bool CProfileMgr::remove( CProfile* p ){
+	bool ret = false;
 	QFile f( p->filename() );
 	if (f.exists())
 		f.remove();		
-	m_profiles.remove(p); //auto delete is enabled
+	if(m_profiles.remove(p)); //auto delete is enabled
+		ret = true;
+	return ret;
 }
 
 const bool CProfileMgr::remove( const QString& profile) {
+	bool ret = false;
 	for (CProfile* p = m_profiles.first(); p; p = m_profiles.next()) {
 		if (p->name() == profile) {
 			remove(p);
-			return true;
+			ret =  true;
 		}
 	}
-	return false;
+	return ret;
 }
 
 /** Returns the profile with the desired name. If there's no such profile 0 is returned. */

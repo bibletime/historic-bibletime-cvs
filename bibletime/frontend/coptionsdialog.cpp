@@ -153,9 +153,12 @@ void COptionsDialog::renameProfile(){
 /** Opens the page which contaisn the given part ID. */
 const bool COptionsDialog::showPart(  COptionsDialog::Parts ID ){
 #warning "Add the necessary case statements"
+	bool ret = false;
 	switch (ID) {
 		case COptionsDialog::ViewProfiles:
-			showPage( pageIndex(m_settings.profiles.profiles->parentWidget()) );
+			if(showPage(pageIndex(
+					m_settings.profiles.profiles->parentWidget()) ))
+				ret = true;
 			break;
 		default:
 			break;
