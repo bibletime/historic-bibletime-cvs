@@ -296,7 +296,6 @@ const QFont::CharSet CSwordModuleInfo::encoding(){
 	if (charset.isEmpty())
 		return QFont::charSetForLocale();		//unknown charset					
 	if (charset == QString::fromLatin1("UTF-8")) {
-		qWarning("encoding is URF-8!");
 		return QFont::Unicode;
 	}
 	return QFont::charSetForLocale();		//unknown charset	

@@ -47,12 +47,11 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	const int currentVerse = key.Verse();	
 	int verse = 0;
 	
-//	if (module->encoding() == QFont::Unicode) {
-//		m_htmlHeader = "<HTML><HEAD><META HTTP-EQUIV=\"Content-Type\" content=\"text/html; charset=utf-8\"></HEAD>";
-//	}
-//	const QString direction = (module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr";
-//	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY dir=\"%1\">")/*.arg(direction)*/;
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");
+	if (module->encoding() == QFont::Unicode) {
+		m_htmlHeader = "<HTML><HEAD><META HTTP-EQUIV=\"Content-Type\" content=\"text/html; charset=utf-8\"></HEAD>";
+	}
+	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
+//	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");
 	
   QString FontName = m_standardFontName;
   int FontSize = m_standardFontSize;

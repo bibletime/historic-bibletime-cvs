@@ -515,7 +515,7 @@ void CSearchDialogResultView::slotCopyCurrent(){
 	QString text;
 	QList<QListBoxItem> list = selectedItems();
 	for (list.first(); list.current(); list.next()) {
-		text += list.current()->text();
+		text += list.current()->text()+"\n";
 	}
 	KApplication::clipboard()->setText(text);
 }
@@ -526,18 +526,21 @@ void CSearchDialogResultView::slotCopyCurrentWithKeytext(){
 	QString text;
 	QString keyText, keyName;
 	for (list.first(); list.current(); list.next()) {
-		if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
-			CSwordVerseKey key(m_module);
-			key.key(list.current()->text());
-			keyName = key.key();
-			keyText += key.strippedText();
-		}
-		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
-			CSwordLDKey key(m_module);						
-			key.key(list.current()->text());
-			keyName = key.key();			
-			keyText += key.strippedText();
-		}
+		CSwordKey* key = 0;
+		if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary)
+			key = new	CSwordVerseKey(m_module);
+		else if (m_module->getType() == CSwordModuleInfo::Lexicon)
+			key = new CSwordLDKey(m_module);
+		
+		if (!key)
+			continue;
+			
+		key->key(list.current()->text());
+		keyName = key->key();
+		keyText = key->strippedText();
+		
+		delete key;
+		
 		text += QString("%1\n%2\n\n").arg(keyName).arg(keyText);
 	}
 	
@@ -551,7 +554,7 @@ void CSearchDialogResultView::slotSaveCurrent(){
 		QList<QListBoxItem> list = selectedItems();
 		QString text;
 		for (list.first(); list.current(); list.next())
-			text += list.current()->text() += "\n";
+			text += list.current()->text()+"\n";
 		CToolClass::savePlainFile(file, text);
 	}
 }
@@ -562,18 +565,21 @@ void CSearchDialogResultView::slotSaveCurrentWithKeytext(){
 	QString text;
 	QString keyText, keyName;
 	for (list.first(); list.current(); list.next()) {
-		if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
-			CSwordVerseKey key(m_module);
-			key.key(list.current()->text());
-			keyName = key.key();
-			keyText += key.strippedText();
-		}
-		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
-			CSwordLDKey key(m_module);						
-			key.key(list.current()->text());
-			keyName = key.key();			
-			keyText += key.strippedText();
-		}
+		CSwordKey* key = 0;
+		if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary)
+			key = new	CSwordVerseKey(m_module);
+		else if (m_module->getType() == CSwordModuleInfo::Lexicon)
+			key = new CSwordLDKey(m_module);
+		
+		if (!key)
+			continue;
+			
+		key->key(list.current()->text());
+		keyName = key->key();
+		keyText = key->strippedText();
+		
+		delete key;
+		
 		text += QString("%1\n%2\n\n").arg(keyName).arg(keyText);
 	}
 	
