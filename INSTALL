@@ -6,7 +6,7 @@ It's sometimes a little bit tricky to get Bibletime and SWORD working, but
 it's possible.
 
 BibleTime 1.2 requires:
-	-QT 3.x or later
+	-QT 3.0.x or later
 	-KDE 3.x (at least the libraries and the base package)
 	-SWORD 1.5.3
 	
@@ -16,8 +16,8 @@ a list of required packages with their download URLs.
 Compile BibleTime 1.2:
 ----------------------------
 
-export QTDIR=<QT 3.x source directory>
-export KDEDIR=<KDE 3 directory (where KDE 3 is installed)>
+export QTDIR=<QT source directory>
+export KDEDIR=<KDE directory (where KDE is installed)>
 export PATH=$KDEDIR/bin:$PATH
 make -f Makefile.cvs
 ./configure					# create makefiles
