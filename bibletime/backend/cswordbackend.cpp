@@ -128,8 +128,8 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 	sword::ConfigEntMap::iterator entry;
 	bool noDriver = true;
 
-	sourceformat = ((entry = section.find("SourceType")) != section.end()) ? (*entry).second : (string) "";
-	moduleDriver = ((entry = section.find("ModDrv")) != section.end()) ? (*entry).second : (string) "";
+	sourceformat = ((entry = section.find("SourceType")) != section.end()) ? (*entry).second : (sword::SWBuf) "";
+	moduleDriver = ((entry = section.find("ModDrv")) != section.end()) ? (*entry).second : (sword::SWBuf) "";
 
 	if (!sword::stricmp(sourceformat.c_str(), "GBF")) {
 		if (!m_filters.gbf)

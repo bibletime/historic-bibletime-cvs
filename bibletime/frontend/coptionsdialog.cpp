@@ -550,7 +550,7 @@ $KDEHOME/share/apps/bibletime/cache.")),
 
 	m_settings.swords.lexiconCache = new QCheckBox(currentTab);
 	m_settings.swords.lexiconCache->setText(i18n("Use key cache for lexicons"));
-	QToolTip::add(m_settings.swords.lexiconCache, CResMgr::settings::sword::general::cacheKeys::tooltip);	
+	QToolTip::add(m_settings.swords.lexiconCache, CResMgr::settings::sword::general::cacheKeys::tooltip);
 	QWhatsThis::add(m_settings.swords.lexiconCache, CResMgr::settings::sword::general::cacheKeys::whatsthis);
 		
 	m_settings.swords.lexiconCache->setChecked( CBTConfig::get(CBTConfig::lexiconCache) );
@@ -580,7 +580,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 		
  	m_settings.swords.localeCombo = new QComboBox(currentTab);
  	QLabel* label = new QLabel(m_settings.swords.localeCombo, i18n("Language for biblical booknames"), currentTab); 	
- 	QToolTip::add(m_settings.swords.localeCombo, CResMgr::settings::sword::general::language::tooltip);				
+ 	QToolTip::add(m_settings.swords.localeCombo, CResMgr::settings::sword::general::language::tooltip);
  	QWhatsThis::add(m_settings.swords.localeCombo, CResMgr::settings::sword::general::language::whatsthis);
  	gridLayout->addWidget(label, 5,0);
  	gridLayout->addWidget(m_settings.swords.localeCombo, 5,1);
@@ -588,8 +588,11 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	gridLayout->setRowStretch(6,5); //eat up remaining space :)
  	 	 										
  	m_settings.swords.localeCombo->insertItem( i18n("English") );
- 	list <string> locales = sword::LocaleMgr::systemLocaleMgr.getAvailableLocales();
- 	for (list <string>::iterator it = locales.begin(); it != locales.end(); it++) {
+ 	const list<sword::SWBuf> locales = sword::LocaleMgr::systemLocaleMgr.getAvailableLocales();
+ 	for (list<sword::SWBuf>::const_iterator it = locales.begin(); it != locales.end(); it++) {
+		qWarning(sword::LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getName());
+		qWarning(sword::LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription());
+		qWarning("\n");
  		m_settings.swords.localeCombo->insertItem( i18n(sword::LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription()) );
  	}
 
@@ -619,27 +622,27 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
  	m_settings.swords.standardBible = new QComboBox(currentTab);
   label = new QLabel(m_settings.swords.standardBible, i18n("Default Bible"), currentTab);
   label->setAutoResize(true);
- 	QToolTip::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::tooltip);	
+ 	QToolTip::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::tooltip);
  	QWhatsThis::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::whatsthis);
- 	gridLayout->addWidget(label,1,0); 	
+ 	gridLayout->addWidget(label,1,0);
  	gridLayout->addWidget(m_settings.swords.standardBible,1,1);
- 	 	
+
  	m_settings.swords.standardCommentary = new QComboBox(currentTab);
  	label = new QLabel(m_settings.swords.standardCommentary, i18n("Default Commentary"), currentTab);
-  label->setAutoResize(true); 	
- 	QToolTip::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::tooltip);	
- 	QWhatsThis::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::whatsthis);	
+  label->setAutoResize(true);
+ 	QToolTip::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::tooltip);
+ 	QWhatsThis::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::whatsthis);
  	gridLayout->addWidget(label,2,0);
  	gridLayout->addWidget(m_settings.swords.standardCommentary,2,1);
 
 
  	m_settings.swords.standardLexicon = new QComboBox(currentTab);
  	label = new QLabel(m_settings.swords.standardLexicon, i18n("Default Lexicon"), currentTab);
-  label->setAutoResize(true); 	
- 	QToolTip::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::tooltip);	
+  label->setAutoResize(true);
+ 	QToolTip::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::tooltip);
  	QWhatsThis::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::whatsthis);
- 	gridLayout->addWidget(label,3,0); 	
- 	gridLayout->addWidget(m_settings.swords.standardLexicon,3,1); 	
+ 	gridLayout->addWidget(label,3,0);
+ 	gridLayout->addWidget(m_settings.swords.standardLexicon,3,1);
 
  	m_settings.swords.standardDailyDevotional = new QComboBox(currentTab);
  	label = new QLabel(m_settings.swords.standardDailyDevotional, i18n("Default Daily Devotional"), currentTab);
@@ -648,19 +651,19 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
  	QWhatsThis::add(m_settings.swords.standardDailyDevotional, CResMgr::settings::sword::modules::dailyDevotional::whatsthis);
  	gridLayout->addWidget(label,4,0);
  	gridLayout->addWidget(m_settings.swords.standardDailyDevotional,4,1);
-    		
+
  	m_settings.swords.standardHebrewStrong = new QComboBox(currentTab);
  	label = new QLabel(m_settings.swords.standardHebrewStrong, i18n("Default Hebrew Strong's Lexicon"), currentTab);
-  label->setAutoResize(true); 	 	
+  label->setAutoResize(true);
  	QToolTip::add(m_settings.swords.standardHebrewStrong, CResMgr::settings::sword::modules::hebrewStrongs::tooltip);
  	QWhatsThis::add(m_settings.swords.standardHebrewStrong, CResMgr::settings::sword::modules::hebrewStrongs::whatsthis);
  	gridLayout->addWidget(label,5,0);
  	gridLayout->addWidget(m_settings.swords.standardHebrewStrong,5,1);
-		
+
  	m_settings.swords.standardGreekStrong = new QComboBox(currentTab);
  	label = new QLabel(m_settings.swords.standardGreekStrong, i18n("Default Greek Strong's Lexicon"), currentTab);
-  label->setAutoResize(true); 	 	
- 	QToolTip::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::tooltip); 	
+  label->setAutoResize(true);
+ 	QToolTip::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::tooltip);
  	QWhatsThis::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::whatsthis);
  	gridLayout->addWidget(label,6,0);
  	gridLayout->addWidget(m_settings.swords.standardGreekStrong,6,1);
@@ -721,7 +724,7 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
           m_settings.swords.standardLexicon->insertItem(modDescript);
  				break;
  			} 				
- 			default://unknown type					
+ 			default://unknown type
  				break;
  		}
   }
@@ -938,29 +941,31 @@ void COptionsDialog::saveSword(){
    	for (QStringList::Iterator it = files.begin(); it != files.end(); ++it)
    		dir.remove((*it),false);			
   }
-       	
+
   CBTConfig::set(CBTConfig::standardBible, m_settings.swords.standardBible->currentText());
   CBTConfig::set(CBTConfig::standardCommentary, m_settings.swords.standardCommentary->currentText());
   CBTConfig::set(CBTConfig::standardLexicon, m_settings.swords.standardLexicon->currentText());
   CBTConfig::set(CBTConfig::standardDailyDevotional, m_settings.swords.standardDailyDevotional->currentText());
   CBTConfig::set(CBTConfig::standardHebrewStrongsLexicon, m_settings.swords.standardHebrewStrong->currentText());
-  CBTConfig::set(CBTConfig::standardGreekStrongsLexicon, m_settings.swords.standardGreekStrong->currentText() );  	
+  CBTConfig::set(CBTConfig::standardGreekStrongsLexicon, m_settings.swords.standardGreekStrong->currentText() );
   CBTConfig::set(CBTConfig::standardHebrewMorphLexicon, m_settings.swords.standardHebrewMorph->currentText());
-  CBTConfig::set(CBTConfig::standardGreekMorphLexicon, m_settings.swords.standardGreekMorph->currentText() );  	
+  CBTConfig::set(CBTConfig::standardGreekMorphLexicon, m_settings.swords.standardGreekMorph->currentText() );
 
  	const QString currentText = m_settings.swords.localeCombo->currentText();
- 	list <string> locales =sword:: LocaleMgr::systemLocaleMgr.getAvailableLocales();
+ 	list <sword::SWBuf> locales = sword::LocaleMgr::systemLocaleMgr.getAvailableLocales();
  	QString localeName = QString::null;
- 	for (list <string>::iterator it = locales.begin(); it != locales.end(); it++) {
+ 	for (list <sword::SWBuf>::iterator it = locales.begin(); it != locales.end(); it++) {
  		if ( i18n(sword::LocaleMgr::systemLocaleMgr.getLocale((*it).c_str())->getDescription()) == currentText ) {
  			localeName = (*it).c_str();	//we found the abbrevation for the current language
  			break;
  		}
  	}
- 	if (!localeName.isEmpty())
+ 	if (!localeName.isEmpty()) {
  		CBTConfig::set(CBTConfig::language, localeName);
- 	else
- 		CBTConfig::set(CBTConfig::language, currentText);
+	}
+ 	else {
+ 		CBTConfig::set(CBTConfig::language, "en"); //fall back to english if something went wrong
+	}
 
  	CBTConfig::set(CBTConfig::scroll, m_settings.swords.useDownArrow->isChecked());
  	CBTConfig::set(CBTConfig::lineBreaks, m_settings.swords.lineBreaks->isChecked());

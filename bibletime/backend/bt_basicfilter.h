@@ -23,11 +23,10 @@
 
 #include <string>
 
+using std::string;
 
 class sword::SWKey;
 class sword::SWModule;
-
-using std::string;
 
 /**
   * This is the base class for all filters in BT
@@ -52,16 +51,16 @@ protected:
   /**
   * Parses the verse reference ref and returns it.
   */
-  const string parseSimpleRef(const string& ref);
+  const sword::SWBuf parseSimpleRef(const sword::SWBuf& ref);
   /**
   * Parses the verse reference ref and returns it.
   */
-  const string parseRef(const string ref, sword::SWModule*, const bool insertCompleteRef = true);
+  const sword::SWBuf parseRef(const sword::SWBuf ref, sword::SWModule*, const bool insertCompleteRef = true);
   /**
   * Parses the verse reference ref and returns it.
   */
-  const string parseThMLRef(const string& ref, const char* mod = 0);
-	const string thmlRefEnd();
+  const sword::SWBuf parseThMLRef(const sword::SWBuf& ref, const char* mod = 0);
+	const sword::SWBuf thmlRefEnd();
   /**
   * Replaces the token in the substitute map.
   */

@@ -34,6 +34,7 @@
 #include <qregexp.h>
 
 //Sword includes
+#include <swbuf.h>
 #include <swmodule.h>
 #include <swkey.h>
 #include <listkey.h>
@@ -120,7 +121,7 @@ const bool CSwordModuleInfo::isEncrypted()/* const*/ {
 }
 
 const bool CSwordModuleInfo::hasVersion() const {
-	const string version = (*backend()->getConfig())[name().latin1()]["Version"];
+	const sword::SWBuf version = (*backend()->getConfig())[name().latin1()]["Version"];
 	return version.length();
 }
 
