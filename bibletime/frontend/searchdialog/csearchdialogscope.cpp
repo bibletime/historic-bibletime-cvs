@@ -77,14 +77,14 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
   	config->setGroup(QString("custom ranges"));
   	
 	  QMap<QString,QString> entryMap;
-	  entryMap.insert(i18n("Old testament"), QString("Genesis - Maleachi"));
-	  entryMap.insert(i18n("Moses/Pentateuch/Torah"), QString("Genesis-Deuteronomium"));				
-	  entryMap.insert(i18n("History"), QString("Jos-Est"));		
-	  entryMap.insert(i18n("Prophets"), QString("Isa-Mal")); 	
- 	  entryMap.insert(i18n("New testament"), QString("Matthew - Revel ation of John"));
-	  entryMap.insert(i18n("Gospels"), QString("Matthew - John"));
-	  entryMap.insert(i18n("Letters/Epistels"), QString("Rom-Jude"));
-	  entryMap.insert(i18n("Paul's Epistels"), QString("Rom-Phile;Lam"));
+	  entryMap.insert(i18n("Old testament"),          QString("Gen - Mal"));
+	  entryMap.insert(i18n("Moses/Pentateuch/Torah"), QString("Gen - Deut"));				
+	  entryMap.insert(i18n("History"),                QString("Jos - Est"));		
+	  entryMap.insert(i18n("Prophets"),               QString("Isa - Mal")); 	
+ 	  entryMap.insert(i18n("New testament"),          QString("Mat - Rev"));
+	  entryMap.insert(i18n("Gospels"), 								QString("Mat - Joh"));
+	  entryMap.insert(i18n("Letters/Epistels"), 			QString("Rom - Jude"));
+	  entryMap.insert(i18n("Paul's Epistels"), 				QString("Rom - Phile"));
 
 	  QMap<QString,QString>::Iterator it;			
 				
@@ -147,17 +147,9 @@ void CSearchDialogScopeChooser::editButtonClicked(){
 
 /** No descriptions */
 void CSearchDialogScopeChooser::scopeChanged(){
-	RangeLabel->setEnabled(getScopeType() == CSwordModuleSearch::Scope_Bounds ? true : false);
+	RangeLabel->setEnabled  (getScopeType() == CSwordModuleSearch::Scope_Bounds ? true : false);
 	RangeChooser->setEnabled(getScopeType() == CSwordModuleSearch::Scope_Bounds ? true : false);
-	editButton->setEnabled(getScopeType() == CSwordModuleSearch::Scope_Bounds ? true : false);
-
-//  if (getScopeType() == CSwordModuleSearch::Scope_Bounds){
-//  }
-//  else{
-//    RangeLabel->hide();
-//    RangeChooser->hide();
-//    editButton->hide();
-//  }
+	editButton->setEnabled  (getScopeType() == CSwordModuleSearch::Scope_Bounds ? true : false);
 }
 
 
@@ -337,6 +329,5 @@ void CSearchDialogScopeEdit::RangeEditTextChanged(const QString &text){
 
 /** No descriptions */
 void CSearchDialogScopeEdit::closeButtonClicked(){
-	//delete this //this is bad, delete this should be never used	- too many things could fail
 	close();
 }
