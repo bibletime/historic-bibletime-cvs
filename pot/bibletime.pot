@@ -1,18 +1,19 @@
-# translation of messages.po to German
-# Copyright (C) 2002 Free Software Foundation, Inc.
-# Joachim Ansorg <jansorg@gmx.de>, 2002
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: messages\n"
-"POT-Creation-Date: 2002-10-25 15:57+0200\n"
-"PO-Revision-Date: 2002-10-25 15:58+0200\n"
-"Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
-"Language-Team: German <info@bibletime.de>\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-10-26 13:24+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0beta2\n"
 
 #: ../bibletime/backend/clanguagemgr.cpp:164
 msgid "Afrikaans"
@@ -216,7 +217,7 @@ msgid "Shuar"
 msgstr ""
 
 #: ../bibletime/backend/clanguagemgr.cpp:354
-msgid "Kekchí"
+msgid "Kekch"
 msgstr ""
 
 #: ../bibletime/backend/clanguagemgr.cpp:355
@@ -763,7 +764,8 @@ msgid "Import bookmarks from a file."
 msgstr ""
 
 #: ../bibletime/dummy.h:155 ../bibletime/whatsthisdef.h:33
-msgid "Export bookmarks to a file so you or other<BR>users can import them later."
+msgid ""
+"Export bookmarks to a file so you or other<BR>users can import them later."
 msgstr ""
 
 #: ../bibletime/dummy.h:156 ../bibletime/whatsthisdef.h:34
@@ -831,11 +833,13 @@ msgid "This list contains the books which are available in this module."
 msgstr ""
 
 #: ../bibletime/dummy.h:172 ../bibletime/whatsthisdef.h:50
-msgid "This list contains the chapters which are available in the current book."
+msgid ""
+"This list contains the chapters which are available in the current book."
 msgstr ""
 
 #: ../bibletime/dummy.h:173 ../bibletime/whatsthisdef.h:51
-msgid "This list contains the verses which are available in the current chapter."
+msgid ""
+"This list contains the verses which are available in the current chapter."
 msgstr ""
 
 #: ../bibletime/dummy.h:174 ../bibletime/whatsthisdef.h:52
@@ -885,7 +889,8 @@ msgid "Choose a new fontsize for the selected text."
 msgstr ""
 
 #: ../bibletime/dummy.h:186 ../bibletime/whatsthisdef.h:64
-msgid "Synchronize the displayed verse of this module with the active Bible window."
+msgid ""
+"Synchronize the displayed verse of this module with the active Bible window."
 msgstr ""
 
 #: ../bibletime/dummy.h:189 ../bibletime/whatsthisdef.h:67
@@ -961,11 +966,13 @@ msgid "Delete the selected items."
 msgstr ""
 
 #: ../bibletime/dummy.h:211 ../bibletime/whatsthisdef.h:89
-msgid "Inserts a page break into the list.<BR>The printer will start a new page."
+msgid ""
+"Inserts a page break into the list.<BR>The printer will start a new page."
 msgstr ""
 
 #: ../bibletime/dummy.h:213 ../bibletime/whatsthisdef.h:91
-msgid "This group contains the page borders of the page measured in millimeters."
+msgid ""
+"This group contains the page borders of the page measured in millimeters."
 msgstr ""
 
 #: ../bibletime/dummy.h:214 ../bibletime/whatsthisdef.h:92
@@ -999,7 +1006,8 @@ msgid "Change the properties of the selected printing style."
 msgstr ""
 
 #: ../bibletime/dummy.h:221 ../bibletime/whatsthisdef.h:99
-msgid "Create a new printing style.<BR>The new style will be added to the list."
+msgid ""
+"Create a new printing style.<BR>The new style will be added to the list."
 msgstr ""
 
 #: ../bibletime/frontend/cbtconfig.cpp:250
@@ -1428,7 +1436,8 @@ msgid "Save into a new profile"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:83
-msgid "Create a new profile and save the current settings into this new profile."
+msgid ""
+"Create a new profile and save the current settings into this new profile."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:89
@@ -1492,7 +1501,8 @@ msgid "Open the BibleTime tool bar editor."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:146
-msgid "Open BibleTime's optionsdialog where you can set most of the preferences."
+msgid ""
+"Open BibleTime's optionsdialog where you can set most of the preferences."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:152
@@ -1692,7 +1702,8 @@ msgid "Parsed search ranges"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:265
-msgid "Contains the search ranges which will be used by BibleTime for the search."
+msgid ""
+"Contains the search ranges which will be used by BibleTime for the search."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:268
@@ -1878,7 +1889,8 @@ msgid "List of languages"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:417
-msgid "Contains the languages which can be used for the international booknames."
+msgid ""
+"Contains the languages which can be used for the international booknames."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:422
@@ -1894,7 +1906,8 @@ msgid "The default commentary used in the workspace area"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:427
-msgid "The default commentary is used when a hyperlink into a commentary was clicked"
+msgid ""
+"The default commentary is used when a hyperlink into a commentary was clicked"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:430
@@ -1926,7 +1939,8 @@ msgid ""
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:446
-msgid "The default Morphological lexicon for Hebrew texts used in the workspace area"
+msgid ""
+"The default Morphological lexicon for Hebrew texts used in the workspace area"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:447
@@ -1936,7 +1950,8 @@ msgid ""
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:450
-msgid "The default Morphological lexicon for Greek texts used in the workspace area"
+msgid ""
+"The default Morphological lexicon for Greek texts used in the workspace area"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:451
@@ -2010,14 +2025,12 @@ msgid "Configuration problem!"
 msgstr ""
 
 #: ../bibletime/frontend/ctooltipmanager.cpp:81
-#, ycp-format
 msgid ""
 "Please make sure the default module for the type <FONT COLOR=\"blue\"><I>%1</"
 "I></FONT> is set properly in the optionsdialog!"
 msgstr ""
 
 #: ../bibletime/frontend/ctooltipmanager.cpp:96
-#, ycp-format
 msgid ""
 "The module <FONT COLOR=\"blue\"><I>%1</I></FONT> was not found on your "
 "system! Install the module to make this tooltip working!"
@@ -2748,7 +2761,8 @@ msgid ""
 msgstr ""
 
 #: ../bibletime/tips-dummy.cpp:57
-msgid "The scriptures give us the wisdom that leads to salvation. (2 Timothy 3:15)\n"
+msgid ""
+"The scriptures give us the wisdom that leads to salvation. (2 Timothy 3:15)\n"
 msgstr ""
 
 #: ../bibletime/tips-dummy.cpp:61
@@ -2787,7 +2801,8 @@ msgid ""
 msgstr ""
 
 #: ../bibletime/tips-dummy.cpp:84
-msgid "We will be judged on the last day by the words Jesus spoke. (John 12:48)\n"
+msgid ""
+"We will be judged on the last day by the words Jesus spoke. (John 12:48)\n"
 msgstr ""
 
 #: ../bibletime/tips-dummy.cpp:88
@@ -2884,4 +2899,3 @@ msgstr ""
 #: ../setupwizard/main.cpp:149
 msgid "Starting BibleTime Setup Wizard"
 msgstr ""
-

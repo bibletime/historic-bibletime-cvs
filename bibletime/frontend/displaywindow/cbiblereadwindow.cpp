@@ -61,8 +61,8 @@ void CBibleReadWindow::applyProfileSettings( CProfileWindow* const settings ) {
 	int result = settings->windowSettings();
 // 	qWarning("count == %i", count);
 	for (int i = count-1; i>=1; i--) {
-		if (result-(int)std::pow((double)2,i-1)>= 0) { //2^i was added before, so item with index i is set
-			result -= (int)std::pow((double)2,i-1);
+		if (result-(int)pow((double)2,i-1)>= 0) { //2^i was added before, so item with index i is set
+			result -= (int)pow((double)2,i-1);
 //   		qWarning("set item %i to true", i);
 			displaySettingsButton()->setItemStatus(i,true);
 		}
@@ -82,7 +82,7 @@ void CBibleReadWindow::storeProfileSettings( CProfileWindow* const settings ) {
 	//now check	every item
 	for (int i = 1; i < count; i++) { //first item is a title
 		if (displaySettingsButton()->itemStatus(i)) //item is checked
-			result += (int)std::pow((double)2,i-1);//add 2^i (the i. digit in binary)
+			result += (int)pow((double)2,i-1);//add 2^i (the i. digit in binary)
 	}
 	settings->setWindowSettings(result);
 };
