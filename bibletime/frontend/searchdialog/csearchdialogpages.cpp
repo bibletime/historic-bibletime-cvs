@@ -22,12 +22,12 @@
 #include "backend/centrydisplay.h"
 
 #include "frontend/cbtconfig.h"
-#include "frontend/cresmgr.h"
 #include "frontend/cdragdropmgr.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
 
+#include "util/cresmgr.h"
 #include "util/cpointers.h"
 #include "util/ctoolclass.h"
 

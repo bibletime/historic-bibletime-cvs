@@ -19,7 +19,8 @@
 
 //frontend includes
 #include "frontend/keychooser/ckeychooser.h"
-#include "frontend/cresmgr.h"
+
+#include "util/cresmgr.h"
 
 //Qt includes
 
@@ -31,8 +32,7 @@
 CHTMLWriteWindow::CHTMLWriteWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name)
   : CPlainWriteWindow(modules, parent, name)
 {
-  qWarning("CHTMLWriteDisdplayWindow");
-//  setKey( CSwordKey::createInstance(moduleList.first()) );    
+
 }
 
 CHTMLWriteWindow::~CHTMLWriteWindow(){

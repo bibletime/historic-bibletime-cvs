@@ -25,7 +25,8 @@
 #include "frontend/searchdialog/csearchdialog.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cdragdropmgr.h"
-#include "frontend/cresmgr.h"
+
+#include "util/cresmgr.h"
 
 //Qt includes
 #include <qheader.h>

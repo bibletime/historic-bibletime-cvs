@@ -26,8 +26,8 @@
 #include "frontend/displaywindow/clexiconreadwindow.h"
 #include "frontend/displaywindow/cbookreadwindow.h"
 #include "frontend/displaywindow/creadwindow.h"
-#include "frontend/cresmgr.h"
 
+#include "util/cresmgr.h"
 #include "util/ctoolclass.h"
 
 #include <stdio.h>

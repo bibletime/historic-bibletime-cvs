@@ -23,9 +23,9 @@
 #include "frontend/display/cdisplay.h"
 #include "frontend/keychooser/cbooktreechooser.h"
 #include "frontend/cprofilewindow.h"
-#include "frontend/cresmgr.h"
 
 #include "util/ctoolclass.h"
+#include "util/cresmgr.h"
 
 //Qt includes
 #include <qsplitter.h>

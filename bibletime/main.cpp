@@ -35,7 +35,7 @@
 #include "frontend/kstartuplogo.h"
 #include "frontend/chtmldialog.h"
 #include "frontend/cbtconfig.h"
-#include "frontend/cresmgr.h"
+#include "util/cresmgr.h"
 
 //KDE includes
 #include <kcmdlineargs.h>

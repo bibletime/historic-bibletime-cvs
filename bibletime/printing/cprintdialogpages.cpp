@@ -21,7 +21,7 @@
 #include "cprintitemlist.h"
 #include "cprintitem.h"
 
-#include "frontend/cresmgr.h"
+#include "util/cresmgr.h"
 
 //QT includes
 #include <qbuttongroup.h>

@@ -24,7 +24,7 @@
 #include "backend/cswordbiblemoduleinfo.h"
 #include "backend/cswordmoduleinfo.h"
 
-#include "frontend/cresmgr.h"
+#include "util/cresmgr.h"
 
 //Qt includes
 #include <qcombobox.h>

@@ -23,13 +23,13 @@
 #include "backend/cswordldkey.h"
 
 #include "frontend/cbtconfig.h"
-#include "frontend/cresmgr.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/display/cdisplay.h"
 #include "frontend/display/creaddisplay.h"
 #include "frontend/keychooser/ckeychooser.h"
 
 #include "util/ctoolclass.h"
+#include "util/cresmgr.h"
 
 //Qt includes
 

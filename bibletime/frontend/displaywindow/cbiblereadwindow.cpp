@@ -26,7 +26,7 @@
 #include "frontend/cexportmanager.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cmdiarea.h"
-#include "frontend/cresmgr.h"
+#include "util/cresmgr.h"
 
 #include "frontend/display/creaddisplay.h"
 #include "frontend/keychooser/ckeychooser.h"

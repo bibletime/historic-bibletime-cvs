@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "cplainwritewindow.h"
+
 #include "frontend/keychooser/ckeychooser.h"
-#include "frontend/cresmgr.h"
+
+#include "util/cresmgr.h"
 
 //Qt includes
 #include <qregexp.h>

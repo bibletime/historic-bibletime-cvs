@@ -19,7 +19,7 @@
 //own includes
 #include "ctoolclass.h"
 
-#include "frontend/cresmgr.h"
+#include "util/cresmgr.h"
 #include "backend/cswordmoduleinfo.h"
 
 //QT includes

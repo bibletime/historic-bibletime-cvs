@@ -4,11 +4,13 @@ noinst_LIBRARIES = libutil.a
 
 libutil_a_SOURCES = \
 cpointers.cpp \
+cresmgr.cpp \
 ctoolclass.cpp
 
 all_headers = \
 scoped_resource.h \
 cpointers.h \
+cresmgr.h \
 ctoolclass.h
 
 EXTRA_DIST = $(libutil_a_SOURCES) $(all_headers)

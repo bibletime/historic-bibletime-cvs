@@ -3,7 +3,7 @@
 <para>
 &bibletime; is a powerful Bible study tool written for the &kde; environment on the
 Linux operating system. It is based on the <ulink
-url="http://www.crosswire.org/sword">Sword</ulink> library, which provide the back-end
+url="http://www.crosswire.org/sword">Sword</ulink> library, which provides the back-end
 functionality for &bibletime;, such as viewing Bible text, searching, bookmarking,
 etc. Sword is the flagship product of the <ulink
 url="http://www.crosswire.org">Crosswire Bible Society</ulink>. </para>
@@ -26,7 +26,7 @@ url="http://www.crosswire.org">Crosswire Bible Society</ulink>.   These include:
 <term>Bibles</term>
 <listitem>
 <para>
-The full Bible text, with optional Strong's Numbers and footnotes in the text.  The Strong
+The full Bible text, with optional things like Strong's Numbers and footnotes in the text.  The Strong
 Numbers hot link to the entry in Strong's Hebrew Bible Dictionary or Strong's Greek Bible Dictionary.
 Bibles are available in many languages, and include not only modern versions, but also 
 Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint (Greek).
@@ -68,7 +68,7 @@ Webster's Revised Unabridged Dictionary of the English Language 1913, Nave's Top
 <varlistentry>
 <term>Books</term>
 <listitem>
-<para>Books available include Imitation of Christ, Enuma Elish, and Josephus, the complete works
+<para>Books available include &quot;Imitation of Christ&quot;, &quot;Enuma Elish&quot;, and &quot;Josephus, the complete works&quot;
 </para>
 </listitem>
 </varlistentry>

@@ -26,7 +26,6 @@
 #include "frontend/cprofile.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/kstartuplogo.h"
-#include "frontend/cresmgr.h"
 #include "backend/clanguagemgr.h"
 
 #include "printing/cprinter.h"
@@ -35,6 +34,7 @@
 #include "frontend/cbtconfig.h"
 
 #include "util/cpointers.h"
+#include "util/cresmgr.h"
 
 //system includes
 #include <stdlib.h>

@@ -22,8 +22,8 @@
 
 #include "frontend/cbtconfig.h"
 #include "frontend/chtmldialog.h"
-#include "frontend/cresmgr.h"
 
+#include "util/cresmgr.h"
 #include "util/ctoolclass.h"
 
 //Qt includes

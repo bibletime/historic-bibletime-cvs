@@ -15,10 +15,9 @@ cmdiarea.cpp \
 kstartuplogo.cpp \
 ctooltipmanager.cpp \
 ctooltip.cpp \
-cresmgr.cpp \
 cdragdropmgr.cpp
 
-all_headers=cmdiarea.h \
+all_headers = cmdiarea.h \
 kstartuplogo.h \
 chtmldialog.h \
 cbtconfig.h \
@@ -29,7 +28,6 @@ cprofilewindow.h \
 cexportmanager.h \
 ctooltipmanager.h \
 ctooltip.h \
-cresmgr.h \
 cdragdropmgr.h
 
 EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)

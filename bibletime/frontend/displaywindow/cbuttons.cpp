@@ -18,7 +18,7 @@
 //HibleTime includes
 #include "cbuttons.h"
 
-#include "frontend/cresmgr.h"
+#include "util/cresmgr.h"
 
 #include "util/cpointers.h"
 

@@ -31,8 +31,8 @@
 #include "frontend/cinputdialog.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/cdragdropmgr.h"
-#include "frontend/cresmgr.h"
 
+#include "util/cresmgr.h"
 #include "util/ctoolclass.h"
 
 #include <string.h>

@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "chtmlwritedisplay.h"
+
 #include "frontend/displaywindow/cwritewindow.h"
-#include "frontend/cresmgr.h"
+
+#include "util/cresmgr.h"
 
 //Qt includes
 #include <qpopupmenu.h>

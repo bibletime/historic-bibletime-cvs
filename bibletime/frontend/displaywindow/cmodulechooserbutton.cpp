@@ -19,7 +19,7 @@
 
 #include "backend/cswordbackend.h"
 
-#include "frontend/cresmgr.h"
+#include "util/cresmgr.h"
 
 //Qt includes
 #include <qstring.h>

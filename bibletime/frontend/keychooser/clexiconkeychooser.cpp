@@ -21,7 +21,8 @@
 
 #include "backend/cswordlexiconmoduleinfo.h"
 #include "frontend/cbtconfig.h"
-#include "frontend/cresmgr.h"
+
+#include "util/cresmgr.h"
 
 //STL headers
 #include <algorithm>
