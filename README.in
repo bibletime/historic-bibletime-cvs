@@ -7,18 +7,17 @@ In this file:
 
 General introduction:
 --------------------
-	This is BibleTime @VERSION@ for KDE 3.x.
-If you find bugs please report them to info@bibletime.info or use our
-online bugreport form on www.bibletime.info.
+	This is BibleTime @VERSION@. BibleTime is a Bible study application for Linux running KDE 3.0 or later.
+If you find bugs please report them to info@bibletime.info or use the links on our webpage http://www.bibletime.info.
 
-Please do also send suggestions, criticism and moral support to info@bibletime.info.
+Please do not hesitate to send suggestions or criticism info@bibletime.info.
 
-Read the file INSTALL how to install and compile this version of BibleTime.
-The AUTHORS file contains a list of authors working on BibleTime.
-There's also a SPEC file to create RPMs, it's called bibletime.spec.
+Read the file INSTALL how to install and compile this version of BibleTime. There's also a SPEC file to create RPMs, it's called bibletime.spec.
+
+For a list of people who contributed to BibleTime read the "About BibleTime" pages available in the Help menu of BibleTime.
 
 This README file contains some very useful instructions and tips how to use BibleTime.
-Please read also the new handbook, it contains many instructions about the usage and
+Please read also the handbook, it contains many instructions about the usage and
 installation of BibleTime.
 
 
@@ -29,17 +28,14 @@ Requirements
 
 Documentation:
 --------------
-We do have a really useful handbook now!
-Fred did a great job with it and worked long on it. We hope that you like it.
-You can read the handbook in the help browser of KDE. It's in the Applications section.
+You can find information about BibleTime, the installation and its usage in the following places:
+	o http://www.bibletime.info/
+	o The BibleTime handbook available in the Help menu of the BibleTime application
 
 The Sword CD:
 -------------
 The team of BibleTime distributes the SWORD CD in Europe.
-If you live in Europe and want to get one or more CDs please have a look at www.bibletime.info.
-If you don't live in Europe please have a look at www.crosswire.org.
-
+If you live in Europe and want to get one or more CDs please have a look at www.bibletime.info. If you don't live in Europe please have a look at www.crosswire.org.
 
 Thank you!
-Joachim Ansorg <junkmail@joachim.ansorgs.de>
-
+The BibleTime developers, <info@bibletime.info>
