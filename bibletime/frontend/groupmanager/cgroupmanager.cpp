@@ -565,6 +565,10 @@ void CGroupManager::slotShowAbout(){
 	QString unlockKey = i18n("<I>Not necessary!</I>");
 	if ( module->isEncrypted() )
 		unlockKey = module->getCipherKey();	
+		
+	QString encoding = i18n("Unicode");
+	if (module->encoding() != QFont::Unicode)
+		encoding += i18n("iso8859-1");		
 				
 	text = QString::fromLatin1("<HTML><HEAD></HEAD><BODY>\
 <TABLE border=\"0\" height=\"100%\" width=\"100%\" cellspacing=\"0\" cellpadding=\"2\">\
@@ -583,17 +587,23 @@ void CGroupManager::slotShowAbout(){
 	.arg(i18n("Writable"))
 	.arg(isWritable);
 
-text += QString::fromLatin1("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
+text += QString::fromLatin1("\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%5:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
-<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR></TABLE>\
-</BODY></HTML>")
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR>")
 	.arg(i18n("Footnotes"))	
 	.arg(hasFootnotes)
 	.arg(i18n("Strong's numbers"))	
 	.arg(hasStrongNumbers)
+	.arg(i18n("Encoding"))	
+	.arg(encoding)	
 	.arg(i18n("Description"))	
-	.arg(module->getDescription())
+	.arg(module->getDescription());
+
+text += QString::fromLatin1("\
+<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
+</TABLE></BODY></HTML>")
 	.arg(i18n("About"))
 	.arg(module->getAboutInformation());
 	

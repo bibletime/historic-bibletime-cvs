@@ -75,7 +75,6 @@ int main(int argc, char* argv[]) {
 	static KCmdLineOptions options[] =
 	{
 		{"debug", I18N_NOOP("Enable debug messages"),0},
-		{"crash", I18N_NOOP("Crash BibleTime for testing. Will be removed before the new release."),0},
 		{0,0,0}
 	};	
 	qInstallMsgHandler( myMessageOutput );
@@ -97,7 +96,8 @@ int main(int argc, char* argv[]) {
 	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend, misc things"), "mg.pub@gmx.net", "");
 	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
 	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
-	
+	aboutData.addAuthor("Tim Brodie", 	I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
+
 	//documentation
 	aboutData.addAuthor("Fred Saalbach", 	I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
 		
@@ -199,13 +199,6 @@ int main(int argc, char* argv[]) {
 				bibletime->slotHelpTipOfDay();
 			bibletime->show();					
 		}
-		
-		if (args->isSet("crash")) {
-			qWarning("### try to crash BibleTime!");
-			QWidget* b;
-			delete b;
-		}
-			
 		
   	return app.exec();
 	}
