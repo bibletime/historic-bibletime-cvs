@@ -58,11 +58,6 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *paren
 	setCaption(windowCaption());	
 	
 	setFocusPolicy(QWidget::WheelFocus);
-//  if (parent)
-//    parent->installEventFilter(this);
-//  if (parent && parent->parentWidget())
-//    parent->parentWidget()->installEventFilter(this);
-//  installEventFilter(this);
 }
 
 CSwordPresenter::~CSwordPresenter() {
@@ -73,47 +68,6 @@ CSwordPresenter::~CSwordPresenter() {
 int CSwordPresenter::getFeatures(){
 	return m_features;
 }
-
-/** Refreshes the presenter depending on the events given as parameter. */
-//void CSwordPresenter::refresh( ){	
-//}
-
-/** Prints the key given as parameter. */
-//void CSwordPresenter::printKey(const QString& startKey, const QString& stopKey, CSwordModuleInfo* module) {
-////	printer()->addItemToQueue( new CPrintItem(module, startKey, stopKey) );
-//	CExportManager::printKey(module, startKey, stopKey);
-//}
-
-/** Refreshes the supported features. */
-//void CSwordPresenter::refreshFeatures(){
-//	m_features = 0;	
-//	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-//		if (m_moduleList.current()->supportsFeature( CSwordBackend::strongNumbers )){
-//			if (m_features != 0)
-//				m_features |= strongNumbers;
-//			else
-//				m_features = strongNumbers;
-//		}
-//		if (m_moduleList.current()->supportsFeature( CSwordBackend::footnotes )){
-//			if (m_features != 0)
-//				m_features |= footnotes;
-//			else
-//				m_features = footnotes;
-//		}
-//		if (m_moduleList.current()->supportsFeature( CSwordBackend::headings )){
-//			if (m_features != 0)
-//				m_features |= headings;
-//			else
-//				m_features = headings;
-//		}
-//		if (m_moduleList.current()->supportsFeature( CSwordBackend::morphTags )){
-//			if (m_features != 0)
-//				m_features |= morphTags;
-//			else
-//				m_features = morphTags;
-//		}		
-//	}
-//}
 
 void CSwordPresenter::lookupWord(int moduleID){
 	const QString module = m_lexiconPopup->text(moduleID);	
@@ -238,22 +192,6 @@ void CSwordPresenter::polish(){
 }
 
 /** Is called when this display window looses the focus. */
-//void CSwordPresenter::focusInEvent( QFocusEvent* e ){
-//	qWarning("CSwordPresenter::focusInEvent( QFocusEvent* e )");	
-//	KMainWindow::focusInEvent(e);
-////	if (m_accel)
-////		m_accel->setEnabled(true);
-//}
-//
-///** Is called when this display window looses the focus. */
-//void CSwordPresenter::focusOutEvent( QFocusEvent* e ){
-//	qWarning("CSwordPresenter::focusOutEvent( QFocusEvent* e )");	
-//	KMainWindow::focusOutEvent(e);	
-////	if (m_accel)
-////		m_accel->setEnabled(false);
-//}
-
-/** Is called when this display window looses the focus. */
 void CSwordPresenter::refresh(){
 //	qWarning("CSwordPresenter::refresh()");
 	m_moduleOptions = CBTConfig::getFilterOptionDefaults();
@@ -282,40 +220,6 @@ const bool CSwordPresenter::initialized(){
 void CSwordPresenter::setInitialized(){
 	m_initialized = true;
 }
-
-/** Reimplementation from QWidget. Is used to set the right accel options if focus was got / lost. */
-//void CSwordPresenter::childEvent( QChildEvent* e ){
-//  qWarning("CSwordPresenter::childEvent( QChildEvent* e)");
-//  if (e->child() && e->type() == QEvent::FocusIn) {
-//  qWarning("focus in!");
-//    m_accel->setEnabled(true);
-//  }
-//  else if (e->child() && e->type() == QEvent::FocusOut) {
-//  qWarning("focus out!");
-//    m_accel->setEnabled(false);
-//  }
-//}
-
-/** No descriptions */
-//bool CSwordPresenter::eventFilter(QObject *o, QEvent *e){
-//  qWarning("CSwordPresenter::eventFilter(QObject *o, QEvent *e)");
-//  if (e->type() == QEvent::FocusIn) {
-//    qWarning("focus in event!");
-//    if (m_accel) {
-//      m_accel->setEnabled(true);
-//      return true;
-//    }
-//  }
-//  else if (e->type() == QEvent::FocusOut) {
-//    qWarning("focus out event!");
-//    if (m_accel)  {
-//      m_accel->setEnabled(true);
-//      return true;
-//    }
-//  }
-//  return KMainWindow::eventFilter( o, e );;
-//}
-//
 
 /** This function is called when the client was activated. */
 void CSwordPresenter::activated( const bool enable){
