@@ -40,19 +40,29 @@ for I1 in `ls -d [a-z][a-z]`; do
   ( # output to Makefile.am  
   echo -e $HEADER
 
-  if test -d $I1/HTML || test -d $I1/docbook_XML; then
-    echo -n "SUBDIRS = "
+  echo -n "SUBDIRS = "
+
+  if test -d $I1/handbook; then
+    echo -n " handbook "
   fi
-  if test -d $I1/HTML; then
-    echo -n " HTML "
+  if test -d $I1/helpdialog; then
+    echo -n " helpdialog "
   fi
-  if test -d $I1/docbook_XML; then
-    echo -n " docbook_XML "
+  if test -d $I1/howto; then
+    echo -n " howto "
   fi
+  if test -d $I1/install; then
+    echo -n " install "
+  fi
+
   echo
 
-  echo "EXTRA_DIST =  tipdatabase"
-  echo
+	if test -e $I1/tipdatabase; then
+    echo "EXTRA_DIST =  tipdatabase"
+    echo
+	fi
+
+	echo
   echo 'install-data-local:'
   echo '	mkdir -p $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/;\'
   echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1';\'
@@ -63,90 +73,89 @@ for I1 in `ls -d [a-z][a-z]`; do
   ) > $I1/Makefile.am
 
   ###########################
-  # create Makefile.am's in /bibletime/docs/??/HTML directories
+  # create Makefile.am's in /bibletime/docs/??/PART directories
   #
-  if test -d $I1/HTML; then
-   #create HTML/common/Makefile.am
-    if test -d $I1/HTML/common; then
-	export I2=$I1"/HTML/common"
-	echo generating $I2/Makefile.am
-	( # output to Makefile.am
-	 echo -e $HEADER
-	 echo -n "EXTRA_DIST ="
-	 for I3 in `ls -d $I1/HTML/common/*.png` `ls -d $I1/HTML/common/*.css`; do
-		echo -n `basename $I3`" "
-	 done;
-	) > $I2/Makefile.am
-   fi;
+	for PART in handbook helpdialog howto install; do
+    if test -d $I1/$PART; then
 
-    export I2=$I1"/HTML"
-    
-    echo generating $I2/Makefile.am
-    ( # output to Makefile.am
-    echo -e $HEADER
+      #create $PART/Makefile.am
+      export I2=$I1/$PART
+      echo generating $I2/Makefile.am
+      ( # output to Makefile.am
+        echo -e $HEADER
+        echo -n "SUBDIRS = html"
+      ) > $I2/Makefile.am
 
-    if test -d $I2/common; then
-	echo -n "SUBDIRS = common"
-	echo
-    fi;
-    echo -n "EXTRA_DIST ="
-    for I3 in `ls -d $I1/HTML/*.html`; do
-      echo -n `basename $I3`" "
-    done
-    echo
+      #create $PART/html/Makefile.am
+      export I2=$I1/$PART/html
 
-    echo 'install-data-local:'
-    echo '	mkdir -p $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime;'
-    echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1';'
-    echo '	for file in *.html; do \'
-    echo '	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime && \'
-    echo '	  chmod a+r $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/$$file;\'
-    echo '	done;'
-    echo '	if test -d common; then \'
-    echo '	  cp -Ra common $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime;\'
-    echo '	elif test -d $(DESTDIR)$(kde_htmldir)/default/bibletime/common; then \'
-    echo '	  ln -s $(DESTDIR)$(kde_htmldir)/default/bibletime/common $(kde_htmldir)/'$I1'/bibletime/common;\'
-    echo '	fi;'
-    echo '	cd ..;'
-    echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/'
-    echo 
-    echo 'uninstall-local:'
-    echo '	for f in *.html; do \'
-    echo '	  echo Removing $(kde_htmldir)/'$I1'/bibletime/$$f; \'
-    echo '	  rm -f $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/$$f; \'
-    echo '	done; \'
-    echo '	cd .. \'
-    echo '	echo Deleting $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/common;\'
-    echo '	rm -Rf $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/common;'
-    ) > $I2/Makefile.am
+      echo generating $I2/Makefile.am
+      ( # output to Makefile.am
+        echo -e $HEADER
 
-  fi  # HTML
+  #     if test -d $I2/common; then
+  #     	echo -n "SUBDIRS = common"
+  #       echo
+  #     fi;
+        echo -n "EXTRA_DIST ="
+        for I3 in `ls -d $I2/*.html $I2/*.png 2>/dev/null`; do
+          echo -n `basename $I3`" "
+        done
+        echo
 
-  #############################################################
-  # create Makefile.am's in /bibletime/docs/??/docbook_XML directories
+        echo 'install-data-local:'
+        echo '	mkdir -p $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime;'
+        echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1';'
+        echo '	for file in *.html; do \'
+        echo '	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime && \'
+        echo '	  chmod a+r $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/$$file;\'
+        echo '	done;'
+#        echo '	if test -d common; then \'
+#        echo '	  cp -Ra common $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime;\'
+#        echo '	elif test -d $(DESTDIR)$(kde_htmldir)/default/bibletime/common; then \'
+#        echo '	  ln -s $(DESTDIR)$(kde_htmldir)/default/bibletime/common $(kde_htmldir)/'$I1'/bibletime/common;\'
+#        echo '	fi;'
+        echo '	cd ..;'
+        echo '	chmod a+r+X -R $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/'
+        echo
+        echo 'uninstall-local:'
+        echo '	for f in *.html; do \'
+        echo '	  echo Removing $(kde_htmldir)/'$I1'/bibletime/$$f; \'
+        echo '	  rm -f $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/$$f; \'
+        echo '	done; \'
+        echo '	cd .. \'
+#        echo '	echo Deleting $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/common;\'
+#        echo '	rm -Rf $(DESTDIR)$(kde_htmldir)/'$I1'/bibletime/common;'
+      ) > $I2/Makefile.am
+
+    fi  # HTML
+
+    #############################################################
+    # create Makefile.am's in /bibletime/docs/??/docbook_XML directories
+    #
+  #  if test -d $I1/docbook_XML; then
   #
-  if test -d $I1/docbook_XML; then
+  #    export I2=$I1/docbook_XML
+  #    export IDX=index.docbook
+  #    export HTM_D="../HTML"
+  #
+  #    echo generating $I2/Makefile.am
+  #    ( # output to Makefile.am
+  #    echo -e $HEADER
+  #
+  #    echo 'handbook:'
+  #    echo '	echo Creating handbook - please wait ...; \'
+  #    echo '	$(KDB2HTML) '$IDX';\'
+  #    echo '	test -d HTML/common || mkdir -p HTML/common; \'
+  #    echo '	cp -f '$HTM_D'/Makefile* HTML; \'
+  #    echo '	test -d '$HTM_D'/common && cp -R '$HTM_D'/common/* HTML/common/; \'
+  #    echo '	test -d '$HTM_D' && test -d '$HTM_D'/CVS && cp -Ra '$HTM_D'/CVS HTML/; \'
+  #    echo '	test -d '$HTM_D' && rm -Rf '$HTM_D'; \'
+  #    echo '	test -d HTML && mv HTML '$HTM_D'; \'
+  #    echo '	echo Finished!;'
+  #    ) > $I2/Makefile.am
+  #
+  #  fi # docbook_XML
 
-    export I2=$I1/docbook_XML
-    export IDX=index.docbook
-    export HTM_D="../HTML"
-
-    echo generating $I2/Makefile.am
-    ( # output to Makefile.am
-    echo -e $HEADER
-
-    echo 'handbook:'
-    echo '	echo Creating handbook - please wait ...; \'
-    echo '	$(KDB2HTML) '$IDX';\'
-    echo '	test -d HTML/common || mkdir -p HTML/common; \'
-    echo '	cp -f '$HTM_D'/Makefile* HTML; \'
-    echo '	test -d '$HTM_D'/common && cp -R '$HTM_D'/common/* HTML/common/; \'
-    echo '	test -d '$HTM_D' && test -d '$HTM_D'/CVS && cp -Ra '$HTM_D'/CVS HTML/; \'
-    echo '	test -d '$HTM_D' && rm -Rf '$HTM_D'; \'
-    echo '	test -d HTML && mv HTML '$HTM_D'; \'
-    echo '	echo Finished!;'
-    ) > $I2/Makefile.am
-
-  fi # docbook_XML
-
-done
+	done ### PART
+done ### language
