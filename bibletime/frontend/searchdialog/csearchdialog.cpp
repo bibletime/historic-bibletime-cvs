@@ -89,7 +89,7 @@ void CSearchDialog::initView() {
 	m_moduleChooser			= new CSearchDialogModuleChooser(m_important, moduleChooser_page);
 	connect(m_moduleChooser, SIGNAL(chosenModulesChanged()), SLOT(chosenModulesChanged()));
  	
-	searchText_page 	= addVBoxPage(i18n("Search Text"), i18n("Enter the text to search for"));
+	searchText_page = addVBoxPage(i18n("Search Text"), i18n("Enter the text to search for"));
 	searchText			= new CSearchDialogText(m_important, searchText_page);
 	searchText_page->setEnabled(false);
 	
@@ -104,8 +104,7 @@ void CSearchDialog::initView() {
 
 	m_searchAnalysisSaveButton = new QPushButton("Save Analysis to Disk", searchAnalysis_page);
 
-	connect(m_searchAnalysisSaveButton, SIGNAL(clicked()), this, SLOT(slotSaveSearchAnalysis()));
-	
+	connect(m_searchAnalysisSaveButton, SIGNAL(clicked()), this, SLOT(slotSaveSearchAnalysis()));	
 }
 
 ListCSwordModuleInfo* CSearchDialog::getModuleList() {
@@ -132,53 +131,53 @@ void CSearchDialog::setModuleList(ListCSwordModuleInfo *list) {
 }
 
 void CSearchDialog::slotSaveSearchAnalysis(){
-	int moduleIndex = 0;
-	int count = 0;	
-	QString countStr = "";
-	QString searchAnalysisHTML = "";
-	QString tableTitle = "";
-  QString tableTotals = "";
-	QString txtCSS = "<style type='text/css'>\nTD {border: thin solid;}\nTH {font-size: 130%;]\n</style>\n";
-
-	CSwordVerseKey key(0/*m_moduleList.first()*/);	
-	key.key("Genesis 1:1");
-
-	QDict<CSearchDialogAnalysisItem> searchAnalysisItems = *searchAnalysis->getSearchAnalysisItemList();
-	CSearchDialogAnalysisItem analysisItem = *searchAnalysisItems[key.book()];
-
- 	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.html"), 0, i18n("Save Search Analysis"));	
+ 	const QString file = KFileDialog::getSaveFileName(QString::null, QString::fromLatin1("*.html | %1").arg(i18n("HTML files")), 0, i18n("Save Search Analysis"));
 	if (!file.isNull()) {
+		int moduleIndex = 0;
+		int count = 0;
+		QString countStr = "";
+		QString searchAnalysisHTML = "";
+		QString tableTitle = "";
+	  QString tableTotals = "";
+		const QString txtCSS = QString::fromLatin1("<style type='text/css'>\nTD {border: thin solid black;}\nTH {font-size: 130%;]\n</style>\n");	
+		CSwordVerseKey key(0);
+		ListKey m_searchResult;
+		
+		key.key("Genesis 1:1");
+	
+		QDict<CSearchDialogAnalysisItem>* searchAnalysisItems = searchAnalysis->getSearchAnalysisItemList();
+		CSearchDialogAnalysisItem* analysisItem = searchAnalysisItems->find( key.book() );
+		
     QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n<h2>" + i18n("Search Text : ") + searchText->getText() + "</h2>\n";
-		text += "<h2>" + i18n("Search Type: ") + searchText->getSearchTypeString() + "</h2>\n";
-		text += "<h2>" + i18n("Search Scope: ") + searchText->scopeChooser->getScopeTypeString() + "</h2>\n";
+		text += "<h2>" + i18n("Search Type:") + QString::fromLatin1(" ") + searchText->getSearchTypeString() + "</h2>\n";
+		text += "<h2>" + i18n("Search Scope:") + QString::fromLatin1(" ") + searchText->scopeChooser->getScopeTypeString() + "</h2>\n";
 
 	  tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";
 		tableTotals = "<tr><td align=\"left\">" + i18n("Total Hits") + "</td>";
 		for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(),++moduleIndex) {
-				tableTitle += "<th align=\"left\">" + moduleList->current()->name() + "</th>";
-				ListKey& m_searchResult = moduleList->current()->getSearchResult();
+				tableTitle += QString::fromLatin1("<th align=\"left\">") + moduleList->current()->name() + QString::fromLatin1("</th>");
+				m_searchResult = moduleList->current()->getSearchResult();
 				countStr.setNum(m_searchResult.Count());
-	      tableTotals += QString("<td align=\"right\">") + countStr + "</td>";
-
+	      tableTotals += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
 		}
-		tableTitle += "</tr>\n";
-		tableTotals += "</tr>\n";
+		tableTitle += QString::fromLatin1("</tr>\n");
+		tableTotals += QString::fromLatin1("</tr>\n");
 
 		searchAnalysisHTML = "";
-		bool ok = true;
+		bool ok = true;		
 		while (ok) {
-			searchAnalysisHTML += "<tr><td>" + key.book() + "</td>";
-			analysisItem = *searchAnalysisItems[key.book()];
+			searchAnalysisHTML += QString::fromLatin1("<tr><td>") + key.book() + QString::fromLatin1("</td>");
+			analysisItem = searchAnalysisItems->find( key.book() );
 			for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(), ++moduleIndex) {
-				count = analysisItem.getCountForModule(moduleIndex);
+				count = analysisItem->getCountForModule(moduleIndex);
 				countStr.setNum(count);
-				searchAnalysisHTML += "<td align=\"right\">" + countStr + "</td>";
+				searchAnalysisHTML += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
 			}
-			searchAnalysisHTML += "</tr>\n";
+			searchAnalysisHTML += QString::fromLatin1("</tr>\n");
 			ok = key.NextBook();
 		}
 		text += QString::fromLatin1("<table>\n") + tableTitle + tableTotals + searchAnalysisHTML + QString::fromLatin1("</table>\n");
-		text += "<center>" + i18n("Created by ") + QString::fromLatin1("<a href=\"http://www.bibletime.de/\">BibleTime</a>");
+		text += QString::fromLatin1("<center>") + i18n("Created by") + QString::fromLatin1(" <a href=\"http://www.bibletime.de/\">BibleTime</a></center>");
 		text += QString::fromLatin1("</body></html>");
 		CToolClass::savePlainFile(file, text);
 	}
@@ -270,7 +269,7 @@ void CSearchDialog::setSearchText(const QString text){
 		showPage(pageIndex(searchText_page));
 }
 
-/** Returns the search text. If no text was enetered return QString::null. */
+/** Returns the search text. If no text was entered return QString::null. */
 const QString CSearchDialog::getSearchedText() const {
 	return searchText->getText();
 }

@@ -44,7 +44,7 @@ class CSearchDialogAnalysis : public QCanvas {
    Q_OBJECT
 public:	
 	CSearchDialogAnalysis(QObject *parent=0, const char *name=0);
-  ~CSearchDialogAnalysis();
+  virtual ~CSearchDialogAnalysis();
   /**
   * Sets the module list used for the analysis.
   */
@@ -64,8 +64,9 @@ public:
   * @return The color at position index in the list
   */
   static QColor getColor(int index);
-
- 	/* This function returns a pointer to the list of AnalysisItems */
+ 	/*
+ 	* This function returns a pointer to the list of AnalysisItems
+ 	*/
  	QDict<CSearchDialogAnalysisItem>* getSearchAnalysisItemList();
 
 
@@ -103,7 +104,7 @@ public:
 	* Standard constructor.
 	*/
 	CSearchDialogAnalysisItem(QCanvas* parent, const int moduleCount, const QString& bookname, double *scaleFactor, ListCSwordModuleInfo* modules);
-	~CSearchDialogAnalysisItem();	
+	virtual ~CSearchDialogAnalysisItem();	
   /**
   * Sets the resultcount of this item
   */
@@ -179,8 +180,7 @@ private:
 		*/		
 		virtual void maybeTip(const QPoint &pos);
 	};
-	ToolTip* m_toolTip;
-	
+	ToolTip* m_toolTip;	
 };
 
 

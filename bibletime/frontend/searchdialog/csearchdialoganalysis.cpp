@@ -122,19 +122,18 @@ void CSearchDialogAnalysis::analyse(){
 	int moduleIndex = 0;	
 	m_maxCount = 0;	
 	int count = 0;
-	CSwordVerseKey key(0/*m_moduleList.first()*/);	
+	CSwordVerseKey key(0);	
 	key.key("Genesis 1:1");	
 	
 	CSearchDialogAnalysisItem* analysisItem = m_canvasItemList[key.book()];
 	bool ok = true;
 	while (ok && analysisItem) {
 		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
-				KApplication::kApplication()->processEvents(10);
+			KApplication::kApplication()->processEvents(10);
 			if (!m_lastPosList.contains(m_moduleList.current()))
 				m_lastPosList.insert(m_moduleList.current(),0);
 			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.book(),m_moduleList.current())));
 			m_maxCount = (count > m_maxCount) ? count : m_maxCount;
-
 		}
 		analysisItem->setX(xPos);
 		analysisItem->setY(UPPER_BORDER);
@@ -156,23 +155,23 @@ void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
 			m_moduleList.append(modules->current());
 
 	m_canvasItemList.clear();
-	CSwordVerseKey key(m_moduleList.first());	
+	CSwordVerseKey key(0);	
 	key.key("Genesis 1:1");
 	CSearchDialogAnalysisItem* analysisItem = 0;
-	bool ok = true;
-	while (ok) {
+	while (true) {
    	analysisItem = new CSearchDialogAnalysisItem(this, m_moduleList.count(), key.book(), &m_scaleFactor, &m_moduleList);
    	analysisItem->hide();
 		m_canvasItemList.insert(key.book(), analysisItem);
-		ok = key.NextBook();
-	}	
+		if (!key.NextBook())
+			break;
+	}
 	update();
 }
 
 /** Sets back the items and deletes things to cleanup */
 void CSearchDialogAnalysis::reset(){
 	m_scaleFactor = 0.0;
-  QDictIterator<CSearchDialogAnalysisItem> it( m_canvasItemList ); // iterator for dict
+  QDictIterator<CSearchDialogAnalysisItem> it( m_canvasItemList ); // iterator for items
 	while ( it.current() ) {
 		it.current()->hide();
 		++it;
@@ -237,17 +236,12 @@ const unsigned int CSearchDialogAnalysis::getCount( const QString book, CSwordMo
 //------------------------------------------------------------------
 
 CSearchDialogAnalysisItem::CSearchDialogAnalysisItem(QCanvas *parent, const int moduleCount, const QString &bookname, double *scaleFactor, ListCSwordModuleInfo* modules)
-	: QCanvasRectangle(parent) {
-
-	m_moduleList = modules;	
-	m_scaleFactor = scaleFactor;
-	m_moduleCount = moduleCount;
-	m_bookName = bookname;	
-	m_bufferPixmap = 0;
-	
+	: QCanvasRectangle(parent), m_moduleList( modules ),m_scaleFactor(scaleFactor),
+	m_moduleCount(moduleCount), m_bookName(bookname), m_bufferPixmap(0)
+{	
  	m_resultCountArray.resize(m_moduleCount);
  	int index = 0;
- 	for (index = 0; index < m_moduleCount; index++)
+ 	for (index = 0; index < m_moduleCount; ++index)
  		m_resultCountArray[index] = 0;
 }
 
