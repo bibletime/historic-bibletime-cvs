@@ -302,11 +302,11 @@ protected slots:
 	/**
 	 * Called when back button pressed
 	 **/
-	void slotBack();
+//	void slotBack();
 	/**
 	 * Called when forward button pressed
 	 **/
-	void slotForward();
+//	void slotForward();
   /**
    Saves current settings into a new profile.
   */

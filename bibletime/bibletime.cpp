@@ -58,18 +58,19 @@
 #include <ktoolbar.h>
 #include <krandomsequence.h>
 
-BibleTime::BibleTime() : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/),
-	m_initialized(false),
-	m_moduleList(0),
-	m_progress(0),
-	m_currentProfile(0),
-  m_keyAccel(accel()),
-  m_splitter(0),
-  m_mdi(0),
-  m_profileMgr(),
-  m_backend(0),
-  m_printer(0),
-  m_mainIndex(0)  
+BibleTime::BibleTime()
+  : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/),
+	  m_initialized(false),
+	  m_moduleList(0),
+	  m_progress(0),
+	  m_currentProfile(0),
+    m_keyAccel(accel()),
+    m_splitter(0),
+    m_mdi(0),
+    m_profileMgr(),
+    m_backend(0),
+    m_printer(0),
+    m_mainIndex(0)  
 {
 	connect(KApplication::kApplication(), SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
 
@@ -279,10 +280,13 @@ void BibleTime::processCommandline(){
       restoreWorkspace();
     }
   }
-  else {
+//  else
+
+//open every time a module if the command line option was set.
+  if ( args->isSet("open-default-bible") && !CBTConfig::get(CBTConfig::crashedLastTime) && !CBTConfig::get(CBTConfig::crashedTwoTimes)) { //restore workspace if it crashed ony once
     QString bibleKey = args->getOption("open-default-bible");    
     CSwordModuleInfo* bible = CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible));
-    if (args->isSet("open-default-bible") && (bibleKey == "<random>")) {
+    if (bibleKey == "<random>") {
       CSwordVerseKey vk(0);
       const int maxIndex = 32400;
 

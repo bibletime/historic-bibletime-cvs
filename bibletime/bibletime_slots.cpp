@@ -317,29 +317,30 @@ void BibleTime::slotSearchDefaultBible() {
   CSearchDialog::openDialog(module, QString::null);
 }
 
-    void BibleTime::slotBack() {
-  CBibleReadWindow* w = 
-    dynamic_cast<CBibleReadWindow*> (m_mdi->activeWindow());
-  // no proper action target
-  if (!w || !w->isReady()) return;
-  w->previousChapter();
-}
+//void BibleTime::slotBack() {
+//  CBibleReadWindow* w =
+//    dynamic_cast<CBibleReadWindow*> (m_mdi->activeWindow());
+//  // no proper action target
+//  if (!w || !w->isReady()) return;
+//  w->previousChapter();
+//}
 
-void BibleTime::slotForward() {
-  CBibleReadWindow* w = 
-    dynamic_cast<CBibleReadWindow*> (m_mdi->activeWindow());
-  // no proper action target
-  if (!w || !w->isReady()) return;
-  w->nextChapter();
-}
+//void BibleTime::slotForward() {
+//  CBibleReadWindow* w =
+//    dynamic_cast<CBibleReadWindow*> (m_mdi->activeWindow());
+//  // no proper action target
+//  if (!w || !w->isReady()) return;
+//  w->nextChapter();
+//}
 
 void BibleTime::openOnlineHelp_Handbook() {
-	if (m_helpMenu)
-		kapp->invokeHTMLHelp("bibletime/handbook/index.html");
+//	kapp->invokeHTMLHelp("bibletime/handbook/index.html");
+   kapp->invokeHelp("", "bibletime/handbook");
 }
 
 void BibleTime::openOnlineHelp_Howto() {
-	kapp->invokeHTMLHelp("bibletime/howto/index.html");
+//	kapp->invokeHTMLHelp("bibletime/howto/index.html");
+  kapp->invokeHelp("", "bibletime/howto");
 }
 
 /** Saves the current settings into the currently activatred profile. */
@@ -347,7 +348,7 @@ void BibleTime::saveProfile(int ID){
 	m_mdi->setUpdatesEnabled(false);
 
   KPopupMenu* popup = m_windowSaveProfile_action->popupMenu();
-	if (	CProfile* p = m_profileMgr.profile( popup->text(ID) ) ) {
+	if ( CProfile* p = m_profileMgr.profile(popup->text(ID)) ) {
 		saveProfile(p);
   }
 
