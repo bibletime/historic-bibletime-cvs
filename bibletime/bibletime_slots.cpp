@@ -36,7 +36,6 @@
 #include "frontend/mainindex/cindexitem.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/displaywindow/cbiblereadwindow.h"
-#include "frontend/keychooser/crefselectdialog.h"
 #include "frontend/searchdialog/csearchdialog.h"
 
 #include "printing/cprinter.h"
@@ -323,22 +322,6 @@ void BibleTime::slotForward() {
   if (!w || !w->isReady()) return;
   w->nextChapter();
 }
-
-
-void BibleTime::slotSelectKey() {
-  CDisplayWindow* w = 
-    dynamic_cast<CDisplayWindow*> (m_mdi->activeWindow());
-  // no proper action target
-  if (!w || !w->isReady()) return;
-
-  if (!m_selectDialog)
-    m_selectDialog = new CRefSelectDialog(this);
-
-  m_selectDialog->setChooser(w->keyChooser());
-  m_selectDialog->show();
-  m_selectDialog->raise();
-}
-
 
 void BibleTime::openOnlineHelp_Handbook() {
 	if (m_helpMenu)

@@ -182,7 +182,6 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QPen pen;
 	QBrush brush;
 
-//	const bool isUnicode 	= (m_module && m_module->isUnicode());
 	const int leftMargin 	= printer->pageMargins().left;
 	const int upperMargin = printer->pageMargins().top;	
 	const QRect pageSize =  printer->contentSize();
@@ -267,7 +266,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			br = boundingRect;	// the rect for the border		
 			/**
 			* we have to substract frameThickness/2,
-			* because QPainter paints one half outline and the other part inside the rectangle.
+			* because QPainter paints one half outside and the other part inside the rectangle.
 			*/
 			const int halfWidth = (int)((float)frameThickness/2);
 
@@ -308,8 +307,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		else if (type == CStyle::ModuleText) {		
 			p->save();
 			
-//			if (isUnicode)
-				font = CBTConfig::get( m_module->language() );
+			font = CBTConfig::get( m_module->language() );
 
 			if (alignment == CStyle::Format::Center)		
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);

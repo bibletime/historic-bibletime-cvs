@@ -29,6 +29,7 @@
 #include <qcombobox.h>
 #include <qlistbox.h>
 #include <qlayout.h>
+#include <qpushbutton.h>
 
 //KDE includes
 #include <klocale.h>
@@ -51,36 +52,34 @@ CBibleKeyChooser::CBibleKeyChooser(ListCSwordModuleInfo modules, CSwordKey *key,
 	w_book->setToolTips(TT_PRESENTER_BOOK_COMBO, TT_PRESENTER_NEXT_BOOK, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_BOOK);
 	w_book->setWhatsThis(WT_PRESENTER_BOOK_COMBO, WT_PRESENTER_NEXT_BOOK, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_BOOK);
 	
-//	qWarning("Biblekey chooser: has %i chapters",m_info->chapterCount(w_book->comboBox()->currentText()));
   w_chapter = new CKeyChooserWidget( m_modules.first()->chapterCount(w_book->comboBox()->currentText()),true,this);		
 	w_chapter->setToolTips(TT_PRESENTER_CHAPTER_COMBO, TT_PRESENTER_NEXT_CHAPTER, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_CHAPTER);	
 	w_chapter->setWhatsThis(WT_PRESENTER_CHAPTER_COMBO, WT_PRESENTER_NEXT_CHAPTER, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_CHAPTER);		
 	
-//	qWarning("Biblekey chooser: has %i verses",m_info->verseCount(w_book->comboBox()->currentText(),1));
   w_verse = new CKeyChooserWidget( m_modules.first()->verseCount(w_book->comboBox()->currentText(),1),true,this);
 	w_verse->setToolTips(TT_PRESENTER_VERSE_COMBO, TT_PRESENTER_NEXT_VERSE, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_VERSE);
 	w_verse->setWhatsThis(WT_PRESENTER_VERSE_COMBO, WT_PRESENTER_NEXT_VERSE, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_VERSE);
-						
+
 	QWidget::setTabOrder(w_book, w_chapter);
 	QWidget::setTabOrder(w_chapter, w_verse);
-	QWidget::setTabOrder(w_verse, 0);	
+	QWidget::setTabOrder(w_verse, 0);
 		
 	layout->addWidget(w_book,0);
 	layout->addWidget(w_chapter,0);
-	layout->addWidget(w_verse,0);	
+	layout->addWidget(w_verse,0);
 
-	/*Book connections*/
+	/* Book connections */
 	connect(w_book,SIGNAL(changed(int))       ,SLOT(bookChanged(int)));
 	connect(w_book,SIGNAL(focusOut(int))      ,SLOT(bookFocusOut(int)));	
 	
-	/*Chapter Connections*/
+	/* Chapter Connections */
 	connect(w_chapter,SIGNAL(changed(int))    ,SLOT(chapterChanged(int)));
 	connect(w_chapter,SIGNAL(next_requested()),SLOT(chapterNextRequested()));
 	connect(w_chapter,SIGNAL(prev_requested()),SLOT(chapterPrevRequested()));
 	connect(w_chapter,SIGNAL(focusOut(int))   ,SLOT(chapterFocusOut(int)));
 	
 	
-	/*Verse Connections*/
+	/* Verse Connections */
 	connect(w_verse,SIGNAL(changed(int))      ,SLOT(verseChanged(int)));
 	connect(w_verse,SIGNAL(next_requested())  ,SLOT(verseNextRequested()));
 	connect(w_verse,SIGNAL(prev_requested())  ,SLOT(versePrevRequested()));

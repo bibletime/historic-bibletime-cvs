@@ -304,3 +304,8 @@ const CLanguageMgr::Language CSwordModuleInfo::language() {
     return languageMgr()->languageForAbbrev( module()->Lang() );
   return CLanguageMgr::Language();
 }
+
+/** Returns true if this module may be written by the write display windows. */
+const bool CSwordModuleInfo::isWritable(){
+  return false;
+}

@@ -35,6 +35,8 @@ public:
 	~CSwordCommentaryModuleInfo();
   virtual const CSwordModuleInfo::ModuleType type() const;
   virtual CSwordModuleInfo* clone();
+  /** Returns true if this module may be written by the write display windows. */
+  virtual const bool isWritable();
 };
 
 /** No descriptions */

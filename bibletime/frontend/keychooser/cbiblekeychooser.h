@@ -28,6 +28,8 @@ class CSwordVerseKey;
 
 class CSwordBibleModuleInfo;
 
+class QuickBrowseDialog;
+
 
 /** This class implements the KeyChooser for bibles and commentaries
 	*
@@ -52,7 +54,7 @@ public slots:
 	/**
 	* see @ref CKeyChooser::getKey
 	*/
-	CSwordKey*const key();
+	CSwordKey* const key();
 	/**
 	* see @ref CKeyChooser::setKey
 	*/
@@ -102,6 +104,10 @@ public slots:
   void verseNextRequested(void);
   void updateKey(CSwordKey* key);
 
+
+protected:
+  virtual void adjustFont();
+
 private:
 	CKeyChooserWidget* w_book;
 	CKeyChooserWidget* w_chapter;
@@ -125,9 +131,6 @@ private slots: // Private slots
   @param the new verse
   */
   void verseFocusOut(int);
-protected: // Protected methods
-  /** No descriptions */
-  virtual void adjustFont();
 };
 
 #endif

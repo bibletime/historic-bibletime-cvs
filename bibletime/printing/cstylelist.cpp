@@ -130,7 +130,8 @@ void CStyleList::deleteCurrentStyle(){
 	for (m_items->first(); m_items->current();m_items->next()) {
 		if (m_items->current()->listViewItem() == item) {
 			currentStyle = m_items->current();
-			if (int pos = m_items->findRef(currentStyle))
+      const int pos = m_items->findRef(currentStyle);
+			if (pos != -1)
         m_items->take(pos);
 			currentStyle->deleteListViewItem();			
 			if (!m_items->autoDelete() && currentStyle) {
@@ -143,12 +144,6 @@ void CStyleList::deleteCurrentStyle(){
 		}
 	}
 }
-
-///** Updates the style combo box. */
-//void CStyleList::updateStyleCombo(){
-//	if (m_printer)
-//		m_printer->emitStylesChanged();
-//}
 
 /** Returns a pointer to our list */
 StyleItemList* const CStyleList::styleList() const {

@@ -102,7 +102,7 @@ CBookTreeChooser::CBookTreeChooser(ListCSwordModuleInfo modules, CSwordKey *key,
   m_treeView = new KListView(this);
 	layout->addWidget(m_treeView);	
 //	connect( m_treeView, SIGNAL(executed(QListViewItem*)), SLOT(itemClicked(QListViewItem*)));
-	connect( m_treeView, SIGNAL(selectionChanged(QListViewItem*)), SLOT(itemClicked(QListViewItem*)));  
+	connect( m_treeView, SIGNAL(selectionChanged(QListViewItem*)), SLOT(itemActivated(QListViewItem*)));  
 	m_treeView->addColumn("Tree");	
 	m_treeView->header()->resizeSection( 0,m_treeView->sizeHint().width());
 	m_treeView->header()->setResizeEnabled(-1);
@@ -217,21 +217,20 @@ void CBookTreeChooser::setupTree( QListViewItem* parent, QListViewItem* after, C
 	else
 		item = new TreeItem(m_treeView, after, key, key->key());
 	
-//	if (key->firstChild()) {
-//		setupTree(item, 0, key);
-//		key->parent();
-//	}
 	if (key->nextSibling())
 		setupTree(parent, item, key);
 }
 
 /** No descriptions */
-void CBookTreeChooser::itemClicked( QListViewItem* item ){
+void CBookTreeChooser::itemActivated( QListViewItem* item ){
 	TreeItem* i = dynamic_cast<TreeItem*>(item);
 	if (!i)
-		return;
-	m_key->key(i->key());	
-	emit keyChanged(m_key);
+    return;
+	m_key->key(i->key());
+  if (i->childCount() > 0 || i->isExpandable())
+    i->setOpen(true);
+
+  emit keyChanged(m_key);      
 }
 
 /** No descriptions */

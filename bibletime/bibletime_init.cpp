@@ -79,7 +79,7 @@ void BibleTime::initView(){
 
 	m_helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true, actionCollection());
 	
-	m_selectDialog = 0;
+//	m_selectDialog = 0;
 
 
 //  CPointers::languageMgr()->availableLanguages();

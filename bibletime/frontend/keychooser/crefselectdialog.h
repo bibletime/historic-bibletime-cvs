@@ -30,30 +30,30 @@ class QLineEdit;
 // BT includes
 #include "ckeychooser.h"
 
-class CRefSelectDialog : public KDialogBase  {
-  Q_OBJECT
- public:
-  CRefSelectDialog(QWidget *parent);
-  virtual ~CRefSelectDialog();
-
-  void setChooser(CKeyChooser* const chooser);
-
- public slots:
-   void slotPressedOk();
-   void slotPressedCancel(); 
-
-
- protected:
-   void restoreParent();
-
- private:
-  QWidget*     m_page;
-  QWidget*     m_placeholder;
-  QWidget*     m_oldParent;
-  CKeyChooser* m_chooser;
-  QLineEdit*   m_lineedit;
-  QPoint       m_oldPos;
-};
+//class CRefSelectDialog : public KDialogBase  {
+//  Q_OBJECT
+// public:
+//  CRefSelectDialog(QWidget *parent);
+//  virtual ~CRefSelectDialog();
+//
+//  void setChooser(CKeyChooser* const chooser);
+//
+// public slots:
+//   void slotPressedOk();
+//   void slotPressedCancel();
+//
+//
+// protected:
+//   void restoreParent();
+//
+// private:
+//  QWidget*     m_page;
+//  QWidget*     m_placeholder;
+//  QWidget*     m_oldParent;
+//  CKeyChooser* m_chooser;
+//  QLineEdit*   m_lineedit;
+//  QPoint       m_oldPos;
+//};
 #endif
 
 

@@ -245,7 +245,7 @@ const QString CModuleItem::aboutInfo(){
 		.arg(i18n("Language"))
 		.arg(module()->language().translatedName());
 
-	if (module()->module()->isWritable())
+	if (module()->isWritable())
 		text += QString::fromLatin1("<b>%1:</b> %2<br>")
 							.arg(i18n("Writable"))
 							.arg(i18n("yes"));
@@ -283,7 +283,7 @@ const bool CModuleItem::enableAction( const MenuAction action ){
   if (action == EditModule) {
     if (!module())
       return false;
-    if ( (module()->module()->getConfigEntry("ModDrv") == string("RawFiles")) && module()->module()->isWritable())
+    if ( module()->isWritable())
       return true;
     else
       return false;

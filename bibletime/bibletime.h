@@ -33,7 +33,6 @@ class CMDIArea;
 class CProfile;
 class CDisplayWindow;
 class CMainIndex;
-class CRefSelectDialog;
 
 //KDE classes
 class KToggleAction;
@@ -345,13 +344,13 @@ protected slots:
 	 * Called when forward button pressed
 	 **/
 	void slotForward();
-	/**
-	 * Called when select key button pressed
-	 **/
-	void slotSelectKey();
-  /** Saves current settings into a new profile. */
+  /**
+   Saves current settings into a new profile.
+  */
   void saveToNewProfile();
-  /** Slot to refresh the save profile and load profile menus. */
+  /**
+  * Slot to refresh the save profile and load profile menus.
+  */
   void refreshProfileMenus();
 	
 
@@ -380,7 +379,6 @@ private:
 	CPrinter* m_printer;
 
 	CMainIndex* m_mainIndex;
-	CRefSelectDialog* m_selectDialog;
 };
 
 #endif
