@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: index.docbook:1
+#, no-c-format
+msgid "Introduction"
+msgstr ""
+
+#: index.docbook:2
+#, no-c-format
+msgid "&bibletime; is a powerful Bible study tool written for the &kde; environment on the Linux operating system. It is based on the <ulink url=\"http://www.crosswire.org/sword\">Sword</ulink> library, which provide the back-end functionality for &bibletime;, such as viewing Bible text, searching, bookmarking, etc. Sword is the flagship product of the <ulink url=\"http://www.crosswire.org\">Crosswire Bible Society</ulink>."
+msgstr ""
+
+#: index.docbook:10
+#, no-c-format
+msgid "&bibletime; is designed to be used with documents that have been encoded in Theological Markup Language (ThML) and General Bible Format (GBF). These markup languages are focused on the requirements of religious texts. Complete information on the supported document formats can be found in the <ulink url=\"http://www.crosswire.org/sword/develop/index.jsp\"> developers section of the Sword Project, Crosswire Bible Society</ulink>."
+msgstr ""
+
+#: index.docbook:17
+#, no-c-format
+msgid "Over 200 documents in 50 languages are available from the <ulink url=\"http://www.crosswire.org\">Crosswire Bible Society</ulink>. These include:"
+msgstr ""
+
+#: index.docbook:22
+#, no-c-format
+msgid "Bibles"
+msgstr ""
+
+#: index.docbook:22
+#, no-c-format
+msgid "The full text, with optional Strong's Numbers and footnotes in the text"
+msgstr ""
+
+#: index.docbook:22
+#, no-c-format
+msgid "Commentaries"
+msgstr ""
+
+#: index.docbook:22
+#, no-c-format
+msgid "With a <emphasis>Personal</emphasis> commentary you can record your own personal notes to different parts of the Bible."
+msgstr ""
+
+#: index.docbook:22
+#, no-c-format
+msgid "Lexicons"
+msgstr ""
+
+#: index.docbook:22
+#, no-c-format
+msgid "For word definitions and Bible topics. You an choose a key in a list which will be displayed."
+msgstr ""
+
+#: index.docbook:52
+#, no-c-format
+msgid "Additional documents are being added to the &sword; repository frequently, so visit often."
+msgstr ""
+
+#: index.docbook:54
+#, no-c-format
+msgid "Changes"
+msgstr ""
+
+#: index.docbook:55
+#, no-c-format
+msgid "Please read the file Changelog of the sourcecode package if you are interested in more detailed changes."
+msgstr ""
+
+#: index.docbook:59
+#, no-c-format
+msgid "A listing of the features included in the current package can be found in the sourcecode at <ulink url=\"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bibletime/bibletime/ChangeLog\"> CVS log for <filename>bibletime/bibletime/ChangeLog</filename></ulink>"
+msgstr ""
+
+#: index.docbook:65
+#, no-c-format
+msgid "ToDo"
+msgstr ""
+
+#: index.docbook:66
+#, no-c-format
+msgid "Very much!"
+msgstr ""
+
+#: index.docbook:69
+#, no-c-format
+msgid "We have lots to do. Because we are a very small team of active developers it's very hard to get reasonable results in a short time. If you are interested in helping the &bibletime; team, please contact us at <ulink url=\"http://sourceforge.net/pm/?group_id=954\">Sourceforge &bibletime; home page</ulink>. Information can also be found at <ulink url=\"http://www.bibletime.de\">the &bibletime; homepage</ulink>."
+msgstr ""
+
+#: index.docbook:77
+#, no-c-format
+msgid "The &bibletime; project needs programmers / developers, reviewers, testers, and prayer warriors. If you can help with any of these tasks or think up another, please join us. Without your help, &bibletime; will develop very very slow and it will take a very long time until you get a full-featured Bible study tool."
+msgstr ""
+
+#: index.docbook:84
+#, no-c-format
+msgid "Motivation"
+msgstr ""
+
+#: index.docbook:85
+#, no-c-format
+msgid "Our desire is to serve God, and to do our part to help others grow in their relationship with Him. We have found a gaping hole, in that there has been a total lack of user-friendly Bible-study software available for &Linux;-based computers. We have developed &bibletime; to fill that void. We have striven to make this a powerful, quality program, and still make it simple and intuitive to operate. It is our desire that God be praised, as He is the source of all good things."
+msgstr ""
+
+#: index.docbook:96
+#, no-c-format
+msgid "Every good thing given and every perfect gift is from above, coming down from the Father of lights, with whom there is no variation or shifting shadow."
+msgstr ""
+
+#: index.docbook:101
+#, no-c-format
+msgid "God bless you as you use this program, and may He be glorified by the work of our hands!"
+msgstr ""
+

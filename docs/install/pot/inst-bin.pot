@@ -1,0 +1,71 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: index.docbook:2
+#, no-c-format
+msgid "&bibletime; Program Files"
+msgstr ""
+
+#: index.docbook:4
+#, no-c-format
+msgid "Program files are provided in the following formats."
+msgstr ""
+
+#: index.docbook:7
+#, no-c-format
+msgid "&bibletime; Distribution Formats"
+msgstr ""
+
+#: index.docbook:9
+#, no-c-format
+msgid "Format name"
+msgstr ""
+
+#: index.docbook:9
+#, no-c-format
+msgid "Description"
+msgstr ""
+
+#: index.docbook:15
+#, no-c-format
+msgid "RPM Packages."
+msgstr ""
+
+#: index.docbook:15
+#, no-c-format
+msgid "See the <ulink url=\"http://sourceforge.net/projects/bibletime\">sourceforge &bibletime;</ulink> home page for the distributions supported. RPM packages are installed using any package manager or the RPM command line. RPM Installation instructions are <link linkend=\"inst-user-RPM\">here</link>."
+msgstr ""
+
+#: index.docbook:15
+#, no-c-format
+msgid "Source code."
+msgstr ""
+
+#: index.docbook:15
+#, no-c-format
+msgid "The source code can be installed on any distribution meeting the installation prerequisites. The source code should compile on non <trademark>Intel</trademark> platforms, and most &UNIX; meeting the prerequisites. Instructions for installation from sourcecode are <link linkend=\"inst-user-source\">here</link>."
+msgstr ""
+
+#: index.docbook:44
+#, no-c-format
+msgid "Language modules which contain the &bibletime; handbook, Bible Study HowTo, Installation Instructions, and the Help Dialog are provided seperately in RPM, and as tarball sources. The language modules contain the documents in both HTML and &XML; Docbook format, so they can be viewed without the main &bibletime; package."
+msgstr ""
+
+#: index.docbook:48
+#, no-c-format
+msgid "Language modules are installed in the same way as the program modules"
+msgstr ""
+

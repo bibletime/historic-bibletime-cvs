@@ -1,0 +1,61 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: index.docbook:2
+#, no-c-format
+msgid "Initialization of Module directory failed!"
+msgstr ""
+
+#: index.docbook:4
+#, no-c-format
+msgid "There's no mods.d directory!"
+msgstr ""
+
+#: index.docbook:6
+#, no-c-format
+msgid "This page describes what the <filename>mods.d</filename> directory is and how to solve this problem!"
+msgstr ""
+
+#: index.docbook:10
+#, no-c-format
+msgid "What is the <filename>mods.d</filename> directory?"
+msgstr ""
+
+#: index.docbook:15
+#, no-c-format
+msgid "The <filename>mods.d</filename> directory is the directory which should contain the config files of the modules! You must have this directory, otherwise you can't use Bibletime and &sword;! Please read the installation instructions on our homepage!"
+msgstr ""
+
+#: index.docbook:24
+#, no-c-format
+msgid "How do I solve this problem?"
+msgstr ""
+
+#: index.docbook:29
+#, no-c-format
+msgid "The solution is to create a directory <filename>mods.d</filename>: Please go into your &sword; directory and type \"<command>mkdir mods.d</command>\" to create the directory. Now copy the config files of your modules into this package and remove (if they exist) the file <filename>mods.conf</filename> which isn't required any more. The <filename>mods.d</filename> directory replaced this file."
+msgstr ""
+
+#: index.docbook:40
+#, no-c-format
+msgid "Can I start &bibletime; without this directory?"
+msgstr ""
+
+#: index.docbook:45
+#, no-c-format
+msgid "Yes, it's possible. But it's not very useful. There are no modules in the main index. It's possible to test &bibletime; this way, but it's not possible to work with it without modules."
+msgstr ""
+

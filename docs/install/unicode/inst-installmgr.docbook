@@ -1,0 +1,190 @@
+<chapter id="installmgr">
+<title>How to install and use &swordInstmgr;</title>
+<para>&swordInstmgr; is not provided with the &bibletime; .rpm.  You need to download the
+source tarball from the <ulink url="http://www.crosswire.org">&crosswire;</ulink>.
+A precompiled copy of &swordInstmgr; is included on the &sword; CD which can be obtained
+from the <ulink url="http://www.crosswire.org">&crosswire;</ulink>
+</para>
+<section id="installmgr-req">
+<title> Requirements for &swordInstmgr;</title>
+
+	<para>
+	All of the packages required for &swordInstmgr; to compile are included in the major
+	&Linux; distributions. It is also possible to compile &swordInstmgr; on most &UNIX;
+	distributions.  If you encounter compile errors, please read the messages, they
+	should lead you to missing packages which you will probably find on your
+	installation disks. </para>
+	<para> The following table contains the minimum requirements for &swordInstmgr;
+	binaries to run, or for the source version to compile.</para>
+	<table>
+	<title>
+	Packages required for &swordInstmgr;
+	</title>
+	<tgroup cols="2">
+	<thead>
+
+	<row>
+	<entry>Package</entry>
+	<entry>Location</entry>
+	</row>
+	</thead>
+	<tbody>
+	<row>
+	<entry>
+	&sword;
+	</entry>
+	<entry>
+	Use the version provided with your copy of &sword;.  Must be configured
+	(in the file ~/sword/Makefile.cfg) with the VCL libraries = yes
+	</entry>
+	</row>
+	<row>
+	<entry>
+	GTK
+	</entry>
+	<entry>
+	If you are compiling &swordInstmgr;, any version of GTK should work.
+	</entry>
+	</row>
+	</tbody>
+	</tgroup>
+	</table>
+	</section>
+
+	
+	<section id="installmgr-install">
+	<title>&swordInstmgr;</title>
+	<para>To compile &swordInstmgr; first &sword; must have been compiled.
+	<link linkend="inst-sources-sword-install">See the instructions for
+	&sword;</link>.
+	</para>
+	<para>Find the file <filename> libsword.so</filename>, &sword; probably installed it to
+	<filename>/usr/local/sword/lib</filename> unless you customized the installation.
+	</para>
+	<para>
+	In order that &swordInstmgr; (and also &bibletime;) can find this shared library
+	open a text editor and add <filename>/usr/local/sword/lib</filename> to the
+	end of <filename>/etc/ld.so.conf</filename>.
+	</para>
+	<para>
+	Now you are ready to compile &swordInstmgr;.
+	</para>
+	<para>
+	CD to your &sword; source and open the directory
+	<filename>.../sword/apps/X11/InstallMgr</filename>.
+	Now in a shell do:
+	</para>
+	<screen>
+	ldconfig
+	./configure
+	make
+	su
+	make install
+	</screen>
+	<para>
+	Now in a shell as root (su) you can run installmgr by typing
+	<filename>/usr/local/bin/installmgr</filename>.
+	</para>
+	<para>
+	If this was successful, there are two options for loading
+	text modules into &sword;.
+	</para>
+	<itemizedlist>
+	<listitem>
+	<para>
+	<guimenu>Options</guimenu> -> <guimenuitem>Manage remote sources</guimenuitem> -- Connect to Crosswire by modem and download
+	sword documents and modules from the crosswire repository.  This is a feature that has not yet been ported to
+	&Linux; and &UNIX;.
+	</para>
+	</listitem>
+	<listitem>
+	<para>
+	<guimenu>Options</guimenu> -> <guimenuitem>Local Path</guimenuitem> -- If you have unzipped sources, point this to your local
+	module repository.  The local repository may be on a local or networked hard drive, or
+	the &sword; CD mounted on a local or networked CD ROM drive.
+	All of the available modules will be displayed, and
+	may now be installed.
+	</para>
+	</listitem>
+	</itemizedlist>
+	<para>
+	&sword; CD's can be obtained from the
+	<ulink url="http://www.crosswire.org">Crosswire Bible Society</ulink>
+	</para>
+	</section>
+
+	<section id="instmgr-rep">
+	<title>Setting up your repository</title>
+	<para>If you have the &sword; CD, you can skip this step.  The texts are stored on the CD
+	uncompressed, and are accessed directly from installmgr under the manage remote sources tab.
+	</para>
+	<para>
+	Download modules from <ulink url="http://www.crosswire.org">&crosswire;</ulink>
+	use the zipped up modules (modulename.zip),
+	not the windows executable compressed files (modulename.exe).
+	</para>
+	<para>
+	Create a directory for your module repository, <filename>$HOME/sword_modules</filename>
+	for example.
+	</para>
+	<para>
+	Open a program that can uncompress zip files.  Such as gnozup or archiver.  Command line
+	tools can also be used, to find which ones are installed on your system do a <command>man -k zip</command>
+	</para>
+	<para>
+	Use your unzipping program to extract the module files into <filename>$HOME/sword_modules</filename>.
+	All of the files will be placed into the correct subdirectories. If you wish to add modules later
+	remember to unzip to <filename>$HOME/sword_modules</filename>.
+	</para>
+	</section>
+
+
+	<section id="instmgr-cfg">
+	<title>Setting up the &sword; configuration file.</title>
+	<para>
+	Instructions for the &sword; configuration file can be found in the section
+	<link linkend="inst-sources-sword-modules-config">"The &sword; configuration
+	file"</link> which covers the manual installation of the &sword; modules.
+	</para>
+	</section>
+
+
+	<section id="instmgr-load">
+	<title>Using &swordInstmgr; to load sword modules.</title>
+	<para>
+	You must start &swordInstmgr; as root for it to be able to load modules.
+	Start it with these commands:
+	</para>
+	<screen>
+	[me@localhost user]$ su
+	Password:
+	[root@localhost user]# /usr/local/bin/installmgr
+	</screen>
+	<para>
+	You will now see the installmgr window.  You will need to use
+	<guimenu>options>local path</guimenu> to point to your local module repository.
+	</para>
+	<para>
+	Now the available modules will be shown on the left pane and
+	the installed modules on the right.  All you need to do is
+	select modules in the left pane and click install to make them
+	available to &sword; and &bibletime;.
+	<mediaobject>
+	<imageobject>
+	<imagedata  fileref="instmgr.png" format="PNG"/>
+	</imageobject>
+	<textobject>
+	<phrase>&swordInstmgr; screenshot</phrase>
+	</textobject>
+	</mediaobject>
+	</para>
+	</section>
+</chapter>
+
+
+
+
+
+
+
+

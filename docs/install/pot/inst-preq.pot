@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: index.docbook:2
+#, no-c-format
+msgid "&bibletime; Prerequisites"
+msgstr ""
+
+#: index.docbook:6
+#, no-c-format
+msgid "Requirements for &bibletime; 1.2"
+msgstr ""
+
+#: index.docbook:8
+#, no-c-format
+msgid "All of the packages required for &bibletime; to compile are included in the major &Linux; distributions. It is also possible to compile &bibletime; on most other &UNIX; distributions. If you encounter compile errors, please read the messages, they should lead you to missing packages which you will probably find on your installation disks."
+msgstr ""
+
+#: index.docbook:14
+#, no-c-format
+msgid "The following table contains the minimum requirements for &bibletime; binaries to run, or for the source version to compile."
+msgstr ""
+
+#: index.docbook:19
+#, no-c-format
+msgid "Packages required for installation of &bibletime; 1.2"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid "Package"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid "Location"
+msgstr ""
+
+#: index.docbook:30
+#, no-c-format
+msgid "&Qt; 3.0.x or higher"
+msgstr ""
+
+#: index.docbook:30
+#, no-c-format
+msgid "http://www.trolltech.com"
+msgstr ""
+
+#: index.docbook:30
+#, no-c-format
+msgid "&kde; 3.x or later (at least the libraries and the base packages)"
+msgstr ""
+
+#: index.docbook:30
+#, no-c-format
+msgid "http://www.kde.org"
+msgstr ""
+
+#: index.docbook:30
+#, no-c-format
+msgid "&sword; 1.5.3"
+msgstr ""
+
+#: index.docbook:30
+#, no-c-format
+msgid "ftp://ftp.crosswire/pub/sword/source"
+msgstr ""
+

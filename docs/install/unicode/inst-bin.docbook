@@ -1,0 +1,51 @@
+<chapter id="inst-bin">
+<title>&bibletime; Program Files
+</title>
+<para>Program files are provided in the following formats.</para>
+
+<table>
+   <title>&bibletime; Distribution Formats</title>
+   <tgroup cols="2">
+   <thead>
+   <row>
+   <entry>Format name</entry>
+   <entry>Description</entry>
+   </row>
+   </thead>
+<tbody>
+<row>
+<entry>
+RPM Packages.
+</entry>
+
+<entry>
+See the <ulink url="http://sourceforge.net/projects/bibletime">sourceforge &bibletime;</ulink>
+home page for the distributions supported.
+RPM packages are installed using any package manager or the RPM command line.
+RPM Installation instructions are <link linkend="inst-user-RPM">here</link>.
+</entry>
+</row>
+
+<row>
+<entry>
+Source code.
+</entry>
+
+<entry>
+The source code can be installed on any distribution meeting the installation prerequisites.
+The source code should compile on non <trademark>Intel</trademark> platforms, and most &UNIX; meeting the prerequisites.
+Instructions for installation from sourcecode are <link linkend="inst-user-source">here</link>.
+</entry>
+</row>
+
+</tbody>
+   </tgroup>
+   </table>
+<para>
+Language modules which contain the &bibletime; handbook, Bible Study HowTo, Installation Instructions,
+and the Help Dialog are provided seperately in RPM, and as tarball sources.  The language modules contain
+the documents in both HTML and &XML; Docbook format, so they can be viewed without the main &bibletime; package.</para>
+<para>Language modules are installed in the same way as the program modules</para>
+
+</chapter>
+

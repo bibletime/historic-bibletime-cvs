@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: index.docbook:2
+#, no-c-format
+msgid "First time search dialog"
+msgstr ""
+
+#: index.docbook:4
+#, no-c-format
+msgid "You opened the search dialog for the first time!"
+msgstr ""
+
+#: index.docbook:5
+#, no-c-format
+msgid "This page describes what the search dialog is, how to use it and how to make efficient searches."
+msgstr ""
+
+#: index.docbook:10
+#, no-c-format
+msgid "What's the search dialog?"
+msgstr ""
+
+#: index.docbook:15
+#, no-c-format
+msgid "The search dialog is the where you can search the &sword; documents (modules) installed in your copy of &bibletime;. You can enter text and search this text in the documents. The entries found will appear in a list where you can work with them."
+msgstr ""
+
+#: index.docbook:24
+#, no-c-format
+msgid "How do I search for some text?"
+msgstr ""
+
+#: index.docbook:29
+#, no-c-format
+msgid "To search some text click on the first entry of the tab bar at the top of the dialog. Now enter some text in the search entry box at the top. If you don't want to do special things you can leave the settings untouched and click on the <guibutton>Search</guibutton> button at the bottom of the dialog. The progress of the search will be displayed in the two bars at the bottom. The first bar shows the progress for the current module, the second one does show the percentage of the whole search. It's possible to search more than one module so two bars are required. But if you want to do more things with the search dialog we offer these settings to you:"
+msgstr ""
+
+#: index.docbook:40
+#, no-c-format
+msgid "Multiple Words"
+msgstr ""
+
+#: index.docbook:45
+#, no-c-format
+msgid "The entered words can occur in another order as entered in the line, they can even be part of more than one word."
+msgstr ""
+
+#: index.docbook:49
+#, no-c-format
+msgid "Exact search"
+msgstr ""
+
+#: index.docbook:54
+#, no-c-format
+msgid "The text is exactly searched as entered in the line, unless you enabled case sensitive search the search does case insensitive search."
+msgstr ""
+
+#: index.docbook:58
+#, no-c-format
+msgid "Regular expressions"
+msgstr ""
+
+#: index.docbook:63
+#, no-c-format
+msgid "If you use this type of search GNU standard regular expressions are used"
+msgstr ""
+
+#: index.docbook:66
+#, no-c-format
+msgid "Normally all searches are done with insensitive character matching, to use case sensitive search enable the box <guilabel>Case sensitive</guilabel>. If you have problems with the search types, case (in)sensitive search or other search related things have a look into our handbook for more information."
+msgstr ""
+

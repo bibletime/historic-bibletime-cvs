@@ -1,0 +1,59 @@
+<chapter id="inst-preq">
+<title>&bibletime; Prerequisites
+</title>
+
+<section id="devl-10">
+<title> Requirements for &bibletime; 1.2</title>
+
+<para>
+All of the packages required for &bibletime; to compile are included in the major
+&Linux; distributions. It is also possible to compile &bibletime; on most other &UNIX;
+distributions.  If you encounter compile errors, please read the messages, they
+should lead you to missing packages which you will probably find on your
+installation disks. </para>
+<para> The following table contains the minimum requirements for &bibletime;
+binaries to run, or for the source version to compile.</para>
+
+
+<table>
+<title>
+Packages required for installation of &bibletime; 1.2
+</title>
+<tgroup cols="2">
+<thead>
+
+<row>
+<entry>Package</entry>
+<entry>Location</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>
+&Qt; 3.0.x or higher
+</entry>
+<entry>
+<ulink url="http://www.trolltech.com"> http://www.trolltech.com</ulink>
+</entry>
+</row>
+<row>
+<entry>
+&kde; 3.x or later (at least the libraries and the base packages)
+</entry>
+<entry>
+<ulink url="http://www.kde.org"> http://www.kde.org</ulink>
+</entry>
+</row>
+<row>
+<entry>
+&sword; 1.5.3
+</entry>
+<entry>
+<ulink url="ftp://ftp.crosswire.org/pub/sword/source">
+ftp://ftp.crosswire/pub/sword/source</ulink>
+</entry></row> </tbody>
+</tgroup>
+</table>
+</section>
+</chapter>
+

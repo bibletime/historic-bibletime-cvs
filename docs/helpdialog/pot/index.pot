@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: index.docbook:28
+#, no-c-format
+msgid "The &bibletime; Help Dialog"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "<firstname>Fred</firstname> <othername></othername> <surname>Saalbach</surname> <affiliation> <address><email>info@bibletime.de</email></address> </affiliation>"
+msgstr ""
+
+#: index.docbook:39
+#, no-c-format
+msgid "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
+msgstr ""
+
+#: index.docbook:45
+#, no-c-format
+msgid "ROLES_OF_TRANSLATORS"
+msgstr ""
+
+#: index.docbook:51
+#, no-c-format
+msgid "The team of &bibletime;, info@bibletime.de"
+msgstr ""
+
+#: index.docbook:56
+#, no-c-format
+msgid "The &bibletime; helpdialog is part of &bibletime;."
+msgstr ""
+
+#: index.docbook:59
+#, no-c-format
+msgid "&bibletime; is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
+msgstr ""
+
+#: index.docbook:66
+#, no-c-format
+msgid "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details."
+msgstr ""
+
+#: index.docbook:73
+#, no-c-format
+msgid "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr ""
+
+#: index.docbook:83
+#, no-c-format
+msgid "&bibletime; is an application to aid in study of the Bible."
+msgstr ""
+
+#: index.docbook:90
+#, no-c-format
+msgid "<keyword>KDE</keyword>"
+msgstr ""
+
+#: index.docbook:91
+#, no-c-format
+msgid "Bibletime"
+msgstr ""
+
+#: index.docbook:92
+#, no-c-format
+msgid "Sword"
+msgstr ""
+
+#: index.docbook:93
+#, no-c-format
+msgid "Crosswire Bible Society"
+msgstr ""
+
+#: index.docbook:94
+#, no-c-format
+msgid "help dialog"
+msgstr ""
+
