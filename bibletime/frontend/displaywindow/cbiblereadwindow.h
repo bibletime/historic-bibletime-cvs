@@ -93,13 +93,16 @@ protected:
 		} print;
   } m_actions;
 
-protected slots: // Protected slots
+
+public slots:
   void nextBook();
   void previousBook();
   void nextChapter();
   void previousChapter();
   void nextVerse();
   void previousVerse();
+     
+protected slots: // Protected slots 
   void keyChanged(CSwordKey* key);
   /**
   * Copies the current chapter into the clipboard.

@@ -334,6 +334,14 @@ protected slots:
 	 * Called when search button is pressed
 	 **/
 	void slotSearchSelectedModules();
+	/**
+	 * Called when back button pressed
+	 **/
+	void slotBack();
+	/**
+	 * Called when forward button pressed
+	 **/
+	void slotForward();
 	
 
 private slots: // Private slots

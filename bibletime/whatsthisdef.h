@@ -30,6 +30,8 @@
 #define WT_FILE_QUIT WT( TT_FILE_QUIT, i18n("Close BibleTime and save the settings."))
 	
 #define WT_GM_SEARCH_MODULES WT(TT_GM_SEARCH_MODULES, i18n("Open the search dialog to search for text in one or more modules."))
+#define WT_GM_BACK_MODULES WT(TT_GM_BACK_MODULES, i18n("Move to the previous item (i.e. chapter)"))
+#define WT_GM_FORWARD_MODULES WT(TT_GM_FORWARD_MODULES, i18n("Move to the next item (i.e. chapter)"))
 #define WT_GM_DELETE_ITEMS WT(TT_GM_DELETE_ITEMS, i18n("Remove the selected items from the main index.<BR>If you remove a folder, the subitems of it will be removed too."))
 #define WT_GM_RESET	WT(TT_GM_RESET, i18n("Reset the main index.<BR>All bookmarks and folders will be deleted and the default folders will be restored."))
 

@@ -21,6 +21,8 @@
 #define TT_FILE_QUIT  i18n("Close BibleTime")
 	
 #define TT_GM_SEARCH_MODULES i18n("Search in modules")
+#define TT_GM_BACK_MODULES i18n("Previous item")
+#define TT_GM_FORWARD_MODULES i18n("Next item")
 #define TT_GM_DELETE_ITEMS i18n("Remove selected items")
 #define TT_GM_RESET	i18n("Reset main index")
 

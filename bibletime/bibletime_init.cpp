@@ -107,12 +107,29 @@ void BibleTime::initActions() {
 //	action->setWhatsThis( WT_GM_RESET );		
 //	action->plugAccel( m_keyAccel );
 	
+        action =  new KAction(i18n("Back"), 
+			      ICON_MAININDEX_BACK, 
+			      IDK_PRESENTER_PREVIOUS_CHAPTER,
+			      this, SLOT(slotBack()), 
+			      actionCollection(), "GMback_action");	
+	action->setToolTip(TT_GM_BACK_MODULES);
+	action->setWhatsThis(WT_GM_BACK_MODULES);
+
+
 	action =  new KAction(i18n("Search in module(s)"), 
 			      ICON_MAININDEX_SEARCH, IDK_GM_MODULES_SEARCH,
 			      this, SLOT(slotSearchSelectedModules()), 
 			      actionCollection(), "GMsearch_action");	
 	action->setToolTip( TT_GM_SEARCH_MODULES );
 	action->setWhatsThis( WT_GM_SEARCH_MODULES );
+
+	action =  new KAction(i18n("Forward"), 
+			      ICON_MAININDEX_FORWARD, 
+			      IDK_PRESENTER_NEXT_CHAPTER,
+			      this, SLOT(slotForward()), 
+			      actionCollection(), "GMforward_action");	
+	action->setToolTip(TT_GM_FORWARD_MODULES);
+	action->setWhatsThis(WT_GM_FORWARD_MODULES);
 	//action->plugAccel( m_keyAccel );
 	
 //	action =  new KAction(i18n("Remove selected item(s)"),ICON_MAININDEX_DELETE_ITEMS, IDK_GM_ITEMS_DELETE,

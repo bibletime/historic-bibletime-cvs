@@ -132,6 +132,8 @@
 
 #define ICON_MAININDEX_RESET			"start"
 #define ICON_MAININDEX_SEARCH			"find"
+#define ICON_MAININDEX_BACK                     "back"
+#define ICON_MAININDEX_FORWARD                  "forward"
 #define ICON_MAININDEX_DELETE_ITEMS		ICON_FILE_DELETE
 
 //#define ICON_VIEW_MAININDEX			"bt_mainindex"

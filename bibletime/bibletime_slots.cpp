@@ -33,6 +33,7 @@
 #include "frontend/mainindex/cmainindex.h"
 #include "frontend/mainindex/cindexitem.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
+#include "frontend/displaywindow/cbiblereadwindow.h"
 
 #include "printing/cprinter.h"
 
@@ -295,6 +296,23 @@ void BibleTime::slotSearchSelectedModules() {
 //  qWarning("search in modules");
   m_mainIndex->searchInModules();
 }
+
+void BibleTime::slotBack() {
+  CBibleReadWindow* w = 
+    dynamic_cast<CBibleReadWindow*> (m_mdi->activeWindow());
+  // no proper action target
+  if (!w || !w->isReady()) return;
+  w->previousChapter();
+}
+
+void BibleTime::slotForward() {
+  CBibleReadWindow* w = 
+    dynamic_cast<CBibleReadWindow*> (m_mdi->activeWindow());
+  // no proper action target
+  if (!w || !w->isReady()) return;
+  w->nextChapter();
+}
+
 
 void BibleTime::openOnlineHelp_Handbook() {
 //#ifdef STATIC_BUILD
