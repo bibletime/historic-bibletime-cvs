@@ -119,7 +119,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 			}
 			CSwordKey* key = CSwordKey::createInstance( m );			
 			if (key) {
-				backend()->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );				
+				backend()->setFilterOptions( CBTConfig::getFilterOptionDefaults() );				
 				
 				key->key(ref);
 				text = key->renderedText();

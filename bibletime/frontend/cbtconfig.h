@@ -94,7 +94,7 @@ public:
 	};
 
   static const QString 		get( const CBTConfig::strings );
-  static const QFont 						get( const CBTConfig::fonts );
+  static const QFont 			get( const CBTConfig::fonts );
   static const bool 			get( const CBTConfig::bools );
   static const QColor 		get( const CBTConfig::colors );
   static const QValueList<int>	get( const CBTConfig::intLists );
@@ -109,8 +109,8 @@ public:
   static void set( const CBTConfig::stringLists, const QStringList value);
 
 
-  static const CSwordBackend::moduleOptionsBool getAllModuleOptionDefaults();
-  static const CSwordBackend::displayOptionsBool getAllDisplayOptionDefaults();
+  static const CSwordBackend::FilterOptionsBool getFilterOptionDefaults();
+  static const CSwordBackend::DisplayOptionsBool getDisplayOptionDefaults();
 
 private:
 	static const QString getKey( const CBTConfig::strings );

@@ -262,9 +262,9 @@ void CBTConfig::set( const CBTConfig::stringLists ID, const QStringList value ){
 
 
 
-const CSwordBackend::displayOptionsBool CBTConfig::getAllDisplayOptionDefaults( void ){
+const CSwordBackend::DisplayOptionsBool CBTConfig::getDisplayOptionDefaults(){
 
-  CSwordBackend::displayOptionsBool options;
+  CSwordBackend::DisplayOptionsBool options;
 
 	options.lineBreaks = 		get(CBTConfig::lineBreaks);
   options.verseNumbers = 	get(CBTConfig::verseNumbers);
@@ -272,9 +272,9 @@ const CSwordBackend::displayOptionsBool CBTConfig::getAllDisplayOptionDefaults( 
 	return options;
 }
 
-const CSwordBackend::moduleOptionsBool CBTConfig::getAllModuleOptionDefaults( void ){
+const CSwordBackend::FilterOptionsBool CBTConfig::getFilterOptionDefaults(){
 
-  CSwordBackend::moduleOptionsBool options;
+  CSwordBackend::FilterOptionsBool options;
 
   options.footnotes =						get(CBTConfig::footnotes);
   options.strongNumbers = 			get(CBTConfig::strongNumbers);

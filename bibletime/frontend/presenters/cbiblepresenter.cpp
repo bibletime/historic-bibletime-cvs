@@ -128,12 +128,12 @@ void CBiblePresenter::lookup(CSwordKey* key){
 	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);	
 	if (!vKey)
 		return;
-  m_moduleList.first()->module()->SetKey(*vKey);
 
-	backend()->setAllModuleOptions( m_moduleOptions );
-	backend()->setAllDisplayOptions( m_displayOptions );
+	backend()->setFilterOptions( m_moduleOptions );
+	backend()->setDisplayOptions( m_displayOptions );
 		
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
+	  m_moduleList.first()->module()->SetKey(*vKey);	
 		if (m_moduleList.count()>1)
 			m_moduleList.first()->getDisplay()->Display( &m_moduleList );
 		else

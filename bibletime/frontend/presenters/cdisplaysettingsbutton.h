@@ -35,16 +35,25 @@ class KPopupMenu;
 class CDisplaySettingsButton : public QToolButton  {
    Q_OBJECT
 public: 
-	CDisplaySettingsButton(CSwordBackend::displayOptionsBool *displaySettings, CSwordBackend::moduleOptionsBool *settings, ListCSwordModuleInfo useModules, QWidget *parent=0, const char *name=0);
-	void reset(ListCSwordModuleInfo useModules);
-  /** Sets the item at position pos to the satet given as 2nd paramter. */
+	CDisplaySettingsButton(CSwordBackend::DisplayOptionsBool *displaySettings, CSwordBackend::FilterOptionsBool *settings, const ListCSwordModuleInfo& useModules, QWidget *parent=0, const char *name=0);
+	void reset(const ListCSwordModuleInfo& useModules);
+  /**
+  * Sets the item at position pos to the satet given as 2nd paramter.
+  */
   void setItemStatus( const int pos, const bool checked );
-  /** Returns the number of usable menu items in the setttings menu. */
+  /**
+  * Returns the number of usable menu items in the setttings menu.
+  */
   const int menuItemCount();
-  /** Returns the status of the item at position "index" */
+  /**
+  * Returns the status of the item at position "index"
+  */
   const bool itemStatus( const int index );
-  /** Sets the status to changed. The signal changed will be emitted. */
+  /**
+  * Sets the status to changed. The signal changed will be emitted.
+  */
   void setChanged();
+
 signals:
 	void sigChanged(void);
 
@@ -52,9 +61,9 @@ protected slots:
 	void optionToggled(int ID);
 
 protected:
-	CSwordBackend::moduleOptionsBool  *m_moduleSettings;
-	CSwordBackend::displayOptionsBool *m_displaySettings;
-	CSwordBackend::moduleOptionsBool m_available;
+	CSwordBackend::FilterOptionsBool*  m_moduleSettings;
+	CSwordBackend::DisplayOptionsBool* m_displaySettings;
+	CSwordBackend::FilterOptionsBool m_available;
 	ListCSwordModuleInfo m_modules;
 
 	QDict<bool> m_dict;
@@ -62,8 +71,8 @@ protected:
 	KPopupMenu* m_popup;
 
   int populateMenu(void);
-	bool isOptionAvailable( CSwordBackend::moduleOptions option);
-  int addMenuEntry( QString name, bool* option, bool available);
+	bool isOptionAvailable( const CSwordBackend::FilterOptions option);
+  int addMenuEntry( const QString name, const bool* option, const bool available);
 };
 
 #endif

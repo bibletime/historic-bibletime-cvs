@@ -66,8 +66,7 @@ public:
   * Call this with false as argument to switch off the headers (module anme and current position)
   */
   void setIncludeHeader( const bool includeHeader );
-
-  void setAllDisplayOptions( const CSwordBackend::displayOptionsBool options);
+  void setDisplayOptions( const CSwordBackend::DisplayOptionsBool options);
 
 protected:
 	bool 		m_includeHeader;
@@ -88,12 +87,11 @@ protected:
 
 	void updateSettings(void);
 
-	CSwordBackend::displayOptionsBool m_displayOptionsBool;
-
+	CSwordBackend::DisplayOptionsBool m_displayOptionsBool;
 };
 
 /** Returns the generated HTML text. */
-inline void CHTMLEntryDisplay::setAllDisplayOptions(const CSwordBackend::displayOptionsBool options){
+inline void CHTMLEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptionsBool options){
   m_displayOptionsBool = options;	
 }
 

@@ -340,12 +340,10 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 	QString text = QString::null;
 	
 	//we have to set the standard module view options for the module!!	
-	CSwordKey* key = CSwordKey::createInstance(m_module);	
-	if (key) {
-		backend()->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );
-				
+	CSwordKey* key= 0;
+	if (( key = CSwordKey::createInstance(m_module) )) {
+		backend()->setFilterOptions( CBTConfig::getFilterOptionDefaults() );				
 		key->key(item->text());
-//		text = key->renderedText();		
 		emit keySelected(key->renderedText());
 		delete key;		
 	}		

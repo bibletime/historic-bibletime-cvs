@@ -52,7 +52,7 @@ public:
  	* These are the options which could be supported by modules and by this backend.
  	* It's used in @ref isOptionEnabled and @ref setOption
  	*/
-  enum moduleOptions {
+  enum FilterOptions {
   	footnotes,
   	strongNumbers,
   	headings,
@@ -61,11 +61,11 @@ public:
 		hebrewPoints,
 		hebrewCantillation,
 		greekAccents,
-		moduleOptionsMIN = footnotes,
-		moduleOptionsMAX = greekAccents
+		filterOptionsMIN = footnotes,
+		filterOptionsMAX = greekAccents
 	};
 
-  struct moduleOptionsBool {
+  struct FilterOptionsBool {
   	bool footnotes;
   	bool strongNumbers;
   	bool headings;
@@ -75,11 +75,11 @@ public:
 		bool hebrewCantillation;
 		bool greekAccents;
 	};
-	struct displayOptionsBool {
+	struct DisplayOptionsBool {
 		bool lineBreaks;
 		bool verseNumbers;
 	};
-  enum errorCode {
+  enum ErrorCode {
 		noError,
 		noSwordConfigFile,
 		noSwordModuleDirectory,
@@ -110,7 +110,7 @@ public:
   *
   *	@return True if the initializiation was succesful, otherwise return false.
   */
-  virtual const errorCode initModules();
+  virtual const ErrorCode initModules();
   /**
   * This function deinitializes the modules and deletes them.
   *
@@ -123,15 +123,15 @@ public:
   * @param type This is the type this function should set enabled or disabled
   * @param enable If this is true the option will be enabled, otherwise it will be disabled.
   */
-  virtual void setOption( const CSwordBackend::moduleOptions type, bool enable);
-  void setAllModuleOptions( const CSwordBackend::moduleOptionsBool options);
-  void setAllDisplayOptions( const CSwordBackend::displayOptionsBool options);
+  void setOption( const CSwordBackend::FilterOptions type, const bool enable);
+  void setFilterOptions( const CSwordBackend::FilterOptionsBool options);
+  void setDisplayOptions( const CSwordBackend::DisplayOptionsBool options);
   /**
   * Returns true if the given option is enabled.
   *
   * @return Returns true if the options given as aparameter is switched on at this time, otherwise return false.
   */
-  virtual const bool isOptionEnabled( const CSwordBackend::moduleOptions type);
+  virtual const bool isOptionEnabled( const CSwordBackend::FilterOptions type);
 	/**
 	*
 	*/
@@ -161,41 +161,29 @@ public:
   /**
   * @return Our global config object to store the cipher keys etc.
 	*/
-  SWConfig* getConfig() const;
+  SWConfig* const getConfig() const;
   /**
   * Tries to find the config object for the module. The second paramter will be the found config.
   * @return True if the config was found, false if not. If false is returned the moduleConfig object is in undefined/unknwon state.
-  *
 	*/
   const bool moduleConfig(const QString& module, SWConfig& moduleConfig);
   /**
-  * Returns the path of the module with the name "moduleName".	
-	* If no path is found return QString::null
-	*/
-//  const QString modulePath( const QString moduleName );
+  * Returns the text used for the option given as parameter.
+  */
+  static const QString optionName( const CSwordBackend::FilterOptions option);
   /**
   * Returns the text used for the option given as parameter.
   */
-  static const QString optionName( const CSwordBackend::moduleOptions option);
+  static const QString configOptionName( const CSwordBackend::FilterOptions option);
   /**
-  * Returns the text used for the option given as parameter.
-  */
-  static const QString configOptionName( const CSwordBackend::moduleOptions option);
-//	/**
-//	*	Returns the used options.
-//	*/
-//	static const CSwordBackend::moduleOptionsBool getAllModuleOptions();
-  /** 
 	* Returns the translated name of the option given as parameter.
 	*/
-  static const QString translatedOptionName(const CSwordBackend :: moduleOptions option);
-  /** Returns the version of the Sword library. */
+  static const QString translatedOptionName(const CSwordBackend::FilterOptions option);
+  /**
+  * Returns the version of the Sword library.
+  */
   virtual const SWVersion Version();
 	
-
-	CHTMLChapterDisplay* 	m_chapterDisplay;	
-	CHTMLEntryDisplay* 		m_entryDisplay;
-
 protected:
 	/**
 	* Adds a render filter to the module.
@@ -207,11 +195,11 @@ private:
 	//filters
 	SWFilter *m_gbfFilter;
 	SWFilter *m_plainTextFilter;
-	SWFilter *m_thmlFilter;	
-	//SWFilter *m_rwpFilter;
-	
+	SWFilter *m_thmlFilter;		
 	ListCSwordModuleInfo* m_moduleList;
-	errorCode m_errorCode;
+	ErrorCode m_errorCode;
+	CHTMLChapterDisplay* 	m_chapterDisplay;	
+	CHTMLEntryDisplay* 		m_entryDisplay;	
 };
 
 /**Returns The list of modules managed by this backend*/
@@ -220,7 +208,7 @@ inline ListCSwordModuleInfo* CSwordBackend::moduleList() const {
 }
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
-inline SWConfig* CSwordBackend::getConfig() const {
+inline SWConfig* const CSwordBackend::getConfig() const {
 	return config;
 }
 

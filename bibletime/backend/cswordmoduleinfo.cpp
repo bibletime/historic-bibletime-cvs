@@ -171,7 +171,7 @@ void CSwordModuleInfo::interruptSearch(){
 }
 
 /** Returns true if the given type i supported by this module. */
-const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions type){
+const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::FilterOptions type){
 	ConfigEntMap config = backend()->getConfig()->Sections.find( name().latin1() )->second;	
 	ConfigEntMap::iterator start 	= config.lower_bound("GlobalOptionFilter");
 	ConfigEntMap::iterator end 		= config.upper_bound("GlobalOptionFilter");		

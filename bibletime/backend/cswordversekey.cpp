@@ -82,20 +82,28 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 
 /**  */
 const bool CSwordVerseKey::NextVerse(){	
-	m_module->module()->SetKey(this);	//use this key as base for the next one!
-	( *( m_module->module() ) )++;
-	key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+	if (m_module && m_module->module()) {
+		m_module->module()->SetKey(this);	//use this key as base for the next one!	
+		( *( m_module->module() ) )++;
+		if (!m_module->module()->Error())		
+			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8		
+	}
+	else
+	  Verse(Verse()+1);
 	
 	return true;
 }
 
 /**  */
 const bool CSwordVerseKey::PreviousVerse(){
-	m_module->module()->SetKey(this);	//use this key as base for the next one!			
-	( *( m_module->module() ) )--;
-
-	if (!m_module->module()->Error())
-		key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+	if (m_module && m_module->module()) {
+		m_module->module()->SetKey(this);	//use this key as base for the next one!			
+		( *( m_module->module() ) )--;
+		if (!m_module->module()->Error())
+			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+	}
+	else
+		Verse(Verse()-1);
 	
 	return true;
 }
@@ -134,7 +142,7 @@ const bool CSwordVerseKey::PreviousBook(){
 
 /** Sets the key we use to the parameter. */
 const QString CSwordVerseKey::key( const QString& newKey ){	
-	if (!newKey.isNull()) {
+	if (!newKey.isEmpty()) {
 		VerseKey::operator = ((const char*)newKey.local8Bit());
 	}
 	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8 here!

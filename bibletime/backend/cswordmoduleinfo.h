@@ -136,7 +136,7 @@ public:
   *
   * @param type The type which should be checked
   */
-  virtual const bool supportsFeature( const CSwordBackend::moduleOptions type );
+  virtual const bool supportsFeature( const CSwordBackend::FilterOptions type );
   /**
   * Returns the type of the module.
   */

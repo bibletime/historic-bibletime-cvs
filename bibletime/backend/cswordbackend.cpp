@@ -85,7 +85,7 @@ CSwordBackend::~CSwordBackend(){
 		m_entryDisplay = new CHTMLEntryDisplay();
 		
 /** Initializes the Sword modules. */
-const CSwordBackend::errorCode CSwordBackend::initModules() {
+const CSwordBackend::ErrorCode CSwordBackend::initModules() {
 //	qDebug("CSwordBackend::initModules");
 	ModMap::iterator it;
 	SWModule*	curMod = 0;
@@ -188,31 +188,17 @@ const bool CSwordBackend::shutdownModules(){
 }
 
 /** Returns true if the given option is enabled. */
-const bool CSwordBackend::isOptionEnabled( const CSwordBackend::moduleOptions type) {
+const bool CSwordBackend::isOptionEnabled( const CSwordBackend::FilterOptions type) {
 	return (getGlobalOption( optionName(type).latin1() ) == "On");
 }
 
 /** Sets the given options enabled or disabled depending on the second parameter. */
-void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bool enable){
+void CSwordBackend::setOption( const CSwordBackend::FilterOptions type, const bool enable){
 // const QString optionName = ;
 	setGlobalOption(optionName(type).latin1(), enable ? "On": "Off");
 }
 
-//const CSwordBackend::moduleOptionsBool CSwordBackend::getAllModuleOptions(){
-//	CSwordBackend::moduleOptionsBool options;
-//	options.footnotes = isOptionEnabled( CSwordBackend::footnotes );
-//	options.strongNumbers = isOptionEnabled( CSwordBackend::strongNumbers );
-//	options.headings = isOptionEnabled( CSwordBackend::headings );
-//	options.morphTags = isOptionEnabled( CSwordBackend::morphTags );
-//	options.lemmas = isOptionEnabled( CSwordBackend::lemmas );
-//	options.hebrewPoints = isOptionEnabled( CSwordBackend::hebrewPoints );
-//	options.hebrewCantillation = isOptionEnabled( CSwordBackend::hebrewCantillation );
-//	options.greekAccents = isOptionEnabled( CSwordBackend::greekAccents );
-//							
-//	return options;
-//}
-
-void CSwordBackend::setAllModuleOptions( const CSwordBackend::moduleOptionsBool options){
+void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptionsBool options){
   setOption( footnotes, 					options.footnotes );
   setOption( strongNumbers, 			options.strongNumbers );
   setOption( headings, 						options.headings );
@@ -223,11 +209,11 @@ void CSwordBackend::setAllModuleOptions( const CSwordBackend::moduleOptionsBool 
 	setOption( greekAccents, 				options.greekAccents);
 }
 
-void CSwordBackend::setAllDisplayOptions( const CSwordBackend::displayOptionsBool options){
+void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptionsBool options){
   if (m_entryDisplay)
-		m_entryDisplay->setAllDisplayOptions(options);	
+		m_entryDisplay->setDisplayOptions(options);	
   if (m_chapterDisplay)
-		m_chapterDisplay->setAllDisplayOptions(options);	
+		m_chapterDisplay->setDisplayOptions(options);	
 }
 
 
@@ -405,40 +391,8 @@ const bool CSwordBackend::moduleConfig(const QString& module, SWConfig& moduleCo
 	return foundConfig;
 }
 
-/** Returns the path of the module with the name "moduleName". If no path is found return QString::null */
-//const QString CSwordBackend::modulePath( const QString moduleName ){
-//	QString path = QString::null;
-//	SWConfig c("");
-//	if (moduleConfig(moduleName, c)) {
-//		path = QString::fromLocal8Bit( c[moduleName.latin1()]["DataPath"].c_str() );		
-//		//remove "./" fromt the beginning ...
-//		if (path.left(2) == "./")
-//			path = path.mid(2);
-//		if (QString::fromLatin1(c.filename.c_str()).left( QString("%1/.sword/").arg(getenv("HOME")).length() ) ==	QString("%1/.sword/").arg(getenv("HOME")) )
-//			path = path.prepend( QString("%1/.sword/").arg(getenv("HOME")) );
-//		else //global
-//			path.prepend(prefixPath);
-//	}
-//	//if it's a lexicon or book module remove last part
-//	CSwordModuleInfo* module = findModuleByName(moduleName);
-//	if (module && (module->type() == CSwordModuleInfo::GenericBook || module->type() == CSwordModuleInfo::Lexicon)) {
-//		//find last slash
-//		const int n = path.contains("/");
-//		int pos = 0;
-//		int i = 1;
-//		while (i < n) {
-//			pos = path.find("/", pos+1);
-//			i++;
-//		}
-//		if (n)
-//			pos = path.find("/", pos);
-//		path = path.mid(0,pos);
-//	}
-//	return path;
-//}
-
 /** Returns the text used for the option given as parameter. */
-const QString CSwordBackend::optionName( const CSwordBackend::moduleOptions option ){
+const QString CSwordBackend::optionName( const CSwordBackend::FilterOptions option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
 			return QString("Footnotes");
@@ -459,8 +413,9 @@ const QString CSwordBackend::optionName( const CSwordBackend::moduleOptions opti
 	}
 	return QString::null;	
 }
+
 /** Returns the translated name of the option given as parameter. */
-const QString CSwordBackend::translatedOptionName(const CSwordBackend :: moduleOptions option){
+const QString CSwordBackend::translatedOptionName(const CSwordBackend::FilterOptions option){
 	switch (option) {
 		case CSwordBackend::footnotes:
 			return i18n("Footnotes");
@@ -484,7 +439,7 @@ const QString CSwordBackend::translatedOptionName(const CSwordBackend :: moduleO
 }
 
 
-const QString CSwordBackend::configOptionName( const CSwordBackend::moduleOptions option ){
+const QString CSwordBackend::configOptionName( const CSwordBackend::FilterOptions option ){
 	switch (option) {
 		case CSwordBackend::footnotes:
 			return QString("Footnotes");
@@ -507,9 +462,8 @@ const QString CSwordBackend::configOptionName( const CSwordBackend::moduleOption
 }
 
 const QString CSwordBackend::booknameLanguage( const QString& language ) {
-	if (!language.isEmpty()) {
+	if (!language.isNull())
 		LocaleMgr::systemLocaleMgr.setDefaultLocaleName( language.local8Bit() );
-	}
 	return QString::fromLatin1(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 }
 

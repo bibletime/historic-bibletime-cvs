@@ -135,8 +135,8 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 	if (!ldKey)
 		return;
 
-	backend()->setAllModuleOptions( m_moduleOptions );
-	backend()->setAllDisplayOptions( m_displayOptions );
+	backend()->setFilterOptions( m_moduleOptions );
+	backend()->setDisplayOptions( m_displayOptions );
 
 	m_moduleList.first()->module()->SetKey(*ldKey);
 	

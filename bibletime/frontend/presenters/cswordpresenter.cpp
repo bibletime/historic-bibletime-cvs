@@ -35,8 +35,8 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *paren
 	m_keyChooser(0), m_mainToolBar(0), m_moduleChooserBar(0), m_popup(0),m_savePopup(0),m_copyPopup(0),
 	m_printPopup(0), m_features(0), m_accel(0),
 	m_lexiconPopup(new QPopupMenu(this)),
-	m_moduleOptions( CBTConfig::getAllModuleOptionDefaults() ),
-	m_displayOptions( CBTConfig::getAllDisplayOptionDefaults() ),
+	m_moduleOptions( CBTConfig::getFilterOptionDefaults() ),
+	m_displayOptions( CBTConfig::getDisplayOptionDefaults() ),
 	m_displaySettingsButton(0),
 	m_initialized(false)
 
@@ -232,8 +232,8 @@ void CSwordPresenter::focusOutEvent( QFocusEvent* e ){
 /** Is called when this display window looses the focus. */
 void CSwordPresenter::refresh(){
 //	qWarning("CSwordPresenter::refresh()");
-	m_moduleOptions = CBTConfig::getAllModuleOptionDefaults();
-	m_displayOptions = CBTConfig::getAllDisplayOptionDefaults();
+	m_moduleOptions = CBTConfig::getFilterOptionDefaults();
+	m_displayOptions = CBTConfig::getDisplayOptionDefaults();
 
 	if (m_displaySettingsButton)
 		m_displaySettingsButton->reset(m_moduleList);

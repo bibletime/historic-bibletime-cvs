@@ -178,8 +178,8 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
 	if (!vKey)
 		return;
 
-	backend()->setAllModuleOptions( m_moduleOptions );
-	backend()->setAllDisplayOptions( m_displayOptions );
+	backend()->setFilterOptions( m_moduleOptions );
+	backend()->setDisplayOptions( m_displayOptions );
 
   m_moduleList.first()->module()->SetKey(*vKey);
 

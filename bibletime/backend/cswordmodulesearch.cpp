@@ -75,7 +75,7 @@ void CSwordModuleSearch::setModules( ListCSwordModuleInfo& list ) {
 
 /** Starts the search for the search text. */
 const bool CSwordModuleSearch::startSearch() {
-	backend()->setAllModuleOptions ( CBTConfig::getAllModuleOptionDefaults() );	
+	backend()->setFilterOptions ( CBTConfig::getFilterOptionDefaults() );	
 	m_foundItems			= false;
 	m_terminateSearch = false;
 	m_isSearching 		= true;		

@@ -245,11 +245,11 @@ const QString CGroupManagerItem::getToolTip(){
      	     	
      	QString options;
      	unsigned int opts;
-     	for (opts = CSwordBackend::moduleOptionsMIN; opts <= CSwordBackend::moduleOptionsMAX; ++opts){
-     		if (moduleInfo()->supportsFeature( (CSwordBackend::moduleOptions) opts)){
+     	for (opts = CSwordBackend::filterOptionsMIN; opts <= CSwordBackend::filterOptionsMAX; ++opts){
+     		if (moduleInfo()->supportsFeature( (CSwordBackend::FilterOptions) opts)){
        		if (!options.isEmpty())
        			options += QString::fromLatin1(", ");
-       		options += CSwordBackend::translatedOptionName( (CSwordBackend::moduleOptions) opts);
+       		options += CSwordBackend::translatedOptionName( (CSwordBackend::FilterOptions) opts);
      		}
      	}
      	if (!options.isEmpty())

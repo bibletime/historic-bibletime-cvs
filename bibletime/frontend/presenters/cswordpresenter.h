@@ -147,8 +147,8 @@ protected: // Protected methods
 
  	KAccel* m_accel;
 
-	CSwordBackend::moduleOptionsBool m_moduleOptions;
-	CSwordBackend::displayOptionsBool m_displayOptions;
+	CSwordBackend::FilterOptionsBool m_moduleOptions;
+	CSwordBackend::DisplayOptionsBool m_displayOptions;
  	 	  	
 protected slots: // Protected slots
   void lookupWord(int ID);
