@@ -355,13 +355,12 @@ Alle der hier aufgelisteten Tastenkombinationen können im Konfigurationsdialog v
 <row>
 <entry>Automatisch kacheln</entry><entry></entry></row>
 <row><entry>Automatisch stapeln</entry><entry>Ctrl+Alt+A </entry></row>
-
-<row><entry>Kacheln</entry><entry>Ctrl+A </entry></row>
+<row><entry>Stapeln</entry><entry>Ctrl+A </entry></row>
 <row><entry>Alle schließen</entry><entry>Shift+Ctrl+A</entry></row>
 <row><entry>Konfiguriere Werkzeugleisten</entry><entry></entry></row>
 <row><entry>Entferne gewählte Einträge</entry><entry>Ctrl+Alt+D</entry></row>
-<row><entry>Einstellungen </entry><entry>           </entry></row>
-<row><entry>Quit </entry><entry>Ctrl+Q</entry></row>
+<row><entry>Einstellungen </entry><entry>          </entry></row>
+<row><entry>Beenden </entry><entry>Ctrl+Q</entry></row>
 <row><entry>Setze Hauptgruppe zurück</entry><entry>Ctrl+Alt+R</entry></row>
 <row><entry>Suche in gewählten Modulen</entry><entry>Ctrl+Alt+S</entry></row>
 <row><entry>Zeige Fußnoten </entry><entry>Ctrl+Alt+F</entry></row>

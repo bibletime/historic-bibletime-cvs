@@ -7,7 +7,7 @@ Der zweite wichtige Platz zum arbeiten in BibleTime ist der MDI Bereich (MDI = M
 <section ID="hdbk_op_module_tree"><title>Hauptgruppe</title>
 <para>
 Dies ist der Bereich auf der linken Seite des BibleTime Fensters.
-Er enthält den Baum der installierten Dikumente (Sword Module) und alle von Ihnen eingegebenen Lesezeichen.
+Er enthält den Baum der installierten Dokumente (Sword Module) und alle von Ihnen angelegten Lesezeichen.
 </para>
 <screenshot>
 <screeninfo>Modulbaum</screeninfo>
@@ -40,14 +40,14 @@ das gewählte Dokument.
 "Entschlüssele Modul" öffnet einen kleinen Dialog für verschlüsselte Module. Dies erlaubt denjenigen, die den Schlüssel haben,
 diesen einzugeben und das Dokument so für Menschen lesbar zu machen.
 Die Crosswire Bibelgesellschaft muss Module verschlüsseln, es sei denn der Besitzer des Copyrights
-gibt die Erlaubnis zur Verbreitung als ein Swordmodul, oder wenn der Text in öffentlichen Besitz übergegangen ist (das Copyright ist abgelaufen).
+gibt die Erlaubnis zur Verbreitung als Swordmodul oder wenn der Text in öffentlichen Besitz übergegangen ist (das Copyright ist abgelaufen).
 <ulink url="http://www.crosswire.org">Für Informationen über verschlüsselte Module sehen Sie bitte auf der Crosswire Webseite nach.</ulink>
 </para>
 
 <section ID="hdbk_op_module_tree_search"><title>Auf den Suchdialog zugreifen</title> <para>
-Sie können in einem Modul suchen, indem Sie mit der rechten Maustas eauf den Modulnamen in der List der Module klicken und "Suche in Modul(en)..."
+Sie können in einem Modul suchen, indem Sie mit der rechten Maustas auf den Modulnamen in der Liste der Module klicken und "Suche in Modul(en)..."
 auswählen.
-Durch gleichzeitiges drücken der SHIFT Taste und klicken auf andere Modulnamen können Sie mehr als eins auswählen.
+Durch gleichzeitiges drücken der SHIFT Taste und klicken auf andere Modulnamen können Sie mehr als eines auswählen.
 Folgen Sie der gleichen Prozedur um diese zu durchsuchen.
 </para>
 
@@ -59,7 +59,7 @@ Folgen Sie der gleichen Prozedur um diese zu durchsuchen.
 </section>
 
 
-<section ID="hdbk_op_module_tree_bookmark"><title>Auf Lesezeichen Funktionen zugreifen</title> <para>
+<section ID="hdbk_op_module_tree_bookmark"><title>Auf Lesezeichen zugreifen</title> <para>
 <tip><para>Drag&Drop funktioniert hier</para></tip>
 Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Hauptgruppe und wählen Sie
 "Erzeuge neuen Ordner" um einen neuen Ordner anzulegen. Sie können normale Drag&Drop Funktionen
@@ -108,20 +108,20 @@ ziehen und auf einem anderen Dokumentenfenster fallenlassen wird dieses von der 
 zur Stelle des Verses oder des Lesezeichens springen.</para></tip>
 </section>
 
-<section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Bearbeiten Sie ihren eigenen Kommentary</title> <para>
+<section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Bearbeiten Sie ihren eigenen Kommentar</title> <para>
 Die Werkzeugleiste des Kommentarfensters hat einen weiteren Knopf mit dem Symbol eines
 Bleistiftes. <graphic fileref="comon/hdbk_op_pencil.png"></graphic>
-Für das "Persönliche" Kommentar Modul klicken Sie diesen Knopf um es möglich zu machen eigene Notizen
+Für das "Persönliche" Kommentar Modul klicken Sie diesen Knopf, um es möglich zu machen eigene Notizen
 in den Persönlichen Kommentar einzugeben oder um bereits vorhandene zu bearbeiten.
-Wenn Sie fertig sind klicken Sie auf den "Speichern" Knopf (die Diskette) um ihre Anmerkungen zu speichern.
+Wenn Sie fertig sind klicken Sie auf den "Speichern" Knopf (die Diskette) um ihre Anmerkungen zu sichern.
 Um die Notizen für einen bestimmten Vers zu löschen klicken Sie auf den Knopf mit der Mülltonne.
 Klicken Sie den "Bearbeiten" Knopf erneut, um in den Nur-Lesen Modues zurückzukehren.
 </para>
-<tip><para>Der persönliche Kommentar ist ein Sword Modul. Falls Sie ihn nicht in der Hauptgruppe finden, bekommen
+<tip><para>Der persönliche Kommentar ist ein Sword Modul. Falls Sie ihn nicht in der Hauptgruppe finden, können
 Sie ihn bei der Crosswire Bibelgesellschaft bekommen.</para></tip>
 <tip><para>Falls Sie nicht in das Persönliche Kommentarmodul schreiben können sind die Zugriffsrechte
 für den persönlichen Kommentar falsch. Setzen Sie die Zugrigffsrechte zurück, um ihrem Benutzer zu erlauben
-darein zu schreiben.</para></tip>
+hinein zu schreiben.</para></tip>
 <tip><para>Hier funktioniert Drag&Drop, wie bei anderen Kommentaren und Bibeltexten.
 </para></tip>
 </section>
@@ -151,11 +151,11 @@ benutzen standardmäßigen RegExp Syntax um die Suche zu verfeindern.
 <para>
 Geben Sie ein oder mehrere Wörter, einen Teil eines Wortes (Trennen Sie Wörter oder Wortteile durch Leerzeichen),
 einen Satz oder ein Muster (Regulärer Ausdruck) nachdem gesucht werden soll.
-Wie der im Eingabebereich eingegebene Text interpretiert wird, hängt davon ab welcher Knopf (Mehrere Wörter, Satz oder Reguöärer Ausdruck)
+Wie der im Eingabebereich eingegebene Text interpretiert wird, hängt davon ab welcher Knopf (Mehrere Wörter, Satz oder Regulärer Ausdruck)
 ausgewählt wurde uch ob Unterscheidung für GROß/klein ausgewält wurde.
 </para>
 
-<tip><para>Heir funktioniert Drag&Drop, Sie können Verse und Lesezeichen in die Text-Eingabebox ziehen. Sie können
+<tip><para>Hier funktioniert Drag&Drop, Sie können Verse und Lesezeichen in die Text-Eingabebox ziehen. Sie können
 Text in die Zwischenablage kopieren und in die Eingabezeile einfügen.
 </para></tip>
 </section>
@@ -186,8 +186,7 @@ Dies ist deshalb so, da ein Wort, welches Teil eines anderen ist, als gefunden g
 </para>
 </section>
 
-
-<section ID="hdbk_op_search_dialog_text_input_phrase"><title>Benutzung der &quot;Genaue Suche&quot;Auswahlbox</title>
+<section ID="hdbk_op_search_dialog_text_input_phrase"><title>Benutzung der &quot;Genaue Suche&quot; Auswahlbox</title>
 <para>Wenn <guibutton>Genaue Suche</guibutton> ausgewählt wurde wird die Suche alle Zeilen (oder Verse)
 finden, die genau den in der Eingabezeile eingegebenen Text unter Einbezug der Leerzeichen enthalten.
 Der gesuchte Satz muss nicht an einer Wortgrenze starten. Eine Suche nach &quot;amt begehrt&quot; wird 1. Thimotheus 3:1 finden:
@@ -199,7 +198,7 @@ Der gesuchte Satz muss nicht an einer Wortgrenze starten. Eine Suche nach &quot;
 </para>
 
 <screenshot>
-<screeninfo>Textsuche Dialog Box</screeninfo>
+<screeninfo>Textsuche Dialogbox</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchtext.png" format="png"></graphic>
 </screenshot>
 </section>
@@ -237,31 +236,37 @@ Der erste Punkt in &quot;i. love\.&quot; ist ein Sonderzeichen, dass alle Zeiche
 
 <section ID="hdbk_op_search_dialog_text_regexp_rules"><title>Regeln für Suchabfragen mit GCC regulären Ausdrücken</title>
 <itemizedlist>
+
 <listitem><para>. Der Punkt passt auf jedes Zeichen. Siehe auch <link linkend="period">Einzelheiten</link></para></listitem>
+
 <listitem><para>* Der Stern findet 0 oder mehr Zeichen des vorhergehenden Sets, des vorhergehenden Zeichens oder des vorhergehenden
-besonderern Zeichens.
-Siehe auch <link linkend="asterisk">Einzelheiten</link></para></listitem>
+besonderern Zeichens. Siehe auch <link linkend="asterisk">Einzelheiten</link></para></listitem>
+
 <listitem><para>+ Das Pluszeichen findet 1 oder mehr Zeichen des vorhergehenden Sets, des vorhergehenden Zeichens oder des vorhergehenden
 besonderern Zeichens.
-Siehe auch <link
-        linkend="plus">Einzelheiten</link></para></listitem>
+Siehe auch <link linkend="plus">Einzelheiten</link></para></listitem>.
+
 <listitem><para>? Das Fragezeichen  passt auf 0 oder 1 Zeichen des vorhergehenden Sets, Zeichens oder besonderern Zeichens.
 Siehe auch <link linkend="question">Einzelheiten</link></para></listitem>
+
 <listitem><para>[ ] Eckige Klammern finden ein Zeichens innerhalb der eckigen Klammern  [ ].Siehe auch <link linkend="bracket">
 Einzelheiten</link></para></listitem>
+
 <listitem><para>^ Ein Hochzeichen als erstes Zeichen innerhalb von [ ] heißt NICHT. Siehe auch <link linkend="caret">
 Einzelheiten</link></para></listitem>
+
 <listitem><para>^ Ein Hochzeichen als Beginn eines Musters verankert an den Beginn der Zeile.
 Siehe auch <link linkend="caret">Einzelheiten</link></para></listitem>
 
-<listitem><para>$ Ein Dollarzeichen am Beginn eines Musters verankert an das Ende einer Zeile. Siehe auch
-				<link linkend="dollar">Einzelheiten</link></para></listitem>
-<listitem><para>| Ein vertikaler Strich hat die Bedeutung des logischen ODER. Siehe auch <link
-        linkend="bar">Einzelheiten</link></para></listitem>
-<listitem><para>( ) Runde Klammern gruppieren Ausdrücke.
-    <emphasis>Nicht unterstützt!</emphasis></para></listitem>
+<listitem><para>$ Ein Dollarzeichen am Beginn eines Musters verankert an das Ende einer Zeile. Siehe auch <link linkend="dollar">Einzelheiten</link></para></listitem>
+
+<listitem><para>| Ein vertikaler Strich hat die Bedeutung des logischen ODER. Siehe auch <link linkend="bar">Einzelheiten</link></para></listitem>
+
+<listitem><para>( ) Runde Klammern gruppieren Ausdrücke. <emphasis>Wird nicht unterstützt!</emphasis></para></listitem>
+
 <listitem><para>\ Ein Backslash kann vor jedem besonderem Zeichen benutzt werden, um dieses Zeichen zu finden
 Siehe auch <link linkend="backslash">Einzelheiten</link></para></listitem>
+
 <listitem><para>\ Ein Backslash kann vor jedem normalen Zeichen benutzt werden um es zu einem besonderen Zeichen zu machen
 Siehe auch <link linkend="backslash">Einzelheiten</link></para></listitem>
 </itemizedlist>
@@ -484,7 +489,7 @@ damit dieses die gewünschte Stelle anzeigt (Nur für Bibeln und Kommentare).</par
 <graphic fileref="common/hdbk_op_search_dialog_searchresult.png" format="png"></graphic>
 </screenshot> </section>
 
-<section ID="hdbk_op_search_dialog_text_analysis"><title>Using the Search Analysis Tab</title>
+<section ID="hdbk_op_search_dialog_text_analysis"><title>Benutzung des Suchanalyse Teils</title>
 <para>
 Suchanalyse - Dies zeigt eine grafische Analyse der Anzahl der Treffer in jedem Buch.
 Sie kann das Ergebnis aller Dokumente anzeigen. Sie können den Graphen auch als Bild auf Festplatte abspeichern.
@@ -499,14 +504,14 @@ Sie kann das Ergebnis aller Dokumente anzeigen. Sie können den Graphen auch als 
 <section ID="hdbk_op_output"><title>Ausgabe</title>
 <section ID="hdbk_op_export"><title>Exportieren</title>
 <para>
-Wie man Text als HTML, text exportieren oder in die Zwischenablage kopiert.
+Wie man Text als HTML bzw. Text exportieren oder in die Zwischenablage kopiert.
 Machen Sie einen <mousebutton>Mausklick mit der rechten Taste</mousebutton> in einem
 Dokument aus und ein Menü erscheint. Wählen Sie die gewünschte Aktion aus.
-Eine Box zum Abspeichern wird erscheinen, in der sie den verlangten Dateinamen eingeben können.
+Eine Box zum Abspeichern wird erscheinen, in der sie den gewünschten Dateinamen eingeben können.
 </para>
 
 <para>
-Kontextmenü Informationen werden hier später hinzugefügt.
+Informationen zum Kontextmenü werden hier später hinzugefügt.
 </para>
 </section>
 
