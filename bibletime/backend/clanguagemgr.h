@@ -42,7 +42,12 @@ public:
     ~Language();
     const QString& abbrev() const;
     const QString& translatedName() const;
-    inline const QString& name() const;
+
+		//always define inlines in the header file, or make them not inline.
+    inline const QString& name() const{
+			return m_englishName;
+		}
+
     const QStringList& alternativeAbbrevs() const;
     const QPixmap flag();
     /**

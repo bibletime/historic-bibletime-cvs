@@ -62,10 +62,6 @@ const QString& CLanguageMgr::Language::translatedName() const {
   return m_translatedName;
 };
 
-const QString& CLanguageMgr::Language::name() const {
-  return m_englishName;
-};
-
 const QStringList& CLanguageMgr::Language::alternativeAbbrevs() const {
   return m_altAbbrevs;
 };
