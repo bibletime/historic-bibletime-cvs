@@ -635,7 +635,7 @@ namespace CResMgr {
       };
     };
     namespace colors {
-      const QString icon = "bt_displayconfig";
+      const QString icon = "colorize";
 
       namespace text {
         QString tooltip;
