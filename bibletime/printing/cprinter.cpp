@@ -253,17 +253,23 @@ void CPrinter::printQueue(){
 			qDebug("inner loop");
 			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
 			ASSERT(!aborted());
-			if (!aborted())
+			if (!aborted()) {
+				qDebug("call now m_queue->current()->draw(&p,this);");
 				m_queue->current()->draw(&p,this);
+			}
+			QString keyName = QString::null;
+			
 			CKey* key = m_queue->current()->getStartKey();			
-			QString keyName = QString::null;			
-			CSwordVerseKey* vk = (CSwordVerseKey*)(key);
+			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
+			CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);			
+			ASSERT(vk);
+			ASSERT(lk);			
 			if (vk)
 				keyName = vk->getKey();
-			else {
-				CSwordLDKey* lk = (CSwordLDKey*)(key);
+			else if (lk)
 				keyName = lk->getKey();
-			}
+			else
+				keyName = QString::null;
 			ASSERT(!aborted());
 			if (!aborted()) {
 				qDebug("emit printedOneItem");
@@ -273,6 +279,7 @@ void CPrinter::printQueue(){
 		if (!aborted() && (page < numCopies()) )
 			newPage();	//new pages seperate copies
 	}
+	qDebug("emit finished");
 	emit printingFinished();	
 	if (!getPreview())
 		clearQueue();
@@ -280,17 +287,13 @@ void CPrinter::printQueue(){
 	if ( !aborted() && getPreview() ) {
 		if (p.isActive())
 			p.end();
+		qDebug("start preview now");
 		KProcess process;
 		process << getPreviewApplication();
 		process << outputFileName();
 		process.start(KProcess::DontCare);
 	}	
-	
-//	if (p.isActive()) {
-//		cmd(QPaintDevice::PdcEnd,&p,0);
-//		p.end();		
-//	}
-	qDebug("finished");
+	qDebug("finished printQueue");
 }
 
 /** Appends items to the printing queue. */

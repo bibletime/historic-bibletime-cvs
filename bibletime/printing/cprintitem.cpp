@@ -199,6 +199,7 @@ void CPrintItem::setHeader( const QString& newText){
 
 /** Sets the style for this item. */
 void CPrintItem::setStyle( CStyle* newStyle ) {
+	qDebug("CPrintItem::setStyle( CStyle* newStyle )");
 	m_style = newStyle;
 }
 
@@ -267,6 +268,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	*	1. Get the settings (font, colors, alignment etc.) and generate the correct richtext for this (correct alignment)
 	*	2. Apply the settings to the printer's painter object
 	*/
+	qDebug("CPrintItem::draw(QPainter* p, CPrinter* printer)");
 	QFont font;
 	QColor fgColor;
 	QColor bgColor;
@@ -281,14 +283,19 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QBrush brush;
 	
 	//print the header
+	qDebug("draw: now go into loop");
 	for (int i = 0; i < 3; ++i) {
+		qDebug("%i",i);
 		type = (CStyle::styleType)i;
+		ASSERT(m_style);
 		format = m_style->getFormatForType( type );
+		ASSERT(format);
 		fgColor = format->getFGColor();
 		bgColor = format->getBGColor();	
 		pen.setColor(fgColor);
 		font = format->getFont();
 		frame = format->hasFrame() ? format->getFrame() : 0;
+		ASSERT(frame);
 		alignement = format->getAlignement();
 		identation = format->getIdentation();
 		if (type == CStyle::Header)
@@ -302,6 +309,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		p->setPen(pen);
 		cg.setColor(QColorGroup::Text, format->getFGColor());
 		
+		qDebug("draw: enabled?");
 		if (!m_style->hasFormatTypeEnabled(type))
 			continue;
 		int arguments = Qt::WordBreak;		
@@ -314,12 +322,14 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		QRect boundingRect;
 		QRect br;
 		if ((type == CStyle::Header || type == CStyle::Description) && !text.isEmpty()) {
+			qDebug("draw: type is Header || deacription");		
 			boundingRect = p->boundingRect( printer->leftMargin(), printer->getVerticalPos(),
 				printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin(), arguments, text );
 			
 			//check if the new text fits into page
 			if ( (boundingRect.height()+(frame ? 2*frame->getThickness() : 0) + STYLE_PART_SPACE ) > printer->getPageSize().height()-printer->getVerticalPos() ) {
 				//this part doesn't fit on the current page
+				qDebug("draw: new page now");
 				printer->newPage();
 				boundingRect = p->boundingRect( printer->leftMargin(), printer->getVerticalPos(),
 					printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin(), arguments, text );			
@@ -342,6 +352,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			}						
 		}
 		else if (type == CStyle::ModuleText) {		
+			qDebug("draw: type is ModuleText");
 			p->save();
 			CSwordModuleInfo* m = (CSwordModuleInfo*)m_module;
 			if (m && m->hasFont())
@@ -351,11 +362,12 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			else if (alignement == CStyleFormat::Right)		
 				text = QString::fromLatin1("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
 			text = QString("%1").arg(text);
+			qDebug("create richtext now");
     	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()-frame->getThickness()+printer->upperMargin());
     	richText.setWidth( p, printer->getPageSize().width()-2*frame->getThickness()-BORDER_SPACE );
     	QRect view( printer->getPageSize() );
     	int translated = 0;
-    	do {				
+    	do {
     		if ((int)(richText.height() + printer->getVerticalPos()) < (int)(printer->getPageSize().height()+printer->upperMargin()) )
     			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), richText.height()+frame->getThickness());    		
     		else { //fill to bottom of the page
@@ -374,7 +386,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 					p->drawRect(br);
 				}						   			
     		p->setClipping(false);
-    		
+    		qDebug("draw: now call richtext.draw");
         richText.draw(p,printer->leftMargin()+frame->getThickness()+(int)((float)BORDER_SPACE/2),printer->getVerticalPos(),view,cg);
 				const int movePixs = ((int)richText.height() > (int)(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height()+frame->getThickness();
    			printer->setVerticalPos(printer->getVerticalPos()+movePixs);		
@@ -383,11 +395,13 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
         translated+=movePixs;
         if ( view.top() >= richText.height() )
     			break;
+    		qDebug("draw: new page2");
     		printer->newPage();
     	} while (true);
 			p->restore();
     }
 	}	
+	qDebug("setVerticalPos");
 	printer->setVerticalPos(printer->getVerticalPos() + PARAGRAPH_SPACE);	
 }
 
