@@ -183,7 +183,14 @@ const bool CExportManager::copyKey(CSwordKey* key, const Format format, const bo
 
   QString text = QString::null;
   if (addText) {
-    CPointers::backend()->setFilterOptions(m_filterOptions);
+		CSwordBackend::FilterOptions filterOpts = m_filterOptions;
+		filterOpts.footnotes = false;
+		filterOpts.strongNumbers = false;
+		filterOpts.lemmas = false;
+		filterOpts.scriptureReferences = false;
+		filterOpts.textualVariants = false;
+		
+    CPointers::backend()->setFilterOptions(filterOpts);
     CPointers::backend()->setDisplayOptions(m_displayOptions);
 
     CSwordModuleInfo* module = key->module();
@@ -206,14 +213,11 @@ const bool CExportManager::copyKey(CSwordKey* key, const Format format, const bo
     else {
       text = (format == HTML) ? key->renderedText() : key->strippedText();
     }
-    text += "\n" + QString::fromLatin1("(%1, %1)").arg(key->key()).arg(module->name());
+    text += "\n" + QString::fromLatin1("(%1, %2)").arg(key->key()).arg(module->name());
   }
   else { //don't add text
-//    text = key ? key->key() : QString::null;
     if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key)) { //make sure VerseKeys are localized!
-//      CSwordVerseKey vk( *key );
       vk->setLocale( backend()->booknameLanguage().latin1() );
-
       text = vk->key();      
     }
     else {

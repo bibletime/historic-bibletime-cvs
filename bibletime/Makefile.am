@@ -25,7 +25,7 @@ $(LIB_X11) \
 $(LIB_SWORD) \
 $(LIBSOCKET)
 
-SUBDIRS = display-templates backend frontend xml pics util
+SUBDIRS = display-templates backend frontend xml pics util tests
 
 all_headers = bibletime.h bibletimeapp.h
 
@@ -68,6 +68,3 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(kde_confdir)
 
 rpm: dist
-	
-
-

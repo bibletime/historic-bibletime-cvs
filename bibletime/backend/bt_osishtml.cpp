@@ -413,7 +413,15 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				myUserData->quote.who = "";
 			}
 		}
-    else { //all tokens handled by OSISHTMLHref will run through the filter now
+ 		// <milestone> tag
+		else if (!strcmp(tag.getName(), "milestone")) {
+			const SWBuf type = tag.getAttribute("type");
+			if (type == "screen" || type == "line") {//line break
+				buf.append("<br/>");
+				userData->supressAdjacentWhitespace = true;
+			}
+		}   
+		else { //all tokens handled by OSISHTMLHref will run through the filter now
       return sword::OSISHTMLHREF::handleToken(buf, token, userData);
     }
 	}

@@ -1,6 +1,8 @@
 #!/usr/bin/perl
 
 use strict;
+use File::Compare;
+use File::Copy;
 use FindBin qw($RealBin);
 
 my %names;
@@ -61,6 +63,13 @@ foreach my $f (@ARGV) {
 }
 
 
-open(OUT, "> template-init.cpp");
+open(OUT, "> template-init.cpp-new");
 print OUT "void CDisplayTemplateMgr::init() {\n$code\n}\n";
 close(OUT);
+
+if (-e "template-init.cpp" && compare("template-init.cpp","template-init.cpp-new")) { #differ
+	move("template-init.cpp-new","template-init.cpp");
+}
+elsif (!-e "template-init.cpp") {
+	move ("template-init.cpp-new","template-init.cpp");
+}
