@@ -16,8 +16,6 @@
  ***************************************************************************/
 
 #include "cstyle.h"
-
-#include "cstyleformat.h"
 #include "cstylelist.h"
 
 

@@ -17,7 +17,6 @@
 
 #include "cprinter.h"
 #include "cprintitem.h"
-#include "cstyleformat.h"
 #include "cprintdialogpages.h"
 
 #include "backend/cswordbackend.h"

@@ -19,7 +19,6 @@
 #include "cprintitem.h"
 #include "cprintitemlist.h"
 #include "cstyle.h"
-#include "cstyleformat.h"
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordversekey.h"
 #include "backend/cswordldkey.h"

@@ -22,7 +22,6 @@
 #include <kdialogbase.h>
 
 #include "cstyle.h"
-#include "cstyleformat.h"
 
 /**The editor for the printing styles.
   *@author The BibleTime team

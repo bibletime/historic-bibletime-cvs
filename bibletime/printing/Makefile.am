@@ -5,7 +5,6 @@ libprinting_a_METASOURCES = AUTO
 noinst_LIBRARIES = libprinting.a
 
 libprinting_a_SOURCES = \
-cstyleformat.cpp \
 cstylelist.cpp \
 cprintitemlist.cpp \
 cprintitem.cpp \
@@ -16,7 +15,6 @@ cprintdialogpages.cpp
 
 
 all_headers =  \
-cstyleformat.h \
 cstylelist.h \
 cprintitemlist.h \
 cprintitem.h \
