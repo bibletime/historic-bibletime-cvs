@@ -168,6 +168,7 @@ void CSwordSetupDialog::initInstall(){
 	connect(m_targetCombo, SIGNAL( highlighted(const QString&) ), SLOT( slot_targetSelected( const QString&) ));
 	populateInstallCombos();
 
+  slot_sourceSelected( m_sourceCombo->currentText() );
 }
 
 void CSwordSetupDialog::initRemove(){
@@ -269,13 +270,13 @@ void CSwordSetupDialog::slot_sourceSelected(const QString &sourceName){
   BTInstallMgr mgr;
 
   QString url;
-  sword::InstallSource is = BTInstallMgr::Tool::source(&mgr, sourceName);
+  sword::InstallSource is = BTInstallMgr::Tool::source(&mgr, sourceName) ;
   
   if (BTInstallMgr::Tool::isRemoteSource(&is)) {
-    url = QString::fromLatin1("ftp://%1/%2").arg(is.source.c_str()).arg(is.directory.c_str());
+    url = QString::fromLatin1("ftp://%1%2").arg(is.source.c_str()).arg(is.directory.c_str());
   }
   else {
-    url = QString::fromLatin1("file:/%1").arg(is.directory.c_str());
+    url = QString::fromLatin1("%1").arg(is.directory.c_str());
   }
   m_sourceLabel->setText( url );
 }
@@ -341,9 +342,7 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 //	  		if ( dynamic_cast<QCheckListItem*>(item2) && dynamic_cast<QCheckListItem*>(item2)->isOn() )
 //		  		delete item2;
     populateRemoveModuleListView(); //rebuild the tree
-
   }
-//	this->activate();
 }
 
 /** No descriptions */
@@ -361,7 +360,13 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 	QListViewItem* categoryCommentary = new QListViewItem(m_removeModuleListView, "Commentaries");
 	QListViewItem* categoryLexicon = new QListViewItem(m_removeModuleListView, "Lexicons");
 	QListViewItem* categoryBook = new QListViewItem(m_removeModuleListView, "Books");
-	categoryBible->setOpen(true);
+
+  categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+  categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+  categoryLexicon->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+  categoryBook->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
+
+  categoryBible->setOpen(true);
   categoryCommentary->setOpen(true);
   categoryLexicon->setOpen(true);
   categoryBook->setOpen(true);
@@ -403,12 +408,24 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 			newItem = new QCheckListItem(parent, name, QCheckListItem::CheckBox);
 		else
 			newItem = new QListViewItem(parent, name);
+    newItem->setPixmap(0, CToolClass::getIconForModule(list.current()));
 		newItem->setText(1, location);
   }
-  
+    
 	m_populateListNotification->setText("");
 	m_removeBackButton->setEnabled(true);
 	m_removeRemoveButton->setEnabled(true);
+
+  //clean up groups
+  if (!categoryBible->childCount())
+    delete categoryBible;
+  if (!categoryCommentary->childCount())
+    delete categoryCommentary;
+  if (!categoryBook->childCount())
+    delete categoryBook;
+  if (!categoryLexicon->childCount())
+    delete categoryLexicon;
+
 }
 
 /** No descriptions */
@@ -550,7 +567,7 @@ void CSwordSetupDialog::slot_connectToSource(){
 
 /** Installs chosen modules */
 void CSwordSetupDialog::slot_installModules(){
-  qWarning("install the modules");
+//  qWarning("install the modules");
   //first get all chosen modules
 	QStringList moduleList;
 	QListViewItem* item1 = 0;
