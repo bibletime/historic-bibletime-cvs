@@ -290,21 +290,28 @@ unmarked.</para>
 
 
 
-<section id="hdbk-op-search-dialog-text-input-multi">
-<title>Using the Search Text Multiple Word Button</title>
-<para>If Multiple Words radio button is marked the search will locate all lines (or
-verses) that have all the words, (or partials), listed in the
-Input Field. The position and order of the words, (or partials),
-in the line is not a factor. If all the words, (or partials), are
-in a line, in any order, even separated by other words, the line
-will be included in the list of found line. A search for
-&quot;prove cause&quot; will find Gen. 21:25, &quot;And Abraham
-re<emphasis>prove</emphasis>d Abimelech be
-<emphasis>cause</emphasis> of a well of
-water...&quot; This is because a word that is part of another
-word is considered found if a word containing it is found.</para>
+<section id="hdbk-op-search-dialog-text-input-multiand">
+<title>Using the Search Text Multiple Word (AND) Button</title>
+<para>If Multiple Words (AND) radio button is marked the search 
+will locate all lines (or verses) that have all the words, listed in the
+Input Field. The position and order of the words, in the line is 
+not a factor. If all the words, are in a line, in any order, even 
+separated by other words, the line will be included in the list of 
+found lines. A search for &quot;prove cause&quot; will find Gen. 
+21:25, &quot;And Abraham re<emphasis>prove</emphasis>d Abimelech be
+<emphasis>cause</emphasis> of a well of water...&quot; This is 
+because a word that is part of another word is considered found if 
+a word containing it is found.</para>
 </section>
 
+<section id="hdbk-op-search-dialog-text-input-multior">
+<title>Using the Search Text Multiple Word (OR) Button</title>
+<para>If Multiple Words (OR) radio button is marked the search will locate
+all lines (or verses) that have any of the words, listed in the Input 
+Field.  A search for &quot;cause&quot; will find Genesis 21:11,
+&quot;And the thing was very grievous in Abraham's sight be<emphasis>cause
+</emphasis> of his son.&quot;</para>
+</section>
 
 <section id="hdbk-op-search-dialog-text-input-phrase">
 <title>Using the Exact Search</title>
