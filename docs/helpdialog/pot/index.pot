@@ -21,7 +21,7 @@ msgstr ""
 
 #: index.docbook:31
 #, no-c-format
-msgid "<firstname>Fred</firstname> <othername></othername> <surname>Saalbach</surname> <affiliation> <address><email>info@bibletime.de</email></address> </affiliation>"
+msgid "<firstname>Fred</firstname> <othername></othername> <surname>Saalbach</surname> <affiliation> <address><email>info@bibletime.info</email></address> </affiliation>"
 msgstr ""
 
 #: index.docbook:39
@@ -36,7 +36,7 @@ msgstr ""
 
 #: index.docbook:51
 #, no-c-format
-msgid "The team of &bibletime;, info@bibletime.de"
+msgid "The team of &bibletime;, info@bibletime.info"
 msgstr ""
 
 #: index.docbook:56

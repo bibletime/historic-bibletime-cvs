@@ -36,7 +36,7 @@ msgstr ""
 
 #: index.docbook:9
 #, no-c-format
-msgid "Email us at <ulink url=\"mailto:info@bibletime.de\">info@bibletime.de!</ulink>"
+msgid "Email us at <ulink url=\"mailto:info@bibletime.info\">info@bibletime.info!</ulink>"
 msgstr ""
 
 #: index.docbook:10

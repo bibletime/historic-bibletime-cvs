@@ -231,10 +231,6 @@ protected slots:
   */
   virtual void polish();
   virtual void updatePopupMenu();
-  /**
-  * Reimplementation to enable the focus of the child windows.
-  */
-//  virtual void dragEnterEvent( QDragEnterEvent* e );
   
 private:
 	CMDIArea* m_mdi;

@@ -56,6 +56,6 @@ msgstr ""
 
 #: index.docbook:44
 #, no-c-format
-msgid "Please read the documentation on <ulink url=\"http://www.bibletime.de\"> www.bibletime.de</ulink> and if you can't get it working please send an email to <ulink url=\"mailto:info@bbibletime.de\">info@bibletime.de </ulink>."
+msgid "Please read the documentation on <ulink url=\"http://www.bibletime.info\"> www.bibletime.info</ulink> and if you can't get it working please send an email to <ulink url=\"mailto:info@bbibletime.info\">info@bibletime.info </ulink>."
 msgstr ""
 

@@ -96,12 +96,12 @@ msgstr ""
 
 #: index.docbook:107
 #, no-c-format
-msgid "www.bibletime.de"
+msgid "www.bibletime.info"
 msgstr ""
 
 #: index.docbook:107
 #, no-c-format
-msgid "This is the homepage of &bibletime;! Browse to this page to read documentation pages. Don't forget to read the &FAQ; on <ulink url=\"http://www.bibletime.de\"> www.bibletime.de</ulink>, it contains answers to questions you'll probably have."
+msgid "This is the homepage of &bibletime;! Browse to this page to read documentation pages. Don't forget to read the &FAQ; on <ulink url=\"http://www.bibletime.info\"> www.bibletime.info</ulink>, it contains answers to questions you'll probably have."
 msgstr ""
 
 #: index.docbook:107

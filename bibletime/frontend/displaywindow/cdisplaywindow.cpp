@@ -92,17 +92,14 @@ CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, c
 }
 
 CDisplayWindow::~CDisplayWindow(){
-	qWarning("destructor of CDisplayWindow");
 }
 
 CMDIArea* const CDisplayWindow::mdi() {
-//  Q_ASSERT(m_mdi);
 	return m_mdi;
 }
 
 /** Returns the right window caption. */
 const QString CDisplayWindow::windowCaption(){
-//	qWarning("CDisplayWindow::windowCaption()");
  	if (!m_modules.count())
 		return QString::null;
 
@@ -350,8 +347,9 @@ KPopupMenu* const CDisplayWindow::popup(){
 	  if (displayWidget()) {
 	  	displayWidget()->installPopup(m_popupMenu);
     }
-	  else
+	  else {
 	  	qWarning("CDisplayWindow:: can't instal popup menu");
+    }
   }
  	return m_popupMenu;
 }
@@ -375,10 +373,3 @@ void CDisplayWindow::closeEvent(QCloseEvent* e) {
 		e->accept();
 	}
 }
-//
-///** Reimplementation to enable the focus of the child windows. */
-//void CDisplayWindow::dragEnterEvent( QDragEnterEvent* e ){
-//  qWarning("DisplaWindow: dragEnterEvent");
-//  setFocus();
-//  KMainWindow::dragEnterEvent(e);
-//}
