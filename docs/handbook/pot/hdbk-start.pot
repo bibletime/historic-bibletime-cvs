@@ -52,7 +52,7 @@ msgstr ""
 #: index.docbook:38
 #, no-c-format
 msgid ""
-      "export KDEDIR=/opt/kde3  \n"
+      "export KDEDIR=/opt/kde3\n"
       "bibletime"
 msgstr ""
 
@@ -61,77 +61,87 @@ msgstr ""
 msgid "&bibletime; will now open inside of a window of the current window manager. If you do not have &kde;3 installed in your copy of &Linux;, you should have tried the <ulink url=\"http://gnomesword.sourceforge.net/\">Gnomesword application.</ulink>, or one of the &kde;2 versions of &bibletime;."
 msgstr ""
 
-#: index.docbook:49
+#: index.docbook:48
+#, no-c-format
+msgid "With &Linux-Mandrake; 9.0 and other other distributions where &kde; 3.x is installed in the normal location, simply type:"
+msgstr ""
+
+#: index.docbook:50
+#, no-c-format
+msgid "bibletime"
+msgstr ""
+
+#: index.docbook:55
 #, no-c-format
 msgid "Startup Customization"
 msgstr ""
 
-#: index.docbook:51
+#: index.docbook:57
 #, no-c-format
 msgid "From a terminal you can use &bibletime; to open a random verse in the default bible:"
 msgstr ""
 
-#: index.docbook:53
+#: index.docbook:59
 #, no-c-format
 msgid "bibletime --open-default-bible \"&lt;random&gt;\""
 msgstr ""
 
-#: index.docbook:57
+#: index.docbook:63
 #, no-c-format
 msgid "To open at a given passage use:"
 msgstr ""
 
-#: index.docbook:58
+#: index.docbook:64
 #, no-c-format
 msgid "bibletime --open-default-bible \"John 3:16\""
 msgstr ""
 
-#: index.docbook:64
+#: index.docbook:70
 #, no-c-format
 msgid "You can also use keys in your current bookname language."
 msgstr ""
 
-#: index.docbook:69
+#: index.docbook:75
 #, no-c-format
 msgid "Startup Sequence"
 msgstr ""
 
-#: index.docbook:70
+#: index.docbook:76
 #, no-c-format
 msgid "As &bibletime; launches you may see some message screens:"
 msgstr ""
 
-#: index.docbook:72
+#: index.docbook:78
 #, no-c-format
 msgid "<interface>No Modules Installed</interface> - This is shown if you have forgotten to install sword modules, or if the sword modules can not be found."
 msgstr ""
 
-#: index.docbook:72
+#: index.docbook:78
 #, no-c-format
 msgid "<interface>First Time Startup</interface> - This is shown the first time &bibletime; is launched."
 msgstr ""
 
-#: index.docbook:72
+#: index.docbook:78
 #, no-c-format
 msgid "<interface>Daily Tips</interface> - These show on every startup, unless you turn them off."
 msgstr ""
 
-#: index.docbook:72
+#: index.docbook:78
 #, no-c-format
 msgid "Daily tips"
 msgstr ""
 
-#: index.docbook:102
+#: index.docbook:108
 #, no-c-format
 msgid "Parts of the &bibletime; Window"
 msgstr ""
 
-#: index.docbook:103
+#: index.docbook:109
 #, no-c-format
 msgid "Now the main &bibletime; window will open. It's operation is covered in the next chapter."
 msgstr ""
 
-#: index.docbook:103
+#: index.docbook:109
 #, no-c-format
 msgid "The &bibletime; Application Window"
 msgstr ""

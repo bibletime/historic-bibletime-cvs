@@ -488,7 +488,7 @@
 	<term>
 	Quit</term>
 	<listitem>
-	<para>Closes &bibletime;</para>
+	<para>Closes &bibletime;.</para>
 	</listitem>
 	</varlistentry>
 	</variablelist>
@@ -557,7 +557,7 @@
 	<varlistentry>
 	<term>Save Session</term>
 	<listitem><para>Saves the current configuration to
-	a selected Sessions</para></listitem>
+	a selected Session.</para></listitem>
 	</varlistentry>
 
 	<varlistentry>
@@ -576,7 +576,7 @@
 	<term>Configure Sessions</term>
 	<listitem><para>This brings up the <guilabel>Sessions</guilabel> tab of the
 	<guilabel>Options dialog</guilabel>.
-	Here you create and manage Sessions</para></listitem>
+	Here you create and manage Sessions.</para></listitem>
 	</varlistentry>
 
 
@@ -589,36 +589,34 @@
 
 	<varlistentry>
 	<term>Cascade</term>
-	<listitem><para>Cascades open display windows</para></listitem>
+	<listitem><para>Cascades open display windows.</para></listitem>
 	</varlistentry>
 
 	<varlistentry>
 	<term>Tile</term>
 	<listitem>
-	<para>Tiles open display windows</para>
+	<para>Tiles open display windows.</para>
 	</listitem>
 	</varlistentry>
 
 	<varlistentry>
 	<term>Auto Cascade</term>
 	<listitem>
-	<para>
-	Automatically cascades newly opened display windows
-	</para>
+	<para>Automatically cascades newly opened display windows.</para>
 	</listitem>
 	</varlistentry>
 
 	<varlistentry>
 	<term>Auto Tile</term>
 	<listitem>
-	<para>ditto for tiling newly opened display windows</para>
+	<para>ditto for tiling newly opened display windows.</para>
 	</listitem>
 	</varlistentry>
 
 	<varlistentry>
 	<term>Close all</term>
 	<listitem>
-	<para>Closes all open display windows</para>
+	<para>Closes all open display windows.</para>
 	</listitem>
 	</varlistentry>
 

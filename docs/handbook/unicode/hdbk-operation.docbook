@@ -8,7 +8,8 @@ area (MDI = Multiple Document Interface). </para>
 <title>Main Index</title>
 <para>
 This is the pane on the left side of the &bibletime; window.
-It contains the tree of installed documents (Sword Modules), as well as any bookmarks you enter.
+It contains the tree of installed documents (Sword Modules), as well as any 
+bookmarks you enter.
 </para>
 <screenshot>
 <screeninfo>Module Tree</screeninfo>
@@ -23,8 +24,10 @@ It contains the tree of installed documents (Sword Modules), as well as any book
 <section id="hdbk-op-module-tree-select">
 <title>Selecting a document to
 view</title>
-<para>To select a document, click with the left mouse button on the desired document group (Bibles, Commentaries, or
-Lexicons) to display the contents of a document group, click with the right mouse button on the icon for
+<para>To select a document, click with the <mousebutton>left</mousebutton> mouse button on the desired
+document group (Bibles, Commentaries, or
+Lexicons) to display the contents of a document group, click with the
+<mousebutton>right</mousebutton> mouse button on the icon for
 the desired group.  To open a document, click on it's icon.
 </para>
 <screenshot>
@@ -38,26 +41,29 @@ the desired group.  To open a document, click on it's icon.
 <tip><para>Drag &amp; Drop Works Here</para></tip>
 <para>
 A document can be opened from an already opened document.
-Simply click with the left mouse button on the verse number (pointer changes to hand) and drag it to the
+Simply click with the <mousebutton>left</mousebutton> mouse button on the verse number (pointer changes to hand) and drag it to the
 module list. Drop it on the name of the module you want to open, and it will
 open that module to the verse you dragged over. If you drag a verse number to an
-already open module, it will automatically jump that module to the location of the verse 
+already open module, it will automatically jump that module to the location of the verse
 that was dragged over. This works for Bibles and Commentaries only. </para>
 <para>
-There are two other functions accessible through clicking with the right mouse button on
+There are two other functions accessible through clicking with the <mousebutton>right</mousebutton> mouse button on
 the document name. "About This Module" opens a window with information about copyright and
 other pertinent things about the selected document. "Unlock This Module" opens a small
 dialog for encrypted documents. This allows those with the key to
 enter it to decrypt the document and make it human-readable.  Crosswire Bible
 Society must encrypt modules unless either the copyright holder provides permission for
 distribution as a sword module, or the text has passed into the public domain
-(copyright has expired).  <ulink url="http://www.crosswire.org/sword/modules/aboutlocked.jsp">
-See information on locked modules on the Crosswire Bible Society web site.</ulink></para>
+(copyright has expired).  
+<ulink url="http://www.crosswire.org/sword/modules/aboutlocked.jsp">
+See information on locked modules on the Crosswire Bible Society web site.</ulink>
+</para>
 </section>
 
 <section id="hdbk-op-module-tree-search">
 <title>Accessing the search dialog</title> <para>
-You can search in a module by clicking with the right mouse button on the 
+You can search in a module by clicking with the <mousebutton>right</mousebutton>
+mouse button on the
 module name in the module list and selecting "Search in module(s)". By 
 pressing shift and clicking on other module
 names you can select more than one.  Then follow the same procedure to open the
@@ -79,14 +85,14 @@ found <link linkend="hdbk-op-search">here</link>.
 <section id="hdbk-op-module-tree-bookmark">
 <title>Accessing bookmark functions</title> <para>
 <tip><para>Drag &amp; Drop Works Here</para></tip>
-Click with the right mouse button on an empty part of the module tree window and select <guimenuitem>"Create new
+Click with the <mousebutton>right</mousebutton> mouse button on an empty part of the module tree window and select <guimenuitem>"Create new
 group"</guimenuitem> to create a new bookmark folder. You can use normal drag 'n' drop
 functions to drag verse numbers from search dialog results to the bookmark folder,
 and to rearrange bookmarks between folders.  There is an import/export function
 for bookmarks also.  From the <guimenu>right-mouse-button menu</guimenu>, select "Export
 bookmarks". This will bring up a dialog box for you to save the bookmark
 collection.  They can be shared with other &bibletime; users, archived, etc.  They
-can be imported in the same way. You can also click with the right mouse button to change folder names
+can be imported in the same way. You can also click with the <mousebutton>right</mousebutton> mouse button to change folder names
 and bookmark descriptions, and delete folders and
 bookmarks. </para>
 <screenshot>
@@ -134,9 +140,9 @@ of the verse or bookmark dragged.</para></tip>
 
 <section id="hdbk-op-MDI-Window-Personal-commentary">
 <title>Editing your own commentary</title> 
-<para>If the personal commentary is opened with a right mouse button it opens
+<para>If the personal commentary is opened with a <mousebutton>right</mousebutton> mouse button it opens
 in read only mode.  If you wish to make entries to the personal commentary, 
-<mousebutton>left mouse button</mousebutton> on the <menuchoice>personal
+<mousebutton>left</mousebutton> mouse button on the <menuchoice>personal
 commentary</menuchoice> brings up the choice of the <guimenuitem>plane
 text or the HTML editors</guimenuitem>.</para>
 <tip><para>If the editor does not save an entry, please check that you
@@ -190,12 +196,12 @@ commentaries and Bible texts.</para></tip>
 <title>Searching in Documents</title>
 <para>Portions of the instructions for the use of GCC Regular Expression in
 Searching Documents is taken from the help files for the
-<trademark class="registered">Microsoft Windows</trademark> version of &sword;</para>
+<trademark class="registered">Microsoft Windows</trademark> version of &sword;.</para>
 
 <section id="hdbk-op-search-functions">
 <title>Accessing search functions</title>
 <para>
-You can search in a document by clicking with the right mouse button on the document name in the <guimenu>Main
+You can search in a document by clicking with the <mousebutton>right</mousebutton> mouse button on the document name in the <guimenu>Main
 Index</guimenu> and selecting <guimenuitem>Search in module(s)</guimenuitem>.
 By holding shift- or ctrl- and clicking on other module names you can select more than one.
 Then follow the same procedure to open the search dialog.  You will be searching
@@ -210,7 +216,7 @@ in all of these Documents. </para>
 <application>GCC Regular Expression</application>.  It allows you
 to create almost <link linkend="hdbk-op-search-dialog-text-regexp">any
 type of search you can imagine.</link></para>
-<para>To access the search feature, click with the right mouse button in the Main Index now in 
+<para>To access the search feature, click with the <mousebutton>right</mousebutton> mouse button in the Main Index now in 
 the drop down select the magnifying glass.  You can also
 customize &bibletime; to put the search icon 
 <inlinemediaobject>
@@ -412,7 +418,7 @@ the search.</para>
 <para>
 Search Result - This tells you first, by module, how many instances of the
 search string were found. In the Module Column, clicking on a document will open the list of
-references (clicking with the right mouse button allows you to copy, save, or print the list of items found).
+references (clicking with the <mousebutton>right</mousebutton> mouse button allows you to copy, save, or print the list of items found).
 Clicking on a reference (the found items list) opens that verse up in the window below.
 Drag the reference and drop it on a document in the main index to open the
 module to that verse in a new display window, or look at the verse in the bottom pane
@@ -698,8 +704,8 @@ righteous</emphasis>ness.</para></listitem>
 
 <section id="hdbk-op-output">
 <title>Exporting and Printing</title>
-<para>Bible Window, Lexicon Window, Commentary Window</para>
-<para>By clicking with the right mouse button on the index key number, 
+<para>Bible Window, Lexicon Window, Commentary Window.</para>
+<para>By clicking with the <mousebutton>right</mousebutton> mouse button on the index key number, 
 verse number or text the
 Bible Window, Lexicon Window,or Commentary Window drop down box is
 displayed (depending on which kind of window is current),
@@ -721,7 +727,7 @@ buffer using the current location of the cursor as the starting point.
 <itemizedlist>
 <listitem>
 <para>
-<guimenuitem>Reference only</guimenuitem> - The number of the current verse (such as Genesis 1:25)
+<guimenuitem>Reference only</guimenuitem> - The number of the current verse (such as Genesis 1:25).
 </para>
 </listitem>
 <listitem>
@@ -731,17 +737,17 @@ buffer using the current location of the cursor as the starting point.
 </listitem>
 <listitem>
 <para>
-<guimenuitem>Reference with Text</guimenuitem> - Both the text of the current verse, and the verse number
+<guimenuitem>Reference with Text</guimenuitem> - Both the text of the current verse, and the verse number.
 </para>
 </listitem>
 <listitem>
 <para>
-<guimenuitem>Chapter</guimenuitem> -the entire chapter
+<guimenuitem>Chapter</guimenuitem> -the entire chapter.
 </para>
 </listitem>
 <listitem>
 <para>
-<guimenuitem>Selected Text</guimenuitem> - Only the selected (highlighted) text
+<guimenuitem>Selected Text</guimenuitem> - Only the selected (highlighted) text.
 </para>
 </listitem>
 </itemizedlist>
@@ -792,17 +798,17 @@ tools on your system to format your work.
 <itemizedlist>
 <listitem>
 <para>
-<guimenuitem>Verse with reference</guimenuitem> - a file is created in &UNIX; formated ASCII text
+<guimenuitem>Verse with reference</guimenuitem> - a file is created in &UNIX; formated ASCII text.
 </para>
 </listitem>
 <listitem>
 <para>
-<guimenuitem>Chapter as plain text</guimenuitem> - a file is created in &UNIX; formated ASCII text
+<guimenuitem>Chapter as plain text</guimenuitem> - a file is created in &UNIX; formated ASCII text.
 </para>
 </listitem>
 <listitem>
 <para>
-<guimenuitem>Chapter as HTML</guimenuitem> - a file is created formated in HTML
+<guimenuitem>Chapter as HTML</guimenuitem> - a file is created formated in HTML.
 </para>
 </listitem>
 </itemizedlist>

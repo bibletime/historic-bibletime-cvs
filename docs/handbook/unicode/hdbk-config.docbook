@@ -86,11 +86,11 @@ to launch the options dialog.</para>
 			you will need to use a more appropriate font.</para>
 
 			<tip><para>If you use a small Unicode font like clearlyu (about 22kb) &bibletime; 
-			will run faster than if a large font like Bitstream Cyberbit (about 12Mb) 
+			will run faster than if a large font like Bitstream Cyberbit (about 12Mb)
 			is used.</para></tip>
 
 			<section id="hdbk-config-bt-addfont"><title>Font Installation</title>
-			<para>Installing fonts consists of three steps</para>
+			<para>Installing fonts consists of three steps.</para>
 
 			<orderedlist numeration="lowerroman">
 			<listitem>
@@ -135,7 +135,7 @@ to launch the options dialog.</para>
 			<para>The most complete listing of Unicode fonts that we are aware of is<ulink url="http://www.ccss.de/slovo/unifonts.htm">
 			Christoph Singer's  "Multilingual Unicode TrueType Fonts in the Internet"</ulink> with 24 fonts listed.</para>
 			<para>Another Unicode font list can be found at:
-			<ulink url="http://www.hclrss.demon.co.uk/unicode/fontsbyrange.html">Unicode Font List</ulink>
+			<ulink url="http://www.hclrss.demon.co.uk/unicode/fontsbyrange.html">Unicode Font List</ulink>.
 			</para>
 			</section>
 
@@ -201,7 +201,7 @@ to launch the options dialog.</para>
 
 	<section id="hdbk-config-bt-sword"><title>Sword</title>
 	<para>Many features provided by the Sword backend can now be customized in
-	&bibletime;'</para>
+	&bibletime;.</para>
 	<mediaobject>
 	<imageobject>
 	<imagedata fileref="hdbk-conf-optdialog-sword.png" format="PNG"/>

@@ -126,7 +126,7 @@ msgstr ""
 
 #: index.docbook:99
 #, no-c-format
-msgid "Bookmarks are now stored in an XML file, but the old format can still be imported. After upgrading an existing installation the old bookmarks are placed in the \"Old bookmarks\" subfolder"
+msgid "Bookmarks are now stored in an XML file, but the old format can still be imported. After upgrading an existing installation the old bookmarks are placed in the \"Old bookmarks\" subfolder."
 msgstr ""
 
 #: index.docbook:104

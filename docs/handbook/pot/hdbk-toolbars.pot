@@ -366,305 +366,310 @@ msgstr ""
 
 #: index.docbook:463
 #, no-c-format
-msgid "Later"
+msgid "Various features of bibletime are accessed by way of drop down menus from the menubar."
 msgstr ""
 
-#: index.docbook:467
+#: index.docbook:468
 #, no-c-format
 msgid "File"
 msgstr ""
 
-#: index.docbook:468
+#: index.docbook:469
 #, no-c-format
 msgid "Clear printing queue"
 msgstr ""
 
-#: index.docbook:468
+#: index.docbook:469
 #, no-c-format
 msgid "Clears all items from the &bibletime; print queue. The &bibletime; printing queue does not clear automatically."
 msgstr ""
 
-#: index.docbook:468
+#: index.docbook:469
 #, no-c-format
 msgid "Print"
 msgstr ""
 
-#: index.docbook:468
+#: index.docbook:469
 #, no-c-format
 msgid "This menu item launches the <guilabel>printdialog</guilabel> box. From here you will select print or view as for any other &kde; application."
 msgstr ""
 
-#: index.docbook:490
+#: index.docbook:469
+#, no-c-format
+msgid "Quit"
+msgstr ""
+
+#: index.docbook:469
+#, no-c-format
+msgid "Closes &bibletime;."
+msgstr ""
+
+#: index.docbook:498 index.docbook:526
 #, no-c-format
 msgid "View"
 msgstr ""
 
-#: index.docbook:491
+#: index.docbook:499
 #, no-c-format
 msgid "Show Toolbar"
 msgstr ""
 
-#: index.docbook:491
+#: index.docbook:499
 #, no-c-format
 msgid ">If <guimenuitem>show toolbar</guimenuitem> is selected, the toolbar is displayed. If <guimenuitem>show toolbar</guimenuitem> is unselected then the toolbar is hidden."
 msgstr ""
 
-#: index.docbook:491
+#: index.docbook:499
 #, no-c-format
 msgid "Show Main Index"
 msgstr ""
 
-#: index.docbook:491
+#: index.docbook:499
 #, no-c-format
 msgid "If <guimenuitem>show main index</guimenuitem> is selected, the left pane showing the available &sword; documents is displayed. If <guimenuitem>show main index</guimenuitem> is unselected then the left pane is hidden."
 msgstr ""
 
-#: index.docbook:518
+#: index.docbook:527
 #, no-c-format
-msgid "Main Index"
+msgid "Search in default Bible"
 msgstr ""
 
-#: index.docbook:519
+#: index.docbook:527
 #, no-c-format
-msgid "Search in module(s)"
+msgid "If <guimenuitem>Search in default Bible</guimenuitem> is selected, <guilabel>search dialog</guilabel> is displayed with the default Bible selected as the search parameter."
 msgstr ""
 
-#: index.docbook:519
+#: index.docbook:527
 #, no-c-format
-msgid "If <guimenuitem>Search in module(s)</guimenuitem> is selected, <guilabel>search dialog</guilabel> is displayed. Any selected documents from the left pane are preselected on the choose modules tab."
+msgid "Search in open module(s)"
 msgstr ""
 
-#: index.docbook:519
+#: index.docbook:527
 #, no-c-format
-msgid "Reset Main Index"
+msgid "If <guimenuitem>Search in open module(s)</guimenuitem> is selected, <guilabel>search dialog</guilabel> is displayed with all of the open modules selected as the search parameters."
 msgstr ""
 
-#: index.docbook:519
-#, no-c-format
-msgid "If <guimenuitem>Reset Main Index</guimenuitem> is selected, the <guilabel>Main Index</guilabel> in the left pane will be rebuilt. Any customization in the <guilabel>main index</guilabel> and bookmarks will be deleted."
-msgstr ""
-
-#: index.docbook:519
-#, no-c-format
-msgid "Remove selected item"
-msgstr ""
-
-#: index.docbook:519
-#, no-c-format
-msgid "If <guimenuitem>Remove selected item</guimenuitem> is selected, any selected items in the <guilabel>Main Index</guilabel> in the left pane will be deleted. This action can only be partly undone by the <guimenuitem>Reset Main Index</guimenuitem>. Use this feature with caution."
-msgstr ""
-
-#: index.docbook:557
+#: index.docbook:553
 #, no-c-format
 msgid "Window"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "Save Profile"
+msgid "Save Session"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "Saves the current configuration to a selected profile"
+msgid "Saves the current configuration to a selected Session."
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "Load Profile"
+msgid "Save as Session"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "Loads the contents of the named profile to the current session of &bibletime;."
+msgid "Saves the current configuration to a Session, and allows the new profile to be named."
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "Configure Profile"
+msgid "Load Session"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "This brings up the <guilabel>profiles</guilabel> tab of the <guilabel>Options dialog</guilabel>. Here you create and manage profiles"
+msgid "Loads the contents of the named Session to the current session of &bibletime;."
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
+#, no-c-format
+msgid "Configure Sessions"
+msgstr ""
+
+#: index.docbook:554
+#, no-c-format
+msgid "This brings up the <guilabel>Sessions</guilabel> tab of the <guilabel>Options dialog</guilabel>. Here you create and manage Sessions."
+msgstr ""
+
+#: index.docbook:554
 #, no-c-format
 msgid "Fullscreen Mode"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
 msgid "When <guimenuitem>Fullscreen Mode</guimenuitem> is selected, &bibletime; will expand to the full size of your monitor screen. To reverse the action select <guimenuitem>Fullscreen Mode</guimenuitem>again."
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
 msgid "Cascade"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "Cascades open display windows"
+msgid "Cascades open display windows."
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
 msgid "Tile"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "Tiles open display windows"
+msgid "Tiles open display windows."
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
 msgid "Auto Cascade"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "Automatically cascades newly opened display windows"
+msgid "Automatically cascades newly opened display windows."
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
 msgid "Auto Tile"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "ditto for tiling newly opened display windows"
+msgid "ditto for tiling newly opened display windows."
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
 msgid "Close all"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "Closes all open display windows"
+msgid "Closes all open display windows."
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
 msgid "List of open modules"
 msgstr ""
 
-#: index.docbook:558
+#: index.docbook:554
 #, no-c-format
-msgid "shows a list of all of the currently selected modules."
+msgid "shows a list of all of the currently open modules. Selecting a module in this list makes that open module the selected module in the display area."
 msgstr ""
 
-#: index.docbook:635
+#: index.docbook:636
 #, no-c-format
 msgid "Settings"
 msgstr ""
 
-#: index.docbook:636
+#: index.docbook:637
 #, no-c-format
 msgid "Configure Toolbar"
 msgstr ""
 
-#: index.docbook:636
+#: index.docbook:637
 #, no-c-format
 msgid "show the <guilabel>Configure Toolbar</guilabel> dialog."
 msgstr ""
 
-#: index.docbook:636
+#: index.docbook:637
 #, no-c-format
 msgid "Configure &bibletime;"
 msgstr ""
 
-#: index.docbook:636
+#: index.docbook:637
 #, no-c-format
 msgid "Shows the <guilabel>Options dialog</guilabel>. From this dialog the startup mode, fonts, colors, profiles, sword features, and accelerators are configurable."
 msgstr ""
 
-#: index.docbook:660
+#: index.docbook:661
 #, no-c-format
 msgid "Help"
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Handbook"
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Select <guimenuitem>Handbook</guimenuitem> to access this document from the &kde; Help Center."
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Installation"
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Select <guimenuitem>Installation</guimenuitem> to access the installation instructions for &bibletime; from the &kde; Help Center."
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Biblestudy HowTo"
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Select <guimenuitem>Biblestudy HowTo</guimenuitem> to access A good basic text with recommendations for studying the Bible."
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "What's This"
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Allows you to click on certain items for contextual help."
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Bug Report"
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Send a bug report to the program's maintainers to help development. Before sending a bug report please configure the bug report application to use your mail program. This is done by <guibutton>configure</guibutton> on the <guilabel>Submit A Bug Report</guilabel> dialog."
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Daily Tip"
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Launches the <guilabel>tip of the day</guilabel> dialog."
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "About &bibletime;"
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Opens a window with general &bibletime; information."
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "About &kde;"
 msgstr ""
 
-#: index.docbook:661
+#: index.docbook:662
 #, no-c-format
 msgid "Opens a window with general &kde; information."
 msgstr ""

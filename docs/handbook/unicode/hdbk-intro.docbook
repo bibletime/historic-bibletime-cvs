@@ -99,7 +99,7 @@ language, then by type of module.</para>
 <para>Bookmarks are now stored in an XML file, but the
 old format can still be imported.  After upgrading an existing
 installation the old bookmarks are placed in the
-"Old bookmarks" subfolder</para>
+"Old bookmarks" subfolder.</para>
 
 <para>Drag&amp;Drop works now for more than one item.</para>
 
