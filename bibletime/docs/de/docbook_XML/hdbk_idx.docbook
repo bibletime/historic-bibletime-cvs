@@ -1,20 +1,20 @@
 <book lang="DE" ID="hdbk_idx">
 
 <bookinfo>
-<title>Das BibleTime Handbuch</title>
+<title>Das BibleTime-Handbuch</title>
 
 <copyright>
 <year>1999</year>
 <year>2000</year>
 <year>2001</year>
 <holder>
-Das Team von BibleTime, info@bibletime.de
+Das BibleTime-Team, info@bibletime.de
 </holder>
 </copyright>
 
 <legalnotice>
 <para>
-Das BibleTime Handbuch ist Teil von BibleTime
+Das BibleTime-Handbuch ist Teil von BibleTime
 </para>
 <para>
 Bibletime is free software; you can redistribute it and/or
@@ -55,9 +55,11 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 <abstract>
 <title>Zusammenfassung</title>
 <para>
-<application>Bibletime</application> ist ein Werkzeug zum Bibelstudium.
-Es stellt eine einfach zu benutzende jedoch gleichzeitig mächtige Benutzerschnittstelle zur Verfügung.
-Dieses Handbuch gibt einen Überblick der Funktionen und führt in ihre Benutzung ein.
+<application>Bibletime</application> ist ein Werkzeug für das Bibelstudium.
+Es stellt eine einfach zu benutzende, gleichzeitig jedoch mächtige
+Benutzerschnittstelle zur Verfügung.
+Dieses Handbuch gibt einen Überblick der Funktionen
+und führt in ihre Benutzung ein.
 </para>
 </abstract>
 

@@ -1,13 +1,15 @@
 <chapter ID="hdbk_op"><title>Programmbedienung</title>
 <para>
-BibleTime wird hauptsächlich mit dem Modulbaum bedient (dieser wird "Hauptgruppe" genannt).
-Der zweite wichtige Platz zum arbeiten in BibleTime ist der MDI Bereich (MDI = Multiple Document Interface).
+BibleTime wird hauptsächlich mit dem Modulbaum bedient (dieser wird
+"Hauptgruppe" genannt).  Der zweite wichtige Ort zum Arbeiten in
+BibleTime ist der MDI Bereich (MDI = Multiple Document Interface).
 </para>
 
 <section ID="hdbk_op_module_tree"><title>Hauptgruppe</title>
 <para>
 Dies ist der Bereich auf der linken Seite des BibleTime Fensters.
-Er enthält den Baum der installierten Dokumente (Sword Module) und alle von Ihnen angelegten Lesezeichen.
+Er enthält den Baum der installierten Dokumente (Sword Module) und
+alle von Ihnen angelegten Lesezeichen.
 </para>
 <screenshot>
 <screeninfo>Modulbaum</screeninfo>
@@ -15,8 +17,9 @@ Er enthält den Baum der installierten Dokumente (Sword Module) und alle von Ihne
 </screenshot>
 </section>
 
-<section ID="hdbk_op_module_tree_select"><title>Ein Modul zum Anschauen auswählen</title>
-<para>Um ein Dokument auszuwählen klicken Sie einfach auf die verlangte Dokumentengruppe (Bibeln, Kommentare oder Lexika)
+<section ID="hdbk_op_module_tree_select">
+<title>Ein Modul zum Anschauen auswählen</title>
+<para>Wenn Sie Dokument auswählen wolllen, klicken Sie einfach auf die gewünschte Dokumentengruppe (Bibeln, Kommentare oder Lexika)
 um den Inhalt der Dokumentengruppe anzuzeigen. Um ein Dokument zu öffnen klicken Sie auf dessen Symbol.
 Um das Dokument noch einmal zu öffnen klicken Sie erneut auf das Symbol.
 </para>
@@ -26,28 +29,37 @@ Um das Dokument noch einmal zu öffnen klicken Sie erneut auf das Symbol.
 </screenshot>
 <tip><para>Hier funktioniert Drag&amp;Drop</para></tip>
 <para>
-Ein Dokument kann von einem bereits geöffneten Dokument geöffnet werden.
+Ein Dokument kann aus einem bereits geöffneten Dokument heraus geöffnet werden.
 Klicken Sie einfach auf eine Versnummer (Mauscursor ändert sich zu einer Hand) und ziehen Sie sie
 zu der Modulliste. Lassen Sie sie hier auf dem Namen des von Ihnen gewünschten Modules fallen und
 dieses Modul wird an der Stelle der Versnummer geöffnet.
-Wenn Sie eine Versnummer auf ein bereits geöffnetes Modul ziehen wird dieses automatisch die gewünschte Stelle
+Wenn Sie eine Versnummer auf ein bereits geöffnetes Modul ziehen, wird dieses automatisch die gewünschte Stelle
 anzeigen. Dies funktioniert nur für Bibeln und Kommentare.
 </para>
 <para>
-Es gibt zwei weitere Funktionen, die durch rechts-klick auf den Modulnamen verfügbar sind.
-"Zeige Information" öffnet ein Fenster mit Informationen über Copyright und anderen sachdienlichen Dingen über
-das gewählte Dokument.
-"Entschlüssele Modul" öffnet einen kleinen Dialog für verschlüsselte Module. Dies erlaubt denjenigen, die den Schlüssel haben,
-diesen einzugeben und das Dokument so für Menschen lesbar zu machen.
-Die Crosswire Bibelgesellschaft muss Module verschlüsseln, es sei denn der Besitzer des Copyrights
-gibt die Erlaubnis zur Verbreitung als Swordmodul oder wenn der Text in öffentlichen Besitz übergegangen ist (das Copyright ist abgelaufen).
-<ulink url="http://www.crosswire.org">Für Informationen über verschlüsselte Module sehen Sie bitte auf der Crosswire Webseite nach.</ulink>
+Es gibt zwei weitere Funktionen, die durch Rechts-Klick auf den
+Modulnamen verfügbar sind.
+"Zeige Information" öffnet ein Fenster mit Informationen über
+Copyright und anderen sachdienlichen Hinweise zum gewählten
+Dokument.
+"Entschlüssele Modul" öffnet einen kleinen Dialog für verschlüsselte
+Module. Dies erlaubt denjenigen, die den Schlüssel haben, diesen
+einzugeben und das Dokument so für Menschen lesbar zu machen.
+Die Crosswire Bibelgesellschaft muss Module verschlüsseln, es sei denn
+der Besitzer des Copyrights gibt die Erlaubnis zur Verbreitung als
+Swordmodul oder der Text ist in öffentlichen Besitz übergegangen
+(das Copyright ist abgelaufen).
+
+<ulink url="http://www.crosswire.org">Für Informationen zu den verschlüsselten Module sehen Sie bitte auf der Crosswire Webseite nach.</ulink>
 </para>
 
-<section ID="hdbk_op_module_tree_search"><title>Auf den Suchdialog zugreifen</title> <para>
-Sie können in einem Modul suchen, indem Sie mit der rechten Maustas auf den Modulnamen in der Liste der Module klicken und "Suche in Modul(en)..."
-auswählen.
-Durch gleichzeitiges drücken der SHIFT Taste und klicken auf andere Modulnamen können Sie mehr als eines auswählen.
+<section ID="hdbk_op_module_tree_search">
+<title>Auf den Suchdialog zugreifen</title> <para>
+Sie können in einem Modul suchen, indem Sie mit der rechten Maustaste
+auf den Modulnamen in der Liste der Module klicken und "Suche in
+Modul(en)..."  auswählen.
+Durch gleichzeitiges drücken der SHIFT Taste und klicken auf andere
+Modulnamen können Sie mehr als eines auswählen.
 Folgen Sie der gleichen Prozedur um diese zu durchsuchen.
 </para>
 
@@ -58,18 +70,23 @@ Folgen Sie der gleichen Prozedur um diese zu durchsuchen.
 </screenshot
 </section>
 
-
-<section ID="hdbk_op_module_tree_bookmark"><title>Auf Lesezeichen zugreifen</title> <para>
+<section ID="hdbk_op_module_tree_bookmark">
+<title>Auf Lesezeichen zugreifen</title> <para>
 <tip><para>Drag&amp;Drop funktioniert hier</para></tip>
-Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Hauptgruppe und wählen Sie
-"Erzeuge neuen Ordner" um einen neuen Ordner anzulegen. Sie können normale Drag&amp;Drop Funktionen
-benutzen, um Verse aus den Suchdialogs-Ergebnissen in den Lesezeichen Ordner zu ziehen und um Lesezeichen zwischen
-Ordnern neu auszurichten.
-Es gibt auch eine Import/Export Funktion für Lesezeichen. Wählen Sie "Exportiere Lesezeichen" im Menü der rechten Maustaste.
-Dies wird eine Dialogbox öffnen, in der Sie die Lesezeichen speichern können. Sie können mit anderen Benutzern von
-BibleTime ausgetauscht werden, archiviert wrden usw.
-Sie können in der gleichen Art und Weise importiert werden. Sie können auch rechts-klicken um
-Ordnernamen und Beschreibungen von Lesezeichen zu ändern, und um Lesezeichen und Gruppen zu entfernen.
+Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der
+Hauptgruppe und wählen Sie "Erzeuge neuen Ordner" um einen neuen
+Ordner anzulegen. Sie können normale Drag&amp;Drop Funktionen
+benutzen, um Verse aus den Suchdialogsergebnissen in den Lesezeichen
+Ordner zu ziehen und um Lesezeichen zwischen Ordnern neu auszurichten.
+Es gibt auch eine Import/Export Funktion für Lesezeichen. Wählen Sie
+"Exportiere Lesezeichen" im Menü der rechten Maustaste.  Dies wird
+eine Dialogbox öffnen, in der Sie die Lesezeichen speichern
+können. Sie können mit anderen Benutzern von BibleTime ausgetauscht werden,
+archiviert werden usw.  Sie können in der gleichen Art und
+Weise importiert werden. Sie können auch rechts-klicken um Ordnernamen
+und Beschreibungen von Lesezeichen zu ändern, und um Lesezeichen und
+Gruppen zu entfernen.
+
 </para>
 <screenshot>
 <screeninfo>Lesezeichenauswahl</screeninfo>
@@ -79,24 +96,33 @@ Ordnernamen und Beschreibungen von Lesezeichen zu ändern, und um Lesezeichen und
 </section>
 </section>
 
-<section ID="hdbk_op_MDI_Window"><title>Multiple Document Interface (MDI) Fenster</title>
+<section ID="hdbk_op_MDI_Window">
+<title>Multiple Document Interface (MDI) Fenster</title>
 <para>
-Dies ist der Bereich, in dem die geöffneten Dokumente angezeigt werden.
-Dokumente werden in "Dokumentenfenstern" angezeigt, diese sind spezifisch zu den drei Typen von
-Dokumenten. (Die Crosswire Bibelgesellschaft kann in Zukunft andere Dokumententypen veröffentlichen.
-Sobald Sie veröffentlicht werden wird BibleTime sie genauso unterstützen.)
+Dies ist der Bereich, in dem die geöffneten Dokumente angezeigt
+werden.  Dokumente werden in "Dokumentenfenstern" angezeigt, diese
+sind spezifisch zu den drei Typen von Dokumenten. (Die Crosswire
+Bibelgesellschaft kann in Zukunft andere Dokumententypen
+veröffentlichen.  Sobald Sie veröffentlicht werden, wird BibleTime sie
+genauso unterstützen.)
 </para>
 
-<section ID="hdbk_op_MDI_Window_control_modules"><title>Kontrolle geöffneter Fenster</title> <para>
-Dokumentenfenster können mit Hilfe von üblichen KDE Fenster/Titelzeilen Funktionen kontrolliert und verändert werden.
-Als Erweiterung zu diesem können Sie geöffnete Dokumentenfenster kacheln und stapeln. Benutzen Sie die entsprechenden
-Knöpfe in der Werkzeugleiste oder die Menüfunktionen im "Fenster" Untermenü der Menüleiste.</para>
+<section ID="hdbk_op_MDI_Window_control_modules">
+<title>Kontrolle geöffneter Fenster</title> <para>
+Dokumentenfenster können mit Hilfe von üblichen KDE
+Fenster/Titelzeilen Funktionen kontrolliert und verändert werden.  Als
+Erweiterung zu diesen können Sie geöffnete Dokumentenfenster kacheln
+und stapeln. Benutzen Sie die entsprechenden Knöpfe in der
+Werkzeugleiste oder die Menüfunktionen im "Fenster" Untermenü der
+Menüleiste.
+</para>
 </section>
 
-<section ID="hdbk_op_MDI_Window_module_navigation"><title>In geöffneten Fenstern navigieren</title>
+<section ID="hdbk_op_MDI_Window_module_navigation">
+<title>In geöffneten Fenstern navigieren</title>
 <para>
-Die Navigation innerhalb eines Dokumentes ist durch das Schlüssel-Kontrollmenü und durch eine
-Scrollleiste verwirklicht.
+Die Navigation innerhalb eines Dokumentes ist durch das
+Schlüssel-Kontrollmenü und durch eine Scrollleiste verwirklicht.
 </para>
 <tip><para>Um zu einer bestimmter Stelle zu springen benutzen Sie die Schlüsselkontrolle.</para></tip>
 <tip><para>Um sich in dem Bereich des Dokumentes zu bewegen benutzen Sie die Scrollleiste.</para></tip>
@@ -104,35 +130,51 @@ Scrollleiste verwirklicht.
 <tip><para>Für Kommentare ist die Indexreihenfolge <emphasis>Buch - Kapitel - Vers</emphasis></para></tip>
 <tip><para>Für Lexika ist der Index <emphasis>Schlüsselwort</emphasis></para></tip>
 <tip><para>Drag&amp;Drop funktioniert hier; Wenn Sie einen Vers eines geöffneten Fensters oder ein Lesezeichen
-ziehen und auf einem anderen Dokumentenfenster fallenlassen wird dieses von der aktuell angezeigten Stelle
+ziehen und auf einem anderen Dokumentenfenster fallen lassen, wird dieses von der aktuell angezeigten Stelle
 zur Stelle des Verses oder des Lesezeichens springen.</para></tip>
 </section>
 
-<section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Bearbeiten Sie ihren eigenen Kommentar</title> <para>
-Die Werkzeugleiste des Kommentarfensters hat einen weiteren Knopf mit dem Symbol eines
-Bleistiftes. <graphic fileref="comon/hdbk_op_pencil.png"></graphic>
-Für das "Persönliche" Kommentar Modul klicken Sie diesen Knopf, um es möglich zu machen eigene Notizen
-in den Persönlichen Kommentar einzugeben oder um bereits vorhandene zu bearbeiten.
-Wenn Sie fertig sind klicken Sie auf den "Speichern" Knopf (die Diskette) um ihre Anmerkungen zu sichern.
-Um die Notizen für einen bestimmten Vers zu löschen klicken Sie auf den Knopf mit der Mülltonne.
-Klicken Sie den "Bearbeiten" Knopf erneut, um in den Nur-Lesen Modues zurückzukehren.
+<section ID="hdbk_op_MDI_Window_Personal_commentary">
+<title>Bearbeiten Sie ihren eigenen Kommentar</title> <para>
+Die Werkzeugleiste des Kommentarfensters hat einen weiteren Knopf mit
+dem Symbol eines Bleistiftes. <graphic
+fileref="comon/hdbk_op_pencil.png"></graphic> Für das "Persönliche"
+Kommentar Modul klicken Sie diesen Knopf um es möglich zu machen
+eigene Notizen in den Persönlichen Kommentar einzugeben oder um
+bereits vorhandene zu bearbeiten.  Wenn Sie fertig sind, klicken Sie
+auf den Knopf "Speichern" (die Diskette) um ihre Anmerkungen zu
+sichern.  Um die Notizen für einen bestimmten Vers zu löschen klicken
+Sie auf den Knopf mit der Mülltonne.  Klicken Sie erneut den "Bearbeiten"
+Knopf um in den Nur-Lesen Modus zurückzukehren.
+
 </para>
-<tip><para>Der persönliche Kommentar ist ein Sword Modul. Falls Sie ihn nicht in der Hauptgruppe finden, können
-Sie ihn bei der Crosswire Bibelgesellschaft bekommen.</para></tip>
-<tip><para>Falls Sie nicht in das Persönliche Kommentarmodul schreiben können sind die Zugriffsrechte
-für den persönlichen Kommentar falsch. Setzen Sie die Zugrigffsrechte zurück, um ihrem Benutzer zu erlauben
-hinein zu schreiben.</para></tip>
+
+<tip><para>
+Der persönliche Kommentar ist ein Sword Modul. Falls Sie ihn nicht in
+der Hauptgruppe finden, können Sie ihn bei der Crosswire
+Bibelgesellschaft bekommen.
+</para></tip>
+<tip><para>
+Falls Sie nicht in das Modul Persönlicher Kommentar schreiben können,
+sind die Zugriffsrechte für den persönlichen Kommentar falsch. Setzen
+Sie die Zugrigffsrechte zurück, um ihrem Benutzer zu erlauben hinein
+zu schreiben.
+</para></tip>
+
 <tip><para>Hier funktioniert Drag&amp;Drop, wie bei anderen Kommentaren und Bibeltexten.
 </para></tip>
 </section>
 </section>
 
-<section ID="hdbk_op_search"><title>In Dokumenten suchen</title>
-<para>Teile der Einführung zum Suchen in Dokumenten wurde aus den Hilfedateien der MS Windows (R) Version von
-Sword entnommen.
+<section ID="hdbk_op_search">
+<title>In Dokumenten suchen</title>
+<para>
+Teile der Einführung zum Suchen in Dokumenten wurde aus den
+Hilfedateien der MS Windows (R) Version von Sword entnommen.
 </para>
 
-<section ID="hdbk_op_search_functions"><title>Zugriff auf Suchfunktionen</title>
+<section ID="hdbk_op_search_functions">
+<title>Zugriff auf Suchfunktionen</title>
 <para>
 Sie können in einem Dokument suchen indem Sie mit der rechten Maustaste auf den Dokumentennamen innerhalb der Hauptgruppe
 klicken und dann "Suche in Modul(en)" auswählen.
@@ -143,16 +185,16 @@ Gehen Sie genauso vor um den Suchdialog zu öffnen. Sie suchen dann in jedem dies
 <section ID="hdbk_op_search_dialog"><title>Benutzung des Suchdialoges</title>
 <section ID="hdbk_op_search_dialog_text"><title>Den "Text" Tabulator benutzen</title>
 <para>
-Suche Text - In diesem Teil geben Sie den Tzu suchenden Text ein und Sie setzen Sucheinstellungen. "Reguläre Ausdrücke"
-benutzen standardmäßigen RegExp Syntax um die Suche zu verfeindern.
+Suche Text - In diesem Teil geben Sie den zu suchenden Text ein und Sie setzen Sucheinstellungen. "Reguläre Ausdrücke"
+benutzen standardmäßigen RegExp Syntax um die Suche zu verfeinern.
 </para></section>
 
 <section ID="hdbk_op_search_dialog_text_input"><title>Benutzung des Text Eingabefeldes</title>
 <para>
 Geben Sie ein oder mehrere Wörter, einen Teil eines Wortes (Trennen Sie Wörter oder Wortteile durch Leerzeichen),
-einen Satz oder ein Muster (Regulärer Ausdruck) nachdem gesucht werden soll.
+einen Satz oder ein Muster (Regulärer Ausdruck) ein, nach dem gesucht werden soll.
 Wie der im Eingabebereich eingegebene Text interpretiert wird, hängt davon ab welcher Knopf (Mehrere Wörter, Satz oder Regulärer Ausdruck)
-ausgewählt wurde uch ob Unterscheidung für GROß/klein ausgewält wurde.
+ausgewählt wurde, auch ob Unterscheidung für GROß/klein ausgewählt wurde.
 </para>
 
 <tip><para>Hier funktioniert Drag&amp;Drop, Sie können Verse und Lesezeichen in die Text-Eingabebox ziehen. Sie können
@@ -160,11 +202,12 @@ Text in die Zwischenablage kopieren und in die Eingabezeile einfügen.
 </para></tip>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_input_case"><title>Benutzung des Knopfes für GROß/klein Unterscheidung</title>
+<section ID="hdbk_op_search_dialog_text_input_case">
+<title>Benutzung des Knopfes für GROß/klein Unterscheidung</title>
 <para>Klicken Sie auf die Auswahlbox <guibutton>GROß/klein</guibutton>
-um die Unterscheidung zwischen GROß und klein an oder abzuschalten.
+um die Unterscheidung zwischen GROß und klein an- oder abzuschalten.
 Wenn die Box ausgewählt ist, werden nur die Verse gefunden, in denen der gefundene Text den Text der Eingabezeile enthält.
-Wenn die Box nicht ausgewählt wurde, wird die Suche etwas finden wenn der Text ohne Beachtung von Groß- oder Kleinschreibung stimmt.
+Wenn die Box nicht ausgewählt wurde, wird die Suche etwas finden, wenn der Text ohne Beachtung von Groß- oder Kleinschreibung stimmt.
 Um &quot;HERR&quot; aber nicht um &quot;Herr&quot; oder
 &quot;herr&quot; zu finden wählen Sie die Box aus.
 Um &quot;HERR&quot;, &quot;Herr&quot; und &quot;herr&quot; zu finden lassen Sie die Box unausgewählt.
@@ -172,33 +215,36 @@ Um &quot;HERR&quot;, &quot;Herr&quot; und &quot;herr&quot; zu finden lassen Sie 
 </section>
 
 
-<section ID="hdbk_op_search_dialog_text_input_multi"><title>Benutzung der"Mehrere Wörter" Auswahlbox</title>
-<para>Wenn der <guibutton>Mehrere Wörter</guibutton> Knopf ausgewählt ist wird die Suche alle Zeilen (oder Verse)
+<section ID="hdbk_op_search_dialog_text_input_multi">
+<title>Benutzung der Auswahlbox "Mehrere Wörter"</title>
+<para>Wenn der Knopf <guibutton>Mehrere Wörter</guibutton> ausgewählt ist, wird die Suche alle Zeilen (oder Verse)
 finden, die alle Wörter (oder Teile), die in der Eingabezeile stehen, enthalten.
 Die Position und Reihenfolge der Wörter in der Zeile ist nicht von Bedeutung.
-Wenn alle (egal in welcher Reihenfolge) Wörter im Text vorkommen wird der Text in der Liste der gefundenen Einträge aufgelistet werden.
-Die Wörter dürfen sogar durch andere getrennt werden.
+Wenn alle (egal in welcher Reihenfolge) Wörter im Text vorkommen, wird der Text in der Liste der gefundenen Einträge aufgelistet werden.
+Die Wörter dürfen sogar durch andere getrennt sein.
 Eine Suche nach &quot;Brunnen&quot; und &quot;Knecht;&quot; wird 1. Mose 21,25 finden,
 &quot;
 Und Abraham setzte Abimelech zur Rede um des Wasser<emphasis>brunnen</emphasis>s willen, den Abimelechs <emphasis>Knecht</emphasis>e hatten mit Gewalt genommen.
 &quot;
-Dies ist deshalb so, da ein Wort, welches Teil eines anderen ist, als gefunden gilt wenn es in einem anderen Wort anthalten ist.
+Dies ist deshalb so, da ein Wort, welches Teil eines anderen ist, als gefunden gilt, wenn es in einem anderen Wort enthalten ist.
 </para>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_input_phrase"><title>Benutzung der &quot;Genaue Suche&quot; Auswahlbox</title>
-<para>Wenn <guibutton>Genaue Suche</guibutton> ausgewählt wurde wird die Suche alle Zeilen (oder Verse)
+<section ID="hdbk_op_search_dialog_text_input_phrase">
+<title>Benutzung der Auswahlbox &quot;Genaue Suche&quot;</title>
+<para>Wenn <guibutton>Genaue Suche</guibutton> ausgewählt wurde, wird die Suche alle Zeilen (oder Verse)
 finden, die genau den in der Eingabezeile eingegebenen Text unter Einbezug der Leerzeichen enthalten.
 Der gesuchte Satz muss nicht an einer Wortgrenze starten. Eine Suche nach &quot;amt begehrt&quot; wird 1. Thimotheus 3:1 finden:
 &quot;Das ist gewißlich wahr: So jemand ein Bischofs<emphasis>amt begehrt</emphasis>, der begehrt ein köstlich Werk.&quot;</para>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_input_search"><title>Benutzung des &quot;Suche Text&quot; Knopfes</title>
-<para>Klicken Sie den <guibutton>Suchen Knopf</guibutton> um die Suche zu starten.
+<section ID="hdbk_op_search_dialog_text_input_search">
+<title>Benutzung des Knopfes &quot;Suche Text&quot;</title>
+<para>Klicken Sie den Knopf <guibutton>Suchen</guibutton> um die Suche zu starten.
 </para>
 
 <screenshot>
-<screeninfo>Textsuche Dialogbox</screeninfo>
+<screeninfo>Dialogbox Textsuche</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchtext.png" format="png"></graphic>
 </screenshot>
 </section>
@@ -206,182 +252,226 @@ Der gesuchte Satz muss nicht an einer Wortgrenze starten. Eine Suche nach &quot;
 <section ID="hdbk_op_search_dialog_text_regexp">
 <title>Syntax der Suche bei Benutzung von GCC regulären Ausdrücken</title>
 
-<para>Eine Suche mit regulären Ausdrücke stellt eine Möglichkeit dar, einfache oder komplexe Suchen
-nach Zeichenketten durchzuführen, die einem Muster oder einer Menge von Mustern (Bereiche) entsprechen.
-Die einzelnen Muster einer Menge werden durch den horizontalen Strich &quot;|&quot; getrennt.
-Während es möglich ist, ein Muster zu bauen, dass nach einem Wort oder einem Satz sucht,
-sucht ein einfaches aus einem einzelnen Wort bestehendes Muster nicht nur nach diesem einen Wort,
-sondern auch nach jeder Zeichenkette die das gesuchte Wort enthält.
-Eine Suche nach &quot;gerecht&quot; wird Verse liefern, die das Wort &quot;gerecht&quot; enthalten. Es werden jedoch auch Verse zurückgeliefert,
-die &quot;<emphasis>Gerecht</emphasis>igkeit&quot;, &quot;Un<emphasis>gerecht</emphasis>igkeit&quot; oder
-&quot;<emphasis>gerecht</emphasis>er&quot; enthalten.
-Eine Suche nach &quot;hall not&quot; ist nicht eine Suche nach &quot;hall&quot; UND &quot;not&quot;, sondern nach der Zeichenkette
-&quot;hall not&quot; mit einem Leerzeichen zwischen dem zweiten &quot;l&quot; und dem &quot;n&quot;.
-Die Suche nach &quot;hall not&quot; wird Textstellen mit &quot;s<emphasis>hall not</emphasis>&quot; finden.</para>
+<para>Eine Suche mit regulären Ausdrücken stellt eine Möglichkeit dar,
+einfache oder komplexe Suchen nach Zeichenketten durchzuführen, die
+einem Muster oder einer Menge von Mustern (Bereiche) entsprechen.  Die
+einzelnen Muster einer Menge werden durch den horizontalen Strich
+&quot;|&quot; getrennt.  Während es möglich ist, ein Muster zu bauen,
+dass nach einem Wort oder einem Satz sucht, sucht ein einfaches aus
+einem einzelnen Wort bestehendes Muster nicht nur nach diesem einen
+Wort, sondern auch nach jeder Zeichenkette die das gesuchte Wort
+enthält.
+Eine Suche nach &quot;gerecht&quot; wird Verse liefern, die das Wort
+&quot;gerecht&quot; enthalten. Es werden jedoch auch Verse
+zurückgeliefert, die &quot;<emphasis>Gerecht</emphasis>igkeit&quot;,
+&quot;Un<emphasis>gerecht</emphasis>igkeit&quot; oder
+&quot;<emphasis>gerecht</emphasis>er&quot; enthalten.  Eine Suche nach
+&quot;hall not&quot; ist nicht eine Suche nach &quot;hall&quot; UND
+&quot;not&quot;, sondern nach der Zeichenkette &quot;hall not&quot;
+mit einem Leerzeichen zwischen dem zweiten &quot;l&quot; und dem
+&quot;n&quot;.  Die Suche nach &quot;hall not&quot; wird Textstellen
+mit &quot;s<emphasis>hall not</emphasis>&quot; finden.</para>
 
-<para>Die Mächtigkeit der regulären Ausdrücke liegt in den Mustern (oder Vorlagen) die benutzt werden, um die Suche zu definieren.
-Ein Muster besteht aus normalen Zeichen und einigen besonderen Zeichen, die von einer bestimmten Menge von Regeln interpretiert und benutzt werden.
-Die besonderen Zeichen enthalten .\[^*$?+. Normale (oder einfache) Zeichen, sind alle die, die keine besonderen Zeichen sind.
-Der Backslash, &quot;\&quot;, wird benutzt um die besonderen Zeichen in normale und normale in besondere Zeichen umzuwandeln.
+<para>Die Mächtigkeit der regulären Ausdrücke liegt in den Mustern
+(oder Vorlagen) die benutzt werden, um die Suche zu definieren.  Ein
+Muster besteht aus normalen Zeichen und einigen besonderen Zeichen,
+die von einer bestimmten Menge von Regeln interpretiert und benutzt
+werden.  Die besonderen Zeichen enthalten .\[^*$?+. Normale (oder
+einfache) Zeichen, sind alle die, die keine besonderen Zeichen sind.
+Der Backslash, &quot;\&quot;, wird benutzt um die besonderen Zeichen
+in normale und normale in besondere Zeichen umzuwandeln.
 </para>
 
-<para>Beispiel: Das Muster &quot;<emphasis>i. love\.</emphasis>&quot; wird Sätze finden, die mit
-&quot;h<emphasis>i</emphasis>s <emphasis>love</emphasis> oder &quot;<emphasis>i</emphasis>n <emphasis>love</emphasis>&quot; oder
-&quot;<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; finden, jeweils gefolgt von einem Punkt.
-Der erste Punkt in &quot;i. love\.&quot; ist ein Sonderzeichen, dass alle Zeichen an dieser Stelle erlaubt. Der Backslash in
-&quot;i. love\.&quot; bedeutet, dass der Punkt danach nicht als besonderes, sondern als normales Zeichen behandelt werden soll
-</para>
+<para>Beispiel: Das Muster &quot;<emphasis>i. love\.</emphasis>&quot;
+wird Sätze finden, die mit &quot;h<emphasis>i</emphasis>s
+<emphasis>love</emphasis> oder &quot;<emphasis>i</emphasis>n
+<emphasis>love</emphasis>&quot; oder &quot;<emphasis>i</emphasis>s
+<emphasis>love</emphasis>&quot; finden, jeweils gefolgt von einem
+Punkt.
+Der erste Punkt in &quot;i. love\.&quot; ist ein Sonderzeichen, dass
+alle Zeichen an dieser Stelle erlaubt. Der Backslash in
+&quot;i. love\.&quot; bedeutet, dass der Punkt danach nicht als
+besonderes, sondern als normales Zeichen behandelt werden soll </para>
 </section>
 
 
-<section ID="hdbk_op_search_dialog_text_regexp_rules"><title>Regeln für Suchabfragen mit GCC regulären Ausdrücken</title>
+<section ID="hdbk_op_search_dialog_text_regexp_rules">
+<title>Regeln für Suchabfragen mit GCC regulären Ausdrücken</title>
 <itemizedlist>
 
-<listitem><para>. Der Punkt passt auf jedes Zeichen. Siehe auch <link linkend="period">Einzelheiten</link></para></listitem>
+<listitem><para>. Der Punkt passt auf jedes Zeichen. 
+Siehe auch <link linkend="period">Einzelheiten</link></para></listitem>
 
-<listitem><para>* Der Stern findet 0 oder mehr Zeichen des vorhergehenden Sets, des vorhergehenden Zeichens oder des vorhergehenden
-besonderern Zeichens. Siehe auch <link linkend="asterisk">Einzelheiten</link></para></listitem>
+<listitem><para>* Der Stern findet 0 oder mehr Zeichen des
+vorhergehenden Sets, des vorhergehenden Zeichens oder des
+vorhergehenden besonderern Zeichens. 
+Siehe auch <link linkend="asterisk">Einzelheiten</link></para></listitem>
 
-<listitem><para>+ Das Pluszeichen findet 1 oder mehr Zeichen des vorhergehenden Sets, des vorhergehenden Zeichens oder des vorhergehenden
-besonderern Zeichens.
-Siehe auch <link linkend="plus">Einzelheiten</link>.
-</para></listitem>
+<listitem><para>+ Das Pluszeichen findet 1 oder mehr Zeichen des
+vorhergehenden Sets, des vorhergehenden Zeichens oder des
+vorhergehenden besonderern Zeichens. 
+Siehe auch <link linkend="plus">Einzelheiten</link>.  </para></listitem>
 
-<listitem><para>? Das Fragezeichen  passt auf 0 oder 1 Zeichen des vorhergehenden Sets, Zeichens oder besonderern Zeichens.
+<listitem><para>? Das Fragezeichen passt auf 0 oder 1 Zeichen des
+vorhergehenden Sets, Zeichens oder besonderern Zeichens.
 Siehe auch <link linkend="question">Einzelheiten</link></para></listitem>
 
-<listitem><para>[ ] Eckige Klammern finden ein Zeichens innerhalb der eckigen Klammern  [ ].Siehe auch <link linkend="bracket">
-Einzelheiten</link></para></listitem>
+<listitem><para>[ ] Eckige Klammern finden ein Zeichens innerhalb der
+eckigen Klammern [ ].
+Siehe auch <link linkend="bracket">Einzelheiten</link></para></listitem>
 
-<listitem><para>^ Ein Hochzeichen als erstes Zeichen innerhalb von [ ] heißt NICHT. Siehe auch <link linkend="caret">
-Einzelheiten</link></para></listitem>
-
-<listitem><para>^ Ein Hochzeichen als Beginn eines Musters verankert an den Beginn der Zeile.
+<listitem><para>^ Ein Hochzeichen als erstes Zeichen innerhalb von [ ]
+heißt NICHT.
 Siehe auch <link linkend="caret">Einzelheiten</link></para></listitem>
 
-<listitem><para>$ Ein Dollarzeichen am Beginn eines Musters verankert an das Ende einer Zeile. Siehe auch <link linkend="dollar">Einzelheiten</link></para></listitem>
+<listitem><para>^ Ein Hochzeichen als Beginn eines Musters verankert
+an den Beginn der Zeile.
+Siehe auch <link linkend="caret">Einzelheiten</link></para></listitem>
 
-<listitem><para>| Ein vertikaler Strich hat die Bedeutung des logischen ODER. Siehe auch <link linkend="bar">Einzelheiten</link></para></listitem>
+<listitem><para>$ Ein Dollarzeichen am Beginn eines Musters verankert
+an das Ende einer Zeile.
+Siehe auch <link linkend="dollar">Einzelheiten</link></para></listitem>
 
-<listitem><para>( ) Runde Klammern gruppieren Ausdrücke. <emphasis>Wird nicht unterstützt!</emphasis></para></listitem>
+<listitem><para>| Ein vertikaler Strich hat die Bedeutung des
+logischen ODER.
+Siehe auch <link linkend="bar">Einzelheiten</link></para></listitem>
 
-<listitem><para>\ Ein Backslash kann vor jedem besonderem Zeichen benutzt werden, um dieses Zeichen zu finden
+<listitem><para>( ) Runde Klammern gruppieren Ausdrücke.
+<emphasis>Wird nicht unterstützt!</emphasis></para></listitem>
+
+<listitem><para>\ Ein Backslash kann vor jedem besonderem Zeichen
+benutzt werden, um dieses Zeichen zu finden.
 Siehe auch <link linkend="backslash">Einzelheiten</link></para></listitem>
 
-<listitem><para>\ Ein Backslash kann vor jedem normalen Zeichen benutzt werden um es zu einem besonderen Zeichen zu machen
+<listitem><para>\ Ein Backslash kann vor jedem normalen Zeichen
+benutzt werden um es zu einem besonderen Zeichen zu machen.
 Siehe auch <link linkend="backslash">Einzelheiten</link></para></listitem>
 </itemizedlist>
 
 <section ID="period"><title>Der Punkt .</title>
 
-<para>Der Punkt &quot;.&quot; steht für jedes einzelne Zeichen,
-sogar für ein Leerzeichen oder für ein Zeichen, dass nicht im Alphabet vorkommt.
-<emphasis>s.t</emphasis> findet <emphasis>s</emphasis>i<emphasis>t</emphasis>,
-<emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>,
-usw., welche in folgenden Zeichenketten vorkommen können <emphasis>s</emphasis>i<emphasis>t</emphasis>ting,
-compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</emphasis>o<emphasis>t</emphasis>tish
-<emphasis>b..t</emphasis> findet <emphasis>b</emphasis>oo<emphasis>t</emphasis>,
-<emphasis>b</emphasis>oa<emphasis>t</emphasis> und <emphasis>b</emphasis>ea<emphasis>t
-foot.tool </emphasis>findet <emphasis>foot</emphasis>s<emphasis>tool </emphasis>und
-<emphasis>foot tool</emphasis></para>
-</section>
-
+<para>Der Punkt &quot;.&quot; steht für jedes einzelne Zeichen, sogar
+für ein Leerzeichen oder für ein Zeichen, dass nicht im Alphabet
+vorkommt.  <emphasis>s.t</emphasis> findet
+<emphasis>s</emphasis>i<emphasis>t</emphasis>,
+<emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis>
+s</emphasis>o<emphasis>t</emphasis>, usw., welche in folgenden
+Zeichenketten vorkommen können
+<emphasis>s</emphasis>i<emphasis>t</emphasis>ting,
+compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and
+<emphasis>s</emphasis>o<emphasis>t</emphasis>tish
+<emphasis>b..t</emphasis> findet
+<emphasis>b</emphasis>oo<emphasis>t</emphasis>,
+<emphasis>b</emphasis>oa<emphasis>t</emphasis> und
+<emphasis>b</emphasis>ea<emphasis>t foot.tool </emphasis>findet
+<emphasis>foot</emphasis>s<emphasis>tool </emphasis>und <emphasis>foot
+tool</emphasis></para> </section>
 
 <section ID="asterisk"><title>Das Sternchen *</title>
 
 <para>Das Sternchen findet null oder mehr Zeichen des vorhergehenden
-Sets, Zeichens oder besonderen Zeichens.
-Die Benutzung einer Punkt Sternchen Kombination &quot;.*&quot; nach einem häufig gefundenem Muster
-kann die Suche sehr lange dauern lassen und das Programm eingefroren wirken lassen.
-<emphasis>be*n</emphasis> findet<emphasis> beeen, been, ben</emphasis>,
-und <emphasis>bn</emphasis> was z.B. &quot;Reu<emphasis>ben</emphasis>&quot;
-und &quot;She<emphasis>bn</emphasis>a&quot; finden könnte.</para>
+Sets, Zeichens oder besonderen Zeichens.  Die Benutzung einer Punkt
+Sternchen Kombination &quot;.*&quot; nach einem häufig gefundenem
+Muster kann die Suche sehr lange dauern lassen und das Programm
+eingefroren wirken lassen. 
+<emphasis>be*n</emphasis> findet<emphasis> beeen, been,
+ben</emphasis>, und <emphasis>bn</emphasis> was
+z.B. &quot;Reu<emphasis>ben</emphasis>&quot; und
+&quot;She<emphasis>bn</emphasis>a&quot; finden könnte.</para>
 </section>
 
-
-<section ID="plus"><title>Das Pluszeichen +</title>
-<para>Das Pluszeichen findet ein oder mehr Zeichen des vorhergehenden Sets, Zeichens oder
-besonderen Zeichens.
-Die Benutzung einer Pluszeichen Sternchen Kombination &quot;+*&quot; nach einem häufig gefundenem Muster
-kann die Suche sehr lange dauern lassen und das Programm eingefroren wirken lassen.
-&quot;<emphasis>be+n</emphasis>&quot; findet &quot;<emphasis>beeen, been</emphasis>&quot; und &quot;<emphasis>ben</emphasis>&quot;,
-jedoch nicht &quot;<emphasis>bn</emphasis>&quot;.</para>
-</section>
+<section ID="plus"><title>Das Pluszeichen +</title> 
+<para>Das Pluszeichen findet ein oder mehr Zeichen des vorhergehenden
+Sets, Zeichens oder besonderen Zeichens.  Die Benutzung einer
+Pluszeichen Sternchen Kombination &quot;+*&quot; nach einem häufig
+gefundenem Muster kann die Suche sehr lange dauern lassen und das
+Programm eingefroren wirken lassen.
+&quot;<emphasis>be+n</emphasis>&quot; findet &quot;<emphasis>beeen,
+been</emphasis>&quot; und &quot;<emphasis>ben</emphasis>&quot;, jedoch
+nicht &quot;<emphasis>bn</emphasis>&quot;.</para> </section>
 
 
 <section ID="question"><title>Das Fragezeichen ?</title>
-<para>Das Fragezeichen findet 0 oder mehr Zeichen des vorhergehenden Sets, Zeichens oder besonderen
-Zeichens.
-<emphasis>be?n</emphasis> findet <emphasis>ben</emphasis> und <emphasis>bn</emphasis>
-jedoch nicht <emphasis>been</emphasis>.
-<emphasis>trees?</emphasis> findet <emphasis>trees</emphasis> oder <emphasis>tree</emphasis>.</para>
+<para>Das Fragezeichen findet 0 oder mehr Zeichen des vorhergehenden
+Sets, Zeichens oder besonderen Zeichens.  <emphasis>be?n</emphasis>
+findet <emphasis>ben</emphasis> und <emphasis>bn</emphasis> jedoch
+nicht <emphasis>been</emphasis>.  <emphasis>trees?</emphasis> findet
+<emphasis>trees</emphasis> oder <emphasis>tree</emphasis>.</para>
 </section>
 
 
 <section ID="bracket"><title>Die eckigen Klammern [ ]</title>
-<para>Die eckigen Klammern schließen eine Menge von Zeichen ein, die Treffer
-erzielen können.
-Die Zeichen Punkt, Sternchen, Pluszeichen und Fragezeichen werden
-innerhalb der Klammern nicht als besondere Zeichen behandelt.
-Ein Minuszeichen kann benutzt werden, um einen Bereich anzugeben.
-Falls Sie möchten, dass ein Hochzeichen &quot;^&quot; Teil des Bereiches wird plazieren Sie es
-nicht direkt hinter die linke Klammer, oder es wird als besonderes Zeichen behandelt.
-Um den vertikalen Strich &quot;|&quot; in die Menge aufzunehmen, machen Sie ihn zum ersten Zeichen nach
-der linken eckigen Klammer (oder zweites nach dem besonderen Zeichen &quot;^&quot;).
-Um ein Minuszeichen in die Menge aufzunehmen machen Sie es zum ersten Zeichen nach der linken Klammer
-(oder zweites nach dem besonderen Zeichen &quot;^&quot;) oder auch zum letzten Zeichen der Menge.
-<emphasis>s[eia]t</emphasis> findet <emphasis>set</emphasis>, <emphasis>sit</emphasis>,
-und <emphasis>sat</emphasis>, jedoch nicht <emphasis>s</emphasis>o<emphasis>t</emphasis>.
-<emphasis>s[eia]+t </emphasis>findet so wie oben und<emphasis>seat,
-seet, siet</emphasis>, usw.
-<emphasis>[a-d]</emphasis> findet <emphasis>a, b, c,</emphasis> oder <emphasis>d</emphasis>.
-<emphasis>[A-Z]</emphasis> findet jeden Großbuchstaben.
-[.;:?!] findet ., ;, :, ?, oder ! jedoch kein Komma.
-[ ]^-] findet ] oder ^ oder -</para>
-</section>
+<para>Die eckigen Klammern schließen eine Menge von Zeichen ein, die
+Treffer erzielen können.  Die Zeichen Punkt, Sternchen, Pluszeichen
+und Fragezeichen werden innerhalb der Klammern nicht als besondere
+Zeichen behandelt.  Ein Minuszeichen kann benutzt werden, um einen
+Bereich anzugeben.  Falls Sie möchten, dass ein Hochzeichen
+&quot;^&quot; Teil des Bereiches wird plazieren Sie es nicht direkt
+hinter die linke Klammer, oder es wird als besonderes Zeichen
+behandelt.  Um den vertikalen Strich &quot;|&quot; in die Menge
+aufzunehmen, machen Sie ihn zum ersten Zeichen nach der linken eckigen
+Klammer (oder zweites nach dem besonderen Zeichen &quot;^&quot;).  Um
+ein Minuszeichen in die Menge aufzunehmen machen Sie es zum ersten
+Zeichen nach der linken Klammer (oder zweites nach dem besonderen
+Zeichen &quot;^&quot;) oder auch zum letzten Zeichen der Menge.
+<emphasis>s[eia]t</emphasis> findet <emphasis>set</emphasis>,
+<emphasis>sit</emphasis>, und <emphasis>sat</emphasis>, jedoch nicht
+<emphasis>s</emphasis>o<emphasis>t</emphasis>.  <emphasis>s[eia]+t
+</emphasis>findet so wie oben und<emphasis>seat, seet,
+siet</emphasis>, usw.  <emphasis>[a-d]</emphasis> findet <emphasis>a,
+b, c,</emphasis> oder <emphasis>d</emphasis>.
+<emphasis>[A-Z]</emphasis> findet jeden Großbuchstaben.  [.;:?!]
+findet ., ;, :, ?, oder ! jedoch kein Komma.  [ ]^-] findet ] oder ^
+oder -</para> </section>
 
 
-<section ID="caret"><title>Das Hochzeichen zu Beginn in den eckigen Klammern [^xxx</title>
-<para>Wenn das Hochzeichen das erste Zeichen nach der linken Klammer ist, hat es die Bedeutung von NICHT.
-<emphasis>s[^io]t</emphasis> findet <emphasis>set, sat</emphasis>, usw.,
-jedoch nicht <emphasis>s</emphasis>i<emphasis>t</emphasis> und <emphasis>s</emphasis>o<emphasis>t</emphasis>.</para>
-</section>
+<section ID="caret">
+<title>Das Hochzeichen zu Beginn in den eckigen Klammern [^xxx</title>
+<para>Wenn das Hochzeichen das erste Zeichen nach der linken Klammer
+ist, hat es die Bedeutung von NICHT.  <emphasis>s[^io]t</emphasis>
+findet <emphasis>set, sat</emphasis>, usw., jedoch nicht
+<emphasis>s</emphasis>i<emphasis>t</emphasis> und
+<emphasis>s</emphasis>o<emphasis>t</emphasis>.</para> </section>
 
-<section ID="caret_s"><title>Das Hochzeichen als Zeilenbeginn Anker ^xxx</title>
+<section ID="caret_s">
+<title>Das Hochzeichen als Zeilenbeginn Anker ^xxx</title>
+
 <para>Wenn das Hochzeichen das erste Zeichen in einem Muster ist,
-verankert es diese an den Beginn der Zeile.
-Jeder Treffer muss am Beginn der Zeile liegen.
-Wegen ungefilterten Formatierungszeichen in einigen texten funktioniert diese Funktion nicht immer.
-Sie könnte es jedoch, wenn einige Punkte nach dem Hochzeichen gesetzt werden,
-um die Formatierungszeichen zu umgehen.
-<emphasis>^Am Anfang</emphasis> findet Zeilen, die mit
-&quot;<emphasis>Amfang</emphasis>&quot;. beginnen
-(Vielleicht müssen Sie &quot;<emphasis>^.....In the beginning</emphasis>&quot; benutzen).</para>
-</section>
+verankert es diese an den Beginn der Zeile.  Jeder Treffer muss am
+Beginn der Zeile liegen.  Wegen ungefilterten Formatierungszeichen in
+einigen Texten funktioniert diese Funktion nicht immer.  Sie könnte es
+jedoch, wenn einige Punkte nach dem Hochzeichen gesetzt werden, um die
+Formatierungszeichen zu umgehen.  <emphasis>^Am Anfang</emphasis>
+findet Zeilen, die mit
+&quot;<emphasis>Amfang</emphasis>&quot;. beginnen (Vielleicht müssen
+Sie &quot;<emphasis>^.....Am Anfang</emphasis>&quot;
+benutzen).</para> </section>
 
 
-<section ID="dollar"><title>Das Dollarzeichen als Zeilenende Anker xxx$</title>
-<para>Wenn das Dollarzeichen das letzte des Musters ist, verankert es das Muster an das Ende der Zeile.
-Jeder Treffer muss am Ende der Zeile stattfinden.
-Wegen ungefilterten Formatierungszeichen in einigen texten funktioniert diese Funktion nicht immer.
-Sie könnte es jedoch, wenn einige Punkte vor das Dollarzeichen gesetzt werden,
-um die Formatierungszeichen zu umgehen.
-<emphasis>Amen\.$</emphasis> findet Zeilen, die mit
-&quot;<emphasis>Amen.</emphasis>&quot; enden (Vielleicht
-müsen Sie &quot;Amen\....&quot;, &quot;Amen\..........$&quot;, oder sogar
-&quot;Amen\....................$&quot; benutzen)</para>
-</section>
+<section ID="dollar">
+<title>Das Dollarzeichen als Zeilenende Anker xxx$</title>
+<para>Wenn das Dollarzeichen das letzte des Musters ist, verankert es
+das Muster an das Ende der Zeile.  Jeder Treffer muss am Ende der
+Zeile stattfinden.  Wegen ungefilterten Formatierungszeichen in
+einigen Texten funktioniert diese Funktion nicht immer.  Sie könnte es
+jedoch, wenn einige Punkte vor das Dollarzeichen gesetzt werden, um
+die Formatierungszeichen zu umgehen.  <emphasis>Amen\.$</emphasis>
+findet Zeilen, die mit &quot;<emphasis>Amen.</emphasis>&quot; enden
+(Vielleicht müssen Sie &quot;Amen\....&quot;,
+&quot;Amen\..........$&quot;, oder sogar
+&quot;Amen\....................$&quot; benutzen)</para> </section>
 
 
 <section ID="bar"><title>Der senkrechte Strich |</title>
-<para>Der senkrechte Strich zwischen verschiedenen Mustern hat die Bedeutung des logischen ODER.
-<emphasis>John|Peter</emphasis> findet <emphasis>John</emphasis> oder <emphasis>Peter</emphasis>.
-&quot;<emphasis>John .*Peter|Peter .*John</emphasis>&quot; findet <emphasis>John</emphasis>
-... <emphasis>Peter</emphasis> oder <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>.
-(.* verlangsamt die Suche)
-<emphasis>pain|suffering|sorrow</emphasis> findet <emphasis>pain</emphasis>,
-oder <emphasis>suffering</emphasis>, oder <emphasis>sorrow</emphasis>.</para>
-</section>
+<para>Der senkrechte Strich zwischen verschiedenen Mustern hat die
+Bedeutung des logischen ODER.  <emphasis>John|Peter</emphasis> findet
+<emphasis>John</emphasis> oder <emphasis>Peter</emphasis>.
+&quot;<emphasis>John .*Peter|Peter .*John</emphasis>&quot; findet
+<emphasis>John</emphasis> ... <emphasis>Peter</emphasis> oder
+<emphasis>Peter</emphasis> ... <emphasis>John</emphasis>.  (.*
+verlangsamt die Suche) <emphasis>pain|suffering|sorrow</emphasis>
+findet <emphasis>pain</emphasis>, oder <emphasis>suffering</emphasis>,
+oder <emphasis>sorrow</emphasis>.</para> </section>
 
 
 <section ID="parenth"><title>Die runden Klammern ( )</title>
@@ -397,20 +487,27 @@ behandelt werden soll, sondern dass es das Zeichen selbst sein soll.
 und es wird nicht &quot;firm<emphasis>amen</emphasis>t&quot;.</para>
 </section>
 
-<section ID="backslash_o"><title>Der Backslash vor einem normalen Zeichen \s</title>
-<para>Der Backslash vor einem normalen Zeichen bedeutet, dass dieses statt der normalen Bedeutung
-eine besondere haben soll.
-</para>
+<section ID="backslash_o">
+<title>Der Backslash vor einem normalen Zeichen \s</title>
+<para>Der Backslash vor einem normalen Zeichen bedeutet, dass dieses
+statt der normalen Bedeutung eine besondere haben soll.  </para>
 
 <itemizedlist>
 <listitem><para>
-\b ausßerhalb von [ ] benutzt, bedeutet es Wortgrenze. Innerhalb von [ ] hat die es die Bedeutung des Backspace.
-<emphasis>\brighteous\b</emphasis> findet <emphasis>righteous</emphasis>, aber nicht
- un<emphasis>righteous</emphasis> oder <emphasis>righteous</emphasis>ness</para></listitem>
-<listitem><para>\B steht für keine Wortgrenze. <emphasis>\Brighteous\B</emphasis>
-findet un<emphasis>righteous</emphasis>ness und un<emphasis>righteous</emphasis>ly,
-jedoch nicht <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> oder <emphasis>
-righteous</emphasis>ness.</para></listitem>
+\b ausßerhalb von [ ] benutzt, bedeutet es Wortgrenze.
+Innerhalb von [ ] hat die es die Bedeutung des Backspace.
+<emphasis>\brighteous\b</emphasis> findet
+<emphasis>righteous</emphasis>, aber nicht
+un<emphasis>righteous</emphasis> oder
+<emphasis>righteous</emphasis>ness</para></listitem>
+
+<listitem><para>\B steht für keine Wortgrenze.
+<emphasis>\Brighteous\B</emphasis> findet
+un<emphasis>righteous</emphasis>ness und
+un<emphasis>righteous</emphasis>ly, jedoch nicht
+<emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> oder
+<emphasis> righteous</emphasis>ness.</para></listitem>
+
 <listitem><para>\d steht für Zahlen; das Gleiche wie [0-9].</para></listitem>
 <listitem><para>\D steht für nicht-Zahlen; das Gleiche wie [^0-9].</para></listitem>
 <listitem><para>\s bedeutet Leerzeichen. </para></listitem>
@@ -423,10 +520,12 @@ righteous</emphasis>ness.</para></listitem>
 </section>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_scope"><title>Benutzung des Suchbereich Tabulators</title>
+<section ID="hdbk_op_search_dialog_text_scope">
+<title>Benutzung des Suchbereich Tabulators</title>
 <para>Definieren Sie hier den Suchbereich</para>
 
-<section ID="hd_op_sch_dia_txt_scope_options"><title>Suchbereichs Optionen</title>
+<section ID="hd_op_sch_dia_txt_scope_options">
+<title>Suchbereichs Optionen</title>
 <itemizedlist>
 <listitem><para><guibutton>Kein Suchbereich</guibutton> Dies schaltet den Suchbereichsdialog ab.
 Das gesamte Dokument wird durchsucht.</para></listitem>
@@ -437,30 +536,37 @@ Bereichs durchgeführt, der in dem Verwaltungsdialog für Suchbereiche angegeben w
 </para></listitem>
 </itemizedlist>
 
-<para>Wenn <guibutton>Kein Suchbereich</guibutton> ausgewählt wurde und das KJV Modul durchsucht wird,
-wird der Name Jesus 939 mal gefunden werden.
-Wenn dann
-<guibutton>Letztes Suchergebnis</guibutton> ausgewählt wird und nach dem Titel Christ gesucht wird, bleiben257 von den
-939 Treffern übrig.
-Wenn <guibutton>Letztes Suchergebnis</guibutton> ausgewählt bleibt und eine weitere Suche nach dem Titel Lord
-durchgeführt wird, bleiben 106 von den 257 Treffern übrig. Alle der verbleibenden 106 Treffern enthalten den Namen Jesus und die
-Titel Christ und Lord.
-</para>
-</section>
-<section ID="hd_op_sch_dia_txt_scope_maintain"><title>Verwaltung eigener Suchbereiche</title><para>Verwalten Sie eigene Suchbereiche -
-Für jedes für die Suche ausgewählte Dokument können Sie obere und untere Grenzen eingeben und löschen.
-Klicken Sie dann auf <guibutton>Hinzufügen</guibutton> und eine Box für den Bereichsnamen wird geöffnet. Nach dem Eingeben
-des Namens, wird ihr Suchbereich zu den eigenen Bereichen hinzugefügt werden.
-</para>
+<para>Wenn <guibutton>Kein Suchbereich</guibutton> ausgewählt wurde
+und das KJV Modul durchsucht wird, wird der Name Jesus 939 mal
+gefunden werden.  Wenn dann <guibutton>Letztes
+Suchergebnis</guibutton> ausgewählt wird und nach dem Titel Christ
+gesucht wird, bleiben 257 von den 939 Treffern übrig.  Wenn
+<guibutton>Letztes Suchergebnis</guibutton> ausgewählt bleibt und eine
+weitere Suche nach dem Titel Lord durchgeführt wird, bleiben 106 von
+den 257 Treffern übrig. Alle der verbleibenden 106 Treffern enthalten
+den Namen Jesus und die Titel Christ und Lord.  </para> </section>
 
-<para>Der Bereich einer Suche kann entweder auf <emphasis>Gesamtes Modul</emphasis>
-oder auf <emphasis>Letztes Suchergebnis</emphasis> gesetzt werden.
-Wenn <emphasis>Gesamtes Modul</emphasis> ausgewählt wurde und eine Suche im KJV Modul nach dem Namen Jesus durchgeführt wird,
-werden 939 Treffer angezeigt. Wenn dasn <emphasis>Letztes Suchergebnis</emphasis> ausgewählt wurde
-und eine weitere Suche nach dem Titel Christ durchgeführt wird, verbleiben 257 der dersten 939 Treffer.
-Wenn <emphasis>Letztes Suchergebnis</emphasis> ausgewähl bleibt und eine weitere Suche nach dem Titel Lord
-durchgeführt wird, verbleibemn 106 Treffer, die alle den Namen Jesus und die beiden Titel Christ und Lord enthalten.
-</para>
+<section ID="hd_op_sch_dia_txt_scope_maintain"
+><title>Verwaltung eigener Suchbereiche</title>
+<para>
+Verwalten Sie eigene Suchbereiche - Zu jedem für die Suche
+ausgewählte Dokument können Sie obere und untere Grenzen eingeben und
+löschen.  Klicken Sie dann auf <guibutton>Hinzufügen</guibutton> und
+eine Box für den Bereichsnamen wird geöffnet. Nach dem Eingeben des
+Namens, wird ihr Suchbereich zu den eigenen Bereichen hinzugefügt
+werden.  </para>
+
+<para>Der Bereich einer Suche kann entweder auf <emphasis>Gesamtes
+Modul</emphasis> oder auf <emphasis>Letztes Suchergebnis</emphasis>
+gesetzt werden.  Wenn <emphasis>Gesamtes Modul</emphasis> ausgewählt
+wurde und eine Suche im KJV Modul nach dem Namen Jesus durchgeführt
+wird, werden 939 Treffer angezeigt. Wenn dann <emphasis>Letztes
+Suchergebnis</emphasis> ausgewählt wurde und eine weitere Suche nach
+dem Titel Christ durchgeführt wird, verbleiben 257 der ersten 939
+Treffer.  Wenn <emphasis>Letztes Suchergebnis</emphasis> ausgewählt
+bleibt und eine weitere Suche nach dem Titel Lord durchgeführt wird,
+verbleibemn 106 Treffer, die alle den Namen Jesus und die beiden Titel
+Christ und Lord enthalten.</para>
 
 <tip><para>Hier funktioniert Drag&amp;Drop; Sie können Versnummern und Lesezeichen in das Suchbereichs Feld ziehen.
 Sie könne auch Text in das Eintragsfeld einfügen.</para></tip>
@@ -471,9 +577,10 @@ Sie könne auch Text in das Eintragsfeld einfügen.</para></tip>
 </screenshot>
 </section></section>
 
-<section ID="hdbk_op_search_dialog_text_result"><title>Benutzung des Suchergebnis Tabulators</title>
+<section ID="hdbk_op_search_dialog_text_result">
+<title>Benutzung des Suchergebnis Tabulators</title>
 <para>
-Suchergebnis - Dies zeigt ihnen - nach Modulen geordnet - wie viele Treffer des gesuchten Textes
+Suchergebnis - Dies zeigt Ihnen - nach Modulen geordnet - wie viele Treffer des gesuchten Textes
 gefunden wurden. Klicken auf das Dokument wird die Liste der Referenzen öffnen.
 Das Klicken auf eine Referenz öffnet diese im Fenster darunter.
 Ziehen Sie die Referenz und lassen Sie diese auf einem Dokument in der Hauptgruppe fallen, um dieses Modul
@@ -492,11 +599,12 @@ um das Anzeigefenster an diese Stelle springen zu lassen.
 </screenshot>
 </section>
 
-<section ID="hdbk_op_search_dialog_text_analysis"><title>Benutzung des Suchanalyse Teils</title>
+<section ID="hdbk_op_search_dialog_text_analysis">
+<title>Benutzung des Suchanalyse Teils</title>
 <para>
-Suchanalyse - Dies zeigt eine grafische Analyse der Anzahl der Treffer in jedem Buch.
-Sie kann das Ergebnis aller Dokumente anzeigen. Sie können den Graphen auch als Bild auf Festplatte abspeichern.
-</para>
+Suchanalyse - Dies zeigt eine grafische Analyse der Anzahl der Treffer
+in jedem Buch.  Sie kann das Ergebnis aller Dokumente anzeigen. Sie
+können den Graphen auch als Bild auf Festplatte abspeichern.  </para>
 <screenshot>
 <screeninfo>Suchanalyse Dialogbox</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchanal.png" format="png"></graphic>
@@ -508,10 +616,11 @@ Sie kann das Ergebnis aller Dokumente anzeigen. Sie können den Graphen auch als 
 <section ID="hdbk_op_export"><title>Exportieren</title>
 <para>
 Wie man Text als HTML bzw. Text exportieren oder in die Zwischenablage kopiert.
-Machen Sie einen <mousebutton>Mausklick mit der rechten Taste</mousebutton> in einem
-Dokument aus und ein Menü erscheint. Wählen Sie die gewünschte Aktion aus.
-Eine Box zum Abspeichern wird erscheinen, in der sie den gewünschten Dateinamen eingeben können.
-</para>
+Machen Sie einen <mousebutton>Mausklick mit der rechten
+Taste</mousebutton> in einem Dokument und ein Menü
+erscheint. Wählen Sie die gewünschte Aktion aus.  Eine Box zum
+Abspeichern wird erscheinen, in der sie den gewünschten Dateinamen
+eingeben können.</para>
 
 <para>
 Informationen zum Kontextmenü werden hier später hinzugefügt.
@@ -519,12 +628,14 @@ Informationen zum Kontextmenü werden hier später hinzugefügt.
 </section>
 
 <section ID="hdbk_op_print"><title>Drucken</title>
-<para>Das Drucksystem wurde verändert. Dieser Abschnitt befindet sich in der Überarbeitung.</para>
-<para>Drucken innerhalb von BibleTime ist ziemlich rudimentär und ist als Hilfe gedacht.
-Wenn Sie ein Dokument oder eine Präsentation mit Hilfe von Texten in BibleTime zusammenstellen,
-so empfehlen wir ihnen eines der Werkzeuge ihres Systems dafür zu verwenden.
-Lesen Sie auch die Informationen über das Exportieren.
-</para>
+<para>Das Drucksystem wurde verändert. Dieser Abschnitt befindet sich
+in der Überarbeitung.</para>
+<para>Drucken innerhalb von BibleTime ist ziemlich rudimentär und ist
+als Hilfe gedacht.  Wenn Sie ein Dokument oder eine Präsentation mit
+Hilfe von Texten in BibleTime zusammenstellen, so empfehlen wir ihnen
+eines der Werkzeuge Ihres Systems dafür zu verwenden.  Lesen Sie auch
+die Informationen über das Exportieren.  </para>
+
 <para>
 Um zu drucken, wählen Sie ein geöffnetes Dokument aus und wählen anschließend <guiicon>Drucken</guiicon> aus.
 Der Druckerdialog erscheint. Sie haben die Wahl zwischen dem Drucken auf den Drucker oder der Vorschau mit einem Programm wie
@@ -538,4 +649,3 @@ Kontextmenü Informationen kommen später.
 </section>
 </section>
 </chapter>
-

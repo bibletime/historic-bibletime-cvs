@@ -4,19 +4,22 @@
 <section ID="hdbk_bars_toolbar"><title>Werkzeugleiste</title>
 <section ID="hdbk_bars_toolbar_config"><title>Konfiguration</title>
 <para>
-Die Werkzeugleiste des Hauptfensters ist konfigurierbar. Greifen Sie darauf durch den
-Eintrag <quote>Konfiguriere Werkzeugleiste...</quote> im <quote>Einstellungen</quote> Menü zu.
+Die Werkzeugleiste des Hauptfensters ist konfigurierbar. Greifen Sie
+darauf durch den Eintrag <quote>Konfiguriere Werkzeugleiste...</quote>
+im <quote>Einstellungen</quote> Menü zu.
 </para>
 <screenshot><screeninfo>Werkzeugleisten Konfigurationsdialog</screeninfo>
 <graphic fileref="common/hdbk_bars_toolbar_Configtoolbar.png" format="png">
 Werkzeugleisten Konfigrationsdialog</graphic>
 </screenshot>
-<para> Jeder der Knöpfe hat einen Tooltip um Auskunft darüber zu geben was dessen Funktion ist.
-Knöpfe ohne Bildchen sollten entweder leer oder als unausgefüllt Leiste erscheinen.
-</para>
-</section>
-<section ID="hdbk_bars_toolbar_action"><title>Aktionen der Knöpfe</title>
 
+<para> Jeder der Knöpfe hat einen Tooltip, der Auskunft darüber gibt,
+was dessen Funktion ist.
+Knöpfe ohne Bildchen sollten entweder leer oder als unausgefüllt
+Leiste erscheinen.</para>
+</section>
+
+<section ID="hdbk_bars_toolbar_action"><title>Aktionen der Knöpfe</title>
 <para>
 <inlinemediaobject>
 <imageobject>
@@ -50,7 +53,7 @@ Druckt die Einträge in der Druckschlange.
 <phrase>Symbol</phrase>
 </textobject>
 </inlinemediaobject>
-Zeige / Verstecke Strongs Nummern.
+Zeige / Verstecke Strong-Nummern.
 </para>
 
 <para>
@@ -195,7 +198,7 @@ Schließe alle Anzeigefenster.
 <term>Automatisch stapeln</term>
 <listitem>
 <para>
-Staple automatisch neu geöffnete Anzeigefenster
+Staple neu geöffnete Anzeigefenster automatisch
 </para>
 </listitem>
 </varlistentry>
@@ -203,7 +206,7 @@ Staple automatisch neu geöffnete Anzeigefenster
 <varlistentry>
 <term>Automatisch kacheln</term>
 <listitem>
-<para>Kachle automatisch neu geöffnete Anzeigefenster</para>
+<para>Kachle neu geöffnete Anzeigefenster automatisch</para>
 </listitem>
 </varlistentry>
 
@@ -232,14 +235,15 @@ Staple automatisch neu geöffnete Anzeigefenster
 <varlistentry>
 <term>Zeige Werkzeugleiste</term>
 <listitem>
-<para>Zeige oder verstecke die Hauptwerkzeugleiste, normalerweise wird sie angezeigt.</para>
+<para>Zeige oder verstecke die Hauptwerkzeugleiste, 
+normalerweise wird sie angezeigt.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
 <term>Konfiguriere Werkzeugleiste</term>
 <listitem>
-<para>Zeigt den <quote>Konfiguriere Werkzeugleiste...</quote> Dialog an.</para>
+<para>Zeigt den Dialog <quote>Konfiguriere Werkzeugleiste...</quote> an.</para>
 </listitem>
 </varlistentry>
 
@@ -251,10 +255,11 @@ Staple automatisch neu geöffnete Anzeigefenster
 </varlistentry>
 
 <varlistentry>
-<term>Zeige Strongs Nummern</term>
+<term>Zeige Strong-Nummern</term>
 <listitem>
 <para>
-Zeige Strongs Nummern in den texten an (nur bestimmte Module benutzen diese Funktion).
+Zeige Strong-Nummern in den Texten an
+(nur bestimmte Module benutzen diese Funktion).
 </para> </listitem>
 </varlistentry>
 
@@ -262,7 +267,7 @@ Zeige Strongs Nummern in den texten an (nur bestimmte Module benutzen diese Funk
 <term>Zeige Fußnoten</term>
 <listitem>
 <para>
-Zeige Fußnoten in den texten an (nur bestimme Module benutzen diese Funktion)
+Zeige Fußnoten in den Texten an (nur bestimme Module benutzen diese Funktion)
 </para>
 </listitem>
 </varlistentry>
@@ -272,8 +277,8 @@ Zeige Fußnoten in den texten an (nur bestimme Module benutzen diese Funktion)
 <listitem>
 <para>
 Zeigt oder versteckt die Hauptgruppe. Normalerweise ist sie nicht versteckt, es sei denn
-Sie möchten den größt möglichen Platz zum Anzeigen der Module.
-BTW, durch Verkleinern der Hauptgruppe kann man dass Gleiche erreichen, jedoch zu einem
+Sie möchten den größtmöglichen Platz zum Anzeigen der Module.
+Übrigens: durch Verkleinern der Hauptgruppe kann man dass Gleiche erreichen, jedoch in einem
 geringeren Ausmaß.
 </para>
 </listitem> </varlistentry>
@@ -290,7 +295,7 @@ geringeren Ausmaß.
 <varlistentry>
 <term>Inhalt</term>
 <listitem><para>
-Öffnet den Hilfebrowser von KDE, der BibleTimes Handbuch anzeigt.
+Öffnet den Hilfebrowser von KDE, der das BibleTime Handbuch anzeigt.
 </para></listitem>
 </varlistentry>
 
@@ -307,7 +312,8 @@ Erlaubt ihnen auf bestimmte Einträge zwecks einer Kontextinformation zu klicken.
 <term>Fehlerbericht</term>
 <listitem>
 <para>
-Schickt einen Fehlerbericht zu den Entwicklern von BibleTime um mit der Entwicklung zu helfen.
+Schickt den Entwicklern von BibleTime einen Fehlerbericht
+um bei der Entwicklung zu helfen.
 </para>
 </listitem>
 </varlistentry>
@@ -316,7 +322,7 @@ Schickt einen Fehlerbericht zu den Entwicklern von BibleTime um mit der Entwickl
 <term>Über BibleTime</term>
 <listitem>
 <para>
-Öffnet ein Fenster mit allgemeinen Informationen über BibleTime
+Öffnet ein Fenster mit allgemeinen Informationen zu BibleTime
 </para>
 </listitem>
 </varlistentry>
@@ -325,7 +331,7 @@ Schickt einen Fehlerbericht zu den Entwicklern von BibleTime um mit der Entwickl
 <term>Über KDE</term>
 <listitem>
 <para>
-Öffnet ein Fenster mit allgemeinen Informationen über KDE.
+Öffnet ein Fenster mit allgemeinen Informationen zu KDE.
 </para>
 </listitem>
 
@@ -342,7 +348,7 @@ Schickt einen Fehlerbericht zu den Entwicklern von BibleTime um mit der Entwickl
 Alle der hier aufgelisteten Tastenkombinationen können im Konfigurationsdialog verändert werden.
 </para>
 <table>
-<title>Standardmäßige Tastenkombinationen</title>
+<title>Standard Tastenkombinationen</title>
 <tgroup cols=2>
 <thead>
 <row>
@@ -371,6 +377,4 @@ Alle der hier aufgelisteten Tastenkombinationen können im Konfigurationsdialog v
 </tgroup>
 </table>
 </section>
-
 </chapter>
-
