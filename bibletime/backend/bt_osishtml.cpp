@@ -73,7 +73,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		if (!strcmp(tag.getName(), "div")) {
 			//handle intro
 			if ((!tag.isEmpty()) && (!tag.isEndTag())) { //start tag
-				SWBuf type = tag.getAttribute("type");
+				SWBuf type( tag.getAttribute("type") );
 				if (type == "introduction") {
 					buf.append("<div class=\"introduction\">");
 				}
@@ -110,7 +110,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					
  					do {
 						if (attrValue.length()) {
-							attrValue += "|";
+							attrValue.append( "|" );
 						}
 						
 						attrib = tag.getAttribute("lemma", i);
@@ -132,33 +132,33 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				if ((attrib = tag.getAttribute("morph"))) {
 					const int count = tag.getAttributePartCount("morph");
 					int i = (count > 1) ? 0 : -1;		// -1 for whole value cuz it's faster, but does the same thing as 0
+					
 					attrValue = "";
 					do {
 						if (attrValue.length()) {
-							attrValue += "|";
+							attrValue.append('|');
 						}
 
 						attrib = tag.getAttribute("morph", i);
 						if (i < 0) {
               i = 0;	// to handle our -1 condition
 						}
+
 						val = strchr(attrib, ':');
-						val = (val) ? (val + 1) : attrib;
- 						if (!strncmp(attrib, "x-Robinson",10)) { //robinson codes
-							attrValue.append(val);
+						if (val) { //the prefix gives the modulename
+							attrValue.append( !strncmp(attrib, "x-", 2) ? attrib+2 : attrib );
 						}
-						else if ((*val == 'T') && ((val[1] == 'H') || (val[1] == 'H'))) {
-							attrValue.append(val+1);
-            }
-            else if ((*val == 'T')) {
-							attrValue.append(val);
-            }
+						else { //no prefix given
+							const bool skipFirst = ((val[0] == 'T') && ((val[1] == 'H') || (val[1] == 'H')));
+							attrValue.append( skipFirst ? val+1 : val );
+						}
 					} while (++i < count);
 					
 					if (attrValue.length()) {
 						outTag.setAttribute("morph", attrValue.c_str());
 					}
 				}
+				
 				if ((attrib = tag.getAttribute("POS"))) {
 					val = strchr(attrib, ':');
 					val = (val) ? (val + 1) : attrib;
@@ -166,7 +166,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				}	
 				
 				buf.append( outTag.toString() );
-// 				qWarning( "appended: ", outTag.toString() );
 			}
 			else if (tag.isEndTag()){ // end or empty <w> tag
 				buf.append("</span>");
@@ -175,7 +174,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		// <note> tag
 		else if (!strcmp(tag.getName(), "note")) {
 			if (!tag.isEndTag()) {
-				const SWBuf type = tag.getAttribute("type");
+				const SWBuf type( tag.getAttribute("type") );
 
 				if (type == "crossReference") { //note containing cross references
 					myUserData->inCrossrefNote = true;
@@ -184,7 +183,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					AttributeList notes = myModule->getEntryAttributes()["Footnote"];
 					bool foundNote = false;
 					
-					SWBuf id = tag.getAttribute("osisID");
+					SWBuf id( tag.getAttribute("osisID") );
 					SWBuf refList;
 					
 					for (AttributeList::iterator list_it = notes.begin(); (list_it != notes.end()) && !foundNote; ++list_it ) {
@@ -260,7 +259,6 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		else if (!strcmp(tag.getName(), "reference")) { // <reference> tag
 			if (!myUserData->inCrossrefNote && !tag.isEndTag() && !tag.isEmpty() && tag.getAttribute("osisRef")) {
         const char* ref = tag.getAttribute("osisRef");
-//         CSwordModuleInfo::ModuleType type = CSwordModuleInfo::Bible;
 				
 				buf.append("<span class=\"crossreference\" crossrefs=\"");
 				buf.append(ref);
@@ -276,7 +274,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
     // <l> is handled by OSISHTMLHref
 		// <title>
 		else if (!strcmp(tag.getName(), "title")) {
-			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
+			if (!tag.isEndTag() && !tag.isEmpty()) {
   			buf.append("<div class=\"sectiontitle\">");
 			}
 			else if (tag.isEndTag()) {
@@ -349,7 +347,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		}
 
 		else if (!strcmp(tag.getName(), "transChange")) {
-			SWBuf type = tag.getAttribute("type");
+			SWBuf type( tag.getAttribute("type") );
 			if ( !type.length() ) {
 			 type = tag.getAttribute("changeType");
 			}

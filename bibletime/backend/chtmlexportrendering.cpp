@@ -42,7 +42,8 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 	if (i.hasAlternativeContent()) {
 		QString ret;
 		ret.setLatin1("<div class=\"entry\"><div class=\"rangeheading\">")
-			.append(i.getAlternativeContent()).append("</div>");
+			.append(i.getAlternativeContent())
+			.append("</div>");
 
 		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
@@ -127,12 +128,10 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 			}
 		}
 		
-		entry.append("<").append(m_displayOptions.lineBreaks  ? "div "  : "span ");
-		
+		entry.append(m_displayOptions.lineBreaks  ? "<div "  : "<span ");
 		if (modules.count() == 1) { //insert only the class if we're not in a td
-			entry.append( i.settings().highlight  ? "class=\"currententry\"" : " class=\"entry\"" );
+			entry.append( i.settings().highlight  ? "class=\"currententry\" " : "class=\"entry\" " );
 		}
-		
 		entry.append(langAttr).append(isRTL ? " dir=\"rtl\"" : " dir=\"ltr\"").append(">");
 
  		//keys should normally be left-to-right, but this doesn't apply in all cases

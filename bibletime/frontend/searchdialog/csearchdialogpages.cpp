@@ -536,13 +536,15 @@ void CSearchResultPage::updatePreview(const QString& key){
 
 const QString CSearchResultPage::highlightSearchedText(const QString& content, const QString& searchedText, const int searchFlags) {
   QString ret = content;
+	
   const bool cs = (searchFlags & CSwordModuleSearch::caseSensitive);
 
-  int index = 0;
+//   int index = 0;
+	int index = ret.find("<body", 0);
   int length = searchedText.length();
 
-  const QString rep1 = QString("<span style=\"background-color:#FFFF66;\">");
-  const QString rep2 = QString("</span>");
+  const QString rep1("<span style=\"background-color:#FFFF66;\">");
+  const QString rep2("</span>");
   const unsigned int repLength = rep1.length() + rep1.length();
 
   
@@ -561,7 +563,8 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
     for ( int wi = 0; (unsigned int)wi < words.count(); ++wi ) { //search for every word in the list
       QString word = words[ wi ];
       length = word.length();
-      index = 0; //for every word start at the beginning
+//       index = 0; //for every word start at the beginning
+			index = ret.find("<body", 0);
       while ( (index = ret.find(word, index, cs)) != -1 ) { //while we found the word
         if (!CToolClass::inHTMLTag(index, ret)) {
           ret = ret.insert( index+length, rep2 );
@@ -587,6 +590,8 @@ const QString CSearchResultPage::highlightSearchedText(const QString& content, c
     }
   }
 
+//  	qWarning("\n\n\n%s", ret.latin1());
+	
   return ret; //not implemented yet
 };
 

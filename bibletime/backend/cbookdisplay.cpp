@@ -106,6 +106,7 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
 	
 	const QString renderedText = render.renderKeyTree(tree);
 	key->setOffset( offset ); //restore key
+	
   return renderedText;
 }
 

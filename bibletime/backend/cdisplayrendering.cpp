@@ -39,7 +39,7 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
 		vk = item.key();
 	}
 	
-	if (vk.Verse() == 0) {
+	if (isBible && (vk.Verse() == 0)) {
 		return QString::null; //Warning: return already here
 	}
 		
@@ -79,16 +79,6 @@ const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModul
     return QString("<a name=\"").append(keyToHTMLAnchor(item.key())).append("\" />");
   }
   else {
-/*    return QString("<a name=\"%1\" href=\"%2\">%3</a>\n")
-      .arg( keyToHTMLAnchor(item.key()) )
-      .arg(
-				CReferenceManager::encodeHyperlink(
-					module->name(), item.key(), 
-					CReferenceManager::typeFromModule(module->type())
-				)
-			)
-			.arg(linkText);*/
-			
 		return QString("<a name=\"").append(keyToHTMLAnchor(item.key())).append("\" ")
 			.append("href=\"")
 			.append(CReferenceManager::encodeHyperlink(

@@ -67,23 +67,27 @@ const QString CSwordLDKey::key() const {
 
 void CSwordLDKey::key( const QString& newKey ){
 //	SWKey::operator = ((const char*)newKey.local8Bit());		
-	SWKey::operator = ((const char*)newKey.utf8());		
-// 	m_module->module()->SetKey(this);
-	m_module->module()->getKey()->setText( (const char*)key().utf8() );
-	m_module->snap();
-	SWKey::operator = (m_module->module()->KeyText());
+	SWKey::operator = ((const char*)newKey.utf8()); //set the key
+ 	m_module->module()->SetKey(this);
+// 	m_module->module()->getKey()->setText( (const char*)key().utf8() );
+/*	if (!m_module->snap()) {
+		qWarning("set %s got %s, error=1", newKey.latin1(), m_module->module()->KeyText());
+	}*/
+	
+	
+// 	SWKey::operator = (m_module->module()->KeyText());
 }
 
 
 /** Sets the key of this instance */
 void CSwordLDKey::key( const char* newKey ){
 	if (newKey) {
-		SWKey::operator = (newKey);
+		SWKey::operator = (newKey); //set the key
 
  		m_module->module()->SetKey(this);
 // 		m_module->module()->getKey()->setText( (const char*)key().utf8() );
 		m_module->snap();
-		SWKey::operator = (m_module->module()->KeyText());
+// 		SWKey::operator = (m_module->module()->KeyText());
 	}
 }
 

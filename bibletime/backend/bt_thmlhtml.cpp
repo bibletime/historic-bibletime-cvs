@@ -101,12 +101,15 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 		
 		int pos = tag.search(e, 0);
 		bool insertedTag = false;
+		QString value = "";
+		QString valueClass = "";
+		
 		while (pos != -1) {
 			bool isMorph = false;
 			bool isStrongs = false;
-			QString value = "";
-			QString valueClass = "";
-
+			value = QString::null;
+			valueClass = QString::null;
+			
 			// check 3 attribute/value pairs
 			for (int i = 1; i < 6; i += 2) {
 				if (i > 4) i++;
@@ -124,7 +127,8 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 
 			// prepend the class qualifier to the value
 			if (!valueClass.isEmpty())
-				value = valueClass + ":" + value;
+				value = valueClass;
+				value.append(":").append(value);
 			
 			if (value.isEmpty()) {
 				break;
@@ -187,7 +191,7 @@ char BT_ThMLHTML::processText(sword::SWBuf& buf, const sword::SWKey* key, const 
 			pos = tag.search(e, pos);
 		}
 		
-		result += e;
+		result.append( e );
 	}
 	
 	if (list.count()) {

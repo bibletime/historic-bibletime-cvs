@@ -84,10 +84,8 @@ void CReadWindow::lookup( CSwordKey* newKey ) {
 		key()->key(newKey->key());
 	}
 
-	setCaption( windowCaption() );
+	setCaption( windowCaption() );	
 	displayWidget()->moveToAnchor( CDisplayRendering::keyToHTMLAnchor(key()->key()) );
-	
-// 	qWarning("lookup: key is now %s", newKey->key().latin1());
 }
 
 /** Reimplementation to use the popup menu. */

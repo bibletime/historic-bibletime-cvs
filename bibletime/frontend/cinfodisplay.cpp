@@ -274,8 +274,7 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 			valueClass = (*it).mid(0, valStart);
 		}
 		value = (*it).mid(valStart+1);
-		module = CPointers::backend()->findModuleByName( valueClass ); 
-
+		module = CPointers::backend()->findModuleByName( valueClass );
 
 		// if we don't have a class assigned or desired one isn't installed...
 		if (!module) {
@@ -308,7 +307,6 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
  			
 			//skip H or G (language sign) if we have to skip it			
 			key->key( skipFirstChar ? value.mid(1) : value );
-			
 			text = key->renderedText();
 		}
 		

@@ -49,7 +49,7 @@ const QString CSwordKey::rawText() {
 		return QString::null;
 	}
 
-	if (sword::SWKey* k = dynamic_cast<sword::SWKey*>(this)) {
+	if (/*sword::SWKey* k =*/ dynamic_cast<sword::SWKey*>(this)) {
 //     m_module->module()->SetKey(k);
 		m_module->module()->getKey()->setText( (const char*)key().utf8() );
 	}
@@ -61,8 +61,9 @@ const QString CSwordKey::rawText() {
 }
 
 const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
-  if (!m_module)
+  if (!m_module) {
 		return QString::null;
+	}
 
 	using namespace sword;
 	SWKey* k = dynamic_cast<sword::SWKey*>(this);
@@ -73,8 +74,18 @@ const QString CSwordKey::renderedText( const CSwordKey::TextRenderType mode ) {
 		}
 		
 		m_module->module()->getKey()->setText( this->key().utf8() );
+	
+		if (m_module->type() == CSwordModuleInfo::Lexicon) {
+			m_module->snap();
+			/* In lexicons make sure that our key (e.g. 123) was successfully set to the module, 
+			i.e. the module key contains this key (e.g. 0123 contains 123) */
+			if (!strstr(m_module->module()->getKey()->getText(), (const char*)key().utf8())) {
+				return QString::null;
+			}
+		}
 	}
-  
+
+	  
 	if (!key().isNull()) { //we have valid text
     const QString text = QString::fromUtf8( m_module->module()->RenderText() );
     

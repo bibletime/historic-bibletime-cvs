@@ -397,7 +397,14 @@ CBookmarkItem::~CBookmarkItem() {
 
 /** No descriptions */
 void CBookmarkItem::update(){
-  const QString title = QString::fromLatin1("%1 (%2)").arg(key()).arg(module() ? module()->name() : i18n("unknown"));
+	setMultiLinesEnabled(true);
+/*  const QString title = QString::fromLatin1("%1 (%2)\n<small>%3</small>")
+		.arg(key())
+		.arg(module() ? module()->name() : i18n("unknown"))
+		.arg(description());*/
+  const QString title = QString::fromLatin1("%1 (%2)")
+		.arg(key())
+		.arg(module() ? module()->name() : i18n("unknown"));
   setText(0, title);
   setPixmap(0,SmallIcon(CResMgr::mainIndex::bookmark::icon,16));
 }
@@ -426,9 +433,10 @@ const QString CBookmarkItem::toolTip(){
 	util::scoped_ptr<CSwordKey> k( CSwordKey::createInstance(module()) );
 	k->key(this->key());
 	if (k.get()) {
-		ret = QString::fromLatin1("<b>%1 (%2)</b><hr>%3")
+		ret = QString::fromLatin1("<b>%1 (%2)</b><br/><small>%3</small><hr>%4")
 			.arg(key())
 			.arg(module()->name())
+			.arg(description())
 			.arg(k->renderedText());
 	}
 	
