@@ -109,6 +109,7 @@ int main(int argc, char* argv[]) {
 	{
 		{"debug", I18N_NOOP("Enable debug messages"),0},
 		{"ignore-startprofile", I18N_NOOP("Ignore the startup profile saved after the last BibleTime execution."),0},
+		{"open-default-bible <key>", I18N_NOOP("Opens the default bible with the given key. Use <random> to open ata random position."),0},
 		{0,0,0}
 	};	
 		
@@ -209,8 +210,9 @@ int main(int argc, char* argv[]) {
 		bibletime->show();
 		
 		// restore the workspace
-		if (CBTConfig::get(CBTConfig::restoreWorkspace) && !args->isSet("ignore-startprofile"))
-			bibletime->restoreWorkspace();
+//		if (CBTConfig::get(CBTConfig::restoreWorkspace) && !args->isSet("ignore-startprofile"))
+//			bibletime->restoreWorkspace();
+    bibletime->processCommandline();
 
 		setSignalHandler(signalHandler);		
 		

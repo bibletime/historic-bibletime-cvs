@@ -36,8 +36,6 @@
 #include "backend/cswordcommentarymoduleinfo.h"
 #include "backend/cswordlexiconmoduleinfo.h"
 #include "backend/cswordbookmoduleinfo.h"
-//#include "backend/chtmlentrydisplay.h"
-//#include "backend/chtmlchapterdisplay.h"
 #include "backend/cswordversekey.h"
 #include "backend/cswordldkey.h"
 
@@ -51,10 +49,12 @@
 #include <kaction.h>
 #include <kapplication.h>
 #include <kconfig.h>
+#include <kcmdlineargs.h>
 #include <klocale.h>
 #include <kaccel.h>
 #include <kmenubar.h>
 #include <ktoolbar.h>
+#include <krandomsequence.h>
 
 BibleTime::BibleTime() : KMainWindow(0,0, WType_TopLevel /*| WDestructiveClose*/) {
 	m_initialized = false;
@@ -151,7 +151,7 @@ void BibleTime::readSettings(){
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
 CDisplayWindow* BibleTime::createDisplayWindow(ListCSwordModuleInfo modules, const QString& key) {
-	qWarning("BibleTime::createDisplayWindow: key is %s", key.latin1());
+// qWarning("BibleTime::createDisplayWindow: key is %s", key.latin1());
   kapp->setOverrideCursor( waitCursor );
 
  	CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);	
@@ -238,4 +238,32 @@ void BibleTime::setCaption( const QString& ){
 /** Sets the plain caption of the main window */
 void BibleTime::setPlainCaption( const QString& ){
 	KMainWindow::setPlainCaption( KApplication::kApplication()->makeStdCaption( m_mdi->currentApplicationCaption() ) );
+}
+
+/** Processes the commandline options given to BibleTime. */
+void BibleTime::processCommandline(){
+	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+
+  if (CBTConfig::get(CBTConfig::restoreWorkspace) && !args->isSet("ignore-startprofile"))
+    restoreWorkspace();
+  QString bibleKey = args->getOption("open-default-bible");
+  if (!bibleKey.isNull() && args->isSet("open-default-bible")) {
+    CSwordModuleInfo* bible = CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible));
+    Q_ASSERT(bible);
+    if (bibleKey == "<random>") {
+//      qWarning("Open #random# key in default bible!");
+      CSwordVerseKey vk(0);
+      const int maxIndex = 32400;
+
+      KRandomSequence rs;
+      int newIndex = rs.getLong(maxIndex);
+      vk.setPosition(TOP);
+      vk.Index(newIndex);
+      bibleKey = vk.key();
+    }
+//    else {
+//      qWarning("Open given key!");
+//    }
+    createDisplayWindow(bible, bibleKey);
+  }
 }

@@ -17,7 +17,7 @@ bibletime.m4 sword.m4
 
 # not a GNU package. You can remove this line, if 
 # have all needed files, that a GNU package needs
-AUTOMAKE_OPTIONS = foreign 
+AUTOMAKE_OPTIONS = foreign dist-bzip2
 
 datadir = $(kde_appsdir)/Applications
 data_DATA = bibletime.desktop
