@@ -88,8 +88,6 @@ public:
 		HebrewDef, 
 		GreekParse,
 		HebrewParse,
-//		DailyDevotional,
-//		Glossary,
     featureMin = StrongsNumbers,
     featureMax = HebrewParse
 	};

@@ -25,7 +25,6 @@
 #include <klocale.h>
 
 static QValueList<CLanguageMgr::Language> m_langList;
-
 static CLanguageMgr::Language m_defaultLanguage;
 
 CLanguageMgr::Language::Language() {
@@ -81,7 +80,7 @@ CLanguageMgr::CLanguageMgr(){
 CLanguageMgr::~CLanguageMgr(){
 }
 
-const CLanguageMgr::LangMap& CLanguageMgr::languages() {
+const CLanguageMgr::LangMap& CLanguageMgr::languages() const {
   return m_langMap;
 };
 
@@ -107,28 +106,18 @@ const CLanguageMgr::LangMap CLanguageMgr::availableLanguages() {
     };
   };
 
-  //debug the found languages
-//  LangMap::Iterator it;
-//  for ( it = map.begin(); it != map.end(); ++it ) {
-//    qWarning("module with language is installed: %s: %s (%s)", it.data().abbrev().latin1(), it.data().name().latin1(),it.data().translatedName().latin1());
-//  };
-  
   return map;
 };
 
 const CLanguageMgr::Language& CLanguageMgr::languageForAbbrev( const QString& abbrev ) {
-//  qWarning("looking for abbrev %s", abbrev.latin1());
   if (m_langMap.contains(abbrev)) {
-//    qWarning("found!!");
     return m_langMap[abbrev];
   };
 
   //try to search in the alternative abbrevs
-//  qWarning("searching for %s in alternative abbrevs", abbrev.latin1());
   LangMap::Iterator it;
   for ( it = m_langMap.begin(); it != m_langMap.end(); ++it ) {
     if (it.data().alternativeAbbrevs().contains(abbrev)) {
-//      qWarning("found language!");      
       return it.data();
     };
   }  

@@ -38,10 +38,6 @@ public:
   */
   virtual const CSwordModuleInfo::ModuleType type() const;
   /**
-  * Used for debugging
-  */
-  void printTree(sword::TreeKeyIdx treeKey, sword::TreeKeyIdx* target, int level = 1 );
-  /**
   * Returns the maximal depth of sections and subsections.
   */
   const int depth();
@@ -51,7 +47,10 @@ public:
   sword::TreeKeyIdx* const tree() const;
 
 private:
-  void computeDepth(sword::TreeKeyIdx treeKey, sword::TreeKeyIdx* target, int level = 0 );	
+  /**
+  * A recursive helper function to help computng the module depth!
+  */
+  void computeDepth(sword::TreeKeyIdx* key, int level = 0 );	
 	int m_depth;
 };
 

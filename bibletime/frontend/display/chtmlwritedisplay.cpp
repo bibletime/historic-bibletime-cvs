@@ -23,6 +23,7 @@
 #include <kaction.h>
 #include <ktoolbar.h>
 #include <klocale.h>
+#include <kfontcombo.h>
 
 CHTMLWriteDisplay::CHTMLWriteDisplay(CWriteWindow* parentWindow, QWidget* parent)
   : CPlainWriteDisplay(parentWindow,parent)
@@ -34,27 +35,6 @@ CHTMLWriteDisplay::CHTMLWriteDisplay(CWriteWindow* parentWindow, QWidget* parent
 CHTMLWriteDisplay::~CHTMLWriteDisplay(){
 }
 
-//void CHTMLWriteDisplay::selectAll() {
-//  QTextEdit::selectAll(true);
-//}
-//
-//void CHTMLWriteDisplay::setText( const QString& newText ) {
-//  QTextEdit::setText(newText);
-//};
-//
-//const bool CHTMLWriteDisplay::hasSelection() {
-//  return hasSelectedText();
-//};
-//
-//QWidget* CHTMLWriteDisplay::view() {
-//  return this;
-//};
-//
-//const QString CHTMLWriteDisplay::text( const CDisplay::TextType format = CDisplay::HTMLText, const CDisplay::TextPart part = CDisplay::Document ) {
-//#warning "Todo!"
-//  return QString::null;
-//};
-//
 //void CHTMLWriteDisplay::print( const CDisplay::TextPart ) {
 //
 //};
@@ -68,7 +48,7 @@ CHTMLWriteDisplay::~CHTMLWriteDisplay(){
 //};
 
 const QString CHTMLWriteDisplay::plainText() {
-  return text();
+  return QTextEdit::text();
 };
 
 //QPopupMenu* CHTMLWriteDisplay::createPopupMenu( const QPoint& pos ) {
@@ -91,35 +71,43 @@ void CHTMLWriteDisplay::toggleUnderlined() {
   setUnderline( !underline() );
 };
 
+void CHTMLWriteDisplay::selectedFontChanged( const QString& fontname ) {
+  setFamily( fontname );
+};
+
 void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions) {
  	m_actions.bold = new KAction( i18n("Bold"),
-    CResMgr::displaywindows::writewindow::saveText::icon,
-    CResMgr::displaywindows::writewindow::saveText::accel,
+    CResMgr::displaywindows::writewindow::boldText::icon,
+    CResMgr::displaywindows::writewindow::boldText::accel,
     this, SLOT( toggleBold()  ),
     actions
   );
-  m_actions.bold->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
-  m_actions.bold->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
+  m_actions.bold->setToolTip( CResMgr::displaywindows::writewindow::boldText::tooltip );
+  m_actions.bold->setWhatsThis( CResMgr::displaywindows::writewindow::boldText::whatsthis );
   m_actions.bold->plug(bar);
 
  	m_actions.italic = new KAction( i18n("Italic"),
-    CResMgr::displaywindows::writewindow::saveText::icon,
-    CResMgr::displaywindows::writewindow::saveText::accel,
+    CResMgr::displaywindows::writewindow::italicText::icon,
+    CResMgr::displaywindows::writewindow::italicText::accel,
     this, SLOT( toggleItalic()  ),
     actions
   );
-  m_actions.italic->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
-  m_actions.italic->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
+  m_actions.italic->setToolTip( CResMgr::displaywindows::writewindow::italicText::tooltip );
+  m_actions.italic->setWhatsThis( CResMgr::displaywindows::writewindow::italicText::whatsthis );
   m_actions.italic->plug(bar);
 
 
  	m_actions.underlined = new KAction( i18n("Underline"),
-    CResMgr::displaywindows::writewindow::saveText::icon,
-    CResMgr::displaywindows::writewindow::saveText::accel,
+    CResMgr::displaywindows::writewindow::underlinedText::icon,
+    CResMgr::displaywindows::writewindow::underlinedText::accel,
     this, SLOT( toggleUnderlined()  ),
     actions
   );
-  m_actions.underlined->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
-  m_actions.underlined->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
-  m_actions.underlined->plug(bar);    
+  m_actions.underlined->setToolTip( CResMgr::displaywindows::writewindow::underlinedText::tooltip );
+  m_actions.underlined->setWhatsThis( CResMgr::displaywindows::writewindow::underlinedText::whatsthis );
+  m_actions.underlined->plug(bar);
+
+  m_fontCombo = new KFontCombo(bar);
+  bar->insertWidget(0, m_fontCombo->sizeHint().width(), m_fontCombo);
+  connect( m_fontCombo, SIGNAL(activated(const QString&)), this, SLOT(selectedFontChanged(const QString&)) );
 }

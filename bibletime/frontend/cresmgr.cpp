@@ -330,6 +330,26 @@ namespace CResMgr {
         const QString icon      = "editdelete";
         const KShortcut accel   = KShortcut();
       };
+
+      //formatting buttons
+      namespace boldText {
+        const QString tooltip   = makeToolTip( i18n("Bold text") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggles the bold status of the selected text.") );
+        const QString icon      = "text_bold";
+        const KShortcut accel   = KShortcut();
+      };
+      namespace italicText {
+        const QString tooltip   = makeToolTip( i18n("Italic text") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggles the italic status of the selected text.") );
+        const QString icon      = "text_italic";
+        const KShortcut accel   = KShortcut();
+      };
+      namespace underlinedText {
+        const QString tooltip   = makeToolTip( i18n("Underline text") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Toggles the underline status of the selected text.") );
+        const QString icon      = "text_under";
+        const KShortcut accel   = KShortcut();
+      };            
     };
   };
 

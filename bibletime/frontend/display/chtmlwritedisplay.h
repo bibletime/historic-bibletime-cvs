@@ -27,6 +27,7 @@
 
 class CWriteWindow;
 class KAction;
+class KFontCombo;
 
 /** The WYSIWYG implementation of the write display interface.
   * @author The BibleTime team
@@ -87,6 +88,8 @@ protected slots:
   void toggleBold();
   void toggleItalic();
   void toggleUnderlined();
+
+  void selectedFontChanged( const QString& font );
     
 private:
   struct {
@@ -95,7 +98,8 @@ private:
     KAction* bold;
     KAction* italic;
     KAction* underlined;    
-  } m_actions;    
+  } m_actions;
+  KFontCombo* m_fontCombo;
 };
 
 #endif

@@ -64,11 +64,11 @@ public:
   typedef QMap<QString, Language> LangMap;
 
   CLanguageMgr();
-	~CLanguageMgr();
+	virtual ~CLanguageMgr();
   /**
   * Returns the standard languages available as standard. Does nothing for Sword.
   */
-  const LangMap& languages();
+  const CLanguageMgr::LangMap& languages() const;
   /**
   * Returns the languages which are available. The languages cover all available modules, but nothing more.
   */
@@ -76,9 +76,9 @@ public:
   const CLanguageMgr::Language& languageForAbbrev( const QString& abbrev );
   const CLanguageMgr::Language& languageForName( const QString& language );  
   const CLanguageMgr::Language& languageForTranslatedName( const QString& language );
-  /** No descriptions */
+
   void debug();
-    
+
 private:
   void init();
   const QStringList makeStringList(const QString& abbrevs);

@@ -27,19 +27,8 @@
 using std::cout;
 using std::endl;
 
-CSwordBookModuleInfo::CSwordBookModuleInfo( sword::SWModule* module )
-	: CSwordModuleInfo(module), m_depth(-1)
-{
-	//checking if it works as expected
-//	qWarning("Book module: %s", module->Name());
-//	if (TreeKeyIdx* treeKey = tree()) {
-//		TreeKeyIdx root = *treeKey;
-//  	root.root();
-//		printTree(root, treeKey, 0);
-//	}
-//	else
-//		qWarning("treeKey not valid");
-//	qWarning("%s has depth: %i\n\n", module->Name(), depth());
+CSwordBookModuleInfo::CSwordBookModuleInfo( sword::SWModule* module ) : CSwordModuleInfo(module), m_depth(-1) {
+
 }
 
 CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordBookModuleInfo& module )
@@ -51,48 +40,33 @@ CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordBookModuleInfo& module )
 CSwordBookModuleInfo::~CSwordBookModuleInfo(){
 }
 
-void CSwordBookModuleInfo::printTree(sword::TreeKeyIdx treeKey, sword::TreeKeyIdx* target, int level ){
-	if (!target)
-		target = &treeKey;
-
-//  unsigned long currentOffset = target->getOffset();
-  for (int i = 0; i < level; i++)
-  	cout << "    ";
-  cout << treeKey.getLocalName() << endl;
-  if (treeKey.firstChild()) {
-    printTree(treeKey, target, level+1);
-    treeKey.parent();
-  }
-  if (treeKey.nextSibling())
-		printTree(treeKey, target, level);
-}
-
 const int CSwordBookModuleInfo::depth() {
 	if (m_depth == -1) {
-  	sword::TreeKeyIdx* treeKey = tree();
-  	if (treeKey) {
-    	sword::TreeKeyIdx root = *treeKey;
-    	root.root();
-			computeDepth(root, treeKey, 0);
+  	sword::TreeKeyIdx* key = tree();
+  	if (key) {
+    	key->root();
+			computeDepth(key, 0);
 		}
 	}
 	return m_depth;
 }
 
-void CSwordBookModuleInfo::computeDepth(sword::TreeKeyIdx treeKey, sword::TreeKeyIdx* target, int level ){
-	if (!target)
-		target = &treeKey;
-
-	if (level > m_depth)
+void CSwordBookModuleInfo::computeDepth(sword::TreeKeyIdx* key, int level ){
+  static std::string savedKey; //faster because initialization is done only once!
+  savedKey = key->getFullName();
+  if (level > m_depth) {
 		m_depth = level;
-
-  if (treeKey.firstChild()) {
-    computeDepth(treeKey, target, level+1);
-    treeKey.parent();
   }
-  if (treeKey.nextSibling())
-		computeDepth(treeKey, target, level);
 
+  if (key->hasChildren()) {
+    key->firstChild();
+    computeDepth(key, level+1);
+    key->setText( savedKey.c_str() );//return to the initial value    
+  }
+  if (key->nextSibling()) {
+		computeDepth(key, level);
+    key->setText( savedKey.c_str() );//return to the initial value
+  }
 }
 
 /** Returns a treekey filled with the structure of this module */

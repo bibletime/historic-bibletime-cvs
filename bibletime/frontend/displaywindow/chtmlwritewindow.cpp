@@ -60,29 +60,57 @@ void CHTMLWriteWindow::initView() {
 
 
   //setip the toolbar
- 	m_actions.save = new KAction( i18n("Save the text"),
+ 	m_actions.saveText = new KAction( i18n("Save the text"),
     CResMgr::displaywindows::writewindow::saveText::icon,
     CResMgr::displaywindows::writewindow::saveText::accel,
     this, SLOT( saveCurrentText()  ),
     actionCollection()
   );
-  m_actions.save->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
-  m_actions.save->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
-  m_actions.save->plug(mainToolBar());  
+  m_actions.saveText->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
+  m_actions.saveText->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
+  m_actions.saveText->plug(mainToolBar());  
+
+ 	m_actions.deleteEntry = new KAction(i18n("Delete the current entry"),
+    CResMgr::displaywindows::writewindow::deleteEntry::icon,
+    CResMgr::displaywindows::writewindow::deleteEntry::accel,
+    this, SLOT(deleteEntry()),
+    actionCollection()
+  );
+  m_actions.deleteEntry->setToolTip( CResMgr::displaywindows::writewindow::deleteEntry::tooltip );
+  m_actions.deleteEntry->setWhatsThis( CResMgr::displaywindows::writewindow::deleteEntry::whatsthis );
+  m_actions.deleteEntry->plug(mainToolBar());
+
+
+ 	m_actions.restoreText = new KAction(i18n("Restore original text"),
+    CResMgr::displaywindows::writewindow::restoreText::icon,
+    CResMgr::displaywindows::writewindow::restoreText::accel,
+    this, SLOT(restoreText()), actionCollection()
+  );
+  m_actions.restoreText->setToolTip( CResMgr::displaywindows::writewindow::restoreText::tooltip );
+  m_actions.restoreText->setWhatsThis( CResMgr::displaywindows::writewindow::restoreText::whatsthis );
+  m_actions.restoreText->plug(mainToolBar());
   
+
   writeDisplay->setupToolbar( mainToolBar(), actionCollection() );
 };
 
 void CHTMLWriteWindow::initConnections() {
  	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 		this, SLOT(lookup(CSwordKey*)));
-
-//  connect(displayWidget()->connectionsProxy(), SIGNAL(textChanged()),
-//    this, SLOT(textChanged()) );
+  connect(displayWidget()->connectionsProxy(), SIGNAL(textChanged()),
+    this, SLOT(textChanged()) );
 };
 
-///** Is called when the current text was changed. */
-//void CHTMLWriteWindow::textChanged() {
-//  m_actions.saveText->setEnabled( displayWidget()->isModified() );
-//  m_actions.restoreText->setEnabled( displayWidget()->isModified() );
-//}
+/** Is called when the current text was changed. */
+void CHTMLWriteWindow::textChanged() {
+  m_actions.saveText->setEnabled( displayWidget()->isModified() );
+  m_actions.restoreText->setEnabled( displayWidget()->isModified() );
+}
+
+/** Loads the original text from the module. */
+void CHTMLWriteWindow::restoreText(){
+  lookup(key());
+  displayWidget()->setModified(false);
+  textChanged();
+}
+

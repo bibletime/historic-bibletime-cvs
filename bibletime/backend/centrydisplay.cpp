@@ -388,9 +388,7 @@ const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordM
   QString pageEnd = QString::fromLatin1("</TABLE></BODY></HTML>");
 
 	if (modules.count() == 1) // render everything into one cell. entryText leaves out the table tags.
-		return pageStart  + QString::fromLocal8Bit("<TR><TD>")
-                      + text
-					    			  + QString::fromLocal8Bit("</TD></TR>") + pageEnd;
+		return pageStart  + QString::fromLocal8Bit("<TR><TD>%1</TD></TR>%2").arg(text).arg(pageEnd);
   else  // use many cells. entryText inserts the necessary table tags.
 	 	return pageStart + text + pageEnd;
 }
@@ -404,16 +402,16 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
 
-// the number of levels which should be display together, 1 means display no entries together
+  // the number of levels which should be display together, 1 means display no entries together
   const int displayLevel = book->config( CSwordModuleInfo::DisplayLevel ).toInt();
 
   util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
   key->key(keyName); //set the key to position we'd like to get
 
-  //standard of DisplayLevel, display nothing together
-  //if the current key is the root entry don't display anything together!
+  // standard of DisplayLevel, display nothing together
+  // if the current key is the root entry don't display anything together!
   if (displayLevel <= 1 || (key->key().isEmpty() || key->key() == "/")) {
-    return finishText( entryText(modules, keyName), modules, keyName );
+    return finishText( entryText(modules, key), modules, keyName );
   };
 
   /**
@@ -432,61 +430,73 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 
   if (possibleLevels < displayLevel) { //too few levels available!
     //display current level, we could also decide to display the available levels together
-//    qWarning("too few levels available!");
-    return finishText( entryText(modules, keyName), modules, keyName );
+    return finishText( entryText(modules, key), modules, keyName );
   };
 
   // at this point we're sure that we can display the required levels toogether
   // at the moment we're at the lowest level, so we only have to go up!
   for (int currentLevel = 1; currentLevel < displayLevel; ++currentLevel) { //we start again with 1 == standard of displayLevel
     if (!key->parent()) { //something went wrong althout we checked before! Be safe and return entry's text
-      return finishText( entryText(modules, keyName), modules, keyName );
+      return finishText( entryText(modules, key), modules, keyName );
     };
   };
 
   // no we can display all sub levels together! We checked before that this is possible!
-  m_text = entryText(modules,key->key(),0, key->key() == keyName);
+  m_text = entryText(modules, key, 0, key->key() == keyName);
 
   const bool hasToplevelText = !key->strippedText().isEmpty();
   
   key->firstChild(); //go to the first sibling on the same level
   m_chosenKey = keyName;
-  printTree(*key, modules, hasToplevelText ? 1 : 0 ); //if the top level entry has text ident the other text
+  printTree(key, modules, hasToplevelText ? 1 : 0 ); //if the top level entry has text ident the other text
   
 	key->key(keyName);
   return finishText(m_text, modules, keyName);
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
-const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const int level, const bool activeKey){
+const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, CSwordTreeKey* const key, const int level, const bool activeKey){
+  /**
+  * we have to be careful that we don't change the value of the key! We pass pointers for optimizations reasons,
+  * since entryText is called many times!
+  * creating copies of the key object takes too long
+  */
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
-  util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
 
-  key->key(keyName);
-
-  return QString::fromLatin1("<TR><TD STYLE=\"padding-left: %1px;\"><SUP>%2</SUP> %3</TD></TR>")
+  const QFont font = CBTConfig::get(book->language()).second;
+  const QString& keyName = key->getFullName();
+  return QString::fromLatin1("<TR><TD STYLE=\"padding-left:%1px;\"><SUP>%2</SUP> %3</TD></TR>")
     .arg(level*30)
-    .arg(htmlReference(book, keyName, key->getLocalName(), !key->key().isEmpty() ? key->key() : "/" ))
+    .arg(htmlReference(book, keyName, key->getLocalName(), !keyName.isEmpty() ? keyName : "/" ))
     .arg(
-      QString::fromLatin1("<SPAN %1 STYLE=\"font-family:%2; font-size:%3pt;\">%4</SPAN>")
-      .arg(activeKey ? "class=\"highlighted\"" : "")
-      .arg(CBTConfig::get(book->language()).second.family())
-      .arg(CBTConfig::get(book->language()).second.pointSize())
-      .arg(key->renderedText())
+        QString::fromLatin1("<SPAN %1 STYLE=\"font-family:%2; font-size:%3pt;\">%4</SPAN>")
+          .arg(activeKey ? "class=\"highlighted\"" : QString::null)
+          .arg(font.family())
+          .arg(font.pointSize())
+          .arg(key->renderedText())
     );
 }
 
-void CBookDisplay::printTree(CSwordTreeKey treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos){
-  m_text += entryText(modules, treeKey.getFullName(), levelPos, (m_chosenKey == treeKey.getFullName()));
+void CBookDisplay::printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos){
+  // make sure we don't change the value of the key!
 
-  if (treeKey.hasChildren()) { //print tree for the child items
-    treeKey.firstChild();
-    printTree(treeKey, modules, levelPos+1);
-    treeKey.parent();
+  //static for performance reasons, static is faster because the
+  //initialization isn't executed more than one time  
+  static QString fullKeyName;
+  fullKeyName = treeKey->getFullName();
+  
+  m_text += entryText(modules, treeKey, levelPos, (m_chosenKey == fullKeyName));
+
+  if (treeKey->hasChildren()) { //print tree for the child items
+    treeKey->firstChild();
+    printTree(treeKey, modules, levelPos+1); //doesn't change the value of the key! (this function)
+    treeKey->key(fullKeyName); //go back where we came from
   }
 
-  if (treeKey.nextSibling()) //print tree for next entry on the same depth
+  if (treeKey->nextSibling()) { //print tree for next entry on the same depth
 		printTree(treeKey, modules, levelPos);
+    treeKey->key(fullKeyName); //return to the value we had at the beginning of this block!
+  }
 }
 
 const QString CBookDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName){

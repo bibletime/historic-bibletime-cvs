@@ -50,11 +50,17 @@ protected slots:
   /**
   * Is called when the current text was changed.
   */
-//  virtual void textChanged();
+  virtual void textChanged();
+  /**
+  * Loads the original text from the module.
+  */
+  virtual void restoreText();
 
 private:
   struct {
-    KAction* save;
+    KAction* saveText;
+    KAction* restoreText;
+    KAction* deleteEntry;    
   } m_actions;
 };
 

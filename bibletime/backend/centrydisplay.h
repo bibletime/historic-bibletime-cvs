@@ -164,9 +164,14 @@ protected:
   /**
   * Renders one entry using the given modules and the key.
   * This makes chapter rendering more easy.
+  *
+  * Please be careful not to change the value of "key"!
   */
-  virtual const QString entryText( QPtrList<CSwordModuleInfo> modules, const QString& key, const int level = 0, const bool activekey = false);
-  void printTree(CSwordTreeKey treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos = 0);
+  virtual const QString entryText( QPtrList<CSwordModuleInfo> modules, CSwordTreeKey* const key, const int level = 0, const bool activekey = false);
+  /**
+  * Creates the text by processing all tree items.
+  */
+  void printTree(CSwordTreeKey* const treeKey, QPtrList<CSwordModuleInfo> modules, const int levelPos = 0);
   virtual const QString finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName);
 
 private:

@@ -346,6 +346,27 @@ namespace CResMgr {
         extern const QString icon;
         extern const KShortcut accel;
       };
+
+    //formatting buttons
+      namespace boldText {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+      };
+      namespace italicText {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+      };
+      namespace underlinedText {
+        extern const QString tooltip;
+        extern const QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+      };
+      
     };
   };
   

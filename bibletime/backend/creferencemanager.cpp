@@ -24,7 +24,7 @@
 #include <qregexp.h>
 
 /** Returns a hyperlink used to be imbedded in the display windows. At the moment the format is sword://module/key */
-const QString CReferenceManager::encodeHyperlink( const QString& module, const QString& key, const CReferenceManager::Type& type){
+const QString CReferenceManager::encodeHyperlink( const QString& moduleName, const QString& key, const CReferenceManager::Type& type){
 	QString ret = QString::null;
 	switch (type) {
 		case Bible:				
@@ -55,8 +55,8 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 			break;
 	}
 
-	if (!module.isEmpty())
-		ret += module + QString::fromLatin1("/");
+	if (!moduleName.isEmpty())
+		ret += moduleName + QString::fromLatin1("/");
 	else { //if module is empty use fallback module
 		ret += preferredModule(type) + QString::fromLatin1("/");
 	}	
@@ -66,11 +66,16 @@ const QString CReferenceManager::encodeHyperlink( const QString& module, const Q
 		QString newKey = QString::null;	
 	  //replace all / of the key (e.g. of a CSwordTreeKey) with
 	  // the escape sequence \/ so we know it's a link internal divider (e.g. of CSwordTreeKey)!
+
+    QChar c;
 		for(unsigned int i = 0; i < s.length(); ++i) {
-			if (s[i] == '/')
+      c = s.at(i);
+			if (c == '/') {
 				newKey += "\\/";
-			else
-				newKey += s[i];
+      }
+			else {
+				newKey += c;
+      }
 		}
 		ret += newKey;		
 	}

@@ -139,7 +139,7 @@ void CSearchDialog::startSearch(){
   m_searcher.setSearchedText(searchText);
   m_searcher.setSearchOptions(searchFlags);
 
-  qWarning("start the search");
+//  qWarning("start the search");
   m_searcher.startSearchThread();
 }
 
@@ -169,19 +169,19 @@ const QString CSearchDialog::searchText(){
 }
 
 sword::ListKey CSearchDialog::searchScope(){
-  qWarning("CSearchDialog::searchScope()");
+//  qWarning("CSearchDialog::searchScope()");
   return m_searchOptionsPage->searchScope();
 };
 
 /** Returns true if the search used a scope, otherwise false. */
 const CSwordModuleSearch::scopeType CSearchDialog::searchScopeType() const {
-  qWarning("CSearchDialog::searchScopeType()");
+//  qWarning("CSearchDialog::searchScopeType()");
   return m_searchOptionsPage->scopeType();
 }
 
 /** Returns true if the search used a scope, otherwise false. */
 const int CSearchDialog::searchFlags() const {
-  qWarning("CSearchDialog::searchFlags()");
+//  qWarning("CSearchDialog::searchFlags()");
   return m_searchOptionsPage->searchFlags();
 }
   
