@@ -47,6 +47,7 @@
 #include <qcheckbox.h>
 #include <qwhatsthis.h>
 #include <qheader.h>
+#include <qgroupbox.h>
 
 //KDE includes
 #include <klocale.h>
@@ -555,23 +556,29 @@ void CSearchOptionsPage::initView(){
   QGridLayout* grid = new QGridLayout(this,11,3);
   grid->setSpacing(3);
 
-  m_chooseModulesButton = new QPushButton(i18n("Choose modules..."), this);
+	QGroupBox* box1 = new QGroupBox(2, Qt::Horizontal , i18n("Main search parameters"), this);
+  grid->addMultiCellWidget(box1, 0,1,0,2);
+
+  m_modulesLabel = new QLabel(box1);
+  m_modulesLabel->setTextFormat(RichText);
+  m_modulesLabel->setAlignment( AlignLeft | WordBreak );
+
+  m_chooseModulesButton = new QPushButton(i18n("Choose modules..."), box1);
   connect(m_chooseModulesButton, SIGNAL(clicked()),
 	  this, SLOT(chooseModules()));
   QToolTip::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::tooltip);
   QWhatsThis::add(m_chooseModulesButton, CResMgr::searchdialog::options::moduleChooserButton::whatsthis);
 
-  m_modulesLabel = new QLabel(this);
-  m_modulesLabel->setTextFormat(RichText);
-  m_modulesLabel->setAlignment( AlignLeft | WordBreak );
 
-  grid->addColSpacing(1, 5);
+//  grid->addColSpacing(1, 5);
 
-  grid->addWidget(m_chooseModulesButton, 0,0);
-  grid->addMultiCellWidget(m_modulesLabel, 1,1,0,2);
+//  grid->addWidget(m_chooseModulesButton, 0,0);
+//  grid->addMultiCellWidget(m_modulesLabel, 1,1,0,2);
 
+  QLabel* label = new QLabel(m_searchTextCombo, i18n("Searched text:"), box1);
+  label->setAutoResize(true);
 
-  m_searchTextCombo = new KHistoryCombo(this);
+  m_searchTextCombo = new KHistoryCombo(box1);
   m_searchTextCombo->setInsertionPolicy( QComboBox::AtBottom );
   m_searchTextCombo->setMaxCount(25);
   m_searchTextCombo->setDuplicatesEnabled(false);
@@ -582,14 +589,10 @@ void CSearchOptionsPage::initView(){
   QToolTip::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::tooltip);
   QWhatsThis::add(m_searchTextCombo, CResMgr::searchdialog::options::searchedText::whatsthis);
   
-    
-  QLabel* label = new QLabel(m_searchTextCombo, i18n("Searched text:"), this);
-  label->setAutoResize(true);
+//  grid->addWidget(label, 2, 0);
+//  grid->addWidget(m_searchTextCombo, 2, 2);
 
-  grid->addWidget(label, 2, 0);
-  grid->addWidget(m_searchTextCombo, 2, 2);
-
-  grid->addRowSpacing(3, 10);
+//  grid->addRowSpacing(3, 10);
 
   
   QButtonGroup* group 
@@ -621,35 +624,43 @@ void CSearchOptionsPage::initView(){
   QWhatsThis::add(m_caseSensitiveBox, CResMgr::searchdialog::options::searchOptions::caseSensitive::whatsthis);
 
   grid->addWidget(group, 4,2);
-  grid->addRowSpacing(5,10);
+//  grid->addRowSpacing(5,10);
 
-  m_rangeChooserCombo = new KComboBox(this);
+	QGroupBox* box2 = new QGroupBox(2, Qt::Horizontal , i18n("Choose search scope:"), this);
+  grid->addMultiCellWidget(box2, 6,7,0,2);
+
+  m_rangeChooserCombo = new KComboBox(box2);
   QToolTip::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::tooltip);
   QWhatsThis::add(m_rangeChooserCombo, CResMgr::searchdialog::options::chooseScope::whatsthis);
-  
+
+
   refreshRanges();  
-  label = new QLabel(m_rangeChooserCombo, i18n("Choose search scope:"),this);
+//  label = new QLabel(m_rangeChooserCombo, i18n("Choose search scope:"), box);
   
-  m_chooseRangeButton = new QPushButton(i18n("Setup custom ranges..."), this);
+  m_chooseRangeButton = new QPushButton(i18n("Setup custom ranges..."), box2);
   connect(m_chooseRangeButton, SIGNAL(clicked()),
     this, SLOT(setupRanges()));
   
 
-  grid->addMultiCellWidget(label, 6,6,0,2);
-  grid->addWidget(m_rangeChooserCombo, 7,0);
-  grid->addWidget(m_chooseRangeButton, 7,2);
+//  grid->addMultiCellWidget(label, 6,6,0,2);
+//  grid->addWidget(m_rangeChooserCombo, 7,0);
+//  grid->addWidget(m_chooseRangeButton, 7,2);
 
   grid->setRowStretch(8,5);
-	
-  label = new QLabel(i18n("Current module:"),this);
-  grid->addWidget(label, 9,0);
-	m_currentProgressBar = new KProgress(this);
-  grid->addWidget(m_currentProgressBar, 9,2);
 
-  label = new QLabel(i18n("All modules:"),this);
-  grid->addWidget(label, 10,0);
-	m_overallProgressBar = new KProgress(this);
-  grid->addWidget(m_overallProgressBar, 10,2);
+	QGroupBox* box3 = new QGroupBox(2, Qt::Horizontal , i18n("Search progress"), this);
+  grid->addMultiCellWidget(box3, 9,10,0,2);
+
+	
+  label = new QLabel(i18n("Current module:"), box3);
+//  grid->addWidget(label, 9,0);
+	m_currentProgressBar = new KProgress(box3);
+//  grid->addWidget(m_currentProgressBar, 9,2);
+
+  label = new QLabel(i18n("All modules:"), box3);
+//  grid->addWidget(label, 10,0);
+	m_overallProgressBar = new KProgress(box3);
+//  grid->addWidget(m_overallProgressBar, 10,2);
 
   //set the initial focus
   m_searchTextCombo->setFocus();
@@ -664,7 +675,7 @@ void CSearchOptionsPage::setModules( ListCSwordModuleInfo modules ) {
   for (modules.first(); modules.current(); modules.next()) {
     t += modules.current()->name();
     if (modules.current() != lastModule)
-      t += QString::fromLatin1(",");
+      t += QString::fromLatin1(", ");
   }
   m_modulesLabel->setText(t);
 }
