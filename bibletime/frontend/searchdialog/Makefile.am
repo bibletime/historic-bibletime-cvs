@@ -10,17 +10,14 @@ csearchdialoganalysis.cpp \
 csearchdialogresultview.cpp \
 csearchdialogresult.cpp \
 csearchdialogtext.cpp \
-csearchdialogscope.cpp
+csearchdialogscope.cpp \
+csearchdialogmodulechooser.cpp
 
 EXTRA_DIST = \
-csearchdialogtext.cpp \
-csearchdialogtext.h \
-csearchdialogscope.cpp \
-csearchdialogscope.h \
-searchdialogresult.cpp \
-csearchdialogresult.h \
-csearchdialogresultview.cpp \
-csearchdialogresultview.h \
-csearchdialoganalysis.cpp \
-csearchdialoganalysis.h \
+csearchdialogmodulechooser.cpp csearchdialogmodulechooser.h \
+csearchdialogtext.cpp csearchdialogtext.h \
+csearchdialogscope.cpp csearchdialogscope.h \
+searchdialogresult.cpp csearchdialogresult.h \
+csearchdialogresultview.cpp csearchdialogresultview.h \
+csearchdialoganalysis.cpp csearchdialoganalysis.h \
 csearchdialog.cpp

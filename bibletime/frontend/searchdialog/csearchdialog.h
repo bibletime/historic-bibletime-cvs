@@ -34,6 +34,7 @@
 class QHBox;
 class QVBox;
 class QGrid;
+class	CSearchDialogModuleChooser;
 class	CSearchDialogText;
 class	CSearchDialogScopeEdit;
 class	CSearchDialogResult;
@@ -105,9 +106,11 @@ protected slots:
 private:
 	friend class CSearchDialogResult;
 
+	QVBox* moduleChooser_page;	
 	QVBox* searchText_page;
 	QHBox* searchResult_page;
 	QVBox* searchAnalysis_page;
+	CSearchDialogModuleChooser	*moduleChooser;	
 	CSearchDialogText		*searchText;
 	CSearchDialogResult	*searchResult;
 	CSearchDialogAnalysis* searchAnalysis;

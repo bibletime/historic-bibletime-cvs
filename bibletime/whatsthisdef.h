@@ -25,12 +25,12 @@
 #define WT(title, description) QString("<center><B>%1</B></center><HR>%2").arg(title).arg(description)
 
 //QWhatsThis entries for Mainwindow actions
-#define WT_FILE_CLEAR_QUEUE WT( TT_FILE_CLEAR_QUEUE, i18n("This will clear the printing queue of BibleTime."))
-#define WT_FILE_PRINT WT( TT_FILE_PRINT, i18n("This will open the printerdialog of BibleTime where you can edit the queue and assign styles to the items."))
-#define WT_FILE_QUIT WT( TT_FILE_QUIT, i18n("This will quit BibleTime."))
+#define WT_FILE_CLEAR_QUEUE WT( TT_FILE_CLEAR_QUEUE, i18n("Clear the printing queue of BibleTime. All items will be removed from the list, the print button will be disabled."))
+#define WT_FILE_PRINT WT( TT_FILE_PRINT, i18n("Open the printerdialog of BibleTime where you can edit the printing queue and assign styles to the items."))
+#define WT_FILE_QUIT WT( TT_FILE_QUIT, i18n("Quit BibleTime. Before BibleTime is closed the settings of the different parts will be saved."))
 	
-#define WT_GM_SEARCH_MODULES WT(TT_GM_SEARCH_MODULES, i18n("This will open the search dialog to search in selected modules"))
-#define WT_GM_DELETE_ITEMS WT(TT_GM_DELETE_ITEMS, i18n("This will delete the selected items from the groupmanager."))
+#define WT_GM_SEARCH_MODULES WT(TT_GM_SEARCH_MODULES, i18n("Open the search dialog to search text is one or more modules."))
+#define WT_GM_DELETE_ITEMS WT(TT_GM_DELETE_ITEMS, i18n("Delete the selected items from the main index.<BR>If you remove a folder the subitems of it will be removed, too."))
 #define WT_GM_RESET	WT(TT_GM_RESET, i18n("This will reset the main index<BR>All bookmarks and folders will be deleted and the default folders will be restored."))
 
 #define WT_VIEW_GROUPMANAGER WT(TT_VIEW_GROUPMANAGER, i18n("This will show or hide the main index depending on current state."))

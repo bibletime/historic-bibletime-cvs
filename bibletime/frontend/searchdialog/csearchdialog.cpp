@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "csearchdialog.h"
+#include "csearchdialogmodulechooser.h"
 #include "csearchdialogtext.h"
 #include "csearchdialogresult.h"
 #include "csearchdialoganalysis.h"
@@ -75,18 +76,21 @@ void CSearchDialog::saveSettings(){
 void CSearchDialog::initView() {
  	enableButton(User2,false);
 
+	moduleChooser_page 	= addVBoxPage(i18n("Choose modules"), i18n("Choose the modules for the search"));
+	moduleChooser			= new CSearchDialogModuleChooser(m_important, moduleChooser_page);
+ 	
 	searchText_page 	= addVBoxPage(i18n("Search Text"), i18n("Enter the text to search for"));
 	searchText			= new CSearchDialogText(m_important, searchText_page);
-
+	searchText_page->setEnabled(false);
+	
 	searchResult_page = addHBoxPage(i18n("Search Result"), i18n("The result of your search"));
 	searchResult = new CSearchDialogResult(m_important, searchResult_page);
-
+	searchResult_page->setEnabled(false);
+	
 	searchAnalysis_page = addVBoxPage(i18n("Search Analysis"), i18n("Graphical analysis of your search result"));	
 	searchAnalysis = new CSearchDialogAnalysis(searchAnalysis_page);
-	ASSERT(searchAnalysis);
-	ASSERT(searchAnalysis_page);
-	CSearchDialogAnalysisView* analysisView =
-		new CSearchDialogAnalysisView(searchAnalysis, searchAnalysis_page);
+	CSearchDialogAnalysisView* analysisView =	new CSearchDialogAnalysisView(searchAnalysis, searchAnalysis_page);
+	searchAnalysis_page->setEnabled(false);	
 }
 
 ListCSwordModuleInfo* CSearchDialog::getModuleList() const {
@@ -97,8 +101,12 @@ ListCSwordModuleInfo* CSearchDialog::getModuleList() const {
 void CSearchDialog::setModuleList(ListCSwordModuleInfo *list) {
 	if (!moduleList)
 		moduleList = new ListCSwordModuleInfo;
-//	moduleList->clear();	
+	
 	*moduleList = *list; //copy the items of "list"
+	if (list->count()) {
+		moduleChooser->setModuleList(moduleList);
+		searchText_page->setEnabled(true);
+	}
 	searchResult->clearResult();
 	searchAnalysis->reset();
 }
@@ -158,15 +166,18 @@ void CSearchDialog::timerEvent(QTimerEvent *e){
 		enableButton(User1,true);
 		enableButton(User2,false);
 		searchText->updateCurrentProgress(100);		
-		searchText->updateOverallProgress(100);		
-			
-		searchAnalysis->reset();		
+		searchText->updateOverallProgress(100);					
+		searchAnalysis->reset();
+		
 		if ( searcher->foundItems() ){
-			searchResult->setModuleList(moduleList);
 			searchAnalysis->setModuleList(moduleList);
-			showPage(1);	//the result page
+			searchAnalysis_page->setEnabled(true);			
+			searchAnalysis->analyse();			
 			
-			searchAnalysis->analyse();
+			searchResult->setModuleList(moduleList);
+			searchResult_page->setEnabled(true);
+			
+			showPage(pageIndex(searchResult_page));	//the result page
 		}
 		else {
 			searchResult->clearResult();
