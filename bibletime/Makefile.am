@@ -27,7 +27,7 @@ $(LIB_X11) \
 $(LIB_SWORD) \
 $(LIBSOCKET)
 
-SUBDIRS = backend printing frontend xml pics docs
+SUBDIRS = backend printing frontend xml pics 
 
 EXTRA_DIST = \
 $(bibletime_SOURCES) \
@@ -68,8 +68,8 @@ DISTCLEANFILES = $(bibletime_METASOURCES)
 
 # make messages.po. Move this one to ../po/ and "make merge" in po
 # the -x is for skipping messages already translated in kdelibs
-messages:
-	$(XGETTEXT) -C -ki18n -x $(KDEDIR)/include/kde.pot `find . -name \*.h -o -name \*.cpp -o -name \*.cc` -o ../po/bibletime.pot
+#messages:
+#	$(XGETTEXT) -C -ki18n -x $(KDEDIR)/include/kde.pot `find . -name \*.h -o -name \*.cpp -o -name \*.cc` -o ../po/bibletime.pot
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(kde_confdir)
