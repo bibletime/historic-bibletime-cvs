@@ -52,7 +52,7 @@ protected: // Protected methods
   /**
   * Parses the verse reference ref and returns it.
   */
-  const sword::SWBuf parseRef(const sword::SWBuf ref, sword::SWModule*, sword::SWKey*, const bool insertFullRef = false);
+  const sword::SWBuf parseRef(const sword::SWBuf ref, sword::SWModule*, sword::SWKey*, const bool insertFullRef = true);
   /**
   * Parses the verse reference ref and returns it.
   */
