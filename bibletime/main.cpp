@@ -116,12 +116,11 @@ int main(int argc, char* argv[]) {
  	KCmdLineArgs::addCmdLineOptions ( options );
 
 	
+#ifdef STATIC_BUILD
+ 	KApplication app(false);
+#else
  	KApplication app;
-// 	QFont f = app.font();
-//// 	f.setCharSet(QFont::AnyCharSet);
-// 	f.setCharSet(QFont::Unicode);
-// 	app.setFont(f); 	
- 	
+#endif
  	KGlobal::dirs()->addResourceType("BT_pic", KStandardDirs::kde_default("data") + kapp->name() + "/pics/");
 
 

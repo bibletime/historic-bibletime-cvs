@@ -101,7 +101,7 @@ void CBiblePresenter::initView(){
 void CBiblePresenter::lookup(CKey* key){
 	setUpdatesEnabled(false);	
 	
-	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);	
+	CSwordVerseKey* vKey = (CSwordVerseKey*)key;	
 	if (!vKey)
 		return;
   m_moduleList.first()->module()->SetKey(*vKey);

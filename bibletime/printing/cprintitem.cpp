@@ -81,8 +81,8 @@ void CPrintItem::setStartKey(CKey* newKey) {
 		delete m_startKey;
 	m_startKey = newKey;
 
-	SWKey* startKey = dynamic_cast<SWKey*>(m_startKey);	
-	SWKey* stopKey = dynamic_cast<SWKey*>(m_stopKey);	
+	SWKey* startKey = (SWKey*)m_startKey;	
+	SWKey* stopKey = (SWKey*)m_stopKey;	
 	if ( m_startKey ) {
 		if (m_startKey == m_stopKey || !m_stopKey)
 			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );		
@@ -102,8 +102,8 @@ void CPrintItem::setStopKey( CKey* newKey ){
 		delete m_stopKey;	
 	m_stopKey = newKey;
 	
-	SWKey* startKey = dynamic_cast<SWKey*>(m_startKey);	
-	SWKey* stopKey = dynamic_cast<SWKey*>(m_stopKey);	
+	SWKey* startKey = (SWKey*)m_startKey;	
+	SWKey* stopKey = (SWKey*)m_stopKey;	
 	if ( m_startKey ) {
 		if (m_startKey == m_stopKey || !m_stopKey)
 			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );		
@@ -152,8 +152,8 @@ const QString CPrintItem::getModuleText() {
 	if (!m_moduleText.isEmpty())
 		return m_moduleText;
 
-	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
-	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);		
+	CSwordVerseKey* vk = (CSwordVerseKey*)m_startKey;
+	CSwordLDKey* lk = (CSwordLDKey*)m_startKey;
 	QString text = QString::null;
 	CSwordModuleInfo* sw = (CSwordModuleInfo*)m_module;
 	text = vk ? QString("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString();
@@ -161,8 +161,8 @@ const QString CPrintItem::getModuleText() {
 	if (sw && m_stopKey && m_stopKey != m_startKey) {
 		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
 			CSwordVerseKey dummyKey(sw);
-			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(m_startKey);			
-			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(m_stopKey);						
+			CSwordVerseKey* vk_start = (CSwordVerseKey*)m_startKey;
+			CSwordVerseKey* vk_stop = (CSwordVerseKey*)m_stopKey;						
 			if (!vk_start && !vk_stop)
 				return text;
 			dummyKey.setKey( vk_start->getKey() );
@@ -231,17 +231,14 @@ void CPrintItem::updateListViewItem(){
 		m_listViewItem->setText(0, swModule->module()->Name() );
 	}
 
-	if (getStartKey() && dynamic_cast<SWKey*>(getStartKey())) {
-		SWKey* key = dynamic_cast<SWKey*>(getStartKey());
+	SWKey* key = (SWKey*)getStartKey();	
+	if (key)
 		m_listViewItem->setText(1, (const char*)*key);
-	}
-	if (getStopKey() && dynamic_cast<SWKey*>(getStopKey())) {
-		SWKey* key = dynamic_cast<SWKey*>(getStopKey());
+	key = (SWKey*)getStopKey();
+	if (key)
 		m_listViewItem->setText(2, (const char*)*key);
-	}
-	if (getStyle()) {
+	if (getStyle())
 		m_listViewItem->setText(3, getStyle()->getStyleName() );
-	}
 }
 
 /**  */

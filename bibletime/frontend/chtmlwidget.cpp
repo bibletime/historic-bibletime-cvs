@@ -68,23 +68,15 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 	: QTextEdit(parent, name)/*, m_document(new CTextDocument(importantClasses, new CTextFormatCollection()))*/ {	
 	m_important = importantClasses;
 
-//	m_document->formatCollection()->setCharsetMap( m_document->);
-		
-//  connect(m_document, SIGNAL(minimumWidthChanged(int)), SLOT(setRealWidth( int ) ) );
-//  m_document->setFormatter( new Qt3::QTextFormatterBreakWords );
-////  currentFormat = m_document->formatCollection()->defaultFormat();
-//  currentAlignment = Qt3::AlignAuto;	
-//	setDocument(m_document);
-//  resizeContents( 0, doc->lastParag() ? ( doc->lastParag()->paragId() + 1 ) * doc->formatCollection()->defaultFormat()->height() : 0 );
+	QMap<QString, QFont::CharSet>* map = new QMap<QString, QFont::CharSet>;
+	document()->charsetMap = map;
 	
 	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
 	for (modules->first(); modules->current(); modules->next()) {
 		if (modules->current()->hasFont()) {
 			QFont font = modules->current()->getFont();
-			if (!document()->charsetMap.contains(font.family())) {
-				qWarning("insert new font family into list: %s", font.family().latin1());
-				document()->charsetMap.insert(font.family(), QFont::AnyCharSet);				
-			}
+			if (!map->contains(font.family()))
+				map->insert(font.family(), QFont::AnyCharSet);
 		}
 	}
 

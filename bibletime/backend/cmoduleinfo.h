@@ -25,13 +25,9 @@
 	*
   * @short CModuleInfo is the base class for all modules
   *	@author The BibleTime team
-  * $Id
+  * $Id$
   */
-class CModuleInfo {
-public: 
-	CModuleInfo() {};
-	~CModuleInfo() {};
-};
+class CModuleInfo {};
 
 typedef QList<CModuleInfo> ListCModuleInfo;
 

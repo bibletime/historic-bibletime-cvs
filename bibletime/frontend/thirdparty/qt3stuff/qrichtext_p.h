@@ -678,7 +678,7 @@ class Q_EXPORT QTextDocument : public QObject
     friend class QTextParag;
 
 public:
-	QMap<QString,QFont::CharSet> charsetMap;
+	QMap<QString,QFont::CharSet>* charsetMap;
 	
     enum SelectionIds {
 	Standard = 0,

@@ -66,7 +66,7 @@ CKey* CLexiconKeyChooser::getKey(){
 }
 
 void CLexiconKeyChooser::setKey(CKey* key){	
-	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
+	if (!(m_key = (CSwordLDKey*)key))
 		return;		
 	m_widget->ComboBox->setCurrentItem(
 		m_widget->ComboBox->listBox()->index(

@@ -10,8 +10,7 @@ chtmldialog.cpp \
 ctipwindow.cpp \
 actions.cpp \
 ctoolclass.cpp \
-cinputdialog.cpp \
-ctextdocument.cpp
+cinputdialog.cpp
 
 SUBDIRS = \
 groupmanager \
@@ -29,6 +28,5 @@ chtmldialog.cpp chtmldialog.h \
 ctipwindow.cpp ctipwindow.h \
 ctoolclass.cpp ctoolclass.h \
 actions.cpp actions.h \
-cinputdialog.cpp cinputdialog.h \
-ctextdocument.cpp ctextdicument.h
+cinputdialog.cpp cinputdialog.h
 

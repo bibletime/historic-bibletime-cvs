@@ -25,20 +25,8 @@
 	*
   *	@short The base class for all key objects.
   *	@author The BibleTime team
-  *	@version $Id
+  *	@version $Id$
   */
-class CKey {
-
-public: 
-	/**
-		* The constructor of this CKey class. In derived classes it should initialize the members.
-		*/
-	CKey() {};
-	/**
-		* The destructor of CKey, In derived classes this function should delete
-		*	the memory allocated by this object.
-		*/
-	virtual ~CKey() {};
-};
+class CKey {};
 
 #endif

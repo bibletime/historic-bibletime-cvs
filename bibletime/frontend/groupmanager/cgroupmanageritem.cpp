@@ -151,13 +151,10 @@ void CGroupManagerItem::update(){
   else if (m_type == Bookmark) {
 		QString title = QString::null;
 		setPixmap(0, BOOKMARK_ICON_SMALL);
-		ASSERT(m_moduleInfo);
 		if ( getBookmarkKey() ) {	//if we have a valid key
-			CKey* key = getBookmarkKey();
-			if (key && dynamic_cast<SWKey*>(key)) {	// a valid Sword key
-				SWKey* swKey = dynamic_cast<SWKey*>(key);
+			SWKey* swKey = (SWKey*)(getBookmarkKey());
+			if (swKey)	// a valid Sword key
 				title = QString::fromLocal8Bit((const char*)*swKey);
-			}
 		}
 		else if (!m_caption.isEmpty()){	//bookmark key is 0, we use now the m_caption member to create a valid key
 			if ( m_moduleInfo && dynamic_cast<CSwordBibleModuleInfo*>(m_moduleInfo) ) {	//a Bible or a commentary module
@@ -185,15 +182,12 @@ void CGroupManagerItem::update(){
 	}
 	else if ( m_type == CGroupManagerItem::Module ) {
 		setPixmap(0, CToolClass::getIconForModule(m_moduleInfo));
-		if (m_moduleInfo) {
+		if (m_moduleInfo)
 			setText(0, m_moduleInfo->module()->Name());
-		}
-		else if (!m_moduleName.isEmpty()){
+		else if (!m_moduleName.isEmpty())
 			setText(0, m_moduleName);			
-		}
-		else {
+		else
 			setText(0, i18n("unknown"));
-		}
 	}
 }
 
@@ -216,13 +210,10 @@ void CGroupManagerItem::setModuleInfo( CModuleInfo* moduleInfo ){
 
 /** Returns a QString version of the key. */
 QString CGroupManagerItem::getKeyText(){
-	CKey* key = m_bookmarkKey;
-	QString ret = QString::null;
-	
-	if (dynamic_cast<SWKey*>(key)) {
-		SWKey* skey = dynamic_cast<SWKey*>(key);
+	QString ret = QString::null;	
+	SWKey* skey = (SWKey*)m_bookmarkKey;	
+	if (skey)
 		ret = QString::fromLocal8Bit((const char*)*skey);
-	}
 	return ret;
 }
 
@@ -241,8 +232,8 @@ const QString CGroupManagerItem::getToolTip(){
 			CKey* key = getBookmarkKey();			
 			if (!key)
 				return QString::null;				
-			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
-			CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
+			CSwordVerseKey* vk = (CSwordVerseKey*)(key);
+			CSwordLDKey* lk = (CSwordLDKey*)(key);
 					
 			QString bookmarkText = 	vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString());					
 			if (bookmarkText.length() > 150 && (moduleInfo()->getType() != CSwordModuleInfo::Bible))

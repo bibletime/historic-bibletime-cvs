@@ -101,7 +101,7 @@ CKey *CBibleKeyChooser::getKey(){
 
 void CBibleKeyChooser::setKey(CKey* key){
 	qDebug("CBibleKeyChooser::setKey(CKey* key)");
-	if (!(m_key = dynamic_cast<CSwordVerseKey*>(key)))
+	if (!(m_key = (CSwordVerseKey*)key))
 		return;
 		
 	const unsigned int bookIndex = m_info->getBookNumber( m_key->getBook() );

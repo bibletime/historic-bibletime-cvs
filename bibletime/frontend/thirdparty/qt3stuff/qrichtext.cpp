@@ -64,7 +64,7 @@ using namespace Qt3;
 //#define DEBUG_TABLE_RENDERING
 
 static QTextFormatCollection *qFormatCollection = 0;
-static QMap<QString, QFont::CharSet>* m_charsetMap;
+QMap<QString, QFont::CharSet>* m_charsetMap = 0;
 
 #if defined(PARSER_DEBUG)
 static QString debug_indent;
@@ -1234,7 +1234,8 @@ QTextDocument::QTextDocument( QTextDocument *p, QTextFormatCollection *c )
 
 void QTextDocument::init()
 {
-	m_charsetMap = &charsetMap;
+	m_charsetMap = charsetMap;
+	
 #if defined(PARSER_DEBUG)
     qDebug( "new QTextDocument (%p)", this );
 #endif

@@ -1136,10 +1136,9 @@ bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* g
 			parentList.append( parentID );
 						
 			if (myItem->getBookmarkKey())	{ //has a
-				if (dynamic_cast<SWKey*>(myItem->getBookmarkKey())) {
-					SWKey* key = dynamic_cast<SWKey*>(myItem->getBookmarkKey());
+				SWKey* key = (SWKey*)(myItem->getBookmarkKey());			
+				if (key)
 					bookmarkList.append( QString::fromLocal8Bit((const char*)*key) );
-				}				
 			}
 			else
 				bookmarkList.append( "" );	//invalid key

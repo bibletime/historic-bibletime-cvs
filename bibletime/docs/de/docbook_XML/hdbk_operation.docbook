@@ -486,25 +486,23 @@ damit dieses die gewünschte Stelle anzeigt (Nur für Bibeln und Kommentare).</par
 
 <section ID="hdbk_op_search_dialog_text_analysis"><title>Using the Search Analysis Tab</title>
 <para>
-Search Analysis - This gives a graphic analysis of the number of instances the
-search string was found in each book. It can display results for all documents searched.
-You have the option of saving the graph as an image file on
-your hard drive. </para>
+Suchanalyse - Dies zeigt eine grafische Analyse der Anzahl der Treffer in jedem Buch.
+Sie kann das Ergebnis aller Dokumente anzeigen. Sie können den Graphen auch als Bild auf Festplatte abspeichern.
+</para>
 <screenshot>
-<screeninfo>Search Analysis Dialog Box</screeninfo>
+<screeninfo>Suchanalyse Dialogbox</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchanal.png" format="png"></graphic>
 </screenshot>
 
 </section>
 </section>
-<section ID="hdbk_op_output"><title>Output</title>
-<section ID="hdbk_op_export"><title>Exporting</title>
+<section ID="hdbk_op_output"><title>Ausgabe</title>
+<section ID="hdbk_op_export"><title>Exportieren</title>
 <para>
-To export text as HTML, text, or to the clipboard from an open document.  Do a
-<mousebutton>right mouse click</mousebutton> in the document, and a drop down
-menu will appear.  Select the desired option,
-A save text dialog box will appear for you to enter the desired
-file name.
+Wie man Text als HTML, text exportieren oder in die Zwischenablage kopiert.
+Machen Sie einen <mousebutton>Mausklick mit der rechten Taste</mousebutton> in einem
+Dokument aus und ein Menü erscheint. Wählen Sie die gewünschte Aktion aus.
+Eine Box zum Abspeichern wird erscheinen, in der sie den verlangten Dateinamen eingeben können.
 </para>
 
 <para>
@@ -512,24 +510,23 @@ Kontextmenü Informationen werden hier später hinzugefügt.
 </para>
 </section>
 
-<section ID="hdbk_op_print"><title>Printing</title>
-<para>Das Drucksystem wurde verändert. Dieser Abschnitt befindet sich in der Überarbeitung.</para> <para>Printing from Bibletime is rather basic and is intended as
-a utility.  If you are composing a document or presentation containing text from
-Bibletime documents, we suggest that you use one of the presentation or editing
-tools on your system.  See the instructions on exporting. </para>
+<section ID="hdbk_op_print"><title>Drucken</title>
+<para>Das Drucksystem wurde verändert. Dieser Abschnitt befindet sich in der Überarbeitung.</para>
+<para>Drucken innerhalb von BibleTime is ziemlich rudimentär und ist als Hilfe gedacht.
+Wenn Sie ein Dokument oder eine Präsentation mit Hilfe von Texten in BibleTime zusammenstellen,
+so empfehlen wir ihnen eines der Werkzeuge ihres Systems dafür zu verwenden.
+Lesen Sie auch die Informationen über das exportieren.
+</para>
 <para>
-To print, select an open document, then select <guiicon>print</guiicon>.  The print dialog box will appear.
-You will have the option of sending your selection to the printer, or previewing
-it with kghostview.
+Um zu drucken, wählen Sie ein geöffnetes Dokument aus und wählen anschließend <guiicon>Drucken</guiicon> aus.
+Der Druckerdialog erscheint. Sie haben die Wahl zwischen dem Drucken auf den Drucker oder der Vorschau mit kghostview.
 </para>
 
 <para>
-Context Menu Information Later
+Kontextmenü Informationen kommen später.
 </para>
 
 </section>
 </section>
 </chapter>
-
-
 

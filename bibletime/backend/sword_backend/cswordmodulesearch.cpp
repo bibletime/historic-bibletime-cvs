@@ -97,7 +97,7 @@ const bool CSwordModuleSearch::startSearch() {
 
 	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
 		cms_module_current++;
-		CSwordModuleInfo* module = 0;
+//		CSwordModuleInfo* module = 0;
 //		if (m_moduleList->current()->getType() == CSwordModuleInfo::Bible)
 //			module = new CSwordBibleModuleInfo(m_moduleList->current());
 //		else if (m_moduleList->current()->getType() == CSwordModuleInfo::Commentary)

@@ -143,7 +143,7 @@ void CCommentaryPresenter::modulesChanged(){
 void CCommentaryPresenter::lookup(CKey* key){
 	setUpdatesEnabled(false);	
 	
-	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);	
+	CSwordVerseKey* vKey = (CSwordVerseKey*)key;	
 	if (!vKey)
 		return;
   m_moduleList.first()->module()->SetKey(*vKey);
@@ -265,7 +265,7 @@ void CCommentaryPresenter::syncToggled(){
 /** Synchronizes to the given key if sync is enabled. */
 void CCommentaryPresenter::synchronize( CKey* syncKey ){
 	if (presenterSync_action->isChecked()) {
-		CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(syncKey);
+		CSwordVerseKey* vk = (CSwordVerseKey*)syncKey;
 		if (!vk)
 			return;
 		m_key->setKey(vk->getKey());

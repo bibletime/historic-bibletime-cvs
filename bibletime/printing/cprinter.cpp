@@ -250,11 +250,11 @@ void CPrinter::printQueue(){
 				m_queue->current()->draw(&p,this);
 			CKey* key = m_queue->current()->getStartKey();			
 			QString keyName = QString::null;			
-			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
+			CSwordVerseKey* vk = (CSwordVerseKey*)key;
 			if (vk)
 				keyName = vk->getKey();
 			else {
-				CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
+				CSwordLDKey* lk = (CSwordLDKey*)key;
 				keyName = lk->getKey();
 			}
 			if (!aborted())

@@ -290,7 +290,7 @@ void CSwordBackend::Load() {
 			m_errorCode = noSwordModuleConfigDirectory;
 		else
 			m_errorCode = noModulesAvailable;	
-		SWLog::systemlog->LogError("SWMgr: Can't find 'mods.conf' or 'mods.d'.  Try setting:\n\tSWORD_PATH=<directory containing mods.conf>\n\tOr see the README file for a full description of setup options (%s)", (configPath) ? configPath : "<configPath is null>");
+		qWarning("SWMgr: Can't find 'mods.conf' or 'mods.d'.  Try setting:\n\tSWORD_PATH=<directory containing mods.conf>\n\tOr see the README file for a full description of setup options (%s)", (configPath) ? configPath : "<configPath is null>");
 	}
 	if (access("/etc/sword.conf",R_OK) == -1)
 		m_errorCode = noSwordConfigFile;	

@@ -24,12 +24,8 @@
 	*
 	*	@short This is the base class for all backends.
   *	@author The BibleTime team
-  *	@version $Id
+  *	@version $Id$
   */
-class CBackend {
-public: 
-	CBackend(){};
-	~CBackend(){};
-};
+class CBackend {};
 
 #endif

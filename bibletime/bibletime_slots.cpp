@@ -93,10 +93,6 @@ void BibleTime::slotSettingsOptions(){
 			KConfigGroupSaver groupSaver(m_config, "Colors");
 			QColor tempColor = m_config->readColorEntry("Highlighted Verse");			
 			m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor = tempColor.name();
-//			tempColor = tempColor = m_config->readColorEntry("Versenumber/URL");
-//			m_important->swordBackend->m_entryDisplay->m_linkColor = tempColor.name();
-//			tempColor = tempColor = m_config->readColorEntry("Normal Text");
-//			m_important->swordBackend->m_entryDisplay->m_textColor = tempColor.name();
 			
 			m_config->setGroup("Fonts");
 			QFont dummy =  m_config->readFontEntry(i18n("Display window"));
@@ -106,11 +102,7 @@ void BibleTime::slotSettingsOptions(){
 			KConfigGroupSaver groupSaver(m_config, "Colors");
 			QColor tempColor = tempColor = m_config->readColorEntry("Highlighted Verse");
 			m_important->swordBackend->m_chapterDisplay->m_highlightedVerseColor = tempColor.name();
-//			tempColor = tempColor = m_config->readColorEntry("Versenumber/URL");
-//			m_important->swordBackend->m_chapterDisplay->m_linkColor = tempColor.name();
-//			tempColor = tempColor = m_config->readColorEntry("Normal Text");
-//			m_important->swordBackend->m_chapterDisplay->m_textColor = tempColor.name();
-			
+
 			m_config->setGroup("Fonts");
 			QFont dummy =  m_config->readFontEntry(i18n("Display window"));
 			m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );			
@@ -123,10 +115,8 @@ void BibleTime::slotSettingsOptions(){
 		}
 		for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
 			CSwordPresenter* myPresenter = (CSwordPresenter*)m_mdi->windowList().at(index);
-			ASSERT(myPresenter);
-			if (myPresenter) {
+			if (myPresenter)
 				myPresenter->refresh(changedSettings);
-			}
 		}		
 		
 		//refresh the bookmark items in the groupmanager		
@@ -137,7 +127,7 @@ void BibleTime::slotSettingsOptions(){
 				if (dummy->type() == CGroupManagerItem::Bookmark) {
 					if (dummy->getBookmarkKey()) {
 						CSwordVerseKey* vKey = 0;
-						if ( (vKey = dynamic_cast<CSwordVerseKey*>(dummy->getBookmarkKey())) ) {
+						if ( (vKey = (CSwordVerseKey*)(dummy->getBookmarkKey())) ) {
 							vKey->setLocale( (const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
 							dummy->update();
 						}
@@ -145,8 +135,7 @@ void BibleTime::slotSettingsOptions(){
 				}
 			}
 		}
-	}
-	
+	}	
 	delete dlg;
 }
 

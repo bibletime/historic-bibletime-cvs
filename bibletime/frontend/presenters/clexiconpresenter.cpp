@@ -103,7 +103,7 @@ void CLexiconPresenter::initConnections(){
 void CLexiconPresenter::lookup(CKey* key){
 	setUpdatesEnabled(false);	
 	
-	CSwordLDKey* ldKey = dynamic_cast<CSwordLDKey*>(key);	
+	CSwordLDKey* ldKey = (CSwordLDKey*)key;	
 	if (!ldKey)
 		return;
   m_moduleList.first()->module()->SetKey(/*key != m_key ? ldKey : ldKey->clone()*/ldKey);
