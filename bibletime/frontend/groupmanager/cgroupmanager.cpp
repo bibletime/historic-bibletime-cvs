@@ -75,8 +75,7 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 	
 	CGroupManager* m = 0;
 	if ( !(m = dynamic_cast<CGroupManager*>(parentWidget())) )
-		return;
-	
+		return;	
 	CGroupManagerItem* i = 0;
 	if ( !( i = dynamic_cast<CGroupManagerItem*>(m->itemAt(p))) )
 		return;
@@ -91,8 +90,8 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 		const QFont oldFont = font();				
 		CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(i->moduleInfo());
 
-		//Module is Unicode-based
-		if (m && m->encoding() == QFont::Unicode )
+		//Module is Unicode-based. Only set font if a bookmark should be displayed
+		if (i->getBookmarkKey() && m && m->encoding() == QFont::Unicode )
 			setFont(CBTConfig::get( CBTConfig::unicode ));
 
 		tip(r, text);

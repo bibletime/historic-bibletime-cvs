@@ -42,12 +42,19 @@ class CKCComboBox : public QComboBox {
 
 public:
   CKCComboBox(bool rw, QWidget * parent=0, const char * name=0 );
+  /**
+  * Returns the size this widget would like to have.
+  */
+//  virtual QSize sizeHint() const;
+
 protected:
   /**
   * Reimplementation.
   */
   virtual bool eventFilter( QObject *o, QEvent *e );
-  /** Scrolls in the list if the wheel of the mouse was used. */
+  /**
+  * Scrolls in the list if the wheel of the mouse was used.
+  */
   virtual void wheelEvent( QWheelEvent* e);
 
 signals:

@@ -232,7 +232,7 @@ const QString CGroupManagerItem::getToolTip(){
 			//Module is Unicode-based
 			if (moduleInfo() && moduleInfo()->encoding() == QFont::Unicode ) {
   			QFont f = CBTConfig::get(CBTConfig::unicode);
-				text.append( QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(CToolClass::makeLogicFontSize(f.pointSize())).arg(bookmarkText) );
+				text.append( QString::fromLatin1("<FONT FACE=\"%1\">%3</FONT>").arg(f.family())/*.arg(CToolClass::makeLogicFontSize(f.pointSize()))*/.arg(bookmarkText) );
 			}
 			else
 				text.append(bookmarkText);

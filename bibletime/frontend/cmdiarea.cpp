@@ -245,6 +245,16 @@ void CMDIArea::deleteCurrentPresenter(){
 		m_currentPresenter = 0;
 	}
 	setUpdatesEnabled(true);
+//	switch (guiOption) {
+// 		case autoTile:
+//			tile();
+// 			break;
+// 		case autoCascade:
+//			cascade();
+// 			break;
+// 		default:
+// 			break;
+//	}	
 	slotClientActivated(activeWindow());
 	if (activeWindow())
 		m_appCaption = activeWindow()->caption();

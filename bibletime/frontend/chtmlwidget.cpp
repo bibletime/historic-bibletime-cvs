@@ -71,7 +71,7 @@ CHTMLWidget::ToolTip::ToolTip(CImportantClasses* importantClasses, QWidget* pare
 }
 
 void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
-	qWarning("CHTMLWidget::ToolTip::maybeTip(const QPoint& p)");
+//	qWarning("CHTMLWidget::ToolTip::maybeTip(const QPoint& p)");
 	if (!parentWidget()->inherits("CHTMLWidget"))
 		return;
 
@@ -85,7 +85,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 
 //	link = htmlWidget->anchorAt( p1 );
   link = htmlWidget->anchorAt(p1);
-	qWarning("TooLTip::maybeTip: %s", link.latin1());
+//	qWarning("TooLTip::maybeTip: %s", link.latin1());
 	if (link.isEmpty()) {
 //		qWarning("empty link - return");
 		return;

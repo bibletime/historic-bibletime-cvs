@@ -35,6 +35,24 @@
 //#include <qwheelevent.h>
 #include <qtooltip.h>
 
+//bool operator> (const QSize & s1, const QSize & s2)  {
+//	/* Return true is s1 is greater than s2		
+//	*/
+//	if (s1.width() > s2.width() && s1.height()>s2.height()) // s1 is greater than s2
+//		return true;
+//	else
+//		return false;
+//}
+//
+//bool operator>= (const QSize & s1, const QSize & s2)  {
+//	/* Return true is s1 is greater than s2		
+//	*/
+//	if (s1.width() >= s2.width() && s1.height()>=s2.height()) // s1 is greater than s2
+//		return true;
+//	else
+//		return false;
+//}
+
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
   : QComboBox(rw,parent,name){
 	setFocusPolicy(QWidget::WheelFocus);
@@ -89,6 +107,19 @@ void CKCComboBox::wheelEvent( QWheelEvent* e ) {
 	}
 }
 
+///** Returns the size this widget would like to have. */
+//QSize CKCComboBox::sizeHint() const {
+//	// IMHO Qt has a bug: The sizehint is not updated if the list is refreshed with other items
+//	if (lineEdit()->sizeHint() > listBox()->sizeHint() && lineEdit()->sizeHint() > QComboBox::sizeHint() ) {
+//		qWarning("combo::sizeHint() use lineEdits hint");		
+//		return lineEdit()->sizeHint();
+//	}
+//	else if (listBox()->sizeHint() > QComboBox::sizeHint() ){
+//		return QSize(lineEdit()->sizeHint().height(), listBox()->sizeHint().width());
+//	}
+//	return QComboBox::sizeHint(); //return standard sizeHint	
+//}
+
 //**********************************************************************************/
 
 CKeyChooserWidget::CKeyChooserWidget(int count, const bool useNextPrevSignals,  QWidget *parent, const char *name) : QWidget(parent,name) {
@@ -142,22 +173,27 @@ void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
 }
 
 void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
-//	qDebug("CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit)");	
-	
 	if (isResetting || !isUpdatesEnabled())
 		return;
 	setUpdatesEnabled(false);
-	qWarning("sizeHint: %i", layout()->sizeHint());	
 	ComboBox->setUpdatesEnabled(false);
 			
 	isResetting = true;
-	
+//	layout()->invalidate();	
 	oldKey = QString::null;
-	ComboBox->clear();	
+	ComboBox->clear();
 	ComboBox->insertStringList(*list);
-	ComboBox->resize(ComboBox->sizeHint());
-	ComboBox->setCurrentItem(index);	
-			
+//	ComboBox->resize(QSize(ComboBox->listBox()->sizeHint().width(), ComboBox->sizeHint().height()));
+//	qWarning("ComboBox->sizeHint: %i", ComboBox->sizeHint().width());		
+//	qWarning("ComboBox->lineEdit->sizeHint: %i", ComboBox->lineEdit()->sizeHint().width());			
+//	qWarning("ComboBox->listBox->sizeHint: %i", ComboBox->listBox()->sizeHint().width());				
+//  ComboBox->updateGeometry();
+//	updateGeometry();
+//	layout()->invalidate();
+
+		
+	ComboBox->setCurrentItem(index);
+				
 	const bool enableButtons = list && (list->count()>=1);
 	btn_up->setEnabled( enableButtons );
 	btn_fx->setEnabled( enableButtons );
@@ -169,7 +205,7 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	isResetting = false;
 	setUpdatesEnabled(true);
 	ComboBox->setUpdatesEnabled(true);
-	qWarning("sizeHint2: %i", layout()->sizeHint());		
+//	qWarning("layout()->sizeHint().width(): %i", layout()->sizeHint().width());			
 }
 
 void CKeyChooserWidget::lock(void){
@@ -191,18 +227,18 @@ void CKeyChooserWidget::init( ){
 
 	setFocusPolicy(QWidget::StrongFocus);			
 	QHBoxLayout *m_mainLayout = new QHBoxLayout( this );	
-	
-	QVBoxLayout *m_buttonLayout = new QVBoxLayout();	
-	m_buttonLayout->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);
-	
+		
 	ComboBox = new CKCComboBox( true, this, "ComboBox" );
 	ComboBox->setAutoCompletion( true );
 	ComboBox->setInsertionPolicy(QComboBox::NoInsertion);
 	ComboBox->insertStringList(m_list, 0);
-	ComboBox->setFocusPolicy(QWidget::StrongFocus);
+	ComboBox->setFocusPolicy(QWidget::WheelFocus);
 		
 	m_mainLayout->addWidget( ComboBox );
-	
+
+	QVBoxLayout *m_buttonLayout = new QVBoxLayout();	
+	m_buttonLayout->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);
+		
 	btn_up = new QToolButton( this, "btn_up" );	
 	QIconSet iconSet = getUpIconSet();
 	btn_up->setIconSet( iconSet );
@@ -397,4 +433,3 @@ void CKeyChooserWidget::previous(){
 		emit changed(ComboBox->currentItem());
 	}
 }
-

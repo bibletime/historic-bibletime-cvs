@@ -37,14 +37,13 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
 	m_info = dynamic_cast<CSwordLexiconModuleInfo*>(info);
 		
 	//we use a layout because the key chooser should be resized to full size
- 	QHBoxLayout *m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
+ 	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 	
 	m_widget = new CKeyChooserWidget(m_info->getEntries(), false, this);
 	m_widget->ComboBox->setMaximumWidth(200);
 	
   if (info && info->encoding() == QFont::Unicode){
 #warning implement reaction to font change in the optionsdialog here
-
     /*m_widget->ComboBox->*/setFont( CBTConfig::get(CBTConfig::unicode) );
   }
 
@@ -55,8 +54,6 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
 	
 	connect(m_widget,SIGNAL(changed(int)),SLOT(activated(int)));
 	connect(m_widget,SIGNAL(focusOut(int)),SLOT(activated(int)));
-//	connect(m_widget,SIGNAL(prev_requested()),SLOT(prevRequested()));
-//	connect(m_widget,SIGNAL(next_requested()),SLOT(nextRequested()));
 
 	setKey(key);
 }
@@ -86,11 +83,13 @@ void CLexiconKeyChooser::activated(int index){
 
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
-	m_widget->reset(m_info->getEntries(), 0, true);		
+//	m_layout->invalidate();	
+	m_widget->reset(m_info->getEntries(), 0, true);	
+//	updateGeometry();	
 }
 
 /** Sets the module and refreshes the combo boxes */
-void CLexiconKeyChooser::setModule( CSwordModuleInfo* module){
+void CLexiconKeyChooser::setModule( CSwordModuleInfo* module) {
 	if (module && module != m_info && (dynamic_cast<CSwordModuleInfo*>(module))->getType() == CSwordLexiconModuleInfo::Lexicon) {
 		m_info = dynamic_cast<CSwordLexiconModuleInfo*>(module);
 		refreshContent();

@@ -69,14 +69,6 @@ public slots:
   * Sets the module and refreshes the combo boxes of this keychooser.
   */
   virtual void setModule( CSwordModuleInfo* module );
-//  /**
-// 	* Used to react to a request from the book @ref CKeyChooserWidget
-// 	*/
-//  void nextRequested(void);
-//  /**
-// 	* see @ref nextRequested
-// 	*/
-//  void prevRequested(void);
 
 protected:	
 	class CLexiconPresenter;	
@@ -87,6 +79,7 @@ protected:
 	CKeyChooserWidget *m_widget;
 	CSwordLDKey* m_key;
 	CSwordLexiconModuleInfo	*m_info;	
+	QHBoxLayout *m_layout;
 };
 
 #endif

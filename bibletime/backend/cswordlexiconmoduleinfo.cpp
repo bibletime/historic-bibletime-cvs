@@ -52,10 +52,14 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 
 /** Returns the entries of the module. */
 QStringList* CSwordLexiconModuleInfo::getEntries(){
+	qDebug("CSwordLexiconModuleInfo::getEntries()");
 	if (!m_entryList) {
-		if (!module())
+		if (!module()) {
+		 	qDebug("return 0");
 			return 0;
+		}
 		m_entryList = new QStringList();
+		qDebug("new list");
 		module()->KeyText(" ");
 
     bool lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
@@ -85,12 +89,12 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 		if (!read){
   		do {
 #warning check!!
-//  			if (encoding() == QFont::Unicode)
-    			m_entryList->append(QString::fromUtf8(module()->KeyText()));
-//        else
-//    			m_entryList->append(QString::fromLocal8Bit(module()->KeyText()));
+   			m_entryList->append(QString::fromUtf8(module()->KeyText()));
+  			qDebug("++module now!");
   			(*module())++;
+  			qDebug("entry is now %s", module()->KeyText());
   		} while (!module()->Error());
+ 			qDebug("loop finished!");  		
   		if (m_entryList->first().stripWhiteSpace().isEmpty())
 	  		m_entryList->remove( m_entryList->begin() );			
 
@@ -101,7 +105,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
         if (f2.open( IO_WriteOnly )){
           QDataStream s( &f2 );
   				qDebug("cache created");
-  				s << (getVersion()==QString::null?QString("0"):getVersion());
+  				s << ( (getVersion() == QString::null) ? QString::fromLatin1("0") : getVersion());
   				s << *m_entryList;
   			  f2.close();
         }
@@ -110,5 +114,6 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 
 		module()->KeyText(" ");
 	}	
+	qDebug("return now!");
 	return m_entryList;
 }
