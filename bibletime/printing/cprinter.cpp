@@ -81,6 +81,7 @@ const bool CPrinter::newPage(){
 	if (result) {
 		m_pagePosition.curPage++;
 	 	m_pagePosition.rect = contentSize();			
+	 	setVerticalPos(pageMargins().top);
 	}
 	return result;
 }
@@ -288,7 +289,7 @@ const QRect CPrinter::contentSize() {
 	  m_cachedPage.size.setLeft( m_pageMargin.left );
 	  m_cachedPage.size.setTop( m_pageMargin.top );
 	  m_cachedPage.size.setRight( metric.width() -  m_pageMargin.right );
-	  m_cachedPage.size.setBottom( metric.height() - m_pageMargin.top - m_pageMargin.bottom );
+	  m_cachedPage.size.setBottom( metric.height() /*- m_pageMargin.top*/ - m_pageMargin.bottom );
 	}
   return m_cachedPage.size;
 }
@@ -319,6 +320,7 @@ void CPrinter::setupStandardStyle(){
 
 /** returns the vertical position of the printer's painter. */
 const int CPrinter::verticalPos() const {
+	qWarning("vertical pos is %i", m_pagePosition.rect.y());
 	return m_pagePosition.rect.y();
 }
 

@@ -297,6 +297,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		}
 		else if (type == CStyle::ModuleText) {		
 			p->save();
+			
 			if (isUnicode)
 				font = CBTConfig::get( CBTConfig::unicode );
 
@@ -315,32 +316,32 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 
     	richText.setWidth( p, pageWidth-2*frameThickness-2*BORDER_SPACE );
     	view = QRect( //the content area of the whole page
-    		leftMargin+frameThickness+BORDER_SPACE,
-    		upperMargin+frameThickness+BORDER_SPACE,
-	    	pageWidth-2*frameThickness-2*BORDER_SPACE,
-	    	pageHeight-2*frameThickness-2*BORDER_SPACE
+    		leftMargin + frameThickness  + BORDER_SPACE,
+    		upperMargin + frameThickness + BORDER_SPACE,
+	    	pageWidth - 2*frameThickness - 2*BORDER_SPACE,
+	    	pageHeight - 2*frameThickness - 2*BORDER_SPACE
     	);
     	
     	int translated = 0;
     	do {
-    		if ((int)(verticalPos + richText.height() - translated) < (int)(pageHeight) + upperMargin ) {
+    		if ((int)(verticalPos - upperMargin + richText.height() - translated) <= (int)(pageHeight) ) {
     			//text fits on current page
 					br = QRect (
 	    			leftMargin+frameThickness,
 	    			verticalPos+frameThickness,
 		    		pageWidth-2*frameThickness,
-		    		richText.height() + frameThickness + BORDER_SPACE
+		    		richText.height() - translated + frameThickness + BORDER_SPACE
 	    		);
 				}
-    		else { //doesn't fit on current page, fill to bottom of the page    		
+    		else { //doesn't fit completely on current page, fill to bottom of the page    		
 		    	br = QRect(
-		    		leftMargin+frameThickness,
-		    		verticalPos+frameThickness,
+		    		leftMargin + frameThickness,
+		    		verticalPos + frameThickness,
 			    	pageWidth - 2*frameThickness,
-			    	pageHeight + upperMargin - verticalPos - 2*frameThickness
+			    	pageHeight - verticalPos + upperMargin - 2*frameThickness
 		    	);
-    			br.moveBy(0, translated);
     		}
+				br.moveBy(0,translated); //we have to move down as far as the painter moved    		
     		p->setClipRect(
     			upperMargin,
     			leftMargin,
@@ -360,20 +361,21 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 					p->drawRect(br);
 				}						   			
     		p->setClipping(false);
+    		
         richText.draw(p, leftMargin+frameThickness+BORDER_SPACE, verticalPos+frameThickness+BORDER_SPACE, view, cg);
-				movePixs =
+				movePixs = //move down the painted area height
 						(((int)richText.height()-translated) > (int)(pageHeight - verticalPos + upperMargin ))
-					? (pageHeight+ upperMargin - verticalPos ) //move one page
-					: richText.height() - translated + 2*frameThickness + 2*BORDER_SPACE;
+					? (pageHeight - verticalPos + upperMargin) //move to bottom of page
+					: richText.height() - translated + 2*frameThickness + 2*BORDER_SPACE; //only move the painted area
 
-   			printer->setVerticalPos(verticalPos+movePixs);					
+   			printer->setVerticalPos(verticalPos + movePixs);					
 
 		    view.moveBy( 0,movePixs);
         p->translate( 0,-movePixs);
-        translated+=movePixs;
-        if ( view.top() >= richText.height() ) { //bottom or top(default)
+        translated += movePixs;
+        if ( view.top() >= richText.height() ) //bottom or top(default)
     			break;
-    		}
+
     		printer->newPage();
    			verticalPos = printer->verticalPos();    		
     	} while (true);

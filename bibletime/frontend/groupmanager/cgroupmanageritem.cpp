@@ -17,13 +17,16 @@
 
 #include "cgroupmanageritem.h"
 #include "cgroupmanager.h"
+
 #include "backend/cswordversekey.h"
 #include "backend/cswordldkey.h"
 #include "backend/cswordmoduleinfo.h"
 #include "backend/cswordbiblemoduleinfo.h"
 #include "backend/cswordlexiconmoduleinfo.h"
+
 #include "frontend/ctoolclass.h"
 #include "frontend/cbtconfig.h"
+
 #include "resource.h"
 
 //Qt includes
@@ -271,18 +274,14 @@ void CGroupManagerItem::moveAfter( CGroupManagerItem* item, const MoveType type 
 	
 	if ( parent() != item->parent() ) { //different levels
 		if (type == AllowDifferentParents) { //different parents are allowed
-			qWarning("allow different levels");
 			if (item->parent())
 				item->parent()->insertItem(this); //insert item to the childs
 			else
 				listView()->insertItem(this);
 			moveItem(item);
 		}
-		else
-			qWarning("don't move");
 	}
 	else {
-		qWarning("moved");
 		moveItem(item); //both items are on the same level, so we can use moveItem
 	}
 }
