@@ -16,10 +16,13 @@
  ***************************************************************************/
 
 #include <qobject.h>
+#include <qmap.h>
+#include <qstring.h>
 
 class QWidget;
 class BTSetupWizard;
 class QLabel;
+class QComboBox;
 
 #ifndef INSTALL_H
 #define INSTALL_H
@@ -35,21 +38,40 @@ public:
 
   /** No descriptions */
   void addPage();
+	QString source;
+  QString target;
 
 
 private: // Private methods
 	BTSetupWizard* m_main;
 
 	QWidget* m_widget;
+	QLabel* m_sourceLabel;
+	QLabel* m_targetLabel;
+	QComboBox* m_sourceCombo;
+	QComboBox* m_targetCombo;
 
-	QLabel* m_installSourceLabel;
-
-
+	QMap<QString, QString> m_sourceMap;
+	QMap<QString, QString> m_targetMap;
 
 public slots: // Private slots
   /** No descriptions */
   void activate();
 
+private: // Private methods
+  /** No descriptions */
+  void populateCombos();
+  /** No descriptions */
+  void loadSourceLocations();
+  /** No descriptions */
+  void saveSourceLocations();
+  /** No descriptions */
+  void determineTargetLocations();
+private slots: // Private slots
+  /** No descriptions */
+  void slot_sourceSelected(const QString &sourceName);
+  /** No descriptions */
+  void slot_targetSelected(const QString &targetName);
 };
 
 #endif

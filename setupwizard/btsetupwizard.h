@@ -23,12 +23,11 @@
 
 class QLabel;
 class QCheckBox;
-class QListView;
 class QWidgetStack;
-class QButton;
+class QPushButton;
 
-class CSwordBackend;
 class InstallPage_1;
+class RemovePage;
 
 /** The main window of the application. Provides the possibilities to install/remove and download modules.
   * @author The BibleTime team
@@ -41,39 +40,20 @@ public:
 
 	QWidgetStack* m_widgetStack;
 	QWidget* m_mainPage;
-	QWidget* m_removePage;
 
 private: // Private methods
   void addMainPage(void);
   /** No descriptions */
-  void addRemovePage();
-  /** No descriptions */
-  void populateRemoveModuleListView();
-
 
 	QCheckBox* m_startBibleTimeBox;
 
-	QListView* m_removeModuleListView;
-	QLabel* m_populateListNotification;
-	QButton* m_removeBackButton;
-	QButton* m_removeRemoveButton;
-
-	CSwordBackend* m_backend;
-
-
 	InstallPage_1* m_InstallPage_1;
+	RemovePage* m_RemovePage;
 
 private slots: // Private slots
   void slot_exitRequested();
   /** No descriptions */
   void slot_backtoMainPage();
-  /** No descriptions */
-//  void slot_gotoInstall_1Page();
-  /** No descriptions */
-  void slot_gotoRemovePage();
-  /** No descriptions */
-  void slot_doRemoveModules();
-
 };
 
 #endif
