@@ -63,9 +63,10 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 			);
 		}
 
-	  m_htmlText += QString::fromLatin1("<span %1>\n<span %2>\n%3\n</span></span>%4\n")
+	  m_htmlText += QString::fromLatin1("<span %1>\n<span %2 %3>\n%4\n</span></span>%5\n")
 			.arg( verse == currentVerse ? "id=\"highlighted\"" : "" )
 			.arg( module->isUnicode()   ? "id=\"unicodetext\"" : "" )
+   		.arg( module->textDirection() == CSwordModuleInfo::RightToLeft ? QString::fromLatin1("dir=\"rtl\"") : "")
 			.arg( key.renderedText() )
 			.arg( m_displayOptionsBool.lineBreaks ? "<br>" : "");
 	}
