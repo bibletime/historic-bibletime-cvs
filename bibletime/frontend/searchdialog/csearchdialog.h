@@ -118,10 +118,6 @@ protected:
  
 protected slots:
   /**
-  * Updates the percentage bars.
-  */
-//   void percentUpdate();
-  /**
   * Starts the search with the set modules and the set search text.
   */
   void startSearch();
@@ -147,7 +143,11 @@ protected slots:
 	* Reimplementation. 
 	*/
   virtual void slotClose();
-
+	/**
+	* Set the status of the "Search..." button.
+	*/
+	void slotSetSearchButtonStatus(bool status);
+	
 private:
   CSearchResultPage* m_searchResultPage;
   CSearchOptionsPage* m_searchOptionsPage;

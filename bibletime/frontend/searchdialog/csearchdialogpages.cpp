@@ -618,6 +618,7 @@ const QString CSearchOptionsPage::searchText() {
     regexp.replace( QRegExp("\\s+"), "|" ); //replace one or more white spaces with regexp's OR marker
     return regexp;
   }
+	
   return m_searchTextCombo->currentText();
 }
 
@@ -761,6 +762,8 @@ void CSearchOptionsPage::setModules( ListCSwordModuleInfo modules ) {
   };
 
   m_modulesLabel->setText(t);
+	
+	emit( sigSetSearchButtonStatus( (modules.count() != 0) ) );
 }
 
 /** Opens the modules chooser dialog. */

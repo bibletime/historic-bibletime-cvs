@@ -330,8 +330,13 @@ public slots: // Public slots
   * Sets the value for the "curret module" progress bar.
   */
   void setCurrentModuleProgress( const int );
-  void aboutToShow();
-  /** refreshes the listof ranges and the range combobox. */
+  /**
+	* Reimplementation.
+	*/
+	void aboutToShow();
+  /** 
+	* Refreshes the list of ranges and the range combobox. 
+	*/
   void refreshRanges();
   /**
    * Opens the modules chooser dialog.
@@ -340,6 +345,9 @@ public slots: // Public slots
   
 protected slots: // Protected slots  
   void setupRanges();
+	
+signals:
+	void sigSetSearchButtonStatus(bool);
 };
 
 #endif

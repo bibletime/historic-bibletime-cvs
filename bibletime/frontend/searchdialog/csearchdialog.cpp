@@ -116,7 +116,9 @@ CSearchDialog::CSearchDialog(QWidget *parent)
 void CSearchDialog::startSearch(){
   QString searchText(m_searchOptionsPage->searchText());
 
-  if (searchText.isEmpty()) return;
+  if (searchText.isEmpty()) {
+		return;
+	}
 
   m_searchResultPage->reset();
   enableButton(User1,false);
@@ -202,6 +204,9 @@ void CSearchDialog::initView(){
   box = addHBoxPage(i18n("Search result"));
   m_index.resultPage = pageIndex(box);
   m_searchResultPage = new CSearchResultPage(box);
+	
+ 	enableButton(User2,false); //cancel button
+//  	enableButton(User1,true);	 //start search button
 }
 
 /** Updates the percentage bars. */
@@ -222,12 +227,16 @@ void CSearchDialog::searchFinished(){
  	else
  		m_searchResultPage->reset();
 
- 	enableButton(User2,false);
- 	enableButton(User1,true); 	
+ 	enableButton(User2,false); //cancel button
+ 	enableButton(User1,true);	 //start search button
 }
 
 void CSearchDialog::showModulesSelector() {
   m_searchOptionsPage->chooseModules();
+}
+
+void CSearchDialog::slotSetSearchButtonStatus(bool status) {
+	enableButton(User1,status);
 }
 
 /** Initializes the signal slot connections */
@@ -236,6 +245,8 @@ void CSearchDialog::initConnections(){
   connect(this, SIGNAL(user2Clicked()), SLOT(interruptSearch()));
   connect(this, SIGNAL(closeClicked()), SLOT(slotDelayedDestruct()));  
   connect(this, SIGNAL(aboutToShowPage(QWidget*)), SLOT(slotShowPage(QWidget*)));
+
+	connect(m_searchOptionsPage, SIGNAL(sigSetSearchButtonStatus(bool)), this, SLOT(slotSetSearchButtonStatus(bool)));
 }
 
 /** Updates the progress. */
