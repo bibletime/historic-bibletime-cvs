@@ -3,9 +3,9 @@
 %{expand:%%define buildfor9_1 %(A=$(awk '{print $4}' /etc/mandrake-release); if [ "$A" = 9.1 ]; then echo 1; else echo 0; fi)}
 
 %if %buildfor9_1
-%define unstable 0
+%define 		unstable 	0
 %else
-%define unstable 0
+%define 		unstable 	0
 %endif
 
 %define         name 		bibletime
@@ -14,28 +14,29 @@
 # This should not be changed but set this to static or dynamic.
 # Sword should always be set to 1 if version is wanted that
 # deos not require sword to be installed.
-%define		swordlibs	0
-%define		kdelibs		0
+%define			swordlibs	0
+%define			kdelibs		0
+%define			buildwizard	0
 
 # this needs to be changed depending on build number 
 # and weather or not it is static
-%define		release 	2mdk%{buildfor}
+%define			release 	6mdk%{buildfor}
 
 # This is your cpu i486, i586, i686, ppc, sparc, alfa, etc.
-%define		buildarch 	i586
+%define			buildarch 	i586
 
 # This the RPM group on your system that this will installed into.
 # Graphical desktop/KDE, X11/apps, etc.
-%define		rpmgroup 	Graphical desktop/KDE
+%define			rpmgroup 	Graphical desktop/KDE
 
 # this is were the sword modules will be installed on your system.
 # /usr/local/sword, /usr/share/sword, /opt/local/sword, etc.
 # default is /usr/share/sword
-%define     SwordPath 	/usr/share/sword
-%define	    ModsPath 	%{SwordPath}/mods.d
+%define     	SwordPath 	/usr/share/sword
+%define	    	ModsPath 	%{SwordPath}/mods.d
 
 # This for Mandrake menus
-%define		_menudir 	/usr/lib/menu 
+%define			_menudir 	/usr/lib/menu 
 # Nothing else should need to be changed.
 # Please do not edit below this line unless you know what you are doing.
 
@@ -111,9 +112,11 @@ export PATH="$KDEDIR/bin:$PATH"
 perl -pi -e "s@/lib(\"|\b[^/])@/%_lib\1@g if /(kde|qt)_(libdirs|libraries)=/" configure
 
 %ifarch %ix86
-CFLAGS="%optflags" CXXFLAGS="`echo %optflags |sed -e 's/-fomit-frame-pointer//'`" \
+export CFLAGS="%optflags" 
+export CXXFLAGS="`echo %optflags |sed -e 's/-fomit-frame-pointer//'`" 
 %else
-CFLAGS="%optflags" CXXFLAGS="%optflags" \
+export CFLAGS="%optflags" 
+export CXXFLAGS="%optflags" 
 %endif
 
 
@@ -169,12 +172,15 @@ cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
                 longtitle="An easy to use Bible study tool."
 EOF
 
+
+%if %buildwizard
 # For use with mandrake menu system 
 cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}-setupwizard
 ?package(bibletime):command="/usr/bin/btsetupwizard" icon="bibletime.png" \
                 needs="X11" section="Applications/Bible Study/" title="Bibletime Setup Wizard" \
                 longtitle="A setup tool for the easy to use Bible study tool."
 EOF
+%endif
 
 # make README.RPM:
 
@@ -241,23 +247,27 @@ rm -rf $RPM_BUILD_DIR/%{name}-%{version}
 
 %files
 %defattr(-,root,root)
+
 %if %swordlibs
 #Sword config files
 %config %{ModsPath}/globals.conf
 %config %{SwordPath}/locales.d/*.conf
 %endif
+
 # global BibleTime config files
 #%config %{prefix}/share/config/bt-printing
+
+#docs
 %doc %{prefix}/share/doc/HTML/*
 %doc README.RPM
+
 %{prefix}/bin/*
 %{prefix}/share/applnk/Applications/*
 %{prefix}/share/apps/bibletime/*
 %{prefix}/share/icons/*
-# For use with mandrake menu system
-%{_menudir}/%{name}
-%{_menudir}/%{name}-setupwizard
 
+# For use with mandrake menu system
+%{_menudir}/*
 
 %changelog
 * Wed Jan 21 2003 Brook Humphrey <bah@webmedic.net> bibleitme-1.3.beta4-1mdk
