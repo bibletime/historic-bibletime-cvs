@@ -84,7 +84,6 @@ bibletime/frontend/displaywindow/Makefile \
 bibletime/frontend/keychooser/Makefile \
 bibletime/frontend/mainindex/Makefile \
 bibletime/frontend/searchdialog/Makefile \
-bibletime/frontend/searchdialog.old/Makefile \
 bibletime/pics/Makefile \
 bibletime/pics/16x16/Makefile \
 bibletime/pics/22x22/Makefile \

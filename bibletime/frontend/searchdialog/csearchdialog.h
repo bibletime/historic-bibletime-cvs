@@ -91,6 +91,8 @@ public slots:
   void percentUpdate();
   void startSearch();
   void searchFinished();
+  // shows selector of modules
+  void showModulesSelector();
 
 private:
   CSearchResultPage* m_searchResultPage;

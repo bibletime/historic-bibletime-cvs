@@ -171,6 +171,10 @@ void CSearchDialog::searchFinished(){
  	enableButton(User1,true); 	
 }
 
+void CSearchDialog::showModulesSelector() {
+  m_searchOptionsPage->chooseModules();
+}
+
 /** Initializes the signal slot connections */
 void CSearchDialog::initConnections(){
   connect(this, SIGNAL(user1Clicked()), SLOT(startSearch()));

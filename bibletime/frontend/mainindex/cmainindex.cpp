@@ -264,15 +264,19 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* after){
 
 /** Opens the searchdialog using the given modules using the given search text. */
 void CMainIndex::openSearchDialog( ListCSwordModuleInfo modules, const QString searchText){
-	if (!m_searchDialog)
-		m_searchDialog = new CSearchDialog(this);
+  if (!m_searchDialog)
+    m_searchDialog = new CSearchDialog(this);
   m_searchDialog->reset();
-	m_searchDialog->setModules(modules);
+  if (modules.count()) {
+    m_searchDialog->setModules(modules);
+  } else {
+    m_searchDialog->showModulesSelector();
+  }
 
   m_searchDialog->setSearchText(searchText);
   m_searchDialog->show();
   m_searchDialog->raise();
- 	if (!searchText.isEmpty())
+  if (modules.count() && !searchText.isEmpty())
     m_searchDialog->startSearch();
 }
 
@@ -425,8 +429,7 @@ void CMainIndex::searchInModules(){
       modules.append(i->module());
     }
   }
-  if (modules.count())
-    openSearchDialog(modules, QString::null);
+  openSearchDialog(modules, QString::null);
 }
 
 /** Unlocks the current module. */

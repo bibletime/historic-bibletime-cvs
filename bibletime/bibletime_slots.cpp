@@ -290,6 +290,12 @@ void BibleTime::slotAbortPrinting(){
 		slotPrintingFinished();
 }
 
+
+void BibleTime::slotSearchSelectedModules() {
+  qWarning("search in modules");
+  m_mainIndex->searchInModules();
+}
+
 void BibleTime::openOnlineHelp_Handbook() {
 //#ifdef STATIC_BUILD
 //	CHTMLDialog dlg("bibletime/handbook/index.html");

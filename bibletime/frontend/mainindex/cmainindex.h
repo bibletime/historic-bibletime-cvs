@@ -94,6 +94,12 @@ protected: // Protected methods
   virtual void contentsDragMoveEvent( QDragMoveEvent* event );
   virtual void contentsDragLeaveEvent( QDragLeaveEvent* e );
 
+public slots:
+  /**
+   * Opens the searchdialog for the selected modules.
+   */
+  void searchInModules();
+
 protected slots: // Protected slots
   /**
   * Is called when an item was clicked/double clicked.
@@ -123,11 +129,7 @@ protected slots: // Protected slots
   /**
   * Import bookmarks from a file and add them to the selected folder.
   */
-  void importBookmarks();
-  /**
-  * Opens the searchdialog for the selected modules.
-  */
-  void searchInModules();
+  void importBookmarks();  
   /**
   * Deletes the selected entries.
   */

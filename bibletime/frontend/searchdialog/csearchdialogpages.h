@@ -309,12 +309,12 @@ public slots: // Public slots
   void aboutToShow();
   /** refreshes the listof ranges and the range combobox. */
   void refreshRanges();
-  
-protected slots: // Protected slots
   /**
-  * Opens the modules chooser dialog.
-  */
+   * Opens the modules chooser dialog.
+   */
   void chooseModules();
+  
+protected slots: // Protected slots  
   void setupRanges();
 };
 

@@ -330,6 +330,11 @@ protected slots:
 	* changed (ok or apply)
 	*/
 	void slotSettingsChanged();
+	/**
+	 * Called when search button is pressed
+	 **/
+	void slotSearchSelectedModules();
+	
 
 private slots: // Private slots
 	/**
