@@ -46,7 +46,7 @@ BT_OSISHTML::BT_OSISHTML() {
 	setTokenEnd(">");
 	
 	addTokenSubstitute("inscription", "<span class=\"inscription\">");
-	addTokenSubstitute("/mentioned", "</span>");
+	addTokenSubstitute("/inscription","</span>");
 	
 	addTokenSubstitute("mentioned", "<span class=\"mentioned\">");
 	addTokenSubstitute("/mentioned", "</span>");
@@ -113,7 +113,8 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					const int count = tag.getAttributePartCount("lemma");
 					int i = (count > 1) ? 0 : -1;		// -1 for whole value cuz it's faster, but does the same thing as 0
 					attrValue = "";
-					do {
+					
+ 					do {
 						if (attrValue.length()) {
 							attrValue += "|";
 						}
@@ -128,7 +129,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 						if ((*val == 'H') || (*val == 'G')) {
             	attrValue.append(val);
 						}						
-					} while (++i < count);
+ 					} while (++i < count);
 					
 					if (attrValue.length()) {						
 						outTag.setAttribute("lemma", attrValue.c_str());
@@ -170,7 +171,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					outTag.setAttribute("pos", val);
 				}	
 				
-				buf += outTag.toString();
+				buf.append( outTag.toString() );
 			}
 			else if (tag.isEndTag()){ // end or empty <w> tag
 				buf += "</span>";
@@ -345,26 +346,32 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		}
 
 		else if (!strcmp(tag.getName(), "transChange")) {
-			const SWBuf type = tag.getAttribute("type");
+			SWBuf type = tag.getAttribute("type");
+			if ( !type.length() ) {
+			 type = tag.getAttribute("changeType");
+			}
 
 			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
 				if (type == "added") {
 					buf.appendFormatted("<span class=\"transchange\" title=\"%s\"><span class=\"added\">", (const char*)i18n("Added text").utf8());
 				}
-				if (type == "amplified") {
+				else if (type == "amplified") {
 					buf += "<span class=\"transchange\"><span class=\"amplified\">";
 				}
-				if (type == "changed") {
+				else if (type == "changed") {
 					buf += "<span class=\"transchange\"><span class=\"changed\">";
 				}
-				if (type == "deleted") {
+				else if (type == "deleted") {
 					buf += "<span class=\"transchange\"><span class=\"deleted\">";
 				}
-				if (type == "moved") {
+				else if (type == "moved") {
 					buf += "<span class=\"transchange\"><span class=\"moved\">";
 				}
-				if (type == "tenseChange") {
+				else if (type == "tenseChange") {
 					buf += "<span class=\"transchange\"><span class=\"tenseChange\">";
+				}
+				else {
+					buf += "<span class=\"transchange\"><span>";
 				}
 			}
 			else if (tag.isEndTag()) { //all hi replacements are html spans
@@ -379,27 +386,25 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			int level = (lev) ? atoi(lev) : 1;
 
 			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
-				/*buf += "{";*/
-
 				myUserData->quote.who = who;
-				//alternate " and '
-				if(osisQToTick)
-					buf += (level % 2) ? '\"' : '\'';
+ 				
+				if(osisQToTick) //alternate " and '
+ 					buf += (level % 2) ? '\"' : '\'';
 
 				if (who == "Jesus") {
-					buf += "<span class=\"jesuswords\">";
+					buf.append("<span class=\"jesuswords\">");
 				}
 			}
 			else if (tag.isEndTag()) {
-        if (myUserData->quote.who == "Jesus")
-          buf += "</span>";
-        else if (osisQToTick) //alternate " and '
-					buf += (level % 2) ? '\"' : '\'';
-			}
-			else {	// empty quote marker
-				//alternate " and '
-				if(osisQToTick)
-					buf += (level % 2) ? '\"' : '\'';
+        if (myUserData->quote.who == "Jesus") {
+          buf.append("</span>");
+				}
+        
+ 				if (osisQToTick) { //alternate " and '
+ 					buf += (level % 2) ? '\"' : '\'';
+ 				}
+				
+				myUserData->quote.who = "";
 			}
 		}
 		// <transChange> is handled by OSISHTMLHref

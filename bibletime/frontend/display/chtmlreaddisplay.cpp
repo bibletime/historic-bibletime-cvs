@@ -228,7 +228,7 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
   KHTMLPart::khtmlMousePressEvent(event);
 }
 
-/** Reimplementation for our drag&drop system. Also needed for the mouse tracking*/
+/** Reimplementation for our drag&drop system. Also needed for the mouse tracking */
 void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
   if( e->qmouseEvent()->state() & LeftButton ) { //left mouse button pressed
 		const int delay = KGlobalSettings::dndEventDelay();
@@ -268,18 +268,18 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 			}
 		}
 	}
- 	else if (getMouseTracking()) { //no mouse button pressed and tracking enabled
-	  DOM::Node node = e->innerNode();//m_view->part()->nodeUnderMouse();
+ 	else if (getMouseTracking() && !(e->qmouseEvent()->state() & Qt::ShiftButton)) { //no mouse button pressed and tracking enabled
+	  DOM::Node node = e->innerNode();
 		bool setInfo = false;
-		
+
 		//if no link was under the mouse try to find a title attrivute
-		if (!node.isNull() && (m_previousEventNode != node) ) { //we want to avoid precessing the nice again
+		if (!node.isNull() && (m_previousEventNode != node) ) { //we want to avoid precessing the node again
 			DOM::Node currentNode = node;
 			DOM::Node attr;
 			
 			CInfoDisplay::ListInfoData infoList;
 			do {
-				if (!currentNode.isNull() && currentNode.hasAttributes()) { //found right node
+				if (!currentNode.isNull() && (currentNode.nodeType() == DOM::Node::ELEMENT_NODE) && currentNode.hasAttributes()) { //found right node
 					attr = currentNode.attributes().getNamedItem("note");
 					if (!attr.isNull()) {
 						infoList.append( qMakePair(CInfoDisplay::Footnote, attr.nodeValue().string()) );
@@ -287,6 +287,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				
 					attr = currentNode.attributes().getNamedItem("lemma");
 					if (!attr.isNull()) {
+// 						qWarning("found lemma  %s in %s", attr.nodeValue().string().latin1(), currentNode.toHTML().latin1());
 						infoList.append( qMakePair(CInfoDisplay::Lemma, attr.nodeValue().string()) );
 					}
 					
@@ -295,20 +296,20 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 						infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
 					}
 					
-					attr = currentNode.attributes().getNamedItem("pos");
+/*					attr = currentNode.attributes().getNamedItem("pos");
 					if (!attr.isNull()) {
 						//infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
-					}
+					}*/
 					
-					attr = currentNode.attributes().getNamedItem("gloss");
+/*					attr = currentNode.attributes().getNamedItem("gloss");
 					if (!attr.isNull()) {
 						infoList.append( qMakePair(CInfoDisplay::WordGloss, attr.nodeValue().string()) );
-					}
+					}*/
 				
-					attr = currentNode.attributes().getNamedItem("xlit");
+/*					attr = currentNode.attributes().getNamedItem("xlit");
 					if (!attr.isNull()) {
 						//infoList.append( qMakePair(CInfoDisplay::Morph, attr.nodeValue().string()) );
-					}
+					}*/
 					
 					attr = currentNode.attributes().getNamedItem("crossrefs");
 					if (!attr.isNull()) {
@@ -325,7 +326,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				}
 			} while ( !currentNode.isNull() );
 			
-			if (!infoList.count()) { //translate the text under the mouse, find the lowest node containing the mouse
+/*			if (!infoList.count()) { //translate the text under the mouse, find the lowest node containing the mouse
 				DOM::Node foundNode;
 				if (node.hasChildNodes() && (node.childNodes().length() == 1) && (node.firstChild().nodeName() == "#text")) {
 					foundNode = node.firstChild();
@@ -334,7 +335,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				if (!foundNode.isNull()) {
 					infoList.append( qMakePair(CInfoDisplay::WordTranslation, foundNode.nodeValue().string()));					
 				}
-			}
+			}*/
 			
 			if ( !(e->qmouseEvent()->state() & Qt::ShiftButton) ) { //SHIFT key not pressed, so we display
 				CPointers::infoDisplay()->setInfo(infoList);
@@ -343,6 +344,7 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 			m_previousEventNode = node;
 		}
 	} 
+	
 	KHTMLPart::khtmlMouseMoveEvent(e);
 }
 

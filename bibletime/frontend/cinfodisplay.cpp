@@ -61,6 +61,7 @@ void CInfoDisplay::setInfo(const InfoType type, const QString& data) {
 
 void CInfoDisplay::setInfo(const ListInfoData& list) {
 	QString text;
+// 	qWarning("we have %i list items", list.count());
 	
 	ListInfoData::const_iterator end = list.end();
 	for (ListInfoData::const_iterator it = list.begin(); it != end; ++it) {
@@ -187,6 +188,7 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 
 const QString CInfoDisplay::decodeLemma( const QString& data ) {
 	QStringList lemmas = QStringList::split("|", data);
+// 	qWarning("%s, we have %i lemmas", data.latin1(), lemmas.count());
 	QString ret;
 	
 	QStringList::const_iterator end = lemmas.end();
