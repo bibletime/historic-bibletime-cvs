@@ -19,7 +19,7 @@
 #define CSWORDMODULESEARCH_H
 
 //BibleTime includes
-#include "cswordmoduleinfo.h"
+//#include "cswordmoduleinfo.h"
 
 //Qt includes
 #include <qlist.h>
@@ -28,7 +28,12 @@
 //System includes
 #include <pthread.h>
 
-class ListKey;
+//Sword includes
+#include <listkey.h>
+
+//class ListKey;
+class CSwordModuleInfo;
+typedef QList<CSwordModuleInfo> ListCSwordModuleInfo;
 
 /**
 	* CSwordModuleSearch manages the search on Sword modules. It manages the thread(s)

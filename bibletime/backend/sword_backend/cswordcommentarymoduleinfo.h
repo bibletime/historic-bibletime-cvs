@@ -36,7 +36,12 @@ public:
   /**
   * No descriptions
   */
-  virtual const CSwordModuleInfo::type getType();
+  virtual const CSwordModuleInfo::type getType() const;
 };
+
+/** No descriptions */
+inline const CSwordModuleInfo::type CSwordCommentaryModuleInfo::getType() const{
+	return CSwordModuleInfo::Commentary;
+}
 
 #endif

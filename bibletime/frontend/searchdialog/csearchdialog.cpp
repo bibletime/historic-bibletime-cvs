@@ -134,6 +134,9 @@ void CSearchDialog::slotUser2() {
 void CSearchDialog::startSearch(void) {
 	int searchFlags = searchText->getSearchType();	
 	// set the parameters
+	searchText->updateCurrentProgress(0);
+	searchText->updateOverallProgress(0);
+		
 	searcher->setModules( getModuleList() );
 	searcher->setSearchedText(searchText->getText());
 

@@ -72,22 +72,6 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	return 0;
 }
 
-/** Returns the generated HTML text. */
-QString CHTMLEntryDisplay::getHTML() const {
-	return m_htmlText;
-}
-
-/** Sets the standard font fot this display object. */
-void CHTMLEntryDisplay::setStandardFont( QString family, short int logicalSize ) {
-	m_standardFontName = family;
-	m_standardFontSize = logicalSize;
-}
-
-/** Call this with false as argument to switch off the headers (module anme and current position) */
-void CHTMLEntryDisplay::setIncludeHeader( const bool includeHeader ){
-	m_includeHeader = includeHeader;
-}
-
 /** Generates code to display the given modules side by side. */
 char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	ASSERT(moduleList);

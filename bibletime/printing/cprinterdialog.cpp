@@ -47,7 +47,7 @@
 #include <qspinbox.h>
 #include <qwhatsthis.h>
 #include <qtooltip.h>
-
+#include <qlineedit.h>
 
 #include <values.h>
 #include <ctype.h>
@@ -55,7 +55,6 @@
 
 #include <klocale.h>
 #include <kconfig.h>
-#include <klineedit.h>
 #include <kfiledialog.h>
 
 #define INNER_BORDER 4
@@ -86,7 +85,7 @@ void CPrinterDialog::initView(){
 /** Initializes the general printing page */
 void CPrinterDialog::initGeneralPage(){
 	QFrame* page = addPage( i18n("General"), i18n("The general options for printing") );
-	QVBoxLayout *topLayout = new QVBoxLayout( page, OUTER_BORDER, INNER_BORDER );  	
+	QVBoxLayout *topLayout = new QVBoxLayout( page, OUTER_BORDER, INNER_BORDER );
 
 	m_general.printerListLabel = new QLabel(i18n("Available printers:"), page);
 	topLayout->add( m_general.printerListLabel );
@@ -113,7 +112,7 @@ void CPrinterDialog::initGeneralPage(){
   	return;
   topLayout->addLayout( hbox );
 
-  m_general.fileInput = new KLineEdit( page );
+  m_general.fileInput = new QLineEdit( page );
   hbox->addWidget( m_general.fileInput,0,AlignTop );
 
   m_general.browseButton = new QPushButton( i18n("Search"), page, "browse" );
@@ -188,6 +187,13 @@ void CPrinterDialog::initGeneralPage(){
   m_general.paperSelector->insertStringList( list );
 
   paperTypeChanged(0);
+
+	hbox = new QHBoxLayout();
+	vbox->addLayout(hbox);	
+  m_general.previewProgram = new QLineEdit( page );
+  QLabel* l = new QLabel(m_general.previewProgram, i18n("Preview application:"), page);
+  hbox->addWidget( l );
+  hbox->addWidget( m_general.previewProgram );	
 }
 
 const bool CPrinterDialog::parsePrintcap() {
@@ -299,10 +305,6 @@ void CPrinterDialog::readSettings(){
 	m_layout.marginSpin[2]->setValue(m_printer->leftMarginMM());
 	m_layout.marginSpin[3]->setValue(m_printer->rightMarginMM());
 
-//read the saved things of our config	file
-//	KConfig* config = m_printer->getConfig();	
-//	KConfigGroupSaver gs(config, "Printerdialog");
-	
 	const QString printerName = m_printer->printerName();
 	QListViewItemIterator it( m_general.printerList );
     for ( ; it.current(); ++it ) {
@@ -317,6 +319,9 @@ void CPrinterDialog::readSettings(){
 		m_general.portraitRadio->setChecked(true);
 	else
 		m_general.landscapeRadio->setChecked(true);
+		
+	m_general.fileInput->setText( m_printer->outputFileName() );
+	m_general.previewProgram->setText( m_printer->getPreviewApplication() );
 }
 
 /** Saves the states of the widgets to config file. */
@@ -564,7 +569,7 @@ void CPrinterDialog::slotUser2(){
 const bool CPrinterDialog::applySettingsToPrinter( const bool preview ){
 	m_printer->setPreview( preview );	
 	if (preview)
-		m_printer->setPreviewApplication("kghostview");
+		m_printer->setPreviewApplication(m_general.previewProgram->text());
 	else
 		m_printer->setPreviewApplication("");
 

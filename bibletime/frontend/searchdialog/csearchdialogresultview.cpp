@@ -218,9 +218,6 @@ void CSearchDialogResultModuleView::slotCopySearchResult(){
 
 /** This slot saves the search result to disk. */
 void CSearchDialogResultModuleView::slotSaveSearchResult(){
-	qDebug("void CSearchDialogResultModuleView::slotSaveSearchResult()");
-	ASSERT(m_currentModule);
-	
 	//get the searched text
 	QString searchedText;
 	CSearchDialogText* textPart = 0;
@@ -359,8 +356,6 @@ CSearchDialogResultView::~CSearchDialogResultView() {
 
 /** Initializes the tree of this ResultView */
 void CSearchDialogResultView::setupTree() {
-	qWarning(m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
-	
 	ListKey moduleSearchResult = m_module->getSearchResult();
 	clear();
 	for (int index = 0; index < moduleSearchResult.Count(); index++) {

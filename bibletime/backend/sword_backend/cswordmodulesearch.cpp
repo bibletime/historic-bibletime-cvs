@@ -17,6 +17,8 @@
 
 //BibleTime includes
 #include "cswordmodulesearch.h"
+#include "cswordmoduleinfo.h"
+
 #include <pthread.h>
 
 //Sword includes

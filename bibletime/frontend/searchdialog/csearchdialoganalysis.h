@@ -84,6 +84,22 @@ private:
   CSearchDialogAnalysisLegendItem* m_legend; 	
 };
 
+/** Returns the count of the book in the module */
+inline const unsigned int CSearchDialogAnalysis::getCount( const QString book, CSwordModuleInfo* module ){
+	ListKey result = module->getSearchResult();
+	const int length = book.length();	
+	int i = m_lastPosList[module];
+	unsigned int count = 0;
+	while (i < result.Count()) {
+		if (QString::fromLocal8Bit((const char*)*result.GetElement(i)).left(length) != book)
+			break;
+		++i;
+		++count;		
+	}
+	m_lastPosList.contains(module) ? m_lastPosList.replace(module,i) : m_lastPosList.insert(module,i);
+	return count;
+}
+
 
 //----------------------------------------------------------
 //----------------------------------------------------------

@@ -22,10 +22,10 @@
 #include "cswordmoduleinfo.h"
 
 //Qt includes
+#include <qstringlist.h>
 
 //Sword includes
 
-class QStringList;
 
 /**
 	* This is the CModuleInfo imlementation for Bible modules managed by Sword.
@@ -64,7 +64,7 @@ public:
   /**
   * Reimplementation, Returns the type
   */
-  virtual const CSwordModuleInfo::type getType();
+  virtual const CSwordModuleInfo::type getType() const;
   /**
   * @return the book number, values starting with 1; 0 if not found
   */
@@ -74,5 +74,16 @@ private:
 	QStringList*	m_bookList;	//This booklist is cached
 	QString m_cachedLocale;
 };
+
+inline const CSwordModuleInfo::type CSwordBibleModuleInfo::getType() const {
+	return CSwordModuleInfo::Bible;
+}
+
+inline const unsigned int CSwordBibleModuleInfo::getBookNumber(const QString &book){
+  if (!m_bookList)
+    getBooks();
+  return  (m_bookList->findIndex(book)+1);
+}
+
 
 #endif

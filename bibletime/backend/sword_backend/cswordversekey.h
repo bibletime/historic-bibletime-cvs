@@ -142,23 +142,120 @@ public:
   * Returns the key as a QString.
   */
   const QString getKey() const;
-  /** Returns the stripped down text of this verse, */
-  const QString getStrippedText() const;
-  /** Returns the rendered text of this verse */
-  const QString getRenderedText() const;
   /**
-  * This is our data member, which contains the data for this key.
-  *
-  * Access it to get the content for the current key.
-  * @see setKey() clears the content of this variable, use the function @see getData() to fill it again.
+  * Returns the stripped down text of this verse,
   */
-//  QString m_data;
-
+  const QString getStrippedText() const;
+  /**
+  * Returns the rendered text of this verse
+  */
+  const QString getRenderedText() const;
 private:
   /**
   	* This is the pointer to the module we use.
   	*/
   CSwordModuleInfo*	m_module;
 };
+
+
+/** Sets the key we use to the parameter. */
+inline const bool CSwordVerseKey::setKey( QString key ){	
+	error = 0;	
+	VerseKey::operator = ((const char*)key.local8Bit());		
+	//clear data
+	return !(bool)error;
+}
+
+/**  */
+inline const bool CSwordVerseKey::NextVerse(){	
+	if (m_module->getType() == CSwordModuleInfo::Commentary) {
+		m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!
+		( *( m_module->module() ) )++;
+		setKey(m_module->module()->KeyText());		
+	}
+	else {
+		Verse(Verse()+1);
+	}	
+	return true;
+}
+
+/**  */
+inline const bool CSwordVerseKey::PreviousVerse(){
+	if (m_module->getType() == CSwordModuleInfo::Commentary) {
+		
+		m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
+		( *( m_module->module() ) )--;
+		setKey(m_module->module()->KeyText());		
+	}
+	else {
+		Verse(Verse()-1);
+	}	
+	return true;
+}
+
+/**  */
+inline const bool CSwordVerseKey::NextChapter(){
+//#warning Implement some special thing for commentaries	
+//	if (Chapter()<0)
+//		return false;		
+	Chapter(Chapter()+1);	
+	return true;
+}
+
+/**  */
+inline const bool CSwordVerseKey::PreviousChapter(){
+//#warning Implement some special thing for commentaries		
+//	if (Chapter()<=0)
+//		return false;	
+	Chapter(Chapter()-1);
+	return true;
+}
+
+/**  */
+inline const bool CSwordVerseKey::NextBook(){
+//#warning Implement some special thing for commentaries					
+	if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
+		return false;	
+	
+	Book(Book()+1);			
+	return true;
+}
+
+/**  */
+inline const bool CSwordVerseKey::PreviousBook(){
+//#warning Implement some special thing for commentaries		
+	if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
+		return false;
+	Book(Book()-1);
+	return true;
+}
+
+/** Returns the current book as Text, no as integer. */
+inline const QString CSwordVerseKey::getBook() const {
+	QString book = QString::null;
+	if ( Testament() && Book() <= BMAX[Testament()-1] )
+		book = QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
+	else
+		book = QString::fromLocal8Bit(books[0][0].name);
+	return book;
+}
+
+/** Returns the current book as Text, no as integer. */
+inline void CSwordVerseKey::setBook( const QString newBook ) {
+	if(!setKey(QString("%1 %2:%3").arg(newBook).arg((int)Chapter()).arg((int)Verse())))
+		qWarning("Invalid key!");
+}
+
+
+
+/** Returns the key as a QString. */
+inline const QString CSwordVerseKey::getKey() const {
+	return QString::fromLocal8Bit((const char*)*this);
+}
+
+/** Sets the key using a versekey object of Sword. */
+inline void CSwordVerseKey::setKey( VerseKey& key ){
+	setKey(QString::fromLocal8Bit((const char*)key));
+}
 
 #endif

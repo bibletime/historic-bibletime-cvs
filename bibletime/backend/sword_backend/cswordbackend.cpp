@@ -19,7 +19,7 @@
 #include "cswordbackend.h"
 #include "chtmlentrydisplay.h"
 #include "chtmlchapterdisplay.h"
-#include "cswordmoduleinfo.h"
+//#include "cswordmoduleinfo.h"
 #include "cswordbiblemoduleinfo.h"
 #include "cswordcommentarymoduleinfo.h"
 #include "cswordlexiconmoduleinfo.h"
@@ -37,7 +37,6 @@
 #include <rawgbf.h>
 #include <thmlhtml.h>
 #include <rtfhtml.h>
-#include <localemgr.h>
 #include <filemgr.h>
 #include <utilstr.h>
 
@@ -169,11 +168,6 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	}
 }
 
-/**Returns The list of modules managed by this backend*/
-ListCSwordModuleInfo* CSwordBackend::getModuleList(){
-	ASSERT(m_moduleList);
-	return m_moduleList;
-}
 
 /** This function deinitializes the modules and deletes them. */
 const bool CSwordBackend::shutdownModules(){
@@ -190,7 +184,7 @@ const bool CSwordBackend::shutdownModules(){
 }
 
 /** Returns true if the given option is enabled. */
-const bool CSwordBackend::isOptionEnabled( CSwordBackend::moduleOptions type){
+const bool CSwordBackend::isOptionEnabled( const CSwordBackend::moduleOptions type) {
 	char *optionName = 0;
 	switch (type) {
 		case CSwordBackend::footnotes:
@@ -204,7 +198,7 @@ const bool CSwordBackend::isOptionEnabled( CSwordBackend::moduleOptions type){
 }
 
 /** Sets the given options enabled or disabled depending on the second parameter. */
-void CSwordBackend::setOption( CSwordBackend::moduleOptions type, bool enable){
+void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bool enable){
 	char *optionName = 0;
 	switch (type) {
 		case CSwordBackend::footnotes:
@@ -290,21 +284,8 @@ void CSwordBackend::Load() {
 	}
 }
 
-/** Returns the current language of the international booknames. */
-const QString CSwordBackend::getCurrentBooknameLanguage(){
-	if (LocaleMgr::systemLocaleMgr.getDefaultLocaleName())
-		return LocaleMgr::systemLocaleMgr.getDefaultLocaleName();	
-	return QString::null;;
-}
-
-/** Sets the language for the international booknames of Sword. */
-const bool CSwordBackend::setBooknameLanguage( const QString language ){
-	LocaleMgr::systemLocaleMgr.setDefaultLocaleName( language.local8Bit() );
-	return true;
-}
-
 /** This function searches for a module with the specified description */
-CSwordModuleInfo* CSwordBackend::findModuleByDescription(QString description){
+CSwordModuleInfo* CSwordBackend::findModuleByDescription(const QString& description){
   if (m_moduleList)
     for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
       if ( m_moduleList->current()->getDescription() == description )
@@ -313,20 +294,10 @@ CSwordModuleInfo* CSwordBackend::findModuleByDescription(QString description){
 }
 
 /** This function searches for a module with the specified name */
-CSwordModuleInfo * CSwordBackend::findModuleByName(QString name){
-  qDebug("CSwordBackend::findModuleByName(QString name)");
+CSwordModuleInfo* CSwordBackend::findModuleByName(const QString& name){
   if (m_moduleList)
     for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
-      if ( QString::fromLocal8Bit(m_moduleList->current()->module()->Name()) == name ) {
-        qDebug("findModuleByName: return");
+      if ( QString::fromLocal8Bit(m_moduleList->current()->module()->Name()) == name )
         return m_moduleList->current();
-      }
-  qDebug("findModuleByName: return 0");
   return 0;
-}
-
-/** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
-SWConfig* CSwordBackend::getConfig(){
-	ASSERT(config);
-	return config;
 }

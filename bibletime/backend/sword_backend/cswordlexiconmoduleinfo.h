@@ -49,7 +49,7 @@ public:
   /**
   * Reimplementation.
   */
-  virtual const CSwordModuleInfo::type getType();
+  virtual const CSwordModuleInfo::type getType() const;
 
 private:
 	/**
@@ -57,5 +57,9 @@ private:
 		*/
 	QStringList* m_entryList;
 };
+
+inline const CSwordModuleInfo::type CSwordLexiconModuleInfo::getType() const {
+	return CSwordModuleInfo::Lexicon;
+}
 
 #endif

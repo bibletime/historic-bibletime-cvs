@@ -569,7 +569,7 @@ void CPrinter::readSettings(){
 	KConfigGroupSaver gs(config, "Settings");	
 	setFullPage(true);
 	
-	setPrinterName(config->readEntry("Printer"));		
+	setPrinterName(config->readEntry("Printer", "lp"));		
 	
 	m_pagePosition.curPage = 1;
 	m_pagePosition.rect = getPageSize();
@@ -592,12 +592,15 @@ void CPrinter::readSettings(){
 /**  */
 void CPrinter::saveSettings(){
 	config->setGroup("Settings");
+	config->writeEntry("Filename", m_filename);	
 	config->writeEntry("Paper size", (int)pageSize());
 	config->writeEntry("Printer", printerName());
 	config->writeEntry("upper margin", upperMarginMM());
 	config->writeEntry("lower margin", lowerMarginMM());	
 	config->writeEntry("left margin", leftMarginMM());
 	config->writeEntry("right margin", rightMarginMM());
+	
+	config->writeEntry("preview application", getPreviewApplication());
 	
 	saveStyles();
 }

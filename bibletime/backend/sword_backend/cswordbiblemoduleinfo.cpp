@@ -19,7 +19,6 @@
 #include "cswordbiblemoduleinfo.h"
 
 //Qt includes
-#include <qstringlist.h>
 
 //Sword includes
 #include <versekey.h>
@@ -81,16 +80,4 @@ const unsigned int CSwordBibleModuleInfo::getVerseCount( const unsigned int book
 			result = key.books[1][book-1-key.BMAX[0]].versemax[chapter-1];
 	}
 	return result;
-}
-
-/** Reimplementation, Returns the type */
-const CSwordModuleInfo::type CSwordBibleModuleInfo::getType(){
-	return CSwordModuleInfo::Bible;
-}
-
-/** @return the book number, values starting with 1; 0 if not found */
-const unsigned int CSwordBibleModuleInfo::getBookNumber(const QString &book){
-  if (!m_bookList)
-    getBooks();
-  return  (m_bookList->findIndex(book)+1);
 }

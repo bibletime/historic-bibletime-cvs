@@ -61,11 +61,11 @@ public:
   /**
   * This function returns the last looked up HTML text.
   */
-  QString getHTML() const;  	
+  const QString getHTML() const;  	
   /**
   * Sets the standard font fot this display object.
   */
-  void setStandardFont( QString family, short int logicalSize );
+  void setStandardFont( const QString& family, const short int logicalSize );
   /**
   * Call this with false as argument to switch off the headers (module anme and current position)
   */
@@ -74,53 +74,34 @@ public:
   * Generates code to display the given modules side by side.
   */
   virtual char Display( QList<CSwordModuleInfo>* moduleList);
-	/**
-	* This QString variable does contain
-	* the color of the current highlighted verse
-	* formatted as HTML text (with a leading #)
-	*/
   QString m_highlightedVerseColor;
-	/**
-	* This QString variable does contain
-	* the textcolor formatted as HTML text (with a leading #)
-	*/
 	QString m_textColor;
-	/**
-	* This QString variable does contain
-	* the textcolor formatted as HTML text (with a leading #)
-	*/
 	QString m_linkColor;
-
 		
 private:
-	/**
-	*
-	*/
 	friend class CHTMLChapterDisplay;	
-	/**
-	*
-	*/
 	QString m_htmlText;
-	/**
-	*
-	*/
 	QString m_htmlHeader;
-	/**
-	*
-	*/
 	QString m_htmlBody;
-	/**
-	*
-	*/
 	QString m_standardFontName;
-	/**
-	*
-	*/
 	short int m_standardFontSize;	
-	/**
-	* This bool is used to store the state of headers
-	*/
 	bool m_includeHeader;
 };
+
+/** Returns the generated HTML text. */
+inline const QString CHTMLEntryDisplay::getHTML() const {
+	return m_htmlText;
+}
+
+/** Sets the standard font fot this display object. */
+inline void CHTMLEntryDisplay::setStandardFont( const QString& family, const short int logicalSize ) {
+	m_standardFontName = family;
+	m_standardFontSize = logicalSize;
+}
+
+/** Call this with false as argument to switch off the headers (module anme and current position) */
+inline void CHTMLEntryDisplay::setIncludeHeader( const bool includeHeader ){
+	m_includeHeader = includeHeader;
+}
 
 #endif

@@ -36,8 +36,8 @@ class QRadioButton;
 class QPushButton;
 class QSpinBox;
 class QHButtonGroup;
+class QLineEdit;
 
-class KLineEdit;
 class KAction;
 
 class CStyleList;
@@ -69,7 +69,7 @@ protected: // Protected methods
 		QLabel*	printerListLabel;
 		KListView*	printerList;
 		QCheckBox*	fileCheck;
-		KLineEdit*	fileInput;
+		QLineEdit*	fileInput;
 		QPushButton*	browseButton;
 		QHButtonGroup *oriGroup;
 		QRadioButton *portraitRadio;
@@ -77,6 +77,7 @@ protected: // Protected methods
 		QSpinBox     *pageSpin;
 		QLabel       *paperSizeLabel;
 		QComboBox    *paperSelector;
+		QLineEdit* previewProgram;
   };
   struct LayoutWidgets {
 		QSpinBox     *marginSpin[4];

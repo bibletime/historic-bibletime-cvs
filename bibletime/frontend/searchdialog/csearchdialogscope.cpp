@@ -16,6 +16,8 @@
  ***************************************************************************/
 
 #include "csearchdialogscope.h"
+#include "../../whatsthisdef.h"
+#include "../../tooltipdef.h"
 
 #include <qpushbutton.h>
 #include <qradiobutton.h>
@@ -27,6 +29,8 @@
 #include <qinputdialog.h>
 #include <qlineedit.h>
 #include <qcombobox.h>
+#include <qwhatsthis.h>
+#include <qtooltip.h>
 
 #include <klocale.h>
 #include <ksimpleconfig.h>
@@ -37,9 +41,17 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
 
   QHBoxLayout*	HLayout = new QHBoxLayout(this);
 
-  noScope 				= new QRadioButton(i18n("No scope"	 ),this);
+  noScope = new QRadioButton(i18n("No scope"	 ),this);
+	QToolTip::add(noScope, TT_SD_SCOPE_NO_SCOPE);
+	QWhatsThis::add(noScope, WT_SD_SCOPE_NO_SCOPE);
+	
   lastResultScope = new QRadioButton(i18n("Last result"),this);
-  useScope 				= new QRadioButton(i18n("Use scope"  ),this);
+	QToolTip::add(lastResultScope, TT_SD_SCOPE_NO_SCOPE);
+	QWhatsThis::add(lastResultScope, WT_SD_SCOPE_NO_SCOPE);
+
+  useScope = new QRadioButton(i18n("Use scope"  ),this);
+	QToolTip::add(useScope, TT_SD_SCOPE_OWN_SCOPE);
+	QWhatsThis::add(useScope, WT_SD_SCOPE_OWN_SCOPE);
 
   group = new QButtonGroup();
   group->insert(noScope);
@@ -51,8 +63,13 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
 
   RangeLabel = new QLabel(i18n("Choose custom range"),this);
   RangeChooser = new QComboBox(this);
+	QToolTip::add(RangeChooser, TT_SD_SCOPE_CHOOSER);
+  QWhatsThis::add(RangeChooser, WT_SD_SCOPE_CHOOSER);
+
   editButton = new QPushButton(i18n("Edit ranges"),this);
   editButton->setFixedWidth(editButton->sizeHint().width());
+	QToolTip::add(editButton, TT_SD_SCOPE_EDIT_SCOPE_BUTTON);
+	QWhatsThis::add(editButton, WT_SD_SCOPE_EDIT_SCOPE_BUTTON);	
   connect(editButton,SIGNAL(clicked()),this,SLOT(editButtonClicked()));
   connect(group,SIGNAL(clicked(int)),this,SLOT(scopeChanged()));
 
@@ -171,17 +188,31 @@ CSearchDialogScopeEdit::CSearchDialogScopeEdit(KSimpleConfig *parentconfig, QWid
   QGridLayout*	Layout = new QGridLayout(this, 5, 5, 5, 0);
 
   RangeChooser = new QComboBox(this);
+	QToolTip::add(RangeChooser, TT_SD_SCOPE_CHOOSER);
+  QWhatsThis::add(RangeChooser, WT_SD_SCOPE_CHOOSER);
   RangeChooser->setEnabled(false);
 
   RangeEdit = new QLineEdit(this);
+	QToolTip::add(RangeChooser, TT_SD_SCOPE_EDIT_LINE);
+  QWhatsThis::add(RangeChooser, WT_SD_SCOPE_EDIT_LINE);
   RangeEdit->setEnabled(false);
 
   RangeDisp = new QListBox(this);
+	QToolTip::add(RangeDisp, TT_SD_SCOPE_PARSED_LIST);
+  QWhatsThis::add(RangeDisp, WT_SD_SCOPE_PARSED_LIST);
 
   newButton   = new QPushButton(i18n("Add"),this);
+	QToolTip::add(newButton, TT_SD_SCOPE_NEW_SCOPE);
+  QWhatsThis::add(newButton, WT_SD_SCOPE_NEW_SCOPE);
+
   deleteButton= new QPushButton(i18n("Delete"),this);
+  deleteButton->setEnabled(false);	
+	QToolTip::add(deleteButton, TT_SD_SCOPE_DELETE_SCOPE);
+  QWhatsThis::add(deleteButton, WT_SD_SCOPE_DELETE_SCOPE);
+
   closeButton = new QPushButton(i18n("Close"),this);
-  deleteButton->setEnabled(false);
+	QToolTip::add(closeButton, TT_SD_SCOPE_CLOSE);
+  QWhatsThis::add(closeButton, WT_SD_SCOPE_CLOSE);
 
   QLabel* RangeLabel = new QLabel(i18n("Choose custom range"),this);
   QLabel* RangeEditLabel = new QLabel(i18n("Define range text"),this);

@@ -36,93 +36,6 @@ CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
 CSwordVerseKey::~CSwordVerseKey(){
 }
 
-/** Sets the key we use to the parameter. */
-const bool CSwordVerseKey::setKey( QString key ){	
-	error = 0;	
-	VerseKey::operator = ((const char*)key.local8Bit());		
-	//clear data
-	return !(bool)error;
-}
-
-/**  */
-const bool CSwordVerseKey::NextVerse(){	
-	if (m_module->getType() == CSwordModuleInfo::Commentary) {
-		m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!
-		( *( m_module->module() ) )++;
-		setKey(m_module->module()->KeyText());		
-	}
-	else {
-		Verse(Verse()+1);
-	}	
-	return true;
-}
-
-/**  */
-const bool CSwordVerseKey::PreviousVerse(){
-	if (m_module->getType() == CSwordModuleInfo::Commentary) {
-		
-		m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
-		( *( m_module->module() ) )--;
-		setKey(m_module->module()->KeyText());		
-	}
-	else {
-		Verse(Verse()-1);
-	}	
-	return true;
-}
-
-/**  */
-const bool CSwordVerseKey::NextChapter(){
-//#warning Implement some special thing for commentaries	
-//	if (Chapter()<0)
-//		return false;		
-	Chapter(Chapter()+1);	
-	return true;
-}
-
-/**  */
-const bool CSwordVerseKey::PreviousChapter(){
-//#warning Implement some special thing for commentaries		
-//	if (Chapter()<=0)
-//		return false;	
-	Chapter(Chapter()-1);
-	return true;
-}
-
-/**  */
-const bool CSwordVerseKey::NextBook(){
-//#warning Implement some special thing for commentaries					
-	if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
-		return false;	
-	
-	Book(Book()+1);			
-	return true;
-}
-
-/**  */
-const bool CSwordVerseKey::PreviousBook(){
-//#warning Implement some special thing for commentaries		
-	if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
-		return false;
-	Book(Book()-1);
-	return true;
-}
-
-/** Returns the current book as Text, no as integer. */
-const QString CSwordVerseKey::getBook() const {
-	QString book = QString::null;
-	if ( Testament() && Book() <= BMAX[Testament()-1] )
-		book = QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-	else
-		book = QString::fromLocal8Bit(books[0][0].name);
-	return book;
-}
-
-/** Returns the current book as Text, no as integer. */
-void CSwordVerseKey::setBook( const QString newBook ) {
-	if(!setKey(QString("%1 %2:%3").arg(newBook).arg((int)Chapter()).arg((int)Verse())))
-		qWarning("Invalid key!");
-}
 
 /** Sets the module for this key */
 void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
@@ -131,16 +44,6 @@ void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
 		m_module = module;
 		setKey(oldKey);
 	}
-}
-
-/** Returns the key as a QString. */
-const QString CSwordVerseKey::getKey() const {
-	return QString::fromLocal8Bit((const char*)*this);
-}
-
-/** Sets the key using a versekey object of Sword. */
-void CSwordVerseKey::setKey( VerseKey& key ){
-	setKey(QString::fromLocal8Bit((const char*)key));
 }
 
 /** Returns the rendered text of this verse */

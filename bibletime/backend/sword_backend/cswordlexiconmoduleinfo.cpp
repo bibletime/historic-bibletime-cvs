@@ -35,6 +35,7 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 
 /** Returns the entries of the module. */
 QStringList* CSwordLexiconModuleInfo::getEntries(){
+	qDebug("QStringList* CSwordLexiconModuleInfo::getEntries()");
 	if (!m_entryList) {
 		m_entryList = new QStringList();		
 		if (!module())
@@ -47,13 +48,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 		module()->KeyText(" ");		
 		//if the first entry is empty remove it (empty entry means "About module")
 		if (m_entryList->first().stripWhiteSpace().isEmpty())
-			m_entryList->remove( m_entryList->begin() );
-			
+			m_entryList->remove( m_entryList->begin() );			
 	}	
 	return m_entryList;
-}
-
-/** Reimplementation. */
-const CSwordModuleInfo::type CSwordLexiconModuleInfo::getType(){
-	return CSwordModuleInfo::Lexicon;
 }

@@ -20,7 +20,7 @@
 
 //BibleTime includes
 #include "../cbackend.h"
-#include "../cmoduleinfo.h"
+//#include "../cmoduleinfo.h"
 
 //Qt includes
 #include <qlist.h>
@@ -29,13 +29,13 @@
 //Sword includes
 #include <swmgr.h>
 #include <swmodule.h>
+#include <localemgr.h>
 
 class CHTMLEntryDisplay;
 class CHTMLChapterDisplay;
 
 class CSwordModuleInfo;
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
-
 
 /**
 	* This is the implementation of CBackend for Sword. It's additionally derived from SWMgr
@@ -80,7 +80,7 @@ public:
   *	
   *	@return The list of modules managed by this backend
   */
-  virtual ListCSwordModuleInfo* getModuleList();
+  virtual ListCSwordModuleInfo* getModuleList() const;
   /**
   * Initializes the Sword modules.
   *
@@ -99,13 +99,13 @@ public:
   * @param type This is the type this function should set enabled or disabled
   * @param enable If this is true the option will be enabled, otherwise it will be disabled.
   */
-  virtual void setOption( CSwordBackend::moduleOptions type, bool enable);
+  virtual void setOption( const CSwordBackend::moduleOptions type, bool enable);
   /**
   * Returns true if the given option is enabled.
   *
   * @return Returns true if the options given as aparameter is switched on at this time, otherwise return false.
   */
-  virtual const bool isOptionEnabled( CSwordBackend::moduleOptions type);
+  virtual const bool isOptionEnabled( const CSwordBackend::moduleOptions type);
 	/**
 	*
 	*/
@@ -113,28 +113,28 @@ public:
   /**
  	* Returns the current language of the international booknames.
  	*/
-  virtual const QString getCurrentBooknameLanguage();
+  virtual const QString getCurrentBooknameLanguage() const;
   /**
   * Sets the language for the international booknames of Sword.
   */
-  const bool setBooknameLanguage( const QString language );
+  const bool setBooknameLanguage( const QString& language );
   /**
   * This function searches for a module with the specified description
   * @param description The description of the desired module
   * @return pointer to the desired module; null if no module has the specified description
   */
-  CSwordModuleInfo* findModuleByDescription(QString description);
+  CSwordModuleInfo* findModuleByDescription(const QString& description);
   /**
   * This function searches for a module with the specified name
   * @param description The name of the desired module
   * @return pointer to the desired module; null if no module has the specified name
   */
-  CSwordModuleInfo * findModuleByName(QString name);
+  CSwordModuleInfo* findModuleByName(const QString& name);
   /**
   * Returns our local config object to store the cipher keys etc. locally for each user.
 	* The values of the config are merged with the global config.
 	*/
-  SWConfig* getConfig();
+  SWConfig* getConfig() const;
 		
 	CHTMLChapterDisplay* m_chapterDisplay;	
 	CHTMLEntryDisplay* m_entryDisplay;
@@ -156,5 +156,29 @@ private:
 	ListCSwordModuleInfo* m_moduleList;
 	errorCode m_errorCode;
 };
+
+/**Returns The list of modules managed by this backend*/
+inline ListCSwordModuleInfo* CSwordBackend::getModuleList() const {
+	return m_moduleList;
+}
+
+/** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
+inline SWConfig* CSwordBackend::getConfig() const {
+	ASSERT(config);
+	return config;
+}
+
+/** Returns the current language of the international booknames. */
+inline const QString CSwordBackend::getCurrentBooknameLanguage() const {
+//	if (LocaleMgr::systemLocaleMgr.getDefaultLocaleName())
+		return QString::fromLatin1(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());	
+//	return QString::null;;
+}
+
+/** Sets the language for the international booknames of Sword. */
+inline const bool CSwordBackend::setBooknameLanguage( const QString& language ){
+	LocaleMgr::systemLocaleMgr.setDefaultLocaleName( language.local8Bit() );
+	return true;
+}
 
 #endif

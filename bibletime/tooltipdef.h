@@ -106,9 +106,14 @@
 
 #define TT_SD_SCOPE_NO_SCOPE i18n("No scope")
 #define TT_SD_SCOPE_LAST_RESULT i18n("Last search result")
-#define TT_SD_SCOPE_SET_BOUNDS i18n("Set bounds")
-#define TT_SD_SCOPE_ADD_SCOPE i18n("Add scope")
+#define TT_SD_SCOPE_OWN_SCOPE i18n("Last search result")
+#define TT_SD_SCOPE_NEW_SCOPE i18n("Add a new scope")
 #define TT_SD_SCOPE_DELETE_SCOPE i18n("Delete scope")
+#define TT_SD_SCOPE_EDIT_SCOPE_BUTTON i18n("Edit and define your scopes")
+#define TT_SD_SCOPE_CHOOSER i18n("Choose a scope from the list")
+#define TT_SD_SCOPE_EDIT_LINE	i18n("Enter your own scope")
+#define TT_SD_SCOPE_PARSED_LIST	i18n("Parsed result")
+#define TT_SD_SCOPE_CLOSE i18n("Close this dialog")
 
 #define TT_SD_RESULT_MODULE_VIEW i18n("Used modules")
 #define TT_SD_RESULT_RESULT_VIEW i18n("Found items")

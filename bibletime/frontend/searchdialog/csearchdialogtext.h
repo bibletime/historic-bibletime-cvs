@@ -84,6 +84,4 @@ private:
 	KProgress			*currentProgressBar;
 	KProgress			*overallProgressBar;
 };
-
-
 #endif

@@ -183,12 +183,19 @@ void COptionsDialog::initGeneralPage(){
 		tipCheckBox->setChecked( config->readBoolEntry("TipsOnStart", true) );
 	}
 
+	QHBoxLayout* localeLayout = new QHBoxLayout();
 	{
 		KConfigGroupSaver groupSaver(config, "SWORD");
+				
 		localeComboBox = new QComboBox(general_page);
 		QToolTip::add(localeComboBox, TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);				
 		QWhatsThis::add(localeComboBox, WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);		
-			
+
+		QLabel* l = new QLabel(localeComboBox, i18n("Language for booknames: "), general_page);
+		
+		localeLayout->addWidget(l);
+		localeLayout->addWidget(localeComboBox);
+							
 		localeComboBox->insertItem( i18n("English") );
 		list <string> locales = LocaleMgr::systemLocaleMgr.getAvailableLocales();
 		for (list <string>::iterator it = locales.begin(); it != locales.end(); it++) {
@@ -216,7 +223,7 @@ void COptionsDialog::initGeneralPage(){
 
 	main_layout->addWidget(tipCheckBox);
 	main_layout->addWidget(logoCheckBox);
-	main_layout->addWidget(localeComboBox);	
+	main_layout->addLayout(localeLayout);	
 	main_layout->addStretch(4);
 }
 

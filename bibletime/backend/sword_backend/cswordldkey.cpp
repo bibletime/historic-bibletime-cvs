@@ -34,30 +34,6 @@ CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
 CSwordLDKey::~CSwordLDKey(){
 }
 
-/** Sets the key of this instance */
-bool CSwordLDKey::setKey( const QString key ){
-	SWKey::operator = ((const char*)key.local8Bit());		
-	m_module->module()->SetKey(*this->clone());
-	(const char*)*(m_module->module()); //snap to entry
-	SWKey::operator = (m_module->module()->KeyText());
-	
-	return !(bool)error;
-}
-
-/** Uses the parameter to returns the next entry afer this key. */
-void CSwordLDKey::NextEntry(){
-	m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
-	( *( m_module->module() ) )++;
-	setKey(m_module->module()->KeyText());
-}
-
-/** Uses the parameter to returns the next entry afer this key. */
-void CSwordLDKey::PreviousEntry(){
-	m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
-	( *( m_module->module() ) )--;
-	setKey(getKey());
-}
-
 /** Sets the module of this key. */
 void CSwordLDKey::setModule(CSwordModuleInfo* module){
 	const QString oldKey = QString::fromLocal8Bit( (const char*)*this );
@@ -65,16 +41,6 @@ void CSwordLDKey::setModule(CSwordModuleInfo* module){
 		m_module = module;	
 		setKey(oldKey);
 	}
-}
-
-/** Returns the current key as a QString */
-const QString CSwordLDKey::getKey() const {
-	return QString::fromLocal8Bit(m_module->module()->KeyText());
-}
-
-/** Reimplementation of the cast operator to const char* */
-CSwordLDKey::operator const char*(){
-	return getKey().local8Bit();
 }
 
 /** Returns the rendered text of this entry. */

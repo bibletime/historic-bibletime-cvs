@@ -49,7 +49,7 @@
   *
 	* @code
 	*		CSwordLDKey* key = new CSwordLDKey( lexicon_module );
-	*		const char* keyname = (const char*)*key;
+	*		const QString keyname = key->getKey();
 	* @endcode
 	*
   *	@author The BibleTime team
@@ -59,41 +59,86 @@
 class CSwordLDKey : public SWKey, public CKey {
 public: 
 	/**
-		* Constructor of CSwordLDKey
-		*/
+	* Constructor of CSwordLDKey
+	*/
 	CSwordLDKey(  CSwordModuleInfo* module );
 	~CSwordLDKey();
   /**
-  	* Sets the key for this key object. The variable m_data will be cleared.
-  	* Use @ref getData() to fill the m_data variable again.
-  	*/
+  * Sets the key for this key object. The variable m_data will be cleared.
+  * Use @ref getData() to fill the m_data variable again.
+  */
   virtual bool setKey( const QString );
   /**
-  	* Uses the parameter to returns the next entry afer this key.
-  	*/
+  * Uses the parameter to returns the next entry afer this key.
+  */
   virtual void NextEntry( void );
   /**
-  	* Uses the parameter to returns the previous entry afer this key.
-  	*/
+  * Uses the parameter to returns the previous entry afer this key.
+  */
   virtual void PreviousEntry( void );  	
-  /** Sets the module of this key. */
+  /**
+  * Sets the module of this key.
+  */
   void setModule( CSwordModuleInfo* module );
-  /** Returns the current key as a QString */
+  /**
+  * Returns the current key as a QString
+  */
   const QString getKey() const;
-  /** Reimplementation of the cast operator to const char* */
+  /**
+  * Reimplementation of the cast operator to const char*
+  */
   virtual  operator const char*();
-  /** Returns the stripped down text of this entry. */
+  /**
+  * Returns the stripped down text of this entry.
+  */
   const QString getStrippedText() const;
-  /** Returns the rendered text of this entry. */
+  /**
+  * Returns the rendered text of this entry.
+  */
   const QString getRenderedText() const;
   /**
-  	* This is out data member, which contains the data for this key.
-  	*/
+  * This is out data member, which contains the data for this key.
+  */
   QString m_data;
   /**
-	 	* This is the pointer to the module we use.
-  	*/
+	* This is the pointer to the module we use.
+  */
   CSwordModuleInfo*	m_module;
 };
 
+
+/** Sets the key of this instance */
+inline bool CSwordLDKey::setKey( const QString key ){
+	SWKey::operator = ((const char*)key.local8Bit());		
+	m_module->module()->SetKey(*this->clone());
+	(const char*)*(m_module->module()); //snap to entry
+	SWKey::operator = (m_module->module()->KeyText());
+	
+	return !(bool)error;
+}
+
+/** Uses the parameter to returns the next entry afer this key. */
+inline void CSwordLDKey::NextEntry(){
+	m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
+	( *( m_module->module() ) )++;
+	setKey(m_module->module()->KeyText());
+}
+
+/** Uses the parameter to returns the next entry afer this key. */
+inline void CSwordLDKey::PreviousEntry(){
+	m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
+	( *( m_module->module() ) )--;
+	setKey(getKey());
+}
+
+/** Returns the current key as a QString */
+inline const QString CSwordLDKey::getKey() const {
+	return QString::fromLocal8Bit(m_module->module()->KeyText());
+}
+
+/** Reimplementation of the cast operator to const char* */
+inline CSwordLDKey::operator const char*(){
+	return getKey().local8Bit();
+}
 #endif
+

@@ -46,16 +46,6 @@ CSwordModuleInfo::~CSwordModuleInfo(){
 	m_searchResult.ClearList();
 }
 
-/** Returns the module object so all objects can access the module. */
-SWModule* CSwordModuleInfo::module() {
-	return m_module;
-}
-
-/** Returns the backend. */
-CSwordBackend* CSwordModuleInfo::backend(){
-	return m_backend;
-}
-
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/
 const CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString unlockKey ){
 	CSwordModuleInfo::unlockErrorCode	ret = CSwordModuleInfo::noError;
@@ -67,7 +57,7 @@ const CSwordModuleInfo::unlockErrorCode CSwordModuleInfo::unlock( const QString 
 }
 
 /** Returns the display object for this module. */
-CHTMLEntryDisplay* CSwordModuleInfo::getDisplay() {
+CHTMLEntryDisplay* CSwordModuleInfo::getDisplay() const {
 	return dynamic_cast<CHTMLEntryDisplay*>(m_module->Disp());
 }
 
@@ -147,9 +137,9 @@ const QString CSwordModuleInfo::getPath() const {
 }
 
 /** Returns true if something was found, otherwise return false. */
-const bool CSwordModuleInfo::search( const QString searchedText, int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
+const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
 	//workaround for thread-insafety
-#warning WORKAROUND!	
+#warning WORKAROUND!
 	SWKey* k = module()->CreateKey();
 	module()->SetKey(*k);
 	delete k;
@@ -198,7 +188,7 @@ void CSwordModuleInfo::interruptSearch(){
 }
 
 /** Returns true if the given type i supported by this module. */
-const bool CSwordModuleInfo::supportsFeature( CSwordBackend::moduleOptions type){
+const bool CSwordModuleInfo::supportsFeature( const CSwordBackend::moduleOptions type){
 	bool ret = false;
 	
 	ConfigEntMap config = m_backend->getConfig()->Sections.find( m_module->Name() )->second;	
@@ -259,7 +249,7 @@ const bool CSwordModuleInfo::hasFont(){
 	return false;
 }
 
-/** Returns the type of the module. */
-const CSwordModuleInfo::type CSwordModuleInfo::getType(){
-	return CSwordModuleInfo::Unknown;
+/** Returns the backend. */
+CSwordBackend* CSwordModuleInfo::backend() const {
+	return m_backend;
 }
