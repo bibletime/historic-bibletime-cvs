@@ -67,8 +67,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const KeyTreeItem& i)
 {
 	if (i.hasChildItems()) {
 		m_childList = new KeyTree();
-// 	 	m_childList->setAutoDelete(true);
-		*m_childList = *(i.childList());
+		*m_childList = *(i.childList()); //deep copy
 	}
 	
 	m_settings = i.m_settings;
@@ -82,9 +81,9 @@ CTextRendering::KeyTreeItem::~KeyTreeItem() {
 ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 	//collect all modules which are available and used by child items
 	ListCSwordModuleInfo modules;
-	 
-	for (KeyTree::const_iterator it = begin(); it != end(); ++it) {
-		ListCSwordModuleInfo childMods = (*it)->modules();
+
+	for (KeyTreeItem* c = first(); c; c = next()) {
+		ListCSwordModuleInfo childMods = c->modules();
 		
 		ListCSwordModuleInfo::const_iterator c_end = childMods.end();
 		for (ListCSwordModuleInfo::const_iterator c_it = childMods.constBegin(); c_it != c_end; ++c_it) {
@@ -93,6 +92,17 @@ ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 			}
 		}
 	}
+	 
+/*	for (KeyTree::const_iterator it = begin(); it != end(); ++it) {
+		ListCSwordModuleInfo childMods = (*it)->modules();
+		
+		ListCSwordModuleInfo::const_iterator c_end = childMods.end();
+		for (ListCSwordModuleInfo::const_iterator c_it = childMods.constBegin(); c_it != c_end; ++c_it) {
+			if (!modules.contains(*c_it)) {
+				modules.append(*c_it);
+			}
+		}
+	}*/
 	
 	return modules;
 }
@@ -111,20 +121,20 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 	ListCSwordModuleInfo modules = tree.collectModules();	
 	QString t = QString::null;
 	
-	const KeyTree::const_iterator end = tree.end();
+// 	const KeyTree::const_iterator end = tree.end();
 	
 	//opimization for entries with the same key
 	util::scoped_ptr<CSwordKey> key( 
 		(modules.count() == 1) ? CSwordKey::createInstance(modules.first()) : 0 
 	);
 	
-	for (KeyTree::const_iterator it = tree.begin(); it != end; ++it) {
+	for (KeyTreeItem* c = tree.first(); c; c = tree.next()) {
 		if (modules.count() == 1) { //this optimizes the rendering, only one key created for all items
-			key->key( (**it).key() );
-			t.append( renderEntry(**it, key) );
+			key->key( c->key() );
+			t.append( renderEntry( *c, key) );
 		}
 		else {
-			t.append( renderEntry(**it) );	
+			t.append( renderEntry( *c ) );	
 		}
 	}
 	
@@ -266,10 +276,9 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		
 		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
-			const KeyTree::const_iterator end = tree->end();
 			
-			for ( KeyTree::const_iterator it = tree->begin(); it != end; ++it ) {
-				entry.append( renderEntry(**it) );
+			for (KeyTreeItem* c = tree->first(); c; c = tree->next()) {
+				entry.append( renderEntry(*c) );
 			}
 		}
 		

@@ -18,23 +18,24 @@
 
 #include "frontend/cbtconfig.h"
 
+#include "util/autoptrvector.h"
+
 //QT includes
 #include <qstring.h>
-#include <qptrlist.h>
+// #include <qptrlist.h>
 
 class CSwordModuleInfo;
 class CSwordKey;
 
 /**
-This class is responsible for text rendering.
- 
-@author The BibleTime team
+ * This class is responsible for text rendering.
+ * @author The BibleTime team
 */
 class CTextRendering {
 public:
 	class KeyTreeItem;
 	class KeyTree;
-	typedef QPtrList<KeyTreeItem> KeyTreeItemList;
+	typedef util::AutoPtrVector<KeyTreeItem> KeyTreeItemList;
 	
 	class KeyTreeItem {
 	public:
@@ -73,7 +74,7 @@ public:
 	class KeyTree : public KeyTreeItemList {
 	public:
 		KeyTree() {
-			setAutoDelete(true);
+// 			setAutoDelete(true);
 		};
 		ListCSwordModuleInfo collectModules();
 	};
@@ -161,7 +162,7 @@ inline const bool CTextRendering::KeyTreeItem::hasChildItems() const {
 	if (!m_childList)
 		return false;
 		
-	return (m_childList->count() > 0);
+	return m_childList->isEmpty();
 }
 
 #endif

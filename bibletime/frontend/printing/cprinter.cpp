@@ -137,10 +137,10 @@ const QString CPrinter::renderEntry( const KeyTreeItem& i, CSwordKey* k) {
 		
 		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
-			KeyTree::const_iterator end = tree->end();
+			//KeyTree::const_iterator end = tree->end();
 			
-			for ( KeyTree::const_iterator it = tree->begin(); it != end; ++it ) {
-				ret += CDisplayRendering::renderEntry( **it );
+			for ( KeyTreeItem* c = tree->first(); c; c = tree->next() ) {
+				ret += CDisplayRendering::renderEntry( *c );
 			}
 		}
 
