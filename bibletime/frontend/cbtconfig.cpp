@@ -68,24 +68,6 @@ const QString CBTConfig::getDefault( const CBTConfig::strings ID){
 	return QString::null;
 }
 
-//Del von KDevelop:const QString CBTConfig::getKey( const CBTConfig::fonts ID){
-//Del von KDevelop:	switch ( ID ){
-//Del von KDevelop:		case standard: 	return "standard";
-//Del von KDevelop:		case unicode: 	return "unicode";
-//Del von KDevelop:	}
-//Del von KDevelop:	return QString::null;	
-//Del von KDevelop:}
-
-//Del von KDevelop:const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
-//Del von KDevelop:	switch ( ID ){
-//Del von KDevelop:		case standard:
-//Del von KDevelop:      return QApplication::font();
-//Del von KDevelop:		case unicode: //find an Unicode font
-//Del von KDevelop:			return QApplication::font();		
-//Del von KDevelop:	}
-//Del von KDevelop:	return QApplication::font();	
-//Del von KDevelop:}
-
 const QString CBTConfig::getKey( const CBTConfig::bools ID){
 	switch ( ID ){
 		case firstSearchDialog:		return "firstSearchDialog";
@@ -292,13 +274,6 @@ const QString CBTConfig::get( const CBTConfig::strings ID){
 	KConfigGroupSaver groupSaver(config, "strings");
 	return config->readEntry(getKey(ID),getDefault(ID));
 }
-
-//Del von KDevelop://const QFont CBTConfig::get(const CBTConfig::fonts ID){
-//Del von KDevelop://	KConfig* config = KGlobal::config();
-//Del von KDevelop://	KConfigGroupSaver groupSaver(config, "fonts");
-//Del von KDevelop://	QFont defaultFont = getDefault(ID);
-//Del von KDevelop://	return config->readFontEntry(getKey(ID), &defaultFont);
-//Del von KDevelop://}
 
 const bool CBTConfig::get( const CBTConfig::bools ID){
 	//special behaviour for the KTipDialog class

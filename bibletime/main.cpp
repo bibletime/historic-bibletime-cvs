@@ -203,7 +203,9 @@ int main(int argc, char* argv[]) {
 			KStartupLogo::showSplash();				
 			KStartupLogo::setStatusMessage( i18n("Starting BibleTime") + QString::fromLatin1("...") );
 		}
-		
+
+    setSignalHandler(signalHandler);
+    
 		bibletime = new BibleTime();
 		app.setMainWidget(bibletime);
 
@@ -220,7 +222,6 @@ int main(int argc, char* argv[]) {
 			bibletime->slotSettingsOptions();
 		}			
 
-		setSignalHandler(signalHandler);
         
 		//The tip of the day
 		if (CBTConfig::get(CBTConfig::tips))

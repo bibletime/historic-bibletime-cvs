@@ -180,8 +180,8 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	
 	oldKey = QString::null;
 
-  //DON'T REMOVE THE HIDE: Otherwise QComboBox's sizeHint() function won't work properly
 //  m_comboBox->setUpdatesEnabled(false);
+  //DON'T REMOVE THE HIDE: Otherwise QComboBox's sizeHint() function won't work properly
   m_comboBox->hide();
   m_comboBox->clear(); 
 	if (list) {
