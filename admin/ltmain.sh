@@ -1284,7 +1284,7 @@ EOF
 	 *-*-freebsd*-gnu*)
 	   # prevent being parsed by the freebsd regexp below
 	   ;;
-	 *-*-openbsd* | *-*-freebsd*)
+	 *-*-openbsd*)
 	   # Do not include libc_r directly, use -pthread flag.
 	   continue
 	   ;;
