@@ -51,8 +51,8 @@ notes to different parts of the Bible.
 <term>Lexicons</term>
 <listitem>
 <para>
-Lexicons available include: Robinson's Morphological Analsys Codes,
-Brown-Driver-Briggs Hebrew Lexicon, International Standard bible Encyclopedia
+Lexicons available include: Robinson's Morphological Analysis Codes,
+Brown-Driver-Briggs Hebrew Lexicon, International Standard Bible Encyclopedia
 </para>
 </listitem>
 </varlistentry>
@@ -87,7 +87,7 @@ in the sourcecode at
 CVS log for <filename>bibletime/bibletime/ChangeLog</filename></ulink></para>
 
 <section><title>Changes for &bibletime; Release 1.3</title>
-<para>Bibletime version 1.3 provides a number of bugfixes and
+<para>&bibletime; version 1.3 provides a number of bugfixes and
 stability improvements.  You will also find a number of changes to
 the appearance of bibletime.  This is a partial list, for a more complete list, 
 see the changlog.</para>
@@ -106,14 +106,15 @@ installation the old bookmarks are placed in the
 <para>Search default Bible and search open modules options added
 in the search menu.</para>
 </section>
+
 <section><title>Searchdialog</title>
 <para>Major redesign of the user interface, reducing the number 
 of tabs to two (search and result).  Features have been
 moved to the appropriate tab.</para>
 </section>
 <section><title>Display windows</title>
-<para>Separated now in Read only and write only windows. Write
-windows can be opened by Right Mouse Button menu in the main index on the
+<para>Separated now in &quot;read only&quot; and &quot;write only&quot; windows. Write
+windows can be opened by <mousebutton>right</mousebutton> mouse button menu in the main index on the
 Personal Commentary module (or any other RawFiles module).</para>
 </section>
 <section><title>Options dialog</title>
@@ -126,17 +127,14 @@ The default font is KDE's default font, and will work for most modules.</para>
 
 <section id="hdbk-intro-ToDo"><title>ToDo</title>
 <para>
-Very much!
-</para>
-<para>
 We have lots to do. Because we are a very small team of active developers it's
 very hard to get reasonable results in a short time. If you are interested in
 helping the &bibletime; team, please contact us at
 <ulink url="http://sourceforge.net/pm/?group_id=954">Sourceforge &bibletime; home page</ulink>.
-Information can also be found at <ulink url="http://www.bibletime.info">the &bibletime;
+Information can also be found at <ulink url="http://www.bibletime.info/">the &bibletime;
 homepage</ulink>.</para>
 
-<para>The &bibletime; project needs programmers / developers, reviewers, testers, and
+<para>The &bibletime; project needs programmers / developers, translators, reviewers, testers, and
 prayer warriors.  If you can help with any of these tasks or think up another, please join us.
 Without your help, &bibletime; will develop very very slow and it will take
 a very long time until you get a full-featured Bible study tool.

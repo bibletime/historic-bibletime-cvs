@@ -25,8 +25,7 @@ bookmarks you enter.
 <title>Selecting a document to
 view</title>
 <para>To select a document, click with the <mousebutton>left</mousebutton> mouse button on the desired
-document group (Bibles, Commentaries, or
-Lexicons) to display the contents of a document group, click with the
+document group (Bibles, Commentaries, Lexicons, Books, Devotionals or Glossaries) to display the contents of a document group, click with the
 <mousebutton>right</mousebutton> mouse button on the icon for
 the desired group.  To open a document, click on it's icon.
 </para>
@@ -83,13 +82,14 @@ found <link linkend="hdbk-op-search">here</link>.
 
 
 <section id="hdbk-op-module-tree-bookmark">
-<title>Accessing bookmark functions</title> <para>
+<title>Accessing bookmark functions</title>
+<para>
 <tip><para>Drag &amp; Drop Works Here</para></tip>
-Click with the <mousebutton>right</mousebutton> mouse button on the bookmark group of the module tree window and select <guimenuitem>"Create new folder"</guimenuitem> to create a new bookmark sub folder. You can use normal drag 'n' drop
+Click with the <mousebutton>right</mousebutton> mouse button on the bookmark group of the module tree window and select <guimenuitem>&quot;Create new folder&quot;</guimenuitem> to create a new bookmark sub folder. You can use normal drag 'n' drop
 functions to drag verse numbers from search dialog results to the bookmark folder,
 and to rearrange bookmarks between folders.  There is an import/export function
-for bookmarks also.  From the <guimenu>right-mouse-button menu</guimenu>, select "Export
-bookmarks". This will bring up a dialog box for you to save the bookmark
+for bookmarks also.  From the <guimenu>right-mouse-button menu</guimenu>, select &quot;Export
+bookmarks&quot;. This will bring up a dialog box for you to save the bookmark
 collection.  They can be shared with other &bibletime; users, archived, etc.  They
 can be imported in the same way. You can also click with the <mousebutton>right</mousebutton> mouse button to change folder names
 and bookmark descriptions, and delete folders and
@@ -118,7 +118,7 @@ future. When they are released, &bibletime; will support them as well. </para>
 <title>Controlling Open Documents</title> <para>
 Document Windows can be controlled and manipulated with normal &kde; window/title bar functions.
 In addition to this, you can tile and cascade open Document Windows. Use the appropriate tool
-bar buttons, or menu functions under <guimenu>"Window"</guimenu> in the main menubar. Document
+bar buttons, or menu functions under <guimenu>&quot;Window&quot;</guimenu> in the main menubar. Document
 Windows can be set to automatically cascade or tile also. </para>
 </section>
 
@@ -345,7 +345,7 @@ performed within the range Joshua 1:1 - Esther 10:3;</para></listitem>
 done for the name, Jesus, 939 matches will result. Then if
 <guibutton>Last Result</guibutton> is checked and another search is done for the
 title, Christ, 257 matches from the first 939 matches will
-remain. Then if<guibutton>Last Result</guibutton> remains checked and another
+remain. Then if <guibutton>Last Result</guibutton> remains checked and another
 search is done for the title, Lord, 106 matches from the 257 will
 remain. All the remaining 106 matches will have the name, Jesus,
 and both the titles, Christ and Lord.</para>

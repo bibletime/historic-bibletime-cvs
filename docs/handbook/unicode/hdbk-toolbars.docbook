@@ -88,11 +88,12 @@
 	<phrase>configure.png</phrase>
 	</textobject><caption>
 	<para>In the <guilabel>Tool Bar</guilabel> this icon opens the
-	<guilabel>Configure &bibletime;</guilabel>dialog.
+	<guilabel>Configure &bibletime;</guilabel> dialog.
+<!--	In the <guilabel>Tool Bar</guilabel> this icon opens the
+	<guilabel>Configure Toolbars</guilabel> dialog.
 	In the <guilabel>Tool Bar</guilabel> this icon opens the
-	<guilabel>Configure Toolbars</guilabel>dialog.
-	In the <guilabel>Tool Bar</guilabel> this icon opens the
-	<guilabel>Report A Bug</guilabel>dialog.
+	<guilabel>Report A Bug</guilabel> dialog.
+-->
 	</para>
 	</caption>
 	</mediaobject>
@@ -106,10 +107,9 @@
 	</textobject><caption>
 	<para>In the <guilabel>Tool Bar</guilabel> this icon opens the
 	Handbook.
-	In the <guilabel>Tool Bar</guilabel> this icon opens the
-	Installation Instructions.
-	In the <guilabel>Tool Bar</guilabel> this icon opens the
+<!--	In the <guilabel>Tool Bar</guilabel> this icon opens the
 	Biblestudy HowTo.
+-->
 	</para>
 	</caption>
 	</mediaobject>
@@ -166,7 +166,7 @@
 	</caption>
 	</mediaobject>
 	
-	<mediaobject>
+<!--	<mediaobject>
 	<imageobject>
 	<imagedata fileref="./start.png" format="PNG"/>
 	</imageobject>
@@ -179,6 +179,7 @@
 	</para>
 	</caption>
 	</mediaobject>
+-->
 
 	<mediaobject>
 	<imageobject>
@@ -214,7 +215,7 @@
 	<phrase>book_add.png</phrase>
 	</textobject><caption>
 	<para>In the <guilabel>Document Control Menu</guilabel> this icon opens the drop down menu that
-	allows selection of an additional Sword book module.This is used for modules that are not 
+	allows selection of an additional Sword book module. This is used for modules that are not 
 	commentaries, lexicons or Bible texts.
 	</para>
 	</caption>
@@ -417,7 +418,7 @@
 
 
 
-	<mediaobject>
+<!--	<mediaobject>
 	<imageobject>
 	<imagedata fileref="./editdelete.png" format="PNG"/>
 	</imageobject>
@@ -442,7 +443,8 @@
 	</para>
 	</caption>
 	</mediaobject>
-	
+-->	
+
 	<mediaobject>
 	<imageobject>
 	<imagedata fileref="./queue.png" format="PNG"/>
@@ -666,12 +668,6 @@
 <term>Handbook</term>
 <listitem><para>Select <guimenuitem>Handbook</guimenuitem> to access
 this document from the &kde; Help Center.
-</para></listitem>
-</varlistentry>
-<varlistentry>
-<term>Installation</term>
-<listitem><para>Select <guimenuitem>Installation</guimenuitem> to access
-the installation instructions for &bibletime; from the &kde; Help Center.
 </para></listitem>
 </varlistentry>
 

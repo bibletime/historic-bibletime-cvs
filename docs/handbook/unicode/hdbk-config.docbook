@@ -1,15 +1,15 @@
-<chapter id="hdbk-config"><title>Configuring Bibletime</title>
+<chapter id="hdbk-config"><title>Configuring &bibletime;</title>
 
 <para>The &bibletime; user interface can be customized in many ways
 depending on your needs.  To access the configuration dialogs, in the
-main toolbar select <guimenu>settings</guimenu>.  From here select
+main toolbar select <guimenu>settings</guimenu>. From here select
 <guimenuitem>configure toolbars</guimenuitem> to launch the dialog
-configure toolbars dialog, or select <guimenuitem>configure &bibletime;</guimenuitem>
+configure toolbars dialog, or select <guimenuitem>Configure &bibletime;</guimenuitem>
 to launch the options dialog.</para>
 
 	<section id="hdbk-config-toolbar"><title>Configure Toolbars Dialog</title>
-	<para>The Configure Toolbars dialog allowes adding and removing actions from
-	the main toolbar of &bibletime;.  The order of actions in the main toolbar
+	<para>The Configure Toolbars dialog allows adding and removing actions from
+	the main toolbar of &bibletime;. The order of actions in the main toolbar
 	can also be changed.</para>
 	<mediaobject>
 		<imageobject>
@@ -24,27 +24,27 @@ to launch the options dialog.</para>
 	</mediaobject>
 	</section>
 
-	<section id="hdbk-config-bt"><title>Preferences - Bibletime Dialog</title>
-	<para>The preferences dialog allows many &bibletime; and Sword
+	<section id="hdbk-config-bt"><title>Preferences - &bibletime; Dialog</title>
+	<para>The preferences dialog allows many &bibletime; and &sword;
 	features to be customized.</para>
 
 		<section id="hdbk-config-bt-startup"><title>Startup</title>
 		<para>The startup behavior can be customized.
 		Select from the following options:</para>
 		<simplelist>
-		<member>Show tip of the day.</member>
-		<member>Show startup Logo.</member>
-		<member>Restore windows in workspace area.</member>
+		<member>Show tip of the day</member>
+		<member>Show startup Logo</member>
+		<member>Restore windows from the last &bibletime; session</member>
 		</simplelist>
 		<mediaobject>
 		<imageobject>
 		<imagedata fileref="hdbk-conf-optdialog-start.png" format="PNG"/>
 		</imageobject>
 		<textobject>
-		<phrase>Options Dialog</phrase>
+		<phrase>Preferences Dialog</phrase>
 		</textobject>
 		<caption>
-		<para>The Options dialog - Startup.</para>
+		<para>The Preferences dialog - Startup.</para>
 		</caption>
 		</mediaobject>
 		</section>
@@ -52,7 +52,7 @@ to launch the options dialog.</para>
 		<para>&bibletime; uses the &kde; general display font.
 		The &kde; general display font can be changed from the &kcontrolcenter;.
 		If the module you are using does not display correctly with the general display font,
-		use the fonts options dialog to select a different one.  &bibletime; now 
+		use the fonts options dialog to select a different one. &bibletime; now 
 		applies font selections to specific languages.
 		</para>
 		<mediaobject>
@@ -93,7 +93,7 @@ to launch the options dialog.</para>
 			The Unicode HOWTO</ulink></para>
 
 			<tip><para>If your distribution includes a font installer use it, it makes
-			font installation much easier!!</para></tip>
+			font installation much easier!</para></tip>
 
 			<tip><para>If you use a small font like clearlyu (about 22kb) &bibletime;
 			will run faster than if a large font like 
@@ -179,9 +179,9 @@ to launch the options dialog.</para>
 		<section id="hdbk-config-bt-profiles"><title>Sessions</title>
 		<para>Sessions define the appearance of the work area, for example which
 		windows are open and which texts should be displayed in these windows.
-		Once a session is created, use the menu item <guimenu>window</guimenu> ->
-		<guimenuitem>save session</guimenuitem> to save a current session into a
-		session file. Use <guimenu>window</guimenu> -> <guimenuitem>load session</guimenuitem> to
+		Once a session is created, use the menu item <guimenu>Window</guimenu> ->
+		<guimenuitem>Save session</guimenuitem> to save a current session into a
+		session file. Use <guimenu>Window</guimenu> -> <guimenuitem>Load session</guimenuitem> to
 		load a previously saved session into &bibletime;.</para>
 		</section>
 
@@ -202,7 +202,7 @@ to launch the options dialog.</para>
 
 		<section id="hdbk-config-bt-sword-gen"><title>Sword General</title>
 		<para>Key Cache for Lexicons</para>
-		<para>Bibletime can create a key cache for lexicons.  This speeds up
+		<para>&bibletime; can create a key cache for lexicons.  This speeds up
 		opening large lexicon modules.  The cache file does use some disc space,
 		so if your computer has only a small amount of free space, you might want
 		to disable this feature.</para>
@@ -224,13 +224,13 @@ to launch the options dialog.</para>
 		<section id="hdbk-config-bt-sword-mod"><title>Sword Default Modules</title>
 		<para>Default modules are specified here.</para>
 		</section>
-		<section id="hdbk-config-bt-sword-filter"><title>Sword filter settings</title>
+		<section id="hdbk-config-bt-sword-filter"><title>Sword Filter Settings</title>
 		<para>Filters control the appearance of text in the display windows.
 		Here you can chose the default settings for the various filters.</para>
 		<para>The items controlled by filters are:</para>
 
 			<itemizedlist>
-			<listitem><para>Show line brake after each verse</para></listitem>
+			<listitem><para>Show line break after each verse</para></listitem>
 			<listitem><para>Show verse numbers</para></listitem>
 			<listitem><para>Show footnotes</para></listitem>
 			<listitem><para>Show Strong's numbers</para></listitem>

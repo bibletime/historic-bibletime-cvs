@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: application/x-xml2pot; charset=utf-8\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
 #: index.docbook:1
@@ -46,52 +46,52 @@ msgstr ""
 
 #: index.docbook:27
 #, no-c-format
-msgid "To select a document, click with the <mousebutton>left</mousebutton> mouse button on the desired document group (Bibles, Commentaries, or Lexicons) to display the contents of a document group, click with the <mousebutton>right</mousebutton> mouse button on the icon for the desired group. To open a document, click on it's icon."
+msgid "To select a document, click with the <mousebutton>left</mousebutton> mouse button on the desired document group (Bibles, Commentaries, Lexicons, Books, Devotionals or Glossaries) to display the contents of a document group, click with the <mousebutton>right</mousebutton> mouse button on the icon for the desired group. To open a document, click on it's icon."
 msgstr ""
 
-#: index.docbook:33
+#: index.docbook:32
 #, no-c-format
 msgid "Document Selection"
 msgstr ""
 
-#: index.docbook:41 index.docbook:86
+#: index.docbook:40 index.docbook:86
 #, no-c-format
 msgid "Drag &amp; Drop Works Here"
 msgstr ""
 
-#: index.docbook:42
+#: index.docbook:41
 #, no-c-format
 msgid "A document can be opened from an already opened document. Simply click with the <mousebutton>left</mousebutton> mouse button on the verse number (pointer changes to hand) and drag it to the module list. Drop it on the name of the module you want to open, and it will open that module to the verse you dragged over. If you drag a verse number to an already open module, it will automatically jump that module to the location of the verse that was dragged over. This works for Bibles and Commentaries only."
 msgstr ""
 
-#: index.docbook:49
+#: index.docbook:48
 #, no-c-format
 msgid "There are two other functions accessible through clicking with the <mousebutton>right</mousebutton> mouse button on the document name. \"About This Module\" opens a window with information about copyright and other pertinent things about the selected document. \"Unlock This Module\" opens a small dialog for encrypted documents. This allows those with the key to enter it to decrypt the document and make it human-readable. Crosswire Bible Society must encrypt modules unless either the copyright holder provides permission for distribution as a sword module, or the text has passed into the public domain (copyright has expired). <ulink url=\"http://www.crosswire.org/sword/modules/aboutlocked.jsp\"> See information on locked modules on the Crosswire Bible Society web site.</ulink>"
 msgstr ""
 
-#: index.docbook:64
+#: index.docbook:63
 #, no-c-format
 msgid "Accessing the search dialog"
 msgstr ""
 
-#: index.docbook:64
+#: index.docbook:63
 #, no-c-format
 msgid "You can search in a module by clicking with the <mousebutton>right</mousebutton> mouse button on the module name in the module list and selecting \"Search in module(s)\". By pressing shift and clicking on other module names you can select more than one. Then follow the same procedure to open the search dialog. You will be searching in all of these documents. A complete description of the operation of the search features can be found <link linkend=\"hdbk-op-search\">here</link>."
 msgstr ""
 
-#: index.docbook:74 index.docbook:97
+#: index.docbook:73 index.docbook:97
 #, no-c-format
 msgid "Bookmark Selection"
 msgstr ""
 
-#: index.docbook:86
+#: index.docbook:85
 #, no-c-format
 msgid "Accessing bookmark functions"
 msgstr ""
 
 #: index.docbook:86
 #, no-c-format
-msgid "Click with the <mousebutton>right</mousebutton> mouse button on the bookmark group of the module tree window and select <guimenuitem>\"Create a new folder\"</guimenuitem> to create a new bookmark sub folder. You can use normal drag 'n' drop functions to drag verse numbers from search dialog results to the bookmark folder, and to rearrange bookmarks between folders. There is an import/export function for bookmarks also. From the <guimenu>right-mouse-button menu</guimenu>, select \"Export bookmarks\". This will bring up a dialog box for you to save the bookmark collection. They can be shared with other &bibletime; users, archived, etc. They can be imported in the same way. You can also click with the <mousebutton>right</mousebutton> mouse button to change folder names and bookmark descriptions, and delete folders and bookmarks."
+msgid "Click with the <mousebutton>right</mousebutton> mouse button on the bookmark group of the module tree window and select <guimenuitem>&quot;Create new folder&quot;</guimenuitem> to create a new bookmark sub folder. You can use normal drag 'n' drop functions to drag verse numbers from search dialog results to the bookmark folder, and to rearrange bookmarks between folders. There is an import/export function for bookmarks also. From the <guimenu>right-mouse-button menu</guimenu>, select &quot;Export bookmarks&quot;. This will bring up a dialog box for you to save the bookmark collection. They can be shared with other &bibletime; users, archived, etc. They can be imported in the same way. You can also click with the <mousebutton>right</mousebutton> mouse button to change folder names and bookmark descriptions, and delete folders and bookmarks."
 msgstr ""
 
 #: index.docbook:110
@@ -111,7 +111,7 @@ msgstr ""
 
 #: index.docbook:118
 #, no-c-format
-msgid "Document Windows can be controlled and manipulated with normal &kde; window/title bar functions. In addition to this, you can tile and cascade open Document Windows. Use the appropriate tool bar buttons, or menu functions under <guimenu>\"Window\"</guimenu> in the main menubar. Document Windows can be set to automatically cascade or tile also."
+msgid "Document Windows can be controlled and manipulated with normal &kde; window/title bar functions. In addition to this, you can tile and cascade open Document Windows. Use the appropriate tool bar buttons, or menu functions under <guimenu>&quot;Window&quot;</guimenu> in the main menubar. Document Windows can be set to automatically cascade or tile also."
 msgstr ""
 
 #: index.docbook:126
@@ -181,7 +181,7 @@ msgstr ""
 
 #: index.docbook:158
 #, no-c-format
-msgid "The personnel commentary editors are provided with a search key and save button. The HTML editor is also provided with the basic functions font name, size, color, italicize, underline and some paragraph formating possibilities. As with all good modern editors What You See Is What You Get."
+msgid "The personal commentary editors are provided with a search key and save button. The HTML editor is also provided with the basic functions font name, size, color, italicize, underline and some paragraph formating possibilities. As with all good modern editors What You See Is What You Get."
 msgstr ""
 
 #: index.docbook:163
@@ -391,470 +391,465 @@ msgstr ""
 
 #: index.docbook:378
 #, no-c-format
-msgid "The scope of a search can be set to the <emphasis>Entire Module</emphasis>or the <emphasis>Current Results. </emphasis>If Entire Module is checked and a search of the KJV Bible module is done for the name, Jesus, 939 matches will result. Then if Current Results is checked and another search is done for the title, Christ, 257 matches from the first 939 matches will remain. Then if Current Results remains checked and another search is done for the title, Lord, 106 matches from the 257 will remain. All the remaining 106 matches will have the name, Jesus, and both the titles, Christ and Lord."
+msgid "The scope of a search can be set to the <emphasis>Entire Module</emphasis> or the <emphasis>Current Results.</emphasis> If Entire Module is checked and a search of the KJV Bible module is done for the name, Jesus, 939 matches will result. Then if Current Results is checked and another search is done for the title, Christ, 257 matches from the first 939 matches will remain. Then if Current Results remains checked and another search is done for the title, Lord, 106 matches from the 257 will remain. All the remaining 106 matches will have the name, Jesus, and both the titles, Christ and Lord."
 msgstr ""
 
-#: index.docbook:389
-#, no-c-format
-msgid "Drag &amp; Drop Works Here; you can drop verse numbers, and bookmarks into the custom range entry field. You can also paste text into the entry field."
-msgstr ""
-
-#: index.docbook:392
+#: index.docbook:394
 #, no-c-format
 msgid "Search TextCustom Range Dialog Box"
 msgstr ""
 
-#: index.docbook:403
+#: index.docbook:405
 #, no-c-format
 msgid "Using the Search Text Button"
 msgstr ""
 
-#: index.docbook:404
+#: index.docbook:406
 #, no-c-format
 msgid "Click on the <guibutton>Search Button</guibutton> to start the search."
 msgstr ""
 
-#: index.docbook:406
+#: index.docbook:408
 #, no-c-format
 msgid "Search Text Dialog Box"
 msgstr ""
 
-#: index.docbook:418
+#: index.docbook:420
 #, no-c-format
 msgid "The Search Results Tab"
 msgstr ""
 
-#: index.docbook:419
+#: index.docbook:421
 #, no-c-format
 msgid "Under the search results tab you will find the all of your search hits."
 msgstr ""
 
-#: index.docbook:423
+#: index.docbook:425
 #, no-c-format
 msgid "Using the Search Results Tab"
 msgstr ""
 
-#: index.docbook:424
+#: index.docbook:426
 #, no-c-format
 msgid "Search Result - This tells you first, by module, how many instances of the search string were found. In the Module Column, clicking on a document will open the list of references (clicking with the <mousebutton>right</mousebutton> mouse button allows you to copy, save, or print the list of items found). Clicking on a reference (the found items list) opens that verse up in the window below. Drag the reference and drop it on a document in the main index to open the module to that verse in a new display window, or look at the verse in the bottom pane of the search results tab."
 msgstr ""
 
-#: index.docbook:433
+#: index.docbook:435
 #, no-c-format
 msgid "Drag &amp; Drop Works Here in the text display area."
 msgstr ""
 
-#: index.docbook:435
+#: index.docbook:437
 #, no-c-format
 msgid "Select verse numbers and drag them to the main index to create bookmarks."
 msgstr ""
 
-#: index.docbook:436
+#: index.docbook:438
 #, no-c-format
 msgid "Select verse numbers and drop them on an unopened module in the main index to open the module and jump to the verse location (Bibles and commentaries only)."
 msgstr ""
 
-#: index.docbook:438
+#: index.docbook:440
 #, no-c-format
 msgid "Select verse numbers and drag them to an open document and the document will jump to the verse location (Bibles and commentaries only)."
 msgstr ""
 
-#: index.docbook:441
+#: index.docbook:443
 #, no-c-format
 msgid "Search Result Dialog Box"
 msgstr ""
 
-#: index.docbook:453
+#: index.docbook:455
 #, no-c-format
 msgid "Using the Search Analysis"
 msgstr ""
 
-#: index.docbook:454
+#: index.docbook:456
 #, no-c-format
-msgid "Click on <guibutton>Search Analysis</guibutton> to open the search analsis display."
+msgid "Click on <guibutton>Search Analysis</guibutton> to open the search analysis display."
 msgstr ""
 
-#: index.docbook:455
+#: index.docbook:457
 #, no-c-format
-msgid "Search Analysis - This gives a graphic analysis of the number of instances the search string was found in each book. It can display results for all documents searched. You have the option of saving the analysis as an html formated list on your hard drive."
+msgid "<guibutton>Search Analysis</guibutton> - This gives a graphic analysis of the number of instances the search string was found in each book. It can display results for all documents searched. You have the option of saving the analysis as an html formated list on your hard drive."
 msgstr ""
 
-#: index.docbook:460
+#: index.docbook:462
 #, no-c-format
 msgid "Search Analysis Dialog Box"
 msgstr ""
 
-#: index.docbook:475
+#: index.docbook:477
 #, no-c-format
 msgid "Search Syntax using GCC Regular Expression"
 msgstr ""
 
-#: index.docbook:477
+#: index.docbook:479
 #, no-c-format
 msgid "Regular expression searches provide a way to do simple or complex searches for strings that match a pattern or set of patterns (branches) separated by vertical bars &quot;|&quot;. While a pattern can be built to look for a word or phrase, a simple pattern that consists of a word does not look for only that word but for any place the string of letters that make that word are found. A search for &quot;right&quot; will return verses that contain the word &quot;right&quot;, but also &quot;<emphasis>right</emphasis>eous&quot;, &quot;<emphasis>right</emphasis>eousness&quot;, &quot;un<emphasis>right</emphasis>eous&quot;, &quot;up<emphasis>right</emphasis>&quot; and even &quot;b<emphasis>right</emphasis>&quot;. A search for &quot;hall not&quot; is not a search for &quot;hall&quot; AND &quot;not&quot; but for the string &quot;hall not&quot; with a space between the second &quot;l&quot; and the &quot;n&quot;. The search for &quot;hall not&quot; will find occurrences of &quot;s<emphasis>hall not</emphasis>&quot;."
 msgstr ""
 
-#: index.docbook:493
+#: index.docbook:495
 #, no-c-format
 msgid "The power of Regular Expressions is in the patterns (or templates) used to define a search. A pattern consists of ordinary characters and some special characters that are used and interpreted by a set of rules. Special characters include .\\[^*$?+. Ordinary (or simple) characters are any characters that are not special. The backslash, &quot;\\&quot;, is used to convert special characters to ordinary and ordinary characters to special."
 msgstr ""
 
-#: index.docbook:502
+#: index.docbook:504
 #, no-c-format
 msgid "Example: the pattern &quot;<emphasis>i. love\\.</emphasis>&quot; will find sentences that end with &quot;h<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; or &quot;<emphasis>i</emphasis>n <emphasis>love</emphasis>&quot; or &quot;<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot; followed by a period. The first period in &quot;i. love\\.&quot; is a special character that means allow any character in this position. The backslash in &quot;i. love\\.&quot; means that the period following it is not to be considered a special character, but is an ordinary period."
 msgstr ""
 
-#: index.docbook:513
+#: index.docbook:515
 #, no-c-format
 msgid "Rules for GCC Regular Expression Search Requests"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid ". The period matches any character. See <link linkend=\"period\">Details</link>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "* The asterisk matches 0 or more characters of the preceding: set, character or indicated character. See <link linkend=\"asterisk\">Details</link>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "+ The plus sign matches 1 or more characters of the preceding: set, character or indicated character. See <link linkend=\"plus\">Details</link>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "? The question mark matches 0 or 1 character of the preceding: set, character or indicated character. See <link linkend=\"question\">Details</link>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "[ ] Square brackets match any one of the characters specified inside [ ]. See <link linkend=\"bracket\">Details</link>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "^ A caret as the first character inside [ ] means NOT. See <link linkend=\"caret\">Details</link>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "^ A caret beginning a pattern anchors the beginning of a line. See <link linkend=\"caret\">Details</link>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "$ A dollar at the end of a pattern anchors the end of a line. See <link linkend=\"dollar\">Details</link>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "| A vertical bar means logical OR. See <link linkend=\"bar\">Details</link>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "( ) Parentheses enclose expressions for grouping. <emphasis>Not supported!</emphasis>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "\\ A backslash can be used prior to any special character to match that character. See <link linkend=\"backslash\">Details</link>"
 msgstr ""
 
-#: index.docbook:514
+#: index.docbook:516
 #, no-c-format
 msgid "\\ A backslash can be used prior to an ordinary character to make it a special character. See <link linkend=\"backslash\">Details</link>"
 msgstr ""
 
-#: index.docbook:545
+#: index.docbook:547
 #, no-c-format
 msgid "The Period ."
 msgstr ""
 
-#: index.docbook:547
+#: index.docbook:549
 #, no-c-format
 msgid "The Period &quot;.&quot; will match any single character even a space or other non-alphabet character. <emphasis>s.t</emphasis> matches <emphasis>s</emphasis>i<emphasis>t</emphasis>, <emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>, etc., which could be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting, compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</emphasis>o<emphasis>t</emphasis>tish <emphasis>b..t</emphasis> matches <emphasis>b</emphasis>oo<emphasis>t</emphasis>, <emphasis>b</emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </emphasis>and <emphasis>foot tool</emphasis>"
 msgstr ""
 
-#: index.docbook:561
+#: index.docbook:563
 #, no-c-format
 msgid "The Asterisk *"
 msgstr ""
 
-#: index.docbook:563
+#: index.docbook:565
 #, no-c-format
 msgid "The asterisk matches zero or more characters of the preceding: set, character or indicated character. Using a period asterisk combination &quot;.*&quot; after a commonly found pattern can cause the search to take a very long time, making the program seem to freeze. <emphasis>be*n</emphasis> matches<emphasis> beeen, been, ben</emphasis>, and <emphasis>bn</emphasis> which could locate Reu<emphasis>ben</emphasis> and She<emphasis>bn</emphasis>a."
 msgstr ""
 
-#: index.docbook:575
+#: index.docbook:577
 #, no-c-format
 msgid "The Plus Sign +"
 msgstr ""
 
-#: index.docbook:576
+#: index.docbook:578
 #, no-c-format
 msgid "The Plus Sign matches one or more characters of the preceding: set, character or indicated character. Using a period and plus sign combination &quot;.+&quot; after a commonly found pattern can cause the search to take a very long time, making the program seem to freeze. <emphasis>be+n</emphasis> matches <emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>, but not <emphasis>bn</emphasis>."
 msgstr ""
 
-#: index.docbook:587
+#: index.docbook:589
 #, no-c-format
 msgid "The Question Mark ?"
 msgstr ""
 
-#: index.docbook:588
+#: index.docbook:590
 #, no-c-format
 msgid "The Question Mark matches zero or one character of the preceding: set, character or indicated character. <emphasis>be?n</emphasis> matches <emphasis>ben</emphasis> and <emphasis>bn</emphasis> but not <emphasis>been</emphasis>. <emphasis>trees?</emphasis> matches <emphasis>trees</emphasis> or <emphasis>tree</emphasis>."
 msgstr ""
 
-#: index.docbook:597
+#: index.docbook:599
 #, no-c-format
 msgid "The Square Brackets [ ]"
 msgstr ""
 
-#: index.docbook:598
+#: index.docbook:600
 #, no-c-format
 msgid "The Square Brackets enclose a set of characters that can match. The period, asterisk, plus sign and question mark are not special inside the brackets. A minus sign can be used to indicate a range. If you want a caret &quot;^&quot; to be part of the range do not place it first after the left bracket or it will be a special character. To include a &quot;]&quot; in the set make it the first (or second after a special &quot;^&quot;) character in the set. To include a minus sign in the set make it the first (or second after a special &quot;^&quot;) or last character in the set. <emphasis>s[eia]t</emphasis> matches <emphasis>set</emphasis>, <emphasis>sit</emphasis>, and <emphasis>sat</emphasis>, but not <emphasis>s</emphasis>o<emphasis>t</emphasis>. <emphasis>s[eia]+t </emphasis>matches as above but also, <emphasis>seat, seet, siet</emphasis>, etc. <emphasis>[a-d]</emphasis> matches <emphasis>a, b, c,</emphasis> or <emphasis>d</emphasis>. <emphasis>[A-Z]</emphasis> matches any uppercase letter. [.;:?!] matches ., ;, :, ?, or ! but not a comma. [ ]^-] matches ] or ^ or -"
 msgstr ""
 
-#: index.docbook:620
+#: index.docbook:622
 #, no-c-format
 msgid "The Caret first in Square Brackets [^xxx"
 msgstr ""
 
-#: index.docbook:621
+#: index.docbook:623
 #, no-c-format
 msgid "If the Caret is the first character after the left bracket it means NOT. <emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc., but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</emphasis>o<emphasis>t</emphasis>."
 msgstr ""
 
-#: index.docbook:628
+#: index.docbook:630
 #, no-c-format
 msgid "The Caret as Start of Line Anchor ^xxx"
 msgstr ""
 
-#: index.docbook:629
+#: index.docbook:631
 #, no-c-format
 msgid "If the Caret is the first character in a pattern it anchors the pattern to the start of a line. Any match must be at the beginning of a line. Because of unfiltered formatting characters in some texts, this feature does not always work, but may if a few periods are placed after the caret to account for the formatting characters. <emphasis>^In the beginning</emphasis> matches lines that start with &quot;<emphasis>In the beginning</emphasis>&quot;. (May need to use: <emphasis>^.....In the beginning</emphasis>)"
 msgstr ""
 
-#: index.docbook:642
+#: index.docbook:644
 #, no-c-format
 msgid "The Dollar Sign as End of Line Anchor xxx$"
 msgstr ""
 
-#: index.docbook:643
+#: index.docbook:645
 #, no-c-format
 msgid "If the Dollar Sign is the last character in a pattern it anchors the pattern to the end of a line. Any match must be at the end of a line. Because of unfiltered formatting characters in some texts, this feature does not always work, but may if a few periods are placed before the dollar sign to account for the formatting characters. <emphasis>Amen\\.$</emphasis> matches lines that end with &quot;<emphasis>Amen.</emphasis>&quot; (May need to use Amen\\....$, Amen\\..........$, or even Amen\\....................$)"
 msgstr ""
 
-#: index.docbook:657
+#: index.docbook:659
 #, no-c-format
 msgid "The Vertical Bar |"
 msgstr ""
 
-#: index.docbook:658
+#: index.docbook:660
 #, no-c-format
 msgid "The Vertical Bar between patterns means OR. <emphasis>John|Peter</emphasis> matches <emphasis>John</emphasis> or <emphasis>Peter. John .*Peter|Peter .*John</emphasis> matches <emphasis>John</emphasis> ... <emphasis>Peter</emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>. (.* slows a search) <emphasis>pain|suffering|sorrow</emphasis> matches <emphasis>pain</emphasis>, or <emphasis>suffering</emphasis>, or <emphasis>sorrow</emphasis>."
 msgstr ""
 
-#: index.docbook:669
+#: index.docbook:671
 #, no-c-format
 msgid "The Parentheses ( )"
 msgstr ""
 
-#: index.docbook:670
+#: index.docbook:672
 #, no-c-format
 msgid "The use of Parentheses ( ) is not supported!"
 msgstr ""
 
-#: index.docbook:676
+#: index.docbook:678
 #, no-c-format
 msgid "The Backslash Prior to a Special Character \\*"
 msgstr ""
 
-#: index.docbook:677
+#: index.docbook:679
 #, no-c-format
 msgid "The Backslash prior to a special character indicates that the character is not being used in its special meaning, but is just to match itself. <emphasis>amen\\.</emphasis> matches <emphasis>amen.</emphasis> but not <emphasis>amen</emphasis>t and will not locate firm<emphasis>amen</emphasis>t."
 msgstr ""
 
-#: index.docbook:685
+#: index.docbook:687
 #, no-c-format
 msgid "The Backslash Prior to an Ordinary Character \\s"
 msgstr ""
 
-#: index.docbook:687
+#: index.docbook:689
 #, no-c-format
 msgid "The Backslash prior to an ordinary character indicates that the character is not being used to match itself, but has special meaning."
 msgstr ""
 
-#: index.docbook:691
+#: index.docbook:693
 #, no-c-format
 msgid "\\b if use outside [ ] means word boundary. If used inside [ ] means backspace. <emphasis>\\brighteous\\b</emphasis> matches <emphasis>righteous</emphasis> but not un<emphasis>righteous</emphasis> or <emphasis>righteous</emphasis>ness"
 msgstr ""
 
-#: index.docbook:691
+#: index.docbook:693
 #, no-c-format
 msgid "\\B means non-word boundary. <emphasis>\\Brighteous\\B</emphasis> matches un<emphasis>righteous</emphasis>ness and un<emphasis>righteous</emphasis>ly but not <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or <emphasis> righteous</emphasis>ness."
 msgstr ""
 
-#: index.docbook:691
+#: index.docbook:693
 #, no-c-format
 msgid "\\d means digit; same as [0-9]."
 msgstr ""
 
-#: index.docbook:691
+#: index.docbook:693
 #, no-c-format
 msgid "\\D means non-digit, same as [^0-9]."
 msgstr ""
 
-#: index.docbook:691
+#: index.docbook:693
 #, no-c-format
 msgid "\\s means space."
 msgstr ""
 
-#: index.docbook:691
+#: index.docbook:693
 #, no-c-format
 msgid "\\S means not a space."
 msgstr ""
 
-#: index.docbook:691
+#: index.docbook:693
 #, no-c-format
 msgid "\\w means alphanumeric; same as [a-zA-Z0-9_]."
 msgstr ""
 
-#: index.docbook:691
+#: index.docbook:693
 #, no-c-format
 msgid "\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
 msgstr ""
 
-#: index.docbook:712
+#: index.docbook:714
 #, no-c-format
 msgid "Exporting and Printing"
 msgstr ""
 
-#: index.docbook:713
+#: index.docbook:715
 #, no-c-format
-msgid "Bible Window, Lexicon Window, Commentary Window."
+msgid "Bible Window, Lexicon Window, Commentary Window, Book Window."
 msgstr ""
 
-#: index.docbook:714
+#: index.docbook:716
 #, no-c-format
-msgid "By clicking with the <mousebutton>right</mousebutton> mouse button on the index key number, verse number or text the Bible Window, Lexicon Window,or Commentary Window drop down box is displayed (depending on which kind of window is current), providing options to select all, and the export options copy, add to printing queue, and save."
-msgstr ""
-
-#: index.docbook:722
-#, no-c-format
-msgid "Select All"
+msgid "By clicking with the <mousebutton>right</mousebutton> mouse button on the index key number, verse number or text the Bible Window, Lexicon Window, Commentary Window or Book Window drop down box is displayed (depending on which kind of window is current), providing options to select all, and the export options copy, add to printing queue, and save."
 msgstr ""
 
 #: index.docbook:723
 #, no-c-format
-msgid "A mouse click here will select all of the text in the chapter displayed in the current window."
+msgid "Select All"
 msgstr ""
 
-#: index.docbook:729
+#: index.docbook:724
 #, no-c-format
-msgid "Copy"
+msgid "A mouse click here will select all of the text in the chapter displayed in the current window."
 msgstr ""
 
 #: index.docbook:730
 #, no-c-format
+msgid "Copy"
+msgstr ""
+
+#: index.docbook:731
+#, no-c-format
 msgid "A mouse click here will bring up a sub menu offering to copy to the copy buffer using the current location of the cursor as the starting point."
 msgstr ""
 
-#: index.docbook:733
+#: index.docbook:734
 #, no-c-format
 msgid "<guimenuitem>Reference only</guimenuitem> - The number of the current verse (such as Genesis 1:25)."
 msgstr ""
 
-#: index.docbook:733
+#: index.docbook:734
 #, no-c-format
 msgid "<guimenuitem>Text of Reference</guimenuitem> - The text of the current verse."
 msgstr ""
 
-#: index.docbook:733
+#: index.docbook:734
 #, no-c-format
 msgid "<guimenuitem>Reference with Text</guimenuitem> - Both the text of the current verse, and the verse number."
 msgstr ""
 
-#: index.docbook:733
+#: index.docbook:734
 #, no-c-format
-msgid "<guimenuitem>Chapter</guimenuitem> -the entire chapter."
+msgid "<guimenuitem>Chapter</guimenuitem> - the entire chapter."
 msgstr ""
 
-#: index.docbook:733
+#: index.docbook:734
 #, no-c-format
 msgid "<guimenuitem>Selected Text</guimenuitem> - Only the selected (highlighted) text."
 msgstr ""
 
-#: index.docbook:760
+#: index.docbook:761
 #, no-c-format
 msgid "This text can be copied into any application that can access the linux copy buffer."
 msgstr ""
 
-#: index.docbook:765
+#: index.docbook:766
 #, no-c-format
 msgid "Add to Printing Queue"
 msgstr ""
 
-#: index.docbook:766
+#: index.docbook:767
 #, no-c-format
 msgid "Selecting print here puts your print output in the bibletime print buffer. Inorder to send your job to the printer (lpr) via kprinter, you must select <guimenu>file</guimenu> <guimenuitem>print</guimenuitem> on the <guilabel>menubar</guilabel>."
 msgstr ""
 
-#: index.docbook:774
+#: index.docbook:775
 #, no-c-format
 msgid "A mouse click here will bring up a submenu with the printing options:"
 msgstr ""
 
-#: index.docbook:776
+#: index.docbook:777
 #, no-c-format
 msgid "reference with text"
 msgstr ""
 
-#: index.docbook:776
+#: index.docbook:777
 #, no-c-format
 msgid "chapter"
 msgstr ""
 
-#: index.docbook:788
+#: index.docbook:789
 #, no-c-format
 msgid "Selecting these places text into the bibletime print queue, but it will not print yet. When all of the items that you desire to print are copied to the print queue, select the print icon and the print dialog window is displayed. Now you can select to either view or print the text."
 msgstr ""
 
-#: index.docbook:794
+#: index.docbook:795
 #, no-c-format
 msgid "Printing from &bibletime; is rather basic and is intended as a utility. If you are composing a document or presentation containing text from &bibletime; documents, we suggest that you use one of the presentation or editing tools on your system to format your work."
 msgstr ""
 
-#: index.docbook:801
+#: index.docbook:802
 #, no-c-format
 msgid "Save"
 msgstr ""
 
-#: index.docbook:802
+#: index.docbook:803
 #, no-c-format
 msgid "A mouse click here will bring up a submenu with save options:"
 msgstr ""
 
-#: index.docbook:804
+#: index.docbook:805
 #, no-c-format
 msgid "<guimenuitem>Verse with reference</guimenuitem> - a file is created in &UNIX; formated ASCII text."
 msgstr ""
 
-#: index.docbook:804
+#: index.docbook:805
 #, no-c-format
 msgid "<guimenuitem>Chapter as plain text</guimenuitem> - a file is created in &UNIX; formated ASCII text."
 msgstr ""
 
-#: index.docbook:804
+#: index.docbook:805
 #, no-c-format
 msgid "<guimenuitem>Chapter as HTML</guimenuitem> - a file is created formated in HTML."
 msgstr ""
 
-#: index.docbook:821
+#: index.docbook:822
 #, no-c-format
 msgid "Once saved this text can be opened and edited by any text or HTML application."
 msgstr ""
