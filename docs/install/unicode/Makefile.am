@@ -8,7 +8,7 @@ EXTRA_DIST = index.docbook inst-bin.docbook inst-installmgr.docbook inst-preq.do
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/install/;
 	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in FILES; do \
+	for file in  index.docbook inst-bin.docbook inst-installmgr.docbook inst-preq.docbook inst-sources.docbook inst-user.docbook; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/install; \
 	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/install/$$file; \
 	done;

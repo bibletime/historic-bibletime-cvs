@@ -8,7 +8,7 @@ EXTRA_DIST = hdbk-config.docbook hdbk-intro.docbook hdbk-operation.docbook hdbk-
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/;
 	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in FILES; do \
+	for file in  hdbk-config.docbook hdbk-intro.docbook hdbk-operation.docbook hdbk-start.docbook hdbk-toolbars.docbook index.docbook; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook; \
 	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/handbook/$$file; \
 	done;

@@ -8,7 +8,7 @@ EXTRA_DIST = help-first-startup.html help-first-time-search.html help-initbacken
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/;
 	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in FILES; do \
+	for file in  help-first-startup.html help-first-time-search.html help-initbackend-failed.html help-module-encrypted.html help-no-mods-d.html help-no-modules.html help-sword-module-trouble.html index.html; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog; \
 	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/helpdialog/$$file; \
 	done;

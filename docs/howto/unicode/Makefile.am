@@ -8,7 +8,7 @@ EXTRA_DIST = how2-basics.docbook how2-importance.docbook how2-interpretation.doc
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/;
 	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in FILES; do \
+	for file in  how2-basics.docbook how2-importance.docbook how2-interpretation.docbook index.docbook; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/howto; \
 	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/howto/$$file; \
 	done;

@@ -107,7 +107,9 @@ for PART in $DOC_PARTS; do
 
 			for I3 in $FILES; do
 				echo -n `basename $I3`" "
+				BASE_FILES="$BASE_FILES `basename $I3`";
 			done
+			FILES=$BASE_FILES
 			echo
 			echo
 
@@ -118,7 +120,7 @@ for PART in $DOC_PARTS; do
 			echo 'install-data-local:'
 			echo '	mkdir -p '$TARGET_DIR'/;'  #mkdir -p creates all directories leaing to $TARGET_DIR
 			echo '	chmod -R a+r+X  '$TARGET_ROOT';'
-			echo '	for file in 'FILES'; do \'
+			echo '	for file in '$FILES'; do \'
 			echo '	  $(INSTALL_DATA) $$file '$TARGET_DIR'; \'
 			echo '	  chmod a+r '$TARGET_DIR'/$$file; \'
 			echo '	done;'

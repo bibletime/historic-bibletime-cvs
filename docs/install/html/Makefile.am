@@ -8,7 +8,7 @@ EXTRA_DIST = instmgr.png
 install-data-local:
 	mkdir -p $(DESTDIR)$(kde_htmldir)/en/bibletime/install/;
 	chmod -R a+r+X  $(DESTDIR)$(kde_htmldir)/en/bibletime;
-	for file in FILES; do \
+	for file in  instmgr.png; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(kde_htmldir)/en/bibletime/install; \
 	  chmod a+r $(DESTDIR)$(kde_htmldir)/en/bibletime/install/$$file; \
 	done;
