@@ -24,8 +24,13 @@
 //		SWKey::operator = (m_module->module()->KeyText());
 //}
 
-CSwordTreeKey::CSwordTreeKey( TreeKey *k, CSwordModuleInfo* module ) : TreeKey(*k), CSwordKey() {
+CSwordTreeKey::CSwordTreeKey( TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k), CSwordKey() {
 	m_module = module;
+}
+
+CSwordTreeKey* CSwordTreeKey::clone() const{
+#warning
+
 }
 
 

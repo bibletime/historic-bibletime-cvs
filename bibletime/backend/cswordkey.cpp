@@ -28,6 +28,9 @@
 #include <swmodule.h>
 #include <swkey.h>
 #include <versekey.h>
+#include <treekey.h>
+#include <treekeyidx.h>
+
 
 CSwordKey::CSwordKey() {
 	m_module = 0;	
@@ -68,7 +71,7 @@ CSwordKey * CSwordKey::createInstance( CSwordModuleInfo *module){
 		case CSwordModuleInfo::Lexicon:
 			return new CSwordLDKey( (SWKey *)(module->module()), module);
 		case CSwordModuleInfo::GenericBook:
-			return new CSwordTreeKey( (TreeKey *) ( (SWKey *)(module->module()) ), module );
+			return new CSwordTreeKey( (TreeKeyIdx *) ( (SWKey *)(module->module()) ), module );
 	}
 	return 0;
 }

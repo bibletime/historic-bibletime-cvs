@@ -23,16 +23,17 @@
 #include "cswordmoduleinfo.h"
 
 //Sword includes
-#include <treekey.h>
+#include <treekeyidx.h>
 
 /** BibleTime's implementation of Sword's TreeKeyIdx class.
   * @author The BibleTime team
   */
-class CSwordTreeKey : public TreeKey, public CSwordKey  {
+class CSwordTreeKey : public TreeKeyIdx, public CSwordKey  {
 public:
 //	CSwordTreeKey( CSwordModuleInfo* module );
 
-	CSwordTreeKey( TreeKey *k, CSwordModuleInfo* module );
+	CSwordTreeKey( TreeKeyIdx *k, CSwordModuleInfo* module );
+	virtual CSwordTreeKey *clone() const;
 
 	~CSwordTreeKey();
 };
