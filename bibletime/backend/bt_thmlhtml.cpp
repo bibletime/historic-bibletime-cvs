@@ -139,7 +139,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			}
 			
 			else { // like "<scripRef>John 3:16</scripRef>"
-				pushString(buf, "<font color\"%s\"><a href=\"sword://Bible/", swordref_color);
+				pushString(buf, "<font color=\"%s\"><a href=\"sword://Bible/", swordref_color);
 				pushString(buf, userData["lastTextNode"].c_str());
 				pushString(buf, "\">");
 				pushString(buf, userData["lastTextNode"].c_str());
