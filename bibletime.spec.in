@@ -14,7 +14,7 @@
 %define		release 	1
 
 # This should be set to your os.
-# Possible values are  Mandrake, Red Hat, Turbolinux, Caldera, SuSE, etc.
+# Possible values are  Mandrake, Red Hat, Turbolinux, Caldera, SuSE, Debian, etc.
 %define		ostype 		@DISTRIBUTION@
 
 # This should be set to the version of your OS (6.0, 6.1, 6.2, 7.0, 7.1, 7.2, 8.0, etc.)
@@ -60,7 +60,7 @@ Source0:        %{name}-%{version}.tar.bz2
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}--rootbibletime
 Provides:       sword-base
-Prefix: 	      @PREFIX@
+Prefix: 	      @RPM_PREFIX@
 
 
 %description
@@ -79,7 +79,7 @@ This rpm was compiled on a %{ostype}  %{osversion} system for %{buildarch} class
 This RPM has these compiled options Sword is compiled %{swordlibs} and KDE/QT is compiled %{kdelibs}.
 
 Although this binary no longer requires sword to run the source.rpm will not build correctly
- without the sword-devel package installed.
+without the sword-devel package installed.
 
 %prep
 rm -rf $RPM_BUILD_ROOT

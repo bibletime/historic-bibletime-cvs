@@ -82,4 +82,5 @@ install-data-local:
 uninstall-local:
 	-rm -f $(kde_confdir)/bt-printing
 
-
+rpm: dist
+	
