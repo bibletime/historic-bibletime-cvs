@@ -42,7 +42,7 @@ protected:
 		unsigned short int swordFootnote;
 
 
-    enum NoteTpe {
+    enum NoteType {
       Unknown,
 			Alternative,
       CrossReference,
