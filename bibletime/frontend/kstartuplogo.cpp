@@ -69,7 +69,8 @@ KStartupLogo::KStartupLogo()
   setBackgroundPixmap(pm);
 
   textLabel = new QLabel(this);
-//  textLabel->setGeometry(5,pm.height(),pm.width()-5,textLabel->sizeHint().height()+5);
+  textLabel->setMargin(1);
+//  textLabel->setGeometry(0,pm.height(),pm.width(),textLabel->sizeHint().height()+5);
   textLabel->setGeometry(0,pm.height(),pm.width(),textLabel->sizeHint().height());
   textLabel->setBackgroundColor( Qt::black );
 
@@ -88,7 +89,7 @@ KStartupLogo::KStartupLogo()
 }
 
 void KStartupLogo::setText(const QString text){
-  textLabel->setText( text );
+  textLabel->setText( QString::fromLatin1("<B>%1</B>").arg(text) );
   KApplication::kApplication()->processEvents();
 }
 

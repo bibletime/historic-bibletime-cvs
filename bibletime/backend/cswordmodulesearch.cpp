@@ -149,11 +149,14 @@ void CSwordModuleSearch::setSearchedText( const QString text ){
 
 /** Sets the search scope. */
 void CSwordModuleSearch::setSearchScope( ListKey scope ) {
-	m_searchScope = scope;
+//	m_searchScope = scope;
+	qWarning("CSwordModuleSearch::setSearchScope()");	
+	m_searchScope.copyFrom( scope );
 }
 
-/** Sets the seaech scope back. */
+/** Sets the search scope back. */
 void CSwordModuleSearch::resetSearchScope() {
+	qWarning("CSwordModuleSearch::resetSearchScope()");
 	m_searchScope = NULL;
 }
 
@@ -200,6 +203,17 @@ const int CSwordModuleSearch::getPercent( percentType type ){
 }
 
 /** Returns a copy of the used search scope. */
-ListKey CSwordModuleSearch::scope() const {
+ListKey CSwordModuleSearch::scope() {
+//	qWarning("lower bound: ", m_searchScope);
+	qWarning("count of scope %i", m_searchScope.Count());
+	//output the scope
+	for (int i=0; i < m_searchScope.Count(); i++) {
+		SWKey* key = m_searchScope.GetElement(i);
+		VerseKey* vk = dynamic_cast<VerseKey*>(key);
+		if (vk) {
+			qWarning("%i. scope is from %s to %s", i, (const char*)vk->LowerBound(), (const char*)vk->UpperBound());
+		}		
+	}
+	
 	return m_searchScope;
 }

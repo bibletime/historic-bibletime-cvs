@@ -408,11 +408,14 @@ void BibleTime::loadProfile(CProfile* p){
 			if (m)
 				modules.append(m);
 		}
+		if (!modules.count()) //are the modules still installed?
+			continue;
+		
 		CSwordPresenter* displayWindow = createNewSwordPresenter(modules, key);
 		if (displayWindow) {
-			qWarning("apply settings");
+			qDebug("BibleTime::loadProfile: apply settings");
 			displayWindow->applySettings(w);
-		}			
+		}
 	}	
 	
 	m_mdi->setUpdatesEnabled(true);	

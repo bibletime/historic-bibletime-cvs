@@ -119,7 +119,7 @@ public:
   const int getPercent( percentType type );
 	void percentUpdate(char percent, void *p);
   /** Returns a copy of the used search scope. */
-  ListKey scope() const;
+  ListKey scope();
 
 protected:
 	QString m_searchedText;

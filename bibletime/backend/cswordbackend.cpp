@@ -55,6 +55,8 @@ CSwordBackend::CSwordBackend()
 	m_gbfFilter(0),
 	m_plainTextFilter(0),
 	m_thmlFilter(0)/*, m_rwpFilter(0)*/ {
+	
+
 }
 
 CSwordBackend::~CSwordBackend(){

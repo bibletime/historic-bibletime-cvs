@@ -115,10 +115,10 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 		
 		CSwordModuleInfo* m	= 0;
 		if (module.isEmpty() || module.isNull()) {
-			qWarning("get standard module");
+			qDebug("get standard module");
 			module = CReferenceManager::preferredModule( type );								
 //			m = m_important->swordBackend->findModuleByDescription(module);
-			qWarning("preferred module is %s", module.latin1());
+			qDebug("preferred module is %s", module.latin1());
 		}
 		else
 			m = m_important->swordBackend->findModuleByName(module);

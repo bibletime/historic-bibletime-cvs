@@ -244,6 +244,9 @@ void CSearchDialog::timerEvent(QTimerEvent *e){
 		searchText->updateOverallProgress(100);					
 		searchAnalysis->reset();
 		
+		//test: call scope function
+		ListKey scope = searcher->scope();
+		
 		if ( searcher->foundItems() ){
 			searchResult->setModuleList(getModuleList());			
 			searchAnalysis->setModuleList(getModuleList());

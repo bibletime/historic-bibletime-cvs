@@ -200,6 +200,7 @@ void BibleTime::initActions() {
 //		delete m_helpHandbook_action;
 // 	m_helpHandbook_action = KStdAction::helpContents(this, SLOT(openOnlineHelp_Handbook()), actionCollection() );
 //	m_helpHandbook_action->setToolTip(TT_HELP_CONTENT);
+
 //	m_helpHandbook_action->setWhatsThis(WT_HELP_CONTENT);
 
 #warning check

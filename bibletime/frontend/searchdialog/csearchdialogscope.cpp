@@ -93,14 +93,14 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
   	config->setGroup(QString::fromLatin1("custom ranges"));
   	
 	  QMap<QString,QString> entryMap;
-	  entryMap.insert(i18n("Old testament"),          QString("Gen - Mal"));
-	  entryMap.insert(i18n("Moses/Pentateuch/Torah"), QString("Gen - Deut"));				
-	  entryMap.insert(i18n("History"),                QString("Jos - Est"));		
-	  entryMap.insert(i18n("Prophets"),               QString("Isa - Mal")); 	
- 	  entryMap.insert(i18n("New testament"),          QString("Mat - Rev"));
-	  entryMap.insert(i18n("Gospels"), 								QString("Mat - Joh"));
-	  entryMap.insert(i18n("Letters/Epistels"), 			QString("Rom - Jude"));
-	  entryMap.insert(i18n("Paul's Epistels"), 				QString("Rom - Phile"));
+	  entryMap.insert(i18n("Old testament"),          QString::fromLatin1("Gen - Mal"));
+	  entryMap.insert(i18n("Moses/Pentateuch/Torah"), QString::fromLatin1("Gen - Deut"));				
+	  entryMap.insert(i18n("History"),                QString::fromLatin1("Jos - Est"));		
+	  entryMap.insert(i18n("Prophets"),               QString::fromLatin1("Isa - Mal")); 	
+ 	  entryMap.insert(i18n("New testament"),          QString::fromLatin1("Mat - Rev"));
+	  entryMap.insert(i18n("Gospels"), 								QString::fromLatin1("Mat - Joh"));
+	  entryMap.insert(i18n("Letters/Epistels"), 			QString::fromLatin1("Rom - Jude"));
+	  entryMap.insert(i18n("Paul's Epistels"), 				QString::fromLatin1("Rom - Phile"));
 
 	  QMap<QString,QString>::Iterator it;			
 				
