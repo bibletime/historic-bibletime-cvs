@@ -37,12 +37,14 @@ using namespace sword;
 const QString BTInstallMgr::Tool::LocalConfig::swordConfigFilename() {
   Q_ASSERT( CPointers::backend()->sysconfig );
 
-	qWarning(CPointers::backend()->globalConfPath);
-
+//	qWarning(CPointers::backend()->globalConfPath);
 	//in Sword 1.5.7 we can use $HOME/.sword/sword.conf instead of the global ones
-	if (sword::SWVersion::currentVersion >= sword::SWVersion("1.5.7")) { // use sword.conf in HOME/.sword
+//	qWarning(sword::SWVersion::currentVersion);
+
+	if ((sword::SWVersion::currentVersion == sword::SWVersion("1.5.7")) || (sword::SWVersion::currentVersion > sword::SWVersion("1.5.7")))
+	{ // use sword.conf in HOME/.sword
 		const QString file = QString("%1/.sword/sword.conf").arg(getenv("HOME"));
-		qWarning("file is %s", file.latin1());
+		//qWarning("file is %s", file.latin1());
 		return file;
 	}
 	else if (CPointers::backend()->globalConfPath) {
@@ -52,18 +54,18 @@ const QString BTInstallMgr::Tool::LocalConfig::swordConfigFilename() {
     }
   }
 
-  return QString("Unknown path");
+  return QString::null;
 }
 
 QStringList BTInstallMgr::Tool::RemoteConfig::sourceList( sword::InstallMgr* mgr ) {
-  qWarning("BTInstallMgr::Tool::sourceList( sword::InstallMgr* mgr )");
+//  qWarning("BTInstallMgr::Tool::sourceList( sword::InstallMgr* mgr )");
   Q_ASSERT(mgr);
   Q_ASSERT(mgr->installConf);
-  
+
   QStringList names;
 
   //add Sword remote sources
-	for (InstallSourceMap::iterator it = mgr->sources.begin(); it != mgr->sources.end(); it++) {    
+	for (InstallSourceMap::iterator it = mgr->sources.begin(); it != mgr->sources.end(); it++) {
     names << QString::fromLocal8Bit(it->second->caption);
   }
 

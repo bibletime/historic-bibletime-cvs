@@ -26,11 +26,11 @@
 /**
 * This filter converts ThML text to HTML text
 */
-class BT_OSISHTML : public sword::OSISHTMLHref, protected CFilterTool {
+class BT_OSISHTML : public sword::OSISHTMLHREF, protected CFilterTool {
 protected:
-  class BT_UserData : public sword::OSISHTMLHref::MyUserData {
+  class BT_UserData : public sword::OSISHTMLHREF::MyUserData {
   public:
-    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::OSISHTMLHref::MyUserData(module, key) {
+    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::OSISHTMLHREF::MyUserData(module, key) {
       noteType = Unknown;
     }
 

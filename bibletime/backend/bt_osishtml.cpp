@@ -252,7 +252,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		}
 		// <transChange> is handled by OSISHTMLHref
     else { //all tokens handled by OSISHTMLHref will run through the filter now
-      return sword::OSISHTMLHref::handleToken(buf, token, userData);
+      return sword::OSISHTMLHREF::handleToken(buf, token, userData);
     }
 	}
   return false;
