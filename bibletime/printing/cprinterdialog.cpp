@@ -467,7 +467,7 @@ void CPrinterDialog::initLayoutPage(){
 
 /** Initialitzes the page which contains the two lists of CStyles and PrintItems. */
 void CPrinterDialog::initListPage(){
-  QFrame *page = addPage( i18n("Entries"), i18n("Management of BibleTimes printing queue") );
+  QFrame *page = addPage( i18n("Entries"), i18n("Management of BibleTime's printing queue") );
   QVBoxLayout *topLayout = new QVBoxLayout( page, OUTER_BORDER, INNER_BORDER );
   QVBoxLayout *entryLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   QLabel*	label = 0;

@@ -88,12 +88,12 @@
 #define TT_PRESENTER_EDIT_COLOR_CHOOSER i18n("Set the color")
 #define TT_PRESENTER_EDIT_FONTSIZE_CHOOSER i18n("Set the fontsize")
 
-#define TT_PRESENTER_SYNC i18n("Synchronize with Bibles")
+#define TT_PRESENTER_SYNC i18n("Synchronize with Bible windows")
 
 //HTML widget related #defines
 #define TT_HTML_SAVE_AS i18n("Save as HTML")
 #define TT_HTML_SELECT_ALL i18n("Select all")
-#define TT_HTML_COPY i18n("Copy to clipboard")
+#define TT_HTML_COPY i18n("Copy into clipboard")
 
 //searchdialog related #defines, SD means searchdialog; mc==Module chooser
 #define TT_SD_MODULECHOOSER i18n("Choose the modules for the search")
@@ -111,10 +111,10 @@
 #define TT_SD_SCOPE_LAST_RESULT i18n("Last search result")
 #define TT_SD_SCOPE_OWN_SCOPE i18n("Use own scope")
 #define TT_SD_SCOPE_NEW_SCOPE i18n("Add a new scope")
-#define TT_SD_SCOPE_DELETE_SCOPE i18n("Delete this scope")
-#define TT_SD_SCOPE_EDIT_SCOPE_BUTTON i18n("Edit and define your scopes")
-#define TT_SD_SCOPE_CHOOSER i18n("Choose a scope from the list")
-#define TT_SD_SCOPE_EDIT_LINE	i18n("Enter your own scope")
+#define TT_SD_SCOPE_DELETE_SCOPE i18n("Delete this search scope")
+#define TT_SD_SCOPE_EDIT_SCOPE_BUTTON i18n("Edit and define your search scopes")
+#define TT_SD_SCOPE_CHOOSER i18n("Choose a search scope from the list")
+#define TT_SD_SCOPE_EDIT_LINE	i18n("Enter your own search scope")
 #define TT_SD_SCOPE_PARSED_LIST	i18n("Parsed result")
 #define TT_SD_SCOPE_CLOSE i18n("Close this dialog")
 
@@ -160,7 +160,7 @@
 #define TT_PD_ENTRIES_PI_MOVE_UP i18n("Move item up")
 #define TT_PD_ENTRIES_PI_MOVE_DOWN i18n("Move item down")
 #define TT_PD_ENTRIES_PI_DELETE i18n("Delete items")
-#define TT_PD_ENTRIES_PI_PAGE_BREAK i18n("Insert page break")
+#define TT_PD_ENTRIES_PI_PAGE_BREAK i18n("Insert a page break")
 
 #define TT_PD_LAYOUT_BORDER i18n("Page borders")
 #define TT_PD_LAYOUT_BORDER_LEFT i18n("Left border")
@@ -168,6 +168,6 @@
 #define TT_PD_LAYOUT_BORDER_TOP i18n("Upper border")
 #define TT_PD_LAYOUT_BORDER_BOTTOM i18n("Lower border")
 #define TT_PD_LAYOUT_STYLE_LIST i18n("List of styles")
-#define TT_PD_LAYOUT_STYLE_DELETE i18n("Delete the chosen style")
-#define TT_PD_LAYOUT_STYLE_EDIT i18n("Edit the chosen style")
-#define TT_PD_LAYOUT_STYLE_NEW i18n("Create a new style")
+#define TT_PD_LAYOUT_STYLE_DELETE i18n("Delete the chosen printing style")
+#define TT_PD_LAYOUT_STYLE_EDIT i18n("Edit the chosen printing style")
+#define TT_PD_LAYOUT_STYLE_NEW i18n("Create a new printing style")
