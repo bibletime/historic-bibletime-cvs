@@ -1,0 +1,35 @@
+<HTML LANG=en-US>
+<HEAD PROFILE="http://purl.org/metadata/dublin_core">
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>How to download Sword CVS</TITLE>
+<LINK REV="made" href="mailto:info@bibletime.de ">
+<META NAME="keywords" CONTENT="Sword CVS, Documentation,">
+<META NAME="description" CONTENT="If you are going to use the bibletime CVS you also need the sword CVS">
+</HEAD>
+
+<body>
+<!-- only part below is in the sourceforge site docs ->
+<p>DO NOT use the sword CVS with released versions of bibletime.&nbsp; We
+do not test this configuration so it will probably will not work.
+<p>If you are compiling bibletime from the CVS, you will need to use the
+current version of the sword CVS.&nbsp; As both sword and bibletime are
+under continous development, there are times where one or both of these
+CVS files will contain bugs.
+<p>If you have problems with the CVS you can post a bug report to bt-devel@crosswire.org
+If you need to report a bug with an RPM please use the bug reporting feature
+on https://sourceforge.net/projects/bibletime/
+<p>Always install sword before compiling bibletime.
+<br>
+<hr WIDTH="100%">The following commands will allow downloading the Sword
+CVS.
+<br>
+<hr WIDTH="100%">
+<br>cd ./Develop
+<br>export CVSROOT=:pserver:anonymous@cvs.crosswire.org:/usr/local/cvsroot
+<br>cvs login
+<br>Password: anonymous
+<br>cvs checkout sword
+
+<!-- only part above is in the sourceforge site docs ->
+</body>
+</html>

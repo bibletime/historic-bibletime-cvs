@@ -1,0 +1,32 @@
+This directory contains the english sourceforge site documents for Bibletime.
+These files should not be available in the RPM binaries.
+The intent of placing these files here in the CVS tree
+is to make it easier to modify them, and create translations.
+
+Meta data tags and header tags were added so that these files view as html pages.
+These should be stripped out when adding to the sourceforge site document tree.
+
+Example showing use of meta tags (must be opened in a text editor to view this).
+
+<HTML LANG=en-US>
+<HEAD PROFILE="http://purl.org/metadata/dublin_core">
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>put title here</TITLE>
+<LINK REV="made" href="mailto:info@bibletime.de ">
+<META NAME="keywords" CONTENT="API, Documentation,">
+<META NAME="description" CONTENT="put description">
+</HEAD>
+
+<body>
+<!-- only part below is in the sourceforge site docs ->
+
+
+<Document text here with html tags allowed.>
+
+
+<!-- only part above is in the sourceforge site docs ->
+</body>
+</html>
+
+Fred Saalbach 28 Sept 2001
+-----------------

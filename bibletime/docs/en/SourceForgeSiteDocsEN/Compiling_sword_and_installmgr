@@ -1,0 +1,114 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<HTML LANG=en-US>
+<HEAD PROFILE="http://purl.org/metadata/dublin_core">
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Compiling sword and installmg</TITLE>
+<LINK REV="made" href="mailto:info@bibletime.de ">
+<META NAME="keywords" CONTENT="Documentation, Compiling sword and installmgr">
+<META NAME="description" CONTENT="Instructions for compiling sword and the sword document installer (installmgr)">
+</HEAD>
+
+
+<body>
+<!-- only part below is in the sourceforge site docs ->
+<h1>
+Sword</h1>
+
+<h2>
+Applies to</h2>
+Compiling the sword binaries and development CVS files.
+<h2>
+Procedure for compiling sword for use with bibletime:</h2>
+Open the file
+<br>&nbsp;
+<blockquote>~/sword/Makefile.cvs</blockquote>
+
+<p><br>find the lines for <b>shared library</b> and <b>VCL library</b>,
+and change to yes as shown
+<br>below:
+<br>&nbsp;
+<blockquote>##### Customizable stuff. Set it how you like it #####
+<p># compiler
+<p>CROSS_COMPILE =
+<br>CC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = gcc
+<br>need_local_regex := no
+<br>&nbsp;
+<p># shared library- set to yes if you would like to build
+<p>buildshare := yes
+<br>&nbsp;
+<p># VCL library- set to yes if you would like to build
+<p>buildvcl := no
+<br>&nbsp;
+<p># Debugging options etc...
+<p>debug&nbsp;&nbsp; := no
+<br>profile := no
+<br>&nbsp;
+<p># endian, etc. support for other hardware
+<p>system := intel
+<br>#system := sparc
+<br>#system := macosx
+<br>#system := arm
+<p>## MAC OSX Support works but possible bug exists in /usr/include/sys/dirent.h
+<br>## on the current version (B) of OSX.&nbsp; You will need to add this
+line right after the #ifdef of DIRENT
+<br>#include &lt;sys/types.h>
+<br>&nbsp;
+<p># zLib support
+<p>zlib := yes
+<br>&nbsp;
+<p># paths
+<p>instdir&nbsp;&nbsp; := /usr
+<p>bindir&nbsp;&nbsp;&nbsp; := ${instdir}/bin
+<br>libdir&nbsp;&nbsp;&nbsp; := ${instdir}/lib
+<br>hdir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; := ${instdir}/include/sword
+<br>docdir&nbsp;&nbsp;&nbsp; := ${instdir}/doc/sword
+<br>confdir&nbsp;&nbsp; := ${instdir}/share/sword
+<br>&nbsp;
+<br>&nbsp;
+<p>#------------------------------------------------------------------------------#
+<br># You shouldn't need to change anything below here.
+<br>&nbsp;</blockquote>
+The remainder of the user customization files can be set to your preference.
+<p>Now to compile sword do
+<br>&nbsp;
+<blockquote>cd ~/sword
+<br>./configure
+<br>make
+<br>su
+<br>make install</blockquote>
+
+<p><br>Sword is now prepaired for use with bibletime.
+<h1>
+Installmgr</h1>
+
+<h2>
+Applies to</h2>
+Compiling theinstallmgr program included with sword binaries and development
+CVS files.
+<h2>
+Procedure for compiling Installmgr for use with bibletime:</h2>
+If you would use installmgr to load sword modules, make sure that the gtk
+libraries are installed.
+<br>Now open a new terminal and do
+<br>&nbsp;
+<blockquote>cd ~/sword/apps/X11/InstallMgr
+<br>./configure
+<br>make
+<br>su
+<br>make install</blockquote>
+
+<p><br>installmgr can now be launched by typing as superuser or root
+<br>&nbsp;
+<blockquote>/usr/local/bin/installmgr</blockquote>
+
+<p><br>If the above instructions do not work on your system, please read
+the <b>INSTALL</b>
+<br>files.
+<p>Additional information is also contained in the bibletime DOC file "Sword
+module installation program (installmgr)"</b>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<!-- only part above is in the sourceforge site docs ->
+</body>
+</html>

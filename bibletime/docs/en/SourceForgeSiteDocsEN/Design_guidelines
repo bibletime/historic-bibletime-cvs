@@ -1,0 +1,205 @@
+<HTML LANG=en-US>
+<HEAD PROFILE="http://purl.org/metadata/dublin_core">
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Design guidelines</TITLE>
+<LINK REV="made" href="mailto:info@bibletime.de ">
+<META NAME="keywords" CONTENT="Documentation">
+<META NAME="description" CONTENT="discusses programming and architecture design questions">
+
+</HEAD>
+
+<body>
+<!-- only part below is in the sourceforge site docs ->
+<ol>
+  <li><A HREF=#program>Programming guidelines</A></li>
+  <li><A HREF=#gui>GUI</A></li>
+  <li><A HREF=#printing>Printing</A></li>
+  <li><A HREF=#backend>Backend</A></li>
+</ol>
+
+<h3><A NAME=program>Programming guidelines</A></h3>
+<ol><li>Comment <i>each</i> function in the headerfiles. Make use of doxygen to make
+    it easy to create HTML files for class documentation.</li>
+  <li>Every classname should begin with a <TT><B>C</B></TT>, for example
+    <TT>CChartWidget</TT>.</li>
+  <li>The GUI should be as easy to use as possible.</li>
+  <li>Drag and Drop should be supported everywhere.</li>
+  <li><i>Every</i> action (even RMB-menus) should be possible witht the
+    help of the keyboard.</li>
+  <li>Put <TT>QToolTip</TT> and <TT>QWhatsThis</TT> help on <i>every</i> important widget.
+    Should be defined in 2 header files in the toplevel directory.</li>
+  <li>Use <TT>i18n()</TT> on every string that should be localized.</li>
+</ol>
+
+<h3><A NAME=gui>GUI</A></h3>
+<p>BibleTime's GUI consists of two big parts: The groupmananger and the MDI
+part. Using these two parts makes BibleTime easy to use because the user sees
+a clear structure of the program: Organizing with the group-manager and
+working in the MDI part.</p>
+
+<ol>
+<li><b>Groupmanager</b>
+<p>With the help of the groupmanager the user organizes the modules and his own bookmarks in different groups. At the first start of BibleTime there are only the modules in the different module-groups (e.g. Bibles, Commentaries ...).
+Now the user could create new groups ("European bibles", "Own commentaries", "My bookmarks") and move the entries of other groups in his own ones or other groups.
+The groupmanager handles two types of items: modules and bookmarks (=module entries).<br>
+Aims for the development of the GroupManager:
+<ul><li>Make everything organizable in groups</li>
+  <li>Drag and drop of grouplelements into the printerqueue</li>
+  <li>Better internet-support. Support for bookmarks to URLs, browsing ...</li>
+ </ul>
+</p></li><br>
+
+<li><b>MDI-Part</b>
+<p>The MDI part contains specialized module presenters.
+A module presenter is a widget which handles one module type (e.g. Bible presenter, commentary presenter)and contains the parts to work with the module and a part to see the content of the module (e.g. a HTML widget for text based modules).
+</p>
+
+<p>The standard module presenters are:
+<ul><li>The <B>Bible presenter</B>: Provides functions to navigate in a bible.</li>
+  <li>The <B>Lexikon presenter</B>: Provides functions to navigate in a lexikon
+  like a ComboBox which contains the entries of the lexikon in alphabetical order.</li>
+  <li>The <B>Commentary presenter</B>: Contains the basic functions of the bible
+  presenter but with buttons to add, delete or edit a comment if the module is
+  writable. To edit or create a comment we use the noteseditor (see below).</li>
+</ul></p>
+
+<p>If the SWORD guys create new modules types, we'll integrate the corresponding module presenter (probably maps or audio sermons or ...).
+The module presenters are <i>everytime</i> inside the MDI area, every other window like search-analysis or the searchwindow has to be outside the main window of BibleTime.
+Using module presentes is more flexible than using tabbars like we use BibleTime 0.2.
+If we use module presenters we have a open and easy extendable program.
+</p></li><br>
+
+<li><b>Noteseditor</b>
+<p>The noteseditor will be inside the commentary presenter. If a module is writable a button called edit will be enabled which is used to switch between HTML<->Edit mode.
+We should later replace the HTML edit widget with a ThML edit widget.
+</p></li><br>
+
+<li><b>Drag & Drop</b>
+<p>Drag&Drop is necessary to work with the text and with the groupmanager. For example you move entries in the group manager in other groups,
+change the order of entries in a group, etc. You can also drag verse-references from a translation in the groupmanager to create a new bookmark. It is
+also be possible to drag verse-references in the noteseditor to insert the verse.
+You can also drop selected text of a module-presenter in the noteseditor or in other applications like StarOffice or KEdit.
+</p></li><br>
+
+<li><b>Important classes of the frontend</b>
+<ol>
+<li><TT><B>CGroupManager</B></TT><br>
+ This class is the GUI part to manage the modules of SWORD and the user-made
+ bookmarks. The constructor should get a list of the available modules
+ (<TT>QList *<CModuleInfo></TT>) and put them into the tree.</li>
+<li><TT><B>CModulePresenter</B></TT><br>
+ CModulePresenter is the baseclass of every module presnter. Every module
+ presenter must be derived from CModulePresenter. This class ontains basic
+ functions to work with a presenter from outside (e.g. set/get moduleinfo, refresh, etc).
+ Every presenter gets the application wide backend object as parameneterand the CModuleInfo object it presents.
+ The specialized module presenters overload the functions of this class and
+ contain new functions. We currently have <TT><B>BiblePresenter</B></TT>(presents a bible-module),
+ <TT><B>CCommentaryPresenter</B></TT> (presents a commentary-module; contains support for switching mode to edit mode and saving/deleting comments)
+ and <TT><B>CLexikonPresenter</B></TT> (presents a lexicon-module).</li>
+</ol></li><br>
+
+<li><b>KDE 2 classes which might be useful for the future development</b>
+
+<ul><li><TT><B>KContextMenuManager</B></TT><br>
+  Opens a popupmenu if you click with the RMB on a <TT>QWidget</TT> given in the constructor.
+  Useful, because we save the time to implement <TT>mouseClick</TT> event of the widget.</li>
+  <li><TT><B>mediatool</B></TT></li>
+  <li><TT><B>Kaudio</B></TT><br>
+  Easy to use class to play wav-files using the KAudioserver</li>
+  <li><TT><B>dcop</B></TT><br>
+  This library is used to comunicate with other applications using the dcop-interface.
+  I've never used this that's why I can't give hints how to use this.</li>
+  <li><TT><B>KHTML</B></TT><br>
+  This class provides the HTML widget which uses now Java, Javascript (early beginnings),
+  CSS 2 (beginnings) and the like</li>
+</ul>
+</ol>
+
+<h3><A NAME=printing>Printing</A></h3>
+<ol>
+<li><b>Important features</b>
+<ol>
+  <li>Usage of formatting styles realised using the class CStyleFormat
+  <ul><li>Background and foreground colours</li>
+    <li>Settings for an own frame realised with the class CStyleFormatFrame:
+    <ul><li>Colour of border</li>
+ <li>Pen style</li>
+ <li>Thickness of border</li>
+    </ul>
+    <li>Font and size</li>
+  </ul>
+  A style is divided in three parts:
+  <ul><li>A header containg the range of the printed verses</li>
+    <li>A description (useful for printing bookmarks)</li>
+    <li>The module text</li>
+  </ul></li>
+  <li>Each of these style parts has it's own CStyleFormat (everytime the same options)</li>
+  <li>Possibilty to load and save styles to disk
+  <ul><li>This is useful to share printing styles with other users of BibleTime</li></ul></li>
+  <li>Support of normal printing options
+  <ul><li>Number of copies</li>
+    <li>Page orientation</li>
+    <li>Selection of printer</li>
+    <li>Print to file</li>
+    <li>Paper format</li>
+    <li>Range of pages you want to print</li>
+  </ul>
+  <li>Possibilty to control text which will be printed</li>
+</ol></li><br>
+
+<li><b>Important classes</b>
+<ol><li><TT><B>CPrinterDialog</B></TT><br>
+  This dialog is used to set the properties which will be used for printing.
+  <li><TT><B>CPrinter</B></TT><br>
+  Class which inherit from <TT>QPrinter</TT> and which supports BibleTime-special features.
+  Things which should be handled by this class are (for example):
+  <ul><li>margings (top, bottom, left, right, etc.)</li>
+    <li>Output to file</li>
+    <li>Using preview mode</li>
+  <li>...</li>
+  </ul>
+  Generally all painting related thigs should be handled by CPrinter.
+  It's like the class "AdvancedPrinter" of BibleTime 0.2x.</li>
+  <li><TT><B>CStyle</B></TT><br>
+  This class implementing the style ahndling. It has functions to retrive the
+  different CStyleFormats objects for the different parts
+  (header, description, module text).
+  </li>
+  <li><TT><B>CStyleFormat</B></TT></li>
+  <li><TT><B>CStyleEditorDialog</B></TT></li>
+  <li><TT><B>CStyleFormatFrame</B></TT></li>
+  <li><TT><B>CStyleList</B></TT></li>
+  <li><TT><B>CPrintItem</B></TT></li>
+  <li><TT><B>CPrintItemList</B></TT></li>
+</ol></li>
+</ol>
+
+<h3><A NAME=backend>Backend</A></h3>
+<ul><li><TT><B>CBackEnd:</B></TT><br>
+  CBackEnd is the link between the FrontEnd and the BackEnd. It provides info
+  about modules, collects modules and creates objects, one for each module (see
+  below). It provides service and convinience functions for the FrontEnd.<br>
+  On startup the GUI will ask CBackEnd about installed modules. CBackEnd will
+  get the info into objects and will give a QList of installed modules
+  (CModuleInfo) back to the one who asked.<br>
+  If the GUI needs something from a module it has the pointer (from the QList)
+  and needs to ask the module personally. Only CModuleInfo knows how to get the
+  information needed.</li>
+  <li><TT><B>CModuleInfo</B></TT><br>
+  Stores information about modules and provides methods to access data and info
+  about the modules (is Encrypted, aboutInfo, hasStrongnumbers and the like).
+  However <TT><B>CModuleInfo</B></TT> is just a Superclass and won't be instantiated.
+  So see the subclass <TT><B>CSWORDModuleInfo</B></TT> (provides information about
+  all SWORD module types).</li>
+  <li><TT><B>CKey</B></TT><br>
+  This is the base class for all types of keys. If the GUI needs a text for a
+  key it will call CKey::getData(). The returned text will be in a
+  Member variable of the key.</li>
+  <li><TT><B>CSwordModuleSearch</B></TT><br>
+  The search class for SWORD modules. On can give it a
+  list of modules which should be searched and it will provide a nice dialog to
+  present the search result.</li>
+</ul>
+<!-- only part above is in the sourceforge site docs ->
+</body>
+</html>
