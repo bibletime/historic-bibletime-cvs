@@ -36,7 +36,7 @@
 # Nothing else should need to be changed.
 # Please do not edit below this line unless you know what you are doing.
 
-Summary:        BibleTime %{version} is an easy to use Bible study tool for KDE2.
+Summary:        BibleTime %{version} is an easy to use Bible study tool for KDE.
 Name:		%{name}
 Version:        %{version}
 Release:        %{release}
@@ -103,13 +103,13 @@ if [ %{ostype} = "Mandrake" ] ; then
   #Icons for Mandrake menu system
   tar jxvf %{SOURCE1}
  %endif
- export KDEDIR=/usr QTDIR=/usr/lib/qt2
+ export KDEDIR=/usr QTDIR=/usr/lib/qt3
 elif [%{ostype} = "SuSE"] ; then
- export KDEDIR=/opt/kde2 QTDIR=/usr/lib/qt2
+ export KDEDIR=/opt/kde3 QTDIR=/usr/lib/qt3
 else
-	echo "Using $KDEDIR as KDE2 directory";
-	echo "Using $QTDIR as QT 2.2.x directory";
-	echo "If the directories are not correct please set them using \"export KDEDIR=<KDE2 directory> QTDIR=<QT2.2 directory>\""
+	echo "Using $KDEDIR as KDE directory";
+	echo "Using $QTDIR as QT directory";
+	echo "If the directories are not correct please set them using \"export KDEDIR=<KDE directory> QTDIR=<QT directory>\""
 	sleep 5
 fi
 
@@ -135,14 +135,14 @@ cat << EOF >$RPM_BUILD_ROOT%{ModsPath}/globals.conf
  [Globals]
 EOF
 
-# For use with mandrake menu system 
+# For use with mandrake menu system
 cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
 ?package(bibletime):command="/usr/bin/bibletime" icon="bibletime.xpm" \
                 needs="X11" section="Applications/Bible Study/" title="Bibletime" \
                 longtitle="An easy to use Bible study tool."
 EOF
 
-# For use with mandrake menu system 
+# For use with mandrake menu system
 # icons: this is for the mandrake menu system
 %if %build_menus
   mkdir -p $RPM_BUILD_ROOT%{_liconsdir}
@@ -152,7 +152,7 @@ EOF
   install -m 644 %{name}_16.xpm $RPM_BUILD_ROOT%{_miconsdir}/%{name}.xpm
   install -m 644 %{name}_32.xpm $RPM_BUILD_ROOT%{_iconsdir}/%{name}.xpm
   install -m 644 %{name}_48.xpm $RPM_BUILD_ROOT%{_liconsdir}/%{name}.xpm
-%endif 
+%endif
 
 %post
 # this is for creation of the sword.conf for systems that are using bibletime without Sword installed.
