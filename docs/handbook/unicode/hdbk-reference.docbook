@@ -7,7 +7,7 @@
 </sect1>
 
 
-	<sect2 id="hdbk-reference-toolbar"><title>Toolbar</title>
+<sect1 id="hdbk-reference-toolbar"><title>Toolbar</title>
 
 	<para>This section describes the most important toolbar actions. You can find a
 	comlete listing of available actions and descriptions of them by clicking
@@ -17,7 +17,113 @@
 	with a short description.
 	</para>
 	
+	TODO: COMPLETE.
+</sect1>
+	
+<sect1 id="hdbk-reference-menus"><title>Menus</title>
+	
+	<sect2 id="hdbk-reference-menus-file"><title>File</title>
+	
 	<para>
+	<variablelist>
+	
+	<varlistentry id="file-quit">
+		<term><menuchoice>
+		<shortcut><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></shortcut>
+		<guimenu>	<inlinemediaobject><imageobject>
+		<imagedata fileref="exit.png"	format="PNG"/></imageobject></inlinemediaobject>
+		File</guimenu> <guimenuitem>Quit</guimenuitem></menuchoice></term>
+		<listitem><para><action>Closes BibleTime.</action> BibleTime will ask you if
+		you want to write unsaved changes to disk.</para></listitem> 
+</varlistentry>
+
+	</variablelist>
+	</para>
+	</sect2>
+
+	<sect2 id="hdbk-reference-menus-view"><title>View</title>
+	
+	<variablelist>
+		<varlistentry id="view-showtoolbar">
+			<term><menuchoice>
+			<guimenu>View</guimenu> <guimenuitem>Show Toolbar</guimenuitem></menuchoice></term>
+			<listitem><para><action>Toggles Toolbar display.</action> Toggle this setting to turn the main toolbar
+			on or off.</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="view-shomainindex">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul"><keycap>F9</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="view_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
+			View</guimenu> <guimenuitem>Show Main Index</guimenuitem></menuchoice></term>
+			<listitem><para><action>Toggles display of the Main Index.</action> Toggle this setting to turn the
+			main index on the left pane on or off.</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="view-shominfodisp">
+			<term><menuchoice>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="view_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
+			View</guimenu> <guimenuitem>Show Info Display</guimenuitem></menuchoice></term>
+			<listitem><para><action>Toggles display of the Info Display.</action> Toggle this setting to turn the
+			Info Display on the left pane on or off.</para></listitem> 
+		</varlistentry>
+
+		</variablelist>
+	</sect2>
+	
+	<sect2 id="hdbk-reference-menus-search"><title>Search</title>
+		<variablelist>
+
+		<varlistentry id="search-defaultbible">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="find.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Search</guimenu> <guimenuitem>Search in default bible</guimenuitem></menuchoice></term>
+			<listitem><para><action>Opens the Search Dialog to search in the default Bible only</action>.
+			More modules can be added in the Search Dialog.</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="search-openmodules">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul">&Alt;&Ctrl;<keycap>M</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="find.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Search</guimenu> <guimenuitem>Search in open module(s)</guimenuitem></menuchoice></term>
+			<listitem><para><action>Opens the Search Dialog to search in all open modules</action>.
+			More modules can be added in the Search Dialog.</para></listitem> 
+		</varlistentry>
+
+		</variablelist>
+
+	</sect2>
+
+	<sect2 id="hdbk-reference-menus-window"><title>Window</title>
+		<variablelist>
+
+
+		</variablelist>
+	</sect2>
+
+	<sect2 id="hdbk-reference-menus-settings"><title>Settings</title>
+		<variablelist>
+
+
+		</variablelist>
+	</sect2>
+	
+	<sect2 id="hdbk-reference-menus-help"><title>Help</title>
+		<variablelist>
+
+
+		</variablelist>
+	</sect2>
+	
+</sect1>	
+	
+<sect1 id="oldstuff"><title>OLD STUFF</title>
 
 	<mediaobject>
 	<imageobject>
@@ -121,17 +227,7 @@
 	</caption>
 	</mediaobject>
 
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="./exit.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>exit.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon closes &bibletime;.
-	</para>
-	</caption>
-	</mediaobject>
+
 		
 	<mediaobject>
 	<imageobject>
@@ -159,34 +255,6 @@
 	</para>
 	</caption>
 	</mediaobject>
-		
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="./find.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>find.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Main Index</guilabel> or the <guilabel>Tool Bar</guilabel>
-	this icon opens the <guilabel>Search Dialog</guilabel>.
-	</para>
-	</caption>
-	</mediaobject>
-	
-<!--	<mediaobject>
-	<imageobject>
-	<imagedata fileref="./start.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>start.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon resets the 
-	<guilabel>Main Index</guilabel> to display just the default groups.  
-	Be Careful, it also will delete all of your bookmarks.
-	</para>
-	</caption>
-	</mediaobject>
--->
 
 	<mediaobject>
 	<imageobject>
@@ -424,139 +492,18 @@
 	</mediaobject>
 
 
+	</sect1>
 
-<!--	<mediaobject>
-	<imageobject>
-	<imagedata fileref="./editdelete.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>editdelete.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon will remove the previously
-	selected item in the <guilabel>Main Index</guilabel>.
-	</para>
-	</caption>
-	</mediaobject>
+	<sect1 id="hdbk-reference-unassigned"><title>UNASSIGNED FRAGMENTS</title>
+	
+	</sect1>
 
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="./pencil.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>pencil.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Personal Commentary</guilabel>
-	this icon will start the editor for the personal commentary.
-	</para>
-	</caption>
-	</mediaobject>
--->	
-
-	<mediaobject>
-	<imageobject>
-	<imagedata fileref="./queue.png" format="PNG"/>
-	</imageobject>
-	<textobject>
-	<phrase>queue.png</phrase>
-	</textobject><caption>
-	<para>In the <guilabel>Tool Bar</guilabel> this icon will clear the print queue.
-	</para>
-	</caption>
-	</mediaobject>
-
-	</para>
-	</sect2>
-
-
+	
+	
 	<section id="hdbk-bars-menubar"><title>Menubar</title>
 	<para>Various features of bibletime are accessed by way of 
 	drop down menus from the menubar.</para>
-	
 
-	<section id="hdbk-bars-menubar-file"><title>File</title>
-	<para>
-
-	<variablelist>
-	<varlistentry>
-	<term>Clear printing queue</term>
-	<listitem>
-	<para>Clears all items from the &bibletime; print queue.
-	The &bibletime; printing queue does not clear automatically.</para>
-	</listitem>
-	</varlistentry>
-	<varlistentry>
-	<term>
-	Print</term>
-	<listitem>
-	<para>This menu item launches the <guilabel>printdialog</guilabel> box.
-	From here you will select print or view as for any other &kde; application.</para>
-	</listitem>
-	</varlistentry>
-	<varlistentry>
-	<term>
-	Quit</term>
-	<listitem>
-	<para>Closes &bibletime;.</para>
-	</listitem>
-	</varlistentry>
-	</variablelist>
-	</para>
-	</section>
-
-	<section id="hdbk-bars-menubar-view"><title>View</title>
-	<para>
-
-	<variablelist>
-	<varlistentry>
-	<term>Show Toolbar</term>
-	<listitem>
-	<para>If <guimenuitem>show toolbar</guimenuitem> is selected,
-	the toolbar is displayed.
-	If <guimenuitem>show toolbar</guimenuitem> is unselected then the
-	toolbar is hidden.</para>
-	</listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>
-	Show Main Index</term>
-	<listitem>
-	<para>If <guimenuitem>show main index</guimenuitem> is selected,
-	the left pane showing the available &sword; documents is displayed.
-	If <guimenuitem>show main index</guimenuitem> is unselected then the
-	left pane is hidden.</para>
-	</listitem>
-	</varlistentry>
-	</variablelist>
-	</para>
-	</section>
-
-	<section id="hdbk-bars-menubar-mainindex"><title>Search</title>
-	<para>
-
-	<variablelist>
-	<varlistentry><term>Search in default Bible</term>
-	<listitem>
-	<para>
-	If <guimenuitem>Search in default Bible</guimenuitem> is selected,
-	<guilabel>search dialog</guilabel> is displayed with the default 
-	Bible selected as the search parameter.
-	</para>
-	</listitem>
-	</varlistentry>
-	<varlistentry><term>Search in open module(s)</term>
-	<listitem>
-	<para>
-	If <guimenuitem>Search in open module(s)</guimenuitem> is selected,
-	<guilabel>search dialog</guilabel> is displayed with all of the 
-	open modules selected as the search parameters.
-	</para>
-	</listitem>
-	</varlistentry>
-	</variablelist>
-
-	</para>
-	</section>
 
 	<section id="hdbk-bars-menubar-Window"><title>Window</title>
 	<para>
