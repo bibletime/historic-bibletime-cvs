@@ -72,10 +72,11 @@ void CReadWindow::lookup( CSwordKey* newKey ){
 
 	if (CEntryDisplay* display = modules().first()->getDisplay()) {	//do we have a display object?
  		displayWidget()->setText( display->text( modules(), newKey->key(), displayOptions(), filterOptions() ) );
-	}	
-	if (key() != newKey)
+	}
+	if (key() != newKey) {
 		key()->key(newKey->key());
-	
+	}
+
   displayWidget()->moveToAnchor( key()->key() );
 	setCaption( windowCaption() );
 }

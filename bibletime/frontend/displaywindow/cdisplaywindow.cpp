@@ -242,19 +242,23 @@ void CDisplayWindow::setKey( CSwordKey* key ){
 }
 
 void CDisplayWindow::modulesChanged(){
-  qWarning("CDisplayWindow::modulesChaneed");
+//  qWarning("CDisplayWindow::modulesChaneed");
   setModules( m_moduleChooserBar->getModuleList() );
-  qWarning("now we have %i modules", modules().count());
-  
+//  qWarning("now we have %i modules", modules().count());
+
   if (!modules().count()) {
   	close();
   }
   else {
-		if (displaySettingsButton())
+		if (displaySettingsButton()) {
   		displaySettingsButton()->reset(modules());
+		}
+		qWarning("key before module change: %s", key()->key().latin1());
 	  key()->module(modules().first());
-	  keyChooser()->setModules(modules());	
+		qWarning("key after module change: %s", key()->key().latin1());
+	  keyChooser()->setModules(modules());
 	  lookup(key());
+		qWarning("key after new lookup: %s", key()->key().latin1());
 	}
 }
 

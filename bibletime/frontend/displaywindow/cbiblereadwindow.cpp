@@ -270,12 +270,14 @@ void CBibleReadWindow::saveChapterHTML(){
 
 	CSwordVerseKey dummy(*verseKey());
   dummy.Verse(1);
+	qWarning("start saving from %s", dummy.key().latin1());
 
   CSwordVerseKey vk(*verseKey());
 	vk.LowerBound(dummy);
+	qWarning("vk's start is %s", dummy.key().latin1());
 
   CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
-	qWarning("verseCount for %s and %i", (const char*)dummy.book().local8Bit(), dummy.Chapter());
+	qWarning("verseCount for %s, chapter %i is %i", (const char*)dummy.book().local8Bit(), dummy.Chapter(), bible->verseCount(dummy.book(), dummy.Chapter()));
 	dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
 
 	vk.UpperBound(dummy);

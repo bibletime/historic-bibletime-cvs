@@ -57,8 +57,8 @@ CExportManager::CExportManager(const QString& caption, const bool showProgress, 
 const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bool addText) {
   if (!key)
     return false;
-  
-  const QString filename = getSaveFileName(format);  
+
+  const QString filename = getSaveFileName(format);
   if (filename.isEmpty())
     return false;
 
@@ -70,6 +70,7 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 
     CSwordModuleInfo* module = key->module();
   	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) { //we can have a boundary
+			qWarning("vk->isBoundSet() returns %i", vk->isBoundSet());
       if (vk->isBoundSet()) {//we have a valid boundary!
         hasBounds = true;
         CSwordVerseKey startKey(module);
@@ -77,11 +78,10 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 
     		startKey.key(vk->LowerBound());
     		stopKey.key(vk->UpperBound());
-//		qWarning(vk->UpperBound());
 
         QString entryText;
         if (format == HTML) {
-          text = QString::fromLatin1("<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"><STYLE type=\"text/css\">%1</STYLE></head><body>")
+          text = QString::fromLatin1("<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"><style type=\"text/css\">%1</style></head><body>")
                    .arg(htmlCSS(module));
         };
 
@@ -93,9 +93,10 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
             ? QString::fromLatin1("<h3>%1</h3><br/>").arg(bound)
             : QString::fromLatin1("%1\n\n").arg(bound);
 
-         	while ( startKey < stopKey || startKey == stopKey ) {
-						//qWarning(startKey.key().latin1());
-						//qWarning(stopKey.key().latin1());
+					qWarning("enter loop now");
+         	while ( (startKey < stopKey) || (startKey == stopKey) ) {
+						qWarning(startKey.key().latin1());
+						qWarning(stopKey.key().latin1());
 
             entryText = (format == HTML) ? startKey.renderedText(CSwordKey::HTMLEscaped) : startKey.strippedText();
 
@@ -103,9 +104,11 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 + entryText + lineBreak(format);
 
             startKey.next(CSwordVerseKey::UseVerse);
+						qWarning("after next key is %s", startKey.key().latin1());
           }
         }
         else {
+					qWarning("start is larger thean bstop, resetting hasBounds value");
           hasBounds = false;
         };
       }
@@ -114,10 +117,10 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
     if (!hasBounds) { //no verse key, so we can't have a boundary!
       text =
         (format == HTML)
-        ? QString::fromLatin1("<HTML><HEAD><TITLE>%1</TITLE><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"></HEAD><BODY><H3>%2 (%3)</H3><br/>%4") //HTML escaped text
+        ? QString::fromLatin1("<html><head><title>%1</title><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"></head><body><h3>%2 (%3)</h3><br/>%4") //HTML escaped text
             .arg(key->key())
             .arg(key->key())
-            .arg(module->name())            
+            .arg(module->name())
             .arg(key->renderedText(CSwordKey::HTMLEscaped))
         : QString::fromLatin1("%1 (%2)\n\n%3") //plain text
             .arg(key->key())
@@ -182,16 +185,20 @@ const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* m
 const bool CExportManager::saveKeyList(QPtrList<CSwordKey> list, const Format format, const bool addText ) {
   if (!list.count())
     return false;
-  const QString filename = getSaveFileName(format);
+
+	const QString filename = getSaveFileName(format);
   if (filename.isEmpty())
     return false;
-  QString text;  
+
+	QString text;
   setProgressRange(list.count());
   for (CSwordKey* k = list.first(); k && !progressWasCancelled(); k = list.next()) {
- 		if (addText)
+ 		if (addText) {
  			text += QString::fromLatin1("%1:%2\t%3\n").arg( k->key() ).arg(lineBreak(format)).arg( (format == HTML) ? k->renderedText(CSwordKey::HTMLEscaped) : k->strippedText() );
- 		else
+		}
+ 		else {
  			text += k->key() + lineBreak(format);
+		}
     incProgress();
   };
 

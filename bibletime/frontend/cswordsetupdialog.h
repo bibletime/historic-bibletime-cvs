@@ -84,6 +84,7 @@ protected:
 
 	void initRemoteSourcesPage();
 	void initLocalSourcesPage();
+	void updateRemoteURLLabel();
 
 protected slots:
 	void slot_localAddSource();
@@ -108,6 +109,7 @@ private:
 	QLineEdit* m_remoteCaptionEdit;
 	QLineEdit* m_remoteServerEdit;
 	QLineEdit* m_remotePathEdit;
+	QLabel* m_remoteURLLabel;
 };
 
 

@@ -129,24 +129,27 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 	switch (type) {
 		case UseBook: {
 			if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
-				return false;		
+				return false;
 			Book(Book()+1);
 			break;
 		}
 		case UseChapter: {
-			Chapter(Chapter()+1);		
+			Chapter(Chapter()+1);
 			break;
 		}
 		case UseVerse: {
     	if (m_module && m_module->module()) {
+				//qWarning("module is %s", m_module->name().latin1());
     		m_module->module()->SetKey(this);	//use this key as base for the next one!
         m_module->module()->setSkipConsecutiveLinks(true);
     		(*(m_module->module()) )++;
-        m_module->module()->setSkipConsecutiveLinks(false);      
+        m_module->module()->setSkipConsecutiveLinks(false);
+
     		if (!m_module->module()->Error()) {
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
         }
     		else {
+					qWarning("module error");
 	    	  Verse(Verse()+1);
 	    	  break;
 	    	}
@@ -156,11 +159,11 @@ const bool CSwordVerseKey::next( const JumpType type ) {
       }
     	break;
 		}
-		default:	
+		default:
 			return false;
 	};
 
-  if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
+ /* if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
     bool ret = true;
     if (Error())
       ret = false;
@@ -176,6 +179,7 @@ const bool CSwordVerseKey::next( const JumpType type ) {
   }
   else if (Error()) //we have no module, so take care of VerseKey::Error()
     return false;
+	*/
   return true;
 };
 
@@ -194,7 +198,7 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
 		case UseVerse: {
     	if (m_module && m_module->module()) {
     		m_module->module()->SetKey(this);	//use this key as base for the next one!
-        m_module->module()->setSkipConsecutiveLinks(true);      
+        m_module->module()->setSkipConsecutiveLinks(true);
     		( *( m_module->module() ) )--;
         m_module->module()->setSkipConsecutiveLinks(true);      
     		if (!m_module->module()->Error())
