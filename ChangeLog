@@ -1,3 +1,7 @@
+2003-02-28 Joachim Ansorg <joachim@ansorgs.de>
+  * Released 1.3rc1 which uses a Sword snapshot. We're in message freeze now - translators can finally start.
+  * Fixed BT to use Sword's new filters tuff
+
 2003-01-19 Joachim Ansorg <joachim@ansorgs.de>
   * Fixed BT_BASICFILTER::ProcessRWPRefs, made simpled and more bug free
 
