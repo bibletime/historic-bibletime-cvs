@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Installazione dei programmi richiesti</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.64
+"><LINK
+REL="HOME"
+TITLE="Pacchetto di documentazione di BibleTime"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Requisiti per Bibletime"
+HREF="inst_preq.html"><LINK
+REL="PREVIOUS"
+TITLE="Requisiti per Bibletime"
+HREF="inst_preq.html"><LINK
+REL="NEXT"
+TITLE="Installazione dei sorgenti di Bibletime"
+HREF="inst_sources.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="it"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-Italiano"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECTION"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/international/italy/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="L'ambiente di scrivania K"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Pacchetto di documentazione di BibleTime</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="inst_preq.html"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 2. Requisiti per Bibletime</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="inst_sources.html"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="INST_PREQ_INSTALL"
+>2.2. Installazione dei programmi richiesti</A
+></H1
+><P
+>Scarica i sorgenti necessari e compila le librerie</P
+><P
+>Per primi devi compilare i sorgenti delle QT 2, se le QT 2.2 o superiori
+non sono incluso nel CD della vostra distribuzione. Si presume che i
+sorgenti delle QT siano in <TT
+CLASS="FILENAME"
+>/usr/lib/qt2</TT
+>, quelli di
+KDE2 in <TT
+CLASS="FILENAME"
+>/usr/src/kde2/kdelibs</TT
+> ed la directory di
+KDE2 sia <TT
+CLASS="FILENAME"
+>/usr/local/kde2</TT
+>, se non ti piace usa i
+tuoi parametri.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> export QTDIR=/usr/lib/qt2
+ cd $QTDIR
+ ./configure -sm -system-libpng -system-jpeg
+ make</PRE
+></TD
+></TR
+></TABLE
+><P
+>Se hai abbastanza RAM e una macchina veloce puoi accelerare il processo
+di compilazione aggiungendo <B
+CLASS="COMMAND"
+>"-j2"</B
+> ai parametri di
+make. Per esempio <B
+CLASS="COMMAND"
+>"make -j2"</B
+>. Se avete una macchina
+lenta con poca RAM non usate X-window e avviate make in console per
+accelerare il processo. Dopo che il processo di compilazione è finito
+devi compilare le librerie necessarie per KDE2. Fai qualcosa di simile:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>  export QTDIR=/usr/lib/qt2 export KDEDIR=/usr/local/kde2
+ cd /usr/src/kde2/kdelibs
+ ./configure
+ make
+ make install</PRE
+></TD
+></TR
+></TABLE
+><P
+>La compilazione di QT e di KDE dovrebbe terminare senza problemi o
+errori. È' di nuovo possibile di aggiungere <B
+CLASS="COMMAND"
+>"-j2"</B
+> per
+accelerare il processo di compilazione se avete abbastanze RAM e un PC
+rapido.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="inst_preq.html"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="inst_sources.html"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Requisiti per Bibletime</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="inst_preq.html"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Installazione dei sorgenti di Bibletime</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
