@@ -22,22 +22,23 @@
 #include "cgroupmanager.h"
 #include "cgroupmanageritem.h"
 
-#include "../../backend/cswordbiblemoduleinfo.h"
-#include "../../backend/cswordcommentarymoduleinfo.h"
-#include "../../backend/cswordlexiconmoduleinfo.h"
-#include "../../backend/cswordversekey.h"
-#include "../../backend/cswordldkey.h"
-#include "../../backend/creferencemanager.h"
-#include "../../printing/cprintitem.h"
-#include "../../printing/cprinter.h"
-#include "../chtmldialog.h"
-#include "../cinputdialog.h"
-#include "../searchdialog/csearchdialog.h"
-#include "../cbtconfig.h"
-#include "../cexportmanager.h"
+#include "backend/cswordbiblemoduleinfo.h"
+#include "backend/cswordcommentarymoduleinfo.h"
+#include "backend/cswordlexiconmoduleinfo.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordldkey.h"
+#include "backend/creferencemanager.h"
+#include "printing/cprintitem.h"
+#include "printing/cprinter.h"
 
-#include "../../whatsthisdef.h"
-#include "../../resource.h"
+#include "frontend/chtmldialog.h"
+#include "frontend/cinputdialog.h"
+#include "frontend/searchdialog/csearchdialog.h"
+#include "frontend/cbtconfig.h"
+#include "frontend/cexportmanager.h"
+
+#include "whatsthisdef.h"
+#include "resource.h"
 
 #include <iostream.h>
 
@@ -128,11 +129,7 @@ CGroupManager::~CGroupManager(){
 /** Initializes the tree of this CGroupmanager */
 void CGroupManager::setupSwordTree() {
 	readGroups(m_config, 0);
-	cout << endl << "After readGroups"<< endl;	
-	printTree();	
 	readSwordModules(m_config, 0);	
-	cout << endl << "After readSwordModules"<< endl;
-	printTree();
 	if (m_useBookmarks)
 		readSwordBookmarks(m_config, 0);
 	setupStandardSwordTree();
@@ -723,9 +720,6 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     CReferenceManager::decodeReference(str,mod,ref);
 
     CSwordModuleInfo* info = backend()->findModuleByName(mod);
-//    for (info = m_swordList->first(); info; info = m_swordList->next())
-//      if (info->name() == mod)
-//      	break;
     if ( info /*&& (info->name() == mod)*/ ){
 			if (!target){ //Reference was dragged on no item
 				createNewBookmark(0, info, ref); //CREATE A NEW BOOKMARK
@@ -1223,8 +1217,6 @@ const bool CGroupManager::readSwordModules(KConfig* configFile, CGroupManagerIte
 		}
 
 		if (parentItem) {
-//			qWarning("parentItem is called %s", parentItem->text(0).latin1());
-//			qWarning("parentItem should have iD %i", *it_parents);
 			myItem = new CGroupManagerItem(parentItem, QString::null, QString::null, myModuleInfo,0, CGroupManagerItem::Module);
 		}
 		else
@@ -1316,16 +1308,13 @@ const bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* gro
 		if (!groupExists) {			
 			if (parentItem) {
 				newItem = new CGroupManagerItem(parentItem, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group);
-				qWarning("	created subgroup %s of %s", (*it_groups).latin1(), parentItem->text(0).latin1());			
 			}
 			else {
 				newItem = new CGroupManagerItem(this, (*it_groups), QString::null, 0,0, CGroupManagerItem::Group);
-				qWarning("created toplevel group %s", (*it_groups).latin1());
 			}
 		
 			if (newItem && oldItem ) {			
 				newItem->moveAfter( oldItem );
-				qWarning("		o moved %s after %s", newItem->text(0).latin1(),oldItem->text(0).latin1());
 			}
 			if (newItem) {
 				/* we can't move a topgroup behind a subgroup, so we use multiple
@@ -1607,10 +1596,6 @@ CGroupManagerItem* CGroupManager::findGroup(const QString& name, CGroupManagerIt
  			item = 0;
  		}
  	}
-	if (!item) {
-		qWarning("couldn't find the item %s with ID %i", name.latin1(), id);
-	};
-	
  	if (!item) { 		
  		if (group)
 	 		item = new CGroupManagerItem(group, name, QString::null, 0, 0, CGroupManagerItem::Group);
