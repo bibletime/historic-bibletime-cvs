@@ -67,12 +67,9 @@ void CMDIArea::initConnections(){
 
 /** Called whan a client window was activated */
 void CMDIArea::slotClientActivated(QWidget* client){
-	qWarning("CMDIArea::slotClientActivated(QWidget* client)");
-  if (!isUpdatesEnabled())
-    qWarning("updates are NOT enabled!!");
-
+//	qWarning("CMDIArea::slotClientActivated(QWidget* client)");
 	if (!client || !isUpdatesEnabled()) {
-		qWarning("client Activated: return");
+//		qWarning("client Activated: return");
     return;
   }
 
@@ -183,7 +180,7 @@ void CMDIArea::setGUIOption( mdiOption new_GUIOption){
 
 /**  */
 void CMDIArea::tile(){
-  qWarning("CMDIArea::tile()");
+//  qWarning("CMDIArea::tile()");
 	if (!isUpdatesEnabled() || !windowList().count() )	
 		return;
 
@@ -197,7 +194,7 @@ void CMDIArea::tile(){
 
 /**  */
 void CMDIArea::cascade(){
-  qWarning("CMDIArea::cascade()");
+//  qWarning("CMDIArea::cascade()");
 	if (!isUpdatesEnabled() || !windowList().count() )
 		return;		
 	if (windowList().count() == 1 && windowList().at(0)) {	

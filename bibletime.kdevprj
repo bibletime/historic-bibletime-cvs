@@ -22,7 +22,7 @@ cflags=
 cppflags=
 cxxflags=\s-O2 -Wall
 ldadd=-lpthread -lkfile -lkdeui -lkdecore -lqt -lXext -lX11
-ldflags=\s
+ldflags=\s\s
 libtool_dir=
 path_to_bin_program=bibletime
 
@@ -44,7 +44,7 @@ project_type=normal_empty
 sgml_file=/home/joachim/BibleTime/bibletime-2/bibletime/docs/de/index.sgml
 short_info=
 sub_dir=bibletime/
-version=1.1beta2
+version=1.2
 version_control=CVS
 workspace=1
 

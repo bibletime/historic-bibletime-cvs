@@ -55,6 +55,10 @@ QString CToolClass::htmlToText(const QString& html) {
 	newText.replace( QRegExp(" "),"#SPACE#" );
 	newText.replace( QRegExp("<BR>\\s*"), "<BR>\n" );
  	newText.replace( QRegExp("#SPACE#")," " );
+
+  QRegExp re("<.+>");
+  re.setMinimal(true);
+  newText.replace( re,"" );
 	return newText;	
 }
 

@@ -178,7 +178,7 @@ CStyle::CStyle() :
 
 	//dummy command to translate names of standard styles
 	i18n("Standard");
-	i18n("Colored style for larger text portions");
+//	i18n("Colored style for larger text portions");
 	i18n("Black&White for larger text portions");
 	
 	m_listViewItem = 0;

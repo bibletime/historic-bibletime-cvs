@@ -152,7 +152,7 @@ const bool CSwordBackend::shutdownModules(){
 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
 		if (m_moduleList.current()) {
 			CSwordModuleInfo* current = m_moduleList.current();
-			m_moduleList.removeRef(current);
+			m_moduleList.take();
 			delete current;
 		}		
 	}

@@ -180,9 +180,6 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
 		connect(presenter, SIGNAL(lookupInModule(const QString&, const QString&)),
 			m_mdi, SLOT(lookupInModule(const QString&, const QString&)));							
-#warning check
-//		connect(presenter, SIGNAL(closePresenter(CSwordPresenter*)),
-//			m_mdi, SLOT(closePresenter(CSwordPresenter*)));							
 		if (presenter->isA("CBiblePresenter")) {
 			connect(presenter->keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 				m_mdi, SLOT(syncCommentaries(CSwordKey*)));		

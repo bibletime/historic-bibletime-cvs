@@ -130,7 +130,8 @@ void CStyleList::deleteCurrentStyle(){
 	for (m_items->first(); m_items->current();m_items->next()) {
 		if (m_items->current()->listViewItem() == item) {
 			currentStyle = m_items->current();
-			m_items->remove(currentStyle);
+			if (int pos = m_items->findRef(currentStyle))
+        m_items->take(pos);
 			currentStyle->deleteListViewItem();			
 			if (!m_items->autoDelete() && currentStyle) {
 				delete currentStyle;			

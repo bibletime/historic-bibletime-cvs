@@ -165,10 +165,6 @@ protected slots: // Protected slots
   */
   void slotPrintBookmark();
   /**
-  * Reimplementation.
-  */
-  void resizeEvent( QResizeEvent * )  ;
-  /**
   * Deletes the searchdialog.
   */
   void slotDeleteSearchdialog();

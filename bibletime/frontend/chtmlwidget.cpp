@@ -280,13 +280,10 @@ void CHTMLWidget::slotSaveAsHTML(){
 
 /** Saves the HTML page */
 void CHTMLWidget::slotSaveAsText(){
-#warning check
-//	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save text as plain text ..."));
-
-//	if (!file.isNull()) {
-//		QString html = document()->plainText();
-//		CToolClass::savePlainFile( file, html);
-//	}
+	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text file (*.txt)\n*.* | All files (*.*)"), 0, i18n("Save text as plain text ..."));
+	if (!file.isNull()) {
+    CToolClass::savePlainFile( file, CToolClass::htmlToText(text().utf8()));
+	}
 }
 
 //**  */

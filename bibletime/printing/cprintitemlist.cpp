@@ -80,7 +80,8 @@ void CPrintItemList::deleteSelectedItems(){
 		if ( CPrintItem::ListViewItem* item = dynamic_cast<CPrintItem::ListViewItem*>(items.current()) ) {
 			if (!(p = item->printItem()))
 				continue;
-			m_items->removeRef(p);			
+			if (int pos = m_items->findRef(p))
+        m_items->take(pos);
 			p->deleteListViewItem();
 			if (!autoDelete)
 				delete p;

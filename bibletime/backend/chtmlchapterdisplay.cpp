@@ -104,21 +104,21 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 	const int chosenVerse = key.Verse();
-	const int width = (int)((double)99/(double)moduleList->count()); //width in per cent!!
+	const int width = (int)((double)(m_displayOptionsBool.verseNumbers ? 96 : 100)/(double)moduleList->count()); //width in per cent!!
 	
 	CSwordModuleInfo *d = 0;
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
 			
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<body>");
-
-
-
-	m_htmlText += QString::fromLatin1("<table cellpadding=\"2\" cellspacing=\"0\"><tr><td bgcolor=\"#f1f1f1\"></td>");	
+	m_htmlText = m_htmlHeader;
+  if (m_displayOptionsBool.verseNumbers)
+    m_htmlText += QString::fromLatin1("<body><table cellpadding=\"2\" cellspacing=\"0\"><tr><td bgcolor=\"#f1f1f1\"></td>");	
+  else
+    m_htmlText += QString::fromLatin1("<body><table cellpadding=\"2\" cellspacing=\"0\"><tr>");	
 
 	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
     	m_htmlText.append(QString::fromLatin1("<td width=\"%1\" bgcolor=\"#f1f1f1\">\
-<font face=\"%2\" size=\"%3\" color=\"%4\"<b>%5</b></td>")
+<font face=\"%2\" size=\"%3\" color=\"%4\"><b>%5</b></td>")
 				.arg(width)
 				.arg(m_standardFontName)
 				.arg(m_standardFontSize)

@@ -259,6 +259,7 @@ void CGroupManager::initView(){
  	 		
 	setBackgroundMode(PaletteBase);
 	setSorting(-1);
+  setFullWidth(true);
 	 	
  	if (m_useDragDrop)
 	 	viewport()->setAcceptDrops(true);
@@ -1534,14 +1535,6 @@ void CGroupManager::slotDeleteSearchdialog(){
 	if (m_searchDialog)
 		m_searchDialog->delayedDestruct();	//delete the search dialog
 	m_searchDialog = 0;
-}
-
-/** Reimplementation. */
-void CGroupManager::resizeEvent( QResizeEvent* e )  {
-	KListView::resizeEvent(e);		
-	setColumnWidth(0, visibleWidth() );
-	triggerUpdate();
-	
 }
 
 /** Is called when the return key was pressed on a listview item. */
