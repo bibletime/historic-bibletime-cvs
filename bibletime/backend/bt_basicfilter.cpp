@@ -69,8 +69,8 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
 	 		SWKey* key = list.GetElement(i);
 	 		VerseKey* vk = dynamic_cast<VerseKey*>(key);
  		
-  		pushString(&to,"<font color=\"%s\"><a href=\"sword://Bible/%s/",
- 				swordref_color,
+  		pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/",
+// 				swordref_color,
 	 			standard_bible
  			);
  			
@@ -92,7 +92,7 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
 					(const char*)(*it).utf8()
 				);
 	 		}
-	 		(pos+1 < (int)refList.count()) ? pushString(&to, "</font>, ") : pushString(&to, "</font>");
+	 		(pos+1 < (int)refList.count()) ? pushString(&to, "</span>, ") : pushString(&to, "</span>");
 	 	}
 	}	
  	*to++ = '\0';
@@ -111,8 +111,9 @@ const char* BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
 //	 	SWKey* key = list.GetElement(i);
 //	 	VerseKey* vk =  dynamic_cast<VerseKey*>(key);
 // 		
-	 	pushString(&to,"<font color=\"%s\"><a href=\"sword://Bible/%s/",
-	 		swordref_color,
+	 	pushString(&to,"<span id=\"reference\"><a href=\"sword://Bible/%s/"
+      ,
+//	 		swordref_color,
 	 		module
 	 	);
 //	 	if (vk && vk->UpperBound() != vk->LowerBound()) {
@@ -133,7 +134,7 @@ const char* BT_BASICFILTER::parseThMLRef(const char* ref, const char* mod) {
 }
 
 const char* BT_BASICFILTER::thmlRefEnd() {
-	return "</a></font>";
+	return "</a></span>";
 }
 
 /** This filter converts the RWP #Gen 1:1| style bible references to HTML */

@@ -39,13 +39,12 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	setTokenStart("<");
 	setTokenEnd(">");
 	setTokenCaseSensitive(true);
-	addTokenSubstitute("note", " <small>(");
-	addTokenSubstitute("/note", ")</small> ");
+	addTokenSubstitute("note", " <span id=\"footnote\">(");
+	addTokenSubstitute("/note", ")</span> ");
 
-//	addTokenSubstitute("foreign lang=\"el\"", "<font face=\"SIL Galatia\">");
-//	addTokenSubstitute("foreign lang=\"he\"", "<font face=\"SIL Ezra\">");
-//	addTokenSubstitute("/foreign",						"</font>");
-
+	addTokenSubstitute("foreign lang=\"el\"", "<span lang=\"el\">");
+	addTokenSubstitute("foreign lang=\"he\"", "<span lang=\"he\">");
+	addTokenSubstitute("/foreign",						"</span>");
 }
 
 bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
@@ -55,7 +54,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
 
 		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
-			pushString(buf," <small><em>&lt;");
+			pushString(buf," <span id=\"lemma\">&lt;");
 
 			for (int j = 17; j < tokenLength; j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
@@ -65,7 +64,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					break;
 				}
 			}
-			pushString(buf, "&gt;</em></small> ");
+			pushString(buf, "&gt;</span> ");
 		}
 
 		else if (!strncmp(token, "sync type=\"morph\"", 17)) { //Morph
@@ -80,7 +79,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					break;
 				}
 			}
-			pushString(buf," <font color=\"%s\"><small><em><a href=\"morph://Greek/%s\">(%s)</a></em></small></font> ",
+			pushString(buf," <span id=\"morphcode\"><a href=\"morph://Greek/%s\">(%s)</a></span> ",
 				morph_color, num, num);
 		}
 		
@@ -91,7 +90,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					num[i-29] = token[i];
 			num[i-29] = 0;
 
-			pushString(buf," <font color=\"%s\"><small><em><a href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a></em></small></font> ",
+			pushString(buf," <span id=\"strongnumber\"><a href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a></span> ",
 				strongs_color, num, num);
 		}
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
@@ -101,7 +100,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					num[i-29] = token[i];
 			num[i-29] = 0;
 
-			pushString(buf," <font color=\"%s\"><small><em><a href=\"strongs://Greek/%s\">&lt;%s&gt;</a></em></small></font> ",
+			pushString(buf," <span id=\"strongnumber\"><a href=\"strongs://Greek/%s\">&lt;%s&gt;</a></em></small></font> ",
 				strongs_color, num, num);
 		}
 
@@ -172,22 +171,22 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 //headings should be processed by the ThMLHeadings filter		
 		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
 			userData["SecHead"] = "true";
-			pushString(buf, "<H2><FONT color=\"%s\">", text_color);
+			pushString(buf, "<div id=\"sectionhead\">"/*, text_color*/);
 		}
 		else if (!strncmp(token, "div class=\"title\"", 19)) {
       userData["Title"] = "true";
-			pushString(buf, "<H1><FONT color=\"%s\">", text_color);
+			pushString(buf, "<div id=\"booktitle\">", text_color);
 		}
-		else if (!strncmp(token, "/div", 4)) {
-			if (userData["SecHead"] == "true") {
-				pushString(buf, "</FONT></H2>");
-				userData["SecHead"] = "false";
-			}
-			else if(userData["Title"] == "true") {
-				pushString(buf, "</FONT></H1>");
-				userData["Title"] = "false";
-			}
-		}
+//		else if (!strncmp(token, "/div", 4)) {
+//			if (userData["SecHead"] == "true") {
+//				pushString(buf, "</FONT></H2>");
+//				userData["SecHead"] = "false";
+//			}
+//			else if(userData["Title"] == "true") {
+//				pushString(buf, "</FONT></H1>");
+//				userData["Title"] = "false";
+//			}
+//		}
 		else if (!strncmp(token, "img ", 4)) {
 			const char *src = strstr(token, "src");
 			if (!src)		// assert we have a src attribute

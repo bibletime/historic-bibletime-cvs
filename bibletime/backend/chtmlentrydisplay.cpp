@@ -35,7 +35,14 @@
 #include <versekey.h>
 
 CHTMLEntryDisplay::CHTMLEntryDisplay(){
-	m_htmlHeader = "<html><head></head>";
+//	m_htmlHeader = QString::fromLatin1("<html><head>\
+//<style type=\"text/css\">\
+//a:link {color: %1}\n\
+//a:hover {color: %2}\
+//</style></head>").arg(m_swordRefColorName).arg(m_swordRefColorName);
+//
+//  qWarning(m_swordRefColorName.latin1());
+
 	m_includeHeader = true;
 }
 
@@ -52,6 +59,13 @@ void CHTMLEntryDisplay::updateSettings(void){
 
 	m_unicodeFontName  = CBTConfig::get(CBTConfig::unicode).family();
   m_unicodeFontSize  = CToolClass::makeLogicFontSize( CBTConfig::get(CBTConfig::unicode).pointSize() );
+
+	m_htmlHeader = QString::fromLatin1("<html><head>\
+<style type=\"text/css\">\
+a:link {color: %1; text-decoration:none;}\n\
+a:hover {color: %2; text-decoration:none;}\
+</style></head>").arg(m_swordRefColorName).arg(m_swordRefColorName);
+
 }
 
 /** Displays the current entry of the module as HTML */
@@ -83,19 +97,17 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	if (m_includeHeader) {
 		m_htmlText = m_htmlHeader;
 
-		m_htmlText.append(QString::fromLatin1("<body><font color=\"%1\" face=\"%2\" size=\"%3\">")
-			.arg(m_standardFontColorName)
-      .arg( module->isUnicode() ? m_unicodeFontName : m_standardFontName)
-			.arg( module->isUnicode() ? m_unicodeFontSize : m_standardFontSize));
-
-		m_htmlText.append(QString::fromLatin1("<font color=\"%1\"><a href=\"%2\">%3: <b>%4</b></a></font><hr>%5")
+    m_htmlText += QString::fromLatin1("<body><P STYLE=\"margin-bottom:3mm; color:%1; border:thin medium black;\">%2: <B><A HREF=\"%3\">%4</A></B></P>")
 			.arg(m_highlightedVerseColorName)
- 			.arg(CReferenceManager::encodeHyperlink(module->name(),key->key(), refType ))
-			.arg(module->config(CSwordModuleInfo::Description))
-			.arg(key->key())
-			.arg(key->renderedText()));
+      .arg(module->config(CSwordModuleInfo::Description))
+ 			.arg(CReferenceManager::encodeHyperlink(module->name(),key->key(), refType))
+      .arg(key->key());
 
-		m_htmlText += QString::fromLatin1("</font></body></html>");
+		m_htmlText += QString::fromLatin1("<font color=\"%1\" face=\"%2\" size=\"%3\">%5</font></body></html>")
+      .arg(m_standardFontColorName)
+      .arg( module->isUnicode() ? m_unicodeFontName : m_standardFontName)
+			.arg( module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
+      .arg( key->renderedText() );
 	}
 	else {
 		m_htmlText = key->renderedText();
