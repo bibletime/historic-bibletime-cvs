@@ -41,18 +41,19 @@
 
 
 #define PARAGRAPH_SPACE 10 // Space between different paragraphs
-#define STYLE_PART_SPACE 1	//Space between the differnt parts (header, moduletext ...)
+#define STYLE_PART_SPACE 1	//Space between the different parts (header, moduletext ...)
 #define BORDER_SPACE 4 	//border between text and rectangle
 
 
-CPrintItem::CPrintItem() {
-	m_listViewItem = 0;
-	m_module = 0;
-	m_style = 0;
-	m_startKey = 0;
-	m_stopKey = 0;
+CPrintItem::CPrintItem() : 	
+	m_listViewItem(0), m_module(0),
+	m_style(0),	m_startKey(0),m_stopKey(0),
+	m_headerText(QString::null),
+	m_description(QString::null),
+	m_moduleText(QString::null)
+{
 	
-	clearData();
+//	clearData();
 }
 
 CPrintItem::~CPrintItem(){
@@ -300,32 +301,51 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			boundingRect = p->boundingRect (
 				printer->leftMargin(), //x of upper left corner
 				printer->getVerticalPos(), //y of upper left corner
-				printer->getPageSize().width() , //pixels to the right from the upper left corner
-				printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin(), //pixels down from upper left corner
+				printer->getPageSize().width() - 2*BORDER_SPACE - 2*frameThickness, //pixels to the right from the upper left corner
+				printer->getPageSize().height() - 2*BORDER_SPACE - 2*frameThickness - printer->getVerticalPos() + printer->upperMargin(), //pixels down from upper left corner
 				arguments, text
 			);
 			
 			//check if the new text fits into the current page page
 			//WARNING: use 2* or 1* frameThickness here??
-			if ( (boundingRect.height() +  2*frameThickness + STYLE_PART_SPACE ) > printer->getPageSize().height()-printer->getVerticalPos() ) {
+			if ( 		( boundingRect.height() + 2*BORDER_SPACE + 2*frameThickness + STYLE_PART_SPACE )
+						> ( printer->getPageSize().height()-printer->getVerticalPos() /*+ printer->upperMargin()*/ ) )
+			{
 				//this part doesn't fit on the current page
 				printer->newPage();
 				boundingRect = p->boundingRect(
 					printer->leftMargin(),
 					printer->getVerticalPos(),
-					printer->getPageSize().width(),
-					printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin(),
+					printer->getPageSize().width() - 2*BORDER_SPACE - 2*frameThickness,
+					printer->getPageSize().height()- 2*BORDER_SPACE - 2*frameThickness - printer->getVerticalPos() + printer->upperMargin(),
 					arguments, text
 				);
 			}
+			boundingRect.setHeight(boundingRect.height()+2*BORDER_SPACE);			
 			
-			br = boundingRect;
-			br.setX(printer->leftMargin());
-			br.setWidth(printer->getPageSize().width());
-			p->fillRect( br, bgColor );	
-									
+			br = boundingRect;			
+			br.setLeft(printer->leftMargin()+frameThickness);
+			br.setTop(printer->getVerticalPos()+frameThickness);
+			br.setWidth(printer->getPageSize().width() - 2*frameThickness);
+			br.setHeight(br.height() + frameThickness);						
+			p->fillRect(br, bgColor );
+
+			br = boundingRect;			
+			/**
+			* we have to substract frameThickness/2,
+			* because QPainter paints one half outline and the other part inside the rectangle.
+			*/
+			br.setLeft( printer->leftMargin() + (int)((double)frameThickness/2));
+			br.setTop( br.top() + (int)((double)frameThickness/2));			
+			br.setWidth( printer->getPageSize().width() - frameThickness);			
+			br.setHeight( br.height() + frameThickness);						
+						
+			boundingRect.moveBy( BORDER_SPACE+frameThickness, frameThickness );
+
+																																							
+			arguments |= Qt::AlignVCenter; //WARNING: Right here? Will it change the boundingrect??
 			p->drawText(boundingRect, arguments, text);
-			printer->setVerticalPos( printer->getVerticalPos() + boundingRect.height() + 2*frameThickness + STYLE_PART_SPACE );
+			printer->setVerticalPos(printer->getVerticalPos() + boundingRect.height() + 2*frameThickness + STYLE_PART_SPACE);
 
 			if (frame) {
 				QPen framePen = pen;
@@ -347,20 +367,45 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);
 			else if (alignement == CStyleFormat::Right)		
 				text = QString::fromLatin1("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
-    	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()-frameThickness+printer->upperMargin());
-    	richText.setWidth( p, printer->getPageSize().width()-2*frameThickness-BORDER_SPACE );
-    	QRect view( printer->getPageSize() );
+    	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(),
+				printer->getPageSize().height()-printer->getVerticalPos()-2*frameThickness+printer->upperMargin()
+			);
+
+    	richText.setWidth( p, printer->getPageSize().width()-2*frameThickness-2*BORDER_SPACE );
+    	QRect view(
+    		printer->getPageSize().left()+frameThickness,
+    		printer->getPageSize().top()+frameThickness,
+	    	printer->getPageSize().width()-2*frameThickness,
+	    	printer->getPageSize().height()-2*frameThickness
+    	);
     	int translated = 0;
     	do {
     		if ((int)(richText.height()-translated + printer->getVerticalPos()) < (int)(printer->getPageSize().height()+printer->upperMargin()) )
-    			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), richText.height()+frameThickness);
+    			br = QRect(
+    						printer->leftMargin(),
+    						printer->getVerticalPos(),
+    						printer->getPageSize().width(),
+    						richText.height()+frameThickness
+    					);
     		else { //fill to bottom of the page
-    			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin());
+    			br = QRect (
+						printer->leftMargin(),
+						printer->getVerticalPos(),
+						printer->getPageSize().width(),
+						printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin()
+					);
     			br.moveBy(0, translated);
     		}
-    		p->setClipRect(printer->getPageSize());
+    		p->setClipRect(
+    			printer->upperMargin(),
+    			printer->leftMargin(),
+    			printer->getPageSize().width(),
+    			printer->getPageSize().height()
+    		);
    			p->fillRect(br,QBrush(bgColor));
 				if (frame) {
+					br.moveBy( (int)((float)-frameThickness/2), (int)((float)-frameThickness/2) );	
+				
 					QPen framePen = pen;
 					framePen.setWidth( frameThickness );
 					framePen.setColor( frame->getColor() );
@@ -369,8 +414,12 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 					p->drawRect(br);
 				}						   			
     		p->setClipping(false);
-        richText.draw(p,printer->leftMargin()+frameThickness+(int)((float)BORDER_SPACE/2),printer->getVerticalPos(),view,cg);
-				const int movePixs = ( ((int)richText.height()-translated) > (int)(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height()-translated+frameThickness;
+        richText.draw(p, printer->leftMargin()+frameThickness+BORDER_SPACE, printer->getVerticalPos()+frameThickness, view, cg);
+				const int movePixs =
+						(((int)richText.height()-translated)
+					> (int)(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin()))
+					? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() )
+					: richText.height()-translated + 2*frameThickness;
 
    			printer->setVerticalPos(printer->getVerticalPos()+movePixs);
 		    view.moveBy( 0,movePixs);		

@@ -108,7 +108,7 @@ public:
  	*/
   void updateListViewItem();
   /**
-	*
+	* Returns the used ListView item.
 	*/
   QListViewItem* getListViewItem() const;
   /**
@@ -122,10 +122,8 @@ public:
 
 private: // Protected attributes
   void clearData();
-  /**
-  * Updates and returns the header text.
-  */
   const QString& getHeaderText();
+
   CStyle* m_style;
   QString m_description;
   QString m_headerText;

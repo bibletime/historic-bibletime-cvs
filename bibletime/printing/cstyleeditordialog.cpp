@@ -57,7 +57,7 @@ CStyleEditorDialog::~CStyleEditorDialog(){
 /** Initializes te view. */
 void CStyleEditorDialog::initView(){
   enableButtonSeparator( true );
-  QFrame *mainWidget = makeMainWidget();//addPage( i18n("Layout"), i18n("The layout specific settings") );
+  QFrame *mainWidget = makeMainWidget();
   QLabel* label = 0;
 
   QVBoxLayout *topLayout = new QVBoxLayout( mainWidget, OUTER_BORDER, INNER_BORDER );
@@ -103,7 +103,7 @@ void CStyleEditorDialog::initView(){
 	QButtonGroup* box = new QButtonGroup( mainWidget );
 	QVBoxLayout* boxLayout = new QVBoxLayout( box, OUTER_BORDER, INNER_BORDER );
 	
-	QHBoxLayout* layout1 = new QHBoxLayout(0, 1, 1 );
+	QHBoxLayout* layout1 = new QHBoxLayout(0, 1, 1);
 	m_colors.foregroundChooser = new KColorButton( box );
 	label = new QLabel(m_colors.foregroundChooser, "label", box);
 	label->setText(i18n("Foreground:"));	
@@ -154,6 +154,7 @@ void CStyleEditorDialog::initView(){
 	
 	hboxLayout = new QHBoxLayout();
   m_frame.lineThicknessChooser = new QSpinBox( m_frame.groupbox );
+  m_frame.lineThicknessChooser->setMinValue(1);
   label = new QLabel(m_frame.lineThicknessChooser, "label", m_frame.groupbox);
   label->setText( i18n("Line thickness (in point):") );
   hboxLayout->addWidget(label);
