@@ -20,9 +20,9 @@
 	TODO: COMPLETE.
 </sect1>
 	
-<sect1 id="hdbk-reference-menus"><title>Menus</title>
+<sect1 id="hdbk-reference-menus"><title>Main menu</title>
 	
-	<sect2 id="hdbk-reference-menus-file"><title>File</title>
+	<sect2 id="hdbk-reference-menus-file"><title><guimenu>File</guimenu></title>
 	
 	<para>
 	<variablelist>
@@ -41,7 +41,7 @@
 	</para>
 	</sect2>
 
-	<sect2 id="hdbk-reference-menus-view"><title>View</title>
+	<sect2 id="hdbk-reference-menus-view"><title><guimenu>View</guimenu></title>
 	
 	<variablelist>
 		<varlistentry id="view-showtoolbar">
@@ -73,7 +73,7 @@
 		</variablelist>
 	</sect2>
 	
-	<sect2 id="hdbk-reference-menus-search"><title>Search</title>
+	<sect2 id="hdbk-reference-menus-search"><title><guimenu>Search</guimenu></title>
 		<variablelist>
 
 		<varlistentry id="search-defaultbible">
@@ -100,7 +100,7 @@
 
 	</sect2>
 
-	<sect2 id="hdbk-reference-menus-window"><title>Window</title>
+	<sect2 id="hdbk-reference-menus-window"><title><guimenu>Window</guimenu></title>
 		<variablelist>
 
 		<varlistentry id="window-savesession">
@@ -203,18 +203,48 @@
 	</sect2>
 
 	
-	<sect2 id="hdbk-reference-menus-settings"><title>Settings</title>
+	<sect2 id="hdbk-reference-menus-settings"><title><guimenu>Settings</guimenu></title>
 		<variablelist>
 		
-		
+		<varlistentry id="configure-toolbars">
+			<term><menuchoice>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="configure.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Settings</guimenu> <guimenuitem>Configure toolbars</guimenuitem></menuchoice></term>
+			<listitem><para><action>Opens a dialog where you can customize &bibletime;`s toolbar</action>.
+			Just try it out, you can move around the toolbar buttons and even add new ones. All entries available from
+			the main menu can be put on the toolbar as buttons. If you need a certain feature often, you might want to 
+			put a button on the main menu, so that you can access it with only one click.</para></listitem> 
+		</varlistentry>
+		<!-->WRONG ICON! TODO!<-->
+
+				<varlistentry id="configure-bibletime">
+			<term><menuchoice>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="configure.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Settings</guimenu> <guimenuitem>Configure &bibletime;</guimenuitem></menuchoice></term>
+			<listitem><para><action>Opens &bibletime;`s main configuration dialog</action>.
+			You can configure all kinds of nice settings there to adapt &bibletime; to your needs.</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="configure-sword">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul"><keycap>F4</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="configure_sword.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Settings</guimenu> <guimenuitem>Configure Sword</guimenuitem></menuchoice></term>
+			<listitem><para><action>Opens a dialog where you can change your Sword configuration and
+			manage your Sword modules</action>.
+			Please see section TODO: link for details.</para></listitem> 
+		</varlistentry>
+
 		</variablelist>
 	</sect2>
 	
-	<sect2 id="hdbk-reference-menus-help"><title>Help</title>
-		<variablelist>
+	<sect2 id="hdbk-reference-menus-help"><title><guimenu>Help</guimenu></title>
 
+		&help.menu.documentation;
 
-		</variablelist>
 	</sect2>
 	
 </sect1>	
@@ -599,31 +629,6 @@
 	<section id="hdbk-bars-menubar"><title>Menubar</title>
 	<para>Various features of bibletime are accessed by way of 
 	drop down menus from the menubar.</para>
-
-	<section id="hdbk-bars-menubar-settings"><title>Settings</title>
-	<para>
-
-	<variablelist>
-
-	<varlistentry>
-	<term>Configure Toolbar</term>
-	<listitem>
-	<para>Show the <guilabel>Configure Toolbar</guilabel> dialog.</para>
-	</listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>Configure &bibletime;</term>
-	<listitem>
-	<para>Shows the <guilabel>Preferences Dialog</guilabel>.
-	From this dialog the startup mode, fonts, colors, sessions,
-	sword features, and accelerators are configurable. </para>
-	</listitem>
-	</varlistentry>
-	</variablelist>
-
-	</para>
-	</section>
 
 <section id="hdbk-bars-menubar-Help"><title>Help</title>
 <para>
