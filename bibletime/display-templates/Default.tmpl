@@ -15,7 +15,7 @@
 }
 
 body {
-	margin:15px;
+	margin:10px;
 }
 #content {
 	background-color:white;
@@ -58,7 +58,7 @@ div.entry, td.entry {
 }
 
 .currententry {
-	padding:5px;
+	padding:3px;
 	vertical-align:top;
 	text-align:justify;
 }
@@ -74,12 +74,21 @@ td.entry + td.entry {
 	margin-left: 2px;
 }
 
-/* Secpial additional settings for display of modules*/
+/* Several additional settings for display of modules*/
 #bible div.currententry, #bible td.currententry {
 	border:1px solid black;
 	background-color:#F6FFF7;
 }
 #bible span.currententry {
+	background-color:#C8FFB6;
+}
+
+/*Same for books!*/
+#book div.currententry, #book td.currententry {
+	border:1px solid black;
+	background-color:#F6FFF7;
+}
+#book span.currententry {
 	background-color:#C8FFB6;
 }
 
@@ -99,10 +108,10 @@ td.entry + td.entry {
 }
 .footnote {
 	font-size: 0.1em;
-	vertical-align:top;
+	vertical-align:super;
 	width:0.5em;
-	padding:0px 2px;
-	height:0.5em;
+	padding:0px;
+	height:0.3em;
 	color:yellow;
 	background-color:yellow;
 	border:1px solid black;

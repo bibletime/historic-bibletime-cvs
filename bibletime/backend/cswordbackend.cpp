@@ -99,8 +99,9 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
  	shutdownModules(); //remove previous modules
  	m_moduleList.clear();	
 
+	sword::ModMap::iterator end = Modules.end();
 	ret = LoadError( Load() );
-	for (sword::ModMap::iterator it = Modules.begin(); it != Modules.end(); it++) {
+	for (sword::ModMap::iterator it = Modules.begin(); it != end; it++) {
 		sword::SWModule* const curMod = (*it).second;
 		CSwordModuleInfo* newModule = 0;
 				
@@ -232,8 +233,10 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
 		case transliteration:
       if (useICU()) {
         sword::StringList options = transliterator()->getOptionValues();
-        sword::StringList::iterator it = options.begin();
-        for (int index = state; (index > 0) && (it != options.end()); ++it) {
+        
+				sword::StringList::iterator it = options.begin();
+				sword::StringList::iterator end = options.end();
+        for (int index = state; (index > 0) && (it != end); ++it) {
           --index;
         }
         value = it->c_str();

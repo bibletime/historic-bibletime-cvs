@@ -103,7 +103,8 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
     return sword::SWBuf("<a class=\"reference\" href=\"sword://Bible/") + moduleName + "/" + ref + "\">";
   }
 
-	for ( QStringList::Iterator it = refList.begin(); it != refList.end(); ++it, pos++ ) {
+	QStringList::const_iterator end = refList.constEnd();
+	for ( QStringList::const_iterator it = refList.begin(); it != end; ++it, pos++ ) {
 	 	list = parseKey.ParseVerseList((*it).local8Bit(), parseKey, true);
 
 	 	const int count = list.Count();

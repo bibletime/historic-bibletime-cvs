@@ -77,15 +77,15 @@ void CModuleChooserBar::removeButton( const int ID ){
 
 /** Returns a list of selected modules. */
 ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
-	qWarning("getModuleList called: %i buttons", m_buttonList.count());
+//	qWarning("getModuleList called: %i buttons", m_buttonList.count());
   ListCSwordModuleInfo list;
 //	list.setAutoDelete(false);
 //	list.clear();
 	
-	for (m_buttonList.first(); m_buttonList.current(); m_buttonList.next()) {	
-	  if ( CSwordModuleInfo* m = m_buttonList.current()->module() ) {
+	CSwordModuleInfo* m;
+	for ( m_buttonList.first(); m_buttonList.current(); m_buttonList.next()) {	
+	  if ( m = m_buttonList.current()->module() ) {
   		list.append( m );
-      qWarning("append module %s", m->name().latin1());
     }
 	}
 	return list;

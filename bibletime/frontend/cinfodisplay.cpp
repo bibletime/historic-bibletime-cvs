@@ -56,9 +56,11 @@ void CInfoDisplay::setInfo(const InfoType type, const QString& data) {
 
 
 void CInfoDisplay::setInfo(const ListInfoData& list) {
-	qWarning("setInfo");
+//	qWarning("setInfo");
 	QString text;
-	for (ListInfoData::const_iterator it = list.begin(); it != list.end(); ++it) {
+	
+	ListInfoData::const_iterator end = list.end();
+	for (ListInfoData::const_iterator it = list.begin(); it != end; ++it) {
 	  switch ( (*it).first ) {
 			case Lemma:
 				text += decodeLemma( (*it).second );
@@ -141,12 +143,13 @@ const QString CInfoDisplay::decodeFootnote( const QString& data ) {
 }
 
 const QString CInfoDisplay::decodeLemma( const QString& data ) {
-	qWarning("decode lemma: %s", data.latin1());
+//	qWarning("decode lemma: %s", data.latin1());
 	
 	QStringList lemmas = QStringList::split("|", data);
 	QString ret;
-
-	for (QStringList::iterator it = lemmas.begin(); it != lemmas.end(); ++it) {
+	
+	QStringList::const_iterator end = lemmas.end();
+	for (QStringList::const_iterator it = lemmas.begin(); it != end; ++it) {
 		QString strongModuleDesc = CBTConfig::get((*it).left(1) == "H" ? 
 			CBTConfig::standardHebrewStrongsLexicon : 
 			CBTConfig::standardGreekStrongsLexicon
@@ -171,7 +174,7 @@ const QString CInfoDisplay::decodeLemma( const QString& data ) {
 }
 
 const QString CInfoDisplay::decodeMorph( const QString& data ) {
-	qWarning("decodeMorph");
+//	qWarning("decodeMorph");
 	QStringList morphs = QStringList::split("|", data);
 	QString ret;
 		

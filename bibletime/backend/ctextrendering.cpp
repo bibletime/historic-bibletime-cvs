@@ -71,9 +71,12 @@ ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 	//collect all modules which are available and used by child items
 	ListCSwordModuleInfo modules;
 	KeyTree::const_iterator it;
-	for (it = begin(); it != end(); ++it) {
+
+	for (it = constBegin(); it != constEnd(); ++it) {
 		ListCSwordModuleInfo childMods = (*it).modules();
-		for (ListCSwordModuleInfo::const_iterator c_it = childMods.begin(); c_it != childMods.end(); ++c_it) {
+		
+		ListCSwordModuleInfo::const_iterator c_end = childMods.end();
+		for (ListCSwordModuleInfo::const_iterator c_it = childMods.constBegin(); c_it != c_end; ++c_it) {
 			if (!modules.contains(*c_it)) {
 				modules.append(*c_it);
 			}
@@ -284,7 +287,7 @@ const QString CHTMLExportRendering::finishText( const QString& text, KeyTree& tr
 /*!
     \fn CHTMLExportRendering::entryLink( KeyTreeItem& item )
  */
-const QString CHTMLExportRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {
+const QString CHTMLExportRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo* ) {
 //	Q_ASSERT(module);		
 	return item.key();
 }
@@ -406,6 +409,6 @@ const QString CPlainTextExportRendering::renderEntry( const KeyTreeItem& i ) {
 	return renderedText;	
 }
 
-const QString CPlainTextExportRendering::finishText( const QString& oldText, KeyTree& tree ) {
+const QString CPlainTextExportRendering::finishText( const QString& oldText, KeyTree& ) {
 	return oldText;
 }

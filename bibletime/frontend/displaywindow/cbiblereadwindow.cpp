@@ -233,7 +233,7 @@ CSwordVerseKey* CBibleReadWindow::verseKey(){
 }
 
 /** Is called when the key of the keychooser changed. */
-void CBibleReadWindow::keyChanged(CSwordKey* key){
+void CBibleReadWindow::keyChanged(CSwordKey* /*key*/){
 /*	QWidgetList windows = mdi()->windowList();
 	if (!windows.count()) {
 		return;

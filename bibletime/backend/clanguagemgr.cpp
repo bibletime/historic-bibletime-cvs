@@ -120,8 +120,8 @@ const CLanguageMgr::Language& CLanguageMgr::languageForAbbrev( const QString& ab
   };
 
   //try to search in the alternative abbrevs
-  LangMap::const_iterator it;
-  for ( it = m_langMap.begin(); it != m_langMap.end(); ++it ) {
+	LangMap::const_iterator end = m_langMap.constEnd();
+  for ( LangMap::const_iterator it = m_langMap.begin(); it != end; ++it ) {
     if (it.data().alternativeAbbrevs().contains(abbrev)) {
       return it.data();
     };
@@ -130,8 +130,8 @@ const CLanguageMgr::Language& CLanguageMgr::languageForAbbrev( const QString& ab
 };
 
 const CLanguageMgr::Language& CLanguageMgr::languageForName( const QString& name ) const {
-  LangMap::const_iterator it;
-  for ( it = m_langMap.begin(); it != m_langMap.end(); ++it ) {
+	LangMap::const_iterator end = m_langMap.constEnd();
+  for ( LangMap::const_iterator it = m_langMap.constBegin(); it != end; ++it ) {
     if (it.data().name() == name) {
       return it.data();
     };
@@ -140,8 +140,8 @@ const CLanguageMgr::Language& CLanguageMgr::languageForName( const QString& name
 };
 
 const CLanguageMgr::Language& CLanguageMgr::languageForTranslatedName( const QString& name ) const {
-  LangMap::const_iterator it;
-  for ( it = m_langMap.begin(); it != m_langMap.end(); ++it ) {
+  LangMap::const_iterator end = m_langMap.constEnd();
+  for ( LangMap::const_iterator it = m_langMap.constBegin(); it != end; ++it ) {
     if (it.data().translatedName() == name) {
       return it.data();
     };
@@ -261,7 +261,8 @@ xx-???, including the AleWiesler module.
 
   m_langList.append( Language("ja"  , "Japanese"    , i18n("Japanese")) );
 
-  m_langList.append( Language("ka"  , "Georgian"    , i18n("Georgian")) );
+  m_langList.append( Language("ka"  	, "Georgian"  , i18n("Georgian")) );
+	m_langList.append( Language("kab"  	, "Kabyle"    , i18n("Kabyle")) );
 //  m_langList.append( Language("ki"  , "Kikuyu"      , i18n("Kikuyu")) );
 //  m_langList.append( Language("kj"  , "Kuanyama"    , i18n("Kuanyama")) );
 //  m_langList.append( Language("kk"  , "Kazakh"      , i18n("Kazakh")) );
@@ -395,8 +396,8 @@ xx-???, including the AleWiesler module.
   m_langList.append( Language("zh"  , "Chinese"     , i18n("Chinese")) );
   m_langList.append( Language("zu"  , "Zulu"        , i18n("Zulu")) );
 
-  QValueList<Language>::iterator it;
-  for ( it = m_langList.begin(); it != m_langList.end(); ++it ) {
+  QValueList<Language>::const_iterator end = m_langList.end();
+  for ( QValueList<Language>::const_iterator it = m_langList.begin(); it != end; ++it ) {
     m_langMap.insert((*it).abbrev(), *it);
   };
 };
@@ -416,10 +417,11 @@ void CLanguageMgr::debug(){
   lang =  languageForAbbrev("sd");
   qWarning("language name of abbrev sd is %s and is valid? %i", lang.name().latin1(), lang.isValid());
 
-  //print out all languages
-  LangMap::Iterator it;
+  // print out all languages
   LangMap map = languages();
-  for ( it = map.begin(); it != map.end(); ++it ) {
+	
+	LangMap::const_iterator end = map.end();
+  for ( LangMap::const_iterator it = map.begin(); it != end; ++it ) {
     qWarning("language %s: %s (%s)", it.data().abbrev().latin1(), it.data().name().latin1(),it.data().translatedName().latin1());
   };
 }

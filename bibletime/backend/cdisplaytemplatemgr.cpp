@@ -65,7 +65,9 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	QString langCSS;
   CLanguageMgr::LangMap langMap = CPointers::languageMgr()->availableLanguages();
   CLanguageMgr::LangMap::Iterator it;
-  for ( it = langMap.begin(); it != langMap.end(); ++it ) {
+	CLanguageMgr::LangMap::Iterator end = langMap.end();
+	
+  for ( it = langMap.begin(); it != end; ++it ) {
   	const CLanguageMgr::Language lang = it.data();
 		if (lang.isValid() && CBTConfig::get(lang).first) {
 			const QFont f = CBTConfig::get(lang).second;
@@ -128,4 +130,5 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	return t;
 }
 
+//Include the HTML templates which were put into a cpp file by a Perl script
 #include "../display-templates/template-init.cpp"
