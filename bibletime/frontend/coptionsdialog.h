@@ -80,6 +80,7 @@ private:
 			QComboBox* standardBible;
 			QComboBox* standardCommentary;
 			QComboBox* standardLexicon;
+			QComboBox* standardDailyDevotional;
 			QComboBox* standardHebrewStrong;
 			QComboBox* standardGreekStrong;
 			QComboBox* standardHebrewMorph;

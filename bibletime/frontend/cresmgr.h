@@ -337,6 +337,145 @@ namespace CResMgr {
   
   namespace printing {
   };
+
+  namespace settings {
+    namespace startup {
+      namespace dailyTip {
+
+      };
+      namespace showLogo {
+
+      };
+      namespace restoreWorkingArea {
+
+      };      
+    };
+    namespace fonts {
+      namespace typeChooser {
+
+      };
+    };
+    namespace colors {
+      namespace text {
+
+      };
+      namespace background {
+
+      };
+      namespace links {
+
+      };
+      namespace footnotes {
+
+      };
+      namespace strongNumbers {
+
+      };
+      namespace highlightedVerse {
+
+      };
+      namespace jesusWords {
+
+      };
+      namespace morphTags {
+
+      };
+
+    };
+    namespace profiles {
+      namespace list {
+
+      };
+      namespace createNew {
+
+      };
+      namespace deleteCurrent {
+
+      };
+      namespace renameCurrent {
+
+      };
+    };
+    namespace sword {
+      namespace general {
+        namespace cacheKeys {
+
+        };
+        namespace scrolling {
+
+        };
+        namespace language {
+
+        };        
+      };
+      namespace modules {
+        namespace bible {
+
+        };
+        namespace commentary {
+
+        };
+        namespace lexicon {
+
+        };
+        namespace dailyDevotional {
+
+        };
+        namespace hebrewStrongs {
+
+        };
+        namespace greekStrongs {
+
+        };
+        namespace hebrewMorph {
+
+        };
+        namespace greekMorph {
+
+        };
+      };
+      namespace filters {
+        namespace lineBreaks {
+
+        };
+        namespace verseNumbers {
+
+        };
+        namespace foonotes {
+
+        };
+        namespace strongsNumbers {
+
+        };
+        namespace morphTags {
+
+        };
+        namespace headings {
+
+        };
+        namespace lemmas {
+
+        };
+        namespace hebrewVowelPoints {
+
+        };
+        namespace hebrewCantillation {
+
+        };
+        namespace greekAccents {
+
+        };
+        namespace textualVariants {
+
+        };
+      };
+    };
+    namespace keys {
+
+    };
+    
+  };
+  
 }
 
 #endif

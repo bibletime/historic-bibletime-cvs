@@ -42,6 +42,7 @@ public:
 		standardBible,
 		standardCommentary,
 		standardLexicon,
+		standardDailyDevotional,    
 		standardHebrewStrongsLexicon,
 		standardGreekStrongsLexicon,
 		standardHebrewMorphLexicon,

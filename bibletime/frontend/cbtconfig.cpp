@@ -42,6 +42,7 @@ const QString CBTConfig::getKey( const CBTConfig::strings ID){
 		case standardBible: 				return "standardBible";
 		case standardCommentary: 		return "standardCommentary";
 		case standardLexicon: 			return "standardLexicon";
+		case standardDailyDevotional:	return "standardDailyDevotional";    
 		case standardHebrewStrongsLexicon: 	return "standardHebrewLexicon";
 		case standardGreekStrongsLexicon: 	return "standardGreekLexicon";
 		case standardHebrewMorphLexicon:	return "standardHebrewMorphLexicon";
@@ -57,7 +58,8 @@ const QString CBTConfig::getDefault( const CBTConfig::strings ID){
 		case language: 							return (KGlobal::locale()->language()).local8Bit();
 		case standardBible: 				return "KJV";  // no effect
 		case standardCommentary: 		return "MHC";
-		case standardLexicon: 			return "Eastons";
+		case standardLexicon: 			return "ISBE";
+		case standardDailyDevotional: 			return ""; //no default
 		case standardHebrewStrongsLexicon: return "StrongsHebrew";
 		case standardGreekStrongsLexicon: 	return "StrongsGreek";
 		case standardHebrewMorphLexicon:	return "StrongsHebrew"; //warning this is wrong

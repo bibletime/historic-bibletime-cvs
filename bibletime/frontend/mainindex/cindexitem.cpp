@@ -276,7 +276,10 @@ const bool CModuleItem::enableAction( const MenuAction action ){
   if (action == EditModule) {
     if (!module())
       return false;
-    return static_cast<bool>(module()->module()->isWritable()); //enable if the module is writable
+    if ( (module()->module()->getConfigEntry("ModDrv") == (string)"RawFiles") && module()->module()->isWritable())
+      return true;
+    else
+      return false;
   }
 
   if (action == SearchInModules || action == AboutModule)

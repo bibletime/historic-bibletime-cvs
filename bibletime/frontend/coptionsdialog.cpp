@@ -521,7 +521,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 // ---------- new tab: Default modules -------- //
   currentTab = new QFrame(tabCtl);
   tabCtl->addTab(currentTab, i18n("Default modules"));
-	gridLayout = new QGridLayout(currentTab,9,2, 5,5); //the last row is for stretching available space
+	gridLayout = new QGridLayout(currentTab,10,2, 5,5); //the last row is for stretching available space
 	gridLayout->setResizeMode(QLayout::Minimum);
 
   gridLayout->addMultiCellWidget(
@@ -553,39 +553,47 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	QWhatsThis::add(m_settings.swords.standardLexicon, WT_OD_SWORD_STANDARD_LEXICON);		
  	gridLayout->addWidget(label,3,0); 	
  	gridLayout->addWidget(m_settings.swords.standardLexicon,3,1); 	
-		
+
+ 	m_settings.swords.standardDailyDevotional = new QComboBox(currentTab);
+ 	label = new QLabel(m_settings.swords.standardDailyDevotional, i18n("Default Daily Devotional"), currentTab);
+  label->setAutoResize(true);
+ 	QToolTip::add(m_settings.swords.standardDailyDevotional, TT_OD_SWORD_STANDARD_LEXICON);
+ 	QWhatsThis::add(m_settings.swords.standardDailyDevotional, WT_OD_SWORD_STANDARD_LEXICON);
+ 	gridLayout->addWidget(label,4,0);
+ 	gridLayout->addWidget(m_settings.swords.standardDailyDevotional,4,1);
+    		
  	m_settings.swords.standardHebrewStrong = new QComboBox(currentTab);
  	label = new QLabel(m_settings.swords.standardHebrewStrong, i18n("Default Hebrew Strong's Lexicon"), currentTab);
   label->setAutoResize(true); 	 	
  	QToolTip::add(m_settings.swords.standardHebrewStrong, TT_OD_SWORD_STANDARD_HEBREW_STRONG);
  	QWhatsThis::add(m_settings.swords.standardHebrewStrong, WT_OD_SWORD_STANDARD_HEBREW_STRONG);
- 	gridLayout->addWidget(label,4,0);
- 	gridLayout->addWidget(m_settings.swords.standardHebrewStrong,4,1);
+ 	gridLayout->addWidget(label,5,0);
+ 	gridLayout->addWidget(m_settings.swords.standardHebrewStrong,5,1);
 		
  	m_settings.swords.standardGreekStrong = new QComboBox(currentTab);
  	label = new QLabel(m_settings.swords.standardGreekStrong, i18n("Default Greek Strong's Lexicon"), currentTab);
   label->setAutoResize(true); 	 	
  	QToolTip::add(m_settings.swords.standardGreekStrong, TT_OD_SWORD_STANDARD_GREEK_STRONG); 	
  	QWhatsThis::add(m_settings.swords.standardGreekStrong, WT_OD_SWORD_STANDARD_GREEK_STRONG);
- 	gridLayout->addWidget(label,5,0);
- 	gridLayout->addWidget(m_settings.swords.standardGreekStrong,5,1);
+ 	gridLayout->addWidget(label,6,0);
+ 	gridLayout->addWidget(m_settings.swords.standardGreekStrong,6,1);
 		
  	m_settings.swords.standardHebrewMorph = new QComboBox(currentTab);
  	label = new QLabel(m_settings.swords.standardHebrewMorph, i18n("Default Hebrew Morphological Lexicon"), currentTab);
  	QToolTip::add(m_settings.swords.standardHebrewMorph, TT_OD_SWORD_STANDARD_HEBREW_MORPH);
  	QWhatsThis::add(m_settings.swords.standardHebrewMorph, WT_OD_SWORD_STANDARD_HEBREW_MORPH);
- 	gridLayout->addWidget(label,6,0);
- 	gridLayout->addWidget(m_settings.swords.standardHebrewMorph,6,1);
+ 	gridLayout->addWidget(label,7,0);
+ 	gridLayout->addWidget(m_settings.swords.standardHebrewMorph,7,1);
 
  	m_settings.swords.standardGreekMorph = new QComboBox(currentTab);
  	label = new QLabel(m_settings.swords.standardGreekMorph, i18n("Default Greek Morphological Lexicon"), currentTab);
   label->setAutoResize(true); 	 	
  	QToolTip::add(m_settings.swords.standardGreekMorph, TT_OD_SWORD_STANDARD_GREEK_MORPH);
  	QWhatsThis::add(m_settings.swords.standardGreekMorph, WT_OD_SWORD_STANDARD_GREEK_MORPH);
- 	gridLayout->addWidget(label,7,0);
- 	gridLayout->addWidget(m_settings.swords.standardGreekMorph,7,1);
+ 	gridLayout->addWidget(label,8,0);
+ 	gridLayout->addWidget(m_settings.swords.standardGreekMorph,8,1);
 
- 	gridLayout->setRowStretch(8,5);							
+ 	gridLayout->setRowStretch(9,5);							
 		
  	//fill the comboboxes with the right modules
  	ListCSwordModuleInfo& modules = backend()->moduleList();
@@ -601,19 +609,29 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  				break;
  			case CSwordModuleInfo::Lexicon:
  			{
-				m_settings.swords.standardLexicon->insertItem(modDescript);
+        bool inserted = false;
  				if (modules.current()->has(CSwordModuleInfo::HebrewDef)) {
-					m_settings.swords.standardHebrewStrong->insertItem(modDescript);				
+					m_settings.swords.standardHebrewStrong->insertItem(modDescript);
+          inserted = true;          
  				}
  				if (modules.current()->has(CSwordModuleInfo::GreekDef)) {
-					m_settings.swords.standardGreekStrong->insertItem(modDescript);				
+					m_settings.swords.standardGreekStrong->insertItem(modDescript);
+          inserted = true;
  				}
  				if (modules.current()->has(CSwordModuleInfo::HebrewParse)) {
 					m_settings.swords.standardHebrewMorph->insertItem(modDescript);				
+          inserted = true;
+        }
+ 				if (modules.current()->has(CSwordModuleInfo::GreekParse)) {       
+					m_settings.swords.standardGreekMorph->insertItem(modDescript);
+          inserted = true;
  				}
- 				if (modules.current()->has(CSwordModuleInfo::GreekParse)) {
-					m_settings.swords.standardGreekMorph->insertItem(modDescript);				
+ 				if (modules.current()->has(CSwordModuleInfo::DailyDevotional)) {
+					m_settings.swords.standardDailyDevotional->insertItem(modDescript);
+          inserted = true;
  				}
+				if (!inserted)//daily dvotionals, striong lexicons etc. are not very useful for word lookups
+          m_settings.swords.standardLexicon->insertItem(modDescript);
  				break;
  			} 				
  			default://unknown type					
@@ -627,6 +645,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	comboList.append(m_settings.swords.standardBible);
  	comboList.append(m_settings.swords.standardCommentary);
  	comboList.append(m_settings.swords.standardLexicon);
+ 	comboList.append(m_settings.swords.standardDailyDevotional);  
  	comboList.append(m_settings.swords.standardHebrewStrong);
  	comboList.append(m_settings.swords.standardGreekStrong);
  	comboList.append(m_settings.swords.standardHebrewMorph);
@@ -637,6 +656,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  		<< CBTConfig::get(CBTConfig::standardBible)
 	 	<< CBTConfig::get(CBTConfig::standardCommentary)
 	 	<< CBTConfig::get(CBTConfig::standardLexicon)
+	 	<< CBTConfig::get(CBTConfig::standardDailyDevotional)    
 	 	<< CBTConfig::get(CBTConfig::standardHebrewStrongsLexicon)
 	 	<< CBTConfig::get(CBTConfig::standardGreekStrongsLexicon)
 	 	<< CBTConfig::get(CBTConfig::standardHebrewMorphLexicon)

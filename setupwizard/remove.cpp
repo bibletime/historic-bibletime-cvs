@@ -156,10 +156,17 @@ void RemovePage::populateRemoveModuleListView(){
 		name = list.current()->name() ;
 
 		switch (list.current()->type()) {
-			case CSwordModuleInfo::Bible: parent = categoryBible; break;
-			case CSwordModuleInfo::Commentary: parent = categoryCommentary; break;
-			case CSwordModuleInfo::Lexicon: parent = categoryLexicon; break;
-			case CSwordModuleInfo::GenericBook:parent = categoryBook; break;
+			case CSwordModuleInfo::Bible:
+        parent = categoryBible; break;
+			case CSwordModuleInfo::Commentary:
+        parent = categoryCommentary; break;
+			case CSwordModuleInfo::Lexicon:
+        parent = categoryLexicon; break;
+			case CSwordModuleInfo::GenericBook:
+        parent = categoryBook; break;
+      default:
+        parent = 0; //shouldn't happen;
+        break;
 		}
 
 		m_backend->moduleConfig( name, moduleConfig);
