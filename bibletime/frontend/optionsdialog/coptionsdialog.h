@@ -122,6 +122,19 @@ private:
 			CProfileMgr mgr;
 		};
 		ViewProfileSettings profiles;
+		
+		struct KeySettings {
+			struct WindowType{
+				KKeyChooser* keyChooser;
+				KKeyEntryMap dict;			
+				KAccel* accel;		
+			};
+			WindowType general;
+			WindowType bible;
+			WindowType commentary;
+			WindowType lexicon;
+		};	
+		KeySettings keys;		
 	};
 
 	GeneralSettings m_general;

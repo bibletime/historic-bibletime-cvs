@@ -207,6 +207,7 @@ void CMDIArea::syncCommentaries(CSwordKey* syncKey){
 	QWidgetList windows = windowList();	
 	if (!windows.count())
 		return;	
+		
 	for (windows.first(); windows.current(); windows.next()) {
 		CCommentaryPresenter* p = dynamic_cast<CCommentaryPresenter*>(windows.current());
 		if (p)

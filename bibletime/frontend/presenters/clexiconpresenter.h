@@ -37,32 +37,12 @@ public:
 	/**
 	* destructor
 	*/
-	~CLexiconPresenter();
-
-private slots: // Protected slots
-  void popupAboutToShow();
-  void moduleChanged();
-  void lookup(CSwordKey*);
-
-private: // Private methods
-  void initConnections();
-  void initView();
-
-  CSwordLDKey* m_key;
-
-private slots:
-//copy slots
-  void copyEntry();
-  void copyEntryText();
-  void copyEntryAndText();
-//print slots
-  void printEntryAndText();
-
+	virtual ~CLexiconPresenter();
   /**
-  * Is called when the modules shown by this display window were changed.
+  * Inserts the used keyboard actions into the given KAccel object.
   */
-  void modulesChanged();
-
+  static void insertKeyboardActions(KAccel* a);
+	
 public slots: // Public slots
   /**
   * No descriptions
@@ -72,6 +52,32 @@ public slots: // Public slots
   * Refreshes all parts decsribed by the parameter.
   */
   virtual void refresh( const int events);
+
+protected: // Protected methods
+  /**
+  * Initializes keyboard accelerators.
+  */
+  virtual void initAccels();
+
+private slots:
+  void copyEntry();
+  void copyEntryText();
+  void copyEntryAndText();
+  void printEntryAndText();
+  void modulesChanged();
+  void popupAboutToShow();
+  void moduleChanged();
+  void lookup(CSwordKey*);
+  /** Jumps to the next entry */
+  void nextEntry();
+  /** Jumps to the previous entry. */
+  void previousEntry();
+
+private: // Private methods
+  void initConnections();
+  void initView();
+
+  CSwordLDKey* m_key;
 };
 
 #endif

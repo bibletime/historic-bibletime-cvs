@@ -45,6 +45,10 @@ public:
   * Synchronizes to the given key if sync is enabled.
   */
   void synchronize( CSwordKey* syncKey );
+  /**
+  * Inserts the actions used by this display window type into the given KAccel object.
+  */
+  static void insertKeyboardActions(KAccel* a);
 	
 public slots: // Public slots
   /**
@@ -59,6 +63,12 @@ public slots: // Public slots
   * No descriptions
   */
   virtual void refresh( const int events);
+
+protected: // Protected methods
+  /**
+  * Init keyboard accelartors.
+  */
+  virtual void initAccels();
 
 protected slots: // Protected slots
   /**
@@ -78,6 +88,16 @@ protected slots: // Protected slots
 	* Print the current item displayed in the presenter.
 	*/
 	void printHighlightedVerse();
+	void nextBook();
+	void previousBook();
+	void nextChapter();
+	void previousChapter();
+	void nextVerse();
+	void previousVerse();	
+  /**
+  * Toggles the synchronize button.
+  */
+  void toggleSynchronize();
 
 private:
   void initConnections();

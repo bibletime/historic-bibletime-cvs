@@ -145,6 +145,11 @@
 #define TT_OD_COLORS_BACKGROUND i18n("Color of the background")
 #define TT_OD_COLORS_CURRENT_VERSE i18n("Color of the highlighted verse")
 
+#define TT_OD_DISPLAY_WINDOW_KEYS_GENERAL i18n("Keyboard accelerators used by all display windows")
+#define TT_OD_DISPLAY_WINDOW_KEYS_BIBLE i18n("Keyboard accelerators used by Bible windows")
+#define TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY i18n("Keyboard accelerators used by commentary windows")
+#define TT_OD_DISPLAY_WINDOW_KEYS_LEXICON i18n("Keyboard accelerators used by lexicon windows")
+
 //defines for the printing dialog; PI == Print Item; PD=Printer Dialog
 #define TT_PD_PRINT i18n("Start printing")
 #define TT_PD_PREVIEW i18n("Show a preview")

@@ -153,6 +153,12 @@
 #define WT_OD_COLORS_BACKGROUND WT(TT_OD_COLORS_BACKGROUND, i18n("This is the background color used in display windows."))
 #define WT_OD_COLORS_CURRENT_VERSE WT(TT_OD_COLORS_CURRENT_VERSE, i18n("This is the color of the highlighted verse used in display windows."))
 
+#define WT_OD_DISPLAY_WINDOW_KEYS_GENERAL WT(TT_OD_DISPLAY_WINDOW_KEYS_GENERAL, i18n("Set the keyboard accelerators used by all display windows"))
+#define WT_OD_DISPLAY_WINDOW_KEYS_BIBLE WT(TT_OD_DISPLAY_WINDOW_KEYS_BIBLE, i18n("Set keyboard accelerators used by Bible windows"))
+#define WT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY WT(TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY, i18n("Set the keyboard accelerators used by commentary windows"))
+#define WT_OD_DISPLAY_WINDOW_KEYS_LEXICON WT(TT_OD_DISPLAY_WINDOW_KEYS_LEXICON, i18n("Set the keyboard accelerators used by lexicon windows"))
+
+
 //defines for the printing dialog; PI == Print Item; PD=Printer Dialog
 #define WT_PD_PRINT WT(TT_PD_PRINT, i18n("Start the printing process.<BR>The items of the list will be printed using the assigned styles."))
 #define WT_PD_PREVIEW WT(TT_PD_PREVIEW, i18n("Print into a temporary file and open a postscript viewer to preview the printing result."))

@@ -18,6 +18,9 @@
 #include "coptionsdialog.h"
 #include "../cprofile.h"
 #include "../presenters/cswordpresenter.h"
+#include "../presenters/cbiblepresenter.h"
+#include "../presenters/ccommentarypresenter.h"
+#include "../presenters/clexiconpresenter.h"
 #include "../../ressource.h"
 #include "../../whatsthisdef.h"
 #include "../../backend/cswordlexiconmoduleinfo.h"
@@ -74,7 +77,10 @@ COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *par
 }
 
 COptionsDialog::~COptionsDialog(){
-
+//	delete m_displayWindows.keys.general.accel;
+//	delete m_displayWindows.keys.bible.accel;	
+//	delete m_displayWindows.keys.commentary.accel;
+//	delete m_displayWindows.keys.lexicon.accel;
 }
 
 void COptionsDialog::initGeneral() {
@@ -171,7 +177,7 @@ void COptionsDialog::initDisplayWindow() {
 
 		int current_item = -1;
 		for(int test_item = 0; test_item < m_displayWindows.general.localeCombo->count(); test_item++) {
-			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale((const char*)m_config->readEntry("Language", QString::fromLatin1(getenv("LANG"))).local8Bit());
+			SWLocale* locale = LocaleMgr::systemLocaleMgr.getLocale((const char*)m_config->readEntry("Language", KGlobal::locale()->language()).local8Bit());
 			if (locale && m_displayWindows.general.localeCombo->text(test_item).contains(i18n(locale->getDescription())) )
 				current_item = test_item;
 		}
@@ -259,7 +265,50 @@ void COptionsDialog::initDisplayWindow() {
 	if (m_displayWindows.module_fonts.modules->count() > 0)
 		m_displayWindows.module_fonts.modules->setCurrentItem(0);
 
-		
+	items.clear();
+	items << i18n("Display windows") << i18n("Accelerators") << i18n("General");
+	page = addHBoxPage(items, i18n("Accelerators used by all windows"), OD_ICON_KEY_BINDINGS);
+	m_displayWindows.keys.general.accel = new KAccel(this); //delete in destructor
+	CSwordPresenter::insertKeyboardActions( m_displayWindows.keys.general.accel );		
+	m_displayWindows.keys.general.accel->readSettings();
+ 	m_displayWindows.keys.general.dict = m_displayWindows.keys.general.accel->keyDict();
+ 	m_displayWindows.keys.general.keyChooser = new KKeyChooser( &m_displayWindows.keys.general.dict, page, false );	
+ 	QToolTip::add(m_displayWindows.keys.general.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
+	QWhatsThis::add(m_displayWindows.keys.general.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_GENERAL);
+
+	items.clear();
+	items << i18n("Display windows") << i18n("Accelerators") << i18n("Bible windows");	
+	page = addHBoxPage(items, i18n("Accelerators for bible windows"), OD_ICON_KEY_BINDINGS);
+	m_displayWindows.keys.bible.accel = new KAccel(this); //delete in destructor
+	CBiblePresenter::insertKeyboardActions( m_displayWindows.keys.bible.accel );
+	m_displayWindows.keys.bible.accel->readSettings();		
+ 	m_displayWindows.keys.bible.dict = m_displayWindows.keys.bible.accel->keyDict();
+ 	m_displayWindows.keys.bible.keyChooser = new KKeyChooser( &m_displayWindows.keys.bible.dict, page, false );	
+	QToolTip::add(m_displayWindows.keys.bible.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
+	QWhatsThis::add(m_displayWindows.keys.bible.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_BIBLE);
+
+	items.clear();
+	items << i18n("Display windows") << i18n("Accelerators") << i18n("Commentary windows");	
+	page = addHBoxPage(items, i18n("Accelerators for commentary windows"), OD_ICON_KEY_BINDINGS);
+	m_displayWindows.keys.commentary.accel = new KAccel(this); //delete in destructor
+	CCommentaryPresenter::insertKeyboardActions( m_displayWindows.keys.commentary.accel );		
+	m_displayWindows.keys.commentary.accel->readSettings();	
+ 	m_displayWindows.keys.commentary.dict = m_displayWindows.keys.commentary.accel->keyDict();
+ 	m_displayWindows.keys.commentary.keyChooser = new KKeyChooser( &m_displayWindows.keys.commentary.dict, page, false );	
+ 	QToolTip::add(m_displayWindows.keys.commentary.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
+	QWhatsThis::add(m_displayWindows.keys.commentary.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY);
+
+	items.clear();
+	items << i18n("Display windows") << i18n("Accelerators") << i18n("Lexicon windows");	
+	page = addHBoxPage(items, i18n("Accelerators for lexicon windows"), OD_ICON_KEY_BINDINGS);
+	m_displayWindows.keys.lexicon.accel = new KAccel(this); //delete in destructor
+	CLexiconPresenter::insertKeyboardActions( m_displayWindows.keys.lexicon.accel );		
+	m_displayWindows.keys.lexicon.accel->readSettings();	 	
+ 	m_displayWindows.keys.lexicon.dict = m_displayWindows.keys.lexicon.accel->keyDict(); 	
+ 	m_displayWindows.keys.lexicon.keyChooser = new KKeyChooser( &m_displayWindows.keys.lexicon.dict, page, false );	
+ 	QToolTip::add(m_displayWindows.keys.lexicon.keyChooser, TT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
+	QWhatsThis::add(m_displayWindows.keys.lexicon.keyChooser, WT_OD_DISPLAY_WINDOW_KEYS_LEXICON);
+					
 	items.clear();
 	items << i18n("Display windows") << i18n("View profiles");
 	vbox_page = addVBoxPage(items, i18n("View profiles of workspace area")/*, OD_ICON_PROFILE*/);		
@@ -294,7 +343,7 @@ void COptionsDialog::saveDisplayWindow() {
 			}
 		}
 
-		const QString oldValue = m_config->readEntry("Language", QString::fromLatin1(getenv("LANG")));	//default nonexisting language
+		const QString oldValue = m_config->readEntry("Language", KGlobal::locale()->language());
 		if (oldValue == QString::null || oldValue != localeName) {	//changed
 			if (m_changedSettings)
 				m_changedSettings |= CSwordPresenter::language;
@@ -344,6 +393,20 @@ void COptionsDialog::saveDisplayWindow() {
 				m_changedSettings = CSwordPresenter::highlightedVerseColor;
 		}		
 		m_config->writeEntry("Highlighted Verse", m_displayWindows.colors.highlightedVerse->color().name());		
+	}
+	
+	{//save accel settings
+		m_displayWindows.keys.general.accel->setKeyDict( m_displayWindows.keys.general.dict );			
+		m_displayWindows.keys.general.accel->writeSettings();
+		
+		m_displayWindows.keys.bible.accel->setKeyDict( m_displayWindows.keys.bible.dict );					
+		m_displayWindows.keys.bible.accel->writeSettings();		
+		
+		m_displayWindows.keys.commentary.accel->setKeyDict( m_displayWindows.keys.commentary.dict );					
+		m_displayWindows.keys.commentary.accel->writeSettings();
+		
+		m_displayWindows.keys.lexicon.accel->setKeyDict( m_displayWindows.keys.lexicon.dict );					
+		m_displayWindows.keys.lexicon.accel->writeSettings();
 	}
 }
 

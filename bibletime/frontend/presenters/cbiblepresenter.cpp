@@ -36,6 +36,7 @@
 #include <ktoolbar.h>
 #include <klocale.h>
 #include <kfiledialog.h>
+#include <kaccel.h>
 
 CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, importantClasses, parent,name),
@@ -178,26 +179,7 @@ void CBiblePresenter::lookup(const QString& key){
 }
 
 /** Reimplementation. Refreshes the things which are described by the event integer. */
-void CBiblePresenter::refresh( const int events ){
-	
-//qWarning("profile test ------------ BEGIN");	
-//	CProfile p("/home/joachim/.kde2/share/apps/bibletime/test_profile.xml");	
-//	CProfileWindow* w = new CProfileWindow;
-//	storeSettings(w);
-//	QList<CProfileWindow> windows;
-//	windows.append(w);
-//	p.save(windows);
-//	
-//	delete w;
-//qWarning("profile test ------------ MIDDLE");	
-//
-//	windows = p.load();
-//	qWarning("%i",windows.count());
-//	if (windows.count())
-//		applySettings(windows.first());
-//
-//qWarning("profile test ------------ END");		
-
+void CBiblePresenter::refresh( const int events ){	
 	bool doLookup = false;
 	bool refreshHTMLWidget = false;
 	
@@ -349,3 +331,79 @@ void CBiblePresenter::saveVerseAndText(){
 	if (!file.isNull())
 		CToolClass::savePlainFile( file, text);
 }
+
+/** Inserts the actions used by this window class into the given KAccel object. */
+void CBiblePresenter::insertKeyboardActions(KAccel* a){
+	a->setConfigGroup("Bible window");
+	ASSERT(a);
+	a->insertItem(i18n("Next book"), "Next book", 0);
+	a->insertItem(i18n("Previous book"), "Previous book", 0);	
+	
+	a->insertItem(i18n("Next chapter"), "Next chapter", 0);
+	a->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
+
+	a->insertItem(i18n("Next verse"), "Next verse", 0);
+	a->insertItem(i18n("Previous verse"), "Previous verse", 0);	
+}
+
+/** Initializes the accelerator object. */
+void CBiblePresenter::initAccels(){
+	qWarning("CBiblePresenter::initAccels()");
+	CSwordPresenter::initAccels();
+	m_accel->setConfigGroup("Bible window");
+	
+	m_accel->insertItem(i18n("Next book"), "Next book", 0);
+	m_accel->connectItem("Next book", this, SLOT(nextBook()));	
+	m_accel->insertItem(i18n("Previous book"), "Previous book", 0);	
+	m_accel->connectItem("Previous book", this, SLOT(previousBook()));
+		
+	m_accel->insertItem(i18n("Next chapter"), "Next chapter", 0);
+	m_accel->connectItem("Next chapter", this, SLOT(nextChapter()));		
+	m_accel->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
+	m_accel->connectItem("Previous chapter", this, SLOT(previousChapter()));	
+
+	m_accel->insertItem(i18n("Next verse"), "Next verse", 0);
+	m_accel->connectItem("Next verse", this, SLOT(nextVerse()));		
+	m_accel->insertItem(i18n("Previous verse"), "Previous verse", 0);	
+	m_accel->connectItem("Previous verse", this, SLOT(previousVerse()));	
+	
+	m_accel->readSettings();
+}
+
+/** Jumps to the next entry */
+void CBiblePresenter::nextBook(){
+	m_key->NextBook();
+	m_keyChooser->setKey(m_key);	
+}
+
+/** Jumps to the previous entry. */
+void CBiblePresenter::previousBook(){
+	m_key->PreviousBook();
+	m_keyChooser->setKey(m_key);
+}
+
+
+/** Jumps to the next entry */
+void CBiblePresenter::nextChapter(){
+	m_key->NextChapter();
+	m_keyChooser->setKey(m_key);	
+}
+
+/** Jumps to the previous entry. */
+void CBiblePresenter::previousChapter(){
+	m_key->PreviousChapter();
+	m_keyChooser->setKey(m_key);
+}
+
+/** Jumps to the next entry */
+void CBiblePresenter::nextVerse(){
+	m_key->NextVerse();
+	m_keyChooser->setKey(m_key);	
+}
+
+/** Jumps to the previous entry. */
+void CBiblePresenter::previousVerse(){
+	m_key->PreviousVerse();
+	m_keyChooser->setKey(m_key);
+}
+

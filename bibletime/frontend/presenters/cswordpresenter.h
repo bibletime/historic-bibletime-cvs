@@ -36,6 +36,7 @@ class CKeyChooser;
 class CHTMLWidget;
 class CModuleChooserBar;
 class CSwordKey;
+class KAccel;
 
 /** Base class for all Sword based presneters
 	* The base class for all Sword based presenters.
@@ -112,6 +113,10 @@ public slots: // Public slots
   * Sets the caption of this display window
   */
   virtual void setCaption(const QString&);
+  /**
+  * Inserts the action used by this display window in the given KAccel object.
+  */
+  static void insertKeyboardActions( KAccel* accel );
 
 protected: // Protected methods
   /**
@@ -126,6 +131,14 @@ protected: // Protected methods
   * Is called when the presenter should be closed. To delete the presenter it emits "close(CPresenter*)".
   */
   virtual void closeEvent(QCloseEvent*e);
+  /** Initializes the accelerators used by this windows.
+	* Derived classes have to call this function too if the reimplemented this function.
+	* e.g.
+	*  @code
+	*			//init own additional accelerators
+	* 	 CSwordPresenter::initAccel();
+  */
+  virtual void initAccels();
 
 	KConfig* m_config;
 	KToolBar* m_mainToolBar;
@@ -143,9 +156,24 @@ protected: // Protected methods
  	CImportantClasses* m_important;
 
  	QString m_highlightedVerse;
- 	  	
+
+ 	KAccel* m_accel;
+ 	 	  	
 protected slots: // Protected slots
   void lookupWord(int ID);
+  /**
+  * Initilizes widget before shown and after constructor.
+  */
+  virtual void polish();
+  /**
+  * Is called when this display window looses the focus.
+  */
+  virtual void focusInEvent( QFocusEvent* e );
+  /**
+  * Is called when this display window looses the focus.
+  */
+  virtual void focusOutEvent( QFocusEvent* e );
+
 
 private:
 	int m_features;

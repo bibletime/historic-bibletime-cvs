@@ -41,6 +41,10 @@ public:
 	* Refreshes the things which are described by the event integer.
 	*/
   virtual void refresh( const int events );
+  /**
+  * Inserts the actions used by this window class into the given KAccel object.
+  */
+  static void insertKeyboardActions(KAccel* a);
 
 protected:
   /**
@@ -51,11 +55,21 @@ protected:
   * Initializes the Signal / Slot connections
 	*/
   void initConnections();
+  /**
+  * Initializes the accelerator object.
+  */
+	virtual void initAccels();
 
 protected slots:
   void modulesChanged();
   void lookup( CSwordKey* );
-
+	void nextBook();
+	void previousBook();
+	void nextChapter();		
+	void previousChapter();
+	void nextVerse();
+	void previousVerse();
+		
 private slots:
   void popupAboutToShow();
   void copyVerse();

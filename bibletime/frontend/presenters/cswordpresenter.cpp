@@ -25,22 +25,24 @@
 //Qt includes
 #include <qpopupmenu.h>
 
+//KDE includes
+#include <kaccel.h>
+
 CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: KMainWindow(parent,name,0), m_moduleList(useModules), m_important(importantClasses), m_htmlWidget(0),
 	m_keyChooser(0), m_mainToolBar(0), m_moduleChooserBar(0), m_popup(0),m_savePopup(0),m_copyPopup(0),
 	m_printPopup(0), m_features(0),
-	m_lexiconPopup(new QPopupMenu(this))
+	m_lexiconPopup(new QPopupMenu(this)),
+	m_accel(new KAccel(this))
 {		
-	resize(350,350);
+
 	for (m_important->swordBackend->getModuleList()->first(); m_important->swordBackend->getModuleList()->current(); m_important->swordBackend->getModuleList()->next()) {
 		if (m_important->swordBackend->getModuleList()->current()->getType() == CSwordModuleInfo::Lexicon) {
 			m_lexiconPopup->insertItem( QString::fromLocal8Bit(m_important->swordBackend->getModuleList()->current()->module()->Name()) );
 		}
 	}	
 	connect(m_lexiconPopup, SIGNAL(activated(int)),this, SLOT(lookupWord(int)));
-	
-	setCaption(windowCaption());
-	refreshFeatures();
+	resize(350,350);	
 }
 
 
@@ -173,4 +175,39 @@ void CSwordPresenter::storeSettings( CProfileWindow* settings ){
 void CSwordPresenter::closeEvent(QCloseEvent* e) {
 	e->accept();
 	emit(closePresenter(this));
+}
+
+/** Inserts the action used by this display window in the given KAccel object. */
+void CSwordPresenter::insertKeyboardActions( KAccel* a ){
+	a->setConfigGroup("General window");	
+	ASSERT(a);
+}
+
+void CSwordPresenter::initAccels(){
+	qWarning("CSwordPresenter::initAccels()");
+}
+
+/** Initilizes widget before shown and after constructor. */
+void CSwordPresenter::polish(){
+	qWarning("CSwordPresenter::polish()");
+	KMainWindow::polish();	
+	
+	refreshFeatures();
+	setCaption(windowCaption());
+				
+	initAccels();
+}
+
+/** Is called when this display window looses the focus. */
+void CSwordPresenter::focusInEvent( QFocusEvent* e ){
+	qDebug("CSwordPresenter::focusInEvent( QFocusEvent* e )");
+	KMainWindow::focusInEvent(e);
+	m_accel->setEnabled(true);
+}
+
+/** Is called when this display window looses the focus. */
+void CSwordPresenter::focusOutEvent( QFocusEvent* e ){
+	qDebug("CSwordPresenter::focusOutEvent( QFocusEvent* e )");	
+	KMainWindow::focusOutEvent(e);	
+	m_accel->setEnabled(false);
 }

@@ -33,6 +33,7 @@
 #include <kaction.h>
 #include <klocale.h>
 #include <kfiledialog.h>
+#include <kaccel.h>
 
 CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, importantClasses, parent,name),
@@ -195,11 +196,9 @@ void CCommentaryPresenter::saveText(const QString text){
 void CCommentaryPresenter::deleteText(){
 	m_moduleList.first()->module()->deleteEntry();
 	m_htmlWidget->clear();
-//	lookup(m_key);
 }
 
 void CCommentaryPresenter::editComment(){
-	qDebug("CCommentaryPresenter::editComment()");	
 	m_htmlWidget->setReadOnly( !m_htmlWidget->isReadOnly() );	
 	if (!m_htmlWidget->isReadOnly() && !m_editToolBar) {
 		m_editToolBar = new KToolBar(this);
@@ -207,7 +206,6 @@ void CCommentaryPresenter::editComment(){
 		
 		m_htmlWidget->createEditToolbar( m_editToolBar );
 	}	
-	ASSERT(m_editToolBar);
 	if (!m_htmlWidget->isReadOnly() && !m_editToolBar)
 		return;
 		
@@ -265,7 +263,7 @@ void CCommentaryPresenter::syncToggled(){
 
 /** Synchronizes to the given key if sync is enabled. */
 void CCommentaryPresenter::synchronize( CSwordKey* syncKey ){
-	if (!presenterSync_action->isChecked() && !syncKey)
+	if (!presenterSync_action->isChecked() || !syncKey)
 		return;
 	checkChanges();
 	m_key->key(syncKey->key());
@@ -354,4 +352,91 @@ void CCommentaryPresenter::beforeKeyChange(const QString& oldKey){
 	m_key->key(oldKey);
 	checkChanges();		
 	m_key->key(newKey);	
+}
+
+/** Inserts the actions used by this window class into the given KAccel object. */
+void CCommentaryPresenter::insertKeyboardActions(KAccel* a){	
+	ASSERT(a);
+	a->setConfigGroup("Commentary window");
+		
+	a->insertItem(i18n("Next book"), "Next book", 0);
+	a->insertItem(i18n("Previous book"), "Previous book", 0);	
+	
+	a->insertItem(i18n("Next chapter"), "Next chapter", 0);
+	a->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
+
+	a->insertItem(i18n("Next verse"), "Next verse", 0);
+	a->insertItem(i18n("Previous verse"), "Previous verse", 0);	
+
+	a->insertItem(i18n("Toggle synchronize button"), "Synchronize", 0);
+}
+
+
+/** Initializes the accelerator object. */
+void CCommentaryPresenter::initAccels(){
+	qWarning("CCommentaryPresenter::initAccels()");
+	CSwordPresenter::initAccels();
+	m_accel->setConfigGroup("Commentary window");
+	
+	m_accel->insertItem(i18n("Next book"), "Next book", 0);
+	m_accel->connectItem("Next book", this, SLOT(nextBook()));	
+	m_accel->insertItem(i18n("Previous book"), "Previous book", 0);	
+	m_accel->connectItem("Previous book", this, SLOT(previousBook()));
+		
+	m_accel->insertItem(i18n("Next chapter"), "Next chapter", 0);
+	m_accel->connectItem("Next chapter", this, SLOT(nextChapter()));		
+	m_accel->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
+	m_accel->connectItem("Previous chapter", this, SLOT(previousChapter()));	
+
+	m_accel->insertItem(i18n("Next verse"), "Next verse", 0);
+	m_accel->connectItem("Next verse", this, SLOT(nextVerse()));		
+	m_accel->insertItem(i18n("Previous verse"), "Previous verse", 0);	
+	m_accel->connectItem("Previous verse", this, SLOT(previousVerse()));	
+
+	m_accel->insertItem(i18n("Toggle synchronize button"), "Synchronize", 0);	
+	m_accel->connectItem("Synchronize", this, SLOT(toggleSynchronize()));	
+		
+	m_accel->readSettings();
+}
+
+/** Jumps to the next entry */
+void CCommentaryPresenter::nextBook(){
+	m_key->NextBook();
+	m_keyChooser->setKey(m_key);	
+}
+
+/** Jumps to the previous entry. */
+void CCommentaryPresenter::previousBook(){
+	m_key->PreviousBook();
+	m_keyChooser->setKey(m_key);
+}
+
+
+/** Jumps to the next entry */
+void CCommentaryPresenter::nextChapter(){
+	m_key->NextChapter();
+	m_keyChooser->setKey(m_key);	
+}
+
+/** Jumps to the previous entry. */
+void CCommentaryPresenter::previousChapter(){
+	m_key->PreviousChapter();
+	m_keyChooser->setKey(m_key);
+}
+
+/** Jumps to the next entry */
+void CCommentaryPresenter::nextVerse(){
+	m_key->NextVerse();
+	m_keyChooser->setKey(m_key);	
+}
+
+/** Jumps to the previous entry. */
+void CCommentaryPresenter::previousVerse(){
+	m_key->PreviousVerse();
+	m_keyChooser->setKey(m_key);
+}
+
+/** Toggles the synchronize button. */
+void CCommentaryPresenter::toggleSynchronize(){
+	presenterSync_action->setChecked( !presenterSync_action->isChecked() );
 }

@@ -32,6 +32,7 @@
 #include <kpopupmenu.h>
 #include <kfiledialog.h>
 #include <kapp.h>
+#include <kaccel.h>
 
 CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, importantClasses, parent,name),
@@ -229,4 +230,36 @@ void CLexiconPresenter::printEntryAndText(){
 	key->key(m_key->key());
 
 	printKey(key, key, m_moduleList.first());
+}
+
+/** Inserts the used keyboard actions into the given KAccel object. */
+void CLexiconPresenter::insertKeyboardActions(KAccel* a){
+	a->setConfigGroup("Lexicon window");	
+	a->insertItem(i18n("Next entry"), "Next entry", 0);
+	a->insertItem(i18n("Previous entry"), "Previous entry", 0);	
+}
+
+/** Initializes keyboard accelerators. */
+void CLexiconPresenter::initAccels(){
+	CSwordPresenter::initAccels();
+	m_accel->setConfigGroup("Lexicon window");	
+	m_accel->insertItem(i18n("Next entry"), "Next entry", 0);
+	m_accel->connectItem("Next entry", this, SLOT(nextEntry()));
+		
+	m_accel->insertItem(i18n("Previous entry"), "Previous entry", 0);		
+	m_accel->connectItem("Previous entry", this, SLOT(previousEntry()));
+		
+	m_accel->readSettings();
+}
+
+/** Jumps to the previous entry. */
+void CLexiconPresenter::previousEntry(){
+	m_key->PreviousEntry();
+	m_keyChooser->setKey(m_key);
+}
+
+/** Jumps to the next entry */
+void CLexiconPresenter::nextEntry(){
+	m_key->NextEntry();
+	m_keyChooser->setKey(m_key);	
 }

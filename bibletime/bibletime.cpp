@@ -81,50 +81,48 @@ void BibleTime::saveSettings(){
 	saveMainWindowSettings(m_config);
 	if (m_mdi)
 		m_mdi->saveSettings();	
-
 	if (m_keyAccel)
-		m_keyAccel->writeSettings(m_config);	
-	{
-		KConfigGroupSaver groupSaver(m_config,"General");
-		m_config->writeEntry("showFootnotes", m_viewFootnotes_action->isChecked());
-		m_config->writeEntry("showStrongs", m_viewStrongs_action->isChecked());
-		m_config->writeEntry("showMorphTags", m_viewMorphTags_action->isChecked());
-		m_config->writeEntry("showHeadings", m_viewHeadings_action->isChecked());
-						
-		m_config->writeEntry("show toolbar", m_viewToolbar_action->isChecked());
-		m_config->writeEntry("show main index", m_viewGroupManager_action->isChecked());
+		m_keyAccel->writeSettings();
 
-		if (m_viewGroupManager_action->isChecked())	//only save changes when the groupmanager is visible
-			m_config->writeEntry("splitterSizes", m_splitter->sizes());
-	}
-	
-	{
-		KConfigGroupSaver groupSaver(m_config, "MDI");	
-		if (m_windowAutoTile_action->isChecked())	{
-			m_config->writeEntry("autoTile", true);
-			m_config->writeEntry("autoCascade", false);	
-		}
-		else if ( m_windowAutoTile_action->isChecked() ) {
- 			m_config->writeEntry("autoTile", false);
-			m_config->writeEntry("autoCascade", true);	
-		}
-		else {
- 			m_config->writeEntry("autoTile", false);
-			m_config->writeEntry("autoCascade", false);	
-		}
-	}
+	KConfigGroupSaver groupSaver(m_config,"General");	
+ 	m_config->writeEntry("showFootnotes", m_viewFootnotes_action->isChecked());
+ 	m_config->writeEntry("showStrongs", m_viewStrongs_action->isChecked());
+ 	m_config->writeEntry("showMorphTags", m_viewMorphTags_action->isChecked());
+ 	m_config->writeEntry("showHeadings", m_viewHeadings_action->isChecked());
+						
+ 	m_config->writeEntry("show toolbar", m_viewToolbar_action->isChecked());
+ 	m_config->writeEntry("show main index", m_viewGroupManager_action->isChecked());
+
+ 	if (m_viewGroupManager_action->isChecked())	//only save changes when the groupmanager is visible
+ 		m_config->writeEntry("splitterSizes", m_splitter->sizes());
+
+	m_config->setGroup("MDI"); 		
+ 	if (m_windowAutoTile_action->isChecked())	{
+ 		m_config->writeEntry("autoTile", true);
+ 		m_config->writeEntry("autoCascade", false);	
+ 	}
+ 	else if ( m_windowAutoTile_action->isChecked() ) {
+			m_config->writeEntry("autoTile", false);
+ 		m_config->writeEntry("autoCascade", true);	
+ 	}
+ 	else {
+			m_config->writeEntry("autoTile", false);
+ 		m_config->writeEntry("autoCascade", false);	
+ 	}
 	
 	//backend specific things
 	if (m_important->swordBackend->m_entryDisplay) {
-		KConfigGroupSaver groupSaver(m_config, "Colors");	
-		m_config->writeEntry("Highlighted Verse",
-			QColor(m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor));
+		m_config->setGroup("Colors");
+		m_config->writeEntry("Highlighted Verse", QColor(m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor));
 	}
 	
-	CProfile* p = m_profileMgr.profile("_startup_");
-	if (!p)
-		p = m_profileMgr.create("_startup_");
-	saveProfile(p);
+	m_config->setGroup("Startup");
+	if (m_config->readBoolEntry("restore workspace", false)) {
+		CProfile* p = m_profileMgr.profile("_startup_");
+		if (!p)
+			p = m_profileMgr.create("_startup_");
+		saveProfile(p);
+	}
 }
 
 /** Reads the settings from the configfile and sets the right properties. */
@@ -134,90 +132,72 @@ void BibleTime::readSettings(){
 	applyMainWindowSettings(m_config);
 	
 	m_keyAccel->readSettings(m_config);
-	ASSERT(m_viewToolbar_action);	
-	{
-		KConfigGroupSaver groupsaver(m_config, "General");
-		m_viewFootnotes_action->setChecked(m_config->readBoolEntry("showFootnotes",true));
-		slotToggleFootnotes();
+	KConfigGroupSaver groupsaver(m_config, "General");
+ 	m_viewFootnotes_action->setChecked(m_config->readBoolEntry("showFootnotes",true));
+ 	slotToggleFootnotes();
 	
-		m_viewStrongs_action->setChecked(m_config->readBoolEntry("showStrongs",false));
-		slotToggleStrongs();
+ 	m_viewStrongs_action->setChecked(m_config->readBoolEntry("showStrongs",false));
+ 	slotToggleStrongs();
 
-		m_viewHeadings_action->setChecked(m_config->readBoolEntry("showHeadings", true));
-		slotToggleHeadings();
+ 	m_viewHeadings_action->setChecked(m_config->readBoolEntry("showHeadings", true));
+ 	slotToggleHeadings();
 
-		m_viewMorphTags_action->setChecked(m_config->readBoolEntry("showMorphTags", false));
-		slotToggleMorphTags();
+ 	m_viewMorphTags_action->setChecked(m_config->readBoolEntry("showMorphTags", false));
+ 	slotToggleMorphTags();
 				
-		m_viewToolbar_action->setChecked(m_config->readBoolEntry("show toolbar", true));
-		slotToggleToolbar();
+ 	m_viewToolbar_action->setChecked(m_config->readBoolEntry("show toolbar", true));
+ 	slotToggleToolbar();
 		
-		m_viewGroupManager_action->setChecked( m_config->readBoolEntry("show main index", true) );
-		slotToggleGroupManager();
+ 	m_viewGroupManager_action->setChecked( m_config->readBoolEntry("show main index", true) );
+ 	slotToggleGroupManager();
 		
-		m_splitter->setSizes( m_config->readIntListEntry("splitterSizes") );		
-	}
-	
-	{
-		KConfigGroupSaver groupSaver(m_config, "MDI");
-		if (m_config->readBoolEntry("autoTile", true)) {
-			m_windowAutoTile_action->setChecked( true );
-			m_windowAutoCascade_action->setChecked( false );
-			m_mdi->setGUIOption( CMDIArea::autoTile );
-		}
-		else if ( m_config->readBoolEntry("autoCascade", false) ) {
-			m_windowAutoCascade_action->setChecked(true);
-			m_windowAutoTile_action->setChecked(false);
-			m_mdi->setGUIOption( CMDIArea::autoCascade );
-		}
-		else {
-			m_mdi->setGUIOption( CMDIArea::Nothing );		
-			m_windowAutoTile_action->setChecked(false);
-			m_windowAutoCascade_action->setChecked(false);		
-		}
-	}
+ 	m_splitter->setSizes( m_config->readIntListEntry("splitterSizes") );		
+
+ 	m_config->setGroup("MDI");
+ 	if (m_config->readBoolEntry("autoTile", true)) {
+ 		m_windowAutoTile_action->setChecked( true );
+ 		m_windowAutoCascade_action->setChecked( false );
+ 		m_mdi->setGUIOption( CMDIArea::autoTile );
+ 	}
+ 	else if ( m_config->readBoolEntry("autoCascade", false) ) {
+ 		m_windowAutoCascade_action->setChecked(true);
+ 		m_windowAutoTile_action->setChecked(false);
+ 		m_mdi->setGUIOption( CMDIArea::autoCascade );
+ 	}
+ 	else {
+ 		m_mdi->setGUIOption( CMDIArea::Nothing );		
+ 		m_windowAutoTile_action->setChecked(false);
+ 		m_windowAutoCascade_action->setChecked(false);		
+ 	}
 	//backend specific things
 	if (m_important->swordBackend->m_entryDisplay) {
-		KConfigGroupSaver groupSaver(m_config, "Colors");
+		m_config->setGroup("Colors");
 		QColor tempColor;
-
 		tempColor = m_config->readColorEntry("Highlighted Verse", &red);
 		m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor = tempColor.name();
-//			tempColor = tempColor = m_config->readColorEntry("Versenumber/URL");
-//			m_important->swordBackend->m_entryDisplay->m_linkColor = tempColor.name();
-//			tempColor = tempColor = m_config->readColorEntry("Normal Text");
-//			m_important->swordBackend->m_entryDisplay->m_textColor = tempColor.name();
-			
+		
 		m_config->setGroup("Fonts");
 		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
 		m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );
 	}
+	
 	if (m_important->swordBackend->m_chapterDisplay) {
-		KConfigGroupSaver groupSaver(m_config, "Colors");
+		m_config->setGroup("Colors");		
 		QColor tempColor;
-
 		tempColor = m_config->readColorEntry("Highlighted Verse", &red);
 		m_important->swordBackend->m_chapterDisplay->m_highlightedVerseColor = tempColor.name();
-//			tempColor = tempColor = m_config->readColorEntry("Versenumber/URL");
-//			m_important->swordBackend->m_chapterDisplay->m_linkColor = tempColor.name();
-//			tempColor = tempColor = m_config->readColorEntry("Normal Text");
-//			m_important->swordBackend->m_chapterDisplay->m_textColor = tempColor.name();
-			
+		
 		m_config->setGroup("Fonts");
 		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
 		m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ));
 	}	
 
-	{ //load startup profile if this is desired
-		KConfigGroupSaver groupSaver(m_config, "Startup");	
-  	if (m_config->readBoolEntry("restore workspace", false)) {
-  		CProfile* p = m_profileMgr.profile("_startup_");
-  		if (p) {
-  			loadProfile(p);
-  		}
-  	}
-	}	
-		
+	m_config->setGroup("Startup");
+ 	if (m_config->readBoolEntry("restore workspace", false)) {
+ 		CProfile* p = m_profileMgr.profile("_startup_");
+ 		if (p)
+ 			loadProfile(p);
+ 	}
 }
 
 /** Creates a new presenter in the MDI area according to the type of the module. */

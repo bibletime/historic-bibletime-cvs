@@ -32,17 +32,16 @@ CProfileMgr::CProfileMgr(){
 	m_profilePath = stdDirs.saveLocation("data", "bibletime/profiles/");	
 	
 	//load available profiles
-	qWarning(m_profilePath.latin1());	
+	qDebug("profile path is %s", m_profilePath.latin1());	
 	QDir d( m_profilePath );
 	QStringList files = d.entryList("*.xml");
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-		CProfile* p = new CProfile(m_profilePath + *it);
-		m_profiles.append(p);
+		m_profiles.append(new CProfile(m_profilePath + *it));
 	}
 }
 
 CProfileMgr::~CProfileMgr(){
-	m_profiles.clear();
+	m_profiles.clear();//autoDelete is enabled, so all profiles are deleted
 }
 
 /** Returns a list of available profiles. */

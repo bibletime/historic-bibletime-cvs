@@ -54,7 +54,7 @@ CProfile::~CProfile(){
 
 /** Loads the profile from the file given in the constructor. */
 QList<CProfileWindow> CProfile::load(){
-	qWarning("CProfile::load");
+	qDebug("CProfile::load");
 		
 	QFile file(m_filename);	
 	if (!file.exists())
@@ -153,7 +153,7 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 	/** Save the settings using a XML file
 	*	Save the CProfileWindow objects using a XML file which name is in m_filename
 	*/
-	qWarning("CProfile::save(QList)");
+	qDebug("CProfile::save(QList)");
   QDomDocument doc("DOC");
   doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
 
@@ -215,6 +215,7 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 
 /** Saves the profile to the file given in the constructor. */
 const bool CProfile::save(){
+	qDebug("CProfile::save()");
 	return save(m_profileWindows);
 }
 
