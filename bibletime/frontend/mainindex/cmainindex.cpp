@@ -35,7 +35,7 @@
 
 //KDE includes
 #include <klocale.h>
-//#include <kaction.h>
+#include <kstandarddirs.h>
 #include <kpopupmenu.h>
 #include <kmessagebox.h>
 #include <kglobalsettings.h>
@@ -77,6 +77,25 @@ CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
 }
 
 CMainIndex::~CMainIndex(){
+  qWarning("destructor of CMainIndex");
+
+  //find the bookmark folder
+  CItemBase* i = 0;
+  QListViewItemIterator it( this );
+  while ( it.current() != 0 ) {
+    i = dynamic_cast<CItemBase*>( it.current() );
+    if (i && i->type() == CItemBase::BookmarkFolder) { //found the bookmark folder
+      KStandardDirs stdDirs;
+    	const QString path = stdDirs.saveLocation("data", "bibletime/");	
+      if (!path.isEmpty()) {
+        //save the bookmarks to the right file
+        if (CBookmarkFolder* f = dynamic_cast<CBookmarkFolder*>(i))
+          f->saveBookmarks( path + "bookmarks.xml" );
+      }
+      break;
+    }
+    ++it;
+  }
 }
 
 /** Reimplementation. Adds the given group to the tree. */
@@ -88,7 +107,7 @@ void CMainIndex::addGroup(const CItemBase::Type type, const QString language){
     i = new CTreeFolder(this, type, language);
   i->init();
 
-  if (!i->childCount())
+  if (!i->childCount() && type != CItemBase::BookmarkFolder)
     delete i;
 }
 
@@ -159,8 +178,8 @@ void CMainIndex::initConnections(){
     SLOT(slotExecuted(QListViewItem*)));
   connect(this, SIGNAL(dropped(QDropEvent*, QListViewItem*)),
     SLOT(dropped(QDropEvent*, QListViewItem*)));
-  connect(this, SIGNAL(moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)),
-    SLOT(moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)));
+//  connect(this, SIGNAL(moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)),
+//    SLOT(moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)));
   connect(this, SIGNAL(contextMenu(KListView*, QListViewItem*, const QPoint&)),
     SLOT(contextMenu(KListView*, QListViewItem*, const QPoint&)));
   connect(&m_autoOpenTimer, SIGNAL(timeout()),
@@ -185,7 +204,6 @@ void CMainIndex::slotExecuted( QListViewItem* i ){
   }
   else if (CBookmarkItem* b = dynamic_cast<CBookmarkItem*>(i) ) { //clicked on a bookmark
     CSwordModuleInfo* mod = b->module();
-    const QString& key = b->key();
     ListCSwordModuleInfo modules;
     modules.append(mod);
 
@@ -514,6 +532,7 @@ const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
     case CItemBase::AboutModule:
       return false;
   }
+  return false;
 }
 
 /** Is called when items should be moved. */

@@ -168,7 +168,9 @@ public slots:
 	* Sets the caption of the mainwindow
 	*/
 	virtual void setCaption(const QString&);
-  /** Processes the commandline options given to BibleTime. */
+  /**
+  * Processes the commandline options given to BibleTime.
+  */
   void processCommandline();
 
 protected: // Protected methods

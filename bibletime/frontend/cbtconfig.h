@@ -62,6 +62,7 @@ public:
 	};
 	enum bools {
 		firstSearchDialog,
+    readOldBookmarks,
 
 		toolbar,
 		mainIndex,

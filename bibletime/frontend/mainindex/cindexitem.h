@@ -23,6 +23,9 @@
 
 #include "backend/cswordmoduleinfo.h"
 
+//Qt includes
+#include <qdom.h>
+
 //KDE includes
 #include <klistview.h>
 
@@ -88,6 +91,15 @@ public:
   virtual const bool enableAction( const MenuAction action );
   virtual const bool isMovable();
 
+  /**
+  * Returns the XML code which represents the content of this folder.
+  */
+  virtual QDomElement saveToXML( QDomDocument& document ) { return QDomElement(); };
+  /**
+  * Loads the content of this folder from the XML code passed as argument to this function.
+  */
+  virtual void loadFromXML( QDomElement& element ) {};
+
 protected:
   friend class CMainIndex;
   virtual void dropped( QDropEvent* e );
@@ -127,6 +139,7 @@ private:
 class CBookmarkItem : public CItemBase {
 public:
 	CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, const QString& key, const QString& description);
+	CBookmarkItem(CFolderBase* parentItem, QDomElement& xml);
 	~CBookmarkItem();
   CSwordModuleInfo* const module();
   const QString& key();
@@ -140,15 +153,29 @@ public:
   * Reimplementation to handle  the menu entries of the main index.
   */
   virtual const bool enableAction(const MenuAction action);
-  /** Prints this bookmark. */
+  /**
+  * Prints this bookmark.
+  */
   void print();
-  /** Changes this bookmark. */
+  /**
+  * Changes this bookmark.
+  */
   void rename();
+  /**
+  * Reimplementation of CItemBase::saveToXML.
+  */
+  virtual QDomElement saveToXML( QDomDocument& document );
+  /**
+  * Loads the content of this folder from the XML code passed as argument to this function.
+  */
+  virtual void loadFromXML( QDomElement& element );
 
 private:
   QString m_key;
   QString m_description;
   CSwordModuleInfo* m_module;
+
+  QDomElement m_startupXML;
 };
 
 
@@ -199,6 +226,7 @@ public:
   class SubFolder : public CFolderBase {
   public:
     SubFolder(CFolderBase* parentItem, const QString& caption);
+    SubFolder(CFolderBase* parentItem, QDomElement& xml);
     virtual ~SubFolder();
     virtual void init();
     /**
@@ -214,6 +242,17 @@ public:
     * Reimplementation from  CItemBase.
     */
     const bool enableAction(const MenuAction action);
+    /**
+    * Returns the XML code which represents the content of this folder.
+    */
+    virtual QDomElement saveToXML( QDomDocument& document );
+    /**
+    * Loads the content of this folder from the XML code passed as argument to this function.
+    */
+    virtual void loadFromXML( QDomElement& element );
+
+  private:
+    QDomElement m_startupXML;
   };
 
 	CBookmarkFolder(CMainIndex* mainIndex, const Type type = BookmarkFolder);
@@ -225,6 +264,15 @@ public:
   bool acceptDrop(const QMimeSource * src) const;
   void dropped(QDropEvent * e);
 
+  /**
+  * Loads bookmarks from a file.
+  */
+  const bool loadBookmarks( const QString& );
+  /**
+  * Saves the bookmarks in a file.
+  */
+  const bool saveBookmarks( const QString& );
+
 protected: // Protected methods
   virtual void initTree();
 };
@@ -234,6 +282,14 @@ public:
 	COldBookmarkFolder(CTreeFolder* item);
 	virtual ~COldBookmarkFolder();
   virtual void initTree();
+  /**
+  * Returns the XML code which represents the content of this folder.
+  */
+  virtual QDomElement saveToXML( QDomDocument& document );
+  /**
+  * Loads the content of this folder from the XML code passed as argument to this function.
+  */
+  virtual void loadFromXML( QDomElement& element );
 
 private:
   CFolderBase* findParent( const int ID );

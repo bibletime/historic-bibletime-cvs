@@ -51,9 +51,7 @@ of the &kde;2 versions of &bibletime;.
 <para>
 From a terminal you can use &bibletime; to open a random verse in the default bible:</para>
 <para><command>
-<![CDATA[
-bibletime --open-default-bible "<random>"
- ]]>
+bibletime --open-default-bible "&lt;random&gt;"
 </command></para>
 
 <para>

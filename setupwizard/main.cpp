@@ -162,7 +162,7 @@ int main(int argc, char* argv[]) {
 		setSignalHandler(signalHandler);		
 		
 		const int ret = app.exec();
-		delete wizard;		
+//		delete wizard;		
     return ret;
 	}
 }

@@ -18,19 +18,29 @@
 //BibleTime includes
 #include "cindexitem.h"
 #include "cmainindex.h"
+
 #include "backend/creferencemanager.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordversekey.h"
+
 #include "frontend/ctoolclass.h"
 #include "frontend/ctooltipmanager.h"
+#include "frontend/cbtconfig.h"
 #include "resource.h"
 
 //Qt includes
 #include <qdragobject.h>
 #include <qstringlist.h>
+#include <qfile.h>
+#include <qstring.h>
+#include <qtextstream.h>
 
 //KDE includes
 #include <kconfig.h>
 #include <klocale.h>
+#include <kstandarddirs.h>
 
+#define CURRENT_SYNTAX_VERSION 1
 
 CItemBase::CItemBase(CMainIndex* mainIndex, const Type type) : KListViewItem(mainIndex), m_type(type) {
   m_type = type;
@@ -270,6 +280,18 @@ const bool CModuleItem::enableAction( const MenuAction action ){
 /* ----------------------------------------------*/
 
 CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, const QString& key, const QString& description) : CItemBase(parentItem), m_key(key), m_description(description), m_module(module) {
+  if (module && (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary)  ) {
+    CSwordVerseKey vk(0);
+    vk = key;
+    m_key = vk.key(); //now we're sure it's the key in the selected bookname language!
+  }
+  else
+   m_key = key;
+  m_startupXML = QDomElement();
+}
+
+CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, QDomElement& xml ) : CItemBase(parentItem), m_key(QString::null), m_description(QString::null), m_module(0) {
+  m_startupXML = xml;
 }
 
 CBookmarkItem::~CBookmarkItem() {
@@ -285,6 +307,9 @@ void CBookmarkItem::update(){
 }
 
 void CBookmarkItem::init(){
+  if (!m_startupXML.isNull())
+    loadFromXML(m_startupXML);
+
 //  CItemBase::init();
   update();
   setDropEnabled(false);
@@ -293,6 +318,9 @@ void CBookmarkItem::init(){
 
 /** Reimplementation. */
 const QString CBookmarkItem::toolTip(){
+  if (!module())
+    return QString::null;
+
   return CTooltipManager::textForReference(module()->name(), key(), description());
 }
 
@@ -331,6 +359,52 @@ void CBookmarkItem::print(){
 /** Changes this bookmark. */
 void CBookmarkItem::rename(){
 
+}
+
+/** Reimplementation of CItemBase::saveToXML. */
+QDomElement CBookmarkItem::saveToXML( QDomDocument& doc ){
+  qWarning("CBookmarkItem::saveToXML( QDomDocument& doc )");
+  QDomElement elem = doc.createElement("Bookmark");
+
+  QString keyName = key();
+  if (module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary) {
+    CSwordVerseKey vk(0);
+    vk = keyName;
+    vk.setLocale("en");
+    keyName = vk.key(); //now we're sure the key is in english! All bookname languages support english!
+  }
+  elem.setAttribute("key", keyName);
+
+  elem.setAttribute("description", description());
+  elem.setAttribute("modulename", module()->name());
+  elem.setAttribute("moduledescription", module()->config(CSwordModuleInfo::Description));
+
+  return elem;
+}
+
+void CBookmarkItem::loadFromXML( QDomElement& element ) {
+  //find the right module
+  if (element.hasAttribute("modulename") && element.hasAttribute("moduledescription")) {
+    m_module = backend()->findModuleByName(element.attribute("modulename"));
+    if (m_module->config(CSwordModuleInfo::Description) != element.attribute("moduledescription")) {
+      qWarning("Can't find module with name %s and description %s",element.attribute("modulename").latin1(), element.attribute("moduledescription").latin1() );
+    }
+  }
+
+  if (element.hasAttribute("key")) {
+    QString key = element.attribute("key");
+
+    if (module() && (module()->type() == CSwordModuleInfo::Bible || module()->type() == CSwordModuleInfo::Commentary)  ) {
+      CSwordVerseKey vk(0);
+      vk = key;
+      m_key = vk.key(); //now we're sure it's the key in the selected bookname language!
+    }
+    else
+     m_key = key;
+  }
+
+  if (element.hasAttribute("description"))
+    m_description = element.attribute("description");
 }
 
 /****************************************/
@@ -546,11 +620,16 @@ COldBookmarkFolder::COldBookmarkFolder(CTreeFolder* folder) : CBookmarkFolder(fo
 }
 
 COldBookmarkFolder::~COldBookmarkFolder() {
+  qWarning("descructor of COldBookmarkFolder");
 }
 
 /** Reimplementation to handle special bookmark tree. */
 void COldBookmarkFolder::initTree(){
-//  qWarning("Init bookmark tree!");
+  //import the bookmarks of the previous BibleTime versions
+  if (CBTConfig::get( CBTConfig::readOldBookmarks )) { //we already imported them, they'll be restored by our normal readFromXML
+    return;
+  }
+
   KConfig* configFile = new KConfig("bt-groupmanager", false, false );
 	KConfigGroupSaver groupSaver(configFile, "Groupmanager");	
   readGroups(configFile);
@@ -696,11 +775,41 @@ const int COldBookmarkFolder::parentId(CItemBase *item) {
 	return ret;
 }
 
+QDomElement COldBookmarkFolder::saveToXML( QDomDocument& doc ) {
+  QDomElement elem = doc.createElement("Folder");
+  elem.setAttribute("caption", text(0));
+
+  //append the XML nodes of all child items
+  CItemBase* i = dynamic_cast<CItemBase*>(firstChild());
+  while( i ) {
+    if (i->parent() == this) {
+      QDomElement newElem = i->saveToXML( doc );
+      if (!newElem.isNull()) {
+        elem.appendChild( newElem ); //append to this folder
+      }
+    }
+    i = dynamic_cast<CItemBase*>( i->nextSibling() );
+  }
+
+  CBTConfig::set( CBTConfig::readOldBookmarks, true );
+
+  return elem;
+}
+
+void COldBookmarkFolder::loadFromXML( QDomElement& element ) {
+
+}
+
 /* --------------------------------------------------*/
 /* ---------- new class: CBookmarkFolder::SubFolder--*/
 /* --------------------------------------------------*/
 
 CBookmarkFolder::SubFolder::SubFolder(CFolderBase* parentItem, const QString& caption) : CFolderBase(parentItem, caption) {
+  m_startupXML = QDomElement();
+}
+
+CBookmarkFolder::SubFolder::SubFolder(CFolderBase* parentItem, QDomElement& xml ) : CFolderBase(parentItem, QString::null) {
+  m_startupXML = xml;
 }
 
 CBookmarkFolder::SubFolder::~SubFolder() {
@@ -709,6 +818,9 @@ CBookmarkFolder::SubFolder::~SubFolder() {
 
 void CBookmarkFolder::SubFolder::init() {
   CFolderBase::init();
+  if (!m_startupXML.isNull())
+    loadFromXML(m_startupXML);
+
   setDropEnabled(true);
   setRenameEnabled(0,true);
 }
@@ -750,24 +862,83 @@ const bool CBookmarkFolder::SubFolder::enableAction(const MenuAction action){
   return false;
 }
 
+/** Returns the XML code which represents the content of this folder. */
+QDomElement CBookmarkFolder::SubFolder::saveToXML( QDomDocument& doc ) {
+  /**
+  * Save all subitems (bookmarks and folders) to the XML file.
+  * We get the XML code for the items by calling their own saveToXML implementations.
+  */
+  qWarning("CBookmarkFolder::SubFolder::saveToXML( QDomDocument& doc )");
+
+  QDomElement elem = doc.createElement("Folder");
+  elem.setAttribute("caption", text(0));
+
+  //append the XML nodes of all child items
+  CItemBase* i = dynamic_cast<CItemBase*>(firstChild());
+  while( i ) {
+    if (i->parent() == this) {
+      QDomElement newElem = i->saveToXML( doc );
+      if (!newElem.isNull()) {
+        elem.appendChild( newElem ); //append to this folder
+      }
+    }
+    i = dynamic_cast<CItemBase*>( i->nextSibling() );
+  }
+  qWarning("finished");
+  return elem;
+}
+
+/** Loads the content of this folder from the XML code passed as argument to this function. */
+void CBookmarkFolder::SubFolder::loadFromXML( QDomElement& elem ) {
+  //get the caption and restore all child items!
+  if (elem.hasAttribute("caption"))
+    setText(0, elem.attribute("caption"));
+
+  //restore all child items
+  QDomElement child = elem.firstChild().toElement();
+  CItemBase* oldItem = 0;
+  while ( !child.isNull() && child.parentNode() == elem ) {
+    CItemBase* i = 0;
+    if (child.tagName() == "Folder") {
+      i = new CBookmarkFolder::SubFolder(this, child);
+    }
+    else if (child.tagName() == "Bookmark") {
+      i = new CBookmarkItem(this, child);
+    }
+    i->init();
+    if (oldItem)
+      i->moveAfter(oldItem);
+    oldItem = i;
+
+    child = child.nextSibling().toElement();
+  }
+}
+
+
 /* --------------------------------------------------*/
 /* ---------- new class: CBookmarkFolder ------------*/
 /* --------------------------------------------------*/
 
 CBookmarkFolder::CBookmarkFolder(CMainIndex* mainIndex, const Type type) : CTreeFolder(mainIndex, type, "*") {
-
 }
 
 CBookmarkFolder::CBookmarkFolder(CFolderBase* parentItem, const Type type) : CTreeFolder(parentItem, type, "*") {
-
 }
 
 CBookmarkFolder::~CBookmarkFolder() {
+	qWarning("descructor of CBookmarkFolder");
 
 }
 
 void CBookmarkFolder::initTree(){
   addGroup(OldBookmarkFolder, "*");
+
+
+  KStandardDirs stdDirs;
+ 	const QString path = stdDirs.saveLocation("data", "bibletime/");	
+  if (!path.isEmpty()) {
+    loadBookmarks(path + "bookmarks.xml");
+  }
 }
 
 /** Reimplementation. */
@@ -811,5 +982,81 @@ void CBookmarkFolder::dropped(QDropEvent * e) {
     i->init();
   }
   else if (acceptDrop(e) && QTextDrag::decode(e,str,submime=BOOKMARK) ) { //a drag object, we can handle
+  }
+}
+
+/** Saves the bookmarks in a file. */
+const bool CBookmarkFolder::saveBookmarks( const QString& filename ){
+  qWarning("CBookmarkFolder::saveBookmarks( const QString& filename )");
+
+	bool ret = false;
+  QDomDocument doc("DOC");
+  doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
+
+  QDomElement content = doc.createElement("SwordBookmarks");
+  content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
+  doc.appendChild(content);
+
+  //append the XML nodes of all child items
+  CItemBase* i = dynamic_cast<CItemBase*>( firstChild() );
+  while( i ) {
+    if (i->parent() == this) { //only one level under this
+      QDomElement newElem = i->saveToXML( doc );
+      if (!newElem.isNull()) {
+        content.appendChild( newElem ); //append to this folder
+      }
+    }
+    i = dynamic_cast<CItemBase*>( i->nextSibling() );
+  }
+	
+  QFile file(filename);
+	if ( file.open(IO_WriteOnly) ) {
+		ret = true;
+		QTextStream t( &file );
+		t.setEncoding(QTextStream::UnicodeUTF8);
+		t << doc.toString();
+		file.close();
+	}
+	else
+		ret = false;
+	return ret;
+}
+
+/** Loads bookmarks from a file. */
+const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
+	QFile file(filename);	
+	if (!file.exists())
+		return false;
+	
+	QDomDocument doc;	
+	if (file.open(IO_ReadOnly)) {		
+		QTextStream t( &file );
+		t.setEncoding(QTextStream::UnicodeUTF8);
+		doc.setContent(t.read());
+		file.close();	
+	}
+
+  QDomElement document = doc.documentElement();
+  if( document.tagName() != "SwordBookmarks" ) {
+		return false;
+	}
+
+  CItemBase* oldItem = 0;
+  //restore all child items
+  QDomElement child = document.firstChild().toElement();
+  while ( !child.isNull() && child.parentNode() == document) {
+    CItemBase* i = 0;
+    if (child.tagName() == "Folder") {
+      i = new CBookmarkFolder::SubFolder(this, child);
+    }
+    else if (child.tagName() == "Bookmark") {
+      i = new CBookmarkItem(this, child);
+    }
+    i->init();
+    if (oldItem)
+      i->moveAfter(oldItem);
+    oldItem = i;
+
+    child = child.nextSibling().toElement();
   }
 }

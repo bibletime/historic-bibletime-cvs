@@ -149,6 +149,7 @@ const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
 const QString CBTConfig::getKey( const CBTConfig::bools ID){
 	switch ( ID ){
 		case firstSearchDialog:		return "firstSearchDialog";
+		case readOldBookmarks:		return "readOldBookmarks";
 
 		case toolbar:							return "toolbar";
 		case mainIndex:						return "mainIndex";
@@ -182,6 +183,7 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 	switch ( ID ){
 		case firstSearchDialog:		return true;
+    case readOldBookmarks:    return false;
 
 		case toolbar:							return true;
 		case mainIndex:						return true;

@@ -28,7 +28,7 @@
 #include <kstandarddirs.h>
 #include <klocale.h>
 
-#define CURRENT_SYNTAX_VERSION 1
+#define CURRENT_SYNTAX_VERSION 2
 
 CProfile::CProfile( const QString& file, const QString& name ):
 	m_name(name.isEmpty() ? i18n("unknown") : name),
@@ -71,7 +71,7 @@ QPtrList<CProfileWindow> CProfile::load(){
 	}
 	
   QDomElement document = doc.documentElement();
-  if(document.tagName() != "BibleTime") {
+  if( document.tagName() != "BibleTimeProfile" && document.tagName() != "BibleTime" ) { //BibleTime was used in syntax version 1.0
 		qWarning("CProfile::load: Missing BibleTime doc");
 		return m_profileWindows;
 	}
@@ -200,7 +200,7 @@ const bool CProfile::save(QPtrList<CProfileWindow> windows){
   QDomDocument doc("DOC");
   doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
 
-  QDomElement content = doc.createElement("BibleTime");
+  QDomElement content = doc.createElement("BibleTimeProfile");
   content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
   content.setAttribute("name", m_name);
   doc.appendChild(content);
