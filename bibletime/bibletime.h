@@ -17,20 +17,21 @@
 #ifndef BIBLETIME_H
 #define BIBLETIME_H
 
-#include "frontend/cprofilemgr.h"
-
 //KDE includes
 #include <kapp.h>
 #include <ktmainwindow.h>
 
-//own includes
+//local includes
 #include "structdef.h"
-//#include <pthread.h>
+
+//Frontend includes
+#include "frontend/cprofilemgr.h"
 
 //forward class declarations
 class CSwordModuleInfo;
 typedef QList<CSwordModuleInfo> ListCSwordModuleInfo;
 
+//BT classes
 class CGroupManager;
 class CMDIArea;
 class CProfile;
@@ -106,124 +107,124 @@ class BibleTime : public KMainWindow {
 	friend class CMDIArea;
 	Q_OBJECT
 public:
-  /**
-  * construtor of BibleTime
-  */
-  BibleTime();
-  /**
-  * Destructor of BibleTime
-  */
-  virtual ~BibleTime();
-  virtual void show();
-  /**
-  * Reads the settings from the configfile and sets the right properties.
-  */
-  void readSettings();
-  /**
-  * Saves the settings of this class
-  */
-  void saveSettings();
-  /**
-  * Restores the workspace if the flaf for this is set in the config.
-  */
-  void restoreWorkspace();
-  /**
-  * Apply the settings given by the profile p
-  */
-  void applyProfileSettings( CProfile* p );
-  /**
-  * Stores the settings of the mainwindow in the profile p
-  */
-  void storeProfileSettings( CProfile* p );
+	/**
+	* construtor of BibleTime
+	*/
+	BibleTime();
+	/**
+	* Destructor of BibleTime
+	*/
+	virtual ~BibleTime();
+	virtual void show();
+	/**
+	* Reads the settings from the configfile and sets the right properties.
+	*/
+	void readSettings();
+	/**
+	* Saves the settings of this class
+	*/
+	void saveSettings();
+	/**
+	* Restores the workspace if the flaf for this is set in the config.
+	*/
+	void restoreWorkspace();
+	/**
+	* Apply the settings given by the profile p
+	*/
+	void applyProfileSettings( CProfile* p );
+	/**
+	* Stores the settings of the mainwindow in the profile p
+	*/
+	void storeProfileSettings( CProfile* p );
 
 public slots:
-  /**
-  * Shows the daily tip
-  */
-  void slotHelpTipOfDay();
-  /**
-  * Opens the optionsdialog of BibleTime.
-  */
-  void slotSettingsOptions();
-  /**
-  * The last window was closed!
-  */
-  void lastWindowClosed();
-  /**
-  * Opens the handbook.
+	/**
+	* Shows the daily tip
 	*/
-  void openOnlineHelp_Handbook();
-  /**
-  * Opens the installation instructions.
+	void slotHelpTipOfDay();
+	/**
+	* Opens the optionsdialog of BibleTime.
 	*/
-  void openOnlineHelp_Install();
-  /**
-  * Opens the bible study howto.
+	void slotSettingsOptions();
+	/**
+	* The last window was closed!
 	*/
-  void openOnlineHelp_Howto();
-  /**
-  * Sets the plain caption of the main window
-  */
-  virtual void setPlainCaption( const QString& );
-  /**
-  * Sets the caption of the mainwindow
-  */
-  virtual void setCaption(const QString&);
+	void lastWindowClosed();
+	/**
+	* Opens the handbook.
+	*/
+	void openOnlineHelp_Handbook();
+	/**
+	* Opens the installation instructions.
+	*/
+	void openOnlineHelp_Install();
+	/**
+	* Opens the bible study howto.
+	*/
+	void openOnlineHelp_Howto();
+	/**
+	* Sets the plain caption of the main window
+	*/
+	virtual void setPlainCaption( const QString& );
+	/**
+	* Sets the caption of the mainwindow
+	*/
+	virtual void setCaption(const QString&);
 
 protected: // Protected methods
-  /**
-  * Initializes the view of this widget
-  */
-  void initView();
-  /**
-  * Initializes the menubar of BibleTime.
-  */
-  void initMenubar();
-  /**
-  * Initializes the SIGNAL / SLOT connections
-  */
-  void initConnections();
-  /**
-  * Initializes the backend
-  */
-  void initBackends();
-  /**
+	/**
+	* Initializes the view of this widget
+	*/
+	void initView();
+	/**
+	* Initializes the menubar of BibleTime.
+	*/
+	void initMenubar();
+	/**
+	* Initializes the SIGNAL / SLOT connections
+	*/
+	void initConnections();
+	/**
+	* Initializes the backend
+	*/
+	void initBackends();
+	/**
 	* Initializes the action objects of the GUI
 	*/
-  void initActions();
-  /**
-  * Refreshes all presenter supporting at least in of the features given as parameter.
-  */
-  void refreshPresenters();
-  /**
-  * Called before a window is closed
-  */
-  bool queryClose();
-  /**
-  * Called before quit.
-  */
-  bool queryExit();
-  /**
-  * Initializes the CPrinter object.
-  */
-  void initPrinter();
-  /**
-  * Reimplementation used for session management.
-  */
-  void readProperties(KConfig* config);
-  /**
-  * Reimplementation used for sessions management.
-  */
-  void saveProperties(KConfig* myConfig);
+	void initActions();
+	/**
+	* Refreshes all presenter supporting at least in of the features given as parameter.
+	*/
+	void refreshPresenters();
+	/**
+	* Called before a window is closed
+	*/
+	bool queryClose();
+	/**
+	* Called before quit.
+	*/
+	bool queryExit();
+	/**
+	* Initializes the CPrinter object.
+	*/
+	void initPrinter();
+	/**
+	* Reimplementation used for session management.
+	*/
+	void readProperties(KConfig* config);
+	/**
+	* Reimplementation used for sessions management.
+	*/
+	void saveProperties(KConfig* myConfig);
 
 	QPopupMenu* m_windowMenu;
 	QPopupMenu* m_editMenu;
 
-  /** FILE menu actions */
+	/** FILE menu actions */
 	KAction* m_fileClearQueue_action;	
 	KAction* m_filePrint_action;	
 
-  /** VIEW menu actions */
+	/** VIEW menu actions */
 	KToggleAction*	m_viewToolbar_action;		
 	KToggleAction*	m_viewGroupManager_action;			
 	
@@ -245,110 +246,113 @@ protected: // Protected methods
 	QSplitter* m_splitter;
 	CGroupManager* m_groupmanager;
 	CMDIArea* m_mdi;
-  /**
-  * The list of installed SWORD modules
-  */
-  ListCSwordModuleInfo* m_moduleList;
+	
+	/**
+	* The list of installed SWORD modules
+	*/
+	ListCSwordModuleInfo* m_moduleList;
 	CProfile* m_currentProfile;
 	
-  bool m_initialized;
+	bool m_initialized;
 
 protected slots:
-  /**
+	/**
  	* Quit BibleTime
  	*/
-  void slotFileQuit();
-  /**
+	void slotFileQuit();
+	/**
  	* Creates a new presenter in the MDI area according to the type of the module.
  	*/
-  CSwordPresenter* createNewSwordPresenter(ListCSwordModuleInfo,const QString&);
-  /**
-  * No descriptions
-  */
-  CSwordPresenter* createNewSwordPresenter(CSwordModuleInfo*, const QString&);
-  /** 	
+	CSwordPresenter* 
+		createNewSwordPresenter(ListCSwordModuleInfo,const QString&);
+	
+	/**
+	* No descriptions
+	*/
+	CSwordPresenter* createNewSwordPresenter(CSwordModuleInfo*, const QString&);
+	/** 	
  	* Is called when the window menu is about to show ;-)
  	*/
-  void slotWindowMenuAboutToShow();
-  /**
+	void slotWindowMenuAboutToShow();
+	/**
  	* This slot is connected with the windowAutoTile_action object
  	*/
-  void slotAutoTile();
-  /**
+	void slotAutoTile();
+	/**
  	* This slot is connected with the windowAutoCascade_action object
  	*/
-  void slotAutoCascade();
+	void slotAutoCascade();
 	/**
 	* Is called when a client was selected in the window menu
 	*/
 	void slotWindowMenuActivated( int );
-  /**
+	/**
  	* Shows/hides the toolbar
  	*/
-  void slotToggleToolbar();
-  /**
-  * Opens a toolbar editor
-  */
-  void slotSettingsToolbar();
-  /**
-  * Shows or hides the groupmanager.
-  */
-  void slotToggleGroupManager();
-  /**
-  * Starts printing and opens the printerdialog at first.
-  */
-  void slotFilePrint();
-  /**
+	void slotToggleToolbar();
+	/**
+	* Opens a toolbar editor
+	*/
+	void slotSettingsToolbar();
+	/**
+	* Shows or hides the groupmanager.
+	*/
+	void slotToggleGroupManager();
+	/**
+	* Starts printing and opens the printerdialog at first.
+	*/
+	void slotFilePrint();
+	/**
  	* Enables the "Clear printer queue" action
  	*/
-  void slotSetPrintingStatus();
-  /**
-  * Saves to the profile with the menu id ID
-  */
-  void saveProfile(int ID);
-  /**
-  * Saves the current settings into the currently activatred profile.
-  */
+	void slotSetPrintingStatus();
+	/**
+	* Saves to the profile with the menu id ID
+	*/
+	void saveProfile(int ID);
+	/**
+	* Saves the current settings into the currently activatred profile.
+	*/
 	void saveProfile(CProfile* p);
-  /**
-  * Saves the current settings into the currently activatred profile.
-  */
-  void editProfiles();
-  /**
-  * Loads the profile with the menu id ID
-  */
-  void loadProfile(int ID);
-  /**
-  * Loads the profile with the menu ID id
-  */
+	/**
+	* Saves the current settings into the currently activatred profile.
+	*/
+	void editProfiles();
+	/**
+	* Loads the profile with the menu id ID
+	*/
+	void loadProfile(int ID);
+	/**
+	* Loads the profile with the menu ID id
+	*/
 	void loadProfile(CProfile* p);
-  /**
-  * Toggles between normal and fullscreen mode.
-  */
-  void toggleFullscreen();
-  /**
-  * Is called when settings in the optionsdialog have been
-  * changed (ok or apply)
-  */
-  void slotSettingsChanged();
+	/**
+	* Toggles between normal and fullscreen mode.
+	*/
+	void toggleFullscreen();
+	/**
+	* Is called when settings in the optionsdialog have been
+	* changed (ok or apply)
+	*/
+	void slotSettingsChanged();
 
 private slots: // Private slots
-  /**
-  * No descriptions
-  */
-  void slotPrintedPercent(const int index);
-  /**
-  * Printing was finished
-  */
-  void slotPrintingFinished();
-  /**
-  * Aborts the printing
-  */
-  void slotAbortPrinting();
-  /**
-  * Printing was started
-  */
-  void slotPrintingStarted();
+	/**
+	* No descriptions
+	*/
+	void slotPrintedPercent(const int index);
+	/**
+	* Printing was finished
+	*/
+	void slotPrintingFinished();
+	/**
+	* Aborts the printing
+	*/
+	void slotAbortPrinting();
+	/**
+	* Printing was started
+	*/
+	void slotPrintingStarted();
 
 private:
 	QProgressDialog* m_progress;
