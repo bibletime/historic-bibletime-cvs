@@ -66,6 +66,14 @@ protected:
 	friend class CDisplay;
 	CPlainWriteDisplay(CWriteWindow* parentWindow, QWidget* parent);
 	virtual ~CPlainWriteDisplay();
+  /**
+  * Reimplementation from QTextEdit. Provides an popup menu for the given position.
+  */
+  virtual QPopupMenu* createPopupMenu( const QPoint& pos );
+  /**
+  * Reimplementation from QTextEdit. Provides an popup menu.
+  */
+  virtual QPopupMenu* createPopupMenu();
 };
 
 #endif

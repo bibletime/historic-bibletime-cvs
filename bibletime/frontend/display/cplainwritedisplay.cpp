@@ -73,3 +73,14 @@ const bool CPlainWriteDisplay::isModified() const{
 const QString CPlainWriteDisplay::plainText(){
   return QTextEdit::text();
 }
+
+/** Reimplementation from QTextEdit. Provides an popup menu for the given position. */
+QPopupMenu* CPlainWriteDisplay::createPopupMenu( const QPoint& pos ){
+  return installedPopup();
+}
+
+/** Reimplementation from QTextEdit. Provides an popup menu for the given position. */
+QPopupMenu* CPlainWriteDisplay::createPopupMenu( ){
+  return installedPopup();
+}
+

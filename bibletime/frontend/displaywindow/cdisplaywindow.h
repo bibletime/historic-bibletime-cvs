@@ -42,10 +42,12 @@ class CMDIArea;
 class CProfileWindow;
 class KAccel;
 class CDisplaySettingsButton;
+class CDisplay;
 class CKeyChooser;
 class CModuleChooserBar;
 class CDisplaySettingsButton;
 class KToolBar;
+class KPopupMenu;
 
 /** The base class for all display windows of BibleTime.
   * @author The BibleTime team
@@ -142,7 +144,16 @@ public:
   * Sets the display settings button.
   */
   void setDisplaySettingsButton( CDisplaySettingsButton* button );
-
+  virtual void setupPopupMenu() = 0;
+  /**
+  * Returns the display widget used by this implementation of CDisplayWindow.
+  */
+  virtual CDisplay* const displayWidget();
+  /**
+  * Sets the display widget used by this display window.
+  */
+  virtual void setDisplayWidget( CDisplay* newDisplay );
+  
 public slots:
   /**
   * Lookup the specified key in the given module. If the module is not chosen withing
@@ -198,6 +209,10 @@ protected:
   * Initialize the view of this display window.
   */
   virtual void initView() = 0;
+  /**
+  * Returns the installed popup menu.
+  */
+  KPopupMenu* const popup();
 
 protected slots:
 	virtual void modulesChanged();
@@ -209,7 +224,8 @@ protected slots:
   * Reimplementation from QWidget. Used to initialize things before the widget is shown.
   */
   virtual void polish();
-
+  virtual void updatePopupMenu();
+  
 private:
 	CMDIArea* m_mdi;
 	ListCSwordModuleInfo m_modules;
@@ -221,6 +237,8 @@ private:
   bool m_isReady;
   CModuleChooserBar* m_moduleChooserBar;
   KToolBar* m_mainToolBar;
+  KPopupMenu* m_popupMenu;
+  CDisplay* m_displayWidget;
 };
 
 #endif

@@ -21,11 +21,12 @@
 //BibleTime includes
 #include "cdisplaywindow.h"
 
+#include "frontend/display/cdisplay.h"
+#include "frontend/display/creaddisplay.h"
+
 //Qt includes
 #include <qwidget.h>
 #include <qpopupmenu.h>
-
-class CReadDisplay;
 
 class KPopupMenu;
 
@@ -57,19 +58,14 @@ protected: // Protected methods
   /**
   * Sets the display widget of this display window.
   */
-  void setDisplayWidget( CReadDisplay* newDisplay );
+  virtual void setDisplayWidget( CReadDisplay* newDisplay );
   /**
   * Returns the display widget of this window.
   */
-  CReadDisplay* const displayWidget();
-  /**
-  * Returns the installed popup menu.
-  */
-  KPopupMenu* const popup();
+  virtual CReadDisplay* const displayWidget();
   /**
   * Setup the entries of the popup menu.
   */
-  virtual void setupPopupMenu() = 0;
 	virtual void initKeyboardActions();
 
 protected slots:
@@ -77,12 +73,10 @@ protected slots:
   /**
   * Update the status of the popup menu entries.
   */
-  virtual void updatePopupMenu();
   virtual void copyDisplayedText();
   
 private:
 	CReadDisplay* m_displayWidget;
- 	KPopupMenu* m_popupMenu;
 };
 
 #endif

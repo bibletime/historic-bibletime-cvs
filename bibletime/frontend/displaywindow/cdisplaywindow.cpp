@@ -33,6 +33,8 @@
 
 #include "frontend/keychooser/ckeychooser.h"
 
+#include "frontend/display/cdisplay.h"
+
 #include "frontend/cmdiarea.h"
 #include "frontend/cprofilewindow.h"
 #include "frontend/cbtconfig.h"
@@ -75,6 +77,8 @@ CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, c
   m_keyChooser = 0;
   m_mainToolBar = 0;
   m_displaySettingsButton = 0;
+  m_popupMenu = 0;
+  m_displayWidget = 0;
 }
 
 CDisplayWindow::~CDisplayWindow(){
@@ -231,7 +235,8 @@ const bool CDisplayWindow::init( const QString& keyName ){
   show();
  	initConnections();
   initKeyboardActions();
-
+ 	setupPopupMenu();
+  
   m_filterOptions = CBTConfig::getFilterOptionDefaults();
 	m_displayOptions = CBTConfig::getDisplayOptionDefaults();
 	if (displaySettingsButton())
@@ -312,4 +317,35 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 void CDisplayWindow::lookup( const QString& key ) {
 //  qWarning("CDisplayWindow::lookup( const QString& key )");
 	lookup(modules().first()->name(), key);
+}
+
+/** Update the status of the popup menu entries. */
+void CDisplayWindow::updatePopupMenu(){
+
+}
+
+
+///** Returns the installed popup menu. */
+KPopupMenu* const CDisplayWindow::popup(){
+//	qWarning("CReadWindow::popup()");
+	if (!m_popupMenu) {
+ 		m_popupMenu = new KPopupMenu(this);
+		connect(m_popupMenu, SIGNAL(aboutToShow()), this, SLOT(updatePopupMenu()));
+	  if (displayWidget()) {
+	  	displayWidget()->installPopup(m_popupMenu);
+    }
+	  else
+	  	qWarning("CAN't INSTALL POPUP");
+  }
+ 	return m_popupMenu;
+}
+
+/** Returns the display widget used by this implementation of CDisplayWindow. */
+CDisplay* const CDisplayWindow::displayWidget(){
+  return m_displayWidget;
+}
+
+/** Sets the display widget used by this display window. */
+void CDisplayWindow::setDisplayWidget( CDisplay* newDisplay ){
+  m_displayWidget = newDisplay;
 }

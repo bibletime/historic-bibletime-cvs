@@ -26,6 +26,7 @@
 
 //Qt includes
 #include <qclipboard.h>
+#include <qpopupmenu.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -121,7 +122,7 @@ CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow, QWidget
 }
 
 
-CDisplay::CDisplay(CDisplayWindow* parent) : m_parentWindow(parent), m_connections( new CDisplayConnections( this ) ) {
+CDisplay::CDisplay(CDisplayWindow* parent) : m_parentWindow(parent), m_connections( new CDisplayConnections( this ) ), m_popup(0) {
 //  qWarning("constructor of CDisplay");
 }
 
@@ -191,4 +192,17 @@ CDisplayConnections* const CDisplay::connectionsProxy() const{
 CDisplayWindow* const CDisplay::parentWindow() const {
 //	qWarning("CDisplay::parentWindow()");
  	return m_parentWindow;
+}
+
+/** Installs the popup which should be opened when the right mouse button was pressed. */
+void CDisplay::installPopup( QPopupMenu* popup ){
+  qWarning("CDisplay::installPopup( QPopupMenu* popup )");
+  m_popup = popup;
+}
+
+/** Returns the popup menu which was set by installPopupMenu() */
+QPopupMenu* const CDisplay::installedPopup(){
+  qWarning("CDisplay::installedPopup()");
+  Q_ASSERT(m_popup);
+	return m_popup;
 }

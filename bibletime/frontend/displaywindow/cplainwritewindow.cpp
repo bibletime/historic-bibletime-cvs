@@ -36,9 +36,9 @@ CPlainWriteWindow::~CPlainWriteWindow(){
 
 /** Initialize the state of this widget. */
 void CPlainWriteWindow::initView(){
-  qWarning("CPlainWriteWindow::initView()");
+//  qWarning("CPlainWriteWindow::initView()");
  	setDisplayWidget( CDisplay::createWriteInstance(this) );
-  Q_ASSERT(displayWidget());
+//  Q_ASSERT(displayWidget());
  	setCentralWidget( displayWidget()->view() );
 
   setMainToolBar( new KToolBar(this) );
@@ -116,4 +116,8 @@ void CPlainWriteWindow::deleteEntry(){
   modules().first()->deleteEntry( key() );
   lookup( key() );
   displayWidget()->setModified(false);
+}
+
+/** Setups the popup menu of this display widget. */
+void CPlainWriteWindow::setupPopupMenu(){
 }

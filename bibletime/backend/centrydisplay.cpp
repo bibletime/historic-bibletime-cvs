@@ -321,7 +321,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
     key.key(keyName);
     const bool isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
 
-    const QString tdStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; %1 %2\"")
+    const QString tdStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; padding-bottom:2px; padding-top:2px; %1 %2\"")
       .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
       .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
 
@@ -329,8 +329,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
       QString::fromLatin1("<SPAN %1 STYLE=\"font-family:%2; font-size:%3pt;\"><SPAN dir=\"%4\"><SPAN>%5</SPAN>%6%7</SPAN></SPAN>")
         .arg((key.key() == chosenKey) ? QString::fromLatin1("class=\"highlighted\"") : QString::null)
         .arg(CBTConfig::get(m->language()).family())
-        .arg(CBTConfig::get(m->language()).pointSize())        
-//        .arg(m->isUnicode() ? QString::fromLatin1("unicodetext") : QString::fromLatin1("standardtext"))
+        .arg(CBTConfig::get(m->language()).pointSize())
         .arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
         .arg(m_displayOptions.verseNumbers ? QString::fromLatin1("<SUP>%1</SUP>").arg(htmlReference(m, key.key(), QString::number(key.Verse()), key.key())) : htmlReference(m, QString::null, QString::null, key.key()) )
         .arg(key.renderedText())
@@ -353,7 +352,6 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
 }
 
 const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName) {
-//  CSwordModuleInfo* module = modules.first();
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   key->key(keyName);
 

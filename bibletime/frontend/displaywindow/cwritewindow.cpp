@@ -62,6 +62,7 @@ void CWriteWindow::applyProfileSettings(CProfileWindow * const settings) {
 
 /** Sets the write display-widget for this write display window. */
 void CWriteWindow::setDisplayWidget( CWriteDisplay* display ){
+  CDisplayWindow::setDisplayWidget(display);
   m_writeDisplay = display;
 }
 

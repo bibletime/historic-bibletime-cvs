@@ -35,6 +35,8 @@ class CReadDisplay;
 class CWriteDisplay;
 
 
+class QPopupMenu;
+
 /** The base class for all display widgets.
   * @author The BibleTime team
   */
@@ -95,6 +97,14 @@ public:
   */
   CDisplayWindow* const parentWindow() const;
   virtual void print( const CDisplay::TextPart ) = 0;
+  /**
+  * Installs the popup which should be opened when the right mouse button was pressed.
+  */
+  void installPopup( QPopupMenu* popup );
+  /**
+  * Returns the popup menu which was set by installPopupMenu()
+  */
+  QPopupMenu* const installedPopup();
 
 protected:
   /**
@@ -112,7 +122,8 @@ protected:
 
 private:
  	CDisplayWindow* m_parentWindow;
-	CDisplayConnections* m_connections;  
+	CDisplayConnections* m_connections;
+  QPopupMenu* m_popup;  
 };
 
 class CDisplayConnections : public QObject {
@@ -151,7 +162,7 @@ signals:
   
 
 private:
-	CDisplay* m_display;
+  CDisplay* m_display;
 };
 
 #endif

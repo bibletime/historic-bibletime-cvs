@@ -30,14 +30,6 @@ class QWidget;
 class CReadDisplay :  public CDisplay {
 public:
   /**
-  * Installs the popup which should be opened when the right mouse button was pressed.
-  */
-  void installPopup( QPopupMenu* popup );
-  /**
-  * Returns the popup menu which was set by installPopupMenu()
-  */
-  QPopupMenu* const installedPopup();
-  /**
   * Returns true if the display has an active anchor.
   */
   const bool hasActiveAnchor();
@@ -69,7 +61,7 @@ private: // Public attributes
   /**
   * The member which hols the current anchor.
   */
-  QPopupMenu* m_popup;
+
   QString m_activeAnchor;
 };
 

@@ -25,7 +25,7 @@
 #include "frontend/cbtconfig.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/cprofilewindow.h"
-#include "frontend/display/creaddisplay.h"
+//#include "frontend/display/creaddisplay.h"
 #include "frontend/displaywindow/cmodulechooserbar.h"
 #include "frontend/keychooser/ckeychooser.h"
 
@@ -38,7 +38,7 @@
 
 CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name ) : CDisplayWindow(modules,parent,name) {
 //	qWarning("constructor of CReadWindow");
- 	m_popupMenu = 0;
+// 	m_popupMenu = 0;
   m_displayWidget = 0;
 }
 
@@ -55,6 +55,7 @@ CReadDisplay* const CReadWindow::displayWidget(){
 
 /** Sets the display widget of this display window. */
 void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
+  CDisplayWindow::setDisplayWidget(newDisplay);
 //	qWarning("CReadWindow::setDisplayWidget()"); 	
  	if (m_displayWidget) {
   	disconnect(m_displayWidget->connectionsProxy(), SIGNAL(referenceClicked(const QString&, const QString&)), this, SLOT(lookup(const QString&, const QString&)));
@@ -82,30 +83,11 @@ void CReadWindow::lookup( CSwordKey* newKey ){
 	setCaption( windowCaption() );
 }
 
-/** Returns the installed popup menu. */
-KPopupMenu* const CReadWindow::popup(){
-//	qWarning("CReadWindow::popup()");
-	if (!m_popupMenu) {
- 		m_popupMenu = new KPopupMenu(this);
-		connect(m_popupMenu, SIGNAL(aboutToShow()), this, SLOT(updatePopupMenu()));
-	  if (displayWidget())
-	  	displayWidget()->installPopup(m_popupMenu);
-//	  else
-//	  	qWarning("CAN't INSTALL POPUP");
-  }
- 	return m_popupMenu;
-}
-
-/** Update the status of the popup menu entries. */
-void CReadWindow::updatePopupMenu(){
-
-}
-
 /** Reimplementation to use the popup menu. */
 const bool CReadWindow::init( const QString& keyName ){
 //  qWarning("CReadWindow::init( const QString& keyName )");
   CDisplayWindow::init(keyName);
- 	setupPopupMenu();
+
   keyChooser()->setKey(key());
 	setReady(true);
   return true;

@@ -40,8 +40,8 @@
 //KDE includes
 #include <klocale.h>
 
-CReadDisplay::CReadDisplay(CReadWindow* readWindow) : CDisplay(readWindow),m_popup(0), m_activeAnchor(QString::null) {
-	qWarning("constructor of CReadDisplay");
+CReadDisplay::CReadDisplay(CReadWindow* readWindow) : CDisplay(readWindow), m_activeAnchor(QString::null) {
+//	qWarning("constructor of CReadDisplay");
 }
 
 CReadDisplay::~CReadDisplay(){
@@ -57,23 +57,12 @@ void CReadDisplay::setActiveAnchor( const QString& anchor ){
   m_activeAnchor = anchor;
 }
 
-/** Installs the popup which should be opened when the right mouse button was pressed. */
-void CReadDisplay::installPopup( QPopupMenu* popup ){
-  qWarning("CReadDisplay::installPopup( QPopupMenu* popup )");
-  m_popup = popup;
-}
 
 /** Returns true if the display has an active anchor. */
 const bool CReadDisplay::hasActiveAnchor(){
   return !activeAnchor().isEmpty();
 }
 
-/** Returns the popup menu which was set by installPopupMenu() */
-QPopupMenu* const CReadDisplay::installedPopup(){
-  qWarning("CReadDisplay::installedPopup()");
-  Q_ASSERT(m_popup);
-	return m_popup;
-}
 
 void CReadDisplay::print(const CDisplay::TextPart type){
   CDisplayWindow* window = parentWindow();
