@@ -16,7 +16,7 @@ bibletime.m4 sword.m4
 
 # not a GNU package. You can remove this line, if 
 # have all needed files, that a GNU package needs
-AUTOMAKE_OPTIONS = foreign
+AUTOMAKE_OPTIONS = foreign dist-bzip2
 
 datadir = $(kde_appsdir)/Applications
 data_DATA = bibletime.desktop
@@ -36,5 +36,9 @@ install-data-local:
 MAINTAINERCLEANFILES = configure.files subdirs 
 
 dist-hook:	
+	rm -f $(distdir)/bibletime-*.tar.gz
+	rm -rf `find $(distdir) -name tags -o -name TAGS -o -name \*.xcf`
+	rm -f $(distdir)/admin/Changelog $(distdir)/make-messages.sh $(distdir)/extractrc $(distdir)/preparetips $(distdir)/bibletime.doxygen $(distdir)/bibletime.kdevses $(distdir)/bibletime.start $(distdir)/configure.files $(distdir)/bibletime/pics/gen_am.sh
 	cd $(distdir) && make -f Makefile.cvs
-
+	rm -rf $(distdir)/autom4te.cache
+	cp -Ra $(srcdir)/debian $(distdir)/debian
