@@ -25,7 +25,7 @@
 #include <klocale.h>
 
 CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptionsBool *displaySettings, CSwordBackend::FilterOptionsBool *moduleSettings, const ListCSwordModuleInfo& useModules,QWidget *parent, const char *name )
-	: KToolBarButton("bt_bible",0 ,parent,name)
+	: KToolBarButton(DSB_ICON, 0, parent, name)
 {
 	m_displaySettings = displaySettings;
 	m_moduleSettings = moduleSettings;

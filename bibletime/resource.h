@@ -176,7 +176,11 @@
 #define LEXICON_ICON_MC				  "bt_lexicon"
 #define LEXICON_ADD_ICON_MC			"bt_lexicon_add"
 
+#define DSB_ICON			          "bt_displayconfig"
+
+//UNUSED
 #define PARALLEL_ICON_MC			LOAD_SMALL_ICON("bt_parallel")
+
 #define SYNC_ICON_SMALL				LOAD_SMALL_ICON(ICON_SYNC)
 #define ITEMS_DELETE_ICON_SMALL		LOAD_SMALL_ICON(ICON_MAININDEX_DELETE_ITEMS)
 
