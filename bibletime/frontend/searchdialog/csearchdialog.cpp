@@ -137,30 +137,37 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 	int count = 0;	
 	QString countStr = "";
 	QString searchAnalysisHTML = "";
+	QString tableTitle = "";
 	CSwordVerseKey key(0/*m_moduleList.first()*/);	
 	key.key("Genesis 1:1");
 
 	QDict<CSearchDialogAnalysisItem> searchAnalysisItems = *searchAnalysis->getSearchAnalysisItemList();
 	CSearchDialogAnalysisItem analysisItem = *searchAnalysisItems[key.book()];
 
- 	const QString file = CToolClass::getSaveFileName (QString::null, i18n("* | Text files\n *.* | All files (*.*)"), 0, i18n("Save key ..."));	
+ 	const QString file = CToolClass::getSaveFileName (QString::null, i18n("*.html"), 0, i18n("Save Search Analysis"));	
 	if (!file.isNull()) {
-    QString text = "<html>\n<head>\n<title>BibleTime Search Analysis</title>\n</head>\n<body>\n<h1>Search Text: " + searchText->getText() + "</h1>\n";
+    QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n</head>\n<body>\n<h1>" + i18n("Search Text: ") + searchText->getText() + "</h1>\n";
+
+	  tableTitle = "<tr><th align='left'>" + i18n("Book") + "</th>";
 		for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(),++moduleIndex) {
-			text += "<h2>Sword Module: " + moduleList->current()->name() + " " + moduleList->current()->getDescription() + "</h2>\n";
-			searchAnalysisHTML = "<table>\n";
-			bool ok = true;
-			while (ok) {
-				analysisItem = *searchAnalysisItems[key.book()];
+				tableTitle += "<th align='left'>" + moduleList->current()->name() + "</th>";
+		}
+		tableTitle += "</tr>\n";
+
+		searchAnalysisHTML = "";
+		bool ok = true;
+		while (ok) {
+			searchAnalysisHTML += "<tr><td>" + key.book() + "</td>";
+			analysisItem = *searchAnalysisItems[key.book()];
+			for (moduleIndex = 0,moduleList->first(); moduleList->current(); moduleList->next(),++moduleIndex) {
 				count = analysisItem.getCountForModule(moduleIndex);
 				countStr.setNum(count);
-				searchAnalysisHTML += "<tr><td>" + key.book() + "</td><td align='right'>" + countStr + "</td></tr>\n";
-				ok = key.NextBook();
+				searchAnalysisHTML += "<td>" + countStr + "</td>";
 			}
-			searchAnalysisHTML += "</table>\n";
-			text += "<dir>" + searchAnalysisHTML + "</dir>\n";
-			key.key("Genesis 1:1"); // reset this for the next iteration if needed.
+			searchAnalysisHTML += "</tr>\n";
+			ok = key.NextBook();
 		}
+		text += "<dir>" + "<table>\n" + tableTitle + searchAnalysisHTML + "</table>\n" + "</dir>\n";
 		text += "</body></html>";
 		CToolClass::savePlainFile(file, text);
 	}
