@@ -747,12 +747,6 @@ void CHTMLWidget::setModules( ListCSwordModuleInfo& modules ) {
 	//add data path of all modules tom our config
 	for (m_moduleList->first(); m_moduleList->current(); m_moduleList->next()) {
 		const QString path = m_moduleList->current()->config(CSwordModuleInfo::AbsoluteDataPath);
-//		qWarning("ADDED PATH: %s", path.latin1());
-		mimeSourceFactory()->addFilePath( path );
-//		path += "/";
-//		mimeSourceFactory()->addFilePath( path );		
-//		path += "anfang9/";
-//		mimeSourceFactory()->addFilePath( path );		
-		
+		mimeSourceFactory()->addFilePath( path );		
 	};
 }

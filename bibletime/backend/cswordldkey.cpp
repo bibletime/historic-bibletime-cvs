@@ -42,11 +42,11 @@ CSwordLDKey::CSwordLDKey( const SWKey *k, CSwordModuleInfo* module) : SWKey(*k),
 //	m_module = module;
 }
 
-CSwordLDKey::~CSwordLDKey(){
-}
+//CSwordLDKey::~CSwordLDKey(){
+//}
 
 /** Clones this object by copying the members. */
-CSwordKey* CSwordLDKey::copy() const {
+CSwordLDKey* CSwordLDKey::copy() const {
 	return new CSwordLDKey(*this);
 }
 

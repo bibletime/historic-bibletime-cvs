@@ -38,16 +38,18 @@
 
 /** Saves the key to disk. */
 const bool CExportManager::saveKey( CSwordKey* key, const bool withText ) {
-
+//	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
+//  if (!file.isEmpty()) {
+//		util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
+//		key->key();
+//  }
 }
 
 /** Saves the key to disk. */
 const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
 	bool ret = false;
-	
-	qDebug("CExportManager::saveKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
-	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
-	if (! file.isEmpty()) {
+	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));
+	if (!file.isEmpty()) {
 		QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );	
 		progress.setProgress(0);	
 		progress.setMinimumDuration(0);	
@@ -71,9 +73,7 @@ const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module,
 				text += key->key() + "\n";
 
 			(*list)++;
-			}
-		//	delete key;
-	
+		}	
 		if (! progress.wasCancelled()) {
 			progress.setProgress(index);	
 			CToolClass::savePlainFile(file, text);
@@ -81,14 +81,13 @@ const bool CExportManager::saveKeyList( ListKey* list, CSwordModuleInfo* module,
 		}
 	}
 	
-		return ret;
+	return ret;
 }
 
 const bool CExportManager::saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
 	bool ret = false;
-	qDebug("CExportManager::saveKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
 	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
-	if (! file.isEmpty()){
+	if (!file.isEmpty()){
 	
 		QProgressDialog progress( label, i18n("Cancel"), list.count(), 0,"progress", true );	
 		progress.setProgress(0);	
@@ -123,10 +122,6 @@ const bool CExportManager::saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo
 ///////// copy functions
 const bool CExportManager::copyKey( CSwordKey* key, const bool withText ) {
 	bool ret = true;
-	
-//	qDebug("CExportManager::copyKey( CSwordKey* key, const bool withText )");
-//	ASSERT(key);	
-
 	QString text = (withText) ? QString::fromLatin1("%1:\n\t%2").arg(key->key()).arg(key->strippedText()) : key->key()+"\n";
 
 	KApplication::clipboard()->setText(text);
@@ -135,8 +130,6 @@ const bool CExportManager::copyKey( CSwordKey* key, const bool withText ) {
 }
 
 const bool CExportManager::copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText, const bool showProgress ){
-//	qDebug("CExportManager::copyKeyList( ListKey* keys, const QString& caption, const QString& description, const bool withText, const bool showProgress )");	
-	
 	QProgressDialog progress( label, i18n("Cancel"), list->Count(), 0,"progress", true );	
 	progress.setProgress(0);	
 	progress.setMinimumDuration(0);	

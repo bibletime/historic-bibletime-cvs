@@ -70,11 +70,11 @@ public:
 	* Copy constructor for this key class.
 	*/
 	CSwordLDKey( const SWKey *k, CSwordModuleInfo* module);
-	virtual ~CSwordLDKey();
+//	virtual ~CSwordLDKey();
   /**
   * Clones this object by copying the members.
   */
-  virtual CSwordKey* copy() const;
+  virtual CSwordLDKey* copy() const;
   /**
   * Uses the parameter to returns the next entry afer this key.
   */

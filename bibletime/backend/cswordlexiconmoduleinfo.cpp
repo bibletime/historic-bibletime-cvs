@@ -52,13 +52,13 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 
 /** Returns the entries of the module. */
 QStringList* const CSwordLexiconModuleInfo::entries(){
+	if (!module())
+		return 0;
+
 	if (!m_entryList) {
-		if (!module()) {
-			return 0;
-		}
 		m_entryList = new QStringList();
 
-    bool lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
+    const bool lexiconCache = CBTConfig::get(CBTConfig::lexiconCache);
 		bool read = false;
 
 		if (lexiconCache){
@@ -84,7 +84,8 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 		if (!read){
 			(*module()) = TOP;  		
   		do {
-   			m_entryList->append(QString::fromUtf8(module()->KeyText()));
+//   			m_entryList->append(QString::fromUtf8(module()->KeyText()));
+   			m_entryList->append(QString::fromLocal8Bit(module()->KeyText())); //UTF8, Latin1 or Local8Bit??
   			(*module())++;
   		} while (!module()->Error());
 
