@@ -32,13 +32,19 @@ class CSwordModuleInfo;
  * @version $Id$
  */
 class CSwordKey {
+
+protected:
+	CSwordKey(); //protected constructor, because CSwordKey shouldn't be used (it's an abstract base class).
+	CSwordKey(const CSwordKey&); //copy constructo
+
 public:
 	virtual ~CSwordKey() {};
+	
 	
 	//pure virtual functions		
 	virtual const QString key(const QString& = QString::null) = 0;
 	virtual void key(const char*) = 0;
-	virtual const CSwordKey* clone() const = 0;	
+	virtual CSwordKey* copy() const = 0;	
 	
 	//implemented functions
 	virtual CSwordModuleInfo* module(CSwordModuleInfo* newModule = 0);
@@ -53,7 +59,6 @@ public:
 
 protected:
 	CSwordModuleInfo* m_module; //module pointer used by all keys
-	CSwordKey(); //protected constructor, because CSwordKey shouldn't be used (it's an abstract base class).
 };
 
 #endif

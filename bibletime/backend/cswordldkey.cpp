@@ -35,7 +35,6 @@ CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
 
 /** No descriptions */
 CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey(k), CSwordKey(k) {
-	m_module = k.m_module;
 }
 
 /** No descriptions */
@@ -47,7 +46,7 @@ CSwordLDKey::~CSwordLDKey(){
 }
 
 /** Clones this object by copying the members. */
-CSwordLDKey* CSwordLDKey::clone() const {
+CSwordLDKey* CSwordLDKey::copy() const {
 	return new CSwordLDKey(*this);
 }
 

@@ -32,7 +32,7 @@ CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
 
 /** No descriptions */
 CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKey(k) {
-	m_module = k.m_module;	
+ qWarning("copy constructor of CSwordVerseKey");
 }
 
 /** No descriptions */
@@ -45,8 +45,12 @@ CSwordVerseKey::~CSwordVerseKey(){
 }
 
 /** Clones this object. */
-CSwordVerseKey* CSwordVerseKey::clone() const {
-	return new CSwordVerseKey(*this);
+CSwordKey* CSwordVerseKey::copy() const {
+	qWarning("CSwordVerseKey* CSwordVerseKey::copy() const");
+	CSwordVerseKey* k = new CSwordVerseKey(*this);
+	ASSERT(k);
+	qWarning(k->key().latin1());
+	return k;
 }
 
 /** Sets the module for this key */

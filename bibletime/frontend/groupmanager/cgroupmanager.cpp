@@ -1594,8 +1594,13 @@ void CGroupManager::slotPrintBookmark(){
 	
 	CPrintItem*	printItem = new CPrintItem();
 	printItem->setDescription( m_pressedItem->description() );
-	printItem->setStartKey( m_pressedItem->getBookmarkKey());
-	printItem->setStopKey( m_pressedItem->getBookmarkKey());
+	CSwordKey* k = m_pressedItem->getBookmarkKey()->copy();
+	ASSERT(k);
+	qWarning(m_pressedItem->getBookmarkKey()->key().local8Bit());	
+	qWarning("wanna print the key");	
+	qWarning(k->key().local8Bit());
+	printItem->setStartKey( /*m_pressedItem->getBookmarkKey()->copy()*/k );
+	printItem->setStopKey( /*m_pressedItem->getBookmarkKey()->copy()*/k );
 	printItem->setModule(m_pressedItem->moduleInfo());
 	
 	printer->addItemToQueue( printItem );

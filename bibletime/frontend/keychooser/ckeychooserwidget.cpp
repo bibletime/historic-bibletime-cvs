@@ -121,6 +121,7 @@ CKeyChooserWidget::CKeyChooserWidget(int count, const bool useNextPrevSignals,  
 	for (int index=1; index <= count; index++)
 		m_list.append( QString::number(index) );	
 	init();
+	reset(m_list,0,false);
 };
 
 CKeyChooserWidget::CKeyChooserWidget(QStringList *list, const bool useNextPrevSignals, QWidget *parent, const char *name ) : QWidget(parent,name) {
@@ -130,6 +131,7 @@ CKeyChooserWidget::CKeyChooserWidget(QStringList *list, const bool useNextPrevSi
 	else
 		m_list.clear();
 	init();
+	reset(m_list,0,false);	
 }
 
 void CKeyChooserWidget::changeCombo(int i){
@@ -189,7 +191,6 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	comboBox()->clear();
 	comboBox()->insertStringList(*list);
 	comboBox()->resize( comboBox()->sizeHint() );
-
 	
 	m_mainLayout->setResizeMode(QLayout::Minimum);
 			
@@ -236,15 +237,15 @@ void CKeyChooserWidget::init( ){
 
 	setFocusPolicy(QWidget::StrongFocus);			
 	m_mainLayout = new QHBoxLayout( this );	
-  m_mainLayout->setResizeMode(QLayout::FreeResize);
+//  m_mainLayout->setResizeMode(QLayout::FreeResize);
 	
 			
 	m_comboBox = new CKCComboBox( true, this, "comboBox()" );
 	m_comboBox->setAutoCompletion( true );
 	m_comboBox->setInsertionPolicy(QComboBox::NoInsertion);
-	m_comboBox->insertStringList(m_list, 0);
+// m_comboBox->insertStringList(m_list, 0);
 	m_comboBox->setFocusPolicy(QWidget::WheelFocus);	
-	m_comboBox->resize( m_comboBox->sizeHint() );
+//	m_comboBox->resize( m_comboBox->sizeHint() );
 
   m_mainLayout->setResizeMode(QLayout::Minimum);			
 	m_mainLayout->addWidget( m_comboBox );

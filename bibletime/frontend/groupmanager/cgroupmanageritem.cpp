@@ -53,8 +53,10 @@ CGroupManagerItem::CGroupManagerItem(CGroupManagerItem *parent, const QString& c
 }
 
 CGroupManagerItem::~CGroupManagerItem(){
-	if (m_bookmarkKey && m_createdOwnKey)
+	if (m_bookmarkKey && m_createdOwnKey) {
 		delete m_bookmarkKey;
+		m_bookmarkKey = 0;
+	}	
 }
 
 /** Returns the CModuleInfo object for this tree-item. */

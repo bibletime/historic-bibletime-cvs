@@ -139,7 +139,7 @@ public:
   /**
   * Clones this object.
   */
-  virtual CSwordVerseKey* clone() const;
+  virtual CSwordKey* copy() const;
 };
 
 #endif

@@ -202,6 +202,7 @@ void COptionsDialog::initStartup(){
 void COptionsDialog::initFonts(){
 	QFrame* page = addPage(i18n("Fonts"), QString::null, OD_ICON_GENERAL);
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
+	
 
  	layout->addWidget( CToolClass::explanationLabel(page, i18n("Choose fonts"), i18n("The fonts you can choose here are used in the display windows. Use drop-down box below to choose the area of application. Then select a font for it.<BR>Don't forget to choose the right charset, for example \"iso10646-1\" for unicode fonts!")) );
   layout->addSpacing(5);
@@ -227,14 +228,17 @@ void COptionsDialog::initFonts(){
 		 	
  	m_settings.fonts.fontChooser->setFont( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()] );
  	m_settings.fonts.fontChooser->setMinimumSize(m_settings.fonts.fontChooser->sizeHint());		
+ 	
+// 	page->setMinimumHeight(page->minimumSizeHint().height());
 }
 
 /** Init color section. */
 void COptionsDialog::initColors(){
 	QFrame* page = addPage(i18n("Colors"), QString::null, OD_ICON_GENERAL);
 //	QVBoxLayout* layout = new QVBoxLayout(page);
-	QGridLayout* gridLayout = new QGridLayout(page,10,2,5,5);
-	
+	QGridLayout* gridLayout = new QGridLayout(page,5,5,5,5);
+  gridLayout->setResizeMode(QLayout::Minimum);
+		
   gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(page,
   		i18n("Choose colors"),
@@ -250,53 +254,75 @@ void COptionsDialog::initColors(){
 	
 	m_settings.colors.background = new KColorButton(CBTConfig::get(CBTConfig::backgroundColor), page);			
 	label = new QLabel(m_settings.colors.background, i18n("Background"), page);		
-	gridLayout->addWidget(label,2,0);
-	gridLayout->addWidget(m_settings.colors.background,2,1);
+	gridLayout->addWidget(label,1,3);
+	gridLayout->addWidget(m_settings.colors.background,1,4);
 		
 	m_settings.colors.highlightedVerse = new KColorButton(CBTConfig::get(CBTConfig::highlightedVerseColor), page);
 	label = new QLabel(m_settings.colors.highlightedVerse, i18n("Highlighted verse"), page);
-	gridLayout->addWidget(label,3,0);
-	gridLayout->addWidget(m_settings.colors.highlightedVerse,3,1);
+	gridLayout->addWidget(label,2,0);
+	gridLayout->addWidget(m_settings.colors.highlightedVerse,2,1);
 
 	m_settings.colors.swordrefs = new KColorButton(CBTConfig::get(CBTConfig::swordRefColor), page);
 	label = new QLabel(m_settings.colors.swordrefs,i18n("Hyperlinks"), page);
-	gridLayout->addWidget(label,4,0);
-	gridLayout->addWidget(m_settings.colors.swordrefs,4,1);
+	gridLayout->addWidget(label,2,3);
+	gridLayout->addWidget(m_settings.colors.swordrefs,2,4);
 
 	m_settings.colors.footnotes = new KColorButton(CBTConfig::get(CBTConfig::footnotesColor), page);		
 	label = new QLabel(m_settings.colors.footnotes,i18n("Footnotes"), page);			
-	gridLayout->addWidget(label,5,0);
-	gridLayout->addWidget(m_settings.colors.footnotes,5,1);
+	gridLayout->addWidget(label,3,0);
+	gridLayout->addWidget(m_settings.colors.footnotes,3,1);
 
 	m_settings.colors.strongs = new KColorButton(CBTConfig::get(CBTConfig::strongsColor), page);		
 	label = new QLabel(m_settings.colors.strongs, i18n("Strong's numbers"), page);			
-	gridLayout->addWidget(label,6,0);
-	gridLayout->addWidget(m_settings.colors.strongs,6,1);
+	gridLayout->addWidget(label,3,3);
+	gridLayout->addWidget(m_settings.colors.strongs,3,4);
 
 	m_settings.colors.morph = new KColorButton(CBTConfig::get(CBTConfig::morphsColor), page);		
 	label = new QLabel(m_settings.colors.morph, i18n("Morphologic tags"), page);			
-	gridLayout->addWidget(label,7,0);
-	gridLayout->addWidget(m_settings.colors.morph,7,1);
+	gridLayout->addWidget(label,4,0);
+	gridLayout->addWidget(m_settings.colors.morph,4,1);
 
 	m_settings.colors.jesuswords = new KColorButton(CBTConfig::get(CBTConfig::jesuswordsColor), page);		
 	label = new QLabel(m_settings.colors.jesuswords, i18n("Words of Jesus"), page);			
-	gridLayout->addWidget(label,8,0);
-	gridLayout->addWidget(m_settings.colors.jesuswords,8,1);
+	gridLayout->addWidget(label,4,3);
+	gridLayout->addWidget(m_settings.colors.jesuswords,4,4);
 	
-	gridLayout->addRowSpacing(9, 5);
-	gridLayout->setResizeMode(QLayout::Minimum);
+	gridLayout->setRowStretch(5, 5);
+	gridLayout->addColSpacing(3, 5);
 }
 
 /** Init profiles section. */
 void COptionsDialog::initProfiles(){
 	QFrame* page = addPage(i18n("Profiles"),QString::null, OD_ICON_GENERAL);
-	QVBoxLayout* layout = new QVBoxLayout(page,5);
+	QGridLayout* gridLayout = new QGridLayout(page, 3,3,5,5);
 
-	layout->addWidget(CToolClass::explanationLabel(page, i18n("Manage your profiles"), i18n("Profiles define the appereance of the work area, for example which windows are open and which texts should displayed in these windows. Don't forget that new profiles only work after you've saved something in them.")));
-	layout->addSpacing(5);
-	m_settings.profiles.profiles = new QListBox(page);					
-	layout->addWidget(m_settings.profiles.profiles);
+	gridLayout->addMultiCellWidget(
+		CToolClass::explanationLabel(page,
+			i18n("Manage your profiles"),
+			i18n("Profiles define the appereance of the work area, \
+for example which windows are open and which texts should displayed in these windows. \
+Don't forget that new profiles only work after you've saved something in them.")
+		),
+		0,0,0,-1
+	);
 	
+	m_settings.profiles.profiles = new QListBox(page);					
+	gridLayout->addMultiCellWidget(m_settings.profiles.profiles, 1,1,0,-1);
+	gridLayout->setRowStretch(1,10);
+	
+	m_settings.profiles.createProfile = new QPushButton(i18n("Create new profile"), page);
+	connect(m_settings.profiles.createProfile, SIGNAL(clicked()), SLOT(addNewProfile()));
+  gridLayout->addWidget(m_settings.profiles.createProfile,2,0);
+		
+	m_settings.profiles.deleteProfile = new QPushButton(i18n("Delete selected profile"), page);	
+	connect(m_settings.profiles.deleteProfile, SIGNAL(clicked()), SLOT(deleteProfile()));
+  gridLayout->addWidget(m_settings.profiles.deleteProfile,2,1);
+  		
+	m_settings.profiles.renameProfile = new QPushButton(i18n("Rename selected profile"), page);		
+	connect(m_settings.profiles.renameProfile, SIGNAL(clicked()), SLOT(renameProfile()));
+  gridLayout->addWidget(m_settings.profiles.renameProfile,2,2);	
+
+  //fill the profile list box
 	QList<CProfile> profiles = m_settings.profiles.mgr.profiles();
 	if (profiles.count()) {
 		for (CProfile* p = profiles.first(); p; p = profiles.next()) {
@@ -306,19 +332,6 @@ void COptionsDialog::initProfiles(){
 	else {
 		m_settings.profiles.profiles->setEnabled(false);
 	}
-	
-	QHButtonGroup* buttonGroup = new QHButtonGroup(page);
-	layout->addWidget(buttonGroup);	
-	layout->addSpacing(5);
-	
-	m_settings.profiles.createProfile = new QPushButton(i18n("Create new profile"), buttonGroup);
-	connect(m_settings.profiles.createProfile, SIGNAL(clicked()), SLOT(addNewProfile()));
-	
-	m_settings.profiles.deleteProfile = new QPushButton(i18n("Delete selected profile"), buttonGroup);	
-	connect(m_settings.profiles.deleteProfile, SIGNAL(clicked()), SLOT(deleteProfile()));
-		
-	m_settings.profiles.renameProfile = new QPushButton(i18n("Rename selected profile"), buttonGroup);		
-	connect(m_settings.profiles.renameProfile, SIGNAL(clicked()), SLOT(renameProfile()));
 }
 
 /** Init accel key section. */
@@ -466,7 +479,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
   currentTab = new QFrame(tabCtl);
   tabCtl->addTab(currentTab, i18n("Default modules"));
 	gridLayout = new QGridLayout(currentTab,9,2, 5,5); //the last row is for stretching available space
-//	gridLayout->setResizeMode(QLayout::Minimum);
+	gridLayout->setResizeMode(QLayout::Minimum);
 
   gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(currentTab, i18n("Default modules"), i18n("Default modules are used, when no module is specified. This may happen with references into modules like Bibles or Lexicons.")),
@@ -533,8 +546,9 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
 		
  	//fill the comboboxes with the right modules
  	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
+	QString modDescript;
   for ( modules->first(); modules->current(); modules->next() ) {
-		const QString& modDescript = modules->current()->getDescription();
+		modDescript = modules->current()->getDescription();
  		switch (modules->current()->getType()) {
  			case CSwordModuleInfo::Bible:
  				m_settings.sword.standardBible->insertItem(modDescript);
@@ -546,10 +560,12 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  			{
 				m_settings.sword.standardLexicon->insertItem(modDescript);
  				//place the Hebrew and Greek lexicons accordingly...
- 				if (modDescript.contains("Hebrew", false))
+ 				if (modDescript.contains("Hebrew", false)) {
 					m_settings.sword.standardHebrewStrong->insertItem(modDescript);				
-				else if (modDescript.contains("Greek", false) )
+ 				}
+				else if (modDescript.contains("Greek", false) ) {
 					m_settings.sword.standardGreekStrong->insertItem(modDescript);
+				}
 				else if (modDescript.contains("Morph", false) ) {
  					m_settings.sword.standardHebrewMorph->insertItem(modDescript);
  					m_settings.sword.standardGreekMorph->insertItem(modDescript);
@@ -588,7 +604,7 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
  	for (QComboBox* combo = comboList.first(); combo; combo = comboList.next() ) {		
 		module = moduleList[comboList.at()];
 		count = combo->count();
-//	  combo->setMaximumWidth(250);
+	  combo->setMaximumWidth(300);
  		for (item = 0; item < count; item++) {
 	 		if (combo->text(item) == module ) {
 	 		  combo->setCurrentItem(item);

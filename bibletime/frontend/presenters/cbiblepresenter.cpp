@@ -287,16 +287,14 @@ void CBiblePresenter::printVerseAndText(){
 void CBiblePresenter::printChapter(){
 //	CSwordVerseKey *startKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
 //	startKey->key(m_key->key());
-	CSwordVerseKey* startKey = m_key->clone();
-		
-//	CSwordVerseKey *stopKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem	
+	CSwordVerseKey* startKey = dynamic_cast<CSwordVerseKey*>(m_key->copy());
+//	CSwordKey *stopKey = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem	
 //	stopKey->key(m_key->key());
-	CSwordVerseKey* stopKey = m_key->clone();
-	
+	CSwordVerseKey* stopKey = dynamic_cast<CSwordVerseKey*>(m_key->copy());
 	CSwordBibleModuleInfo* b = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
 	if (b)
 		stopKey->Verse( b->getVerseCount(b->getBookNumber(startKey->book()),startKey->Chapter()) );
-	printKey(startKey, stopKey, m_moduleList.first());	
+	printKey(startKey, stopKey, m_moduleList.first());
 }
 
 //save functions

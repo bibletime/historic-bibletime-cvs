@@ -63,12 +63,16 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 }
 
 CPrinter::~CPrinter(){
+	qWarning("CPrinter::~CPrinter()");
 	saveSettings();
 	saveStyles();	
+	qWarning("CPrinter::~CPrinter(): 2.");	
 	config->sync();		
-	delete config;	
+	delete config;		
+	qWarning("CPrinter::~CPrinter(): 2.5");		
 	if (m_queue)
 		delete m_queue;
+	qWarning("CPrinter::~CPrinter(): 3.");			
 	delete m_styleList;
 }
 

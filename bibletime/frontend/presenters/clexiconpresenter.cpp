@@ -243,7 +243,7 @@ void CLexiconPresenter::copyEntryAndText(){
 void CLexiconPresenter::printEntryAndText(){
 //	CSwordLDKey *key = new CSwordLDKey(m_moduleList.first()); //this key will be deleted by the printem
 //	key->key(m_key->key());
-	CSwordLDKey* key = m_key->clone(); // later deleted by the print entry
+	CSwordLDKey* key = m_key->copy(); // later deleted by the print entry
 	printKey(key, key, m_moduleList.first());
 }
 

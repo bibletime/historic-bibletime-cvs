@@ -33,7 +33,7 @@ public:
 	CSwordTreeKey( const CSwordTreeKey& k );
 	CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module );
 	virtual ~CSwordTreeKey();	
-	virtual CSwordTreeKey *clone() const;
+	virtual CSwordTreeKey* copy() const;
   /**
   * Set/get the key. If the parameter is not set (means equal to QString::null)
   * the used key is returned. Otherwise the key is set and the new on ei returned.

@@ -25,14 +25,14 @@
 //}
 CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(k), CSwordKey(k) {
 	qWarning("copy constructor of CSwordTreeKey");
-	m_module = k.m_module;
+//	m_module = k.m_module;
 }
 
 CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k), CSwordKey() {
 	m_module = module;
 }
 
-CSwordTreeKey* CSwordTreeKey::clone() const {
+CSwordTreeKey* CSwordTreeKey::copy() const {
 	qWarning("CSwordTreeKey* CSwordTreeKey::clone() const");
 	return new CSwordTreeKey(*this);
 }
