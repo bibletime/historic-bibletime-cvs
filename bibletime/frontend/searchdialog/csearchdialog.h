@@ -56,9 +56,21 @@ class QTextEdit;
 
 class CSearchDialog : public KDialogBase  {
   Q_OBJECT
-public: 
+
+public:
+  static void openDialog(const ListCSwordModuleInfo modules, const QString& searchText = QString::null, QWidget* parentDialog = 0);
+
+protected:
+  /**
+  * The cinstructor of the dialog. It's protected because you should use the static public function openDialog.
+  * The dialog destroys itself if it was closed.
+  */
 	CSearchDialog(QWidget *parent);
 	virtual ~CSearchDialog();
+  /**
+  * Initializes this object.
+  */
+  void initView();
   /**
   * Starts the search with the given module list and given search text.
   * Doesn't wait for the start button press, starts immediatly
@@ -80,37 +92,22 @@ public:
   * Returns the search text which is set currently.
   */
   const QString searchText();
-  /** Resets the parts to the default. */
+  /**
+  * Resets the parts to the default.
+  */
   void reset();
-
-public slots:
+ 
+protected slots:
+  /**
+  * Updates the percentage bars.
+  */
+  void percentUpdate();
   /**
   * Starts the search with the set modules and the set search text.
   */
-  /** Updates the percentage bars. */
-  void percentUpdate();
   void startSearch();
   void searchFinished();
-  // shows selector of modules
   void showModulesSelector();
-
-private:
-  CSearchResultPage* m_searchResultPage;
-  CSearchOptionsPage* m_searchOptionsPage;
-	CSwordModuleSearch m_searcher;
-  struct {
-    int optionsPage;
-    int resultPage;
-  } m_index;
-  bool m_interruptedSearch;
-
-protected: // Protected methods
-  /**
-  * Initializes this object.
-  */
-  void initView();
-
-protected slots: // Protected slots
   /**
   * Initializes the signal slot connections
   */
@@ -127,6 +124,18 @@ protected slots: // Protected slots
   * Is the slot which is called when a page will be shown.
   */
   void slotShowPage(QWidget* page);
+  /** Reimplementation. */
+  virtual void slotClose();
+
+private:
+  CSearchResultPage* m_searchResultPage;
+  CSearchOptionsPage* m_searchOptionsPage;
+	CSwordModuleSearch m_searcher;
+  struct {
+    int optionsPage;
+    int resultPage;
+  } m_index;
+  bool m_interruptedSearch;
 };
 
 class CModuleChooser : public KListView, public CPointers {

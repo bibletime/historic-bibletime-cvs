@@ -73,15 +73,11 @@ void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
 CMainIndex::CMainIndex(QWidget *parent) : KListView(parent),
   m_searchDialog(0), m_toolTip(0), m_itemsMovable(false), m_autoOpenFolder(0), m_autoOpenTimer(this)
 {
-//  qWarning("constructor of CMainIndex!");
   initView();
   initConnections();  
-//  qWarning("finished");
 }
 
 CMainIndex::~CMainIndex(){
-//  qWarning("destructor of CMainIndex");
-
   //find the bookmark folder
   CItemBase* i = 0;
   QListViewItemIterator it( this );
@@ -266,24 +262,6 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* after){
     i->dropped(e);
 }
 
-/** Opens the searchdialog using the given modules using the given search text. */
-void CMainIndex::openSearchDialog( ListCSwordModuleInfo modules, const QString searchText){
-  if (!m_searchDialog)
-    m_searchDialog = new CSearchDialog(this);
-  m_searchDialog->reset();
-  if (modules.count()) {
-    m_searchDialog->setModules(modules);
-  } else {
-    m_searchDialog->showModulesSelector();
-  }
-
-  m_searchDialog->setSearchText(searchText);
-  m_searchDialog->show();
-  m_searchDialog->raise();
-  if (modules.count() && !searchText.isEmpty())
-    m_searchDialog->startSearch();
-}
-
 /** No descriptions */
 void CMainIndex::emitModulesChosen( ListCSwordModuleInfo modules, QString key ){
   emit createReadDisplayWindow(modules, key);
@@ -443,7 +421,7 @@ void CMainIndex::searchInModules(){
       modules.append(m);
   }
 
-  openSearchDialog(modules, QString::null);
+  CSearchDialog::openDialog(modules);
 }
 
 /** Unlocks the current module. */
@@ -561,27 +539,6 @@ const bool CMainIndex::isMultiAction( const CItemBase::MenuAction type ) const {
 void CMainIndex::moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow){
 //  qWarning("moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)");
 }
-
-//void CMainIndex::initDefaultModules() {
-//  // do nothing if restore workspace selected
-//  if (CBTConfig::get(CBTConfig::restoreWorkspace)) return;
-//
-//  // open the default Bible on startup if the workspace wasn't restored
-//  // We don't store the defauklt modules for later because they may change later
-//  ListCSwordModuleInfo modules;
-//  QString defaultBible(CBTConfig::get(CBTConfig::standardBible));
-//  if (!defaultBible.isEmpty()) {
-//    CSwordModuleInfo* m =
-//      CPointers::backend()->findModuleByDescription(defaultBible);
-//    if (m) {
-//      modules.append(m);
-//      emit createReadDisplayWindow(modules, QString::null);
-//    } else {
-//      qWarning("default Bible \"%s\" is no longer available, review your settings",
-//        defaultBible.latin1());
-//    }
-//  }
-//}
 
 /** Opens an editor window to edit the modules content. */
 void CMainIndex::editModule(){

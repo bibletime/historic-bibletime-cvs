@@ -68,6 +68,28 @@ const int LEGEND_INNER_BORDER = 5;
 const int LEGEND_DELTAY = 4;
 const int LEGEND_WIDTH = 85;
 
+static CSearchDialog* m_staticDialog = 0;
+
+void CSearchDialog::openDialog(const ListCSwordModuleInfo modules, const QString& searchText, QWidget* parentDialog) {
+  if (!m_staticDialog) {
+    m_staticDialog = new CSearchDialog(parentDialog);
+  };
+  m_staticDialog->reset();
+  if (modules.count()) {
+    m_staticDialog->setModules(modules);
+  } else {
+    m_staticDialog->showModulesSelector();
+  }
+
+  m_staticDialog->setSearchText(searchText);
+  if (m_staticDialog->isHidden()) {
+    m_staticDialog->show();
+  }
+  m_staticDialog->raise();
+  if (modules.count() && !searchText.isEmpty())
+    m_staticDialog->startSearch();
+};
+
 CSearchDialog::CSearchDialog(QWidget *parent)
   : KDialogBase(Tabbed, i18n("Search dialog"), Close | User1 | User2, User1, parent, "CSearchDialog", false, true, i18n("Search"), i18n("Interrupt")) {
 
@@ -192,6 +214,7 @@ void CSearchDialog::showModulesSelector() {
 void CSearchDialog::initConnections(){
   connect(this, SIGNAL(user1Clicked()), SLOT(startSearch()));
   connect(this, SIGNAL(user2Clicked()), SLOT(interruptSearch()));
+  connect(this, SIGNAL(closeClicked()), SLOT(slotDelayedDestruct()));  
   connect(this, SIGNAL(aboutToShowPage(QWidget*)), SLOT(slotShowPage(QWidget*)));
 }
 
@@ -215,7 +238,6 @@ void CSearchDialog::reset(){
   m_searchResultPage->reset();
   showPage(m_index.optionsPage);
 }
-
 
 /** Is the slot which is called when a page will be shown. */
 void CSearchDialog::slotShowPage(QWidget* page){
@@ -1089,4 +1111,11 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
 /** No descriptions */
 void CSearchAnalysis::saveAsHTML(){
   
+}
+
+/** Reimplementation. */
+void CSearchDialog::slotClose(){
+  qWarning("delayed destruction");
+  m_staticDialog = 0;
+  delayedDestruct();
 }

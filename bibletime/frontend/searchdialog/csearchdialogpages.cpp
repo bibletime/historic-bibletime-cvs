@@ -85,7 +85,7 @@ void CSearchResultView::initConnections(){
 /** Setups the list with the given module. */
 void CSearchResultView::setupTree(CSwordModuleInfo* m){
   clear();
-  Q_ASSERT(m);
+//  Q_ASSERT(m);
   if (!m)
     return;
 

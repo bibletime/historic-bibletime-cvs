@@ -37,6 +37,7 @@
 #include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/displaywindow/cbiblereadwindow.h"
 #include "frontend/keychooser/crefselectdialog.h"
+#include "frontend/searchdialog/csearchdialog.h"
 
 #include "printing/cprinter.h"
 
@@ -289,9 +290,22 @@ void BibleTime::slotAbortPrinting(){
 }
 
 
-void BibleTime::slotSearchSelectedModules() {
-//  qWarning("search in modules");
-  m_mainIndex->searchInModules();
+void BibleTime::slotSearchModules() {
+  //get the modules of the open windows
+  ListCSwordModuleInfo modules;
+  
+	QWidgetList windows = m_mdi->windowList();
+	int i;
+	for ( i = 0; i < int(windows.count()); ++i ) {
+    if (CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.at(i))) {
+      ListCSwordModuleInfo useModules = w->modules();
+      for (CSwordModuleInfo* m = useModules.first(); m; m = useModules.next()) {
+        modules.append(m);
+      };
+    };
+  };
+  
+  CSearchDialog::openDialog(modules, QString::null);
 }
 
 void BibleTime::slotBack() {

@@ -67,7 +67,7 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   m_display->end();
   m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff);
 
-//make usre the tooltip won't grow to large
+//make sure the tooltip won't grow to large
   const QRect screenSize = KApplication::desktop()->geometry();
   setMaximumSize(QSize(screenSize.width()*0.6, screenSize.height()*0.6));
   resize((int)((float)screenSize.width()*0.6), 0);

@@ -35,9 +35,6 @@ protected:
 	static void deleteBackend();
 	static void deletePrinter();
 
-//  CPointers();
-//  ~CPointers();
-  
 public: // Public methods
   /**
   * Returns a pointer to the printer object.

@@ -336,7 +336,7 @@ protected slots:
 	/**
 	 * Called when search button is pressed
 	 **/
-	void slotSearchSelectedModules();
+	void slotSearchModules();
 	/**
 	 * Called when back button pressed
 	 **/

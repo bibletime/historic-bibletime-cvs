@@ -29,6 +29,7 @@
 #include "frontend/cbtconfig.h"
 #include "frontend/cinputdialog.h"
 #include "frontend/cexportmanager.h"
+#include "frontend/searchdialog/csearchdialog.h"
 
 #include "util/ctoolclass.h"
 
@@ -188,7 +189,7 @@ void CModuleItem::dropped( QDropEvent* e ){
       ListCSwordModuleInfo modules;
       modules.append(module());
 
-      listView()->openSearchDialog(modules, str);
+      CSearchDialog::openDialog(modules, str);
     }
   }
 

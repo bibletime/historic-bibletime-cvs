@@ -59,7 +59,7 @@ public:
   /**
   * Opens the searchdialog using the given modules using the given search text.
   */
-  void openSearchDialog( ListCSwordModuleInfo modules, const QString searchText);
+//  void openSearchDialog( ListCSwordModuleInfo modules, const QString searchText);
   void emitModulesChosen( ListCSwordModuleInfo modules, QString key );
   /**
    * init default modules 

@@ -119,7 +119,6 @@ public:
   };
 
   static const QString 		get( const CBTConfig::strings );
-
   static const bool 			get( const CBTConfig::bools );
   static const int   			get( const CBTConfig::ints );
   static const QColor 		get( const CBTConfig::colors );
@@ -129,7 +128,6 @@ public:
   static const QFont 		get( const CLanguageMgr::Language& );  
 	
 	static const QString 				 getDefault( const CBTConfig::strings );
-
 	static const bool		 				 getDefault( const CBTConfig::bools );
 	static const int		 				 getDefault( const CBTConfig::ints );
 	static const QColor	 				 getDefault( const CBTConfig::colors );
@@ -139,7 +137,6 @@ public:
   static const QFont 		       getDefault( const CLanguageMgr::Language& );
     
 	static void set( const CBTConfig::strings, 	const QString value );
-
 	static void set( const CBTConfig::bools, 		const bool value );
 	static void set( const CBTConfig::ints, 		const int value );
 	static void set( const CBTConfig::colors, 	const QColor value );
@@ -150,12 +147,10 @@ public:
 
   static const CSwordBackend::FilterOptions getFilterOptionDefaults();
   static const CSwordBackend::DisplayOptions getDisplayOptionDefaults();
-
   static void setupAccel(const CBTConfig::keys type, KAccel* const accel);
 
 private:
 	static const QString getKey( const CBTConfig::strings );
-
 	static const QString getKey( const CBTConfig::bools );
 	static const QString getKey( const CBTConfig::ints );
 	static const QString getKey( const CBTConfig::colors );

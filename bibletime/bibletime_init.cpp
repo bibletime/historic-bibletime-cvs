@@ -117,10 +117,10 @@ void BibleTime::initActions() {
 	action->plugAccel( m_keyAccel );
 
 
-  action =  new KAction(i18n("Search in module(s)"),
+  action =  new KAction(i18n("Search in open module(s)"),
     CResMgr::mainMenu::mainIndex::search::icon,
     CResMgr::mainMenu::mainIndex::search::accel,
-    this, SLOT(slotSearchSelectedModules()), actionCollection(),
+    this, SLOT(slotSearchModules()), actionCollection(),
     CResMgr::mainMenu::mainIndex::search::actionName
   );
   action->setToolTip( CResMgr::mainMenu::mainIndex::search::tooltip );
