@@ -243,7 +243,7 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 		//if the module wasn't found just display an empty morph info
 		
 		ret += QString::fromLatin1("<div class=\"morphinfo\"><h3>%1: %2</h3><p>%3</p></div>")
-			.arg(i18n("Morph number"))
+			.arg(i18n("Morphology"))
 			.arg(*it)
 			.arg(text);
 	}
