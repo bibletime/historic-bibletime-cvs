@@ -63,15 +63,24 @@ const QString CSwordKey::strippedText() {
 	return QString::fromUtf8( m_module->module()->StripText() );
 }
 /** This will create a proper key object from a given module */
-CSwordKey * CSwordKey::createInstance( CSwordModuleInfo *module){
+CSwordKey* CSwordKey::createInstance( CSwordModuleInfo *module ){
+	ASSERT(module);
 	switch( module->getType() ){
 		case CSwordModuleInfo::Bible:
 		case CSwordModuleInfo::Commentary:
-			return new CSwordVerseKey( (VerseKey *) ( (SWKey *)(module->module()) ), module );
+			qWarning("returning key for Bible");			
+			return new CSwordVerseKey( (VerseKey *) ( (SWKey *)(*module->module()) ), module );
 		case CSwordModuleInfo::Lexicon:
-			return new CSwordLDKey( (SWKey *)(module->module()), module);
+			qWarning("returning key for Lexicon");			
+			return new CSwordLDKey( (SWKey *)(*module->module()), module);
 		case CSwordModuleInfo::GenericBook:
-			return new CSwordTreeKey( (TreeKeyIdx *) ( (SWKey *)(module->module()) ), module );
+			qWarning("returning key for GenericBook");
+			ASSERT((TreeKeyIdx *) ( (SWKey *)(*module->module())));
+			qWarning("return new key");			
+			CSwordTreeKey* key = new CSwordTreeKey( (TreeKeyIdx *)( (SWKey *)(*module->module()) ), module );
+			ASSERT(key);
+			qWarning("created key!!");			
+			return key;
 	}
 	return 0;
 }

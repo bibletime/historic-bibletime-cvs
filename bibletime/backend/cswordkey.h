@@ -34,16 +34,19 @@ class CSwordModuleInfo;
 class CSwordKey {
 public:
 	virtual ~CSwordKey() {};
-	//pure virtual functions
 	virtual const QString key(const QString& = QString::null) {return QString::null;};
 	virtual void key(const char*) {};
-	virtual const QString renderedText();
-	virtual const QString strippedText();
+	
+	//pure virtual functions	
 	virtual const CSwordKey* clone() const = 0;	
 	
 	//implemented functions
 	virtual CSwordModuleInfo* module(CSwordModuleInfo* newModule = 0);
-  /** This will create a proper key object from a given module */
+	virtual const QString renderedText();
+	virtual const QString strippedText();
+  /**
+  * This will create a proper key object from a given module
+  */
   static CSwordKey * createInstance( CSwordModuleInfo *module);
 
 protected:

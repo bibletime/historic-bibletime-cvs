@@ -2,7 +2,7 @@
 myDir=/opt/kde2
 target=../bibletime-doc
 
-current=/home/joachim/BibleTime/bibletime
+current=$PWD
 
 perl ./extractrc bibletime/xml/*.rc > bibletime/rc-dummy.cpp && \
 sed "s/#define//" bibletime/tooltipdef.h > bibletime/dummy.h && \

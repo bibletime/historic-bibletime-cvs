@@ -24,17 +24,20 @@
 #include <qlayout.h>
 
 CBookKeyChooser::CBookKeyChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0)
-	: CKeyChooser(module, key, parent,name)
+	: CKeyChooser(module, key, parent,name), m_key(0)
 {
 	qWarning("CBookKeyChooser::CBookKeyChooser");
-	if ( module && (module->getType() == CSwordModuleInfo::GenericBook) )
-		m_module = dynamic_cast<CSwordBookModuleInfo*>(module);
+	if ( module && (module->getType() == CSwordModuleInfo::GenericBook) ) {
+		m_module = dynamic_cast<CSwordBookModuleInfo*>(module);		
+		m_key = dynamic_cast<CSwordTreeKey*>(CSwordKey::createInstance(m_module));
+	}
 	else {
 		m_module = 0;
+		m_key = 0;
 		qWarning("CBookKeyChooser: module is not a book!");
 		return;
 	}		
-	
+	ASSERT(m_key);
 	refreshContent();
 }
 
@@ -82,34 +85,36 @@ void CBookKeyChooser::refreshContent() {
 		layout->addWidget(newKeyChooser);		
 	}	
 
-	TreeKeyIdx* tree = m_module->getTree();
-	tree->root();
-	if (tree->firstChild())	{
+//	TreeKeyIdx* tree = m_module->getTree();
+//	tree->root();
+ASSERT(m_key);
+	m_key->root();
+	if (m_key->firstChild())	{
 		do {
 //			qWarning("append now %s",QString::fromLocal8Bit(tree->getLocalName()).latin1());		
-			m_topElements.append( QString::fromLocal8Bit(tree->getLocalName()) );
+			m_topElements.append( QString::fromLocal8Bit(m_key->getLocalName()) );
 		}  	
-		while (tree->nextSibling());
+		while (m_key->nextSibling());
 	}
 	m_chooserWidgets.at(0)->reset(m_topElements,0,false);
 			
 	//fill the keychoosers
 	for (int i = 2; i <= maxDepth; i++) {
-		setupKeyChooser(i, tree);
+		setupKeyChooser(i, m_key);
 	}
 }
 
 /** Sets up the entries of the given key chooser. */
 void CBookKeyChooser::setupKeyChooser(const int number, TreeKeyIdx* tree){
 	qWarning("CBookKeyChooser::setupKeyChooser");
- 	tree->root(); //first entry
+ 	m_key->root(); //first entry
  	for (int chooser = 1; chooser < number; chooser++)	 {
- 		tree->firstChild(); 		
+ 		m_key->firstChild(); 		
  		//get current entry of first and set tree to this entry
  		const int currentEntry = m_chooserWidgets.at(chooser-1)->comboBox()->currentItem();
  		qWarning("currentEntry == %i", currentEntry);
  		for (int sibling = 0; sibling < currentEntry; sibling++) {
- 			if (!tree->nextSibling())
+ 			if (!m_key->nextSibling())
  				break;
  		}
  		//now we are at the parent entry of the items we want to have
@@ -117,11 +122,11 @@ void CBookKeyChooser::setupKeyChooser(const int number, TreeKeyIdx* tree){
  	
  	CKeyChooserWidget* chooserWidget = m_chooserWidgets.at(number-1);
  	QStringList entries;
- 	if (tree->firstChild()) {
+ 	if (m_key->firstChild()) {
 	 	do {
-	 		entries.append( QString::fromLocal8Bit(tree->getLocalName()) );
+	 		entries.append( QString::fromLocal8Bit(m_key->getLocalName()) );
 	 	}
-	 	while (tree->nextSibling());
+	 	while (m_key->nextSibling());
 	}
 	else
 	 	qWarning("no success calling firstChild()");
@@ -140,8 +145,8 @@ void CBookKeyChooser::keyChooserChanged(int){
 	
 	//all combos following to the changed combo have to be cleared and refilled
   const int maxDepth = m_module->depth();		
-	TreeKeyIdx* tree = m_module->getTree();
+//	TreeKeyIdx* tree = m_module->getTree();
 	for (int i = pos+2; i <= maxDepth; i++) { // i+2 because m_chooserWidgets starts with 0 and the found keyChooser needs no update
-		setupKeyChooser(i, tree);
+		setupKeyChooser(i, m_key);
 	}
 }

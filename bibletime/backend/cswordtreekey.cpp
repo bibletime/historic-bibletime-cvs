@@ -23,36 +23,39 @@
 //	if (m_module)
 //		SWKey::operator = (m_module->module()->KeyText());
 //}
-CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(k), CSwordKey() {
+CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(k), CSwordKey(k) {
+	qWarning("copy constructor of CSwordTreeKey");
 	m_module = k.m_module;
 }
 
-CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k), CSwordKey() {
+CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module ) : TreeKeyIdx(*k)/*, CSwordKey()*/ {	
+	qWarning("CSwordTreeKey: second 'copy' constructor of CSwordTreeKey");	
 	m_module = module;
 }
 
 CSwordTreeKey* CSwordTreeKey::clone() const{
+	qWarning("CSwordTreeKey* CSwordTreeKey::clone() const");
 	return new CSwordTreeKey(*this);
-
 }
 
 CSwordTreeKey::~CSwordTreeKey() {
+	qWarning("destructor of CSwordTreeKey");
 }
 
 /** Sets the key of this instance */
 const QString CSwordTreeKey::key( const QString& newKey ){
 	if (!newKey.isNull()) {
-		SWKey::operator = ((const char*)newKey.utf8());		
+		TreeKeyIdx::operator = ((const char*)newKey.local8Bit());		//don't use Utf8! Doesn't work with umlauts!
 		m_module->module()->SetKey(this);
 		(const char*)*(m_module->module()); //snap to entry
-		SWKey::operator = (m_module->module()->KeyText());
+		TreeKeyIdx::operator = (m_module->module()->KeyText());
 	}
  	return QString::fromLocal8Bit(m_module->module()->KeyText());//don't use fromUtf8
 }
 
 void CSwordTreeKey::key( const char* newKey ){
 	if (newKey) {
-		TreeKey::operator = (newKey);
+		TreeKeyIdx::operator = (newKey);
 	}
 }
 

@@ -31,7 +31,7 @@ CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
 }
 
 /** No descriptions */
-CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKey() {
+CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKey(k) {
 	m_module = k.m_module;	
 }
 
