@@ -229,7 +229,7 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			connect(presenter->getKeyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 				m_mdi, SLOT(syncCommentaries(CSwordKey*)));		
 		}
-//		presenter->lookup(key);		
+		presenter->lookup(key);		
 	}
 			
 	kapp->restoreOverrideCursor();
