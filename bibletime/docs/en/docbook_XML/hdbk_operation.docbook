@@ -125,7 +125,7 @@ on. </para> </section>
 <section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Editing
 your own commentary</title> <para>
 The tool bar of commentary presenters has another button, with the picture of a
-pencil.<graphic fileref="hdbk_op_pencil.png"></graphic>
+pencil.<graphic fileref="comon/hdbk_op_pencil.png"></graphic>
 For the "Personal" commentary module, click that button to be able to
 enter your own notes into the Personal commentary, or to edit notes you've
 already entered. When you're done, click on the "Save" (disk) button to save
@@ -539,18 +539,30 @@ To export text as HTML, text, or to the clipboard from an open document.  Do a
 <mousebutton>right mouse click</mousebutton> in the document, and a drop down
 menu will appear.  Select the desired option,
 A save text dialog box will appear for you to enter the desired
-file name.</para>
+file name.
+</para>
+
+<para>
+Context Menu Information Later
+</para>
 </section>
 
 <section ID="hdbk_op_print"><title>Printing</title>
-<para>Printing from Bibletime is rather basic and is intended as a utility.  If you are composing a
-document or presentation containing text from Bibletime documents, we suggest that you use one of
-the presentation or editing tools on your system.  See the instructions on exporting.
-</para>
+<para>The printing system has been changed, This section is under
+revusion</para> <para>Printing from Bibletime is rather basic and is intended as 
+a utility.  If you are composing a document or presentation containing text from
+Bibletime documents, we suggest that you use one of the presentation or editing
+tools on your system.  See the instructions on exporting. </para>
 <para>
 To print, select an open document, then select <guiicon>print</guiicon>.  The print dialog box will appear.
-You will have the option of sending your selection to the printer, or previewing it with kghostview.
+You will have the option of sending your selection to the printer, or previewing
+it with kghostview.
 </para>
+
+<para>
+Context Menu Information Later
+</para>
+
 </section>
 </section>
 </chapter>
