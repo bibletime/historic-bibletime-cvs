@@ -25,7 +25,7 @@
 #include <qcursor.h>
 
 cfx_btn::cfx_btn(QWidget *parent, const char *name ) : QToolButton(parent,name) {
-	setCursor( splitVCursor );	
+	setCursor( splitVCursor );
 		
 	isLocked = false;
 	connect(this, SIGNAL(pressed() ), SLOT(was_pressed() ));
@@ -54,14 +54,7 @@ QPoint cfx_btn::get_lock_Point(void){
 void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
 	if (isLocked) {
 		int vchange = QCursor::pos().y() - lock_Point.y();
-		/**
-		* This works for me. Changing the exponent (0.3) changes the speed of the scrolling
-		*/
-		//vchange = (vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3);
-		//problem: too slow to scroll trough large sets
-		//soluton: increase the exponent
-		//change the border values or the exponents to make it slower / faster
-		if      (abs(vchange) < 10)
+		if (abs(vchange) < 10)
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3));
 		else if (abs(vchange) < 30)
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.6));
