@@ -7,24 +7,24 @@ In this file:
 
 General introduction:
 --------------------
-	This is BibleTime @VERSION@. BibleTime is a Bible study application for Linux running KDE 3.0 or later.
-If you find bugs please report them to info@bibletime.info or use the links on our webpage http://www.bibletime.info.
+This is BibleTime @VERSION@. BibleTime is a Bible study application for KDE 3.0 or later.
 
-Please do not hesitate to send suggestions or criticism info@bibletime.info.
+If you find bugs please report them to info@bibletime.info or use the links on our webpage
+http://www.bibletime.info. Please do not hesitate to send suggestions or criticism info@bibletime.info.
 
-Read the file INSTALL how to install and compile this version of BibleTime. There's also a SPEC file to create RPMs, it's called bibletime.spec.
+Read the file INSTALL how to install and compile this version of BibleTime. There's also a SPEC file
+to create RPMs, it's called bibletime.spec.
 
-For a list of people who contributed to BibleTime read the "About BibleTime" pages available in the Help menu of BibleTime.
+For a list of people who contributed to BibleTime read the "About BibleTime" pages available in the
+"Help" menu of BibleTime.
 
 This README file contains some very useful instructions and tips how to use BibleTime.
 Please read also the handbook, it contains many instructions about the usage and
 installation of BibleTime.
 
 
-Requirements
-------------
-	o KDE 3.x
-	o SWORD 1.5.7
+Requirements: see file INSTALL
+-------------
 
 Documentation:
 --------------
