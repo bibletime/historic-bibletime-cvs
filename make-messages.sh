@@ -1,5 +1,5 @@
 #!/bin/sh
-myDir=$KDEDIR/include/kde
+myDir=/opt/kde2/include/
 target=../bibletime-doc
 
 current=$PWD

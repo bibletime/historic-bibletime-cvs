@@ -23,19 +23,18 @@
 #include <treekey.h>
 
 CSwordBookModuleInfo::CSwordBookModuleInfo( SWModule* module )
-	: CSwordModuleInfo(module),m_depth(-1)
+	: CSwordModuleInfo(module), m_depth(-1)
 {
 	//checking if it works as expected
 //	qWarning("Book module: %s", module->Name());
-//	TreeKeyIdx* treeKey = tree();
-//	if (treeKey) {
+//	if (TreeKeyIdx* treeKey = tree()) {
 //		TreeKeyIdx root = *treeKey;
 //  	root.root();
 //		printTree(root, treeKey, 0);
 //	}
 //	else
 //		qWarning("treeKey not valid");
-//	qWarning("depth: %i\n\n", depth());
+//	qWarning("%s has depth: %i\n\n", module->Name(), depth());
 }
 
 CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordBookModuleInfo& module )
@@ -93,7 +92,7 @@ void CSwordBookModuleInfo::computeDepth(TreeKeyIdx treeKey, TreeKeyIdx* target, 
 
 /** Returns a treekey filled with the structure of this module */
 TreeKeyIdx* const  CSwordBookModuleInfo::tree() const {
-	TreeKeyIdx* treeKey = (TreeKeyIdx*)((SWKey*)*(module()));
+	TreeKeyIdx* treeKey = dynamic_cast<TreeKeyIdx*>((SWKey*)*(module()));
 	if (treeKey)
 		return treeKey;
 	return 0;
