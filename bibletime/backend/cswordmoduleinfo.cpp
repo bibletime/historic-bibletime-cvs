@@ -56,14 +56,12 @@ CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module) {
 		 	qWarning("The module \"%s\" requires a newer Sword library. Please update to \"Sword %s\".", name().latin1(), (const char*)minimumSwordVersion());
 		}
 	}
-
-	//init Sword module attributes
-//	m_module->processEntryAttributes(true); //enable Entry Attributes
 }
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {
 	m_module = m.m_module;
 	m_backend = m.m_backend;
+	m_dataCache = m.m_dataCache;
 	m_searchResult = m.m_searchResult;
 }
 

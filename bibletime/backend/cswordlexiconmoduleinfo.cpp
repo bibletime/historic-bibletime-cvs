@@ -54,9 +54,9 @@ CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 
 /** Returns the entries of the module. */
 QStringList* const CSwordLexiconModuleInfo::entries(){
-//  qWarning("QStringList* const CSwordLexiconModuleInfo::entries()");
-	if (!module())
+	if (!module()) {
 		return 0;
+	}
 
   if (!m_entryList) {
 		m_entryList = new QStringList();
@@ -67,15 +67,15 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
   		QFile f1(
   			QString::fromLatin1("%1/%2")
   				.arg(KGlobal::dirs()->saveLocation("data", "bibletime/cache/"))
-  				.arg( name() )
+  				.arg(name())
   		);
-  		
+
       if ( f1.open( IO_ReadOnly ) ){
         QDataStream s( &f1 );
   			QString mod_ver, prog_ver;
         s >> mod_ver;
         s >> prog_ver;
-  			if (mod_ver == config(ModuleVersion) && prog_ver == CACHE_FORMAT) {
+  			if ((mod_ver == config(ModuleVersion)) && (prog_ver == CACHE_FORMAT)) {
   				s >> *m_entryList;
   				read = true;
   			}
@@ -88,24 +88,25 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 			(*module()) = sword::TOP;
       snap(); //snap to top entry
   		do {
-        if ( isUnicode() )
+        if (isUnicode()) {
      			m_entryList->append(QString::fromUtf8(module()->KeyText()));
-        else //latin1 is a lot faster than UTF8, use it because latin1 modules won't contain unicode keys
+				}
+        else { //for latin1 modules use fromLatin1 because of speed
           m_entryList->append(QString::fromLatin1(module()->KeyText()));
-//        qWarning("new key added: %s ", module()->KeyText());
+				}
   			(*module())++;
   		} while ( !module()->Error() );
 			(*module()) = sword::TOP; //back to the first entry
       module()->setSkipConsecutiveLinks(false);
-      
+
       if (m_entryList->count()) {
         m_entryList->first().simplifyWhiteSpace();
-    		if (m_entryList->first().stripWhiteSpace().isEmpty())
-  	  		m_entryList->remove( m_entryList->begin() );			
+    		if (m_entryList->first().stripWhiteSpace().isEmpty()) {
+  	  		m_entryList->remove( m_entryList->begin() );
+				}
       }
 
 			if (lexiconCache && m_entryList->count()){
-//        qWarning("return the entry cache");
   			//create cache
 		 		QString dir = KGlobal::dirs()->saveLocation("data", "bibletime/cache/");
         QFile f2( QString::fromLatin1("%1/%2").arg(dir).arg( name() ) );
@@ -118,7 +119,7 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
         }
 			}
 		}
-	}	
+	}
 	return m_entryList;
 }
 

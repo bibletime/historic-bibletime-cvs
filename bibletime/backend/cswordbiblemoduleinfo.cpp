@@ -81,7 +81,7 @@ void CSwordBibleModuleInfo::initBounds() {
 
 
 /** Returns the books available in this module */
-QStringList* CSwordBibleModuleInfo::books() {
+QStringList* const CSwordBibleModuleInfo::books() {
 	if (m_cachedLocale != backend()->booknameLanguage()){	//if the locale has changed
 		delete m_bookList;
 		m_bookList = 0;

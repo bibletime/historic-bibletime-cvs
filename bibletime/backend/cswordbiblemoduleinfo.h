@@ -73,7 +73,7 @@ public:
   /** Return all book of this module.
   * @return A QStringList containing the books which are available in this module.
   */
-  virtual QStringList* books();
+  virtual QStringList* const books();
   /**
   * Reimplementation, Returns the type
   */
