@@ -483,7 +483,7 @@ void CHTMLWidget::slotSetCurrentFont(const QString& font) {
 	newFont.setItalic(italic());
 	newFont.setUnderline(underline());	
 	
-	setFont( newFont );
+	setCurrentFont( newFont );
 }
 
 /** Is calledwhen a new color was selected. */
