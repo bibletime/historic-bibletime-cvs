@@ -108,5 +108,6 @@ docs/install/Makefile \
 docs/install/html/Makefile \
 docs/install/unicode/Makefile \
 pot/Makefile \
+setupwizard/Makefile \
 NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop \
 )
