@@ -1879,7 +1879,7 @@ sub_dirs=
 type=normal
 
 [po/Makefile.am]
-files=po/de.po,po/cs.po,po/da.po,po/fr.po,po/hu.po,po/it.po,po/nl.po,po/pl.po,po/pt.po,po/sk.po
+files=po/de.po,po/cs.po,po/da.po,po/fr.po,po/hu.po,po/it.po,po/nl.po,po/pl.po,po/pt.po,po/sk.po,po/es.po
 sub_dirs=
 type=po
 
@@ -1897,6 +1897,12 @@ type=PO
 
 [po/de.po]
 dist=true
+install=false
+install_location=
+type=PO
+
+[po/es.po]
+dist=false
 install=false
 install_location=
 type=PO

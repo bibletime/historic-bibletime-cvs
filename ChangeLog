@@ -1,4 +1,9 @@
 2001-07-05 Joachim Ansorg <jansorg@gmx.de>
+	* Disabled the OT and NT workaround! It doesn't work very well because we don't know which extensions
+		all the different module types will have in future.
+	* Fixed error message (no Sword config) if SWORD_PATH was set
+
+2001-07-05 Joachim Ansorg <jansorg@gmx.de>
 	* The button "Cancel" in the styleeditor closes now the dialog without creating a new item in the style list
 
 2001-07-03 Joachim Ansorg <jansorg@gmx.de>

@@ -545,8 +545,7 @@ void CGroupManager::slotShowAbout(){
 	if (!module) {
 		qWarning("Invalid module");
 		return;
-	}		
-	ASSERT(module);
+	}	
 		
 	QString isWritable;
 	if (module->module()->isWritable())
@@ -598,8 +597,8 @@ text += QString::fromLatin1("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCO
 	.arg(module->getAboutInformation());
 	
 	dlg->setText(text);
-	dlg->exec();
-	delete dlg;	
+	dlg->show();
+//	delete dlg;	
 }
 
 /**  */

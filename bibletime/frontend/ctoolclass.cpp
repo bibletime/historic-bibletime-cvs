@@ -38,10 +38,10 @@
 #include "ctoolclass.h"
 
 QString CToolClass::locatehtml(const QString &filename) {
-    QString path = locate("html", KGlobal::locale()->language() + '/' + filename);
-    if (path.isNull())
-       path = locate("html", "default/" + filename);
-    return path;
+	QString path = locate("html", KGlobal::locale()->language() + '/' + filename);
+	if (path.isNull())
+		path = locate("html", "default/" + filename);
+	return path;
 }
 
 /** Parses a URL and gives back a key. */
