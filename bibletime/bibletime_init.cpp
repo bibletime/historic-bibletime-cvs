@@ -247,15 +247,10 @@ void BibleTime::initActions() {
 void BibleTime::initMenubar(){
 	//get the window and edit menus using the actions and their properties
 	m_windowMenu = dynamic_cast<QPopupMenu*>(m_windowTile_action->container(0));	
-//	if ( m_windowTile_action->container(0) && m_windowTile_action->container(0)->inherits("QPopupMenu") )
-//		m_windowMenu = dynamic_cast<QPopupMenu*>(m_windowTile_action->container(0));
-//	else
-//		m_windowMenu = 0;
 }
 
 /** Initializes the SIGNAL / SLOT connections */
 void BibleTime::initConnections(){
-//	KStartupLogo::setStatusMessage(i18n("Initializing menu items") + QString::fromLatin1("..."));
 	connect(m_mdi, SIGNAL(sigSetToplevelCaption(const QString&)),
 		this, SLOT(setPlainCaption(const QString&)));
 	connect(m_mdi, SIGNAL(createNewSwordPresenter(CSwordModuleInfo*, const QString&)),
@@ -346,7 +341,7 @@ void BibleTime::initPrinter() {
 /** Apply the settings given by the profile p*/
 void BibleTime::applyProfileSettings( CProfile* p ){
 	if (!p) {
-	 	qDebug("profile is empty!");
+//	 	qDebug("profile is empty!");
 		return;
 	}
 	if (p->fullscreen()) { //we can set only fullscreen OR geometry

@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 //own includes
-//#include "chtmlwidget.h"
 #include "chtmldialog.h"
 #include "ctoolclass.h"
 

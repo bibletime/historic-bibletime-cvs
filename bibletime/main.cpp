@@ -43,10 +43,8 @@
 #include <kinstance.h>
 #include <kaboutdata.h>
 #include <klocale.h>
-#include <kiconloader.h>
 
-//Qt includes
-#include <qfont.h>
+#include <kmessagebox.h>
 
 bool showDebugMessages = false;
 BibleTime* bibletime = 0;
@@ -77,7 +75,10 @@ extern "C" {
 		// try to cleanup all windows
 		if (bibletime) {
 			bibletime->saveSettings();
-			fprintf(stderr, "Saving seemed to be succesful\n");		
+//			KMessageBox::error(0, QString::fromLatin1("BibleTime got the <B>signal %1</B>.<BR>Options could be saved on disk. If restoring does not work on next startup \
+//please use the option <B>--ignore-startprofile</B>").arg(sigId));
+			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
+please use the option --ignore-startprofile\n");
 		}
 		::exit(-1); //exit BibleTime
 	}
@@ -88,7 +89,8 @@ extern "C" {
 		fprintf(stderr, "*** BibleTime got signal %d (Crashing). Trying to save settings.\n", sigId);
 		if (bibletime) {
 			bibletime->saveSettings();
-			fprintf(stderr, "Saving seemed to be succesful\n");		
+			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
+please use the option --ignore-startprofile\n");		
 		}
 		// Return to DrKonqi.
 	}
@@ -108,6 +110,7 @@ int main(int argc, char* argv[]) {
 	static KCmdLineOptions options[] =
 	{
 		{"debug", I18N_NOOP("Enable debug messages"),0},
+		{"ignore-startprofile", I18N_NOOP("Ignore the startup profile saved after the last BibleTime execution."),0},
 		{0,0,0}
 	};	
 		
@@ -125,40 +128,34 @@ int main(int argc, char* argv[]) {
 	
 	//we could so change this to a file reading function (including commented out people
 	//coders
-	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "jansorg@gmx.de","");
-	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
-	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com", "");
+	// active developers (sorted by name)                                                                                     	
+	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator"), "jansorg@gmx.de",					"");
+	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend"), 	"mg.pub@gmx.net", 				"");
+	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), 				"mlybarge@insight.rr.com","");
 //	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
 //	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
 //	aboutData.addAuthor("Tim Brodie", 	I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
 
-	//documentation
-	aboutData.addAuthor("Fred Saalbach", 	I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
+	//documentation (sorted by name)
+	aboutData.addAuthor("Fred Saalbach", I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
 	
-	//translators
-	aboutData.addAuthor("Silvio Bacchetta",		I18N_NOOP("Translation into Italian"), "sorgilazzaro@tiscalinet.it", "");							
-	aboutData.addAuthor("Nuno Bareto", 				I18N_NOOP("Translation into Portoguese"), "nbarr@clix.pt", "");	
-	aboutData.addAuthor("Mario Bertrand", 	  I18N_NOOP("Translation into French"), "mbert@tbrq.org", "");			
-	aboutData.addAuthor("Benedykt P. Barszcz",I18N_NOOP("Translation into Polish"), "kb2qzv@box43.gnet.pl", "");		
-	aboutData.addAuthor("Birger Langkjer", 		I18N_NOOP("Translation into Danish"), "birger.langkjer@image.dk", "");				
-	aboutData.addAuthor("Zdeno Podobny", 			I18N_NOOP("Translation into Slovak"), "zdpo@post.sk", "");	
-	aboutData.addAuthor("Michal Rovnaník",		I18N_NOOP("Translation into Czech"), "Michal.Rovnanik@seznam.cz", "");			
-	aboutData.addAuthor("Eduardo Sanchez", 		I18N_NOOP("Translation into Spanish"), "csanche2@calvin.edu", "");			
-	aboutData.addAuthor("Beda Szukics",				I18N_NOOP("Translation into Italian"), "bszukics@bluewin.ch", "");								
-	aboutData.addAuthor("Balint Sandor", 			I18N_NOOP("Translation into Hungarian"), "balintsa@freemail.hu", "");				
-	aboutData.addAuthor("Espen Trydal", 			I18N_NOOP("Translation into Norwegian"), "etrydal@postkassa.no", "");		
-//	aboutData.addAuthor("Jonathan Jones",			I18N_NOOP("Translation into Brazilian Portoguese"), "jones@brfree.com.br", "");					
-//	aboutData.addAuthor("Walter Rodrigo de Sá Cruz",			I18N_NOOP("Translation into Portoguese"), "keytech@ig.com.br", "");		
-	aboutData.addAuthor("Kees van Veen", 			I18N_NOOP("Translation into Dutch"), "cvn@interchain.nl", "");	
-														
-	//credits
-	aboutData.addCredit("Bob Harman", 	I18N_NOOP("Bible study HowTo"), "N_Cov_Church@compuserve.com", "");		
-//	aboutData.addCredit("Darwin Gregory", I18N_NOOP("Optionsdialog"), "darwin@ichristian.com", "");		
-//	aboutData.addCredit("Jeffrey Hoyt", 	I18N_NOOP("handbook"), "jeffhoyt@earthlink.net", "http://jhoyt.faithweb.com");	
-//	aboutData.addCredit("Juho Vahakangas", I18N_NOOP("Martin Luther startup logo"), "juhov@freenet.fi", "");
-//	aboutData.addCredit("Thomas Hagedorn", I18N_NOOP("Sponsor of www.bibletime.de"), "tom@delix.de", "");		
-//	aboutData.addCredit("Torsten Uhlmann", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
-//	aboutData.addCredit("Troy A. Griffits", I18N_NOOP("Leader of the SWORD project.\nLots of help with the SWORD API!"), "scribe@crosswire.org", "");	
+	//translators (sorted by language)
+	aboutData.addAuthor("Michal Rovnaník",		I18N_NOOP("Translation into Czech"), 			"Michal.Rovnanik@seznam.cz", 	"");	
+	aboutData.addAuthor("Birger Langkjer", 		I18N_NOOP("Translation into Danish"), 		"birger.langkjer@image.dk", 	"");
+	aboutData.addAuthor("Kees van Veen", 			I18N_NOOP("Translation into Dutch"), 			"cvn@interchain.nl", 					"");
+	aboutData.addAuthor("Mario Bertrand", 	  I18N_NOOP("Translation into French"), 		"mbert@tbrq.org", 						"");
+	aboutData.addAuthor("Balint Sandor", 			I18N_NOOP("Translation into Hungarian"), 	"balintsa@freemail.hu", 			"");
+	aboutData.addAuthor("Beda Szukics",				I18N_NOOP("Translation into Italian"), 		"bszukics@bluewin.ch", 				"");
+	aboutData.addAuthor("Silvio Bacchetta",		I18N_NOOP("Translation into Italian"), 		"sorgilazzaro@tiscalinet.it", "");
+	aboutData.addAuthor("Espen Trydal", 			I18N_NOOP("Translation into Norwegian"), 	"etrydal@postkassa.no", 			"");
+	aboutData.addAuthor("Benedykt P. Barszcz",I18N_NOOP("Translation into Polish"), 		"kb2qzv@box43.gnet.pl", 			"");	
+	aboutData.addAuthor("Nuno Bareto", 				I18N_NOOP("Translation into Portoguese"), "nbarr@oninet.pt", 						"");	
+	aboutData.addAuthor("Yuriy Salimovskyy", 	I18N_NOOP("Translation into Russian"), 		"y2000@pisem.net",						"");	
+	aboutData.addAuthor("Zdeno Podobny", 			I18N_NOOP("Translation into Slovak"), 		"zdpo@post.sk", 							"");	
+	aboutData.addAuthor("Eduardo Sanchez", 		I18N_NOOP("Translation into Spanish"), 		"csanche2@calvin.edu", 				"");
+
+	//credits (sorted by name)
+	aboutData.addCredit("Bob Harman", I18N_NOOP("Bible study HowTo"), "N_Cov_Church@compuserve.com", "");
 	 	
 	KCmdLineArgs::init(argc, argv, &aboutData); 	
 	KCmdLineArgs::addCmdLineOptions ( options );
@@ -207,14 +204,13 @@ int main(int argc, char* argv[]) {
 		bibletime->show();			
 		
 		// restore the workspace
-		if (CBTConfig::get(CBTConfig::restoreWorkspace))
+		if (CBTConfig::get(CBTConfig::restoreWorkspace) && !args->isSet("ignore-startprofile"))
 			bibletime->restoreWorkspace();
 
 		setSignalHandler(signalHandler);		
 		
 		const int ret = app.exec();
 		CPointers::deleteBackend();
-
 		return ret;
 	}
 }

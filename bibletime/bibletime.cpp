@@ -122,7 +122,7 @@ void BibleTime::saveSettings(){
 
 /** Reads the settings from the configfile and sets the right properties. */
 void BibleTime::readSettings(){
-	qDebug("BibleTime::readSettings()");
+//	qDebug("BibleTime::readSettings()");
 	
 //	applyMainWindowSettings(m_config);
 	
@@ -254,7 +254,7 @@ void BibleTime::readProperties(KConfig* /*myConfig*/){
 
 }
 
-/** Restores the workspace if the flaf for this is set in the config. */
+/** Restores the workspace if the flag for this is set in the config. */
 void BibleTime::restoreWorkspace(){	
 	CProfile* p = m_profileMgr.startupProfile();
 	if (p)
