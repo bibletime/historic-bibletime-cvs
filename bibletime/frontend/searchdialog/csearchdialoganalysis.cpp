@@ -325,7 +325,7 @@ const QString CSearchDialogAnalysisItem::getToolTip(){
 		ret.append(
 			QString::fromLatin1("<TR BGCOLOR=\"white\"><TD><B><FONT COLOR=\"#%1\">%2</FONT></B></TD><TD>%3</TD></TR>")
 				.arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue()))
-				.arg(info ? QString::fromLocal8Bit(info->module()->Name()) : QString::null)
+				.arg(info ? info->name() : QString::null)
 				.arg(m_resultCountArray[i])
 		);
 	}
@@ -428,7 +428,7 @@ void CSearchDialogAnalysisLegendItem::draw (QPainter& painter) {
  		painter.drawRect(r);
  		
  		QPoint p3( p2.x() + LEGEND_INNER_BORDER, p2.y() );
-  	painter.drawText(p3, QString(m_moduleList->at(index)->module()->Name()) );
+  	painter.drawText(p3, m_moduleList->at(index)->name() );
  	}
   painter.restore();
 }

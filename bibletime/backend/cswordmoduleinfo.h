@@ -169,6 +169,8 @@ public:
 	* Returns -1 if no special Sword version is required.
 	*/
   const float requiredSwordVersion();
+  /** Returns the name of the module. */
+  const QString name() const;
   /**
   * Returns the encoding of the used modules. If it does use no locale it returns QFont::charSetForLocale()
   */

@@ -33,7 +33,7 @@ dir_where_make_will_be_called=./
 email=info@bibletime.de
 execute_args=--debug\s
 kdevprj_version=1.3
-lfv_open_groups=
+lfv_open_groups=Sources
 make_options=\s-j1
 makefiles=bibletime/backend/sword_backend/Makefile.am,bibletime/backend/Makefile.am,bibletime/Makefile.am,bibletime/frontend/Makefile.am,bibletime/frontend/presenters/Makefile.am,bibletime/frontend/groupmanager/Makefile.am,bibletime/frontend/optionsdialog/Makefile.am,bibletime/frontend/searchdialog/Makefile.am,AUTHORS.in,TODO.in,bibletime.lsm.in,bibletime.spec.in,README.in,INSTALL.in,bibletime/docs/en/helpdialog/Makefile.am,bibletime/docs/de/helpdialog/Makefile.am,bibletime/pics/lowcolor/16*16/Makefile.am,bibletime/pics/lowcolor/Makefile.am,bibletime/pics/highcolor/16*16/Makefile.am,bibletime/pics/highcolor/Makefile.am,bibletime/pics/highcolor/22*22/Makefile.am,bibletime/pics/highcolor/32*32/Makefile.am,bibletime/pics/lowcolor/32*32/Makefile.am,bibletime/pics/lowcolor/22*22/Makefile.am,bibletime/pics/highcolor/48*48/Makefile.am,doc/Makefile.am,bibletime/printing/Makefile.am,bibletime/docs/sk/Makefile.am,bibletime/libhtmlparse/Makefile.am,bibletime/frontend/keychooser/Makefile.am,bibletime/xml/Makefile.am,README,INSTALL,bibletime.lsm,AUTHORS,TODO,bibletime.spec,admin/Makefile.am,bibletime/docs/Makefile.am,bibletime/docs/en/Makefile.am,po/Makefile.am,bibletime/docs/de/Makefile.am,bibletime/pics/Makefile.am,Makefile.am,bibletime/docs/development/Makefile.am,bibletime/frontend/thirdparty/Makefile.am,bibletime/docs/en/handbook/Makefile.am,bibletime/docs/en/handbook/common/Makefile.am,bibletime/frontend/thirdparty/qt3stuff/Makefile.am
 modifyMakefiles=false
@@ -312,9 +312,45 @@ sub_dirs=backend,frontend,pics,docs,xml,printing,libhtmlparse,
 type=prog_main
 
 [bibletime/backend/Makefile.am]
-files=bibletime/backend/ckey.h,bibletime/backend/chtmlchapterdisplay.cpp,bibletime/backend/chtmlchapterdisplay.h,bibletime/backend/chtmlentrydisplay.cpp,bibletime/backend/chtmlentrydisplay.h,bibletime/backend/cswordbackend.cpp,bibletime/backend/cswordbackend.h,bibletime/backend/cswordbiblemoduleinfo.cpp,bibletime/backend/cswordbiblemoduleinfo.h,bibletime/backend/cswordcommentarymoduleinfo.cpp,bibletime/backend/cswordcommentarymoduleinfo.h,bibletime/backend/cswordkey.cpp,bibletime/backend/cswordkey.h,bibletime/backend/cswordldkey.cpp,bibletime/backend/cswordldkey.h,bibletime/backend/cswordlexiconmoduleinfo.cpp,bibletime/backend/cswordlexiconmoduleinfo.h,bibletime/backend/cswordmoduleinfo.cpp,bibletime/backend/cswordmoduleinfo.h,bibletime/backend/cswordmodulesearch.cpp,bibletime/backend/cswordmodulesearch.h,bibletime/backend/cswordversekey.cpp,bibletime/backend/cswordversekey.h
+files=bibletime/backend/ckey.h,bibletime/backend/chtmlchapterdisplay.cpp,bibletime/backend/chtmlchapterdisplay.h,bibletime/backend/chtmlentrydisplay.cpp,bibletime/backend/chtmlentrydisplay.h,bibletime/backend/cswordbackend.cpp,bibletime/backend/cswordbackend.h,bibletime/backend/cswordbiblemoduleinfo.cpp,bibletime/backend/cswordbiblemoduleinfo.h,bibletime/backend/cswordcommentarymoduleinfo.cpp,bibletime/backend/cswordcommentarymoduleinfo.h,bibletime/backend/cswordkey.cpp,bibletime/backend/cswordkey.h,bibletime/backend/cswordldkey.cpp,bibletime/backend/cswordldkey.h,bibletime/backend/cswordlexiconmoduleinfo.cpp,bibletime/backend/cswordlexiconmoduleinfo.h,bibletime/backend/cswordmoduleinfo.cpp,bibletime/backend/cswordmoduleinfo.h,bibletime/backend/cswordmodulesearch.cpp,bibletime/backend/cswordmodulesearch.h,bibletime/backend/cswordversekey.cpp,bibletime/backend/cswordversekey.h,bibletime/backend/creferencemanager.cpp,bibletime/backend/creferencemanager.h,bibletime/backend/bt_gbfhtml.cpp,bibletime/backend/bt_gbfhtml.h,bibletime/backend/bt_rwphtml.cpp,bibletime/backend/bt_rwphtml.h,bibletime/backend/bt_thmlhtml.cpp,bibletime/backend/bt_thmlhtml.h
 sub_dirs=sword_backend,
 type=shared_library
+
+[bibletime/backend/bt_gbfhtml.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/backend/bt_gbfhtml.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/backend/bt_rwphtml.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/backend/bt_rwphtml.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/backend/bt_thmlhtml.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/backend/bt_thmlhtml.h]
+dist=true
+install=false
+install_location=
+type=HEADER
 
 [bibletime/backend/chtmlchapterdisplay.cpp]
 dist=true
@@ -341,6 +377,18 @@ install_location=
 type=HEADER
 
 [bibletime/backend/ckey.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/backend/creferencemanager.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/backend/creferencemanager.h]
 dist=true
 install=false
 install_location=
@@ -751,7 +799,7 @@ install_location=
 type=DATA
 
 [bibletime/frontend/Makefile.am]
-files=bibletime/frontend/cmdiarea.cpp,bibletime/frontend/cmdiarea.h,bibletime/frontend/actions.cpp,bibletime/frontend/actions.h,bibletime/frontend/ceditwidget.h,bibletime/frontend/chtmldialog.cpp,bibletime/frontend/chtmldialog.h,bibletime/frontend/chtmlwidget.cpp,bibletime/frontend/chtmlwidget.h,bibletime/frontend/ctipwindow.cpp,bibletime/frontend/ctipwindow.h,bibletime/frontend/kstartuplogo.h,bibletime/frontend/kstartuplogo.cpp,bibletime/frontend/ctoolclass.h,bibletime/frontend/ctoolclass.cpp,bibletime/frontend/cminmaxlayout.cpp,bibletime/frontend/cminmaxlayout.h,bibletime/frontend/cinputdialog.cpp,bibletime/frontend/cinputdialog.h,bibletime/frontend/cprofilemgr.cpp,bibletime/frontend/cprofilemgr.h,bibletime/frontend/cprofile.cpp,bibletime/frontend/cprofile.h,bibletime/frontend/cprofilewindow.cpp,bibletime/frontend/cprofilewindow.h
+files=bibletime/frontend/cmdiarea.cpp,bibletime/frontend/cmdiarea.h,bibletime/frontend/actions.cpp,bibletime/frontend/actions.h,bibletime/frontend/ceditwidget.h,bibletime/frontend/chtmldialog.cpp,bibletime/frontend/chtmldialog.h,bibletime/frontend/chtmlwidget.cpp,bibletime/frontend/chtmlwidget.h,bibletime/frontend/ctipwindow.cpp,bibletime/frontend/ctipwindow.h,bibletime/frontend/kstartuplogo.h,bibletime/frontend/kstartuplogo.cpp,bibletime/frontend/ctoolclass.h,bibletime/frontend/ctoolclass.cpp,bibletime/frontend/cminmaxlayout.cpp,bibletime/frontend/cminmaxlayout.h,bibletime/frontend/cinputdialog.cpp,bibletime/frontend/cinputdialog.h,bibletime/frontend/cprofilemgr.cpp,bibletime/frontend/cprofilemgr.h,bibletime/frontend/cprofile.cpp,bibletime/frontend/cprofile.h,bibletime/frontend/cprofilewindow.cpp,bibletime/frontend/cprofilewindow.h,bibletime/frontend/creferencemanager.cpp,bibletime/frontend/creferencemanager.h
 sub_dirs=groupmanager,presenters,optionsdialog,searchdialog,keychooser,thirdparty
 type=static_library
 
@@ -864,6 +912,18 @@ install_location=
 type=SOURCE
 
 [bibletime/frontend/cprofilewindow.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[bibletime/frontend/creferencemanager.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[bibletime/frontend/creferencemanager.h]
 dist=true
 install=false
 install_location=

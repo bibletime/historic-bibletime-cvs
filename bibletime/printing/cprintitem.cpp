@@ -203,7 +203,7 @@ void CPrintItem::clearData(){
 /** Updates the item. */
 void CPrintItem::updateListViewItem(){
 	if (m_module)
-		m_listViewItem->setText(0, m_module->module()->Name() );
+		m_listViewItem->setText(0, m_module->name() );
 
 	if (m_startKey)
 		m_listViewItem->setText(1,m_startKey->key());

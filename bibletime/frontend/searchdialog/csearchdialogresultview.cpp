@@ -26,6 +26,7 @@
 #include "../../backend/cswordlexiconmoduleinfo.h"
 #include "../../backend/cswordversekey.h"
 #include "../../backend/cswordldkey.h"
+#include "../../backend/creferencemanager.h"
 #include "../ctoolclass.h"
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
@@ -76,7 +77,7 @@ void CSearchDialogResultModuleView::setupTree() {
 
 	for (moduleList->first(); moduleList->current(); moduleList->next()) {
 		moduleSearchResult = moduleList->current()->getSearchResult();
-		module = new QListViewItem(this, QString("%1 [%2]").arg(QString::fromLocal8Bit(moduleList->current()->module()->Name())).arg( moduleSearchResult.Count() ));
+		module = new QListViewItem(this, QString("%1 [%2]").arg( moduleList->current()->name() ).arg( moduleSearchResult.Count() ));
 		module->setPixmap(0,CToolClass::getIconForModule(moduleList->current()) );
 	}	
 	setFixedWidth( sizeHint().width() );
@@ -199,7 +200,7 @@ void CSearchDialogResultModuleView::slotCopySearchResult(){
 	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
 		
-	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( QString::fromLocal8Bit(m_currentModule->module()->Name()) );
+	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
 	text.append( QString("Entries found: %1\n\n").arg(searchResult.Count()) );	
 	
 	const int count = searchResult.Count();
@@ -236,7 +237,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResult(){
 	QProgressDialog progress( "Saving search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.show();
 	progress.setProgress(0);	
-	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( QString::fromLocal8Bit(m_currentModule->module()->Name()) );
+	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
 	text.append( QString("Entries found: %1\n\n").arg(searchResult.Count()) );	
 	
 	const int count = searchResult.Count();
@@ -269,7 +270,7 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 	ListKey& searchResult = m_currentModule->getSearchResult();
 	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
-	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( QString::fromLocal8Bit(m_currentModule->module()->Name()) );
+	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
 	text.append( QString("Entries found: %1\n\n").arg(searchResult.Count()) );	
 	const int count = searchResult.Count();
 	const CSwordModuleInfo::type type = m_currentModule->getType();
@@ -314,7 +315,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 	ListKey& searchResult = m_currentModule->getSearchResult();
 	QProgressDialog progress( "Saving...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
 	progress.setProgress(0);		
-	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( QString::fromLocal8Bit(m_currentModule->module()->Name()) );
+	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
 	text.append( QString("Entries found: %1\n\n").arg(searchResult.Count()) );	
 
 	const int count = searchResult.Count();
@@ -423,15 +424,14 @@ void CSearchDialogResultView::viewportMouseMoveEvent(QMouseEvent *e){
  		if (m_currentItem) {
  			QString mod;
  			QString ref;
- 			ASSERT(m_currentItem);
 
- 			mod = m_module->module()->Name();
+ 			mod = m_module->name();
  			ref = m_currentItem->text();
 
- 			QTextDrag *d = new QTextDrag(CToolClass::encodeReference(mod,ref),this->viewport());
+ 			QTextDrag *d = new QTextDrag(CReferenceManager::encodeReference(mod,ref), viewport());
  			if (d){
  				d->setSubtype(REFERENCE);
- 				d->setPixmap( REFERENCE_ICON_SMALL );
+ 				d->setPixmap(REFERENCE_ICON_SMALL);
  				d->drag();
  			}
  		}

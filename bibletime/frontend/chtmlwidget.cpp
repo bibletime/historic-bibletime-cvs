@@ -17,14 +17,14 @@
 
 #include "chtmlwidget.h"
 #include "ctoolclass.h"
-//#include "ctextdocument.h"
-#include "presenters/cswordpresenter.h"
-#include "thirdparty/qt3stuff/qt3stuff.h"
-#include "thirdparty/qt3stuff/qrichtext_p.h"
+#include "../backend/creferencemanager.h"
 #include "../backend/cswordldkey.h"
 #include "../backend/cswordversekey.h"
 #include "../backend/cswordbackend.h"
 #include "../backend/cswordmoduleinfo.h"
+#include "presenters/cswordpresenter.h"
+#include "thirdparty/qt3stuff/qt3stuff.h"
+#include "thirdparty/qt3stuff/qrichtext_p.h"
 #include "../ressource.h"
 #include "../tooltipdef.h"
 #include "../whatsthisdef.h"
@@ -64,17 +64,91 @@
 //Sword includes
 #include <swmodule.h>
 
-CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts,QWidget *parent, const char *name )
-	: QTextEdit(parent, name) {	
-	m_important = importantClasses;
+CHTMLWidget::ToolTip::ToolTip(CImportantClasses* importantClasses, QWidget* parent)
+	: QToolTip(parent), m_important(importantClasses) {
 
+}
+
+void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
+	qWarning("CHTMLWidget::ToolTip::maybeTip(const QPoint& p)");
+	if (!parentWidget()->inherits("CHTMLWidget"))
+		return;
+
+	const QRect r = QRect(p.x()-15,p.y()+15,p.x()+15, p.y()-15);
+
+	CHTMLWidget* htmlWidget = dynamic_cast<CHTMLWidget*>(parentWidget());	
+	QPoint p1 = htmlWidget->viewportToContents(p);
+//	qWarning("pos of tooltip is [%i|%i]", p1.x(), p1.y());
+	QString link = QString::null;
+	QString text = QString::null;
+
+	link = htmlWidget->anchorAt( p1 );
+	qWarning("TooLTip::maybeTip: %s", link.latin1());
+	if (link.isEmpty()) {
+//		qWarning("empty link - return");
+		return;
+	}
+	
+	if (!link.isEmpty()) {
+		QString module;
+		QString ref;
+		const bool ok = CReferenceManager::decodeHyperlink(link, module, ref);
+		if (!ok)
+			return;
+			
+		const QFont oldFont = font();				
+		CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+		if (!m)
+			m = m_important->swordBackend->findModuleByName(QString::fromLatin1("WEB"));
+					
+		if (m){
+			switch(m->getType()) {			
+				case CSwordModuleInfo::Lexicon:
+				{
+					CSwordLDKey key(m);
+					key.key(ref);
+					ref = key.key();//parsed result
+					text = key.renderedText();				
+					break;
+				}	
+				case CSwordModuleInfo::Bible: //pass
+				case CSwordModuleInfo::Commentary: //pass
+				default:
+				{
+					CSwordVerseKey key(m);
+					key.key(ref);
+					ref = key.key(); //parsed result					
+					text = key.renderedText();						
+					break;
+				}
+			}
+			if (m->hasFont()) {
+				QFont newFont = font();
+				newFont.setCharSet(QFont::AnyCharSet);
+				setFont(newFont);
+			}
+		}
+//		qWarning("text is %s", text.latin1());
+		if (!text.isEmpty())
+		{
+			text = QString::fromLatin1("<B>%1</B><HR>%2").arg(ref).arg(text);
+			tip(htmlWidget->viewport()->geometry(), text);
+		}
+		setFont(oldFont);
+	}
+}
+
+CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts,QWidget *parent, const char *name )
+	: QTextEdit(parent, name),m_important( importantClasses ) {	
+	
 	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
+	QFont font;
 	for (modules->first(); modules->current(); modules->next()) {
 		if (modules->current()->hasFont()) {
-			QFont font = modules->current()->getFont();
+			font = modules->current()->getFont();
 			if (!document()->charsetMap->contains(font.family())) {
 				document()->charsetMap->insert(font.family(), QFont::AnyCharSet);
-				qWarning("inserted %s", font.family().latin1());
+//				qWarning("inserted %s", font.family().latin1());
 			}
 		}
 	}
@@ -98,15 +172,11 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 
 CHTMLWidget::~CHTMLWidget(){
 	qDebug("CHTMLWidget::~CHTMLWidget()");
-//	if (m_document)
-//		delete m_document;
-//	m_document = 0;
 }
 
 /**  */
 void CHTMLWidget::initColors(){
 	qDebug("CHTMLWidget::initColors()");
-#warning ToDo: Implementation!	
 	KConfigGroupSaver groupSaver(m_config, "Colors");
 //	setLinkColor( m_config->readColorEntry("Versenumber/URL", &Qt::darkBlue) );		
 //	QColor textColor = m_config->readColorEntry("Normal Text", &Qt::red);	
@@ -141,6 +211,7 @@ void CHTMLWidget::initFonts(){
 
 /**  */
 void CHTMLWidget::initView(){
+	m_toolTip = new ToolTip(m_important, this);
 	disconnect(dragStartTimer, SIGNAL(timeout()),
 		this, SLOT(startDrag()));
 	
@@ -257,7 +328,7 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 	 	if ( ( QTextDrag::decode(e,str,submime=BOOKMARK) || QTextDrag::decode(e,str,submime=REFERENCE) ) && !str.isEmpty() ){
 			QString ref = QString::null;
 			QString mod = QString::null;		
-	 		CToolClass::decodeReference(str,mod,ref);
+	 		CReferenceManager::decodeReference(str,mod,ref);
 	 		emit referenceClicked(ref);
 		}
 		else
@@ -268,7 +339,7 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 	 	if ( ( QTextDrag::decode(e,str,submime=BOOKMARK) || QTextDrag::decode(e,str,submime=REFERENCE) ) && !str.isEmpty() ){
 			QString ref = QString::null;
 			QString mod = QString::null;
-	 		CToolClass::decodeReference(str,mod,ref);
+	 		CReferenceManager::decodeReference(str,mod,ref);
 	 		if (m_important){
 	 			CSwordModuleInfo* module = m_important->swordBackend->findModuleByName(mod);
 		 		if (module) {		 			
@@ -304,7 +375,7 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
 	viewport()->setCursor(anchorAt(e->pos()).isEmpty() ? arrowCursor : KCursor::handCursor() );
 	QTextEdit::contentsMousePressEvent(e);
 		
- 	if (!onLink.isEmpty() && e->button() == RightButton && m_anchorMenu) {	//popup installed menu 	
+ 	if (!onLink.isEmpty() && (e->button() == RightButton) && m_anchorMenu) {	//popup installed menu 	
 		m_anchorMenu->exec( e->globalPos() );
   }
   else if (m_popup && e->button() == RightButton){ //popup normal menu
@@ -350,29 +421,17 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
 	    return;
 		}
 		else if (!m_anchor.isEmpty()/*!anchorAt(e->pos()).isEmpty() && !hasSelectedText()*/) {
-			QString ref = m_anchor;
-			if (ref.left(8) == "sword://") //remove sword://, if it is there
-				ref = ref.mid( 8, ref.length() - 8 );
-			if (ref.right(1) == "/")
-				ref = ref.mid( 0, ref.length() - 1 );
-
-			QString Module = QString::null;
-			if ( parent() && parent()->inherits("CSwordPresenter") ) {
-				if (static_cast<CSwordModuleInfo*>(((CSwordPresenter*)parent())->getModuleList().first())) {
-					Module = static_cast<CSwordModuleInfo*>(((CSwordPresenter*)parent())->getModuleList().first())->module()->Name();
-				}
-				else {
-					Module = "unknown";
-				}
-			}
-			else
+			QString module = QString::null;
+			QString key = QString::null;
+			const bool ok = CReferenceManager::decodeHyperlink(m_anchor, module, key);
+			if (!ok)
 				return;
 			
 			mousePressed = false;
 			inDoubleClick = false;				 				
 			mightStartDrag = false;
 					
-			QTextDrag *d = new QTextDrag(CToolClass::encodeReference(Module,ref),viewport());
+			QTextDrag *d = new QTextDrag(CReferenceManager::encodeReference(module,key),viewport());
 	    d->setSubtype(REFERENCE);
 	    d->setPixmap(REFERENCE_ICON_SMALL);
 	    d->drag();
@@ -396,8 +455,10 @@ void CHTMLWidget::contentsMouseMoveEvent(QMouseEvent* e) {
 	     !anchorAt(e->pos()).isEmpty() ) {
 			viewport()->setCursor( pointingHandCursor );
 	    onLink = c.parag()->at( c.index() )->format()->anchorHref();
-	    QUrl u( doc->context(), onLink, TRUE );
-	    emitHighlighted( u.toString( FALSE, FALSE ) );
+	    QUrl u( doc->context(), onLink, true );
+			m_hoverPos = e->pos();
+	    emitHighlighted( u.toString( false, false ) );
+			
 		} else {
 	    viewport()->setCursor( isReadOnly() ? arrowCursor : ibeamCursor );
 	    onLink = QString::null;
@@ -600,18 +661,44 @@ bool CHTMLWidget::linksEnabled() const {
 
 /** Reimplementation from QTextView. */
 void CHTMLWidget::emitLinkClicked( const QString& link){
-	qDebug("link clicked %s", link.latin1());
+//	qWarning("CHTMLWidget::emitLinkClicked( const QString& link)");
 	if (link.left(7) == QString::fromLatin1("mailto:")) {
 		qDebug("open mailer for %s", link.mid(7).latin1());
 		KApplication::kApplication()->invokeMailer(link.mid(7), QString::null);
 	}
-	else if (link.left(8) == "sword://") {
-		emit referenceClicked(link.mid(8,link.length()-9)); //the URL has a trailing slash at the end
+	else if (CReferenceManager::isHyperlink(link)) {
+//		qWarning("HYPERLINK!! ##");
+		QString ref;
+		QString module;
+		CReferenceManager::decodeHyperlink(link, module, ref);
+		CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
+		if (m) {
+			switch (m->getType()) {
+				case CSwordModuleInfo::Lexicon:
+				{
+					CSwordLDKey key(m);
+					key.key(ref);
+					ref = key.key();
+					break;
+				}
+				case CSwordModuleInfo::Bible: //pass
+				case CSwordModuleInfo::Commentary://pass
+				default:
+				{
+					CSwordVerseKey key(m);
+					key.key(ref);
+					ref = key.key();
+					break;
+				}
+			}
+		}
+//		qWarning("emit %s", ref.latin1());
+		emit referenceClicked(ref);
 	}
 	else {
 		QString url = link;
 		if (link.left(1) == "/")
-			url = link.right(link.length()-1);
+			url = link.mid(1);
 		emit linkClicked(url);
 	}
 }
@@ -647,9 +734,9 @@ void CHTMLWidget::setSource(const QString& name){
 	if ( !source.isEmpty()/* && url != d->curmain */) {
 		const QMimeSource* m = mimeSourceFactory()->data( source, context() );
 		if ( !m )
-			qWarning("QTextBrowser: no mimesource for %s", source.latin1() );
+			qWarning("CHTMLWidget: no mimesource for %s", source.latin1() );
 		else if ( !QTextDrag::decode( m, txt ) )
-			qWarning("QTextBrowser: cannot decode %s", source.latin1() );
+			qWarning("CHTMLWidget: cannot decode %s", source.latin1() );
 		dosettext = true;
 	}	
 	if ( !mark.isEmpty() ) {
@@ -665,4 +752,10 @@ void CHTMLWidget::setSource(const QString& name){
 		setContentsPos( 0, 0 );	
 	if ( isVisible() )
 		qApp->restoreOverrideCursor();
+}
+
+/** Is called if a link was highlighted. Normally a signal should be emitted. */
+void CHTMLWidget::emitHighlighted( const QString& s ){
+//	qWarning("%s was highlighted at %i|%i", s.latin1(), m_hoverPos.x(), m_hoverPos.y());
+
 }

@@ -38,7 +38,7 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClas
 
 	for (m_important->swordBackend->getModuleList()->first(); m_important->swordBackend->getModuleList()->current(); m_important->swordBackend->getModuleList()->next()) {
 		if (m_important->swordBackend->getModuleList()->current()->getType() == CSwordModuleInfo::Lexicon) {
-			m_lexiconPopup->insertItem( QString::fromLocal8Bit(m_important->swordBackend->getModuleList()->current()->module()->Name()) );
+			m_lexiconPopup->insertItem( m_important->swordBackend->getModuleList()->current()->name() );
 		}
 	}	
 	connect(m_lexiconPopup, SIGNAL(activated(int)),this, SLOT(lookupWord(int)));
@@ -123,10 +123,10 @@ const QString CSwordPresenter::windowCaption() {
 	if (!m_moduleList.count())  {
 		return QString::null;
 	}
-	ret = QString::fromLocal8Bit(m_moduleList.first()->module()->Name());		
+	ret = m_moduleList.first()->name();		
 	if (m_moduleList.count() > 1) {
 		for (m_moduleList.next(); m_moduleList.current(); m_moduleList.next())	 {
-			ret += " | " + QString::fromLocal8Bit(m_moduleList.current()->module()->Name());	
+			ret += " | " + m_moduleList.current()->name();	
 		}
 	}
 	return ret;
@@ -174,7 +174,7 @@ void CSwordPresenter::storeSettings( CProfileWindow* settings ){
 		
 	QStringList modules;
 	for (CSwordModuleInfo* m = m_moduleList.first(); m; m = m_moduleList.next()) {
-		modules.append(QString::fromLocal8Bit(m->module()->Name()));
+		modules.append(m->name());
 	}	
 	settings->setModules(modules);
 }

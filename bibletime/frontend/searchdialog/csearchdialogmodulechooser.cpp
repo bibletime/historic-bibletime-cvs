@@ -115,7 +115,7 @@ void CSearchDialogModuleChooser::setChosenModules(ListCSwordModuleInfo* modules)
 	m_moduleIndex->readSettings();	
 
 	for (modules->first(); modules->current(); modules->next()) {
-		const QString module = QString::fromLocal8Bit( modules->current()->module()->Name() );
+		const QString module = modules->current()->name();
 		QListViewItemIterator it( m_moduleIndex );
 		for ( ; it.current(); ++it )
 			if (it.current()->text(0) == module) {
@@ -147,7 +147,7 @@ void CSearchDialogModuleChooser::addCurrentItem(){
 		nextItem = i->itemAbove();
 
 	if ( i && (i->type() == CGroupManagerItem::Module) && i->moduleInfo() ) {
-		m_moduleList->insertItem( CToolClass::getIconForModule(i->moduleInfo()), QString::fromLocal8Bit(i->moduleInfo()->module()->Name()),-1 );
+		m_moduleList->insertItem( CToolClass::getIconForModule(i->moduleInfo()), i->moduleInfo()->name(),-1 );
 		QListViewItem* parentItem = i->parent();
 		m_itemsDict.insert(i, parentItem ? (const char*)parentItem->text(0).latin1() : "");//I don't know why .local8Bit() doesn't work
 		parentItem ? parentItem->takeItem(i) : m_moduleIndex->takeItem(i);			

@@ -27,6 +27,7 @@
 //Qt includes
 #include <qwidget.h>
 #include <qguardedptr.h>
+#include <qtooltip.h>
 
 class CHTMLDialog;
 class CBiblePresenter;
@@ -216,17 +217,23 @@ protected slots: // Protected slots
   void slotSelectAll();
 	
 private:
-	CImportantClasses* m_important;	
-//	CTextDocument* m_document;
+  virtual void emitLinkClicked( const QString& s);
+  virtual void emitHighlighted( const QString& s);
 
+	class ToolTip : public QToolTip {
+		public:
+			ToolTip(CImportantClasses* importantClasses, QWidget* parent);
+			void maybeTip( const QPoint &pos);
+		private:
+			CImportantClasses* m_important;	
+	};
+	ToolTip* m_toolTip;
+
+	CImportantClasses* m_important;	
 	bool m_readOnly;
 	bool m_selectedWord;
 	QString m_anchor;
-	
-  /**
-  * Reimplementation from QTextView.
-  */
-  virtual void emitLinkClicked( const QString& s);
+
 
   QPopupMenu* m_popup;
   KConfig* m_config;
@@ -247,6 +254,7 @@ private:
 	KFontSizeAction* m_fontSizeAction;
 	KFontAction* m_fontAction;
 	KColorButton* m_colorChooser;
+	QPoint m_hoverPos;
 			
 signals: // Signals
   void sigDeleteDocument();

@@ -54,15 +54,15 @@ CModuleChooserButton::CModuleChooserButton(CImportantClasses* importantClasses, 
 	ListCSwordModuleInfo* modules = importantClasses->swordBackend->getModuleList();
 	for (modules->first(); modules->current(); modules->next()) {
 		if (modules->current()->getType() == m_moduleType) {
-			m_popup->insertItem(QString::fromLocal8Bit(modules->current()->module()->Name()));
+			m_popup->insertItem( modules->current()->name() );
 		}
 	}	
 	//Check the appropriate entry
 	if (m_module) {
 		for (unsigned int i = 0; i < m_popup->count(); i++) {
-			if (m_popup->text(m_popup->idAt(i)) == QString::fromLocal8Bit(m_module->module()->Name())) {
+			if (m_popup->text(m_popup->idAt(i)) == m_module->name()) {
 				m_popup->setItemChecked(m_popup->idAt(i),true);
-	  		QToolTip::add(this, QString::fromLocal8Bit( m_module->module()->Name() ));				
+	  		QToolTip::add(this, m_module->name() );				
 	  		break;
 			}
 		}
@@ -135,6 +135,6 @@ void CModuleChooserButton::moduleChosen( int ID ){
   	
   	QToolTip::remove(this);
   	if (getModule())
-  		QToolTip::add(this, QString::fromLocal8Bit( getModule()->module()->Name() ));
+  		QToolTip::add(this, getModule()->name());
 	}
 }

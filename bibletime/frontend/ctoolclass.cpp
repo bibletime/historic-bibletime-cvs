@@ -97,21 +97,6 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 	return ret;
 }
 
-QString CToolClass::encodeReference(QString &module, QString &reference){
-	return QString::fromLatin1("(%1)%2").arg(module).arg(reference);
-}
-
-void CToolClass::decodeReference(QString &dragreference, QString &module, QString &reference){
-  if (dragreference.left(8) == "sword://") { //remove sword:// and trailing /
-		dragreference = dragreference.mid(8, dragreference.length()-8);
-  }
-  if (dragreference.right(1) == "/") {
-		dragreference = dragreference.mid(0, dragreference.length()-1);		
-  }
-
-  reference= dragreference.right( dragreference.length() - dragreference.find(")") - 1 );
-  module   = dragreference.mid( 1, dragreference.find(")") - 1);
-}
 
 /** Returns the icon used for the module given as aparameter. */
 QPixmap CToolClass::getIconForModule( CSwordModuleInfo* module_info ){

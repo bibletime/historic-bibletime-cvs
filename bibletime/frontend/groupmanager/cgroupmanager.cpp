@@ -27,6 +27,7 @@
 #include "../../backend/cswordlexiconmoduleinfo.h"
 #include "../../backend/cswordversekey.h"
 #include "../../backend/cswordldkey.h"
+#include "../../backend/creferencemanager.h"
 
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
@@ -71,10 +72,12 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 	if (!parentWidget()->inherits("CGroupManager"))
 		return;
 	
-	CGroupManager* m = dynamic_cast<CGroupManager*>(parentWidget());
-	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(m->itemAt(p));
-	ASSERT(i);
-	if (!i)
+	CGroupManager* m = 0;
+	if ( !(m = dynamic_cast<CGroupManager*>(parentWidget())) )
+		return;
+	
+	CGroupManagerItem* i = 0;
+	if ( !( i = dynamic_cast<CGroupManagerItem*>(m->itemAt(p))) )
 		return;
 	
 	QRect r = m->itemRect(i);
@@ -576,7 +579,7 @@ void CGroupManager::slotShowAbout(){
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%4:</B></TD><TD BGCOLOR=\"#FFE9C8\">%5</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%6:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR>\
 <TR><TD BGCOLOR=\"#0F86D0\"><B>%8:</B></TD><TD BGCOLOR=\"#FFE9C8\">%9</TD></TR>")
-	.arg(module->module()->Name())
+	.arg(module->name())
 	.arg(i18n("Datapath"))
 	.arg(module->getPath())
 	.arg(i18n("Version"))
@@ -756,13 +759,13 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
     //a reference was dragged
 		QString ref;
     QString mod;
-    CToolClass::decodeReference(str,mod,ref);
+    CReferenceManager::decodeReference(str,mod,ref);
 
     CSwordModuleInfo* info = 0;
     for (info = m_swordList->first(); info; info = m_swordList->next())
-      if (info->module()->Name() == mod)
+      if (info->name() == mod)
       	break;
-    if ( info && (info->module()->Name() == mod) ){
+    if ( info && (info->name() == mod) ){
 			if (!target){ //Reference was dragged on no item
 				if (info)
 					createNewBookmark( 0, info, ref); //CREATE A NEW BOOKMARK
@@ -873,10 +876,10 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 					  	
 	  	if (m_pressedItem->moduleInfo()->isEncrypted()) {
   			KConfigGroupSaver groupSaver(m_config, "Groupmanager");
-	  		if (m_showHelpDialogs && !m_config->readBoolEntry(QString::fromLatin1("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), false))
+	  		if (m_showHelpDialogs && !m_config->readBoolEntry(QString::fromLatin1("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->name()), false))
 	  			HTML_DIALOG(HELPDIALOG_MODULE_LOCKED);
 	  		if (m_showHelpDialogs)
-	  			m_config->writeEntry(QString::fromLatin1("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
+	  			m_config->writeEntry(QString::fromLatin1("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->name()), true);
 	  	}
 		}
 		else if  (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Bookmark) {
@@ -913,9 +916,9 @@ void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
 				case (CGroupManagerItem::Bookmark):
 	         if (dragItem->moduleInfo()) {
 	           	QString ref = dragItem->getKeyText();
-	           	QString mod = dragItem->moduleInfo()->module()->Name();
+	           	QString mod = dragItem->moduleInfo()->name();
 	            	
-	          	d = new QTextDrag(CToolClass::encodeReference(mod,ref), viewport());
+	          	d = new QTextDrag(CReferenceManager::encodeReference(mod,ref), viewport());
 	          	d->setSubtype(BOOKMARK);
 	        		m_dragType = BOOKMARK;
 					}
@@ -1158,7 +1161,7 @@ const bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerI
 				bookmarkDescriptionList.append( QString::null );
 				
 			if (myItem->moduleInfo()) {	//save the module
-				bookmarkModuleList.append( myItem->moduleInfo()->module()->Name() );
+				bookmarkModuleList.append( myItem->moduleInfo()->name() );
 			}
 			else {
 				bookmarkModuleList.append( myItem->m_moduleName );
@@ -1308,7 +1311,7 @@ const bool CGroupManager::saveSwordModules(KConfig* configFile, CGroupManagerIte
 				parentList.append( parentID );
 				
 				if (myItem->moduleInfo())
-					moduleList.append( myItem->moduleInfo()->module()->Name() );				
+					moduleList.append( myItem->moduleInfo()->name() );				
 				else {
 					moduleList.append( myItem->text(0) );	//first column is the modulename
 				}

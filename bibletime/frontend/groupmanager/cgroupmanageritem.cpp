@@ -176,7 +176,7 @@ void CGroupManagerItem::update(){
 		}		
 		if (!title.isEmpty()) {
 			if (m_moduleInfo && m_moduleInfo->module())
-				title = QString::fromLatin1("%1 (%2)").arg(title).arg(m_moduleInfo->module()->Name());
+				title = QString::fromLatin1("%1 (%2)").arg(title).arg(m_moduleInfo->name());
 			else
 				title = QString::fromLatin1("%1 (%2)").arg(title).arg(i18n("unknown"));
 			setText(0,title);
@@ -185,7 +185,7 @@ void CGroupManagerItem::update(){
 	else if ( m_type == CGroupManagerItem::Module ) {
 		setPixmap(0, CToolClass::getIconForModule(m_moduleInfo));
 		if (m_moduleInfo)
-			setText(0, m_moduleInfo->module()->Name());
+			setText(0, m_moduleInfo->name());
 		else if (!m_moduleName.isEmpty())
 			setText(0, m_moduleName);			
 		else
@@ -239,7 +239,7 @@ const QString CGroupManagerItem::getToolTip(){
 		}
 		case Module:
 		{
-			text = i18n("Module") + QString::fromLatin1(": <B>%1</B><HR>").arg(QString::fromLocal8Bit(moduleInfo()->module()->Name()));
+			text = i18n("Module") + QString::fromLatin1(": <B>%1</B><HR>").arg( moduleInfo()->name() );
 			text += moduleInfo()->getDescription() + QString::fromLatin1("<HR>");
 			text += i18n("Foonotes:")+ QString::fromLatin1("%1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::footnotes) ? i18n("Yes") : i18n("No"));
 			text += i18n("Strong's numbers: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::strongNumbers) ? i18n("Yes") : i18n("No"));

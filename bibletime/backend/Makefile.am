@@ -13,7 +13,9 @@ cswordldkey.cpp \
 cswordversekey.cpp \
 cswordlexiconmoduleinfo.cpp \
 cswordcommentarymoduleinfo.cpp \
-cswordbiblemoduleinfo.cpp 
+cswordbiblemoduleinfo.cpp \
+creferencemanager.cpp \
+bt_thmlhtml.cpp bt_rwphtml.cpp bt_gbfhtml.cpp
 
 INCLUDES = $(all_includes)
 
@@ -37,5 +39,10 @@ chtmlentrydisplay.cpp \
 chtmlentrydisplay.h \
 chtmlchapterdisplay.cpp \
 chtmlchapterdisplay.h \
-cswordmodulesearch.cpp \
-cswordmodulesearch.h
+cswordmodulesearch.cpp cswordmodulesearch.h \
+creferencemanager.h creferencemanager.cpp \
+bt_thmlhtml.cpp bt_thmlhtml.h \
+bt_gbfhtml.cpp bt_gbfhtml.h \
+bt_rwphtml.cpp bt_rwphtml.h
+
+

@@ -56,7 +56,7 @@ QStringList* CSwordBibleModuleInfo::getBooks() {
 	}
 	
 	if (!m_bookList) {
-//		const QString modulePath = backend()->getModulePath(QString::fromLocal8Bit(module()->Name()));
+//		const QString modulePath = backend()->getModulePath(QString::fromLocal8Bit(name()));
 //		if (modulePath.isEmpty()) {
 			m_hasNT = m_hasOT = true;			
 //		}

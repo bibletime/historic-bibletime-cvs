@@ -23,6 +23,10 @@
 #include "cswordcommentarymoduleinfo.h"
 #include "cswordlexiconmoduleinfo.h"
 
+#include "bt_thmlhtml.h"
+#include "bt_rwphtml.h"
+#include "bt_gbfhtml.h"
+
 #include <dirent.h>
 #include <unistd.h>
 
@@ -31,11 +35,8 @@
 
 //Sword includes
 #include <swdisp.h>
-#include <gbfhtml.h>
-#include <rwphtml.h>
 #include <plainhtml.h>
 #include <rawgbf.h>
-#include <thmlhtml.h>
 #include <rtfhtml.h>
 #include <filemgr.h>
 #include <utilstr.h>
@@ -121,7 +122,7 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	qDebug(sourceformat.c_str());	
 	if (!stricmp(sourceformat.c_str(), "GBF")) {
 		if (!m_gbfFilter)
-			m_gbfFilter = new GBFHTML();
+			m_gbfFilter = new BT_GBFHTML();
 		module->AddRenderFilter(m_gbfFilter);
 		noDriver = false;
 	}
@@ -135,14 +136,14 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 
 	if (!stricmp(sourceformat.c_str(), "ThML")) {
 		if (!m_thmlFilter)
-			m_thmlFilter = new ThMLHTML();
+			m_thmlFilter = new BT_ThMLHTML();
 		module->AddRenderFilter(m_thmlFilter);
 		noDriver = false;
 	}
 
-	if (!stricmp(module->Name(), "RWP")) {
+	if (!stricmp(module->Name(), "RWP") || !stricmp(module->Name(), "TSK")) {
 		if (!m_rwpFilter)
-			m_rwpFilter = new RWPHTML();		
+			m_rwpFilter = new BT_RWPHTML();		
 		module->AddRenderFilter(m_rwpFilter);
 		noDriver = false;
 	}
@@ -285,7 +286,7 @@ CSwordModuleInfo* CSwordBackend::findModuleByName(const QString& name){
   qDebug("CSwordBackend::findModuleByName(const QString&)");
   if (m_moduleList && m_moduleList->count())
     for ( m_moduleList->first(); m_moduleList->current(); m_moduleList->next() )
-      if ( QString::fromLocal8Bit(m_moduleList->current()->module()->Name()) == name )
+      if ( m_moduleList->current()->name() == name )
         return m_moduleList->current();
   return 0;
 }

@@ -146,7 +146,7 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
     	m_htmlText.append(
 				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2 (<FONT COLOR=\"%3\">%4</FONT>)</B></TD>")
 					.arg(width)
-					.arg(QString::fromLocal8Bit(m->Name()))
+					.arg(d->name())
 					.arg(m_highlightedVerseColor)
 					.arg(key->key())
 			);

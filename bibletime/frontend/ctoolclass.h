@@ -47,14 +47,14 @@ public:
   * @author Sandy Meier of the KDevelop team.
   */
   static QString locatehtml(const QString &filename);
- /**
-  * Parses a unicode URL and gives back a SWORD key as QString.
+ 	/**
+  * Parses a URL and gives back a SWORD key as QString.
   * For example it gets "Genesis%201:1" and returns "Genesis 1:1".
   * @return The key we got after parsing the URL
   * @author Joachim Ansorg
   */
- static QString urlToKey(const QString&);
- /**
+ 	static QString urlToKey(const QString&);
+	/**
   * Converts HTML text to plain text.
  	* This function converts some HTML tags in text (e.g. <BR> to \n)
  	* @return The text withput HTML tags and with converted <BR> to \n
@@ -73,20 +73,6 @@ public:
    * @author Joachim Ansorg
 	 */
   static bool savePlainFile( const QString& filename, const QString& text);
-  /**
-   * Puts a module Name and a Reference together in the 'draggable' form
-   * (module)reference
-   * @param module The name of the module
-   * @param reference The key reference as text
-   * @return The encoded reference using module and reference
-   * @author Martin Gruner
-   */
-  static QString encodeReference(QString &module, QString &reference);
-  /**
-   * decodes a 'draggable' reference into a modulename and a reference
-   * @author Martin Gruner
-   */
-  static void decodeReference(QString &dragreference, QString &module, QString &reference);
   /**
   	* Returns the icon used for the module given as aparameter.
   	*/

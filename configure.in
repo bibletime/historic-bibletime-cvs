@@ -107,6 +107,7 @@ bibletime/frontend/thirdparty/Makefile \
 bibletime/frontend/thirdparty/qt3stuff/Makefile \
 bibletime/pics/Makefile \
 bibletime/pics/highcolor/Makefile \
+bibletime/pics/highcolor/16x16/Makefile \
 bibletime/pics/highcolor/22x22/Makefile \
 bibletime/pics/highcolor/32x32/Makefile \
 bibletime/pics/highcolor/48x48/Makefile \
