@@ -182,6 +182,15 @@ void COptionsDialog::initGeneral() {
 		hBox->addWidget(label);
 		hBox->addWidget(m_general.sword.standardGreekStrong);
 		layout2->addLayout(hBox);
+		
+		hBox - new QHBoxLayout();
+		m_general.sword.standardMorph = new QComboBox(page);
+		label - new QLabel(m_general.sword.standardMorph, i18n("Default Morphological Text"), page);
+		QToolTip::add(m_general.sword.standardMorph, TT_OD_SWORD_STANDARD_MORPH);
+		QWhatsThis::add(m_general.sword.standardMorph, WT_OD_SWORD_STANDARD_MORPH);
+		hBox->addWidget(label);
+		hBox->addWidget(m_general.sword.standardMorph);
+		layout2->addLayout(hBox);
 	
 						
 		
@@ -203,6 +212,8 @@ void COptionsDialog::initGeneral() {
                   				m_general.sword.standardHebrewStrong->insertItem(modDescript);				
      				if (modDescript.contains("Greek", FALSE) )
      								m_general.sword.standardGreekStrong->insertItem(modDescript);
+     				if (modDescript.contains("Morph", FALSE) )
+     								m_general.sword.standardMorph->insertItem(modDescript);
 					break;
 				default://unknown type					
 					break;
@@ -250,6 +261,15 @@ void COptionsDialog::initGeneral() {
 		for(int item=0; item<count; ++item) {
 			if(m_general.sword.standardGreekStrong->text(item) == standardGreekStrong) {
 				m_general.sword.standardGreekStrong->setCurrentItem(item);
+				break;
+			}
+		}
+		
+		const QString standardMorph = CBTConfig::get(CBTConfig::standardMorph);
+		count - m_general.sword.standardMorph->count();
+		for(int item=0; item<count; ++item) {
+			if(m_general.sword.standardMorph->text(item)==standardMorph) {
+				m_general.sword.standardMorph->setCurrentItem(item);
 				break;
 			}
 		}

@@ -37,7 +37,8 @@ public:
 		standardCommentary,
 		standardLexicon,
 		standardHebrewLexicon,
-		standardGreekLexicon
+		standardGreekLexicon,
+		standardMorph
 
 	};
 	enum fonts{

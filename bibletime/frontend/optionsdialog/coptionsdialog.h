@@ -91,6 +91,7 @@ private:
 			QComboBox* standardLexicon;
 			QComboBox* standardHebrewStrong;
 			QComboBox* standardGreekStrong;
+			QComboBox* standardMorph;
 		} sword;
 		struct KeySettings {
 			KKeyChooser* keyChooser;
