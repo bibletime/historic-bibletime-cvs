@@ -47,11 +47,12 @@ public: // Public methods
     Link,
     LinkHover,
     Background,
-//    Background2,
     HighlightedText,
-    UnicodeText,
 
     Reference,
+		Verse,
+		CurrentVerse,
+		VerseNum,
 
     MorphCode,
     StrongNumber,
@@ -69,11 +70,6 @@ public: // Public methods
     MinType = Body,
     MaxType = SectionTitle
   };
-
-//  enum FontType {
-//    UnicodeFont,
-//    StandardFont
-//  };
 
   enum ColorType {
     ReferenceColor,
@@ -146,10 +142,6 @@ protected:
   * This makes chapter rendering more easy.
   */
   virtual const QString entryText( QPtrList<CSwordModuleInfo> modules, const QString& key, const QString& chosenKey);
-  /**
-  * Adds the right headers and footers to the page and returns them together.
-  */
-  virtual const QString finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName);
 };
 
 class CBookDisplay : public CEntryDisplay  {

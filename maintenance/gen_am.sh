@@ -65,7 +65,7 @@ for PART in $DOC_PARTS; do
 	echo generating $I2/Makefile.am
 	( # output to Makefile.am
 		echo -e $HEADER
-		echo -n "SUBDIRS = unicode "
+		echo -n "SUBDIRS = unicode html"
 		echo
 		echo 'html-files:'
 		echo '	if test -e unicode/index.docbook; then \'
@@ -83,7 +83,7 @@ for PART in $DOC_PARTS; do
 	#create $PART/????/Makefile.am
 	#####################################
 
-	for SECTION in unicode; do
+	for SECTION in unicode html; do
 		I2=$PART/$SECTION
 		echo generating $I2/Makefile.am
 		( # output to Makefile.am

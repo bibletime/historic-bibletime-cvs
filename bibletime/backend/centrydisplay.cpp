@@ -21,6 +21,7 @@
 #include "cswordversekey.h"
 #include "cswordbookmoduleinfo.h"
 #include "creferencemanager.h"
+#include "cdisplaytemplatemgr.h"
 
 #include "frontend/cbtconfig.h"
 
@@ -179,43 +180,44 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
   QString text;
   switch(type) {
     case Body:
-//      text =  QString::fromLatin1("body {%1; color: %2; font-size: %3pt; font-family: %4;}")
-//                .arg(QString::fromLatin1("background-color: %1").arg(bgColor))
-//                .arg(textColor)
-//                .arg(font(StandardFont).pointSize())
-//                .arg(font(StandardFont).family());
       text =  QString::fromLatin1("body {background-color:%1; color:%2;}")
-                .arg(bgColor)
+								.arg(bgColor)
                 .arg(textColor);
       break;
     case Link:
       text = QString::fromLatin1("a:link {text-decoration:none;}");
-//              .arg(swordRefColor);
       break;
     case LinkHover:
       text = QString::fromLatin1("a:hover {text-decoration:none;}");
       break;
     case Background:
       text = QString::fromLatin1(".background1 {background-color:%1;}")
-              .arg(bgColor);
+							.arg(bgColor);
       break;
-//    case Background2:
-//      text = QString::fromLatin1(".background2 {background-color:%1;}")
-//              .arg(bgColor2);
-//      break;
     case HighlightedText:
       text = QString::fromLatin1(".highlighted {color: %1;}")
               .arg(highlightColor);
       break;
-    case UnicodeText:
-//      text = QString::fromLatin1(".unicodetext { font-family: %1; font-size:%2pt; }")
-//                .arg(font(UnicodeFont).family())
-//                .arg(font(UnicodeFont).pointSize());
-      break;
-    case Reference:
+    
+		case Reference:
       text = QString::fromLatin1(".reference {color:%1; font-weight:light; font-size:small;}")
               .arg(swordRefColor);
       break;
+		case Verse:
+      text = QString::fromLatin1("div.verse { padding: 5px; }");
+      text += QString::fromLatin1("td.verse { padding: 5px; vertical-align:top; }");
+			text += QString::fromLatin1("span.verse { }");
+      break;
+		case CurrentVerse:
+      text = QString::fromLatin1("div.currentverse { padding: 5px; background-color:#E7EAF4; border:1px solid #56575B;}");
+			text += QString::fromLatin1("td.currentverse { vertical-align:top; padding:5px; background-color:#E7EAF4; border:1px solid #56575B;}");
+			text += QString::fromLatin1("span.currentverse { background-color:#E7EAF4; }");
+      break;
+		case VerseNum: 
+      text = QString::fromLatin1(".versenum { font-size:0.7em; vertical-align:top; padding-right:5px;} .versenum > a { font-size:0.7em; vertical-align:top; padding-right:5px;}");
+      break;
+			
+			
     case MorphCode:
       text = QString::fromLatin1(".morphcode {font-size: smaller; color: %1; font-decoration:none;}")
               .arg(morphsColor);
@@ -225,8 +227,6 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
               .arg(strongsColor);
       break;
     case Lemma:
-//      text = QString::fromLatin1(".lemma {font-size: smaller; color: %1; font-decoration:none;}")
-//              .arg(lemmaColor);
       break;
     case Footnote:
       text = QString::fromLatin1(".footnote  {font-size:smaller; color:%1; font-style:italic;}")
@@ -267,7 +267,7 @@ void CEntryDisplay::setDisplayOptions(const CSwordBackend::DisplayOptions option
 /** Returns the right reference text which can be incluced in the HTML */
 const QString CEntryDisplay::htmlReference( CSwordModuleInfo* module, const QString& keyName, const QString linkText, const QString& anchorText ) {
   if (linkText.isEmpty()) {
-    return QString::fromLatin1("<a name=\"%1\"></a>").arg(anchorText);
+    return QString::fromLatin1("<a name=\"%1\"/>").arg(anchorText);
   }
   else {
     return QString::fromLatin1("<a name=\"%1\" href=\"%2\">%3</a>")
@@ -298,54 +298,52 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse) && !key.Error() ) {
     text += entryText(modules, key.key(), keyName);
 	}
+  
+	if (modules.count() > 1) {
+		text = QString::fromLatin1("<table>%1</table>").arg(text);
+	}
+	
+	CDisplayTemplateMgr tMgr;
+	if (!tMgr.availableTemplates().contains("Default")) {
+		return QString::null;	
+	}
+	text = tMgr.fillTemplate("Default", "title", text);
 
-//  qWarning(finishText(text, modules, QString::null).latin1());
-  return finishText(text, modules, QString::null);
+	return text;	
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
 const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const QString& chosenKey ) {
 
   CSwordVerseKey key(modules.first());
-  QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr valign=\"top\">") : QString::null;
+  QString renderedText = (modules.count() > 1) ? QString::fromLatin1("<tr>") : QString::null;
 
 	// Only insert the table stuff if we are displaying parallel.
   // Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
 
 
   //declarations out of the loop for optimization
-  const QString colStyle = QString::fromLatin1("style=\"border-bottom:1px solid black; padding-bottom:2px; padding-top:2px;");
-  QString tdStyle;
   QString entry;
   QString keyText;
 
   QFont font;
   bool isRTL;
 
-  const QString lineBreakString = ((modules.count() == 1) && m_displayOptions.lineBreaks) ? QString::fromLatin1("<br/>") : QString::fromLatin1(" ");
-
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key.module(m);
     key.key(keyName);
     keyText = key.key();
     isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
-
-    tdStyle = colStyle + QString::fromLatin1("%1 %2\"")
-      .arg((modules.at()+1 < (int)modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right: 1px solid black;") : QString::null)
-      .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
-
     font = CBTConfig::get(m->language()).second;
-
 		entry = QString::null;
 
-	//	m->module()->RenderText(); //force rendering of entry attributes
 		key.renderedText();
 		int pvHeading = 0;
 		do { //add sectiontitle before we add the versenumber
 			QString preverseHeading = QString::fromUtf8(
 m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeading++).latin1()].c_str());
 			if (!preverseHeading.isEmpty()) {
-				entry += QString::fromLatin1("<br/><div class=\"sectiontitle\">%1</div>")
+				entry += QString::fromLatin1("<div class=\"sectiontitle\">%1</div>")
 					.arg(preverseHeading);
 			}
 			else {
@@ -353,70 +351,42 @@ m->module()->getEntryAttributes()["Heading"]["Preverse"][QString::number(pvHeadi
 			}
 		} while (true);
 
-    entry +=
-      QString::fromLatin1("<span %1 style=\"font-family:%2;font-size:%3pt;\" dir=\"%4\">%5%6</span>")
-        .arg((keyText == chosenKey) ? QString::fromLatin1("class=\"highlighted\"") : QString::null)
-        .arg(font.family())
-        .arg(font.pointSize())
-        .arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-        .arg(m_displayOptions.verseNumbers //if we shuld show the verse numbers
-            ? QString::fromLatin1("<span style=\"vertical-align:text-top; font-size:%1pt;\">%2</span> ")
-                .arg(int(float(font.pointSize()) / 1.5))
-                .arg(htmlReference(m, keyText, QString::number(key.Verse()), keyText))
-            : htmlReference(m, QString::null, QString::null, keyText) )
-        .arg(key.renderedText() + lineBreakString);
+   const QString fontStyle = QString::fromLatin1("font-family:%1; font-size:%2pt;").arg(font.family()).arg(font.pointSize());
 
+		
+		entry += QString::fromLatin1("<%1 %2 style=\"%3\" dir=\"%4\">") //linebreaks = div, without = span
+    	.arg(m_displayOptions.lineBreaks ? QString::fromLatin1("div") : QString::fromLatin1("span"))
+			.arg((modules.count() == 1) ? ((keyText == chosenKey) ? QString::fromLatin1("class=\"currentverse\"") : QString::fromLatin1("class=\"verse\"")) : "") //insert only the class if we're not in a td
+			.arg(fontStyle)
+			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
+		
+		if (m_displayOptions.verseNumbers) { //if we shuld show the verse numbers
+			entry += QString::fromLatin1("<span class=\"versenum\">%1</span>").arg( htmlReference(m, keyText, QString::number(key.Verse()), keyText) ); 
+		}
+		else {
+			entry += htmlReference(0, QString::null, QString::null, keyText);  //insert only an anchor
+		}
+		
+		entry += QString::fromLatin1("<span>%1</span>").arg(key.renderedText());
+		entry += (m_displayOptions.lineBreaks ? QString::fromLatin1("</div>") : QString::fromLatin1("</span>"));
+		
   	if (modules.count() == 1) {
 			renderedText += entry;
 		}
   	else {
-	    renderedText += QString::fromLatin1("<td class=\"background1\" %1 dir=\"%2\" valign=\"top\">%3</td>")
-                        .arg(tdStyle)
-                        .arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
-											  .arg(entry);
+	    renderedText += QString::fromLatin1("<td class=\"%1\" style=\"%2\" dir=\"%3\">%4</td>")
+				.arg((keyText == chosenKey) ? QString::fromLatin1("currentverse") : QString::fromLatin1("verse"))
+				.arg(fontStyle)
+				.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"))
+				.arg(entry);
 		}
-  }
-
-  if (modules.count() > 1){
+	}
+ 	if (modules.count() > 1) {
 		renderedText += QString::fromLatin1("</tr>");
 	}
-
   return renderedText;
 }
 
-const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordModuleInfo> modules, const QString& keyName) {
-  util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
-  key->key(keyName);
-
-  QString css = "table.maintable {width:100%;} td.tableheading {border-bottom:1px solid black;}";
-  for (int t = MinType; t <= MaxType; ++t) {
-    css += "\t" + cssString( static_cast<CEntryDisplay::StyleType>(t) );
-  }
-
-  const int columnWidth = (int)((float)100 / (float)modules.count());
-
-  QString pageStart = QString::fromLatin1("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"><html><head><style type=\"text/css\">%1</style></head><body><table cellspacing=\"0\" class=\"maintable\" %2><tr>")
-    .arg(css)
-    .arg(((modules.count() == 1) && (modules.first()->textDirection() == CSwordModuleInfo::RightToLeft)) ? "dir=\"rtl\"" : "");
-
-  for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    key->module(m);
-    const QString newKeyName = key->key();
-
-    pageStart += QString::fromLatin1("<td class=\"tableheading\" width=\"%1%\"><center><b>%2</b> %3</center></td>")
-      .arg(columnWidth)
-      .arg(m->name())
-      .arg(!keyName.isEmpty() ? htmlReference(m, newKeyName, newKeyName, newKeyName) : QString::null);
-  }
-  pageStart += QString::fromLatin1("</tr>");
-
-  QString pageEnd = QString::fromLatin1("</table></body></html>");
-
-	if (modules.count() == 1) // render everything into one cell. entryText leaves out the table tags.
-		return pageStart  + QString::fromLatin1("<tr><td>%1</td></tr>%2").arg(text).arg(pageEnd);
-  else  // use many cells. entryText inserts the necessary table tags.
-	 	return pageStart + text + pageEnd;
-}
 
 /* ----------------------- new class: CBookDisplay ------------------- */
 

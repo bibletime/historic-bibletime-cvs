@@ -60,6 +60,9 @@ install-data-local:
 	$(mkinstalldirs) $(kde_appsdir)/Applications
 	$(INSTALL_DATA) $(srcdir)/bibletime.desktop $(kde_appsdir)/Applications/bibletime.desktop
 
+uninstall-local:
+	-rm -f $(kde_appsdir)/Applications/bibletime.desktop
+
 MAINTAINERCLEANFILES = configure.files subdirs 
 
 dist-hook:	

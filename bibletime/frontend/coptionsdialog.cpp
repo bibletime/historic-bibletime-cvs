@@ -20,6 +20,7 @@
 
 #include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
+#include "backend/cdisplaytemplatemgr.h"
 
 #include "frontend/displaywindow/cbiblereadwindow.h"
 #include "frontend/displaywindow/ccommentaryreadwindow.h"
@@ -285,7 +286,16 @@ void COptionsDialog::initColors(){
 	QGridLayout* gridLayout = new QGridLayout(page,8,5,5,5);
   gridLayout->setResizeMode(QLayout::Minimum);
 
-  gridLayout->addMultiCellWidget(
+	m_settings.colors.styles = new QListBox(page);
+	
+	QLabel* label = new QLabel(m_settings.colors.styles, i18n("Available styles"), page);
+	gridLayout->addWidget(label,1,0);
+	gridLayout->addWidget(m_settings.colors.styles,1,1);
+	
+	CDisplayTemplateMgr tMgr;
+	m_settings.colors.styles->insertStringList( tMgr.availableTemplates() );
+	
+/*  gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(page,
   		i18n("Choose colors"),
   		i18n("Choose custom colors to alter the apperance of the display windows. \
@@ -389,7 +399,7 @@ Some options like \"Words of Jesus\" only apply to texts which offer special fea
 	gridLayout->setRowStretch(9, 5);
 	gridLayout->addColSpacing(3, 5);
 	gridLayout->addRowSpacing(3, 10);
-	gridLayout->addRowSpacing(5, 10);
+	gridLayout->addRowSpacing(5, 10);*/
 }
 
 /** Init profiles section. */
@@ -900,14 +910,15 @@ void COptionsDialog::saveAccelerators(){
 
 /** No descriptions */
 void COptionsDialog::saveColors(){
- 	CBTConfig::set(CBTConfig::textColor, m_settings.colors.text->color().name());	
+	
+/* 	CBTConfig::set(CBTConfig::textColor, m_settings.colors.text->color().name());	
  	CBTConfig::set(CBTConfig::backgroundColor, m_settings.colors.background->color().name());	
  	CBTConfig::set(CBTConfig::highlightedVerseColor, m_settings.colors.highlightedVerse->color().name());		
  	CBTConfig::set(CBTConfig::swordRefColor, m_settings.colors.swordrefs->color().name());		
  	CBTConfig::set(CBTConfig::footnotesColor, m_settings.colors.footnotes->color().name());		
  	CBTConfig::set(CBTConfig::strongsColor, m_settings.colors.strongs->color().name());		
  	CBTConfig::set(CBTConfig::morphsColor, m_settings.colors.morph->color().name());		
- 	CBTConfig::set(CBTConfig::jesuswordsColor, m_settings.colors.jesuswords->color().name());		
+ 	CBTConfig::set(CBTConfig::jesuswordsColor, m_settings.colors.jesuswords->color().name());		*/
 }
 
 /** No descriptions */
