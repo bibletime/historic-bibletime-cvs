@@ -88,10 +88,11 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
     if (!read){
 			(*module()) = TOP;  		
   		do {
-        if (isUnicode())
+        if (this->isUnicode())
      			m_entryList->append(QString::fromUtf8(module()->KeyText()));
         else
-          m_entryList->append(QString::fromLatin1(module()->KeyText())); //latin1 is a lot faster than UTF8, we can use it because latin1 modules won't contain unicode keys
+//latin1 is a lot faster than UTF8, we can use it because latin1 modules won't contain unicode keys
+          m_entryList->append(QString::fromLatin1(module()->KeyText()));
 //				qWarning(module()->KeyText());
   			(*module())++;
   		} while ( !module()->Error() );
@@ -120,11 +121,13 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 
 /** Jumps to the closest entry in the module.  */
 const bool CSwordLexiconModuleInfo::snap(){
-	bool ret = false;
+//	bool ret = false;
 	if(module()->getRawEntry()){	//snap to the current entry
-		ret = true;
+//		ret = true;
+		return true;
 	}
-	return ret;
+//	return ret;
+	return false;
 }
 
 /** No descriptions */
