@@ -145,32 +145,30 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 		// <note> tag
 		else if (!strcmp(tag.getName(), "note")) {
 			if (!tag.isEndTag()) {
-//				SWBuf footnoteNum = myUserData["fn"];
 				const SWBuf type = tag.getAttribute("type");
 
-				if (type != "strongsMarkup") {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
-          buf += " <span class=\"footnote\">(";
-          myUserData->insertedFootnoteTags = true;
-
-//					int footnoteNumber = (footnoteNum.length()) ? atoi(footnoteNum.c_str()) : 1;
-					// see if we have a VerseKey * or descendant
-					//if (sword::VerseKey *vkey = dynamic_cast<sword::VerseKey*>(key)) {
-//						char ch = ((tag.getAttribute("type") && ((!strcmp(tag.getAttribute("type"), "crossReference")) || (!strcmp(tag.getAttribute("type"), "x-cross-ref")))) ? 'x':'n');
-						    //buf.appendFormatted(" ", vkey->getText(), ch, footnoteNumber, ch);
-//						SWBuf tmp;
-//						tmp.appendFormatted("%i", ++footnoteNumber);
-//						myUserData["fn"] = tmp.c_str();
-//					}
-				}
-        else {
-  				myUserData->suspendTextPassThru = true;
+				if (type == "crossReference") { //note containing cross references
+          buf += " <span class=\"footnote\">[";
+          myUserData->noteType = BT_UserData::CrossReference;
         }
+        else if (type == "strongsMarkup") {
+  				myUserData->suspendTextPassThru = true;
+          myUserData->noteType = BT_UserData::StrongsMarkup;
+        }
+        else {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
+          buf += " <span class=\"footnote\">(";
+          myUserData->noteType = BT_UserData::Footnote;
+				}
 			}
 			if (tag.isEndTag()) {
-        if (myUserData->insertedFootnoteTags) {
-          buf += ")</span> ";
-          myUserData->insertedFootnoteTags = false;
+        if (myUserData->noteType == BT_UserData::CrossReference) {
+          buf += "]</span> ";
         }
+        else if (myUserData->noteType == BT_UserData::Footnote) {
+          buf += ")</span> ";
+        }
+
+        myUserData->noteType = BT_UserData::Unknown;
 				myUserData->suspendTextPassThru = false;
 			}
 		}
@@ -193,7 +191,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           ref += 11;
         }
         
-				buf.appendFormatted("<a href=\"sword://%s/%s/%s\">",
+				buf.appendFormatted("<a class=\"reference\" href=\"sword://%s/%s/%s\">",
           typeName.c_str(),
           CReferenceManager::preferredModule( CReferenceManager::typeFromModule(type) ).latin1(),
           ref

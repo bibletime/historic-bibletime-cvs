@@ -54,7 +54,7 @@ const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QStri
 
   QString css = QString::null;
   for (int t = MinType; t <= MaxType; ++t) {
-    css += "\t" + cssString( static_cast<CEntryDisplay::StyleType>(t) ) + "\n\n";
+    css += "\t" + cssString( static_cast<CEntryDisplay::StyleType>(t) );
   }
 
   const QString pageStart = QString::fromLatin1("<html><head><style type=\"text/css\">%1</style></head><body>%2<hr/>")
@@ -84,7 +84,7 @@ const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, cons
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     moduleFont = CBTConfig::get( m->language() ).second;
     tdStyle = QString::fromLatin1("style=\"%1 %2 font-family:%3; font-size:%4pt;\"")
-      .arg(((modules.at()+1) < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
+      .arg(((modules.at()+1) < modules.count()) ? QString::fromLatin1("padding-right:2mm; border-right:1px solid black;") : QString::null)
       .arg(((modules.at()>0) && ((modules.at()+1) <= modules.count() )) ? QString::fromLatin1("padding-left:2mm;") : QString::null)
       .arg(moduleFont.family())
       .arg(moduleFont.pointSize());
@@ -92,7 +92,7 @@ const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, cons
     key->module(m);
     key->key(keyName);
 
-    renderedText += QString::fromLatin1("<td %1 valign=\"top\"><span>%2</span></td>")
+    renderedText += QString::fromLatin1("<td %1 valign=\"top\">%2</td>")
                       .arg(tdStyle)
                       .arg(key->renderedText());
   }
@@ -136,7 +136,7 @@ const QString CEntryDisplay::finishText( const QString text, QPtrList <CSwordMod
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   key->key(keyName);
 
-  QString css = "table.maintable {width:100%;} td.tableheading {border-bottom: thin solid black;}";
+  QString css = "table.maintable {width:100%;} td.tableheading {border-bottom:1px solid black;}";
   for (int t = MinType; t <= MaxType; ++t) {
     css += "\t" + cssString( static_cast<CEntryDisplay::StyleType>(t) ) + "\n\n";
   }
@@ -213,7 +213,7 @@ const QString CEntryDisplay::cssString( const CEntryDisplay::StyleType type ){
 //                .arg(font(UnicodeFont).pointSize());
       break;
     case Reference:
-      text = QString::fromLatin1(".reference {color:%1; font-decoration:none; font-weight:bold;}")
+      text = QString::fromLatin1(".reference {color:%1; font-decoration:none; font-weight:light; font-size:small; vertical-align:top;}")
               .arg(swordRefColor);
       break;
     case MorphCode:
@@ -280,7 +280,7 @@ const QString CEntryDisplay::htmlReference( CSwordModuleInfo* module, const QStr
 /* ----------------------- new class: CChapterDisplay ------------------- */
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
-const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {	
+const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const QString& keyName, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions ) {
   backend()->setDisplayOptions( displayOptions );
   backend()->setFilterOptions( filterOptions );
   QString text = QString::null;
@@ -298,6 +298,8 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse)) {
     text += entryText(modules, key.key(), keyName);
 	}
+
+//  qWarning(finishText(text, modules, QString::null).latin1());
   return finishText(text, modules, QString::null);
 }
 
@@ -310,7 +312,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
   // Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
 
   //declarations out of the loop for optimization
-  const QString colStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; padding-bottom:2px; padding-top:2px;");
+  const QString colStyle = QString::fromLatin1("style=\"border-bottom:1px solid black; padding-bottom:2px; padding-top:2px;");
   QString tdStyle;
   QString entry;
   QString keyText;
@@ -318,7 +320,7 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
   QFont font;
   bool isRTL;
 
-  const QString lineBreakString = ((modules.count() == 1) && m_displayOptions.lineBreaks) ? QString::fromLatin1("<BR>") : QString::fromLatin1(" ");
+  const QString lineBreakString = ((modules.count() == 1) && m_displayOptions.lineBreaks) ? QString::fromLatin1("<br/>") : QString::fromLatin1(" ");
   
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key.module(m);
@@ -327,13 +329,13 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
     isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
 
     tdStyle = colStyle + QString::fromLatin1("%1 %2\"")
-      .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
+      .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:1px solid black;") : QString::null)
       .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
 
     font = CBTConfig::get(m->language()).second;
     
     entry =
-      QString::fromLatin1("<span %1 style=\"font-family:%2; font-size:%3pt;\"><span dir=\"%4\">%5%6</span></span>")
+      QString::fromLatin1("<span %1 style=\"font-family:%2;font-size:%3pt;\" dir=\"%4\">%5%6</span>")
         .arg((keyText == chosenKey) ? QString::fromLatin1("class=\"highlighted\"") : QString::null)
         .arg(font.family())
         .arg(font.pointSize())
@@ -365,9 +367,9 @@ const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordM
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   key->key(keyName);
 
-  QString css = "table.maintable {width:100%;} td.tableheading {border-bottom:thin solid black;}";
+  QString css = "table.maintable {width:100%;} td.tableheading {border-bottom:1px solid black;}";
   for (int t = MinType; t <= MaxType; ++t) {
-    css += "\t" + cssString( static_cast<CEntryDisplay::StyleType>(t) ) + "\n\n";
+    css += "\t" + cssString( static_cast<CEntryDisplay::StyleType>(t) );
   }
 
   const int columnWidth = (int)((float)100 / (float)modules.count());
@@ -470,7 +472,7 @@ const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, CSwor
   return QString::fromLatin1("<tr><td style=\"padding-left:%1px;\"><SUP>%2</SUP> %3</td></tr>")
     .arg( level*30 )
     .arg( htmlReference(book, keyName, key->getLocalName(), !keyName.isEmpty() ? keyName : "/" ) )
-    .arg( QString::fromLatin1("<span %1 STYLE=\"font-family:%2; font-size:%3pt;\">%4</span>")
+    .arg( QString::fromLatin1("<span %1 style=\"font-family:%2; font-size:%3pt;\">%4</span>")
             .arg(activeKey ? "class=\"highlighted\"" : QString::null)
             .arg(font.family())
             .arg(font.pointSize())

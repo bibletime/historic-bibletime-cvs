@@ -366,11 +366,11 @@ const QString CSwordBackend::optionName( const CSwordBackend::FilterTypes option
 		case CSwordBackend::greekAccents:
 			return QString::fromLatin1("Greek Accents");
 		case CSwordBackend::redLetterWords:
-			return QString::fromLatin1("Red letter words");
+			return QString::fromLatin1("Words of Christ in Red");
     case CSwordBackend::textualVariants:
 			return QString::fromLatin1("Textual Variants");	
 		case CSwordBackend::scriptureReferences:
-			return QString::fromLatin1("Scripture References");
+			return QString::fromLatin1("Cross-references");
 		case CSwordBackend::transliteration:
 			return QString::fromLatin1("Transliteration");
 	}

@@ -1186,7 +1186,7 @@ void CSearchAnalysis::saveAsHTML(){
  	QString tableTitle = "";
   QString tableTotals = "";
  	QString VerseRange = "";
- 	const QString txtCSS = QString::fromLatin1("<style type=\"text/css\">\nTD {border: thin solid black;}\nTH {font-size: 130%;text-align: left;vertical-align:top;}\n</style>\n");
+ 	const QString txtCSS = QString::fromLatin1("<style type=\"text/css\">\ntd {border:1px solid black;}\nth {font-size: 130%; text-align:left; vertical-align:top;}\n</style>\n");
 	const QString metaEncoding = QString::fromLatin1("<META http-equiv=Content-Type content=\"text/html; charset=utf-8\">");
  	CSwordVerseKey key(0);
  	sword::ListKey searchResult;

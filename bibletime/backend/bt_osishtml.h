@@ -30,9 +30,16 @@ class BT_OSISHTML : public sword::OSISHTMLHref, protected CFilterTool {
 protected:
   class BT_UserData : public sword::OSISHTMLHref::MyUserData {
   public:
-    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::OSISHTMLHref::MyUserData(module, key) {}
+    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::OSISHTMLHref::MyUserData(module, key) {
+      noteType = Unknown;
+    }
 
-    bool insertedFootnoteTags;
+    enum NoteTpe {
+      Unknown,
+      CrossReference,
+      Footnote,
+      StrongsMarkup
+    } noteType;
   };
 
   virtual sword::BasicFilterUserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {
