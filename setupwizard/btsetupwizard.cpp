@@ -34,6 +34,7 @@
 #include <kiconloader.h>
 #include <kcmdlineargs.h>
 #include <kapplication.h>
+#include <kprogress.h>
 
 
 BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(parent,name),
@@ -133,6 +134,7 @@ void BTSetupWizard::addMainPage(void){
  	m_startBibleTimeBox->setChecked( args->isSet("start-bibletime") );
   layout->addWidget(m_startBibleTimeBox, 5, 2);
 
+	connect(exitButton, SIGNAL(clicked()), this, SLOT(slot_exitRequested()));
 	connect(removeButton, SIGNAL(clicked()), this, SLOT(slot_gotoRemovePage()));
 }
 
@@ -163,8 +165,7 @@ void BTSetupWizard::addRemovePage(){
 		"blas dlkf asldhfkajgha sdlkfjaösldkfj asdlghaösldkfja sdflkajs dlfhasölg" );
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
-	QLabel* headingLabel = CToolClass::explanationLabel(m_removePage,
-		"Select modules to be uninstalled", QString::null);
+	QLabel* headingLabel = new QLabel("<b>Select modules to be uninstalled</b>", m_removePage);
 	layout->addMultiCellWidget(headingLabel, 1, 1, 0, 3);
 
 	m_removeModuleListView = new QListView(m_removePage, "remove modules view");
@@ -181,12 +182,14 @@ void BTSetupWizard::addRemovePage(){
 	layout->addWidget(backButton, 3, 0, Qt::AlignLeft);
 
 	connect(backButton, SIGNAL(clicked()), this, SLOT(slot_backtoMainPage()));
-	
-	populateRemoveModuleListView();
 
 }
 /** No descriptions */
 void BTSetupWizard::populateRemoveModuleListView(){
+
+//	KProgressDialog progress;
+//	progress.setAllowCancel(false);
+//	progress.show();
 
 	if (m_backend){ //Make sure we have a current list of modules
 		m_backend->shutdownModules();
@@ -206,13 +209,17 @@ void BTSetupWizard::populateRemoveModuleListView(){
   categoryBook->setOpen(true);
 
 	QPtrList<CSwordModuleInfo> list = m_backend->moduleList();
+	int modcount = list.count();
+	int mod = 0;
 	QString location, name;
 	QListViewItem* newItem = 0;
 	QListViewItem* parent = 0;
 	SWConfig moduleConfig("");
 
-	for ( list.first(); list.current(); list.next() ){
+	for ( list.first(), mod = 1; list.current(); list.next(), mod++ ){
 
+//		progress.progressBar()->setValue( (modcount*100)/mod );
+//		KApplication::kApplication()->processEvents();
 		location = list.current()->config( CSwordModuleInfo::AbsoluteDataPath ) ;
 		name = list.current()->name() ;
 
@@ -231,6 +238,7 @@ void BTSetupWizard::populateRemoveModuleListView(){
 			newItem = new QListViewItem(parent, name);
 		newItem->setText(1, location);
   }
+//	progress.done(0);
 
 }
 /** No descriptions */
@@ -242,6 +250,9 @@ void BTSetupWizard::slot_backtoMainPage(){
 
 /** No descriptions */
 void BTSetupWizard::slot_gotoRemovePage(){
+
+	populateRemoveModuleListView();
+
   qWarning("swallow remove page");  
   Q_ASSERT(m_removePage);
   m_mainWidget->setSwallowedWidget(m_removePage);
