@@ -43,7 +43,7 @@ public:
   /**
   * Inserts the actions used by this window class into the given KAccel object.
   */
-  static void insertKeyboardActions(KAccel* a);
+  static void insertKeyboardActions(KAccel* const a);
   /**
   * Applies some Bible window specific setttings.
   */

@@ -24,13 +24,17 @@
 #include <qvaluelist.h>
 
 #include "backend/cswordbackend.h"
-/**This class is the interface to the config object of BibleTime
-  *@author The BibleTime team
-  */
 
+//Forward declarations
+class KAccel;
+
+/**
+ * This class is the interface to the config object of BibleTime
+ * @author The BibleTime team
+ */
 class CBTConfig {
 public:
-	enum strings{
+	enum strings {
 		bibletimeVersion,
 		language,
 		standardBible,
@@ -41,11 +45,11 @@ public:
 		standardHebrewMorphLexicon,
 		standardGreekMorphLexicon
 	};
-	enum fonts{
+	enum fonts {
 		standard,
 		unicode
 	};
-	enum colors{
+	enum colors {
 		textColor,
 		backgroundColor,
 		highlightedVerseColor,
@@ -55,7 +59,7 @@ public:
 		jesuswordsColor,
 		swordRefColor  //SWORD hyperlink
 	};
-	enum bools{
+	enum bools {
 		firstSearchDialog,
 
 		toolbar,
@@ -84,12 +88,19 @@ public:
 		logo,
 		restoreWorkspace
 	};
-	enum intLists{
+	enum intLists {
 		splitterSizes
 	};
-	enum stringLists{
+	enum stringLists {
 		searchCompletionTexts,
 		searchTexts		
+	};
+	enum keys {
+		bookWindow,
+		bibleWindow,
+		commentaryWindow,
+		lexiconWindow,
+		application
 	};
 
   static const QString 		get( const CBTConfig::strings );
@@ -98,6 +109,7 @@ public:
   static const QColor 		get( const CBTConfig::colors );
   static const QValueList<int>	get( const CBTConfig::intLists );
   static const QStringList			get( const CBTConfig::stringLists );
+
 	
 
 	static void set( const CBTConfig::strings, 	const QString value );
@@ -110,6 +122,8 @@ public:
 
   static const CSwordBackend::FilterOptionsBool getFilterOptionDefaults();
   static const CSwordBackend::DisplayOptionsBool getDisplayOptionDefaults();
+
+  static void setupAccel(const CBTConfig::keys type, KAccel* const accel);
 
 private:
 	static const QString getKey( const CBTConfig::strings );

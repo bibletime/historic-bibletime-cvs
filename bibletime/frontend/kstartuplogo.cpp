@@ -22,11 +22,12 @@
 #include <qapp.h>
 #include <qlabel.h>
 #include <qlayout.h>
+#include <qpixmap.h>
 
 //KDE includes
-#include <kapp.h>
-#include <kstddirs.h>
-#include <kimageio.h>
+#include <kapplication.h>
+#include <kstandarddirs.h>
+//#include <kimageio.h>
 
 //static objects
 static KStartupLogo* startupLogo = 0;

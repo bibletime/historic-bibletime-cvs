@@ -19,18 +19,19 @@
 #include "cmodulechooserbar.h"
 #include "cdisplaysettingsbutton.h"
 
-#include "../ctoolclass.h"
-#include "../cexportmanager.h"
-#include "../chtmlwidget.h"
-#include "../keychooser/ckeychooser.h"
-#include "../../resource.h"
-#include "../../backend/cswordbiblemoduleinfo.h"
-#include "../../backend/cswordversekey.h"
-#include "../../backend/chtmlchapterdisplay.h"
-#include "../../backend/cswordbackend.h"
-#include "../../backend/creferencemanager.h"
-#include "../cprofile.h"
-#include "../cprofilewindow.h"
+#include "resource.h"
+#include "frontend/ctoolclass.h"
+#include "frontend/cexportmanager.h"
+#include "frontend/chtmlwidget.h"
+#include "frontend/keychooser/ckeychooser.h"
+#include "frontend/cprofile.h"
+#include "frontend/cprofilewindow.h"
+#include "frontend/cbtconfig.h"
+#include "backend/cswordbiblemoduleinfo.h"
+#include "backend/cswordversekey.h"
+#include "backend/chtmlchapterdisplay.h"
+#include "backend/cswordbackend.h"
+#include "backend/creferencemanager.h"
 
 #include <math.h>
 
@@ -39,7 +40,7 @@
 #include <qlist.h>
 
 //KDE includes
-#include <kapp.h>
+#include <kapplication.h>
 #include <ktoolbar.h>
 #include <klocale.h>
 #include <kfiledialog.h>
@@ -50,8 +51,7 @@ CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, QWidget *paren
 	: CSwordPresenter(useModules,parent,name)
 {		
 	m_key = new CSwordVerseKey(m_moduleList.first());
-	CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
-	if (bible) {
+	if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first()) ) {
 		if (bible->hasTestament(CSwordBibleModuleInfo::OldTestament))
 			m_key->key("Genesis 1:1");
 		else
@@ -322,38 +322,29 @@ void CBiblePresenter::saveVerseAndText(){
 }
 
 /** Inserts the actions used by this window class into the given KAccel object. */
-void CBiblePresenter::insertKeyboardActions(KAccel* a){
-	a->setConfigGroup("Bible window");
-	a->insertItem(i18n("Next book"), "Next book", 0);
-	a->insertItem(i18n("Previous book"), "Previous book", 0);	
-	
-	a->insertItem(i18n("Next chapter"), "Next chapter", 0);
-	a->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
-
-	a->insertItem(i18n("Next verse"), "Next verse", 0);
-	a->insertItem(i18n("Previous verse"), "Previous verse", 0);	
+void CBiblePresenter::insertKeyboardActions(KAccel* const a){
+#warning Check!
+//	a->insert(i18n("Next book"), "Next book");
+//	a->insertItem(i18n("Previous book"), "Previous book", 0);		
+//	a->insertItem(i18n("Next chapter"), "Next chapter", 0);
+//	a->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
+//	a->insertItem(i18n("Next verse"), "Next verse", 0);
+//	a->insertItem(i18n("Previous verse"), "Previous verse", 0);	
 }
 
 /** Initializes the accelerator object. */
 void CBiblePresenter::initAccels(){
-//	ASSERT(m_accel);
-	m_accel->setConfigGroup("Bible window");
-	
-	m_accel->insertItem(i18n("Next book"), "Next book", 0);
-	m_accel->connectItem("Next book", this, SLOT(nextBook()));	
-	m_accel->insertItem(i18n("Previous book"), "Previous book", 0);	
-	m_accel->connectItem("Previous book", this, SLOT(previousBook()));
-		
-	m_accel->insertItem(i18n("Next chapter"), "Next chapter", 0);
-	m_accel->connectItem("Next chapter", this, SLOT(nextChapter()));		
-	m_accel->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
-	m_accel->connectItem("Previous chapter", this, SLOT(previousChapter()));	
+//	ASSERT(m_accel);	
+	CBTConfig::setupAccel( CBTConfig::bibleWindow, m_accel );	
+	insertKeyboardActions( m_accel );
 
-	m_accel->insertItem(i18n("Next verse"), "Next verse", 0);
-	m_accel->connectItem("Next verse", this, SLOT(nextVerse()));		
-	m_accel->insertItem(i18n("Previous verse"), "Previous verse", 0);	
-	m_accel->connectItem("Previous verse", this, SLOT(previousVerse()));	
-	
+	m_accel->setSlot("Next book", this, SLOT(nextBook()));	
+	m_accel->setSlot("Previous book", this, SLOT(previousBook()));
+	m_accel->setSlot("Next chapter", this, SLOT(nextChapter()));		
+	m_accel->setSlot("Previous chapter", this, SLOT(previousChapter()));	
+	m_accel->setSlot("Next verse", this, SLOT(nextVerse()));		
+	m_accel->setSlot("Previous verse", this, SLOT(previousVerse()));	
+
 	m_accel->readSettings();
 	CSwordPresenter::initAccels();	
 }

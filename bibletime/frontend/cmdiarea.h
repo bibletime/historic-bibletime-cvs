@@ -97,7 +97,7 @@ public slots:
   /**
   * Closes and deletes the presenter given as argument.
   */
-  void closePresenter(CSwordPresenter* p);
+//  void closePresenter(CSwordPresenter* p);
 
 protected: // Protected methods
   /**

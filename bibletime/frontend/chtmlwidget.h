@@ -22,10 +22,6 @@
 #include "cpointers.h"
 #include "backend/cswordbackend.h"
 
-//#define private public // It's a really bad hack, but I don't know how to do it in another way
-//#include "thirdparty/qt3stuff/qtextedit.h"
-//#undef private
-
 //Qt includes
 #include <qwidget.h>
 #include <qguardedptr.h>
@@ -83,11 +79,11 @@ public:
   /**
   * Returns true if this HTML widget is read only, false if it's editable
   */
-  virtual bool isReadOnly() const;
+//  virtual bool isReadOnly() const;
   /**
   * Sets the HTML widget ediatable or not
   */
-  virtual void setReadOnly( const bool readOnly = true);
+//  virtual void setReadOnly( const bool readOnly = true);
   /**
   * This function returns the edit toolbar used for the HTML widget.
 	* The items of the toolbar are already connected to the correct slots.

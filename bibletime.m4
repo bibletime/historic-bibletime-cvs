@@ -103,7 +103,7 @@ fi
 if test "$ac_rpm_prefix" = "auto"; then
 AC_CACHE_VAL(RPM_PREFIX, [
 if test "$DISTRIBUTION" = "SuSE"; then
-	RPM_PREFIX="/opt/kde2"
+	RPM_PREFIX="/opt/kde3"
 elif test "$DISTRIBUTION" = "Mandrake"; then
 	RPM_PREFIX="/usr"	
 elif test "$DISTRIBUTION" = "Red Hat"; then

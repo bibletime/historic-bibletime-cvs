@@ -27,9 +27,9 @@
 #include <kconfig.h>
 #include <kprocess.h>
 #include <kconfigbase.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <klocale.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 //Qt includes
 #include <qfile.h>

@@ -28,7 +28,7 @@
 
 //KDE includes
 #include <kpopupmenu.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <klocale.h>
 
 //QT includes
@@ -54,7 +54,7 @@ CMDIArea::~CMDIArea(){
 /** Initializes the view of the MDI area */
 void CMDIArea::initView(){
 	QWhatsThis::add(this, WT_MDI_AREA_WIDGET );
-	setPaletteBackgroundColor( ((QWidget *) parent())->paletteBackgroundColor());	
+//	setPaletteBackgroundColor( parentWidget()->paletteBackgroundColor() );	
 }
 
 /** Initilizes the connectiosn to SIGNALS */
@@ -101,12 +101,10 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 	if (e->inserted() || e->removed()) {
 		switch (guiOption) {
 	 		case autoTile:
-//				QTimer::singleShot( 0, this, SLOT(tile()) );
 				if (isUpdatesEnabled())
 					tile();
 	 			break;
 	 		case autoCascade:
-//				QTimer::singleShot( 0, this, SLOT(cascade()) );
 				if (isUpdatesEnabled())
 					cascade();
 	 			break;
@@ -122,12 +120,12 @@ void CMDIArea::resizeEvent(QResizeEvent* e){
 	QWorkspace::resizeEvent(e);	
 	switch (guiOption) {
  		case autoTile:
-//		QTimer::singleShot( 0, this, SLOT(tile()) );
-			tile();
+			if (isUpdatesEnabled())
+				tile();
  			break;
  		case autoCascade:
-// 			QTimer::singleShot( 0, this, SLOT(cascade()) );
-			cascade();
+			if (isUpdatesEnabled())
+				cascade();
  			break;
  		default:
  			break;
@@ -143,14 +141,15 @@ void CMDIArea::readSettings(){
 }
 
 /** Deletes all the presenters in the MDI area. */
-void CMDIArea::deleteAll(){
-	QWidgetList windows = windowList();
-	
+void CMDIArea::deleteAll(){	
 	setUpdatesEnabled(false);		
+	
+	QWidgetList windows = windowList();
 	for ( QWidget* w = windows.first(); w; w = windows.next() ) {		
 		delete w;
 		w = 0;
 	}	
+	
 	setUpdatesEnabled(true);		
 }
 
@@ -158,23 +157,26 @@ void CMDIArea::deleteAll(){
 void CMDIArea::setGUIOption( mdiOption new_GUIOption){
 	guiOption = new_GUIOption;
 	//now do the initial action
+ 	
 	switch (guiOption) {
  		case autoTile:
-			tile();
+			if (isUpdatesEnabled())
+				tile();
  			break;
  		case autoCascade:
-			cascade();
+			if (isUpdatesEnabled())
+				cascade();
  			break;
- 		case Nothing:
+ 		default:
  			break;
-	}	
+ 	}
 }
 
 /**  */
 void CMDIArea::tile(){
 	if (!isUpdatesEnabled() || !windowList().count() )	
 		return;
-	if (windowList().count() == 1) {
+	if (windowList().count() == 1 && windowList().at(0)) {
 		m_appCaption = windowList().at(0)->caption();
 		windowList().at(0)->showMaximized();
 	}
@@ -186,7 +188,7 @@ void CMDIArea::tile(){
 void CMDIArea::cascade(){
 	if (!isUpdatesEnabled() || !windowList().count() )
 		return;		
-	if (windowList().count() == 1) {
+	if (windowList().count() == 1 && windowList().at(0)) {	
 		m_appCaption = windowList().at(0)->caption();		
 		windowList().at(0)->showMaximized();
 	}
@@ -255,15 +257,15 @@ void CMDIArea::lookupInModule(const QString& module, const QString& key){
 }
 
 /** Closes and deletes the presenter given as argument. */
-void CMDIArea::closePresenter(CSwordPresenter* p){
-	qWarning("CMDIArea::closePresenter(CSwordPresenter* p)");
-	if (!p)
-		return;
-	delete p;
-	p = 0;	
+//void CMDIArea::closePresenter(CSwordPresenter* p){
+//	qWarning("CMDIArea::closePresenter(CSwordPresenter* p)");
+//	if (!p)
+//		return;
+//	delete p;
+//	p = 0;	
 //	m_deleteWindows.append(p);
 //  QTimer::singleShot(5000, this, SLOT(deleteCurrentPresenter()) );	
-}
+//}
 
 /** Delete the presenter. */
 //void CMDIArea::deleteCurrentPresenter(){

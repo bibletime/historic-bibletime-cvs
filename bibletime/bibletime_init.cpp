@@ -16,16 +16,20 @@
  ***************************************************************************/
 
 //BibleTime includes
-#include "printing/cprinter.h"
-#include "frontend/cmdiarea.h"
-#include "frontend/kstartuplogo.h"
-#include "frontend/groupmanager/cgroupmanager.h"
 #include "bibletime.h"
 #include "resource.h"
+
+#include "backend/cswordbackend.h"
+
 #include "frontend/chtmldialog.h"
 #include "frontend/cprofilemgr.h"
 #include "frontend/cprofile.h"
-#include "backend/cswordbackend.h"
+#include "frontend/cmdiarea.h"
+#include "frontend/kstartuplogo.h"
+#include "frontend/groupmanager/cgroupmanager.h"
+
+#include "printing/cprinter.h"
+
 #include "whatsthisdef.h"
 #include "config.h"
 #include "frontend/cbtconfig.h"

@@ -249,17 +249,17 @@ void CKeyChooserWidget::init( ){
 	btn_up = btn_down = btn_fx = 0;
 
 	setFocusPolicy(QWidget::StrongFocus);			
-	m_mainLayout = new QHBoxLayout( this );	
 			
 	m_comboBox = new CKCComboBox( true, this );
 	m_comboBox->setAutoCompletion( true );
 	m_comboBox->setInsertionPolicy(QComboBox::NoInsertion);
 	m_comboBox->setFocusPolicy(QWidget::WheelFocus);	
-
-  m_mainLayout->setResizeMode(QLayout::Minimum);			
+	
+	m_mainLayout = new QHBoxLayout( this );	
+	m_mainLayout->setResizeMode(QLayout::Minimum);			
 	m_mainLayout->addWidget(m_comboBox);
 
-	QVBoxLayout *m_buttonLayout = new QVBoxLayout();	
+	QVBoxLayout* m_buttonLayout = new QVBoxLayout();	
 	m_buttonLayout->setAlignment(Qt::AlignHCenter | Qt::AlignCenter);
 		
 	btn_up = new QToolButton( this, "btn_up" );	
@@ -372,6 +372,7 @@ QIconSet CKeyChooserWidget::getDownIconSet(){
 	style().drawPrimitive(QStyle::PE_ArrowDown, &p, QRect(0,0, x, y), btn_up->colorGroup(), btn_up->isEnabled() ? QStyle::Style_Enabled : QStyle::Style_Default );
 	return QIconSet(pix);
 }
+
 /** Returns the icons set for the button used to change the current item. */
 QIconSet CKeyChooserWidget::getMoverIconSet(){
   const int x = WIDTH - 2;

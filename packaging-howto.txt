@@ -5,7 +5,8 @@ This is a small explanation how to create packages of BibleTime
 ------------------------------
 	To build source packages like bibletime-1.1.tar.gz execute these
 commands and procedures:
-	1. Change in configure.in.in the version number to the right one
+	1. Change in configure.in.in the version number to the right one. Check README.in and INSTALL.in if
+	the requirements and heir version numbers changed.	
 	2. "make -f Makefile.cvs && ./configure && make distclean && rm
 bibletime-*.tar*" to cleanup the source directory
 	3. "make dist" to create the package bibletime-1.1.tar.gz

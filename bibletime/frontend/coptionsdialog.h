@@ -35,7 +35,7 @@
 #include <kdialogbase.h>
 #include <kfontdialog.h>
 #include <kaccel.h>
-#include <kcolorbtn.h>
+#include <kcolorbutton.h>
 #include <kapp.h>
 
 class QHBox;

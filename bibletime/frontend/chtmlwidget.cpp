@@ -46,8 +46,9 @@
 #include <qapplication.h>
 
 //KDE includes
-#include <kapp.h>
+#include <kapplication.h>
 #include <kaction.h>
+#include <kcolorbutton.h>
 #include <kstdaction.h>
 #include <klocale.h>
 #include <kurl.h>
@@ -59,7 +60,6 @@
 #include <kglobalsettings.h>
 #include <kpopupmenu.h>
 #include <ktoolbar.h>
-#include <kcolorbutton.h>
 
 //Sword includes
 #include <swmodule.h>
@@ -419,18 +419,19 @@ void CHTMLWidget::installPopup( QPopupMenu* popup ){
 }
 
 /** Sets the HTML widget editable or not */
-void CHTMLWidget::setReadOnly( const bool readOnly ){
-	m_readOnly = readOnly;
-	initConnections();
-		
-	viewport()->setCursor( m_readOnly ? arrowCursor : ibeamCursor );
-	viewport()->update();	
-}
+//void CHTMLWidget::setReadOnly( const bool readOnly ){
+//	QTextEdit::setReadOnly(readOnly);
+////	m_readOnly = readOnly;
+//	initConnections();
+//		
+////	viewport()->setCursor( m_readOnly ? arrowCursor : ibeamCursor );
+////	viewport()->update();	
+//}
 
 /** Returns true if this HTML widget is read only, false if it's editable */
-bool CHTMLWidget::isReadOnly() const {
-	return m_readOnly;
-}
+//bool CHTMLWidget::isReadOnly() const {
+//	return m_readOnly;
+//}
 
 /** This function returns the edit toolbar used for the HTML widget. The items of the toolbar are already connected to the correct slots. */
 void CHTMLWidget::createEditToolbar( KToolBar* bar ){

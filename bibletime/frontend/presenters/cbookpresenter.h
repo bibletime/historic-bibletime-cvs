@@ -46,9 +46,6 @@ public:
   virtual void storeSettings( CProfileWindow* setttings );
 
 public slots: // Public slots
-  /**
-  * No descriptions
-  */
   virtual void lookup( const QString&, const QString&);
     	
 protected: // Protected methods

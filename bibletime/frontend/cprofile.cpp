@@ -25,7 +25,7 @@
 #include <qregexp.h>
 
 //KDE includes
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <klocale.h>
 
 #define CURRENT_SYNTAX_VERSION 1

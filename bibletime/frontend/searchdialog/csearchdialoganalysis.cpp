@@ -43,7 +43,7 @@
 //KDE includes
 #include <kfiledialog.h>
 #include <klocale.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 //Sword includes
 #include <swkey.h>

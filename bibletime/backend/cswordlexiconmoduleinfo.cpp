@@ -17,7 +17,7 @@
 
 //BibleTime includes
 #include "cswordlexiconmoduleinfo.h"
-#include "../frontend/cbtconfig.h"
+#include "frontend/cbtconfig.h"
 
 //Qt includes
 #include <qfile.h>
@@ -27,7 +27,7 @@
 #include <swmodule.h>
 
 #include <kglobal.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 
 
 CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( SWModule* module) : CSwordModuleInfo(module) {

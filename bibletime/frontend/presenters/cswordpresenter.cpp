@@ -215,7 +215,7 @@ void CSwordPresenter::closeEvent(QCloseEvent* e) {
 
 /** Inserts the action used by this display window in the given KAccel object. */
 void CSwordPresenter::insertKeyboardActions( KAccel* a ){
-	a->setConfigGroup("General window");	
+//	a->setConfigGroup("General window");	
 }
 
 void CSwordPresenter::initAccels(){
@@ -223,9 +223,10 @@ void CSwordPresenter::initAccels(){
 
 /** Initilizes widget before shown and after constructor. */
 void CSwordPresenter::polish(){
-	KMainWindow::polish();		
 	m_accel = new KAccel(this);	
 	initAccels();
+	
+	KMainWindow::polish();
 }
 
 /** Is called when this display window looses the focus. */

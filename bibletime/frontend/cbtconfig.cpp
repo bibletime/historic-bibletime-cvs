@@ -29,6 +29,7 @@
 #include <kcharsets.h>
 #include <kglobal.h>
 #include <klocale.h>
+#include <kaccel.h>
 
 
 /* 	No constructor and destructor, because this class only contains static methods.
@@ -372,4 +373,31 @@ const CSwordBackend::FilterOptionsBool CBTConfig::getFilterOptionDefaults(){
   options.greekAccents = 				get(CBTConfig::greekAccents);
 
 	return options;
+}
+
+void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
+	KConfig* config = KGlobal::config();	
+	
+	switch (type) {
+		case bookWindow : {
+			accel->setConfigGroup("Book shortcuts");		
+			break;
+		};
+		case bibleWindow : {
+			accel->setConfigGroup("Bible shortcuts");				
+			break;		
+		};
+		case commentaryWindow : {
+			accel->setConfigGroup("Commentary shortcuts");				
+			break;		
+		};
+		case lexiconWindow : {
+			accel->setConfigGroup("Lexicon shortcuts");					
+			break;					
+		};
+		case application : {
+			accel->setConfigGroup("Application shortcuts");				
+			break;		
+		};
+	};
 }

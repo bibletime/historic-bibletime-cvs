@@ -52,6 +52,7 @@
 
 //KDE includes
 #include <kaction.h>
+#include <kapplication.h>
 #include <kconfig.h>
 #include <klocale.h>
 #include <kaccel.h>
@@ -66,7 +67,7 @@ BibleTime::BibleTime() : KMainWindow() {
 	
 	m_keyAccel = new KAccel(this);
 
-	connect(kapp, SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
+	connect(KApplication::kApplication(), SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));
 
 	initBackends();
 	initPrinter();

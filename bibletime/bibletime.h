@@ -18,7 +18,6 @@
 #define BIBLETIME_H
 
 //KDE includes
-#include <kapp.h>
 #include <kmainwindow.h>
 
 //Frontend includes

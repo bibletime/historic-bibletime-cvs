@@ -38,8 +38,8 @@
 #include <kcmdlineargs.h>
 #include <kcrash.h>
 #include <kglobal.h>
-#include <kapp.h>
-#include <kstddirs.h>
+#include <kapplication.h>
+#include <kstandarddirs.h>
 #include <kinstance.h>
 #include <kaboutdata.h>
 #include <klocale.h>

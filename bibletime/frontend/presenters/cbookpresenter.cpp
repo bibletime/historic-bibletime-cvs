@@ -18,20 +18,23 @@
 
 //BibleTime includes
 #include "cbookpresenter.h"
-#include "../keychooser/ckeychooser.h"
-#include "../keychooser/cbooktreechooser.h"
 #include "cmodulechooserbar.h"
-#include "../ctoolclass.h"
-#include "../chtmlwidget.h"
-#include "../cexportmanager.h"
-#include "../../backend/cswordtreekey.h"
-#include "../../backend/chtmlentrydisplay.h"
-#include "../../backend/cswordbackend.h"
+
+#include "frontend/keychooser/ckeychooser.h"
+#include "frontend/keychooser/cbooktreechooser.h"
+#include "frontend/ctoolclass.h"
+#include "frontend/chtmlwidget.h"
+#include "frontend/cexportmanager.h"
+#include "frontend/cbtconfig.h"
+
+#include "backend/cswordtreekey.h"
+#include "backend/chtmlentrydisplay.h"
+#include "backend/cswordbackend.h"
 
 #include "cdisplaysettingsbutton.h"
-#include "../../resource.h"
-#include "../../tooltipdef.h"
-#include "../../whatsthisdef.h"
+#include "resource.h"
+#include "tooltipdef.h"
+#include "whatsthisdef.h"
 
 //Qt includes
 #include <qsplitter.h>
@@ -67,7 +70,7 @@ void CBookPresenter::initView(){
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
 	
 	m_treeAction =  new KToggleAction(i18n("Toggle tree..."), ICON_VIEW_BOOKTREE,
-															IDK_PRESENTER_TOGGLE_TREE, this,	SLOT(treeToggled()), actionCollection(), "treeToggle_action");
+															IDK_PRESENTER_TOGGLE_TREE, this, SLOT(treeToggled()), actionCollection(), "treeToggle_action");
 //	m_treeAction->setWhatsThis( WT_PRESENTER_SYNC );
 	m_treeAction->plug(m_mainToolBar);
 
@@ -196,17 +199,20 @@ void CBookPresenter::lookup( const QString& module, const QString& key){
 
 /** Initializes keyboard accelerators. */
 void CBookPresenter::initAccels(){
+	CBTConfig::setupAccel( CBTConfig::bookWindow, m_accel );		
+	insertKeyboardActions(m_accel);
+	
+	m_treeAction->setShortcut(m_accel->shortcut("Toggle tree"));	
+	m_accel->setSlot("Toggle tree", this, SLOT(treeToggled()));
+	m_accel->setAutoUpdate(true);		
+
+	m_accel->readSettings();				
 	CSwordPresenter::initAccels();
-	m_accel->setConfigGroup("Book window");	
-	m_accel->insertItem(i18n("Toggle tree"), "Toggle tree", 0);
-	m_accel->connectItem("Toggle tree", this, SLOT(treeToggled()));
-		
-	m_accel->readSettings();
 }
 
 void CBookPresenter::insertKeyboardActions(KAccel* a){
-	a->setConfigGroup("Book window");	
-	a->insertItem(i18n("Toggle tree"), "Toggle tree", 0);
+//	a->setConfigGroup("Book window");	
+//	a->insert( "Toggle tree", i18n("Toggle tree")/*, i18n("Toggle the tree on the left side of the book window on or off.")*/);
 }
 
 /** No descriptions */

@@ -7,7 +7,7 @@ In this file:
 
 General introduction:
 --------------------
-	This is BibleTime @VERSION@ for KDE 2.2.x.
+	This is BibleTime @VERSION@ for KDE 3.
 If you find bugs please report them to info@bibletime.de or use our
 online bugreport form on www.bibletime.de.
 
@@ -26,15 +26,15 @@ And sorry for all the spelling errors (grammatical and syntax).
 
 Requirements
 ------------
-	o QT 2.2x or later
-	o KDE 2.x
+	o QT 3.x or later
+	o KDE 3.x
 	o SWORD 1.5.3
 
 Documentation:
 --------------
 	We do have a great and really useful handbook now!
 Fred did a great job with it and worked long on it. We hope that you like it. You can read the handbook in the 
-help browser of KDE2. It's in the Applications section.
+help browser of KDE 3. It's in the Applications section.
 
 The Sword CD:
 -------------

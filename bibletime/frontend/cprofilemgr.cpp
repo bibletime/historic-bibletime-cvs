@@ -23,7 +23,7 @@
 #include <qlist.h>
 
 //KDE includes
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 
 CProfileMgr::CProfileMgr() : m_startupProfile(0) {
 	m_profiles.setAutoDelete(true);

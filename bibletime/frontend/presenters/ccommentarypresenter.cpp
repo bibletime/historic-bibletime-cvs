@@ -19,17 +19,20 @@
 #include "cmodulechooserbar.h"
 #include "cdisplaysettingsbutton.h"
 
-#include "../ctoolclass.h"
-#include "../cexportmanager.h"
-#include "../chtmlwidget.h"
-#include "../keychooser/ckeychooser.h"
-#include "../../resource.h"
-#include "../../whatsthisdef.h"
-#include "../../backend/cswordversekey.h"
-#include "../../backend/chtmlchapterdisplay.h"
-#include "../../backend/creferencemanager.h"
-#include "../../backend/cswordbackend.h"
-#include "../../backend/cswordcommentarymoduleinfo.h"
+#include "frontend/ctoolclass.h"
+#include "frontend/cexportmanager.h"
+#include "frontend/chtmlwidget.h"
+#include "frontend/cbtconfig.h"
+
+#include "frontend/keychooser/ckeychooser.h"
+#include "resource.h"
+#include "whatsthisdef.h"
+
+#include "backend/cswordversekey.h"
+#include "backend/chtmlchapterdisplay.h"
+#include "backend/creferencemanager.h"
+#include "backend/cswordbackend.h"
+#include "backend/cswordcommentarymoduleinfo.h"
 
 
 //Qt includes
@@ -42,7 +45,7 @@
 #include <klocale.h>
 #include <kfiledialog.h>
 #include <kaccel.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kpopupmenu.h>
 
 CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
@@ -408,44 +411,31 @@ void CCommentaryPresenter::beforeKeyChange(const QString& oldKey){
 /** Inserts the actions used by this window class into the given KAccel object. */
 void CCommentaryPresenter::insertKeyboardActions(KAccel* a){	
 //	ASSERT(a);
-	a->setConfigGroup("Commentary window");
-		
-	a->insertItem(i18n("Next book"), "Next book", 0);
-	a->insertItem(i18n("Previous book"), "Previous book", 0);	
-	
-	a->insertItem(i18n("Next chapter"), "Next chapter", 0);
-	a->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
-
-	a->insertItem(i18n("Next verse"), "Next verse", 0);
-	a->insertItem(i18n("Previous verse"), "Previous verse", 0);	
-
-	a->insertItem(i18n("Toggle synchronize button"), "Synchronize", 0);
+#warning Check!
+//	a->setConfigGroup("Commentary window");		
+//	a->insertItem(i18n("Next book"), "Next book", 0);
+//	a->insertItem(i18n("Previous book"), "Previous book", 0);	
+//	a->insertItem(i18n("Next chapter"), "Next chapter", 0);
+//	a->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
+//	a->insertItem(i18n("Next verse"), "Next verse", 0);
+//	a->insertItem(i18n("Previous verse"), "Previous verse", 0);	
+//	a->insertItem(i18n("Toggle synchronize button"), "Synchronize", 0);
 }
 
 
 /** Initializes the accelerator object. */
 void CCommentaryPresenter::initAccels(){
-	CSwordPresenter::initAccels();
-	m_accel->setConfigGroup("Commentary window");
+	CBTConfig::setupAccel( CBTConfig::commentaryWindow, m_accel );
 	
-	m_accel->insertItem(i18n("Next book"), "Next book", 0);
-	m_accel->connectItem("Next book", this, SLOT(nextBook()));	
-	m_accel->insertItem(i18n("Previous book"), "Previous book", 0);	
-	m_accel->connectItem("Previous book", this, SLOT(previousBook()));
-		
-	m_accel->insertItem(i18n("Next chapter"), "Next chapter", 0);
-	m_accel->connectItem("Next chapter", this, SLOT(nextChapter()));		
-	m_accel->insertItem(i18n("Previous chapter"), "Previous chapter", 0);	
-	m_accel->connectItem("Previous chapter", this, SLOT(previousChapter()));	
-
-	m_accel->insertItem(i18n("Next verse"), "Next verse", 0);
-	m_accel->connectItem("Next verse", this, SLOT(nextVerse()));		
-	m_accel->insertItem(i18n("Previous verse"), "Previous verse", 0);	
-	m_accel->connectItem("Previous verse", this, SLOT(previousVerse()));	
-
-	m_accel->insertItem(i18n("Toggle synchronize button"), "Synchronize", 0);	
-	m_accel->connectItem("Synchronize", this, SLOT(toggleSynchronize()));	
-		
+	m_accel->setSlot("Next book", this, SLOT(nextBook()));	
+	m_accel->setSlot("Previous book", this, SLOT(previousBook()));
+	m_accel->setSlot("Next chapter", this, SLOT(nextChapter()));		
+	m_accel->setSlot("Previous chapter", this, SLOT(previousChapter()));	
+	m_accel->setSlot("Next verse", this, SLOT(nextVerse()));		
+	m_accel->setSlot("Previous verse", this, SLOT(previousVerse()));	
+	m_accel->setSlot("Synchronize", this, SLOT(toggleSynchronize()));	
+	
+	CSwordPresenter::initAccels();	
 	m_accel->readSettings();
 }
 

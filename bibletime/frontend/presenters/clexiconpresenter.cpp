@@ -19,24 +19,27 @@
 #include "cmodulechooserbar.h"
 #include "cdisplaysettingsbutton.h"
 
-#include "../chtmlwidget.h"
-#include "../cexportmanager.h"
-#include "../keychooser/ckeychooser.h"
-#include "../../resource.h"
-#include "../../backend/cswordldkey.h"
-#include "../../backend/chtmlentrydisplay.h"
-#include "../../backend/cswordbackend.h"
+#include "resource.h"
+
+#include "frontend/chtmlwidget.h"
+#include "frontend/cexportmanager.h"
+#include "frontend/cbtconfig.h"
+#include "frontend/keychooser/ckeychooser.h"
+
+#include "backend/cswordldkey.h"
+#include "backend/chtmlentrydisplay.h"
+#include "backend/cswordbackend.h"
 
 
 //Qt includes
 #include <qclipboard.h>
 
 //KDE icnludes
+#include <kapplication.h>
 #include <klocale.h>
 #include <ktoolbar.h>
 #include <kpopupmenu.h>
 #include <kfiledialog.h>
-#include <kapp.h>
 #include <kaccel.h>
 
 CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
@@ -249,21 +252,20 @@ void CLexiconPresenter::printEntry(){
 
 /** Inserts the used keyboard actions into the given KAccel object. */
 void CLexiconPresenter::insertKeyboardActions(KAccel* a){
-	a->setConfigGroup("Lexicon window");	
-	a->insertItem(i18n("Next entry"), "Next entry", 0);
-	a->insertItem(i18n("Previous entry"), "Previous entry", 0);	
+#warning Check
+//	a->setConfigGroup("Lexicon window");	
+//	a->insertItem(i18n("Next entry"), "Next entry", 0);
+//	a->insertItem(i18n("Previous entry"), "Previous entry", 0);	
 }
 
 /** Initializes keyboard accelerators. */
 void CLexiconPresenter::initAccels(){
-	CSwordPresenter::initAccels();
-	m_accel->setConfigGroup("Lexicon window");	
-	m_accel->insertItem(i18n("Next entry"), "Next entry", 0);
-	m_accel->connectItem("Next entry", this, SLOT(nextEntry()));
-		
-	m_accel->insertItem(i18n("Previous entry"), "Previous entry", 0);		
-	m_accel->connectItem("Previous entry", this, SLOT(previousEntry()));
-		
+	CBTConfig::setupAccel(CBTConfig::lexiconWindow, m_accel);
+	
+	m_accel->setSlot("Next entry", this, SLOT(nextEntry()));
+	m_accel->setSlot("Previous entry", this, SLOT(previousEntry()));
+	
+	CSwordPresenter::initAccels();	
 	m_accel->readSettings();
 }
 

@@ -16,12 +16,16 @@
  ***************************************************************************/
 
 #include "cexportmanager.h"
+
 #include "backend/cswordkey.h"
 #include "backend/cswordmoduleinfo.h"
+
+#include "frontend/ctoolclass.h"
+
 #include "printing/cprintitem.h"
 #include "printing/cprinter.h"
+
 #include "util/scoped_resource.h"
-#include "ctoolclass.h"
 
 //Qt includes
 #include <qprogressdialog.h>
@@ -31,7 +35,7 @@
 //KDE includes
 #include <kfiledialog.h>
 #include <klocale.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 //Sword includes
 #include <swkey.h>

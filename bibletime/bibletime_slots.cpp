@@ -18,22 +18,22 @@
 //own includes
 #include "bibletime.h"
 #include "resource.h"
+#include "config.h"
+
 #include "frontend/ctoolclass.h"
-//#include "frontend/ctipwindow.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/cprofilemgr.h"
 #include "frontend/cprofile.h"
 #include "frontend/cprofilewindow.h"
-#include "backend/cswordversekey.h"
-#include "backend/chtmlentrydisplay.h"
-#include "backend/chtmlchapterdisplay.h"
-#include "printing/cprinter.h"
 #include "frontend/chtmldialog.h"
 #include "frontend/presenters/cswordpresenter.h"
 #include "frontend/groupmanager/cgroupmanager.h"
 #include "frontend/coptionsdialog.h"
 #include "frontend/cbtconfig.h"
-#include "config.h"
+#include "backend/cswordversekey.h"
+#include "backend/chtmlentrydisplay.h"
+#include "backend/chtmlchapterdisplay.h"
+#include "printing/cprinter.h"
 
 #include <errno.h>
 
@@ -47,11 +47,12 @@
 
 //KDE includes
 #include <kaction.h>
+#include <kapplication.h>
 #include <kaboutkde.h>
 #include <kaboutdialog.h>
 #include <kbugreport.h>
 #include <kaboutapplication.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <kmenubar.h>
 #include <kaboutdata.h>
 #include <kglobal.h>
@@ -81,7 +82,7 @@ void BibleTime::slotFileQuit(){
 		}
 	}		
 	if (ok)
-		kapp->quit();
+		KApplication::kApplication()->quit();
 }
 
 /** Opens the optionsdialog of BibleTime. */

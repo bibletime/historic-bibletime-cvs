@@ -18,21 +18,25 @@
 //own includes
 #include "csearchdialogresultview.h"
 #include "csearchdialog.h"
-#include "../../resource.h"
-#include "../../whatsthisdef.h"
-#include "../../tooltipdef.h"
-#include "../../backend/cswordbiblemoduleinfo.h"
-#include "../../backend/cswordlexiconmoduleinfo.h"
-#include "../../backend/cswordversekey.h"
-#include "../../backend/cswordldkey.h"
-#include "../../backend/creferencemanager.h"
-#include "../cexportmanager.h"
-#include "../ctoolclass.h"
-#include "../cbtconfig.h"
-#include "../../printing/cprintitem.h"
-#include "../../printing/cprinter.h"
 
-#include "../../util/scoped_resource.h"
+#include "resource.h"
+#include "whatsthisdef.h"
+#include "tooltipdef.h"
+
+#include "backend/cswordbiblemoduleinfo.h"
+#include "backend/cswordlexiconmoduleinfo.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordldkey.h"
+#include "backend/creferencemanager.h"
+
+#include "frontend/cexportmanager.h"
+#include "frontend/ctoolclass.h"
+#include "frontend/cbtconfig.h"
+
+#include "printing/cprintitem.h"
+#include "printing/cprinter.h"
+
+#include "util/scoped_resource.h"
 
 //QT includes
 #include <qlist.h>
@@ -49,9 +53,8 @@
 //KDE includes
 #include <kfiledialog.h>
 #include <klocale.h>
-#include <kstddirs.h>
 #include <kiconloader.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kpopupmenu.h>
 #include <kglobalsettings.h>
 #include <kaction.h>

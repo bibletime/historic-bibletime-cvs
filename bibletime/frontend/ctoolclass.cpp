@@ -32,20 +32,20 @@
 //KDE includes
 #include <klocale.h>
 #include <kglobal.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <kurl.h>
 #include <kfiledialog.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 
 QString CToolClass::locatehtml(const QString &filename) {
-    QString path = locate("html", KGlobal::locale()->language() + '/' + filename);
-    if (path.isNull())
-			path = locate("html", "default/" + filename);
-    if (path.isNull())
-			path = locate("html", "en/" + filename);
-    return path;
+  QString path = locate("html", KGlobal::locale()->language() + '/' + filename);
+  if (path.isNull())
+		path = locate("html", "default/" + filename);
+  if (path.isNull())
+		path = locate("html", "en/" + filename);
+  return path;
 }
 
 /** Converts HTML text to plain text */
