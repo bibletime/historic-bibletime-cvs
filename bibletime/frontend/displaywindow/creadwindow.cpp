@@ -1,0 +1,158 @@
+/***************************************************************************
+                          creadwindow.cpp  -  description
+                             -------------------
+    begin                : Don Mai 9 2002
+    copyright            : (C) 2002 by The BibleTime team
+    email                : info@bibletime.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+//BibleTime includes
+#include "creadwindow.h"
+#include "resource.h"
+
+#include "backend/chtmlentrydisplay.h"
+#include "backend/cswordkey.h"
+
+#include "frontend/cprofilewindow.h"
+#include "frontend/display/creaddisplay.h"
+#include "frontend/displaywindow/cmodulechooserbar.h"
+#include "frontend/keychooser/ckeychooser.h"
+
+
+//KDE includes
+#include <kpopupmenu.h>
+
+CReadWindow::CReadWindow(ListCSwordModuleInfo modules, CMDIArea* parent, const char *name ) : CDisplayWindow(modules,parent,name) {
+	qWarning("constructor of CReadWindow");
+	setReady(true);
+
+ 	m_popupMenu = 0;
+}
+
+CReadWindow::~CReadWindow(){
+	qWarning("destructor of CReadWindow");
+}
+
+/** Returns the display widget of this window. */
+CReadDisplay* const CReadWindow::displayWidget(){
+//  qWarning("CReadWindow::displayWidget()");
+//	Q_ASSERT(m_displayWidget);
+	return m_displayWidget;
+}
+
+/** Sets the display widget of this display window. */
+void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
+	qWarning("CReadWindow::setDisplayWidget()");
+	m_displayWidget = newDisplay;
+}
+
+/** Lookup the given entry. */
+void CReadWindow::lookup( CSwordKey* newKey ){
+	qWarning("CReadWindow::lookup");
+	setUpdatesEnabled(false);	
+	
+	if (!key())
+		return;
+	backend()->setFilterOptions( filterOptions() );
+	backend()->setDisplayOptions( displayOptions() );
+
+	SWKey* swKey = dynamic_cast<SWKey*>(key());
+	if (swKey && modules().first()->getDisplay()) {	//do we have a display object?
+	 	modules().first()->module()->SetKey(*swKey);
+		if (modules().count() > 1)  //we want to display more than one module
+			modules().first()->getDisplay()->Display( &modules() );
+		else
+			modules().first()->getDisplay()->Display( modules().first() );
+		displayWidget()->setText(modules().first()->getDisplay()->getHTML());
+	}	
+	if (key() != newKey)
+		key()->key(newKey->key());
+		
+	setUpdatesEnabled(true);
+	setCaption( windowCaption() );
+}
+
+/** Returns the installed popup menu. */
+KPopupMenu* const CReadWindow::popup(){
+	if (!m_popupMenu) {
+ 		m_popupMenu = new KPopupMenu(this);
+		connect(m_popupMenu, SIGNAL(aboutToShow()), this, SLOT(updatePopupMenu()));
+	  if (displayWidget())
+	  	displayWidget()->installPopup(m_popupMenu);
+	  else
+	  	qWarning("CAN't INSTALL POPUP");
+  }
+ 	return m_popupMenu;
+}
+
+/** Update the status of the popup menu entries. */
+void CReadWindow::updatePopupMenu(){
+
+}
+
+/** Reimplementation to use the popup menu. */
+const bool CReadWindow::init( const QString& keyName ){
+  CDisplayWindow::init(keyName);
+ 	setupPopupMenu();
+  keyChooser()->setKey(key());
+}
+
+/** Store the settings of this window in the given CProfileWindow object. */
+void CReadWindow::storeProfileSettings(CProfileWindow * const settings){
+	QRect rect;
+	rect.setX(parentWidget()->x());
+	rect.setY(parentWidget()->y());
+	rect.setWidth(width());
+	rect.setHeight(height());
+	settings->setGeometry(rect);
+		
+//	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
+	settings->setType(modules().first()->type());
+	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
+	
+	if (key()) {
+		VerseKey* vk = dynamic_cast<VerseKey*>(key());
+		QString oldLang;
+		if (vk) {
+			 oldLang = QString::fromLatin1(vk->getLocale());	
+			vk->setLocale("en"); //save english locale names as default!		
+		}
+		settings->setKey( key()->key() );
+		if (vk) {
+			vk->setLocale(oldLang.latin1());
+		}
+	}
+		
+	QStringList mods;
+	for (CSwordModuleInfo* m = modules().first(); m; m = modules().next()) {
+		mods.append(m->name());
+	}	
+	settings->setModules(mods);
+}
+
+void CReadWindow::applyProfileSettings(CProfileWindow * const settings){
+	setUpdatesEnabled(false);
+	
+	if (settings->maximized()) {
+		showMaximized();
+	}
+	else {	
+		const QRect rect = settings->geometry();
+		resize(rect.width(), rect.height());
+		parentWidget()->move(rect.x(), rect.y());
+		//setGeometry( settings->geometry() );
+	}
+//	m_htmlWidget->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
+//	m_htmlWidget->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );
+	
+	setUpdatesEnabled(true);	
+}

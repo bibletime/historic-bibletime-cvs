@@ -29,8 +29,7 @@ SUBDIRS = backend printing frontend xml pics util
 all_headers = bibletime.h \
 resource.h \
 whatsthisdef.h \
-tooltipdef.h \
-bt-printing
+tooltipdef.h
 
 EXTRA_DIST = $(bibletime_SOURCES) $(all_headers)
 
@@ -69,7 +68,6 @@ DISTCLEANFILES = $(bibletime_METASOURCES)
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(kde_confdir)
-	$(INSTALL_DATA) bt-printing $(DESTDIR)$(kde_confdir)/bt-printing
 
 uninstall-local:
 	-rm -f $(DESTDIR)$(kde_confdir)/bt-printing
