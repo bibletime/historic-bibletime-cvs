@@ -20,7 +20,6 @@
 
 //BibleTime includes
 #include "ckeychooser.h"
-#include "ckeychooserwidget.h"
 
 //Sword includes
 
@@ -69,7 +68,7 @@ public slots:
   void refreshContent();
 
 private:
-	QList<CKeyChooserWidget> m_chooserWidgets;	
+//	QList<CKeyChooserWidget> m_chooserWidgets;	
 	CSwordBookModuleInfo	*m_module;
 	CSwordTreeKey *m_key;
 	QStringList m_topElements;
