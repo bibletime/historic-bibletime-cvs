@@ -382,15 +382,27 @@ void COptionsDialog::initSword(){
   tabCtl->addTab(currentTab, i18n("General"));
 
   QVBoxLayout* layout = new QVBoxLayout(currentTab,5);
+
+  layout->addWidget(
+  	CToolClass::explanationLabel(currentTab, i18n("Use key cache for lexicons"),
+			i18n("BibleTime can create a key cache for lexicons, which speeds up opening large lexicon modules a lot. \
+						However these files consume some disk space (usually not much), and reside in \
+						$KDEHOME/share/apps/bibletime/cache."))
+  );
 	
 	m_settings.sword.lexiconCache = new QCheckBox(currentTab);
-	m_settings.sword.lexiconCache->setText(i18n("Create and use lexicon key cache"));
+	m_settings.sword.lexiconCache->setText(i18n("Use key cache for lexicons"));
 	QToolTip::add(m_settings.sword.lexiconCache, TT_OD_SWORD_USE_LEXICON_CACHE);	
 	QWhatsThis::add(m_settings.sword.lexiconCache, WT_OD_SWORD_USE_LEXICON_CACHE);
 		
 	m_settings.sword.lexiconCache->setChecked( CBTConfig::get(CBTConfig::lexiconCache) );
  	layout->addWidget(m_settings.sword.lexiconCache);	
 
+  layout->addWidget(
+  	CToolClass::explanationLabel(currentTab, i18n("Scrolling behaviour"),
+			i18n("The down arrow moves to the <i>previous</i> verse by default. Check this box \
+						if you want it to move to the <i>next</i> verse."))
+  );
  		
  	m_settings.sword.useDownArrow = new QCheckBox(currentTab);
  	m_settings.sword.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
@@ -399,6 +411,12 @@ void COptionsDialog::initSword(){
  	QToolTip::add(m_settings.sword.useDownArrow, TT_OD_GENERAL_SCROLL_PREVIOUS);
  	layout->addWidget(m_settings.sword.useDownArrow);
 
+  layout->addWidget(
+  	CToolClass::explanationLabel(currentTab, i18n("Specify a language for biblical booknames"),
+			i18n("Sword has a number of locales available which can be used to internationalize the \
+						booknames of the bible. You can specify which locale to choose. If you want to \
+						create a new locale, see http://www.crosswire.org/sword/develop for details."))
+  );
 		
  	QHBox* localeLayout = new QHBox(currentTab);		
  	QLabel* label = new QLabel(i18n("Language for booknames"), localeLayout); 	
