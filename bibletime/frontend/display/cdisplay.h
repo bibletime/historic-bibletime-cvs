@@ -110,6 +110,9 @@ public:
   * Returns the popup menu which was set by installPopupMenu()
   */
   QPopupMenu* const installedPopup();
+	
+	virtual void zoomIn() {};
+	virtual void zoomOut() {};
 
 protected:
   /**
@@ -158,6 +161,9 @@ public slots:
 
   void clear();
 
+	void zoomIn();
+	void zoomOut();
+	
 signals:
   void referenceClicked(const QString& module, const QString& key);
   void referenceDropped(const QString& key);

@@ -66,14 +66,13 @@ void CDisplayConnections::emitTextChanged(){
  	emit textChanged();
 }
 
-/** No descriptions */
 void CDisplayConnections::copyAll(){
 	m_display->copy(CDisplay::PlainText, CDisplay::Document);
 }
 
 /** No descriptions */
 void CDisplayConnections::copySelection(){
-	qWarning("copyign the selected text");
+// 	qWarning("copyign the selected text");
 	m_display->copy(CDisplay::PlainText, CDisplay::SelectedText);
 }
 
@@ -104,6 +103,15 @@ void CDisplayConnections::saveAnchorWithText(){
 void CDisplayConnections::clear(){
   m_display->setText(QString::null);
 }
+
+void CDisplayConnections::zoomIn() {
+	m_display->zoomIn();
+}
+
+void CDisplayConnections::zoomOut() {
+	m_display->zoomOut();
+}
+
 
 /*----------------------*/
 
@@ -206,3 +214,4 @@ QPopupMenu* const CDisplay::installedPopup(){
   Q_ASSERT(m_popup);
 	return m_popup;
 }
+

@@ -55,6 +55,9 @@ public:
   virtual QScrollView* view();
   virtual void selectAll();
   virtual void moveToAnchor( const QString& anchor );
+	
+	virtual void zoomIn();
+	virtual void zoomOut();
 
 protected:
 	friend class CDisplay;

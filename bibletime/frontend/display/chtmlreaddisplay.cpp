@@ -436,8 +436,18 @@ void CHTMLReadDisplayView::contentsDragEnterEvent( QDragEnterEvent* e ){
 void CHTMLReadDisplay::slotGoToAnchor() {
  	if (!m_currentAnchorCache.isEmpty()) {
 		if (!gotoAnchor( m_currentAnchorCache ) ) {
-			qWarning("anchor %s not present!", m_currentAnchorCache.latin1());
+			qDebug("anchor %s not present!", m_currentAnchorCache.latin1());
 		}
  	}
 	m_currentAnchorCache = QString::null;
+}
+
+void CHTMLReadDisplay::zoomIn() {
+// 	qWarning("zooming in");
+	setZoomFactor( (int)((float)zoomFactor()*1.10) );
+}
+
+void CHTMLReadDisplay::zoomOut() {
+// 	qWarning("zooming out");
+	setZoomFactor( (int)((float)zoomFactor()*0.9) );
 }
