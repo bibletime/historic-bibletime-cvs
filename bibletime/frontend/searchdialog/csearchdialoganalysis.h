@@ -24,13 +24,13 @@
 
 //Qt includes
 #include <qwidget.h>
-#include <qstring.h>
 #include <qcanvas.h>
 #include <qarray.h>
 #include <qdict.h>
 #include <qtooltip.h>
 
 class QPixmap;
+class QString;
 
 class CSearchDialog;
 class CSearchDialogAnalysisItem;
@@ -80,7 +80,6 @@ private:
   * Returns the count of the book in the module
   */
   const unsigned int getCount( const QString book, CSwordModuleInfo* module );
- // const unsigned int getCount( const QString book, CSwordModuleInfo* module );
 	
 	ListCSwordModuleInfo m_moduleList;
  	QDict<CSearchDialogAnalysisItem> m_canvasItemList;

@@ -40,6 +40,7 @@
 //QT includes
 #include <qlabel.h>
 #include <qframe.h>
+#include <qbutton.h>
 #include <qdict.h>
 #include <qlayout.h>
 #include <qhbox.h>
@@ -102,8 +103,7 @@ void CSearchDialog::initView() {
 	searchAnalysis_page->setEnabled(false);
 
 	m_searchAnalysisSaveButton = new QPushButton("Save Analysis to Disk", searchAnalysis_page);
-//  m_searchAnalysisSaveButton->setGeometry(searchAnalysis_page.geometry().bottomLeft().x(), searchAnalysis_page.geometry().bottomLeft().y(), 40,40);
-	m_searchAnalysisSaveButton->show();
+//	m_searchAnalysisSaveButton->show();
 
 	connect(m_searchAnalysisSaveButton, SIGNAL(clicked()), this, SLOT(slotSaveSearchAnalysis()));
 	

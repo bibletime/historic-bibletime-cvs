@@ -25,13 +25,13 @@
 #include "../../backend/cswordmoduleinfo.h"
 
 //QT includes
-#include <qbutton.h>
 
 //KDE includes
 #include <kdialogbase.h>
 #include <kaccel.h>
 
 
+class QPushButton;
 class QHBox;
 class QVBox;
 class QGrid;

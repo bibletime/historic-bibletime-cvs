@@ -39,6 +39,7 @@
 #include <qpoint.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
+#include <qstring.h>
 
 //KDE includes
 #include <kfiledialog.h>
