@@ -31,7 +31,7 @@
 
 # This for Mandrake menus if you have another system do not edit this line. it is for
 # compatability with those systems.
-%define		build_menus	1
+%define		build_menus	0
 %define		_menudir 	/usr/lib/menu 
 # Nothing else should need to be changed.
 # Please do not edit below this line unless you know what you are doing.
