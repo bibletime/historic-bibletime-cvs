@@ -19,6 +19,14 @@
 /* $Header$ */
 /* $Revision$ */
 
+//own includes
+#include "ressource.h"
+#include "bibletime.h"
+#include "frontend/kstartuplogo.h"
+//#include "frontend/ctipwindow.h"
+#include "frontend/chtmldialog.h"
+#include "config.h"
+
 //KDE includes
 #include <kcmdlineargs.h>
 #include <kglobal.h>
@@ -28,7 +36,6 @@
 #include <kinstance.h>
 #include <kaboutdata.h>
 #include <klocale.h>
-//#include <kimageio.h>
 #include <kiconloader.h>
 
 #include <stdio.h>
@@ -37,13 +44,6 @@
 //Qt includes
 #include <qfont.h>
 
-//own includes
-#include "ressource.h"
-#include "bibletime.h"
-#include "frontend/kstartuplogo.h"
-#include "frontend/ctipwindow.h"
-#include "frontend/chtmldialog.h"
-#include "config.h"
 
 bool showDebugMessages = false;
 
