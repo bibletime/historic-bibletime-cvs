@@ -1,3 +1,9 @@
+2001-11-24 Fred Saalbach <saalbach@sybercom.net>
+	*Moved documentation to bibletime-docs - includes .po files, handbook, etc.
+	*This will reduce the size of the main program and allow more flexibility
+	 for the creation of RPM's.
+	*Compile time for the main program will also be reduced.
+
 2001-09-22 Fred Saalbach <saalbach@sybercom.net>
 	* Fixed problem with sgml tag <graphic> by replacing it with the <InLineMediaObject> in the english handbook.
 	* This only is a problem with systems running kde 2 and document
@@ -213,7 +219,7 @@
 	*Updated Michal's Czech translation
 
 1999-12-15 	Joachim Ansorg <Jockel123@gmx.de>
-	*Added Czech language file: Thanks to Michal Rovnaník <Michal.Rovnanik@seznam.cz>
+	*Added Czech language file: Thanks to Michal Rovnanï¿½ <Michal.Rovnanik@seznam.cz>
 
 1999-12-12 	Joachim Ansorg <Jockel123@gmx.de>
 	*Removed function CNotesEditor::isTextSelected()
@@ -429,7 +435,7 @@
 	
 1999-09-10	Joachim Ansorg <Jockel123@gmx.de>
 	*Rewrite of the Searchanalysis, it's now up to 63 times faster
-	*Text in the CChartWidget is now painted rotated (90°)
+	*Text in the CChartWidget is now painted rotated (90)
 	
 1999-09-05	Joachim Ansorg <Jockel123@gmx.de>
 	*Added analysis of searchresults -> needs still some work
