@@ -29,21 +29,15 @@
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) : CSwordKey(module) {
 }
 
-/** No descriptions */
 CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKey(k) {
 }
 
-/** No descriptions */
 CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(*k),CSwordKey(module) {
 }
 
-//CSwordVerseKey::~CSwordVerseKey(){
-//}
-
 /** Clones this object. */
 CSwordKey* CSwordVerseKey::copy() const {
-	CSwordVerseKey* k = new CSwordVerseKey(*this);
-	return k;
+	return new CSwordVerseKey(*this);
 }
 
 /** Sets the module for this key */
@@ -76,6 +70,10 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 		else if (!hasOT && hasNT) {
 			min = 1;
 			max = 1;
+		}
+		else if (!hasOT && !hasNT) {
+			min = 0;
+			max = -1; //no loop
 		}
 				
 		bool finished = false;
@@ -122,11 +120,14 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 		}
 		case UseVerse: {
     	if (m_module && m_module->module()) {
-    		const char* oldLang = 0;
     		m_module->module()->SetKey(this);	//use this key as base for the next one!	
     		(*(m_module->module()) )++;
     		if (!m_module->module()->Error())		
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+    		else {    			
+	    	  Verse(Verse()+1);
+	    	  return false;
+	    	}
     	}
     	else
     	  Verse(Verse()+1);
@@ -155,6 +156,10 @@ const bool CSwordVerseKey::previous( const JumpType type ) {
     		( *( m_module->module() ) )--;
     		if (!m_module->module()->Error())
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
+    		else {
+	    	  Verse(Verse()-1);
+	    	  return false;
+	    	}
     	}
     	else
     		Verse(Verse()-1);

@@ -81,6 +81,11 @@ QStringList* CSwordBibleModuleInfo::books() {
 			min = 1;
 			max = 1;
 		}
+		else if (!m_hasOT && !m_hasNT) { //somethings wrong here! - no OT and not NT
+			qWarning("CSwordBibleModuleInfo (%s) no OT and not NT! Check config.", module()->Name());
+			min = 0;
+			max = -1;			
+		}
 
 		staticKey.setLocale(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 		for (int i = min; i <= max; ++i) {
@@ -94,25 +99,25 @@ QStringList* CSwordBibleModuleInfo::books() {
 }
 
 /** Returns the number of chapters for the given book. */
-const unsigned int CSwordBibleModuleInfo::chapterCount(const unsigned int book) const {
+const unsigned int CSwordBibleModuleInfo::chapterCount(const unsigned int book) {
 	int result = 0;
-	if ( (book >= 1) && book <= (unsigned int)staticKey.BMAX[0]) {		//Is the book in the old testament?
+	if ( (book >= 1) && book <= (unsigned int)staticKey.BMAX[0] && hasTestament(OldTestament)) {		//Is the book in the old testament?
 		result = (staticKey.books[0][book-1].chapmax);
 	}
-	else if ((book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] ) {	//is the book in the new testament?
+	else if ((book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(OldTestament) ) {	//is the book in the new testament?
 	 	result = (staticKey.books[1][book-1-staticKey.BMAX[0]].chapmax);
 	}
 	return result;
 }
 
 /** Returns the number of verses  for the given chapter. */
-const unsigned int CSwordBibleModuleInfo::verseCount( const unsigned int book, const unsigned int chapter ) const {
+const unsigned int CSwordBibleModuleInfo::verseCount( const unsigned int book, const unsigned int chapter ) {
 	unsigned int result = 0;
-	if (book>=1 && (book <= (unsigned int)staticKey.BMAX[0]) ) { //Is the book in the old testament?
+	if (book>=1 && (book <= (unsigned int)staticKey.BMAX[0]) && hasTestament(OldTestament) ) { //Is the book in the old testament?
 		if (chapter <= chapterCount(book) )	//does the chapter exist?
 			result = (staticKey.books[0][book-1].versemax[chapter-1]);
 	}
-	else if (book>=1 && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1]) {	//is the book in the new testament?
+	else if (book>=1 && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(OldTestament)) {	//is the book in the new testament?
 		if (chapter <= chapterCount(book) )	//does the chapter exist?
 			result = staticKey.books[1][book-1-staticKey.BMAX[0]].versemax[chapter-1];
 	}
@@ -150,12 +155,14 @@ const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
 }
 
 /** Returns true if his module has the text of desired type of testament */
-const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament type ){
+const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament type ) {
 	if (m_hasOT == -1 || m_hasNT == -1) {
  		CSwordVerseKey key(this);
  		key.key("Genesis 1:1");
- 		key.next(CSwordVerseKey::UseVerse);
-		if (key.Testament() >= 2 && !module()->Error()) { //2 == NT
+ 		if (!key.next(CSwordVerseKey::UseVerse) || module()->Error()) {
+		 	m_hasOT = m_hasNT = 0;
+		}
+		else if (key.Testament() >= 2) { //have NT but no OT, 2 == NT
  			m_hasOT = 0;
  			m_hasNT = 1;
  		}

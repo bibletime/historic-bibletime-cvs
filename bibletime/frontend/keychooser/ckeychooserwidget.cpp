@@ -311,7 +311,6 @@ void CKeyChooserWidget::init( ){
 	
 	connect(m_comboBox, SIGNAL(activated(int)), SLOT(slotComboChanged(int)));
 	connect(m_comboBox, SIGNAL(activated(const QString&)), SLOT(slotReturnPressed(const QString&)));
-	connect(m_comboBox, SIGNAL(returnPressed(const QString&)), SLOT(slotReturnPressed(const QString&)));
  	connect(m_comboBox, SIGNAL(focusOut(int)), SIGNAL(focusOut(int)));	
 		
 	isResetting = false;

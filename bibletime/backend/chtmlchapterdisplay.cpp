@@ -58,7 +58,8 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		.arg(m_standardFontColorName)
 	);
 
-	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.next(CSwordVerseKey::UseVerse)) {
+	bool ok = true;
+	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse)) {
 		verse = key.Verse();
 		if (m_displayOptionsBool.verseNumbers) {
 			m_htmlText.append( QString::fromLatin1("<font color=\"%1\"><a name=\"%2\" href=\"%3\"><b>%4</b></a></font> ")
