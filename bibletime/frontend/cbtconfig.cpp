@@ -104,6 +104,8 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 		case tips: 								return "RunOnStart";
 		case logo: 								return "logo";
 		case restoreWorkspace: 		return "restoreWorkspace";
+		case crashedLastTime: 		return "crashedLastTime";
+		case crashedTwoTimes: 		return "crashedTwoTimes";
 	}
 	return QString::null;	
 }
@@ -144,6 +146,8 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 		case tips: 								return true;
 		case logo: 								return true;
 		case restoreWorkspace: 		return false;
+		case crashedLastTime: 		return false;
+		case crashedTwoTimes: 		return false;    
 	}
 	return false;
 }

@@ -73,8 +73,16 @@ extern "C" {
 		setSignalHandler(SIG_DFL);
 		fprintf(stderr, "*** BibleTime got signal %d (Exiting)\n", sigId);
 		// try to cleanup all windows
-		if (bibletime) {
-			bibletime->saveSettings();
+    if (CBTConfig::get(CBTConfig::crashedLastTime)) {
+      //crashed this time and the execution before this one, probably a bug which occurs every time
+      CBTConfig::set(CBTConfig::crashedTwoTimes, true);
+    }
+    else {
+      //try to restore next time.
+      CBTConfig::set(CBTConfig::crashedLastTime, true);
+    }
+    if (bibletime) {
+      bibletime->saveSettings();
 			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
 please use the option --ignore-startprofile\n");
 		}
@@ -85,7 +93,15 @@ please use the option --ignore-startprofile\n");
 	static void crashHandler(int sigId) {
 		setSignalHandler(SIG_DFL);
 		fprintf(stderr, "*** BibleTime got signal %d (Crashing). Trying to save settings.\n", sigId);
-		if (bibletime) {
+    if (CBTConfig::get(CBTConfig::crashedLastTime)) {
+      //crashed this time and the execution before this one, probably a bug which occurs every time
+      CBTConfig::set(CBTConfig::crashedTwoTimes, true);
+    }
+    else {
+      //try to restore next time.
+      CBTConfig::set(CBTConfig::crashedLastTime, true);
+    }
+    if (bibletime) {
 			bibletime->saveSettings();
 			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
 please use the option --ignore-startprofile\n");		
@@ -204,22 +220,23 @@ int main(int argc, char* argv[]) {
 			bibletime->slotSettingsOptions();
 		}			
 
+		setSignalHandler(signalHandler);
+        
 		//The tip of the day
 		if (CBTConfig::get(CBTConfig::tips))
 			bibletime->slotHelpTipOfDay();
+		bibletime->show();		
 
-		bibletime->show();
-		
-		// restore the workspace
-//		if (CBTConfig::get(CBTConfig::restoreWorkspace) && !args->isSet("ignore-startprofile"))
-//			bibletime->restoreWorkspace();
+    // restore the workspace
     bibletime->processCommandline();
 
-		setSignalHandler(signalHandler);		
-		
+    		
 		const int ret = app.exec();
 		delete bibletime;
 		CPointers::deleteBackend();
+    //we can set this safely now because we close now (hopyfully without crash)
+    CBTConfig::set(CBTConfig::crashedLastTime, false);
+    CBTConfig::set(CBTConfig::crashedTwoTimes, false);    
 		return ret;
 	}
 }

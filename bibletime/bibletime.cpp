@@ -269,8 +269,11 @@ void BibleTime::setPlainCaption( const QString& ){
 void BibleTime::processCommandline(){
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-  if (CBTConfig::get(CBTConfig::restoreWorkspace) && !args->isSet("ignore-startprofile"))
-    restoreWorkspace();
+  if (CBTConfig::get(CBTConfig::crashedLastTime) || CBTConfig::get(CBTConfig::restoreWorkspace)) {    
+    if (!CBTConfig::get(CBTConfig::crashedTwoTimes) && !args->isSet("ignore-startprofile")) { //restore workspace if it crashed ony once
+      restoreWorkspace();
+    }
+  }
   else {
     QString bibleKey = args->getOption("open-default-bible");    
     CSwordModuleInfo* bible = CPointers::backend()->findModuleByDescription(CBTConfig::get(CBTConfig::standardBible));

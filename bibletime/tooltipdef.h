@@ -15,45 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-//ToolTip entries for Mainwindow actions
-#define TT_FILE_CLEAR_QUEUE  i18n("Clear the printing queue")
-#define TT_FILE_PRINT  i18n("Open the printerdialog")
-#define TT_FILE_QUIT  i18n("Close BibleTime")
-	
-#define TT_GM_SEARCH_MODULES i18n("Search in modules")
-#define TT_GM_BACK_MODULES i18n("Previous item")
-#define TT_GM_FORWARD_MODULES i18n("Next item")
-#define TT_GM_DELETE_ITEMS i18n("Remove selected items")
-#define TT_GM_RESET	i18n("Reset main index")
-
-#define TT_VIEW_GROUPMANAGER i18n("Show main index")
-#define TT_VIEW_TOOLBAR i18n("Show tooolbar")
-#define TT_VIEW_FOOTNOTES i18n("Show footnotes")
-#define TT_VIEW_STRONGS i18n("Show Strong's numbers")
-
-#define TT_WINDOW_TILE i18n("Tile windows")
-#define TT_WINDOW_AUTO_TILE  i18n("Automatically tile windows")
-#define TT_WINDOW_CASCADE  i18n("Cascade windows")
-#define TT_WINDOW_AUTO_CASCADE  i18n("Automatically cascade windows")
-#define TT_WINDOW_CLOSE_ALL  i18n("Close all windows")
-#define TT_WINDOW_SAVE_PROFILE  i18n("Save current profile")
-#define TT_WINDOW_EDIT_PROFILES  i18n("Edit profiles")
-#define TT_WINDOW_LOAD_PROFILE  i18n("Load a new profile")
-#define TT_WINDOW_FULLSCREEN  i18n("Toggle fullscreen mode")
-
-#define TT_SETTINGS_EDIT_TOOLBAR i18n("Edit toolbar")
-#define TT_SETTINGS_OPTIONS i18n("Options")
-
-#define TT_HELP_HANDBOOK i18n("BibleTime's handbook")
-#define TT_HELP_INSTALLATION i18n("BibleTime's installation documentation")
-#define TT_HELP_BIBLESTUDY i18n("BibleTime's Bible study HowTo")
-#define TT_HELP_WHATSTHIS i18n("Enter \"What's this?\" mode")
-#define TT_HELP_BUGREPORT i18n("Send bugreport")
-#define TT_HELP_DAILY_TIP i18n("Show daily tips at startup")
-#define TT_HELP_ABOUT i18n("About BibleTime")
-#define TT_HELP_ABOUT_KDE i18n("About KDE")
-
-
 //QWhatsThis defines for the groupmanager
 #define TT_GM_WIDGET i18n("The main index")
 #define TT_GM_NEW_GROUP i18n("Create a new folder")

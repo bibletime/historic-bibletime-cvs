@@ -84,143 +84,166 @@ void BibleTime::initView(){
 /** Initializes the action objects of the GUI */
 void BibleTime::initActions() {
 	KStartupLogo::setStatusMessage(i18n("Initializing menu- and toolbars") + QString::fromLatin1("..."));
-
 	KAction* action = 0;
-		
-	m_fileClearQueue_action = new KAction(i18n("Clear printing queue"), ICON_FILE_CLEAR_QUEUE ,0,
-		m_printer, SLOT(clearQueue()), actionCollection(), "fileClearQueue_action");	
+
+  
+	m_fileClearQueue_action = new KAction(i18n("Clear printing queue"),
+    CHelpMgr::mainMenu::file::clearQueue::icon,
+    CHelpMgr::mainMenu::file::clearQueue::accel,
+    m_printer, SLOT(clearQueue()), actionCollection(),
+    CHelpMgr::mainMenu::file::clearQueue::actionName
+  );
 	m_fileClearQueue_action->setEnabled(false);	
-	m_fileClearQueue_action->setToolTip( TT_FILE_CLEAR_QUEUE );
-	m_fileClearQueue_action->setWhatsThis( WT_FILE_CLEAR_QUEUE );
+	m_fileClearQueue_action->setToolTip( CHelpMgr::mainMenu::file::clearQueue::tooltip );
+	m_fileClearQueue_action->setWhatsThis( CHelpMgr::mainMenu::file::clearQueue::whatsthis );
 	m_fileClearQueue_action->plugAccel( m_keyAccel );	
 	
-	m_filePrint_action = KStdAction::print(this, SLOT( slotFilePrint() ), actionCollection());
+
+  m_filePrint_action = KStdAction::print(this, SLOT( slotFilePrint() ), actionCollection());
 	m_filePrint_action->setEnabled(false);		
-	m_filePrint_action->setToolTip( TT_FILE_PRINT );	
-	m_filePrint_action->setWhatsThis( WT_FILE_PRINT );
+	m_filePrint_action->setToolTip( CHelpMgr::mainMenu::file::print::tooltip );
+	m_filePrint_action->setWhatsThis( CHelpMgr::mainMenu::file::print::whatsthis );
 	m_filePrint_action->plugAccel( m_keyAccel );	
 	
-	action = KStdAction::quit(this, SLOT( slotFileQuit() ), actionCollection());
+
+  action = KStdAction::quit(this, SLOT( slotFileQuit() ), actionCollection());
 	action->setToolTip( CHelpMgr::mainMenu::file::quit::tooltip );	
 	action->setWhatsThis( CHelpMgr::mainMenu::file::quit::whatsthis );
 	action->plugAccel( m_keyAccel );
 												
-//	action =  new KAction(i18n("Reset main index"), ICON_MAININDEX_RESET, IDK_GM_RESET,
-//		m_groupmanager, SLOT(slotReset()), actionCollection(), "GMreset_action");	
-//	action->setToolTip( TT_GM_RESET );			
-//	action->setWhatsThis( WT_GM_RESET );		
-//	action->plugAccel( m_keyAccel );
-	
-        action =  new KAction(i18n("Previous"), 
-			      ICON_MAININDEX_BACK, 
-			      IDK_GM_MODULES_BACK,
-			      this, SLOT(slotBack()), 
-			      actionCollection(), "GMback_action");	
-	action->setToolTip(TT_GM_BACK_MODULES);
-	action->setWhatsThis(WT_GM_BACK_MODULES);
+
+  action =  new KAction(i18n("Search in module(s)"),
+    CHelpMgr::mainMenu::mainIndex::search::icon,
+    CHelpMgr::mainMenu::mainIndex::search::accel,
+    this, SLOT(slotSearchSelectedModules()), actionCollection(),
+    CHelpMgr::mainMenu::mainIndex::search::actionName
+  );
+  action->setToolTip( CHelpMgr::mainMenu::mainIndex::search::tooltip );
+	action->setWhatsThis( CHelpMgr::mainMenu::mainIndex::search::whatsthis );
 
 
-	action =  new KAction(i18n("Search in module(s)"), 
-			      ICON_MAININDEX_SEARCH, IDK_GM_MODULES_SEARCH,
-			      this, SLOT(slotSearchSelectedModules()), 
-			      actionCollection(), "GMsearch_action");	
-	action->setToolTip( TT_GM_SEARCH_MODULES );
-	action->setWhatsThis( WT_GM_SEARCH_MODULES );
-
-	action =  new KAction(i18n("Go to key"), 
-			      "contents.png", CTRL+Key_K,
-			      this, SLOT(slotSelectKey()), 
-			      actionCollection(), "GMselect_action");	
-	action->setToolTip( "go to key" );
-	action->setWhatsThis( "go to key" );
-
-	action =  new KAction(i18n("Next"), 
-			      ICON_MAININDEX_FORWARD, 
-			      IDK_GM_MODULES_FORWARD,
-			      this, SLOT(slotForward()), 
-			      actionCollection(), "GMforward_action");	
-	action->setToolTip(TT_GM_FORWARD_MODULES);
-	action->setWhatsThis(WT_GM_FORWARD_MODULES);
-	//action->plugAccel( m_keyAccel );
-	
-//	action =  new KAction(i18n("Remove selected item(s)"),ICON_MAININDEX_DELETE_ITEMS, IDK_GM_ITEMS_DELETE,
-//		m_groupmanager, SLOT(slotDeleteSelectedItems()), actionCollection(), "GMdelete_action");	
-//	action->setToolTip( TT_GM_DELETE_ITEMS );	
-//	action->setWhatsThis( WT_GM_DELETE_ITEMS );
-//	action->plugAccel( m_keyAccel );
-
-	m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
-	m_viewToolbar_action->setToolTip( TT_VIEW_TOOLBAR );	
-	m_viewToolbar_action->setWhatsThis( WT_VIEW_TOOLBAR );
+  m_viewToolbar_action = KStdAction::showToolbar(this, SLOT( slotToggleToolbar() ), actionCollection());
+	m_viewToolbar_action->setToolTip( CHelpMgr::mainMenu::view::showToolBar::tooltip );	
+	m_viewToolbar_action->setWhatsThis( CHelpMgr::mainMenu::view::showToolBar::whatsthis );
 	m_viewToolbar_action->plugAccel( m_keyAccel );
 
-	m_viewMainIndex_action = new KToggleAction(i18n("&Show main index"), ICON_VIEW_MAININDEX, IDK_VIEW_GROUPMANAGER,
-		this, SLOT(slotToggleGroupManager()), actionCollection(), "viewGroupManager_action");
-	m_viewMainIndex_action->setToolTip( TT_VIEW_GROUPMANAGER );	
-	m_viewMainIndex_action->setWhatsThis( WT_VIEW_GROUPMANAGER );
+
+  m_viewMainIndex_action = new KToggleAction(i18n("&Show main index"),
+    CHelpMgr::mainMenu::view::showMainIndex::icon,
+    CHelpMgr::mainMenu::view::showMainIndex::accel,
+		this, SLOT(slotToggleGroupManager()), actionCollection(),
+    CHelpMgr::mainMenu::view::showMainIndex::actionName);
+	m_viewMainIndex_action->setToolTip( CHelpMgr::mainMenu::view::showMainIndex::tooltip );	
+	m_viewMainIndex_action->setWhatsThis( CHelpMgr::mainMenu::view::showMainIndex::whatsthis );
 	
-	action = KStdAction::preferences(this, SLOT( slotSettingsOptions() ), actionCollection());
-	action->setToolTip( TT_SETTINGS_OPTIONS );
-	action->setWhatsThis( WT_SETTINGS_OPTIONS );
+
+  action = KStdAction::preferences(this, SLOT( slotSettingsOptions() ), actionCollection());
+	action->setToolTip( CHelpMgr::mainMenu::settings::optionsDialog::tooltip );
+	action->setWhatsThis( CHelpMgr::mainMenu::settings::optionsDialog::whatsthis );
 	action->plugAccel( m_keyAccel );
 
-	action = KStdAction::configureToolbars(this, SLOT( slotSettingsToolbar() ), actionCollection());
-	action->setToolTip( TT_SETTINGS_EDIT_TOOLBAR );	
-	action->setWhatsThis( WT_SETTINGS_EDIT_TOOLBAR );
+
+  action = KStdAction::configureToolbars(this, SLOT( slotSettingsToolbar() ), actionCollection());
+	action->setToolTip( CHelpMgr::mainMenu::settings::editToolBar::tooltip );	
+	action->setWhatsThis( CHelpMgr::mainMenu::settings::editToolBar::whatsthis );
 	action->plugAccel( m_keyAccel );
 
-	m_windowCascade_action = new KAction(i18n("&Cascade"), ICON_WINDOW_CASCADE, IDK_WINDOW_CASCADE,
-		m_mdi, SLOT(cascade()), actionCollection(), "windowCascade_action");
-	m_windowCascade_action->setToolTip( TT_WINDOW_CASCADE );	
-	m_windowCascade_action->setWhatsThis( WT_WINDOW_CASCADE );
+
+  m_windowCascade_action = new KAction(i18n("&Cascade"),
+    CHelpMgr::mainMenu::window::cascade::icon,
+    CHelpMgr::mainMenu::window::cascade::accel,
+		m_mdi, SLOT(cascade()), actionCollection(),
+    CHelpMgr::mainMenu::window::cascade::actionName
+  );
+	m_windowCascade_action->setToolTip( CHelpMgr::mainMenu::window::cascade::tooltip );
+	m_windowCascade_action->setWhatsThis( CHelpMgr::mainMenu::window::cascade::whatsthis );
 	m_windowCascade_action->plugAccel( m_keyAccel);	
 	
-	m_windowTile_action = new KAction(i18n("&Tile"), ICON_WINDOW_TILE,
-																IDK_WINDOW_TILE, m_mdi, SLOT(tile()), actionCollection(), "windowTile_action");
-	m_windowTile_action->setToolTip( TT_WINDOW_TILE );	
-	m_windowTile_action->setWhatsThis( WT_WINDOW_TILE );
+
+  m_windowTile_action = new KAction(i18n("&Tile"),
+    CHelpMgr::mainMenu::window::tile::icon,
+    CHelpMgr::mainMenu::window::tile::accel,
+    m_mdi, SLOT(tile()), actionCollection(),
+    CHelpMgr::mainMenu::window::tile::actionName);
+	m_windowTile_action->setToolTip( CHelpMgr::mainMenu::window::tile::tooltip );	
+	m_windowTile_action->setWhatsThis( CHelpMgr::mainMenu::window::tile::whatsthis );
 	m_windowTile_action->plugAccel( m_keyAccel );	
-	
-	m_windowAutoCascade_action 	= new KToggleAction(i18n("&Auto cascade"), ICON_WINDOW_CASCADE_AUTO,
-																IDK_WINDOW_AUTO_CASCADE, this, SLOT(slotAutoCascade()), actionCollection(), "windowAutoCascade_action");
-	m_windowAutoCascade_action->setToolTip( TT_WINDOW_AUTO_CASCADE );	
-	m_windowAutoCascade_action->setWhatsThis( WT_WINDOW_AUTO_CASCADE );
+
+  	
+	m_windowAutoCascade_action 	= new KToggleAction(i18n("&Auto cascade"),
+    CHelpMgr::mainMenu::window::autoCascade::icon,
+		CHelpMgr::mainMenu::window::autoCascade::accel,
+    this, SLOT(slotAutoCascade()), actionCollection(),
+    CHelpMgr::mainMenu::window::autoCascade::actionName
+  );
+	m_windowAutoCascade_action->setToolTip( CHelpMgr::mainMenu::window::autoCascade::tooltip );	
+	m_windowAutoCascade_action->setWhatsThis( CHelpMgr::mainMenu::window::autoCascade::whatsthis );
 	m_windowAutoCascade_action->plugAccel( m_keyAccel );	
-																	
-	m_windowAutoTile_action = new KToggleAction(i18n("A&uto Tile"),ICON_WINDOW_TILE_AUTO,
-																IDK_WINDOW_AUTO_TILE, this, SLOT(slotAutoTile()), actionCollection(), "windowAutoTile_action");
-	m_windowAutoTile_action->setToolTip( TT_WINDOW_AUTO_TILE );	
-	m_windowAutoTile_action->setWhatsThis( WT_WINDOW_AUTO_TILE );
+
+
+	m_windowAutoTile_action = new KToggleAction(i18n("A&uto Tile"),
+    CHelpMgr::mainMenu::window::autoTile::icon,
+		CHelpMgr::mainMenu::window::autoTile::accel,
+    this, SLOT(slotAutoTile()), actionCollection(),
+    CHelpMgr::mainMenu::window::autoTile::actionName
+  );
+	m_windowAutoTile_action->setToolTip( CHelpMgr::mainMenu::window::autoTile::tooltip );	
+	m_windowAutoTile_action->setWhatsThis( CHelpMgr::mainMenu::window::autoTile::whatsthis );
 	m_windowAutoTile_action->plugAccel( m_keyAccel );	
 	
-	m_windowCloseAll_action = new KAction(i18n("&Close all"), ICON_WINDOW_CLOSE_ALL,
-																IDK_WINDOW_CLOSE_ALL, m_mdi, SLOT(deleteAll()), actionCollection(),"windowCloseAll_action");
-	m_windowCloseAll_action->setToolTip( TT_WINDOW_CLOSE_ALL );	
-	m_windowCloseAll_action->setWhatsThis( WT_WINDOW_CLOSE_ALL );
+
+  m_windowCloseAll_action = new KAction(i18n("&Close all"),
+    CHelpMgr::mainMenu::window::closeAll::icon,
+    CHelpMgr::mainMenu::window::closeAll::accel,
+    m_mdi, SLOT(deleteAll()), actionCollection(),
+    CHelpMgr::mainMenu::window::closeAll::actionName
+  );
+	m_windowCloseAll_action->setToolTip( CHelpMgr::mainMenu::window::closeAll::tooltip );	
+	m_windowCloseAll_action->setWhatsThis( CHelpMgr::mainMenu::window::closeAll::whatsthis );
 	m_windowCloseAll_action->plugAccel( m_keyAccel );	
-	
-	m_windowSaveProfile_action = new KActionMenu(i18n("&Save profile"), ICON_WINDOW_SAVE_PROFILE, actionCollection(),"windowSaveProfile_action");
-	m_windowSaveProfile_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
-	m_windowSaveProfile_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
+
+  
+	m_windowSaveProfile_action = new KActionMenu(i18n("&Save profile"),
+    CHelpMgr::mainMenu::window::saveProfile::icon,
+    actionCollection(),
+    CHelpMgr::mainMenu::window::saveProfile::actionName
+  );
+	m_windowSaveProfile_action->setToolTip( CHelpMgr::mainMenu::window::saveProfile::tooltip );	
+	m_windowSaveProfile_action->setWhatsThis( CHelpMgr::mainMenu::window::saveProfile::whatsthis );
 	m_windowSaveProfile_action->plugAccel( m_keyAccel );	
 
-	m_windowLoadProfile_action = new KActionMenu(i18n("&Load profile"), ICON_WINDOW_SAVE_PROFILE, actionCollection(),"windowLoadProfile_action");
-	m_windowLoadProfile_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
-	m_windowLoadProfile_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
+	m_windowLoadProfile_action = new KActionMenu(i18n("&Load profile"),
+    CHelpMgr::mainMenu::window::loadProfile::icon,
+    actionCollection(),
+    CHelpMgr::mainMenu::window::loadProfile::actionName
+  );
+	m_windowLoadProfile_action->setToolTip( CHelpMgr::mainMenu::window::loadProfile::tooltip );	
+	m_windowLoadProfile_action->setWhatsThis( CHelpMgr::mainMenu::window::loadProfile::whatsthis );
 	m_windowLoadProfile_action->plugAccel( m_keyAccel );
 
-	m_windowEditProfiles_action = new KAction(i18n("&Configure profiles"), ICON_WINDOW_EDIT_PROFILES,
-																IDK_WINDOW_EDIT_PROFILES, this, SLOT(editProfiles()), actionCollection(),"windowEditProfiles_action");
-	m_windowEditProfiles_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
-	m_windowEditProfiles_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
+  
+	m_windowEditProfiles_action = new KAction(i18n("&Configure profiles"),
+    CHelpMgr::mainMenu::window::setupProfiles::icon,
+    CHelpMgr::mainMenu::window::setupProfiles::accel,
+    this, SLOT(editProfiles()), actionCollection(),
+    CHelpMgr::mainMenu::window::setupProfiles::actionName
+  );
+	m_windowEditProfiles_action->setToolTip( CHelpMgr::mainMenu::window::setupProfiles::tooltip );	
+	m_windowEditProfiles_action->setWhatsThis( CHelpMgr::mainMenu::window::setupProfiles::whatsthis );
 	m_windowEditProfiles_action->plugAccel( m_keyAccel );	
 
-	m_windowFullscreen_action = new KToggleAction(i18n("&Fullscreen mode"), ICON_WINDOW_FULLSCREEN,
-																IDK_WINDOW_FULLSCREEN, this, SLOT(toggleFullscreen()), actionCollection(),"windowFullscreen_action");
-	m_windowFullscreen_action->setToolTip( TT_WINDOW_FULLSCREEN );	
-	m_windowFullscreen_action->setWhatsThis( WT_WINDOW_FULLSCREEN );
+  
+	m_windowFullscreen_action = new KToggleAction(i18n("&Fullscreen mode"),
+    CHelpMgr::mainMenu::window::showFullscreen::icon,
+		CHelpMgr::mainMenu::window::showFullscreen::accel,
+    this, SLOT(toggleFullscreen()), actionCollection(),
+    CHelpMgr::mainMenu::window::showFullscreen::actionName
+  );
+	m_windowFullscreen_action->setToolTip( CHelpMgr::mainMenu::window::showFullscreen::tooltip );	
+	m_windowFullscreen_action->setWhatsThis( CHelpMgr::mainMenu::window::showFullscreen::whatsthis );
 	m_windowFullscreen_action->plugAccel( m_keyAccel );			
-		
+
+
 	QPtrList<CProfile> profiles = m_profileMgr.profiles();		
 	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
 	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();	
@@ -236,50 +259,46 @@ void BibleTime::initActions() {
 		
 	action = new KAction(i18n("&Handbook"), ICON_HELP_CONTENTS, 0, this,
 		SLOT(openOnlineHelp_Handbook()), actionCollection(), "help_handbook");
-  action->setToolTip( TT_HELP_HANDBOOK );
-  action->setWhatsThis( WT_HELP_HANDBOOK  );
+  action->setToolTip( CHelpMgr::mainMenu::help::handbook::tooltip );
+  action->setWhatsThis( CHelpMgr::mainMenu::help::handbook::whatsthis  );
 	action->plugAccel( m_keyAccel );
 
 	action = new KAction(i18n("&Installation"), ICON_HELP_CONTENTS, 0, this,
 		SLOT(openOnlineHelp_Install()), actionCollection(), "help_install");
-  action->setToolTip( TT_HELP_INSTALLATION );
-  action->setWhatsThis( WT_HELP_INSTALLATION  );
+  action->setToolTip( CHelpMgr::mainMenu::help::installation::tooltip );
+  action->setWhatsThis( CHelpMgr::mainMenu::help::installation::whatsthis  );
 	action->plugAccel( m_keyAccel );
 
 	action = new KAction(i18n("&Bible Study Howto"), ICON_HELP_CONTENTS, 0, this,
 		SLOT(openOnlineHelp_Howto()), actionCollection(), "help_howto");
-  action->setToolTip( TT_HELP_BIBLESTUDY );
-  action->setWhatsThis( WT_HELP_BIBLESTUDY  );
+  action->setToolTip( CHelpMgr::mainMenu::help::bibleStudyHowTo::tooltip );
+  action->setWhatsThis( CHelpMgr::mainMenu::help::bibleStudyHowTo::whatsthis  );
 	action->plugAccel( m_keyAccel );
 
 	action = KStdAction::whatsThis(this, SLOT(whatsThis()), actionCollection());
-	action->setToolTip(TT_HELP_WHATSTHIS);
-	action->setWhatsThis(WT_HELP_WHATSTHIS);	
+	action->setToolTip(CHelpMgr::mainMenu::help::whatsThis::tooltip);
+	action->setWhatsThis(CHelpMgr::mainMenu::help::whatsThis::whatsthis);	
 	
 	action = KStdAction::reportBug(m_helpMenu, SLOT(reportBug()), actionCollection());	
-	action->setToolTip(TT_HELP_BUGREPORT);
-	action->setWhatsThis(WT_HELP_BUGREPORT);
+	action->setToolTip(CHelpMgr::mainMenu::help::bugreport::tooltip);
+	action->setWhatsThis(CHelpMgr::mainMenu::help::bugreport::whatsthis);
 	action->setIcon(ICON_BUG_REPORT);
 	
 	action = new KAction(i18n("&Daily tip"), ICON_HELP_DAILY_TIP, IDK_HELP_DAILY_TIP, this,
 		SLOT(slotHelpTipOfDay()), actionCollection(), "helpDailyTip_action");
-	action->setToolTip(TT_HELP_DAILY_TIP);
-	action->setWhatsThis(WT_HELP_DAILY_TIP);	
+	action->setToolTip(CHelpMgr::mainMenu::help::dailyTip::tooltip);
+	action->setWhatsThis(CHelpMgr::mainMenu::help::dailyTip::whatsthis);	
 
 	action = KStdAction::aboutApp(m_helpMenu, SLOT(aboutApplication()), actionCollection());	
-	action->setToolTip(TT_HELP_ABOUT);
-	action->setWhatsThis(WT_HELP_ABOUT);	
+	action->setToolTip(CHelpMgr::mainMenu::help::aboutBibleTime::tooltip);
+	action->setWhatsThis(CHelpMgr::mainMenu::help::aboutBibleTime::whatsthis);	
 	
 	//delete About KDE action if KDE created it already
 	if ( actionCollection()->action("help_about_kde") )	 //delete About KDE action if KDE created it
 		actionCollection()->remove(actionCollection()->action("help_about_kde"));	
 	action = KStdAction::aboutKDE(m_helpMenu, SLOT(aboutKDE()), actionCollection());	
-	action->setToolTip(TT_HELP_ABOUT_KDE);
-	action->setWhatsThis(WT_HELP_ABOUT_KDE);
-
-//	action = KStdAction::keybindings(m_helpMenu, SLOT(aboutApplication()), actionCollection());	
-//	action->setToolTip(TT_HELP_ABOUT);
-//	action->setWhatsThis(WT_HELP_ABOUT);	
+	action->setToolTip(CHelpMgr::mainMenu::help::aboutKDE::tooltip);
+	action->setWhatsThis(CHelpMgr::mainMenu::help::aboutKDE::whatsthis);
 }
 
 /** Initializes the menubar of BibleTime. */

@@ -59,15 +59,6 @@
 #define IDK_GM_RESET			        CTRL+ALT+Key_R
 #define IDK_GM_ITEMS_DELETE			CTRL+ALT+Key_D
 #define IDK_GM_MODULES_SEARCH		        CTRL+ALT+Key_M
-#define IDK_GM_MODULES_BACK                     CTRL+Key_Left
-#define IDK_GM_MODULES_FORWARD                  CTRL+Key_Right
-
-//#define IDK_VIEW_FOOTNOTES			CTRL+ALT+Key_F
-//#define IDK_VIEW_STRONGS				CTRL+ALT+Key_S
-//#define IDK_VIEW_HEADINGS       0
-//#define IDK_VIEW_MORPH_TAGS     0
-#define IDK_VIEW_TOOLBAR				CTRL+Key_T
-#define IDK_VIEW_GROUPMANAGER		0
 
 #define IDK_PRESENTER_NEXT_VERSE			CTRL+Key_V
 #define IDK_PRESENTER_PREVIOUS_VERSE	CTRL+SHIFT+Key_R
@@ -87,15 +78,15 @@
 
 #define IDK_PRESENTER_TOGGLE_TREE		CTRL+Key_T
 
-#define IDK_WINDOW_CASCADE			CTRL+Key_A
-#define IDK_WINDOW_TILE					CTRL+Key_T
-#define IDK_WINDOW_AUTO_CASCADE	CTRL+ALT+Key_A
-#define IDK_WINDOW_AUTO_TILE		CTRL+ALT+Key_T
+//#define IDK_WINDOW_CASCADE			CTRL+Key_A
+//#define IDK_WINDOW_TILE					CTRL+Key_T
+//#define IDK_WINDOW_AUTO_CASCADE	CTRL+ALT+Key_A
+//#define IDK_WINDOW_AUTO_TILE		CTRL+ALT+Key_T
 #define IDK_WINDOW_CLOSE_ALL		CTRL+Key_K
-#define IDK_WINDOW_LOAD_PROFILE	0
-#define IDK_WINDOW_SAVE_PROFILE	0
-#define IDK_WINDOW_EDIT_PROFILES  0
-#define IDK_WINDOW_FULLSCREEN		0
+//#define IDK_WINDOW_LOAD_PROFILE	0
+//#define IDK_WINDOW_SAVE_PROFILE	0
+//#define IDK_WINDOW_EDIT_PROFILES  0
+//#define IDK_WINDOW_FULLSCREEN		0
 
 #define IDK_HELP_DAILY_TIP				0
 
@@ -114,7 +105,7 @@
 #define LOAD_OD_ICON(name)			KGlobal::instance()->iconLoader()->loadIcon(name, KIcon::NoGroup, KIcon::SizeMedium)
 
 //ICONS
-#define ICON_FILE_CLEAR_QUEUE	"queue"
+//#define ICON_FILE_CLEAR_QUEUE	"queue"
 #define ICON_FILE_NEW					"filenew"
 #define ICON_FILE_PRINT				"fileprint"
 #define ICON_FILE_SAVE				"filesave"
@@ -139,18 +130,18 @@
 #define ICON_MAININDEX_DELETE_ITEMS		ICON_FILE_DELETE
 
 //#define ICON_VIEW_MAININDEX			"bt_mainindex"
-#define ICON_VIEW_MAININDEX				"view_sidetree"
+//#define ICON_VIEW_MAININDEX				"view_sidetree"
 
 #define ICON_WINDOW_TILE				"bt_tile"
-#define ICON_WINDOW_CASCADE				"bt_cascade"
+//#define ICON_WINDOW_CASCADE				"bt_cascade"
 #define ICON_WINDOW_TILE_AUTO			"bt_tile_auto"
-#define ICON_WINDOW_CASCADE_AUTO		"bt_cascade_auto"
+//#define ICON_WINDOW_CASCADE_AUTO		"bt_cascade_auto"
 
-#define ICON_WINDOW_CLOSE_ALL			"fileclose"
-#define ICON_WINDOW_SAVE_PROFILE		"view_sidetree"
-#define ICON_WINDOW_LOAD_PROFILE		"view_sidetree"
-#define ICON_WINDOW_EDIT_PROFILES		"view_sidetree"
-#define ICON_WINDOW_FULLSCREEN			"window_fullscreen"
+//#define ICON_WINDOW_CLOSE_ALL			"fileclose"
+//#define ICON_WINDOW_SAVE_PROFILE		"view_sidetree"
+//#define ICON_WINDOW_LOAD_PROFILE		"view_sidetree"
+//#define ICON_WINDOW_EDIT_PROFILES		"view_sidetree"
+//#define ICON_WINDOW_FULLSCREEN			"window_fullscreen"
 
 #define ICON_HELP_DAILY_TIP				"idea"
 #define ICON_HELP_CONTENTS				"contents"

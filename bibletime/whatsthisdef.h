@@ -24,46 +24,6 @@
 //the general format of QWhatsThis help texts
 #define WT(title, description) QString::fromLatin1("<center><B>%1</B></center><HR>%2").arg(title).arg(description)
 
-//QWhatsThis entries for Mainwindow actions
-#define WT_FILE_CLEAR_QUEUE WT( TT_FILE_CLEAR_QUEUE, i18n("Clear the print queue of BibleTime. All items will be removed from the list and the print button will be disabled."))
-#define WT_FILE_PRINT WT( TT_FILE_PRINT, i18n("Open the printer dialog of BibleTime.  Here you can edit the print queue and assign styles to the items."))
-#define WT_FILE_QUIT WT( TT_FILE_QUIT, i18n("Close BibleTime and save the settings."))
-	
-#define WT_GM_SEARCH_MODULES WT(TT_GM_SEARCH_MODULES, i18n("Open the search dialog to search for text in one or more modules."))
-#define WT_GM_BACK_MODULES WT(TT_GM_BACK_MODULES, i18n("Move to the previous item (i.e. chapter)"))
-#define WT_GM_FORWARD_MODULES WT(TT_GM_FORWARD_MODULES, i18n("Move to the next item (i.e. chapter)"))
-#define WT_GM_DELETE_ITEMS WT(TT_GM_DELETE_ITEMS, i18n("Remove the selected items from the main index.<BR>If you remove a folder, the subitems of it will be removed too."))
-#define WT_GM_RESET	WT(TT_GM_RESET, i18n("Reset the main index.<BR>All bookmarks and folders will be deleted and the default folders will be restored."))
-
-#define WT_VIEW_GROUPMANAGER WT(TT_VIEW_GROUPMANAGER, i18n("Toggle the main index view."))
-#define WT_VIEW_TOOLBAR WT(TT_VIEW_TOOLBAR, i18n("Toggle the main toolbar view."))
-#define WT_VIEW_FOOTNOTES WT(TT_VIEW_FOOTNOTES, i18n("Toggle footnotes in the modules."))
-#define WT_VIEW_STRONGS WT(TT_VIEW_STRONGS, i18n("Toggle Strong's numbers in the modules."))
-
-#define WT_WINDOW_TILE WT(TT_WINDOW_TILE, i18n("Tile the open display windows."))
-#define WT_WINDOW_AUTO_TILE WT( TT_WINDOW_AUTO_TILE, i18n("Automatically tile the display windows."))
-#define WT_WINDOW_CASCADE WT( TT_WINDOW_CASCADE, i18n("Cascade the open display windows."))
-#define WT_WINDOW_AUTO_CASCADE WT( TT_WINDOW_AUTO_CASCADE, i18n("Automatically cascade the opened display windows."))
-#define WT_WINDOW_CLOSE_ALL WT( TT_WINDOW_CLOSE_ALL, i18n("Close all open display windows."))
-#define WT_WINDOW_SAVE_PROFILE WT(TT_WINDOW_SAVE_PROFILE, i18n("Save current profile"))
-#define WT_WINDOW_EDIT_PROFILES WT(TT_WINDOW_EDIT_PROFILES, i18n("Edit profiles..."))
-#define WT_WINDOW_LOAD_PROFILE WT(TT_WINDOW_LOAD_PROFILE, i18n("Load a new profile"))
-#define WT_WINDOW_FULLSCREEN WT(TT_WINDOW_FULLSCREEN, i18n("Toggle fullscreen mode"))
-
-
-#define WT_SETTINGS_EDIT_TOOLBAR WT(TT_SETTINGS_EDIT_TOOLBAR, i18n("Open the BibleTime tool bar editor."))
-#define WT_SETTINGS_OPTIONS WT(TT_SETTINGS_OPTIONS, i18n("Open BibleTime's optionsdialog where you can set most of the preferences."))
-
-#define WT_HELP_HANDBOOK WT(TT_HELP_HANDBOOK, i18n("Open KDE's helpbrowser with BibleTime's handbook.<BR>The handbook explains how to use BibleTime in the best way."))
-#define WT_HELP_INSTALLATION WT(TT_HELP_INSTALLATION, i18n("Open KDE's helpbrowser with BibleTime's installation instructions.<BR>The installation instructions explain how to set up BibleTime and the text modules."))
-#define WT_HELP_BIBLESTUDY WT(TT_HELP_BIBLESTUDY, i18n("Open KDE's helpbrowser with the Bible study HowTo included with BibleTime.<BR>This HowTo is an introduction how to study the Bible in an efficient way."))
-#define WT_HELP_WHATSTHIS WT(TT_HELP_WHATSTHIS, i18n("Switch into the <B>\"What's this?\"</B> mode.<BR>All important elements of BibleTime's GUI offer a \"What's this?\" help message."))
-#define WT_HELP_BUGREPORT WT(TT_HELP_BUGREPORT, i18n("Send a bugreport to the developers of BibleTime!"))
-#define WT_HELP_DAILY_TIP WT(TT_HELP_DAILY_TIP, i18n("Show a daily tip.<BR>The tips contain important Bible quotations and helpful usage tips for BibleTime."))
-#define WT_HELP_ABOUT WT(TT_HELP_ABOUT, i18n("Show detailed information about BibleTime."))
-#define WT_HELP_ABOUT_KDE WT(TT_HELP_ABOUT_KDE, i18n("Show the \"about\" dialog of KDE."))
-
-
 //QWhatsThis defines for the groupmanager
 #define WT_GM_WIDGET WT(TT_GM_WIDGET, i18n("This is the main index of BibleTime.<BR>Use it to manage the installed modules, to work with bookmarks, to open display windows etc.."))
 #define WT_GM_NEW_GROUP WT(TT_GM_NEW_GROUP, i18n("Create a new folder in the main index.<BR>If you press the right mouse button on a folder, the new folder will become a sub-folder of it.<BR>Otherwise you will create a toplevel folder."))

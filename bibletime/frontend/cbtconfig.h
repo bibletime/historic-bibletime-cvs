@@ -80,7 +80,9 @@ public:
 
 		tips,
 		logo,
-		restoreWorkspace
+		restoreWorkspace,
+    crashedLastTime,
+    crashedTwoTimes
 	};
 	enum ints {
   	footnotes,
