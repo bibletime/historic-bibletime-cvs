@@ -75,7 +75,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 		I18N_NOOP("Bible study tool for KDE 2"),
 		KAboutData::License_GPL_V2,
 		I18N_NOOP("(c)1999-2001, The BibleTime Team"),
-		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE 2.\n\nWe are look for new developers, translators and handbook authors. If you'd like to join use send an eMail to info@bibletime.de."),
+		I18N_NOOP("BibleTime is an easy to use but powerful Bible study tool for KDE 2.\n\nWe are look for new developers, translators and handbook authors.\nIf you'd like to join use send an eMail to info@bibletime.de."),
 		"http://www.bibletime.de/",
 		"info@bibletime.de"
 	);

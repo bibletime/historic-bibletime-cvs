@@ -6550,6 +6550,7 @@ ac_given_INSTALL="$INSTALL"
 
 trap 'rm -fr `echo "\
 ./Makefile \
+admin/Makefile \
 bibletime/Makefile \
 bibletime/backend/Makefile \
 bibletime/backend/sword_backend/Makefile \
@@ -6776,6 +6777,7 @@ cat >> $CONFIG_STATUS <<EOF
 
 CONFIG_FILES=\${CONFIG_FILES-"\
 ./Makefile \
+admin/Makefile \
 bibletime/Makefile \
 bibletime/backend/Makefile \
 bibletime/backend/sword_backend/Makefile \

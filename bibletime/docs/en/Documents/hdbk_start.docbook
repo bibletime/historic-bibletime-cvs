@@ -13,7 +13,7 @@ files to see how.
 <para>
 Bibletime can also be launched from a terminal command prompt.
 To launch Bibletime open a terminal (any Xterminal) and type
-<command>Bibletime</command>.
+<command>bibletime</command>.
 </para>
 <section ID="hdbk_start_sequence"><title>Startup Sequence</title>
 <para>
@@ -24,6 +24,9 @@ have forgotten to install sword modules, or if the sword modules
 can not be found.</para></listitem>
 <listitem><para>First Time Startup - This is shown the first time
 Bibletime is launched.
+</para></listitem>
+<listitem><para>Options dialog - The options dialog is shown on first startup to
+set the initial settings.
 </para></listitem>
 <listitem><para>Daily Tips - These show on every startup, unless
 you turn them off.

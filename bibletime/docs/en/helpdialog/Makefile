@@ -18,7 +18,7 @@ SHELL = /bin/sh
 srcdir = .
 top_srcdir = ../../../..
 VPATH = .
-prefix = /opt/kde2.1/
+prefix = /opt/kde
 exec_prefix = ${prefix}
 #>- 
 bindir = ${exec_prefix}/bin

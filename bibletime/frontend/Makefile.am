@@ -18,19 +18,13 @@ presenters \
 optionsdialog \
 searchdialog \
 keychooser \
-thirdparty \
-.
+thirdparty
 
 EXTRA_DIST = \
-cmdiarea.cpp \
-cmdiarea.h \
-kstartuplogo.cpp \
-kstartuplogo.h \
-chtmlwidget.cpp \
-chtmlwidget.h \
-chtmldialog.cpp \
-chtmldialog.h \
-ctipwindow.cpp \
-ctipwindow.h \
-actions.h \
-actions.cpp
+cmdiarea.cpp cmdiarea.h \
+kstartuplogo.cpp kstartuplogo.h \
+chtmlwidget.cpp chtmlwidget.h \
+chtmldialog.cpp chtmldialog.h \
+ctipwindow.cpp ctipwindow.h \
+ctoolclass.cpp ctoolclass.h \
+actions.cpp actions.h

@@ -1,13 +1,6 @@
-dist-hook:
-	-perl am_edit
-
-SUBDIRS = \
-bibletime \
-po \
-.
+SUBDIRS = bibletime po admin
 
 EXTRA_DIST = \
-admin \
 bibletime.kdevprj \
 AUTHORS \
 COPYING \
@@ -52,3 +45,7 @@ install-data-local:
 	chmod 755 $(kde_datadir)/bibletime -R
 
 MAINTAINERCLEANFILES = configure.files subdirs 
+
+dist-hook:
+	cd $(top_distdir) && perl admin/am_edit -padmin
+	cd $(top_distdir) && $(MAKE) -f admin/Makefile.common subdirs

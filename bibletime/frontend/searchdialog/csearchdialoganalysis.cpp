@@ -284,16 +284,12 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
    	Value = newValue;
 	}		
 #warning ToDo: Add correct font drawing!!
-//	painter.save();	
-//	painter.translate(x(),height()+y()-BAR_LOWER_BORDER);
-//	painter.rotate(90);
-//	QPoint p(5,-(double)(width()-painter.fontMetrics().height()-painter.fontMetrics().ascent()-painter.fontMetrics().descent())/(double)2);
-//	QRect clip = painter.clipRegion().boundingRect();
-//	clip.setWidth(2*clip.width());	
-//	clip.setX( clip.x() + clip.width() );
-//	clip.setY( p.y() );	
-//	painter.drawText(clip, Qt::AlignLeft, m_bookName);
-//	painter.restore();	
+	painter.save();	
+	painter.translate(x(),height()+y()-BAR_LOWER_BORDER);
+	painter.rotate(90);
+	QPoint p(5,-abs((double)(width()-painter.fontMetrics().height()/*-painter.fontMetrics().ascent()-painter.fontMetrics().descent()*/)/(double)2));
+	painter.drawText(p, m_bookName);
+	painter.restore();
 }
 
 /** Returns the width of this item. */
