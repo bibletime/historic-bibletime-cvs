@@ -488,7 +488,7 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 	
 	CSwordKey* key = CSwordKey::createInstance(m_module);	
 	if (key) {
-		CSwordBackend::moduleOptionsBool oldOptions = m_important->swordBackend->getAllModuleOptions();
+		//CSwordBackend::moduleOptionsBool oldOptions = m_important->swordBackend->getAllModuleOptions();
 		
 		m_important->swordBackend->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );
 				

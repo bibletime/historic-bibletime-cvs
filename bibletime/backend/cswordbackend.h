@@ -59,8 +59,11 @@ public:
 		lemmas,
 		hebrewPoints,
 		hebrewCantillation,
-		greekAccents
+		greekAccents,
+		moduleOptionsMIN = footnotes,
+		moduleOptionsMAX = greekAccents
 	};
+
   struct moduleOptionsBool {
   	bool footnotes;
   	bool strongNumbers;
@@ -178,15 +181,19 @@ public:
   /**
   * Returns the text used for the option given as parameter.
   */
-  const QString getOptionName( const CSwordBackend::moduleOptions option);
+  static const QString getOptionName( const CSwordBackend::moduleOptions option);
   /**
   * Returns the text used for the option given as parameter.
   */
-  const QString getConfigOptionName( const CSwordBackend::moduleOptions option);
-	/**
-	*	Returns the used options.
+  static const QString getConfigOptionName( const CSwordBackend::moduleOptions option);
+//	/**
+//	*	Returns the used options.
+//	*/
+//	static const CSwordBackend::moduleOptionsBool getAllModuleOptions();
+  /** 
+	* Returns the translated name of the option given as parameter.
 	*/
-	const CSwordBackend::moduleOptionsBool getAllModuleOptions();
+  static const QString getTranslatedOptionName(const CSwordBackend :: moduleOptions option);
 	
 
 	CHTMLChapterDisplay* 	m_chapterDisplay;	

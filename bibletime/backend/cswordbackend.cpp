@@ -34,6 +34,9 @@
 //Qt includes
 #include <qdir.h>
 
+//KDE includes
+#include <klocale.h>
+
 //Sword includes
 #include <swdisp.h>
 #include <swfiltermgr.h>
@@ -196,21 +199,21 @@ void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bo
 	setGlobalOption(optionName.latin1(), enable ? "On": "Off");
 }
 
-const CSwordBackend::moduleOptionsBool CSwordBackend::getAllModuleOptions(){
-	CSwordBackend::moduleOptionsBool options;
-	options.footnotes = isOptionEnabled( CSwordBackend::footnotes );
-	options.strongNumbers = isOptionEnabled( CSwordBackend::strongNumbers );
-	options.headings = isOptionEnabled( CSwordBackend::headings );
-	options.morphTags = isOptionEnabled( CSwordBackend::morphTags );
-	options.lemmas = isOptionEnabled( CSwordBackend::lemmas );
-	options.hebrewPoints = isOptionEnabled( CSwordBackend::hebrewPoints );
-	options.hebrewCantillation = isOptionEnabled( CSwordBackend::hebrewCantillation );
-	options.greekAccents = isOptionEnabled( CSwordBackend::greekAccents );
-							
-	return options;
-}
-
-
+//const CSwordBackend::moduleOptionsBool CSwordBackend::getAllModuleOptions(){
+//	CSwordBackend::moduleOptionsBool options;
+//	options.footnotes = isOptionEnabled( CSwordBackend::footnotes );
+//	options.strongNumbers = isOptionEnabled( CSwordBackend::strongNumbers );
+//	options.headings = isOptionEnabled( CSwordBackend::headings );
+//	options.morphTags = isOptionEnabled( CSwordBackend::morphTags );
+//	options.lemmas = isOptionEnabled( CSwordBackend::lemmas );
+//	options.hebrewPoints = isOptionEnabled( CSwordBackend::hebrewPoints );
+//	options.hebrewCantillation = isOptionEnabled( CSwordBackend::hebrewCantillation );
+//	options.greekAccents = isOptionEnabled( CSwordBackend::greekAccents );
+//							
+//	return options;
+//}
+//
+//
 void CSwordBackend::setAllModuleOptions( const CSwordBackend::moduleOptionsBool options){
   setOption( footnotes, 					options.footnotes );
   setOption( strongNumbers, 			options.strongNumbers );
@@ -439,6 +442,30 @@ const QString CSwordBackend::getOptionName( const CSwordBackend::moduleOptions o
 	}
 	return QString::null;	
 }
+/** Returns the translated name of the option given as parameter. */
+const QString CSwordBackend::getTranslatedOptionName(const CSwordBackend :: moduleOptions option){
+	switch (option) {
+		case CSwordBackend::footnotes:
+			return i18n("Footnotes");
+		case CSwordBackend::strongNumbers:
+			return i18n("Strong's Numbers");
+		case CSwordBackend::headings:
+			return i18n("Headings");
+		case CSwordBackend::morphTags:
+			return i18n("Morphological Tags");
+  	case CSwordBackend::lemmas:
+			return i18n("Lemmas");
+		case CSwordBackend::hebrewPoints:
+			return i18n("Hebrew Vowel Points");
+		case CSwordBackend::hebrewCantillation:
+			return i18n("Hebrew Cantillation");
+		case CSwordBackend::greekAccents:
+			return i18n("Greek Accents");
+	}
+	return QString::null;	
+
+}
+
 
 const QString CSwordBackend::getConfigOptionName( const CSwordBackend::moduleOptions option ){
 	switch (option) {

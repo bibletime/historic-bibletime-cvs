@@ -87,7 +87,7 @@ void CSwordModuleSearch::setModules( ListCSwordModuleInfo* list ){
 /** Starts the search for the search text. */
 const bool CSwordModuleSearch::startSearch() {
 	//save old module options
-	const CSwordBackend::moduleOptionsBool oldOptions = m_important->swordBackend->getAllModuleOptions();
+//	const CSwordBackend::moduleOptionsBool oldOptions = m_important->swordBackend->getAllModuleOptions();
 
 	m_important->swordBackend->setAllModuleOptions ( CBTConfig::getAllModuleOptionDefaults() );	
 			
@@ -123,7 +123,7 @@ const bool CSwordModuleSearch::startSearch() {
 	cms_overallProgress = 100;
 	pthread_mutex_unlock(&percentage_mutex);
 
-	m_important->swordBackend->setAllModuleOptions( oldOptions );
+//	m_important->swordBackend->setAllModuleOptions( oldOptions );
 	
 	m_foundItems = foundItems;
 	m_isSearching = false;

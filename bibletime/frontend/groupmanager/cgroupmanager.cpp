@@ -549,8 +549,9 @@ void CGroupManager::slotShowAbout(){
 	if (!m_pressedItem || !m_pressedItem->moduleInfo())
 		return;
 	
-	CHTMLDialog* dlg = new CHTMLDialog(this, "about dialog");
-	ASSERT(dlg);
+//	CHTMLDialog* dlg = new CHTMLDialog(this, "about dialog");
+//	QMessageBox* dlg = new QMessageBox(this, "About module");
+//	ASSERT(dlg);
 	
 	QString text;
 	
@@ -561,74 +562,105 @@ void CGroupManager::slotShowAbout(){
 	}		
 	ASSERT(module);
 		
-	QString isWritable;
-	if (module->module()->isWritable())
-		isWritable = i18n("Yes");
-	else
-		isWritable = i18n("No");			
+//	QString isWritable;
+//	if (module->module()->isWritable())
+//		isWritable = i18n("Yes");
+//	else
+//		isWritable = i18n("No");			
+//
+//	QString hasFootnotes = i18n("No");			
+//	if (module->supportsFeature(CSwordBackend::footnotes))
+//		hasFootnotes = i18n("Yes");
+//		
+//	QString hasStrongNumbers = i18n("No");
+//	if (module->supportsFeature(CSwordBackend::strongNumbers))
+//		hasStrongNumbers = i18n("Yes");
+//		
+//	QString unlockKey = QString::fromLatin1("<I>%1</I>").arg(i18n("Not necessary"));
+//	if ( module->isEncrypted() )
+//		unlockKey = module->getCipherKey();	
+//		
+//	QString encoding = i18n("Unicode") ;
+//	if (!module->isUnicode())
+//		encoding = i18n("iso8859-1");		
+//				
+//	text = QString::fromLatin1("<HTML><HEAD></HEAD><BODY>\
+//<TABLE border=\"0\" height=\"100%\" width=\"100%\" cellspacing=\"0\" cellpadding=\"2\">\
+//<TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"center\" COLSPAN=\"2\"><H2>%1</H2></TD></TR>\
+//<TR><TD BGCOLOR=\"#0F86D0\"><B>%2:</B></TD><TD BGCOLOR=\"#FFE9C8\">%3</TD></TR>\
+//<TR><TD BGCOLOR=\"#0F86D0\"><B>%4:</B></TD><TD BGCOLOR=\"#FFE9C8\">%5</TD></TR>\
+//<TR><TD BGCOLOR=\"#0F86D0\"><B>%6:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR>\
+//<TR><TD BGCOLOR=\"#0F86D0\"><B>%8:</B></TD><TD BGCOLOR=\"#FFE9C8\">%9</TD></TR>")
+//	.arg(module->name())
+//	.arg(i18n("Datapath"))
+//	.arg(module->getPath())
+//	.arg(i18n("Version"))
+//	.arg(module->hasVersion() ? module->getVersion() : QString::fromLatin1("<I>%1</I>").arg(i18n("Not available")))
+//	.arg(i18n("Unlock key"))
+//	.arg(unlockKey)
+//	.arg(i18n("Language"))
+//	.arg(QString::fromLatin1(module->module()->Lang()));
+//
+//
+//text += QString::fromLatin1("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>")
+//	.arg(i18n("Writable"))
+//	.arg(isWritable);
+//
+//		
+//text += QString::fromLatin1("\
+//<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
+//<TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
+//<TR><TD BGCOLOR=\"#0F86D0\"><B>%5:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
+//<TR><TD BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR>")
+//	.arg(i18n("Footnotes"))	
+//	.arg(hasFootnotes)
+//	.arg(i18n("Strong's numbers"))	
+//	.arg(hasStrongNumbers)
+//	.arg(i18n("Encoding"))	
+//	.arg(encoding)	
+//	.arg(i18n("Description"))	
+//	.arg(module->getDescription());
+//
+//text += QString::fromLatin1("\
+//<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
+//</TABLE></BODY></HTML>")
+//	.arg(i18n("About"))
+//	.arg(module->getAboutInformation());
 
-	QString hasFootnotes = i18n("No");			
-	if (module->supportsFeature(CSwordBackend::footnotes))
-		hasFootnotes = i18n("Yes");
-		
-	QString hasStrongNumbers = i18n("No");
-	if (module->supportsFeature(CSwordBackend::strongNumbers))
-		hasStrongNumbers = i18n("Yes");
-		
-	QString unlockKey = QString::fromLatin1("<I>%1</I>").arg(i18n("Not necessary"));
-	if ( module->isEncrypted() )
-		unlockKey = module->getCipherKey();	
-		
-	QString encoding = i18n("Unicode") ;
-	if (!module->isUnicode())
-		encoding = i18n("iso8859-1");		
-				
-	text = QString::fromLatin1("<HTML><HEAD></HEAD><BODY>\
-<TABLE border=\"0\" height=\"100%\" width=\"100%\" cellspacing=\"0\" cellpadding=\"2\">\
-<TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"center\" COLSPAN=\"2\"><H2>%1</H2></TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%2:</B></TD><TD BGCOLOR=\"#FFE9C8\">%3</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%4:</B></TD><TD BGCOLOR=\"#FFE9C8\">%5</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%6:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%8:</B></TD><TD BGCOLOR=\"#FFE9C8\">%9</TD></TR>")
-	.arg(module->name())
-	.arg(i18n("Datapath"))
+  if (module->hasVersion())
+    text += i18n("<b>Version:</b> %1<br>").arg(module->getVersion());
+
+	text += i18n("<b>Location:</b> %1<br><b>Language:</b> %2<br>")
 	.arg(module->getPath())
-	.arg(i18n("Version"))
-	.arg(module->hasVersion() ? module->getVersion() : QString::fromLatin1("<I>%1</I>").arg(i18n("Not available")))
-	.arg(i18n("Unlock key"))
-	.arg(unlockKey)
-	.arg(i18n("Language"))
-	.arg(QString::fromLatin1(module->module()->Lang()));
+	.arg(module->module()->Lang());
 
+	if (module->module()->isWritable())
+		text += i18n("<b>Writable:</b> yes<br>");
 
-text += QString::fromLatin1("<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>")
-	.arg(i18n("Writable"))
-	.arg(isWritable);
+	if ( module->isEncrypted() )
+		text += i18n("<b>Unlock key:</b> %1<br>")
+			.arg(module->getCipherKey());	
 
-		
-text += QString::fromLatin1("\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%5:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR>")
-	.arg(i18n("Footnotes"))	
-	.arg(hasFootnotes)
-	.arg(i18n("Strong's numbers"))	
-	.arg(hasStrongNumbers)
-	.arg(i18n("Encoding"))	
-	.arg(encoding)	
-	.arg(i18n("Description"))	
-	.arg(module->getDescription());
+	if (!module->isUnicode())
+		text += i18n("<b>Encoding:</b> Unicode<br>");
+	else
+		text += i18n("<b>Encoding:</b> iso8859-1<br>");		
 
-text += QString::fromLatin1("\
-<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
-</TABLE></BODY></HTML>")
-	.arg(i18n("About"))
-	.arg(module->getAboutInformation());
-	
-	dlg->setText(text);
-	dlg->exec();
-	delete dlg;	
+	QString options;
+	unsigned int opts;
+	for (opts = CSwordBackend::moduleOptionsMIN; opts <= CSwordBackend::moduleOptionsMAX; ++opts){
+		if (module->supportsFeature( (CSwordBackend::moduleOptions) opts)){
+  		if (!options.isEmpty())
+  			options += QString(", ");
+  		options += CSwordBackend::getTranslatedOptionName( (CSwordBackend::moduleOptions) opts);
+		}
+	}
+	if (!options.isEmpty())
+		text += QString("<b>Features:</b> %1<br>").arg(options);
+
+	text += QString("<b>About:</b><br> <font size=\"-1\">%1</font>").arg(module->getAboutInformation());
+
+	KMessageBox::about(this, text, QString(module->getDescription()), false);
 }
 
 /**  */
