@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE DOC ><BibleTimePrintingStyle syntaxVersion="1" name="Standard" translate="1" >
  <HEADER alignment="0" enabled="1" >
   <COLORS bgcolor="#ffffff" fgcolor="#000000" />
-  <FONT family="" weight="75" charset="15" pointsize="12" italic="0" />
+  <FONT family="" weight="75" pointsize="12" italic="0" />
   <FRAME enabled="0" />
  </HEADER>
  <DESCRIPTION alignment="0" enabled="1" >
   <COLORS bgcolor="#ffffff" fgcolor="#000000" />
-  <FONT family="" weight="50" charset="15" pointsize="10" italic="0" />
+  <FONT family="" weight="50" pointsize="10" italic="0" />
   <FRAME enabled="0" />
  </DESCRIPTION>
  <MODULETEXT alignment="0" enabled="1" >
   <COLORS bgcolor="#ffffff" fgcolor="#000000" />
-  <FONT family="" weight="50" charset="15" pointsize="10" italic="0" />
+  <FONT family="" weight="50" pointsize="10" italic="0" />
   <FRAME enabled="0" />
  </MODULETEXT>
 </BibleTimePrintingStyle>

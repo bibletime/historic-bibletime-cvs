@@ -178,8 +178,8 @@ CStyle::CStyle() :
 
 	//dummy command to translate names of standard styles
 	i18n("Standard");
-	i18n("Colored style for larger test portions");
-	i18n("Black&White for larger test portions");
+	i18n("Colored style for larger text portions");
+	i18n("Black&White for larger text portions");
 	
 	m_listViewItem = 0;
 	m_isHeaderFormatEnabled = m_isDescriptionFormatEnabled = m_isModuleTextFormatEnabled = true;
@@ -376,8 +376,6 @@ const bool CStyle::load(const QString& filename){
 			unsigned int size = object.hasAttribute("pointsize") ? object.attribute("pointsize").toInt() : QApplication::font().pointSize();
 			const int weight = object.hasAttribute("weight") ? object.attribute("weight").toInt() : QFont::Normal;
 			const bool italic = object.hasAttribute("italic") ? static_cast<bool>(object.attribute("italic").toInt()) : false;
-#warning check
-//			const QFont::CharSet charset = object.hasAttribute("charset") ? static_cast<QFont::CharSet>(object.attribute("charset").toInt()) : QApplication::font().charSet();
 			
 			if (family.isEmpty())
 				family = QApplication::font().family();
@@ -468,8 +466,6 @@ const bool CStyle::save( const QString& filename ){
 		object.setAttribute("pointsize", font.pointSize());		
 		object.setAttribute("weight", font.weight());
 		object.setAttribute("italic", font.italic());
-#warning check
-//		object.setAttribute("charset", static_cast<int>(font.charSet()));		
 		elem.appendChild(object);
 						
 		object = doc.createElement("FRAME");		

@@ -356,7 +356,7 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
  	if (m_anchor.isEmpty() && (e->button() == RightButton) && m_anchorMenu) {	//popup installed menu 	
 		m_anchorMenu->exec( e->globalPos() );
   }
-//  else if (m_popup && e->button() == RightButton){ //popup normal menu
+  else if (m_popup && e->button() == RightButton){ //popup normal menu
 //    m_selectedWord = false;
 //    QString selectedWord = QString::null;
 //
@@ -379,12 +379,12 @@ void CHTMLWidget::contentsMousePressEvent(QMouseEvent* e) {
 //	    repaintChanged();
 //	    m_selectedWord = true;
 //	  }
-//		m_popup->exec( e->globalPos() );		
+		m_popup->exec( e->globalPos() );		
 //		if (m_selectedWord && (selectedWord == selectedText()) ) {
 //			m_selectedWord = false;
 //			selectAll(false);
 //		}		
-//  }	
+  }	
 }
 
 /** Reimplementation.*/
