@@ -27,7 +27,9 @@
 #include "frontend/cbtconfig.h"
 #include "frontend/ctooltipmanager.h"
 #include "frontend/cdragdropmgr.h"
+#include "frontend/cinfodisplay.h"
 
+#include "util/cpointers.h"
 #include "util/scoped_resource.h"
 
 //Qt includes
@@ -226,49 +228,73 @@ void CHTMLReadDisplay::khtmlMousePressEvent( khtml::MousePressEvent* event ){
 
 /** Reimplementation for our drag&drop system. */
 void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
-  if( !(e->qmouseEvent()->state() & LeftButton)) { //left mouse button not pressed
-    KHTMLPart::khtmlMouseMoveEvent(e);
-    return;
-  }
+  if( e->qmouseEvent()->state() & LeftButton ) { //left mouse button pressed
+		const int delay = KGlobalSettings::dndEventDelay();
+		QPoint newPos = QPoint(e->x(), e->y());
+	
+		if ( (newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < (m_dndData.startPos.x()-delay) ||
+				newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < (m_dndData.startPos.y()-delay)) &&
+				!m_dndData.isDragging && m_dndData.mousePressed  )
+		{
+			QDragObject* d = 0;
+			if (!m_dndData.anchor.isEmpty() && m_dndData.dragType == DNDData::Link && !m_dndData.node.isNull() ) {
+			// create a new bookmark drag!
+				QString module = QString::null;
+				QString key = QString::null;
+				CReferenceManager::Type type;
+				if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) )
+					return;
+				
+				CDragDropMgr::ItemList dndItems;
+				dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); //no description!
+				d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
+			}
+			else if (m_dndData.dragType == DNDData::Text && !m_dndData.selection.isEmpty()) {    // create a new plain text drag!
+				CDragDropMgr::ItemList dndItems;
+				dndItems.append( CDragDropMgr::Item(m_dndData.selection) ); //no description!
+				d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
+			}
+	
+			if (d) {
+				m_dndData.isDragging = true;
+				m_dndData.mousePressed = false;
+	
+				//first make a virtual mouse click to end the selection, it it's in progress
+				QMouseEvent e(QEvent::MouseButtonRelease, QPoint(0,0), Qt::LeftButton, Qt::LeftButton);
+				KApplication::sendEvent(view()->viewport(), &e);
+				d->drag();
+			}
+		}
+	}
+ 	else { //no mouse button pressed
+		KHTMLPart::khtmlMouseMoveEvent(e);
+	  DOM::Node node = e->innerNode();//m_view->part()->nodeUnderMouse();
 
-  const int delay = KGlobalSettings::dndEventDelay();
-  QPoint newPos = QPoint(e->x(), e->y());
-
-  if ( (newPos.x() > m_dndData.startPos.x()+delay || newPos.x() < (m_dndData.startPos.x()-delay) ||
-       newPos.y() > m_dndData.startPos.y()+delay || newPos.y() < (m_dndData.startPos.y()-delay)) &&
-       !m_dndData.isDragging && m_dndData.mousePressed  )
-  {
-    QDragObject* d = 0;
-    if (!m_dndData.anchor.isEmpty() && m_dndData.dragType == DNDData::Link && !m_dndData.node.isNull() ) {
-    // create a new bookmark drag!
-      QString module = QString::null;
-    	QString key = QString::null;
-    	CReferenceManager::Type type;
-    	if ( !CReferenceManager::decodeHyperlink(m_dndData.anchor.string(), module, key, type) )
-    		return;
-      
-      CDragDropMgr::ItemList dndItems;
-      dndItems.append( CDragDropMgr::Item(module, key, QString::null) ); //no description!
-      d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
-    }
-    else if (m_dndData.dragType == DNDData::Text && !m_dndData.selection.isEmpty()) {    // create a new plain text drag!
-      CDragDropMgr::ItemList dndItems;
-      dndItems.append( CDragDropMgr::Item(m_dndData.selection) ); //no description!
-      d = CDragDropMgr::dragObject(dndItems, KHTMLPart::view()->viewport());
-    }
-
-    if (d) {
-      m_dndData.isDragging = true;
-      m_dndData.mousePressed = false;
-
-      //first make a virtual mouse click to end the selection, it it's in progress
-      QMouseEvent e(QEvent::MouseButtonRelease, QPoint(0,0), Qt::LeftButton, Qt::LeftButton);
-      KApplication::sendEvent(view()->viewport(), &e);
-      d->drag();
-    }
-  }
-
-  KHTMLPart::khtmlMouseMoveEvent(e);
+		DOM::Node textNode;
+		DOM::NodeList childNodes = node.childNodes();
+		int childIndex = 0;
+		while (!childNodes.item(childIndex).isNull()) {
+			DOM::Node child = childNodes.item(childIndex);
+			if ( child.getRect().contains( QPoint( e->x(), e->y() ) )) { //text has to be child of this node
+				//qWarning("in the rect: %s", child.nodeName().string().latin1());
+				childNodes = child.childNodes();
+				childIndex = 0;
+				
+				if (!childNodes.length()) {
+					textNode = child;
+					//qWarning("%i", e->offset());
+					break;
+				}
+			}
+		
+			childIndex++;
+		}
+		
+		if (!textNode.isNull()) {
+			CPointers::infoDisplay()->setText( textNode.nodeValue().string() );
+		}
+	} 
+	KHTMLPart::khtmlMouseMoveEvent(e);
 }
 /* -------------------------- */
 CHTMLReadDisplayView::ToolTip::ToolTip(CHTMLReadDisplayView* view) : CToolTip(view), m_view( view ) {
