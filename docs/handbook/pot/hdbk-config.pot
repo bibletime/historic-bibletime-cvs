@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: application/x-xml2pot; charset=utf-8\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
 #: index.docbook:1
@@ -174,47 +174,47 @@ msgstr ""
 msgid "Here is a listing of some of the fonts available:"
 msgstr ""
 
-#: index.docbook:115
+#: index.docbook:114
 #, no-c-format
 msgid "Unicode Fonts"
 msgstr ""
 
-#: index.docbook:117
+#: index.docbook:114
 #, no-c-format
 msgid "Clearlyu"
 msgstr ""
 
-#: index.docbook:117
+#: index.docbook:114
 #, no-c-format
 msgid "Included in some distributions. Contains European, Greek, Hebrew, Thai. Does not contain Chinease pictographs, or Arabic"
 msgstr ""
 
-#: index.docbook:117
+#: index.docbook:114
 #, no-c-format
 msgid "<ulink url=\"ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS\">ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS</ulink>."
 msgstr ""
 
-#: index.docbook:117
+#: index.docbook:114
 #, no-c-format
 msgid "Several fonts available from the Crosswire Bible Society ftp site."
 msgstr ""
 
-#: index.docbook:117
+#: index.docbook:114
 #, no-c-format
 msgid "Bitstream CyberBit"
 msgstr ""
 
-#: index.docbook:117
+#: index.docbook:114
 #, no-c-format
 msgid "Covers almost the entire range of Unicode."
 msgstr ""
 
-#: index.docbook:117
+#: index.docbook:114
 #, no-c-format
 msgid "Caslon, Monospace, Cupola, Caliban"
 msgstr ""
 
-#: index.docbook:117
+#: index.docbook:114
 #, no-c-format
 msgid "Partial coverage, see information on linked site."
 msgstr ""
@@ -464,122 +464,122 @@ msgstr ""
 msgid "Accelerators are special key commands that can be used in the place of the menu items and icons. A number of &bibletime;'s commands have predefined Accelerators. All of &bibletime;'s commands can be assigned accelerators here."
 msgstr ""
 
-#: index.docbook:270
+#: index.docbook:269
 #, no-c-format
 msgid "Default accelerators"
 msgstr ""
 
-#: index.docbook:272
+#: index.docbook:269
 #, no-c-format
 msgid "Action"
 msgstr ""
 
-#: index.docbook:272
+#: index.docbook:269
 #, no-c-format
 msgid "Key combination"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Auto Tile"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Ctrl+Alt+T"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Auto Cascade"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Ctrl+Alt+A"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Cascade"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Ctrl+A"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Close All"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Shift+Ctrl+A"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Configure Toolbars"
 msgstr ""
 
-#: index.docbook:279 index.docbook:279
+#: index.docbook:269 index.docbook:269
 #, no-c-format
 msgid "<entry></entry>"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Preferences"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Quit"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Ctrl+Q"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Remove Selected Item(s)"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Ctrl+Alt+D"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Reset Main Index"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Ctrl+Alt+R"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Search in Selected Module(s)"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Ctrl+Alt+S"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Tile"
 msgstr ""
 
-#: index.docbook:279
+#: index.docbook:269
 #, no-c-format
 msgid "Ctrl+T"
 msgstr ""
