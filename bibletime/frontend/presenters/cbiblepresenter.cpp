@@ -216,11 +216,6 @@ void CBiblePresenter::refresh( const int events ){
 }
 
 
-/** Reimplementation. */
-const QString CBiblePresenter::caption() const{
-	return m_key->getKey();
-}
-
 /** Copies the highlighted text into clipboard. */
 void CBiblePresenter::copyVerse(){
 	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem

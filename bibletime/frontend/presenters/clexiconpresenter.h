@@ -38,38 +38,15 @@ public:
 	* destructor
 	*/
 	~CLexiconPresenter();
-  /**
-  * Reimplmentation.
-  */
-  virtual const QString caption() const;
-
 
 private slots: // Protected slots
-  /**
-  * No descriptions
-  */
   void popupAboutToShow();
-  /**
-  * No descriptions
-  */
   void moduleChanged();
-  /**
-  * No descriptions
-  */
   void lookup(CKey*);
-  /**
-  * Printes the displayed entry of the used module.
-  */
   void printEntry();
 
 private: // Private methods
-  /**
-  * No descriptions
-  */
   void initConnections();
-  /**
-  * Initializes the view.
-  */
   void initView();
 
   CSwordLDKey* m_key;

@@ -179,11 +179,6 @@ void CLexiconPresenter::printEntry(){
 	printKey(key, key, m_moduleList.first());
 }
 
-/** Reimplmentation. */
-const QString CLexiconPresenter::caption() const {
-	return m_key->getKey();
-}
-
 /** Is called when the modules shown by this display window were changed. */
 void CLexiconPresenter::modulesChanged(){
   m_moduleList = m_moduleChooserBar->getModuleList();

@@ -92,6 +92,10 @@ public slots: // Public slots
   */
   virtual void lookup(const QString&);
   /**
+  * Returns the caption for this Sword display window.
+  */
+  virtual QString caption();
+  /**
   * Returns the used keychooser object of this presenter.
   */
   CKeyChooser* getKeyChooser() const;

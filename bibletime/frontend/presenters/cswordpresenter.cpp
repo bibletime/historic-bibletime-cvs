@@ -55,7 +55,7 @@ int CSwordPresenter::getFeatures(){
 }
 
 /** Refreshes the presenter depending on the events given as parameter. */
-void CSwordPresenter::refresh( const int events ){	
+void CSwordPresenter::refresh( const int /*events*/ ){	
 }
 
 /** Prints the key given as parameter. */
@@ -107,4 +107,19 @@ ListCSwordModuleInfo& CSwordPresenter::getModuleList() {
 /** Returns the used keychooser object of this presenter. */
 CKeyChooser* CSwordPresenter::getKeyChooser() const {
 	return m_keyChooser;
+}
+
+/** No descriptions */
+QString CSwordPresenter::caption() {
+	QString ret;
+	if (!m_moduleList.count())  {
+		return QString::null;
+	}
+	ret = QString::fromLocal8Bit(m_moduleList.first()->module()->Name());		
+	if (m_moduleList.count() > 1) {
+		for (m_moduleList.next(); m_moduleList.current(); m_moduleList.next())	 {
+			ret += " | " + QString::fromLocal8Bit(m_moduleList.current()->module()->Name());	
+		}
+	}
+	return ret;
 }

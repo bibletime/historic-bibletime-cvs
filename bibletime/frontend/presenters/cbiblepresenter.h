@@ -42,10 +42,6 @@ public:
 	* Refreshes the things which are described by the event integer.
 	*/
   virtual void refresh( const int events );
-  /**
-  * Reimplementation.
-  */
-  virtual const QString caption() const;
 
 protected:
   /**

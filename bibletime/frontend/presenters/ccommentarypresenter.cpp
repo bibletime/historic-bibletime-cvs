@@ -270,12 +270,6 @@ void CCommentaryPresenter::synchronize( CKey* syncKey ){
 	}
 }
 
-/** Reimplementation. */
-const QString CCommentaryPresenter::caption() const {
-	return m_key->getKey();
-}
-
-
 /** No descriptions */
 void CCommentaryPresenter::insertReference(const QString& reference){
 	if (m_htmlWidget->isReadOnly())

@@ -136,7 +136,7 @@ public slots:
  	* Reimplementation from QWidget.
  	* Sets the correct plain caption.
  	*/
-  virtual void setPlainCaption( const QString& );
+//  virtual void setPlainCaption( const QString& );
 
 protected: // Protected methods
   /**

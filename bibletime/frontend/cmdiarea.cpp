@@ -69,9 +69,9 @@ void CMDIArea::initConnections(){
 /** Called whan a client window was activated */
 void CMDIArea::slotClientActivated(QWidget* client){
 	if (!client)
-		return;
-				
-	emit sigSetToplevelCaption( QString("%1").arg(client->caption().stripWhiteSpace()) );	
+		return;				
+	emit sigSetToplevelCaption( client->caption().stripWhiteSpace() );	
+	
 	if (client->isA("CBiblePresenter")) {
 		CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
 		syncCommentaries( p->getKeyChooser()->getKey() );
@@ -93,23 +93,27 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 	}	
 	
 	if (e->inserted() || e->removed()) {
+		QWidget* c = (QWidget*)e->child();
+		if (c)
+			emit sigSetToplevelCaption( c->caption() );	
+		
 		switch (guiOption) {
 	 		case autoTile:
-	 				resizeEvent(0);
+ 				resizeEvent(0);
 	 			break;
 	 		case autoCascade:
-	 				resizeEvent(0);
+ 				resizeEvent(0);
 	 			break;
 	 		case Nothing:
 	 			break;
 		}
 	}
 	
-	if (e->type() == QEvent::ShowMaximized || e->type() == QEvent::ShowNormal || e->type() == QEvent::ShowMinimized ) {
-		QWidget* c = (QWidget*)e->child();
-		if (c)
-			emit sigSetToplevelCaption( QString("%1").arg(c->caption()) );	
-	}
+//	if (e->type() == QEvent::ShowMaximized || e->type() == QEvent::ShowNormal || e->type() == QEvent::ShowMinimized || e->inserted() || e->removed() || e->type() == QEvent::CaptionChange) {
+////		QWidget* c = (QWidget*)e->child();
+//		if (activeWindow())
+//			emit sigSetToplevelCaption( activeWindow()->caption() );	
+//	}
 	m_childEvent = false;
 }
 
@@ -174,7 +178,7 @@ void CMDIArea::tile(){
 	
 	if (windowList().count() == 1) {
 		windowList().at(0)->showMaximized();
-		emit sigSetToplevelCaption( QString("%1").arg(windowList().at(0)->caption().stripWhiteSpace()) );			
+//		emit sigSetToplevelCaption( QString("%1").arg(windowList().at(0)->caption().stripWhiteSpace()) );			
 	}		
 	else
 		QWorkspace::tile();
@@ -187,7 +191,7 @@ void CMDIArea::cascade(){
 		
 	if (windowList().count() == 1) {
 		windowList().at(0)->showMaximized();
-		emit sigSetToplevelCaption( QString("%1").arg(windowList().at(0)->caption().stripWhiteSpace()) );			
+//		emit sigSetToplevelCaption( QString("%1").arg(windowList().at(0)->caption().stripWhiteSpace()) );			
 	}
  	else
 		QWorkspace::cascade(); 		
