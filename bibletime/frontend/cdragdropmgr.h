@@ -122,7 +122,7 @@ public:
   * Returns a list of CDragDropMgr::Item objects.
   * If it's a wrong dropEvent we return an empty ist
   */
-  static CDragDropMgr::ItemList decode( const QMimeSource* const dropEvent  ); 
+  static CDragDropMgr::ItemList decode( const QMimeSource* const src  ); 
   /**
   * Returns which type the given drop event has, if it's a mixed one (both bookmarks and plain text),
   * which shouldn't happen, it return Item::Unknown.

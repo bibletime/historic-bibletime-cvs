@@ -35,7 +35,6 @@
 
 //frontend includes
 #include "frontend/kstartuplogo.h"
-#include "frontend/chtmldialog.h"
 #include "frontend/cbtconfig.h"
 
 //Qt includes
@@ -240,8 +239,8 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
       KStartupLogo::hideSplash();
 
       CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
-			CHTMLDialog dlg(CResMgr::helpDialog::firstStart);
-			dlg.exec();
+//			CHTMLDialog dlg(CResMgr::helpDialog::firstStart);
+//			dlg.exec();
 			bibletime->slotSettingsOptions();
 
 //      KStartupLogo::showSplash();

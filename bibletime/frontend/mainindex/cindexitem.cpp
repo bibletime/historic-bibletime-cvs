@@ -592,7 +592,8 @@ const bool CFolderBase::allowAutoOpen( const QMimeSource* ) const{
 }
 
 /** Reimplementation. Returns false because folders have no use for drops (except for the bookmark folders) */
-bool CFolderBase::acceptDrop(const QMimeSource* /*src*/){
+bool CFolderBase::acceptDrop(const QMimeSource*){
+  qWarning("CFolderBase::acceptDrop");
   return false;
 }
 
@@ -1033,24 +1034,26 @@ void CBookmarkFolder::importBookmarks(){
 }
 
 bool CBookmarkFolder::acceptDrop(const QMimeSource * src) const {
+  qWarning("bool CBookmarkFolder::acceptDrop(const QMimeSource * src): return%ii", (CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark)));
   return (CDragDropMgr::canDecode(src) && (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark));
 }
 
 void CBookmarkFolder::dropped(QDropEvent *e) {
-//  qWarning("CBookmarkFolder::dropped accept?");  
+  qWarning("CBookmarkFolder::dropped?");  
   if (acceptDrop(e)) {
-//    qWarning("CBookmarkFolder: item dropped");
+    qWarning("CBookmarkFolder: item drop accepted");
     CDragDropMgr::ItemList dndItems = CDragDropMgr::decode(e);
 
+    qWarning("decoded items: %i", dndItems.count() );
     CDragDropMgr::ItemList::Iterator it;
     CItemBase* previousItem = 0;
     for( it = dndItems.begin(); it != dndItems.end(); ++it) {
       CSwordModuleInfo* module = backend()->findModuleByName( (*it).bookmarkModule() );
       CBookmarkItem* i = new CBookmarkItem(this, module, (*it).bookmarkKey(), (*it).bookmarkDescription());
-//      qWarning("created new item");
+      qWarning("created new item");
       if (previousItem) {
         i->moveAfter( previousItem );
-//        qWarning("moved new item");        
+        qWarning("moved new item");        
       }
       i->init();
       previousItem = i;

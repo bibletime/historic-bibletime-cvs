@@ -82,12 +82,11 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   m_display->view()->layout();
     
   // resize to the size hint,
-  // we can't grow too large
-  // because maximumSize was set in the constructor
-  resize( sizeHint().width(), m_display->view()->height()+4 );
+  // we can't grow too large because maximumSize was set in the constructor
+  resize( sizeHint().width(),  m_display->view()->height()+4 );
     
   // if the scrollbar is not visible position the tooltip
-  // that the tip will be hidden as soon as the mouse will be oved
+  // that the tip will be hidden as soon as the mouse will be moved
   // if the bar s visible position the tip under the mouse so moving the bar is still possible
   const QPoint mp = (m_display->view()->verticalScrollBar()->isVisible()) ? QPoint(p.x()-10, p.y()-10) : QPoint(p.x()+10, p.y()+10);
   QPoint pos = parentWidget()->mapToGlobal( mp );
@@ -134,8 +133,10 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
       }
 
       if ( !m_display->view()->verticalScrollBar()->isVisible()
-        || (m_display->view()->verticalScrollBar()->isVisible() && !widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos() ))
-      ) {
+		||  (m_display->view()->verticalScrollBar()->isVisible() && !widgetContainsPoint(m_display->view()->verticalScrollBar(),
+            me->globalPos() )
+      ))
+    {
         killTimers();
         hide();
         break;
@@ -145,7 +146,7 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
       
     case QEvent::MouseButtonRelease: {
       //allow clicking on the scrollbar for reading the text
-      if (    m_display->view()->verticalScrollBar()->isVisible()
+      if (      m_display->view()->verticalScrollBar()->isVisible()
           && (m_display->view()->verticalScrollBar()->draggingSlider() || widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos()))
       ) {
         break;
@@ -168,7 +169,7 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
     case QEvent::MouseMove:
     {
       const bool validMousePos = //true when the mouse is at a valid position, false if not. In this case hide the tooltip.
-                 widgetContainsPoint(this, me->globalPos())
+				 widgetContainsPoint(this, me->globalPos())
               || m_tipRect.contains( me->globalPos() )
               || m_display->view()->verticalScrollBar()->draggingSlider(); //if the user's scrolling and moved the mouse out of the area
 
@@ -189,11 +190,21 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
           break;
         }
 
-        if (QWidget* w = KApplication::widgetAt( me->globalPos(), true )) { //check whther parentWidget is visible on top
-          while ( w && w != parentWidget()) {
+        if (QWidget* w = KApplication::widgetAt( me->globalPos(), true )) { //check whether parentWidget is visible on top
+          while ( w && (w != parentWidget()) ) {
+            if (w->isPopup()) {
+				break;
+			}
+			
             w = w->parentWidget();
           }
-          if (w == parentWidget()) { //if we processed the event of one of parentWidget()'s childs
+
+          const bool validPopup = KApplication::activePopupWidget() ? (KApplication::activePopupWidget() == parentWidget()) : true;
+          if (w && (w == parentWidget()) && validPopup) { //inside the parent widget and not a popup which appears outside of parentwidget
+		  	// if we processed the event of one of parentWidget()'s childs
+		   // but we have to make sure the toplevel widget isn't a child popup of the parent widget which hides the parent
+		   // In this case the tooltip would be wrong
+		   
             startTimer(1500);
           }
           else {

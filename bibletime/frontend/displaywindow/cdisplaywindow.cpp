@@ -283,7 +283,6 @@ void CDisplayWindow::setModuleChooserBar( CModuleChooserBar* bar ){
 void CDisplayWindow::setModules( ListCSwordModuleInfo newModules ){
   m_modules.clear();
   for (newModules.first(); newModules.current(); newModules.next()) {
-    qWarning("appended %s", newModules.current()->name().latin1());
     m_modules.append(newModules.current()->name());
   }
 }

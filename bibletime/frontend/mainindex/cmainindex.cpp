@@ -65,7 +65,7 @@ void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
 	//get type of item and display correct text
 	const QString text = i->toolTip();
 	if (!text.isEmpty()) {
-    QPoint globalPoint = m->viewport()->mapTo(m, p);
+    	QPoint globalPoint = m->viewport()->mapTo(m, p);
 		tip(globalPoint, r, text);
 	}
 }
@@ -111,26 +111,26 @@ void CMainIndex::initView(){
  	header()->hide();
 
  	m_toolTip = new ToolTip(this);
-  setTooltipColumn(-1);
-  setShowToolTips(false);//to disable Qt's tooltips
+    setTooltipColumn(-1);
+    setShowToolTips(false);//to disable Qt's tooltips
  	 		
 	setBackgroundMode(PaletteBase);
 //	setSorting(-1);
   setFullWidth(true);
 
-  setAcceptDrops( true );
-  setDragEnabled( true );
-  setDropVisualizer( true );
-  setDropHighlighter( true );
-  setAutoOpen(true);
+  	setAcceptDrops( true );
+  	setDragEnabled( true );
+	setDropVisualizer( true );
+  	setDropHighlighter( true );
+  	setAutoOpen(true);
  	viewport()->setAcceptDrops(true);
  	setRootIsDecorated(false);
  	setAllColumnsShowFocus(true);
-  setItemsMovable(false);
-  setSelectionModeExt(Extended);
+  	setItemsMovable(false);
+  	setSelectionModeExt(Extended);
 
   //setup the popup menu
-  m_popup = new KPopupMenu(this);
+  m_popup = new KPopupMenu(viewport());
   m_popup->insertTitle(i18n("Main index"));
 
   m_actions.newFolder = new KAction(i18n("Create a new folder"), CResMgr::mainIndex::newFolder::icon, 0, this, SLOT(createNewFolder()), this);
@@ -175,8 +175,8 @@ void CMainIndex::initView(){
 void CMainIndex::initConnections(){
   connect(this, SIGNAL(executed(QListViewItem*)),
     SLOT(slotExecuted(QListViewItem*)));
-  connect(this, SIGNAL(dropped(QDropEvent*, QListViewItem*)),
-    SLOT(dropped(QDropEvent*, QListViewItem*)));
+  connect(this, SIGNAL(dropped(QDropEvent*, QListViewItem*, QListViewItem*)),
+    SLOT(dropped(QDropEvent*, QListViewItem*, QListViewItem*)));
 //  connect(this, SIGNAL(moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)),
 //    SLOT(moved( QPtrList<QListViewItem>& items, QPtrList<QListViewItem>& afterFirst, QPtrList<QListViewItem>& afterNow)));
   connect(this, SIGNAL(contextMenu(KListView*, QListViewItem*, const QPoint&)),
@@ -224,6 +224,7 @@ QDragObject* CMainIndex::dragObject() {
       if (!i->isMovable()) { //we can only drag items which allow us to do it, e.g. which are movable
         continue;
       };
+
       if (CBookmarkItem* bookmark = dynamic_cast<CBookmarkItem*>( items.current() )) {
         //take care of bookmarks which have no valid module any more, e.g. if it was uninstalled
         const QString moduleName = bookmark->module() ? bookmark->module()->name() : QString::null;
@@ -232,20 +233,14 @@ QDragObject* CMainIndex::dragObject() {
     }
   }
 
-
-  QDragObject* d = CDragDropMgr::dragObject( dndItems, viewport() );
-  return d;
+  return CDragDropMgr::dragObject( dndItems, viewport() );
 }
 
 /** Reimplementation from KListView. Returns true if the drag is acceptable for the listview. */
 bool CMainIndex::acceptDrag( QDropEvent* event ) const {
 //  qWarning("CMainIndex::acceptDrag( QDropEvent* event )");
-//  if (m_itemsMovable) {
-////    qWarning("return true");
-//    return true;
-//  }
 
-  QPoint pos = contentsToViewport(event->pos());
+  const QPoint pos = contentsToViewport(event->pos());
   if (CItemBase* i = dynamic_cast<CItemBase*>(itemAt(pos))) {
     return i->acceptDrop(event);
   }
@@ -264,22 +259,27 @@ void CMainIndex::initTree(){
 }
 
 /** No descriptions */
-void CMainIndex::dropped( QDropEvent* e, QListViewItem* onItem){
+void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* after){
+//  qWarning("CMainIndex::dropped");
+////  Q_ASSERT(after);
+////  Q_ASSERT(parent);
+
+  //the drop was started in this main index widget
   if (m_itemsMovable && e->source() == viewport()) {
     /*
     * If the drag was started from the main index and should move items and if the destination is the bookmark
     * folder or one of its subfolders
     * we remove the current items because the new ones will be inserted soon.
     */
-    if (dynamic_cast<CBookmarkFolder*>(onItem) || dynamic_cast<Bookmarks::SubFolder*>(onItem)) { //we drop onto the bookmark folder or one subfolder
+    if (dynamic_cast<CBookmarkFolder*>(parent) || dynamic_cast<Bookmarks::SubFolder*>(parent)) { //we drop onto the bookmark folder or one of it's subfolders
       QPtrList<QListViewItem> items = selectedItems();
       items.setAutoDelete(true);
-      items.clear(); //delete the current items
+      items.clear(); //delete the selected items we dragged
     };
   };
 
-  //finally do the drop.
-  if (CItemBase* i = dynamic_cast<CItemBase*>(onItem)) {
+  //finally do the drop, either with external drop data or with the moved items' data
+  if (CItemBase* i = dynamic_cast<CItemBase*>(parent)) {
     i->setOpen(true);
     i->dropped(e);
   }
@@ -483,19 +483,24 @@ void CMainIndex::startDrag(){
 
 /** Reimplementation to support the items dragEnter and dragLeave functions. */
 void CMainIndex::contentsDragMoveEvent( QDragMoveEvent* event ){
+//  qWarning("void CMainIndex:: drag move event ( QDragLeaveEvent* e )");
   if ( CItemBase* i = dynamic_cast<CItemBase*>( itemAt( contentsToViewport(event->pos())) )) {
   	if (i->allowAutoOpen(event) || (i->acceptDrop(event) && i->isFolder() && i->allowAutoOpen(event) && !i->isOpen() && autoOpen()) ) {
-      if (m_autoOpenFolder != i)
+//       qWarning("autoopen: %s", i->text(0).latin1());
+      if (m_autoOpenFolder != i)  {
         m_autoOpenTimer.stop();
+      }
       m_autoOpenFolder = i;
       m_autoOpenTimer.start( 400, true );
     }
-    else
+    else {
       m_autoOpenFolder = 0;
+    }
   }
-  else
+  else {
     m_autoOpenFolder = 0;
-
+  }
+  
   KListView::contentsDragMoveEvent(event);
 }
 
@@ -508,8 +513,8 @@ void CMainIndex::autoOpenTimeout(){
 
 /** No descriptions */
 void CMainIndex::contentsDragLeaveEvent( QDragLeaveEvent* e ){
+//  qWarning("void CMainIndex::contentsDragLeaveEvent( QDragLeaveEvent* e )");
   m_autoOpenTimer.stop();
-
   KListView::contentsDragLeaveEvent(e);
 }
 
@@ -588,7 +593,7 @@ void CMainIndex::reloadSword(){
 /** Saves the bookmarks to disk */
 void CMainIndex::saveBookmarks(){
   //find the bookmark folder
-  qWarning("void CMainIndex::saveBookmarks(){");
+//  qWarning("void CMainIndex::saveBookmarks(){");
   CItemBase* i = 0;
   QListViewItemIterator it( this );
   while ( it.current() != 0 ) {

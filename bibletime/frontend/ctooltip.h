@@ -25,10 +25,10 @@
 #include <khtml_part.h>
 #include <khtmlview.h>
 
-/**Our own ToolTip widget which uses KHTMLView to display the tooltip.
-  *@author The BibleTime team
-  */
-
+/** Our own ToolTip widget which uses KHTMLView to display the tooltip.
+	* Portions the code were inspired by Konqueror's tooltip code
+	* @author The BibleTime team
+  	*/
 class CToolTip : public QFrame  {
    Q_OBJECT
 public: 

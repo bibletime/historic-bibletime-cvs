@@ -21,7 +21,6 @@
 #include "backend/cswordversekey.h"
 
 #include "frontend/cbtconfig.h"
-#include "frontend/chtmldialog.h"
 
 #include "util/cresmgr.h"
 #include "util/ctoolclass.h"
@@ -39,6 +38,7 @@
 #include <qsizepolicy.h>
 #include <qpushbutton.h>
 #include <qheader.h>
+#include <qregexp.h>
 
 //KDE includes
 #include <kapplication.h>
@@ -114,11 +114,11 @@ CSearchDialog::~CSearchDialog(){
 void CSearchDialog::show(){
   KDialogBase::show();
 
-  if (CBTConfig::get(CBTConfig::firstSearchDialog)) { //is this the first time we show the dialog?
-    CHTMLDialog dlg(CResMgr::helpDialog::firstTimeSearchDialog);
-    dlg.exec();
-    CBTConfig::set(CBTConfig::firstSearchDialog, false);
-  };  
+//  if (CBTConfig::get(CBTConfig::firstSearchDialog)) { //is this the first time we show the dialog?
+//    CHTMLDialog dlg(CResMgr::helpDialog::firstTimeSearchDialog);
+//    dlg.exec();
+//    CBTConfig::set(CBTConfig::firstSearchDialog, false);
+//  };  
 }
 
 /** Starts the search with the set modules and the set search text. */

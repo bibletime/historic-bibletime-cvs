@@ -20,7 +20,6 @@
 #include "bibletime.h"
 
 //frontend includes
-#include "frontend/chtmldialog.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/kstartuplogo.h"
 #include "frontend/mainindex/cmainindex.h"
@@ -159,9 +158,9 @@ void BibleTime::readSettings(){
 CDisplayWindow* BibleTime::createReadDisplayWindow(ListCSwordModuleInfo modules, const QString& key) {
   kapp->setOverrideCursor( waitCursor );
 
-  qWarning("will create now displayWindow (bibletime)");
+//  qWarning("will create now displayWindow (bibletime)");
   CDisplayWindow* displayWindow = CDisplayWindow::createReadInstance(modules, m_mdi);
-  qWarning("created displayWindow (bibletime)");
+//  qWarning("created displayWindow (bibletime)");
   if ( displayWindow ) {
   	displayWindow->init(key);
 		displayWindow->show();

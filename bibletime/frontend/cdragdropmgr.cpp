@@ -147,7 +147,7 @@ const bool CDragDropMgr::canDecode( const QMimeSource* const mime ) {
     return true;
   }
   else if( QTextDrag::canDecode(mime) ) {
-//    qWarning("QTextDrag can decode this mime!");
+    qWarning("QTextDrag can decode this mime!");
     return true;
   };
   return false;
@@ -190,7 +190,7 @@ QDragObject* const CDragDropMgr::dragObject( CDragDropMgr::ItemList& items, QWid
   return 0;
 };
 
-CDragDropMgr::ItemList CDragDropMgr::decode( const QMimeSource* const src ) {
+CDragDropMgr::ItemList CDragDropMgr::decode( const QMimeSource* const  src) {
   //if the drag was started by another widget which doesn't use CDragDropMgr (a drag created by QTextDrag)
   if (canDecode(src) && QTextDrag::canDecode(src)) { //if we can decode but it's a QTextDrag and not a BTDrag object
     QString text;

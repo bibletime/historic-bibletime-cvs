@@ -108,7 +108,7 @@ protected slots: // Protected slots
   * Is called when an item was clicked/double clicked.
   */
   void slotExecuted( QListViewItem* );
-  void dropped( QDropEvent*, QListViewItem*);
+  void dropped( QDropEvent*, QListViewItem*, QListViewItem*);
   /**
   * Shows the context menu at the given position.
   */
