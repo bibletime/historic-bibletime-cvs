@@ -511,10 +511,11 @@ void CSearchResultPage::updatePreview(const QString& key){
 			vk.next(CSwordVerseKey::UseVerse);
 			const QString endKey = vk.key();
 
-			qWarning("want to render from %s to %s", startKey.latin1(), endKey.latin1());				
+// 			qWarning("want to render from %s to %s", startKey.latin1(), endKey.latin1());				
 			//now render the range
 			settings.keyRenderingFace = CTextRendering::KeyTreeItem::Settings::CompleteShort;
 			text = render.renderKeyRange(startKey, endKey, modules, key, settings);
+// 			qWarning(text.latin1());
 		}
 		else {
 			text = render.renderSingleKey(key, modules, settings);
@@ -877,9 +878,12 @@ const CSwordModuleSearch::scopeType CSearchOptionsPage::scopeType(){
   return CSwordModuleSearch::Scope_NoScope;
 }
 void CSearchOptionsPage::editRegExp(int buttonID){
-	if (buttonID != m_regexpRadioID) //regular expression selected?
+	if (buttonID != m_regexpRadioID) { //regular expression selected?
 		return;
+	}
+		
 	QDialog *editorDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor" );
+	
 	if ( editorDialog ) {
 		// kdeutils was installed, so the dialog was found fetch the editor interface
 		KRegExpEditorInterface *editor = static_cast<KRegExpEditorInterface *>( editorDialog->qt_cast( "KRegExpEditorInterface" ) );
@@ -887,13 +891,13 @@ void CSearchOptionsPage::editRegExp(int buttonID){
 
 		// now use the editor.
 		editor->setRegExp( searchText() );
+		
 		// Finally exec the dialog
 		if (editorDialog->exec() == QDialog::Accepted){
 			m_searchTextCombo->setCurrentText( editor->regExp() );
 		}
 	}
-	else {
-		// Don't offer the dialog.
-	}
+	
+	// else: Don't offer the dialog.
 };
 
