@@ -25,6 +25,7 @@
 #include <iostream>
 
 using std::cout;
+using std::endl;
 
 CSwordBookModuleInfo::CSwordBookModuleInfo( SWModule* module )
 	: CSwordModuleInfo(module), m_depth(-1)

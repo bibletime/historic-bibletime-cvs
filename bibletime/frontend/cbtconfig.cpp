@@ -138,7 +138,7 @@ const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
 ////				}
 ////			}
 ////			qWarning("--------");		
-#warning reimplement -> maybe using QFontDatabase::script ?
+//#warning reimplement -> maybe using QFontDatabase::script ?
 			return QApplication::font();
 		}
 		
@@ -382,7 +382,7 @@ const CSwordBackend::FilterOptionsBool CBTConfig::getFilterOptionDefaults(){
 }
 
 void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
-	KConfig* config = KGlobal::config();	
+//	KConfig* config = KGlobal::config();	
 	
 	switch (type) {
 		case bookWindow : {

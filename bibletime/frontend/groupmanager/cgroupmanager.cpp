@@ -67,6 +67,7 @@
 
 
 using std::cout;
+using std::endl;
 
 CGroupManager::ToolTip::ToolTip(QWidget* parent) : QToolTip(parent) {
 }
@@ -1291,7 +1292,7 @@ const bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* gro
 		groupExists = false;
 		if ( (*it_parents) == -1) { //no parent item saved
 			if (action == Import) { //try to find existing group
-				if (CGroupManagerItem* existingGroup = findGroup(*it_groups, group, *it_parents))
+				if (/*CGroupManagerItem* existingGroup =*/ findGroup(*it_groups, group, *it_parents))
 					groupExists = true;
 			}
 			else
@@ -1387,8 +1388,8 @@ void CGroupManager::viewportPaintEvent(QPaintEvent* e) {
     if (!invalidated)
     {
       invalidated=true;
-#warning deleting this made the drop visualization work again. No idea why. ;)
-#warning please somebody with more in-depth knowledge check this.
+//#warning deleting this made the drop visualization work again. No idea why. ;)
+//#warning please somebody with more in-depth knowledge check this.
 //      viewport()->repaint(m_oldDragRect);
     }
     QPainter painter(viewport());

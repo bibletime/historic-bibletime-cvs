@@ -21,7 +21,7 @@
 
 #include "resource.h"
 
-#include "frontend/cdisplaywidget.h"
+#include "frontend/chtmlwidget.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/keychooser/ckeychooser.h"
@@ -29,6 +29,7 @@
 #include "backend/cswordldkey.h"
 #include "backend/chtmlentrydisplay.h"
 #include "backend/cswordbackend.h"
+
 
 //Qt includes
 #include <qclipboard.h>
@@ -40,6 +41,7 @@
 #include <kpopupmenu.h>
 #include <kfiledialog.h>
 #include <kaccel.h>
+//#include <kaccelaction.h>
 
 CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, parent,name),
@@ -77,8 +79,8 @@ void CLexiconPresenter::initView(){
 	m_moduleChooserBar = new CModuleChooserBar(m_moduleList, CSwordModuleInfo::Lexicon, this );
 	addToolBar(m_moduleChooserBar);
 	
-//	m_htmlWidget = new CHTMLWidget(true, this);
-  m_displayWidget = new CDisplayWidget(this);
+	m_htmlWidget = new CHTMLWidget(true, this);
+
 		
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
@@ -89,36 +91,37 @@ void CLexiconPresenter::initView(){
 	m_copyPopup->insertItem(i18n("Text of entry"), this, SLOT(copyEntryText()),0,ID_PRESENTER_COPY_KEY_TEXT);	
 	m_copyPopup->insertItem(i18n("Entry with text"), this, SLOT(copyEntryAndText()),0,ID_PRESENTER_COPY_KEY);
 	m_copyPopup->insertSeparator();
-	m_copyPopup->insertItem(i18n("Selected text"), m_displayWidget, SLOT(copySelection()),0,ID_PRESENTER_COPY_SELECTED);
+	m_copyPopup->insertItem(i18n("Selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);
 	
 	m_printPopup = new KPopupMenu(m_popup);
 	m_printPopup->insertItem(i18n("Entry with text"), this, SLOT(printEntry()),0,ID_PRESENTER_PRINT_KEY);
 
 	m_savePopup = new KPopupMenu(m_popup);	
-	m_savePopup->insertItem(i18n("Entry as plain text"), m_displayWidget, SLOT(saveAsPlain()),0,ID_PRESENTER_SAVE_CHAPTER);
-	m_savePopup->insertItem(i18n("Entry as HTML"), m_displayWidget, SLOT(saveAsHTML()),0,ID_PRESENTER_SAVE_CHAPTER_HTML);	
+	m_savePopup->insertItem(i18n("Entry as plain text"), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_CHAPTER);
+	m_savePopup->insertItem(i18n("Entry as HTML"), m_htmlWidget, SLOT(slotSaveAsHTML()),0,ID_PRESENTER_SAVE_CHAPTER_HTML);	
 
-	m_popup->insertItem(i18n("Select all"), m_displayWidget, SLOT(selectAll()),0, ID_PRESENTER_SELECT_ALL);
+	m_popup->insertItem(i18n("Select all"), m_htmlWidget, SLOT(slotSelectAll()),0, ID_PRESENTER_SELECT_ALL);
   m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP);	
 	m_popup->insertSeparator();	
 	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY),i18n("Copy..."), 	m_copyPopup, ID_PRESENTER_COPY_POPUP);	
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup, ID_PRESENTER_PRINT_POPUP);	
 	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup,ID_PRESENTER_SAVE_POPUP);		
 
-	
-  m_displayWidget->view()->installPopup(CDisplayWidgetView::Normal, m_popup);
-	m_displayWidget->view()->installPopup(CDisplayWidgetView::Anchor, m_popup );
 
-	setCentralWidget(m_displayWidget->view());
+	m_htmlWidget->installPopup(m_popup);	
+	m_htmlWidget->installAnchorMenu(m_popup);
+	m_htmlWidget->setModules(m_moduleList);	
+
+	setCentralWidget(m_htmlWidget);
 	setIcon(LEXICON_ICON_SMALL);
 }
 
 /** No descriptions */
 void CLexiconPresenter::initConnections(){
-	connect(m_displayWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
+	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
 		this, SLOT(lookup(const QString&, const QString&)));
-	connect(m_displayWidget, SIGNAL(referenceDropped(const QString&, const QString&)),
-		this, SLOT(referenceDropped(const QString&, const QString&)));
+	connect(m_htmlWidget, SIGNAL(referenceDropped(const QString&)),
+		this, SLOT(referenceDropped(const QString&)));
 
  	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
 		this, SLOT(lookup(CSwordKey*)));
@@ -145,7 +148,7 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 			m_moduleList.first()->getDisplay()->Display( &m_moduleList );
 		else
 			m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
-		m_displayWidget->setText(m_moduleList.first()->getDisplay()->getHTML());
+		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());
 	}	
 	if (m_key != ldKey)
 		m_key->key(ldKey->key());
@@ -156,9 +159,9 @@ void CLexiconPresenter::lookup(CSwordKey* key){
 
 /** No descriptions */
 void CLexiconPresenter::popupAboutToShow(){
-	const bool hasSelection = m_displayWidget->hasSelection();
-  m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, hasSelection );
-	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, hasSelection);	
+	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
+
+	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());	
 }
 
 /** No descriptions */
@@ -180,7 +183,7 @@ void CLexiconPresenter::refresh( ){
 //	CSwordPresenter::refresh();	//refreshes the display settings button
 
 	lookup(m_key);
-//	m_htmlWidget->refresh();
+	m_htmlWidget->refresh();
 }
 
 /** Is called when the modules shown by this display window were changed. */
@@ -193,7 +196,7 @@ void CLexiconPresenter::modulesChanged(){
 //    refreshFeatures();
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
-//		m_htmlWidget->setModules(m_moduleList);		
+		m_htmlWidget->setModules(m_moduleList);		
 	  lookup(m_key);
 	}
 }
@@ -206,7 +209,7 @@ void CLexiconPresenter::optionsChanged(){
 void CLexiconPresenter::copyEntry(){
 	CSwordLDKey key(m_moduleList.first());	//this key is deleted by the printem
 	key.key(m_key->key());
-	QString currentAnchor = m_displayWidget->activeURLNode();
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
 	key.key(currentAnchor);
@@ -219,7 +222,7 @@ void CLexiconPresenter::copyEntry(){
 void CLexiconPresenter::copyEntryText(){
 	CSwordLDKey key(m_moduleList.first());	//this key is deleted by the printem
 	key.key(m_key->key());
-	QString currentAnchor = m_displayWidget->activeURLNode();
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
 	key.key(currentAnchor);
@@ -232,7 +235,7 @@ void CLexiconPresenter::copyEntryText(){
 void CLexiconPresenter::copyEntryAndText(){
 	CSwordLDKey key(m_moduleList.first());	//this key is deleted by the printem
 	key.key(m_key->key());
-	QString currentAnchor = m_displayWidget->activeURLNode();
+	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
 	key.key(currentAnchor);
@@ -249,7 +252,7 @@ void CLexiconPresenter::printEntry(){
 
 /** Inserts the used keyboard actions into the given KAccel object. */
 void CLexiconPresenter::insertKeyboardActions(KAccel* const a){
-#warning Check
+//#warning Check
 //	a->setConfigGroup("Lexicon window");	
 	a->insert("Next entry",     i18n("Next entry"),     "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);
 	a->insert("Previous entry", i18n("Previous entry"), "", IDK_PRESENTER_NEXT_ENTRY, 0, "", true, true);	

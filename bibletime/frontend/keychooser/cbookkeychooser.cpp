@@ -73,7 +73,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 	}
 	
 	//clear the combos which were not filled
-	for (; depth < m_module->depth(); ++depth)  {
+	for (; depth < (unsigned int)m_module->depth(); ++depth)  {
 		CKeyChooserWidget* chooser = m_chooserWidgets.at(depth);
 		if (chooser)
 			chooser->reset(0,0,false);

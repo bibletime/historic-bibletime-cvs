@@ -86,7 +86,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"H\"", 29)) {
 			char num[12];
-			for (i = 29; i < tokenLength; i++)
+			for (i = 29; i < (unsigned long)tokenLength; i++)
 				if(token[i] != '\"')
 					num[i-29] = token[i];
 			num[i-29] = 0;
@@ -96,7 +96,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
 			char num[12];
-			for (i = 29; i < tokenLength; i++)
+			for (i = 29; i < (unsigned long)tokenLength; i++)
 				if(token[i] != '\"')
 					num[i-29] = token[i];
 			num[i-29] = 0;
@@ -110,7 +110,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			if (!strncmp(token, "scripRef v", 10)) { //module given
 
 				char module_version[500];
-				for (i = 18; i < tokenLength-1; i++) {
+				for (i = 18; i < (unsigned long)tokenLength-1; i++) {
 					if(token[i] != '\"')
 						module_version[i-18] = token[i];						
 					else
@@ -122,7 +122,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 			}
 			else if (!strncmp(token, "scripRef p", 10)) { //passage without module
 				char verse_str[5000];
-				for (i = 18; i < tokenLength-1; i++) {
+				for (i = 18; i < (unsigned long)tokenLength-1; i++) {
 					if(token[i] != '\"')
 						verse_str[i-18] = token[i];
 					else
@@ -137,7 +137,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 				char verse_str[5000];
 				i+=11;			
 				int idx = 0;	
-				for (; i < tokenLength-1; i++,idx++)	{
+				for (; i < (unsigned long)tokenLength-1; i++,idx++)	{
 					if(token[i] != '\"')
 						verse_str[idx] = token[i];
 					else
@@ -216,7 +216,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 		}		
 		else { // let token pass thru
 			*(*buf)++ = '<';
-			for (i = 0; i < tokenLength; i++)
+			for (i = 0; i < (unsigned long)tokenLength; i++)
 				*(*buf)++ = token[i];
 				*(*buf)++ = '>';
 		}

@@ -697,10 +697,12 @@ void CHTMLWidget::emitHighlighted( const QString& s ){
 //}
 
 /** Returns a list of modules which are used by the display window which uses this HTML widget. */
-ListCSwordModuleInfo& CHTMLWidget::modules() const {
-	if (m_moduleList)
-		return *m_moduleList;
+ListCSwordModuleInfo& CHTMLWidget::modules() {
+	if (!m_moduleList)
+    m_moduleList = new ListCSwordModuleInfo();
+  return *m_moduleList;
 }
+
 
 /** Sets the list of modules used by the display window which uses this widget. */
 void CHTMLWidget::setModules( ListCSwordModuleInfo& modules ) {

@@ -1,11 +1,10 @@
 2002-10-28  Joachim Ansorg <joachim@ansorgs.de>
   * BibleTime 1.2.2 release:
-    o Compilation fixes to work with newer compilers like GCC 3.2
+    o Compilation fixes to work with newer compilers like GCC 3.2. It compiles without warning now.
     o Bugfixes:
-      - BibleTime doesn't restore the workspace if it crashed the last two executions
-      - Jump to the correct anchors, didn't work with KDE 3.0.3 and Sword 1.5.4
+      - BibleTime doesn't restore the workspace if it crashed the last two times it was executed
       - The combo boxes which contain the books or lexicon entries are now resized properly
-
+      - Small fixes to possible problematic code
 
 2002-05-03  Martin <mg.pub@gmx.net>
 	* Ported to KDE3: BibleTime 1.2. No new features. Text rendering works much better now

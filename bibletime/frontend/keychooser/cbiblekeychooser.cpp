@@ -34,7 +34,7 @@
 #include <klocale.h>
 
 CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent, const char *name )
-	: CKeyChooser(module, key, parent, name), w_book(0), w_chapter(0), w_verse(0), m_key(0), m_info(0)
+	: CKeyChooser(module, key, parent, name), w_book(0), w_chapter(0), w_verse(0), m_info(0), m_key(0)
 {
 	if (module && (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) ) {
 		m_info = dynamic_cast<CSwordBibleModuleInfo*>(module);

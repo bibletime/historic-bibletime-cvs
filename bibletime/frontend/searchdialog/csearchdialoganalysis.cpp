@@ -290,10 +290,10 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
 	while (drawn < m_moduleCount){
     for (index=0; index < m_moduleCount; index++){
       if (m_resultCountArray[index] == Value){
-    		QPoint p1(x()+(m_moduleCount-drawn-1)*BAR_DELTAX,
-    		          height()+y()-BAR_LOWER_BORDER-(m_moduleCount-drawn)*BAR_DELTAY);
+    		QPoint p1(static_cast<int>(x())+(m_moduleCount-drawn-1)*BAR_DELTAX,
+    		          height()+static_cast<int>(y())-BAR_LOWER_BORDER-(m_moduleCount-drawn)*BAR_DELTAY);
     		QPoint p2(p1.x() + BAR_WIDTH,
-    		          p1.y() - (!m_resultCountArray[index] ? 0 : ((m_resultCountArray[index])*(*m_scaleFactor))) );
+    		          p1.y() - (!m_resultCountArray[index] ? 0 : ((m_resultCountArray[index])*(static_cast<int>(*m_scaleFactor) ))) );
     		QRect r(p1, p2);
     		painter.fillRect(r, QBrush(CSearchDialogAnalysis::getColor(index)) );
     		painter.drawRect(r);
@@ -318,7 +318,7 @@ void CSearchDialogAnalysisItem::draw(QPainter& painter) {
 		p.rotate(90);
 		p.drawText(QPoint(5,0), m_bookName);
 	}
-	painter.drawPixmap(QPoint(x(),height()+y()-BAR_LOWER_BORDER), *m_bufferPixmap);
+	painter.drawPixmap(QPoint(static_cast<int>(x()),height()+static_cast<int>(y())-BAR_LOWER_BORDER), *m_bufferPixmap);
 }
 
 /** Returns the width of this item. */
@@ -420,8 +420,8 @@ void CSearchDialogAnalysisLegendItem::draw (QPainter& painter) {
 	setPen( QPen(black,2) );
 	setBrush( Qt::white );
   //the outer rectangle
-  QPoint p1(x(),y());
-  QPoint p2(x()+width(), y()+height());
+  QPoint p1(static_cast<int>(x()),static_cast<int>(y()));
+  QPoint p2(static_cast<int>(x())+width(), static_cast<int>(y())+height());
   QRect r(p1, p2);
   r.normalize();
  	painter.drawRect(r);
@@ -432,7 +432,7 @@ void CSearchDialogAnalysisLegendItem::draw (QPainter& painter) {
  	
  	for (unsigned int index=0; index < m_moduleList->count(); index++){
  	  // the module color indicators
- 	  QPoint p1(x()+LEGEND_INNER_BORDER, y() + LEGEND_INNER_BORDER + index*(LEGEND_DELTAY + ITEM_TEXT_SIZE));
+ 	  QPoint p1(static_cast<int>(x())+LEGEND_INNER_BORDER, static_cast<int>(y()) + LEGEND_INNER_BORDER + index*(LEGEND_DELTAY + ITEM_TEXT_SIZE));
  	  QPoint p2( p1.x() + ITEM_TEXT_SIZE, p1.y() + ITEM_TEXT_SIZE);
  	  QRect r(p1,p2);
  		painter.fillRect(r, QBrush(CSearchDialogAnalysis::getColor(index)) );
