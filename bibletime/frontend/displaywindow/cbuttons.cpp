@@ -31,62 +31,62 @@
 #include <klocale.h>
 
 
-CTransliterationButton::CTransliterationButton(CSwordBackend::FilterOptions* filterOptions, QWidget *parent, const char *name )
- : KToolBarButton(CResMgr::displaywindows::transliteration::icon, 0,parent,name) {
- 	m_filterOptions = filterOptions;
-  m_filterOptions->transliteration = 0;
-
-  m_popup = new KPopupMenu(this);	
-	setPopup(m_popup);
-	setPopupDelay(0);
-
-	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionSelected(int)));
-	populateMenu();
-}
-
-CTransliterationButton::~CTransliterationButton(){
-
-}
-
-/** Resets the buttons with the list of used modules. */
-void CTransliterationButton::reset( ListCSwordModuleInfo& /*modules*/ ){
-  m_popup->clear();
-//  popuplateMenu();
-}
-
-/** Setup the menu entries. */
-void CTransliterationButton::populateMenu(){
-  m_popup->clear();
-  m_popup->insertTitle(i18n("Transliteration"));
-	m_popup->setCheckable(true);
-
-  if (!CPointers::backend()->useICU())
-    return;
-
-  Q_ASSERT(CPointers::backend()->transliterator());
-  if (!CPointers::backend()->transliterator())
-    return;
-
-  sword::StringList options = CPointers::backend()->transliterator()->getOptionValues();
-  sword::StringList::iterator it;
-
-  for (it = options.begin(); it != options.end(); ++it) {
-		int id = m_popup->insertItem(QString::fromLatin1((*it).c_str()));
-		if (m_filterOptions->transliteration == m_popup->indexOf(id)-1 ) { //workaround
-			m_popup->setItemChecked(id, true);
-		}
-  }
-}
-
-/** No descriptions */
-void CTransliterationButton::optionSelected(int ID){
-  for (unsigned int i = 0; i < m_popup->count(); i++)
- 		m_popup->setItemChecked(m_popup->idAt(i),false);	
- 	m_popup->setItemChecked(ID, true);
-	
-  m_filterOptions->transliteration = m_popup->indexOf( ID )-1; //workaround
-  emit sigChanged();
-}
+// CTransliterationButton::CTransliterationButton(CSwordBackend::FilterOptions* filterOptions, QWidget *parent, const char *name )
+//  : KToolBarButton(CResMgr::displaywindows::transliteration::icon, 0,parent,name) {
+//  	m_filterOptions = filterOptions;
+//   m_filterOptions->transliteration = 0;
+// 
+//   m_popup = new KPopupMenu(this);	
+// 	setPopup(m_popup);
+// 	setPopupDelay(0001);
+// 
+// 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionSelected(int)));
+// 	populateMenu();
+// }
+// 
+// CTransliterationButton::~CTransliterationButton(){
+// 
+// }
+// 
+// /** Resets the buttons with the list of used modules. */
+// void CTransliterationButton::reset( ListCSwordModuleInfo& /*modules*/ ){
+//   m_popup->clear();
+// //  popuplateMenu();
+// }
+// 
+// /** Setup the menu entries. */
+// void CTransliterationButton::populateMenu(){
+//   m_popup->clear();
+//   m_popup->insertTitle(i18n("Transliteration"));
+// 	m_popup->setCheckable(true);
+// 
+//   if (!CPointers::backend()->useICU())
+//     return;
+// 
+//   Q_ASSERT(CPointers::backend()->transliterator());
+//   if (!CPointers::backend()->transliterator())
+//     return;
+// 
+//   sword::StringList options = CPointers::backend()->transliterator()->getOptionValues();
+//   sword::StringList::iterator it;
+// 
+//   for (it = options.begin(); it != options.end(); ++it) {
+// 		int id = m_popup->insertItem(QString::fromLatin1((*it).c_str()));
+// 		if (m_filterOptions->transliteration == m_popup->indexOf(id)-1 ) { //workaround
+// 			m_popup->setItemChecked(id, true);
+// 		}
+//   }
+// }
+// 
+// /** No descriptions */
+// void CTransliterationButton::optionSelected(int ID){
+//   for (unsigned int i = 0; i < m_popup->count(); i++)
+//  		m_popup->setItemChecked(m_popup->idAt(i),false);	
+//  	m_popup->setItemChecked(ID, true);
+// 	
+//   m_filterOptions->transliteration = m_popup->indexOf( ID )-1; //workaround
+//   emit sigChanged();
+// }
 
 /************************************************
  *********** CDisplaySettingsButton *************
@@ -102,7 +102,7 @@ CDisplaySettingsButton::CDisplaySettingsButton(CSwordBackend::DisplayOptions *di
 
  	m_popup = new KPopupMenu(this);	
 	setPopup(m_popup);
-	setPopupDelay(0);
+	setPopupDelay(0001); //Fix, O only opens menu on mouse release or move
 
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(optionToggled(int)));
 	populateMenu();

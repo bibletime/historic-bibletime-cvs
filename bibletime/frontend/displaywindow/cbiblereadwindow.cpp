@@ -113,9 +113,9 @@ void CBibleReadWindow::initConnections(){
 //  connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)), SLOT(keyChanged(CSwordKey*)));
   CLexiconReadWindow::initConnections();
 
-  if (m_transliterationButton) { // Transliteration is not always available
+/*  if (m_transliterationButton) { // Transliteration is not always available
     connect(m_transliterationButton, SIGNAL(sigChanged()), SLOT(lookup()));
-  }
+  }*/
 }
 
 void CBibleReadWindow::initView(){
@@ -127,10 +127,10 @@ void CBibleReadWindow::initView(){
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 
-	if (backend()->useICU()){
+/*	if (backend()->useICU()){
 	  m_transliterationButton = new CTransliterationButton(&filterOptions(), mainToolBar());
 		mainToolBar()->insertWidget( 3, m_transliterationButton->size().width(), m_transliterationButton );
-	}
+	}*/
 }
 
 /** Reimplementation. */

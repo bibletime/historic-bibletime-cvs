@@ -250,17 +250,17 @@ void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int 
 			break;
 
 		case transliteration:
-      if (useICU()) {
-        sword::StringList options = transliterator()->getOptionValues();
-        
-				sword::StringList::iterator it = options.begin();
-				sword::StringList::iterator end = options.end();
-        for (int index = state; (index > 0) && (it != end); ++it) {
-          --index;
-        }
-        value = it->c_str();
-				//qWarning("setting transliteration to %s", value.c_str());
-      }
+//      if (useICU()) {
+//         sword::StringList options = transliterator()->getOptionValues();
+//         
+// 				sword::StringList::iterator it = options.begin();
+// 				sword::StringList::iterator end = options.end();
+//         for (int index = state; (index > 0) && (it != end); ++it) {
+//           --index;
+//         }
+//         value = it->c_str();
+// 				//qWarning("setting transliteration to %s", value.c_str());
+//       }
       break;
 
 		default:
@@ -282,7 +282,7 @@ void CSwordBackend::setFilterOptions( const CSwordBackend::FilterOptions options
 	setOption( greekAccents, 				options.greekAccents );
 	setOption( redLetterWords,			options.redLetterWords );	
   setOption( textualVariants,			options.textualVariants );	
-	setOption( transliteration,			options.transliteration );	
+// 	setOption( transliteration,			options.transliteration );	
 	setOption( scriptureReferences,	options.scriptureReferences);	
 }
 

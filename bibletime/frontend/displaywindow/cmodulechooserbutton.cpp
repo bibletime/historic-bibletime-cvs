@@ -45,7 +45,7 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
   }
 	
 	setIcon( iconName() );
-	setPopupDelay(0);
+	setPopupDelay(0001);
 
 	populateMenu();
 }	

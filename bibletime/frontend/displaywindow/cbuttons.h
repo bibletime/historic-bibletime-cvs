@@ -33,30 +33,30 @@ class KPopupMenu;
 /** This class manages the transliteration of the selected modules.
   * @author The BibleTime team
   */
-class CTransliterationButton : public KToolBarButton  {
-   Q_OBJECT
-public: 
-	CTransliterationButton(CSwordBackend::FilterOptions* displayOptions, QWidget *parent, const char *name=0);
-	~CTransliterationButton();
-  /**
-  * Setup the menu entries.
-  */
-  void populateMenu();
-  /**
-  * Resets the buttons with the list of used modules.
-  */
-  void reset( ListCSwordModuleInfo& modules );
-
-protected slots: // Protected slots
-  void optionSelected(int);
-
-private:
-  KPopupMenu* m_popup;
-  CSwordBackend::FilterOptions* m_filterOptions;
-
-signals:
-  void sigChanged();
-};
+// class CTransliterationButton : public KToolBarButton  {
+//    Q_OBJECT
+// public: 
+// 	CTransliterationButton(CSwordBackend::FilterOptions* displayOptions, QWidget *parent, const char *name=0);
+// 	~CTransliterationButton();
+//   /**
+//   * Setup the menu entries.
+//   */
+//   void populateMenu();
+//   /**
+//   * Resets the buttons with the list of used modules.
+//   */
+//   void reset( ListCSwordModuleInfo& modules );
+// 
+// protected slots: // Protected slots
+//   void optionSelected(int);
+// 
+// private:
+//   KPopupMenu* m_popup;
+//   CSwordBackend::FilterOptions* m_filterOptions;
+// 
+// signals:
+//   void sigChanged();
+// };
 
 /** This class manages the display options of the selected modules.
   * @author The BibleTime team

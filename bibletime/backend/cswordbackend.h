@@ -104,7 +104,7 @@ public:
 		int textualVariants;
     int redLetterWords;
     int scriptureReferences;
-    int transliteration;
+//     int transliteration;
 	};
 	struct DisplayOptions {
 		int lineBreaks;
@@ -218,11 +218,11 @@ public:
   /**
   * Returns our transliterator object we use. Returns 0 if ICU is not used.
   */
-  inline sword::SWFilter* const transliterator();
+//   inline sword::SWFilter* const transliterator();
   /** 
 	* Returns true if ICU is being used. 
 	*/
-  inline const bool useICU() const;
+//   inline const bool useICU() const;
   /**
   * Reload all Sword modules.
   */
@@ -273,17 +273,17 @@ inline const sword::SWVersion CSwordBackend::Version() {
 }
 
 /** Returns our transliterator object we use. Returns 0 if ICU is not used. */
-inline sword::SWFilter* const CSwordBackend::transliterator() {
-  if (!useICU()) {
-    return 0;
-	}
-  
-	return optionFilters["UTF8Transliterator"]; //either valid or null pointer
-}
+// inline sword::SWFilter* const CSwordBackend::transliterator() {
+//   if (!useICU()) {
+//     return 0;
+// 	}
+//   
+// 	return optionFilters["UTF8Transliterator"]; //either valid or null pointer
+// }
 
-/** Returns true if ICU is being used. */
-inline const bool CSwordBackend::useICU() const{
-  return SWMgr::isICU;
-}
+// /** Returns true if ICU is being used. */
+// inline const bool CSwordBackend::useICU() const{
+//   return SWMgr::isICU;
+// }
 
 #endif

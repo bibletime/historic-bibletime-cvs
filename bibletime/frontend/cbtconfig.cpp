@@ -113,7 +113,7 @@ const QString CBTConfig::getKey( const CBTConfig::ints ID){
 		case hebrewCantillation: 	return "hebrewCantillation";
 		case greekAccents: 				return "greekAccents";
 		case textualVariants:			return "textualVariants";
-    case transliteration:     return "transliteration";
+//     case transliteration:     return "transliteration";
     case scriptureReferences: return "scriptureReferences";
   }
   return QString::null;
@@ -156,7 +156,7 @@ const int CBTConfig::getDefault( const CBTConfig::ints ID){
 		case hebrewCantillation: 	return true;
 		case greekAccents: 				return true;
 		case textualVariants:			return false;
-    case transliteration:     return 0;
+//     case transliteration:     return 0;
     case scriptureReferences:	return true;
   }
   return 0;
@@ -436,7 +436,7 @@ const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults(){
   options.hebrewCantillation = 	get(CBTConfig::hebrewCantillation);
   options.greekAccents = 				get(CBTConfig::greekAccents);
   options.textualVariants = 		get(CBTConfig::textualVariants);
-  options.transliteration = 		get(CBTConfig::transliteration);
+//   options.transliteration = 		get(CBTConfig::transliteration);
   options.scriptureReferences = get(CBTConfig::scriptureReferences);
 
 	return options;
