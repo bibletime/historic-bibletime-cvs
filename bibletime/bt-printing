@@ -1,3 +1,69 @@
+[Black&White__DESCRIPTION]
+Alignement=2
+BGColor=255,255,255
+FGColor=0,0,0
+Font=helvetica,9,5,0,50,0
+Identation=0
+has frame=false
+isEnabled=true
+[Black&White__HEADER]
+Alignement=1
+BGColor=0,0,0
+FGColor=255,255,255
+Font=helvetica,9,5,0,50,0
+Identation=0
+has frame=false
+isEnabled=true
+[Black&White__MODULETEXT]
+Alignement=0
+BGColor=255,255,255
+FGColor=0,0,0
+Font=helvetica,9,5,0,50,0
+Identation=0
+has frame=true
+isEnabled=true
+[Black&White__MODULETEXT__FRAME]
+Color=0,0,0
+Thickness=2
+[Rainbow__DESCRIPTION]
+Alignement=2
+BGColor=255,255,213
+FGColor=255,148,8
+Font=helvetica,9,5,0,50,0
+Identation=0
+has frame=false
+isEnabled=true
+[Rainbow__HEADER]
+Alignement=0
+BGColor=255,255,255
+FGColor=255,148,8
+Font=helvetica,9,5,0,50,0
+Identation=0
+has frame=true
+isEnabled=true
+[Rainbow__HEADER__FRAME]
+Color=42,156,213
+Thickness=1
+[Rainbow__MODULETEXT]
+Alignement=0
+BGColor=255,255,255
+FGColor=0,0,0
+Font=futura,13,5,0,50,0
+Identation=0
+has frame=true
+isEnabled=true
+[Rainbow__MODULETEXT__FRAME]
+Color=42,156,213
+Thickness=1
+[Settings]
+Filename=
+Paper size=0
+Printer=lp
+left margin=39
+lower margin=39
+preview application=gv
+right margin=39
+upper margin=39
 [Standard__DESCRIPTION]
 Alignement=24
 BGColor=255,255,255
@@ -29,4 +95,4 @@ isEnabled=true
 Color=128,128,128
 Thickness=1
 [Styles]
-styles=Standard
+styles=Standard,Black&White,Rainbow

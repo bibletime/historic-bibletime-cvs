@@ -82,20 +82,6 @@ void CPrintItem::setStartKey(CKey* newKey) {
 		delete m_startKey;
 	m_startKey = newKey;
 
-	SWKey* startKey = dynamic_cast<SWKey*>(m_startKey);	
-	SWKey* stopKey = dynamic_cast<SWKey*>(m_stopKey);
-	
-	if ( startKey ) {
-		if ((startKey == stopKey) || !stopKey)
-			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );
-		else if (startKey && stopKey) //start and stop key do exist and are different
-			m_headerText = QString::fromLatin1("%1 - %2")
-				.arg(QString::fromLocal8Bit((const char*)*startKey))
-				.arg(QString::fromLocal8Bit((const char*)*stopKey));
-	}
-	else
-		m_headerText = QString::null;			
-	qWarning("finished");
 }
 
 /** Sets the end key. */
@@ -104,19 +90,6 @@ void CPrintItem::setStopKey( CKey* newKey ){
 	if (m_stopKey)
 		delete m_stopKey;	
 	m_stopKey = newKey;
-
-	SWKey* startKey = dynamic_cast<SWKey*>(m_startKey);
-	SWKey* stopKey = dynamic_cast<SWKey*>(m_stopKey);
-	if ( startKey ) {
-		if (startKey == stopKey || !stopKey)
-			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );
-		else if (stopKey) //start and stop key do exist and are different
-			m_headerText = QString::fromLatin1("%1 - %2")
-				.arg(QString::fromLocal8Bit((const char*)*startKey))
-				.arg(QString::fromLocal8Bit((const char*)*stopKey));
-	}
-	else
-		m_headerText = QString::null;			
 }
 
 /** Returns the last covered key. */
@@ -145,7 +118,7 @@ void CPrintItem::setDescription( const QString& newDescription ){
 }
 
 /** Returns the moduletext used by this item. */
-const QString CPrintItem::getModuleText() {
+const QString& CPrintItem::getModuleText() {
 	qDebug("const QString CPrintItem::getModuleText()");
 	/**
 	* If a special text is set use the text.
@@ -157,33 +130,30 @@ const QString CPrintItem::getModuleText() {
 
 	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
 	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);
-	QString text = QString::null;
+//	QString text = QString::null;
 	CSwordModuleInfo* sw = dynamic_cast<CSwordModuleInfo*>(m_module);
-	text = vk ? QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString::null;
-	text += (vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString::null));
+	m_moduleText = vk ? QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString::null;
+	m_moduleText += (vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString::null));
 	if (sw && m_stopKey && m_stopKey != m_startKey) { //reange of entries
-		qDebug("return text for a range of entries");
 		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
 			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(m_startKey);
 			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(m_stopKey);			
 			if (!vk_start && !vk_stop)
-				return text;
+				return m_moduleText;
 			
 			CSwordVerseKey dummyKey(sw);				
 			dummyKey.setKey( vk_start->getKey() );
 			while (dummyKey < *vk_stop) {
 				dummyKey.NextVerse();
-				text += QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.getRenderedText();
+				m_moduleText += QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.getRenderedText();
 			}
 		}
-		else if (sw->getType() == CSwordModuleInfo::Lexicon ) {
+		else if (sw->getType() == CSwordModuleInfo::Lexicon )
 			qWarning("implement for range of lexicon entries");
-		}
 	}		
-	text.replace(QRegExp("$\n+"), "");
-	text.replace(QRegExp("$<BR>+"), "");	
-	qDebug("fisnihed getModuleText");
-	return text;
+	m_moduleText.replace(QRegExp("$\n+"), "");
+	m_moduleText.replace(QRegExp("$<BR>+"), "");	
+	return m_moduleText;
 }
 
 /** Sets the module text. */
@@ -288,14 +258,8 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QBrush brush;
 	
 	//print the header
-	qDebug("draw: now go into loop");
-	for (int i = 0; i < 3; ++i) {
-		qDebug("%i",i);
-		ASSERT(m_style);
-		ASSERT(printer);
-		
+	for (int i = 0; i < 3; ++i) {		
 		type = (CStyle::styleType)i;
-		qDebug("type == %i",(int)type);
 		
 		format = m_style->getFormatForType( type );
 		ASSERT(format);
@@ -305,11 +269,10 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		font = format->getFont();
 		frame = format->hasFrame() ? format->getFrame() : 0;
 		frameThickness = frame ? frame->getThickness() : 0;		
-		ASSERT(frame);
 		alignement = format->getAlignement();
 		identation = format->getIdentation();
 		if (type == CStyle::Header)
-			text = m_headerText;
+			text = getHeaderText();
 		else if (type == CStyle::Description)
 			text = m_description;
 		else
@@ -319,7 +282,6 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		p->setPen(pen);
 		cg.setColor(QColorGroup::Text, format->getFGColor());
 		
-		qDebug("draw: enabled?");
 		if (!m_style->hasFormatTypeEnabled(type))
 			continue;
 		int arguments = Qt::WordBreak;		
@@ -332,14 +294,12 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		QRect boundingRect;
 		QRect br;
 		if ((type == CStyle::Header || type == CStyle::Description) && !text.isEmpty()) {
-			qDebug("draw: type is Header || deacription");		
 			boundingRect = p->boundingRect( printer->leftMargin(), printer->getVerticalPos(),
 				printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin(), arguments, text );
 			
 			//check if the new text fits into page
 			if ( (boundingRect.height() + frameThickness + STYLE_PART_SPACE ) > printer->getPageSize().height()-printer->getVerticalPos() ) {
 				//this part doesn't fit on the current page
-				qDebug("draw: new page now");
 				printer->newPage();
 				boundingRect = p->boundingRect( printer->leftMargin(), printer->getVerticalPos(),
 					printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin(), arguments, text );			
@@ -362,8 +322,6 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			}						
 		}
 		else if (type == CStyle::ModuleText) {		
-			qDebug("draw: type is ModuleText");
-						
 			p->save();
 			CSwordModuleInfo* m = dynamic_cast<CSwordModuleInfo*>(m_module);
 			if (m && m->hasFont())
@@ -373,28 +331,20 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 			else if (alignement == CStyleFormat::Right)		
 				text = QString::fromLatin1("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
 			text = QString("%1").arg(text);
-			qDebug("create richtext now");
-			ASSERT(frame);
     	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()-frameThickness+printer->upperMargin());
-    	qDebug("created richtext");
     	richText.setWidth( p, printer->getPageSize().width()-2*frameThickness-BORDER_SPACE );
-    	qDebug("set width");
     	QRect view( printer->getPageSize() );
-    	qDebug("created view");
     	int translated = 0;
     	do {
-    		qDebug("richtext loop");
-    		if ((int)(richText.height() + printer->getVerticalPos()) < (int)(printer->getPageSize().height()+printer->upperMargin()) )
-    			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), richText.height()+frameThickness);    		
+    		if ((int)(richText.height()-translated + printer->getVerticalPos()) < (int)(printer->getPageSize().height()+printer->upperMargin()) )
+    			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), richText.height()+frameThickness);
     		else { //fill to bottom of the page
     			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin());
     			br.moveBy(0, translated);
     		}
-   			qDebug("before setClip");
     		p->setClipRect(printer->getPageSize());
    			p->fillRect(br,QBrush(bgColor));
 				if (frame) {
-					qDebug("frame exists");
 					QPen framePen = pen;
 					framePen.setWidth( frameThickness );
 					framePen.setColor( frame->getColor() );
@@ -403,24 +353,36 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 					p->drawRect(br);
 				}						   			
     		p->setClipping(false);
-    		qDebug("draw: now call richtext.draw");
         richText.draw(p,printer->leftMargin()+frameThickness+(int)((float)BORDER_SPACE/2),printer->getVerticalPos(),view,cg);
-        qDebug("draw: have drawn");
 				const int movePixs = ((int)richText.height() > (int)(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height()+frameThickness;
    			printer->setVerticalPos(printer->getVerticalPos()+movePixs);		
 		    view.moveBy( 0,movePixs);		
         p->translate( 0,-movePixs);
-        qDebug("draw: p was tramslated");
         translated+=movePixs;
-        if ( view.top() >= richText.height() )
+        if ( view.top() >= richText.height() ) //bottom or top(defaut)
     			break;
-    		qDebug("draw: new page2");
     		printer->newPage();
     	} while (true);
 			p->restore();
     }
 	}	
-	qDebug("setVerticalPos");
 	printer->setVerticalPos(printer->getVerticalPos() + PARAGRAPH_SPACE);	
 }
 
+/** Updates and returns the header text. */
+const QString& CPrintItem::getHeaderText() {
+	SWKey* startKey = dynamic_cast<SWKey*>(m_startKey);	
+	SWKey* stopKey = dynamic_cast<SWKey*>(m_stopKey);	
+	if ( startKey ) {
+		if ((startKey == stopKey) || !stopKey)
+			m_headerText = QString::fromLocal8Bit( (const char*)*startKey );
+		else if (startKey && stopKey) //start and stop key do exist and are different
+			m_headerText = QString::fromLatin1("%1 - %2")
+				.arg(QString::fromLocal8Bit((const char*)*startKey))
+				.arg(QString::fromLocal8Bit((const char*)*stopKey));
+	}
+	else
+		m_headerText = QString::null;			
+	
+	return m_headerText;
+}

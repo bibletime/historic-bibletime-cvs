@@ -173,13 +173,11 @@ void CSearchDialogResultModuleView::printSearchResult(){
 			CSwordVerseKey* verseKey = new CSwordVerseKey(m_currentModule); 	//the key is deleted by the CPrintItem
 			verseKey->setKey(text);
 			printItem->setStartKey(verseKey);
-//			printItem->setStopKey(verseKey);
 		}
 		else if (type == CSwordModuleInfo::Lexicon) {	//a lexicon
 			CSwordLDKey* ldKey = new CSwordLDKey(m_currentModule);	//the key is deleted by the CPrintItem
 			ldKey->setKey(text);
 			printItem->setStartKey(ldKey);
-//			printItem->setStopKey(ldKey);	
 		}
 		m_important->printer->addItemToQueue( printItem );
 	}

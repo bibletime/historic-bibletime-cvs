@@ -65,7 +65,7 @@ public:
   /**
  	* Returns the moduletext used by this item.
  	*/
-  const QString getModuleText();
+  const QString& getModuleText();
   /**
  	* Sets the decsription.
  	*/
@@ -121,6 +121,8 @@ public:
 
 private: // Protected attributes
   void clearData();
+  /** Updates and returns the header text. */
+  const QString& getHeaderText();
   CStyle* m_style;
   QString m_description;
   QString m_headerText;

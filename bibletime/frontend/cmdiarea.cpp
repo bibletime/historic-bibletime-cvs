@@ -72,10 +72,9 @@ void CMDIArea::slotClientActivated(QWidget* client){
 		return;				
 	emit sigSetToplevelCaption( client->caption().stripWhiteSpace() );	
 	
-	if (client->isA("CBiblePresenter")) {
-		CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
+	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
+	if (p)
 		syncCommentaries( p->getKeyChooser()->getKey() );
-	}
 }
 
 /** Reimplementation. Used to make use of the fixedGUIOption part. */
@@ -83,8 +82,6 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 	if (m_childEvent)
 		return;	
 	QWorkspace::childEvent(e);	
-	if (!e)
-		return;
 	
 	m_childEvent = true;
 	
@@ -92,29 +89,24 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 		emit sigLastPresenterClosed();
 		emit sigSetToplevelCaption( QString() );
 	}	
+	if (!e) {
+		m_childEvent = false;
+		return;
+	}
 	
 	if (e->inserted() || e->removed()) {
-//		QWidget* c = (QWidget*)e->child();
-//		if (c)
-//			emit sigSetToplevelCaption( c->caption() );	
-		
 		switch (guiOption) {
 	 		case autoTile:
- 				resizeEvent(0);
+				QTimer::singleShot( 0, this, SLOT(tile()) );
 	 			break;
 	 		case autoCascade:
- 				resizeEvent(0);
+				QTimer::singleShot( 0, this, SLOT(cascade()) );
 	 			break;
-	 		case Nothing:
+	 		default:
 	 			break;
 		}
 	}
 	
-//	if (e->type() == QEvent::ShowMaximized || e->type() == QEvent::ShowNormal || e->type() == QEvent::ShowMinimized || e->inserted() || e->removed() || e->type() == QEvent::CaptionChange) {
-////		QWidget* c = (QWidget*)e->child();
-//		if (activeWindow())
-//			emit sigSetToplevelCaption( activeWindow()->caption() );	
-//	}
 	m_childEvent = false;
 }
 
@@ -128,7 +120,7 @@ void CMDIArea::resizeEvent(QResizeEvent* e){
  		case autoCascade:
  			QTimer::singleShot( 0, this, SLOT(cascade()) );
  			break;
- 		case Nothing:
+ 		default:
  			break;
 	}
 }
@@ -176,11 +168,8 @@ void CMDIArea::setGUIOption( mdiOption new_GUIOption){
 void CMDIArea::tile(){
 	if (!isUpdatesEnabled() || (windowList().count() == 0) )	
 		return;
-	
-	if (windowList().count() == 1) {
+	if (windowList().count() == 1 /*&& !windowList().at(0)->isHidden() && !windowList().at(0)->isMinimized()*/)
 		windowList().at(0)->showMaximized();
-//		emit sigSetToplevelCaption( QString("%1").arg(windowList().at(0)->caption().stripWhiteSpace()) );			
-	}		
 	else
 		QWorkspace::tile();
 }
@@ -188,14 +177,11 @@ void CMDIArea::tile(){
 /**  */
 void CMDIArea::cascade(){
 	if (!isUpdatesEnabled() || (windowList().count() == 0) )	
-		return;
-		
-	if (windowList().count() == 1) {
+		return;		
+	if (windowList().count() == 1 /*&& !windowList().at(0)->isHidden() && !windowList().at(0)->isMinimized()*/)
 		windowList().at(0)->showMaximized();
-//		emit sigSetToplevelCaption( QString("%1").arg(windowList().at(0)->caption().stripWhiteSpace()) );			
-	}
  	else
-		QWorkspace::cascade(); 		
+		QWorkspace::cascade();
 }
 
 /** Sync the commentaries to the given key. */

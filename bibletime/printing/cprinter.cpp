@@ -233,28 +233,28 @@ void CPrinter::printQueue(){
 	if ( getPreview() ){//print a preview
 		KRandomSequence r;
 		const QString s = QString::fromLatin1("/tmp/") + KApplication::randomString(8) + QString::fromLatin1(".ps");
-		qDebug("CPrinter: set filename for preview");
+//		qDebug("CPrinter: set filename for preview");
 		setOutputFileName( s );
 		m_createdFiles.append(s);
 	}
-	qDebug("emit printingStarted");
+//	qDebug("emit printingStarted");
 	emit printingStarted();
 	QPainter p;
 	if (!p.begin(this)) {
-		qDebug("begin failed");
+//		qDebug("begin failed");
 		p.end();
 		return;
 	}
 	
 	m_pagePosition.rect = getPageSize();
 	for (int page = 1; page <= numCopies() && !aborted(); ++page) {	//make numCopies() copies of the pages
-		qDebug("begin new page");
+//		qDebug("begin new page");
 		for (m_queue->first(); m_queue->current() && !aborted(); m_queue->next()) {
-			qDebug("inner loop");
+//			qDebug("inner loop");
 			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
-			ASSERT(!aborted());
+//			ASSERT(!aborted());
 			if (!aborted()) {
-				qDebug("call now m_queue->current()->draw(&p,this);");
+//				qDebug("call now m_queue->current()->draw(&p,this);");
 				m_queue->current()->draw(&p,this);
 			}
 			QString keyName = QString::null;
@@ -262,8 +262,8 @@ void CPrinter::printQueue(){
 			CKey* key = m_queue->current()->getStartKey();			
 			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
 			CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);			
-			ASSERT(vk);
-			ASSERT(lk);			
+//			ASSERT(vk);
+//			ASSERT(lk);			
 			if (vk)
 				keyName = vk->getKey();
 			else if (lk)
@@ -272,14 +272,14 @@ void CPrinter::printQueue(){
 				keyName = QString::null;
 			ASSERT(!aborted());
 			if (!aborted()) {
-				qDebug("emit printedOneItem");
+//				qDebug("emit printedOneItem");
 				emit printedOneItem(keyName, m_queue->at()+1);
 			}
 		};
 		if (!aborted() && (page < numCopies()) )
 			newPage();	//new pages seperate copies
 	}
-	qDebug("emit finished");
+//	qDebug("emit finished");
 	emit printingFinished();	
 	if (!getPreview())
 		clearQueue();
@@ -287,13 +287,13 @@ void CPrinter::printQueue(){
 	if ( !aborted() && getPreview() ) {
 		if (p.isActive())
 			p.end();
-		qDebug("start preview now");
+//		qDebug("start preview now");
 		KProcess process;
 		process << getPreviewApplication();
 		process << outputFileName();
 		process.start(KProcess::DontCare);
 	}	
-	qDebug("finished printQueue");
+//	qDebug("finished printQueue");
 }
 
 /** Appends items to the printing queue. */
