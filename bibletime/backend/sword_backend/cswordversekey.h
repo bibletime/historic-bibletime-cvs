@@ -62,6 +62,10 @@ public:
 	*
 	*/
 	CSwordVerseKey( CSwordModuleInfo* module );
+  /**
+  * No descriptions
+  */
+  CSwordVerseKey( const CSwordVerseKey& k );
 	/**
 	* Destructor of this class.
 	*
@@ -150,6 +154,11 @@ public:
   * Returns the rendered text of this verse
   */
   const QString getRenderedText() const;
+  /**
+  * Clones this object.
+  */
+  virtual CSwordVerseKey* clone() const;
+
 private:
   /**
   	* This is the pointer to the module we use.
@@ -195,25 +204,18 @@ inline const bool CSwordVerseKey::PreviousVerse(){
 
 /**  */
 inline const bool CSwordVerseKey::NextChapter(){
-//#warning Implement some special thing for commentaries	
-//	if (Chapter()<0)
-//		return false;		
 	Chapter(Chapter()+1);	
 	return true;
 }
 
 /**  */
 inline const bool CSwordVerseKey::PreviousChapter(){
-//#warning Implement some special thing for commentaries		
-//	if (Chapter()<=0)
-//		return false;	
 	Chapter(Chapter()-1);
 	return true;
 }
 
 /**  */
 inline const bool CSwordVerseKey::NextBook(){
-//#warning Implement some special thing for commentaries					
 	if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
 		return false;	
 	
@@ -223,7 +225,6 @@ inline const bool CSwordVerseKey::NextBook(){
 
 /**  */
 inline const bool CSwordVerseKey::PreviousBook(){
-//#warning Implement some special thing for commentaries		
 	if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
 		return false;
 	Book(Book()-1);
@@ -234,9 +235,7 @@ inline const bool CSwordVerseKey::PreviousBook(){
 inline const QString CSwordVerseKey::getBook() const {
 	if ( Testament() && Book() <= BMAX[Testament()-1] )
 		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-//	else
 	return QString::fromLocal8Bit(books[0][0].name);
-//	return QString::null;
 }
 
 /** Returns the key as a QString. */

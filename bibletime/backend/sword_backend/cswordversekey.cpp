@@ -27,15 +27,21 @@
 #include <swmodule.h>
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
-//	if (!(m_module = dynamic_cast<CSwordBibleModuleInfo*>(module)) ) {	//bad module
-//		throw EBadModule();
-//	}
 	m_module = dynamic_cast<CSwordBibleModuleInfo*>(module);
+}
+
+/** No descriptions */
+CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(*this), CKey() {
+	m_module = k.m_module;
 }
 
 CSwordVerseKey::~CSwordVerseKey(){
 }
 
+/** Clones this object. */
+CSwordVerseKey* CSwordVerseKey::clone() const {
+	return new CSwordVerseKey(*this);
+}
 
 /** Sets the module for this key */
 void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
@@ -47,7 +53,7 @@ void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
 }
 
 /** Returns the rendered text of this verse */
-const QString CSwordVerseKey::getRenderedText() const{
+const QString CSwordVerseKey::getRenderedText() const {
 	m_module->module()->SetKey(*this->clone());
 	return QString::fromLocal8Bit( (const char*)*m_module->module() );
 }

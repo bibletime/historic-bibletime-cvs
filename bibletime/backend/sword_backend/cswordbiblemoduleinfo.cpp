@@ -28,6 +28,15 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( CSwordBackend* backend, SWModule* 
 	m_cachedLocale = "unknown";
 }
 
+CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) : CSwordModuleInfo(*this) {
+	m_bookList = 0;
+	if (m.m_bookList) {
+		m_bookList = new QStringList();
+		*m_bookList = *m.m_bookList;
+	}
+	m_cachedLocale = m.m_cachedLocale;	
+}
+
 CSwordBibleModuleInfo::~CSwordBibleModuleInfo(){
 	if (m_bookList)
 		delete m_bookList;

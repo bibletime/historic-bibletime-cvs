@@ -316,7 +316,10 @@ void BibleTime::slotPrintingStarted(){
 
 /** Printing was finished */
 void BibleTime::slotPrintingFinished(){
+	if (!m_progress)
+		return;
 	delete m_progress;
+	m_progress = 0;
 }
 
 /** No descriptions */
@@ -329,4 +332,7 @@ void BibleTime::slotPrintedEntry( const QString& key, const int index){
 
 /** Aborts the printing */
 void BibleTime::slotAbortPrinting(){
+	m_important->printer->abort();
+	if (m_progress)
+		slotPrintingFinished();
 }

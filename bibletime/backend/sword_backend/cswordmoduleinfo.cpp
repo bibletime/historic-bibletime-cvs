@@ -40,6 +40,13 @@
 CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module ){
 	m_backend = backend;
 	m_module = module;
+	m_searchResult.ClearList();
+}
+
+CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) : CModuleInfo() {
+	m_backend = m.m_backend;
+	m_module = m.m_module;
+	m_searchResult = m.m_searchResult;
 }
 
 CSwordModuleInfo::~CSwordModuleInfo(){

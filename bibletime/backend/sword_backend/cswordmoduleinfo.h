@@ -56,13 +56,8 @@ public:
 		notLocked, /* The module was not locked so it can't be unlocked */
 		noPermission /* The key was not written to config because we have no permissions*/
 	};	
-	/**
-	*
-	*/
 	CSwordModuleInfo( CSwordBackend* backend, SWModule* module );
-	/**
-	*
-	*/
+	CSwordModuleInfo( const CSwordModuleInfo& m );	
 	virtual ~CSwordModuleInfo();	
   /**
  	* Returns the backend used by thid module.
@@ -172,12 +167,10 @@ private:
 //class CSwordModuleInfo;
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
 
-/** Returns the type of the module. */
 inline const CSwordModuleInfo::type CSwordModuleInfo::getType() const {
 	return CSwordModuleInfo::Unknown;
 }
 
-/** Returns the module object so all objects can access the module. */
 inline SWModule* CSwordModuleInfo::module() const {
 	return m_module;
 }

@@ -171,14 +171,6 @@ void CLexiconPresenter::refresh( const int events){
 		m_htmlWidget->refresh();
 }
 
-/** Printes the displayed entry of the used module. */
-void CLexiconPresenter::printEntry(){
-	CSwordLDKey* key = new CSwordLDKey(m_moduleList.first());
-	key->setKey(m_key->getKey());
-	
-	printKey(key, key, m_moduleList.first());
-}
-
 /** Is called when the modules shown by this display window were changed. */
 void CLexiconPresenter::modulesChanged(){
   m_moduleList = m_moduleChooserBar->getModuleList();
@@ -234,14 +226,9 @@ void CLexiconPresenter::copyEntryAndText(){
 }
 
 //print functions
-/** Copies the highlighted text into clipboard. */
 void CLexiconPresenter::printEntryAndText(){
 	CSwordLDKey *key = new CSwordLDKey(m_moduleList.first());	//this key is deleted by the printem
 	key->setKey(m_key->getKey());
-	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()- (currentAnchor.right(1) == "/" ? 9 : 8));
-	key->setKey(currentAnchor);
-		
+
 	printKey(key, key, m_moduleList.first());
 }

@@ -43,7 +43,6 @@ private slots: // Protected slots
   void popupAboutToShow();
   void moduleChanged();
   void lookup(CKey*);
-  void printEntry();
 
 private: // Private methods
   void initConnections();

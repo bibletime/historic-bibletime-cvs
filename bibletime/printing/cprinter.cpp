@@ -229,13 +229,12 @@ void CPrinter::printQueue(){
 	}
 	
 	m_pagePosition.rect = getPageSize();
-	for (int page = 1; page <= numCopies(); page++) {	//make numCopies() copies of the pages
-		for (m_queue->first(); m_queue->current(); m_queue->next()) {
-			KApplication::kApplication()->processEvents(10); //do not lock the GUI!			
-//			printItem( p, m_queue->current());
+	for (int page = 1; page <= numCopies() && !aborted(); page++) {	//make numCopies() copies of the pages
+		for (m_queue->first(); m_queue->current() && !aborted(); m_queue->next()) {
+			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
 			m_queue->current()->draw(p,this);
-			CKey* key = m_queue->current()->getStartKey();
-			
+
+			CKey* key = m_queue->current()->getStartKey();			
 			QString keyName = QString::null;			
 			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
 			if (vk)
@@ -244,14 +243,16 @@ void CPrinter::printQueue(){
 				CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
 				keyName = lk->getKey();
 			}
-			emit printedOneItem(keyName, m_queue->at()+1);			
+			emit printedOneItem(keyName, m_queue->at()+1);
+			
 		};
 		if (page < numCopies())
 			newPage();	//new pages seperate copies
 	}
-	p->end();	//send away print job
-
-	if ( getPreview() ) {
+	if (!aborted())//correct ??
+		p->end();	//send away print job
+	
+	if ( !aborted() && getPreview() ) {
 		KProcess process;
 		process << getPreviewApplication();
 		process << outputFileName();

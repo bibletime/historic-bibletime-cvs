@@ -28,6 +28,14 @@ CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( CSwordBackend* backend, SWModu
 	m_entryList = 0;
 }
 
+CSwordLexiconModuleInfo::CSwordLexiconModuleInfo( const CSwordLexiconModuleInfo& m ) : CSwordModuleInfo(*this) {
+	m_entryList = 0;
+	if (m.m_entryList) {
+		m_entryList = new QStringList();
+		*m_entryList = *m.m_entryList;
+	}
+}
+
 CSwordLexiconModuleInfo::~CSwordLexiconModuleInfo(){
 	if (m_entryList)
 		delete m_entryList;

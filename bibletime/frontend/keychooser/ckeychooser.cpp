@@ -25,7 +25,7 @@
 #include "clexiconkeychooser.h"
 #include "cbiblekeychooser.h"
 
-CKeyChooser::CKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const char *name )
+CKeyChooser::CKeyChooser(CModuleInfo */*info*/, CKey */*key*/, QWidget *parent, const char *name )
 	: QWidget(parent, name){
 }
 

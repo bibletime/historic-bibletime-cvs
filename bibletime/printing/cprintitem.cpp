@@ -362,7 +362,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
     	QRect view( printer->getPageSize() );
     	int translated = 0;
     	do {				
-    		if ((printer->getVerticalPos() + richText.height()) < (printer->getPageSize().height()+printer->upperMargin()) )
+    		if ((int)(richText.height() + printer->getVerticalPos()) < (int)(printer->getPageSize().height()+printer->upperMargin()) )
     			br = QRect(printer->leftMargin(), printer->getVerticalPos(), printer->getPageSize().width(), richText.height());    		
 //    		else if ( (printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin()+translated) > richText.height() ) {
 //    			br = QRect(printer->leftMargin(), printer->upperMargin(), printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin()+translated- richText.height() );
@@ -385,7 +385,7 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
     		p->setClipping(false);
     		
         richText.draw(p,printer->leftMargin()+(int)((float)BORDER_SPACE/2),printer->getVerticalPos(),view,cg);
-				const int movePixs = (richText.height() > (printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height();
+				const int movePixs = ((int)richText.height() > (int)(printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin())) ? ( printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin() ) : richText.height();
    			printer->setVerticalPos(printer->getVerticalPos()+movePixs);		
 		    view.moveBy( 0,movePixs);		
         p->translate( 0,-movePixs);

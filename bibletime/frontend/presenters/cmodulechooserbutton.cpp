@@ -21,6 +21,7 @@
 
 //Qt includes
 #include <qstring.h>
+#include <qtooltip.h>
 
 //KDE includes
 #include <kpopupmenu.h>
@@ -41,7 +42,6 @@ CModuleChooserButton::CModuleChooserButton(CImportantClasses* importantClasses, 
 	
 	setPixmap( getIcon() );
 	setPopupDelay(0);
-//	setDefaultPixmap( getIcon() );
 	
 	//create popup
 	m_popup = new KPopupMenu(this);	
@@ -59,22 +59,25 @@ CModuleChooserButton::CModuleChooserButton(CImportantClasses* importantClasses, 
 	}	
 	//Check the appropriate entry
 	if (m_module) {
-		for (int i = 0; i < m_popup->count(); i++) {
-			if (m_popup->text(m_popup->idAt(i)) == QString::fromLocal8Bit(m_module->module()->Name()))
+		for (unsigned int i = 0; i < m_popup->count(); i++) {
+			if (m_popup->text(m_popup->idAt(i)) == QString::fromLocal8Bit(m_module->module()->Name())) {
 				m_popup->setItemChecked(m_popup->idAt(i),true);
+	  		QToolTip::add(this, QString::fromLocal8Bit( m_module->module()->Name() ));				
+	  		break;
+			}
 		}
 	}
  	else {
-		for (int i = 0; i < m_popup->count(); i++) {
+		for (unsigned int i = 0; i < m_popup->count(); i++) {
 			if (m_popup->text(m_popup->idAt(i)) == i18n("NONE") )
 				m_popup->setItemChecked(m_popup->idAt(i),true);
+				break;
 		}
 	}
 }	
 
 
 CModuleChooserButton::~CModuleChooserButton(){
-	qDebug("destructor of CModuleChooserButton");
 }
 
 /** Returns the icon used for the current status. */
@@ -101,7 +104,7 @@ QPixmap CModuleChooserButton::getIcon(){
 }
 
 CSwordModuleInfo* CModuleChooserButton::getModule() {		
-	for (int i = 0; i < m_popup->count(); i++) {
+	for (unsigned int i = 0; i < m_popup->count(); i++) {
 		if ( m_popup->isItemChecked(m_popup->idAt(i)) )
 			return m_important->swordBackend->findModuleByName( m_popup->text(m_popup->idAt(i)) );
 	}	
@@ -115,7 +118,7 @@ int CModuleChooserButton::getId() const{
 
 /** Ís called after a module was selected in the popup */
 void CModuleChooserButton::moduleChosen( int ID ){	
-	for (int i = 0; i < m_popup->count(); i++)
+	for (unsigned int i = 0; i < m_popup->count(); i++)
 		m_popup->setItemChecked(m_popup->idAt(i),false);		
 	m_popup->setItemChecked(ID, true);
 	
@@ -125,7 +128,7 @@ void CModuleChooserButton::moduleChosen( int ID ){
   		return;
 		}
 	}
-	else{
+	else {
 	  if (!m_hasModule)
 	    emit sigAddButton();
 		m_hasModule = true;  	
@@ -133,5 +136,9 @@ void CModuleChooserButton::moduleChosen( int ID ){
 		setPixmap(getIcon());
 		repaint();  	  	
   	emit sigChanged();
+  	
+  	QToolTip::remove(this);
+  	if (getModule())
+  		QToolTip::add(this, QString::fromLocal8Bit( getModule()->module()->Name() ));
 	}
 }

@@ -55,7 +55,6 @@ public:
 	struct CPagePosition {
 	  unsigned int curPage;
 	  QRect rect;
-//	  time_t now;
 	};	
 	struct CPageMargin {
 	  unsigned int top;
@@ -146,11 +145,6 @@ public:
  	* Setups the printer using CPrinterDialog.
  	*/
   void setup( QWidget* parent );
-  /**
- 	* Print item at bottom of the current page.
- 	* If there's no more space left on the current page create a new one.
- 	*/
-//  void printItem( QPainter* p, const CPrintItem* item);
   /**
  	* Returns true if we use the preview mechanism.
  	*/

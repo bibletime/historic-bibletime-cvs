@@ -81,7 +81,6 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 	QListViewItem* child = m_moduleIndex->firstChild();
 	while (child) {
 		QListViewItem* nextChild = child->nextSibling();
-		ASSERT(nextChild);
 		if (child->childCount())
  			child->setOpen(true);
  		else {
