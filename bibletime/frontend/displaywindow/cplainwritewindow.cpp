@@ -29,7 +29,7 @@
 #include <klocale.h>
 
 CPlainWriteWindow::CPlainWriteWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name ) : CWriteWindow(moduleList, parent, name) {
-  qWarning("CPlainWriteWindow::CPlainWriteWindow");
+//  qWarning("CPlainWriteWindow::CPlainWriteWindow");
 	setKey( CSwordKey::createInstance(moduleList.first()) );  
 }
 
@@ -77,7 +77,8 @@ void CPlainWriteWindow::initView(){
  	m_actions.restoreText = new KAction(i18n("Restore original text"),
     CResMgr::displaywindows::writeWindow::restoreText::icon,
     CResMgr::displaywindows::writeWindow::restoreText::accel,
-    this, SLOT(restoreText()), actionCollection()
+    this, SLOT(restoreText()),
+    actionCollection()
   );
   m_actions.restoreText->setToolTip( CResMgr::displaywindows::writeWindow::restoreText::tooltip );
   m_actions.restoreText->setWhatsThis( CResMgr::displaywindows::writeWindow::restoreText::whatsthis );
@@ -106,6 +107,7 @@ void CPlainWriteWindow::saveCurrentText(){
   modules().first()->write(key(), t );
 
   displayWidget()->setModified(false);
+  qWarning("sucessfully wrote into the module");
   textChanged();
 }
 
@@ -118,8 +120,13 @@ void CPlainWriteWindow::restoreText(){
 
 /** Is called when the current text was changed. */
 void CPlainWriteWindow::textChanged() {
+  qWarning("textChanged");
+  Q_ASSERT(displayWidget());
+  Q_ASSERT(m_actions.saveText);
   m_actions.saveText->setEnabled( displayWidget()->isModified() );
-  m_actions.restoreText->setEnabled( displayWidget()->isModified() );  
+  qWarning("textChanged-1");
+  m_actions.restoreText->setEnabled( displayWidget()->isModified() );
+  qWarning("textChanged-2");
 }
 
 /** Deletes the module entry and clears the edit widget, */

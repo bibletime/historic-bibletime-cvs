@@ -68,7 +68,7 @@ public:
   */
   static void insertKeyboardActions( KAccel* const accel );
 
- 	CMDIArea* const mdi();
+ 	CMDIArea* const mdi() const;
   /**
   * Returns the right window caption.
   */

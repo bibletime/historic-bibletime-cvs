@@ -94,7 +94,7 @@ CDisplayWindow::CDisplayWindow(ListCSwordModuleInfo modules, CMDIArea *parent, c
 CDisplayWindow::~CDisplayWindow(){
 }
 
-CMDIArea* const CDisplayWindow::mdi() {
+CMDIArea* const CDisplayWindow::mdi() const {
 	return m_mdi;
 }
 
@@ -103,7 +103,7 @@ const QString CDisplayWindow::windowCaption(){
  	if (!m_modules.count())
 		return QString::null;
 
-	QString ret = m_modules.first()->name();		
+	QString ret = m_modules.first()->name();
 	if (m_modules.count() > 1) {
 		for (m_modules.next(); m_modules.current(); m_modules.next())	 {
 			ret += " | " + m_modules.current()->name();	

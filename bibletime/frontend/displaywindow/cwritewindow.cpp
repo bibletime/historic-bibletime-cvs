@@ -95,7 +95,7 @@ void CWriteWindow::applyProfileSettings(CProfileWindow * const settings) {
 	setUpdatesEnabled(false);
 
 	if (settings->maximized()) {
-		showMaximized();
+		parentWidget()->showMaximized();
 	}
 	else {
 		const QRect rect = settings->geometry();
@@ -128,8 +128,9 @@ void CWriteWindow::lookup( CSwordKey* newKey ){
     displayWidget()->setText( newKey->rawText() );
   }
   
-	if (key() != newKey)
+	if (key() != newKey) {
 		key()->key(newKey->key());
+  }
 
 	setCaption( windowCaption() );
   

@@ -201,7 +201,7 @@ void CMDIArea::myTile(){
 
 	if ((windowList().count() == 1) && windowList().at(0)) {
 		m_appCaption = windowList().at(0)->caption();
-		windowList().at(0)->showMaximized();
+		windowList().at(0)->parentWidget()->showMaximized();
 	}
 	else {
     QWidget* active = activeWindow();
@@ -218,7 +218,7 @@ void CMDIArea::myCascade(){
     
 	if ((windowList().count() == 1) && windowList().at(0)) {
     m_appCaption = windowList().at(0)->caption();
-		windowList().at(0)->showMaximized();
+		windowList().at(0)->parentWidget()->showMaximized();
 	}
  	else {
     QWorkspace::cascade();
