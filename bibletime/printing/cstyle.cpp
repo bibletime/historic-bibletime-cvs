@@ -279,7 +279,7 @@ void CStyle::deleteListViewItem(){
 	m_listViewItem = 0;
 }
 
-/** Loads the profile from a XML file. */
+/** Loads the session from a XML file. */
 const bool CStyle::loadFromFile(const QString& filename){
 	QFile file(filename);
 	if (!file.exists()) {

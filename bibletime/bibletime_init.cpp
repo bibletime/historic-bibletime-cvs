@@ -214,7 +214,7 @@ void BibleTime::initActions() {
 	m_windowCloseAll_action->plugAccel( m_keyAccel );
 
 
-	m_windowSaveProfile_action = new KActionMenu(i18n("&Save profile"),
+	m_windowSaveProfile_action = new KActionMenu(i18n("&Save session"),
     CResMgr::mainMenu::window::saveProfile::icon,
     actionCollection(),
     CResMgr::mainMenu::window::saveProfile::actionName
@@ -224,7 +224,7 @@ void BibleTime::initActions() {
 	m_windowSaveProfile_action->plugAccel( m_keyAccel );
 
 
-  m_windowSaveToNewProfile_action = new KAction(i18n("&Save as new profile"),
+  m_windowSaveToNewProfile_action = new KAction(i18n("&Save as new session"),
     CResMgr::mainMenu::window::saveToNewProfile::icon,
     CResMgr::mainMenu::window::saveToNewProfile::accel,    
     this, SLOT(saveToNewProfile()), actionCollection(),
@@ -235,7 +235,7 @@ void BibleTime::initActions() {
 	m_windowSaveToNewProfile_action->plugAccel( m_keyAccel );
   
   
-	m_windowLoadProfile_action = new KActionMenu(i18n("&Load profile"),
+	m_windowLoadProfile_action = new KActionMenu(i18n("&Load session"),
     CResMgr::mainMenu::window::loadProfile::icon,
     actionCollection(),
     CResMgr::mainMenu::window::loadProfile::actionName
@@ -245,7 +245,7 @@ void BibleTime::initActions() {
 	m_windowLoadProfile_action->plugAccel( m_keyAccel );
 
 
-	m_windowEditProfiles_action = new KAction(i18n("&Configure profiles"),
+	m_windowEditProfiles_action = new KAction(i18n("&Configure sessions"),
     CResMgr::mainMenu::window::setupProfiles::icon,
     CResMgr::mainMenu::window::setupProfiles::accel,
     this, SLOT(editProfiles()), actionCollection(),

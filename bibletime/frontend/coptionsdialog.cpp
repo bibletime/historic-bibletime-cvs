@@ -130,7 +130,7 @@ void COptionsDialog::slotApply(){
 /** Adds a new view profile to the list. */
 void COptionsDialog::addNewProfile(){
 	bool ok = false;
-	QString name = QInputDialog::getText(i18n("Create new profile"), i18n("Please enter the name of the new profile."), QLineEdit::Normal, QString::null, &ok);
+	QString name = QInputDialog::getText(i18n("Create new session"), i18n("Please enter a name for the new session."), QLineEdit::Normal, QString::null, &ok);
 	if (ok && !name.isEmpty()) {
 		m_settings.profiles.mgr.create(name);
 		m_settings.profiles.profiles->insertItem(name);				
@@ -153,7 +153,7 @@ void COptionsDialog::renameProfile(){
 	CProfile* profile = m_settings.profiles.mgr.profile(currentProfile);
 	if (!profile)
 		return;
-	const QString newName = QInputDialog::getText(i18n("Rename profile"), i18n("Please enter a new name for the profile."), QLineEdit::Normal, profile->name(), &ok);
+	const QString newName = QInputDialog::getText(i18n("Rename session"), i18n("Please enter a new name for the session."), QLineEdit::Normal, profile->name(), &ok);
 	if (ok && !newName.isEmpty()) {
 		profile->setName(newName);
 		m_settings.profiles.profiles->changeItem(newName, m_settings.profiles.profiles->currentItem());
@@ -390,15 +390,15 @@ Some options like \"Words of Jesus\" only apply to texts which offer special fea
 
 /** Init profiles section. */
 void COptionsDialog::initProfiles(){
-	QFrame* page = addPage(i18n("Profiles"),QString::null, DesktopIcon(CResMgr::settings::profiles::icon,32));
+	QFrame* page = addPage(i18n("Sessions"),QString::null, DesktopIcon(CResMgr::settings::profiles::icon,32));
 	QGridLayout* gridLayout = new QGridLayout(page, 3,3,5,5);
 
 	gridLayout->addMultiCellWidget(
 		CToolClass::explanationLabel(page,
-			i18n("Manage profiles"),
-			i18n("Profiles define the appereance of the work area, \
+			i18n("Manage sessions"),
+			i18n("Sessions define the appereance of the work area, \
 for example which windows are open and which texts should displayed in these windows. \
-New profiles only work after you've saved something into them.")
+New sessions only work after you've saved something into them.")
 		),
 		0,0,0,-1
 	);
@@ -407,15 +407,15 @@ New profiles only work after you've saved something into them.")
 	gridLayout->addMultiCellWidget(m_settings.profiles.profiles, 1,1,0,-1);
 	gridLayout->setRowStretch(1,10);
 
-	m_settings.profiles.createProfile = new QPushButton(i18n("Create new profile"), page);
+	m_settings.profiles.createProfile = new QPushButton(i18n("Create new session"), page);
 	connect(m_settings.profiles.createProfile, SIGNAL(clicked()), SLOT(addNewProfile()));
   gridLayout->addWidget(m_settings.profiles.createProfile,2,0);
 
-	m_settings.profiles.deleteProfile = new QPushButton(i18n("Delete selected profile"), page);
+	m_settings.profiles.deleteProfile = new QPushButton(i18n("Delete selected session"), page);
 	connect(m_settings.profiles.deleteProfile, SIGNAL(clicked()), SLOT(deleteProfile()));
   gridLayout->addWidget(m_settings.profiles.deleteProfile,2,1);
 
-	m_settings.profiles.renameProfile = new QPushButton(i18n("Rename selected profile"), page);
+	m_settings.profiles.renameProfile = new QPushButton(i18n("Rename selected session"), page);
 	connect(m_settings.profiles.renameProfile, SIGNAL(clicked()), SLOT(renameProfile()));
   gridLayout->addWidget(m_settings.profiles.renameProfile,2,2);
 

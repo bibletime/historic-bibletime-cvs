@@ -71,8 +71,7 @@ extern "C" {
 		// try to cleanup all windows
 		if (wizard) {
 //			wizard->saveSettings();
-			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
-please use the option --ignore-startprofile\n");
+			fprintf(stderr, "*** Saving seemed to be succesful.\n");
 		}
 		::exit(-1); //exit BibleTime
 	}
@@ -83,8 +82,7 @@ please use the option --ignore-startprofile\n");
 		fprintf(stderr, "*** BTSetupWizard got signal %d (Crashing). Trying to save settings.\n", sigId);
 		if (wizard) {
 //			bibletime->saveSettings();
-			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
-please use the option --ignore-startprofile\n");		
+			fprintf(stderr, "*** Saving seemed to be succesful.\n");		
 		}
 		// Return to DrKonqi.
 	}

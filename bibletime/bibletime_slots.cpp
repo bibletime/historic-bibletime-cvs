@@ -450,7 +450,7 @@ void BibleTime::editProfiles(){
 /** Saves current settings into a new profile. */
 void BibleTime::saveToNewProfile(){
   bool ok = false;
-  const QString name = QInputDialog::getText(i18n("Profile name:"), i18n("Please enter the name of the new profile."), QLineEdit::Normal, QString::null, &ok, this);
+  const QString name = QInputDialog::getText(i18n("Session name:"), i18n("Please enter a name for the new session."), QLineEdit::Normal, QString::null, &ok, this);
   if (ok && !name.isEmpty()) {
     CProfile* profile = m_profileMgr.create(name);
     saveProfile(profile);

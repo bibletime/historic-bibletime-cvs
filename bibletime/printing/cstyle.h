@@ -177,7 +177,7 @@ public:
  	*/
   void deleteListViewItem();
   /**
-  * Loads the profile from a XML file.
+  * Loads the style from a XML file.
   */
   const bool loadFromText(const QString& text);
   const bool loadFromFile(const QString& file);

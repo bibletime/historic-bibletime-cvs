@@ -87,7 +87,7 @@ extern "C" {
     if (bibletime_ptr) {
       bibletime_ptr->saveSettings();
 			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
-please use the option --ignore-startprofile\n");
+please use the option --ignore-session\n");
 		}
 		::exit(-1); //exit BibleTime
 	}
@@ -107,7 +107,7 @@ please use the option --ignore-startprofile\n");
     if (bibletime_ptr) {
 			bibletime_ptr->saveSettings();
 			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
-please use the option --ignore-startprofile\n");		
+please use the option --ignore-session\n");		
 		}
 		// Return to DrKonqi.
 	}
@@ -127,7 +127,7 @@ int main(int argc, char* argv[]) {
 	static KCmdLineOptions options[] =
 	{
 		{"debug", I18N_NOOP("Enable debug messages"),0},
-		{"ignore-startprofile", I18N_NOOP("Ignore the startup profile saved when BibleTime was closed the last time."),0},
+		{"ignore-session", I18N_NOOP("Ignore the startup session that was saved when BibleTime was closed the last time."),0},
 		{"open-default-bible <key>", I18N_NOOP("Open the default bible with the given key. Use <random> to open at a random position."),0},
 		{0,0,0}
 	};	

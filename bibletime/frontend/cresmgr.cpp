@@ -97,27 +97,27 @@ namespace CResMgr {
 
     namespace window { //Main menu->Window
       namespace loadProfile {
-        const QString tooltip     = makeToolTip( i18n("Load a new profile") );
-        const QString whatsthis   = makeWhatsThis(tooltip,i18n("Restore a BibleTime session using a profile stored on disk.") );
+        const QString tooltip     = makeToolTip( i18n("Load a new session") );
+        const QString whatsthis   = makeWhatsThis(tooltip,i18n("Restore a saved BibleTime session.") );
         const QString icon        = "view_sidetree";
         const char* actionName    = "windowLoadProfile_action";
       }
       namespace saveProfile {
         const QString tooltip     = makeToolTip(i18n("Save current session"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Save current BibleTime session to a profile on disk so that it can be reused later."));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Save current BibleTime session so that it can be reused later."));
         const QString icon        = "view_sidetree";
         const char* actionName    = "windowSaveProfile_action";
       }
       namespace saveToNewProfile {
-        const QString tooltip     = makeToolTip(i18n("Save as a new profile"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Create a new profile and save the current BibleTime sessin into it."));
+        const QString tooltip     = makeToolTip(i18n("Save as new session"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Create and save a new session."));
         const QString icon        = "view_sidetree";
         const KShortcut accel     = Qt::CTRL + Qt::ALT + Qt::Key_S;
         const char* actionName    = "windowSaveToNewProfile_action";
       }
       namespace setupProfiles {
-        const QString tooltip     = makeToolTip(i18n("Edit profiles"));
-        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Create new, delete or rename existing profiles."));
+        const QString tooltip     = makeToolTip(i18n("Edit sessions"));
+        const QString whatsthis   = makeWhatsThis(tooltip, i18n("Create new, delete or rename existing sessions."));
         const QString icon        = "view_sidetree";
         const KShortcut accel     = KShortcut();
         const char* actionName    = "windowEditProfiles_action";
@@ -661,20 +661,20 @@ namespace CResMgr {
       const QString icon = "view_sidetree";
             
       namespace list {
-        const QString tooltip   = makeToolTip( i18n("List of profiles") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("The list of available profiles."));
+        const QString tooltip   = makeToolTip( i18n("List of sessions") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("The list of available sessions."));
       };
       namespace createNew {
-        const QString tooltip   = makeToolTip( i18n("Create new profile") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("Create a new, empty profile with default settings."));
+        const QString tooltip   = makeToolTip( i18n("Create new session") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Create a new, empty session with default settings."));
       };
       namespace deleteCurrent {
-        const QString tooltip   = makeToolTip( i18n("Delete profile") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("Delete the selected profile."));
+        const QString tooltip   = makeToolTip( i18n("Delete session") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Delete the selected session."));
       };
       namespace renameCurrent {
-        const QString tooltip   = makeToolTip( i18n("Rename profile") );
-        const QString whatsthis = makeWhatsThis( tooltip, i18n("Rename the selected profile."));
+        const QString tooltip   = makeToolTip( i18n("Rename session") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Rename the selected session."));
       };
     };
     namespace sword {

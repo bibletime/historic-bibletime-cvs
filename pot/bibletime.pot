@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-02-06 13:16+0100\n"
+"POT-Creation-Date: 2003-02-07 15:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -468,19 +468,19 @@ msgid "&Close all"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:217
-msgid "&Save profile"
+msgid "&Save session"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:227
-msgid "&Save as new profile"
+msgid "&Save as new session"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:238
-msgid "&Load profile"
+msgid "&Load session"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:248
-msgid "&Configure profiles"
+msgid "&Configure sessions"
 msgstr ""
 
 #: ../bibletime/bibletime_init.cpp:259
@@ -517,11 +517,11 @@ msgstr ""
 
 #: ../bibletime/bibletime_slots.cpp:453
 #: ../bibletime/frontend/coptionsdialog.cpp:133
-msgid "Please enter the name of the new profile."
+msgid "Please enter a name for the new session."
 msgstr ""
 
 #: ../bibletime/bibletime_slots.cpp:453
-msgid "Profile name:"
+msgid "Session name:"
 msgstr ""
 
 #: ../bibletime/frontend/cbtconfig.cpp:233
@@ -583,16 +583,16 @@ msgstr ""
 #: ../bibletime/frontend/coptionsdialog.cpp:133
 #: ../bibletime/frontend/coptionsdialog.cpp:410
 #: ../bibletime/frontend/cresmgr.cpp:668
-msgid "Create new profile"
+msgid "Create new session"
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:156
-msgid "Please enter a new name for the profile."
+msgid "Please enter a new name for the session."
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:156
 #: ../bibletime/frontend/cresmgr.cpp:676
-msgid "Rename profile"
+msgid "Rename session"
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:180
@@ -675,26 +675,26 @@ msgid "Morphologic tags"
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:393
-msgid "Profiles"
+msgid "Sessions"
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:398
-msgid "Manage profiles"
+msgid "Manage sessions"
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:399
 msgid ""
-"Profiles define the appereance of the work area, for example which windows "
-"are open and which texts should displayed in these windows. New profiles "
+"Sessions define the appereance of the work area, for example which windows "
+"are open and which texts should displayed in these windows. New sessions "
 "only work after you've saved something into them."
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:414
-msgid "Delete selected profile"
+msgid "Delete selected session"
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:418
-msgid "Rename selected profile"
+msgid "Rename selected session"
 msgstr ""
 
 #: ../bibletime/frontend/coptionsdialog.cpp:436
@@ -943,11 +943,11 @@ msgid "Open the search dialog to search in the default bible."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:100
-msgid "Load a new profile"
+msgid "Load a new session"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:101
-msgid "Restore a BibleTime session using a profile stored on disk."
+msgid "Restore a saved BibleTime session."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:106
@@ -955,25 +955,23 @@ msgid "Save current session"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:107
-msgid ""
-"Save current BibleTime session to a profile on disk so that it can be reused "
-"later."
+msgid "Save current BibleTime session so that it can be reused later."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:112
-msgid "Save as a new profile"
+msgid "Save as new session"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:113
-msgid "Create a new profile and save the current BibleTime sessin into it."
+msgid "Create and save a new session."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:119
-msgid "Edit profiles"
+msgid "Edit sessions"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:120
-msgid "Create new, delete or rename existing profiles."
+msgid "Create new, delete or rename existing sessions."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:126
@@ -1700,27 +1698,27 @@ msgid "All morphological tags will appear in this color."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:664
-msgid "List of profiles"
+msgid "List of sessions"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:665
-msgid "The list of available profiles."
+msgid "The list of available sessions."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:669
-msgid "Create a new, empty profile with default settings."
+msgid "Create a new, empty session with default settings."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:672
-msgid "Delete profile"
+msgid "Delete session"
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:673
-msgid "Delete the selected profile."
+msgid "Delete the selected session."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:677
-msgid "Rename the selected profile."
+msgid "Rename the selected session."
 msgstr ""
 
 #: ../bibletime/frontend/cresmgr.cpp:685
@@ -1977,6 +1975,12 @@ msgstr ""
 
 #: ../bibletime/frontend/display/chtmlwritedisplay.cpp:209
 msgid "Underline"
+msgstr ""
+
+#: ../bibletime/frontend/display/chtmlwritedisplay.cpp:278
+#: ../bibletime/frontend/displaywindow/cbiblereadwindow.cpp:149
+#: ../bibletime/frontend/displaywindow/clexiconreadwindow.cpp:105
+msgid "Select all"
 msgstr ""
 
 #: ../bibletime/frontend/display/chtmlwritedisplay.cpp:282
@@ -2620,7 +2624,8 @@ msgstr ""
 
 #: ../bibletime/main.cpp:130
 msgid ""
-"Ignore the startup profile saved when BibleTime was closed the last time."
+"Ignore the startup session that was saved when BibleTime was closed the last "
+"time."
 msgstr ""
 
 #: ../bibletime/main.cpp:131

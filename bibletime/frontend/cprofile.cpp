@@ -45,7 +45,7 @@ CProfile::CProfile( const QString& file, const QString& name ):
 		m_filename = name;
 		m_filename.replace(QRegExp("\\s=#."),"_");
 		KStandardDirs stdDirs;
-		m_filename = stdDirs.saveLocation("data", "bibletime/profiles/") + m_filename + ".xml";
+		m_filename = stdDirs.saveLocation("data", "bibletime/sessions/") + m_filename + ".xml";
 		init(m_filename);
 	}
 	else
