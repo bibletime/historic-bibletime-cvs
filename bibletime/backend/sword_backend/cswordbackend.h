@@ -20,7 +20,6 @@
 
 //BibleTime includes
 #include "../cbackend.h"
-//#include "../cmoduleinfo.h"
 
 //Qt includes
 #include <qlist.h>
@@ -45,7 +44,7 @@ typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
   *	@author The BibleTime team
   * @version $Id$
   */
-class CSwordBackend : public CBackend, virtual public SWMgr  {
+class CSwordBackend : public CBackend, /*virtual*/public SWMgr  {
 public:
   /**
  	* These are the options which could be supported by modules and by this backend.
@@ -108,7 +107,7 @@ public:
   * @return Returns true if the options given as aparameter is switched on at this time, otherwise return false.
   */
   virtual const bool isOptionEnabled( const CSwordBackend::moduleOptions type);
-	/**
+	/** Fonds the Sword
 	*
 	*/
 	virtual void Load();

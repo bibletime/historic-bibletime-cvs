@@ -19,7 +19,6 @@
 #include "cswordbackend.h"
 #include "chtmlentrydisplay.h"
 #include "chtmlchapterdisplay.h"
-//#include "cswordmoduleinfo.h"
 #include "cswordbiblemoduleinfo.h"
 #include "cswordcommentarymoduleinfo.h"
 #include "cswordlexiconmoduleinfo.h"
@@ -29,8 +28,6 @@
 
 //Qt includes
 #include <qdir.h>
-
-//KDE includes
 
 //Sword includes
 #include <swdisp.h>
@@ -49,8 +46,6 @@ CSwordBackend::CSwordBackend() : SWMgr(0,0,false) {
 	m_chapterDisplay = 0;
 	m_moduleList = 0;
 	m_gbfFilter = m_rwpFilter = m_plainTextFilter = m_thmlFilter = 0;
-
-	Load();	//Load Sword modules
 }
 
 CSwordBackend::~CSwordBackend(){
@@ -77,6 +72,7 @@ CSwordBackend::~CSwordBackend(){
 		
 /** Initializes the Sword modules. */
 const CSwordBackend::errorCode CSwordBackend::initModules() {
+	qDebug("CSwordBackend::initModules");
 	ModMap::iterator it;
 	SWModule*	curMod = 0;
 	CSwordModuleInfo* newModule = 0;
@@ -176,8 +172,7 @@ const bool CSwordBackend::shutdownModules(){
 			delete current;
 		}		
 	}
-	m_moduleList->clear();
-	
+	m_moduleList->clear();	
 	return true;
 }
 
@@ -228,6 +223,7 @@ void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bo
 	* mods.d wasn't found.
 	*/
 void CSwordBackend::Load() {
+	qDebug("CSwordBackend::Load");
 	if (!config) {	// If we weren't passed a config object at construction, find a config file
 		if (!configPath)	// If we weren't passed a config path at construction...
 			findConfig(&configType, &prefixPath, &configPath);
@@ -291,17 +287,16 @@ void CSwordBackend::Load() {
 				}
 			}
 // -------------------------------------------------------------------------
-
 	}
 	else {
 		if (!configPath)
 			m_errorCode = noSwordModuleConfigDirectory;
 		else
 			m_errorCode = noModulesAvailable;	
-		qWarning("SWMgr: Can't find 'mods.conf' or 'mods.d'.  Try setting:\n\tSWORD_PATH=<directory containing mods.conf>\n\tOr see the README file for a full description of setup options (%s)", (configPath) ? configPath : "<configPath is null>");
+		qWarning("BibleTime: Can't find 'mods.conf' or 'mods.d'.  Try setting:\n\tSWORD_PATH=<directory containing mods.conf>\n\tOr see the README file for a full description of setup options (%s)", (configPath) ? configPath : "<configPath is null>");
 	}
 	if (access("/etc/sword.conf",R_OK) == -1)
-		m_errorCode = noSwordConfigFile;	
+		m_errorCode = noSwordConfigFile;
 }
 
 /** This function searches for a module with the specified description */

@@ -54,6 +54,7 @@ CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) : CModuleInfo() 
 
 CSwordModuleInfo::~CSwordModuleInfo(){
 	m_searchResult.ClearList();
+	m_module = 0; //the real Sword modle is deleted by SWMgr::~SWMgr
 }
 
 /** Sets the unlock key of the modules and writes the key into the cofig file.*/

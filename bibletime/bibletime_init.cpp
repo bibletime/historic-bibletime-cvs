@@ -261,6 +261,8 @@ void BibleTime::initKeyAccels(){
 void BibleTime::initBackends(){
 	m_moduleList = 0;	
 	m_important->swordBackend = new CSwordBackend();	
+	qWarning("call Load now!");
+	m_important->swordBackend->Load();
 	CSwordBackend::errorCode errorCode = m_important->swordBackend->initModules();
 	
 	if ( errorCode == CSwordBackend::noError ) {	//no error
