@@ -363,13 +363,11 @@ void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item
 void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* module, const QString ref){
 	if (!module)
 		return;
-
-//	bool isOk = false;
-	CGroupManagerItem* myItem = 0;	
-	QString description = CInputDialog::getText(i18n("Bookmark description - BibleTime"), i18n("Please enter here the description:"), QString::null,0);
-	//= KLineEditDlg::getText(i18n("Please enter the description of the new bookmark"), QString::null, &isOk, 0);
-	setFocus();
 	
+	CGroupManagerItem* myItem = 0;	
+	QString description = CInputDialog::getText(i18n("Bookmark description - BibleTime"), i18n("Please enter here the description:"), QString::null);
+	setFocus();
+
 	myItem = 0;
   if ( parent && (parent->type() == CGroupManagerItem::Group) ) {
    	myItem = new CGroupManagerItem(parent,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark);
@@ -380,12 +378,12 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 		
 	if (myItem && (CSwordModuleInfo*)module) {	//it's a Sword module
 		CSwordModuleInfo* swordModule = (CSwordModuleInfo*)module;
-		if (dynamic_cast<CSwordBibleModuleInfo*>(swordModule) ) {	//a bible or commentary
+		if (swordModule->getType() == CSwordModuleInfo::Bible || swordModule->getType() == CSwordModuleInfo::Commentary) {	//a bible or commentary
 			CSwordVerseKey* key = new CSwordVerseKey(swordModule);
-			key->setKey(ref);				
+			key->setKey(ref);
 			myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
 		}
-		else if (dynamic_cast<CSwordLexiconModuleInfo*>(swordModule) ) {	//a lexicon module
+		else if (swordModule->getType() == CSwordModuleInfo::Lexicon) {	//a lexicon module
 			CSwordLDKey* key = new CSwordLDKey(swordModule);
 			key->setKey(ref);
 			myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
@@ -399,13 +397,11 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 /** Changes the current item */
 void CGroupManager::slotChangeBookmark(){
 	if (!m_pressedItem)
-		return;
-		
+		return;		
 	bool isOk;
-//	QString description = QInputDialog::getText(i18n("Change bookmark description - BibleTime"),i18n("Please change the description of the item!"), m_pressedItem->description(), &isOk, 0);	
-	QString description = CInputDialog::getText(i18n("Change bookmark description - BibleTime"),i18n("Please change the description of the item!"), m_pressedItem->description(), &isOk, 0);	
+	QString description = CInputDialog::getText(i18n("Change bookmark description - BibleTime"),i18n("Please change the description of the item!"), m_pressedItem->description(), &isOk, 0);
 	if (isOk)
-		m_pressedItem->setDescription( description );
+		m_pressedItem->setDescription(description);
 }
 
 /** Changes a group. */

@@ -844,6 +844,8 @@ signals:
     void minimumWidthChanged( int );
 
 private:
+		bool m_assignedFontMap;
+
     void init();
     QPixmap *bufferPixmap( const QSize &s );
     // HTML parser

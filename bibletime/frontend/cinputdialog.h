@@ -33,12 +33,12 @@ class CInputDialog : public KDialog  {
 public: 	
 	CInputDialog(const QString& caption, const QString& description, const QString& text, QWidget *parent=0, const char *name=0, const bool modal = true);
   /**
-  	* A static function to get some using CInputDialog.
-  	*/
+ 	* A static function to get some using CInputDialog.
+ 	*/
   static const QString getText( const QString& caption, const QString& description, const QString& text = QString::null, bool* ok = 0, QWidget* parent = 0, bool modal = true);
   /**
-  	* Returns the text entered at the moment.
-  	*/
+ 	* Returns the text entered at the moment.
+ 	*/
   const QString text();
 	~CInputDialog();
 

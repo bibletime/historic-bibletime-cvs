@@ -80,18 +80,24 @@ CInputDialog::~CInputDialog(){
 
 /** Returns the text entered at the moment. */
 const QString CInputDialog::text() {
+	ASSERT(m_editWidget);
 	return m_editWidget->text();
 }
 
 /** A static function to get some using CInputDialog. */
 const QString CInputDialog::getText( const QString& caption, const QString& description, const QString& text, bool* ok, QWidget* parent, bool modal){
-	CInputDialog* dlg = new CInputDialog(caption, description, text, parent, "", modal);
-	const bool isOk = dlg->exec() == CInputDialog::Accepted;
+	qDebug("CInputDialog::getText( const QString& caption, const QString& description, const QString& text, bool* ok, QWidget* parent, bool modal)");
+	ASSERT(ok);
+	
+	CInputDialog* dlg = new CInputDialog(caption, description, text, parent, "", modal);	
 	QString ret = QString::null;
+		
+	const bool isOk = dlg->exec() == CInputDialog::Accepted;
 	if (isOk)
-		ret = dlg->text();	
+		ret = dlg->text();
 	delete dlg;
 	if (ok)
 		*ok = isOk;
+	qDebug("finished");
 	return ret;
 }
