@@ -21,7 +21,7 @@
 #include "cprofilewindow.h"
 
 //Qt includes
-#include <qlist.h>
+#include <qptrlist.h>
 
 /**	Manages one profile file. Provides functions to save and restore settings of the available display windows.
   *	@author The BibleTime team

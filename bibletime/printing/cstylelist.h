@@ -25,7 +25,7 @@
 
 //Qt includes
 #include <qwidget.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 //KDE includes
 #include <klistview.h>

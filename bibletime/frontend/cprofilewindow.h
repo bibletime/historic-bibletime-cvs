@@ -25,7 +25,7 @@
 #include <qstring.h>
 #include <qrect.h>
 #include <qstringlist.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 /** Contains the settings for one window saved in the profile.
   * @author The BibleTime team

@@ -22,7 +22,7 @@
 //#include "cswordmoduleinfo.h"
 
 //Qt includes
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>

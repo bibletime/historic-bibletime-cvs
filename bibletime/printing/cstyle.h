@@ -20,7 +20,7 @@
 
 //Qt includes
 #include <qlistview.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 
 #ifndef CSTYLE_H

@@ -24,7 +24,7 @@
 //Qt includes
 #include <qobject.h>
 #include <qguardedptr.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qlistview.h>
 
 class CSwordKey;

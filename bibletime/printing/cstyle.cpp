@@ -20,7 +20,7 @@
 
 
 //Qt includes
-#include <qapp.h>
+#include <qapplication.h>
 #include <qdom.h>
 #include <qfile.h>
 #include <qlistview.h>

@@ -24,7 +24,7 @@
 
 //Qt includes
 #include <qworkspace.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstrlist.h>
 #include <qevent.h>
 

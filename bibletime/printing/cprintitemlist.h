@@ -19,7 +19,7 @@
 #define CPRINTITEMLIST_H
 
 #include <qwidget.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <klistview.h>
 
 #include "cprintitem.h"

@@ -24,7 +24,7 @@
 #include "util/cpointers.h"
 
 //Qt includes
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstring.h>
 #include <qsignal.h>
 

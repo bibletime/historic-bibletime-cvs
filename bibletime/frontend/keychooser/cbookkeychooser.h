@@ -28,7 +28,7 @@
 #include <qwidget.h>
 #include <qsize.h>
 #include <qmap.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstringlist.h>
 
 class CSwordKey;

@@ -19,7 +19,7 @@
 #include "kstartuplogo.h"
 
 //Qt includes
-#include <qapp.h>
+#include <qapplication.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qpixmap.h>

@@ -20,7 +20,7 @@
 //Qt includes
 #include <qdir.h>
 #include <qfile.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 //KDE includes
 #include <kstandarddirs.h>

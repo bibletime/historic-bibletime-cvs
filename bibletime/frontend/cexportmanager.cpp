@@ -31,7 +31,7 @@
 
 //Qt includes
 #include <qclipboard.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qprogressdialog.h>
 
 //KDE includes
