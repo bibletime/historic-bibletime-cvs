@@ -42,7 +42,7 @@ typedef QList<CStyle> styleList;
 class CStyleList : public KListView, public CPointers   {
    Q_OBJECT
 public:
-	CStyleList(CPrinter* printer, StyleItemList* items, QWidget *parent=0, const char *name=0);
+	CStyleList(StyleItemList* items, QWidget *parent=0, const char *name=0);
 	~CStyleList();
   /**
  	* Initilizes the view.
@@ -67,7 +67,7 @@ public:
   /**
  	*
  	*/
-  StyleItemList* styleList();
+  StyleItemList* const styleList() const;
 
 public slots: // Public slots
   /**
@@ -87,8 +87,6 @@ private:
 	StyleItemList* m_items;
 	QGuardedPtr<KAction> editStyle_action;
 	QGuardedPtr<KAction> deleteStyle_action;
-	CPrinter* m_printer;
-  void updateStyleCombo();
 };
 
 #endif

@@ -76,10 +76,6 @@
 //QWhatsThis defines for the presenters
 #define WT_MDI_AREA_WIDGET WT(TT_MDI_AREA_WIDGET, i18n("This area is the main workspace of Bibletime.<BR>All display windows are opened in this window."))
 
-#define WT_PRESENTER_BIBLE_WIDGET WT(TT_PRESENTER_BIBLE_WIDGET, i18n("This is the Bible display window"))
-#define WT_PRESENTER_COMMENTARY_WIDGET WT(TT_PRESENTER_COMMENTARY_WIDGET, i18n("This is the commentary display window."))
-#define WT_PRESENTER_LEXICON_WIDGET WT(TT_PRESENTER_LEXICON_WIDGET, i18n("This is the lexicon display window."))
-
 #define WT_PRESENTER_NEXT_ENTRY WT(TT_PRESENTER_NEXT_ENTRY, i18n("The next entry of the module will be shown."))
 #define WT_PRESENTER_PREVIOUS_ENTRY WT(TT_PRESENTER_PREVIOUS_ENTRY, i18n("The previous entry of the module will be shown."))
 #define WT_PRESENTER_NEXT_VERSE WT(TT_PRESENTER_NEXT_VERSE, i18n("For Bible texts, the next verse will be highlighted.<BR>In commentaries, the next entry will be shown."))
@@ -173,16 +169,6 @@
 #define WT_PD_PREVIEW WT(TT_PD_PREVIEW, i18n("Print into a temporary file and open a postscript viewer to preview the printing result."))
 #define WT_PD_CANCEL WT(TT_PD_CANCEL, i18n("Closes this dialog without doing anything else."))
 #define WT_PD_HELP WT(TT_PD_HELP, i18n("Open the online help of BibleTime."))
-
-#define WT_PD_GENERAL_PRINTER_LIST WT(TT_PD_GENERAL_PRINTER_LIST, i18n("This is the list of available printers of your system.<BR>Please select the printer you want to use for printing."))
-#define WT_PD_GENERAL_PRINT_TO_FILE WT(TT_PD_GENERAL_PRINT_TO_FILE, i18n("Print to a postscript file on disk."))
-#define WT_PD_GENERAL_BROWSE_FILE WT(TT_PD_GENERAL_BROWSE_FILE, i18n("Browse for the file you want to print to."))
-#define WT_PD_GENERAL_COPIES WT(TT_PD_GENERAL_COPIES, i18n("The number of copies for printing."))
-#define WT_PD_GENERAL_ORIENTATION WT(TT_PD_GENERAL_ORIENTATION, i18n("Choose the orientation of the paper."))
-#define WT_PD_GENERAL_ORIENTATION_PORTRAIT WT(TT_PD_GENERAL_ORIENTATION_PORTRAIT, i18n("Print on the paper using \"Portrait\" orientation."))
-#define WT_PD_GENERAL_ORIENTATION_LANDSCAPE WT(TT_PD_GENERAL_ORIENTATION_LANDSCAPE, i18n("Print on the paper using \"Landscape\" orientation."))
-#define WT_PD_GENERAL_PAPER_TYPE WT(TT_PD_GENERAL_PAPER_TYPE, i18n("The type of the paper which is used for printing."))
-#define WT_PD_GENERAL_PAPER_SIZE WT(TT_PD_GENERAL_PAPER_SIZE, i18n("The size of the paper used."))
 
 #define WT_PD_ENTRIES_STYLE_COMBO WT(TT_PD_ENTRIES_STYLE_COMBO, i18n("This combo box contains the available print styles."))
 #define WT_PD_ENTRIES_PI_LIST WT(TT_PD_ENTRIES_PI_LIST, i18n("This is the list which contains the available print items."))

@@ -297,12 +297,12 @@ void CPrinter::saveStyles(){
 			format[1] = current->formatForType( CStyle::Description );
 			format[2] = current->formatForType( CStyle::ModuleText );
 												
-			m_config->writeEntry( "FGColor", format[index]->color( CStyleFormat::Background ) );
-			m_config->writeEntry( "BGColor", format[index]->color( CStyleFormat::Foreground ) );
+			m_config->writeEntry( "FGColor", format[index]->color( CStyleFormat::Foreground ) );
+			m_config->writeEntry( "BGColor", format[index]->color( CStyleFormat::Background ) );
 			m_config->writeEntry( "Font", format[index]->getFont() );
-//			m_config->writeEntry( "Identation", format[index]->getIdentation() );			
 			m_config->writeEntry( "isEnabled", current->hasFormatTypeEnabled( (index == 0) ? CStyle::Header : ( (index == 1) ? CStyle::Description : CStyle::ModuleText)) );
 			m_config->writeEntry( "Alignement", (int)(format[index]->alignement()) );
+			
 			//save frame settings
 			m_config->writeEntry( "has frame", format[index]->frame() );
 			m_config->setGroup(QString("%1__%2__FRAME").arg(m_styleList.current()->styleName()).arg(names[index]) );

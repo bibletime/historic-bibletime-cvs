@@ -64,8 +64,8 @@ void CStyleFormat::setColor( const Color type, const QColor& newColor ) {
 /** Returns the frame if we have one. Otherwise we return 0. */
 CStyleFormatFrame* const CStyleFormat::frame() {
 	if (m_hasFrame && !m_frame)
-		m_frame = new CStyleFormatFrame();
-	return m_frame;
+			return (m_frame = new CStyleFormatFrame());	
+	return 0;
 }
 
 /** Sets the frame of this style. */

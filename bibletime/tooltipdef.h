@@ -66,10 +66,6 @@
 //QWhatsThis defines for the presenters
 #define TT_MDI_AREA_WIDGET i18n("The working area")
 
-#define TT_PRESENTER_BIBLE_WIDGET i18n("The bible window")
-#define TT_PRESENTER_COMMENTARY_WIDGET i18n("The commentary window")
-#define TT_PRESENTER_LEXICON_WIDGET i18n("The lexicon window")
-
 #define TT_PRESENTER_NEXT_ENTRY i18n("Show the next entry")
 #define TT_PRESENTER_PREVIOUS_ENTRY i18n("Show the previous entry")
 #define TT_PRESENTER_NEXT_VERSE i18n("Jump to the next verse")
@@ -166,16 +162,6 @@
 #define TT_PD_PREVIEW i18n("Preview print job")
 #define TT_PD_CANCEL i18n("Cancel")
 #define TT_PD_HELP i18n("Open help")
-
-#define TT_PD_GENERAL_PRINTER_LIST i18n("The list of printers")
-#define TT_PD_GENERAL_PRINT_TO_FILE i18n("Print to a file")
-#define TT_PD_GENERAL_BROWSE_FILE i18n("Browse for the file")
-#define TT_PD_GENERAL_COPIES i18n("Number of copies")
-#define TT_PD_GENERAL_ORIENTATION i18n("Orientation")
-#define TT_PD_GENERAL_ORIENTATION_PORTAIT i18n("Portrait")
-#define TT_PD_GENERAL_ORIENTATION_LANDSCAPE i18n("Landscape")
-#define TT_PD_GENERAL_PAPER_TYPE i18n("Paper type")
-#define TT_PD_GENERAL_PAPER_SIZE i18n("Paper size")
 
 #define TT_PD_ENTRIES_STYLE_COMBO i18n("Styles")
 #define TT_PD_ENTRIES_PI_LIST i18n("List of print items")

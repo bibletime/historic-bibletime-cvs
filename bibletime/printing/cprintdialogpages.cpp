@@ -96,7 +96,7 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
   QVBoxLayout *styleLayout = new QVBoxLayout( 0, 5, 5 );
   QVBoxLayout *buttonLayout = new QVBoxLayout( 0, 5, 5 );
   	
-  m_styleList = new CStyleList( m_printer, &(m_printer->styleList()), this, "CStyleList1");
+  m_styleList = new CStyleList( &(m_printer->styleList()), this, "CStyleList1");
 	connect(m_styleList, SIGNAL(currentChanged(QListViewItem*)), SLOT(currentStyleChanged(QListViewItem*)));
 	QToolTip::add(m_styleList, TT_PD_LAYOUT_STYLE_LIST);	
 	QWhatsThis::add(m_styleList, WT_PD_LAYOUT_STYLE_LIST);
@@ -135,10 +135,6 @@ CStyleListPage::CStyleListPage(CPrinter* printer, QWidget *parent, const char *n
 	entryLayout->addLayout( buttonLayout );
 	
 	topLayout->addLayout(entryLayout);
-
-
-//	//apply layout settings
-
 }
 
 CStyleListPage::~CStyleListPage() {

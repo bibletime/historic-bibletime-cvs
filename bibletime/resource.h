@@ -111,22 +111,22 @@
 
 
 //Key bindings of BibleTime
-#define IDK_GM_RESET					CTRL+ALT+Key_R
-#define IDK_GM_ITEMS_DELETE				CTRL+ALT+Key_D
-#define IDK_GM_MODULES_SEARCH			CTRL+ALT+Key_M
+#define IDK_GM_RESET						CTRL+ALT+Key_R
+#define IDK_GM_ITEMS_DELETE			CTRL+ALT+Key_D
+#define IDK_GM_MODULES_SEARCH		CTRL+ALT+Key_M
 
-#define IDK_VIEW_FOOTNOTES				CTRL+ALT+Key_F
+#define IDK_VIEW_FOOTNOTES			CTRL+ALT+Key_F
 #define IDK_VIEW_STRONGS				CTRL+ALT+Key_S
-#define IDK_VIEW_HEADINGS               0
-#define IDK_VIEW_MORPH_TAGS             0
+#define IDK_VIEW_HEADINGS       0
+#define IDK_VIEW_MORPH_TAGS     0
 #define IDK_VIEW_TOOLBAR				CTRL+Key_T
-#define IDK_VIEW_GROUPMANAGER			0
+#define IDK_VIEW_GROUPMANAGER		0
 
-#define IDK_PRESENTER_NEXT_VERSE		CTRL+Key_V
+#define IDK_PRESENTER_NEXT_VERSE			CTRL+Key_V
 #define IDK_PRESENTER_PREVIOUS_VERSE	CTRL+SHIFT+Key_R
 #define IDK_PRESENTER_NEXT_CHAPTER		CTRL+Key_H
 #define IDK_PRESENTER_PREVIOUS_CHAPTER	CTRL+SHIFT+Key_H
-#define IDK_PRESENTER_EDIT				CTRL+SHIFT+Key_E
+#define IDK_PRESENTER_EDIT					CTRL+SHIFT+Key_E
 #define IDK_PRESENTER_EDIT_DELETE		CTRL+Key_D
 #define IDK_PRESENTER_EDIT_BOLD			CTRL+Key_B
 #define IDK_PRESENTER_EDIT_ITALIC		CTRL+Key_I
@@ -134,15 +134,15 @@
 
 #define IDK_PRESENTER_TOGGLE_TREE		CTRL+Key_T
 
-#define IDK_WINDOW_CASCADE				CTRL+Key_A
+#define IDK_WINDOW_CASCADE			CTRL+Key_A
 #define IDK_WINDOW_TILE					CTRL+Key_T
-#define IDK_WINDOW_AUTO_CASCADE			CTRL+ALT+Key_A
-#define IDK_WINDOW_AUTO_TILE			CTRL+ALT+Key_T
-#define IDK_WINDOW_CLOSE_ALL			CTRL+Key_K
-#define IDK_WINDOW_LOAD_PROFILE			0
-#define IDK_WINDOW_SAVE_PROFILE			0
-#define IDK_WINDOW_EDIT_PROFILES		0
-#define IDK_WINDOW_FULLSCREEN			0
+#define IDK_WINDOW_AUTO_CASCADE	CTRL+ALT+Key_A
+#define IDK_WINDOW_AUTO_TILE		CTRL+ALT+Key_T
+#define IDK_WINDOW_CLOSE_ALL		CTRL+Key_K
+#define IDK_WINDOW_LOAD_PROFILE	0
+#define IDK_WINDOW_SAVE_PROFILE	0
+#define IDK_WINDOW_EDIT_PROFILES  0
+#define IDK_WINDOW_FULLSCREEN		0
 //
 //
 #define IDK_HELP_DAILY_TIP				0
@@ -151,10 +151,10 @@
 /* e.g. bible/reference is expanded to text/bible/reference,
   like text/plain or text/html */
 
-#define REFERENCE					"bt_reference"    // text/bt_reference
-#define STRONGNUMBER				"bt_strongnumber" // text/bt_strongnumber
-#define BOOKMARK					"bt_bookmark"     // text/bt_bookmark (fake)
-#define MODULE						"bt_module"     	// text/bt_module
+#define REFERENCE				"bt_reference"    // text/bt_reference
+#define STRONGNUMBER		"bt_strongnumber" // text/bt_strongnumber
+#define BOOKMARK				"bt_bookmark"     // text/bt_bookmark (fake)
+#define MODULE					"bt_module"     	// text/bt_module
 #define GROUP						"bt_group"     		// text/bt_group
 #define TEXT						"plain"           // text/plain
 
@@ -165,21 +165,21 @@
 //#define LOAD_OD_ICON(name) SmallIcon(name,16)
 
 //ICONS
-#define ICON_FILE_CLEAR_QUEUE			"queue"
+#define ICON_FILE_CLEAR_QUEUE	"queue"
 #define ICON_FILE_NEW					"filenew"
-#define ICON_FILE_PRINT					"fileprint"
-#define ICON_FILE_SAVE					"filesave"
-#define ICON_FILE_DELETE				"editdelete"
+#define ICON_FILE_PRINT				"fileprint"
+#define ICON_FILE_SAVE				"filesave"
+#define ICON_FILE_DELETE			"editdelete"
 
 #define ICON_EDIT						"pencil"
-#define ICON_EDIT_COPY					"editcopy"
-#define ICON_EDIT_BOLD					"text_bold"
-#define ICON_EDIT_ITALIC				"text_italic"
-#define ICON_EDIT_UNDER					"text_under"
-#define ICON_EDIT_LEFT					"text_left"
-#define ICON_EDIT_CENTER				"text_center"
-#define ICON_EDIT_RIGHT					"text_right"
-#define ICON_EDIT_JUST					"text_block"
+#define ICON_EDIT_COPY			"editcopy"
+#define ICON_EDIT_BOLD			"text_bold"
+#define ICON_EDIT_ITALIC		"text_italic"
+#define ICON_EDIT_UNDER			"text_under"
+#define ICON_EDIT_LEFT			"text_left"
+#define ICON_EDIT_CENTER		"text_center"
+#define ICON_EDIT_RIGHT			"text_right"
+#define ICON_EDIT_JUST			"text_block"
 
 #define ICON_VIEW_BOOKTREE				"view_sidetree"
 

@@ -1,4 +1,4 @@
-KDE_OPTIONS = qt-only
+KDE_OPTIONS = foreign
 libbackend_a_METASOURCES = AUTO
 noinst_LIBRARIES = libbackend.a
 

@@ -26,8 +26,8 @@
 #include <kaction.h>
 #include <kiconloader.h>
 
-CStyleList::CStyleList(CPrinter* printer, StyleItemList* items, QWidget *parent, const char *name )
-	: KListView(parent,name), m_items(items), m_printer(printer)
+CStyleList::CStyleList(StyleItemList* items, QWidget *parent, const char *name )
+	: KListView(parent,name), m_items(items)
 {
 	initView();	
 	setItems(m_items);	
@@ -52,7 +52,7 @@ void CStyleList::insertItems( StyleItemList* itemList ){
 			m_items->append( itemList->current() );
 		QListViewItem* item = itemList->current()->listViewItem(this);
 	}
-	updateStyleCombo();
+	printer()->emitStylesChanged();
 }
 
 /** Appends the items of itemList */
@@ -110,11 +110,9 @@ void CStyleList::createNewStyle(){
 
 /**  */
 void CStyleList::openStyleEditor( CStyle* const style ){
-	{
-		CStyleEditorDialog dlg(style, this);
-		dlg.exec();
-	}
-	updateStyleCombo();
+	CStyleEditorDialog dlg(style, this);
+	dlg.exec();
+	printer()->emitStylesChanged();
 }
 
 /** Deletes the current style item. */
@@ -122,7 +120,7 @@ void CStyleList::deleteCurrentStyle(){
 	QListViewItem* item = currentItem();
 	if (!item)
 		return;
-	if (item->text(0) == i18n("Standard")) {
+	if (item == printer()->standardStyle()->listViewItem()) {
 		qWarning("Deleting the standardstyle is not possible");
 		return;
 	}
@@ -138,20 +136,21 @@ void CStyleList::deleteCurrentStyle(){
 				delete currentStyle;			
 				currentStyle = 0;
 			}	
-			updateStyleCombo();					
+			if (printer())
+				printer()->emitStylesChanged();
 			return;
 		}
 	}
 }
 
-/** Updates the style combo box. */
-void CStyleList::updateStyleCombo(){
-	if (m_printer)
-		m_printer->emitStylesChanged();
-}
+///** Updates the style combo box. */
+//void CStyleList::updateStyleCombo(){
+//	if (m_printer)
+//		m_printer->emitStylesChanged();
+//}
 
 /** Returns a pointer to our list */
-StyleItemList* CStyleList::styleList(){
+StyleItemList* const CStyleList::styleList() const {
 	return m_items;
 }
 

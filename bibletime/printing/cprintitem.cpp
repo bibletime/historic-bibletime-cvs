@@ -51,10 +51,6 @@ CPrintItem::ListViewItem::ListViewItem( QListView* parent, CPrintItem* printItem
 	
 };
 
-//CPrintItem::ListViewItem::~ListViewItem() {
-//
-//};
-
 CPrintItem* const CPrintItem::ListViewItem::printItem() const {
 	return m_printItem;
 };
@@ -89,7 +85,7 @@ const QString& CPrintItem::moduleText() {
 	if (m_startEmpty || !m_module)
 		return QString::null;
 
-	if (m_stopEmpty) {//only one key
+	if (m_stopEmpty) {//only start key
 		util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(m_module));
 		key->key(m_startKey);
 		m_moduleText = key->renderedText();			
@@ -98,13 +94,13 @@ const QString& CPrintItem::moduleText() {
 		util::scoped_ptr<CSwordVerseKey> startKey(  dynamic_cast<CSwordVerseKey*>(CSwordKey::createInstance(m_module)) );
 		util::scoped_ptr<CSwordVerseKey> stopKey( dynamic_cast<CSwordVerseKey*>(CSwordKey::createInstance(m_module)) );
 		
-		startKey->key(m_startKey);		
-		stopKey->key(m_stopKey);		
+		startKey->key(m_startKey);
+		stopKey->key(m_stopKey);
 	
 		const QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");					
 		while (*startKey < *stopKey) {
-			startKey->next(CSwordVerseKey::UseVerse);
 			m_moduleText += format.arg(startKey->Verse()) + startKey->renderedText();
+			startKey->next(CSwordVerseKey::UseVerse);			
 		}
 	}		
 

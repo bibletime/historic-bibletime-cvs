@@ -238,7 +238,6 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	
 	if (styleType == CStyle::Unknown)
 		return;
-	
 	m_formatEnabled = m_style->hasFormatTypeEnabled(styleType);
 	
   m_styleNameEdit->setText( m_style->styleName());	
@@ -253,9 +252,6 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 		case CStyleFormat::Right:
 			m_alignRadios.rightRB->setChecked(true);
 			break;
-//		case CStyleFormat::Justification:
-//			m_alignRadios.justificationRB->setChecked(true);
-//			break;
 		default:
 			m_alignRadios.leftRB->setChecked(true);
 			break;
@@ -276,7 +272,7 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	
 	//setup frame part
 	CStyleFormatFrame* frame = format->frame();
-	m_frame.useFrame->setChecked(frame != 0);
+	m_frame.useFrame->setChecked(frame);
 	m_frame.useFrame->setEnabled(m_formatEnabled);		
 	m_frame.groupbox->setEnabled(m_formatEnabled);		
 	useFrameClicked();
@@ -284,20 +280,20 @@ void CStyleEditorDialog::setupWithFormat( CStyleFormat* format){
 	if (frame) {
 		m_frame.colorChooser->setColor( frame->color() );
 		m_frame.lineThicknessChooser->setValue( frame->thickness() );	
-		m_frame.lineStyleChooser->setCurrentItem((int)(frame->lineStyle())-1);	
+		m_frame.lineStyleChooser->setCurrentItem((int)(frame->lineStyle())-1);
 	}
-	qDebug("finished");
 }
 
 /** Setups the font widgets using the parameter. */
 void CStyleEditorDialog::setupFontWidgets( QFont& font ){
+	qDebug("CStyleEditorDialog::setupFontWidgets( QFont& font )");
 	QFont dummy(font);
 	dummy.setPointSize(12);
 	m_font.fontDisplay->setFont( dummy );
 	m_font.fontDisplay->setText( QString::fromLatin1("%1 - %2").arg(m_font.font.family()).arg(m_font.font.pointSize()) );
-	m_font.fontDisplay->setEnabled(m_formatEnabled);
-	
-	m_font.fontButton->setEnabled(m_formatEnabled);	
+	m_font.fontDisplay->setEnabled(m_formatEnabled);	
+	m_font.fontButton->setEnabled(m_formatEnabled);
+	qDebug("finished");
 }
 
 /** Called when the type was changed in the combobox. */
