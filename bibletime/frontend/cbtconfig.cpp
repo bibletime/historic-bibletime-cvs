@@ -168,7 +168,7 @@ const QString CBTConfig::getKey( const CBTConfig::bools ID){
 		case greekAccents: 				return "greekAccents";
 		case textualVariants:			return "textualVariants";		
 
-//		case lineBreaks: 					return "lineBreaks";
+		case lineBreaks: 					return "lineBreaks";
 		case verseNumbers: 				return "verseNumbers";
 		case scroll:			 				return "scroll";
 
@@ -201,7 +201,7 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 		case greekAccents: 				return false;
 		case textualVariants:			return false;
 
-//		case lineBreaks: 					return true;
+		case lineBreaks: 					return true;
 		case verseNumbers: 				return true;
 		case scroll:			 				return true;
 
@@ -355,7 +355,7 @@ void CBTConfig::set( const CBTConfig::stringLists ID, const QStringList value ){
 const CSwordBackend::DisplayOptionsBool CBTConfig::getDisplayOptionDefaults(){
   CSwordBackend::DisplayOptionsBool options;
 
-//	options.lineBreaks = 		get(CBTConfig::lineBreaks);
+	options.lineBreaks = 		get(CBTConfig::lineBreaks);
   options.verseNumbers = 	get(CBTConfig::verseNumbers);
 
 	return options;

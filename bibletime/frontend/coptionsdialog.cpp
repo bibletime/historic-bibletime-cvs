@@ -665,10 +665,10 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
   layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"), i18n("Filters control the appereance of the text in the display windows. Here you can choose the default settings of the various filter settings. You can change the settings in each display window, too.")) );
   layout->addSpacing(5);
   		
-// 	m_settings.sword.lineBreaks = new QCheckBox(currentTab);
-// 	m_settings.sword.lineBreaks->setText(i18n("Show line break after each verse"));
-// 	m_settings.sword.lineBreaks->setChecked(CBTConfig::get(CBTConfig::lineBreaks));		
-// 	layout->addWidget(m_settings.sword.lineBreaks);
+ 	m_settings.sword.lineBreaks = new QCheckBox(currentTab);
+ 	m_settings.sword.lineBreaks->setText(i18n("Show line break after each verse"));
+ 	m_settings.sword.lineBreaks->setChecked(CBTConfig::get(CBTConfig::lineBreaks));		
+ 	layout->addWidget(m_settings.sword.lineBreaks);
 
  	m_settings.sword.verseNumbers = new QCheckBox(currentTab);
  	m_settings.sword.verseNumbers->setText(i18n("Show verse numbers"));
@@ -831,7 +831,7 @@ void COptionsDialog::saveSword(){
  		CBTConfig::set(CBTConfig::language, currentText);
 
  	CBTConfig::set(CBTConfig::scroll, m_settings.sword.useDownArrow->isChecked());
-// 	CBTConfig::set(CBTConfig::lineBreaks, m_settings.sword.lineBreaks->isChecked());
+ 	CBTConfig::set(CBTConfig::lineBreaks, m_settings.sword.lineBreaks->isChecked());
  	CBTConfig::set(CBTConfig::verseNumbers, m_settings.sword.verseNumbers->isChecked());
  	CBTConfig::set(CBTConfig::footnotes, m_settings.sword.footnotes->isChecked());
  	CBTConfig::set(CBTConfig::strongNumbers, m_settings.sword.strongNumbers->isChecked());

@@ -68,7 +68,7 @@ const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QStri
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
-const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName ){
+const QString CEntryDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName){
 	Q_ASSERT(modules.first());
   util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(modules.first()) );
   key->key(keyName);
@@ -303,23 +303,44 @@ const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, co
   CSwordVerseKey key(modules.first());
   QString renderedText = QString::null;
 
-  renderedText = QString::fromLatin1("<TR valign=\"top\">");
+	//Only insert the table stuff if we are displaying parallel.
+  //Otherwise, strip out he table stuff -> the whole chapter will be rendered in one cell!
+
+  if (modules.count() > 1){
+		renderedText = QString::fromLatin1("<TR valign=\"top\">");
+	}
+
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key.module(m);
     key.key(keyName); //necessary?
+
     const QString tdStyle = QString::fromLatin1("style=\"border-bottom:thin solid black; %1 %2\"")
       .arg((modules.at()+1 < modules.count()) ? QString::fromLatin1("padding-right: 2mm; border-right:thin solid black;") : QString::null)
       .arg((modules.at()>0 && modules.at()+1 <= modules.count()) ? QString::fromLatin1("padding-left:2mm;") : QString::null);
 
-    renderedText += QString::fromLatin1("<TD class=\"%1\" %2 %3 valign=\"top\"><SPAN %4><SUP>%5</SUP> %6</SPAN></TD>")
-                      .arg((modules.at() % 2) == 0 ? QString::fromLatin1("background1") : QString::fromLatin1("background2") )
-                      .arg((m->textDirection() == CSwordModuleInfo::RightToLeft) ? QString::fromLatin1("dir=\"rtl\"") : QString::null)
-                      .arg(tdStyle)
+		const QString entry = QString::fromLatin1("<SPAN %1><SUP>%2</SUP> %3</SPAN>")
                       .arg(m->isUnicode() ? QString::fromLatin1("class=\"unicodetext\"") : QString::null)
                       .arg(m_displayOptions.verseNumbers ? htmlReference(m, key.key(), QString::number(key.Verse()), key.key())  : QString::null)
                       .arg(key.key() == chosenKey ? QString::fromLatin1("<SPAN class=\"highlighted\">%1</SPAN>").arg(key.renderedText()) : key.renderedText());
+
+  	if (modules.count() == 1){
+			renderedText += entry;
+			if (m_displayOptions.lineBreaks)
+				renderedText += QString::fromLatin1("<BR>"); //Use linebreaks here
+		}
+  	else
+	    renderedText += QString::fromLatin1("<TD class=\"%1\" %2 %3 valign=\"top\">%4</TD>")
+//                      .arg((modules.at() % 2) == 0 ? QString::fromLatin1("background1") : QString::fromLatin1("background2") )
+                      .arg(QString::fromLatin1("background1"))
+                      .arg((m->textDirection() == CSwordModuleInfo::RightToLeft) ? QString::fromLatin1("dir=\"rtl\"") : QString::null)
+                      .arg(tdStyle)
+											.arg(entry);
   }
-  renderedText += QString::fromLatin1("</TR>");
+
+  if (modules.count() > 1){
+		renderedText += QString::fromLatin1("</TR>");
+	}
+
   return renderedText;
 }
 
@@ -338,9 +359,11 @@ const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordM
 
   QString pageStart = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY><TABLE cellspacing=\"0\" class=\"maintable\"><TR>")
     .arg(css);
+
   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
     key->module(m);
     const QString newKeyName = key->key();
+
     pageStart += QString::fromLatin1("<TD class=\"tableheading\" width=\"%1%\"><CENTER><B>%2</B> %3</CENTER></TD>")
       .arg(columnWidth)
       .arg(m->name())
@@ -349,7 +372,12 @@ const QString CChapterDisplay::finishText( const QString text, QPtrList <CSwordM
   pageStart += QString::fromLatin1("</TR>");
 
   QString pageEnd = QString::fromLatin1("</TABLE></BODY></HTML>");
-  return pageStart + text + pageEnd;
+
+	if (modules.count() == 1) // render everything into one cell. entryText leaves out the table tags.
+		return pageStart + QString::fromLocal8Bit("<TR><TD>")+ text
+					    			 + QString::fromLocal8Bit("</TD></TR>") + pageEnd;
+  else  // use many cells. entryText inserts the necessary table tags.
+	 	return pageStart + text + pageEnd;
 }
 
 /* ----------------------- new class: CBookDisplay ------------------- */

@@ -82,7 +82,7 @@ public:
     bool scriptureReferences;
 	};
 	struct DisplayOptionsBool {
-//		bool lineBreaks;
+		bool lineBreaks;
 		bool verseNumbers;
 	};
   enum LoadError { // the values exist to cast from the char return of SWMgr::Load

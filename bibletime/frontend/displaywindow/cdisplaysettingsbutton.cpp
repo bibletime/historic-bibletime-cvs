@@ -65,7 +65,7 @@ int CDisplaySettingsButton::populateMenu(){
 	m_popup->insertTitle(i18n("Display options"));
 	m_popup->setCheckable(true);
 
-//  ret += addMenuEntry(i18n("Use linebreaks"), &m_displaySettings->lineBreaks, true);
+  ret += addMenuEntry(i18n("Use linebreaks after each verse"), &m_displaySettings->lineBreaks, true);
 	ret += addMenuEntry(i18n("Show versenumbers"), &m_displaySettings->verseNumbers, true);
 
 	ret += addMenuEntry(i18n("Show headings"),	&m_moduleSettings->headings,
