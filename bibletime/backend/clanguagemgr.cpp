@@ -98,8 +98,10 @@ const CLanguageMgr::LangMap& CLanguageMgr::availableLanguages() {
 		QStrList abbrevs;
 		char *abbrev;  
 	
-		for (CSwordModuleInfo* m = mods.first(); m; m = mods.next()) {
-			abbrev = m->module()->Lang();
+		ListCSwordModuleInfo::iterator end_it = mods.end();
+		for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
+// 		for (CSwordModuleInfo* m = mods.first(); m; m = mods.next()) {
+			abbrev = (*it)->module()->Lang();
 			if (abbrev && !abbrevs.contains(abbrev)) {
 				abbrevs.append( abbrev );
 			}

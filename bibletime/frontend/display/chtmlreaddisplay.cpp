@@ -301,7 +301,6 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				
 					attr = currentNode.attributes().getNamedItem("lemma");
 					if (!attr.isNull()) {
-// 						qWarning("found lemma  %s in %s", attr.nodeValue().string().latin1(), currentNode.toHTML().latin1());
 						infoList.append( qMakePair(CInfoDisplay::Lemma, attr.nodeValue().string()) );
 					}
 					
@@ -340,14 +339,17 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 				}
 			} while ( !currentNode.isNull() );
 			
+			//Code part to show a translation of the hovered word, only works with KDE 3.3
 /*			if (!infoList.count()) { //translate the text under the mouse, find the lowest node containing the mouse
-				DOM::Node foundNode;
-				if (node.hasChildNodes() && (node.childNodes().length() == 1) && (node.firstChild().nodeName() == "#text")) {
-					foundNode = node.firstChild();
-				}
-				
-				if (!foundNode.isNull()) {
-					infoList.append( qMakePair(CInfoDisplay::WordTranslation, foundNode.nodeValue().string()));					
+			
+				DOM::Node node = nonSharedNodeUnderMouse();
+
+				if (!node.isNull() && node.nodeName().string() == "#text") {
+ 					infoList.append( qMakePair(
+							CInfoDisplay::WordTranslation, 
+							node.nodeValue().string()
+						)
+					);
 				}
 			}*/
 			

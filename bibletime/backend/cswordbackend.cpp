@@ -133,16 +133,20 @@ const CSwordBackend::LoadError CSwordBackend::initModules() {
 		}
 	}
 
-	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-		moduleDescriptionMap.insert(m_moduleList.current()->config(CSwordModuleInfo::Description), m_moduleList.current()->name());
+	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
+//	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+		moduleDescriptionMap.insert( (*it)->config(CSwordModuleInfo::Description), (*it)->name() );
 	}
 
 	//unlock modules if keys are present
-	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-		if ( m_moduleList.current()->isEncrypted() ){
-			const QString unlockKey = CBTConfig::getModuleEncryptionKey(m_moduleList.current()->name()).latin1();
+// 	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
+// 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+		if ( (*it)->isEncrypted() ){
+			const QString unlockKey = CBTConfig::getModuleEncryptionKey( (*it)->name() ).latin1();
 			if (!unlockKey.isNull()){
-  			setCipherKey( m_moduleList.current()->name().latin1(), unlockKey.latin1() );
+  			setCipherKey( (*it)->name().latin1(), unlockKey.latin1() );
 			}
 		}
 	}
@@ -204,13 +208,17 @@ void CSwordBackend::AddRenderFilters(sword::SWModule *module, sword::ConfigEntMa
 
 /** This function deinitializes the modules and deletes them. */
 const bool CSwordBackend::shutdownModules(){
-	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-		CSwordModuleInfo* current = m_moduleList.current();
-    m_moduleList.removeRef(current);
+// 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
+		CSwordModuleInfo* current = (*it);
+		++it; //make sure that we don't remove the current it pos in the next call!
 		
-		delete current;
+		m_moduleList.remove(current);
+		
+ 		delete current;
 	}
-	m_moduleList.clear();
+ 	m_moduleList.clear();
 
   //BT  mods are deleted now, delete Sword mods, too.
   DeleteMods();
@@ -291,14 +299,20 @@ void CSwordBackend::setDisplayOptions( const CSwordBackend::DisplayOptions ){
 
 /** This function searches for a module with the specified description */
 CSwordModuleInfo* const CSwordBackend::findModuleByDescription(const QString& description){
-  if (m_moduleList.count()) {
-    for ( m_moduleList.first();m_moduleList.current();m_moduleList.next() ) {
-      if ( m_moduleList.current()->config(CSwordModuleInfo::Description) == description ) {
-        return m_moduleList.current();
+	CSwordModuleInfo* ret = 0;
+//   if (m_moduleList.count()) {
+//     for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
+		ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+		for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
+      if ( (*it)->config(CSwordModuleInfo::Description) == description ) {
+        ret = *it;
+				break;
+// 				return (*it);
 			}
 		}
-	}
-  return 0;
+// 	}
+	
+  return ret;
 }
 
 /** This function searches for a module with the specified description */
@@ -312,37 +326,55 @@ const QString CSwordBackend::findModuleNameByDescription(const QString& descript
 
 /** This function searches for a module with the specified name */
 CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name){
-  if (m_moduleList.count()) {
-    for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
-      if ( m_moduleList.current()->name() == name ) {
-        return m_moduleList.current();
+	CSwordModuleInfo* ret = 0;
+//   if (m_moduleList.count()) {
+/*    for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {*/
+		ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+		for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
+      if ( (*it)->name() == name ) {
+        ret = *it;
+				break;
+// 				return m_moduleList.current();
       }
     }
-  }
+//   }
 	
-  return 0;
+  return ret;
 }
 
 CSwordModuleInfo* const CSwordBackend::findSwordModuleByPointer(const sword::SWModule* const swmodule){
-	if (swmodule) {
-		for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
-			if ( m_moduleList.current()->module() == swmodule ) {
-				return m_moduleList.current();
+// 	if (swmodule) {
+	CSwordModuleInfo* ret = 0;
+// 		for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
+		ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+		for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
+			if ( (*it)->module() == swmodule ) {
+				ret = *it;
+				break;
+// 				return m_moduleList.current();
 			}
 		}
-	}
-	return 0;
+// 	}
+	
+	return ret;
 }
 
 CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const CSwordModuleInfo* const module){
-	if (module) {
-		for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
-			if ( m_moduleList.current() == module ) {
-				return m_moduleList.current();
+	CSwordModuleInfo* ret = 0;
+	
+// 	if (module) {
+// 		for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
+		ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+		for (ListCSwordModuleInfo::iterator it = m_moduleList.begin() ; it != end_it; ++it) {
+			if ( (*it)  == module ) {
+// 				return m_moduleList.current();
+				ret = *it;
+				break;
 			}
 		}
-	}
-	return 0;
+// 	}
+	
+	return ret;
 }
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
@@ -534,7 +566,11 @@ const QStringList CSwordBackend::swordDirList(){
 	
 	
 	QStringList configs = QStringList::split(":", configPath);
-	for (QStringList::const_iterator it = configs.constBegin(); it != configs.constEnd(); ++it) {
+
+/*ToDo: Use the const iterator as soon as we switch to Qt > 3.1
+ 	for (QStringList::const_iterator it = configs.constBegin(); it != configs.constEnd(); ++it) {*/
+	
+	for (QStringList::const_iterator it = configs.begin(); it != configs.end(); ++it) {
 		if (!QFileInfo(*it).exists()) {
 			continue;
 		}

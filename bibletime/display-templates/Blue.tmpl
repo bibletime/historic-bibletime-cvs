@@ -30,18 +30,19 @@
 	text-align: center; 
 	font-weight: bold;
 	font-size: 110%;
-	border-bottom: 1px solid #6B6B6B;
+	border-bottom: 1px dotted #7B7B7B;
 }
 
 a {
 	text-decoration:none;
 	font-weight:normal;
-	color: #3B11AE;
+	color: #7B7B7B;
 	padding:2px;
 }
 a:hover {
-	background-color:#F6FFF7;
-	color: #AE1518;
+	text-decoration:none;
+	background-color:transparent;
+	color: #0000FF;
 	padding:2px;
 }
 
@@ -97,21 +98,22 @@ td.entry + td.entry {
 	vertical-align:top;
 }
 
-/*
-#bible span.currententry {
-	background-color:#EDEFFF;
-}*/
 
 /*Same for books!*/
 #book div.currententry, #book td.currententry {
 	border:1px solid #B7B7B7;
+	padding: 4px;
 	background-color:#EDEFFF;
 }
-/*
-#book span.currententry {
-	background-color:#DADEFF;
-}*/
-
+#book .entryname + .entry {
+	margin-top:2px;
+	padding-top:1px;
+}
+/* To remove the gap between the entrynam and the entry's content*/
+#book .entry > *, #book .currententry > * {
+	margin-top:0px;
+	padding-top:0px;
+}
 
 .entryname {
 	font-size:70%;

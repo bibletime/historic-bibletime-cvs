@@ -291,16 +291,20 @@ void CBibleKeyChooser::refreshContent() {
 /** Sets te module and refreshes the combos */
 void CBibleKeyChooser::setModules(ListCSwordModuleInfo modules, const bool refresh){
   m_modules.clear();
-  for (modules.first(); modules.current(); modules.next()) {
-    if (modules.current()->type() == CSwordModuleInfo::Bible || modules.current()->type() == CSwordModuleInfo::Commentary) {
-      if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules.current())) {
+
+//   for (modules.first(); modules.current(); modules.next()) {
+	ListCSwordModuleInfo::iterator end_it = modules.end();
+	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+    if ((*it)->type() == CSwordModuleInfo::Bible || (*it)->type() == CSwordModuleInfo::Commentary) {
+      if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(*it)) {
         m_modules.append(bible);
       }
     }
   }
 
-  if (refresh)
+  if (refresh) {
     refreshContent();
+	}
 }
 
 /** called when the book combo lost the focus with reason == tab @param the new book */

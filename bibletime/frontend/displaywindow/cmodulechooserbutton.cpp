@@ -177,20 +177,25 @@ void CModuleChooserButton::populateMenu(){
   ListCSwordModuleInfo modules;
   ListCSwordModuleInfo allMods = backend()->moduleList();
 
-  for (allMods.first(); allMods.current(); allMods.next()) {
-    if (allMods.current()->type() != m_moduleType) {
+//   for (allMods.first(); allMods.current(); allMods.next()) {
+	ListCSwordModuleInfo::iterator end_it = allMods.end();
+	for (ListCSwordModuleInfo::iterator it(allMods.begin()); it != end_it; ++it) {
+    if ((*it)->type() != m_moduleType) {
       continue;
 		}
 
-    modules.append( allMods.current() );
+    modules.append( *it );
   };
 
 	//iterate through all found modules of the type we support
-	for (modules.first(); modules.current(); modules.next()) {
- 		QString lang = modules.current()->language()->translatedName();
- 		if (lang.isEmpty()) {
+// 	for (modules.first(); modules.current(); modules.next()) {
+	/*ListCSwordModuleInfo::iterator*/ end_it = modules.end();
+	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+ 		QString lang = (*it)->language()->translatedName();
+ 		
+		if (lang.isEmpty()) {
  			//lang = QString::fromLatin1("xx"); //unknown language -- do not use English as default!!
-			lang = modules.current()->language()->abbrev();
+			lang = (*it)->language()->abbrev();
 			if (lang.isEmpty()) {
 				lang = "xx";
 			}
@@ -208,22 +213,25 @@ void CModuleChooserButton::populateMenu(){
 
 	
 	//Check the appropriate entry
-	for (modules.first(); modules.current(); modules.next()) {
- 		QString lang = modules.current()->language()->translatedName();
+// 	for (modules.first(); modules.current(); modules.next()) {
+	/*ListCSwordModuleInfo::iterator*/ end_it = modules.end();
+	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+ 		QString lang = (*it)->language()->translatedName();
+		
  		if (lang.isEmpty()) {
-			lang = modules.current()->language()->abbrev();
+			lang = (*it)->language()->abbrev();
 			if (lang.isEmpty()) {
 				lang = "xx";
 			}
 		}
 		
  		const QString name = QString::fromLatin1("%1 %2")
-			.arg(modules.current()->name())
-			.arg(modules.current()->isLocked() ? i18n("[locked]") : QString::null);
+			.arg((*it)->name())
+			.arg((*it)->isLocked() ? i18n("[locked]") : QString::null);
 			
  		const int id = langdict[lang]->insertItem( name );
- 		if ( m_module && modules.current()->name() == m_module->name()) {
- 			langdict[lang]->setItemChecked(id,true);
+ 		if ( m_module && (*it)->name() == m_module->name()) {
+ 			langdict[lang]->setItemChecked(id, true);
  		}
 	}	
 

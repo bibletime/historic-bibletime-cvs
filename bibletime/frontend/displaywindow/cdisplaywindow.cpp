@@ -267,8 +267,11 @@ void CDisplayWindow::setModuleChooserBar( CModuleChooserBar* bar ){
 /** Sets the modules. */
 void CDisplayWindow::setModules( ListCSwordModuleInfo newModules ){
   m_modules.clear();
-  for (newModules.first(); newModules.current(); newModules.next()) {
-    m_modules.append(newModules.current()->name());
+	
+//   for (newModules.first(); newModules.current(); newModules.next()) {
+	ListCSwordModuleInfo::iterator end_it = newModules.end();
+	for (ListCSwordModuleInfo::iterator it(newModules.begin()); it != end_it; ++it) {
+    m_modules.append((*it)->name());
   }
 }
 
@@ -338,7 +341,8 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
     return;
 	}
 
-	if (m && modules().containsRef(m) && !keyName.isEmpty()) {
+	//ToDo: check for containsRef compat
+	if (m && modules().contains(m) && !keyName.isEmpty()) {
 		key()->key(keyName);
 		keyChooser()->setKey(key()); //the key chooser does send an update signal
 	}
@@ -348,9 +352,11 @@ void CDisplayWindow::lookup( const QString& moduleName, const QString& keyName )
 		QWidgetList windows = mdi()->windowList();
   	bool found = false;
 		CDisplayWindow* dw = 0;
+		
   	for (windows.first(); windows.current(); windows.next()) {
     	dw = dynamic_cast<CDisplayWindow*>(windows.current());
-     	if (dw && dw->modules().containsRef(m)) {
+			
+     	if (dw && dw->modules().contains(m)) {
 				found = true;
 				break;
 			}

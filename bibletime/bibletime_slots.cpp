@@ -285,8 +285,11 @@ void BibleTime::slotSearchModules() {
 	for ( int i = 0; i < static_cast<int>(windows.count()); ++i ) {
     if (CDisplayWindow* w = dynamic_cast<CDisplayWindow*>(windows.at(i))) {
       ListCSwordModuleInfo windowModules = w->modules();
-      for (CSwordModuleInfo* module = windowModules.first(); module; module = windowModules.next()) {
-        modules.append(module);
+			
+			ListCSwordModuleInfo::iterator end_it = windowModules.end();
+			for (ListCSwordModuleInfo::iterator it(windowModules.begin()); it != end_it; ++it) {
+//       for (CSwordModuleInfo* module = windowModules.first(); module; module = windowModules.next()) {
+        modules.append(*it);
       };
     };
   };

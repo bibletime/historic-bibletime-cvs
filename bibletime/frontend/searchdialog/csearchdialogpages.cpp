@@ -330,10 +330,14 @@ void CModuleResultView::setupTree( ListCSwordModuleInfo modules ){
   QListViewItem* item = 0;
   QListViewItem* oldItem = 0;
   sword::ListKey result;
-  for (modules.first(); modules.current(); modules.next()) {
-		result = modules.current()->searchResult();
-		item = new KListViewItem(this, modules.current()->name(), QString::number(result.Count()) );
-		item->setPixmap(0,CToolClass::getIconForModule(modules.current()) );
+	
+	ListCSwordModuleInfo::iterator end_it = modules.end();
+	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+//   for (modules.first(); modules.current(); modules.next()) {
+		result = (*it)->searchResult();
+		
+		item = new KListViewItem(this, (*it)->name(), QString::number(result.Count()) );
+		item->setPixmap(0,CToolClass::getIconForModule(*it) );
     oldItem = item;
   };
 
@@ -460,11 +464,15 @@ void CSearchResultPage::setSearchResult(ListCSwordModuleInfo modules){
   
   //have a Bible or commentary in the modules?
   bool enable = false;
-  for (modules.first(); !enable && modules.current(); modules.next()) {
-    if (modules.current()->type() == CSwordModuleInfo::Bible ) {
+//   for (modules.first(); !enable && modules.current(); modules.next()) {
+	ListCSwordModuleInfo::iterator end_it = modules.end();
+	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+		if ((*it)->type() == CSwordModuleInfo::Bible ) {
       enable = true;
+			break;
     };
   };
+	
   m_analyseButton->setEnabled(enable);
 }
 
@@ -475,7 +483,7 @@ void CSearchResultPage::reset(){
   m_resultListBox->clear();
   m_previewDisplay->setText(QString::null);
   m_analyseButton->setEnabled(false);
-  m_modules.setAutoDelete(false); //make sure we don't delete modules accidentally
+//   m_modules.setAutoDelete(false); //make sure we don't delete modules accidentally
   m_modules.clear();
 }
 
@@ -748,17 +756,21 @@ void CSearchOptionsPage::setModules( ListCSwordModuleInfo modules ) {
 
   m_modules.clear(); //remove old modules
   // We make sure that a module is only one time in the list, e.g. if two display windows of the same module are opened
-  CSwordModuleInfo* current = modules.first();
-  while (current) {
-    if ( !m_modules.containsRef(current) ) {
-      m_modules.append( current );                     
+/*  CSwordModuleInfo* current = modules.first();
+  while (current) {*/
+	ListCSwordModuleInfo::iterator end_it = modules.end();
+	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+    //ToDo:  Check for containsRef compat
+		if ( !m_modules.contains(*it) ) {
+      m_modules.append( *it );                     
                          
-      t += current->name();
-      if (current != modules.getLast()) {
+      t.append( (*it)->name() );
+      //ToDo: fix that
+/*			if (it != it_end) {
         t += QString::fromLatin1(", ");
-      }
+      }*/
     }
-    current = modules.next(); //next modules
+//     current = modules.next(); //next modules
   };
 
   m_modulesLabel->setText(t);

@@ -181,8 +181,10 @@ int CDisplaySettingsButton::addMenuEntry( const QString name, const int* option,
 
 bool CDisplaySettingsButton::isOptionAvailable( const CSwordModuleInfo::FilterTypes option ){
 	bool ret = false;
-	for (m_modules.first(); m_modules.current() && !ret; m_modules.next()) {
-		ret = ret || m_modules.current()->has(option);
+// 	for (m_modules.first(); m_modules.current() && !ret; m_modules.next()) {
+	ListCSwordModuleInfo::iterator end_it = m_modules.end();
+	for (ListCSwordModuleInfo::iterator it(m_modules.begin()); it != end_it; ++it) {
+		ret = ret || (*it)->has(option);
 	}
 	
 	return ret;

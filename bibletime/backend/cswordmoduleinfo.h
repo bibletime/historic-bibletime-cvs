@@ -27,6 +27,7 @@
 
 //Qt includes
 #include <qstring.h>
+#include <qvaluelist.h>
 
 //Sword includes
 #include <listkey.h>
@@ -266,7 +267,8 @@ private:
   CSwordBackend* m_backend;
 };
 
-typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
+// typedef QPtrList<CSwordModuleInfo>	ListCSwordModuleInfo;
+typedef QValueList<CSwordModuleInfo*> ListCSwordModuleInfo;
 
 inline const CSwordModuleInfo::ModuleType CSwordModuleInfo::type() const {
 	return CSwordModuleInfo::Unknown;

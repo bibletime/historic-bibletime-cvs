@@ -89,8 +89,11 @@ void CWriteWindow::storeProfileSettings(CProfileWindow * const settings) {
 	}
 
 	QStringList mods;
-	for (CSwordModuleInfo* m = modules().first(); m; m = modules().next()) {
-		mods.append(m->name());
+	ListCSwordModuleInfo allMods = modules();
+// 	for (CSwordModuleInfo* m = modules().first(); m; m = modules().next()) {
+	ListCSwordModuleInfo::iterator end_it = allMods.end();
+	for (ListCSwordModuleInfo::iterator it(allMods.begin()); it != end_it; ++it) {
+		mods.append((*it)->name());
 	}
 	settings->setModules(mods);
 };
@@ -129,7 +132,7 @@ void CWriteWindow::lookup( CSwordKey* newKey ){
 		key()->key(newKey->key());
   }
 
-	if ( modules().first() ) {
+	if ( modules().count() ) {
   	displayWidget()->setText( key()->rawText() );
   }
 	setCaption( windowCaption() );

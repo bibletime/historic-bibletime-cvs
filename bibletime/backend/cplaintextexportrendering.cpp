@@ -39,12 +39,15 @@ const QString CPlainTextExportRendering::renderEntry( const KeyTreeItem& i, CSwo
 	QString renderedText = QString::fromLatin1("%1:\n").arg(i.key());
 		
   QString entry;
-  for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    key->module(m);
+//   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
+	ListCSwordModuleInfo::iterator end_it = modules.end();
+	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+    key->module(*it);
     key->key( i.key() );
 		
-		entry += key->strippedText() + "\n";
-		renderedText += entry;
+		//ToDo: Check this code
+		entry.append(key->strippedText()).append("\n");
+		renderedText.append( entry );
 	}
 	
 	return renderedText;	

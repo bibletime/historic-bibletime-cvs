@@ -230,7 +230,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					buf.append("</span>");
   				
 					myUserData->inscriptRef = false;
-  				myUserData->suspendTextPassThru = false;
+   				myUserData->suspendTextPassThru = false;
   			}
   			else { // like "<scripRef>John 3:16</scripRef>"
 					buf.append("<span class=\"crossreference\" crossrefs=\"");
@@ -239,11 +239,12 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 					buf.append(myUserData->lastTextNode.c_str());
 					buf.append("</span>");
 					
-  				myUserData->suspendTextPassThru = false;
+   				myUserData->suspendTextPassThru = false;
   			}
       }		
       else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
         myUserData->inscriptRef = true;
+				myUserData->suspendTextPassThru = true;
 				buf.append("<span class=\"crossreference\" crossrefs=\"");
 				buf.append(tag.getAttribute("passage"));
 				buf.append("\">");
@@ -252,7 +253,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 	  		myUserData->inscriptRef = false;
   			
 				// let's stop text from going to output, the text get's added in the -tag handler
-		  	userData->suspendTextPassThru = true;
+		  	myUserData->suspendTextPassThru = true;
       }
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "div")) {                                      

@@ -26,7 +26,7 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 
-  CSwordModuleInfo* module = modules.getFirst();
+  CSwordModuleInfo* module = modules.first();
   bool ok = true;
 	
 	if (modules.count() == 1) {

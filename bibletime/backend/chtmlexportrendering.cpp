@@ -73,27 +73,30 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 	QString preverseHeading;
 	QString langAttr;
 	
-  for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
-    key->module(m);
+//   for (CSwordModuleInfo* m = modules.first(); m; m = modules.next()) {
+	ListCSwordModuleInfo::const_iterator end_modItr = modules.end();
+	for (ListCSwordModuleInfo::const_iterator mod_Itr(modules.begin()); mod_Itr != end_modItr; ++mod_Itr) {
+    key->module(*mod_Itr);
     key->key( i.key() );
     keyText = key->key();
-    isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
+    isRTL = ((*mod_Itr)->textDirection() == CSwordModuleInfo::RightToLeft);
 		entry = QString::null;
 
-		langAttr = (m->language()->isValid())
+		langAttr = ((*mod_Itr)->language()->isValid())
 			? QString::fromLatin1("xml:lang=\"%1\" lang=\"%2\"")
-				.arg(m->language()->abbrev())//twice the same
-				.arg(m->language()->abbrev()) 
+				.arg((*mod_Itr)->language()->abbrev())//twice the same
+				.arg((*mod_Itr)->language()->abbrev()) 
 			: QString::fromLatin1("xml:lang=\"%1\" lang=\"%2\"")
-				.arg(m->module()->Lang()) //again twice times the same
-				.arg(m->module()->Lang());
+				.arg((*mod_Itr)->module()->Lang()) //again twice times the same
+				.arg((*mod_Itr)->module()->Lang());
 		
 		const QString key_renderedText = key->renderedText();
 		
-		
 		if (m_filterOptions.headings) {
-			AttributeValue::const_iterator it =  m->module()->getEntryAttributes()["Heading"]["Preverse"].begin();
-			const AttributeValue::const_iterator end = m->module()->getEntryAttributes()["Heading"]["Preverse"].end();
+			AttributeValue::const_iterator it =
+				(*mod_Itr)->module()->getEntryAttributes()["Heading"]["Preverse"].begin();
+			const AttributeValue::const_iterator end =
+				(*mod_Itr)->module()->getEntryAttributes()["Heading"]["Preverse"].end();
 			
 			for (; it != end; ++it) {
 				preverseHeading = QString::fromUtf8(it->second.c_str());
@@ -118,7 +121,7 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 			.arg(isRTL ? QString::fromLatin1("rtl") : QString::fromLatin1("ltr"));
 			
  		//keys should normally be left-to-right, but this doesn't apply in all cases
-		entry += QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>").arg(entryLink(i, m));
+		entry += QString::fromLatin1("<span dir=\"ltr\" class=\"entryname\">%1</span>").arg(entryLink(i, *mod_Itr));
 		
 		if (m_settings.addText) {
 			//entry.append( QString::fromLatin1("<span %1>%2</span>").arg(langAttr).arg(key_renderedText) );

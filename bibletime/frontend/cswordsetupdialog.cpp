@@ -877,21 +877,25 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
   categoryDevotionals->setOpen(true);
   categoryGlossaries->setOpen(true);
 
-	QPtrList<CSwordModuleInfo> list = myBackend.moduleList();
+	ListCSwordModuleInfo list = myBackend.moduleList();
 	int modcount = list.count();
 	int mod = 0;
 	QListViewItem* newItem = 0;
 	QListViewItem* parent = 0;
 	sword::SWConfig moduleConfig("");
 
-	for ( list.first(), mod = 1; list.current(); list.next(), mod++ ){
+// 	for ( list.first(), mod = 1; list.current(); list.next(), mod++ ){
+	mod = 1;
+	ListCSwordModuleInfo::iterator end_it = list.end();
+	
+	for (ListCSwordModuleInfo::iterator it(list.begin()); it != end_it; ++it, ++mod) {
 		if (mod % 20){
 			m_populateListNotification->setText(i18n("Scanning your modules: %1%").arg((mod*100)/modcount));
 			//KApplication::kApplication()->processEvents();
 			m_removeModuleListView->triggerUpdate();
 		}
 
-		switch (list.current()->type()) {
+		switch ((*it)->type()) {
 			case CSwordModuleInfo::Bible:
         parent = categoryBible;
 				break;
@@ -910,18 +914,18 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 		}
 
 		//handling for special module types
-		if ((parent == categoryLexicon) && (list.current()->category() == CSwordModuleInfo::Glossary)) {
+		if ((parent == categoryLexicon) && ((*it)->category() == CSwordModuleInfo::Glossary)) {
 			parent = categoryGlossaries;
 		}
-		if ((parent == categoryLexicon) && (list.current()->category() == CSwordModuleInfo::DailyDevotional)) {
+		if ((parent == categoryLexicon) && ((*it)->category() == CSwordModuleInfo::DailyDevotional)) {
 			parent = categoryDevotionals;
 		}
 
 		//now we know the category, find the right language group in that category
-		const CLanguageMgr::Language* const lang = list.current()->language();
+		const CLanguageMgr::Language* const lang = (*it)->language();
 		QString langName = lang->translatedName();
 		if (!lang->isValid()) {
-			langName = QString::fromLatin1(list.current()->module()->Lang());
+			langName = QString::fromLatin1((*it)->module()->Lang());
 		}
 
 		QListViewItem * langFolder = parent->firstChild();
@@ -938,9 +942,9 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 			langFolder->setOpen(true);
 		}
 
-		newItem = new QCheckListItem(langFolder, list.current()->name(), QCheckListItem::CheckBox);
-    newItem->setPixmap(0, CToolClass::getIconForModule(list.current()));
-		newItem->setText(1,list.current()->config(CSwordModuleInfo::AbsoluteDataPath));
+		newItem = new QCheckListItem(langFolder, (*it)->name(), QCheckListItem::CheckBox);
+    newItem->setPixmap(0, CToolClass::getIconForModule(*it));
+		newItem->setText(1, (*it)->config(CSwordModuleInfo::AbsoluteDataPath));
   }
 
 	m_populateListNotification->setText("");
@@ -969,12 +973,22 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 	
 	m_installModuleListView->clear();
 
+#if QT_VERSION >= 320
 	QListViewItem* categoryBible = new QCheckListItem(m_installModuleListView, i18n("Bibles"), QCheckListItem::CheckBoxController);
 	QListViewItem* categoryCommentary = new QCheckListItem(m_installModuleListView, i18n("Commentaries"), QCheckListItem::CheckBoxController);
 	QListViewItem* categoryLexicon = new QCheckListItem(m_installModuleListView, i18n("Lexicons"), QCheckListItem::CheckBoxController);
 	QListViewItem* categoryBook = new QCheckListItem(m_installModuleListView, i18n("Books"), QCheckListItem::CheckBoxController);
 	QListViewItem* categoryDevotionals = new QCheckListItem(m_installModuleListView, i18n("Daily Devotionals"), QCheckListItem::CheckBoxController);
 	QListViewItem* categoryGlossaries = new QCheckListItem(m_installModuleListView, i18n("Glossaries"), QCheckListItem::CheckBoxController);
+#else
+	//Qt <= 3.1.x doesn't support the CheckBoxController!, remove the define as soon as we switch to the new Qt
+	QListViewItem* categoryBible = new QCheckListItem(m_installModuleListView, i18n("Bibles"), QCheckListItem::Controller);
+	QListViewItem* categoryCommentary = new QCheckListItem(m_installModuleListView, i18n("Commentaries"), QCheckListItem::Controller);
+	QListViewItem* categoryLexicon = new QCheckListItem(m_installModuleListView, i18n("Lexicons"), QCheckListItem::Controller);
+	QListViewItem* categoryBook = new QCheckListItem(m_installModuleListView, i18n("Books"), QCheckListItem::Controller);
+	QListViewItem* categoryDevotionals = new QCheckListItem(m_installModuleListView, i18n("Daily Devotionals"), QCheckListItem::Controller);
+	QListViewItem* categoryGlossaries = new QCheckListItem(m_installModuleListView, i18n("Glossaries"), QCheckListItem::Controller);
+#endif
 
   categoryBible->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
   categoryCommentary->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
@@ -1002,29 +1016,34 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 
   //kind of a hack to provide a pointer to mgr next line
   util::scoped_ptr<CSwordBackend> backend( BTInstallMgr::Tool::backend(&is) );
-  if (!backend)
+  if (!backend) {
     return;
+	}
 
   QListViewItem* parent = 0;
   ListCSwordModuleInfo mods = backend->moduleList();
-  for (CSwordModuleInfo* newModule = mods.first(); newModule; newModule = mods.next()) {
+//   for (CSwordModuleInfo* newModule = mods.first(); newModule; newModule = mods.next()) {
+	ListCSwordModuleInfo::iterator end_it = mods.end();
+	for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
     bool isUpdate = false;
-    CSwordModuleInfo* const installedModule = CPointers::backend()->findModuleByName(newModule->name());
+    CSwordModuleInfo* const installedModule = CPointers::backend()->findModuleByName((*it)->name());
     if (installedModule) { //module already installed?
       //check whether it's an uodated module or just the same
       const SWVersion installedVersion( installedModule->config(CSwordModuleInfo::ModuleVersion).latin1() );
-      const SWVersion newVersion( newModule->config(CSwordModuleInfo::ModuleVersion).latin1() );
+      
+			const SWVersion newVersion( (*it)->config(CSwordModuleInfo::ModuleVersion).latin1() );
       isUpdate = (newVersion > installedVersion);
 
-			if (!isUpdate)
+			if (!isUpdate) {
         continue;
+			}
     }
 
-    if (newModule->isLocked() || newModule->isEncrypted()) { //encrypted modules have no data files on the server
+    if ((*it)->isLocked() || (*it)->isEncrypted()) { //encrypted modules have no data files on the server
       continue;
 		}
 
-    switch (newModule->type()) {
+    switch ((*it)->type()) {
       case CSwordModuleInfo::Bible:
         parent = categoryBible;
         break;
@@ -1043,18 +1062,18 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
     }
 
 		//handling for special module types
-		if ((parent == categoryLexicon) && (newModule->category() == CSwordModuleInfo::Glossary)) {
+		if ((parent == categoryLexicon) && ((*it)->category() == CSwordModuleInfo::Glossary)) {
 			parent = categoryGlossaries;
 		}
-		if ((parent == categoryLexicon) && (newModule->category() == CSwordModuleInfo::DailyDevotional)) {
+		if ((parent == categoryLexicon) && ((*it)->category() == CSwordModuleInfo::DailyDevotional)) {
 			parent = categoryDevotionals;
 		}
 
 		//now we know the category, find the right language group in that category
-		const CLanguageMgr::Language* const lang = newModule->language();
+		const CLanguageMgr::Language* const lang = (*it)->language();
 		QString langName = lang->translatedName();
 		if (!lang->isValid()) {
-			langName = QString::fromLatin1(newModule->module()->Lang());
+			langName = QString::fromLatin1((*it)->module()->Lang());
 		}
 
 		QListViewItem * langFolder = parent->firstChild();
@@ -1067,22 +1086,26 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 		}
 
 		if (!langFolder) { //not yet there
+#if QT_VERSION >= 320
 			langFolder = new QCheckListItem(parent, langName, QCheckListItem::CheckBoxController);
+#else
+			langFolder = new QCheckListItem(parent, langName, QCheckListItem::Controller);
+#endif
 			langFolder->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 			langFolder->setOpen(false);
 		}
 
 		QListViewItem* newItem = 0;
     if (langFolder) {
-    	newItem = new QCheckListItem(langFolder, newModule->name(), QCheckListItem::CheckBox);
+    	newItem = new QCheckListItem(langFolder, (*it)->name(), QCheckListItem::CheckBox);
     }
     else { //shouldn't happen
-    	newItem = new QCheckListItem(m_installModuleListView, newModule->name(), QCheckListItem::CheckBox);
+    	newItem = new QCheckListItem(m_installModuleListView, (*it)->name(), QCheckListItem::CheckBox);
     }
 
-    newItem->setPixmap(0, CToolClass::getIconForModule(newModule));
+    newItem->setPixmap(0, CToolClass::getIconForModule(*it));
     newItem->setText(1, installedModule ? installedModule->config(CSwordModuleInfo::ModuleVersion) : "");
-    newItem->setText(2, newModule->config(CSwordModuleInfo::ModuleVersion));
+    newItem->setText(2, (*it)->config(CSwordModuleInfo::ModuleVersion));
     newItem->setText(3, isUpdate ? i18n("Updated") : i18n("New"));
   }
 

@@ -212,8 +212,11 @@ CSwordKey* const CBookTreeChooser::key(){
 /** Sets another module to this keychooser */
 void CBookTreeChooser::setModules(ListCSwordModuleInfo modules, const bool refresh){
   m_modules.clear();
-  for (modules.first(); modules.current(); modules.next()) {
-    if (CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.current())) {
+	
+//   for (modules.first(); modules.current(); modules.next()) {
+	ListCSwordModuleInfo::iterator end_it = modules.end();
+	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+    if (CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(*it)) {
       m_modules.append(book);
     }
   }
@@ -286,6 +289,7 @@ void CBookTreeChooser::updateKey( CSwordKey* key ){
 /** Reimplementationm to handle tree creation on show. */
 void CBookTreeChooser::show(){
   CKeyChooser::show();
+	
   if (!m_treeView->childCount()) {
     KApplication::setOverrideCursor(WaitCursor);
     setupTree(); //create the first level of the tree structure

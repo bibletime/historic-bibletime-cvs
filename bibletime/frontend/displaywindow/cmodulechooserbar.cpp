@@ -27,12 +27,15 @@ CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModu
 	m_buttonLimit(-1) //-1 means no limit
 {
   //insert buttons if useModules != 0
-	for (useModules.first(); useModules.current(); useModules.next())		 {
+// 	for (useModules.first(); useModules.current(); useModules.next())		 {
+	ListCSwordModuleInfo::iterator end_it = useModules.end();
+	for (ListCSwordModuleInfo::iterator it(useModules.begin()); it != end_it; ++it) {
+
 		if ((m_buttonLimit != -1) && ( m_buttonLimit <= (int)m_buttonList.count()) ) { //we reached the button limit
 			break;
     };
     
-		addButton( useModules.current() );
+		addButton( *it );
   }
 
   // We can add a button to choose an additional module
@@ -126,12 +129,14 @@ void CModuleChooserBar::setModules( ListCSwordModuleInfo useModules ){
     return;
   }
 
-	for (useModules.first(); useModules.current(); useModules.next())		 {
+// 	for (useModules.first(); useModules.current(); useModules.next())		 {
+	ListCSwordModuleInfo::iterator end_it = useModules.end();
+	for (ListCSwordModuleInfo::iterator it(useModules.begin()); it != end_it; ++it) {
 		if ( (m_buttonLimit != -1) && (m_buttonLimit <= (int)m_buttonList.count()) ) {
 			break;
     }
 
-    addButton( useModules.current() );
+    addButton( *it );
   }
   if ( (m_buttonLimit == -1) || (m_buttonLimit > (int)m_buttonList.count()) ) {
 	  addButton(0);//add button without module set

@@ -24,10 +24,13 @@ namespace Rendering {
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
 const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QString& keyName, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions ) {
-	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.getFirst());
+	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.first());
 	Q_ASSERT(book);
 		
-	CDisplayRendering render(displayOptions, filterOptions);
+	CSwordBackend::DisplayOptions dOpts = displayOptions;
+	dOpts.lineBreaks = true; //books should render with blocks, not with inlined sections
+	
+	CDisplayRendering render(dOpts, filterOptions);
 	CDisplayRendering::KeyTree tree;
 	CDisplayRendering::KeyTreeItem::Settings itemSettings;
   
@@ -45,7 +48,6 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
   // if the current key is the root entry don't display anything together!
   if ((displayLevel <= 1) || (key->key().isEmpty() || (key->key() == "/") )) {
 		tree.append( new CDisplayRendering::KeyTreeItem( key->key(), modules, itemSettings ) );
-  	//key->key(keyName); //restore before we return so make sure it doesn't break anything
 		
 		const QString renderedText = render.renderKeyTree(tree);
 		key->setOffset( offset );
@@ -102,9 +104,8 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
   key->firstChild(); //go to the first sibling on the same level
   setupRenderTree(key.get(), &tree, keyName);
 	
-// 	key->key(keyName); //restore key
 	const QString renderedText = render.renderKeyTree(tree);
-	key->setOffset( offset );
+	key->setOffset( offset ); //restore key
   return renderedText;
 }
 
@@ -121,14 +122,12 @@ void CBookDisplay::setupRenderTree(CSwordTreeKey * swordTree, CTextRendering::Ke
   if (swordTree->hasChildren()) { //print tree for the child items
     swordTree->firstChild();
     setupRenderTree(swordTree, item->childList(), highlightKey);
-//     swordTree->key(key); //go back where we came from
-		swordTree->setOffset( offset );
+		swordTree->setOffset( offset ); //go back where we came from
   }
 
   if (swordTree->nextSibling()) { //print tree for next entry on the same depth
 		setupRenderTree(swordTree, renderTree, highlightKey);
-//     swordTree->key(key); //return to the value we had at the beginning of this block!
-		swordTree->setOffset( offset );
+		swordTree->setOffset( offset ); //return to the value we had at the beginning of this block!
   }
 }
 

@@ -123,8 +123,10 @@ void CReadWindow::storeProfileSettings(CProfileWindow * const settings) {
 
 	QStringList mods;
 	ListCSwordModuleInfo allMods = modules();
-	for (CSwordModuleInfo* m = allMods.first(); m; m = allMods.next()) {
-		mods.append(m->name());
+// 	for (CSwordModuleInfo* m = allMods.first(); m; m = allMods.next()) {
+	ListCSwordModuleInfo::iterator end_it = allMods.end();
+	for (ListCSwordModuleInfo::iterator it(allMods.begin()); it != end_it; ++it) {
+		mods.append((*it)->name());
 	}
 	settings->setModules(mods);
 }

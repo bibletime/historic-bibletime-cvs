@@ -750,43 +750,51 @@ void CTreeFolder::initTree(){
   //get all modules by using the given type
   ListCSwordModuleInfo allModules = backend()->moduleList();
   ListCSwordModuleInfo usedModules;
-  for (CSwordModuleInfo* m = allModules.first(); m; m = allModules.next()) {
-    if (m->type() == moduleType) { //found a module, check if the type is correct (devotional etc.)
-      if (type() == GlossaryModuleFolder && !m->category() == CSwordModuleInfo::Glossary) { //not a gglossary
+	ListCSwordModuleInfo::iterator end_it = allModules.end();
+	for (ListCSwordModuleInfo::iterator it(allModules.begin()); it != end_it; ++it) {
+//   for (CSwordModuleInfo* m = allModules.first(); m; m = allModules.next()) {
+    if ((*it)->type() == moduleType) { //found a module, check if the type is correct (devotional etc.)
+      if (type() == GlossaryModuleFolder && !(*it)->category() == CSwordModuleInfo::Glossary) { //not a gglossary
         continue;
       }
-      if (type() == DevotionalModuleFolder && (m->category() != CSwordModuleInfo::DailyDevotional)) {//not a devotional
+      if (type() == DevotionalModuleFolder && ((*it)->category() != CSwordModuleInfo::DailyDevotional)) {//not a devotional
         continue;
       }
-      if (type() == LexiconModuleFolder && ( (m->category() == CSwordModuleInfo::DailyDevotional) || (m->category() == CSwordModuleInfo::Glossary) )) {
+      if (type() == LexiconModuleFolder && ( ((*it)->category() == CSwordModuleInfo::DailyDevotional) || ((*it)->category() == CSwordModuleInfo::Glossary) )) {
         //while looking for lexicons glossaries and devotionals shouldn't be used
         continue;
       }
 
-      if (language() == QString::fromLatin1("*") || (language() != QString::fromLatin1("*") && QString::fromLatin1(m->module()->Lang()) == language()) )//right type and language!
-        usedModules.append(m);
+      if (language() == QString::fromLatin1("*") || (language() != QString::fromLatin1("*") && QString::fromLatin1((*it)->module()->Lang()) == language()) )//right type and language!
+        usedModules.append(*it);
     }
   }
 
   //we have now all modules we want to have
   if (language() == QString::fromLatin1("*")) { //create subfolders for each language
     QStringList usedLangs;
-    for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
-      QString lang = QString::fromLatin1(m->module()->Lang());
+//     for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
+			/*ListCSwordModuleInfo::iterator*/ end_it = usedModules.end();
+		for (ListCSwordModuleInfo::iterator it(usedModules.begin()); it != end_it; ++it) {
+      QString lang = QString::fromLatin1((*it)->module()->Lang());
 //      if (lang.isEmpty())
 //        lang = ");
       if (!usedLangs.contains(lang)) {
         usedLangs.append(lang);
       }
     }
-    QStringList::iterator it;
-    for (it = usedLangs.begin(); it != usedLangs.end(); ++it) {
-      addGroup(/**it,*/ type(), *it);
+    
+		//ToDo:: Optimize the loop with const itrs
+		QStringList::iterator lang_it;
+    for (lang_it = usedLangs.begin(); lang_it != usedLangs.end(); ++lang_it) {
+      addGroup(/**lang_it,*/ type(), *lang_it);
     }
   }
   else if (usedModules.count() > 0){ //create subitems with the given type and language
-    for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
-      addModule(m);
+		/*ListCSwordModuleInfo::iterator*/ end_it = usedModules.end();
+		for (ListCSwordModuleInfo::iterator it(usedModules.begin()); it != end_it; ++it) {
+//     for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
+      addModule(*it);
     }
   }
 
@@ -1218,20 +1226,24 @@ void CGlossaryFolder::initTree(){
   //get all modules by using the lexicon type
   ListCSwordModuleInfo allModules = backend()->moduleList();
   ListCSwordModuleInfo usedModules;
-  for (CSwordModuleInfo* m = allModules.first(); m; m = allModules.next()) {
-    if (m->type() == CSwordModuleInfo::Lexicon) { //found a module, check if the type is correct (devotional etc.)
-      if ((type() == GlossaryModuleFolder) && (m->category() != CSwordModuleInfo::Glossary)) { //not a glossary
+//   for (CSwordModuleInfo* m = allModules.first(); m; m = allModules.next()) {
+	
+	ListCSwordModuleInfo::iterator end_it = allModules.end();
+	for (ListCSwordModuleInfo::iterator it(allModules.begin()); it != end_it; ++it) {
+    if ((*it)->type() == CSwordModuleInfo::Lexicon) { //found a module, check if the type is correct (devotional etc.)
+      if ((type() == GlossaryModuleFolder) && ((*it)->category() != CSwordModuleInfo::Glossary)) { //not a glossary
         continue;
       }
       //found a glossary
+			//ToDo: this is ugly code
       if (language() == QString::fromLatin1("*")
-        || (language() != QString::fromLatin1("*")
-          && m->config(CSwordModuleInfo::GlossaryFrom) == fromLanguage()
-          && m->config(CSwordModuleInfo::GlossaryTo) == toLanguage()
-      )
-        )
+        	|| (language() != QString::fromLatin1("*")
+        	  && (*it)->config(CSwordModuleInfo::GlossaryFrom) == fromLanguage()
+          	&& (*it)->config(CSwordModuleInfo::GlossaryTo) == toLanguage()
+      		)
+      	)
       { //right type and language!
-        usedModules.append(m);
+        usedModules.append(*it);
       }
     }
   }
@@ -1242,20 +1254,29 @@ void CGlossaryFolder::initTree(){
     typedef QValueList<LanguagePair> LanguagePairList;
     
     LanguagePairList usedLangs;
-    for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
-      LanguagePair langPair( m->config(CSwordModuleInfo::GlossaryFrom), m->config(CSwordModuleInfo::GlossaryTo) );
+//     for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
+		ListCSwordModuleInfo::iterator end_it = usedModules.end();
+		for (ListCSwordModuleInfo::iterator it(usedModules.begin()); it != end_it; ++it) {
+      LanguagePair langPair(
+				 (*it)->config(CSwordModuleInfo::GlossaryFrom),
+				 (*it)->config(CSwordModuleInfo::GlossaryTo)
+			);
+			
       if (!usedLangs.contains(langPair)) {
         usedLangs.append(langPair);
       }
     }
-    LanguagePairList::iterator it;
-    for (it = usedLangs.begin(); it != usedLangs.end(); ++it) {
-      addGroup(type(), (*it).first, (*it).second);
+		
+    LanguagePairList::iterator lang_it;
+    for (lang_it = usedLangs.begin(); lang_it != usedLangs.end(); ++lang_it) {
+      addGroup(type(), (*lang_it).first, (*lang_it).second);
     }
   }
   else if (usedModules.count() > 0){ //create subitems with the given type and languages
-    for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
-      addModule(m);
+//     for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
+		ListCSwordModuleInfo::iterator end_it = usedModules.end();
+		for (ListCSwordModuleInfo::iterator it(usedModules.begin()); it != end_it; ++it) {
+      addModule(*it);
     }
   }
 
@@ -1280,7 +1301,6 @@ void CGlossaryFolder::init(){
       toLangString = m_toLanguage;
     };
     
-        
     setText(0, fromLangString + " - " + toLangString );
   }
   initTree();

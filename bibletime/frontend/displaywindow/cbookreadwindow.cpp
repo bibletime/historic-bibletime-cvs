@@ -67,8 +67,8 @@ void CBookReadWindow::insertKeyboardActions( KAccel* ){
 /** No descriptions */
 void CBookReadWindow::initConnections(){
 	CLexiconReadWindow::initConnections();
-  	disconnect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
-  		this, SLOT(lookup(CSwordKey*)));
+//  	disconnect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
+//  		this, SLOT(lookup(CSwordKey*)));
 
  	connect(m_treeChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));

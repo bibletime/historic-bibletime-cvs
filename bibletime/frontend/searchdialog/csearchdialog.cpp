@@ -371,27 +371,37 @@ void CModuleChooser::initTree(){
     incType = false;  
     if (static_cast<CSwordModuleInfo::ModuleType>(type) == CSwordModuleInfo::Lexicon) {
       if (!addedLexs) {
-        for (mods.first(); mods.current(); mods.next()) {
-          if (mods.current()->type() == CSwordModuleInfo::Lexicon && (mods.current()->category() != CSwordModuleInfo::DailyDevotional) && (mods.current()->category() != CSwordModuleInfo::Glossary)) {
-            modsForType.append(mods.current());
+//         for (mods.first(); mods.current(); mods.next()) {
+				ListCSwordModuleInfo::iterator end_it = mods.end();
+				for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
+          if (((*it)->type() == CSwordModuleInfo::Lexicon) 
+							&& ((*it)->category() != CSwordModuleInfo::DailyDevotional) 
+							&& ((*it)->category() != CSwordModuleInfo::Glossary)
+					) {
+            modsForType.append( *it );
           };
         };
+				
         addedLexs = true;
         typeFolderCaption = QString::null;
       }
       else if (!addedDevotionals) {
-        for (mods.first(); mods.current(); mods.next()) {
-          if (mods.current()->category() == CSwordModuleInfo::DailyDevotional) {
-            modsForType.append(mods.current());
+//         for (mods.first(); mods.current(); mods.next()) {
+				ListCSwordModuleInfo::iterator end_it = mods.end();
+				for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
+          if ((*it)->category() == CSwordModuleInfo::DailyDevotional) {
+            modsForType.append(*it);
           };
         };
         addedDevotionals = true;
         typeFolderCaption = i18n("Daily Devotionals");
       }
       else if (!addedGlossaries) {
-        for (mods.first(); mods.current(); mods.next()) {
-          if (mods.current()->category() == CSwordModuleInfo::Glossary) {
-            modsForType.append(mods.current());
+//         for (mods.first(); mods.current(); mods.next()) {
+				ListCSwordModuleInfo::iterator end_it = mods.end();
+				for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
+          if ((*it)->category() == CSwordModuleInfo::Glossary) {
+            modsForType.append(*it);
           };
         };
         addedGlossaries = true;
@@ -402,9 +412,11 @@ void CModuleChooser::initTree(){
         incType = true;
     }
     else if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary || type == CSwordModuleInfo::GenericBook){
-      for (mods.first(); mods.current(); mods.next()) {
-        if (mods.current()->type() == type) {
-          modsForType.append(mods.current());
+//       for (mods.first(); mods.current(); mods.next()) {
+			ListCSwordModuleInfo::iterator end_it = mods.end();
+			for (ListCSwordModuleInfo::iterator it(mods.begin()); it != end_it; ++it) {
+        if ((*it)->type() == type) {
+          modsForType.append(*it);
         };
       };
       incType = true;
@@ -418,9 +430,11 @@ void CModuleChooser::initTree(){
 
     //get the available languages of the selected modules
     QStringList langs;
-    for (modsForType.first(); modsForType.current(); modsForType.next()) {
-      if ( !langs.contains(QString::fromLatin1( modsForType.current()->module()->Lang() ))) {
-        langs.append(QString::fromLatin1( modsForType.current()->module()->Lang() ));
+//     for (modsForType.first(); modsForType.current(); modsForType.next()) {
+		ListCSwordModuleInfo::iterator end_it = modsForType.end();
+		for (ListCSwordModuleInfo::iterator it(modsForType.begin()); it != end_it; ++it) {
+      if ( !langs.contains(QString::fromLatin1( (*it)->module()->Lang() ))) {
+        langs.append(QString::fromLatin1( (*it)->module()->Lang() ));
       }
     };
     langs.sort();
@@ -450,10 +464,12 @@ void CModuleChooser::initTree(){
       langFolder->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
       //create the module items of this lang folder
-      for (modsForType.first(); modsForType.current(); modsForType.next()) {
-        if (QString::fromLatin1( modsForType.current()->module()->Lang() ) == (*it) ) { //found correct language
-          ModuleCheckBoxItem* i = new ModuleCheckBoxItem(langFolder, modsForType.current());
-          i->setPixmap(0, CToolClass::getIconForModule(modsForType.current()));
+//       for (modsForType.first(); modsForType.current(); modsForType.next()) {
+			ListCSwordModuleInfo::iterator end_modItr = modsForType.end();
+			for (ListCSwordModuleInfo::iterator mod_Itr(modsForType.begin()); mod_Itr != end_modItr; ++mod_Itr) {
+        if (QString::fromLatin1( (*mod_Itr)->module()->Lang() ) == (*it) ) { //found correct language
+          ModuleCheckBoxItem* i = new ModuleCheckBoxItem(langFolder, *mod_Itr);
+          i->setPixmap(0, CToolClass::getIconForModule(*mod_Itr));
         };
       };
     };
@@ -861,14 +877,19 @@ void CSearchAnalysis::analyse(ListCSwordModuleInfo modules){
 	CSearchAnalysisItem* analysisItem = m_canvasItemList[key.book()];
 	bool ok = true;
 	while (ok && analysisItem) {
-		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
+// 		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
+		moduleIndex = 0;
+		ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+		for (ListCSwordModuleInfo::iterator it(m_moduleList.begin()); it != end_it; ++it) {
 			KApplication::kApplication()->processEvents(10);
-			if (!m_lastPosList.contains(m_moduleList.current())) {
-				m_lastPosList.insert(m_moduleList.current(),0);
+			if (!m_lastPosList.contains(*it)) {
+				m_lastPosList.insert(*it,0);
 			}
 			
-			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.book(),m_moduleList.current())));
+			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.book(), *it)));
 			m_maxCount = (count > m_maxCount) ? count : m_maxCount;
+			
+			++moduleIndex;
 		}
 		analysisItem->setX(xPos);
 		analysisItem->setY(UPPER_BORDER);
@@ -885,9 +906,11 @@ void CSearchAnalysis::analyse(ListCSwordModuleInfo modules){
 /** Sets te module list used for the analysis. */
 void CSearchAnalysis::setModules(ListCSwordModuleInfo modules){
 	m_moduleList.clear();
-	for (modules.first(); modules.current(); modules.next()) {
-		if ( (modules.current()->type() == CSwordModuleInfo::Bible) || (modules.current()->type() == CSwordModuleInfo::Commentary) ) { //a Bible or an commentary
-			m_moduleList.append(modules.current());
+// 	for (modules.first(); modules.current(); modules.next()) {
+	ListCSwordModuleInfo::iterator end_it = modules.end();
+	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+		if ( ((*it)->type() == CSwordModuleInfo::Bible) || ((*it)->type() == CSwordModuleInfo::Commentary) ) { //a Bible or an commentary
+			m_moduleList.append(*it);
     }
   }
 
@@ -906,6 +929,7 @@ void CSearchAnalysis::setModules(ListCSwordModuleInfo modules){
 /** Sets back the items and deletes things to cleanup */
 void CSearchAnalysis::reset(){
 	m_scaleFactor = 0.0;
+	
   QDictIterator<CSearchAnalysisItem> it( m_canvasItemList ); // iterator for items
 	while ( it.current() ) {
 		it.current()->hide();
@@ -913,10 +937,13 @@ void CSearchAnalysis::reset(){
 	}	
 	m_lastPosList.clear();	
 	
-	if (m_legend)
+	if (m_legend) {
 		m_legend->hide();
+	}
+	
 	delete m_legend;
 	m_legend = 0;	
+	
 	update();
 }
 
@@ -1066,18 +1093,28 @@ int CSearchAnalysisItem::width(){
 const QString CSearchAnalysisItem::getToolTip(){
 	QString ret = QString::fromLatin1("<center><b>%1</b></center><hr/>").arg(m_bookName);
 	ret += "<table cellspacing=\"0\" cellpadding=\"3\" width=\"100%\" height=\"100%\" align=\"center\">";
-	for (int i = 0; i < m_moduleCount; ++i) {
-		CSwordModuleInfo* info = m_moduleList->at(i);
+	
+	//ToDo: Fix that loop
+ 	int i = 0;
+ 	ListCSwordModuleInfo::iterator end_it = m_moduleList->end();
+ 	
+	for (ListCSwordModuleInfo::iterator it(m_moduleList->begin()); it != end_it; ++it) {
+// 	for (int i = 0; i < m_moduleCount; ++i) {
+ 		CSwordModuleInfo* info = (*it);
 		const QColor c = CSearchAnalysis::getColor(i);
+		
 		ret.append(
 			QString::fromLatin1("<tr bgcolor=\"white\"><td><b><font color=\"#%1\">%2</font></b></td><td>%3 (%4%)</td></tr>")
 				.arg(QString().sprintf("%02X%02X%02X",c.red(),c.green(),c.blue()))
 				.arg(info ? info->name() : QString::null)
-				.arg(m_resultCountArray[i])
-        .arg((info && m_resultCountArray[i])? ((double)m_resultCountArray[i] / (double)info->searchResult().Count())*(double)100 : 0.0, 0, 'g', 2)
+				.arg( m_resultCountArray[i] )
+        .arg( (info && m_resultCountArray[i])? ((double)m_resultCountArray[i] / (double)info->searchResult().Count())*(double)100 : 0.0, 0, 'g', 2)
 		);
+ 		++i;
 	}
+	
 	ret += "</table>";
+	
 	return ret;
 }
 
@@ -1167,17 +1204,22 @@ void CSearchAnalysisLegendItem::draw (QPainter& painter) {
   f.setPointSize(ITEM_TEXT_SIZE);
   painter.setFont(f);
  	
- 	for (unsigned int index=0; index < m_moduleList->count(); index++){
+//  	for (unsigned int index=0; index < m_moduleList->count(); index++){
+	int moduleIndex = 0;
+	ListCSwordModuleInfo::iterator end_it = m_moduleList->end();
+	for (ListCSwordModuleInfo::iterator it(m_moduleList->begin()); it != end_it; ++it) {
  	  // the module color indicators
- 	  QPoint p1( (int)x() + LEGEND_INNER_BORDER, (int)y() + LEGEND_INNER_BORDER + index*(LEGEND_DELTAY + ITEM_TEXT_SIZE) );
+ 	  QPoint p1( (int)x() + LEGEND_INNER_BORDER, (int)y() + LEGEND_INNER_BORDER + moduleIndex*(LEGEND_DELTAY + ITEM_TEXT_SIZE) );
  	  QPoint p2(p1.x() + ITEM_TEXT_SIZE, p1.y() + ITEM_TEXT_SIZE);
  	  QRect r(p1,p2);
- 		painter.fillRect(r, QBrush(CSearchAnalysis::getColor(index)) );
+ 		painter.fillRect(r, QBrush(CSearchAnalysis::getColor(moduleIndex)) );
  		r.normalize();
  		painter.drawRect(r);
  		
  		QPoint p3( p2.x() + LEGEND_INNER_BORDER, p2.y() );
-  	painter.drawText(p3, m_moduleList->at(index)->name() );
+  	painter.drawText(p3, (*it)->name() );
+		
+		++moduleIndex;
  	}
   painter.restore();
 }
@@ -1220,11 +1262,16 @@ void CSearchAnalysis::saveAsHTML(){
 
   tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";
  	tableTotals = "<tr><td align=\"left\">" + i18n("Total hits") + "</td>";
- 	for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
- 			tableTitle += QString::fromLatin1("<th align=\"left\">") + m_moduleList.current()->name() + QString::fromLatin1("</th>");
- 			searchResult = m_moduleList.current()->searchResult();
- 			countStr.setNum(searchResult.Count());
-      tableTotals += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
+//  	for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
+	moduleIndex = 0;
+	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+	for (ListCSwordModuleInfo::iterator it(m_moduleList.begin()); it != end_it; ++it) {
+ 		tableTitle += QString::fromLatin1("<th align=\"left\">") + (*it)->name() + QString::fromLatin1("</th>");
+ 		searchResult = (*it)->searchResult();
+ 		countStr.setNum(searchResult.Count());
+		
+		tableTotals += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
+		++moduleIndex;
  	}
  	tableTitle += QString::fromLatin1("</tr>\n");
  	tableTotals += QString::fromLatin1("</tr>\n");
@@ -1234,14 +1281,21 @@ void CSearchAnalysis::saveAsHTML(){
  	while (ok) {
  		m_searchAnalysisHTML += QString::fromLatin1("<tr><td>") + key.book() + QString::fromLatin1("</td>");
  		analysisItem = m_canvasItemList.find( key.book() );
- 		for (moduleIndex = 0, m_moduleList.first(); m_moduleList.current(); m_moduleList.next(), ++moduleIndex) {
+		
+//  		for (moduleIndex = 0, m_moduleList.first(); m_moduleList.current(); m_moduleList.next(), ++moduleIndex) {
+		moduleIndex = 0;
+		ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+		for (ListCSwordModuleInfo::iterator it(m_moduleList.begin()); it != end_it; ++it) {
  			count = analysisItem->getCountForModule(moduleIndex);
  			countStr.setNum(count);
  			m_searchAnalysisHTML += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
+			
+			++moduleIndex;
  		}
  		m_searchAnalysisHTML += QString::fromLatin1("</tr>\n");
  		ok = key.next(CSwordVerseKey::UseBook);
  	}
+	
  	text += QString::fromLatin1("<table>\n") + tableTitle + tableTotals + m_searchAnalysisHTML + QString::fromLatin1("</table>\n");
  	text += QString::fromLatin1("<center>") + i18n("Created by") + QString::fromLatin1(" <a href=\"http://www.bibletime.info/\">BibleTime</a></center>");
  	text += QString::fromLatin1("</body></html>");

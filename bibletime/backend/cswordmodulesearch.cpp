@@ -62,9 +62,11 @@ const bool CSwordModuleSearch::startSearch() {
 	
 	bool foundItems = false;
 	
-	for (m_moduleList.first(); m_moduleList.current() && !m_terminateSearch; m_moduleList.next()) {
+//	for (m_moduleList.first(); m_moduleList.current() && !m_terminateSearch; m_moduleList.next()) {
+	ListCSwordModuleInfo::iterator end_it = m_moduleList.end();
+	for (ListCSwordModuleInfo::iterator it = m_moduleList.begin(); it != end_it; ++it) {
 		cms_module_current++;
-		if ( m_moduleList.current()->search(m_searchedText, m_searchOptions, m_searchScope, &CSwordModuleSearch::percentUpdate) ) {
+		if ( (*it)->search(m_searchedText, m_searchOptions, m_searchScope, &CSwordModuleSearch::percentUpdate) ) {
 			foundItems = true;
 		}
 	}
@@ -114,8 +116,10 @@ void CSwordModuleSearch::interruptSearch() {
 		m_terminateSearch = true; //no other modules will be searched
 	}
 	
-	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
-		m_moduleList.current()->interruptSearch(); //interrupt the current module
+// 	for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+	ListCSwordModuleInfo::const_iterator end_it = m_moduleList.end();
+	for( ListCSwordModuleInfo::const_iterator it = m_moduleList.begin(); it != end_it; ++it) {
+		(*it)->interruptSearch(); //interrupt the current module
 	}
 }
 

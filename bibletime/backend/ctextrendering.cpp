@@ -41,7 +41,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, CSwordModuleInfo co
 		m_stopKey( QString::null ),
 		m_alternativeContent( QString::null )
 {
-	m_moduleList.append( mod );
+	m_moduleList.append( const_cast<CSwordModuleInfo*>(mod) ); //BAD CODE
 }
 
 CTextRendering::KeyTreeItem::KeyTreeItem(const QString& key, const ListCSwordModuleInfo& mods, const Settings settings ) 
@@ -149,12 +149,22 @@ ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 		
 		ListCSwordModuleInfo childMods = c->modules();
 		
-		const ListCSwordModuleInfo::const_iterator c_end = childMods.end();
+/*ToDo: Use the const iterators as soon as we use Qt > 3.1
+	const ListCSwordModuleInfo::const_iterator c_end = childMods.end();
 		for (ListCSwordModuleInfo::const_iterator c_it = childMods.constBegin(); c_it != c_end; ++c_it) {
 			if (!modules.contains(*c_it)) {
 				modules.append(*c_it);
 			}
+		}*/
+		
+// 		for (CSwordModuleInfo* m = childMods.first(); m; m = childMods.next()) {
+		ListCSwordModuleInfo::iterator end_it = childMods.end();
+		for (ListCSwordModuleInfo::iterator it(childMods.begin()); it != end_it; ++it) {
+			if (!modules.contains(*it)) {
+				modules.append(*it);
+			}
 		}
+		
 	}
 	 
 	return modules;
@@ -186,7 +196,8 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 
 const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, const ListCSwordModuleInfo& modules, const QString& highlightKey, const KeyTreeItem::Settings keySettings ) {
 
-	CSwordModuleInfo* module = modules.getFirst();
+// 	CSwordModuleInfo* module = modules.getFirst();
+ 	CSwordModuleInfo* module = modules.first();
 	util::scoped_ptr<CSwordKey> lowerBound( CSwordKey::createInstance(module) );
 	lowerBound->key(start);
 	

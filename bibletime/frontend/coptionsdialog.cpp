@@ -649,10 +649,12 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
  	//fill the comboboxes with the right modules
  	ListCSwordModuleInfo& modules = backend()->moduleList();
 	QString modDescript;
-  for ( modules.first(); modules.current(); modules.next() ) {
-		modDescript = modules.current()->config(CSwordModuleInfo::Description);
+/*  for ( modules.first(); modules.current(); modules.next() ) {*/
+	ListCSwordModuleInfo::iterator end_it = modules.end();
+	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+		modDescript = (*it)->config(CSwordModuleInfo::Description);
 		
- 		switch (modules.current()->type()) {
+ 		switch ((*it)->type()) {
  			case CSwordModuleInfo::Bible:
  				m_settings.swords.standardBible->insertItem(modDescript);
  				break;
@@ -662,28 +664,31 @@ for example when a hyperlink into a Bible or Lexicon was clicked .")),
  			case CSwordModuleInfo::Lexicon:
  			{
         bool inserted = false;
- 				if (modules.current()->has(CSwordModuleInfo::HebrewDef)) {
+ 				if ((*it)->has(CSwordModuleInfo::HebrewDef)) {
 					m_settings.swords.standardHebrewStrong->insertItem(modDescript);
           inserted = true;          
  				}
- 				if (modules.current()->has(CSwordModuleInfo::GreekDef)) {
+ 				if ((*it)->has(CSwordModuleInfo::GreekDef)) {
 					m_settings.swords.standardGreekStrong->insertItem(modDescript);
           inserted = true;
  				}
- 				if (modules.current()->has(CSwordModuleInfo::HebrewParse)) {
+ 				if ((*it)->has(CSwordModuleInfo::HebrewParse)) {
 					m_settings.swords.standardHebrewMorph->insertItem(modDescript);				
           inserted = true;
         }
- 				if (modules.current()->has(CSwordModuleInfo::GreekParse)) {       
+ 				if ((*it)->has(CSwordModuleInfo::GreekParse)) {       
 					m_settings.swords.standardGreekMorph->insertItem(modDescript);
           inserted = true;
  				}
- 				if (modules.current()->category() == CSwordModuleInfo::DailyDevotional) {
+ 				if ((*it)->category() == CSwordModuleInfo::DailyDevotional) {
 					m_settings.swords.standardDailyDevotional->insertItem(modDescript);
           inserted = true;
  				}
-				if (!inserted)//daily dvotionals, striong lexicons etc. are not very useful for word lookups
+				
+				if (!inserted) {//daily dvotionals, striong lexicons etc. are not very useful for word lookups
           m_settings.swords.standardLexicon->insertItem(modDescript);
+				}
+				
  				break;
  			} 				
  			default://unknown type

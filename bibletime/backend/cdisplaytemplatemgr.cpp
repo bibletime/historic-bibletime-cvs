@@ -71,10 +71,14 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	if (moduleCount >= 2) {
 		//create header for the modules
 		QString header;
-		for (CSwordModuleInfo* m = settings.modules.first(); m; m = settings.modules.next()) {
-			header += QString::fromLatin1("<th style=\"width:%1%;\">%2</th>")
-				.arg( int( 100.0 / (float)moduleCount ) )
-				.arg( m->name() );
+// 		for (CSwordModuleInfo* m = settings.modules.first(); m; m = settings.modules.next()) {
+		ListCSwordModuleInfo::iterator end_it = settings.modules.end();
+		for (ListCSwordModuleInfo::iterator it(settings.modules.begin()); it != end_it; ++it) {
+			header.append( 
+				QString::fromLatin1("<th style=\"width:%1%;\">%2</th>")
+					.arg( int( 100.0 / (float)moduleCount ) )
+					.arg( (*it)->name() )
+				);
 		}
 		
 		newContent = QString::fromLatin1("<table><tr>%1</tr>%2</table>")
