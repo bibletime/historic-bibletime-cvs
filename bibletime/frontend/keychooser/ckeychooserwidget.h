@@ -33,6 +33,7 @@ class QStringList;
 class QPoint;
 class QMouseEvent;
 class QWheelEvent;
+class QHBoxLayout;
 
 /*
 * We use this class to conrtol the focus move in the combobox
@@ -50,7 +51,7 @@ public:
   /**
   * Returns the size this widget would like to have.
   */
-//  virtual QSize sizeHint() const;
+  virtual QSize sizeHint() const;
 
 protected:
   /**
@@ -218,6 +219,7 @@ private:
 	* Members should never be public!!
 	*/
 	CKCComboBox* m_comboBox;
+	QHBoxLayout *m_mainLayout;
 
 private slots: // Private slots
   /**

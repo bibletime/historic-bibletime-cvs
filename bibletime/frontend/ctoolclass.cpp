@@ -176,6 +176,7 @@ QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, co
   label->setAutoResize(true);
   label->setMargin(1);
   label->setFrameStyle(QFrame::Box | QFrame::Plain);
+
 //  label->setLineWidth(1);
 //  label->setMidLineWidth(1);
 

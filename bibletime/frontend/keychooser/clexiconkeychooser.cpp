@@ -40,12 +40,12 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
  	m_layout = new QHBoxLayout(this,QBoxLayout::LeftToRight);
 	
 	m_widget = new CKeyChooserWidget(m_module->getEntries(), false, this);
-	m_widget->comboBox()->setMaximumWidth(200);
+	m_widget->comboBox()->setMaximumWidth(300);
 	
-  if (info && info->isUnicode()){
+//  if (info && info->isUnicode()){
 #warning implement reaction to font change in the optionsdialog here
-    /*m_widget->comboBox()->*/setFont( CBTConfig::get(CBTConfig::unicode) );
-  }
+//    /*m_widget->comboBox()->*/setFont( CBTConfig::get(CBTConfig::unicode) );
+//  }
 
 	m_widget->setToolTips(TT_PRESENTER_ENTRY_COMBO,TT_PRESENTER_NEXT_ENTRY, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_ENTRY);
 	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,WT_PRESENTER_NEXT_ENTRY, WT_PRESENTER_SCROLL_BUTTON, WT_PRESENTER_PREVIOUS_ENTRY);

@@ -232,44 +232,59 @@ void COptionsDialog::initFonts(){
 /** Init color section. */
 void COptionsDialog::initColors(){
 	QFrame* page = addPage(i18n("Colors"), QString::null, OD_ICON_GENERAL);
-	QVBoxLayout* layout = new QVBoxLayout(page);
+//	QVBoxLayout* layout = new QVBoxLayout(page);
+	QGridLayout* gridLayout = new QGridLayout(page,10,2,5,5);
 	
-  layout->addWidget( CToolClass::explanationLabel(page, i18n("Choose colors"), i18n("Choose the colors to change the look of the display windows to your own preferences. Some options like \"Words of Jesus\" do only apply to texts which support this special feature.")) );
-  layout->addSpacing(4);
-  	
-  QButtonGroup* group =	new QButtonGroup(2,Qt::Horizontal,"", page, "colorGroup");
-	group->setLineWidth(0);
-	{
-		QLabel* label = new QLabel(i18n("Text"), group);		
-		m_settings.colors.text = new KColorButton(CBTConfig::get(CBTConfig::textColor), group);		
-
-		label = new QLabel(i18n("Background"), group);		
-//		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
-//		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
-		m_settings.colors.background = new KColorButton(CBTConfig::get(CBTConfig::backgroundColor), group);		
+  gridLayout->addMultiCellWidget(
+  	CToolClass::explanationLabel(page,
+  		i18n("Choose colors"),
+  		i18n("Choose the colors to change the look of the display windows to your own preferences. Some options like \"Words of Jesus\" do only apply to texts which support this special feature.")
+  	),  	
+  	0,0,0,-1
+  );
 		
-		label = new QLabel(i18n("Highlighted verse"), group);
-//		QToolTip::add(label, TT_OD_COLORS_CURRENT_VERSE );	
-//		QWhatsThis::add(label, WT_OD_COLORS_CURRENT_VERSE );
-		m_settings.colors.highlightedVerse = new KColorButton(CBTConfig::get(CBTConfig::highlightedVerseColor), group);
+	m_settings.colors.text = new KColorButton(CBTConfig::get(CBTConfig::textColor), page);		
+	QLabel* label = new QLabel(m_settings.colors.text, i18n("Text"), page);			
+	gridLayout->addWidget(label,1,0);
+	gridLayout->addWidget(m_settings.colors.text,1,1);
+	
+	m_settings.colors.background = new KColorButton(CBTConfig::get(CBTConfig::backgroundColor), page);			
+	label = new QLabel(m_settings.colors.background, i18n("Background"), page);		
+	gridLayout->addWidget(label,2,0);
+	gridLayout->addWidget(m_settings.colors.background,2,1);
+		
+	m_settings.colors.highlightedVerse = new KColorButton(CBTConfig::get(CBTConfig::highlightedVerseColor), page);
+	label = new QLabel(m_settings.colors.highlightedVerse, i18n("Highlighted verse"), page);
+	gridLayout->addWidget(label,3,0);
+	gridLayout->addWidget(m_settings.colors.highlightedVerse,3,1);
 
-		label = new QLabel(i18n("Hyperlinks"), group);		
-		m_settings.colors.swordrefs = new KColorButton(CBTConfig::get(CBTConfig::swordRefColor), group);		
+	m_settings.colors.swordrefs = new KColorButton(CBTConfig::get(CBTConfig::swordRefColor), page);
+	label = new QLabel(m_settings.colors.swordrefs,i18n("Hyperlinks"), page);
+	gridLayout->addWidget(label,4,0);
+	gridLayout->addWidget(m_settings.colors.swordrefs,4,1);
 
-		label = new QLabel(i18n("Footnotes"), group);		
-		m_settings.colors.footnotes = new KColorButton(CBTConfig::get(CBTConfig::footnotesColor), group);		
+	m_settings.colors.footnotes = new KColorButton(CBTConfig::get(CBTConfig::footnotesColor), page);		
+	label = new QLabel(m_settings.colors.footnotes,i18n("Footnotes"), page);			
+	gridLayout->addWidget(label,5,0);
+	gridLayout->addWidget(m_settings.colors.footnotes,5,1);
 
-		label = new QLabel(i18n("Strong's numbers"), group);		
-		m_settings.colors.strongs = new KColorButton(CBTConfig::get(CBTConfig::strongsColor), group);		
+	m_settings.colors.strongs = new KColorButton(CBTConfig::get(CBTConfig::strongsColor), page);		
+	label = new QLabel(m_settings.colors.strongs, i18n("Strong's numbers"), page);			
+	gridLayout->addWidget(label,6,0);
+	gridLayout->addWidget(m_settings.colors.strongs,6,1);
 
-		label = new QLabel(i18n("Morphologic tags"), group);		
-		m_settings.colors.morph = new KColorButton(CBTConfig::get(CBTConfig::morphsColor), group);		
+	m_settings.colors.morph = new KColorButton(CBTConfig::get(CBTConfig::morphsColor), page);		
+	label = new QLabel(m_settings.colors.morph, i18n("Morphologic tags"), page);			
+	gridLayout->addWidget(label,7,0);
+	gridLayout->addWidget(m_settings.colors.morph,7,1);
 
-		label = new QLabel(i18n("Words of Jesus"), group);		
-		m_settings.colors.jesuswords = new KColorButton(CBTConfig::get(CBTConfig::jesuswordsColor), group);		
-	}	
-  layout->addWidget(group);
-  layout->addStretch(4);
+	m_settings.colors.jesuswords = new KColorButton(CBTConfig::get(CBTConfig::jesuswordsColor), page);		
+	label = new QLabel(m_settings.colors.jesuswords, i18n("Words of Jesus"), page);			
+	gridLayout->addWidget(label,8,0);
+	gridLayout->addWidget(m_settings.colors.jesuswords,8,1);
+	
+	gridLayout->addRowSpacing(9, 5);
+	gridLayout->setResizeMode(QLayout::Minimum);
 }
 
 /** Init profiles section. */
@@ -381,13 +396,15 @@ void COptionsDialog::initSword(){
   QFrame* currentTab = new QFrame(tabCtl);
   tabCtl->addTab(currentTab, i18n("General"));
 
-  QVBoxLayout* layout = new QVBoxLayout(currentTab,5);
-
-  layout->addWidget(
+  QGridLayout* gridLayout = new QGridLayout(currentTab,7,2,5,5);
+	gridLayout->setResizeMode(QLayout::Minimum);
+	
+  gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(currentTab, i18n("Use key cache for lexicons"),
 			i18n("BibleTime can create a key cache for lexicons, which speeds up opening large lexicon modules a lot. \
-						However these files consume some disk space (usually not much), and reside in \
-						$KDEHOME/share/apps/bibletime/cache."))
+However these files consume some disk space (usually not much), and reside in \
+$KDEHOME/share/apps/bibletime/cache.")),
+		0,0,0,-1
   );
 	
 	m_settings.sword.lexiconCache = new QCheckBox(currentTab);
@@ -396,12 +413,13 @@ void COptionsDialog::initSword(){
 	QWhatsThis::add(m_settings.sword.lexiconCache, WT_OD_SWORD_USE_LEXICON_CACHE);
 		
 	m_settings.sword.lexiconCache->setChecked( CBTConfig::get(CBTConfig::lexiconCache) );
- 	layout->addWidget(m_settings.sword.lexiconCache);	
+ 	gridLayout->addMultiCellWidget(m_settings.sword.lexiconCache,1,1,0,-1);
 
-  layout->addWidget(
+  gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(currentTab, i18n("Scrolling behaviour"),
 			i18n("The down arrow moves to the <i>next</i> verse by default. Uncheck this box \
-						if you want it to move to the <i>previous</i> verse."))
+if you want it to move to the <i>previous</i> verse.")),
+		2,2,0,-1
   );
  		
  	m_settings.sword.useDownArrow = new QCheckBox(currentTab);
@@ -409,21 +427,25 @@ void COptionsDialog::initSword(){
  	m_settings.sword.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));		
  	QWhatsThis::add(m_settings.sword.useDownArrow, WT_OD_GENERAL_SCROLL_PREVIOUS);
  	QToolTip::add(m_settings.sword.useDownArrow, TT_OD_GENERAL_SCROLL_PREVIOUS);
- 	layout->addWidget(m_settings.sword.useDownArrow);
+ 	gridLayout->addMultiCellWidget(m_settings.sword.useDownArrow,3,3,0,-1);
 
-  layout->addWidget(
+  gridLayout->addMultiCellWidget(
   	CToolClass::explanationLabel(currentTab, i18n("Specify a language for biblical booknames"),
 			i18n("Sword has a number of locales available which can be used to internationalize the \
-						booknames of the bible. You can specify which locale to choose. If you want to \
-						create a new locale, see http://www.crosswire.org/sword/develop for details."))
+booknames of the bible. You can specify which locale to choose. If you want to \
+create a new locale, see http://www.crosswire.org/sword/develop for details.")),
+		4,4,0,-1
   );
 		
- 	QHBox* localeLayout = new QHBox(currentTab);		
- 	QLabel* label = new QLabel(i18n("Language for booknames"), localeLayout); 	
- 	m_settings.sword.localeCombo = new QComboBox(localeLayout);
+ 	m_settings.sword.localeCombo = new QComboBox(currentTab);
+ 	QLabel* label = new QLabel(m_settings.sword.localeCombo, i18n("Language for booknames"), currentTab); 	
  	QToolTip::add(m_settings.sword.localeCombo, TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);				
  	QWhatsThis::add(m_settings.sword.localeCombo, WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES);		
-									
+ 	gridLayout->addWidget(label, 5,0);
+ 	gridLayout->addWidget(m_settings.sword.localeCombo, 5,1);
+
+ 	gridLayout->setRowStretch(6,5); //eat up remaining space :)
+ 	 	 										
  	m_settings.sword.localeCombo->insertItem( i18n("English") );
  	list <string> locales = LocaleMgr::systemLocaleMgr.getAvailableLocales();
  	for (list <string>::iterator it = locales.begin(); it != locales.end(); it++) {
@@ -438,86 +460,76 @@ void COptionsDialog::initSword(){
  	}
  	if (current_item!=-1)
  		m_settings.sword.localeCombo->setCurrentItem(current_item);
- 	layout->addWidget(localeLayout);					
- 	
-
-  layout->addStretch(4);
 
 
 // ---------- new tab: Default modules -------- //
   currentTab = new QFrame(tabCtl);
   tabCtl->addTab(currentTab, i18n("Default modules"));
-  layout = new QVBoxLayout(currentTab,5);
+	gridLayout = new QGridLayout(currentTab,9,2, 5,5); //the last row is for stretching available space
+//	gridLayout->setResizeMode(QLayout::Minimum);
 
-  layout->addWidget(
-  	CToolClass::explanationLabel(currentTab, i18n("Default modules"), i18n("Default modules are used, when no module is specified. This may happen with references into modules like Bibles or Lexicons."))
+  gridLayout->addMultiCellWidget(
+  	CToolClass::explanationLabel(currentTab, i18n("Default modules"), i18n("Default modules are used, when no module is specified. This may happen with references into modules like Bibles or Lexicons.")),
+  	0,0,0,-1 /*fill the horizontal space*/
   );
-  layout->addSpacing(5);
-
- 	QHBoxLayout* hBox = new QHBoxLayout();				
- 	 	
+ 	
  	m_settings.sword.standardBible = new QComboBox(currentTab);
   label = new QLabel(m_settings.sword.standardBible, i18n("Default Bible"), currentTab);
+  label->setAutoResize(true);
  	QToolTip::add(m_settings.sword.standardBible, TT_OD_SWORD_STANDARD_BIBLE);	
  	QWhatsThis::add(m_settings.sword.standardBible, WT_OD_SWORD_STANDARD_BIBLE);		
- 	hBox->addWidget(label);
- 	hBox->addWidget(m_settings.sword.standardBible);		
- 	layout->addLayout(hBox);
-
- 	hBox = new QHBoxLayout();				
+ 	gridLayout->addWidget(label,1,0); 	
+ 	gridLayout->addWidget(m_settings.sword.standardBible,1,1);
+ 	 	
  	m_settings.sword.standardCommentary = new QComboBox(currentTab);
  	label = new QLabel(m_settings.sword.standardCommentary, i18n("Default Commentary"), currentTab);
+  label->setAutoResize(true); 	
  	QToolTip::add(m_settings.sword.standardCommentary, TT_OD_SWORD_STANDARD_COMMENTARY);	
  	QWhatsThis::add(m_settings.sword.standardCommentary, WT_OD_SWORD_STANDARD_COMMENTARY);		
- 	hBox->addWidget(label);
- 	hBox->addWidget(m_settings.sword.standardCommentary);
- 	layout->addLayout(hBox);
+ 	gridLayout->addWidget(label,2,0);
+ 	gridLayout->addWidget(m_settings.sword.standardCommentary,2,1);
 
- 	hBox = new QHBoxLayout();				
+
  	m_settings.sword.standardLexicon = new QComboBox(currentTab);
  	label = new QLabel(m_settings.sword.standardLexicon, i18n("Default Lexicon"), currentTab);
+  label->setAutoResize(true); 	
  	QToolTip::add(m_settings.sword.standardLexicon, TT_OD_SWORD_STANDARD_LEXICON);	
  	QWhatsThis::add(m_settings.sword.standardLexicon, WT_OD_SWORD_STANDARD_LEXICON);		
- 	hBox->addWidget(label);
- 	hBox->addWidget(m_settings.sword.standardLexicon);
- 	layout->addLayout(hBox);
+ 	gridLayout->addWidget(label,3,0); 	
+ 	gridLayout->addWidget(m_settings.sword.standardLexicon,3,1); 	
 		
- 	hBox = new QHBoxLayout();
  	m_settings.sword.standardHebrewStrong = new QComboBox(currentTab);
  	label = new QLabel(m_settings.sword.standardHebrewStrong, i18n("Default Hebrew Strong's Lexicon"), currentTab);
+  label->setAutoResize(true); 	 	
  	QToolTip::add(m_settings.sword.standardHebrewStrong, TT_OD_SWORD_STANDARD_HEBREW_STRONG);
  	QWhatsThis::add(m_settings.sword.standardHebrewStrong, WT_OD_SWORD_STANDARD_HEBREW_STRONG);
- 	hBox->addWidget(label);
- 	hBox->addWidget(m_settings.sword.standardHebrewStrong);
- 	layout->addLayout(hBox);
+ 	gridLayout->addWidget(label,4,0);
+ 	gridLayout->addWidget(m_settings.sword.standardHebrewStrong,4,1);
 		
- 	hBox = new QHBoxLayout();
  	m_settings.sword.standardGreekStrong = new QComboBox(currentTab);
  	label = new QLabel(m_settings.sword.standardGreekStrong, i18n("Default Greek Strong's Lexicon"), currentTab);
- 	QToolTip::add(m_settings.sword.standardGreekStrong, TT_OD_SWORD_STANDARD_GREEK_STRONG);
+  label->setAutoResize(true); 	 	
+ 	QToolTip::add(m_settings.sword.standardGreekStrong, TT_OD_SWORD_STANDARD_GREEK_STRONG); 	
  	QWhatsThis::add(m_settings.sword.standardGreekStrong, WT_OD_SWORD_STANDARD_GREEK_STRONG);
- 	hBox->addWidget(label);
- 	hBox->addWidget(m_settings.sword.standardGreekStrong);
- 	layout->addLayout(hBox);
+ 	gridLayout->addWidget(label,5,0);
+ 	gridLayout->addWidget(m_settings.sword.standardGreekStrong,5,1);
 		
- 	hBox = new QHBoxLayout();
  	m_settings.sword.standardHebrewMorph = new QComboBox(currentTab);
  	label = new QLabel(m_settings.sword.standardHebrewMorph, i18n("Default Hebrew Morphological Lexicon"), currentTab);
  	QToolTip::add(m_settings.sword.standardHebrewMorph, TT_OD_SWORD_STANDARD_HEBREW_MORPH);
  	QWhatsThis::add(m_settings.sword.standardHebrewMorph, WT_OD_SWORD_STANDARD_HEBREW_MORPH);
- 	hBox->addWidget(label);
- 	hBox->addWidget(m_settings.sword.standardHebrewMorph);
- 	layout->addLayout(hBox);
+ 	gridLayout->addWidget(label,6,0);
+ 	gridLayout->addWidget(m_settings.sword.standardHebrewMorph,6,1);
 
- 	hBox = new QHBoxLayout();
  	m_settings.sword.standardGreekMorph = new QComboBox(currentTab);
  	label = new QLabel(m_settings.sword.standardGreekMorph, i18n("Default Greek Morphological Lexicon"), currentTab);
+  label->setAutoResize(true); 	 	
  	QToolTip::add(m_settings.sword.standardGreekMorph, TT_OD_SWORD_STANDARD_GREEK_MORPH);
  	QWhatsThis::add(m_settings.sword.standardGreekMorph, WT_OD_SWORD_STANDARD_GREEK_MORPH);
- 	hBox->addWidget(label);
- 	hBox->addWidget(m_settings.sword.standardGreekMorph);
- 	layout->addLayout(hBox);
-							
+ 	gridLayout->addWidget(label,7,0);
+ 	gridLayout->addWidget(m_settings.sword.standardGreekMorph,7,1);
+
+ 	gridLayout->setRowStretch(8,5);							
 		
  	//fill the comboboxes with the right modules
  	ListCSwordModuleInfo* modules = m_important->swordBackend->getModuleList();
@@ -551,7 +563,7 @@ void COptionsDialog::initSword(){
 
 //using two lists and one loop is better than six loops with almost the same code :)
  	QList<QComboBox> comboList;
- 	comboList.setAutoDelete(false);
+ 	comboList.setAutoDelete(false);//don't delete the combos accidentally
  	comboList.append(m_settings.sword.standardBible);
  	comboList.append(m_settings.sword.standardCommentary);
  	comboList.append(m_settings.sword.standardLexicon);
@@ -561,32 +573,36 @@ void COptionsDialog::initSword(){
  	comboList.append(m_settings.sword.standardGreekMorph);
 
  	QStringList moduleList;
- 	moduleList.append(CBTConfig::get(CBTConfig::standardBible));
- 	moduleList.append(CBTConfig::get(CBTConfig::standardCommentary));
- 	moduleList.append(CBTConfig::get(CBTConfig::standardLexicon));
- 	moduleList.append(CBTConfig::get(CBTConfig::standardHebrewStrongsLexicon));
- 	moduleList.append(CBTConfig::get(CBTConfig::standardGreekStrongsLexicon));
- 	moduleList.append(CBTConfig::get(CBTConfig::standardHebrewMorphLexicon));
- 	moduleList.append(CBTConfig::get(CBTConfig::standardGreekMorphLexicon)); 	 	 	 	 	 	
+ 	moduleList
+ 		<< CBTConfig::get(CBTConfig::standardBible)
+	 	<< CBTConfig::get(CBTConfig::standardCommentary)
+	 	<< CBTConfig::get(CBTConfig::standardLexicon)
+	 	<< CBTConfig::get(CBTConfig::standardHebrewStrongsLexicon)
+	 	<< CBTConfig::get(CBTConfig::standardGreekStrongsLexicon)
+	 	<< CBTConfig::get(CBTConfig::standardHebrewMorphLexicon)
+	 	<< CBTConfig::get(CBTConfig::standardGreekMorphLexicon);
 
- 	for ( QComboBox* combo = comboList.first(); combo != 0; combo = comboList.next() ) {
-		const int count = combo->count();
-		const QString& module = moduleList[comboList.at()];
- 		for (int item = 0; item < count; item++) {
+ 	QString module = QString::null;
+ 	int item = 0;
+	int count = 0; 	
+ 	for (QComboBox* combo = comboList.first(); combo; combo = comboList.next() ) {		
+		module = moduleList[comboList.at()];
+		count = combo->count();
+//	  combo->setMaximumWidth(250);
+ 		for (item = 0; item < count; item++) {
 	 		if (combo->text(item) == module ) {
 	 		  combo->setCurrentItem(item);
-	 		  continue;
+	 		  break;
 	 		}
 	 	}
 	}
- 	
- 	layout->addStretch(4);
 
+	
 
 // ---------- new tab: filters -------- //
   currentTab = new QFrame(tabCtl);
   tabCtl->addTab(currentTab, i18n("Filter settings"));
-  layout = new QVBoxLayout(currentTab,5);
+  QVBoxLayout* layout = new QVBoxLayout(currentTab,5);
 
   layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"), i18n("Filters control the appereance of the text in the display windows. Here you can choose the default settings of the various filter settings. You can change the settings in each display window, too.")) );
   layout->addSpacing(5);
