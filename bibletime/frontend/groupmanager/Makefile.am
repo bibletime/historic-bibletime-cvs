@@ -6,9 +6,13 @@ libgroupmanager_a_SOURCES = \
 cgroupmanager.cpp \
 cgroupmanageritem.cpp 
 
-EXTRA_DIST = \
-$(libgroupmanager_a_SOURCES) \
-cgroupmanager.h \
+all_headers = cgroupmanager.h \
 cgroupmanageritem.h
+
+EXTRA_DIST = \
+$(libgroupmanager_a_SOURCES) $(all_headers)
+
+
+
 
 

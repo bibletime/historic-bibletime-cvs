@@ -13,11 +13,14 @@ cmodulechooserbar.cpp \
 cmodulechooserbutton.cpp \
 cdisplaysettingsbutton.cpp
 
-EXTRA_DIST = $(libpresenters_a_SOURCES) \
-ccommentarypresenter.h \
+all_headers=ccommentarypresenter.h \
 clexiconpresenter.h \
 cbiblepresenter.h \
 cmodulechooserbar.h \
 cmodulechooserbutton.h \
 cswordpresenter.h \
 cdisplaysettingsbutton.h
+
+
+EXTRA_DIST = $(libpresenters_a_SOURCES) $(all_headers)
+

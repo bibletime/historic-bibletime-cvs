@@ -12,10 +12,12 @@ actions.cpp \
 ctoolclass.cpp \
 cbtconfig.cpp \
 cinputdialog.cpp \
-cprofilemgr.cpp cprofile.cpp cprofilewindow.cpp
+coptionsdialog.cpp \
+cprofilemgr.cpp \
+cprofile.cpp \
+cprofilewindow.cpp
 
-EXTRA_DIST = $(libfrontend_a_SOURCES) \
-cmdiarea.h \
+all_headers=cmdiarea.h \
 kstartuplogo.h \
 chtmlwidget.h \
 chtmldialog.h \
@@ -28,11 +30,13 @@ cprofilemgr.h \
 cprofile.h \
 cprofilewindow.h
 
+EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)
+
 SUBDIRS = \
 groupmanager \
 keychooser \
 presenters \
-optionsdialog \
 searchdialog \
 thirdparty
+
 

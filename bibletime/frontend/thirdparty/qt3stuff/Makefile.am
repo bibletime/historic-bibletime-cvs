@@ -13,11 +13,13 @@ qtextview.cpp \
 qtextedit.cpp \
 qcomplextext.cpp
 
-EXTRA_DIST = $(libqt3stuff_a_SOURCES) \
-qrichtext_p.h \
+all_headers = qrichtext_p.h \
 qstylesheet.h \
 qtextview.h \
 qtextedit.h \
 qcomplextext_p.h \
 qt3stuff.h \
 qcleanuphandler.h
+
+EXTRA_DIST = $(libqt3stuff_a_SOURCES) $(all_headers)
+

@@ -30,7 +30,6 @@
 
 class CBTConfig {
 public:
-
 	enum strings{
 		bibletimeVersion,
 		language,

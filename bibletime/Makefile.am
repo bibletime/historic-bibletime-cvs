@@ -9,7 +9,6 @@ main.cpp
 bibletime_LDADD   = \
 ./printing/libprinting.a \
 ./frontend/presenters/libpresenters.a \
-./frontend/optionsdialog/liboptionsdialog.a \
 ./frontend/keychooser/libkeychooser.a \
 ./frontend/groupmanager/libgroupmanager.a \
 ./frontend/searchdialog/libsearchdialog.a \
@@ -29,14 +28,14 @@ $(LIBSOCKET)
 
 SUBDIRS = backend printing frontend xml pics 
 
-EXTRA_DIST = \
-$(bibletime_SOURCES) \
-bibletime.h \
+all_headers = bibletime.h \
 ressource.h \
 structdef.h \
 whatsthisdef.h \
 tooltipdef.h \
 bt-printing
+
+EXTRA_DIST = $(bibletime_SOURCES) $(all_headers)
 
 # this 10 paths are KDE specific. Use them:
 # kde_htmldir       Where your docs should go to. (contains lang subdirs)
@@ -80,3 +79,4 @@ uninstall-local:
 
 rpm: dist
 	
+

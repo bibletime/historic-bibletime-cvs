@@ -31,7 +31,7 @@
 #include "frontend/chtmldialog.h"
 #include "frontend/presenters/cswordpresenter.h"
 #include "frontend/groupmanager/cgroupmanager.h"
-#include "frontend/optionsdialog/coptionsdialog.h"
+#include "frontend/coptionsdialog.h"
 #include "frontend/cbtconfig.h"
 #include "config.h"
 

@@ -18,8 +18,8 @@
 #ifndef COPTIONSDIALOG_H
 #define COPTIONSDIALOG_H
 
-#include "../../structdef.h"
-#include "../cprofilemgr.h"
+#include "../structdef.h"
+#include "cprofilemgr.h"
 
 //QT includes
 #include <qwidget.h>
@@ -43,6 +43,7 @@ class QCheckBox;
 class QRadioButton;
 class KListBox;
 class KKeyChooser;
+class KTabCtl;
 class CBackEnd;
 
 /**
@@ -79,6 +80,7 @@ private:
   CImportantClasses* m_important;
 
 	struct GeneralSettings {
+		KTabCtl* tabCtl;
 		struct StartupSettings {
 			QCheckBox* showTips;
 			QCheckBox* showLogo;
@@ -102,6 +104,7 @@ private:
 	} m_general;	
 
 	struct DisplayWindowSettings {
+		KTabCtl* tabCtl;	
 		struct GeneralSettings {
 			QComboBox* localeCombo;
 			QCheckBox* useDownArrow;

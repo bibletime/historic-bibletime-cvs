@@ -255,7 +255,7 @@ void BibleTime::initMenubar(){
 
 /** Initializes the SIGNAL / SLOT connections */
 void BibleTime::initConnections(){
-	KStartupLogo::setStatusMessage(i18n("Initializing menu items") + QString::fromLatin1("..."));
+//	KStartupLogo::setStatusMessage(i18n("Initializing menu items") + QString::fromLatin1("..."));
 	connect(m_mdi, SIGNAL(sigSetToplevelCaption(const QString&)),
 		this, SLOT(setPlainCaption(const QString&)));
 	connect(m_mdi, SIGNAL(createNewSwordPresenter(CSwordModuleInfo*, const QString&)),
@@ -336,14 +336,14 @@ void BibleTime::initBackends(){
 
 /** Initializes the CPrinter object. */
 void BibleTime::initPrinter(){
-	KStartupLogo::setStatusMessage(i18n("Initializing Printer") + QString::fromLatin1("..."));
+	KStartupLogo::setStatusMessage(i18n("Initializing printing system") + QString::fromLatin1("..."));
 	m_important->printer = new CPrinter(m_important, this);
 }
 
 /** Apply the settings given by the profile p*/
 void BibleTime::applyProfileSettings( CProfile* p ){
 	if (!p) {
-	 	qWarning("profile is empty!");
+	 	qDebug("profile is empty!");
 		return;
 	}
 	if (p->fullscreen()) { //we can set only fullscreen OR geometry

@@ -13,8 +13,7 @@ csearchdialogtext.cpp \
 csearchdialogscope.cpp \
 csearchdialogmodulechooser.cpp
 
-EXTRA_DIST = $(libsearchdialog_a_SOURCES) \
-csearchdialogmodulechooser.h \
+all_headers = csearchdialogmodulechooser.h \
 csearchdialogtext.h \
 csearchdialogscope.h \
 csearchdialogresult.h \
@@ -22,3 +21,6 @@ csearchdialogresultview.h \
 csearchdialoganalysis.h \
 csearchdialogmodulechooser.h \
 csearchdialog.h
+
+EXTRA_DIST = $(libsearchdialog_a_SOURCES) $(all_headers)
+
