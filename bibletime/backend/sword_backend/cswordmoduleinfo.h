@@ -157,6 +157,10 @@ public:
   * Returns the type of the module.
   */
   virtual const CSwordModuleInfo::type getType() const;
+  /**
+  * Returns the encoding of the used modules. If it does use no locale it returns QFont::charSetForLocale()
+  */
+  const QFont::CharSet encoding();
 
 private:
 	SWModule*	m_module;

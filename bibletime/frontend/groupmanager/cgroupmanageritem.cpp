@@ -163,14 +163,14 @@ void CGroupManagerItem::update(){
 			if (m_moduleInfo &&  m_moduleInfo->getType() == CSwordModuleInfo::Bible || m_moduleInfo->getType() == CSwordModuleInfo::Commentary ) {	//a Bible or a commentary module
 				CSwordVerseKey* key = new CSwordVerseKey(m_moduleInfo);
 				m_createdOwnKey = true;
-				key->setKey(m_caption);
+				key->key(m_caption);
 				setBookmarkKey(key);
 				update();	// this won't lead to a infinite loop because we have now a valid key
 			}
 			else if ( m_moduleInfo && m_moduleInfo->getType() == CSwordModuleInfo::Lexicon ) {	//a lexicon
 				CSwordLDKey* key = new CSwordLDKey(m_moduleInfo);
 				m_createdOwnKey = true;
-				key->setKey(m_caption);
+				key->key(m_caption);
 				setBookmarkKey(key);
 				update();	// this won't lead to a infinite loop because we have now a valid key
 			}			
@@ -232,7 +232,7 @@ const QString CGroupManagerItem::getToolTip(){
 			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
 			CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
 					
-			QString bookmarkText = 	vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString());
+			QString bookmarkText = 	vk ? vk->renderedText() : (lk ? lk->renderedText() : QString());
 			if (bookmarkText.length() > 150 && (moduleInfo()->getType() != CSwordModuleInfo::Bible))
 				bookmarkText = bookmarkText.left(150) + "...";
 						

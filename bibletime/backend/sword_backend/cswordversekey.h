@@ -19,7 +19,7 @@
 #define CSWORDVERSEKEY_H
 
 //own includes
-#include "../ckey.h"
+#include "cswordkey.h"
 #include "cswordmoduleinfo.h"
 
 //Qt includes
@@ -49,7 +49,7 @@
 	*	@version $Id$
   *	@author The BibleTime team
   */
-class CSwordVerseKey :  public VerseKey, public CKey  {
+class CSwordVerseKey :  public VerseKey, public CSwordKey  {
 public: 
 	/**
 	* Constructor of this class.
@@ -57,13 +57,10 @@ public:
 	* This function will construct a versekey with the current module position
 	* and it will setup the m_module members.
 	*
-	*	If you specifiy a module as parameter, which is not verse based the exception EBadModule
-	* is thrown to show this problem to the creator of this class.
-	*
 	*/
 	CSwordVerseKey( CSwordModuleInfo* module );
   /**
-  * No descriptions
+  * Copy constructor.
   */
   CSwordVerseKey( const CSwordVerseKey& k );
 	/**
@@ -74,17 +71,10 @@ public:
 	*/
 	~CSwordVerseKey();
   /**
-  * Sets the key we use to the parameter.
-  *
-  * This will also set the position of the module to the new key.
+  * Set/get the key. If the parameter is not set (means equal to QString::null)
+  * the used key is returned. Otherwise the key is set and the new on ei returned.
   */
-  const bool setKey( const QString& key );
-  /**
-  * Sets the key we use to the parameter.
-  *
-  * This will also set the position of the module to the new key.
-  */
-  const bool setKey( const char* key );
+  const QString key( const QString& key = QString::null );
   /**
   * Gets the key with the next verse in comparision with the current verse and stores
   * the key in the parameter key.
@@ -132,44 +122,23 @@ public:
   * Use "char Book()" to retrieve the book number of the current book.
   * @return The name of the current book
   */
-  const QString getBook() const;
-  /**
-  * Sets the book for this key. It gets a text parameter, not a booknumber.
-  *
-  * Use "Book(char)" to set the number using a number.
-  * @param newBook The QString object which contains the new book for this key.
-  */
-  void setBook(const QString& newBook);
+  const QString book(const QString& newBook = QString::null);
   /**
   * Sets the module for this key
   */
-  void setModule( CSwordModuleInfo* module );
-  /**
-   Sets the key using a versekey object of Sword.
-  */
-  void setKey( const VerseKey& key );
-  /**
-  * Returns the key as a QString.
-  */
-  const QString getKey() const;
+  virtual CSwordModuleInfo* module( CSwordModuleInfo* newModule = 0 );
   /**
   * Returns the stripped down text of this verse,
   */
-  const QString getStrippedText() const;
+  virtual const QString strippedText();
   /**
   * Returns the rendered text of this verse
   */
-  const QString getRenderedText() const;
+  virtual const QString renderedText();
   /**
   * Clones this object.
   */
   virtual CSwordVerseKey* clone() const;
-
-private:
-  /**
-  	* This is the pointer to the module we use.
-  	*/
-  CSwordModuleInfo*	m_module;
 };
 
 #endif

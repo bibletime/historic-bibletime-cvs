@@ -18,6 +18,9 @@
 //BibleTime includes
 #include "chtmlentrydisplay.h"
 #include "cswordmoduleinfo.h"
+#include "cswordkey.h"
+#include "cswordldkey.h"
+#include "cswordversekey.h"
 #include "../../frontend/ctoolclass.h"
 
 //Qt includes
@@ -40,8 +43,20 @@ CHTMLEntryDisplay::~CHTMLEntryDisplay(){
 
 /** Displays the current entry of the module as HTML */
 char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
-  QString FontName = m_standardFontName;
+	if (!module) {
+		m_htmlText = QString::null;
+		return -1;
+	}
+	QString FontName = m_standardFontName;
   int FontSize = m_standardFontSize;
+	
+  CSwordKey* key = 0;
+  if (module->getType() == CSwordModuleInfo::Commentary || module->getType() == CSwordModuleInfo::Bible)
+		key = new CSwordVerseKey(module);
+  else if (module->getType() == CSwordModuleInfo::Lexicon)
+		key = new CSwordLDKey(module);
+	key->key(module->module()->KeyText());
+
   if (module->hasFont()){ //use custom font
     QFont font = module->getFont();
     FontName = font.family();
@@ -53,17 +68,18 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 <A HREF=\"sword://%2\">%3: <B>%4</B></A></FONT>\
 <HR><FONT face=\"%5\" size=\"%6\">%7</FONT>")
 				.arg(m_highlightedVerseColor)
-				.arg(QString::fromLocal8Bit(module->module()->KeyText()))
-				.arg(QString::fromLocal8Bit(module->module()->Description()))	
-				.arg(QString::fromLocal8Bit(module->module()->KeyText()))
+				.arg(key->key()/*QString::fromLocal8Bit(module->module()->KeyText())*/)
+				.arg(module->getDescription())
+				.arg(key->key()/*QString::fromLocal8Bit(module->module()->KeyText())*/)
 				.arg(FontName)
 				.arg(FontSize)
-				.arg(QString::fromLocal8Bit((const char*)*module->module()))
+				.arg(key->renderedText()/*QString::fromLocal8Bit((const char*)*module->module())*/)
 			+ m_htmlBody;
 	}
 	else
-		m_htmlText = QString::fromLocal8Bit((const char*)*module->module());
-	//don't delete the key because it's the module's one!	
+		m_htmlText = key->renderedText()/*QString::fromLocal8Bit((const char*)*module->module())*/;
+
+	delete key;
 	return 0;
 }
 
@@ -75,17 +91,25 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	}
   QString FontName = m_standardFontName;
   int FontSize = m_standardFontSize;
+
+  CSwordKey* key = 0;
+  if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible)
+		key = new CSwordVerseKey(moduleList->first());
+  else if (moduleList->first()->getType() == CSwordModuleInfo::Lexicon)
+		key = new CSwordLDKey(moduleList->first());
 	
+  	
 	SWModule* module = moduleList->first()->module();		
 	CSwordModuleInfo *d = 0;	
 	SWModule *m= (d = moduleList->first()) ? d->module() : 0;	
 	
-	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary) {
-		VerseKey* key = (VerseKey*)(SWKey*)*module;
-		key->Persist(1);
+	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible) {
+		VerseKey* vk = (VerseKey*)(SWKey*)*module;
+		vk->Persist(1);
 		
-		VerseKey k = (const char*)*key;
-//		k.Verse(1);
+		key->key((const char*)*vk);		
+		VerseKey k = (const char*)*vk;
+		
 		m = (d = moduleList->first()) ? d->module() : 0;	
 		while (m) {
 	    m = (d=moduleList->next()) ? d->module() : 0;
@@ -93,11 +117,13 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 				m->SetKey( (const char*)k );
 		}	
 	}
-	else /*	if (moduleList->first()->getType() == CSwordModuleInfo::Lexicon)*/ {
-		SWKey* key = (SWKey*)(SWKey*)*module;
-		key->Persist(1);
-	
-		SWKey k = (const char*)*key;
+	else { //lexicon
+		SWKey* lk = (SWKey*)*module;
+		lk->Persist(1);		
+		
+		key->key((const char*)*lk);		
+		SWKey k = (const char*)*lk;
+		
 		m = (d = moduleList->first()) ? d->module() : 0;	
 		while (m) {
 	    m = (d=moduleList->next()) ? d->module() : 0;
@@ -106,6 +132,9 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 		}		
 	}
 
+	key->key( module->KeyText() );
+
+	
 	const int width=(int)((double)100/(double)moduleList->count());
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<TABLE cellpadding=\"2\" cellspacing=\"0\"><TR>"); 	
 	m = (d = moduleList->first()) ? d->module() : 0;	
@@ -131,18 +160,19 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
  		 	FontName = m_standardFontName;
 			FontSize = m_standardFontSize;
 	  }
+		key->module(d);	
 		m_htmlText.append(
 			QString::fromLatin1("<TD width=\"%1%\"><FONT SIZE=\"%2\" FACE=\"%3\">%4</FONT></TD>")
 				.arg(width)
 				.arg(FontSize)
 				.arg(FontName)
-				.arg(QString::fromLocal8Bit((const char*)*m))
+				.arg(/*QString::fromLocal8Bit((const char*)*m)*/key->renderedText())
 				
 			);
 		m = (d = moduleList->next()) ? d->module() : 0;		
 	}
 	m_htmlText.append( QString::fromLatin1("</TR></TABLE>%1").arg(m_htmlBody) );	
 
-	//don't delete the key because it's the module's one!	
+	delete key;
 	return 0;
 }

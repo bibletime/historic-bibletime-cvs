@@ -31,7 +31,7 @@ CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
 }
 
 /** No descriptions */
-CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CKey() {
+CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKey() {
 	m_module = k.m_module;
 }
 
@@ -44,44 +44,64 @@ CSwordVerseKey* CSwordVerseKey::clone() const {
 }
 
 /** Sets the module for this key */
-void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
+CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 	const QString oldKey = QString::fromLocal8Bit((const char*)*this);
-	if (module && (module->getType() == CSwordModuleInfo::Bible || module->getType() == CSwordModuleInfo::Commentary) ) {	
-		m_module = module;
-		setKey(oldKey);
+	if (newModule && (newModule->getType() == CSwordModuleInfo::Bible || newModule->getType() == CSwordModuleInfo::Commentary) ) {
+		m_module = newModule;
+		key(oldKey);
 	}
+	return m_module;
 }
 
 /** Returns the rendered text of this verse */
-const QString CSwordVerseKey::getRenderedText() const {
+const QString CSwordVerseKey::renderedText() {
 	if (!m_module)
 		return QString::null;
-	
 	m_module->module()->SetKey(this);
-	return QString::fromLocal8Bit( (const char*)*m_module->module() );
+	
+	switch (m_module->encoding()) {
+		case QFont::Unicode:
+//			qDebug("encoding is UNICODE");
+			return QString::fromUtf8( (const char*)*m_module->module() );	
+		default:
+//			qDebug("encoding is LOCAL8BIT");		
+			return QString::fromLocal8Bit( (const char*)*m_module->module() );		
+	}
 }
 
 /** Returns the stripped down text of this verse, */
-const QString CSwordVerseKey::getStrippedText() const{
+const QString CSwordVerseKey::strippedText() {
 	if (!m_module)
 		return QString::null;
 	m_module->module()->SetKey(this);
-	return QString::fromLocal8Bit( m_module->module()->StripText() );
+	switch (m_module->encoding() == QFont::Unicode) {
+		case QFont::Unicode:
+			return QString::fromUtf8( (const char*)*m_module->module() );	
+		default:
+			return QString::fromLocal8Bit( (const char*)*m_module->module() );		
+	}
 }
 
 /** Returns the current book as Text, no as integer. */
-void CSwordVerseKey::setBook( const QString& newBook ) {
-	int min = 0;
-	int max = 1;
-	for (int testament = min; testament <= max; ++testament) {
-		for (int book = 0; book < BMAX[testament]; ++book) {
-			if ( !strcmp(newBook.local8Bit(),books[testament][book].name ) ) {
-				Testament(testament+1);
-				Book(book+1);
-				return;
-			}			
+const QString CSwordVerseKey::book( const QString& newBook ) {
+	qDebug("const QString CSwordVerseKey::book( const QString& newBook )");
+	if (!newBook.isEmpty()) {
+		int min = 0;
+		int max = 1;
+		bool finished = false;
+		for (int testament = min; testament <= max && !finished; ++testament) {
+			for (int book = 0; book < BMAX[testament] && !finished; ++book) {
+				if ( !strcmp(newBook.local8Bit(),books[testament][book].name ) ) {
+					Testament(testament+1);
+					Book(book+1);
+					finished = true;
+				}			
+			}
 		}
 	}
+	if ( Testament() && Book() <= BMAX[Testament()-1] )
+		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
+	return QString::fromLocal8Bit(books[0][0].name);
 }
 
 /**  */
@@ -89,11 +109,10 @@ const bool CSwordVerseKey::NextVerse(){
 	if (m_module->getType() == CSwordModuleInfo::Commentary) {
 		m_module->module()->SetKey(this);	//use this key as base for the next one!
 		( *( m_module->module() ) )++;
-		setKey(m_module->module()->KeyText());		
+		key(m_module->module()->KeyText());		
 	}
-	else {
+	else
 		Verse(Verse()+1);
-	}	
 	return true;
 }
 
@@ -103,11 +122,10 @@ const bool CSwordVerseKey::PreviousVerse(){
 		
 		m_module->module()->SetKey(this);	//use this key as base for the next one!		
 		( *( m_module->module() ) )--;
-		setKey(m_module->module()->KeyText());		
+		key(m_module->module()->KeyText());		
 	}
-	else {
+	else
 		Verse(Verse()-1);
-	}	
 	return true;
 }
 
@@ -139,35 +157,13 @@ const bool CSwordVerseKey::PreviousBook(){
 	return true;
 }
 
-/** Returns the current book as Text, no as integer. */
-const QString CSwordVerseKey::getBook() const {
-	if ( Testament() && Book() <= BMAX[Testament()-1] )
-		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-	return QString::fromLocal8Bit(books[0][0].name);
-}
-
 /** Sets the key we use to the parameter. */
-const bool CSwordVerseKey::setKey( const QString& key ){	
-	error = 0;	
-	VerseKey::operator = ((const char*)key.local8Bit());		
-	//clear data
-	return !(bool)error;
-}
-
-/** Sets the key we use to the parameter. */
-const bool CSwordVerseKey::setKey( const char* key ){	
-	error = 0;	
-	VerseKey::operator = (key);		
-	//clear data
-	return !(bool)error;
-}
-
-/** Sets the key using a versekey object of Sword. */
-void CSwordVerseKey::setKey( const VerseKey& key ){
-	setKey(QString::fromLocal8Bit((const char*)key));
-}
-
-/** Returns the key as a QString. */
-const QString CSwordVerseKey::getKey() const {
+const QString CSwordVerseKey::key( const QString& newKey ){	
+	qDebug("const QString CSwordVerseKey::key( const QString& newKey )");
+	if (!newKey.isNull()) {
+		qDebug(newKey.latin1());
+		error = 0;
+		VerseKey::operator = ((const char*)newKey.local8Bit());		
+	}
 	return QString::fromLocal8Bit((const char*)*this);
 }

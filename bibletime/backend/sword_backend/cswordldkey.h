@@ -20,7 +20,7 @@
 
 
 //own includes
-#include "../ckey.h"
+#include "cswordkey.h"
 #include "cswordmoduleinfo.h"
 
 //Qt includes
@@ -56,7 +56,7 @@
   *	@version $Id$
   */
 
-class CSwordLDKey : public SWKey, public CKey {
+class CSwordLDKey : public SWKey, public CSwordKey {
 public: 
 	/**
 	* Constructor of CSwordLDKey
@@ -70,12 +70,7 @@ public:
   /**
   * Clones this object by copying the members.
   */
-  virtual CSwordLDKey* clone() const;	
-  /**
-  * Sets the key for this key object. The variable m_data will be cleared.
-  * Use @ref getData() to fill the m_data variable again.
-  */
-  virtual const bool setKey( const QString );
+  virtual CSwordLDKey* clone() const;
   /**
   * Uses the parameter to returns the next entry afer this key.
   */
@@ -87,22 +82,19 @@ public:
   /**
   * Sets the module of this key.
   */
-  void setModule( CSwordModuleInfo* module );
+  virtual CSwordModuleInfo* module( CSwordModuleInfo* module = 0 );
   /**
   * Returns the current key as a QString
   */
-  const QString getKey();
+  virtual const QString key( const QString& newKey = QString::null);
   /**
   * Returns the stripped down text of this entry.
   */
-  const QString getStrippedText() const;
+  virtual const QString strippedText();
   /**
   * Returns the rendered text of this entry.
   */
-  const QString getRenderedText() const;
-
-private:
-  CSwordModuleInfo*	m_module;
+  virtual const QString renderedText();
 };
 
 

@@ -171,12 +171,12 @@ void CSearchDialogResultModuleView::printSearchResult(){
 		printItem->setModule(m_currentModule);		
 		if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary ) {	//a bible or a commentary
 			CSwordVerseKey* verseKey = new CSwordVerseKey(m_currentModule); 	//the key is deleted by the CPrintItem
-			verseKey->setKey(text);
+			verseKey->key(text);
 			printItem->setStartKey(verseKey);
 		}
 		else if (type == CSwordModuleInfo::Lexicon) {	//a lexicon
 			CSwordLDKey* ldKey = new CSwordLDKey(m_currentModule);	//the key is deleted by the CPrintItem
-			ldKey->setKey(text);
+			ldKey->key(text);
 			printItem->setStartKey(ldKey);
 		}
 		m_important->printer->addItemToQueue( printItem );
@@ -285,13 +285,13 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 			
 		if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary) {
 			CSwordVerseKey vKey(m_currentModule);
-			vKey.setKey(QString::fromLocal8Bit((const char*)*key));
-			text += QString("%1:\n\t%2\n").arg( vKey.getKey() ).arg( vKey.getRenderedText() );
+			vKey.key(QString::fromLocal8Bit((const char*)*key));
+			text += QString("%1:\n\t%2\n").arg( vKey.key() ).arg( vKey.renderedText() );
 		}
 		else if (type == CSwordModuleInfo::Lexicon) {
 			CSwordLDKey ldKey(m_currentModule);
-			ldKey.setKey(QString::fromLocal8Bit((const char*)*key));
-			text += QString("%1:\n\t%2\n").arg( ldKey.getKey() ).arg( ldKey.getRenderedText() );			
+			ldKey.key(QString::fromLocal8Bit((const char*)*key));
+			text += QString("%1:\n\t%2\n").arg( ldKey.key() ).arg( ldKey.renderedText() );
 		}		
 	}
 	KApplication::clipboard()->setText(text);	
@@ -331,13 +331,13 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 			break;
 		if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary) {
 			CSwordVerseKey vKey(m_currentModule);
-			vKey.setKey(QString::fromLocal8Bit((const char*)*key));
-			text += QString("%1:\n\t%2\n").arg( vKey.getKey() ).arg( vKey.getStrippedText() );			
+			vKey.key(QString::fromLocal8Bit((const char*)*key));
+			text += QString("%1:\n\t%2\n").arg( vKey.key() ).arg( vKey.strippedText() );			
 		}
 		else if (type == CSwordModuleInfo::Lexicon) {
 			CSwordLDKey ldKey(m_currentModule);
-			ldKey.setKey(QString::fromLocal8Bit((const char*)*key));
-			text += QString("%1:\n\t%2\n").arg( ldKey.getKey() ).arg( ldKey.getStrippedText() );			
+			ldKey.key(QString::fromLocal8Bit((const char*)*key));
+			text += QString("%1:\n\t%2\n").arg( ldKey.key() ).arg( ldKey.strippedText() );
 		}		
 	}	
 	progress.setProgress(searchResult.Count());
@@ -448,13 +448,13 @@ void CSearchDialogResultView::printItem() {
 		CPrintItem*	printItem = new CPrintItem();
 		if ( m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {	//a bible or a commentary
 			CSwordVerseKey* verseKey = new CSwordVerseKey(m_module); 	//the key is deleted by the CPrintItem
-			verseKey->setKey( list.current()->text() );
+			verseKey->key( list.current()->text() );
 			printItem->setStartKey(verseKey);
 			printItem->setStopKey(verseKey);
 		}
 		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {	//a lexicon
 			CSwordLDKey* ldKey = new CSwordLDKey(m_module);	//the key is deleted by the CPrintItem
-			ldKey->setKey( list.current()->text() );
+			ldKey->key( list.current()->text() );
 			printItem->setStartKey(ldKey);
 			printItem->setStopKey(ldKey);	
 		}	
@@ -475,13 +475,13 @@ void CSearchDialogResultView::rightButtonPressed( QListBoxItem* item, const QPoi
 		QString text = QString::null;
 		if ( m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary ) {
 			CSwordVerseKey key(m_module);
-			key.setKey(item->text());
-			text = key.getRenderedText();
+			key.key(item->text());
+			text = key.renderedText();
 		}
 		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
 			CSwordLDKey key(m_module);
-			key.setKey(item->text());
-			text = key.getRenderedText();
+			key.key(item->text());
+			text = key.renderedText();
 		}
 		if (!text.isEmpty())		
 			emit keySelected( text  );		
@@ -498,13 +498,13 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 	QString text = QString::null;
 	if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
 		CSwordVerseKey key(m_module);
-		key.setKey(item->text());
-		text = key.getRenderedText();
+		key.key(item->text());
+		text = key.renderedText();
 	}
 	else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
 		CSwordLDKey key(m_module);				
-		key.setKey(item->text());
-		text = key.getRenderedText();
+		key.key(item->text());
+		text = key.renderedText();
 	}
 	if (!text.isEmpty())
 		emit keySelected( text  );
@@ -528,15 +528,15 @@ void CSearchDialogResultView::slotCopyCurrentWithKeytext(){
 	for (list.first(); list.current(); list.next()) {
 		if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
 			CSwordVerseKey key(m_module);
-			key.setKey(list.current()->text());
-			keyName = key.getKey();
-			keyText += key.getStrippedText();
+			key.key(list.current()->text());
+			keyName = key.key();
+			keyText += key.strippedText();
 		}
 		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
 			CSwordLDKey key(m_module);						
-			key.setKey(list.current()->text());
-			keyName = key.getKey();			
-			keyText += key.getStrippedText();
+			key.key(list.current()->text());
+			keyName = key.key();			
+			keyText += key.strippedText();
 		}
 		text += QString("%1\n%2\n\n").arg(keyName).arg(keyText);
 	}
@@ -564,15 +564,15 @@ void CSearchDialogResultView::slotSaveCurrentWithKeytext(){
 	for (list.first(); list.current(); list.next()) {
 		if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
 			CSwordVerseKey key(m_module);
-			key.setKey(list.current()->text());
-			keyName = key.getKey();
-			keyText += key.getStrippedText();
+			key.key(list.current()->text());
+			keyName = key.key();
+			keyText += key.strippedText();
 		}
 		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
 			CSwordLDKey key(m_module);						
-			key.setKey(list.current()->text());
-			keyName = key.getKey();			
-			keyText += key.getStrippedText();
+			key.key(list.current()->text());
+			keyName = key.key();			
+			keyText += key.strippedText();
 		}
 		text += QString("%1\n%2\n\n").arg(keyName).arg(keyText);
 	}

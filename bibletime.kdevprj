@@ -283,7 +283,7 @@ install=false
 install_location=
 type=HEADER
 [bibletime/backend/sword_backend/Makefile.am]
-files=bibletime/backend/sword_backend/cswordbiblemoduleinfo.cpp,bibletime/backend/sword_backend/cswordbiblemoduleinfo.h,bibletime/backend/sword_backend/cswordcommentarymoduleinfo.cpp,bibletime/backend/sword_backend/cswordcommentarymoduleinfo.h,bibletime/backend/sword_backend/cswordlexiconmoduleinfo.cpp,bibletime/backend/sword_backend/cswordlexiconmoduleinfo.h,bibletime/backend/sword_backend/cswordversekey.cpp,bibletime/backend/sword_backend/cswordversekey.h,bibletime/backend/sword_backend/cswordldkey.cpp,bibletime/backend/sword_backend/cswordldkey.h,bibletime/backend/sword_backend/cswordbackend.cpp,bibletime/backend/sword_backend/cswordbackend.h,bibletime/backend/sword_backend/cswordmoduleinfo.cpp,bibletime/backend/sword_backend/cswordmoduleinfo.h,bibletime/backend/sword_backend/chtmlentrydisplay.cpp,bibletime/backend/sword_backend/chtmlentrydisplay.h,bibletime/backend/sword_backend/chtmlchapterdisplay.cpp,bibletime/backend/sword_backend/chtmlchapterdisplay.h,bibletime/backend/sword_backend/cswordmodulesearch.cpp,bibletime/backend/sword_backend/cswordmodulesearch.h
+files=bibletime/backend/sword_backend/cswordbiblemoduleinfo.cpp,bibletime/backend/sword_backend/cswordbiblemoduleinfo.h,bibletime/backend/sword_backend/cswordcommentarymoduleinfo.cpp,bibletime/backend/sword_backend/cswordcommentarymoduleinfo.h,bibletime/backend/sword_backend/cswordlexiconmoduleinfo.cpp,bibletime/backend/sword_backend/cswordlexiconmoduleinfo.h,bibletime/backend/sword_backend/cswordversekey.cpp,bibletime/backend/sword_backend/cswordversekey.h,bibletime/backend/sword_backend/cswordldkey.cpp,bibletime/backend/sword_backend/cswordldkey.h,bibletime/backend/sword_backend/cswordbackend.cpp,bibletime/backend/sword_backend/cswordbackend.h,bibletime/backend/sword_backend/cswordmoduleinfo.cpp,bibletime/backend/sword_backend/cswordmoduleinfo.h,bibletime/backend/sword_backend/chtmlentrydisplay.cpp,bibletime/backend/sword_backend/chtmlentrydisplay.h,bibletime/backend/sword_backend/chtmlchapterdisplay.cpp,bibletime/backend/sword_backend/chtmlchapterdisplay.h,bibletime/backend/sword_backend/cswordmodulesearch.cpp,bibletime/backend/sword_backend/cswordmodulesearch.h,bibletime/backend/sword_backend/cswordkey.cpp,bibletime/backend/sword_backend/cswordkey.h
 sub_dirs=
 type=shared_library
 [bibletime/backend/sword_backend/chtmlchapterdisplay.cpp]
@@ -332,6 +332,16 @@ install=false
 install_location=
 type=SOURCE
 [bibletime/backend/sword_backend/cswordcommentarymoduleinfo.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+[bibletime/backend/sword_backend/cswordkey.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+[bibletime/backend/sword_backend/cswordkey.h]
 dist=true
 install=false
 install_location=

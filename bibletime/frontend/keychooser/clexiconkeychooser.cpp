@@ -66,7 +66,7 @@ void CLexiconKeyChooser::setKey(CKey* key){
 		return;		
 	m_widget->ComboBox->setCurrentItem(
 		m_widget->ComboBox->listBox()->index(
-			m_widget->ComboBox->listBox()->findItem( m_key->getKey() )));
+			m_widget->ComboBox->listBox()->findItem( m_key->key() )));
 	m_widget->adjustSize();
 	emit keyChanged( m_key );
 }
@@ -74,8 +74,8 @@ void CLexiconKeyChooser::setKey(CKey* key){
 void CLexiconKeyChooser::activated(int index){
 	const QString text = m_widget->ComboBox->text(index);	
 	/*to prevent from eternal loop, because activated()is emitted again*/
- 	if (m_key->getKey() != text) {
-		m_key->setKey(text); 	
+ 	if (m_key->key() != text) {
+		m_key->key(text); 	
 	 	setKey(m_key);
 	}
 }

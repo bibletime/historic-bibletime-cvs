@@ -91,9 +91,9 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 }
 
 CKey *CBibleKeyChooser::getKey(){
-	m_key->setBook(w_book->ComboBox->currentText());
-	m_key->Chapter(w_chapter->ComboBox->currentText().toInt());
 	m_key->Verse(w_verse->ComboBox->currentText().toInt());		
+	m_key->Chapter(w_chapter->ComboBox->currentText().toInt());
+	m_key->book(w_book->ComboBox->currentText());
 	
 	return m_key;
 }
@@ -103,13 +103,13 @@ void CBibleKeyChooser::setKey(CKey* key){
 	if (!(m_key = (CSwordVerseKey*)key))
 		return;
 		
-	const unsigned int bookIndex = m_info->getBookNumber( m_key->getBook() );
+	const unsigned int bookIndex = m_info->getBookNumber( m_key->book() );
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
 
 	//reset the keychooser parts only if we found a valid book
 	const int count = w_book->ComboBox->count();
-	const QString desiredBook = m_key->getBook();
+	const QString desiredBook = m_key->book();
 	bool bookIsValid = false;
 	for (int i = 0; i < count; ++i) {
 		if (w_book->ComboBox->text(i) == desiredBook) {
@@ -118,8 +118,8 @@ void CBibleKeyChooser::setKey(CKey* key){
 		}
 	}
 	if (bookIsValid) {	//we have a valid book
-		if (w_book->ComboBox->currentText() != m_key->getBook()) //necessary?
-			w_book->setItem( m_key->getBook() );
+		if (w_book->ComboBox->currentText() != m_key->book()) //necessary?
+			w_book->setItem( m_key->book() );
 		
 		w_chapter->reset(m_info->getChapterCount(bookIndex), chapter-1, false);
 		w_chapter->adjustSize();	
@@ -129,7 +129,7 @@ void CBibleKeyChooser::setKey(CKey* key){
 	}
 	else {
 		w_book->ComboBox->setCurrentItem(0);
-		m_key->setBook(w_book->ComboBox->currentText());
+		m_key->book(w_book->ComboBox->currentText());
 		
 		w_chapter->ComboBox->setCurrentItem(0);
 		m_key->Chapter(w_chapter->ComboBox->currentText().toInt());		
@@ -189,10 +189,10 @@ void CBibleKeyChooser::bookChanged(int /*i*/){
 	if (!isUpdatesEnabled())
 		return;
 	setUpdatesEnabled(false);	
-	if (m_key->getBook() != w_book->ComboBox->currentText()) {
+	if (m_key->book() != w_book->ComboBox->currentText()) {
 		m_key->Verse( 1 );
 		m_key->Chapter( 1 );		
-		m_key->setBook( w_book->ComboBox->currentText() );
+		m_key->book( w_book->ComboBox->currentText() );
 		setKey( m_key );
 	}	
 	setUpdatesEnabled(true);		
@@ -256,8 +256,8 @@ void CBibleKeyChooser::bookFocusOut(int index){
 	const char oldNormalize = m_key->AutoNormalize();
 	m_key->AutoNormalize(false);
 	
-	m_key->setBook( w_book->ComboBox->currentText() );
-	const int chapterCount = m_info->getChapterCount( m_info->getBookNumber(m_key->getBook()));
+	m_key->book( w_book->ComboBox->currentText() );
+	const int chapterCount = m_info->getChapterCount( m_info->getBookNumber(m_key->book()));
 	qWarning("%i", chapterCount);
 	qDebug("chaptzers before: %i", m_key->Chapter()-1);	
 	if (m_key->Chapter() > chapterCount) //chapter is not available in the new book
@@ -265,7 +265,7 @@ void CBibleKeyChooser::bookFocusOut(int index){
 	qDebug("%i", m_key->Chapter()-1);
 	w_chapter->reset( chapterCount, m_key->Chapter()-1, false);
 			
-	const int verseCount = m_info->getVerseCount(m_info->getBookNumber(m_key->getBook()),m_key->Chapter());
+	const int verseCount = m_info->getVerseCount(m_info->getBookNumber(m_key->book()),m_key->Chapter());
 	qWarning("%i", verseCount);	
 	qDebug("verse before: %i", m_key->Verse()-1);		
 	if (m_key->Verse() > verseCount) //verse is not available in the new book and chapter

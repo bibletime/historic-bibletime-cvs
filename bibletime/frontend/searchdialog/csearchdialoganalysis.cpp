@@ -114,16 +114,16 @@ void CSearchDialogAnalysis::analyse(){
 	m_maxCount = 0;	
 	int count = 0;
 	CSwordVerseKey key(0/*m_moduleList.first()*/);	
-	key.setKey("Genesis 1:1");	
+	key.key("Genesis 1:1");	
 	
-	CSearchDialogAnalysisItem* analysisItem = m_canvasItemList[key.getBook()];
+	CSearchDialogAnalysisItem* analysisItem = m_canvasItemList[key.book()];
 	bool ok = true;
 	while (ok && analysisItem) {
 		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
 			KApplication::kApplication()->processEvents(10);
 			if (!m_lastPosList.contains(m_moduleList.current()))
 				m_lastPosList.insert(m_moduleList.current(),0);
-			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.getBook(),m_moduleList.current())));
+			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.book(),m_moduleList.current())));
 			m_maxCount = (count > m_maxCount) ? count : m_maxCount;
 		}
 		analysisItem->setX(xPos);
@@ -132,7 +132,7 @@ void CSearchDialogAnalysis::analyse(){
 		
 		xPos += (int)analysisItem->width() + SPACE_BETWEEN_PARTS;		
 		ok = key.NextBook();		
-   	analysisItem = m_canvasItemList[key.getBook()];
+   	analysisItem = m_canvasItemList[key.book()];
 	}
 	resize(xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );	
 	slotResized();
@@ -147,13 +147,13 @@ void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
 
 	m_canvasItemList.clear();
 	CSwordVerseKey key(m_moduleList.first());	
-	key.setKey("Genesis 1:1");
+	key.key("Genesis 1:1");
 	CSearchDialogAnalysisItem* analysisItem = 0;
 	bool ok = true;
 	while (ok) {
-   	analysisItem = new CSearchDialogAnalysisItem(this, m_moduleList.count(), key.getBook(), &m_scaleFactor, &m_moduleList);
+   	analysisItem = new CSearchDialogAnalysisItem(this, m_moduleList.count(), key.book(), &m_scaleFactor, &m_moduleList);
    	analysisItem->hide();
-		m_canvasItemList.insert(key.getBook(), analysisItem);
+		m_canvasItemList.insert(key.book(), analysisItem);
 		ok = key.NextBook();
 	}	
 	update();

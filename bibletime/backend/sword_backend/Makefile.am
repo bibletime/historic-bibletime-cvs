@@ -9,6 +9,7 @@ chtmlchapterdisplay.cpp \
 chtmlentrydisplay.cpp \
 cswordmoduleinfo.cpp \
 cswordbackend.cpp \
+cswordkey.cpp \
 cswordldkey.cpp \
 cswordversekey.cpp \
 cswordlexiconmoduleinfo.cpp \
@@ -23,6 +24,8 @@ cswordcommentarymoduleinfo.cpp \
 cswordcommentarymoduleinfo.h \
 cswordlexiconmoduleinfo.cpp \
 cswordlexiconmoduleinfo.h \
+cswordkey.cpp \
+cswordkey.h \
 cswordversekey.cpp \
 cswordversekey.h \
 cswordldkey.cpp \

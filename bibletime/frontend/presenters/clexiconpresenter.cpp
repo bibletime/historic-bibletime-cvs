@@ -36,7 +36,7 @@
 CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
 	: CSwordPresenter(useModules, importantClasses, parent,name) {
 	m_key = new CSwordLDKey(m_moduleList.first());
-	m_key->setKey("");
+	m_key->key("");
 	initView();
 	show();
 	initConnections();			
@@ -115,7 +115,7 @@ void CLexiconPresenter::lookup(CKey* key){
 		m_htmlWidget->setText(m_moduleList.first()->getDisplay()->getHTML());		
 	}	
 	if (m_key != ldKey)
-		m_key->setKey(ldKey->getKey());
+		m_key->key(ldKey->key());
 		
 	setUpdatesEnabled(true);
 	setPlainCaption( caption() );
@@ -128,7 +128,7 @@ void CLexiconPresenter::moduleChanged(){
   if (!m_moduleList.count())
   	close();
   else {
-	  m_key->setModule(m_moduleList.first());
+	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());
 	  lookup(m_key);
 	}
@@ -144,7 +144,7 @@ void CLexiconPresenter::popupAboutToShow(){
 /** No descriptions */
 void CLexiconPresenter::lookup(const QString& key){
 	if (!key.isEmpty())
-		m_key->setKey(key);		
+		m_key->key(key);		
 	m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
 }
 
@@ -172,7 +172,7 @@ void CLexiconPresenter::modulesChanged(){
   	close();
   else {
     refreshFeatures();
-	  m_key->setModule(m_moduleList.first());
+	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
 	
 	  lookup(m_key);
@@ -182,39 +182,39 @@ void CLexiconPresenter::modulesChanged(){
 /** Copies the highlighted text into clipboard. */
 void CLexiconPresenter::copyEntry(){
 	CSwordLDKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.setKey(m_key->getKey());
+	key.key(m_key->key());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.setKey(currentAnchor);
+	key.key(currentAnchor);
 		
 	QClipboard *cb = KApplication::clipboard();
-	cb->setText(key.getKey());
+	cb->setText(key.key());
 }
 
 /** Copies the highlighted text into clipboard. */
 void CLexiconPresenter::copyEntryText(){
 	CSwordLDKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.setKey(m_key->getKey());
+	key.key(m_key->key());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.setKey(currentAnchor);
+	key.key(currentAnchor);
 	
 	QClipboard *cb = KApplication::clipboard();
-	cb->setText(key.getStrippedText());
+	cb->setText(key.strippedText());
 }
 
 /** Copies the highlighted text into clipboard. */
 void CLexiconPresenter::copyEntryAndText(){
 	CSwordLDKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.setKey(m_key->getKey());
+	key.key(m_key->key());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.setKey(currentAnchor);
+	key.key(currentAnchor);
 	
-	const QString text = QString("%1\n%2").arg(key.getKey()).arg(key.getStrippedText());
+	const QString text = QString("%1\n%2").arg(key.key()).arg(key.strippedText());
 	QClipboard *cb = KApplication::clipboard();
 	cb->setText(text);
 }
@@ -222,7 +222,7 @@ void CLexiconPresenter::copyEntryAndText(){
 //print functions
 void CLexiconPresenter::printEntryAndText(){
 	CSwordLDKey *key = new CSwordLDKey(m_moduleList.first());	//this key is deleted by the printem
-	key->setKey(m_key->getKey());
+	key->key(m_key->key());
 
 	printKey(key, key, m_moduleList.first());
 }

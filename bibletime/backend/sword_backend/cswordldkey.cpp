@@ -32,7 +32,7 @@ CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
 }
 
 /** No descriptions */
-CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey(k), CKey() {
+CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey(k), CSwordKey() {
 	m_module = k.m_module;
 }
 
@@ -45,38 +45,57 @@ CSwordLDKey* CSwordLDKey::clone() const {
 }
 
 /** Sets the module of this key. */
-void CSwordLDKey::setModule(CSwordModuleInfo* module){
-	const QString oldKey = QString::fromLocal8Bit( (const char*)*this );
-	if (module && module->getType() == CSwordModuleInfo::Lexicon) {
-		m_module = module;	
-		setKey(oldKey);
+CSwordModuleInfo* CSwordLDKey::module(CSwordModuleInfo* newModule){
+	const QString oldKey = key();	
+	if (newModule && newModule->getType() == CSwordModuleInfo::Lexicon) {
+		m_module = newModule;
+		key(oldKey);
 	}
+	return m_module;
 }
 
 /** Returns the rendered text of this entry. */
-const QString CSwordLDKey::getRenderedText() const{
+const QString CSwordLDKey::renderedText() {
 	m_module->module()->SetKey(this);
-	return QString::fromLocal8Bit((const char*)*m_module->module());
+	switch (m_module->encoding() == QFont::Unicode) {
+		case QFont::Unicode:
+			return QString::fromUtf8( (const char*)*m_module->module() );	
+		default:
+			return QString::fromLocal8Bit( (const char*)*m_module->module() );		
+	}
+
 }
 
 /** Returns the stripped down text of this entry. */
-const QString CSwordLDKey::getStrippedText() const{
+const QString CSwordLDKey::strippedText() {
 	m_module->module()->SetKey(this);
-	return QString::fromLocal8Bit(m_module->module()->StripText());
+	switch (m_module->encoding() == QFont::Unicode) {
+		case QFont::Unicode:
+			return QString::fromUtf8( (const char*)*m_module->module() );	
+		default:
+			return QString::fromLocal8Bit( (const char*)*m_module->module() );		
+	}
+
 }
 
 
 /** Sets the key of this instance */
-const bool CSwordLDKey::setKey( const QString key ){
-	SWKey::operator = ((const char*)key.local8Bit());		
-	return !(bool)error;
+const QString CSwordLDKey::key( const QString& newKey ){
+	if (!newKey.isNull()) {
+		SWKey::operator = ((const char*)newKey.local8Bit());		
+
+		m_module->module()->SetKey(this);
+		(const char*)*(m_module->module()); //snap to entry
+		SWKey::operator = (m_module->module()->KeyText());
+	}
+	return QString::fromLocal8Bit(m_module->module()->KeyText());
 }
 
 /** Uses the parameter to returns the next entry afer this key. */
 void CSwordLDKey::NextEntry(){
 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )++;
-	setKey(m_module->module()->KeyText());
+	key(m_module->module()->KeyText());
 	SWKey::operator = (m_module->module()->KeyText());	
 }
 
@@ -85,13 +104,4 @@ void CSwordLDKey::PreviousEntry(){
 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )--;
 	SWKey::operator = (m_module->module()->KeyText());	
-}
-
-/** Returns the current key as a QString */
-const QString CSwordLDKey::getKey() {
-	m_module->module()->SetKey(this);
-	(const char*)*(m_module->module()); //snap to entry
-	SWKey::operator = (m_module->module()->KeyText());
-	
-	return QString::fromLocal8Bit(m_module->module()->KeyText());
 }

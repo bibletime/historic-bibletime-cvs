@@ -133,7 +133,7 @@ const QString& CPrintItem::getModuleText() {
 //	QString text = QString::null;
 	CSwordModuleInfo* sw = dynamic_cast<CSwordModuleInfo*>(m_module);
 	m_moduleText = vk ? QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString::null;
-	m_moduleText += (vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString::null));
+	m_moduleText += (vk ? vk->renderedText() : (lk ? lk->renderedText() : QString::null));
 	if (sw && m_stopKey && m_stopKey != m_startKey) { //reange of entries
 		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
 			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(m_startKey);
@@ -142,10 +142,10 @@ const QString& CPrintItem::getModuleText() {
 				return m_moduleText;
 			
 			CSwordVerseKey dummyKey(sw);				
-			dummyKey.setKey( vk_start->getKey() );
+			dummyKey.key( vk_start->key() );
 			while (dummyKey < *vk_stop) {
 				dummyKey.NextVerse();
-				m_moduleText += QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.getRenderedText();
+				m_moduleText += QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.renderedText();
 			}
 		}
 		else if (sw->getType() == CSwordModuleInfo::Lexicon )

@@ -38,7 +38,7 @@ CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, CImp
 	: CSwordPresenter(useModules, importantClasses, parent,name) {
 	m_editToolBar = 0;	
 	m_key = new CSwordVerseKey(m_moduleList.first());
-	m_key->setKey("Genesis 1:1");
+	m_key->key("Genesis 1:1");
 	
 	initView();	
 	show();		
@@ -132,7 +132,7 @@ void CCommentaryPresenter::modulesChanged(){
   else {
 		presenterEdit_action->setEnabled( m_moduleList.first()->module()->isWritable() );
 	  refreshFeatures();	
-	  m_key->setModule(m_moduleList.first());
+	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
 	
 	  lookup(m_key);
@@ -161,7 +161,7 @@ void CCommentaryPresenter::lookup(CKey* key){
 	}
 	
 	if (m_key != vKey)
-		m_key->setKey(*vKey);
+		m_key->key(vKey->key());
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
 	setUpdatesEnabled(true);		
 	
@@ -224,7 +224,7 @@ void CCommentaryPresenter::editComment(){
 /** Reimplementation. */
 void CCommentaryPresenter::lookup(const QString& key){
 	if (!key.isEmpty())
-		m_key->setKey(key);
+		m_key->key(key);
 	m_keyChooser->setKey(m_key); //the key chooser send an update signal
 }
 
@@ -254,7 +254,7 @@ void CCommentaryPresenter::refresh( const int events){
 /** Printes the verse the user has chosen. */
 void CCommentaryPresenter::printHighlightedVerse(){
 	CSwordVerseKey* key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
-	key->setKey(m_key->getKey());	
+	key->key(m_key->key());	
 	printKey(key, key, m_moduleList.first());
 }
 
@@ -268,7 +268,7 @@ void CCommentaryPresenter::synchronize( CKey* syncKey ){
 		CSwordVerseKey* vk = (CSwordVerseKey*)syncKey;
 		if (!vk)
 			return;
-		m_key->setKey(vk->getKey());
+		m_key->key(vk->key());
 		m_keyChooser->setKey(m_key);
 	}
 }
@@ -278,46 +278,46 @@ void CCommentaryPresenter::insertReference(const QString& reference){
 	if (m_htmlWidget->isReadOnly())
 		return;
 	CSwordVerseKey vk(m_moduleList.first());
-	vk.setKey(reference);
-	m_htmlWidget->insert(vk.getStrippedText());
+	vk.key(reference);
+	m_htmlWidget->insert(vk.strippedText());
 }
 
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::copyEntry(){
 	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.setKey(m_key->getKey());
+	key.key(m_key->key());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.setKey(currentAnchor);
+	key.key(currentAnchor);
 		
 	QClipboard *cb = KApplication::clipboard();
-	cb->setText(key.getKey());
+	cb->setText(key.key());
 }
 
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::copyEntryText(){
 	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.setKey(m_key->getKey());
+	key.key(m_key->key());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.setKey(currentAnchor);
+	key.key(currentAnchor);
 	
 	QClipboard *cb = KApplication::clipboard();
-	cb->setText(key.getStrippedText());
+	cb->setText(key.strippedText());
 }
 
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::copyEntryAndText(){
 	CSwordVerseKey key(m_moduleList.first());	//this key is deleted by the printem
-	key.setKey(m_key->getKey());
+	key.key(m_key->key());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()-(currentAnchor.right(1) == "/" ? 9 : 8));
-	key.setKey(currentAnchor);
+	key.key(currentAnchor);
 	
-	const QString text = QString("%1\n%2").arg(key.getKey()).arg(key.getStrippedText());
+	const QString text = QString("%1\n%2").arg(key.key()).arg(key.strippedText());
 	QClipboard *cb = KApplication::clipboard();
 	cb->setText(text);
 }
@@ -326,11 +326,11 @@ void CCommentaryPresenter::copyEntryAndText(){
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::printEntryAndText(){
 	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
-	key->setKey(m_key->getKey());
+	key->key(m_key->key());
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	if (currentAnchor.left(8) == "sword://")
 		currentAnchor = currentAnchor.mid(8, currentAnchor.length()- (currentAnchor.right(1) == "/" ? 9 : 8));
-	key->setKey(currentAnchor);
+	key->key(currentAnchor);
 		
 	printKey(key, key, m_moduleList.first());
 }

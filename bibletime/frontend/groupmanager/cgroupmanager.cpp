@@ -392,12 +392,12 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 	if (myItem && swordModule) {	//it's a Sword module
 		if (swordModule->getType() == CSwordModuleInfo::Bible || swordModule->getType() == CSwordModuleInfo::Commentary) {	//a bible or commentary
 			CSwordVerseKey* key = new CSwordVerseKey(swordModule);
-			key->setKey(ref);
+			key->key(ref);
 			myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
 		}
 		else if (swordModule->getType() == CSwordModuleInfo::Lexicon) {	//a lexicon module
 			CSwordLDKey* key = new CSwordLDKey(swordModule);
-			key->setKey(ref);
+			key->key(ref);
 			myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
 		}			
 	}		

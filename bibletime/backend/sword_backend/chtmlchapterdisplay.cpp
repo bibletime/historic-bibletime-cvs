@@ -18,6 +18,7 @@
 //BibleTiem includes
 #include "chtmlchapterdisplay.h"
 #include "cswordmoduleinfo.h"
+#include "cswordversekey.h"
 #include "../../frontend/ctoolclass.h"
 
 //Qt includes
@@ -38,9 +39,10 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		m_htmlText = QString::null;
 		return -1; //error
 	}
-
-	SWModule* swordModule = module->module();
-	VerseKey& key = (*(VerseKey*)(SWKey*)*swordModule);
+	ASSERT(module->module());
+	CSwordVerseKey key(module);
+	key.key( module->module()->KeyText() );
+	
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 	const int currentVerse = key.Verse();	
@@ -54,27 +56,24 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
     FontName = font.family();
     FontSize = CToolClass::makeLogicFontSize(font.pointSize());
   }
-	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !swordModule->Error(); (*swordModule)++) {
-		verse = key.Verse();		
+	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); /*(*swordModule)++*/key.NextVerse()) {
+		verse = key.Verse();
 		m_htmlText.append( QString::fromLatin1("<A NAME=\"%1\" HREF=\"sword://%2\"><B>%3</B></A>")
-			.arg( verse )
-			.arg( QString::fromLocal8Bit( (const char*)key ) )
-			.arg( verse )
-		);		
-		m_htmlText.append( QString::fromLatin1("<FONT %1 FACE=\"%2\" SIZE=\"%3\"> %4</FONT>")
-			.arg( (verse == currentVerse) ? QString::fromLatin1("COLOR=\"%1\"").arg(m_highlightedVerseColor) : QString() )
-			.arg( FontName )
-			.arg( FontSize )
-//			.arg( QString::fromUtf8((const char*)*swordModule) )
-			.arg( QString::fromLocal8Bit((const char*)*swordModule) )
+			.arg(verse)
+			.arg(key.key())
+			.arg(verse)
 		);
-		
+		m_htmlText.append( QString::fromLatin1("<FONT %1 FACE=\"%2\" SIZE=\"%3\"> %4</FONT>")
+			.arg((verse == currentVerse) ? QString::fromLatin1("COLOR=\"%1\"").arg(m_highlightedVerseColor) : QString())
+			.arg(FontName)
+			.arg(FontSize)
+			.arg(key.renderedText())
+		);
 		if (m_useLineBreak)
 			m_htmlText.append("<BR>\n");
 	}
 	m_htmlText.append(m_htmlBody);	
-		
-	//clean up, key is the modules key - don't delete it
+
 	return 1;	//no error	
 }
 
@@ -140,6 +139,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 				.arg(fontMap.contains(d) ? CToolClass::makeLogicFontSize(fontMap[d].pointSize()) : m_standardFontSize)
 				.arg(currentVerse == chosenVerse ? QString::fromLatin1("color=\"%1\"").arg(m_highlightedVerseColor) : QString())
 				.arg(QString::fromLocal8Bit((const char*)*m));
+//				.arg(QString::fromUtf8((const char*)*m));
 			m = (d = moduleList->next()) ? d->module() : 0;
 		}
 		if (!rowText.isEmpty())

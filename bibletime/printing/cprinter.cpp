@@ -265,9 +265,9 @@ void CPrinter::printQueue(){
 //			ASSERT(vk);
 //			ASSERT(lk);			
 			if (vk)
-				keyName = vk->getKey();
+				keyName = vk->key();
 			else if (lk)
-				keyName = lk->getKey();
+				keyName = lk->key();
 			else
 				keyName = QString::null;
 			ASSERT(!aborted());

@@ -274,3 +274,15 @@ const bool CSwordModuleInfo::hasFont(){
 CSwordBackend* CSwordModuleInfo::backend() const {
 	return m_backend;
 }
+
+/** Returns the encoding of the used modules  */
+const QFont::CharSet CSwordModuleInfo::encoding(){
+	qDebug("CSwordModuleInfo::encoding()");
+	const QString charset = QString::fromLatin1((*m_backend->getConfig())[m_module->Name()]["Encoding"].c_str());
+	qDebug(charset.latin1());
+	if (charset == QString::fromLatin1("UTF-8")) {
+		qDebug("return unicode!");
+		return QFont::Unicode;
+	}
+	return QFont::charSetForLocale();		//unknown charset	
+}

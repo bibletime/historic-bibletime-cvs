@@ -268,12 +268,12 @@ void CHTMLWidget::contentsDropEvent(QDropEvent* e){
 		 		if (module) {
 	 				if (module->getType() == CSwordModuleInfo::Bible || module->getType() == CSwordModuleInfo::Commentary) {
 	 					CSwordVerseKey vk(module);
-	 					vk.setKey(ref);
-	 					text = vk.getStrippedText();
+	 					vk.key(ref);
+	 					text = vk.strippedText();
 	 				}
 	 				else if (module->getType() == CSwordModuleInfo::Lexicon) {
 	 					CSwordLDKey ld(module);
-	 					text = ld.getStrippedText();
+	 					text = ld.strippedText();
 	 				}
 		 		}
 		 	}
