@@ -158,12 +158,12 @@ const QString CSwordModuleInfo::getPath() const {
 
 /** Returns true if something was found, otherwise return false. */
 const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
-	static SWMgr searchModulesMgr;
+//	static SWMgr searchModulesMgr;
 	int searchType = 0;
  	int searchFlags = REG_ICASE;
 	
 	//work around Swords thread insafety
-	SWModule* m = searchModulesMgr.Modules[module()->Name()];
+	SWModule* m = /*searchModulesMgr.*/m_backend->Modules[module()->Name()];//disabled because interupting wasn't working
 	VerseKey k;
 	m->SetKey(k);
 	
@@ -181,14 +181,14 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 	SWKey* searchScope = 0;
 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
 		searchScope = &m_searchResult;
-		m_searchResult = searchModulesMgr.Modules[module()->Name()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, searchScope, 0, percentUpdate);
+		m_searchResult = /*searchModulesMgr.*/m_backend->Modules[module()->Name()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, searchScope, 0, percentUpdate);
 	}
 	else if (searchOptions & CSwordModuleSearch::useScope) {
 		searchScope = &scope;		
-		m_searchResult = searchModulesMgr.Modules[module()->Name()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags,  getType() != Lexicon ? searchScope : 0, 0, percentUpdate);
+		m_searchResult = /*searchModulesMgr.*/m_backend->Modules[module()->Name()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags,  getType() != Lexicon ? searchScope : 0, 0, percentUpdate);
 	}
   else
-  	m_searchResult = searchModulesMgr.Modules[module()->Name()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, 0, 0, percentUpdate);
+  	m_searchResult = /*searchModulesMgr.*/m_backend->Modules[module()->Name()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, 0, 0, percentUpdate);
 
 	return m_searchResult.Count();
 }

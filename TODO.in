@@ -20,8 +20,7 @@ Important unimplemented things:
 -------------------------------
 	-searchdialog
 		o perhaps RegExp edit widget (later)
-	-ThML support for presenters
-    o create a QT3::QRichtext derived ThML widget
+	-Installmanager
 
 Things which should be optimized:
 ---------------------------------
