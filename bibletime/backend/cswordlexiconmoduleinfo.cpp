@@ -53,7 +53,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 		if (!module()) return 0;
 		module()->KeyText(" ");
 
-		QFile f1( QString("/tmp/%1").arg( name() ) );
+		QFile f1( QString("/tmp/bt-cache-%1").arg( name() ) );
 		bool read = false;
     if ( f1.open( IO_ReadOnly ) ){
       QDataStream s( &f1 );
@@ -80,7 +80,7 @@ QStringList* CSwordLexiconModuleInfo::getEntries(){
 	  		m_entryList->remove( m_entryList->begin() );			
 
 			// Open the file.
-      QFile f2( QString("/tmp/%1").arg( name() ) );
+      QFile f2( QString("/tmp/bt-cache-%1").arg( name() ) );
       if (f2.open( IO_WriteOnly )){
         QDataStream s( &f2 );
 				qDebug("cache created");
