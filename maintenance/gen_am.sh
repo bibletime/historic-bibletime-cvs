@@ -183,12 +183,12 @@ all-no:
 install-yes: all
 	@catalogs='$(GMOFILES)'; \
 	for cat in $$catalogs; do \
-	destdir=$(localedir); \
-	lang=`echo $$cat | sed 's/\.gmo//'`; \
-	name=bibletime.mo \
-	dir=$$destdir/$$lang/LC_MESSAGES; \
-	$(mkinstalldirs) $$dir; \
-	$(INSTALL_DATA) $$cat $$dir/$$name; \
+		destdir=$(localedir); \
+		lang=`echo $$cat | sed 's/\.gmo//'`; \
+		name=bibletime.mo \
+		dir=$$destdir/$$lang/LC_MESSAGES; \
+		$(mkinstalldirs) $$dir; \
+		$(INSTALL_DATA) $$cat $$dir/$$name; \
 	  echo "installing $$cat as $$dir/$$name"; \
 	done
 
@@ -197,25 +197,24 @@ install-no:
 uninstall-local:
 	@catalogs='$(GMOFILES)'; \
 	for cat in $$catalogs; do \
-	destdir=$(localedir); \
-	lang=`echo $$cat | sed 's/\.gmo//'`; \
-	name=bibletime.mo; \
-	dir=$$destdir/$$lang/LC_MESSAGES; \
-	rm -f $$cat $$dir/$$name; \
-	echo "removing $$dir/$$name" ; \
+		destdir=$(localedir); \
+		lang=`echo $$cat | sed 's/\.gmo//'`; \
+		name=bibletime.mo; \
+		dir=$$destdir/$$lang/LC_MESSAGES; \
+		rm -f $$cat $$dir/$$name; \
+		echo "removing $$dir/$$name" ; \
 	done
 
 merge:
-	@catalogs='$(POFILES)'; \
-	for cat in $$catalogs; do \
-	name=../../bibletime/pot/messages.pot ; \
-	echo $$cat $$name; \
-	msgmerge $$cat $$name > $$cat.new ; \
-	if diff $$cat $$cat.new; then \
-		rm $$cat.new;  \
-	else  \
-		mv $$cat.new $$cat ; \
-	fi; \
+	for cat in find -name "*.po"`; do \
+		name=../../bibletime/pot/messages.pot ; \
+		echo $$cat $$name; \
+		msgmerge $$cat $$name > $$cat.new ; \
+		if diff $$cat $$cat.new; then \
+			rm $$cat.new;  \
+		else  \
+			mv $$cat.new $$cat ; \
+		fi; \
 	done
 EOF
 
@@ -231,12 +230,12 @@ for DOC_PO_PART in handbook howto; do
 		echo '	for cat in `find -name "*.po"`; do \'
 		echo '	name=../../../bibletime/pot/'$DOC_PO_PART'.pot ; \'
 		echo '		echo $$cat $$name; \'
-		echo '			msgmerge $$cat $$name > $$cat.new; \'
-		echo '			if diff $$cat $$cat.new; then \'
-		echo '				rm $$cat.new;  \'
-		echo '			else  \'
-		echo '				mv $$cat.new $$cat ; \'
-		echo '			fi;\'
+		echo '		msgmerge $$cat $$name > $$cat.new; \'
+		echo '		if diff $$cat $$cat.new; then \'
+		echo '			rm $$cat.new;  \'
+		echo '		else  \'
+		echo '			mv $$cat.new $$cat ; \'
+		echo '		fi;\'
 		echo '	done;'
 
 	) > ../../bibletime-i18n/po/$DOC_PO_PART/Makefile.am
