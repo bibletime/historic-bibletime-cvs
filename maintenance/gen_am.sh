@@ -227,7 +227,7 @@ for DOC_PO_PART in handbook howto; do
 	( # output to Makefile.am
 		echo -e $HEADER
 
-		echo -n "POFILES = "
+		echo -n "FILES = "
 
 		for I1 in $FOREIGN_DOC_LANGUAGES; do
 			echo -n "$I1.po "
@@ -235,8 +235,8 @@ for DOC_PO_PART in handbook howto; do
 
 		echo
 		echo
-		echo 'merge-'$DOC_PO_PART':'
-		echo '	@catalogs='"'\$(POFILES)'"'; \'
+		echo 'merge:'
+		echo '	@catalogs='"'\$(FILES)'"'; \'
 		echo '	for cat in $$catalogs; do \'
 		echo '	name=../../../bibletime/pot/'$DOC_PO_PART'.pot ; \'
 		echo '		echo $$cat $$name; \'
