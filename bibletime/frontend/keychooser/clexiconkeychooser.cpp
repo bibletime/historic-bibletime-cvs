@@ -112,23 +112,24 @@ void CLexiconKeyChooser::refreshContent(){
     QStringList goodEntries; //The string list which contains the entries which are available in all modules
     
     EntryMap::iterator it = entryMap.begin(); //iterator to go thoigh all selected modules    
-    QStringList* refEntries = it->second; //this is a pointer to a string list, only use it for comparision
+    QStringList refEntries = *(it->second); //copy the items for the first time
     QStringList* cmpEntries = ( ++it )->second; //list for comparision, starts with the second module in the map   
+
     while(it != entryMap.end()) {
       std::set_intersection(
-        refEntries->begin(), --(refEntries->end()), //--end() is the last valid entry
+        refEntries.begin(), --(refEntries.end()), //--end() is the last valid entry
         cmpEntries->begin(), --(cmpEntries->end()),
         std::back_inserter(goodEntries), //append valid entries to the end of goodEntries
         my_cmpEntries  //ci_cmpEntries is the comparision function
       );
 
-      cmpEntries = ( ++it )->second; //this is a pointer to a string list, only use it for comparision
+      cmpEntries = ( ++it )->second; //this is a pointer to the string list of a new module
       
       /*
       * use the good entries for next comparision,
-      * because the final list can only have the entries of goodEntries as ms maxiumum
+      * because the final list can only have the entries of goodEntries as maxiumum
       */
-      *refEntries = goodEntries;
+      refEntries = goodEntries;
     };
     
     m_widget->reset(goodEntries, 0, true); //write down the entries

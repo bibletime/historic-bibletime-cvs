@@ -187,8 +187,8 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	if (list) {
 		m_comboBox->insertStringList(*list);
   }
-	m_comboBox->setCurrentItem(index);	
-	if (!list || (list && !list->count())) { //nothing in the combobox
+
+  if (!list || (list && !list->count())) { //nothing in the combobox
 		btn_up->setEnabled( true );
 		btn_fx->setEnabled( true );
 		btn_down->setEnabled( true );	
@@ -201,7 +201,10 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		btn_fx->setEnabled( enableButtons );
 		btn_down->setEnabled( list && (list->count()>1) );
 	}
-	
+
+  if (list->count()) {
+  	m_comboBox->setCurrentItem(index);
+  }
 	if (do_emit) {
 		emit changed(m_comboBox->currentItem());				
 	}
