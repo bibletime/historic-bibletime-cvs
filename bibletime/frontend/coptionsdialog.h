@@ -84,7 +84,6 @@ private:
 			QComboBox* standardGreekStrong;
 			QComboBox* standardHebrewMorph;
 			QComboBox* standardGreekMorph;
-			QComboBox* localeCombo;
 			QCheckBox* useDownArrow;
 			QCheckBox* lineBreaks;
 			QCheckBox* verseNumbers;
@@ -115,6 +114,7 @@ private:
 		} displayStyle;
 
     struct FontSettings {
+			QComboBox* swordLocaleCombo;
 			KFontChooser* fontChooser;
 			QComboBox* usage;
       QCheckBox* useOwnFontBox;

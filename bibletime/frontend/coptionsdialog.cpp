@@ -139,7 +139,7 @@ const bool COptionsDialog::showPart( COptionsDialog::Parts /*ID*/ ){
 /** Initializes the startup section of the OD. */
 void COptionsDialog::initStartup(){
 	QFrame* page = addPage(i18n("Startup"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
-	QVBoxLayout* layout = new QVBoxLayout(page,5);
+	QVBoxLayout* layout = new QVBoxLayout(page);
 
   {//daily tips
 		m_settings.startup.showTips = new QCheckBox(page);
@@ -168,6 +168,74 @@ void COptionsDialog::initStartup(){
 void COptionsDialog::initFonts(){
 	QFrame* page = addPage(i18n("Fonts"), QString::null, DesktopIcon(CResMgr::settings::fonts::icon, 32));
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
+	
+	layout->addWidget(
+  	CToolClass::explanationLabel(page, i18n("Specify a language for biblical booknames"),
+			i18n("Sword has a number of locales available which can be used to internationalize the \
+booknames of the bible. You can specify which locale to use. If you want to \
+create a new locale, see http://www.crosswire.org/sword/develop for details."))
+  );
+
+ 	m_settings.fonts.swordLocaleCombo = new QComboBox(page);
+ 	QLabel* label = new QLabel(m_settings.fonts.swordLocaleCombo, i18n("Language for biblical booknames"), page);
+ 	QToolTip::add(m_settings.fonts.swordLocaleCombo, CResMgr::settings::sword::general::language::tooltip);
+ 	QWhatsThis::add(m_settings.fonts.swordLocaleCombo, CResMgr::settings::sword::general::language::whatsthis);
+	
+	QHBoxLayout* hBoxLayout = new QHBoxLayout();
+ 	hBoxLayout->addWidget(label);
+ 	hBoxLayout->addWidget(m_settings.fonts.swordLocaleCombo);
+	layout->addLayout(hBoxLayout);
+
+	QStringList languageNames;
+	languageNames.append( i18n("English") );
+	
+ 	const list<sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
+ 	for (list<sword::SWBuf>::const_iterator it = locales.begin(); it != locales.end(); it++) {
+		const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev(
+			sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getName()
+		);
+		
+		if (l->isValid()) {
+			languageNames.append( l->translatedName() );
+		}
+		else {
+			languageNames.append(
+				sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getDescription() 
+			);
+		}
+ 	}
+	
+	languageNames.sort();
+	m_settings.fonts.swordLocaleCombo->insertStringList( languageNames );
+	
+	const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev( 
+		CBTConfig::get(CBTConfig::language)
+	);
+	QString currentLanguageName;
+	if ( l->isValid() && languageNames.contains(l->translatedName()) ) { //tranlated language name is in the box
+		currentLanguageName = l->translatedName();
+	}
+	else { //a language like "German Abbrevs" might be the language to set
+		sword::SWLocale* locale = sword::LocaleMgr::LocaleMgr::getSystemLocaleMgr()->getLocale(
+			CBTConfig::get(CBTConfig::language).local8Bit()
+		);
+		if (locale) {
+			currentLanguageName = QString::fromLatin1(locale->getDescription());
+		}
+	}
+	
+	if (currentLanguageName.isEmpty()) { // set english as default if nothing was chosen
+		currentLanguageName = i18n("English");
+	}
+	
+	//now set the item with the right name as current item
+	for (int i = 0; i < m_settings.fonts.swordLocaleCombo->count(); ++i) {
+		if (currentLanguageName == m_settings.fonts.swordLocaleCombo->text(i)) {
+			m_settings.fonts.swordLocaleCombo->setCurrentItem(i);
+			break; //item found, finish the loop
+		}
+	}
+
 
  	layout->addWidget(
     CToolClass::explanationLabel(
@@ -392,75 +460,7 @@ if you want it to move to the <i>previous</i> verse.")),
  	m_settings.swords.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));
  	QToolTip::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::tooltip);
  	QWhatsThis::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::whatsthis);
- 	gridLayout->addMultiCellWidget(m_settings.swords.useDownArrow,3,3,0,-1);
-
-  gridLayout->addMultiCellWidget(
-  	CToolClass::explanationLabel(currentTab, i18n("Specify a language for biblical booknames"),
-			i18n("Sword has a number of locales available which can be used to internationalize the \
-booknames of the bible. You can specify which locale to use. If you want to \
-create a new locale, see http://www.crosswire.org/sword/develop for details.")),
-		4,4,0,-1
-  );
-
- 	m_settings.swords.localeCombo = new QComboBox(currentTab);
- 	QLabel* label = new QLabel(m_settings.swords.localeCombo, i18n("Language for biblical booknames"), currentTab);
- 	QToolTip::add(m_settings.swords.localeCombo, CResMgr::settings::sword::general::language::tooltip);
- 	QWhatsThis::add(m_settings.swords.localeCombo, CResMgr::settings::sword::general::language::whatsthis);
- 	gridLayout->addWidget(label, 5,0);
- 	gridLayout->addWidget(m_settings.swords.localeCombo, 5,1);
-
- 	gridLayout->setRowStretch(6,5); //eat up remaining space :)
-
-	QStringList languageNames;
-	languageNames.append( i18n("English") );
-	
- 	const list<sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
- 	for (list<sword::SWBuf>::const_iterator it = locales.begin(); it != locales.end(); it++) {
-		const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev(
-			sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getName()
-		);
-		
-		if (l->isValid()) {
-			languageNames.append( l->translatedName() );
-		}
-		else {
-			languageNames.append(
-				sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getDescription() 
-			);
-		}
- 	}
-	
-	languageNames.sort();
-	m_settings.swords.localeCombo->insertStringList( languageNames );
-	
-	const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev( 
-		CBTConfig::get(CBTConfig::language)
-	);
-	QString currentLanguageName;
-	if ( l->isValid() && languageNames.contains(l->translatedName()) ) { //tranlated language name is in the box
-		currentLanguageName = l->translatedName();
-	}
-	else { //a language like "German Abbrevs" might be the language to set
-		sword::SWLocale* locale = sword::LocaleMgr::LocaleMgr::getSystemLocaleMgr()->getLocale(
-			CBTConfig::get(CBTConfig::language).local8Bit()
-		);
-		if (locale) {
-			currentLanguageName = QString::fromLatin1(locale->getDescription());
-		}
-	}
-	
-	if (currentLanguageName.isEmpty()) { // set english as default if nothing was chosen
-		currentLanguageName = i18n("English");
-	}
-	
-	//now set the item with the right name as current item
-	for (int i = 0; i < m_settings.swords.localeCombo->count(); ++i) {
-		if (currentLanguageName == m_settings.swords.localeCombo->text(i)) {
-			m_settings.swords.localeCombo->setCurrentItem(i);
-			break; //item found, finish the loop
-		}
-	}
-	
+ 	gridLayout->addMultiCellWidget(m_settings.swords.useDownArrow,3,3,0,-1);	
 
 // ---------- new tab: Standard modules -------- //
   currentTab = new QFrame(tabCtl);
@@ -476,7 +476,7 @@ for example when a hyperlink into a Bible or lexicon was clicked .")),
   );
 
  	m_settings.swords.standardBible = new QComboBox(currentTab);
-  label = new QLabel(m_settings.swords.standardBible, i18n("Standard Bible"), currentTab);
+  QLabel* label = new QLabel(m_settings.swords.standardBible, i18n("Standard Bible"), currentTab);
   label->setAutoResize(true);
  	QToolTip::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::tooltip);
  	QWhatsThis::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::whatsthis);
@@ -813,7 +813,7 @@ void COptionsDialog::saveSword(){
 	
 	QString languageAbbrev;
  	
-	const QString currentLanguageName = m_settings.swords.localeCombo->currentText();
+	const QString currentLanguageName = m_settings.fonts.swordLocaleCombo->currentText();
 	const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForTranslatedName( currentLanguageName );
 	
 	if (l && l->isValid()) {
