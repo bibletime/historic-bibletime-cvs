@@ -89,7 +89,7 @@ public:
   /**
  	*	Calls with true if you want to use the last searchresult as search scope.
  	*/
-  void useLastSearchResult( const bool );
+//  void useLastSearchResult( const bool );
   /**
  	* Sets the seaech scope back.
  	*/
@@ -132,7 +132,6 @@ protected:
 
 	int m_searchOptions;
 
-	bool m_useLastSearchResult;
 	bool m_foundItems;
 	bool m_isSearching;
 	bool m_terminateSearch;
@@ -144,7 +143,7 @@ protected:
 
 private:
 	pthread_mutex_t percentage_mutex;
-	pthread_mutex_t signal_mutex;
+//	pthread_mutex_t signal_mutex;
 //	pthread_cond_t	finish_cond;	
 	
 	QSignal m_updateSig;

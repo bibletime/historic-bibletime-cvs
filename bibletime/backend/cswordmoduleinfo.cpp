@@ -164,14 +164,12 @@ const QString CSwordModuleInfo::getPath() const {
 
 /** Returns true if something was found, otherwise return false. */
 const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
-//	static SWMgr searchModulesMgr;
 	int searchType = 0;
  	int searchFlags = REG_ICASE;
 	
 	//work around Swords thread insafety
-	SWModule* m = /*searchModulesMgr.*/m_backend->Modules[name().latin1()];//disabled because interupting wasn't working
-	VerseKey k;
-	m->SetKey(k);
+//	VerseKey k;
+	m_module->SetKey(VerseKey());
 	
 	//setup variables required for Sword
 	if (searchOptions & CSwordModuleSearch::caseSensitive)
@@ -186,16 +184,18 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 		
 	SWKey* searchScope = 0;
 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
-		searchScope = &m_searchResult;
-		m_searchResult = /*searchModulesMgr.*/m_backend->Modules[name().latin1()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, searchScope, 0, percentUpdate);
+		searchScope = m_searchResult.clone();
+		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, searchScope, 0, percentUpdate);
+		delete searchScope;
 	}
 	else if (searchOptions & CSwordModuleSearch::useScope) {
 		searchScope = &scope;		
-		m_searchResult = /*searchModulesMgr.*/m_backend->Modules[name().latin1()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags,  getType() != Lexicon ? searchScope : 0, 0, percentUpdate);
+		m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, (getType() != Lexicon) ? searchScope : 0, 0, percentUpdate);
 	}
   else
-  	m_searchResult = /*searchModulesMgr.*/m_backend->Modules[name().latin1()]->Search((const char*)searchedText.local8Bit(), searchType, searchFlags, 0, 0, percentUpdate);
+  	m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
 
+//  qWarning("found for %s? %i", (const char*)searchedText.local8Bit(), m_searchResult.Count());
 	return m_searchResult.Count()>0;
 }
 

@@ -228,10 +228,10 @@ void CSearchDialog::startSearch(void) {
 		searcher->setSearchScope( searchText->scopeChooser->getScope() );
 	}
 	searcher->setSearchOptions(searchFlags);
-	searcher->startSearchThread();
-	
 	enableButton(User1,false);
 	enableButton(User2,true);
+	
+	searcher->startSearchThread();
 }
 
 void CSearchDialog::setSearchText(const QString text){
@@ -263,14 +263,10 @@ void CSearchDialog::show(){
 /** No descriptions */
 void CSearchDialog::searchFinished(){
 	qWarning("CSearchDialog::searchFinished()");
- 	enableButton(User1,true);
- 	enableButton(User2,false);
- 	searchText->updateCurrentProgress(100);		
- 	searchText->updateOverallProgress(100);					
- 	searchAnalysis->reset();
-		
+ 	searchText->updateCurrentProgress(100);
+ 	searchText->updateOverallProgress(100);
+ 	searchAnalysis->reset(); 	
  	if ( searcher->foundItems() ){
- 		qWarning("FOUND ITEMS!");
  		searchResult->setModuleList(getModuleList());			
  		searchAnalysis->setModuleList(getModuleList());
  		searchAnalysisView->setContentsPos(0,0);
@@ -281,22 +277,19 @@ void CSearchDialog::searchFinished(){
  		searchAnalysis->analyse();			
  	}
  	else {
- 		qWarning("not FOUND ITEMS!");
  		searchResult->clearResult();
-// 		searchAnalysis->reset();
  	}
+ 	
+ 	enableButton(User2,false);
+ 	enableButton(User1,true); 	
 }
 
 /** No descriptions */
 void CSearchDialog::percentUpdate(){
+	qWarning("CSearchDialog::percentUpdate()");
  	const int newOverallPercentage = searcher->getPercent(CSwordModuleSearch::allModules); 	
  	const int newCurrentPercentage = searcher->getPercent(CSwordModuleSearch::currentModule);
- 	 	
-// 	if (newOverallPercentage == 100 || newCurrentPercentage == 100) {
-// 		searchFinished();
-// 		return;
-// 	}
-// 		
+
  	if (old_overallProgress != newOverallPercentage) {
  		searchText->updateOverallProgress(newOverallPercentage);
  		old_overallProgress = newOverallPercentage;
