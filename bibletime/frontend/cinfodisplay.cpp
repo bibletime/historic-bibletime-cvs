@@ -105,9 +105,6 @@ void CInfoDisplay::setInfo(const ListInfoData& list) {
 	QString content = mgr->fillTemplate(CBTConfig::get(CBTConfig::displayStyle), text, settings);
 	
 	m_htmlPart->setText(content);
-/*	m_htmlPart->begin();
-	m_htmlPart->write( content );
-	m_htmlPart->end();*/
 }
 
 

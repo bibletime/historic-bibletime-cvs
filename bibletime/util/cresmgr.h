@@ -81,6 +81,13 @@ namespace CResMgr {
         extern const KShortcut accel;
         extern const char* actionName;
       }
+      namespace showInfoDisplay {
+        extern QString tooltip;
+        extern QString whatsthis;
+        extern const QString icon;
+        extern const KShortcut accel;
+        extern const char* actionName;
+      }
       namespace showToolBar { //a standard action
         extern QString tooltip;
         extern QString whatsthis;

@@ -99,6 +99,7 @@ void BibleTime::saveSettings(){
 
  	CBTConfig::set(CBTConfig::toolbar, m_viewToolbar_action->isChecked());
  	CBTConfig::set(CBTConfig::mainIndex, m_viewMainIndex_action->isChecked());
+ 	CBTConfig::set(CBTConfig::infoDisplay, m_viewInfoDisplay_action->isChecked());
 
  	if (m_viewMainIndex_action->isChecked()) {	//only save changes when the groupmanager is visible
  		CBTConfig::set(CBTConfig::splitterSizes, m_splitter->sizes());
@@ -132,9 +133,12 @@ void BibleTime::readSettings(){
  	slotToggleToolbar();
 		
  	m_viewMainIndex_action->setChecked( CBTConfig::get(CBTConfig::mainIndex) );
- 	slotToggleGroupManager();
+ 	slotToggleMainIndex();
 		
- 	m_splitter->setSizes( CBTConfig::get(CBTConfig::splitterSizes) );		
+ 	m_viewInfoDisplay_action->setChecked( CBTConfig::get(CBTConfig::infoDisplay) );
+ 	slotToggleInfoDisplay();
+ 	
+	m_splitter->setSizes( CBTConfig::get(CBTConfig::splitterSizes) );		
 
  	if ( CBTConfig::get(CBTConfig::autoTile) ) {
  		m_windowAutoTile_action->setChecked( true );

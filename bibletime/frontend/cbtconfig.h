@@ -55,6 +55,7 @@ public:
 
 		toolbar,
 		mainIndex,
+		infoDisplay,
 
 		autoTile,
 		autoCascade,

@@ -438,7 +438,6 @@ void CMainIndex::printBookmarks(){
   QPtrList<QListViewItem> items = selectedItems();
   for (items.first(); items.current(); items.next()) {
     if (CBookmarkItem* i = dynamic_cast<CBookmarkItem*>(items.current())) {
-      //i->print();
 			tree.append( new CPrinter::Item( i->key(), i->module(), settings ) );
     }
   }
@@ -626,7 +625,6 @@ void CMainIndex::editModuleHTML(){
 /** Reloads the main index's Sword dependend things like modules */
 void CMainIndex::reloadSword(){
   //reload the modules
-//  saveBookmarks();
   clear();
   initTree();  
 }
@@ -634,14 +632,15 @@ void CMainIndex::reloadSword(){
 /** Saves the bookmarks to disk */
 void CMainIndex::saveBookmarks(){
   //find the bookmark folder
-//  qWarning("void CMainIndex::saveBookmarks(){");
   CItemBase* i = 0;
   QListViewItemIterator it( this );
   while ( it.current() != 0 ) {
     i = dynamic_cast<CItemBase*>( it.current() );
+		
     if (i && i->type() == CItemBase::BookmarkFolder) { //found the bookmark folder
       KStandardDirs stdDirs;
-    	const QString path = stdDirs.saveLocation("data", "bibletime/");
+    	
+			const QString path = stdDirs.saveLocation("data", "bibletime/");
       if (!path.isEmpty()) {
         //save the bookmarks to the right file
         if (CBookmarkFolder* f = dynamic_cast<CBookmarkFolder*>(i)) {

@@ -424,7 +424,8 @@ const QString CBookmarkItem::toolTip(){
 	QString ret;
 	
 	util::scoped_ptr<CSwordKey> k( CSwordKey::createInstance(module()) );
-	if (k.get()) {		
+	k->key(this->key());
+	if (k.get()) {
 		ret = QString::fromLatin1("<b>%1 (%2)</b><hr>%3")
 			.arg(key())
 			.arg(module()->name())
@@ -478,18 +479,11 @@ const bool CBookmarkItem::enableAction(const MenuAction action){
   return false;
 }
 
-// void CBookmarkItem::print(){
-//   if (!module())
-//     return;
-// 
-//   CExportManager mgr(i18n("Print bookmark"),false);
-//   mgr.printKey(module(), key(), key(), description());
-// }
-
 /** Changes this bookmark. */
 void CBookmarkItem::rename(){
   bool ok  = false;
-  QString newDescription = CInputDialog::getText(i18n("Change description ..."),i18n("Enter a new description for the chosen bookmark."), description(), &ok, listView(), true);
+  const QString newDescription = CInputDialog::getText(i18n("Change description ..."), i18n("Enter a new description for the chosen bookmark."), description(), &ok, listView(), true);
+	
   if (ok) {
     m_description = newDescription;
     update();

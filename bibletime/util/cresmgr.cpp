@@ -85,6 +85,13 @@ namespace CResMgr {
         const KShortcut accel     = Qt::Key_F9;
         const char* actionName    = "viewMainIndex_action";
       }
+      namespace showInfoDisplay {
+        QString tooltip;
+        QString whatsthis;
+        const QString icon        = "view_sidetree";
+        const KShortcut accel     = KKeySequence();
+        const char* actionName    = "viewInfoDisplay_action";
+      }
       namespace showToolBar { //a standard action
         QString tooltip;
         QString whatsthis;

@@ -21,6 +21,7 @@
   <Action name="options_show_toolbar"/>
   <Separator/>
   <Action name="viewMainIndex_action"/>
+  <Action name="viewInfoDisplay_action"/>
  </Menu>
  <Menu name="window"><Text>&amp;Window</Text>
   <Action name="windowSaveProfile_action"/>

@@ -95,36 +95,6 @@ void BibleTime::initActions() {
 	KStartupLogo::setStatusMessage(i18n("Initializing menu- and toolbars") + QString::fromLatin1("..."));
 	KAction* action = 0;
 
-// 	m_fileClearQueue_action = new KAction(i18n("Clear print queue"),
-//     CResMgr::mainMenu::file::clearQueue::icon,
-//     CResMgr::mainMenu::file::clearQueue::accel,
-//     m_printer, SLOT(clearQueue()), actionCollection(),
-//     CResMgr::mainMenu::file::clearQueue::actionName
-//   );
-// 	m_fileClearQueue_action->setEnabled(false);
-// 	m_fileClearQueue_action->setToolTip( CResMgr::mainMenu::file::clearQueue::tooltip );
-// 	m_fileClearQueue_action->setWhatsThis( CResMgr::mainMenu::file::clearQueue::whatsthis );
-//   #if KDE_VERSION_MINOR < 1
-//   	m_fileClearQueue_action->plugAccel( accel() );
-//   #endif
-
-
-  //work around KDE 3.1 error messages
-//	if ( KAction* oldAction = actionCollection()->action(KStdAction::stdName(KStdAction::Print)) ) {
-//		actionCollection()->remove( oldAction );
-//  }
-//   m_filePrint_action = KStdAction::print(this, SLOT( slotFilePrint() ), actionCollection());
-// 	m_filePrint_action->setEnabled(false);
-// 	m_filePrint_action->setToolTip( CResMgr::mainMenu::file::print::tooltip );
-// 	m_filePrint_action->setWhatsThis( CResMgr::mainMenu::file::print::whatsthis );
-//   #if KDE_VERSION_MINOR < 1
-//   	m_filePrint_action->plugAccel( accel() );
-//   #endif
-
-
-//	if ( KAction* oldAction = actionCollection()->action( KStdAction::stdName( KStdAction::Quit ) ) ) {	 //delete quit action if KDE created it
-//		actionCollection()->remove( oldAction );
-//  }
   action = KStdAction::quit(kapp, SLOT( quit() ), actionCollection());
 	action->setToolTip( CResMgr::mainMenu::file::quit::tooltip );
 	action->setWhatsThis( CResMgr::mainMenu::file::quit::whatsthis );
@@ -167,12 +137,23 @@ void BibleTime::initActions() {
   m_viewMainIndex_action = new KToggleAction(i18n("&Show main index"),
     CResMgr::mainMenu::view::showMainIndex::icon,
     CResMgr::mainMenu::view::showMainIndex::accel,
-		this, SLOT(slotToggleGroupManager()), actionCollection(),
+		this, SLOT(slotToggleMainIndex()), actionCollection(),
     CResMgr::mainMenu::view::showMainIndex::actionName);
 	m_viewMainIndex_action->setToolTip( CResMgr::mainMenu::view::showMainIndex::tooltip );
 	m_viewMainIndex_action->setWhatsThis( CResMgr::mainMenu::view::showMainIndex::whatsthis );
   #if KDE_VERSION_MINOR < 1
     m_viewMainIndex_action->plugAccel( accel() );
+  #endif
+
+  m_viewInfoDisplay_action = new KToggleAction(i18n("&Show info display"),
+    CResMgr::mainMenu::view::showInfoDisplay::icon,
+    CResMgr::mainMenu::view::showInfoDisplay::accel,
+		this, SLOT(slotToggleInfoDisplay()), actionCollection(),
+    CResMgr::mainMenu::view::showInfoDisplay::actionName);
+	m_viewMainIndex_action->setToolTip( CResMgr::mainMenu::view::showInfoDisplay::tooltip );
+	m_viewMainIndex_action->setWhatsThis( CResMgr::mainMenu::view::showInfoDisplay::whatsthis );
+  #if KDE_VERSION_MINOR < 1
+    m_viewInfoDisplay_action->plugAccel( accel() );
   #endif
 
   action = KStdAction::preferences(this, SLOT( slotSettingsOptions() ), actionCollection());

@@ -217,18 +217,20 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		
 		const QString key_renderedText = key->renderedText();
 		
-		AttributeValue::const_iterator it =  m->module()->getEntryAttributes()["Heading"]["Preverse"].begin();
 		
-		const AttributeValue::const_iterator end = m->module()->getEntryAttributes()["Heading"]["Preverse"].end();
-		
-		for (; it != end; ++it) {
-			preverseHeading = QString::fromUtf8(it->second.c_str());
- 			
-			if (!preverseHeading.isEmpty()) {
- 				entry += QString::fromLatin1("<div %1 class=\"sectiontitle\">%1</div>")
- 					.arg(langAttr)
- 					.arg(preverseHeading);
- 			}		
+		if (m_filterOptions.headings) {
+			AttributeValue::const_iterator it =  m->module()->getEntryAttributes()["Heading"]["Preverse"].begin();		
+			const AttributeValue::const_iterator end = m->module()->getEntryAttributes()["Heading"]["Preverse"].end();
+			
+			for (; it != end; ++it) {
+				preverseHeading = QString::fromUtf8(it->second.c_str());
+				
+				if (!preverseHeading.isEmpty()) {
+					entry += QString::fromLatin1("<div %1 class=\"sectiontitle\">%1</div>")
+						.arg(langAttr)
+						.arg(preverseHeading);
+				}		
+			}
 		}
 		
 		entry += QString::fromLatin1("<%1 %2 %3 dir=\"%4\">") //linebreaks = div, without = span

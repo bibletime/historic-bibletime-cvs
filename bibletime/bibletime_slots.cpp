@@ -31,6 +31,7 @@
 #include "frontend/cswordsetupdialog.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cinputdialog.h"
+#include "frontend/cinfodisplay.h"
 #include "frontend/mainindex/cmainindex.h"
 #include "frontend/mainindex/cindexitem.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
@@ -243,12 +244,22 @@ void BibleTime::slotToggleToolbar(){
 }
 
 /** Shows or hides the groupmanager. */
-void BibleTime::slotToggleGroupManager() {
+void BibleTime::slotToggleMainIndex() {
 	if (m_viewMainIndex_action->isChecked()) {
 		m_mainIndex->show();
   }
 	else {
 		m_mainIndex->hide();
+  }
+}
+
+/** Shows or hides the groupmanager. */
+void BibleTime::slotToggleInfoDisplay() {
+	if (m_viewInfoDisplay_action->isChecked()) {
+		m_infoDisplay->show();
+  }
+	else {
+		m_infoDisplay->hide();
   }
 }
 

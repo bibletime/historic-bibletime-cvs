@@ -245,9 +245,13 @@ protected slots:
 	*/
 	void slotSettingsToolbar();
 	/**
-	* Shows or hides the groupmanager.
+	* Shows or hides the main index part
 	*/
-	void slotToggleGroupManager();
+	void slotToggleMainIndex();
+	/**
+	* Shows or hides the info display part.
+	*/
+	void slotToggleInfoDisplay();
 	/**
 	* Saves to the profile with the menu id ID
 	*/
@@ -307,6 +311,7 @@ private:
 	/** VIEW menu actions */
 	KToggleAction*	m_viewToolbar_action;
 	KToggleAction*	m_viewMainIndex_action;
+	KToggleAction*	m_viewInfoDisplay_action;
 
 	/** WINDOW menu actions */
 	KAction*	m_windowCascade_action;

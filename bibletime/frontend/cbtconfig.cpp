@@ -126,6 +126,7 @@ const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 
 		case toolbar:							return true;
 		case mainIndex:						return true;
+		case infoDisplay:					return true;
 
 		case autoTile:						return true;
 		case autoCascade:					return false;
@@ -239,6 +240,7 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
     default:
       return CBTConfig::StringMap();
 	}
+	
 	return CBTConfig::StringMap();
 }
 
