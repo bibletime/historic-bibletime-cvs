@@ -158,27 +158,25 @@ void CSearchDialogResultModuleView::printSearchResult(){
 	const int count = searchResult.Count();
 	QString text;
 	const CSwordModuleInfo::type type = m_currentModule->getType();
-	for (int index = 0; index < count; ++index) {
+	CPrinter* p = printer();
+	SWKey* key = 0;
+	for (int index = 0; index < count && !progress.wasCancelled(); ++index) {
 		progress.setProgress(index);
-		KApplication::kApplication()->processEvents(); //do not lock the GUI!				
-		if ( progress.wasCancelled() )
-			break;
-		SWKey* key = searchResult.GetElement(index);
+		KApplication::kApplication()->processEvents(10); //do not lock the GUI!				
+		key = searchResult.GetElement(index);
 		if (!key)
 			break;
-		text = QString::fromLocal8Bit( (const char*)*key );
 		
 		CPrintItem*	printItem = new CPrintItem();
 		printItem->setModule(m_currentModule);		
 		CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
 		if (newKey) {
-			newKey->key(text);
+			newKey->key((const char*)*key);
 			printItem->setStartKey(newKey);		
-//			printItem->setStopKey(newKey);					
 		}
-		printer()->addItemToQueue( printItem );
+		p->addItemToQueue( printItem );
 	}
-	progress.setProgress(searchResult.Count());		
+	progress.setProgress(count);		
 }
 
 /** This function copies the search result into the clipboard */
@@ -202,17 +200,18 @@ void CSearchDialogResultModuleView::slotCopySearchResult(){
 	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 	
 	const int count = searchResult.Count();
-	for (int index = 0; index < count; index++) {
+	SWKey* key = 0;
+	for (int index = 0; index < count && !progress.wasCancelled(); index++) {
 		progress.setProgress(index);
 		KApplication::kApplication()->processEvents(10); //do not lock the GUI!		
-		SWKey* key = searchResult.GetElement(index);		
-		if ( progress.wasCancelled())
-			return;
-		if (!key )
+		key = searchResult.GetElement(index);		
+		if (!key)
 			break;
-		text += QString::fromLatin1("%1\n").arg(QString::fromLocal8Bit( (const char*)*key ));
+		text += QString::fromLocal8Bit( (const char*)*key ) + "\n";
 	}
-	progress.setProgress(searchResult.Count());
+	if (progress.wasCancelled())
+		return;
+	progress.setProgress(count);
 	KApplication::clipboard()->setText(text);	
 }
 
@@ -241,18 +240,18 @@ void CSearchDialogResultModuleView::slotSaveSearchResult(){
 	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 	
 	const int count = searchResult.Count();
-	for (int index = 0; index < count; index++) {
+	for (int index = 0; index < count && !progress.wasCancelled(); index++) {
 		progress.setProgress(index);
 		KApplication::kApplication()->processEvents(10); //do not lock the GUI!														
-		if ( progress.wasCancelled() )
-			return;		
 		SWKey* key = searchResult.GetElement(index);
 		if (!key)
 			break;
-		text += QString::fromLatin1("%1\n").arg(QString::fromLocal8Bit( (const char*)*key ));
+		text += QString::fromLocal8Bit( (const char*)*key ) + "\n";
 	}
-	progress.setProgress(searchResult.Count());	
-	CToolClass::savePlainFile( file, text);
+	if (progress.wasCancelled())
+		return;
+	progress.setProgress(count);	
+	CToolClass::savePlainFile(file, text);
 }
 
 
@@ -276,15 +275,11 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
 	const int count = searchResult.Count();
 	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
-	if (!newKey) {
-		qWarning("CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(): unknown module");
+	if (!newKey)	
 		return;
-	}
-	for (int index = 0; index < count; index++) {		
+	for (int index = 0; index < count && !progress.wasCancelled(); index++) {		
 		progress.setProgress(index);
 		KApplication::kApplication()->processEvents(10); //do not lock the GUI!									
-		if ( progress.wasCancelled() )
-			return;
 		SWKey* key = searchResult.GetElement(index);
 		if (!key)
 			break;		
@@ -293,6 +288,8 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 	}
 	if (newKey)
 		delete newKey;
+	if (progress.wasCancelled())
+		return;	
 	KApplication::clipboard()->setText(text);	
 }
 
@@ -322,26 +319,26 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 	const int count = searchResult.Count();
 	const CSwordModuleInfo::type type = m_currentModule->getType();
 
-	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);	//all keysof the result have the same type
-	if (!newKey) {
-		qWarning("CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext: unknown module");
+	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
+	if (!newKey)
 		return;
-	}
-	for (int index = 0; index < count; index++) {		
+
+	for (int index = 0; index < count && !progress.wasCancelled(); index++) {		
 		SWKey* key = searchResult.GetElement(index);
-		progress.setProgress(index);
-		if ( progress.wasCancelled() )
-			return;		
-		KApplication::kApplication()->processEvents(10); //do not lock the GUI!							
 		if (!key)
-			break;
+			break;		
+		progress.setProgress(index);
+		KApplication::kApplication()->processEvents(10); //do not lock the GUI!							
 
 		newKey->key( (const char*)*key );
 		text += QString::fromLatin1("%1:\n\t%2\n").arg( newKey->key() ).arg( newKey->strippedText() );
 	}	
 	if (newKey)
 		delete newKey;	
-	progress.setProgress(searchResult.Count());
+	if (progress.wasCancelled())
+		return;
+	
+	progress.setProgress(count);	
 	CToolClass::savePlainFile( file, text);
 }
 

@@ -111,7 +111,7 @@ class CSearchDialogResultView : public QListBox, public CPointers  {
    Q_OBJECT
 public:
 	CSearchDialogResultView(QWidget *parent=0, const char *name=0);
-	~CSearchDialogResultView();
+	virtual ~CSearchDialogResultView();
 	/**
 	* Initializes the tree of this CGroupmanager
 	*/
