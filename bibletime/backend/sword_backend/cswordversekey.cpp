@@ -57,3 +57,20 @@ const QString CSwordVerseKey::getStrippedText() const{
 	m_module->module()->SetKey(*this->clone());
 	return QString::fromLocal8Bit( m_module->module()->StripText() );
 }
+
+/** Returns the current book as Text, no as integer. */
+void CSwordVerseKey::setBook( const QString newBook ) {
+//	if(!setKey(QString("%1 %2:%3").arg(newBook).arg((int)Chapter()).arg((int)Verse())))
+//		qWarning("CSwordVerseKey::setBook: Invalid key!");	
+	for (int testament = 0; testament < 2; ++testament) {
+		for (int book = 0; book < BMAX[testament]; ++book) {
+			if ( !strcmp(newBook.local8Bit(),books[testament][book].name ) ) {
+				qDebug("booknumber == %i", book);			
+				Testament(testament+1);
+				Book(book+1);
+				qWarning("VerseKey::setBook: set book to %s",books[testament][book].name);
+				return;
+			}			
+		}
+	}
+}

@@ -89,6 +89,7 @@ CSearchDialogAnalysis::~CSearchDialogAnalysis(){
 
 /** Starts the analysis of the search result. This should be called only once because QCanvas handles the updates automatically. */
 void CSearchDialogAnalysis::analyse(){
+	qDebug("void CSearchDialogAnalysis::analyse()");
   /**
 	* Steps of analysing our search result;
 	*	-Create the items for all available books ("Genesis" - "Revelation")
@@ -97,8 +98,6 @@ void CSearchDialogAnalysis::analyse(){
 	*			-Find out how many times we found the book
 	*			-Set the count to the items which belongs to the book
 	*/
-//	KApplication::setOverrideCursor(Qt::waitCursor);
-//	setCursor(Qt::waitCursor);
 	m_lastPosList.clear();		
 	const int numberOfModules = m_moduleList.count();
 	if (!numberOfModules)
@@ -116,11 +115,12 @@ void CSearchDialogAnalysis::analyse(){
 	int count = 0;
 	CSwordVerseKey key(m_moduleList.first());	
 	key.setKey("Genesis 1:1");	
+	
 	CSearchDialogAnalysisItem* analysisItem = m_canvasItemList[key.getBook()];
 	bool ok = true;
-	while (ok) {
+	while (ok && analysisItem) {
 		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
-			KApplication::kApplication()->processEvents(10);
+//			KApplication::kApplication()->processEvents(10);
 			if (!m_lastPosList.contains(m_moduleList.current()))
 				m_lastPosList.insert(m_moduleList.current(),0);
 			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.getBook(),m_moduleList.current())));
@@ -133,11 +133,9 @@ void CSearchDialogAnalysis::analyse(){
 		xPos += (int)analysisItem->width() + SPACE_BETWEEN_PARTS;		
 		ok = key.NextBook();		
    	analysisItem = m_canvasItemList[key.getBook()];
-	}	
+	}
 	resize(xPos+BAR_WIDTH+(m_moduleList.count()-1)*BAR_DELTAX+RIGHT_BORDER, height() );	
 	slotResized();
-
-//	setCursor(Qt::arowCursor);
 }
 
 /** Sets te module list used for the analysis. */
@@ -205,6 +203,24 @@ QColor CSearchDialogAnalysis::getColor(int index){
     case 10: return Qt::darkMagenta;
     default: return Qt::red;
   }
+}
+
+/** Returns the count of the book in the module */
+const unsigned int CSearchDialogAnalysis::getCount( const QString book, CSwordModuleInfo* module ){
+	ListKey& result = module->getSearchResult();
+	const int length = book.length();	
+	int i = m_lastPosList[module];
+	unsigned int count = 0;
+	const unsigned int resultCount = result.Count();
+	while (i < resultCount) {
+		if ( strncmp(book.local8Bit(), (const char*)*result.GetElement(i), book.length()) )		
+			break;
+		i++;
+		++count;		
+	}
+	m_lastPosList.contains(module) ? m_lastPosList.replace(module,i) : m_lastPosList.insert(module,i);
+//	m_lastPosList.replace(module,i);
+	return count;
 }
 
 

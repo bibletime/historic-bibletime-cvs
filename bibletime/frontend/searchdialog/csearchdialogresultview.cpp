@@ -98,11 +98,9 @@ void CSearchDialogResultModuleView::viewportMousePressEvent(QMouseEvent *e) {
 	for (moduleList->first();moduleList->current();moduleList->next()){
 		QString modName = m_currentItem->text(0);
 		modName = modName.left( modName.find(" [") );
-		if (QString::fromLocal8Bit(moduleList->current()->module()->Name()) == modName) {
-			emit moduleSelected( moduleList->current() );
-			m_currentModule = moduleList->current();
-			break;
-		}
+		m_currentModule = m_important->swordBackend->findModuleByName(modName);
+		if (m_currentModule)
+			emit moduleSelected(m_currentModule);
 	}	
 	if (e->button() == RightButton)
 		m_popup->popup( mapToGlobal(e->pos()) );
@@ -361,7 +359,7 @@ CSearchDialogResultView::~CSearchDialogResultView() {
 
 /** Initializes the tree of this ResultView */
 void CSearchDialogResultView::setupTree() {
-	ListKey moduleSearchResult = m_module->getSearchResult();
+	ListKey& moduleSearchResult = m_module->getSearchResult();
 	clear();
 	for (int index = 0; index < moduleSearchResult.Count(); index++) {
 		insertItem( QString::fromLocal8Bit((const char*)*moduleSearchResult.GetElement(index)), -1);

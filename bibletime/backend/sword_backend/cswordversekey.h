@@ -232,21 +232,12 @@ inline const bool CSwordVerseKey::PreviousBook(){
 
 /** Returns the current book as Text, no as integer. */
 inline const QString CSwordVerseKey::getBook() const {
-	QString book = QString::null;
 	if ( Testament() && Book() <= BMAX[Testament()-1] )
-		book = QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-	else
-		book = QString::fromLocal8Bit(books[0][0].name);
-	return book;
+		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
+//	else
+	return QString::fromLocal8Bit(books[0][0].name);
+//	return QString::null;
 }
-
-/** Returns the current book as Text, no as integer. */
-inline void CSwordVerseKey::setBook( const QString newBook ) {
-	if(!setKey(QString("%1 %2:%3").arg(newBook).arg((int)Chapter()).arg((int)Verse())))
-		qWarning("Invalid key!");
-}
-
-
 
 /** Returns the key as a QString. */
 inline const QString CSwordVerseKey::getKey() const {

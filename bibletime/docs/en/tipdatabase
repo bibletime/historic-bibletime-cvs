@@ -1,8 +1,8 @@
 <tip>
 <html>
-This is <B>BibleTime 1.0</B>! With this version BibleTime should reached the state where it could
+This is <B>BibleTime 1.0</B>!<BR>This version of BibleTime should have reached the state where it could
 be called stable, useful and user friendly!<BR>
-<IMG src="hicolor/48x48/apps/bibletime.png">
+<CENTER><IMG src="hicolor/48x48/apps/bibletime.png"></CENTER>
 </html>	
 
 <tip>
@@ -29,7 +29,8 @@ You can save, print and copy the whole search result by pressing the right mouse
 
 <tip>
 <html>
-
+To get the number of verses in the Bible search for a space in the module.
+The search analysis shows you the number of verses of each book.
 </html>
 
 <tip>
