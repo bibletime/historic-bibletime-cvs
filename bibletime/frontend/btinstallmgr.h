@@ -57,7 +57,8 @@ public:
       static const QString configPath();
       static const QString configFilename();
 
-			static void resetSources();
+			static void resetRemoteSources();
+			static void resetLocalSources();
 
       static QStringList sourceList( sword::InstallMgr* );
       static sword::InstallSource source( sword::InstallMgr*, const QString& name );

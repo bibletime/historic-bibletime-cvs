@@ -136,7 +136,7 @@ void CInstallSourcesMgrDialog::InstallSourceItem::setEnabled( const bool enabled
 
 void CInstallSourcesMgrDialog::InstallSourceItem::updateItem() {
 	setText(0, m_caption);
-	setText(1, m_url.host() + m_url.path());
+//	setText(1, m_url.host() + m_url.path());
 }
 
 sword::InstallSource CInstallSourcesMgrDialog::InstallSourceItem::swordInstallSource() {
@@ -160,14 +160,19 @@ void CInstallSourcesMgrDialog::initView() {
 }
 
 void CInstallSourcesMgrDialog::slotOk() {
-	//save the source items to disk
-
 	//save local sources
-
+	BTInstallMgr::Tool::RemoteConfig::resetLocalSources(); //we want to overwrite old sources, not add to them
+	QListViewItemIterator it(m_localSourcesList);
+	while (it.current()) {
+		sword::InstallSource is = sword::InstallSource("DIR");
+		is.directory = it.current()->text(0).latin1();
+		BTInstallMgr::Tool::RemoteConfig::addSource( &is );
+		++it; //next local source item
+	}
 
 	//save remote sources
-	BTInstallMgr::Tool::RemoteConfig::resetSources(); //we wan't to overwrite old sources, not add to them
-	QListViewItemIterator it(m_remoteSourcesList, QListViewItemIterator::Checked );
+	BTInstallMgr::Tool::RemoteConfig::resetRemoteSources(); //we wan't to overwrite old sources, not add to them
+	it = QListViewItemIterator(m_remoteSourcesList, QListViewItemIterator::Checked );
 	while (it.current()) {
 		InstallSourceItem* item = dynamic_cast<InstallSourceItem*>(it.current());
 		if (!item)
@@ -185,23 +190,55 @@ void CInstallSourcesMgrDialog::initLocalSourcesPage() {
 	m_localSourcesPage = addPage(i18n("Local sources"), QString::null, DesktopIcon("dir",32));
  	m_localSourcesPage->setMinimumSize(500,400);
 
-	QGridLayout* grid = new QGridLayout(m_localSourcesPage, 3,3, 5, 5);
+	QGridLayout* grid = new QGridLayout(m_localSourcesPage, 4,3, 5,5);
+
+	QLabel* mainLabel = CToolClass::explanationLabel(m_localSourcesPage,
+		i18n("Manage local sources"),
+		i18n("Here you can setup the local sources for module installation, e.g. the path to your CD-Rom to install from a Sword CD.<br>On many Linux distributions the path to your cdrom is either <i>/media/cdrom</i> or <i>/cdrom</i> Please make sure you mount the CD-Rom before you use BibleTime ti install from CD-Rom..")
+  );
+	grid->addMultiCellWidget(mainLabel, 0, 0, 0, 2);
 
 	m_localSourcesList = new KListView( m_localSourcesPage );
 	m_localSourcesList->addColumn("Local sources");
+	m_localSourcesList->setFullWidth(true);
+
 	QPushButton* addButton = new QPushButton(i18n("Add new directory"), m_localSourcesPage);
 	connect(addButton, SIGNAL(clicked()), SLOT(slot_localAddSource()));
 
 	QPushButton* removeButton = new QPushButton(i18n("Remove directory"), m_localSourcesPage);
 	connect(removeButton, SIGNAL(clicked()), SLOT(slot_localRemoveSource()));
 
-	grid->addMultiCellWidget( m_localSourcesList, 0,2, 0,1 );
+	grid->addMultiCellWidget( m_localSourcesList, 1,3, 0,1 );
 	grid->setColStretch(0, 5);
 	grid->setColStretch(1, 5);
 
-	grid->addWidget( addButton, 0,2 );
-	grid->addWidget( removeButton, 1,2 );
+	grid->setRowStretch(0, 0);
+	grid->setRowStretch(3, 5);
+
+	grid->addWidget( addButton, 1,2 );
+	grid->addWidget( removeButton, 2,2 );
 	grid->setColStretch(2, 0);
+
+
+	//noe insert existing local source items, if there are no sources setup with default source
+	BTInstallMgr mgr;
+	QStringList sources = BTInstallMgr::Tool::RemoteConfig::sourceList( &mgr );
+	for (QStringList::iterator it = sources.begin(); it != sources.end(); ++it) {
+		sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source(&mgr, (*it).latin1());
+		if (BTInstallMgr::Tool::RemoteConfig::isRemoteSource( &is )) { //only use local sources as items
+			continue;
+		}
+
+		QListViewItem* i = new KListViewItem( m_localSourcesList, *it );
+		//i->setText(0, *it);
+	}
+
+	if (m_localSourcesList->childCount() == 0) {
+//		InstallSourceItem* i = new InstallSourceItem(m_remoteSourcesList);
+//		i->setCaption("Crosswire");
+//		i->setURL(QUrl("ftp://ftp.crosswire.org/pub/sword/raw/"));
+	}
+
 }
 
 void CInstallSourcesMgrDialog::slot_localAddSource() {
@@ -221,27 +258,33 @@ void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
 	m_remoteSourcesPage = addPage(i18n("Remote sources"), QString::null, DesktopIcon("html",32));
  	m_remoteSourcesPage->setMinimumSize(500,400);
 
-	QGridLayout* grid = new QGridLayout(m_remoteSourcesPage, 4,5, 5,5);
+	QGridLayout* grid = new QGridLayout(m_remoteSourcesPage, 5,5, 5,5);
+
+	QLabel* mainLabel = CToolClass::explanationLabel(m_remoteSourcesPage,
+		i18n("Manage remote sources"),
+		i18n("Setup remote sources like FTP servers which can be used to download Sword modules on your computer.")
+  );
+	grid->addMultiCellWidget(mainLabel, 0, 0, 0, 4);
 
 	m_remoteSourcesList = new KListView( m_remoteSourcesPage );
 	m_remoteSourcesList->setAllColumnsShowFocus(true);
 	m_remoteSourcesList->addColumn("Name");
-	m_remoteSourcesList->addColumn("URL");
-	connect(m_remoteSourcesList, SIGNAL(selectionChanged()), SLOT(slot_remoteSourceSelectionChanged()));
+//  m_remoteSourcesList->addColumn("URL");
+	m_remoteSourcesList->setFullWidth(true);
+	connect(m_remoteSourcesList, SIGNAL(selectionChanged()),
+		SLOT(slot_remoteSourceSelectionChanged()));
 
  	QPushButton* addButton = new QPushButton(i18n("New"), m_remoteSourcesPage);
 	connect(addButton, SIGNAL(clicked()), SLOT(slot_remoteAddSource()));
 
-// 	QPushButton* editButton = new QPushButton(i18n("Edit"), m_remoteSourcesPage);
-//	connect(editButton, SIGNAL(clicked()), SLOT(slot_remoteChangeSource()));
-
 	QPushButton* removeButton = new QPushButton(i18n("Remove"), m_remoteSourcesPage);
 	connect(removeButton, SIGNAL(clicked()), SLOT(slot_remoteRemoveSource()));
 
-	grid->addMultiCellWidget( m_remoteSourcesList, 0,2, 0,2 );
-	grid->addWidget( addButton, 3,0 );
-	//grid->addWidget( editButton, 3,1 );
-	grid->addWidget( removeButton, 3,2 );
+	grid->addMultiCellWidget( m_remoteSourcesList, 1,3, 0,2 );
+	grid->setRowStretch(0, 0);
+	grid->setRowStretch(1, 5);
+	grid->addWidget( addButton, 4,0 );
+	grid->addWidget( removeButton, 4,1 );
 
 	grid->setColStretch(0, 0);
 	grid->setColStretch(1, 0);
@@ -250,9 +293,10 @@ void CInstallSourcesMgrDialog::initRemoteSourcesPage() {
 
 	//contains the remote sources edit controls, we need boxes for the caption, the server, the dir on the server
 	QGroupBox* box = new QGroupBox(m_remoteSourcesPage);
-	grid->addMultiCellWidget( box, 0,3, 3,4 );
+	box->setTitle(i18n("Edit remote source"));
+	grid->addMultiCellWidget( box, 1,4, 3,4 );
 
-	QGridLayout* boxGrid = new QGridLayout(box, 4, 3, 5, 5);
+	QGridLayout* boxGrid = new QGridLayout(box, 4, 3, box->insideMargin() + box->insideSpacing(), 5);
 	boxGrid->setColStretch(1, 5);
 
 	boxGrid->addWidget(new QLabel(i18n("Name:"), box), 0,0);

@@ -244,14 +244,22 @@ void BTInstallMgr::Tool::RemoteConfig::removeSource( sword::InstallMgr* mgr, swo
 
 }
 
-void BTInstallMgr::Tool::RemoteConfig::resetSources() {
+void BTInstallMgr::Tool::RemoteConfig::resetRemoteSources() {
   SWConfig config(Tool::RemoteConfig::configFilename().latin1());
   config["Sources"].erase( //remove all FTP sources
 		config["Sources"].lower_bound("FTPSource"),
 		config["Sources"].upper_bound("FTPSource")
 	);
 	config.Save();
+}
 
+void BTInstallMgr::Tool::RemoteConfig::resetLocalSources() {
+  SWConfig config(Tool::RemoteConfig::configFilename().latin1());
+  config["Sources"].erase( //remove all FTP sources
+		config["Sources"].lower_bound("DIRSource"),
+		config["Sources"].upper_bound("DIRSource")
+	);
+	config.Save();
 }
 
 CSwordBackend* BTInstallMgr::Tool::backend( sword::InstallSource* const is) {
