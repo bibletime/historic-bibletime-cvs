@@ -44,7 +44,7 @@ public:
   /**
   * Synchronizes to the given key if sync is enabled.
   */
-  void synchronize( CKey* syncKey );
+  void synchronize( CSwordKey* syncKey );
 	
 public slots: // Public slots
   /**
@@ -64,7 +64,7 @@ protected slots: // Protected slots
   /**
   * renders text and set it to the HTML widget
   */
-  void lookup(CKey*);
+  void lookup(CSwordKey*);
   /**
   * Is called when the selected modules changed.
   */
@@ -82,7 +82,9 @@ protected slots: // Protected slots
 private:
   void initConnections();
   void initView();
-  /** Checks for changes and saves the text. */
+  /**
+  * Checks for changes and saves the text.
+  */
   void checkChanges();
 	KToggleAction *presenterEdit_action;
 	KToggleAction *presenterSync_action;

@@ -19,14 +19,15 @@
 #define CSWORDPRESENTER_H
 
 //BibleTime includes
-#include "cpresenter.h"
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
+#include "../../backend/cswordmoduleinfo.h"
 #include "../../structdef.h"
 #include "../cprofilewindow.h"
 
 //Qt includes
 #include <qwidget.h>
 
+//KDE includes
+#include <kmainwindow.h>
 
 class KPopupMenu;
 class KToolBar;
@@ -35,14 +36,13 @@ class CKeyChooser;
 class CHTMLWidget;
 class CModuleChooserBar;
 class CSwordKey;
-class CKey;
 
 /** Base class for all Sword based presneters
 	* The base class for all Sword based presenters.
 	*
   * @author The BibleTime team
   */
-class CSwordPresenter : public CPresenter  {
+class CSwordPresenter : public KMainWindow  {
    Q_OBJECT
 public: 
 	enum features {
@@ -122,7 +122,12 @@ protected: // Protected methods
   * Refreshes the supported features.
   */
   void refreshFeatures();
+  /**
+  * Is called when the presenter should be closed. To delete the presenter it emits "close(CPresenter*)".
+  */
+  virtual void closeEvent(QCloseEvent*e);
 
+	KConfig* m_config;
 	KToolBar* m_mainToolBar;
 	
 	KPopupMenu* m_popup;
@@ -147,6 +152,11 @@ private:
 
 signals: // Signals
   void lookupInLexicon(const QString& text, const QString& lexicon);
+  /**
+  * Is emitted when this presenter should be closed.
+  */
+  void closePresenter(CSwordPresenter*);
+
 };
 
 #endif

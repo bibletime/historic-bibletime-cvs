@@ -24,8 +24,8 @@
 #include "../chtmldialog.h"
 #include "../../structdef.h"
 #include "../../ressource.h"
-#include "../../backend/sword_backend/cswordmodulesearch.h"
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
+#include "../../backend/cswordmodulesearch.h"
+#include "../../backend/cswordmoduleinfo.h"
 
 //KDE includes
 #include <kapp.h>

@@ -22,7 +22,6 @@
 #include "cswordpresenter.h"
 
 class CSwordLDKey;
-class CKey;
 
 /**
  	* Presenter used for lexicons
@@ -43,7 +42,7 @@ public:
 private slots: // Protected slots
   void popupAboutToShow();
   void moduleChanged();
-  void lookup(CKey*);
+  void lookup(CSwordKey*);
 
 private: // Private methods
   void initConnections();

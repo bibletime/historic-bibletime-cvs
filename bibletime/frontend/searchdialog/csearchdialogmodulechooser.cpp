@@ -21,7 +21,7 @@
 #include "../groupmanager/cgroupmanageritem.h"
 #include "../ctoolclass.h"
 #include "../../structdef.h"
-#include "../../backend/sword_backend/cswordbackend.h"
+#include "../../backend/cswordbackend.h"
 #include "../../whatsthisdef.h"
 #include "../../tooltipdef.h"
 

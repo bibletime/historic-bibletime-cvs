@@ -40,9 +40,9 @@
 //static class wide objects
 //static CSwordBackend searchModulesMgr;
 	
-CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module ){
-	m_backend = backend;
-	m_module = module;
+CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module )
+	: m_backend(backend), m_module(module) {
+	
 	m_searchResult.ClearList();
 	
 	if (backend) {
@@ -52,7 +52,7 @@ CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module ){
 	}
 }
 
-CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) : CModuleInfo() {
+CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {
 	m_backend = m.m_backend;
 	m_module = m.m_module;
 	m_searchResult = m.m_searchResult;

@@ -18,7 +18,7 @@
 #ifndef CMODULECHOOSERBUTTON_H
 #define CMODULECHOOSERBUTTON_H
 
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
+#include "../../backend/cswordmoduleinfo.h"
 #include "../../structdef.h"
 
 #include <qwidget.h>

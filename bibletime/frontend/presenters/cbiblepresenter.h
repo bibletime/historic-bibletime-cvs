@@ -54,7 +54,7 @@ protected:
 
 protected slots:
   void modulesChanged();
-  void lookup( CKey* );
+  void lookup( CSwordKey* );
 
 private slots:
   void popupAboutToShow();

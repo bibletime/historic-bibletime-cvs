@@ -16,8 +16,7 @@ bibletime_LDADD   = \
 ./frontend/libfrontend.a \
 ./frontend/thirdparty/qt3stuff/libqt3stuff.a \
 ./frontend/thirdparty/libthirdparty.a \
-./backend/sword_backend/libswordbackend.a \
-./backend/libbackend.a  \
+./backend/libbackend.a \
 -lpthread \
 -lXext \
 $(LIB_QT) \
@@ -28,7 +27,7 @@ $(LIB_X11) \
 $(LIB_SWORD) \
 $(LIBSOCKET)
 
-SUBDIRS = backend frontend docs xml printing pics
+SUBDIRS = backend printing frontend xml pics docs
 
 EXTRA_DIST = \
 main.cpp \

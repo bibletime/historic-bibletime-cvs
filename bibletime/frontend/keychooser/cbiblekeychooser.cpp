@@ -21,11 +21,9 @@
 #include "cfx_btn.h"
 #include "../../whatsthisdef.h"
 #include "../../tooltipdef.h"
-#include "../../backend/cmoduleinfo.h"
-#include "../../backend/sword_backend/cswordversekey.h"
-#include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
-#include "../../backend/cmoduleinfo.h"
+#include "../../backend/cswordversekey.h"
+#include "../../backend/cswordbiblemoduleinfo.h"
+#include "../../backend/cswordmoduleinfo.h"
 
 //Qt includes
 #include <qcombobox.h>
@@ -36,17 +34,16 @@
 //KDE includes
 #include <klocale.h>
 
-CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const char *name )
-	: CKeyChooser(info, key, parent, name){
-	CSwordModuleInfo* module = dynamic_cast<CSwordModuleInfo*>(info);
-	if (module &&
-		(module->getType() == CSwordModuleInfo::Bible ||(module->getType() == CSwordModuleInfo::Commentary )) )
-		m_info = (CSwordBibleModuleInfo*)(info);
+CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent, const char *name )
+	: CKeyChooser(module, key, parent, name), m_info(0), m_key(0), w_book(0), w_chapter(0), w_verse(0)
+{
+
+	if (module && (module->getType() == CSwordModuleInfo::Bible || (module->getType() == CSwordModuleInfo::Commentary )) )
+		m_info = dynamic_cast<CSwordBibleModuleInfo*>(module);
 	else {
 		qWarning("CBibleKeyChooser: module is not a Bible or commentary!");
 		return;
 	}
-	m_key = 0;	
 	QHBoxLayout *layout = new QHBoxLayout(this);
 	layout->setResizeMode(QLayout::Fixed);
 		
@@ -91,15 +88,16 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 		setKey(key);
 }
 
-CKey *CBibleKeyChooser::getKey(){
+CSwordKey *CBibleKeyChooser::getKey(){
 	m_key->book(w_book->ComboBox->currentText());	
 	m_key->Chapter(w_chapter->ComboBox->currentText().toInt());			
 	m_key->Verse(w_verse->ComboBox->currentText().toInt());			
+	
 	return m_key;
 }
 
-void CBibleKeyChooser::setKey(CKey* key){
-	qDebug("CBibleKeyChooser::setKey(CKey* key)");
+void CBibleKeyChooser::setKey(CSwordKey* key){
+//	qDebug("CBibleKeyChooser::setKey(CKey* key)");
 	if ( !(m_key = dynamic_cast<CSwordVerseKey*>(key)) )
 		return;
 		
@@ -263,8 +261,8 @@ void CBibleKeyChooser::refreshContent() {
 }
 
 /** Sets te module and refreshes the combos */
-void CBibleKeyChooser::setModule(CModuleInfo* module){
-	if (module != m_info && dynamic_cast<CSwordBibleModuleInfo*>(module)) {
+void CBibleKeyChooser::setModule(CSwordModuleInfo* module){
+	if (module != m_info && module) {
 		m_info = dynamic_cast<CSwordBibleModuleInfo*>(module);
 		refreshContent();
 	}

@@ -22,15 +22,14 @@
 #include "ressource.h"
 #include "frontend/ctoolclass.h"
 #include "frontend/cmdiarea.h"
-#include "backend/cmoduleinfo.h"
-#include "backend/sword_backend/cswordmoduleinfo.h"
-#include "backend/sword_backend/cswordbiblemoduleinfo.h"
-#include "backend/sword_backend/cswordcommentarymoduleinfo.h"
-#include "backend/sword_backend/cswordlexiconmoduleinfo.h"
-#include "backend/sword_backend/chtmlentrydisplay.h"
-#include "backend/sword_backend/chtmlchapterdisplay.h"
-#include "backend/sword_backend/cswordversekey.h"
-#include "backend/sword_backend/cswordldkey.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordbiblemoduleinfo.h"
+#include "backend/cswordcommentarymoduleinfo.h"
+#include "backend/cswordlexiconmoduleinfo.h"
+#include "backend/chtmlentrydisplay.h"
+#include "backend/chtmlchapterdisplay.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordldkey.h"
 #include "frontend/presenters/cswordpresenter.h"
 #include "frontend/presenters/cbiblepresenter.h"
 #include "frontend/presenters/ccommentarypresenter.h"
@@ -224,13 +223,13 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 	if (presenter) {
 		connect(presenter, SIGNAL(lookupInLexicon(const QString&, const QString&)),
 			m_mdi, SLOT(lookupInLexicon(const QString&, const QString&)));				
-		connect(presenter, SIGNAL(closePresenter(CPresenter*)),
-			m_mdi, SLOT(closePresenter(CPresenter*)));							
+		connect(presenter, SIGNAL(closePresenter(CSwordPresenter*)),
+			m_mdi, SLOT(closePresenter(CSwordPresenter*)));							
 		if (presenter->isA("CBiblePresenter")) {
-			connect(presenter->getKeyChooser(), SIGNAL(keyChanged(CKey*)),
-				m_mdi, SLOT(syncCommentaries(CKey*)));		
+			connect(presenter->getKeyChooser(), SIGNAL(keyChanged(CSwordKey*)),
+				m_mdi, SLOT(syncCommentaries(CSwordKey*)));		
 		}
-		presenter->lookup(key);		
+//		presenter->lookup(key);		
 	}
 			
 	kapp->restoreOverrideCursor();

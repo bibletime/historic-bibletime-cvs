@@ -17,13 +17,11 @@
 
 #include "cgroupmanageritem.h"
 #include "cgroupmanager.h"
-#include "../../backend/cmoduleinfo.h"
-#include "../../backend/sword_backend/cswordversekey.h"
-#include "../../backend/sword_backend/cswordldkey.h"
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
-#include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
-#include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
-#include "../../backend/ckey.h"
+#include "../../backend/cswordversekey.h"
+#include "../../backend/cswordldkey.h"
+#include "../../backend/cswordmoduleinfo.h"
+#include "../../backend/cswordbiblemoduleinfo.h"
+#include "../../backend/cswordlexiconmoduleinfo.h"
 #include "../../ressource.h"
 #include "../ctoolclass.h"
 
@@ -40,14 +38,14 @@
 
 
 CGroupManagerItem::CGroupManagerItem(CGroupManager *parent, const QString& caption,
-	const QString& modulename, CModuleInfo *module_info, CKey* bookmarkKey, CGroupManagerItem::itemType Type, CImportantClasses* importantClasses )
+	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type, CImportantClasses* importantClasses )
 	: QListViewItem((QListView*)parent) {	
 	
 	init(caption, modulename, module_info, bookmarkKey, Type, importantClasses);
 }
 
 CGroupManagerItem::CGroupManagerItem(CGroupManagerItem *parent, const QString& caption,
-	const QString& modulename, CModuleInfo *module_info, CKey* bookmarkKey, CGroupManagerItem::itemType Type, CImportantClasses* importantClasses )
+	const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type, CImportantClasses* importantClasses )
 	: QListViewItem((QListViewItem*)parent) {
 	
 	init(caption, modulename, module_info,bookmarkKey, Type, importantClasses);
@@ -59,12 +57,12 @@ CGroupManagerItem::~CGroupManagerItem(){
 }
 
 /** Returns the CModuleInfo object for this tree-item. */
-CSwordModuleInfo* CGroupManagerItem::moduleInfo(){
+CSwordModuleInfo* CGroupManagerItem::moduleInfo() const {
 	return m_moduleInfo;
 }
 
 /** Returns the type of this item */
-CGroupManagerItem::itemType CGroupManagerItem::type(){
+const CGroupManagerItem::itemType CGroupManagerItem::type() const {
 	return m_type;
 }
 
@@ -80,7 +78,7 @@ void CGroupManagerItem::setOpen( bool open ){
 }
 
 /** Initializes the item Used by both constructors to share the double used source code */
-void CGroupManagerItem::init( const QString& caption, const QString& modulename, CModuleInfo *module_info, CKey* bookmarkKey, CGroupManagerItem::itemType Type, CImportantClasses* importantClasses ){
+void CGroupManagerItem::init( const QString& caption, const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type, CImportantClasses* importantClasses ){
 	m_important = importantClasses;
 	m_bookmarkKey = 0;
 	m_createdOwnKey = false;
@@ -99,13 +97,13 @@ void CGroupManagerItem::init( const QString& caption, const QString& modulename,
 }
 
 /** Sets / changes the description */
-void CGroupManagerItem::setDescription(const QString& new_description){
+void CGroupManagerItem::setDescription(const QString& new_description) {
 	m_description = new_description;
 	update();
 }
 
 /** Returns the description of the item */
-QString CGroupManagerItem::description() const{
+const QString CGroupManagerItem::description() const {
 	return m_description;
 }
 
@@ -128,13 +126,12 @@ CGroupManager* CGroupManagerItem::listView(){
 }
 
 /** Returns the key if it's a Bookmark, othwerwise return 0 */
-CKey* CGroupManagerItem::getBookmarkKey(){
+CSwordKey* CGroupManagerItem::getBookmarkKey() const{
 	return m_bookmarkKey;
 }
 
 /** Sets the key, which is only used if this item is a Bookmark */
-void CGroupManagerItem::setBookmarkKey( CKey* key ){
-	qDebug("CGroupManagerItem::setBookmarkKey( CKey* key )");
+void CGroupManagerItem::setBookmarkKey( CSwordKey* key ){
 	if (m_bookmarkKey && m_createdOwnKey)
 		delete m_bookmarkKey;		
 	m_bookmarkKey = key;
@@ -144,7 +141,6 @@ void CGroupManagerItem::setBookmarkKey( CKey* key ){
 
 /** Updates this item (icons, captions, etc.) */
 void CGroupManagerItem::update(){
-	qDebug("CGroupManagerItem::update()");
 	if (m_type == Group) {
 		m_folderIcon = GROUP_ICON_SMALL;
 		m_openFolderIcon = GROUP_OPEN_ICON_SMALL;		
@@ -198,24 +194,23 @@ void CGroupManagerItem::update(){
 }
 
 /** Sets the type of the item. */
-void CGroupManagerItem::setType( CGroupManagerItem::itemType type){
+void CGroupManagerItem::setType( const CGroupManagerItem::itemType type) {
 	m_type = type;
 }
 
 /** Sets the module of ths item. */
-void CGroupManagerItem::setModuleInfo( CModuleInfo* moduleInfo ){
+void CGroupManagerItem::setModuleInfo( CSwordModuleInfo* moduleInfo ){
 	m_moduleInfo = dynamic_cast<CSwordModuleInfo*>(moduleInfo);
 }
 
 /** Returns a QString version of the key. */
-QString CGroupManagerItem::getKeyText(){
-	CSwordKey* key = dynamic_cast<CSwordKey*>(m_bookmarkKey);
-	return key ? key->key() : QString::null;
+const QString CGroupManagerItem::getKeyText(){
+//	CSwordKey* key = dynamic_cast<CSwordKey*>(m_bookmarkKey);
+	return m_bookmarkKey ? m_bookmarkKey->key() : QString::null;
 }
 
 /** Returns the tooltip for this ite, QString::null is returned if this item has no tooltip. */
 const QString CGroupManagerItem::getToolTip(){
-	qDebug("const QString CGroupManagerItem::getToolTip()");
 	QString text = QString::null;
 	switch ( type() ) {
 		case Bookmark:

@@ -20,8 +20,8 @@
 #include "../presenters/cswordpresenter.h"
 #include "../../ressource.h"
 #include "../../whatsthisdef.h"
-#include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
-#include "../../backend/sword_backend/cswordbackend.h"
+#include "../../backend/cswordlexiconmoduleinfo.h"
+#include "../../backend/cswordbackend.h"
 
 #include <stdio.h>
 #include <stdlib.h>

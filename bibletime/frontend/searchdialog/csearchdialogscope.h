@@ -22,7 +22,7 @@
 #include <qdialog.h>
 
 #include <listkey.h>
-#include "../../backend/sword_backend/cswordmodulesearch.h"
+#include "../../backend/cswordmodulesearch.h"
 
 class QComboBox;
 class QLineEdit;

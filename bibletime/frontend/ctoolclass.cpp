@@ -18,8 +18,7 @@
 
 //own includes
 #include "../ressource.h"
-#include "../backend/cmoduleinfo.h"
-#include "../backend/sword_backend/cswordmoduleinfo.h"
+#include "../backend/cswordmoduleinfo.h"
 
 //QT includes
 #include <qfile.h>

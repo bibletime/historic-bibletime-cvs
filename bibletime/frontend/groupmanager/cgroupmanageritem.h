@@ -27,11 +27,11 @@
 #include <qpixmap.h>
 #include <klistview.h>
 
+class CSwordKey;
+class CSwordModuleInfo;
 
 class CGroupManager;
-class CKey;
 class CSwordModuleInfo;
-class CModuleInfo;
 class QListViewItem;
 
 /**
@@ -55,7 +55,7 @@ public:
  	* @param module_info The CModuleInfo object we use for the item. May be zero because a group doesn't have a CModuleInfo.
  	* @param Type The type of the created item. May ba Module, Bookmark or Group. If you leave out the parameter it will be Module by default.
  	*/
-	CGroupManagerItem( CGroupManager *parent, const QString& caption,const QString& modulename, CModuleInfo *module_info, CKey* bookmarkKey = 0, CGroupManagerItem::itemType Type = CGroupManagerItem::Module, CImportantClasses* importantClasses = 0 );
+	CGroupManagerItem( CGroupManager *parent, const QString& caption,const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey = 0, CGroupManagerItem::itemType Type = CGroupManagerItem::Module, CImportantClasses* importantClasses = 0 );
 	/**
  	* The constructor. This constructor takes a CGroupManagerItem as parent. The created item will be on a child of the parent item
  	* @param parent The CGroupManagerItem which will be parent item of the new item
@@ -64,7 +64,7 @@ public:
  	* @param module_info The CModuleInfo object we use for the item. May be zero because a group doesn't have a CModuleInfo.
  	* @param Type The type of the created item. May ba Module, Bookmark or Group. If you leave out the parameter it will be Module by default.
  	*/	
-	CGroupManagerItem( CGroupManagerItem *parent, const QString& caption, const QString& modulename, CModuleInfo *module_info, CKey* bookmarkKey = 0, CGroupManagerItem::itemType Type = CGroupManagerItem::Module, CImportantClasses* importantClasses = 0 );
+	CGroupManagerItem( CGroupManagerItem *parent, const QString& caption, const QString& modulename, CSwordModuleInfo *module_info, CSwordKey* bookmarkKey = 0, CGroupManagerItem::itemType Type = CGroupManagerItem::Module, CImportantClasses* importantClasses = 0 );
 	/**
  	* The destructor. Cleans up memory.
  	*/
@@ -73,7 +73,7 @@ public:
  	* Returns the description of the item
  	* @return The description of the item. Useful for bookmarks.
  	*/
-  virtual QString description() const;
+  const QString description() const;
   /**
  	* Use this to get the parent item of the item-
  	* @return The parent item. Maybe NULL if the item has no parent.
@@ -83,11 +83,11 @@ public:
   /**
  	* Sets the module of ths item.
  	*/
-  virtual void setModuleInfo( CModuleInfo* moduleInfo );
+  void setModuleInfo( CSwordModuleInfo* moduleInfo );
   /**
  	* Sets the type of the item.
  	*/
-  virtual void setType( CGroupManagerItem::itemType type);
+  void setType( const CGroupManagerItem::itemType type);
   /**
  	* Updates this item (icons, captions, etc.)
  	*/
@@ -96,25 +96,25 @@ public:
   /**
  	* Sets the key, which is only used if this item is a Bookmark
  	*/
-  virtual void setBookmarkKey( CKey* key );
+  void setBookmarkKey( CSwordKey* key );
   /**
  	* Returns the key if it's a Bookmark, othwerwise return 0
  	*/
-  CKey* getBookmarkKey();
+  CSwordKey* getBookmarkKey() const;
   /**
  	* Returns a QString version of the key.
  	*/
-  QString getKeyText();
+  const QString getKeyText();
   /**
   * Returns the CModuleInfo obkject for this tree-item.
   * @return Gives back a pointer to the moduleinfo. May ba NULL because groups do not have moduleinfos.
   */
-  virtual CSwordModuleInfo* moduleInfo();
+  CSwordModuleInfo* moduleInfo() const;
   /**
  	* Use this function to get the type of this item.
  	* @return Returns the type of the item. May be Group, Bookmark or Module.
  	*/
-  virtual CGroupManagerItem::itemType type();
+  const CGroupManagerItem::itemType type() const;
 	/**
  	* Show sub item if true, otherwise do not show them.
  	* Reimplementation from QListViewItem
@@ -137,7 +137,7 @@ private:
  	* @param module_info	The CModuleInfo object for this item. May be NULL because groups have no moduleinfo.
  	* @param Type The type of the item (Group, Bookmark or Module)
  	*/
-  virtual void init( const QString& caption, const QString& modulename, CModuleInfo *module_info,CKey* bookmarkKey, CGroupManagerItem::itemType Type,CImportantClasses* importantClasses);
+  virtual void init( const QString& caption, const QString& modulename, CSwordModuleInfo *module_info,CSwordKey* bookmarkKey, CGroupManagerItem::itemType Type,CImportantClasses* importantClasses);
   /**
  	* The type of this entry
  	*/
@@ -145,13 +145,12 @@ private:
   /**
  	* The pointer to the internal module_info
 	* At the moment we assume that the module of a CGroupmanagerItem is a CSwordModuleInfo object.
- 	* If we add new backend this should be changed.
  	*/
-	CSwordModuleInfo* m_moduleInfo;	//at the moment we use sword
+	CSwordModuleInfo* m_moduleInfo;
 	/**
  	* The key which is only valid for bookmarks
  	*/
-	CKey* m_bookmarkKey;
+	CSwordKey* m_bookmarkKey;
 	/**
 	* This is true if this item uses a key which was created by this item.
 	*/

@@ -28,11 +28,10 @@
 
 class KPopupMenu;
 class KConfig;
-class CBackEnd;
 class CImportantClasses;
-class CKey;
 class CSwordModuleInfo;
-class CPresenter;
+class CSwordPresenter;
+class CSwordKey;
 
 /** The MDI widget we use in BibleTime.
 	* Enhances QWorkspace.
@@ -49,13 +48,14 @@ public:
 		autoTile,
 		autoCascade,
 		Nothing
-	};
-	
+	};	
 	CMDIArea(CImportantClasses* importantClasses, QWidget *parent=0, const char *name = 0 );
 	~CMDIArea();
-  /**  */
+  /**
+  */
   void readSettings();
-  /**  */
+  /**
+  */
   void saveSettings();
   /**
    * Enable / disable autoCascading
@@ -82,7 +82,7 @@ public slots:
   /**
   * Sync the commentaries to the given key.
   */
-  void syncCommentaries(CKey* syncKey);
+  void syncCommentaries(CSwordKey* syncKey);
   /**
   * Look up the text in the module. If the module has already a display window
   * of it opne use it, otherwise create a new one.
@@ -91,36 +91,34 @@ public slots:
   /**
   * Closes and deletes the presenter given as argument.
   */
-  void closePresenter(CPresenter* p);
+  void closePresenter(CSwordPresenter* p);
 
 protected: // Protected methods
   /**
-   * Used to make use of the fixedGUIOption part.
-   */
-  virtual void childEvent ( QChildEvent * e );
+  * Used to make use of the fixedGUIOption part.
+  */
+  virtual void childEvent (QChildEvent * e);
   /**
-   * Reimplementation
-   */
+  * Reimplementation
+  */
   virtual void resizeEvent(QResizeEvent* e);
   /**
-   * Initializes the connectiosn to SIGNALS
-   */
+  * Initializes the connectiosn to SIGNALS
+  */
   void initConnections();
   /**
-   * Initializes the view of the MDI area
-   */
+  * Initializes the view of the MDI area
+  */
   void initView();
-  /** Reimplementation */
-  virtual bool eventFilter( QObject *o, QEvent * e);
 		
 signals: // Signals
   /**
-   * Emits a signal to set the acption of the toplevel widget.
-   */
+  * Emits a signal to set the acption of the toplevel widget.
+  */
   void sigSetToplevelCaption(const QString&);
   /**
-   * Is emitted when the last presenter was closed.
-   */
+  * Is emitted when the last presenter was closed.
+  */
   void sigLastPresenterClosed();
   void createNewSwordPresenter(CSwordModuleInfo*, const QString);
 
@@ -129,7 +127,7 @@ private:
 	KConfig* config;
 	CImportantClasses*	m_important;
 	bool m_childEvent;
-	CPresenter* m_currentPresenter;
+	CSwordPresenter* m_currentPresenter;
 	
 private slots: // Private slots
   /**

@@ -27,15 +27,15 @@
 #include <swmodule.h>
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
-	m_module = dynamic_cast<CSwordBibleModuleInfo*>(module);
-	if (!module)
+	if (!(m_module = dynamic_cast<CSwordBibleModuleInfo*>(module)))
 		return;
-	VerseKey* vk = (VerseKey*)(SWKey*)*(module->module());	
-	m_oldKey = QString::null;
-	if (vk && vk != this) {
-		m_oldKey = QString::fromLocal8Bit((const char*)*vk);		
-		key(QString::fromLocal8Bit((const char*)*vk));
-	}
+		
+//	VerseKey* vk = (VerseKey*)(SWKey*)*(m_module->module());	
+//	m_oldKey = QString::null;
+//	if (vk && vk != this) {
+//		m_oldKey = QString::fromLocal8Bit((const char*)*vk);		
+//		key(QString::fromLocal8Bit((const char*)*vk));
+//	}
 }
 
 /** No descriptions */
@@ -44,6 +44,7 @@ CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKe
 }
 
 CSwordVerseKey::~CSwordVerseKey(){
+	qDebug("CSwordVerseKey::~CSwordVerseKey()");
 //	if (module() && module()->module()) {
 //		VerseKey k(m_oldKey.local8Bit());
 //		module()->module()->SetKey(k);
@@ -59,7 +60,6 @@ CSwordVerseKey* CSwordVerseKey::clone() const {
 CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 	if (newModule && (newModule->getType() == CSwordModuleInfo::Bible || newModule->getType() == CSwordModuleInfo::Commentary) ) {
 		const QString oldKey = key();
-
 		m_module = newModule;
 		key(oldKey);
 	}
@@ -100,7 +100,7 @@ const bool CSwordVerseKey::NextVerse(){
 
 /**  */
 const bool CSwordVerseKey::PreviousVerse(){
-	qDebug("const bool CSwordVerseKey::PreviousVerse()");	
+//	qDebug("const bool CSwordVerseKey::PreviousVerse()");	
 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )--;
 	key(QString::fromLocal8Bit(m_module->module()->KeyText()));
@@ -142,21 +142,15 @@ const bool CSwordVerseKey::PreviousBook(){
 
 /** Sets the key we use to the parameter. */
 const QString CSwordVerseKey::key( const QString& newKey ){	
-//	qDebug("const QString CSwordVerseKey::key( const QString& newKey )");
 	if (!newKey.isNull()) {
-//		qDebug(newKey.latin1());
 		VerseKey::operator = ((const char*)newKey.local8Bit());
 	}
-//	qDebug("return %s\n", (const char*)*this);
 	return QString::fromLocal8Bit((const char*)*this);
 }
 
 void CSwordVerseKey::key( const char* newKey ){
-//	qDebug("const char* CSwordVerseKey::key( const char* newKey )");
 	if (newKey) {
-//		qDebug(newKey);
 		VerseKey::operator = (newKey);
-//		qDebug("CSwordVerseKey::key: key is now %s\n", (const char*)*this);		
 	}
 }
 

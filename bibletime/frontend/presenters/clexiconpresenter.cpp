@@ -20,8 +20,8 @@
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
 #include "../../ressource.h"
-#include "../../backend/sword_backend/cswordldkey.h"
-#include "../../backend/sword_backend/chtmlentrydisplay.h"
+#include "../../backend/cswordldkey.h"
+#include "../../backend/chtmlentrydisplay.h"
 
 //Qt includes
 #include <qclipboard.h>
@@ -34,8 +34,9 @@
 #include <kapp.h>
 
 CLexiconPresenter::CLexiconPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
-	: CSwordPresenter(useModules, importantClasses, parent,name) {
-	m_key = new CSwordLDKey(m_moduleList.first());
+	: CSwordPresenter(useModules, importantClasses, parent,name),
+	m_key( new CSwordLDKey(m_moduleList.first()) )
+{
 	m_key->key("");
 	initView();
 	show();
@@ -94,13 +95,13 @@ void CLexiconPresenter::initView(){
 /** No descriptions */
 void CLexiconPresenter::initConnections(){
 	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)), SLOT(lookup(const QString&))); 	
- 	connect(m_keyChooser, SIGNAL(keyChanged(CKey*)), SLOT(lookup(CKey*)));
+ 	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)), SLOT(lookup(CSwordKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()), SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL(sigChanged()), SLOT(moduleChanged()));
 }
 
 /** No descriptions */
-void CLexiconPresenter::lookup(CKey* key){
+void CLexiconPresenter::lookup(CSwordKey* key){
 	setUpdatesEnabled(false);	
 	
 	CSwordLDKey* ldKey = dynamic_cast<CSwordLDKey*>(key);

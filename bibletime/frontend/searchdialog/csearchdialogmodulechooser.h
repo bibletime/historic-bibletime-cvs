@@ -18,7 +18,7 @@
 #ifndef CSEARCHDIALOGMODULECHOOSER_H
 #define CSEARCHDIALOGMODULECHOOSER_H
 
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
+#include "../../backend/cswordmoduleinfo.h"
 
 //Qt includes
 #include <qwidget.h>

@@ -18,8 +18,8 @@
 #ifndef CPROFILEWINDOW_H
 #define CPROFILEWINDOW_H
 
-#include "../backend/sword_backend/cswordmoduleinfo.h"
-#include "../backend/sword_backend/cswordbackend.h"
+#include "../backend/cswordmoduleinfo.h"
+#include "../backend/cswordbackend.h"
 
 //Qt includes
 #include <qstring.h>

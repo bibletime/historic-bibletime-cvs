@@ -21,9 +21,9 @@
 #include "../chtmlwidget.h"
 #include "../keychooser/ckeychooser.h"
 #include "../../ressource.h"
-#include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
-#include "../../backend/sword_backend/cswordversekey.h"
-#include "../../backend/sword_backend/chtmlchapterdisplay.h"
+#include "../../backend/cswordbiblemoduleinfo.h"
+#include "../../backend/cswordversekey.h"
+#include "../../backend/chtmlchapterdisplay.h"
 #include "../cprofile.h"
 #include "../cprofilewindow.h"
 
@@ -38,8 +38,9 @@
 #include <kfiledialog.h>
 
 CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
-	: CSwordPresenter(useModules, importantClasses, parent,name) {
-	m_key = new CSwordVerseKey(m_moduleList.first());	
+	: CSwordPresenter(useModules, importantClasses, parent,name),
+	m_key( new CSwordVerseKey(m_moduleList.first()) )
+{		
 	m_key->key("Genesis 1:1");
 	
 	initView();
@@ -100,7 +101,7 @@ void CBiblePresenter::initView(){
 }
 
 /** Displays the chapter using the aparameter. */
-void CBiblePresenter::lookup(CKey* key){
+void CBiblePresenter::lookup(CSwordKey* key){
 	setUpdatesEnabled(false);	
 	
 	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);	
@@ -109,7 +110,7 @@ void CBiblePresenter::lookup(CKey* key){
   m_moduleList.first()->module()->SetKey(*vKey);
 		
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
-		if (m_moduleChooserBar->getModuleList().count()>1)  //we want to display more than one module
+		if (m_moduleList.count()>1)
 			m_moduleList.first()->getDisplay()->Display( &m_moduleList );
 		else
 			m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
@@ -128,7 +129,6 @@ void CBiblePresenter::lookup(CKey* key){
 void CBiblePresenter::modulesChanged(){
   m_moduleList = m_moduleChooserBar->getModuleList();
   if (!m_moduleList.count()) {
-  	qDebug("close NOW!");
   	close();
   }
   else {
@@ -144,8 +144,8 @@ void CBiblePresenter::modulesChanged(){
 void CBiblePresenter::initConnections(){
 	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)),
 		this, SLOT(lookup(const QString&))); 	
- 	connect(m_keyChooser, SIGNAL(keyChanged(CKey*)),
- 		this, SLOT(lookup(CKey*)));
+ 	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
+ 		this, SLOT(lookup(CSwordKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()),
 		SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),

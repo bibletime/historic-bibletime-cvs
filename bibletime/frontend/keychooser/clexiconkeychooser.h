@@ -20,10 +20,9 @@
 
 #include <qwidget.h>
 #include "ckeychooser.h"
-#include "../../backend/sword_backend/cswordldkey.h"
-#include "../../backend/cmoduleinfo.h"
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
-#include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
+#include "../../backend/cswordldkey.h"
+#include "../../backend/cswordmoduleinfo.h"
+#include "../../backend/cswordlexiconmoduleinfo.h"
 
 class CKeyChooserWidget;
 class QHBoxLayout;
@@ -44,18 +43,18 @@ public:
 	*
 	*	you should not need to use this, use @ref CKeyChooser::createInstance instead
 	*/
-	CLexiconKeyChooser(CModuleInfo *info=0, CKey *key=0, QWidget *parent=0, const char *name=0);
+	CLexiconKeyChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 
 public slots:
 	/**
 	* see @ref CKeyChooser::getKey
 	* @return Return the key object we use.
 	*/
-	virtual CKey*	getKey();
+	virtual CSwordKey*	getKey();
 	/**
 	* see @ref CKeyChooser::setKey
 	*/
-	virtual void setKey(CKey* key);
+	virtual void setKey(CSwordKey* key);
 	/**
 	* used to react to changes in the @ref CKeyChooserWidget
 	*
@@ -69,7 +68,7 @@ public slots:
   /**
   * Sets the module and refreshes the combo boxes of this keychooser.
   */
-  virtual void setModule( CModuleInfo* module);
+  virtual void setModule( CSwordModuleInfo* module );
 //  /**
 // 	* Used to react to a request from the book @ref CKeyChooserWidget
 // 	*/

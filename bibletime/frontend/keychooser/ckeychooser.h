@@ -20,8 +20,8 @@
 
 #include <qwidget.h>
 
-class CModuleInfo;
-class CKey;
+class CSwordModuleInfo;
+class CSwordKey;
 
 /**
 	* The base class for the KeyChooser.
@@ -45,13 +45,13 @@ public:
 	* @param key if not NULL, the @ref CKey the KeyChooser should be set to
 	* @param parent the parent of the widget to create
 	*/
-  static CKeyChooser* createInstance(CModuleInfo *info, CKey *key, QWidget *parent);
+  static CKeyChooser* createInstance(CSwordModuleInfo *info, CSwordKey *key, QWidget *parent);
 
 signals:
 	/**
 	* is emitted if the @ref CKey was changed by the user
 	*/
-	void keyChanged(CKey* key);
+	void keyChanged(CSwordKey* key);
 	/**
 	* Is emitted before the key is changed!
 	*/
@@ -62,17 +62,17 @@ public slots:
 	* sets the @ref CKey
 	* @param key the key which the widget should be set to
 	*/
-	virtual void	setKey(CKey* key) = 0;
+	virtual void setKey(CSwordKey* key) = 0;
 	/**
 	* gets the current @ref CKey
 	*
 	* @return the current @ref CKey
 	*/
-  virtual CKey*	getKey() = 0;	
+  virtual CSwordKey*	getKey() = 0;	
   /**
   * Sets the module of this keychooser and refreshes the comboboxes
   */
-  virtual void setModule( CModuleInfo* ) = 0;
+  virtual void setModule( CSwordModuleInfo* ) = 0;
   /**
   * Freshes the content of the different key chooser parts.
   */
@@ -82,7 +82,7 @@ protected:
 	/**
 	* the constructor - DO NOT USE! -- use @ref #createInstance
 	*/
-	CKeyChooser(CModuleInfo *info=0, CKey *key=0, QWidget *parent=0, const char *name=0);
+	CKeyChooser(CSwordModuleInfo *info=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 };
 
 #endif

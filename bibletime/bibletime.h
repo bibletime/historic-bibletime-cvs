@@ -33,7 +33,6 @@ typedef QList<CSwordModuleInfo> ListCSwordModuleInfo;
 
 class CGroupManager;
 class CMDIArea;
-class CModuleInfo;
 class CProfile;
 class CSwordPresenter;
 

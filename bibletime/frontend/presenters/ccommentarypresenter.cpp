@@ -22,8 +22,8 @@
 #include "../keychooser/ckeychooser.h"
 #include "../../ressource.h"
 #include "../../whatsthisdef.h"
-#include "../../backend/sword_backend/cswordversekey.h"
-#include "../../backend/sword_backend/chtmlchapterdisplay.h"
+#include "../../backend/cswordversekey.h"
+#include "../../backend/chtmlchapterdisplay.h"
 
 //Qt includes
 #include <qclipboard.h>
@@ -35,9 +35,11 @@
 #include <kfiledialog.h>
 
 CCommentaryPresenter::CCommentaryPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
-	: CSwordPresenter(useModules, importantClasses, parent,name) {
+	: CSwordPresenter(useModules, importantClasses, parent,name)
+{
 	m_editToolBar = 0;	
-	m_key = new CSwordVerseKey(m_moduleList.first());
+	m_key =  new CSwordVerseKey(m_moduleList.first());	
+	ASSERT(m_key);
 	m_key->key("Genesis 1:1");
 	
 	initView();	
@@ -72,7 +74,8 @@ void CCommentaryPresenter::initView(){
 	presenterEdit_action->plug(m_mainToolBar);
 	
 	m_htmlWidget = new CHTMLWidget(m_important, true, this);
-		
+	ASSERT(m_htmlWidget);
+	
 	//setup popup menu
 	m_popup = new KPopupMenu(this);
 	m_popup->insertTitle(i18n("Commentary window"));
@@ -98,10 +101,10 @@ void CCommentaryPresenter::initView(){
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup, ID_PRESENTER_PRINT_POPUP);	
 	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup,ID_PRESENTER_SAVE_POPUP);		
 
-
+	ASSERT(m_htmlWidget);
 	m_htmlWidget->installPopup(m_popup);		
 	m_htmlWidget->installAnchorMenu( m_popup );
-		
+	qWarning("before set icon");
 	setCentralWidget(m_htmlWidget);	
 	setIcon( COMMENTARY_ICON_SMALL );
 }
@@ -119,8 +122,8 @@ void CCommentaryPresenter::initConnections(){
  	
  	connect( m_keyChooser, SIGNAL(beforeKeyChange(const QString&)),
  		this, SLOT(beforeKeyChange(const QString&)));
- 	connect( m_keyChooser, SIGNAL(keyChanged(CKey*)),
- 		this, SLOT(lookup(CKey*)));		
+ 	connect( m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
+ 		this, SLOT(lookup(CSwordKey*)));		
 	
 	connect(m_popup,SIGNAL(aboutToShow()),
 		SLOT(popupAboutToShow()));
@@ -146,16 +149,17 @@ void CCommentaryPresenter::modulesChanged(){
 }
 
 /** renders text and set it to the HTML widget */
-void CCommentaryPresenter::lookup(CKey* key){	
+void CCommentaryPresenter::lookup(CSwordKey* key){	
 	setUpdatesEnabled(false);
 	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);
 	if (!vKey)
 		return;
+	vKey->Persist(1);		
   m_moduleList.first()->module()->SetKey(*vKey);
 
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
 		if (m_htmlWidget->isReadOnly())	 {
-			if (m_moduleChooserBar->getModuleList().count()>1)  //we want to display more than one module
+			if (m_moduleList.count()>1)
 				m_moduleList.first()->getDisplay()->Display( &m_moduleList );
 			else
 				m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
@@ -163,15 +167,15 @@ void CCommentaryPresenter::lookup(CKey* key){
 		}
 		else
 			m_htmlWidget->setText( QString::fromLocal8Bit( m_moduleList.first()->module()->getRawEntry() ) );
-	}
-	
+	}	
 	if (m_key != vKey)
 		m_key->key(vKey->key());
+		
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
 	m_htmlWidget->setModified(false);
-	setUpdatesEnabled(true);		
+	setUpdatesEnabled(true);
 	
-	setPlainCaption( caption() );	
+	setCaption( caption() );	
 }
 
 /** No descriptions */
@@ -262,14 +266,11 @@ void CCommentaryPresenter::syncToggled(){
 }
 
 /** Synchronizes to the given key if sync is enabled. */
-void CCommentaryPresenter::synchronize( CKey* syncKey ){
-	if (!presenterSync_action->isChecked())
+void CCommentaryPresenter::synchronize( CSwordKey* syncKey ){
+	if (!presenterSync_action->isChecked() && !syncKey)
 		return;
 	checkChanges();
-	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(syncKey);
-	if (!vk)
-		return;
-	m_key->key(vk->key());
+	m_key->key(syncKey->key());
 	m_keyChooser->setKey(m_key);
 }
 

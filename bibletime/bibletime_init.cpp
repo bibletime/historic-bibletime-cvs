@@ -24,7 +24,7 @@
 #include "frontend/chtmldialog.h"
 #include "frontend/cprofilemgr.h"
 #include "frontend/cprofile.h"
-#include "backend/sword_backend/cswordbackend.h"
+#include "backend/cswordbackend.h"
 #include "ressource.h"
 #include "whatsthisdef.h"
 #include "config.h"

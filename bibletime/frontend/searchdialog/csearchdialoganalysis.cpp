@@ -17,12 +17,12 @@
 
 //BibleTime includes
 #include "csearchdialoganalysis.h"
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
-#include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
-#include "../../backend/sword_backend/cswordcommentarymoduleinfo.h"
-#include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
-#include "../../backend/sword_backend/cswordversekey.h"
-#include "../../backend/sword_backend/cswordbackend.h"
+#include "../../backend/cswordmoduleinfo.h"
+#include "../../backend/cswordbiblemoduleinfo.h"
+#include "../../backend/cswordcommentarymoduleinfo.h"
+#include "../../backend/cswordlexiconmoduleinfo.h"
+#include "../../backend/cswordversekey.h"
+#include "../../backend/cswordbackend.h"
 #include "csearchdialog.h"
 #include "../ctoolclass.h"
 #include "../../structdef.h"

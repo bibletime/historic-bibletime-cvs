@@ -34,30 +34,27 @@ CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {
 }
 
 const QString CSwordKey::renderedText() {
-	qDebug("const QString CSwordKey::renderedText()");
 	if (!m_module)
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);
 	if (k) {
 		m_module->module()->SetKey(k);	
 	}
-		
+	
 	switch (m_module->encoding()) {
 		case QFont::Unicode:
-			return QString::fromUtf8( (const char*)*m_module->module() );	
+			return QString::fromUtf8( (const char*)*(m_module->module()) );	
 		default:
-			return QString::fromLocal8Bit( (const char*)*m_module->module() );		
+			return QString::fromLocal8Bit( (const char*)*(m_module->module()) );	
 	}
 }
 
 const QString CSwordKey::strippedText() {
-	qDebug("const QString CSwordKey::strippedText() ");
 	if (!m_module)
 		return QString::null;
 	SWKey* k = dynamic_cast<SWKey*>(this);
-	if (k) {
+	if (k)
 		m_module->module()->SetKey(k);
-	}
 		
 	switch (m_module->encoding()) {
 		case QFont::Unicode:

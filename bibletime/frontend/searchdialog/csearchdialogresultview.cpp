@@ -22,11 +22,10 @@
 #include "../../ressource.h"
 #include "../../whatsthisdef.h"
 #include "../../tooltipdef.h"
-#include "../../backend/cmoduleinfo.h"
-#include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
-#include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
-#include "../../backend/sword_backend/cswordversekey.h"
-#include "../../backend/sword_backend/cswordldkey.h"
+#include "../../backend/cswordbiblemoduleinfo.h"
+#include "../../backend/cswordlexiconmoduleinfo.h"
+#include "../../backend/cswordversekey.h"
+#include "../../backend/cswordldkey.h"
 #include "../ctoolclass.h"
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
@@ -59,9 +58,9 @@
 #include <swmodule.h>
 
 CSearchDialogResultModuleView::CSearchDialogResultModuleView(CImportantClasses* importantClasses,QWidget *parent, const char *name)
-	: QListView ( parent, name ) {
-	m_important = importantClasses;
+	: QListView ( parent, name ), m_important( importantClasses )
 	
+{	
 	initView();
 	adjustSize();
 }

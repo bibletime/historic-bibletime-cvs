@@ -20,9 +20,7 @@
 #include "cfx_btn.h"
 #include "../../tooltipdef.h"
 #include "../../whatsthisdef.h"
-#include "../../backend/cmoduleinfo.h"
-#include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
-#include "../../backend/ckey.h"
+#include "../../backend/cswordlexiconmoduleinfo.h"
 
 //Qt includes
 #include <qcombobox.h>
@@ -32,7 +30,7 @@
 //KDE includes
 #include <klocale.h>
 
-CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const char *name )
+CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(info, key, parent, name){
 		
 	m_info = dynamic_cast<CSwordLexiconModuleInfo*>(info);
@@ -57,11 +55,11 @@ CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *pa
 	setKey(key);
 }
 
-CKey* CLexiconKeyChooser::getKey(){
+CSwordKey* CLexiconKeyChooser::getKey(){
 	return m_key;
 }
 
-void CLexiconKeyChooser::setKey(CKey* key){	
+void CLexiconKeyChooser::setKey(CSwordKey* key){	
 	if (!(m_key = (CSwordLDKey*)key))
 		return;		
 	m_widget->ComboBox->setCurrentItem(
@@ -98,7 +96,7 @@ void CLexiconKeyChooser::refreshContent(){
 }
 
 /** Sets the module and refreshes the combo boxes */
-void CLexiconKeyChooser::setModule( CModuleInfo* module){
+void CLexiconKeyChooser::setModule( CSwordModuleInfo* module){
 	if (module && module != m_info && ((CSwordModuleInfo*)module)->getType()==CSwordLexiconModuleInfo::Lexicon) {
 		m_info = (CSwordLexiconModuleInfo*)module;
 		refreshContent();

@@ -19,7 +19,7 @@
 #define CSEARCHDIALOGRESULTVIEW_H
 
 //BibleTime includes
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
+#include "../../backend/cswordmoduleinfo.h"
 #include "../../structdef.h"
 
 //QT includes
@@ -31,8 +31,6 @@
 class KPopupMenu;
 class KConfig;
 class CSearchDialogResultItem;
-class CModuleInfo;
-class CBackend;
 class CSearchDialog;
 class KAction;
 
@@ -96,7 +94,7 @@ signals: // Signals
   /**
  	* Is emitted when a module in the tree was selected.
  	*/
-  void moduleSelected(CModuleInfo*);
+  void moduleSelected(CSwordModuleInfo*);
 
 private:
 	CImportantClasses* m_important;
@@ -142,7 +140,7 @@ public slots:
   /**
  	*
  	*/
-	void setModule(CModuleInfo *module) { if ((CSwordModuleInfo*)module) m_module = (CSwordModuleInfo*)module; this->setupTree();};
+	void setModule(CSwordModuleInfo *module) { if (module) m_module = module; this->setupTree();};
 	
 protected slots: // Protected slots
 	/**

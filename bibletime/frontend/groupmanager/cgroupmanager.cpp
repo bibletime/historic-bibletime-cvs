@@ -22,12 +22,11 @@
 #include "cgroupmanager.h"
 #include "cgroupmanageritem.h"
 
-#include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
-#include "../../backend/sword_backend/cswordcommentarymoduleinfo.h"
-#include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
-#include "../../backend/ckey.h"
-#include "../../backend/sword_backend/cswordversekey.h"
-#include "../../backend/sword_backend/cswordldkey.h"
+#include "../../backend/cswordbiblemoduleinfo.h"
+#include "../../backend/cswordcommentarymoduleinfo.h"
+#include "../../backend/cswordlexiconmoduleinfo.h"
+#include "../../backend/cswordversekey.h"
+#include "../../backend/cswordldkey.h"
 
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
@@ -370,7 +369,7 @@ void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item
 }	
 
 /**  */
-void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* module, const QString ref){
+void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CSwordModuleInfo* module, const QString ref){
 	if (!module)
 		return;
 	

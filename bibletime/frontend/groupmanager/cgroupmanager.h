@@ -28,8 +28,7 @@
 #include <klistview.h>
 #undef private
 
-#include "../../backend/cmoduleinfo.h"
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
+#include "../../backend/cswordmoduleinfo.h"
 #include "../../structdef.h"
 #include "cgroupmanageritem.h"
 
@@ -205,7 +204,7 @@ private:
   * returns the parent of the item with the ID index
   */
   CGroupManagerItem* findParent( int ID, CGroupManagerItem* parentItem = 0 );
-  void createNewBookmark(CGroupManagerItem* parent, CModuleInfo* module, const QString ref);
+  void createNewBookmark(CGroupManagerItem* parent, CSwordModuleInfo* module, const QString ref);
   /**
   * Save items of group to config. If grou is 0 we save all items.
   * The  path to the group-item itself is saved, too.

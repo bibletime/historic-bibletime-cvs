@@ -19,7 +19,6 @@
 #define CSWORDMODULEINFO_H
 
 //BibleTime includes
-#include "../cmoduleinfo.h"
 #include "cswordbackend.h"
 
 //Qt includes
@@ -43,7 +42,7 @@ class CHTMLEntryDisplay;
   * @author The BibleTime team
   * @version $Id$
   */
-class CSwordModuleInfo : public CModuleInfo  {
+class CSwordModuleInfo  {
 public:
 	enum type { Bible, Commentary, Lexicon, Unknown };
 	enum TextDirection {

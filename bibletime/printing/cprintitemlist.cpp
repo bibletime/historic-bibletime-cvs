@@ -17,8 +17,6 @@
 
 //Own includes
 #include "cprintitemlist.h"
-//#include <../backend/cmoduleinfo.h>
-//#include <../backend/ckey.h>
 
 //Qt includes
 #include <qstring.h>

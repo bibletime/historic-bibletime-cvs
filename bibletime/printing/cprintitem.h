@@ -22,9 +22,10 @@
 #include <qguardedptr.h>
 #include "../ressource.h"
 
+class CSwordKey;
+class CSwordModuleInfo;
+
 class CStyle;
-class CKey;
-class CModuleInfo;
 class CPrintItemList;
 class CPrinter;
 
@@ -77,27 +78,27 @@ public:
   /**
   * Sets the used module.
   */
-  void setModule( CModuleInfo* );
+  void setModule( CSwordModuleInfo* );
   /**
  	* Returns the used module.
  	*/
-  CModuleInfo* getModule() const;
+  CSwordModuleInfo* getModule() const;
   /**
  	* Returns the last covered key.
  	*/
-  CKey* getStopKey() const;
+  CSwordKey* getStopKey() const;
   /**
  	* Sets the end key.
  	*/
-  void setStopKey( CKey* );
+  void setStopKey( CSwordKey* );
   /**
  	* Sets the startkey.
  	*/
-  void setStartKey( CKey* );
+  void setStartKey( CSwordKey* );
   /**
  	* Returns the first key covered by this entry.
  	*/
-  CKey* getStartKey() const;
+  CSwordKey* getStartKey() const;
   /**
  	* Returns the listview item for this printitem.
  	*/
@@ -129,9 +130,9 @@ private: // Protected attributes
   QString m_description;
   QString m_headerText;
   QString m_moduleText;
-  CKey*	m_startKey;
-  CKey*	m_stopKey;
-  CModuleInfo* m_module;
+  CSwordKey*	m_startKey;
+  CSwordKey*	m_stopKey;
+  CSwordModuleInfo* m_module;
   QListViewItem* m_listViewItem;
 };
 

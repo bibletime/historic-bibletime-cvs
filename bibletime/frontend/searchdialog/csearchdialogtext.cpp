@@ -22,8 +22,7 @@
 #include "../../structdef.h"
 #include "../../whatsthisdef.h"
 #include "../../tooltipdef.h"
-#include "../../backend/sword_backend/cswordmodulesearch.h"
-#include "../keychooser/ckeychooser.h"
+#include "../../backend/cswordmodulesearch.h"
 
 //QT includes
 #include <qpixmap.h>

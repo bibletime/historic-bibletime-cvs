@@ -22,8 +22,8 @@
 #include "ckeychooser.h"
 
 class CKeyChooserWidget;
-class CModuleInfo;
 class CSwordVerseKey;
+
 class CSwordBibleModuleInfo;
 
 
@@ -44,17 +44,17 @@ public:
 	* the constructor
 	*	you should not need to use this, use @ref CKeyChooser::createInstance instead
 	*/
-	CBibleKeyChooser(CModuleInfo *info=0, CKey *key=0, QWidget *parent=0, const char *name=0);
+	CBibleKeyChooser(CSwordModuleInfo *info=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 
 public slots:
 	/**
 	* see @ref CKeyChooser::getKey
 	*/
-	CKey*	getKey();
+	CSwordKey*	getKey();
 	/**
 	* see @ref CKeyChooser::setKey
 	*/
-	void setKey(CKey *key);
+	void setKey(CSwordKey *key);
   /**
  	* Reimplementation
  	*/
@@ -62,7 +62,7 @@ public slots:
   /**
   * Sets te module and refreshes the combos
   */
-  virtual void setModule(CModuleInfo* module);
+  virtual void setModule(CSwordModuleInfo* module);
   /**
  	* Reimplementation.
  	*/

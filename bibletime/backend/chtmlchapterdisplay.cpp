@@ -19,7 +19,7 @@
 #include "chtmlchapterdisplay.h"
 #include "cswordmoduleinfo.h"
 #include "cswordversekey.h"
-#include "../../frontend/ctoolclass.h"
+#include "../frontend/ctoolclass.h"
 
 //Qt includes
 #include <qfont.h>
@@ -58,7 +58,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
     FontName = font.family();
     FontSize = CToolClass::makeLogicFontSize(font.pointSize());
   }
-	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); qDebug("jump now to next verse"), key.NextVerse()) {
+	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.NextVerse()) {
 		verse = key.Verse();
 		m_htmlText.append( QString::fromLatin1("<A NAME=\"%1\" HREF=\"sword://%2\"><B>%3</B></A>")
 			.arg(verse)
@@ -66,7 +66,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 			.arg(verse)
 		);
 		m_htmlText.append( QString::fromLatin1("<FONT %1 FACE=\"%2\" SIZE=\"%3\"> %4</FONT>")
-			.arg((verse == currentVerse) ? QString::fromLatin1("COLOR=\"%1\"").arg(m_highlightedVerseColor) : QString())
+			.arg((verse == currentVerse) ? QString::fromLatin1("COLOR=\"%1\"").arg(m_highlightedVerseColor) : QString::null)
 			.arg(FontName)
 			.arg(FontSize)
 			.arg(key.renderedText())
@@ -108,9 +108,8 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		if (d && d->hasFont())
 			fontMap.insert(d, d->getFont());
     if (m)
-			m_htmlText.append(
-				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%1</B></TD>").arg((int)((double)100/(double)moduleList->count())).arg(QString::fromLocal8Bit(m->Name()))
-			);
+			m_htmlText +=
+				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%1</B></TD>").arg((int)((double)100/(double)moduleList->count())).arg(QString::fromLocal8Bit(m->Name()));
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
 	m_htmlText.append("</TR>");

@@ -18,26 +18,20 @@
 #include "cswordpresenter.h"
 #include "../keychooser/ckeychooser.h"
 #include "../chtmlwidget.h"
-#include "../../backend/sword_backend/cswordkey.h"
+#include "../../backend/cswordkey.h"
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
 
 //Qt includes
 #include <qpopupmenu.h>
 
-CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name ) : CPresenter(parent,name) {	
-	m_moduleList = useModules;
-	
-	m_important = importantClasses;
-	
-	m_htmlWidget = 0;
-	m_keyChooser = 0;
-	m_mainToolBar = 0;
-	m_moduleChooserBar = 0;
-	m_popup = m_savePopup = m_copyPopup = m_printPopup = 0;
-	m_features = 0;
-
-	m_lexiconPopup = new QPopupMenu(this);
+CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses,QWidget *parent, const char *name )
+	: KMainWindow(parent,name,0), m_moduleList(useModules), m_important(importantClasses), m_htmlWidget(0),
+	m_keyChooser(0), m_mainToolBar(0), m_moduleChooserBar(0), m_popup(0),m_savePopup(0),m_copyPopup(0),
+	m_printPopup(0), m_features(0),
+	m_lexiconPopup(new QPopupMenu(this))
+{		
+	resize(350,350);
 	for (m_important->swordBackend->getModuleList()->first(); m_important->swordBackend->getModuleList()->current(); m_important->swordBackend->getModuleList()->next()) {
 		if (m_important->swordBackend->getModuleList()->current()->getType() == CSwordModuleInfo::Lexicon) {
 			m_lexiconPopup->insertItem( QString::fromLocal8Bit(m_important->swordBackend->getModuleList()->current()->module()->Name()) );
@@ -61,7 +55,6 @@ void CSwordPresenter::refresh( const int /*events*/ ){
 
 /** Prints the key given as parameter. */
 void CSwordPresenter::printKey(CSwordKey* start, CSwordKey* stop, CSwordModuleInfo* module) {
-//	qDebug("CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module) ");
 	CPrintItem* printItem = new CPrintItem();
 	printItem->setModule(module);
 	printItem->setStartKey(start);
@@ -170,8 +163,6 @@ void CSwordPresenter::applySettings( CProfileWindow* settings ){
 
 /** Stores the settings of this window in the CProfileWindow object given as parameter. */
 void CSwordPresenter::storeSettings( CProfileWindow* settings ){
-	qWarning("CSwordPresenter::storeSettings");
-	
 	settings->setGeometry(geometry());
 	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
 	settings->setType(m_moduleList.first()->getType());
@@ -184,4 +175,10 @@ void CSwordPresenter::storeSettings( CProfileWindow* settings ){
 		modules.append(QString::fromLocal8Bit(m->module()->Name()));
 	}	
 	settings->setModules(modules);
+}
+
+/** Is called when the presenter should be closed. To delete the presenter it emits "close(CPresenter*)".*/
+void CSwordPresenter::closeEvent(QCloseEvent* e) {
+	e->accept();
+	emit(closePresenter(this));
 }

@@ -40,13 +40,10 @@
 #include <filemgr.h>
 #include <utilstr.h>
 
-CSwordBackend::CSwordBackend() : SWMgr(0,0,false) {	
-	m_errorCode = noError;	
-	m_entryDisplay = 0;
-	m_chapterDisplay = 0;
-	m_moduleList = 0;
-	m_gbfFilter = m_rwpFilter = m_plainTextFilter = m_thmlFilter = 0;
-	
+CSwordBackend::CSwordBackend()
+	: SWMgr(0,0,false), m_errorCode(noError), m_entryDisplay(0), m_chapterDisplay(0), m_moduleList(0),
+	m_gbfFilter(0),m_rwpFilter(0), m_plainTextFilter(0), m_thmlFilter(0) {
+		
 	m_optionMap.insert(CSwordBackend::footnotes, "Footnotes");
 	m_optionMap.insert(CSwordBackend::strongNumbers, "Strong");
 	m_optionMap.insert(CSwordBackend::headings, "Headings");
@@ -54,6 +51,7 @@ CSwordBackend::CSwordBackend() : SWMgr(0,0,false) {
 }
 
 CSwordBackend::~CSwordBackend(){
+	shutdownModules();	
 	//delete filters
 	if (m_gbfFilter)
 		delete m_gbfFilter;
@@ -63,8 +61,6 @@ CSwordBackend::~CSwordBackend(){
 		delete m_plainTextFilter;	
 	if (m_thmlFilter)
 		delete m_thmlFilter;	
-	
-	shutdownModules();	
 }
 
 #define CHECK_HTML_CHAPTER_DISLPAY \

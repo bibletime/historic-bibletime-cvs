@@ -20,7 +20,7 @@
 
 #include <qwidget.h>
 
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
+#include "../../backend/cswordmoduleinfo.h"
 #include "../chtmlwidget.h"
 
 class CImportantClasses;

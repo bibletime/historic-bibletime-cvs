@@ -16,29 +16,29 @@
  ***************************************************************************/
 
 #include "ckeychooser.h"
-#include "../../backend/cmoduleinfo.h"
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
-#include "../../backend/sword_backend/cswordbiblemoduleinfo.h"
-#include "../../backend/sword_backend/cswordcommentarymoduleinfo.h"
-#include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
+#include "../../backend/cswordmoduleinfo.h"
+#include "../../backend/cswordbiblemoduleinfo.h"
+#include "../../backend/cswordcommentarymoduleinfo.h"
+#include "../../backend/cswordlexiconmoduleinfo.h"
 
 #include "clexiconkeychooser.h"
 #include "cbiblekeychooser.h"
 
-CKeyChooser::CKeyChooser(CModuleInfo */*info*/, CKey */*key*/, QWidget *parent, const char *name )
+CKeyChooser::CKeyChooser(CSwordModuleInfo *, CSwordKey *, QWidget *parent, const char *name )
 	: QWidget(parent, name){
 }
 
-CKeyChooser* CKeyChooser::createInstance(CModuleInfo *info, CKey *key, QWidget *parent){	
-	CSwordModuleInfo* module = dynamic_cast<CSwordModuleInfo*>(info);
+CKeyChooser* CKeyChooser::createInstance(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent){	
+	ASSERT(module);
+	ASSERT(key);
 	if (!module)
 		return 0;
  	switch ( module->getType() ){
  	  case CSwordModuleInfo::Commentary:	 //Bibles and commentaries uise the same key chooser
  	  case CSwordModuleInfo::Bible:
- 	  	return new CBibleKeyChooser(info,key,parent);
+ 	  	return new CBibleKeyChooser(module,key,parent);
  	  case CSwordModuleInfo::Lexicon:
- 	  	return new CLexiconKeyChooser(info,key,parent);	
+ 	  	return new CLexiconKeyChooser(module,key,parent);	
  	  default:
  	  	return 0;
  	}

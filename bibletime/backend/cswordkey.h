@@ -1,8 +1,8 @@
 /***************************************************************************
-                          cbackend.h  -  description
+                          cswordkey.h  -  description
                              -------------------
-    begin                : Thu Oct 5 2000
-    copyright            : (C) 2000 by The BibleTime team
+    begin                : Thu May 24 2001
+    copyright            : (C) 2001 by The BibleTime team
     email                : info@bibletime.de
  ***************************************************************************/
 
@@ -15,17 +15,38 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef CBACKEND_H
-#define CBACKEND_H
+#ifndef CSWORDKEY_H
+#define CSWORDKEY_H
 
+//Own includes
+
+
+//Qt includes
+#include <qstring.h>
+
+
+class CSwordModuleInfo;
 /**
-	*	This is the base class for all backends, It does only contain the functions
-	*	used by all backends.
-	*
-	*	@short This is the base class for all backends.
-  *	@author The BibleTime team
-  *	@version $Id$
-  */
-class CBackend {};
+ * The base class for all Sword based keys.
+ * @author The BibleTime team
+ * @version $Id$
+ */
+class CSwordKey  {
+public:
+	//pure virtual functions
+	virtual const QString key(const QString& = QString::null) {return QString::null;};
+	virtual void key(const char*) {};
+	virtual const QString renderedText();
+	virtual const QString strippedText();
+	virtual const CSwordKey* clone() const = 0;	
+	
+	//implemented functions
+	virtual CSwordModuleInfo* module(CSwordModuleInfo* newModule = 0);
+
+protected:
+	CSwordModuleInfo* m_module;
+	CSwordKey();
+	QString m_oldKey;
+};
 
 #endif

@@ -16,10 +16,8 @@
  ***************************************************************************/
 
 #include "cmdiarea.h"
-#include "../backend/ckey.h"
-#include "../backend/sword_backend/cswordmoduleinfo.h"
-#include "../backend/sword_backend/cswordversekey.h"
-#include "presenters/cpresenter.h"
+#include "../backend/cswordmoduleinfo.h"
+#include "../backend/cswordversekey.h"
 #include "presenters/cbiblepresenter.h"
 #include "presenters/clexiconpresenter.h"
 #include "presenters/ccommentarypresenter.h"
@@ -134,12 +132,12 @@ void CMDIArea::resizeEvent(QResizeEvent* e){
 	QWorkspace::resizeEvent(e);	
 	switch (guiOption) {
  		case autoTile:
-// 			QTimer::singleShot( 0, this, SLOT(tile()) );
-			tile();
+ 			QTimer::singleShot( 0, this, SLOT(tile()) );
+//			tile();
  			break;
  		case autoCascade:
-// 			QTimer::singleShot( 0, this, SLOT(cascade()) );
-			cascade();
+ 			QTimer::singleShot( 0, this, SLOT(cascade()) );
+//			cascade();
  			break;
  		default:
  			break;
@@ -159,12 +157,11 @@ void CMDIArea::readSettings(){
 /** Deletes all the presenters in the MDI area. */
 void CMDIArea::deleteAll(){
 	QWidgetList windows = windowList();
-
-	setUpdatesEnabled(false);			
-	const int count = windows.count();
-	for ( int i = 0; i < count; ++i ) {
-		if ( windows.at(i) )
-			delete windows.at(i);
+	
+	setUpdatesEnabled(false);
+	for ( QWidget* w = windows.first(); w; w = windows.next() ) {
+		w->setUpdatesEnabled(false);
+		delete w;
 	}
 	setUpdatesEnabled(true);	
 }
@@ -206,7 +203,7 @@ void CMDIArea::cascade(){
 }
 
 /** Sync the commentaries to the given key. */
-void CMDIArea::syncCommentaries(CKey* syncKey){
+void CMDIArea::syncCommentaries(CSwordKey* syncKey){
 	QWidgetList windows = windowList();	
 	if (!windows.count())
 		return;	
@@ -244,9 +241,7 @@ void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 }
 
 /** Closes and deletes the presenter given as argument. */
-void CMDIArea::closePresenter(CPresenter* p){
-//	qDebug("CMDIArea::closePresenter(CPresenter* p)");
-//	ASSERT(p);
+void CMDIArea::closePresenter(CSwordPresenter* p){
 	if (!p)
 		return;
 	m_currentPresenter = p;
@@ -255,26 +250,10 @@ void CMDIArea::closePresenter(CPresenter* p){
 
 /** Delete the presenter. */
 void CMDIArea::deleteCurrentPresenter(){
-//	qDebug("CMDIArea::deletePresenter(CPresenter* p)");
+	setUpdatesEnabled(false);
 	if (m_currentPresenter) {
 		delete m_currentPresenter;
 		m_currentPresenter = 0;
 	}
-//	QString currentCaption = activeWindow() ? activeWindow()->caption() : QString::null;
-//	emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(currentCaption) );	
-}
-
-/** Reimplementation */
-bool CMDIArea::eventFilter( QObject *o, QEvent * e){
-//	switch ( e->type() ) {
-//		 case QEvent::ShowMaximized:
-//			qWarning("eventFilter: showMaximized!!");
-//			if (o && o->inherits("CPresenter")) {
-//				QWidget* w = dynamic_cast<QWidget*>(o);
-//				qWarning("set top level caption in eventFilter!");
-//				emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(w->caption()) );	
-//			}
-//		 	break;
-//	}		
-	return QWorkspace::eventFilter(o,e);
+	setUpdatesEnabled(true);
 }

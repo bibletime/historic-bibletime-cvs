@@ -21,7 +21,7 @@
 #include "cswordkey.h"
 #include "cswordldkey.h"
 #include "cswordversekey.h"
-#include "../../frontend/ctoolclass.h"
+#include "../frontend/ctoolclass.h"
 
 //Qt includes
 #include <qfont.h>
@@ -43,6 +43,7 @@ CHTMLEntryDisplay::~CHTMLEntryDisplay(){
 
 /** Displays the current entry of the module as HTML */
 char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
+	qDebug("CHTMLEntryDisplay::Display(CSwordModuleInfo* module)");
 	if (!module) {
 		m_htmlText = QString::null;
 		return -1;
@@ -56,7 +57,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
   else if (module->getType() == CSwordModuleInfo::Lexicon)
 		key = new CSwordLDKey(module);
 	key->key(module->module()->KeyText());
-
+	
   if (module->hasFont()){ //use custom font
     QFont font = module->getFont();
     FontName = font.family();
@@ -79,52 +80,56 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	else
 		m_htmlText = key->renderedText();
 
-	delete key;
-	return 0;
+//	delete key;
+	return 1;
 }
 
 /** Generates code to display the given modules side by side. */
 char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
+	qDebug("CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList)");
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		m_htmlText = QString::null;
 		return 0;
 	}
-  	QString FontName = m_standardFontName;
-  	int FontSize = m_standardFontSize;
+ 	QString FontName = m_standardFontName;
+ 	int FontSize = m_standardFontSize;
 
-  	CSwordKey* key = 0;
-  	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible)
+ 	CSwordKey* key = 0;
+ 	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible)
 		key = new CSwordVerseKey(moduleList->first());
 	else if (moduleList->first()->getType() == CSwordModuleInfo::Lexicon)
 		key = new CSwordLDKey(moduleList->first());
 	  	
-	SWModule* module = moduleList->first()->module();		
+	SWModule* module = moduleList->first()->module();
+	QString usedKey = QString::null;
 	CSwordModuleInfo *d = 0;	
-	SWModule *m= (d = moduleList->first()) ? d->module() : 0;	
 	
+	SWModule *m= (d = moduleList->first()) ? d->module() : 0;		
 	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible) {
 		VerseKey* vk = (VerseKey*)(SWKey*)(*module);
-		vk->Persist(1);
+//		vk->Persist(1);
 		
 		key->key((const char*)*vk);
+		usedKey = key->key();
 		VerseKey k(*vk);
 		
 		m = (d = moduleList->first()) ? d->module() : 0;	
 		while (m) {
-	    	m = (d=moduleList->next()) ? d->module() : 0;
-	    	if (m)
+	   	m = (d=moduleList->next()) ? d->module() : 0;
+	   	if (m)
 				m->SetKey( (const char*)k );
 		}	
 	}
 	else { //lexicon
-		SWKey* lk = (SWKey*)*module;
-		lk->Persist(1);
+		SWKey* lk = (SWKey*)(*module);
+//		lk->Persist(1);
 		key->key((const char*)*lk);
-		
+		usedKey = key->key();
+				
 		m = (d = moduleList->first()) ? d->module() : 0;	
 		while (m) {
-	    	m = (d=moduleList->next()) ? d->module() : 0;
-	    	if (m){
+	   	m = (d=moduleList->next()) ? d->module() : 0;
+	   	if (m){
 				m->SetKey( (const char*)lk );
 				(const char*)*m; //snap to entry
 			}
@@ -137,8 +142,8 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
 		key->module(d);
-	    if (m)
-			m_htmlText.append(
+    if (m)
+    	m_htmlText.append(
 				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2 (<FONT COLOR=\"%3\">%4</FONT>)</B></TD>")
 					.arg(width)
 					.arg(QString::fromLocal8Bit(m->Name()))
@@ -153,27 +158,27 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	m_htmlText.append(QString::fromLatin1("<TR>"));
 	while (m) {
 		if (d && d->hasFont()) { //use custom font
-	    	QFont font = d->getFont();
-		    FontName = font.family();
-		    FontSize = CToolClass::makeLogicFontSize(font.pointSize());
+			QFont font = d->getFont();
+			FontName = font.family();
+			FontSize = CToolClass::makeLogicFontSize(font.pointSize());
 		}
 		else {
 			FontName = m_standardFontName;
 			FontSize = m_standardFontSize;
 		}
 		key->module(d);
-//		(const char*)*m; //snap to entry
-		m_htmlText.append(
+		key->key(usedKey);
+		
+		m_htmlText +=
 			QString::fromLatin1("<TD width=\"%1%\"><FONT SIZE=\"%2\" FACE=\"%3\">%4</FONT></TD>")
 				.arg(width)
 				.arg(FontSize)
 				.arg(FontName)
-				.arg(key->renderedText())					
-		);
+				.arg(key->renderedText());
 		m = (d = moduleList->next()) ? d->module() : 0;		
 	}
-	m_htmlText + QString::fromLatin1("</TR></TABLE>") + m_htmlBody;	
+	m_htmlText += QString::fromLatin1("</TR></TABLE>") + m_htmlBody;
 
-	delete key;
-	return 0;
+//	delete key;	
+	return 1;
 }

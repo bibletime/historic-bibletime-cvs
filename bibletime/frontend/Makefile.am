@@ -11,14 +11,14 @@ ctipwindow.cpp \
 actions.cpp \
 ctoolclass.cpp \
 cinputdialog.cpp \
-cprofilemgr.cpp cprofile.cpp cprofilewindow.cpp cprofiledialog.cpp
+cprofilemgr.cpp cprofile.cpp cprofilewindow.cpp
 
 SUBDIRS = \
 groupmanager \
+keychooser \
 presenters \
 optionsdialog \
 searchdialog \
-keychooser \
 thirdparty
 
 EXTRA_DIST = \
@@ -32,8 +32,7 @@ actions.cpp actions.h \
 cinputdialog.cpp cinputdialog.h \
 cprofilemgr.cpp cprofilemgr.h \
 cprofile.cpp cprofile.h \
-cprofilewindow.cpp cprofilewindow.h \
-cprofiledialog.cpp cprofiledialog.h
+cprofilewindow.cpp cprofilewindow.h
 
 
 

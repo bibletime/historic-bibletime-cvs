@@ -19,7 +19,7 @@
 #define CMODULECHOOSERBAR_H
 
 #include "cmodulechooserbutton.h"
-#include "../../backend/sword_backend/cswordmoduleinfo.h"
+#include "../../backend/cswordmoduleinfo.h"
 #include "../../structdef.h"
 
 #include <qwidget.h>

@@ -17,7 +17,7 @@
 
 
 //BIbleTime includes
-#include "../../backend/sword_backend/cswordmodulesearch.h"
+#include "../../backend/cswordmodulesearch.h"
 #include "../../structdef.h"
 #include "../../whatsthisdef.h"
 #include "csearchdialog.h"
@@ -61,7 +61,7 @@ CSearchDialogResult::CSearchDialogResult(CImportantClasses* importantClasses, QW
 	html_widget = new CHTMLWidget(m_important, true, m_splitter, "html_widget");
 	html_widget->setMinimumHeight(80);
 
-	connect(resultModuleTree, SIGNAL(moduleSelected(CModuleInfo*)), resultTree, SLOT(setModule(CModuleInfo*)));
+	connect(resultModuleTree, SIGNAL(moduleSelected(CSwordModuleInfo*)), resultTree, SLOT(setModule(CSwordModuleInfo*)));
 	connect(resultTree, SIGNAL(keySelected(QString)), this, SLOT(updatePreview(QString)));
 
 	QVBoxLayout* layout_1 = new QVBoxLayout();

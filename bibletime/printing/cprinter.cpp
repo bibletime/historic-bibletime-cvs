@@ -21,9 +21,9 @@
 #include "cstyleformat.h"
 #include "cstyleformatframe.h"
 
-#include "../backend/sword_backend/cswordbackend.h"
-#include "../backend/sword_backend/cswordversekey.h"
-#include "../backend/sword_backend/cswordldkey.h"
+#include "../backend/cswordbackend.h"
+#include "../backend/cswordversekey.h"
+#include "../backend/cswordldkey.h"
 
 //KDE includes
 #include <kconfig.h>

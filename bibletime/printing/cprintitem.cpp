@@ -21,13 +21,10 @@
 #include "cstyle.h"
 #include "cstyleformat.h"
 #include "cstyleformatframe.h"
-#include "../backend/sword_backend/cswordmoduleinfo.h"
-#include "../backend/cmoduleinfo.h"
-//#include "../backend/sword_backend/cswordkey.h"
-#include "../backend/sword_backend/cswordversekey.h"
-#include "../backend/sword_backend/cswordldkey.h"
-#include "../backend/ckey.h"
-#include "../backend/sword_backend/chtmlentrydisplay.h"
+#include "../backend/cswordmoduleinfo.h"
+#include "../backend/cswordversekey.h"
+#include "../backend/cswordldkey.h"
+#include "../backend/chtmlentrydisplay.h"
 
 //Qt includes
 #include <qsimplerichtext.h>
@@ -72,12 +69,12 @@ CPrintItem::~CPrintItem(){
 }
 
 /** Returns the first key covered by this entry. */
-CKey* CPrintItem::getStartKey() const{
+CSwordKey* CPrintItem::getStartKey() const{
 	return m_startKey;
 }
 
 /** Sets the startkey. */
-void CPrintItem::setStartKey(CKey* newKey) {
+void CPrintItem::setStartKey(CSwordKey* newKey) {
 	if (m_startKey)
 		delete m_startKey;
 	m_startKey = newKey;
@@ -85,24 +82,24 @@ void CPrintItem::setStartKey(CKey* newKey) {
 }
 
 /** Sets the end key. */
-void CPrintItem::setStopKey( CKey* newKey ){
+void CPrintItem::setStopKey( CSwordKey* newKey ){
 	if (m_stopKey)
 		delete m_stopKey;	
 	m_stopKey = newKey;
 }
 
 /** Returns the last covered key. */
-CKey* CPrintItem::getStopKey() const {
+CSwordKey* CPrintItem::getStopKey() const {
 	return m_stopKey;
 }
 
 /** Returns the used module. */
-CModuleInfo* CPrintItem::getModule() const {
+CSwordModuleInfo* CPrintItem::getModule() const {
 	return m_module;
 }
 
 /** Sets the used module. */
-void CPrintItem::setModule( CModuleInfo* newModule){
+void CPrintItem::setModule( CSwordModuleInfo* newModule ){
 	m_module = newModule;
 }
 
@@ -130,30 +127,31 @@ const QString& CPrintItem::getModuleText() {
 		return QString::null;
 	
 	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
-	CSwordKey* key = dynamic_cast<CSwordKey*>(m_startKey);
-	CSwordModuleInfo* sw = dynamic_cast<CSwordModuleInfo*>(m_module);
+//	CSwordKey* key = dynamic_cast<CSwordKey*>(m_startKey);
+//	CSwordModuleInfo* sw = dynamic_cast<CSwordModuleInfo*>(m_module);
 	
 	m_moduleText = vk ? QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString::null;
-	m_moduleText += key ? key->renderedText() : QString::null;
-	if (sw && m_stopKey && m_stopKey != m_startKey) { //range of entries
-		if (sw->getType() == CSwordModuleInfo::Bible  || sw->getType() == CSwordModuleInfo::Commentary ) {
+	m_moduleText += m_startKey ? m_startKey->renderedText() : QString::null;
+	if (m_module && m_stopKey && m_stopKey != m_startKey) { //range of entries
+		if (m_module->getType() == CSwordModuleInfo::Bible  || m_module->getType() == CSwordModuleInfo::Commentary ) {
 			CSwordVerseKey* vk_start = dynamic_cast<CSwordVerseKey*>(m_startKey);
 			CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(m_stopKey);			
 			if (!vk_start && !vk_stop)
 				return m_moduleText;
 			
-			CSwordVerseKey dummyKey(sw);				
+			CSwordVerseKey dummyKey(m_module);				
 			dummyKey.key( vk_start->key() );
 			while (dummyKey < *vk_stop) {
 				dummyKey.NextVerse();
 				m_moduleText += QString::fromLatin1("<FONT SIZE=\"-1\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.renderedText();
 			}
 		}
-		else if (sw->getType() == CSwordModuleInfo::Lexicon )
+		else if (m_module->getType() == CSwordModuleInfo::Lexicon )
 			qWarning("implement for range of lexicon entries");
 	}		
 	m_moduleText.replace(QRegExp("$\n+"), "");
 	m_moduleText.replace(QRegExp("$<BR>+"), "");	
+	
 	return m_moduleText;
 }
 
@@ -204,20 +202,16 @@ void CPrintItem::clearData(){
 
 /** Updates the item. */
 void CPrintItem::updateListViewItem(){
-//	qDebug("CPrintItem::updateListViewItem()");
-	CSwordModuleInfo* module = dynamic_cast<CSwordModuleInfo*>(getModule());	
-	if (module)
-		m_listViewItem->setText(0, module->module()->Name() );
+	if (m_module)
+		m_listViewItem->setText(0, m_module->module()->Name() );
 
-	SWKey* key = 0;	
-	if ( (key = dynamic_cast<SWKey*>(m_startKey)) )
-		m_listViewItem->setText(1,(const char*)*key);
-	
-	if ( (key = dynamic_cast<SWKey*>(m_stopKey)) )
-		m_listViewItem->setText(2,(const char*)*key);
-	else if ( (key = dynamic_cast<SWKey*>(m_startKey)) )
-		m_listViewItem->setText(2,(const char*)*key);
-
+	if (m_startKey)
+		m_listViewItem->setText(1,m_startKey->key());
+	if (m_stopKey)
+		m_listViewItem->setText(2,m_stopKey->key());
+	else if (m_startKey)
+		m_listViewItem->setText(2,m_startKey->key());
+		
 	if (getStyle())
 		m_listViewItem->setText(3, getStyle()->getStyleName() );
 }
@@ -243,7 +237,6 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	*	1. Get the settings (font, colors, alignment etc.) and generate the correct richtext for this (correct alignment)
 	*	2. Apply the settings to the printer's painter object
 	*/
-//	qDebug("CPrintItem::draw(QPainter* p, CPrinter* printer)");
 	QFont font;
 	QColor fgColor;
 	QColor bgColor;
@@ -331,7 +324,6 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 				text = QString::fromLatin1("<CENTER>%1</CENTER>").arg(text);
 			else if (alignement == CStyleFormat::Right)		
 				text = QString::fromLatin1("<P ALIGN=\"RIGHT\">%1</P>").arg(text);
-//			text = QString("%1").arg(text);
     	QSimpleRichText richText( text, font, QString::null, QStyleSheet::defaultSheet(), QMimeSourceFactory::defaultFactory(), printer->getPageSize().height()-printer->getVerticalPos()-frameThickness+printer->upperMargin());
     	richText.setWidth( p, printer->getPageSize().width()-2*frameThickness-BORDER_SPACE );
     	QRect view( printer->getPageSize() );
@@ -375,20 +367,14 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 /** Updates and returns the header text. */
 const QString& CPrintItem::getHeaderText() {
 	if ( m_startKey ) {
-		CSwordKey* start = dynamic_cast<CSwordKey*>(m_startKey);
-		if (!start)
-			return QString::null;
 		if ((m_startKey == m_stopKey) || (m_startKey && !m_stopKey))
-			m_headerText = start->key();
+			m_headerText = m_startKey->key();
 		else if (m_startKey && m_stopKey) {//start and stop key do exist and are different
-			CSwordKey* stop = dynamic_cast<CSwordKey*>(m_stopKey);			
-			if (!start || !stop)
-				return QString::null;
-			m_headerText = QString::fromLatin1("%1 - %2").arg(start->key()).arg(stop->key());
+			m_headerText = QString::fromLatin1("%1 - %2").arg(m_startKey->key()).arg(m_stopKey->key());
 		}
 	}
 	else
-		m_headerText = QString::null;			
+		m_headerText = QString::null;
 	
 	return m_headerText;
 }
