@@ -142,7 +142,7 @@ protected slots: // Protected slots
   /**
  	* Is called when the papertype was changed.
  	*/
-  void paperTypeChanged(const int);
+  void paperTypeChanged(int);
   /**
  	*
  	*/

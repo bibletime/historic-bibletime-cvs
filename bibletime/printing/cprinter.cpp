@@ -44,10 +44,8 @@
 #define BORDER_SPACE 5	//border between text and rectangle
 
 CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(parent) {
-	qDebug("constructor of CPrinter!!");
 	config = new KConfig("bt-printing", false, true );
 
-	ASSERT(important);
 	m_important = important;
 	m_backend = m_important->swordBackend;
 	
@@ -56,10 +54,8 @@ CPrinter::CPrinter( CImportantClasses* important, QObject* parent ) : QObject(pa
 	
 	m_styleList = new styleItemList;
 	m_styleList->setAutoDelete(true);		
-		
-	qDebug("read settings");
+			
 	readSettings();
-	qDebug("setup standard style!");
 	setupStandardStyle();		
 }
 
@@ -82,43 +78,67 @@ void CPrinter::setPreviewApplication( const QString& app){
 }
 
 /** Returns the right margin. */
-const unsigned int CPrinter::rightMargin() const {
-	return m_pageMargin.right;
+const unsigned int CPrinter::rightMarginMM() const {
+	QPaintDeviceMetrics m(this);
+	const float r = (float)m.width() / m.widthMM();
+	
+	return (int)((float)m_pageMargin.right / r);
 }
 
 /** Sets the right margin. */
-void CPrinter::setRightMargin( const unsigned int margin ){
-	m_pageMargin.right = margin;
+void CPrinter::setRightMarginMM( const unsigned int margin ){
+	QPaintDeviceMetrics m(this);
+	const float r = (float)m.width() / m.widthMM();
+	
+	m_pageMargin.right = (int)((float)margin*r);
 }
 
 /** Returns the left margin. */
-const unsigned int CPrinter::leftMargin() const {
-	return m_pageMargin.left;
+const unsigned int CPrinter::leftMarginMM() const {
+	QPaintDeviceMetrics m(this);
+	const float r = (float)m.width() / m.widthMM();
+	
+	return (int)((float)m_pageMargin.left / r);
 }
 
 /** Sets the left margin. */
-void CPrinter::setLeftMargin( const unsigned int margin ){
-	m_pageMargin.left = margin;
+void CPrinter::setLeftMarginMM( const unsigned int margin ){
+	QPaintDeviceMetrics m(this);
+	const float r = (float)m.width() / m.widthMM();
+	
+	m_pageMargin.left = (int)((float)margin*r);
 }
 
 /** Returns the right margin. */
-const unsigned int CPrinter::upperMargin() const {
-	return m_pageMargin.top;
+const unsigned int CPrinter::upperMarginMM() const {
+	QPaintDeviceMetrics m(this);
+	const float r = (float)m.width() / m.widthMM();
+	
+	return (int)((float)m_pageMargin.top / r);
 }
 
 /** Sets the right margin. */
-void CPrinter::setUpperMargin( const unsigned int margin ){
-	m_pageMargin.top = margin;
+void CPrinter::setUpperMarginMM( const unsigned int margin ){
+	QPaintDeviceMetrics m(this);
+	const float r = (float)m.width() / m.widthMM();
+	
+	m_pageMargin.top = (int)((float)margin*r);
 }
 
 /** Returns the right margin. */
-const unsigned int CPrinter::lowerMargin() const {
-	return m_pageMargin.bottom;
+const unsigned int CPrinter::lowerMarginMM() const {
+	QPaintDeviceMetrics m(this);
+	const float r = (float)m.width() / m.widthMM();
+	
+	return (int)((float)m_pageMargin.bottom / r);
 }
 
 /** Sets the right margin. */
-void CPrinter::setLowerMargin( const unsigned int margin ){
-	m_pageMargin.bottom = margin;
+void CPrinter::setLowerMarginMM( const unsigned int margin ){
+	QPaintDeviceMetrics m(this);
+	const float r = (float)m.width() / m.widthMM();
+	
+	m_pageMargin.bottom = (int)((float)margin*r);
 }
 
 /** Appends a new page where the next things will be painted. */
@@ -283,8 +303,6 @@ void CPrinter::printItem( QPainter* p, const CPrintItem* item){
 
 /** Setups the printer using CPrinterDialog. */
 void CPrinter::setup( QWidget* parent ){
-	qDebug("CPrinterDialog::setup()");
-	
 	CPrinterDialog* dlg = new CPrinterDialog( this, parent, "printerdialog");
 	dlg->exec();
 	delete dlg;
@@ -553,8 +571,17 @@ void CPrinter::readSettings(){
 	KConfigGroupSaver gs(config, "Settings");	
 	setFullPage(true);
 	
+	setPrinterName(config->readEntry("Printer"));		
+	
 	m_pagePosition.curPage = 1;
 	m_pagePosition.rect = getPageSize();
+	
+	QPaintDeviceMetrics m(this);
+	const float r = (float)m.width() / m.widthMM();	
+	setLeftMarginMM( config->readNumEntry("left margin", (int)((float)margins().width()/r)) );
+	setRightMarginMM( config->readNumEntry("right margin", (int)((float)margins().width()/r)) );	
+	setUpperMarginMM( config->readNumEntry("upper margin", (int)((float)margins().height()/r)) );		
+	setLowerMarginMM( config->readNumEntry("lower margin", (int)((float)margins().height()/r)) );			
 	
 	m_printIntoFile = config->readBoolEntry("Print to file", false);
 	m_filename = config->readEntry("Filename", QString::null);
@@ -566,10 +593,13 @@ void CPrinter::readSettings(){
 
 /**  */
 void CPrinter::saveSettings(){
-	qDebug("CPrinter::saveSettings()");
-	
 	config->setGroup("Settings");
 	config->writeEntry("Paper size", (int)pageSize());
+	config->writeEntry("Printer", printerName());
+	config->writeEntry("upper margin", upperMarginMM());
+	config->writeEntry("lower margin", lowerMarginMM());	
+	config->writeEntry("left margin", leftMarginMM());
+	config->writeEntry("right margin", rightMarginMM());
 	
 	saveStyles();
 }

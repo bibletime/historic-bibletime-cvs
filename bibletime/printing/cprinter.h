@@ -92,35 +92,35 @@ public:
   /**
  	* Returns the right margin.
  	*/
-  const unsigned int rightMargin() const;
+  const unsigned int rightMarginMM() const;
   /**
  	* Sets the right margin.
  	*/
-  void setRightMargin( const unsigned int margin );
+  void setRightMarginMM( const unsigned int margin );
   /**
  	* Returns the right margin.
  	*/
-  const unsigned int leftMargin() const;
+  const unsigned int leftMarginMM() const;
   /**
  	* Sets the right margin.
  	*/
-  void setLeftMargin( const unsigned int margin );
+  void setLeftMarginMM( const unsigned int margin );
   /**
  	* Returns the right margin.
  	*/
-  const unsigned int upperMargin() const;
+  const unsigned int upperMarginMM() const;
   /**
  	* Sets the right margin.
  	*/
-  void setUpperMargin( const unsigned int margin );
+  void setUpperMarginMM( const unsigned int margin );
   /**
  	* Returns the right margin.
  	*/
-  const unsigned int lowerMargin() const;
+  const unsigned int lowerMarginMM() const;
   /**
  	* Sets the right margin.
  	*/
-  void setLowerMargin( const unsigned int margin );
+  void setLowerMarginMM( const unsigned int margin );
   /**
  	* Sets te preview application.
  	*/

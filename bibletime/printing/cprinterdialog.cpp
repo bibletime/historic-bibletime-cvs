@@ -92,12 +92,12 @@ void CPrinterDialog::initGeneralPage(){
 	topLayout->add( m_general.printerListLabel );
 		
 	m_general.printerList = new KListView(page);
-  m_general.printerList->setAllColumnsShowFocus( TRUE );
+  m_general.printerList->setAllColumnsShowFocus( true );
   m_general.printerList->addColumn( i18n("Printer"), 125 );
   m_general.printerList->addColumn( i18n("Host"), 125 );
   m_general.printerList->addColumn( i18n("Comment"), 125 );
   m_general.printerList->setFrameStyle( QFrame::WinPanel + QFrame::Sunken );
-  m_general.printerList->setMinimumSize( 380, // (380 == 125 * 3 + 5)
+  m_general.printerList->setMinimumSize( 380,
   	m_general.printerList->fontMetrics().height() * 5 + 4 );  	
 	QWhatsThis::add(m_general.printerList, WT_PD_GENERAL_PRINTER_LIST);
   topLayout->add(m_general.printerList);
@@ -239,8 +239,8 @@ const bool CPrinterDialog::parsePrintcap() {
     file.close();
   }
 
-  setSelectedPrinter( "" ); // Select the first
-  return (emptyPrintcap == true ? false : true);
+  setSelectedPrinter( m_printer->printerName() ); // Select the first
+  return !emptyPrintcap;
 }
 
 void CPrinterDialog::addPrinterName( const QString &printer ) {
@@ -294,16 +294,16 @@ void CPrinterDialog::readSettings(){
 	slotPrintFileCheck();
 	
 	//setup layout widgets	
-	m_layout.marginSpin[0]->setValue(m_printer->margins().height());
-	m_layout.marginSpin[1]->setValue(m_printer->margins().height());
-	m_layout.marginSpin[2]->setValue(m_printer->margins().width());
-	m_layout.marginSpin[3]->setValue(m_printer->margins().width());
+	m_layout.marginSpin[0]->setValue(m_printer->upperMarginMM());
+	m_layout.marginSpin[1]->setValue(m_printer->lowerMarginMM());
+	m_layout.marginSpin[2]->setValue(m_printer->leftMarginMM());
+	m_layout.marginSpin[3]->setValue(m_printer->rightMarginMM());
 
 //read the saved things of our config	file
-	KConfig* config = m_printer->getConfig();	
-	KConfigGroupSaver gs(config, "Printerdialog");
+//	KConfig* config = m_printer->getConfig();	
+//	KConfigGroupSaver gs(config, "Printerdialog");
 	
-	const QString printerName = config->readEntry("Printername");
+	const QString printerName = m_printer->printerName();
 	QListViewItemIterator it( m_general.printerList );
     for ( ; it.current(); ++it ) {
       if( it.current()->text(0) == printerName ) {
@@ -321,11 +321,6 @@ void CPrinterDialog::readSettings(){
 
 /** Saves the states of the widgets to config file. */
 void CPrinterDialog::saveSettings(){
-	KConfig* config = m_printer->getConfig();
-	KConfigGroupSaver gs(config, "Printerdialog");
-	config->writeEntry("Printername", m_general.printerList->currentItem()->text(0));	
-	
-	config->sync();	
 }
 
 void CPrinterDialog::paperType( QStringList &list )
@@ -384,6 +379,7 @@ void CPrinterDialog::initLayoutPage(){
     m_layout.marginSpin[i] = new QSpinBox( group );
     m_layout.marginSpin[i]->setFixedHeight( m_layout.marginSpin[i]->sizeHint().height() );
     m_layout.marginSpin[i]->setMinimumWidth( m_layout.marginSpin[i]->fontMetrics().width("M")*10 );
+    m_layout.marginSpin[i]->setSuffix(" mm");
 
     QLabel *label = new QLabel( m_layout.marginSpin[i], name[i], group );
     label->setFixedHeight( m_layout.marginSpin[i]->sizeHint().height() );
@@ -413,10 +409,10 @@ void CPrinterDialog::initLayoutPage(){
   gbox->activate();	
   group->setFixedHeight( group->sizeHint().height() );
   //set minimum borders
-  m_layout.marginSpin[0]->setRange( m_printer->upperMargin(), MAXINT );	//upper margin
-  m_layout.marginSpin[1]->setRange( m_printer->lowerMargin(), MAXINT );	//lower margin
-  m_layout.marginSpin[2]->setRange( m_printer->leftMargin(), MAXINT );	//left margin
-  m_layout.marginSpin[3]->setRange( m_printer->rightMargin(), MAXINT );	//right margin
+  m_layout.marginSpin[0]->setRange( m_printer->upperMarginMM(), MAXINT );	//upper margin
+  m_layout.marginSpin[1]->setRange( m_printer->lowerMarginMM(), MAXINT );	//lower margin
+  m_layout.marginSpin[2]->setRange( m_printer->leftMarginMM(), MAXINT );	//left margin
+  m_layout.marginSpin[3]->setRange( m_printer->rightMarginMM(), MAXINT );	//right margin
 
   QHBoxLayout *entryLayout = new QHBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   QVBoxLayout *styleLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
@@ -574,7 +570,7 @@ const bool CPrinterDialog::applySettingsToPrinter( const bool preview ){
 
 	m_printer->setFullPage(true);
 	m_printer->setCreator( i18n("BibleTime version %1").arg(VERSION) );
-	
+		
 	//apply general settings
 	if (!m_general.printerList->currentItem() )
 		m_printer->setPrinterName(m_general.printerList->currentItem()->text(0));
@@ -595,15 +591,14 @@ const bool CPrinterDialog::applySettingsToPrinter( const bool preview ){
 			m_printer->setOutputFileName( m_general.fileInput->text() );
 		}
   }
-  else { // do not print into file
+  else // do not print into file
 		m_printer->setOutputToFile(false);
-  }
 		
 	//apply layout settings
-	m_printer->setUpperMargin(m_layout.marginSpin[0]->value());	
-	m_printer->setLowerMargin(m_layout.marginSpin[1]->value());	
-	m_printer->setLeftMargin(m_layout.marginSpin[2]->value());
-	m_printer->setRightMargin(m_layout.marginSpin[3]->value());			
+	m_printer->setUpperMarginMM(m_layout.marginSpin[0]->value());	
+	m_printer->setLowerMarginMM(m_layout.marginSpin[1]->value());	
+	m_printer->setLeftMarginMM(m_layout.marginSpin[2]->value());
+	m_printer->setRightMarginMM(m_layout.marginSpin[3]->value());			
 
 	return true;
 }
