@@ -93,7 +93,6 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	//reload font settings
 	updateSettings();
 
-//	QMap<CSwordModuleInfo*, QFont> fontMap;	
 	SWModule* module = moduleList->first()->module();		
 		
 	VerseKey* vk = (VerseKey*)(SWKey*)*module;
@@ -103,16 +102,16 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 	const int chosenVerse = key.Verse();
-	const int width=(int)((double)97/(double)moduleList->count());
+	const int width=(int)((double)97/(double)moduleList->count()); //width in per cent!!
 	CSwordModuleInfo *d = 0;
 			
-	m_htmlText=m_htmlHeader+QString("<body>");
+	m_htmlText = m_htmlHeader + QString::fromLatin1("<body>");
 
-	m_htmlText.append(
-		QString("<table cellpadding=\"2\" cellspacing=\"0\"><td bgcolor=\"#f1f1f1\"></td>"));
+	m_htmlText +=
+		QString::fromLatin1("<table cellpadding=\"2\" cellspacing=\"0\"><td bgcolor=\"#f1f1f1\"></td>");
 
-	m_htmlText.append(QString("<font face=\"%1\" size=\"%2\" color=\"%3\">")
-		.arg(m_standardFontName).arg(m_standardFontSize).arg(m_standardFontColorName));
+	m_htmlText += QString::fromLatin1("<font face=\"%1\" size=\"%2\" color=\"%3\">")
+		.arg(m_standardFontName).arg(m_standardFontSize).arg(m_standardFontColorName);
 
 	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
@@ -120,12 +119,12 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	while (m) {
     if (m)
 			m_htmlText +=
-				QString::fromLatin1("<td width=\"%1\" bgcolor=\"#f1f1f1\"><b>%1</b></td>").arg((int)((double)100/(double)moduleList->count())).arg(d->name());
+				QString::fromLatin1("<td width=\"%1%\" bgcolor=\"#f1f1f1\"><b>%1</b></td>").arg(width).arg(d->name());
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
 	m_htmlText.append("</tr>");
 		
-	QString rowText   = QString::null;
+	QString rowText = QString::null;
 	int currentVerse = 0;
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.NextVerse()) {
 		const QString currentKey = key.key();
@@ -138,7 +137,7 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		while (m) {
 			CSwordVerseKey current(d);
 			current.key(currentKey);
-			rowText += QString("<td width=\"%1\" bgcolor=\"%2\">")
+			rowText += QString("<td width=\"%1%\" bgcolor=\"%2\">")
 				.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
 			if (d->encoding()==QFont::Unicode)
 				rowText += QString("<font face=\"%1\" size=\"%2\">")

@@ -18,6 +18,7 @@
 //BibleTime includes
 #include "printing/cprinter.h"
 #include "frontend/cmdiarea.h"
+#include "frontend/kstartuplogo.h"
 #include "frontend/groupmanager/cgroupmanager.h"
 #include "bibletime.h"
 #include "ressource.h"
@@ -72,6 +73,8 @@ void BibleTime::initView(){
 
 /** Initializes the action objects of the GUI */
 void BibleTime::initActions() {
+	KStartupLogo::setStatusMessage(i18n("Initializing menu and toolbars") + QString::fromLatin1("..."));
+		
 	m_fileClearQueue_action = new KAction(i18n("Clear printing queue"), ICON_FILE_CLEAR_QUEUE ,0,
 		m_important->printer, SLOT(clearQueue()), actionCollection(), "fileClearQueue_action");	
 	m_fileClearQueue_action->setEnabled(false);	
@@ -311,6 +314,8 @@ void BibleTime::initKeyAccels(){
 
 /** Initializes the backend */
 void BibleTime::initBackends(){
+	KStartupLogo::setStatusMessage(i18n("Initializing Sword")+QString::fromLatin1("..."));
+	
 	m_important->swordBackend = new CSwordBackend();	
 	m_important->swordBackend->Load();
 	CSwordBackend::errorCode errorCode = m_important->swordBackend->initModules();
@@ -350,6 +355,7 @@ void BibleTime::initBackends(){
 
 /** Initializes the CPrinter object. */
 void BibleTime::initPrinter(){
+	KStartupLogo::setStatusMessage(i18n("Initializing Printer") + QString::fromLatin1("..."));
 	m_important->printer = new CPrinter(m_important, this);
 }
 

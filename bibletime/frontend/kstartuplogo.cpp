@@ -27,6 +27,38 @@
 #include <kstddirs.h>
 #include <kimageio.h>
 
+//static objects
+static KStartupLogo* startupLogo = 0;
+
+void KStartupLogo::createSplash() {
+	deleteSplash();
+	startupLogo = new KStartupLogo();
+}
+
+void KStartupLogo::showSplash() {
+	if (startupLogo)
+		startupLogo->show();
+}
+
+void KStartupLogo::hideSplash() {
+	if (startupLogo)	
+		startupLogo->hide();
+}
+
+void KStartupLogo::deleteSplash() {
+	if (startupLogo)
+		delete startupLogo;
+	startupLogo = 0;
+}
+
+	
+void KStartupLogo::setStatusMessage(const QString& message) {
+	if (startupLogo)
+		startupLogo->setText(message);
+}
+
+
+
 KStartupLogo::KStartupLogo()
 	: QWidget(0, "startuplogo", WStyle_Customize | WStyle_NoBorder) {
 

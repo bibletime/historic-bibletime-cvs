@@ -27,9 +27,15 @@
   */
 class KStartupLogo : public QWidget {
 public:
+	static void createSplash();
+	static void showSplash();
+	static void hideSplash();
+	static void deleteSplash();		
+	static void setStatusMessage(const QString& message);
+	
+private:
 	KStartupLogo();
   void setText(const QString text);
-private:
   QLabel* textLabel;
 };
 

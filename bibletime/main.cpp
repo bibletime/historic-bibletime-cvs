@@ -163,27 +163,26 @@ int main(int argc, char* argv[]) {
 	}
   else {
 		KConfig *config = KGlobal::config();
-		KStartupLogo *start_logo = 0;		
 		bool showIt = false;	
 	  {
   		KConfigGroupSaver groupSaver(config,"General");
 			showIt = config->readBoolEntry("Logo",true);	
 	
 			if(showIt) {
-		 		start_logo = new KStartupLogo();
-		 		start_logo->show();
-		 		start_logo->setText("Starting BibleTime...");
+				KStartupLogo::createSplash();
+				KStartupLogo::showSplash();				
+				KStartupLogo::setStatusMessage( i18n("Starting BibleTime...") );
 			};
 	  }
 		
 	  bibletime = new BibleTime();
 	
 	  if (showIt) {
-			start_logo->hide();			
-			start_logo->close();
-			delete start_logo;
+		  KStartupLogo::deleteSplash();	  		  	
+	  	KStartupLogo::hideSplash();
 		}
-		
+
+	  			
 		//first startup of BibleTime?		
 		{
 			KConfigGroupSaver groupSaver(config, "General");
