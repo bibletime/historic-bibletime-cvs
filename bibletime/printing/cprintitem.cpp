@@ -229,22 +229,20 @@ void CPrintItem::clearData(){
 /** Updates the item. */
 void CPrintItem::updateListViewItem(){
 	qDebug("CPrintItem::updateListViewItem()");
-	if (/*getModule() && */dynamic_cast<CSwordModuleInfo*>(getModule()) ) {
-		CSwordModuleInfo* module = dynamic_cast<CSwordModuleInfo*>(getModule());
+	CSwordModuleInfo* module = dynamic_cast<CSwordModuleInfo*>(getModule());	
+	if (module)
 		m_listViewItem->setText(0, module->module()->Name() );
-	}
 
-	qDebug("set key");
 	SWKey* key = 0;	
 	if ( (key = dynamic_cast<SWKey*>(getStartKey())) )
-		m_listViewItem->setText(1, (const char*)*key);
-	qDebug("set 1 key");	
+		m_listViewItem->setText(1,(const char*)*key);
 	if ( (key = dynamic_cast<SWKey*>(getStopKey())) )
-		m_listViewItem->setText(2, (const char*)*key);
-	qDebug("set 2 key");	
+		m_listViewItem->setText(2,(const char*)*key);
+	else if ( (key = dynamic_cast<SWKey*>(getStartKey())) )
+		m_listViewItem->setText(2,(const char*)*key);
+
 	if (getStyle())
 		m_listViewItem->setText(3, getStyle()->getStyleName() );
-	qDebug("finished");		
 }
 
 /**  */

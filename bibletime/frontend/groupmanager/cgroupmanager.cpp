@@ -365,7 +365,7 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 		return;
 	
 	CGroupManagerItem* myItem = 0;	
-	QString description = CInputDialog::getText(i18n("Bookmark description - BibleTime"), i18n("Please enter here the description:"), QString::null);
+	const QString description = CInputDialog::getText(i18n("Bookmark description - BibleTime"), i18n("Please enter here the description:"), QString::null);
 	setFocus();
 
 	myItem = 0;

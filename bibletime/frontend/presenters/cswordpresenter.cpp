@@ -46,8 +46,6 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClas
 	refreshFeatures();
 }
 
-CSwordPresenter::~CSwordPresenter(){
-}
 
 /** Returns the features used by this presenter. */
 int CSwordPresenter::getFeatures(){
@@ -64,7 +62,7 @@ void CSwordPresenter::printKey(CKey* start, CKey* stop, CSwordModuleInfo* module
 	CPrintItem* printItem = new CPrintItem();
 	printItem->setModule(module);
 	printItem->setStartKey(start);
-	printItem->setStopKey(stop);
+//	printItem->setStopKey(stop);
 
 	qDebug("add now to the queue");
 	m_important->printer->addItemToQueue(printItem);

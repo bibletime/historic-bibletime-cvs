@@ -34,10 +34,6 @@ public:
 	* Default xonstructor
 	*/
 	CPresenter(QWidget *parent, const char *name=0, WFlags f= WDestructiveClose);
-	/**
-	* Default destructor
-	*/	
-	~CPresenter();
 
 protected:
 	KConfig* m_config;

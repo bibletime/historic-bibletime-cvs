@@ -34,7 +34,6 @@ class CModuleChooserButton : public QToolButton  {
    Q_OBJECT
 public: 
 	CModuleChooserButton(CImportantClasses* importantClasses, CSwordModuleInfo* useModule,CSwordModuleInfo::type type, const int id, QWidget *parent = 0, const char *name = 0 );
-	~CModuleChooserButton();
   CSwordModuleInfo* getModule();
   /**
   * Returns the id used for this button.

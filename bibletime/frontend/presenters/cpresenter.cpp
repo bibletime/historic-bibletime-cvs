@@ -22,6 +22,3 @@ CPresenter::CPresenter(QWidget *parent, const char *name, WFlags f)
 		
 	resize(350,350);
 }
-
-CPresenter::~CPresenter(){
-}

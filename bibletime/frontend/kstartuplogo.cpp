@@ -33,6 +33,7 @@ KStartupLogo::KStartupLogo()
   	qDebug("Can't load startuplogo!");
   	  	
   setBackgroundPixmap(pm);
+  setAutoMask(true);
   setFixedSize(pm.width(), pm.height());
   setGeometry( (KApplication::desktop()->width()-pm.width())/2,(KApplication::desktop()->height()-pm.height())/2, pm.width(), pm.height());
 }

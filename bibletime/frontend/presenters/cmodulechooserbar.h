@@ -18,13 +18,12 @@
 #ifndef CMODULECHOOSERBAR_H
 #define CMODULECHOOSERBAR_H
 
+#include "cmodulechooserbutton.h"
 #include "../../backend/sword_backend/cswordmoduleinfo.h"
 #include "../../structdef.h"
 
 #include <qwidget.h>
 #include <ktoolbar.h>
-
-class CModuleChooserButton;
 
 /**
   * @author The BibleTime team
@@ -36,10 +35,6 @@ public:
 	* Default constructor
 	*/
 	CModuleChooserBar(CImportantClasses* important, ListCSwordModuleInfo useModules,CSwordModuleInfo::type type,  QWidget *parent=0, const char *name=0);
-	/**
-	* Default destructor
-	*/	
-	~CModuleChooserBar();
   /**
   * Returns a list of selected modules.
   */

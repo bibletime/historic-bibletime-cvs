@@ -76,10 +76,6 @@ CModuleChooserButton::CModuleChooserButton(CImportantClasses* importantClasses, 
 	}
 }	
 
-
-CModuleChooserButton::~CModuleChooserButton(){
-}
-
 /** Returns the icon used for the current status. */
 QPixmap CModuleChooserButton::getIcon(){
 	switch (m_moduleType) {

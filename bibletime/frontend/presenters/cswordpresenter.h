@@ -69,10 +69,6 @@ public:
 	* Default constructor
 	*/
 	CSwordPresenter(ListCSwordModuleInfo useModules, CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0);
-	/**
-	* Destructor of this sword üresenter
-	*/
-	~CSwordPresenter();
   /**
   * Returns the features used by this presenter.
   */

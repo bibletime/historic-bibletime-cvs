@@ -24,9 +24,8 @@
 	* This class provides a startuplogo.
   * @author The team of KDevelop
   */
-class KStartupLogo : public QWidget  {
-//   Q_OBJECT
-public: 
+class KStartupLogo : public QWidget {
+public:
 	KStartupLogo();
 };
 

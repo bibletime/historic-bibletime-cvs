@@ -45,10 +45,6 @@ CModuleChooserBar::CModuleChooserBar(CImportantClasses* important, ListCSwordMod
 	  addButton();
 }
 
-
-CModuleChooserBar::~CModuleChooserBar(){	
-}
-
 /** Adds a button to the toolbar */
 void CModuleChooserBar::addButton(){
 	CModuleChooserButton* b = new CModuleChooserButton(m_important, 0, m_moduleType, ++m_idCounter, this);

@@ -117,7 +117,7 @@ int main(int argc, char* argv[]) {
 
 	
 #ifdef STATIC_BUILD
- 	KApplication app(false);
+ 	KApplication app(false); //disable styles
 #else
  	KApplication app;
 #endif

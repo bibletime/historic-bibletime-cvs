@@ -92,12 +92,12 @@ const QString CInputDialog::getText( const QString& caption, const QString& desc
 	CInputDialog* dlg = new CInputDialog(caption, description, text, parent, "", modal);	
 	QString ret = QString::null;
 		
-	const bool isOk = dlg->exec() == CInputDialog::Accepted;
+	const bool isOk = (dlg->exec() == CInputDialog::Accepted);
 	if (isOk)
 		ret = dlg->text();
+//	if (ok)
+//		*ok = isOk ? true : false;
+	qDebug("finished CInputDialog::getText");
 	delete dlg;
-	if (ok)
-		*ok = isOk;
-	qDebug("finished");
 	return ret;
 }
