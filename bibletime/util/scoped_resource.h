@@ -23,10 +23,18 @@ namespace util
 * struct close_file { void operator(int fd) const {close(fd);} };
 * ...
 * {
-*    scoped_resource<int,close_file> file(open("file.txt",O_RDONLY));
+*    const scoped_resource<int,close_file> file(open("file.txt",O_RDONLY));
 *    read(file, buf, 1000);
 * } // file is automatically closed here
 * @endcode
+*
+* Note that scoped_resource has an explicit constructor, and prohibits
+* copy-construction, and thus the initialization syntax, rather than
+* the assignment syntax must be used when initializing.
+*
+* i.e. using scoped_resource<int,close_file> file = open("file.txt",O_RDONLY);
+* in the above example is illegal.
+*
 */
 template<typename T,typename ReleasePolicy>
 class scoped_resource
@@ -42,11 +50,10 @@ public:
 	typedef ReleasePolicy release_type;
 	
   /**
-  * Please put some docs on the important member functions like here.
+  * Constructor
 	*
-	* @ param res This is the bla #1.
-	* @ param rel This is the bla #2.
-	* @ret This funtion returns bla.
+	* @ param res This is the resource to be managed
+	* @ param rel This is the functor to release the object
   */
 	explicit scoped_resource(resource_type res,release_type rel=release_type())
 			: resource(res), release(rel) {}
@@ -63,18 +70,23 @@ public:
   /**
   * This operator makes sure you can access and use the scoped_resource
 	* just like you were using the resource itself.
+  *
+  * @ret the underlying resource
 	*/
 	operator resource_type() const { return resource; }
 
   /**
-  * Please put some docs on the important member functions like here.
+  * This function provides explicit access to the resource. Its behaviour
+  * is identical to operator resource_type()
 	*
-	* @ret This funtion returns bla.
+	* @ret the underlying resource
   */
   resource_type get() const { return resource; }
 
 	/**
-  * only use this if resource_type is a pointer
+  * This function provides convenient direct access to the -> operator
+  * if the underlying resource is a pointer. Only call this function
+  * if resource_type is a pointer type.
   */
 	resource_type operator->() const { return resource; }
 
@@ -82,7 +94,7 @@ public:
 
 /**
 * A helper policy for scoped_ptr.
-* It makes sure the Object is deleted with delete on block exit.
+* It will call the delete operator on a pointer, and assign the pointer to 0
 */
 struct delete_item {
 	template<typename T>
@@ -90,7 +102,7 @@ struct delete_item {
 };
 /**
 * A helper policy for scoped_array.
-* It makes sure the array is deleted with delete[] on block exit.
+* It will call the delete[] operator on a pointer, and assign the pointer to 0
 */
 struct delete_array {
 	template<typename T>
@@ -98,44 +110,49 @@ struct delete_array {
 };
 
 /**
-* A fairly simple class which implements RAII. See @ref scoped_resource
-* for a thorough description of this matter. Some functors and derived classes
-* (in the absence of templated typedefs), are also supplied.
+* A class which implements an approximation of
+* template<typename T>
+* typedef scoped_resource<T*,delete_item> scoped_ptr<T>;
+*
+* It is a convenient synonym for a common usage of @ref scoped_resource.
+* See scoped_resource for more details on how this class behaves.
 *
 * Usage example:
 * @code
 * {
-*    scoped_ptr<char> ptr(new char);
-*    ...use ptr as you would a normal char*...
+*    const scoped_ptr<Object> ptr(new Object);
+*    ...use ptr as you would a normal Object*...
 * } // ptr is automatically deleted here
 * @endcode
+*
+* NOTE: use this class only to manage a single object, *never* an array.
+* Use scoped_array to manage arrays. This distinction is because you
+* may call delete only on objects allocated with new, delete[] only
+* on objects allocated with new[].
 */
 template<typename T>
 struct scoped_ptr : public scoped_resource<T*,delete_item>
 {
-	scoped_ptr(T* p) : scoped_resource<T*,delete_item>(p) {}
+	explicit scoped_ptr(T* p) : scoped_resource<T*,delete_item>(p) {}
 };
+
 /**
-* A fairly simple class which implements RAII, very similar to
-* @ref scoped_ptr, only that it works for arrays. Some functors and derived classes
-* (in the absence of templated typedefs), are also supplied.
+* This class has identical behaviour to @ref scoped_ptr, except it manages
+* heap-allocated arrays instead of heap-allocated single objects
 *
 * Usage example:
 * @code
 * {
-*    scoped_array<char> ptr(new char[50]);
+*    const scoped_array<char> ptr(new char[n]);
 *    ...use ptr as you would a normal char*...
 * } // ptr is automatically deleted here
 * @endcode
 *
-* note that the syntax scoped_array<char> ptr = new char[50]; is illegal
-* and should not be used, scoped_array<char> ptr(new char[50]); is the
-* correct way to initialize
 */
 template<typename T>
 struct scoped_array : public scoped_resource<T*,delete_array>
 {
-	scoped_array(T* p) : scoped_resource<T*,delete_array>(p) {}
+	explicit scoped_array(T* p) : scoped_resource<T*,delete_array>(p) {}
 };
 
 }
