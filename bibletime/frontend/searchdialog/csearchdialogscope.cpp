@@ -53,12 +53,6 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
   RangeChooser = new QComboBox(this);
   editButton = new QPushButton(i18n("Edit ranges"),this);
   editButton->setFixedWidth(editButton->sizeHint().width());
-
-  RangeLabel->hide();
-  RangeChooser->hide();
-  editButton->hide();
-
-
   connect(editButton,SIGNAL(clicked()),this,SLOT(editButtonClicked()));
   connect(group,SIGNAL(clicked(int)),this,SLOT(scopeChanged()));
 
@@ -78,16 +72,43 @@ CSearchDialogScopeChooser::CSearchDialogScopeChooser(QWidget *parent, const char
 
   config = new KSimpleConfig("bt-custom_ranges", false);
   //we use this to use the global standard
-  config->setGroup(QString("custom ranges"));
+  config->setGroup(QString("main"));
+  if (config->readBoolEntry("firstUsage", true)) {		
+  	config->setGroup(QString("custom ranges"));
+  	
+	  QMap<QString,QString> entryMap;
+	  entryMap.insert(i18n("Old testament"), QString("Genesis - Maleachi"));
+ 	  entryMap.insert(i18n("New testament"), QString("Matthew - Revelation of John"));
+	  entryMap.insert(i18n("Gospels"), QString("Matthew - John"));
+	  QMap<QString,QString>::Iterator it;			
+				
+		for ( it = entryMap.begin(); it != entryMap.end(); ++it) {
+		  if (it.key() != QString::null) {
+				QString text = QString::null;
+		   	ListKey lk = VerseKey().ParseVerseList(it.data().local8Bit(),"Genesis 1:1",true);
+				for (int i = 0; i < lk.Count(); ++i) {
+					if (i)
+						text.append(";");											
+					VerseKey* element = dynamic_cast<VerseKey*>(lk.GetElement(i));
+					if (element) 	
+						text +=	QString("%1 - %2")
+							.arg( QString::fromLocal8Bit((const char*)element->LowerBound()) )
+							.arg( QString::fromLocal8Bit((const char*)element->UpperBound()) );
+					else
+						text += QString::fromLocal8Bit((const char*)*lk.GetElement(i));			
+				}
+				config->writeEntry(it.key(),text);
+			}	
+  	}
+  }
 
+  config->setGroup(QString("custom ranges"));
   QMap<QString,QString> entryMap = config->entryMap(QString("custom ranges"));
-  QMap<QString,QString>::Iterator it;
-	
-	for ( it = entryMap.begin(); it != entryMap.end(); ++it) {
-	  debug(it.key().local8Bit());
+  QMap<QString,QString>::Iterator it;	
+	for ( it = entryMap.begin(); it != entryMap.end(); ++it)
 	  if (it.key() != QString::null)
 		  RangeChooser->insertItem( it.key() );
-	}
+	scopeChanged(); //set initial state
 }
 
 ListKey CSearchDialogScopeChooser::getScope(){
@@ -120,21 +141,24 @@ void CSearchDialogScopeChooser::editButtonClicked(){
 
 /** No descriptions */
 void CSearchDialogScopeChooser::scopeChanged(){
-  if (getScopeType() == CSwordModuleSearch::Scope_Bounds){
-    RangeLabel->show();
-    RangeChooser->show();
-    editButton->show();
-  }
-  else{
-    RangeLabel->hide();
-    RangeChooser->hide();
-    editButton->hide();
-  }
+	RangeLabel->setEnabled(getScopeType() == CSwordModuleSearch::Scope_Bounds ? true : false);
+	RangeChooser->setEnabled(getScopeType() == CSwordModuleSearch::Scope_Bounds ? true : false);
+	editButton->setEnabled(getScopeType() == CSwordModuleSearch::Scope_Bounds ? true : false);
+
+//  if (getScopeType() == CSwordModuleSearch::Scope_Bounds){
+//  }
+//  else{
+//    RangeLabel->hide();
+//    RangeChooser->hide();
+//    editButton->hide();
+//  }
 }
 
 
 CSearchDialogScopeChooser::~CSearchDialogScopeChooser(){
 	if (config) {
+	  config->setGroup(QString("main"));	
+	  config->writeEntry("firstUsage", true);
 		config->sync();
 		delete config;
 	}

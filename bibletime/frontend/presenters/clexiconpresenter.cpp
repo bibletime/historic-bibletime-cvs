@@ -82,7 +82,7 @@ void CLexiconPresenter::initView(){
 /** No descriptions */
 void CLexiconPresenter::initConnections(){
 	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)),
-		this, SLOT(referenceClicked(const QString&))); 	
+		this, SLOT(lookup(const QString&))); 	
  	connect( m_keyChooser, SIGNAL(keyChanged(CKey*)),
  		this, SLOT(lookup(CKey*)));
 	connect(m_popup, SIGNAL(aboutToShow()),
@@ -126,17 +126,10 @@ void CLexiconPresenter::popupAboutToShow(){
 }
 
 /** No descriptions */
-void CLexiconPresenter::referenceClicked( const QString& ref){
-	if ( ref.isEmpty() )
-		return;		
-	m_key->setKey(ref);
-	m_keyChooser->setKey(m_key);
-}
-
-/** No descriptions */
 void CLexiconPresenter::lookup(const QString& key){
 	if (!key.isEmpty())
 		m_key->setKey(key);		
+		
 	m_keyChooser->setKey(m_key); //the key chooser does send an update signal	
 }
 

@@ -86,7 +86,7 @@ void CCommentaryPresenter::initView(){
 /** Initializes the connections */
 void CCommentaryPresenter::initConnections(){
 	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&)),
-		this, SLOT(referenceClicked(const QString&))); 	 	
+		this, SLOT(lookup(const QString&))); 	 	
 	connect(m_htmlWidget, SIGNAL(sigDeleteDocument()),
 		this, SLOT(deleteText())); 	 	
 	connect(m_htmlWidget, SIGNAL(sigSaveDocument(const QString)),
@@ -151,10 +151,6 @@ void CCommentaryPresenter::popupAboutToShow(){
 	m_popup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, m_htmlWidget->hasSelectedText());	
 	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, m_htmlWidget->hasSelectedText());
 	m_popup->setItemEnabled(ID_PRESENTER_PRINT_VERSE, !m_htmlWidget->getCurrentAnchor().isEmpty());	
-}
-
-/** No descriptions */
-void CCommentaryPresenter::referenceClicked(const QString&){
 }
 
 /** Saves the given text in the module. */

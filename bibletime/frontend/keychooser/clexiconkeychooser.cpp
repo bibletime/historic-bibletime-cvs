@@ -71,17 +71,17 @@ void CLexiconKeyChooser::setKey(CKey* key){
 
 	m_widget->ComboBox->setCurrentItem(
 		m_widget->ComboBox->listBox()->index(
-			m_widget->ComboBox->listBox()->findItem( (const char*)*m_key  )));
-
+			m_widget->ComboBox->listBox()->findItem( m_key->getKey()  )));
 	m_widget->adjustSize();
+	
 	emit keyChanged( m_key );
 }
 
 void CLexiconKeyChooser::activated(int index){
-	QString text =  m_widget->ComboBox->text(index);	
+	QString text = m_widget->ComboBox->text(index);	
 	/*to prevent from eternal loop, because activated()is emitted again*/
- 	if (QString::fromLocal8Bit((const char*)*m_key) != text)
-		m_key->setKey(text);
+ 	if (m_key->getKey() != text)
+		m_key->setKey(text); 	
  	setKey(m_key);
 }
 

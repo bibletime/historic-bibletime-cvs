@@ -225,3 +225,49 @@ QString CGroupManagerItem::getKeyText(){
 	}
 	return ret;
 }
+
+/** Returns the tooltip for this ite, QString::null is returned if this item has no tooltip. */
+const QString CGroupManagerItem::getToolTip(){
+	QString text = QString::null;;
+	switch ( type() ) {
+		case Bookmark:
+		{
+			text = i18n("Bookmark to" ) + QString(" ");
+			text.append(QString("<B>") + getKeyText() + "</B><BR>");
+			if (!description().stripWhiteSpace().isEmpty())
+				text.append("<FONT color=\"#800000\">(" + description().stripWhiteSpace() + ")</FONT><BR>");
+			text.append("<HR>");			
+				
+			CKey* key = getBookmarkKey();			
+			if (!key)
+				return QString::null;
+				
+			key->getData();			
+			CSwordVerseKey* vk = (CSwordVerseKey*)key;
+			QString bookmarkText = QString::null;			
+			if (vk)
+				bookmarkText = vk->m_data;
+			else {
+				CSwordLDKey* lk = (CSwordLDKey*)key;
+				if (lk)
+					bookmarkText = vk->m_data;
+			}
+			if (bookmarkText.length() > 150 && (moduleInfo()->getType() != CSwordModuleInfo::Bible))
+				bookmarkText = bookmarkText.left(150) + "...";
+						
+			if (moduleInfo() && moduleInfo()->hasFont()) {
+				QFont f = moduleInfo()->getFont();
+				text.append( QString("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(CToolClass::makeLogicFontSize(f.pointSize())).arg(bookmarkText) );
+			}
+			else
+				text.append(bookmarkText);
+			break;
+		}
+		case Module:
+			break;
+		case Group:
+			break;			
+		default:
+			break;
+	}
+}

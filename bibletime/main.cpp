@@ -35,6 +35,7 @@
 #include <qfont.h>
 
 //own includes
+#include "ressource.h"
 #include "bibletime.h"
 #include "frontend/kstartuplogo.h"
 #include "frontend/ctipwindow.h"
@@ -82,19 +83,18 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	//coders
 	aboutData.addAuthor("Torsten Uhlmann (not active)", I18N_NOOP("backend"), "TUhlmann@gmx.de", "http://tuhlmann.purespace.de");
 	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator, frontend, backend"), "jansorg@gmx.de","");	
-	aboutData.addAuthor("Darwin Gregory (not active)", I18N_NOOP("optionsdialog"), "darwin@ichristian.com", "");	
-	aboutData.addAuthor("Martin Gruner", I18N_NOOP("Drag&Drop, misc things"), "mg.pub@gmx.net", "");
-	aboutData.addAuthor("Keith Robertson (not active)", "", "kjrobert@uwaterloo.ca", "");		
+//	aboutData.addAuthor("Darwin Gregory (not active)", I18N_NOOP("optionsdialog"), "darwin@ichristian.com", "");	
+	aboutData.addAuthor("Martin Gruner", I18N_NOOP("frontend and misc things"), "mg.pub@gmx.net", "");
+//	aboutData.addAuthor("Keith Robertson (not active)", "", "kjrobert@uwaterloo.ca", "");
 	
 	//documentation
-	aboutData.addAuthor("Fred Saalbach", 	I18N_NOOP("The handbook for BibleTime 1.0"), "saalbach@sybercom.net", "");		
-	aboutData.addAuthor("Jeffrey Hoyt", 	I18N_NOOP("Almost whole Handbook"), "jeffhoyt@earthlink.net", "http://jhoyt.faithweb.com");		
-	aboutData.addAuthor("Bob Boyken", 	I18N_NOOP("First version of english handbook"), "rboyken@bloomington.in.us", "");	
-	
+	aboutData.addAuthor("Fred Saalbach", 	I18N_NOOP("Handbook"), "saalbach@sybercom.net", "");		
+	aboutData.addAuthor("Jeffrey Hoyt", 	I18N_NOOP("handbook"), "jeffhoyt@earthlink.net", "http://jhoyt.faithweb.com");
+		
 	//translators
 	aboutData.addAuthor("Benedykt P. Barszcz", I18N_NOOP("Translation to Polish"), "kb2qzv@box43.gnet.pl", "");		
 	aboutData.addAuthor("Mario Bertrand", 	I18N_NOOP("Translation to French"), "mbert@tbrq.org", "");		
-	aboutData.addAuthor("Simon Bockius", 	I18N_NOOP("Partial translation of the handbook to German"), "", "");
+//	aboutData.addAuthor("Simon Bockius", 	I18N_NOOP("Partial translation of the handbook to German"), "", "");
 	aboutData.addAuthor("Birger Langkjer", I18N_NOOP("Translation to Danish"), "birger.langkjer@image.dk", "");		
 	aboutData.addAuthor("Michal Rovnaník", I18N_NOOP("Translation to Czech"), "Michal.Rovnanik@seznam.cz", "");		
 	aboutData.addAuthor("Balint Sandor", I18N_NOOP("Translation to Hungarian"), "balintsa@freemail.hu", "");
@@ -146,9 +146,9 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 		//first startup of BibleTime?
 		{
 			KConfigGroupSaver groupSaver(config, "General");
-			if (config->readBoolEntry("firstStartup", true)) {
-				config->writeEntry("firstStartup", false);
-				HTML_DIALOG("bibletime/first_startup.html");
+			if (config->readBoolEntry(QString("firstStartup %1").arg(VERSION), true)) {
+				config->writeEntry( QString("firstStartup %1").arg(VERSION), false);
+				HTML_DIALOG(HELPDIALOG_FIRST_START);
 			}
 			if (!config->readBoolEntry(QString("isConfigured %1").arg(VERSION), false)) {
 				config->writeEntry( QString("isConfigured %1").arg(VERSION), true);
@@ -159,7 +159,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	  if (showIt) {
 			start_logo->close();
 			delete start_logo;
-		};	
+		}
 		
 		{ //The tip of the day
 			KConfigGroupSaver groupSaver(config, "Daily tip");

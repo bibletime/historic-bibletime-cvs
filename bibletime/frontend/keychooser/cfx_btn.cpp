@@ -22,9 +22,9 @@
 #include <qcursor.h>
 
 cfx_btn::cfx_btn(QWidget *parent, const char *name ) : QToolButton(parent,name) {
+	setCursor( splitVCursor );	
+		
 	isLocked = false;
-	
-	setCursor( splitVCursor );
 	connect(this, SIGNAL(pressed()),
 		this, SLOT(was_pressed()));
 	connect(this, SIGNAL(released() ),

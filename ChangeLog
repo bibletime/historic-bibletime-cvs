@@ -90,7 +90,7 @@
 	* Fixed unifont support, it works no with non-ISO-8859-1 languages and fonts
 
 2000-12-03 Jochim Ansorg <jansorg@gmx.de>
-	* Changed the latin1() calls of QSTring to (const char*) ... local8Bit()
+	* Changed the latin1() calls of QString to (const char*) ... local8Bit()
 	* Changed QTextView a little bit: Do not set contents pos to 0,0 in QTexView::setText(), the result is a fester displaying of the texts
 	* Changed the optionsdialog to display the language name and not the abbrevation	
 

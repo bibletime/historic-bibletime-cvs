@@ -120,6 +120,8 @@ public:
    * Sets / changes the description
    */
   void setDescription(const QString&);
+  /** Returns the tooltip for this ite, QString::null is returned if this item has no tooltip. */
+  const QString getToolTip();
 
 private:
 	friend class CGroupmanager;

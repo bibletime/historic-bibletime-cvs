@@ -83,8 +83,9 @@ const bool CSwordVerseKey::PreviousVerse(){
 const bool CSwordVerseKey::NextChapter(){
 //this is bad for commentary modules because they do not have all keys
 //#warning Implement some special thing for commentaries	
-	Chapter(Chapter()+1);
-	
+	if (Chapter()<0)
+		return false;		
+	Chapter(Chapter()+1);	
 	return true;
 }
 
@@ -92,22 +93,19 @@ const bool CSwordVerseKey::NextChapter(){
 const bool CSwordVerseKey::PreviousChapter(){
 //this is bad for commentary modules because tey do not have all keys
 //#warning Implement some special thing for commentaries		
-	Chapter(Chapter()-1);
 	if (Chapter()<=0)
-		return false;
-	
-	
+		return false;	
+	Chapter(Chapter()-1);
 	return true;
 }
 
 /**  */
 const bool CSwordVerseKey::NextBook(){
 	//this is bad for commentary modules because tey do not have all keys
-//#warning Implement some special thing for commentaries			
-	Book(Book()+1);
-	
-	if (Book()<=0)
-		return false;	
+//#warning Implement some special thing for commentaries					
+	if (Book()<0)
+		return false;
+	Book(Book()+1);		
 	return true;
 }
 
@@ -133,7 +131,7 @@ const QString CSwordVerseKey::getBook() const {
 		text = QString::fromLocal8Bit( books[testament-1][curBook-1].name );
 	}
 	else {
-		text = QString::fromLocal8Bit( books[0][0].name );
+		text = QString::fromLocal8Bit(books[0][0].name);
 	}
 	return text;
 }
@@ -147,7 +145,7 @@ void CSwordVerseKey::setBook( const QString newBook ) {
 
 /** Sets the module for this key */
 void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
-	const QString oldKey = QString::fromLocal8Bit( (const char*)*this );
+	const QString oldKey = QString::fromLocal8Bit((const char*)*this);
 	if (module && (module->getType() == CSwordModuleInfo::Bible || module->getType() == CSwordModuleInfo::Commentary) ) {	
 		m_module = module;
 		setKey(oldKey);
@@ -156,10 +154,10 @@ void CSwordVerseKey::setModule( CSwordModuleInfo* module ){
 
 /** Returns the key as a QString. */
 const QString CSwordVerseKey::getKey() const {
-	return QString::fromLocal8Bit( (const char*)*this );
+	return QString::fromLocal8Bit((const char*)*this);
 }
 
 /** Sets the key using a versekey object of Sword. */
 void CSwordVerseKey::setKey( VerseKey& key ){
-	setKey( (const char*)key );
+	setKey(QString::fromLocal8Bit((const char*)key));
 }

@@ -88,45 +88,9 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 		return;
 	
 	//get tyope of item anddisplay correct text
-	QString text = QString::null;
-	switch ( i->type() ) {
-		case CGroupManagerItem::Bookmark:
-			text = i18n("Bookmark to" ) + QString(" ");
-			text.append(QString("<B>") + i->getKeyText() + "</B><BR>");
-			if (!i->description().stripWhiteSpace().isEmpty())
-				text.append("<FONT color=\"#800000\">(" + i->description().stripWhiteSpace() + ")</FONT><BR>");
-			text.append("<HR>");	
-		
-				
-			CKey* key = i->getBookmarkKey();			
-			if (!key)
-				return;
-			
-			key->getData();
-			
-			CSwordVerseKey* vk = (CSwordVerseKey*)key;
-			QString bookmarkText = QString::null;			
-			if (vk) {
-				bookmarkText = vk->m_data;
-			}
-			else {
-				CSwordLDKey* lk = (CSwordLDKey*)key;
-				if (lk)
-					bookmarkText = vk->m_data;
-			}								
-			if (bookmarkText.length() > 150 && (i->moduleInfo()->getType() != CSwordModuleInfo::Bible))
-				bookmarkText = bookmarkText.left(150) + "...";
-			
-			
-			if (i->moduleInfo() && i->moduleInfo()->hasFont()) {
-				QFont f = i->moduleInfo()->getFont();
-				text.append( QString("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(CToolClass::makeLogicFontSize(f.pointSize())).arg(bookmarkText) );			
-			}
-			else
-				text.append(bookmarkText);							
-			
-			tip(r, text);			
-			break;
+	QString text = i->getToolTip();
+	if (!text.isEmpty()) {
+		tip(r, text);		
 	}
 }
 
@@ -610,21 +574,21 @@ void CGroupManager::slotShowAbout(){
 	else
 		unlockKey = module->getCipherKey();	
 				
-	text = QString("<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\" WIDTH=\"95%\">\
-<TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" COLSPAN=\"2\"><H1>%1</H1></TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%5:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%9:</B></TD><TD BGCOLOR=\"#FFE9C8\">%10</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%11:</B></TD><TD BGCOLOR=\"#FFE9C8\">%12</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>%13:</B></TD><TD BGCOLOR=\"#FFE9C8\">%14</TD></TR>\
-<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%15:</B></TD><TD BGCOLOR=\"#FFE9C8\">%16</TD></TR>\
+	text = QString("<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\">\
+<TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" COLSPAN=\"2\"><H2>%1</H2></TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%2:</B></TD><TD BGCOLOR=\"#FFE9C8\">%3</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%4:</B></TD><TD BGCOLOR=\"#FFE9C8\">%5</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%6:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%8:</B></TD><TD BGCOLOR=\"#FFE9C8\">%9</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%10:</B></TD><TD BGCOLOR=\"#FFE9C8\">%11</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%12:</B></TD><TD BGCOLOR=\"#FFE9C8\">%13</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%15:</B></TD><TD BGCOLOR=\"#FFE9C8\">%16/TD></TR>\
+<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%15:</B></TD><TD BGCOLOR=\"#FFE9C8\">%17</TD></TR>\
 </TABLE></BODY></HTML>")
-	.arg( module->module()->Name() )
+	.arg( module->module()->Name() )		
 	.arg( i18n("Datapath") )
-	.arg( module->getPath() )
-	.arg( i18n("Version") )
+	.arg( module->getPath() )	
+	.arg( i18n("Version") )	
 	.arg( module->getVersion() )
 	.arg(i18n("Unlock key"))	
 	.arg( unlockKey )

@@ -43,10 +43,6 @@ private slots: // Protected slots
   /**
   * No descriptions
   */
-  void referenceClicked( const QString& );
-  /**
-  * No descriptions
-  */
   void popupAboutToShow();
   /**
   * No descriptions

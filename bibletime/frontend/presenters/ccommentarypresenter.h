@@ -101,10 +101,6 @@ private slots: // Private slots
   /**
   * No descriptions
   */
-  void referenceClicked(const QString&);
-  /**
-  * No descriptions
-  */
   void popupAboutToShow();
 
 private:
