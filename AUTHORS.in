@@ -1,0 +1,57 @@
+The authors of BibleTime @VERSION@ (in alphbetical order):
+
+Core development:
+----------------
+Joachim Ansorg  	<jansorg@gmx.de>
+Darwin Gregory		<darwin@ichristian.com> (inactive)
+Martin Gruner 		<mg.pub@gmx.net> 				(inactive)
+Keith Robertson 	<kjrobert@uwaterloo.ca> (inactive)
+Torsten Uhlmann 	<tuhlmann@debis.com>		(inactive)
+
+Documentation:
+--------------
+Bob Boyken	<rboyken@bloomington.in.us> 	(inactive)
+Jeffrey Hoyt 	<jeff@jhoyt.faithweb.com>
+Fred Saalbach <saalbach@sybercom.net>
+
+Translations:
+------------
+Silvio Bacchetta <sorgilazzaro@tiscalinet.it>
+Benedykt P. Barszcz <kb2qzv@box43.gnet.pl>
+Mario Bertrand 	<mbert@tbrq.org>
+Simon Bockius		no email
+Bob Boyken			<rboyken@bloomington.in.us
+Birger Langkjer	<birger.langkjer@image.dk>
+Michal Rovnaník <Michal.Rovnanik@seznam.cz>
+Balint Sandor 	<balintsa@freemail.hu>
+Beda Szukics 		<bszukics@bluewin.ch>
+Espen Trydal		<etrydal@postkassa.no>
+Kees van Veen 	<cvn@interchain.nl>
+Zdeno Podobny		<zdpo@post.sk>
+
+Art work:
+--------------
+Jörg Bernau			<joerg@memra.teuto.de>	(inactive)
+Juho Vahakangas <juhov@freenet.fi>
+
+Others:
+------
+Thomas Hagedorn		<tom@delix.de>
+	(He sponsored www.bibletime.de! This is really great!)
+Troy	A. Griffits	<scribe@crosswire.org>
+	(Lots of tips how to use SWORDs API, he's a real help!)
+
+------------------------------------------
+BibleTime @VERSION@ contains code from:
+
+Konqueror (in kdebase)
+	Homepage: http://www.konqueror.org	
+	
+KDevelop © 1998,1999, 2000 by The KDevelop Team
+	Homepage: http://www.kdevelop.org/
+
+KTip (in kdebase)
+	Homepage:	http://www.kde.org/
+	Author:Matthias Hoelzer-Kluepfel
+	
+libhtmlparse 0.1

@@ -1,0 +1,45 @@
+Summary:   BibleTime @VERSION@ is an easy to use Bible study tool for KDE2
+Name:      bibletime
+Version:   @VERSION@
+Release:   1
+Copyright: GPL
+Vendor:    The team of BibleTime <info@bibletime.de>
+Url:       www.bibletime.de
+Packager:  Brokk Humphrey, Joachim Ansorg <jansorg@gmx.de>
+Group:     X11/KDE/Apps
+Source:    %{name}-%{version}.tar.gz
+BuildRoot: /var/tmp/%{name}-%{version}-root
+#change prefix for your system!
+Prefix:    /opt/kde2
+
+
+%description
+BibleTime @version@ is a free and easy to use bible study tool for UNIX systems.
+It requires a working KDE2 environment and SWORD 1.52 or later.
+BibleTime provides easy handling of digitalized texts (Bibles, commentaries and lexicons)
+and powerful features to work with these texts (search in texts, write own notes, save, print etc.).
+
+%prep
+%setup
+echo Using $KDEDIR as KDE2 directory
+echo Using $QTDIR as QT 2.2.x directory.
+echo If the directories are not correct please set them using\
+ "export KDEDIR=<KDE2 directory> QTDIR=<QT2.2 directory>"
+sleep 5
+./configure
+make
+
+%install
+make prefix=$RPM_BUILD_ROOT/%{prefix} install
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%doc %{prefix}/share/doc/*
+%defattr(-,root,root)
+%{prefix}/bin/bibletime
+%{prefix}/share/applnk/*
+%{prefix}/share/apps/*
+%{prefix}/share/icons/*
+%{prefix}/share/locale/*

@@ -1,0 +1,21 @@
+2000-07-23
+	Today we release the final version of BibleTime 0.3.
+	0.3 in comparision with 0.3beta1 contains lots of bug fixes and small improvements.
+	Major changes:
+		-Full functional groupmanager (saving the position of modules, reset groupmanager, improved import-/
+		export- functions)
+		-Better highlighting algorithm in the groupmanager (faster and nicer)
+		-Better Drag&Drop: The drag&drop does look now much more nice than before. Thanks go to Martin!
+		-Improved graphical search analysis: It does now contain a labelled y-axis so you know how much
+		items were found.
+		-Complete french, german and italian translations!
+		-The handbook is available in German and English
+		-Helpdialog files are available in German and English
+				
+2000-06-29
+	Today we released the first beta version of BibleTime 0.3. It's called BibleTime 0.3beta1.
+	BibleTime 0.3 is complete rewrite, we have a much better structure now so it's easy to extend
+	it in the future.
+	Please read the file README and INSTALL for instructions how to build the stuff.
+	The final version of 0.3 will probably be released in two weeks if no bug bugs occur.
+	Thanks!

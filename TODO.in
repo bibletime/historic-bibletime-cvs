@@ -1,0 +1,120 @@
+ToDo file for BibleTime @VERSION@
+
+Things to be done before 1.0:
+
+-Check BibleTime with a profiler and optimize the time consuming functions
+
+Important unimplemented things:
+-------------------------------	
+	-searchdialog
+		o perhaps RegExp edit widget (later)
+	-Use snychronizing instead of autoscrolling
+		Bible presenter
+			-Bible presenter to Lexicon presenter
+				Shows the word in the lexicon presenter you chose in the Bible presenter
+				(e.g. double clicking or moving the mouse over the word)		
+				Another way to do this is to be able to drag words without
+				selecting them with the mouse. Drop the word on another presenter.
+			-Bible presenter to commentary presenter
+			-Bible presenter to Bible presenter
+		Commentary presenter
+			-Commentary presenter to lexicon presenter
+			-Commentary presenter to Bible presenter
+			-Commentary presenter to commentary presenter
+		Lexicon presenter
+			-Lexicon presenter to lexicon presenter
+	-Use HTML tables to display modules side by side
+		Add a possibility in a presenter to add another module
+		to read it side by side with the current module.
+		Possibilities of different combinations:
+			-Bibles and commentaries together
+			-Lexicons together
+		But it's not useful to display a lexicon within
+		a Bible or commentary presenter
+		To implement this we have to change our CHTMLEntry and CHTMLDisplay classes.
+	-ThML support for presenters		
+	
+
+Things which should be optimized:
+---------------------------------
+-Search for mem leaks (I'm sure there are at least 100 :)
+-Optmize memory usage
+-We need a much faster search analysis	
+-Thread safety
+ (I think we should implement and use CModuleInfo's copy constructor)
+
+Features we are thinking about:
+------------------------------
+	-A sermon backend to make it easier to write full featured sermons
+	-Threading support so you can use BibleTime while searching, the GUI won't block anymore
+		(Martin)
+		(experimental)
+	-Dialog to install SWORD mdules
+		(automatically Download, automatic installation and problem checking)
+		(Joachim)
+	-Commandline options: Implement commandline options to control BibleTime
+	  (e.g. open presenters, lookup verses and exit, import bookmarks and exit etc.	)
+		Idea by Joachim, not sure if we'll do it.
+	-New search scope dialog: At the moment it has a bad structure and has toommany classes.
+		The new one should support last result AND own scopes, it should include a nice range parsing dialog part and
+		some other nice features.
+	-Better printing
+		All the nasty small things shozuld be fixed before 1.0 (experimental)
+  -How should words be looked up in presenters ? (RMB in HTML widget)
+  	-Open new prsenter
+  	-Open small popup
+  	-...
+
+-------------------Results from BT One------------------------------------
+Neustrukturierung von BibleTime:
+	-Backend:
+		-Speicherlöcher beseitigen
+		-Struktur:
+		Bei der Neustrukturierung sollte vor allem auf folgende Punkte
+		geachtet werden:
+			-minimaler Speichergebrauch
+			-hohe Geschwindigkeit
+			-gute Dokumentation
+			-einfache Einarbeitung
+		
+		Klassen, die umstrukturiert werden sollten:
+			-CModuleInfo:
+				CModuleInfo enthält nur noch die grundlegensten Funktionen, die
+				zum Arbeiten benötigten Funktionen werden ins jeweilige Backend verschoben.
+				Die verschiedenen Backends müssen speziell behandelt werden (z.B. in den Presentern, Suchdialog ...).
+				CSwordModuleInfo muss neu strukturiert werden (Kommentieren,
+				Funktionen umbenennen, neu schreiben, richtiges Ableiten der Klassen(z.B. SWModule), etc.).
+				CModuleInfo soll Funktionen bereitstellen, mit denen CKeyChain ersetzt werden kann
+				(für CSwordBibleModuleInfo: z.B. QStringList getBooks(), int getChapterCount(int book),
+				int getVerseCount(int chapter) ). Die Listen sollen gecached werden, damit ein nochmaliger
+				Aufruf schneller abläuft.
+				-enthält keinen aktiven Key mehr
+			-CKey:
+				CKey enthält z.Z. Funktionen, die unnötig bzw. verwirrend sind. Diese Funktionen sollen ent-
+				fernt werden.
+				CKey soll ebenfalls speziell behandelt werden, da die Backends dies schon werden, also ist
+				es sinnvoll dies mit den CKey Objekten auch zu tun. Die CKey Klassen,
+				die für das Sword Backend	zuständig sind, sollten zusätzlich von Klassen VerseKey
+				(Bibeln und Kommentare) und von SWKey (Lexika) abgeleitet werden.
+				Dies vereinfacht den Zugriff auf die Daten.
+				-CKey wird nicht mehr als member der Module,
+				sondern als dynamisches Member der Presenter etc. realisiert.
+				-enthält einen Pointer auf das Modul, das der CKey benutzt
+				-enthält einen Pointer auf die Daten als member - daten sind Modulspezifisch
+				-enthält Funktion void getData(void); daten sind dann in key->m_data;
+			-CBackend:
+				CBackend verwaltet nun die für das jeweilige Backend relevanten Module. Die Klasse
+				stellt jetzt Funktionen bereit, mit denen die Module initialisiert, deinitialisiert und als Liste
+				empfangen werden können. Die für die Backends relevanten CBackendMgr werden
+				in die Struktur "CImportantClasses" gesetzt, damit sie überall ansprechbar sind.
+				CBackend repräsentiert ein Backend (z.B. CSwordBackend für Sword).
+		Klassen, die bei der Umstrukturierung wegfallen:
+			-CKeyChain: Wird durch Methoden innerhalb der von CModuleInfo abgeleiteten Klassen ersetzt.
+			-CData: Wird durch richtige Vererbung von CKey und CModuleInfo überflüssig,
+				die Daten könnenmit den Sword relevanten Funktionen empfangen werden.
+				Das cachen der Daten (Text ...),	wie es bisher in CData geschehen ist, ist schlecht.
+			(-CSearchResultItem)?
+			(-CSearchResult)?
+			-CBackEnd: CBackEnd ist durch die einzelne Behandlung der unterschiedlichen
+			Backends unnötig geworden. Das Hoch- und Herunterfahren der Module geschieht
+			durch die von CBackend abgeleiteten Klassen.

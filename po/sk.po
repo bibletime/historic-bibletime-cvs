@@ -1,0 +1,1070 @@
+# KTranslator Generated File
+
+# Slovak translations of Bibletime.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# Zdenko Podobný <zdpo@post.sk>, 29-6-2000.
+#
+
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.3beta1\n"
+"POT-Creation-Date: 2000-07-15 23:35+0100\n"
+"PO-Revision-Date: 2000-08-08 16:30+MET\n"
+"Last-Translator: Zdenko Podobný <zdpo@post.sk>"
+"Language-Team: Slovak <zdpo@post.sk>"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Transfer-Encoding:  8bit\n"
+
+#: tipofday/ktipofday.cpp:37
+msgid "Tip of the Day"
+msgstr "Tip dòa"
+
+#: tipofday/ktipofday.cpp:37
+msgid "Next Tip"
+msgstr "Ïal¹í tip"
+
+#: tipofday/ktipofday.cpp:53
+msgid "Did you know...?"
+msgstr "Vedel si...?"
+
+#: tipofday/ktipofday.cpp:72
+msgid "Show tip of the day on next start"
+msgstr "Uká¾ tip dòa pri ïal¹om ¹tarte"
+
+#: tipofday/ktipofday.cpp:103
+msgid ""
+""
+"Please check your installation."
+msgstr ""
+"Databáza Tipov dòa nebola nájdená!\n"
+"Skontroluj prosím svoju in¹taláciu."
+
+#: chtmldialog.cpp:34 chtmldialog.cpp:46
+msgid "BibleTime - Help window"
+msgstr "BibleTime - Pomocník"
+
+#: bibletime_init.cpp:107 rc-dummy.cpp:2
+msgid "&Window"
+msgstr "Okno"
+
+#: main.cpp:45
+msgid ""
+"BibleTime is an easy to use Bible study program for KDE 2.\n"
+"It's based on SWORD to provide access to modules\n"
+"(Bibles, commentaries and lexicons)."
+msgstr ""
+"BibleTime je jednoduchý program na ¹túdium Biblie pre KDE 2.\n"
+"Je zalo¾ený na kni¾nici SWORD, ktorá zabezpeèuje prístup k modulom\n"
+"(Bibliám, komentárom a lexikónom)."
+
+#: main.cpp:51
+msgid "An easy to use Bible study tool for KDE2"
+msgstr "¥ahko pou¾ívateµný nástroj na biblické ¹túdiu pre KDE2"
+
+#: main.cpp:52
+msgid "(c)1999-2000, The BibleTime Team"
+msgstr "(c)1999-2000, The BibleTime Team"
+
+#: main.cpp:58
+msgid "backend "
+msgstr "backend"
+
+#: main.cpp:59
+msgid "Project coordinator, frontend, backend"
+msgstr "Koordinátor projektu"
+
+#: main.cpp:60
+msgid "optionsdialog"
+msgstr "mo¾nosti"
+
+#: main.cpp:61
+msgid "Drag&Drop, misc things"
+msgstr "Chy» a Pus», rôzne veci"
+
+#: main.cpp:65
+msgid "first version of english handbook"
+msgstr "prvá anglická verzia príruèky"
+
+#: main.cpp:66
+msgid "Almost whole Handbook"
+msgstr "Skoro celá príruèka"
+
+#: main.cpp:69
+msgid "Translation to Polish"
+msgstr "Poµský preklad"
+
+#: main.cpp:70
+msgid "Translation to French"
+msgstr "Francúzsky preklad"
+
+#: main.cpp:71
+msgid "Partial translation of handbook to German"
+msgstr "Èiastoèný preklad príruèky do nemèiny"
+
+#: main.cpp:72
+msgid "tramslation to Danish"
+msgstr "Dánsky preklad"
+
+#: main.cpp:73
+msgid "tramslation to Czech"
+msgstr "Preklad do èe¹tiny"
+
+#: main.cpp:74
+msgid "tramslation to Hungarian"
+msgstr "Maïarský preklad"
+
+#: main.cpp:75
+msgid "tramslation to Dutch"
+msgstr "Holandský preklad"
+
+#: bibletime_init.cpp:68
+msgid "New &window"
+msgstr "Nové okno"
+
+#: bibletime_init.cpp:69
+msgid ""
+"<B>New window</B><BR><BR>This will create a new application window of "
+"BibleTime!"
+msgstr ""
+"<B>Nové okno</B><BR><BR>Vytvorí nové aplikaèné okno "
+"BibleTime!"
+
+#: bibletime_init.cpp:72
+msgid ""
+"<B>Close window</B><BR><BR>Close this window of BibleTime. If it's the last "
+"window BibleTime will be closed."
+msgstr ""
+"<B>Zavri okno</B><BR><BR>Zavri okno v BibleTime. Ak je toto okno posledné "
+"BibleTime bude ukonèené."
+
+#: bibletime_init.cpp:75
+msgid ""
+"<B>Quit BibleTime</B><BR><BR>Use this to terminate BibleTime. Settings will "
+"be saved before quit.!"
+msgstr ""
+"<B>Ukonè BibleTime</B><BR><BR>Pou¾i pre ukonèenie práce v BibleTime. Nastavenia "
+"budú ulo¾ené pred ukonèením.!"
+
+#: bibletime_init.cpp:83
+msgid "&Show footnotes"
+msgstr "Uká¾ poznámky pod èiarou"
+
+#: bibletime_init.cpp:85
+msgid ""
+"<B>Show footnotes</B><BR><BR>Toggle this to show or hide the footnotes in "
+"the presenters.<BR>Not all modules and presenters<BR>support footnotes."
+msgstr ""
+"<B>Uká¾ poznámky pod èiarou</B><BR><BR>Prepni zobrazi» alebo skry» poznámky pod èiarov v "
+"zobrazení.<BR>Nie v¹etky moduly a zobrazenia<BR>podporujú poznámky pod èiarov."
+
+#: bibletime_init.cpp:87
+msgid "S&how strongs"
+msgstr "Uká¾ strongové èísla"
+
+#: bibletime_init.cpp:89
+msgid ""
+"<B>Show strong numbers</B><BR><BR>Toggle this to show or hide strong numbers "
+"in the presenters.<BR>Not all modules and presenters<BR>support strongs."
+msgstr ""
+"<B>Uká¾ strongové èísla</B><BR><BR>Prepni zobrazi» alebo skry» strongové èísla v  "
+"zobrazení.<BR>Nie v¹etky moduly a zobrazenia<BR>podporujú strongové èísla."
+
+#: bibletime_init.cpp:92
+msgid "<B>Show toolbar</B><BR><BR>Toggle this to show or hide the toolbar."
+msgstr "<B>Zobraz li¹tu nástrojov</B><BR><BR>Prepni zobrazi» alebo skry» li¹tu nástrojov."
+
+
+#: bibletime_init.cpp:94
+msgid "&Show groupmanager"
+msgstr "Zobraz správcu skupín"
+
+#: bibletime_init.cpp:96
+msgid ""
+"<B>Show the groupmanager</B><BR><BR>Toggle this to show or hide the "
+"groupmanager of BibleTime!"
+msgstr ""
+"<B>Zobraz správcu skupín</B><BR><BR>Prepni zobrazi» alebo skry» správu správu"
+"správu skupín v BibleTime!"
+
+#: bibletime_init.cpp:99
+msgid "&Settings"
+msgstr "Nastavenia"
+
+#: bibletime_init.cpp:101
+msgid ""
+"<B>Settings</B><BR><BR> This will show the preferences dialog to configure "
+"BibleTime."
+msgstr "<B>Nastavenia</B><BR><BR> Zobrazí dialóg preferencií ku konfigurácií BibleTime."
+
+#: bibletime_init.cpp:104
+msgid ""
+"<B>Edit toolbar</B><BR><BR> This will show a dialog where you can edit the "
+"toolbar of BibleTime!"
+msgstr ""
+"<B>Uprav li¹tu nástrojov</B><BR><BR> Zobrazí dialóg, kde mo¾né upravi» li¹tu"
+" nástrojov BibleTime!"
+
+#: bibletime_init.cpp:108
+msgid "&Cascade"
+msgstr "Kaskáda"
+
+#: bibletime_init.cpp:110
+msgid "<B>Cascade</B><BR><BR>This will cascade the windows in the MDI area!"
+msgstr "<B>Kaskáda</B><BR><BR>Usporiada okná do kaskády v oblasti MDI!"
+
+#: bibletime_init.cpp:112
+msgid "&Tile"
+msgstr "Dla¾dica"
+
+#: bibletime_init.cpp:114
+msgid "<B>Tile</B><BR><BR>This will tile the windows in the MDI area!"
+msgstr "<B>Dla¾dica</B><BR><BR>Usporiada okná do tvaru dla¾díc v oblasti MDI!"
+
+#: bibletime_init.cpp:116
+msgid "&Auto cascade"
+msgstr "&Automatická kaskáda"
+
+#: bibletime_init.cpp:118
+msgid ""
+"<B>Auto Cascade</B><BR><BR>Check this to let BibleTime automatically cascade "
+"the windows!"
+msgstr ""
+"<B>&Automatická kaskáda</B><BR><BR>Za¹krtnite túto voµbu, ak chcete dovoli» BibleTime,"
+"aby ukladal okná automaticky do kaskády!"
+
+#: bibletime_init.cpp:120
+msgid "A&uto Tile"
+msgstr "A&utomatické dla¾denie"
+
+#: bibletime_init.cpp:122
+msgid ""
+"<B>Auto Tile</B><BR><BR>Check this to let BibleTime automatically tile the "
+"windows"
+msgstr ""
+"<B>A&utomatické dla¾denie</B><BR><BR>Za¹krtnite túto voµbu, ak chcete dovoli» BibleTime,"
+"aby ukladal okná automaticky do tvaru dla¾díc!"
+
+#: bibletime_init.cpp:124
+msgid "&Close all"
+msgstr "Zavri v¹etko"
+
+#: bibletime_init.cpp:126
+msgid "<B>Close all</B><BR><BR>Close all windows of the MDI area!"
+msgstr "<B>Zavri v¹etko</B><BR><BR>Zavri v¹etky okná"
+"v MDI oblasti!"
+
+#: ceditwidget.cpp:154
+msgid ""
+"<B>The edit widget</B><BR><BR>Use this edit widget to change writable "
+"commentaries.<BR>It supports some special features, have a look into the "
+"handbook or README."
+msgstr ""
+"<B>Uprav nástroje</B><BR><BR>Pou¾i tento nástroj na úpravu k zmene zapisovateµných"
+"komentárov.<BR>Umo¾òuje niektoré ¹peciálne vlastnosti, pozri sa do "
+"príruèky alebo súboru README."
+
+#: chtmlwidget.cpp:165
+#, ycp-format
+msgid "<B>HTML page %1 not found!<BR>Please check your installation."
+msgstr "<B>Neviem nájs» HTML stránku %1!<BR>Skontroluj si in¹taláciu."
+
+#: chtmlwidget.cpp:187
+msgid "Save text as HTML ..."
+msgstr "Ulo¾ text ako HTML..."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:52
+msgid "Optionsdialog"
+msgstr "Dialóg mo¾ností"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:73
+msgid "Accelerators"
+msgstr "Akcelerátory"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:73
+msgid "Configure BibleTime's key bindings"
+msgstr "Nastav priradenie kláves v BibleTime"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:82
+#: frontend/optionsdialog/coptionsdialog.cpp:118
+msgid ""
+"<B>Key chooser</B><BR><BR>Select a action and change the key for the action."
+msgstr ""
+"<B>Výber kláves</B><BR><BR>Vyber si akciu a zmeò pre òu klávesu."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:86
+msgid "Select BibleTime fonts"
+msgstr "Vyber písmo pre BibleTime"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:95
+msgid "Usage"
+msgstr "Pou¾itie"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:97
+msgid "Presenter"
+msgstr "Zobrazenie"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:98
+msgid ""
+"<B>Font of presenters</B><BR><BR>Enbabling this button let you choose the "
+"font for presenters."
+msgstr ""
+"<B>Písmo pre zobrazenie</B><BR><BR>Toto ti umo¾ní vybra» písmo pre zobrazovanie."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:100
+msgid "Presenter Fixed"
+msgstr "Fixné zobrazenie"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:101
+msgid ""
+"<B>Fixed font of presenters</B><BR><BR>Enbabling this button let you choose "
+"the fixed font for presenters."
+msgstr ""
+"<B>Fixné písmo pre zobrazenie</B><BR><BR>Toto ti umo¾ní vybra» fixné písmo pre zobrazovanie."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:103
+msgid "Printer"
+msgstr "Tlaèiareò"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:104
+msgid ""
+"<B>Font of printing</B><BR><BR>Enbabling this button let you choose the font "
+"for printing."
+msgstr "<B>Písmo pre tlaè</B><BR><BR>Toto ti umo¾ní vybra» fixné písmo "
+"pre tlaè."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:106
+msgid "Printer Fixed"
+msgstr "Tlaèiareò zafixovaná"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:107
+msgid ""
+"<B>Fixed font of printing</B><BR><BR>Enbabling this button let you choose "
+"the fixed font for printing."
+msgstr ""
+"<B>Fixné písmo pre tlaè</B><BR><BR>Toto ti umo¾ní vybra» fixné písmo "
+"pre tlaè."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:116
+msgid "The quick brown fox jumped over the lazy dog"
+msgstr "Rýchla èervená lí¹ka preskoèila lenivého psa"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:126
+msgid "Font Manager"
+msgstr "Správca písma"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:126
+msgid "Configure BibleTime's foreign fonts"
+msgstr "Nastav zahranièné fonty pre BibleTime"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:129
+msgid ""
+"<B>Modules with foreign font</B><BR><BR>This listbox contains the modules "
+"with a foreign font.<BR>Select a module and change the font below."
+msgstr ""
+"<B>Moduly so zahranièným písmom</B><BR><BR>Tento zoznam obsahuje moduly so"
+" zahranièným písmom.<BR>Vyber modul a zmeò písmo."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:132
+msgid ""
+"<B>Foreign fonts chooser</B><BR><BR>After selecteing a module above please "
+"change the font here."
+msgstr ""
+"<B>Výber zahranièného písma</B><BR><BR>Po vybraní modulu "
+"si tu vyber písmo."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:155
+msgid "Colors"
+msgstr "Farby"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:155
+msgid "Configure BibleTime's colors"
+msgstr "Nastav farby pre BibleTime"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:156
+msgid "Choose colors"
+msgstr "Vyber farby"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:161
+msgid "Background"
+msgstr "Pozadie"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:162
+msgid ""
+"<B>Background color</B><BR><BR>This is the background color of all HTML "
+"based presenters.<BR>This includes Bible presenters, commentary presenters "
+"and lexicon presenters."
+msgstr ""
+"<B>Farba pozadia</B><BR><BR>Toto je farba pozadia v¹etkých zobrazení zalo¾ených na HTML."
+"<BR>Týka sa to zobrazení Biblií, komentárov a lexikónov."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:165
+msgid "Normal Text"
+msgstr "Obyèajný Text"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:166
+msgid ""
+"<B>Color of normal text</B><BR><BR>This is the color of normal text in "
+"textbased presenters."
+msgstr ""
+"<B>Farba be¾ného textu</B><BR><BR>Toto je farba be¾ného textu "
+"v zobrazeniach zalo¾ených o texte."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:169
+msgid "Verse number / URL"
+msgstr "Èíslo ver¹a / URL"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:170
+msgid ""
+"<B>Color of verse numbers or URLs</B><BR><BR>This is the color of the "
+"versenumbers or URLs in text based presenters."
+msgstr ""
+"<B>Farba èísla ver¹a alebo URL</B><BR><BR>Toto je farba "
+"èíslovania ver¹ov alebo URL v zobrazeniach zalo¾ených o texte."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:173
+msgid "Highlighted Verse"
+msgstr "Oznaèené ver¹e"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:174
+msgid ""
+"<B>Color of highlighted verse</B><BR><BR>This is the color of the "
+"highlighted (the active) verse ina  text based presenter."
+msgstr ""
+"<B>Farba poznaèených ver¹ov</B><BR><BR>Toto je farba"
+""
+
+#: frontend/optionsdialog/coptionsdialog.cpp:180
+msgid "General"
+msgstr "V¹eobecné"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:180
+msgid "Configure BibleTime's general options"
+msgstr "Uprav v¹eobecné nastavenie BibleTime"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:183
+msgid "Show tip of the day"
+msgstr "Zobraz tip dòa"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:184
+msgid ""
+"<B>Show tip of the day</B><BR><BR>Check this box to see a daily tip on "
+"BIbleTime's startup."
+msgstr ""
+"<B>Zobraz tip dòa</B><BR><BR>Za¹krtni túto mo¾nos» k zobrazeniu tip dòa "
+"pri ¹tarte BibleTime."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:194
+msgid "Use SWORD's international booknames"
+msgstr "Pou¾i národné názvy kníh z SWORDu"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:195
+msgid ""
+"<B>Use SWORD international booknames</B><BR><BR>Enable this to have "
+"international booknames on next startup."
+msgstr ""
+"<B>Pou¾i národné názvy kníh z SWORDu</B><BR><BR>Povoµ túto mo¾nos»,"
+" ak chce¹ pou¾íva» od ïal¹ieho ¹tartu národné názvy kníh."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:198
+msgid ""
+"<B>Available translations of booknames</B><BR><BR>This box contains the "
+"available languages of international booknames.<BR>Choose <I>Use KDE's "
+"language settings</I> to automatically choose your languae if it's available."
+msgstr ""
+"<B>Dostupné preklady kníhs</B><BR><BR>Tento zoznam obsahuje"
+"dostupné národné preklady názvov kníh.<BR>Vyber <I>Pou¾i KDE "
+"jazykové nastavenia, </I> aby bola automaticky vybratá tvoja jayzková mutácia, ak je dostupná."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:200
+#: frontend/optionsdialog/coptionsdialog.cpp:355
+msgid "Use KDE's language settings"
+msgstr "Pou¾i KDE jazykové nastavenia"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:224
+msgid "Show startuplogo"
+msgstr "Zobraz logo pri ¹tarte"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:225
+msgid ""
+"<B>Show startuplogo</B><BR><BR>Check this box to see a nice startuplogo on "
+"startup.<BR>Choose the image below."
+msgstr ""
+"<B>Zobraz logo pri ¹tarte</B><BR><BR>Za¹krtni túto mo¾nos», keï chce¹ uvidie» pekné logo pri"
+"pri ¹tarte.<BR>Dole si vyber obrázok."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:229
+msgid "Choose logo"
+msgstr "Vyber logo"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:231
+msgid "Traditional logo"
+msgstr "Tradièné logo"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:232
+msgid ""
+"<B>Use traditional logo</B><BR><BR>Use the traditional logo of BibleTime."
+msgstr ""
+"<B>Pou¾i tradièné logo</B><BR><BR>Pou¾i tradièné logo BibleTime."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:234
+msgid "Luther image"
+msgstr "Obraz Luthera"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:235
+msgid ""
+"<B>Use logo showing Martin Luther</B><BR><BR>Enable this box to see a nice "
+"image showing Martin Luther on startup."
+msgstr ""
+"<B>Pou¾i logo zobrazujúce Martina Luthera</B><BR><BR>Vyber túto mo¾nos», keï chce¹ vidie» "
+"obrázok zobrazujúci Martina Luthera pri ¹tarte."
+
+#: frontend/optionsdialog/coptionsdialog.cpp:237
+msgid "rendered SWORD logo"
+msgstr "renderuj SWORD logo"
+
+#: frontend/optionsdialog/coptionsdialog.cpp:238
+msgid ""
+"<B>Rendered SWORD logo</B><BR><BR>Enable this to see a nice SWORD logo on "
+"startup."
+msgstr ""
+"<B>Renderuj SWORD logo</B><BR><BR>Vyber túto mo¾nos», keï chce¹ vidie» pekné SWORD logo pri"
+"pri ¹tarte."
+
+#: frontend/cmdiarea.cpp:54
+msgid ""
+"<B>The MDI area</B><BR><BR>The MDI area will contain all presenters you "
+"open.<BR>Set options for the MDI area using the window menu."
+msgstr ""
+"<B>MDI oblas»</B><BR><BR>MDI oblas» bude obsahova» v¹etky zobrazenia,"
+" ktoré budú tvorené.<BR>Nastav mo¾nosti pre MDI oblas» pou¾itím oknového menu."
+
+#: frontend/groupmanager/cgroupmanager.cpp:117
+msgid "Bibles"
+msgstr "Biblie"
+
+#: frontend/groupmanager/cgroupmanager.cpp:118
+msgid "Plain"
+msgstr "Prostý"
+
+#: frontend/groupmanager/cgroupmanager.cpp:119
+msgid "Lexicons"
+msgstr "Lexikóny"
+
+#: frontend/groupmanager/cgroupmanager.cpp:120
+msgid "Commentaries"
+msgstr "Komentáre"
+
+#: frontend/groupmanager/cgroupmanager.cpp:121
+msgid "Unknown"
+msgstr "Neznámy"
+
+#: frontend/groupmanager/cgroupmanager.cpp:220
+msgid ""
+"<B>The groupmanager</B><BR><BR>The groupmanager handles all the module,you "
+"have installed.<BR>You may create bookmarks, subgroups, drag the items "
+"around) and delete items."
+msgstr ""
+"<B>Správca skupín</B><BR><BR>Správca skupín ovláda v¹etky moduly,"
+" ktoré si nain¹taloval.<BR>Mô¾ete vytvori» zálo¾ky, podskupiny a polo¾ky na »ahanie a zmazanie."
+
+#: frontend/groupmanager/cgroupmanager.cpp:232
+msgid "Caption"
+msgstr "Titulok"
+
+#: frontend/groupmanager/cgroupmanager.cpp:233
+msgid "Module"
+msgstr "Modul"
+
+#: frontend/groupmanager/cgroupmanager.cpp:236
+msgid "Groupmanager"
+msgstr "Správca skupiny"
+
+#: frontend/groupmanager/cgroupmanager.cpp:237
+msgid "New presenter"
+msgstr "Nové zobrazenie"
+
+#: frontend/groupmanager/cgroupmanager.cpp:239
+msgid "Create new group"
+msgstr "Vytvor novú skupinu"
+
+#: frontend/groupmanager/cgroupmanager.cpp:240
+msgid "Change this group"
+msgstr "Zmeò túto skupinu"
+
+#: frontend/groupmanager/cgroupmanager.cpp:242
+msgid "Create new bookmark"
+msgstr "Vytvor novú zálo¾ku"
+
+#: frontend/groupmanager/cgroupmanager.cpp:243
+msgid "Change this bookmark"
+msgstr "Zmeò túto zálo¾ku"
+
+#: frontend/groupmanager/cgroupmanager.cpp:244
+msgid "Import bookmarks"
+msgstr "Import zálo¾iek"
+
+#: frontend/groupmanager/cgroupmanager.cpp:245
+msgid "Export bookmarks"
+msgstr "Export zálo¾iek"
+
+#: frontend/groupmanager/cgroupmanager.cpp:247
+msgid "Delete selected item(s)"
+msgstr "Zma¾ vybrané polo¾ky"
+
+#: frontend/groupmanager/cgroupmanager.cpp:248
+msgid "Reset the groupmanager"
+msgstr "Vynuluj správcu skupín"
+
+#: frontend/groupmanager/cgroupmanager.cpp:250
+msgid "Search in Module(s)"
+msgstr "Hµadaj v module"
+
+#: frontend/groupmanager/cgroupmanager.cpp:252
+msgid "Set unlock key"
+msgstr "Zadaj otvárací kµúè"
+
+#: frontend/groupmanager/cgroupmanager.cpp:253
+msgid "Show info"
+msgstr "Zobraz informácie"
+
+#: frontend/groupmanager/cgroupmanager.cpp:300
+#: frontend/groupmanager/cgroupmanager.cpp:319
+msgid "Please enter the description of the new bookmark"
+msgstr "Vlo¾ popis novej zálo¾ky"
+
+#: frontend/groupmanager/cgroupmanager.cpp:355
+msgid "Please change the description of the item!"
+msgstr "Zmeò popis polo¾ky"
+
+#: frontend/groupmanager/cgroupmanager.cpp:366
+msgid "Please change the name of the group!"
+msgstr "Zmeò názov skupiny"
+
+#: frontend/groupmanager/cgroupmanager.cpp:491
+msgid "<I>Not necessary!</I>"
+msgstr "<I>Nie je nevyhnutné!</I>"
+
+#: frontend/groupmanager/cgroupmanager.cpp:493
+msgid ""
+"<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\" "
+"WIDTH=\"100%\"><TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" "
+"COLSPAN=\"2\"><H1>%1</H1></TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Datapath:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%2</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Version:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%3</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Unlock "
+"key:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Writable:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%5</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Footnotes:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%6</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Strong "
+"numbers:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Description:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%8</TD></TR><TR><TD VALIGN=\"TOP\" "
+"BGCOLOR=\"#0F86D0\"><B>About:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%9</TD></TR></TABLE></BODY></HTML>"
+msgstr ""
+"<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\" "
+"WIDTH=\"100%\"><TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" "
+"COLSPAN=\"2\"><H1>%1</H1></TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Cesta k dátam:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%2</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Verzia:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%3</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Otvárací "
+"kµúè:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Zapisovateµné:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%5</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Poznámky pod èiarov:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%6</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Strong "
+"numbers:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Popis:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%8</TD></TR><TR><TD VALIGN=\"TOP\" "
+"BGCOLOR=\"#0F86D0\"><B>O:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%9</TD></TR></TABLE></BODY></HTML>"
+
+#: frontend/groupmanager/cgroupmanager.cpp:908
+msgid "Please enter the name of the group!"
+msgstr "Vlo¾te meno skupiny"
+
+#: frontend/groupmanager/cgroupmanager.cpp:1002
+msgid "Enter the key to unlock the module!"
+msgstr "Vlo¾te kµúè k odomknutiu modulu"
+
+#: frontend/groupmanager/cgroupmanager.cpp:1166
+msgid "Import bookmarks ..."
+msgstr "Importujte zálo¾ky"
+
+#: frontend/groupmanager/cgroupmanager.cpp:1175
+msgid ""
+"<qt>A problem occurred while importing bookmarks!<BR>The bookmarks format of "
+"the imprted file is newer<BR>than the bookmarks format version of this "
+"version of BibleTime!<BR><B>Importing the bookmarks may not work "
+"correctly!</B><BR>Do you want to continue?</qt>"
+msgstr ""
+"<qt>Objavila sa chyba pri importovaní zálo¾iek!<BR>Formát zálo¾iek  "
+"z importovaného súboru je nov¹í<BR>ako formát zalo¾iek tejto verzie "
+"BibleTime!<BR><B>Importové zálo¾ky nemusia fungova»"
+" správne!</B><BR>Pokraèova»?</qt>"
+
+#: frontend/groupmanager/cgroupmanager.cpp:1178
+msgid "Import of bookmarks"
+msgstr "Import zálo¾iek"
+
+#: frontend/groupmanager/cgroupmanager.cpp:1193
+msgid "Export bookmarks ..."
+msgstr "Export zálo¾iek"
+
+#: frontend/groupmanager/cgroupmanager.cpp:1556
+msgid ""
+"<qt>This function will reset the groupmanager!<BR>This will recreate the "
+"original groups and delete all other items!<BR>Be sure not to delete "
+"important bookmarks etc!<BR>Do you want to continue?</qt>"
+msgstr ""
+"<qt>Táto funkcie vynuluje správcu skupín!<BR>Toto znovu vytvorí "
+"originálne skupiny a vym¾e v¹etky ostatné polo¾ky!<BR> Uisti sa, ¾e nebudú vymazané"
+"dôle¾ité zílo¾ky etc!<BR>Pokrèova»?</qt>"
+
+#: frontend/groupmanager/cgroupmanager.cpp:1556
+msgid "BibleTime - Reset groupmanager"
+msgstr "BibleTime - vynulovanie správcu skupín"
+
+#: frontend/presenters/cbiblepresenter.cpp:101
+#: frontend/presenters/ccommentarypresenter.cpp:110
+msgid "Next v&erse"
+msgstr "Ïal¹í v&er¹"
+
+#: frontend/presenters/cbiblepresenter.cpp:103
+#: frontend/presenters/ccommentarypresenter.cpp:112
+msgid ""
+"<B>Next verse</B><BR><BR>Use this button to switch ro the next verse of this "
+"chapter.<BR>If the current verse is the last of this chapter<BR>we switch to "
+"the first one of the next chapter.<BR>You can also click on a versenumber to "
+"highlight a verse"
+msgstr ""
+"<B>Ïal¹í ver¹</B><BR><BR>Pou¾i toto tlaèítko k prepnutiu na nasledujúci ver¹"
+"v tejto kapitole.<BR>Ak je aktuálny ver¹ posledný v tejto kapitole, <BR>prepne sa"
+"na prvý ver¹ v nasledujúcej kapitole.<BR> Vybra» ver¹ je mo¾né tie¾ kliknutím na èíslo ver¹a."
+
+#: frontend/presenters/cbiblepresenter.cpp:105
+#: frontend/presenters/ccommentarypresenter.cpp:114
+msgid "Previous ve&rse"
+msgstr "Predchádzajúci ve&r¹"
+
+#: frontend/presenters/cbiblepresenter.cpp:107
+#: frontend/presenters/ccommentarypresenter.cpp:116
+msgid ""
+"<B>Previous verse</B><BR><BR>Use this button to switch ro the previous verse "
+"of this chapter.<BR>If the current verse is the first of this chapter<BR>we "
+"switch to the last one of the previous chapter.<BR>You can also click on a "
+"versenumber to highlight a verse"
+msgstr ""
+"<B>Predchádzajúci ver¹</B><BR><BR>Pou¾i toto tlaèítko k prepnutiu na predchádzajúci ver¹ "
+"v tejto kapitole.<BR>Ak je aktuálny ver¹ prvý v tejto kapitole,<BR>prepne sa"
+"na prvý ver¹ v nasledujúcej kapitole.<BR> Vybra» ver¹ je mo¾né tie¾ kliknutím na èíslo ver¹a."
+
+#: frontend/presenters/cbiblepresenter.cpp:109
+#: frontend/presenters/ccommentarypresenter.cpp:118
+msgid "Next ch&apter"
+msgstr "Nasledujúca k&apitola"
+
+#: frontend/presenters/cbiblepresenter.cpp:111
+#: frontend/presenters/ccommentarypresenter.cpp:120
+msgid ""
+"<B>Next chapter</B><BR><BR>Switch to the next chapter of the current "
+"book.<BR>Alternatively you can use the chapter combobox to jump to a chapter."
+msgstr ""
+"<B>Nasledujúca kapitola</B><BR><BR>Prepne na nasledujúcu kapitolu v súèasnej knihe"
+"knihe.<BR>Alternatívne je mo¾né tie¾ vybra» kapitolu priamo zo zoznamu."
+
+#: frontend/presenters/cbiblepresenter.cpp:113
+#: frontend/presenters/ccommentarypresenter.cpp:122
+msgid "Previous c&hapter"
+msgstr "Predchádzajúca kapito&la"
+
+#: frontend/presenters/cbiblepresenter.cpp:115
+#: frontend/presenters/ccommentarypresenter.cpp:124
+msgid ""
+"<B>Previous chapter</B><BR><BR>Switch to the previous chapter of the current "
+"book.<BR>Alternatively you can use the chapter combobox to jump to a chapter."
+msgstr ""
+"<B>Predchádzajúca kapitola</B><BR><BR>Prepne na predchádzajúcu kapitolu v súèasnej"
+"knihe.<BR>Alternatívne je mo¾né tie¾ vybra» kapitolu priamo zo zoznamu."
+
+#: frontend/presenters/cbiblepresenter.cpp:117
+#: frontend/presenters/ccommentarypresenter.cpp:126
+msgid "Autoscrolling"
+msgstr "Automatické posúvanie"
+
+#: frontend/presenters/cbiblepresenter.cpp:119
+#: frontend/presenters/ccommentarypresenter.cpp:128
+msgid ""
+"<B>Automatic scrolling</B><BR><BR>This will switch automatic scrolling on or "
+"off.<BR>If it's on this presenter will scroll simoultanously<BR>together "
+"with other auto scrolling enebled presenters."
+msgstr ""
+"<B>Automatické posúvanie</B><BR><BR>Zapne alebo vypne automatické posúvanie."
+"<BR>Ak zapnuté v tomto zobrazení, tak spolu s ostatnými zobrazeniami, "
+"kde je zapnuté sa bude simultáne posúva» aj súèasné."
+
+#: frontend/presenters/cbiblepresenter.cpp:122
+#: frontend/presenters/ccommentarypresenter.cpp:131
+msgid "Choose book"
+msgstr "Vyber knihu"
+
+#: frontend/presenters/cbiblepresenter.cpp:123
+#: frontend/presenters/ccommentarypresenter.cpp:132
+msgid ""
+"<B>Choose book</B><BR><BR>Choose in this list the book you want to "
+"read.<BR>If the current chapter is higher than the chapters<BR>of your "
+"chosen book<BR>the right book will be shown."
+msgstr ""
+"<B>Vyber knihu</B><BR><BR>Vyber zo zoznamu knihu, ktorú chce¹ èíta»."
+"<BR>Ak aktuálna kapitola je väè¹ia ako kapitoly<BR>vo vybranej knihe,"
+"<BR>zobrazí sa správna kniha."
+
+#: frontend/presenters/cbiblepresenter.cpp:125
+#: frontend/presenters/ccommentarypresenter.cpp:134
+msgid "Choose chapter"
+msgstr "Výber kapitoly"
+
+#: frontend/presenters/cbiblepresenter.cpp:126
+#: frontend/presenters/ccommentarypresenter.cpp:135
+msgid ""
+"<B>Choose the chapter</B><BR><BR>Choose here the chapter of the current book "
+"which will be shown."
+msgstr ""
+"<B>Výber kapitoly</B><BR><BR>Tu vyber kapitolu v súèasnej knihe, "
+"ktorá sa má zobrazi»."
+
+#: frontend/presenters/cbiblepresenter.cpp:128
+#: frontend/presenters/ccommentarypresenter.cpp:137
+msgid "Choose verse"
+msgstr "Výber ver¹a"
+
+#: frontend/presenters/cbiblepresenter.cpp:129
+#: frontend/presenters/ccommentarypresenter.cpp:138
+msgid ""
+"<B>Choose the verse</B><BR><BR>Choose here the verse of the current chapter "
+"which will be shown."
+msgstr ""
+"<B>Výber ver¹a</B><BR><BR>Vyber ver¹ v súèasnej kapitole, "
+"ktorý sa má zobrazi»."
+
+#: frontend/presenters/ccommentarypresenter.cpp:143
+msgid ""
+"<B>Edit comment</B><BR><BR>Use this button to toggle betweenHTML and edit "
+"mode of this presenter.<BR>If you switch to edit mode a second toolbar "
+"will<BR>appear with icons suitable for editing commnets."
+msgstr ""
+"<B>Uprav komentár</B><BR><BR>Slú¾i k prepnutiu medzi HTML a editovacím re¾imom"
+"v tomto zobrazení.<BR>Pri prepnutí do editovacie do re¾imu sa zobrazí<BR>druhá li¹ta nástrojov"
+"<BR>s ikonami vhodnými k editovaniu komentárov."
+
+
+#: frontend/presenters/ccommentarypresenter.cpp:148
+msgid "Comment up to: "
+msgstr "Komentuj do:"
+
+#: frontend/presenters/ccommentarypresenter.cpp:149
+msgid ""
+"<B>Comment up to here</B><BR><BR>The text in the editline to the left will "
+"be the upper bound of the commented range of verses."
+msgstr ""
+"<B>Komentuj po tadiaµto </B><BR><BR>"
+"Text veditovacomm riadku vµavo bude horným ohranièením rozsahu komentovaných ver¹ov."
+""
+
+#: frontend/presenters/ccommentarypresenter.cpp:151
+msgid "Stop key"
+msgstr "Stop klávesa"
+
+#: frontend/presenters/ccommentarypresenter.cpp:152
+msgid ""
+"<B>Stop key</B><BR><BR>This will be the upper boound of the commented range "
+"of verses. "
+msgstr ""
+"<B>Stop klávesa</B><BR><BR>Toto bude horné ohranièenie komentovaných ver¹ov."
+""
+
+#: frontend/presenters/ccommentarypresenter.cpp:159
+msgid ""
+"<B>Delete comment</B><BR><BR>Use this button to delete the current "
+"comment.<BR>The edit widget will be cleared."
+msgstr ""
+"<B>Zma¾ komentár</B><BR><BR> Vyma¾e aktuálny komentár.<BR>"
+"Editovacia polo¾ka bude vyèistená."
+
+#: frontend/searchdialog/csearchdialogscopeview.cpp:59
+msgid "All Modules"
+msgstr "V¹etky moduly"
+
+#: frontend/searchdialog/csearchdialogscopeview.cpp:97
+msgid "From:"
+msgstr "Od:"
+
+#: frontend/searchdialog/csearchdialogscopeview.cpp:98
+msgid "To:"
+msgstr "Pre:"
+
+#: frontend/searchdialog/csearchdialog.cpp:77
+#: frontend/searchdialog/csearchdialogscopeview.cpp:105
+msgid "Search Scope"
+msgstr "Rozsah vyhµadávania"
+
+#: frontend/searchdialog/csearchdialogscopeview.cpp:107
+#: frontend/searchdialog/csearchdialogscopeview.cpp:115
+msgid "Remove item"
+msgstr "Odstráò polo¾ku"
+
+#: frontend/searchdialog/csearchdialogscopeview.cpp:120
+msgid "Remove Module"
+msgstr "Odstráò modul"
+
+#: frontend/searchdialog/csearchdialogscopeview.cpp:124
+msgid "Remove Scope"
+msgstr "Odstráò rozsah"
+
+#: frontend/searchdialog/csearchdialogresult.cpp:34
+msgid "Search Result:"
+msgstr "Výsledky hµadania"
+
+#: frontend/searchdialog/csearchdialogresult.cpp:39
+msgid "Verse Preview:"
+msgstr "Náhµad na ver¹:"
+
+#: frontend/searchdialog/csearchdialogtext.cpp:46
+msgid "Search Properties:"
+msgstr "Mo¾nosti vyhµadávania:"
+
+#: frontend/searchdialog/csearchdialogtext.cpp:53
+msgid "Multiple Words"
+msgstr "Zlo¾ené slová"
+
+#: frontend/searchdialog/csearchdialogtext.cpp:60
+msgid "Exact Search"
+msgstr "Presné hµadanie"
+
+#: frontend/searchdialog/csearchdialogtext.cpp:65
+msgid "Regular Expression"
+msgstr "Regulárny výraz"
+
+#: frontend/searchdialog/csearchdialogtext.cpp:70
+msgid "Case Sensitive"
+msgstr "Rozli¹ova» veµkos» písmen"
+
+#: frontend/searchdialog/csearchdialog.cpp:45
+msgid "Search Dialog"
+msgstr "Dialóg vyhµadávania"
+
+#: frontend/searchdialog/csearchdialog.cpp:47
+msgid "Search"
+msgstr "Vyhµadávanie"
+
+#: frontend/searchdialog/csearchdialog.cpp:74
+msgid "Search Text"
+msgstr "Hµadaný text"
+
+#: frontend/searchdialog/csearchdialog.cpp:74
+msgid "Enter the text to search for"
+msgstr "Vlo¾ text, ktorý sa má vyhµada»"
+
+#: frontend/searchdialog/csearchdialog.cpp:77
+msgid "Enter the scope of the search"
+msgstr "Vlo¾ rozsah hµadania"
+
+#: frontend/searchdialog/csearchdialog.cpp:80
+msgid "Search Result"
+msgstr "Výsledky hµadania"
+
+#: frontend/searchdialog/csearchdialog.cpp:80
+msgid "The result of your search"
+msgstr "Výsledky tvojho hµadania"
+
+#: frontend/searchdialog/csearchdialog.cpp:83
+msgid "Search Analysis"
+msgstr "Analýzy hµadania"
+
+#: frontend/searchdialog/csearchdialog.cpp:83
+msgid "Graphical analysis of your search"
+msgstr "Grafická analýzy tvojho vyhµadávania"
+
+#: frontend/searchdialog/csearchdialog.cpp:94
+msgid "Save as image ..."
+msgstr "Ulo¾ obrázok ako..."
+
+#: frontend/searchdialog/csearchdialogscope.cpp:39
+msgid "&Delete Bound"
+msgstr "Zma¾ ohranièenie"
+
+#: frontend/searchdialog/csearchdialogscope.cpp:40
+msgid "&Add Bound"
+msgstr "Pridaj ohranièenie"
+
+#: frontend/searchdialog/csearchdialogscope.cpp:54
+msgid "Lower Bound:"
+msgstr "Spodná hranica:"
+
+#: frontend/searchdialog/csearchdialogscope.cpp:83
+msgid "Upper Bound:"
+msgstr "Horná hranica:"
+
+#: frontend/searchdialog/csearchdialogscope.cpp:112
+msgid "Search Scope:"
+msgstr "Rozsah vyhµadávania:"
+
+#: frontend/searchdialog/csearchdialogscope.cpp:124
+msgid "No Scope"
+msgstr "Bez rozsahu"
+
+#: frontend/searchdialog/csearchdialogscope.cpp:137
+msgid "Result from last search"
+msgstr "Výsledky z posledného hµadania"
+
+#: frontend/searchdialog/csearchdialogscope.cpp:150
+msgid "set Bounds"
+msgstr "nastav hranice"
+
+#: frontend/searchdialog/csearchdialogresultview.cpp:70
+#, ycp-format
+msgid "%1 (%2)"
+msgstr "%1 (%2)"
+
+#: frontend/searchdialog/csearchdialogresultview.cpp:114
+msgid "Found keys"
+msgstr "Nájdi klávesy"
+
+#: frontend/searchdialog/csearchdialoganalysis.cpp:348
+msgid "Save search analysis as image ..."
+msgstr "Ulo¾ analýzu vyhµadávanie ako obrázok..."
+
+#: bibletime_slots.cpp:91
+#, ycp-format
+msgid ""
+"This is <B>BibleTime %1</B><BR>BibleTime will be an easy to use bible study "
+"tool for KDE 2.It includes some really cool features like MDI, powerful "
+"search interface etc.<BR>But lease notice that's in havy development at this "
+"time. Some things may work, other ones may crash it<BR>Feel free to send "
+"bugreports, ideas, improvements or criticism to <A "
+"HREF=mailto:info@bibletime.de>info@bibletime.de</A><BR>Thank you very much!"
+msgstr ""
+"Toto je <B>BibleTime %1</B><BR>BibleTime bude µahko pou¾iteµny nástroj k biblickému ¹túdiu "
+"pre KDE 2. Obsahuje niektoré skutoène vynikajúce vlastnosti ako MDI"
+"výkonné vyhµadácie prostredie atï.<BR>Ale pozor, stále je v ¹tádiu »a¾kého vývoja"
+"Niektoré veci mo¾no nebudú pracova», iné mo¾no zlyhajú.<BR>Pokojne po¹li"
+"správu o chybách, nápadoch, vylep¹eniach alebo kritiku na <A>"
+"HREF=mailto:info@bibletime.de>info@bibletime.de</A><BR>Veµmi pekne ïakujme!"
+
+#: bibletime_slots.cpp:100
+msgid "Authors"
+msgstr "Autori:"
+
+#: ctoolclass.cpp:83
+msgid ""
+"<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
+msgstr ""
+"<qt><B>Súbor u¾ existuje!</B><BR>Prepísa»?</qt>"
+
+#: ctoolclass.cpp:83
+msgid "BibleTime - Save page as ..."
+msgstr "BibleTime - Ulo¾ stránku ako..."

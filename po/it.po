@@ -1,0 +1,2668 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-03-14 22:03+0100\n"
+"PO-Revision-Date: Sonntag, 16. Juli 2000 00:00\n"
+"Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
+"Language-Team: German <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.5.1\n"
+
+#: bibletime/rc-dummy.cpp:2
+#, fuzzy
+msgid "&Groupmanager"
+msgstr "Manager dei gruppi"
+
+#: bibletime/main.cpp:66
+msgid "Enable debug messages."
+msgstr ""
+
+#: bibletime/main.cpp:74
+#, fuzzy
+msgid "An easy to use but powerful Bible study tool"
+msgstr "Uno strumento facile da usare per lo studio della Bibbia per KDE 2"
+
+#: bibletime/main.cpp:76
+#, fuzzy
+msgid "(c)1999-2001, The BibleTime Team"
+msgstr "(c)1999-2000, il team di BibleTime"
+
+#: bibletime/main.cpp:83
+#, fuzzy
+msgid "backend"
+msgstr "backend"
+
+#: bibletime/main.cpp:84
+msgid "Project coordinator, frontend, backend"
+msgstr "Coordinatore del progetto, frontend, backend"
+
+#: bibletime/main.cpp:85
+msgid "optionsdialog"
+msgstr "opzioni"
+
+#: bibletime/main.cpp:86
+msgid "Drag&Drop, misc things"
+msgstr "Drag&Drop, varie"
+
+#: bibletime/main.cpp:90
+msgid "The handbook for BibleTime 1.0"
+msgstr ""
+
+#: bibletime/main.cpp:91
+msgid "Almost whole Handbook"
+msgstr ""
+
+#: bibletime/main.cpp:92
+msgid "First version of english handbook"
+msgstr ""
+
+#: bibletime/main.cpp:95
+msgid "Translation to Polish"
+msgstr ""
+
+#: bibletime/main.cpp:96
+msgid "Translation to French"
+msgstr ""
+
+#: bibletime/main.cpp:97
+msgid "Partial translation of the handbook to German"
+msgstr ""
+
+#: bibletime/main.cpp:98
+msgid "Translation to Danish"
+msgstr ""
+
+#: bibletime/main.cpp:99
+msgid "Translation to Czech"
+msgstr ""
+
+#: bibletime/main.cpp:100
+msgid "Translation to Hungarian"
+msgstr ""
+
+#: bibletime/main.cpp:101
+msgid "Translation to Slovak"
+msgstr ""
+
+#: bibletime/main.cpp:102
+msgid "Translation to Norwegian"
+msgstr ""
+
+#: bibletime/main.cpp:103
+msgid "Translation to Dutch"
+msgstr ""
+
+#: bibletime/main.cpp:106
+msgid ""
+"Leader of the SWORD project.\n"
+"Lots of help with the SWORD API!"
+msgstr ""
+
+#: bibletime/main.cpp:107
+msgid "Sponsor of www.bibletime.de!"
+msgstr ""
+
+#: bibletime/main.cpp:108
+msgid "The Martin Luther startup logo"
+msgstr ""
+
+#: bibletime/bibletime_init.cpp:71
+msgid "Clear printer queue"
+msgstr ""
+
+#: bibletime/bibletime_init.cpp:82 bibletime/dummy.h:32
+#, fuzzy
+msgid "Reset groupmanager"
+msgstr "Reimposta il manager dei gruppi"
+
+#: bibletime/bibletime_init.cpp:86
+#, fuzzy
+msgid "Search in selected module(s)"
+msgstr "Cerca nei moduli"
+
+#: bibletime/bibletime_init.cpp:90
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:351
+#, fuzzy
+msgid "Delete selected item(s)"
+msgstr "Elimina oggetti selezionati"
+
+#: bibletime/bibletime_init.cpp:94
+msgid "&Show footnotes"
+msgstr "Mostra note a pie' di pagina"
+
+#: bibletime/bibletime_init.cpp:98
+msgid "S&how strongs"
+msgstr "Mostra strong"
+
+#: bibletime/bibletime_init.cpp:105
+msgid "&Show groupmanager"
+msgstr "Mostra manager dei gruppi"
+
+#: bibletime/bibletime_init.cpp:115
+msgid "&Cascade"
+msgstr "Sovrapponi"
+
+#: bibletime/bibletime_init.cpp:119
+msgid "&Tile"
+msgstr "Affianca"
+
+#: bibletime/bibletime_init.cpp:123
+msgid "&Auto cascade"
+msgstr "Sovrapposizione automatica"
+
+#: bibletime/bibletime_init.cpp:127
+msgid "A&uto Tile"
+msgstr "Affiancamento automatico"
+
+#: bibletime/bibletime_init.cpp:131
+msgid "&Close all"
+msgstr "Chiudi tutto"
+
+#: bibletime/bibletime_init.cpp:142
+msgid "&Daily tip"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:41
+msgid "style editor"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:76
+msgid "Choose the part of the style:"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:78
+#: bibletime/printing/cstyleeditordialog.cpp:291
+msgid "Header"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:79
+#: bibletime/printing/cstyleeditordialog.cpp:295
+msgid "Description"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:80
+#: bibletime/printing/cstyleeditordialog.cpp:299
+#, fuzzy
+msgid "Module text"
+msgstr "Modulo"
+
+#: bibletime/printing/cstyleeditordialog.cpp:86
+msgid "Enable this part"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:97
+#, fuzzy
+msgid "Left"
+msgstr "Suggerimento successivo"
+
+#: bibletime/printing/cstyleeditordialog.cpp:98
+#, fuzzy
+msgid "Center"
+msgstr "Visualizzatore"
+
+#: bibletime/printing/cstyleeditordialog.cpp:99
+msgid "Right"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:100
+msgid "Justification"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:110
+#, fuzzy
+msgid "Foreground:"
+msgstr "Limite inferiore:"
+
+#: bibletime/printing/cstyleeditordialog.cpp:121
+#, fuzzy
+msgid "Background:"
+msgstr "Sfondo"
+
+#: bibletime/printing/cstyleeditordialog.cpp:132
+#, fuzzy
+msgid "Choose font"
+msgstr "Scegli versetto"
+
+#: bibletime/printing/cstyleeditordialog.cpp:135
+#, fuzzy
+msgid "Font preview"
+msgstr "Anteprima del versetto:"
+
+#: bibletime/printing/cstyleeditordialog.cpp:141
+msgid "Identation (in mm):"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:149
+msgid "Use frame"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:159
+msgid "Line thickness (in point):"
+msgstr ""
+
+#: bibletime/printing/cstyleeditordialog.cpp:167
+msgid "Frame color:"
+msgstr ""
+
+#: bibletime/printing/cprinter.cpp:400 bibletime/printing/cprinter.cpp:616
+#: bibletime/printing/cprinter.cpp:624
+#: bibletime/printing/cstyleeditordialog.cpp:184
+msgid "Standard"
+msgstr ""
+
+#: bibletime/printing/cstylelist.cpp:47
+msgid "Name:"
+msgstr ""
+
+#: bibletime/printing/cstyle.cpp:40
+#, fuzzy
+msgid "unknown name"
+msgstr "Sconosciuto"
+
+#: bibletime/printing/cprinterdialog.cpp:61
+#, fuzzy
+msgid "Printdialog"
+msgstr "opzioni"
+
+#: bibletime/printing/cprinterdialog.cpp:62
+#, fuzzy
+msgid "Preview"
+msgstr "Anteprima del versetto:"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:176
+#: bibletime/printing/cprinterdialog.cpp:90
+msgid "General"
+msgstr "Generale"
+
+#: bibletime/printing/cprinterdialog.cpp:90
+msgid "The general options for printing"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:93
+msgid "Available printers:"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:98
+msgid "Printer"
+msgstr "Stampante"
+
+#: bibletime/printing/cprinterdialog.cpp:99
+msgid "Host"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:100
+#, fuzzy
+msgid "Comment"
+msgstr "Commentari"
+
+#: bibletime/printing/cprinterdialog.cpp:107
+msgid "Print to file:"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:48
+#: bibletime/printing/cprinterdialog.cpp:121
+msgid "Search"
+msgstr "Ricerca"
+
+#: bibletime/printing/cprinterdialog.cpp:142
+msgid "&Number of copies"
+msgstr ""
+
+#: bibletime/dummy.h:150 bibletime/printing/cprinterdialog.cpp:150
+msgid "Orientation"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:154
+msgid "Por&trait"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:158
+#, fuzzy
+msgid "L&andscape"
+msgstr "Sovrapponi"
+
+#: bibletime/printing/cprinterdialog.cpp:174
+msgid "Paper t&ype"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:178
+msgid "Size: 8888mm x 8888mm"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:297
+msgid "*.ps | Postscript files"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:351
+msgid "A4"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:352
+msgid "A5"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:353
+msgid "Letter"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:354
+msgid "Legal"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:355
+msgid "Executive"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:387
+msgid "Layout specific settings"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:393
+msgid "Margins (in millimeter)"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:405
+msgid "&Top"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:406
+msgid "&Bottom"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:407
+#, fuzzy
+msgid "&Left"
+msgstr "Suggerimento successivo"
+
+#: bibletime/printing/cprinterdialog.cpp:408
+msgid "&Right"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:452
+msgid "List of style items:"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:485
+#, fuzzy
+msgid "Entries"
+msgstr "Commentari"
+
+#: bibletime/printing/cprinterdialog.cpp:485
+msgid "Management of BibleTimes print queue"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:492
+#, fuzzy
+msgid "Choose a style"
+msgstr "Scegli capitolo"
+
+#: bibletime/printing/cprinterdialog.cpp:500
+msgid "Entries which should be printed:"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:541
+#, c-format, ycp-format
+msgid "Size: %1mm x %2mm"
+msgstr ""
+
+#: bibletime/printing/cprinterdialog.cpp:585
+#, fuzzy, c-format, ycp-format
+msgid "BibleTime version %1"
+msgstr "BibleTine - Reimposta manager dei gruppi... "
+
+#: bibletime/printing/cprintitemlist.cpp:44
+msgid "Module"
+msgstr "Modulo"
+
+#: bibletime/printing/cprintitemlist.cpp:45
+#, fuzzy
+msgid "From"
+msgstr "Da:"
+
+#: bibletime/printing/cprintitemlist.cpp:46
+#, fuzzy
+msgid "To"
+msgstr "A:"
+
+#: bibletime/printing/cprintitemlist.cpp:47
+msgid "Style"
+msgstr ""
+
+#: bibletime/frontend/chtmldialog.cpp:34 bibletime/frontend/chtmldialog.cpp:46
+msgid "BibleTime - Help window"
+msgstr ""
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:54
+msgid "Optionsdialog"
+msgstr "Opzioni"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:74
+msgid "Accelerators"
+msgstr "Acceleratori"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:74
+msgid "Configure BibleTime's key bindings"
+msgstr "Modifica le assegnazioni dei tasti di BibleTime"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:79
+msgid ""
+"<B>Key chooser</B><BR><BR>Select a action and change the key for the action."
+msgstr ""
+"<B>Scelta tasto</B><BR><BR>Scegli una azione e cambia il tasto associatole."
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:83
+msgid "Select BibleTime fonts"
+msgstr "Scegli i caratteri per BibleTime"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:93
+msgid "Usage"
+msgstr "Uso"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:95
+msgid "Presenter"
+msgstr "Visualizzatore"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:114
+msgid "The quick brown fox jumped over the lazy dog"
+msgstr "Ma la volpe col suo balzo ha raggiunto il quieto Fido"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:126
+msgid "Font Manager"
+msgstr "Manager dei caratteri"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:126
+msgid "Configure BibleTime's foreign fonts"
+msgstr "Scegli i caratteri stranieri di BibleTime"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:151
+msgid "Colors"
+msgstr "Colori"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:151
+msgid "Configure BibleTime's colors"
+msgstr "Modifica i colori di BibleTime"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:152
+msgid "Choose colors"
+msgstr "Scegli i colori"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:157
+msgid "Background"
+msgstr "Sfondo"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:161
+msgid "Normal Text"
+msgstr "Testo normale"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:165
+msgid "Verse number / URL"
+msgstr "Numero versetto / URL"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:169
+msgid "Highlighted Verse"
+msgstr "Versetto evidenziato"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:176
+msgid "Configure BibleTime's general options"
+msgstr "Configura le opzioni generali di BibleTime"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:180
+msgid "Show tip of the day"
+msgstr "Mostra il suggerimento giornaliero"
+
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:191
+#, fuzzy
+msgid "Use international booknames"
+msgstr "Usa i nomi dei libri internazionali di SWORD"
+
+#: bibletime/dummy.h:125
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:219
+msgid "Show startuplogo"
+msgstr "Mostra logo iniziale"
+
+#: bibletime/frontend/ctipwindow.cpp:69
+msgid "Useful tips for BibleTime"
+msgstr ""
+
+#: bibletime/frontend/ctipwindow.cpp:101
+#, fuzzy
+msgid "Run on startup"
+msgstr "Mostra logo iniziale"
+
+#: bibletime/frontend/ctipwindow.cpp:121
+msgid ""
+"<DIV align=\"center\"><B>Missing tips!</B></DIV><BR><BR>Your installation is "
+"missing the daily tips.\t\tPlease make sure all files of BibleTime "
+"are\t\tinstalled and that the permissions of $KDEDIR are "
+"correct!<BR><BR>\t\tIf you can't solve this problem please contact the team "
+"of BibleTime at\t\t<A "
+"HREF=\"mailto:info@bibletime.de\">info@bibletime.de</A>!"
+msgstr ""
+
+#: bibletime/frontend/chtmlwidget.cpp:179
+#, ycp-format
+msgid ""
+"<B>HTML page %1 not found!<BR>Please check the follwing points:\tpermissions "
+"of $KDEDIR/share/apps/bibletime and subdirecries, installation of files."
+msgstr ""
+
+#: bibletime/frontend/chtmlwidget.cpp:203
+msgid ""
+"*.html *.htm *.shtml *.shtm | HTML files\n"
+" *.* | All files (*.*)"
+msgstr ""
+
+#: bibletime/frontend/chtmlwidget.cpp:203
+#, fuzzy
+msgid "Save text as HTML page ..."
+msgstr "Salva il testo come HTML ..."
+
+#: bibletime/frontend/chtmlwidget.cpp:213
+msgid ""
+"*.txt | Text file (*.txt)\n"
+"*.* | All files (*.*)"
+msgstr ""
+
+#: bibletime/frontend/chtmlwidget.cpp:213
+#, fuzzy
+msgid "Save text as plain text ..."
+msgstr "Salva il testo come HTML ..."
+
+#: bibletime/frontend/chtmlwidget.cpp:490
+#, fuzzy
+msgid "Choose a font:"
+msgstr "Scegli versetto"
+
+#: bibletime/dummy.h:88 bibletime/frontend/chtmlwidget.cpp:516
+msgid "Set bold"
+msgstr ""
+
+#: bibletime/dummy.h:89 bibletime/frontend/chtmlwidget.cpp:519
+msgid "Set italic"
+msgstr ""
+
+#: bibletime/dummy.h:90 bibletime/frontend/chtmlwidget.cpp:522
+msgid "Set underlined"
+msgstr ""
+
+#: bibletime/frontend/chtmlwidget.cpp:527
+msgid "Align left"
+msgstr ""
+
+#: bibletime/frontend/chtmlwidget.cpp:530
+#, fuzzy
+msgid "Center text"
+msgstr "Visualizzatore"
+
+#: bibletime/frontend/chtmlwidget.cpp:533
+msgid "Align right"
+msgstr ""
+
+#: bibletime/frontend/chtmlwidget.cpp:536
+msgid "Justify"
+msgstr ""
+
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:195
+#, fuzzy
+msgid "unknown"
+msgstr "Sconosciuto"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:95
+msgid "Bookmark to "
+msgstr ""
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:213
+msgid "Bibles"
+msgstr "Bibbie"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:216
+msgid "Commentaries"
+msgstr "Commentari"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:219
+msgid "Lexicons"
+msgstr "Lessici"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:323
+msgid "Caption"
+msgstr "Acquisizione"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:327
+msgid "Groupmanager"
+msgstr "Manager dei gruppi"
+
+#: bibletime/dummy.h:57 bibletime/frontend/groupmanager/cgroupmanager.cpp:328
+msgid "New presenter"
+msgstr "Nuovo visualizzatore"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:332
+msgid "Create new group"
+msgstr "Crea nuovo gruppo"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:335
+msgid "Change this group"
+msgstr "Cambia questo gruppo"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:339
+msgid "Change this bookmark"
+msgstr "Cambia questo segnalibro"
+
+#: bibletime/dummy.h:62 bibletime/frontend/groupmanager/cgroupmanager.cpp:342
+msgid "Import bookmarks"
+msgstr "Importa segnalibri"
+
+#: bibletime/dummy.h:63 bibletime/frontend/groupmanager/cgroupmanager.cpp:345
+msgid "Export bookmarks"
+msgstr "Esporta segnalibri"
+
+#: bibletime/dummy.h:64 bibletime/frontend/groupmanager/cgroupmanager.cpp:348
+#, fuzzy
+msgid "Print bookmark"
+msgstr "Importa segnalibri"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:354
+#, fuzzy
+msgid "Search in Module(s)"
+msgstr "Cerca nei moduli"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:357
+msgid "Set unlock key"
+msgstr "Imposta chiave di sblocco"
+
+# If "Set password", translate with "Imposta password"
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:360
+msgid "Show info"
+msgstr "Mostra informazioni"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:424
+msgid "BibleTime - Bookmark description"
+msgstr ""
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:424
+#, fuzzy
+msgid "Please enter here the description:"
+msgstr "Per favore, inserisci la descrizione del nuovo segnalibro"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:465
+msgid "BibleTime - Change bookmark description"
+msgstr ""
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:465
+msgid "Please change the description of the item!"
+msgstr "Per favore, modifica la descrizione dell'oggetto!"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:476
+#, fuzzy
+msgid "BibleTime - Change group name"
+msgstr "BibleTine - Reimposta manager dei gruppi... "
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:476
+msgid "Please change the name of the group!"
+msgstr "Per favore, modifica il nome del gruppo!"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:603
+msgid "<I>Not necessary!</I>"
+msgstr "<I>Non necessario!</I>"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:605
+msgid ""
+"<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\" "
+"WIDTH=\"100%\"><TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" "
+"COLSPAN=\"2\"><H1>%1</H1></TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Datapath:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%2</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Version:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%3</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Unlock "
+"key:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Writable:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%5</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Footnotes:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%6</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Strong "
+"numbers:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Description:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%8</TD></TR><TR><TD VALIGN=\"TOP\" "
+"BGCOLOR=\"#0F86D0\"><B>About:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%9</TD></TR></TABLE></BODY></HTML>"
+msgstr ""
+"<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\" "
+"WIDTH=\"100%\"><TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" "
+"COLSPAN=\"2\"><H1>%1</H1></TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Percorso "
+"dati:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Versione:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%3</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Chiave "
+"disblocco:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Scrivibile:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%5</TD></TR><TR><TD BGCOLOR=\"#0F86D0\"><B>Note a pie' "
+"di pagina:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Numeri di Strong:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%7</TD></TR><TR><TD "
+"BGCOLOR=\"#0F86D0\"><B>Descrizione:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%8</TD></TR><TR><TD VALIGN=\"TOP\" "
+"BGCOLOR=\"#0F86D0\"><B>Informazioni su:</B></TD><TD "
+"BGCOLOR=\"#FFE9C8\">%9</TD></TR></TABLE></BODY></HTML>"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:985
+#, fuzzy
+msgid "BibleTime - Enter name of group"
+msgstr "Per favore, inserisci il nome del gruppo!"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:985
+msgid "Please enter the name of the group!"
+msgstr "Per favore, inserisci il nome del gruppo!"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1070
+#, fuzzy
+msgid "BibleTime - Unlock module"
+msgstr "Inserisci la chiave per sbloccare il modulo!"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1070
+msgid "Enter the key to unlock the module!"
+msgstr "Inserisci la chiave per sbloccare il modulo!"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1232
+msgid "Import bookmarks ..."
+msgstr "Importa segnalibri..."
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1240
+msgid ""
+"<qt>A problem occurred while importing bookmarks!<BR>The bookmarks format of "
+"the imprted file is newer<BR>than the bookmarks format version of this "
+"version of BibleTime!<BR><B>Importing the bookmarks may not work "
+"correctly!</B><BR>Do you want to continue?</qt>"
+msgstr ""
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1243
+msgid "Import of bookmarks"
+msgstr "Importazione segnalibri"
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1258
+msgid "Export bookmarks ..."
+msgstr "Esporta segnalibri..."
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1623
+msgid ""
+"<qt>This function will reset the groupmanager!<BR>This will recreate the "
+"original groups and delete all other items!<BR>Be sure not to delete "
+"important bookmarks etc!<BR>Do you want to continue?</qt>"
+msgstr ""
+
+#: bibletime/frontend/groupmanager/cgroupmanager.cpp:1623
+msgid "BibleTime - Reset groupmanager"
+msgstr "BibleTine - Reimposta manager dei gruppi... "
+
+#: bibletime/frontend/presenters/clexikonpresenter.cpp:148
+#, fuzzy
+msgid "Lexicon presenter"
+msgstr "Nuovo visualizzatore"
+
+#: bibletime/frontend/presenters/clexikonpresenter.cpp:149
+#, fuzzy
+msgid "Save entry as HTML..."
+msgstr "Salva il testo come HTML ..."
+
+#: bibletime/frontend/presenters/clexikonpresenter.cpp:150
+#, fuzzy
+msgid "Save entry as plain text..."
+msgstr "Salva il testo come HTML ..."
+
+#: bibletime/dummy.h:97 bibletime/frontend/presenters/cbiblepresenter.cpp:149
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:125
+#: bibletime/frontend/presenters/clexikonpresenter.cpp:152
+#, fuzzy
+msgid "Select all"
+msgstr "Chiudi tutto"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:151
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:127
+#: bibletime/frontend/presenters/clexikonpresenter.cpp:154
+#, fuzzy
+msgid "Copy selected text"
+msgstr "Elimina oggetti selezionati"
+
+#: bibletime/frontend/presenters/clexikonpresenter.cpp:155
+msgid "Copy entry into clipboard"
+msgstr ""
+
+#: bibletime/frontend/presenters/clexikonpresenter.cpp:157
+msgid "Add entry to print queue"
+msgstr ""
+
+#: bibletime/frontend/presenters/clexikonpresenter.cpp:186
+msgid "Synchronize"
+msgstr ""
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:128
+#, fuzzy
+msgid "Select additional modules"
+msgstr "Cerca nei moduli"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:137
+msgid "Choose additional modules to display"
+msgstr ""
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:145
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:157
+#, fuzzy
+msgid "Bible presenter"
+msgstr "Nuovo visualizzatore"
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:146
+#, fuzzy
+msgid "Save chapter as HTML..."
+msgstr "Salva il testo come HTML ..."
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:147
+#, fuzzy
+msgid "Save chapter as plain text..."
+msgstr "Salva il testo come HTML ..."
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:152
+msgid "Copy chapter into clipboard"
+msgstr ""
+
+#: bibletime/frontend/presenters/cbiblepresenter.cpp:158
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:130
+msgid "Add verse to print queue"
+msgstr ""
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:121
+#, fuzzy
+msgid "Commentary presenter"
+msgstr "Nuovo visualizzatore"
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:122
+#, fuzzy
+msgid "Save verse as HTML..."
+msgstr "Salva il testo come HTML ..."
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:123
+msgid "Save verse as plain text..."
+msgstr ""
+
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:128
+msgid "Copy verse into clipboard"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:41
+#, fuzzy
+msgid "Modules:"
+msgstr "Modulo"
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:45
+#, fuzzy
+msgid "Found entries:"
+msgstr "Chiavi trovate"
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:52
+msgid "Verse Preview:"
+msgstr "Anteprima del versetto:"
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:177
+#, ycp-format
+msgid "<FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresult.cpp:179
+msgid "<I>module not set</I>"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:49
+#, fuzzy
+msgid "Search properties"
+msgstr "Propriet?di ricerca:"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:63
+msgid "Multiple Words"
+msgstr "Parole Multiple"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:69
+msgid "Exact Search"
+msgstr "Ricerca esatta"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:74
+msgid "Regular Expression"
+msgstr "Espressione regolare"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:85
+msgid "Case Sensitive"
+msgstr "Maiuscole/minuscole"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:87
+#, fuzzy
+msgid "Search scope"
+msgstr "Fini della ricerca"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:92
+#, fuzzy
+msgid "Search progress"
+msgstr "Propriet?di ricerca:"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:97
+#, fuzzy
+msgid "Current module:"
+msgstr "Tutti i moduli"
+
+#: bibletime/frontend/searchdialog/csearchdialogtext.cpp:98
+msgid "Overall:"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:47
+msgid "Search Dialog"
+msgstr "Menu ricerca"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:48
+msgid "Interrupt"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:84
+msgid "Search Text"
+msgstr "Testo da cercare"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:84
+msgid "Enter the text to search for"
+msgstr "Inserisci il testo da cercare"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:87
+msgid "Search Result"
+msgstr "Risultato della ricerca"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:87
+msgid "The result of your search"
+msgstr "Risultato della tua ricerca"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:90
+msgid "Search Analysis"
+msgstr "Analisi della ricerca"
+
+#: bibletime/frontend/searchdialog/csearchdialog.cpp:90
+#, fuzzy
+msgid "Graphical analysis of your search result"
+msgstr "Analisi grafica della tua ricerca"
+
+#: bibletime/dummy.h:107
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:40
+#, fuzzy
+msgid "No scope"
+msgstr "Rimuovi fine"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:41
+#, fuzzy
+msgid "Last result"
+msgstr "Risultato della ricerca"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:42
+#, fuzzy
+msgid "Use scope"
+msgstr "Rimuovi fine"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:52
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:168
+#, fuzzy
+msgid "Choose custom range"
+msgstr "Scegli i colori"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:54
+#, fuzzy
+msgid "Edit ranges"
+msgstr "Stampante"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:169
+#, fuzzy
+msgid "Define range text"
+msgstr "Visualizzatore"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:170
+msgid "Range parsing results"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:234
+#, fuzzy
+msgid "Range name"
+msgstr "Uso"
+
+#: bibletime/frontend/searchdialog/csearchdialogscope.cpp:234
+#, fuzzy
+msgid "Please enter a name for the new range"
+msgstr "Per favore, inserisci il nome del gruppo!"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:117
+#, fuzzy
+msgid "Modules"
+msgstr "Modulo"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:122
+#, fuzzy
+msgid "Printing"
+msgstr "opzioni"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:123
+#, fuzzy
+msgid "Save search result..."
+msgstr "Risultato della ricerca"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:124
+msgid "Save search result with keyteyt..."
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:126
+msgid "Copy search result into clipboard"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:127
+msgid "Copy search result with keytext into clipboard"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:129
+msgid "Add search result to print queue"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:194
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:225
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:259
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:300
+#, ycp-format
+msgid ""
+"Search result for \"%1\" in module \"%2\"\n"
+"\n"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:237
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:321
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:524
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:545
+msgid ""
+"*.txt | Text files\n"
+" *.* | All files (*.*)"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:237
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:321
+#, fuzzy
+msgid "Save search result ..."
+msgstr "Risultato della ricerca"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:375
+#, fuzzy
+msgid "Search result"
+msgstr "Risultato della ricerca"
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:376
+msgid "Copy into clipboard"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:377
+msgid "Copy into clipboard with keytext"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:379
+#, fuzzy
+msgid "Save to disk..."
+msgstr "Salva come immagine... "
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:380
+msgid "Save to disk with keytext..."
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:382
+msgid "Add to print queue"
+msgstr ""
+
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:524
+#: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:545
+#, fuzzy
+msgid "Save key ..."
+msgstr "Salva come immagine... "
+
+#: bibletime/frontend/ctoolclass.cpp:92
+msgid ""
+"<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
+msgstr "<qt><B>Il file esiste gi?</B><BR>Vuoi sovrascriverlo?</qt>"
+
+#: bibletime/frontend/ctoolclass.cpp:92
+#, fuzzy
+msgid "BibleTime - Save file as ..."
+msgstr "BibleTine - Salva pagina come... "
+
+#: bibletime/dummy.h:26
+msgid "Clear printing queue"
+msgstr ""
+
+#: bibletime/dummy.h:26
+msgid "This will clear the printing queue of BibleTime."
+msgstr ""
+
+#: bibletime/dummy.h:27
+#, fuzzy
+msgid "Open the printerdialog"
+msgstr "Opzioni"
+
+#: bibletime/dummy.h:27
+#, fuzzy
+msgid ""
+"This will open the printerdialog of BibleTime where you can edit the queue "
+"and assign styles to the items."
+msgstr ""
+"<B>Modifica barra degli strumenti</B><BR><BR> Questo mostrer?un dialogo dove "
+"puoi modificare la barra degli strumenti di BibleTime!"
+
+#: bibletime/dummy.h:28
+msgid "This will terminate BibleTime."
+msgstr ""
+
+#: bibletime/dummy.h:30
+#, fuzzy
+msgid "Search in selected modules"
+msgstr "Cerca nei moduli"
+
+#: bibletime/dummy.h:30
+msgid "This will open the search dialog to search in selected modules"
+msgstr ""
+
+#: bibletime/dummy.h:31
+#, fuzzy
+msgid "Delete selected items"
+msgstr "Elimina oggetti selezionati"
+
+#: bibletime/dummy.h:31
+msgid "This will delete the selected items from the groupmanager."
+msgstr ""
+
+#: bibletime/dummy.h:32
+msgid ""
+"This will reset the groupmanager<BR>All bookmarks and groups will be deleted "
+"and the default groups will be restored."
+msgstr ""
+
+#: bibletime/dummy.h:34
+#, fuzzy
+msgid "Show / hide groupmanager"
+msgstr "Mostra manager dei gruppi"
+
+#: bibletime/dummy.h:34
+msgid "This will show or hide the groupmanager depending on current state."
+msgstr ""
+
+#: bibletime/dummy.h:35
+msgid "Show / hide tooolbar"
+msgstr ""
+
+#: bibletime/dummy.h:35
+msgid "This will show or hide the main toolbar depending on current state."
+msgstr ""
+
+#: bibletime/dummy.h:36
+#, fuzzy
+msgid "Show / hide footnotes"
+msgstr "Mostra note a pie' di pagina"
+
+#: bibletime/dummy.h:36
+msgid ""
+"This will show or hide the footnotes in texts depending on current state."
+msgstr ""
+
+#: bibletime/dummy.h:37
+#, fuzzy
+msgid "Show / hide strong numbers"
+msgstr "Mostra strong"
+
+#: bibletime/dummy.h:37
+msgid ""
+"This will show or hide the strong numbers in texts depending on current "
+"state."
+msgstr ""
+
+#: bibletime/dummy.h:39
+#, fuzzy
+msgid "Tile windows"
+msgstr "Nuova finestra"
+
+#: bibletime/dummy.h:39
+msgid "This will arrange the opened presenter windows in a tile pattern."
+msgstr ""
+
+#: bibletime/dummy.h:40
+msgid "Automatically tile"
+msgstr ""
+
+#: bibletime/dummy.h:40
+msgid ""
+"If this is enabled the opened presenter windows will automatically tiled."
+msgstr ""
+
+#: bibletime/dummy.h:41
+#, fuzzy
+msgid "Cascade windows"
+msgstr "Nuova finestra"
+
+#: bibletime/dummy.h:41
+msgid "This will arrange the opened presenter windows in a cascade pattern."
+msgstr ""
+
+#: bibletime/dummy.h:42
+#, fuzzy
+msgid "Automatically cascade"
+msgstr "Sovrapposizione automatica"
+
+#: bibletime/dummy.h:42
+msgid ""
+"If this is enabled opened presenter windows will automatically cascaded."
+msgstr ""
+
+#: bibletime/dummy.h:43
+#, fuzzy
+msgid "Close all windows"
+msgstr "Chiudi tutto"
+
+#: bibletime/dummy.h:43
+msgid "This will close all opened presenter windows."
+msgstr ""
+
+#: bibletime/dummy.h:45
+msgid "Edit main toolbar"
+msgstr ""
+
+#: bibletime/dummy.h:45
+#, fuzzy
+msgid "This will open a dialog where you can edit the toolbar of BibleTime."
+msgstr ""
+"<B>Modifica barra degli strumenti</B><BR><BR> Questo mostrer?un dialogo dove "
+"puoi modificare la barra degli strumenti di BibleTime!"
+
+#: bibletime/dummy.h:46
+msgid ""
+"This will open BibleTime's optionsdialog where you can set most of the "
+"preferences."
+msgstr ""
+
+#: bibletime/dummy.h:48
+#, fuzzy
+msgid "Content"
+msgstr "Commentari"
+
+#: bibletime/dummy.h:48
+msgid "This will open KDE's helpbrowser with BibleTime's handbook."
+msgstr ""
+
+#: bibletime/dummy.h:49
+msgid "Whats this"
+msgstr ""
+
+#: bibletime/dummy.h:49
+msgid "This will switch into the \"Whats this?\" mode."
+msgstr ""
+
+#: bibletime/dummy.h:50
+msgid "Send bugreport"
+msgstr ""
+
+#: bibletime/dummy.h:50
+msgid "This will send a bugreport to the team of BibleTime!"
+msgstr ""
+
+#: bibletime/dummy.h:51
+msgid "About BibleTime"
+msgstr ""
+
+#: bibletime/dummy.h:51
+msgid "This will show information about BibleTime."
+msgstr ""
+
+#: bibletime/dummy.h:52
+msgid "About KDE"
+msgstr ""
+
+#: bibletime/dummy.h:52
+msgid "This will show the general about dialog of KDE 2."
+msgstr ""
+
+#: bibletime/dummy.h:56
+#, fuzzy
+msgid "The groupmanager"
+msgstr "Reimposta il manager dei gruppi"
+
+#: bibletime/dummy.h:56
+msgid ""
+"This is the groupmanager of BibleTime.<BR>Use it to manage the installed "
+"modules, work with bookmarks, to open presenters etc.."
+msgstr ""
+
+#: bibletime/dummy.h:57
+msgid "This will open a new presenter window for the selected module."
+msgstr ""
+
+#: bibletime/dummy.h:58
+#, fuzzy
+msgid "Create a new group"
+msgstr "Crea nuovo gruppo"
+
+#: bibletime/dummy.h:58
+msgid ""
+"This will create a new group.<BR> If you pressed the right mouse button on a "
+"group the new group will be the subitem of it.<BR>Otherwise you will create "
+"a toplevel group."
+msgstr ""
+
+#: bibletime/dummy.h:59
+#, fuzzy
+msgid "Change group"
+msgstr "Cambia questo gruppo"
+
+#: bibletime/dummy.h:59
+#, fuzzy
+msgid "This will change the properties of the selected group."
+msgstr "Per favore, modifica il nome del gruppo!"
+
+#: bibletime/dummy.h:60
+#, fuzzy
+msgid "New bookmark"
+msgstr "Crea nuovo segnalibro"
+
+#: bibletime/dummy.h:60
+msgid ""
+"This will create a new bookmark. The current key of the activated "
+"presenter<BR>will be used to craete the bookmark."
+msgstr ""
+
+#: bibletime/dummy.h:61
+#, fuzzy
+msgid "Change bookmark"
+msgstr "Cambia questo segnalibro"
+
+#: bibletime/dummy.h:61
+msgid "This will change the properties of the selected bookmark."
+msgstr ""
+
+#: bibletime/dummy.h:62
+msgid "This will import bookmark from a file."
+msgstr ""
+
+#: bibletime/dummy.h:63
+msgid ""
+"This will export bookmarks to a file so you or other<BR>users can import "
+"them later."
+msgstr ""
+
+#: bibletime/dummy.h:64
+msgid ""
+"Use this to print the bookmark. The key, the description and the text of the "
+"key will be printed."
+msgstr ""
+
+#: bibletime/dummy.h:65
+#, fuzzy
+msgid "Unlock module"
+msgstr "Inserisci la chiave per sbloccare il modulo!"
+
+#: bibletime/dummy.h:65
+msgid "This will open a small dialog where you can unlock the selected module."
+msgstr ""
+
+#: bibletime/dummy.h:66
+#, fuzzy
+msgid "About module"
+msgstr "Tutti i moduli"
+
+#: bibletime/dummy.h:66
+msgid "This opens a dialog to show information about the selected module."
+msgstr ""
+
+#: bibletime/dummy.h:69
+msgid "The working area"
+msgstr ""
+
+#: bibletime/dummy.h:69
+msgid "This is the area where you work with the texts."
+msgstr ""
+
+#: bibletime/dummy.h:71
+#, fuzzy
+msgid "The bible presenter"
+msgstr "Nuovo visualizzatore"
+
+#: bibletime/dummy.h:71
+msgid "This is the presenter where bibles are shown."
+msgstr ""
+
+#: bibletime/dummy.h:72
+msgid "The commentary presenter"
+msgstr ""
+
+#: bibletime/dummy.h:72
+msgid "This is the presenter where commentaries are shown."
+msgstr ""
+
+#: bibletime/dummy.h:73
+#, fuzzy
+msgid "The lexicon presenter"
+msgstr "Nuovo visualizzatore"
+
+#: bibletime/dummy.h:73
+msgid "This is the presenter where lexicons are shown."
+msgstr ""
+
+#: bibletime/dummy.h:75
+#, fuzzy
+msgid "Next verse"
+msgstr "V&ersetto successivo"
+
+#: bibletime/dummy.h:75
+msgid ""
+"This will show or highlight the next verse depending on the type of "
+"presenter."
+msgstr ""
+
+#: bibletime/dummy.h:76
+#, fuzzy
+msgid "Previous verse"
+msgstr "Versetto precedente"
+
+#: bibletime/dummy.h:76
+msgid ""
+"This will show or highlight the previous verse depending on the type of "
+"presenter."
+msgstr ""
+
+#: bibletime/dummy.h:77
+#, fuzzy
+msgid "Next chapter"
+msgstr "C&apitolo successivo"
+
+#: bibletime/dummy.h:77
+msgid ""
+"This will show or highlight the next chapter depending on the type of "
+"presenter."
+msgstr ""
+
+#: bibletime/dummy.h:78
+#, fuzzy
+msgid "Previous chapter"
+msgstr "Capitolo precedente"
+
+#: bibletime/dummy.h:78
+msgid ""
+"This will show or highlight the previous chapter depending on the type of "
+"presenter."
+msgstr ""
+
+#: bibletime/dummy.h:79
+msgid "Book list"
+msgstr ""
+
+#: bibletime/dummy.h:79
+msgid "This list contains the books available in the current module."
+msgstr ""
+
+#: bibletime/dummy.h:80
+msgid "Chapter list"
+msgstr ""
+
+#: bibletime/dummy.h:80
+msgid "This list contains the chapters available in the current book."
+msgstr ""
+
+#: bibletime/dummy.h:81
+msgid "Verse list"
+msgstr ""
+
+#: bibletime/dummy.h:81
+msgid "This list contains the verses available in the current verse."
+msgstr ""
+
+#: bibletime/dummy.h:82
+msgid "Entry list"
+msgstr ""
+
+#: bibletime/dummy.h:82
+#, fuzzy
+msgid "This list contains the entries of the current module."
+msgstr "Per favore, modifica il nome del gruppo!"
+
+#: bibletime/dummy.h:83
+#, fuzzy
+msgid "Automatic scrolling"
+msgstr "Scorrimento automatico"
+
+#: bibletime/dummy.h:83
+msgid ""
+"If this is activated the current presenter will scroll with the other "
+"autoscrolling-enabled presenters."
+msgstr ""
+
+#: bibletime/dummy.h:84
+msgid "Edit personal comment"
+msgstr ""
+
+#: bibletime/dummy.h:84
+msgid ""
+"This button will toggle between edit and read mode of writebale modules."
+msgstr ""
+
+#: bibletime/dummy.h:85
+msgid "Save personal comment"
+msgstr ""
+
+#: bibletime/dummy.h:85
+msgid "This will save the current personal comment to disk."
+msgstr ""
+
+#: bibletime/dummy.h:86
+msgid "Delete personal comment"
+msgstr ""
+
+#: bibletime/dummy.h:86
+msgid ""
+"This will clear the currently enetered text but it will not save to disk."
+msgstr ""
+
+#: bibletime/dummy.h:87
+#, fuzzy
+msgid "Comment up to"
+msgstr "Commenta fino a:"
+
+#: bibletime/dummy.h:87
+#, fuzzy
+msgid "This is the upper bound of the commented range of verses."
+msgstr ""
+"<B>Punto di stop</B><BR><BR>Questo sar?il limite superiore dei versetti "
+"commentati."
+
+#: bibletime/dummy.h:88
+msgid ""
+"This will make the selected text bold or not bold, depending on current "
+"state."
+msgstr ""
+
+#: bibletime/dummy.h:89
+msgid ""
+"This will make the selected text italic or not bold, depending on current "
+"state."
+msgstr ""
+
+#: bibletime/dummy.h:90
+msgid ""
+"This will make the selected text underlined or not bold, depending on "
+"current state."
+msgstr ""
+
+#: bibletime/dummy.h:91
+msgid "Set font"
+msgstr ""
+
+#: bibletime/dummy.h:91
+msgid "This will change the font of the selected text."
+msgstr ""
+
+#: bibletime/dummy.h:92
+#, fuzzy
+msgid "Choose a color"
+msgstr "Scegli i colori"
+
+#: bibletime/dummy.h:92
+msgid "Use this to change the color of the selected text."
+msgstr ""
+
+#: bibletime/dummy.h:93
+#, fuzzy
+msgid "Choose a fontsize"
+msgstr "Scegli versetto"
+
+#: bibletime/dummy.h:93
+msgid "use this to change the fontsize of the selected text."
+msgstr ""
+
+#: bibletime/dummy.h:96
+#, fuzzy
+msgid "Save as HTML"
+msgstr "Salva il testo come HTML ..."
+
+#: bibletime/dummy.h:96
+msgid "This will save the displayed text as a HTML page to disk."
+msgstr ""
+
+#: bibletime/dummy.h:97
+msgid "This will select all displayed text."
+msgstr ""
+
+#: bibletime/dummy.h:98
+msgid "Copy to clipboard"
+msgstr ""
+
+#: bibletime/dummy.h:98
+msgid "This will copy the selected text to the clipboard."
+msgstr ""
+
+#: bibletime/dummy.h:101
+#, fuzzy
+msgid "Search this text"
+msgstr "Testo da cercare"
+
+#: bibletime/dummy.h:101
+msgid "The text entered in this box will be searched in all modules."
+msgstr ""
+
+#: bibletime/dummy.h:102
+#, fuzzy
+msgid "Search multiple words"
+msgstr "Parole Multiple"
+
+#: bibletime/dummy.h:102
+msgid "Select this to search more than one word."
+msgstr ""
+
+#: bibletime/dummy.h:103
+#, fuzzy
+msgid "Exact match"
+msgstr "Ricerca esatta"
+
+#: bibletime/dummy.h:103
+msgid "Select this to search exactly the text you entered."
+msgstr ""
+
+#: bibletime/dummy.h:104
+msgid "Search with GNU regexp"
+msgstr ""
+
+#: bibletime/dummy.h:104
+msgid "Select this to search with standard GNU regular expressions."
+msgstr ""
+
+#: bibletime/dummy.h:105
+#, fuzzy
+msgid "Search case sensitive"
+msgstr "Maiuscole/minuscole"
+
+#: bibletime/dummy.h:105
+msgid "Activate this to use case sensitive search."
+msgstr ""
+
+#: bibletime/dummy.h:107
+msgid "Select this if you want to search the whole module(s)."
+msgstr ""
+
+#: bibletime/dummy.h:108
+#, fuzzy
+msgid "Last search result"
+msgstr "Risultato della ricerca"
+
+#: bibletime/dummy.h:108
+msgid ""
+"Select this if you want to use last search result of a module<BR>for the "
+"search scope of the module."
+msgstr ""
+
+#: bibletime/dummy.h:109
+#, fuzzy
+msgid "Set bounds"
+msgstr "Imposta limiti"
+
+#: bibletime/dummy.h:109
+msgid "Select this if you want to specify own search scopes."
+msgstr ""
+
+#: bibletime/dummy.h:110
+#, fuzzy
+msgid "Lower bound"
+msgstr "Limite inferiore:"
+
+#: bibletime/dummy.h:110
+msgid ""
+"This editbox contains the lower bound of the currently edited search scope."
+msgstr ""
+
+#: bibletime/dummy.h:111
+#, fuzzy
+msgid "Upper bound"
+msgstr "Limite superiore:"
+
+#: bibletime/dummy.h:111
+msgid ""
+"This editbox contains the upper bound of the currently edited search scope."
+msgstr ""
+
+#: bibletime/dummy.h:112
+msgid "Add scope"
+msgstr ""
+
+#: bibletime/dummy.h:112
+msgid "Use this button to add the edited scope to the selected module."
+msgstr ""
+
+#: bibletime/dummy.h:113
+#, fuzzy
+msgid "Delete scope"
+msgstr "Elimina limite"
+
+#: bibletime/dummy.h:113
+msgid "Use this button o delete the currently selected scope."
+msgstr ""
+
+#: bibletime/dummy.h:115
+#, fuzzy
+msgid "Found items"
+msgstr "Chiavi trovate"
+
+#: bibletime/dummy.h:115
+msgid "This contains the found items of the searched module(s)"
+msgstr ""
+
+#: bibletime/dummy.h:116
+#, fuzzy
+msgid "Verse preview"
+msgstr "Anteprima del versetto:"
+
+#: bibletime/dummy.h:116
+msgid "This text box contains the text of the selected verse."
+msgstr ""
+
+#: bibletime/dummy.h:118
+#, fuzzy
+msgid "Save as image"
+msgstr "Salva come immagine... "
+
+#: bibletime/dummy.h:118
+msgid ""
+"Use this button to save the graphical search analysis as an image to disk."
+msgstr ""
+
+#: bibletime/dummy.h:119
+#, fuzzy
+msgid "Graphical analysis"
+msgstr "Analisi grafica della tua ricerca"
+
+#: bibletime/dummy.h:119
+msgid "This area contains the graphical search analysis."
+msgstr ""
+
+#: bibletime/dummy.h:122
+msgid "Show daily tip"
+msgstr ""
+
+#: bibletime/dummy.h:122
+#, fuzzy
+msgid "Activate this box to see a daily tip on startup."
+msgstr ""
+"<B>Mostra il suggerimento giornaliero</B><BR><BR>Abilita questa casella per "
+"vedere il suggerimento giornaliero all'avvio di BibleTime."
+
+#: bibletime/dummy.h:123
+#, fuzzy
+msgid "International booknames"
+msgstr "Usa i nomi dei libri internazionali di SWORD"
+
+#: bibletime/dummy.h:123
+#, fuzzy
+msgid "Activate this to have international booknames."
+msgstr "Usa i nomi dei libri internazionali di SWORD"
+
+#: bibletime/dummy.h:124
+msgid "List of languages"
+msgstr ""
+
+#: bibletime/dummy.h:124
+#, fuzzy
+msgid ""
+"This list contains the available<BR>languages used for international "
+"booknames."
+msgstr "Per favore, modifica il nome del gruppo!"
+
+#: bibletime/dummy.h:125
+#, fuzzy
+msgid "Activate this to see a startup logo on each startup of BibleTime."
+msgstr ""
+"<B>Mostra il suggerimento giornaliero</B><BR><BR>Abilita questa casella per "
+"vedere il suggerimento giornaliero all'avvio di BibleTime."
+
+#: bibletime/dummy.h:127
+#, fuzzy
+msgid "Font of presenter"
+msgstr "Nuovo visualizzatore"
+
+#: bibletime/dummy.h:127
+msgid "This font will be used as general font in all presenters."
+msgstr ""
+
+#: bibletime/dummy.h:128
+msgid "Fixed font of presenters"
+msgstr ""
+
+#: bibletime/dummy.h:128
+msgid "This font will be used as fixed font in all presenters."
+msgstr ""
+
+#: bibletime/dummy.h:129
+msgid "Font for printing"
+msgstr ""
+
+#: bibletime/dummy.h:129
+msgid "This font will be used as general font for printing."
+msgstr ""
+
+#: bibletime/dummy.h:130
+msgid "Fixed font for printing"
+msgstr ""
+
+#: bibletime/dummy.h:130
+msgid "This font will be used as general fixed font for printing."
+msgstr ""
+
+#: bibletime/dummy.h:133
+msgid "List of modules"
+msgstr ""
+
+#: bibletime/dummy.h:133
+msgid "This list contains the modules using foreign fonts."
+msgstr ""
+
+#: bibletime/dummy.h:135
+#, fuzzy
+msgid "Background color"
+msgstr "Sfondo"
+
+#: bibletime/dummy.h:135
+msgid "This is the background color used in presenters."
+msgstr ""
+
+#: bibletime/dummy.h:136
+#, fuzzy
+msgid "Normal text"
+msgstr "Testo normale"
+
+#: bibletime/dummy.h:136
+#, fuzzy
+msgid "This is the color of normal text used in presenters."
+msgstr ""
+"<B>Colori del testo normale</B><BR><BR>Questo ?il colore del testo normale "
+"nei visualizzatori basati su testo normale."
+
+#: bibletime/dummy.h:137
+#, fuzzy
+msgid "Versenumber"
+msgstr "Numero versetto / URL"
+
+#: bibletime/dummy.h:137
+msgid "This is the color of versenumbers used in presenters."
+msgstr ""
+
+#: bibletime/dummy.h:138
+#, fuzzy
+msgid "Highlighted verse"
+msgstr "Versetto evidenziato"
+
+#: bibletime/dummy.h:138
+#, fuzzy
+msgid "This is the color of the highlighted verse used in presenters."
+msgstr ""
+"<B>Colore del versetto evidenziato</B><BR><BR>Questo ?il colore delversetto "
+"evidenziato (attivo) in una visualizzatore basato su testo normale."
+
+#: bibletime/dummy.h:141
+#, fuzzy
+msgid "Start printing"
+msgstr "opzioni"
+
+#: bibletime/dummy.h:141
+msgid ""
+"Start the printing process. It will print the items in the list using<BR>the "
+"styles and the selected options (printer, paper size ...)"
+msgstr ""
+
+#: bibletime/dummy.h:142
+#, fuzzy
+msgid "Open preview"
+msgstr "Anteprima del versetto:"
+
+#: bibletime/dummy.h:142
+msgid ""
+"This will print into a temporary file and open a postscript viewer to show "
+"the file."
+msgstr ""
+
+#: bibletime/dummy.h:143
+msgid "Closes this dialog without printing the items."
+msgstr ""
+
+#: bibletime/dummy.h:144
+msgid "Open help"
+msgstr ""
+
+#: bibletime/dummy.h:144
+msgid "Open the online help of BibleTime."
+msgstr ""
+
+#: bibletime/dummy.h:146
+#, fuzzy
+msgid "The list of printers"
+msgstr "Nuovo visualizzatore"
+
+#: bibletime/dummy.h:146
+msgid ""
+"This is the list of available printers on your system.<BR>Please select the "
+"printer you want to use."
+msgstr ""
+
+#: bibletime/dummy.h:147
+#, fuzzy
+msgid "Print into file"
+msgstr "Stampante"
+
+#: bibletime/dummy.h:147
+msgid "Print into a postrscript file on disk."
+msgstr ""
+
+#: bibletime/dummy.h:148
+#, fuzzy
+msgid "Search file"
+msgstr "Menu ricerca"
+
+#: bibletime/dummy.h:148
+msgid "Browse for the file you want to print print to."
+msgstr ""
+
+#: bibletime/dummy.h:149
+msgid "Copies"
+msgstr ""
+
+#: bibletime/dummy.h:149
+msgid "The number of copies used for printing."
+msgstr ""
+
+#: bibletime/dummy.h:150
+msgid "Choose the type of Orientation"
+msgstr ""
+
+#: bibletime/dummy.h:151
+msgid "Print on the paper using Portait orientation."
+msgstr ""
+
+#: bibletime/dummy.h:152
+msgid "Print on the paper using Landscape orientation."
+msgstr ""
+
+#: bibletime/dummy.h:153
+msgid "Paper type"
+msgstr ""
+
+#: bibletime/dummy.h:153
+msgid "The type of the paper on which you want to print."
+msgstr ""
+
+#: bibletime/dummy.h:154
+msgid "Paper size"
+msgstr ""
+
+#: bibletime/dummy.h:154
+msgid ""
+"Select the paper size of your printer. The size will be used fo printing."
+msgstr ""
+
+#: bibletime/dummy.h:156
+msgid "Styles"
+msgstr ""
+
+#: bibletime/dummy.h:156
+msgid "This combo boy contains the available styles."
+msgstr ""
+
+#: bibletime/dummy.h:157
+#, fuzzy
+msgid "List of print items"
+msgstr "Stampante"
+
+#: bibletime/dummy.h:157
+msgid "This is the list which contains the available print items."
+msgstr ""
+
+#: bibletime/dummy.h:158
+#, fuzzy
+msgid "Move item up"
+msgstr "Rimuovi Oggetto"
+
+#: bibletime/dummy.h:158
+msgid "Move the selected item one item above."
+msgstr ""
+
+#: bibletime/dummy.h:159
+#, fuzzy
+msgid "Move item down"
+msgstr "Rimuovi Oggetto"
+
+#: bibletime/dummy.h:159
+msgid "Move the selected item one item below."
+msgstr ""
+
+#: bibletime/dummy.h:160
+#, fuzzy
+msgid "Delete items"
+msgstr "Elimina limite"
+
+#: bibletime/dummy.h:160
+#, fuzzy
+msgid "Delete the selected items."
+msgstr "Elimina oggetti selezionati"
+
+#: bibletime/dummy.h:161
+msgid "Insert page break"
+msgstr ""
+
+#: bibletime/dummy.h:161
+msgid ""
+"Inserts a page break into the list.<BR>The printer will begin here a new "
+"page."
+msgstr ""
+
+#: bibletime/dummy.h:163
+msgid "Page borders"
+msgstr ""
+
+#: bibletime/dummy.h:163
+#, fuzzy
+msgid "This group contains the page borders of the page."
+msgstr "Per favore, modifica il nome del gruppo!"
+
+#: bibletime/dummy.h:164
+msgid "Left border"
+msgstr ""
+
+#: bibletime/dummy.h:164 bibletime/dummy.h:165
+msgid "The size of the border on the left side of the paper sheet."
+msgstr ""
+
+#: bibletime/dummy.h:165
+msgid "Right border"
+msgstr ""
+
+#: bibletime/dummy.h:166
+#, fuzzy
+msgid "Upper border"
+msgstr "Limite superiore:"
+
+#: bibletime/dummy.h:166
+msgid "The size of the border on the bottom of the paper sheet."
+msgstr ""
+
+#: bibletime/dummy.h:167
+#, fuzzy
+msgid "Lower border"
+msgstr "Limite inferiore:"
+
+#: bibletime/dummy.h:167
+msgid "The size of the border on the top of the paper sheet."
+msgstr ""
+
+#: bibletime/dummy.h:168
+msgid "List of styles"
+msgstr ""
+
+#: bibletime/dummy.h:168
+#, fuzzy
+msgid "This list contains the available styles. You can create your own ones."
+msgstr "Per favore, modifica il nome del gruppo!"
+
+#: bibletime/dummy.h:169
+#, fuzzy
+msgid "Delete style"
+msgstr "Elimina limite"
+
+#: bibletime/dummy.h:169
+#, fuzzy
+msgid "Remove the selected style from the list."
+msgstr "Elimina oggetti selezionati"
+
+#: bibletime/dummy.h:170
+msgid "Edit style"
+msgstr ""
+
+#: bibletime/dummy.h:170
+#, fuzzy
+msgid "Change the properties of the selected style."
+msgstr "Per favore, modifica il nome del gruppo!"
+
+#: bibletime/dummy.h:171
+#, fuzzy
+msgid "Create new style"
+msgstr "Crea nuovo gruppo"
+
+#: bibletime/dummy.h:171
+msgid "Create a new style.<BR>The new style will be added to the list."
+msgstr ""
+
+#~ msgid "All Modules"
+#~ msgstr "Tutti i moduli"
+
+#~ msgid "From:"
+#~ msgstr "Da:"
+
+#~ msgid "To:"
+#~ msgstr "A:"
+
+#~ msgid "Remove item"
+#~ msgstr "Rimuovi Oggetto"
+
+#~ msgid "Remove Module"
+#~ msgstr "Rimuovi Modulo"
+
+#~ msgid "Remove Scope"
+#~ msgstr "Rimuovi fine"
+
+#, fuzzy
+#~ msgid "Edit the scope of the search"
+#~ msgstr "Inserisci il fine della ricerca"
+
+#~ msgid "Traditional logo"
+#~ msgstr "Logo tradizionale"
+
+#, fuzzy
+#~ msgid "Luther logo"
+#~ msgstr "Immagine di Lutero"
+
+#, fuzzy
+#~ msgid "Printing range"
+#~ msgstr "Stampante"
+
+#, fuzzy
+#~ msgid "All pages"
+#~ msgstr "Tutti i moduli"
+
+#, fuzzy
+#~ msgid "Print all pages."
+#~ msgstr "Stampante"
+
+#, fuzzy
+#~ msgid "Edit the selected style."
+#~ msgstr "Elimina oggetti selezionati"
+
+#, fuzzy
+#~ msgid "Create a new style."
+#~ msgstr "Crea nuovo gruppo"
+
+#~ msgid "Presenter Fixed"
+#~ msgstr "Visualizzatore Fisso"
+
+#~ msgid "Printer Fixed"
+#~ msgstr "Fisso per la stampante"
+
+#~ msgid "Save search analysis as image ..."
+#~ msgstr "Salva l'analisi della ricerca come immagine..."
+
+#, fuzzy
+#~ msgid ""
+#~ "BibleTime is an easy to use Bible study program for KDE 2.\n"
+#~ "It's based on SWORD to provide access to modules\n"
+#~ "(Bibles, commentaries and lexicons)."
+#~ msgstr ""
+#~ "BibleTime ?un programma facile da usare per lo studio della Bibbia per KDE "
+#~ "2.\n"
+#~ "? basato su SWORD per l'accesso ai moduli\n"
+#~ "(Bibbie, commenti e lessici)."
+
+#~ msgid "Use KDE's language settings"
+#~ msgstr "Usa le impostazioni linguistiche di KDE"
+
+#~ msgid "Choose logo"
+#~ msgstr "Scegli il logo"
+
+#~ msgid "Luther image"
+#~ msgstr "Immagine di Lutero"
+
+#~ msgid "rendered SWORD logo"
+#~ msgstr "Logo SWORD renderizzato"
+
+#~ msgid "Comment up to: "
+#~ msgstr "Commenta fino a:"
+
+#~ msgid "Stop key"
+#~ msgstr "Punto di stop"
+
+#, fuzzy
+#~ msgid "Choose font size"
+#~ msgstr "Scegli versetto"
+
+#~ msgid "&Delete Bound"
+#~ msgstr "Elimina limite"
+
+#~ msgid "&Add Bound"
+#~ msgstr "Aggiungi limite"
+
+#~ msgid "Lower Bound:"
+#~ msgstr "Limite inferiore:"
+
+#~ msgid "Upper Bound:"
+#~ msgstr "Limite superiore:"
+
+#~ msgid "Search Scope:"
+#~ msgstr "Fine della ricerca:"
+
+#~ msgid "Result from last search"
+#~ msgstr "Risultati dell'ultima ricerca"
+
+#~ msgid "set Bounds"
+#~ msgstr "Imposta limiti"
+
+#~ msgid "Plain"
+#~ msgstr "Semplice"
+
+#~ msgid "Create new bookmark"
+#~ msgstr "Crea nuovo segnalibro"
+
+#~ msgid "Next v&erse"
+#~ msgstr "V&ersetto successivo"
+
+#~ msgid "Previous ve&rse"
+#~ msgstr "Versetto precedente"
+
+#~ msgid "Next ch&apter"
+#~ msgstr "C&apitolo successivo"
+
+#~ msgid "Previous c&hapter"
+#~ msgstr "Capitolo precedente"
+
+#~ msgid "Autoscrolling"
+#~ msgstr "Scorrimento automatico"
+
+#~ msgid "Choose book"
+#~ msgstr "Scegli libro"
+
+#~ msgid "Choose chapter"
+#~ msgstr "Scegli capitolo"
+
+#~ msgid "Choose verse"
+#~ msgstr "Scegli versetto"
+
+#, fuzzy
+#~ msgid "Found entries"
+#~ msgstr "Chiavi trovate"
+
+#, fuzzy
+#~ msgid "Choose a formatting type:"
+#~ msgstr "Scegli versetto"
+
+#, fuzzy
+#~ msgid "Regular expression editor"
+#~ msgstr "Espressione regolare"
+
+#~ msgid "Search Result:"
+#~ msgstr "Risultato della ricerca:"
+
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
+
+#~ msgid "Found keys"
+#~ msgstr "Chiavi trovate"
+
+#~ msgid ""
+#~ "<B>New window</B><BR><BR>This will create a new application window of "
+#~ "BibleTime!"
+#~ msgstr ""
+#~ "<B>Nuova finestra</B><BR><BR>Questo creer?una nuova finestra "
+#~ "dell'applicazione BibleTime!"
+
+#~ msgid ""
+#~ "<B>Close window</B><BR><BR>Close this window of BibleTime. If it's the last "
+#~ "window BibleTime will be closed."
+#~ msgstr ""
+#~ "<B>Chiudi la finestra</B><BR><BR>Chiudi questa finestra diBibleTime. Se "
+#~ "?l'ultima finestra BibleTime sar?terminato."
+
+#~ msgid "&Window"
+#~ msgstr "&Finestra"
+
+#~ msgid ""
+#~ "<B>The edit widget</B><BR><BR>Use this edit widget to change writable "
+#~ "commentaries.<BR>It supports some special features, have a look into the "
+#~ "handbook or README."
+#~ msgstr ""
+#~ "<B>Il widget di modifica</B><BR><BR>Usa questo widget di modifica per "
+#~ "cambiare i commenti che possono essere modificati.<BR>Presenta alcune "
+#~ "possibilit?speciali. Guarda nel manuale o nel README."
+
+#~ msgid ""
+#~ "<B>Foreign fonts chooser</B><BR><BR>After selecteing a module above please "
+#~ "change the font here."
+#~ msgstr ""
+#~ "<B>Scelta carattere straniero</B><BR><BR>Dopo aver selezionato un modulo "
+#~ "cambia il font qui."
+
+#, fuzzy
+#~ msgid "Reset the groupmanager"
+#~ msgstr "Reimposta il manager dei gruppi"
+
+#, fuzzy
+#~ msgid "Print ..."
+#~ msgstr "Stampante"
+
+#, fuzzy
+#~ msgid "Passage"
+#~ msgstr "Uso"
+
+#, fuzzy
+#~ msgid "Search Result Viewer"
+#~ msgstr "Risultato della ricerca"
+
+#, fuzzy
+#~ msgid "Change this item"
+#~ msgstr "Cambia questo gruppo"
+
+#, fuzzy
+#~ msgid "Search Module"
+#~ msgstr "Fini della ricerca"
+
+#~ msgid "Authors"
+#~ msgstr "Autori"
+
+#, fuzzy
+#~ msgid "&Previous"
+#~ msgstr "Versetto precedente"
+
+#~ msgid "Tip of the Day"
+#~ msgstr "Suggerimento giornaliero"
+
+#~ msgid "Did you know...?"
+#~ msgstr "Sapevi..?"
+
+#~ msgid "Show tip of the day on next start"
+#~ msgstr "Mostra suggerimento giornaliero al prossimo avvio"
+
+#~ msgid ""
+#~ "Tipdatabase not found!\n"
+#~ "Please check your installation."
+#~ msgstr ""
+#~ "Database dei suggerimenti non trovato!\n"
+#~ "Per favore verifica l'installazione"
+
+#~ msgid ""
+#~ "<B>Quit BibleTime</B><BR><BR>Use this to terminate BibleTime. Settings will "
+#~ "be saved before quit.!"
+#~ msgstr ""
+#~ "<B>Esci da BibleTime</B><BR><BR>Utilizza questo per uscire da Bibletime. Le "
+#~ "impostazioni saranno salvate prima di uscire!"
+
+#~ msgid ""
+#~ "<B>Show footnotes</B><BR><BR>Toggle this to show or hide the footnotes in "
+#~ "the presenters.<BR>Not all modules and presenters<BR>support footnotes."
+#~ msgstr ""
+#~ "<B>Mostra note a pie' di pagina</B><BR><BR>(Dis)attiva questo per mostrare o "
+#~ "nascondere note a pie' di pagina.<BR>Non tutti i moduli e "
+#~ "visualizzatori<BR>supportano note a pie' di pagina."
+
+#~ msgid ""
+#~ "<B>Show strong numbers</B><BR><BR>Toggle this to show or hide strong numbers "
+#~ "in the presenters.<BR>Not all modules and presenters<BR>support strongs."
+#~ msgstr ""
+#~ "<B>Mostra i numeri strong</B><BR><BR>(Dis)attiva questo per mostrare o "
+#~ "nascondere i numeri strong.<BR>Non tutti i moduli e "
+#~ "visualizzatori<BR>supportano numeri strong."
+
+#~ msgid "<B>Show toolbar</B><BR><BR>Toggle this to show or hide the toolbar."
+#~ msgstr ""
+#~ "<B>Mostra barra degli strumenti</B><BR><BR>(Dis)attiva questo per mostrare o "
+#~ "nascondere la barra degli strumenti."
+
+#~ msgid ""
+#~ "<B>Show the groupmanager</B><BR><BR>Toggle this to show or hide the "
+#~ "groupmanager of BibleTime!"
+#~ msgstr ""
+#~ "<B>Mostra il manager dei gruppi</B><BR><BR>(Dis)attiva questo per mostrare o "
+#~ "nascondere il manager dei gruppi"
+
+#~ msgid ""
+#~ "<B>Settings</B><BR><BR> This will show the preferences dialog to configure "
+#~ "BibleTime."
+#~ msgstr ""
+#~ "<B>Impostazioni</B><BR><BR> Questo mostrer?il dialogo di configurazione "
+#~ "delle impostazioni"
+
+#~ msgid "<B>Cascade</B><BR><BR>This will cascade the windows in the MDI area!"
+#~ msgstr ""
+#~ "<B>Sovrapponi</B><BR><BR>Questo sovrapporr?le finestre nell'area MDI!"
+
+#~ msgid "<B>Tile</B><BR><BR>This will tile the windows in the MDI area!"
+#~ msgstr "<B>Affianca</B><BR><BR>Questo affiancher?le finestre nell'area MDI!"
+
+#~ msgid ""
+#~ "<B>Auto Cascade</B><BR><BR>Check this to let BibleTime automatically cascade "
+#~ "the windows!"
+#~ msgstr ""
+#~ "<B>Sovrapposizione automatica</B><BR><BR>Abilita questo per sovrapporre "
+#~ "automaticamente le finestre!"
+
+# I noticed that "cascade" has an exclamation mark that "tile" hasn't. Correct?
+#~ msgid ""
+#~ "<B>Auto Tile</B><BR><BR>Check this to let BibleTime automatically tile the "
+#~ "windows"
+#~ msgstr ""
+#~ "<B>Affiancamento automatico</B><BR><BR>Abilita questo per affiancare "
+#~ "automaticamentele finestre"
+
+#~ msgid "<B>Close all</B><BR><BR>Close all windows of the MDI area!"
+#~ msgstr "Chiudi tutto</B><BR><BR>Chiudi tutte le finestre nell'area MDI!"
+
+#~ msgid ""
+#~ "<B>Font of presenters</B><BR><BR>Enbabling this button let you choose the "
+#~ "font for presenters."
+#~ msgstr ""
+#~ "<B>Carattere per i visualizzatori</B><BR><BR>Scegliendo questo bottone puoi "
+#~ "scegliere il carattere per i visualizzatori."
+
+#~ msgid ""
+#~ "<B>Fixed font of presenters</B><BR><BR>Enbabling this button let you choose "
+#~ "the fixed font for presenters."
+#~ msgstr ""
+#~ "<B>Carattere fisso per i visualizzatori</B><BR><BR>Scegliendo questo bottone "
+#~ "puoi indicare il carattere fisso per i visualizzatori."
+
+#~ msgid ""
+#~ "<B>Font of printing</B><BR><BR>Enbabling this button let you choose the font "
+#~ "for printing."
+#~ msgstr ""
+#~ "<B>Carattere per la stampa</B><BR><BR>Scegliendo questo bottone puoi "
+#~ "indicare il carattere per la stampa."
+
+#~ msgid ""
+#~ "<B>Fixed font of printing</B><BR><BR>Enbabling this button let you choose "
+#~ "the fixed font for printing."
+#~ msgstr ""
+#~ "<B>Carattere fisso per la stampa</B><BR><BR>Scegliendo questo bottone puoi "
+#~ "indicare il carattere fisso per la stampa."
+
+#~ msgid ""
+#~ "<B>Modules with foreign font</B><BR><BR>This listbox contains the modules "
+#~ "with a foreign font.<BR>Select a module and change the font below."
+#~ msgstr ""
+#~ "<B>Moduli con caratteri stranieri</B><BR><BR>Questa lista contiene i moduli "
+#~ "con font stranieri.<BR>Scegli un modulo e modifica il font sotto."
+
+#~ msgid ""
+#~ "<B>Background color</B><BR><BR>This is the background color of all HTML "
+#~ "based presenters.<BR>This includes Bible presenters, commentary presenters "
+#~ "and lexicon presenters."
+#~ msgstr ""
+#~ "<B>Colore di sfondo</B><BR><BR>Questo ?il colore di sfondo di tutti i "
+#~ "visualizzatori basati su HTML.<BR>Questo include i visualizzatori delle "
+#~ "bibbie, i visualizzatori dei commenti e i visualizzatori dei lessici."
+
+#~ msgid ""
+#~ "<B>Color of verse numbers or URLs</B><BR><BR>This is the color of the "
+#~ "versenumbers or URLs in text based presenters."
+#~ msgstr ""
+#~ "<B>Colore del numero di versetto o URL</B><BR><BR>Questo ?il colore del "
+#~ "numero di versetto o dell'URL nei visualizzatori basati su testo normale."
+
+#~ msgid ""
+#~ "<B>Use SWORD international booknames</B><BR><BR>Enable this to have "
+#~ "international booknames on next startup."
+#~ msgstr ""
+#~ "<B>Usa i nomi dei libri internazionali di SWORD</B><BR><BR>Abilita questo "
+#~ "per avere i nomi internazionali al prossimo avvio."
+
+#~ msgid ""
+#~ "<B>Available translations of booknames</B><BR><BR>This box contains the "
+#~ "available languages of international booknames.<BR>Choose <I>Use KDE's "
+#~ "language settings</I> to automatically choose your languae if it's available."
+#~ msgstr ""
+#~ "<B>Traduzioni disponibili per i nomi dei libri</B><BR><BR>Questa caselle "
+#~ "contiene le traduzioni disponibili dei nomi internazionali dei "
+#~ "libri.<BR>Scegli <I>Usa leimpostazioni linguistiche di KDE</I> per scegliere "
+#~ "automaticamente la tualingua se fosse disponibile"
+
+#~ msgid ""
+#~ "<B>Show startuplogo</B><BR><BR>Check this box to see a nice startuplogo on "
+#~ "startup.<BR>Choose the image below."
+#~ msgstr ""
+#~ "<B>Mostra logo iniziale</B><BR><BR>Abilita questa casella per vedere un "
+#~ "simpatico logo all'avvio.<BR>Scegli l'immagine sotto."
+
+#~ msgid ""
+#~ "<B>Use traditional logo</B><BR><BR>Use the traditional logo of BibleTime."
+#~ msgstr ""
+#~ "<B>Usa logo tradizionale</B><BR><BR>Usa il tradizionale logo di BibleTime."
+
+#~ msgid ""
+#~ "<B>Use logo showing Martin Luther</B><BR><BR>Enable this box to see a nice "
+#~ "image showing Martin Luther on startup."
+#~ msgstr ""
+#~ "<B>Usa il logo di Martin Lutero</B><BR><BR>Abilita questa casella per "
+#~ "vedereuna simpatica immagine di Martin Lutero."
+
+#~ msgid ""
+#~ "<B>Rendered SWORD logo</B><BR><BR>Enable this to see a nice SWORD logo on "
+#~ "startup."
+#~ msgstr ""
+#~ "<B>Logo SWORD renderizzato</B><BR><BR>Abilita questo per vedere il logo di "
+#~ "SWORD all'avvio."
+
+#~ msgid ""
+#~ "<B>The MDI area</B><BR><BR>The MDI area will contain all presenters you "
+#~ "open.<BR>Set options for the MDI area using the window menu."
+#~ msgstr ""
+#~ "<B>Area MDI</B><BR><BR>L'area MDI conterr?tutti i visualizzatori che "
+#~ "aprite.<BR>Selezionare le opzioni per l'area MDI usando il menu finestra."
+
+#~ msgid ""
+#~ "<B>The groupmanager</B><BR><BR>The groupmanager handles all the module,you "
+#~ "have installed.<BR>You may create bookmarks, subgroups, drag the items "
+#~ "around) and delete items."
+#~ msgstr ""
+#~ "<B>Manager dei gruppi</B><BR><BR>Il manager dei gruppi gestisce tutti i "
+#~ "moduliche avete installato.<BR>Potete creare segnalibri, sottogruppi, "
+#~ "trascinare gli oggetti e cancellarli."
+
+#~ msgid ""
+#~ "<B>Next verse</B><BR><BR>Use this button to switch ro the next verse of this "
+#~ "chapter.<BR>If the current verse is the last of this chapter<BR>we switch to "
+#~ "the first one of the next chapter.<BR>You can also click on a versenumber to "
+#~ "highlight a verse"
+#~ msgstr ""
+#~ "<B>Versetto successivo</B><BR><BR>Usa questo bottone per andare al prossimo "
+#~ "versetto di questo capitolo.<BR>Se il versetto corrente ?l'ultimo del "
+#~ "capitolo<BR>verr?mostrato il primo del prossimo capitolo.<BR>Si pu inoltre "
+#~ "cliccare sul suo numero per selezionare un versetto"
+
+#~ msgid ""
+#~ "<B>Previous verse</B><BR><BR>Use this button to switch ro the previous verse "
+#~ "of this chapter.<BR>If the current verse is the first of this chapter<BR>we "
+#~ "switch to the last one of the previous chapter.<BR>You can also click on a "
+#~ "versenumber to highlight a verse"
+#~ msgstr ""
+#~ "<B>Versetto precedente</B><BR><BR>Usa questo bottone per per andare al "
+#~ "versetto precedente di questo capitolo.<BR>Se il versetto corrente ?ilprimo "
+#~ "del capitolo<BR>verr?mostrato l'ultimo del prossimocapitolo.<BR>Si pu "
+#~ "inoltre cliccare sul suo numero per selezionare un versetto"
+
+#~ msgid ""
+#~ "<B>Next chapter</B><BR><BR>Switch to the next chapter of the current "
+#~ "book.<BR>Alternatively you can use the chapter combobox to jump to a chapter."
+#~ msgstr ""
+#~ "<B>Capitolo successivo</B><BR><BR>Va al capitolo successivo del "
+#~ "librocorrente.<BR>In alternativa potete usare il combobox  per andare a uno "
+#~ "specifico capitolo."
+
+#~ msgid ""
+#~ "<B>Previous chapter</B><BR><BR>Switch to the previous chapter of the current "
+#~ "book.<BR>Alternatively you can use the chapter combobox to jump to a chapter."
+#~ msgstr ""
+#~ "<B>Capitolo precedente</B><BR><BR>Va al capitolo precedente del "
+#~ "librocorrente.<BR>In alternativa potete usare il combobox  per andare a uno "
+#~ "specifico capitolo."
+
+#~ msgid ""
+#~ "<B>Automatic scolling</B><BR><BR>This will switch automatic scrolling on or "
+#~ "off.<BR>If it's on this presenter will scroll simoultanously<BR>together "
+#~ "with other auto scrolling enebled presenters."
+#~ msgstr ""
+#~ "<B>Scorrimento automatico</B><BR><BR>Attiva e disattiva lo scorrimento "
+#~ "automatico.<BR>Se ?attivo il visualizzatore scorrer?BR>simultaneamente con "
+#~ "ogni altro visualizzatore che l'abbia attivo."
+
+#~ msgid ""
+#~ "<B>Choose book</B><BR><BR>Choose in this list the book you want to "
+#~ "read.<BR>If the current chapter is higher than the chapters<BR>of your "
+#~ "chosen book<BR>the right book will be shown."
+#~ msgstr ""
+#~ "<B>Scegli libro</B><BR><BR>Scegli in questa lista il libro che vuoi "
+#~ "leggere.<BR>Se il capitolo corrente ?superiore al capitolo <BR>del libro che "
+#~ "avete scelto<BR>il libro corretto verr?visualizzato."
+
+#~ msgid ""
+#~ "<B>Choose the chapter</B><BR><BR>Choose here the chapter of the current book "
+#~ "which will be shown."
+#~ msgstr ""
+#~ "<B>Scegli il capitolo</B><BR><BR>Scegli il capitolo del libro corrente che "
+#~ "sar?visualizzato."
+
+#~ msgid ""
+#~ "<B>Choose the verse</B><BR><BR>Choose here the verse of the current chapter "
+#~ "which will be shown."
+#~ msgstr ""
+#~ "<B>Scegli il versetto</B><BR><BR>Scegli il versetto del capitolo corrente "
+#~ "che sar?visualizzato."
+
+#~ msgid ""
+#~ "<B>Edit comment</B><BR><BR>Use this button to toggle betweenHTML and edit "
+#~ "mode of this presenter.<BR>If you switch to edit mode a second toolbar "
+#~ "will<BR>appear with icons suitable for editing commnets."
+#~ msgstr ""
+#~ "<B>Modifica commento</B><BR><BR>Usa questo bottone per commutare tra i modi "
+#~ "HTML e modifica del visualizzatore.<BR>Se commutate al modo modifica una "
+#~ "seconda barra degli strumenti <BR>apparir?con le icone disponibili per "
+#~ "modificare i commenti."
+
+#~ msgid ""
+#~ "<B>Comment up to here</B><BR><BR>The text in the editline to the left will "
+#~ "be the upper bound of the commented range of verses."
+#~ msgstr ""
+#~ "<B>Commenta fino a qui</B><BR><BR>Il testo nella riga di modifica a sinistra "
+#~ "sar?il limite superiore dei versetti commentati."
+
+#~ msgid ""
+#~ "<B>Delete comment</B><BR><BR>Use this button to delete the current "
+#~ "comment.<BR>The edit widget will be cleared."
+#~ msgstr ""
+#~ "<B>Cancella commento</B><BR><BR>Usa questo bottone per cancellare il "
+#~ "commento corrente.<BR>Il widget di modifica azzerato."
+
+#~ msgid ""
+#~ "This is <B>BibleTime %1</B><BR>BibleTime will be an easy to use bible study "
+#~ "tool for KDE 2.It includes some really cool features like MDI, powerful "
+#~ "search interface etc.<BR>But lease notice that's in havy development at this "
+#~ "time. Some things may work, other ones may crash it<BR>Feel free to send "
+#~ "bugreports, ideas, improvements or criticism to <A "
+#~ "HREF=mailto:info@bibletime.de>info@bibletime.de</A><BR>Thank you very much!"
+#~ msgstr ""
+#~ "Questo ?<B>BibleTime %1</B><BR>BibleTime sar?uno strumento facile da usare "
+#~ "per lo studio della Bibbia per KDE 2. Include delle funzioni molto belle "
+#~ "come MDI, una potente interfaccia di ricerca, ecc.<BR>Prendete nota che in "
+#~ "fase di sviluppo al momento Alcune cose possono funzionare, altre possono "
+#~ "mandarlo in crash<BR>Sentitevi liberi di inviare bugreport, idee, "
+#~ "miglioramenti o critiche a <A "
+#~ "HREF=mailto:info@bibletime.de>info@bibletime.de</A><BR>Grazie mille!"
+
+# Sorry, I don't know where the problem is, here. Maybe "HTML" must be first?
+#~ msgid "<B>HTML page %1 not found!<BR>Please check your installation."
+#~ msgstr ""
+#~ "<B>Pagina HTML %1 non trovata!<BR>Per favore controlla la tua installazione."

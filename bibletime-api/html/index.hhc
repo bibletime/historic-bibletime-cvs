@@ -1,0 +1,368 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="ImageType" value="Folder">
+</OBJECT>
+<UL>
+<LI><OBJECT type="text/sitemap"><param name="Local" value="index.html"><param name="Name" value="BibleTime 1.0 - sourcecode documentation"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Local" value="files.html"><param name="Name" value="BibleTime File List"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="actions.h.html"><param name="Name" value="actions.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="bibletime.h.html"><param name="Name" value="bibletime.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cbackend.h.html"><param name="Name" value="cbackend.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cbiblekeychooser.h.html"><param name="Name" value="cbiblekeychooser.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cbiblepresenter.h.html"><param name="Name" value="cbiblepresenter.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ccommentarypresenter.h.html"><param name="Name" value="ccommentarypresenter.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cfx_btn.h.html"><param name="Name" value="cfx_btn.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cgroupmanager.h.html"><param name="Name" value="cgroupmanager.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cgroupmanageritem.h.html"><param name="Name" value="cgroupmanageritem.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="chtmlchapterdisplay.h.html"><param name="Name" value="chtmlchapterdisplay.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="chtmldialog.h.html"><param name="Name" value="chtmldialog.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="chtmlentrydisplay.h.html"><param name="Name" value="chtmlentrydisplay.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="chtmlwidget.h.html"><param name="Name" value="chtmlwidget.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ckey.h.html"><param name="Name" value="ckey.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ckeychooser.h.html"><param name="Name" value="ckeychooser.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ckeychooserwidget.h.html"><param name="Name" value="ckeychooserwidget.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="clexiconkeychooser.h.html"><param name="Name" value="clexiconkeychooser.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="clexikonpresenter.h.html"><param name="Name" value="clexikonpresenter.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cmdiarea.h.html"><param name="Name" value="cmdiarea.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cmoduleinfo.h.html"><param name="Name" value="cmoduleinfo.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cmodulepresenter.h.html"><param name="Name" value="cmodulepresenter.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="coptionsdialog.h.html"><param name="Name" value="coptionsdialog.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cprinterdialog.h.html"><param name="Name" value="cprinterdialog.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cprintitem.h.html"><param name="Name" value="cprintitem.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cprintitemlist.h.html"><param name="Name" value="cprintitemlist.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="csearchdialog.h.html"><param name="Name" value="csearchdialog.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="csearchdialoganalysis.h.html"><param name="Name" value="csearchdialoganalysis.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="csearchdialogresultview.h.html"><param name="Name" value="csearchdialogresultview.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="csearchdialogscope.h.html"><param name="Name" value="csearchdialogscope.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="csearchdialogscopeview.h.html"><param name="Name" value="csearchdialogscopeview.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cstyle.h.html"><param name="Name" value="cstyle.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cstyleformat.h.html"><param name="Name" value="cstyleformat.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cstyleformatframe.h.html"><param name="Name" value="cstyleformatframe.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordbackend.h.html"><param name="Name" value="cswordbackend.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordbiblemoduleinfo.h.html"><param name="Name" value="cswordbiblemoduleinfo.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordcommentarymoduleinfo.h.html"><param name="Name" value="cswordcommentarymoduleinfo.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordldkey.h.html"><param name="Name" value="cswordldkey.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordlexiconmoduleinfo.h.html"><param name="Name" value="cswordlexiconmoduleinfo.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordmoduleinfo.h.html"><param name="Name" value="cswordmoduleinfo.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordmodulesearch.h.html"><param name="Name" value="cswordmodulesearch.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordversekey.h.html"><param name="Name" value="cswordversekey.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ctoolclass.h.html"><param name="Name" value="ctoolclass.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="kstartuplogo.h.html"><param name="Name" value="kstartuplogo.h"></OBJECT>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Local" value="files.html"><param name="Name" value="BibleTime File List"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="actions.h.html"><param name="Name" value="actions.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="bibletime.h.html"><param name="Name" value="bibletime.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cbackend.h.html"><param name="Name" value="cbackend.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cbiblekeychooser.h.html"><param name="Name" value="cbiblekeychooser.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cbiblepresenter.h.html"><param name="Name" value="cbiblepresenter.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ccommentarypresenter.h.html"><param name="Name" value="ccommentarypresenter.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cfx_btn.h.html"><param name="Name" value="cfx_btn.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cgroupmanager.h.html"><param name="Name" value="cgroupmanager.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cgroupmanageritem.h.html"><param name="Name" value="cgroupmanageritem.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="chtmlchapterdisplay.h.html"><param name="Name" value="chtmlchapterdisplay.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="chtmldialog.h.html"><param name="Name" value="chtmldialog.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="chtmlentrydisplay.h.html"><param name="Name" value="chtmlentrydisplay.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="chtmlwidget.h.html"><param name="Name" value="chtmlwidget.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ckey.h.html"><param name="Name" value="ckey.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ckeychooser.h.html"><param name="Name" value="ckeychooser.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ckeychooserwidget.h.html"><param name="Name" value="ckeychooserwidget.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="clexiconkeychooser.h.html"><param name="Name" value="clexiconkeychooser.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="clexikonpresenter.h.html"><param name="Name" value="clexikonpresenter.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cmdiarea.h.html"><param name="Name" value="cmdiarea.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cmoduleinfo.h.html"><param name="Name" value="cmoduleinfo.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cmodulepresenter.h.html"><param name="Name" value="cmodulepresenter.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="coptionsdialog.h.html"><param name="Name" value="coptionsdialog.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cprinterdialog.h.html"><param name="Name" value="cprinterdialog.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cprintitem.h.html"><param name="Name" value="cprintitem.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cprintitemlist.h.html"><param name="Name" value="cprintitemlist.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="csearchdialog.h.html"><param name="Name" value="csearchdialog.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="csearchdialoganalysis.h.html"><param name="Name" value="csearchdialoganalysis.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="csearchdialogresultview.h.html"><param name="Name" value="csearchdialogresultview.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="csearchdialogscope.h.html"><param name="Name" value="csearchdialogscope.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="csearchdialogscopeview.h.html"><param name="Name" value="csearchdialogscopeview.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cstyle.h.html"><param name="Name" value="cstyle.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cstyleformat.h.html"><param name="Name" value="cstyleformat.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cstyleformatframe.h.html"><param name="Name" value="cstyleformatframe.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordbackend.h.html"><param name="Name" value="cswordbackend.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordbiblemoduleinfo.h.html"><param name="Name" value="cswordbiblemoduleinfo.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordcommentarymoduleinfo.h.html"><param name="Name" value="cswordcommentarymoduleinfo.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordldkey.h.html"><param name="Name" value="cswordldkey.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordlexiconmoduleinfo.h.html"><param name="Name" value="cswordlexiconmoduleinfo.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordmoduleinfo.h.html"><param name="Name" value="cswordmoduleinfo.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordmodulesearch.h.html"><param name="Name" value="cswordmodulesearch.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cswordversekey.h.html"><param name="Name" value="cswordversekey.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="ctoolclass.h.html"><param name="Name" value="ctoolclass.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="kstartuplogo.h.html"><param name="Name" value="kstartuplogo.h"></OBJECT>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Local" value="annotated.html"><param name="Name" value="BibleTime Compound List"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_bibletime.html"><param name="Name" value="BibleTime"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cbackend.html"><param name="Name" value="CBackend"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cbiblekeychooser.html"><param name="Name" value="CBibleKeyChooser"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cbiblepresenter.html"><param name="Name" value="CBiblePresenter"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ccolorcomboaction.html"><param name="Name" value="CColorComboAction"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ccommentarypresenter.html"><param name="Name" value="CCommentaryPresenter"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cfx_btn.html"><param name="Name" value="cfx_btn"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cgroupmanager.html"><param name="Name" value="CGroupManager"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cgroupmanageritem.html"><param name="Name" value="CGroupManagerItem"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chtmlchapterdisplay.html"><param name="Name" value="CHTMLChapterDisplay"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chtmldialog.html"><param name="Name" value="CHTMLDialog"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chtmlentrydisplay.html"><param name="Name" value="CHTMLEntryDisplay"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chtmlwidget.html"><param name="Name" value="CHTMLWidget"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ckey.html"><param name="Name" value="CKey"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ckeychooser.html"><param name="Name" value="CKeyChooser"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ckeychooserwidget.html"><param name="Name" value="CKeyChooserWidget"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_clexiconkeychooser.html"><param name="Name" value="CLexiconKeyChooser"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_clexiconpresenter.html"><param name="Name" value="CLexiconPresenter"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_clineeditaction.html"><param name="Name" value="CLineEditAction"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cmdiarea.html"><param name="Name" value="CMDIArea"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cmoduleinfo.html"><param name="Name" value="CModuleInfo"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cmodulepresenter.html"><param name="Name" value="CModulePresenter"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_coptionsdialog.html"><param name="Name" value="COptionsDialog"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cprinterdialog.html"><param name="Name" value="CPrinterDialog"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cprintitem.html"><param name="Name" value="CPrintItem"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cprintitemlist.html"><param name="Name" value="CPrintItemList"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialog.html"><param name="Name" value="CSearchDialog"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialoganalysis.html"><param name="Name" value="CSearchDialogAnalysis"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialoganalysisview.html"><param name="Name" value="CSearchDialogAnalysisView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialogresultmoduleview.html"><param name="Name" value="CSearchDialogResultModuleView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialogscope.html"><param name="Name" value="CSearchDialogScope"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialogscopeview.html"><param name="Name" value="CSearchDialogScopeView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cstyle.html"><param name="Name" value="CStyle"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cstyleformat.html"><param name="Name" value="CStyleFormat"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cstyleformatframe.html"><param name="Name" value="CStyleFormatFrame"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordbackend.html"><param name="Name" value="CSwordBackend"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordbiblemoduleinfo.html"><param name="Name" value="CSwordBibleModuleInfo"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordcommentarymoduleinfo.html"><param name="Name" value="CSwordCommentaryModuleInfo"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordldkey.html"><param name="Name" value="CSwordLDKey"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordlexiconmoduleinfo.html"><param name="Name" value="CSwordLexiconModuleInfo"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordmoduleinfo.html"><param name="Name" value="CSwordModuleInfo"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordmodulesearch.html"><param name="Name" value="CSwordModuleSearch"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordversekey.html"><param name="Name" value="CSwordVerseKey"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ctoolclass.html"><param name="Name" value="CToolClass"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_konqcomboaction.html"><param name="Name" value="KonqComboAction"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_kstartuplogo.html"><param name="Name" value="KStartupLogo"></OBJECT>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Local" value="hierarchy.html"><param name="Name" value="BibleTime Class Hierarchy"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CStyleEditorDialog::alignementRadios"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="ArgvTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cbackend.html"><param name="Name" value="CBackend"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordbackend.html"><param name="Name" value="CSwordBackend"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditString::Char"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CImportantClasses"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ckey.html"><param name="Name" value="CKey"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordldkey.html"><param name="Name" value="CSwordLDKey"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordversekey.html"><param name="Name" value="CSwordVerseKey"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cmoduleinfo.html"><param name="Name" value="CModuleInfo"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordmoduleinfo.html"><param name="Name" value="CSwordModuleInfo"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordbiblemoduleinfo.html"><param name="Name" value="CSwordBibleModuleInfo"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordcommentarymoduleinfo.html"><param name="Name" value="CSwordCommentaryModuleInfo"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordlexiconmoduleinfo.html"><param name="Name" value="CSwordLexiconModuleInfo"></OBJECT>
+      </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CStyleEditorDialog::colorButtons"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CPrinter::CPageHeader"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CPrinter::CPageMargin"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CPrinter::CPagePosition"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CPrinter::CPageSize"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CPrinter::CPrintRange"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordmodulesearch.html"><param name="Name" value="CSwordModuleSearch"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ctoolclass.html"><param name="Name" value="CToolClass"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CPrinterDialog::EntryWidgets"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="ErrorTree"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CStyleEditorDialog::fontWidgets"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CStyleEditorDialog::frameWidgets"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CPrinterDialog::GeneralWidgets"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KAction"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ccolorcomboaction.html"><param name="Name" value="CColorComboAction"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_clineeditaction.html"><param name="Name" value="CLineEditAction"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_konqcomboaction.html"><param name="Name" value="KonqComboAction"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="KonqLabelAction"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KDialog"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="CTipWindow"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KDialogBase"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chtmldialog.html"><param name="Name" value="CHTMLDialog"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_coptionsdialog.html"><param name="Name" value="COptionsDialog"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cprinterdialog.html"><param name="Name" value="CPrinterDialog"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialog.html"><param name="Name" value="CSearchDialog"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="CStyleEditorDialog"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KListView"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cgroupmanager.html"><param name="Name" value="CGroupManager"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cprintitemlist.html"><param name="Name" value="CPrintItemList"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialogscopeview.html"><param name="Name" value="CSearchDialogScopeView"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="CStyleList"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KMainWindow"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_bibletime.html"><param name="Name" value="BibleTime"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cmodulepresenter.html"><param name="Name" value="CModulePresenter"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cbiblepresenter.html"><param name="Name" value="CBiblePresenter"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ccommentarypresenter.html"><param name="Name" value="CCommentaryPresenter"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Local" value="class_clexiconpresenter.html"><param name="Name" value="CLexiconPresenter"></OBJECT>
+      </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditCommand"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditDeleteCommand"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditInsertCommand"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditFormatCommand"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditCommandHistory"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditCursor"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditDocument"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditFormat"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditFormatCollection"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditFormatter"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditFormatterBreakWords"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditParag"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditString"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CPrinterDialog::LayoutWidgets"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditParag::LineStart"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QCanvas"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialoganalysis.html"><param name="Name" value="CSearchDialogAnalysis"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QCanvasRectangle"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="CSearchDialogAnalysisItem"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QCanvasView"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialoganalysisview.html"><param name="Name" value="CSearchDialogAnalysisView"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QLayoutItem"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextTableCell"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QListBox"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="CSearchDialogResultView"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QListView"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialogresultmoduleview.html"><param name="Name" value="CSearchDialogResultModuleView"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QListViewItem"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cgroupmanageritem.html"><param name="Name" value="CGroupManagerItem"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QObject"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="CPrinter"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cprintitem.html"><param name="Name" value="CPrintItem"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cstyle.html"><param name="Name" value="CStyle"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cstyleformat.html"><param name="Name" value="CStyleFormat"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cstyleformatframe.html"><param name="Name" value="CStyleFormatFrame"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QPrinter"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="CPrinter"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QRichTextFormatter"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QRichTextIterator"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QScrollView"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEdit"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="CEditWidget"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextView"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextBrowser"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chtmlwidget.html"><param name="Name" value="CHTMLWidget"></OBJECT>
+        </UL>
+      </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QShared"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextCharFormat"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextCustomItem"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextHorizontalLine"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextImage"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextLineBreak"></OBJECT>
+      </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextFlow"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextFormatCollection"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextOptions"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextParagraph"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="QRichText"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QTextRichString"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QToolButton"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cfx_btn.html"><param name="Name" value="cfx_btn"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QtTriple"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="QWidget"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ckeychooser.html"><param name="Name" value="CKeyChooser"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cbiblekeychooser.html"><param name="Name" value="CBibleKeyChooser"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Local" value="class_clexiconkeychooser.html"><param name="Name" value="CLexiconKeyChooser"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_ckeychooserwidget.html"><param name="Name" value="CKeyChooserWidget"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="CSearchDialogResult"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_csearchdialogscope.html"><param name="Name" value="CSearchDialogScope"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="CSearchDialogText"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_kstartuplogo.html"><param name="Name" value="KStartupLogo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="QWorkspace"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cmdiarea.html"><param name="Name" value="CMDIArea"></OBJECT>
+      </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CSwordModuleSearch::SearchScopeStruct"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="SWDisplay"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chtmlentrydisplay.html"><param name="Name" value="CHTMLEntryDisplay"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chtmlchapterdisplay.html"><param name="Name" value="CHTMLChapterDisplay"></OBJECT>
+      </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="SWKey"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordldkey.html"><param name="Name" value="CSwordLDKey"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="SWMgr"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordbackend.html"><param name="Name" value="CSwordBackend"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="KTextEditDocument::TextSettings"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="VerseKey"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cswordversekey.html"><param name="Name" value="CSwordVerseKey"></OBJECT>
+    </UL>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Local" value="pages.html"><param name="Name" value="BibleTime Related Pages"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="backend.html"><param name="Name" value="The structure of the backend"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="frontend.html"><param name="Name" value="The structure of the frontend"></OBJECT>
+  </UL>
+</UL>

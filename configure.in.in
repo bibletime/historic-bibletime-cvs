@@ -1,0 +1,97 @@
+# Original Author was Kalle@kde.org
+# I lifted it in some mater. (Stephan Kulow)
+# I used much code from Janos Farkas
+
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(acinclude.m4) dnl a source file from your sub dir
+
+dnl This is so we can use kde-common
+AC_CONFIG_AUX_DIR(admin)
+
+AC_CANONICAL_SYSTEM
+AC_ARG_PROGRAM
+
+dnl Automake doc recommends to do this only here. (Janos)
+AM_INIT_AUTOMAKE(bibletime, 1.0) dnl searches for some needed programs
+
+KDE_SET_PREFIX
+
+dnl generate the config header
+AM_CONFIG_HEADER(config.h) dnl at the distribution this done
+
+dnl Checks for programs.
+AC_CHECK_COMPILERS
+AC_ENABLE_SHARED(yes)
+AC_ENABLE_STATIC(no)
+KDE_PROG_LIBTOOL
+
+dnl for NLS support. Call them in this order!
+dnl WITH_NLS is for the po files
+AM_KDE_WITH_NLS
+
+AC_PATH_KDE
+
+dnl Perform program name transformation
+AC_ARG_PROGRAM
+
+dnl in this space add everything you want to check for;
+dnl examples are specific headers, libraries, etc.
+dnl everything to compile and run a KDE program is already checked
+
+dnl loocking for general SWORD path
+
+AC_ARG_WITH(sworddir,
+[  --with-sworddir=DIR     path where swordlib is beeing installed (default=/usr/local/sword) ],
+[
+  ac_sword_dir=$withval
+], ac_sword_dir=/usr/local/sword
+)
+
+dnl loocking for SWORD includes
+AC_MSG_CHECKING([for SWORD headers installed])
+sword_incdirs="$ac_sword_dir/include $ac_sword_dir/include/sword /usr/include/sword /usr/include /usr/local/include /usr/local/sword/include /usr/local/include/sword /opt/sword/include /usr/local/include/sword /usr/local/sword/include/sword /opt/sword/include/sword"
+AC_FIND_FILE(swmgr.h, $sword_incdirs, sword_incdir)
+SWORDINC=-I$sword_incdir
+
+AC_MSG_RESULT([$sword_incdir])
+
+dnl loocking for sword library
+AC_MSG_CHECKING([for SWORD library installed])
+sword_libdirs="$ac_sword_dir/lib /usr/lib /usr/local/lib /usr/local/sword/lib /usr/lib/sword/lib /usr/local/share/sword/lib /opt/sword/lib"
+
+AC_FIND_FILE(libsword.so, $sword_libdirs, sword_libdir)
+if test -r $sword_libdir/libsword.so; then
+	HAVE_SWORD_LIB=yes
+	SWORD_LIB_TYPE="shared"
+elif test ! -r $sword_libdir/libsword.so; then
+	HAVE_SWORD_LIB=no
+fi
+
+if test $HAVE_SWORD_LIB = no; then
+	AC_FIND_FILE(libsword.a, $sword_libdirs, sword_libdir)
+	if test -r $sword_libdir/libsword.a; then
+		HAVE_SWORD_LIB=yes
+		SWORD_LIB_TYPE="static"
+	fi
+fi
+
+if test $HAVE_SWORD_LIB = no; then
+	AC_MSG_ERROR(SWORD library not found. Try to use configure with --with-sworddir=/your/SWORD/path !)
+fi	
+
+SWORDLIB=-L$sword_libdir
+CPPFLAGS="$CPPFLAGS -D_REENTRANT $SWORDINC -DQT_NO_ASCII_CAST"
+#CXXFLAGS="-O2 -Wall"
+
+all_libraries="$all_libraries $SWORDLIB"
+LIBS="$LIBS -lsword"
+
+AC_MSG_RESULT([$SWORD_LIB_TYPE $sword_libdir])
+
+
+dnl add here all your Makefiles. They are created by configure
+dnl AC_OUTPUT(NEWS README INSTALL AUTHORS TODO bibletime.lsm bibletime.spec bibletime.desktop)
+
+dnl echo "Executing perl am_edit ..."
+dnl perl am_edit
