@@ -19,7 +19,7 @@
 #define CPRINTER_H
 
 //BibleTime includes
-#include <time.h>
+//#include <time.h>
 #include "../structdef.h"
 #include "cprintitemlist.h"
 #include "cprintitem.h"
@@ -240,6 +240,7 @@ private:
 	printItemList* m_queue;
 	styleItemList*	m_styleList;
 	KConfig* config;
+	QStringList m_createdFiles;
 
 signals: // Signals
   /**

@@ -21,6 +21,7 @@
 #include "frontend/chtmldialog.h"
 #include "ressource.h"
 #include "frontend/ctoolclass.h"
+#include "frontend/cmdiarea.h"
 #include "backend/cmoduleinfo.h"
 #include "backend/sword_backend/cswordmoduleinfo.h"
 #include "backend/sword_backend/cswordbiblemoduleinfo.h"
@@ -35,6 +36,9 @@
 #include "frontend/presenters/ccommentarypresenter.h"
 #include "frontend/presenters/clexiconpresenter.h"
 #include "frontend/keychooser/ckeychooser.h"
+
+//Qt includes
+#include <qsplitter.h>
 
 //KDE includes
 #include <klocale.h>
@@ -73,14 +77,7 @@ BibleTime::~BibleTime() {
 
 /** Saves the properties of BibleTime to the application wide configfile  */
 void BibleTime::saveSettings(){
-//	ASSERT(m_groupmanager);	
-//	ASSERT(m_mdi);
-//	ASSERT(m_config);
-//	ASSERT(m_keyAccel);
-	
 	saveMainWindowSettings(m_config);
-//	if (groupmanager)
-//		groupmanager->saveSettings();	
 	if (m_mdi)
 		m_mdi->saveSettings();	
 
@@ -88,7 +85,6 @@ void BibleTime::saveSettings(){
 		m_keyAccel->writeSettings(m_config);	
 	{
 		KConfigGroupSaver groupSaver(m_config,"General");
-//		m_config->writeEntry("maingeom", size());
 		m_config->writeEntry("showFootnotes", m_viewFootnotes_action->isChecked());
 		m_config->writeEntry("showStrongs", m_viewStrongs_action->isChecked());
 		m_config->writeEntry("show toolbar", m_viewToolbar_action->isChecked());
@@ -269,4 +265,14 @@ void BibleTime::show(){
 	//if we show BibleTime for the first time we are ready for processing
 	//but not before this point.
 	m_initialized = true;
+}
+
+/** Reimplementation used for sessions management. */
+void BibleTime::saveProperties(KConfig* myConfig){
+
+}
+
+/** Reimplementation used for session management. */
+void BibleTime::readProperties(KConfig* myConfig){
+
 }

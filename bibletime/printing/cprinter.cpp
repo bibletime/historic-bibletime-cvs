@@ -25,6 +25,7 @@
 #include "../backend/sword_backend/cswordversekey.h"
 #include "../backend/sword_backend/cswordldkey.h"
 
+//KDE includes
 #include <kconfig.h>
 #include <kprocess.h>
 #include <kconfigbase.h>
@@ -32,6 +33,7 @@
 #include <klocale.h>
 #include <kapp.h>
 
+//Qt includes
 #include <qfile.h>
 #include <qstringlist.h>
 #include <qpainter.h>
@@ -61,6 +63,11 @@ CPrinter::~CPrinter(){
 	if (m_queue)
 		delete m_queue;
 	delete m_styleList;
+	
+	for ( QStringList::Iterator it = m_createdFiles.begin(); it != m_createdFiles.end(); ++it ) {
+		if (QFile::exists(*it))
+			QFile::remove(*it);
+	}
 }
 
 /** Returns the path to the preview application. */
@@ -225,24 +232,26 @@ void CPrinter::printQueue(){
 	qDebug("CPrinbter::printQueue");
 	if ( getPreview() ){//print a preview
 		KRandomSequence r;
-		setOutputFileName( QString("/tmp/") + KApplication::randomString(8)+".ps" );
+		const QString s = QString("/tmp/") + KApplication::randomString(8)+".ps";
+		setOutputFileName( s );
+		m_createdFiles.append(s);
 	}
 	emit printingStarted();
 	QPainter p;
 	if (!p.begin(this)) {
 		p.end();
-		qDebug("begin failed!");
+//		qDebug("begin failed!");
 		return;
 	}
 	
 	m_pagePosition.rect = getPageSize();
 	for (int page = 1; page <= numCopies() && !aborted(); ++page) {	//make numCopies() copies of the pages
 		for (m_queue->first(); m_queue->current() && !aborted(); m_queue->next()) {
-			qDebug("print new item");
+//			qDebug("print new item");
 			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
 			if (!aborted())
 				m_queue->current()->draw(&p,this);
-			qDebug("finished drawing the item");			
+//			qDebug("finished drawing the item");			
 			CKey* key = m_queue->current()->getStartKey();			
 			QString keyName = QString::null;			
 			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
@@ -254,20 +263,20 @@ void CPrinter::printQueue(){
 			}
 			if (!aborted())
 				emit printedOneItem(keyName, m_queue->at()+1);
-			qDebug("finished printing");
+//			qDebug("finished printing");
 		};
 		if (!aborted() && (page < numCopies()) )
 			newPage();	//new pages seperate copies
 	}
-	qDebug("emit printingFinished");
+//	qDebug("emit printingFinished");
 	emit printingFinished();	
 	if (!getPreview())
 		clearQueue();
 	
-	qDebug("preview??");
+//	qDebug("preview??");
 	if ( !aborted() && getPreview() ) {
 		if (p.isActive()) {
-			qDebug("p.end()");
+//			qDebug("p.end()");
 			p.end();
 		}
 		KProcess process;
@@ -277,11 +286,11 @@ void CPrinter::printQueue(){
 	}	
 	
 	if (p.isActive()) {
-		qDebug("painter still active -> p.end()");
+//		qDebug("painter still active -> p.end()");
 		cmd(QPaintDevice::PdcEnd,&p,0);
 		p.end();		
 	}
-	qDebug("finished print queue!");
+//	qDebug("finished print queue!");
 }
 
 /** Appends items to the printing queue. */

@@ -22,10 +22,10 @@
 
 #include <qwidget.h>
 #include <qstringlist.h>
-#include <qtoolbutton.h>
+//#include <qtoolbutton.h>
 
 #include <kdialogbase.h>
-#include <klistview.h>
+//#include <klistview.h>
 
 #include "cprinter.h"
 
@@ -37,8 +37,10 @@ class QPushButton;
 class QSpinBox;
 class QHButtonGroup;
 class QLineEdit;
+class QToolButton;
 
 class KAction;
+class KListView;
 
 class CStyleList;
 class CStyle;

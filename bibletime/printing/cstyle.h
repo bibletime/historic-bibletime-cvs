@@ -29,8 +29,11 @@
 //forward class decalarations
 class CStyleFormat;
 class CStyleList;
-
 class CStyle;
+
+class QListViewItem;
+class QListView;
+
 typedef QList<CStyle> styleItemList;
 
 /** The class containing the properties requiredfor prinitng styles.

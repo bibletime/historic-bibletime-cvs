@@ -22,6 +22,10 @@
 #include "../backend/ckey.h"
 #include "../backend/cmoduleinfo.h"
 
+//Qt includes
+#include <qlistview.h>
+
+//KDE includes
 #include <klocale.h>
 
 CStyle::CStyle() {

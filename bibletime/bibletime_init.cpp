@@ -17,10 +17,12 @@
 
 //BibleTime includes
 #include "printing/cprinter.h"
+#include "frontend/cmdiarea.h"
+#include "frontend/groupmanager/cgroupmanager.h"
 #include "bibletime.h"
 #include "ressource.h"
 #include "frontend/chtmldialog.h"
-//#include "frontend/ctoolclass.h"
+#include "backend/sword_backend/cswordbackend.h"
 #include "ressource.h"
 #include "whatsthisdef.h"
 #include "config.h"

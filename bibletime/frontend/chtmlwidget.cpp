@@ -565,6 +565,7 @@ void CHTMLWidget::slotAlignJustify(){
 
 /** No descriptions */
 void CHTMLWidget::slotSelectAll(){
+	selectAll(false);
 	selectAll(true);
 }
 

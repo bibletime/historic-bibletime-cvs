@@ -18,19 +18,23 @@
 //own includes
 #include "bibletime.h"
 #include "ressource.h"
-#include "frontend/optionsdialog/coptionsdialog.h"
 #include "frontend/ctoolclass.h"
-//#include "printing/cprinterdialog.h"
 #include "frontend/ctipwindow.h"
+#include "frontend/cmdiarea.h"
 #include "backend/sword_backend/cswordversekey.h"
 #include "backend/sword_backend/chtmlentrydisplay.h"
 #include "backend/sword_backend/chtmlchapterdisplay.h"
+#include "printing/cprinter.h"
+#include "frontend/presenters/cswordpresenter.h"
+#include "frontend/groupmanager/cgroupmanager.h"
+#include "frontend/optionsdialog/coptionsdialog.h"
 #include "config.h"
 
 #include <errno.h>
 
 //QT includes
 #include <qprogressdialog.h>
+#include <qlistview.h>
 #include <qwhatsthis.h>
 #include <qvaluelist.h>
 #include <qclipboard.h>

@@ -14,7 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
+//own includes
 #include "cprinterdialog.h"
 #include "cprinter.h"
 #include "cprintitemlist.h"
@@ -25,14 +25,18 @@
 #include "../tooltipdef.h"
 #include "../ressource.h"
 
+#include <values.h>
+#include <ctype.h>
+
+//Qt includes
 #include <qtextstream.h>
 #include <qmessagebox.h>
 #include <qpaintdevice.h>
 #include <qpaintdevicemetrics.h>
-#include <qprinter.h>
+//#include <qprinter.h>
 #include <qcombobox.h>
 #include <qhbuttongroup.h>
-#include <qbuttongroup.h>
+//#include <qbuttongroup.h>
 #include <qfile.h>
 #include <qframe.h>
 #include <qwidget.h>
@@ -48,11 +52,9 @@
 #include <qwhatsthis.h>
 #include <qtooltip.h>
 #include <qlineedit.h>
+#include <qtoolbutton.h>
 
-#include <values.h>
-#include <ctype.h>
-
-
+//KDE includes
 #include <klocale.h>
 #include <kconfig.h>
 #include <kfiledialog.h>

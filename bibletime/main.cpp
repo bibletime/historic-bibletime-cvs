@@ -28,8 +28,11 @@
 #include <kinstance.h>
 #include <kaboutdata.h>
 #include <klocale.h>
-#include <kimageio.h>
+//#include <kimageio.h>
 #include <kiconloader.h>
+
+#include <stdio.h>
+#include <stdlib.h>
 
 //Qt includes
 #include <qfont.h>
@@ -39,7 +42,6 @@
 #include "bibletime.h"
 #include "frontend/kstartuplogo.h"
 #include "frontend/ctipwindow.h"
-//#include "frontend/ctoolclass.h"
 #include "frontend/chtmldialog.h"
 #include "config.h"
 
@@ -176,4 +178,3 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	}
 }
 
-    	

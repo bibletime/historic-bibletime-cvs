@@ -23,21 +23,27 @@
 #include <kaction.h>
 
 //QT includes
-#include <qsplitter.h>
-#include <qguardedptr.h>
+//#include <qsplitter.h>
+//#include <qguardedptr.h>
 
 //own includes
-#include "frontend/groupmanager/cgroupmanager.h"
-#include "frontend/cmdiarea.h"
-#include "frontend/presenters/cswordpresenter.h"
-#include "backend/cmoduleinfo.h"
-#include "backend/sword_backend/cswordbackend.h"
-#include "printing/cprinter.h"
+//#include "frontend/groupmanager/cgroupmanager.h"
+//#include "frontend/cmdiarea.h"
+//#include "frontend/presenters/cswordpresenter.h"
+//#include "backend/cmoduleinfo.h"
+//#include "backend/sword_backend/cswordbackend.h"
+//#include "printing/cprinter.h"
 #include "structdef.h"
 
 #include <pthread.h>
 
 //forward class declarations
+class CSwordModuleInfo;
+typedef QList<CSwordModuleInfo> ListCSwordModuleInfo;
+
+class CGroupManager;
+class CMDIArea;
+class CModuleInfo;
 
 //KDE classes
 class KConfig;
@@ -48,6 +54,7 @@ class KPopupMenu;
 //QT classes
 class QPopupMenu;
 class QProgressDialog;
+class QSplitter;
 
 /**
  	*	@page backend The structure of the backend
@@ -184,53 +191,60 @@ protected: // Protected methods
   * Initializes the CPrinter object.
   */
   void initPrinter();
+  /**
+  * Reimplementation used for session management.
+  */
+  void readProperties(KConfig* config);
+  /**
+  * Reimplementation used for sessions management.
+  */
+  void saveProperties(KConfig* myConfig);
 
-	QGuardedPtr<QPopupMenu> m_windowMenu;
-	QGuardedPtr<QPopupMenu> m_editMenu;
+	QPopupMenu* m_windowMenu;
+	QPopupMenu* m_editMenu;
 
   /** FILE menu actions */
-	QGuardedPtr<KAction> m_fileClearQueue_action;	
-	QGuardedPtr<KAction> m_filePrint_action;	
-	QGuardedPtr<KAction> m_fileQuit_action;
+	KAction* m_fileClearQueue_action;	
+	KAction* m_filePrint_action;	
+	KAction* m_fileQuit_action;
 
   /** Groupmanager menu actions */
-  QGuardedPtr<KAction> m_GMReset_action;
-	QGuardedPtr<KAction> m_GMSearchModules_action;
-	QGuardedPtr<KAction> m_GMDeleteItems_action;		
+  KAction* m_GMReset_action;
+	KAction* m_GMSearchModules_action;
+	KAction* m_GMDeleteItems_action;		
 
   /** VIEW menu actions */
-  QGuardedPtr<KToggleAction>	m_viewFootnotes_action;
-	QGuardedPtr<KToggleAction>	m_viewStrongs_action;		
-	QGuardedPtr<KToggleAction>	m_viewToolbar_action;		
-	QGuardedPtr<KToggleAction>	m_viewGroupManager_action;			
-	
-	/** SWORD menu actions*/
+  KToggleAction*	m_viewFootnotes_action;
+	KToggleAction*	m_viewStrongs_action;		
+	KToggleAction*	m_viewToolbar_action;		
+	KToggleAction*	m_viewGroupManager_action;			
 	
 	/** SETTINGS menu actions */
-	QGuardedPtr<KAction>	m_settingsOptions_action;		
-	QGuardedPtr<KAction>	m_settingsToolbar_action;		
+	KAction*	m_settingsOptions_action;		
+	KAction*	m_settingsToolbar_action;		
 	
 	/** WINDOW menu actions */
-	QGuardedPtr<KAction>	m_windowCascade_action;
-	QGuardedPtr<KAction>	m_windowTile_action;	
-	QGuardedPtr<KToggleAction>	m_windowAutoCascade_action;
-	QGuardedPtr<KToggleAction>	m_windowAutoTile_action;
-	QGuardedPtr<KAction>	m_windowCloseAll_action;
+	KAction*	m_windowCascade_action;
+	KAction*	m_windowTile_action;	
+	KToggleAction*	m_windowAutoCascade_action;
+	KToggleAction*	m_windowAutoTile_action;
+	KAction*	m_windowCloseAll_action;
 
-	QGuardedPtr<KAction>	m_helpContents_action;
-	QGuardedPtr<KAction>	m_helpWhatsThis_action;
-	QGuardedPtr<KAction>	m_helpBugReport_action;	
-	QGuardedPtr<KAction>	m_helpDailyTip_action;	
-	QGuardedPtr<KAction>	m_helpAboutBibleTime_action;	
-	QGuardedPtr<KAction>	m_helpAboutKDE_action;			
+	/** HELP menu actions */	
+	KAction*	m_helpContents_action;
+	KAction*	m_helpWhatsThis_action;
+	KAction*	m_helpBugReport_action;	
+	KAction*	m_helpDailyTip_action;	
+	KAction*	m_helpAboutBibleTime_action;	
+	KAction*	m_helpAboutKDE_action;			
 		
-	QGuardedPtr<KHelpMenu> m_helpMenu;
+	KHelpMenu* m_helpMenu;
 		
-	QGuardedPtr<KConfig> m_config;
-	QGuardedPtr<KAccel> m_keyAccel;
-	QGuardedPtr<QSplitter> m_splitter;
-	QGuardedPtr<CGroupManager> m_groupmanager;
-	QGuardedPtr<CMDIArea> m_mdi;
+	KConfig* m_config;
+	KAccel* m_keyAccel;
+	QSplitter* m_splitter;
+	CGroupManager* m_groupmanager;
+	CMDIArea* m_mdi;
   /**
   * The list of installed SWORD modules
   */
