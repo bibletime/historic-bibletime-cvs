@@ -138,7 +138,7 @@ void CSwordSetupDialog::initInstall(){
 
 	m_installSourcePage->setMinimumSize(500,400);
 
-	QGridLayout* layout = new QGridLayout(m_installSourcePage, 7, 2);
+	QGridLayout* layout = new QGridLayout(m_installSourcePage, 7, 3);
 	layout->setMargin(5);
 	layout->setSpacing(10);
 	layout->setRowStretch(6,5);
@@ -158,11 +158,16 @@ void CSwordSetupDialog::initInstall(){
 	m_sourceCombo = new QComboBox(m_installSourcePage);
 	layout->addWidget(m_sourceCombo, 2, 0);
 
-	QPushButton* maintainSourcesButton = new QPushButton(i18n("Maintain libraries"), m_installSourcePage);
-	maintainSourcesButton->setIconSet(DesktopIcon("edit", 16));
-	connect(maintainSourcesButton, SIGNAL(clicked()), SLOT(slot_installManageSources()));
-	layout->addWidget(maintainSourcesButton, 2, 1, Qt::AlignLeft);
+	QPushButton* addSourceButton = new QPushButton(i18n("Add library"), m_installSourcePage);
+	addSourceButton->setIconSet(DesktopIcon("add", 16));
+	connect(addSourceButton, SIGNAL(clicked()), SLOT(slot_installAddSource()));
+	layout->addWidget(addSourceButton, 2, 1, Qt::AlignLeft);
 
+	QPushButton* deleteSourceButton = new QPushButton(i18n("Delete library"), m_installSourcePage);
+	deleteSourceButton->setIconSet(DesktopIcon("delete", 16));
+	connect(deleteSourceButton, SIGNAL(clicked()), SLOT(slot_installDeleteSource()));
+	layout->addWidget(deleteSourceButton, 2, 2, Qt::AlignLeft);
+	
 	m_sourceLabel = new QLabel(m_installSourcePage);
 	layout->addMultiCellWidget(m_sourceLabel, 3,3,0,1);
 
@@ -588,7 +593,7 @@ void CSwordSetupDialog::slot_connectToSource(){
 
   populateInstallModuleListView( currentInstallSource() );
   m_installContinueButton->setText(i18n("Install works"));
-  m_installContinueButton->setEnabled(false);
+//   m_installContinueButton->setEnabled(false);
 
   m_installWidgetStack->raiseWidget(m_installModuleListPage);
 
@@ -596,8 +601,7 @@ void CSwordSetupDialog::slot_connectToSource(){
   m_installBackButton->setEnabled(true);
 }
 
-/** Connects to the chosen source. */
-void CSwordSetupDialog::slot_installManageSources() {
+void CSwordSetupDialog::slot_installAddSource() {
 
 	sword::InstallSource newSource = CSwordSetupInstallSourcesDialog::getSource();
 	
@@ -606,6 +610,15 @@ void CSwordSetupDialog::slot_installManageSources() {
 	}
 
 	populateInstallCombos(); //make sure the items are updated
+}
+
+void CSwordSetupDialog::slot_installDeleteSource() {
+
+	BTInstallMgr iMgr;
+	sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source( &iMgr, currentInstallSource() );
+	BTInstallMgr::Tool::RemoteConfig::removeSource( &iMgr, &is );
+	
+	populateInstallCombos();
 }
 
 void CSwordSetupDialog::slot_installModuleItemExecuted(QListViewItem* item) {
@@ -640,8 +653,8 @@ void CSwordSetupDialog::slot_installModuleItemExecuted(QListViewItem* item) {
 }
 
 void CSwordSetupDialog::slot_installModules(){
-	m_installContinueButton->setEnabled(false);
-	m_installBackButton->setEnabled(false);
+// 	m_installContinueButton->setEnabled(false);
+// 	m_installBackButton->setEnabled(false);
 
 	//first get all chosen modules
 	QStringList moduleList;
@@ -653,6 +666,10 @@ void CSwordSetupDialog::slot_installModules(){
 			moduleList << list_it.current()->text(0);
 		}
 		++list_it;
+	}
+	
+	if (moduleList.count() == 0){ // no modules selected
+		return;
 	}
 
 	const QString& message = i18n("You selected the following works: %1.\n\n\

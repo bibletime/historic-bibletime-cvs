@@ -25,13 +25,9 @@
 //QT includes
 #include <qstring.h>
 #include <qmap.h>
-#include <qlistview.h>
-#include <qurl.h>
 
 //KDE includes
 #include <kdialogbase.h>
-// #include <klistview.h>
-
 
 class QWidget;
 class QLabel;
@@ -40,6 +36,7 @@ class QWidgetStack;
 class QButton;
 class QPushButton;
 class QLineEdit;
+class QListView;
 
 class KProgressDialog;
 
@@ -135,7 +132,8 @@ private slots:
 	void slot_moduleRefreshProgressCancelClicked();
 	void slot_moduleRefreshCompleted(const int, const int);
 	
-	void slot_installManageSources();
+	void slot_installAddSource();
+	void slot_installDeleteSource();
   void slot_installModules();
 	void slot_installModuleItemExecuted(QListViewItem*);
 	void slot_installProgressCancelClicked();

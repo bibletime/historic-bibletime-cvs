@@ -110,7 +110,6 @@ void BTInstallMgr::Tool::LocalConfig::setTargetList( const QStringList& targets 
       continue;
     }
     else {
-//      conf["Install"][!setDataPath ? "DataPath" : "AugmentPath"] = t.local8Bit();
 	    conf["Install"].insert( std::make_pair(!setDataPath ? SWBuf("DataPath") : SWBuf("AugmentPath"), t.local8Bit()) );
 
       setDataPath = true;
@@ -122,8 +121,6 @@ void BTInstallMgr::Tool::LocalConfig::setTargetList( const QStringList& targets 
    KProcess *proc = new KProcess;
    *proc << "kdesu";
    *proc << QString::fromLatin1("-c") << QString("mv %1 %2").arg(filename).arg(LocalConfig::swordConfigFilename());
-//   KApplication::connect(proc, SIGNAL(processExited(KProcess *)),
-//      this, SLOT(slot_swordConfigWritten(KProcess *)));
    proc->start(KProcess::Block);
   }
 }
@@ -192,15 +189,6 @@ void BTInstallMgr::Tool::RemoteConfig::addSource( sword::InstallSource* is ) {
 }
 
 void BTInstallMgr::Tool::RemoteConfig::initConfig() {
-  //Do only continue if the config does not yet exist...
-//   if (QFile::exists(configFilename())) {
-//     return;
-//   }
-
-//   QFile::remove(configFilename()); //unecessary
-
-//remote sources will be setup by the manage sources dialog
-
 	SWConfig config(Tool::RemoteConfig::configFilename().latin1());
   config["General"]["PassiveFTP"] = "true";
 	config.Save();
@@ -221,7 +209,7 @@ const QString BTInstallMgr::Tool::RemoteConfig::configFilename() {
 void BTInstallMgr::Tool::RemoteConfig::removeSource( sword::InstallMgr* mgr, sword::InstallSource* is) {
   Q_ASSERT(mgr);
   Q_ASSERT(is);
-
+ //TODO: WRITE!
 }
 
 void BTInstallMgr::Tool::RemoteConfig::resetRemoteSources() {
@@ -251,7 +239,6 @@ CSwordBackend* BTInstallMgr::Tool::backend( sword::InstallSource* const is) {
     ret = new CSwordBackend( QString::fromLatin1(is->localShadow.c_str()) );
 	}
   else {
-//		qWarning("constructing a backend in %s", is->directory.c_str());
     ret = new CSwordBackend( QString::fromLatin1(is->directory.c_str()) );
 	}
 
@@ -262,8 +249,6 @@ CSwordBackend* BTInstallMgr::Tool::backend( sword::InstallSource* const is) {
   return ret;
 }
 
-
-
 BTInstallMgr::BTInstallMgr() : InstallMgr(Tool::RemoteConfig::configPath().latin1(), this) { //use this class also as status reporter
 }
 
@@ -272,12 +257,10 @@ BTInstallMgr::~BTInstallMgr() {
 }
 
 void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
-// 	qWarning("statusUpdate");
-// 	qWarning("total: %f of %f; now: %f of %f", dltotal, m_totalBytes, dlnow, m_totalBytes);
+	
 	if (dlnow > dltotal)
 		dlnow = dltotal;
 		
-//   int totalPercent = (int)((float)(dlnow + m_completedBytes+1) / (float)(m_totalBytes) * 100);
 	int totalPercent = (int)((float)(dlnow + m_completedBytes) / (float)(m_totalBytes) * 100.0);
 
 	if (totalPercent > 100) {
@@ -294,22 +277,16 @@ void BTInstallMgr::statusUpdate(double dltotal, double dlnow) {
 	else if (filePercent < 0) {
 		filePercent = 0;
 	}
-
-// 	qWarning("end1");
+	
 	emit completed(totalPercent, filePercent);
-// 	qWarning("end2");
-//   KApplication::kApplication()->processEvents();
 }
 
 void BTInstallMgr::preStatus(long totalBytes, long completedBytes, const char* /*message*/) {
  	qWarning("pre Status: %i / %i", (int)totalBytes, (int)completedBytes);
 	emit downloadStarted( "unknown filename" );
 
-// 	qWarning("sword: %s", message);
 	m_completedBytes = completedBytes;
   m_totalBytes = (totalBytes > 0) ? totalBytes : 1; //avoid division by zero
-	
-//   KApplication::kApplication()->processEvents();
 }
 
 FTPTransport *BTInstallMgr::createFTPTransport(const char *host, StatusReporter *statusReporter) {

@@ -73,20 +73,28 @@ CSwordSetupInstallSourcesDialog::CSwordSetupInstallSourcesDialog(/*QWidget *pare
 
 }
 void CSwordSetupInstallSourcesDialog::slotOk(){
-	if ( m_captionEdit->text().stripWhiteSpace().isEmpty() ){
+	if ( m_captionEdit->text().stripWhiteSpace().isEmpty() ){ //no caption
 		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a caption."), QMessageBox::Retry);
 		return;
 	}
+	BTInstallMgr iMgr;
+	sword::InstallSource is = BTInstallMgr::Tool::RemoteConfig::source( &iMgr, m_captionEdit->text() );
+	if ( (QString)is.caption.c_str() == m_captionEdit->text() ) { //source already exists
+		QMessageBox::information( this, i18n( "Error" ), i18n("A source with this caption already exists.<br>\
+			Please provide a different caption."), QMessageBox::Retry);
+		return;
+	}
+	
 	if ( m_protocolCombo->currentText() == PROTO_FTP && 
-			m_serverEdit->text().stripWhiteSpace().isEmpty() ){
+			m_serverEdit->text().stripWhiteSpace().isEmpty() ){ //no server name
 		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a server name."), QMessageBox::Retry);
 		return;
 	}
-	if ( m_pathEdit->text().stripWhiteSpace().isEmpty() ){
+	if ( m_pathEdit->text().stripWhiteSpace().isEmpty() ){ //no path
 		QMessageBox::information( this, i18n( "Error" ), i18n("Please provide a valid path."), QMessageBox::Retry);
 		return;
 	}
-	accept();
+	accept(); //only if nothing else failed
 }
 
 void CSwordSetupInstallSourcesDialog::slotProtocolChanged(){

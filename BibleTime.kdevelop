@@ -22,7 +22,7 @@
       <part>VisualBoy Advance (KDevelop)</part>
     </ignoreparts>
     <version>1.5pre</version>
-    <description></description>
+    <description/>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <secondaryLanguages>
