@@ -416,7 +416,7 @@ msgstr ""
 
 #: index.docbook:413
 #, no-c-format
-msgid "Under the search results tab you will find the Expressionour search."
+msgid "Under the search results tab you will find the all of your search hits."
 msgstr ""
 
 #: index.docbook:417
@@ -456,7 +456,7 @@ msgstr ""
 
 #: index.docbook:447
 #, no-c-format
-msgid "Using the Search Analysis Tab"
+msgid "Using the Search Analysis"
 msgstr ""
 
 #: index.docbook:448
@@ -466,7 +466,7 @@ msgstr ""
 
 #: index.docbook:449
 #, no-c-format
-msgid "Search Analysis - This gives a graphic analysis of the number of instances the search string was found in each book. It can display results for all documents searched. You have the option of saving the graph as an image file on your hard drive."
+msgid "Search Analysis - This gives a graphic analysis of the number of instances the search string was found in each book. It can display results for all documents searched. You have the option of saving the analsys as an html formated list on your hard drive."
 msgstr ""
 
 #: index.docbook:454

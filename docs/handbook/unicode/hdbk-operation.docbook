@@ -410,7 +410,7 @@ the search.</para>
 
 <section id="hdbk-op-search-results">
 <title>The Search Results Tab</title>
-<para>Under the search results tab you will find the Expressionour search.</para>
+<para>Under the search results tab you will find the all of your search hits.</para>
 
 
 <section id="hdbk-op-search-dialog-text-result">
@@ -444,12 +444,12 @@ to the verse location (Bibles and commentaries only).</para></tip>
 
 
 <section id="hdbk-op-search-dialog-text-analysis">
-<title>Using the Search Analysis Tab</title>
+<title>Using the Search Analysis</title>
 <para>Click on <guibutton>Search Analsis</guibutton> to open the search analsis display.</para>
 <para>
 Search Analysis - This gives a graphic analysis of the number of instances the
 search string was found in each book. It can display results for all documents searched.
-You have the option of saving the graph as an image file on
+You have the option of saving the analsys as an html formated list on
 your hard drive. </para>
 <screenshot>
 <screeninfo>Search Analysis Dialog Box</screeninfo>
