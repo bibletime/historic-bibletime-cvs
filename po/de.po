@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: BibleTime 0.3\n"
-"POT-Creation-Date: 2001-04-23 21:53+0200\n"
-"PO-Revision-Date: 2001-04-19 02:55GMT\n"
+"Project-Id-Version: BibleTime 1.0\n"
+"POT-Creation-Date: 2001-04-23 22:18+0200\n"
+"PO-Revision-Date: 2001-04-23 22:13GMT\n"
 "Last-Translator: Joachim Ansorg <jansorg@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2315,64 +2315,3 @@ msgid ""
 "Create a new printing style.<BR>The new style will be added to the list."
 msgstr ""
 "Erzeuge einen neuen Stil.<BR>Der neue Druckstil wird zur Liste hinzugefügt."
-
-#~ msgid "optionsdialog"
-#~ msgstr "Optionendialog"
-
-#, fuzzy
-#~ msgid "Copy into clipboard..."
-#~ msgstr "In Zwischenablage kopieren"
-
-#~ msgid "Edit and define your scopes"
-#~ msgstr "Bearbeite und definiere deine Suchbereiche"
-
-#~ msgid "Choose colors"
-#~ msgstr "Wähle Farben"
-
-#~ msgid "BibleTime - Change folder"
-#~ msgstr "BibleTime - Ordnernamen ändern"
-
-#~ msgid "Add entry to print queue"
-#~ msgstr "Füge zur Druckschlange hinzu"
-
-#~ msgid "Copy entry into clipboard"
-#~ msgstr "Eintrag in Zwischenablage kopieren"
-
-#~ msgid "Save chapter as HTML..."
-#~ msgstr "Speichere Kapitel als HTML..."
-
-#~ msgid "Copy chapter into clipboard"
-#~ msgstr "Kopiere Kapitel in Zwischenablage"
-
-#~ msgid "Copy verse into clipboard"
-#~ msgstr "Verse in Zwischenablage kopieren"
-
-#~ msgid "Add verse to print queue"
-#~ msgstr "Füge Vers zur Druck-Warteschlange hinzu"
-
-#~ msgid "Choose cutsom range"
-#~ msgstr "Wähle Standard-Bereich"
-
-#~ msgid "Printing"
-#~ msgstr "Drucke"
-
-#~ msgid "Save search result..."
-#~ msgstr "Speichere Suchergebniss..."
-
-#~ msgid "Copy search result into clipboard"
-#~ msgstr "Kopiere Suchergebniss in Zwischenablage..."
-
-#~ msgid "Copy search result with text into clipboard"
-#~ msgstr "Kopiere Suchergebnis mit Text in Zwischenablage"
-
-#~ msgid "Add search result to print queue"
-#~ msgstr "Füge Suchergebnis zu Druckschlange hinzu"
-
-#~ msgid "Copy key into clipboard"
-#~ msgstr "Stelle iIn Zwischenablage kopieren"
-
-#~ msgid "Copy key with text into clipboard"
-#~ msgstr "Kopiere Stelle mit Text in Zwischenablage"
-
-#~ msgid "Choose a fontsize for the selected text."
-#~ msgstr "Wählen Sie eine Schriftgröße für den gewählten Text."
