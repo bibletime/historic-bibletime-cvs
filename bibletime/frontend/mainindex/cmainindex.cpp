@@ -278,10 +278,10 @@ void CMainIndex::dropped( QDropEvent* e, QListViewItem* parent, QListViewItem* a
    Q_ASSERT(after);
    Q_ASSERT(parent);
 
-//  	if (after)
-//  		qWarning("DROP AFTER %s", after->text(0).latin1());
-//  	if (parent)
-//  		qWarning("DROP parent %s", parent->text(0).latin1());
+ 	if (after)
+ 		qWarning("DROP AFTER %s", after->text(0).latin1());
+ 	if (parent)
+ 		qWarning("DROP parent %s", parent->text(0).latin1());
 
   //the drop was started in this main index widget
   if (m_itemsMovable && (e->source() == viewport())) {

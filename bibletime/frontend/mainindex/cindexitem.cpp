@@ -524,7 +524,7 @@ const QString& CBookmarkItem::englishKey() const {
 
 /** Reimplementation. Returns false everytime because a bookmarks  has not possible drops. */
 bool CBookmarkItem::acceptDrop(const QMimeSource* /*src*/) const {
-//  	qWarning("CBookmarkItem::acceptDrop");
+ 	qWarning("CBookmarkItem::acceptDrop");
 // 	return CDragDropMgr::canDecode(src) 
 // 			&& (CDragDropMgr::dndType(src) == CDragDropMgr::Item::Bookmark);
 
