@@ -70,9 +70,6 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
 				
 			  ok = (key.next(CSwordVerseKey::UseVerse) && !key.Error()) )  //error 1 means not sucessful
 	{
-/*		qWarning("adding %s", key.key().latin1());
-		qWarning("error: %d", key.Error());*/
-		
 		settings.highlight = (key.key() == keyName);
 		tree.append( new CTextRendering::KeyTreeItem( key.key(), modules, settings ) );
 	}
@@ -85,11 +82,10 @@ const QString CChapterDisplay::text( const ListCSwordModuleInfo& modules, const 
 
 /** Returns the rendered text using the modules in the list and using the key parameter. The displayoptions and filter options are used, too. */
 const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QString& keyName, const CSwordBackend::DisplayOptions displayOptions, const CSwordBackend::FilterOptions filterOptions ) {
-  backend()->setDisplayOptions( displayOptions );
-  backend()->setFilterOptions( filterOptions );
-
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(modules.getFirst());
-	CDisplayRendering render;
+	Q_ASSERT(book);
+	
+	CDisplayRendering render(displayOptions, filterOptions);
 	CDisplayRendering::KeyTree tree;
 	CDisplayRendering::KeyTreeItem::Settings itemSettings;
   
@@ -150,8 +146,8 @@ const QString CBookDisplay::text( const ListCSwordModuleInfo& modules, const QSt
 
   //const bool hasToplevelText = !key->strippedText().isEmpty();
   key->firstChild(); //go to the first sibling on the same level
-  //m_chosenKey = keyName;
   setupRenderTree(key.get(), &tree, keyName);
+	
 	key->key(keyName); //restore key
 	return render.renderKeyTree( tree );
 }

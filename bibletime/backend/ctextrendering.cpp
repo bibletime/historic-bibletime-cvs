@@ -67,7 +67,7 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const KeyTreeItem& i)
 {
 	if (i.hasChildItems()) {
 		m_childList = new KeyTree();
-	 	m_childList->setAutoDelete(true);
+// 	 	m_childList->setAutoDelete(true);
 		*m_childList = *(i.childList());
 	}
 	
@@ -83,7 +83,7 @@ ListCSwordModuleInfo CTextRendering::KeyTree::collectModules() {
 	//collect all modules which are available and used by child items
 	ListCSwordModuleInfo modules;
 	 
-	for (KeyTree::const_iterator it = constBegin(); it != constEnd(); ++it) {
+	for (KeyTree::const_iterator it = begin(); it != end(); ++it) {
 		ListCSwordModuleInfo childMods = (*it)->modules();
 		
 		ListCSwordModuleInfo::const_iterator c_end = childMods.end();
@@ -111,14 +111,14 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 	ListCSwordModuleInfo modules = tree.collectModules();	
 	QString t = QString::null;
 	
-	const KeyTree::const_iterator end = tree.constEnd();
+	const KeyTree::const_iterator end = tree.end();
 	
 	//opimization for entries with the same key
 	util::scoped_ptr<CSwordKey> key( 
 		(modules.count() == 1) ? CSwordKey::createInstance(modules.first()) : 0 
 	);
 	
-	for (KeyTree::const_iterator it = tree.constBegin(); it != end; ++it) {
+	for (KeyTree::const_iterator it = tree.begin(); it != end; ++it) {
 		if (modules.count() == 1) { //this optimizes the rendering, only one key created for all items
 			key->key( (**it).key() );
 			t.append( renderEntry(**it, key) );
@@ -266,9 +266,9 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey
 		
 		if (i.hasChildItems()) {
 			KeyTree const * tree = i.childList();
-			const KeyTree::const_iterator end = tree->constEnd();
+			const KeyTree::const_iterator end = tree->end();
 			
-			for ( KeyTree::const_iterator it = tree->constBegin(); it != end; ++it ) {
+			for ( KeyTree::const_iterator it = tree->begin(); it != end; ++it ) {
 				entry.append( renderEntry(**it) );
 			}
 		}

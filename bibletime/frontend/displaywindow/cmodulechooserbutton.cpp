@@ -134,8 +134,9 @@ void CModuleChooserButton::moduleChosen( int ID ){
 }
 /** No descriptions */
 void CModuleChooserButton::populateMenu(){
-	if (m_popup)
+	//if (m_popup)
 		delete m_popup;
+		
 	m_submenus.setAutoDelete(true);
 	m_submenus.clear();
 
@@ -169,17 +170,23 @@ void CModuleChooserButton::populateMenu(){
   for (allMods.first(); allMods.current(); allMods.next()) {
     if (allMods.current()->type() != m_moduleType)
       continue;
+
     modules.append(allMods.current());
   };
 
 	for (modules.first(); modules.current(); modules.next()) {
  		QString lang = modules.current()->language()->translatedName();
  		if (lang.isEmpty()) {
- 			lang = QString::fromLatin1("xx"); //unknown language -- do not use English as default!!
+ 			//lang = QString::fromLatin1("xx"); //unknown language -- do not use English as default!!
+			lang = modules.current()->language()->abbrev();
+			if (lang.isEmpty()) {
+				lang = "xx";
+			}
 		}
 		
  	 	if (languages.find( lang ) == languages.end() ){ //not yet added
  			languages += lang;
+			
  			KPopupMenu* menu = new KPopupMenu;
  			langdict.insert(lang, menu );
  			m_submenus.append(menu);
@@ -191,10 +198,16 @@ void CModuleChooserButton::populateMenu(){
 	for (modules.first(); modules.current(); modules.next()) {
  		QString lang = modules.current()->language()->translatedName();
  		if (lang.isEmpty()) {
- 			lang = QString::fromLatin1("xx"); //unknown language
+			lang = modules.current()->language()->abbrev();
+			if (lang.isEmpty()) {
+				lang = "xx";
+			}
 		}
 		
- 		QString name = QString(modules.current()->name()) + QString(" ") + (modules.current()->isLocked() ? i18n("[locked]") : QString::null); 			
+ 		QString name = QString::fromLatin1("%1 %2")
+			.arg(modules.current()->name())
+			.arg(modules.current()->isLocked() ? i18n("[locked]") : QString::null);
+			
  		const int id = langdict[lang]->insertItem( name );
  		if ( m_module && modules.current()->name() == m_module->name()) {
  			langdict[lang]->setItemChecked(id,true);
@@ -206,9 +219,10 @@ void CModuleChooserButton::populateMenu(){
 		m_popup->insertItem( *it, langdict[*it]);
 	}
 
- 	if (module())
+ 	if (module()) {
  		QToolTip::add(this, module()->name());
-	else
+	}
+	else {
  		QToolTip::add(this, i18n("No module selected"));
-
+	}
 }

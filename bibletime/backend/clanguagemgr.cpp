@@ -136,7 +136,12 @@ const CLanguageMgr::Language* const CLanguageMgr::languageForAbbrev( const QStri
     };
   }
 	
-  return &m_defaultLanguage; //invalid language
+	// Invalid lang used by a modules, create a new language using the abbrev
+	Language* newLang = new Language(abbrev, abbrev, abbrev); //return a language which holds the valid abbrev
+	cleanupLangPtrs.append(newLang);
+	return newLang;
+				
+  //return &m_defaultLanguage; //invalid language
 };
 
 const CLanguageMgr::Language* const CLanguageMgr::languageForName( const QString& name ) const {
@@ -145,7 +150,8 @@ const CLanguageMgr::Language* const CLanguageMgr::languageForName( const QString
       return it.current();
     };
   };
-  return &m_defaultLanguage;//invalid language
+	
+	return &m_defaultLanguage;//invalid language
 };
 
 const CLanguageMgr::Language* const CLanguageMgr::languageForTranslatedName( const QString& name ) const {
@@ -154,7 +160,8 @@ const CLanguageMgr::Language* const CLanguageMgr::languageForTranslatedName( con
       return it.current();
     };
   };
-  return &m_defaultLanguage; //invalid language
+  
+	return &m_defaultLanguage; //invalid language
 };
 
 void CLanguageMgr::init() {

@@ -72,6 +72,9 @@ public:
 	
 	class KeyTree : public KeyTreeItemList {
 	public:
+		KeyTree() {
+			setAutoDelete(true);
+		};
 		ListCSwordModuleInfo collectModules();
 	};
 
@@ -148,7 +151,7 @@ protected:
 inline CTextRendering::KeyTree* const CTextRendering::KeyTreeItem::childList() const {
 	if (!m_childList) {
 		m_childList = new KeyTree();
-		m_childList->setAutoDelete(true);
+		//m_childList->setAutoDelete(true);
 	}
 		
 	return m_childList;

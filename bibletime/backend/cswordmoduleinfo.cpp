@@ -46,7 +46,7 @@ CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module, CSwordBackend* cons
 	m_module = module;
 	m_searchResult.ClearList();
   m_backend = usedBackend;
-	m_dataCache.name = module ? QString::fromLatin1(module->Name()) : QString();
+	m_dataCache.name = module ? QString::fromLatin1(module->Name()) : QString::null;
 	m_dataCache.isUnicode = module ? module->isUnicode() : false;
 	m_dataCache.category = UnknownCategory;
 	m_dataCache.language = 0;
@@ -304,7 +304,8 @@ const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection(){
 
 /** Writes the new text at the given position into the module. This does only work for writable modules. */
 void CSwordModuleInfo::write( CSwordKey* key, const QString& newText ){
-  module()->KeyText( key->key().local8Bit() );
+  module()->KeyText( (const char*)key->key().utf8() );
+	
 	//don't store a pointer to the const char* value somewhere because QCString doesn't keep the value of it
 	module()->setEntry( isUnicode() ? (const char*)newText.utf8() : (const char*)newText.local8Bit() );
 }

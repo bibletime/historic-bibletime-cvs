@@ -296,22 +296,22 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				if (type == "bold") {
 					buf += "<span class=\"bold\">";
 				}
-				else if (type == "illuminated") {  // all other types
+				else if (type == "illuminated") { 
 					buf += "<span class=\"illuminated\">";
 				}
-				else if (type == "italic") {  // all other types
+				else if (type == "italic") { 
 					buf += "<span class=\"italic\">";
 				}
-				else if (type == "line-through") {  // all other types
+				else if (type == "line-through") {
 					buf += "<span class=\"line-through\">";
 				}
-				else if (type == "normal") {  // all other types
+				else if (type == "normal") { 
 					buf += "<span class=\"normal\">";
 				}
-				else if (type == "small-caps") {  // all other types
+				else if (type == "small-caps") {
 					buf += "<span class=\"small-caps\">";
 				}
-				else if (type == "underline") {  // all other types
+				else if (type == "underline") {
 					buf += "<span class=\"underline\">";
 				}
 			}
