@@ -128,7 +128,7 @@ Auto tile Document Windows.
 <para>
 <inlinemediaobject>
 <imageobject>
-<imagedata fileref="common/hdbk_bars_toolbar_action_close.png">
+<imagedata fileref="common/hdbk_bars_toolbar_close.png">
 </imageobject>
 <textobject>
 <phrase>Icon</phrase>
@@ -364,7 +364,7 @@ All of the hotkeys listed here can be changed in the Options Dialog.
 <row><entry>Reset Main Index </entry><entry>Ctrl+Alt+R</entry></row>
 <row><entry>Search in Selected Module(s) </entry><entry>Ctrl+Alt+S</entry></row>
 <row><entry>Show Footnotes </entry><entry>Ctrl+Alt+F</entry></row>
-<row><entry>Show Strongs</entry><entry>Ctrl+Alt+S </entry></row>
+<row><entry>Show Strongs</entry><entry></entry></row>
 <row><entry>Tile </entry><entry>Ctrl+T </entry></row>
 </tbody>
 </tgroup>

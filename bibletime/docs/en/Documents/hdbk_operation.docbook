@@ -13,10 +13,11 @@ It contains the tree of installed documents (Sword Modules), as well as any book
 <screeninfo>Module Tree</screeninfo>
 <graphic fileref="common/hdbk_op_module_tree_1.png" format="png"></graphic>
 </screenshot>
+</section>
 
 <section ID="hdbk_op_module_tree_select"><title>Selecting a document to
-view</title> <para>
-To select a document, simply click on the desired document group (Bibles, Commentaries, or
+view</title>
+<para>To select a document, simply click on the desired document group (Bibles, Commentaries, or
 Lexicons) to to display the contents of a document group, click on the icon for
 the desired group.  To open a document, click on it's icon.  To open
 another instance of the same document, right-click on the mouse and choose, "New
@@ -26,6 +27,7 @@ Presenter".
 <screeninfo>Document Selection</screeninfo>
 <graphic fileref="common/hdbk_op_module_select_1.png" format="png"></graphic>
 </screenshot>
+<tip><para>Drag & Drop Works Here</para></tip>
 <para>
 A document can be opened from an already opened document.
 Simply click on the verse number (pointer changes to hand) and drag it to the
@@ -43,11 +45,6 @@ Society must encrypt modules unless either the copyright holder provides permiss
 distribution as a sword module, or the text has passed into the public domane
 (copyright has expired).  <ulink url="http://www.crosswire.org">See information
 on locked modules on the crosswire web site.</ulink></para>
-<screenshot>
-<screeninfo>Document Selection</screeninfo>
-<graphic fileref="common/hdbk_op_module_select_2.png" format="png"></graphic>
-</screenshot>
-</section>
 
 <section ID="hdbk_op_module_tree_search"><title>Accessing the search
 dialog</title> <para>
@@ -56,12 +53,18 @@ list and selecting "Search in module(s)". By shift-clicking on other module
 names you can select more than one.  Then follow the same procedure to open the
 search dialog. You will be searching in all of these documents. </para>
 <para>A complete description of the operation of the search features can be found
-<link linkend="hdbk_op_search">here.</link></para>
+</para>
+<screenshot>
+<screeninfo>Bookmark Selection</screeninfo>
+<graphic fileref="common/hdbk_op_module_select_2.png" format="png">
+</graphic>
+</screenshot
 </section>
 
 
 <section ID="hdbk_op_module_tree_bookmark"><title>Accessing bookmark
 functions</title> <para>
+<tip><para>Drag & Drop Works Here</para></tip>
 Right-click on an empty part of the module tree window and select "Create new
 group"  to create a new bookmark folder. You can use normal drag 'n' drop
 functions to drag verse numbers from search dialog results to the bookmark folder,
@@ -106,6 +109,9 @@ Control Menu, and the scroll bar.
 <tip><para>For Bible texts the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
 <tip><para>For commentaries the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
 <tip><para>For lexicons the index key is <emphasis>Keyword</emphasis></para></tip>
+<tip><para>Drag & Drop Works Here; if you drag a verse from one open document or a bookmark and drop
+it on another the second document will jump from it's current location to the location
+of the verse or bookmark dragged.</para></tip>
 </section>
 
 <section
@@ -119,7 +125,7 @@ on. </para> </section>
 <section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Editing
 your own commentary</title> <para>
 The tool bar of commentary presenters has another button, with the picture of a
-pencil.<graphic fileref="hdbk_op_MDI_Window_Personal_commentary_pencil.png"></graphic>
+pencil.<graphic fileref="hdbk_op_pencil.png"></graphic>
 For the "Personal" commentary module, click that button to be able to
 enter your own notes into the Personal commentary, or to edit notes you've
 already entered. When you're done, click on the "Save" (disk) button to save
@@ -132,6 +138,8 @@ main index, get it from Crosswire Bible Society.</para></tip>
 <tip><para>If you can not write to the personal commentary your permissions for the
 personal commentary module are wrong.  Reset the permissions to allow your user
 to write to it.</para></tip>
+<tip><para>Drag & Drop Works Here, just like other
+commentaries and Bible texts.</para></tip>
 </section>
 </section>
 
@@ -161,6 +169,9 @@ Expression) to search for. How the data entered in the Input
 Field is used will depend on which button is marked for Mult,
 Phrase and Regular Expression, and also if Case Sensitive is
 marked.</para>
+
+<tip><para>Drag & Drop Works Here, you can drop verses and bookmarks into the
+text entry box.  You can also copy and paste text into the entry box.</para></tip>
 </section>
 
 <section ID="hdbk_op_search_dialog_text_input_case"><title>Using the Search Text Case Sensitive Button</title>
@@ -440,12 +451,34 @@ righteous</emphasis>ness.</para></listitem>
 </section>
 
 <section ID="hdbk_op_search_dialog_text_scope"><title>Using the Search Scope Tab</title>
-<para>
-Search Scope - This allows you to define search boundaries.
-You can have no boundaries, search within the results of the previous search,
-or set your own boundaries within the documents to be searched.
-For each module listed as to be searched, you can enter and delete lower and
-upper boundaries. Remember to click <guibutton>Add bound</guibutton> before searching.</para>
+<para>Define the Scope of your search hers</para>
+
+<section ID="hd_op_sch_dia_txt_scope_options"><title>Search Scope Options</title>
+<itemizedlist>
+<listitem><para><guibutton>No Scope</guibutton> this turns off the search
+scope tab.  The entire document is searched.</para></listitem>
+<listitem><para><guibutton>Last Result</guibutton> The new search will only
+search within the verses found in the previous search.</para></listitem>
+<listitem><para><guibutton>Use Scope</guibutton>The new search will be
+performed within the range specified in the maintain custom ranges portion
+of the search scope tab.</para></listitem>
+<listitem><para><guibutton></guibutton></para></listitem>
+</itemizedlist>
+
+<para>If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible module is
+done for the name, Jesus, 939 matches will result. Then if
+<guibutton>Last Result</guibutton>is checked and another search is done for the
+title, Christ, 257 matches from the first 939 matches will
+remain. Then if<guibutton>Last Result</guibutton> remains checked and another
+search is done for the title, Lord, 106 matches from the 257 will
+remain. All the remaining 106 matches will have the name, Jesus,
+and both the titles, Christ and Lord.</para>
+</section>
+<section ID="hd_op_sch_dia_txt_scope_maintain"><title>Maintain Custom Ranges</title><para>Maintain Custom Ranges -
+For each document selected to be searched, you can enter and delete lower and
+upper boundaries. Then click <guibutton>Add </guibutton> and an entry box for
+the range name will pop up.  After entering the name, your range is added to
+the list of custom ranges.</para>
 
 <para>The scope of a search can be set to the <emphasis>Entire
 Module</emphasis>or the <emphasis>Current Results. </emphasis>If
@@ -458,12 +491,15 @@ search is done for the title, Lord, 106 matches from the 257 will
 remain. All the remaining 106 matches will have the name, Jesus,
 and both the titles, Christ and Lord.</para>
 
-
+<tip><para>Drag & Drop Works Here; you can drop
+verse numbers, and bookmarks into the custom range entry field.
+You can also paste text into the entry field.</para></tip>
 
 <screenshot>
 <screeninfo>Search Scope Dialog Box</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchscope.png" format="png"></graphic>
-</screenshot></section>
+</screenshot>
+</section></section>
 
 <section ID="hdbk_op_search_dialog_text_result"><title>Using the Search Results Tab</title>
 <para>
@@ -472,13 +508,19 @@ search string were found. Double-clicking on that document will open the list of
 references. Clicking on a reference opens that verse up in the window below.
 Drag the reference and drop it on a document in the main index to open the
 module to that verse in a new presenter </para>
+<tip><para>Drag & Drop Works Here</para></tip>
+<tip><para>Select verse numbers and drag them to the main index to create bookmarks.</para></tip>
+<tip><para>Select verse numbers and drop them on an unopened module in the main index
+to open the module and jump to the verse location (Bibles and commentaries only).</para></tip>
+<tip><para>Select verse numbers and drag them to an open document and the document will jump
+to the verse location (Bibles and commentaries only).</para></tip>
 
 <screenshot>
 <screeninfo>Search Result Dialog Box</screeninfo>
 <graphic fileref="common/hdbk_op_search_dialog_searchresult.png" format="png"></graphic>
 </screenshot> </section>
 
-<section ID="hdbk_op_search_dialog_text_anylsis"><title>Using the Search Analsys Tab</title>
+<section ID="hdbk_op_search_dialog_text_analysis"><title>Using the Search Analysis Tab</title>
 <para>
 Search Analysis - This gives a graphic analysis of the number of instances the
 search string was found in each book. It can display results for all documents searched.
@@ -489,6 +531,26 @@ your hard drive. </para>
 <graphic fileref="common/hdbk_op_search_dialog_searchanal.png" format="png"></graphic>
 </screenshot>
 
+</section>
+</section>
+<section ID="hdbk_op_output"><title>Output</title>
+<section ID="hdbk_op_export"><title>Exporting</title>
+<para>
+To export text as HTML, text, or to the clipboard from an open document.  Do a
+<mousebutton>right mouse click</mousebutton> in the document a drop down menu will appear.  Select the desired option,
+A save text dialog box will appear for you to enter the desired
+file name.</para>
+</section>
+
+<section ID="hdbk_op_print"><title>Printing</title>
+<para>Printing from Bibletime is rather basic and is intended as a utility.  If you are composing a
+document or presentation containing text from Bibletime documents, we suggest that you use one of
+the presentation or editing tools on your system.  See the instructions on exporting.
+</para>
+<para>
+To print, select an open document, then select <guiicon>print</guiicon>.  The print dialog box will appear.
+You will have the option of sending your selection to the printer, or previewing it with kghostview.
+</para>
 </section>
 </section>
 </chapter>

@@ -5,6 +5,11 @@
 <!ENTITY hdbkchap3 SYSTEM "hdbk_operation.docbook">
 <!ENTITY hdbkchap4 SYSTEM "hdbk_toolbars.docbook">
 
+<!ENTITY how2_idx SYSTEM "how2_idx.docbook">
+<!ENTITY how2_chap1 SYSTEM "how2_importance.docbook">
+<!ENTITY how2_chap2 SYSTEM "how2_basics.docbook">
+<!ENTITY how2_chap3 SYSTEM "how2_interpretation.docbook">
+
 <!ENTITY instidx SYSTEM "inst_idx.docbook">
 <!ENTITY instchap1 SYSTEM "inst_bin.docbook">
 <!ENTITY instchap2 SYSTEM "inst_preq.docbook">
@@ -25,12 +30,13 @@
 <set>
 <title>BibleTime Documentation Package</title>
 <setinfo>
-<date>01/17/2001</date>
-<releaseinfo>1.0 CVS Draft</releaseinfo>
+<date>04/15/2001</date>
+<releaseinfo>1.0 pre</releaseinfo>
 
 </setinfo>
 
 &hdbkidx
+&how2_idx
 &instidx
 &hdidx
 

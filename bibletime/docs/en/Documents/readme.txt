@@ -22,7 +22,6 @@ ID= tags
 these tags need to have relationship to the book and section. Jade uses the ID
 tags to name HTML files.  The file names are as follows now.
 
-
 hdbk_idx.docbook
 hdbk_intro.docbook
 hdbk_operation.docbook
@@ -35,6 +34,10 @@ help_initbackend_failed.docbook
 help_module_encrypted.docbook
 help_no_mods_d.docbook
 help_no_modules.docbook
+how2_basics.docbook
+how2_idx.docbook
+how2_importance.docbook
+how2_interpretation.docbook
 index.docbook
 inst_bin.docbook
 inst_dvel.docbook
