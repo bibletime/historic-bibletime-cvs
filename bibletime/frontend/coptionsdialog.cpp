@@ -150,6 +150,7 @@ void COptionsDialog::initStartup(){
 		m_settings.startup.showTips->setChecked( CBTConfig::get(CBTConfig::tips) );
 	}
 	layout->addWidget(m_settings.startup.showTips);
+	layout->addSpacing(5);
 	
 	{ //startup logo
 		m_settings.startup.showLogo = new QCheckBox(page);
@@ -158,158 +159,159 @@ void COptionsDialog::initStartup(){
     QWhatsThis::add(m_settings.startup.showLogo, CResMgr::settings::startup::showLogo::whatsthis);
 		
 		m_settings.startup.showLogo->setChecked(CBTConfig::get(CBTConfig::logo));			
+		layout->addWidget(m_settings.startup.showLogo);
+		layout->addSpacing(20);
 	}		
-	layout->addWidget(m_settings.startup.showLogo);
-	layout->addSpacing(20);
+	{ // Scrolling
+		layout->addWidget(
+			CToolClass::explanationLabel(page, i18n("Scrolling behaviour"),
+				i18n("The down arrow moves to the <i>next</i> verse by default. Uncheck this box \
+	if you want it to move to the <i>previous</i> verse."))
+		);
 	
-	layout->addWidget(
-  	CToolClass::explanationLabel(page, i18n("Scrolling behaviour"),
-			i18n("The down arrow moves to the <i>next</i> verse by default. Uncheck this box \
-if you want it to move to the <i>previous</i> verse."))
-  );
-
- 	m_settings.swords.useDownArrow = new QCheckBox(page);
- 	m_settings.swords.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
- 	m_settings.swords.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));
- 	QToolTip::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::tooltip);
- 	QWhatsThis::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::whatsthis);
- 	layout->addWidget(m_settings.swords.useDownArrow);	
-
-	layout->addStretch(4);
+		m_settings.swords.useDownArrow = new QCheckBox(page);
+		m_settings.swords.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
+		m_settings.swords.useDownArrow->setChecked(CBTConfig::get(CBTConfig::scroll));
+		QToolTip::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::tooltip);
+		QWhatsThis::add(m_settings.swords.useDownArrow, CResMgr::settings::sword::general::scrolling::whatsthis);
+		layout->addWidget(m_settings.swords.useDownArrow);	
+	
+		layout->addStretch(4);
+	}
 }
 
 /** Init fonts section. */
 void COptionsDialog::initFonts(){
 	QFrame* page = addPage(i18n("Languages"), QString::null, DesktopIcon(CResMgr::settings::fonts::icon, 32));
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
+	layout->setResizeMode( QLayout::Minimum );
 	
-	layout->addWidget(
-  	CToolClass::explanationLabel(page, i18n("Specify a language for biblical booknames"),
-			i18n("Sword has a number of locales available which can be used to internationalize the \
-booknames of the bible. You can specify which locale to use. If you want to \
-create a new locale, see http://www.crosswire.org/sword/develop for details."))
-  );
-
- 	m_settings.fonts.swordLocaleCombo = new QComboBox(page);
- 	QLabel* label = new QLabel(m_settings.fonts.swordLocaleCombo, i18n("Language for biblical booknames"), page);
- 	QToolTip::add(m_settings.fonts.swordLocaleCombo, CResMgr::settings::sword::general::language::tooltip);
- 	QWhatsThis::add(m_settings.fonts.swordLocaleCombo, CResMgr::settings::sword::general::language::whatsthis);
-	
-	QHBoxLayout* hBoxLayout = new QHBoxLayout();
- 	hBoxLayout->addWidget(label);
- 	hBoxLayout->addWidget(m_settings.fonts.swordLocaleCombo);
-	hBoxLayout->addStretch();
-	layout->addLayout(hBoxLayout);
-
-	QStringList languageNames;
-	languageNames.append( i18n("English") );
-	
- 	const list<sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
- 	for (list<sword::SWBuf>::const_iterator it = locales.begin(); it != locales.end(); it++) {
-		const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev(
-			sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getName()
+	{ //Sword locales
+		layout->addWidget(
+			CToolClass::explanationLabel(page, i18n("Specify a language for biblical booknames"),
+				i18n("Sword has a number of locales available which can be used to internationalize the \
+	booknames of the bible. You can specify which locale to use. If you want to \
+	create a new locale, see http://www.crosswire.org/sword/develop for details."))
 		);
+	
+		m_settings.fonts.swordLocaleCombo = new QComboBox(page);
+		QLabel* label = new QLabel(m_settings.fonts.swordLocaleCombo, i18n("Language for biblical booknames"), page);
+		QToolTip::add(m_settings.fonts.swordLocaleCombo, CResMgr::settings::sword::general::language::tooltip);
+		QWhatsThis::add(m_settings.fonts.swordLocaleCombo, CResMgr::settings::sword::general::language::whatsthis);
 		
-		if (l->isValid()) {
-			languageNames.append( l->translatedName() );
-		}
-		else {
-			languageNames.append(
-				sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getDescription() 
+		QHBoxLayout* hBoxLayout = new QHBoxLayout();
+		hBoxLayout->addWidget(label);
+		hBoxLayout->addWidget(m_settings.fonts.swordLocaleCombo);
+		hBoxLayout->addStretch();
+		layout->addLayout(hBoxLayout);
+	
+		QStringList languageNames;
+		languageNames.append( i18n("English") );
+		
+		const list<sword::SWBuf> locales = sword::LocaleMgr::getSystemLocaleMgr()->getAvailableLocales();
+		for (list<sword::SWBuf>::const_iterator it = locales.begin(); it != locales.end(); it++) {
+			const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev(
+				sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getName()
 			);
+			
+			if (l->isValid()) {
+				languageNames.append( l->translatedName() );
+			}
+			else {
+				languageNames.append(
+					sword::LocaleMgr::getSystemLocaleMgr()->getLocale((*it).c_str())->getDescription() 
+				);
+			}
 		}
- 	}
-	
-	languageNames.sort();
-	m_settings.fonts.swordLocaleCombo->insertStringList( languageNames );
-	
-	const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev( 
-		CBTConfig::get(CBTConfig::language)
-	);
-	QString currentLanguageName;
-	if ( l->isValid() && languageNames.contains(l->translatedName()) ) { //tranlated language name is in the box
-		currentLanguageName = l->translatedName();
-	}
-	else { //a language like "German Abbrevs" might be the language to set
-		sword::SWLocale* locale = sword::LocaleMgr::LocaleMgr::getSystemLocaleMgr()->getLocale(
-			CBTConfig::get(CBTConfig::language).local8Bit()
+		
+		languageNames.sort();
+		m_settings.fonts.swordLocaleCombo->insertStringList( languageNames );
+		
+		const CLanguageMgr::Language* const l = CPointers::languageMgr()->languageForAbbrev( 
+			CBTConfig::get(CBTConfig::language)
 		);
-		if (locale) {
-			currentLanguageName = QString::fromLatin1(locale->getDescription());
+		QString currentLanguageName;
+		if ( l->isValid() && languageNames.contains(l->translatedName()) ) { //tranlated language name is in the box
+			currentLanguageName = l->translatedName();
 		}
-	}
-	
-	if (currentLanguageName.isEmpty()) { // set english as default if nothing was chosen
-		currentLanguageName = i18n("English");
-	}
-	
-	//now set the item with the right name as current item
-	for (int i = 0; i < m_settings.fonts.swordLocaleCombo->count(); ++i) {
-		if (currentLanguageName == m_settings.fonts.swordLocaleCombo->text(i)) {
-			m_settings.fonts.swordLocaleCombo->setCurrentItem(i);
-			break; //item found, finish the loop
+		else { //a language like "German Abbrevs" might be the language to set
+			sword::SWLocale* locale = sword::LocaleMgr::LocaleMgr::getSystemLocaleMgr()->getLocale(
+				CBTConfig::get(CBTConfig::language).local8Bit()
+			);
+			if (locale) {
+				currentLanguageName = QString::fromLatin1(locale->getDescription());
+			}
 		}
+		
+		if (currentLanguageName.isEmpty()) { // set english as default if nothing was chosen
+			currentLanguageName = i18n("English");
+		}
+		
+		//now set the item with the right name as current item
+		for (int i = 0; i < m_settings.fonts.swordLocaleCombo->count(); ++i) {
+			if (currentLanguageName == m_settings.fonts.swordLocaleCombo->text(i)) {
+				m_settings.fonts.swordLocaleCombo->setCurrentItem(i);
+				break; //item found, finish the loop
+			}
+		}
+	
+		layout->addSpacing( 20 );
 	}
+	{ //Font settings
+		layout->addWidget(
+			CToolClass::explanationLabel(
+				page,
+				i18n("Select custom fonts per-language"),
+				i18n("Here you find a list of all languages of the installed works. \
+	You can specify a custom font for each language that needs a special font \
+	to be displayed correctly.")
+			)
+		);
+		layout->addSpacing(5);
+		QHBoxLayout* hLayout = new QHBoxLayout();
+	
+		m_settings.fonts.usage = new QComboBox(page);
+		QToolTip::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::tooltip);
+		QWhatsThis::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::whatsthis);
+	
+		hLayout->addWidget(m_settings.fonts.usage);
+	
+		CLanguageMgr::LangMap langMap = languageMgr()->availableLanguages();
+	
+		for ( CLanguageMgr::LangMapIterator it( langMap ); it.current(); ++it ) {
+			const QString name = it.current()->translatedName().isEmpty() ? 
+				it.current()->abbrev() : it.current()->translatedName();
+			m_settings.fonts.fontMap.insert(name, CBTConfig::get(it.current()) );
+		}
+	
+		for( QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
+			if ( m_settings.fonts.fontMap[it.key()].first ) { //show font icon
+				m_settings.fonts.usage->insertItem(SmallIcon("fonts"), it.key() );
+			}
+			else {	//don't show icon for font
+				m_settings.fonts.usage->insertItem(it.key());
+			}
+		}
 
-
- 	layout->addWidget(
-    CToolClass::explanationLabel(
-      page,
-      i18n("Select custom fonts per-language"),
-      i18n("Here you find a list of all languages of the installed works. \
-You can specify a custom font for each language that needs a special font \
-to be displayed correctly.")
-    )
-  );
-  layout->addSpacing(5);
-
-
-  //horizontal layout box to contain the chooser box and use own font checkbox
-  QHBoxLayout* hLayout = new QHBoxLayout();
-
- 	m_settings.fonts.usage = new QComboBox(page);
- 	QToolTip::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::tooltip);
- 	QWhatsThis::add(m_settings.fonts.usage, CResMgr::settings::fonts::typeChooser::whatsthis);
-
-  hLayout->addWidget(m_settings.fonts.usage);
-
-  CLanguageMgr::LangMap langMap = languageMgr()->availableLanguages();
-
-  for ( CLanguageMgr::LangMapIterator it( langMap ); it.current(); ++it ) {
-    const QString name = it.current()->translatedName().isEmpty() ? it.current()->abbrev() : it.current()->translatedName();
-    
-		m_settings.fonts.fontMap.insert(name, CBTConfig::get(it.current()) );
-  }
-
-  for( QMap<QString, CBTConfig::FontSettingsPair>::Iterator it = m_settings.fonts.fontMap.begin(); it != m_settings.fonts.fontMap.end(); ++it ) {
-		if ( m_settings.fonts.fontMap[it.key()].first ) { //show font icon
-	 		m_settings.fonts.usage->insertItem(SmallIcon("fonts"), it.key() );
-    }
-		else {	//don't show icon for font
-	 		m_settings.fonts.usage->insertItem(it.key());
-    }
-  }
-
-
-  m_settings.fonts.useOwnFontBox = new QCheckBox(i18n("Use custom font"), page, "font checkbox");
-  connect(m_settings.fonts.useOwnFontBox, SIGNAL(toggled(bool)), SLOT(useOwnFontClicked(bool)));
- 	hLayout->addWidget(m_settings.fonts.useOwnFontBox);
-
-
-  layout->addLayout(hLayout);
-//#warning TODO: remember the last selected font and jump there.
-
- 	m_settings.fonts.fontChooser = new KFontChooser(page, "fonts", false, QStringList(), true, 5);
- 	m_settings.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog."));
- 	layout->addWidget(m_settings.fonts.fontChooser);
-
-  connect(m_settings.fonts.fontChooser, SIGNAL(fontSelected(const QFont&)), SLOT(newDisplayWindowFontSelected(const QFont&)));
-  connect(m_settings.fonts.usage, SIGNAL(activated(const QString&)), SLOT(newDisplayWindowFontAreaSelected(const QString&)));
-
- 	m_settings.fonts.fontChooser->setFont( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].second );
-  useOwnFontClicked( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].first );
-	m_settings.fonts.useOwnFontBox->setChecked( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].first );
- 	m_settings.fonts.fontChooser->setMinimumSize(m_settings.fonts.fontChooser->sizeHint());
+		m_settings.fonts.useOwnFontBox = new QCheckBox(i18n("Use custom font"), page, "font checkbox");
+		connect(m_settings.fonts.useOwnFontBox, SIGNAL(toggled(bool)), SLOT(useOwnFontClicked(bool)));
+		hLayout->addWidget(m_settings.fonts.useOwnFontBox);
+	
+		layout->addLayout(hLayout);
+	//#warning TODO: remember the last selected font and jump there.
+	
+		m_settings.fonts.fontChooser = new KFontChooser(page, "fonts", false, QStringList(), true, 5);
+		m_settings.fonts.fontChooser->setSampleText(i18n("The quick brown fox jumps over the lazy dog."));
+		layout->addWidget(m_settings.fonts.fontChooser);
+	
+		connect(m_settings.fonts.fontChooser, SIGNAL(fontSelected(const QFont&)), SLOT(newDisplayWindowFontSelected(const QFont&)));
+		connect(m_settings.fonts.usage, SIGNAL(activated(const QString&)), SLOT(newDisplayWindowFontAreaSelected(const QString&)));
+	
+		m_settings.fonts.fontChooser->setFont( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].second );
+		useOwnFontClicked( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].first );
+		m_settings.fonts.useOwnFontBox->setChecked( m_settings.fonts.fontMap[m_settings.fonts.usage->currentText()].first );
+		m_settings.fonts.fontChooser->setMinimumSize(m_settings.fonts.fontChooser->sizeHint());
+	}
 }
 
 /** Init color section. */
@@ -326,22 +328,18 @@ void COptionsDialog::initDisplayStyle(){
 
 	QHBoxLayout* hboxlayout = new QHBoxLayout();
 
-	m_settings.displayStyle.styleChooser = new QComboBox( page );
-	connect(
-		m_settings.displayStyle.styleChooser, SIGNAL( activated( int ) ), 
-		this, SLOT( updateStylePreview() )
-	);
+	m_settings.displayStyle.styleChooser = new QComboBox( page ); //create first to enable buddy for label
+	connect( m_settings.displayStyle.styleChooser, SIGNAL( activated( int ) ), 
+		this, SLOT( updateStylePreview() ) );
 	
 	hboxlayout->addWidget(
 		new QLabel(m_settings.displayStyle.styleChooser, i18n("Available display styles:"), page)
 	);
 	hboxlayout->addWidget( m_settings.displayStyle.styleChooser );
 	hboxlayout->addStretch();
-
 	mainLayout->addLayout( hboxlayout );
 
 	m_settings.displayStyle.stylePreview = new KHTMLPart(page);
-
 	mainLayout->addWidget(
 		new QLabel(m_settings.displayStyle.stylePreview->view(), i18n("Style preview"), page)
 		);
@@ -457,251 +455,252 @@ void COptionsDialog::initAccelerators(){
 void COptionsDialog::initSword(){
 	QVBox* page = addVBoxPage(i18n("Desk"),QString::null, DesktopIcon(CResMgr::settings::sword::icon,32));
   KTabCtl* tabCtl = new KTabCtl(page);
-  QFrame* currentTab = new QFrame(tabCtl);
-  tabCtl->addTab(currentTab, i18n("Standard works"));
-	QGridLayout* gridLayout = new QGridLayout(currentTab,10,2, 5,5); //the last row is for stretching available space
-	gridLayout->setResizeMode(QLayout::Minimum);
-
-  gridLayout->addMultiCellWidget(
-  	CToolClass::explanationLabel(currentTab, i18n("Standard works"),
-			i18n("Standard works are used when no particular work is specified, \
-for example when a hyperlink into a Bible or lexicon was clicked .")),
-  	0,0,0,-1 /*fill the horizontal space*/
-  );
-
- 	m_settings.swords.standardBible = new QComboBox(currentTab);
-  QLabel* label = new QLabel(m_settings.swords.standardBible, i18n("Standard Bible"), currentTab);
-  label->setAutoResize(true);
- 	QToolTip::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::tooltip);
- 	QWhatsThis::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::whatsthis);
- 	gridLayout->addWidget(label,1,0);
- 	gridLayout->addWidget(m_settings.swords.standardBible,1,1);
-
- 	m_settings.swords.standardCommentary = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardCommentary, i18n("Standard Commentary"), currentTab);
-  label->setAutoResize(true);
- 	QToolTip::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::tooltip);
- 	QWhatsThis::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::whatsthis);
- 	gridLayout->addWidget(label,2,0);
- 	gridLayout->addWidget(m_settings.swords.standardCommentary,2,1);
-
-
- 	m_settings.swords.standardLexicon = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardLexicon, i18n("Standard Lexicon"), currentTab);
-  label->setAutoResize(true);
- 	QToolTip::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::tooltip);
- 	QWhatsThis::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::whatsthis);
- 	gridLayout->addWidget(label,3,0);
- 	gridLayout->addWidget(m_settings.swords.standardLexicon,3,1);
-
- 	m_settings.swords.standardDailyDevotional = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardDailyDevotional, i18n("Standard Daily Devotional"), currentTab);
-  label->setAutoResize(true);
- 	QToolTip::add(m_settings.swords.standardDailyDevotional, CResMgr::settings::sword::modules::dailyDevotional::tooltip);
- 	QWhatsThis::add(m_settings.swords.standardDailyDevotional, CResMgr::settings::sword::modules::dailyDevotional::whatsthis);
- 	gridLayout->addWidget(label,4,0);
- 	gridLayout->addWidget(m_settings.swords.standardDailyDevotional,4,1);
-
- 	m_settings.swords.standardHebrewStrong = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardHebrewStrong, i18n("Standard Hebrew Strong's Lexicon"), currentTab);
-  label->setAutoResize(true);
- 	QToolTip::add(m_settings.swords.standardHebrewStrong, CResMgr::settings::sword::modules::hebrewStrongs::tooltip);
- 	QWhatsThis::add(m_settings.swords.standardHebrewStrong, CResMgr::settings::sword::modules::hebrewStrongs::whatsthis);
- 	gridLayout->addWidget(label,5,0);
- 	gridLayout->addWidget(m_settings.swords.standardHebrewStrong,5,1);
-
- 	m_settings.swords.standardGreekStrong = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardGreekStrong, i18n("Standard Greek Strong's Lexicon"), currentTab);
-  label->setAutoResize(true);
- 	QToolTip::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::tooltip);
- 	QWhatsThis::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::whatsthis);
- 	gridLayout->addWidget(label,6,0);
- 	gridLayout->addWidget(m_settings.swords.standardGreekStrong,6,1);
+	
+	{ //Standard works
+		QFrame* currentTab = new QFrame(tabCtl);
+		tabCtl->addTab(currentTab, i18n("Standard works"));
+		QGridLayout* gridLayout = new QGridLayout(currentTab,10,2, 5,5); //the last row is for stretching available space
+		gridLayout->setResizeMode(QLayout::Minimum);
+	
+		gridLayout->addMultiCellWidget(
+			CToolClass::explanationLabel(currentTab, i18n("Standard works"),
+				i18n("Standard works are used when no particular work is specified, \
+	for example when a hyperlink into a Bible or lexicon was clicked .")),
+			0,0,0,-1 /*fill the horizontal space*/
+		);
+	
+		m_settings.swords.standardBible = new QComboBox(currentTab);
+		QLabel* label = new QLabel(m_settings.swords.standardBible, i18n("Standard Bible"), currentTab);
+		label->setAutoResize(true);
+		QToolTip::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::tooltip);
+		QWhatsThis::add(m_settings.swords.standardBible, CResMgr::settings::sword::modules::bible::whatsthis);
+		gridLayout->addWidget(label,1,0);
+		gridLayout->addWidget(m_settings.swords.standardBible,1,1);
+	
+		m_settings.swords.standardCommentary = new QComboBox(currentTab);
+		label = new QLabel(m_settings.swords.standardCommentary, i18n("Standard Commentary"), currentTab);
+		label->setAutoResize(true);
+		QToolTip::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::tooltip);
+		QWhatsThis::add(m_settings.swords.standardCommentary, CResMgr::settings::sword::modules::commentary::whatsthis);
+		gridLayout->addWidget(label,2,0);
+		gridLayout->addWidget(m_settings.swords.standardCommentary,2,1);
+	
+	
+		m_settings.swords.standardLexicon = new QComboBox(currentTab);
+		label = new QLabel(m_settings.swords.standardLexicon, i18n("Standard Lexicon"), currentTab);
+		label->setAutoResize(true);
+		QToolTip::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::tooltip);
+		QWhatsThis::add(m_settings.swords.standardLexicon, CResMgr::settings::sword::modules::lexicon::whatsthis);
+		gridLayout->addWidget(label,3,0);
+		gridLayout->addWidget(m_settings.swords.standardLexicon,3,1);
+	
+		m_settings.swords.standardDailyDevotional = new QComboBox(currentTab);
+		label = new QLabel(m_settings.swords.standardDailyDevotional, i18n("Standard Daily Devotional"), currentTab);
+		label->setAutoResize(true);
+		QToolTip::add(m_settings.swords.standardDailyDevotional, CResMgr::settings::sword::modules::dailyDevotional::tooltip);
+		QWhatsThis::add(m_settings.swords.standardDailyDevotional, CResMgr::settings::sword::modules::dailyDevotional::whatsthis);
+		gridLayout->addWidget(label,4,0);
+		gridLayout->addWidget(m_settings.swords.standardDailyDevotional,4,1);
+	
+		m_settings.swords.standardHebrewStrong = new QComboBox(currentTab);
+		label = new QLabel(m_settings.swords.standardHebrewStrong, i18n("Standard Hebrew Strong's Lexicon"), currentTab);
+		label->setAutoResize(true);
+		QToolTip::add(m_settings.swords.standardHebrewStrong, CResMgr::settings::sword::modules::hebrewStrongs::tooltip);
+		QWhatsThis::add(m_settings.swords.standardHebrewStrong, CResMgr::settings::sword::modules::hebrewStrongs::whatsthis);
+		gridLayout->addWidget(label,5,0);
+		gridLayout->addWidget(m_settings.swords.standardHebrewStrong,5,1);
+	
+		m_settings.swords.standardGreekStrong = new QComboBox(currentTab);
+		label = new QLabel(m_settings.swords.standardGreekStrong, i18n("Standard Greek Strong's Lexicon"), currentTab);
+		label->setAutoResize(true);
+		QToolTip::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::tooltip);
+		QWhatsThis::add(m_settings.swords.standardGreekStrong, CResMgr::settings::sword::modules::greekStrongs::whatsthis);
+		gridLayout->addWidget(label,6,0);
+		gridLayout->addWidget(m_settings.swords.standardGreekStrong,6,1);
+			
+		m_settings.swords.standardHebrewMorph = new QComboBox(currentTab);
+		label = new QLabel(m_settings.swords.standardHebrewMorph, i18n("Standard Hebrew Morphological Lexicon"), currentTab);
+		QToolTip::add(m_settings.swords.standardHebrewMorph, CResMgr::settings::sword::modules::hebrewMorph::tooltip);
+		QWhatsThis::add(m_settings.swords.standardHebrewMorph, CResMgr::settings::sword::modules::hebrewMorph::whatsthis);
+		gridLayout->addWidget(label,7,0);
+		gridLayout->addWidget(m_settings.swords.standardHebrewMorph,7,1);
+	
+		m_settings.swords.standardGreekMorph = new QComboBox(currentTab);
+		label = new QLabel(m_settings.swords.standardGreekMorph, i18n("Standard Greek Morphological Lexicon"), currentTab);
+		label->setAutoResize(true); 	 	
+		QToolTip::add(m_settings.swords.standardGreekMorph, CResMgr::settings::sword::modules::greekMorph::tooltip);
+		QWhatsThis::add(m_settings.swords.standardGreekMorph, CResMgr::settings::sword::modules::greekMorph::whatsthis);
+		gridLayout->addWidget(label,8,0);
+		gridLayout->addWidget(m_settings.swords.standardGreekMorph,8,1);
+	
+		gridLayout->setRowStretch(9,5);							
+			
+		//fill the comboboxes with the right modules
+		ListCSwordModuleInfo& modules = backend()->moduleList();
+		QString modDescript;
+	/*  for ( modules.first(); modules.current(); modules.next() ) {*/
+		ListCSwordModuleInfo::iterator end_it = modules.end();
+		for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
+			modDescript = (*it)->config(CSwordModuleInfo::Description);
+			
+			switch ((*it)->type()) {
+				case CSwordModuleInfo::Bible:
+					m_settings.swords.standardBible->insertItem(modDescript);
+					break;
+				case CSwordModuleInfo::Commentary:
+					m_settings.swords.standardCommentary->insertItem(modDescript);				
+					break;
+				case CSwordModuleInfo::Lexicon:
+				{
+					bool inserted = false;
+					if ((*it)->has(CSwordModuleInfo::HebrewDef)) {
+						m_settings.swords.standardHebrewStrong->insertItem(modDescript);
+						inserted = true;          
+					}
+					if ((*it)->has(CSwordModuleInfo::GreekDef)) {
+						m_settings.swords.standardGreekStrong->insertItem(modDescript);
+						inserted = true;
+					}
+					if ((*it)->has(CSwordModuleInfo::HebrewParse)) {
+						m_settings.swords.standardHebrewMorph->insertItem(modDescript);				
+						inserted = true;
+					}
+					if ((*it)->has(CSwordModuleInfo::GreekParse)) {       
+						m_settings.swords.standardGreekMorph->insertItem(modDescript);
+						inserted = true;
+					}
+					if ((*it)->category() == CSwordModuleInfo::DailyDevotional) {
+						m_settings.swords.standardDailyDevotional->insertItem(modDescript);
+						inserted = true;
+					}
+					
+					if (!inserted) {//daily dvotionals, striong lexicons etc. are not very useful for word lookups
+						m_settings.swords.standardLexicon->insertItem(modDescript);
+					}
+					
+					break;
+				} 				
+				default://unknown type
+					break;
+			}
+		}
+	
+	//using two lists and one loop is better than six loops with almost the same code :)
+		QPtrList<QComboBox> comboList;
+		comboList.setAutoDelete(false);//don't delete the combos accidentally
+		QStringList moduleList;
 		
- 	m_settings.swords.standardHebrewMorph = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardHebrewMorph, i18n("Standard Hebrew Morphological Lexicon"), currentTab);
- 	QToolTip::add(m_settings.swords.standardHebrewMorph, CResMgr::settings::sword::modules::hebrewMorph::tooltip);
- 	QWhatsThis::add(m_settings.swords.standardHebrewMorph, CResMgr::settings::sword::modules::hebrewMorph::whatsthis);
- 	gridLayout->addWidget(label,7,0);
- 	gridLayout->addWidget(m_settings.swords.standardHebrewMorph,7,1);
-
- 	m_settings.swords.standardGreekMorph = new QComboBox(currentTab);
- 	label = new QLabel(m_settings.swords.standardGreekMorph, i18n("Standard Greek Morphological Lexicon"), currentTab);
-  label->setAutoResize(true); 	 	
- 	QToolTip::add(m_settings.swords.standardGreekMorph, CResMgr::settings::sword::modules::greekMorph::tooltip);
- 	QWhatsThis::add(m_settings.swords.standardGreekMorph, CResMgr::settings::sword::modules::greekMorph::whatsthis);
- 	gridLayout->addWidget(label,8,0);
- 	gridLayout->addWidget(m_settings.swords.standardGreekMorph,8,1);
-
- 	gridLayout->setRowStretch(9,5);							
-		
- 	//fill the comboboxes with the right modules
- 	ListCSwordModuleInfo& modules = backend()->moduleList();
-	QString modDescript;
-/*  for ( modules.first(); modules.current(); modules.next() ) {*/
-	ListCSwordModuleInfo::iterator end_it = modules.end();
-	for (ListCSwordModuleInfo::iterator it(modules.begin()); it != end_it; ++it) {
-		modDescript = (*it)->config(CSwordModuleInfo::Description);
-		
- 		switch ((*it)->type()) {
- 			case CSwordModuleInfo::Bible:
- 				m_settings.swords.standardBible->insertItem(modDescript);
- 				break;
- 			case CSwordModuleInfo::Commentary:
- 				m_settings.swords.standardCommentary->insertItem(modDescript);				
- 				break;
- 			case CSwordModuleInfo::Lexicon:
- 			{
-        bool inserted = false;
- 				if ((*it)->has(CSwordModuleInfo::HebrewDef)) {
-					m_settings.swords.standardHebrewStrong->insertItem(modDescript);
-          inserted = true;          
- 				}
- 				if ((*it)->has(CSwordModuleInfo::GreekDef)) {
-					m_settings.swords.standardGreekStrong->insertItem(modDescript);
-          inserted = true;
- 				}
- 				if ((*it)->has(CSwordModuleInfo::HebrewParse)) {
-					m_settings.swords.standardHebrewMorph->insertItem(modDescript);				
-          inserted = true;
-        }
- 				if ((*it)->has(CSwordModuleInfo::GreekParse)) {       
-					m_settings.swords.standardGreekMorph->insertItem(modDescript);
-          inserted = true;
- 				}
- 				if ((*it)->category() == CSwordModuleInfo::DailyDevotional) {
-					m_settings.swords.standardDailyDevotional->insertItem(modDescript);
-          inserted = true;
- 				}
-				
-				if (!inserted) {//daily dvotionals, striong lexicons etc. are not very useful for word lookups
-          m_settings.swords.standardLexicon->insertItem(modDescript);
+		for (int i = 0; i < (int)CBTConfig::lastModuleType; ++i) {
+			//fill the combobox list in the right order (i.e. same order as the CBTConfig::module enum list)
+			CBTConfig::modules moduleType = (CBTConfig::modules)(i);
+			switch (moduleType) {
+				case CBTConfig::standardBible:
+					comboList.append(m_settings.swords.standardBible);
+					break;
+				case CBTConfig::standardCommentary:
+					comboList.append(m_settings.swords.standardCommentary);
+					break;
+				case CBTConfig::standardLexicon:
+					comboList.append(m_settings.swords.standardLexicon);
+					break;
+				case CBTConfig::standardDailyDevotional:
+					comboList.append(m_settings.swords.standardDailyDevotional); 
+					break;
+				case CBTConfig::standardHebrewStrongsLexicon:
+					comboList.append(m_settings.swords.standardHebrewStrong);
+					break;
+				case CBTConfig::standardGreekStrongsLexicon:
+					comboList.append(m_settings.swords.standardGreekStrong);
+					break;
+				case CBTConfig::standardHebrewMorphLexicon:
+					comboList.append(m_settings.swords.standardHebrewMorph);
+					break;
+				case CBTConfig::standardGreekMorphLexicon:
+					comboList.append(m_settings.swords.standardGreekMorph);
+					break;
+			};
+			
+			//fill the module list
+			CSwordModuleInfo* const m = CBTConfig::get( (CBTConfig::modules)(i) );
+			if (m) {
+				moduleList << m->config(CSwordModuleInfo::Description);
+			}
+			else {
+				moduleList << QString::null;
+			}
+		}
+	
+		QString module = QString::null;
+		int item = 0;
+		int count = 0; 	
+		for (QComboBox* combo = comboList.first(); combo; combo = comboList.next() ) {		
+			module = moduleList[comboList.at()];
+			count = combo->count();
+			combo->setMaximumWidth(300);
+			
+			for (item = 0; item < count; item++) {
+				if (combo->text(item) == module ) {
+					combo->setCurrentItem(item);
+					break;
 				}
+			}
+		}
+	}
+	{ // ---------- new tab: filters -------- //
+		QFrame* currentTab = new QFrame(tabCtl);
+		tabCtl->addTab(currentTab, i18n("Text filters"));
+		QVBoxLayout* layout = new QVBoxLayout(currentTab,5);
+	
+		layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Text filters"),
+			i18n("Filters control the appearance of text. \
+				Here you can specify default settings for all filters. \
+				You can change the filter settings in each display window, of course.")) );
+	
+		layout->addSpacing(5);
 				
- 				break;
- 			} 				
- 			default://unknown type
- 				break;
- 		}
-  }
-
-//using two lists and one loop is better than six loops with almost the same code :)
- 	QPtrList<QComboBox> comboList;
- 	comboList.setAutoDelete(false);//don't delete the combos accidentally
- 	QStringList moduleList;
+		m_settings.swords.lineBreaks = new QCheckBox(currentTab);
+		m_settings.swords.lineBreaks->setText(i18n("Insert line break after each verse"));
+		m_settings.swords.lineBreaks->setChecked(CBTConfig::get(CBTConfig::lineBreaks));
+		layout->addWidget(m_settings.swords.lineBreaks);
 	
-	for (int i = 0; i < (int)CBTConfig::lastModuleType; ++i) {
-		//fill the combobox list in the right order (i.e. same order as the CBTConfig::module enum list)
-  	CBTConfig::modules moduleType = (CBTConfig::modules)(i);
-		switch (moduleType) {
-			case CBTConfig::standardBible:
-				comboList.append(m_settings.swords.standardBible);
-				break;
-			case CBTConfig::standardCommentary:
-				comboList.append(m_settings.swords.standardCommentary);
-				break;
-			case CBTConfig::standardLexicon:
-				comboList.append(m_settings.swords.standardLexicon);
-				break;
-			case CBTConfig::standardDailyDevotional:
-				comboList.append(m_settings.swords.standardDailyDevotional); 
-				break;
-			case CBTConfig::standardHebrewStrongsLexicon:
-				comboList.append(m_settings.swords.standardHebrewStrong);
-				break;
-			case CBTConfig::standardGreekStrongsLexicon:
-				comboList.append(m_settings.swords.standardGreekStrong);
-				break;
-			case CBTConfig::standardHebrewMorphLexicon:
-				comboList.append(m_settings.swords.standardHebrewMorph);
-				break;
-			case CBTConfig::standardGreekMorphLexicon:
-				comboList.append(m_settings.swords.standardGreekMorph);
-				break;
-		};
-		
-		//fill the module list
-		CSwordModuleInfo* const m = CBTConfig::get( (CBTConfig::modules)(i) );
-		if (m) {
-			moduleList << m->config(CSwordModuleInfo::Description);
-		}
-		else {
-			moduleList << QString::null;
-		}
-	}
-
- 	QString module = QString::null;
- 	int item = 0;
-	int count = 0; 	
- 	for (QComboBox* combo = comboList.first(); combo; combo = comboList.next() ) {		
-		module = moduleList[comboList.at()];
-		count = combo->count();
-	  combo->setMaximumWidth(300);
- 		
-		for (item = 0; item < count; item++) {
-	 		if (combo->text(item) == module ) {
-	 		  combo->setCurrentItem(item);
-	 		  break;
-	 		}
-	 	}
-	}
-
+		m_settings.swords.verseNumbers = new QCheckBox(currentTab);
+		m_settings.swords.verseNumbers->setText(i18n("Show verse numbers"));
+		m_settings.swords.verseNumbers->setChecked(CBTConfig::get(CBTConfig::verseNumbers));		
+		layout->addWidget(m_settings.swords.verseNumbers);
 	
-
-// ---------- new tab: filters -------- //
-  currentTab = new QFrame(tabCtl);
-  tabCtl->addTab(currentTab, i18n("Filter settings"));
-  QVBoxLayout* layout = new QVBoxLayout(currentTab,5);
-
-  layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"),
-		i18n("Filters control the appearance of text. \
-			Here you can specify default settings for all filters. \
-			You can change the filter settings in each display window, of course.")) );
-
-  layout->addSpacing(5);
-  		
- 	m_settings.swords.lineBreaks = new QCheckBox(currentTab);
- 	m_settings.swords.lineBreaks->setText(i18n("Insert line break after each verse"));
- 	m_settings.swords.lineBreaks->setChecked(CBTConfig::get(CBTConfig::lineBreaks));
- 	layout->addWidget(m_settings.swords.lineBreaks);
-
- 	m_settings.swords.verseNumbers = new QCheckBox(currentTab);
- 	m_settings.swords.verseNumbers->setText(i18n("Show verse numbers"));
- 	m_settings.swords.verseNumbers->setChecked(CBTConfig::get(CBTConfig::verseNumbers));		
- 	layout->addWidget(m_settings.swords.verseNumbers);
-
-	m_settings.swords.headings = new QCheckBox(currentTab);
- 	m_settings.swords.headings->setText(i18n("Show section headings"));
- 	m_settings.swords.headings->setChecked(CBTConfig::get(CBTConfig::headings));
- 	layout->addWidget(m_settings.swords.headings);
-
-
- 	m_settings.swords.scriptureReferences = new QCheckBox(currentTab);
- 	m_settings.swords.scriptureReferences->setText(i18n("Show scripture cross-references"));
- 	m_settings.swords.scriptureReferences->setChecked(CBTConfig::get(CBTConfig::scriptureReferences));
- 	layout->addWidget(m_settings.swords.scriptureReferences);
-
-  m_settings.swords.greekAccents = new QCheckBox(currentTab);
- 	m_settings.swords.greekAccents->setText(i18n("Show Greek accents"));
- 	m_settings.swords.greekAccents->setChecked(CBTConfig::get(CBTConfig::greekAccents));
- 	layout->addWidget(m_settings.swords.greekAccents);
-
- 	m_settings.swords.hebrewPoints = new QCheckBox(currentTab);
- 	m_settings.swords.hebrewPoints->setText(i18n("Show Hebrew vowel points"));
- 	m_settings.swords.hebrewPoints->setChecked(CBTConfig::get(CBTConfig::hebrewPoints));
- 	layout->addWidget(m_settings.swords.hebrewPoints);
-
- 	m_settings.swords.hebrewCantillation = new QCheckBox(currentTab);
- 	m_settings.swords.hebrewCantillation->setText(i18n("Show Hebrew cantillation marks"));
- 	m_settings.swords.hebrewCantillation->setChecked(CBTConfig::get(CBTConfig::hebrewCantillation));		
- 	layout->addWidget(m_settings.swords.hebrewCantillation);
-
- 	m_settings.swords.textualVariants = new QCheckBox(currentTab);
- 	m_settings.swords.textualVariants->setText(i18n("Use textual variants"));
- 	m_settings.swords.textualVariants->setChecked(CBTConfig::get(CBTConfig::textualVariants));		
- 	layout->addWidget(m_settings.swords.textualVariants);
- 		
-	layout->addStretch(4);	
+		m_settings.swords.headings = new QCheckBox(currentTab);
+		m_settings.swords.headings->setText(i18n("Show section headings"));
+		m_settings.swords.headings->setChecked(CBTConfig::get(CBTConfig::headings));
+		layout->addWidget(m_settings.swords.headings);
+	
+	
+		m_settings.swords.scriptureReferences = new QCheckBox(currentTab);
+		m_settings.swords.scriptureReferences->setText(i18n("Show scripture cross-references"));
+		m_settings.swords.scriptureReferences->setChecked(CBTConfig::get(CBTConfig::scriptureReferences));
+		layout->addWidget(m_settings.swords.scriptureReferences);
+	
+		m_settings.swords.greekAccents = new QCheckBox(currentTab);
+		m_settings.swords.greekAccents->setText(i18n("Show Greek accents"));
+		m_settings.swords.greekAccents->setChecked(CBTConfig::get(CBTConfig::greekAccents));
+		layout->addWidget(m_settings.swords.greekAccents);
+	
+		m_settings.swords.hebrewPoints = new QCheckBox(currentTab);
+		m_settings.swords.hebrewPoints->setText(i18n("Show Hebrew vowel points"));
+		m_settings.swords.hebrewPoints->setChecked(CBTConfig::get(CBTConfig::hebrewPoints));
+		layout->addWidget(m_settings.swords.hebrewPoints);
+	
+		m_settings.swords.hebrewCantillation = new QCheckBox(currentTab);
+		m_settings.swords.hebrewCantillation->setText(i18n("Show Hebrew cantillation marks"));
+		m_settings.swords.hebrewCantillation->setChecked(CBTConfig::get(CBTConfig::hebrewCantillation));		
+		layout->addWidget(m_settings.swords.hebrewCantillation);
+	
+		m_settings.swords.textualVariants = new QCheckBox(currentTab);
+		m_settings.swords.textualVariants->setText(i18n("Use textual variants"));
+		m_settings.swords.textualVariants->setChecked(CBTConfig::get(CBTConfig::textualVariants));		
+		layout->addWidget(m_settings.swords.textualVariants);
+			
+		layout->addStretch(4);	
+	}
 }
 
 void COptionsDialog::saveAccelerators(){
