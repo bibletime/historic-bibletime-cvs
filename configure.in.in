@@ -38,6 +38,7 @@ dnl Automake doc recommends to do this only here. (Janos)
 AM_INIT_AUTOMAKE(bibletime, 1.3pre) dnl searches for some needed programs
 
 KDE_SET_PREFIX
+KDE_USE_QT(3.0)
 
 dnl generate the config header
 AM_CONFIG_HEADER(config.h) dnl at the distribution this done
@@ -68,7 +69,14 @@ dnl Chek for the used distribution
 AC_CHECK_DISTRIBUTION
 
 dnl add here all your Makefiles. They are created by configure
-dnl AC_OUTPUT(NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop)
+
+AC_CONFIG_FILES([ NEWS ])
+AC_CONFIG_FILES([ README ])
+AC_CONFIG_FILES([ INSTALL ])
+AC_CONFIG_FILES([ TODO ])
+AC_CONFIG_FILES([ bibletime.lsm ])
+AC_CONFIG_FILES([ bibletime.spec ])
+AC_CONFIG_FILES([ bibletime.desktop ])
 
 dnl echo "Executing perl am_edit ..."
 dnl perl am_edit

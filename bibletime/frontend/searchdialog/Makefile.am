@@ -9,7 +9,7 @@ csearchdialog.cpp \
 csearchdialogpages.cpp
 
 all_headers = \
-csearchdialogtext.h \
+csearchdialog.h \
 csearchdialogpages.h
 
 EXTRA_DIST = $(libsearchdialog_a_SOURCES) $(all_headers)

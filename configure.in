@@ -38,6 +38,7 @@ dnl Automake doc recommends to do this only here. (Janos)
 AM_INIT_AUTOMAKE(bibletime, 1.3pre) dnl searches for some needed programs
 
 KDE_SET_PREFIX
+KDE_USE_QT(3.0)
 
 dnl generate the config header
 AM_CONFIG_HEADER(config.h) dnl at the distribution this done
@@ -68,44 +69,61 @@ dnl Chek for the used distribution
 AC_CHECK_DISTRIBUTION
 
 dnl add here all your Makefiles. They are created by configure
-dnl AC_OUTPUT(NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop)
+
+AC_CONFIG_FILES([ NEWS ])
+AC_CONFIG_FILES([ README ])
+AC_CONFIG_FILES([ INSTALL ])
+AC_CONFIG_FILES([ TODO ])
+AC_CONFIG_FILES([ bibletime.lsm ])
+AC_CONFIG_FILES([ bibletime.spec ])
+AC_CONFIG_FILES([ bibletime.desktop ])
 
 dnl echo "Executing perl am_edit ..."
 dnl perl am_edit
 KDE_CREATE_SUBDIRSLIST
-AC_OUTPUT( \
-./Makefile \
-admin/Makefile \
-bibletime/Makefile \
-bibletime/backend/Makefile \
-bibletime/frontend/Makefile \
-bibletime/frontend/display/Makefile \
-bibletime/frontend/displaywindow/Makefile \
-bibletime/frontend/keychooser/Makefile \
-bibletime/frontend/mainindex/Makefile \
-bibletime/frontend/searchdialog/Makefile \
-bibletime/pics/Makefile \
-bibletime/pics/16x16/Makefile \
-bibletime/pics/22x22/Makefile \
-bibletime/pics/32x32/Makefile \
-bibletime/pics/48x48/Makefile \
-bibletime/printing/Makefile \
-bibletime/util/Makefile \
-bibletime/xml/Makefile \
-docs/Makefile \
-docs/handbook/Makefile \
-docs/handbook/html/Makefile \
-docs/handbook/unicode/Makefile \
-docs/helpdialog/Makefile \
-docs/helpdialog/html/Makefile \
-docs/helpdialog/unicode/Makefile \
-docs/howto/Makefile \
-docs/howto/html/Makefile \
-docs/howto/unicode/Makefile \
-docs/install/Makefile \
-docs/install/html/Makefile \
-docs/install/unicode/Makefile \
-pot/Makefile \
-setupwizard/Makefile \
-NEWS README INSTALL TODO bibletime.lsm bibletime.spec bibletime.desktop \
-)
+AC_CONFIG_FILES([ Makefile ])
+AC_CONFIG_FILES([ admin/Makefile ])
+AC_CONFIG_FILES([ bibletime/Makefile ])
+AC_CONFIG_FILES([ bibletime/backend/Makefile ])
+AC_CONFIG_FILES([ bibletime/frontend/Makefile ])
+AC_CONFIG_FILES([ bibletime/frontend/display/Makefile ])
+AC_CONFIG_FILES([ bibletime/frontend/displaywindow/Makefile ])
+AC_CONFIG_FILES([ bibletime/frontend/keychooser/Makefile ])
+AC_CONFIG_FILES([ bibletime/frontend/mainindex/Makefile ])
+AC_CONFIG_FILES([ bibletime/frontend/searchdialog/Makefile ])
+AC_CONFIG_FILES([ bibletime/pics/Makefile ])
+AC_CONFIG_FILES([ bibletime/pics/16x16/Makefile ])
+AC_CONFIG_FILES([ bibletime/pics/22x22/Makefile ])
+AC_CONFIG_FILES([ bibletime/pics/32x32/Makefile ])
+AC_CONFIG_FILES([ bibletime/pics/48x48/Makefile ])
+AC_CONFIG_FILES([ bibletime/printing/Makefile ])
+AC_CONFIG_FILES([ bibletime/util/Makefile ])
+AC_CONFIG_FILES([ bibletime/xml/Makefile ])
+AC_CONFIG_FILES([ docs/Makefile ])
+AC_CONFIG_FILES([ docs/handbook/Makefile ])
+AC_CONFIG_FILES([ docs/handbook/html/Makefile ])
+AC_CONFIG_FILES([ docs/handbook/unicode/Makefile ])
+AC_CONFIG_FILES([ docs/helpdialog/Makefile ])
+AC_CONFIG_FILES([ docs/helpdialog/html/Makefile ])
+AC_CONFIG_FILES([ docs/helpdialog/unicode/Makefile ])
+AC_CONFIG_FILES([ docs/howto/Makefile ])
+AC_CONFIG_FILES([ docs/howto/html/Makefile ])
+AC_CONFIG_FILES([ docs/howto/unicode/Makefile ])
+AC_CONFIG_FILES([ docs/install/Makefile ])
+AC_CONFIG_FILES([ docs/install/html/Makefile ])
+AC_CONFIG_FILES([ docs/install/unicode/Makefile ])
+AC_CONFIG_FILES([ pot/Makefile ])
+AC_CONFIG_FILES([ setupwizard/Makefile ])
+AC_OUTPUT
+if test "$all_tests" = "bad"; then
+  if test ! "$cache_file" = "/dev/null"; then
+    echo ""    
+    echo "Please remove the file $cache_file after changing your setup"
+    echo "so that configure will find the changes next time."
+    echo ""
+  fi
+else
+  echo ""
+  echo "Good - your configure finished. Start make now"
+  echo ""
+fi
