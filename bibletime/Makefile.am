@@ -30,12 +30,9 @@ $(LIBSOCKET)
 SUBDIRS = backend printing frontend xml pics docs
 
 EXTRA_DIST = \
-main.cpp \
-bibletime.cpp \
+$(bibletime_SOURCES) \
 bibletime.h \
 ressource.h \
-bibletime_slots.cpp \
-bibletime_init.cpp \
 structdef.h \
 whatsthisdef.h \
 tooltipdef.h \
@@ -75,11 +72,11 @@ messages:
 	$(XGETTEXT) -C -ki18n -x $(KDEDIR)/include/kde.pot `find . -name \*.h -o -name \*.cpp -o -name \*.cc` -o ../po/bibletime.pot
 
 install-data-local:
-	$(mkinstalldirs) $(kde_confdir)
-	$(INSTALL_DATA) bt-printing $(kde_confdir)/bt-printing
+	$(mkinstalldirs) $(DESTDIR)$(kde_confdir)
+	$(INSTALL_DATA) bt-printing $(DESTDIR)$(kde_confdir)/bt-printing
 
 uninstall-local:
-	-rm -f $(kde_confdir)/bt-printing
+	-rm -f $(DESTDIR)$(kde_confdir)/bt-printing
 
 rpm: dist
 	

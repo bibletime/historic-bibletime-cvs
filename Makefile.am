@@ -28,7 +28,7 @@ bibletime.m4 sword.m4
 # have all needed files, that a GNU package needs
 AUTOMAKE_OPTIONS = foreign 
 
-datadir = $(kde_appsdir)/Applications
+datadir = $(DESTDIR)$(kde_appsdir)/Applications
 data_DATA = bibletime.desktop
 
 $(top_srcdir)/acinclude.m4: $(top_srcdir)/admin/acinclude.m4.in $(top_srcdir)/admin/libtool.m4.in sword.m4 bibletime.m4
@@ -41,7 +41,7 @@ $(top_srcdir)/configure.files:
 	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common configure.files
 
 install-data-local:
-	chmod 755 $(kde_datadir)/bibletime -R
+	chmod 755 $(DESTDIR)$(kde_datadir)/bibletime -R
 
 MAINTAINERCLEANFILES = configure.files subdirs 
 

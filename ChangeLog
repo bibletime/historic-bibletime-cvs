@@ -1,3 +1,7 @@
+2001-08-30 Joachim Ansorg <jansorg@gmx.de>
+	* Added $(DESTDIR) to Makefile.am files
+	* Solved compilation errors
+
 2001-08-17 Joachim Ansorg <jansorg@gmx.de>
 	* Optimizations to CSwordBibleModuleInfo
 	* Fixed bug in CBibleKeyChooser

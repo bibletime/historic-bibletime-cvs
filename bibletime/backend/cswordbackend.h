@@ -24,6 +24,7 @@
 #include <qlist.h>
 #include <qmap.h>
 #include <qstring.h>
+#include <qstringlist.h>
 
 //Sword includes
 #include <swmgr.h>
@@ -171,6 +172,7 @@ private:
 	ListCSwordModuleInfo* m_moduleList;
 	errorCode m_errorCode;
 	QMap<CSwordBackend::moduleOptions, QString> m_optionMap;
+	QStringList m_rwpModules;
 };
 
 /**Returns The list of modules managed by this backend*/

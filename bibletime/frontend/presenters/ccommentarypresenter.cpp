@@ -24,6 +24,7 @@
 #include "../../whatsthisdef.h"
 #include "../../backend/cswordversekey.h"
 #include "../../backend/chtmlchapterdisplay.h"
+#include "../../backend/creferencemanager.h"
 
 //Qt includes
 #include <qclipboard.h>
@@ -285,12 +286,13 @@ void CCommentaryPresenter::copyEntry(){
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
-	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
-	CSwordVerseKey key(m);
-	key.key(key);
+	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	
+	CSwordVerseKey vKey(m);
+	vKey.key(key);
 		
 	QClipboard *cb = KApplication::clipboard();
-	cb->setText(key.key());
+	cb->setText(vKey.key());
 }
 
 /** Copies the highlighted text into clipboard. */
@@ -299,12 +301,13 @@ void CCommentaryPresenter::copyEntryText(){
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
-	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
-	CSwordVerseKey key(m);
-	key.key(key);
+	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	
+	CSwordVerseKey vKey(m);
+	vKey.key(key);
 	
 	QClipboard *cb = KApplication::clipboard();
-	cb->setText(key.strippedText());
+	cb->setText(vKey.strippedText());
 }
 
 /** Copies the highlighted text into clipboard. */
@@ -313,11 +316,12 @@ void CCommentaryPresenter::copyEntryAndText(){
 	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
-	CSwordModuleInfo* m = m_importantClasses->swordBackend->findModuleByName(module);		
-	CSwordVerseKey key(m);
-	key.key(key);
+	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
 	
-	const QString text = QString("%1\n%2").arg(key.key()).arg(key.strippedText());
+	CSwordVerseKey vKey(m);
+	vKey.key(key);
+	
+	const QString text = QString("%1\n%2").arg(vKey.key()).arg(vKey.strippedText());
 	QClipboard *cb = KApplication::clipboard();
 	cb->setText(text);
 }
@@ -325,14 +329,17 @@ void CCommentaryPresenter::copyEntryAndText(){
 //print functions
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::printEntryAndText(){
-	CSwordVerseKey *key = new CSwordVerseKey(m_moduleList.first());	//this key is deleted by the printem
-	key->key(m_key->key());
+
+	QString key = QString::null;
+	QString module = QString::null;
 	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
-	if (currentAnchor.left(8) == "sword://")
-		currentAnchor = currentAnchor.mid(8, currentAnchor.length()- (currentAnchor.right(1) == "/" ? 9 : 8));
-	key->key(currentAnchor);
+	CReferenceManager::decodeHyperlink(currentAnchor, module, key);	
+	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);		
+	
+	CSwordVerseKey* vKey = new CSwordVerseKey(m);	//this key is deleted by the printem
+	vKey->key(key);
 		
-	printKey(key, key, m_moduleList.first());
+	printKey(vKey, vKey, m);
 }
 
 /** Checks for changes and saves the text. */

@@ -43,12 +43,17 @@
 
 CSwordBackend::CSwordBackend()
 	: SWMgr(0,0,false), m_errorCode(noError), m_entryDisplay(0), m_chapterDisplay(0), m_moduleList(0),
-	m_gbfFilter(0),m_rwpFilter(0), m_plainTextFilter(0), m_thmlFilter(0) {
+	m_gbfFilter(0),m_rwpFilter(0), m_plainTextFilter(0), m_thmlFilter(0), m_rwpModules() {
 		
 	m_optionMap.insert(CSwordBackend::footnotes, "Footnotes");
 	m_optionMap.insert(CSwordBackend::strongNumbers, "Strong");
 	m_optionMap.insert(CSwordBackend::headings, "Headings");
 	m_optionMap.insert(CSwordBackend::morphTags, "Morph");	
+	
+	m_rwpModules.append(QString::fromLatin1("RWP"));
+	m_rwpModules.append(QString::fromLatin1("TSK"));
+	m_rwpModules.append(QString::fromLatin1("Geneva"));
+	m_rwpModules.append(QString::fromLatin1("Wesley"));
 }
 
 CSwordBackend::~CSwordBackend(){
@@ -141,7 +146,8 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 		noDriver = false;
 	}
 
-	if (!stricmp(module->Name(), "RWP") || !stricmp(module->Name(), "TSK")) {
+//	if (!stricmp(module->Name(), "RWP") || !stricmp(module->Name(), "TSK") || !stricmp(module->Name(), "Geneva")) {
+	if (m_rwpModules.contains(QString::fromLatin1(module->Name()))) {
 		if (!m_rwpFilter)
 			m_rwpFilter = new BT_RWPHTML();		
 		module->AddRenderFilter(m_rwpFilter);
@@ -149,13 +155,7 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 	}
 
 	if (noDriver){
-		if (!stricmp(moduleDriver.c_str(), "RawCom")) {
-			if (!m_plainTextFilter)
-				m_plainTextFilter = new PLAINHTML();
-			module->AddRenderFilter(m_plainTextFilter);
-			noDriver = false;
-		}
-		if (!stricmp(moduleDriver.c_str(), "RawLD")) {
+		if (!stricmp(moduleDriver.c_str(), "RawCom") || !stricmp(moduleDriver.c_str(), "RawLD")) {
 			if (!m_plainTextFilter)
 				m_plainTextFilter = new PLAINHTML();
 			module->AddRenderFilter(m_plainTextFilter);
@@ -163,7 +163,6 @@ void CSwordBackend::AddRenderFilters(SWModule *module, ConfigEntMap &section) {
 		}
 	}
 }
-
 
 /** This function deinitializes the modules and deletes them. */
 const bool CSwordBackend::shutdownModules(){
