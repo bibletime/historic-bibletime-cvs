@@ -1634,5 +1634,8 @@ void CGroupManager::slotReturnPressed( QListViewItem* i){
 
 /** Updates the content size of this list view. */
 void CGroupManager::resizeContents( int w, int h ){
-	KListView::resizeContents(w,h+25);
+	if (m_useDragDrop)
+		KListView::resizeContents(w,h+25);
+	else
+		KListView::resizeContents(w,h);
 }

@@ -48,23 +48,23 @@ CSearchDialogModuleChooser::CSearchDialogModuleChooser(CImportantClasses* import
 	m_moduleIndex = new CGroupManager(importantClasses, this, "module index", importantClasses->swordBackend->getModuleList(), false, false, false, false, false, false);	
 	QWhatsThis::add(m_moduleIndex, WT_SD_MODULECHOOSER);
 	
-  QListViewItemIterator it( m_moduleIndex );
-  for ( ; it.current(); ++it )  {
-   	CGroupManagerItem* i = dynamic_cast<CGroupManagerItem*>(it.current());
-   	ASSERT(i);
-   	if (i) {
-   		if (i->type() == CGroupManagerItem::Group) {
-   			qWarning("not a group");
-   			if (!i->childCount()) {   				
-   				delete i;
-   				break;
-   			}
-   			else {
-   				i->setOpen(true);
-   			}
-   		}
-   	}
-  }
+//  QListViewItemIterator it( m_moduleIndex );
+//	for (; it.current(); ++it )  {
+//		qWarning("%s", it.current()->text(0).latin1());   	
+//   	CGroupManagerItem* item = dynamic_cast<CGroupManagerItem*>(it.current());
+//   	if (item) {
+//   		if (item->type() == CGroupManagerItem::Group) {
+// 			qWarning("it's a group:%s#", item->text(0).latin1());
+//   		if (!item->childCount()) {
+//   			qWarning("delete"); 				
+////  				delete item;
+////   				break;
+//   			}
+//   			else
+//   				item->setOpen(true);
+//   		}
+//   	}
+//  }
 	
 	m_moduleList = new QListBox(this);
 	QWhatsThis::add(m_moduleList, WT_SD_MC_MODULELIST);
