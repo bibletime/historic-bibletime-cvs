@@ -53,14 +53,14 @@ public:
  	* It's used in @ref isOptionEnabled and @ref setOption
  	*/
   enum moduleOptions {
-  	footnotes	= 					0x000000001,
-  	strongNumbers	= 			0x000000002,
-  	headings = 						0x000000004,
-  	morphTags = 					0x000000008,
-		lemmas =							0x000000016,
-		hebrewPoints =				0x000000032,
-		hebrewCantillation =	0x000000064,
-		greekAccents =				0x000000128
+  	footnotes,
+  	strongNumbers,
+  	headings,
+  	morphTags,
+		lemmas,
+		hebrewPoints,
+		hebrewCantillation,
+		greekAccents
 	};
   struct moduleOptionsBool {
   	bool footnotes;
