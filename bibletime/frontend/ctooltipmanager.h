@@ -41,7 +41,7 @@ protected: // Protected methods
   /**
   * Returns the text for the tooltip beginning.
   */
-  static const QString keyText(const CSwordModuleInfo::ModuleType moduleType, const QString& keyName );
+  static const QString headingText(CSwordModuleInfo* const module, const QString& keyName );
   /**
   * Returns the text for the given moduleName and key name.
   */
