@@ -31,7 +31,7 @@ msgstr ""
 
 #: index.docbook:18
 #, no-c-format
-msgid "&bibletime; can also be launched from a terminal command prompt. To launch &bibletime; open a terminal (any Xterminal inside a &kde;3 session) and type <command>&bibletime;</command>."
+msgid "&bibletime; can also be launched from a terminal command prompt. To launch &bibletime; open a terminal (any Xterminal inside a &kde;3 session) and type <command>bibletime</command>."
 msgstr ""
 
 #: index.docbook:24

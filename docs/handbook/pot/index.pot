@@ -16,80 +16,80 @@ msgstr ""
 
 #: index.docbook:21
 #, no-c-format
-msgid "The BibleTime Handbook"
+msgid "The &bibletime; Handbook"
 msgstr ""
 
-#: index.docbook:24
+#: index.docbook:25
 #, no-c-format
-msgid "<firstname>Fred</firstname> <othername></othername> <surname>Saalbach</surname> <affiliation> <address><email>info@bibletime.de </email></address> </affiliation>"
+msgid "<firstname>Fred</firstname> <surname>Saalbach</surname> <affiliation> <address><email>info@bibletime.info</email></address> </affiliation>"
 msgstr ""
 
-#: index.docbook:32
+#: index.docbook:33
 #, no-c-format
 msgid "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
 msgstr ""
 
-#: index.docbook:38
+#: index.docbook:40
 #, no-c-format
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
 
-#: index.docbook:44
+#: index.docbook:48
 #, no-c-format
-msgid "The team of BibleTime, info@bibletime.de"
+msgid "The team of &bibletime;, info@bibletime.info"
 msgstr ""
 
-#: index.docbook:49
+#: index.docbook:53
 #, no-c-format
-msgid "The BibleTime helpdialog is part of BibleTime."
+msgid "The &bibletime; handbook is part of &bibletime;."
 msgstr ""
 
-#: index.docbook:52
+#: index.docbook:56
 #, no-c-format
-msgid "BibleTime is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
+msgid "&bibletime; is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
 msgstr ""
 
-#: index.docbook:59
+#: index.docbook:63
 #, no-c-format
 msgid "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details."
 msgstr ""
 
-#: index.docbook:66
+#: index.docbook:70
 #, no-c-format
 msgid "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 msgstr ""
 
-#: index.docbook:76
+#: index.docbook:80
 #, no-c-format
 msgid "&bibletime; is an application to aid in study of the Bible."
 msgstr ""
 
-#: index.docbook:83
+#: index.docbook:87
 #, no-c-format
 msgid "<keyword>KDE</keyword>"
 msgstr ""
 
-#: index.docbook:84
+#: index.docbook:88
 #, no-c-format
 msgid "bibletime"
 msgstr ""
 
-#: index.docbook:85
+#: index.docbook:89
 #, no-c-format
-msgid "Bibletime"
+msgid "&bibletime;"
 msgstr ""
 
-#: index.docbook:86
+#: index.docbook:90
 #, no-c-format
 msgid "sword"
 msgstr ""
 
-#: index.docbook:87
+#: index.docbook:91
 #, no-c-format
 msgid "crosswire"
 msgstr ""
 
-#: index.docbook:88
+#: index.docbook:92
 #, no-c-format
 msgid "help dialog"
 msgstr ""

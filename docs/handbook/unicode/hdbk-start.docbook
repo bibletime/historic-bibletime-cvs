@@ -18,7 +18,7 @@ the applications group.
 <para>
 &bibletime; can also be launched from a terminal command prompt.
 To launch &bibletime; open a terminal (any Xterminal inside a &kde;3 session) and type
-<command>&bibletime;</command>.
+<command>bibletime</command>.
 </para>
 
 <section id="hdbk-start-otherwm"><title>Other Window Managers (not &kde;)</title>
