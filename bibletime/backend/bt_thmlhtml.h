@@ -34,9 +34,13 @@ class BT_ThMLHTML : public sword::ThMLHTML, protected CFilterTool {
 protected:
   class BT_UserData : public sword::ThMLHTML::MyUserData {
   public:
-    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::ThMLHTML::MyUserData(module, key) {}
+    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::ThMLHTML::MyUserData(module, key) {
+			inscriptRef = false;
+			swordFootnote = 1;
+		}
     
     bool inscriptRef;
+		unsigned short int swordFootnote;
   };
   
   virtual sword::BasicFilterUserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {

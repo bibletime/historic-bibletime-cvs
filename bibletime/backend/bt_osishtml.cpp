@@ -180,11 +180,13 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
           myUserData->noteType = BT_UserData::StrongsMarkup;
         }
         else {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
-					buf.appendFormatted(" <span class=\"footnote\" footnote=\"%s/%s/%s\">Note</span> ", 
+					buf.appendFormatted(" <span class=\"footnote\" footnote=\"%s/%s/%s\">.</span> ", 
 					myModule->Name(),
 					myUserData->key->getShortText(),
 					tag.getAttribute("swordFootnote"));
           myUserData->noteType = BT_UserData::Footnote;
+					
+					myUserData->suspendTextPassThru = true;
 				}
 			}
 			if (tag.isEndTag()) {
@@ -299,7 +301,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 				}
 			}
 			else if (tag.isEndTag()) { //all hi replacements are html spans
-				buf += "</span></span>";
+				buf += "</span></span> ";
 			}
 		}
 

@@ -44,7 +44,10 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
 
   
-	replaceTokenSubstitute("Rf", ")</span>");// end of footnote
+//	replaceTokenSubstitute("Rf", ")</span>");// end of footnote
+  if (tokenSubMap.find("Rf") != tokenSubMap.end()) { //remove note tag
+	  tokenSubMap.erase( tokenSubMap.find("Rf") );
+  }
 
 	replaceTokenSubstitute("FI", "<span class=\"italic\">"); // italics begin
 	replaceTokenSubstitute("Fi", "</span>");
@@ -111,6 +114,7 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 		unsigned long i;
     sword::SWBuf value;
     BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
+    sword::SWModule* myModule = const_cast<sword::SWModule*>(myUserData->module); //hack to be able to call stuff like Lang()
 
     if (!strncmp(token, "WG", 2)){ // strong's numbers greek
 			for (i = 2; i < tokenLength; i++) {
@@ -155,18 +159,29 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
 		}
 
 		else if (!strncmp(token, "RB", 2)) {
-			buf += "<span class=\"footnotepre\">";
+//			buf += "<span class=\"footnotepre\">";
 			myUserData->hasFootnotePreTag = true;
 		}
 
 		else if (!strncmp(token, "RF", 2)) {
-			if (myUserData->hasFootnotePreTag) {
+			/*if (myUserData->hasFootnotePreTag) {
 				myUserData->hasFootnotePreTag = false;
 				buf += "</span> ";
 			}
-			buf += "<span class=\"footnote\"> (";
+			buf += "<span class=\"footnote\"> (";*/
+			
+			buf.appendFormatted(" <span class=\"footnote\" footnote=\"%s/%s/%s\">.</span> ", 
+				myModule->Name(),
+				myUserData->key->getShortText(),
+				QString::number(myUserData->swordFootnote++).latin1()
+				//tag.getAttribute("swordFootnote")
+			);
+			userData->suspendTextPassThru = true;
 		}
-
+		else if (!strncmp(token, "Rf", 2)) { //end of footnote
+			userData->suspendTextPassThru = false;
+		}
+		
 		else if (!strncmp(token, "FN", 2)) {
 			buf += "<font face=\"";
 			for (i = 2; i < tokenLength; i++) {

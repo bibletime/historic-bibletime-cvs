@@ -119,10 +119,20 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			if (!tag.isEndTag() && !tag.isEmpty()) {
 				//SWBuf type = tag.getAttribute("type");
 				//SWBuf footnoteNumber = tag.getAttribute("swordFootnote");
-				buf += "<span class=\"footnote\">(";
+				//buf += "<span class=\"footnote\">(";
+				
+				buf.appendFormatted(" <span class=\"footnote\" footnote=\"%s/%s/%s\">.</span> ", 
+					myModule->Name(),
+					myUserData->key->getShortText(),
+					QString::number(myUserData->swordFootnote++).latin1()
+				//tag.getAttribute("swordFootnote")
+				);
+
+				userData->suspendTextPassThru = true;
 			}
 			else if (tag.isEndTag() && !tag.isEmpty()) { //end tag
-				buf += ")</span>";
+				//buf += ")</span>";
+				userData->suspendTextPassThru = false;
 			}
 		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a more complicated scripRef

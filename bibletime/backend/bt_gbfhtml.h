@@ -36,7 +36,11 @@ class BT_GBFHTML : public sword::GBFHTML, protected CFilterTool {
 protected:
   class BT_UserData : public sword::GBFHTML::MyUserData {
   public:
-    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::GBFHTML::MyUserData(module, key) {}
+    BT_UserData(const sword::SWModule *module, const sword::SWKey *key) : sword::GBFHTML::MyUserData(module, key) {
+			swordFootnote = 1;
+		}
+		
+		short unsigned int swordFootnote;
   };
   virtual sword::BasicFilterUserData *createUserData(const sword::SWModule* module, const sword::SWKey* key) {
     return new BT_UserData(module, key);

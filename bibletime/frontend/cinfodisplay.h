@@ -32,6 +32,8 @@ public:
 		
 private:
 	KHTMLPart* m_htmlPart;
+protected:
+    const QString decodeFootnote( const QString& data );
 };
 
 #endif

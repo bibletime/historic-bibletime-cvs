@@ -280,7 +280,6 @@ void CHTMLReadDisplay::khtmlMouseMoveEvent( khtml::MouseMoveEvent* e ){
 					if (!attr.isNull() && (attr.nodeValue().string() == "footnote")) {
 						DOM::Node footnote = currentNode.attributes().getNamedItem("footnote");
 						CPointers::infoDisplay()->setInfo( CInfoDisplay::Footnote, footnote.nodeValue().string() );
-						//infoText = QString("Footnote: ") + footnote.nodeValue().string();
 						break;
 					}
 				}
