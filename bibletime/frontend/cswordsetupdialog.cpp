@@ -339,15 +339,9 @@ void CSwordSetupDialog::slot_doRemoveModules(){
 
 /** No descriptions */
 void CSwordSetupDialog::populateRemoveModuleListView(){
-
 	m_removeBackButton->setEnabled(false);
 	m_removeRemoveButton->setEnabled(false);
 
-//	if (m_backend){ //Make sure we have a current list of modules
-//		m_backend->shutdownModules();
-//		delete m_backend;
-//		m_backend = 0;
-//	}
 	CSwordBackend* m_backend = new CSwordBackend();
 	KApplication::kApplication()->processEvents();
 	m_backend->initModules();
@@ -372,7 +366,6 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 	sword::SWConfig moduleConfig("");
 
 	for ( list.first(), mod = 1; list.current(); list.next(), mod++ ){
-
 		if (mod % 20){
 			m_populateListNotification->setText(QString("Scanning your system: %1%").arg((mod*100)/modcount));
 			KApplication::kApplication()->processEvents();
@@ -403,6 +396,7 @@ void CSwordSetupDialog::populateRemoveModuleListView(){
 			newItem = new QListViewItem(parent, name);
 		newItem->setText(1, location);
   }
+  
 	m_populateListNotification->setText("");
 	m_removeBackButton->setEnabled(true);
 	m_removeRemoveButton->setEnabled(true);
