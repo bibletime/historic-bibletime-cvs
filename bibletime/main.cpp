@@ -127,6 +127,7 @@ int main(int argc, char* argv[]) {
 	//coders
 	aboutData.addAuthor("Joachim Ansorg", I18N_NOOP("Project coordinator, frontend, backend"), "jansorg@gmx.de","");
 	aboutData.addAuthor("Martin Gruner", 	I18N_NOOP("Frontend, backend"), "mg.pub@gmx.net", "");
+	aboutData.addAuthor("Mark Lybarger", 	I18N_NOOP("Searchdialog"), "mlybarge@insight.rr.com", "");
 //	aboutData.addAuthor("Chris Kujawa", 	I18N_NOOP("Frontend"),"christopher.kujawa@verizon.net", "");
 //	aboutData.addAuthor("Luke Mauldin", 	I18N_NOOP("Frontend"),"lukeskyfly@txk.net", "");
 //	aboutData.addAuthor("Tim Brodie", 	I18N_NOOP("Installation manager"),"tbrodie@displayworksinc.com", "");
@@ -197,19 +198,18 @@ int main(int argc, char* argv[]) {
  		if(showIt) {
  			KStartupLogo::createSplash();
  			KStartupLogo::showSplash();				
- 			KStartupLogo::setStatusMessage( i18n("Starting BibleTime")+QString::fromLatin1("...") );
+ 			KStartupLogo::setStatusMessage( i18n("Starting BibleTime") + QString::fromLatin1("...") );
  		}
 		
 	  bibletime = new BibleTime();
 	
 	  if (showIt) {
-		  KStartupLogo::deleteSplash();	  		  	
 	  	KStartupLogo::hideSplash();
+		  KStartupLogo::deleteSplash();	  		  	
 		}
 
 		// a new BibleTime version was installed (maybe a completely new installation)
  		if (CBTConfig::get(CBTConfig::bibletimeVersion) != VERSION) {
-
  			CBTConfig::set(CBTConfig::bibletimeVersion, VERSION);
  			HTML_DIALOG(HELPDIALOG_FIRST_START);
  			bibletime->slotSettingsOptions();

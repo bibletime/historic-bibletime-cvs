@@ -92,39 +92,39 @@ public:
 		searchTexts
 	};
 
-  static QString 		get( CBTConfig::strings );
-  static QFont 			get( CBTConfig::fonts );
-  static bool 			get( CBTConfig::bools );
-  static QColor 		get( CBTConfig::colors );
-  static QValueList<int>	get( CBTConfig::intLists );
-  static QStringList			get( CBTConfig::stringLists );
+  static const QString 		get( const CBTConfig::strings );
+  static const QFont 						get( const CBTConfig::fonts );
+  static const bool 			get( const CBTConfig::bools );
+  static const QColor 		get( const CBTConfig::colors );
+  static const QValueList<int>	get( const CBTConfig::intLists );
+  static const QStringList			get( const CBTConfig::stringLists );
 	
 
-	static void set( CBTConfig::strings, 	QString value );
-	static void set( CBTConfig::fonts, 		QFont value );
-	static void set( CBTConfig::bools, 		bool value );
-	static void set( CBTConfig::colors, 	QColor value );
-	static void set( CBTConfig::intLists,	QValueList<int> value );
-  static void set( CBTConfig::stringLists, QStringList value);
+	static void set( const CBTConfig::strings, 	const QString value );
+	static void set( const CBTConfig::fonts, 		const QFont value );
+	static void set( const CBTConfig::bools, 		const bool value );
+	static void set( const CBTConfig::colors, 	const QColor value );
+	static void set( const CBTConfig::intLists,	const QValueList<int> value );
+  static void set( const CBTConfig::stringLists, const QStringList value);
 
 
-  static CSwordBackend::moduleOptionsBool getAllModuleOptionDefaults( void );
-  static CSwordBackend::displayOptionsBool getAllDisplayOptionDefaults( void );
+  static const CSwordBackend::moduleOptionsBool getAllModuleOptionDefaults();
+  static const CSwordBackend::displayOptionsBool getAllDisplayOptionDefaults();
 
 private:
-	static QString getKey( CBTConfig::strings );
-	static QString getKey( CBTConfig::fonts );
-	static QString getKey( CBTConfig::bools );
-	static QString getKey( CBTConfig::colors );
-	static QString getKey( CBTConfig::intLists );
-	static QString getKey( CBTConfig::stringLists );
+	static const QString getKey( const CBTConfig::strings );
+	static const QString getKey( const CBTConfig::fonts );
+	static const QString getKey( const CBTConfig::bools );
+	static const QString getKey( const CBTConfig::colors );
+	static const QString getKey( const CBTConfig::intLists );
+	static const QString getKey( const CBTConfig::stringLists );
 
-	static QString 				 getDefault( CBTConfig::strings );
-	static QFont	 				 getDefault( CBTConfig::fonts );
-	static bool		 				 getDefault( CBTConfig::bools );
-	static QColor	 				 getDefault( CBTConfig::colors );
-	static QValueList<int> getDefault( CBTConfig::intLists );
-	static QStringList		 getDefault( CBTConfig::stringLists );
+	static const QString 				 getDefault( const CBTConfig::strings );
+	static const QFont	 				 getDefault( const CBTConfig::fonts );
+	static const bool		 				 getDefault( const CBTConfig::bools );
+	static const QColor	 				 getDefault( const CBTConfig::colors );
+	static const QValueList<int> getDefault( const CBTConfig::intLists );
+	static const QStringList		 getDefault( const CBTConfig::stringLists );
 };
 
 

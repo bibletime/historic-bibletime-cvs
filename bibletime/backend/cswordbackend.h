@@ -183,6 +183,11 @@ public:
   * Returns the text used for the option given as parameter.
   */
   const QString getConfigOptionName( const CSwordBackend::moduleOptions option);
+	/**
+	*	Returns the used options.
+	*/
+	const CSwordBackend::moduleOptionsBool getAllModuleOptions();
+	
 
 	CHTMLChapterDisplay* 	m_chapterDisplay;	
 	CHTMLEntryDisplay* 		m_entryDisplay;

@@ -18,7 +18,10 @@
 //BibleTime includes
 #include "cswordmodulesearch.h"
 #include "cswordmoduleinfo.h"
+#include "cswordbackend.h"
+#include "../frontend/cbtconfig.h"
 
+//System includes
 #include <pthread.h>
 
 //Sword includes
@@ -41,15 +44,12 @@ void percentUpdateDummy(char percent, void *p) {
 	}
 };
 
-CSwordModuleSearch::CSwordModuleSearch(){
-	m_isSearching = false;
-	m_foundItems = false;
-	m_terminateSearch = false;
-	m_searchedText = QString::null;
-
-	m_moduleList = 0;
-	m_searchOptions = 0;
-
+CSwordModuleSearch::CSwordModuleSearch(CImportantClasses* importantClasses) :
+	m_isSearching(false),	m_foundItems(false),m_terminateSearch(false),
+	m_searchedText(QString::null), m_moduleList(0),	m_searchOptions(0),
+	m_important(importantClasses)
+{
+	ASSERT(m_important);
 	searcher = this;
 }
 
@@ -77,13 +77,20 @@ void CSwordModuleSearch::setModules( ListCSwordModuleInfo* list ){
 	if (list != m_moduleList)
 		m_moduleList->clear();
 
-	for (list->first(); list->current(); list->next() ) {
-		m_moduleList->append( list->current() );
-	}
+	//copy items
+	*m_moduleList = *list;
+//	for (list->first(); list->current(); list->next() ) {
+//		m_moduleList->append( list->current() );
+//	}
 }
 
 /** Starts the search for the search text. */
 const bool CSwordModuleSearch::startSearch() {
+	//save old module options
+	const CSwordBackend::moduleOptionsBool oldOptions = m_important->swordBackend->getAllModuleOptions();
+
+	m_important->swordBackend->setAllModuleOptions ( CBTConfig::getAllModuleOptionDefaults() );	
+			
 	pthread_mutex_lock(&percentage_mutex);
 
 	cms_currentProgress = 0;
@@ -116,8 +123,9 @@ const bool CSwordModuleSearch::startSearch() {
 	cms_overallProgress = 100;
 	pthread_mutex_unlock(&percentage_mutex);
 
+	m_important->swordBackend->setAllModuleOptions( oldOptions );
+	
 	m_foundItems = foundItems;
-
 	m_isSearching = false;
 	return true;
 }

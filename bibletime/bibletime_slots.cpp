@@ -19,7 +19,7 @@
 #include "bibletime.h"
 #include "ressource.h"
 #include "frontend/ctoolclass.h"
-#include "frontend/ctipwindow.h"
+//#include "frontend/ctipwindow.h"
 #include "frontend/cmdiarea.h"
 #include "frontend/cprofilemgr.h"
 #include "frontend/cprofile.h"
@@ -59,6 +59,7 @@
 #include <kedittoolbar.h>
 #include <kpopupmenu.h>
 #include <khelpmenu.h>
+#include <ktip.h>
 
 //Sword includes
 #include <versekey.h>
@@ -133,9 +134,11 @@ void BibleTime::slotSettingsChanged(){
 
 /** Shows the daily tip */
 void BibleTime::slotHelpTipOfDay(){
-	CTipWindow* tipDlg = new CTipWindow();
-	tipDlg->exec();
-	delete tipDlg;	
+	KTipDialog::setShowOnStart( CBTConfig::get(CBTConfig::tips) );
+	KTipDialog::showTip(this, "bibletime/tips", true);	
+//	CTipWindow* tipDlg = new CTipWindow();
+//	tipDlg->exec();
+//	delete tipDlg;	
 }
 
 

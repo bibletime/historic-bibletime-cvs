@@ -7,7 +7,6 @@ cmdiarea.cpp \
 kstartuplogo.cpp \
 chtmlwidget.cpp \
 chtmldialog.cpp \
-ctipwindow.cpp \
 actions.cpp \
 ctoolclass.cpp \
 cbtconfig.cpp \
@@ -21,7 +20,6 @@ all_headers=cmdiarea.h \
 kstartuplogo.h \
 chtmlwidget.h \
 chtmldialog.h \
-ctipwindow.h \
 ctoolclass.h \
 cbtconfig.h \
 actions.h \

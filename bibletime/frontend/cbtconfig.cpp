@@ -26,7 +26,7 @@
 /* 	No constructor and destructor, because this class only contains static methods.
 		It won't be instantiated. */
 
-QString CBTConfig::getKey( CBTConfig::strings ID){
+const QString CBTConfig::getKey( const CBTConfig::strings ID){
 	switch ( ID ){
 		case bibletimeVersion:			return "bibletimeVersion";
 		case language: 							return "language";
@@ -40,14 +40,14 @@ QString CBTConfig::getKey( CBTConfig::strings ID){
 	}
 }
 
-QString CBTConfig::getDefault( CBTConfig::strings ID){
+const QString CBTConfig::getDefault( const CBTConfig::strings ID){
 	switch ( ID ){
 		case bibletimeVersion:			return ( "NOT YET INSTALLED" );
 			// main() will realize this and set the value to VERSION
 		case language: 							return (KGlobal::locale()->language()).local8Bit();
-		case standardBible: 				return "NIV";  // no effect
+		case standardBible: 				return "KJV";  // no effect
 		case standardCommentary: 		return "MHC";
-		case standardLexicon: 			return "ISBE";
+		case standardLexicon: 			return "Eastons";
 		case standardHebrewStrongsLexicon: return "StrongsHebrew";
 		case standardGreekStrongsLexicon: 	return "StrongsGreek";
 		case standardHebrewMorphLexicon:	return "StrongsHebrew"; //warning this is wrong
@@ -55,27 +55,28 @@ QString CBTConfig::getDefault( CBTConfig::strings ID){
 	}
 }
 
-QString CBTConfig::getKey( CBTConfig::fonts ID){
+const QString CBTConfig::getKey( const CBTConfig::fonts ID){
 	switch ( ID ){
 		case standard: 	return "standard";
 		case unicode: 	return "unicode";
 	}
 }
-QFont CBTConfig::getDefault( CBTConfig::fonts ID){
+
+const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
 	switch ( ID ){
 		case standard: 	return QApplication::font();
 		case unicode: 	return QApplication::font();
 	}
 }
 
-QString CBTConfig::getKey( CBTConfig::bools ID){
+const QString CBTConfig::getKey( const CBTConfig::bools ID){
 	switch ( ID ){
 		case firstSearchDialog:		return "firstSearchDialog";
 
 		case toolbar:							return "toolbar";
 		case mainIndex:						return "mainIndex";
 
-		case autoTile:							return "autoTile";
+		case autoTile:						return "autoTile";
 		case autoCascade:					return "autoCascade";
 
 		case lexiconCache: 				return "lexicon_chache";
@@ -93,13 +94,14 @@ QString CBTConfig::getKey( CBTConfig::bools ID){
 		case verseNumbers: 				return "verseNumbers";
 		case scroll:			 				return "scroll";
 
-		case tips: 								return "tips";
+		case tips: 								return "RunOnStart";
 		case logo: 								return "logo";
 		case restoreWorkspace: 		return "restoreWorkspace";
 
 	}
 }
-bool CBTConfig::getDefault( CBTConfig::bools ID){
+
+const bool CBTConfig::getDefault( const CBTConfig::bools ID){
 	switch ( ID ){
 		case firstSearchDialog:		return true;
 
@@ -130,7 +132,8 @@ bool CBTConfig::getDefault( CBTConfig::bools ID){
 
 	}
 }
-QString CBTConfig::getKey( CBTConfig::colors ID){
+
+const QString CBTConfig::getKey( const CBTConfig::colors ID){
 	switch ( ID ){
 		case textColor: 							return "textColor";
 		case backgroundColor: 				return "backgroundColor";
@@ -142,7 +145,8 @@ QString CBTConfig::getKey( CBTConfig::colors ID){
 		case swordRefColor: 					return "swordRefColor";
 	}
 }
-QColor CBTConfig::getDefault( CBTConfig::colors ID){
+
+const QColor CBTConfig::getDefault( const CBTConfig::colors ID){
 	switch ( ID ){
 		case textColor: 							return QColor(Qt::black);
 		case backgroundColor: 				return QColor(Qt::white);
@@ -154,84 +158,102 @@ QColor CBTConfig::getDefault( CBTConfig::colors ID){
 		case swordRefColor: 					return QColor(Qt::blue);
 	}
 }
-QString CBTConfig::getKey( CBTConfig::intLists ID){
+
+const QString CBTConfig::getKey( const CBTConfig::intLists ID){
 	switch ( ID ){
 		case splitterSizes: return "splitterSizes";
 	}
 }
-QValueList<int> CBTConfig::getDefault( CBTConfig::intLists ID){
+
+const QValueList<int> CBTConfig::getDefault( const CBTConfig::intLists ID){
 	switch ( ID ){
 		case splitterSizes: return QValueList<int>();
 	}
 }
-QString CBTConfig::getKey( CBTConfig::stringLists ID){
+
+const QString CBTConfig::getKey( const CBTConfig::stringLists ID){
 	switch ( ID ){
 		case searchTexts: return "searchTexts";
 	}
 }
-QStringList CBTConfig::getDefault( CBTConfig::stringLists ID){
+
+const QStringList CBTConfig::getDefault( const CBTConfig::stringLists ID){
 	switch ( ID ){
 		case searchTexts: return QStringList();
 	}
 }
-QString CBTConfig::get( CBTConfig::strings ID){
+
+const QString CBTConfig::get( const CBTConfig::strings ID){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "strings");
 	return config->readEntry(getKey(ID),getDefault(ID));
 }
-QFont CBTConfig::get(CBTConfig::fonts ID){
+
+const QFont CBTConfig::get(const CBTConfig::fonts ID){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "fonts");
 	QFont defaultFont = getDefault(ID);
 	return config->readFontEntry(getKey(ID), &defaultFont);
 }
-bool CBTConfig::get( CBTConfig::bools ID){
-	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, "bools");
+
+const bool CBTConfig::get( const CBTConfig::bools ID){
+	//specila behaviour for the KTipDialog class
+	KConfig* config = KGlobal::config();	
+	KConfigGroupSaver groupSaver(config, (ID == CBTConfig::tips) ? "TipOfDay" : "bools");		
 	return config->readBoolEntry(getKey(ID),getDefault(ID));
 }
-QColor CBTConfig::get( CBTConfig::colors ID){
+
+const QColor CBTConfig::get( const CBTConfig::colors ID){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "colors");
 	QColor defaultColor = getDefault(ID);
 	return config->readColorEntry(getKey(ID),&defaultColor);
 }
-QValueList<int>	CBTConfig::get( CBTConfig::intLists ID ){
+
+const QValueList<int>	CBTConfig::get( const CBTConfig::intLists ID ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "lists");
 	return config->readIntListEntry(getKey(ID));
 }
-QStringList	CBTConfig::get( CBTConfig::stringLists ID ){
+
+const QStringList	CBTConfig::get( const CBTConfig::stringLists ID ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "lists");
 	return config->readListEntry(getKey(ID));
 }
-void CBTConfig::set( CBTConfig::strings ID, QString value ){
+
+void CBTConfig::set( const CBTConfig::strings ID, const QString value ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "strings");
 	config->writeEntry(getKey(ID), value);
 }
-void CBTConfig::set( CBTConfig::fonts ID, QFont value ){
+
+void CBTConfig::set( const CBTConfig::fonts ID, const QFont value ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "fonts");
 	config->writeEntry(getKey(ID), value);
 }
-void CBTConfig::set( CBTConfig::bools ID, bool value ){
+
+void CBTConfig::set(const  CBTConfig::bools ID,const  bool value ){
 	KConfig* config = KGlobal::config();
-	KConfigGroupSaver groupSaver(config, "bools");
+	//special behaviour to work with KTipDialog class of KDE
+	KConfigGroupSaver groupSaver(config, (ID == CBTConfig::tips) ? "TipOfDay" : "bools");
 	config->writeEntry(getKey(ID), value);
 }
-void CBTConfig::set( CBTConfig::colors ID, QColor value ){
+
+void CBTConfig::set( const CBTConfig::colors ID, const QColor value ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "colors");
 	config->writeEntry(getKey(ID), value);
 }
-void CBTConfig::set( CBTConfig::intLists ID, QValueList<int> value ){
+
+void CBTConfig::set( const CBTConfig::intLists ID, const QValueList<int> value ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "lists");
 	config->writeEntry(getKey(ID), value);
 }
-void CBTConfig::set( CBTConfig::stringLists ID, QStringList value ){
+
+void CBTConfig::set( const CBTConfig::stringLists ID, const QStringList value ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, "lists");
 	config->writeEntry(getKey(ID), value);
@@ -239,7 +261,7 @@ void CBTConfig::set( CBTConfig::stringLists ID, QStringList value ){
 
 
 
-CSwordBackend::displayOptionsBool CBTConfig::getAllDisplayOptionDefaults( void ){
+const CSwordBackend::displayOptionsBool CBTConfig::getAllDisplayOptionDefaults( void ){
 
   CSwordBackend::displayOptionsBool options;
 
@@ -249,7 +271,7 @@ CSwordBackend::displayOptionsBool CBTConfig::getAllDisplayOptionDefaults( void )
 	return options;
 }
 
-CSwordBackend::moduleOptionsBool CBTConfig::getAllModuleOptionDefaults( void ){
+const CSwordBackend::moduleOptionsBool CBTConfig::getAllModuleOptionDefaults( void ){
 
   CSwordBackend::moduleOptionsBool options;
 

@@ -20,6 +20,7 @@
 
 //BibleTime includes
 //#include "cswordmoduleinfo.h"
+#include "../structdef.h"
 
 //Qt includes
 #include <qlist.h>
@@ -62,7 +63,7 @@ public:
 		allModules		= 0x000000002
 	};
 
-	CSwordModuleSearch();
+	CSwordModuleSearch(CImportantClasses* importantClasses);
 	/**
 	* The destructor of this class. It cleans uop memory before it's deleted.
 	*/
@@ -138,6 +139,9 @@ protected:
 	int cms_module_count;
 	int cms_module_current;
 
+	
+	CImportantClasses* m_important;
+	
 private:
 	pthread_mutex_t percentage_mutex;
 };

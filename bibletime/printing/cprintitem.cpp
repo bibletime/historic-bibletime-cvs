@@ -132,7 +132,7 @@ const QString& CPrintItem::getModuleText() {
 //	CSwordKey* key = dynamic_cast<CSwordKey*>(m_startKey);
 //	CSwordModuleInfo* sw = dynamic_cast<CSwordModuleInfo*>(m_module);
 	
-	m_moduleText = vk ? QString::fromLatin1("<FONT SIZE=\"-2\"><NOBR>(%1)</NOBR></FONT>").arg(vk->Verse()): QString::null;
+	m_moduleText = (vk && getStopKey() && getStartKey() != getStopKey()) ? QString::fromLatin1("<FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>").arg(vk->Verse()): QString::null;
 	m_moduleText += m_startKey ? m_startKey->renderedText() : QString::null;
 	if (m_module && m_stopKey && m_stopKey != m_startKey) { //range of entries
 		if (m_module->getType() == CSwordModuleInfo::Bible  || m_module->getType() == CSwordModuleInfo::Commentary ) {
@@ -145,7 +145,7 @@ const QString& CPrintItem::getModuleText() {
 			dummyKey.key( vk_start->key() );
 			while (dummyKey < *vk_stop) {
 				dummyKey.NextVerse();
-				m_moduleText += QString::fromLatin1("<FONT SIZE=\"-2\"><NOBR>(%1)</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.renderedText();
+				m_moduleText += QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>").arg(dummyKey.Verse()) + dummyKey.renderedText();
 			}
 		}
 //		else if (m_module->getType() == CSwordModuleInfo::Lexicon )
@@ -254,17 +254,19 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 	QPen pen;
 	QBrush brush;
 	
-	//print the header
+	//print the parts
 	for (int i = 0; i < 3; ++i) {		
-		type = (CStyle::styleType)i;
-		
+		type = static_cast<CStyle::styleType>(i);
+		if (!m_style->hasFormatTypeEnabled(type)) //jump to next part if this is not enabled
+			continue;
+				
 		format = m_style->getFormatForType( type );
 		fgColor = format->getFGColor();
 		bgColor = format->getBGColor();	
 		pen.setColor(fgColor);
 		font = format->getFont();
 		if (getModule() && getModule()->isUnicode()) { //enable unicode
-			font.setCharSet(QFont::Unicode);
+			font.setCharSet( QFont::Unicode );
 		}
 		
 		frame = format->hasFrame() ? format->getFrame() : 0;
@@ -282,33 +284,46 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		p->setPen(pen);
 		cg.setColor(QColorGroup::Text, format->getFGColor());
 		
-		if (!m_style->hasFormatTypeEnabled(type))
-			continue;
+		
+		
 		int arguments = Qt::WordBreak;		
-			if (alignement == CStyleFormat::Left)
-				arguments |= Qt::AlignLeft;
-			else if (alignement == CStyleFormat::Center)
-				arguments |= Qt::AlignHCenter;
-			else if (alignement == CStyleFormat::Right)
-				arguments |= Qt::AlignRight;
-		QRect boundingRect;
+		if (alignement == CStyleFormat::Left)
+			arguments |= Qt::AlignLeft;
+		else if (alignement == CStyleFormat::Center)
+			arguments |= Qt::AlignHCenter;
+		else if (alignement == CStyleFormat::Right)
+			arguments |= Qt::AlignRight;
+		
+		QRect boundingRect; //rectangle for the content
 		QRect br;
 		if ((type == CStyle::Header || type == CStyle::Description) && !text.isEmpty()) {
-			boundingRect = p->boundingRect( printer->leftMargin(), printer->getVerticalPos(),
-				printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin(), arguments, text );
+			boundingRect = p->boundingRect (
+				printer->leftMargin(), //x of upper left corner
+				printer->getVerticalPos(), //y of upper left corner
+				printer->getPageSize().width() , //pixels to the right from the upper left corner
+				printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin(), //pixels down from upper left corner
+				arguments, text
+			);
 			
-			//check if the new text fits into page
-			if ( (boundingRect.height() + frameThickness + STYLE_PART_SPACE ) > printer->getPageSize().height()-printer->getVerticalPos() ) {
+			//check if the new text fits into the current page page
+			//WARNING: use 2* or 1* frameThickness here??
+			if ( (boundingRect.height() +  2*frameThickness + STYLE_PART_SPACE ) > printer->getPageSize().height()-printer->getVerticalPos() ) {
 				//this part doesn't fit on the current page
 				printer->newPage();
-				boundingRect = p->boundingRect( printer->leftMargin(), printer->getVerticalPos(),
-					printer->getPageSize().width(), printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin(), arguments, text );			
+				boundingRect = p->boundingRect(
+					printer->leftMargin(),
+					printer->getVerticalPos(),
+					printer->getPageSize().width(),
+					printer->getPageSize().height()-printer->getVerticalPos()+printer->upperMargin(),
+					arguments, text
+				);
 			}
+			
 			br = boundingRect;
 			br.setX(printer->leftMargin());
 			br.setWidth(printer->getPageSize().width());
 			p->fillRect( br, bgColor );	
-						
+									
 			p->drawText(boundingRect, arguments, text);
 			printer->setVerticalPos( printer->getVerticalPos() + boundingRect.height() + 2*frameThickness + STYLE_PART_SPACE );
 

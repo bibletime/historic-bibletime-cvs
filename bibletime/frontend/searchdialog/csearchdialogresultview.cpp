@@ -28,6 +28,7 @@
 #include "../../backend/cswordldkey.h"
 #include "../../backend/creferencemanager.h"
 #include "../ctoolclass.h"
+#include "../cbtconfig.h"
 #include "../../printing/cprintitem.h"
 #include "../../printing/cprinter.h"
 
@@ -476,19 +477,6 @@ void CSearchDialogResultView::itemChanged(QListBoxItem* item){
 void CSearchDialogResultView::rightButtonPressed( QListBoxItem* item, const QPoint& p){
 	m_currentItem = item;	
 	if (m_currentItem) {
-//		QString text = QString::null;
-//		if ( m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary ) {
-//			CSwordVerseKey key(m_module);
-//			key.key(item->text());
-//			text = key.renderedText();
-//		}
-//		else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
-//			CSwordLDKey key(m_module);
-//			key.key(item->text());
-//			text = key.renderedText();
-//		}
-//		if (!text.isEmpty())		
-//			emit keySelected( text  );		
 		mousePressed(item);
 		m_popup->popup(p);
 	}
@@ -501,22 +489,22 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 		return;
 	
 	QString text = QString::null;
-	CSwordKey* key = CSwordKey::createInstance(m_module);
+	
+	//we have to set the standard module view options for the module!!
+	
+	CSwordKey* key = CSwordKey::createInstance(m_module);	
 	if (key) {
+		CSwordBackend::moduleOptionsBool oldOptions = m_important->swordBackend->getAllModuleOptions();
+		m_important->swordBackend->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );
+		
+		
 		key->key(item->text());
-		text = key->renderedText();
+		text = key->renderedText();		
 		delete key;		
+		
+		m_important->swordBackend->setAllModuleOptions( oldOptions );
+		
 	}
-//	if (m_module->getType() == CSwordModuleInfo::Bible || m_module->getType() == CSwordModuleInfo::Commentary) {
-//		CSwordVerseKey key(m_module);
-//		key.key(item->text());
-//		text = key.renderedText();
-//	}
-//	else if (m_module->getType() == CSwordModuleInfo::Lexicon) {
-//		CSwordLDKey key(m_module);				
-//		key.key(item->text());
-//		text = key.renderedText();
-//	}
 	if (!text.isEmpty())
 		emit keySelected(text);
 }

@@ -51,14 +51,13 @@
 #include <qcanvas.h>
 
 CSearchDialog::CSearchDialog(CImportantClasses* importantClasses, ListCSwordModuleInfo* modules, QWidget *parent, const char *name )
-	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null) {
+	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null),
+	m_important(importantClasses),
+	searcher(new CSwordModuleSearch(importantClasses)),
+	moduleList(0), old_currentProgress(0), old_overallProgress(0)			
+{
 	setIcon(MODULE_SEARCH_ICON_SMALL);
 	
-	m_important = importantClasses;	
-	searcher = new CSwordModuleSearch();
-	moduleList = 0;
-	old_currentProgress = 0;
-	old_overallProgress = 0;
 	initView();	
 	readSettings();	
 		

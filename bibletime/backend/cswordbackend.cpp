@@ -196,6 +196,21 @@ void CSwordBackend::setOption( const CSwordBackend::moduleOptions type, const bo
 	setGlobalOption(optionName.latin1(), enable ? "On": "Off");
 }
 
+const CSwordBackend::moduleOptionsBool CSwordBackend::getAllModuleOptions(){
+	CSwordBackend::moduleOptionsBool options;
+	options.footnotes = isOptionEnabled( CSwordBackend::footnotes );
+	options.strongNumbers = isOptionEnabled( CSwordBackend::strongNumbers );
+	options.headings = isOptionEnabled( CSwordBackend::headings );
+	options.morphTags = isOptionEnabled( CSwordBackend::morphTags );
+	options.lemmas = isOptionEnabled( CSwordBackend::lemmas );
+	options.hebrewPoints = isOptionEnabled( CSwordBackend::hebrewPoints );
+	options.hebrewCantillation = isOptionEnabled( CSwordBackend::hebrewCantillation );
+	options.greekAccents = isOptionEnabled( CSwordBackend::greekAccents );
+							
+	return options;
+}
+
+
 void CSwordBackend::setAllModuleOptions( const CSwordBackend::moduleOptionsBool options){
   setOption( footnotes, 					options.footnotes );
   setOption( strongNumbers, 			options.strongNumbers );
@@ -213,6 +228,7 @@ void CSwordBackend::setAllDisplayOptions( const CSwordBackend::displayOptionsBoo
   if (m_chapterDisplay)
 		m_chapterDisplay->setAllDisplayOptions(options);	
 }
+
 
 /** I copied this method from swmgr.cpp of SWORD. This is just a workaround
 	* that BibleTime isn't closed when

@@ -99,7 +99,7 @@ void CSearchDialogResult::updatePreview(const QString newText) {
 	CSearchDialogText* textPart = 0;
 	for (QObject* w = parent(); w; w = w->parent()) {
 		if (w->isA("CSearchDialog")) {
-			CSearchDialog*	dlg = (CSearchDialog*)w;
+			CSearchDialog*	dlg = dynamic_cast<CSearchDialog*>(w);
 			textPart = dlg->searchText;
 			searchedText = textPart->getText().stripWhiteSpace();
 			break;

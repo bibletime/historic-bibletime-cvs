@@ -67,36 +67,36 @@
 
 CHTMLWidget::ToolTip::ToolTip(CImportantClasses* importantClasses, QWidget* parent)
 	: QToolTip(parent), m_important(importantClasses) {
+	ASSERT( m_important );
 
 }
 
 void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
+	qWarning("void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) ");
 	if (!parentWidget()->inherits("CHTMLWidget"))
 		return;
 
 	CHTMLWidget* htmlWidget = dynamic_cast<CHTMLWidget*>(parentWidget());	
+	ASSERT(htmlWidget);
 	QPoint p1 = htmlWidget->viewportToContents(p);
 	QString link = QString::null;
 	QString text = QString::null;
 
   link = htmlWidget->anchorAt(p1);
-	if (link.isEmpty()) {
+	if ( link.isEmpty() )
 		return;
-	}
-	
-	if (!link.isEmpty()) {
+	else {
+		qWarning("link is valid");
 	  Qt3::QTextCursor c( htmlWidget->getDocument() );
 	  htmlWidget->placeCursor( p1, &c );
 		QRect rect = c.parag()->rect();
+		
 		//map rect coordinates to widget's ones
     rect.setX( htmlWidget->contentsToViewport(rect.topLeft()).x() );
     rect.setY( htmlWidget->contentsToViewport(rect.topLeft()).y() );
     rect.setWidth( htmlWidget->contentsToViewport(rect.bottomRight()).x() - rect.x() );
     rect.setHeight( htmlWidget->contentsToViewport(rect.bottomLeft()).y() - rect.y() );
         				
-		//debug rect
-//		qWarning("rect is %i - %i - %i - %i", rect.x(),rect.y(), rect.width(), rect.height());
-		
 		QString module = QString::null;
 		QString ref = QString::null;
 		CReferenceManager::Type type;		
@@ -109,36 +109,26 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 		CSwordModuleInfo* m	= 0;
 		if (module.isEmpty() || module.isNull()) {
 			module = CReferenceManager::preferredModule( type );
-		}
+		}		
 		m = m_important->swordBackend->findModuleByName(module);
-
 		if (m){
-			switch(m->getType()) {			
-				case CSwordModuleInfo::Lexicon:
-				{
-					CSwordLDKey key(m);
-					key.key(ref);
-					ref = key.key(); //parsed result
-					text = key.renderedText();				
-					break;
-				}	
-				case CSwordModuleInfo::Bible: //pass
-				case CSwordModuleInfo::Commentary: //pass
-				default:
-				/*
-				* Parsing a key is a bit tricky,
-				* because we have to care about the language of the module
-				* For example: Pr 6:6 would result in Ecclesiastes 6:6 in a german environment.
-				* We have to care about this.
-				*/
-				{
-					ref = CReferenceManager::parseVerseReference(ref, htmlWidget->modules().first()->module()->Lang()/*m->module()->Lang()*/, m_important->swordBackend->getCurrentBooknameLanguage() );
-
-					CSwordVerseKey key(m);
-					key.key(ref);
-					text = key.renderedText();					
-					break;
+			CSwordKey* key = CSwordKey::createInstance( m );
+			if (m->getType() == CSwordModuleInfo::Bible || m->getType() == CSwordModuleInfo::Commentary) {
+				CSwordModuleInfo* module = htmlWidget->modules().first();
+				ASSERT(module);
+				if (module) {
+					ref = CReferenceManager::parseVerseReference(ref, module->module()->Lang(), m_important->swordBackend->getCurrentBooknameLanguage() );			
 				}
+			}
+			if (key) {
+				CSwordBackend::moduleOptionsBool oldOptions = m_important->swordBackend->getAllModuleOptions();
+				m_important->swordBackend->setAllModuleOptions( CBTConfig::getAllModuleOptionDefaults() );
+				
+				key->key(ref);
+				text = key->renderedText();
+				delete key;				
+				
+				m_important->swordBackend->setAllModuleOptions( oldOptions );								
 			}
 			if (m->isUnicode()) {
 				setFont( CBTConfig::get( CBTConfig::unicode) );
@@ -154,7 +144,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 }
 
 CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColorsAndFonts,QWidget *parent, const char *name )
-	: QTextEdit(parent, name),m_important( importantClasses ) {	
+	: QTextEdit(parent, name),m_important( importantClasses ), m_moduleList( new ListCSwordModuleInfo ) {
 	
 	m_popup = 0;
 	m_anchor = QString::null;
@@ -163,7 +153,6 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 	mousePressed = inDoubleClick = false;		
 	setTextFormat( Qt::RichText );
 	setReadOnly(true);
-	m_moduleList = 0;
 
 	QFont unicodeFont = CBTConfig::get(CBTConfig::unicode);
  	if (!document()->charsetMap->contains(unicodeFont.family()))
@@ -179,6 +168,9 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 
 CHTMLWidget::~CHTMLWidget(){
 	qDebug("CHTMLWidget::~CHTMLWidget()");
+	if (m_moduleList)
+		delete m_moduleList;
+	m_moduleList = 0;
 }
 
 /**  */
@@ -778,11 +770,12 @@ void CHTMLWidget::placeCursor( const QPoint &pos, Qt3::QTextCursor *c ){
 }
 
 /** Returns a list of modules which are used by the display window which uses this HTML widget. */
-ListCSwordModuleInfo& CHTMLWidget::modules() const{
-	return *m_moduleList;
+ListCSwordModuleInfo& CHTMLWidget::modules() const {
+	if (m_moduleList)
+		return *m_moduleList;
 }
 
 /** Sets the list of modules used by the display window which uses this widget. */
 void CHTMLWidget::setModules( ListCSwordModuleInfo& modules ) {
-	m_moduleList = &modules;
+	*m_moduleList = modules; //copy entries
 }
