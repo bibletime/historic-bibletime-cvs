@@ -18,9 +18,6 @@
 #ifndef CSWORDTREEKEYIDX_H
 #define CSWORDTREEKEYIDX_H
 
-#define NO_SWORD_NAMESPACE
-
-
 //BibleTime includes
 #include "cswordkey.h"
 #include "cswordmoduleinfo.h"
@@ -28,16 +25,14 @@
 //Sword includes
 #include <treekeyidx.h>
 
+using namespace sword;
+
+
 /** BibleTime's implementation of Sword's TreeKeyIdx class.
   * @author The BibleTime team
   */
 class CSwordTreeKey : public CSwordKey, public TreeKeyIdx {
 public:
-//	enum JumpType {
-//		NextEntry,
-//		PreviousEntry
-//	};
-	
 	CSwordTreeKey( const CSwordTreeKey& k );
 	CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module );
 	CSwordModuleInfo* module( CSwordModuleInfo* newModule );

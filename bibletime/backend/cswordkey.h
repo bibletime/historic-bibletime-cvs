@@ -18,14 +18,11 @@
 #ifndef CSWORDKEY_H
 #define CSWORDKEY_H
 
-#define NO_SWORD_NAMESPACE
-
-
 //Own includes
-
-
 //Qt includes
 #include <qstring.h>
+
+//using namespace sword;
 
 
 class CSwordModuleInfo;

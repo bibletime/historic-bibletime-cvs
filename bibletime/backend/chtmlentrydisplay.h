@@ -18,9 +18,6 @@
 #ifndef CHTMLENTRYDISPLAY_H
 #define CHTMLENTRYDISPLAY_H
 
-#define NO_SWORD_NAMESPACE
-
-
 //BibleTime includes
 
 //Qt includes
@@ -34,6 +31,8 @@
 
 #include "cswordbackend.h"
 
+
+using namespace sword;
 
 class CHTMLChapterDisplay;
 class CSwordModuleInfo;

@@ -18,9 +18,6 @@
 #ifndef CSWORDMODULEINFO_H
 #define CSWORDMODULEINFO_H
 
-#define NO_SWORD_NAMESPACE
-
-
 //BibleTime includes
 #include "cswordbackend.h"
 #include "frontend/cpointers.h"
@@ -35,10 +32,13 @@
 //Sword includes
 #include <listkey.h>
 #include <swversion.h>
+#include <swmodule.h>
 
-class SWModule;
+class sword::SWModule;
 class CSwordBackend;
 class CHTMLEntryDisplay;
+
+using namespace sword;
 
 /**
 	* Base class for Sword modules.

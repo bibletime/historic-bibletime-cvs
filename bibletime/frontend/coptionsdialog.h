@@ -98,7 +98,7 @@ private:
 			QCheckBox* hebrewCantillation;
 			QCheckBox* greekAccents;
 			QCheckBox* textualVariants;
-		} sword;
+		} swords;
 		
 		struct KeySettings {
 			struct WindowType {

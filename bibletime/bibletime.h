@@ -17,8 +17,6 @@
 #ifndef BIBLETIME_H
 #define BIBLETIME_H
 
-#define NO_SWORD_NAMESPACE
-
 //KDE includes
 #include <kmainwindow.h>
 

@@ -18,13 +18,13 @@
 #ifndef CSEARCHDIALOGSCOPE_H
 #define CSEARCHDIALOGSCOPE_H
 
-#define NO_SWORD_NAMESPACE
-
 #include <qwidget.h>
 #include <qdialog.h>
 
 #include <listkey.h>
 #include "../../backend/cswordmodulesearch.h"
+
+using namespace sword;
 
 class QComboBox;
 class QLineEdit;

@@ -21,14 +21,17 @@
 //BibleTime includes
 #include "cpointers.h"
 
+//Sword includes
+#include <listkey.h>
+
 //Qt includes
 #include <qstring.h>
 #include <qptrlist.h>
 
-class ListKey;
 class CSwordKey;
 class CSwordModuleInfo;
 
+using namespace sword;
 
 /**Contains the functions to export text to disk, clipboard or printer.
   *@author The BibleTime team

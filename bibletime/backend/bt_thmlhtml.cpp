@@ -30,8 +30,8 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	setPassThruUnknownEscapeString(true); //the HTML widget will render the HTML escape codes	
 	setEscapeStart("&");
 	setEscapeEnd(";");	
-  addEscapeStringSubstitute("raquo", QString::fromLatin1("»").utf8());
-  addEscapeStringSubstitute("laquo", QString::fromLatin1("«").utf8());
+//  addEscapeStringSubstitute("raquo", QString::fromLatin1("»").utf8());
+//  addEscapeStringSubstitute("laquo", QString::fromLatin1("«").utf8());
 //  addEscapeStringSubstitute("uuml", QString::fromLatin1("ü").utf8());
 //  addEscapeStringSubstitute("ouml", QString::fromLatin1("ö").utf8());
 //  addEscapeStringSubstitute("auml", QString::fromLatin1("ä").utf8());
@@ -39,12 +39,13 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	setTokenStart("<");
 	setTokenEnd(">");
 	setTokenCaseSensitive(true);
-	addTokenSubstitute("note", " <span id=\"footnote\">(");
-	addTokenSubstitute("/note", ")</span> ");
+	addTokenSubstitute("note", " <small>(");
+	addTokenSubstitute("/note", ")</small> ");
 
-	addTokenSubstitute("foreign lang=\"el\"", "<span lang=\"el\">");
-	addTokenSubstitute("foreign lang=\"he\"", "<span lang=\"he\">");
-	addTokenSubstitute("/foreign",						"</span>");
+//	addTokenSubstitute("foreign lang=\"el\"", "<font face=\"SIL Galatia\">");
+//	addTokenSubstitute("foreign lang=\"he\"", "<font face=\"SIL Ezra\">");
+//	addTokenSubstitute("/foreign",						"</font>");
+
 }
 
 bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
@@ -54,7 +55,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
 
 		if (!strncmp(token, "sync type=\"lemma\"", 17)) { //LEMMA
-			pushString(buf," <span id=\"lemma\">&lt;");
+			pushString(buf," <small><em>&lt;");
 
 			for (int j = 17; j < tokenLength; j++) {
 				if (!strncmp(token+j, "value=\"", 7)) {
@@ -64,7 +65,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					break;
 				}
 			}
-			pushString(buf, "&gt;</span> ");
+			pushString(buf, "&gt;</em></small> ");
 		}
 
 		else if (!strncmp(token, "sync type=\"morph\"", 17)) { //Morph
@@ -79,7 +80,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					break;
 				}
 			}
-			pushString(buf," <span id=\"morphcode\"><a href=\"morph://Greek/%s\">(%s)</a></span> ",
+			pushString(buf," <font color=\"%s\"><small><em><a href=\"morph://Greek/%s\">(%s)</a></em></small></font> ",
 				morph_color, num, num);
 		}
 		
@@ -90,7 +91,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					num[i-29] = token[i];
 			num[i-29] = 0;
 
-			pushString(buf," <span id=\"strongnumber\"><a href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a></span> ",
+			pushString(buf," <font color=\"%s\"><small><em><a href=\"strongs://Hebrew/%s\">&lt;%s&gt;</a></em></small></font> ",
 				strongs_color, num, num);
 		}
 		else if (!strncmp(token, "sync type=\"Strongs\" value=\"G\"",29)) {
@@ -100,7 +101,7 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 					num[i-29] = token[i];
 			num[i-29] = 0;
 
-			pushString(buf," <span id=\"strongnumber\"><a href=\"strongs://Greek/%s\">&lt;%s&gt;</a></em></small></font> ",
+			pushString(buf," <font color=\"%s\"><small><em><a href=\"strongs://Greek/%s\">&lt;%s&gt;</a></em></small></font> ",
 				strongs_color, num, num);
 		}
 
@@ -171,22 +172,22 @@ bool BT_ThMLHTML::handleToken(char **buf, const char *token, DualStringMap &user
 //headings should be processed by the ThMLHeadings filter		
 		else if (!strncmp(token, "div class=\"sechead\"", 19)) {
 			userData["SecHead"] = "true";
-			pushString(buf, "<div id=\"sectionhead\">"/*, text_color*/);
+			pushString(buf, "<H2><FONT color=\"%s\">", text_color);
 		}
 		else if (!strncmp(token, "div class=\"title\"", 19)) {
       userData["Title"] = "true";
-			pushString(buf, "<div id=\"booktitle\">", text_color);
+			pushString(buf, "<H1><FONT color=\"%s\">", text_color);
 		}
-//		else if (!strncmp(token, "/div", 4)) {
-//			if (userData["SecHead"] == "true") {
-//				pushString(buf, "</FONT></H2>");
-//				userData["SecHead"] = "false";
-//			}
-//			else if(userData["Title"] == "true") {
-//				pushString(buf, "</FONT></H1>");
-//				userData["Title"] = "false";
-//			}
-//		}
+		else if (!strncmp(token, "/div", 4)) {
+			if (userData["SecHead"] == "true") {
+				pushString(buf, "</FONT></H2>");
+				userData["SecHead"] = "false";
+			}
+			else if(userData["Title"] == "true") {
+				pushString(buf, "</FONT></H1>");
+				userData["Title"] = "false";
+			}
+		}
 		else if (!strncmp(token, "img ", 4)) {
 			const char *src = strstr(token, "src");
 			if (!src)		// assert we have a src attribute

@@ -18,8 +18,6 @@
 #ifndef CSWORDMODULESEARCH_H
 #define CSWORDMODULESEARCH_H
 
-#define NO_SWORD_NAMESPACE
-
 //BibleTime includes
 //#include "cswordmoduleinfo.h"
 //#include "../structdef.h"
@@ -35,6 +33,8 @@
 
 //Sword includes
 #include <listkey.h>
+
+using namespace sword;
 
 //class ListKey;
 class CSwordModuleInfo;

@@ -27,6 +27,7 @@
 #include "ckeychooserwidget.h"
 
 //Sword includes
+#include <treekeyidx.h>
 
 //Qt includes
 #include <qwidget.h>
@@ -42,7 +43,7 @@ class CSwordKey;
 class CSwordBookModuleInfo;
 class CSwordTreeKey;
 
-class TreeKeyIdx;
+using namespace sword;
 
 /** The keychooser implementeation for books.
   * @author The BibleTime team

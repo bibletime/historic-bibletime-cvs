@@ -18,13 +18,12 @@
 #ifndef CREFERENCEMANAGER_H
 #define CREFERENCEMANAGER_H
 
-#define NO_SWORD_NAMESPACE
-
-
 //Qt includes
 #include <qstring.h>
 
 #include "cswordmoduleinfo.h"
+
+using namespace sword;
 
 /**Contains static functions to compute with referneces used for Drag&Drop and for hyperlinks used in HTML.
   *@author The BibleTime team

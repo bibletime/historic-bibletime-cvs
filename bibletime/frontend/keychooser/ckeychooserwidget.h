@@ -18,18 +18,17 @@
 #ifndef CKEYCHOOSERWIDGET_H
 #define CKEYCHOOSERWIDGET_H
 
+
 #include <qwidget.h>
 #include <qmap.h>
-
 #include <qcombobox.h>
 #include <qstringlist.h>
 
+
 class cfx_btn;
 class CLexiconKeyChooser;
-//class CMinMaxLayout;
 
 class QIconSet;
-//class QComboBox;
 class QToolButton;
 class QStringList;
 class QPoint;

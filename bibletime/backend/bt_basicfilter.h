@@ -18,12 +18,13 @@
 #ifndef BT_BASICFILTER_H
 #define BT_BASICFILTER_H
 
-#define NO_SWORD_NAMESPACE
-
 #include <swbasicfilter.h>
 
-class SWKey;
-class SWModule;
+class sword::SWKey;
+class sword::SWModule;
+
+using namespace sword;
+
 
 /**
   * This is the base class for all filters in BT

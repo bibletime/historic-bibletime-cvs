@@ -18,15 +18,15 @@
 #ifndef CSWORDCOMMENTARYMODULEINFO_H
 #define CSWORDCOMMENTARYMODULEINFO_H
 
-#define NO_SWORD_NAMESPACE
-
-
 //own includes
 #include "cswordbiblemoduleinfo.h"
 
 //Qt includes
 
 //Sword includes
+
+using namespace sword;
+
 
 /**
   * @author The BibleTime team

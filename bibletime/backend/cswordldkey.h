@@ -19,9 +19,6 @@
 #define CSWORDLDKEY_H
 
 
-#define NO_SWORD_NAMESPACE
-
-
 //own includes
 #include "cswordkey.h"
 #include "cswordmoduleinfo.h"
@@ -31,6 +28,8 @@
 
 //Sword includes
 #include <swkey.h>
+
+using namespace sword;
 
 /**
 	*	This class is the implementation of CKey used for dictionaries and lexicons.

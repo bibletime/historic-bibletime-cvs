@@ -18,10 +18,9 @@
 #ifndef CHTMLCHAPTERDISPLAY_H
 #define CHTMLCHAPTERDISPLAY_H
 
-#define NO_SWORD_NAMESPACE
-
-
 #include "chtmlentrydisplay.h"
+
+using namespace sword;
 
 /**
 	* The display which renders a chapter

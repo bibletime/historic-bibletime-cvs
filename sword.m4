@@ -105,10 +105,12 @@ LIBRARY_PATH=
 export LIBRARY_PATH
 
 cat > conftest.$ac_ext <<EOF
-#define NO_SWORD_NAMESPACE
-
 #include <iostream>
 #include <swversion.h>
+
+#ifdef SWORD_NAMESPACE_START
+using namespace sword;
+#endif
 
 int main(int argc, char* argv[]) {
 	std::cout << SWVersion::currentVersion << std::endl;
@@ -166,10 +168,13 @@ LIBRARY_PATH=
 export LIBRARY_PATH
 
 cat > conftest.$ac_ext <<EOF
-#define NO_SWORD_NAMESPACE
-
 #include <iostream>
 #include <swversion.h>
+
+#ifdef SWORD_NAMESPACE_START
+using namespace sword;
+#endif
+
 
 int main(int argc, char* argv[[]]) {
 	if (argc == 2) { //compare required with installed Sword version

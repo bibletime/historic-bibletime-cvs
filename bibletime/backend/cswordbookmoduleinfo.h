@@ -18,15 +18,13 @@
 #ifndef CSWORDGENBOOKMODULEINFO_H
 #define CSWORDGENBOOKMODULEINFO_H
 
-#define NO_SWORD_NAMESPACE
-
-
 //BibleTime includes
 #include "cswordmoduleinfo.h"
 
 //Sword includes
 #include <treekeyidx.h>
 
+using namespace sword;
 
 /** Class for generic book support
   * @author The BibleTime team

@@ -22,12 +22,12 @@
 #ifndef GBFHTML_H
 #define GBFHTML_H
 
-#define NO_SWORD_NAMESPACE
-
 #include "bt_basicfilter.h"
 
-class SWKey;
-class SWModule;
+class sword::SWKey;
+class sword::SWModule;
+
+using namespace sword;
 
 /**
 * This filter converts GBF Text into HTML

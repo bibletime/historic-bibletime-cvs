@@ -18,9 +18,6 @@
 #ifndef CSWORDBACKEND_H
 #define CSWORDBACKEND_H
 
-#define NO_SWORD_NAMESPACE
-
-
 //BibleTime includes
 //#include "cswordmoduleinfo.h"
 
@@ -35,6 +32,8 @@
 #include <swmodule.h>
 #include <swversion.h>
 #include <localemgr.h>
+
+using namespace sword;
 
 class CHTMLEntryDisplay;
 class CHTMLChapterDisplay;
