@@ -153,10 +153,10 @@
 //ICONS
 
 //CGroupManager icons
-#define GROUP_ICON_SMALL	LOAD_SMALL_ICON("bt_group")
-#define GROUP_OPEN_ICON_SMALL	LOAD_SMALL_ICON("bt_group_open")
-#define GROUP_NEW_ICON_SMALL	LOAD_SMALL_ICON("bt_group_new")
-#define GROUP_CHANGE_ICON_SMALL	LOAD_SMALL_ICON("bt_group_change")
+#define GROUP_ICON_SMALL	LOAD_SMALL_ICON("bt_folder")
+#define GROUP_OPEN_ICON_SMALL	LOAD_SMALL_ICON("bt_folder_open")
+#define GROUP_NEW_ICON_SMALL	LOAD_SMALL_ICON("bt_folder_new")
+#define GROUP_CHANGE_ICON_SMALL	LOAD_SMALL_ICON("bt_folder_change")
 
 #define BIBLE_ICON_SMALL	LOAD_SMALL_ICON("bt_bible")
 #define BIBLE_LOCKED_ICON_SMALL	LOAD_SMALL_ICON("bt_bible_locked")
@@ -167,7 +167,7 @@
 #define LEXICON_ICON_SMALL	LOAD_SMALL_ICON("bt_lexicon")
 #define LEXICON_LOCKED_ICON_SMALL	LOAD_SMALL_ICON("bt_lexicon_locked")
 #define PARALLEL_ICON_SMALL	LOAD_SMALL_ICON("bt_parallel")
-#define SYNC_ICON_SMALL	LOAD_SMALL_ICON("bt_parallel")
+#define SYNC_ICON_SMALL	LOAD_SMALL_ICON("bt_sync")
 #define ITEMS_DELETE_ICON_SMALL	LOAD_SMALL_ICON("bt_trashcan_empty")
 
 #define BOOKMARK_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark")
@@ -176,8 +176,6 @@
 #define BOOKMARK_IMPORT_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_import")
 #define BOOKMARK_EXPORT_ICON_SMALL	LOAD_SMALL_ICON("bt_bookmark_export")
 #define BOOKMARK_PRINT_ICON_SMALL	LOAD_SMALL_ICON("bt_printer")
-
-#define PRESENTER_NEW_ICON_SMALL	LOAD_SMALL_ICON("bt_presenter_new")
 #define PRESENTER_EDIT LOAD_SMALL_ICON("bt_presenter_edit")
 
 #define SHOW_GM_ICON_SMALL	LOAD_SMALL_ICON("bt_gm")
@@ -188,16 +186,15 @@
 #define MODULE_ABOUT_ICON_SMALL	LOAD_SMALL_ICON("bt_info")
 
 //used for Drag&Drop
-#define REFERENCE_ICON_SMALL	LOAD_SMALL_ICON("versref")
-
-#define STRONGNUMBER_ICON_SMALL	LOAD_SMALL_ICON("strongs")
-#define FOOTNOTES_ICON_SMALL	LOAD_SMALL_ICON("footnotes")
+#define REFERENCE_ICON_SMALL	LOAD_SMALL_ICON("bt_verseref")
+#define STRONGNUMBER_ICON_SMALL	LOAD_SMALL_ICON("bt_strongs")
+#define FOOTNOTES_ICON_SMALL	LOAD_SMALL_ICON("bt_footnotes")
 
 //Icons for the optionsdialog; OD == OptionsDialog
-#define OD_ICON_GENERAL	LOAD_OD_ICON("general_settings")
-#define OD_ICON_KEY_BINDINGS LOAD_OD_ICON("key_settings")
-#define OD_ICON_FONTS LOAD_OD_ICON("font_settings")
-#define OD_ICON_COLORS	LOAD_OD_ICON("color_settings")
+#define OD_ICON_GENERAL	LOAD_OD_ICON("bt_general_settings")
+#define OD_ICON_KEY_BINDINGS LOAD_OD_ICON("bt_key_settings")
+#define OD_ICON_FONTS LOAD_OD_ICON("bt_font_settings")
+#define OD_ICON_COLORS	LOAD_OD_ICON("bt_color_settings")
 
 //define HelpDialog aliases for defines
 #define HELPDIALOG_MODULE_LOCKED	"bibletime/help_module_encrypted.html"

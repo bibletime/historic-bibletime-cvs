@@ -48,7 +48,7 @@ class CGroupManager : public KListView  {
    Q_OBJECT
 
 public:
-	CGroupManager(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0, ListCSwordModuleInfo *moduleInfo_list = 0);
+	CGroupManager(CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0, ListCSwordModuleInfo *moduleInfo_list = 0, bool useBookmarks = true, bool saveSettings = true, bool useDnD=true, bool useExtendedMode=true, bool useRMBMenu = true, bool showHelpDialogs = true);
 	~CGroupManager();
   /**
  	* Initializes the tree of this CGroupmanager
@@ -276,51 +276,24 @@ private:
 	*	If group is 0 we create them a toplevel items.
 	*/
   bool readGroups(KConfig* configFile, CGroupManagerItem* group);
-  /**
-  * The config for the groupmanager != global config of BibleTime
-  */
   QGuardedPtr<KConfig> config;
-  /**
-  * The popup menu which conatins the options after RMB on an item
-  */
   QGuardedPtr<KPopupMenu> popupMenu;
-	/**
-	*
-	*/
 	bool m_menu;
-	/**
-	*
-	*/
   QPoint m_pressedPos;
-	/**
-	*
-	*/
   QRect	oldDragRect;
-	/**
-	*
-	*/
   CImportantClasses* m_important;
-	/**
-	*
-	*/
   CGroupManagerItem* m_parentItemDrop;
-	/**
-	*
-	*/
   CGroupManagerItem* m_afterItemDrop;
-	/**
-	*
-	*/
   QString m_dragType;	
-	/**
-	*
-	*/
 	QGuardedPtr<CSearchDialog> searchDialog;
 	ToolTip* m_toolTip;	
-	/**
-	*
-	*/
 	bool m_singleClick;	
+	bool m_useBookmarks;
+	bool m_saveSettings;
+	bool m_useDragDrop;
+	bool m_useExtendedMode;
+	bool m_useRMBMenu;	
+	bool m_showHelpDialogs;
 };
 
 #endif

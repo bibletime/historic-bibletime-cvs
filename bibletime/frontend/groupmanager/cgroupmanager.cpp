@@ -95,10 +95,16 @@ void CGroupManager::ToolTip::maybeTip(const QPoint& p) {
 }
 
 
-CGroupManager::CGroupManager(CImportantClasses* importantClasses, QWidget *parent, const char *name, ListCSwordModuleInfo *swordList )
+CGroupManager::CGroupManager(CImportantClasses* importantClasses, QWidget *parent, const char *name, ListCSwordModuleInfo *swordList, bool useBookmarks, bool saveSettings, bool useDnD, bool useExtendedMode, bool useRMBMenu, bool showHelpDialogs)
 	: KListView(parent, name) {
+
+	m_useBookmarks = useBookmarks;	
+	m_saveSettings = saveSettings;
+	m_useDragDrop = useDnD;
+	m_useExtendedMode = useExtendedMode;
+	m_useRMBMenu = useRMBMenu;
+	m_showHelpDialogs = showHelpDialogs;
 	
-	qDebug("CGroupManager::constructor");
 	config = new KConfig("bt-groupmanager", false, false );
 
 	m_important = importantClasses;
@@ -107,27 +113,23 @@ CGroupManager::CGroupManager(CImportantClasses* importantClasses, QWidget *paren
 	m_pressedItem = 0;
 		
 	m_swordList = swordList;
-	ASSERT(m_swordList);
 	initView();	
 	initConnections();
 	readSettings();
-	
-	qDebug("finished CGroupManager::CGroupManager");	
 }
 
 CGroupManager::~CGroupManager(){	
 	saveSettings();
-	if (config)
-		delete config;
+	config->sync();
+	delete config;
 }
 
 /** Initializes the tree of this CGroupmanager */
 void CGroupManager::setupSwordTree() {
-	//read in all module entries
-	qDebug("CGroupManager::setupSwordTree()");
 	readGroups( config, 0);
-	readSwordModules( config, 0);
-	readSwordBookmarks( config, 0 );	
+	readSwordModules( config, 0);	
+	if (m_useBookmarks)
+		readSwordBookmarks( config, 0 );	
 	
 	setupStandardSwordTree();
 }
@@ -143,17 +145,12 @@ void CGroupManager::setupSwordTree(ListCSwordModuleInfo* m_swordList){
 
 /** Initializes the tree of this CGroupmanager */
 void CGroupManager::setupStandardSwordTree() {
-	qDebug("CGroupManager::setupStandardSwordTree()");
-	ASSERT(m_swordList);	
-	if (!m_swordList) {
-		qDebug("m_swordList is ZERO!");
+	if (!m_swordList)
 		return;
-	}
 
 	bool initialized = false;
-	if (config->readBoolEntry("initialized", false)) {
+	if (config->readBoolEntry("initialized", false))
 		initialized = true;
-	}
 	
 	CSwordModuleInfo* moduleInfo = 0;
 		
@@ -203,7 +200,6 @@ void CGroupManager::setupStandardSwordTree() {
 				}
 			}
 		}
-		ASSERT(moduleInfo);
 		if ( moduleInfo && !alreadyCreated) {
 			if ( dynamic_cast<CSwordCommentaryModuleInfo*>(moduleInfo) ) {	//a Dictionary
 				(void) new CGroupManagerItem(commentaryGroup, "",QString::null, moduleInfo,0, CGroupManagerItem::Module);
@@ -218,7 +214,6 @@ void CGroupManager::setupStandardSwordTree() {
 	}
 
 	// Now delete the groupes which have no child items
-	qDebug("delete empty groups");
 	if (bibleGroup->childCount() == 0)
 		delete bibleGroup;
 	if (lexiconGroup->childCount() == 0)
@@ -227,32 +222,34 @@ void CGroupManager::setupStandardSwordTree() {
 		delete commentaryGroup;
 }
 
-void CGroupManager::setupStandardSwordTree(ListCSwordModuleInfo* m_swordList){
-	ASSERT(m_swordList);
-
-	if (m_swordList) {
-		this->m_swordList = m_swordList;
+void CGroupManager::setupStandardSwordTree(ListCSwordModuleInfo* swordList){
+	if (swordList) {
+		m_swordList = swordList;
 		setupStandardSwordTree();	
 	};
 }
 
 /** Initializes the connections of this class */
 void CGroupManager::initConnections(){
-	connect(popupMenu, SIGNAL(aboutToShow()),
-		this, SLOT(slotPopupAboutToShow()));
+	if (m_useRMBMenu)
+		connect(popupMenu, SIGNAL(aboutToShow()),
+			this, SLOT(slotPopupAboutToShow()));
 }
 
 /**  */
 void CGroupManager::saveSettings(){	
-	qDebug("CGroupManager::saveSettings");
 	KConfigGroupSaver groupSaver(config, "Groupmanager");
-		
+	
+	if (!m_saveSettings) {
+		return;
+	}
+			
 	//save column width	
 	config->writeEntry("initialized", true);
 	config->writeEntry("First column", columnWidth(0));
-//	config->writeEntry("Second column", columnWidth(1));
 	
 	//save the bookmarks and the groups
+	
 	saveGroups(config,0);
 	saveSwordModules(config,0);
 	saveSwordBookmarks(config, 0);
@@ -262,7 +259,6 @@ void CGroupManager::saveSettings(){
 
 /**  */
 void CGroupManager::readSettings(){
-	qDebug("CGroupManager::readSettings()");
 	KConfigGroupSaver groupSaver(config, "Groupmanager");
 	if (config->readBoolEntry("initialized")) {
 		setupSwordTree();
@@ -282,56 +278,62 @@ void CGroupManager::initView(){
  	m_singleClick = KGlobalSettings::singleClick();
  	 		
 	setBackgroundMode(PaletteBase);
-//  setTreeStepSize(15);
 	setSorting(-1);
 	 	
- 	viewport()->setAcceptDrops(true);
-	setSelectionMode(QListView::Extended);
+ 	if (m_useDragDrop)
+	 	viewport()->setAcceptDrops(true);
+	if (m_useExtendedMode)
+		setSelectionMode(QListView::Extended);
  	setRootIsDecorated(false);
- 	setAllColumnsShowFocus ( true );
+ 	setAllColumnsShowFocus(true);
  			 	
  	addColumn(i18n("Caption"));
  	header()->hide();
 	
-	popupMenu = new KPopupMenu(this);
-	popupMenu->insertTitle(i18n("Groupmanager"));
-//	popupMenu->insertItem(PRESENTER_NEW_ICON_SMALL,i18n("New presenter"),
-//		this, SLOT(slotCreateNewPresenter()),0,ID_GM_PRESENTER_CREATE);
-//	popupMenu->setWhatsThis(ID_GM_PRESENTER_CREATE, WT_GM_NEW_PRESENTER);
-//	popupMenu->insertSeparator();
-	popupMenu->insertItem(GROUP_NEW_ICON_SMALL, i18n("Create new folder"),
-		this, SLOT(slotCreateNewGroup()),0,ID_GM_GROUP_CREATE);
-	popupMenu->setWhatsThis(ID_GM_GROUP_CREATE, WT_GM_NEW_GROUP);	
-	popupMenu->insertItem(GROUP_CHANGE_ICON_SMALL, i18n("Change this folder"),
-		this, SLOT(slotChangeGroup()),0,ID_GM_GROUP_CHANGE);
-	popupMenu->setWhatsThis(ID_GM_GROUP_CHANGE, WT_GM_CHANGE_GROUP);		
-	popupMenu->insertSeparator();	
-	popupMenu->insertItem(BOOKMARK_CHANGE_ICON_SMALL,i18n("Change this bookmark"),
-		this,SLOT(slotChangeBookmark()),0,ID_GM_BOOKMARK_CHANGE);
-	popupMenu->setWhatsThis(ID_GM_BOOKMARK_CHANGE, WT_GM_CHANGE_BOOKMARK);
-	popupMenu->insertItem(BOOKMARK_IMPORT_ICON_SMALL,i18n("Import bookmarks"),
-		this,SLOT(slotImportBookmarks()),0,ID_GM_BOOKMARKS_IMPORT);	
-	popupMenu->setWhatsThis(ID_GM_BOOKMARKS_IMPORT, WT_GM_IMPORT_BOOKMARKS);
-	popupMenu->insertItem(BOOKMARK_EXPORT_ICON_SMALL,i18n("Export bookmarks"),
-		this,SLOT(slotExportBookmarks()),0,ID_GM_BOOKMARKS_EXPORT);		
-	popupMenu->setWhatsThis(ID_GM_BOOKMARKS_EXPORT, WT_GM_EXPORT_BOOKMARKS);	
-	popupMenu->insertItem(BOOKMARK_PRINT_ICON_SMALL,i18n("Print bookmark"),
-		this,SLOT(slotPrintBookmark()),0,ID_GM_BOOKMARK_PRINT);
-	popupMenu->setWhatsThis(ID_GM_BOOKMARK_PRINT, WT_GM_PRINT_BOOKMARK);
-	popupMenu->insertItem(ITEMS_DELETE_ICON_SMALL, i18n("Remove selected item(s)"),
-		this, SLOT(slotDeleteSelectedItems()),0,ID_GM_ITEMS_DELETE);
-	popupMenu->insertSeparator();
-	popupMenu->insertItem(MODULE_SEARCH_ICON_SMALL,i18n("Search in module(s)"),
-		this, SLOT(slotSearchSelectedModules()),0,ID_GM_MODULES_SEARCH);
-	popupMenu->insertSeparator();
-	popupMenu->insertItem(MODULE_UNLOCK_ICON_SMALL,i18n("Set unlock key"),
-		this, SLOT(slotUnlockModule()),0,ID_GM_MODULE_UNLOCK);	
-	popupMenu->setWhatsThis(ID_GM_MODULE_UNLOCK, WT_GM_UNLOCK_MODULE);	
-	popupMenu->insertItem(MODULE_ABOUT_ICON_SMALL, i18n("About module"),
-		this, SLOT(slotShowAbout()),0,ID_GM_MODULE_ABOUT);
-	popupMenu->setWhatsThis(ID_GM_MODULE_ABOUT, WT_GM_ABOUT_MODULE);
+	if (!m_useRMBMenu) {
+		popupMenu = 0;
+	}
+	else {		
+		popupMenu = new KPopupMenu(this);
+		popupMenu->insertTitle(i18n("Groupmanager"));
+	//	popupMenu->insertItem(PRESENTER_NEW_ICON_SMALL,i18n("New presenter"),
+	//		this, SLOT(slotCreateNewPresenter()),0,ID_GM_PRESENTER_CREATE);
+	//	popupMenu->setWhatsThis(ID_GM_PRESENTER_CREATE, WT_GM_NEW_PRESENTER);
+	//	popupMenu->insertSeparator();
+		popupMenu->insertItem(GROUP_NEW_ICON_SMALL, i18n("Create new folder"),
+			this, SLOT(slotCreateNewGroup()),0,ID_GM_GROUP_CREATE);
+		popupMenu->setWhatsThis(ID_GM_GROUP_CREATE, WT_GM_NEW_GROUP);	
+		popupMenu->insertItem(GROUP_CHANGE_ICON_SMALL, i18n("Change this folder"),
+			this, SLOT(slotChangeGroup()),0,ID_GM_GROUP_CHANGE);
+		popupMenu->setWhatsThis(ID_GM_GROUP_CHANGE, WT_GM_CHANGE_GROUP);		
+		popupMenu->insertSeparator();	
+		popupMenu->insertItem(BOOKMARK_CHANGE_ICON_SMALL,i18n("Change this bookmark"),
+			this,SLOT(slotChangeBookmark()),0,ID_GM_BOOKMARK_CHANGE);
+		popupMenu->setWhatsThis(ID_GM_BOOKMARK_CHANGE, WT_GM_CHANGE_BOOKMARK);
+		popupMenu->insertItem(BOOKMARK_IMPORT_ICON_SMALL,i18n("Import bookmarks"),
+			this,SLOT(slotImportBookmarks()),0,ID_GM_BOOKMARKS_IMPORT);	
+		popupMenu->setWhatsThis(ID_GM_BOOKMARKS_IMPORT, WT_GM_IMPORT_BOOKMARKS);
+		popupMenu->insertItem(BOOKMARK_EXPORT_ICON_SMALL,i18n("Export bookmarks"),
+			this,SLOT(slotExportBookmarks()),0,ID_GM_BOOKMARKS_EXPORT);		
+		popupMenu->setWhatsThis(ID_GM_BOOKMARKS_EXPORT, WT_GM_EXPORT_BOOKMARKS);	
+		popupMenu->insertItem(BOOKMARK_PRINT_ICON_SMALL,i18n("Print bookmark"),
+			this,SLOT(slotPrintBookmark()),0,ID_GM_BOOKMARK_PRINT);
+		popupMenu->setWhatsThis(ID_GM_BOOKMARK_PRINT, WT_GM_PRINT_BOOKMARK);
+		popupMenu->insertItem(ITEMS_DELETE_ICON_SMALL, i18n("Remove selected item(s)"),
+			this, SLOT(slotDeleteSelectedItems()),0,ID_GM_ITEMS_DELETE);
+		popupMenu->insertSeparator();
+		popupMenu->insertItem(MODULE_SEARCH_ICON_SMALL,i18n("Search in module(s)"),
+			this, SLOT(slotSearchSelectedModules()),0,ID_GM_MODULES_SEARCH);
+		popupMenu->insertSeparator();
+		popupMenu->insertItem(MODULE_UNLOCK_ICON_SMALL,i18n("Set unlock key"),
+			this, SLOT(slotUnlockModule()),0,ID_GM_MODULE_UNLOCK);	
+		popupMenu->setWhatsThis(ID_GM_MODULE_UNLOCK, WT_GM_UNLOCK_MODULE);	
+		popupMenu->insertItem(MODULE_ABOUT_ICON_SMALL, i18n("About module"),
+			this, SLOT(slotShowAbout()),0,ID_GM_MODULE_ABOUT);
+		popupMenu->setWhatsThis(ID_GM_MODULE_ABOUT, WT_GM_ABOUT_MODULE);
+	}
 }
-
+	
 /** Deletes the item given as parameter */
 void CGroupManager::slotDeleteSelectedItems(){
 	QListViewItemIterator it( this );
@@ -343,28 +345,28 @@ void CGroupManager::slotDeleteSelectedItems(){
 
 /** call the search dialog */
 void CGroupManager::slotSearchSelectedModules() {
-	qDebug("CGroupManager::searchSelectedModules");
-	ListCSwordModuleInfo searchList;
-	
-	CGroupManagerItem *item = 0;
-	
+	qWarning("void CGroupManager::slotSearchSelectedModules()");	
+	ListCSwordModuleInfo searchList;	
+	CGroupManagerItem *item = 0;	
 	QListViewItemIterator it( this );
-	for ( ; it.current(); ++it ) {
+	for (; it.current(); ++it ) {
 		if ( it.current()->isSelected()) {
-			item = (CGroupManagerItem*)it.current();
-			ASSERT(item);
-			if (item->type() == CGroupManagerItem::Module)
+			item = dynamic_cast<CGroupManagerItem*>(it.current());
+			if (item && item->type() == CGroupManagerItem::Module)
 				searchList.append(item->moduleInfo());
-			else
-				qDebug("Can't append a group to the search list");
 		}
-	}
+	}	
+	qWarning("void CGroupManager::slotSearchSelectedModules() sync");		
+	config->sync();	
+	qWarning("void CGroupManager::slotSearchSelectedModules() create");				
 	if (!searchDialog)
-		searchDialog = new CSearchDialog(m_important,0,0);
+		searchDialog = new CSearchDialog(m_important,&searchList,0,0);
+	qWarning("void CGroupManager::slotSearchSelectedModules() created");			
 	connect(searchDialog, SIGNAL(finished()),
 		this, SLOT(slotDeleteSearchdialog()));
-	searchDialog->setModuleList(&searchList);
+	qWarning("void CGroupManager::slotSearchSelectedModules() show");			
 	searchDialog->show();
+	qWarning("void CGroupManager::slotSearchSelectedModules() finished");		
 }	
 
 void CGroupManager::searchBookmarkedModule(QString text, CGroupManagerItem* item) {	
@@ -395,34 +397,29 @@ void CGroupManager::createNewBookmark(CGroupManagerItem* parent, CModuleInfo* mo
 	//= KLineEditDlg::getText(i18n("Please enter the description of the new bookmark"), QString::null, &isOk, 0);
 	setFocus();
 	
+	myItem = 0;
+  if ( parent && (parent->type() == CGroupManagerItem::Group) ) {
+   	myItem = new CGroupManagerItem(parent,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark);
+   	parent->setOpen(true);
+  }
+	else
+		myItem = new CGroupManagerItem(this,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark);
 		
-//	if (isOk) {
-    myItem = 0;
-    if ( parent && (parent->type() == CGroupManagerItem::Group) ) {
-    	myItem = new CGroupManagerItem(parent,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark);
-    	parent->setOpen(true);
-    }
-    else
-			myItem = new CGroupManagerItem(this,QString::null,QString::null,module, 0, CGroupManagerItem::Bookmark);
-		
-		if (myItem && (CSwordModuleInfo*)module) {	//it's a Sword module
-			CSwordModuleInfo* swordModule = (CSwordModuleInfo*)module;
-			if (dynamic_cast<CSwordBibleModuleInfo*>(swordModule) ) {	//a bible or commentary
-				qDebug("create new versekey for bookmark");
-				CSwordVerseKey* key = new CSwordVerseKey(swordModule);
-				key->setKey(ref);				
-				myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
-			}
-			else if (dynamic_cast<CSwordLexiconModuleInfo*>(swordModule) ) {	//a lexicon module
-				qDebug("create new ldkey for bookmark");			
-				CSwordLDKey* key = new CSwordLDKey(swordModule);
-				key->setKey(ref);
-				myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
-			}			
-		}		
-    if (myItem)	//set the description
-			myItem->setDescription(description);
-//  }
+	if (myItem && (CSwordModuleInfo*)module) {	//it's a Sword module
+		CSwordModuleInfo* swordModule = (CSwordModuleInfo*)module;
+		if (dynamic_cast<CSwordBibleModuleInfo*>(swordModule) ) {	//a bible or commentary
+			CSwordVerseKey* key = new CSwordVerseKey(swordModule);
+			key->setKey(ref);				
+			myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
+		}
+		else if (dynamic_cast<CSwordLexiconModuleInfo*>(swordModule) ) {	//a lexicon module
+			CSwordLDKey* key = new CSwordLDKey(swordModule);
+			key->setKey(ref);
+			myItem->setBookmarkKey(key);	//the key is deleted by the groupmmanager item
+		}			
+	}		
+  if (myItem)	//set the description
+		myItem->setDescription(description);
 }
 
 
@@ -450,7 +447,11 @@ void CGroupManager::slotChangeGroup(){
 
 /** Is called before the menu is shown */
 void CGroupManager::slotPopupAboutToShow(){
+	if (!m_useRMBMenu)
+		return;
+		
 	m_menu = true;
+	
 	
 	if (m_pressedItem) {
 		if (m_pressedItem->type() == CGroupManagerItem::Module) {
@@ -676,7 +677,6 @@ void CGroupManager::contentsDragMoveEvent( QDragMoveEvent* e){
 
 /**  */
 void CGroupManager::contentsDragLeaveEvent( QDragLeaveEvent* e){	
-  qDebug("CGroupMAnager::contentsDragLeaveEvent");	
 	KListView::contentsDragLeaveEvent(e);	
 	cleanDropVisualizer();
 	
@@ -822,13 +822,13 @@ void CGroupManager::contentsDropEvent( QDropEvent* e){
 
 /**  */
 void CGroupManager::contentsMousePressEvent ( QMouseEvent* e ) {
-	qDebug("CGroupManager::cotentsMousePressEvent");	
 	m_pressedPos = e->pos();
   m_pressedItem = (CGroupManagerItem*)itemAt(contentsToViewport(m_pressedPos));
   bool open = false;	
   if (m_pressedItem)
   	open = m_pressedItem->isOpen();		
 	KListView::contentsMousePressEvent(e);
+	
 	if ((e->state() & ControlButton) || (e->state() & ShiftButton))
 			return;
 			
@@ -839,11 +839,11 @@ void CGroupManager::contentsMousePressEvent ( QMouseEvent* e ) {
 			m_pressedItem->setOpen( !m_pressedItem->isOpen() );
 		}
 	}
-	else if (e->button() == RightButton) {
-			m_menu = true;
-			popupMenu->exec( viewport()->mapToGlobal( contentsToViewport(m_pressedPos) ));
+	else if (e->button() == RightButton & m_useRMBMenu) {	
+		m_menu = true;
+		popupMenu->exec( viewport()->mapToGlobal( contentsToViewport(m_pressedPos) ));
+		m_menu = false;			
 	}
-	m_menu = false;	
 }
 
 /** Reimplementation. */
@@ -878,9 +878,10 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 	  	//check if module is encrypted and show dialog if it wasn't opened before	  	
 	  	if (m_pressedItem->moduleInfo()->isEncrypted()) {
   			KConfigGroupSaver groupSaver(config, "Groupmanager");
-	  		if (!config->readBoolEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), false))
+	  		if (m_showHelpDialogs && !config->readBoolEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), false))
 	  			HTML_DIALOG(HELPDIALOG_MODULE_LOCKED);
-	  		config->writeEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
+	  		if (m_showHelpDialogs)
+	  			config->writeEntry(QString("shown %1 encrypted").arg(m_pressedItem->moduleInfo()->module()->Name()), true);
 	  	}
 			if (selectedItems().count()>1) {
 				ListCSwordModuleInfo modules;
@@ -907,6 +908,9 @@ void CGroupManager::contentsMouseReleaseEvent ( QMouseEvent* e ) {
 /** Reimplementation */
 void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
 	KListView::contentsMouseMoveEvent( e );	
+	if (!m_useDragDrop)
+		return;
+	
 	CGroupManagerItem* dragItem=(CGroupManagerItem *)itemAt( contentsToViewport(e->pos()) );
 
 	//mouse is pressed, an item is selected and the popup menu isn't opened
@@ -1068,7 +1072,6 @@ void CGroupManager::slotUnlockModule(){
 
 /** Reads in bookmarks from config and creates them as subitems of group. If group is 0 we create them a toplevel items. */
 bool CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group){
-	qDebug("CGroupManager::readSwordBookmarks(KConfig* configFile, CGroupManagerItem* group)");
 	//read and create group entries
 	CGroupManagerItem* 	parentItem = 0;	
 	QStringList				groupList 	= configFile->readListEntry("Groups");
@@ -1206,7 +1209,6 @@ bool CGroupManager::saveSwordBookmarks(KConfig* configFile, CGroupManagerItem* g
 
 /** Impoorts bookmarks */
 void CGroupManager::slotImportBookmarks(){
-	qDebug("CGroupManager::slotImportBookmarks");	
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) ) {
 		QString file = KFileDialog::getOpenFileName(QString::null, "*.btb | *.btb", 0, i18n("Import bookmarks ..."));	
 		if (!file.isNull()) {
@@ -1217,7 +1219,7 @@ void CGroupManager::slotImportBookmarks(){
 			//bookmark format of imported file is newer than our version			
 			if (formatVersion > BOOKMARK_FORMAT_VERSION) {
 				int retValue = KMessageBox::warningContinueCancel(this, i18n("<qt>A problem occurred while importing bookmarks!<BR>\
-The bookmarks format of the imprted file is newer<BR>\
+The bookmarks format of the imported file is newer<BR>\
 than the bookmarks format version of this version of BibleTime!<BR>\
 <B>Importing the bookmarks may not work correctly!</B><BR>Do you want to continue?</qt>"), i18n("Import of bookmarks"), i18n("Continue") );
 				if ( retValue != KMessageBox::Continue )
@@ -1232,7 +1234,6 @@ than the bookmarks format version of this version of BibleTime!<BR>\
 
 /** Exports bookmarks of selected group */
 void CGroupManager::slotExportBookmarks(){
-	qDebug("CGroupManager::slotExportBookmarks");
 	if (!m_pressedItem || ( m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) ) {
 		QString file = KFileDialog::getSaveFileName (QString::null, "*.btb | *.btb", 0, i18n("Export bookmarks ..."));	
 		if (!file.isNull()) {
@@ -1355,7 +1356,6 @@ bool CGroupManager::saveSwordModules(KConfig* configFile, CGroupManagerItem* gro
 					moduleList.append( myItem->moduleInfo()->module()->Name() );				
 				else {
 					moduleList.append( myItem->text(0) );	//first column is the modulename
-//					qDebug("CGroupManager::SaveSettings: myItem has no moduleInfo");
 				}
 			}
 	}	
@@ -1393,8 +1393,6 @@ bool CGroupManager::readGroups(KConfig* configFile, CGroupManagerItem* group) {
 			else
 				newItem = new CGroupManagerItem(this, (*it_groups),QString::null,0, 0,CGroupManagerItem::Group);
 		}
-		ASSERT(newItem);
-		ASSERT(oldItem);
 		if ( newItem && oldItem ) {
 			if ( isChild(oldItem, newItem ) || (!newItem->parent() && !oldItem->parent()) || (newItem->parent() == oldItem->parent() )) {
 				newItem->moveToJustAfter( oldItem );
@@ -1454,14 +1452,9 @@ bool CGroupManager::saveGroups(KConfig* configFile, CGroupManagerItem* group) {
 /** Returns true if the item "item" is a child of item "parent". */
 bool CGroupManager::isChild(CGroupManagerItem* parent, CGroupManagerItem* child){
 	CGroupManagerItem *myParent = child;
-	while (myParent && myParent != parent ) {
-		myParent = myParent->parent();	
-	}
-	
-	if (myParent == parent && parent!=child)
-		return true;
-	else
-		return false;
+	while (myParent && myParent != parent )
+		myParent = myParent->parent();		
+	return myParent == parent && parent!=child;
 }
 
 /** Reimplementatuiion. */
@@ -1597,11 +1590,15 @@ void CGroupManager::cleanDropVisualizer(){
 
 /** Resets the groupmanager. Recreates the original Bibles, Lexicons and Commentary groups. */
 void CGroupManager::slotReset(){
-	int result = KMessageBox:: warningContinueCancel( this, i18n("<qt>This function will reset the groupmanager!<BR>This will recreate the original groups and delete all other items!<BR>Be sure not to delete important bookmarks etc!<BR>Do you want to continue?</qt>"), i18n("BibleTime - Reset groupmanager"), i18n("Continue"));
-	
-	if (result == KMessageBox::Continue ) {
-		this->clear();
-		this->setupStandardSwordTree();
+	int result = 0;
+	if (m_showHelpDialogs)
+		result = KMessageBox:: warningContinueCancel( this, i18n("<qt>This function will reset the groupmanager!<BR>This will recreate the original groups and delete all other items!<BR>Be sure not to delete important bookmarks etc!<BR>Do you want to continue?</qt>"), i18n("BibleTime - Reset groupmanager"), i18n("Continue"));
+	else
+		result = KMessageBox::Continue;
+		
+	if (result == KMessageBox::Continue) {
+		clear();
+		setupStandardSwordTree();
 	}
 }
 

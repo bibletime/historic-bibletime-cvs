@@ -58,12 +58,12 @@ public:
 	* @param parent The widget this dialog is centered on
 	* @param name The name of this Qt widget
 	*/
-	CSearchDialog( CImportantClasses* importantClasses, QWidget *parent=0, const char *name=0 );
+	CSearchDialog( CImportantClasses* importantClasses, ListCSwordModuleInfo* modules,QWidget *parent=0, const char *name=0 );
 	~CSearchDialog();
 	/**
 	*
 	*/
-	ListCSwordModuleInfo* getModuleList() const;
+	ListCSwordModuleInfo* getModuleList();
 	/**
 	* Sets the module list for this dialog.
 	* The module lsit contains the modules where we should search in
@@ -110,8 +110,8 @@ private:
 	QVBox* searchText_page;
 	QHBox* searchResult_page;
 	QVBox* searchAnalysis_page;
-	CSearchDialogModuleChooser	*moduleChooser;	
-	CSearchDialogText		*searchText;
+	CSearchDialogModuleChooser *m_moduleChooser;	
+	CSearchDialogText	*searchText;
 	CSearchDialogResult	*searchResult;
 	CSearchDialogAnalysis* searchAnalysis;
 	CSwordModuleSearch *searcher;
@@ -119,6 +119,9 @@ private:
 	CImportantClasses* m_important;			
 	int old_overallProgress;
 	int old_currentProgress;
+private slots: // Private slots
+  /** No descriptions */
+  void chosenModulesChanged();
 };
 
 #endif

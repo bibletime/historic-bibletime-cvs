@@ -195,9 +195,9 @@ void CSearchDialogAnalysis::analyse(){
 
 /** Sets te module list used for the analysis. */
 void CSearchDialogAnalysis::setModuleList(ListCSwordModuleInfo* modules){
-	m_moduleList.clear();	
+	m_moduleList.clear();
 	for (modules->first(); modules->current(); modules->next())
-		if ( dynamic_cast<CSwordBibleModuleInfo*>(modules->current()) )//a Bible or an commentary
+		if ( modules->current()->getType() == CSwordModuleInfo::Bible || modules->current()->getType() == CSwordModuleInfo::Commentary )//a Bible or an commentary
 			m_moduleList.append(modules->current());
 }
 

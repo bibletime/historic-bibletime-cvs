@@ -45,17 +45,23 @@
 #include <qpushbutton.h>
 #include <qcanvas.h>
 
-CSearchDialog::CSearchDialog(CImportantClasses* importantClasses, QWidget *parent, const char *name )
-	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1,
-	parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null) {
+CSearchDialog::CSearchDialog(CImportantClasses* importantClasses, ListCSwordModuleInfo* modules, QWidget *parent, const char *name )
+	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null) {
 	m_important = importantClasses;
 	searcher = new CSwordModuleSearch();
 	moduleList = 0;
 	old_currentProgress = 0;
 	old_overallProgress = 0;
-	initView();
-	
+	initView();	
 	readSettings();
+	
+	ASSERT(modules);
+	if (modules) {
+		moduleList = new ListCSwordModuleInfo();
+		*moduleList = *modules;
+		m_moduleChooser->setChosenModules(modules);	
+	}
+	qWarning("CSearchDialog constructor finished");
 }
 
 CSearchDialog::~CSearchDialog(){
@@ -77,7 +83,8 @@ void CSearchDialog::initView() {
  	enableButton(User2,false);
 
 	moduleChooser_page 	= addVBoxPage(i18n("Choose modules"), i18n("Choose the modules for the search"));
-	moduleChooser			= new CSearchDialogModuleChooser(m_important, moduleChooser_page);
+	m_moduleChooser			= new CSearchDialogModuleChooser(m_important, moduleChooser_page);
+	connect(m_moduleChooser, SIGNAL(chosenModulesChanged()), SLOT(chosenModulesChanged()));
  	
 	searchText_page 	= addVBoxPage(i18n("Search Text"), i18n("Enter the text to search for"));
 	searchText			= new CSearchDialogText(m_important, searchText_page);
@@ -93,20 +100,21 @@ void CSearchDialog::initView() {
 	searchAnalysis_page->setEnabled(false);	
 }
 
-ListCSwordModuleInfo* CSearchDialog::getModuleList() const {
-	ASSERT(moduleList);
+ListCSwordModuleInfo* CSearchDialog::getModuleList() {
+	*moduleList = m_moduleChooser->getChosenModules();
 	return moduleList;
 }
 
 void CSearchDialog::setModuleList(ListCSwordModuleInfo *list) {
+	if (!list)
+		return;	
 	if (!moduleList)
 		moduleList = new ListCSwordModuleInfo;
-	
-	*moduleList = *list; //copy the items of "list"
-	if (list->count()) {
-		moduleChooser->setModuleList(moduleList);
-		searchText_page->setEnabled(true);
-	}
+		
+	if (moduleList != list)
+		*moduleList = *list; //copy the items of "list"
+//	m_moduleChooser->setChosenModules(moduleList);
+	searchText_page->setEnabled(moduleList->count() );	
 	searchResult->clearResult();
 	searchAnalysis->reset();
 }
@@ -123,7 +131,7 @@ void CSearchDialog::slotUser2() {
 void CSearchDialog::startSearch(void) {
 	int searchFlags = searchText->getSearchType();	
 	// set the parameters
-	searcher->setModules(moduleList);
+	searcher->setModules( getModuleList() );
 	searcher->setSearchedText(searchText->getText());
 
 	if (searchText->isCaseSensitive())
@@ -170,14 +178,13 @@ void CSearchDialog::timerEvent(QTimerEvent *e){
 		searchAnalysis->reset();
 		
 		if ( searcher->foundItems() ){
-			searchAnalysis->setModuleList(moduleList);
-			searchAnalysis_page->setEnabled(true);			
-			searchAnalysis->analyse();			
-			
-			searchResult->setModuleList(moduleList);
+			searchResult->setModuleList(getModuleList());			
+			searchAnalysis->setModuleList(getModuleList());
 			searchResult_page->setEnabled(true);
-			
+			searchAnalysis_page->setEnabled(true);						
 			showPage(pageIndex(searchResult_page));	//the result page
+						
+			searchAnalysis->analyse();			
 		}
 		else {
 			searchResult->clearResult();
@@ -190,7 +197,13 @@ void CSearchDialog::setSearchText(const QString text){
   searchText->setText(text);
 }
 
-/** Returns the search text. If no text was enetered return QSTring::null. */
+/** Returns the search text. If no text was enetered return QString::null. */
 const QString CSearchDialog::getSearchedText() const{
 	return searchText->getText();
+}
+
+/** No descriptions */
+void CSearchDialog::chosenModulesChanged(){
+	qWarning("chosenModulesChanged");
+	setModuleList(getModuleList());
 }

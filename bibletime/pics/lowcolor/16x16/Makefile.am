@@ -8,16 +8,24 @@ lo16-action-bt_bookmark_import.png \
 lo16-action-bt_bookmark_new.png \
 lo16-action-bt_commentary.png \
 lo16-action-bt_commentary_locked.png \
-lo16-action-bt_group.png \
-lo16-action-bt_group_change.png \
-lo16-action-bt_group_open.png \
-lo16-action-bt_group_new.png \
+lo16-action-bt_folder.png \
+lo16-action-bt_folder_change.png \
+lo16-action-bt_folder_open.png \
+lo16-action-bt_folder_new.png \
 lo16-action-bt_groupmanager.png \
 lo16-action-bt_info.png \
 lo16-action-bt_lexicon.png \
 lo16-action-bt_lexicon_locked.png \
-lo16-action-bt_new_presenter.png \
 lo16-action-bt_search.png \
 lo16-action-bt_unlock_module.png \
+lo16-action-bt_cascade.png \
+lo16-action-bt_tile.png \
+lo16-action-bt_cascade_auto.png \
+lo16-action-bt_tile_auto.png \
+lo16-action-bt_strongs.png \
+lo16-action-bt_footnotes.png \
+lo16-action-bt_verseref.png \
 lo16-app-bibletime.png
+
 KDE_ICON = AUTO
+

@@ -343,12 +343,13 @@ CSearchDialogResultView::~CSearchDialogResultView() {
 /** Initializes the tree of this ResultView */
 void CSearchDialogResultView::setupTree() {
 	ListKey& moduleSearchResult = m_module->getSearchResult();
-	QListBoxItem* item = 0;
+//	QListBoxItem* item = 0;
 	clear();
 
 	int index = 0;
-	for (index=0; index < moduleSearchResult.Count(); index++) {
-		item = new QListBoxText(this, QString::fromLocal8Bit((const char*)*moduleSearchResult.GetElement(index)), item ? item : 0);
+	for (index = 0; index < moduleSearchResult.Count(); index++) {
+//		item = new QListBoxText(this, QString::fromLocal8Bit((const char*)*moduleSearchResult.GetElement(index)), item ? item : 0);
+		insertItem( QString::fromLocal8Bit((const char*)*moduleSearchResult.GetElement(index)), -1);
 	}
 }
 

@@ -18,10 +18,17 @@
 #ifndef CSEARCHDIALOGMODULECHOOSER_H
 #define CSEARCHDIALOGMODULECHOOSER_H
 
-#include <qwidget.h>
 #include "../../backend/sword_backend/cswordmoduleinfo.h"
 
+//Qt includes
+#include <qwidget.h>
+#include <qptrdict.h>
+
+
 class CImportantClasses;
+class CGroupManager;
+
+class QListBox;
 
 /** A widget to select the modules in which you want to search.
   * @author The BibleTime team
@@ -34,15 +41,34 @@ public:
   /**
   * Sets the chosen modules for this object.
   */
-  void setModuleList( ListCSwordModuleInfo* modules);
+  void setChosenModules( ListCSwordModuleInfo* modules );
   /**
   * Returns the modules chosen in this widget.
   */
-  ListCSwordModuleInfo* getModuleList();
+  ListCSwordModuleInfo getChosenModules();
 
 private:
 	CImportantClasses* m_importantClasses;
-	ListCSwordModuleInfo* m_moduleList;
+	CGroupManager* m_moduleIndex;
+	QListBox* m_moduleList;
+	QPtrDict<char> m_itemsDict;
+	bool m_initialized;
+	
+private slots: // Private slots
+  /**
+  * Removes the selected item from the module list
+  */
+  void removeCurrentItem();
+  /**
+  * Adds the selected item to the list
+  */
+  void addCurrentItem();
+
+signals: // Signals
+  /**
+  * No descriptions
+  */
+  void chosenModulesChanged();
 };
 
 #endif
