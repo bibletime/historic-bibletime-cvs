@@ -16,13 +16,14 @@
  ***************************************************************************/
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "bt_gbfhtml.h"
 
 BT_GBFHTML::BT_GBFHTML(){
   setTokenStart("<");
 	setTokenEnd(">");
-
+	
 	setTokenCaseSensitive(true);
 
 	addTokenSubstitute("Rf", ")</small></font>");// end of footnote
@@ -39,12 +40,10 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("Fs", "</sup>");
 	addTokenSubstitute("FV", "<sub>"); // Subscript begin
 	addTokenSubstitute("Fv", "</sub>");
-	
-	addTokenSubstitute("TT", "<H1><FONT color=\"black\">"); // Book title begin
+
 	addTokenSubstitute("Tt", "</FONT></H1>");
-	addTokenSubstitute("TS", "<H2><FONT color=\"black\">"); // Section title begin
 	addTokenSubstitute("Ts", "</FONT></H2>");
-	
+		
 	addTokenSubstitute("PP", "<cite>"); //  poetry  begin
 	addTokenSubstitute("Pp", "</cite>");
 	addTokenSubstitute("Fn", "</font>"); //  font  end
@@ -67,6 +66,14 @@ char BT_GBFHTML::ProcessText(char * text, int maxlen){
 bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
 	unsigned long i;
 	if (!substituteToken(buf, token)) {  //more than a simple replace
+		
+		if (!strncmp(token, "TT", 2)){ // heading title start
+			pushString(buf," <H1><font color=\"%s%s",text_color,"\">");
+		}
+		if (!strncmp(token, "TS", 2)){ // section title start
+			pushString(buf," <H2><font color=\"%s%s",text_color,"\">");
+		}
+			
 
 		if (!strncmp(token, "WG", 2)){ // strong's numbers greek
 			pushString(buf," <font color=\"%s%s",strongs_color,"\"><small><em><a href=\"strongs://NT/");

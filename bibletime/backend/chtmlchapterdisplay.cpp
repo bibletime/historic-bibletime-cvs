@@ -73,6 +73,8 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 
 		if (m_displayOptionsBool.lineBreaks)
 			m_htmlText += QString::fromLatin1("<br>\n");
+		else
+			m_htmlText += QString::fromLatin1(" \n");
 	}
 	m_htmlText.append("</font>");
 	m_htmlText.append(m_htmlBody);	

@@ -46,6 +46,7 @@ protected:
 	char strongs_color[8];
 	char morph_color[8];
 	char jesuswords_color[8];
+	char text_color[8];
 	char standard_bible[100];
 };
 

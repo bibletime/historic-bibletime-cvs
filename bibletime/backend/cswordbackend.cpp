@@ -46,7 +46,7 @@ static QMap<QString, QString> moduleDescriptionMap;
 
 CSwordBackend::CSwordBackend()
 	: SWEncodingMgr(0,0,false,ENC_UTF8), m_errorCode(noError), m_entryDisplay(0), m_chapterDisplay(0), m_moduleList(0),
-	m_gbfFilter(0), m_plainTextFilter(0), m_thmlFilter(0), m_rwpFilter(0) {
+	m_gbfFilter(0), m_plainTextFilter(0), m_thmlFilter(0)/*, m_rwpFilter(0)*/ {
 }
 
 CSwordBackend::~CSwordBackend(){
@@ -58,8 +58,8 @@ CSwordBackend::~CSwordBackend(){
 		delete m_plainTextFilter;	
 	if (m_thmlFilter)
 		delete m_thmlFilter;	
-	if (m_rwpFilter)
-		delete m_rwpFilter;			
+//	if (m_rwpFilter)
+//		delete m_rwpFilter;			
 }
 
 #define CHECK_HTML_CHAPTER_DISLPAY \
@@ -292,10 +292,10 @@ CSwordModuleInfo* CSwordBackend::findModuleByDescription(const QString& descript
 /** This function searches for a module with the specified description */
 const QString CSwordBackend::findModuleNameByDescription(const QString& description){
 	if (moduleDescriptionMap.contains(description)) {
-		qWarning("findModuleNameByDescription: found!!");
+//		qWarning("findModuleNameByDescription: found!!");
 		return moduleDescriptionMap[description];
 	}
-	qWarning("findModuleNameByDescription: NOT found!!");	
+//	qWarning("findModuleNameByDescription: NOT found!!");	
 //  if (m_moduleList && m_moduleList->count())
 //    for ( m_moduleList->first();m_moduleList->current();m_moduleList->next() )
 //      if ( m_moduleList->current()->getDescription() == description )

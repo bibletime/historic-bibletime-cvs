@@ -33,6 +33,7 @@ void BT_BASICFILTER::updateSettings(void){
 	strcpy(strongs_color,		CBTConfig::get(CBTConfig::strongsColor		).name().utf8());
 	strcpy(morph_color,			CBTConfig::get(CBTConfig::morphsColor			).name().utf8());
 	strcpy(jesuswords_color,CBTConfig::get(CBTConfig::jesuswordsColor	).name().utf8());
+	strcpy(text_color, 			CBTConfig::get(CBTConfig::textColor				).name().utf8());	
 	strcpy(standard_bible,	/*CBTConfig::get(CBTConfig::standardBible		).utf8()*/CReferenceManager::preferredModule(CReferenceManager::Bible).utf8());
 }
 
