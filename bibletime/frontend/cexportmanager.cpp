@@ -266,7 +266,9 @@ const bool CExportManager::copyKeyList(sword::ListKey* list, CSwordModuleInfo* m
 
     key->key((const char*)(*list));
  		if (addText)
- 			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText() : key->strippedText() );
+// 			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText() : key->strippedText() );
+ 			text += QString::fromLatin1("%1\t%3\n").arg( key->key() ).arg( (format == HTML) ? key->renderedText() : key->strippedText() );
+
  		else
  			text += key->key() + lineBreak(format);
     incProgress();
@@ -290,7 +292,9 @@ const bool CExportManager::copyKeyList(QPtrList<CSwordKey> list, const Format fo
   setProgressRange(list.count());
   for (CSwordKey* k = list.first(); k && !progressWasCancelled(); k = list.next()) {
  		if (addText)
- 			text += QString::fromLatin1("%1:%2\t%3\n").arg( k->key() ).arg(lineBreak(format)).arg( (format == HTML) ? k->renderedText() : k->strippedText() );
+// 			text += QString::fromLatin1("%1:%2\t%3\n").arg( k->key() ).arg(lineBreak(format)).arg( (format == HTML) ? k->renderedText() : k->strippedText() );
+ 			text += QString::fromLatin1("%1\t%3\n").arg( k->key() ).arg( (format == HTML) ? k->renderedText() : k->strippedText() );
+
  		else
  			text += k->key() + lineBreak(format);
     incProgress();
@@ -305,7 +309,7 @@ const bool CExportManager::copyKeyList(QPtrList<CSwordKey> list, const Format fo
 };
 
 const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* module) {
-  setProgressRange(list->Count()+1);  
+  setProgressRange(list->Count()+1);
 	QPtrList<CPrintItem> itemList;
 	QString startKey, stopKey;
 
