@@ -239,37 +239,6 @@ bool CSwordModuleInfo::supportsFeature( CSwordBackend::moduleOptions type){
 	return ret;
 }
 
-/** This function adds an item to the cache. */
-/*void CSwordModuleInfo::addCacheItem( const QString key, const QString cachedText){
-	qDebug("CSwordModuleInfo::addCacheItem( const QString key, const QString cachedText)");
-	qDebug(key.local8Bit());
-	qDebug(cachedText.local8Bit());
-	ASSERT(m_cache);		
-	if (!m_cache) {
-		m_cache = new QMap<QString,QString>();
-	}	
-	if (!key.isEmpty() &&!cachedText.isEmpty()) {
-		m_cache->insert(key,cachedText);
-	}
-} */
-
-/** Returns the cached text for the key. If the key is not cached return QString::null */
-/*QString CSwordModuleInfo::getCacheItem( const QString key ){
-	qDebug("CSwordModuleInfo::getCacheItem()");
-	ASSERT(m_cache);	
-	if (!m_cache) {
-		m_cache = new QMap<QString, QString>();
-	}
-	
-	if (!key.isEmpty()) {
-  	QMap<QString, QString>::Iterator ret = m_cache->find(key);
-  	if (ret != m_cache->end())
-    	return ret.data();
-  	else
-  	  return QString::null;
-	}
-} */
-
 /** Used to find out the module specific font */
 QFont CSwordModuleInfo::getFont(){
   const string familyString = (*m_backend->localConfig())[m_module->Name()]["Font"];
@@ -281,7 +250,6 @@ QFont CSwordModuleInfo::getFont(){
   	family = QString::fromLocal8Bit( familyString.c_str() );
   if (strlen(sizeString.c_str()))
   	size = QString::fromLocal8Bit( sizeString.c_str() ).toInt();
-
   QFont f( family, size );
   f.setCharSet(QFont::AnyCharSet);
 
@@ -303,16 +271,6 @@ bool CSwordModuleInfo::hasFont(){
 		return true;
 	return false;
 }
-
-/** Clears the cache of this module. */
-/*void CSwordModuleInfo::clearCache(){
-	qDebug("CSwordModuleInfo::clearCache()");
-	if (!m_cache) {
-		m_cache = new QMap<QString, QString>();
-	}	
-	m_cache->clear();
-} */
-
 
 /** Returns the type of the module. */
 CSwordModuleInfo::type CSwordModuleInfo::getType(){

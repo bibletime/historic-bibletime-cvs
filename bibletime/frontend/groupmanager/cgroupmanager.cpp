@@ -335,10 +335,10 @@ void CGroupManager::initView(){
 //		this, SLOT(slotCreateNewPresenter()),0,ID_GM_PRESENTER_CREATE);
 //	popupMenu->setWhatsThis(ID_GM_PRESENTER_CREATE, WT_GM_NEW_PRESENTER);
 //	popupMenu->insertSeparator();
-	popupMenu->insertItem(GROUP_NEW_ICON_SMALL, i18n("Create new group"),
+	popupMenu->insertItem(GROUP_NEW_ICON_SMALL, i18n("Create new folder"),
 		this, SLOT(slotCreateNewGroup()),0,ID_GM_GROUP_CREATE);
 	popupMenu->setWhatsThis(ID_GM_GROUP_CREATE, WT_GM_NEW_GROUP);	
-	popupMenu->insertItem(GROUP_CHANGE_ICON_SMALL, i18n("Change this group"),
+	popupMenu->insertItem(GROUP_CHANGE_ICON_SMALL, i18n("Change this folder"),
 		this, SLOT(slotChangeGroup()),0,ID_GM_GROUP_CHANGE);
 	popupMenu->setWhatsThis(ID_GM_GROUP_CHANGE, WT_GM_CHANGE_GROUP);		
 	popupMenu->insertSeparator();	
@@ -354,16 +354,16 @@ void CGroupManager::initView(){
 	popupMenu->insertItem(BOOKMARK_PRINT_ICON_SMALL,i18n("Print bookmark"),
 		this,SLOT(slotPrintBookmark()),0,ID_GM_BOOKMARK_PRINT);
 	popupMenu->setWhatsThis(ID_GM_BOOKMARK_PRINT, WT_GM_PRINT_BOOKMARK);
-	popupMenu->insertItem(ITEMS_DELETE_ICON_SMALL, i18n("Delete selected item(s)"),
+	popupMenu->insertItem(ITEMS_DELETE_ICON_SMALL, i18n("Remove selected item(s)"),
 		this, SLOT(slotDeleteSelectedItems()),0,ID_GM_ITEMS_DELETE);
 	popupMenu->insertSeparator();
-	popupMenu->insertItem(MODULE_SEARCH_ICON_SMALL,i18n("Search in Module(s)"),
+	popupMenu->insertItem(MODULE_SEARCH_ICON_SMALL,i18n("Search in module(s)"),
 		this, SLOT(slotSearchSelectedModules()),0,ID_GM_MODULES_SEARCH);
 	popupMenu->insertSeparator();
 	popupMenu->insertItem(MODULE_UNLOCK_ICON_SMALL,i18n("Set unlock key"),
 		this, SLOT(slotUnlockModule()),0,ID_GM_MODULE_UNLOCK);	
 	popupMenu->setWhatsThis(ID_GM_MODULE_UNLOCK, WT_GM_UNLOCK_MODULE);	
-	popupMenu->insertItem(MODULE_ABOUT_ICON_SMALL, i18n("Show info"),
+	popupMenu->insertItem(MODULE_ABOUT_ICON_SMALL, i18n("About module"),
 		this, SLOT(slotShowAbout()),0,ID_GM_MODULE_ABOUT);
 	popupMenu->setWhatsThis(ID_GM_MODULE_ABOUT, WT_GM_ABOUT_MODULE);
 }
@@ -479,7 +479,7 @@ void CGroupManager::slotChangeGroup(){
 		return;		
 	
 	bool isOk;
-	QString description = QInputDialog::getText(i18n("BibleTime - Change group name"),i18n("Please change the name of the group!"), m_pressedItem->text(0), &isOk, 0);	
+	QString description = QInputDialog::getText(i18n("BibleTime - Change folder"),i18n("Please change the name of the group!"), m_pressedItem->text(0), &isOk, 0);	
 	if (isOk)
 		m_pressedItem->setText( 0, description );
 }
@@ -610,25 +610,33 @@ void CGroupManager::slotShowAbout(){
 	else
 		unlockKey = module->getCipherKey();	
 				
-	text = i18n("<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\" WIDTH=\"95%\">\
+	text = QString("<HTML><BODY><TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"2\" WIDTH=\"95%\">\
 <TR><TD BGCOLOR=\"#0F86D0\" ALIGN=\"CENTER\" COLSPAN=\"2\"><H1>%1</H1></TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>Datapath:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>Version:</B></TD><TD BGCOLOR=\"#FFE9C8\">%3</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>Unlock key:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>Writable:</B></TD><TD BGCOLOR=\"#FFE9C8\">%5</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>Footnotes:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>Strong numbers:</B></TD><TD BGCOLOR=\"#FFE9C8\">%7</TD></TR>\
-<TR><TD BGCOLOR=\"#0F86D0\"><B>Description:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR>\
-<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>About:</B></TD><TD BGCOLOR=\"#FFE9C8\">%9</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%1:</B></TD><TD BGCOLOR=\"#FFE9C8\">%2</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%3:</B></TD><TD BGCOLOR=\"#FFE9C8\">%4</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%5:</B></TD><TD BGCOLOR=\"#FFE9C8\">%6</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%7:</B></TD><TD BGCOLOR=\"#FFE9C8\">%8</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%9:</B></TD><TD BGCOLOR=\"#FFE9C8\">%10</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%11:</B></TD><TD BGCOLOR=\"#FFE9C8\">%12</TD></TR>\
+<TR><TD BGCOLOR=\"#0F86D0\"><B>%13:</B></TD><TD BGCOLOR=\"#FFE9C8\">%14</TD></TR>\
+<TR><TD VALIGN=\"TOP\" BGCOLOR=\"#0F86D0\"><B>%15:</B></TD><TD BGCOLOR=\"#FFE9C8\">%16</TD></TR>\
 </TABLE></BODY></HTML>")
 	.arg( module->module()->Name() )
+	.arg( i18n("Datapath") )
 	.arg( module->getPath() )
+	.arg( i18n("Version") )
 	.arg( module->getVersion() )
+	.arg(i18n("Unlock key"))	
 	.arg( unlockKey )
+	.arg(i18n("Writable"))	
 	.arg( isWritable )
+	.arg(i18n("Footnotes"))	
 	.arg( hasFootnotes )
+	.arg(i18n("Strong's numbers"))	
 	.arg( hasStrongNumbers )
+	.arg(i18n("Description"))	
 	.arg( module->getDescription() )
+	.arg(i18n("About"))	
 	.arg( module->getAboutInformation() );
 	
 	dlg->setText(text);
@@ -982,7 +990,7 @@ void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
 /** Creates a new group */
 void CGroupManager::slotCreateNewGroup(){
 	bool isOk;
-	QString groupname = QInputDialog::getText(i18n("BibleTime - Enter name of group"),i18n("Please enter the name of the group!"),"", &isOk, 0);
+	QString groupname = QInputDialog::getText(i18n("BibleTime - Enter name of folder"),i18n("Please enter the name of the folder!"),"", &isOk, 0);
 	
 	if (isOk) {
 		if (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) {

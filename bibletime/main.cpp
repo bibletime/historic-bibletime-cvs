@@ -60,7 +60,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 	}
 }
 
-int main(int argc, char* argv[]) {
+	int main(int argc, char* argv[]) {
 	//create about data for this application
 	static KCmdLineOptions options[] = {
 		{ "debug", I18N_NOOP("Enable debug messages."), 0 }
@@ -112,9 +112,10 @@ int main(int argc, char* argv[]) {
 
 	
  	KApplication app;
-// 	QFont f = app.font();
-// 	f.setCharSet(QFont::AnyCharSet);
-// 	app.setFont(f); 	
+ 	QFont f = app.font();
+ 	f.setCharSet(QFont::AnyCharSet);
+ 	app.setFont(f); 	
+ 	
  	KGlobal::dirs()->addResourceType("BT_pic", KStandardDirs::kde_default("data") + kapp->name() + "/pics/");
 
 

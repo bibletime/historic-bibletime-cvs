@@ -26,14 +26,15 @@ KStartupLogo::KStartupLogo()
   QPixmap pm;	
   bool success = false;
 
-	success = pm.load(locate("BT_pic","startuplogo.jpg"));		
+	success = pm.load(locate("BT_pic","startuplogo.png"));		
   if ( success )
   	qDebug("Startuplogo sucessfully loaded!");
   else
   	qDebug("Can't load startuplogo!");
-  	
+  	  	
   setBackgroundPixmap(pm);
-  setGeometry( (QApplication::desktop()->width()-pm.width())/2,( QApplication::desktop()->height()-pm.height())/2, pm.width(), pm.height());
+  setFixedSize(pm.width(), pm.height());
+  setGeometry( (KApplication::desktop()->width()-pm.width())/2,(KApplication::desktop()->height()-pm.height())/2, pm.width(), pm.height());
 }
 
 KStartupLogo::~KStartupLogo() {

@@ -72,7 +72,7 @@ void BibleTime::initView(){
 void BibleTime::initActions() {
 	qDebug("BibleTime::initActions()");
 
-	m_fileClearQueue_action = new KAction(i18n("Clear printer queue"), "clear",0,
+	m_fileClearQueue_action = new KAction(i18n("Clear printing queue"), "clear",0,
 		m_important->printer, SLOT(clearQueue()), actionCollection(), "fileClearQueue_action");	
 	m_fileClearQueue_action->setEnabled(false);	
 	m_fileClearQueue_action->setToolTip( TT_FILE_CLEAR_QUEUE );
@@ -87,7 +87,7 @@ void BibleTime::initActions() {
 	m_fileQuit_action->setToolTip( TT_FILE_QUIT );	
 	m_fileQuit_action->setWhatsThis( WT_FILE_QUIT );
 												
-	m_GMReset_action =  new KAction(i18n("Reset groupmanager"), "stop", IDK_GM_RESET,
+	m_GMReset_action =  new KAction(i18n("Reset main index"), "stop", IDK_GM_RESET,
 		m_groupmanager, SLOT(slotReset()), actionCollection(), "GMreset_action");	
 	m_GMReset_action->setToolTip( TT_GM_RESET );			
 	m_GMReset_action->setWhatsThis( WT_GM_RESET );		
@@ -97,7 +97,7 @@ void BibleTime::initActions() {
   m_GMSearchModules_action->setToolTip( TT_GM_SEARCH_MODULES );
   m_GMSearchModules_action->setWhatsThis( WT_GM_SEARCH_MODULES );
 	
-	m_GMDeleteItems_action =  new KAction(i18n("Delete selected item(s)"), "trash", IDK_GM_ITEMS_DELETE,
+	m_GMDeleteItems_action =  new KAction(i18n("Remove selected item(s)"), "trash", IDK_GM_ITEMS_DELETE,
 		m_groupmanager, SLOT(slotDeleteSelectedItems()), actionCollection(), "GMdelete_action");	
 	m_GMDeleteItems_action->setToolTip( TT_GM_DELETE_ITEMS );	
 	m_GMDeleteItems_action->setWhatsThis( WT_GM_DELETE_ITEMS );
@@ -107,7 +107,7 @@ void BibleTime::initActions() {
 	m_viewFootnotes_action->setToolTip( TT_VIEW_FOOTNOTES );	
 	m_viewFootnotes_action->setWhatsThis( WT_VIEW_FOOTNOTES );
 	
-	m_viewStrongs_action = new KToggleAction(i18n("S&how strongs"),"strongs", IDK_VIEW_STRONGS,
+	m_viewStrongs_action = new KToggleAction(i18n("S&how Strong's numbers"),"strongs", IDK_VIEW_STRONGS,
 		this, SLOT(slotToggleStrongs()), actionCollection(), "viewStrongs_action");	
 	m_viewStrongs_action->setToolTip( TT_VIEW_STRONGS );	
 	m_viewStrongs_action->setWhatsThis( WT_VIEW_STRONGS );
@@ -116,7 +116,7 @@ void BibleTime::initActions() {
 	m_viewToolbar_action->setToolTip( TT_VIEW_TOOLBAR );	
 	m_viewToolbar_action->setWhatsThis( WT_VIEW_TOOLBAR );
 
-	m_viewGroupManager_action = new KToggleAction(i18n("&Show groupmanager"), "groupmanager", IDK_VIEW_GROUPMANAGER,
+	m_viewGroupManager_action = new KToggleAction(i18n("&Show main index"), "groupmanager", IDK_VIEW_GROUPMANAGER,
 		this, SLOT(slotToggleGroupManager()), actionCollection(), "viewGroupManager_action");
 	m_viewGroupManager_action->setWhatsThis( WT_VIEW_GROUPMANAGER );
 	
