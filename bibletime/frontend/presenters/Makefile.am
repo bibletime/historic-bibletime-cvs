@@ -12,10 +12,10 @@ cswordpresenter.cpp \
 cmodulechooserbar.cpp \
 cmodulechooserbutton.cpp
 
-EXTRA_DIST = \
-ccommentarypresenter.cpp ccommentarypresenter.h \
-clexiconpresenter.cpp clexiconpresenter.h \
-cbiblepresenter.cpp cbiblepresenter.h \
-cmodulechooserbar.h cmodulechooserbar.cpp \
-cmodulechooserbutton.h cmodulechooserbutton.cpp \
-cswordpresenter.h cswordpresenter.cpp
+EXTRA_DIST = $(libpresenters_a_SOURCES) \
+ccommentarypresenter.h \
+clexiconpresenter.h \
+cbiblepresenter.h \
+cmodulechooserbar.h \
+cmodulechooserbutton.h \
+cswordpresenter.h

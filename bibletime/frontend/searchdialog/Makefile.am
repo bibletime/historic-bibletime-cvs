@@ -13,12 +13,12 @@ csearchdialogtext.cpp \
 csearchdialogscope.cpp \
 csearchdialogmodulechooser.cpp
 
-EXTRA_DIST = \
-csearchdialogmodulechooser.cpp csearchdialogmodulechooser.h \
-csearchdialogtext.cpp csearchdialogtext.h \
-csearchdialogscope.cpp csearchdialogscope.h \
-csearchdialogresult.cpp csearchdialogresult.h \
-csearchdialogresultview.cpp csearchdialogresultview.h \
-csearchdialoganalysis.cpp csearchdialoganalysis.h \
-csearchdialogmodulechooser.cpp csearchdialogmodulechooser.h \
-csearchdialog.cpp csearchdialog.h
+EXTRA_DIST = $(libsearchdialog_a_SOURCES) \
+csearchdialogmodulechooser.h \
+csearchdialogtext.h \
+csearchdialogscope.h \
+csearchdialogresult.h \
+csearchdialogresultview.h \
+csearchdialoganalysis.h \
+csearchdialogmodulechooser.h \
+csearchdialog.h

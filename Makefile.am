@@ -4,23 +4,14 @@ EXTRA_DIST = \
 bibletime.kdevprj \
 COPYING \
 ChangeLog \
-bibletime.spec.in \
-README.in \
-TODO.in \
-INSTALL.in \
-bibletime.lsm.in \
-bibletime.lsm \
-bibletime.spec \
-NEWS \
-README \
-TODO \
-INSTALL \
-configure.in.in \
-configure.in \
-am_edit \
-bibletime.desktop.in \
-bibletime.desktop \
-NEWS.in \
+bibletime.spec.in bibletime.spec \
+README.in README \
+TODO.in TODO \
+INSTALL.in INSTALL\
+bibletime.lsm.in bibletime.lsm \
+configure.in.in configure.in \
+bibletime.desktop.in bibletime.desktop \
+NEWS.in NEWS \
 Makefile.cvs \
 bibletime.m4 sword.m4
 
@@ -28,7 +19,7 @@ bibletime.m4 sword.m4
 # have all needed files, that a GNU package needs
 AUTOMAKE_OPTIONS = foreign 
 
-datadir = $(DESTDIR)$(kde_appsdir)/Applications
+datadir = $(kde_appsdir)/Applications
 data_DATA = bibletime.desktop
 
 $(top_srcdir)/acinclude.m4: $(top_srcdir)/admin/acinclude.m4.in $(top_srcdir)/admin/libtool.m4.in sword.m4 bibletime.m4

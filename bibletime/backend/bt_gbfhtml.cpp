@@ -451,34 +451,38 @@ char BT_GBFHTML::ProcessText(char *text, int maxlen, const SWKey *key)
 							*to++ = 'i';
 							*to++ = 'g';
 							*to++ = '>';
-							continue;/*
-                    				case 'S':
-						        *to++ = '<';
-						        *to++ = 'b';
-						        *to++ = 'r';
-						        *to++ = ' ';
-						        *to++ = '/';
-						        *to++ = '>';
-						        *to++ = '<';
-						        *to++ = 'b';
-						        *to++ = 'i';
-							*to++ = 'g';
-						        *to++ = '>';
 							continue;
-                    				case 's':
-						        *to++ = '<';
-						        *to++ = '/';
-						        *to++ = 'b';
-						        *to++ = 'i';
-						        *to++ = 'g';
-						        *to++ = '>';
-						        *to++ = '<';
-						        *to++ = 'b';
-						        *to++ = 'r';
-						        *to++ = ' ';
-						        *to++ = '/';
-						        *to++ = '>';
-							continue;*/
+     				case 'S':
+ 			        *to++ = '<';
+ 			        *to++ = 'b';
+// 			        *to++ = 'r';
+// 			        *to++ = ' ';
+// 			        *to++ = '/';
+ 			        *to++ = '>';
+ 			        *to++ = '<';
+ 			        *to++ = 'b';
+ 			        *to++ = 'i';
+			 				*to++ = 'g';
+ 			        *to++ = '>';
+							continue;
+     				case 's':
+ 			        *to++ = '<';
+ 			        *to++ = '/';
+ 			        *to++ = 'b';
+ 			        *to++ = 'i';
+ 			        *to++ = 'g';
+ 			        *to++ = '>';
+ 			        *to++ = '<';
+ 			        *to++ = '/'; 			
+ 			        *to++ = 'b';
+ 			        *to++ = '>';
+ 			        *to++ = '<';
+ 			        *to++ = 'b';
+ 			        *to++ = 'r';
+ 			        *to++ = ' ';
+ 			        *to++ = '/';
+ 			        *to++ = '>';
+							continue;
 					}
 					break;
 	

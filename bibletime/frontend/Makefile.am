@@ -13,6 +13,19 @@ ctoolclass.cpp \
 cinputdialog.cpp \
 cprofilemgr.cpp cprofile.cpp cprofilewindow.cpp
 
+EXTRA_DIST = $(libfrontend_a_SOURCES) \
+cmdiarea.h \
+kstartuplogo.h \
+chtmlwidget.h \
+chtmldialog.h \
+ctipwindow.h \
+ctoolclass.h \
+actions.h \
+cinputdialog.h \
+cprofilemgr.h \
+cprofile.h \
+cprofilewindow.h
+
 SUBDIRS = \
 groupmanager \
 keychooser \
@@ -20,20 +33,4 @@ presenters \
 optionsdialog \
 searchdialog \
 thirdparty
-
-EXTRA_DIST = \
-cmdiarea.cpp cmdiarea.h \
-kstartuplogo.cpp kstartuplogo.h \
-chtmlwidget.cpp chtmlwidget.h \
-chtmldialog.cpp chtmldialog.h \
-ctipwindow.cpp ctipwindow.h \
-ctoolclass.cpp ctoolclass.h \
-actions.cpp actions.h \
-cinputdialog.cpp cinputdialog.h \
-cprofilemgr.cpp cprofilemgr.h \
-cprofile.cpp cprofile.h \
-cprofilewindow.cpp cprofilewindow.h
-
-
-
 

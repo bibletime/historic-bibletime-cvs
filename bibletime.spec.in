@@ -233,9 +233,10 @@ fi
 %files
 %defattr(-,root,root)
 %doc %{prefix}/share/doc/HTML/*/bibletime/*
-%{prefix}/share/doc/HTML/*/bibletime/common/*
 %config %{ModsPath}/globals.conf
+%{SwordPath}/locales.d/*.conf
 %config %{prefix}/share/config/bt-printing
+%{prefix}/share/doc/HTML/*/bibletime/common/*
 %{prefix}/bin/bibletime
 %{prefix}/bin/bibletime.bin
 %{prefix}/share/applnk/Applications/*
@@ -247,6 +248,9 @@ fi
 
 
 %changelog
+* Fri September 7 2001 Joachim Ansorg <jansorg@gmx.de>
+- Added the bookname files in the file list
+
 * Sun May 27 2001 Brook Humphrey <bah@webmedic.net>
 
 - Trying different variations of static compiles again.

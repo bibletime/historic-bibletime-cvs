@@ -7,8 +7,8 @@ cgroupmanager.cpp \
 cgroupmanageritem.cpp 
 
 EXTRA_DIST = \
+$(libgroupmanager_a_SOURCES) \
 cgroupmanager.h \
-cgroupmanageritem.cpp \
-cgroupmanageritem.h \
-cgroupmanager.cpp
+cgroupmanageritem.h
+
 
