@@ -167,85 +167,9 @@ private:
 };
 
 
-/** Sets the key we use to the parameter. */
-inline const bool CSwordVerseKey::setKey( QString key ){	
-	error = 0;	
-	VerseKey::operator = ((const char*)key.local8Bit());		
-	//clear data
-	return !(bool)error;
-}
-
-/**  */
-inline const bool CSwordVerseKey::NextVerse(){	
-	if (m_module->getType() == CSwordModuleInfo::Commentary) {
-		m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!
-		( *( m_module->module() ) )++;
-		setKey(m_module->module()->KeyText());		
-	}
-	else {
-		Verse(Verse()+1);
-	}	
-	return true;
-}
-
-/**  */
-inline const bool CSwordVerseKey::PreviousVerse(){
-	if (m_module->getType() == CSwordModuleInfo::Commentary) {
-		
-		m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
-		( *( m_module->module() ) )--;
-		setKey(m_module->module()->KeyText());		
-	}
-	else {
-		Verse(Verse()-1);
-	}	
-	return true;
-}
-
-/**  */
-inline const bool CSwordVerseKey::NextChapter(){
-	Chapter(Chapter()+1);	
-	return true;
-}
-
-/**  */
-inline const bool CSwordVerseKey::PreviousChapter(){
-	Chapter(Chapter()-1);
-	return true;
-}
-
-/**  */
-inline const bool CSwordVerseKey::NextBook(){
-	if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
-		return false;	
-	
-	Book(Book()+1);			
-	return true;
-}
-
-/**  */
-inline const bool CSwordVerseKey::PreviousBook(){
-	if (Book()<=1 || Book() > BMAX[Testament()-1] && Testament() > 1)
-		return false;
-	Book(Book()-1);
-	return true;
-}
-
-/** Returns the current book as Text, no as integer. */
-inline const QString CSwordVerseKey::getBook() const {
-	if ( Testament() && Book() <= BMAX[Testament()-1] )
-		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-	return QString::fromLocal8Bit(books[0][0].name);
-}
-
 /** Returns the key as a QString. */
 inline const QString CSwordVerseKey::getKey() const {
 	return QString::fromLocal8Bit((const char*)*this);
-}
-
-/** Sets the key using a versekey object of Sword. */
-inline void CSwordVerseKey::setKey( VerseKey& key ){
-	setKey(QString::fromLocal8Bit((const char*)key));
 }
 
 #endif

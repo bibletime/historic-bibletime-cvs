@@ -31,6 +31,7 @@ CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
 	qDebug("constructor of CSwordLDKey");
 	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
 	m_entryName = QString::null;
+	Persist(0);
 }
 
 /** No descriptions */
@@ -61,13 +62,13 @@ void CSwordLDKey::setModule(CSwordModuleInfo* module){
 
 /** Returns the rendered text of this entry. */
 const QString CSwordLDKey::getRenderedText() const{
-	m_module->module()->SetKey(*this->clone());
+	m_module->module()->SetKey(this);
 	return QString::fromLocal8Bit((const char*)*m_module->module());
 }
 
 /** Returns the stripped down text of this entry. */
 const QString CSwordLDKey::getStrippedText() const{
-	m_module->module()->SetKey(*this->clone());
+	m_module->module()->SetKey(this);
 	return QString::fromLocal8Bit(m_module->module()->StripText());
 }
 
@@ -75,7 +76,7 @@ const QString CSwordLDKey::getStrippedText() const{
 /** Sets the key of this instance */
 const bool CSwordLDKey::setKey( const QString key ){
 	SWKey::operator = ((const char*)key.local8Bit());		
-	m_module->module()->SetKey(*this->clone());
+	m_module->module()->SetKey(this);
 	(const char*)*(m_module->module()); //snap to entry
 	SWKey::operator = (m_module->module()->KeyText());
 	
@@ -85,14 +86,14 @@ const bool CSwordLDKey::setKey( const QString key ){
 
 /** Uses the parameter to returns the next entry afer this key. */
 void CSwordLDKey::NextEntry(){
-	m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
+	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )++;
 	m_entryName = QString::fromLocal8Bit(m_module->module()->KeyText());
 }
 
 /** Uses the parameter to returns the next entry afer this key. */
 void CSwordLDKey::PreviousEntry(){
-	m_module->module()->SetKey(*this->clone());	//use this key as base for the next one!		
+	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )--;
 	m_entryName = QString::fromLocal8Bit(m_module->module()->KeyText());
 }

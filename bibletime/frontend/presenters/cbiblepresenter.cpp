@@ -150,7 +150,7 @@ void CBiblePresenter::initConnections(){
 
 
 /** No descriptions */
-void CBiblePresenter::popupAboutToShow(){
+void CBiblePresenter::popupAboutToShow() {
 	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
 
 	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_ONLY_KEY,!m_htmlWidget->getCurrentAnchor().isEmpty());	

@@ -108,7 +108,7 @@ void CLexiconPresenter::lookup(CKey* key){
 	CSwordLDKey* ldKey = dynamic_cast<CSwordLDKey*>(key);	
 	if (!ldKey)
 		return;
-  m_moduleList.first()->module()->SetKey(key != m_key ? ldKey : ldKey->clone());
+  m_moduleList.first()->module()->SetKey(/*key != m_key ? ldKey : ldKey->clone()*/ldKey);
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
 		if (m_moduleChooserBar->getModuleList().count()>1)  //we want to display more than one module
 			m_moduleList.first()->getDisplay()->Display( &m_moduleList );

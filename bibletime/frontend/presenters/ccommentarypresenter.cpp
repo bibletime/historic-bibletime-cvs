@@ -183,7 +183,7 @@ void CCommentaryPresenter::popupAboutToShow(){
 
 /** Saves the given text in the module. */
 void CCommentaryPresenter::saveText(const QString text){
-	m_moduleList.first()->module()->SetKey(*m_key->clone());
+	m_moduleList.first()->module()->SetKey(m_key);
 	*m_moduleList.first()->module() << (const char*)text.local8Bit();
 	
 //	lookup(m_key);	//update current key so the saved text will be displayed
