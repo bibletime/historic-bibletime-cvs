@@ -23,6 +23,7 @@
 
 #include "clexiconkeychooser.h"
 #include "cbiblekeychooser.h"
+#include "cbookkeychooser.h"
 
 CKeyChooser::CKeyChooser(CSwordModuleInfo *, CSwordKey *, QWidget *parent, const char *name )
 	: QWidget(parent, name){
@@ -39,6 +40,8 @@ CKeyChooser* CKeyChooser::createInstance(CSwordModuleInfo *module, CSwordKey *ke
  	  	return new CBibleKeyChooser(module,key,parent);
  	  case CSwordModuleInfo::Lexicon:
  	  	return new CLexiconKeyChooser(module,key,parent);	
+ 	  case CSwordModuleInfo::GenericBook:
+ 	  	return new CBookKeyChooser(module,key,parent);
  	  default:
  	  	return 0;
  	}

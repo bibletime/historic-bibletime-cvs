@@ -96,9 +96,7 @@ public:
 	* @param do_emit should we emit @ref #changed(int)
 	*/	
 	void reset(const int count, int index, bool do_emit);
-	/**
-	*
-	*/	
+	void reset(QStringList& list, int index, bool do_emit);
 	void reset(QStringList *list, int index, bool do_emit);	
  	/**
  	* Initializes this widget. We need this function because

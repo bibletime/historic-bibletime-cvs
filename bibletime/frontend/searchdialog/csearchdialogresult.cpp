@@ -159,7 +159,7 @@ void CSearchDialogResult::updatePreview(QString text) {
 				if (pos!=-1 && matchLength > 0) {
 						text.insert(pos + matchLength, "</B></FONT>");
 						text.insert(pos, "<FONT color=\"red\"><B>");
-						pos+=matchLength+QString("</B></FONT>").length()+QString("<FONT color=\"red\"><B>").length();
+						pos += matchLength + QString::fromLatin1("</B></FONT>").length() + QString::fromLatin1("<FONT color=\"red\"><B>").length();
 				}
 			}			
 		}
@@ -172,7 +172,7 @@ void CSearchDialogResult::updatePreview(QString text) {
 	html_widget->setText(
 		QString::fromLatin1("<HTML><HEAD></HEAD><BODY><FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3</BODY></HTML>")
 		 .arg(resultTree->currentText())
-		 .arg((resultModuleTree->getCurrentModule()) ? resultModuleTree->getCurrentModule()->getDescription() : i18n("<I>module not set</I>"))
+		 .arg((resultModuleTree->getCurrentModule()) ? resultModuleTree->getCurrentModule()->getDescription() : QString::fromLatin1("<I>%1</I>").arg(i18n("<I>module not set</I>")) )
 		 .arg(text)
 	);
 }

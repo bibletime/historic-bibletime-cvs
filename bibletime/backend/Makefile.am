@@ -15,6 +15,8 @@ cswordmoduleinfo.cpp \
 cswordlexiconmoduleinfo.cpp \
 cswordcommentarymoduleinfo.cpp \
 cswordbiblemoduleinfo.cpp \
+cswordbookmoduleinfo.cpp \
+cswordtreekey.cpp \
 creferencemanager.cpp \
 bt_thmlhtml.cpp \
 bt_gbfhtml.cpp \
@@ -33,6 +35,8 @@ chtmlentrydisplay.h \
 chtmlchapterdisplay.h \
 cswordmodulesearch.h \
 creferencemanager.h \
+cswordbookmoduleinfo.h \
+cswordtreekey.h \
 bt_thmlhtml.h \
 bt_gbfhtml.h \
 bt_basicfilter.h \

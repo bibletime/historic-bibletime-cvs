@@ -26,6 +26,7 @@
 #include "backend/cswordbiblemoduleinfo.h"
 #include "backend/cswordcommentarymoduleinfo.h"
 #include "backend/cswordlexiconmoduleinfo.h"
+#include "backend/cswordbookmoduleinfo.h"
 #include "backend/chtmlentrydisplay.h"
 #include "backend/chtmlchapterdisplay.h"
 #include "backend/cswordversekey.h"
@@ -34,6 +35,7 @@
 #include "frontend/presenters/cbiblepresenter.h"
 #include "frontend/presenters/ccommentarypresenter.h"
 #include "frontend/presenters/clexiconpresenter.h"
+#include "frontend/presenters/cbookpresenter.h"
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/cbtconfig.h"
 
@@ -158,8 +160,14 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 		case CSwordModuleInfo::Lexicon:
 			presenter = new CLexiconPresenter(modules, m_important, m_mdi);
 			break;
+		case CSwordModuleInfo::GenericBook:			
+			presenter = new CBookPresenter(modules, m_important, m_mdi);
+			qWarning("Generic book support is not working properly! Please wait :)");
+			break;
 		default:
+			presenter = 0;
 			qWarning("unknown module type");
+			break;
 	}	
 	if (presenter) {
 		presenter->lookup(key);
@@ -176,7 +184,10 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 	kapp->restoreOverrideCursor();
 	presenter->setFocus();
 	
-	return dynamic_cast<CSwordPresenter*>(presenter);
+	if (presenter)
+		return dynamic_cast<CSwordPresenter*>(presenter);
+	else
+		return 0;
 }
 
 

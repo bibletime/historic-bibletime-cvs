@@ -68,6 +68,7 @@ COptionsDialog::COptionsDialog(CImportantClasses* importantClasses, QWidget *par
 
 	m_important = importantClasses;
 	m_settings.keys.application.accel = accel;
+	setIconListAllVisible(true);
 
 	initStartup();		
 	initFonts();
@@ -202,7 +203,7 @@ void COptionsDialog::initFonts(){
 	QFrame* page = addPage(i18n("Fonts"), QString::null, OD_ICON_GENERAL);
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
 
- 	layout->addWidget( CToolClass::explanationLabel(page, i18n("Fonts"), i18n("The fonts you can choose here are used in the display windows. Use drop-down box below to choose the area of application. Then select a font for it.<BR>Don't forget to choose the right charset, for example \"iso10646-1\" for unicode fonts!")) );
+ 	layout->addWidget( CToolClass::explanationLabel(page, i18n("Choose fonts"), i18n("The fonts you can choose here are used in the display windows. Use drop-down box below to choose the area of application. Then select a font for it.<BR>Don't forget to choose the right charset, for example \"iso10646-1\" for unicode fonts!")) );
   layout->addSpacing(5);
  					
  	m_settings.fonts.usage = new QComboBox(page);		
@@ -276,7 +277,7 @@ void COptionsDialog::initProfiles(){
 	QFrame* page = addPage(i18n("Profiles"),QString::null, OD_ICON_GENERAL);
 	QVBoxLayout* layout = new QVBoxLayout(page,5);
 
-	layout->addWidget(CToolClass::explanationLabel(page, i18n("Profiles"), i18n("Profiles define the appereance of the workspace area, for example which windows are open and which texts should displayed in these windows. Don't forget that new profiles only work after you've saved something in them.")));
+	layout->addWidget(CToolClass::explanationLabel(page, i18n("Manage your profiles"), i18n("Profiles define the appereance of the work area, for example which windows are open and which texts should displayed in these windows. Don't forget that new profiles only work after you've saved something in them.")));
 	layout->addSpacing(5);
 	m_settings.profiles.profiles = new QListBox(page);					
 	layout->addWidget(m_settings.profiles.profiles);
@@ -569,7 +570,7 @@ void COptionsDialog::initSword(){
   tabCtl->addTab(currentTab, i18n("Filter settings"));
   layout = new QVBoxLayout(currentTab,5);
 
-  layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"), i18n("Filters control the appereance of the text in the display windows. Choose the default values of the various filter settings. You can change the locally for each window, too.")) );
+  layout->addWidget( CToolClass::explanationLabel(currentTab, i18n("Filter settings"), i18n("Filters control the appereance of the text in the display windows. Here you can choose the default settings of the various filter settings. You can change the settings in each display window, too.")) );
   layout->addSpacing(5);
   		
  	m_settings.sword.lineBreaks = new QCheckBox(currentTab);

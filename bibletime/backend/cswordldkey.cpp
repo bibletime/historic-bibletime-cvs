@@ -64,7 +64,7 @@ const QString CSwordLDKey::key( const QString& newKey ){
 		(const char*)*(m_module->module()); //snap to entry
 		SWKey::operator = (m_module->module()->KeyText());
 	}
- 	return QString::fromUtf8(m_module->module()->KeyText());
+ 	return QString::fromLocal8Bit(m_module->module()->KeyText());//don't use fromUtf8
 }
 
 /** Uses the parameter to returns the next entry afer this key. */

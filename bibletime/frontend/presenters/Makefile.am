@@ -8,6 +8,7 @@ libpresenters_a_SOURCES = \
 cbiblepresenter.cpp \
 clexiconpresenter.cpp \
 ccommentarypresenter.cpp \
+cbookpresenter.cpp \
 cswordpresenter.cpp \
 cmodulechooserbar.cpp \
 cmodulechooserbutton.cpp \
@@ -18,6 +19,7 @@ clexiconpresenter.h \
 cbiblepresenter.h \
 cmodulechooserbar.h \
 cmodulechooserbutton.h \
+cbookpresenter.h \
 cswordpresenter.h \
 cdisplaysettingsbutton.h
 

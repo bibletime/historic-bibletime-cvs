@@ -167,9 +167,9 @@ QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, co
   QLabel* label = new QLabel( QString::fromLatin1("<B>%1</B><BR>%2").arg(heading).arg(text),parent );
   label->setAutoResize(true);
   label->setMargin(1);
-  label->setFrameStyle(QFrame::Box | QFrame::Sunken);
-  label->setLineWidth(3);
-  label->setMidLineWidth(1);
+  label->setFrameStyle(QFrame::Box | QFrame::Plain);
+//  label->setLineWidth(1);
+//  label->setMidLineWidth(1);
 
   return label;
 }

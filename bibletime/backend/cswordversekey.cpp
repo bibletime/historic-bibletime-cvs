@@ -80,7 +80,7 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 const bool CSwordVerseKey::NextVerse(){	
 	m_module->module()->SetKey(this);	//use this key as base for the next one!
 	( *( m_module->module() ) )++;
-	key( QString::fromUtf8(m_module->module()->KeyText()) );
+	key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
 	
 	return true;
 }
@@ -90,7 +90,7 @@ const bool CSwordVerseKey::PreviousVerse(){
 	m_module->module()->SetKey(this);	//use this key as base for the next one!		
 	( *( m_module->module() ) )--;
 
-	key( QString::fromUtf8(m_module->module()->KeyText()) );
+	key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
 	
 	return true;
 }
@@ -132,7 +132,7 @@ const QString CSwordVerseKey::key( const QString& newKey ){
 	if (!newKey.isNull()) {
 		VerseKey::operator = ((const char*)newKey.local8Bit());
 	}
-	return QString::fromUtf8((const char*)*this);
+	return QString::fromLocal8Bit((const char*)*this);//don't use fromUtf8
 }
 
 void CSwordVerseKey::key( const char* newKey ){

@@ -161,7 +161,7 @@
 
 #define LOAD_SMALL_ICON(name)	SmallIcon(name, 16)
 #define LOAD_MC_ICON(name) BarIcon(name, 22) //MC == module chooser
-#define LOAD_OD_ICON(name) KGlobal::instance()->iconLoader()->loadIcon(name, KIcon::NoGroup, KIcon::SizeLarge)
+#define LOAD_OD_ICON(name) KGlobal::instance()->iconLoader()->loadIcon(name, KIcon::NoGroup, KIcon::SizeMedium)
 //#define LOAD_OD_ICON(name) SmallIcon(name,16)
 
 //ICONS

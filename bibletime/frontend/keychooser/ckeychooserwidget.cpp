@@ -131,7 +131,10 @@ CKeyChooserWidget::CKeyChooserWidget(int count, const bool useNextPrevSignals,  
 
 CKeyChooserWidget::CKeyChooserWidget(QStringList *list, const bool useNextPrevSignals, QWidget *parent, const char *name ) : QWidget(parent,name) {
 	m_useNextPrevSignals = useNextPrevSignals;		
-	m_list = *list;//copy the items of list
+	if (list)
+		m_list = *list;//copy the items of list
+	else
+		m_list.clear();
 	init();
 }
 
@@ -171,6 +174,13 @@ void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
 		m_list.append( QString::number(i) );
 	reset(&m_list,index,do_emit);
 }
+
+void CKeyChooserWidget::reset(QStringList& list, int index, bool do_emit){
+	qDebug("CKeyChooserWidget::reset(QStringList&, int index, bool do_emit)");
+	m_list = list;
+	reset(&m_list,index,do_emit);
+}
+
 
 void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	if (isResetting || !isUpdatesEnabled())

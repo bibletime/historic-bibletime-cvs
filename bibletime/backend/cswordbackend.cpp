@@ -22,6 +22,7 @@
 #include "cswordbiblemoduleinfo.h"
 #include "cswordcommentarymoduleinfo.h"
 #include "cswordlexiconmoduleinfo.h"
+#include "cswordbookmoduleinfo.h"
 
 #include "bt_thmlhtml.h"
 #include "bt_gbfhtml.h"
@@ -106,7 +107,12 @@ const CSwordBackend::errorCode CSwordBackend::initModules() {
 			newModule = new CSwordLexiconModuleInfo(this, curMod);
 			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
 			newModule->module()->Disp(m_entryDisplay);
+		} else if (!strcmp(curMod->Type(), "Generic Book")) {
+			newModule = new CSwordBookModuleInfo(this, curMod);
+//			CHECK_HTML_ENTRY_DISLPAY	//a macro to check the entry display			
+//			newModule->module()->Disp(m_entryDisplay);
 		}
+
 		if (newModule)	//append the new modules to our list
 			m_moduleList->append( newModule );
 	}	

@@ -78,7 +78,7 @@ protected:
 	*/
 	CKeyChooserWidget *m_widget;
 	CSwordLDKey* m_key;
-	CSwordLexiconModuleInfo	*m_info;	
+	CSwordLexiconModuleInfo	*m_module;	
 	QHBoxLayout *m_layout;
 };
 

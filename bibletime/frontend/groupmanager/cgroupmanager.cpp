@@ -172,7 +172,10 @@ void CGroupManager::setupStandardSwordTree() {
 		
 	CGroupManagerItem* lexiconGroup = 0;
 	CGROUPMANAGER_GROUP(i18n("Lexicons"), lexiconGroup);
-		
+
+	CGroupManagerItem* bookGroup = 0;
+	CGROUPMANAGER_GROUP(i18n("Books"), bookGroup);
+			
 	#undef CGROUPMANAGER_GROUP
 	
 	for(moduleInfo = m_swordList->first(); moduleInfo; moduleInfo = m_swordList->next()) {
@@ -197,6 +200,9 @@ void CGroupManager::setupStandardSwordTree() {
 				case CSwordModuleInfo::Lexicon:
 					itemParent = lexiconGroup;
 					break;
+				case CSwordModuleInfo::GenericBook:
+					itemParent = bookGroup;
+					break;					
 				default:
 					break;
 			}
@@ -218,6 +224,10 @@ void CGroupManager::setupStandardSwordTree() {
 		delete commentaryGroup;
 		commentaryGroup = 0;
 	}
+	if (!bookGroup->childCount()) {
+		delete bookGroup;
+		bookGroup = 0;
+	}
 
 	if (!initialized) {
 		if (bibleGroup)
@@ -226,6 +236,8 @@ void CGroupManager::setupStandardSwordTree() {
 			lexiconGroup->sortChildItems(0,true);
 		if (commentaryGroup)
 			commentaryGroup->sortChildItems(0,true);	
+		if (bookGroup)
+			bookGroup->sortChildItems(0,true);				
 	}
 }
 

@@ -44,7 +44,7 @@ class CHTMLEntryDisplay;
   */
 class CSwordModuleInfo  {
 public:
-	enum type { Bible, Commentary, Lexicon, Unknown };
+	enum type { Bible, Commentary, Lexicon, GenericBook, Unknown };
 //	enum TextDirection {
 //		LTR = 0, /*LTR = Left to right*/		
 //		RTL /*RTL = Right To Left*/
@@ -179,7 +179,7 @@ private:
 typedef QList<CSwordModuleInfo>	ListCSwordModuleInfo;
 
 inline const CSwordModuleInfo::type CSwordModuleInfo::getType() const {
-	return CSwordModuleInfo::Unknown;
+	return CSwordModuleInfo::GenericBook;
 }
 
 inline SWModule* CSwordModuleInfo::module() const {

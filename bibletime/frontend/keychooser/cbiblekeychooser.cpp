@@ -259,6 +259,7 @@ void CBibleKeyChooser::setModule(CSwordModuleInfo* module){
 		refreshContent();
 	}
 }
+
 /** called when the book combo lost the focus with reason == tab @param the new book */
 void CBibleKeyChooser::bookFocusOut(int index){
 	if (!isUpdatesEnabled())

@@ -44,7 +44,7 @@ public:
 	* the constructor
 	*	you should not need to use this, use @ref CKeyChooser::createInstance instead
 	*/
-	CBibleKeyChooser(CSwordModuleInfo *info=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
+	CBibleKeyChooser(CSwordModuleInfo *module=0, CSwordKey *key=0, QWidget *parent=0, const char *name=0);
 
 public slots:
 	/**
