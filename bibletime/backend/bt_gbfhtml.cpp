@@ -100,11 +100,71 @@ BT_GBFHTML::BT_GBFHTML() : sword::GBFHTML() {
 char BT_GBFHTML::processText(sword::SWBuf& buf, const sword::SWKey * key, const sword::SWModule * module){
 	GBFHTML::processText(buf, key, module);
 
-//   CSwordModuleInfo* const mod = CPointers::backend()->findSwordModuleByPointer(module);
-//   if (!mod || (mod && (mod->type() != CSwordModuleInfo::Bible) && (mod->type() != CSwordModuleInfo::GenericBook))) {
-//     ProcessRWPRefs(buf, mod ? mod->module() : 0);
-//   }
+	//we have to go through the text and put all text which belongs to strongs into span tags
+	//the text might look like 
+	//	Am Anfang<WH07225> schuf<WH01254><WTH8804> Gott<WH0430> Himmel<WH08064> und Erde<WH0776>.
+	
+	int pos = -1;
+	int lastPos = -1;
+	int posRev = 0;
+	QString t = QString::fromUtf8(buf.c_str());
+	QRegExp startRE("<W(T?)([GH]\\d+)>");
+	QRegExp endRE("(^)|>");
+	
+	CSwordModuleInfo* m = CPointers::backend()->findModuleByName( module->Name() ); 
+	if (m && (m->has(CSwordBackend::lemmas) || m->has(CSwordBackend::strongNumbers))) { //only parse if the module has strongs or lemmas
+		do {
+			pos = startRE.search(t, pos+1);
+			posRev = endRE.searchRev(t,pos);
+			if (pos == posRev+2) { //two morph/strongs which belong together
+				posRev = endRE.searchRev(t,posRev-1);
+			}
+			
+			if ((pos >= 0) && (posRev>= 0) && (posRev < pos) && (posRev > lastPos)) {//we found a valid text span
+				bool isMorph = !startRE.cap(1).isEmpty();
+				const QString value = startRE.cap(2);
+	// 			qWarning("found %s", value.latin1());
+				
+				posRev = !posRev ? 0 : posRev+1;
+				
+				QString part = t.mid(posRev, pos-posRev);
+				int end = t.find(">", pos+1);
+				
+				if (end > pos) {
+					if (!part.isEmpty()) {					
+						QString rep = 
+							isMorph 
+							? QString("<span morph=\"%1\">%2</span>").arg(value).arg(part)
+							: QString("<span lemma=\"%1\">%2</span>").arg(value).arg(part);
+						
+						t.replace(posRev, end-posRev+1, rep);
+						pos = posRev + rep.length() - (end-pos) - part.length()+1;
+					}
+					else {//found text is empty, this morph/lemma belongs to the one before (i.e. two following belonging to the same text)
+						//remove the GBF tag
+						t.remove(posRev, end-posRev+1);
+						pos -= end-posRev+1;
+						
+						int attrPos = t.findRev(QRegExp("morph=|lemma="),posRev);
+						if ((attrPos > 0) && (attrPos < posRev)) {
+							//insert the new attribute here
+							QString attr = QString::fromLatin1("%1=\"%2\" ").arg(isMorph ? "morph" : "lemma").arg(value);
+							t.insert(attrPos, attr);
+							pos+=attr.length();
+						}
+						
+					}
+				}			
+			}
+			
+			lastPos = pos;
+		}
+		while (pos >= 0);
+	 	
+		qWarning("replaced: %s", t.latin1());
+	}	
 
+	buf = (const char*)t.utf8();
   return 1;
 }
 
@@ -116,48 +176,15 @@ bool BT_GBFHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicF
     BT_UserData* myUserData = dynamic_cast<BT_UserData*>(userData);
     sword::SWModule* myModule = const_cast<sword::SWModule*>(myUserData->module); //hack to be able to call stuff like Lang()
 
-    if (!strncmp(token, "WG", 2)){ // strong's numbers greek
-			for (i = 2; i < tokenLength; i++) {
-					value += token[i];
-      }
-      
-			buf.appendFormatted(" <span strong=\"G%s\">%s</span> ",
-				value.c_str(),
-        value.c_str()
-      );
+    if (	 !strncmp(token, "WG", 2) 
+				|| !strncmp(token, "WH", 2) 
+				|| !strncmp(token, "WTG", 3) 
+				|| !strncmp(token, "WTH", 3) )
+		{
+			buf.append('<');
+			buf.append(token);
+			buf.append('>');
 		}
-		else if (!strncmp(token, "WH", 2)){ // strong's numbers hebrew
-			for (i = 2; i < tokenLength; i++) {
-					value += token[i];
-      }
-      
-			buf.appendFormatted(" <span strong=\"H%s\">%s</span> ",
-				value.c_str(),
-        value.c_str()
-      );
-		}
-		else if (!strncmp(token, "WTG", 3)) { // strong's numbers tense greek
-			for (i = 3; i < tokenLength; i++) {
-					value += token[i];
-      }
-
-			buf.appendFormatted(" <span morph=\"G%s\">%s</span> ",
-				value.c_str(),
-				value.c_str()
-      );
-		}
-
-		else if (!strncmp(token, "WTH", 3)) { // strong's numbers tense hebrew
-			for (i = 3; i < tokenLength; i++) {
-					value += token[i];
-      }
-
-			buf.appendFormatted(" <span morph=\"H%s\">%s</span> ",
-				value.c_str(),
-				value.c_str()
-      );
-		}
-
 		else if (!strncmp(token, "RB", 2)) {
 //			buf += "<span class=\"footnotepre\">";
 			myUserData->hasFootnotePreTag = true;

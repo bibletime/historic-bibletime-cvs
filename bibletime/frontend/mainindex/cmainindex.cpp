@@ -42,22 +42,26 @@
 #include <kmessagebox.h>
 #include <kglobalsettings.h>
 
-CMainIndex::ToolTip::ToolTip(QWidget* parent) : CToolTip(parent) {
+CMainIndex::ToolTip::ToolTip(CMainIndex* parent) : QToolTip(parent->viewport()), m_mainIndex(parent) {
 }
 
 void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
-	if (!parentWidget()->inherits("CMainIndex"))
-		return;
+/*	if (!parentWidget()->inherits("CMainIndex"))
+		return;*/
 	
-	CMainIndex* m = 0;
-	if ( !(m = dynamic_cast<CMainIndex*>(parentWidget())) )
-		return;	
+// 	CMainIndex* m = 0;
+// 	if ( !(m = dynamic_cast<CMainIndex*>(parentWidget())) )
+// 		return;	
 
-  CItemBase* i = 0;
+/*  CItemBase* i = 0;
 	if ( !( i = dynamic_cast<CItemBase*>(m->itemAt(p))) )
+		return;*/
+  
+	CItemBase* i = 0;
+	if ( !( i = dynamic_cast<CItemBase*>(m_mainIndex->itemAt(p))) )
 		return;
-	
-	QRect r = m->itemRect(i);
+			
+	QRect r = m_mainIndex->itemRect(i);
 	if (!r.isValid()) {
 		return;
   }
@@ -65,8 +69,15 @@ void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
 	//get type of item and display correct text
 	const QString text = i->toolTip();
 	if (!text.isEmpty()) {
-    	QPoint globalPoint = m->viewport()->mapTo(m, p);
-		tip(globalPoint, r, text);
+/*    QPoint globalPoint = m->viewport()->mapTo(m, p);
+		//tip(globalPoint, r, text);
+		const int w = r.width();
+		const int h = r.height();
+		r.setTopLeft( m->viewport()->mapTo(m, r.topLeft()) );
+		r.setWidth(w);
+		r.setHeight(h);*/
+		
+		tip(r, text);
 	}
 }
 

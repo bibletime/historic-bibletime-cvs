@@ -23,13 +23,13 @@
 
 #include "backend/cswordmoduleinfo.h"
 #include "frontend/displaywindow/cdisplaywindow.h"
-#include "frontend/ctooltip.h"
 
 #include "util/cpointers.h"
 
 //Qt includes
 #include <qwidget.h>
 #include <qtimer.h>
+#include <qtooltip.h>
 
 //KDE includes
 #include <kaction.h>
@@ -44,13 +44,17 @@ class CSearchDialog;
 class CMainIndex : public KListView {
   Q_OBJECT
 	
-  class ToolTip : public CToolTip {
+//  class ToolTip : public CToolTip {
+  class ToolTip : public QToolTip {
 	public:
-		ToolTip(QWidget* parent);
+		ToolTip(CMainIndex* parent);
 		/**
 		* Displays a tooltip for position p using the getToolTip() function of CGroupManagerItem
 		*/		
 		virtual void maybeTip( const QPoint &pos);
+	
+	private:
+		CMainIndex* m_mainIndex;
 	};
 
 public:
@@ -61,9 +65,13 @@ public:
   * Opens the searchdialog using the given modules using the given search text.
   */
   void emitModulesChosen( ListCSwordModuleInfo modules, QString key );
-  /** Saves the bookmarks to disk */
+  /** 
+	* Saves the bookmarks to disk 
+	*/
   void saveBookmarks();
-  /** Reloads the main index's Sword dependend things like modules */
+  /**
+	* Reloads the main index's Sword dependend things like modules 
+	*/
   void reloadSword();
 
 protected: // Protected methods
@@ -96,7 +104,7 @@ protected: // Protected methods
   */
   virtual void contentsDragMoveEvent( QDragMoveEvent* event );
   virtual void contentsDragLeaveEvent( QDragLeaveEvent* e );
-
+	
 public slots:
   /**
    * Opens the searchdialog for the selected modules.

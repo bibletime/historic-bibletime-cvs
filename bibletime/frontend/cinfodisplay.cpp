@@ -184,18 +184,18 @@ const QString CInfoDisplay::decodeLemma( const QString& data ) {
 		);
 	
 		CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongModuleDesc );	
-		if (!module) {
-			continue;
-		}
-		
-		
-		util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
-		key->key( (*it).mid(1) ); //skip H or G (language sign), will have to change later if we have better modules
+		QString text;
+		if (module) { 
+			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+			key->key( (*it).mid(1) ); //skip H or G (language sign), will have to change later if we have better modules
+			text = key->renderedText();
+		}		
+		//if the module could not be found just display an empty lemma info
+				
 		ret += QString::fromLatin1("<div class=\"lemmainfo\"><h3>%1: %2</h3><p>%3</p></div>")
 			.arg(i18n("Lemma"))
 			.arg(*it)
-			.arg(key->renderedText());
-
+			.arg(text);
 	}
 		
 	return ret;
@@ -213,17 +213,19 @@ const QString CInfoDisplay::decodeMorph( const QString& data ) {
 		);
 		
 		CSwordModuleInfo* module = CPointers::backend()->findModuleByDescription( strongModuleDesc );	
-		if (!module) {
-			continue;
+		QString text;
+		if (module) {
+			util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+			key->key( (*it).mid(1) ); //skip H or G (language sign)
+			
+			text = key->renderedText();
 		}
+		//if the module wasn't found just display an empty morph info
 		
-		util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
-		key->key( (*it).mid(1) ); //skip H or G (language sign)
-	
 		ret += QString::fromLatin1("<div class=\"morphinfo\"><h3>%1: %2</h3><p>%3</p></div>")
 			.arg(i18n("Morph number"))
 			.arg(*it)
-			.arg(key->renderedText());
+			.arg(text);
 	}
 	
 	return ret;	

@@ -59,24 +59,10 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
     if ( tag.getName() && !strcasecmp(tag.getName(), "foreign") ) { // a text part in another language, we have to set the right font
       if (tag.getAttribute("lang")) {
         const char* abbrev = tag.getAttribute("lang");
-
         const CLanguageMgr::Language* const language = CPointers::languageMgr()->languageForAbbrev( QString::fromLatin1(abbrev) );
 
-				Q_ASSERT(language);
-				
         if (language->isValid()) {
-          CBTConfig::FontSettingsPair fontSetting = CBTConfig::get(language);
-          if (fontSetting.first) {
-            const QFont f = fontSetting.second;
-            buf.appendFormatted("<span class=\"foreign\" lang=\"%s\" style=\"font-family:%s;font-size:%ipt;\">",
-              abbrev,
-              f.family().latin1(),
-              f.pointSize()
-            );
-          }
-          else { //CBTConfig says: don't set a special font, so we just set the language flag
-            buf.appendFormatted("<span class=\"foreign\" lang=\"%s\">", abbrev);
-          }
+	        buf.appendFormatted("<span class=\"foreign\" lang=\"%s\">", abbrev);
         }
         else { //invalid language, just set the HTML language attribute
           buf.appendFormatted("<span class=\"foreign\" lang=\"%s\">", abbrev);

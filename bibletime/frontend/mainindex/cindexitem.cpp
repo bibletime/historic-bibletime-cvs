@@ -26,11 +26,11 @@
 
 #include "frontend/searchdialog/csearchdialog.h"
 #include "frontend/cexportmanager.h"
-#include "frontend/ctooltipmanager.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cinputdialog.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/cdragdropmgr.h"
+#include "frontend/ctooltipmanager.h"
 
 #include "util/cresmgr.h"
 #include "util/ctoolclass.h"
@@ -257,17 +257,16 @@ void CModuleItem::dropped( QDropEvent* e ){
 /** Reimplementation. */
 const QString CModuleItem::toolTip(){
     QString text;
-		text = QString::fromLatin1("<DIV STYLE=\"border-bottom:thin solid black;\">")
-      + i18n("Module")
-      + QString::fromLatin1(": <B>%1</B></DIV>").arg( module()->name() )
-      + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<B>%1</B><BR>").arg(i18n("Take care, this module contains cult / questionable material!")) : QString::null);
-		text += QString::fromLatin1("<DIV STYLE=\"border-bottom:thin solid black;\">") + module()->config(CSwordModuleInfo::Description) + QString::fromLatin1("</DIV>");
-		text += i18n("Language")+ QString::fromLatin1(": %1<BR>").arg(module()->language()->translatedName());
+		text = i18n("Module")
+      + QString::fromLatin1(": <b>%1</b><br>").arg( module()->name() )
+      + ((module()->category() == CSwordModuleInfo::Cult) ? QString::fromLatin1("<b>%1</b><br>").arg(i18n("Take care, this module contains cult / questionable material!")) : QString::null);
+		text += module()->config(CSwordModuleInfo::Description) + QString::fromLatin1("<hr>");
+		text += i18n("Language")+ QString::fromLatin1(": %1<br>").arg(module()->language()->translatedName());
 		if (module()->isEncrypted())
-			text += i18n("Unlock key") + QString::fromLatin1(": %1<BR>")
-				.arg(!module()->config(CSwordModuleInfo::CipherKey).isEmpty() ? module()->config(CSwordModuleInfo::CipherKey) : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
+			text += i18n("Unlock key") + QString::fromLatin1(": %1<br>")
+				.arg(!module()->config(CSwordModuleInfo::CipherKey).isEmpty() ? module()->config(CSwordModuleInfo::CipherKey) : QString("<font COLOR=\"red\">%1</font>").arg(i18n("not set")));
 		if (module()->hasVersion())
-			text += i18n("Version") + QString::fromLatin1(": %1<BR>").arg(module()->config(CSwordModuleInfo::ModuleVersion));
+			text += i18n("Version") + QString::fromLatin1(": %1<br>").arg(module()->config(CSwordModuleInfo::ModuleVersion));
      	     	
    	QString options;
    	unsigned int opts;
@@ -279,9 +278,9 @@ const QString CModuleItem::toolTip(){
    		}
    	}
    	if (!options.isEmpty())
-   		text += i18n("Options") + QString::fromLatin1(": <font size= \"-1\">") + options + QString::fromLatin1("</font>");
+   		text += i18n("Options") + QString::fromLatin1(": <small>") + options + QString::fromLatin1("</small>");
      		
-		if (text.right(4) == QString::fromLatin1("<BR>"))
+		if (text.right(4) == QString::fromLatin1("<br>"))
 			text = text.left(text.length()-4);
 		return text;
 }
