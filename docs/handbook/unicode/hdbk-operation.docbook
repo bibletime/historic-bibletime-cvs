@@ -23,9 +23,9 @@ It contains the tree of installed documents (Sword Modules), as well as any book
 <section id="hdbk-op-module-tree-select">
 <title>Selecting a document to
 view</title>
-<para>To select a document, &LMB; on the desired document group (Bibles, Commentaries, or
-Lexicons) to display the contents of a document group, &RMB; on the icon for
-the desired group.  To open a document, &LMB; on it's icon.
+<para>To select a document, click with the left mouse button on the desired document group (Bibles, Commentaries, or
+Lexicons) to display the contents of a document group, click with the right mouse button on the icon for
+the desired group.  To open a document, click on it's icon.
 </para>
 <screenshot>
 <screeninfo>Document Selection</screeninfo>
@@ -38,13 +38,13 @@ the desired group.  To open a document, &LMB; on it's icon.
 <tip><para>Drag &amp; Drop Works Here</para></tip>
 <para>
 A document can be opened from an already opened document.
-Simply &LMB; on the verse number (pointer changes to hand) and drag it to the
+Simply lick with the left mouse button on the verse number (pointer changes to hand) and drag it to the
 module list. Drop it on the name of the module you want to open, and it will
 open that module to the verse you dragged over. If you drag a verse number to an
 already open module, it will automatically jump that module to the verse dragged
 over. This works for Bibles and Commentaries only. </para>
 <para>
-There are two other functions accessible through &RMB; on
+There are two other functions accessible through clicking with the right mouse button on
 the document name. "About This Module" opens a window with information about copyright and
 other pertinent things about the selected document. "Unlock This Module" opens a small
 dialog for encrypted documents. This allows those with the key to
@@ -57,8 +57,8 @@ See information on locked modules on the Crosswire Bible Society web site.</ulin
 
 <section id="hdbk-op-module-tree-search">
 <title>Accessing the search dialog</title> <para>
-You can search in a module by &RMB; on the module name in the module
-list and selecting "Search in module(s)". By shift &RMB; on other module
+You can search in a module by clicking with the right mouse button on the module name in the module
+list and selecting "Search in module(s)". By pressing shift and clicking on other module
 names you can select more than one.  Then follow the same procedure to open the
 search dialog. You will be searching in all of these documents.
 A complete description of the operation of the search features can be found.
@@ -77,14 +77,14 @@ A complete description of the operation of the search features can be found.
 <section id="hdbk-op-module-tree-bookmark">
 <title>Accessing bookmark functions</title> <para>
 <tip><para>Drag &amp; Drop Works Here</para></tip>
-&RMB; on an empty part of the module tree window and select <guimenuitem>"Create new
+Click with the right mouse button on an empty part of the module tree window and select <guimenuitem>"Create new
 group"</guimenuitem> to create a new bookmark folder. You can use normal drag 'n' drop
 functions to drag verse numbers from search dialog results to the bookmark folder,
 and to rearrange bookmarks between folders.  There is an import/export function
 for bookmarks also.  From the <guimenu>right-mouse-button menu</guimenu>, select "Export
 bookmarks". This will bring up a dialog box for you to save the bookmark
 collection.  They can be shared with other &bibletime; users, archived, etc.  They
-can be imported in the same way. You can also &RMB; to change folder names
+can be imported in the same way. You can also click with the right mouse button to change folder names
 and bookmark descriptions, and delete folders and
 bookmarks. </para>
 <screenshot>
@@ -142,10 +142,10 @@ pencil.
 <phrase>Enter your notes</phrase>
 </textobject>
 </inlinemediaobject>
-For the "Personal" commentary module, &LMB; the <guibutton>button with the picture
+For the "Personal" commentary module, click with mouse on the <guibutton>button with the picture
 of a pencil</guibutton> to enter your own notes, or to edit notes you've already
-entered. When you're done, &LMB; on the <guibutton>"Save" (disk) button</guibutton>
-to save your notes. To delete notes for a selected verse, &LMB; the
+entered. When you're done, click on the <guibutton>"Save" (disk) button</guibutton>
+to save your notes. To delete notes for a selected verse, click the
 <guibutton>delete verse button</guibutton>
 <inlinemediaobject>
 <imageobject>
@@ -184,9 +184,9 @@ Searching Documents is taken from the help files for the
 <section id="hdbk-op-search-functions">
 <title>Accessing search functions</title>
 <para>
-You can search in a document by &RMB; on the document name in the <guimenu>Main
+You can search in a document by clicking with the right mouse button on the document name in the <guimenu>Main
 Index</guimenu> and selecting <guimenuitem>Search in module(s)</guimenuitem>.
-By shift- or ctrl-&RMB; on other module names you can select more than one.
+By holding shift- or ctrl- and clicking on other module names you can select more than one.
 Then follow the same procedure to open the search dialog.  You will be searching
 in all of these Documents. </para>
 </section>
@@ -199,7 +199,7 @@ in all of these Documents. </para>
 <application>GCC Regular Expression</application>.  It allows you
 to create almost <link linkend="hdbk-op-search-dialog-text-regexp">any
 type of search you can imagine.</link></para>
-<para>To access the search feature, &RMB; in the Main Index now in 
+<para>To access the search feature, click with the right mouse button in the Main Index now in 
 the drop down select the magnifying glass.  You can also
 customize &bibletime; to put the search icon 
 <inlinemediaobject>
@@ -226,9 +226,9 @@ in the toolbar if you would prefer.</para>
 <section id="hdbk-op-search-choose-modules">
 <title>Using the Choose Modules Button</title>
 <para>At the top of the options tab you will find <guibutton>Choose Modules</guibutton> , with the already
-selected modules directly below.  If you would like to search additional modules, &LMB;
+selected modules directly below.  If you would like to search additional modules, click on
 <guibutton>Choose Modules</guibutton> and you will be offered a menu of all of the modules that can be searched.
-Select modules with a &LMB; in the checkbox, then &LMB; the <guibutton>Use Selected Modules</guibutton> button.
+Select modules with a click in the checkbox, then click the <guibutton>Use Selected Modules</guibutton> button.
 </para>
 
 <screenshot>
@@ -261,7 +261,7 @@ text box.  You can also copy and paste text into the text box.</para></tip>
 
 <section id="hdbk-op-search-dialog-text-input-case">
 <title>Using the Search Text Case Sensitive checkbox</title>
-<para>&LMB; on the Case Sensitive check
+<para>Click on the Case Sensitive check
 box to toggle case sensitivity on or off. If the box is marked a
 search will only find verse in which the found text also matches
 the case of the text in the input field. If the box is unmarked
@@ -304,7 +304,7 @@ to behave...&quot; </para>
 
 <section id="hd-op-sch-dia-txt-scope-options">
 <title><guibutton>Choose Search</guibutton> Scope Options</title>
-<para>Define the Scope of your search by &LMB; on the <guibutton>Choose Scope</guibutton>
+<para>Define the Scope of your search by clicking on the <guibutton>Choose Scope</guibutton>
 button.  You will be presented a list of predefined scopes.</para>
 
 <itemizedlist>
@@ -330,7 +330,7 @@ and both the titles, Christ and Lord.</para>
 
 <section id="hd-op-sch-dia-txt-scope-maintain"><title>Edit
 Ranges</title><para>Setup Custom Ranges - You can enter upper and lower boundaries
-for the search by &LMB; <guibutton>Setup Custom Ranges</guibutton> button.</para>
+for the search by clicking on the <guibutton>Setup Custom Ranges</guibutton> button.</para>
 
 <mediaobject>
 <imageobject>
@@ -344,9 +344,9 @@ for the search by &LMB; <guibutton>Setup Custom Ranges</guibutton> button.</para
 <para>The predefined ranges show examples of the required syntax.
 </para>
 <para>
-&LMB; the <guibutton>Add New Range</guibutton> enter the name for your range in the Name text entry box,
+Click on the <guibutton>Add New Range</guibutton> enter the name for your range in the Name text entry box,
 and enter the range in the text entry box labled Edit the search range.  Your range is now added to
-the list of custom ranges.  If you are satisfied you can return to the Search Options tab by &LMB; on
+the list of custom ranges.  If you are satisfied you can return to the Search Options tab by clicking on
 <guibutton>OK</guibutton>.
 </para>
 
@@ -378,7 +378,7 @@ You can also paste text into the entry field.</para></tip>
 
 <section id="hdbk-op-search-dialog-text-input-search">
 <title>Using the Search Text Button</title>
-<para>&LMB;<guibutton>Search Button</guibutton> to start
+<para>Click on the <guibutton>Search Button</guibutton> to start
 the search.</para>
 <screenshot>
 <screeninfo>Search Text Dialog Box</screeninfo>
@@ -400,8 +400,8 @@ the search.</para>
 <title>Using the Search Results Tab</title>
 <para>
 Search Result - This tells you first, by module, how many instances of the
-search string were found. In the Module Column, &LMB; on a document will open the list of
-references (&RMB; allows you to copy, save, or print the list of items found).
+search string were found. In the Module Column, clicking on a document will open the list of
+references (clicking with the right mouse button allows you to copy, save, or print the list of items found).
 Clicking on a reference (the found items list) opens that verse up in the window below.
 Drag the reference and drop it on a document in the main index to open the
 module to that verse in a new display window, or look at the verse in the bottom pane
@@ -428,7 +428,7 @@ to the verse location (Bibles and commentaries only).</para></tip>
 
 <section id="hdbk-op-search-dialog-text-analysis">
 <title>Using the Search Analysis Tab</title>
-<para>&LMB;<guibutton>Search Analsis</guibutton> to open the search analsis display.</para>
+<para>Click on <guibutton>Search Analsis</guibutton> to open the search analsis display.</para>
 <para>
 Search Analysis - This gives a graphic analysis of the number of instances the
 search string was found in each book. It can display results for all documents searched.
@@ -688,7 +688,7 @@ righteous</emphasis>ness.</para></listitem>
 <section id="hdbk-op-output">
 <title>Exporting and Printing</title>
 <para>Bible Window, Lexicon Window, Commentary Window</para>
-<para>By &RMB; on the index key number, verse number or text the
+<para>By clicking with the right mouse button on the index key number, verse number or text the
 Bible Window, Lexicon Window,or Commentary Window drop down box is
 displayed (depending on which kind of window is current),
 providing options to select all, look up text in lexicon,
@@ -696,22 +696,22 @@ and the export options copy, add to printing queue, and save.</para>
 
 <section id="hdbk-op-select-all">
 <title>Select All</title>
-<para>A &LMB; here will select all of the text in the chapter displayed
+<para>A mouse click here will select all of the text in the chapter displayed
 in the current window.
 </para>
 </section>
 
 <section id="hdbk-op-lookup">
 <title>Lookup Text in Lexicon</title>
-<para>A &LMB; here will bring up a submenu with a list of all of the available
-lexicons.  A &LMB; on a lexicon will open that lexicon to the cross reference of
+<para>A mouse click here will bring up a submenu with a list of all of the available
+lexicons.  A click on a lexicon will open that lexicon to the cross reference of
 the selected text in the current window.
 </para>
 </section>
 
 <section id="hdbk-op-copy">
 <title>Copy</title>
-<para>A &LMB; here will bring up a sub menu offering to copy to the copy
+<para>A mouse click here will bring up a sub menu offering to copy to the copy
 buffer using the current location of the cursor as the starting point.
 </para>
 <itemizedlist>
@@ -747,7 +747,7 @@ This text can be copied into any application that can access the linux copy buff
 </section>
 
 <section id="hdbk-op-print"><title>Add to Printing Queue</title>
-<para>A &LMB; here will bring up a submenu with the printing options:
+<para>A mouse click here will bring up a submenu with the printing options:
 </para>
 <itemizedlist>
 <listitem>
@@ -775,7 +775,7 @@ tools on your system to format your work.
 </section>
 <section id="hdbk-op-save">
 <title>Save</title>
-<para>A &LMB; here will bring up a submenu with save options:
+<para>A mouse click here will bring up a submenu with save options:
 </para>
 <itemizedlist>
 <listitem>

@@ -1022,7 +1022,7 @@ void CBookmarkFolder::importBookmarks(){
   if (!fileName.isEmpty()) {
     //we have to decide if we should load an old bookmark file from 1.2 or earlier or the new XML format of > 1.3    
     if ( !loadBookmarks(fileName) ) { //if this fialed try to load it as old bookmark file
-      qWarning("use OldBookmarkImport");
+//      qWarning("use OldBookmarkImport");
       OldBookmarkImport import;
       loadBookmarksFromXML( import.oldBookmarksXML( fileName ) );
     };
@@ -1178,10 +1178,10 @@ void CGlossaryFolder::initTree(){
 //      qWarning("FOUND a glossary!");
       //found a glossary
       if (language() == QString::fromLatin1("*")
-          || (language() != QString::fromLatin1("*")
-               && m->config(CSwordModuleInfo::GlossaryFrom) == fromLanguage()
-               && m->config(CSwordModuleInfo::GlossaryTo) == toLanguage()
-             )
+        || (language() != QString::fromLatin1("*")
+          && m->config(CSwordModuleInfo::GlossaryFrom) == fromLanguage()
+          && m->config(CSwordModuleInfo::GlossaryTo) == toLanguage()
+      )
         )
       { //right type and language!
 //        qWarning("append module %s", m->module()->Name());
