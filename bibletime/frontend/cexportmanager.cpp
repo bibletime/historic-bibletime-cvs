@@ -70,11 +70,19 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
     return false;
 	}
 	
+	CSwordBackend::FilterOptions filterOptions = m_filterOptions;
+	filterOptions.footnotes = false;
+	filterOptions.strongNumbers = false;
+	filterOptions.morphTags = false;
+	filterOptions.lemmas = false;
+	filterOptions.scriptureReferences = false;
+	filterOptions.textualVariants = false;
+	
 	CHTMLExportRendering::Settings settings(addText);
-	util::scoped_ptr<CTextRendering> render(
+	util::scoped_ptr<CTextRendering> render (
 		(format == HTML)
- 		? new CHTMLExportRendering(settings, m_displayOptions, m_filterOptions) 
-		: new CPlainTextExportRendering(settings, m_displayOptions, m_filterOptions)
+ 		? new CHTMLExportRendering(settings, m_displayOptions, filterOptions) 
+		: new CPlainTextExportRendering(settings, m_displayOptions, filterOptions)
 	);
 
 	QString text;
@@ -109,11 +117,19 @@ const bool CExportManager::saveKeyList(sword::ListKey* list, CSwordModuleInfo* m
     return false;
 	}
 
+	CSwordBackend::FilterOptions filterOptions = m_filterOptions;
+	filterOptions.footnotes = false;
+	filterOptions.strongNumbers = false;
+	filterOptions.morphTags = false;
+	filterOptions.lemmas = false;
+	filterOptions.scriptureReferences = false;
+	filterOptions.textualVariants = false;
+	
 	CHTMLExportRendering::Settings settings(addText);
-	util::scoped_ptr<CTextRendering> render(
-		(format == HTML) 
-		? new CHTMLExportRendering(settings, m_displayOptions, m_filterOptions) 
-		: new CPlainTextExportRendering(settings, m_displayOptions, m_filterOptions)
+	util::scoped_ptr<CTextRendering> render (
+		(format == HTML)
+ 		? new CHTMLExportRendering(settings, m_displayOptions, filterOptions) 
+		: new CPlainTextExportRendering(settings, m_displayOptions, filterOptions)
 	);
 	
 	CTextRendering::KeyTree tree;
@@ -149,11 +165,19 @@ const bool CExportManager::saveKeyList(QPtrList<CSwordKey>& list, const Format f
     return false;
 	}
 
+	CSwordBackend::FilterOptions filterOptions = m_filterOptions;
+	filterOptions.footnotes = false;
+	filterOptions.strongNumbers = false;
+	filterOptions.morphTags = false;
+	filterOptions.lemmas = false;
+	filterOptions.scriptureReferences = false;
+	filterOptions.textualVariants = false;
+	
 	CHTMLExportRendering::Settings settings(addText);
-	util::scoped_ptr<CTextRendering> render(
-		(format == HTML) 
-		? new CHTMLExportRendering(settings, m_displayOptions, m_filterOptions) 
-		: new CPlainTextExportRendering(settings, m_displayOptions, m_filterOptions)
+	util::scoped_ptr<CTextRendering> render (
+		(format == HTML)
+ 		? new CHTMLExportRendering(settings, m_displayOptions, filterOptions) 
+		: new CPlainTextExportRendering(settings, m_displayOptions, filterOptions)
 	);
 	
 	CTextRendering::KeyTree tree;
@@ -178,87 +202,89 @@ const bool CExportManager::saveKeyList(QPtrList<CSwordKey>& list, const Format f
 };
 
 const bool CExportManager::copyKey(CSwordKey* key, const Format format, const bool addText) {
-  if (!key)
-    return false;
+	if (!key) {
+		return false;
+	}
+	if (!key->module()) {
+		return false;
+	}
+	
+	CSwordBackend::FilterOptions filterOptions = m_filterOptions;
+	filterOptions.footnotes = false;
+	filterOptions.strongNumbers = false;
+	filterOptions.morphTags = false;
+	filterOptions.lemmas = false;
+	filterOptions.scriptureReferences = false;
+	filterOptions.textualVariants = false;
+	
+	CHTMLExportRendering::Settings settings(addText);
+	util::scoped_ptr<CTextRendering> render (
+		(format == HTML)
+ 		? new CHTMLExportRendering(settings, m_displayOptions, filterOptions) 
+		: new CPlainTextExportRendering(settings, m_displayOptions, filterOptions)
+	);
 
-  QString text = QString::null;
-  if (addText) {
-		CSwordBackend::FilterOptions filterOpts = m_filterOptions;
-		filterOpts.footnotes = false;
-		filterOpts.strongNumbers = false;
-		filterOpts.lemmas = false;
-		filterOpts.scriptureReferences = false;
-		filterOpts.textualVariants = false;
-		
-    CPointers::backend()->setFilterOptions(filterOpts);
-    CPointers::backend()->setDisplayOptions(m_displayOptions);
-
-    CSwordModuleInfo* module = key->module();
-  	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) {
-      CSwordVerseKey startKey(module);
-      CSwordVerseKey stopKey(module);
-
-  		startKey.key(vk->LowerBound());
-  		stopKey.key(vk->UpperBound());
-      QString entryText;
-  		while ( startKey < stopKey || startKey == stopKey ) {
-        entryText = (format == HTML) ? startKey.renderedText() : startKey.strippedText();
-
-  			text += ((bool)m_displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
-+ entryText + lineBreak(format);
-
-        startKey.next(CSwordVerseKey::UseVerse);
-  		}
-  	}
-    else {
-      text = (format == HTML) ? key->renderedText() : key->strippedText();
-    }
-    text += "\n" + QString::fromLatin1("(%1, %2)").arg(key->key()).arg(module->name());
-  }
-  else { //don't add text
-    if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key)) { //make sure VerseKeys are localized!
-      vk->setLocale( backend()->booknameLanguage().latin1() );
-      text = vk->key();      
-    }
-    else {
-      text = key->key();
-    }
-  	return true;
-  }
-  KApplication::clipboard()->setText(text);
+	QString text;
+	QString startKey;
+	QString stopKey;
+	
+	ListCSwordModuleInfo modules;
+	modules.append(key->module());
+	
+	CSwordVerseKey *vk = dynamic_cast<CSwordVerseKey*>(key);
+	if (vk && vk->isBoundSet()) {
+		text = render->renderKeyRange( 
+			QString::fromUtf8(vk->LowerBound()), 
+			QString::fromUtf8(vk->UpperBound()), 
+			modules 
+		);
+	}
+	else { //no range supported
+		text = render->renderSingleKey(key->key(), modules);
+	}
+	
+	KApplication::clipboard()->setText(text);
 	return true;
 };
 
 const bool CExportManager::copyKeyList(sword::ListKey* list, CSwordModuleInfo* module, const Format format, const bool addText) {
-  if (!list)
+  if (!list->Count())
     return false;
 
-  setProgressRange(list->Count());
- 	util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(module));
+	const QString filename = getSaveFileName(format);
+  if (filename.isEmpty()) {
+    return false;
+	}
 
- 	QString text;
+	CSwordBackend::FilterOptions filterOptions = m_filterOptions;
+	filterOptions.footnotes = false;
+	filterOptions.strongNumbers = false;
+	filterOptions.morphTags = false;
+	filterOptions.lemmas = false;
+	filterOptions.scriptureReferences = false;
+	filterOptions.textualVariants = false;
+	
+	CHTMLExportRendering::Settings settings(addText);
+	util::scoped_ptr<CTextRendering> render (
+		(format == HTML)
+ 		? new CHTMLExportRendering(settings, m_displayOptions, filterOptions) 
+		: new CPlainTextExportRendering(settings, m_displayOptions, filterOptions)
+	);
+	
+	CTextRendering::KeyTree tree;	
+	CTextRendering::KeyTreeItem::Settings itemSettings;
+	itemSettings.highlight = false;
+	
  	*list = sword::TOP;
  	while (!list->Error() && !progressWasCancelled()) {
- 		if (!key)
- 			break;
+		tree.append( new CTextRendering::KeyTreeItem(QString::fromLocal8Bit((const char*)(*list)) , module, itemSettings) );
+		
+		(*list)++;
+	}
 
-    key->key((const char*)(*list));
- 		if (addText)
-// 			text += QString::fromLatin1("%1:%2\t%3\n").arg( key->key() ).arg(lineBreak(format)).arg( (format == HTML) ? key->renderedText() : key->strippedText() );
- 			text += QString::fromLatin1("%1\t%3\n").arg( key->key() ).arg( (format == HTML) ? key->renderedText() : key->strippedText() );
-
- 		else
- 			text += key->key() + lineBreak(format);
-    incProgress();
- 		(*list)++;
- 	}
-
-  if (!progressWasCancelled()) {
-    KApplication::clipboard()->setText(text);
-		closeProgressDialog();
-   	return true;
- 	}
-	return false;
+	const QString text = render->renderKeyTree(tree);	
+	KApplication::clipboard()->setText(text);
+	return true;
 };
 
 
@@ -266,26 +292,34 @@ const bool CExportManager::copyKeyList(QPtrList<CSwordKey>& list, const Format f
   if (!list.count())
     return false;
 
-  QString text;
-  setProgressRange(list.count());
+	CSwordBackend::FilterOptions filterOptions = m_filterOptions;
+	filterOptions.footnotes = false;
+	filterOptions.strongNumbers = false;
+	filterOptions.morphTags = false;
+	filterOptions.lemmas = false;
+	filterOptions.scriptureReferences = false;
+	filterOptions.textualVariants = false;
+	
+	CHTMLExportRendering::Settings settings(addText);
+	util::scoped_ptr<CTextRendering> render (
+		(format == HTML)
+ 		? new CHTMLExportRendering(settings, m_displayOptions, filterOptions) 
+		: new CPlainTextExportRendering(settings, m_displayOptions, filterOptions)
+	);
+	
+	CTextRendering::KeyTree tree;
+	
+	CTextRendering::KeyTreeItem::Settings itemSettings;
+	itemSettings.highlight = false;
+	
   for (CSwordKey* k = list.first(); k && !progressWasCancelled(); k = list.next()) {
- 		if (addText)
-// 			text += QString::fromLatin1("%1:%2\t%3\n").arg( k->key() ).arg(lineBreak(format)).arg( (format == HTML) ? k->renderedText() : k->strippedText() );
- 			text += QString::fromLatin1("%1\t%3\n").arg( k->key() ).arg( (format == HTML) ? k->renderedText() : k->strippedText() );
-
- 		else {
- 			text += k->key() + lineBreak(format);
-		}
-		
+ 		tree.append( new CTextRendering::KeyTreeItem(k->key(), k->module(), itemSettings) );
     incProgress();
   };
 
-  if (!progressWasCancelled()) {
-    KApplication::clipboard()->setText(text);
- 		closeProgressDialog();
- 		return true;
- 	}
-  return false;
+	const QString text = render->renderKeyTree(tree);	
+	KApplication::clipboard()->setText(text);
+	return true;
 };
 
 const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* module) {
@@ -321,7 +355,7 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 	return false;
 };
 
-const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& description ){
+const bool CExportManager::printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopKey, const QString& /*description*/ ){
 	CPrinter::KeyTreeItem::Settings settings;
 	
 	CPrinter::KeyTree tree;

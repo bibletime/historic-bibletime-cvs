@@ -122,7 +122,18 @@ const QString CHTMLReadDisplay::text( const CDisplay::TextType format, const CDi
       if (CSwordModuleInfo* module = backend()->findModuleByName(moduleName)) {
 				util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
     		key->key( keyName );
+				
+				//TODO: This is a BAD HACK, we have to fnd a better solution to manage the settings now
+				CSwordBackend::FilterOptions filterOptions;
+				filterOptions.footnotes = false;
+				filterOptions.strongNumbers = false;
+				filterOptions.morphTags = false;
+				filterOptions.lemmas = false;
+				filterOptions.scriptureReferences = false;
+				filterOptions.textualVariants = false;
 
+				CPointers::backend()->setFilterOptions(filterOptions);
+				
       	return QString::fromLatin1("%1\n(%2, %3)")
           .arg(key->strippedText())
           .arg(key->key())

@@ -29,7 +29,7 @@ CPlainTextExportRendering::CPlainTextExportRendering(const CPlainTextExportRende
 CPlainTextExportRendering::~CPlainTextExportRendering() {
 }
 
-const QString CPlainTextExportRendering::renderEntry( const KeyTreeItem& i ) {
+const QString CPlainTextExportRendering::renderEntry( const KeyTreeItem& i, CSwordKey*  ) {
 	if (!m_settings.addText) {
 		return QString::fromLatin1("%1\n").arg(i.key());
 	}
@@ -43,12 +43,10 @@ const QString CPlainTextExportRendering::renderEntry( const KeyTreeItem& i ) {
     key->module(m);
     key->key( i.key() );
 		
-		entry += key->strippedText() + "\n\n";
-		//entry.simplifyWhiteSpace();
-		//entry.replace(QRegExp("^\\b+"), "");
-		
+		entry += key->strippedText() + "\n";
 		renderedText += entry;
 	}
+	
 	return renderedText;	
 }
 

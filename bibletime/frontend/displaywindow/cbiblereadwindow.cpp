@@ -251,17 +251,14 @@ void CBibleReadWindow::keyChanged(CSwordKey* /*key*/){
 
 /** Copies the current chapter into the clipboard. */
 void CBibleReadWindow::copyDisplayedText(){
-//normal function
-  CSwordVerseKey vk(*verseKey());
-  CSwordVerseKey dummy(*verseKey());
-
+	CSwordVerseKey dummy(*verseKey());
   dummy.Verse(1);
-//  qWarning("copyChapter: lower bound is %s", (const char*)dummy);
+	
+  CSwordVerseKey vk(*verseKey());  
   vk.LowerBound(dummy);
 
   CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
   dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
-//  qWarning("copyChapter: upper bound is %s", (const char*)dummy);
   vk.UpperBound(dummy);
 
   CExportManager mgr(i18n("Copy chapter to clipboard ..."), false, i18n("Copying"), filterOptions(), displayOptions());

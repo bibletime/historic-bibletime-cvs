@@ -29,7 +29,7 @@ public:
 	virtual ~CPlainTextExportRendering();
 	
 protected:	
-	virtual const QString renderEntry( const KeyTreeItem& );
+	virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 );
 	virtual const QString finishText( const QString&, KeyTree& tree );
 };
 
