@@ -32,16 +32,17 @@
 #include <versekey.h>
 
 CHTMLEntryDisplay::CHTMLEntryDisplay(){
-	m_htmlHeader = "<HTML><HEAD></HEAD>";
-	m_htmlBody = "</BODY></HTML>";
-
+	m_htmlHeader = "<html><head></head>";
+	m_htmlBody = "</body></html>";
 	m_includeHeader = true;
 }
+
 
 CHTMLEntryDisplay::~CHTMLEntryDisplay(){
 }
 
 void CHTMLEntryDisplay::updateSettings(void){
+	m_standardFontColorName = COptionsDialog::getBTColor(COptionsDialog::text).name();
   StandardFontName = COptionsDialog::getBTFont(COptionsDialog::standard).family();
 	UnicodeFontName = COptionsDialog::getBTFont(COptionsDialog::unicode).family();
   StandardFontSize = CToolClass::makeLogicFontSize( COptionsDialog::getBTFont(COptionsDialog::standard).pointSize() );

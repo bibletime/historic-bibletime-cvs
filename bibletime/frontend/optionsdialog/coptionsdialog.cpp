@@ -300,14 +300,29 @@ void COptionsDialog::initDisplayWindow() {
 	
 	{
 		m_displayWindows.general.useDownArrow = new QCheckBox(page);
-  	m_displayWindows.general.useDownArrow->setText(i18n("Use down arrow to scroll to next verse."));
+  	m_displayWindows.general.useDownArrow->setText(i18n("Use down arrow to scroll to next verse"));
 		QWhatsThis::add(m_displayWindows.general.useDownArrow, WT_OD_GENERAL_SCROLL_PREVIOUS);
 		QToolTip::add(m_displayWindows.general.useDownArrow, TT_OD_GENERAL_SCROLL_PREVIOUS);
+
+		m_displayWindows.general.lineBreaks = new QCheckBox(page);
+  	m_displayWindows.general.lineBreaks->setText(i18n("Show linebreak after each verse"));
+//		QWhatsThis::add(m_displayWindows.general.lineBreaks, WT_OD_GENERAL_SCROLL_PREVIOUS);
+//		QToolTip::add(m_displayWindows.general.lineBreaks, TT_OD_GENERAL_SCROLL_PREVIOUS);
+
+		m_displayWindows.general.verseNumbers = new QCheckBox(page);
+  	m_displayWindows.general.verseNumbers->setText(i18n("Show versenumbers"));
+//		QWhatsThis::add(m_displayWindows.general.verseNumbers, WT_OD_GENERAL_SCROLL_PREVIOUS);
+//		QToolTip::add(m_displayWindows.general.verseNumbers, TT_OD_GENERAL_SCROLL_PREVIOUS);
+
 		
 		KConfigGroupSaver groupSaver(m_config, "General");		
 		m_displayWindows.general.useDownArrow->setChecked(m_config->readBoolEntry("Scroll",true));		
+		m_displayWindows.general.lineBreaks->setChecked(m_config->readBoolEntry("lineBreaks",true));		
+		m_displayWindows.general.verseNumbers->setChecked(m_config->readBoolEntry("verseNumbers",true));		
 	}
 	layout->addWidget(m_displayWindows.general.useDownArrow);
+	layout->addWidget(m_displayWindows.general.lineBreaks);
+	layout->addWidget(m_displayWindows.general.verseNumbers);
 	layout->addStretch(4);	
 
 	items.clear();		
@@ -317,7 +332,13 @@ void COptionsDialog::initDisplayWindow() {
 	group->setLineWidth(0);
 	{
 		KConfigGroupSaver groupSaver(m_config, "Colors");			
-		QLabel* label = new QLabel(i18n("Background"), group);		
+
+		QLabel* label = new QLabel(i18n("Text"), group);		
+//		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
+//		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
+		m_displayWindows.colors.text = new KColorButton(m_config->readColorEntry("text", &Qt::black), group);		
+
+		label = new QLabel(i18n("Background"), group);		
 		QToolTip::add(label, TT_OD_COLORS_BACKGROUND );		
 		QWhatsThis::add(label, WT_OD_COLORS_BACKGROUND );	
 		m_displayWindows.colors.background = new KColorButton(m_config->readColorEntry("Background", &Qt::white), group);		
@@ -473,6 +494,8 @@ void COptionsDialog::saveDisplayWindow() {
 	{//save settings for the scroll button
 		KConfigGroupSaver groupSaver(m_config, "General");
 		m_config->writeEntry("Scroll", m_displayWindows.general.useDownArrow->isChecked(), true);
+		m_config->writeEntry("lineBreaks", m_displayWindows.general.lineBreaks->isChecked(), true);
+		m_config->writeEntry("verseNumbers", m_displayWindows.general.verseNumbers->isChecked(), true);
 	}
 	
 	{
@@ -487,9 +510,11 @@ void COptionsDialog::saveDisplayWindow() {
 	
 	{ //save color options
 		KConfigGroupSaver groupSaver(m_config, "Colors");
+
+		m_config->writeEntry("text", m_displayWindows.colors.text->color().name());	
+
 		if ( m_config->readColorEntry("Background") != m_displayWindows.colors.background->color() )
 			m_changedSettings |= CSwordPresenter::backgroundColor;
-
 		m_config->writeEntry("Background", m_displayWindows.colors.background->color().name());	
 	
 		if ( m_config->readColorEntry("Highlighted Verse") != m_displayWindows.colors.highlightedVerse->color() )
@@ -605,6 +630,8 @@ QColor COptionsDialog::getBTColor( BTColor which){
   KConfigGroupSaver groupSaver(config,"Colors");
 
 	switch (which){
+		case COptionsDialog::text:
+			return config->readColorEntry( "text", &Qt::black );
 		case COptionsDialog::background:
 			return config->readColorEntry( "Background", &Qt::white );
 		case COptionsDialog::highlighted_verse:
@@ -619,5 +646,21 @@ QColor COptionsDialog::getBTColor( BTColor which){
 			return config->readColorEntry( "jesuswords", &Qt::red );
 		default:
 			return QColor( Qt::black );
+	}
+}
+/** No descriptions */
+bool COptionsDialog::getBTBool( BTBool which){
+  KConfig* config = KGlobal::config();
+  KConfigGroupSaver groupSaver(config,"General");
+
+	switch (which){
+		case COptionsDialog::downArrow:
+			return config->readBoolEntry( "Scroll", true );
+		case COptionsDialog::lineBreaks:
+			return config->readBoolEntry( "lineBreaks", true );
+		case COptionsDialog::verseNumbers:
+			return config->readBoolEntry( "verseNumbers", true );
+		default:
+			return true;
 	}
 }

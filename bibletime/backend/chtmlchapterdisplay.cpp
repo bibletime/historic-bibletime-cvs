@@ -32,8 +32,15 @@
 
 /** The constructor */
 CHTMLChapterDisplay::CHTMLChapterDisplay(){
-	m_useLineBreak = true;	//we use breaks as default, should be changeable at runtime
 }
+
+void CHTMLChapterDisplay::updateSettings(void){
+	m_useLineBreak    = COptionsDialog::getBTBool(COptionsDialog::lineBreaks);	
+	m_useVerseNumbers = COptionsDialog::getBTBool(COptionsDialog::verseNumbers);	
+  m_highlightedVerseColorName = COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name();
+	CHTMLEntryDisplay::updateSettings();
+}
+
 
 /** Renders the text and puts the result into the member variable m_htmlText */
 char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
@@ -50,37 +57,46 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	int verse = 0;
 	
 	if (module->encoding() == QFont::Unicode) {
-		m_htmlHeader = "<HTML><HEAD><META HTTP-EQUIV=\"Content-Type\" content=\"text/html; charset=utf-8\"></HEAD>";
+		m_htmlHeader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>";
 	}
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY>");//dir=\"%1\">").arg((module->getTextDirection() == CSwordModuleInfo::RTL) ? "rtl" : "ltr");
 	
 	//reload font settings
 	updateSettings();
 
- 	QString FontName = StandardFontName;
- 	int FontSize = StandardFontSize;
+	m_htmlText.append(QString("<font face=\"%1\" size=\"%2\" color=\"%3\">")
+		.arg((module->encoding() == QFont::Unicode)? UnicodeFontName : StandardFontName)
+		.arg((module->encoding() == QFont::Unicode)? UnicodeFontSize : StandardFontSize)
+		.arg(m_standardFontColorName)
+	);
 
-  if (module->encoding() == QFont::Unicode){ //use custom font?
-    FontName = UnicodeFontName;
-    FontSize = UnicodeFontSize;
-  }
+// 	QString FontName = StandardFontName;
+// 	int FontSize = StandardFontSize;
+//
+//  if (module->encoding() == QFont::Unicode){ //use custom font?
+//    FontName = UnicodeFontName;
+//    FontSize = UnicodeFontSize;
+//  }
 
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.NextVerse()) {
 		verse = key.Verse();
-		m_htmlText.append( QString::fromLatin1("<A NAME=\"%1\" HREF=\"%2\"><B>%3</B></A>")
-			.arg(verse)
-			.arg(CReferenceManager::encodeHyperlink( module->name(), key.key() ))
-			.arg(verse)
-		);
-		m_htmlText.append( QString::fromLatin1("<FONT %1 FACE=\"%2\" SIZE=\"%3\"> %4</FONT>")
-			.arg((verse == currentVerse) ? QString::fromLatin1("COLOR=\"%1\"").arg(COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name()) : QString::null)
-			.arg(FontName)
-			.arg(FontSize)
-			.arg(key.renderedText())
-		);
+		if (m_useVerseNumbers)
+#warning make color configurable
+			m_htmlText.append( QString::fromLatin1("<a name=\"%1\" href=\"%2\"><b>%3</b></a>")
+				.arg(verse)
+				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key() ))
+				.arg(verse)
+			);
+		if (verse == currentVerse)
+		  m_htmlText.append( QString("<font color=\"")+m_highlightedVerseColorName+QString("\">") );
+		m_htmlText.append(key.renderedText());
+		if (verse == currentVerse)
+		  m_htmlText.append( QString("</font>") );
+
 		if (m_useLineBreak)
-			m_htmlText.append("<BR>\n");
+			m_htmlText.append("<br>\n");
 	}
+	m_htmlText.append("</font>");
 	m_htmlText.append(m_htmlBody);	
 
 	return 1;	//no error	
@@ -98,10 +114,6 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	//reload font settings
 	updateSettings();
 
- 	QString FontName = StandardFontName;
- 	int FontSize = StandardFontSize;
-
-
 //	QMap<CSwordModuleInfo*, QFont> fontMap;	
 	SWModule* module = moduleList->first()->module();		
 		
@@ -115,25 +127,31 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	const int width=(int)((double)97/(double)moduleList->count());
 	CSwordModuleInfo *d = 0;
 			
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY><TABLE CELLPADDING=\"2\" CELLSPACING=\"0\">");
- 	m_htmlText.append(QString::fromLatin1("<TR><TD BGCOLOR=\"#F1F1F1\"></TD>"));
+	m_htmlText=m_htmlHeader+QString("<body>");
+
+	m_htmlText.append(
+		QString("<table cellpadding=\"2\" cellspacing=\"0\"><td bgcolor=\"#f1f1f1\"></td>"));
+
+	m_htmlText.append(QString("<font face=\"%1\" size=\"%2\" color=\"%3\">")
+		.arg(StandardFontName).arg(StandardFontSize).arg(m_standardFontColorName));
+
 	
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
 
 	while (m) {
     if (m)
 			m_htmlText +=
-				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%1</B></TD>").arg((int)((double)100/(double)moduleList->count())).arg(d->name());
+				QString::fromLatin1("<td width=\"%1\" bgcolor=\"#f1f1f1\"><b>%1</b></td>").arg((int)((double)100/(double)moduleList->count())).arg(d->name());
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
-	m_htmlText.append("</TR>");
+	m_htmlText.append("</tr>");
 		
 	QString rowText   = QString::null;
 	int currentVerse = 0;
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.NextVerse()) {
 		const QString currentKey = key.key();
 		currentVerse = key.Verse();
-		rowText = QString::fromLatin1("<TR><TD bgcolor=\"#F1F1F1\"><B><A NAME=\"%1\" HREF=\"sword://%2\">%3</A></B></TD>\n")
+		rowText = QString("<tr><td bgcolor=\"#f1f1f1\"><b><a name=\"%1\" href=\"sword://%2\">%3</a></b></td>\n")
 			.arg(currentVerse)
 			.arg(currentKey)
 			.arg(currentVerse);
@@ -141,18 +159,31 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		while (m) {
 			CSwordVerseKey current(d);
 			current.key(currentKey);
-			rowText += QString::fromLatin1("<TD %1 BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\" %5>%6</FONT></TD>\n")
-				.arg(QString::fromLatin1("width=\"%1%\"").arg(width))
-				.arg(currentVerse % 2 ? "white" : "#F1F1F1")
-				.arg(d->encoding()==QFont::Unicode ? UnicodeFontName : StandardFontName)
-				.arg(d->encoding()==QFont::Unicode ? UnicodeFontSize : StandardFontSize)
-				.arg((currentVerse == chosenVerse) ? QString::fromLatin1("color=\"%1\"").arg(COptionsDialog::getBTColor(COptionsDialog::highlighted_verse).name()) : QString::null)
-				.arg(current.renderedText());
+			rowText += QString("<td width=\"%1\" bgcolor=\"%2\">")
+				.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
+			if (d->encoding()==QFont::Unicode)
+				rowText += QString("<font face=\"%1\" size=\"%2\">")
+					.arg(UnicodeFontName).arg(UnicodeFontSize);
+			if (currentVerse == chosenVerse)
+				rowText += QString("<font color=\"%1\">")
+					.arg(m_highlightedVerseColorName);
+
+			rowText += current.renderedText();
+
+			if (currentVerse == chosenVerse)
+				rowText += QString("</font>");
+			if (d->encoding()==QFont::Unicode)
+				rowText += QString("</font");
+
 			m = (d = moduleList->next()) ? d->module() : 0;
 		}
-		m_htmlText.append(rowText + QString::fromLatin1("</TR>\n"));
+		m_htmlText.append(rowText + QString::fromLatin1("</tr>\n"));
 	}
-	m_htmlText.append( QString::fromLatin1("</TABLE>")+m_htmlBody );		
+	m_htmlText.append(QString("</font>"));
+	m_htmlText.append(QString("</table>"));
+	m_htmlText.append(m_htmlBody);
+
+//	qWarning(m_htmlText.utf8());
 	
 	//clean up
 	return 1;		

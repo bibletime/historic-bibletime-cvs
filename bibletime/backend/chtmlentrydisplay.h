@@ -71,14 +71,18 @@ public:
   * Generates code to display the given modules side by side.
   */
   virtual char Display( QList<CSwordModuleInfo>* moduleList);
-		
-private:
-	friend class CHTMLChapterDisplay;	
+
+protected:
+	bool m_useLineBreaks;
+
+//private:
+	//friend class CHTMLChapterDisplay;	
 	QString m_htmlText;
 	QString m_htmlHeader;
 	QString m_htmlBody;
 
 	bool m_includeHeader;
+	QString m_standardFontColorName;
 
   QString StandardFontName;
 	QString UnicodeFontName;

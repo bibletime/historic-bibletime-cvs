@@ -65,6 +65,7 @@ public:
 		unicode
 	};
   enum BTColor {
+		text,
 		background,
 		highlighted_verse,
 		footnote,
@@ -72,9 +73,16 @@ public:
 		morph,
 		jesuswords
 	};
+	enum BTBool {
+		downArrow,
+		lineBreaks,
+		verseNumbers
+	};
 
-	static QFont getBTFont( BTFont which );
+	static QFont 	getBTFont ( BTFont which );
 	static QColor getBTColor( BTColor which );
+	static bool		getBTBool ( BTBool which );
+
 
 private:
   void initGeneral();
@@ -111,11 +119,14 @@ private:
 
 	struct DisplayWindowSettings {
 		struct GeneralSettings {
-			QCheckBox* useDownArrow;
 			QComboBox* localeCombo;
+			QCheckBox* useDownArrow;
+			QCheckBox* lineBreaks;
+			QCheckBox* verseNumbers;
 		} general;
 		
 		struct ColorSettings {
+			KColorButton* text;
 			KColorButton* background;
 			KColorButton* highlightedVerse;
 			KColorButton* footnotes;

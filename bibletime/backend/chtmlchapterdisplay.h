@@ -44,11 +44,16 @@ public:
   * Generates code to display the given modules side by side.
   */
   virtual char Display( QList<CSwordModuleInfo>* moduleList);
+
+protected:
+	void updateSettings(void);
   /**
  	* If this variable is true the chapters
  	* displayed in BibleTime will have word wraps.
  	*/
   bool m_useLineBreak;
+	bool m_useVerseNumbers;
+	QString m_highlightedVerseColorName;
 };
 
 #endif
