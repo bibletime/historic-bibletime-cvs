@@ -468,7 +468,7 @@ void BibleTime::initBackends(){
 	KStartupLogo::setStatusMessage(i18n("Initializing Sword") + QString::fromLatin1("..."));
 
 //  qWarning("backend constructed with a path argument! %s", path.latin1());
-   	StringMgr::setSystemStringMgr( new BTStringMgr() );
+	StringMgr::setSystemStringMgr( new BTStringMgr() );
 	
 	m_backend = new CSwordBackend();
 	CPointers::setBackend(m_backend);

@@ -229,7 +229,7 @@ const CBTConfig::StringMap CBTConfig::getDefault( const CBTConfig::stringMaps ID
         sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
         QString data;
         for (int i = 0; i < list.Count(); ++i) {
-          data += QString::fromLocal8Bit(list.GetElement(i)->getRangeText()) + "; ";
+          data += QString::fromUtf8(list.GetElement(i)->getRangeText()) + "; ";
      	  }
         map[it.key()] = data; //set the new data
       };      
@@ -299,7 +299,7 @@ const CBTConfig::StringMap CBTConfig::get( const CBTConfig::stringMaps ID ){
           sword::ListKey list = vk.ParseVerseList(it.data().local8Bit(), "Genesis 1:1", true);
           QString data;
           for (int i = 0; i < list.Count(); ++i) {
-            data += QString::fromLocal8Bit(list.GetElement(i)->getRangeText()) + "; ";
+            data += QString::fromUtf8(list.GetElement(i)->getRangeText()) + "; ";
        	  }
           map[it.key()] = data; //set the new data
         };
@@ -380,7 +380,7 @@ void CBTConfig::set( const CBTConfig::stringMaps ID, const CBTConfig::StringMap 
         for (int i = 0; i < list.Count(); ++i) {
           if ( sword::VerseKey* range = dynamic_cast<sword::VerseKey*>(list.GetElement(i)) ) {
             range->setLocale("en");
-            data += QString::fromLocal8Bit( range->getRangeText() ) + ";";
+            data += QString::fromUtf8( range->getRangeText() ) + ";";
           }
         }
         config->writeEntry(it.key(), data);

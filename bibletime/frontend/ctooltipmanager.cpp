@@ -180,7 +180,7 @@ const QString CTooltipManager::headingText( CSwordModuleInfo* module, const QStr
     sword::ListKey keys = sword::VerseKey().ParseVerseList((const char*)keyName.local8Bit(), sword::VerseKey("Genesis 1:1"), true);
 
     if (keys.Count() >= 1)
-      return QString::fromLocal8Bit(keys.GetElement(0)->getRangeText()) + defaultEnding;
+      return QString::fromUtf8(keys.GetElement(0)->getRangeText()) + defaultEnding;
     else
       return defaultEnding;
   }

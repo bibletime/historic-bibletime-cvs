@@ -682,9 +682,9 @@ void CRangeChooserDialog::parseRange(){
   range.replace(QRegExp("\\s{0,}-\\s{0,}"), "-" );
   
   sword::VerseKey key;
-  sword::ListKey verses = key.ParseVerseList((const char*)range.local8Bit(), "Genesis 1:1", true);
+  sword::ListKey verses = key.ParseVerseList((const char*)range.utf8(), "Genesis 1:1", true);
 	for (int i = 0; i < verses.Count(); ++i) {
-    new KListViewItem(m_resultList, QString::fromLocal8Bit(verses.GetElement(i)->getRangeText()));
+    new KListViewItem(m_resultList, QString::fromUtf8(verses.GetElement(i)->getRangeText()));
 //    qWarning("range=%s, text=%s",verses.GetElement(i)->getRangeText(), verses.GetElement(i)->getText() );
 	}
 
@@ -863,8 +863,10 @@ void CSearchAnalysis::analyse(ListCSwordModuleInfo modules){
 	while (ok && analysisItem) {
 		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
 			KApplication::kApplication()->processEvents(10);
-			if (!m_lastPosList.contains(m_moduleList.current()))
+			if (!m_lastPosList.contains(m_moduleList.current())) {
 				m_lastPosList.insert(m_moduleList.current(),0);
+			}
+			
 			analysisItem->setCountForModule(moduleIndex, (count = getCount(key.book(),m_moduleList.current())));
 			m_maxCount = (count > m_maxCount) ? count : m_maxCount;
 		}
@@ -956,7 +958,7 @@ const unsigned int CSearchAnalysis::getCount( const QString book, CSwordModuleIn
 	unsigned int count = 0;
 	const unsigned int resultCount = result.Count();
 	while (i < resultCount) {
-		if ( strncmp(book.local8Bit(), (const char*)*result.GetElement(i), length) )		
+		if ( strncmp(book.utf8(), (const char*)*result.GetElement(i), length) )		
 			break;
 		i++;
 		++count;		
@@ -1204,7 +1206,7 @@ void CSearchAnalysis::saveAsHTML(){
  	if (CSearchDialog::getSearchDialog()->searchScopeType() != CSwordModuleSearch::Scope_NoScope) { //a search scope was used
  		sword::ListKey verses = CSearchDialog::getSearchDialog()->searchScope();
  		for (int i = 0; i < verses.Count(); ++i) {
-      VerseRange += QString::fromLocal8Bit(verses.GetElement(i)->getRangeText()) + "<BR>";
+      VerseRange += QString::fromUtf8(verses.GetElement(i)->getRangeText()) + "<BR>";
  		}
  	}
 

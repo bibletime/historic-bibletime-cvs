@@ -114,9 +114,10 @@ void CSearchResultView::initConnections(){
 /** Setups the list with the given module. */
 void CSearchResultView::setupTree(CSwordModuleInfo* m){
   clear();
-  if (!m)
+  if (!m) {
     return;
-  m_module = m;
+	}
+	m_module = m;
 
   sword::ListKey result = m->searchResult();
 	const int count = result.Count();
@@ -129,7 +130,7 @@ void CSearchResultView::setupTree(CSwordModuleInfo* m){
   KListViewItem* item = 0;
   for (int index = 0; index < count; index++) {
     item = new KListViewItem(this, oldItem);
-    item->setText(0,QString::fromLocal8Bit((const char*)*result.GetElement(index)));
+    item->setText(0, QString::fromUtf8((const char*)*result.GetElement(index)));
     oldItem = item;
   }
 

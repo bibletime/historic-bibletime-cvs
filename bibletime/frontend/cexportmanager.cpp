@@ -85,7 +85,7 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 	
 	CSwordVerseKey *vk = dynamic_cast<CSwordVerseKey*>(key);
 	if (vk && vk->isBoundSet()) {
-		text = render->renderKeyRange( QString::fromLocal8Bit(vk->LowerBound()), QString::fromLocal8Bit(vk->UpperBound()), modules );
+		text = render->renderKeyRange( QString::fromUtf8(vk->LowerBound()), QString::fromUtf8(vk->UpperBound()), modules );
 	}
 	else { //no range supported
 		text = render->renderSingleKey(key->key(), modules);
@@ -290,11 +290,11 @@ const bool CExportManager::printKeyList(sword::ListKey* list, CSwordModuleInfo* 
 	while (!list->Error() && !progressWasCancelled()) {
 		sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(list);
 		if (vk) {
-			startKey = QString::fromLocal8Bit((const char*)(vk->LowerBound()) );
-			stopKey = QString::fromLocal8Bit((const char*)(vk->UpperBound()) );
+			startKey = QString::fromUtf8((const char*)(vk->LowerBound()) );
+			stopKey = QString::fromUtf8((const char*)(vk->UpperBound()) );
 		}
 		else {
-			startKey = QString::fromLocal8Bit((const char*)*list);
+			startKey = QString::fromUtf8((const char*)*list);
 			stopKey = QString::null;
 		//add all items to the queue
 	  }
@@ -362,7 +362,7 @@ const bool CExportManager::printByHyperlink( const QString& hyperlink ){
     	for (int i = 0; i < verses.Count(); ++i) {
     		sword::VerseKey* element = dynamic_cast<sword::VerseKey*>(verses.GetElement(i));
     		if (element)
-        	CExportManager::printKey(module,QString::fromLocal8Bit((const char*)element->LowerBound()), QString::fromLocal8Bit((const char*)element->UpperBound()) );
+        	CExportManager::printKey(module,QString::fromUtf8((const char*)element->LowerBound()), QString::fromUtf8((const char*)element->UpperBound()) );
     		else
 					CExportManager::printKey(module,(const char*)*verses.GetElement(i),(const char*)*verses.GetElement(i));
     	}

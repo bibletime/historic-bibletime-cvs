@@ -92,7 +92,7 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
  	sword::ListKey list;
   sword::SWBuf ret;
 
-  QStringList refList = QStringList::split(QRegExp("[,.;]|(?:\\s(?=\\d?[A-Z]))", false), QString::fromLocal8Bit(ref.c_str()));
+  QStringList refList = QStringList::split(QRegExp("[,.;]|(?:\\s(?=\\d?[A-Z]))", false), QString::fromUtf8(ref.c_str()));
 	int pos = 0;
 
   if ( !insertFullRef && (refList.count() >= 1) ) {
