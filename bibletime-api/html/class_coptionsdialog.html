@@ -23,93 +23,52 @@
 <tr><td nowrap align=right valign=top><a name="a1" doxytag="COptionsDialog::~COptionsDialog"></a>
 &nbsp;</td><td valign=bottom><b>~COptionsDialog</b> ()</td></tr>
 <tr><td nowrap align=right valign=top><a name="a2" doxytag="COptionsDialog::getChangedSettings"></a>
-int&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#a2">getChangedSettings</a> ()</td></tr>
+const int&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#a2">getChangedSettings</a> () const</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Returns an integer with ORed feature enum entries of the changed settings.</em></font><br><br></td></tr>
-<tr><td colspan=2><br><h2>Protected Methods</h2></td></tr>
-<tr><td nowrap align=right valign=top><a name="b0" doxytag="COptionsDialog::initGeneralPage"></a>
-void&nbsp;</td><td valign=bottom><b>initGeneralPage</b> ()</td></tr>
-<tr><td nowrap align=right valign=top><a name="b1" doxytag="COptionsDialog::initKeyPage"></a>
-void&nbsp;</td><td valign=bottom><b>initKeyPage</b> (KAccel *key_accel)</td></tr>
-<tr><td nowrap align=right valign=top><a name="b2" doxytag="COptionsDialog::initFontPage"></a>
-void&nbsp;</td><td valign=bottom><b>initFontPage</b> ()</td></tr>
-<tr><td nowrap align=right valign=top><a name="b3" doxytag="COptionsDialog::initFontManagerPage"></a>
-void&nbsp;</td><td valign=bottom><b>initFontManagerPage</b> ()</td></tr>
-<tr><td nowrap align=right valign=top><a name="b4" doxytag="COptionsDialog::initColorsPage"></a>
-void&nbsp;</td><td valign=bottom><b>initColorsPage</b> ()</td></tr>
-<tr><td nowrap align=right valign=top><a name="b5" doxytag="COptionsDialog::saveGeneralOptions"></a>
-void&nbsp;</td><td valign=bottom><b>saveGeneralOptions</b> ()</td></tr>
-<tr><td nowrap align=right valign=top><a name="b6" doxytag="COptionsDialog::saveFontOptions"></a>
-void&nbsp;</td><td valign=bottom><b>saveFontOptions</b> ()</td></tr>
-<tr><td nowrap align=right valign=top><a name="b7" doxytag="COptionsDialog::saveKeyOptions"></a>
-void&nbsp;</td><td valign=bottom><b>saveKeyOptions</b> ()</td></tr>
-<tr><td nowrap align=right valign=top><a name="b8" doxytag="COptionsDialog::saveColorsOptions"></a>
-void&nbsp;</td><td valign=bottom><b>saveColorsOptions</b> ()</td></tr>
 <tr><td colspan=2><br><h2>Protected Slots</h2></td></tr>
-<tr><td nowrap align=right valign=top><a name="h0" doxytag="COptionsDialog::newFontSelected"></a>
-void&nbsp;</td><td valign=bottom><b>newFontSelected</b> (const QFont &amp;)</td></tr>
-<tr><td nowrap align=right valign=top><a name="h1" doxytag="COptionsDialog::newForeignFontSelected"></a>
-void&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#h1">newForeignFontSelected</a> (const QFont &amp;)</td></tr>
+<tr><td nowrap align=right valign=top><a name="h0" doxytag="COptionsDialog::addNewProfile"></a>
+void&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#h0">addNewProfile</a> ()</td></tr>
+<tr><td>&nbsp;</td><td><font size=-1><em>Adds a new view profile to the list.</em></font><br><br></td></tr>
+<tr><td nowrap align=right valign=top><a name="h1" doxytag="COptionsDialog::newDisplayWindowFontSelected"></a>
+void&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#h1">newDisplayWindowFontSelected</a> (const QFont &amp;)</td></tr>
+<tr><td>&nbsp;</td><td><font size=-1><em>Called when a new font in the fonts page was selected.</em></font><br><br></td></tr>
+<tr><td nowrap align=right valign=top><a name="h2" doxytag="COptionsDialog::newForeignFontSelected"></a>
+void&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#h2">newForeignFontSelected</a> (const QFont &amp;)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Is called when a new font was selected in the foreign font manager dialog.</em></font><br><br></td></tr>
-<tr><td nowrap align=right valign=top><a name="h2" doxytag="COptionsDialog::slotOk"></a>
-void&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#h2">slotOk</a> ()</td></tr>
-<tr><td>&nbsp;</td><td><font size=-1><em>Called if the OK button was clicked.</em></font><br><br></td></tr>
 <tr><td nowrap align=right valign=top><a name="h3" doxytag="COptionsDialog::foreignFontModuleChanged"></a>
 void&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#h3">foreignFontModuleChanged</a> (QListBoxItem *)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Is called when the user select a new module in te foreign font management dialog.</em></font><br><br></td></tr>
+<tr><td nowrap align=right valign=top><a name="h4" doxytag="COptionsDialog::slotOk"></a>
+void&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#h4">slotOk</a> ()</td></tr>
+<tr><td>&nbsp;</td><td><font size=-1><em>Called if the OK button was clicked.</em></font><br><br></td></tr>
+<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#h5">slotApply</a> ()</td></tr>
+<tr><td>&nbsp;</td><td><font size=-1><em>Called if the Apply button was clicked commented out for the time being.</em> <a href="#h5">More...</a><em></em></font><br><br></td></tr>
+<tr><td nowrap align=right valign=top><a name="h6" doxytag="COptionsDialog::renameProfile"></a>
+void&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#h6">renameProfile</a> ()</td></tr>
+<tr><td>&nbsp;</td><td><font size=-1><em>Renames the currently selected profile.</em></font><br><br></td></tr>
+<tr><td nowrap align=right valign=top><a name="h7" doxytag="COptionsDialog::deleteProfile"></a>
+void&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#h7">deleteProfile</a> ()</td></tr>
+<tr><td>&nbsp;</td><td><font size=-1><em>No descriptions.</em></font><br><br></td></tr>
+<tr><td colspan=2><br><h2>Private Methods</h2></td></tr>
+<tr><td nowrap align=right valign=top><a name="c0" doxytag="COptionsDialog::initGeneral"></a>
+void&nbsp;</td><td valign=bottom><b>initGeneral</b> ()</td></tr>
+<tr><td nowrap align=right valign=top><a name="c1" doxytag="COptionsDialog::saveGeneral"></a>
+void&nbsp;</td><td valign=bottom><b>saveGeneral</b> ()</td></tr>
+<tr><td nowrap align=right valign=top><a name="c2" doxytag="COptionsDialog::initDisplayWindow"></a>
+void&nbsp;</td><td valign=bottom><b>initDisplayWindow</b> ()</td></tr>
+<tr><td nowrap align=right valign=top><a name="c3" doxytag="COptionsDialog::saveDisplayWindow"></a>
+void&nbsp;</td><td valign=bottom><b>saveDisplayWindow</b> ()</td></tr>
 <tr><td colspan=2><br><h2>Private Attributes</h2></td></tr>
-<tr><td nowrap align=right valign=top><a name="o0" doxytag="COptionsDialog::keyaccel_page"></a>
-QHBox*&nbsp;</td><td valign=bottom><b>keyaccel_page</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o1" doxytag="COptionsDialog::general_page"></a>
-QWidget*&nbsp;</td><td valign=bottom><b>general_page</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o2" doxytag="COptionsDialog::font_page"></a>
-QHBox*&nbsp;</td><td valign=bottom><b>font_page</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o3" doxytag="COptionsDialog::foreign_font_page"></a>
-QHBox*&nbsp;</td><td valign=bottom><b>foreign_font_page</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o4" doxytag="COptionsDialog::colors_page"></a>
-QHBox*&nbsp;</td><td valign=bottom><b>colors_page</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o5" doxytag="COptionsDialog::config"></a>
-KConfig*&nbsp;</td><td valign=bottom><b>config</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o6" doxytag="COptionsDialog::m_important"></a>
+<tr><td nowrap align=right valign=top><a name="o0" doxytag="COptionsDialog::m_config"></a>
+KConfig*&nbsp;</td><td valign=bottom><b>m_config</b></td></tr>
+<tr><td nowrap align=right valign=top><a name="o1" doxytag="COptionsDialog::m_important"></a>
 CImportantClasses*&nbsp;</td><td valign=bottom><b>m_important</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o7" doxytag="COptionsDialog::m_changedSettings"></a>
+<tr><td nowrap align=right valign=top><a name="o2" doxytag="COptionsDialog::m_changedSettings"></a>
 int&nbsp;</td><td valign=bottom><b>m_changedSettings</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o8" doxytag="COptionsDialog::backend"></a>
-CBackEnd*&nbsp;</td><td valign=bottom><b>backend</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o9" doxytag="COptionsDialog::tipCheckBox"></a>
-QCheckBox*&nbsp;</td><td valign=bottom><b>tipCheckBox</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o10" doxytag="COptionsDialog::logoCheckBox"></a>
-QCheckBox*&nbsp;</td><td valign=bottom><b>logoCheckBox</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o11" doxytag="COptionsDialog::currentFonts"></a>
-QFont&nbsp;</td><td valign=bottom><a class="el" href="class_coptionsdialog.html#o11">currentFonts</a> [1]</td></tr>
-<tr><td>&nbsp;</td><td><font size=-1><em>commented out until after 1.0 QCheckBox* scrollCheckBox;.</em></font><br><br></td></tr>
-<tr><td nowrap align=right valign=top><a name="o12" doxytag="COptionsDialog::localeComboBox"></a>
-QComboBox*&nbsp;</td><td valign=bottom><b>localeComboBox</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o13" doxytag="COptionsDialog::m_fontUsageChooser"></a>
-QComboBox*&nbsp;</td><td valign=bottom><b>m_fontUsageChooser</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o14" doxytag="COptionsDialog::fonts"></a>
-KFontChooser*&nbsp;</td><td valign=bottom><b>fonts</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o15" doxytag="COptionsDialog::m_fontMap"></a>
-QMap&lt;QString,QFont&gt;&nbsp;</td><td valign=bottom><b>m_fontMap</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o16" doxytag="COptionsDialog::dict"></a>
-QDict&lt;KKeyEntry&gt;&nbsp;</td><td valign=bottom><b>dict</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o17" doxytag="COptionsDialog::key_accel"></a>
-KAccel*&nbsp;</td><td valign=bottom><b>key_accel</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o18" doxytag="COptionsDialog::fontModuleList"></a>
-KListBox*&nbsp;</td><td valign=bottom><b>fontModuleList</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o19" doxytag="COptionsDialog::foreignFonts"></a>
-KFontChooser*&nbsp;</td><td valign=bottom><b>foreignFonts</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o20" doxytag="COptionsDialog::colorGroup"></a>
-QButtonGroup*&nbsp;</td><td valign=bottom><b>colorGroup</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o21" doxytag="COptionsDialog::backgroundButton"></a>
-KColorButton*&nbsp;</td><td valign=bottom><b>backgroundButton</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o22" doxytag="COptionsDialog::normalTextButton"></a>
-KColorButton*&nbsp;</td><td valign=bottom><b>normalTextButton</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o23" doxytag="COptionsDialog::URLLinkButton"></a>
-KColorButton*&nbsp;</td><td valign=bottom><b>URLLinkButton</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o24" doxytag="COptionsDialog::highlightedVerseButton"></a>
-KColorButton*&nbsp;</td><td valign=bottom><b>highlightedVerseButton</b></td></tr>
-<tr><td nowrap align=right valign=top><a name="o25" doxytag="COptionsDialog::hexString"></a>
-QString*&nbsp;</td><td valign=bottom><b>hexString</b></td></tr>
+<tr><td nowrap align=right valign=top><a name="o3" doxytag="COptionsDialog::m_general"></a>
+GeneralSettings&nbsp;</td><td valign=bottom><b>m_general</b></td></tr>
+<tr><td nowrap align=right valign=top><a name="o4" doxytag="COptionsDialog::m_displayWindows"></a>
+DisplayWindowSettings&nbsp;</td><td valign=bottom><b>m_displayWindows</b></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 The optionsdialog of <a class="el" href="class_bibletime.html">BibleTime</a>.
@@ -118,9 +77,41 @@ The optionsdialog of <a class="el" href="class_bibletime.html">BibleTime</a>.
 <b>Author(s): </b><dd>
 The <a class="el" href="class_bibletime.html">BibleTime</a> Team </dl>
 <p>
+<hr><h2>Member Function Documentation</h2>
+<a name="h5" doxytag="COptionsDialog::slotApply"></a><p>
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+  <tr>
+    <td class="md">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td nowrap valign="top"><b> 
+void COptionsDialog::slotApply (
+          </b></td>
+          <td valign="bottom"><b>
+)<code> [protected, slot]</code>
+          </b></td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Called if the Apply button was clicked commented out for the time being.
+<p>
+ck     </td>
+  </tr>
+</table>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="coptionsdialog_h-source.html">coptionsdialog.h</a></ul>
-<hr><address><small>Generated at Wed Jun 13 23:19:48 2001 for BibleTime by
+<hr><address><small>Generated at Tue Aug 14 14:20:57 2001 for BibleTime by
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.gif" alt="doxygen" align="middle" border=0 
 width=110 height=53></a>1.2.6 written by <a href="mailto:dimitri@stack.nl">Dimitri van Heesch</a>,

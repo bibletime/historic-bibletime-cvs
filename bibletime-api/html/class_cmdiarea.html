@@ -47,12 +47,12 @@ void&nbsp;</td><td valign=bottom><b>cascade</b> ()</td></tr>
 <tr><td nowrap align=right valign=top><a name="g3" doxytag="CMDIArea::tile"></a>
 void&nbsp;</td><td valign=bottom><b>tile</b> ()</td></tr>
 <tr><td nowrap align=right valign=top><a name="g4" doxytag="CMDIArea::syncCommentaries"></a>
-void&nbsp;</td><td valign=bottom><a class="el" href="class_cmdiarea.html#g4">syncCommentaries</a> (<a class="el" href="class_ckey.html">CKey</a> *syncKey)</td></tr>
+void&nbsp;</td><td valign=bottom><a class="el" href="class_cmdiarea.html#g4">syncCommentaries</a> (<a class="el" href="class_cswordkey.html">CSwordKey</a> *syncKey)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Sync the commentaries to the given key.</em></font><br><br></td></tr>
 <tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="class_cmdiarea.html#g5">lookupInLexicon</a> (const QString &amp;text, const QString &amp;module)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Look up the text in the module.</em> <a href="#g5">More...</a><em></em></font><br><br></td></tr>
 <tr><td nowrap align=right valign=top><a name="g6" doxytag="CMDIArea::closePresenter"></a>
-void&nbsp;</td><td valign=bottom><a class="el" href="class_cmdiarea.html#g6">closePresenter</a> (<a class="el" href="class_cpresenter.html">CPresenter</a> *p)</td></tr>
+void&nbsp;</td><td valign=bottom><a class="el" href="class_cmdiarea.html#g6">closePresenter</a> (<a class="el" href="class_cswordpresenter.html">CSwordPresenter</a> *p)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Closes and deletes the presenter given as argument.</em></font><br><br></td></tr>
 <tr><td colspan=2><br><h2>Signals</h2></td></tr>
 <tr><td nowrap align=right valign=top><a name="j0" doxytag="CMDIArea::sigSetToplevelCaption"></a>
@@ -62,7 +62,7 @@ void&nbsp;</td><td valign=bottom><a class="el" href="class_cmdiarea.html#j0">sig
 void&nbsp;</td><td valign=bottom><a class="el" href="class_cmdiarea.html#j1">sigLastPresenterClosed</a> ()</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Is emitted when the last presenter was closed.</em></font><br><br></td></tr>
 <tr><td nowrap align=right valign=top><a name="j2" doxytag="CMDIArea::createNewSwordPresenter"></a>
-void&nbsp;</td><td valign=bottom><b>createNewSwordPresenter</b> (<a class="el" href="class_cswordmoduleinfo.html">CSwordModuleInfo</a> *, const QString)</td></tr>
+void&nbsp;</td><td valign=bottom><b>createNewSwordPresenter</b> (<a class="el" href="class_cswordmoduleinfo.html">CSwordModuleInfo</a> *, const QString &amp;)</td></tr>
 <tr><td colspan=2><br><h2>Protected Methods</h2></td></tr>
 <tr><td nowrap align=right valign=top><a name="b0" doxytag="CMDIArea::childEvent"></a>
 virtual void&nbsp;</td><td valign=bottom><a class="el" href="class_cmdiarea.html#b0">childEvent</a> (QChildEvent *e)</td></tr>
@@ -86,7 +86,7 @@ CImportantClasses*&nbsp;</td><td valign=bottom><b>m_important</b></td></tr>
 <tr><td nowrap align=right valign=top><a name="o3" doxytag="CMDIArea::m_childEvent"></a>
 bool&nbsp;</td><td valign=bottom><b>m_childEvent</b></td></tr>
 <tr><td nowrap align=right valign=top><a name="o4" doxytag="CMDIArea::m_currentPresenter"></a>
-<a class="el" href="class_cpresenter.html">CPresenter</a>*&nbsp;</td><td valign=bottom><b>m_currentPresenter</b></td></tr>
+<a class="el" href="class_cswordpresenter.html">CSwordPresenter</a>*&nbsp;</td><td valign=bottom><b>m_currentPresenter</b></td></tr>
 <tr><td colspan=2><br><h2>Private Slots</h2></td></tr>
 <tr><td nowrap align=right valign=top><a name="i0" doxytag="CMDIArea::deleteCurrentPresenter"></a>
 void&nbsp;</td><td valign=bottom><a class="el" href="class_cmdiarea.html#i0">deleteCurrentPresenter</a> ()</td></tr>
@@ -139,7 +139,7 @@ If the module has already a display window of it opne use it, otherwise create a
 </table>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="cmdiarea_h-source.html">cmdiarea.h</a></ul>
-<hr><address><small>Generated at Wed Jun 13 23:19:47 2001 for BibleTime by
+<hr><address><small>Generated at Tue Aug 14 14:20:48 2001 for BibleTime by
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.gif" alt="doxygen" align="middle" border=0 
 width=110 height=53></a>1.2.6 written by <a href="mailto:dimitri@stack.nl">Dimitri van Heesch</a>,

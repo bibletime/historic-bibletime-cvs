@@ -19,7 +19,7 @@
 <a href="class_cgroupmanager-members.html">List of all members.</a><table border=0 cellpadding=0 cellspacing=0>
 <tr><td colspan=2><br><h2>Public Methods</h2></td></tr>
 <tr><td nowrap align=right valign=top><a name="a0" doxytag="CGroupManager::CGroupManager"></a>
-&nbsp;</td><td valign=bottom><b>CGroupManager</b> (CImportantClasses *importantClasses, QWidget *parent=0, const char *name=0, ListCSwordModuleInfo *moduleInfo_list=0, bool useBookmarks=true, bool saveSettings=true, bool useDnD=true, bool useExtendedMode=true, bool useRMBMenu=true, bool showHelpDialogs=true)</td></tr>
+&nbsp;</td><td valign=bottom><b>CGroupManager</b> (CImportantClasses *importantClasses, QWidget *parent=0, const char *name=0, ListCSwordModuleInfo *moduleInfo_list=0, const bool useBookmarks=true, const bool saveSettings=true, const bool useDnD=true, const bool useExtendedMode=true, const bool useRMBMenu=true, const bool showHelpDialogs=true)</td></tr>
 <tr><td nowrap align=right valign=top><a name="a1" doxytag="CGroupManager::~CGroupManager"></a>
 &nbsp;</td><td valign=bottom><b>~CGroupManager</b> ()</td></tr>
 <tr><td nowrap align=right valign=top><a name="a2" doxytag="CGroupManager::setupSwordTree"></a>
@@ -36,9 +36,9 @@ void&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#a5
 <tr><td nowrap align=right valign=top><a name="a6" doxytag="CGroupManager::initView"></a>
 void&nbsp;</td><td valign=bottom><b>initView</b> ()</td></tr>
 <tr><td nowrap align=right valign=top><a name="a7" doxytag="CGroupManager::searchBookmarkedModule"></a>
-void&nbsp;</td><td valign=bottom><b>searchBookmarkedModule</b> (QString, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *)</td></tr>
+void&nbsp;</td><td valign=bottom><b>searchBookmarkedModule</b> (const QString &amp;, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *)</td></tr>
 <tr><td nowrap align=right valign=top><a name="a8" doxytag="CGroupManager::isChild"></a>
-bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#a8">isChild</a> (QListViewItem *parent, QListViewItem *child)</td></tr>
+const bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#a8">isChild</a> (QListViewItem *parent, QListViewItem *child)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Returns true if the item "item" is a child of item "parent".</em></font><br><br></td></tr>
 <tr><td colspan=2><br><h2>Public Slots</h2></td></tr>
 <tr><td nowrap align=right valign=top><a name="g0" doxytag="CGroupManager::slotUnlockModule"></a>
@@ -51,10 +51,10 @@ virtual void&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager
 <tr><td>&nbsp;</td><td><font size=-1><em>Resizes the content size of this list view.</em></font><br><br></td></tr>
 <tr><td colspan=2><br><h2>Signals</h2></td></tr>
 <tr><td nowrap align=right valign=top><a name="j0" doxytag="CGroupManager::createSwordPresenter"></a>
-void&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#j0">createSwordPresenter</a> (<a class="el" href="class_cswordmoduleinfo.html">CSwordModuleInfo</a> *, const QString)</td></tr>
+void&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#j0">createSwordPresenter</a> (<a class="el" href="class_cswordmoduleinfo.html">CSwordModuleInfo</a> *, const QString &amp;)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Is emitted when a module in the tree was selected.</em></font><br><br></td></tr>
 <tr><td nowrap align=right valign=top><a name="j1" doxytag="CGroupManager::createSwordPresenter"></a>
-void&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#j1">createSwordPresenter</a> (ListCSwordModuleInfo, const QString)</td></tr>
+void&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#j1">createSwordPresenter</a> (ListCSwordModuleInfo, const QString &amp;)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Is emitted when more than one module are selected.</em></font><br><br></td></tr>
 <tr><td colspan=2><br><h2>Protected Slots</h2></td></tr>
 <tr><td nowrap align=right valign=top><a name="h0" doxytag="CGroupManager::slotDeleteSelectedItems"></a>
@@ -87,7 +87,7 @@ void&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#h8
 void&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#h9">viewportPaintEvent</a> (QPaintEvent *)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Reimplementatuiion.</em></font><br><br></td></tr>
 <tr><td nowrap align=right valign=top><a name="h10" doxytag="CGroupManager::drawDropVisualizer"></a>
-QRect&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#h10">drawDropVisualizer</a> (QPainter *p, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *parent, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *after, const QString type)</td></tr>
+const QRect&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#h10">drawDropVisualizer</a> (QPainter *p, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *parent, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *after, const QString &amp;type)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Reimplementation with different parameters.</em></font><br><br></td></tr>
 <tr><td nowrap align=right valign=top><a name="h11" doxytag="CGroupManager::cleanDropVisualizer"></a>
 void&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#h11">cleanDropVisualizer</a> ()</td></tr>
@@ -125,24 +125,24 @@ void&nbsp;</td><td valign=bottom><b>contentsMouseReleaseEvent</b> (QMouseEvent *
 <tr><td nowrap align=right valign=top><a name="c7" doxytag="CGroupManager::contentsMouseMoveEvent"></a>
 void&nbsp;</td><td valign=bottom><b>contentsMouseMoveEvent</b> (QMouseEvent *)</td></tr>
 <tr><td nowrap align=right valign=top><a name="c8" doxytag="CGroupManager::parentId"></a>
-int&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c8">parentId</a> (<a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *item, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *parentItem=0)</td></tr>
+const int&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c8">parentId</a> (<a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *item, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *parentItem=0)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Find ID of parent item.</em></font><br><br></td></tr>
 <tr><td nowrap align=right valign=top><a name="c9" doxytag="CGroupManager::findParent"></a>
-<a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a>*&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c9">findParent</a> (int ID, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *parentItem=0)</td></tr>
+<a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a>*&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c9">findParent</a> (const int ID, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *parentItem=0)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>returns the parent of the item with the ID index.</em></font><br><br></td></tr>
 <tr><td nowrap align=right valign=top><a name="c10" doxytag="CGroupManager::createNewBookmark"></a>
-void&nbsp;</td><td valign=bottom><b>createNewBookmark</b> (<a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *parent, <a class="el" href="class_cmoduleinfo.html">CModuleInfo</a> *module, const QString ref)</td></tr>
-<tr><td nowrap align=right valign=top>bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c11">saveSwordBookmarks</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
+void&nbsp;</td><td valign=bottom><b>createNewBookmark</b> (<a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *parent, <a class="el" href="class_cswordmoduleinfo.html">CSwordModuleInfo</a> *module, const QString &amp;ref)</td></tr>
+<tr><td nowrap align=right valign=top>const bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c11">saveSwordBookmarks</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Save items of group to config.</em> <a href="#c11">More...</a><em></em></font><br><br></td></tr>
-<tr><td nowrap align=right valign=top>bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c12">readSwordBookmarks</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
+<tr><td nowrap align=right valign=top>const bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c12">readSwordBookmarks</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Reads in bookmarks from config and creates them as subitems of group.</em> <a href="#c12">More...</a><em></em></font><br><br></td></tr>
-<tr><td nowrap align=right valign=top>bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c13">saveSwordModules</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
+<tr><td nowrap align=right valign=top>const bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c13">saveSwordModules</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Save items of group to config.</em> <a href="#c13">More...</a><em></em></font><br><br></td></tr>
-<tr><td nowrap align=right valign=top>bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c14">readSwordModules</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
+<tr><td nowrap align=right valign=top>const bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c14">readSwordModules</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Reads in bookmarks from config and creates them as subitems of group.</em> <a href="#c14">More...</a><em></em></font><br><br></td></tr>
-<tr><td nowrap align=right valign=top>bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c15">saveGroups</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
+<tr><td nowrap align=right valign=top>const bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c15">saveGroups</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Save items of group to config.</em> <a href="#c15">More...</a><em></em></font><br><br></td></tr>
-<tr><td nowrap align=right valign=top>bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c16">readGroups</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
+<tr><td nowrap align=right valign=top>const bool&nbsp;</td><td valign=bottom><a class="el" href="class_cgroupmanager.html#c16">readGroups</a> (KConfig *configFile, <a class="el" href="class_cgroupmanageritem.html">CGroupManagerItem</a> *group)</td></tr>
 <tr><td>&nbsp;</td><td><font size=-1><em>Reads in bookmarks from config and creates them as subitems of group.</em> <a href="#c16">More...</a><em></em></font><br><br></td></tr>
 <tr><td colspan=2><br><h2>Private Attributes</h2></td></tr>
 <tr><td nowrap align=right valign=top><a name="o0" doxytag="CGroupManager::m_swordList"></a>
@@ -207,7 +207,7 @@ The <a class="el" href="class_bibletime.html">BibleTime</a> Team </dl>
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td nowrap valign="top"><b> 
-bool CGroupManager::readGroups (
+const bool CGroupManager::readGroups (
           </b></td>
           <td valign="bottom"><b>
 KConfig * <em>configFile</em>, 
@@ -244,7 +244,7 @@ If group is 0 we create them a toplevel items.     </td>
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td nowrap valign="top"><b> 
-bool CGroupManager::readSwordBookmarks (
+const bool CGroupManager::readSwordBookmarks (
           </b></td>
           <td valign="bottom"><b>
 KConfig * <em>configFile</em>, 
@@ -281,7 +281,7 @@ If group is 0 we create them a toplevel items.     </td>
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td nowrap valign="top"><b> 
-bool CGroupManager::readSwordModules (
+const bool CGroupManager::readSwordModules (
           </b></td>
           <td valign="bottom"><b>
 KConfig * <em>configFile</em>, 
@@ -318,7 +318,7 @@ If group is 0 we create them a toplevel items.     </td>
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td nowrap valign="top"><b> 
-bool CGroupManager::saveGroups (
+const bool CGroupManager::saveGroups (
           </b></td>
           <td valign="bottom"><b>
 KConfig * <em>configFile</em>, 
@@ -355,7 +355,7 @@ If grou is 0 we save all items. The path to the group-item itself is saved, too.
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td nowrap valign="top"><b> 
-bool CGroupManager::saveSwordBookmarks (
+const bool CGroupManager::saveSwordBookmarks (
           </b></td>
           <td valign="bottom"><b>
 KConfig * <em>configFile</em>, 
@@ -392,7 +392,7 @@ If grou is 0 we save all items. The path to the group-item itself is saved, too.
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td nowrap valign="top"><b> 
-bool CGroupManager::saveSwordModules (
+const bool CGroupManager::saveSwordModules (
           </b></td>
           <td valign="bottom"><b>
 KConfig * <em>configFile</em>, 
@@ -455,7 +455,7 @@ Recreates the original Bibles, Lexicons and Commentary groups.     </td>
 </table>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="cgroupmanager_h-source.html">cgroupmanager.h</a></ul>
-<hr><address><small>Generated at Wed Jun 13 23:19:44 2001 for BibleTime by
+<hr><address><small>Generated at Tue Aug 14 14:20:47 2001 for BibleTime by
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.gif" alt="doxygen" align="middle" border=0 
 width=110 height=53></a>1.2.6 written by <a href="mailto:dimitri@stack.nl">Dimitri van Heesch</a>,
