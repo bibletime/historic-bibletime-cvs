@@ -16,8 +16,13 @@
  ***************************************************************************/
 
 #include "btsetupwizard.h"
+#include "backend/cswordbackend.h"
+#include "backend/cswordmoduleinfo.h"
 
 #include "qlayout.h"
+#include "qlistview.h"
+#include "qdir.h"
+#include "qfileinfo.h"
 
 #include "kjanuswidget.h"
 #include "kiconloader.h"
@@ -29,7 +34,8 @@
 #include "qcheckbox.h"
 #include "qpixmap.h"
 
-BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(parent,name) {
+BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(parent,name),
+	m_startBibleTimeBox(0), m_removeModuleListView(0), m_backend(0) {
 
 	setMinimumSize(620,400);
 
@@ -48,6 +54,7 @@ BTSetupWizard::BTSetupWizard(QWidget *parent, const char *name ) : KMainWindow(p
   mainLayout->addWidget(m_mainWidget,500);
 
 	addMainPage();
+	addRemovePage();
 
 //	mainWidget->showPage(0);
 }
@@ -138,4 +145,85 @@ void BTSetupWizard::slot_exitRequested(){
 	if (m_startBibleTimeBox->isChecked())
 		app.startServiceByDesktopName("konqueror");
 	app.exit();
+}
+/** No descriptions */
+void BTSetupWizard::addRemovePage(){
+
+  QFrame* mainPage = m_mainWidget->addPage(QString("remove page") );
+	mainPage->setMinimumSize(500,400);
+
+	QGridLayout* layout = new QGridLayout(mainPage, 4, 4);
+	layout->setMargin(5);
+
+	layout->setSpacing(10);
+
+	QLabel* mainLabel= explanationLabel(mainPage,
+		"Remove installed module(s)",
+		"This dialog lets you remove installed Sword modules from your system. Bla "
+		"blas dlkf asldhfkajgha sdlkfjaösldkfj asdlghaösldkfja sdflkajs dlfhasölg" );
+	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
+
+	QLabel* headingLabel= explanationLabel(mainPage,
+		"Select modules to be uninstalled", QString::null);
+	layout->addMultiCellWidget(headingLabel, 1, 1, 0, 3);
+
+	m_removeModuleListView = new QListView(mainPage, "remove modules view");
+	layout->addMultiCellWidget( m_removeModuleListView, 2,2,0,3);
+	m_removeModuleListView->addColumn("Name");
+  m_removeModuleListView->addColumn("Location");
+
+  QButton* removeButton = new QPushButton(mainPage);
+	removeButton->setText( "Remove selected module(s)");
+	layout->addWidget(removeButton, 3, 3, Qt::AlignRight);
+
+  QButton* backButton = new QPushButton(mainPage);
+	backButton->setText( "Back");
+	layout->addWidget(backButton, 3, 0, Qt::AlignLeft);
+	
+	populateRemoveModuleListView();
+
+}
+/** No descriptions */
+void BTSetupWizard::populateRemoveModuleListView(){
+
+	if (m_backend){ //Make sure we have a current list of modules
+		m_backend->shutdownModules();
+		delete m_backend;
+		m_backend = 0;
+	}
+	m_backend = new CSwordBackend();
+	m_backend->initModules();
+
+	QListViewItem* categoryBible = new QListViewItem(m_removeModuleListView, "Bibles");
+	QListViewItem* categoryCommentary = new QListViewItem(m_removeModuleListView, "Commentaries");
+	QListViewItem* categoryLexicon = new QListViewItem(m_removeModuleListView, "Lexicons");
+	QListViewItem* categoryBook = new QListViewItem(m_removeModuleListView, "Books");
+
+	QPtrList<CSwordModuleInfo> list = m_backend->moduleList();
+	QString location, name;
+	QListViewItem* newItem = 0;
+	QListViewItem* parent = 0;
+	SWConfig moduleConfig("");
+
+	for ( list.first(); list.current(); list.next() ){
+
+		location = list.current()->config( CSwordModuleInfo::AbsoluteDataPath ) ;
+		name = list.current()->name() ;
+
+		switch (list.current()->type()) {
+			case CSwordModuleInfo::Bible: parent = categoryBible; break;
+			case CSwordModuleInfo::Commentary: parent = categoryCommentary; break;
+			case CSwordModuleInfo::Lexicon: parent = categoryLexicon; break;
+			case CSwordModuleInfo::GenericBook:parent = categoryBook; break;
+		}
+
+		m_backend->moduleConfig( name, moduleConfig);
+		QFileInfo file(moduleConfig.filename.c_str());
+		if (file.isWritable()) //only writable modules can be removed
+			newItem = new QCheckListItem(parent, name, QCheckListItem::CheckBox);
+		else
+			newItem = new QListViewItem(parent, name);
+		newItem->setText(1, location);
+  }
+
 }
