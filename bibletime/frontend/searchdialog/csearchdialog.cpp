@@ -281,7 +281,7 @@ void CModuleChooser::initTree(){
     if (static_cast<CSwordModuleInfo::ModuleType>(type) == CSwordModuleInfo::Lexicon) {
       if (!addedLexs) {
         for (mods.first(); mods.current(); mods.next()) {
-          if (!mods.current()->has(CSwordModuleInfo::DailyDevotional) && !mods.current()->has(CSwordModuleInfo::Glossary)) {
+          if (mods.current()->type() == CSwordModuleInfo::Lexicon && !mods.current()->has(CSwordModuleInfo::DailyDevotional) && !mods.current()->has(CSwordModuleInfo::Glossary)) {
             modsForType.append(mods.current());
           };
         };

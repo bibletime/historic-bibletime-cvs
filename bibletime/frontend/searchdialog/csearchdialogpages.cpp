@@ -304,11 +304,13 @@ void CSearchResultPage::setSearchResult(ListCSwordModuleInfo modules){
   m_moduleListBox->setupTree(modules);
 
   //have a Bible or commentary in the modules?
-  bool isOk = true;
-  for (modules.first(); isOk && modules.current(); modules.next()) {
-    isOk = isOk && (modules.current()->type() == CSwordModuleInfo::Bible) || (modules.current()->type() == CSwordModuleInfo::Commentary);
+  bool enable = false;
+  for (modules.first(); !enable && modules.current(); modules.next()) {
+    if (modules.current()->type() == CSwordModuleInfo::Bible ) {
+      enable = true;
+    };
   };
-  m_analyseButton->setEnabled(!isOk);
+  m_analyseButton->setEnabled(enable);
 }
 
 

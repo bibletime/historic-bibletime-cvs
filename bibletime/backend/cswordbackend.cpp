@@ -43,7 +43,6 @@
 #include <rtfhtml.h>
 #include <filemgr.h>
 #include <utilstr.h>
-#include <utf8transliterator.h>
 
 //static class-wide members
 static QMap<QString, QString> moduleDescriptionMap;
