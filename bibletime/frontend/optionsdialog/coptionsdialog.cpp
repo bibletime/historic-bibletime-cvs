@@ -130,8 +130,8 @@ void COptionsDialog::initGeneral() {
 	{//daily tips
 		m_general.sword.lexiconCache = new QCheckBox(page);
 		m_general.sword.lexiconCache->setText(i18n("Create and use lexicon key cache"));
-//		QToolTip::add(m_general.sword.lexiconCache, TT_OD_SWORD_USE_LEXICON_CACHE);	
-//		QWhatsThis::add(m_general.sword.lexiconCache, WT_OD_SWORD_USE_LEXICON_CACHE);
+		QToolTip::add(m_general.sword.lexiconCache, TT_OD_SWORD_USE_LEXICON_CACHE);	
+		QWhatsThis::add(m_general.sword.lexiconCache, WT_OD_SWORD_USE_LEXICON_CACHE);
 		
 		KConfigGroupSaver groupSaver(m_config, "SWORD");
 		m_general.sword.lexiconCache->setChecked( m_config->readBoolEntry("use lexicon cache", true) );

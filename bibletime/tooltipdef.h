@@ -135,7 +135,7 @@
 #define TT_OD_GENERAL_SCROLL_PREVIOUS i18n("Use down arrow to scroll to next verse")
 #define TT_OD_GENERAL_RESTORE_WORKSPACE i18n("Restore the windows in the workspace on startup")
 
-#define TT_OD_SWORD_USE_LEXICON_CACHE, i18n("Use cache files for the lexicon entries")
+#define TT_OD_SWORD_USE_LEXICON_CACHE i18n("Use cache files for the lexicon entries")
 
 #define TT_OD_KEYS_CHOOSER i18n("Set keyboard accelerators")
 
