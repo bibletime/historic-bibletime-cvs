@@ -23,6 +23,7 @@
 
 //BibleTime includes
 #include "../../backend/cswordmoduleinfo.h"
+#include "../../backend/cswordmodulesearch.h"
 #include "../cpointers.h"
 
 //QT includes
@@ -101,16 +102,16 @@ protected: // Protected methods
 
 private:
 	friend class CSearchDialogResult;
-	QVBox* moduleChooser_page;	
-	QVBox* searchText_page;
-	QHBox* searchResult_page;
-	QVBox* searchAnalysis_page;
+	QVBox* m_moduleChooserPage;	
+	QVBox* m_searchTextPage;
+	QHBox* m_searchResultPage;
+	QVBox* m_searchAnalysisPage;
 	CSearchDialogModuleChooser *m_moduleChooser;	
-	CSearchDialogText	*searchText;
-	CSearchDialogResult	*searchResult;
-	CSearchDialogAnalysis* searchAnalysis;
-	CSearchDialogAnalysisView* 	searchAnalysisView;
-	CSwordModuleSearch *m_searcher;
+	CSearchDialogText	*m_searchText;
+	CSearchDialogResult	*m_searchResult;
+	CSearchDialogAnalysis* m_searchAnalysis;
+	CSearchDialogAnalysisView* 	m_searchAnalysisView;
+	CSwordModuleSearch m_searcher;
 	ListCSwordModuleInfo m_moduleList;
 	int old_overallProgress;
 	int old_currentProgress;

@@ -549,7 +549,7 @@ void CGroupManager::slotShowAbout(){
 	QString text;	
 
   if (module->hasVersion())
-    text += i18n("<b>%1:</b> %2<br>")
+    text += QString::fromLatin1("<b>%1:</b> %2<br>")
     	.arg(i18n("Version"))
     	.arg(module->version());
 

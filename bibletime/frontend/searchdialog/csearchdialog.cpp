@@ -53,24 +53,24 @@
 
 CSearchDialog::CSearchDialog( ListCSwordModuleInfo* modules, QWidget *parent, const char *name )
 	: KDialogBase(Tabbed, i18n("Search Dialog"), Close | User1 | User2, User1, parent, name,	false, true, i18n("Search"), i18n("Interrupt"), QString::null),
-	m_searcher(new CSwordModuleSearch()),
+//	m_searcher(new CSwordModuleSearch()),
 	old_currentProgress(0), old_overallProgress(0)			
 {
 	setIcon(MODULE_SEARCH_ICON_SMALL);
-	m_searcher->connectPercentUpdate(this, SLOT(percentUpdate()));
-	m_searcher->connectFinished(this, SLOT(searchFinished()));
+	m_searcher.connectPercentUpdate(this, SLOT(percentUpdate()));
+	m_searcher.connectFinished(this, SLOT(searchFinished()));
 		
 	initView();	
 	readSettings();	
 		
 	if (modules && modules->count())
-		showPage(pageIndex(searchText_page));	
+		showPage(pageIndex(m_searchTextPage));	
 	setModuleList( *modules );
 }
 
 CSearchDialog::~CSearchDialog(){
 	saveSettings();	
-	delete m_searcher;
+//	delete m_searcher;
 }
 
 /** Reads the settings from the configfile */
@@ -85,24 +85,24 @@ void CSearchDialog::saveSettings(){
 void CSearchDialog::initView() {
  	enableButton(User2,false);
 
-	moduleChooser_page 	= addVBoxPage(i18n("Choose modules"), i18n("Choose the modules for the search"));
-	m_moduleChooser			= new CSearchDialogModuleChooser(moduleChooser_page);
+	m_moduleChooserPage 	= addVBoxPage(i18n("Choose modules"), i18n("Choose the modules for the search"));
+	m_moduleChooser			= new CSearchDialogModuleChooser(m_moduleChooserPage);
 	connect(m_moduleChooser, SIGNAL(chosenModulesChanged()), SLOT(chosenModulesChanged()));
  	
-	searchText_page = addVBoxPage(i18n("Search Text"), i18n("Enter the text to search for"));
-	searchText			= new CSearchDialogText(searchText_page);
-	searchText_page->setEnabled(false);
+	m_searchTextPage = addVBoxPage(i18n("Search Text"), i18n("Enter the text to search for"));
+	m_searchText			= new CSearchDialogText(m_searchTextPage);
+	m_searchTextPage->setEnabled(false);
 	
-	searchResult_page = addHBoxPage(i18n("Search Result"), i18n("The result of your search"));
-	searchResult = new CSearchDialogResult(searchResult_page);
-	searchResult_page->setEnabled(false);
+	m_searchResultPage = addHBoxPage(i18n("Search Result"), i18n("The result of your search"));
+	m_searchResult = new CSearchDialogResult(m_searchResultPage);
+	m_searchResultPage->setEnabled(false);
 	
-	searchAnalysis_page = addVBoxPage(i18n("Search Analysis"), i18n("Graphical analysis of your search result"));	
-	searchAnalysis = new CSearchDialogAnalysis(searchAnalysis_page);
-	searchAnalysisView =	new CSearchDialogAnalysisView(searchAnalysis, searchAnalysis_page);
-	searchAnalysis_page->setEnabled(false);
+	m_searchAnalysisPage = addVBoxPage(i18n("Search Analysis"), i18n("Graphical analysis of your search result"));	
+	m_searchAnalysis = new CSearchDialogAnalysis(m_searchAnalysisPage);
+	m_searchAnalysisView =	new CSearchDialogAnalysisView(m_searchAnalysis, m_searchAnalysisPage);
+	m_searchAnalysisPage->setEnabled(false);
 
-	m_searchAnalysisSaveButton = new QPushButton("Save Analysis to Disk", searchAnalysis_page);
+	m_searchAnalysisSaveButton = new QPushButton("Save Analysis to Disk", m_searchAnalysisPage);
 
 	connect(m_searchAnalysisSaveButton, SIGNAL(clicked()),
 		this, SLOT(slotSaveSearchAnalysis()));	
@@ -125,9 +125,9 @@ void CSearchDialog::setModuleList(ListCSwordModuleInfo& list) {
 	m_moduleChooser->setChosenModules(m_moduleList);
 	m_moduleChooser->blockSignals(false);	
 	
-	searchText_page->setEnabled(m_moduleList.count());	
-	searchResult->clearResult();
-	searchAnalysis->reset();
+	m_searchTextPage->setEnabled(m_moduleList.count());	
+	m_searchResult->clearResult();
+	m_searchAnalysis->reset();
 }
 
 void CSearchDialog::slotSaveSearchAnalysis(){
@@ -136,18 +136,18 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 		int moduleIndex = 0;
 		int count = 0;
 		QString countStr = "";
-		QString searchAnalysisHTML = "";
+		QString m_searchAnalysisHTML = "";
 		QString tableTitle = "";
 	  QString tableTotals = "";
 		QString VerseRange = "";
 		const QString txtCSS = QString::fromLatin1("<style type='text/css'>\nTD {border: thin solid black;}\nTH {font-size: 130%;text-align: left;vertical-align:top;}\n</style>\n");	
 		CSwordVerseKey key(0);
-		ListKey m_searchResult;
+		ListKey searchResult;
 		
 		key.key("Genesis 1:1");
 	
-		if (searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) {
-			ListKey verses = m_searcher->scope();
+		if (m_searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) {
+			ListKey verses = m_searcher.scope();
 			for (int i = 0; i < verses.Count(); ++i) {
 				VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
 				if (element) {
@@ -156,40 +156,40 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 			}
 		}
 
-		QDict<CSearchDialogAnalysisItem>* searchAnalysisItems = searchAnalysis->getSearchAnalysisItemList();
-		CSearchDialogAnalysisItem* analysisItem = searchAnalysisItems->find( key.book() );
+		QDict<CSearchDialogAnalysisItem>* m_searchAnalysisItems = m_searchAnalysis->getSearchAnalysisItemList();
+		CSearchDialogAnalysisItem* analysisItem = m_searchAnalysisItems->find( key.book() );
 		
     QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n";
-		text += "<table>\n<tr><th>" + i18n("Search Text :") + "</th><th>" + searchText->getText() + "</th></tr>\n";
-		text += "<tr><th>" + i18n("Search Type :") + "</th><th>" + searchText->getSearchTypeString() + "</th></tr>\n";
-		text += "<tr><th>" + i18n("Search Scope:") + "</th><th>" + ((searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) ? VerseRange : searchText->scopeChooser->getScopeTypeString()) + "</th></tr>\n</table>\n<br>\n";
+		text += "<table>\n<tr><th>" + i18n("Search Text :") + "</th><th>" + m_searchText->getText() + "</th></tr>\n";
+		text += "<tr><th>" + i18n("Search Type :") + "</th><th>" + m_searchText->getSearchTypeString() + "</th></tr>\n";
+		text += "<tr><th>" + i18n("Search Scope:") + "</th><th>" + ((m_searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) ? VerseRange : m_searchText->scopeChooser->getScopeTypeString()) + "</th></tr>\n</table>\n<br>\n";
 
 
 	  tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";
 		tableTotals = "<tr><td align=\"left\">" + i18n("Total Hits") + "</td>";
 		for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(),++moduleIndex) {
 				tableTitle += QString::fromLatin1("<th align=\"left\">") + m_moduleList.current()->name() + QString::fromLatin1("</th>");
-				m_searchResult = m_moduleList.current()->searchResult();
-				countStr.setNum(m_searchResult.Count());
+				searchResult = m_moduleList.current()->searchResult();
+				countStr.setNum(searchResult.Count());
 	      tableTotals += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
 		}
 		tableTitle += QString::fromLatin1("</tr>\n");
 		tableTotals += QString::fromLatin1("</tr>\n");
 
-		searchAnalysisHTML = "";
+		m_searchAnalysisHTML = "";
 		bool ok = true;		
 		while (ok) {
-			searchAnalysisHTML += QString::fromLatin1("<tr><td>") + key.book() + QString::fromLatin1("</td>");
-			analysisItem = searchAnalysisItems->find( key.book() );
+			m_searchAnalysisHTML += QString::fromLatin1("<tr><td>") + key.book() + QString::fromLatin1("</td>");
+			analysisItem = m_searchAnalysisItems->find( key.book() );
 			for (moduleIndex = 0,m_moduleList.first(); m_moduleList.current(); m_moduleList.next(), ++moduleIndex) {
 				count = analysisItem->getCountForModule(moduleIndex);
 				countStr.setNum(count);
-				searchAnalysisHTML += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
+				m_searchAnalysisHTML += QString::fromLatin1("<td align=\"right\">") + countStr + QString::fromLatin1("</td>");
 			}
-			searchAnalysisHTML += QString::fromLatin1("</tr>\n");
+			m_searchAnalysisHTML += QString::fromLatin1("</tr>\n");
 			ok = key.NextBook();
 		}
-		text += QString::fromLatin1("<table>\n") + tableTitle + tableTotals + searchAnalysisHTML + QString::fromLatin1("</table>\n");
+		text += QString::fromLatin1("<table>\n") + tableTitle + tableTotals + m_searchAnalysisHTML + QString::fromLatin1("</table>\n");
 		text += QString::fromLatin1("<center>") + i18n("Created by") + QString::fromLatin1(" <a href=\"http://www.bibletime.de/\">BibleTime</a></center>");
 		text += QString::fromLatin1("</body></html>");
 		CToolClass::savePlainFile(file, text);
@@ -202,49 +202,50 @@ void CSearchDialog::slotUser1() {
 
 void CSearchDialog::slotUser2() {
 //	if (searcher->isSearching())
-	m_searcher->interruptSearch();
+	m_searcher.interruptSearch();
 }
 
 void CSearchDialog::startSearch(void) {
-	int searchFlags = searchText->getSearchType();	
+	int searchFlags = m_searchText->getSearchType();	
 	// set the parameters
-	searchText->updateCurrentProgress(0);
-	searchText->updateOverallProgress(0);
-	searchText->setText( searchText->getText() );
+	m_searchText->updateCurrentProgress(0);
+	m_searchText->updateOverallProgress(0);
+	m_searchText->setText( m_searchText->getText() );
 		
-	m_searcher->setModules( getModuleList() );
-	m_searcher->setSearchedText(searchText->getText());
+	m_searcher.setModules( getModuleList() );
+	m_searcher.setSearchedText(m_searchText->getText());
 
-	if (searchText->isCaseSensitive())
+	if (m_searchText->isCaseSensitive())
 		searchFlags |= CSwordModuleSearch::caseSensitive;
-	m_searcher->resetSearchScope();
-	CSwordModuleSearch::scopeType scopeType = searchText->scopeChooser->getScopeType();
+	m_searcher.resetSearchScope();
+	CSwordModuleSearch::scopeType scopeType = m_searchText->scopeChooser->getScopeType();
 	
 	if (scopeType == CSwordModuleSearch::Scope_LastSearch) {
 		searchFlags |= CSwordModuleSearch::useLastResult;
 	}
 	else if ( scopeType == CSwordModuleSearch::Scope_Bounds ) {
 		searchFlags |= CSwordModuleSearch::useScope;	
-		m_searcher->setSearchScope( searchText->scopeChooser->getScope() );
+		m_searcher.setSearchScope( m_searchText->scopeChooser->getScope() );
 	}
-	m_searcher->setSearchOptions(searchFlags);
+	m_searcher.setSearchOptions(searchFlags);
 	enableButton(User1,false);
 	enableButton(User2,true);
- 	searchAnalysis->reset();
- 	searchResult->clearResult();
+ 	m_searchAnalysis->reset();
+ 	m_searchResult->clearResult();
  		
-	m_searcher->startSearchThread();
+	m_searcher.startSearchThread();
 }
 
 void CSearchDialog::setSearchText(const QString text){
-  searchText->setText(text);
+  m_searchText->setText(text);
 	if (!text.isEmpty())
-		showPage(pageIndex(searchText_page));
+		showPage(pageIndex(m_searchTextPage));
 }
 
 /** Returns the search text. If no text was entered return QString::null. */
 const QString CSearchDialog::getSearchedText() const {
-	return searchText->getText();
+	qWarning("searchedText: %s", m_searchText->getText().latin1());
+	return m_searchText->getText();
 }
 
 /** No descriptions */
@@ -265,21 +266,21 @@ void CSearchDialog::show(){
 /** No descriptions */
 void CSearchDialog::searchFinished(){
 //	qWarning("CSearchDialog::searchFinished()");
- 	searchText->updateCurrentProgress(100);
- 	searchText->updateOverallProgress(100);
- 	searchAnalysis->reset();
- 	if ( m_searcher->foundItems() ){
- 		searchResult->setModuleList(getModuleList());			
- 		searchAnalysis->setModuleList(getModuleList());
- 		searchAnalysisView->setContentsPos(0,0);
- 		searchResult_page->setEnabled(true);
- 		searchAnalysis_page->setEnabled(true);						
- 		showPage(pageIndex(searchResult_page));	//the result page
+ 	m_searchText->updateCurrentProgress(100);
+ 	m_searchText->updateOverallProgress(100);
+ 	m_searchAnalysis->reset();
+ 	if ( m_searcher.foundItems() ){
+ 		m_searchResult->setModuleList(getModuleList());			
+ 		m_searchAnalysis->setModuleList(getModuleList());
+ 		m_searchAnalysisView->setContentsPos(0,0);
+ 		m_searchResultPage->setEnabled(true);
+ 		m_searchAnalysisPage->setEnabled(true);						
+ 		showPage(pageIndex(m_searchResultPage));	//the result page
 						
- 		searchAnalysis->analyse();			
+ 		m_searchAnalysis->analyse();			
  	}
  	else
- 		searchResult->clearResult();
+ 		m_searchResult->clearResult();
 
  	enableButton(User2,false);
  	enableButton(User1,true); 	
@@ -288,15 +289,15 @@ void CSearchDialog::searchFinished(){
 /** No descriptions */
 void CSearchDialog::percentUpdate(){
 	qWarning("CSearchDialog::percentUpdate()");
- 	const int newOverallPercentage = m_searcher->getPercent(CSwordModuleSearch::allModules); 	
- 	const int newCurrentPercentage = m_searcher->getPercent(CSwordModuleSearch::currentModule);
+ 	const int newOverallPercentage = m_searcher.getPercent(CSwordModuleSearch::allModules); 	
+ 	const int newCurrentPercentage = m_searcher.getPercent(CSwordModuleSearch::currentModule);
 
 // 	if (old_overallProgress != newOverallPercentage) {
- 		searchText->updateOverallProgress(newOverallPercentage);
+ 		m_searchText->updateOverallProgress(newOverallPercentage);
  		old_overallProgress = newOverallPercentage;
 // 	}
 // 	if (old_currentProgress != newCurrentPercentage) {
- 		searchText->updateCurrentProgress(newCurrentPercentage);
+ 		m_searchText->updateCurrentProgress(newCurrentPercentage);
  		old_currentProgress = newCurrentPercentage;
 // 	}
 	KApplication::kapp->processEvents();

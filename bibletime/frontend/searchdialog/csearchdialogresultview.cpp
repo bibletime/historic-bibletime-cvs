@@ -60,9 +60,7 @@
 #include <swmodule.h>
 
 CSearchDialogResultModuleView::CSearchDialogResultModuleView(QWidget *parent, const char *name)
-	: QListView ( parent, name )
-	
-{	
+	: QListView ( parent, name )	{	
 	initView();
 	adjustSize();
 }
@@ -150,64 +148,21 @@ void CSearchDialogResultModuleView::resizeEvent( QResizeEvent* e){
 
 /** Adds all items  of the search result of this module to the printing queue of BibleTime. */
 void CSearchDialogResultModuleView::printSearchResult(){
-	CExportManager::printKeyList( &(m_currentModule->searchResult()), m_currentModule, i18n("Printing ..."), i18n("Appending keys to the printing queue ...") );		
-//	QProgressDialog progress( "Printing search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
-//	progress.setProgress(0);
-//	progress.setMinimumDuration(0);
-//	
-//	const int count = searchResult.Count();
-//	QString text;
-//	const CSwordModuleInfo::ModuleType type = m_currentModule->type();
-//	CPrinter* p = printer();
-//	SWKey* key = 0;
-//	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);						
-//	
-//	for (int index = 0; index < count && !progress.wasCancelled(); ++index) {
-//		progress.setProgress(index);
-//		KApplication::kApplication()->processEvents(10); //do not lock the GUI!				
-//		key = searchResult.GetElement(index);
-//		if (!key)
-//			break;
-//		newKey->key((const char*)*key);
-//		p->addItemToQueue( new CPrintItem(m_currentModule, newKey->key(), newKey->key()) );
-//	}
-//	progress.setProgress(count);		
+	CExportManager::printKeyList( &(m_currentModule->searchResult()), m_currentModule, i18n("Appending keys to the printing queue ...") );		
 }
 
 /** This function copies the search result into the clipboard */
 void CSearchDialogResultModuleView::slotCopySearchResult(){
 	//get the searched text
-	QString searchedText;
-	for (QObject* w = parent(); w; w = w->parent()) {
-		if (w->isA("CSearchDialog")) {
-			CSearchDialog*	dlg = (CSearchDialog*)w;
-			searchedText = dlg->getSearchedText().stripWhiteSpace();
-			break;
-		}		
-	}
-
-	ListKey& searchResult = m_currentModule->searchResult();
-	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
-	progress.setProgress(0);		
-	progress.setMinimumDuration(0);
-			
-	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
-	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
-	
-	const int count = searchResult.Count();
-	SWKey* key = 0;
-	for (int index = 0; index < count && !progress.wasCancelled(); index++) {
-		progress.setProgress(index);
-		KApplication::kApplication()->processEvents(10); //do not lock the GUI!		
-		key = searchResult.GetElement(index);		
-		if (!key)
-			break;
-		text += QString::fromLocal8Bit( (const char*)*key ) + "\n";
-	}
-	if (progress.wasCancelled())
-		return;
-	progress.setProgress(count);
-	KApplication::clipboard()->setText(text);	
+//	QString searchedText;
+//	for (QObject* w = parent(); w; w = w->parent()) {
+//		if (w->isA("CSearchDialog")) {
+//			CSearchDialog*	dlg = (CSearchDialog*)w;
+//			searchedText = dlg->getSearchedText().stripWhiteSpace();
+//			break;
+//		}		
+//	}
+	CExportManager::copyKeyList(&m_currentModule->searchResult(), m_currentModule, i18n("Copying search result to clipboard..."), false);
 }
 
 /** This slot saves the search result to disk. */
@@ -222,33 +177,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResult(){
 		}		
 	}
 	ListKey& searchResult = m_currentModule->searchResult();
-	CExportManager::saveKeyList(&searchResult, m_currentModule, i18n("Saving")+QString::fromLatin1("..."), i18n("Saving the search result"), false, true);	
-//	const QString file = KFileDialog::getSaveFileName(QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));	
-//	if (file.isEmpty())
-//		return;
-//	
-
-//	QProgressDialog progress( "Saving search result...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
-//	progress.show();
-//	progress.setProgress(0);	
-//	progress.setMinimumDuration(0);
-//	
-//	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
-//	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
-//	
-//	const int count = searchResult.Count();
-//	for (int index = 0; index < count && !progress.wasCancelled(); index++) {
-//		progress.setProgress(index);
-//		KApplication::kApplication()->processEvents(10); //do not lock the GUI!														
-//		SWKey* key = searchResult.GetElement(index);
-//		if (!key)
-//			break;
-//		text += QString::fromLocal8Bit( (const char*)*key ) + "\n";
-//	}
-//	if (progress.wasCancelled())
-//		return;
-//	progress.setProgress(count);	
-//	CToolClass::savePlainFile(file, text);
+	CExportManager::saveKeyList(&searchResult, m_currentModule, i18n("Saving the search result ..."), false, true);	
 }
 
 
@@ -262,32 +191,7 @@ void CSearchDialogResultModuleView::slotCopySearchResultWithKeytext(){
 			break;
 		}		
 	}
-
-	ListKey& searchResult = m_currentModule->searchResult();
-	QProgressDialog progress( "Copying search result to clipboard...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
-	progress.setProgress(0);		
-	progress.setMinimumDuration(0);
-		
-	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
-	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
-	const int count = searchResult.Count();
-	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
-	if (!newKey)	
-		return;
-	for (int index = 0; index < count && !progress.wasCancelled(); index++) {		
-		progress.setProgress(index);
-		KApplication::kApplication()->processEvents(10); //do not lock the GUI!									
-		SWKey* key = searchResult.GetElement(index);
-		if (!key)
-			break;		
-		newKey->key((const char*)*key);
-		text += QString::fromLatin1("%1:\n\t%2\n").arg( newKey->key() ).arg( newKey->strippedText() );
-	}
-	if (newKey)
-		delete newKey;
-	if (progress.wasCancelled())
-		return;	
-	KApplication::clipboard()->setText(text);	
+	CExportManager::copyKeyList(&m_currentModule->searchResult(), m_currentModule, i18n("Copying search result to clipboard..."), true );
 }
 
 /** This slot saves the search result to disk. */
@@ -301,43 +205,7 @@ void CSearchDialogResultModuleView::slotSaveSearchResultWithKeytext(){
 			break;
 		}		
 	}
-	ListKey& searchResult = m_currentModule->searchResult();
-	CExportManager::saveKeyList(&searchResult, m_currentModule, i18n("Saving ..."), i18n("Saving the search result ..."), true, true);
-//	const QString file = KFileDialog::getSaveFileName (QString::null, i18n("*.txt | Text files\n *.* | All files (*.*)"), 0, i18n("Save search result ..."));		
-//	if (file.isEmpty())
-//		return;
-//	ListKey& searchResult = m_currentModule->searchResult();
-//	QProgressDialog progress( "Saving...", i18n("Cancel"), searchResult.Count(), this, "progress", true );	
-//	progress.setProgress(0);		
-//	progress.setMinimumDuration(0);
-//		
-//	QString text = i18n("Search result for \"%1\" in module \"%2\"\n").arg(searchedText).arg( m_currentModule->name() );
-//	text += i18n("Entries found:") + QString::fromLatin1(" %1\n\n").arg(searchResult.Count());	
-//
-//	const int count = searchResult.Count();
-//	const CSwordModuleInfo::ModuleType type = m_currentModule->type();
-//
-//	CSwordKey* newKey = CSwordKey::createInstance(m_currentModule);
-//	if (!newKey)
-//		return;
-//
-//	for (int index = 0; index < count && !progress.wasCancelled(); index++) {		
-//		SWKey* key = searchResult.GetElement(index);
-//		if (!key)
-//			break;		
-//		progress.setProgress(index);
-//		KApplication::kApplication()->processEvents(10); //do not lock the GUI!							
-//
-//		newKey->key( (const char*)*key );
-//		text += QString::fromLatin1("%1:\n\t%2\n").arg( newKey->key() ).arg( newKey->strippedText() );
-//	}	
-//	if (newKey)
-//		delete newKey;	
-//	if (progress.wasCancelled())
-//		return;
-//	
-//	progress.setProgress(count);	
-//	CToolClass::savePlainFile( file, text);
+	CExportManager::saveKeyList(&m_currentModule->searchResult(), m_currentModule,i18n("Saving the search result..."), true, true);
 }
 
 //------------class CSearchDialofResultView-----------//

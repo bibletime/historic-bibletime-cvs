@@ -88,8 +88,5 @@ private:
 	QCheckBox			*m_checkCaseSensitive;
 	KProgress			*m_currentProgressBar;
 	KProgress			*m_overallProgressBar;
-
-protected slots: // Protected slots
-  void slotReturnPressed( const QString& );
 };
 #endif

@@ -299,10 +299,8 @@ void CProfile::init(const QString file){
 
 /** Changes the name of this profile. */
 void CProfile::setName( const QString& newName ){
-	qWarning("Profile %s renamed to %s", m_name.latin1(), newName.latin1());	
 	m_name = newName;
-	saveBasics();
-	qWarning("name is now %s", name().latin1());
+	saveBasics(); //save chanegd name
 }
 
 /** Loads the basic settings requires for proper operation. */

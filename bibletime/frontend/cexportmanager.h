@@ -34,32 +34,19 @@ class CSwordModuleInfo;
   *@author The BibleTime team
   */
 class CExportManager : CPointers {
-//protected:
-//	CExportManager();
-//	~CExportManager();
-
 public: // Public methods
-  /**
-  * Saves the key to disk.
-  */
-  static const bool saveKey( CSwordKey* key, const QString& caption, const QString& description,const bool withText = true, const bool showProgress = false );
+  //save functions
+  static const bool saveKey( CSwordKey* key, const bool withText = true );
+  static const bool saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
+  static const bool saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
 
-  /**
-  * Saves the key to disk.
-  */
-  static const bool saveKeyList( ListKey* list, CSwordModuleInfo* module, const QString& caption, const QString& description, const bool withText = true, const bool showProgress = true );
-  /**
-  * Saves the key to disk.
-  */
-  static const bool saveKeyList( QList<CSwordKey>& list, CSwordModuleInfo* module, const QString& caption, const QString& description, const bool withText = true, const bool showProgress = true );
+  //clipboard functions
+  static const bool copyKey( CSwordKey* key, const bool withText = true );
+  static const bool copyKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool withText = true, const bool showProgress = true );
 
-
-  //print
+  //print function
   static const bool printKey( CSwordModuleInfo* module, const QString& startKey, const QString& stopkey = QString::null, const QString& description = QString::null );
-  /**
-  * Saves the key to disk.
-  */
-  static const bool printKeyList( ListKey* list, CSwordModuleInfo* module, const QString& caption, const QString& description, const bool showProgress = true );
+  static const bool printKeyList( ListKey* list, CSwordModuleInfo* module, const QString& label, const bool showProgress = true );
 
 };
 

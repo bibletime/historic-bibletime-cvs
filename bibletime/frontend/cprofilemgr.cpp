@@ -78,10 +78,10 @@ const bool CProfileMgr::remove( const QString& profile) {
 
 /** Returns the profile with the desired name. If there's no such profile 0 is returned. */
 CProfile* CProfileMgr::profile(const QString& name) {
-	for (CProfile* p = m_profiles.first(); p ; p = m_profiles.next()) {
-		qWarning("%s == %s ??", p->name().latin1(), name.latin1());		
-		if (p->name() == name) {
-			return p;	
+	for (m_profiles.first(); m_profiles.current(); m_profiles.next()) {
+		qWarning("%s == %s ??", m_profiles.current()->name().latin1(), name.latin1());		
+		if (m_profiles.current()->name() == name) {
+			return m_profiles.current();	
 		}
 	}
 	qWarning("return 0");
@@ -97,23 +97,16 @@ CProfile* CProfileMgr::startupProfile(){
 
 /** Refreshes the profiles available on disk. Use this function to update the list of profiles after another instance of CProfileMgr created a new profile. */
 void CProfileMgr::refresh(){
-	//debug all profiles
-	for (m_profiles.first(); m_profiles.current(); m_profiles.next()) {
-		qWarning("debug profiles: %s", m_profiles.current()->name().latin1());
-	}
-	
-	//appends the profiles to the list, which do not yet exist
+	m_profiles.clear(); //delete all profiles
 	QDir d( m_profilePath );
 	QStringList files = d.entryList("*.xml");
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
 		CProfile p(m_profilePath + *it);
-		qWarning("profile: %s", p.name().latin1());		
 		if (p.name() == "_startup_") { //new startup profile
 			if  (!m_startupProfile) //don't put this in the if clause above,it doesn't work!
 				m_startupProfile = new CProfile(m_profilePath + *it);
 		}
 		else if (!profile(p.name())) { //don't have it already
-			qWarning("profile with name %s did not exist", p.name().latin1());
 			m_profiles.append(new CProfile(m_profilePath + *it));
 		}
 	}

@@ -54,7 +54,7 @@ CSearchDialogText::CSearchDialogText(QWidget *parent, const char *name)
 	QGroupBox *textBox = new QGroupBox(2,Qt::Vertical,i18n("Search properties"),this,"textBox");
 
 	m_editCombo = new KHistoryCombo(textBox);
-	m_editCombo->setInsertionPolicy(KComboBox::AtTop);	
+	m_editCombo->setInsertionPolicy(QComboBox::AtTop);	
 	m_editCombo->setMaxCount(25);		
 	m_editCombo->setDuplicatesEnabled(false);				
 	m_editCombo->setFocusPolicy(QWidget::StrongFocus);
@@ -142,6 +142,7 @@ CSearchDialogText::~CSearchDialogText() {
 }
 	
 const QString CSearchDialogText::getText() const {
+	qWarning("m_editCombo: %s", m_editCombo->currentText().latin1());
 	return m_editCombo->currentText();
 }
 
@@ -215,10 +216,4 @@ void CSearchDialogText::saveSettings(){
 	
 	list = m_editCombo->historyItems();
 	CBTConfig::set(CBTConfig::searchTexts, list);	
-}
-
-/** No descriptions */
-void CSearchDialogText::slotReturnPressed( const QString& text ){
-	qWarning(text.latin1());
-	m_editCombo->addToHistory(text);	
 }

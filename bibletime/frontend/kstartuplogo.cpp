@@ -46,8 +46,7 @@ void KStartupLogo::hideSplash() {
 }
 
 void KStartupLogo::deleteSplash() {
-	if (startupLogo)
-		delete startupLogo;
+	delete startupLogo;
 	startupLogo = 0;
 }
 

@@ -92,6 +92,7 @@ void CSearchDialogResult::setModuleList(ListCSwordModuleInfo&	modules) {
 
 /** preview items data in the HTML previewer */
 void CSearchDialogResult::updatePreview(const QString newText) {
+	qDebug("CSearchDialogResult::updatePreview(const QString newText) ");
 	QString text = newText;
 	//find text page
 	QString searchedText;
@@ -99,8 +100,8 @@ void CSearchDialogResult::updatePreview(const QString newText) {
 	for (QObject* w = parent(); w; w = w->parent()) {
 		if (w->isA("CSearchDialog")) {
 			CSearchDialog*	dlg = dynamic_cast<CSearchDialog*>(w);
-			textPart = dlg->searchText;
-			searchedText = textPart->getText().stripWhiteSpace();
+			searchedText = dlg->getSearchedText().stripWhiteSpace();
+			textPart = dlg->m_searchText;
 			break;
 		}		
 	}
@@ -166,13 +167,13 @@ void CSearchDialogResult::updatePreview(const QString newText) {
 	}
 	//module is Unicode-based
 	if (resultModuleTree->getCurrentModule()->isUnicode() ) {
-		QFont f = CBTConfig::get( CBTConfig::unicode);
+		const QFont f = CBTConfig::get( CBTConfig::unicode);
 		text = QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(f.pointSize()).arg(text);
 	}
 	html_widget->setText(
 		QString::fromLatin1("<HTML><HEAD></HEAD><BODY><FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3</BODY></HTML>")
 		 .arg(resultTree->currentText())
-		 .arg((resultModuleTree->getCurrentModule()) ? resultModuleTree->getCurrentModule()->description() : QString::fromLatin1("<I>%1</I>").arg(i18n("<I>module not set</I>")) )
+		 .arg((resultModuleTree->getCurrentModule()) ? resultModuleTree->getCurrentModule()->description() : QString::fromLatin1("<I>%1</I>").arg(i18n("module not set")) )
 		 .arg(text)
 	);
 }

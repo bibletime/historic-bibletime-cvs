@@ -21,10 +21,10 @@
 
 class CSwordBackend;
 class CPrinter;
-/**Holds the pointers to important classes like modules, backend etc.
-  *@author The BibleTime team
-  */
 
+/** Holds the pointers to important classes like modules, backend etc.
+  * @author The BibleTime team
+  */
 class CPointers {
 protected:
 	friend class BibleTime; //BibleTime may initialize this object	
