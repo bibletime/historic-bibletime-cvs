@@ -114,6 +114,8 @@ ListCSwordModuleInfo& CSearchDialog::getModuleList() {
 }
 
 void CSearchDialog::setModuleList(ListCSwordModuleInfo& list) {
+//#warning change for gcc3
+//	if (&m_moduleList != &list)
 	if (m_moduleList != list)
 		m_moduleList = list; //copy the items of "list"
 	

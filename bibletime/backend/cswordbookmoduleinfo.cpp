@@ -22,6 +22,8 @@
 #include <treekeyidx.h>
 #include <treekey.h>
 
+#include <iostream>
+
 CSwordBookModuleInfo::CSwordBookModuleInfo( SWModule* module )
 	: CSwordModuleInfo(module), m_depth(-1)
 {
