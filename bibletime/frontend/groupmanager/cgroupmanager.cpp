@@ -40,7 +40,7 @@
 #include "whatsthisdef.h"
 #include "resource.h"
 
-#include <iostream.h>
+#include <iostream>
 
 //QT includes
 #include <qheader.h>
@@ -61,7 +61,6 @@
 #include <kapp.h>
 #include <kpopupmenu.h>
 #include <kglobalsettings.h>
-//#include <kdestyle.h>
 #include <kpassdlg.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>

@@ -195,19 +195,21 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	if (isResetting || !isUpdatesEnabled())
 		return;
 	isResetting = true;	
-	setUpdatesEnabled(false);
-	m_comboBox->setUpdatesEnabled(false);
+//	setUpdatesEnabled(false);
+//	m_comboBox->setUpdatesEnabled(false);
 
-	m_mainLayout->setResizeMode(QLayout::FreeResize);
-	
+//	m_mainLayout->setResizeMode(QLayout::FreeResize);	
 	oldKey = QString::null;
-	m_comboBox->clear();
+
+  //DON'T REMOVE THE HIDE: Otherwise QComboBox's sizeHint() function won't work properly  
+  m_comboBox->hide();
+  m_comboBox->clear();
 	if (list)
 		m_comboBox->insertStringList(*list);
-	m_comboBox->resize( m_comboBox->sizeHint() );
-	m_comboBox->setUpdatesEnabled(true);			
+//	m_comboBox->resize( m_comboBox->sizeHint() );
+//	m_comboBox->setUpdatesEnabled(false);			
 	
-	m_mainLayout->setResizeMode(QLayout::Minimum);
+//	m_mainLayout->setResizeMode(QLayout::Minimum);
 	
 	m_comboBox->setCurrentItem(index);	
 	if (!list || (list && !list->count())) { //nothing in the combobox
@@ -223,11 +225,17 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		btn_fx->setEnabled( enableButtons );
 		btn_down->setEnabled( list && (list->count()>1) );
 	}
-	setUpdatesEnabled(true);
-	
+//	setUpdatesEnabled(true);
+
 	if (do_emit) {
-		emit changed(m_comboBox->currentItem());				
+		emit changed(m_comboBox->currentItem());
 	}
+
+  qWarning("combo size hint: %i x %i", m_comboBox->sizeHint().width(), m_comboBox->sizeHint().height());
+  //DON'T REMOVE OR MOVE THE show()! Otherwise QComboBox's sizeHint() function won't work properly!
+  m_comboBox->show();
+  
+  
 	isResetting = false;	
 }
 

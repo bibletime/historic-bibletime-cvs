@@ -156,7 +156,7 @@ void CBookKeyChooser::setupCombo(const QString key, const int depth, const int c
 }
 
 /** A keychooser changed. Update and emit a signal if necessary. */
-void CBookKeyChooser::keyChooserChanged(int newIndex){
+void CBookKeyChooser::keyChooserChanged(int /*newIndex*/){
 	QStringList items;
 	CKeyChooserWidget* chooser;
 	const int count = m_chooserWidgets.count();

@@ -18,12 +18,12 @@
 #include "cswordtreekey.h"
 #include "cswordbookmoduleinfo.h"
 
-CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : TreeKeyIdx(/*(const char*)*/k), CSwordKey(k) {
+CSwordTreeKey::CSwordTreeKey( const CSwordTreeKey& k ) : CSwordKey(k), TreeKeyIdx(k) {
 
 }
 
 CSwordTreeKey::CSwordTreeKey( const TreeKeyIdx *k, CSwordModuleInfo* module )
-	: TreeKeyIdx(*k), CSwordKey(module) {
+	: CSwordKey(module), TreeKeyIdx(*k) {
 }
 
 CSwordTreeKey* CSwordTreeKey::copy() const {

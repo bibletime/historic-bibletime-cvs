@@ -86,7 +86,10 @@ public:
 
 		tips,
 		logo,
-		restoreWorkspace
+		restoreWorkspace,
+
+    crashedLastTime,
+    crashedTwoTimes    
 	};
 	enum intLists {
 		splitterSizes

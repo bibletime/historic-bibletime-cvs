@@ -408,7 +408,7 @@ void CBiblePresenter::storeSettings( CProfileWindow* settings ){
 	//now check	every item
 	for (int i = 1; i<count; i++) { //first item is a title
 		if (m_displaySettingsButton->itemStatus(i)) //item is checked
-			result += (int)std::pow((double)2,i-1);//add 2^i (the i. digit in binary)
+			result += (int)/*std::*/pow((double)2,i-1);//add 2^i (the i. digit in binary)
 	}
 	settings->setWindowSettings(result);
 }
@@ -419,8 +419,8 @@ void CBiblePresenter::applySettings( CProfileWindow* settings ){
   int result = settings->windowSettings();
 	const int count = m_displaySettingsButton->menuItemCount();
 	for (int i = count-1; i>=1; i--) {
-		if (result-(int)std::pow((double)2,i-1)>= 0) { //2^i was added before, so item with index i is set
-			result -= (int)std::pow((double)2,i-1);
+		if (result-(int)/*std::*/pow((double)2,i-1)>= 0) { //2^i was added before, so item with index i is set
+			result -= (int)/*std::*/pow((double)2,i-1);
 			m_displaySettingsButton->setItemStatus(i,true);
 		}
 		else

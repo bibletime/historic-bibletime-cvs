@@ -19,13 +19,11 @@
 #include "chtmlchapterdisplay.h"
 #include "cswordmoduleinfo.h"
 #include "cswordversekey.h"
-#include "frontend/ctoolclass.h"
-#include "frontend/cbtconfig.h"
+#include "../frontend/ctoolclass.h"
 #include "creferencemanager.h"
 
 //Qt includes
 #include <qfont.h>
-#include <qregexp.h>
 
 //Sword includes
 #include <versekey.h>
@@ -47,50 +45,48 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	key.module(module);	
 	int verse = 0;
 	
-  m_htmlHeader = header();
-  if (module->textDirection() == CSwordModuleInfo::RightToLeft)
-    m_htmlText = m_htmlHeader + QString::fromLatin1("<body dir=\"rtl\">");
-  else
-    m_htmlText = m_htmlHeader + QString::fromLatin1("<body>");
+//	if (module->isUnicode()) {
+//		m_htmlHeader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>";
+//	}
+	m_htmlText = m_htmlHeader + QString::fromLatin1("<body>");
 	
 	//reload font settings
 	updateSettings();
-
-//	m_htmlText.append(QString::fromLatin1("<font face=\"%1\" size=\"%2\">")
-//		.arg(module->isUnicode() ? m_unicodeFontName : m_standardFontName)
-//		.arg(module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
-////		.arg(m_standardFontColorName)
-//	);
+	m_htmlText.append(QString::fromLatin1("<font face=\"%1\" size=\"%2\" color=\"%3\">")
+		.arg(module->isUnicode() ? m_unicodeFontName : m_standardFontName)
+		.arg(module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
+		.arg(m_standardFontColorName)
+	);
 
 	bool ok = true;
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse)) {
 		verse = key.Verse();
 		if (m_displayOptionsBool.verseNumbers) {
-			m_htmlText.append( QString::fromLatin1("<span id=\"reference\"><a name=\"%1\" href=\"%2\">%3</a></span> ")
-//				.arg(m_swordRefColorName)
+			m_htmlText.append( QString::fromLatin1("<font color=\"%1\"><a name=\"%2\" href=\"%3\"><b>%4</b></a></font> ")
+				.arg(m_swordRefColorName)
 				.arg(verse)
 				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key(), CReferenceManager::typeFromModule(module->type()) ))
 				.arg(verse)
 			);
 		}
 		if (verse == currentVerse)
-		  m_htmlText += QString::fromLatin1("<span id=\"highlighted\">");
+		  m_htmlText += QString::fromLatin1("<font color=\"") + m_highlightedVerseColorName + QString::fromLatin1("\">");
 		m_htmlText += key.renderedText();
 		if (verse == currentVerse)
-		  m_htmlText += QString::fromLatin1("</span>");
+		  m_htmlText += QString::fromLatin1("</font>");
 		if (m_displayOptionsBool.lineBreaks)
 			m_htmlText += QString::fromLatin1("<br>\n");
 		else
 			m_htmlText += QString::fromLatin1(" \n");
 	}
 	
-	m_htmlText += QString::fromLatin1("</body></html>");
+	m_htmlText += QString::fromLatin1("</font></body></html>");
 	return 1;	//no error	
 }
 
 /** Generates code to display the given modules side by side. */
 char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){	
-#warning make table colors configurable
+//#warning make table colors configurable
 	if (!moduleList || (moduleList && !moduleList->count()) ) {
 		m_htmlText = QString::null;
 		return 0;
@@ -113,8 +109,7 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 	CSwordModuleInfo *d = 0;
 	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
 			
-	m_htmlHeader = header();
-  m_htmlText = m_htmlHeader;
+	m_htmlText = m_htmlHeader;
   if (m_displayOptionsBool.verseNumbers)
     m_htmlText += QString::fromLatin1("<body><table cellpadding=\"2\" cellspacing=\"0\"><tr><td bgcolor=\"#f1f1f1\"></td>");	
   else
@@ -122,7 +117,7 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 
 	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
-    	m_htmlText.append(QString::fromLatin1("<td bgcolor=\"#f1f1f1\" width=\"%1%\">\
+    	m_htmlText.append(QString::fromLatin1("<td width=\"%1\" bgcolor=\"#f1f1f1\">\
 <font face=\"%2\" size=\"%3\" color=\"%4\"><b>%5</b></td>")
 				.arg(width)
 				.arg(m_standardFontName)
@@ -138,8 +133,7 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 
 	const QString text = QString::fromLatin1("</tr><tr><td bgcolor=\"#f1f1f1\"><b>\
 <font face=\"%1\" size=\"%2\" color=\"%3\"><a name=\"%4\" href=\"%5\">%6</a></font></b></td>\n");
-	
- const QString cell = QString::fromLatin1("<td dir=\"%1\" bgcolor=\"%2\" width=\"%3%\">");
+	const QString cell = QString::fromLatin1("<td width=\"%1%\" bgcolor=\"%2\">");
 	
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.next(CSwordVerseKey::UseVerse)) {
 		const QString currentKey = key.key();
@@ -154,15 +148,13 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 						.arg(currentVerse);
     }
     else {
-       rowText = QString::fromLatin1("</tr><tr>\n");
+       rowText = QString::fromLatin1("</tr><tr>\n>");
     }
 		
 		current.key(currentKey);	
 		while (m) {
 			current.module(d);
-      rowText += cell.arg(d->textDirection() == CSwordModuleInfo::RightToLeft ? QString::fromLatin1("rtl") : QString::fromLatin1("ltor")  )
-                     .arg(currentVerse % 2 ? "white" : "#f1f1f1")
-                     .arg(width);
+      rowText += cell.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
 
 			if (d->isUnicode())
 				rowText += QString::fromLatin1("<font face=\"%1\" size=\"%2\" color=\"%3\">")
@@ -184,37 +176,4 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 	
 	//clean up
 	return 1;		
-}
-
-/** Returns the header which should be used for each page. */
-const QString& CHTMLChapterDisplay::header(){
-  m_htmlHeader = QString::fromLatin1("<HTML><HEAD>");
-
-  m_htmlHeader += QString::fromLatin1("<style type=\"text/css\"> \
-a:link {text-decoration:none;} \
-body {background-color: !backgroundcolor!; color: !textcolor!;} \
-#highlighted { color: !highlightedcolor!; } \
-#reference { color: !refcolor!; font-decoration: none; } \
-#jesuswords {color: !jesuswordscolor!; text-weight:bolder;} \
-#otquote {font-size: smaller;} \
-#poetry  {font-weight: light; text-align: justify;} \
-#sectionhead  {font-size: larger; font-weight: bold; color: !textcolor!;} \
-#booktitle  {font-weight: x-bold; font-size: x-large; color: !textcolor!; margi-top:1mm;margin-bottom:1mm;} \
-#strongnumber  {font-decoration: none; font-size: smaller; font-weight:lighter; font-style:italic; color: !strongscolor!;} \
-#morphcode  {font-size: smaller; color: !morphcolor!; font-decoration:none;} \
-#footnote  {font-size: smaller; color: !footnotecolor!;font-style:italic;} \
-#footnotepre {font-weight: bolder;} \
-</style>");
-
-  m_htmlHeader.replace(QRegExp("!backgroundcolor!"), CBTConfig::get(CBTConfig::backgroundColor).name());
-  m_htmlHeader.replace(QRegExp("!highlightedcolor!"), CBTConfig::get(CBTConfig::highlightedVerseColor).name());
-  m_htmlHeader.replace(QRegExp("!textcolor!"), CBTConfig::get(CBTConfig::textColor).name());
-  m_htmlHeader.replace(QRegExp("!refcolor!"), CBTConfig::get(CBTConfig::swordRefColor).name());
-  m_htmlHeader.replace(QRegExp("!jesuswordscolor!"), CBTConfig::get(CBTConfig::jesuswordsColor).name());
-  m_htmlHeader.replace(QRegExp("!morphcolor!"), CBTConfig::get(CBTConfig::morphsColor).name());
-  m_htmlHeader.replace(QRegExp("!strongscolor!"), CBTConfig::get(CBTConfig::strongsColor).name());
-  m_htmlHeader.replace(QRegExp("!footnotecolor!"), CBTConfig::get(CBTConfig::footnotesColor).name());
-
-  m_htmlHeader += QString::fromLatin1("</HEAD>");
-  return m_htmlHeader;
 }

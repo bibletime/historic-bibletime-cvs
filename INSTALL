@@ -1,11 +1,11 @@
-Additions for BibleTime 1.2:
+Additions for BibleTime 1.2.2:
 ---------------------------
 
-These are instructions how to install BibleTime 1.2.
+These are instructions how to install BibleTime 1.2.2.
 It's sometimes a little bit tricky to get Bibletime and SWORD working, but
 it's possible.
 
-BibleTime 1.2 requires:
+BibleTime 1.2.2 requires:
 	-QT 3.0.x or later
 	-KDE 3.x (at least the libraries and the base package)
 	-SWORD 1.5.3
@@ -13,7 +13,7 @@ BibleTime 1.2 requires:
 If you don't have the sources already please browse to www.bibletime.de to see
 a list of required packages with their download URLs.	
 		
-Compile BibleTime 1.2:
+Compile BibleTime 1.2.2:
 ----------------------------
 
 export QTDIR=<QT source directory>
@@ -26,7 +26,7 @@ make install				# install BibleTime
 
 If something is missing in this file please post to jansorg@gmx.de, my peronal
 eMail adress.
-Please read README for a short description of BibleTime 1.2. The new handbook
+Please read README for a short description of BibleTime 1.2.2. The new handbook
 does contain better instructions how to install BibleTime from sources.
 It has more information about BibleTime's features and installation.
 

@@ -1,5 +1,5 @@
 ##	-*- autoconf -*-
-dnl This file was created by Joachim Ansorg <jansorg@gmx.de>
+dnl This file was created by Joachim Ansorg <joachim@ansorgs.de>
 dnl It provides macord for the autoconf package to find the Sword library on your system.
 
 dnl ----------------------------------------------------------------------
@@ -13,7 +13,7 @@ dnl AC_MSG_CHECKING([for a Sword installation])
 
 dnl The option for the configure script
 AC_ARG_WITH(sword-dir,
-[  --with-sword-dir=DIR     Patch where Sword is being installed (default=/usr) ],
+[  --with-sword-dir=DIR     Path where Sword is being installed (default=/usr) ],
 [
   ac_sword_dir=$withval
 ],ac_sword_dir=/usr
@@ -60,8 +60,6 @@ else
 fi
 AC_MSG_RESULT([$MESSAGE])
 
-
-
 dnl -- try to find Swords include files --
 AC_MSG_CHECKING([for Sword include files])
 ac_sword_include_dirs="$ac_sword_dir/include/sword $ac_sword_dir/include /usr/include/sword /usr/include /usr/local/include/sword /usr/local/include /usr/local/sword/include /usr/local/sword/include/sword"
@@ -82,8 +80,11 @@ AC_MSG_RESULT([$ac_cv_sword_incdir])
 
 
 
-dnl -- check if Sword matches the minimum version --
-AC_MSG_CHECKING([if you have Sword $1 or later])
+dnl -- Sword version tests --
+dnl First test for installed Sword version
+dnl Then check if it's recent enough
+
+AC_MSG_CHECKING([for installed Sword version])
 
 AC_CACHE_VAL(ac_cv_installed_sword_version,
 [
@@ -104,38 +105,27 @@ LIBRARY_PATH=
 export LIBRARY_PATH
 
 cat > conftest.$ac_ext <<EOF
-#include <iostream.h>
+#include <iostream>
 #include <swversion.h>
 
+//make sure we don't run into trouble if Sword >= 1.5.4a is installed
+#define NO_SWORD_NAMESPACE 1
+
 int main(int argc, char* argv[]) {
-	if (argc != 2) {
-		cout << SWVersion::currentVersion << endl;
-	}
-	else if (argc == 2) 
-	{
-		if (SWVersion(&argv[[1]]) < SWVersion::currentVersion || SWVersion(&argv[[1]]) == SWVersion::currentVersion)
-		{
-			cout << 0 << endl;
-			return 0;
-		}
-		else	
-		{
-			cout << 1 << endl;
-			return 1; //version not recent enough
-		}
-	}
+	std::cout << SWVersion::currentVersion << std::endl;
 	return 0;
 }
 EOF
+
 
 ac_link='$LIBTOOL_SHELL --silent --mode=link ${CXX-g++} -o conftest $CXXFLAGS $all_includes $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS 1>&5'
 if AC_TRY_EVAL(ac_link) && test -s conftest; then
 	if test -x conftest; then
 		eval ac_cv_installed_sword_version=`./conftest 2>&5`
-		eval sword_test_returncode=`./conftest $1 2>&5`;
 	fi
 else
   echo "configure: failed program was:" >&AC_FD_CC
+  AC_MSG_ERROR([Failed to compile the test program to check the Sword version! Please have a look at config.log! Report this to the BibleTime developers!]);
   cat conftest.$ac_ext >&AC_FD_CC
 fi
 
@@ -150,16 +140,84 @@ LIBRARY_PATH="$ac_LIBRARY_PATH"
 export LIBRARY_PATH
 AC_LANG_RESTORE
 ])
-
-right_version="ok";
-if test $sword_test_returncode = 1;  then
-	right_version="wrong version";
-fi;
-	
 AC_MSG_RESULT([$ac_cv_installed_sword_version])
-if test $right_version != "ok"; then
-        AC_MSG_ERROR([Your Sword installation is not recent enoought! Please
-upgrade to version $1!]);
+
+
+dnl *** Now check if the installed version is recent enough
+
+AC_MSG_CHECKING([whether your Sword installation is recent enough])
+
+AC_CACHE_VAL(ac_cv_sword_recent_version,
+[
+AC_LANG_SAVE
+AC_LANG_CPLUSPLUS
+ac_LD_LIBRARY_PATH_safe=$LD_LIBRARY_PATH
+ac_LIBRARY_PATH="$LIBRARY_PATH"
+ac_cxxflags_safe="$CXXFLAGS"
+ac_ldflags_safe="$LDFLAGS"
+ac_libs_safe="$LIBS"
+
+CXXFLAGS="$CXXFLAGS -I$"
+LDFLAGS="$LDFLAGS -L$ac_cv_sword_libdir"
+LIBS="$LIB_SWORD -lz"
+LD_LIBRARY_PATH="$ac_cv_sword_libdir"
+export LD_LIBRARY_PATH
+LIBRARY_PATH=
+export LIBRARY_PATH
+
+cat > conftest.$ac_ext <<EOF
+#include <iostream>
+#include <swversion.h>
+
+//make sure we don't run into trouble if Sword >= 1.5.4a is installed
+#define NO_SWORD_NAMESPACE 1
+
+int main(int argc, char* argv[[]]) {
+	if (argc == 2) { //compare required with installed Sword version
+		const char* requiredVersion( argv[[1]] );
+		if ( (SWVersion( requiredVersion ) < SWVersion::currentVersion) || (SWVersion( requiredVersion ) == SWVersion::currentVersion) ) {
+			std::cout << "ok";
+			return -1;
+		}
+		else {
+			std::cout << "not-ok";
+			return -2; //version not recent enough
+		}
+	}
+	return 0;
+}
+EOF
+
+ac_link='$LIBTOOL_SHELL --silent --mode=link ${CXX-g++} -o conftest $CXXFLAGS $all_includes $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS 1>&5'
+if AC_TRY_EVAL(ac_link) && test -s conftest; then
+	if test -x conftest; then
+		eval ac_cv_sword_recent_version=`./conftest $1 2>&5`
+	fi
+else
+  echo "configure: failed program was:" >&AC_FD_CC
+  AC_MSG_ERROR([Failed to compile the test program to check the Sword version! Please have a look at config.log! Report this to the BibleTime developers!]);
+  cat conftest.$ac_ext >&AC_FD_CC
+fi;
+
+rm -f conftest*
+CXXFLAGS="$ac_cxxflags_safe"
+LDFLAGS="$ac_ldflags_safe"
+LIBS="$ac_libs_safe"
+
+LD_LIBRARY_PATH="$ac_LD_LIBRARY_PATH_safe"
+export LD_LIBRARY_PATH
+LIBRARY_PATH="$ac_LIBRARY_PATH"
+export LIBRARY_PATH
+AC_LANG_RESTORE
+])
+
+if test "$ac_cv_sword_recent_version" = "ok"; then
+	AC_MSG_RESULT([yes]);
+elif test "$ac_cv_sword_recent_version" = "not-ok"; then
+	AC_MSG_RESULT([no]);
+	AC_MSG_ERROR([Your Sword installation is not recent enought! Please upgrade to version $1! Get the Sword library at www.crosswire.org.]);
+else
+	AC_MSG_ERROR([Invalid return code of the internal Sword version test program. Please submit a bugreport!]);
 fi;
 
 ])

@@ -72,19 +72,36 @@ extern "C" {
 	static void signalHandler(int sigId) {
 		setSignalHandler(SIG_DFL);
 		fprintf(stderr, "*** BibleTime got signal %d (Exiting)\n", sigId);
+    if (CBTConfig::get(CBTConfig::crashedLastTime)) {
+      //crashed this time and the execution before this one, probably a bug which occurs every time
+      CBTConfig::set(CBTConfig::crashedTwoTimes, true);
+    }
+    else {
+      //try to restore next time.
+      CBTConfig::set(CBTConfig::crashedLastTime, true);
+    }    
 		// try to cleanup all windows
 		if (bibletime) {
 			bibletime->saveSettings();
 			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
 please use the option --ignore-startprofile\n");
 		}
-		::exit(-1); //exit BibleTime
+    ::exit(-1); //exit BibleTime    
 	}
 
 	// Crash recovery signal handler
 	static void crashHandler(int sigId) {
 		setSignalHandler(SIG_DFL);
 		fprintf(stderr, "*** BibleTime got signal %d (Crashing). Trying to save settings.\n", sigId);
+		// try to cleanup all windows
+    if (CBTConfig::get(CBTConfig::crashedLastTime)) {
+      //crashed this time and the execution before this one, probably a bug which occurs every time
+      CBTConfig::set(CBTConfig::crashedTwoTimes, true);
+    }
+    else {
+      //try to restore next time.
+      CBTConfig::set(CBTConfig::crashedLastTime, true);
+    }    
 		if (bibletime) {
 			bibletime->saveSettings();
 			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
@@ -185,7 +202,9 @@ int main(int argc, char* argv[]) {
 			KStartupLogo::showSplash();				
 			KStartupLogo::setStatusMessage( i18n("Starting BibleTime") + QString::fromLatin1("...") );
 		}
-		
+
+    setSignalHandler(signalHandler);
+    
 		bibletime = new BibleTime();
 
 		if (showIt) {
@@ -207,15 +226,20 @@ int main(int argc, char* argv[]) {
 
 		bibletime->show();
 		
-		// restore the workspace
-		if (CBTConfig::get(CBTConfig::restoreWorkspace) && !args->isSet("ignore-startprofile"))
-			bibletime->restoreWorkspace();
-
-		setSignalHandler(signalHandler);		
-		
+		// process options / restore workspace / restore from last crash
+    if (CBTConfig::get(CBTConfig::crashedLastTime) || CBTConfig::get(CBTConfig::restoreWorkspace)) {
+      if (!CBTConfig::get(CBTConfig::crashedTwoTimes) && !args->isSet("ignore-startprofile")) { //restore workspace if it crashed ony once
+        bibletime->restoreWorkspace();
+      }
+    }
+    
 		const int ret = app.exec();
 		delete bibletime;
-		CPointers::deleteBackend();
+    CPointers::deleteBackend();
+
+    //we can set this safely now because we close now (hopyfully without crash)
+    CBTConfig::set(CBTConfig::crashedLastTime, false);
+    CBTConfig::set(CBTConfig::crashedTwoTimes, false);    
 		return ret;
 	}
 }

@@ -34,7 +34,7 @@
 #include <klocale.h>
 
 CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent, const char *name )
-	: CKeyChooser(module, key, parent, name), m_info(0), m_key(0), w_book(0), w_chapter(0), w_verse(0)
+	: CKeyChooser(module, key, parent, name), m_info(0), w_book(0), w_chapter(0), w_verse(0), m_key(0)
 {
 	if (module && (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) ) {
 		m_info = dynamic_cast<CSwordBibleModuleInfo*>(module);
@@ -45,7 +45,7 @@ CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 		return;
 	}
 	QHBoxLayout* layout = new QHBoxLayout(this);
-	layout->setResizeMode(QLayout::Fixed);
+//	layout->setResizeMode(QLayout::Fixed);
 		
 	w_book = new CKeyChooserWidget(m_info->books(),false,this);	
 	w_book->setToolTips(TT_PRESENTER_BOOK_COMBO, TT_PRESENTER_NEXT_BOOK, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_BOOK);

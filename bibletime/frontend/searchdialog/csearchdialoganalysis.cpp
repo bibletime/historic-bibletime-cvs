@@ -51,7 +51,7 @@
 #include <versekey.h>
 
 //library includes
-#include <iostream.h>
+#include <iostream>
 
 //our defines
 #define SPACE_BETWEEN_PARTS 5

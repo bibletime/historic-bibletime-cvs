@@ -81,7 +81,8 @@ QStringList* const CSwordLexiconModuleInfo::entries(){
 
 
 		if (!read){
-			(*module()) = TOP;  		
+			(*module()) = TOP;
+      snap();
   		do {
    			m_entryList->append(QString::fromLocal8Bit(module()->KeyText())); //UTF8, Latin1 or Local8Bit??
   			(*module())++;
