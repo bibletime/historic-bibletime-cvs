@@ -88,7 +88,7 @@ const bool CSwordModuleInfo::unlock( const QString& unlockKey ){
   CBTConfig::setModuleEncryptionKey( name(), unlockKey );
   backend()->setCipherKey(m_module->Name(), unlockKey.latin1());
       
-  return false;
+  return true;
 }
 
 /** This function returns true if this module is locked, otherwise return false. */
@@ -187,28 +187,31 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 	switch (entry) {
 		case AboutInformation:
 		{
-			QString about = QString::fromLatin1(m_module->getConfigEntry("About"));
-			if (!about.isEmpty()) {	
+			sword::SWBuf buf( m_module->getConfigEntry("About") );
+			if (buf.length()) {	
 				sword::RTFHTML filter;
-				sword::SWBuf buf( about.local8Bit() );
 				filter.processText(buf, 0, 0);
-				about = QString::fromLocal8Bit(buf.c_str());
 			}
+			
+			const QString about = isUnicode() 
+				? QString::fromUtf8(buf.c_str())
+				: QString::fromLatin1(buf.c_str());
 			return about;
 		}
-		case CipherKey:
+		case CipherKey: {
       if (CBTConfig::getModuleEncryptionKey(name()).isNull()) { //fall back!
   			return QString::fromLatin1( m_module->getConfigEntry("CipherKey") );
       }
       else {
         return CBTConfig::getModuleEncryptionKey(name());
       };
+		}
 		case AbsoluteDataPath: {
 			QString path = QString::fromLatin1(m_module->getConfigEntry("AbsoluteDataPath"));
       path.replace(QRegExp("/./"), "/"); // make /abs/path/./modules/ looking better
 			//make sure we have a trailing slash!
 			if (path.right(1) != "/") {
-				path += "/";
+				path.append('/');
 			}
       return path;
     }
@@ -226,8 +229,9 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 			return QString::fromLatin1(m_module->Description());
 		case ModuleVersion: {
 			QString version = QString::fromLatin1(m_module->getConfigEntry("Version"));
-      if (version.isEmpty())
+      if (version.isEmpty()) {
         version = "1.0";
+			}
       return version;
     }        
 		case MinimumSwordVersion: {
@@ -315,7 +319,7 @@ void CSwordModuleInfo::write( CSwordKey* key, const QString& newText ){
 
 /** Deletes the current entry and removes it from the module. */
 const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
-  module()->KeyText( key->key().local8Bit() );
+  module()->KeyText( isUnicode() ? (const char*)key->key().utf8() : (const char*)key->key().local8Bit() );
   if (module()) {
     module()->deleteEntry();
     return true;
@@ -328,6 +332,7 @@ const bool CSwordModuleInfo::deleteEntry( CSwordKey* const key ){
 const CSwordModuleInfo::Category CSwordModuleInfo::category() const {
   if (m_dataCache.category == CSwordModuleInfo::UnknownCategory) {
 		const QString cat = QString::fromLatin1(m_module->getConfigEntry("Category"));
+		
 		if (cat == QString::fromLatin1("Cults / Unorthodox / Questionable Material")) {
 			m_dataCache.category = Cult;
 		}
