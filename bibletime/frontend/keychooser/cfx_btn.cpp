@@ -57,8 +57,21 @@ void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
 		/**
 		* This works for me. Changing the exponent (0.3) changes the speed of the scrolling
 		*/
-		vchange = (vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3);
-		emit change_requested( vchange );
+		//vchange = (vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3);
+		//problem: too slow to scroll trough large sets
+		//soluton: increase the exponent
+		//change the border values or the exponents to make it slower / faster
+		if      (abs(vchange) < 10)
+      vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3));
+		else if (abs(vchange) < 20)
+      vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.6));
+		else if (abs(vchange) < 30)
+      vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 1.2));
+		else
+      vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 2.0));
+
+		if (vchange) //not emit 0
+			emit change_requested( vchange );
 		QCursor::setPos( lock_Point );
 	}
 	else
