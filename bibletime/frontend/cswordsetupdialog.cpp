@@ -710,7 +710,7 @@ void CSwordSetupDialog::slot_targetSelected(const QString &targetName){
 void CSwordSetupDialog::slot_doRemoveModules(){
 	QStringList moduleList;
 
-	QListViewItemIterator list_it( m_removeModuleListView/*, QListViewItemIterator::Checked */);
+	QListViewItemIterator list_it( m_removeModuleListView );
 	while ( list_it.current() ) {
 		QCheckListItem* i = dynamic_cast<QCheckListItem*>( list_it.current() );
 		if (i && i->isOn())
@@ -771,8 +771,15 @@ void CSwordSetupDialog::slot_removeModuleItemExecuted(QListViewItem* item) {
 		m_removeRemoveButton->setEnabled(true);
 	}
 	else {
-		QListViewItemIterator it( m_removeModuleListView, QListViewItemIterator::Checked );
-		if ( it.current() ) { //a module is checked in the list
+		QListViewItemIterator it( m_removeModuleListView );
+		QCheckListItem* ci = 0;
+		while (it.current()) {
+			ci = dynamic_cast<QCheckListItem*>(it.current());
+			if (ci && ci->isOn())
+				break;
+			it++;
+		}
+		if ( ci && ci->isOn() ) { //a module is checked in the list
 			m_removeRemoveButton->setEnabled(true);
     }
 		else {
@@ -1094,8 +1101,15 @@ void CSwordSetupDialog::slot_installModuleItemExecuted(QListViewItem* item) {
 		m_installContinueButton->setEnabled(true);
 	}
 	else {
-		QListViewItemIterator it( m_installModuleListView, QListViewItemIterator::Checked );
-		if ( it.current() ) { //a module is checked in the list
+		QListViewItemIterator it( m_installModuleListView );
+		QCheckListItem* ci = 0;
+		while (it.current()) {
+			ci = dynamic_cast<QCheckListItem*>(it.current());
+			if (ci && ci->isOn())
+				break;
+			it++;
+		}
+		if ( ci && ci->isOn() ) { //a module is checked in the list
 			m_installContinueButton->setEnabled(true);
     }
 		else {
@@ -1114,7 +1128,7 @@ void CSwordSetupDialog::slot_installModules(){
 	QListViewItem* item1 = 0;
 	QListViewItem* item2 = 0;
 
-	QListViewItemIterator list_it( m_installModuleListView /*, QListViewItemIterator::Checked*/ );
+	QListViewItemIterator list_it( m_installModuleListView );
 	while ( list_it.current() ) {
 		QCheckListItem* i = dynamic_cast<QCheckListItem*>( list_it.current() );
 		if (i && i->isOn()) {
