@@ -258,19 +258,19 @@ void CBibleKeyChooser::bookFocusOut(int index){
 	
 	m_key->book( w_book->ComboBox->currentText() );
 	const int chapterCount = m_info->getChapterCount( m_info->getBookNumber(m_key->book()));
-	qWarning("%i", chapterCount);
-	qDebug("chaptzers before: %i", m_key->Chapter()-1);	
+//	qWarning("%i", chapterCount);
+//	qDebug("chaptzers before: %i", m_key->Chapter()-1);	
 	if (m_key->Chapter() > chapterCount) //chapter is not available in the new book
 		m_key->Chapter( 1 );
-	qDebug("%i", m_key->Chapter()-1);
+//	qDebug("%i", m_key->Chapter()-1);
 	w_chapter->reset( chapterCount, m_key->Chapter()-1, false);
 			
 	const int verseCount = m_info->getVerseCount(m_info->getBookNumber(m_key->book()),m_key->Chapter());
-	qWarning("%i", verseCount);	
-	qDebug("verse before: %i", m_key->Verse()-1);		
+//	qWarning("%i", verseCount);	
+//	qDebug("verse before: %i", m_key->Verse()-1);		
 	if (m_key->Verse() > verseCount) //verse is not available in the new book and chapter
 		m_key->Verse( 1 );
-	qDebug("%i", m_key->Verse()-1);	
+//	qDebug("%i", m_key->Verse()-1);	
 	w_verse->reset(verseCount,m_key->Verse()-1,false);
 
 	m_key->AutoNormalize(oldNormalize);
@@ -280,18 +280,16 @@ void CBibleKeyChooser::bookFocusOut(int index){
 /** called when the chapter combo lost the focus with reason == tab @param the new chapter */
 void CBibleKeyChooser::chapterFocusOut(int index){
 	qWarning("chapter focus out");
-
-	if (index != m_key->Chapter())
+	const int chapter = w_chapter->ComboBox->currentText().toInt();
+	if (chapter != m_key->Chapter())
 		m_key->Verse(1);
-	m_key->Chapter( w_chapter->ComboBox->currentText().toInt() );	
-	
-	w_verse->reset(m_info->getVerseCount(index+1,1), 0, false);		
+	m_key->Chapter( chapter );		
+	w_verse->reset(m_info->getVerseCount(chapter,1), 0, false);
 }
 
 /** called when the verse combo lost the focus with reason == tab @param the new verse */
 void CBibleKeyChooser::verseFocusOut(int /*index*/){
 	qWarning("verse focus out");
-
 	m_key->Verse( w_verse->ComboBox->currentText().toInt() );
 	setKey( m_key );	
 }

@@ -161,7 +161,7 @@ public:
   * Returns the encoding of the used modules. If it does use no locale it returns QFont::charSetForLocale()
   */
   const QFont::CharSet encoding();
-
+	
 private:
 	SWModule*	m_module;
 	ListKey m_searchResult;

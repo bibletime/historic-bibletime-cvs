@@ -39,7 +39,6 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 		m_htmlText = QString::null;
 		return -1; //error
 	}
-	ASSERT(module->module());
 	CSwordVerseKey key(module);
 	key.key( module->module()->KeyText() );
 	
@@ -84,67 +83,70 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 		m_htmlText = QString::null;
 		return 0;
 	}
-	QMap<CSwordModuleInfo*, QFont> fontMap;
-	
-	SWModule* module = moduleList->first()->module();	
-	VerseKey* key = (VerseKey*)(SWKey*)*module;
-	key->Persist(1);
-	const int currentBook = key->Book();
-	const int currentChapter = key->Chapter();
-	const int chosenVerse = key->Verse();	
+
+	QMap<CSwordModuleInfo*, QFont> fontMap;	
+	SWModule* module = moduleList->first()->module();		
+		
+	VerseKey* vk = (VerseKey*)(SWKey*)*module;
+	CSwordVerseKey key(moduleList->first());
+	key.Persist(1);
+	key.key((const char*)*vk);
+
+	const int currentBook = key.Book();
+	const int currentChapter = key.Chapter();
+	const int chosenVerse = key.Verse();	
 	const int width=(int)((double)97/(double)moduleList->count());
 	CSwordModuleInfo *d = 0;
 			
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<BODY><TABLE CELLPADDING=\"2\" CELLSPACING=\"0\">");
  	m_htmlText.append(QString::fromLatin1("<TR><TD BGCOLOR=\"#F1F1F1\"></TD>"));
 	
-	SWModule *m = (d = moduleList->first()) ? d->module() : 0;	
+	SWModule *m = (d = moduleList->first()) ? d->module() : 0;
 	while (m) {
 		if (d && d->hasFont())
 			fontMap.insert(d, d->getFont());
     if (m)
 			m_htmlText.append(
-				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%2</B></TD>")
-					.arg(width)
-					.arg(QString::fromLocal8Bit(m->Name()))
-				);
+				QString::fromLatin1("<TD width=\"%1\" bgcolor=\"#F1F1F1\"><B>%1</B></TD>").arg((int)((double)100/(double)moduleList->count())).arg(QString::fromLocal8Bit(m->Name()))
+			);
 		m = (d=moduleList->next()) ? d->module() : 0;			
 	}
 	m_htmlText.append("</TR>");
 		
-	VerseKey k = (const char*)*key;
-	k.Verse(1);
-	m = (d = moduleList->first()) ? d->module() : 0;	
-	while (m) {
-    m = (d=moduleList->next()) ? d->module() : 0;
-    if (m)
-			m->SetKey( (const char*)k );
-	}
-	
+//	VerseKey k = (const char*)*key;
+//	k.Verse(1);
+//	m = (d = moduleList->first()) ? d->module() : 0;	
+//	while (m) {
+//    m = (d=moduleList->next()) ? d->module() : 0;
+//    if (m)
+//			m->SetKey( (const char*)k );
+//	}
+
 	QString rowText   = QString::null;
 	int currentVerse = 0;
-	for (key->Verse(1); key->Book() == currentBook && key->Chapter() == currentChapter && !module->Error(); (*module)++ ) {
-		currentVerse = key->Verse();
+	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); /*(*module)++*/key.NextVerse() ) {
+//		qDebug(key->key().latin1());		
+		currentVerse = key.Verse();
 		rowText = QString::fromLatin1("<TR><TD bgcolor=\"#F1F1F1\"><B><A NAME=\"%1\" HREF=\"sword://%2\">%3</A></B></TD>\n")
-			.arg(key->Verse())
-			.arg(QString::fromLocal8Bit((const char*)*key))
-			.arg(currentVerse);					
+			.arg(currentVerse)
+			.arg(/*QString::fromLocal8Bit((const char*)*key)*/key.key())
+			.arg(currentVerse);
 		m = (d = moduleList->first()) ? d->module() : 0;
 		while (m) {
-			m->SetKey(*key);
+			m->SetKey(key);
 			rowText += QString::fromLatin1("<TD %1 BGCOLOR=\"%2\"><FONT FACE=\"%3\" size=\"%4\" %5>%6</FONT></TD>\n")
 				.arg(QString::fromLatin1("width=\"%1%\"").arg(width))
 				.arg(currentVerse % 2 ? "white" : "#F1F1F1")
 				.arg(fontMap.contains(d) ? fontMap[d].family() : m_standardFontName)
 				.arg(fontMap.contains(d) ? CToolClass::makeLogicFontSize(fontMap[d].pointSize()) : m_standardFontSize)
-				.arg(currentVerse == chosenVerse ? QString::fromLatin1("color=\"%1\"").arg(m_highlightedVerseColor) : QString())
-				.arg(QString::fromLocal8Bit((const char*)*m));
-//				.arg(QString::fromUtf8((const char*)*m));
+				.arg((currentVerse == chosenVerse) ? QString::fromLatin1("color=\"%1\"").arg(m_highlightedVerseColor) : QString::null)
+				.arg(CSwordVerseKey(d).renderedText());
 			m = (d = moduleList->next()) ? d->module() : 0;
 		}
-		if (!rowText.isEmpty())
-			m_htmlText.append(rowText + QString::fromLatin1("</TR>\n"));
+		m_htmlText.append(rowText + QString::fromLatin1("</TR>\n"));
 	}
-	m_htmlText.append( QString::fromLatin1("</TABLE>%1").arg(m_htmlBody) );	
+	m_htmlText.append( QString::fromLatin1("</TABLE>")+m_htmlBody );		
+	
+	//clean up
 	return 0;		
 }

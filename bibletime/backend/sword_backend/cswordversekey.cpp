@@ -27,7 +27,17 @@
 #include <swmodule.h>
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
+	qDebug("constructor of CSwordVerseKey");
 	m_module = dynamic_cast<CSwordBibleModuleInfo*>(module);
+	if (!module)
+		return;
+	VerseKey* vk = (VerseKey*)(SWKey*)*(module->module());	
+	if (vk) {
+		qDebug("set initial key");
+		key(QString::fromLocal8Bit((const char*)*vk));
+		qDebug(key().latin1());
+	}
+	qDebug("finished");
 }
 
 /** No descriptions */

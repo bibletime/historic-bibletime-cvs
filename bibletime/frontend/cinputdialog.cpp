@@ -40,6 +40,7 @@ CInputDialog::CInputDialog(const QString& caption, const QString& description, c
 	topLayout->addSpacing(10);
 	
 	m_editWidget = new QMultiLineEdit(this, "edit widget");
+	m_editWidget->setWordWrap( QMultiLineEdit::WidgetWidth);
 	m_editWidget->setText(text);
 	if (!text.isEmpty())
 		m_editWidget->selectAll();

@@ -133,7 +133,6 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	}
 
 	key->key( module->KeyText() );
-
 	
 	const int width=(int)((double)100/(double)moduleList->count());
 	m_htmlText = m_htmlHeader + QString::fromLatin1("<TABLE cellpadding=\"2\" cellspacing=\"0\"><TR>"); 	

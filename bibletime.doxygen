@@ -3,7 +3,7 @@
 # General configuration options
 #---------------------------------------------------------------------------
 PROJECT_NAME          = BibleTime
-PROJECT_NUMBER        = 1.0beta1
+PROJECT_NUMBER        = 1.0
 OUTPUT_DIRECTORY      = bibletime-api/
 OUTPUT_LANGUAGE       = English
 DISABLE_INDEX         = NO
@@ -16,7 +16,7 @@ BRIEF_MEMBER_DESC     = YES
 REPEAT_BRIEF          = YES
 ALWAYS_DETAILED_SEC   = NO
 FULL_PATH_NAMES       = NO
-STRIP_FROM_PATH       =
+STRIP_FROM_PATH       = 
 INTERNAL_DOCS         = NO
 CLASS_DIAGRAMS        = YES
 SOURCE_BROWSER        = NO
@@ -31,7 +31,7 @@ INHERIT_DOCS          = YES
 INLINE_INFO           = YES
 SORT_MEMBER_DOCS      = YES
 TAB_SIZE              = 4
-ENABLED_SECTIONS      =
+ENABLED_SECTIONS      = 
 #---------------------------------------------------------------------------
 # configuration options related to warning and progress messages
 #---------------------------------------------------------------------------

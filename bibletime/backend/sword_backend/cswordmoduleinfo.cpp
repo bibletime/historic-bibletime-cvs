@@ -37,6 +37,9 @@
 #include <swconfig.h>
 #include <rtfhtml.h>
 
+//static class wide objects
+static SWMgr searchModulesMgr;
+	
 CSwordModuleInfo::CSwordModuleInfo( CSwordBackend* backend, SWModule* module ){
 	m_backend = backend;
 	m_module = module;
@@ -148,11 +151,6 @@ const QString CSwordModuleInfo::getPath() const {
 
 /** Returns true if something was found, otherwise return false. */
 const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, ListKey scope, void (*percentUpdate)(char, void*) ) {
-	//workaround for thread-insafety	
-//	SWKey* k = module()->CreateKey();
-//	module()->SetKey(*k);
-//	delete k;
-	
 	int searchType = 0;
  	int searchFlags = REG_ICASE;
 	//setup variables required for Sword
@@ -165,8 +163,6 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
 		searchType = -2; //multiple words
 	else if (searchOptions & CSwordModuleSearch::regExp)
 		searchType = 0;	//regexp matching
-
-	static SWMgr searchModulesMgr;
 		
 	SWKey* searchScope = 0;
 	if ((searchOptions & CSwordModuleSearch::useLastResult) && m_searchResult.Count()) {
@@ -195,7 +191,8 @@ void CSwordModuleInfo::clearSearchResult(){
 
 /** This interupts the search if this module is being searched. */
 void CSwordModuleInfo::interruptSearch(){
-	module()->terminateSearch = true;
+	searchModulesMgr.Modules[module()->Name()]->terminateSearch = true;
+//	module()->terminateSearch = true;
 }
 
 /** Returns true if the given type i supported by this module. */
@@ -277,11 +274,13 @@ CSwordBackend* CSwordModuleInfo::backend() const {
 
 /** Returns the encoding of the used modules  */
 const QFont::CharSet CSwordModuleInfo::encoding(){
-	qDebug("CSwordModuleInfo::encoding()");
+//	qDebug("CSwordModuleInfo::encoding()");
 	const QString charset = QString::fromLatin1((*m_backend->getConfig())[m_module->Name()]["Encoding"].c_str());
-	qDebug(charset.latin1());
+//	qDebug(charset.latin1());
+	
+	if (charset.isEmpty())
+		return QFont::charSetForLocale();		//unknown charset					
 	if (charset == QString::fromLatin1("UTF-8")) {
-		qDebug("return unicode!");
 		return QFont::Unicode;
 	}
 	return QFont::charSetForLocale();		//unknown charset	
