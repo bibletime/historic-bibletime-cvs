@@ -1,3 +1,8 @@
+2004-01-18 Joachim Ansorg <junkmail@joachim.ansorgs.de>
+  * BibleTime 1.4.1 release
+   -Many bugfixes, esp. in the SwordSetup dialog
+   -Translation updates
+
 2003-12-28 Joachim Ansorg <junkmail@joachim.ansorgs.de>
   * BibleTime 1.4 release
     -New SwordSetup Dialog to setup Sword's configuration, to install modules from remote or local sources and to uninstall modules.
