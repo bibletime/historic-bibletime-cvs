@@ -127,7 +127,7 @@ void CHTMLDialog::textChanged(){
 			}
 		}
 		if ( !exists ) {
-	    m_historyCombo->insertItem( selectedURL, 0 );
+	    m_historyCombo->insertItem( selectedURL, -1 );
 	    m_historyCombo->setCurrentItem( 0 );
 		} else
 	    m_historyCombo->setCurrentItem( i );

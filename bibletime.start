@@ -1,11 +1,11 @@
 #!/bin/sh
+
+#############################################################
 #
-####################################
+# This script sets system variables and launches bibletime. #
 #
-# This script sets system variables and launches bibletime.
-#
-#
-####################################
+#############################################################
+
 export KDEDIRS=/usr/local/kde2
 export PATH=$KDEDIRS/bin:$PATH
 exec bibletime

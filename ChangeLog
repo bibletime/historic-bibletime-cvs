@@ -1,3 +1,6 @@
+2001-07-28 Joachim Ansorg <jansorg@gmx.de>
+	* The new configure options are cached now (sword lib,includes, distribution name and version, RPM prefix and group)
+
 2001-07-27 Joachim Ansorg <jansorg@gmx.de>
 	* Added history box in the HTML dialog widget if history browsing is enabled
 

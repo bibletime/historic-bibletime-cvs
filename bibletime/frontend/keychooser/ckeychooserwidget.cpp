@@ -240,7 +240,8 @@ void CKeyChooserWidget::init( ){
 	setTabOrder(ComboBox, 0);
 		
 // signals and slots connections
-	config->setGroup("General");
+//	config->setGroup("General");
+	KConfigGroupSaver gs(config, "General");
  	if (config->readBoolEntry("Scroll")) {
 		if (m_useNextPrevSignals) {
 			connect(btn_up, SIGNAL(clicked()), SIGNAL(prev_requested()) );	
@@ -274,7 +275,7 @@ void CKeyChooserWidget::init( ){
 
 /** Is called when the return key was presed in the combobox. */
 void CKeyChooserWidget::slotReturnPressed( const QString& text){
-	qDebug("CKeyChooserWidget::slotReturnPressed( const QString& text)");
+//	qDebug("CKeyChooserWidget::slotReturnPressed( const QString& text)");
 	int index = 0;
 	
 	for (index=0; index < ComboBox->count(); index++) {
@@ -352,7 +353,8 @@ void CKeyChooserWidget::adjustSize( ){
 void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
 	QToolTip::add(ComboBox,comboTip);
 	QToolTip::add(btn_fx,  scrollButtonTip);
-	config->setGroup("General");
+
+	KConfigGroupSaver gs(config, "General");
  	if (config->readBoolEntry("Scroll")) {
 		QToolTip::add(btn_down, nextEntryTip);
 		QToolTip::add(btn_up,	previousEntryTip);
@@ -368,21 +370,22 @@ void CKeyChooserWidget::setToolTips( const QString comboTip, const QString nextE
 void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextEntryTip, const QString scrollButtonTip, const QString previousEntryTip){
 	QWhatsThis::add(ComboBox,comboTip);
 	QWhatsThis::add(btn_fx,  scrollButtonTip);
-	config->setGroup("General");
+
+	KConfigGroupSaver gs(config, "General");
  	if (config->readBoolEntry("Scroll")) {
 		QWhatsThis::add(btn_down, nextEntryTip);
 		QWhatsThis::add(btn_up,   previousEntryTip);
 	}
 	else {
-	QWhatsThis::add(btn_up,   nextEntryTip);
-	QWhatsThis::add(btn_down, previousEntryTip);
+		QWhatsThis::add(btn_up,   nextEntryTip);
+		QWhatsThis::add(btn_down, previousEntryTip);
 	}
 	config->setGroup("");
 }
 
 /** Sets the current item to the one with the given text */
 bool CKeyChooserWidget::setItem( const QString item ){
-	qDebug("CKeyChooserWidget::setItem( const QString item )");
+//	qDebug("CKeyChooserWidget::setItem( const QString item )");
 	bool ret = false;
 	const int count = ComboBox->count();
 	for (int i = 0; i < count; ++i) {

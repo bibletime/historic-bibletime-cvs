@@ -63,7 +63,11 @@ AC_ARG_WITH(rpm-group,
 
 if test "$ac_distribution" != "auto"; then
 	DISTRIBUTION=[$ac_distribution]
-elif test -f "/etc/SuSE-release"; then
+fi
+
+if test "$ac_distribution" = "auto"; then
+AC_CACHE_VAL(DISTRIBUTION, [
+if test -f "/etc/SuSE-release"; then
 	DISTRIBUTION="SuSE"
 elif test -f "/etc/mandrake-release"; then
 	DISTRIBUTION="Mandrake"
@@ -72,10 +76,15 @@ elif test -f "/etc/redhat-release"; then
 elif test -f "/etc/debian_version"; then
 	DISTRIBUTION="Debian"
 fi
+])
+fi
 
 if test "$ac_distribution_version" != "auto"; then
 	DISTRIBUTION_VERSION=[$ac_distribution_version]
-elif test -f "/etc/SuSE-release" && test "$DISTRIBUTION" = "SuSE"; then
+fi
+if test "$ac_distribution_version" = "auto"; then
+AC_CACHE_VAL(DISTRIBUTION_VERSION, [
+if test -f "/etc/SuSE-release" && test "$DISTRIBUTION" = "SuSE"; then
 	DISTRIBUTION_VERSION=[`grep "VERSION =" /etc/SuSE-release | sed 's/VERSION = //'`];	
 elif test -f "/etc/mandrake-release" && test "$DISTRIBUTION" = "Mandrake"; then
 	DISTRIBUTION_VERSION=[`grep "Mandrake" /etc/mandrake-release | sed 's/[a-zA-Z()]*//g' | awk '{print $1}'`]
@@ -84,10 +93,16 @@ elif test -f "/etc/redhat-release" && test "$DISTRIBUTION" = "Red Hat"; then
 elif test -f "/etc/debian_version" && test "$DISTRIBUTION" = "Debian"; then
 	DISTRIBUTION_VERSION=[`cat /etc/debian_version`]
 fi
+])
+fi
+
 
 if test "$ac_rpm_prefix" != "auto"; then
 	RPM_PREFIX=[$ac_rpm_prefix]
-elif test "$DISTRIBUTION" = "SuSE"; then
+fi
+if test "$ac_rpm_prefix" = "auto"; then
+AC_CACHE_VAL(RPM_PREFIX, [
+if test "$DISTRIBUTION" = "SuSE"; then
 	RPM_PREFIX="/opt/kde2"
 elif test "$DISTRIBUTION" = "Mandrake"; then
 	RPM_PREFIX="/usr"	
@@ -96,10 +111,16 @@ elif test "$DISTRIBUTION" = "Red Hat"; then
 elif test "$DISTRIBUTION" = "Debian"; then
 	RPM_PREFIX="/usr"
 fi
+])
+fi
 
 if test "$ac_rpm_group" != "auto"; then
 	RPM_GROUP=[$ac_rpm_group]
-elif test "$DISTRIBUTION" = "SuSE"; then
+fi
+if test "$ac_rpm_prefix" = "auto"; then
+AC_CACHE_VAL(RPM_GROUP,
+[
+if test "$DISTRIBUTION" = "SuSE"; then
 	RPM_GROUP="X11/KDE/Applications"
 elif test "$DISTRIBUTION" = "Mandrake"; then
 	RPM_GROUP="Graphical desktop/KDE"
@@ -107,6 +128,8 @@ elif test "$DISTRIBUTION" = "Red Hat"; then
 	RPM_GROUP="Graphical desktop/KDE"
 elif test "$DISTRIBUTION" = "Debian"; then
 	RPM_GROUP="Graphical desktop/KDE"
+fi
+])
 fi
 
 if test -n "$DISTRIBUTION" && test "$DISTRIBUTION" != "unknown"; then

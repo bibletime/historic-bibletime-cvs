@@ -73,7 +73,7 @@ void CMDIArea::slotClientActivated(QWidget* client){
 	if (!client)
 		return;				
 //	qWarning(client->caption().latin1());
-	emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(client->caption().stripWhiteSpace()) );	
+//	emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(client->caption().stripWhiteSpace()) );	
 	
 	CBiblePresenter* p = dynamic_cast<CBiblePresenter*>(client);
 	if (p)
@@ -89,27 +89,41 @@ void CMDIArea::childEvent ( QChildEvent * e ){
 	m_childEvent = true;
 	
 	if (!windowList().count()) {
-		emit sigLastPresenterClosed();
-		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(QString()) );
+//		emit sigLastPresenterClosed();
+//		emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(QString::null) );
 	}	
 	if (!e) {
 		m_childEvent = false;
 		return;
 	}
 	
-	if (e->inserted() || e->removed()) {
-		switch (guiOption) {
-	 		case autoTile:
-				QTimer::singleShot( 0, this, SLOT(tile()) );
-	 			break;
-	 		case autoCascade:
-				QTimer::singleShot( 0, this, SLOT(cascade()) );
-	 			break;
-	 		default:
-	 			break;
-		}
-	}
-	
+//	if (e->inserted() || e->removed()) {
+//		switch (guiOption) {
+//	 		case autoTile:
+//				QTimer::singleShot( 0, this, SLOT(tile()) );
+//	 			break;
+//	 		case autoCascade:
+//				QTimer::singleShot( 0, this, SLOT(cascade()) );
+//	 			break;
+//	 		default:
+//	 			break;
+//		}
+//	}
+
+//	qWarning("CMDIArea: switch e->type()");
+//	qWarning("%i", e->type());	
+//	switch ( e->type() ) {
+//		 case QEvent::ShowNormal:
+//		 case QEvent::ShowMaximized:
+//			if (e->child() && (e->child()->inherits("CPresenter") || e->child()->inherits("QWorkspaceChild"))) {
+//				QWidget* w = dynamic_cast<QWidget*>(e->child());
+//				qWarning("set top level caption in eventFilter!");
+//				if (w)
+//					emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(w->caption()) );	
+//			}
+//		 	break;
+//	}		
+		
 	m_childEvent = false;
 }
 
@@ -130,12 +144,12 @@ void CMDIArea::resizeEvent(QResizeEvent* e){
 
 /**  */
 void CMDIArea::saveSettings(){
-	KConfigGroupSaver groupSaver(config, "MDI");
+//	KConfigGroupSaver groupSaver(config, "MDI");
 }
 
 /**  */
 void CMDIArea::readSettings(){
-	KConfigGroupSaver groupSaver(config, "MDI");
+//	KConfigGroupSaver groupSaver(config, "MDI");
 }
 
 /** Deletes all the presenters in the MDI area. */
@@ -169,7 +183,7 @@ void CMDIArea::setGUIOption( mdiOption new_GUIOption){
 
 /**  */
 void CMDIArea::tile(){
-	if (!isUpdatesEnabled() || (windowList().count() == 0) )	
+	if (!isUpdatesEnabled() || !windowList().count() )	
 		return;
 	if (windowList().count() == 1 /*&& !windowList().at(0)->isHidden() && !windowList().at(0)->isMinimized()*/)
 		windowList().at(0)->showMaximized();
@@ -179,7 +193,7 @@ void CMDIArea::tile(){
 
 /**  */
 void CMDIArea::cascade(){
-	if (!isUpdatesEnabled() || (windowList().count() == 0) )	
+	if (!isUpdatesEnabled() || !windowList().count() )
 		return;		
 	if (windowList().count() == 1 /*&& !windowList().at(0)->isHidden() && !windowList().at(0)->isMinimized()*/)
 		windowList().at(0)->showMaximized();
@@ -201,7 +215,7 @@ void CMDIArea::syncCommentaries(CKey* syncKey){
 
 /** Look up the text in the module. If the module has already a display window of it opne use it, otherwise create a new one. */
 void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
-	qWarning("CMDIArea::lookupInLexicon(const QString& text, const QString& module)");
+//	qWarning("CMDIArea::lookupInLexicon(const QString& text, const QString& module)");
 	CSwordModuleInfo* m = m_important->swordBackend->findModuleByName(module);
 	if (!m)
 		return;
@@ -214,7 +228,7 @@ void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 	for (windows.first(); windows.current(); windows.next()) {
 		p = dynamic_cast<CLexiconPresenter*>(windows.current());
 		if (p && (m == p->getModuleList().first())) {
-			qWarning("found");
+//			qWarning("found");
 			found = true;
 			break;
 		}
@@ -227,21 +241,36 @@ void CMDIArea::lookupInLexicon(const QString& text, const QString& module){
 
 /** Closes and deletes the presenter given as argument. */
 void CMDIArea::closePresenter(CPresenter* p){
-	qDebug("CMDIArea::closePresenter(CPresenter* p)");
-	ASSERT(p);
+//	qDebug("CMDIArea::closePresenter(CPresenter* p)");
+//	ASSERT(p);
 	if (!p)
 		return;
 	m_currentPresenter = p;
-  QTimer::singleShot( 5000, this, SLOT(deleteCurrentPresenter()) );	
+  QTimer::singleShot(5000, this, SLOT(deleteCurrentPresenter()) );	
 }
 
 /** Delete the presenter. */
 void CMDIArea::deleteCurrentPresenter(){
-	qDebug("CMDIArea::deletePresenter(CPresenter* p)");
+//	qDebug("CMDIArea::deletePresenter(CPresenter* p)");
 	if (m_currentPresenter) {
 		delete m_currentPresenter;
 		m_currentPresenter = 0;
 	}
-	QString currentCaption = activeWindow() ? activeWindow()->caption() : QString::null;
-	emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(currentCaption) );	
+//	QString currentCaption = activeWindow() ? activeWindow()->caption() : QString::null;
+//	emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(currentCaption) );	
+}
+
+/** Reimplementation */
+bool CMDIArea::eventFilter( QObject *o, QEvent * e){
+//	switch ( e->type() ) {
+//		 case QEvent::ShowMaximized:
+//			qWarning("eventFilter: showMaximized!!");
+//			if (o && o->inherits("CPresenter")) {
+//				QWidget* w = dynamic_cast<QWidget*>(o);
+//				qWarning("set top level caption in eventFilter!");
+//				emit sigSetToplevelCaption( KApplication::kApplication()->makeStdCaption(w->caption()) );	
+//			}
+//		 	break;
+//	}		
+	return QWorkspace::eventFilter(o,e);
 }

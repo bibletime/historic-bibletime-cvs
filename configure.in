@@ -58,7 +58,7 @@ dnl in this space add everything you want to check for;
 dnl examples are specific headers, libraries, etc.
 dnl everything to compile and run a KDE program is already checked
 
-CPPFLAGS="$CPPFLAGS -D_REENTRANT -DQT_NO_ASCII_CAST -DQT_NO_COMPAT"
+CPPFLAGS="$CPPFLAGS -D_REENTRANT -DQT_NO_ASCII_CAST -DQT_NO_COMPAT -DQT_CLEAN_NAMESPACE"
 AC_CHECK_STATIC_LINKING(ac_use_static)
 AC_CHECK_SWORD(1.52, [$ac_use_static])
 

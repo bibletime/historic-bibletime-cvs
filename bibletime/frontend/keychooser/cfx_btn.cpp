@@ -20,9 +20,14 @@
 #include <stdlib.h>
 #include <math.h>
 
+//Qt includes
 #include <qevent.h>
 #include <qapplication.h>
 #include <qcursor.h>
+
+//KDE includes
+#include <kconfig.h>
+#include <kglobal.h>
 
 cfx_btn::cfx_btn(QWidget *parent, const char *name ) : QToolButton(parent,name) {
 	setCursor( splitVCursor );
@@ -52,8 +57,12 @@ QPoint cfx_btn::get_lock_Point(void){
 }
 
 void cfx_btn::mouseMoveEvent( QMouseEvent* e ){
+	KConfig* config = KGlobal::config();
+	KConfigGroupSaver gs(config, "General");
+ 	const short signed int scrollDirection = config->readBoolEntry("Scroll") ? -1 : 1;
+	
 	if (isLocked) {
-		int vchange = QCursor::pos().y() - lock_Point.y();
+		int vchange = (QCursor::pos().y() - lock_Point.y()) * scrollDirection;
 		if (abs(vchange) < 10)
       vchange = (int)((vchange>0 ? -1 : 1) * pow(abs(vchange), 0.3));
 		else if (abs(vchange) < 30)

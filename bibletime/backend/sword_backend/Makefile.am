@@ -1,4 +1,3 @@
-KDE_CXXFLAGS = -fexceptions -frtti
 KDE_OPTIONS = qtonly
 libswordbackend_a_METASOURCES = AUTO
 noinst_LIBRARIES = libswordbackend.a

@@ -110,6 +110,8 @@ protected: // Protected methods
    * Initializes the view of the MDI area
    */
   void initView();
+  /** Reimplementation */
+  virtual bool eventFilter( QObject *o, QEvent * e);
 		
 signals: // Signals
   /**
