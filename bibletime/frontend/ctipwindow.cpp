@@ -115,15 +115,14 @@ CTipWindow::CTipWindow() : KDialog(0,0,true) {
 	  current = tips.count() ? kapp->random() % tips.count() : 0;
 
 	  KConfig *config = KGlobal::config();
-	  KConfigGroupSaver(config, "Startup");
+	  KConfigGroupSaver gs(config, "Startup");
 	  startup->setChecked(config->readBoolEntry("show tips", true));
   }
   else {
-		QString message = i18n("<DIV align=\"center\"><B>Missing tips!</B></DIV><BR><BR>Your installation is missing the daily tips.\
-		Please make sure all files of BibleTime are\
-		installed and that the permissions of $KDEDIR are correct!<BR><BR>\
-		If you can't solve this problem please contact the team of BibleTime at\
-		<A HREF=\"mailto:info@bibletime.de\">info@bibletime.de</A>!");
+		QString message = QString::fromLatin1("<DIV align=\"center\"><B>%1</B></DIV><BR><BR>%2<BR><BR>%3")
+		.arg(i18n("Missing tips!"))
+		.arg(i18n("Your installation is missing the daily tips. Please make sure all files of BibleTime are installed and that the permissions of $KDEDIR and $KDEDIRS are correct!"))
+		.arg(i18n("If you can't solve this problem please contact the team of BibleTime at <A HREF=\"mailto:info@bibletime.de\">info@bibletime.de</A>!"));
 		tips.append(message);
 		current=0;
 		next->setEnabled(false);
