@@ -410,8 +410,9 @@ void CModuleChooser::initTree(){
     else
       ok = false;
 
-    if (typeFolderCaption.isEmpty())
+    if (typeFolderCaption.isEmpty()) {
       typeFolderCaption = typenameMap[static_cast<CSwordModuleInfo::ModuleType>(type)];
+    }
 
     //get the available languages of the selected modules
     QStringList langs;
@@ -424,11 +425,13 @@ void CModuleChooser::initTree(){
 
     //go through the list of languages and create subfolders for each language and the modules of the language
     QListViewItem* typeFolder = 0;
-    if (modsForType.count())
+    if (modsForType.count()) {
       typeFolder = new QListViewItem(this, typeFolder, typeFolderCaption);
+    }
     else {
-      if (incType)
+      if (incType) {
         type++;
+      }
       continue;
     };
 
@@ -437,7 +440,10 @@ void CModuleChooser::initTree(){
     CLanguageMgr* langMgr = languageMgr();
     for ( QStringList::Iterator it = langs.begin(); it != langs.end(); ++it ) {
       language = langMgr->languageForAbbrev(*it).translatedName();
-
+      if (language.isEmpty()) {
+        language = (*it);
+      }
+      
       QListViewItem* langFolder = new QListViewItem(typeFolder,language);
       langFolder->setPixmap(0, SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
@@ -451,8 +457,9 @@ void CModuleChooser::initTree(){
     };
     typeFolder->setPixmap(0,SmallIcon(CResMgr::mainIndex::closedFolder::icon, 16));
 
-    if (incType)
+    if (incType) {
       ++type;
+    }
   };
 }
 

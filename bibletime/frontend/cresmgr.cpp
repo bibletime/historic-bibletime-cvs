@@ -24,13 +24,10 @@
 #include <kglobal.h>
 #include <klocale.h>
 
-//static KLocale* locale = KGlobal::locale();
-const QString makeToolTip( const QString& text ) {
-//  qWarning("translation of %s is %s", text.latin1(), i18n(text.latin1()).latin1());
-
+inline const QString makeToolTip( const QString& text ) {
   return text;
 };
-const QString makeWhatsThis( const QString& title, const QString& description )  {
+inline const QString makeWhatsThis( const QString& title, const QString& description )  {
   return QString::fromLatin1("<center><B>%1</B></center><HR>%2").arg(title).arg(description);
 };
 
@@ -64,7 +61,6 @@ namespace CResMgr {
     namespace file { //Main menu->File
       namespace clearQueue {
         QString tooltip;
-//        QString tooltip    = makeToolTip( i18n("Clear print queue") );
         QString whatsthis;
         const QString icon       = QString::fromLatin1("queue");
         const KShortcut accel    = KShortcut();
