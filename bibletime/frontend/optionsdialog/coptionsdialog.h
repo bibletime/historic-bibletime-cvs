@@ -82,6 +82,8 @@ public:
 	static QFont 	getBTFont ( BTFont which );
 	static QColor getBTColor( BTColor which );
 	static bool		getBTBool ( BTBool which );
+  /** Opens the page which contaisn the given part ID. */
+  const bool showPart( int ID );
 
   static CSwordBackend::moduleOptionsBool getAllModuleOptionDefaults( void );
 
@@ -98,6 +100,15 @@ private:
   KConfig* m_config;
   CImportantClasses* m_important;
   int m_changedSettings;
+
+  struct General {
+	  enum IDs {
+			StartupSettings,
+			SwordSettings,
+			KeySettings		
+	  };
+	};
+
 
 	struct GeneralSettings {
 		struct StartupSettings {
@@ -120,6 +131,15 @@ private:
 		} keys;
 	} m_general;	
 
+  struct DisplayWindows {
+	  enum IDs {
+			GeneralSettings,
+			ColorSettings,
+			FontSettings,
+			ViewProfilesSettings,
+			KeySettings
+	  };
+	};	
 	struct DisplayWindowSettings {
 		struct GeneralSettings {
 			QComboBox* localeCombo;
