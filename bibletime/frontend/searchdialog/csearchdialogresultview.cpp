@@ -28,6 +28,7 @@
 #include "backend/cswordversekey.h"
 #include "backend/cswordldkey.h"
 #include "backend/creferencemanager.h"
+#include "backend/centrydisplay.h"
 
 #include "frontend/cexportmanager.h"
 #include "frontend/ctoolclass.h"
@@ -343,11 +344,14 @@ void CSearchDialogResultView::mousePressed(QListBoxItem* item){
 	QString text = QString::null;
 	
 	//we have to set the standard module view options for the module!!	
+
 	util::scoped_ptr<CSwordKey> key(CSwordKey::createInstance(m_module));
 	if ( key ) {
-		backend()->setFilterOptions( CBTConfig::getFilterOptionDefaults() );				
 		key->key(item->text());
-		emit keySelected(key->renderedText());
+
+    CEntryDisplay* display = m_module->getDisplay();
+    const QString text = display->previewText(m_module,key->key(), QString::fromLatin1("<B>%1</B> (%2)").arg(m_module->name()).arg(m_module->config(CSwordModuleInfo::Description)));
+		emit newPreviewText(text);
 	}		
 }
 

@@ -63,7 +63,7 @@ CSearchDialogResult::CSearchDialogResult(QWidget *parent, const char *name) : QW
   m_displayWidget = new KHTMLPart(m_splitter);
 
 	connect(resultModuleTree, SIGNAL(moduleSelected(CSwordModuleInfo*)), resultTree, SLOT(setModule(CSwordModuleInfo*)));
-	connect(resultTree, SIGNAL(keySelected(const QString)), this, SLOT(updatePreview(const QString)));
+	connect(resultTree, SIGNAL(newPreviewText(const QString)), this, SLOT(updatePreview(const QString)));
 
 	QVBoxLayout* layout_1 = new QVBoxLayout();
 	QVBoxLayout* layout_2 = new QVBoxLayout();	
@@ -165,21 +165,21 @@ void CSearchDialogResult::updatePreview(const QString newText) {
  	}
 
 	//module is Unicode-based
-	if (resultModuleTree->getCurrentModule()->isUnicode() ) {
-		const QFont f = CBTConfig::get( CBTConfig::unicode);
-		text = QString::fromLatin1("<P dir=\"%1\"><FONT FACE=\"%2\" SIZE=\"%3\">%4</FONT></P>")
-      .arg(resultModuleTree->getCurrentModule()->textDirection() == CSwordModuleInfo::RightToLeft ? "rtol" : "ltor")
-      .arg(f.family())
-      .arg(CToolClass::makeLogicFontSize(f.pointSize()))
-      .arg(text);
-	}
+//	if (resultModuleTree->getCurrentModule()->isUnicode() ) {
+//		const QFont f = CBTConfig::get( CBTConfig::unicode);
+//		text = QString::fromLatin1("<P dir=\"%1\"><FONT FACE=\"%2\" SIZE=\"%3\">%4</FONT></P>")
+//      .arg(resultModuleTree->getCurrentModule()->textDirection() == CSwordModuleInfo::RightToLeft ? "rtol" : "ltor")
+//      .arg(f.family())
+//      .arg(CToolClass::makeLogicFontSize(f.pointSize()))
+//      .arg(text);
+//	}
 	
 	m_displayWidget->begin();	
- 	m_displayWidget->write(
-		QString::fromLatin1("<HTML><HEAD></HEAD><BODY><DIV><FONT color=\"red\">%1</font> <SMALL>(%2)</SMALL></DIV><BR>%3</BODY></HTML>")
-		 .arg(resultTree->currentText())
-		 .arg((resultModuleTree->getCurrentModule()) ? resultModuleTree->getCurrentModule()->config(CSwordModuleInfo::Description) : QString::fromLatin1("<I>%1</I>").arg(i18n("module not set")) )
-		 .arg(text)
+ 	m_displayWidget->write(text
+//		QString::fromLatin1("<HTML><HEAD></HEAD><BODY><DIV><FONT color=\"red\">%1</font> <SMALL>(%2)</SMALL></DIV><BR>%3</BODY></HTML>")
+//		 .arg(resultTree->currentText())
+//		 .arg((resultModuleTree->getCurrentModule()) ? resultModuleTree->getCurrentModule()->config(CSwordModuleInfo::Description) : QString::fromLatin1("<I>%1</I>").arg(i18n("module not set")) )
+//		 .arg(text)
 	);
 	m_displayWidget->end();
 }

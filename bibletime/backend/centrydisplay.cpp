@@ -45,8 +45,26 @@ const QString CEntryDisplay::text( QPtrList<CSwordModuleInfo> modules, const QSt
 }
 
 /** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
-const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QString& keyName, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions){
-  return QString::null;
+const QString CEntryDisplay::previewText( CSwordModuleInfo*  module, const QString& keyName, const QString& headerText, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions){
+  util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(module) );
+  key->key(keyName);
+
+  QString css = QString::null;
+  for (int t = MinType; t <= MaxType; ++t) {
+    css += "\t" + cssString( static_cast<CEntryDisplay::StyleType>(t) ) + "\n\n";
+  }
+
+  const QString pageStart = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY>%2<HR>")
+    .arg(css)
+    .arg(headerText);
+
+  const QString text = QString::fromLatin1("<DIV %1 %2>%3</DIV>")
+    .arg(module->textDirection() == CSwordModuleInfo::RightToLeft ? QString::fromLatin1("dir=\"rtl\"") : QString::null)
+    .arg(module->isUnicode() ? QString::fromLatin1("class=\"unicodetext\"") : QString::null)
+    .arg(key->renderedText());
+
+  const QString pageEnd = QString::fromLatin1("</BODY></HTML>");
+  return pageStart + text + pageEnd;
 }
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
@@ -276,9 +294,9 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
 }
 
 /** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
-const QString CChapterDisplay::previewText( CSwordModuleInfo*  module, const QString& key, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions){
-  return QString::null;
-}
+//const QString CChapterDisplay::previewText( CSwordModuleInfo*  module, const QString& key,const QString& headerText, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions){
+//  return QString::null;
+//}
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
 const QString CChapterDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const QString& chosenKey ){
@@ -381,9 +399,9 @@ const QString CBookDisplay::text( QPtrList <CSwordModuleInfo> modules, const QSt
 }
 
 /** Returns a preview for the given module and key. This is useful for the seatchdialog and perhaps the tooltips. */
-const QString CBookDisplay::previewText( CSwordModuleInfo*  module, const QString& key, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions){
-  return QString::null;
-}
+//const QString CBookDisplay::previewText( CSwordModuleInfo*  module, const QString& key,const QString& headerText, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions){
+//  return QString::null;
+//}
 
 /** Renders one entry using the given modules and the key. This makes chapter rendering more easy. */
 const QString CBookDisplay::entryText( QPtrList<CSwordModuleInfo> modules, const QString& keyName, const int level){

@@ -44,7 +44,8 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
   setFrameStyle( QFrame::Plain | QFrame::Box );
   hide();
 
-  setFilter(true);
+  m_parentWidget->installEventFilter(this);
+  setFilter(false);
 }
 
 CToolTip::~CToolTip(){
@@ -97,7 +98,13 @@ void CToolTip::timerEvent( QTimerEvent* e ) {
 bool CToolTip::eventFilter( QObject *o, QEvent *e ){
   QMouseEvent* me = dynamic_cast<QMouseEvent*>(e);
 
-  switch ( e->type() ) {
+
+  if (o == m_parentWidget) {
+    if (e->type() == QEvent::Show)
+      setFilter(true);
+  }
+  else {
+    switch ( e->type() ) {
       case QEvent::DragMove:
       case QEvent::DragEnter:
       case QEvent::DragLeave:
@@ -141,6 +148,7 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
       }
       default:
         break;
+    }
   }
   return false;
 }

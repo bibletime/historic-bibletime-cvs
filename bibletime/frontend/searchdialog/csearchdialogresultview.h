@@ -194,7 +194,7 @@ signals: // Signals
 	/**
 	* Is emitted when a key in the tree was selected.
 	*/
-	void keySelected(const QString);	
+	void newPreviewText(const QString);	
 };
 
 #endif

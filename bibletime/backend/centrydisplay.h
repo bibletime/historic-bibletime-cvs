@@ -24,6 +24,7 @@
 #include "cswordtreekey.h"
 
 #include "frontend/cpointers.h"
+#include "frontend/cbtconfig.h"
 
 //Sword includes
 #include <swdisp.h>
@@ -51,7 +52,7 @@ public: // Public methods
   * Returns a preview for the given module and key.
   * This is useful for the seatchdialog and perhaps the tooltips.
   */
-  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions);
+  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key, const QString& headerText = QString::null,  CSwordBackend::DisplayOptionsBool displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptionsBool filterOptions = CBTConfig::getFilterOptionDefaults());
   void setDisplayOptions(const CSwordBackend::DisplayOptionsBool options);
 
 protected: // Protected methods
@@ -140,7 +141,7 @@ public: // Public methods
   * Returns a preview for the given module and key.
   * This is useful for the seatchdialog and perhaps the tooltips.
   */
-  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions);
+//  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key,  const QString& headerText = QString::null,  CSwordBackend::DisplayOptionsBool displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptionsBool filterOptions = CBTConfig::getFilterOptionDefaults());
 
 protected:
   /**
@@ -165,7 +166,7 @@ public: // Public methods
   * Returns a preview for the given module and key.
   * This is useful for the seatchdialog and perhaps the tooltips.
   */
-  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key, CSwordBackend::DisplayOptionsBool displayOptions, CSwordBackend::FilterOptionsBool filterOptions);
+//  virtual const QString previewText( CSwordModuleInfo*  module, const QString& key,  const QString& headerText = QString::null,  CSwordBackend::DisplayOptionsBool displayOptions = CBTConfig::getDisplayOptionDefaults(), CSwordBackend::FilterOptionsBool filterOptions = CBTConfig::getFilterOptionDefaults());
 
 protected:
   /**
