@@ -184,9 +184,9 @@ const QString CHTMLExportRendering::renderEntry( const KeyTreeItem& i ) {
     isRTL = (m->textDirection() == CSwordModuleInfo::RightToLeft);
 		entry = QString::null;
 
-		langAttr = m->language()->isValid()
+		langAttr = (m->language()->isValid())
 			? QString::fromLatin1("lang=\"%1\"").arg(m->language()->abbrev()) 
-			: QString::null;
+			: QString::fromLatin1("lang=\"%1\"").arg(m->module()->Lang());
 		
 		const QString key_renderedText = key->renderedText();
 		int pvHeading = 0;

@@ -41,9 +41,11 @@ CDisplayTemplateMgr::~CDisplayTemplateMgr() {
     \fn CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& title, const QString& content )
  */
 const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QString& content, Settings& settings ) {
-	if (!m_templateMap.contains(name)) {
-		return QString::null;
-	}
+// 	if (!m_templateMap.contains(name)) {
+// 		
+// 	}
+
+	const QString templateName = 	m_templateMap.contains(name) ? name : defaultTemplate();
 
 	QString langCSS;
   CLanguageMgr::LangMap langMap = CPointers::languageMgr()->availableLanguages();
@@ -99,7 +101,7 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 			.arg(content);
 	}
 	
-	QString t = m_templateMap[ name ];
+	QString t = m_templateMap[ templateName ];
 	t.replace("#TITLE#", settings.title);
 	t.replace("#LANG_CSS#", langCSS);
 	t.replace("#LANG_ABBREV#", settings.langAbbrev);

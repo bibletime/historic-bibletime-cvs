@@ -86,9 +86,9 @@ CSwordBackend::~CSwordBackend(){
 	delete m_filters.thml;
 	delete m_filters.osis;
 
-  delete m_displays.book;
-  delete m_displays.chapter;
-  delete m_displays.entry;
+	delete m_displays.book;
+	delete m_displays.chapter;
+	delete m_displays.entry;
 }
 
 /** Initializes the Sword modules. */
@@ -315,25 +315,25 @@ CSwordModuleInfo* const CSwordBackend::findModuleByName(const QString& name){
 }
 
 CSwordModuleInfo* const CSwordBackend::findSwordModuleByPointer(const sword::SWModule* const swmodule){
-  if (swmodule) {
-    for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
-      if ( m_moduleList.current()->module() == swmodule ) {
-        return m_moduleList.current();
-      }
-    }
-  }
-  return 0;
+	if (swmodule) {
+		for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
+			if ( m_moduleList.current()->module() == swmodule ) {
+				return m_moduleList.current();
+			}
+		}
+	}
+	return 0;
 }
 
 CSwordModuleInfo* const CSwordBackend::findModuleByPointer(const CSwordModuleInfo* const module){
-  if (module) {
-    for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
-      if ( m_moduleList.current() == module ) {
-        return m_moduleList.current();
-      }
-    }
-  }
-  return 0;
+	if (module) {
+		for ( m_moduleList.first(); m_moduleList.current(); m_moduleList.next() ) {
+			if ( m_moduleList.current() == module ) {
+				return m_moduleList.current();
+			}
+		}
+	}
+	return 0;
 }
 
 /** Returns our local config object to store the cipher keys etc. locally for each user. The values of the config are merged with the global config. */
@@ -510,41 +510,41 @@ void CSwordBackend::reloadModules(){
 }
 
 const QStringList CSwordBackend::swordDirList(){
-  QStringList ret;
+	QStringList ret;
 	const QString home = getenv("HOME");
-
-  //return a list of used Sword dirs. Useful for the installer
-  QString configPath;
+	
+	//return a list of used Sword dirs. Useful for the installer
+	QString configPath;
 	if (!home.isEmpty()) {
 		configPath = home + "/.sword/sword.conf";
 	}
 	else {
 		configPath = globalConfPath; //e.g. /etc/sword.conf, /usr/local/etc/sword.conf
 	}
-
-
-  QStringList configs = QStringList::split(":", configPath);
-  for (QStringList::iterator it = configs.begin(); it != configs.end(); ++it) {
-    if (!QFileInfo(*it).exists()) {
-      continue;
+	
+	
+	QStringList configs = QStringList::split(":", configPath);
+	for (QStringList::const_iterator it = configs.constBegin(); it != configs.constEnd(); ++it) {
+		if (!QFileInfo(*it).exists()) {
+			continue;
 		}
-
-    //get all DataPath and AugmentPath entries from the config file and add them to the list
-    sword::SWConfig conf( (*it).latin1() );
-
-    ret << conf["Install"]["DataPath"].c_str();
-    sword::ConfigEntMap group = conf["Install"];
-    sword::ConfigEntMap::iterator start = group.equal_range("AugmentPath").first;
-    sword::ConfigEntMap::iterator end = group.equal_range("AugmentPath").second;
-
-    for (sword::ConfigEntMap::iterator it = start; it != end; ++it) {
-      ret << it->second.c_str(); //added augment path
-    }
-  }
-
-  if (!home.isEmpty()) {
-    ret << home + "/.sword/";
-  }
-
-  return ret;
+	
+		//get all DataPath and AugmentPath entries from the config file and add them to the list
+		sword::SWConfig conf( (*it).latin1() );
+	
+		ret << conf["Install"]["DataPath"].c_str();
+		sword::ConfigEntMap group = conf["Install"];
+		sword::ConfigEntMap::iterator start = group.equal_range("AugmentPath").first;
+		sword::ConfigEntMap::iterator end = group.equal_range("AugmentPath").second;
+	
+		for (sword::ConfigEntMap::const_iterator it = start; it != end; ++it) {
+			ret << it->second.c_str(); //added augment path
+		}
+	}
+	
+	if (!home.isEmpty()) {
+		ret << home + "/.sword/";
+	}
+	
+	return ret;
 }
