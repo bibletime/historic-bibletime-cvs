@@ -27,10 +27,10 @@
 //QWhatsThis entries for Mainwindow actions
 #define WT_FILE_CLEAR_QUEUE WT( TT_FILE_CLEAR_QUEUE, i18n("Clear the printing queue of BibleTime. All items will be removed from the list, the print button will be disabled."))
 #define WT_FILE_PRINT WT( TT_FILE_PRINT, i18n("Open the printerdialog of BibleTime where you can edit the printing queue and assign styles to the items."))
-#define WT_FILE_QUIT WT( TT_FILE_QUIT, i18n("Quit BibleTime. Before BibleTime is closed the settings of the different parts will be saved."))
+#define WT_FILE_QUIT WT( TT_FILE_QUIT, i18n("Before BibleTime is closed the settings of BibleTime will be saved to disk."))
 	
-#define WT_GM_SEARCH_MODULES WT(TT_GM_SEARCH_MODULES, i18n("Open the search dialog to search text is one or more modules."))
-#define WT_GM_DELETE_ITEMS WT(TT_GM_DELETE_ITEMS, i18n("Delete the selected items from the main index.<BR>If you remove a folder the subitems of it will be removed, too."))
+#define WT_GM_SEARCH_MODULES WT(TT_GM_SEARCH_MODULES, i18n("Open the search dialog to search text in one or more modules."))
+#define WT_GM_DELETE_ITEMS WT(TT_GM_DELETE_ITEMS, i18n("Remove the selected items from the main index.<BR>If you remove a folder the subitems of it will be removed, too."))
 #define WT_GM_RESET	WT(TT_GM_RESET, i18n("This will reset the main index<BR>All bookmarks and folders will be deleted and the default folders will be restored."))
 
 #define WT_VIEW_GROUPMANAGER WT(TT_VIEW_GROUPMANAGER, i18n("This will show or hide the main index depending on current state."))
@@ -48,29 +48,28 @@
 #define WT_SETTINGS_OPTIONS WT(TT_SETTINGS_OPTIONS, i18n("This will open BibleTime's optionsdialog where you can set most of the preferences."))
 
 #define WT_HELP_CONTENT WT(TT_HELP_CONTENT, i18n("This will open KDE's helpbrowser with BibleTime's handbook."))
-#define WT_HELP_WHATSTHIS WT(TT_HELP_WHATSTHIS, i18n("This will switch into the <B>\"Whats this?\"</B> mode."))
+#define WT_HELP_WHATSTHIS WT(TT_HELP_WHATSTHIS, i18n("This will switch into the <B>\"What's this?\"</B> mode."))
 #define WT_HELP_BUGREPORT WT(TT_HELP_BUGREPORT, i18n("This will send a bugreport to the team of BibleTime!"))
 #define WT_HELP_ABOUT WT(TT_HELP_ABOUT, i18n("This will show information about BibleTime."))
 #define WT_HELP_ABOUT_KDE WT(TT_HELP_ABOUT_KDE, i18n("This will show the general about dialog of KDE 2."))
 
 
 //QWhatsThis defines for the groupmanager
-#define WT_GM_WIDGET WT(TT_GM_WIDGET, i18n("This is the main index of BibleTime.<BR>Use it to manage the installed modules, work with bookmarks, to open display windows etc.."))
-#define WT_GM_NEW_PRESENTER WT(TT_GM_NEW_PRESENTER, i18n("This will open a new presenter window for the selected module."))
-#define WT_GM_NEW_GROUP WT(TT_GM_NEW_GROUP, i18n("This will create a new folder.<BR> If you pressed the right mouse button on a folder the new folder will be a sub-item of it.<BR>Otherwise you will create a toplevel folder."))
+#define WT_GM_WIDGET WT(TT_GM_WIDGET, i18n("This is the main index of BibleTime.<BR>Use it to manage the installed modules, to work with bookmarks, to open display windows etc.."))
+#define WT_GM_NEW_GROUP WT(TT_GM_NEW_GROUP, i18n("Create a new folder in the main index.<BR> If you pressed the right mouse button on a folder the new folder will be a sub-item of it.<BR>Otherwise you will create a toplevel folder."))
 #define WT_GM_CHANGE_GROUP WT(TT_GM_CHANGE_GROUP, i18n("This will change the properties of the selected folder."))
 #define WT_GM_CHANGE_BOOKMARK WT(TT_GM_CHANGE_BOOKMARK, i18n("This will change the properties of the selected bookmark."))
 #define WT_GM_IMPORT_BOOKMARKS WT(TT_GM_IMPORT_BOOKMARKS, i18n("This will import bookmark from a file."))
 #define WT_GM_EXPORT_BOOKMARKS WT(TT_GM_EXPORT_BOOKMARKS, i18n("This will export bookmarks to a file so you or other<BR>users can import them later."))
-#define WT_GM_PRINT_BOOKMARK WT(TT_GM_PRINT_BOOKMARK, i18n("Use this to print the bookmark. The key, the description and the text of the key will be appended to the printing queue."))
+#define WT_GM_PRINT_BOOKMARK WT(TT_GM_PRINT_BOOKMARK, i18n("Use this to add the bookmark to BibleTime's printing queue. The key, the description and the text of the key will be used for printing."))
 #define WT_GM_UNLOCK_MODULE WT(TT_GM_UNLOCK_MODULE, i18n("This will open a small dialog where you can unlock the selected module."))
-#define WT_GM_ABOUT_MODULE WT(TT_GM_ABOUT_MODULE, i18n("This opens a dialog to show information about the selected module."))
+#define WT_GM_ABOUT_MODULE WT(TT_GM_ABOUT_MODULE, i18n("Open a dialog to show information about the selected module."))
 
 //QWhatsThis defines for the presenters
-#define WT_MDI_AREA_WIDGET WT(TT_MDI_AREA_WIDGET, i18n("This is the area where you work with the texts."))
+#define WT_MDI_AREA_WIDGET WT(TT_MDI_AREA_WIDGET, i18n("This part of BibleTime contains the display windows."))
 
 #define WT_PRESENTER_BIBLE_WIDGET WT(TT_PRESENTER_BIBLE_WIDGET, i18n("This is the Bible window"))
-#define WT_PRESENTER_COMMENTARY_WIDGET WT(TT_PRESENTER_COMMENTARY_WIDGET, i18n("This is the commentaries window."))
+#define WT_PRESENTER_COMMENTARY_WIDGET WT(TT_PRESENTER_COMMENTARY_WIDGET, i18n("This is the commentary window."))
 #define WT_PRESENTER_LEXICON_WIDGET WT(TT_PRESENTER_LEXICON_WIDGET, i18n("This is the lexicon window."))
 
 #define WT_PRESENTER_NEXT_VERSE WT(TT_PRESENTER_NEXT_VERSE, i18n("This will show or highlight the next verse depending on the type of display window."))
@@ -84,7 +83,7 @@
 #define WT_PRESENTER_VERSE_COMBO WT(TT_PRESENTER_VERSE_COMBO, i18n("This list contains the verses available in the current verse."))
 #define WT_PRESENTER_ENTRY_COMBO WT(TT_PRESENTER_ENTRY_COMBO, i18n("This list contains the entries of the current module."))
 #define WT_PRESENTER_SCROLL_BUTTON WT(TT_PRESENTER_SCROLL_BUTTON, i18n("This button is useful to scroll though the entries of the list. Press the button and move the mouse to increase or decrease the item."))
-#define WT_PRESENTER_EDIT WT(TT_PRESENTER_EDIT, i18n("This button will toggle between edit and read mode of writebale modules."))
+#define WT_PRESENTER_EDIT WT(TT_PRESENTER_EDIT, i18n("This button will toggle between edit and read-only mode of writebale modules."))
 #define WT_PRESENTER_EDIT_SAVE WT(TT_PRESENTER_EDIT_SAVE, i18n("This will save the current personal comment to disk."))
 #define WT_PRESENTER_EDIT_DELETE WT(TT_PRESENTER_EDIT_DELETE, i18n("This will clear the currently enetered text but it will not save to disk."))
 #define WT_PRESENTER_EDIT_COMMENT_UP_TO WT(TT_PRESENTER_EDIT_COMMENT_UP_TO, i18n("This is the upper bound of the commented range of verses."))
@@ -130,7 +129,7 @@
 #define WT_OD_GENERAL_INTERNATIONAL_BOOKNAMES WT(TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES, i18n("This list contains the available<BR>languages used for international booknames."))
 #define WT_OD_GENERAL_SHOW_STARTUPLOGO WT(TT_OD_GENERAL_SHOW_STARTUPLOGO, i18n("Activate this to see a startup logo on each startup of BibleTime."))
 
-#define WT_OD_KEYS_CHOOSER WT(TT_OD_KEYS_CHOOSER, i18n("<B>Key chooser</B><BR><BR>Select a action and change the key for the action."))
+#define WT_OD_KEYS_CHOOSER WT(TT_OD_KEYS_CHOOSER, i18n("Select a action and change the key binding for the action."))
 #define WT_OD_FONTS_PRESENTER WT(TT_OD_FONTS_PRESENTER, i18n("This font will be used as general font in all display windows."))
 #define WT_OD_FONTS_CHOOSER WT(TT_OD_FONTS_CHOOSER, i18n("Choose a font"))
 
@@ -147,13 +146,13 @@
 #define WT_PD_CANCEL WT(TT_PD_CANCEL, i18n("Closes this dialog without printing the items."))
 #define WT_PD_HELP WT(TT_PD_HELP, i18n("Open the online help of BibleTime."))
 
-#define WT_PD_GENERAL_PRINTER_LIST WT(TT_PD_GENERAL_PRINTER_LIST, i18n("This is the list of available printers on your system.<BR>Please select the printer you want to use for ptinting."))
+#define WT_PD_GENERAL_PRINTER_LIST WT(TT_PD_GENERAL_PRINTER_LIST, i18n("This is the list of available printers of your system.<BR>Please select the printer you want to use for printing."))
 #define WT_PD_GENERAL_PRINT_TO_FILE WT(TT_PD_GENERAL_PRINT_TO_FILE, i18n("Print into a postscript file on disk."))
 #define WT_PD_GENERAL_BROWSE_FILE WT(TT_PD_GENERAL_BROWSE_FILE, i18n("Browse for the file you want to print to."))
 #define WT_PD_GENERAL_COPIES WT(TT_PD_GENERAL_COPIES, i18n("The number of copies used for printing."))
-#define WT_PD_GENERAL_ORIENTATION WT(TT_PD_GENERAL_ORIENTATION, i18n("Choose the type of Orientation"))
-#define WT_PD_GENERAL_ORIENTATION_PORTRAIT WT(TT_PD_GENERAL_ORIENTATION_PORTRAIT, i18n("Print on the paper using Portait orientation."))
-#define WT_PD_GENERAL_ORIENTATION_LANDSCAPE WT(TT_PD_GENERAL_ORIENTATION_LANDSCAPE, i18n("Print on the paper using Landscape orientation."))
+#define WT_PD_GENERAL_ORIENTATION WT(TT_PD_GENERAL_ORIENTATION, i18n("Choose the type of orientation"))
+#define WT_PD_GENERAL_ORIENTATION_PORTRAIT WT(TT_PD_GENERAL_ORIENTATION_PORTRAIT, i18n("Print on the paper using portait orientation."))
+#define WT_PD_GENERAL_ORIENTATION_LANDSCAPE WT(TT_PD_GENERAL_ORIENTATION_LANDSCAPE, i18n("Print on the paper using landscape orientation."))
 #define WT_PD_GENERAL_PAPER_TYPE WT(TT_PD_GENERAL_PAPER_TYPE, i18n("The type of the paper on which you want to print."))
 #define WT_PD_GENERAL_PAPER_SIZE WT(TT_PD_GENERAL_PAPER_SIZE, i18n("Select the paper size of your printer. The size will be used fo printing."))
 

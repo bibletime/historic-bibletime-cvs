@@ -681,6 +681,7 @@ public:
     };
 
     QTextDocument( QTextDocument *p );
+    QTextDocument( QTextDocument *p, QTextFormatCollection *f );
     ~QTextDocument();
     QTextDocument *parent() const { return par; }
     QTextParag *parentParag() const { return parParag; }
@@ -833,6 +834,7 @@ signals:
     void minimumWidthChanged( int );
 
 private:
+    void init();
     QPixmap *bufferPixmap( const QSize &s );
     // HTML parser
     bool hasPrefix(const QString& doc, int pos, QChar c);
@@ -1340,7 +1342,7 @@ public:
     QTextFormat();
     virtual ~QTextFormat() {}
     QTextFormat( const QStyleSheetItem *s );
-    QTextFormat( const QFont &f, const QColor &c );
+    QTextFormat( const QFont &f, const QColor &c, QTextFormatCollection * parent = 0L );
     QTextFormat( const QTextFormat &fm );
     QTextFormat makeTextFormat( const QStyleSheetItem *style, const QMap<QString,QString>& attr ) const;
     QTextFormat& operator=( const QTextFormat &fm );
@@ -1392,12 +1394,12 @@ public:
 
 protected:
     virtual void generateKey();
-
-private:
-    void update();
-
-private:
     QFont fn;
+    void update();
+    void setKey( const QString &key ) { k = key; }
+
+private:
+    QString k;
     QColor col;
     QFontMetrics fm;
     uint missp : 1;
@@ -1408,7 +1410,6 @@ private:
     int hei, asc, dsc;
     QTextFormatCollection *collection;
     int ref;
-    QString k;
     int logicalFontSize;
     int stdPointSize;
     QString anchor_href;
@@ -1437,10 +1438,13 @@ public:
 
     void setDefaultFormat( QTextFormat *f );
     QTextFormat *defaultFormat() const;
-    virtual QTextFormat *format( QTextFormat *f );
-    virtual QTextFormat *format( QTextFormat *of, QTextFormat *nf, int flags );
+    QTextFormat *format( QTextFormat *f );
+    QTextFormat *format( QTextFormat *of, QTextFormat *nf, int flags );
     virtual QTextFormat *format( const QFont &f, const QColor &c );
     void remove( QTextFormat *f );
+
+    virtual QTextFormat *createFormat( const QTextFormat &f ) { return new QTextFormat( f ); }
+    virtual QTextFormat *createFormat( const QFont &f, const QColor &c ) { return new QTextFormat( f, c, this ); }
 
     void debug();
 
@@ -1451,7 +1455,7 @@ public:
     void updateFontSizes( int base );
     void updateFontAttributes( const QFont &f, const QFont &old );
 
-    const QDict<QTextFormat> & dict() const { return cKey; }
+    QDict<QTextFormat> & dict() { return cKey; }
 
 private:
     QTextFormat *defFormat, *lastFormat, *cachedFormat;
@@ -1716,6 +1720,7 @@ inline QTextFormat::QTextFormat( const QStyleSheetItem *style )
     : fm( QFontMetrics( fn ) ), linkColor( TRUE ), logicalFontSize( 3 ), stdPointSize( qApp->font().pointSize() ),
       painter( 0 ), different( NoFlags )
 {
+    qWarning("QTextFormat::QTextFormat( const QStyleSheetItem *style )");
     ref = 0;
     this->style = style->name();
     missp = FALSE;
@@ -1741,13 +1746,13 @@ inline QTextFormat::QTextFormat( const QStyleSheetItem *style )
     updateStyleFlags();
 }
 
-inline QTextFormat::QTextFormat( const QFont &f, const QColor &c )
+inline QTextFormat::QTextFormat( const QFont &f, const QColor &c, QTextFormatCollection * coll )
     : fn( f ), col( c ), fm( QFontMetrics( f ) ), linkColor( TRUE ),
       logicalFontSize( 3 ), stdPointSize( f.pointSize() ), painter( 0 ),
       different( NoFlags )
 {
     ref = 0;
-    collection = 0;
+    collection = coll;
     leftBearing = fm.minLeftBearing();
     rightBearing = fm.minRightBearing();
     hei = fm.height();
@@ -1925,6 +1930,7 @@ inline QString QTextFormat::key() const
 
 inline void QTextFormat::generateKey()
 {
+    k = QString::null;
     QTextOStream ts( &k );
     ts << fn.pointSize()
        << fn.weight()

@@ -19,7 +19,7 @@
 #define CMDIAREA_H
 
 #define private protected
-#include "qworkspace.h"
+#include <qworkspace.h>
 #undef private
 
 #include <qlist.h>

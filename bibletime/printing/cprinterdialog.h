@@ -155,6 +155,9 @@ protected slots: // Protected slots
   	* Applies the given styles to the print item list.
   	*/
   void slotListApplyStyle(const QString&);
+private slots: // Private slots
+  /** No descriptions */
+  void currentStyleChanged( QListViewItem* );
 };
 
 #endif

@@ -4,12 +4,10 @@ highcolor \
 .
 
 EXTRA_DIST = \
-tipday.jpg \
 startuplogo.jpg \
 cross.png
 
 BIBLETIME_PICS = \
-tipday.jpg \
 startuplogo.jpg \
 cross.png 
 

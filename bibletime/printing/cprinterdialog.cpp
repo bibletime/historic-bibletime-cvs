@@ -387,7 +387,6 @@ void CPrinterDialog::paperType( QStringList &list )
 
 /** Initializes the layout page of the printerdialog. */
 void CPrinterDialog::initLayoutPage(){
-	qDebug("CPrinterDialog::initLayoutPage()");
   QFrame *page = addPage( i18n("Layout"), i18n("Layout specific settings") );
   QVBoxLayout *topLayout = new QVBoxLayout( page, OUTER_BORDER, INNER_BORDER );
   	
@@ -446,6 +445,7 @@ void CPrinterDialog::initLayoutPage(){
   QVBoxLayout *buttonLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
   	
   m_layout.styleList = new CStyleList( m_printer->getStyleList(), page, "CStyleList1");
+	connect(m_layout.styleList, SIGNAL(selectionChanged(QListViewItem*)), SLOT(currentStyleChanged(QListViewItem*)));
 	QToolTip::add(m_layout.styleList, TT_PD_LAYOUT_STYLE_LIST);	
 	QWhatsThis::add(m_layout.styleList, WT_PD_LAYOUT_STYLE_LIST);
 
@@ -487,7 +487,6 @@ void CPrinterDialog::initLayoutPage(){
 
 /** Initialitzes the page which contains the two lists of CStyles and PrintItems. */
 void CPrinterDialog::initListPage(){
-	qDebug("CPrinterDialog::initListPage()");
   QFrame *page = addPage( i18n("Entries"), i18n("Management of BibleTimes printing queue") );
   QVBoxLayout *topLayout = new QVBoxLayout( page, OUTER_BORDER, INNER_BORDER );
   QVBoxLayout *entryLayout = new QVBoxLayout( 0, OUTER_BORDER, INNER_BORDER );
@@ -647,7 +646,6 @@ bool CPrinterDialog::applySettingsToPrinter( bool preview ){
 
 /** Applies the given styles to the print item list. */
 void CPrinterDialog::slotListApplyStyle(const QString& styleName ){
-	qDebug("CPrinterDialog::slotListApplyStyle(const QString&)");
 	styleItemList* styleList = m_printer->getStyleList();
 	ASSERT(styleList);
 	
@@ -657,4 +655,10 @@ void CPrinterDialog::slotListApplyStyle(const QString& styleName ){
 		 	m_entryWidgets.printItemList->applyStyleToSelected( styleList->current() );
 		}	
 	}
+}
+
+/** No descriptions */
+void CPrinterDialog::currentStyleChanged( QListViewItem* style){
+	m_layout.deleteStyleButton( (bool)style );
+	m_layout.editStyleButton( (bool)style );
 }

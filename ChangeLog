@@ -1,3 +1,6 @@
+2001-03-08 Joachim Ansorg <jansorg@gmx.de>
+	* Released BibleTime 1.0beta1.
+
 2001-02-17 Joachim Ansorg <jansorg@gmx.de>
 	* Added QTextEdit, QTextView, and QRichText classes from Qt3 (ported by David Faure)
 	* Removed the Qt2 classes QTextView, QTextBrowser and the class KTextEdit
