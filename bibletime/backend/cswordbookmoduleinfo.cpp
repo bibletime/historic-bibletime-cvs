@@ -23,6 +23,8 @@
 #include <treekey.h>
 
 #include <iostream>
+use std::cout;
+use std::endl;
 
 CSwordBookModuleInfo::CSwordBookModuleInfo( sword::SWModule* module )
 	: CSwordModuleInfo(module), m_depth(-1)
