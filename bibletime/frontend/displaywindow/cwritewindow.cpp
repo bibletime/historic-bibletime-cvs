@@ -142,20 +142,18 @@ CWriteDisplay* const CWriteWindow::displayWidget(){
 
 /** Saves settings */
 bool CWriteWindow::queryClose(){
-  qWarning("queryClose called!");
+//  qWarning("queryClose called!");
 	//save the text if it has changed
 	if (m_writeDisplay->isModified()) {
-		switch (KMessageBox::warningYesNoCancel( this, i18n("Something changed after you saved the last time the text.<BR>Write changed into the module?")) ) {
-			case KMessageBox::Yes:
-			{
-	    	//save
+		switch (KMessageBox::warningYesNoCancel( this, i18n("Something changed after you saved the last time the text.\nWrite changed text into the module?")) ) {
+			case KMessageBox::Yes: { //save and close
 	   		saveCurrentText();
 	   		m_writeDisplay->setModified( false );
 	     	return true;
 			}
-	   	case KMessageBox::No :
+	   	case KMessageBox::No: //don't save and close
 	     	return true;
-	   	default: // cancel
+	   	default: // cancel, don't close
 	     	return false;
 		}
 	}

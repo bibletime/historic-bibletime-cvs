@@ -359,7 +359,7 @@ void CDisplayWindow::setDisplayWidget( CDisplay* newDisplay ){
 }
 
 void CDisplayWindow::closeEvent(QCloseEvent* e) {
-  qWarning("CDisplayWindow::closeEvent(QCloseEvent* e)");
+//  qWarning("CDisplayWindow::closeEvent(QCloseEvent* e)");
 	if (!queryClose()) {
 		e->ignore();
 	}

@@ -118,7 +118,7 @@ CReadDisplay* CDisplay::createReadInstance( CReadWindow* readWindow, QWidget* pa
 }
 
 CWriteDisplay* CDisplay::createWriteInstance( CWriteWindow* writeWindow, const CWriteDisplay::WriteDisplayType& type, QWidget* parent ) {
-  qWarning("CDisplay::createWriteInstance");
+//  qWarning("CDisplay::createWriteInstance");
   if (type == PlainTextDisplay) {
     return new CPlainWriteDisplay(writeWindow, parent);
   }
@@ -206,13 +206,13 @@ CDisplayWindow* const CDisplay::parentWindow() const {
 
 /** Installs the popup which should be opened when the right mouse button was pressed. */
 void CDisplay::installPopup( QPopupMenu* popup ){
-  qWarning("CDisplay::installPopup( QPopupMenu* popup )");
+//  qWarning("CDisplay::installPopup( QPopupMenu* popup )");
   m_popup = popup;
 }
 
 /** Returns the popup menu which was set by installPopupMenu() */
 QPopupMenu* const CDisplay::installedPopup(){
-  qWarning("CDisplay::installedPopup()");
+//  qWarning("CDisplay::installedPopup()");
   Q_ASSERT(m_popup);
 	return m_popup;
 }

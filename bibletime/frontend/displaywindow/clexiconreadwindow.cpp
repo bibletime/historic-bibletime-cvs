@@ -160,6 +160,7 @@ CSwordLDKey* CLexiconReadWindow::ldKey(){
 
 /** This function saves the entry as html using the CExportMgr class. */
 void CLexiconReadWindow::saveAsHTML(){
+  qWarning("Saving as html ---");
   CExportManager mgr(i18n("Saving entry ..."), true, i18n("Saving"), filterOptions(), displayOptions());
   mgr.saveKey(ldKey(), CExportManager::HTML, true);  
 }
