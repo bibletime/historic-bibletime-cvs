@@ -20,12 +20,15 @@
 #include "backend/cswordbackend.h"
 #include "backend/cswordmoduleinfo.h"
 
+#include "util/cresmgr.h"
+
+
 //#include <stdio.h>
 //#include <stdlib.h>
 
 //QT includes
 //#include <qhbox.h>
-//#include <qlayout.h>
+#include <qlayout.h>
 //#include <qvbox.h>
 //#include <qdict.h>
 //#include <qcheckbox.h>
@@ -46,7 +49,7 @@
 //#include <kglobal.h>
 //#include <kstandarddirs.h>
 //#include <kkeydialog.h>
-//#include <kiconloader.h>
+#include <kiconloader.h>
 //#include <ktabctl.h>
 //#include <kapp.h>
 //#include <klistbox.h>
@@ -65,6 +68,12 @@ CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* 
 	: KDialogBase(IconList, i18n("Sword configuration"), Ok | Cancel | Apply, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
 
 	setIconListAllVisible(true);
+
+	QFrame* page = addPage(i18n("Sword Path"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
+//	QVBoxLayout* layout = new QVBoxLayout(page,5);
+
+	page = addPage(i18n("Install/Update Modules"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
+	page = addPage(i18n("Remove Modules"), QString::null, DesktopIcon(CResMgr::settings::startup::icon,32));
 
 //	initStartup();
 //	initFonts();

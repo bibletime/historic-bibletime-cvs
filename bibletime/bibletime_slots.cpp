@@ -29,6 +29,7 @@
 #include "frontend/cprofilewindow.h"
 #include "frontend/chtmldialog.h"
 #include "frontend/coptionsdialog.h"
+#include "frontend/cswordsetupdialog.h"
 #include "frontend/cbtconfig.h"
 #include "frontend/cinputdialog.h"
 #include "frontend/mainindex/cmainindex.h"
@@ -79,7 +80,7 @@ void BibleTime::slotSettingsOptions(){
 	dlg->delayedDestruct();
 }
 
-/** Is called when settings in the optionsdialog have been changed (ok or apply) */
+/** Is called when settings in the optionsdialog were changed (ok or apply) */
 void BibleTime::slotSettingsChanged(){
  	const QString language = CBTConfig::get(CBTConfig::language);
  	m_backend->booknameLanguage(language);		
@@ -95,6 +96,24 @@ void BibleTime::slotSettingsChanged(){
   refreshDisplayWindows();
   refreshProfileMenus();
 }
+
+/** Opens the sword setup dialog of BibleTime. */
+void BibleTime::slotSwordSetupDialog(){
+	CSwordSetupDialog *dlg = new CSwordSetupDialog(this, "CSwordSetupDialog", accel());
+  connect(dlg, SIGNAL(signalSwordSetupChanged()), SLOT(slotSwordSetupChanged()) );
+
+	dlg->exec();
+	dlg->delayedDestruct();
+}
+
+/** Is called when settings in the sword setup dialog were changed (ok or apply) */
+void BibleTime::slotSwordSetupChanged(){
+#warning fixme: code this function =)
+
+//  refreshDisplayWindows();
+//  refreshProfileMenus();
+}
+
 
 
 /** Shows the daily tip */

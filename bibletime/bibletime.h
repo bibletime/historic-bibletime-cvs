@@ -142,6 +142,10 @@ public slots:
 	*/
 	void slotSettingsOptions();
 	/**
+	* Opens the optionsdialog of BibleTime.
+	*/
+	void slotSwordSetupDialog();
+	/**
 	* Opens the handbook.
 	*/
 	void openOnlineHelp_Handbook();
@@ -280,6 +284,11 @@ protected slots:
 	* changed (ok or apply)
 	*/
 	void slotSettingsChanged();
+	/**
+	* Is called when settings in the sword setup dialog have been
+	* changed (ok or apply)
+	*/
+	void slotSwordSetupChanged();
 	/**
 	 * Called when search button is pressed
 	 **/
