@@ -295,7 +295,7 @@ const QString CChapterDisplay::text( QPtrList <CSwordModuleInfo> modules, const 
   CSwordModuleInfo* module = modules.first();
   bool ok = true;
   
-	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse)) {
+	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && ok && !module->module()->Error(); ok = key.next(CSwordVerseKey::UseVerse) && !key.Error() ) {
     text += entryText(modules, key.key(), keyName);
 	}
 

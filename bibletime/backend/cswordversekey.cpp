@@ -46,10 +46,21 @@ CSwordKey* CSwordVerseKey::copy() const {
 
 /** Sets the module for this key */
 CSwordModuleInfo* const CSwordVerseKey::module( CSwordModuleInfo* const newModule ){
-	if (newModule && (newModule->type() == CSwordModuleInfo::Bible || newModule->type() == CSwordModuleInfo::Commentary) ) {
-		const QString& oldKey	= key();
+	if (newModule && ( (newModule->type() == CSwordModuleInfo::Bible) || (newModule->type() == CSwordModuleInfo::Commentary) )) {
+	//	const QString& oldKey	= key();
 		m_module = newModule;
-		key(oldKey);
+	//	key(oldKey);
+
+		//check if the module contains the key we present
+		CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(newModule);
+   	if (_compare(bible->lowerBound()) < 0) {
+			qWarning("setting key to lower bound %s", bible->lowerBound().key().latin1());
+      key( bible->lowerBound() );
+    }
+    if (_compare(bible->upperBound()) > 0) {
+			qWarning("setting key to upper bound %s", bible->upperBound().key().latin1());
+      key( bible->upperBound() );
+    }
 	}
 	return dynamic_cast<CSwordBibleModuleInfo*>(m_module);
 }
@@ -126,10 +137,14 @@ void CSwordVerseKey::key( const char* newKey ){
 }
 
 const bool CSwordVerseKey::next( const JumpType type ) {
+	//clear Error status
+	Error();
+
 	switch (type) {
 		case UseBook: {
-			if (Book() <= 0 || Book() >= BMAX[Testament()-1] && Testament() > 1)
+			if ((Book() <= 0) || (Book() >= BMAX[Testament()-1]) && (Testament() > 1)) {
 				return false;
+			}
 			Book(Book()+1);
 			break;
 		}
@@ -149,7 +164,7 @@ const bool CSwordVerseKey::next( const JumpType type ) {
     			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8
         }
     		else {
-					qWarning("module error");
+					qWarning("VerseKey::next: module error");
 	    	  Verse(Verse()+1);
 	    	  break;
 	    	}
@@ -163,23 +178,26 @@ const bool CSwordVerseKey::next( const JumpType type ) {
 			return false;
 	};
 
- /* if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
+  if ( CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module()) ) {
     bool ret = true;
-    if (Error())
+    if (Error()) {
       ret = false;
-    else if (_compare(bible->lowerBound()) < 0 ) {
+		}
+		//check if the key if out of the modules bounds
+    else if (_compare(bible->lowerBound()) < 0) {
       key( bible->lowerBound() );
       ret = false;
     }
-    if (_compare(bible->upperBound()) > 0 ) {
+    if (_compare(bible->upperBound()) > 0) {
       key( bible->upperBound() );
       ret = false;
     }
     return ret;
   }
-  else if (Error()) //we have no module, so take care of VerseKey::Error()
+  else if (Error()) { //we have no module, so take care of VerseKey::Error()
     return false;
-	*/
+	}
+
   return true;
 };
 

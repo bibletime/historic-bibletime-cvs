@@ -36,12 +36,12 @@
   * @version $Id$
   */
 class CSwordBibleModuleInfo : public CSwordModuleInfo  {
-public:	
+public:
 	enum Testament {
 		OldTestament = 1,
 		NewTestament = 2
 	};
-		
+
 	/**
 	* The constructor of this class
 	*/
@@ -90,13 +90,15 @@ public:
   /**
   * Returns the key which represents the lower bound of this module.
   */
-  CSwordVerseKey lowerBound() const;
+  CSwordVerseKey lowerBound();
   /**
   * Returns the key which represents the upper bound of this module.
   */
-  CSwordVerseKey upperBound() const;
+  CSwordVerseKey upperBound();
 
 private:
+	void initBounds();
+
   CSwordVerseKey m_lowerBound;
   CSwordVerseKey m_upperBound;
 
@@ -104,7 +106,6 @@ private:
 	QString m_cachedLocale;
 	short int m_hasOT;
 	short int m_hasNT;
-
 };
 
 inline const CSwordModuleInfo::ModuleType CSwordBibleModuleInfo::type() const {

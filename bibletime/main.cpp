@@ -63,7 +63,7 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 				fprintf( stderr,"(BibleTime %s) Debug: %s\n",VERSION, msg );
 			break;
 		case QtWarningMsg:
-			if (showDebugMessages) //comment out for releases so users don't get our debug warnings
+			//if (showDebugMessages) //comment out for releases so users don't get our debug warnings
 				fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
 			break;
 		case QtFatalMsg:
