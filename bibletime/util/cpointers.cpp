@@ -17,10 +17,14 @@
 
 #include "cpointers.h"
 
+//BibleTime's backend
 #include "backend/cswordbackend.h"
 #include "backend/cdisplaytemplatemgr.h"
 
-#include "frontend/printing/cprinter.h"
+//BibleTime's frontend
+#include "frontend/cprinter.h"
+
+using namespace Printing;
 
 CPointers::PointerCache m_pointerCache;
 

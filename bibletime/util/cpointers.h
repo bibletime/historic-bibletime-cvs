@@ -22,7 +22,10 @@
 #include "backend/clanguagemgr.h"
 
 class CSwordBackend;
-class CPrinter;
+
+namespace Printing { class CPrinter; }
+using namespace Printing;
+
 class CLanguageMgr;
 class CInfoDisplay;
 class CDisplayTemplateMgr;

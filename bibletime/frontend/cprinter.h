@@ -13,7 +13,6 @@
 #define CPRINTER_H
 
 //BibleTime backend
-// #include "backend/cswordbackend.h"
 #include "backend/ctextrendering.h"
 
 //BibleTime frontend
@@ -22,10 +21,9 @@
 //Qt includes
 #include <qobject.h>
 
-//KDE includes
-// #include <khtml_part.h>
-
 class KHTMLPart;
+
+namespace Printing {
 
 /**
  * The CPrinter class manages the print item queue and the printing of them to the printer.
@@ -66,10 +64,10 @@ protected:
 	virtual const QString renderEntry( const KeyTreeItem&, CSwordKey* = 0 );
 	virtual const QString finishText(const QString& arg1, KeyTree& tree);
 
-// 	virtual const QString renderKeyTree( KeyTree& );
-
 private:
 	KHTMLPart* m_htmlPart;
 };
+
+}
 
 #endif

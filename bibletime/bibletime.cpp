@@ -27,7 +27,7 @@
 #include "frontend/displaywindow/creadwindow.h"
 #include "frontend/displaywindow/cwritewindow.h"
 #include "frontend/keychooser/ckeychooser.h"
-#include "frontend/printing/cprinter.h"
+//#include "frontend/cprinter.h"
 #include "frontend/cbtconfig.h"
 
 #include "util/ctoolclass.h"

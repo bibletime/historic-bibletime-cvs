@@ -26,7 +26,7 @@
 #include "frontend/cbtconfig.h"
 #include "frontend/cdragdropmgr.h"
 
-#include "frontend/printing/cprinter.h"
+#include "frontend/cprinter.h"
 
 #include "util/cresmgr.h"
 
@@ -43,6 +43,8 @@
 #include <kpopupmenu.h>
 #include <kmessagebox.h>
 #include <kglobalsettings.h>
+
+using namespace Printing;
 
 CMainIndex::ToolTip::ToolTip(CMainIndex* parent) : QToolTip(parent->viewport()), m_mainIndex(parent) {
 }

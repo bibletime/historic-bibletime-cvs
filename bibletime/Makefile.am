@@ -6,7 +6,6 @@ bibletimeapp.cpp \
 main.cpp
 
 bibletime_LDADD   = \
-./frontend/printing/libprinting.a \
 ./frontend/displaywindow/libdisplaywindow.a \
 ./frontend/display/libdisplay.a \
 ./frontend/keychooser/libkeychooser.a \

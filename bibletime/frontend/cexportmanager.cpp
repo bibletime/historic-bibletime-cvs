@@ -25,7 +25,7 @@
 #include "backend/cdisplaytemplatemgr.h"
 #include "backend/ctextrendering.h"
 
-#include "frontend/printing/cprinter.h"
+#include "frontend/cprinter.h"
 
 #include "util/ctoolclass.h"
 #include "util/scoped_resource.h"
@@ -46,6 +46,7 @@
 #include <listkey.h>
 
 using namespace Rendering;
+using namespace Printing;
 
 CExportManager::CExportManager(const QString& caption, const bool showProgress, const QString& progressLabel, const CSwordBackend::FilterOptions filterOptions, const CSwordBackend::DisplayOptions displayOptions) {
   m_caption = !caption.isEmpty() ? caption : QString::fromLatin1("BibleTime");

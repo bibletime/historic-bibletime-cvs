@@ -15,7 +15,8 @@ cexportmanager.cpp \
 cmdiarea.cpp \
 kstartuplogo.cpp \
 cdragdropmgr.cpp \
-cinfodisplay.cpp
+cinfodisplay.cpp \
+cprinter.cpp
 
 all_headers = cmdiarea.h \
 btinstallmgr.h \
@@ -30,8 +31,9 @@ cexportmanager.h \
 cmdiarea.h \
 kstartuplogo.h \
 cdragdropmgr.h \
-cinfodisplay.h
+cinfodisplay.h \
+cprinter.h
 
 EXTRA_DIST = $(libfrontend_a_SOURCES) $(all_headers)
 
-SUBDIRS = mainindex keychooser displaywindow display searchdialog printing
+SUBDIRS = mainindex keychooser displaywindow display searchdialog

@@ -86,7 +86,7 @@ const QString& CPrinter::Item::getAlternativeContent() const
 /* Class: CPrinter */
 
 CPrinter::CPrinter(QObject *parent, CSwordBackend::DisplayOptions displayOptions, CSwordBackend::FilterOptions filterOptions)
- : 	QObject(parent),
+ : 	QObject(/*parent*/0),
  		CDisplayRendering(displayOptions, filterOptions), 
 		m_htmlPart(new KHTMLPart(0, 0, this))
 {	
@@ -101,11 +101,11 @@ CPrinter::CPrinter(QObject *parent, CSwordBackend::DisplayOptions displayOptions
 	m_htmlPart->setMetaRefreshEnabled(false);
 	m_htmlPart->setPluginsEnabled(false);
 	m_htmlPart->view()->resize(500,500);
+	m_htmlPart->view()->hide();
 }
 
-CPrinter::~CPrinter()
-{
-	delete m_htmlPart;
+CPrinter::~CPrinter() {
+ 	delete m_htmlPart;
 }
 
 void CPrinter::printKeyTree( KeyTree& tree ) {

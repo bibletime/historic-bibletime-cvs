@@ -26,10 +26,10 @@
 #include "frontend/cmdiarea.h"
 #include "frontend/kstartuplogo.h"
 #include "frontend/cswordsetupdialog.h"
+#include "frontend/cprinter.h"
 
 #include "backend/clanguagemgr.h"
 
-#include "frontend/printing/cprinter.h"
 
 #include "config.h"
 #include "frontend/cbtconfig.h"
@@ -521,7 +521,7 @@ void BibleTime::initBackends(){
 /** Initializes the CPrinter object. */
 void BibleTime::initPrinter() {
 	KStartupLogo::setStatusMessage(i18n("Initializing print system") + QString::fromLatin1("..."));
-	CPointers::setPrinter( (m_printer = new CPrinter(this)) );
+	CPointers::setPrinter( (m_printer = new Printing::CPrinter(this)) );
 }
 
 /** Apply the settings given by the profile p*/
