@@ -71,12 +71,15 @@
 //Sword includes
 #include <installmgr.h>
 #include <swmodule.h>
+#include <swversion.h>
 
 //using std::string;
 //using std::list;
 using std::cout;
 using std::cerr;
 using std::endl;
+
+using namespace sword;
 
 CSwordSetupDialog::CSwordSetupDialog(QWidget *parent, const char *name, KAccel* accel )
 	: KDialogBase(IconList, i18n("Sword configuration"), Ok/* | Cancel | Apply*/, Ok, parent, name, true, true, QString::null, QString::null, QString::null) {
@@ -429,24 +432,43 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
   }
 
   //kind of a hack to provide a pointer to mgr next line
-  sword::SWMgr lMgr( BTInstallMgr::Tool::isRemoteSource(&is) ? "" : is.directory.c_str());
-  
+  sword::SWMgr lMgr( BTInstallMgr::Tool::isRemoteSource(&is) ? "" : is.directory.c_str());  
   sword::SWMgr* mgr = BTInstallMgr::Tool::isRemoteSource(&is) ? is.getMgr() : &lMgr;
 
   QListViewItem* parent = 0;
   for (sword::ModMap::iterator it = mgr->Modules.begin(); it != mgr->Modules.end(); it++) {
+    bool isUpdate = false;
     sword::SWModule* module = it->second;
+    Q_ASSERT(module);
 
-    if (CPointers::backend()->findModuleByName(module->Name())) //module already installed?
-      continue;
+    CSwordModuleInfo* installedModule = CPointers::backend()->findModuleByName(module->Name());
+    if (installedModule) { //module already installed?
+      Q_ASSERT(installedModule);
+
+      //check whether it's an uodated module or just the same
+      char* installedVersionString = installedModule->module()->getConfigEntry("Version");
+      if (!installedVersionString || (installedVersionString && !strlen(installedVersionString)))
+        installedVersionString = "1.0";
+      
+      char* versionString = module->getConfigEntry("Version");
+      if (!versionString)
+        versionString = "1.0";
+
+      qWarning("version for %s are %s / %s", module->Name(), installedVersionString, versionString);
+
+      SWVersion installedVersion( installedVersionString );
+      SWVersion newVersion( versionString );
+      isUpdate = (newVersion > installedVersion);
+      if (!isUpdate)
+        continue;
+    }
+
     sword::SectionMap::iterator section = mgr->config->Sections.find(module->Name());
     if ((section != mgr->config->Sections.end()) && (section->second.find("CipherKey") != section->second.end())) //module enciphered
       continue;
     
     Q_ASSERT(module);
     const char* type = module->Type();
-    qWarning("got module name %s (type %s)", module->Name(), type);
-
     if (!strcmp(type, "Biblical Texts")) {
       parent = categoryBible;
     }
@@ -463,12 +485,22 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
       parent = 0;
     }
 
-		if (parent) {
-      QListViewItem* newItem = new QCheckListItem(parent, QString::fromLatin1(module->Name()), QCheckListItem::CheckBox);
+		QListViewItem* newItem = 0;
+    if (parent) {
+       newItem = new QCheckListItem(parent, QString::fromLatin1(module->Name()), QCheckListItem::CheckBox);      
     }
     else {
-      QListViewItem* newItem = new QCheckListItem(m_installModuleListView, QString::fromLatin1(module->Name()), QCheckListItem::CheckBox);
+      newItem = new QCheckListItem(m_installModuleListView, QString::fromLatin1(module->Name()), QCheckListItem::CheckBox);
     }
+    Q_ASSERT(newItem);
+    char* installedVersion = installedModule ? installedModule->module()->getConfigEntry("Version") : "";
+    if (installedModule && !strlen(installedVersion)) {
+      installedVersion = "1.0";
+    }
+    
+    newItem->setText(1, installedVersion);
+    newItem->setText(2, module->getConfigEntry("Version") ? module->getConfigEntry("Version") : "1.0");
+    newItem->setText(3, isUpdate ? i18n("Update") : i18n("New"));
   }
   m_installWidgetStack->raiseWidget(m_installModuleListPage);
 }
@@ -477,19 +509,28 @@ void CSwordSetupDialog::populateInstallModuleListView( const QString& sourceName
 /** Connects to the chosen source. */
 void CSwordSetupDialog::slot_connectToSource(){
 	m_installModuleListPage = new QWidget(0);
-  m_installWidgetStack->addWidget(m_installModuleListPage);
-	m_installModuleListPage->setMinimumSize(500,400);
+
 	QGridLayout* layout = new QGridLayout(m_installModuleListPage, 8, 2);
 	layout->setMargin(5);
 	layout->setSpacing(10);
 	layout->setRowStretch(6,5);
 
+  QLabel* installLabel = CToolClass::explanationLabel(m_installSourcePage,
+		i18n("Install/update modules - Step 2"),
+		i18n("Please choose the modules which should be installed / updated and click the install button.")
+  );
+	layout->addMultiCellWidget(installLabel, 0,0,0,1);
+  
+  m_installWidgetStack->addWidget(m_installModuleListPage);
+	m_installModuleListPage->setMinimumSize(500,400);
+
   //insert a list box which contains all available remote modules
 	m_installModuleListView = new QListView(m_installModuleListPage, "install modules view");
-	layout->addMultiCellWidget( m_installModuleListView, 0,6,0,2);
+	layout->addMultiCellWidget( m_installModuleListView, 1,6,0,1);
 	m_installModuleListView->addColumn("Name");
-  m_installModuleListView->addColumn("Location");
-
+  m_installModuleListView->addColumn("Installed version");
+  m_installModuleListView->addColumn("Remote version");
+  m_installModuleListView->addColumn("Status");
 
   connect( m_installBackButton, SIGNAL(clicked()), this, SLOT(slot_showInstallSourcePage()));
   m_installBackButton->setEnabled(true);
@@ -560,6 +601,24 @@ void CSwordSetupDialog::slot_installModules(){
       m_installingModule = *it;
       m_progressDialog->progressBar()->setTotalSteps(100);
       connect(&iMgr, SIGNAL(completed(const int, const int)), SLOT(installCompleted(const int, const int)));
+
+      //check whether it's an update. If yes, remove exuisting module first
+      if (CSwordModuleInfo* m = backend()->findModuleByName(*it)) { //module found?
+        QString prefixPath = m->config(CSwordModuleInfo::AbsoluteDataPath) + "/";
+        QString dataPath = m->config(CSwordModuleInfo::DataPath);
+        if (dataPath.left(2) == "./") {
+          dataPath = dataPath.mid(2);
+        }
+        
+        if (prefixPath.contains(dataPath)) {
+          prefixPath = prefixPath.replace(dataPath, "");
+        }
+        else {
+          prefixPath = QString::fromLatin1(backend()->prefixPath);
+        }
+        sword::SWMgr mgr(prefixPath.latin1());
+        iMgr.removeModule(&mgr, m->name().latin1());
+      }
       
       if (BTInstallMgr::Tool::isRemoteSource(&is)) {
         iMgr.installModule(&lMgr, 0, (*it).latin1(), &is);
@@ -584,7 +643,7 @@ void CSwordSetupDialog::installCompleted( const int total, const int file ){
 //  qWarning("percent completed %i", total);
   if (m_progressDialog) {
     m_progressDialog->progressBar()->setProgress(total);
-    m_progressDialog->setLabel( QString("[%1] %2% completed").arg(m_installingModule).arg(total) );  
+    m_progressDialog->setLabel( QString("[%1] %2% completed").arg(m_installingModule).arg(total) );
   }
 }
 
