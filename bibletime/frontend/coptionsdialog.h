@@ -196,17 +196,11 @@ protected: // Protected methods
   * Initializes the startup section of the OD.
   */
   void initStartup();
-  /** No descriptions */
   void saveAccelerators();
-	/** No descriptions */
 	void saveColors();
-	/** No descriptions */
 	void saveFonts();
- 	/** No descriptions */
  	void saveProfiles();
- 	/** No descriptions */
  	void saveStartup();
- 	/** No descriptions */
  	void saveSword();
 
 signals: // Signals

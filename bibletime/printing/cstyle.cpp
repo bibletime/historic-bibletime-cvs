@@ -250,7 +250,7 @@ void CStyle::setFormatTypeEnabled( const CStyle::StyleType type, const bool setE
 }
 
 /** Returns a QListViewItem for inserted in list. */
-QListViewItem* CStyle::listViewItem( CStyleList* const list ){
+QListViewItem* const CStyle::listViewItem( CStyleList* const list ){
 	if (!list) {
 		if (!m_listViewItem)
 			return 0;
@@ -426,7 +426,7 @@ const bool CStyle::save( const QString& filename ){
 
   QDomElement content = doc.createElement("BibleTimePrintingStyle");
   content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
-  content.setAttribute("name", m_name/*.utf8()*/);
+  content.setAttribute("name", m_name);
   content.setAttribute("translate", 0); //don't trabslate styles except of prinstalled ones
   doc.appendChild(content);
 
@@ -457,13 +457,13 @@ const bool CStyle::save( const QString& filename ){
 		elem.setAttribute("alignment", static_cast<int>(format->alignment()));
 		
 		QDomElement object = doc.createElement("COLORS");
-		object.setAttribute("bgcolor", format->color(Format::Background).name()/*.utf8()*/);
-		object.setAttribute("fgcolor", format->color(Format::Foreground).name()/*.utf8()*/);
+		object.setAttribute("bgcolor", format->color(Format::Background).name());
+		object.setAttribute("fgcolor", format->color(Format::Foreground).name());
 		elem.appendChild(object);		
 				
 		QFont font = format->font();
 		object = doc.createElement("FONT");
-		object.setAttribute("family", font.family()/*.utf8()*/);
+		object.setAttribute("family", font.family());
 		object.setAttribute("pointsize", font.pointSize());		
 		object.setAttribute("weight", font.weight());
 		object.setAttribute("italic", font.italic());
@@ -474,7 +474,7 @@ const bool CStyle::save( const QString& filename ){
 		Format::Frame* frame = format->frame();
 		object.setAttribute("enabled", static_cast<bool>(frame) );
 		if (frame) {
-			object.setAttribute("color", frame->color().name()/*.utf8()*/);
+			object.setAttribute("color", frame->color().name());
 			object.setAttribute("thickness", frame->thickness());
 			object.setAttribute("style", static_cast<int>(frame->lineStyle()) );
     }		

@@ -100,7 +100,7 @@ const QString& CPrintItem::moduleText() {
 		stopKey->key(m_stopKey);
 	
 		const QString format = QString::fromLatin1(" <FONT SIZE=\"-2\"><NOBR>%1</NOBR></FONT>");
-		while ( (*startKey) <= (*stopKey) ) {
+		while ( (*startKey) < (*stopKey) || (*startKey) == (*stopKey) ) {
 			m_moduleText += (m_displayOptions.verseNumbers ? format.arg(startKey->Verse()) : QString::null)
 + startKey->renderedText() + (m_displayOptions.lineBreaks ? "<BR>\n" : QString::null);
 			startKey->next(CSwordVerseKey::UseVerse);
@@ -281,7 +281,18 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 //			boundingRect.setWidth(boundingRect.width()+5);//HACK to avoid cut letters
 			boundingRect.moveBy(BORDER_SPACE + frameThickness, frameThickness);
 //			arguments |= Qt::AlignVCenter; //WARNING: Right here? Will it change the boundingrect??
+
+    		p->setClipRect(
+    			upperMargin,
+    			leftMargin,
+    			pageWidth,
+    			pageHeight
+    		);
+
 			p->drawText(boundingRect, arguments, text);
+			
+			p->setClipping(false);
+			
 			printer->setVerticalPos(boundingRect.top() + boundingRect.height() + 2*frameThickness + STYLE_PART_SPACE);
  			verticalPos = printer->verticalPos();
  			
@@ -327,9 +338,9 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
     		if ((int)(verticalPos - upperMargin + richText.height() - translated) <= (int)(pageHeight) ) {
     			//text fits on current page
 					br = QRect (
-	    			leftMargin+frameThickness,
-	    			verticalPos+frameThickness,
-		    		pageWidth-2*frameThickness,
+	    			leftMargin + frameThickness,
+	    			verticalPos + frameThickness,
+		    		pageWidth - frameThickness,
 		    		richText.height() - translated + frameThickness + BORDER_SPACE
 	    		);
 				}
@@ -337,8 +348,8 @@ void CPrintItem::draw(QPainter* p, CPrinter* printer){
 		    	br = QRect(
 		    		leftMargin + frameThickness,
 		    		verticalPos + frameThickness,
-			    	pageWidth - 2*frameThickness,
-			    	pageHeight - verticalPos + upperMargin - 2*frameThickness
+			    	pageWidth - frameThickness,
+			    	pageHeight - verticalPos + upperMargin - frameThickness
 		    	);
     		}
 				br.moveBy(0,translated); //we have to move down as far as the painter moved    		

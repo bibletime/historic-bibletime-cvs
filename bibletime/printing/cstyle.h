@@ -42,9 +42,9 @@ class CStyle {
 public:
 
 	enum StyleType {
-		Header=0, /** The header displayed over each printed item */
-		Description=1 /** The description, used in bookmarks for example */,
-		ModuleText=2 /** The real text of the entry or the range of verses */,
+		Header = 0, /** The header displayed over each printed item */
+		Description = 1 /** The description, used in bookmarks for example */,
+		ModuleText = 2 /** The real text of the entry or the range of verses */,
 		Unknown /** Unknown for us, should not be used */
 	};
 
@@ -149,10 +149,6 @@ public:
  	*/
   CStyle::Format* const formatForType( const CStyle::StyleType );
   /**
- 	* Sets the format for the given type.
- 	*/
-//  void setFormatForType( const CStyle::StyleType type, const CStyle::Format* format);
-  /**
  	* Set the printing of the header (true enables it).
  	*/
   void setFormatTypeEnabled( const CStyle::StyleType, const bool );
@@ -163,7 +159,7 @@ public:
   /**
  	* Returns a QListViewItem for inserted in list.
  	*/
-  QListViewItem* listViewItem( CStyleList* const list = 0 );
+  QListViewItem* const listViewItem( CStyleList* const list = 0 );
   /**
  	* Sets the name of the style.
  	*/
@@ -200,7 +196,6 @@ private:
   void clearData();
 	
 	QString	m_name;
-//	QString m_filename;
 	
 	Format* m_headerFormat;
 	Format* m_descriptionFormat;		
