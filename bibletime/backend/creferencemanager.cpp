@@ -86,13 +86,13 @@ const QString CReferenceManager::encodeHyperlink( const QString& moduleName, con
   		case Commentary: {
         CSwordVerseKey vk(0);
         vk = key;
-        vk.setLocale("en");
+        //vk.setLocale("en");
 
         ret += vk.key(); //we add the english key, so drag and drop will work in all cases
         break;
       }
       default:
-        ret += key; //use the standard key, no pasring required
+        ret += key; //use the standard key, no parsing required
         break;
     }
 	}

@@ -77,7 +77,7 @@ char CFilterTool::ProcessRWPRefs(sword::SWBuf & buf, sword::SWModule* const modu
 }
 
 /** Parses the verse reference ref and returns it. */
-const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule* module, sword::SWKey* key, const bool insertFullRef){
+const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule * const module, sword::SWKey * const key, const char* lang, const bool insertFullRef){
   /**
   * This function should be able to parse references like "John 1:3; 3:1-10; Matthew 1:1-3:3"
   * without problems.
@@ -85,9 +85,10 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
   const sword::SWBuf moduleName( module ? module->Name() : m_standardBible.latin1() );
 
   sword::VerseKey parseKey;
- 	parseKey.setLocale( module ? module->Lang() : "en" ); //we assume that the keys are in english or in the module's language
+ 	parseKey.setLocale( lang ? lang : (module ? module->Lang() : "en") ); //we assume that the keys are in english or in the module's language
 
  	parseKey = key ? (const char*)*key : "Genesis 1:1"; //use the current key if there's any
+  
  	sword::ListKey list;
   sword::SWBuf ret;
 
@@ -109,7 +110,7 @@ const sword::SWBuf CFilterTool::parseRef(const sword::SWBuf ref, sword::SWModule
     sword::SWKey* key = 0;
 	 	for(int i = 0; i < count; i++) {
 	 		key = list.GetElement(i);
-      //qWarning(key->getText());
+//      qWarning("%s (%s) [%s] (%s)", key->getRangeText(), ref.c_str(), parseKey.getLocale(), module->Lang());
   		ret += sword::SWBuf("<span id=\"reference\"><a href=\"sword://Bible/") + moduleName + "/";
  			if ( sword::VerseKey* vk = dynamic_cast<sword::VerseKey*>(key) ) {
  				vk->setLocale("en");
@@ -145,14 +146,14 @@ const sword::SWBuf CFilterTool::parseThMLRef(const sword::SWBuf& ref, const char
   if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(moduleName) ) {
     module = m->module();
   }
-  return parseRef( ref, module, 0, false );
+  return parseRef( ref, module, 0, module ? module->Lang() : "en", false );
 }
 
-const sword::SWBuf CFilterTool::parseSimpleRef(const sword::SWBuf& ref) {
+const sword::SWBuf CFilterTool::parseSimpleRef(const sword::SWBuf& ref, const char* lang) {
   updateSettings();
 
   if ( CSwordModuleInfo* m = CPointers::backend()->findModuleByName(m_standardBible.latin1()) ) {
-    return parseRef( ref, m->module(), 0 );
+    return parseRef( ref, m->module(), 0, lang);
   }
   return sword::SWBuf();
 }

@@ -14,7 +14,7 @@ call_and_fix_autoconf()
     \\n  perl -i.bak \\\$ac_aux_dir/conf.change.pl \\\$CONFIG_STATUS\
     \\\\\\n    || mv \\\$CONFIG_STATUS.bak \\\$CONFIG_STATUS\
     \\n  rm -f \\\$CONFIG_STATUS.bak\\nfi\
-    \\n\" if /^\\s*chmod\\s+.*\\+x\\s+.*CONFIG_STATUS/;" configure
+    \\n\" if /^\\s*chmod\\s+.*\\+x\\s+.*CONFIG_STATUS/; s,^#line.*LINENO.*\$,/* \$& */, ;" configure
   fi
 }
 
@@ -99,13 +99,23 @@ fi
 ### The make calls could be optimized away here,
 ### with a little thought.
 if test -r configure.in.in; then
-  rm -f subdirs configure.in
-  echo "*** Creating list of subdirectories"
-  subdirs
-  echo "*** Creating configure.in"
-  configure_files
-  strip_makefile
-  $MAKE -f $makefile_wo top_srcdir=. ./configure.in || exit 1
+    rm -f configure.in
+    echo "*** Creating list of subdirectories"
+    create_subdirs
+
+    if test -r Makefile.am.in; then
+        echo "*** Creating Makefile.am"
+        if grep '\$(top_srcdir)/Makefile.am:' $makefile_am >/dev/null; then 
+            strip_makefile
+            $MAKE -f $makefile_wo top_srcdir=. ./Makefile.am || exit 1
+        else
+            Makefile_am
+        fi
+     fi
+     echo "*** Creating configure.in"
+     configure_files
+     strip_makefile
+     $MAKE -f $makefile_wo top_srcdir=. ./configure.in || exit 1
 fi
 
 echo "*** Creating aclocal.m4"
@@ -150,7 +160,8 @@ if grep '\$(top_srcdir)/acinclude.m4:' $makefile_am >/dev/null; then
   $MAKE -f $makefile_wo top_srcdir=. ./acinclude.m4
 fi
 if test -r configure.in.in; then
-  subdirs
+  create_subdirs
+  Makefile_am
   configure_files
   strip_makefile
   $MAKE -f $makefile_wo top_srcdir=. ./configure.in
@@ -186,9 +197,10 @@ subdir_dist()
 {
 $ACLOCAL
 $AUTOHEADER
-$AUTOMAKE --foreign --include-deps
-perl -w ../admin/am_edit
+$AUTOMAKE
+perl -w ../admin/am_edit --path=../admin
 call_and_fix_autoconf
+touch stamp-h.in
 }
 
 configure_in()
@@ -203,35 +215,48 @@ if test -f Makefile.am.in; then
   for dir in $subdirs; do
     dir=`echo $dir | sed -e "s,[-+.],_,g"`
     echo "AM_CONDITIONAL($dir""_SUBDIR_included, test \"x\$$dir""_SUBDIR_included\" = xyes)" >> configure.in.new
+    if test -f $dir/configure.in; then
+	echo "if test \"x\$$dir""_SUBDIR_included\" = xyes; then " >> configure.in.new
+	echo "  AC_CONFIG_SUBDIRS($dir)" >> configure.in.new
+	echo "fi" >> configure.in.new
+    fi
   done
 fi
-mfs=`find . -type d -print | fgrep -v "/." | \
-     sed -e "s#\./##" -e "/^debian/d" | sort`
-for i in $mfs; do
-  topleveldir=`echo $i| sed -e "s#/.*##"`
-  if test -f inst-apps; then
-    if grep "^$topleveldir" inst-apps > /dev/null 2>&1; then :; else
-	continue
-    fi
-  fi
+
+echo "AC_CONFIG_FILES([ Makefile ])" >> configure.in.new
+if test -n "$UNSERMAKE"; then
+  echo "AC_CONFIG_FILES([ Makefile.rules ])" >> configure.in.new
+  echo "AC_CONFIG_FILES([ Makefile.calls ])" >> configure.in.new
+fi
+
+if test -f inst-apps; then
+    topleveldirs=`cat inst-apps`
+else
+    topleveldirs=
+    for dir in `ls -1d * | sort`; do
+	if test "$dir" != "debian" && test -d $dir; then
+	    topleveldirs="$topleveldirs $dir"
+	fi
+    done
+fi
+
+for topleveldir in $topleveldirs; do 
   if test -f $topleveldir/configure.in; then
 	continue
   fi
-  if test -f $i/Makefile.am; then :; else
+  if test -f $topleveldir/Makefile.am; then :; else
 	continue
   fi
-  if test "$i" = "."; then
-     echo "AC_CONFIG_FILES([ Makefile ])" >> configure.in.new
-  else
-     echo "AC_CONFIG_FILES([ $i/Makefile ])" >> configure.in.new
-  fi
-  if test -n "$UNSERMAKE"; then
-      if test "$i" = "."; then
-        echo "AC_CONFIG_FILES([ Makefile.rules ])" >> configure.in.new
-      else
-        echo "AC_CONFIG_FILES([ $i/Makefile.rules ])" >> configure.in.new
-      fi
-  fi
+
+  mfs=`find $topleveldir -name Makefile.am -print | fgrep -v "/." | \
+       sed -e 's#\./##; s#/Makefile.am$##' | sort | sed -e 's#$#/Makefile#'`
+  for i in $mfs; do
+     echo "AC_CONFIG_FILES([ $i ])" >> configure.in.new
+     if test -n "$UNSERMAKE"; then
+        echo "AC_CONFIG_FILES([ $i.rules ])" >> configure.in.new
+	echo "AC_CONFIG_FILES([ $i.calls ])" >> configure.in.new
+     fi
+  done
 done
 
 files=`cat configure.files`
@@ -297,20 +322,47 @@ if test -f configure.in.in && head -n 2 configure.in.in | grep "^#MIN_CONFIG" > 
 	echo $admindir/configure.in.min >> configure.files
 fi
 test -f configure.in.in && echo configure.in.in >> configure.files
+# we collect files in the subdirs and do some sorting tricks, so subsubdirs come after subdirs
 if test -f inst-apps; then
    inst=`cat inst-apps`
    list=""
    for i in $inst; do
-      list="$list `find $i/ -name "configure.in.in" -o -name "configure.in.bot" -o -name "configure.in.mid" | sort`"
+      list="$list `find $i/ -name "configure.in.in" -o -name "configure.in.bot" -o -name "configure.in.mid" | \
+		sed -e "s,/configure,/aaaconfigure," | sort | sed -e "s,/aaaconfigure,/configure,"`"
    done
 else
-   list=`find . -name "configure.in.in" -o -name "configure.in.bot" -o -name "configure.in.mid" | sort`
+   list=`find . -name "configure.in.in" -o -name "configure.in.bot" -o -name "configure.in.mid" | \
+		sed -e "s,/configure,/aaaconfigure," | sort | sed -e "s,/aaaconfigure,/configure,"`
 fi
 for i in $list; do if test -f $i && test `dirname $i` != "." ; then
   echo $i >> configure.files
 fi; done
 test -f configure.in.mid && echo configure.in.mid >> configure.files
 test -f configure.in.bot && echo configure.in.bot >> configure.files
+}
+
+create_subdirs()
+{
+if grep '\$(top_srcdir)/subdirs:' $makefile_am >/dev/null; then 
+    # as many modules contain rules to create subdirs without any
+    # dependencies make won't create it unless there is no file.
+    # so we check if that's a dummy rule or one that works
+    rm -f subdirs.cvs.sh.$$
+    if test -f subdirs; then
+	mv subdirs subdirs.cvs.sh.$$
+    fi
+    strip_makefile
+    $MAKE -f $makefile_wo top_srcdir=. ./subdirs || exit 1
+    if test -f subdirs.cvs.sh.$$; then
+	if test -s subdirs; then
+	    rm subdirs.cvs.sh.$$ 
+	else
+	    mv subdirs.cvs.sh.$$ subdirs
+	fi
+    fi
+else
+    subdirs
+fi
 }
 
 subdirs()
@@ -320,7 +372,7 @@ idirs=
 if test -f inst-apps; then
    idirs=`cat inst-apps`
 else
-   idirs=`ls -1`
+   idirs=`ls -1 | sort`
 fi
 
 compilefirst=`sed -ne 's#^COMPILE_FIRST[ ]*=[ ]*##p' $makefile_am | head -n 1`
@@ -356,9 +408,34 @@ for d in $compilelast; do
    echo $d >> ./_SUBDIRS
 done
 
+if test -r subdirs && cmp -s subdirs _SUBDIRS; then
+    rm -f _SUBDIRS
+fi
+test -r _SUBDIRS && mv _SUBDIRS subdirs || true
+}
+
+Makefile_am()
+{
 if test -f Makefile.am.in; then
+  compilefirst=`sed -ne 's#^COMPILE_FIRST[ ]*=[ ]*##p' $makefile_am | head -n 1`
+  compilelast=`sed -ne 's#^COMPILE_LAST[ ]*=[ ]*##p' $makefile_am | head -n 1`
+
+  idirs=
+  dirs=
+  if test -f inst-apps; then
+     idirs=`cat inst-apps`
+  else
+     idirs=`cat subdirs`
+  fi
+  for i in $idirs; do
+    case " $compilefirst $compilelast " in
+      *" $i "*) ;;
+      *) dirs="$dirs $i"
+    esac
+  done
+
   if test -n "$UNSERMAKE"; then
-    cp Makefile.am.in Makefile.am
+    cat Makefile.am.in > Makefile.am
     topsubdirs=
     for i in $compilefirst $dirs $compilelast; do
        vari=`echo $i | sed -e "s,[-+],_,g"`
@@ -375,10 +452,6 @@ if test -f Makefile.am.in; then
     echo "SUBDIRS="'$(TOPSUBDIRS)' >> Makefile.am
   fi
 fi
-if test -r subdirs && diff subdirs _SUBDIRS > /dev/null; then
-  rm -f _SUBDIRS
-fi
-test -r _SUBDIRS && mv _SUBDIRS subdirs || true
 }
 
 cvs_clean()
@@ -417,7 +490,7 @@ mkdir po.backup
 
 for i in `ls -1 po/*.pot 2>/dev/null | sed -e "s#po/##"`; do
   egrep -v '^#([^:]|$)' po/$i | egrep '^.*[^ ]+.*$' | grep -v "\"POT-Creation" > po.backup/$i
-  cp po/$i po.backup/backup_$i
+  cat po/$i > po.backup/backup_$i
   touch -r po/$i po.backup/backup_$i
   rm po/$i
 done
@@ -450,6 +523,10 @@ for subdir in $dirs; do
    $MAKE -s -f _transMakefile podir=$podir EXTRACTRC="$EXTRACTRC" PREPARETIPS="$PREPARETIPS" \
 	XGETTEXT="${XGETTEXT:-xgettext} -C -ki18n -ktr2i18n -kI18N_NOOP -ktranslate -kaliasLocale -x ${includedir:-${KDEDIR:-/usr/local/kde}/include}/kde.pot" \
 	messages 
+   exit_code=$?
+   if test "$exit_code" != 0; then
+       echo "make exit code: $exit_code"
+   fi
    ) 2>&1 | grep -v '^make\[1\]' > $tmpname
    test -s $tmpname && { echo $subdir ; cat "$tmpname"; }
    test -f $subdir/rc.cpp && rm -f $subdir/rc.cpp
@@ -481,6 +558,7 @@ rm -f temp.pot
 rm -rf po.backup
 }
 
+unset CDPATH
 admindir=`echo "$0" | sed 's%[\\/][^\\/][^\\/]*$%%'`
 test "x$admindir" = "x$0" && admindir=.
 
@@ -502,7 +580,7 @@ fi
 arg=`echo $1 | tr '\-.' __`
 case $arg in
   cvs | dist | subdir_dist | configure_in | configure_files | subdirs | \
-  cvs_clean | package_merge | package_messages ) $arg ;;
+  cvs_clean | package_merge | package_messages | Makefile_am ) $arg ;;
   configure ) call_and_fix_autoconf ;;
   * ) echo "Usage: cvs.sh <target>"
       echo "Target can be one of:"

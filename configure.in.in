@@ -63,7 +63,7 @@ dnl everything to compile and run a KDE program is already checked
 
 CPPFLAGS="$CPPFLAGS -DQT_NO_ASCII_CAST -DQT_NO_COMPAT -DQT_CLEAN_NAMESPACE -Wall -I\$(top_srcdir)/ -I\$(top_srcdir)/bibletime"
 AC_CHECK_STATIC_LINKING(ac_use_static)
-AC_CHECK_SWORD(1.5.5.99, [$ac_use_static])
+AC_CHECK_SWORD(1.5.6, [$ac_use_static])
 
 dnl Chek for the used distribution
 AC_CHECK_DISTRIBUTION
@@ -80,6 +80,3 @@ AC_CONFIG_FILES([ INSTALL ])
 AC_CONFIG_FILES([ bibletime.lsm ])
 AC_CONFIG_FILES([ bibletime.spec ])
 AC_CONFIG_FILES([ bibletime.desktop ])
-
-dnl echo "Executing perl am_edit ..."
-dnl perl am_edit

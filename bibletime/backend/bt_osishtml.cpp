@@ -50,7 +50,6 @@ BT_OSISHTML::BT_OSISHTML() {
 }
 
 bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
-//  qWarning("OSISHTML::handleToken");
   // manually process if it wasn't a simple substitution
 	if (!substituteToken(buf, token)) {
     XMLTag tag(token);
@@ -175,20 +174,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 				// -- what should we do?  nothing for now.
 			}
 		}
-
-		// <line> poetry, etc
-		else if (!strcmp(tag.getName(), "line")) {
-			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
-//				buf += "<>";
-			}
-			else if (tag.isEndTag()) {
-				buf += "<br />";
-			}
-			else {	// empty line marker
-				buf += "<br />";
-			}
-		}
-
+    // <l> is handled by OSISHTMLHref
 		// <title>
 		else if (!strcmp(tag.getName(), "title")) {
 			if ((!tag.isEndTag()) && (!tag.isEmpty())) {
@@ -202,7 +188,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 				buf += "<br />";
 			}
 		}
-		// <hi> hi?  hi contrast? // handled by OSISHTMLHRef
+		// <hi> is handled by OSISHTMLHRef
 		// <q> quote
 		else if (!strcmp(tag.getName(), "q")) {
 			SWBuf type = tag.getAttribute("type");
@@ -235,7 +221,7 @@ bool BT_OSISHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
 			}
 		}
 		// <transChange> is handled by OSISHTMLHref
-    else { //all tokens handled by OSISHref will run through the filter now
+    else { //all tokens handled by OSISHTMLHref will run through the filter now
       return sword::OSISHTMLHref::handleToken(buf, token, userData);
     }
 	}

@@ -46,6 +46,9 @@ BT_ThMLHTML::BT_ThMLHTML() {
 }
 
 bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMap &userData) {
+  sword::SWModule* myModule = const_cast<sword::SWModule*>(module); //hack to be able to call stuff like Lang()
+  Q_ASSERT(module);
+  
 	if (!substituteToken(buf, token) && !substituteEscapeString(buf, token)) {
     sword::XMLTag tag(token);
 
@@ -115,7 +118,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf& buf, const char *token, DualStringMa
   				buf += thmlRefEnd().c_str();
   			}
   			else { // like "<scripRef>John 3:16</scripRef>"
-   			  buf += parseSimpleRef( userData["lastTextNode"] ).c_str();
+   			  buf += parseSimpleRef( userData["lastTextNode"], myModule ? myModule->Lang() : "en" ).c_str();
   				userData["suspendTextPassThru"] = "false";
   			}
       }

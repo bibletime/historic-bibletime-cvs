@@ -52,7 +52,7 @@ protected: // Protected methods
   /**
   * Parses the verse reference ref and returns it.
   */
-  const sword::SWBuf parseRef(const sword::SWBuf ref, sword::SWModule*, sword::SWKey*, const bool insertFullRef = true);
+  const sword::SWBuf parseRef(const sword::SWBuf ref, sword::SWModule * const , sword::SWKey * const, const char* lang="en", const bool insertFullRef = true);
   /**
   * Parses the verse reference ref and returns it.
   */
@@ -60,7 +60,7 @@ protected: // Protected methods
   /**
   * Parses the verse reference ref and returns it.
   */
-  const sword::SWBuf parseSimpleRef(const sword::SWBuf& ref);
+  const sword::SWBuf parseSimpleRef(const sword::SWBuf& ref, const char* lang = 0);
 
 private:
   QString m_standardBible;
