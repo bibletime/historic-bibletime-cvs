@@ -54,6 +54,7 @@ public:
 	~CSearchDialogScopeChooser();
   ListKey getScope();
   const CSwordModuleSearch::scopeType getScopeType() const;
+  const QString getScopeTypeString();
 
 private:
   QComboBox*  RangeChooser;
