@@ -149,6 +149,7 @@ const QString CInfoDisplay::decodeCrossReference( const QString& data ) {
 	filterOpts.morphTags 			= false;
 	filterOpts.lemmas 				= false;
 	filterOpts.footnotes			= false;
+	filterOpts.scriptureReferences	= false;
 			
 	CrossRefRendering renderer(dispOpts, filterOpts);
 	CTextRendering::KeyTree tree;

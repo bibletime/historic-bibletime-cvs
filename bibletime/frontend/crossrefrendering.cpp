@@ -72,7 +72,7 @@ const QString CrossRefRendering::entryLink( const KeyTreeItem& item, CSwordModul
 	}	
 	
   if (!linkText.isEmpty()) { //if we have a valid link text
-    return QString("<a href=\"%3\">%4</a>")
+    return QString("<a href=\"%1\">%2</a>")
       .arg(
 				CReferenceManager::encodeHyperlink(
 					module->name(), 

@@ -127,9 +127,28 @@ CTextRendering::KeyTreeItem::KeyTreeItem(const QString& startKey, const QString&
 	}
 				
 	//make it into "<simple|range> (modulename)"
-	m_alternativeContent = startKey; 
-	if (startKey != stopKey) {
-		m_alternativeContent.append(" - ").append(stopKey);
+	
+	if (startKey == stopKey) {
+		m_alternativeContent = startKey; 
+	}
+	else {
+		sword::VerseKey vk(startKey.utf8(), stopKey.utf8());
+		if (vk.LowerBound().Book() != vk.UpperBound().Book()) {
+			m_alternativeContent = QString::fromUtf8(vk.getRangeText());
+		}
+		else if (vk.LowerBound().Chapter() != vk.UpperBound().Chapter()) {
+			m_alternativeContent = QString("%1 - %2:%3")
+				.arg(QString::fromUtf8(vk.LowerBound().getText()))
+				.arg(vk.UpperBound().Chapter())
+				.arg(vk.UpperBound().Verse());
+		}
+		else { //only verses differ (same book, same chapter)
+			m_alternativeContent = QString("%1 - %2")
+				.arg(QString::fromUtf8(vk.LowerBound().getText()))
+				.arg(vk.UpperBound().Verse());
+		}
+		
+// 		m_alternativeContent = vk.getRangeText();
 	}
 	m_alternativeContent.append(" (").append(module->name()).append(")");
 }
