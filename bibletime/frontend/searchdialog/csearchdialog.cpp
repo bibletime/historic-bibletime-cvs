@@ -138,18 +138,31 @@ void CSearchDialog::slotSaveSearchAnalysis(){
 		QString searchAnalysisHTML = "";
 		QString tableTitle = "";
 	  QString tableTotals = "";
-		const QString txtCSS = QString::fromLatin1("<style type='text/css'>\nTD {border: thin solid black;}\nTH {font-size: 130%;]\n</style>\n");	
+		QString VerseRange = "";
+		const QString txtCSS = QString::fromLatin1("<style type='text/css'>\nTD {border: thin solid black;}\nTH {font-size: 130%;text-align: left;vertical-align:top;}\n</style>\n");	
 		CSwordVerseKey key(0);
 		ListKey m_searchResult;
 		
 		key.key("Genesis 1:1");
 	
+		if (searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) {
+			ListKey verses = searcher->scope();
+			for (int i = 0; i < verses.Count(); ++i) {
+				VerseKey* element = dynamic_cast<VerseKey*>(verses.GetElement(i));
+				if (element) {
+					VerseRange += QString("%1 - %2").arg(QString::fromLocal8Bit((const char*)element->LowerBound())).arg(QString::fromLocal8Bit((const char*)element->UpperBound())) + "<br>";
+				}
+			}
+		}
+
 		QDict<CSearchDialogAnalysisItem>* searchAnalysisItems = searchAnalysis->getSearchAnalysisItemList();
 		CSearchDialogAnalysisItem* analysisItem = searchAnalysisItems->find( key.book() );
 		
-    QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n<h2>" + i18n("Search Text : ") + searchText->getText() + "</h2>\n";
-		text += "<h2>" + i18n("Search Type:") + QString::fromLatin1(" ") + searchText->getSearchTypeString() + "</h2>\n";
-		text += "<h2>" + i18n("Search Scope:") + QString::fromLatin1(" ") + searchText->scopeChooser->getScopeTypeString() + "</h2>\n";
+    QString text = "<html>\n<head>\n<title>" + i18n("BibleTime Search Analysis") + "</title>\n" + txtCSS + "</head>\n<body>\n";
+		text += "<table>\n<tr><th>" + i18n("Search Text :") + "</th><th>" + searchText->getText() + "</th></tr>\n";
+		text += "<tr><th>" + i18n("Search Type :") + "</th><th>" + searchText->getSearchTypeString() + "</th></tr>\n";
+		text += "<tr><th>" + i18n("Search Scope:") + "</th><th>" + ((searchText->scopeChooser->getScopeType() != CSwordModuleSearch::Scope_NoScope) ? VerseRange : searchText->scopeChooser->getScopeTypeString()) + "</th></tr>\n</table>\n<br>\n";
+
 
 	  tableTitle = "<tr><th align=\"left\">" + i18n("Book") + "</th>";
 		tableTotals = "<tr><td align=\"left\">" + i18n("Total Hits") + "</td>";
