@@ -49,12 +49,19 @@ public:
   * Removes the profile from the list and from the directory containg the profile files.
   */
   const bool remove( const QString& );
-  /** Returns the profile with the desired name. If there's no such profile 0 is returned. */
+  /**
+  * Returns the profile with the desired name. If there's no such profile 0 is returned.
+  */
   CProfile* profile(const QString&);
+  /**
+  * Returns the startup profile if it exists, otherwise return 0.
+  */
+  CProfile* startupProfile();
 
 protected:	
 	QList<CProfile> m_profiles;	
 	QString m_profilePath;
+	CProfile* m_startupProfile;
 };
 
 #endif

@@ -25,7 +25,7 @@
 //KDE includes
 #include <kstddirs.h>
 
-CProfileMgr::CProfileMgr(){
+CProfileMgr::CProfileMgr() : m_startupProfile(0) {
 	m_profiles.setAutoDelete(true);
 	
 	KStandardDirs stdDirs;
@@ -36,7 +36,10 @@ CProfileMgr::CProfileMgr(){
 	QDir d( m_profilePath );
 	QStringList files = d.entryList("*.xml");
 	for ( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-		m_profiles.append(new CProfile(m_profilePath + *it));
+		if ((*it) != "_startup_.xml")
+			m_profiles.append(new CProfile(m_profilePath + *it));
+		else
+			m_startupProfile = new CProfile(m_profilePath + *it);
 	}
 }
 
@@ -81,4 +84,11 @@ CProfile* CProfileMgr::profile(const QString& name) {
 			return p;	
 	}
 	return 0;
+}
+
+/** Returns the startup profile if it exists, otherwise return 0. */
+CProfile* CProfileMgr::startupProfile(){
+	if (!m_startupProfile)
+		m_startupProfile = new CProfile(QString::null, "_startup_");
+	return m_startupProfile;	
 }

@@ -145,7 +145,10 @@ void CSwordPresenter::applySettings( CProfileWindow* settings ){
 		showMaximized();
 	}
 	else {	
-		setGeometry( settings->geometry() );
+		const QRect rect = settings->geometry();
+		resize(rect.width(), rect.height());
+		parentWidget()->move(rect.x(), rect.y());
+		//setGeometry( settings->geometry() );
 	}
 	m_htmlWidget->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
 	m_htmlWidget->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );
@@ -155,7 +158,12 @@ void CSwordPresenter::applySettings( CProfileWindow* settings ){
 
 /** Stores the settings of this window in the CProfileWindow object given as parameter. */
 void CSwordPresenter::storeSettings( CProfileWindow* settings ){
-	settings->setGeometry(geometry());
+	QRect rect;
+	rect.setX(parentWidget()->x());
+	rect.setY(parentWidget()->y());
+	rect.setWidth(width());
+	rect.setHeight(height());
+	settings->setGeometry(rect);
 		
 	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
 	settings->setType(m_moduleList.first()->getType());

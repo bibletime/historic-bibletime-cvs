@@ -201,8 +201,13 @@ int main(int argc, char* argv[]) {
 			KConfigGroupSaver groupSaver(config, "Startup");
 			if (config->readBoolEntry("show tips", true))
 				bibletime->slotHelpTipOfDay();
-		}
+		}		
 		bibletime->show();							
+		{
+			KConfigGroupSaver saver(config,"Startup");
+		 	if (config->readBoolEntry("restore workspace", false))
+		 		bibletime->restoreWorkspace();
+		}
 		
   	return app.exec();
 	}

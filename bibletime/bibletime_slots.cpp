@@ -144,10 +144,8 @@ void BibleTime::slotSettingsOptions(){
   	savePopup->clear();
   	QList<CProfile> profiles = m_profileMgr.profiles();  	
   	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
-  		if (p->name() != "_startup_") {
-  			savePopup->insertItem(p->name());			
-  			loadPopup->insertItem(p->name());
-  		}
+ 			savePopup->insertItem(p->name());			
+ 			loadPopup->insertItem(p->name());
   	}
 	}	
 	delete dlg;

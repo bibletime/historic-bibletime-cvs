@@ -118,10 +118,9 @@ void BibleTime::saveSettings(){
 	
 	m_config->setGroup("Startup");
 	if (m_config->readBoolEntry("restore workspace", false)) {
-		CProfile* p = m_profileMgr.profile("_startup_");
-		if (!p)
-			p = m_profileMgr.create("_startup_");
-		saveProfile(p);
+		CProfile* p = m_profileMgr.startupProfile();
+		if (p)
+			saveProfile(p);
 	}
 }
 
@@ -192,12 +191,6 @@ void BibleTime::readSettings(){
 		m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ));
 	}	
 
-	m_config->setGroup("Startup");
- 	if (m_config->readBoolEntry("restore workspace", false)) {
- 		CProfile* p = m_profileMgr.profile("_startup_");
- 		if (p)
- 			loadProfile(p);
- 	}
 }
 
 /** Creates a new presenter in the MDI area according to the type of the module. */
@@ -290,3 +283,9 @@ void BibleTime::readProperties(KConfig* /*myConfig*/){
 
 }
 
+/** Restores the workspace if the flaf for this is set in the config. */
+void BibleTime::restoreWorkspace(){	
+	CProfile* p = m_profileMgr.startupProfile();
+	if (p)
+		loadProfile(p);
+}

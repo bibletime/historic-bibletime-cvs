@@ -80,7 +80,7 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	else
 		m_htmlText = key->renderedText();
 
-//	delete key;
+	delete key;
 	return 1;
 }
 
@@ -179,6 +179,7 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	}
 	m_htmlText += QString::fromLatin1("</TR></TABLE>") + m_htmlBody;
 
-//	delete key;	
+	//clean up
+	delete key;	
 	return 1;
 }

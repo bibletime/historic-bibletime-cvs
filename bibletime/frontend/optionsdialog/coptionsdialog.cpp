@@ -315,8 +315,7 @@ void COptionsDialog::initDisplayWindow() {
 	m_displayWindows.profiles.profiles = new QListBox(vbox_page);
 	QList<CProfile> profiles = m_displayWindows.profiles.mgr.profiles();
 	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
-		if (p->name() != "_startup_")
-			m_displayWindows.profiles.profiles->insertItem(p->name());
+		m_displayWindows.profiles.profiles->insertItem(p->name());
 	}
 	
 	QHButtonGroup* buttonGroup = new QHButtonGroup(vbox_page);

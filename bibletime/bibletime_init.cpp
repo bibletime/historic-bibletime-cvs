@@ -177,10 +177,8 @@ void BibleTime::initActions() {
 	connect(loadPopup, SIGNAL(activated(int)), SLOT(loadProfile(int)));
 	connect(savePopup, SIGNAL(activated(int)), SLOT(saveProfile(int)));
 	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
-		if (p->name() != "_startup_") {
-			savePopup->insertItem(p->name());			
-			loadPopup->insertItem(p->name());
-		}
+		savePopup->insertItem(p->name());			
+		loadPopup->insertItem(p->name());
 	}
 	
 
