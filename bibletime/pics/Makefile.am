@@ -15,14 +15,13 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(kde_datadir)/bibletime/pics/
 	chmod 755 $(DESTDIR)$(kde_datadir)/bibletime/pics/;
 	@for file in $(BIBLETIME_PICS); do \
-	echo Installing $$file; \
-	$(INSTALL_DATA) $$file $(DESTDIR)$(kde_datadir)/bibletime/pics/$$file; \
-	chmod 644 $(DESTDIR)$(kde_datadir)/bibletime/pics/$$file; \
+		echo Installing $$file; \
+		$(INSTALL_DATA) $(srcdir)/$$file $(DESTDIR)$(kde_datadir)/bibletime/pics/$$file; \
+		chmod 644 $(DESTDIR)$(kde_datadir)/bibletime/pics/$$file; \
 	done
 
 uninstall-local:
-	@for file in $(BIBLETIME_PICS); \
-	do \
-	echo Removing $(DESTDIR)$(kde_datadir)/bibletime/pics/$$file; \
-	rm -f $(DESTDIR)$(kde_datadir)/bibletime/pics/$$file; \
+	@for file in $(BIBLETIME_PICS); do \
+		echo Removing $(DESTDIR)$(kde_datadir)/bibletime/pics/$$file; \
+		rm -f $(DESTDIR)$(kde_datadir)/bibletime/pics/$$file; \
 	done

@@ -125,7 +125,7 @@ for PART in $DOC_PARTS; do
 				echo '	mkdir -p '$TARGET_DIR'/;'  #mkdir -p creates all directories leaing to $TARGET_DIR
 				echo '	chmod -R a+r+X  '$TARGET_ROOT';'
 				echo '	for file in '$FILES'; do \'
-				echo '	  $(INSTALL_DATA) $$file '$TARGET_DIR'; \'
+				echo '	  $(INSTALL_DATA) $(srcdir)/$$file '$TARGET_DIR'; \'
 				echo '	  chmod a+r '$TARGET_DIR'/$$file; \'
 				echo '	done;'
 				echo '	ln -sf ../../common '$TARGET_DIR'/common;\'
@@ -318,7 +318,7 @@ for I1 in $FOREIGN_DOC_LANGUAGES; do
 							echo '	chmod -R a+r+X  '$TARGET_ROOT';'
 							echo '	for file in '$EN_FILES'; do \'
 							echo '	  if test -e $$file; then \' ## in this directory
-							echo '	    $(INSTALL_DATA) $$file '$TARGET_DIR'; \'
+							echo '	    $(INSTALL_DATA) $(srcdir)/$$file '$TARGET_DIR'; \'
 							echo '	    chmod a+r '$TARGET_DIR'/$$file; \'
 							echo '	  else \'
 							echo '	    ln -sf ../../../en/bibletime/'$PART'/$$file '$TARGET_DIR/'$$file; \'
