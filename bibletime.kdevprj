@@ -1085,6 +1085,10 @@ install=false
 install_location=
 type=HEADER
 
+[bibletime/frontend/searchdialog/Makefile.am]
+files=bibletime/frontend/searchdialog/csearchdialog.cpp,bibletime/frontend/searchdialog/csearchdialog.h,bibletime/frontend/searchdialog/csearchdialogpages.cpp,bibletime/frontend/searchdialog/csearchdialogpages.h
+type=static_library
+
 [bibletime/frontend/searchdialog/csearchdialog.cpp]
 dist=true
 install=false
@@ -1092,7 +1096,7 @@ install_location=
 type=SOURCE
 
 [bibletime/frontend/searchdialog/csearchdialog.h]
-dist=false
+dist=true
 install=false
 install_location=
 type=HEADER

@@ -781,9 +781,11 @@ void CSearchAnalysis::analyse(ListCSwordModuleInfo modules){
 void CSearchAnalysis::setModules(ListCSwordModuleInfo modules){
 //	ASSERT(modules);
 	m_moduleList.clear();
-	for (modules.first(); modules.current(); modules.next())
-		if ( modules.current()->type() == CSwordModuleInfo::Bible || modules.current()->type() == CSwordModuleInfo::Commentary )//a Bible or an commentary
+	for (modules.first(); modules.current(); modules.next()) {
+		if ( (modules.current()->type() == CSwordModuleInfo::Bible) || (modules.current()->type() == CSwordModuleInfo::Commentary) ) { //a Bible or an commentary
 			m_moduleList.append(modules.current());
+    }
+  }
 
 	m_canvasItemList.clear();
 	CSearchAnalysisItem* analysisItem = 0;	
