@@ -48,7 +48,7 @@ gibt die Erlaubnis zur Verbreitung als ein Swordmodul, oder wenn der Text in öff
 Sie können in einem Modul suchen, indem Sie mit der rechten Maustas eauf den Modulnamen in der List der Module klicken und "Suche in Modul(en)..."
 auswählen.
 Durch gleichzeitiges drücken der SHIFT Taste und klicken auf andere Modulnamen können Sie mehr als eins auswählen.
-Folgen Sie der gleiche Prozedur um diese zu durchsuchen.
+Folgen Sie der gleichen Prozedur um diese zu durchsuchen.
 </para>
 
 <screenshot>
@@ -60,66 +60,55 @@ Folgen Sie der gleiche Prozedur um diese zu durchsuchen.
 
 
 <section ID="hdbk_op_module_tree_bookmark"><title>Auf Lesezeichen Funktionen zugreifen</title> <para>
-<tip><para>Drag & Drop Works Here</para></tip>
-Right-click on an empty part of the module tree window and select "Create new
-group"  to create a new bookmark folder. You can use normal drag 'n' drop
-functions to drag verse numbers from search dialog results to the bookmark folder,
-and to rearrange bookmarks between folders. There is an import/export function
-for bookmarks also.  From the right-mouse-button menu, select "Export
-bookmarks". This will bring up a dialog box for you to save the bookmark
-collection.  They can be shared with other Bibletime users, archived, etc.  They
-can be imported in the same way. You can also right-click to change folder names
-and bookmark descriptions (to be implemented later), and delete folders and
-bookmarks. </para>
+<tip><para>Drag&Drop funktioniert hier</para></tip>
+Klicken Sie mit der rechten Maustaste auf einen leeren Bereich der Hauptgruppe und wählen Sie
+"Erzeuge neuen Ordner" um einen neuen Ordner anzulegen. Sie können normale Drag&Drop Funktionen
+benutzen, um Verse aus den Suchdialogs-Ergebnissen in den Lesezeichen Ordner zu ziehen und um Lesezeichen zwischen
+Ordnern neu auszurichten.
+Es gibt auch eine Import/Export Funktion für Lesezeichen. Wählen Sie "Exportiere Lesezeichen" im Menü der rechten Maustaste.
+Dies wird eine Dialogbox öffnen, in der Sie die Lesezeichen speichern können. Sie können mit anderen Benutzern von
+BibleTime ausgetauscht werden, archiviert wrden usw.
+Sie können in der gleichen Art und Weise importiert werden. Sie können auch rechts-klicken um
+Ordnernamen und Beschreibungen von Lesezeichen zu ändern, und um Lesezeichen und Gruppen zu entfernen.
+</para>
 <screenshot>
-<screeninfo>Bookmark Selection</screeninfo>
+<screeninfo>Lesezeichenauswahl</screeninfo>
 <graphic fileref="common/hdbk_op_module_tree_bookmark_bookmarkandfolder.png" format="png">
 </graphic>
 </screenshot
 </section>
 </section>
 
-<section ID="hdbk_op_MDI_Window"><title>Multiple Document Interface (MDI) Window</title>
+<section ID="hdbk_op_MDI_Window"><title>Multiple Document Interface (MDI) Fenster</title>
 <para>
-This is where the opened documents are displayed.
-documents are displayed in "Document Windows", that are specific to the three types of
-documents. (Crosswire Bible Society may release other document types for sword in the
-future. When they are released, Bibletime will support them as well. </para>
-
-<section ID="hdbk_op_MDI_Window_control_modules"><title>Controlling
-open Documents</title> <para>
-Document Windows can be controlled and
-manipulated with normal KDE window/title bar functions. In addition to this, you
-can tile and cascade open Document Windows. Use the appropriate tool bar buttons, or
-menu functions under "Window" in the main menu bar. Document Windows can be set to
-automatically cascade or tile also. </para>
-</section>
-
-<section ID="hdbk_op_MDI_Window_module_navigation"><title>Navigating in
-open documents</title> <para>
-Navigation within a document is accomplished with the Document Key
-Control Menu, and the scroll bar.
+Dies ist der Bereich, in dem die geöffneten Dokumente angezeigt werden.
+Dikumente werden in "Dokumentenfenstern" angezeigt, diese sind spezifisch zu den drei Typen von
+Dokumenten. (Die Crosswire Bibelgesellschaft kann in Zukunft andere Dokumententypen veröffentlichen.
+Sobald Sie veröffentlicht werden wird BibleTime sie genauso unterstützen.)
 </para>
-<tip><para>To move to a specific location use the Document Key Control.</para></tip>
-<tip><para>To move within a section of a document use the scroll bar.</para></tip>
-<tip><para>For Bible texts the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
-<tip><para>For commentaries the index key is <emphasis>Book - Chapter - Verse</emphasis></para></tip>
-<tip><para>For lexicons the index key is <emphasis>Keyword</emphasis></para></tip>
-<tip><para>Drag & Drop Works Here; if you drag a verse from one open document or a bookmark and drop
-it on another the second document will jump from it's current location to the location
-of the verse or bookmark dragged.</para></tip>
+
+<section ID="hdbk_op_MDI_Window_control_modules"><title>Kontrolle geöffneter Fenster</title> <para>
+Dokumentenfenster können mit Hilfe von üblichen KDE Fenster/Titelzeilen Funktionen kontrolliert und verändert werden.
+Als Erweiterung zu diesem können Sie geöffnete Dokumentenfenster kacheln und stapeln. Benutzen Sie die entsprechenden
+Knöpfe in der Werkzeugleiste oder die Menüfunktionen im "Fenster" Untermenü der Menüleiste.</para>
 </section>
 
-<section
-ID="hdbk_op_MDI_Window_autoscrolling"><title>Autoscrolling</title>
-<para> One of Bibletime's advanced features is the ability to control more than
-one open Document Window at a time. For Bible and Commentary documents, the rightmost
-tool bar button is the Auto scroll button. Selecting it in open Document Windows will
-allow that module it to scroll in tandem with other documents with autoscrolling
-on. </para> </section>
+<section ID="hdbk_op_MDI_Window_module_navigation"><title>In geöffneten Fenstern navigierens</title>
+<para>
+Die Navigation innerhalb eines Dikumentes ist durch das Schlüssel-Kntrollmenü und durch eine
+Scrollleiste verwirklicht.
+</para>
+<tip><para>Um zu einer bestimmter Stelle zu springen benutzen Sie die Schlüsselkontrolle.</para></tip>
+<tip><para>Um sich in dem Bereich des Dokumentes zu bewegen benutzen Sie die Scrollleiste.</para></tip>
+<tip><para>Für Bibeltexte ist die Indexreihenfolge <emphasis>Buch - Kapitel - Vers</emphasis></para></tip>
+<tip><para>Für Kommentare ist die Indexreihenfolge <emphasis>Buch - Kapitel - Vers</emphasis></para></tip>
+<tip><para>Für Lexika ist der Index <emphasis>Schlüsselwort</emphasis></para></tip>
+<tip><para>Drag&Drop funktioniert hier; Wenn Sie einen Vers eines geöffneten Fensters oder ein Lesezeichen
+ziehen und auf einem anderen Dokumentenfenster fallenlassen wird dieses von der aktuell angezeigten Stelle
+zur Stelle des Verses oder des Lesezeichens springen.</para></tip>
+</section>
 
-<section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Editing
-your own commentary</title> <para>
+<section ID="hdbk_op_MDI_Window_Personal_commentary"><title>Bearbeiten Sie ihren eigenen Kommentary</title> <para>
 The tool bar of commentary presenters has another button, with the picture of a
 pencil.<graphic fileref="comon/hdbk_op_pencil.png"></graphic>
 For the "Personal" commentary module, click that button to be able to
