@@ -60,7 +60,7 @@
 using namespace Qt3;
 
 //#define PARSER_DEBUG
-//#define DEBUG_COLLECTION// ---> also in qrichtext_p.h
+//#define DEBUG_COLLECTION
 //#define DEBUG_TABLE_RENDERING
 
 static QTextFormatCollection *qFormatCollection = 0;
@@ -667,17 +667,20 @@ void QTextCursor::restoreState()
 	pop();
 }
 
-bool QTextCursor::place( const QPoint &pos, QTextParag *s )
+bool QTextCursor::place( const QPoint &p, QTextParag *s )
 {
+    QPoint pos( p );
     QRect r;
+    if ( pos.y() < s->rect().y() )
+	pos.setY( s->rect().y() );
     while ( s ) {
 	r = s->rect();
 	r.setWidth( doc ? doc->width() : QWIDGETSIZE_MAX );
-	if ( r.contains( pos ) )
+	if ( pos.y() >= r.y() && pos.y() <= r.y() + r.height() || !s->next() )
 	    break;
 	s = s->next();
-        if ( !s )
-            break;
+        //if ( !s )
+        //    break;
     }
 
     if ( !s )
@@ -707,6 +710,8 @@ bool QTextCursor::place( const QPoint &pos, QTextParag *s )
 	nextLine = s->length();
     i = index;
     int x = s->rect().x();
+    if ( pos.x() < x )
+	pos.setX( x + 1 );
     int cw;
     int curpos = s->length()-1;
     int dist = 10000000;
@@ -998,8 +1003,12 @@ void QTextCursor::gotoPageDown( int visibleHeight )
 	s = s->next();
     }
 
-    if ( !s && doc )
+    if ( !s && doc ) {
 	s = doc->lastParag();
+	string = s;
+	idx = string->length() - 1;
+	return;
+    }
 
     if ( !s->isValid() )
 	return;
@@ -1225,7 +1234,7 @@ QTextDocument::QTextDocument( QTextDocument *p, QTextFormatCollection *c )
 void QTextDocument::init()
 {
 #if defined(PARSER_DEBUG)
-    qDebug( debug_indent + "new QTextDocument (%p)", this );
+    qDebug( "new QTextDocument (%p)", this );
 #endif
     if ( par )
 	par->insertChild( this );
@@ -1419,7 +1428,7 @@ void QTextDocument::setRichText( const QString &text, const QString &context )
 
 void QTextDocument::setRichTextInternal( const QString &text )
 {
-    QTextParag* curpar = fParag;
+    QTextParag* curpar = lParag;
     int pos = 0;
     QValueStack<Tag> tags;
     Tag curtag( "", sheet_->item("") );
@@ -1571,6 +1580,8 @@ void QTextDocument::setRichTextInternal( const QString &text )
 		if ( c == '\n' ) // happens in WhiteSpacePre mode
 		    break;
 		if ( !hadNonSpace && space && curtag.wsm == QStyleSheetItem::WhiteSpaceNormal )
+		    continue;
+		if ( c == '\r' )
 		    continue;
 		s += c;
 	    }
@@ -1915,13 +1926,26 @@ bool QTextDocument::setSelectionEnd( int id, QTextCursor *cursor )
 void QTextDocument::selectAll( int id )
 {
     removeSelection( id );
+
+    QTextDocumentSelection sel;
+    sel.swapped = FALSE;
     QTextCursor c( this );
+
     c.setParag( fParag );
     c.setIndex( 0 );
-    setSelectionStart( id, &c );
+    sel.startCursor = c;
+
     c.setParag( lParag );
     c.setIndex( lParag->length() - 1 );
-    setSelectionEnd( id, &c );
+    sel.endCursor = c;
+
+    QTextParag *p = fParag;
+    while ( p ) {
+	p->setSelection( id, 0, p->length() - 1 );
+	p = p->next();
+    }
+
+    selections.insert( id, sel );
 }
 
 bool QTextDocument::removeSelection( int id )
@@ -2062,6 +2086,10 @@ void QTextDocument::removeSelectedText( int id, QTextCursor *cursor )
 	c2 = sel.startCursor;
 	c1 = sel.endCursor;
     }
+
+    // ### no support for editing tables yet
+    if ( c1.nestedDepth() || c2.nestedDepth() )
+	return;
 
     c2.restoreState();
     c1.restoreState();
@@ -2366,8 +2394,7 @@ void QTextDocument::drawParag( QPainter *p, QTextParag *parag, int cx, int cy, i
 
     painter->translate( -( ir.x() - parag->rect().x() ),
 		       -( ir.y() - parag->rect().y() ) );
-    parag->paint( *painter, cg, drawCursor ? cursor : 0, painter->device()->devType() != QInternal::Printer,
-		  cx, cy, cw, ch );
+    parag->paint( *painter, cg, drawCursor ? cursor : 0, TRUE, cx, cy, cw, ch );
     if ( !flow()->isEmpty() ) {
 	painter->translate( 0, -parag->rect().y() );
 	QRect cr( cx, cy, cw, ch );
@@ -2698,6 +2725,9 @@ void QTextString::insert( int index, const QString &s, QTextFormat *f )
 #else
 	data[ (int)index + i ].c = s[ i ];
 #endif
+#ifdef DEBUG_COLLECTION
+	qDebug("QTextString::insert setting format %p to character %d",f,(int)index+i);
+#endif
 	data[ (int)index + i ].setFormat( f );
     }
     textChanged = TRUE;
@@ -2782,8 +2812,12 @@ void QTextString::clear()
 
 void QTextString::setFormat( int index, QTextFormat *f, bool useCollection )
 {
+//    qDebug("QTextString::setFormat index=%d f=%p",index,f);
     if ( useCollection && data[ index ].format() )
+    {
+        //qDebug("QTextString::setFormat removing ref on old format %p",data[ index ].format());
 	data[ index ].format()->removeRef();
+    }
     data[ index ].setFormat( f );
 }
 
@@ -2988,7 +3022,7 @@ QTextParag::QTextParag( QTextDocument *d, QTextParag *pr, QTextParag *nx, bool u
 	commandHistory = new QTextCommandHistory( 100 );
     }
 #if defined(PARSER_DEBUG)
-    qDebug( debug_indent + "new QTextParag" );
+    qDebug( "new QTextParag" );
 #endif
     fullWidth = TRUE;
 
@@ -3032,6 +3066,7 @@ QTextParag::QTextParag( QTextDocument *d, QTextParag *pr, QTextParag *nx, bool u
     firstPProcess = TRUE;
 
     str = new QTextString();
+    formatCollection()->defaultFormat()->addRef();
     str->insert( 0, " ", formatCollection()->defaultFormat() );
 }
 
@@ -3256,9 +3291,6 @@ formatAgain:
 	r.setWidth( QMIN( usedw, r.width() ) );
     }
 
-    if ( !prev() && topMargin() > 0 )
-	r.setY( topMargin() );
-
     if ( y != r.height() )
 	r.setHeight( y );
 
@@ -3409,11 +3441,20 @@ void QTextParag::setFormat( int index, int len, QTextFormat *f, bool useCollecti
 	    invalidate( 0 );
 	}
 	if ( flags == -1 || flags == QTextFormat::Format || !fc ) {
+#ifdef DEBUG_COLLECTION
+	    qDebug(" QTextParag::setFormat, will use format(f) %p %s", f, f->key().latin1());
+#endif
 	    if ( fc )
 		f = fc->format( f );
 	    str->setFormat( i + index, f, useCollection );
 	} else {
+#ifdef DEBUG_COLLECTION
+	    qDebug(" QTextParag::setFormat, will use format(of,f,flags) ");
+#endif
 	    QTextFormat *fm = fc->format( of, f, flags );
+#ifdef DEBUG_COLLECTION
+	    qDebug(" QTextParag::setFormat, format(of,f,flags) returned %p %s ", fm,fm->key().latin1());
+#endif
 	    str->setFormat( i + index, fm, useCollection );
 	}
     }
@@ -3688,7 +3729,8 @@ void QTextParag::drawParagString( QPainter &painter, const QString &s, int start
 
     if ( drawSelections ) {
 	const int nSels = doc ? doc->numSelections() : 1;
-	for ( int j = 0; j < nSels; ++j ) {
+	const int startSel = painter.device()->devType() != QInternal::Printer ? 0 : 1;
+	for ( int j = startSel; j < nSels; ++j ) {
 	    if ( i > selectionStarts[ j ] && i <= selectionEnds[ j ] ) {
 		if ( !doc || doc->invertSelectionText( j ) )
 		    painter.setPen( QPen( cg.color( QColorGroup::HighlightedText ) ) );
@@ -4482,8 +4524,8 @@ int QTextFormatterBreakInWords::format( QTextDocument *doc,QTextParag *parag,
     int left = doc ? parag->leftMargin() + 4 : 4;
     int x = left + ( doc ? parag->firstLineMargin() : 0 );
     int dw = parag->documentVisibleWidth() - ( doc ? 8 : 0 );
-    int y = 0;
-    int h = 0;
+    int y = doc->addMargins() ? parag->topMargin() : 0;
+    int h = y;
     int len = parag->length();
     if ( doc )
 	x = doc->flow()->adjustLMargin( y + parag->rect().y(), parag->rect().height(), x, 4 );
@@ -4497,7 +4539,7 @@ int QTextFormatterBreakInWords::format( QTextDocument *doc,QTextParag *parag,
 	c = &parag->string()->at( 0 );
 
     int i = start;
-    QTextParagLineStart *lineStart = new QTextParagLineStart( 0, 0, 0 );
+    QTextParagLineStart *lineStart = new QTextParagLineStart( y, y, 0 );
     insertLineStart( parag, 0, lineStart );
 
     int col = 0;
@@ -4574,7 +4616,7 @@ int QTextFormatterBreakInWords::format( QTextDocument *doc,QTextParag *parag,
     }
 
     int m = parag->bottomMargin();
-    if ( parag->next() )
+    if ( parag->next() && !doc->addMargins() )
 	m = QMAX( m, parag->next()->topMargin() );
     parag->setFullWidth( fullWidth );
     if ( is_printer( parag->painter() ) ) {
@@ -4605,8 +4647,8 @@ int QTextFormatterBreakWords::format( QTextDocument *doc, QTextParag *parag,
     int left = doc ? parag->leftMargin() + 4 : 0;
     int x = left + ( doc ? parag->firstLineMargin() : 0 );
     int curLeft = left;
-    int y = 0;
-    int h = 0;
+    int y = doc->addMargins() ? parag->topMargin() : 0;
+    int h = y;
     int len = parag->length();
     if ( doc )
 	x = doc->flow()->adjustLMargin( y + parag->rect().y(), parag->rect().height(), x, 4 );
@@ -4627,7 +4669,7 @@ int QTextFormatterBreakWords::format( QTextDocument *doc, QTextParag *parag,
 	c = &parag->string()->at( 0 );
 
     int i = start;
-    QTextParagLineStart *lineStart = new QTextParagLineStart( 0, 0, 0 );
+    QTextParagLineStart *lineStart = new QTextParagLineStart( y, y, 0 );
     insertLineStart( parag, 0, lineStart );
     int lastBreak = -1;
     int tmpBaseLine = 0, tmph = 0;
@@ -4809,12 +4851,8 @@ int QTextFormatterBreakWords::format( QTextDocument *doc, QTextParag *parag,
     minw = QMAX( minw, tminw );
 
     int m = parag->bottomMargin();
-    if ( parag->next() ) {
-	if ( !doc->addMargins() )
-	    m = QMAX( m, parag->next()->topMargin() );
-	else
-	    m += parag->next()->topMargin();
-    }
+    if ( parag->next() && !doc->addMargins() )
+	m = QMAX( m, parag->next()->topMargin() );
     parag->setFullWidth( fullWidth );
     if ( is_printer( parag->painter() ) ) {
 	QPaintDeviceMetrics metrics( parag->painter()->device() );
@@ -4844,6 +4882,9 @@ QTextIndent::QTextIndent()
 QTextFormatCollection::QTextFormatCollection()
     : cKey( 307 ), sheet( 0 )
 {
+#ifdef DEBUG_COLLECTION
+    qDebug("QTextFormatCollection::QTextFormatCollection %p", this);
+#endif
     defFormat = new QTextFormat( QApplication::font(),
 				     QApplication::palette().color( QPalette::Active, QColorGroup::Text ) );
     lastFormat = cres = 0;
@@ -4854,14 +4895,17 @@ QTextFormatCollection::QTextFormatCollection()
 
 QTextFormatCollection::~QTextFormatCollection()
 {
+#ifdef DEBUG_COLLECTION
+    qDebug("QTextFormatCollection::~QTextFormatCollection %p", this);
+#endif
     delete defFormat;
 }
 
 QTextFormat *QTextFormatCollection::format( QTextFormat *f )
 {
-    if ( f->parent() == this ) {
+    if ( f->parent() == this || f == defFormat ) {
 #ifdef DEBUG_COLLECTION
-	qDebug( "need '%s', best case!", f->key().latin1() );
+	qDebug( " format(f) need '%s', best case!", f->key().latin1() );
 #endif
 	lastFormat = f;
 	lastFormat->addRef();
@@ -4870,7 +4914,7 @@ QTextFormat *QTextFormatCollection::format( QTextFormat *f )
 
     if ( f == lastFormat || ( lastFormat && f->key() == lastFormat->key() ) ) {
 #ifdef DEBUG_COLLECTION
-	qDebug( "need '%s', good case!", f->key().latin1() );
+	qDebug( " format(f) need '%s', good case!", f->key().latin1() );
 #endif
 	lastFormat->addRef();
 	return lastFormat;
@@ -4890,7 +4934,7 @@ QTextFormat *QTextFormatCollection::format( QTextFormat *f )
     QTextFormat *fm = cKey.find( f->key() );
     if ( fm ) {
 #ifdef DEBUG_COLLECTION
-	qDebug( "need '%s', normal case!", f->key().latin1() );
+	qDebug( " format(f) need '%s', normal case!", f->key().latin1() );
 #endif
 	lastFormat = fm;
 	lastFormat->addRef();
@@ -4898,7 +4942,7 @@ QTextFormat *QTextFormatCollection::format( QTextFormat *f )
     }
 
 #ifdef DEBUG_COLLECTION
-    qDebug( "need '%s', worst case!", f->key().latin1() );
+    qDebug( " format(f) need '%s', worst case!", f->key().latin1() );
 #endif
     lastFormat = createFormat( *f );
     lastFormat->collection = this;
@@ -4910,7 +4954,7 @@ QTextFormat *QTextFormatCollection::format( QTextFormat *of, QTextFormat *nf, in
 {
     if ( cres && kof == of->key() && knf == nf->key() && cflags == flags ) {
 #ifdef DEBUG_COLLECTION
-	qDebug( "mix of '%s' and '%s, best case!", of->key().latin1(), nf->key().latin1() );
+	qDebug( " format(of,nf,flags) mix of '%s' and '%s, best case!", of->key().latin1(), nf->key().latin1() );
 #endif
 	cres->addRef();
 	return cres;
@@ -4926,13 +4970,13 @@ QTextFormat *QTextFormatCollection::format( QTextFormat *of, QTextFormat *nf, in
     QTextFormat *fm = cKey.find( cres->key() );
     if ( !fm ) {
 #ifdef DEBUG_COLLECTION
-	qDebug( "mix of '%s' and '%s, worst case!", of->key().latin1(), nf->key().latin1() );
+	qDebug( " format(of,nf,flags) mix of '%s' and '%s, worst case!", of->key().latin1(), nf->key().latin1() );
 #endif
 	cres->collection = this;
 	cKey.insert( cres->key(), cres );
     } else {
 #ifdef DEBUG_COLLECTION
-	qDebug( "mix of '%s' and '%s, good case!", of->key().latin1(), nf->key().latin1() );
+	qDebug( " format(of,nf,flags) mix of '%s' and '%s, good case!", of->key().latin1(), nf->key().latin1() );
 #endif
 	delete cres;
 	cres = fm;
@@ -4946,7 +4990,7 @@ QTextFormat *QTextFormatCollection::format( const QFont &f, const QColor &c )
 {
     if ( cachedFormat && cfont == f && ccol == c ) {
 #ifdef DEBUG_COLLECTION
-	qDebug( "format of font and col '%s' - best case", cachedFormat->key().latin1() );
+	qDebug( " format of font and col '%s' - best case", cachedFormat->key().latin1() );
 #endif
 	cachedFormat->addRef();
 	return cachedFormat;
@@ -4959,7 +5003,7 @@ QTextFormat *QTextFormatCollection::format( const QFont &f, const QColor &c )
 
     if ( cachedFormat ) {
 #ifdef DEBUG_COLLECTION
-	qDebug( "format of font and col '%s' - good case", cachedFormat->key().latin1() );
+	qDebug( " format of font and col '%s' - good case", cachedFormat->key().latin1() );
 #endif
 	cachedFormat->addRef();
 	return cachedFormat;
@@ -4969,7 +5013,7 @@ QTextFormat *QTextFormatCollection::format( const QFont &f, const QColor &c )
     cachedFormat->collection = this;
     cKey.insert( cachedFormat->key(), cachedFormat );
 #ifdef DEBUG_COLLECTION
-    qDebug( "format of font and col '%s' - worst case", cachedFormat->key().latin1() );
+    qDebug( " format of font and col '%s' - worst case", cachedFormat->key().latin1() );
 #endif
     return cachedFormat;
 }
@@ -4997,7 +5041,6 @@ void QTextFormatCollection::setPainter( QPainter *p )
 
 void QTextFormatCollection::debug()
 {
-#ifdef DEBUG_COLLECTION
     qDebug( "------------ QTextFormatCollection: debug --------------- BEGIN" );
     QDictIterator<QTextFormat> it( cKey );
     for ( ; it.current(); ++it ) {
@@ -5005,7 +5048,6 @@ void QTextFormatCollection::debug()
 		it.current(), it.current()->ref );
     }
     qDebug( "------------ QTextFormatCollection: debug --------------- END" );
-#endif
 }
 
 void QTextFormatCollection::updateStyles()
@@ -5985,7 +6027,10 @@ void QTextFlow::adjustFlow( int &yp, int , int h, QTextParag *, bool pages )
     }
 
     if ( yp + h > height )
+    {
 	height = yp + h;
+	qDebug("QTextFlow::adjustFlow now height=%d",height);
+    }
 }
 
 void QTextFlow::unregisterFloatingItem( QTextCustomItem* item )
@@ -6464,8 +6509,8 @@ void QTextTable::up( QTextCursor *c, QTextDocument *&doc, QTextParag *&parag, in
 QTextTableCell::QTextTableCell( QTextTable* table,
 				int row, int column,
 				const QMap<QString, QString> &attr,
-				const QStyleSheetItem* style,
-				const QTextFormat&, const QString& context,
+				const QStyleSheetItem* /*style*/, // ### use them
+				const QTextFormat& /*fmt*/, const QString& context,
 				QMimeSourceFactory &factory, QStyleSheet *sheet,
 				const QString& doc)
 {
@@ -6475,8 +6520,6 @@ QTextTableCell::QTextTableCell( QTextTable* table,
 #endif
     cached_width = -1;
     cached_sizehint = -1;
-    Q_UNUSED( style ); // #### use them
-    //Q_UNUSED( fmt );
 
     maxw = QWIDGETSIZE_MAX;
     minw = 0;
@@ -6688,3 +6731,169 @@ void QTextTableCell::draw( int x, int y, int cx, int cy, int cw, int ch, const Q
 
     painter()->restore();
 }
+
+
+///// Some of this is in qrichtext_p.cpp in qt-rsync at the moment
+
+QTextFormat::QTextFormat()
+    : fm( QFontMetrics( fn ) ), linkColor( TRUE ), logicalFontSize( 3 ), stdPointSize( qApp->font().pointSize() ),
+      painter( 0 ), different( NoFlags )
+{
+    ref = 0;
+    missp = FALSE;
+    ha = AlignNormal;
+    collection = 0;
+//#ifdef DEBUG_COLLECTION
+//    qDebug("QTextFormat simple ctor, no addRef ! %p",this);
+//#endif
+}
+ 
+QTextFormat::QTextFormat( const QStyleSheetItem *style )
+    : fm( QFontMetrics( fn ) ), linkColor( TRUE ), logicalFontSize( 3 ), stdPointSize( qApp->font().pointSize() ),
+      painter( 0 ), different( NoFlags )
+{
+#ifdef DEBUG_COLLECTION
+    qDebug("QTextFormat::QTextFormat( const QStyleSheetItem *style )");
+#endif
+    ref = 0;
+    this->style = style->name();
+    missp = FALSE;
+    ha = AlignNormal;
+    collection = 0;
+    fn = QFont( style->fontFamily(),
+                style->fontSize(),
+                style->fontWeight(),
+                style->fontItalic() );
+    fn.setUnderline( style->fontUnderline() );
+    col = style->color();
+    fm = QFontMetrics( fn );
+    leftBearing = fm.minLeftBearing();
+    rightBearing = fm.minRightBearing();
+    hei = fm.height();
+    asc = fm.ascent();
+    dsc = fm.descent();
+    missp = FALSE;
+    ha = AlignNormal;
+    memset( widths, 0, 256 );
+    generateKey();
+    addRef();
+    updateStyleFlags();
+}
+ 
+QTextFormat::QTextFormat( const QFont &f, const QColor &c, QTextFormatCollection * coll )
+    : fn( f ), col( c ), fm( QFontMetrics( f ) ), linkColor( TRUE ),
+      logicalFontSize( 3 ), stdPointSize( f.pointSize() ), painter( 0 ),
+      different( NoFlags )
+{
+#ifdef DEBUG_COLLECTION
+    qDebug("QTextFormat with font & color & coll (%p), addRef. %p",coll,this);
+#endif
+    ref = 0;
+    collection = coll;
+    leftBearing = fm.minLeftBearing();
+    rightBearing = fm.minRightBearing();
+    hei = fm.height();
+    asc = fm.ascent();
+    dsc = fm.descent();
+    missp = FALSE;
+    ha = AlignNormal;
+    memset( widths, 0, 256 );
+    generateKey();
+    addRef();
+    updateStyleFlags();
+}
+ 
+QTextFormat::QTextFormat( const QTextFormat &f )
+    : fm( f.fm )
+{
+#ifdef DEBUG_COLLECTION
+    qDebug("QTextFormat::QTextFormat %p copy ctor (copying %p). Will addRef.",this,&f);
+#endif
+    ref = 0;
+    collection = 0;
+    fn = f.fn;
+    col = f.col;
+    painter = f.painter;
+    leftBearing = f.leftBearing;
+    rightBearing = f.rightBearing;
+    memset( widths, 0, 256 );
+    hei = f.hei;
+    asc = f.asc;
+    dsc = f.dsc;
+    stdPointSize = f.stdPointSize;
+    logicalFontSize = f.logicalFontSize;
+    missp = f.missp;
+    ha = f.ha;
+    k = f.k;
+    anchor_name = f.anchor_name;
+    anchor_href = f.anchor_href;
+    linkColor = f.linkColor;
+    style = f.style;
+    different = f.different;
+    addRef();
+}
+ 
+QTextFormat& QTextFormat::operator=( const QTextFormat &f )
+{
+#ifdef DEBUG_COLLECTION
+    qDebug("QTextFormat::operator= %p (copying %p). Will addRef",this,&f);
+#endif
+    ref = 0;
+    collection = f.collection;
+    fn = f.fn;
+    col = f.col;
+    fm = f.fm;
+    leftBearing = f.leftBearing;
+    rightBearing = f.rightBearing;
+    memset( widths, 0, 256 );
+    hei = f.hei;
+    asc = f.asc;
+    dsc = f.dsc;
+    stdPointSize = f.stdPointSize;
+    logicalFontSize = f.logicalFontSize;
+    missp = f.missp;
+    ha = f.ha;
+    k = f.k;
+    anchor_name = f.anchor_name;
+    anchor_href = f.anchor_href;
+    linkColor = f.linkColor;
+    style = f.style;
+    different = f.different;
+    addRef();
+    return *this;
+}
+ 
+void QTextFormat::update()
+{
+    fm = QFontMetrics( fn );
+    leftBearing = fm.minLeftBearing();
+    rightBearing = fm.minRightBearing();
+    hei = fm.height();
+    asc = fm.ascent();
+    dsc = fm.descent();
+    memset( widths, 0, 256 );
+    generateKey();
+    updateStyleFlags();
+}
+
+void QTextFormat::addRef()
+{
+    ref++;
+#ifdef DEBUG_COLLECTION
+    if ( collection )
+        qDebug( "  add ref of '%s' to %d (%p) (coll %p)", k.latin1(), ref, this, collection );
+#endif
+}
+ 
+void QTextFormat::removeRef()
+{
+    ref--;
+    if ( !collection )
+        return;
+#ifdef DEBUG_COLLECTION
+    qDebug( "  remove ref of '%s' to %d (%p) (coll %p)", k.latin1(), ref, this, collection );
+#endif
+    if ( ref == 0 )
+        collection->remove( this );
+}
+

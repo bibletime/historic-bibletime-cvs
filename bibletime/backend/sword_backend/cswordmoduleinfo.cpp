@@ -242,8 +242,8 @@ const QFont CSwordModuleInfo::getFont(){
   	size = QString::fromLocal8Bit( sizeString.c_str() ).toInt();
   QFont f;
   f.setCharSet(QFont::AnyCharSet);
-  f.setFamily( family );
-  f.setPointSize( size );
+  f.setFamily(family);
+  f.setPointSize(size);
 
   return f;
 }
