@@ -1,0 +1,210 @@
+<tip>
+<html>
+Bienvenido a <B>BibleTime 1.0</B>!<BR>Esta versión de BibleTime
+ya puede ser considerada como estable, útil y amigable.<BR>
+<CENTER><IMG src="hicolor/48x48/apps/bibletime.png"></CENTER>
+</html>	
+
+<tip>
+<html>
+La Biblia fue escrita para que creamos en Jesús (San Juan 20:31)
+</html>
+
+<tip>
+<html>
+BibleTime 1.0 incluye un manual verdaderamente útil, escrito por Fred Saalbach.
+Para acceder a su lectura, elija el elemento "Contenido" en el menú "Ayuda" de 
+BibleTime.
+</html>
+
+<tip>
+<html>
+Dios no permite a nadie el añadir o quitar nada a su Palabra. (Apocalipsis 
+22:18,19; Deuteronomio 4:2)
+</html>
+
+<tip>
+<html>
+La Biblia es como un espejo. (Santiago 1:23)
+</html>
+
+<tip>
+<html>
+BibleTime ahora incluye un manual de <B>Cómo estudiar la Biblia</B>! Fue 
+escrito por Bob Hartman y es una gran ayuda para quienes desean aprender a
+estudiar las Sagradas Escrituras.
+</html>
+
+<tip>
+<html>
+La Biblia tiene el poder de "confortar al afligido" y de "afligir al 
+confortable". (Apocalipsis 10:10)
+</html>
+
+<tip>
+<html>
+Puede guardar, imprimir y copiar todos sus resultados de búsqueda presionando
+el botón derecho del mouse en el ícono del módulo correspondiente dentro del 
+diálogo de búsqueda.
+</html>
+
+<tip>
+<html>
+La Biblia es nuestra única espada espiritual. (Efesios 6:17)
+</html>
+
+<tip>
+<html>
+Si desea saber el número de versículos que está disponible en la búsqueda de 
+certa porción de la Biblia, el análisis de búsqueda le mostrará el número de 
+versículos de cada libro.
+</html>
+
+<tip>
+<html>
+La Palabra de Dios es verdadera. (San Juan 17:17)
+</html>
+
+<tip>
+<html>
+Si desea crear un juego de señaladores acerca de un tópico específico con 
+comentarios suyos acerca de lo que el Señor le dijo en aquel estudio, lo mejor 
+es crear señaladores desde su propio comentario personal.
+</html>
+
+<tip>
+<html>
+Las Sagradas Escrituras contienen sabiduría para la salvación. (2 Timoteo 3:15)
+</html>
+
+<tip>
+<html>
+Es posible insertar el texto de señaladores y referencias bíblicas o entradas
+de léxicos en el editor de comentarios personales al arrastrarlos en la 
+ventana correspondiente con el mouse.
+</html>
+
+<tip>
+<html>
+Al estudiar la Biblia no tendrá razón para sentirse avergonzado delante de 
+Dios. (2 Timoteo 2:15)
+</html>
+
+<tip>
+<html>
+Para examinar el significado de una palabra en los originales griego o hebreo 
+(en un texto bíblico que tenga soporte para los números de Strong), active los 
+números de Strong  y luego haga clic con el botón derecho del mouse en el 
+número deseado. Elija  "StrongsGreek" (para el NT), "StrongsHebrew"  o bien 
+"Thayer" (ambos para el AT) en el menú "Buscar texto seleccionado".
+Si su traducción favorita no tienen soporte para los números de Strong, 
+utilice una traducción alternativa para obtener el número correspondiente.
+</html>
+
+<tip>
+<html>
+Si desea utilizar un comentario como referencia temática, haga una búsqueda de 
+los términos que se refieren a su tema.
+</html>
+
+<tip>
+<html>
+En el principio era el Verbo, y el Verbo era con Dios, y el Verbo era Dios. 
+(San Juan 1:1)
+</html>
+
+<tip>
+<html>
+En el día postrero seremos juzgados por la palabra que Jesús ha hablado.
+(San Juan 12:48)
+</html>
+
+<tip>
+<html>
+Si desea encotrar todos los versículos o entradas concernientes a un contenido 
+determinado, puede usar la expresión regular "x | y | z" en su búsqueda, la 
+cual equivale a "x O y O z", p.ej. "oración | alabanza | 
+súplica".
+</html>
+
+<tip>
+<html>
+Si busca un versículo del cual solamente tiene una vaga idea o que recuerda 
+solamente en una traducción diferente, es conveniente ejecutar una búsqueda 
+para los términos más probales en varias traducciones bíblicas simultáneamente.
+</html>
+
+<tip>
+<html>
+La palabra de Dios puede ser lámpara a sus pies y lumbrera a su camino. (Salmo 
+119:105)
+</html>
+
+<tip>
+<html>
+Si desea buscar una palabra en un módulo de idioma extranjero (p. ej., griego 
+o hebreo), abra una ventana y elija en ella un capítulo o entrada de léxico 
+que contenga la palabra en cuestión. Entonces, haga doble clic en la misma y 
+arrástrela al módulo de idioma extranjero en el índice principal. A 
+continuación, el diálogo de búsqueda se abrirá, conteniendo la palabra 
+indicada en la línea de edición.
+</html>
+
+<tip>
+<html>
+La Palabra de Dios no volverá a su Autor sin que haya cumplido aquello para lo 
+cual fue enviada.
+(Isaías 55:11)
+</html>
+
+<tip>
+<html>
+Los módulos de idioma extranjero (p. ej., griego o hebreo) generalmente 
+requieren una fuente especial para ser leídos apropiadamente. Para saber la 
+fuente que dichos módulos requieren, lea el archivo nombredemodulo.conf. 
+Muchas de las fuentes están disponibles en www.crosswire.org o en el CD Sword.
+</html>
+
+<tip>
+<html>
+Si desea usar su propio logo de inicio, ejecute el comando "locate 
+startuplogo.jpg" para encontrar la ubicación del anterior. Copie el nuevo logo 
+sobre el anterior y reinicie BibleTime.
+</html>
+
+
+<tip>
+<html>
+Sabía usted que el primer libro impreso en un una imprenta de tipos móviles 
+fue una Biblia?
+(por Juan Gutenberg, en 1492)
+</html>
+
+
+<tip>
+<html>
+Dios ya nos ha dado todas las cosas que pertenecen a la vida y a la piedad.
+(2 Pedro 1:3)
+</html>
+
+<tip>
+<html>
+Todos los elementos importantes del interfaz de uso gráfico de BibleTime 
+tienen un "tooltip" y una ayuda del tipo "Qué es esto?"<BR>
+Para leer la ayuda "Qué es esto?", presione las teclas MAYÚS+F1 y haga clic en
+el lugar indicado.
+</html>
+
+
+<tip>
+<html>
+La Palabra de Dios es viva y eficaz, y más cortante que espada de dos filos. 
+(Hebreos 4:12)
+</html>
+
+<tip>
+<html>
+Usted está usando un programa que ha sido escrito para la gloria de Dios.<BR>
+Que el Señor le bendiga a través del estudio de Su Palabra.
+</html>
+
