@@ -216,7 +216,27 @@ void CBiblePresenter::refresh( const int events ){
 			}
 		}
 	}
-			
+
+	//check for headings support
+	if (events & headingsChanged) {
+		for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+			if ( m_moduleList.current()->supportsFeature(CSwordBackend::headings) ) {
+				doLookup = true;	
+				break;
+			}
+		}
+	}
+				
+	//check for morphological tags support
+	if (events & morphTagsChanged) {
+		for (m_moduleList.first(); m_moduleList.current(); m_moduleList.next()) {
+			if ( m_moduleList.current()->supportsFeature(CSwordBackend::morphTags) ) {
+				doLookup = true;	
+				break;
+			}
+		}
+	}
+	
 	if (doLookup)
 		lookup(m_key);
 	if (refreshHTMLWidget)
