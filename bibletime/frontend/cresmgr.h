@@ -469,7 +469,7 @@ namespace CResMgr {
           extern const QString tooltip;
           extern const QString whatsthis;
         };
-        namespace foonotes {
+        namespace footnotes {
           extern const QString tooltip;
           extern const QString whatsthis;
         };

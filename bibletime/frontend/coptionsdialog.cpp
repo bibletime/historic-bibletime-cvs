@@ -736,57 +736,79 @@ create a new locale, see http://www.crosswire.org/sword/develop for details.")),
   		
  	m_settings.swords.lineBreaks = new QCheckBox(currentTab);
  	m_settings.swords.lineBreaks->setText(i18n("Show line break after each verse"));
- 	m_settings.swords.lineBreaks->setChecked(CBTConfig::get(CBTConfig::lineBreaks));		
+ 	m_settings.swords.lineBreaks->setChecked(CBTConfig::get(CBTConfig::lineBreaks));
+  QToolTip::add(m_settings.swords.lineBreaks, CResMgr::settings::sword::filters::lineBreaks::tooltip);
+  QWhatsThis::add(m_settings.swords.lineBreaks, CResMgr::settings::sword::filters::lineBreaks::whatsthis);  
  	layout->addWidget(m_settings.swords.lineBreaks);
 
  	m_settings.swords.verseNumbers = new QCheckBox(currentTab);
  	m_settings.swords.verseNumbers->setText(i18n("Show verse numbers"));
  	m_settings.swords.verseNumbers->setChecked(CBTConfig::get(CBTConfig::verseNumbers));		
+  QToolTip::add(m_settings.swords.verseNumbers, CResMgr::settings::sword::filters::verseNumbers::tooltip);
+  QWhatsThis::add(m_settings.swords.verseNumbers, CResMgr::settings::sword::filters::verseNumbers::whatsthis);
  	layout->addWidget(m_settings.swords.verseNumbers);
 
  	m_settings.swords.footnotes = new QCheckBox(currentTab);
  	m_settings.swords.footnotes->setText(i18n("Show footnotes"));
  	m_settings.swords.footnotes->setChecked(CBTConfig::get(CBTConfig::footnotes));		
+  QToolTip::add(m_settings.swords.footnotes, CResMgr::settings::sword::filters::footnotes::tooltip);
+  QWhatsThis::add(m_settings.swords.footnotes, CResMgr::settings::sword::filters::footnotes::whatsthis);
  	layout->addWidget(m_settings.swords.footnotes);
 
  	m_settings.swords.strongNumbers = new QCheckBox(currentTab);
  	m_settings.swords.strongNumbers->setText(i18n("Show Strong's Numbers"));
- 	m_settings.swords.strongNumbers->setChecked(CBTConfig::get(CBTConfig::strongNumbers));		
+ 	m_settings.swords.strongNumbers->setChecked(CBTConfig::get(CBTConfig::strongNumbers));
+  QToolTip::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::tooltip);
+  QWhatsThis::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::whatsthis);  
  	layout->addWidget(m_settings.swords.strongNumbers);
-
- 	m_settings.swords.headings = new QCheckBox(currentTab);
- 	m_settings.swords.headings->setText(i18n("Show headings"));
- 	m_settings.swords.headings->setChecked(CBTConfig::get(CBTConfig::headings));		
- 	layout->addWidget(m_settings.swords.headings);
 
  	m_settings.swords.morphTags = new QCheckBox(currentTab);
  	m_settings.swords.morphTags->setText(i18n("Show morphologic tags"));
- 	m_settings.swords.morphTags->setChecked(CBTConfig::get(CBTConfig::morphTags));		
+ 	m_settings.swords.morphTags->setChecked(CBTConfig::get(CBTConfig::morphTags));
+  QToolTip::add(m_settings.swords.morphTags, CResMgr::settings::sword::filters::morphTags::tooltip);
+  QWhatsThis::add(m_settings.swords.morphTags, CResMgr::settings::sword::filters::morphTags::whatsthis);
  	layout->addWidget(m_settings.swords.morphTags);
+
+ 	m_settings.swords.headings = new QCheckBox(currentTab);
+ 	m_settings.swords.headings->setText(i18n("Show headings"));
+ 	m_settings.swords.headings->setChecked(CBTConfig::get(CBTConfig::headings));
+  QToolTip::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::tooltip);
+  QWhatsThis::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::whatsthis);  
+ 	layout->addWidget(m_settings.swords.headings);
 
  	m_settings.swords.lemmas = new QCheckBox(currentTab);
  	m_settings.swords.lemmas->setText(i18n("Show lemmas"));
- 	m_settings.swords.lemmas->setChecked(CBTConfig::get(CBTConfig::lemmas));		
+ 	m_settings.swords.lemmas->setChecked(CBTConfig::get(CBTConfig::lemmas));
+  QToolTip::add(m_settings.swords.lemmas, CResMgr::settings::sword::filters::lemmas::tooltip);
+  QWhatsThis::add(m_settings.swords.lemmas, CResMgr::settings::sword::filters::lemmas::whatsthis);
  	layout->addWidget(m_settings.swords.lemmas);
 		
  	m_settings.swords.hebrewPoints = new QCheckBox(currentTab);
  	m_settings.swords.hebrewPoints->setText(i18n("Show Hebrew vowel points"));
- 	m_settings.swords.hebrewPoints->setChecked(CBTConfig::get(CBTConfig::hebrewPoints));		
+ 	m_settings.swords.hebrewPoints->setChecked(CBTConfig::get(CBTConfig::hebrewPoints));
+  QToolTip::add(m_settings.swords.hebrewPoints, CResMgr::settings::sword::filters::hebrewVowelPoints::tooltip);
+  QWhatsThis::add(m_settings.swords.hebrewPoints, CResMgr::settings::sword::filters::hebrewVowelPoints::whatsthis);  
  	layout->addWidget(m_settings.swords.hebrewPoints);
 
  	m_settings.swords.hebrewCantillation = new QCheckBox(currentTab);
  	m_settings.swords.hebrewCantillation->setText(i18n("Show Hebrew cantillation marks"));
  	m_settings.swords.hebrewCantillation->setChecked(CBTConfig::get(CBTConfig::hebrewCantillation));		
+  QToolTip::add(m_settings.swords.hebrewCantillation, CResMgr::settings::sword::filters::hebrewCantillation::tooltip);
+  QWhatsThis::add(m_settings.swords.hebrewCantillation, CResMgr::settings::sword::filters::hebrewCantillation::whatsthis);
  	layout->addWidget(m_settings.swords.hebrewCantillation);
 
  	m_settings.swords.greekAccents = new QCheckBox(currentTab);
  	m_settings.swords.greekAccents->setText(i18n("Show Greek accents"));
  	m_settings.swords.greekAccents->setChecked(CBTConfig::get(CBTConfig::greekAccents));		
+  QToolTip::add(m_settings.swords.greekAccents, CResMgr::settings::sword::filters::greekAccents::tooltip);
+  QWhatsThis::add(m_settings.swords.greekAccents, CResMgr::settings::sword::filters::greekAccents::whatsthis);
  	layout->addWidget(m_settings.swords.greekAccents);
 
  	m_settings.swords.textualVariants = new QCheckBox(currentTab);
  	m_settings.swords.textualVariants->setText(i18n("Use textual variants"));
  	m_settings.swords.textualVariants->setChecked(CBTConfig::get(CBTConfig::textualVariants));		
+  QToolTip::add(m_settings.swords.textualVariants, CResMgr::settings::sword::filters::textualVariants::tooltip);
+  QWhatsThis::add(m_settings.swords.textualVariants, CResMgr::settings::sword::filters::textualVariants::whatsthis);
  	layout->addWidget(m_settings.swords.textualVariants);
  		
 	layout->addStretch(4);	
@@ -828,7 +850,6 @@ void COptionsDialog::saveAccelerators(){
 void COptionsDialog::saveColors(){
  	CBTConfig::set(CBTConfig::textColor, m_settings.colors.text->color().name());	
  	CBTConfig::set(CBTConfig::backgroundColor, m_settings.colors.background->color().name());	
-// 	CBTConfig::set(CBTConfig::background2Color, m_settings.colors.background2->color().name());	
  	CBTConfig::set(CBTConfig::highlightedVerseColor, m_settings.colors.highlightedVerse->color().name());		
  	CBTConfig::set(CBTConfig::swordRefColor, m_settings.colors.swordrefs->color().name());		
  	CBTConfig::set(CBTConfig::footnotesColor, m_settings.colors.footnotes->color().name());		
@@ -844,9 +865,7 @@ void COptionsDialog::saveFonts(){
  			CBTConfig::set(CBTConfig::standard, it.data());
  		}
  		else if (it.key() == i18n("Unicode")) {
- 			QFont font = it.data();
-// 			font.setCharSet(QFont::Unicode); //try to set the unicode charset
- 			CBTConfig::set(CBTConfig::unicode, font);
+ 			CBTConfig::set(CBTConfig::unicode, it.data());
  		}
  	}
 }

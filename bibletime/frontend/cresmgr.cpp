@@ -18,6 +18,8 @@
 //own includes
 #include "cresmgr.h"
 
+#include "backend/cswordbackend.h"
+
 
 namespace CResMgr {
   namespace mainMenu { //Main menu
@@ -444,47 +446,47 @@ namespace CResMgr {
       };
       namespace filters {
         namespace lineBreaks {
-          const QString tooltip   = makeToolTip( i18n("") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+          const QString tooltip   = makeToolTip( i18n("Line breaks") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("Show line breaks in the module's texts."));
         };
         namespace verseNumbers {
-          const QString tooltip   = makeToolTip( i18n("") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+          const QString tooltip   = makeToolTip( i18n("Verse numbers") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("Show verse numbers before each verse in Bibles."));
         };
-        namespace foonotes {
-          const QString tooltip   = makeToolTip( i18n("") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        namespace footnotes {
+          const QString tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::footnotes) );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("Shows footnotes embedded in the module's text."));
         };
         namespace strongsNumbers {
-          const QString tooltip   = makeToolTip( i18n("") );
-          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+          const QString tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::strongNumbers) );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("Show strongs numbers embedded in the text of modules which support this feature."));
         };
         namespace morphTags {
-          const QString tooltip   = makeToolTip( i18n("") );
+          const QString tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::morphTags) );
           const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
         };
         namespace headings {
-          const QString tooltip   = makeToolTip( i18n("") );
+          const QString tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::headings) );
           const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
         };
         namespace lemmas {
-          const QString tooltip   = makeToolTip( i18n("") );
+          const QString tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::lemmas) );
           const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
         };
         namespace hebrewVowelPoints {
-          const QString tooltip   = makeToolTip( i18n("") );
+          const QString tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::hebrewPoints) );
           const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
         };
         namespace hebrewCantillation {
-           const QString tooltip  = makeToolTip( i18n("") );
+           const QString tooltip  = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::hebrewCantillation) );
           const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
         };
         namespace greekAccents {
-          const QString tooltip   = makeToolTip( i18n("") );
+          const QString tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::greekAccents) );
           const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
         };
         namespace textualVariants {
-          const QString tooltip   = makeToolTip( i18n("") );
+          const QString tooltip   = makeToolTip( CSwordBackend::translatedOptionName(CSwordBackend::textualVariants) );
           const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
         };
       };

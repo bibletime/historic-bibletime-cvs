@@ -404,9 +404,7 @@ const sword::SWVersion CSwordBackend::Version() {
 sword::SWFilter* const CSwordBackend::transliterator() {
   if (!useICU())
     return 0;
-  sword::SWFilter* filter = optionFilters["UTF8Transliterator"];
-//  Q_ASSERT(filter);
-  if (filter)
+  if (sword::SWFilter* filter = optionFilters["UTF8Transliterator"])
     return filter;
   return 0;
 }
