@@ -103,14 +103,110 @@
 	<sect2 id="hdbk-reference-menus-window"><title>Window</title>
 		<variablelist>
 
+		<varlistentry id="window-savesession">
+			<term><menuchoice>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="view_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Window</guimenu> <guimenuitem>Save as new session</guimenuitem></menuchoice></term>
+			<listitem><para><action>Directly saves the current session</action>.
+			This will open a context menu where you can select an already saved session to save to.
+			It will be overwritten with your current session. See the next item on how to save to a new session.</para></listitem> 
+		</varlistentry>
+		
+		<varlistentry id="window-savenewsession">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul">&Alt;&Ctrl;<keycap>S</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="view_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Window</guimenu> <guimenuitem>Save as new Session</guimenuitem></menuchoice></term>
+			<listitem><para><action>Saves the current session under a new name</action>.
+			This will ask for a new name to save the session to.</para></listitem> 
+		</varlistentry>
 
+		<varlistentry id="window-loadsession">
+			<term><menuchoice>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="view_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Window</guimenu> <guimenuitem>Load session</guimenuitem></menuchoice></term>
+			<listitem><para><action>Loads an existing session</action>.
+			This will open a context menu where you can select an already saved session to load.</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="window-configuresessions">
+			<term><menuchoice>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="view_sidetree.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Window</guimenu> <guimenuitem>Configure sessions</guimenuitem></menuchoice></term>
+			<listitem><para><action>This brings up the sessions tab of the Preferences Dialog</action>.
+			There you can manage your sessions easily.</para></listitem> 
+		</varlistentry>	
+
+		<varlistentry id="window-fullscreen">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>F</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="window_fullscreen.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Window</guimenu> <guimenuitem>Fullscreen Mode</guimenuitem></menuchoice></term>
+			<listitem><para><action>Toggles fullscreen mode</action>.
+			Here you can turn fullscreen mode on or off. In fullscreen mode, &bibletime; will expand to the full size
+			of your monitor screen, using as much space as possible.</para></listitem> 
+		</varlistentry>
+		
+		<varlistentry id="window-cascade">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="cascade.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Window</guimenu> <guimenuitem>Cascade</guimenuitem></menuchoice></term>
+			<listitem><para><action>Cascades all open display windows</action>.</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="window-tile">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul">&Ctrl;<keycap>T</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="tile.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Window</guimenu> <guimenuitem>Tile</guimenuitem></menuchoice></term>
+			<listitem><para><action>Tiles all open display windows</action>.</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="window-autocascade">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul">&Alt;&Ctrl;<keycap>A</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="cascade_auto.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Window</guimenu> <guimenuitem>Auto cascade</guimenuitem></menuchoice></term>
+			<listitem><para><action>Automatically cascades all open display windows</action>.
+			If you enable this setting, &bibletime; will automatically cascade all display windows that you open.</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="window-autotile">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul">&Alt;&Ctrl;<keycap>T</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="tile_auto.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Window</guimenu> <guimenuitem>Auto tile</guimenuitem></menuchoice></term>
+			<listitem><para><action>Automatically tiles all open display windows</action>.
+			If you enable this setting, &bibletime; will automatically tile all display windows that you open.</para></listitem> 
+		</varlistentry>
+
+		<varlistentry id="window-closeall">
+			<term><menuchoice>
+			<shortcut><keycombo action="simul">&Ctrl;<keycap>K</keycap></keycombo></shortcut>
+			<guimenu>	<inlinemediaobject><imageobject>
+			<imagedata fileref="fileclose.png"	format="PNG"/></imageobject></inlinemediaobject>
+			Window</guimenu> <guimenuitem>Close all</guimenuitem></menuchoice></term>
+			<listitem><para><action>Closes all open display windows</action>.</para></listitem> 
+		</varlistentry>
+	
 		</variablelist>
 	</sect2>
 
+	
 	<sect2 id="hdbk-reference-menus-settings"><title>Settings</title>
 		<variablelist>
-
-
+		
+		
 		</variablelist>
 	</sect2>
 	
@@ -503,90 +599,6 @@
 	<section id="hdbk-bars-menubar"><title>Menubar</title>
 	<para>Various features of bibletime are accessed by way of 
 	drop down menus from the menubar.</para>
-
-
-	<section id="hdbk-bars-menubar-Window"><title>Window</title>
-	<para>
-	<variablelist>
-
-	<varlistentry>
-	<term>Save session</term>
-	<listitem><para>Saves the current configuration to
-	a selected Session.</para></listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>Save as new session</term>
-	<listitem><para>Saves the current configuration to
-	a session, and allows the new session to be named.</para></listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>Load session</term>
-	<listitem><para>Loads the contents of the named session to
-	the current session of &bibletime;.</para></listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>Configure sessions</term>
-	<listitem><para>This brings up the <guilabel>Sessions</guilabel> tab of the
-	<guilabel>Preferences Dialog</guilabel>.
-	Here you create and manage Sessions.</para></listitem>
-	</varlistentry>
-
-
-	<varlistentry>
-	<term>Fullscreen Mode</term>
-	<listitem><para>When <guimenuitem>Fullscreen Mode</guimenuitem> is selected, &bibletime; will expand
-	to the full size of your monitor screen.  To reverse the action select
-	<guimenuitem>Fullscreen Mode</guimenuitem>again. </para></listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>Cascade</term>
-	<listitem><para>Cascades open display windows.</para></listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>Tile</term>
-	<listitem>
-	<para>Tiles open display windows.</para>
-	</listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>Auto Cascade</term>
-	<listitem>
-	<para>Automatically cascades newly opened display windows.</para>
-	</listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>Auto Tile</term>
-	<listitem>
-	<para>Ditto for tiling newly opened display windows.</para>
-	</listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>Close all</term>
-	<listitem>
-	<para>Closes all open display windows.</para>
-	</listitem>
-	</varlistentry>
-
-	<varlistentry>
-	<term>List of open modules</term>
-	<listitem>
-	<para>Shows a list of all of the currently open modules.  
-	Selecting a module in this list makes that open module the 
-	selected module in the display area.</para>
-	</listitem>
-	</varlistentry>
-
-	</variablelist>
-	</para>
-	</section>
 
 	<section id="hdbk-bars-menubar-settings"><title>Settings</title>
 	<para>

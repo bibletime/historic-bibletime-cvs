@@ -1,31 +1,32 @@
-<html><head><title>Search Syntax using GCC Regular Expression</title><link rel="stylesheet" href="help:/common/kde-default.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.48"><meta name="keywords" content="KDE, bibletime, BibleTime, sword, crosswire, help dialog"><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15"><meta name="GENERATOR" content="KDE XSL Stylesheet V1.13 using libxslt"><link rel="home" href="index.html" title="The BibleTime Handbook"><link rel="up" href="hdbk-op.html" title="Chapter 3. Program Operation"><link rel="previous" href="hdbk-op-search.html" title="Searching in Documents"><link rel="next" href="hdbk-op-output.html" title="Exporting and Printing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div id="headline" style="position : absolute;                 height : 85px;                 z-index : 100;                 background : transparent;                 text-align : center;   text-transform: smallcaps;                 width : 100%;                 top : 0px;                 left : 0px;                 width : 100%;                 color : #000000;"><h1>Search Syntax using GCC Regular Expression</h1></div><div id="navbackground" style="position : absolute;   width : 100%;   height : 124px;   background-image : url('help:/common/doctop2.png');   z-index : 5;   left : 0px;   top : 0px;   padding : 0px;"><div id="bulb1" style="padding : 0px;   position : absolute;   z-index : 15;   width : 150px;   height : 85px;   top : 0px;   left : 0px;   background : url('help:/common/doctop1.png') repeat;"></div><div id="gradient" style="  position : absolute;   width : 275px;   height : 85px;   z-index : 19px;   top : 0px;   padding : 0px;   left : 150px;   background-image : url('help:/common/doctop1a.png');   background-repeat : no-repeat;   background-color : transparent;   visibility : visible;"></div><div id="bulb-bit" style="position : absolute;   width : 100%;   height : 25px;   top : 85px;   left : 0px;   background-image : url('help:/common/doctop1b.png');   background-repeat : no-repeat;   background-color : transparent;   z-index : 5;"><table width="100%" id="navtable"><tbody><tr><td align="left" class="left"><a accesskey="p" href="hdbk-op-search.html">Prev</a></td><td align="center" class="center">Program Operation</td><td align="right" class="right"><a accesskey="n" href="hdbk-op-output.html">Next</a></td></tr></tbody></table></div></div><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="hdbk-op-search-dialog-text-regexp"></a>Search Syntax using GCC Regular Expression</h2></div></div><p>Regular expression searches provide a way to do simple or
+<html><head><title>Search Syntax using GCC Regular Expression</title><link rel="stylesheet" href="help:/common/kde-default.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.48"><meta name="keywords" content="KDE, bibletime, BibleTime, sword, crosswire, help dialog"><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15"><meta name="GENERATOR" content="KDE XSL Stylesheet V1.13 using libxslt"><link rel="home" href="index.html" title="The BibleTime Handbook"><link rel="up" href="hdbk-op.html" title="Chapter 3. Program Operation"><link rel="previous" href="hdbk-op-search.html" title="Searching in Documents"><link rel="next" href="hdbk-op-output.html" title="Exporting and Printing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr class="header"><td colspan="2"> </td></tr><tr id="logo"><td valign="top"><img src="help:/common/kde_logo.png" alt="KDE -         The K Desktop Environment" width="296" height="79" border="0"></td><td valign="middle" align="center" id="location"><h1>Search Syntax using GCC Regular Expression</h1></td></tr></table><table width="100%" class="header"><tbody><tr><td align="left" class="navLeft" width="33%"><a accesskey="p" href="hdbk-op-search.html">Prev</a></td><td align="center" class="navCenter" width="34%">Program Operation</td><td align="right" class="navRight" width="33%"> 
+		      <a accesskey="n" href="hdbk-op-output.html">Next</a></td></tr></tbody></table><div class="section"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="hdbk-op-search-dialog-text-regexp"></a>Search Syntax using GCC Regular Expression</h2></div></div><p>Regular expression searches provide a way to do simple or
 complex searches for strings that match a pattern or set of
-patterns (branches) separated by vertical bars &quot;|&quot;.
+patterns (branches) separated by vertical bars "|".
 While a pattern can be built to look for a word or phrase, a
 simple pattern that consists of a word does not look for only
 that word but for any place the string of letters that make that
-word are found. A search for &quot;right&quot; will return verses
-that contain the word &quot;right&quot;, but also &quot;<span class="emphasis"><i>right</i></span>eous&quot;,
-&quot;<span class="emphasis"><i>right</i></span>eousness&quot;, &quot;un<span class="emphasis"><i>right</i></span>eous&quot;,
-&quot;up<span class="emphasis"><i>right</i></span>&quot; and even &quot;b<span class="emphasis"><i>right</i></span>&quot;.
-A search for &quot;hall not&quot; is not a search for
-&quot;hall&quot; AND &quot;not&quot; but for the string
-&quot;hall not&quot; with a space between the second
-&quot;l&quot; and the &quot;n&quot;. The search for &quot;hall
-not&quot; will find occurrences of &quot;s<span class="emphasis"><i>hall not</i></span>&quot;.</p><p>The power of Regular Expressions is in the patterns (or
+word are found. A search for "right" will return verses
+that contain the word "right", but also "<span class="emphasis"><i>right</i></span>eous",
+"<span class="emphasis"><i>right</i></span>eousness", "un<span class="emphasis"><i>right</i></span>eous",
+"up<span class="emphasis"><i>right</i></span>" and even "b<span class="emphasis"><i>right</i></span>".
+A search for "hall not" is not a search for
+"hall" AND "not" but for the string
+"hall not" with a space between the second
+"l" and the "n". The search for "hall
+not" will find occurrences of "s<span class="emphasis"><i>hall not</i></span>".</p><p>The power of Regular Expressions is in the patterns (or
 templates) used to define a search. A pattern consists of
 ordinary characters and some special characters that are used and
 interpreted by a set of rules. Special characters include
 .\[^*$?+. Ordinary (or simple) characters are any characters that
-are not special. The backslash, &quot;\&quot;, is used to convert
+are not special. The backslash, "\", is used to convert
 special characters to ordinary and ordinary characters to
-special. </p><p>Example: the pattern &quot;<span class="emphasis"><i>i. love\.</i></span>&quot;
-will find sentences that end with &quot;h<span class="emphasis"><i>i</i></span>s <span class="emphasis"><i>love</i></span>&quot;
-or &quot;<span class="emphasis"><i>i</i></span>n <span class="emphasis"><i>love</i></span>&quot; or
-&quot;<span class="emphasis"><i>i</i></span>s <span class="emphasis"><i>love</i></span>&quot; followed by
-a period. The first period in &quot;i. love\.&quot; is a special
+special. </p><p>Example: the pattern "<span class="emphasis"><i>i. love\.</i></span>"
+will find sentences that end with "h<span class="emphasis"><i>i</i></span>s <span class="emphasis"><i>love</i></span>"
+or "<span class="emphasis"><i>i</i></span>n <span class="emphasis"><i>love</i></span>" or
+"<span class="emphasis"><i>i</i></span>s <span class="emphasis"><i>love</i></span>" followed by
+a period. The first period in "i. love\." is a special
 character that means allow any character in this position. The
-backslash in &quot;i. love\.&quot; means that the period
+backslash in "i. love\." means that the period
 following it is not to be considered a special character, but is
 an ordinary period. </p><div class="section"><div class="titlepage"><div><h3 class="title"><a name="hdbk-op-search-dialog-text-regexp-rules"></a>Rules for GCC Regular Expression Search Requests</h3></div></div><div class="itemizedlist"><ul type="disc"><li><p>. The period matches any character. See <a href="hdbk-op-search-dialog-text-regexp.html#period" title="The Period .">Details</a></p></li><li><p>* The asterisk matches 0 or more characters of the
 	preceding: set, character or indicated character. See <a href="hdbk-op-search-dialog-text-regexp.html#asterisk" title="The Asterisk *">Details</a></p></li><li><p>+ The plus sign matches 1 or more characters of the
@@ -37,7 +38,7 @@ an ordinary period. </p><div class="section"><div class="titlepage"><div><h3 cla
 	line. See <a href="hdbk-op-search-dialog-text-regexp.html#dollar" title="The Dollar Sign as End of Line Anchor xxx$">Details</a></p></li><li><p>| A vertical bar means logical OR. See <a href="hdbk-op-search-dialog-text-regexp.html#bar" title="The Vertical Bar |">Details</a></p></li><li><p>( ) Parentheses enclose expressions for grouping.
 <span class="emphasis"><i>Not supported!</i></span></p></li><li><p>\ A backslash can be used prior to any special character
 	to match that character. See <a href="hdbk-op-search-dialog-text-regexp.html#backslash" title="The Backslash Prior to a Special Character \*">Details</a></p></li><li><p>\ A backslash can be used prior to an ordinary character
-	to make it a special character. See <a href="hdbk-op-search-dialog-text-regexp.html#backslash" title="The Backslash Prior to a Special Character \*">Details</a></p></li></ul></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="period"></a>The Period .</h4></div></div><p>The Period &quot;.&quot; will match any single character even
+	to make it a special character. See <a href="hdbk-op-search-dialog-text-regexp.html#backslash" title="The Backslash Prior to a Special Character \*">Details</a></p></li></ul></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="period"></a>The Period .</h4></div></div><p>The Period "." will match any single character even
 a space or other non-alphabet character.
 <span class="emphasis"><i>s.t</i></span> matches <span class="emphasis"><i>s</i></span>i<span class="emphasis"><i>t</i></span>,
 <span class="emphasis"><i>s</i></span>e<span class="emphasis"><i>t</i></span>,<span class="emphasis"><i> s</i></span>o<span class="emphasis"><i>t</i></span>,
@@ -48,14 +49,14 @@ compas<span class="emphasis"><i>s</i></span>e<span class="emphasis"><i>t</i></sp
 foot.tool </i></span>matches <span class="emphasis"><i>foot</i></span>s<span class="emphasis"><i>tool </i></span>and
 <span class="emphasis"><i>foot tool</i></span></p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="asterisk"></a>The Asterisk *</h4></div></div><p>The asterisk matches zero or more characters of the preceding:
 set, character or indicated character. Using
-a period asterisk combination &quot;.*&quot; after a commonly
+a period asterisk combination ".*" after a commonly
 found pattern can cause the search to take a very long time,
 making the program seem to freeze.
 <span class="emphasis"><i>be*n</i></span> matches<span class="emphasis"><i> beeen, been, ben</i></span>,
 and <span class="emphasis"><i>bn</i></span> which could locate Reu<span class="emphasis"><i>ben</i></span>
 and She<span class="emphasis"><i>bn</i></span>a.</p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="plus"></a>The Plus Sign +</h4></div></div><p>The Plus Sign matches one or more characters of the preceding:
 set, character or indicated character. Using
-a period and plus sign combination &quot;.+&quot; after a
+a period and plus sign combination ".+" after a
 commonly found pattern can cause the search to take a very long
 time, making the program seem to freeze.
 <span class="emphasis"><i>be+n</i></span> matches <span class="emphasis"><i>beeen, been</i></span> and <span class="emphasis"><i>ben</i></span>,
@@ -66,12 +67,12 @@ but not <span class="emphasis"><i>been</i></span>.
 <span class="emphasis"><i>trees?</i></span> matches <span class="emphasis"><i>trees</i></span> or <span class="emphasis"><i>tree</i></span>.</p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="bracket"></a>The Square Brackets [ ]</h4></div></div><p>The Square Brackets enclose a set of characters that can
 match. The period, asterisk, plus sign and question mark are not
 special inside the brackets. A minus sign can be used to indicate
-a range. If you want a caret &quot;^&quot; to be part of the
+a range. If you want a caret "^" to be part of the
 range do not place it first after the left bracket or it will be
-a special character. To include a &quot;]&quot; in the set make
-it the first (or second after a special &quot;^&quot;) character
+a special character. To include a "]" in the set make
+it the first (or second after a special "^") character
 in the set. To include a minus sign in the set make it the first
-(or second after a special &quot;^&quot;) or last character in
+(or second after a special "^") or last character in
 the set.
 <span class="emphasis"><i>s[eia]t</i></span> matches <span class="emphasis"><i>set</i></span>, <span class="emphasis"><i>sit</i></span>,
 and <span class="emphasis"><i>sat</i></span>, but not <span class="emphasis"><i>s</i></span>o<span class="emphasis"><i>t</i></span>.
@@ -90,7 +91,7 @@ formatting characters in some texts, this feature does not always
 work, but may if a few periods are placed after the caret to
 account for the formatting characters.
 <span class="emphasis"><i>^In the beginning</i></span> matches lines that
-start with &quot;<span class="emphasis"><i>In the beginning</i></span>&quot;.
+start with "<span class="emphasis"><i>In the beginning</i></span>".
 (May need to use: <span class="emphasis"><i>^.....In the beginning</i></span>)</p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="dollar"></a>The Dollar Sign as End of Line Anchor xxx$</h4></div></div><p>If the Dollar Sign is the last character in a pattern it
 anchors the pattern to the end of a line. Any match must be at
 the end of a line. Because of unfiltered
@@ -98,7 +99,7 @@ formatting characters in some texts, this feature does not always
 work, but may if a few periods are placed before the dollar sign
 to account for the formatting characters.
 <span class="emphasis"><i>Amen\.$</i></span> matches lines that end with
-&quot;<span class="emphasis"><i>Amen.</i></span>&quot; (May
+"<span class="emphasis"><i>Amen.</i></span>" (May
 need to use Amen\....$, Amen\..........$, or even
 Amen\....................$)</p></div><div class="section"><div class="titlepage"><div><h4 class="title"><a name="bar"></a>The Vertical Bar |</h4></div></div><p>The Vertical Bar between patterns means OR.
 <span class="emphasis"><i>John|Peter</i></span> matches <span class="emphasis"><i>John</i></span> or <span class="emphasis"><i>Peter.
@@ -119,4 +120,4 @@ meaning.</p><div class="itemizedlist"><ul type="disc"><li><p>
 not un<span class="emphasis"><i>righteous</i></span> or <span class="emphasis"><i>righteous</i></span>ness</p></li><li><p>\B means non-word boundary.  <span class="emphasis"><i>\Brighteous\B</i></span>
 matches un<span class="emphasis"><i>righteous</i></span>ness and un<span class="emphasis"><i>righteous</i></span>ly
 but not <span class="emphasis"><i>righteous</i></span>, un<span class="emphasis"><i>righteous</i></span> or <span class="emphasis"><i>
-righteous</i></span>ness.</p></li><li><p>\d means digit; same as [0-9].</p></li><li><p>\D means non-digit, same as [^0-9].</p></li><li><p>\s means space. </p></li><li><p>\S means not a space. </p></li><li><p>\w means alphanumeric; same as [a-zA-Z0-9_].</p></li><li><p>\W means not alphanumeric; same as [^a-zA-Z0-9_].</p></li></ul></div></div></div></div><div id="bottom-nav" style="position : relative;                 width : 100%;                 height : 185px;                 left : 0px;   right : 0px;                 top : 0px;   margin-top: 100px;                 background-image : url('help:/common/bottom1.png');                 background-repeat : repeat-x;                 background-color : transparent;   margin-left: 0px;   margin-right: 0px;                 z-index : 25;"><img src="help:/common/bottom2.png" align="right" height="59" width="227" alt="KDE Logo"><div id="navtable2" style="width : 100%;   margin-left: 0px;          margin-right: 0px;                      z-index : 15;                  background-color : transparent;"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="position: absolute;         top: 70px;         left: 0px;"><tr><td width="33%" align="left" valign="top"><a href="hdbk-op-search.html">Prev</a></td><td width="34%" align="center" valign="top"><a href="index.html">Home</a></td><td width="33%" align="right" valign="top"><a href="hdbk-op-output.html">Next</a></td></tr><tr><td width="33%" align="left">Searching in Documents </td><td width="34%" align="center"><a href="hdbk-op.html">Up</a></td><td width="33%" align="right"> Exporting and Printing</td></tr></table></div></div></body></html>
+righteous</i></span>ness.</p></li><li><p>\d means digit; same as [0-9].</p></li><li><p>\D means non-digit, same as [^0-9].</p></li><li><p>\s means space. </p></li><li><p>\S means not a space. </p></li><li><p>\w means alphanumeric; same as [a-zA-Z0-9_].</p></li><li><p>\W means not alphanumeric; same as [^a-zA-Z0-9_].</p></li></ul></div></div></div></div><table width="100%" class="bottom-nav"><tr><td width="33%" align="left" valign="top" class="navLeft"><a href="hdbk-op-search.html">Prev</a></td><td width="34%" align="center" valign="top" class="navCenter"><a href="index.html">Home</a></td><td width="33%" align="right" valign="top" class="navRight"><a href="hdbk-op-output.html">Next</a></td></tr><tr><td width="33%" align="left" class="navLeft">Searching in Documents </td><td width="34%" align="center" class="navCenter"><a href="hdbk-op.html">Up</a></td><td width="33%" align="right" class="navRight"> Exporting and Printing</td></tr></table></body></html>
