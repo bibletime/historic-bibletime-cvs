@@ -536,7 +536,7 @@ Please check whether you installed aRts correctly or use
 AC_DEFUN([KDE_SUBST_PROGRAMS],
 [
     AC_ARG_WITH(arts,
-        [  --without-arts          build without aRts [default=yes] ],
+        AC_HELP_STRING([--without-arts],[build without aRts [default=yes]]),
         [build_arts=$withval],
         [build_arts=yes]
     )
@@ -850,21 +850,21 @@ AC_REQUIRE([KDE_CHECK_LIB64])
 
 AC_ARG_ENABLE(
   embedded,
-  [  --enable-embedded       link to Qt-embedded, don't use X],
+  AC_HELP_STRING([--enable-embedded],[link to Qt-embedded, don't use X]),
   kde_use_qt_emb=$enableval,
   kde_use_qt_emb=no
 )
 
 AC_ARG_ENABLE(
   qtopia,
-  [  --enable-qtopia         link to Qt-embedded, link to the Qtopia Environment],
+  AC_HELP_STRING([--enable-qtopia],[link to Qt-embedded, link to the Qtopia Environment]),
   kde_use_qt_emb_palm=$enableval,
   kde_use_qt_emb_palm=no
 )
 
 AC_ARG_ENABLE(
   mac,
-  [  --enable-mac            link to Qt/Mac (don't use X)],
+  AC_HELP_STRING([--enable-mac],[link to Qt/Mac (don't use X)]),
   kde_use_qt_mac=$enableval,
   kde_use_qt_mac=no
 )
@@ -1164,7 +1164,7 @@ if test -z "$2"; then
     kde_qt_minversion=">= 1.42 and < 2.0"
   fi
 else
-   kde_qt_minversion=$2
+   kde_qt_minversion="$2"
 fi
 
 if test -z "$3"; then
@@ -1188,7 +1188,7 @@ if test -z "$3"; then
     kde_qt_verstring="QT_VERSION >= 142 && QT_VERSION < 200"
    fi
 else
-   kde_qt_verstring=$3
+   kde_qt_verstring="$3"
 fi
 
 if test $kde_qtver = 3; then
@@ -1277,7 +1277,7 @@ dnl ------------------------------------------------------------------------
 
 AC_ARG_ENABLE(
   mt,
-  [  --disable-mt            link to non-threaded Qt (deprecated)],
+  AC_HELP_STRING([--disable-mt],[link to non-threaded Qt (deprecated)]),
   kde_use_qt_mt=$enableval,
   [
     if test $kde_qtver = 3; then
@@ -1392,14 +1392,14 @@ ac_qt_includes=NO ac_qt_libraries=NO ac_qt_bindir=NO
 qt_libraries=""
 qt_includes=""
 AC_ARG_WITH(qt-dir,
-    [  --with-qt-dir=DIR       where the root of Qt is installed ],
+    AC_HELP_STRING([--with-qt-dir=DIR],[where the root of Qt is installed ]),
     [  ac_qt_includes="$withval"/include
        ac_qt_libraries="$withval"/lib${kdelibsuff}
        ac_qt_bindir="$withval"/bin
     ])
 
 AC_ARG_WITH(qt-includes,
-    [  --with-qt-includes=DIR  where the Qt includes are. ],
+    AC_HELP_STRING([--with-qt-includes=DIR],[where the Qt includes are. ]),
     [
        ac_qt_includes="$withval"
     ])
@@ -1407,7 +1407,7 @@ AC_ARG_WITH(qt-includes,
 kde_qt_libs_given=no
 
 AC_ARG_WITH(qt-libraries,
-    [  --with-qt-libraries=DIR where the Qt library is installed.],
+    AC_HELP_STRING([--with-qt-libraries=DIR],[where the Qt library is installed.]),
     [  ac_qt_libraries="$withval"
        kde_qt_libs_given=yes
     ])
@@ -1626,7 +1626,9 @@ fi
 
 AC_DEFUN([KDE_CHECK_FINAL],
 [
-  AC_ARG_ENABLE(final, [  --enable-final          build size optimized apps (experimental - needs lots of memory)],
+  AC_ARG_ENABLE(final,
+	AC_HELP_STRING([--enable-final],
+		       [build size optimized apps (experimental - needs lots of memory)]),
 	kde_use_final=$enableval, kde_use_final=no)
 
   if test "x$kde_use_final" = "xyes"; then
@@ -1642,7 +1644,8 @@ AC_DEFUN([KDE_CHECK_FINAL],
 
 AC_DEFUN([KDE_CHECK_CLOSURE],
 [
-  AC_ARG_ENABLE(closure, [  --enable-closure        delay template instantiation],
+  AC_ARG_ENABLE(closure,
+		AC_HELP_STRING([--enable-closure],[delay template instantiation]),
   	kde_use_closure=$enableval, kde_use_closure=no)
 
   KDE_NO_UNDEFINED=""
@@ -1671,7 +1674,7 @@ AC_DEFUN([KDE_CHECK_CLOSURE],
 
 AC_DEFUN([KDE_CHECK_NMCHECK],
 [
-  AC_ARG_ENABLE(nmcheck, [  --enable-nmcheck        enable automatic namespace cleanness check],
+  AC_ARG_ENABLE(nmcheck,AC_HELP_STRING([--enable-nmcheck],[enable automatic namespace cleanness check]),
 	kde_use_nmcheck=$enableval, kde_use_nmcheck=no)
 
   if test "$kde_use_nmcheck" = "yes"; then
@@ -1856,8 +1859,7 @@ AC_SUBST(AUTODIRS)
 AC_DEFUN([KDE_CHECK_EXTRA_LIBS],
 [
 AC_MSG_CHECKING(for extra includes)
-AC_ARG_WITH(extra-includes, [  --with-extra-includes=DIR
-                          adds non standard include paths],
+AC_ARG_WITH(extra-includes,AC_HELP_STRING([--with-extra-includes=DIR],[adds non standard include paths]),
   kde_use_extra_includes="$withval",
   kde_use_extra_includes=NONE
 )
@@ -1882,7 +1884,7 @@ AC_MSG_RESULT($kde_use_extra_includes)
 
 kde_extra_libs=
 AC_MSG_CHECKING(for extra libs)
-AC_ARG_WITH(extra-libs, [  --with-extra-libs=DIR   adds non standard library paths],
+AC_ARG_WITH(extra-libs,AC_HELP_STRING([--with-extra-libs=DIR],[adds non standard library paths]),
   kde_use_extra_libs=$withval,
   kde_use_extra_libs=NONE
 )
@@ -1999,37 +2001,6 @@ It is a separate package (and CVS module) named kde-qt-addon.])
 fi
 ])
 
-AC_DEFUN([KDE_CHECK_KIMGIO],
-[
-   AC_REQUIRE([AC_BASE_PATH_KDE])
-   AC_REQUIRE([KDE_CHECK_EXTRA_LIBS])
-   AC_REQUIRE([AC_FIND_TIFF])
-   AC_REQUIRE([AC_FIND_JPEG])
-   AC_REQUIRE([AC_FIND_PNG])
-   AC_REQUIRE([AC_FIND_JASPER])
-   AC_REQUIRE([KDE_CREATE_LIBS_ALIASES])
-
-   if test "$1" = "existence"; then
-     AC_LANG_SAVE
-     AC_LANG_CPLUSPLUS
-     kde_save_LIBS="$LIBS"
-     LIBS="$LIBS $all_libraries $LIBJPEG $LIBTIFF $LIBPNG $LIBQT -lm"
-     AC_CHECK_LIB(kimgio, kimgioRegister, [
-      LIBKIMGIO_EXISTS=yes],LIBKIMGIO_EXISTS=no)
-     LIBS="$kde_save_LIBS"
-     AC_LANG_RESTORE
-   else
-     LIBKIMGIO_EXISTS=yes
-   fi
-
-   if test "$LIBKIMGIO_EXISTS" = "yes"; then
-     LIB_KIMGIO='-lkimgio'
-   else
-     LIB_KIMGIO=''
-   fi
-   AC_SUBST(LIB_KIMGIO)
-])
-
 AC_DEFUN([KDE_CREATE_LIBS_ALIASES],
 [
    AC_REQUIRE([KDE_MISC_TESTS])
@@ -2076,7 +2047,7 @@ fi
 AC_DEFUN([AC_PATH_KDE],
 [
   AC_BASE_PATH_KDE
-  AC_ARG_ENABLE(path-check, [  --disable-path-check    don't try to find out, where to install],
+  AC_ARG_ENABLE(path-check,AC_HELP_STRING([--disable-path-check],[don't try to find out, where to install]),
   [
   if test "$enableval" = "no";
     then ac_use_path_checking="default"
@@ -2827,7 +2798,8 @@ fi
 
 AC_DEFUN([AC_CHECK_COMPILERS],
 [
-  AC_ARG_ENABLE(debug,[  --enable-debug[=ARG]      enables debug symbols (yes|no|full) [default=no]],
+  AC_ARG_ENABLE(debug,
+	        AC_HELP_STRING([--enable-debug=ARG],[enables debug symbols (yes|no|full) [default=no]]),
   [
     case $enableval in
       yes)
@@ -2849,9 +2821,14 @@ AC_DEFUN([AC_CHECK_COMPILERS],
   ])
 
   dnl Just for configure --help
-  AC_ARG_ENABLE(dummyoption,[  --disable-debug         disables debug output and debug symbols [default=no]],[],[])
+  AC_ARG_ENABLE(dummyoption,
+	        AC_HELP_STRING([--disable-debug],
+	  		       [disables debug output and debug symbols [default=no]]),
+		[],[])
 
-  AC_ARG_ENABLE(strict,[  --enable-strict         compiles with strict compiler options (may not work!)],
+  AC_ARG_ENABLE(strict,
+		AC_HELP_STRING([--enable-strict],
+			      [compiles with strict compiler options (may not work!)]),
    [
     if test $enableval = "no"; then
          kde_use_strict_options="no"
@@ -2860,7 +2837,7 @@ AC_DEFUN([AC_CHECK_COMPILERS],
     fi
    ], [kde_use_strict_options="no"])
 
-  AC_ARG_ENABLE(warnings,[  --disable-warnings      disables compilation with -Wall and similiar],
+  AC_ARG_ENABLE(warnings,AC_HELP_STRING([--disable-warnings],[disables compilation with -Wall and similiar]),
    [
     if test $enableval = "no"; then
          kde_use_warnings="no"
@@ -2874,7 +2851,7 @@ AC_DEFUN([AC_CHECK_COMPILERS],
     kde_use_warnings=yes
   fi
 
-  AC_ARG_ENABLE(profile,[  --enable-profile        creates profiling infos [default=no]],
+  AC_ARG_ENABLE(profile,AC_HELP_STRING([--enable-profile],[creates profiling infos [default=no]]),
     [kde_use_profiling=$enableval],
     [kde_use_profiling="no"]
   )
@@ -2985,7 +2962,9 @@ AC_DEFUN([AC_CHECK_COMPILERS],
     dnl KDE_CHECK_COMPILER_FLAG(-no_exceptions,[CXXFLAGS="$CXXFLAGS --no_exceptions"])
     dnl KDE_CHECK_COMPILER_FLAG(-exceptions, [USE_EXCEPTIONS="--exceptions"], USE_EXCEPTIONS=	)
 
-    AC_ARG_ENABLE(pch,[  --enable-pch            enables precompiled header support (currently only KCC) [default=no]],
+    AC_ARG_ENABLE(pch,
+	AC_HELP_STRING([--enable-pch],
+		       [enables precompiled header support (currently only KCC) [default=no]]),
     [
       kde_use_pch=$enableval
     ],[kde_use_pch=no])
@@ -3134,7 +3113,7 @@ AC_DEFUN([AC_CHECK_RPATH],
 [
 AC_MSG_CHECKING(for rpath)
 AC_ARG_ENABLE(rpath,
-      [  --disable-rpath         do not use the rpath feature of ld],
+      AC_HELP_STRING([--disable-rpath],[do not use the rpath feature of ld]),
       USE_RPATH=$enableval, USE_RPATH=yes)
 
 if test -z "$KDE_RPATH" && test "$USE_RPATH" = "yes"; then
@@ -3412,7 +3391,7 @@ AC_DEFUN([AC_HAVE_XPM],
  test -z "$XPM_LDFLAGS" && XPM_LDFLAGS=
  test -z "$XPM_INCLUDE" && XPM_INCLUDE=
 
- AC_ARG_WITH(xpm, [  --without-xpm           disable color pixmap XPM tests],
+ AC_ARG_WITH(xpm,AC_HELP_STRING([--without-xpm],[disable color pixmap XPM tests]),
 	xpm_test=$withval, xpm_test="yes")
  if test "x$xpm_test" = xno; then
    ac_cv_have_xpm=no
@@ -3468,7 +3447,7 @@ AC_DEFUN([AC_HAVE_DPMS],
  test -z "$DPMS_INCLUDE" && DPMS_INCLUDE=
  DPMS_LIB=
 
- AC_ARG_WITH(dpms, [  --without-dpms          disable DPMS power saving],
+ AC_ARG_WITH(dpms,AC_HELP_STRING([--without-dpms],[disable DPMS power saving]),
 	dpms_test=$withval, dpms_test="yes")
  if test "x$dpms_test" = xno; then
    ac_cv_have_dpms=no
@@ -3568,7 +3547,7 @@ AC_DEFUN([AC_HAVE_GL],
  test -z "$GL_LDFLAGS" && GL_LDFLAGS=
  test -z "$GL_INCLUDE" && GL_INCLUDE=
 
- AC_ARG_WITH(gl, [  --without-gl            disable 3D GL modes],
+ AC_ARG_WITH(gl,AC_HELP_STRING([--without-gl],[disable 3D GL modes]),
 	gl_test=$withval, gl_test="yes")
  if test "x$kde_use_qt_emb" = "xyes"; then
    # GL and Qt Embedded is a no-go for now.
@@ -3649,7 +3628,7 @@ AC_DEFUN([KDE_PAM], [
 
   want_pam=
   AC_ARG_WITH(pam,
-    [  --with-pam[=ARG]        enable support for PAM: ARG=[yes|no|service name]],
+    AC_HELP_STRING([--with-pam[=ARG]],[enable support for PAM: ARG=[yes|no|service name]]),
     [ if test "x$withval" = "xyes"; then
         want_pam=yes
         pam_service=kde
@@ -3709,7 +3688,7 @@ Make sure you have the necessary development packages installed.])
 dnl DEF_PAM_SERVICE(arg name, full name, define name)
 AC_DEFUN([DEF_PAM_SERVICE], [
   AC_ARG_WITH($1-pam,
-    [  --with-$1-pam=[val]    override PAM service from --with-pam for $2],
+    AC_HELP_STRING([--with-$1-pam=[val]],[override PAM service from --with-pam for $2]),
     [ if test "x$use_pam" = xyes; then
         $3_PAM_SERVICE=$withval
       else
@@ -3751,7 +3730,7 @@ AC_DEFUN([KDE_SHADOWPASSWD], [
   AC_MSG_CHECKING([for shadow passwords])
 
   AC_ARG_WITH(shadow,
-    [  --with-shadow		  If you want shadow password support ],
+    AC_HELP_STRING([--with-shadow],[If you want shadow password support]),
     [ if test "x$withval" != "xno"; then
         use_shadow=yes
       else
@@ -3841,7 +3820,7 @@ fi
 dnl XXX why change enable_dlopen? its already set by autoconf's AC_ARG_ENABLE
 dnl (MM)
 AC_ARG_ENABLE(dlopen,
-[  --disable-dlopen        link statically [default=no]] ,
+AC_HELP_STRING([--disable-dlopen],[link statically [default=no]]),
 enable_dlopen=$enableval,
 enable_dlopen=yes)
 
@@ -3992,7 +3971,7 @@ AC_DEFUN([KDE_CHECK_THREADING],
   else
     kde_check_threading_default=yes
   fi
-  AC_ARG_ENABLE(threading, [  --disable-threading     disables threading even if libpthread found ],
+  AC_ARG_ENABLE(threading,AC_HELP_STRING([--disable-threading],[disables threading even if libpthread found]),
    kde_use_threading=$enableval, kde_use_threading=$kde_check_threading_default)
   if test "x$kde_use_threading" = "xyes"; then
     AC_DEFINE(HAVE_LIBPTHREAD, 1, [Define if you have a working libpthread (will enable threaded code)])
@@ -4062,7 +4041,7 @@ AC_CACHE_VAL(kde_cv_pythondir,
 ])
  
 AC_ARG_WITH(pythondir,
-[  --with-pythondir=pythondir   use python installed in pythondir ],
+AC_HELP_STRING([--with-pythondir=pythondir],[use python installed in pythondir]),
 [
   ac_python_dir=$withval
 ], ac_python_dir=$kde_cv_pythondir
@@ -4464,7 +4443,7 @@ AC_DEFUN([KDE_CHECK_HEADERS],
 AC_DEFUN([KDE_FAST_CONFIGURE],
 [
   dnl makes configure fast (needs perl)
-  AC_ARG_ENABLE(fast-perl, [  --disable-fast-perl     disable fast Makefile generation (needs perl)],
+  AC_ARG_ENABLE(fast-perl, AC_HELP_STRING([--disable-fast-perl],[disable fast Makefile generation (needs perl)]),
       with_fast_perl=$enableval, with_fast_perl=yes)
 ])
 
@@ -4640,7 +4619,7 @@ AC_DEFUN([KDE_CHECK_JAVA_DIR],
 [
 
 AC_ARG_WITH(java,
-[  --with-java=javadir     use java installed in javadir, --without-java disables ],
+AC_HELP_STRING([--with-java=javadir],[use java installed in javadir, --without-java disables]),
 [  ac_java_dir=$withval
 ], ac_java_dir=""
 )
@@ -4927,7 +4906,7 @@ AC_DEFUN([AC_PATH_QTOPIA],
   ac_qtopia_incdir=NO
 
   AC_ARG_WITH(qtopia-dir,
-              [  --with-qtopia-dir=DIR   where the root of Qtopia is installed ],
+              AC_HELP_STRING([--with-qtopia-dir=DIR],[where the root of Qtopia is installed]),
               [  ac_qtopia_incdir="$withval"/include] ) 
   
   qtopia_incdirs=""
@@ -5135,14 +5114,14 @@ ac_ssl_includes=NO ac_ssl_libraries=NO
 ssl_libraries=""
 ssl_includes=""
 AC_ARG_WITH(ssl-dir,
-    [  --with-ssl-dir=DIR      where the root of OpenSSL is installed],
+    AC_HELP_STRING([--with-ssl-dir=DIR],[where the root of OpenSSL is installed]),
     [  ac_ssl_includes="$withval"/include
        ac_ssl_libraries="$withval"/lib$kdelibsuff
     ])
 
 want_ssl=yes
 AC_ARG_WITH(ssl,
-    [  --without-ssl           disable SSL checks],
+    AC_HELP_STRING([--without-ssl],[disable SSL checks]),
     [want_ssl=$withval])
 
 if test $want_ssl = yes; then

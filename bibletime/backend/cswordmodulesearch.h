@@ -19,8 +19,6 @@
 #define CSWORDMODULESEARCH_H
 
 //BibleTime includes
-//#include "cswordmoduleinfo.h"
-//#include "../structdef.h"
 #include "util/cpointers.h"
 
 //Qt includes

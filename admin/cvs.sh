@@ -360,6 +360,10 @@ for i in $list; do if test -f $i && test `dirname $i` != "." ; then
 fi; done
 test -f configure.in.mid && echo configure.in.mid >> configure.files
 test -f configure.in.bot && echo configure.in.bot >> configure.files
+if test ! -s configure.files; then
+   echo "There are no files to build a configure. Please check your checkout."
+   exit 1
+fi
 }
 
 create_subdirs()

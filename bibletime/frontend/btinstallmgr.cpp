@@ -148,11 +148,11 @@ sword::InstallSource BTInstallMgr::Tool::RemoteConfig::source( sword::InstallMgr
 		}
   }
 
-  InstallSource is("EMPTY");   //default return value
-  is.caption = "unknwon caption";
-  is.source = "unknwon source";
-  is.directory = "unknown dir";
-	qWarning("no source with name %s available!", name.latin1());
+	InstallSource is("EMPTY");   //default return value
+	is.caption = "unknown caption";
+	is.source = "unknown source";
+	is.directory = "unknown dir";
+	
 	return is;
 }
 

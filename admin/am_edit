@@ -269,7 +269,7 @@ sub processMakefile ($)
 	tag_CLOSURE();
 	tag_NMCHECK();
 	tag_UIFILES();              # Sorts out ui rules
-	tag_KCFGFILES();            # Sourt out kcfg rules
+	tag_KCFGFILES();            # Sorts out kcfg rules
         tag_METASOURCES ();         # Sorts out the moc rules
         if ($sources_changed{$program}) {
             my $lookup = $program . '_SOURCES\s*=[ \t]*(.*)';
@@ -892,7 +892,7 @@ sub tag_KDEINIT()
                     substituteLine($lookup, "${kdeinit}_la_LIBADD = libkdeinit_${kdeinit}.la");
                     appendLines("libkdeinit_${kdeinit}_la_LIBADD = $libadd\n");
                 }
-                appendLines("libkdeinit_${kdeinit}_la_LDFLAGS = -avoid-version \$(all_libraries)\n");
+                appendLines("libkdeinit_${kdeinit}_la_LDFLAGS = -no-undefined -avoid-version \$(all_libraries)\n");
 
                 # add library dependencies
                 $lookup = $kdeinit . '_la_DEPENDENCIES\s*=[ \t]*(.*)';
@@ -1425,10 +1425,14 @@ sub tag_KCFGFILES ()
                 $kcfg = "$program.kcfg";
                 findKcfgFile("$source.kcfgc");
 
+                my $fixsuffix = "";
+                $fixsuffix = "else mv $source.cpp $source.$cxxsuffix ; " 
+                    unless "cpp" eq $cxxsuffix;
+
                 my $dep_lines = "$source.$cxxsuffix: $source.h\n";
                 $dep_lines .= "$source.h: $sourcedir$kcfg $sourcedir$source.kcfgc \$(KCFG_DEPENDENCIES)\n";
                 $dep_lines .= "\t\$(KCONFIG_COMPILER) $sourcedir$kcfg $sourcedir$source.kcfgc; ret=\$\$?; \\\n";
-		$dep_lines .= "\tif test \"\$\$ret\" != 0; then rm -f $source.h ; exit \$\$ret ; fi\n\n";
+		$dep_lines .= "\tif test \"\$\$ret\" != 0; then rm -f $source.h ; exit \$\$ret ; $fixsuffix fi\n\n";
 
                 $rule_adds{"$source.$cxxsuffix"} = $dep_lines;
 

@@ -40,9 +40,12 @@ BT_ThMLHTML::BT_ThMLHTML() {
 	setTokenEnd(">");
 	setTokenCaseSensitive(true);
   
-	replaceTokenSubstitute("note", " <span class=\"footnote\">(");
-	replaceTokenSubstitute("/note", ")</span> ");
 	replaceTokenSubstitute("/foreign", "</span>");
+
+  if (tokenSubMap.find("note") != tokenSubMap.end()) { //remove note tag
+	  tokenSubMap.erase( tokenSubMap.find("note") );
+  }
+	replaceTokenSubstitute("/note", ")</span>");	
 }
 
 bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::BasicFilterUserData *userData) {  
@@ -110,6 +113,13 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
         };
       };
 		}
+		else if (tag.getName() && !strcasecmp(tag.getName(), "note")) { // <note> tag
+			if (!tag.isEndTag() && !tag.isEmpty()) {
+				SWBuf type = tag.getAttribute("type");
+				SWBuf footnoteNumber = tag.getAttribute("swordFootnote");
+				buf.append("<span class=\"footnote\">(");
+			}
+		}
 		else if (tag.getName() && !strcasecmp(tag.getName(), "scripRef")) { // a more complicated scripRef
       if (tag.isEndTag()) {
        	if (myUserData->inscriptRef) { // like  "<scripRef passage="John 3:16">See John 3:16</scripRef>"
@@ -120,7 +130,7 @@ bool BT_ThMLHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
    			  buf += parseSimpleRef( myUserData->lastTextNode, myModule ? myModule->Lang() : "en" ).c_str();
   				myUserData->suspendTextPassThru = false;
   			}
-      }
+      }		
       else if (tag.getAttribute("passage") ) { //the passage was given within the scripRef tag
         myUserData->inscriptRef = true;
         buf += parseThMLRef(tag.getAttribute("passage"), tag.getAttribute("version")).c_str();
