@@ -24,7 +24,9 @@ sub extract_data {
 	my $name;
 	my $html;
 	
-	$name = $names{ $file };
+	$file =~ /(?:.+\/)?(.+\..+)/;
+	my $tmpl_name = $1 ? $1 : $file;
+	$name = $names{ $tmpl_name };
 	
 	open(IN, "< $file");	
 	while( <IN> ) {
