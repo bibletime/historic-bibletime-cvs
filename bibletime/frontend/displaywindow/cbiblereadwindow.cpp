@@ -267,17 +267,19 @@ void CBibleReadWindow::copyDisplayedText(){
 void CBibleReadWindow::saveChapterHTML(){
   //saves the complete chapter to disk
 
-  CSwordVerseKey vk(*verseKey());
-  CSwordVerseKey dummy(*verseKey());
-
+	CSwordVerseKey dummy(*verseKey());
   dummy.Verse(1);
-  vk.LowerBound(dummy);
+
+  CSwordVerseKey vk(*verseKey());
+	vk.LowerBound(dummy);
 
   CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(modules().first());
-  dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
-  vk.UpperBound(dummy);
+	qWarning("verseCount for %s and %i", (const char*)dummy.book().local8Bit(), dummy.Chapter());
+	dummy.Verse(bible->verseCount(dummy.book(), dummy.Chapter()));
 
-  CExportManager mgr(i18n("Saving chapter ..."), true, i18n("Saving"), filterOptions(),displayOptions());
+	vk.UpperBound(dummy);
+
+  CExportManager mgr(i18n("Saving chapter ..."), true, i18n("Saving"), filterOptions(), displayOptions());
   mgr.saveKey(&vk, CExportManager::HTML, true);
 }
 
@@ -318,5 +320,5 @@ bool CBibleReadWindow::eventFilter( QObject* o, QEvent* e) {
     	}
     }
   }
-  CLexiconReadWindow::eventFilter(o,e);
+  return CLexiconReadWindow::eventFilter(o,e);
 }

@@ -63,7 +63,8 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
 				fprintf( stderr,"(BibleTime %s) Debug: %s\n",VERSION, msg );
 			break;
 		case QtWarningMsg:
-				fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
+			//if (showDebugMessages)
+			//	fprintf( stderr,"(BibleTime %s) WARNING: %s\n",VERSION, msg );
 			break;
 		case QtFatalMsg:
 			fprintf( stderr,"(BibleTime %s) _FATAL_: %s\nPlease contact info@bibletime.de and report this bug!",VERSION, msg );
@@ -110,7 +111,7 @@ please use the option --ignore-session\n");
     if (bibletime_ptr) {
 			bibletime_ptr->saveSettings();
 			fprintf(stderr, "*** Saving seemed to be succesful. If restoring does not work on next startup \
-please use the option --ignore-session\n");		
+please use the option --ignore-session\n");
 		}
 		// Return to DrKonqi.
 	}
@@ -133,8 +134,8 @@ int main(int argc, char* argv[]) {
 		{"ignore-session", I18N_NOOP("Ignore the startup session that was saved when BibleTime was closed the last time."),0},
 		{"open-default-bible <key>", I18N_NOOP("Open the default bible with the given key. Use <random> to open at a random position."),0},
 		{0,0,0}
-	};	
-		
+	};
+
 	KAboutData aboutData(
 		PACKAGE,
 		"BibleTime",
@@ -233,11 +234,11 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 
             
 		util::scoped_ptr<BibleTime> bibletime( new BibleTime() );
-    bibletime_ptr = bibletime;
+		bibletime_ptr = bibletime.get();
 
 		if (showIt) {
 			KStartupLogo::hideSplash();
-			KStartupLogo::deleteSplash();	  		  	
+			KStartupLogo::deleteSplash();
 		}
 
 		// a new BibleTime version was installed (maybe a completely new installation)
@@ -262,14 +263,11 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
  
     const int ret = app.exec();
 
-    /* Don't delete the bibletime object, it's done through the scoped_ptr object!
-    */
-    //delete bibletime;
-
-    CPointers::deleteBackend();
     //we can set this safely now because we close now (hopyfully without crash)
     CBTConfig::set(CBTConfig::crashedLastTime, false);
-    CBTConfig::set(CBTConfig::crashedTwoTimes, false);    
+    CBTConfig::set(CBTConfig::crashedTwoTimes, false);
+
+		//at this point the bacend still exists, we need to find a better way to delete it
 		return ret;
 //	}
 }

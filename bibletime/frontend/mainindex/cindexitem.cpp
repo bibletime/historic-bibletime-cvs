@@ -376,7 +376,7 @@ CBookmarkItem::CBookmarkItem(CFolderBase* parentItem, CSwordModuleInfo* module, 
   else {
     m_key = key;
   };
-  
+
   m_startupXML = QDomElement();
 }
 
@@ -496,7 +496,7 @@ void CBookmarkItem::loadFromXML( QDomElement& element ) {
     return;
 
   //find the right module
-  if (element.hasAttribute("modulename") && element.hasAttribute("moduledescription")) {
+  if (element.hasAttribute("modulename") /* && element.hasAttribute("moduledescription")*/ ) {
     m_module = backend()->findModuleByName(element.attribute("modulename"));
     if (!m_module/*&& m_module->config(CSwordModuleInfo::Description) != element.attribute("moduledescription")*/) {
       qWarning("Can't find module with name %s and description %s", element.attribute("modulename").latin1(), element.attribute("moduledescription").latin1() );
@@ -880,7 +880,7 @@ namespace Bookmarks {
    //this function is empty because the folder imports the old 1.2 bookmarks from the bt-groupmanager config file
  }
 
- 
+
  // New class SubFolder
 
  SubFolder::SubFolder(CFolderBase* parentItem, const QString& caption) : CBookmarkFolder(parentItem, BookmarkFolder) {
@@ -1069,7 +1069,7 @@ const bool CBookmarkFolder::saveBookmarks( const QString& filename, const bool& 
     i = dynamic_cast<CItemBase*>( i->nextSibling() );
   }
 
-	return CToolClass::savePlainFile(filename, doc.toString().utf8(), forceOverwrite);
+	return CToolClass::savePlainFile(filename, doc.toString(), forceOverwrite, QTextStream::UnicodeUTF8);
 }
 
 const bool CBookmarkFolder::loadBookmarksFromXML( const QString& xml ){
@@ -1120,8 +1120,9 @@ const bool CBookmarkFolder::loadBookmarks( const QString& filename ){
 
   QString xml;	
 	if (file.open(IO_ReadOnly)) {		
-		QTextStream t( &file );
-		t.setEncoding(QTextStream::UnicodeUTF8);
+		QTextStream t;
+		t.setEncoding(QTextStream::UnicodeUTF8); //set encoding before file is used for input!
+		t.setDevice(&file);
     xml = t.read();
 		file.close();	
 	}

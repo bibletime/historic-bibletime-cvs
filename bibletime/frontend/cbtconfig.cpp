@@ -319,10 +319,11 @@ const QStringList	CBTConfig::get( const CBTConfig::stringLists ID ){
 const CBTConfig::StringMap CBTConfig::get( const CBTConfig::stringMaps ID ){
 	KConfig* config = KGlobal::config();
 	KConfigGroupSaver groupSaver(config, getKey(ID));
-  CBTConfig::StringMap map = config->entryMap(getKey(ID));
+
   if (config->hasGroup(getKey(ID))) {
+	  CBTConfig::StringMap map = config->entryMap(getKey(ID));
     switch (ID) {
-      case searchScopes: { //make sure wwe return the scopes in the chosen language. saved keys are in english
+      case searchScopes: { //make sure we return the scopes in the chosen language. saved keys are in english
         CBTConfig::StringMap::Iterator it;
         sword::VerseKey vk;
 

@@ -23,6 +23,7 @@
 //Qt includes
 #include <qstring.h>
 #include <qpixmap.h>
+#include <qtextstream.h>
 
 
 #ifndef CTOOLCLASS_H
@@ -67,7 +68,7 @@ public:
   * @return True if saving was sucessful, otherwise false
   * @author Joachim Ansorg
   */
-  static bool savePlainFile( const QString& filename, const QString& text, const bool& forceOverwrite = false);
+  static bool savePlainFile( const QString& filename, const QString& text, const bool& forceOverwrite = false, const QTextStream::Encoding& fileEncoding = QTextStream::Locale);
   /**
  	* Returns the icon used for the module given as aparameter.
  	*/

@@ -74,10 +74,10 @@ QString CToolClass::textToHTML(const QString& text){
 
 /** Creates the file filename and put text into the file.
  */
-bool CToolClass::savePlainFile( const QString& filename, const QString& text, const bool& forceOverwrite){
+bool CToolClass::savePlainFile( const QString& filename, const QString& text, const bool& forceOverwrite, const QTextStream::Encoding& fileEncoding){
 	QFile saveFile(filename);
 	bool ret;
-		
+
 	if (saveFile.exists()) {
 		if (!forceOverwrite && KMessageBox::warningYesNo(0,
 				  QString::fromLatin1("<qt><B>%1</B><BR>%2</qt>")
@@ -92,9 +92,10 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text, co
 			saveFile.remove();
     }
 	};
-	
+
 	if ( saveFile.open(IO_ReadWrite) ) {
 		QTextStream textstream( &saveFile );
+		textstream.setEncoding(fileEncoding);
 		textstream << text;
 		saveFile.close();
 		ret = true;
@@ -104,8 +105,8 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text, co
 			.arg( i18n("The file couldn't be saved.") )
 			.arg( i18n("Please check permissions etc.")));
 		saveFile.close();
-		ret = false;		
-	}	
+		ret = false;
+	}
 	return ret;
 }
 

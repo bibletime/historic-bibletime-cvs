@@ -51,7 +51,7 @@ using std::string;
 static QMap<QString, QString> moduleDescriptionMap;
 
 CSwordBackend::CSwordBackend()
-	: sword::SWMgr(0,0,false,new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
+	: sword::SWMgr(0,0,false, new sword::EncodingFilterMgr( sword::ENC_UTF8 ))
 {	
 	m_displays.entry = 0;
 	m_displays.chapter = 0;
@@ -63,9 +63,9 @@ CSwordBackend::CSwordBackend()
 }
 
 CSwordBackend::~CSwordBackend(){
-	shutdownModules();	
+	shutdownModules();
 	delete m_filters.gbf;
-	delete m_filters.plain;	
+	delete m_filters.plain;
 	delete m_filters.thml;
 
   delete m_displays.book;
@@ -169,9 +169,9 @@ const bool CSwordBackend::shutdownModules(){
 			CSwordModuleInfo* current = m_moduleList.current();
 			m_moduleList.take();
 			delete current;
-		}		
+		}
 	}
-	m_moduleList.clear();	
+	m_moduleList.clear();
 	return true;
 }
 
@@ -181,22 +181,25 @@ const bool CSwordBackend::isOptionEnabled( const CSwordBackend::FilterTypes type
 }
 
 /** Sets the given options enabled or disabled depending on the second parameter. */
-void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int state){
-  string value;
+void CSwordBackend::setOption( const CSwordBackend::FilterTypes type, const int state ){
+  sword::SWBuf value;
 	switch (type) {
 		case textualVariants:
-      if (state == 0)
+      if (state == 0) {
         value = "Primary Reading";
-      else if (state == 1)
+			}
+      else if (state == 1) {
         value = "Secondary Reading";
-      else
+			}
+      else {
         value = "All Readings";
+			}
 			break;
     case transliteration:
       if (useICU()) {
-        sword::OptionsList options = transliterator()->getOptionValues();
-        sword::OptionsList::iterator it = options.begin();
-        for (int index = state; index >0 && it != options.end(); ++it) {
+        sword::StringList options = transliterator()->getOptionValues();
+        sword::StringList::iterator it = options.begin();
+        for (int index = state; (index>0) && (it != options.end()); ++it) {
           --index;
         }
         value = it->c_str();

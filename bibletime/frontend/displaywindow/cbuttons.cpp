@@ -67,13 +67,14 @@ void CTransliterationButton::populateMenu(){
   if (!CPointers::backend()->transliterator())
     return;
 
-  sword::OptionsList options = CPointers::backend()->transliterator()->getOptionValues();
-  sword::OptionsList::iterator it;
+  sword::StringList options = CPointers::backend()->transliterator()->getOptionValues();
+  sword::StringList::iterator it;
 
   for (it = options.begin(); it != options.end(); ++it) {
 		int id = m_popup->insertItem(QString::fromLatin1((*it).c_str()));
-		if (m_filterOptions->transliteration == m_popup->indexOf(id) -1 ) //workaround
+		if (m_filterOptions->transliteration == m_popup->indexOf(id)-1 ) { //workaround
 			m_popup->setItemChecked(id, true);
+		}
   }
 }
 

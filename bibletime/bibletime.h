@@ -109,6 +109,7 @@ public:
 	* construtor of BibleTime
 	*/
 	BibleTime();
+	
 	virtual void show();
 	/**
 	* Reads the settings from the configfile and sets the right properties.

@@ -47,25 +47,20 @@ using std::string;
 CSwordModuleInfo::CSwordModuleInfo( sword::SWModule* module ) {
 	m_module = module;
 	m_searchResult.ClearList();
-	m_dataCache.name = QString::fromLatin1(module->Name());
-	m_dataCache.isUnicode = m_module->isUnicode();
+	m_dataCache.name = module ? QString::fromLatin1(module->Name()) : QString();
+	m_dataCache.isUnicode = module ? module->isUnicode() : false;
 
 	if (backend()) {
 		if (hasVersion() && (minimumSwordVersion() > sword::SWVersion::currentVersion)) {
 		 	qWarning("The module \"%s\" requires a newer Sword library. Please update to \"Sword %s\".", name().latin1(), (const char*)minimumSwordVersion());
 		}
 	}
-
-  if (backend() && isLocked() && !isEncrypted()) { //locked module which has a key set
-//    backend()->setCipherKey(m_module->Name(), config(CipherKey).latin1() );
-  };
 }
 
 CSwordModuleInfo::CSwordModuleInfo( const CSwordModuleInfo& m ) {
 	m_module = m.m_module;
 	m_searchResult = m.m_searchResult;
 }
-
 
 /** No descriptions */
 CSwordModuleInfo* CSwordModuleInfo::clone(){
@@ -130,14 +125,14 @@ const bool CSwordModuleInfo::hasVersion() const {
 const bool CSwordModuleInfo::search( const QString searchedText, const int searchOptions, sword::ListKey scope, void (*percentUpdate)(char, void*) ) {
 	int searchType = 0;
  	int searchFlags = REG_ICASE;
-	
+
 	//work around Swords thread insafety for Bibles and Commentaries
 	util::scoped_ptr<CSwordKey> key( CSwordKey::createInstance(this) );
 	sword::SWKey* s = dynamic_cast<sword::SWKey*>(key.get());
 	if (s) {
 		m_module->SetKey(*s);
   }
-	
+
 	//setup variables required for Sword
 	if (searchOptions & CSwordModuleSearch::caseSensitive)
 		searchFlags = 0;
@@ -162,7 +157,7 @@ const bool CSwordModuleInfo::search( const QString searchedText, const int searc
   else {
   	m_searchResult = m_module->Search(searchedText.utf8(), searchType, searchFlags, 0, 0, percentUpdate);
   }
-  
+
 	return (m_searchResult.Count() > 0);
 }
 
@@ -206,16 +201,12 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 			QString about = QString::fromLatin1(m_module->getConfigEntry("About"));
 			if (!about.isEmpty()) {	
 				sword::RTFHTML filter;
-//				const int len = about.length()+600;
-//				char dummy[len];
-//				strcpy(dummy, about.local8Bit());
-
-        sword::SWBuf buf( about.local8Bit() );
+				sword::SWBuf buf( about.local8Bit() );
 				filter.processText(buf, 0, 0);
 				about = QString::fromLocal8Bit(buf.c_str());
-			}			
+			}
 			return about;
-		}		
+		}
 		case CipherKey:
       if (CBTConfig::getModuleEncryptionKey(name()).isNull()) { //fall back!
   			return QString::fromLatin1( m_module->getConfigEntry("CipherKey") );
@@ -225,13 +216,15 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
       };
 		case AbsoluteDataPath: {
 			QString path = QString::fromLatin1(m_module->getConfigEntry("AbsoluteDataPath"));
-      path.replace(QRegExp("/./"), "/");
+      path.replace(QRegExp("/./"), "/"); // make /abs/path/./modules/ looking better
       return path;
     }
 		case DataPath:
 			return QString::fromLatin1(m_module->getConfigEntry("DataPath"));
 		case Description:
-			return QString::fromLocal8Bit(m_module->Description());			
+//			qWarning("Descrioptio!");
+//			Q_ASSERT(m_module);
+			return QString::fromLatin1(m_module->Description());
 		case ModuleVersion:
 			return QString::fromLatin1(m_module->getConfigEntry("Version"));
 		case MinimumSwordVersion: {
@@ -311,12 +304,9 @@ const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection(){
 
 /** Writes the new text at the given position into the module. This does only work for writable modules. */
 void CSwordModuleInfo::write( CSwordKey* key, const QString& newText ){
-//  qWarning("write %s to key %s", newText.latin1(), key->key().latin1());
   module()->KeyText( key->key().local8Bit() );
-  const char* text = isUnicode() ? (const char*)newText.utf8() : (const char*)newText.local8Bit();
-  Q_ASSERT( module()->isWritable() );
-  module()->setEntry( text, strlen(text) );
-//  qWarning("wrote %s to key %s", newText.latin1(), key->key().latin1());
+	//don't store a pointer to the const char* value somewhere because QCString doesn't keep the value of it
+	module()->setEntry( isUnicode() ? (const char*)newText.utf8() : (const char*)newText.local8Bit() );
 }
 
 /** Deletes the current entry and removes it from the module. */

@@ -9,7 +9,6 @@ SUBDIRS = \
 BIBLETIME_PICS = \
 startuplogo.png
 
-
 EXTRA_DIST = $(BIBLETIME_PICS)
 
 install-data-local:
@@ -27,6 +26,3 @@ uninstall-local:
 	echo Removing $(DESTDIR)$(kde_datadir)/bibletime/pics/$$file; \
 	rm -f $(DESTDIR)$(kde_datadir)/bibletime/pics/$$file; \
 	done
-
-KDE_ICON = AUTO
-

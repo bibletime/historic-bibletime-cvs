@@ -145,7 +145,7 @@ void  CStyleListPage::getOptions (QMap<QString, QString>& opts, bool /*incldef*/
 
 	const QString leading = "kde-bibletime-";
 	opts[ leading+"upper_margin" ] = QString::number(m_marginSpin[0]->value());
-	qWarning(opts[leading+"upper_margin"].latin1());
+//	qWarning(opts[leading+"upper_margin"].latin1());
 	opts[ leading+"lower_margin" ] = QString::number(m_marginSpin[1]->value());
 	opts[ leading+"left_margin"  ] = QString::number(m_marginSpin[2]->value());
 	opts[ leading+"right_margin" ] = QString::number(m_marginSpin[3]->value());

@@ -68,7 +68,7 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
     CPointers::backend()->setFilterOptions(m_filterOptions);
     CPointers::backend()->setDisplayOptions(m_displayOptions);
 
-    CSwordModuleInfo* module = key->module();    
+    CSwordModuleInfo* module = key->module();
   	if (CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key) ) { //we can have a boundary
       if (vk->isBoundSet()) {//we have a valid boundary!
         hasBounds = true;
@@ -77,10 +77,11 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
 
     		startKey.key(vk->LowerBound());
     		stopKey.key(vk->UpperBound());
-      
+//		qWarning(vk->UpperBound());
+
         QString entryText;
         if (format == HTML) {
-          text = QString::fromLatin1("<HTML><HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><BODY>")
+          text = QString::fromLatin1("<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"><STYLE type=\"text/css\">%1</STYLE></head><body>")
                    .arg(htmlCSS(module));
         };
 
@@ -89,28 +90,31 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
           QString bound = QString::fromLatin1("%1 - %2").arg(startKey.key()).arg(stopKey.key());
           text +=
             (format == HTML)
-            ? QString::fromLatin1("<H3>%1</H3><BR>").arg(bound)
+            ? QString::fromLatin1("<h3>%1</h3><br/>").arg(bound)
             : QString::fromLatin1("%1\n\n").arg(bound);
 
          	while ( startKey < stopKey || startKey == stopKey ) {
+						//qWarning(startKey.key().latin1());
+						//qWarning(stopKey.key().latin1());
+
             entryText = (format == HTML) ? startKey.renderedText(CSwordKey::HTMLEscaped) : startKey.strippedText();
 
          		text += ((bool)m_displayOptions.verseNumbers ? QString::fromLatin1("%1 ").arg(startKey.Verse()) : QString::null)
 + entryText + lineBreak(format);
 
             startKey.next(CSwordVerseKey::UseVerse);
-          }            
+          }
         }
         else {
           hasBounds = false;
         };
       }
   	}
-   
+
     if (!hasBounds) { //no verse key, so we can't have a boundary!
       text =
-        (format == HTML) 
-        ? QString::fromLatin1("<HTML><HEAD><TITLE>%1</TITLE></HEAD><BODY><H3>%2 (%3)</H3><BR>%4") //HTML escaped text
+        (format == HTML)
+        ? QString::fromLatin1("<HTML><HEAD><TITLE>%1</TITLE><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\"></HEAD><BODY><H3>%2 (%3)</H3><br/>%4") //HTML escaped text
             .arg(key->key())
             .arg(key->key())
             .arg(module->name())            
@@ -128,7 +132,7 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
     }
 
     if (format == HTML) {
-      text += QString::fromLatin1("</BODY></HTML>");
+      text += QString::fromLatin1("</body></html>");
     };    
   }
   else { //don't add the text of the key, we
@@ -136,7 +140,7 @@ const bool CExportManager::saveKey(CSwordKey* key, const Format format, const bo
   	return true;
   }
   
-	CToolClass::savePlainFile(filename, text);
+	CToolClass::savePlainFile(filename, text, false, (format==HTML) ? QTextStream::UnicodeUTF8 : QTextStream::Locale);
 	return true;
 };
 

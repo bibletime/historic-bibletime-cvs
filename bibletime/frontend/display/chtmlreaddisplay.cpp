@@ -310,7 +310,7 @@ CHTMLReadDisplayView::CHTMLReadDisplayView(CHTMLReadDisplay* displayWidget, QWid
 /** Opens the popupmenu at the given position. */
 void CHTMLReadDisplayView::popupMenu( const QString& url, const QPoint& pos){
  	if (!url.isEmpty()) {
-    qWarning(url.latin1());
+//    qWarning(url.latin1());
   	m_display->setActiveAnchor(url);
 	}
  	if (QPopupMenu* popup = m_display->installedPopup()) {

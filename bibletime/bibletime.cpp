@@ -70,7 +70,7 @@ BibleTime::BibleTime()
     m_profileMgr(),
     m_backend(0),
     m_printer(0),
-    m_mainIndex(0)  
+    m_mainIndex(0)
 {
 	setHelpMenuEnabled(false);
 
@@ -78,17 +78,17 @@ BibleTime::BibleTime()
 	initPrinter();
 	initView();
 	initActions();
-  
+
 	createGUI("bibletimeui.rc");
 	initMenubar();
-	initConnections();	
-	
+	initConnections();
+
 	readSettings();
 
 	setPlainCaption("BibleTime " VERSION);
 
   // we don't save the geometry, it's stored in the startup profile
-  setAutoSaveSettings(QString::fromLatin1("MainWindow"), false); 
+  setAutoSaveSettings(QString::fromLatin1("MainWindow"), false);
 }
 
 /** Saves the properties of BibleTime to the application wide configfile  */
@@ -103,7 +103,7 @@ void BibleTime::saveSettings(){
 
  	CBTConfig::set(CBTConfig::toolbar, m_viewToolbar_action->isChecked());
  	CBTConfig::set(CBTConfig::mainIndex, m_viewMainIndex_action->isChecked());
-  
+
  	if (m_viewMainIndex_action->isChecked()) {	//only save changes when the groupmanager is visible
  		CBTConfig::set(CBTConfig::splitterSizes, m_splitter->sizes());
   }

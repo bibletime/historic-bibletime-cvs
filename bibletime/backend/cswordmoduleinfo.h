@@ -215,7 +215,7 @@ protected:
   const bool isUnicode();
 
 private:
-	sword::SWModule*	m_module;
+	sword::SWModule* m_module;
 	sword::ListKey m_searchResult;
 	struct {
 		QString name;
