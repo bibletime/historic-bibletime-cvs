@@ -102,7 +102,7 @@ const QString CTextRendering::renderKeyTree( KeyTree& tree ) {
 }
 
 const QString CTextRendering::renderKeyRange( const QString& start, const QString& stop, ListCSwordModuleInfo modules ) {
-	qWarning("renderKeyRange: %s - %s", start.latin1(), stop.latin1());
+//	qWarning("renderKeyRange: %s - %s", start.latin1(), stop.latin1());
 	
 	CSwordModuleInfo* module = modules.first();
 	util::scoped_ptr<CSwordKey> lowerBound( CSwordKey::createInstance(module) );
@@ -127,7 +127,7 @@ const QString CTextRendering::renderKeyRange( const QString& start, const QStrin
 		CSwordVerseKey* vk_stop = dynamic_cast<CSwordVerseKey*>(upperBound.get());
 		
 		Q_ASSERT(vk_start && vk_stop);
-		qWarning("render range: %s - %s", vk_start->key().latin1(), vk_stop->key().latin1());
+//		qWarning("render range: %s - %s", vk_start->key().latin1(), vk_stop->key().latin1());
 		
 		while ((*vk_start < *vk_stop) || (*vk_start == *vk_stop)) {
 			tree.append( KeyTreeItem(vk_start->key(), modules,settings) );
@@ -291,17 +291,6 @@ CDisplayRendering::CDisplayRendering(CSwordBackend::DisplayOptions displayOption
 {
 
 }
-
-//CDisplayRendering::~CExportHTMLRendering() {
-//}
-	
-//const QString CExportHTMLRendering::renderEntry( const KeyTreeItem& ) {
-//}
-
-//const QString CExportHTMLRendering::finishText( const QString&, KeyTree& tree ) {
-//}
-//void CExportHTMLRendering::initRendering() {
-//}
 
 
 const QString CDisplayRendering::entryLink( const KeyTreeItem& item, CSwordModuleInfo*  module ) {

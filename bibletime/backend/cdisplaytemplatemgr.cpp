@@ -96,11 +96,14 @@ const QString CDisplayTemplateMgr::fillTemplate( const QString& name, const QStr
 	};
 	
 	QString newContent = content;
-	if (settings.modules.count() >= 2) {
+	const int moduleCount = settings.modules.count();
+	if (moduleCount >= 2) {
 		//create header for the modules
 		QString header;
 		for (CSwordModuleInfo* m = settings.modules.first(); m; m = settings.modules.next()) {
-			header += QString::fromLatin1("<th>%1</th>").arg( m->name() );
+			header += QString::fromLatin1("<th style=\"width:%1%;\">%2</th>")
+				.arg( int( 100.0 / (float)moduleCount ) )
+				.arg( m->name() );
 		}
 		
 		newContent = QString::fromLatin1("<table><tr>%1</tr>%2</table>").arg(header).arg(content);
