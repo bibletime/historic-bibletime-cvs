@@ -70,7 +70,8 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 		m_htmlText = QString::null;
 		return 0;
 	}	
-	key->key( module->module()->KeyText() );
+	qWarning("EntryDisplay::lookup: keytext is %s", module->module()->KeyText());
+  key->key( module->module()->KeyText() );
 	
 	CReferenceManager::Type refType = CReferenceManager::Unknown;
 	if (module->type() == CSwordModuleInfo::Bible)

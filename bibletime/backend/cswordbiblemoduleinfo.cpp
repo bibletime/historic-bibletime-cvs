@@ -101,26 +101,26 @@ QStringList* CSwordBibleModuleInfo::books() {
 /** Returns the number of chapters for the given book. */
 const unsigned int CSwordBibleModuleInfo::chapterCount(const unsigned int book) {
 	int result = 0;
-	if ( (book >= 1) && book <= (unsigned int)staticKey.BMAX[0] && hasTestament(OldTestament)) {		//Is the book in the old testament?
-		result = (staticKey.books[0][book-1].chapmax);
-	}
-	else if ((book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(NewTestament) ) {	//is the book in the new testament?
-	 	result = (staticKey.books[1][book-1-staticKey.BMAX[0]].chapmax);
-	}
+ 	if ( (book >= 1) && book <= (unsigned int)staticKey.BMAX[0] && hasTestament(OldTestament)) {		//Is the book in the old testament?
+ 	  result = (staticKey.books[0][book-1].chapmax);
+ 	}
+ 	else if ((book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(NewTestament) ) {	//is the book in the new testament?
+ 	 	result = (staticKey.books[1][book-1-staticKey.BMAX[0]].chapmax);
+ 	}
 	return result;
 }
 
 /** Returns the number of verses  for the given chapter. */
 const unsigned int CSwordBibleModuleInfo::verseCount( const unsigned int book, const unsigned int chapter ) {
 	unsigned int result = 0;
-	if (book>=1 && (book <= (unsigned int)staticKey.BMAX[0]) && hasTestament(OldTestament) ) { //Is the book in the old testament?
-		if (chapter <= chapterCount(book) )	//does the chapter exist?
-			result = (staticKey.books[0][book-1].versemax[chapter-1]);
-	}
-	else if (book>=1 && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(NewTestament)) {	//is the book in the new testament?
-		if (chapter <= chapterCount(book) )	//does the chapter exist?
-			result = staticKey.books[1][book-1-staticKey.BMAX[0]].versemax[chapter-1];
-	}
+ 	if (book>=1 && (book <= (unsigned int)staticKey.BMAX[0]) && hasTestament(OldTestament) ) { //Is the book in the old testament?
+ 		if (chapter <= chapterCount(book) )	//does the chapter exist?
+ 			result = (staticKey.books[0][book-1].versemax[chapter-1]);
+ 	}
+ 	else if (book>=1 && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] && hasTestament(NewTestament)) {	//is the book in the new testament?
+ 		if (chapter <= chapterCount(book) )	//does the chapter exist?
+ 			result = staticKey.books[1][book-1-staticKey.BMAX[0]].versemax[chapter-1];
+ 	}
 	return result;
 }
 

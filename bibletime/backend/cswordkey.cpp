@@ -46,19 +46,23 @@ CSwordModuleInfo* const CSwordKey::module(CSwordModuleInfo* const newModule) {
 }
 
 const QString CSwordKey::renderedText() {
-	if (!m_module)
+//	qWarning("const QString CSwordKey::renderedText()");
+  if (!m_module)
 		return QString::null;		
 	if (SWKey* k = dynamic_cast<SWKey*>(this)) {
-		m_module->module()->SetKey(k);		
+    m_module->module()->SetKey(k);		
 	}
-	return QString::fromUtf8(m_module->module()->RenderText());
+  if (key().isNull()) {
+    return QString::null;
+  }
+  return QString::fromUtf8(m_module->module()->RenderText());
 }
 
 const QString CSwordKey::strippedText() {
-	if (!m_module)
+	qWarning("const QString CSwordKey::strippedText()");	
+  if (!m_module)
 		return QString::null;
-	SWKey* k = dynamic_cast<SWKey*>(this);
-	if (k)
+	if (SWKey* k = dynamic_cast<SWKey*>(this))
 		m_module->module()->SetKey(k);
 	return QString::fromUtf8(m_module->module()->StripText());	
 }

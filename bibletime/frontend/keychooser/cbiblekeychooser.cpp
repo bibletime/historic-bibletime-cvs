@@ -19,11 +19,11 @@
 #include "cbiblekeychooser.h"
 #include "ckeychooserwidget.h"
 #include "cfx_btn.h"
-#include "../../whatsthisdef.h"
-#include "../../tooltipdef.h"
-#include "../../backend/cswordversekey.h"
-#include "../../backend/cswordbiblemoduleinfo.h"
-#include "../../backend/cswordmoduleinfo.h"
+#include "whatsthisdef.h"
+#include "tooltipdef.h"
+#include "backend/cswordversekey.h"
+#include "backend/cswordbiblemoduleinfo.h"
+#include "backend/cswordmoduleinfo.h"
 
 //Qt includes
 #include <qcombobox.h>
@@ -45,7 +45,7 @@ CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 		return;
 	}
 	QHBoxLayout* layout = new QHBoxLayout(this);
-	layout->setResizeMode(QLayout::Fixed);
+	layout->setResizeMode(QLayout::Minimum);
 		
 	w_book = new CKeyChooserWidget(m_info->books(),false,this);	
 	w_book->setToolTips(TT_PRESENTER_BOOK_COMBO, TT_PRESENTER_NEXT_BOOK, TT_PRESENTER_SCROLL_BUTTON, TT_PRESENTER_PREVIOUS_BOOK);
@@ -82,14 +82,16 @@ CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 	connect(w_verse,SIGNAL(changed(int))      ,SLOT(verseChanged(int)));
 	connect(w_verse,SIGNAL(next_requested())  ,SLOT(verseNextRequested()));
 	connect(w_verse,SIGNAL(prev_requested())  ,SLOT(versePrevRequested()));
-	connect(w_verse,SIGNAL(focusOut(int))     ,SLOT(verseFocusOut(int)));	
+	connect(w_verse,SIGNAL(focusOut(int))     ,SLOT(verseFocusOut(int)));
 }
 
 CSwordKey* const CBibleKeyChooser::key(){
 	if (m_key) {
+    const int chapter =  w_chapter->comboBox()->currentText().toInt();
+    const int verse = w_verse->comboBox()->currentText().toInt();
 		m_key->book(w_book->comboBox()->currentText());	
-		m_key->Chapter(w_chapter->comboBox()->currentText().toInt());			
-		m_key->Verse(w_verse->comboBox()->currentText().toInt());			
+		m_key->Chapter(chapter < 0 ? 0 : chapter);			
+		m_key->Verse(verse < 0 ? 0 : verse);			
 	}
 	return m_key;
 }
@@ -102,6 +104,8 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 	const unsigned int bookIndex = m_info->bookNumber( m_key->book() );
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
+
+  qWarning("setkey: %i %i:%i", bookIndex, chapter, verse);
 
 	//reset the keychooser parts only if we found a valid book
 	const int count = w_book->comboBox()->count();
@@ -119,17 +123,20 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 			w_book->setItem( m_key->book() );
 		
 		w_chapter->reset(m_info->chapterCount(bookIndex), chapter-1, false);
-		w_chapter->adjustSize();
+//		w_chapter->adjustSize();
 		
 		w_verse->reset(m_info->verseCount(bookIndex, chapter), verse-1, false);
-		w_verse->adjustSize();
+//		w_verse->adjustSize();
 	
 		emit keyChanged(m_key);					
 	}
 	else {
 		qWarning("CBibleKeyChooser::setKey: book %s is invalid!", m_key->book().latin1());
-		w_verse->comboBox()->setCurrentItem(0);				
-		m_key->Verse(w_verse->comboBox()->currentText().toInt());		
+  	w_chapter->comboBox()->setCurrentItem(0);				
+ 		m_key->Chapter(/*w_verse->comboBox()->currentText().toInt()*/1);		
+
+    w_verse->comboBox()->setCurrentItem(0);				
+		m_key->Verse(/*w_verse->comboBox()->currentText().toInt()*/1);		
 	}
 }
 

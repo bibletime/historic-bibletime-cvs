@@ -205,7 +205,6 @@ void CDisplayWindow::modulesChanged(){
 
 /** Lookup the given key. */
 void CDisplayWindow::lookup( CSwordKey* key ){
-//	qWarning("CDisplayWindow::lookup( CSwordKey* key )");
 }
 
 /** Returns the module chooser bar. */

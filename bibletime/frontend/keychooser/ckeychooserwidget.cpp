@@ -196,18 +196,18 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		return;
 	isResetting = true;	
 	setUpdatesEnabled(false);
-	m_comboBox->setUpdatesEnabled(false);
+//	m_comboBox->setUpdatesEnabled(false);
 
-	m_mainLayout->setResizeMode(QLayout::FreeResize);
+//	m_mainLayout->setResizeMode(QLayout::FreeResize);
 	
 	oldKey = QString::null;
 	m_comboBox->clear();
 	if (list)
 		m_comboBox->insertStringList(*list);
 	m_comboBox->resize( m_comboBox->sizeHint() );
-	m_comboBox->setUpdatesEnabled(true);			
+//	m_comboBox->setUpdatesEnabled(true);			
 	
-	m_mainLayout->setResizeMode(QLayout::Minimum);
+//	m_mainLayout->setResizeMode(QLayout::Minimum);
 	
 	m_comboBox->setCurrentItem(index);	
 	if (!list || (list && !list->count())) { //nothing in the combobox
@@ -228,6 +228,8 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	if (do_emit) {
 		emit changed(m_comboBox->currentItem());				
 	}
+
+  m_comboBox->adjustSize();
 	isResetting = false;	
 }
 
@@ -248,7 +250,7 @@ void CKeyChooserWidget::init( ){
 	oldKey = QString::null;
 	btn_up = btn_down = btn_fx = 0;
 
-	setFocusPolicy(QWidget::StrongFocus);			
+	setFocusPolicy(QWidget::WheelFocus);			
 			
 	m_comboBox = new CKCComboBox( true, this );
 	m_comboBox->setAutoCompletion( true );
@@ -256,7 +258,7 @@ void CKeyChooserWidget::init( ){
 	m_comboBox->setFocusPolicy(QWidget::WheelFocus);	
 	
 	m_mainLayout = new QHBoxLayout( this );	
-	m_mainLayout->setResizeMode(QLayout::Minimum);			
+//	m_mainLayout->setResizeMode(QLayout::Minimum);			
 	m_mainLayout->addWidget(m_comboBox);
 
 	QVBoxLayout* m_buttonLayout = new QVBoxLayout();	

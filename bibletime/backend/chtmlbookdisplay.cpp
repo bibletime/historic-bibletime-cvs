@@ -24,7 +24,7 @@
 char CHTMLBookDisplay::Display( CSwordModuleInfo* module ){
 	CSwordBookModuleInfo* book = dynamic_cast<CSwordBookModuleInfo*>(module);
 	util::scoped_ptr<CSwordTreeKey> key( dynamic_cast<CSwordTreeKey*>( CSwordKey::createInstance(book) ) );
-//	m_htmlText = QString::null;
+	m_htmlText = header();
 	
 	if (!module || !key) {		
 		return 0;

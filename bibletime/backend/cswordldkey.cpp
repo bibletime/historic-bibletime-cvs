@@ -28,9 +28,10 @@
 
 
 CSwordLDKey::CSwordLDKey( CSwordModuleInfo* module ) {
-	m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module);
-	if (m_module)
-		SWKey::operator = (m_module->module()->KeyText());
+	if (m_module = dynamic_cast<CSwordLexiconModuleInfo*>(module)) {
+//    *(m_module->module()) = TOP;	
+  }
+  SWKey::operator = (" ");
 }
 
 /** No descriptions */
@@ -39,11 +40,7 @@ CSwordLDKey::CSwordLDKey( const CSwordLDKey &k ) : SWKey((const char*)k), CSword
 
 /** No descriptions */
 CSwordLDKey::CSwordLDKey( const SWKey *k, CSwordModuleInfo* module) : SWKey(*k), CSwordKey(module) {
-//	m_module = module;
 }
-
-//CSwordLDKey::~CSwordLDKey(){
-//}
 
 /** Clones this object by copying the members. */
 CSwordLDKey* CSwordLDKey::copy() const {

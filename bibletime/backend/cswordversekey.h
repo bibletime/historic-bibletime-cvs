@@ -77,13 +77,6 @@ public:
   * Clones this object.
   */
   virtual CSwordKey* copy() const;
-	/**
-	* Destructor of this class.
-	*
-	* Clean up the data variables and delete objects used and
-	* created by this class.
-	*/
-//	virtual ~CSwordVerseKey();
   /**
   * Set/get the key. If the parameter is not set (means equal to QString::null)
   * the used key is returned. Otherwise the key is set and the new on ei returned.

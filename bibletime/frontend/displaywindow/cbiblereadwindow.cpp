@@ -41,10 +41,10 @@
 CBibleReadWindow::CBibleReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name ) : CLexiconReadWindow(moduleList, parent,name) {
 	if (CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(moduleList.first())) {
 #warning Fix this hack!		
-    if (bible->hasTestament(CSwordBibleModuleInfo::OldTestament))
-			key()->key("Genesis 1:1");
-		else
-			key()->key("Matthew 1:1");
+//    if (bible->hasTestament(CSwordBibleModuleInfo::OldTestament))
+//			key()->key("Genesis 1:1");
+//		else
+//			key()->key("Matthew 1:1");
 	}
 }
 

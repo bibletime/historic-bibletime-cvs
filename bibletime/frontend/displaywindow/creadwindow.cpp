@@ -67,30 +67,35 @@ void CReadWindow::setDisplayWidget( CReadDisplay* newDisplay ){
 
 /** Lookup the given entry. */
 void CReadWindow::lookup( CSwordKey* newKey ){
-//	qWarning("CReadWindow::lookup");
-	setUpdatesEnabled(false);	
+	qWarning("CReadWindow::lookup");
+//	setUpdatesEnabled(false);	
 	
-	if (!key())
+	if (!newKey)
 		return;
-	backend()->setFilterOptions( filterOptions() );
-	backend()->setDisplayOptions( displayOptions() );
-
-	SWKey* swKey = dynamic_cast<SWKey*>(key());
+	SWKey* swKey = dynamic_cast<SWKey*>(newKey);
+  Q_ASSERT(swKey);
 	if (swKey && modules().first()->getDisplay()) {	//do we have a display object?
-	 	modules().first()->module()->SetKey(*swKey);
+    qWarning("have swKey");
+  	backend()->setFilterOptions( filterOptions() );
+  	backend()->setDisplayOptions( displayOptions() );
+
+    modules().first()->module()->SetKey(*swKey);
 		if (modules().count() > 1)  //we want to display more than one module
 			modules().first()->getDisplay()->Display( &modules() );
 		else
 			modules().first()->getDisplay()->Display( modules().first() );
+
+    qWarning("set text");
 		displayWidget()->setText(modules().first()->getDisplay()->getHTML());
 	}	
 	if (key() != newKey)
 		key()->key(newKey->key());
 		
-	setUpdatesEnabled(true);
+//	setUpdatesEnabled(true);
 	displayWidget()->moveToAnchor( key()->key() );
 
 	setCaption( windowCaption() );
+ qWarning("finished lookup");
 }
 
 /** Returns the installed popup menu. */
@@ -115,6 +120,7 @@ void CReadWindow::updatePopupMenu(){
 const bool CReadWindow::init( const QString& keyName ){
   CDisplayWindow::init(keyName);
  	setupPopupMenu();
+  qWarning("CReadWindw::init: key is %s and later %s", keyName.latin1(), key()->key().latin1());
   keyChooser()->setKey(key());
 	setReady(true);
 }

@@ -55,8 +55,6 @@ CLexiconKeyChooser::CLexiconKeyChooser(CSwordModuleInfo *info, CSwordKey *key, Q
 	
 	connect(m_widget,SIGNAL(changed(int)),SLOT(activated(int)));
 	connect(m_widget,SIGNAL(focusOut(int)),SLOT(activated(int)));
-
-//	setKey(key);
 }
 
 CSwordKey* const CLexiconKeyChooser::key(){
@@ -68,17 +66,17 @@ void CLexiconKeyChooser::setKey(CSwordKey* key){
 	qWarning("CLexiconKeyChooser::setKey(CSwordKey* key)");
  	if (!(m_key = dynamic_cast<CSwordLDKey*>(key)))
 		return;		
-	m_widget->comboBox()->setCurrentItem(
-		m_widget->comboBox()->listBox()->index(
-			m_widget->comboBox()->listBox()->findItem( m_key->key() )));
-	emit keyChanged( m_key );
+  QString newKey = m_key->key();
+  qWarning("new key is %s", newKey.latin1());
+	const int index =	m_widget->comboBox()->listBox()->index(m_widget->comboBox()->listBox()->findItem( newKey ));
+  m_widget->comboBox()->setCurrentItem(index);	
+
+  qWarning("have set key!");
+  emit keyChanged( m_key );
 }
 
 void CLexiconKeyChooser::activated(int index){
   qWarning("CLexiconKeyChooser::activated(int index)");
-//  Q_ASSERT(m_widget);
-//  Q_ASSERT(m_widget->comboBox());
-//  Q_ASSERT(m_key);
 	const QString text = m_widget->comboBox()->text(index);	
 	/*to prevent from eternal loop, because activated()is emitted again*/
  	if (m_key && m_key->key() != text) {
@@ -89,9 +87,7 @@ void CLexiconKeyChooser::activated(int index){
 
 /** Reimplementation. */
 void CLexiconKeyChooser::refreshContent(){
-//	m_layout->invalidate();	
 	m_widget->reset(m_module->entries(), 0, true);	
-//	updateGeometry();	
 }
 
 /** Sets the module and refreshes the combo boxes */

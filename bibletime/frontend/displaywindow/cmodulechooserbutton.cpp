@@ -25,8 +25,8 @@
 #include <qdict.h>
 
 //KDE includes
-//#include <kpopupmenu.h>
 #include <klocale.h>
+#include <kglobal.h>
 
 CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordModuleInfo::ModuleType type, const int id, QWidget *parent, const char *name )
 	: KToolBarButton("", id, parent,name),m_popup(0) {
@@ -141,13 +141,14 @@ void CModuleChooserButton::populateMenu(){
 	QStringList languages;
 	QDict<KPopupMenu> langdict;
 
+
 	ListCSwordModuleInfo& modules = backend()->moduleList();
 	for (modules.first(); modules.current(); modules.next()) {
 		if (modules.current()->type() == m_moduleType) {
-			QString lang = QString(modules.current()->module()->Lang());
+			QString lang = QString::fromLatin1(modules.current()->module()->Lang());
 			if (lang.isEmpty())
-				lang = QString("xx");
-			if (languages.find( lang ) == languages.end() ){
+				lang = QString::fromLatin1("en"); //unknwon language
+		 	if (languages.find( lang ) == languages.end() ){ //not yet added
 				languages += lang;
 				KPopupMenu* menu = new KPopupMenu;
 				langdict.insert(lang, menu );
@@ -159,9 +160,9 @@ void CModuleChooserButton::populateMenu(){
 	//Check the appropriate entry
 	for (modules.first(); modules.current(); modules.next()) {
 		if (modules.current()->type() == m_moduleType) {
-			QString lang = QString(modules.current()->module()->Lang());
+			QString lang = QString::fromLatin1(modules.current()->module()->Lang());
 			if (lang.isEmpty())
-				lang = QString("xx");
+				lang = QString::fromLatin1("en"); //english is default
 			QString name = QString(modules.current()->name()) + QString(" ")+
 				(modules.current()->isLocked() ? i18n("[locked]") : QString::null); 			
 			int id = langdict[lang]->insertItem( name );

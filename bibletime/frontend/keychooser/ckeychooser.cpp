@@ -30,19 +30,23 @@ CKeyChooser::CKeyChooser(CSwordModuleInfo *, CSwordKey *, QWidget *parent, const
 }
 
 CKeyChooser* CKeyChooser::createInstance(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent){	
-//	ASSERT(module);
-//	ASSERT(key);
 	if (!module)
 		return 0;
+
+  CKeyChooser* ck = 0;
  	switch ( module->type() ){
  	  case CSwordModuleInfo::Commentary:	 //Bibles and commentaries uise the same key chooser
  	  case CSwordModuleInfo::Bible:
- 	  	return new CBibleKeyChooser(module,key,parent);
+ 	  	ck = new CBibleKeyChooser(module,key,parent);
+      break;
  	  case CSwordModuleInfo::Lexicon:
-			return new CLexiconKeyChooser(module,key,parent);	
+			ck = new CLexiconKeyChooser(module,key,parent);	
+      break;
  	  case CSwordModuleInfo::GenericBook:
- 	  	return new CBookKeyChooser(module,key,parent);
+ 	  	ck = new CBookKeyChooser(module,key,parent);
+      break;
  	  default:
  	  	return 0;
  	}
+  return ck;
 }

@@ -41,7 +41,7 @@
 
 CLexiconReadWindow::CLexiconReadWindow(ListCSwordModuleInfo moduleList, CMDIArea* parent, const char *name) : CReadWindow(moduleList, parent,name) {
 	setKey( CSwordKey::createInstance(moduleList.first()) );
- 	key()->key("");
+// 	key()->key("");
 }
 
 CLexiconReadWindow::~CLexiconReadWindow(){
@@ -75,11 +75,6 @@ void CLexiconReadWindow::initKeyboardActions() {
 
 /** No descriptions */
 void CLexiconReadWindow::initConnections(){
-//	connect(displayWidget(), SIGNAL(referenceClicked(const QString&, const QString&)),
-//		this, SLOT(lookup(const QString&, const QString&)));
-//	connect(displayWidget(), SIGNAL(referenceDropped(const QString&, const QString&)),
-//		this, SLOT(referenceDropped(const QString&, const QString&)));
-
  	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 		this, SLOT(lookup(CSwordKey*)));
 }
@@ -139,9 +134,6 @@ void CLexiconReadWindow::setupPopupMenu(){
 
 /** Reimplemented. */
 void CLexiconReadWindow::updatePopupMenu(){
- 	
-//  m_actions.copy.entryOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
-// 	m_actions.copy.textOnly->setEnabled( displayWidget()->hasActiveAnchor() );	
  	m_actions.copy.reference->setEnabled( displayWidget()->hasActiveAnchor() );
 	m_actions.copy.selectedText->setEnabled( displayWidget()->hasSelection() );
 
