@@ -1,5 +1,4 @@
 SUBDIRS = bibletime setupwizard pot docs .
-#SUBDIRS = bibletime setupwizard pot admin docs .
 
 EXTRA_DIST = \
 bibletime.kdevprj \
@@ -7,7 +6,6 @@ COPYING \
 ChangeLog \
 bibletime.spec.in bibletime.spec \
 README.in README \
-TODO.in TODO \
 INSTALL.in INSTALL\
 bibletime.lsm.in bibletime.lsm \
 configure.in.in configure.in \

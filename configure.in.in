@@ -73,7 +73,6 @@ dnl add here all your Makefiles. They are created by configure
 AC_CONFIG_FILES([ NEWS ])
 AC_CONFIG_FILES([ README ])
 AC_CONFIG_FILES([ INSTALL ])
-AC_CONFIG_FILES([ TODO ])
 AC_CONFIG_FILES([ bibletime.lsm ])
 AC_CONFIG_FILES([ bibletime.spec ])
 AC_CONFIG_FILES([ bibletime.desktop ])
