@@ -120,9 +120,7 @@ void COptionsDialog::slotApply(){
 /** Adds a new view profile to the list. */
 void COptionsDialog::addNewProfile(){
 	bool ok = false;
-#warning check
-//	QString name = QInputDialog::getText(i18n("Create new profile"), i18n("Please enter the name of the new profile"), QString::null, QLineEdit::Normal, QString::null, &ok);
-	QString name("test");
+	QString name = QInputDialog::getText(i18n("Create new profile"), i18n("Please enter the name of the new profile"), QLineEdit::Normal, QString::null, &ok);
 	if (ok && !name.isEmpty()) {
 		m_settings.profiles.mgr.create(name);
 		m_settings.profiles.profiles->insertItem(name);				
@@ -145,10 +143,7 @@ void COptionsDialog::renameProfile(){
 	CProfile* profile = m_settings.profiles.mgr.profile(currentProfile);
 	if (!profile)
 		return;
-		
-#warning check
-//	const QString newName = QInputDialog::getText(i18n("Rename profile"), i18n("Please enter the new name of the profile"),profile->name(), QLineEdit::Normal, QString::null, &ok);
-	QString newName("test");
+	const QString newName = QInputDialog::getText(i18n("Rename profile"), i18n("Please enter the new name of the profile"), QLineEdit::Normal, profile->name(), &ok);
 	if (ok && !newName.isEmpty()) {
 		profile->setName(newName);
 		m_settings.profiles.profiles->changeItem(newName, m_settings.profiles.profiles->currentItem());

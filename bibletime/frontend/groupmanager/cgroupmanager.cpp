@@ -414,9 +414,7 @@ void CGroupManager::slotChangeGroup(){
 		return;		
 	
 	bool isOk;
-#warning check
 	QString description = QInputDialog::getText(i18n("Change folder - BibleTime"), i18n("Please change the name of the group!"), QLineEdit::Normal,m_pressedItem->text(0), &isOk, this);	
-//	QString description("test");
 	if (isOk)
 		m_pressedItem->setText( 0, description );
 }
@@ -905,10 +903,7 @@ void CGroupManager::contentsMouseMoveEvent ( QMouseEvent * e) {
 /** Creates a new group */
 void CGroupManager::slotCreateNewGroup(){
 	bool isOk;
-//#warning check
 	QString groupname = QInputDialog::getText(i18n("Enter name of folder - BibleTime"),i18n("Please enter the name of the folder!"),QLineEdit::Normal,QString::null, &isOk);
-
-//	QString groupname("test");	
 	if (isOk) {
 		if (m_pressedItem && m_pressedItem->type() == CGroupManagerItem::Group) {
 			(void)new CGroupManagerItem(m_pressedItem, groupname, QString::null, 0,0, CGroupManagerItem::Group);
@@ -991,9 +986,7 @@ CGroupManagerItem* CGroupManager::findParent( const int ID, CGroupManagerItem* p
 /** Opens a dialog to enter the key to unlock an encrypted module. */
 void CGroupManager::slotUnlockModule(){	
 	bool ok;
-#warning check
 	QString unlockKey = QInputDialog::getText(i18n("BibleTime - Unlock module"),i18n("Enter the key to unlock the module!"),QLineEdit::Normal, m_pressedItem->moduleInfo()->config(CSwordModuleInfo::CipherKey), &ok);
-//	QString unlockKey("test");
 	if (ok) {
 		CSwordModuleInfo::UnlockErrorCode ret = m_pressedItem->moduleInfo()->unlock( unlockKey );
 		if ( ret != CSwordModuleInfo::noError) {

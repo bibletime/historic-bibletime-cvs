@@ -137,7 +137,7 @@ const QFont CBTConfig::getDefault( const CBTConfig::fonts ID){
 ////				}
 ////			}
 ////			qWarning("--------");		
-#warning check
+#warning reimplement -> maybe using QFontDatabase::script ?
 			return QApplication::font();
 		}
 		

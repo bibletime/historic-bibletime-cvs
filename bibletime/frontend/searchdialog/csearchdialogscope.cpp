@@ -286,9 +286,7 @@ CSearchDialogScopeEdit::CSearchDialogScopeEdit(KSimpleConfig *parentconfig, QWid
 
 void CSearchDialogScopeEdit::NewButtonClicked(){
   bool ok = false;
-#warning check
   QString text = QInputDialog::getText( i18n( "Range name" ), i18n( "Please enter a name for the new range" ),QLineEdit::Normal,QString::null, &ok, this );
-//	QString text("test");
 	if (!ok)
 		return;
 
