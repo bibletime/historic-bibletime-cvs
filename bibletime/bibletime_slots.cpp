@@ -116,7 +116,7 @@ void BibleTime::slotSettingsOptions(){
 			m_important->swordBackend->setBooknameLanguage(language);		
 		}
 		for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
-			CSwordPresenter* myPresenter = (CSwordPresenter*)m_mdi->windowList().at(index);
+			CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index));
 			if (myPresenter)
 				myPresenter->refresh(changedSettings);
 		}		

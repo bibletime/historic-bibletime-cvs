@@ -78,7 +78,6 @@ CHTMLWidget::CHTMLWidget(CImportantClasses* importantClasses, const bool useColo
 			}
 		}
 	}
-
 	
 	m_config = KGlobal::config();
 	m_popup = 0;
@@ -129,17 +128,21 @@ void CHTMLWidget::initColors(){
 /** Initializes the fonts of the HTML-widget */
 void CHTMLWidget::initFonts(){
 	KConfigGroupSaver groupSaver(m_config, "Fonts");		
-	QFont font = m_config->readFontEntry(i18n("Display window"));	
-//BAD BAD HACK!	
-	if (document()->charsetMap->contains(font.family())) { //remove old standard font
-		document()->charsetMap->remove(font.family());
+	if (document()->charsetMap->contains(font().family())) { //remove old standard font
+		document()->charsetMap->remove(font().family());
 	}
-
-	qWarning(font.family().latin1());
-	document()->setDefaultFont( font );
-	setFont(font);
 	
-	document()->charsetMap->insert(font.family(), font.charSet());
+	QFont f = m_config->readFontEntry(i18n("Display window"));	
+//BAD BAD HACK!	
+//	if (document()->charsetMap->contains(font().family())) { //remove old standard font
+//		document()->charsetMap->remove(font().family());
+//	}
+
+	qWarning(f.family().latin1());
+	document()->setDefaultFont( f );
+	setFont(f);
+	
+	document()->charsetMap->replace(f.family(), f.charSet());
 }
 
 /**  */
@@ -180,6 +183,7 @@ void CHTMLWidget::initConnections(){
 
 /** Reinitialize the colors, fonts etc. */
 void CHTMLWidget::refresh(){
+	qDebug("CHTMLWidget::refresh()");
 	initColors();
 	initFonts();
 }
