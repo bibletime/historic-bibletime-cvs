@@ -141,17 +141,17 @@ int CDisplaySettingsButton::populateMenu(){
 
 	ret += addMenuEntry(i18n("Show headings"),	&m_moduleSettings->headings,
 		isOptionAvailable(CSwordBackend::headings));	
-	ret += addMenuEntry(i18n("Show footnotes"), &m_moduleSettings->footnotes,
-		isOptionAvailable(CSwordBackend::footnotes ));
+/*	ret += addMenuEntry(i18n("Show footnotes"), &m_moduleSettings->footnotes,
+		isOptionAvailable(CSwordBackend::footnotes ));*/
 	ret += addMenuEntry(i18n("Highlight words of Jesus"), &m_moduleSettings->redLetterWords,
 		isOptionAvailable(CSwordBackend::redLetterWords ));
-	ret += addMenuEntry(i18n("Show Strong's Numbers"), &m_moduleSettings->strongNumbers,
-		isOptionAvailable(CSwordBackend::strongNumbers ));
+// 	ret += addMenuEntry(i18n("Show Strong's Numbers"), &m_moduleSettings->strongNumbers,
+// 		isOptionAvailable(CSwordBackend::strongNumbers ));
 
-	ret += addMenuEntry(i18n("Show morphologic tags"),&m_moduleSettings->morphTags,
+/*	ret += addMenuEntry(i18n("Show morphologic tags"),&m_moduleSettings->morphTags,
 		isOptionAvailable(CSwordBackend::morphTags ));
 	ret += addMenuEntry(i18n("Show lemmas"),&m_moduleSettings->lemmas,
-		isOptionAvailable(CSwordBackend::lemmas ));
+		isOptionAvailable(CSwordBackend::lemmas ));*/
 	ret += addMenuEntry(i18n("Show Hebrew vowel points"), &m_moduleSettings->hebrewPoints,
 		isOptionAvailable(CSwordBackend::hebrewPoints ));
 	ret += addMenuEntry(i18n("Show Hebrew cantillation marks"), &m_moduleSettings->hebrewCantillation,
@@ -166,7 +166,6 @@ int CDisplaySettingsButton::populateMenu(){
 
 	QToolTip::add(this, i18n("Display settings"));
 
-
 	return ret;
 }
 
@@ -180,10 +179,12 @@ int CDisplaySettingsButton::addMenuEntry( const QString name, const int* option,
 	return 0;
 }
 
-bool CDisplaySettingsButton::isOptionAvailable( const CSwordBackend::FilterTypes option){
+bool CDisplaySettingsButton::isOptionAvailable( const CSwordBackend::FilterTypes option ){
 	bool ret = false;
-	for (m_modules.first(); m_modules.current(); m_modules.next())
+	for (m_modules.first(); m_modules.current() && !ret; m_modules.next()) {
 		ret = ret || m_modules.current()->has(option);
+	}
+	
 	return ret;
 }
 
@@ -197,8 +198,9 @@ void CDisplaySettingsButton::setItemStatus( const int index, const bool checked 
 	const int ID = m_popup->idAt(index);
 	m_popup->setItemChecked(ID, checked);
 	const QString text = m_popup->text(ID);
-	if (m_dict[text])
+	if (m_dict[text]) {
 	  *(m_dict[text]) = checked;
+	}
 }
 
 /** Returns the status of the item at position "index" */

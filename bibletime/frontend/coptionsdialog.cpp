@@ -707,48 +707,50 @@ You can change the filter settings in each display window, of course.")) );
   QWhatsThis::add(m_settings.swords.verseNumbers, CResMgr::settings::sword::filters::verseNumbers::whatsthis);
  	layout->addWidget(m_settings.swords.verseNumbers);
 
- 	m_settings.swords.footnotes = new QCheckBox(currentTab);
+/* 	m_settings.swords.footnotes = new QCheckBox(currentTab);
  	m_settings.swords.footnotes->setText(i18n("Show footnotes"));
  	m_settings.swords.footnotes->setChecked(CBTConfig::get(CBTConfig::footnotes));		
   QToolTip::add(m_settings.swords.footnotes, CResMgr::settings::sword::filters::footnotes::tooltip);
   QWhatsThis::add(m_settings.swords.footnotes, CResMgr::settings::sword::filters::footnotes::whatsthis);
  	layout->addWidget(m_settings.swords.footnotes);
-
- 	m_settings.swords.headings = new QCheckBox(currentTab);
+*/
+ 	
+	m_settings.swords.headings = new QCheckBox(currentTab);
  	m_settings.swords.headings->setText(i18n("Show section headings"));
  	m_settings.swords.headings->setChecked(CBTConfig::get(CBTConfig::headings));
   QToolTip::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::tooltip);
   QWhatsThis::add(m_settings.swords.headings, CResMgr::settings::sword::filters::headings::whatsthis);
  	layout->addWidget(m_settings.swords.headings);
 
- 	m_settings.swords.strongNumbers = new QCheckBox(currentTab);
- 	m_settings.swords.strongNumbers->setText(i18n("Show Strong's numbers"));
- 	m_settings.swords.strongNumbers->setChecked(CBTConfig::get(CBTConfig::strongNumbers));
-  QToolTip::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::tooltip);
-  QWhatsThis::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::whatsthis);  
- 	layout->addWidget(m_settings.swords.strongNumbers);
+//  	m_settings.swords.strongNumbers = new QCheckBox(currentTab);
+//  	m_settings.swords.strongNumbers->setText(i18n("Show Strong's numbers"));
+//  	m_settings.swords.strongNumbers->setChecked(CBTConfig::get(CBTConfig::strongNumbers));
+//   QToolTip::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::tooltip);
+//   QWhatsThis::add(m_settings.swords.strongNumbers, CResMgr::settings::sword::filters::strongsNumbers::whatsthis);  
+//  	layout->addWidget(m_settings.swords.strongNumbers);
 
  	m_settings.swords.scriptureReferences = new QCheckBox(currentTab);
  	m_settings.swords.scriptureReferences->setText(i18n("Show scripture cross-references"));
  	m_settings.swords.scriptureReferences->setChecked(CBTConfig::get(CBTConfig::hebrewCantillation));
 //Enable this in 1.4, because we're in message freeze for 1.3
-//  QToolTip::add(m_settings.swords.scriptureReferences, CResMgr::settings::sword::filters::crossReferences::tooltip);
-//  QWhatsThis::add(m_settings.swords.scriptureReferences, CResMgr::settings::sword::filters::crossReferences::whatsthis);
+//   QToolTip::add(m_settings.swords.scriptureReferences, CResMgr::settings::sword::filters::crossReferences::tooltip);
+//   QWhatsThis::add(m_settings.swords.scriptureReferences, CResMgr::settings::sword::filters::crossReferences::whatsthis);
  	layout->addWidget(m_settings.swords.scriptureReferences);
 
-  m_settings.swords.morphTags = new QCheckBox(currentTab);
+/*  m_settings.swords.morphTags = new QCheckBox(currentTab);
  	m_settings.swords.morphTags->setText(i18n("Show morphologic tags"));
  	m_settings.swords.morphTags->setChecked(CBTConfig::get(CBTConfig::morphTags));
   QToolTip::add(m_settings.swords.morphTags, CResMgr::settings::sword::filters::morphTags::tooltip);
   QWhatsThis::add(m_settings.swords.morphTags, CResMgr::settings::sword::filters::morphTags::whatsthis);
  	layout->addWidget(m_settings.swords.morphTags);
-
- 	m_settings.swords.lemmas = new QCheckBox(currentTab);
+ 	
+	m_settings.swords.lemmas = new QCheckBox(currentTab);
  	m_settings.swords.lemmas->setText(i18n("Show lemmas"));
  	m_settings.swords.lemmas->setChecked(CBTConfig::get(CBTConfig::lemmas));
   QToolTip::add(m_settings.swords.lemmas, CResMgr::settings::sword::filters::lemmas::tooltip);
   QWhatsThis::add(m_settings.swords.lemmas, CResMgr::settings::sword::filters::lemmas::whatsthis);
  	layout->addWidget(m_settings.swords.lemmas);
+*/
 		
   m_settings.swords.greekAccents = new QCheckBox(currentTab);
  	m_settings.swords.greekAccents->setText(i18n("Show Greek accents"));
@@ -887,12 +889,12 @@ void COptionsDialog::saveSword(){
  	CBTConfig::set(CBTConfig::scroll, m_settings.swords.useDownArrow->isChecked());
  	CBTConfig::set(CBTConfig::lineBreaks, m_settings.swords.lineBreaks->isChecked());
  	CBTConfig::set(CBTConfig::verseNumbers, m_settings.swords.verseNumbers->isChecked());
- 	CBTConfig::set(CBTConfig::footnotes, m_settings.swords.footnotes->isChecked());
- 	CBTConfig::set(CBTConfig::strongNumbers, m_settings.swords.strongNumbers->isChecked());
+//  	CBTConfig::set(CBTConfig::footnotes, m_settings.swords.footnotes->isChecked());
+//  	CBTConfig::set(CBTConfig::strongNumbers, m_settings.swords.strongNumbers->isChecked());
  	CBTConfig::set(CBTConfig::headings, m_settings.swords.headings->isChecked());
  	CBTConfig::set(CBTConfig::scriptureReferences, m_settings.swords.scriptureReferences->isChecked());
- 	CBTConfig::set(CBTConfig::morphTags, m_settings.swords.morphTags->isChecked());
- 	CBTConfig::set(CBTConfig::lemmas, m_settings.swords.lemmas->isChecked());
+//  	CBTConfig::set(CBTConfig::morphTags, m_settings.swords.morphTags->isChecked());
+//  	CBTConfig::set(CBTConfig::lemmas, m_settings.swords.lemmas->isChecked());
  	CBTConfig::set(CBTConfig::hebrewPoints, m_settings.swords.hebrewPoints->isChecked());
  	CBTConfig::set(CBTConfig::hebrewCantillation, m_settings.swords.hebrewCantillation->isChecked());
  	CBTConfig::set(CBTConfig::greekAccents, m_settings.swords.greekAccents->isChecked());

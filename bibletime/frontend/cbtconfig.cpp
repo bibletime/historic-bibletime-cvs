@@ -418,15 +418,21 @@ const CSwordBackend::DisplayOptions CBTConfig::getDisplayOptionDefaults(){
 }
 
 const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults(){
-
   CSwordBackend::FilterOptions options;
 
-  options.footnotes =						get(CBTConfig::footnotes);
+//   options.footnotes =						get(CBTConfig::footnotes);
+	options.footnotes =						true; //required for the info display
+
   options.strongNumbers = 			get(CBTConfig::strongNumbers);
   options.headings = 						get(CBTConfig::headings);
-  options.morphTags = 					get(CBTConfig::morphTags);
-  options.lemmas = 							get(CBTConfig::lemmas);
-  options.hebrewPoints = 				get(CBTConfig::hebrewPoints);
+	
+//   options.morphTags = 					get(CBTConfig::morphTags);
+   options.morphTags = 					true;//required for the info display
+
+//   options.lemmas = 							get(CBTConfig::lemmas);
+  options.lemmas =	 						true;//required for the info display
+  
+	options.hebrewPoints = 				get(CBTConfig::hebrewPoints);
   options.hebrewCantillation = 	get(CBTConfig::hebrewCantillation);
   options.greekAccents = 				get(CBTConfig::greekAccents);
   options.textualVariants = 		get(CBTConfig::textualVariants);
@@ -437,8 +443,6 @@ const CSwordBackend::FilterOptions CBTConfig::getFilterOptionDefaults(){
 }
 
 void CBTConfig::setupAccel(const CBTConfig::keys type, KAccel* const accel) {
-//	KConfig* config = KGlobal::config();	
-	
 	switch (type) {
 		case writeWindow : {
 			accel->setConfigGroup("Writewindow shortcuts");

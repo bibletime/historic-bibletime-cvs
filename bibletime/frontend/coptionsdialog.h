@@ -90,17 +90,17 @@ private:
 			QCheckBox* useDownArrow;
 			QCheckBox* lineBreaks;
 			QCheckBox* verseNumbers;
-			QCheckBox* footnotes;
-  		QCheckBox* strongNumbers;
+// 			QCheckBox* footnotes;
+//   		QCheckBox* strongNumbers;
   		QCheckBox* headings;
-  		QCheckBox* morphTags;
-			QCheckBox* lemmas;
+//   		QCheckBox* morphTags;
+// 			QCheckBox* lemmas;
 			QCheckBox* hebrewPoints;
 			QCheckBox* hebrewCantillation;
 			QCheckBox* greekAccents;
 			QCheckBox* textualVariants;
       QCheckBox* scriptureReferences;
-		} swords; // not: sword -> namespace error
+		} swords; // not: sword instead of sword -> namespace error
 
 		struct KeySettings {
 			struct WindowType {

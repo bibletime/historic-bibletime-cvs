@@ -181,17 +181,20 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
 			if (!tag.isEndTag()) {
 				const SWBuf type = tag.getAttribute("type");
 
-				//if (type == "crossReference") { //note containing cross references
+				if (type == "crossReference") { //note containing cross references
         //  buf += " <span class=\"footnote\">[";
-        //  myUserData->noteType = BT_UserData::CrossReference;
-        //}
-        //else 
-				if (type == "strongsMarkup") {
+          myUserData->noteType = BT_UserData::CrossReference;
+        }
+        else if (type == "explanation") {
+//   				myUserData->suspendTextPassThru = true;
+//           myUserData->noteType = BT_UserData::StrongsMarkup;
+        }
+        else if (type == "strongsMarkup") {
   				myUserData->suspendTextPassThru = true;
           myUserData->noteType = BT_UserData::StrongsMarkup;
         }
         else {	// leave strong's markup notes out, in the future we'll probably have different option filters to turn different note types on or off
-					buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">.</span> ", 
+					buf.appendFormatted(" <span class=\"footnote\" note=\"%s/%s/%s\">-</span> ", 
 					myModule->Name(),
 					myUserData->key->getShortText(),
 					tag.getAttribute("swordFootnote"));
@@ -204,6 +207,9 @@ bool BT_OSISHTML::handleToken(sword::SWBuf &buf, const char *token, sword::Basic
         if (myUserData->noteType == BT_UserData::CrossReference) {
           //buf += "]</span> ";
         }
+/*        else if (myUserData->noteType == BT_UserData::Footnote) { //handle explanation value
+          //buf += ")</span> ";
+        }*/
         else if (myUserData->noteType == BT_UserData::Footnote) {
           //buf += ")</span> ";
         }
