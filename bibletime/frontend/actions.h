@@ -96,33 +96,4 @@ private:
     int m_width;
 };
 
-
-/** This class was originally created by Simon Hausmann <hausmann@kde.org>.
-	* The copyright of KonqComboAction and KonqLabelAction is owned by him!
-	*	We included it and added the QT exception with his agreement.
-	*/
-/*class CColorComboAction : public KAction
-{
-  Q_OBJECT
-public:
-    CColorComboAction( QColor color, const bool autoSized, const int width, const char *signal, const QObject *receiver, const char *member, QObject* parent, const char* name );
-    virtual int plug( QWidget *w, int index = -1 );
-    virtual void unplug( QWidget *w );
-    QGuardedPtr<KColorCombo> combo() { ASSERT(m_combo); return m_combo; }
-
-signals:
-    void plugged();
-
-private:
-    QGuardedPtr<KColorCombo> m_combo;
-    QStringList m_items;
-    const QObject *m_receiver;
-    const char *m_member;
-    const char *m_signal;
-    QColor m_color;
-    bool m_autoSized;
-    int m_width;
-};
-*/
-
 #endif

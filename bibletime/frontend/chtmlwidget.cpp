@@ -133,12 +133,6 @@ void CHTMLWidget::initFonts(){
 	}
 	
 	QFont f = m_config->readFontEntry(i18n("Display window"));	
-//BAD BAD HACK!	
-//	if (document()->charsetMap->contains(font().family())) { //remove old standard font
-//		document()->charsetMap->remove(font().family());
-//	}
-
-	qWarning(f.family().latin1());
 	document()->setDefaultFont( f );
 	setFont(f);
 	

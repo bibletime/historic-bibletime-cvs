@@ -24,6 +24,8 @@
 //Sword includes
 #include <versekey.h>
 
+static VerseKey staticKey;
+
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( CSwordBackend* backend, SWModule* module ) : CSwordModuleInfo(backend, module) {
 	m_bookList = 0;
 	m_cachedLocale = "unknown";
@@ -66,7 +68,6 @@ QStringList* CSwordBibleModuleInfo::getBooks() {
 //		}
 	
 		m_bookList = new QStringList();	
-		VerseKey key;
 		int max = -1;
 		int min = -1;
 		//find out if we have ot and nt, only ot or only nt
@@ -77,13 +78,16 @@ QStringList* CSwordBibleModuleInfo::getBooks() {
 		else if (m_hasOT && !m_hasNT) {
 			min = 0;
 			max = 0;
-		} if (!m_hasOT && m_hasNT) {
+		}
+		else if (!m_hasOT && m_hasNT) {
 			min = 1;
 			max = 1;
 		}
+
+		staticKey.setLocale(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 		for (int i = min; i <= max; ++i) {
-			for ( int j = 0; j < key.BMAX[i]; ++j) {
-				m_bookList->append( QString::fromLocal8Bit(key.books[i][j].name) );
+			for ( int j = 0; j < staticKey.BMAX[i]; ++j) {
+				m_bookList->append( QString::fromLocal8Bit(staticKey.books[i][j].name) );
 			}
 		}
 		m_cachedLocale = backend()->getCurrentBooknameLanguage();		
@@ -93,41 +97,38 @@ QStringList* CSwordBibleModuleInfo::getBooks() {
 
 /** Returns the number of chapters for the given book. */
 const unsigned int CSwordBibleModuleInfo::getChapterCount(const unsigned int book) const {
-	VerseKey key;	
 	int result = 0;
-	if ( (book >= 1) && book <= (unsigned int)key.BMAX[0]) {		//Is the book in the old testament?
-		result = (key.books[0][book-1].chapmax);
+	if ( (book >= 1) && book <= (unsigned int)staticKey.BMAX[0]) {		//Is the book in the old testament?
+		result = (staticKey.books[0][book-1].chapmax);
 	}
-	else if ( (book >= 1) && (book - key.BMAX[0]) <= (unsigned int)key.BMAX[1] ) {	//is the book in the new testament?
-	 	result = (key.books[1][book-1-key.BMAX[0]].chapmax);
+	else if ( (book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] ) {	//is the book in the new testament?
+	 	result = (staticKey.books[1][book-1-staticKey.BMAX[0]].chapmax);
 	}
 	return result;
 }
 
 /** Returns the number of verses  for the given chapter. */
 const unsigned int CSwordBibleModuleInfo::getVerseCount( const unsigned int book, const unsigned int chapter ) const {
-	VerseKey key;
 	unsigned int result = 0;
-	if ((book>=1) && (book <= (unsigned int)key.BMAX[0]) ) { //Is the book in te old testament?
+	if ((book>=1) && (book <= (unsigned int)staticKey.BMAX[0]) ) { //Is the book in te old testament?
 		if (chapter <= getChapterCount(book) )	//does the chapter exist?
-			result = (key.books[0][book-1].versemax[chapter-1]);
+			result = (staticKey.books[0][book-1].versemax[chapter-1]);
 	}
-	else if ((book>=1) && (book - key.BMAX[0]) <= (unsigned int)key.BMAX[1]) {	//is the book in the new testament?
+	else if ((book>=1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1]) {	//is the book in the new testament?
 		if (chapter <= getChapterCount(book) )	//does the chapter exist?
-			result = key.books[1][book-1-key.BMAX[0]].versemax[chapter-1];
+			result = staticKey.books[1][book-1-staticKey.BMAX[0]].versemax[chapter-1];
 	}
 	return result;
 }
 
 const unsigned int CSwordBibleModuleInfo::getBookNumber(const QString &book){
 	unsigned int bookNumber = 0;
-	
-	VerseKey key;		
 	bool found = false;
+	staticKey.setLocale(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 	for (int i = 0; i <= 1 && !found; ++i) {
-		for ( int j = 0; j < key.BMAX[i] && !found; ++j) {
+		for ( int j = 0; j < staticKey.BMAX[i] && !found; ++j) {
 			++bookNumber;
-			if (book == QString::fromLocal8Bit(key.books[i][j].name))
+			if (book == QString::fromLocal8Bit( staticKey.books[i][j].name) )
 				found = true;
 		}
 	}		

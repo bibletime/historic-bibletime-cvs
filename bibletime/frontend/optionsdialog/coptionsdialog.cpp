@@ -266,7 +266,12 @@ void COptionsDialog::initDisplayWindow() {
 		m_displayWindows.module_fonts.modules->setCurrentItem(0);
 
 	items.clear();
+	items << i18n("Display windows") << i18n("Accelerators");
+	setFolderIcon(items, SmallIcon("folder"));
+
+	items.clear();
 	items << i18n("Display windows") << i18n("Accelerators") << i18n("General");
+
 	page = addHBoxPage(items, i18n("Accelerators used by all windows"), OD_ICON_KEY_BINDINGS);
 	m_displayWindows.keys.general.accel = new KAccel(this); //delete in destructor
 	CSwordPresenter::insertKeyboardActions( m_displayWindows.keys.general.accel );		

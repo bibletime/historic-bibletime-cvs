@@ -38,19 +38,15 @@
 #include <kconfig.h>
 
 CKCComboBox::CKCComboBox(bool rw,QWidget* parent,const char* name)
-  :QComboBox(rw,parent,name){
-
-//  setFocusPolicy(QWidget::StrongFocus);
+  : QComboBox(rw,parent,name){
   installEventFilter( lineEdit() );
 }
 
 /** Reimplementation. */
 bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){			
 	if (e->type() == QEvent::FocusOut) {
-//		qWarning("focus out event");
 		QFocusEvent* f = dynamic_cast<QFocusEvent*>(e);
 		if (o == lineEdit() && f->reason() == QFocusEvent::Tab) {
-//			qWarning("focusses out by TAB");
 	    int index = listBox()->index( listBox()->findItem(currentText()) );
 	    if (index == -1)
 				index = 0;// return 0 if not found
@@ -58,25 +54,20 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 	    emit focusOut( index );  	
 	  }
 	  else if (o == lineEdit() && f->reason() == QFocusEvent::Popup) {
-//	  	qWarning("focussed out of line edit caused by popup");
 			return false;
 		}
 	  else if (o == lineEdit() && f->reason() == QFocusEvent::ActiveWindow) {
-//	  	qWarning("focussed out of line edit caused by active window");
 			emit activated(currentText());
 			return true;
 		}
 	  else if (o == lineEdit() && f->reason() == QFocusEvent::Mouse) {
-//	  	qWarning("focussed out of line edit caused by mouse");
 			emit activated(currentText());
 			return true;
 		}		
 	  else if (o == listBox()) {
-//	  	qWarning("foucess out of list");
 			return false;
 		}
 	  else if (o == this) {
-//	  	qWarning("foucess out of THIS");
 			emit activated(currentText());
 			return true;
 		}		
@@ -130,14 +121,13 @@ void CKeyChooserWidget::changeCombo(int i){
 }
 
 void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
-	qDebug("CKeyChooserWidget::reset(const int count, int index, bool do_emit)");
-	oldKey = QString::null;			
-	if (m_list.count() == (unsigned int)count) {	//equal->same count, not necessary to regenerate
-		ComboBox->setCurrentItem(index);
-		if (do_emit)
-			emit changed(ComboBox->currentItem());		
-		return;
-	}
+//	qDebug("CKeyChooserWidget::reset(const int count, int index, bool do_emit)");
+//	if (m_list.count() == count) {
+//		ComboBox->setCurrentItem(index);
+//		if (do_emit)
+//			emit(changed(ComboBox->currentItem()));
+//		return;
+//	}
 	m_list.clear();
 	for (int i=1; i <= count; i++)
 		m_list.append( QString::number(i) );
@@ -145,11 +135,12 @@ void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
 }
 
 void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
-	qDebug("CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit)");	
+//	qDebug("CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit)");	
 	
 	if (isResetting || !isUpdatesEnabled())
 		return;
 	setUpdatesEnabled(false);
+	ComboBox->setUpdatesEnabled(false);
 			
 	isResetting = true;
 	
@@ -158,26 +149,17 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 	ComboBox->insertStringList(*list);
 	ComboBox->setCurrentItem(index);	
 			
-	if (list && !list->count()) {
-		btn_up->setEnabled(false);
-		btn_fx->setEnabled(false);
-		btn_down->setEnabled(false);		
-	}
-	else if (list && list->count() == 1) {
-		btn_up->setEnabled(true);
-		btn_fx->setEnabled(false);
-		btn_down->setEnabled(true);		
-	}
-	else {
-		btn_up->setEnabled(true);
-		btn_fx->setEnabled(true);
-		btn_down->setEnabled(true);			
-	}	
+	const bool enableButtons = list && (list->count()>=1);
+	btn_up->setEnabled( enableButtons );
+	btn_fx->setEnabled( enableButtons );
+	btn_down->setEnabled( list && (list->count()>1) );
+
 	if (do_emit)
 		emit changed(ComboBox->currentItem());		
 	
 	isResetting = false;
 	setUpdatesEnabled(true);
+	ComboBox->setUpdatesEnabled(true);
 }
 
 void CKeyChooserWidget::lock(void){
@@ -240,7 +222,6 @@ void CKeyChooserWidget::init( ){
 	setTabOrder(ComboBox, 0);
 		
 // signals and slots connections
-//	config->setGroup("General");
 	KConfigGroupSaver gs(config, "General");
  	if (config->readBoolEntry("Scroll")) {
 		if (m_useNextPrevSignals) {
@@ -275,33 +256,30 @@ void CKeyChooserWidget::init( ){
 
 /** Is called when the return key was presed in the combobox. */
 void CKeyChooserWidget::slotReturnPressed( const QString& text){
-//	qDebug("CKeyChooserWidget::slotReturnPressed( const QString& text)");
-	int index = 0;
-	
-	for (index=0; index < ComboBox->count(); index++) {
+	for (int index=0; index < ComboBox->count(); index++) {
 		if (ComboBox->text(index) == text) {
+			if (!oldKey.isNull() && text != oldKey)	//if the key has changed
+				emit changed(index);
 			break;
 		}
 	}
-
-	if (text != oldKey)	//if the key has changed
-		emit changed(index);
 }
 
 /** Is called when the current item of the combo box was changed. */
 void CKeyChooserWidget::slotComboChanged(int index){
-	qDebug("CKeyChooserWidget::slotComboChanged(int index)");
+//	qDebug("CKeyChooserWidget::slotComboChanged(int index)");
 	if (!isUpdatesEnabled())
 		return;
 	setUpdatesEnabled(false);	
 	
 	const QString key = ComboBox->text( index );
-	if (oldKey != key)
+	if (oldKey.isNull() || (oldKey != key))
 		emit changed(index);
 	oldKey = key;
 
 	setUpdatesEnabled(true);		
 }
+
 #define WIDTH 17
 #define ARROW_HEIGHT 10
 #define MOVER_HEIGHT 6

@@ -90,8 +90,8 @@ void BibleTime::slotFileQuit(){
 /** Opens the optionsdialog of BibleTime. */
 void BibleTime::slotSettingsOptions(){
 	COptionsDialog *dlg = new COptionsDialog(m_important, this, "COptionsDialog", m_keyAccel);
-	dlg->setMinimumSize(dlg->sizeHint());
-	dlg->resize(dlg->sizeHint());
+//	dlg->setMinimumSize(dlg->sizeHint());
+//	dlg->resize(dlg->sizeHint());
 	
 	if ( dlg->exec() ) {			
 		if (m_important->swordBackend->m_entryDisplay) {
@@ -148,7 +148,8 @@ void BibleTime::slotSettingsOptions(){
  			loadPopup->insertItem(p->name());
   	}
 	}	
-	delete dlg;
+	//delete dlg;
+	dlg->delayedDestruct();
 }
 
 /** Shows the daily tip */

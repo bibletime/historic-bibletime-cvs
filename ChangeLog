@@ -1,3 +1,10 @@
+2001-08-17 Joachim Ansorg <jansorg@gmx.de>
+	* Optimizations to CSwordBibleModuleInfo
+	* Fixed bug in CBibleKeyChooser
+	* New structure in the optionsdialog
+	* Key accelerators for each display window type
+	* Fullscreen button
+
 2001-07-28 Joachim Ansorg <jansorg@gmx.de>
 	* The new configure options are cached now (sword lib,includes, distribution name and version, RPM prefix and group)
 
