@@ -319,4 +319,178 @@ namespace CResMgr {
 
   namespace printing {
   };
-}
+
+  namespace settings {
+    namespace startup {
+      namespace dailyTip {
+        const QString tooltip   = makeToolTip( i18n("Show daily tip") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Activate this box to see a daily tip on startup."));
+      };
+      namespace showLogo {
+        const QString tooltip   = makeToolTip( i18n("Show start-up logo") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Activate this to see the BibleTime logo on startup."));
+      };
+      namespace restoreWorkingArea {
+        const QString tooltip   = makeToolTip( i18n("Restore the windows in the workspace on startup") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Save the windows in the workspace if BibleTime is closed<BR>and restore them on the next startup."));
+      };
+    };
+    namespace fonts {
+      namespace typeChooser {
+        const QString tooltip   = makeToolTip( i18n("Choose the area of application") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("Use this box to select how the font is used and change the font in the font chooser."));
+      };
+    };
+    namespace colors {
+      namespace text {
+        const QString tooltip = makeToolTip( i18n("Text color") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("The color used for all normal text in the display windows."));
+      };
+      namespace background {
+        const QString tooltip = makeToolTip( i18n("Color of the background") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("This is the background color used in display windows."));
+      };
+      namespace links {
+        const QString tooltip   = makeToolTip( i18n("Link color") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("The color used for all references into Sword modules."));
+      };
+      namespace footnotes {
+        const QString tooltip   = makeToolTip( i18n("Footnote color") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("This color will be used for all footnotes in the display windows."));
+      };
+      namespace strongNumbers {
+        const QString tooltip   = makeToolTip( i18n("Strongs numbers") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("This color will be used for every Strong number in the display windows."));
+      };
+      namespace highlightedVerse {
+        const QString tooltip   = makeToolTip( i18n("Color of the highlighted verse") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("This is the color of the highlighted verse used in display windows."));
+      };
+      namespace jesusWords {
+        const QString tooltip   = makeToolTip( i18n("Jesus' words") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("All words Jesus spoke will appear in this color."));
+      };
+      namespace morphTags {
+        const QString tooltip = makeToolTip( i18n("Morphological tags") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n("All morphological tags will appear in this color."));
+      };
+    };
+    namespace profiles {
+      namespace list {
+        const QString tooltip   = makeToolTip( i18n("") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+      };
+      namespace createNew {
+        const QString tooltip   = makeToolTip( i18n("") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+      };
+      namespace deleteCurrent {
+        const QString tooltip   = makeToolTip( i18n("") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+      };
+      namespace renameCurrent {
+        const QString tooltip   = makeToolTip( i18n("") );
+        const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+      };
+    };
+    namespace sword {
+      namespace general {
+        namespace cacheKeys {
+          const QString tooltip   = makeToolTip( i18n("Use cache files for the lexicon entries") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("Activate this to let BibleTime create index files for the lexicon entries. This will speed up opening the lexicons a lot, but consume some disk space. Recommended."));
+        };
+        namespace scrolling {
+          const QString tooltip   = makeToolTip( i18n("Use down arrow to scroll to next verse") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("Check this to use the down arrow to scroll to the next verse."));
+        };
+        namespace language {
+          const QString tooltip   = makeToolTip( i18n("List of languages") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("Contains the languages which can be used for the international booknames."));
+        };
+      };
+      namespace modules {
+        namespace bible {
+          const QString tooltip   = makeToolTip( i18n("The default bible used in the workspace area") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default Bible is used when a hyperlink into a Bible was clicked"));
+        };
+        namespace commentary {
+          const QString tooltip   = makeToolTip( i18n("The default commentary used in the workspace area") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default commentary is used when a hyperlink into a commentary was clicked"));
+        };
+        namespace lexicon {
+          const QString tooltip   = makeToolTip( i18n("The default lexicon used in the workspace area") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default lexicon is used when a hyperlink into a lexicon was clicked"));
+        };
+        namespace dailyDevotional {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace hebrewStrongs {
+          const QString tooltip   = makeToolTip( i18n("The default Hebrew lexicon used in the workspace area") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default Hebrew lexicon is used when a hyperlink into a Hebrew lexicon was clicked."));
+        };
+        namespace greekStrongs {
+          const QString tooltip   = makeToolTip( i18n("The default Greek lexicon used in the workspace area") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The default Greek lexicon is used when a hyperlink into a Greek lexicon was clicked."));
+        };
+        namespace hebrewMorph {
+          const QString tooltip   = makeToolTip( i18n("The default Morphological lexicon for Hebrew texts used in the workspace area") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The standard morphological lexicon for Hebrew texts is used when a hyperlink of a morphological tag in a Hebrew text was clicked."));
+        };
+        namespace greekMorph {
+          const QString tooltip   = makeToolTip( i18n("The default Morphological lexicon for Greek texts used in the workspace area") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n("The standard morphological lexicon for Greek texts is used when a hyperlink of a morphological tag in a Greek text was clicked."));
+        };
+      };
+      namespace filters {
+        namespace lineBreaks {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace verseNumbers {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace foonotes {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace strongsNumbers {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace morphTags {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace headings {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace lemmas {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace hebrewVowelPoints {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace hebrewCantillation {
+           const QString tooltip  = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace greekAccents {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+        namespace textualVariants {
+          const QString tooltip   = makeToolTip( i18n("") );
+          const QString whatsthis = makeWhatsThis( tooltip, i18n(""));
+        };
+      };
+    };
+    namespace keys {
+    };
+  };  
+};
+

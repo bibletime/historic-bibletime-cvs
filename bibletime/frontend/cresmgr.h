@@ -341,132 +341,169 @@ namespace CResMgr {
   namespace settings {
     namespace startup {
       namespace dailyTip {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace showLogo {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace restoreWorkingArea {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };      
     };
     namespace fonts {
       namespace typeChooser {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
     };
     namespace colors {
       namespace text {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace background {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace links {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace footnotes {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace strongNumbers {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace highlightedVerse {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace jesusWords {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace morphTags {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
-
     };
     namespace profiles {
       namespace list {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace createNew {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace deleteCurrent {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
       namespace renameCurrent {
-
+        extern const QString tooltip;
+        extern const QString whatsthis;
       };
     };
     namespace sword {
       namespace general {
         namespace cacheKeys {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace scrolling {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace language {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };        
       };
       namespace modules {
         namespace bible {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace commentary {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace lexicon {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace dailyDevotional {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace hebrewStrongs {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace greekStrongs {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace hebrewMorph {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace greekMorph {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
       };
       namespace filters {
         namespace lineBreaks {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace verseNumbers {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace foonotes {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace strongsNumbers {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace morphTags {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace headings {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace lemmas {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace hebrewVowelPoints {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace hebrewCantillation {
-
+           extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace greekAccents {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
         namespace textualVariants {
-
+          extern const QString tooltip;
+          extern const QString whatsthis;
         };
       };
     };

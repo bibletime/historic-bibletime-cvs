@@ -90,31 +90,9 @@
 #define TT_SD_ANALYSIS_VIEW i18n("Graphical Search Analysis")
 
 
-//#defines for the settings dialog, OD means Optionsdialog
-#define TT_OD_GENERAL_DAILY_TIP i18n("Show daily tip")
-#define TT_OD_GENERAL_INTERNATIONAL_BOOKNAMES i18n("List of languages")
-#define TT_OD_GENERAL_SHOW_STARTUPLOGO i18n("Show start-up logo")
-#define TT_OD_GENERAL_SCROLL_PREVIOUS i18n("Use down arrow to scroll to next verse")
-#define TT_OD_GENERAL_RESTORE_WORKSPACE i18n("Restore the windows in the workspace on startup")
-
-#define TT_OD_SWORD_USE_LEXICON_CACHE i18n("Use cache files for the lexicon entries")
-#define TT_OD_SWORD_STANDARD_BIBLE i18n("The default bible used in the workspace area")
-#define TT_OD_SWORD_STANDARD_COMMENTARY i18n("The default commentary used in the workspace area")
-#define TT_OD_SWORD_STANDARD_LEXICON i18n("The default lexicon used in the workspace area")
-#define TT_OD_SWORD_STANDARD_HEBREW_STRONG 	i18n("The default Hebrew lexicon used in the workspace are")
-#define TT_OD_SWORD_STANDARD_GREEK_STRONG i18n("The default Greek lexicon used in the workspace area")
-#define TT_OD_SWORD_STANDARD_HEBREW_MORPH i18n("The default Morphological lexicon for Hebrew texts used in the workspace area")
-#define TT_OD_SWORD_STANDARD_GREEK_MORPH i18n("The default Morphological lexicon for Greek texts used in the workspace area")
-
-
 #define TT_OD_KEYS_CHOOSER i18n("Set keyboard accelerators")
-
 #define TT_OD_FONTS_TYPE_CHOOSER i18n("Choose the area of application")
 #define TT_OD_FONTS_CHOOSER i18n("Choose a font")
-
-#define TT_OD_COLORS_BACKGROUND i18n("Color of the background")
-#define TT_OD_COLORS_CURRENT_VERSE i18n("Color of the highlighted verse")
-
 #define TT_OD_DISPLAY_WINDOW_KEYS_GENERAL i18n("Keyboard accelerators used by all display windows")
 #define TT_OD_DISPLAY_WINDOW_KEYS_BIBLE i18n("Keyboard accelerators used by Bible windows")
 #define TT_OD_DISPLAY_WINDOW_KEYS_COMMENTARY i18n("Keyboard accelerators used by commentary windows")
