@@ -42,9 +42,14 @@ class BTInstallMgr : public QObject, public sword::InstallMgr {
 public:
   class Tool {
   public:
+    //more Sword related stuff
+    static const QString swordConfigFilename();
+
+
     static void initConfig();
     static const QString configPath();
     static const QString configFilename();
+
 
     static QStringList targetList();
     

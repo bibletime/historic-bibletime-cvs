@@ -30,6 +30,16 @@
 
 using namespace sword;
 
+const QString BTInstallMgr::Tool::swordConfigFilename() {
+  Q_ASSERT( CPointers::backend()->sysconfig );
+  if (CPointers::backend()->globalConfPath) {
+    QStringList paths = QStringList::split(":", CPointers::backend()->globalConfPath);
+    if (paths.count()) {
+      return paths.first();
+    }
+  }
+  return QString("Unknown path");
+}
 
 QStringList BTInstallMgr::Tool::sourceList( sword::InstallMgr* mgr ) {
   qWarning("BTInstallMgr::Tool::sourceList( sword::InstallMgr* mgr )");

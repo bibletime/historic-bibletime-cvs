@@ -114,7 +114,7 @@ void CSwordSetupDialog::initSwordConfig(){
 	layout->addMultiCellWidget(mainLabel, 0, 0, 0, 3);
 
 
-  QString swordConfPath = "/etc/sword.conf";
+  QString swordConfPath = BTInstallMgr::Tool::swordConfigFilename();
 	QLabel* confPathLabel = new QLabel(QString::fromLatin1("Your Sword configuration file is <b>%1</b>").arg(swordConfPath), page);
 	layout->addMultiCellWidget(confPathLabel, 1,1,0,3);
 
@@ -260,7 +260,9 @@ void CSwordSetupDialog::initRemove(){
 
 /** Called if the OK button was clicked */
 void CSwordSetupDialog::slotOk(){
-	KDialogBase::slotOk();
+  //save the Sword path configuration here
+
+  KDialogBase::slotOk();  
   emit signalSwordSetupChanged( );
 }
 
