@@ -1,0 +1,55 @@
+<chapter id="help_no_mods_d">
+<title>Inicializácia adresára z modulmi zlyhala!</title>
+
+<para>Adresár mods.d neexistuje!</para>
+
+<para>Táto stránka popisuje adresár mods.d a ako vyrie¹i» tento
+problém! </para>
+<qandaset>
+<qandaentry>
+<question>
+<para>Èo je to mods.d adresár?</para>
+</question>
+<answer>
+<para>
+Adresár mods.d je adresár, ktorý by mal obsahova» konfiguraèné
+súbory k modulom. Tento adresár musíte ma», inak nie je mo¾né
+pou¾íva» SWORD a BibleTime.
+Preèítajte si prosím in¹trukcie k in¹talácií na na¹ej domovskej
+stránke!
+</para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para>
+Ako vyrie¹im tento problém?
+</para>
+</question>
+<answer>
+<para>
+Rie¹ením je vytvorenie adresára mods.d:
+Choïte do SWORD adresára (zále¾í od va¹ej in¹talácie -napr.
+/usr/share/sword) a napí¹te "mkdir mods.d". Potom skopírujte
+do neho konfiguraèné súbory va¹ich modulov. Pokiaµ v adresári
+SWORD je súbor mods.conf, tak ho zma¾te. Tento súbor u¾ nie je
+viacej potrebný. Nahradený je adresárom mods.d
+ </para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para>
+Je mo¾né spusti» BibleTime bez tohoto adresára?
+</para>
+</question>
+<answer>
+<para>
+Áno je to mo¾né, ale nie je to veµmi u¾itoèné. V hlavnom indexe
+nebudú ¾iadne moduly. Je to mo¾no vhodné pre testovanie BibleTime,
+ale bez modulov nie je mo¾né pracova».
+</para>
+</answer>
+</qandaentry>
+</qandaset>
+</chapter>

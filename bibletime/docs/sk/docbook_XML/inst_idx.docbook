@@ -1,0 +1,83 @@
+<book lang="en" id="inst_idx">
+
+<bookinfo>
+
+<title>Bibletime In¹talaèná príruèka</title>
+
+
+<authorgroup>
+<author>
+<firstname>Jeffrey</firstname>
+<surname>Hoyt</surname>
+</author>
+<author>
+<firstname>Joachim</firstname>
+<surname>Ansorg</surname>
+</author>
+<author>
+<firstname>Fred</firstname>
+<surname>Saalbach</surname>
+</author>
+</authorgroup>
+<date>08 April 2001</date>
+<releaseinfo>1.0</releaseinfo>
+<copyright>
+<year>1999</year>
+<year>2000</year>
+<year>2001</year>
+
+
+<holder>
+The team of BibleTime, info@bibletime.de
+</holder>
+</copyright>
+
+<legalnotice>
+<para>Bibletime in¹talaèná priruèka je súèas» Bibletime.
+</para>
+
+<para>
+Tento program je free software; mô¾ete ho distribuova» a/alebo
+modifikova» v zmysle podmienok GNU General Public License, tak
+ako boli publikované Free Software Foundation, verzia 2 alebo
+(ak Vám to vyhovuje) akejkoµvek neskor¹ej verzie.
+</para>
+</para>
+
+<para>
+Tento program je distribuovaný v nádeji, ¾e bude u¾itoèný, ale
+BEZ AKEJKO¥VEK GARANCIE; okrem implicitnej garancie,  ktorá sa
+týka OBCHODOVATE¥NOSTI alebo VHODNOSTI PRE KONKRÉTNY ÚÈEL.
+Podrobnej¹ie informácie sú v GNU General Public License.
+</para>
+
+<para>
+Spolu s BibleTime ste mali dosta» aj kópiu GNU General Public
+License. Ak sa tak nestalo, vy¾iadajte si ju od Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA
+
+</para>
+</legalnotice>
+
+
+<abstract>
+<para>
+<application>Bibletime</application>je nástroj na ¹túdium Biblie.
+ Poskytuje jednoduchý ale úèinný spôsob práce.
+</para>
+</abstract>
+
+<keywordset>
+<keyword>BibleTime</keyword>
+<keyword>Sword</keyword>
+<keyword>Crosswire</keyword>
+<keyword>installation</keyword>
+</keywordset>
+
+</bookinfo>
+&instchap1;
+&instchap2;
+&instchap3;
+&instchap4;
+&instchap5;
+</book>

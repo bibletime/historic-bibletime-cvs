@@ -1,0 +1,578 @@
+<chapter ID="hdbk_op"><title>Operácie v programe</title>
+<para>
+Bibletime je hlavne ovládaný cez strom modulov (Module Tree)
+- tento strom je nazývaný ako Hlavný index.
+ Ïal¹ie dôle¾ité miesto na prácu v Bibletime je MDI oblas»
+ (MDI = Multiple Document Interface).</para>
+
+<section ID="hdbk_op_module_tree"><title>Hlavný index</title>
+<para>Hlavný index je okno v µavej èasti Bibletime. Obsahuje nain¹talované
+dokumenty (Sword moduly) v stromovej ¹truktúre a zálo¾ky, ktoré ste vytvorili.</para>
+<screenshot>
+<screeninfo>Strom modulov</screeninfo>
+<graphic fileref="common/hdbk_op_module_tree_1.png" format="png"></graphic>
+</screenshot>
+</section>
+
+<section ID="hdbk_op_module_tree_select"><title>Výber dokumentu na prezeranie</title>
+<para> Ak si chcete vybra» nejaký dokument, jednoducho kliknite na skupinu
+(Biblie, komentáre, lexikóny) a zobrazia sa vám nain¹talované dokumenty.
+Dokument sa vám po klinutí na jeho ikonu otvorí. Ak si prajete otvori» ïaµ¹iu in¹tanciu
+u¾ otvoreného dokumentu, kliknite pravým tlaèítkom my¹i a zvoµte "Nové zobrazenie".</para>
+<screenshot>
+<screeninfo>Výber dokumentu</screeninfo>
+<graphic fileref="common/hdbk_op_module_select_1.png" format="png"></graphic>
+</screenshot>
+<tip><para>Funkcia "Tiahni a pus»" tu funguje</para></tip>
+<para>
+Dokument mô¾e by» otvorený aj z otvoreného dokumentu.
+Kliknite na èíslo ver¹a (ukazovateµ sa zmení na ruku) a »ahajte do zoznamu modulov.
+Pustite ho nad modulom, ktorý chcete otrvori» a tento sa vám otvorí na ver¹i,
+ktorí ste »ahali. Ak by ste »ahali ver¹ do u¾ otvoreného modulu,
+tak sa vám automaticky nalistoval na ver¹, ktorý ste »ahali. Táto funkcia funguje iba
+s Bibliami a komentármi. </para>
+<para>
+Cez pravé tlaèítko my¹í sú dostupné e¹te dve funkcie, ak ho pou¾ijete na názve modulu.
+"Zobraz informácie" otvorí okno s informáciami o autorských právach a ïal¹ích vhodných informáciách.
+"Zadaj otvárací kµúè" otovrí malé dialógové okno pre zakódované dokumenty, ktoré umo¾ní
+vlo¾i» kód na dekódovanie a zmení dokument na èiteµný. Spoloènos» Crosswire Bible
+Society musí zakódova» moduly pokiaµ vlastník autorských práv neposkytne povolenie pre distribúciu
+ako SWORD modulu, alebo pokiaµ sa text nestane public domane (t.j. zanikne copyright).
+<ulink url="http://www.crosswire.org">Pozrite si informácie o uzamknutých moduloch na
+stránke Crosswire. </ulink></para>
+
+<section ID="hdbk_op_module_tree_search"><title>Prístup k vyhµadávaniu.</title> <para>
+Vyhµadáva» v module mô¾ete pomocou kliknutia pravým tlaèítkom na meno modulu a zvolením
+"Hµadaj v modul(e/och)". Ak si prajete hµada» vo viacerých moduloch, tak si ich naprv
+zvolte pomocou klávevy shift + kliknite µavým tlaèítkom na meno modulu. Vyhµadáva»
+bude vo v¹etkých zvolených dokumentoch. </para>
+<para>=Úplný popis mo¾ností vyhµadávania je mozné nájs» v</para>
+<screenshot>
+<screeninfo>Zálo¾kách</screeninfo>
+<graphic fileref="common/hdbk_op_module_select_2.png" format="png">
+</graphic>
+</screenshot
+</section>
+
+
+<section ID="hdbk_op_module_tree_bookmark"><title>Prístup k fukcii zálo¾iek</title> <para>
+<tip><para>Funkcia "Tiahni a pus»" tu funguje</para></tip>
+Kliknutím na voµnú èas» okna stromu modulov a voµbou "Vytvor novú skupinu"
+vytvoríte novú zlo¾ku zálo¾iek. Mô¾ete pou¾íva» funkciu "Tiahni a pus»", tak ¾e chytíte
+èíslo ver¹a vo výsledkoch hµadania a stiahnete ho zlo¾ky pre zálo¾ky, prípadne pre
+zmenu usporiadania zálo¾iek medzi zlo¾kami. Existuje tie¾ funkcia export/import
+pre zálo¾ky. Z ponuky, ktorá sa vám zobrazí pri kliknutí právým tlaèítkom si vyberte
+"Exportuj zálo¾ky". Táto funkcia vám ponúkne okno, kde mô¾ete ulo¾i» svoju kolekciu zálo¾iek.
+Tie potom mô¾ete zdiela» s ostatnými u¾ívateµmi, archivovaný atï. Podobne je mo¾né zálo¾ky
+aj importova». Cez ponuku pri kliknutí pravým tlaèítkom mô¾ete zmeni» meno zlo¾ky,
+popis zálo¾iek (táto funkcia bude implementovaná neskôr), odstráni» zlo¾ky a zálo¾ky.</para>
+<screenshot>
+<screeninfo>Voµba zálo¾iek</screeninfo>
+<graphic fileref="common/hdbk_op_module_tree_bookmark_bookmarkandfolder.png" format="png">
+</graphic>
+</screenshot
+</section>
+</section>
+
+<section ID="hdbk_op_MDI_Window"><title>Multiple Document Interface (MDI) okno</title>
+<para>
+Toto je oblas», kde sú otvárané dokumenty. Tu sa zobrazí "Okno dokumentu", ktoré závisí
+typu dokumentu. (Crosswire Bible Society mô¾e v budúcnosti uvoµni» ïal¹ie typy dokumentov.
+Keï budú uvoµnené, BibleTime ich bude tie¾ podporova».) </para>
+
+<section ID="hdbk_op_MDI_Window_control_modules"><title>Ovládanie otvorených dokumentov</title> <para>
+Okno dokumentu je mo¾né ovláda» pomocou be¾ných funkcií KDE pre okno/panel nástrojov
+Naviac je mo¾né otvorené okná usporiada» do kaskády alebo ako dla¾dice. Vyu¾ite k tomu tlaèítka na panely
+alebo funkcie z ponuky v polo¾ke "Okno". Tie¾ je mo¾né zvoli» automatické usporiadanie okien.
+ </para>
+</section>
+
+<section ID="hdbk_op_MDI_Window_module_navigation"><title>Navigácia v otvorených dokumentoch</title> <para>
+Navigácia v dokumentoch sa uskutoèòuje pomocou ponuky ovládania dokumentu a posuvníka.
+</para>
+<tip><para>Ak sa chcete dosta» na konkrétne miesto pou¾ite na ovládanie kµúè dokumentu.</para></tip>
+<tip><para>Ak sa pohybova» iba v sekcii dokumentu, pou¾ite posuvník.<para></tip>
+<tip><para>Pre biblické texty je index kµúèu <emphasis>Kniha - Kapitolar - Ver¹</emphasis></para></tip>
+<tip><para>Pre komentáre je index kµúèu <emphasis>Kniha - Kapitolar - Ver¹</para></tip>
+<tip><para>Pre lexikóny je index kµúèu <emphasis>Kµúèové slovo</emphasis></para></tip>
+<tip><para>Tiahni a pus» tu funguje; ak budete »aha» zálo¾ku alebo ver¹ z jedného otvoreného dokumentu do druhého,
+ten sa nastaví na polohu na ktorú odkazuje »ahaná zálo¾ka alebo ver¹. </para></tip>
+</section>
+
+<section ID="hdbk_op_MDI_Window_autoscrolling">
+<title>Automatické posúvanie</title>
+<para> Jednou z pokroèilých výhod Bibletime je schopnos» ovláda»
+viacero otvorených dokumentov naraz. Pre Biblie a komentáre je
+v pravom panely nástrojov tlaèítko pre automatické posúvanie
+(autoscroll). Zapnutím tejto voµby v otvorenom dokumente bude
+povolené jeho automatické posúvanie v tandeme s ostatnými
+otvorenými dokumentmi, ktoré majú zapnutú túto mo¾nos».</para>
+</section>
+
+<section ID="hdbk_op_MDI_Window_Personal_commentary">
+<title>Upravovanie vlastného komentára</title> <para>
+Panel nástrojov v zobrazení komentára obsahuje jedno tlaèítko so
+zobrazením ceruzky.<graphic fileref="comon/hdbk_op_pencil.png"></graphic>
+V module "Personal" (komentár) kliknite na toto tlaèítko a bude
+môc» vlo¾i» svoje vlastné poznámky, alebo upravova» u¾ vlo¾ené
+vlastné poznámky. Keï to dokonèíte, kliknite na tlaèítko "Ulo¾"
+(disk). Keï chcete zmaza» poznámku ku konkrétnemu ver¹u, kliknite
+na tlaèítko s odpadkovým ko¹om. Tie¾ mô¾ete urèi» koneèný bod
+svojich poznámok v prípade, ¾e chcete pou¾i» tú istú poznámku pre
+viacero ver¹ov. Keï sa chcete vráti» do módu prezerania, kliknite
+na tlaèítko "Uprav".</para>
+<tip><para> Osobný komentár "Personal commentary" je Sword modul.
+Ak ste ho nena¹li v hlavnom indexe, stiahnite si ho z Crosswire
+Bible Society.</para></tip>
+<tip><para>Ak nemô¾ete zapisova» do modulu Osobný komentár, va¹e
+prístupové práva preò nie sú správne nastavené. Upravte ich tak,
+aby ste umo¾nili u¾ívateµom zapisova» do neho.</para></tip>
+<tip><para>Funkcia tiahni a pus» tu funguje presne tak, ako v
+ostatných komentároch a Biblických textoch.</para></tip>
+</section>
+</section>
+
+<section ID="hdbk_op_search"><title>Vyhµadávanie v dokumentoch</title>
+<para>Èas» in¹trukcií v tejto je prevzatá zo súborov, ktoré sú
+súèas»ou Sword verzie pre MS Windows (R)</para>
+
+<section ID="hdbk_op_search_functions">
+<title>Prístup k vyhµadávaniu</title>
+<para>Vyhµadáva» mô¾ete pomocou kliknutia pravým tlaèítkom my¹i v
+hlavnom indexe, kde si zvolíte "Hµadaj v modul(e/och)". Pomocou
+klávesy SHIFT alebo CTRL kliknite na názvy modulov - mô¾ete ich
+zvoli» viac ako len jeden. V týchto zvolených dokumentoch bude
+môc» vyhµadáva».</para>
+</section>
+
+<section ID="hdbk_op_search_dialog">
+<title>Pou¾ívanie vyhµadávacieho dialógu</title>
+
+<section ID="hdbk_op_search_dialog_text">
+<title>Pou¾ívanie tabuµky vyhµadávanie textu</title>
+<para> Hµadaný text - v tejto èasti vlo¾te textový re»azec, ktorý
+sa má hµada» a upravte nastavenia vyhµadávania. "Regulárny výraz"
+pou¾íva ¹tandardnú regexp syntax k zjemneniu hµadania. </para>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_input">
+<title>Pou¾ívanie pola na vlo¾enie hµadaného textu</title>
+<para>Vlo¾te jedno alebo viacero slov, alebo ich èas» (oddeµujte ich
+medzerami), frázu alebo vzorku (regulárny výraz), ktorý sa má
+vyhµadáva». Ako budú pou¾ité dáta vlo¾ené do pola závisí od toho,
+akú mo¾nos» si zvolíte - Viacnásobné slová, Presné hµadanie alebo
+Regulárny výraz, prípadne èi je oznaèená voµba Rozli¹uj veµkos».</para>
+
+<tip><para>Funkcia Tiahni a pus» tu funguje - do pola, kde sa má
+vlo¾i» hµadaný text mô¾ete pusti» ver¹ alebo zálo¾ku. Tie¾ je
+mo¾né v tomto poli pou¾íva» funkciu kopírovania a vkladania.</para></tip>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_input_case">
+<title>Pou¾ívanie voµby rozli¹uj veµkos»</title>
+<para>Kliknite na <guibutton>Rozli¹uj veµkos»</guibutton>, ak
+chcete prepnú» funkciu rozli¹ovania veµkosti (veµké/malé) písmen.
+Keï je táto voµba za¹krtnutá, budú nájde iba tie ver¹e, kde text
+súhlasí aj podµa veµkosti písmen. Ak je táto voµba neza¹krtnutá,
+tak budú nájdené v¹etky ver¹e, ktoré obsahujú hµadaný text bez
+ohµadu na veµkos» pou¾itých písmen. Ak chcete nájs» napr.
+&quot;PÁN&quot; ale nie &quot;Pán&quot; alebo &quot;pán&quot; tak
+za¹krtnite túto voµbu. Ak v¹ak chcete nájs» v¹etky mo¾né variácie
+slova pán (teda aj napr. &quot;páN&quot;), tak nechajte túto
+voµbu neza¹krtnutú.</para>
+</section>
+
+
+<section ID="hdbk_op_search_dialog_text_input_multi">
+<title>Pou¾ívanie funkcie Viacnásobných slov</title>
+<para> Ak <guibutton>Viacnásobné slová</guibutton> je za¹krtnuté,
+tak budú vyhµadávané v¹etky riadky (alebo ver¹e), ktoré obsahujú
+v¹etky vlo¾ené slová (alebo sú èas»ou nájdených slov). Ak v¹etky
+slová alebo ich èasti sú aj v inom poradí alebo sú medzi nimi aj
+iné slová, ver¹ bude zaradený medzi nájdené polo¾ky. Napr. ak
+budete hµada» &quot;prove cause&quot; bude nájdený ver¹ Gen
+21:25, &quot;And Abraham re<emphasis>prove</emphasis>d Abimelech be
+<emphasis>cause</emphasis> of a well of water...&quot;
+V tomto prípade je hµadané slovo (prove) súèas»ou iného slova
+(reproved) a preto je ver¹ súèas»ou nájdených polo¾iek.</para></section>
+
+
+<section ID="hdbk_op_search_dialog_text_input_phrase">
+<title>Pou¾ívanie funkcie Presné hµadania</title>
+<para>Ak je <guibutton>Presné hµadania</guibutton> oznaèené, tak
+budú hµadané v¹etky ver¹e, ktoré obsahujú text, presne tak, ako
+bol vlo¾ený vrátane medzier. Fráza pritom nemusí zaèína» alebo
+konèi» v rámci ohranièenia. Napr. hµadanie &quot;now how
+thou ought&quot; nájde 1 Tim 3:1, &quot;...that thou
+mayest k<emphasis>now how thou ought</emphasis>est
+to behave...&quot; </para>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_input_search"><title>Pou¾ívanie
+tlaèítka Vyhµadávanie</title>
+<para>Kliknite na tlaèítko <guibutton>Tlaèítko hµadania</guibutton>
+na spustenie hµadania.</para>
+
+<screenshot>
+<screeninfo>Vyhµadávací dialóg - vkladanie textu</screeninfo>
+<graphic fileref="common/hdbk_op_search_dialog_searchtext.png" format="png"></graphic>
+</screenshot>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_regexp">
+<title>Hµadanie s pou¾itím GNU Regulárnych výrazov (Regular
+Expresession)</title>
+<para>Vyhµadávanie pomocou regulárneho výrazu poskytuje jednoduchý
+mo¾nos» pre komplexné hµadanie re»azcov, ktoré obsahujú vzorky
+alebo skupiny vzoriek, ktoré sa oddeµujú pomocou vertikálnej
+èiary &quot;|&quot;.Kým vzorka mô¾e by» zostavená tak, aby
+hµadala slovo alebo frázu, a jednoduché hµadanie nájde nielen
+slová, ktoré hµadáte, ale aj slová, ktoré obsahujú va¹u vzorku.
+Napr. pri hµadaní slova &quot;right&quot; budú tie¾ nájdené ver¹e,
+ktoré obsahujú nie len slovo &quot;right&quot;, ale aj slová &quot;<emphasis>right</emphasis>eous&quot;,
+&quot;<emphasis>right</emphasis>eousness&quot;, &quot;un<emphasis>right</emphasis>eous&quot;,
+&quot;up<emphasis>right</emphasis>&quot; ako aj &quot;b<emphasis>right</emphasis>&quot;.
+A hµadanie spojenie &quot;hall not&quot; nebude hµada»
+&quot;hall&quot; A &quot;not&quot; ale bude hµadaný re»azec
+&quot;hall not&quot; s medzerou medzi druhým &quot;l&quot; a
+&quot;n&quot;. Hµadanie &quot;hall not&quot; nájde aj výskyty &quot;s<emphasis>hall not</emphasis>&quot;.</para>
+
+<para>Sila regulárnych výrazov je vo vzorkách, ktoré sa pou¾ívajú
+pre hµadanie. Vzorka pozostáva z be¾ných znakov a niektorých
+¹peciálnych znakov, ktoré sú pou¾ité a interpretované pomocou
+stanovených pravidiel. ©peciálnymi znakmi sú napríklad .\[^*$?+..
+Opaèné lomítko, &quot;\&quot;, je pou¾ívané ku konverzii
+¹peciálnych znakov na obyèajné a naopak. </para>
+
+<para>Príklad: vzorka &quot;<emphasis>i. love\.</emphasis>&quot;
+nájde vety, ktoré konèia s &quot;h<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot;
+alebo <emphasis>love</emphasis>&quot; alebo &quot;<emphasis>i</emphasis>s <emphasis>love</emphasis>&quot;
+nasledované bodkou. Prvá bodka v &quot;i. love\.&quot; je
+¹peciálny znak, ktorý povoµuje akýkoµvek znak na jeho pozícii.
+Opaèné lomítko v &quot;i. love\.&quot;, za ktorým nasleduje
+bodka, zabezpeèuje, ¾e bodka nie je pova¾ovaná za ¹peciálny znak,
+ale za obyèajnú bodku.</para>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_regexp_rules">
+<title>Pravidlá pre hµadanie s GNU Regulárnymi výrazmi</title>
+<itemizedlist>
+<listitem><para>. Bodka nahrádza akýkoµvek znak. Pozrite si<link
+ linkend="period">Detaily</link></para></listitem>
+<listitem><para>* Hviezdièka nahrádza 0 a viac µubovoµných znakov
+ <link linkend="asterisk">Detaily</link></para></listitem>
+<listitem><para>+ Znak plus nahrádza 1 a viac µubovoµných znakov
+ <link linkend="plus">Detaily</link></para></listitem>
+<listitem><para>? Otáznik nahrádza 0 alebo 1 znak. Pozrite si
+ <link linkend="question">Detaily</link></para></listitem>
+<listitem><para>[ ] Hranaté zátvorky nahrádzajú jeden alebo viac
+znakov, ktoré sú v nich ¹pecifikované. Pozrite si
+ <link linkend="bracket">Detaily</link></para></listitem>
+<listitem><para>^ Strie¹ka ako prvý znak vo vnútri [ ] znamená
+NIE. Pozrite si
+ <link linkend="caret">Detaily</link></para></listitem>
+<listitem><para>^ Strie¹ka na zaèiatku vzorky predstavuje
+zaèiatok riadku. Pozrite si
+ <link linkend="caret">Detaily</link></para></listitem>
+<listitem><para>$ Dolár na konci vzorky predstavuje koniec
+riadku. Pozrite si
+ <link linkend="dollar">Detaily</link></para></listitem>
+<listitem><para>| Vertikálna èiara znamená logické ALEBO.
+Pozrite si <link
+ linkend="bar">Detaily</link></para></listitem>
+<listitem><para>( ) Zátvorky umo¾òujú zoskupovanie
+ <emphasis>Nie je podporované!</emphasis></para></listitem>
+<listitem><para>\ Opaèné lomítko mô¾e by» pou¾ité pred ¹peciálnym
+znakom, aby ten bol pou¾itý ako obyèajný znak. Pozrite si
+ <link linkend="backslash">Detaily</link></para></listitem>
+<listitem><para>\ Opaèné lomítko mô¾e by» pou¾ité pre be¾ným
+znakom, aby bolo chápaný ako ¹peciálny. Pozrite si
+ <link linkend="backslash">Detaily</link></para></listitem>
+</itemizedlist>
+
+<section ID="period"><title>Bodka .</title>
+<para>Bodka &quot;.&quot; nahrádza akýkoµvek znak vrátane medzery
+a neabecedných znakov
+<emphasis>s.t</emphasis> nahrádza <emphasis>s</emphasis>i<emphasis>t</emphasis>,
+<emphasis>s</emphasis>e<emphasis>t</emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>,
+atï., ktoré sa mô¾u nachádza» v <emphasis>s</emphasis>i<emphasis>t</emphasis>ting,
+compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h a <emphasis>s</emphasis>o<emphasis>t</emphasis>tish
+<emphasis>b..t</emphasis> nahrádza <emphasis>b</emphasis>oo<emphasis>t</emphasis>,
+<emphasis>b</emphasis>oa<emphasis>t</emphasis> a <emphasis>b</emphasis>ea<emphasis>t
+foot.tool </emphasis>nahrádza <emphasis>foot</emphasis>s<emphasis>tool </emphasis> a
+<emphasis>foot tool</emphasis></para>
+</section>
+
+<section ID="asterisk"><title>Hviezdièka *</title>
+
+<para>Nahrádza nula a viac znakov. Pou¾itie kombinácie bodky a
+hviezdièky &quot;.*&quot; v be¾ných vzorkách mô¾e spôsobi», ¾e
+vyhµadávanie bude veµmi dlho trva» a bude sa zda», ¾e program
+zamrzol.
+<emphasis>be*n</emphasis> nahrádza <emphasis> beeen, been, ben</emphasis>,
+a <emphasis>bn</emphasis> mô¾e by» nájdené v Reu<emphasis>ben</emphasis>
+a She<emphasis>bn</emphasis>a.</para>
+</section>
+
+
+<section ID="plus"><title>Znamienko plus +</title>
+<para>Znamienko plus nahrádza jeden alebo viacero znakov.
+Pou¾itie kombinácie bodky s plusom &quot;.+&quot; v be¾ných
+vzorkách mô¾e spôsobi», ¾e vyhµadávanie bude veµmi dlho trva»
+a bude sa zda», ¾e program zamrzol.
+<emphasis>be+n</emphasis> nahrádza <emphasis>beeen, been</emphasis> a <emphasis>ben</emphasis>,
+ale nie <emphasis>bn</emphasis>.</para>
+</section>
+
+
+<section ID="question"><title>Otáznik ?</title>
+<para>Znak otázniku nahrádza ¾iaden alebo jeden znak.
+<emphasis>be?n</emphasis> predstavuje <emphasis>ben</emphasis> a <emphasis>bn</emphasis>
+ale nie <emphasis>been</emphasis>.
+<emphasis>trees?</emphasis> predstavuje
+<emphasis>trees</emphasis> alebo
+<emphasis>tree</emphasis>.</para>
+</section>
+
+
+<section ID="bracket"><title>Hranaté zátvorky [ ]</title>
+<para>Hranaté zátvorky ohranièujú skupinu znakov, ktoré mô¾u by»
+nájdené. Bodka, hviezdièka, znamienka plus a otáznik v hranatých
+zátvorkách nie sú ¹peciálnymi znakmi. Znamienko mínus mô¾e by»
+pou¾ité na vyjadrenie rozsahu. Ak chcete pou¾i» strie¹ku, &quot;^&quot;
+neumiestnite ju na prvú pozíciu hneï za µavou hranatou zátvorkou,
+lebo bude chápaná ako ¹peciálny znak. Ak chcete pou¾i» vo vzorke
+&quot;]&quot; alebo znak mínus umiestnite ich na prvej pozícii (alebo na druhej, ak
+prvým znakom je ¹peciálny znak &quot;^&quot;).
+<emphasis>s[eia]t</emphasis> nájde <emphasis>set</emphasis>, <emphasis>sit</emphasis>,
+a <emphasis>sat</emphasis>, ale nie <emphasis>s</emphasis>o<emphasis>t</emphasis>.
+<emphasis>s[eia]+t </emphasis> nájde predchádzajúce, ale tie¾ aj <emphasis>seat,
+seet, siet</emphasis>, atï.
+<emphasis>[a-d]</emphasis> zodpovedá <emphasis>a, b,
+c,</emphasis> alebo <emphasis>d</emphasis>.
+<emphasis>[A-Z]</emphasis> nahradzuje v¹etky veµké písmená.
+[.;:?!] predstavujú ., ;, :, ?, alebo ! ale nie comma.
+[ ]^-] predstavuje ] alebo ^ alebo -</para>
+</section>
+
+
+<section ID="caret"><title>Strie¹ka na prvej pozícii v hranatých
+zátvorkách [^xxx</title>
+<para>Ak je strie¹ka na prvej pozícií po µavej hranatej zátvorke,
+tak znamená NIE.
+<emphasis>s[^io]t</emphasis> nájde <emphasis>set, sat</emphasis>,
+atï., ale nie <emphasis>s</emphasis>i<emphasis>t</emphasis> a <emphasis>s</emphasis>o<emphasis>t</emphasis>.</para>
+</section>
+
+<section ID="caret_s"><title>Strie¹ka ako zaèiatok riadku ^xxx</title>
+<para>Ak je strie¹ka na prvej pozícii vo vzorke, predstavuje
+zaèiatok riadku. V¹etky nájdené vzorky musia by» na zaèiatku
+riadku. Kvôli neodfiltrovaným formátovacím znakom nemusí takáto
+vzorka v¾dy fungova», ale ak pou¾ijete niekoµko bodiek po
+strie¹ke, ktoré vyjadria poèet formátovacích znakov, vzorka bude
+fungova».
+<emphasis>^Na poèiatku</emphasis> nájde riadky (ver¹e), ktoré
+zaèínajú s &quot;<emphasis>Na poèiatku</emphasis>&quot;.
+(Mo¾no budete musie» pou¾i»: <emphasis>^.....Na poèiatku</emphasis>)</para>
+</section>
+
+<section ID="dollar"><title>Znak dolára na konci vzorky xxx$</title>
+<para>Ak je znak dolára na poslednom mieste vo vzorke,
+predstavuje koniec riadku (ver¹a). V¹etko nájdené musí by»
+umiestnené na konci riadku. Kvôli neodfiltrovaným formátovacím
+znakom v niektorých textoch, budete musie» niekedy pou¾i» bodky.
+<emphasis>Amen\.$</emphasis> nájde riadky (ver¹e), ktoré konèia
+s &quot;<emphasis>Amen.</emphasis>&quot; (Mo¾no musíte pou¾i»
+Amen\....$, Amen\..........$, alebo aj Amen\....................$)</para>
+</section>
+
+<section ID="bar"><title>Vertikálna èiara |</title>
+<para>Vertikálna èiara vo vzorke predstavuje ALEBO
+<emphasis>Ján|Peter</emphasis> nájde <emphasis>Ján</emphasis>
+alebo <emphasis>Peter.
+Ján .*Peter|Peter .*Ján</emphasis> nájde
+<emphasis>Ján</emphasis>... <emphasis>Peter</emphasis> alebo
+<emphasis>Peter</emphasis> ... <emphasis>Ján</emphasis>.
+(.* spomalí hµadanie)
+<emphasis>boles»|utrpenie|smútok</emphasis> nájde
+<emphasis>boles»</emphasis>, alebo <emphasis>utrpenie</emphasis>,
+alebo <emphasis>smútok</emphasis>.</para>
+</section>
+
+<section ID="parenth"><title>Oblé zátvorky ( ) </title>
+<para><emphasis>Pou¾ívanie oblých zátvoriek ( ) nie je podporované </emphasis></para>
+</section>
+
+
+<section ID="backslash"><title>Opaèné lomítko pred ¹peciálnym
+znakom \*</title>
+<para>Opaèné lomítko pre ¹peciálnym znakom naznaèuje, ¾e nebude
+pou¾itý jeho ¹peciálny význam, ale bude pou¾itý ako obyèajný
+text.
+<emphasis>amen\.</emphasis> nájde <emphasis>amen.</emphasis> ale
+nie <emphasis>amen</emphasis>t a tie¾ nenájde ani firm<emphasis>amen</emphasis>t.</para>
+</section>
+
+<section ID="backslash_o"><title>Opaèné lomítko pred be¾ným
+znakom \s</title>
+
+<para>Opaèné lomítko pred be¾ným znakom naznaèuje, ¾e znak nebude
+predstavova» seba, ale má ¹peciálny význam.</para>
+
+<itemizedlist>
+<listitem><para>
+\b ak je pou¾ité mimo [ ] predstavuje ohranièenie slova. Ak sa
+nachádza uprostred [ ] predstavuje backspace.
+<emphasis>\brighteous\b</emphasis> nájde
+<emphasis>righteous</emphasis> ale nie
+un<emphasis>righteous</emphasis> alebo <emphasis>righteous</emphasis>ness</para></listitem>
+
+<listitem><para>\B predstavuje neslovné ohranièenie
+<emphasis>\Brighteous\B</emphasis> nájde un<emphasis>righteous</emphasis>ness a un<emphasis>righteous</emphasis>ly
+ale nie <emphasis>righteous</emphasis>,
+un<emphasis>righteous</emphasis> alebo <emphasis> righteous</emphasis>ness.</para></listitem>
+<listitem><para>\d znamená èíslo; t.j. [0-9].</para></listitem>
+<listitem><para>\D znamená neèíslený znak, t.j. [^0-9].</para></listitem>
+<listitem><para>\s znamená medzeru. </para></listitem>
+<listitem><para>\S znamená "nie medzera". </para></listitem>
+<listitem><para>\w znamená alfanumerický znak; t.j. [a-zA-Z0-9_].</para></listitem>
+<listitem><para>\W znamená nie alfanumerický znak; t.j. [^a-zA-Z0-9_].</para></listitem>
+</itemizedlist>
+
+</section>
+</section>
+</section>
+
+<section ID="hdbk_op_search_dialog_text_scope">
+<title>Pou¾ívanie tabuµky vyhµadávacieho rozsahu</title>
+<para>Zadefinujte si svoj rozsah hµadania</para>
+
+<section ID="hd_op_sch_dia_txt_scope_options">
+<title>Mo¾nosti rozsahu hµadania</title>
+<itemizedlist>
+<listitem><para><guibutton>Bez rozsahu</guibutton> toto vypne
+tabuµku rozsahu. Celý dokument je prehµadaný.</para></listitem>
+<listitem><para><guibutton>Posledné výsledky</guibutton>
+Nové hµadanie bude hµada» iba v tých ver¹och, ktoré boli nájdené
+pri poslednom hµadaní.</para></listitem>
+<listitem><para><guibutton>Pou¾i rozsah</guibutton> Nové hµadanie
+bude pou¾ije ¹pecifikovaný rozsah.</para></listitem>
+</itemizedlist>
+
+<para>Je zvolené <guibutton>Bez rozsahu</guibutton>
+a hµadáte v module biblie KJV meno "Jesus", 939 polo¾iek bude
+nájdených. Ak potom zvolíte <guibutton>Posledné hµadanie</guibutton>
+a dáte vykona» ïal¹ie hµadanie na titul "Christ", zostane vám 257 polo¾iek z
+prvého hµadania 939 polo¾iek. Ak potom necháte zvolené
+<guibutton>Posledné hµadanie</guibutton> a dáte e¹te hµada» titul
+"Lord" zostane 106 z 257 polo¾iek. V¹etky 106 polo¾iek obsahuje
+meno "Jesus" a oba tituly "Christ" a "Pán".</para>
+</section>
+
+<section ID="hd_op_sch_dia_txt_scope_maintain"><title>Udr¾iavanie
+vlastných rozsahov </title>
+<para>Pre ka¾dý zvolený dokument mô¾ete vlo¾i» a zmaza» spodné
+a horné ohranièenie. Potom kliknite na <guibutton>Prida»
+</guibutton> zobrazí sa dialóg, kde po vlo¾ení mena bude vá¹ roz-
+sah pridaný do vlastných rozsahov.</para>
+
+<para>Rozsahu hµadania mô¾e by» urèený pre <emphasis>Celý Modul
+</emphasis> alebo pre <emphasis>Aktuálne výsledky.</emphasis> Ak
+je zvolená mo¾nos» Celý modul a hµadáte v module Biblie KJV meno
+"Jesus", bude nájdených 939 polo¾iek. Ak potom zvolíte mo¾nos»
+Aktuálne výsledky a dáte vykona» ïal¹ie hµadanie na titul
+"Christ", zostane vám 257 polo¾iek z prvého hµadania 939
+polo¾iek. Ak potom necháte zvolenú mo¾nos» "Aktuálne výsledky"
+a dáte e¹te hµada» titul "Lord" zostane 106 z 257 polo¾iek.
+V¹etky 106 polo¾iek obsahuje meno "Jesus" a oba tituly "Christ"
+a "Pán".</para>
+
+<tip><para>Funkcia Tiahni a pus» tu funguje. Do rozsahu mô¾ete
+pusti» èísla ver¹ov, zálo¾ky do pola vlastný rozsah.</para></tip>
+
+<screenshot>
+<screeninfo>Dialóg rozsahu hµadania</screeninfo>
+<graphic fileref="common/hdbk_op_search_dialog_searchscope.png" format="png"></graphic>
+</screenshot>
+</section></section>
+
+<section ID="hdbk_op_search_dialog_text_result">
+<title>Pou¾ívanie tabuµky výsledkov hµadania</title>
+<para>
+Výsledky hµadania - najskôr vám oznámi, koµko krát bol hµadaný
+re»azec nájdený v jednotlivých moduloch. Dvojklik na jednotlivé
+dokumenty vám otvorí zoznam odkazov (referencií). Po kliknutí na
+odkaz, sa v okne pod zoznamom zobrazí zvolený ver¹. Stiahnutím
+odkazu a jeho pustením na dokument v hlavnom indexe, otvoríte
+jeho nove zobrazenie.</para>
+<tip><para>Funguje to funkcia tiahni a pus».</para></tip>
+<tip><para>Zálo¾ku vytvoríte tak, ¾e chytíte èíslo ver¹a (alebo
+jeho odkaz) a pustíte ho do hlavného indexu.</para></tip>
+<tip><para>Ak zvolíte èíslo ver¹a a pustíte ho na neotvorený
+dokument v hlavnom indexe, dokument sa vám otvorí na zvolenom
+ver¹i (Táto vlastnos» funguje iba v komentároch
+a Bibliách).</para></tip>
+<tip><para>Ak zvolíte èíslo ver¹a a pustíte ho na otvorený
+dokument v hlavnom indexe, v dokumente sa vám zobrazí na zvolenom
+ver¹i (Táto vlastnos» funguje iba v komentároch
+a Bibliách).</para></tip>
+
+<screenshot>
+<screeninfo>Dialóg výsledkov hµadania</screeninfo>
+<graphic fileref="common/hdbk_op_search_dialog_searchresult.png" format="png"></graphic>
+</screenshot> </section>
+
+<section ID="hdbk_op_search_dialog_text_analysis"><title>
+Pou¾ívanie tabuµky Analýzy hµadania</title>
+<para>
+Analýza hµadania vám poskytuje grafickú analýzu poètu nájdených
+textových re»azcov v ka¾dej knihe. Mô¾e zobrazi» výsledky pre
+v¹etky prehµadávané dokumenty. Máte mo¾nos» graf ulo¾i» ako
+obrázok na pevný disk. </para>
+<screenshot>
+<screeninfo>Dialóg analýzy hµadania</screeninfo>
+<graphic fileref="common/hdbk_op_search_dialog_searchanal.png" format="png"></graphic>
+</screenshot>
+
+</section>
+</section>
+<section ID="hdbk_op_output"><title>Výstup</title>
+<section ID="hdbk_op_export"><title>Exportovanie</title>
+<para>
+Ak chcete exportova» text ako HTML alebo schránky (klipboardu),
+kliknite pravým tlaèítkom my¹i v dokumente a zobrazí sa vám
+ponuka, kde si zvoµte preferovanú mo¾nos». Potom sa vám zobrazí
+dialóg, kde vlo¾te názov súboru, pod ktorým bude text ulo¾ený.
+</para>
+
+<para>
+Context Menu Information Later
+</para>
+</section>
+
+<section ID="hdbk_op_print"><title>Tlaè</title>
+<para>Systém tlaèe sa zmenil a je v intenzívnom vývoji.</para>
+<para> Tlaè z Bibletime je len základná so zámerom vytvori» z nej
+nástroj. Ak pripravujeme dokument alebo prezentáciu, ktorá bude
+obsahova» text z BibleTime dokumentov, odporúèame vám pou¾i»
+nástroje na prezentáciu lebo editovacie nástroje vo va¹om
+systému. Pozrite si dokumentáciu o exportovaní.</para>
+<para>
+Ak chcete tlaèi», zvoµte si otvorený dokument a potom
+<guiicon>tlaè</guiicon>. Objaví sa vám dialóg pre tlaè. Budete
+ma» mo¾nos» posla» zvolenú oblas» na tlaèiareò alebo si ju
+pozrie» v kghostview. </para>
+
+<para>
+Context Menu Information Later
+</para>
+
+</section>
+</section>
+</chapter>
+
+
+
+
+
+

@@ -1,0 +1,598 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>In¹talácia Bibletime zo
+zdrojového kódu</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
+REL="HOME"
+TITLE="Dokumentácia k Bibletime"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Bibletime In¹talaèná príruèka"
+HREF="inst_idx.html"><LINK
+REL="PREVIOUS"
+TITLE="In¹talácia nevyhnutných programov"
+HREF="inst_preq_install.html"><LINK
+REL="NEXT"
+TITLE="Installing the Bibletime Source"
+HREF="inst_sources_bibletime.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="en"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-English"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="The K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Dokumentácia k Bibletime</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="inst_preq_install.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="inst_sources_bibletime.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="INST_SOURCES"
+>Chapter 3. In¹talácia Bibletime zo
+zdrojového kódu</A
+></H1
+><P
+>Táto kapitola popisuje ako sa prekladajú (kompilujú) zdrojové
+kódy. Tieto kroky sa vz»ahujú na vývojové aj finálnej verzie
+BibleTime a Sword. </P
+><P
+>Poznámka prekladateµa: <I
+CLASS="EMPHASIS"
+>Vzhµadom na niektoré objektívne príèinz sa mi nepodarili prelo¾i» kompletnú dokumentáciu vrátane tejto kapitoly. Prepokladám, ¾e èitateµ, ktorý by mal záujem o kompilaciu Bibletime je aspoò sèasti oboznámený s kompilovaním pod linuxom resp. rozumie anglickému jazyku. Aj napriek tomu dúfam, ¾e ïal¹ia verzia BibleTime bude obsahova» kompletnú slovenksú dokumentáciu.</I
+></P
+><DIV
+CLASS="SECTION"
+><H1
+CLASS="SECTION"
+><A
+NAME="INST_SOURCES_SWORD"
+>3.1. In¹talácia kni¾nice Sword a Sword modulov</A
+></H1
+><P
+>Sword a Sword moduly sú "kni¾nicou" pre Bibletime. Pozrite si
+stránku pre download, kde sú bli¾¹ie informácie o s»ahovaní BibleTime.</P
+><P
+>Pozrite si stránku s po¾iadavkami (requirements) na získanie
+Sword 1.5. Pozrite si tie¾ stránku, na ktorej je mo¾né získa»
+Sword moduly.</P
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="INST_SOURCES_SWORD_INSTALL"
+>3.1.1. In¹talácia Sword 1.52</A
+></H2
+><P
+>Naprv musíte rozbali» stiahnutý súbor .tar.gz (ak pou¾ívate CVS, vá¹ zdrojový kód je u¾ rozbalený a preto preskoète tento krok)
+do doèasného adresára. Urobte nieèo takéto: </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> mkdir /tmp
+ cd /tmp
+ tar -xzf sword-1.52.tar.gz
+ cd /tmp/sword-1.52</PRE
+></TD
+></TR
+></TABLE
+><P
+>(súbor tar bude rozbalený do adresára, ktorý bude pomenovaný podobne ako sword-1.52) </P
+><P
+>Skôr ako spustíte kompiláciu Sword, mo¾no budete musie» zmeni»
+<TT
+CLASS="FILENAME"
+> Makefile.cfg</TT
+> (je umiestnený v najvy¹¹om adresáry rozbaleného zdrojového kódu).
+Oblas», kde je mo¾né zvoli» si vlasné nastavenie v <TT
+CLASS="FILENAME"
+>Makefile.cfg</TT
+>
+je oznaèená - nepokú¹ajte sa zmeni» súbor mimo tejtop oblasti
+<I
+CLASS="EMPHASIS"
+>##### Customizable stuff. Set it how you like it #####</I
+>
+pokiaµ presne neviete, èo robíte. </P
+><P
+>For many installations the defaults will work. When the defaults don't work,
+these switches may be set.</P
+><DIV
+CLASS="TABLE"
+><HR><P
+><B
+>Table 3-1. Sword Makefile.cfg switches</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>Switch</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+># compiler</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>If you have gcc leave this alone, otherwise enter the compiler
+you will be using.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+># shared library-</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Set to 'yes'. this causes the shared library
+<TT
+CLASS="FILENAME"
+>libsword.so</TT
+> to be generated. An entry must be placed into
+the file <TT
+CLASS="FILENAME"
+>/etc/ld.so.conf</TT
+> that points to libsword.
+<TT
+CLASS="FILENAME"
+>/usr/local/sword/lib</TT
+> is typical.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+># VCL library-</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Use the default 'no' unless you are using the Sword install
+manager, then use 'yes'.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+># Debugging options etc...</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>The defaults should work.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+># endian, etc. support for other hardware</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Use the default if compiling on an Intel. If you have other
+hardware, select the correct entry.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+># zLib support</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Use the default 'yes'</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+># paths</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>The defaults should be ok, but you can change them if you wish. If you
+wish to customize the install location of the library and the include files, you
+have to decide if you want to install them in an extra directory like
+<TT
+CLASS="FILENAME"
+>/usr/local/sword/</TT
+> or at a common place like
+<TT
+CLASS="FILENAME"
+>/usr/local/</TT
+>.
+Or you could install the libraries in
+<TT
+CLASS="FILENAME"
+>/usr/local/lib</TT
+> and the include files in
+<TT
+CLASS="FILENAME"
+>/usr/local/include</TT
+> choose <TT
+CLASS="FILENAME"
+>/usr/local</TT
+>.&#13;</TD
+></TR
+></TBODY
+></TABLE
+><HR></DIV
+><P
+>Now start compiling by typing <B
+CLASS="COMMAND"
+>make</B
+> and wait until it's
+finished. After this you have to install the files. It's easy. Simply type
+<B
+CLASS="COMMAND"
+> make install </B
+>.</P
+><P
+>In the event that make command reports an error on completion, it probably
+indicates that you are missing a package. For example:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> bash-2.03# make
+ make just-pre nodeps=yes
+ make[1]: Entering directory `/tmp/sword-1.52'
+ make -C src just-pre
+ .
+ .
+ .
+ make[1]: Entering directory `/tmp/sword-1.52/include'
+ make[1]: Nothing to be done for `just-targets'.
+ make[1]: Leaving directory `/tmp/sword-1.52/include'
+ make -C apps/X11/VCL just-targets
+ make[1]: Entering directory `/tmp/sword-1.52/apps/X11/VCL'
+ gcc -I../../../include/ -D_GNU_SOURCE -I. `gtk-config --cflags` -static -pipe -Wall -Wno-format
+ -fomit-frame-pointer -ggdb -O0 -m486 -c -o TWinControl.o TWinControl.cpp
+ <I
+CLASS="EMPHASIS"
+>/bin/sh: gtk-config: command not found </I
+>
+ In file included from TWinControl.cpp:1:
+ <I
+CLASS="EMPHASIS"
+>TWinControl.h:6: gtk/gtkwidget.h: No such file or directory</I
+>
+ <I
+CLASS="EMPHASIS"
+>TWinControl.cpp:3: gtk/gtkwidget.h: No such file or directory </I
+>
+ In file included from TWinControl.cpp:1:
+ TWinControl.h:281: syntax error before `*'
+ TWinControl.h:284: parse error before `*'
+ TWinControl.cpp:10: parse error before `*'
+ make[1]: *** [TWinControl.o] Error 1
+ make[1]: Leaving directory `/tmp/sword-1.52/apps/X11/VCL'
+ make: *** [apps/X11/VCL/targets] Error 2
+ bash-2.03#</PRE
+></TD
+></TR
+></TABLE
+><P
+>The italic lines above indicate that a gtk application was missing. A
+review of the available packages showed that one of the gtk packages
+supplied with SuSE is gtkdev. This turns out to be the application required to
+allow make to run to completion without errors. Often missing packages
+will be found on your installation disks, or on your distribution's website.
+Once <B
+CLASS="COMMAND"
+>make</B
+> runs to completion without errors, then
+<B
+CLASS="COMMAND"
+>make install</B
+>. If it still doesn't work, edit the
+file <TT
+CLASS="FILENAME"
+>Makefile.cfg</TT
+> in the top directory of the Sword sources
+and change the line "<B
+CLASS="COMMAND"
+>buildvcl := yes</B
+>" to "<B
+CLASS="COMMAND"
+>buildvcl
+:= no</B
+>" and try again.</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H2
+CLASS="SECTION"
+><A
+NAME="INST_SOURCES_SWORD_MODULES"
+>3.1.2. Installation of modules</A
+></H2
+><DIV
+CLASS="SECTION"
+><H3
+CLASS="SECTION"
+><A
+NAME="INST_SOURCES_SWORD_MODULES_DIR"
+>3.1.2.1. Choose a Sword directory</A
+></H3
+><P
+>Sword currently supports 3 types of modules: Bibles, dictionaries and
+commentaries. You have to install the files of the modules their own directory.
+You must decide which directory will be your Sword directory. If you installed
+the libs and includes in an extra directory use that directory as your Sword
+directory (e.g. <TT
+CLASS="FILENAME"
+>/usr/local/sword/</TT
+>). If you installed the
+library and include files in a common place like
+<TT
+CLASS="FILENAME"
+>/usr/local/</TT
+> please select another location for your Sword
+directory. </P
+></DIV
+><DIV
+CLASS="SECTION"
+><H3
+CLASS="SECTION"
+><A
+NAME="INST_SOURCES_SWORD_MODULES_UPACK"
+>3.1.2.2. Unpack the downloaded package</A
+></H3
+><P
+>First you have to unpack the downloaded package. On the download page of Sword
+you can choose if you want to get a Windows or RAW package. If you have a "Linux
+only" box please get the RAW packages. But if you accidentally got a Windows
+self extracting executable try using WINE to extract the files. Perhaps you have
+to change the filename of "_INSTALL.1" to "_install.1" to get the setup running.</P
+></DIV
+><DIV
+CLASS="SECTION"
+><H3
+CLASS="SECTION"
+><A
+NAME="INST_SOURCES_SWORD_MODULES_INTIG"
+>3.1.2.3. Integrating modules</A
+></H3
+><P
+>Create the directory <TT
+CLASS="FILENAME"
+>mods.d</TT
+> inside of your Sword directory.
+Please copy the file <TT
+CLASS="FILENAME"
+>[modulename].conf</TT
+> into the
+<TT
+CLASS="FILENAME"
+>mods.d</TT
+> directory. the <TT
+CLASS="FILENAME"
+>.conf</TT
+> file is
+normally inside the unpacked module files. Now move the whole dir "modules"
+which contains your unpacked module data files to the Sword directory. In the
+example <TT
+CLASS="FILENAME"
+>/usr/local/sword</TT
+> is the Sword directory.</P
+><P
+> Directory Structure looks like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> /usr/local/sword/ -|- mods.d/ -|- module_1_name.conf
+  | |- module_2_name.conf
+  |
+  |- texts/rawtext/ -|-module_1_name/files
+   |-module_2_name/files</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECTION"
+><H3
+CLASS="SECTION"
+><A
+NAME="INST_SOURCES_SWORD_MODULES_CONFIG"
+>3.1.2.4. The Sword configuration file</A
+></H3
+><P
+>A Sword based app has to know where the modules are located. You need a small
+configuration file in <TT
+CLASS="FILENAME"
+>/etc</TT
+> to do this. Create the file
+<TT
+CLASS="FILENAME"
+>/etc/sword.conf</TT
+>.The file has to contain only the two
+following lines: </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> [Install]
+ DataPath=/usr/local/sword</PRE
+></TD
+></TR
+></TABLE
+><P
+>If you select a location other than <TT
+CLASS="FILENAME"
+>/usr/local/sword</TT
+>
+in the example above for your path to the Sword directory, point the data path
+to your selected Sword directory.</P
+><P
+>Now start BibleTime and enjoy ;-)
+If you have problems with the installation of the modules please read the "FAQ
+page. If there's no solution for your problem please see page "Contact" how to
+get help.</P
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="inst_preq_install.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="inst_sources_bibletime.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>In¹talácia nevyhnutných programov</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="inst_idx.html"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Installing the Bibletime Source</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

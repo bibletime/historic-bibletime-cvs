@@ -1,0 +1,50 @@
+<chapter id="inst_devl"><title>Ako získa» vývojový zdrojový kód</title>
+<section id="inst_devl_anon"><TITLE>Anonymný CVS prístup</TITLE>
+<Para>Tento projekt mô¾e by» podµa nasledujúcich informácii
+prístupný zo SourceForge CVS archívu pomocou anonymného (pserver)
+CVS. Modul, ktorý si prajete skontrolova», musí by» ¹pecifikovaný
+ako <emphasis>modulename</emphasis>. Keï bude od vás po¾adované
+heslo pre <emphasis>anonymous</emphasis>, jednoducho stlaète
+klávesu Enter.</Para>
+
+<screen>
+cvs -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime login
+cvs -z3 -d:pserver:anonymous@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <emphasis>modulename</emphasis>
+</screen>
+
+<para>Pri updatovaní z adresára modulu nie je potrebné pou¾i»
+parameter -d.</Para>
+</section>
+
+<section id="inst_devl_cvs"><TITLE>Prístup vývojarov k CVS cez SSH</TITLE>
+<Para>Iba vývojári projektu majú prístup k CVS stromu pomocou
+tejto metódy. Na klientskom poèítaèi musí by» nain¹talovaný SSH1.
+Nahraïte <emphasis>modulename</emphasis> a
+<emphasis>developername</emphasis> správnymi hodnotami. Keï to
+bude od vás po¾adované vlo¾te svoje heslo. </Para>
+
+<para>Získanie èerstvej kópie Bibletime</para>
+
+<screen>
+cd $home/<emphasis># Vá¹ domovský adresár</emphasis>
+export CVS_RSH=ssh # Aktivácia ssh je potrebná iba raz za sedenie
+cvs -z3 -d:ext:<emphasis>developername</emphasis>@cvs.bibletime.sourceforge.net:/cvsroot/bibletime co <emphasis>modulename</emphasis>
+</screen>
+
+<para>Aktualizovanie va¹ej kópie Bibletime CVS</para>
+<screen>
+cvs -z5 update -Pd
+</screen>
+
+<para>Odoslanie va¹ich zmien do CVS archívu</para>
+<screen>
+cvs -z5 commit -m "<emphasis>comments for this commit</emphasis>"
+</screen>
+
+<para>Pridanie nových súborov, ktoré ste vytvorili</para>
+<screen>
+cvs -z5 add <emphasis>my_new_file</emphasis>
+</screen>
+</section>
+
+</chapter>
