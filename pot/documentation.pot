@@ -1,0 +1,4638 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-02-09 01:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-xml2pot; charset=utf-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: index.docbook:1
+#, no-c-format
+msgid "Configuring &bibletime;"
+msgstr ""
+
+#: index.docbook:3
+#, no-c-format
+msgid ""
+"The &bibletime; user interface can be customized in many ways depending on "
+"your needs. To access the configuration dialogs, in the main toolbar select "
+"<guimenu>settings</guimenu>. From here select <guimenuitem>configure "
+"toolbars</guimenuitem> to launch the dialog configure toolbars dialog, or "
+"select <guimenuitem>Configure &bibletime;</guimenuitem> to launch the "
+"options dialog."
+msgstr ""
+
+#: index.docbook:10
+#, no-c-format
+msgid "Configure Toolbars Dialog"
+msgstr ""
+
+#: index.docbook:11
+#, no-c-format
+msgid ""
+"The Configure Toolbars dialog allows adding and removing actions from the "
+"main toolbar of &bibletime;. The order of actions in the main toolbar can "
+"also be changed."
+msgstr ""
+
+#: index.docbook:14
+#, no-c-format
+msgid "Toolbar Configuration Dialog"
+msgstr ""
+
+#: index.docbook:14
+#, no-c-format
+msgid "The Toolbar Configuration dialog."
+msgstr ""
+
+#: index.docbook:27
+#, no-c-format
+msgid "Preferences - &bibletime; Dialog"
+msgstr ""
+
+#: index.docbook:28
+#, no-c-format
+msgid ""
+"The preferences dialog allows many &bibletime; and &sword; features to be "
+"customized."
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "Startup"
+msgstr ""
+
+#: index.docbook:32
+#, no-c-format
+msgid ""
+"The startup behavior can be customized. Select from the following options:"
+msgstr ""
+
+#: index.docbook:34
+#, no-c-format
+msgid "Show tip of the day"
+msgstr ""
+
+#: index.docbook:34
+#, no-c-format
+msgid "Show startup Logo"
+msgstr ""
+
+#: index.docbook:34
+#, no-c-format
+msgid "Restore windows from the last &bibletime; session"
+msgstr ""
+
+#: index.docbook:39
+#, no-c-format
+msgid "Preferences Dialog"
+msgstr ""
+
+#: index.docbook:39
+#, no-c-format
+msgid "The Preferences dialog - Startup."
+msgstr ""
+
+#: index.docbook:51
+#, no-c-format
+msgid "Fonts"
+msgstr ""
+
+#: index.docbook:52
+#, no-c-format
+msgid ""
+"&bibletime; uses the &kde; general display font. The &kde; general display "
+"font can be changed from the &kcontrolcenter;. If the module you are using "
+"does not display correctly with the general display font, use the fonts "
+"options dialog to select a different one. &bibletime; now applies font "
+"selections to specific languages."
+msgstr ""
+
+#: index.docbook:58
+#, no-c-format
+msgid "Options Dialog - fonts"
+msgstr ""
+
+#: index.docbook:58
+#, no-c-format
+msgid "The Options dialog - Fonts."
+msgstr ""
+
+#: index.docbook:70
+#, no-c-format
+msgid "What kind of fonts can I use?"
+msgstr ""
+
+#: index.docbook:71
+#, no-c-format
+msgid ""
+"&bibletime; can now use any system fonts. These may be Bitmap Fonts, "
+"<trademark class=\"registered\">Adobe</trademark> Type1 Fonts, <trademark "
+"class=\"registered\">Adobe</trademark> Type3 fonts, or <trademark class="
+"\"registered\">TrueType</trademark>. These fonts may be supplied with your "
+"distribution, or may be obtained separately."
+msgstr ""
+
+#: index.docbook:77
+#, no-c-format
+msgid ""
+"As long as the modules you are interested in display correctly nothing needs "
+"to be done here. If a module you are interested in displays as a series of "
+"question marks (???????????????????) or empty boxes the font available to "
+"&bibletime; does not contain the characters used in your document."
+msgstr ""
+
+#: index.docbook:82
+#, no-c-format
+msgid ""
+"In the fonts options dialog, choose the desired language from the drop down "
+"menu. Select the use custom font checkbox. Now select a font. Clearlyu "
+"supports most languages so it is a good first try. If no installed font can "
+"be found that displays the module you are interested in, try installing the "
+"&kde; localization package for that language."
+msgstr ""
+
+#: index.docbook:88
+#, no-c-format
+msgid "Installing fonts"
+msgstr ""
+
+#: index.docbook:89
+#, no-c-format
+msgid ""
+"Detailed font installation instructions are outside the scope of this "
+"handbook. If you need detailed font installation information, please read "
+"the <ulink url=\"http://pegasus.rutgers.edu/~elflord/font_howto\">Font-"
+"HOWTO</ulink>, and <ulink url=\"http://www.ibiblio.org/pub/Linux/docs/HOWTO/"
+"other-formats/html_single/Unicode-HOWTO.html#toc4\"> The Unicode HOWTO</"
+"ulink>"
+msgstr ""
+
+#: index.docbook:95
+#, no-c-format
+msgid ""
+"If your distribution includes a font installer use it, it makes font "
+"installation much easier!"
+msgstr ""
+
+#: index.docbook:98
+#, no-c-format
+msgid ""
+"If you use a small font like clearlyu (about 22kb) &bibletime; will run "
+"faster than if a large font like <trademark class=\"registered\">Bitstream "
+"Cyberbit</trademark> (about 12Mb) is used."
+msgstr ""
+
+#: index.docbook:103
+#, no-c-format
+msgid "Obtaining Fonts"
+msgstr ""
+
+#: index.docbook:104
+#, no-c-format
+msgid "Fonts can be obtained from a number of sources."
+msgstr ""
+
+#: index.docbook:105
+#, no-c-format
+msgid "Your distribution."
+msgstr ""
+
+#: index.docbook:105
+#, no-c-format
+msgid "Your distribution's localization packages."
+msgstr ""
+
+#: index.docbook:105
+#, no-c-format
+msgid "An existing &Microsoft; &Windows; installation on the same computer."
+msgstr ""
+
+#: index.docbook:105
+#, no-c-format
+msgid ""
+"A font collection, such as are available from <trademark class=\"registered"
+"\">Adobe</trademark> or <trademark class=\"registered\">Bitstream</"
+"trademark>."
+msgstr ""
+
+#: index.docbook:105
+#, no-c-format
+msgid "On line font collections."
+msgstr ""
+
+#: index.docbook:115
+#, no-c-format
+msgid ""
+"Unicode fonts support more characters than other fonts, so are generally a "
+"good choice for &bibletime;, some of these fonts are available at no charge. "
+"Few of the fonts available include all of range of symbols defined in the "
+"Unicode standard, so you may try several before finding what you need"
+msgstr ""
+
+#: index.docbook:119
+#, no-c-format
+msgid "Here is a listing of some of the fonts available:"
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid "Unicode Fonts"
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid "Clearlyu"
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid ""
+"Included in some distributions. Contains European, Greek, Hebrew, Thai. Does "
+"not contain Chinease pictographs, or Arabic"
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid ""
+"<ulink url=\"ftp://ftp.crosswire.org/pub/sword/iso/latest/FONTS\">ftp://ftp."
+"crosswire.org/pub/sword/iso/latest/FONTS</ulink>."
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid "Several fonts available from the Crosswire Bible Society ftp site."
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid "Bitstream CyberBit"
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid "Covers almost the entire range of Unicode."
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid "Caslon, Monospace, Cupola, Caliban"
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid "Partial coverage, see information on linked site."
+msgstr ""
+
+#: index.docbook:140
+#, no-c-format
+msgid ""
+"The most complete listing of Unicode fonts that we are aware of is <ulink "
+"url=\"http://www.ccss.de/slovo/unifonts.htm\"> Christoph Singer's "
+"\"Multilingual Unicode TrueType Fonts in the Internet\"</ulink> with 24 "
+"fonts listed."
+msgstr ""
+
+#: index.docbook:143
+#, no-c-format
+msgid ""
+"Another Unicode font list can be found at: <ulink url=\"http://www.hclrss."
+"demon.co.uk/unicode/fontsbyrange.html\"> Unicode Font List</ulink>."
+msgstr ""
+
+#: index.docbook:149
+#, no-c-format
+msgid "Colors"
+msgstr ""
+
+#: index.docbook:150
+#, no-c-format
+msgid ""
+"The colors of the objects in display windows can be customized. Objects that "
+"can be customized are:"
+msgstr ""
+
+#: index.docbook:152
+#, no-c-format
+msgid "Text"
+msgstr ""
+
+#: index.docbook:152
+#, no-c-format
+msgid "Highlighted verse"
+msgstr ""
+
+#: index.docbook:152
+#, no-c-format
+msgid "Footnotes"
+msgstr ""
+
+#: index.docbook:152
+#, no-c-format
+msgid "Morphological Tags"
+msgstr ""
+
+#: index.docbook:152
+#, no-c-format
+msgid "Background"
+msgstr ""
+
+#: index.docbook:152
+#, no-c-format
+msgid "Hyperlinks"
+msgstr ""
+
+#: index.docbook:152
+#, no-c-format
+msgid "Strong's Numbers"
+msgstr ""
+
+#: index.docbook:152
+#, no-c-format
+msgid "Words of Jesus"
+msgstr ""
+
+#: index.docbook:163
+#, no-c-format
+msgid ""
+"Some options like \"Words of Jesus\" only apply to texts which support this "
+"special feature."
+msgstr ""
+
+#: index.docbook:165
+#, no-c-format
+msgid "Options Dialog - Color"
+msgstr ""
+
+#: index.docbook:165
+#, no-c-format
+msgid "The Options dialog - Color."
+msgstr ""
+
+#: index.docbook:179
+#, no-c-format
+msgid "Sessions"
+msgstr ""
+
+#: index.docbook:180
+#, no-c-format
+msgid ""
+"Sessions define the appearance of the work area, for example which windows "
+"are open and which texts should be displayed in these windows. Once a "
+"session is created, use the menu item <guimenu>Window</guimenu> -> "
+"<guimenuitem>Save session</guimenuitem> to save a current session into a "
+"session file. Use <guimenu>Window</guimenu> -> <guimenuitem>Load session</"
+"guimenuitem> to load a previously saved session into &bibletime;."
+msgstr ""
+
+#: index.docbook:188
+#, no-c-format
+msgid "Sword"
+msgstr ""
+
+#: index.docbook:189
+#, no-c-format
+msgid ""
+"Many features provided by the Sword backend can now be customized in "
+"&bibletime;."
+msgstr ""
+
+#: index.docbook:191
+#, no-c-format
+msgid "Options Dialog - Sword"
+msgstr ""
+
+#: index.docbook:191
+#, no-c-format
+msgid "The Options dialog - Sword."
+msgstr ""
+
+#: index.docbook:203
+#, no-c-format
+msgid "Sword General"
+msgstr ""
+
+#: index.docbook:204
+#, no-c-format
+msgid "Key Cache for Lexicons"
+msgstr ""
+
+#: index.docbook:205
+#, no-c-format
+msgid ""
+"&bibletime; can create a key cache for lexicons. This speeds up opening "
+"large lexicon modules. The cache file does use some disc space, so if your "
+"computer has only a small amount of free space, you might want to disable "
+"this feature."
+msgstr ""
+
+#: index.docbook:210
+#, no-c-format
+msgid "Scrolling Behavior"
+msgstr ""
+
+#: index.docbook:211
+#, no-c-format
+msgid ""
+"The default is that a down arrow moves the current position in a text to the "
+"next verse. This option allows the down arrow to move the current position "
+"in a text to the previous verse."
+msgstr ""
+
+#: index.docbook:215
+#, no-c-format
+msgid "Specify a language for biblical book names"
+msgstr ""
+
+#: index.docbook:216
+#, no-c-format
+msgid ""
+"This feature allows the language used to displayed book names to be changed. "
+"For example the King James Version can be displayed with German book names. "
+"If your language is not displayed and you would like to create a sword "
+"locale for your language, please see the CrossWire Bible Society developers "
+"site for details."
+msgstr ""
+
+#: index.docbook:224
+#, no-c-format
+msgid "Sword Default Modules"
+msgstr ""
+
+#: index.docbook:225
+#, no-c-format
+msgid "Default modules are specified here."
+msgstr ""
+
+#: index.docbook:227
+#, no-c-format
+msgid "Sword Filter Settings"
+msgstr ""
+
+#: index.docbook:228
+#, no-c-format
+msgid ""
+"Filters control the appearance of text in the display windows. Here you can "
+"chose the default settings for the various filters."
+msgstr ""
+
+#: index.docbook:230
+#, no-c-format
+msgid "The items controlled by filters are:"
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Show line break after each verse"
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Show verse numbers"
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Show footnotes"
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Show Strong's numbers"
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Show headings"
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Show morphologic tags"
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Show lemmas"
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Show Hebrew vowel points"
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Show Hebrew cantillation marks"
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Show Greek accents"
+msgstr ""
+
+#: index.docbook:249
+#, no-c-format
+msgid "Accelerators"
+msgstr ""
+
+#: index.docbook:250
+#, no-c-format
+msgid ""
+"Accelerators are special key commands that can be used in the place of the "
+"menu items and icons. A number of &bibletime;'s commands have predefined "
+"Accelerators. All of &bibletime;'s commands can be assigned accelerators "
+"here."
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Default accelerators"
+msgstr ""
+
+#: index.docbook:255 index.docbook:125
+#, no-c-format
+msgid "Action"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Key combination"
+msgstr ""
+
+#: index.docbook:255 index.docbook:555
+#, no-c-format
+msgid "Auto Tile"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Ctrl+Alt+T"
+msgstr ""
+
+#: index.docbook:255 index.docbook:555
+#, no-c-format
+msgid "Auto Cascade"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Ctrl+Alt+A"
+msgstr ""
+
+#: index.docbook:255 index.docbook:555
+#, no-c-format
+msgid "Cascade"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Ctrl+A"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Close All"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Shift+Ctrl+A"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Configure Toolbars"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "<entry></entry>"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Preferences"
+msgstr ""
+
+#: index.docbook:255 index.docbook:470
+#, no-c-format
+msgid "Quit"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Ctrl+Q"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Remove Selected Item(s)"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Ctrl+Alt+D"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Reset Main Index"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Ctrl+Alt+R"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Search in Selected Module(s)"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Ctrl+Alt+S"
+msgstr ""
+
+#: index.docbook:255 index.docbook:555
+#, no-c-format
+msgid "Tile"
+msgstr ""
+
+#: index.docbook:255
+#, no-c-format
+msgid "Ctrl+T"
+msgstr ""
+
+#: index.docbook:1
+#, no-c-format
+msgid "Introduction"
+msgstr ""
+
+#: index.docbook:3
+#, no-c-format
+msgid ""
+"&bibletime; is a powerful Bible study tool written for the &kde; environment "
+"on the Linux operating system. It is based on the <ulink url=\"http://www."
+"crosswire.org/sword\">Sword</ulink> library, which provides the back-end "
+"functionality for &bibletime;, such as viewing Bible text, searching, "
+"bookmarking, etc. Sword is the flagship product of the <ulink url=\"http://"
+"www.crosswire.org\">Crosswire Bible Society</ulink>."
+msgstr ""
+
+#: index.docbook:11
+#, no-c-format
+msgid ""
+"&bibletime; is designed to be used with documents that have been encoded in "
+"Theological Markup Language (ThML) and General Bible Format (GBF). These "
+"markup languages are focused on the requirements of religious texts. "
+"Complete information on the supported document formats can be found in the "
+"<ulink url=\"http://www.crosswire.org/sword/develop/index.jsp\"> developers "
+"section of the Sword Project, Crosswire Bible Society</ulink>."
+msgstr ""
+
+#: index.docbook:18
+#, no-c-format
+msgid ""
+"Over 200 documents in 50 languages are available from the <ulink url="
+"\"http://www.crosswire.org\">Crosswire Bible Society</ulink>. These include:"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid "Bibles"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid ""
+"The full Bible text, with optional things like Strong's Numbers and "
+"footnotes in the text. The Strong Numbers hot link to the entry in Strong's "
+"Hebrew Bible Dictionary or Strong's Greek Bible Dictionary. Bibles are "
+"available in many languages, and include not only modern versions, but also "
+"Ancient texts like the Aleppo Codex (Hebrew), and the Septuagint (Greek)."
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid "Commentaries"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid ""
+"Commentaries available include classics like John Wesley's Notes on the "
+"Bible, and Luther's Commentary on Galatians. With the <emphasis>Personal</"
+"emphasis> commentary you can record your own personal notes to different "
+"parts of the Bible."
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid "Lexicons"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid ""
+"Lexicons available include: Robinson's Morphological Analysis Codes, Brown-"
+"Driver-Briggs Hebrew Lexicon, International Standard Bible Encyclopedia"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid "Dictionaries"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid ""
+"Dictionaries available include Strong's Hebrew Bible Dictionary, Strong's "
+"Greek Bible Dictionary, Webster's Revised Unabridged Dictionary of the "
+"English Language 1913, Nave's Topical Bible."
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid "Books"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid ""
+"Books available include &quot;Imitation of Christ&quot;, &quot;Enuma "
+"Elish&quot;, and &quot;Josephus, the complete works&quot;"
+msgstr ""
+
+#: index.docbook:77
+#, no-c-format
+msgid ""
+"Additional documents are being added to the &sword; repository frequently, "
+"so visit often."
+msgstr ""
+
+#: index.docbook:79
+#, no-c-format
+msgid "Changes"
+msgstr ""
+
+#: index.docbook:80
+#, no-c-format
+msgid ""
+"Please read the file Changelog of the sourcecode package if you are "
+"interested in more detailed changes."
+msgstr ""
+
+#: index.docbook:84
+#, no-c-format
+msgid ""
+"A listing of the features included in the current package can be found in "
+"the sourcecode at <ulink url=\"http://cvs.sourceforge.net/cgi-bin/viewcvs."
+"cgi/*checkout*/bibletime/bibletime/ChangeLog?rev=HEAD&amp;content-type=text/"
+"plain\"> CVS log for <filename>bibletime/bibletime/ChangeLog</filename></"
+"ulink>"
+msgstr ""
+
+#: index.docbook:89
+#, no-c-format
+msgid "Changes for &bibletime; Release 1.3"
+msgstr ""
+
+#: index.docbook:90
+#, no-c-format
+msgid ""
+"&bibletime; version 1.3 provides a number of bugfixes and stability "
+"improvements. You will also find a number of changes to the appearance of "
+"bibletime. This is a partial list, for a more complete list, see the "
+"changlog."
+msgstr ""
+
+#: index.docbook:95
+#, no-c-format
+msgid "Main window"
+msgstr ""
+
+#: index.docbook:96
+#, no-c-format
+msgid ""
+"Main index was reorganized, sorting the modules by type of module, then by "
+"language."
+msgstr ""
+
+#: index.docbook:99
+#, no-c-format
+msgid ""
+"Bookmarks are now stored in an XML file, but the old format can still be "
+"imported. After upgrading an existing installation the old bookmarks are "
+"placed in the \"Old bookmarks\" subfolder."
+msgstr ""
+
+#: index.docbook:104
+#, no-c-format
+msgid "Drag&amp;Drop works now for more than one item."
+msgstr ""
+
+#: index.docbook:106
+#, no-c-format
+msgid ""
+"Search default Bible and search open modules options added in the search "
+"menu."
+msgstr ""
+
+#: index.docbook:110
+#, no-c-format
+msgid "Searchdialog"
+msgstr ""
+
+#: index.docbook:111
+#, no-c-format
+msgid ""
+"Major redesign of the user interface, reducing the number of tabs to two "
+"(search and result). Features have been moved to the appropriate tab."
+msgstr ""
+
+#: index.docbook:115
+#, no-c-format
+msgid "Display windows"
+msgstr ""
+
+#: index.docbook:116
+#, no-c-format
+msgid ""
+"Separated now in &quot;read only&quot; and &quot;write only&quot; windows. "
+"Write windows can be opened by <mousebutton>right</mousebutton> mouse button "
+"menu in the main index on the Personal Commentary module (or any other "
+"RawFiles module)."
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid "Options dialog"
+msgstr ""
+
+#: index.docbook:121
+#, no-c-format
+msgid ""
+"A custom font can now be specified for each language. The default font is "
+"KDE's default font, and will work for most modules."
+msgstr ""
+
+#: index.docbook:128
+#, no-c-format
+msgid "ToDo"
+msgstr ""
+
+#: index.docbook:129
+#, no-c-format
+msgid ""
+"We have lots to do. Because we are a very small team of active developers "
+"it's very hard to get reasonable results in a short time. If you are "
+"interested in helping the &bibletime; team, please contact us at <ulink url="
+"\"http://sourceforge.net/pm/?group_id=954\">Sourceforge &bibletime; home "
+"page</ulink>. Information can also be found at <ulink url=\"http://www."
+"bibletime.info/\">the &bibletime; homepage</ulink>."
+msgstr ""
+
+#: index.docbook:137
+#, no-c-format
+msgid ""
+"The &bibletime; project needs programmers / developers, translators, "
+"reviewers, testers, and prayer warriors. If you can help with any of these "
+"tasks or think up another, please join us. Without your help, &bibletime; "
+"will develop very very slow and it will take a very long time until you get "
+"a full-featured Bible study tool."
+msgstr ""
+
+#: index.docbook:144
+#, no-c-format
+msgid "Motivation"
+msgstr ""
+
+#: index.docbook:145
+#, no-c-format
+msgid ""
+"Our desire is to serve God, and to do our part to help others grow in their "
+"relationship with Him. We have found a gaping hole, in that there has been a "
+"total lack of user-friendly Bible-study software available for &Linux;-based "
+"computers. We have developed &bibletime; to fill that void. We have striven "
+"to make this a powerful, quality program, and still make it simple and "
+"intuitive to operate. It is our desire that God be praised, as He is the "
+"source of all good things."
+msgstr ""
+
+#: index.docbook:156
+#, no-c-format
+msgid ""
+"Every good thing given and every perfect gift is from above, coming down "
+"from the Father of lights, with whom there is no variation or shifting "
+"shadow."
+msgstr ""
+
+#: index.docbook:161
+#, no-c-format
+msgid ""
+"God bless you as you use this program, and may He be glorified by the work "
+"of our hands!"
+msgstr ""
+
+#: index.docbook:1
+#, no-c-format
+msgid "Program Operation"
+msgstr ""
+
+#: index.docbook:2
+#, no-c-format
+msgid ""
+"&bibletime; is mainly operated from the Module Tree (this tree is called the "
+"\"Main Index\"). The second important place to work with &bibletime; is the "
+"MDI area (MDI = Multiple Document Interface)."
+msgstr ""
+
+#: index.docbook:8
+#, no-c-format
+msgid "Main Index"
+msgstr ""
+
+#: index.docbook:9
+#, no-c-format
+msgid ""
+"This is the pane on the left side of the &bibletime; window. It contains the "
+"tree of installed documents (Sword Modules), as well as any bookmarks you "
+"enter."
+msgstr ""
+
+#: index.docbook:14
+#, no-c-format
+msgid "Module Tree"
+msgstr ""
+
+#: index.docbook:25
+#, no-c-format
+msgid "Selecting a document to view"
+msgstr ""
+
+#: index.docbook:27
+#, no-c-format
+msgid ""
+"To select a document, click with the <mousebutton>left</mousebutton> mouse "
+"button on the desired document group (Bibles, Commentaries, Lexicons, Books, "
+"Devotionals or Glossaries) to display the contents of a document group, "
+"click with the <mousebutton>right</mousebutton> mouse button on the icon for "
+"the desired group. To open a document, click on it's icon."
+msgstr ""
+
+#: index.docbook:32
+#, no-c-format
+msgid "Document Selection"
+msgstr ""
+
+#: index.docbook:40 index.docbook:86
+#, no-c-format
+msgid "Drag &amp; Drop Works Here"
+msgstr ""
+
+#: index.docbook:41
+#, no-c-format
+msgid ""
+"A document can be opened from an already opened document. Simply click with "
+"the <mousebutton>left</mousebutton> mouse button on the verse number "
+"(pointer changes to hand) and drag it to the module list. Drop it on the "
+"name of the module you want to open, and it will open that module to the "
+"verse you dragged over. If you drag a verse number to an already open "
+"module, it will automatically jump that module to the location of the verse "
+"that was dragged over. This works for Bibles and Commentaries only."
+msgstr ""
+
+#: index.docbook:48
+#, no-c-format
+msgid ""
+"There are two other functions accessible through clicking with the "
+"<mousebutton>right</mousebutton> mouse button on the document name. \"About "
+"This Module\" opens a window with information about copyright and other "
+"pertinent things about the selected document. \"Unlock This Module\" opens a "
+"small dialog for encrypted documents. This allows those with the key to "
+"enter it to decrypt the document and make it human-readable. Crosswire Bible "
+"Society must encrypt modules unless either the copyright holder provides "
+"permission for distribution as a sword module, or the text has passed into "
+"the public domain (copyright has expired). <ulink url=\"http://www.crosswire."
+"org/sword/modules/aboutlocked.jsp\"> See information on locked modules on "
+"the Crosswire Bible Society web site.</ulink>"
+msgstr ""
+
+#: index.docbook:63
+#, no-c-format
+msgid "Accessing the search dialog"
+msgstr ""
+
+#: index.docbook:63
+#, no-c-format
+msgid ""
+"You can search in a module by clicking with the <mousebutton>right</"
+"mousebutton> mouse button on the module name in the module list and "
+"selecting \"Search in module(s)\". By pressing shift and clicking on other "
+"module names you can select more than one. Then follow the same procedure to "
+"open the search dialog. You will be searching in all of these documents. A "
+"complete description of the operation of the search features can be found "
+"<link linkend=\"hdbk-op-search\">here</link>."
+msgstr ""
+
+#: index.docbook:73 index.docbook:97
+#, no-c-format
+msgid "Bookmark Selection"
+msgstr ""
+
+#: index.docbook:85
+#, no-c-format
+msgid "Accessing bookmark functions"
+msgstr ""
+
+#: index.docbook:86
+#, no-c-format
+msgid ""
+"Click with the <mousebutton>right</mousebutton> mouse button on the bookmark "
+"group of the module tree window and select <guimenuitem>&quot;Create new "
+"folder&quot;</guimenuitem> to create a new bookmark sub folder. You can use "
+"normal drag 'n' drop functions to drag verse numbers from search dialog "
+"results to the bookmark folder, and to rearrange bookmarks between folders. "
+"There is an import/export function for bookmarks also. From the "
+"<guimenu>right-mouse-button menu</guimenu>, select &quot;Export "
+"bookmarks&quot;. This will bring up a dialog box for you to save the "
+"bookmark collection. They can be shared with other &bibletime; users, "
+"archived, etc. They can be imported in the same way. You can also click with "
+"the <mousebutton>right</mousebutton> mouse button to change folder names and "
+"bookmark descriptions, and delete folders and bookmarks."
+msgstr ""
+
+#: index.docbook:110
+#, no-c-format
+msgid "Multiple Document Interface (MDI) Window"
+msgstr ""
+
+#: index.docbook:111
+#, no-c-format
+msgid ""
+"This is where the opened documents are displayed. Documents are displayed in "
+"\"Display Windows\", that are specific to the four types of documents. "
+"Crosswire Bible Society may release other document types for sword in the "
+"future. When they are released, &bibletime; will support them as well."
+msgstr ""
+
+#: index.docbook:118
+#, no-c-format
+msgid "Controlling Open Documents"
+msgstr ""
+
+#: index.docbook:118
+#, no-c-format
+msgid ""
+"Document Windows can be controlled and manipulated with normal &kde; window/"
+"title bar functions. In addition to this, you can tile and cascade open "
+"Document Windows. Use the appropriate tool bar buttons, or menu functions "
+"under <guimenu>&quot;Window&quot;</guimenu> in the main menubar. Document "
+"Windows can be set to automatically cascade or tile also."
+msgstr ""
+
+#: index.docbook:126
+#, no-c-format
+msgid "Navigating in Open Documents"
+msgstr ""
+
+#: index.docbook:126
+#, no-c-format
+msgid ""
+"Navigation within a document is accomplished with the Document Key Control "
+"Menu, and the scroll bar."
+msgstr ""
+
+#: index.docbook:130
+#, no-c-format
+msgid "To move to a specific location use the Document Key Control."
+msgstr ""
+
+#: index.docbook:131
+#, no-c-format
+msgid "To move within a section of a document use the scroll bar."
+msgstr ""
+
+#: index.docbook:132
+#, no-c-format
+msgid ""
+"For Bible texts the index key is <emphasis>Book - Chapter - Verse</emphasis>"
+msgstr ""
+
+#: index.docbook:133
+#, no-c-format
+msgid ""
+"For commentaries the index key is <emphasis>Book - Chapter - Verse</emphasis>"
+msgstr ""
+
+#: index.docbook:134
+#, no-c-format
+msgid "For lexicons the index key is <emphasis>Keyword</emphasis>"
+msgstr ""
+
+#: index.docbook:135
+#, no-c-format
+msgid ""
+"Drag &amp; Drop Works Here; if you drag a verse from one open document or a "
+"bookmark and drop it on another the second document will jump from it's "
+"current location to the location of the verse or bookmark dragged."
+msgstr ""
+
+#: index.docbook:141
+#, no-c-format
+msgid "Editing your own commentary"
+msgstr ""
+
+#: index.docbook:142
+#, no-c-format
+msgid ""
+"If the personal commentary is opened with a <mousebutton>left</mousebutton> "
+"mouse button it opens in read only mode. If you wish to make entries to the "
+"personal commentary, <mousebutton>right</mousebutton> mouse button on the "
+"<menuchoice>personal commentary</menuchoice> brings up the choice of the "
+"<guimenuitem>plane text or the HTML editors</guimenuitem>."
+msgstr ""
+
+#: index.docbook:147
+#, no-c-format
+msgid ""
+"If the editor does not save an entry, please check that you have permission "
+"to write to the personal commentary."
+msgstr ""
+
+#: index.docbook:149
+#, no-c-format
+msgid "The pencil icon is shown for the commentary editor"
+msgstr ""
+
+#: index.docbook:150
+#, no-c-format
+msgid "Enter your notes"
+msgstr ""
+
+#: index.docbook:158
+#, no-c-format
+msgid ""
+"The personal commentary editors are provided with a search key and save "
+"button. The HTML editor is also provided with the basic functions font name, "
+"size, color, italicize, underline and some paragraph formating "
+"possibilities. As with all good modern editors What You See Is What You Get."
+msgstr ""
+
+#: index.docbook:163
+#, no-c-format
+msgid ""
+"To delete notes for a selected verse, click the <guibutton>delete verse "
+"button</guibutton> <inlinemediaobject> <imageobject> <imagedata fileref="
+"\"hdbk-op-delete-verse.png\"/> </imageobject> <textobject> <phrase>Delete "
+"Verse Symbol</phrase> </textobject> </inlinemediaobject>."
+msgstr ""
+
+#: index.docbook:181
+#, no-c-format
+msgid ""
+"The personal commentary is a sword module. If you do not find it in the main "
+"index, get it from the <ulink url=\"http://www.crosswire.org\"> Crosswire "
+"Bible Society</ulink>."
+msgstr ""
+
+#: index.docbook:184
+#, no-c-format
+msgid ""
+"If you can not write to the personal commentary your permissions for the "
+"personal commentary module are wrong. Reset the permissions to allow your "
+"user to write to it."
+msgstr ""
+
+#: index.docbook:187
+#, no-c-format
+msgid ""
+"Drag &amp; Drop Works Here, just like other commentaries and Bible texts."
+msgstr ""
+
+#: index.docbook:195
+#, no-c-format
+msgid "Searching in Documents"
+msgstr ""
+
+#: index.docbook:196
+#, no-c-format
+msgid ""
+"Portions of the instructions for the use of GCC Regular Expression in "
+"Searching Documents is taken from the help files for the <trademark class="
+"\"registered\">Microsoft Windows</trademark> version of &sword;."
+msgstr ""
+
+#: index.docbook:201
+#, no-c-format
+msgid "Accessing search functions"
+msgstr ""
+
+#: index.docbook:202
+#, no-c-format
+msgid ""
+"You can search in a document by clicking with the <mousebutton>right</"
+"mousebutton> mouse button on the document name in the <guimenu>Main Index</"
+"guimenu> and selecting <guimenuitem>Search in module(s)</guimenuitem>. By "
+"holding shift- or ctrl- and clicking on other module names you can select "
+"more than one. Then follow the same procedure to open the search dialog. You "
+"will be searching in all of these Documents."
+msgstr ""
+
+#: index.docbook:213
+#, no-c-format
+msgid "Using the Search Dialog"
+msgstr ""
+
+#: index.docbook:214
+#, no-c-format
+msgid ""
+"&bibletime; provides a well developed search facility based on "
+"<application>GCC Regular Expression</application>. It allows you to create "
+"almost <link linkend=\"hdbk-op-search-dialog-text-regexp\">any type of "
+"search you can imagine.</link>"
+msgstr ""
+
+#: index.docbook:218
+#, no-c-format
+msgid ""
+"To access the search feature, click with the <mousebutton>right</"
+"mousebutton> mouse button in the Main Index now in the drop down select the "
+"magnifying glass. You can also customize &bibletime; to put the search icon "
+"<inlinemediaobject> <imageobject> <imagedata fileref=\"find.png\" format="
+"\"PNG\"/> </imageobject> </inlinemediaobject> in the toolbar if you would "
+"prefer."
+msgstr ""
+
+#: index.docbook:230
+#, no-c-format
+msgid "The Options Tab - Setting up your search."
+msgstr ""
+
+#: index.docbook:231
+#, no-c-format
+msgid "Use the options tab to set up your search."
+msgstr ""
+
+#: index.docbook:232
+#, no-c-format
+msgid "Search Text Dialog Options Tab"
+msgstr ""
+
+#: index.docbook:243
+#, no-c-format
+msgid "Using the Choose Modules Button"
+msgstr ""
+
+#: index.docbook:244
+#, no-c-format
+msgid ""
+"At the top of the options tab you will find <guibutton>Choose Modules</"
+"guibutton> , with the already selected modules directly below. If you would "
+"like to search additional modules, click on <guibutton>Choose Modules</"
+"guibutton> and you will be offered a menu of all of the modules that can be "
+"searched. Select modules with a click in the checkbox, then click the "
+"<guibutton>Use Selected Modules</guibutton> button."
+msgstr ""
+
+#: index.docbook:250
+#, no-c-format
+msgid "Choose Modules Dialog Box"
+msgstr ""
+
+#: index.docbook:261
+#, no-c-format
+msgid "Searched Text - what you want to find."
+msgstr ""
+
+#: index.docbook:263
+#, no-c-format
+msgid ""
+"The text box labled Searched Text is where the phrase to be used as the "
+"search key is entered. This phrase may be one or more words, or partial "
+"words, (separate words, or partials, with a space), a phrase, or pattern "
+"<link linkend=\"hdbk-op-search-dialog-text-regexp\">(Regular Expression).</"
+"link> You can use the radio buttons select to perform the search using the "
+"search key in multiple word, exact search, or regular expression mode. A "
+"check box is provided to turn case sensitive search on or off."
+msgstr ""
+
+#: index.docbook:274
+#, no-c-format
+msgid ""
+"Drag &amp; Drop Works Here, you can drop verses and bookmarks into the text "
+"box. You can also copy and paste text into the text box."
+msgstr ""
+
+#: index.docbook:279
+#, no-c-format
+msgid "Using the Search Text Case Sensitive checkbox"
+msgstr ""
+
+#: index.docbook:280
+#, no-c-format
+msgid ""
+"Click on the Case Sensitive check box to toggle case sensitivity on or off. "
+"If the box is marked a search will only find verse in which the found text "
+"also matches the case of the text in the input field. If the box is unmarked "
+"the search will match if the texts match but are different in case. To "
+"locate &quot;LORD&quot; but not &quot;Lord&quot; or &quot;lord&quot; mark "
+"the check box. To let &quot;LORD&quot; and &quot;Lord&quot; match &quot;"
+"lord&quot; leave the check box unmarked."
+msgstr ""
+
+#: index.docbook:294
+#, no-c-format
+msgid "Using the Search Text Multiple Word (AND) Button"
+msgstr ""
+
+#: index.docbook:295
+#, no-c-format
+msgid ""
+"If Multiple Words (AND) radio button is marked the search will locate all "
+"lines (or verses) that have all the words, listed in the Input Field. The "
+"position and order of the words, in the line is not a factor. If all the "
+"words, are in a line, in any order, even separated by other words, the line "
+"will be included in the list of found lines. A search for &quot;prove "
+"cause&quot; will find Gen. 21:25, &quot;And Abraham re<emphasis>prove</"
+"emphasis>d Abimelech be <emphasis>cause</emphasis> of a well of water..."
+"&quot; This is because a word that is part of another word is considered "
+"found if a word containing it is found."
+msgstr ""
+
+#: index.docbook:308
+#, no-c-format
+msgid "Using the Search Text Multiple Word (OR) Button"
+msgstr ""
+
+#: index.docbook:309
+#, no-c-format
+msgid ""
+"If Multiple Words (OR) radio button is marked the search will locate all "
+"lines (or verses) that have any of the words, listed in the Input Field. A "
+"search for &quot;cause&quot; will find Genesis 21:11, &quot;And the thing "
+"was very grievous in Abraham's sight be<emphasis>cause </emphasis> of his "
+"son.&quot;"
+msgstr ""
+
+#: index.docbook:317
+#, no-c-format
+msgid "Using the Exact Search"
+msgstr ""
+
+#: index.docbook:318
+#, no-c-format
+msgid ""
+"If the Exact radio button is marked the search will locate all lines (or "
+"verses) that contain what was entered in the input field, exactly as "
+"entered, including any spaces. The phrase found does not have to start or "
+"end at a word boundary. A search for &quot;now how thou ought&quot; will "
+"find 1 Timothy 3:1, &quot;...that thou mayest k<emphasis>now how thou ought</"
+"emphasis>est to behave...&quot;"
+msgstr ""
+
+#: index.docbook:329
+#, no-c-format
+msgid "<guibutton>Choose Search</guibutton> Scope Options"
+msgstr ""
+
+#: index.docbook:330
+#, no-c-format
+msgid ""
+"Define the Scope of your search by clicking on the <guibutton>Choose Scope</"
+"guibutton> button. You will be presented a list of predefined scopes."
+msgstr ""
+
+#: index.docbook:333
+#, no-c-format
+msgid ""
+"<guibutton>No Scope</guibutton> this turns off the search scope tab. The "
+"entire document is searched."
+msgstr ""
+
+#: index.docbook:333
+#, no-c-format
+msgid ""
+"<guibutton>Last Result</guibutton> The new search will only search within "
+"the verses found in the previous search."
+msgstr ""
+
+#: index.docbook:333
+#, no-c-format
+msgid ""
+"<guibutton>Gospels</guibutton> The new search will be performed within the "
+"range Matthew 1:1 - John 21:25"
+msgstr ""
+
+#: index.docbook:333
+#, no-c-format
+msgid ""
+"<guibutton>History</guibutton> The new search will be performed within the "
+"range Joshua 1:1 - Esther 10:3;"
+msgstr ""
+
+#: index.docbook:344
+#, no-c-format
+msgid ""
+"If <guibutton>No Scope</guibutton> is checked and a search of the KJV Bible "
+"module is done for the name, Jesus, 939 matches will result. Then if "
+"<guibutton>Last Result</guibutton> is checked and another search is done for "
+"the title, Christ, 257 matches from the first 939 matches will remain. Then "
+"if <guibutton>Last Result</guibutton> remains checked and another search is "
+"done for the title, Lord, 106 matches from the 257 will remain. All the "
+"remaining 106 matches will have the name, Jesus, and both the titles, Christ "
+"and Lord."
+msgstr ""
+
+#: index.docbook:354
+#, no-c-format
+msgid "Edit Ranges"
+msgstr ""
+
+#: index.docbook:355
+#, no-c-format
+msgid ""
+"Setup Custom Ranges - You can enter upper and lower boundaries for the "
+"search by clicking on the <guibutton>Setup Custom Ranges</guibutton> button."
+msgstr ""
+
+#: index.docbook:358
+#, no-c-format
+msgid "Change Range Entry Box"
+msgstr ""
+
+#: index.docbook:367
+#, no-c-format
+msgid "The predefined ranges show examples of the required syntax."
+msgstr ""
+
+#: index.docbook:369
+#, no-c-format
+msgid ""
+"Click on the <guibutton>Add New Range</guibutton> enter the name for your "
+"range in the Name text entry box, and enter the range in the text entry box "
+"labled Edit the search range. Your range is now added to the list of custom "
+"ranges. If you are satisfied you can return to the Search Options tab by "
+"clicking on <guibutton>OK</guibutton>."
+msgstr ""
+
+#: index.docbook:376
+#, no-c-format
+msgid "A number of custom ranges have been provided."
+msgstr ""
+
+#: index.docbook:378
+#, no-c-format
+msgid ""
+"The scope of a search can be set to the <emphasis>Entire Module</emphasis> "
+"or the <emphasis>Current Results.</emphasis> If Entire Module is checked and "
+"a search of the KJV Bible module is done for the name, Jesus, 939 matches "
+"will result. Then if Current Results is checked and another search is done "
+"for the title, Christ, 257 matches from the first 939 matches will remain. "
+"Then if Current Results remains checked and another search is done for the "
+"title, Lord, 106 matches from the 257 will remain. All the remaining 106 "
+"matches will have the name, Jesus, and both the titles, Christ and Lord."
+msgstr ""
+
+#: index.docbook:394
+#, no-c-format
+msgid "Search TextCustom Range Dialog Box"
+msgstr ""
+
+#: index.docbook:405
+#, no-c-format
+msgid "Using the Search Text Button"
+msgstr ""
+
+#: index.docbook:406
+#, no-c-format
+msgid "Click on the <guibutton>Search Button</guibutton> to start the search."
+msgstr ""
+
+#: index.docbook:408
+#, no-c-format
+msgid "Search Text Dialog Box"
+msgstr ""
+
+#: index.docbook:420
+#, no-c-format
+msgid "The Search Results Tab"
+msgstr ""
+
+#: index.docbook:421
+#, no-c-format
+msgid "Under the search results tab you will find the all of your search hits."
+msgstr ""
+
+#: index.docbook:425
+#, no-c-format
+msgid "Using the Search Results Tab"
+msgstr ""
+
+#: index.docbook:426
+#, no-c-format
+msgid ""
+"Search Result - This tells you first, by module, how many instances of the "
+"search string were found. In the Module Column, clicking on a document will "
+"open the list of references (clicking with the <mousebutton>right</"
+"mousebutton> mouse button allows you to copy, save, or print the list of "
+"items found). Clicking on a reference (the found items list) opens that "
+"verse up in the window below. Drag the reference and drop it on a document "
+"in the main index to open the module to that verse in a new display window, "
+"or look at the verse in the bottom pane of the search results tab."
+msgstr ""
+
+#: index.docbook:435
+#, no-c-format
+msgid "Drag &amp; Drop Works Here in the text display area."
+msgstr ""
+
+#: index.docbook:437
+#, no-c-format
+msgid ""
+"Select verse numbers and drag them to the main index to create bookmarks."
+msgstr ""
+
+#: index.docbook:438
+#, no-c-format
+msgid ""
+"Select verse numbers and drop them on an unopened module in the main index "
+"to open the module and jump to the verse location (Bibles and commentaries "
+"only)."
+msgstr ""
+
+#: index.docbook:440
+#, no-c-format
+msgid ""
+"Select verse numbers and drag them to an open document and the document will "
+"jump to the verse location (Bibles and commentaries only)."
+msgstr ""
+
+#: index.docbook:443
+#, no-c-format
+msgid "Search Result Dialog Box"
+msgstr ""
+
+#: index.docbook:455
+#, no-c-format
+msgid "Using the Search Analysis"
+msgstr ""
+
+#: index.docbook:456
+#, no-c-format
+msgid ""
+"Click on <guibutton>Search Analysis</guibutton> to open the search analysis "
+"display."
+msgstr ""
+
+#: index.docbook:457
+#, no-c-format
+msgid ""
+"<guibutton>Search Analysis</guibutton> - This gives a graphic analysis of "
+"the number of instances the search string was found in each book. It can "
+"display results for all documents searched. You have the option of saving "
+"the analysis as an html formated list on your hard drive."
+msgstr ""
+
+#: index.docbook:462
+#, no-c-format
+msgid "Search Analysis Dialog Box"
+msgstr ""
+
+#: index.docbook:477
+#, no-c-format
+msgid "Search Syntax using GCC Regular Expression"
+msgstr ""
+
+#: index.docbook:479
+#, no-c-format
+msgid ""
+"Regular expression searches provide a way to do simple or complex searches "
+"for strings that match a pattern or set of patterns (branches) separated by "
+"vertical bars &quot;|&quot;. While a pattern can be built to look for a word "
+"or phrase, a simple pattern that consists of a word does not look for only "
+"that word but for any place the string of letters that make that word are "
+"found. A search for &quot;right&quot; will return verses that contain the "
+"word &quot;right&quot;, but also &quot;<emphasis>right</emphasis>eous&quot;, "
+"&quot;<emphasis>right</emphasis>eousness&quot;, &quot;un<emphasis>right</"
+"emphasis>eous&quot;, &quot;up<emphasis>right</emphasis>&quot; and even &quot;"
+"b<emphasis>right</emphasis>&quot;. A search for &quot;hall not&quot; is not "
+"a search for &quot;hall&quot; AND &quot;not&quot; but for the string &quot;"
+"hall not&quot; with a space between the second &quot;l&quot; and the &quot;"
+"n&quot;. The search for &quot;hall not&quot; will find occurrences of &quot;"
+"s<emphasis>hall not</emphasis>&quot;."
+msgstr ""
+
+#: index.docbook:495
+#, no-c-format
+msgid ""
+"The power of Regular Expressions is in the patterns (or templates) used to "
+"define a search. A pattern consists of ordinary characters and some special "
+"characters that are used and interpreted by a set of rules. Special "
+"characters include .\\[^*$?+. Ordinary (or simple) characters are any "
+"characters that are not special. The backslash, &quot;\\&quot;, is used to "
+"convert special characters to ordinary and ordinary characters to special."
+msgstr ""
+
+#: index.docbook:504
+#, no-c-format
+msgid ""
+"Example: the pattern &quot;<emphasis>i. love\\.</emphasis>&quot; will find "
+"sentences that end with &quot;h<emphasis>i</emphasis>s <emphasis>love</"
+"emphasis>&quot; or &quot;<emphasis>i</emphasis>n <emphasis>love</"
+"emphasis>&quot; or &quot;<emphasis>i</emphasis>s <emphasis>love</"
+"emphasis>&quot; followed by a period. The first period in &quot;i. love\\."
+"&quot; is a special character that means allow any character in this "
+"position. The backslash in &quot;i. love\\.&quot; means that the period "
+"following it is not to be considered a special character, but is an ordinary "
+"period."
+msgstr ""
+
+#: index.docbook:515
+#, no-c-format
+msgid "Rules for GCC Regular Expression Search Requests"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+". The period matches any character. See <link linkend=\"period\">Details</"
+"link>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"* The asterisk matches 0 or more characters of the preceding: set, character "
+"or indicated character. See <link linkend=\"asterisk\">Details</link>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"+ The plus sign matches 1 or more characters of the preceding: set, "
+"character or indicated character. See <link linkend=\"plus\">Details</link>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"? The question mark matches 0 or 1 character of the preceding: set, "
+"character or indicated character. See <link linkend=\"question\">Details</"
+"link>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"[ ] Square brackets match any one of the characters specified inside [ ]. "
+"See <link linkend=\"bracket\">Details</link>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"^ A caret as the first character inside [ ] means NOT. See <link linkend="
+"\"caret\">Details</link>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"^ A caret beginning a pattern anchors the beginning of a line. See <link "
+"linkend=\"caret\">Details</link>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"$ A dollar at the end of a pattern anchors the end of a line. See <link "
+"linkend=\"dollar\">Details</link>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"| A vertical bar means logical OR. See <link linkend=\"bar\">Details</link>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"( ) Parentheses enclose expressions for grouping. <emphasis>Not supported!</"
+"emphasis>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"\\ A backslash can be used prior to any special character to match that "
+"character. See <link linkend=\"backslash\">Details</link>"
+msgstr ""
+
+#: index.docbook:516
+#, no-c-format
+msgid ""
+"\\ A backslash can be used prior to an ordinary character to make it a "
+"special character. See <link linkend=\"backslash\">Details</link>"
+msgstr ""
+
+#: index.docbook:547
+#, no-c-format
+msgid "The Period ."
+msgstr ""
+
+#: index.docbook:549
+#, no-c-format
+msgid ""
+"The Period &quot;.&quot; will match any single character even a space or "
+"other non-alphabet character. <emphasis>s.t</emphasis> matches <emphasis>s</"
+"emphasis>i<emphasis>t</emphasis>, <emphasis>s</emphasis>e<emphasis>t</"
+"emphasis>,<emphasis> s</emphasis>o<emphasis>t</emphasis>, etc., which could "
+"be located in <emphasis>s</emphasis>i<emphasis>t</emphasis>ting, "
+"compas<emphasis>s</emphasis>e<emphasis>t</emphasis>h and <emphasis>s</"
+"emphasis>o<emphasis>t</emphasis>tish <emphasis>b..t</emphasis> matches "
+"<emphasis>b</emphasis>oo<emphasis>t</emphasis>, <emphasis>b</"
+"emphasis>oa<emphasis>t</emphasis> and <emphasis>b</emphasis>ea<emphasis>t "
+"foot.tool </emphasis>matches <emphasis>foot</emphasis>s<emphasis>tool </"
+"emphasis>and <emphasis>foot tool</emphasis>"
+msgstr ""
+
+#: index.docbook:563
+#, no-c-format
+msgid "The Asterisk *"
+msgstr ""
+
+#: index.docbook:565
+#, no-c-format
+msgid ""
+"The asterisk matches zero or more characters of the preceding: set, "
+"character or indicated character. Using a period asterisk combination &quot;."
+"*&quot; after a commonly found pattern can cause the search to take a very "
+"long time, making the program seem to freeze. <emphasis>be*n</emphasis> "
+"matches<emphasis> beeen, been, ben</emphasis>, and <emphasis>bn</emphasis> "
+"which could locate Reu<emphasis>ben</emphasis> and She<emphasis>bn</"
+"emphasis>a."
+msgstr ""
+
+#: index.docbook:577
+#, no-c-format
+msgid "The Plus Sign +"
+msgstr ""
+
+#: index.docbook:578
+#, no-c-format
+msgid ""
+"The Plus Sign matches one or more characters of the preceding: set, "
+"character or indicated character. Using a period and plus sign combination "
+"&quot;.+&quot; after a commonly found pattern can cause the search to take a "
+"very long time, making the program seem to freeze. <emphasis>be+n</emphasis> "
+"matches <emphasis>beeen, been</emphasis> and <emphasis>ben</emphasis>, but "
+"not <emphasis>bn</emphasis>."
+msgstr ""
+
+#: index.docbook:589
+#, no-c-format
+msgid "The Question Mark ?"
+msgstr ""
+
+#: index.docbook:590
+#, no-c-format
+msgid ""
+"The Question Mark matches zero or one character of the preceding: set, "
+"character or indicated character. <emphasis>be?n</emphasis> matches "
+"<emphasis>ben</emphasis> and <emphasis>bn</emphasis> but not <emphasis>been</"
+"emphasis>. <emphasis>trees?</emphasis> matches <emphasis>trees</emphasis> or "
+"<emphasis>tree</emphasis>."
+msgstr ""
+
+#: index.docbook:599
+#, no-c-format
+msgid "The Square Brackets [ ]"
+msgstr ""
+
+#: index.docbook:600
+#, no-c-format
+msgid ""
+"The Square Brackets enclose a set of characters that can match. The period, "
+"asterisk, plus sign and question mark are not special inside the brackets. A "
+"minus sign can be used to indicate a range. If you want a caret &quot;"
+"^&quot; to be part of the range do not place it first after the left bracket "
+"or it will be a special character. To include a &quot;]&quot; in the set "
+"make it the first (or second after a special &quot;^&quot;) character in the "
+"set. To include a minus sign in the set make it the first (or second after a "
+"special &quot;^&quot;) or last character in the set. <emphasis>s[eia]t</"
+"emphasis> matches <emphasis>set</emphasis>, <emphasis>sit</emphasis>, and "
+"<emphasis>sat</emphasis>, but not <emphasis>s</emphasis>o<emphasis>t</"
+"emphasis>. <emphasis>s[eia]+t </emphasis>matches as above but also, "
+"<emphasis>seat, seet, siet</emphasis>, etc. <emphasis>[a-d]</emphasis> "
+"matches <emphasis>a, b, c,</emphasis> or <emphasis>d</emphasis>. <emphasis>"
+"[A-Z]</emphasis> matches any uppercase letter. [.;:?!] matches ., ;, :, ?, "
+"or ! but not a comma. [ ]^-] matches ] or ^ or -"
+msgstr ""
+
+#: index.docbook:622
+#, no-c-format
+msgid "The Caret first in Square Brackets [^xxx"
+msgstr ""
+
+#: index.docbook:623
+#, no-c-format
+msgid ""
+"If the Caret is the first character after the left bracket it means NOT. "
+"<emphasis>s[^io]t</emphasis> matches <emphasis>set, sat</emphasis>, etc., "
+"but not <emphasis>s</emphasis>i<emphasis>t</emphasis> and <emphasis>s</"
+"emphasis>o<emphasis>t</emphasis>."
+msgstr ""
+
+#: index.docbook:630
+#, no-c-format
+msgid "The Caret as Start of Line Anchor ^xxx"
+msgstr ""
+
+#: index.docbook:631
+#, no-c-format
+msgid ""
+"If the Caret is the first character in a pattern it anchors the pattern to "
+"the start of a line. Any match must be at the beginning of a line. Because "
+"of unfiltered formatting characters in some texts, this feature does not "
+"always work, but may if a few periods are placed after the caret to account "
+"for the formatting characters. <emphasis>^In the beginning</emphasis> "
+"matches lines that start with &quot;<emphasis>In the beginning</"
+"emphasis>&quot;. (May need to use: <emphasis>^.....In the beginning</"
+"emphasis>)"
+msgstr ""
+
+#: index.docbook:644
+#, no-c-format
+msgid "The Dollar Sign as End of Line Anchor xxx$"
+msgstr ""
+
+#: index.docbook:645
+#, no-c-format
+msgid ""
+"If the Dollar Sign is the last character in a pattern it anchors the pattern "
+"to the end of a line. Any match must be at the end of a line. Because of "
+"unfiltered formatting characters in some texts, this feature does not always "
+"work, but may if a few periods are placed before the dollar sign to account "
+"for the formatting characters. <emphasis>Amen\\.$</emphasis> matches lines "
+"that end with &quot;<emphasis>Amen.</emphasis>&quot; (May need to use Amen"
+"\\....$, Amen\\..........$, or even Amen\\....................$)"
+msgstr ""
+
+#: index.docbook:659
+#, no-c-format
+msgid "The Vertical Bar |"
+msgstr ""
+
+#: index.docbook:660
+#, no-c-format
+msgid ""
+"The Vertical Bar between patterns means OR. <emphasis>John|Peter</emphasis> "
+"matches <emphasis>John</emphasis> or <emphasis>Peter. John .*Peter|Peter ."
+"*John</emphasis> matches <emphasis>John</emphasis> ... <emphasis>Peter</"
+"emphasis> or <emphasis>Peter</emphasis> ... <emphasis>John</emphasis>. (.* "
+"slows a search) <emphasis>pain|suffering|sorrow</emphasis> matches "
+"<emphasis>pain</emphasis>, or <emphasis>suffering</emphasis>, or "
+"<emphasis>sorrow</emphasis>."
+msgstr ""
+
+#: index.docbook:671
+#, no-c-format
+msgid "The Parentheses ( )"
+msgstr ""
+
+#: index.docbook:672
+#, no-c-format
+msgid "The use of Parentheses ( ) is not supported!"
+msgstr ""
+
+#: index.docbook:678
+#, no-c-format
+msgid "The Backslash Prior to a Special Character \\*"
+msgstr ""
+
+#: index.docbook:679
+#, no-c-format
+msgid ""
+"The Backslash prior to a special character indicates that the character is "
+"not being used in its special meaning, but is just to match itself. "
+"<emphasis>amen\\.</emphasis> matches <emphasis>amen.</emphasis> but not "
+"<emphasis>amen</emphasis>t and will not locate firm<emphasis>amen</"
+"emphasis>t."
+msgstr ""
+
+#: index.docbook:687
+#, no-c-format
+msgid "The Backslash Prior to an Ordinary Character \\s"
+msgstr ""
+
+#: index.docbook:689
+#, no-c-format
+msgid ""
+"The Backslash prior to an ordinary character indicates that the character is "
+"not being used to match itself, but has special meaning."
+msgstr ""
+
+#: index.docbook:693
+#, no-c-format
+msgid ""
+"\\b if use outside [ ] means word boundary. If used inside [ ] means "
+"backspace. <emphasis>\\brighteous\\b</emphasis> matches <emphasis>righteous</"
+"emphasis> but not un<emphasis>righteous</emphasis> or <emphasis>righteous</"
+"emphasis>ness"
+msgstr ""
+
+#: index.docbook:693
+#, no-c-format
+msgid ""
+"\\B means non-word boundary. <emphasis>\\Brighteous\\B</emphasis> matches "
+"un<emphasis>righteous</emphasis>ness and un<emphasis>righteous</emphasis>ly "
+"but not <emphasis>righteous</emphasis>, un<emphasis>righteous</emphasis> or "
+"<emphasis> righteous</emphasis>ness."
+msgstr ""
+
+#: index.docbook:693
+#, no-c-format
+msgid "\\d means digit; same as [0-9]."
+msgstr ""
+
+#: index.docbook:693
+#, no-c-format
+msgid "\\D means non-digit, same as [^0-9]."
+msgstr ""
+
+#: index.docbook:693
+#, no-c-format
+msgid "\\s means space."
+msgstr ""
+
+#: index.docbook:693
+#, no-c-format
+msgid "\\S means not a space."
+msgstr ""
+
+#: index.docbook:693
+#, no-c-format
+msgid "\\w means alphanumeric; same as [a-zA-Z0-9_]."
+msgstr ""
+
+#: index.docbook:693
+#, no-c-format
+msgid "\\W means not alphanumeric; same as [^a-zA-Z0-9_]."
+msgstr ""
+
+#: index.docbook:714
+#, no-c-format
+msgid "Exporting and Printing"
+msgstr ""
+
+#: index.docbook:715
+#, no-c-format
+msgid "Bible Window, Lexicon Window, Commentary Window, Book Window."
+msgstr ""
+
+#: index.docbook:716
+#, no-c-format
+msgid ""
+"By clicking with the <mousebutton>right</mousebutton> mouse button on the "
+"index key number, verse number or text the Bible Window, Lexicon Window, "
+"Commentary Window or Book Window drop down box is displayed (depending on "
+"which kind of window is current), providing options to select all, and the "
+"export options copy, add to printing queue, and save."
+msgstr ""
+
+#: index.docbook:723
+#, no-c-format
+msgid "Select All"
+msgstr ""
+
+#: index.docbook:724
+#, no-c-format
+msgid ""
+"A mouse click here will select all of the text in the chapter displayed in "
+"the current window."
+msgstr ""
+
+#: index.docbook:730
+#, no-c-format
+msgid "Copy"
+msgstr ""
+
+#: index.docbook:731
+#, no-c-format
+msgid ""
+"A mouse click here will bring up a sub menu offering to copy to the copy "
+"buffer using the current location of the cursor as the starting point."
+msgstr ""
+
+#: index.docbook:734
+#, no-c-format
+msgid ""
+"<guimenuitem>Reference only</guimenuitem> - The number of the current verse "
+"(such as Genesis 1:25)."
+msgstr ""
+
+#: index.docbook:734
+#, no-c-format
+msgid ""
+"<guimenuitem>Text of Reference</guimenuitem> - The text of the current verse."
+msgstr ""
+
+#: index.docbook:734
+#, no-c-format
+msgid ""
+"<guimenuitem>Reference with Text</guimenuitem> - Both the text of the "
+"current verse, and the verse number."
+msgstr ""
+
+#: index.docbook:734
+#, no-c-format
+msgid "<guimenuitem>Chapter</guimenuitem> - the entire chapter."
+msgstr ""
+
+#: index.docbook:734
+#, no-c-format
+msgid ""
+"<guimenuitem>Selected Text</guimenuitem> - Only the selected (highlighted) "
+"text."
+msgstr ""
+
+#: index.docbook:761
+#, no-c-format
+msgid ""
+"This text can be copied into any application that can access the linux copy "
+"buffer."
+msgstr ""
+
+#: index.docbook:766
+#, no-c-format
+msgid "Add to Printing Queue"
+msgstr ""
+
+#: index.docbook:767
+#, no-c-format
+msgid ""
+"Selecting print here puts your print output in the bibletime print buffer. "
+"Inorder to send your job to the printer (lpr) via kprinter, you must select "
+"<guimenu>file</guimenu> <guimenuitem>print</guimenuitem> on the "
+"<guilabel>menubar</guilabel>."
+msgstr ""
+
+#: index.docbook:775
+#, no-c-format
+msgid "A mouse click here will bring up a submenu with the printing options:"
+msgstr ""
+
+#: index.docbook:777
+#, no-c-format
+msgid "reference with text"
+msgstr ""
+
+#: index.docbook:777
+#, no-c-format
+msgid "chapter"
+msgstr ""
+
+#: index.docbook:789
+#, no-c-format
+msgid ""
+"Selecting these places text into the bibletime print queue, but it will not "
+"print yet. When all of the items that you desire to print are copied to the "
+"print queue, select the print icon and the print dialog window is displayed. "
+"Now you can select to either view or print the text."
+msgstr ""
+
+#: index.docbook:795
+#, no-c-format
+msgid ""
+"Printing from &bibletime; is rather basic and is intended as a utility. If "
+"you are composing a document or presentation containing text from "
+"&bibletime; documents, we suggest that you use one of the presentation or "
+"editing tools on your system to format your work."
+msgstr ""
+
+#: index.docbook:802
+#, no-c-format
+msgid "Save"
+msgstr ""
+
+#: index.docbook:803
+#, no-c-format
+msgid "A mouse click here will bring up a submenu with save options:"
+msgstr ""
+
+#: index.docbook:805
+#, no-c-format
+msgid ""
+"<guimenuitem>Verse with reference</guimenuitem> - a file is created in "
+"&UNIX; formated ASCII text."
+msgstr ""
+
+#: index.docbook:805
+#, no-c-format
+msgid ""
+"<guimenuitem>Chapter as plain text</guimenuitem> - a file is created in "
+"&UNIX; formated ASCII text."
+msgstr ""
+
+#: index.docbook:805
+#, no-c-format
+msgid ""
+"<guimenuitem>Chapter as HTML</guimenuitem> - a file is created formated in "
+"HTML."
+msgstr ""
+
+#: index.docbook:822
+#, no-c-format
+msgid ""
+"Once saved this text can be opened and edited by any text or HTML "
+"application."
+msgstr ""
+
+#: index.docbook:1
+#, no-c-format
+msgid "Starting &bibletime;"
+msgstr ""
+
+#: index.docbook:3
+#, no-c-format
+msgid ""
+"&bibletime; is a &kde; program and is integrated with the &kde; desktop. You "
+"can launch &bibletime; from the &kde; <guimenu>start menu</guimenu> in the "
+"applications group."
+msgstr ""
+
+#: index.docbook:3
+#, no-c-format
+msgid "Icon used to start &bibletime;"
+msgstr ""
+
+#: index.docbook:18
+#, no-c-format
+msgid ""
+"&bibletime; can also be launched from a terminal command prompt. To launch "
+"&bibletime; open a terminal (any Xterminal inside a &kde;3 session) and type "
+"<command>bibletime</command>."
+msgstr ""
+
+#: index.docbook:24
+#, no-c-format
+msgid "Other Window Managers (not &kde;)"
+msgstr ""
+
+#: index.docbook:26
+#, no-c-format
+msgid ""
+"&bibletime; can be launched from inside other window managers (like gnome) "
+"providing &kde; is installed. You will need to install your own icon to "
+"launch the program. See the window manager help files to see how."
+msgstr ""
+
+#: index.docbook:33
+#, no-c-format
+msgid ""
+"&bibletime; can be used with other window managers such as Gnome, BlackBox, "
+"Sawfish, providing &kde;3 is already installed on your computer. If you "
+"installed &kde;3 using the &Linux-Mandrake; 8.x RPM's from a terminal using "
+"the mandrake RPM's KDE3 is installed in /opt, so the start up command in a "
+"terminal is:"
+msgstr ""
+
+#: index.docbook:38
+#, no-c-format
+msgid ""
+"export KDEDIR=/opt/kde3\n"
+"bibletime"
+msgstr ""
+
+#: index.docbook:42
+#, no-c-format
+msgid ""
+"&bibletime; will now open inside of a window of the current window manager. "
+"If you do not have &kde;3 installed in your copy of &Linux;, you should have "
+"tried the <ulink url=\"http://gnomesword.sourceforge.net/\">Gnomesword "
+"application.</ulink>, or one of the &kde;2 versions of &bibletime;."
+msgstr ""
+
+#: index.docbook:48
+#, no-c-format
+msgid ""
+"With &Linux-Mandrake; 9.0 and other other distributions where &kde; 3.x is "
+"installed in the normal location, simply type:"
+msgstr ""
+
+#: index.docbook:50 index.docbook:88
+#, no-c-format
+msgid "bibletime"
+msgstr ""
+
+#: index.docbook:55
+#, no-c-format
+msgid "Startup Customization"
+msgstr ""
+
+#: index.docbook:57
+#, no-c-format
+msgid ""
+"From a terminal you can use &bibletime; to open a random verse in the "
+"default bible:"
+msgstr ""
+
+#: index.docbook:59
+#, no-c-format
+msgid "bibletime --open-default-bible \"&lt;random&gt;\""
+msgstr ""
+
+#: index.docbook:63
+#, no-c-format
+msgid "To open at a given passage use:"
+msgstr ""
+
+#: index.docbook:64
+#, no-c-format
+msgid "bibletime --open-default-bible \"John 3:16\""
+msgstr ""
+
+#: index.docbook:70
+#, no-c-format
+msgid "You can also use keys in your current bookname language."
+msgstr ""
+
+#: index.docbook:75
+#, no-c-format
+msgid "Startup Sequence"
+msgstr ""
+
+#: index.docbook:76
+#, no-c-format
+msgid "As &bibletime; launches you may see some message screens:"
+msgstr ""
+
+#: index.docbook:78
+#, no-c-format
+msgid ""
+"<interface>No Modules Installed</interface> - This is shown if you have "
+"forgotten to install sword modules, or if the sword modules can not be found."
+msgstr ""
+
+#: index.docbook:78
+#, no-c-format
+msgid ""
+"<interface>First Time Startup</interface> - This is shown the first time "
+"&bibletime; is launched."
+msgstr ""
+
+#: index.docbook:78
+#, no-c-format
+msgid ""
+"<interface>Daily Tips</interface> - These show on every startup, unless you "
+"turn them off."
+msgstr ""
+
+#: index.docbook:78
+#, no-c-format
+msgid "Daily tips"
+msgstr ""
+
+#: index.docbook:108
+#, no-c-format
+msgid "Parts of the &bibletime; Window"
+msgstr ""
+
+#: index.docbook:109
+#, no-c-format
+msgid ""
+"Now the main &bibletime; window will open. It's operation is covered in the "
+"next chapter."
+msgstr ""
+
+#: index.docbook:109
+#, no-c-format
+msgid "The &bibletime; Application Window"
+msgstr ""
+
+#: index.docbook:1
+#, no-c-format
+msgid "Main toolbar and menubar"
+msgstr ""
+
+#: index.docbook:2
+#, no-c-format
+msgid "<para></para>"
+msgstr ""
+
+#: index.docbook:5
+#, no-c-format
+msgid "Toolbar"
+msgstr ""
+
+#: index.docbook:7
+#, no-c-format
+msgid ""
+"The action of each button is described in the configuration dialog box. "
+"<action>Moving the cursor over a button</action> will activate the button's "
+"tooltip which describes that buttons action."
+msgstr ""
+
+#: index.docbook:12
+#, no-c-format
+msgid "Button Action"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "view_sidetree.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Preferences Dialog</guilabel>, this icon opens the "
+"<guilabel>Manage sessions</guilabel> dialog. Here you can save a display for "
+"later recall."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "key_bindings.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Preferences Dialog</guilabel>, this icon opens the "
+"<guilabel>Accelerator</guilabel> dialog. Here you can customize the key "
+"bindings (keyboard shortcuts)."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "kcmfontinst.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Preferences Dialog</guilabel>, this icon opens the "
+"<guilabel>Choose Fonts</guilabel> dialog. Here you select the font used to "
+"display your sword modules."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "window_fullscreen.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon expands &bibletime; to use "
+"the entire viewing area of your monitor."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "ktip.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon opens the <guilabel>Daily "
+"Tip</guilabel>."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "configure.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon opens the <guilabel>Configure "
+"&bibletime;</guilabel> dialog."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "contents.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "In the <guilabel>Tool Bar</guilabel> this icon opens the Handbook."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "exit.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "In the <guilabel>Tool Bar</guilabel> this icon closes &bibletime;."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "fileclose.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon closes all open "
+"<guilabel>Document Windows</guilabel>."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "fileprint.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon opens the <guilabel>Print</"
+"guilabel> dialog. Right clicking in an <guilabel>Active Document Window</"
+"guilabel> and this symbol in a drop down menu sends the selected text to the "
+"print queue."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "find.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Main Index</guilabel> or the <guilabel>Tool Bar</guilabel> "
+"this icon opens the <guilabel>Search Dialog</guilabel>."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "bible_add.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Document Control Menu</guilabel> this icon opens the drop "
+"down menu that allows selection of an additional Bible Text."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "bible.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>main index</guilabel> this icon opens a Sword book module. "
+"This is used for modules that are not commentaries, lexicons or Bible texts."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "book_add.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Document Control Menu</guilabel> this icon opens the drop "
+"down menu that allows selection of an additional Sword book module. This is "
+"used for modules that are not commentaries, lexicons or Bible texts."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "book.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "In the <guilabel>main index</guilabel> this icon opens a Bible Text."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "cascade_auto.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon automatically cascades "
+"displayed books as they are opened."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "cascade.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon cascades the displayed books "
+"now."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "commentary_add.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Document Control Menu</guilabel> this icon opens the drop "
+"down menu that allows selection of an additional Lexicon."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "commentary.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "In the <guilabel>main index</guilabel> this icon opens a lexicon."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "displayconfig.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Preferences Dialog</guilabel>, this icon opens the "
+"<guilabel>Colors Dialog</guilabel>. Here you can change the colors of the "
+"displayed text.."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "lexicon_add.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "lexicon.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "startconfig.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Preferences Dialog</guilabel>, this icon opens the Startup "
+"Dialog. Here you can turn on (off) the tip of the day and the startup logo."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "swordconfig.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"<guimenuitem>Configure Sword</guimenuitem>. This icon is used in the "
+"<guilabel>Preferences Dialog</guilabel>. Here you can configure features "
+"controlled by the sword backend. Like default books, language used for book "
+"names, and various text display features."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "sync.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon links a commentary to the "
+"current open Bible. Thereafter the Commentary and the Bible scroll together."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "tile_auto.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon automatically tiles displayed "
+"books as they are opened."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "tile.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon tiles the displayed books now."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "bibletime.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"This icon is used with the desktop shortcut that launches &bibletime;. In "
+"the <guilabel>Tool Bar</guilabel> this icon displays the &bibletime; version "
+"information, license, and other interesting information."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "go.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon displays the &kde; version "
+"information, license, and other interesting information."
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "queue.png"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid ""
+"In the <guilabel>Tool Bar</guilabel> this icon will clear the print queue."
+msgstr ""
+
+#: index.docbook:464
+#, no-c-format
+msgid "Menubar"
+msgstr ""
+
+#: index.docbook:465
+#, no-c-format
+msgid ""
+"Various features of bibletime are accessed by way of drop down menus from "
+"the menubar."
+msgstr ""
+
+#: index.docbook:469
+#, no-c-format
+msgid "File"
+msgstr ""
+
+#: index.docbook:470
+#, no-c-format
+msgid "Clear printing queue"
+msgstr ""
+
+#: index.docbook:470
+#, no-c-format
+msgid ""
+"Clears all items from the &bibletime; print queue. The &bibletime; printing "
+"queue does not clear automatically."
+msgstr ""
+
+#: index.docbook:470
+#, no-c-format
+msgid "Print"
+msgstr ""
+
+#: index.docbook:470
+#, no-c-format
+msgid ""
+"This menu item launches the <guilabel>printdialog</guilabel> box. From here "
+"you will select print or view as for any other &kde; application."
+msgstr ""
+
+#: index.docbook:470
+#, no-c-format
+msgid "Closes &bibletime;."
+msgstr ""
+
+#: index.docbook:499
+#, no-c-format
+msgid "View"
+msgstr ""
+
+#: index.docbook:500
+#, no-c-format
+msgid "Show Toolbar"
+msgstr ""
+
+#: index.docbook:500
+#, no-c-format
+msgid ""
+"If <guimenuitem>show toolbar</guimenuitem> is selected, the toolbar is "
+"displayed. If <guimenuitem>show toolbar</guimenuitem> is unselected then the "
+"toolbar is hidden."
+msgstr ""
+
+#: index.docbook:500
+#, no-c-format
+msgid "Show Main Index"
+msgstr ""
+
+#: index.docbook:500
+#, no-c-format
+msgid ""
+"If <guimenuitem>show main index</guimenuitem> is selected, the left pane "
+"showing the available &sword; documents is displayed. If <guimenuitem>show "
+"main index</guimenuitem> is unselected then the left pane is hidden."
+msgstr ""
+
+#: index.docbook:527
+#, no-c-format
+msgid "Search"
+msgstr ""
+
+#: index.docbook:528
+#, no-c-format
+msgid "Search in default Bible"
+msgstr ""
+
+#: index.docbook:528
+#, no-c-format
+msgid ""
+"If <guimenuitem>Search in default Bible</guimenuitem> is selected, "
+"<guilabel>search dialog</guilabel> is displayed with the default Bible "
+"selected as the search parameter."
+msgstr ""
+
+#: index.docbook:528
+#, no-c-format
+msgid "Search in open module(s)"
+msgstr ""
+
+#: index.docbook:528
+#, no-c-format
+msgid ""
+"If <guimenuitem>Search in open module(s)</guimenuitem> is selected, "
+"<guilabel>search dialog</guilabel> is displayed with all of the open modules "
+"selected as the search parameters."
+msgstr ""
+
+#: index.docbook:554
+#, no-c-format
+msgid "Window"
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Save session"
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Saves the current configuration to a selected Session."
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Save as new session"
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid ""
+"Saves the current configuration to a session, and allows the new session to "
+"be named."
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Load session"
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid ""
+"Loads the contents of the named session to the current session of "
+"&bibletime;."
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Configure sessions"
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid ""
+"This brings up the <guilabel>Sessions</guilabel> tab of the "
+"<guilabel>Preferences Dialog</guilabel>. Here you create and manage Sessions."
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Fullscreen Mode"
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid ""
+"When <guimenuitem>Fullscreen Mode</guimenuitem> is selected, &bibletime; "
+"will expand to the full size of your monitor screen. To reverse the action "
+"select <guimenuitem>Fullscreen Mode</guimenuitem>again."
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Cascades open display windows."
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Tiles open display windows."
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Automatically cascades newly opened display windows."
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Ditto for tiling newly opened display windows."
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Close all"
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "Closes all open display windows."
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid "List of open modules"
+msgstr ""
+
+#: index.docbook:555
+#, no-c-format
+msgid ""
+"Shows a list of all of the currently open modules. Selecting a module in "
+"this list makes that open module the selected module in the display area."
+msgstr ""
+
+#: index.docbook:637
+#, no-c-format
+msgid "Settings"
+msgstr ""
+
+#: index.docbook:638
+#, no-c-format
+msgid "Configure Toolbar"
+msgstr ""
+
+#: index.docbook:638
+#, no-c-format
+msgid "Show the <guilabel>Configure Toolbar</guilabel> dialog."
+msgstr ""
+
+#: index.docbook:638
+#, no-c-format
+msgid "Configure &bibletime;"
+msgstr ""
+
+#: index.docbook:638
+#, no-c-format
+msgid ""
+"Shows the <guilabel>Preferences Dialog</guilabel>. From this dialog the "
+"startup mode, fonts, colors, sessions, sword features, and accelerators are "
+"configurable."
+msgstr ""
+
+#: index.docbook:662
+#, no-c-format
+msgid "Help"
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "Handbook"
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid ""
+"Select <guimenuitem>Handbook</guimenuitem> to access this document from the "
+"&kde; Help Center."
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "Biblestudy HowTo"
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid ""
+"Select <guimenuitem>Biblestudy HowTo</guimenuitem> to access a good basic "
+"text with recommendations for studying the Bible."
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "What's This"
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "Allows you to click on certain items for contextual help."
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "Bug Report"
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid ""
+"Send a bug report to the program's maintainers to help development. Before "
+"sending a bug report please configure the bug report application to use your "
+"mail program. This is done by <guibutton>configure</guibutton> on the "
+"<guilabel>Submit A Bug Report</guilabel> dialog."
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "Daily Tip"
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "Launches the <guilabel>tip of the day</guilabel> dialog."
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "About &bibletime;"
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "Opens a window with general &bibletime; information."
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "About &kde;"
+msgstr ""
+
+#: index.docbook:663
+#, no-c-format
+msgid "Opens a window with general &kde; information."
+msgstr ""
+
+#: index.docbook:21
+#, no-c-format
+msgid "The &bibletime; Handbook"
+msgstr ""
+
+#: index.docbook:25
+#, no-c-format
+msgid ""
+"<firstname>Fred</firstname> <surname>Saalbach</surname> <affiliation> "
+"<address><email>info@bibletime.info</email></address> </affiliation>"
+msgstr ""
+
+#: index.docbook:33
+#, no-c-format
+msgid "<firstname>Jeffrey</firstname> <surname>Hoyt</surname>"
+msgstr ""
+
+#: index.docbook:40 index.docbook:28
+#, no-c-format
+msgid "ROLES_OF_TRANSLATORS"
+msgstr ""
+
+#: index.docbook:48 index.docbook:32
+#, no-c-format
+msgid "The team of &bibletime;, info@bibletime.info"
+msgstr ""
+
+#: index.docbook:53
+#, no-c-format
+msgid "The &bibletime; handbook is part of &bibletime;."
+msgstr ""
+
+#: index.docbook:56
+#, no-c-format
+msgid ""
+"&bibletime; is free software; you can redistribute it and/or modify it under "
+"the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
+msgstr ""
+
+#: index.docbook:63
+#, no-c-format
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
+"more details."
+msgstr ""
+
+#: index.docbook:70
+#, no-c-format
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
+"Ave, Cambridge, MA 02139, USA."
+msgstr ""
+
+#: index.docbook:80
+#, no-c-format
+msgid "&bibletime; is an application to aid in study of the Bible."
+msgstr ""
+
+#: index.docbook:87
+#, no-c-format
+msgid "<keyword>KDE</keyword>"
+msgstr ""
+
+#: index.docbook:89
+#, no-c-format
+msgid "&bibletime;"
+msgstr ""
+
+#: index.docbook:90
+#, no-c-format
+msgid "sword"
+msgstr ""
+
+#: index.docbook:91
+#, no-c-format
+msgid "crosswire"
+msgstr ""
+
+#: index.docbook:92
+#, no-c-format
+msgid "help dialog"
+msgstr ""
+
+#: index.docbook:1
+#, no-c-format
+msgid "Bible Study Basics"
+msgstr ""
+
+#: index.docbook:4
+#, no-c-format
+msgid "Our Purpose as we Approach the Bible"
+msgstr ""
+
+#: index.docbook:5
+#, no-c-format
+msgid ""
+"Jn.5:39-40<emphasis>\"You search the Scriptures, because you think that in "
+"them you have eternal life; and it is these that bear witness of Me; and you "
+"are unwilling to come to Me, that you may have life.\"</emphasis>"
+msgstr ""
+
+#: index.docbook:11
+#, no-c-format
+msgid ""
+"The chief purpose of the book is to bring us to the Person. Martin Luther "
+"said \"we go to the cradle only for the sake of the baby\"; just so in Bible "
+"study, we do it not for its own sake but for fellowship with God."
+msgstr ""
+
+#: index.docbook:17
+#, no-c-format
+msgid ""
+"The Jews to whom Jesus spoke... imagined that to possess Scripture was "
+"tantamount to possessing life. Hillel used to say, \"He who has gotten to "
+"himself words of Torah has gotten to himself the life of the world to come."
+"\" Their study was an end in itself. In this they were grievously "
+"deceived. ..."
+msgstr ""
+
+#: index.docbook:22
+#, no-c-format
+msgid ""
+"There is neither merit nor profit in the reading of Scripture for its own "
+"sake, but only if it effectively introduces us to Jesus Christ. Whenever the "
+"Bible is read, what is needed is an eager expectation that through it we may "
+"meet Christ."
+msgstr ""
+
+#: index.docbook:29
+#, no-c-format
+msgid "Approaches to God's Word"
+msgstr ""
+
+#: index.docbook:30
+#, no-c-format
+msgid ""
+"Hearing and reading provide a telescopic view of the scripture while study "
+"and memorization provide a microscopic view of scripture. Meditating on the "
+"scriptures brings hearing, reading, studying and memorization together and "
+"cements the word in our minds."
+msgstr ""
+
+#: index.docbook:36
+#, no-c-format
+msgid "Hear"
+msgstr ""
+
+#: index.docbook:37
+#, no-c-format
+msgid ""
+"Lk.11:28 <emphasis>\"blessed are those who hear the word of God, and observe "
+"it.\"</emphasis>"
+msgstr ""
+
+#: index.docbook:42
+#, no-c-format
+msgid "Read"
+msgstr ""
+
+#: index.docbook:42
+#, no-c-format
+msgid ""
+"Rev.1:3 <emphasis>\"Blessed is he who reads and those who hear the words of "
+"this prophecy...\"</emphasis>"
+msgstr ""
+
+#: index.docbook:45
+#, no-c-format
+msgid ""
+"1 Tim.4:13 <emphasis>\"give attention to the public reading of Scripture..."
+"\"</emphasis>"
+msgstr ""
+
+#: index.docbook:49 index.docbook:76
+#, no-c-format
+msgid "Study"
+msgstr ""
+
+#: index.docbook:50
+#, no-c-format
+msgid ""
+"Acts 17:11 <emphasis>\"Now these were more noble-minded than those in "
+"Thessalonica, for they received the word with great eagerness, examining the "
+"Scriptures daily, to see whether these things were so.\"</emphasis>"
+msgstr ""
+
+#: index.docbook:53
+#, no-c-format
+msgid ""
+"2 Tim.2:15 <emphasis>\"Be diligent [KJV `Study'] to present yourself "
+"approved to God as a workman who does not need to be ashamed, handling "
+"accurately the word of truth.\"</emphasis>"
+msgstr ""
+
+#: index.docbook:59
+#, no-c-format
+msgid "Memorize"
+msgstr ""
+
+#: index.docbook:60
+#, no-c-format
+msgid ""
+"Ps.119:11 <emphasis>\"Thy word I have hid in my heart, that I may not sin "
+"against Thee.\"</emphasis>"
+msgstr ""
+
+#: index.docbook:63
+#, no-c-format
+msgid "Meditate"
+msgstr ""
+
+#: index.docbook:64
+#, no-c-format
+msgid ""
+"Ps.1:2-3 <emphasis>\"But his delight is in the law of the Lord, And in His "
+"law he meditates day and night. And he will be like a tree firmly planted by "
+"streams of water, Which yields its fruit in its season, And its leaf does "
+"not wither; And in whatever he does, he prospers.\"</emphasis>"
+msgstr ""
+
+#: index.docbook:68
+#, no-c-format
+msgid ""
+"The Navigators illustrate this by saying that as the thumb can touch all the "
+"fingers, we can meditate on the Word as we do any of the first four. "
+"Meditation is a key to revelation. A new Christian needs to hear and read "
+"the Bible more than they need to study and memorize it. This is so that they "
+"become familiar with the overall message of the Bible."
+msgstr ""
+
+#: index.docbook:75
+#, no-c-format
+msgid "Types of Bible Studies"
+msgstr ""
+
+#: index.docbook:76
+#, no-c-format
+msgid "Topical Study"
+msgstr ""
+
+#: index.docbook:76
+#, no-c-format
+msgid ""
+"Pick out a certain topic and follow it through, using cross-references or a "
+"concordance."
+msgstr ""
+
+#: index.docbook:81
+#, no-c-format
+msgid "Character Study"
+msgstr ""
+
+#: index.docbook:82
+#, no-c-format
+msgid ""
+"Studying the life of a Bible character, e.g. Joseph's life in Gen.37-50."
+msgstr ""
+
+#: index.docbook:84
+#, no-c-format
+msgid "Expository Study"
+msgstr ""
+
+#: index.docbook:84
+#, no-c-format
+msgid "Studying a certain passage: paragraph, chapter, or book."
+msgstr ""
+
+#: index.docbook:89
+#, no-c-format
+msgid "Basics of Correct Interpretation"
+msgstr ""
+
+#: index.docbook:92
+#, no-c-format
+msgid "Content"
+msgstr ""
+
+#: index.docbook:93
+#, no-c-format
+msgid ""
+"What does it say? What does it say in the original language? Be careful with "
+"definitions. Don't read into it what it doesn't say."
+msgstr ""
+
+#: index.docbook:96
+#, no-c-format
+msgid "Context"
+msgstr ""
+
+#: index.docbook:97
+#, no-c-format
+msgid ""
+"What do the verses around it say? \"Context is king\" is the rule -- the "
+"passage must make sense within the structure of the entire passage and book."
+msgstr ""
+
+#: index.docbook:101
+#, no-c-format
+msgid "Cross-reference"
+msgstr ""
+
+#: index.docbook:102
+#, no-c-format
+msgid ""
+"What do other verses about this subject say through the rest of the Bible? "
+"God doesn't contradict Himself, so our interpretation needs to stand the "
+"test of other scriptures."
+msgstr ""
+
+#: index.docbook:107
+#, no-c-format
+msgid "An Expository Study of Matthew 6:1-18"
+msgstr ""
+
+#: index.docbook:109
+#, no-c-format
+msgid ""
+"Let's study together Mt.6:1-18. Read it to yourself, first looking for the "
+"key verse, the verse that sums up the whole passage. Think you have it? Test "
+"it by picking different places in the passage and asking yourself if they "
+"relate to the thought of the key verse. Once you find it, write it as Roman "
+"numeral One of your outline:"
+msgstr ""
+
+#: index.docbook:112
+#, no-c-format
+msgid "I. BEWARE OF PRACTICING YOUR RIGHTEOUSNESS BEFORE MEN TO BE NOTICED"
+msgstr ""
+
+#: index.docbook:115
+#, no-c-format
+msgid ""
+"What does \"practicing your righteousness\" mean? Does the passage give any "
+"examples? What area of our lives is being addressed? our motives! What sub-"
+"headings develop this thought?"
+msgstr ""
+
+#: index.docbook:117
+#, no-c-format
+msgid ""
+"A. WHEN YOU GIVE\n"
+"  B. WHEN YOU FAST\n"
+"  C. WHEN YOU PRAY"
+msgstr ""
+
+#: index.docbook:122
+#, no-c-format
+msgid ""
+"Now fill in the outline with specific instructions of how to avoid wrong "
+"ways of practicing our righteousness:"
+msgstr ""
+
+#: index.docbook:124
+#, no-c-format
+msgid ""
+"A. When you give\n"
+"     1. DON'T SOUND A TRUMPET.  (HOW MIGHT SOMEONE \"SOUND A TRUMPET\" "
+"TODAY?)\n"
+"     2. DO IT SECRETLY.\tETC."
+msgstr ""
+
+#: index.docbook:130
+#, no-c-format
+msgid "Worksheet: How to Use a Concordance"
+msgstr ""
+
+#: index.docbook:132
+#, no-c-format
+msgid "To Find a Particular Verse"
+msgstr ""
+
+#: index.docbook:133
+#, no-c-format
+msgid "Pick out a key word or most-unusual word of the verse."
+msgstr ""
+
+#: index.docbook:133
+#, no-c-format
+msgid "Turn to this word alphabetically."
+msgstr ""
+
+#: index.docbook:133
+#, no-c-format
+msgid "Go down the column of listings until you find your verse."
+msgstr ""
+
+#: index.docbook:138
+#, no-c-format
+msgid ""
+"Find these verses:\n"
+"\t\t\"Faithful are the wounds of a friend.\"\n"
+"\t\t\"We are ambassadors of Christ.\"\n"
+"\t\tThe story of the rich man and Lazarus."
+msgstr ""
+
+#: index.docbook:146
+#, no-c-format
+msgid "To Do a Topical Study"
+msgstr ""
+
+#: index.docbook:147
+#, no-c-format
+msgid ""
+"Let's say you wanted to do a study of the word \"redemption.\" First you "
+"would look up that word in the concordance and look up references listed for "
+"it. Then you could look up related words and references listed for them, e."
+"g. \"redeem, redeemed, ransom,\" even \"buy\" or \"bought.\""
+msgstr ""
+
+#: index.docbook:153
+#, no-c-format
+msgid "To Clarify Word Meanings in the Greek and Hebrew"
+msgstr ""
+
+#: index.docbook:154
+#, no-c-format
+msgid ""
+"What if you noticed a contradiction in the KJV between Mt.7:1 \"Judge not "
+"lest you be judged\" and 1 Cor.2:15 \"He that is spiritual judgeth all "
+"things.\" Maybe there are two different Greek words here, both being "
+"translated \"judge\" in English? (We're using Strong's from here out.)"
+msgstr ""
+
+#: index.docbook:157
+#, no-c-format
+msgid "Look up \"judge.\""
+msgstr ""
+
+#: index.docbook:157
+#, no-c-format
+msgid ""
+"Go down the column of entries to Mt.7:1. To the right is a number, 2919. "
+"This refers to the Greek word used. Write it down."
+msgstr ""
+
+#: index.docbook:157
+#, no-c-format
+msgid "Now look up \"judgeth.\""
+msgstr ""
+
+#: index.docbook:157
+#, no-c-format
+msgid "Go down the column to 1 Cor.2:15 . . . . . 350."
+msgstr ""
+
+#: index.docbook:157
+#, no-c-format
+msgid ""
+"Turn in the back to the Greek dictionary. (Remember, you're in the NT so the "
+"language is Greek, while the OT is Hebrew.) Compare the meaning of 2919 with "
+"the meaning of 350 and you have your answer!"
+msgstr ""
+
+#: index.docbook:168
+#, no-c-format
+msgid "To Find Meanings of Names"
+msgstr ""
+
+#: index.docbook:169
+#, no-c-format
+msgid ""
+"By the same process we can find the meaning of a name in the Greek or Hebrew."
+msgstr ""
+
+#: index.docbook:170
+#, no-c-format
+msgid "Look up these names and write down their meaning:"
+msgstr ""
+
+#: index.docbook:171
+#, no-c-format
+msgid "Nabal"
+msgstr ""
+
+#: index.docbook:171
+#, no-c-format
+msgid "Abigail"
+msgstr ""
+
+#: index.docbook:171
+#, no-c-format
+msgid "Joshua"
+msgstr ""
+
+#: index.docbook:171
+#, no-c-format
+msgid "Barnabus"
+msgstr ""
+
+#: index.docbook:1
+#, no-c-format
+msgid "Importance of God's Word"
+msgstr ""
+
+#: index.docbook:2
+#, no-c-format
+msgid ""
+"Understanding God's word is of great importance to all who call on God's "
+"name. Study of the Bible is one of the primary ways that we learn to "
+"communicate with God."
+msgstr ""
+
+#: index.docbook:6
+#, no-c-format
+msgid "A Book that is Unique"
+msgstr ""
+
+#: index.docbook:8
+#, no-c-format
+msgid "The Bible stands alone in many ways. It is unique in:"
+msgstr ""
+
+#: index.docbook:11
+#, no-c-format
+msgid ""
+"popularity. Bible sales in North America: more than $500 million per year. "
+"The Bible is both the the all-time and year-to-year best seller!"
+msgstr ""
+
+#: index.docbook:11
+#, no-c-format
+msgid ""
+"authorship. It was written over a period of 1600 years by 40 different "
+"authors from different backgrounds, yet reads as if written by one."
+msgstr ""
+
+#: index.docbook:11
+#, no-c-format
+msgid ""
+"preservation. F. F. Bruce in <emphasis>Are New Testament Documents Reliable?"
+"</emphasis> compares New Testament manuscripts with other ancient texts:"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "Comparison of New Testament manuscripts with other ancient texts."
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "Work"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "When Written"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "Earliest Copy"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "Time Lapse"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "Number of Copies"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "Herodotus"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "448-428 B.C."
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "900 A.D."
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "1300 years"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "<entry>8 </entry>"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "Tacitus"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "100 A.D."
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "1100 A.D."
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "1000 years"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "<entry>20 </entry>"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "Caesar's <emphasis>Gallic War</emphasis>"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "50-58 B.C."
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "950 years"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "<entry>10 </entry>"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "Livy's <emphasis>Roman History</emphasis>"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "59 B.C. - 17 A.D."
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "900 years"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "New Testament"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "40 A.D. - 100 A.D."
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "130 A.D. Partial manuscripts 350 A.D. Full manuscripts"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "30 - 310 years"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid "5000 Greek &amp; 10,000 Latin"
+msgstr ""
+
+#: index.docbook:68
+#, no-c-format
+msgid ""
+"Ten copies of Caesar's <emphasis>Gallic War</emphasis> exist, the earliest "
+"of which was copied 900 years after Caesar wrote the original, etc. For the "
+"New Testament we have full manuscripts dating to 350 A. D., papyri "
+"containing most of the New Testament from the 200s, and a fragment of John's "
+"gospel from 130 A. D. How many manuscripts do we have to compare to each "
+"other? 5,000 in Greek and 10,000 in Latin!"
+msgstr ""
+
+#: index.docbook:76
+#, no-c-format
+msgid ""
+"\"In the verity and fullness of the evidence on which it rests, the text of "
+"the New Testament stands absolutely and unapproachably alone among other "
+"ancient prose writings.\""
+msgstr ""
+
+#: index.docbook:81
+#, no-c-format
+msgid "A Book that God Breathed"
+msgstr ""
+
+#: index.docbook:82
+#, no-c-format
+msgid ""
+"<emphasis>Heb.4:12 </emphasis>\"<emphasis>For the word of God is living and "
+"active... </emphasis>\" Jesus said <emphasis>(Mt.4:4),</emphasis> "
+"\"<emphasis>It is written, Man shall not live on bread alone, but on every "
+"word that proceeds [lit., is proceeding] from the mouth of God.</emphasis>\" "
+"As we read the Bible, God's Spirit is there to speak it to our hearts in a "
+"continually-fresh way."
+msgstr ""
+
+#: index.docbook:88
+#, no-c-format
+msgid ""
+"2 Tim.3:16 declares, \"<emphasis>All scripture is inspired by God [lit., God-"
+"breathed].</emphasis>\" Do you believe this? Before you answer, consider "
+"Jesus' attitude toward the Scriptures."
+msgstr ""
+
+#: index.docbook:92
+#, no-c-format
+msgid ""
+"He referred to the human authors, but took it for granted that behind them "
+"all was a single divine Author. He could equally say 'Moses said' or 'God "
+"said' (Mk.7:10). He could quote a comment of the narrator in Genesis 2:24 as "
+"an utterance of the Creator Himself (Mt.19:4-5). Similarly He said, 'Well "
+"did Isaiah prophesy of you hypocrites, as it is written', when what He went "
+"on to quote is the direct speech of the Lord God (Mk.7:6 &amp; Is.29:13). It "
+"is from Jesus Himself that the New Testament authors have gained their "
+"conviction of the dual authorship of Scripture. For them it was just as true "
+"to say that 'God spoke of old to our fathers by the prophets' (Heb.1:1) as "
+"it was to say that 'men moved by the Holy Spirit spoke from God' (2 "
+"Pe.1:21). God did not speak in such a way as to obliterate the personality "
+"of the human authors, nor did men speak in such a way as to corrupt the Word "
+"of the divine Author. God spoke. Men spoke. Neither truth must be allowed to "
+"detract from the other. ..."
+msgstr ""
+
+#: index.docbook:106
+#, no-c-format
+msgid ""
+"This, then, was Christ's view of the Scriptures. Their witness was God's "
+"witness. The testimony of the Bible is the testimony of God. And the chief "
+"reason why the Christian believes in the divine origin of the Bible is that "
+"Jesus Christ Himself taught it."
+msgstr ""
+
+#: index.docbook:112
+#, no-c-format
+msgid ""
+"2 Tim.3:16 goes on, \"<emphasis>and profitable for teaching, for correction, "
+"for training in righteousness, that the man of God may be adequate, equipped "
+"for every good work.</emphasis>\" If we accept that the Bible really is God "
+"speaking to us, it follows that it will be our authority in all matters of "
+"faith and conduct."
+msgstr ""
+
+#: index.docbook:118
+#, no-c-format
+msgid "A Book that Works"
+msgstr ""
+
+#: index.docbook:119
+#, no-c-format
+msgid ""
+"What will studying the Bible do for you? 1 Thess.2:13 says that the Bible "
+"\"<emphasis>performs its work in you who believe.</emphasis>\" Beside each "
+"scripture, write down the work the Word performs."
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid "What does Bible study do for Christians?"
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid "Reference"
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid "Eph. 5:26"
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid ""
+"cleanses -- \"...having cleansed her by the washing of water with the word.\""
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid "Acts 20:32"
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid ""
+"builds up -- \" ...the word of His grace, which is able to build you up and "
+"to give you the inheritance among all those who are sanctified. \""
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid "Rom. 15:4"
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid ""
+"encourages -- \"that through perseverance and the encouragement of the "
+"Scriptures we might have hope.\""
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid "Rom. 10:17"
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid ""
+"gives faith -- \"So faith comes from hearing, and hearing by the word of "
+"Christ.\""
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid "1 Cor. 10:11"
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid ""
+"instructs -- \"Now these things happened to them for an example, and they "
+"were written for our instruction\""
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid "Mt. 4:4"
+msgstr ""
+
+#: index.docbook:125
+#, no-c-format
+msgid ""
+"nourishment -- \"But He answered and said, 'It is written, Man shall not "
+"live on bread alone, but on every word that proceeds out of the mouth of "
+"God.'\""
+msgstr ""
+
+#: index.docbook:201
+#, no-c-format
+msgid "A Book that Liberates"
+msgstr ""
+
+#: index.docbook:202
+#, no-c-format
+msgid ""
+"Jn.8:32 \"<emphasis>and you shall know the truth, and the truth shall make "
+"you free.</emphasis>\"This is usually quoted by itself. Is this a "
+"conditional or unconditional promise? Would it apply to all kinds of "
+"knowledge? Find the answers by examining the first half of the sentence, in "
+"v.31. \"<emphasis>If you abide in My word, then you are truly disciples of "
+"Mine... </emphasis>\""
+msgstr ""
+
+#: index.docbook:209
+#, no-c-format
+msgid ""
+"We see that this is a conditional promice, specifically speaking of the "
+"truth of God's word."
+msgstr ""
+
+#: index.docbook:211
+#, no-c-format
+msgid ""
+"The Greek word for \"wind\" used in Eph.4:14 means a <emphasis>violent wind."
+"</emphasis> \"<emphasis>As a result, we are no longer to be children, tossed "
+"here and there by waves, and carried about by every wind of doctrine...</"
+"emphasis>\"One thing studying the Bible does for us is to ground us in the "
+"truth, with the result that we won't be easily \"blown away.\""
+msgstr ""
+
+#: index.docbook:217
+#, no-c-format
+msgid ""
+"<emphasis>But Jesus answered and said to them, </emphasis>\"<emphasis>You "
+"are mistaken [KJV Ye do err], not understanding the Scriptures, or the power "
+"of God.</emphasis>\"Mt.22:29"
+msgstr ""
+
+#: index.docbook:219
+#, no-c-format
+msgid "What 2 things do we need to know to be kept from error?"
+msgstr ""
+
+#: index.docbook:220
+#, no-c-format
+msgid "God's word"
+msgstr ""
+
+#: index.docbook:220
+#, no-c-format
+msgid "God's power"
+msgstr ""
+
+#: index.docbook:225
+#, no-c-format
+msgid "A Book that Wars"
+msgstr ""
+
+#: index.docbook:226
+#, no-c-format
+msgid "Eph.6:10-18 is one picture of our spiritual armament."
+msgstr ""
+
+#: index.docbook:228
+#, no-c-format
+msgid "Spiritual Armor"
+msgstr ""
+
+#: index.docbook:228
+#, no-c-format
+msgid "Question"
+msgstr ""
+
+#: index.docbook:228
+#, no-c-format
+msgid "Answer"
+msgstr ""
+
+#: index.docbook:228
+#, no-c-format
+msgid "How many of the weapons listed here are defensive weapons?"
+msgstr ""
+
+#: index.docbook:228
+#, no-c-format
+msgid "<entry>5</entry>"
+msgstr ""
+
+#: index.docbook:228
+#, no-c-format
+msgid "How many are offensive?"
+msgstr ""
+
+#: index.docbook:228
+#, no-c-format
+msgid "<entry>One</entry>"
+msgstr ""
+
+#: index.docbook:228
+#, no-c-format
+msgid "Which one(s)?"
+msgstr ""
+
+#: index.docbook:228
+#, no-c-format
+msgid "the word - <foreignphrase>rhema</foreignphrase>"
+msgstr ""
+
+#: index.docbook:242
+#, no-c-format
+msgid "Exhortations"
+msgstr ""
+
+#: index.docbook:243
+#, no-c-format
+msgid ""
+"2 Tim.2:15 (KJV) \"<emphasis>Study to show thyself approved unto God, a "
+"workman that needeth not to be ashamed, rightly dividing the word of truth.</"
+"emphasis>\""
+msgstr ""
+
+#: index.docbook:247
+#, no-c-format
+msgid ""
+"Col.3:16 \"<emphasis>Let the word of Christ richly dwell within you; with "
+"all wisdom teaching and admonishing one another with psalms and hymns and "
+"spiritual songs, singing with thankfulness in your hearts to God.</emphasis>"
+"\""
+msgstr ""
+
+#: index.docbook:252
+#, no-c-format
+msgid "If you're rich in something, how much of it do you have?"
+msgstr ""
+
+#: index.docbook:254
+#, no-c-format
+msgid "Not a little!"
+msgstr ""
+
+#: index.docbook:257
+#, no-c-format
+msgid ""
+"Eccl.12:11 \"<emphasis>The words of wise men are like goads, and masters of "
+"these collections are like well-driven nails; they are given by one "
+"Shepherd. But beyond this, my son, be warned: the writing of many books is "
+"endless, and excessive devotion to books is wearying to the body.</emphasis>"
+"\""
+msgstr ""
+
+#: index.docbook:264
+#, no-c-format
+msgid "Appendix: \"Once for All\""
+msgstr ""
+
+#: index.docbook:268
+#, no-c-format
+msgid ""
+"The truth regarding the finality of God's initiative in Christ is conveyed "
+"by one word of the Greek Testament, namely the adverb <foreignphrase>hapax</"
+"foreignphrase> and <foreignphrase>ephapax</foreignphrase>. It is usually "
+"translated in the Authorized Version once, meaning once for all. It is used "
+"of what is so done as to be of perpetual validity and never need repetition, "
+"and is applied in the NT to both revelation and redemption. Thus, Jude "
+"refers to the faith which was once for all delivered to the saints (Jude 3), "
+"and Romans says, \"<emphasis>Christ also died for sins once for all</"
+"emphasis>\" (Rom.6:10, see also 1 Pe.3:18; Heb.9:26-28)."
+msgstr ""
+
+#: index.docbook:277
+#, no-c-format
+msgid ""
+"Thus we may say that God has spoken once for all and Christ has suffered "
+"once for all. This means that the Christian revelation and the Christian "
+"redemption are both alike in Christ complete. Nothing can be added to either "
+"without being derogatory to Christ... These are the two rocks on which the "
+"Protestant Reformation was built -- Gods revealed word without the addition "
+"of human traditions and Christ's finished work without the addition of human "
+"merits. The Reformers great watchwords were <foreignphrase>sola scriptura</"
+"foreignphrase> for our authority and <foreignphrase>sola gratia</"
+"foreignphrase> for our salvation."
+msgstr ""
+
+#: index.docbook:289
+#, no-c-format
+msgid "Supplement: Bible Reading Programs"
+msgstr ""
+
+#: index.docbook:290
+#, no-c-format
+msgid ""
+"Here are some easy programs to systematically read your Bible. You can do "
+"more than one at a time if you like, for instance #1 with #4, or #2 with #5. "
+"Vary the program from year to year to keep it fresh!"
+msgstr ""
+
+#: index.docbook:294
+#, no-c-format
+msgid "New Testament in a Year: read one chapter each day, 5 days a week."
+msgstr ""
+
+#: index.docbook:294
+#, no-c-format
+msgid ""
+"Proverbs in a Month: read one chapter of Proverbs each day, corresponding to "
+"the day of the month."
+msgstr ""
+
+#: index.docbook:294
+#, no-c-format
+msgid ""
+"Psalms in a Month: read 5 Psalms at intervals of 30 each day, for instance "
+"on the 20th you read Ps.20, 50, 80, 110, &amp; 140."
+msgstr ""
+
+#: index.docbook:294
+#, no-c-format
+msgid ""
+"Psalms &amp; Proverbs in 6 months: read through Psalms and Proverbs one "
+"chapter per day."
+msgstr ""
+
+#: index.docbook:294
+#, no-c-format
+msgid ""
+"Old Testament without Psalms &amp; Proverbs in 2 years: if you read one "
+"chapter a day of the Old Testament, skipping over Psalms &amp; Proverbs, you "
+"will read the Old Testament in 2 years and 2 weeks."
+msgstr ""
+
+#: index.docbook:1
+#, no-c-format
+msgid "Rules of Bible Interpretation (Hermeneutics)"
+msgstr ""
+
+#: index.docbook:2
+#, no-c-format
+msgid ""
+"We already learned about the \"3 Cs\": content, context, cross-reference. We "
+"want to expand that now by delving briefly into biblical hermeneutics, whose "
+"goal is to discover the meaning intended by the original author (and "
+"Author!). While many applications of a passage are valid, only one "
+"interpretation is valid. The scripture itself says this by saying that no "
+"scripture is of any private interpretation (2 Pe.1:20 KJV <emphasis>"
+"\"Knowing this first, that no prophesy of scripture is of any private "
+"interpretation.\"</emphasis>) Certain rules are helps toward discovering the "
+"correct meaning; by ignoring these rules people have brought much trouble on "
+"themselves and their followers. 2 Pe.3:16 <emphasis>\"...in which are some "
+"things hard to understand, which the untaught and unstable distort, as they "
+"do also the rest of the Scriptures, to their own destruction.\"</emphasis>"
+msgstr ""
+
+#: index.docbook:10
+#, no-c-format
+msgid ""
+"How do we go about discovering the intended meaning of a passage? Let's say "
+"your attention has been drawn to a particular verse whose meaning is not "
+"clear to you. How do you study it out? Keep these rules in mind:"
+msgstr ""
+
+#: index.docbook:13
+#, no-c-format
+msgid "Rule 1 - Interpret according to the exact meaning of the words."
+msgstr ""
+
+#: index.docbook:15
+#, no-c-format
+msgid ""
+"The more precise we can be with the exact, original meaning of the words the "
+"better our interpretation will be. Try to find the exact meaning of the key "
+"words by following these steps:"
+msgstr ""
+
+#: index.docbook:18
+#, no-c-format
+msgid "Step 1) Definition"
+msgstr ""
+
+#: index.docbook:19
+#, no-c-format
+msgid ""
+"Look up the definition in a Greek or Hebrew dictionary. For verbs, the verb "
+"tense is also crucial."
+msgstr ""
+
+#: index.docbook:22
+#, no-c-format
+msgid "Step 2) Cross-reference"
+msgstr ""
+
+#: index.docbook:23
+#, no-c-format
+msgid ""
+"Compare scripture with scripture. Seeing how the same Greek or Hebrew word "
+"(not the English word) is used in scripture may clarify or throw new light "
+"on the definition. How does the same author use this word elsewhere? Other "
+"authors? Your reference tools may give you uses of the word in non-biblical "
+"documents, as well. Why do we have to go to the original languages; why "
+"isn't the English word good enough? BECAUSE MORE THAN ONE GREEK WORD MAY BE "
+"TRANSLATED INTO THE SAME ENGLISH WORD, AND THE GREEK WORDS MAY HAVE "
+"DIFFERENT SHADES OF MEANING."
+msgstr ""
+
+#: index.docbook:30
+#, no-c-format
+msgid "Example 1A"
+msgstr ""
+
+#: index.docbook:31
+#, no-c-format
+msgid ""
+"Jn.20:17 <emphasis>\"Touch me not\"</emphasis> (KJV) sounds harsh, doesn't "
+"it? Sounds like Jesus doesn't want to be touched now that He is risen, that "
+"He is too holy or something. But that doesn't seem right, so let's look it "
+"up in Spiros Zodhiates' <emphasis>The Complete Word Study New Testament</"
+"emphasis> (AMG Publishers, 1991)."
+msgstr ""
+
+#: index.docbook:34
+#, no-c-format
+msgid ""
+"Definition: Turning to John 20:17, above the word \"Touch\" we see \"pim680."
+"\" The letters give us a code for the part of speech, and the number refers "
+"to Strong's dictionary reference. Let's look up the definition (p. 879). "
+"\"680. Haptomai; from hapto (681), touch. Refers to such handling of an "
+"object as to exert a modifying influence upon it... Distinguished from "
+"pselaphao (5584), which actually only means to touch the surface of "
+"something. \" Now look up \"pim.\" The grammar codes in Zodhiates come right "
+"after Revelation; on p. 849 we see that pim stands for \"present imperative "
+"active (80)\". On p.857, \"Present Imperative. In the active voice, it may "
+"indicate a command to do something in the future which involves continuous "
+"or repeated action or, when it is negated, a command to stop doing "
+"something. \" This is a negative command, so it is to stop doing something "
+"that is already occuring. So, what have we found?"
+msgstr ""
+
+#: index.docbook:42
+#, no-c-format
+msgid ""
+"MARY IS ALREADY CLINGING TO JESUS, AND HE IS SAYING TO STOP HOLDING HIM!"
+msgstr ""
+
+#: index.docbook:45
+#, no-c-format
+msgid "Ex. 1B"
+msgstr ""
+
+#: index.docbook:46
+#, no-c-format
+msgid ""
+"In James 5:14, <emphasis>Elders are told to pray and anoint someone who is "
+"sick</emphasis>. What is this anointing?"
+msgstr ""
+
+#: index.docbook:47
+#, no-c-format
+msgid ""
+"Definition of aleipho (218) - \"to oil\" (Strong's); but we also have "
+"another Greek word translated \"anoint\", chrio (5548) - \"to smear or rub "
+"with oil, i.e. to consecrate to an office or religious service\" (Strong's). "
+"Since it's a verb, consider the tense also, \"apta\" aorist participle "
+"active. \"The aorist participle expresses simple action, as opposed to "
+"continuous action...When its relaitonship to the main verb is temporal, it "
+"usually signifies action prior to that of the main verb.\" (Zodhiates p.851)"
+msgstr ""
+
+#: index.docbook:53
+#, no-c-format
+msgid ""
+"Cross-references for aleipho:\n"
+"  Mt.6:17 But you, when you fast, anoint your head\n"
+"  Mk.16:1 [the women] brought spices that they might come and anoint Him.\n"
+"  Mk.6:13 And they were...anointing with oil many sick people and healing "
+"them.\n"
+"  Lk.7:38 ...kissing His feet and anointing them with the perfume\n"
+"  Jn.12:3 Mary...anointed the feet of Jesus, and wiped them with her hair\n"
+"Cross-references of chrio:\n"
+"  Lk.4:18 The Spirit of the Lord is upon me, because He has anointed me to "
+"preach...\"\n"
+"  Acts 4:27 Jesus, whom Thou hast anointed\n"
+"  Acts 10:38 God anointed Jesus with the Holy Ghost and power\n"
+"  2 Cor.1:21 Now He who...anointed us is God"
+msgstr ""
+
+#: index.docbook:67
+#, no-c-format
+msgid ""
+"So what's the difference between aleipho and chrio? Look back over the cross-"
+"references and the definitions, and sum up the difference: ALEIPHO IS A "
+"PRACTICAL USE OF OIL AND CHRIO IS A SPIRITUAL"
+msgstr ""
+
+#: index.docbook:70
+#, no-c-format
+msgid ""
+"As an illustration (although the word is not used) of the practical use of "
+"oil at that time, when the good Samaritan cared for the man beat up by "
+"robbers he poured oil and wine in the wound. So oil had a medicinal use in "
+"Jesus' day."
+msgstr ""
+
+#: index.docbook:74
+#, no-c-format
+msgid ""
+"Now let's apply what we just learned by this word study to James 5:14 "
+"<emphasis>\"Is any among you sick? Let him call for the elders of the "
+"church; and let them pray over him, anointing him with oil in the name of "
+"the Lord.\"</emphasis> Is \"anointing\" spiritual or practical? Practical!"
+msgstr ""
+
+#: index.docbook:77
+#, no-c-format
+msgid ""
+"And the tense in Greek, the aorist participle, would be better translated "
+"\"having anointed,\" so the order is the anointing first, then the prayer "
+"(\"in the name of the Lord\"refers to the prayer, not the anointing). James "
+"5 is saying that the elders should give the sick person medicine and pray "
+"for him in the name of the Lord. Doesn't that express a beautiful balance of "
+"practical and spiritual in our God!"
+msgstr ""
+
+#: index.docbook:89
+#, no-c-format
+msgid "Rule 2 - Interpret within the biblical context"
+msgstr ""
+
+#: index.docbook:91
+#, no-c-format
+msgid ""
+"Interpret scripture in harmony with other scripture. What do the verses on "
+"each side say? What is the theme of the chapter? the book? Does your "
+"interpretation fit with these? If not, it is flawed. Usually, the context "
+"supplies what we need to correctly interpret the passage. Context is key. If "
+"confusion remains as to the meaning after we have interpreted the text "
+"within its context, we have to look further."
+msgstr ""
+
+#: index.docbook:96
+#, no-c-format
+msgid "Example 2A"
+msgstr ""
+
+#: index.docbook:97
+#, no-c-format
+msgid ""
+"In a previous lesson we considered Jn.3:5 <emphasis>\"born of water and the "
+"Spirit.\"</emphasis> In context, what is the water under discussion here?"
+msgstr ""
+
+#: index.docbook:99
+#, no-c-format
+msgid ""
+"Water baptism is not under discussion here, which would be a big switch from "
+"the subject being discussed by Jesus and Nicodemus. Watch out for a sudden "
+"change of topic, it may be a clue that your interpretation has been "
+"derailed! The water is the amniotic fluid, \"born of water\" = natural birth."
+msgstr ""
+
+#: index.docbook:103
+#, no-c-format
+msgid "Example 2B"
+msgstr ""
+
+#: index.docbook:104
+#, no-c-format
+msgid ""
+"1 Cor.14:34 <emphasis>\"Let the women keep silent in the churches\"</"
+"emphasis> has to be taken within the biblical context of 1 Cor.11:5 "
+"<emphasis>\"every woman...while praying or prophesying...\"</emphasis>"
+msgstr ""
+
+#: index.docbook:107
+#, no-c-format
+msgid "Example 2C"
+msgstr ""
+
+#: index.docbook:108
+#, no-c-format
+msgid ""
+"Acts 2:38 <emphasis>And Peter said to them, \"Repent, and let each of you be "
+"baptized in the name of Jesus Christ for the forgiveness of your sins...\"</"
+"emphasis> Is this teaching baptismal regeneration? If this was the only "
+"verse of scripture we had, we would have to conclude that. But in the light "
+"of the clear teaching elsewhere that regeneration happens by faith in "
+"Christ, we have to interpret it otherwise. Peter is urging baptism as a way "
+"for his hearers to respond to the gospel. If baptism were the pathway to "
+"being born again, how could Paul write 1 Cor.1:17 <emphasis>\"For Christ did "
+"not send me to baptize, but to preach the gospel\"</emphasis>?"
+msgstr ""
+
+#: index.docbook:120
+#, no-c-format
+msgid "Rule 3 - Interpret within the historical and cultural context"
+msgstr ""
+
+#: index.docbook:122
+#, no-c-format
+msgid ""
+"At first we are not asking \"What does it mean to me?\" but \"What did it "
+"mean to the original readers?\"; later we can ask, \"What does it mean to me?"
+"\" We have to take into account the historical and cultural background of "
+"the author and the recipients."
+msgstr ""
+
+#: index.docbook:127
+#, no-c-format
+msgid "Example 3A"
+msgstr ""
+
+#: index.docbook:127
+#, no-c-format
+msgid ""
+"\"3 days &amp; 3 nights\" (Mt.12:40) have led some to come up with a "
+"\"Wednesday crucifixion theory,\" esp. the cult of Armstrongism. How could "
+"Jesus die on Friday afternoon and rise Sunday morning yet \"be raised on the "
+"third day\" (Mt.16:21)? Exact meanings of \"three\" or \"days\" won't help "
+"explain the apparent contradiction."
+msgstr ""
+
+#: index.docbook:132
+#, no-c-format
+msgid ""
+"We need an historical tidbit: Jews counted any part of a day as a full day, "
+"as we would count buckets of water (if there were six and one-half buckets "
+"of water, we would say there were 7 buckets of water even if one was only "
+"partly full). So to the Jewish mind, any part of a day counted as a full "
+"day, and days started at 6 p.m. and ended at 6 a.m. Friday from 3 p.m. to 6 "
+"p.m. = day 1. Friday 6 p.m. to Saturday 6 p.m. = day 2. Saturday 6 p.m. to "
+"Sunday 5 or so a.m. = day 3. Interpreting within the cultural context keeps "
+"us out of trouble."
+msgstr ""
+
+#: index.docbook:139
+#, no-c-format
+msgid "Example 3B"
+msgstr ""
+
+#: index.docbook:139
+#, no-c-format
+msgid ""
+"Gen.15:7-21. The historical context is that cutting animals in two and then "
+"walking between the pieces was the normal way of entering a contract in "
+"Abraham's day. Both parties walked between, taking the pledge that "
+"dismemberment would happen to them if they didn't live up to their part of "
+"the contract. But in this case only God goes thru, making it a unilateral "
+"covenant."
+msgstr ""
+
+#: index.docbook:147
+#, no-c-format
+msgid "Rule 4 - Interpret according to the normal usage of words in language"
+msgstr ""
+
+#: index.docbook:149
+#, no-c-format
+msgid ""
+"Let literal language be literal and figurative language be figurative. And "
+"watch out for idioms, which have special meanings."
+msgstr ""
+
+#: index.docbook:152
+#, no-c-format
+msgid "Example 4A"
+msgstr ""
+
+#: index.docbook:152
+#, no-c-format
+msgid "\"evil eye\" in Mt.6:23."
+msgstr ""
+
+#: index.docbook:153
+#, no-c-format
+msgid ""
+"Rule 1, definition of \"evil\" and \"eye\" - no help here. Rule 2, context: "
+"seems to confuse us even more. It doesn't seem to fit with what goes before "
+"and after! This should tip us off that we aren't understanding it rightly!!"
+msgstr ""
+
+#: index.docbook:156
+#, no-c-format
+msgid ""
+"What we have here is a Hebrew idiom, \"evil eye.\" Let's look up other uses "
+"of this idiom: Mt.20:15 \"<emphasis>Is it not lawful for me to do what I "
+"wish with what is my own? Or is your eye envious [lit.\"evil\"] because I am "
+"generous [lit.\"good\"]?</emphasis>\" We find that having an \"evil eye\" is "
+"a Hebrew idiom for being stingy or envious. Now go back to Mt.6 and notice "
+"how this understanding ties in so perfectly to the context."
+msgstr ""
+
+#: index.docbook:161
+#, no-c-format
+msgid "Example 4B"
+msgstr ""
+
+#: index.docbook:162
+#, no-c-format
+msgid ""
+"Is.59:1 \"<emphasis>The Lord's hand is not short;</emphasis>\" Deut.33:27 "
+"\"<emphasis>Underneath are the everlasting arms.</emphasis>\" References to "
+"body parts of God are used by Latter-Day Saints to prove that God was once a "
+"man just as we are. Once they convince people of that, they go on to teach "
+"that we can become God just like He is! At a lecture he was giving, a group "
+"of Mormon elders challenged Walter Martin (author of <emphasis>Kingdom of "
+"the Cults</emphasis>) with an enumeration of verses like these. Dr. Martin "
+"then asked the Mormons to read one more scripture: Ps.91:4 \"<emphasis>He "
+"will cover you with His feathers; And under His wings shalt thou trust.</"
+"emphasis>\" W.M. said, \"By the same rules of interpretation that you just "
+"proved God to be a man, you just proved that He is a bird.\" The Mormons had "
+"to laugh as they realised the ridiculousness of their position."
+msgstr ""
+
+#: index.docbook:174
+#, no-c-format
+msgid ""
+"Rule 5 - Understand the purpose of parables and the difference between a "
+"parable and an allegory"
+msgstr ""
+
+#: index.docbook:176
+#, no-c-format
+msgid "An allegory is: A STORY WHERE EACH ELEMENT HAS A MEANING"
+msgstr ""
+
+#: index.docbook:177
+#, no-c-format
+msgid "Every parable is an allegory, true or false?"
+msgstr ""
+
+#: index.docbook:179
+#, no-c-format
+msgid ""
+"Some parables are allegories, for instance, the parable of the sower is an "
+"allegory: the seed is the word of God, the thorns are worries and greed, "
+"etc. But most parables are not allegories but simply stories to illustrate "
+"one point. It's dangerous to get our doctrine from parables; they can be "
+"twisted to say all sorts of things. We need to get our doctrine from clear "
+"scriptures that lay it out; then if a parable illustrates that, fine."
+msgstr ""
+
+#: index.docbook:184
+#, no-c-format
+msgid "Example 5A"
+msgstr ""
+
+#: index.docbook:185
+#, no-c-format
+msgid ""
+"The parable of the widow with the unrighteous judge in Lk.18:1-8. This story "
+"illustrates one lesson: boldness in prayer. If we draw it into an allegory, "
+"what do we have?"
+msgstr ""
+
+#: index.docbook:187
+#, no-c-format
+msgid ""
+"All sorts of violence happens to the meanings: God is reluctant to protect "
+"the rights of widows, prayer \"bothers\" Him, etc."
+msgstr ""
+
+#: index.docbook:190
+#, no-c-format
+msgid "Example 5B"
+msgstr ""
+
+#: index.docbook:191
+#, no-c-format
+msgid ""
+"The parable of the unrighteous steward in Lk.16:1-9. What is the point of "
+"the parable? Is it an allegory?"
+msgstr ""
+
+#: index.docbook:193
+#, no-c-format
+msgid ""
+"The steward is commended for only one thing, his shrewdness in using what he "
+"had to prepare for a time when he wouldn't have it. But he is not commended "
+"for his unethical behavior in cheating his master."
+msgstr ""
+
+#: index.docbook:19
+#, no-c-format
+msgid "The Biblestudy HowTo"
+msgstr ""
+
+#: index.docbook:22
+#, no-c-format
+msgid "<firstname>Bob</firstname> <surname>Harman</surname>"
+msgstr ""
+
+#: index.docbook:35
+#, no-c-format
+msgid "Bob Harman"
+msgstr ""
+
+#: index.docbook:38
+#, no-c-format
+msgid ""
+"The copyright of this text is held by the author Bob Harman. The text was "
+"adapted for publication with BibleTime by Fred Saalbach."
+msgstr ""
+
+#: index.docbook:42
+#, no-c-format
+msgid ""
+"Non exclusive serial rights for this distribution of this document with the "
+"&bibletime; Software have been made. Redistribution as part of the Bibletime "
+"software without modification and limited reproduction as provided by the "
+"\"fair use\" provisions of the US copyright code are also permitted."
+msgstr ""
+
+#: index.docbook:48
+#, no-c-format
+msgid ""
+"For questions regarding the use of this material contact Bob Harman c/o New "
+"Covenant Church 1079 Big Bethel Rd. Hampton VA 23666 USA "
+"<email>ncc@ncchampton.org</email>."
+msgstr ""
+
+#: index.docbook:52
+#, no-c-format
+msgid ""
+"Scripture quotes are from the New American Standard Bible unless otherwise "
+"indicated"
+msgstr ""
+
+#: index.docbook:61
+#, no-c-format
+msgid "Abstract"
+msgstr ""
+
+#: index.docbook:62
+#, no-c-format
+msgid ""
+"The <application>Biblestudy HowTo</application> is a guide for studying the "
+"Bible."
+msgstr ""
+
+#: index.docbook:65
+#, no-c-format
+msgid ""
+"It is the hope of the &bibletime; team that this HowTo will provoke the "
+"readers to study the scriptures to see what they say. This particular study "
+"guide has been chosen as it takes care not to advocate any particular "
+"denominational doctrine. We expect you to read and study the scriptures to "
+"understand what they say. If you start with the attitude that you want to "
+"have the Lord sow his word in your heart He will not disappoint you."
+msgstr ""
+
+#: index.docbook:75
+#, no-c-format
+msgid "Bible"
+msgstr ""
+
+#: index.docbook:77
+#, no-c-format
+msgid "HowTo"
+msgstr ""

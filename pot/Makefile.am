@@ -2,7 +2,18 @@
 # the -x is for skipping messages already translated in kdelibs
 
 messages:
-	echo Preparing program messages file messges.pot...
+	echo Preparing program messages file documentation.pot...
+	mkdir -p tmp/
+	for XML_FILE in `cd ..; find docs -name "*.docbook"`; do\
+		echo " creating temporary POT file tmp/$$XML_FILE.pot";\
+		(cd tmp; mkdir -p `dirname $$XML_FILE.pot`; xml2pot ../../$$XML_FILE > $$XML_FILE.pot;)\
+	done
+	echo merging POT files...
+	msgcat --force-po -o documentation.pot `find tmp -name "*.pot"`
+	rm -r ./tmp/
+	echo Finished creating documentation.pot.
+	\
+	echo Preparing program messages file messages.pot...
 	perl ./extractrc ../bibletime/xml/*.rc > ../bibletime/rc-dummy.cpp
 	perl ./preparetips ../docs/tips > ../bibletime/tips-dummy.cpp
 	$(XGETTEXT) -C -F -L C++ -ki18n -kI18N_NOOP -x `kde-config --prefix`/include/kde/kde.pot `find .. -type f -not -name clanguagemgr.cpp -and -name \*.cpp -or -name \*.h -or -name \*.cc` -o messages.pot
@@ -11,5 +22,6 @@ messages:
 	$(XGETTEXT) --from-code=utf-8 --join-existing -C -F -L C++ -ki18n -kI18N_NOOP -x `kde-config --prefix`/include/kde/kde.pot clanguagemgr.cpp -o messages.pot
 	rm clanguagemgr.cpp
 	echo Finished creating messages.pot.
+
 
 
