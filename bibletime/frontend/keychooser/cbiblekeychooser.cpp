@@ -36,14 +36,15 @@
 CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(module, key, parent, name), m_info(0), m_key(0), w_book(0), w_chapter(0), w_verse(0)
 {
-	qWarning("CBibleKeyChooser: constructor");
-	if (module && (module->type() == CSwordModuleInfo::Bible || (module->type() == CSwordModuleInfo::Commentary )) )
+	if (module && (module->type() == CSwordModuleInfo::Bible || module->type() == CSwordModuleInfo::Commentary) ) {
 		m_info = dynamic_cast<CSwordBibleModuleInfo*>(module);
+		m_key  = dynamic_cast<CSwordVerseKey*>(key);
+	}
 	else {
 		qWarning("CBibleKeyChooser: module is not a Bible or commentary!");
 		return;
 	}
-	QHBoxLayout *layout = new QHBoxLayout(this);
+	QHBoxLayout* layout = new QHBoxLayout(this);
 	layout->setResizeMode(QLayout::Fixed);
 		
 	w_book = new CKeyChooserWidget(m_info->books(),false,this);	
@@ -85,10 +86,11 @@ CBibleKeyChooser::CBibleKeyChooser(CSwordModuleInfo *module, CSwordKey *key, QWi
 }
 
 CSwordKey *CBibleKeyChooser::key(){
-	m_key->book(w_book->comboBox()->currentText());	
-	m_key->Chapter(w_chapter->comboBox()->currentText().toInt());			
-	m_key->Verse(w_verse->comboBox()->currentText().toInt());			
-	
+	if (m_key) {
+		m_key->book(w_book->comboBox()->currentText());	
+		m_key->Chapter(w_chapter->comboBox()->currentText().toInt());			
+		m_key->Verse(w_verse->comboBox()->currentText().toInt());			
+	}
 	return m_key;
 }
 
@@ -101,6 +103,8 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 	const int chapter = m_key->Chapter();
 	const int verse = m_key->Verse();
 
+	qWarning("%i %i:%i", bookIndex, chapter, verse);
+	
 	//reset the keychooser parts only if we found a valid book
 	const int count = w_book->comboBox()->count();
 	const QString desiredBook = m_key->book();
@@ -121,13 +125,14 @@ void CBibleKeyChooser::setKey(CSwordKey* key){
 		
 		w_verse->reset(m_info->verseCount(bookIndex, chapter), verse-1, false);
 		w_verse->adjustSize();
+	
+		emit keyChanged(m_key);					
 	}
 	else {
-		qWarning("book %s is invalid!", m_key->book().latin1());
+		qWarning("CBibleKeyChooser::setKey: book %s is invalid!", m_key->book().latin1());
 		w_verse->comboBox()->setCurrentItem(0);				
 		m_key->Verse(w_verse->comboBox()->currentText().toInt());		
 	}
-	emit keyChanged(m_key);			
 }
 
 /**  */

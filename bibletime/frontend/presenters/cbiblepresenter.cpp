@@ -50,14 +50,17 @@ CBiblePresenter::CBiblePresenter(ListCSwordModuleInfo useModules, QWidget *paren
 {		
 	qWarning("CBiblePresenter::CBiblePresenter");
 	m_key = new CSwordVerseKey(m_moduleList.first());
-	m_key->key("Genesis 1:1");
+	CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(m_moduleList.first());
+	if (bible) {
+		if (bible->hasTestament(CSwordBibleModuleInfo::OldTestament))
+			m_key->key("Genesis 1:1");
+		else /*if (bible->hasTestament(CSwordBibleModuleInfo::NewTestament))*/
+			m_key->key("Matthew 1:1");
+	}
 	
 	initView();
-	qWarning("CBiblePresenter::CBiblePresenter before show");		
 	show();	
-	qWarning("CBiblePresenter::CBiblePresenter before initConnections");			
-	initConnections();	
-	qWarning("CBiblePresenter::CBiblePresenter finished");	
+	initConnections();
 	
 	setInitialized();
 }
@@ -68,7 +71,7 @@ CBiblePresenter::~CBiblePresenter(){
 
 /** Initializes the view (central widget, toolbars etc) of this presenter */
 void CBiblePresenter::initView(){
-	qWarning("CBiblePresenter::initView");	
+//	qWarning("CBiblePresenter::initView");	
 	m_mainToolBar = new KToolBar(this);
 	m_keyChooser = CKeyChooser::createInstance(m_moduleList.first(), m_key, m_mainToolBar);
 	m_mainToolBar->insertWidget(0,m_keyChooser->sizeHint().width(),m_keyChooser);	
@@ -78,7 +81,7 @@ void CBiblePresenter::initView(){
 	m_mainToolBar->insertWidget(1,m_displaySettingsButton->sizeHint().width(),m_displaySettingsButton);
 
 	addToolBar(m_mainToolBar);			
-	
+		
 	m_moduleChooserBar = new CModuleChooserBar(m_moduleList, CSwordModuleInfo::Bible, this );
 	addToolBar(m_moduleChooserBar);
 	
@@ -118,11 +121,11 @@ void CBiblePresenter::initView(){
 		
 	setCentralWidget(m_htmlWidget);	
 	setIcon( BIBLE_ICON_SMALL );	
-	qWarning("CBiblePresenter::initView finished");		
 }
 
 /** Displays the chapter using the aparameter. */
 void CBiblePresenter::lookup(CSwordKey* key){
+//	qWarning("CBiblePresenter::lookup(CSwordKey* key)");
 	setUpdatesEnabled(false);	
 	
 	CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(key);	
@@ -133,7 +136,7 @@ void CBiblePresenter::lookup(CSwordKey* key){
 	backend()->setDisplayOptions( m_displayOptions );
 		
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
-	  m_moduleList.first()->module()->SetKey(*vKey);	
+	  m_moduleList.first()->module()->SetKey(*vKey);
 		if (m_moduleList.count()>1)
 			m_moduleList.first()->getDisplay()->Display( &m_moduleList );
 		else
@@ -145,7 +148,6 @@ void CBiblePresenter::lookup(CSwordKey* key){
 		
 	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
 	setUpdatesEnabled(true);		
-	
 	setCaption(windowCaption());	
 }
 
@@ -395,7 +397,7 @@ void CBiblePresenter::previousChapter(){
 
 /** Jumps to the next entry */
 void CBiblePresenter::nextVerse(){
-	qWarning("CBiblePresenter::nextVerse()");
+//	qWarning("CBiblePresenter::nextVerse()");
 	m_key->NextVerse();
 	m_keyChooser->setKey(m_key);	
 }

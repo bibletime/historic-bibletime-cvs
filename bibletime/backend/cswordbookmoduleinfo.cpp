@@ -45,7 +45,7 @@ CSwordBookModuleInfo::CSwordBookModuleInfo( const CSwordBookModuleInfo& module )
 }	
 
 CSwordBookModuleInfo::~CSwordBookModuleInfo(){
-	qWarning("destructor of CSwordBookModuleInfo");
+//	qWarning("destructor of CSwordBookModuleInfo");
 }
 
 void CSwordBookModuleInfo::printTree(TreeKeyIdx treeKey, TreeKeyIdx* target, int level ){

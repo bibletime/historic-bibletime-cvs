@@ -127,7 +127,6 @@ CKeyChooserWidget::CKeyChooserWidget(QStringList *list, const bool useNextPrevSi
 }
 
 void CKeyChooserWidget::changeCombo(int i){
-//	qDebug("CKeyChooserWidget::changeCombo(int i)");
 	if (!isUpdatesEnabled())
 		return;
 	setUpdatesEnabled(false);
@@ -156,7 +155,7 @@ void CKeyChooserWidget::changeCombo(int i){
 }
 
 void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
-	qWarning("CKeyChooserWidget::reset(const int count, int index, bool do_emit)");
+//	qWarning("CKeyChooserWidget::reset(const int count, int index, bool do_emit)");
 	if (!isUpdatesEnabled())
 		return;
 
@@ -164,54 +163,38 @@ void CKeyChooserWidget::reset(const int count, int index, bool do_emit){
 	for (int i=1; i <= count; i++)
 		m_list.append( QString::number(i) );
 	reset(&m_list,index,do_emit);
-	
-	qWarning("chooserWidget::reset(count) finished");
 }
 
 void CKeyChooserWidget::reset(QStringList& list, int index, bool do_emit){
-//	qDebug("CKeyChooserWidget::reset(QStringList&, int index, bool do_emit)");
 	if (!isUpdatesEnabled())
 		return;
 	
 	m_list = list;
 	reset(&m_list,index,do_emit);
 	
-	isResetting = false;		
-//	qWarning("chooserWidget::reset(list&) finished");	
+	isResetting = false;
 }
 
 
 void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
-//	qWarning("CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit)");
-//	ASSERT(list);
-//	ASSERT(comboBox());
-	
 	if (isResetting || !isUpdatesEnabled())
 		return;
 	isResetting = true;	
 	setUpdatesEnabled(false);
 	m_comboBox->setUpdatesEnabled(false);
 
-//	qWarning("reset(list*): now change layout");
 	m_mainLayout->setResizeMode(QLayout::FreeResize);
 	
 	oldKey = QString::null;
-//	qWarning("reset(*list): clear box now!");
-//	for (int i = 0; i < m_comboBox->count(); ++i) {
-//		qWarning("%i: %s", i, m_comboBox->text(i).latin1());
-//	}
 	m_comboBox->clear();
-//	qWarning("reset(list*): combo->insertStringList ");				
 	if (list)
 		m_comboBox->insertStringList(*list);
-//	qWarning("reset(list*): before combo->sizeHint() ");				
 	m_comboBox->resize( m_comboBox->sizeHint() );
-//	qWarning("reset(list*): refilled combobox");			
-	m_comboBox->setUpdatesEnabled(true);	
-		
+	m_comboBox->setUpdatesEnabled(true);			
+	
 	m_mainLayout->setResizeMode(QLayout::Minimum);
-// qWarning("reset(list*): have chamnged layout ");			
-	m_comboBox->setCurrentItem(index);
+	
+	m_comboBox->setCurrentItem(index);	
 	if (!list || (list && !list->count())) { //nothing in the combobox
 		btn_up->setEnabled( true );
 		btn_fx->setEnabled( true );
@@ -225,15 +208,12 @@ void CKeyChooserWidget::reset(QStringList *list, int index, bool do_emit){
 		btn_fx->setEnabled( enableButtons );
 		btn_down->setEnabled( list && (list->count()>1) );
 	}
-//	qWarning("reset(list*): before setEnabled(true)");	
 	setUpdatesEnabled(true);
 	
 	if (do_emit) {
-//		qWarning("reset(list*): emit changed signal");
 		emit changed(m_comboBox->currentItem());				
 	}
 	isResetting = false;	
-//	qWarning("chooserWidget::reset(list*) finished");	
 }
 
 void CKeyChooserWidget::lock(void){
@@ -255,15 +235,11 @@ void CKeyChooserWidget::init( ){
 
 	setFocusPolicy(QWidget::StrongFocus);			
 	m_mainLayout = new QHBoxLayout( this );	
-//  m_mainLayout->setResizeMode(QLayout::FreeResize);
-	
 			
 	m_comboBox = new CKCComboBox( true, this );
 	m_comboBox->setAutoCompletion( true );
 	m_comboBox->setInsertionPolicy(QComboBox::NoInsertion);
-// m_comboBox->insertStringList(m_list, 0);
 	m_comboBox->setFocusPolicy(QWidget::WheelFocus);	
-//	m_comboBox->resize( m_comboBox->sizeHint() );
 
   m_mainLayout->setResizeMode(QLayout::Minimum);			
 	m_mainLayout->addWidget( m_comboBox );
@@ -435,7 +411,7 @@ void CKeyChooserWidget::setWhatsThis(const QString comboTip, const QString nextE
 
 /** Sets the current item to the one with the given text */
 bool CKeyChooserWidget::setItem( const QString item ){
-//	qDebug("CKeyChooserWidget::setItem( const QString item )");
+	qDebug("CKeyChooserWidget::setItem( const QString item )");
 	bool ret = false;
 	const int count = comboBox()->count();
 	for (int i = 0; i < count; ++i) {

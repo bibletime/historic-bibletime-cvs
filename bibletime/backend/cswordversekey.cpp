@@ -27,17 +27,14 @@
 #include <swmodule.h>
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) : CSwordKey(module) {
-//	m_module = module;
 }
 
 /** No descriptions */
 CSwordVerseKey::CSwordVerseKey( const CSwordVerseKey& k ) : VerseKey(k),CSwordKey(k) {
-// qWarning("copy constructor of CSwordVerseKey");
 }
 
 /** No descriptions */
 CSwordVerseKey::CSwordVerseKey( const VerseKey* k, CSwordModuleInfo* module) : VerseKey(*k),CSwordKey(module) {
-//	m_module = module;	
 }
 
 CSwordVerseKey::~CSwordVerseKey(){
@@ -52,7 +49,7 @@ CSwordKey* CSwordVerseKey::copy() const {
 /** Sets the module for this key */
 CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 	if (newModule && (newModule->type() == CSwordModuleInfo::Bible || newModule->type() == CSwordModuleInfo::Commentary) ) {
-		const QString& oldKey = key();
+		const QString& oldKey	= key();
 		m_module = newModule;
 		key(oldKey);
 	}
@@ -61,9 +58,27 @@ CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
 
 /** Returns the current book as Text, not as integer. */
 const QString CSwordVerseKey::book( const QString& newBook ) {
+//	qWarning("CSwordVerseKey::book( const QString& newBook )");
+	int min = 0;
+	int max = 1;
+	
 	if (!newBook.isEmpty()) {
-		int min = 0;
-		int max = 1;
+		CSwordBibleModuleInfo* bible = dynamic_cast<CSwordBibleModuleInfo*>(module());
+		const bool hasOT = bible->hasTestament(CSwordBibleModuleInfo::OldTestament);		
+		const bool hasNT = bible->hasTestament(CSwordBibleModuleInfo::NewTestament);
+		if (hasOT && hasNT) {
+			min = 0;
+			max = 1;
+		}
+		else if (hasOT && !hasNT) {
+			min = 0;
+			max = 0;
+		}
+		else if (!hasOT && hasNT) {
+			min = 1;
+			max = 1;
+		}
+				
 		bool finished = false;
 		for (int testament = min; testament <= max && !finished; ++testament) {
 			for (int book = 0; book < BMAX[testament] && !finished; ++book) {
@@ -75,16 +90,16 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 			}
 		}
 	}
-	if ( Testament() && Book() <= BMAX[Testament()-1] )
+	if ( Testament()> 0 && Testament() <=2 && Book() <= BMAX[Testament()-1] )
 		return QString::fromLocal8Bit( books[Testament()-1][Book()-1].name );
-	return QString::fromLocal8Bit(books[0][0].name); //return the first book, i.e. Genesis
+	return QString::fromLocal8Bit( books[min][0].name ); //return the first book, i.e. Genesis
 }
 
 /**  */
 const bool CSwordVerseKey::NextVerse(){	
 	if (m_module && m_module->module()) {
 		m_module->module()->SetKey(this);	//use this key as base for the next one!	
-		( *( m_module->module() ) )++;
+		(*(m_module->module()) )++;
 		if (!m_module->module()->Error())		
 			key( QString::fromLocal8Bit(m_module->module()->KeyText()) );//don't use fromUtf8		
 	}

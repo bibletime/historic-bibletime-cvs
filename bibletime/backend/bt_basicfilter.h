@@ -70,7 +70,7 @@ protected:
 	char standard_bible[100];
 
 	const SWKey *m_key;
-	const SWModule *m_module;
+	const SWModule* m_module;
 };
 
 #endif

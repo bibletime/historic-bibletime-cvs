@@ -17,6 +17,7 @@
 
 //BibleTime includes
 #include "cswordbiblemoduleinfo.h"
+#include "cswordversekey.h"
 
 //Qt includes
 #include <qfile.h>
@@ -30,8 +31,9 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( SWModule* module )
 	: CSwordModuleInfo(module) {
 	m_bookList = 0;
 	m_cachedLocale = "unknown";
-	m_hasOT = -1;
-	m_hasNT = -1;
+	m_hasOT = m_hasNT = -1;
+//	m_hasOT = hasTestament(OldTestament);
+//	m_hasNT = hasTestament(NewTestament);		
 }
 
 CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) : CSwordModuleInfo(m) {
@@ -39,8 +41,14 @@ CSwordBibleModuleInfo::CSwordBibleModuleInfo( const CSwordBibleModuleInfo& m ) :
 	if (m.m_bookList) {
 		m_bookList = new QStringList();
 		*m_bookList = *m.m_bookList;
-	}
+	}	
+	m_hasOT = m.m_hasOT;
+	m_hasNT = m.m_hasNT;
 	m_cachedLocale = m.m_cachedLocale;	
+}
+
+CSwordModuleInfo* CSwordBibleModuleInfo::clone(){
+	return new CSwordBibleModuleInfo(*this);
 }
 
 CSwordBibleModuleInfo::~CSwordBibleModuleInfo(){
@@ -50,26 +58,14 @@ CSwordBibleModuleInfo::~CSwordBibleModuleInfo(){
 /** Returns the books available in this module */
 QStringList* CSwordBibleModuleInfo::books() {
 	if (m_cachedLocale != backend()->booknameLanguage()){	//if the locale has changed
-		if (m_bookList)
-			delete m_bookList;
+		delete m_bookList;
 		m_bookList = 0;
 	}
 	
 	if (!m_bookList) {
-//		const QString modulePath = backend()->getModulePath(QString::fromLocal8Bit(name()));
-//		if (modulePath.isEmpty()) {
-			m_hasNT = m_hasOT = true;			
-//		}
-//		else {
-//			if (m_hasOT == -1)
-//				m_hasOT = QFile::exists(QString::fromLatin1("%1/ot.vss").arg(modulePath)) || QFile::exists(QString::fromLatin1("%1/ot.bzs").arg(modulePath));
-//			if (m_hasNT == -1)
-//				m_hasNT = QFile::exists(QString::fromLatin1("%1/nt.vss").arg(modulePath)) || QFile::exists(QString::fromLatin1("%1/nt.bzs").arg(modulePath));
-//		}
-	
 		m_bookList = new QStringList();	
-		int max = -1;
-		int min = -1;
+		int min = 0;				
+		int max = 1;
 		//find out if we have ot and nt, only ot or only nt
 		if (m_hasOT && m_hasNT) {
 			min = 0;
@@ -87,7 +83,6 @@ QStringList* CSwordBibleModuleInfo::books() {
 		staticKey.setLocale(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
 		for (int i = min; i <= max; ++i) {
 			for ( int j = 0; j < staticKey.BMAX[i]; ++j) {
-#warning use Unicode???
 				m_bookList->append( QString::fromLocal8Bit(staticKey.books[i][j].name) );
 			}
 		}
@@ -102,7 +97,7 @@ const unsigned int CSwordBibleModuleInfo::chapterCount(const unsigned int book) 
 	if ( (book >= 1) && book <= (unsigned int)staticKey.BMAX[0]) {		//Is the book in the old testament?
 		result = (staticKey.books[0][book-1].chapmax);
 	}
-	else if ( (book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] ) {	//is the book in the new testament?
+	else if ((book >= 1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1] ) {	//is the book in the new testament?
 	 	result = (staticKey.books[1][book-1-staticKey.BMAX[0]].chapmax);
 	}
 	return result;
@@ -111,11 +106,11 @@ const unsigned int CSwordBibleModuleInfo::chapterCount(const unsigned int book) 
 /** Returns the number of verses  for the given chapter. */
 const unsigned int CSwordBibleModuleInfo::verseCount( const unsigned int book, const unsigned int chapter ) const {
 	unsigned int result = 0;
-	if ((book>=1) && (book <= (unsigned int)staticKey.BMAX[0]) ) { //Is the book in te old testament?
+	if (book>=1 && (book <= (unsigned int)staticKey.BMAX[0]) ) { //Is the book in the old testament?
 		if (chapter <= chapterCount(book) )	//does the chapter exist?
 			result = (staticKey.books[0][book-1].versemax[chapter-1]);
 	}
-	else if ((book>=1) && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1]) {	//is the book in the new testament?
+	else if (book>=1 && (book - staticKey.BMAX[0]) <= (unsigned int)staticKey.BMAX[1]) {	//is the book in the new testament?
 		if (chapter <= chapterCount(book) )	//does the chapter exist?
 			result = staticKey.books[1][book-1-staticKey.BMAX[0]].versemax[chapter-1];
 	}
@@ -126,10 +121,26 @@ const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
 	unsigned int bookNumber = 0;
 	bool found = false;
 	staticKey.setLocale(LocaleMgr::systemLocaleMgr.getDefaultLocaleName());
-	for (int i = 0; i <= 1 && !found; ++i) {
+	int min = 0;
+	int max = 1;	
+	//find out if we have ot and nt, only ot or only nt
+	if ((m_hasOT>0 && m_hasNT>0) || (m_hasOT == m_hasNT == -1)) {
+		min = 0;
+		max = 1;
+	}
+	else if (m_hasOT>0 && !m_hasNT) {
+		min = 0;
+		max = 0;
+	}
+	else if (!m_hasOT && m_hasNT>0) {
+		min = 1;
+		max = 1;
+	}
+	
+	for (int i = min; i <= max && !found; ++i) {
 		for ( int j = 0; j < staticKey.BMAX[i] && !found; ++j) {
 			++bookNumber;
-#warning Use Unicode???
+//#warning Use Unicode???
 			if (book == QString::fromLocal8Bit( staticKey.books[i][j].name) )
 				found = true;
 		}
@@ -139,17 +150,26 @@ const unsigned int CSwordBibleModuleInfo::bookNumber(const QString &book){
 
 /** Returns true if his module has the text of desired type of testament */
 const bool CSwordBibleModuleInfo::hasTestament( CSwordBibleModuleInfo::Testament type ){
+	if (m_hasOT == -1 || m_hasNT == -1) {
+ 		CSwordVerseKey key(this);
+ 		key.key("Genesis 1:1");
+ 		key.NextVerse();
+		if (key.Testament() >= 2 && !module()->Error()) { //2 == NT
+ 			m_hasOT = 0;
+ 			m_hasNT = 1;
+ 		}
+ 		else {
+ 			m_hasOT = 1;
+ 			m_hasNT = 1;
+ 		}
+	}
+
 	switch (type) {
-		case oldTestament:
-			return m_hasOT;
-		case newTestament:
-			return m_hasNT;		
+		case OldTestament:
+			return m_hasOT>0;
+		case NewTestament:
+			return m_hasNT>0;		
 		default:
 			return false;
 	}
-}
-
-/** No descriptions */
-CSwordModuleInfo* CSwordBibleModuleInfo::clone(){
-	return new CSwordBibleModuleInfo(*this);
 }

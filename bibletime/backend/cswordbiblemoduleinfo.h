@@ -37,8 +37,8 @@
 class CSwordBibleModuleInfo : public CSwordModuleInfo  {
 public:	
 	enum Testament {
-		oldTestament,
-		newTestament
+		OldTestament = 1,
+		NewTestament = 2
 	};
 		
 	/**

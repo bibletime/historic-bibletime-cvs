@@ -36,10 +36,8 @@ CSwordKey::CSwordKey(CSwordModuleInfo* module) : m_module(module) {
 }
 
 CSwordKey::CSwordKey(const CSwordKey& k) {
-	qWarning("copy constructor of CSwordKey");
+//	qWarning("copy constructor of CSwordKey");
 	m_module = k.m_module;
-//	ASSERT(m_module);
-//	qWarning(m_module->name().latin1());
 }
 
 CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {
@@ -50,11 +48,11 @@ CSwordModuleInfo* CSwordKey::module(CSwordModuleInfo* newModule) {
 
 const QString CSwordKey::renderedText() {
 	if (!m_module)
-		return QString::null;
-	SWKey* k = dynamic_cast<SWKey*>(this);
-	if (k)
-		m_module->module()->SetKey(k);	
-	return QString::fromUtf8((const char*)*(m_module->module()));
+		return QString::null;		
+	if (SWKey* k = dynamic_cast<SWKey*>(this)) {
+		m_module->module()->SetKey(k);		
+	}
+	return QString::fromUtf8(m_module->module()->RenderText());
 }
 
 const QString CSwordKey::strippedText() {
@@ -76,18 +74,15 @@ CSwordKey* CSwordKey::createInstance( CSwordModuleInfo *module ){
 		case CSwordModuleInfo::Commentary:
 		{
 			CSwordVerseKey* key = new CSwordVerseKey( (VerseKey *) ( (SWKey *)(*module->module()) ), module );
-//			qWarning("VerseKey Persist? %s", key->Persist() ? "yes" : "no");
 			return key;
 		}
 		case CSwordModuleInfo::Lexicon:
 		{
 			CSwordLDKey* key = new CSwordLDKey( (SWKey *)(*module->module()), module);
-//			qWarning("Lexicon key Persist? %s", key->Persist() ? "yes" : "no");		
 			return key;
 		}
 		case CSwordModuleInfo::GenericBook: {
 			CSwordTreeKey* key =  new CSwordTreeKey( (TreeKeyIdx*)((SWKey *)(*module->module())), module );
-//			qWarning("Persist? %s", key->Persist() ? "yes" : "no");
 			return key;
 		}
 	}

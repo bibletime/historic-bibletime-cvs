@@ -41,7 +41,7 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	const int currentBook = key.Book();
 	const int currentChapter = key.Chapter();
 	const int currentVerse = key.Verse();	
-
+	
 	key.module(module);	
 	int verse = 0;
 	
@@ -54,26 +54,26 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	updateSettings();
 
 	m_htmlText.append(QString::fromLatin1("<font face=\"%1\" size=\"%2\" color=\"%3\">")
-		.arg( module->isUnicode() ? m_unicodeFontName : m_standardFontName)
-		.arg( module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
+		.arg(module->isUnicode() ? m_unicodeFontName : m_standardFontName)
+		.arg(module->isUnicode() ? m_unicodeFontSize : m_standardFontSize)
 		.arg(m_standardFontColorName)
 	);
 
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->module()->Error(); key.NextVerse()) {
 		verse = key.Verse();
-		if (m_displayOptionsBool.verseNumbers)
+		if (m_displayOptionsBool.verseNumbers) {
 			m_htmlText.append( QString::fromLatin1("<font color=\"%1\"><a name=\"%2\" href=\"%3\"><b>%4</b></a></font> ")
 				.arg(m_swordRefColorName)
 				.arg(verse)
 				.arg(CReferenceManager::encodeHyperlink( module->name(), key.key(), CReferenceManager::typeFromModule(module->type()) ))
 				.arg(verse)
 			);
+		}
 		if (verse == currentVerse)
 		  m_htmlText += QString::fromLatin1("<font color=\"") + m_highlightedVerseColorName + QString::fromLatin1("\">");
 		m_htmlText.append(key.renderedText());
 		if (verse == currentVerse)
 		  m_htmlText += QString::fromLatin1("</font>");
-
 		if (m_displayOptionsBool.lineBreaks)
 			m_htmlText += QString::fromLatin1("<br>\n");
 		else

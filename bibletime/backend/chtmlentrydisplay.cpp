@@ -53,7 +53,6 @@ void CHTMLEntryDisplay::updateSettings(void){
 
 /** Displays the current entry of the module as HTML */
 char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
-	qWarning("CHTMLEntryDisplay::Display(CSwordModuleInfo* module)");
 	if (!module) {
 		m_htmlText = QString::null;
 		return -1;
@@ -65,9 +64,9 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 	if (!key) {
 		m_htmlText = QString::null;
 		return 0;
-	}
+	}	
 	key->key( module->module()->KeyText() );
-		
+	
 	CReferenceManager::Type refType = CReferenceManager::Unknown;
 	if (module->type() == CSwordModuleInfo::Bible)
 		refType = CReferenceManager::Bible;

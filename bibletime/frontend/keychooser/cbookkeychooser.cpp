@@ -90,6 +90,7 @@ void CBookKeyChooser::setKey(CSwordKey* newKey, const bool emitSignal){
 
 /** Returns the key of this kechooser. */
 CSwordKey* CBookKeyChooser::key(){
+	ASSERT(m_key);
 	return m_key;
 }
 

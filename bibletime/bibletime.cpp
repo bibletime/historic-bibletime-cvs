@@ -167,7 +167,7 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 			presenter = new CBookPresenter(modules, m_mdi);
 			break;
 		default:
-//			presenter = 0;
+			presenter = 0;
 			qWarning("unknown module type");
 			break;
 	}	
@@ -190,10 +190,6 @@ CSwordPresenter* BibleTime::createNewSwordPresenter(ListCSwordModuleInfo modules
 	presenter->setFocus();
 	
 	return presenter;
-//	if (presenter)
-//		return dynamic_cast<CSwordPresenter*>(presenter);
-//	else
-//		return 0;
 }
 
 

@@ -140,7 +140,6 @@ public:
   * Sets the module for this key
   */
   virtual CSwordModuleInfo* module( CSwordModuleInfo* newModule = 0 );
-
 };
 
 #endif

@@ -126,7 +126,7 @@ void CHTMLWidget::ToolTip::maybeTip(const QPoint& p) {
 				delete key;
 			}
 			if (m->isUnicode()) {
-				setFont( CBTConfig::get( CBTConfig::unicode) );
+				setFont( CBTConfig::get(CBTConfig::unicode) );
 			}
 		}
 		if (!text.isEmpty())

@@ -53,7 +53,12 @@ void BT_BASICFILTER::updateSettings(){
 
 /** Parses the verse reference ref and returns it. */
 const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
- 	VerseKey parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");
+ 	qWarning("BT_BASICFILTER::parseSimpleRef(const char* ref)");
+ 	qWarning(ref);
+ 	VerseKey parseKey;
+// 	parseKey.setLocale("en");
+
+ 	parseKey = (m_key ? (const char*)*m_key : "Genesis 1:1");
  	ListKey list;
   char* to = new char[5000];
 	char* ret = to;
@@ -61,6 +66,7 @@ const char* BT_BASICFILTER::parseSimpleRef(const char* ref) {
 	QStringList refList = QStringList::split(QRegExp("[,.;]", false), QString::fromLocal8Bit(ref));
 	int pos = 0;
 	for ( QStringList::Iterator it = refList.begin(); it != refList.end(); ++it, pos++ ) {
+	 	qWarning("loop");
 	 	list = parseKey.ParseVerseList((*it).local8Bit(), parseKey, true);
 		
 	 	const int count = list.Count();
@@ -188,6 +194,7 @@ char BT_BASICFILTER::ProcessRWPRefs(char* text, int maxlen){
 void BT_BASICFILTER::replaceTokenSubstitute(const char* findString, const char* replaceString){
 	char *buf = 0;
 	tokenSubMap.erase( tokenSubMap.find(findString) ); //erase entry
+	addTokenSubstitute(findString, replaceString);
 //        if (!tokenCaseSensitive) {
 //                stdstr(&buf, findString);
 //                toupperstr(buf);
@@ -195,7 +202,7 @@ void BT_BASICFILTER::replaceTokenSubstitute(const char* findString, const char* 
 //                delete [] buf;
 //        }
 //        else
-	tokenSubMap.insert(DualStringMap::value_type(findString, replaceString));	
+//	tokenSubMap.insert(DualStringMap::value_type(findString, replaceString));	
 }
 
 /** Updates the token for this filter if settings changed. */
