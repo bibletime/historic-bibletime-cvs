@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bibletime-1.0\n"
-"POT-Creation-Date: 2001-05-25 12:48+0200\n"
+"POT-Creation-Date: 2001-06-05 17:21+0200\n"
 "PO-Revision-Date: 2001-06-04 10:38GMT+1\n"
 "Last-Translator: Michal Rovnaník <Michal.Rovnanik@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -192,7 +192,7 @@ msgstr "&Tip dne"
 #: bibletime/bibletime.cpp:175 bibletime/bibletime.cpp:190
 #: bibletime/bibletime_slots.cpp:98 bibletime/bibletime_slots.cpp:107
 #: bibletime/frontend/optionsdialog/coptionsdialog.cpp:95
-#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:282
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:297
 msgid "Display window"
 msgstr "Okno prohlížeče"
 
@@ -333,7 +333,7 @@ msgstr "Hledat"
 msgid "&Number of copies"
 msgstr "&Počet kopií"
 
-#: bibletime/dummy.h:152 bibletime/printing/cprinterdialog.cpp:149
+#: bibletime/dummy.h:153 bibletime/printing/cprinterdialog.cpp:149
 msgid "Orientation"
 msgstr "Orientace"
 
@@ -516,6 +516,10 @@ msgstr "Angličtina"
 msgid "Show startuplogo"
 msgstr "Zobrazovat logo"
 
+#: bibletime/frontend/optionsdialog/coptionsdialog.cpp:220
+msgid "Use down arrow to scroll to previous verse."
+msgstr ""
+
 #: bibletime/frontend/ctipwindow.cpp:68
 msgid "Useful tips for BibleTime"
 msgstr "Užitečné tipy pro BibleTime"
@@ -540,7 +544,7 @@ msgstr ""
 "kontaktujte nás prosím na adrese\t\t<A "
 "HREF=\"mailto:info@bibletime.de\">info@bibletime.de</A>!"
 
-#: bibletime/frontend/cinputdialog.cpp:71
+#: bibletime/frontend/cinputdialog.cpp:72
 msgid "Ok"
 msgstr "Ok"
 
@@ -614,8 +618,22 @@ msgid "Strong's numbers: %1<BR>"
 msgstr "Strongova čísla: %1<BR>"
 
 #: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:249
+#, fuzzy
+msgid "Unlock key:"
+msgstr "Odemykací klíč"
+
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:249
 msgid "not set"
 msgstr "není nastaveno"
+
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:251
+#, fuzzy
+msgid "Version:"
+msgstr "Verze"
+
+#: bibletime/frontend/groupmanager/cgroupmanageritem.cpp:253
+msgid "Font:"
+msgstr ""
 
 #: bibletime/frontend/groupmanager/cgroupmanager.cpp:170
 msgid "Bibles"
@@ -783,53 +801,53 @@ msgstr "BibleTime - Reset hlavního seznamu"
 msgid "Lexicon window"
 msgstr "Slovník"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:80
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:81
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:66
 msgid "Entry"
 msgstr "Záznam"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:81
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:82
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:67
 msgid "Text of entry"
 msgstr "Text záznamu"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:82
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:87
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:83
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:88
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:68
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:73
 msgid "Entry with text"
 msgstr "Záznam s textem"
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:75
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:84
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:85
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:70
 msgid "Selected text"
 msgstr "Vybraný text"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:90
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:91
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:76
 msgid "Entry as plain text"
 msgstr "Záznam jako obyčejný text"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:91
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:92
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:77
 msgid "Entry as HTML"
 msgstr "Záznam jako HTML"
 
 #: bibletime/dummy.h:95 bibletime/frontend/presenters/cbiblepresenter.cpp:86
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:93
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:94
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:79
 msgid "Select all"
 msgstr "Vybrat vše"
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:87
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:94
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:95
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:80
 msgid "Lookup selected text in lexicon"
 msgstr "Vyhledat vybraný text ve slovníku"
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:89
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:96
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:82
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:134
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:401
@@ -837,7 +855,7 @@ msgid "Copy..."
 msgstr "Kopírovat..."
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:90
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:97
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:98
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:83
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:135
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:402
@@ -845,7 +863,7 @@ msgid "Add to printing queue..."
 msgstr "Přidat do tiskové fronty..."
 
 #: bibletime/frontend/presenters/cbiblepresenter.cpp:91
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:98
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:99
 #: bibletime/frontend/presenters/clexiconpresenter.cpp:84
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:136
 #: bibletime/frontend/searchdialog/csearchdialogresultview.cpp:403
@@ -897,15 +915,15 @@ msgstr "Vybrat další moduly"
 msgid "NONE"
 msgstr "Žádný modul"
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:62
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:63
 msgid "Synchronize..."
 msgstr "Synchronizace..."
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:67
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:68
 msgid "Edit entry..."
 msgstr "Změna záznamu..."
 
-#: bibletime/frontend/presenters/ccommentarypresenter.cpp:77
+#: bibletime/frontend/presenters/ccommentarypresenter.cpp:78
 msgid "Commentary window"
 msgstr "Komentář"
 
@@ -1131,7 +1149,8 @@ msgid "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
 msgstr "<CENTER><FONT SIZE=\"+2\">%1</FONT></CENTER><HR>"
 
 #: bibletime/frontend/ctoolclass.cpp:78
-msgid "<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
+msgid ""
+"<qt><B>The file does already exist!</B><BR>Do you want to overwrite it?</qt>"
 msgstr "<qt><B>Soubor již existuje!</B><BR>Chcete jej přepsat?</qt>"
 
 #: bibletime/frontend/ctoolclass.cpp:78
@@ -1411,7 +1430,7 @@ msgstr "Přidat nový rozsah"
 msgid "Delete this search scope"
 msgstr "Zrušit tento rozsah hledání"
 
-#: bibletime/dummy.h:115 bibletime/dummy.h:296
+#: bibletime/dummy.h:115 bibletime/dummy.h:297
 msgid "Edit and define your search scopes"
 msgstr "Úprava nebo vytvoření vlastního rozsahu"
 
@@ -1451,127 +1470,131 @@ msgstr "Zobrazit tip dne"
 msgid "List of languages"
 msgstr "Seznam jazyků"
 
-#: bibletime/dummy.h:132
+#: bibletime/dummy.h:131
+msgid "Use down arrow to scroll to previous verse"
+msgstr ""
+
+#: bibletime/dummy.h:133
 msgid "Set keyboard accelerators"
 msgstr "Nastavení klávesových zkratek"
 
-#: bibletime/dummy.h:134
+#: bibletime/dummy.h:135
 msgid "Choose the area of application"
 msgstr "Zvolte oblast aplikace"
 
-#: bibletime/dummy.h:135 bibletime/dummy.h:315
+#: bibletime/dummy.h:136 bibletime/dummy.h:317
 msgid "Choose a font"
 msgstr "Zvolte písmo"
 
-#: bibletime/dummy.h:137
+#: bibletime/dummy.h:138
 msgid "List of modules"
 msgstr "Seznam modulů"
 
-#: bibletime/dummy.h:139
+#: bibletime/dummy.h:140
 msgid "Color of the background"
 msgstr "Barva pozadí"
 
-#: bibletime/dummy.h:140
+#: bibletime/dummy.h:141
 msgid "Color of the highlighted verse"
 msgstr "Barva vybraného verše"
 
-#: bibletime/dummy.h:143
+#: bibletime/dummy.h:144
 msgid "Start printing"
 msgstr "Tisknout"
 
-#: bibletime/dummy.h:144
+#: bibletime/dummy.h:145
 msgid "Show a preview"
 msgstr "Zobrazit náhled"
 
-#: bibletime/dummy.h:146
+#: bibletime/dummy.h:147
 msgid "Open help"
 msgstr "Otevření nápovědy"
 
-#: bibletime/dummy.h:148
+#: bibletime/dummy.h:149
 msgid "The list of printers"
 msgstr "Seznam tiskáren"
 
-#: bibletime/dummy.h:149
+#: bibletime/dummy.h:150
 msgid "Print into a file"
 msgstr "Tisknout do souboru"
 
-#: bibletime/dummy.h:150
+#: bibletime/dummy.h:151
 msgid "Browse for the file"
 msgstr "Hledat soubor"
 
-#: bibletime/dummy.h:151
+#: bibletime/dummy.h:152
 msgid "Copies"
 msgstr "Kopie"
 
-#: bibletime/dummy.h:155
+#: bibletime/dummy.h:156
 msgid "Paper type"
 msgstr "Typ papíru"
 
-#: bibletime/dummy.h:156
+#: bibletime/dummy.h:157
 msgid "Paper size"
 msgstr "Velikost papíru"
 
-#: bibletime/dummy.h:158
+#: bibletime/dummy.h:159
 msgid "Styles"
 msgstr "Styly"
 
-#: bibletime/dummy.h:159
+#: bibletime/dummy.h:160
 msgid "List of print items"
 msgstr "Seznam tisků"
 
-#: bibletime/dummy.h:160
+#: bibletime/dummy.h:161
 msgid "Move item up"
 msgstr "Přesunout nahoru"
 
-#: bibletime/dummy.h:161
+#: bibletime/dummy.h:162
 msgid "Move item down"
 msgstr "Přesunout dolů"
 
-#: bibletime/dummy.h:162
+#: bibletime/dummy.h:163
 msgid "Delete items"
 msgstr "Smazat položku"
 
-#: bibletime/dummy.h:163
+#: bibletime/dummy.h:164
 msgid "Insert a page break"
 msgstr "Vložit zlom strany"
 
-#: bibletime/dummy.h:165
+#: bibletime/dummy.h:166
 msgid "Page borders"
 msgstr "Okraje stránky"
 
-#: bibletime/dummy.h:166
+#: bibletime/dummy.h:167
 msgid "Left border"
 msgstr "Levý okraj"
 
-#: bibletime/dummy.h:167
+#: bibletime/dummy.h:168
 msgid "Right border"
 msgstr "Pravý okraj"
 
-#: bibletime/dummy.h:168
+#: bibletime/dummy.h:169
 msgid "Upper border"
 msgstr "Horní okraj"
 
-#: bibletime/dummy.h:169
+#: bibletime/dummy.h:170
 msgid "Lower border"
 msgstr "Dolní okraj"
 
-#: bibletime/dummy.h:170
+#: bibletime/dummy.h:171
 msgid "List of styles"
 msgstr "Seznam stylů"
 
-#: bibletime/dummy.h:171
+#: bibletime/dummy.h:172
 msgid "Delete the chosen printing style"
 msgstr "Smazat vybraný styl tisku"
 
-#: bibletime/dummy.h:172
+#: bibletime/dummy.h:173
 msgid "Edit the chosen printing style"
 msgstr "Upravit vybraný styl tisku"
 
-#: bibletime/dummy.h:173
+#: bibletime/dummy.h:174
 msgid "Create a new printing style"
 msgstr "Vytvořit nový styl tisku"
 
-#: bibletime/dummy.h:201
+#: bibletime/dummy.h:202
 msgid ""
 "Clear the printing queue of BibleTime. All items will be removed from the "
 "list, the print button will be disabled."
@@ -1579,7 +1602,7 @@ msgstr ""
 "Vymazání tiskové fronty programu BibleTime. Všechny položky budou "
 "odstraněny ze seznamu, tlačítko tisku bude zablokováno."
 
-#: bibletime/dummy.h:202
+#: bibletime/dummy.h:203
 msgid ""
 "Open the printerdialog of BibleTime where you can edit the printing queue "
 "and assign styles to the items."
@@ -1587,17 +1610,17 @@ msgstr ""
 "Otevření dialogu pro tisk z programu BibleTime, kde můžete upravovat "
 "tiskovou frontu a nastavovat jednotlivým položkám styl tisku."
 
-#: bibletime/dummy.h:203
+#: bibletime/dummy.h:204
 msgid "Close BibleTime and save the settings."
 msgstr "Ukončení BibleTime a uložení nastavení."
 
-#: bibletime/dummy.h:205
+#: bibletime/dummy.h:206
 msgid "Open the search dialog to search text in one or more modules."
 msgstr ""
 "Otevření dialogového okna pro hledání textu v jednom nebo více "
 "modulech."
 
-#: bibletime/dummy.h:206
+#: bibletime/dummy.h:207
 msgid ""
 "Remove the selected items from the main index.<BR>If you remove a folder the "
 "subitems of it will be removed, too."
@@ -1605,7 +1628,7 @@ msgstr ""
 "Odstranit vybranou položku z hlavního seznamu.<BR>Pokud odstraníte "
 "složku, budou zrušen i její obsah."
 
-#: bibletime/dummy.h:207
+#: bibletime/dummy.h:208
 msgid ""
 "Reset the main index<BR>All bookmarks and folders will be deleted and the "
 "default folders will be restored."
@@ -1613,27 +1636,30 @@ msgstr ""
 "Reset hlavního seznamu<BR>Všechny záložky a složky budou smazány a "
 "budou obnoveny původní složky."
 
-#: bibletime/dummy.h:209
+#: bibletime/dummy.h:210
 msgid "Show or hide the main index depending on current state."
 msgstr "Přepínač mezi zobrazením nebo skrytím hlavního seznamu."
 
-#: bibletime/dummy.h:210
-msgid "Show or hide the main toolbar depending on current state."
-msgstr "Přepínač mezi zobrazením nebo skrytím hlavní nástrojové lišty."
-
 #: bibletime/dummy.h:211
+msgid "Show or hide the main toolbar depending on current state."
+msgstr ""
+"Přepínač mezi zobrazením nebo skrytím hlavní nástrojové lišty."
+
+#: bibletime/dummy.h:212
 msgid "Show or hide the footnotes in the modules deoending on current state."
 msgstr "Přepínač mezi zobrazením nebo skrytím poznámek v modulech."
 
-#: bibletime/dummy.h:212
-msgid "Show or hide Strong's numbers in the modules depending on current state."
-msgstr "Přepínač mezi zobrazením nebo skrytím Strongových čísel v modulech."
+#: bibletime/dummy.h:213
+msgid ""
+"Show or hide Strong's numbers in the modules depending on current state."
+msgstr ""
+"Přepínač mezi zobrazením nebo skrytím Strongových čísel v modulech."
 
-#: bibletime/dummy.h:214
+#: bibletime/dummy.h:215
 msgid "Arrange the opened display windows in a tile pattern."
 msgstr "Uspořádá otevřená okna přehledně jako dlaždice."
 
-#: bibletime/dummy.h:215
+#: bibletime/dummy.h:216
 msgid ""
 "The open display windows will automatically arranged in a tile pattern if "
 "it's necessary."
@@ -1641,11 +1667,11 @@ msgstr ""
 "Otevřená okna budou automaticky uspořádávána jako dlaždice, pokud je "
 "to potřeba."
 
-#: bibletime/dummy.h:216
+#: bibletime/dummy.h:217
 msgid "Arrange the open display windows in a cascade pattern."
 msgstr "Uspořádá otevřená okna do kaskády."
 
-#: bibletime/dummy.h:217
+#: bibletime/dummy.h:218
 msgid ""
 "The open display windows will automatically arranged in a cascade pattern if "
 "it's necessary."
@@ -1653,23 +1679,26 @@ msgstr ""
 "Otevřená okna budou automaticky uspořádávána do kaskády, pokud je to "
 "potřeba."
 
-#: bibletime/dummy.h:218
+#: bibletime/dummy.h:219
 msgid "Close all open display windows."
 msgstr "Zavře všechna otevřená okna."
 
-#: bibletime/dummy.h:220
-msgid "Open a dialog where you can edit the toolbar of BibleTime."
-msgstr "Otevře dialogové okno, ve kterém můžete upravit nástrojovou lištu."
-
 #: bibletime/dummy.h:221
-msgid "Open BibleTime's optionsdialog where you can set most of the preferences."
-msgstr "Otevře dialogové okno, ve kterém můžete měnit většinu nastavení."
+msgid "Open a dialog where you can edit the toolbar of BibleTime."
+msgstr ""
+"Otevře dialogové okno, ve kterém můžete upravit nástrojovou lištu."
 
-#: bibletime/dummy.h:223
+#: bibletime/dummy.h:222
+msgid ""
+"Open BibleTime's optionsdialog where you can set most of the preferences."
+msgstr ""
+"Otevře dialogové okno, ve kterém můžete měnit většinu nastavení."
+
+#: bibletime/dummy.h:224
 msgid "Open KDE's helpbrowser with BibleTime's handbook."
 msgstr "Otevře nápovědu k programu BibleTime."
 
-#: bibletime/dummy.h:224
+#: bibletime/dummy.h:225
 msgid ""
 "Switch into the <B>\"What's this?\"</B> mode.<BR>All important elements of "
 "BibleTime's GUI offer a \"What's this?\" help."
@@ -1677,11 +1706,11 @@ msgstr ""
 "Přepnutí ukazatele myši do módu <B>\"Co je toto?\"</B>.<BR>Všechny "
 "důležité prvky programu BibleTime nabízejí tuto nápovědu."
 
-#: bibletime/dummy.h:225
+#: bibletime/dummy.h:226
 msgid "Send a bugreport to the developers of BibleTime!"
 msgstr "Pošle chybové hlášení vývojářům programu BibleTime!"
 
-#: bibletime/dummy.h:226
+#: bibletime/dummy.h:227
 msgid ""
 "Show a daily tip.<BR>The tips contain important Bible quotations and helpful "
 "usage tips for BibleTime."
@@ -1689,15 +1718,15 @@ msgstr ""
 "Zobrazení tipu dne.<BR>Tipy obsahují důležité biblické citace a "
 "užitečné tipy pro používání programu BibleTime."
 
-#: bibletime/dummy.h:227
+#: bibletime/dummy.h:228
 msgid "Show detailed information about BibleTime."
 msgstr "Zobrazí detailní informace o programu BibleTime."
 
-#: bibletime/dummy.h:228
+#: bibletime/dummy.h:229
 msgid "Show the general about dialog of KDE 2."
 msgstr "Zobrazí obecnou informaci o prostředí KDE 2."
 
-#: bibletime/dummy.h:232
+#: bibletime/dummy.h:233
 msgid ""
 "This is the main index of BibleTime.<BR>Use it to manage the installed "
 "modules, to work with bookmarks, to open display windows etc.."
@@ -1705,7 +1734,7 @@ msgstr ""
 "Toto je hlavní seznam.<BR>Umožňuje spravovat nainstalované moduly, "
 "pracovat se záložkami, otevírat okna prohlížečů apod."
 
-#: bibletime/dummy.h:233
+#: bibletime/dummy.h:234
 msgid ""
 "Create a new folder in the main index.<BR>If you pressed the right mouse "
 "button on a folder the new folder will be a sub-item of it.<BR>Otherwise you "
@@ -1715,25 +1744,26 @@ msgstr ""
 "tlačítko myši stiskli nad složkou, bude nová složka její "
 "pod-složkou.<BR>Jinak se vytvoří nová hlavní složka."
 
-#: bibletime/dummy.h:234
+#: bibletime/dummy.h:235
 msgid "Change the properties of the selected folder."
 msgstr "Změní vlastnosti vybrané složky."
 
-#: bibletime/dummy.h:235
+#: bibletime/dummy.h:236
 msgid "Change the properties of the selected bookmark."
 msgstr "Změní vlastnosti vybrané záložky."
 
-#: bibletime/dummy.h:236
+#: bibletime/dummy.h:237
 msgid "Import bookmark from a file."
 msgstr "Naimportuje záložky ze souboru."
 
-#: bibletime/dummy.h:237
-msgid "Export bookmarks to a file so you or other<BR>users can import them later."
+#: bibletime/dummy.h:238
+msgid ""
+"Export bookmarks to a file so you or other<BR>users can import them later."
 msgstr ""
 "Vyexportuje záložky do souboru, takže Vy<BR>nebo jiní uživatelé si je "
 "budou moci později naimportovat."
 
-#: bibletime/dummy.h:238
+#: bibletime/dummy.h:239
 msgid ""
 "Use this to add this bookmark to BibleTime's printing queue. The key, the "
 "description and the text of the key will be used for printing."
@@ -1741,15 +1771,16 @@ msgstr ""
 "Tímto přidáte tuto záložku do tiskové fronty programu BibleTime. "
 "Vytištěn bude odkaz, popis a text odkazu."
 
-#: bibletime/dummy.h:239
-msgid "Open a small dialog where you can unlock the selected module."
-msgstr "Otevře malé dialogové okno, ve kterém můžete odemknout vybraný modul."
-
 #: bibletime/dummy.h:240
+msgid "Open a small dialog where you can unlock the selected module."
+msgstr ""
+"Otevře malé dialogové okno, ve kterém můžete odemknout vybraný modul."
+
+#: bibletime/dummy.h:241
 msgid "Open a dialog to show information about the selected module."
 msgstr "Otevře okno s informací o vybraném modulu."
 
-#: bibletime/dummy.h:243
+#: bibletime/dummy.h:244
 msgid ""
 "This area contains is the working place of Bibletime.<BR>All display windows "
 "are opened in this place."
@@ -1757,27 +1788,27 @@ msgstr ""
 "Tato oblast je pracovní plochou programu BibleTime.<BR>Všechna okna "
 "prohlížečů budou zobrazena na tomto místě."
 
-#: bibletime/dummy.h:245
+#: bibletime/dummy.h:246
 msgid "This is the Bible display window"
 msgstr "Toto je okno prohlížeče Bible."
 
-#: bibletime/dummy.h:246
+#: bibletime/dummy.h:247
 msgid "This is the commentary display window."
 msgstr "Toto je okno prohlížeče komentáře."
 
-#: bibletime/dummy.h:247
+#: bibletime/dummy.h:248
 msgid "This is the lexicon display window."
 msgstr "Toto je okno prohlížeče slovníku."
 
-#: bibletime/dummy.h:249
+#: bibletime/dummy.h:250
 msgid "The next entry of the module will be shown."
 msgstr "Zobrazí se další záznam v modulu."
 
-#: bibletime/dummy.h:250
+#: bibletime/dummy.h:251
 msgid "The previous entry of the module will be shown."
 msgstr "Zobrazí se předchozí záznam v modulu."
 
-#: bibletime/dummy.h:251
+#: bibletime/dummy.h:252
 msgid ""
 "If you view the text of a Bible the next verse will be highlighted.<BR>If "
 "you read a commentary the next entry will be shown."
@@ -1785,7 +1816,7 @@ msgstr ""
 "Pokud prohlížíte text Bible, označí se následující verš.<BR>Při "
 "práci s komentářem se zobrazí další záznam."
 
-#: bibletime/dummy.h:252
+#: bibletime/dummy.h:253
 msgid ""
 "If you view the text of a Bible the previous verse will be highlighted. If "
 "you read a commentary the next entry will be shown."
@@ -1793,43 +1824,45 @@ msgstr ""
 "Pokud prohlížíte text Bible, označí se předchozí verš.<BR>Při "
 "práci s komentářem se zobrazí předchozí záznam."
 
-#: bibletime/dummy.h:253
+#: bibletime/dummy.h:254
 msgid "Show the next chapter of the module. The verse will be set to \"1\"."
 msgstr "Zobrazí následující kapitolu modulu. Bude vybrán první verš."
 
-#: bibletime/dummy.h:254
+#: bibletime/dummy.h:255
 msgid "Show the previous chapter of the module. The verse will be set to \"1\""
 msgstr "Zobrazí předchozí kapitolu modulu. Bude vybrán první verš."
 
-#: bibletime/dummy.h:255
+#: bibletime/dummy.h:256
 msgid ""
 "Show the next book of this module. The chapter and the verse will be set to "
 "\"1\"."
 msgstr "Zobrazí následující knihu modulu, první kapitolu, první verš."
 
-#: bibletime/dummy.h:256
+#: bibletime/dummy.h:257
 msgid ""
 "Show the previous book of this module. The chapter and the verse will be set "
 "to \"1\"."
 msgstr "Zobrazí předchozí knihu modulu, první kapitolu, první verš."
 
-#: bibletime/dummy.h:257
+#: bibletime/dummy.h:258
 msgid "This list contains the books which are available in this module."
 msgstr "Tento seznam obsahuje knihy dostupné v tomto modulu."
 
-#: bibletime/dummy.h:258
-msgid "This list contains the chapters which are available in the current book."
+#: bibletime/dummy.h:259
+msgid ""
+"This list contains the chapters which are available in the current book."
 msgstr "Tento seznam obsahuje kapitoly dostupné v této knize."
 
-#: bibletime/dummy.h:259
-msgid "This list contains the verses which are available in the current chapter."
+#: bibletime/dummy.h:260
+msgid ""
+"This list contains the verses which are available in the current chapter."
 msgstr "Tento seznam obsahuje verše dostupné v této kapitole."
 
-#: bibletime/dummy.h:260
+#: bibletime/dummy.h:261
 msgid "This list contains the entries of the current module."
 msgstr "Tento seznam obsahuje záznamy v tomto modulu."
 
-#: bibletime/dummy.h:261
+#: bibletime/dummy.h:262
 msgid ""
 "This button is useful to scroll through the entries of the list. Press the "
 "button and move the mouse to increase or decrease the item."
@@ -1837,63 +1870,65 @@ msgstr ""
 "Toto tlačítko umožnuje jednoduše procházet položkami seznamu. "
 "Stiskněte tlačítko a pohybem myši vyberte požadovanou položku."
 
-#: bibletime/dummy.h:262
+#: bibletime/dummy.h:263
 msgid "Toggle between read-write and read-only mode of writeable modules."
 msgstr ""
 "Přepínání mezi módy \"čtení-zápis\" a \"pouze čtení\" u "
 "zapisovatelných modulů."
 
-#: bibletime/dummy.h:263
+#: bibletime/dummy.h:264
 msgid "Save the personal comment."
 msgstr "Uložení osobního komentáře."
 
-#: bibletime/dummy.h:264
+#: bibletime/dummy.h:265
 msgid "Clear the text and delete the entry from the module."
 msgstr "Smazání textu a odstranění záznamu z modulu."
 
-#: bibletime/dummy.h:265
+#: bibletime/dummy.h:266
 msgid "Switch between bold and non-bold formatting of the selected text."
 msgstr "Přepínání mezi tučným a ne-tučným písmem."
 
-#: bibletime/dummy.h:266
+#: bibletime/dummy.h:267
 msgid "Switch between italic and non-italic formatting of the selected text."
 msgstr "Přepínání mezi kurzívou a ne-kurzívou."
 
-#: bibletime/dummy.h:267
-msgid "Switch between underlined and non-undelined formatting of the selected text."
+#: bibletime/dummy.h:268
+msgid ""
+"Switch between underlined and non-undelined formatting of the selected text."
 msgstr "Přepínání mezi podtrženým a ne-podtrženým písmem."
 
-#: bibletime/dummy.h:268
+#: bibletime/dummy.h:269
 msgid "Choose a new font for the selected text."
 msgstr "Nastavení jiného písma pro vybraný text."
 
-#: bibletime/dummy.h:269
+#: bibletime/dummy.h:270
 msgid "Choose a new color for the selected text."
 msgstr "Nastavení jiné barvy pro vybraný text."
 
-#: bibletime/dummy.h:270
+#: bibletime/dummy.h:271
 msgid "Choose a new fontsize for the selected text."
 msgstr "Nastavení jiné velikosti písma pro vybraný text."
 
-#: bibletime/dummy.h:272
-msgid "Synchronize the displayed verse of this module with the active Bible window."
+#: bibletime/dummy.h:273
+msgid ""
+"Synchronize the displayed verse of this module with the active Bible window."
 msgstr ""
 "Synchronizovat zobrazený komentář podle verše v aktivním biblickém "
 "okně."
 
-#: bibletime/dummy.h:275
+#: bibletime/dummy.h:276
 msgid "Save the displayed chapter as a HTML file."
 msgstr "Uložit zobrazenou kapitolu jako HTML soubor."
 
-#: bibletime/dummy.h:276
+#: bibletime/dummy.h:277
 msgid "Select all text."
 msgstr "Vybrat celý text."
 
-#: bibletime/dummy.h:277
+#: bibletime/dummy.h:278
 msgid "Copy the displayed text to the clipboard."
 msgstr "Kopírovat zobrazený text do schránky."
 
-#: bibletime/dummy.h:280
+#: bibletime/dummy.h:281
 msgid ""
 "Choose the modules which will be used for the search.<BR>Use the two button "
 "on the right side to add or delete the modules to/from the list of used ones."
@@ -1901,23 +1936,23 @@ msgstr ""
 "Zvolte moduly, které chcete prohledat.<BR>Pomocí tlačítek na pravé "
 "straně můžete přidávat/odebírat moduly do/ze seznamu."
 
-#: bibletime/dummy.h:281
+#: bibletime/dummy.h:282
 msgid "Add the selected module to the list on the left."
 msgstr "Přidání vybraného modulu do seznamu."
 
-#: bibletime/dummy.h:282
+#: bibletime/dummy.h:283
 msgid "Remove the selected module from the list on the left side."
 msgstr "Odstranění vybraného modulu ze seznamu."
 
-#: bibletime/dummy.h:283
+#: bibletime/dummy.h:284
 msgid "The list of modules used for the search."
 msgstr "Seznam modulů pro hledání."
 
-#: bibletime/dummy.h:285
+#: bibletime/dummy.h:286
 msgid "The text entered in this edit box will be searched in all modules."
 msgstr "Text, který sem napíšete, bude hledán ve všech modulech."
 
-#: bibletime/dummy.h:286
+#: bibletime/dummy.h:287
 msgid ""
 "Select this to search for multiple words.<BR>Each word in the edit line is "
 "searched as a single word."
@@ -1925,13 +1960,14 @@ msgstr ""
 "Tato volba slouží pro hledání více slov.<BR>Každé zadané slovo bude "
 "hledáno samostatně."
 
-#: bibletime/dummy.h:287
-msgid "Select this to search for exactly the same text you entered in the edit line."
+#: bibletime/dummy.h:288
+msgid ""
+"Select this to search for exactly the same text you entered in the edit line."
 msgstr ""
 "Tato volba slouží pro hledání fráze.<BR>Zadaný text bude hledán jako "
 "celek."
 
-#: bibletime/dummy.h:288
+#: bibletime/dummy.h:289
 msgid ""
 "Select this to search using standard GNU regular expressions.<BR>Read the "
 "handbook for a explanation how to use them."
@@ -1939,39 +1975,42 @@ msgstr ""
 "Tato volba slouží pro hledání pomocí standardních GNU regulárních "
 "výrazů.<BR>Bližší popis regulárních výrazů naleznete v příručce."
 
-#: bibletime/dummy.h:289
+#: bibletime/dummy.h:290
 msgid "Activate this to use case sensitive search."
-msgstr "Zapněte, pokud chcete při hledání rozlišovat VELKÁ a malá písmena."
+msgstr ""
+"Zapněte, pokud chcete při hledání rozlišovat VELKÁ a malá písmena."
 
-#: bibletime/dummy.h:291
+#: bibletime/dummy.h:292
 msgid "Select this if you want to search through all parts of the module(s)."
 msgstr "Vyberte, pokud chcete hledat v celém modulu (celých modulech)."
 
-#: bibletime/dummy.h:292
+#: bibletime/dummy.h:293
 msgid ""
 "Select this if you want to use the last search result of each module as "
 "search scope."
-msgstr "Vyberte, pokud chcete jako rozsah použít výsledek posledního hledání."
+msgstr ""
+"Vyberte, pokud chcete jako rozsah použít výsledek posledního hledání."
 
-#: bibletime/dummy.h:293
+#: bibletime/dummy.h:294
 msgid "Create a new search scope."
 msgstr "Vytvoření nového rozsahu hledání."
 
-#: bibletime/dummy.h:294
-msgid "Use an own scope for the search.<BR>A standard set of search scopes exists."
+#: bibletime/dummy.h:295
+msgid ""
+"Use an own scope for the search.<BR>A standard set of search scopes exists."
 msgstr ""
 "Použít vlastní rozsah hledání.<BR>Existuje standardní balíček "
 "rozsahů."
 
-#: bibletime/dummy.h:295
+#: bibletime/dummy.h:296
 msgid "Use this button to delete the chosen search scope."
 msgstr "Tímto tlačítkem smažete vybraný rozsah hledání."
 
-#: bibletime/dummy.h:297
+#: bibletime/dummy.h:298
 msgid "Choose a search scope from the combo box"
 msgstr "Vyberte rozsah hledání ze seznamu."
 
-#: bibletime/dummy.h:298
+#: bibletime/dummy.h:299
 msgid ""
 "Enter your own search scope.<BR>To define a range use \"-\" (e.g. "
 "Genesis-Exodus),<BR>to seperate different ranges or keys use the semicolon "
@@ -1983,7 +2022,7 @@ msgstr ""
 "oddělení několika bloků použijte středník \";\" (např. "
 "Genesis;Matouš)."
 
-#: bibletime/dummy.h:299
+#: bibletime/dummy.h:300
 msgid ""
 "This list contains the parsed result of your entered scope. This result will "
 "be used for the search."
@@ -1991,11 +2030,11 @@ msgstr ""
 "Tento seznam obsahuje výsledek rozboru Vámi zadaného rozsahu. Tento "
 "výsledek bude použit pro hledání."
 
-#: bibletime/dummy.h:300
+#: bibletime/dummy.h:301
 msgid "Close this dialog and save the changes."
 msgstr "Zavření tohoto okna a uložení změn."
 
-#: bibletime/dummy.h:302
+#: bibletime/dummy.h:303
 msgid ""
 "List of modules used for the search.<BR>Click on a module to see the search "
 "result on the right side."
@@ -2003,15 +2042,15 @@ msgstr ""
 "Seznam prohledávaných modulů.<BR>Kliknutím na modul zobrazíte výsledek "
 "hledání."
 
-#: bibletime/dummy.h:303
+#: bibletime/dummy.h:304
 msgid "This contains the items found in the selected module."
 msgstr "Zde je seznam veršů nalezených ve vybraném modulu."
 
-#: bibletime/dummy.h:304
+#: bibletime/dummy.h:305
 msgid "This text box shows a preview of the chosen item."
 msgstr "Zde vidíte náhled nalezeného verše."
 
-#: bibletime/dummy.h:306
+#: bibletime/dummy.h:307
 msgid ""
 "Graphical analysis of your search result.<BR>The bars show the number of "
 "items found in each book of the Bible or commentary."
@@ -2019,23 +2058,30 @@ msgstr ""
 "Grafická analýza výsledku hledání.<BR>Sloupce zobrazují počet "
 "nalezených výskytů pro každou knihu nebo komentář."
 
-#: bibletime/dummy.h:309
-msgid "Activate this box to see a daily tip on startup."
-msgstr "Zapněte, pokud máte zájem o zobrazení tipu při spuštění BibleTime."
-
 #: bibletime/dummy.h:310
-msgid "Contains the languages which can be used for the international booknames."
-msgstr "Jazyky, ve kterých si můžete nechat zobrazovat názvy knih."
+msgid "Activate this box to see a daily tip on startup."
+msgstr ""
+"Zapněte, pokud máte zájem o zobrazení tipu při spuštění BibleTime."
 
 #: bibletime/dummy.h:311
+msgid ""
+"Contains the languages which can be used for the international booknames."
+msgstr "Jazyky, ve kterých si můžete nechat zobrazovat názvy knih."
+
+#: bibletime/dummy.h:312
 msgid "Activate this to see a startup logo on each startup of BibleTime."
-msgstr "Zapněte, pokud máte zájem o zobrazení loga při spuštění BibleTime."
+msgstr ""
+"Zapněte, pokud máte zájem o zobrazení loga při spuštění BibleTime."
 
 #: bibletime/dummy.h:313
+msgid "Check this to use the down arrow to scroll to the previous verse."
+msgstr ""
+
+#: bibletime/dummy.h:315
 msgid "Select a action and change the key binding for the action."
 msgstr "Vyberte akci a změňte pro ni klávesovou zkratku."
 
-#: bibletime/dummy.h:314
+#: bibletime/dummy.h:316
 msgid ""
 "Select in this box how the font is used and change the font in the font "
 "chooser."
@@ -2043,19 +2089,19 @@ msgstr ""
 "Zde vyberte, pro jaký účel bude písmo použito a upravte jeho nastavení "
 "v nabídce."
 
-#: bibletime/dummy.h:317
+#: bibletime/dummy.h:319
 msgid "This list contains the modules using foreign fonts."
 msgstr "Tento seznam obsahuje moduly používající cizokrajná písma."
 
-#: bibletime/dummy.h:319
+#: bibletime/dummy.h:321
 msgid "This is the background color used in display windows."
 msgstr "Toto je barva pozadí okna prohlížeče."
 
-#: bibletime/dummy.h:320
+#: bibletime/dummy.h:322
 msgid "This is the color of the highlighted verse used in display windows."
 msgstr "Toto je barva vybraného verše v okně prohlížeče."
 
-#: bibletime/dummy.h:323
+#: bibletime/dummy.h:325
 msgid ""
 "Start the printing process.<BR>The items of the list will be printed using "
 "the assigned styles."
@@ -2063,7 +2109,7 @@ msgstr ""
 "Spustí tisk.<BR>Položky v seznamu budou vytištěny podle přiřazených "
 "stylů."
 
-#: bibletime/dummy.h:324
+#: bibletime/dummy.h:326
 msgid ""
 "Print into a temporary file and open a postscript viewer to preview the "
 "printing result."
@@ -2071,15 +2117,16 @@ msgstr ""
 "Tisk proběhne do dočasného souboru a otevře se prohlížeč postscriptu "
 "pro zobrazení náhledu tisku."
 
-#: bibletime/dummy.h:325
-msgid "Closes this dialog without doing anything with the items or the printer."
+#: bibletime/dummy.h:327
+msgid ""
+"Closes this dialog without doing anything with the items or the printer."
 msgstr "Zavření tohoto okna bez následků pro položky nebo tiskárny."
 
-#: bibletime/dummy.h:326
+#: bibletime/dummy.h:328
 msgid "Open the online help of BibleTime."
 msgstr "Otevření nápovědy pro BibleTime."
 
-#: bibletime/dummy.h:328
+#: bibletime/dummy.h:330
 msgid ""
 "This is the list of available printers of your system.<BR>Please select the "
 "printer you want to use for printing."
@@ -2087,85 +2134,86 @@ msgstr ""
 "Tento seznam obsahuje dostupné tiskárny.<BR>Vyberte tiskárnu, kterou "
 "chcete použít."
 
-#: bibletime/dummy.h:329
+#: bibletime/dummy.h:331
 msgid "Print into a postscript file on disk."
 msgstr "Vytiskne do souboru ve formátu PostScript."
 
-#: bibletime/dummy.h:330
+#: bibletime/dummy.h:332
 msgid "Browse for the file you want to print into."
 msgstr "Výběr souboru, do kterého chcete tisknout."
 
-#: bibletime/dummy.h:331
+#: bibletime/dummy.h:333
 msgid "The number of copies used for printing."
 msgstr "Kolik se má vytisknout kopií."
 
-#: bibletime/dummy.h:332
+#: bibletime/dummy.h:334
 msgid "Choose the orientation of the used paper."
 msgstr "Vyberte orientaci tisku."
 
-#: bibletime/dummy.h:333
+#: bibletime/dummy.h:335
 msgid "Print on the paper using \"Portrait\" as orientation."
 msgstr "Tisknout jako \"portrét\"."
 
-#: bibletime/dummy.h:334
+#: bibletime/dummy.h:336
 msgid "Print on the paper using \"Landscape\" as orientation."
 msgstr "Tisknout jako \"krajinu\"."
 
-#: bibletime/dummy.h:335
+#: bibletime/dummy.h:337
 msgid "The type of the paper which is used for printing."
 msgstr "Typ papíru."
 
-#: bibletime/dummy.h:336
+#: bibletime/dummy.h:338
 msgid "The size of the used paper."
 msgstr "Velikost papíru."
 
-#: bibletime/dummy.h:338
+#: bibletime/dummy.h:340
 msgid "This combo box contains the available printing styles."
 msgstr "Toto je seznam dostupných tiskových stylů."
 
-#: bibletime/dummy.h:339
+#: bibletime/dummy.h:341
 msgid "This is the list which contains the available print items."
 msgstr "Tento seznam obsahuje tiskové úlohy."
 
-#: bibletime/dummy.h:340
+#: bibletime/dummy.h:342
 msgid "Move the selected item one item above."
 msgstr "Přesunutí položky o jednu pozici nahoru."
 
-#: bibletime/dummy.h:341
+#: bibletime/dummy.h:343
 msgid "Move the selected item one item below."
 msgstr "Přesunutí položky o jednu pozici dolů."
 
-#: bibletime/dummy.h:342
+#: bibletime/dummy.h:344
 msgid "Delete the selected items."
 msgstr "Smazání vybraných položek."
 
-#: bibletime/dummy.h:343
+#: bibletime/dummy.h:345
 msgid "Inserts a page break into the list.<BR>The printer will start new page."
 msgstr ""
 "Vložení tzv. stránkového zlomu.<BR>Tiskárna začne tisknout na další "
 "stranu."
 
-#: bibletime/dummy.h:345
-msgid "This group contains the page borders of the page measured in millimeters."
+#: bibletime/dummy.h:347
+msgid ""
+"This group contains the page borders of the page measured in millimeters."
 msgstr "Tato skupina obsahuje velikosti okrajů papíru (v milimetrech)."
 
-#: bibletime/dummy.h:346
+#: bibletime/dummy.h:348
 msgid "The size of the border on the left side of the paper sheet."
 msgstr "Velikost levého okraje papíru."
 
-#: bibletime/dummy.h:347
+#: bibletime/dummy.h:349
 msgid "The size of the border on the right side of the paper sheet."
 msgstr "Velikost pravého okraje papíru."
 
-#: bibletime/dummy.h:348
+#: bibletime/dummy.h:350
 msgid "The size of the border on the top of the paper sheet."
 msgstr "Velikost horního okraje papíru."
 
-#: bibletime/dummy.h:349
+#: bibletime/dummy.h:351
 msgid "The size of the border on the bottom of the paper sheet."
 msgstr "Velikost spodního okraje papíru."
 
-#: bibletime/dummy.h:350
+#: bibletime/dummy.h:352
 msgid ""
 "This list contains the available printing styles.<BR>Create your own one "
 "using the \"New style\" button."
@@ -2173,15 +2221,24 @@ msgstr ""
 "Seznam dostupných stylů tisku.<BR>Tlačítkem \"Nový styl\" si můžete "
 "vytvořit svůj vlastní styl."
 
-#: bibletime/dummy.h:351
+#: bibletime/dummy.h:353
 msgid "Remove the selected printing style from the list."
 msgstr "Odstranění vybraného stylu ze seznamu."
 
-#: bibletime/dummy.h:352
+#: bibletime/dummy.h:354
 msgid "Change the properties of the selected printing style."
 msgstr "Změna vlastností vybraného stylu."
 
-#: bibletime/dummy.h:353
-msgid "Create a new printing style.<BR>The new style will be added to the list."
+#: bibletime/dummy.h:355
+msgid ""
+"Create a new printing style.<BR>The new style will be added to the list."
 msgstr "Vytvoření nového stylu.<BR>Nový styl bude přidán do seznamu."
 
+#~ msgid "Unlock key: %1<BR>"
+#~ msgstr "Odemykací klí�~: %1<BR>"
+
+#~ msgid "Version: %1<BR>"
+#~ msgstr "Verze: %1<BR>"
+
+#~ msgid "Font: %1<BR>"
+#~ msgstr "Písmo: %1<BR>"

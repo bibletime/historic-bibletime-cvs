@@ -80,3 +80,15 @@ void CSwordLDKey::PreviousEntry(){
 	( *( m_module->module() ) )--;
 	SWKey::operator = (m_module->module()->KeyText());	
 }
+
+/** Sets the key of this instance */
+void CSwordLDKey::key( const char* newKey ){
+	if (newKey) {
+		SWKey::operator = (newKey);
+
+		m_module->module()->SetKey(this);
+		(const char*)*(m_module->module()); //snap to entry
+		SWKey::operator = (m_module->module()->KeyText());
+	}
+}
+

@@ -246,11 +246,11 @@ const QString CGroupManagerItem::getToolTip(){
 			text += i18n("Foonotes: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::strongNumbers) ? i18n("Yes") : i18n("No"));
 			text += i18n("Strong's numbers: %1<BR>").arg(moduleInfo()->supportsFeature(CSwordBackend::footnotes) ? i18n("Yes") : i18n("No"));
 			if (moduleInfo()->isEncrypted())
-				text += QString("Unlock key: %1<BR>").arg(!moduleInfo()->getCipherKey().isEmpty() ? moduleInfo()->getCipherKey() : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
+				text += i18n("Unlock key:") + QString::fromLatin1(" %1<BR>").arg(!moduleInfo()->getCipherKey().isEmpty() ? moduleInfo()->getCipherKey() : QString("<FONT COLOR=\"red\">%1</FONT>").arg(i18n("not set")));
 			if (!moduleInfo()->getVersion().isEmpty())
-				text += QString("Version: %1<BR>").arg(moduleInfo()->getVersion());
+				text += i18n("Version:") + QString::fromLatin1("%1<BR>").arg(moduleInfo()->getVersion());
 			if (moduleInfo()->hasFont())
-				text += QString("Font: %1<BR>").arg(moduleInfo()->getFont().family());
+				text += i18n("Font:")+QString::fromLatin1("%1<BR>").arg(moduleInfo()->getFont().family());
 			if (text.right(4) == QString::fromLatin1("<BR>"))
 				text = text.left(text.length()-4);
 			return text;

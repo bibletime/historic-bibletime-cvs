@@ -68,16 +68,16 @@ char CHTMLEntryDisplay::Display(CSwordModuleInfo* module) {
 <A HREF=\"sword://%2\">%3: <B>%4</B></A></FONT>\
 <HR><FONT face=\"%5\" size=\"%6\">%7</FONT>")
 				.arg(m_highlightedVerseColor)
-				.arg(key->key()/*QString::fromLocal8Bit(module->module()->KeyText())*/)
+				.arg(key->key())
 				.arg(module->getDescription())
-				.arg(key->key()/*QString::fromLocal8Bit(module->module()->KeyText())*/)
+				.arg(key->key())
 				.arg(FontName)
 				.arg(FontSize)
-				.arg(key->renderedText()/*QString::fromLocal8Bit((const char*)*module->module())*/)
+				.arg(key->renderedText())
 			+ m_htmlBody;
 	}
 	else
-		m_htmlText = key->renderedText()/*QString::fromLocal8Bit((const char*)*module->module())*/;
+		m_htmlText = key->renderedText();
 
 	delete key;
 	return 0;
@@ -104,11 +104,11 @@ char CHTMLEntryDisplay::Display( QList<CSwordModuleInfo>* moduleList) {
 	SWModule *m= (d = moduleList->first()) ? d->module() : 0;	
 	
 	if (moduleList->first()->getType() == CSwordModuleInfo::Commentary || moduleList->first()->getType() == CSwordModuleInfo::Bible) {
-		VerseKey* vk = (VerseKey*)(SWKey*)*module;
+		VerseKey* vk = (VerseKey*)(SWKey*)(*module);
 		vk->Persist(1);
 		
-		key->key((const char*)*vk);		
-		VerseKey k = (const char*)*vk;
+		key->key((const char*)*vk);
+		VerseKey k(*vk);
 		
 		m = (d = moduleList->first()) ? d->module() : 0;	
 		while (m) {

@@ -55,8 +55,9 @@ CSwordVerseKey* CSwordVerseKey::clone() const {
 
 /** Sets the module for this key */
 CSwordModuleInfo* CSwordVerseKey::module( CSwordModuleInfo* newModule ){
-	const QString oldKey = QString::fromLocal8Bit((const char*)*this);
 	if (newModule && (newModule->getType() == CSwordModuleInfo::Bible || newModule->getType() == CSwordModuleInfo::Commentary) ) {
+		const QString oldKey = key();
+
 		m_module = newModule;
 		key(oldKey);
 	}
@@ -72,7 +73,7 @@ const QString CSwordVerseKey::book( const QString& newBook ) {
 		bool finished = false;
 		for (int testament = min; testament <= max && !finished; ++testament) {
 			for (int book = 0; book < BMAX[testament] && !finished; ++book) {
-				if ( !strcmp(newBook.local8Bit(),books[testament][book].name ) ) {
+				if ( !strcmp((const char*)newBook.local8Bit(),books[testament][book].name ) ) {
 					Testament(testament+1);
 					Book(book+1);
 					finished = true;
@@ -144,7 +145,16 @@ const QString CSwordVerseKey::key( const QString& newKey ){
 	if (!newKey.isNull()) {
 		qDebug(newKey.latin1());
 		error = 0;
-		VerseKey::operator = ((const char*)newKey.local8Bit());		
+		VerseKey::operator = ((const char*)newKey.local8Bit());
 	}
-	return QString::fromLocal8Bit((const char*)*this);
+	return QString::fromLocal8Bit(VerseKey::operator const char*());
+}
+
+void CSwordVerseKey::key( const char* newKey ){
+	qDebug("const char* CSwordVerseKey::key( const char* newKey )");
+	if (newKey) {
+		qDebug(newKey);
+		error = 0;
+		VerseKey::operator = (newKey);
+	}
 }

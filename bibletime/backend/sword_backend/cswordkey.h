@@ -34,7 +34,8 @@ class CSwordModuleInfo;
 class CSwordKey : public CKey  {
 public:
 	//pure virtual functions
-	virtual const QString key(const QString& /*newKey*/ = QString::null) {return QString::null;};
+	virtual const QString key(const QString& = QString::null) {return QString::null;};
+	virtual void key(const char*) {};
 	virtual const QString renderedText();
 	virtual const QString strippedText();
 	virtual const CSwordKey* clone() const = 0;	

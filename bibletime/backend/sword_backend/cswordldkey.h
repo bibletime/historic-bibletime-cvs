@@ -87,6 +87,10 @@ public:
   * Returns the current key as a QString
   */
   virtual const QString key( const QString& newKey = QString::null);
+  /**
+  * Returns the current key as a QString
+  */
+  virtual void key( const char* );
 };
 
 

@@ -113,23 +113,14 @@ char CHTMLChapterDisplay::Display( QList<CSwordModuleInfo>* moduleList){
 	}
 	m_htmlText.append("</TR>");
 		
-//	VerseKey k = (const char*)*key;
-//	k.Verse(1);
-//	m = (d = moduleList->first()) ? d->module() : 0;	
-//	while (m) {
-//    m = (d=moduleList->next()) ? d->module() : 0;
-//    if (m)
-//			m->SetKey( (const char*)k );
-//	}
-
 	QString rowText   = QString::null;
 	int currentVerse = 0;
 	for (key.Verse(1); key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); /*(*module)++*/key.NextVerse() ) {
-//		qDebug(key->key().latin1());		
+
 		currentVerse = key.Verse();
 		rowText = QString::fromLatin1("<TR><TD bgcolor=\"#F1F1F1\"><B><A NAME=\"%1\" HREF=\"sword://%2\">%3</A></B></TD>\n")
 			.arg(currentVerse)
-			.arg(/*QString::fromLocal8Bit((const char*)*key)*/key.key())
+			.arg(key.key())
 			.arg(currentVerse);
 		m = (d = moduleList->first()) ? d->module() : 0;
 		while (m) {
