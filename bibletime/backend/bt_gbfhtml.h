@@ -32,6 +32,8 @@ class BT_GBFHTML : public BT_BASICFILTER{
 public:
   BT_GBFHTML ();
   virtual bool handleToken(char **buf, const char *token, DualStringMap &userData);
+  /** No descriptions */
+  virtual char ProcessText(char * text, int maxlen);
 };
 
 #endif

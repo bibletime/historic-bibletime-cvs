@@ -57,6 +57,13 @@ BT_GBFHTML::BT_GBFHTML(){
 	addTokenSubstitute("JL", "</div>"); // align end
 }
 
+/** No descriptions */
+char BT_GBFHTML::ProcessText(char * text, int maxlen){
+	BT_BASICFILTER::ProcessText(text, maxlen);
+	BT_BASICFILTER::ProcessRWPRefs(text, maxlen);
+}
+
+
 bool BT_GBFHTML::handleToken(char **buf, const char *token, DualStringMap &userData) {
 	unsigned long i;
 	if (!substituteToken(buf, token)) {  //more than a simple replace

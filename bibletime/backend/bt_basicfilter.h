@@ -36,11 +36,17 @@ protected:
 	* in HandleToken()
 	*/
 	void updateSettings(void);
+  /**
+	* This filter converts the RWP #Gen 1:1|
+	* style bible references to HTML
+	*/
+  char ProcessRWPRefs(char * text, int maxlen = -1);
 
 	char footnote_color[8];
 	char strongs_color[8];
 	char morph_color[8];
 	char jesuswords_color[8];
+	char standard_bible[100];
 };
 
 #endif
