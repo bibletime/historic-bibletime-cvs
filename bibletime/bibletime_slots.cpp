@@ -302,12 +302,12 @@ void BibleTime::slotPrintingFinished(){
 }
 
 /** No descriptions */
-void BibleTime::slotPrintedEntry( const QString& key, const int index){
+void BibleTime::slotPrintedEntry( /*const QString& key,*/ const int index){
 	if (pthread_mutex_trylock(&progress_mutex) == EBUSY)
 		return;		
 	if (m_progress) {
 		m_progress->setProgress(index);
-		m_progress->setLabelText(i18n("Printing %1").arg(key));
+//		m_progress->setLabelText(i18n("Printing %1").arg(key));
 	}	
 	pthread_mutex_unlock(&progress_mutex);	
 }

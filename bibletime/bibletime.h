@@ -85,7 +85,7 @@ class QSplitter;
  	* keychooser implementation for the desired module.<BR>
  	*/
 
-/** @mainpage BibleTime 1.0 - sourcecode documentation
+/** @mainpage BibleTime - sourcecode documentation
  *
  *	This is the sourcecode documentation of BibleTime, a Bible study tool for KDE/Linux.
  *	BibleTime is devided in two major parts, the backend and the frontend.<BR>
@@ -114,9 +114,6 @@ public:
   * Destructor of BibleTime
   */
   virtual ~BibleTime();
-  /**
-  * No descriptions
-  */
   virtual void show();
   /**
   * Reads the settings from the configfile and sets the right properties.
@@ -183,10 +180,6 @@ protected: // Protected methods
   */
   void initConnections();
   /**
-  * Initializes the keyboard accelerators
-  */
-//  void initKeyAccels();
-  /**
   * Initializes the backend
   */
   void initBackends();
@@ -225,20 +218,10 @@ protected: // Protected methods
   /** FILE menu actions */
 	KAction* m_fileClearQueue_action;	
 	KAction* m_filePrint_action;	
-//	KAction* m_fileQuit_action;
-
-  /** Groupmanager menu actions */
-//  KAction* m_GMReset_action;
-//	KAction* m_GMSearchModules_action;
-//	KAction* m_GMDeleteItems_action;		
 
   /** VIEW menu actions */
 	KToggleAction*	m_viewToolbar_action;		
 	KToggleAction*	m_viewGroupManager_action;			
-	
-	/** SETTINGS menu actions */
-//	KAction*	m_settingsOptions_action;		
-//	KAction*	m_settingsToolbar_action;		
 	
 	/** WINDOW menu actions */
 	KAction*	m_windowCascade_action;
@@ -251,16 +234,6 @@ protected: // Protected methods
 	KActionMenu*	m_windowLoadProfile_action;	
 	KAction*	m_windowEditProfiles_action;	
 	KToggleAction*	m_windowFullscreen_action;		
-
-	/** HELP menu actions */	
-//	KAction*	m_helpHandbook_action;
-//	KAction*	m_helpInstall_action;
-//	KAction*	m_helpHowto_action;
-//	KAction*	m_helpWhatsThis_action;
-//	KAction*	m_helpBugReport_action;	
-//	KAction*	m_helpDailyTip_action;	
-//	KAction*	m_helpAboutBibleTime_action;	
-//	KAction*	m_helpAboutKDE_action;
 		
 	KHelpMenu* m_helpMenu;
 		
@@ -350,18 +323,17 @@ protected slots:
   * Toggles between normal and fullscreen mode.
   */
   void toggleFullscreen();
-  /** Is called when settings in
-  the optionsdialog have been
-  changed (ok or apply) */
+  /**
+  * Is called when settings in the optionsdialog have been
+  * changed (ok or apply)
+  */
   void slotSettingsChanged();
-
-
 
 private slots: // Private slots
   /**
   * No descriptions
   */
-  void slotPrintedEntry( const QString& key, const int index);
+  void slotPrintedEntry( /*const QString& key,*/ const int index);
   /**
   * Printing was finished
   */

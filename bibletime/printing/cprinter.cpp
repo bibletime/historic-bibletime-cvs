@@ -142,11 +142,10 @@ void CPrinter::printQueue(){
 	for (int copy = 0; copy < numCopies() && !aborted(); copy++) {	//make numCopies() copies of the pages
 		for (m_queue->first(); m_queue->current() && !aborted(); m_queue->next()) {
 			KApplication::kApplication()->processEvents(10); //do not lock the GUI!
-			if (!aborted())
+			if (!aborted()) {
 				m_queue->current()->draw(&p,this);
-//			key = m_queue->current()->getStartKey();
-			if (!aborted())
-				emit printedOneItem(key ? key->key() : QString::null, m_queue->at()+1);
+				emit printedOneItem(m_queue->at()+1);
+			}
 		};
 		if (!aborted() && (copy+1 < numCopies()) ) {
 			newPage();	//new pages seperate copies

@@ -290,8 +290,8 @@ void BibleTime::initConnections(){
 		this, SLOT(slotPrintingFinished()));						
 	connect(m_important->printer, SIGNAL(queueCleared()),
 		this, SLOT(slotSetPrintingStatus()));
-	connect(m_important->printer, SIGNAL(printedOneItem(const QString&, const int)),
-		this, SLOT(slotPrintedEntry(const QString&, const int)));		
+	connect(m_important->printer, SIGNAL(printedOneItem(/*const QString&,*/ const int)),
+		this, SLOT(slotPrintedEntry(/*const QString&,*/ const int)));		
 }
 
 /** Initializes the backend */
