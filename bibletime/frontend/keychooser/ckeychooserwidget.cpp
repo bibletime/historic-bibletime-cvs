@@ -50,8 +50,8 @@ bool CKCComboBox::eventFilter( QObject *o, QEvent *e ){
 			return false;
 			
     int index = listBox()->index( listBox()->findItem(currentText()) );
-//    if (index==-1)
-//    	return false;
+    if (index==-1)
+    	index++;
     emit focusOut( index );  	
   	setCurrentItem( index );
 //    emit activated( currentText() );

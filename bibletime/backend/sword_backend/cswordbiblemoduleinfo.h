@@ -65,6 +65,8 @@ public:
   * Reimplementation, Returns the type
   */
   virtual CSwordModuleInfo::type getType();
+  /** @return the book number, values starting with 1; 0 if not found */
+  unsigned int getBookNumber(const QString &book);
 
 private:
 	QStringList*	m_bookList;	//This booklist is cached

@@ -23,7 +23,6 @@
 
 class CKeyChooserWidget;
 class CModuleInfo;
-//class CKeyChain;
 class CSwordVerseKey;
 class CSwordBibleModuleInfo;
 
@@ -46,10 +45,6 @@ public:
 	*	you should not need to use this, use @ref CKeyChooser::createInstance instead
 	*/
 	CBibleKeyChooser(CModuleInfo *info=0, CKey *key=0, QWidget *parent=0, const char *name=0);
-	/**
-	* the destructor
-	*/
-	~CBibleKeyChooser();
 
 public slots:
 	/**
@@ -59,7 +54,7 @@ public slots:
 	/**
 	* see @ref CKeyChooser::setKey
 	*/
-	void setKey(CKey* key);
+	void setKey(CKey *key);
   /**
  	* Reimplementation
  	*/
@@ -126,6 +121,22 @@ protected:
 
 	CSwordBibleModuleInfo	*m_info;
 	CSwordVerseKey	*m_key;
+
+private slots: // Private slots
+  /** called when the book combo lost the focus
+  with reason == tab
+  @param the new book */
+  void bookFocusOut(int);
+
+  /** called when the chapter combo lost the focus
+  with reason == tab
+  @param the new chapter */
+  void chapterFocusOut(int);
+
+  /** called when the verse combo lost the focus
+  with reason == tab
+  @param the new verse */
+  void verseFocusOut(int);
 };
 
 #endif

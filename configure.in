@@ -119,7 +119,6 @@ bibletime/frontend/presenters/Makefile \
 bibletime/frontend/searchdialog/Makefile \
 bibletime/frontend/thirdparty/Makefile \
 bibletime/frontend/thirdparty/qt3stuff/Makefile \
-bibletime/libhtmlparse/Makefile \
 bibletime/pics/Makefile \
 bibletime/pics/highcolor/Makefile \
 bibletime/pics/highcolor/22x22/Makefile \

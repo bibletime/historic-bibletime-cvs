@@ -67,27 +67,23 @@ CBibleKeyChooser::CBibleKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent
 	layout->addWidget(w_verse);	
 
 	/*Book connections*/
-	connect(w_book,SIGNAL(changed(int)),this,SLOT(bookChanged(int)));
-	connect(w_book,SIGNAL(next_requested()),this,SLOT(bookNextRequested()));
-	connect(w_book,SIGNAL(prev_requested()),this,SLOT(bookPrevRequested()));
-	
+	connect(w_book,SIGNAL(changed(int))       ,SLOT(bookChanged(int)));
+	connect(w_book,SIGNAL(next_requested())   ,SLOT(bookNextRequested()));
+	connect(w_book,SIGNAL(prev_requested())   ,SLOT(bookPrevRequested()));
+	connect(w_book,SIGNAL(focusOut(int))      ,SLOT(bookFocusOut(int)));	
 	/*Chapter Connections*/
-	connect(w_chapter,SIGNAL(changed(int)),this,SLOT(chapterChanged(int)));
-	connect(w_chapter,SIGNAL(next_requested()),this,SLOT(chapterNextRequested()));
-	connect(w_chapter,SIGNAL(prev_requested()),this,SLOT(chapterPrevRequested()));
-	
+	connect(w_chapter,SIGNAL(changed(int))    ,SLOT(chapterChanged(int)));
+	connect(w_chapter,SIGNAL(next_requested()),SLOT(chapterNextRequested()));
+	connect(w_chapter,SIGNAL(prev_requested()),SLOT(chapterPrevRequested()));
+  connect(w_chapter,SIGNAL(focusOut(int))   ,SLOT(chapterFocusOut(int)));		
 	/*Verse Connections*/
-	connect(w_verse,SIGNAL(changed(int)),this,SLOT(verseChanged(int)));
-	connect(w_verse,SIGNAL(focusOut(int)),this,SLOT(verseChanged(int)));
-	connect(w_verse,SIGNAL(next_requested()),this,SLOT(verseNextRequested()));
-	connect(w_verse,SIGNAL(prev_requested()),this,SLOT(versePrevRequested()));
+	connect(w_verse,SIGNAL(changed(int))      ,SLOT(verseChanged(int)));
+	connect(w_verse,SIGNAL(next_requested())  ,SLOT(verseNextRequested()));
+	connect(w_verse,SIGNAL(prev_requested())  ,SLOT(versePrevRequested()));
+	connect(w_verse,SIGNAL(focusOut(int))     ,SLOT(verseFocusOut(int)));	
 	
 	if (key)
 		setKey(key);
-}
-
-CBibleKeyChooser::~CBibleKeyChooser(){
-	qDebug("destructor of CBibleKeyChooser");
 }
 
 CKey *CBibleKeyChooser::getKey(){
@@ -97,16 +93,9 @@ CKey *CBibleKeyChooser::getKey(){
 
 void CBibleKeyChooser::setKey(CKey* key){
 	qDebug("CBibleKeyChooser::setKey(CKey* key)");
-	ASSERT(key);	
-	if (!key) {
-		qWarning("Key is 0! Return now.");
-		return;
-	}	
 
-	if (m_key != key) {
-		if (dynamic_cast<CSwordVerseKey*>(key))
-			m_key = dynamic_cast<CSwordVerseKey*>(key);
-	}
+	if (dynamic_cast<CSwordVerseKey*>(key))
+		m_key = dynamic_cast<CSwordVerseKey*>(key);
 	
 	const QString book = m_key->getBook();
 	const int chapter = m_key->Chapter();
@@ -147,10 +136,6 @@ void CBibleKeyChooser::setKey(CKey* key){
 
 /**  */
 void CBibleKeyChooser::bookNextRequested(void){
-	ASSERT(m_key);
-	if (!m_key)
-		return;
-	
 	setUpdatesEnabled(false);		
 	m_key->NextBook();	
 	setKey(m_key);
@@ -159,10 +144,6 @@ void CBibleKeyChooser::bookNextRequested(void){
 
 /**  */
 void CBibleKeyChooser::bookPrevRequested(void){
-	ASSERT(m_key);
-	if (!m_key)
-		return;
-	
 	setUpdatesEnabled(false);		
 	m_key->PreviousBook();	
 	setKey(m_key);
@@ -171,10 +152,6 @@ void CBibleKeyChooser::bookPrevRequested(void){
 
 /**  */
 void CBibleKeyChooser::chapterNextRequested(void){
-	ASSERT(m_key);
-	if (!m_key)
-		return;
-		
 	setUpdatesEnabled(false);	
 	m_key->NextChapter();	
 	setKey(m_key);
@@ -183,10 +160,6 @@ void CBibleKeyChooser::chapterNextRequested(void){
 
 /**  */
 void CBibleKeyChooser::chapterPrevRequested(void){
-	ASSERT(m_key);
-	if (!m_key)
-		return;	
-	
 	setUpdatesEnabled(false);		
 	m_key->PreviousChapter();	
 	setKey(m_key);
@@ -195,10 +168,6 @@ void CBibleKeyChooser::chapterPrevRequested(void){
 
 /**  */
 void CBibleKeyChooser::verseNextRequested(void){
-	ASSERT(m_key);
-	if (!m_key)
-		return;	
-	
 	setUpdatesEnabled(false);
 	m_key->NextVerse();	
 	setKey(m_key);
@@ -207,10 +176,6 @@ void CBibleKeyChooser::verseNextRequested(void){
 
 /**  */
 void CBibleKeyChooser::versePrevRequested(void){
-	ASSERT(m_key);
-	if (!m_key)
-		return;			
-	
 	setUpdatesEnabled(false);	
 	m_key->PreviousVerse();	
 	setKey(m_key);
@@ -218,15 +183,9 @@ void CBibleKeyChooser::versePrevRequested(void){
 }
 
 void CBibleKeyChooser::bookChanged(int i){
-	qDebug("CBibleKeyChooser::bookChanged(int i)");
-	if (!isUpdatesEnabled()) {
-		qDebug("already updating");
+	if (!isUpdatesEnabled())
 		return;
-	}
-	ASSERT(m_key);
-	if (!m_key)
-		return;
-	
+
 	setUpdatesEnabled(false);			
 	
 	m_key->Verse( 1 );
@@ -238,13 +197,7 @@ void CBibleKeyChooser::bookChanged(int i){
 }
 
 void CBibleKeyChooser::chapterChanged(int i){
-	qDebug("CBibleKeyChooser::chapterChanged(int i)");
-	if (!isUpdatesEnabled()) {
-		qDebug("already updating");
-		return;
-	}
-	ASSERT(m_key);
-	if (!m_key)
+	if (!isUpdatesEnabled())
 		return;
 	
 	setUpdatesEnabled(false);		
@@ -257,16 +210,11 @@ void CBibleKeyChooser::chapterChanged(int i){
 }
 
 void CBibleKeyChooser::verseChanged(int i){
-	qDebug("CBibleKeyChooser::verseChanged(int i)");
-	if (!isUpdatesEnabled()) {
-		qDebug("already updating");
-		return;
-	}
-	ASSERT(m_key);
-	if (!m_key)
+	if (!isUpdatesEnabled())
 		return;
 	
-	setUpdatesEnabled(false);		
+	setUpdatesEnabled(false);
+			
 	m_key->Verse( w_verse->ComboBox->currentText().toInt() );
 	setKey( m_key );
 	setUpdatesEnabled(true);		
@@ -274,8 +222,7 @@ void CBibleKeyChooser::verseChanged(int i){
 
 /** Reimplementation */
 QSize CBibleKeyChooser::sizeHint(){
-	const QSize s( w_book->sizeHint().width() + w_chapter->sizeHint().width() + w_verse->sizeHint().width(), w_book->sizeHint().height());
-	return s;
+  return QSize( w_book->sizeHint().width() + w_chapter->sizeHint().width() + w_verse->sizeHint().width(), w_book->sizeHint().height());
 }
 
 /** Reimplementation. */
@@ -290,4 +237,52 @@ void CBibleKeyChooser::setModule(CModuleInfo* module){
 		m_info = (CSwordBibleModuleInfo*)module;
 		refreshContent();
 	}
+}
+/** called when the book combo lost the focus
+with reason == tab
+@param the new book */
+void CBibleKeyChooser::bookFocusOut(int index){
+ 	int chapter = m_key->Chapter();
+	int verse = m_key->Verse();
+	
+	const int newchapters = m_info->getChapterCount(index+1);
+	if (newchapters < chapter)
+	  chapter = 1;
+
+	const int newverses = m_info->getVerseCount(index+1,chapter);
+	if (newverses < verse)
+	  verse = 1;
+	
+	w_chapter->reset(newchapters, chapter-1,false);
+	w_chapter->adjustSize();
+	
+	w_verse->reset(newverses, verse-1, false);
+	w_verse->adjustSize();		
+}
+/** called when the chapter combo lost the focus
+with reason == tab
+@param the new chapter */
+void CBibleKeyChooser::chapterFocusOut(int index){
+  int book = m_info->getBookNumber( w_book->ComboBox->currentText() );
+
+	int verse = w_verse->ComboBox->currentText().toInt();
+	const int newverses = m_info->getVerseCount(book,index+1);
+	if (newverses < verse)
+	  verse = 1;
+	
+	w_verse->reset(newverses,verse-1,false);
+	w_verse->adjustSize();
+	qDebug(QString("B C V: %1 %2 %3").arg(book).arg(index+1).arg(verse).local8Bit());
+}
+/** called when the verse combo lost the focus
+with reason == tab
+@param the new verse */
+void CBibleKeyChooser::verseFocusOut(int index){
+  const QString book = w_book->ComboBox->currentText();
+ 	const int chapter = w_chapter->ComboBox->currentText().toInt();
+
+	m_key->setBook( book );	
+	m_key->Chapter( chapter );	
+	m_key->Verse( index + 1);
+	setKey( m_key );	
 }

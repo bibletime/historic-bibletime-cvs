@@ -21,6 +21,7 @@
 #include "../../tooltipdef.h"
 #include "../../whatsthisdef.h"
 #include "../../backend/cmoduleinfo.h"
+#include "../../backend/sword_backend/cswordlexiconmoduleinfo.h"
 #include "../../backend/ckey.h"
 
 //Qt includes
@@ -34,7 +35,6 @@
 CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *parent, const char *name )
 	: CKeyChooser(info, key, parent, name){
 	
-	ASSERT(info);
 	if ((CSwordLexiconModuleInfo*)info)
 		m_info = (CSwordLexiconModuleInfo*)info;
 	else {
@@ -48,9 +48,10 @@ CLexiconKeyChooser::CLexiconKeyChooser(CModuleInfo *info, CKey *key, QWidget *pa
 	m_widget->setWhatsThis(WT_PRESENTER_ENTRY_COMBO,QString::null, QString::null, QString::null);
 	m_layout->addWidget(m_widget,0,Qt::AlignLeft);
 	
-	connect(m_widget,SIGNAL(changed(int)),this,SLOT(activated(int)));
-	connect(m_widget,SIGNAL(prev_requested()),this,SLOT(prevRequested()));
-	connect(m_widget,SIGNAL(next_requested()),this,SLOT(nextRequested()));
+	connect(m_widget,SIGNAL(changed(int)),SLOT(activated(int)));
+	connect(m_widget,SIGNAL(focusOut(int)),SLOT(activated(int)));
+	connect(m_widget,SIGNAL(prev_requested()),SLOT(prevRequested()));
+	connect(m_widget,SIGNAL(next_requested()),SLOT(nextRequested()));
 
 	setKey(key);
 }
