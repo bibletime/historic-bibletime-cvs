@@ -18,7 +18,7 @@
 #ifndef CBIBLEKEYCHOOSER_H
 #define CBIBLEKEYCHOOSER_H
 
-#include <qnamespace.h>
+//#include <qnamespace.h>
 #include <qwidget.h>
 #include "ckeychooser.h"
 
@@ -101,8 +101,6 @@ public slots:
   void verseNextRequested(void);
   /** No descriptions */
   void updateKey(CSwordKey* key);
-
-  virtual void keyPressEvent(QKeyEvent* e);
 
 private:
 	CKeyChooserWidget* w_book;

@@ -105,65 +105,63 @@ void CSearchDialogResult::updatePreview(const QString newText) {
 		}		
 	}
 	
-	if (textPart) {
-		int searchType = textPart->getSearchType();
-		if (searchType & CSwordModuleSearch::exactPhrase) {
-			const int count = text.contains(searchedText, textPart->isCaseSensitive());
-			int i = 0;
-			int pos = 0;
-			while (i < count) {
-				pos = text.find(searchedText,pos,textPart->isCaseSensitive());
-				if (pos!=-1 && !CToolClass::inHTMLTag(pos, text)) {	//something was found
-					text.insert(pos + searchedText.length(),"</B></FONT>");			
-					text.insert(pos, "<B><FONT color=\"red\">");
-				}
-				++i;
-			}
-		}
-		else if (searchType & CSwordModuleSearch::multipleWords) {
-			QStringList searchedWords;		
-			int wordIndex = 0;
-			QString word = QString::null;
-			while (!(word = KStringHandler::word(searchedText, wordIndex)).isEmpty()) {
-				searchedWords.append(word);
-				++wordIndex;
-			}
+	const QString part1( "<font color=\"red\"><b>");
+	const QString part2("</b></font>");
+	const int insertLength(part1.length()+part2.length());
 
-			QString currentWord;
-			for (unsigned int i=0; i < searchedWords.count(); i++) {
-				currentWord = searchedWords[i];
-				int count = text.contains(currentWord, textPart->isCaseSensitive());	
-				int pos = 0;			
-				int i2 = 0;
-				while (i2 < count) {
-					pos = text.find(currentWord,pos?pos+1:0, textPart->isCaseSensitive());
-					if (pos!=-1 && !CToolClass::inHTMLTag(pos, text)) {	//something was found
-						text.insert(pos + currentWord.length(), "</B></FONT>");
-						
-						const QString part = "<FONT color=\"red\"><B>";
-						text.insert(pos, part);
-						
-						pos += currentWord.length() + part.length();
-					}
-					++i2;
-				}
-			}
-		}
-		else if (searchType & CSwordModuleSearch::regExp) {
-			QRegExp regExp(searchedText);
-			regExp.setCaseSensitive( textPart->isCaseSensitive() );
-			int matchLength = 0;
-			int pos = 0;
-			while ( pos != -1 ) {
-				pos = regExp.match(text,pos,&matchLength);
-				if (pos!=-1 && matchLength > 0 && !CToolClass::inHTMLTag(pos, text)) {
-						text.insert(pos + matchLength, "</B></FONT>");
-						text.insert(pos, "<FONT color=\"red\"><B>");
-						pos += matchLength + QString::fromLatin1("</B></FONT>").length() + QString::fromLatin1("<FONT color=\"red\"><B>").length();
-				}
-			}			
-		}
-	}
+ 	int searchType(textPart->getSearchType());
+  if (searchType & CSwordModuleSearch::exactPhrase) {
+		for (int pos = 0 ; pos != -1;){
+ 			pos = text.find(searchedText,pos,textPart->isCaseSensitive());
+ 			if (pos!=-1 && !CToolClass::inHTMLTag(pos, text)) {	//something was found
+ 				text.insert(pos + searchedText.length(),part2);			
+ 				text.insert(pos, part1);
+ 				pos += searchedText.length() + insertLength;
+ 			}
+ 		}
+ 	}
+ 	else if (searchType & CSwordModuleSearch::multipleWords) {
+ 		QStringList searchedWords;		
+ 		int wordIndex = 0;
+ 		QString word = QString::null;
+ 		while (!(word = KStringHandler::word(searchedText, wordIndex)).isEmpty()) {
+ 			searchedWords.append(word);
+ 			++wordIndex;
+ 		}
+
+ 		QString currentWord;
+ 		for (unsigned int i=0; i < searchedWords.count(); i++) {
+ 			currentWord = searchedWords[i];
+ 			int count = text.contains(currentWord, textPart->isCaseSensitive());	
+ 			int pos = 0;			
+ 			int i2 = 0;
+ 			while (i2 < count) {
+ 				pos = text.find(currentWord,pos?pos+1:0, textPart->isCaseSensitive());
+ 				if (pos!=-1 && !CToolClass::inHTMLTag(pos, text)) {	//something was found
+
+ 					text.insert(pos + currentWord.length(), part2);
+ 					text.insert(pos, part1);
+ 						
+ 					pos += currentWord.length() + insertLength;
+ 				}
+ 				++i2;
+ 			}
+ 		}
+ 	}
+ 	else if (searchType & CSwordModuleSearch::regExp) {
+ 		QRegExp regExp(searchedText);
+ 		regExp.setCaseSensitive( textPart->isCaseSensitive() );
+ 		int matchLength = 0;
+		for (int pos = 0; pos != -1;){
+ 			pos = regExp.match(text,pos,&matchLength);
+ 			if (pos!=-1 && matchLength > 0 && !CToolClass::inHTMLTag(pos, text)) {
+ 					text.insert(pos + matchLength, part2);
+ 					text.insert(pos, part1);
+ 					pos += matchLength + insertLength;
+ 			}
+ 		}			
+ 	}
+
 	//module is Unicode-based
 	if (resultModuleTree->getCurrentModule()->isUnicode() ) {
 		const QFont f = CBTConfig::get( CBTConfig::unicode);

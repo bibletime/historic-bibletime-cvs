@@ -186,8 +186,22 @@ QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, co
 }
 /** No descriptions */
 bool CToolClass::inHTMLTag(int pos, QString & text){
- if ( text.findRev("<",pos) > text.findRev(">",pos) &&
-      text.find(">",pos) < text.find("<",pos) )
-    return true;
+ int i1=text.findRev("<",pos);
+ int i2=text.findRev(">",pos);
+ int i3=text.find(">",pos);
+ int i4=text.find("<",pos);
+
+
+//	if ((i1>0) && (i2==-1))  //we're in th first html tag
+//		i2=i1; // not ncessary, just for explanation
+
+	if ((i3>0) && (i4==-1))  //we're in the last html tag
+	  i4=i3+1;
+
+  qWarning("%d > %d && %d < %d",i1,i2,i3,i4);
+
+ if ( (i1>i2) && (i3<i4) )
+    return true; //yes, we're in a tag
+
   return false;
 }

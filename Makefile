@@ -17,7 +17,7 @@ SHELL = /bin/sh
 srcdir = .
 top_srcdir = .
 
-prefix = /opt/kde2
+prefix = /usr/local/kde
 exec_prefix = ${prefix}
 #>- 
 bindir = ${exec_prefix}/bin
@@ -238,15 +238,14 @@ bibletime.spec bibletime.desktop
 DATA =  $(data_DATA)
 
 DIST_COMMON =  README ./stamp-h.in COPYING ChangeLog INSTALL INSTALL.in \
-Makefile.am Makefile.in NEWS NEWS.in README.in TODO TODO.in \
-acinclude.m4 aclocal.m4 bibletime.desktop.in bibletime.lsm.in \
-bibletime.spec.in config.guess config.h.in config.sub configure \
-configure.in
+Makefile.am Makefile.in NEWS NEWS.in README.in TODO.in acinclude.m4 \
+aclocal.m4 bibletime.desktop.in bibletime.lsm.in bibletime.spec.in \
+config.guess config.h.in config.sub configure configure.in
 
 
 #>- DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 #>+ 4
-KDE_DIST=preparetips bibletime.doxygen bibletime.kdevses bibletime.start extractrc make-messages.sh 
+KDE_DIST=preparetips bibletime.doxygen bibletime.start extractrc make-messages.sh 
 
 DISTFILES= $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
 

@@ -291,13 +291,3 @@ void CBibleKeyChooser::verseFocusOut(int /*index*/){
 /** No descriptions */
 void CBibleKeyChooser::updateKey(CSwordKey* key){
 }
-
-void keyPressEvent(QKeyEvent* e)
-{
-  //if the key was enter or return, update the entire key
-	if(e->key() == Key_Enter || e->key() == Key_Return) {
-    verseChanged(0);
-    chapterChanged(0);
-    bookChanged(0);
-  }
-}
