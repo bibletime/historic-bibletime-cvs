@@ -115,8 +115,8 @@ CTipWindow::CTipWindow() : KDialog(0,0,true) {
 	  current = tips.count() ? kapp->random() % tips.count() : 0;
 
 	  KConfig *config = KGlobal::config();
-	  config->setGroup("Daily tip");
-	  startup->setChecked(config->readBoolEntry("TipsOnStart", true));
+	  KConfigGroupSaver(config, "Startup");
+	  startup->setChecked(config->readBoolEntry("show tips", true));
   }
   else {
 		QString message = i18n("<DIV align=\"center\"><B>Missing tips!</B></DIV><BR><BR>Your installation is missing the daily tips.\
@@ -135,9 +135,8 @@ CTipWindow::CTipWindow() : KDialog(0,0,true) {
 
 void CTipWindow::startupClicked() {
   KConfig *config = KGlobal::config();
-  ASSERT(config);
-  config->setGroup("Daily tip");
-  config->writeEntry("TipsOnStart", startup->isChecked());
+	KConfigGroupSaver(config, "Startup");
+  config->writeEntry("show tips", startup->isChecked());
 }
 
 

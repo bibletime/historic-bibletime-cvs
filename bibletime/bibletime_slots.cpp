@@ -114,32 +114,41 @@ void BibleTime::slotSettingsOptions(){
 		}				
 		const int changedSettings = dlg->getChangedSettings();
 		if (changedSettings & CSwordPresenter::language) {	//the language changed
-			KConfigGroupSaver dummy(m_config, "SWORD");
+			KConfigGroupSaver gs(m_config, "SWORD");
 			const QString language = m_config->readEntry("Language", "");
 			m_important->swordBackend->setBooknameLanguage(language);		
+  		//refresh the bookmark items in the groupmanager		
+  		QListViewItemIterator it( m_groupmanager );
+  		CGroupManagerItem* item = 0;
+  		for ( ; it.current(); ++it ) {
+  			if ( (item = dynamic_cast<CGroupManagerItem*>(it.current())) ) {
+  				if (item->type() == CGroupManagerItem::Bookmark) {
+ 						CSwordVerseKey* vKey = dynamic_cast<CSwordVerseKey*>(item->getBookmarkKey());
+ 						if ( vKey ) {
+ 							vKey->setLocale( (const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
+ 							item->update();
+ 						}
+  				}
+  			}
+  		}			
 		}
 		for ( unsigned int index = 0; index < m_mdi->windowList().count(); index++) {
 			CSwordPresenter* myPresenter = dynamic_cast<CSwordPresenter*>(m_mdi->windowList().at(index));
 			if (myPresenter)
 				myPresenter->refresh(changedSettings);
-		}		
-		
-		//refresh the bookmark items in the groupmanager		
-		QListViewItemIterator it( m_groupmanager );
-		CGroupManagerItem* dummy = 0;
-		for ( ; it.current(); ++it ) {
-			if ( (dummy = dynamic_cast<CGroupManagerItem*>(it.current())) ) {
-				if (dummy->type() == CGroupManagerItem::Bookmark) {
-					if (dummy->getBookmarkKey()) {
-						CSwordVerseKey* vKey = 0;
-						if ( (vKey = (CSwordVerseKey*)(dummy->getBookmarkKey())) ) {
-							vKey->setLocale( (const char*)m_important->swordBackend->getCurrentBooknameLanguage().local8Bit());
-							dummy->update();
-						}
-					}
-				}
-			}
 		}
+		//refresh the load profile and save profile menus
+  	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
+  	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();	
+  	loadPopup->clear();
+  	savePopup->clear();
+  	QList<CProfile> profiles = m_profileMgr.profiles();  	
+  	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
+  		if (p->name() != "_startup_") {
+  			savePopup->insertItem(p->name());			
+  			loadPopup->insertItem(p->name());
+  		}
+  	}
 	}	
 	delete dlg;
 }
@@ -368,13 +377,29 @@ void BibleTime::openOnlineHelp() {
 }
 
 /** Saves the current settings into the currently activatred profile. */
-void BibleTime::saveProfile(){
-	ASSERT(m_currentProfile);
-	if (!m_currentProfile)
+void BibleTime::saveProfile(int ID){
+	m_mdi->setUpdatesEnabled(false);
+	KPopupMenu* popup = m_windowLoadProfile_action->popupMenu();
+	const QString profileName = popup->text(ID);
+
+	QList<CProfile> profiles = m_profileMgr.profiles();
+	CProfile* p	= 0;
+	for (p = profiles.first(); p; p = profiles.next()) {
+		if (p->name() == profileName) {
+			saveProfile(p);
+			break;
+		}
+	}
+	m_mdi->setUpdatesEnabled(true);	
+}
+
+void BibleTime::saveProfile(CProfile* profile){
+	if (!profile)
 		return;
+		
 	QWidgetList windows = m_mdi->windowList();
 	QList<CProfileWindow> profileWindows;
-	for (QWidget* w = windows.last(); w; w = windows.prev()) {
+	for (QWidget* w = windows.first(); w; w = windows.next()) {
 		CSwordPresenter* displayWindow = dynamic_cast<CSwordPresenter*>(w);
 		if (!displayWindow)
 			continue;
@@ -383,9 +408,8 @@ void BibleTime::saveProfile(){
 		displayWindow->storeSettings(profileWindow);
 		profileWindows.append(profileWindow);
 	}
-	qWarning("save %i window settings", profileWindows.count());
-	m_currentProfile->save(profileWindows);
-	qWarning("saved");
+	profile->save(profileWindows);
+
 	profileWindows.setAutoDelete(true);
 	profileWindows.clear();//clean up memory
 }
@@ -401,15 +425,16 @@ void BibleTime::loadProfile(int ID){
 	CProfile* p	= 0;
 	for (p = profiles.first(); p; p = profiles.next()) {
 		if (p->name() == profileName) {
-			m_currentProfile = p;
+			loadProfile(p);
 			break;
 		}
 	}
+}
 
+void BibleTime::loadProfile(CProfile* p){
 	if (!p)
 		return;		
 	QList<CProfileWindow> windows = p->load();
-	qWarning("found %i window settings", windows.count());
 	
 	for (CProfileWindow* w = windows.first(); w; w = windows.next()) {
 		const QString key = w->key();		

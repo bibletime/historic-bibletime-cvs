@@ -163,22 +163,29 @@ void BibleTime::initActions() {
 	m_windowCloseAll_action->setToolTip( TT_WINDOW_CLOSE_ALL );	
 	m_windowCloseAll_action->setWhatsThis( WT_WINDOW_CLOSE_ALL );
 	
-	m_windowSaveProfile_action = new KAction(i18n("Save profile"), ICON_WINDOW_SAVE_PROFILE,
-																IDK_WINDOW_SAVE_PROFILE, this, SLOT(saveProfile()), actionCollection(),"windowSaveProfile_action");
+	m_windowSaveProfile_action = new KActionMenu(i18n("Save profile ..."),/* ICON_WINDOW_SAVE_PROFILE,
+																IDK_WINDOW_SAVE_PROFILE, this, SLOT(saveProfile()),*/ actionCollection(),"windowSaveProfile_action");
 	m_windowSaveProfile_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
 	m_windowSaveProfile_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
 
-	m_windowLoadProfile_action = new KActionMenu(i18n("Load profile"), actionCollection(),"windowLoadProfile_action");
+	m_windowLoadProfile_action = new KActionMenu(i18n("Load profile ..."), actionCollection(),"windowLoadProfile_action");
 	m_windowLoadProfile_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	
 	m_windowLoadProfile_action->setWhatsThis( WT_WINDOW_SAVE_PROFILE );
-	KPopupMenu* popup = m_windowLoadProfile_action->popupMenu();
-	connect(popup, SIGNAL(activated(int)), SLOT(loadProfile(int)));
-	CProfileMgr mgr;
-	QList<CProfile> profiles = mgr.profiles();
+		
+	QList<CProfile> profiles = m_profileMgr.profiles();		
+	KPopupMenu* loadPopup = m_windowLoadProfile_action->popupMenu();
+	KPopupMenu* savePopup = m_windowSaveProfile_action->popupMenu();	
+	connect(loadPopup, SIGNAL(activated(int)), SLOT(loadProfile(int)));
+	connect(savePopup, SIGNAL(activated(int)), SLOT(saveProfile(int)));
 	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
-		popup->insertItem(p->name());
+		if (p->name() != "_startup_") {
+			savePopup->insertItem(p->name());			
+			loadPopup->insertItem(p->name());
+		}
 	}
-			
+	
+
+				
 	m_windowEditProfiles_action = new KAction(i18n("Configure profiles"), ICON_WINDOW_EDIT_PROFILES,
 																IDK_WINDOW_EDIT_PROFILES, this, SLOT(editProfiles()), actionCollection(),"windowEditProfiles_action");
 	m_windowEditProfiles_action->setToolTip( TT_WINDOW_SAVE_PROFILE );	

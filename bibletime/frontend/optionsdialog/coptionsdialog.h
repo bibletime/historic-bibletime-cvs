@@ -77,6 +77,7 @@ private:
 		struct StartupSettings {
 			QCheckBox* showTips;
 			QCheckBox* showLogo;
+			QCheckBox* restoreWorkspace;
 		};
 		StartupSettings startup;
 		
@@ -155,9 +156,13 @@ protected slots: // Protected slots
  	* commented out for the time being.  ck
  	*/
 	void slotApply();
-  /** Renames the currently selected profile. */
+  /**
+  * Renames the currently selected profile.
+  */
   void renameProfile();
-  /** No descriptions */
+  /**
+   No descriptions
+  */
   void deleteProfile();
 };
 

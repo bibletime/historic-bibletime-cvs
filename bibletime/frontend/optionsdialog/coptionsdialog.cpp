@@ -91,8 +91,8 @@ void COptionsDialog::initGeneral() {
 		QToolTip::add(m_general.startup.showTips, TT_OD_GENERAL_DAILY_TIP);	
 		QWhatsThis::add(m_general.startup.showTips, WT_OD_GENERAL_DAILY_TIP);
 		
-		KConfigGroupSaver groupSaver(m_config, "Daily tip");
-		m_general.startup.showTips->setChecked( m_config->readBoolEntry("TipsOnStart", true) );
+		KConfigGroupSaver groupSaver(m_config, "Startup");
+		m_general.startup.showTips->setChecked( m_config->readBoolEntry("show tips", true) );
 	}
 	layout->addWidget(m_general.startup.showTips);	
 
@@ -106,7 +106,18 @@ void COptionsDialog::initGeneral() {
 		m_general.startup.showLogo->setChecked(m_config->readBoolEntry("Logo", true));			
 	}		
 	layout->addWidget(m_general.startup.showLogo);	
-	
+
+	{ //startup logo
+		m_general.startup.restoreWorkspace = new QCheckBox(page);
+		m_general.startup.restoreWorkspace->setText(i18n("Restore windows in workspace area"));
+//		QWhatsThis::add(m_general.startup.restoreWorkspace, WT_OD_GENERAL_RESTORE_WORKSPACE);
+//		QToolTip::add(m_general.startup.restoreWorkspace, TT_OD_GENERAL_RESTORE_WORKSPACE);
+		
+		KConfigGroupSaver groupSaver(m_config, "Startup");
+		m_general.startup.restoreWorkspace->setChecked(m_config->readBoolEntry("restore workspace", false));			
+	}		
+	layout->addWidget(m_general.startup.restoreWorkspace);	
+		
 	layout->addStretch(4);
 		
 	items.clear();	
@@ -121,11 +132,10 @@ void COptionsDialog::initGeneral() {
 }
 
 void COptionsDialog::saveGeneral() {
-	KConfigGroupSaver groupSaver(m_config, "General");
-	m_config->writeEntry( "Logo", m_general.startup.showLogo->isChecked() );
-	
-	m_config->setGroup("Daily tip");
-	m_config->writeEntry( "TipsOnStart", m_general.startup.showLogo->isChecked() );				
+	KConfigGroupSaver groupSaver(m_config, "Startup");
+	m_config->writeEntry( "Logo", m_general.startup.showLogo->isChecked() );	
+	m_config->writeEntry( "restore workspace", m_general.startup.restoreWorkspace->isChecked() );	
+	m_config->writeEntry( "show tips", m_general.startup.showTips->isChecked() );				
 	
 	m_config->setGroup("Keys");	
 	m_general.keys.accel->setKeyDict( m_general.keys.dict );	
@@ -256,7 +266,8 @@ void COptionsDialog::initDisplayWindow() {
 	m_displayWindows.profiles.profiles = new QListBox(vbox_page);
 	QList<CProfile> profiles = m_displayWindows.profiles.mgr.profiles();
 	for (CProfile* p = profiles.first(); p; p = profiles.next()) {
-		m_displayWindows.profiles.profiles->insertItem(p->name());
+		if (p->name() != "_startup_")
+			m_displayWindows.profiles.profiles->insertItem(p->name());
 	}
 	
 	QHButtonGroup* buttonGroup = new QHButtonGroup(vbox_page);

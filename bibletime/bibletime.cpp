@@ -97,6 +97,7 @@ void BibleTime::saveSettings(){
 		if (m_viewGroupManager_action->isChecked())	//only save changes when the groupmanager is visible
 			m_config->writeEntry("splitterSizes", m_splitter->sizes());
 	}
+	
 	{
 		KConfigGroupSaver groupSaver(m_config, "MDI");	
 		if (m_windowAutoTile_action->isChecked())	{
@@ -112,12 +113,18 @@ void BibleTime::saveSettings(){
 			m_config->writeEntry("autoCascade", false);	
 		}
 	}
+	
 	//backend specific things
-		if (m_important->swordBackend->m_entryDisplay) {
-			KConfigGroupSaver groupSaver(m_config, "Colors");	
-			m_config->writeEntry("Highlighted Verse",
-				QColor(m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor));
-		}
+	if (m_important->swordBackend->m_entryDisplay) {
+		KConfigGroupSaver groupSaver(m_config, "Colors");	
+		m_config->writeEntry("Highlighted Verse",
+			QColor(m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor));
+	}
+	
+	CProfile* p = m_profileMgr.profile("_startup_");
+	if (!p)
+		p = m_profileMgr.create("_startup_");
+	saveProfile(p);
 }
 
 /** Reads the settings from the configfile and sets the right properties. */
@@ -170,36 +177,47 @@ void BibleTime::readSettings(){
 		}
 	}
 	//backend specific things
-		if (m_important->swordBackend->m_entryDisplay) {
-			KConfigGroupSaver groupSaver(m_config, "Colors");
-			QColor tempColor;
-	
-			tempColor = m_config->readColorEntry("Highlighted Verse", &red);
-			m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor = tempColor.name();
+	if (m_important->swordBackend->m_entryDisplay) {
+		KConfigGroupSaver groupSaver(m_config, "Colors");
+		QColor tempColor;
+
+		tempColor = m_config->readColorEntry("Highlighted Verse", &red);
+		m_important->swordBackend->m_entryDisplay->m_highlightedVerseColor = tempColor.name();
 //			tempColor = tempColor = m_config->readColorEntry("Versenumber/URL");
 //			m_important->swordBackend->m_entryDisplay->m_linkColor = tempColor.name();
 //			tempColor = tempColor = m_config->readColorEntry("Normal Text");
 //			m_important->swordBackend->m_entryDisplay->m_textColor = tempColor.name();
 			
-			m_config->setGroup("Fonts");
-			QFont dummy =  m_config->readFontEntry(i18n("Display window"));
-			m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );
-		}
-		if (m_important->swordBackend->m_chapterDisplay) {
-			KConfigGroupSaver groupSaver(m_config, "Colors");
-			QColor tempColor;
-	
-			tempColor = m_config->readColorEntry("Highlighted Verse", &red);
-			m_important->swordBackend->m_chapterDisplay->m_highlightedVerseColor = tempColor.name();
+		m_config->setGroup("Fonts");
+		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
+		m_important->swordBackend->m_entryDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ) );
+	}
+	if (m_important->swordBackend->m_chapterDisplay) {
+		KConfigGroupSaver groupSaver(m_config, "Colors");
+		QColor tempColor;
+
+		tempColor = m_config->readColorEntry("Highlighted Verse", &red);
+		m_important->swordBackend->m_chapterDisplay->m_highlightedVerseColor = tempColor.name();
 //			tempColor = tempColor = m_config->readColorEntry("Versenumber/URL");
 //			m_important->swordBackend->m_chapterDisplay->m_linkColor = tempColor.name();
 //			tempColor = tempColor = m_config->readColorEntry("Normal Text");
 //			m_important->swordBackend->m_chapterDisplay->m_textColor = tempColor.name();
 			
-			m_config->setGroup("Fonts");
-			QFont dummy =  m_config->readFontEntry(i18n("Display window"));
-			m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ));
-		}	
+		m_config->setGroup("Fonts");
+		QFont dummy =  m_config->readFontEntry(i18n("Display window"));
+		m_important->swordBackend->m_chapterDisplay->setStandardFont( dummy.family(), CToolClass::makeLogicFontSize( dummy.pointSize() ));
+	}	
+
+	{ //load startup profile if this is desired
+		KConfigGroupSaver groupSaver(m_config, "Startup");	
+  	if (m_config->readBoolEntry("restore workspace", false)) {
+  		CProfile* p = m_profileMgr.profile("_startup_");
+  		if (p) {
+  			loadProfile(p);
+  		}
+  	}
+	}	
+		
 }
 
 /** Creates a new presenter in the MDI area according to the type of the module. */

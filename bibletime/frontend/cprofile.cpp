@@ -30,11 +30,11 @@
 #define CURRENT_SYNTAX_VERSION 1
 
 CProfile::CProfile( const QString& file, const QString& name )
-	: m_filename(file), m_name(name) {
+	: m_filename(file), m_name(name.isEmpty() ? i18n("unknown") : name) {
 	
 	m_profileWindows.setAutoDelete(true);
 	if (!m_filename.isEmpty() && name.isEmpty()) {
-		load();
+		loadBasics();
 	}
 	else if (m_filename.isEmpty() && !name.isEmpty()) {
 		m_filename = name;
@@ -44,9 +44,8 @@ CProfile::CProfile( const QString& file, const QString& name )
 		m_filename = profilePath + m_filename + ".xml";
 		init(m_filename);
 	}
-	else {
+	else
 		qWarning("CProfile: empty file name!");
-	}
 }
 
 CProfile::~CProfile(){
@@ -72,7 +71,6 @@ QList<CProfileWindow> CProfile::load(){
 	}
 	if (document.hasAttribute("name")) {
 		m_name = document.attribute("name");	
-//		qWarning("set name to %s", name().latin1());
 	}
 	
 	m_profileWindows.clear();
@@ -142,7 +140,6 @@ QList<CProfileWindow> CProfile::load(){
 	}
 
 	file.close();	
-	qWarning("load finished");
 	return m_profileWindows;
 }
 
@@ -155,14 +152,11 @@ const bool CProfile::save(QList<CProfileWindow> windows){
   QDomDocument doc("DOC");
   doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
 
-  qWarning("middle");
-
   QDomElement content = doc.createElement("BibleTime");
   content.setAttribute("syntaxVersion", CURRENT_SYNTAX_VERSION);
   content.setAttribute("name", name());
   doc.appendChild(content);
 
-  qWarning("before the loop");
 	for (CProfileWindow* p = windows.first(); p; p = windows.next()) {
 		ASSERT(p);
 		QDomElement window;
@@ -177,10 +171,8 @@ const bool CProfile::save(QList<CProfileWindow> windows){
 				window = doc.createElement("LEXICON");	
 				break;
 		}
-		if (window.isNull()) {
-			qWarning("invalid module type in CProfile::save!");
+		if (window.isNull())
 			break;
-		}
 		
 		//save geomtery
 		QRect r = p->geometry();
@@ -227,8 +219,6 @@ const QString& CProfile::filename(){
 
 /** Returns the name of this profile. */
 const QString& CProfile::name(){
-	if (m_name.isEmpty())
-		m_name = i18n("unknown");
 	return m_name;
 }
 
@@ -243,4 +233,21 @@ void CProfile::init(const QString file){
 /** Chnages the name of this profile. */
 void CProfile::setName( const QString& name ){
 	m_name = name;
+}
+
+/** Loads the basic settings requires for proper operation. */
+void CProfile::loadBasics(){
+	QFile file(m_filename);	
+	if (!file.exists())
+		return;
+
+	file.open(IO_ReadOnly);
+	
+	QDomDocument doc;
+	doc.setContent(&file);
+  QDomElement document = doc.documentElement();
+	if (document.hasAttribute("name"))
+		m_name = document.attribute("name");	
+
+	file.close();	
 }

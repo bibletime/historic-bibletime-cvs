@@ -230,7 +230,7 @@ protected: // Protected methods
 	KToggleAction*	m_windowAutoTile_action;
 	KAction*	m_windowCloseAll_action;
 
-	KAction*	m_windowSaveProfile_action;
+	KActionMenu*	m_windowSaveProfile_action;
 	KActionMenu*	m_windowLoadProfile_action;	
 	KAction*	m_windowEditProfiles_action;	
 	KToggleAction*	m_windowFullscreen_action;		
@@ -325,17 +325,25 @@ protected slots:
  	*/
   void slotSetPrintingStatus();
   /**
+  * Saves to the profile with the menu id ID
+  */
+  void saveProfile(int ID);
+  /**
   * Saves the current settings into the currently activatred profile.
   */
-  void saveProfile();
+	void saveProfile(CProfile* p);
   /**
   * Saves the current settings into the currently activatred profile.
   */
   void editProfiles();
   /**
-  * Loads the profile with the menu ID id
+  * Loads the profile with the menu id ID
   */
   void loadProfile(int ID);
+  /**
+  * Loads the profile with the menu ID id
+  */
+	void loadProfile(CProfile* p);
   /**
   * Toggles between normal and fullscreen mode.
   */

@@ -133,9 +133,9 @@ int main(int argc, char* argv[]) {
  		
 #ifdef STATIC_BUILD
  	KApplication app(false); //disable styles
-	qWarning("path == %s", argv[0]);
-	qWarning("$PWD == %s", getenv("PWD"));
-	qWarning("$BT_PATH == %s", getenv("BT_PATH"));
+//	qWarning("path == %s", argv[0]);
+//	qWarning("$PWD == %s", getenv("PWD"));
+//	qWarning("$BT_PATH == %s", getenv("BT_PATH"));
 	//get the path
 	KGlobal::dirs()->addPrefix(".");
 	KGlobal::dirs()->addPrefix(getenv("PWD"));
@@ -195,8 +195,8 @@ int main(int argc, char* argv[]) {
 		}
 		
 		{ //The tip of the day
-			KConfigGroupSaver groupSaver(config, "Daily tip");
-			if (config->readBoolEntry("TipsOnStart", true))
+			KConfigGroupSaver groupSaver(config, "Startup");
+			if (config->readBoolEntry("show tips", true))
 				bibletime->slotHelpTipOfDay();
 			bibletime->show();					
 		}
