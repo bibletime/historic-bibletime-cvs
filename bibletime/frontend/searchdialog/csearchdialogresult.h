@@ -21,7 +21,7 @@
 #include <qwidget.h>
 
 #include "backend/cswordmoduleinfo.h"
-#include "frontend/chtmlwidget.h"
+#include "frontend/cdisplaywidget.h"
 
 class CSearchDialog;
 class CSearchDialogResultModuleView;
@@ -58,7 +58,7 @@ private:
 	ListCSwordModuleInfo moduleList;
 	CSearchDialogResultModuleView *resultModuleTree;
 	CSearchDialogResultView	*resultTree;
-	CHTMLWidget	*html_widget;
+	CDisplayWidget	*m_displayWidget;
 	QSplitter* m_splitter;
 };
 

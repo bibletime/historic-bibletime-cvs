@@ -21,7 +21,7 @@
 
 #include "frontend/ctoolclass.h"
 #include "frontend/cexportmanager.h"
-#include "frontend/chtmlwidget.h"
+#include "frontend/cdisplaywidget.h"
 #include "frontend/cbtconfig.h"
 
 #include "frontend/keychooser/ckeychooser.h"
@@ -92,7 +92,9 @@ void CCommentaryPresenter::initView(){
 	presenterEdit_action->setWhatsThis( WT_PRESENTER_EDIT );
 	presenterEdit_action->plug(m_mainToolBar);
 	
-	m_htmlWidget = new CHTMLWidget(true, this);
+
+  m_displayWidget = new CDisplayWidget(this);
+//	m_htmlWidget = new CHTMLWidget(true, this);
 //	ASSERT(m_htmlWidget);
 	
 	//setup popup menu
@@ -104,42 +106,42 @@ void CCommentaryPresenter::initView(){
 	m_copyPopup->insertItem(i18n("Text of entry"), this, SLOT(copyEntryText()),0,ID_PRESENTER_COPY_KEY_TEXT);	
 	m_copyPopup->insertItem(i18n("Entry with text"), this, SLOT(copyEntryAndText()),0,ID_PRESENTER_COPY_KEY);
 	m_copyPopup->insertSeparator();
-	m_copyPopup->insertItem(i18n("Selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);
+	m_copyPopup->insertItem(i18n("Selected text"), m_displayWidget, SLOT(copySelection()),0,ID_PRESENTER_COPY_SELECTED);
 	
 	m_printPopup = new KPopupMenu(m_popup);
 	m_printPopup->insertItem(i18n("Entry with text"), this, SLOT(printHighlightedVerse()),0,ID_PRESENTER_PRINT_KEY);
 
 	m_savePopup = new KPopupMenu(m_popup);	
-	m_savePopup->insertItem(i18n("Entry as plain text"), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_CHAPTER);
-	m_savePopup->insertItem(i18n("Entry as HTML"), m_htmlWidget, SLOT(slotSaveAsHTML()),0,ID_PRESENTER_SAVE_CHAPTER_HTML);	
+	m_savePopup->insertItem(i18n("Entry as plain text"), m_displayWidget, SLOT(saveAsPlain()),0,ID_PRESENTER_SAVE_CHAPTER);
+	m_savePopup->insertItem(i18n("Entry as HTML"), m_displayWidget, SLOT(saveAsHTML()),0,ID_PRESENTER_SAVE_CHAPTER_HTML);	
 
-	m_popup->insertItem(i18n("Select all"), m_htmlWidget, SLOT(slotSelectAll()),0, ID_PRESENTER_SELECT_ALL);
+	m_popup->insertItem(i18n("Select all"), m_displayWidget, SLOT(selectAll()),0, ID_PRESENTER_SELECT_ALL);
   m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP);	
 	m_popup->insertSeparator();	
 	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY),i18n("Copy..."), 	m_copyPopup, ID_PRESENTER_COPY_POPUP);	
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup, ID_PRESENTER_PRINT_POPUP);	
 	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup,ID_PRESENTER_SAVE_POPUP);		
 
-	m_htmlWidget->installPopup(m_popup);		
-	m_htmlWidget->installAnchorMenu( m_popup );
-	m_htmlWidget->setModules(m_moduleList);	
-	setCentralWidget(m_htmlWidget);	
+  m_displayWidget->view()->installPopup(CDisplayWidgetView::Normal, m_popup);
+	m_displayWidget->view()->installPopup(CDisplayWidgetView::Anchor, m_popup );
+	
+  setCentralWidget(m_displayWidget->view());
 	setIcon( COMMENTARY_ICON_SMALL );
 }
 
 /** Initializes the connections */
 void CCommentaryPresenter::initConnections(){
-	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
+	connect(m_displayWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
 		this, SLOT(lookup(const QString&, const QString&))); 	 	
-	connect(m_htmlWidget, SIGNAL(referenceDropped(const QString&)),
-		this, SLOT(referenceDropped(const QString&)));
+	connect(m_displayWidget, SIGNAL(referenceDropped(const QString&, const QString&)),
+		this, SLOT(referenceDropped(const QString&, const QString&)));
 
-	connect(m_htmlWidget, SIGNAL(sigDeleteDocument()),
-		this, SLOT(deleteText())); 	 	
-	connect(m_htmlWidget, SIGNAL(sigSaveDocument(const QString)),
-		this, SLOT(saveText(const QString))); 	 	 	
-	connect(m_htmlWidget, SIGNAL(insertReference(const QString&)),
-		this, SLOT(insertReference(const QString&))); 	 	 			
+//	connect(m_htmlWidget, SIGNAL(sigDeleteDocument()),
+//		this, SLOT(deleteText())); 	 	
+//	connect(m_htmlWidget, SIGNAL(sigSaveDocument(const QString)),
+//		this, SLOT(saveText(const QString))); 	 	 	
+//	connect(m_htmlWidget, SIGNAL(insertReference(const QString&)),
+//		this, SLOT(insertReference(const QString&))); 	 	 			
  	
  	connect( m_keyChooser, SIGNAL(beforeKeyChange(const QString&)),
  		this, SLOT(beforeKeyChange(const QString&)));
@@ -167,7 +169,7 @@ void CCommentaryPresenter::modulesChanged(){
 //	  refreshFeatures();	
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
-		m_htmlWidget->setModules(m_moduleList);	
+//		m_htmlWidget->setModules(m_moduleList);	
 	  lookup(m_key);
 	}
 }
@@ -189,21 +191,21 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
   m_moduleList.first()->module()->SetKey(*vKey);
 
 	if (m_moduleList.first()->getDisplay()) {	//do we have a display object?
-		if (m_htmlWidget->isReadOnly())	 {
+//		if (m_htmlWidget->isReadOnly())	 {
 			if (m_moduleList.count()>1)
 				m_moduleList.first()->getDisplay()->Display( &m_moduleList );
 			else
 				m_moduleList.first()->getDisplay()->Display( m_moduleList.first() );
-			m_htmlWidget->setText( m_moduleList.first()->getDisplay()->getHTML() );
-		}
-		else
-			m_htmlWidget->setText( QString::fromUtf8( m_moduleList.first()->module()->getRawEntry() ) );
+			m_displayWidget->setText( m_moduleList.first()->getDisplay()->getHTML() );
+//		}
+//		else
+//			m_displayWidget->setText( QString::fromUtf8( m_moduleList.first()->module()->getRawEntry() ) );
 	}	
 	if (m_key != vKey)
 		m_key->key(vKey->key());
 		
-	m_htmlWidget->scrollToAnchor( QString::number(vKey->Verse()) );
-	m_htmlWidget->setModified(false);
+	m_displayWidget->gotoAnchor( QString::number(vKey->Verse()) );
+//	m_htmlWidget->setModified(false);
 	setUpdatesEnabled(true);
 	
 	setCaption( windowCaption() );	
@@ -211,8 +213,9 @@ void CCommentaryPresenter::lookup(CSwordKey* key){
 
 /** No descriptions */
 void CCommentaryPresenter::popupAboutToShow(){
-	m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, !m_htmlWidget->selectedText().isEmpty());
-	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, !m_htmlWidget->selectedText().isEmpty());	
+	const bool hasSelection = m_displayWidget->hasSelection();
+  m_popup->setItemEnabled(ID_PRESENTER_LOOKUP, hasSelection);
+	m_copyPopup->setItemEnabled(ID_PRESENTER_COPY_SELECTED, hasSelection);	
 }
 
 /** Saves the given text in the module. */
@@ -222,45 +225,45 @@ void CCommentaryPresenter::saveText(const QString text){
 		*(m_moduleList.first()->module()) << (const char*)text.utf8();
 	else
 		m_moduleList.first()->module()->deleteEntry();		
-	m_htmlWidget->setModified( false );		
+//	m_htmlWidget->setModified( false );		
 }
 
 /** Deletes the displayed and edited text. */
 void CCommentaryPresenter::deleteText(){
 	m_moduleList.first()->module()->deleteEntry();
-	m_htmlWidget->clear();
+//	m_htmlWidget->clear();
 }
 
 void CCommentaryPresenter::editComment(){
-	if (!m_htmlWidget->isReadOnly()) {
-		switch (KMessageBox::warningYesNo( this, i18n("The text was not saved to the module. Save the changes now?")) ) {
-			case KMessageBox::Yes:
-			{
-	   		saveText( m_htmlWidget->text() );
-	   		m_htmlWidget->setModified( false );
-				break;
-			}
-	   	default: //no
-	   		break;
-	  }
-	}
-	
-	m_htmlWidget->setReadOnly( !m_htmlWidget->isReadOnly() );	
-	if (!m_htmlWidget->isReadOnly() && !m_editToolBar) {
-		m_editToolBar = new KToolBar(this);
-		addToolBar(m_editToolBar);		
-		m_htmlWidget->createEditToolbar( m_editToolBar );
-	}	
-	if (!m_htmlWidget->isReadOnly() && !m_editToolBar)
-		return;
-		
-	if (!m_htmlWidget->isReadOnly())
-		m_editToolBar->show();
-	else
-		m_editToolBar->hide();
-			
-	lookup( m_key );	
-	m_htmlWidget->setFocus();
+//	if (!m_htmlWidget->isReadOnly()) {
+//		switch (KMessageBox::warningYesNo( this, i18n("The text was not saved to the module. Save the changes now?")) ) {
+//			case KMessageBox::Yes:
+//			{
+//	   		saveText( m_htmlWidget->text() );
+//	   		m_htmlWidget->setModified( false );
+//				break;
+//			}
+//	   	default: //no
+//	   		break;
+//	  }
+//	}
+//	
+//	m_htmlWidget->setReadOnly( !m_htmlWidget->isReadOnly() );	
+//	if (!m_htmlWidget->isReadOnly() && !m_editToolBar) {
+//		m_editToolBar = new KToolBar(this);
+//		addToolBar(m_editToolBar);		
+//		m_htmlWidget->createEditToolbar( m_editToolBar );
+//	}	
+//	if (!m_htmlWidget->isReadOnly() && !m_editToolBar)
+//		return;
+//		
+//	if (!m_htmlWidget->isReadOnly())
+//		m_editToolBar->show();
+//	else
+//		m_editToolBar->hide();
+//			
+//	lookup( m_key );	
+//	m_htmlWidget->setFocus();
 }
 
 /** Reimplementation. */
@@ -284,7 +287,7 @@ void CCommentaryPresenter::refresh( ){
 	m_key->setLocale((const char*)backend()->booknameLanguage().local8Bit());
 	m_keyChooser->refreshContent();
 	lookup(m_key);
-	m_htmlWidget->refresh();		
+//	m_htmlWidget->refresh();		
 }
 
 /** Printes the verse the user has chosen. */
@@ -310,18 +313,18 @@ void CCommentaryPresenter::synchronize( CSwordKey* syncKey ){
 
 /** No descriptions */
 void CCommentaryPresenter::insertReference(const QString& reference){
-	if (m_htmlWidget->isReadOnly())
-		return;
-	CSwordVerseKey vk(m_moduleList.first());
-	vk.key(reference);
-	m_htmlWidget->insert(vk.strippedText());
+//	if (m_htmlWidget->isReadOnly())
+//		return;
+//	CSwordVerseKey vk(m_moduleList.first());
+//	vk.key(reference);
+//	m_htmlWidget->insert(vk.strippedText());
 }
 
 /** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::copyEntry(){
 	QString key = QString::null;
 	QString module = QString::null;
-	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	QString currentAnchor = m_displayWidget->activeURLNode();
 	CReferenceManager::Type type;
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = backend()->findModuleByName(module);		
@@ -337,7 +340,7 @@ void CCommentaryPresenter::copyEntry(){
 void CCommentaryPresenter::copyEntryText(){
 	QString key = QString::null;
 	QString module = QString::null;	
-	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	QString currentAnchor = m_displayWidget->activeURLNode();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = backend()->findModuleByName(module);		
@@ -353,7 +356,7 @@ void CCommentaryPresenter::copyEntryText(){
 void CCommentaryPresenter::copyEntryAndText(){
 	QString key = QString::null;
 	QString module = QString::null;
-	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	QString currentAnchor = m_displayWidget->activeURLNode();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	CSwordModuleInfo* m = backend()->findModuleByName(module);		
@@ -367,11 +370,10 @@ void CCommentaryPresenter::copyEntryAndText(){
 }
 
 //print functions
-/** Copies the highlighted text into clipboard. */
 void CCommentaryPresenter::printEntry(){
 	QString key = QString::null;
 	QString module = QString::null;
-	QString currentAnchor = m_htmlWidget->getCurrentAnchor();
+	QString currentAnchor = m_displayWidget->activeURLNode();
 	CReferenceManager::Type type;	
 	CReferenceManager::decodeHyperlink(currentAnchor, module, key, type);	
 	
@@ -383,29 +385,29 @@ void CCommentaryPresenter::printEntry(){
 /** Checks for changes and saves the text. */
 void CCommentaryPresenter::checkChanges(){
 //	qDebug("void CCommentaryPresenter::checkChanges()");
-	if (!m_htmlWidget->isReadOnly() && m_htmlWidget->isModified()) {//save
-		saveText( m_htmlWidget->text() );
-		m_htmlWidget->setModified( false );
-	}
+//	if (!m_htmlWidget->isReadOnly() && m_htmlWidget->isModified()) {//save
+//		saveText( m_htmlWidget->text() );
+//		m_htmlWidget->setModified( false );
+//	}
 }
 
 /** No descriptions */
 void CCommentaryPresenter::beforeKeyChange(const QString& oldKey){
-	if (!m_htmlWidget->isReadOnly()) {
-		switch (KMessageBox::warningYesNo( this, i18n("The text was not saved to the module. Save the changes now?")) ) {
-			case KMessageBox::Yes:
-			{
-				const QString newKey = m_key->key();
-				m_key->key(oldKey);
-	   		saveText( m_htmlWidget->text() );
-				m_key->key(newKey);		   		
-				break;
-			}
-	   	default: //no
-	   		break;
-	  }
-	}
-	m_htmlWidget->setModified( false );	
+//	if (!m_htmlWidget->isReadOnly()) {
+//		switch (KMessageBox::warningYesNo( this, i18n("The text was not saved to the module. Save the changes now?")) ) {
+//			case KMessageBox::Yes:
+//			{
+//				const QString newKey = m_key->key();
+//				m_key->key(oldKey);
+//	   		saveText( m_htmlWidget->text() );
+//				m_key->key(newKey);		   		
+//				break;
+//			}
+//	   	default: //no
+//	   		break;
+//	  }
+//	}
+//	m_htmlWidget->setModified( false );	
 }
 
 /** Inserts the actions used by this window class into the given KAccel object. */
@@ -494,20 +496,20 @@ void CCommentaryPresenter::applySettings( CProfileWindow* settings ){
 /** Saves settings */
 bool CCommentaryPresenter::queryClose(){
 	//save the text
-	if (!m_htmlWidget->isReadOnly() && m_htmlWidget->isModified()) {	
-		switch (KMessageBox::warningYesNoCancel( this, i18n("Save changes to module?")) ) {
-			case KMessageBox::Yes:
-			{
-	    	//save
-	   		saveText( m_htmlWidget->text() );
-	   		m_htmlWidget->setModified( false );
-	     	return true;
-			}
-	   	case KMessageBox::No :
-	     	return true;
-	   	default: // cancel
-	     	return false;	
-		}
-	}
-	return true;
+//	if (!m_htmlWidget->isReadOnly() && m_htmlWidget->isModified()) {	
+//		switch (KMessageBox::warningYesNoCancel( this, i18n("Save changes to module?")) ) {
+//			case KMessageBox::Yes:
+//			{
+//	    	//save
+//	   		saveText( m_htmlWidget->text() );
+//	   		m_htmlWidget->setModified( false );
+//	     	return true;
+//			}
+//	   	case KMessageBox::No :
+//	     	return true;
+//	   	default: // cancel
+//	     	return false;	
+//		}
+//	}
+//	return true;
 }

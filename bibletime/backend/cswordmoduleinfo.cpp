@@ -211,7 +211,11 @@ const QString CSwordModuleInfo::config( const CSwordModuleInfo::ConfigEntry entr
 			const QString version = QString::fromLatin1(m_module->getConfigEntry("MinimumVersion"));
 			return !version.isEmpty() ? version : QString::fromLatin1("0.0");
 		}
-		case DisplayLevel: {
+		case TextDir: {
+			const QString dir = QString::fromLatin1(m_module->getConfigEntry("Direction"));
+			return !dir.isEmpty() ? dir : QString::fromLatin1("LtoR");
+		}		
+    case DisplayLevel: {
 			const QString level = QString::fromLatin1(m_module->getConfigEntry("DisplayLevel"));
 			return !level.isEmpty() ? level : QString::fromLatin1("0");
 		}
@@ -255,4 +259,10 @@ const bool CSwordModuleInfo::has( const CSwordBackend::FilterOptions option ){
  	return false;
 }
 
-
+/** Returns the text direction of the module's text., */
+const CSwordModuleInfo::TextDirection CSwordModuleInfo::textDirection(){
+  if (config(TextDir) == "RtoL")
+    return CSwordModuleInfo::RightToLeft;
+  else
+    return CSwordModuleInfo::LeftToRight;
+}

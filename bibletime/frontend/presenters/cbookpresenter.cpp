@@ -23,7 +23,7 @@
 #include "frontend/keychooser/ckeychooser.h"
 #include "frontend/keychooser/cbooktreechooser.h"
 #include "frontend/ctoolclass.h"
-#include "frontend/chtmlwidget.h"
+#include "frontend/cdisplaywidget.h"
 #include "frontend/cexportmanager.h"
 #include "frontend/cbtconfig.h"
 
@@ -88,48 +88,48 @@ void CBookPresenter::initView(){
 	
 	splitter->setResizeMode(m_treeChooser, QSplitter::FollowSizeHint);
 	
-	m_htmlWidget = new CHTMLWidget(true, splitter);		
+	m_displayWidget = new CDisplayWidget(splitter);
 		
 	m_popup = new KPopupMenu(this);
 	m_popup->insertTitle(i18n("Book window"));
 
 	m_copyPopup = new KPopupMenu(m_popup);
-//	m_copyPopup->insertItem(i18n("Verse"), this, SLOT(copyVerse()),0,ID_PRESENTER_COPY_ONLY_KEY);
-//	m_copyPopup->insertItem(i18n("Text of verse"), this, SLOT(copyVerseText()),0,ID_PRESENTER_COPY_KEY_TEXT);	
-//	m_copyPopup->insertItem(i18n("Verse with text"), this, SLOT(copyVerseAndText()),0,ID_PRESENTER_COPY_KEY);
-//	m_copyPopup->insertItem(i18n("Chapter"), m_htmlWidget, SLOT(copyDocument()),0,ID_PRESENTER_COPY_CHAPTER);
-//	m_copyPopup->insertSeparator();
-	m_copyPopup->insertItem(i18n("Selected text"), m_htmlWidget, SLOT(copy()),0,ID_PRESENTER_COPY_SELECTED);
+	m_copyPopup->insertItem(i18n("Verse"), this, SLOT(copyVerse()),0,ID_PRESENTER_COPY_ONLY_KEY);
+	m_copyPopup->insertItem(i18n("Text of verse"), this, SLOT(copyVerseText()),0,ID_PRESENTER_COPY_KEY_TEXT);	
+	m_copyPopup->insertItem(i18n("Verse with text"), this, SLOT(copyVerseAndText()),0,ID_PRESENTER_COPY_KEY);
+	m_copyPopup->insertItem(i18n("Chapter"), m_displayWidget, SLOT(copyAll()),0,ID_PRESENTER_COPY_CHAPTER);
+	m_copyPopup->insertSeparator();
+
+	m_copyPopup->insertItem(i18n("Selected text"), m_displayWidget, SLOT(copySelection()),0,ID_PRESENTER_COPY_SELECTED);
 
 	m_printPopup = new KPopupMenu(m_popup);
 	m_printPopup->insertItem(i18n("Entry"), this, SLOT(printEntry()),0,ID_PRESENTER_PRINT_KEY);
 
 	m_savePopup = new KPopupMenu(m_popup);	
-//	m_savePopup->insertItem(i18n("Verse with text"), this, SLOT(saveVerseAndText()),0,ID_PRESENTER_SAVE_KEY);
-//	m_savePopup->insertItem(i18n("Chapter as plain text"), m_htmlWidget, SLOT(slotSaveAsText()),0,ID_PRESENTER_SAVE_CHAPTER);
-	m_savePopup->insertItem(i18n("Entry as HTML"), m_htmlWidget, SLOT(slotSaveAsHTML()),0,ID_PRESENTER_SAVE_CHAPTER_HTML);	
+	m_savePopup->insertItem(i18n("Verse with text"), this, SLOT(saveVerseAndText()),0,ID_PRESENTER_SAVE_KEY);
+	m_savePopup->insertItem(i18n("Chapter as plain text"), m_displayWidget, SLOT(saveAsPlain()),0,ID_PRESENTER_SAVE_CHAPTER);
+	m_savePopup->insertItem(i18n("Entry as HTML"), m_displayWidget, SLOT(saveAsHTML()),0,ID_PRESENTER_SAVE_CHAPTER_HTML);	
 
-	m_popup->insertItem(i18n("Select all"), m_htmlWidget, SLOT(slotSelectAll()),0, ID_PRESENTER_SELECT_ALL);
+	m_popup->insertItem(i18n("Select all"), m_displayWidget, SLOT(selectAll()),0, ID_PRESENTER_SELECT_ALL);
   m_popup->insertItem(i18n("Lookup selected text in lexicon"), m_lexiconPopup, ID_PRESENTER_LOOKUP);	
 	m_popup->insertSeparator();	
-	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY),i18n("Copy..."), 	m_copyPopup, ID_PRESENTER_COPY_POPUP);	
+	m_popup->insertItem(SmallIcon(ICON_EDIT_COPY),i18n("Copy..."), m_copyPopup, ID_PRESENTER_COPY_POPUP);	
 	m_popup->insertItem(SmallIcon(ICON_FILE_PRINT), i18n("Add to printing queue..."), m_printPopup, ID_PRESENTER_PRINT_POPUP);	
-	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), 	m_savePopup,ID_PRESENTER_SAVE_POPUP);		
+	m_popup->insertItem(SmallIcon(ICON_FILE_SAVE), i18n("Save..."), m_savePopup,ID_PRESENTER_SAVE_POPUP);		
 
-	m_htmlWidget->installPopup(m_popup);			
-	m_htmlWidget->installAnchorMenu(m_popup);
-	m_htmlWidget->setModules(m_moduleList);
+	m_displayWidget->view()->installPopup(CDisplayWidgetView::Normal, m_popup);
+	m_displayWidget->view()->installPopup(CDisplayWidgetView::Anchor, m_popup );
+//	m_htmlWidget->setModules(m_moduleList);
 		
-
 	setCentralWidget(splitter);
 }
 
 /** Initializes the Signal / Slot connections */
 void CBookPresenter::initConnections(){
-	connect(m_htmlWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
+	connect(m_displayWidget, SIGNAL(referenceClicked(const QString&, const QString&)),
 		this, SLOT(lookup(const QString&, const QString&))); 	
-	connect(m_htmlWidget, SIGNAL(referenceDropped(const QString&)),
-		this, SLOT(referenceDropped(const QString&)));
+	connect(m_displayWidget, SIGNAL(referenceDropped(const QString&, const QString&)),
+		this, SLOT(referenceDropped(const QString&, const QString&)));
 
  	connect(m_keyChooser, SIGNAL(keyChanged(CSwordKey*)),
  		this, SLOT(lookup(CSwordKey*)));
@@ -145,8 +145,6 @@ void CBookPresenter::initConnections(){
 //		SLOT(popupAboutToShow()));
 	connect(m_moduleChooserBar, SIGNAL( sigChanged() ),
 		SLOT(modulesChanged() ));
-//	connect(m_displaySettingsButton, SIGNAL( sigChanged() ),	
-//		SLOT(optionsChanged() ));
 }
 
 void CBookPresenter::modulesChanged(){
@@ -157,7 +155,7 @@ void CBookPresenter::modulesChanged(){
 	  m_key->module(m_moduleList.first());
 	  m_keyChooser->setModule(m_moduleList.first());	
 	  m_treeChooser->setModule(m_moduleList.first());		
-		m_htmlWidget->setModules(m_moduleList);
+//		m_htmlWidget->setModules(m_moduleList);
 	  	
 	  lookup(m_key);
 	}
@@ -172,7 +170,7 @@ void CBookPresenter::lookup(CSwordKey* key) {
 		
 	if (m->getDisplay()) {
 		m->getDisplay()->Display( m );
-		m_htmlWidget->setText(m->getDisplay()->getHTML());
+		m_displayWidget->setText(m->getDisplay()->getHTML());
 	}	
 	if (m_key != treeKey) {
 		m_key->key(treeKey->key());
@@ -180,7 +178,7 @@ void CBookPresenter::lookup(CSwordKey* key) {
 	setUpdatesEnabled(true);
 	setCaption( windowCaption() );
 	
-	m_htmlWidget->scrollToAnchor( QString::fromLocal8Bit(treeKey->getLocalName()) );	
+	m_displayWidget->gotoAnchor( QString::fromLocal8Bit(treeKey->getLocalName()) );	
 }
 
 /** No descriptions */
@@ -236,27 +234,9 @@ void CBookPresenter::applySettings( CProfileWindow* settings ){
 		m_treeAction->setChecked(false);
 		m_treeChooser->hide();
 	}
-//	const int count = m_displaySettingsButton->menuItemCount();
-//	for (int i = count-1; i>=1; i--) {
-//		if (result-(int)pow(2,i-1)>= 0) { //2^i was added before, so item with index i is set
-//			result -= (int)pow(2,i-1);
-//			m_displaySettingsButton->setItemStatus(i,true);
-//		}
-//		else
-//			m_displaySettingsButton->setItemStatus(i,false);			
-//	}		
-//	m_displaySettingsButton->setChanged();
 }
 
 void CBookPresenter::storeSettings( CProfileWindow* settings ){
 	CSwordPresenter::storeSettings(settings);	
 	settings->setWindowSettings( m_treeAction->isChecked() );
-//	const int count = m_displaySettingsButton->menuItemCount();
-//	int result = 0;
-//	//now check	every item
-//	for (int i = 1; i<count; i++) { //first item is a title
-//		if (m_displaySettingsButton->itemStatus(i)) //item is checked
-//			result += (int)pow(2,i-1);//add 2^i (the i. digit in binary)
-//	}
-//	settings->setWindowSettings(result);
 }

@@ -1,6 +1,6 @@
-2002-04-17  Martin <mg.pub@gmx.net>
+2002-05-03  Martin <mg.pub@gmx.net>
 
-	* Ported to KDE3. No new features. Text rendering works much better now 
+	* Ported to KDE3: BibleTime 1.2. No new features. Text rendering works much better now
 		(right-to-left), as well as font / charset handling -- thanks to Trolltech.
 
 2002-10-04 Martin Gruner

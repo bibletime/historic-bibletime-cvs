@@ -45,10 +45,10 @@ char CHTMLChapterDisplay::Display( CSwordModuleInfo* module ){
 	key.module(module);	
 	int verse = 0;
 	
-//	if (module->isUnicode()) {
-//		m_htmlHeader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>";
-//	}
-	m_htmlText = m_htmlHeader + QString::fromLatin1("<body>");
+  if (module->textDirection() == CSwordModuleInfo::RightToLeft)
+    m_htmlText = m_htmlHeader + QString::fromLatin1("<body dir=\"rtl\">");
+  else
+    m_htmlText = m_htmlHeader + QString::fromLatin1("<body>");
 	
 	//reload font settings
 	updateSettings();
@@ -117,7 +117,7 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 
 	m = (d = moduleList->first()) ? d->module() : 0;		
 	while (m) {
-    	m_htmlText.append(QString::fromLatin1("<td width=\"%1\" bgcolor=\"#f1f1f1\">\
+    	m_htmlText.append(QString::fromLatin1("<td bgcolor=\"#f1f1f1\" width=\"%1%\">\
 <font face=\"%2\" size=\"%3\" color=\"%4\"><b>%5</b></td>")
 				.arg(width)
 				.arg(m_standardFontName)
@@ -133,7 +133,8 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 
 	const QString text = QString::fromLatin1("</tr><tr><td bgcolor=\"#f1f1f1\"><b>\
 <font face=\"%1\" size=\"%2\" color=\"%3\"><a name=\"%4\" href=\"%5\">%6</a></font></b></td>\n");
-	const QString cell = QString::fromLatin1("<td width=\"%1%\" bgcolor=\"%2\">");
+	
+ const QString cell = QString::fromLatin1("<td dir=\"%1\" bgcolor=\"%2\" width=\"%3%\">");
 	
 	for (key.Verse(1); key.Testament() == currentTestament && key.Book() == currentBook && key.Chapter() == currentChapter && !module->Error(); key.next(CSwordVerseKey::UseVerse)) {
 		const QString currentKey = key.key();
@@ -148,13 +149,15 @@ char CHTMLChapterDisplay::Display( QPtrList<CSwordModuleInfo>* moduleList){
 						.arg(currentVerse);
     }
     else {
-       rowText = QString::fromLatin1("</tr><tr>\n>");
+       rowText = QString::fromLatin1("</tr><tr>\n");
     }
 		
 		current.key(currentKey);	
 		while (m) {
 			current.module(d);
-      rowText += cell.arg(width).arg(currentVerse % 2 ? "white" : "#f1f1f1");
+      rowText += cell.arg(d->textDirection() == CSwordModuleInfo::RightToLeft ? QString::fromLatin1("rtl") : QString::fromLatin1("ltor")  )
+                     .arg(currentVerse % 2 ? "white" : "#f1f1f1")
+                     .arg(width);
 
 			if (d->isUnicode())
 				rowText += QString::fromLatin1("<font face=\"%1\" size=\"%2\" color=\"%3\">")

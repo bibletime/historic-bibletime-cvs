@@ -68,25 +68,7 @@
 /** Closes the current apploication window */
 void BibleTime::slotFileQuit(){
 	saveSettings();		
-//	// close the first window, the list makes the next one the first again.
-//	// This ensures that queryClose() is called on each window to ask for closing
-//	
-//	KMainWindow* w;
-//	bool ok = true;
-//	
-#warning THIS CODE CAUSED A MEMORY LEAK IN BIBLETIME 1.2 AND LATER AND WAS THEREFORE REMOVED. ;)
-// IF YOU KNOW WHY IT IS THERE AND HOW TO MAKE THIS CORRECT PLEASE LET US KNOW ;)
-//	if(memberList){
-//		for(w = memberList->first(); w && ok; w = memberList->first()){
-//			qWarning("before: %d %d",memberList->first(), memberList->count() );
-//			// only close the window if the closeEvent is accepted. If the user presses Cancel on the saveModified() dialog,
-//			// the window and the application stay open.
-//			ok = w->close();
-//			qWarning("after: %d %d",memberList->first(), memberList->count() );
-//		}
-//	}		
-//	if (ok)
-		KApplication::kApplication()->quit();
+	KApplication::kApplication()->quit();
 }
 
 /** Opens the optionsdialog of BibleTime. */

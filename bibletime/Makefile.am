@@ -18,6 +18,7 @@ $(LIB_KDECORE) \
 $(LIB_KDEUI) \
 -lkdeprint \
 $(LIB_KFILE) \
+$(LIB_KHTML) \
 $(LIB_X11) \
 $(LIB_SWORD) \
 $(LIBSOCKET)

@@ -19,11 +19,12 @@
 #define CSWORDPRESENTER_H
 
 //BibleTime includes
-#include "../../backend/cswordmoduleinfo.h"
-#include "../../backend/cswordbackend.h"
-//#include "../../structdef.h"
-#include "../cpointers.h"
-#include "../cprofilewindow.h"
+#include "backend/cswordmoduleinfo.h"
+#include "backend/cswordbackend.h"
+
+#include "frontend/cpointers.h"
+#include "frontend/cprofilewindow.h"
+#include "frontend/cdisplaywidget.h"
 
 //Qt includes
 #include <qwidget.h>
@@ -35,11 +36,8 @@ class KPopupMenu;
 class KToolBar;
 
 class CKeyChooser;
-class CHTMLWidget;
-
 class CModuleChooserBar;
 class CDisplaySettingsButton;
-
 class CSwordKey;
 class KAccel;
 
@@ -101,7 +99,7 @@ public slots: // Public slots
   /**
 	* Is called when a reference was dropped on this window.
 	*/
-  virtual void referenceDropped(const QString&);
+  virtual void referenceDropped(const QString&, const QString&);
   /**
   * Reimplementation from KMainWindow.
   */
@@ -132,20 +130,15 @@ protected: // Protected methods
 	KPopupMenu* m_popup;
 	KPopupMenu* m_savePopup;
 	KPopupMenu* m_copyPopup;	
-	KPopupMenu* m_printPopup;	
-		
+	KPopupMenu* m_printPopup;			
 	QPopupMenu* m_lexiconPopup;
-	CKeyChooser* m_keyChooser;
-	CHTMLWidget* m_htmlWidget;	
-
+	CKeyChooser* m_keyChooser;	
+  CDisplayWidget* m_displayWidget;
   CModuleChooserBar* m_moduleChooserBar;
 	CDisplaySettingsButton* m_displaySettingsButton;
-
   ListCSwordModuleInfo m_moduleList;
  	QString m_highlightedVerse;
-
  	KAccel* m_accel;
-
 	CSwordBackend::FilterOptionsBool m_moduleOptions;
 	CSwordBackend::DisplayOptionsBool m_displayOptions;
     	 	  	

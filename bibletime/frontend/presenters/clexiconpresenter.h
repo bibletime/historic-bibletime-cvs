@@ -18,8 +18,11 @@
 #ifndef CLEXICONPRESENTER_H
 #define CLEXICONPRESENTER_H
 
-#include <qwidget.h>
+//BiobleTime includes
 #include "cswordpresenter.h"
+
+//Qt includes
+#include <qwidget.h>
 
 class CSwordLDKey;
 

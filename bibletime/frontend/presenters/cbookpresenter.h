@@ -18,8 +18,11 @@
 #ifndef CBOOKPRESENTER_H
 #define CBOOKPRESENTER_H
 
-#include <qwidget.h>
+//BibleTime includes
 #include "cswordpresenter.h"
+
+//Qt includes
+#include <qwidget.h>
 
 
 class CSwordTreeKey;

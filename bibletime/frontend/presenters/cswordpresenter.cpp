@@ -16,12 +16,16 @@
  ***************************************************************************/
 
 #include "cswordpresenter.h"
-#include "../keychooser/ckeychooser.h"
-#include "../chtmlwidget.h"
-#include "../../backend/cswordkey.h"
-#include "../../printing/cprintitem.h"
-#include "../../printing/cprinter.h"
-#include "../cbtconfig.h"
+
+#include "backend/cswordkey.h"
+
+#include "frontend/keychooser/ckeychooser.h"
+#include "frontend/cdisplaywidget.h"
+#include "frontend/cbtconfig.h"
+
+#include "printing/cprintitem.h"
+#include "printing/cprinter.h"
+
 #include "cdisplaysettingsbutton.h"
 
 //Qt includes
@@ -36,7 +40,7 @@ CSwordPresenter::CSwordPresenter(ListCSwordModuleInfo useModules, QWidget *paren
 	m_popup(0), m_savePopup(0), m_copyPopup(0), m_printPopup(0),
 	m_lexiconPopup(new QPopupMenu(this)),	
 	m_keyChooser(0),
-	m_htmlWidget(0),
+  m_displayWidget(0),
 	m_moduleChooserBar(0),	
 	m_displaySettingsButton(0),
 	m_moduleList(useModules),
@@ -71,7 +75,7 @@ int CSwordPresenter::getFeatures(){
 
 void CSwordPresenter::lookupWord(int moduleID){
 	const QString module = m_lexiconPopup->text(moduleID);	
-	const QString text = m_htmlWidget->selectedText();
+	const QString text = m_displayWidget->selectedText();
 	if (!text.isEmpty())
 		emit lookupInLexicon(text,module);
 }
@@ -124,8 +128,8 @@ void CSwordPresenter::applySettings( CProfileWindow* settings ){
 		parentWidget()->move(rect.x(), rect.y());
 		//setGeometry( settings->geometry() );
 	}
-	m_htmlWidget->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
-	m_htmlWidget->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );
+//	m_htmlWidget->horizontalScrollBar()->setValue( settings->scrollbarPositions().horizontal );
+//	m_htmlWidget->verticalScrollBar()->setValue( settings->scrollbarPositions().vertical );
 	
 	setUpdatesEnabled(true);	
 }
@@ -139,7 +143,7 @@ void CSwordPresenter::storeSettings( CProfileWindow* settings ){
 	rect.setHeight(height());
 	settings->setGeometry(rect);
 		
-	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
+//	settings->setScrollbarPositions( m_htmlWidget->horizontalScrollBar()->value(), m_htmlWidget->verticalScrollBar()->value() );
 	settings->setType(m_moduleList.first()->type());
 	settings->setMaximized(isMaximized() || parentWidget()->isMaximized());
 	
@@ -203,7 +207,7 @@ void CSwordPresenter::refresh(){
 }
 
 /** Is called when a reference was dropped on this window. */
-void CSwordPresenter::referenceDropped(const QString& ref){
+void CSwordPresenter::referenceDropped(const QString&, const QString& ref){
 	lookup(m_moduleList.first()->name(), ref);
 }
 

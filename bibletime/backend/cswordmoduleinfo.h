@@ -47,7 +47,11 @@ class CHTMLEntryDisplay;
   */
 class CSwordModuleInfo : public CPointers  {
 public:
-	enum ModuleType {
+  enum TextDirection { /* The text direction of the modules's text */
+    LeftToRight,
+    RightToLeft
+  };
+  enum ModuleType {
 		Bible,
 		Commentary,
 		Lexicon,
@@ -72,7 +76,8 @@ public:
 		Description, /* The module decsription stored in the config file */
 		ModuleVersion, /* The module's version.*/
 		MinimumSwordVersion, /* The required Sword Version of this module. Otherwise some things may not work (compression etc.).*/
-		DisplayLevel /* Mostly used for books. Gives the level which should contain the connected entries.*/
+	  TextDir,	
+    DisplayLevel /* Mostly used for books. Gives the level which should contain the connected entries.*/
 	};
 	enum Feature {
 		StrongsNumbers, /*Use for Bibles which have embedded strong numbers*/
@@ -172,6 +177,10 @@ public:
   virtual const bool snap() {return false;};
   const bool has( const CSwordModuleInfo::Feature );
 	const bool has( const CSwordBackend::FilterOptions option )	;
+  /**
+  * Returns the text direction of the module's text.,
+  */
+  virtual const CSwordModuleInfo::TextDirection textDirection();
 
 private:
 	SWModule*	m_module;

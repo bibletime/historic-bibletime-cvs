@@ -16,15 +16,17 @@
  ***************************************************************************/
 
 
-//BIbleTime includes
-#include "../../backend/cswordmodulesearch.h"
-#include "../../whatsthisdef.h"
+//BibleTime includes
+#include "whatsthisdef.h"
+
+#include "backend/cswordmodulesearch.h"
+#include "frontend/ctoolclass.h"
+#include "frontend/cbtconfig.h"
+
 #include "csearchdialog.h"
 #include "csearchdialogtext.h"
 #include "csearchdialogresult.h"
 #include "csearchdialogresultview.h"
-#include "../ctoolclass.h"
-#include "../cbtconfig.h"
 
 //Qt includes
 #include <qpixmap.h>
@@ -58,8 +60,10 @@ CSearchDialogResult::CSearchDialogResult(QWidget *parent, const char *name) : QW
 	resultModuleTree = new CSearchDialogResultModuleView(d, "resultModuleTree");
 	resultTree = new CSearchDialogResultView( d, "resultTree");
 
-	html_widget = new CHTMLWidget(true, m_splitter, "html_widget");
-	html_widget->setMinimumHeight(80);
+  m_displayWidget = new CDisplayWidget(m_splitter);
+//  m_view = new CDisplayWidget::View(m_displayWidget, this);
+//	html_widget = new CHTMLWidget(true, m_splitter, "html_widget");
+//	html_widget->setMinimumHeight(80);
 
 	connect(resultModuleTree, SIGNAL(moduleSelected(CSwordModuleInfo*)), resultTree, SLOT(setModule(CSwordModuleInfo*)));
 	connect(resultTree, SIGNAL(keySelected(const QString)), this, SLOT(updatePreview(const QString)));
@@ -166,10 +170,14 @@ void CSearchDialogResult::updatePreview(const QString newText) {
 	//module is Unicode-based
 	if (resultModuleTree->getCurrentModule()->isUnicode() ) {
 		const QFont f = CBTConfig::get( CBTConfig::unicode);
-		text = QString::fromLatin1("<FONT FACE=\"%1\" SIZE=\"%2\">%3</FONT>").arg(f.family()).arg(f.pointSize()).arg(text);
+		text = QString::fromLatin1("<P dir=\"%1\"><FONT FACE=\"%2\" SIZE=\"%3\">%4</FONT></P>")
+      .arg(resultModuleTree->getCurrentModule()->textDirection() == CSwordModuleInfo::RightToLeft ? "rtol" : "ltor")
+      .arg(f.family())
+      .arg(CToolClass::makeLogicFontSize(f.pointSize()))
+      .arg(text);
 	}
-	html_widget->setText(
-		QString::fromLatin1("<HTML><HEAD></HEAD><BODY><FONT color=\"red\">%1 </FONT><SMALL>(%2)</SMALL><BR><HR>%3</BODY></HTML>")
+	m_displayWidget->setText(
+		QString::fromLatin1("<HTML><HEAD></HEAD><BODY><DIV><FONT color=\"red\">%1</font> <SMALL>(%2)</SMALL></DIV><BR>%3</BODY></HTML>")
 		 .arg(resultTree->currentText())
 		 .arg((resultModuleTree->getCurrentModule()) ? resultModuleTree->getCurrentModule()->config(CSwordModuleInfo::Description) : QString::fromLatin1("<I>%1</I>").arg(i18n("module not set")) )
 		 .arg(text)
@@ -179,5 +187,5 @@ void CSearchDialogResult::updatePreview(const QString newText) {
 void CSearchDialogResult::clearResult() {
 	resultTree->clear();
 	resultModuleTree->clear();
-	html_widget->setText("<HTML><HEAD></HEAD><BODY></BODY></HTML>");
+	m_displayWidget->setText("<HTML><HEAD></HEAD><BODY></BODY></HTML>");
 }
