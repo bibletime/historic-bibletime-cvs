@@ -25,7 +25,8 @@
 #include <qwidget.h>
 #include <qtextedit.h>
 
-class CHTMLWriteDisplay; 
+class CHTMLWriteDisplay;
+class KAction;
 
 /** The write display implementation for plain source code editing.
   * @author The BibleTime team
@@ -62,6 +63,10 @@ public:
   * Returns the text of this edit widget.
   */
   virtual const QString plainText();
+  /**
+  * Creates the necessary action objects and puts them on the toolbar.
+  */
+  virtual void setupToolbar(KToolBar * bar, KActionCollection * actionCollection);
   
 protected:
 	friend class CDisplay;
@@ -77,6 +82,7 @@ protected:
   * Reimplementation from QTextEdit. Provides an popup menu.
   */
   virtual QPopupMenu* createPopupMenu();
+
 };
 
 #endif

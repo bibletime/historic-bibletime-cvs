@@ -247,7 +247,7 @@ const bool CSwordModuleInfo::has( const CSwordModuleInfo::Feature feature ){
 		case DailyDevotional:
 			return m_module->getConfig().has("Feature", "DailyDevotion");		
 		case Glossary:
-			return m_module->getConfig().has("Feature", "Glossary");		
+			return m_module->getConfig().has("Feature", "Glossary");
 	}
 	return false;
 }
@@ -309,3 +309,15 @@ const CLanguageMgr::Language CSwordModuleInfo::language() {
 const bool CSwordModuleInfo::isWritable(){
   return false;
 }
+
+/** Returns the category of this module. See CSwordModuleInfo::Category for possible values. */
+const CSwordModuleInfo::Category CSwordModuleInfo::category(){
+  const QString cat = QString::fromLatin1(m_module->getConfigEntry("Category"));
+  qWarning(cat.latin1());
+
+  if (cat == QString::fromLatin1("Cults / Unorthodox / Questionable Material")) {
+    return Cult;
+  };
+  return CSwordModuleInfo::UnknownCategory;  
+}
+

@@ -50,16 +50,7 @@ protected slots:
   /**
   * Is called when the current text was changed.
   */
-  virtual void textChanged();
-
-private:
-  struct {
-    KAction* saveText;
-    KAction* deleteEntry;
-    KAction* restoreText;
-
-    KAction* boldText;
-  } m_actions;  
+//  virtual void textChanged();
 };
 
 #endif

@@ -26,6 +26,7 @@
 #include <qtextedit.h>
 
 class CWriteWindow;
+class KAction;
 
 /** The WYSIWYG implementation of the write display interface.
   * @author The BibleTime team
@@ -64,6 +65,11 @@ public:
   */
   virtual const QString plainText();
 
+  /**
+  * Creates the necessary action objects and puts them on the toolbar.
+  */
+  virtual void setupToolbar(KToolBar * bar, KActionCollection * actionCollection);
+  
 protected:
 	friend class CDisplay;
 	CHTMLWriteDisplay(CWriteWindow* parentWindow, QWidget* parent);
@@ -79,7 +85,17 @@ protected:
 
 protected slots:
   void toggleBold();
-  
+  void toggleItalic();
+  void toggleUnderlined();
+    
+private:
+  struct {
+    KAction* save;
+
+    KAction* bold;
+    KAction* italic;
+    KAction* underlined;    
+  } m_actions;    
 };
 
 #endif

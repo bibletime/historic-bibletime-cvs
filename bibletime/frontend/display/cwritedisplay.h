@@ -20,6 +20,9 @@
 
 #include "cdisplay.h"
 
+class KActionCollection;
+class KToolBar;
+
 /**The base class for all read/write-display classes.
   *@author The BibleTime team
   */
@@ -44,6 +47,10 @@ public: // Public methods
   * Returns the text of this edit widget.
   */
   virtual const QString plainText() = 0;
+  /**
+  * Creates the necessary action objects and puts them on the toolbar.
+  */
+  virtual void setupToolbar( KToolBar* bar, KActionCollection* actionCollection ) = 0;
 };
 
 #endif

@@ -91,6 +91,10 @@ public:
     featureMin = StrongsNumbers,
     featureMax = Glossary
 	};
+  enum Category {
+    UnknownCategory = 0, /* The category wasn't set or has an unknwon value */
+    Cult /* The module is a cult / sect / questionable module */
+  };
 	
 	/**
 	* Returns the config entry which is pecified by the parameter.
@@ -194,6 +198,8 @@ public:
   const CLanguageMgr::Language language();
   /** Returns true if this module may be written by the write display windows. */
   virtual const bool isWritable();
+  /** Returns the category of this module. See CSwordModuleInfo::Category for possible values. */
+  const CSwordModuleInfo::Category category();
 
 protected:
   /**

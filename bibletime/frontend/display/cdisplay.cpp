@@ -106,10 +106,6 @@ void CDisplayConnections::clear(){
   m_display->setText(QString::null);
 }
 
-void CDisplayConnections::emitToggleBold(){
-  emit toggleBold();
-}
-
 /*----------------------*/
 
 CReadDisplay* CDisplay::createReadInstance( CReadWindow* readWindow, QWidget* parent ) {

@@ -45,7 +45,9 @@ CHTMLWriteWindow::~CHTMLWriteWindow(){
 
 void CHTMLWriteWindow::initView() {
   qWarning("CHTMLWriteWindow::initView()");
- 	setDisplayWidget( CDisplay::createWriteInstance(this, CDisplay::HTMLDisplay) );
+  CWriteDisplay* writeDisplay = CDisplay::createWriteInstance(this, CDisplay::HTMLDisplay);
+  Q_ASSERT(writeDisplay);
+ 	setDisplayWidget( writeDisplay );
  	setCentralWidget( displayWidget()->view() );
 
   setMainToolBar( new KToolBar(this) );
@@ -56,57 +58,19 @@ void CHTMLWriteWindow::initView() {
 	mainToolBar()->insertWidget(0,keyChooser()->sizeHint().width(),keyChooser());
  	mainToolBar()->setFullSize(false);
 
- 	m_actions.saveText = new KAction(i18n("Save the text"),
-    CResMgr::displaywindows::writewindow::saveText::icon,
-    CResMgr::displaywindows::writewindow::saveText::accel,
-    this, SLOT(saveCurrentText()),
-    actionCollection()
-  );
-  m_actions.saveText->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
-  m_actions.saveText->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
-  m_actions.saveText->plug(mainToolBar());
-
-
- 	m_actions.deleteEntry = new KAction(i18n("Delete the current entry"),
-    CResMgr::displaywindows::writewindow::deleteEntry::icon,
-    CResMgr::displaywindows::writewindow::deleteEntry::accel,
-    this, SLOT(deleteEntry()),
-    actionCollection()
-  );
-  m_actions.deleteEntry->setToolTip( CResMgr::displaywindows::writewindow::deleteEntry::tooltip );
-  m_actions.deleteEntry->setWhatsThis( CResMgr::displaywindows::writewindow::deleteEntry::whatsthis );
-  m_actions.deleteEntry->plug(mainToolBar());
-
-
- 	m_actions.restoreText = new KAction(i18n("Restore original text"),
-    CResMgr::displaywindows::writewindow::restoreText::icon,
-    CResMgr::displaywindows::writewindow::restoreText::accel,
-    this, SLOT(restoreText()), actionCollection()
-  );
-  m_actions.restoreText->setToolTip( CResMgr::displaywindows::writewindow::restoreText::tooltip );
-  m_actions.restoreText->setWhatsThis( CResMgr::displaywindows::writewindow::restoreText::whatsthis );
-  m_actions.restoreText->plug(mainToolBar());
-
- 	m_actions.boldText = new KAction(i18n("Bold"),
-    CResMgr::displaywindows::writewindow::restoreText::icon,
-    CResMgr::displaywindows::writewindow::restoreText::accel,
-    displayWidget()->connectionsProxy(), SLOT(emitToggleBold()), actionCollection()
-  );
-  m_actions.boldText->setToolTip( CResMgr::displaywindows::writewindow::restoreText::tooltip );
-  m_actions.boldText->setWhatsThis( CResMgr::displaywindows::writewindow::restoreText::whatsthis );
-  m_actions.boldText->plug(mainToolBar());
+  writeDisplay->setupToolbar( mainToolBar(), actionCollection() );
 };
 
 void CHTMLWriteWindow::initConnections() {
  	connect(keyChooser(), SIGNAL(keyChanged(CSwordKey*)),
 		this, SLOT(lookup(CSwordKey*)));
 
-  connect(displayWidget()->connectionsProxy(), SIGNAL(textChanged()),
-    this, SLOT(textChanged()) );
+//  connect(displayWidget()->connectionsProxy(), SIGNAL(textChanged()),
+//    this, SLOT(textChanged()) );
 };
 
-/** Is called when the current text was changed. */
-void CHTMLWriteWindow::textChanged() {
-  m_actions.saveText->setEnabled( displayWidget()->isModified() );
-  m_actions.restoreText->setEnabled( displayWidget()->isModified() );
-}
+///** Is called when the current text was changed. */
+//void CHTMLWriteWindow::textChanged() {
+//  m_actions.saveText->setEnabled( displayWidget()->isModified() );
+//  m_actions.restoreText->setEnabled( displayWidget()->isModified() );
+//}

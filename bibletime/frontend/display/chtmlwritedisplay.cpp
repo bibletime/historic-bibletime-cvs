@@ -17,19 +17,18 @@
 
 #include "chtmlwritedisplay.h"
 #include "frontend/displaywindow/cwritewindow.h"
+#include "frontend/cresmgr.h"
+
+//KDE includes
+#include <kaction.h>
+#include <ktoolbar.h>
+#include <klocale.h>
 
 CHTMLWriteDisplay::CHTMLWriteDisplay(CWriteWindow* parentWindow, QWidget* parent)
   : CPlainWriteDisplay(parentWindow,parent)
 {
 //  qWarning("constructor of CHTMLWriteDisplay");
   setTextFormat(Qt::RichText);
-
-//  connect(this, SIGNAL(textChanged()),
-//    connectionsProxy(), SLOT(emitTextChanged()));
-
-  //connection for format stuff
-  connect(connectionsProxy(), SIGNAL(toggleBold()),
-    this, SLOT(toggleBold()));
 }
 
 CHTMLWriteDisplay::~CHTMLWriteDisplay(){
@@ -83,3 +82,55 @@ const QString CHTMLWriteDisplay::plainText() {
 void CHTMLWriteDisplay::toggleBold() {
   setBold( !bold() );
 };
+
+void CHTMLWriteDisplay::toggleItalic() {
+  setItalic( !italic() );
+};
+
+void CHTMLWriteDisplay::toggleUnderlined() {
+  setUnderline( !underline() );
+};
+
+void CHTMLWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actions) {
+ 	m_actions.save = new KAction( i18n("Save the text"),
+    CResMgr::displaywindows::writewindow::saveText::icon,
+    CResMgr::displaywindows::writewindow::saveText::accel,
+    parentWindow(), SLOT( saveCurrentText()  ),
+    actions
+  );
+  m_actions.save->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
+  m_actions.save->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
+  m_actions.save->plug(bar);
+
+
+ 	m_actions.bold = new KAction( i18n("Bold"),
+    CResMgr::displaywindows::writewindow::saveText::icon,
+    CResMgr::displaywindows::writewindow::saveText::accel,
+    this, SLOT( toggleBold()  ),
+    actions
+  );
+  m_actions.bold->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
+  m_actions.bold->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
+  m_actions.bold->plug(bar);
+
+ 	m_actions.italic = new KAction( i18n("Italic"),
+    CResMgr::displaywindows::writewindow::saveText::icon,
+    CResMgr::displaywindows::writewindow::saveText::accel,
+    this, SLOT( toggleItalic()  ),
+    actions
+  );
+  m_actions.italic->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
+  m_actions.italic->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
+  m_actions.italic->plug(bar);
+
+
+ 	m_actions.underlined = new KAction( i18n("Bold"),
+    CResMgr::displaywindows::writewindow::saveText::icon,
+    CResMgr::displaywindows::writewindow::saveText::accel,
+    this, SLOT( toggleUnderlined()  ),
+    actions
+  );
+  m_actions.underlined->setToolTip( CResMgr::displaywindows::writewindow::saveText::tooltip );
+  m_actions.underlined->setWhatsThis( CResMgr::displaywindows::writewindow::saveText::whatsthis );
+  m_actions.underlined->plug(bar);    
+}

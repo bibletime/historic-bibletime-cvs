@@ -110,36 +110,44 @@ bool CToolClass::savePlainFile( const QString& filename, const QString& text){
 QPixmap CToolClass::getIconForModule( CSwordModuleInfo* module_info ){
   if (!module_info)
   	return QPixmap(BIBLE_ICON_SMALL);
-	
+
+  QPixmap img = QPixmap(BIBLE_ICON_SMALL);
+  
  	switch (module_info->type()){
  	  case CSwordModuleInfo::Bible:
  	    if (module_info->isLocked())
- 	      return QPixmap(BIBLE_LOCKED_ICON_SMALL);
+ 	      img = QPixmap(BIBLE_LOCKED_ICON_SMALL);
  	    else
- 	      return QPixmap(BIBLE_ICON_SMALL);
+ 	      img = QPixmap(BIBLE_ICON_SMALL);
  	
  	  case CSwordModuleInfo::Lexicon:
  	    if (module_info->isLocked())
- 	      return QPixmap(LEXICON_LOCKED_ICON_SMALL);
+ 	      img =  QPixmap(LEXICON_LOCKED_ICON_SMALL);
  	    else
- 	      return QPixmap(LEXICON_ICON_SMALL);
+ 	      img= QPixmap(LEXICON_ICON_SMALL);
  	
  	  case CSwordModuleInfo::Commentary:
  	    if (module_info->isLocked())
- 	      return QPixmap(COMMENTARY_LOCKED_ICON_SMALL);
+ 	      img = QPixmap(COMMENTARY_LOCKED_ICON_SMALL);
  	    else
- 	      return QPixmap(COMMENTARY_ICON_SMALL);
+ 	      img = QPixmap(COMMENTARY_ICON_SMALL);
  	
  	  case CSwordModuleInfo::GenericBook:
  	    if (module_info->isLocked())
- 	      return QPixmap(BOOK_LOCKED_ICON_SMALL);
+ 	      img = QPixmap(BOOK_LOCKED_ICON_SMALL);
  	    else
- 	      return QPixmap(BOOK_ICON_SMALL); 	
+ 	      img = QPixmap(BOOK_ICON_SMALL); 	
  	
- 	  case CSwordModuleInfo::Unknown:
+ 	  case CSwordModuleInfo::Unknown: //fall though to default
  	  default:
- 	    return QPixmap(BIBLE_ICON_SMALL);
+ 	    img = QPixmap(BIBLE_ICON_SMALL);
  	}
+
+  if (module_info->category() == CSwordModuleInfo::Cult) {
+    return SmallIcon("stop.png", 16);
+  };
+  
+  return img;
 }
 
 QLabel* CToolClass::explanationLabel(QWidget* parent, const QString& heading, const QString& text ){

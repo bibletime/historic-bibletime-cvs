@@ -20,6 +20,12 @@
 #include "frontend/displaywindow/cdisplaywindow.h"
 #include "frontend/displaywindow/cwritewindow.h"
 
+//Qt includes
+
+//KDE includes
+#include <kaction.h>
+#include <klocale.h>
+
 CPlainWriteDisplay::CPlainWriteDisplay(CWriteWindow* parentWindow, QWidget* parent) : QTextEdit(parentWindow ? parentWindow : parent), CWriteDisplay(parentWindow) {
   qWarning("constructor of CPlainWriteDisplay");
   setTextFormat(Qt::PlainText);
@@ -84,3 +90,6 @@ QPopupMenu* CPlainWriteDisplay::createPopupMenu( ){
   return installedPopup();
 }
 
+/** Creates the necessary action objects and puts them on the toolbar. */
+void CPlainWriteDisplay::setupToolbar(KToolBar * bar, KActionCollection * actionCollection) {
+}
