@@ -18,7 +18,7 @@
 export VERSION=1.3
 
 #export FOREIGN_DOC_LANGUAGES="cs da de es fi fr hu it nl no pl sk"
-export FOREIGN_DOC_LANGUAGES="bg de ro"
+export FOREIGN_DOC_LANGUAGES="bg de es ro sk"
 
 
 
