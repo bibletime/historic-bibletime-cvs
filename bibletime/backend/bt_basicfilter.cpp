@@ -52,18 +52,27 @@ const char* BT_BASICFILTER::parseRef(const char* ref) {
  	ListKey list = parseKey.ParseVerseList(ref, parseKey, true);
 
  	//where do I now get a const char* array from??
-  char* to = new char[5000]; //not right and doesn't work (refs do not appear)
+  char* to = new char[1023]; //not right and doesn't work (refs do not appear)
+	char* ret = to;//erstes Zeichen
  	 	
  	for(int i = 0; i < list.Count(); i++) {
  		SWKey* key = list.GetElement(i);
  		VerseKey* vk =  dynamic_cast<VerseKey*>(key);
 
- 		pushString(&to,"<font color=\"");
- 		pushString(&to, swordref_color);
- 		pushString(&to, "\">");								
- 		pushString(&to, "<a href=\"sword://Bible/");
- 		pushString(&to, standard_bible);
- 		pushString(&to, "/");			
+// 		pushString(&to,"<font color=\""); //to wird erhöht!
+// 		pushString(&to, swordref_color);
+// 		pushString(&to, "\">");								
+// 		pushString(&to, "<a href=\"sword://Bible/");
+// 		pushString(&to, standard_bible);
+// 		pushString(&to, "/");			
+
+ 		pushString(&to,"<font color=\"%s\"><a href=\"sword://Bible/%s/", //to wird erhöht!
+			swordref_color, standard_bible);
+		//man sollte versuchen so wenig pushString()s wie möglich zu verwenden
+		// das muss in unseren Filtern noch gefixt werden, ist mir erst heute aufgefallen ;)
+		// ein Zeichen kann man mit
+		// to++='a' schnell zufügen. =)
+		// pushString geht wie printf(char*, ...), nur ein Argument mehr
 												
  		if (vk) {
  			pushString(&to, QString::fromLocal8Bit(vk->LowerBound()).utf8() );
@@ -86,7 +95,7 @@ const char* BT_BASICFILTER::parseRef(const char* ref) {
  	}
 
  	cerr << "return now!" << endl;
- 	return to;  //who deletes to ??
+ 	return ret;  //who deletes to ??
 }
 
 
