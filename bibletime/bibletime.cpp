@@ -47,6 +47,7 @@
 BibleTime::BibleTime() : KMainWindow() {
 	m_initialized = false;
 	m_moduleList  = 0;
+	m_progress = 0;
 	
 	m_config = KGlobal::config();	
 	connect(kapp, SIGNAL(lastWindowClosed()), SLOT(lastWindowClosed()));

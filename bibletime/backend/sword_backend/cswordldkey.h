@@ -66,7 +66,7 @@ public:
   /**
   	* Stores the data of this key in the member m_data.
   	*/
-  virtual void getData();
+//  virtual void getData();
   /**
   	* Sets the key for this key object. The variable m_data will be cleared.
   	* Use @ref getData() to fill the m_data variable again.
@@ -86,6 +86,10 @@ public:
   const QString getKey() const;
   /** Reimplementation of the cast operator to const char* */
   virtual  operator const char*();
+  /** Returns the stripped down text of this entry. */
+  const QString getStrippedText() const;
+  /** Returns the rendered text of this entry. */
+  const QString getRenderedText() const;
   /**
   	* This is out data member, which contains the data for this key.
   	*/

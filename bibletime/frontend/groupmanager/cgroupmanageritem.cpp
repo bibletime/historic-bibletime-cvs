@@ -240,18 +240,11 @@ const QString CGroupManagerItem::getToolTip(){
 				
 			CKey* key = getBookmarkKey();			
 			if (!key)
-				return QString::null;
-				
-			key->getData();			
-			CSwordVerseKey* vk = (CSwordVerseKey*)key;
-			QString bookmarkText = QString::null;			
-			if (vk)
-				bookmarkText = vk->m_data;
-			else {
-				CSwordLDKey* lk = (CSwordLDKey*)key;
-				if (lk)
-					bookmarkText = vk->m_data;
-			}
+				return QString::null;				
+			CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(key);
+			CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
+					
+			QString bookmarkText = 	vk ? vk->getRenderedText() : (lk ? lk->getRenderedText() : QString());					
 			if (bookmarkText.length() > 150 && (moduleInfo()->getType() != CSwordModuleInfo::Bible))
 				bookmarkText = bookmarkText.left(150) + "...";
 						

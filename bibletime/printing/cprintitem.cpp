@@ -139,24 +139,17 @@ void CPrintItem::setDescription( QString newDescription ){
 
 /** Returns the moduletext used by this item. */
 QString CPrintItem::getModuleText() {	
-	/** If a special text is set use thetext.
+	/** If a special text is set use the text.
 		* If the moduleText variable is empty use the CModuleInfo
 		* object to retrieve the text,
 		*/
 	if (!m_moduleText.isEmpty())
 		return m_moduleText;
-	else {
-		#warning Todo: This function is incomplete. Implement for range between startKey and stopKey
-		QString text = QString::null;
-		m_startKey->getData();
-		if ( dynamic_cast<CSwordVerseKey*>(m_startKey) )
-			text = (dynamic_cast<CSwordVerseKey*>(m_startKey) )->m_data;
-		else if ( dynamic_cast<CSwordLDKey*>(m_startKey) )
-			text = (dynamic_cast<CSwordLDKey*>(m_startKey) )->m_data;
-//		qDebug(text);
-		
-		return text;
-	}		
+	#warning Todo: This function is incomplete. Implement for range between startKey and stopKey
+	CSwordVerseKey* vk = dynamic_cast<CSwordVerseKey*>(m_startKey);
+	CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(m_startKey);		
+	QString text = vk ? vk->getStrippedText() : (lk ? lk->getStrippedText() : QString());		
+	return text;
 }
 
 /** Sets the module text. */
@@ -176,7 +169,6 @@ void CPrintItem::setHeader( QString newText){
 
 /** Sets the style for this item. */
 void CPrintItem::setStyle( CStyle* newStyle ) {
-//	ASSERT(newStyle);
 	m_style = newStyle;
 }
 
@@ -187,11 +179,7 @@ CStyle* CPrintItem::getStyle() {
 }
 /** Returns the listview item for this printitem. */
 QListViewItem* CPrintItem::getListViewItem( CPrintItemList* list ) {
-	qDebug("CPrintItem::getListViewItem( CPrintItemList* list )");
-//	ASSERT(m_listViewItem);
-//	ASSERT(list);
 	deleteListViewItem();
-//  qDebug("create new listViewItem");	
 	m_listViewItem = new QListViewItem( list );
 	updateListViewItem();
 	return m_listViewItem;
@@ -199,7 +187,6 @@ QListViewItem* CPrintItem::getListViewItem( CPrintItemList* list ) {
 
 /** sets the variables back. */
 void CPrintItem::clearData(){
-	qDebug("CPrintItem::clearData()");
 	if (m_listViewItem) {
 		delete m_listViewItem;
 		m_listViewItem = 0;			
@@ -215,8 +202,6 @@ void CPrintItem::clearData(){
 
 /** Updates the item. */
 void CPrintItem::updateListViewItem(){
-	qDebug("CPrintItem::updateListViewItem()");
-	ASSERT(m_listViewItem);
 	if (getModule() && (CSwordModuleInfo*)(getModule()) ) {
 		CSwordModuleInfo* swModule = (CSwordModuleInfo*)(getModule());
 		m_listViewItem->setText(0, swModule->module()->Name() );
@@ -237,16 +222,10 @@ void CPrintItem::updateListViewItem(){
 
 /**  */
 QListViewItem* CPrintItem::getListViewItem(){
-	qDebug("CPrintItem::getListViewItem()");
-//	if (!m_listViewItem)
-//		return 0;
-//	else
 		return m_listViewItem;
 }
 /** Deletes the list view item. */
 void CPrintItem::deleteListViewItem(){
-	qDebug("CPrintItem::deleteListViewItem()");
-	
 	if (m_listViewItem)
 		delete m_listViewItem;
 	m_listViewItem = 0;

@@ -259,7 +259,7 @@ signals: // Signals
   /**
  	* Is emitted everytime after an item was printed.
  	*/
-  void printedOneItem(const QString& key);
+  void printedOneItem(const QString& key, const int index);
   /**
  	* Is emitted after all items were printed.
  	*/

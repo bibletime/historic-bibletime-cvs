@@ -27,20 +27,12 @@
 #include <swmodule.h>
 
 CSwordVerseKey::CSwordVerseKey( CSwordModuleInfo* module ) {
-	m_data = QString::null;
 	if (!(m_module = dynamic_cast<CSwordBibleModuleInfo*>(module)) ) {	//bad module
 		throw EBadModule();
 	}
 }
 
 CSwordVerseKey::~CSwordVerseKey(){
-	m_data = QString::null;
-}
-
-/** Stores the data of this key in the member m_data */
-void CSwordVerseKey::getData(){
-	m_module->module()->SetKey(*this->clone());
-	m_data = QString::fromLocal8Bit( (const char*)*m_module->module() );
 }
 
 /** Sets the key we use to the parameter. */
@@ -48,7 +40,6 @@ const bool CSwordVerseKey::setKey( QString key ){
 	error = 0;	
 	VerseKey::operator = ((const char*)key.local8Bit());		
 	//clear data
-	m_data = QString::null;	
 	return !(bool)error;
 }
 
@@ -149,4 +140,16 @@ const QString CSwordVerseKey::getKey() const {
 /** Sets the key using a versekey object of Sword. */
 void CSwordVerseKey::setKey( VerseKey& key ){
 	setKey(QString::fromLocal8Bit((const char*)key));
+}
+
+/** Returns the rendered text of this verse */
+const QString CSwordVerseKey::getRenderedText() const{
+	m_module->module()->SetKey(*this->clone());
+	return QString::fromLocal8Bit( (const char*)*m_module->module() );
+}
+
+/** Returns the stripped down text of this verse, */
+const QString CSwordVerseKey::getStrippedText() const{
+	m_module->module()->SetKey(*this->clone());
+	return QString::fromLocal8Bit( m_module->module()->StripText() );
 }

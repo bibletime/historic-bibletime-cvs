@@ -359,7 +359,7 @@ void CPrinter::printQueue(){
 				CSwordLDKey* lk = dynamic_cast<CSwordLDKey*>(key);
 				keyName = lk->getKey();
 			}
-			emit printedOneItem(keyName);			
+			emit printedOneItem(keyName, m_queue->at()+1);			
 		};
 		if (page < numCopies())
 			newPage();	//new pages seperate copies

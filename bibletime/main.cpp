@@ -171,4 +171,5 @@ void myMessageOutput( QtMsgType type, const char *msg ) {
   	return app.exec();
 	}
 }
+
     	

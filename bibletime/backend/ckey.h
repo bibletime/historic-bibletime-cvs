@@ -44,7 +44,7 @@ public:
   	*	and stores the data in the member m_data. m_data  has to be managed manually,
   	*	since it has no base type (use dynamic_cast).
   	*/
-  virtual void getData() = 0;
+//  virtual void getData() = 0;
 	/**
 		* Defintions for exception handling in the CKey based classes.
 		*/	

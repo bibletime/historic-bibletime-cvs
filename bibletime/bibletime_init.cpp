@@ -204,12 +204,20 @@ void BibleTime::initConnections(){
 	//connect to the signals of the printer object
 	connect(m_important->printer, SIGNAL(addedFirstQueueItem()),
 		this, SLOT(slotSetPrintingStatus()));
+	connect(m_important->printer, SIGNAL(printingStarted()),
+		this, SLOT(slotPrintingStarted()));		
 	connect(m_important->printer, SIGNAL(printingFinished()),
 		this, SLOT(slotSetPrintingStatus()));		
+	connect(m_important->printer, SIGNAL(printingFinished()),
+		this, SLOT(slotPrintingFinished()));				
 	connect(m_important->printer, SIGNAL(printingInterrupted()),
 		this, SLOT(slotSetPrintingStatus()));				
+	connect(m_important->printer, SIGNAL(printingInterrupted()),
+		this, SLOT(slotPrintingFinished()));						
 	connect(m_important->printer, SIGNAL(queueCleared()),
 		this, SLOT(slotSetPrintingStatus()));
+	connect(m_important->printer, SIGNAL(printedOneItem(const QString&, const int)),
+		this, SLOT(slotPrintedEntry(const QString&, const int)));		
 }
 
 /** Initializes the keyboard accelerators */

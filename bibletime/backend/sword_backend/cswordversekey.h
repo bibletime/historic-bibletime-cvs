@@ -74,7 +74,7 @@ public:
   *
   * You have to manually access the m_data variable to get the text.
   */
-  void getData();
+//  void getData();
   /**
   * Sets the key we use to the parameter.
   *
@@ -148,13 +148,17 @@ public:
   * Returns the key as a QString.
   */
   const QString getKey() const;
+  /** Returns the stripped down text of this verse, */
+  const QString getStrippedText() const;
+  /** Returns the rendered text of this verse */
+  const QString getRenderedText() const;
   /**
   * This is our data member, which contains the data for this key.
   *
   * Access it to get the content for the current key.
   * @see setKey() clears the content of this variable, use the function @see getData() to fill it again.
   */
-  QString m_data;
+//  QString m_data;
 
 private:
   /**

@@ -46,6 +46,7 @@ class KPopupMenu;
 
 //QT classes
 class QPopupMenu;
+class QProgressDialog;
 
 /**
  	*	@page backend The structure of the backend
@@ -291,5 +292,24 @@ protected slots:
  	* Enables the "Clear printer queue" action
  	*/
   void slotSetPrintingStatus();
+
+private slots: // Private slots
+  /**
+  * No descriptions
+  */
+  void slotPrintedEntry( const QString& key, const int index);
+  /**
+  * Printing was finished
+  */
+  void slotPrintingFinished();
+  /**
+  * Printing was started
+  */
+  /** Aborts the printing */
+  void slotAbortPrinting();
+  void slotPrintingStarted();
+
+private:
+	QProgressDialog* m_progress;
 };
 #endif

@@ -29,6 +29,7 @@
 #include "config.h"
 
 //QT includes
+#include <qprogressdialog.h>
 #include <qwhatsthis.h>
 #include <qvaluelist.h>
 #include <qclipboard.h>
@@ -296,4 +297,29 @@ void BibleTime::slotFilePrint(){
 void BibleTime::slotSetPrintingStatus(){
 	m_filePrint_action->setEnabled( m_important->printer->getPrintQueue()->count()>0 );
 	m_fileClearQueue_action->setEnabled( m_important->printer->getPrintQueue()->count()>0 );
+}
+
+/** Printing was started */
+void BibleTime::slotPrintingStarted(){
+	m_progress = new QProgressDialog( "Copying files...", i18n("Abort printing"),m_important->printer->getPrintQueue()->count(),this, "progress", true);
+	connect( m_progress, SIGNAL(cancelled()), SLOT(slotAbortPrinting()));
+	m_progress->setProgress(0);
+	m_progress->show();
+}
+
+/** Printing was finished */
+void BibleTime::slotPrintingFinished(){
+	delete m_progress;
+}
+
+/** No descriptions */
+void BibleTime::slotPrintedEntry( const QString& key, const int index){
+	if (!m_progress)
+		return;
+	m_progress->setProgress(index);
+	m_progress->setLabelText(i18n("Printing %1").arg(key));
+}
+
+/** Aborts the printing */
+void BibleTime::slotAbortPrinting(){
 }
