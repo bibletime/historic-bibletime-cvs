@@ -579,7 +579,7 @@ void CTreeFolder::init(){
     };
   }
   else {
-    setText(0, language());
+    setText(0, !language().isEmpty() ? language() : i18n("unknown language"));
   }
   initTree();
   update();
@@ -621,15 +621,13 @@ void CTreeFolder::initTree(){
     }
   }
 
-//  qWarning("using %i modules language %s", usedModules.count(), language().latin1());
-
   //we have now all modules we want to have
   if (language() == QString::fromLatin1("*")) { //create subfolders for each language
     QStringList usedLangs;
     for (CSwordModuleInfo* m = usedModules.first(); m; m = usedModules.next()) {
       QString lang = QString::fromLatin1(m->module()->Lang());
-      if (lang.isEmpty())
-        lang = "xx";
+//      if (lang.isEmpty())
+//        lang = ");
       if (!usedLangs.contains(lang)) {
         usedLangs.append(lang);
       }

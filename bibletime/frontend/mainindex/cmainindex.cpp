@@ -101,7 +101,7 @@ CMainIndex::~CMainIndex(){
 
 /** Reimplementation. Adds the given group to the tree. */
 void CMainIndex::addGroup(const CItemBase::Type type, const QString language){
-  qWarning("addGroup");
+//  qWarning("addGroup");
   CTreeFolder *i = 0;
   if (type == CItemBase::BookmarkFolder)
     i = new CBookmarkFolder(this);
@@ -116,7 +116,7 @@ void CMainIndex::addGroup(const CItemBase::Type type, const QString language){
 
 /** Initializes the view. */
 void CMainIndex::initView(){
-  setRootIsDecorated(true);
+//  setRootIsDecorated(true);
  	addColumn(i18n("Caption"));
  	header()->hide();
 
@@ -126,7 +126,7 @@ void CMainIndex::initView(){
  	QWhatsThis::add(this, WT_GM_WIDGET );
  	 		
 	setBackgroundMode(PaletteBase);
-	setSorting(-1);
+//	setSorting(-1);
   setFullWidth(true);
 
   setAcceptDrops( true );

@@ -238,13 +238,61 @@ void CModuleChooser::initTree(){
   typenameMap.insert(CSwordModuleInfo::GenericBook, i18n("Books"));
 
   int type = CSwordModuleInfo::Bible;
-  while (static_cast<CSwordModuleInfo::ModuleType>(type) < CSwordModuleInfo::Unknown) {
+  bool ok = true;
+  bool addedDevotionals = false;
+  bool addedGlossaries = false;
+  bool addedLexs = false;
+  bool incType = false;
+
+  while (ok) {
     ListCSwordModuleInfo modsForType;
-    for (mods.first(); mods.current(); mods.next()) {
-      if (mods.current()->type() == type) {
-        modsForType.append(mods.current());
+    QString typeFolderCaption = QString::null;
+    incType = false;  
+    if (static_cast<CSwordModuleInfo::ModuleType>(type) == CSwordModuleInfo::Lexicon) {
+      if (!addedLexs) {
+        for (mods.first(); mods.current(); mods.next()) {
+          if (!mods.current()->has(CSwordModuleInfo::DailyDevotional) && !mods.current()->has(CSwordModuleInfo::Glossary)) {
+            modsForType.append(mods.current());
+          };
+        };
+        addedLexs = true;
+        typeFolderCaption = QString::null;
+      }
+      else if (!addedDevotionals) {
+        for (mods.first(); mods.current(); mods.next()) {
+          if (mods.current()->has(CSwordModuleInfo::DailyDevotional) ) {
+            modsForType.append(mods.current());
+          };
+        };
+        addedDevotionals = true;
+        typeFolderCaption = i18n("Daily Devotionals");
+      }
+      else if (!addedGlossaries) {
+        for (mods.first(); mods.current(); mods.next()) {
+          if (mods.current()->has(CSwordModuleInfo::Glossary) ) {
+            modsForType.append(mods.current());
+          };
+        };
+        addedGlossaries = true;
+        typeFolderCaption = i18n("Glossaries");        
       };
-    };
+
+      if (addedLexs && addedDevotionals && addedGlossaries)
+        incType = true;
+    }
+    else if (type == CSwordModuleInfo::Bible || type == CSwordModuleInfo::Commentary || type == CSwordModuleInfo::GenericBook){
+      for (mods.first(); mods.current(); mods.next()) {
+        if (mods.current()->type() == type) {
+          modsForType.append(mods.current());
+        };
+      };
+      incType = true;
+    }
+    else
+      ok = false;
+
+    if (typeFolderCaption.isEmpty())
+      typeFolderCaption = typenameMap[static_cast<CSwordModuleInfo::ModuleType>(type)];
 
     //get the available languages of the selected modules
     QStringList langs;
@@ -257,14 +305,16 @@ void CModuleChooser::initTree(){
 
     //go though the list of languages and create subfolders for each language and the modules of the language
     QListViewItem* typeFolder = 0;
-//    if (type != CSwordModuleInfo::Lexicon) {
-//      if ()
-//    }
-//    else
-      typeFolder = new QListViewItem(this, typenameMap[ static_cast<CSwordModuleInfo::ModuleType>(type) ]);
+    if (modsForType.count())
+      typeFolder = new QListViewItem(this, typeFolder, typeFolderCaption);
+    else {
+      if (incType)
+        type++;
+      continue;
+    };
 
     for ( QStringList::Iterator it = langs.begin(); it != langs.end(); ++it ) {
-      QListViewItem* langFolder = new QListViewItem(typeFolder,(*it));
+      QListViewItem* langFolder = new QListViewItem(typeFolder,!(*it).isEmpty() ? (*it) : i18n("Unknown language"));
       langFolder->setPixmap(0,GROUP_ICON_SMALL);
       const QString currentLang = (*it);
 
@@ -275,13 +325,11 @@ void CModuleChooser::initTree(){
           i->setPixmap(0, CToolClass::getIconForModule(modsForType.current()));
         };
       };
-//      langFolder->setOpen(true);
     };
     typeFolder->setPixmap(0,GROUP_ICON_SMALL);
-//    typeFolder->setOpen(false);
 
-
-    ++type; //the next module type
+    if (incType)
+      ++type;
   };
 }
 
