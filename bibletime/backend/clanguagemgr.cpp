@@ -24,6 +24,7 @@
 //KDE includes
 #include <klocale.h>
 
+//initialize static language list
 static QValueList<CLanguageMgr::Language> m_langList;
 static CLanguageMgr::Language m_defaultLanguage;
 
@@ -51,7 +52,6 @@ const bool CLanguageMgr::Language::isValid(){
 
 const QString& CLanguageMgr::Language::abbrev() const {
   if (m_abbrev.isEmpty() && m_altAbbrevs.count()) { //no standard abbrev but alternative ones
-//    qWarning("return alternative abbrev %s for language %s", m_altAbbrevs.first().latin1(), name().latin1());
     return m_altAbbrevs.first();
   };
   return m_abbrev;
@@ -102,7 +102,7 @@ const CLanguageMgr::LangMap CLanguageMgr::availableLanguages() {
   //now create a map of available langs
   Language lang;
   for ( abbrev = abbrevs.first(); abbrev; abbrev = abbrevs.next() ) {
-    lang = this->languageForAbbrev(abbrev);
+    lang = languageForAbbrev(abbrev);
     if (lang.isValid()) {
       map.insert( abbrev, lang );
     };

@@ -50,7 +50,7 @@ class CMainIndex : public KListView {
 		/**
 		* Displays a tooltip for position p using the getToolTip() function of CGroupManagerItem
 		*/		
-		void maybeTip( const QPoint &pos);
+		virtual void maybeTip( const QPoint &pos);
 	};
 
 public:
@@ -60,12 +60,7 @@ public:
   /**
   * Opens the searchdialog using the given modules using the given search text.
   */
-//  void openSearchDialog( ListCSwordModuleInfo modules, const QString searchText);
   void emitModulesChosen( ListCSwordModuleInfo modules, QString key );
-  /**
-   * init default modules 
-   */
-//  void initDefaultModules();
 
 protected: // Protected methods
   /**
@@ -87,7 +82,7 @@ protected: // Protected methods
   /**
   * Returns the correct KAction object for the given type of action.
   */
-  KAction* action( const CItemBase::MenuAction type );
+  KAction* const action( const CItemBase::MenuAction type ) const;
   /**
   * Reimplementation. Takes care of movable items.
   */

@@ -37,14 +37,15 @@ CModuleChooserButton::CModuleChooserButton(CSwordModuleInfo* useModule,CSwordMod
 
   m_moduleType = type;	
 	m_module = useModule;
-	if (!m_module)
+	if (!m_module) {
   	m_hasModule = false;
-  else
+  }
+  else {
     m_hasModule = true;
+  }
 	
 	setIcon( iconName() );
 	setPopupDelay(0);
-//  setAutoRaise(true);
 
 	populateMenu();
 }	
@@ -113,18 +114,22 @@ void CModuleChooserButton::moduleChosen( int ID ){
 		}
  	}
  	else {
- 	  if (!m_hasModule)
+ 	  if (!m_hasModule) {
  	    emit sigAddButton();
+    }
+    
  		m_hasModule = true;  	
  		m_module = module();
   	setIcon( iconName() );
    	emit sigChanged();
 
- 	  m_popup->changeTitle(m_titleId, i18n("Select a module"));	
+    setText( i18n("Select a module") );
+    m_popup->changeTitle(m_titleId, i18n("Select a module"));	
      	
    	QToolTip::remove(this);
-   	if (module())
+   	if (module()) {
    		QToolTip::add(this, module()->name());
+    }
  	}
 }
 /** No descriptions */

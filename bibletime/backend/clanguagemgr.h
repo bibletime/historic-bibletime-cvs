@@ -25,10 +25,9 @@
 #include <qpixmap.h>
 #include <qmap.h>
 
-/**Manages the anguages of BibleTime and provides functions to work with them.
-  *@author The BibleTime team
+/** Manages the anguages of BibleTime and provides functions to work with them.
+  * @author The BibleTime team
   */
-
 class CLanguageMgr  {
 public:
   class Language {
@@ -82,7 +81,7 @@ public:
 private:
   void init();
   const QStringList makeStringList(const QString& abbrevs);
-  QMap<QString, Language> m_langMap;  
+  LangMap m_langMap;
 };
 
 #endif

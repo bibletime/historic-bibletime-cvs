@@ -84,7 +84,6 @@ void CLexiconReadWindow::initView(){
 	setDisplayWidget( CDisplay::createReadInstance(this) );
  	setCentralWidget( displayWidget()->view() );
 
-
   setMainToolBar( new KToolBar(this) );
   mainToolBar()->setFullSize(true);
 	addDockWindow(mainToolBar());

@@ -30,7 +30,7 @@
 #include <listkey.h>
 
 
-CSwordModuleSearch* searcher = 0;
+static CSwordModuleSearch* searcher = 0;
 
 void startSearchCallback(void* /*p*/){
 	if (searcher)

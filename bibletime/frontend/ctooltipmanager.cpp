@@ -105,8 +105,8 @@ const QString CTooltipManager::textForReference( const QString& moduleName, cons
   return QString::fromLatin1("<HEAD><STYLE type=\"text/css\">%1</STYLE></HEAD><B>%1 %2</B>%3<HR>%4")
     .arg(tooltipCSS(module))
   	.arg(i18n("Bookmark to"))
-  	.arg(headingText(module/* ? module->type() : CSwordModuleInfo::Unknown*/, keyName))
-   	.arg(!description.isEmpty() ? QString::fromLatin1("<FONT color=\"#800000\">(%1)</FONT><BR>").arg(description.stripWhiteSpace()) : QString::null )
+  	.arg(headingText(module, keyName))
+   	.arg(!description.isEmpty() ? QString::fromLatin1("<BR><FONT color=\"#800000\">(%1)</FONT><BR>").arg(description.stripWhiteSpace()) : QString::null )
     .arg(moduleText(moduleName, keyName));
 }
 

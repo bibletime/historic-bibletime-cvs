@@ -127,15 +127,12 @@ void CBibleReadWindow::initConnections(){
 }
 
 void CBibleReadWindow::initView(){
-//	qWarning("CBibleReadWindow::initView");
  	CLexiconReadWindow::initView();
 
-//  qWarning("create the display settings button");
   setDisplaySettingsButton( new CDisplaySettingsButton( &displayOptions(), &filterOptions(), modules(), mainToolBar()) );
 	mainToolBar()->insertWidget(2,displaySettingsButton()->size().width(),displaySettingsButton());
 
 	if (backend()->useICU()){
-//    qWarning("add the ICU button!");
 	  m_transliterationButton = new CTransliterationButton(&filterOptions(), mainToolBar());
 		mainToolBar()->insertWidget(3,m_transliterationButton->size().width(),m_transliterationButton);
 	}

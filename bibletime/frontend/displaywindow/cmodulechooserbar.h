@@ -55,12 +55,18 @@ public:
   */
   void setModules( ListCSwordModuleInfo modules );
 	
-protected slots: // Protected slots
+protected:
   /**
   * Adds a button to the toolbar
   */
+  CModuleChooserButton* const addButton( CSwordModuleInfo* const module );
+
+protected slots: // Protected slots
+  /* Add a button
+  * This slot calls the addButton function above to add a button.
+  */
   void addButton();
-	/**
+  /**
 	* Removes a button from the toolbar
 	*/
 	void removeButton( const int ID );

@@ -175,9 +175,8 @@ If you'd like to join our team, please send an email to info@bibletime.info."),
 
   //Sponsored many years the www.bibletime.de domain!
   aboutData.addCredit("Thomas Hagedorn",   I18N_NOOP("Spnsored our internet domain for many years"), "tom@theta-consulting.de", "");  
-
+  //He provided us with the Bible Study HowTo
   aboutData.addCredit("Bob Harman",        I18N_NOOP("Bible Study HowTo"), "ncc@ncchampton.org", "");
-
   // Language codes iso639-1, iso639-2 and SIL language codes
   aboutData.addCredit("SIL International", I18N_NOOP("Language codes and names"), "", "http://www.ethnologue.com/iso639");
 

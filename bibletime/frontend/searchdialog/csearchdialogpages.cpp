@@ -716,7 +716,7 @@ void CSearchOptionsPage::setModules( ListCSwordModuleInfo modules ) {
   // We make sure that a module is only one time in the list, e.g. if two display windows of the same module are opened
   CSwordModuleInfo* current = modules.first();
   while (current) {
-    if ( !m_modules.contains(current) ) {
+    if ( !m_modules.containsRef(current) ) {
       m_modules.append( current );                     
                          
       t += current->name();

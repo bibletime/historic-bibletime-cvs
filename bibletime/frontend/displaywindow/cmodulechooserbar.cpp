@@ -21,41 +21,43 @@
 #include <qtimer.h>
 
 CModuleChooserBar::CModuleChooserBar(ListCSwordModuleInfo useModules, CSwordModuleInfo::ModuleType type, QWidget *parent, const char *name )
-	: KToolBar(parent,name) {
-//	qWarning("constructor of CModuleCHooserBar");
-
-	m_moduleType = type;
-	m_idCounter = 0;
-	m_buttonLimit = -1; //-1 means no limit
-
+  : KToolBar(parent,name),
+  m_moduleType(type),
+  m_idCounter(0),
+	m_buttonLimit(-1) //-1 means no limit
+{
   //insert buttons if useModules != 0
 	for (useModules.first(); useModules.current(); useModules.next())		 {
-		if (m_buttonLimit && (unsigned int)m_buttonLimit <= m_buttonList.count())
+		if ((m_buttonLimit != -1) && ( m_buttonLimit <= (int)m_buttonList.count()) ) { //we reached the button limit
 			break;
-			
-		CModuleChooserButton* b = new CModuleChooserButton(useModules.current(),m_moduleType,++m_idCounter,this);
-		m_buttonList.append(b);
-		insertWidget(m_idCounter, b->size().width(),b);
-		connect( b, SIGNAL(sigAddButton()), this, SLOT(addButton()) );
-		connect( b, SIGNAL(sigRemoveButton(const int)), this, SLOT(removeButton(const int)) );
-		connect( b, SIGNAL(sigChanged()), SIGNAL(sigChanged()) );
-		b->show();
-	}
-  if (m_buttonLimit && (unsigned int)m_buttonLimit > m_buttonList.count() )
-	  addButton();
+    };
+    
+		addButton( useModules.current() );
+  }
+
+  // We can add a button to choose an additional module
+  if ( (m_buttonLimit == -1) || (m_buttonLimit > (int)m_buttonList.count()) ) { 
+	  addButton(0); //add a button without module set
+  }
 }
 
 /** Adds a button to the toolbar */
-void CModuleChooserBar::addButton(){
-	CModuleChooserButton* b = new CModuleChooserButton(0, m_moduleType, ++m_idCounter, this);
+CModuleChooserButton* const CModuleChooserBar::addButton( CSwordModuleInfo* const module ) {
+	CModuleChooserButton* b = new CModuleChooserButton(module, m_moduleType, ++m_idCounter, this);
 	m_buttonList.append(b);	
-	insertWidget(m_idCounter, b->size().width(),b);			
+	insertWidget( m_idCounter, b->size().width(),b );			
 	
  	connect( b, SIGNAL(sigAddButton()), this, SLOT(addButton()) );
  	connect( b, SIGNAL(sigRemoveButton(const int)), this, SLOT(removeButton(const int)) );
  	connect( b, SIGNAL(sigChanged()), SIGNAL(sigChanged()) );
 	
 	b->show();
+
+  return b;
+}
+
+void CModuleChooserBar::addButton( ) {
+  addButton(0);
 }
 
 /** Removes a button from the toolbar */
@@ -80,9 +82,9 @@ ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
 	list.clear();
 	
 	for (m_buttonList.first(); m_buttonList.current(); m_buttonList.next()) {	
-	  CSwordModuleInfo* m = m_buttonList.current()->module();
-	  if (m)
+	  if ( CSwordModuleInfo* m = m_buttonList.current()->module() ) {
   		list.append( m );
+    }
 	}
 	return list;
 }
@@ -90,13 +92,11 @@ ListCSwordModuleInfo CModuleChooserBar::getModuleList(){
 /** Sets the number of the maximum count of buttons. */
 void CModuleChooserBar::setButtonLimit(const int limit){
 	m_buttonLimit = limit;
-	if (m_buttonList.count() > (unsigned int)m_buttonLimit ) {	//remove the last buttons
-		for (m_buttonList.last(); m_buttonList.current() && (m_buttonList.count() > (unsigned int)m_buttonLimit); m_buttonList.prev() ) {
-			CModuleChooserButton* b = m_buttonList.current();
-			m_buttonList.remove(b);
-			b->hide();
-			delete b;
-		}
+	for (m_buttonList.last(); m_buttonList.current() && (m_buttonLimit != -1) && ((int)m_buttonList.count() > m_buttonLimit); m_buttonList.prev() ) {
+		CModuleChooserButton* b = m_buttonList.current();
+		m_buttonList.remove(b);
+		b->hide();
+		delete b;
 	}
 }
 
@@ -106,17 +106,13 @@ void CModuleChooserBar::setModules( ListCSwordModuleInfo useModules ){
 	setButtonLimit(-1);		//these two lines clear the bar
 	
 	for (useModules.first(); useModules.current(); useModules.next())		 {
-		if (m_buttonLimit && (unsigned int)m_buttonLimit <= m_buttonList.count())
+		if ( (m_buttonLimit != -1) && (m_buttonLimit <= (int)m_buttonList.count()) ) {
 			break;
-			
-		CModuleChooserButton* b = new CModuleChooserButton(useModules.current(),m_moduleType,++m_idCounter,this);
-		m_buttonList.append(b);
-		insertWidget(m_idCounter, b->size().width(),b);
-		connect( b, SIGNAL(sigAddButton()), this, SLOT(addButton()) );
-		connect( b, SIGNAL(sigRemoveButton(const int)), this, SLOT(removeButton(const int)) );
-		connect( b, SIGNAL(sigChanged()), SIGNAL(sigChanged()) );
-		b->show();
-	}
-  if (m_buttonLimit && (unsigned int)m_buttonLimit > m_buttonList.count() )
-	  addButton();
+    }
+
+    addButton( useModules.current() );
+  }
+  if ( (m_buttonLimit == -1) || (m_buttonLimit > (int)m_buttonList.count()) ) {
+	  addButton(0);//add button without module set
+  }
 }

@@ -57,8 +57,9 @@ void CMainIndex::ToolTip::maybeTip(const QPoint& p) {
 		return;
 	
 	QRect r = m->itemRect(i);
-	if (!r.isValid())
+	if (!r.isValid()) {
 		return;
+  }
 	
 	//get type of item and display correct text
 	const QString text = i->toolTip();
@@ -308,7 +309,7 @@ void CMainIndex::emitModulesChosen( ListCSwordModuleInfo modules, QString key ){
 }
 
 /** Returns the correct KAction object for the given type of action. */
-KAction* CMainIndex::action( const CItemBase::MenuAction type ){
+KAction* const CMainIndex::action( const CItemBase::MenuAction type ) const {
   switch (type) {
     case CItemBase::NewFolder:
       return m_actions.newFolder;

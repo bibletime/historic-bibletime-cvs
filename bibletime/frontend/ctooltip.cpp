@@ -48,15 +48,12 @@ CToolTip::CToolTip(QWidget *parent, const char *name ) : QFrame( 0, 0, WStyle_Cu
   //set the size for the tooltip now only one time, and not everytime in tip()
   screenSize = KApplication::desktop()->geometry();
   setMaximumSize(QSize(int(screenSize.width()*0.6), int(screenSize.height()*0.6) ));
-  setMinimumWidth( int(screenSize.width()*0.3) );  
-  m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff); //never show a horizontal bar, only the vertcal one  
-//  resize(screenSize.width()*0.3,1);
+  setMinimumWidth( int(screenSize.width()*0.2) );  
+  m_display->view()->setHScrollBarMode(QScrollView::AlwaysOff); //never show a horizontal bar, only the vertcal one
 
   setPalette( QToolTip::palette() );
   setMargin( 1 );
   setFrameStyle( QFrame::Plain | QFrame::Box );
-//  hide();
-
   m_parentWidget->installEventFilter(this);
   setFilter(false);
 }
@@ -93,7 +90,7 @@ void CToolTip::tip( const QPoint& p, const QRect& rect, const QString& text ){
   // if the scrollbar is not visible position the tooltip
   // that the tip will be hidden as soon as the mouse will be oved
   // if the bar s visible position the tip under the mouse so moving the bar is still possible
-  const QPoint mp = (!m_display->view()->verticalScrollBar()->isHidden()) ? QPoint(p.x()-5, p.y()-5) : QPoint(p.x()+10, p.y()+10);
+  const QPoint mp = (m_display->view()->verticalScrollBar()->isVisible()) ? QPoint(p.x()-10, p.y()-10) : QPoint(p.x()+10, p.y()+10);
   QPoint pos = parentWidget()->mapToGlobal( mp );
   QRect widgetRect = QRect(pos.x(), pos.y(), width(), height());
   if (!KApplication::desktop()->geometry().contains(widgetRect, true)) {
@@ -129,15 +126,17 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
 
   QMouseEvent* me = dynamic_cast<QMouseEvent*>(e);  
   switch ( e->type() ) {
-    case QEvent::MouseButtonPress://fall through
+    case QEvent::MouseButtonPress: {
       //we have not yet shown the tip, but while the timer is running for this a drag was started
-      if (me && !isVisible() && (me->state() != NoButton || me->stateAfter() != Qt::NoButton)) {
+      if (me && !isVisible() && ((me->state() != NoButton) || (me->stateAfter() != Qt::NoButton))) {
         killTimers();
         hide();
         break;
       }
       break;
-    case QEvent::MouseButtonRelease:
+    }
+      
+    case QEvent::MouseButtonRelease: {
       //allow clicking on the scrollbar for reading the text
       if (m_display->view()->verticalScrollBar()->isVisible() &&
           (m_display->view()->verticalScrollBar()->draggingSlider() || widgetContainsPoint(m_display->view()->verticalScrollBar(), me->globalPos()))
@@ -148,9 +147,11 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
         break;
       }
       break;
-    case QEvent::KeyPress:
-    case QEvent::KeyRelease:
-    case QEvent::FocusIn:
+    }
+    
+    case QEvent::KeyPress: //fall through
+    case QEvent::KeyRelease: //fall though
+    case QEvent::FocusIn: //fall though
     case QEvent::FocusOut:
       killTimers();
       hide();
@@ -158,29 +159,29 @@ bool CToolTip::eventFilter( QObject *o, QEvent *e ){
 
     case QEvent::MouseMove:
     {
-      bool validMousePos = widgetContainsPoint(this, me->globalPos());
-      validMousePos = validMousePos ||
-          m_tipRect.contains(me->globalPos()) ||
-          (/*m_display->view()->verticalScrollBar()->isVisible() &&*/ m_display->view()->verticalScrollBar()->draggingSlider()); //if the user's scrollcing and moved the mouse out of the area
+      const bool validMousePos = //true when the mouse is at a valid position, false if not. In this case hide the tooltip.
+                 widgetContainsPoint(this, me->globalPos())
+              || m_tipRect.contains( me->globalPos() )
+              || (m_display->view()->verticalScrollBar()->draggingSlider()); //if the user's scrolling and moved the mouse out of the area
+
       if (isVisible() && !validMousePos) { //mouse moved outside the visible tooltip area!
         hide();
-//        qWarning("hide!");
         break;
       }
       if (isVisible() && validMousePos) { //moving withing the tooltip area or dragging the scroll bar
         break;
-//        qWarning("break; don't hide!");
       }
 
       if (me) {
-        if (!m_display->view()->verticalScrollBar()->draggingSlider() && //no scolling!
-            me->state() != Qt::NoButton || me->stateAfter() != Qt::NoButton) { //probaby dragging at the moment - show no tip        
+        if (!m_display->view()->verticalScrollBar()->draggingSlider() && //user doesn't scoll at the moment
+            ((me->state() != Qt::NoButton) || (me->stateAfter() != Qt::NoButton))) //probaby dragging at the moment - show no tip
+        {   
           killTimers();
           hide();
           break;
         }
 
-        if (QWidget* w = KApplication::widgetAt( me->globalPos(), true )) {
+        if (QWidget* w = KApplication::widgetAt( me->globalPos(), true )) { //check whther parentWidget is visible on top
           while ( w && w != parentWidget()) {
             w = w->parentWidget();
           }
